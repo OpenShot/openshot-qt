@@ -2,12 +2,13 @@
 Director Plan Review UI
 
 PyQt dock widget with HTML/CSS/JS overlay for reviewing and approving director plans.
+In the split architecture, plan approval/rejection is communicated back to the backend.
 """
 
 import os
 import json
 from PyQt5.QtCore import Qt, QObject, pyqtSignal, pyqtSlot, QUrl
-from PyQt5.QtWidgets import QDockWidget, QWidget, QVBoxLayout, QMessageBox
+from PyQt5.QtWidgets import QDockWidget, QWidget, QVBoxLayout
 from classes.logger import log
 
 try:
@@ -41,12 +42,7 @@ class PlanReviewBridge(QObject):
 
     @pyqtSlot(str)
     def loadPlan(self, plan_json: str):
-        """
-        Load a plan into the UI (called from Python).
-
-        Args:
-            plan_json: JSON string of DirectorPlan
-        """
+        """Load a plan into the UI (called from Python)."""
         try:
             plan_data = json.loads(plan_json)
             self.current_plan = plan_data
@@ -107,17 +103,14 @@ class PlanReviewDockWidget(QDockWidget):
     def _setup_ui(self):
         """Setup the UI with web view."""
         if not _WEBENGINE_AVAILABLE:
-            # Fallback: simple label
             from PyQt5.QtWidgets import QLabel
             label = QLabel("QtWebEngine not available.\nPlan Review UI requires QtWebEngine.")
             label.setAlignment(Qt.AlignCenter)
             self.setWidget(label)
             return
 
-        # Create web view
         self.web_view = QWebEngineView()
 
-        # Create bridge for Python<->JavaScript communication
         self.bridge = PlanReviewBridge()
 
         # Connect bridge signals
@@ -140,7 +133,6 @@ class PlanReviewDockWidget(QDockWidget):
             log.info(f"Loaded plan review UI from {html_path}")
         else:
             log.error(f"Plan review HTML not found: {html_path}")
-            # Load placeholder
             self.web_view.setHtml("""
                 <html>
                 <body style="font-family: sans-serif; padding: 20px; text-align: center;">
@@ -157,7 +149,7 @@ class PlanReviewDockWidget(QDockWidget):
         Display a director plan for review.
 
         Args:
-            plan: DirectorPlan object
+            plan: Plan dict or object with to_dict() method
         """
         if not self.bridge:
             log.error("Bridge not initialized")
@@ -165,32 +157,30 @@ class PlanReviewDockWidget(QDockWidget):
 
         try:
             self.current_plan = plan
-            plan_json = json.dumps(plan.to_dict())
+            if hasattr(plan, "to_dict"):
+                plan_data = plan.to_dict()
+            elif isinstance(plan, dict):
+                plan_data = plan
+            else:
+                plan_data = {"title": str(plan), "steps": []}
+            plan_json = json.dumps(plan_data)
             self.bridge.loadPlan(plan_json)
 
-            # Show the dock
             self.show()
             self.raise_()
-
-            log.info(f"Showing plan: {plan.title}")
+            log.info(f"Showing plan: {plan_data.get('title', 'Untitled')}")
         except Exception as e:
             log.error(f"Failed to show plan: {e}", exc_info=True)
 
     def _on_plan_approved(self, plan_id: str):
         """Handle plan approval."""
-        if self.current_plan and self.current_plan.plan_id == plan_id:
-            self.plan_approved.emit(plan_id)
-            self.hide()
-        else:
-            log.warning(f"Plan ID mismatch: {plan_id} != {self.current_plan.plan_id if self.current_plan else 'None'}")
+        self.plan_approved.emit(plan_id)
+        self.hide()
 
     def _on_plan_rejected(self, plan_id: str):
         """Handle plan rejection."""
-        if self.current_plan and self.current_plan.plan_id == plan_id:
-            self.plan_rejected.emit(plan_id)
-            self.hide()
-        else:
-            log.warning(f"Plan ID mismatch: {plan_id} != {self.current_plan.plan_id if self.current_plan else 'None'}")
+        self.plan_rejected.emit(plan_id)
+        self.hide()
 
     def _on_plan_modified(self, plan_id: str, modifications_json: str):
         """Handle plan modifications."""

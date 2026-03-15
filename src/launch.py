@@ -46,6 +46,14 @@ import argparse
 import json
 import logging
 
+# Enable faulthandler early so native crashes (SIGSEGV) dump Python stack traces.
+try:
+    import faulthandler
+
+    faulthandler.enable(all_threads=True)
+except Exception:
+    pass
+
 try:
     # This needs to be imported before PyQt5
     # To prevent some issues on AppImage build: wrapping/forcing older glibc versions

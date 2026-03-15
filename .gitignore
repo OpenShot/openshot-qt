@@ -11,7 +11,8 @@ build
 dist
 openshot_qt.egg-info
 .venv/
-.env
+.env*
+!.env.example
 
 protobuf_data/
 openshot_qt/

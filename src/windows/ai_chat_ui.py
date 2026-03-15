@@ -1,4 +1,3 @@
-import concurrent.futures
 import html
 import json
 import os
@@ -7,7 +6,7 @@ import time
 
 from PyQt5.QtCore import (
     Qt, QPropertyAnimation, QEasingCurve,
-    QObject, pyqtSignal, pyqtSlot, QMetaObject, Q_ARG,
+    QObject, QThread, pyqtSignal, pyqtSlot, QMetaObject, Q_ARG,
     QUrl, QFileInfo,
 )
 from PyQt5.QtWidgets import (
@@ -15,10 +14,10 @@ from PyQt5.QtWidgets import (
     QTextEdit, QPushButton, QLabel, QComboBox, QMessageBox, QFrame,
     QGraphicsOpacityEffect,
 )
-from PyQt5.QtGui import QTextCursor
+from PyQt5.QtGui import QColor, QTextCursor
 
 from classes.logger import log
-from classes.ai_chat_functionality import AIChat, ChatSessionManager
+from classes.api_client import get_backend_client
 
 # Optional CEP/WebEngine for HTML chat UI
 try:
@@ -52,7 +51,6 @@ CHAT_THEME_COLORS = {
         "chat-button-bg": "#353535",
         "chat-button-hover-bg": "#2a82da",
         "chat-accent": "#6366F1",
-        "chat-code-bg": "#2A2A2A",
         "chat-placeholder": "rgba(255, 255, 255, 0.5)",
     },
     "Retro": {
@@ -64,20 +62,20 @@ CHAT_THEME_COLORS = {
         "chat-button-bg": "#e8e8e8",
         "chat-button-hover-bg": "#217dd4",
         "chat-accent": "#217dd4",
-        "chat-code-bg": "#DCDCDC",
         "chat-placeholder": "rgba(51, 51, 51, 0.5)",
     },
     "Cosmic Dusk": {
-        "chat-bg": "#151A23",
-        "chat-preamble-bg": "#151A23",
-        "chat-text": "#E6E6EB",
-        "chat-border": "rgba(230, 230, 235, 0.12)",
-        "chat-input-bg": "#151A23",
-        "chat-button-bg": "#151A23",
-        "chat-button-hover-bg": "#1E2433",
-        "chat-accent": "#6366F1",
-        "chat-code-bg": "#1E2433",
-        "chat-placeholder": "rgba(230, 230, 235, 0.5)",
+        "chat-bg":              "#161616",
+        "chat-surface":         "#1e1e1e",
+        "chat-text":            "#d4d4d4",
+        "chat-muted":           "#6b7280",
+        "chat-placeholder":     "#6b7280",
+        "chat-border":          "#2a2a2a",
+        "chat-input-bg":        "#1a1a1a",
+        "chat-button-bg":       "#252525",
+        "chat-button-hover-bg": "#2e2e2e",
+        "chat-accent":          "#4d9cf6",
+        "chat-code-bg":         "#252525",
     },
 }
 
@@ -108,186 +106,174 @@ def _plain_to_html(text: str) -> str:
     return "<p>" + html.escape(text).replace("\n", "<br/>") + "</p>"
 
 
-def _friendly_tool_name(name: str) -> str:
-    """Convert tool_name_tool to a readable label like 'Tool Name'."""
-    s = name
-    if s.endswith("_tool"):
-        s = s[:-5]
-    return s.replace("_", " ").title()
-
-
-def _format_tool_args(args_json: str) -> str:
-    """Format tool args JSON into a compact, readable string for display."""
-    try:
-        args = json.loads(args_json) if args_json else {}
-        if not args:
-            return ""
-        parts = []
-        for k, v in args.items():
-            sv = str(v)
-            if len(sv) > 30:
-                sv = sv[:27] + "..."
-            parts.append("%s: %s" % (k, sv))
-        detail = ", ".join(parts)
-        if len(detail) > 80:
-            detail = detail[:77] + "..."
-        return detail
-    except Exception:
-        if args_json and len(args_json) > 80:
-            return args_json[:77] + "..."
-        return args_json or ""
-
-
 def _summarize_prompt(prompt: str, max_words: int = 6) -> str:
-    """Use the default LLM to summarize the user prompt in a few words. Returns empty on failure."""
+    """Ask the backend to summarize the user prompt in a few words. Returns empty on failure."""
     try:
-        from classes.ai_llm_registry import get_model, get_default_model_id
-        from langchain_core.messages import SystemMessage, HumanMessage
-    except ImportError:
-        return ""
-    model_id = get_default_model_id()
-    llm = get_model(model_id)
-    if not llm:
-        return ""
-    system = (
-        "Summarize the following user request in at most %d words. "
-        "Reply with only the short phrase, no punctuation, no period."
-    ) % max_words
-    try:
-        response = llm.invoke([SystemMessage(content=system), HumanMessage(content=prompt)])
-        out = (response.content if hasattr(response, "content") else str(response)).strip()
+        client = get_backend_client()
+        system = (
+            "Summarize the following user request in at most %d words. "
+            "Reply with only the short phrase, no punctuation, no period."
+        ) % max_words
+        resp = client.send_message(message=f"[SYSTEM]{system}[/SYSTEM]\n{prompt}")
+        out = resp.get("response", "").strip()
         return out[:80] if out else ""
     except Exception:
         return ""
 
 
-def _debug_log(location, message, data, hypothesis_id):
-    # #region agent log
-    try:
-        import os
-        _path = "/home/vboxuser/Projects/Zenvi/.cursor/debug.log"
-        os.makedirs(os.path.dirname(_path), exist_ok=True)
-        with open(_path, "a") as f:
-            f.write(json.dumps({"location": location, "message": message, "data": data, "hypothesisId": hypothesis_id, "timestamp": time.time()}) + "\n")
-    except Exception:
-        pass
-    # #endregion
-
-
 REQUEST_TIMEOUT_SECONDS = 120
 
-# Maximum concurrent chat worker threads (leaves room for sub-agent pool)
-_MAX_CHAT_WORKERS = 3
+
+def _format_mmss(seconds: float) -> str:
+    try:
+        seconds = float(seconds)
+    except Exception:
+        seconds = 0.0
+    m = int(seconds // 60)
+    s = int(seconds % 60)
+    return f"{m}:{s:02d}"
 
 
-class ChatWorkerPool(QObject):
+def _text_likely_needs_clip_context(text: str) -> bool:
+    t = (text or "").lower()
+    keywords = [
+        "this clip",
+        "selected clip",
+        "timeline clip",
+        "in this clip",
+        "within this clip",
+        "search",
+        "find",
+        "slice",
+        "split",
+        "cut",
+        "razor",
+        "yellow marker",
+        "where",
+        "when",
+    ]
+    return any(k in t for k in keywords)
+
+
+class AIChatWorker(QObject):
+    """Sends chat messages to the zenvi-backend API server in a background thread.
+
+    Uses WebSocket for bidirectional communication: the backend can delegate
+    tool calls (e.g. timeline operations) back to the frontend for execution.
+    Falls back to REST if WebSocket is unavailable.
+
+    Emits *response_ready* with the assistant reply or *error_occurred* on failure.
     """
-    Manages a ``ThreadPoolExecutor`` for running AI chat requests.
 
-    Each request is tagged with a *session_id* so the UI knows which tab
-    to update when the response arrives.  Results are delivered via Qt
-    signals on the main thread.
-    """
+    response_ready = pyqtSignal(str)
+    error_occurred = pyqtSignal(str)
 
-    # session_id, response_text
-    response_ready = pyqtSignal(str, str)
-    # session_id, error_text
-    error_occurred = pyqtSignal(str, str)
-
-    def __init__(self, session_manager: ChatSessionManager, parent=None):
+    def __init__(self, parent=None):
         super().__init__(parent)
-        self._session_manager = session_manager
-        self._executor = concurrent.futures.ThreadPoolExecutor(
-            max_workers=_MAX_CHAT_WORKERS,
-            thread_name_prefix="zenvi_chat",
-        )
-        # Track in-flight requests per session so we can reject duplicates
-        self._in_flight: set = set()
-        self._lock = threading.Lock()
+        self._backend_session_id = None
 
-    def submit_request(self, session_id: str, text: str, model_id: str):
-        """Submit a chat request to the thread pool."""
-        with self._lock:
-            if session_id in self._in_flight:
-                log.warning("ChatWorkerPool: session %s already has an in-flight request", session_id)
-                return
-            self._in_flight.add(session_id)
-        self._executor.submit(self._run, session_id, text, model_id)
+    @pyqtSlot(str, str)
+    def run_request(self, text: str, model_id: str):
+        """Send the user message to the backend via WebSocket (with tool delegation)."""
+        try:
+            from classes.tool_handlers import execute_tool
 
-    def is_session_busy(self, session_id: str) -> bool:
-        with self._lock:
-            return session_id in self._in_flight
+            client = get_backend_client()
 
-    def _run(self, session_id: str, text: str, model_id: str):
-        """Executed on a pool thread.  Calls AIChat.send_message and posts result to main thread."""
-        _debug_log("ChatWorkerPool._run", "entered", {"session_id": session_id[:8], "text_len": len(text)}, "H1")
-        result_holder = [None]
-        exception_holder = [None]
+            last_tool_result = None
 
-        def inner():
-            try:
-                chat = self._session_manager.get_session(session_id)
-                if chat is None:
-                    exception_holder[0] = RuntimeError("Session %s not found" % session_id)
+            def on_tool_call(tool_name, tool_args, call_id):
+                """Execute a tool locally and return the result."""
+                nonlocal last_tool_result
+                log.info("Tool delegated from backend: %s", tool_name)
+                result = execute_tool(tool_name, tool_args or {})
+                # Remember the last successful tool result so we can use it
+                # if the WebSocket breaks after the tool already completed.
+                if result and not str(result).startswith("Error"):
+                    last_tool_result = result
+                return result
+
+            final_response = None
+            final_error = None
+
+            def on_response(response_text, session_id):
+                nonlocal final_response
+                final_response = response_text
+                self._backend_session_id = session_id or self._backend_session_id
+
+            def on_error(error_message):
+                nonlocal final_error
+                final_error = error_message
+
+            result = client.send_message_ws(
+                message=text,
+                model_id=model_id or None,
+                session_id=self._backend_session_id,
+                on_tool_call=on_tool_call,
+                on_response=on_response,
+                on_error=on_error,
+            )
+
+            if final_error:
+                # If a tool already executed successfully (e.g. v2v clip
+                # was generated and imported), use that result instead of
+                # falling back to REST which would re-run the entire agent.
+                if last_tool_result:
+                    log.info("WebSocket failed (%s) but tool already succeeded, using tool result", final_error)
+                    self.response_ready.emit(last_tool_result)
                     return
-                result_holder[0] = chat.send_message(text, model_id=model_id or None)
-            except Exception as e:
-                exception_holder[0] = e
+                if final_response:
+                    log.info("WebSocket failed (%s) but response already received", final_error)
+                    self.response_ready.emit(final_response)
+                    return
+                # Fall back to REST only if no tool result and no response
+                log.warning("WebSocket failed (%s), falling back to REST", final_error)
+                resp = client.send_message(
+                    message=text,
+                    model_id=model_id or None,
+                    session_id=self._backend_session_id,
+                )
+                result = resp.get("response", "")
+                self._backend_session_id = resp.get("session_id", self._backend_session_id)
+                if result is not None:
+                    self.response_ready.emit(result)
+                else:
+                    self.error_occurred.emit("No response from backend.")
+                return
 
-        thread = threading.Thread(target=inner, daemon=True)
-        thread.start()
-        thread.join(timeout=REQUEST_TIMEOUT_SECONDS)
-        timed_out = thread.is_alive()
+            if result is not None:
+                self.response_ready.emit(result)
+            elif final_response is not None:
+                self.response_ready.emit(final_response)
+            else:
+                self.error_occurred.emit("No response from backend.")
+        except Exception as e:
+            log.error("AI chat error: %s", e, exc_info=True)
+            self.error_occurred.emit(str(e))
 
-        with self._lock:
-            self._in_flight.discard(session_id)
-
-        if exception_holder[0] is not None:
-            log.error("AI chat error (session %s): %s", session_id[:8], exception_holder[0])
-            QMetaObject.invokeMethod(
-                self, "_emit_error", Qt.QueuedConnection,
-                Q_ARG(str, session_id), Q_ARG(str, str(exception_holder[0])),
-            )
-        elif result_holder[0] is not None:
-            QMetaObject.invokeMethod(
-                self, "_emit_response", Qt.QueuedConnection,
-                Q_ARG(str, session_id), Q_ARG(str, result_holder[0]),
-            )
-        else:
-            msg = "Request timed out after %s seconds." % REQUEST_TIMEOUT_SECONDS
-            QMetaObject.invokeMethod(
-                self, "_emit_error", Qt.QueuedConnection,
-                Q_ARG(str, session_id), Q_ARG(str, msg),
-            )
-
-    @pyqtSlot(str, str)
-    def _emit_response(self, session_id: str, text: str):
-        self.response_ready.emit(session_id, text)
-
-    @pyqtSlot(str, str)
-    def _emit_error(self, session_id: str, text: str):
-        self.error_occurred.emit(session_id, text)
+    @pyqtSlot()
+    def clear_session(self):
+        """Clear the backend chat session."""
+        if self._backend_session_id:
+            try:
+                get_backend_client().clear_chat_session(self._backend_session_id)
+            except Exception:
+                pass
+            self._backend_session_id = None
 
     @pyqtSlot(str, str)
     def on_tool_completed(self, tool_name: str, result: str):
-        """When split_file_add_clip runs, clear the active session."""
+        """When split_file_add_clip runs, clear the session so the next message starts fresh."""
         if tool_name == "split_file_add_clip_tool":
-            chat = self._session_manager.get_active_session()
-            if chat:
-                chat.clear_session()
-
-    def shutdown(self):
-        self._executor.shutdown(wait=False)
+            self.clear_session()
 
 
 class ChatBridge(QObject):
-    """QWebChannel bridge: exposes chat operations to the CEP chat UI via QWebChannel."""
+    """QWebChannel bridge: exposes sendMessage, cancelRequest, clearChat to the CEP chat UI."""
 
     def __init__(self, window=None, parent=None):
         super().__init__(parent)
         self.window = window
-
-    # -- Original slots -----------------------------------------------------
 
     @pyqtSlot(str, str)
     def sendMessage(self, text: str, model_id: str):
@@ -310,54 +296,6 @@ class ChatBridge(QObject):
         if self.window and getattr(self.window, "_chat_web_ready", None):
             self.window._chat_web_ready()
 
-    # -- Multi-session slots ------------------------------------------------
-
-    @pyqtSlot(str)
-    def createSession(self, model_id: str):
-        """Create a new chat session and push updated tab list to JS."""
-        if self.window:
-            self.window._handle_create_session(model_id or "")
-
-    @pyqtSlot(str)
-    def switchSession(self, session_id: str):
-        """Switch to an existing session tab."""
-        if self.window:
-            self.window._handle_switch_session(session_id)
-
-    @pyqtSlot(str)
-    def closeSession(self, session_id: str):
-        """Close a session tab."""
-        if self.window:
-            self.window._handle_close_session(session_id)
-
-    @pyqtSlot(str)
-    def carryForward(self, session_id: str):
-        """Carry-forward the conversation (summarize + new session)."""
-        if self.window:
-            self.window._handle_carry_forward(session_id)
-
-    @pyqtSlot(str)
-    def getContextUsage(self, session_id: str):
-        """Push context-usage info for the given session to the JS ring."""
-        if self.window:
-            self.window._push_context_usage(session_id)
-
-    # -- Version management slots -------------------------------------------
-
-    @pyqtSlot(str, result=bool)
-    def switchToVersion(self, version_id: str):
-        """Switch to a different version's project state."""
-        if self.window:
-            return self.window._handle_switch_to_version(version_id)
-        return False
-
-    @pyqtSlot(result=str)
-    def listVersions(self):
-        """Return JSON list of all versions."""
-        if self.window:
-            return self.window._handle_list_versions()
-        return "[]"
-
 
 class AIChatWindow(QDockWidget):
     """Zenvi Assistant chat dock. Supports markdown in assistant replies and matches app theme."""
@@ -373,28 +311,26 @@ class AIChatWindow(QDockWidget):
         )
 
         self.is_processing = False
-        self._main_thread_runner = None  # track runner to connect/disconnect tool_completed
         self._use_web_ui = _WEBENGINE_AVAILABLE
         self._first_prompt_summary = None  # AI-generated summary of first user message for preamble
+        self._auto_attach_selected_clip_context = True
 
-        # Multi-session manager & thread-pool worker
-        self._session_manager = ChatSessionManager()
-        self._session_manager.create_session()  # create the default first session
-        self._worker_pool = ChatWorkerPool(self._session_manager, parent=self)
-        self._worker_pool.response_ready.connect(self._on_response_ready)
-        self._worker_pool.error_occurred.connect(self._on_error)
+        # AI runs in a background thread.
+        # No Qt parent on the thread — we manage its lifetime explicitly so Qt
+        # doesn't auto-delete it (and crash) when the dock widget is destroyed.
+        self._ai_thread = QThread()
+        self._worker = AIChatWorker()  # no parent so we can moveToThread
+        self._worker.moveToThread(self._ai_thread)
+        self._worker.response_ready.connect(self._on_response_ready)
+        self._worker.error_occurred.connect(self._on_error)
+        self._ai_thread.start()
 
-        # Version manager & executor for parallel execution
-        from classes.version_manager import get_version_manager
-        from classes.version_executor import get_version_executor
-        self._version_manager = get_version_manager()
-        self._version_executor = get_version_executor()
-
-        # Connect version signals to UI updates
-        self._version_manager.version_created.connect(self._on_version_created)
-        self._version_manager.version_updated.connect(self._on_version_updated)
-        self._version_executor.version_progress.connect(self._on_version_progress)
-        self._version_executor.activity_step_added.connect(self._on_version_activity_step)
+        # Stop the thread on app quit (covers the shutdown path where
+        # closeEvent is never called on dock widgets).
+        from PyQt5.QtWidgets import QApplication
+        app_instance = QApplication.instance()
+        if app_instance:
+            app_instance.aboutToQuit.connect(self._stop_thread)
 
         if self._use_web_ui:
             self._init_web_ui()
@@ -448,7 +384,7 @@ class AIChatWindow(QDockWidget):
         self.chat_box.setObjectName("chatBox")
         self.chat_box.setReadOnly(True)
         self.chat_box.setAcceptRichText(True)
-        self.chat_box.setPlaceholderText("Replies appear here. Assistant messages support **markdown** and code blocks.")
+        self.chat_box.setPlaceholderText("")
         layout.addWidget(self.chat_box)
 
         input_h = QHBoxLayout()
@@ -460,6 +396,10 @@ class AIChatWindow(QDockWidget):
         layout.addLayout(input_h)
 
         btn_h = QHBoxLayout()
+        self.attach_btn = QPushButton("Attach Clip")
+        self.attach_btn.setObjectName("attachClipBtn")
+        self.attach_btn.setToolTip("Insert @selected_clip into your message")
+        self.attach_btn.clicked.connect(self._insert_selected_clip_token)
         self.send_btn = QPushButton("Send")
         self.send_btn.setObjectName("sendBtn")
         self.send_btn.clicked.connect(self.send_message)
@@ -471,6 +411,7 @@ class AIChatWindow(QDockWidget):
         self.clear_btn.setObjectName("clearBtn")
         self.clear_btn.clicked.connect(self.clear_chat)
         btn_h.addStretch()
+        btn_h.addWidget(self.attach_btn)
         btn_h.addWidget(self.send_btn)
         btn_h.addWidget(self.cancel_btn)
         btn_h.addWidget(self.clear_btn)
@@ -478,6 +419,85 @@ class AIChatWindow(QDockWidget):
 
         self.msg_input.keyPressEvent = self._key_press
         self._add_system_msg("Chat started. Ask to list files, add tracks, export video, or describe your project.")
+
+    def _insert_selected_clip_token(self):
+        """Insert a placeholder which expands into timeline selection context."""
+        try:
+            if self._use_web_ui:
+                # Web UI handles this on the JS side; keep as no-op.
+                return
+            if not self.msg_input:
+                return
+            cursor = self.msg_input.textCursor()
+            cursor.insertText("@selected_clip ")
+            self.msg_input.setTextCursor(cursor)
+            self.msg_input.setFocus()
+        except Exception:
+            pass
+
+    def _build_selected_clip_context(self) -> tuple[str, str]:
+        """Return (context_block, short_summary). Empty strings if no timeline clip is selected."""
+        try:
+            from classes.app import get_app
+            from classes.query import Clip, File
+
+            app = get_app()
+            win = getattr(app, "window", None)
+            selected_ids = getattr(win, "selected_clips", []) or []
+            if not selected_ids:
+                selected_ids = getattr(win, "ai_last_selected_clips", []) or []
+            if not selected_ids:
+                return "", ""
+            clip_obj = Clip.get(id=str(selected_ids[0]))
+            if not clip_obj:
+                return "", ""
+            data = clip_obj.data if isinstance(getattr(clip_obj, "data", None), dict) else {}
+            title = data.get("title") or data.get("label") or "Selected Clip"
+
+            clip_start = float(data.get("start", 0.0) or 0.0)
+            clip_end = float(data.get("end", 0.0) or 0.0)
+            position = float(data.get("position", 0.0) or 0.0)
+            # Keep context minimal (avoid leaking internal IDs into the prompt)
+
+            context = (
+                "[Selected timeline clip context]\n"
+                f"title: {title}\n"
+                f"source_window_seconds: {clip_start:.3f} to {clip_end:.3f}\n"
+                f"source_window_mmss: {_format_mmss(clip_start)} to {_format_mmss(clip_end)}\n"
+                f"timeline_position_seconds: {position:.3f}\n"
+                "[/Selected timeline clip context]"
+            )
+            summary = f"{title} ({_format_mmss(clip_start)}–{_format_mmss(clip_end)})"
+            return context, summary
+        except Exception:
+            return "", ""
+
+    def _augment_text_with_clip_context(self, text: str) -> tuple[str, str]:
+        """Return (augmented_text, attached_summary)."""
+        ctx, summary = self._build_selected_clip_context()
+        if not ctx:
+            try:
+                log.debug("AIChat: no selected clip context available")
+            except Exception:
+                pass
+            return text, ""
+
+        if "@selected_clip" in text or "@clip" in text:
+            augmented = text.replace("@selected_clip", ctx).replace("@clip", ctx)
+            try:
+                log.debug("AIChat: attached selected clip context via token: %s", summary)
+            except Exception:
+                pass
+            return augmented, summary
+
+        if self._auto_attach_selected_clip_context and _text_likely_needs_clip_context(text):
+            try:
+                log.debug("AIChat: auto-attached selected clip context: %s", summary)
+            except Exception:
+                pass
+            return f"{ctx}\n\n{text}", summary
+
+        return text, ""
 
     def _init_web_ui(self):
         """Build CEP/WebEngine HTML chat UI."""
@@ -491,6 +511,7 @@ class AIChatWindow(QDockWidget):
 
         self._chat_view = QWebEngineView(self)
         self._chat_view.setObjectName("AIChatWindowContents")
+        self._chat_view.page().setBackgroundColor(QColor(13, 13, 13))
         self.setWidget(self._chat_view)
 
         self._chat_channel = QWebChannel(self._chat_view.page())
@@ -508,6 +529,19 @@ class AIChatWindow(QDockWidget):
 
         def on_load_finished(ok):
             if ok:
+                # Force CSS variables and element backgrounds regardless of caching
+                self._chat_view.page().runJavaScript("""
+                    var r = document.documentElement.style;
+                    r.setProperty('--chat-bg',       '#0d0d0d');
+                    r.setProperty('--chat-surface',  '#0d0d0d');
+                    r.setProperty('--chat-input-bg', '#171717');
+                    r.setProperty('--chat-border',   'transparent');
+                    document.body.style.background = '#0d0d0d';
+                    var msgs = document.getElementById('chat-messages');
+                    if (msgs) { msgs.style.background = '#0d0d0d'; msgs.style.border = 'none'; }
+                    var preamble = document.querySelector('.chat-container > div');
+                    if (preamble) { preamble.style.background = '#0d0d0d'; preamble.style.border = 'none'; }
+                """)
                 self._chat_web_ready = self._inject_web_ready
 
         self._chat_view.loadFinished.connect(on_load_finished)
@@ -523,7 +557,7 @@ class AIChatWindow(QDockWidget):
             page.runJavaScript(code)
 
     def _inject_web_ready(self):
-        """Push theme colors, models, preamble, tab list, and welcome message to the CEP UI."""
+        """Push theme colors, models, preamble and welcome message to the CEP UI."""
         try:
             from classes.app import get_app
             app = get_app()
@@ -539,21 +573,20 @@ class AIChatWindow(QDockWidget):
 
         models = []
         try:
-            from classes.ai_llm_registry import list_all_models, get_default_model_id
-            default_id = get_default_model_id()
-            for model_id, display_name in list_all_models():
-                models.append({"id": model_id, "name": display_name, "default": model_id == default_id})
+            client = get_backend_client()
+            api_models = client.list_models()  # returns List[{model_id, display_name}]
+            default_id = client.get_default_model_id()
+            for m in api_models:
+                mid = m.get("model_id", "")
+                models.append({"id": mid, "name": m.get("display_name", mid), "default": mid == default_id})
         except Exception:
-            pass
+            log.warning("Failed to fetch models from backend")
         self._run_js("setModels(%s);" % json.dumps(json.dumps(models)))
 
         preamble = self._get_preamble_html()
         self._run_js("setPreamble(%s);" % json.dumps(preamble))
 
         self._run_js("clearMessages();")
-
-        # Push initial tab list
-        self._push_tab_list()
 
     def _get_preamble_html(self):
         """Return preamble as HTML: AI summary as heading when set, else 'Zenvi Assistant'."""
@@ -585,31 +618,42 @@ class AIChatWindow(QDockWidget):
         if not self._first_prompt_summary and text:
             self._first_prompt_summary = text
             self._update_preamble()
-            # Update the session title in the manager + push tabs
-            sid = self._session_manager.active_session_id
-            if sid:
-                self._session_manager.set_title(sid, text)
-                self._push_tab_list()
 
     def _handle_web_send_message(self, text: str, model_id: str):
         """Handle send from CEP UI (same logic as send_message but with args)."""
-        sid = self._session_manager.active_session_id
-        if not sid:
-            sid = self._session_manager.create_session(model_id)
-        if self._worker_pool.is_session_busy(sid):
+        if self.is_processing:
             self._run_js("alert('Processing previous message...');")
             return
         if not text:
             return
         self._add_user_msg(text)
         self._request_preamble_summary(text)
+        augmented_text, attached_summary = self._augment_text_with_clip_context(text)
+        if attached_summary:
+            self._add_system_msg(f"Context attached: {attached_summary}")
         self._set_processing_ui(True)
-        self._setup_main_thread_runner()
-        self._worker_pool.submit_request(sid, text, model_id)
+        QMetaObject.invokeMethod(
+            self._worker,
+            "run_request",
+            Qt.QueuedConnection,
+            Q_ARG(str, augmented_text),
+            Q_ARG(str, model_id),
+        )
+
+    def _stop_thread(self):
+        """Cleanly stop the AI worker thread. Safe to call more than once."""
+        if not hasattr(self, "_ai_thread") or self._ai_thread is None:
+            return
+        if self._ai_thread.isRunning():
+            self._ai_thread.quit()
+            if not self._ai_thread.wait(3000):
+                log.warning("AI chat thread did not stop within 3 s; terminating")
+                self._ai_thread.terminate()
+                self._ai_thread.wait(1000)
 
     def closeEvent(self, event):
-        """Shut down the worker pool when the dock is closed."""
-        self._worker_pool.shutdown()
+        """Stop the AI worker thread when the dock is explicitly closed."""
+        self._stop_thread()
         super().closeEvent(event)
 
     def showEvent(self, event):
@@ -633,17 +677,19 @@ class AIChatWindow(QDockWidget):
             self.preamble_label.setText(text)
 
     def _populate_models(self):
-        """Populate model combo with all models (OpenAI, Anthropic, Ollama)."""
+        """Populate model combo from the backend API."""
+        models = []
+        default_id = ""
         try:
-            from classes.ai_llm_registry import list_all_models, get_default_model_id
-        except ImportError:
-            self.model_combo.addItem("No AI providers loaded", "")
-            return
-        models = list_all_models()
+            client = get_backend_client()
+            api_resp = client.list_models()
+            default_id = api_resp.get("default_model_id", "")
+            models = [(m["id"], m["name"]) for m in api_resp.get("models", [])]
+        except Exception:
+            log.warning("Failed to fetch models from backend")
         if not models:
             self.model_combo.addItem("No AI providers loaded", "")
             return
-        default_id = get_default_model_id()
         for model_id, display_name in models:
             self.model_combo.addItem(display_name, model_id)
         idx = self.model_combo.findData(default_id)
@@ -657,11 +703,7 @@ class AIChatWindow(QDockWidget):
             QTextEdit.keyPressEvent(self.msg_input, event)
 
     def send_message(self):
-        """Send message from the classic Qt widget UI."""
-        sid = self._session_manager.active_session_id
-        if not sid:
-            sid = self._session_manager.create_session()
-        if self._worker_pool.is_session_busy(sid):
+        if self.is_processing:
             QMessageBox.warning(self, "Wait", "Processing previous message...")
             return
         text = self.msg_input.toPlainText().strip()
@@ -669,15 +711,22 @@ class AIChatWindow(QDockWidget):
             return
         self._add_user_msg(text)
         self._request_preamble_summary(text)
+        augmented_text, attached_summary = self._augment_text_with_clip_context(text)
+        if attached_summary:
+            self._add_system_msg(f"Context attached: {attached_summary}")
         self.msg_input.clear()
         self._set_processing_ui(True)
         model_id = self.model_combo.currentData()
         if not model_id and self.model_combo.count():
             model_id = self.model_combo.currentText()
         model_id_str = model_id if model_id else ""
-        self._setup_main_thread_runner()
-        _debug_log("ai_chat_ui.py:send_message", "submitting to worker pool", {"text_len": len(text), "model_id": model_id_str or "(empty)"}, "H1")
-        self._worker_pool.submit_request(sid, text, model_id_str)
+        QMetaObject.invokeMethod(
+            self._worker,
+            "run_request",
+            Qt.QueuedConnection,
+            Q_ARG(str, augmented_text),
+            Q_ARG(str, model_id_str),
+        )
         self.msg_input.setFocus()
 
     def _set_processing_ui(self, processing: bool):
@@ -698,98 +747,16 @@ class AIChatWindow(QDockWidget):
         """Stop waiting for the current request; UI can accept follow-up messages. Late replies still appear."""
         self._set_processing_ui(False)
 
-    @pyqtSlot(str, str)
-    def _on_response_ready(self, session_id: str, text: str):
-        """Handle a completed response from the worker pool."""
-        active = self._session_manager.active_session_id
-        if session_id == active:
-            self._add_assistant_msg(text)
-            self._set_processing_ui(False)
-            self._push_context_usage(session_id)
-            # Update plan graph with final plan
-            try:
-                from classes.app import get_app
-                from plan_graph import get_plan_builder
-                mw = get_app().window
-                if mw and getattr(mw, "plan_graph_dock", None):
-                    mw.plan_graph_dock.set_plan_json(get_plan_builder().get_plan_json_string())
-            except Exception:
-                pass
-        else:
-            # Response for a background tab -- push via JS so user sees a badge
-            self._run_js("onBackgroundResponse(%s, %s);" % (
-                json.dumps(session_id), json.dumps(_markdown_to_html(text)),
-            ))
-        self._push_tab_list()
-
-    @pyqtSlot(str, str)
-    def _on_error(self, session_id: str, text: str):
-        _debug_log("ai_chat_ui.py:_on_error", "error slot", {"text_preview": text[:80] if text else ""}, "H1")
-        active = self._session_manager.active_session_id
-        if session_id == active:
-            self._add_system_msg("Error: %s" % text)
-            self._set_processing_ui(False)
-        self._push_tab_list()
-
-    @pyqtSlot(str, str)
-    def _on_tool_started_ui(self, name: str, args_json: str):
-        """Push a new activity step to the chat UI when a tool begins executing."""
-        friendly = _friendly_tool_name(name)
-        detail = _format_tool_args(args_json)
-        self._run_js("addActivityStep(%s, %s);" % (json.dumps(friendly), json.dumps(detail)))
-
-    @pyqtSlot(str, str)
-    def _on_tool_completed_ui(self, name: str, result: str):
-        """Mark the current activity step as done in the chat UI."""
-        self._run_js("completeLastActivityStep();")
+    @pyqtSlot(str)
+    def _on_response_ready(self, text: str):
+        self._add_assistant_msg(text)
+        self._set_processing_ui(False)
 
     @pyqtSlot(str)
-    def _on_version_created(self, version_id: str):
-        """Handle version creation - add version card to UI."""
-        if not self._use_web_ui:
-            return
-
-        version = self._version_manager.get_version(version_id)
-        if version:
-            version_json = json.dumps(version.to_dict())
-            self._run_js("addVersionCard(%s);" % version_json)
-
-    @pyqtSlot(str, dict)
-    def _on_version_updated(self, version_id: str, version_dict: dict):
-        """Handle version update - update version card in UI."""
-        if not self._use_web_ui:
-            return
-
-        status = version_dict.get('status', 'pending')
-        progress = version_dict.get('progress', 0.0)
-        self._run_js("updateVersionProgress(%s, %s, %s);" % (
-            json.dumps(version_id),
-            json.dumps(progress),
-            json.dumps(status)
-        ))
-
-    @pyqtSlot(str, float)
-    def _on_version_progress(self, version_id: str, progress: float):
-        """Handle version progress update."""
-        if not self._use_web_ui:
-            return
-
-        self._run_js("updateVersionProgress(%s, %s, null);" % (
-            json.dumps(version_id),
-            json.dumps(progress)
-        ))
-
-    @pyqtSlot(str, str, str)
-    def _on_version_activity_step(self, version_id: str, label: str, detail: str):
-        """Handle version activity step added."""
-        if not self._use_web_ui:
-            return
-
-        self._run_js("addVersionActivityStep(%s, %s, %s);" % (
-            json.dumps(version_id),
-            json.dumps(label),
-            json.dumps(detail)
-        ))
+    def _on_error(self, text: str):
+        log.debug("ai_chat_ui _on_error: %s", text[:80] if text else "")
+        self._add_system_msg("Error: %s" % text)
+        self._set_processing_ui(False)
 
     def clear_chat(self):
         reply = QMessageBox.question(
@@ -799,26 +766,17 @@ class AIChatWindow(QDockWidget):
         )
         if reply == QMessageBox.Yes:
             self._first_prompt_summary = None
-            sid = self._session_manager.active_session_id
-            chat = self._session_manager.get_session(sid) if sid else None
-            if chat:
-                chat.clear_session()
-            try:
-                from plan_graph import get_plan_builder
-                from classes.app import get_app
-                get_plan_builder().clear()
-                mw = get_app().window
-                if mw and getattr(mw, "plan_graph_dock", None):
-                    mw.plan_graph_dock.set_plan_json("null")
-            except Exception:
-                pass
+            QMetaObject.invokeMethod(
+                self._worker,
+                "clear_session",
+                Qt.QueuedConnection,
+            )
             if self._use_web_ui:
                 self._run_js("clearMessages();")
             else:
                 self.chat_box.clear()
             self._update_preamble()
             self._add_system_msg("Chat cleared. Ask anything about your project or editing.")
-            self._push_tab_list()
 
     def _add_user_msg(self, text):
         self._add_msg(text, "user", is_assistant=False, is_system=False)
@@ -854,172 +812,3 @@ class AIChatWindow(QDockWidget):
         cursor = self.chat_box.textCursor()
         cursor.movePosition(QTextCursor.End)
         self.chat_box.setTextCursor(cursor)
-
-    # ------------------------------------------------------------------
-    # Multi-session helpers (called by ChatBridge slots)
-    # ------------------------------------------------------------------
-
-    def _setup_main_thread_runner(self):
-        """Create/refresh the MainThreadToolRunner on the main thread."""
-        try:
-            from classes.ai_agent_runner import create_main_thread_runner, set_main_thread_runner
-            if self._main_thread_runner is not None:
-                for attr, slot in [
-                    ("tool_completed", self._worker_pool.on_tool_completed),
-                    ("tool_started", self._on_tool_started_ui),
-                    ("tool_completed", self._on_tool_completed_ui),
-                ]:
-                    if hasattr(self._main_thread_runner, attr):
-                        try:
-                            getattr(self._main_thread_runner, attr).disconnect(slot)
-                        except Exception:
-                            pass
-            runner = create_main_thread_runner()
-            set_main_thread_runner(runner)
-            self._main_thread_runner = runner
-            for attr, slot in [
-                ("tool_completed", self._worker_pool.on_tool_completed),
-                ("tool_started", self._on_tool_started_ui),
-                ("tool_completed", self._on_tool_completed_ui),
-            ]:
-                if hasattr(runner, attr):
-                    getattr(runner, attr).connect(slot)
-            # Plan graph dock: live updates as tools run
-            try:
-                from classes.app import get_app
-                mw = get_app().window
-                if mw and getattr(mw, "plan_graph_dock", None):
-                    if hasattr(runner, "plan_updated"):
-                        runner.plan_updated.connect(mw.plan_graph_dock.set_plan_json)
-            except Exception:
-                pass
-        except Exception:
-            pass
-
-    def _handle_create_session(self, model_id: str):
-        """Create a new chat tab."""
-        sid = self._session_manager.create_session(model_id)
-        self._first_prompt_summary = None
-        if self._use_web_ui:
-            self._run_js("clearMessages();")
-        self._update_preamble()
-        self._push_tab_list()
-
-    def _handle_switch_session(self, session_id: str):
-        """Switch the active chat tab and reload its messages."""
-        if not self._session_manager.switch_session(session_id):
-            return
-        self._first_prompt_summary = None
-        chat = self._session_manager.get_session(session_id)
-        if chat and chat.current_session:
-            title = chat.current_session.title
-            if title and title != "New Chat":
-                self._first_prompt_summary = title
-        if self._use_web_ui:
-            self._run_js("clearMessages();")
-            # Re-render the message history for this session
-            if chat and chat.current_session:
-                for msg in chat.current_session.messages:
-                    role = msg.role.value
-                    if role == "system":
-                        continue
-                    is_assistant = role == "assistant"
-                    if is_assistant:
-                        body = _markdown_to_html(msg.content)
-                    else:
-                        body = "<p>" + html.escape(msg.content).replace("\n", "<br/>") + "</p>"
-                    self._run_js("appendMessage(%s, %s, %s);" % (
-                        json.dumps(role), json.dumps(body),
-                        "true" if is_assistant else "false",
-                    ))
-        self._update_preamble()
-        self._push_tab_list()
-        self._push_context_usage(session_id)
-
-    def _handle_close_session(self, session_id: str):
-        """Close a chat tab."""
-        new_active = self._session_manager.close_session(session_id)
-        if new_active:
-            self._handle_switch_session(new_active)
-
-    def _handle_carry_forward(self, session_id: str):
-        """Carry-forward: summarize + create continuation session."""
-        self._set_processing_ui(True)
-
-        def run():
-            sid = session_id or self._session_manager.active_session_id
-            new_sid = self._session_manager.carry_forward(sid)
-            QMetaObject.invokeMethod(
-                self, "_on_carry_forward_done", Qt.QueuedConnection,
-                Q_ARG(str, new_sid or ""),
-            )
-
-        t = threading.Thread(target=run, daemon=True)
-        t.start()
-
-    @pyqtSlot(str)
-    def _on_carry_forward_done(self, new_session_id: str):
-        """Called on main thread when carry-forward completes."""
-        self._set_processing_ui(False)
-        if new_session_id:
-            self._handle_switch_session(new_session_id)
-        self._push_tab_list()
-
-    def _handle_switch_to_version(self, version_id: str):
-        """Switch to a different version's project state."""
-        from classes.version_manager import get_version_manager
-        from classes.logger import log
-
-        version_manager = get_version_manager()
-        success = version_manager.switch_to_version(version_id)
-
-        if success:
-            version = version_manager.get_version(version_id)
-            if version:
-                log.info(f"Switched to version: {version.title} ({version_id})")
-                # Optionally show a notification
-                if self._use_web_ui:
-                    msg = f"Switched to version: {version.title}"
-                    self._run_js("appendMessage('system', %s, false);" % json.dumps(msg))
-                return True
-        else:
-            log.warning(f"Failed to switch to version: {version_id}")
-            return False
-
-    def _handle_list_versions(self):
-        """Return JSON list of all versions."""
-        from classes.version_manager import get_version_manager
-        import json
-
-        version_manager = get_version_manager()
-        versions = version_manager.list_versions()
-        versions_data = [v.to_dict() for v in versions]
-        return json.dumps(versions_data)
-
-    def _push_tab_list(self):
-        """Push the current session list to the JS tab bar."""
-        if not self._use_web_ui:
-            return
-        tabs = self._session_manager.list_sessions()
-        self._run_js("setTabs(%s);" % json.dumps(json.dumps(tabs)))
-
-    def _push_context_usage(self, session_id: str = ""):
-        """Push context-window usage info for a session to the JS ring."""
-        if not self._use_web_ui:
-            return
-        sid = session_id or self._session_manager.active_session_id
-        if not sid:
-            return
-        chat = self._session_manager.get_session(sid)
-        if not chat or not chat.current_session:
-            return
-        model_id = chat.current_session.model
-        if model_id == "default":
-            try:
-                from classes.ai_llm_registry import get_default_model_id
-                model_id = get_default_model_id()
-            except Exception:
-                model_id = "openai/gpt-4o-mini"
-        from classes.ai_context_tracker import get_usage_info
-        usage = get_usage_info(model_id, chat.current_session.get_conversation_history())
-        self._run_js("updateContextUsage(%s);" % json.dumps(json.dumps(usage)))

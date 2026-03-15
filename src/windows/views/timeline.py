@@ -109,6 +109,9 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         """Document.Ready event has fired, and is initialized"""
         self.document_is_ready = True
 
+        # Set the thumbnail server address immediately (required before any clips are rendered)
+        self.run_js(JS_SCOPE_SELECTOR + ".setThumbAddress('" + self.get_thumb_address() + "');")
+
     @pyqtSlot(result=str)
     def get_uuid(self):
         """Get a unique id (used for generating a transaction id for the undo/redo system)"""

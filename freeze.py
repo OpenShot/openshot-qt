@@ -214,7 +214,12 @@ if sys.platform == "win32":
     extra_exe = {"base": None, "name": exe_name + "-cli.exe"}
 
     # Standard graphical Win32 launcher
-    base = "Win32GUI"
+    # cx_Freeze 7.2+ renamed "Win32GUI" to "gui"
+    try:
+        from cx_Freeze._compat import EXE_BASE_WIN32_GUI
+        base = "Win32GUI"
+    except ImportError:
+        base = "gui"
     build_exe_options["include_msvcr"] = True
     exe_name += ".exe"
 
@@ -227,9 +232,19 @@ if sys.platform == "win32":
     # Add additional package
     python_packages.extend([
         "idna",
-        "OpenGL",
-        "OpenGL_accelerate",
     ])
+
+    # Optionally include OpenGL if installed
+    try:
+        import OpenGL
+        python_packages.append("OpenGL")
+        try:
+            import OpenGL_accelerate
+            python_packages.append("OpenGL_accelerate")
+        except ImportError:
+            pass
+    except ImportError:
+        pass
 
     # Manually add BABL extensions (used in ChromaKey effect) - these are loaded at runtime,
     # and thus cx_freeze is not able to detect them
@@ -436,8 +451,7 @@ elif sys.platform == "linux":
 
 elif sys.platform == "darwin":
     # Copy Mac specific files that cx_Freeze misses
-
-    # Add libresvg (if found)
+   # Add libresvg (if found)
     resvg_path = "/usr/local/lib/librsvg-2.dylib"
     if os.path.exists(resvg_path):
         external_so_files.append((resvg_path, resvg_path.replace("/usr/local/lib/", "")))
@@ -445,49 +459,66 @@ elif sys.platform == "darwin":
     # Copy openshot.py Python bindings
     src_files.append((os.path.join(PATH, "installer", "launch-mac"), "launch-mac"))
 
-    # Append Mac ICON file (.icns format required for macOS app bundles)
-    # iconFile is overridden here to the full path of the .icns file
-    iconFile = os.path.join(PATH, "installer", "openshot.icns")
-    src_files.append((iconFile, "icon.icns"))
+    # Append Mac ICON file
+    iconFile += ".hqx"
+    src_files.append((os.path.join(PATH, "xdg", iconFile), iconFile))
 
-    # Detect Qt paths dynamically via QLibraryInfo (already imported at top of file)
-    # This replaces the old hard-coded /usr/local/qt5.15.X/... path
-    qt_lib_path = QLibraryInfo.location(QLibraryInfo.LibrariesPath)
-    qt_plugins_path = QLibraryInfo.location(QLibraryInfo.PluginsPath)
+    # Add QtWebEngineProcess (if found)
+    # Try to auto-detect Qt install path from PyQt5
+    qt_install_path = None
+    try:
+        from PyQt5.QtCore import QLibraryInfo as _QLI
+        _qt_prefix = _QLI.location(_QLI.PrefixPath)
+        if os.path.isdir(_qt_prefix):
+            qt_install_path = _qt_prefix
+    except Exception:
+        pass
 
-    # Add QtWebEngineProcess (if found — depends on PyQtWebEngine being installed)
-    qt_webengine_fw = os.path.join(qt_lib_path, "QtWebEngineCore.framework", "Versions", "5")
-    web_process_path = os.path.join(
-        qt_webengine_fw, "Helpers",
-        "QtWebEngineProcess.app", "Contents", "MacOS", "QtWebEngineProcess"
-    )
-    web_core_path = os.path.join(qt_webengine_fw, "QtWebEngineCore")
-    if os.path.exists(web_process_path):
-        external_so_files.append((web_process_path, os.path.basename(web_process_path)))
-    if os.path.exists(web_core_path):
-        external_so_files.append((web_core_path, os.path.basename(web_core_path)))
+    # Fallback search paths
+    if not qt_install_path:
+        for candidate in [
+            "/usr/local/qt5.15.X/qt5.15/5.15.0/clang_64",
+            "/usr/local/opt/qt@5",
+            "/opt/homebrew/opt/qt@5",
+        ]:
+            if os.path.isdir(candidate):
+                qt_install_path = candidate
+                break
+
+    if qt_install_path:
+        qt_webengine_path = os.path.join(qt_install_path, "lib", "QtWebEngineCore.framework", "Versions", "5")
+        web_process_path = os.path.join(qt_webengine_path, "Helpers", "QtWebEngineProcess.app", "Contents", "MacOS", "QtWebEngineProcess")
+        web_core_path = os.path.join(qt_webengine_path, "QtWebEngineCore")
+        if os.path.exists(web_process_path):
+            external_so_files.append((web_process_path, os.path.basename(web_process_path)))
+        if os.path.exists(web_core_path):
+            external_so_files.append((web_core_path, os.path.basename(web_core_path)))
+
+        # Add QtWebEngineProcess Resources & Locales
+        qt_resources = os.path.join(qt_webengine_path, "Resources")
+        if os.path.isdir(qt_resources):
+            for filename in find_files(qt_resources, ["*"]):
+                external_so_files.append((filename, os.path.relpath(filename, start=qt_resources)))
+        qt_locales = os.path.join(qt_resources, "qtwebengine_locales")
+        if os.path.isdir(qt_locales):
+            for filename in find_files(qt_locales, ["*"]):
+                external_so_files.append((filename, os.path.relpath(filename, start=qt_resources)))
+        qt_plugins = os.path.join(qt_install_path, "plugins")
+        if os.path.isdir(qt_plugins):
+            for filename in find_files(qt_plugins, ["*"]):
+                relative_filepath = os.path.relpath(filename, start=qt_plugins)
+                plugin_name = os.path.dirname(relative_filepath)
+                if plugin_name in ["imageformats", "platforms"]:
+                    external_so_files.append((filename, relative_filepath))
+    else:
+        log.warning("Qt install path not found — skipping QtWebEngine bundling")
 
     # Manually add BABL extensions (used in ChromaKey effect) - these are loaded at runtime,
     # and thus cx_freeze is not able to detect them
     babl_ext_path = "/usr/local/lib/babl-0.1"
-    for filename in find_files(babl_ext_path, ["*.dylib"]):
-        src_files.append((filename, os.path.join("lib", "babl-ext", os.path.relpath(filename, start=babl_ext_path))))
-
-    # Add QtWebEngine Resources (inside the framework bundle)
-    webengine_resources = os.path.join(qt_webengine_fw, "Resources")
-    if os.path.exists(webengine_resources):
-        for filename in find_files(webengine_resources, ["*"]):
-            external_so_files.append(
-                (filename, os.path.relpath(filename, start=webengine_resources))
-            )
-
-    # Add Qt plugins (imageformats + platforms only)
-    if os.path.exists(qt_plugins_path):
-        for filename in find_files(qt_plugins_path, ["*"]):
-            relative_filepath = os.path.relpath(filename, start=qt_plugins_path)
-            plugin_name = os.path.dirname(relative_filepath)
-            if plugin_name in ["imageformats", "platforms"]:
-                external_so_files.append((filename, relative_filepath))
+    if os.path.isdir(babl_ext_path):
+        for filename in find_files(babl_ext_path, ["*.dylib"]):
+            src_files.append((filename, os.path.join("lib", "babl-ext", os.path.relpath(filename, start=babl_ext_path))))
 
     # Append all source files
     src_files.append((os.path.join(PATH, "installer", "qt.conf"), "qt.conf"))
@@ -518,18 +549,10 @@ if sys.platform == "darwin":
 build_options["build_exe"] = build_exe_options
 
 # Define launcher executable to create
-if sys.platform == "darwin":
-    # iconFile was set to the full absolute path in the darwin block above
-    _icon_path = iconFile
-else:
-    _icon_path = os.path.join(PATH, "xdg", iconFile)
-
 exes = [Executable("openshot_qt/launch.py",
                    base=base,
-                   icon=_icon_path,
-                   shortcutName="%s" % info.PRODUCT_NAME,
-                   shortcutDir="ProgramMenuFolder",
-                   targetName=exe_name,
+                   icon=os.path.join(PATH, "xdg", iconFile),
+                   target_name=exe_name,
                    copyright=info.COPYRIGHT)]
 
 try:
@@ -537,7 +560,7 @@ try:
     exes.append(Executable("openshot_qt/launch.py",
                 base=extra_exe['base'],
                 icon=os.path.join(PATH, "xdg", iconFile),
-                targetName=extra_exe['name'],
+                target_name=extra_exe['name'],
                 copyright=info.COPYRIGHT))
 except NameError:
     pass

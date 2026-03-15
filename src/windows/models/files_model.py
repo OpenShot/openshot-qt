@@ -48,10 +48,86 @@ from classes.query import File
 from classes.logger import log
 from classes.app import get_app
 from classes.thumbnail import GetThumbPath
-from classes.tag_manager import get_tag_manager
-from classes.gemini_tagger import GeminiVideoTagger
+from classes.api_client import get_backend_client
 
 import openshot
+
+
+class BackendTaggingWorker(QThread):
+    """Background worker that calls the zenvi-backend tagging API."""
+    completed = pyqtSignal(dict, object, object)  # file_data, metadata, error
+
+    def __init__(self, file_data, project_id="", parent=None):
+        super().__init__(parent)
+        self.file_data = file_data
+        self.project_id = project_id or ""
+        self._session = None  # requests.Session, stored so we can close() it to interrupt
+
+    def run(self):
+        import os as _os
+        import requests
+        self._session = requests.Session()
+        client = get_backend_client()
+        metadata = client._empty_ai_metadata()
+        error = None
+        try:
+            if self.file_data.get("media_type") == "video":
+                file_path = self.file_data.get("path", "")
+                metadata = client.tag_video(file_path, session=self._session)
+
+                # TwelveLabs indexing — run synchronously so we can capture the
+                # index_id / video_id and store them in ai_metadata.  This worker
+                # already runs in a background QThread, so blocking here won't
+                # freeze the UI.
+                if client.is_indexing_configured():
+                    try:
+                        filename = _os.path.basename(file_path)
+                        # Use per-project index name so different projects
+                        # don't mix their clips in the same TwelveLabs index.
+                        index_name = f"zenvi-{self.project_id}" if self.project_id else "zenvi-videos"
+                        idx_result = client.index_video(
+                            file_path, index_name,
+                            filename=filename, async_mode=False,
+                        )
+                        if isinstance(idx_result, dict) and idx_result.get("index_id"):
+                            metadata["twelvelabs"] = {
+                                "status": idx_result.get("status", "ready"),
+                                "index_id": idx_result["index_id"],
+                                "video_id": idx_result.get("video_id", ""),
+                                "index_name": index_name,
+                            }
+                            log.info(
+                                "TwelveLabs indexing complete: index=%s index_id=%s video_id=%s",
+                                index_name, idx_result.get("index_id"), idx_result.get("video_id"),
+                            )
+                        elif isinstance(idx_result, dict) and idx_result.get("error"):
+                            log.warning("TwelveLabs indexing returned error: %s", idx_result["error"])
+                            metadata["twelvelabs"] = {
+                                "status": "failed",
+                                "error": idx_result["error"],
+                                "index_name": index_name,
+                            }
+                    except Exception as idx_exc:
+                        log.warning(f"TwelveLabs indexing failed: {idx_exc}")
+                        metadata["twelvelabs"] = {
+                            "status": "failed",
+                            "error": str(idx_exc),
+                        }
+        except Exception as exc:
+            error = exc
+            log.error(f"Backend tagging worker failed: {exc}")
+        finally:
+            self._session = None
+        self.completed.emit(self.file_data, metadata, error)
+
+    def interrupt(self):
+        """Close the active HTTP session to unblock any pending request."""
+        s = self._session
+        if s is not None:
+            try:
+                s.close()
+            except Exception:
+                pass
 
 
 class FileFilterProxyModel(QSortFilterProxyModel):
@@ -112,29 +188,6 @@ class FileFilterProxyModel(QSortFilterProxyModel):
 
         # Call base class implementation
         super().__init__(**kwargs)
-
-
-class GeminiTaggingWorker(QThread):
-    """Background worker that tags a single video file using Gemini/Gemma."""
-
-    completed = pyqtSignal(dict, dict, object)
-
-    def __init__(self, file_data, parent=None):
-        super().__init__(parent)
-        self.file_data = file_data
-
-    def run(self):
-        metadata = GeminiVideoTagger.empty_metadata()
-        error = None
-        try:
-            tagger = GeminiVideoTagger()
-            if self.file_data.get("media_type") == "video":
-                metadata = tagger.analyze_video(self.file_data.get("path"))
-        except Exception as exc:  # pragma: no cover - defensive logging
-            error = exc
-            log.error(f"Gemini tagging worker failed: {exc}")
-
-        self.completed.emit(self.file_data, metadata, error)
 
 
 class FilesModel(QObject, updates.UpdateInterface):
@@ -294,63 +347,73 @@ class FilesModel(QObject, updates.UpdateInterface):
         # Emit signal when model is updated
         self.ModelRefreshed.emit()
 
-    def _tag_file_with_gemini(self, file_data):
-        """Run Gemini tagging off the UI thread and wait for completion."""
-        loop = QEventLoop()
-        result = {
-            "metadata": GeminiVideoTagger.empty_metadata(),
-            "error": None,
-        }
-
-        worker = GeminiTaggingWorker(dict(file_data))
-
-        def _on_complete(_file_data, metadata, error):
-            result["metadata"] = metadata or GeminiVideoTagger.empty_metadata()
-            result["error"] = error
-            loop.quit()
-
-        worker.completed.connect(_on_complete)
-        worker.start()
-        loop.exec_()
-        worker.wait()
-
-        if result["error"]:
-            log.warning(f"Gemini tagging returned an error: {result['error']}")
-
-        return result["metadata"]
+    def _stop_active_taggers(self):
+        """Called at app quit — interrupt any pending HTTP requests, then wait briefly."""
+        for worker in list(self._active_taggers):
+            try:
+                worker.interrupt()  # close session to unblock requests.post()
+                worker.quit()
+                worker.wait(3000)
+            except Exception:
+                pass
+        self._active_taggers.clear()
 
     def _apply_ai_metadata(self, file_obj, ai_metadata):
-        """Attach AI metadata to file and sync tag manager."""
-        if not ai_metadata:
+        """Attach AI metadata to a file object (does not save)."""
+        if not ai_metadata or not isinstance(ai_metadata, dict):
             return
-
         file_obj.data["ai_metadata"] = ai_metadata
-
-        # Populate human-readable tags column with a short summary if empty
-        # (legacy UI column name is still "Tags" but we now prefer scene descriptions)
         tags = ai_metadata.get("tags", {}) if isinstance(ai_metadata, dict) else {}
         top_objects = tags.get("objects", []) if isinstance(tags, dict) else []
         if top_objects and not file_obj.data.get("tags"):
             file_obj.data["tags"] = ", ".join(top_objects[:5])
 
-        # If the new scene_descriptions exists, prefer showing the first one
-        if not file_obj.data.get("tags"):
-            scenes = ai_metadata.get("scene_descriptions", []) if isinstance(ai_metadata, dict) else []
-            if isinstance(scenes, list) and scenes:
-                first = scenes[0] if isinstance(scenes[0], dict) else None
-                if first:
-                    desc = (first.get("description") or "").strip()
-                    if desc:
-                        file_obj.data["tags"] = desc[:120]
+    def _tag_file_async(self, file_id):
+        """Fire-and-forget background AI tagging for an already-saved file."""
+        from classes.query import File as _File
+        file_obj = _File.get(id=file_id)
+        if not file_obj or not isinstance(file_obj.data, dict):
+            return
+        if file_obj.data.get("media_type") != "video":
+            return
 
-        # Sync tag cache for the new file
+        # Pass project ID so the worker can build a per-project index name.
+        project_id = ""
         try:
-            get_tag_manager().update_file_tags(file_obj.id, ai_metadata)
-        except Exception as exc:
-            log.warning(f"Failed to update tag cache for {file_obj.id}: {exc}")
+            project_id = get_app().project.get("id") or ""
+        except Exception:
+            pass
+        worker = BackendTaggingWorker(dict(file_obj.data), project_id=project_id)
+        self._active_taggers.append(worker)
+
+        def _on_finished():
+            try:
+                self._active_taggers.remove(worker)
+            except ValueError:
+                pass
+
+        def _on_complete(_file_data, metadata, error):
+            try:
+                if error:
+                    log.warning(f"Background tagging failed for {file_id}: {error}")
+                    return
+                if not metadata or not isinstance(metadata, dict):
+                    return
+                f = _File.get(id=file_id)
+                if not f:
+                    return
+                self._apply_ai_metadata(f, metadata)
+                f.save()
+            except Exception as exc:
+                log.warning(f"Failed to apply background tagging result: {exc}")
+
+        worker.completed.connect(_on_complete)
+        worker.finished.connect(_on_finished)
+        worker.start()
 
     def add_files(self, files, image_seq_details=None, quiet=False,
-                  prevent_image_seq=False, prevent_recent_folder=False):
+                  prevent_image_seq=False, prevent_recent_folder=False,
+                  skip_tagging=False):
         # Access translations
         app = get_app()
         settings = app.get_settings()
@@ -450,35 +513,16 @@ class FilesModel(QObject, updates.UpdateInterface):
                     # Log our not-an-image-sequence import
                     log.info("Imported media file {}".format(filepath))
 
-                # AI tagging (Gemini) before exposing clip to UI
-                ai_metadata = GeminiVideoTagger.empty_metadata()
-                if new_file.data.get("media_type") == "video":
-                    app.window.statusBar.showMessage(
-                        _("Processing tags for %(name)s ...") % {"name": filename},
-                        0
-                    )
-                    ai_metadata = self._tag_file_with_gemini(new_file.data)
-
-                new_file.data["ai_metadata"] = ai_metadata
-
-                # Save file after tagging completes so the UI only sees tagged clips
+                # Save file
                 new_file.save()
                 scroll_to_files.append(new_file)
-                self._apply_ai_metadata(new_file, ai_metadata)
 
-                # Should we auto-analyze this file with the legacy queue?
-                try:
-                    s = get_app().get_settings()
-                    if s.get('ai-enabled') and s.get('ai-auto-analyze') and not ai_metadata.get('analyzed'):
-                        from classes.media_analyzer import get_analysis_queue
-                        queue = get_analysis_queue()
-                        queue.add_to_queue(
-                            new_file.id,
-                            new_file.absolute_path(),
-                            new_file.data.get('media_type', 'video')
-                        )
-                except Exception as e:
-                    log.warning(f"Failed to queue file for AI analysis: {e}")
+                # Kick off background AI tagging (non-blocking, fire-and-forget)
+                if not skip_tagging and new_file.data.get("media_type") == "video":
+                    try:
+                        self._tag_file_async(new_file.id)
+                    except Exception as e:
+                        log.warning(f"Failed to start background tagging: {e}")
 
                 if start_count > 15:
                     message = _("Importing %(count)d / %(total)d") % {
@@ -601,7 +645,7 @@ class FilesModel(QObject, updates.UpdateInterface):
             filepath = uri.toLocalFile()
             if not os.path.exists(filepath):
                 continue
-            if filepath.endswith(info.ALL_PROJECT_EXTS) and os.path.isfile(filepath):
+            if filepath.endswith((".zvn", ".osp")) and os.path.isfile(filepath):
                 # Auto load project passed as argument
                 get_app().window.OpenProjectSignal.emit(filepath)
                 return True
@@ -728,6 +772,13 @@ class FilesModel(QObject, updates.UpdateInterface):
         self.model_ids = {}
         self.ignore_updates = False
         self.ignore_image_sequence_paths = []
+        self._active_taggers = []  # strong refs to keep QThreads alive until finished
+
+        # Stop any running tagging threads cleanly when the app quits
+        try:
+            get_app().aboutToQuit.connect(self._stop_active_taggers)
+        except Exception:
+            pass
 
         # Create proxy model (for sorting and filtering)
         self.proxy_model = FileFilterProxyModel(parent=self)

@@ -2,6 +2,7 @@
 Director Selection Panel UI
 
 PyQt dock widget with HTML/CSS/JS overlay for selecting and managing directors.
+In the split architecture, director data is fetched from the zenvi-backend API.
 """
 
 import os
@@ -41,70 +42,109 @@ class DirectorPanelBridge(QObject):
     def deleteDirector(self, director_id: str):
         """Delete a director (called from JavaScript)."""
         try:
-            from classes.ai_directors.director_loader import get_director_loader
-            import os
-
-            loader = get_director_loader()
-
-            # Check both user and built-in directories
+            # Delete from user config directory only
             user_dir = os.path.expanduser("~/.config/zenvi/directors")
             user_path = os.path.join(user_dir, f"{director_id}.director")
 
-            from classes import info
-            builtin_dir = os.path.join(info.PATH, "directors", "built_in")
-            builtin_path = os.path.join(builtin_dir, f"{director_id}.director")
-
-            # Only delete from user directory (don't delete built-in directors)
             if os.path.exists(user_path):
                 os.remove(user_path)
                 log.info(f"Deleted user director: {director_id}")
                 # Reload directors after deletion
                 self.loadDirectors()
-            elif os.path.exists(builtin_path):
-                log.warning(f"Cannot delete built-in director: {director_id}")
             else:
-                log.warning(f"Director not found: {director_id}")
+                log.warning(f"Director not found or is a built-in: {director_id}")
 
         except Exception as e:
             log.error(f"Failed to delete director {director_id}: {e}", exc_info=True)
 
     @pyqtSlot()
     def loadDirectors(self):
-        """Load available directors (called from JavaScript on init)."""
+        """Load available directors from backend API."""
         try:
-            from classes.ai_directors.director_loader import get_director_loader
+            from classes.api_client import get_backend_client
+            client = get_backend_client()
+            try:
+                import requests
+                resp = requests.get(
+                    f"{client.base_url}/api/v1/directors",
+                    timeout=5,
+                )
+                if resp.status_code == 200:
+                    directors_data = resp.json().get("directors", [])
+                    self.directors = directors_data
+                    directors_json = json.dumps(directors_data)
+                    self.directorsLoaded.emit(directors_json)
+                    log.info(f"Loaded {len(directors_data)} directors from backend")
+                    return
+            except Exception as api_err:
+                log.warning(f"Backend directors API unavailable: {api_err}")
 
-            loader = get_director_loader()
-            directors = loader.list_available_directors()
+            # Fallback: load from local .director files
+            self._load_local_directors()
 
-            # Convert to JSON-serializable format
-            directors_data = []
-            for director in directors:
-                directors_data.append({
-                    'id': director.id,
-                    'name': director.name,
-                    'description': director.metadata.description,
-                    'author': director.metadata.author,
-                    'version': director.metadata.version,
-                    'tags': director.metadata.tags,
-                    'expertise': director.personality.expertise_areas,
-                    'focus': director.personality.analysis_focus,
-                })
-
-            self.directors = directors_data
-            directors_json = json.dumps(directors_data)
-            self.directorsLoaded.emit(directors_json)
-
-            log.info(f"Loaded {len(directors)} directors into panel")
         except Exception as e:
             log.error(f"Failed to load directors: {e}", exc_info=True)
             self.directorsLoaded.emit("[]")
+
+    def _load_local_directors(self):
+        """Load directors from local .director files as fallback."""
+        directors_data = []
+
+        # Check user directors directory
+        user_dir = os.path.expanduser("~/.config/zenvi/directors")
+        if os.path.isdir(user_dir):
+            for fname in os.listdir(user_dir):
+                if fname.endswith(".director"):
+                    fpath = os.path.join(user_dir, fname)
+                    try:
+                        with open(fpath, "r", encoding="utf-8") as f:
+                            data = json.load(f)
+                        directors_data.append({
+                            "id": data.get("id", fname.replace(".director", "")),
+                            "name": data.get("name", fname),
+                            "description": data.get("description", ""),
+                            "author": data.get("author", ""),
+                            "version": data.get("version", "1.0.0"),
+                            "tags": data.get("tags", []),
+                            "expertise": data.get("personality", {}).get("expertise_areas", []),
+                            "focus": data.get("personality", {}).get("analysis_focus", []),
+                        })
+                    except Exception as e:
+                        log.warning(f"Failed to load director file {fpath}: {e}")
+
+        # Also check built-in directors
+        from classes import info
+        builtin_dir = os.path.join(info.PATH, "directors", "built_in")
+        if os.path.isdir(builtin_dir):
+            for fname in os.listdir(builtin_dir):
+                if fname.endswith(".director"):
+                    fpath = os.path.join(builtin_dir, fname)
+                    try:
+                        with open(fpath, "r", encoding="utf-8") as f:
+                            data = json.load(f)
+                        directors_data.append({
+                            "id": data.get("id", fname.replace(".director", "")),
+                            "name": data.get("name", fname),
+                            "description": data.get("description", ""),
+                            "author": data.get("author", ""),
+                            "version": data.get("version", "1.0.0"),
+                            "tags": data.get("tags", []),
+                            "expertise": data.get("personality", {}).get("expertise_areas", []),
+                            "focus": data.get("personality", {}).get("analysis_focus", []),
+                        })
+                    except Exception as e:
+                        log.warning(f"Failed to load director file {fpath}: {e}")
+
+        self.directors = directors_data
+        directors_json = json.dumps(directors_data)
+        self.directorsLoaded.emit(directors_json)
+        log.info(f"Loaded {len(directors_data)} directors from local files")
 
     @pyqtSlot(str)
     def selectDirectors(self, director_ids_json: str):
         """
         Called from JavaScript when user clicks Analyze button.
-        Immediately triggers director analysis.
+        Sends the analysis request to the backend via the chat WebSocket.
 
         Args:
             director_ids_json: JSON array of director IDs
@@ -116,7 +156,7 @@ class DirectorPanelBridge(QObject):
             # Emit signal for any listeners
             self.directors_selected.emit(director_ids_json)
 
-            # Trigger director analysis immediately
+            # Send analysis request to backend via chat
             self._trigger_director_analysis(director_ids)
 
         except Exception as e:
@@ -124,94 +164,26 @@ class DirectorPanelBridge(QObject):
 
     def _trigger_director_analysis(self, director_ids):
         """
-        Trigger director orchestrator to analyze the project.
-
-        Args:
-            director_ids: List of director IDs to use
+        Send a director analysis request to the backend.
+        The backend handles orchestrator logic; we just send the message via chat.
         """
         try:
             from classes.app import get_app
-            from classes.ai_directors.director_orchestrator import DirectorOrchestrator
-            from classes.ai_directors.director_loader import get_director_loader
-            from classes.ai_agent_runner import create_main_thread_runner, get_main_thread_runner, set_main_thread_runner
-            from classes import settings
-
             app = get_app()
 
-            # Get current model ID from settings or use default
-            model_id = settings.get_settings().get("ai-default-model") or "anthropic/claude-sonnet-4"
+            # Build a chat message that triggers director analysis
+            directors_str = ", ".join(director_ids)
+            message = f"Run director analysis with directors: {directors_str}. Analyze the current video project and suggest improvements."
 
-            # Load directors
-            loader = get_director_loader()
-            directors = []
-            for director_id in director_ids:
-                director = loader.load_director(director_id)
-                if director:
-                    directors.append(director)
-                else:
-                    log.warning(f"Failed to load director: {director_id}")
-
-            if not directors:
-                log.error("No directors loaded for analysis")
-                return
-
-            log.info(f"Running {len(directors)} directors in parallel...")
-
-            # Prefer the app's existing main-thread runner (shared tools + context).
-            # If absent, create one (must be called on main thread) and cache it.
-            runner = get_main_thread_runner()
-            if runner is None:
-                runner = create_main_thread_runner()
-                set_main_thread_runner(runner)
-
-            # Run orchestrator in background thread
-            import threading
-            def run_analysis():
-                try:
-                    orchestrator = DirectorOrchestrator(directors)
-                    plan = orchestrator.run_directors(
-                        model_id=model_id,
-                        task="Analyze the current video project and suggest improvements",
-                        main_thread_runner=runner,
-                        project_data={}
-                    )
-
-                    # Display plan in UI (must be done in main thread)
-                    from PyQt5.QtCore import QMetaObject, Qt, Q_ARG
-                    QMetaObject.invokeMethod(
-                        self,
-                        "_show_plan_in_ui",
-                        Qt.QueuedConnection,
-                        Q_ARG(object, plan)
-                    )
-
-                    log.info(f"Director analysis complete! Generated plan with {len(plan.steps)} steps")
-
-                except Exception as e:
-                    log.error(f"Director analysis failed: {e}", exc_info=True)
-
-            analysis_thread = threading.Thread(target=run_analysis, daemon=True)
-            analysis_thread.start()
+            # Send through the AI chat UI
+            if hasattr(app, 'window') and hasattr(app.window, 'dockAIChat'):
+                app.window.dockAIChat.send_message(message)
+                log.info(f"Sent director analysis request to backend for {len(director_ids)} directors")
+            else:
+                log.warning("AI Chat dock not available for sending director analysis request")
 
         except Exception as e:
             log.error(f"Failed to trigger director analysis: {e}", exc_info=True)
-
-    @pyqtSlot(object)
-    def _show_plan_in_ui(self, plan):
-        """Show the director plan in the Plan Review UI (called from main thread)."""
-        try:
-            from classes.app import get_app
-            app = get_app()
-
-            if hasattr(app, 'window') and hasattr(app.window, 'dockPlanReview'):
-                app.window.dockPlanReview.show_plan(plan)
-                app.window.dockPlanReview.setVisible(True)
-                log.info("Director plan displayed in Plan Review panel")
-            else:
-                log.warning("Plan Review UI not available")
-
-        except Exception as e:
-            log.error(f"Failed to display plan in UI: {e}", exc_info=True)
 
     @pyqtSlot()
     def openMarketplace(self):

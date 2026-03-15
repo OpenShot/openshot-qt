@@ -66,6 +66,7 @@ from classes.thumbnail import httpThumbnailServerThread, httpThumbnailException
 from classes.time_parts import secondsToTimecode
 from classes.timeline import TimelineSync
 from classes.title_bar import HiddenTitleBar
+from classes.version import get_current_Version
 from themes.manager import ThemeName
 from windows.models.effects_model import EffectsModel
 from windows.models.emoji_model import EmojisModel
@@ -107,6 +108,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     SeekNextFrame = pyqtSignal()
     PlayPauseToggleSignal = pyqtSignal()
     RecoverBackup = pyqtSignal()
+    FoundVersionSignal = pyqtSignal(str)
     TransformSignal = pyqtSignal(list)
     KeyFrameTransformSignal = pyqtSignal(str, str)
     SelectRegionSignal = pyqtSignal(str)
@@ -227,35 +229,15 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         """Recover the backup file (if any)"""
         log.info("recover_backup")
 
-        # Check for backup file (e.g. backup.flow)
-        if os.path.exists(info.BACKUP_FILE):
-            # Load recovery project
-            log.info("Recovering backup file: %s" % info.BACKUP_FILE)
-            self.open_project(info.BACKUP_FILE, clear_thumbnails=False)
-
-            # Clear the file_path (which is set by saving the project)
-            project = get_app().project
-            project.current_filepath = None
-            project.has_unsaved_changes = True
-
-            # Set Window title
-            self.SetWindowTitle()
-
-            # Show message to user
-            msg = QMessageBox()
-            _ = get_app()._tr
-            msg.setWindowTitle(_("Backup Recovered"))
-            msg.setText(_("Your most recent unsaved project has been recovered."))
-            msg.exec_()
-
-        else:
-            # No backup project found
-            # Load a blank project (to propagate the default settings)
-            get_app().project.load("")
-            self.actionUndo.setEnabled(False)
-            self.actionRedo.setEnabled(False)
-            self.actionClearHistory.setEnabled(False)
-            self.SetWindowTitle()
+        # Automatic backup recovery is disabled - user can manually open backup if needed.
+        # Always load a blank project to initialize the JS timeline with proper project data
+        # (layers, fps, etc.). Without this, the JS uses hardcoded defaults (layers 0-4)
+        # that don't match the Python project state (layers 1000000-5000000).
+        get_app().project.load("")
+        self.actionUndo.setEnabled(False)
+        self.actionRedo.setEnabled(False)
+        self.actionClearHistory.setEnabled(False)
+        self.SetWindowTitle()
 
     def create_lock_file(self):
         """Create a lock file"""
@@ -540,7 +522,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         """Ensures recovery files adhere to the configured daily and historical limits."""
         recovery_files = sorted(
             ((f, os.path.getmtime(os.path.join(info.RECOVERY_PATH, f)))
-             for f in os.listdir(info.RECOVERY_PATH) if f.endswith(".zip") or f.endswith(info.ALL_PROJECT_EXTS) or f.endswith(info.LEGACY_PROJECT_EXTS)),
+             for f in os.listdir(info.RECOVERY_PATH) if f.endswith(".zip") or f.endswith(".zvn") or f.endswith(".osp")),
             key=lambda x: x[1],
             reverse=True
         )
@@ -715,12 +697,12 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 # User canceled prompt
                 return
 
-        # Prompt for open project file (accept .flow + legacy extensions)
+        # Prompt for open project file (accept both .zvn and .osp)
         file_path = QFileDialog.getOpenFileName(
             self,
             _("Open Project..."),
             recommended_folder,
-            _("Zenvi Project (*.flow);;Legacy Project (*.zvn *.osp)"))[0]
+            _("Zenvi Project (*.zvn);;OpenShot Project (*.osp)"))[0]
 
         if file_path:
             # Load project file
@@ -743,12 +725,12 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 self,
                 _("Save Project..."),
                 recommended_path,
-                _("Zenvi Project (*.flow)"))[0]
+                _("Zenvi Project (*.zvn)"))[0]
 
         if file_path:
             s.setDefaultPath(s.actionType.SAVE, file_path)
-            # Append .flow if needed (new save only; existing path kept as-is)
-            if not file_path.endswith(info.ALL_PROJECT_EXTS):
+            # Append .zvn if needed (new save only; existing path kept as-is)
+            if not file_path.endswith(info.PROJECT_EXT) and not file_path.endswith(info.LEGACY_PROJECT_EXT):
                 file_path = "%s%s" % (file_path, info.PROJECT_EXT)
 
             # Save project
@@ -759,6 +741,13 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         import time
 
         app = get_app()
+
+        # Skip auto-save if a video generation pipeline is in progress.
+        # The generation code pauses and resumes this timer, but as a
+        # secondary safeguard we also check a flag.
+        if getattr(app, '_generation_in_progress', False):
+            log.debug("auto_save_project: skipped — generation in progress")
+            return
 
         # Get current filepath (if any)
         file_path = app.project.current_filepath
@@ -806,10 +795,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             self,
             _("Save Project As..."),
             recommended_path,
-            _("Zenvi Project (*.flow)"))[0]
+            _("Zenvi Project (*.zvn)"))[0]
         if file_path:
             s.setDefaultPath(s.actionType.SAVE, file_path)
-            # Save As always uses the current project extension
+            # Save As always uses .zvn
             file_path = os.path.splitext(file_path)[0] + info.PROJECT_EXT
 
             # Save new project
@@ -1011,7 +1000,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         win.exec_()
 
     def actionHelpContents_trigger(self, checked=True):
-        url = "https://zenvi.pro/docs/"
+        url = "https://zenvi.org/docs/"
         try:
             webbrowser.open(url, new=1)
         except Exception:
@@ -1020,7 +1009,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             log.error(error_msg, exc_info=1)
 
     def actionReportBug_trigger(self, checked=True):
-        url = "https://zenvi.pro/support/"
+        url = "https://zenvi.org/support/"
         try:
             webbrowser.open(url, new=1)
         except Exception:
@@ -1029,16 +1018,16 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             log.error(error_msg, exc_info=1)
 
     def actionAskQuestion_trigger(self, checked=True):
-        url = "https://zenvi.pro/community/"
+        url = "https://zenvi.org/community/"
         try:
             webbrowser.open(url, new=1)
         except Exception:
-            error_msg = f"Unable to open the community url: {url}"
+            error_msg = f"Unable to open the Zenvi community url: {url}"
             QMessageBox.information(self, "Error", error_msg)
             log.error(error_msg, exc_info=1)
 
     def actionDiscord_trigger(self, checked=True):
-        url = "https://zenvi.pro/community/"
+        url = "https://zenvi.org/community/"
         try:
             webbrowser.open(url, new=1)
         except Exception:
@@ -1047,7 +1036,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             log.error(error_msg, exc_info=1)
 
     def actionTranslate_trigger(self, checked=True):
-        url = "https://zenvi.pro/contribute/"
+        url = "https://zenvi.org/contribute/"
         try:
             webbrowser.open(url, new=1)
         except Exception:
@@ -1056,7 +1045,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             log.error(error_msg, exc_info=1)
 
     def actionDonate_trigger(self, checked=True):
-        url = "https://zenvi.pro/donate/"
+        url = "https://zenvi.org/donate/"
         try:
             webbrowser.open(url, new=1)
         except Exception:
@@ -1065,7 +1054,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             log.error(error_msg, exc_info=1)
 
     def actionUpdate_trigger(self, checked=True):
-        url = "https://zenvi.pro/download/"
+        url = "https://zenvi.org/download/"
         try:
             webbrowser.open(url, new=1)
         except Exception:
@@ -2756,6 +2745,14 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Notify UI that selection has been potentially changed
         self.SelectionChanged.emit()
 
+        # Cache last clip selection for AI tools/UI that may query selection after focus changes.
+        try:
+            clip_ids = self.selected_clips
+            if clip_ids:
+                self.ai_last_selected_clips = list(clip_ids)
+        except Exception:
+            pass
+
         # Clear caption editor (if nothing is selected)
         get_app().window.CaptionTextLoaded.emit("", None)
 
@@ -2951,7 +2948,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             base_no_ext = os.path.splitext(os.path.basename(current_filepath))[0]
             recovery_files = [
                 f for f in os.listdir(recovery_dir)
-                if (f.endswith(".zip") or f.endswith(info.ALL_PROJECT_EXTS) or f.endswith(info.LEGACY_PROJECT_EXTS)) and "-" in f and f.split("-", 1)[1].startswith(base_no_ext)
+                if (f.endswith(".osp") or f.endswith(".zvn") or f.endswith(".zip")) and "-" in f and f.split("-", 1)[1].startswith(base_no_ext)
             ]
 
         # Show just a placeholder menu, if we have no recovery files
@@ -2985,8 +2982,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
             try:
                 # Rename the original project file
-                current_ext = os.path.splitext(os.path.basename(current_filepath))[1] or info.PROJECT_EXT
-                recovered_filename = os.path.splitext(os.path.basename(current_filepath))[0] + f"-{int(time())}-backup{current_ext}"
+                recovered_filename = os.path.splitext(os.path.basename(current_filepath))[0] + f"-{int(time())}-backup.osp"
                 recovered_filepath = os.path.join(os.path.dirname(current_filepath), recovered_filename)
                 if os.path.exists(current_filepath):
                     shutil.move(current_filepath, recovered_filepath)
@@ -3012,7 +3008,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 log.error(f"Error recovering project from `{file_path}` to `{current_filepath}`: {ex}", exc_info=True)
 
     def remove_recent_project(self, file_path):
-        """Remove a project from the Recent menu if it can't be found"""
+        """Remove a project from the Recent menu if Zenvi can't find it"""
         s = get_app().get_settings()
         recent_projects = s.get("recent_projects")
         if file_path in recent_projects:
@@ -3039,7 +3035,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.actionUndo.setEnabled(False)
         self.actionRedo.setEnabled(False)
 
-        # Add files toolbar
+        # Build files toolbar (hidden – actions remain available via context menu)
         self.filesToolbar = QToolBar("Files Toolbar")
         self.filesActionGroup = QActionGroup(self)
         self.filesActionGroup.setExclusive(True)
@@ -3048,16 +3044,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.filesActionGroup.addAction(self.actionFilesShowAudio)
         self.filesActionGroup.addAction(self.actionFilesShowImage)
         self.actionFilesShowAll.setChecked(True)
-        self.filesToolbar.addAction(self.actionFilesShowAll)
-        self.filesToolbar.addAction(self.actionFilesShowVideo)
-        self.filesToolbar.addAction(self.actionFilesShowAudio)
-        self.filesToolbar.addAction(self.actionFilesShowImage)
+        # Keep filesFilter widget alive (referenced by FilesListView) but don't show it
         self.filesFilter = QLineEdit()
         self.filesFilter.setObjectName("filesFilter")
-        self.filesFilter.setPlaceholderText(_("Filter"))
-        self.filesFilter.setClearButtonEnabled(True)
-        self.filesToolbar.addWidget(self.filesFilter)
-        self.tabFiles.layout().insertWidget(0, self.filesToolbar)
+        # filesToolbar intentionally NOT inserted into tabFiles layout
 
         # Add transitions toolbar
         self.transitionsToolbar = QToolBar("Transitions Toolbar")
@@ -3177,46 +3167,61 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             elif sel["type"] == "effect" and not Effect.get(id=sel["id"]):
                 self.removeSelection(sel["id"], "effect")
 
+    def foundCurrentVersion(self, version):
+        """Handle the callback for detecting the current version on openshot.org"""
+        _ = get_app()._tr
+
+        # Compare versions (alphabetical compare of version strings should work fine)
+        if info.VERSION < version:
+            # Update text for QAction
+            self.actionUpdate.setVisible(True)
+            self.actionUpdate.setText(_("Update Available"))
+            self.actionUpdate.setToolTip(_("Update Available: <b>%s</b>") % version)
+
+            # Add toolbar button for non-cosmic dusk themes
+            # Cosmic dusk has a hidden toolbar button which is made visible
+            # by the setVisible() call above this
+            if get_app().theme_manager:
+                from themes.manager import ThemeName
+                theme = get_app().theme_manager.get_current_theme()
+                if theme and theme.name != ThemeName.COSMIC.value:
+                    # Add spacer and 'New Version Available' toolbar button (default hidden)
+                    spacer = QWidget(self)
+                    spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
+                    self.toolBar.addWidget(spacer)
+
+                    # Add update available button (with icon and text)
+                    updateButton = QToolButton(self)
+                    updateButton.setDefaultAction(self.actionUpdate)
+                    updateButton.setToolButtonStyle(Qt.ToolButtonTextBesideIcon)
+                    self.toolBar.addWidget(updateButton)
+            else:
+                log.warning("No ThemeManager loaded yet. Skip update available button.")
+
+        # Initialize sentry exception tracing (now that we know the current version)
+        from classes import sentry
+        sentry.init_tracing()
+
     def handleSeek(self, frame):
         """ Always update the property view when we seek to a new position """
         # Notify properties dialog
         self.propertyTableView.select_frame(frame)
 
     def on_plan_approved(self, plan_id):
-        """Handle director plan approval."""
+        """Handle director plan approval — send approval to backend via chat."""
         log.info(f"Plan approved: {plan_id}")
         try:
-            # Execute the plan
-            if hasattr(self, 'dockPlanReview') and self.dockPlanReview.current_plan:
-                from classes.ai_plan_executor import execute_plan
-                from classes.ai_agent_runner import get_main_thread_runner
-                from classes import settings
-
-                plan = self.dockPlanReview.current_plan
-                model_id = settings.get_settings().get("ai-default-model")
-                main_thread_runner = get_main_thread_runner()
-
-                # Get auto mode from settings
-                auto_mode = settings.get_settings().get("directors-auto-mode", False)
-
-                # Execute plan
-                result = execute_plan(plan, model_id, main_thread_runner, auto_mode)
-
-                # Show result in chat
-                if hasattr(self, 'dockAIChat'):
-                    success_msg = f"Plan executed: {result['steps_executed']}/{result['steps_total']} steps completed"
-                    if result['steps_failed'] > 0:
-                        success_msg += f" ({result['steps_failed']} failed)"
-                    self.dockAIChat.display_assistant_message(success_msg)
-
-                log.info(f"Plan execution result: {result}")
+            # Send the approval to the backend via the AI chat
+            if hasattr(self, 'dockAIChat'):
+                self.dockAIChat.send_message(f"Execute approved plan: {plan_id}")
+            if hasattr(self, 'dockPlanReview'):
+                self.dockPlanReview.hide()
         except Exception as e:
-            log.error(f"Plan execution failed: {e}", exc_info=True)
+            log.error(f"Plan approval handling failed: {e}", exc_info=True)
 
     def on_plan_rejected(self, plan_id):
         """Handle director plan rejection."""
         log.info(f"Plan rejected: {plan_id}")
-        # Just hide the plan review - user rejected it
         if hasattr(self, 'dockPlanReview'):
             self.dockPlanReview.hide()
 
@@ -3793,15 +3798,16 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
             elif theme and theme.name == ThemeName.COSMIC.value:
                 # handle COSMIC theme dock widgets
-                if tabified_widgets:
-                    # Apply custom title bar with grab handle (for grouped/tabbed docks)
-                    dock_widget.setTitleBarWidget(HiddenTitleBar(dock_widget, ""))
-                elif dock_widget.isFloating():
-                    # Use standard system title bar (minimize, maximize, close) for floating docks
+                _nav_docks = {"dockFiles", "dockTransitions", "dockEffects", "dockEmojis"}
+                if dock_widget.isFloating():
+                    # Use standard system title bar for floating docks
                     dock_widget.setTitleBarWidget(None)
+                elif dock_widget.objectName() in _nav_docks:
+                    # Nav docks: compact title bar with float + close buttons, no title text
+                    dock_widget.setTitleBarWidget(HiddenTitleBar(dock_widget, show_buttons=True))
                 else:
-                    # Apply custom title bar with text (no grab handle) for non-tabbed, non-floating docks
-                    dock_widget.setTitleBarWidget(HiddenTitleBar(dock_widget, dock_widget.windowTitle()))
+                    # All other docks: completely suppress the title bar (no space, no buttons)
+                    dock_widget.setTitleBarWidget(QWidget())
 
             else:
                 # for ALL other themes, regardless of floating or tabbed
@@ -3889,12 +3895,19 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Init UI
         ui_util.init_ui(self)
 
+        # Hide the Help menu from the menu bar
+        if hasattr(self, "menuHelp"):
+            self.menuHelp.menuAction().setVisible(False)
+
         # Create dock toolbars, set initial state of items, etc
         self.setup_toolbars()
 
         # Add window as watcher to receive undo/redo status updates
         app.updates.add_watcher(self)
 
+        # Get current version of OpenShot via HTTP
+        self.FoundVersionSignal.connect(self.foundCurrentVersion)
+        get_current_Version()
 
         # Initialize and start the thumbnail HTTP server
         try:
@@ -3962,17 +3975,20 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             self.addDockWidget(Qt.BottomDockWidgetArea, self.dockPlanReview)
             self.dockPlanReview.setVisible(False)  # Hidden by default
 
-            # Connect plan approval to execution
+            # Connect plan approval/rejection handlers
             self.dockPlanReview.plan_approved.connect(self.on_plan_approved)
             self.dockPlanReview.plan_rejected.connect(self.on_plan_rejected)
         except Exception as e:
             log.error(f"Failed to initialize Plan Review: {e}", exc_info=True)
 
         # Plan Graph dock (edit plan hierarchy)
-        from plan_graph import PlanGraphDock
-        self.plan_graph_dock = PlanGraphDock(self)
-        self.addDockWidget(Qt.RightDockWidgetArea, self.plan_graph_dock)
-        self.plan_graph_dock.setVisible(False)
+        try:
+            from classes.plan_graph import PlanGraphDock
+            self.plan_graph_dock = PlanGraphDock(self)
+            self.addDockWidget(Qt.RightDockWidgetArea, self.plan_graph_dock)
+            self.plan_graph_dock.setVisible(False)
+        except Exception as e:
+            log.error(f"Failed to initialize Plan Graph: {e}", exc_info=True)
 
         # Thinking dock (director communication window)
         try:

@@ -1,19 +1,55 @@
 """
 Director Marketplace UI
 
-Dialog for browsing, downloading, and installing directors.
+Dialog for browsing, creating, importing, and exporting directors.
+In the split architecture, directors are stored locally as .director JSON files
+and synced to the backend on demand.
 """
 
 import os
 import json
-from PyQt5.QtCore import Qt, QUrl
+from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (
     QDialog, QVBoxLayout, QHBoxLayout, QPushButton, QLabel,
     QListWidget, QListWidgetItem, QTextEdit, QLineEdit, QMessageBox,
-    QFileDialog, QGroupBox, QSplitter, QFormLayout, QComboBox, QCheckBox,
+    QFileDialog, QGroupBox, QSplitter, QFormLayout, QComboBox,
     QScrollArea, QWidget, QTabWidget
 )
 from classes.logger import log
+
+
+def _user_directors_dir():
+    """Return the user directors directory, creating it if needed."""
+    d = os.path.expanduser("~/.config/zenvi/directors")
+    os.makedirs(d, exist_ok=True)
+    return d
+
+
+def _builtin_directors_dir():
+    """Return the built-in directors directory (may not exist)."""
+    from classes import info
+    return os.path.join(info.PATH, "directors", "built_in")
+
+
+def _load_director_files():
+    """Load all .director JSON files from user and built-in directories."""
+    directors = []
+    for search_dir in (_user_directors_dir(), _builtin_directors_dir()):
+        if not os.path.isdir(search_dir):
+            continue
+        for fname in sorted(os.listdir(search_dir)):
+            if not fname.endswith(".director"):
+                continue
+            fpath = os.path.join(search_dir, fname)
+            try:
+                with open(fpath, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                data["_source_path"] = fpath
+                data["_is_builtin"] = search_dir == _builtin_directors_dir()
+                directors.append(data)
+            except Exception as e:
+                log.warning(f"Failed to load {fpath}: {e}")
+    return directors
 
 
 class DirectorMarketplaceDialog(QDialog):
@@ -23,8 +59,8 @@ class DirectorMarketplaceDialog(QDialog):
     Features:
     - Browse available directors
     - View director details
-    - Install from file
-    - Export directors for sharing
+    - Create new directors
+    - Import from / export to .director files
     """
 
     def __init__(self, parent=None):
@@ -33,6 +69,7 @@ class DirectorMarketplaceDialog(QDialog):
         self.setWindowTitle("Director Marketplace")
         self.resize(900, 600)
 
+        self.directors = []
         self.setup_ui()
         self.load_directors()
 
@@ -60,25 +97,23 @@ class DirectorMarketplaceDialog(QDialog):
 
         self.setLayout(layout)
 
+    # ---- Browse tab --------------------------------------------------------
+
     def _create_browse_tab(self):
-        """Create the browse directors tab."""
         browse_widget = QWidget()
         layout = QVBoxLayout(browse_widget)
 
-        # Main splitter
         splitter = QSplitter(Qt.Horizontal)
 
         # Left panel: Director list
         left_panel = QGroupBox("Available Directors")
         left_layout = QVBoxLayout()
 
-        # Search box
         self.search_box = QLineEdit()
         self.search_box.setPlaceholderText("Search directors...")
         self.search_box.textChanged.connect(self.filter_directors)
         left_layout.addWidget(self.search_box)
 
-        # Director list
         self.director_list = QListWidget()
         self.director_list.currentItemChanged.connect(self.on_director_selected)
         left_layout.addWidget(self.director_list)
@@ -95,11 +130,9 @@ class DirectorMarketplaceDialog(QDialog):
         self.details_text.setPlaceholderText("Select a director to view details")
         right_layout.addWidget(self.details_text)
 
-        # Action buttons
         btn_layout = QHBoxLayout()
         self.btn_install = QPushButton("✓ Installed")
         self.btn_install.setEnabled(False)
-        self.btn_install.clicked.connect(self.install_director)
         btn_layout.addWidget(self.btn_install)
 
         self.btn_export = QPushButton("📤 Export")
@@ -124,12 +157,12 @@ class DirectorMarketplaceDialog(QDialog):
 
         return browse_widget
 
+    # ---- Create tab --------------------------------------------------------
+
     def _create_create_tab(self):
-        """Create the 'Create New Director' tab."""
         create_widget = QWidget()
         layout = QVBoxLayout(create_widget)
 
-        # Scroll area for form
         scroll = QScrollArea()
         scroll.setWidgetResizable(True)
         scroll.setStyleSheet("QScrollArea { border: none; }")
@@ -138,9 +171,8 @@ class DirectorMarketplaceDialog(QDialog):
         form_layout = QFormLayout(form_container)
         form_layout.setFieldGrowthPolicy(QFormLayout.ExpandingFieldsGrow)
 
-        # Basic Info Section
-        basic_label = QLabel("<h3>📋 Basic Information</h3>")
-        form_layout.addRow(basic_label)
+        # Basic Info
+        form_layout.addRow(QLabel("<h3>📋 Basic Information</h3>"))
 
         self.name_input = QLineEdit()
         self.name_input.setPlaceholderText("e.g., Documentary Director")
@@ -160,24 +192,22 @@ class DirectorMarketplaceDialog(QDialog):
         self.tags_input.setPlaceholderText("e.g., documentary, narrative, cinematic")
         form_layout.addRow("Tags (comma-separated):", self.tags_input)
 
-        # Style Media Section
-        media_label = QLabel("<h3>🎨 Style Reference (Placeholder)</h3>")
+        # Style placeholder
+        form_layout.addRow(QLabel("<h3>🎨 Style Reference (Placeholder)</h3>"))
+        media_label = QLabel("📎 Media attachment feature coming soon!\n"
+                             "For now, style will be defined through the system prompt.")
+        media_label.setStyleSheet("padding: 15px; background: #f0f0f0; border-radius: 5px; color: #666;")
+        media_label.setWordWrap(True)
         form_layout.addRow(media_label)
 
-        media_placeholder = QLabel("📎 Media attachment feature coming soon!\nFor now, style will be defined through the system prompt.")
-        media_placeholder.setStyleSheet("padding: 15px; background: #f0f0f0; border-radius: 5px; color: #666;")
-        media_placeholder.setWordWrap(True)
-        form_layout.addRow(media_placeholder)
-
-        # Personality Section
-        personality_label = QLabel("<h3>🎭 Director Personality</h3>")
-        form_layout.addRow(personality_label)
+        # Personality
+        form_layout.addRow(QLabel("<h3>🎭 Director Personality</h3>"))
 
         self.system_prompt_input = QTextEdit()
         self.system_prompt_input.setPlaceholderText(
             "Define the director's personality, expertise, and analysis approach...\n\n"
             "Example: You are an experienced cinematographer who focuses on visual storytelling, "
-            "composition, and lighting. You provide constructive feedback to help creators improve their craft."
+            "composition, and lighting."
         )
         self.system_prompt_input.setMinimumHeight(150)
         form_layout.addRow("System Prompt*:", self.system_prompt_input)
@@ -194,16 +224,15 @@ class DirectorMarketplaceDialog(QDialog):
         self.critique_style_combo.addItems(["constructive", "direct", "encouraging", "detailed"])
         form_layout.addRow("Critique Style:", self.critique_style_combo)
 
-        # AI Settings Section
-        settings_label = QLabel("<h3>⚙️ AI Settings</h3>")
-        form_layout.addRow(settings_label)
+        # AI Settings
+        form_layout.addRow(QLabel("<h3>⚙️ AI Settings</h3>"))
 
         self.model_combo = QComboBox()
         self.model_combo.addItems([
             "openai/gpt-4o",
             "anthropic/claude-sonnet-4",
             "anthropic/claude-opus-4",
-            "openai/gpt-4-turbo"
+            "openai/gpt-4-turbo",
         ])
         form_layout.addRow("AI Model:", self.model_combo)
 
@@ -224,11 +253,8 @@ class DirectorMarketplaceDialog(QDialog):
             QPushButton {
                 background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
                     stop:0 #667eea, stop:1 #764ba2);
-                color: white;
-                padding: 12px 30px;
-                border-radius: 6px;
-                font-size: 14px;
-                font-weight: bold;
+                color: white; padding: 12px 30px; border-radius: 6px;
+                font-size: 14px; font-weight: bold;
             }
             QPushButton:hover {
                 background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
@@ -240,22 +266,18 @@ class DirectorMarketplaceDialog(QDialog):
 
         return create_widget
 
+    # ---- Data loading ------------------------------------------------------
+
     def load_directors(self):
-        """Load available directors."""
+        """Load available directors from local files."""
         try:
-            from classes.ai_directors.director_loader import get_director_loader
-
-            loader = get_director_loader()
-            self.directors = loader.list_available_directors()
-
+            self.directors = _load_director_files()
             self.director_list.clear()
-            for director in self.directors:
-                item = QListWidgetItem(f"{director.name}")
-                item.setData(Qt.UserRole, director)
+            for d in self.directors:
+                item = QListWidgetItem(d.get("name", d.get("id", "Unknown")))
+                item.setData(Qt.UserRole, d)
                 self.director_list.addItem(item)
-
             log.info(f"Loaded {len(self.directors)} directors into marketplace")
-
         except Exception as e:
             log.error(f"Failed to load directors: {e}", exc_info=True)
             QMessageBox.warning(self, "Error", f"Failed to load directors: {e}")
@@ -263,60 +285,46 @@ class DirectorMarketplaceDialog(QDialog):
     def filter_directors(self):
         """Filter directors based on search text."""
         search_text = self.search_box.text().lower()
-
         for i in range(self.director_list.count()):
             item = self.director_list.item(i)
-            director = item.data(Qt.UserRole)
-
-            # Search in name, description, tags
+            d = item.data(Qt.UserRole)
             matches = (
-                search_text in director.name.lower() or
-                search_text in director.metadata.description.lower() or
-                any(search_text in tag.lower() for tag in director.metadata.tags)
+                search_text in d.get("name", "").lower()
+                or search_text in d.get("description", "").lower()
+                or any(search_text in t.lower() for t in d.get("tags", []))
             )
-
             item.setHidden(not matches)
 
     def on_director_selected(self, current, previous):
         """Handle director selection."""
         if not current:
             self.details_text.clear()
-            self.btn_install.setEnabled(False)
             self.btn_export.setEnabled(False)
             return
 
-        director = current.data(Qt.UserRole)
+        d = current.data(Qt.UserRole)
+        personality = d.get("personality", {})
 
-        # Display details
-        details = f"""<h3>{director.name}</h3>
-<p><b>Version:</b> {director.metadata.version}<br>
-<b>Author:</b> {director.metadata.author}</p>
+        details = f"""<h3>{d.get('name', 'Unknown')}</h3>
+<p><b>Version:</b> {d.get('version', '1.0.0')}<br>
+<b>Author:</b> {d.get('author', 'Unknown')}</p>
 
-<p>{director.metadata.description}</p>
+<p>{d.get('description', '')}</p>
 
 <p><b>Expertise Areas:</b><br>
-{', '.join(director.personality.expertise_areas)}</p>
+{', '.join(personality.get('expertise_areas', d.get('expertise', [])))}</p>
 
 <p><b>Analysis Focus:</b><br>
-{', '.join(director.personality.analysis_focus)}</p>
+{', '.join(personality.get('analysis_focus', d.get('focus', [])))}</p>
 
-<p><b>Critique Style:</b> {director.personality.critique_style}</p>
+<p><b>Critique Style:</b> {personality.get('critique_style', 'constructive')}</p>
 
-<p><b>Tags:</b> {', '.join(director.metadata.tags)}</p>
+<p><b>Tags:</b> {', '.join(d.get('tags', []))}</p>
 """
-
         self.details_text.setHtml(details)
-        self.btn_install.setEnabled(False)  # Already installed (from list)
         self.btn_export.setEnabled(True)
 
-    def install_director(self):
-        """Install selected director (not yet implemented)."""
-        QMessageBox.information(
-            self,
-            "Not Implemented",
-            "Installing directors from remote marketplace is not yet implemented.\n\n"
-            "Use 'Import from File' to install custom directors."
-        )
+    # ---- Export / Import ---------------------------------------------------
 
     def export_director(self):
         """Export selected director to file."""
@@ -324,39 +332,22 @@ class DirectorMarketplaceDialog(QDialog):
         if not current:
             return
 
-        director = current.data(Qt.UserRole)
+        d = current.data(Qt.UserRole)
+        did = d.get("id", "director")
 
-        # Ask for save location
         filename, _ = QFileDialog.getSaveFileName(
-            self,
-            "Export Director",
-            f"{director.id}.director",
-            "Director Files (*.director)"
+            self, "Export Director", f"{did}.director", "Director Files (*.director)"
         )
-
         if not filename:
             return
 
         try:
-            from classes.ai_directors.director_marketplace import get_marketplace
-
-            marketplace = get_marketplace()
-            success = marketplace.export_director(director.id, filename)
-
-            if success:
-                QMessageBox.information(
-                    self,
-                    "Success",
-                    f"Director exported to:\n{filename}"
-                )
-                log.info(f"Exported director {director.id} to {filename}")
-            else:
-                QMessageBox.warning(
-                    self,
-                    "Error",
-                    "Failed to export director. Check logs for details."
-                )
-
+            # Write a clean copy (strip internal keys)
+            export = {k: v for k, v in d.items() if not k.startswith("_")}
+            with open(filename, "w", encoding="utf-8") as f:
+                json.dump(export, f, indent=2, ensure_ascii=False)
+            QMessageBox.information(self, "Success", f"Director exported to:\n{filename}")
+            log.info(f"Exported director {did} to {filename}")
         except Exception as e:
             log.error(f"Export failed: {e}", exc_info=True)
             QMessageBox.warning(self, "Error", f"Export failed: {e}")
@@ -364,78 +355,68 @@ class DirectorMarketplaceDialog(QDialog):
     def import_from_file(self):
         """Import director from .director file."""
         filename, _ = QFileDialog.getOpenFileName(
-            self,
-            "Import Director",
-            "",
-            "Director Files (*.director)"
+            self, "Import Director", "", "Director Files (*.director)"
         )
-
         if not filename:
             return
 
         try:
-            from classes.ai_directors.director_marketplace import get_marketplace
+            with open(filename, "r", encoding="utf-8") as f:
+                data = json.load(f)
 
-            marketplace = get_marketplace()
-            success = marketplace.install_director_from_file(filename)
+            did = data.get("id")
+            if not did:
+                QMessageBox.warning(self, "Error", "Director file missing 'id' field.")
+                return
 
-            if success:
-                QMessageBox.information(
-                    self,
-                    "Success",
-                    f"Director imported successfully!\n\nReload the directors panel to see the new director."
+            dest = os.path.join(_user_directors_dir(), f"{did}.director")
+            if os.path.exists(dest):
+                reply = QMessageBox.question(
+                    self, "Director Exists",
+                    f"A director with ID '{did}' already exists. Overwrite?",
+                    QMessageBox.Yes | QMessageBox.No,
                 )
-                log.info(f"Imported director from {filename}")
+                if reply == QMessageBox.No:
+                    return
 
-                # Reload directors list
-                self.load_directors()
-            else:
-                QMessageBox.warning(
-                    self,
-                    "Error",
-                    "Failed to import director. Check logs for details."
-                )
+            with open(dest, "w", encoding="utf-8") as f:
+                json.dump(data, f, indent=2, ensure_ascii=False)
+
+            QMessageBox.information(self, "Success", "Director imported successfully!")
+            log.info(f"Imported director from {filename}")
+            self.load_directors()
 
         except Exception as e:
             log.error(f"Import failed: {e}", exc_info=True)
             QMessageBox.warning(self, "Error", f"Import failed: {e}")
 
+    # ---- Create new director -----------------------------------------------
+
     def create_director(self):
         """Create a new director from form inputs."""
         try:
-            # Validate required fields
             name = self.name_input.text().strip()
             description = self.description_input.toPlainText().strip()
             system_prompt = self.system_prompt_input.toPlainText().strip()
             expertise = self.expertise_input.text().strip()
             focus = self.focus_input.text().strip()
 
-            if not name:
-                QMessageBox.warning(self, "Validation Error", "Director name is required.")
-                return
-            if not description:
-                QMessageBox.warning(self, "Validation Error", "Description is required.")
-                return
-            if not system_prompt:
-                QMessageBox.warning(self, "Validation Error", "System prompt is required.")
-                return
-            if not expertise:
-                QMessageBox.warning(self, "Validation Error", "Expertise areas are required.")
-                return
-            if not focus:
-                QMessageBox.warning(self, "Validation Error", "Analysis focus is required.")
-                return
+            # Validate required fields
+            for field_name, value in [("Director name", name), ("Description", description),
+                                       ("System prompt", system_prompt), ("Expertise areas", expertise),
+                                       ("Analysis focus", focus)]:
+                if not value:
+                    QMessageBox.warning(self, "Validation Error", f"{field_name} is required.")
+                    return
 
-            # Generate director ID from name
+            # Generate ID
             director_id = name.lower().replace(" ", "_").replace("-", "_")
-            director_id = ''.join(c for c in director_id if c.isalnum() or c == '_')
+            director_id = "".join(c for c in director_id if c.isalnum() or c == "_")
 
-            # Parse comma-separated lists
-            tags = [tag.strip() for tag in self.tags_input.text().split(",") if tag.strip()]
+            tags = [t.strip() for t in self.tags_input.text().split(",") if t.strip()]
             expertise_areas = [e.strip() for e in expertise.split(",") if e.strip()]
             analysis_focus = [f.strip() for f in focus.split(",") if f.strip()]
 
-            # Create director data structure
             from datetime import datetime
             director_data = {
                 "id": director_id,
@@ -443,51 +424,41 @@ class DirectorMarketplaceDialog(QDialog):
                 "version": "1.0.0",
                 "author": self.author_input.text().strip() or "User",
                 "description": description,
-                "tags": tags if tags else ["custom"],
+                "tags": tags or ["custom"],
                 "created_at": datetime.now().isoformat(),
                 "updated_at": datetime.now().isoformat(),
                 "personality": {
                     "system_prompt": system_prompt,
                     "analysis_focus": analysis_focus,
                     "critique_style": self.critique_style_combo.currentText(),
-                    "expertise_areas": expertise_areas
+                    "expertise_areas": expertise_areas,
                 },
                 "settings": {
                     "model": self.model_combo.currentText(),
-                    "temperature": float(self.temperature_combo.currentText())
-                }
+                    "temperature": float(self.temperature_combo.currentText()),
+                },
             }
 
-            # Save to user directory
-            import os
-            user_dir = os.path.expanduser("~/.config/zenvi/directors")
-            os.makedirs(user_dir, exist_ok=True)
+            filepath = os.path.join(_user_directors_dir(), f"{director_id}.director")
 
-            filepath = os.path.join(user_dir, f"{director_id}.director")
-
-            # Check if already exists
             if os.path.exists(filepath):
                 reply = QMessageBox.question(
-                    self,
-                    "Director Exists",
+                    self, "Director Exists",
                     f"A director with ID '{director_id}' already exists. Overwrite?",
-                    QMessageBox.Yes | QMessageBox.No
+                    QMessageBox.Yes | QMessageBox.No,
                 )
                 if reply == QMessageBox.No:
                     return
 
-            # Write to file
-            with open(filepath, 'w', encoding='utf-8') as f:
+            with open(filepath, "w", encoding="utf-8") as f:
                 json.dump(director_data, f, indent=2, ensure_ascii=False)
 
             log.info(f"Created new director: {director_id} at {filepath}")
 
-            # Show success message
             QMessageBox.information(
-                self,
-                "Success! 🎉",
+                self, "Success! 🎉",
                 f"Director '{name}' has been created successfully!\n\n"
-                f"The director is now available in the marketplace and can be selected in the Directors panel."
+                "The director is now available in the Directors panel.",
             )
 
             # Clear form
@@ -498,10 +469,7 @@ class DirectorMarketplaceDialog(QDialog):
             self.focus_input.clear()
             self.tags_input.clear()
 
-            # Reload directors list in browse tab
             self.load_directors()
-
-            # Switch to browse tab
             self.tab_widget.setCurrentIndex(0)
 
         except Exception as e:
