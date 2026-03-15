@@ -89,15 +89,15 @@ class FileCardDelegate(QStyledItemDelegate):
                 old = self._hover_index
                 self._hover_index = new
                 if old and old.isValid():
-                    view.update(view.visualRect(old))
+                    view.viewport().update(view.visualRect(old))
                 if self._hover_index:
-                    view.update(view.visualRect(self._hover_index))
+                    view.viewport().update(view.visualRect(self._hover_index))
         elif t == QEvent.Leave:
             if self._hover_index:
                 old = self._hover_index
                 self._hover_index = None
                 if old.isValid():
-                    view.update(view.visualRect(old))
+                    view.viewport().update(view.visualRect(old))
         return False
 
     # ── click handling ────────────────────────────────────────────────────
