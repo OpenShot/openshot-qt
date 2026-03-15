@@ -1,0 +1,29 @@
+# Github Actions workflow to generate documentation
+# Uses the following shared task definitions:
+# - (checkout, upload artifact) from Github
+name: Sphinx build
+
+# Controls when the action will run.
+# Triggers the workflow on push or pull request events.
+on:
+- push
+- pull_request
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python
+      uses: actions/setup-python@v6
+      with:
+        python-version: '3.x'
+    - name: Install Sphinx & Dependencies
+      run: pip install sphinx sphinx_markdown_builder sphinx_rtd_theme
+    - name: Build Documentation
+      run: cd "$GITHUB_WORKSPACE/doc" && make html
+    - uses: actions/upload-artifact@v6
+      with:
+        name: Documentation
+        path: "doc/_build/html/"
+
