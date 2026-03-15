@@ -601,6 +601,9 @@
         var existing = tabBarEl.querySelectorAll('.chat-tab');
         existing.forEach(function (el) { el.remove(); });
 
+        // Show the tab bar only when there are multiple tabs
+        tabBarEl.style.display = (currentTabs.length > 1) ? 'flex' : 'none';
+
         currentTabs.forEach(function (tab) {
             var btn = document.createElement('button');
             btn.type = 'button';

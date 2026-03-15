@@ -33,6 +33,18 @@
     <div class="chat-container relative flex flex-col h-full min-h-0"
          role="application" aria-label="Zenvi Assistant chat">
 
+        <!-- ── Tab bar (hidden until tabs are populated) ─────────────── -->
+        <div id="chat-tab-bar"
+             class="flex-shrink-0 flex items-center gap-1 px-2 pt-1.5 overflow-x-auto"
+             role="tablist" aria-label="Chat sessions"
+             style="display:none; background: var(--chat-bg); border-bottom: 1px solid var(--chat-border, rgba(255,255,255,0.07));">
+            <button type="button" id="chat-tab-add"
+                    class="flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-md ml-auto
+                           text-[16px] leading-none transition-colors"
+                    style="background: transparent; border: none; color: rgba(255,255,255,0.35); cursor: pointer;"
+                    title="New chat" aria-label="New chat">+</button>
+        </div>
+
         <!-- ── Preamble header ─────────────────────────────────────────── -->
         <div class="flex-shrink-0 mx-2.5 mt-2 mb-1 px-3.5 py-2.5"
              style="background: #0d0d0d;">

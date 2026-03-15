@@ -313,6 +313,19 @@ class OpenShotApp(QApplication):
         # Connect our exit signals
         self.aboutToQuit.connect(self.cleanup)
 
+        # Show auth dialog if user is not signed in
+        from classes.auth_manager import AuthManager
+        auth = AuthManager.instance()
+        if not auth.is_authenticated():
+            from windows.login_window import LoginWindow
+            login_dlg = LoginWindow(parent=None)
+            result = login_dlg.exec_()
+            # If user cancelled auth, quit the application
+            if result != LoginWindow.Accepted:
+                log.info("Auth cancelled by user — exiting.")
+                self.window.close()
+                return False
+
         # Show main window
         self.window.show()
 

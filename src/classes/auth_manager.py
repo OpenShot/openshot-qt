@@ -1,18 +1,22 @@
 """
 Zenvi authentication manager.
 
-Handles the desktop OAuth-style flow:
-  1. generate_state() → opens browser at /login?state=<uuid>
+Primary flow (browser OAuth):
+  1. start_auth_flow() → opens browser at ZENVI_WEBSITE/login?state=<uuid>
   2. poll_for_session() → polls Supabase RPC every 2s in a background thread
-  3. save_session() / load_session() → persist JWT to ~/.openshot_qt/zenvi_auth.json
+  3. On success, saves session to disk and calls on_success(session_dict)
+  4. On timeout, calls on_timeout() so the UI can fall back to the password form
 
-The token file is a plain JSON file for simplicity. In production, migrate to
-the OS keychain via the `keyring` library.
+Fallback flow (email + password):
+  sign_in_with_password(email, password) / sign_up_with_password(email, password)
+  — call Supabase Auth REST API directly; no browser required.
 """
 
 import json
 import logging
 import os
+import subprocess
+import sys
 import threading
 import time
 import uuid
@@ -24,20 +28,41 @@ from classes import info
 
 log = logging.getLogger(__name__)
 
+
+# ── Load .env file (zenvi-core root, one level above src/) ─────────────────────
+def _load_dotenv(env_path: str) -> None:
+    """Parse a simple KEY=value .env file into os.environ (no overwrite)."""
+    try:
+        if not os.path.exists(env_path):
+            return
+        with open(env_path, "r", encoding="utf-8") as fh:
+            for line in fh:
+                line = line.strip()
+                if not line or line.startswith("#") or "=" not in line:
+                    continue
+                key, _, value = line.partition("=")
+                key = key.strip()
+                value = value.strip()
+                if key and key not in os.environ:
+                    os.environ[key] = value
+    except Exception as exc:
+        log.debug("Could not load .env: %s", exc)
+
+
+_load_dotenv(os.path.join(os.path.dirname(__file__), "..", "..", ".env"))
+
 # ── Constants ──────────────────────────────────────────────────────────────────
-SUPABASE_URL = "https://fmeawyasfffvyoactenu.supabase.co"
-# anon key (public — safe to ship in the app)
-SUPABASE_ANON_KEY = (
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
-    ".eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZtZWF3eWFzZmZmdnlvYWN0ZW51Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzg4MDYyMTMsImV4cCI6MjA1NDM4MjIxM30"
-    ".placeholder"  # TODO: replace with real anon key from .env
-)
-ZENVI_WEBSITE = "https://zenvi.app"
+SUPABASE_URL = os.environ.get("SUPABASE_URL", "")
+SUPABASE_ANON_KEY = os.environ.get("SUPABASE_ANON_KEY", "")
+ZENVI_WEBSITE = os.environ.get("ZENVI_WEBSITE", "https://zenvi.app")
 AUTH_FILE = os.path.join(info.USER_PATH, "zenvi_auth.json")
 
-# Poll interval and timeout (seconds)
 POLL_INTERVAL = 2
-POLL_TIMEOUT = 300  # 5 minutes
+POLL_TIMEOUT = 45   # seconds before falling back to the password form
+
+
+class AuthError(Exception):
+    """Raised when sign-in fails."""
 
 
 class AuthManager:
@@ -74,7 +99,6 @@ class AuthManager:
     # ── Session persistence ────────────────────────────────────────────────────
 
     def load_session(self) -> dict | None:
-        """Load the stored session from disk into memory."""
         try:
             if os.path.exists(AUTH_FILE):
                 with open(AUTH_FILE, "r", encoding="utf-8") as fh:
@@ -85,7 +109,6 @@ class AuthManager:
         return None
 
     def save_session(self, session: dict) -> None:
-        """Persist a session dict to disk."""
         try:
             os.makedirs(info.USER_PATH, exist_ok=True)
             with open(AUTH_FILE, "w", encoding="utf-8") as fh:
@@ -96,7 +119,6 @@ class AuthManager:
             log.error("Could not save Zenvi auth session: %s", exc)
 
     def clear_session(self) -> None:
-        """Sign out — remove stored tokens."""
         try:
             if os.path.exists(AUTH_FILE):
                 os.remove(AUTH_FILE)
@@ -121,18 +143,29 @@ class AuthManager:
             self.load_session()
         return (self._session or {}).get("user_email")
 
-    # ── Desktop OAuth flow ─────────────────────────────────────────────────────
+    # ── Browser OAuth flow ─────────────────────────────────────────────────────
 
-    def start_auth_flow(self) -> str:
+    def start_auth_flow(self) -> tuple[str, str]:
         """
-        Generate a random state UUID, open the browser at /login?state=<uuid>,
-        and return the state so the caller can start polling.
+        Open ZENVI_WEBSITE/login?state=<uuid> in the system browser.
+        Returns (url, state) so the caller can display/copy the URL.
+        Tries xdg-open first (Linux), then webbrowser as fallback.
         """
         state = str(uuid.uuid4())
         url = f"{ZENVI_WEBSITE}/login?state={state}"
         log.info("Opening auth URL: %s", url)
-        webbrowser.open(url)
-        return state
+        opened = False
+        if sys.platform.startswith("linux"):
+            try:
+                subprocess.Popen(["xdg-open", url],
+                                 stdout=subprocess.DEVNULL,
+                                 stderr=subprocess.DEVNULL)
+                opened = True
+            except (FileNotFoundError, OSError):
+                pass
+        if not opened:
+            webbrowser.open(url)
+        return url, state
 
     def poll_for_session(
         self,
@@ -144,12 +177,8 @@ class AuthManager:
     ) -> None:
         """
         Poll the Supabase RPC in a daemon thread.
-
-        Calls on_success(session_dict) when auth completes, or on_timeout()
-        if the timeout is reached without a response.
-
-        Both callbacks are invoked from the background thread — connect them
-        to Qt signals if you need to update the UI.
+        Calls on_success(session_dict) or on_timeout() from the background thread.
+        Aborts immediately on fatal RPC errors (404 / 405 = RPC not found).
         """
         self._cancelled = False
 
@@ -163,6 +192,7 @@ class AuthManager:
                         json={"session_state": state},
                         timeout=8,
                     )
+                    log.debug("Poll status %s: %s", resp.status_code, resp.text[:200])
                     if resp.status_code == 200:
                         rows = resp.json()
                         if rows and isinstance(rows, list) and rows[0].get("authenticated"):
@@ -170,6 +200,11 @@ class AuthManager:
                             self.save_session(session)
                             on_success(session)
                             return
+                    elif resp.status_code in (404, 405):
+                        # RPC function does not exist — no point polling further
+                        log.warning("poll_desktop_auth_session RPC not found (%s). Falling back.", resp.status_code)
+                        on_timeout()
+                        return
                 except requests.RequestException as exc:
                     log.debug("Poll request failed (will retry): %s", exc)
 
@@ -182,17 +217,105 @@ class AuthManager:
         self._poll_thread.start()
 
     def cancel_poll(self) -> None:
-        """Stop any in-progress polling thread."""
         self._cancelled = True
+
+    # ── Direct email/password fallback ────────────────────────────────────────
+
+    def sign_in_with_password(self, email: str, password: str) -> dict:
+        """
+        Sign in via Supabase email+password REST API.
+        Returns session dict on success; raises AuthError on failure.
+        """
+        if not SUPABASE_URL or not SUPABASE_ANON_KEY:
+            raise AuthError("Supabase is not configured (check SUPABASE_URL / SUPABASE_ANON_KEY in .env).")
+
+        try:
+            resp = requests.post(
+                f"{SUPABASE_URL}/auth/v1/token?grant_type=password",
+                headers=self._anon_headers(),
+                json={"email": email, "password": password},
+                timeout=15,
+            )
+        except requests.RequestException as exc:
+            raise AuthError(f"Network error: {exc}") from exc
+
+        log.debug("sign_in status=%s body=%s", resp.status_code, resp.text[:500])
+        if resp.status_code == 200:
+            data = resp.json()
+            access_token = data.get("access_token")
+            if not access_token:
+                raise AuthError(f"No access_token in response: {resp.text[:300]}")
+            user = data.get("user") or {}
+            session = {
+                "access_token": access_token,
+                "refresh_token": data.get("refresh_token"),
+                "user_id": user.get("id"),
+                "user_email": user.get("email") or email,
+            }
+            self.save_session(session)
+            return session
+
+        try:
+            err = resp.json()
+            msg = (err.get("error_description")
+                   or err.get("msg")
+                   or err.get("message")
+                   or err.get("error")
+                   or resp.text)
+        except Exception:
+            msg = resp.text or f"HTTP {resp.status_code}"
+        log.warning("sign_in failed: %s", msg)
+        raise AuthError(msg)
+
+    def sign_up_with_password(self, email: str, password: str) -> dict:
+        """
+        Register a new account via Supabase.
+        Raises AuthError on failure (including when email confirmation is required).
+        """
+        if not SUPABASE_URL or not SUPABASE_ANON_KEY:
+            raise AuthError("Supabase is not configured (check SUPABASE_URL / SUPABASE_ANON_KEY in .env).")
+
+        try:
+            resp = requests.post(
+                f"{SUPABASE_URL}/auth/v1/signup",
+                headers=self._anon_headers(),
+                json={"email": email, "password": password},
+                timeout=15,
+            )
+        except requests.RequestException as exc:
+            raise AuthError(f"Network error: {exc}") from exc
+
+        log.debug("sign_up status=%s body=%s", resp.status_code, resp.text[:500])
+        if resp.status_code in (200, 201):
+            data = resp.json()
+            access_token = data.get("access_token")
+            if not access_token:
+                raise AuthError("Account created — check your email to confirm it, then sign in.")
+            user = data.get("user") or {}
+            session = {
+                "access_token": access_token,
+                "refresh_token": data.get("refresh_token"),
+                "user_id": user.get("id"),
+                "user_email": user.get("email") or email,
+            }
+            self.save_session(session)
+            return session
+
+        try:
+            err = resp.json()
+            msg = (err.get("error_description")
+                   or err.get("msg")
+                   or err.get("message")
+                   or err.get("error")
+                   or resp.text)
+        except Exception:
+            msg = resp.text or f"HTTP {resp.status_code}"
+        log.warning("sign_up failed: %s", msg)
+        raise AuthError(msg)
 
     # ── Authenticated API calls ────────────────────────────────────────────────
 
     def get_subscription_tier(self) -> str | None:
-        """
-        Fetch the current user's active subscription tier from Supabase.
-        Returns 'creator' | 'pro' | 'studio', or None if no active subscription.
-        Requires the user to be authenticated.
-        """
         if not self.is_authenticated():
             return None
         try:
@@ -205,19 +328,13 @@ class AuthManager:
             if resp.status_code == 200:
                 rows = resp.json()
                 if rows and isinstance(rows, list) and rows[0].get("tier"):
-                    tier = rows[0]["tier"]
-                    status = rows[0].get("status", "")
-                    if status in ("active", "trialing"):
-                        return tier
+                    if rows[0].get("status") in ("active", "trialing"):
+                        return rows[0]["tier"]
         except Exception as exc:
             log.warning("Could not fetch subscription tier: %s", exc)
         return None
 
     def get_subscription_info(self) -> dict | None:
-        """
-        Returns the full subscription record: tier, status, current_period_end,
-        cancel_at_period_end. Returns None if not authenticated or no active sub.
-        """
         if not self.is_authenticated():
             return None
         try:
