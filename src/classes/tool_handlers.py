@@ -1152,6 +1152,60 @@ def _import_generated_video(video_path):
     return f, None
 
 
+def fetch_remotion_video_from_supabase(supabase_url="", **_kw) -> str:
+    """Download a rendered Remotion video from its Supabase public URL and
+    import it into the project files panel.
+
+    Called by the agent after render_remotion_product_launch_tool succeeds.
+    """
+    import tempfile
+    import urllib.request
+
+    supabase_url = (supabase_url or "").strip()
+    if not supabase_url:
+        return "Error: supabase_url is required."
+
+    try:
+        # Derive a clean filename from the URL path
+        url_path = supabase_url.split("?")[0].rstrip("/")
+        raw_name = url_path.split("/")[-1] or "remotion_product_launch.mp4"
+        if not raw_name.lower().endswith(".mp4"):
+            raw_name += ".mp4"
+
+        tmp_dir = tempfile.mkdtemp(prefix="zenvi_remotion_")
+        dest_path = os.path.join(tmp_dir, raw_name)
+
+        log.info("Downloading Remotion video from Supabase: %s → %s", supabase_url, dest_path)
+
+        # Download with a 5-minute timeout
+        req = urllib.request.Request(supabase_url, headers={"User-Agent": "ZenviApp/1.0"})
+        with urllib.request.urlopen(req, timeout=300) as response, open(dest_path, "wb") as out:
+            while True:
+                chunk = response.read(65536)
+                if not chunk:
+                    break
+                out.write(chunk)
+
+        size_mb = os.path.getsize(dest_path) / (1024 * 1024)
+        log.info("Download complete: %s (%.1f MB)", dest_path, size_mb)
+
+        # Import into project files (re-encodes for libopenshot compatibility)
+        f, err = _import_generated_video(dest_path)
+        if err:
+            return f"Error importing video: {err}"
+
+        file_id = f.id if f else ""
+        return (
+            f"✅ Remotion product-launch video imported into project files (file_id: {file_id}, "
+            f"size: {size_mb:.1f} MB).\n"
+            "Use add_clip_to_timeline_tool to add it to the timeline."
+        )
+
+    except Exception as e:
+        log.error("fetch_remotion_video_from_supabase failed: %s", e, exc_info=True)
+        return f"Error downloading video from Supabase: {e}"
+
+
 def generate_video_and_add_to_timeline(prompt="", duration_seconds="", position_seconds="", track="", **_kw) -> str:
     if QThread is None or QEventLoop is None:
         return "Error: Requires PyQt5."
@@ -2202,6 +2256,8 @@ TOOL_HANDLERS = {
     # Search
     "search_selected_clip_scenes_tool": search_selected_clip_scenes,
     "slice_selected_clip_at_best_match_tool": slice_selected_clip_at_best_match,
+    # Remotion
+    "fetch_remotion_video_from_supabase_tool": fetch_remotion_video_from_supabase,
     # Video generation
     "generate_video_and_add_to_timeline_tool": generate_video_and_add_to_timeline,
     "insert_kling_v2v_clip_into_selected_clip_tool": insert_vidu_v2v_clip_into_selected_clip,
