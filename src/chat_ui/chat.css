@@ -214,6 +214,65 @@
     box-shadow: inset 0 0 0 1px var(--chat-border);
 }
 
+/* ── Activity log (Reasoning / tool steps) ──────────────────────────── */
+@keyframes activity-spin {
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.chat-activity-log {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 6px 0 2px;
+}
+
+.chat-activity-step {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--chat-muted);
+    opacity: 0.75;
+    transition: opacity 0.2s;
+}
+
+.chat-activity-step.running {
+    opacity: 1;
+    color: var(--chat-text);
+}
+
+.chat-activity-step.done {
+    opacity: 0.5;
+}
+
+/* Spin only the SVG inside .activity-icon when step is running */
+.chat-activity-step.running .activity-icon svg {
+    animation: activity-spin 1s linear infinite;
+    color: var(--chat-accent);
+    display: block;
+}
+
+.chat-activity-step.done .activity-icon svg {
+    animation: none;
+    color: var(--chat-muted);
+}
+
+.activity-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+}
+
+.activity-label {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 /* ── Model trigger interactive states ───────────────────────────────── */
 .chat-model-trigger:hover,
 .chat-model-trigger:focus,

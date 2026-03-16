@@ -186,6 +186,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Disable video caching
         openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = False
 
+        # Stop AI chat thread early so its 1-second wait overlaps with the rest of shutdown
+        if getattr(self, "dockAIChat", None):
+            self.dockAIChat._stop_thread()
+
         # Stop threads
         self.StopSignal.emit()
 

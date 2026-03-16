@@ -641,15 +641,26 @@ class AIChatWindow(QDockWidget):
         )
 
     def _stop_thread(self):
-        """Cleanly stop the AI worker thread. Safe to call more than once."""
+        """Cleanly stop the AI worker thread. Safe to call more than once.
+
+        Closes any active WebSocket first so ws.recv() unblocks immediately,
+        allowing the thread to exit naturally and preventing QThread::~QThread()
+        from blocking forever waiting for a Python thread stuck in C I/O.
+        """
         if not hasattr(self, "_ai_thread") or self._ai_thread is None:
             return
+        # Interrupt any in-flight WebSocket recv so the thread can exit on its own
+        try:
+            from classes.api_client import get_backend_client
+            get_backend_client().cancel_current_request()
+        except Exception:
+            pass
         if self._ai_thread.isRunning():
             self._ai_thread.quit()
-            if not self._ai_thread.wait(3000):
-                log.warning("AI chat thread did not stop within 3 s; terminating")
+            if not self._ai_thread.wait(2000):
+                log.warning("AI chat thread did not stop within 2 s; terminating")
                 self._ai_thread.terminate()
-                self._ai_thread.wait(1000)
+                self._ai_thread.wait(500)
 
     def closeEvent(self, event):
         """Stop the AI worker thread when the dock is explicitly closed."""

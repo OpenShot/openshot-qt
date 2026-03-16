@@ -48,6 +48,7 @@ class ZenviBackendClient:
         self.base_url = (base_url or self._get_backend_url()).rstrip("/")
         self.api_url = f"{self.base_url}/api/v1"
         self._session = None
+        self._current_ws = None  # active WebSocket during a chat request
 
     @staticmethod
     def _get_backend_url() -> str:
@@ -202,6 +203,7 @@ class ZenviBackendClient:
 
         try:
             ws = websocket.create_connection(ws_url, timeout=600)
+            self._current_ws = ws
 
             # Send user message
             ws.send(json.dumps({
@@ -342,6 +344,21 @@ class ZenviBackendClient:
             if on_error:
                 on_error(str(e))
             return None
+        finally:
+            self._current_ws = None
+
+    def cancel_current_request(self) -> None:
+        """Close the active WebSocket connection, unblocking any pending recv() call.
+
+        Safe to call from any thread. Used during app shutdown to allow the
+        chat worker thread to exit cleanly instead of blocking QThread::~QThread().
+        """
+        ws = self._current_ws
+        if ws is not None:
+            try:
+                ws.close()
+            except Exception:
+                pass
 
     # ------------------------------------------------------------------
     # Search

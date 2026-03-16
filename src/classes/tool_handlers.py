@@ -1152,13 +1152,14 @@ def _import_generated_video(video_path):
     return f, None
 
 
-def fetch_remotion_video_from_supabase(supabase_url="", **_kw) -> str:
-    """Download a rendered Remotion video from its Supabase public URL and
-    import it into the project files panel.
+def fetch_remotion_video_from_supabase(supabase_url="", supabase_path="", **_kw) -> str:
+    """Download a rendered Remotion video from its Supabase public URL,
+    import it into the project files panel, then delete it from Supabase storage.
 
     Called by the agent after render_remotion_product_launch_tool succeeds.
     """
     import tempfile
+    import json
     import urllib.request
 
     supabase_url = (supabase_url or "").strip()
@@ -1195,6 +1196,23 @@ def fetch_remotion_video_from_supabase(supabase_url="", **_kw) -> str:
             return f"Error importing video: {err}"
 
         file_id = f.id if f else ""
+
+        # Delete from Supabase now that the file is safely imported
+        if supabase_path:
+            pl_url = os.environ.get("REMOTION_PRODUCT_LAUNCH_URL", "http://localhost:3100")
+            try:
+                body = json.dumps({"supabase_path": supabase_path}).encode()
+                cleanup_req = urllib.request.Request(
+                    f"{pl_url}/api/cleanup",
+                    data=body,
+                    method="DELETE",
+                    headers={"Content-Type": "application/json"},
+                )
+                with urllib.request.urlopen(cleanup_req, timeout=30):
+                    log.info("Deleted Supabase file after import: %s", supabase_path)
+            except Exception as cleanup_err:
+                log.warning("Supabase cleanup failed (non-critical): %s", cleanup_err)
+
         return (
             f"✅ Remotion product-launch video imported into project files (file_id: {file_id}, "
             f"size: {size_mb:.1f} MB).\n"
