@@ -5,20 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Zenvi Assistant</title>
 
-    <!-- Tailwind CSS (CDN – no build step required) -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
-                        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
-                    },
-                },
-            },
-        };
-    </script>
+    <!-- Tailwind CSS (compiled locally – avoids CDN console warning) -->
+    <link rel="stylesheet" href="tailwind.min.css">
 
     <!-- Chat-specific styles: animations, glow, scrollbars, theming variables -->
     <link rel="stylesheet" href="chat.css">

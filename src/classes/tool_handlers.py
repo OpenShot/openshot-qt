@@ -1288,7 +1288,7 @@ def generate_video_and_add_to_timeline(prompt="", duration_seconds="", position_
         _resume_auto_save(auto_save_was_active)
 
 
-def insert_vidu_v2v_clip_into_selected_clip(query="", fade_ms="400", **_kw) -> str:
+def insert_kling_v2v_clip_into_selected_clip(query="", fade_ms="400", **_kw) -> str:
     """Find best match in selected clip, generate a V2V insert via Kling,
     bake an updated clip with crossfades, and import it.
 
@@ -1589,19 +1589,161 @@ def insert_vidu_v2v_clip_into_selected_clip(query="", fade_ms="400", **_kw) -> s
         _resume_auto_save(auto_save_was_active)
 
 
-def generate_transition_clip(clip_a_id="", clip_b_id="", prompt_hint="", **_kw) -> str:
-    """Generate a morph transition video between two clips using Kling
-    (start/end frame images) and insert it between them on the timeline.
+def replace_object_in_selected_clip(description="", duration_seconds="", **_kw) -> str:
+    """Replace or update an object/visual element in the selected clip using Kling V2V.
 
-    Pipeline (ported from core/src/classes/ai_openshot_tools.py):
-      1. Extract the last frame of clip A and first frame of clip B
-      2. Upload frames to temp hosting or encode as data URIs
-      3. Generate a morph video via Kling with frame constraints
-      4. Re-encode and import with clean metadata
-      5. Shift clip B rightward and insert the transition clip
+    Pipeline:
+      1. Extract the selected clip segment as a reference video (up to 10 s)
+      2. Extract first/last frames for frame constraints (maintains continuity)
+      3. Generate V2V via Runware/Kling with the clip as visual reference
+      4. Import the generated video into the project files panel
+    """
+    if QThread is None or QEventLoop is None:
+        return "Error: Requires PyQt5."
+
+    clip_obj, _win = _get_selected_timeline_clip_and_window()
+    if not clip_obj:
+        return "Error: No timeline clip selected."
+
+    description = (description or "").strip()
+    if not description:
+        return "Error: A description of what to replace/update is required."
+
+    clip_data = clip_obj.data if isinstance(clip_obj.data, dict) else {}
+    clip_start = float(clip_data.get("start", 0.0) or 0.0)
+    clip_end = float(clip_data.get("end", 0.0) or 0.0)
+    clip_duration = max(0.1, clip_end - clip_start)
+
+    source_file = _get_source_file_for_clip(clip_obj)
+    if not source_file or not getattr(source_file, "absolute_path", None) or not source_file.absolute_path():
+        return "Error: Could not find source video for selected clip."
+    source_path = source_file.absolute_path()
+
+    # Hard cap at 10 s (Kling O1 max) to avoid credit exhaustion on long clips.
+    # Snap to the nearest Kling-supported duration: 5 s or 10 s.
+    raw_dur = min(float(duration_seconds), 10.0) if str(duration_seconds).strip() else min(clip_duration, 10.0)
+    gen_duration = 10 if raw_dur >= 7.5 else 5
+
+    # Clamp video dimensions to Kling O1 video-edit range [720, 2160]
+    vid_width = int(source_file.data.get("width", 1920))
+    vid_height = int(source_file.data.get("height", 1080))
+    _min_dim = 720
+    if vid_width < _min_dim or vid_height < _min_dim:
+        scale_f = max(_min_dim / max(vid_width, 1), _min_dim / max(vid_height, 1))
+        vid_width = int(vid_width * scale_f)
+        vid_height = int(vid_height * scale_f)
+    vid_width += vid_width % 2
+    vid_height += vid_height % 2
+    if vid_width > 2160 or vid_height > 2160:
+        scale_d = min(2160 / max(vid_width, 1), 2160 / max(vid_height, 1))
+        vid_width = int(vid_width * scale_d)
+        vid_height = int(vid_height * scale_d)
+        vid_width += vid_width % 2
+        vid_height += vid_height % 2
+
+    auto_save_was_active = _pause_auto_save()
+    try:
+        tmpdir = tempfile.mkdtemp(prefix="zenvi_replace_")
+        try:
+            ref_mp4 = os.path.join(tmpdir, "ref.mp4")
+            first_jpg = os.path.join(tmpdir, "first.jpg")
+            last_jpg = os.path.join(tmpdir, "last.jpg")
+
+            vf = (
+                f"scale={vid_width}:{vid_height}:force_original_aspect_ratio=decrease,"
+                f"pad={vid_width}:{vid_height}:(ow-iw)/2:(oh-ih)/2,setsar=1"
+            )
+
+            # Extract the clip segment as the reference video (cap at 10 s)
+            extract_dur = min(clip_duration, 10.0)
+            ok, err = _ffmpeg_run([
+                "ffmpeg", "-y", "-ss", str(clip_start), "-i", source_path,
+                "-t", str(extract_dur), "-vf", vf, "-r", "24", "-an",
+                "-c:v", "libx264", "-preset", "veryfast", "-crf", "23", ref_mp4,
+            ])
+            if not ok:
+                return f"Error: Failed to extract reference clip: {err}"
+
+            # Extract first and last frames for frame continuity constraints
+            ok, _ = _ffmpeg_run(["ffmpeg", "-y", "-i", ref_mp4, "-frames:v", "1", "-q:v", "2", first_jpg])
+            if not ok:
+                return "Error: Failed to extract first frame from reference clip."
+            ok, _ = _ffmpeg_run(["ffmpeg", "-y", "-sseof", "-0.1", "-i", ref_mp4,
+                                  "-frames:v", "1", "-q:v", "2", last_jpg])
+            if not ok:
+                return "Error: Failed to extract last frame from reference clip."
+
+            prompt = (
+                f"{description}\n\n"
+                "Apply the change throughout the entire video while preserving the original "
+                "camera motion, scene composition, and lighting. The first and last frames "
+                "must match the provided frame constraints."
+            )
+            frame_images_paths = [
+                {"path": first_jpg, "frame": "first"},
+                {"path": last_jpg, "frame": "last"},
+            ]
+
+            from classes.api_client import get_backend_client
+            client = get_backend_client()
+            result = client.generate_video(
+                prompt,
+                duration_seconds=gen_duration,
+                seed_video_path=ref_mp4,
+                frame_images_paths=frame_images_paths,
+                width=vid_width,
+                height=vid_height,
+            )
+            video_url = result.get("video_url", "")
+            local_path = result.get("local_path", "")
+            gen_err = result.get("error", "")
+            if gen_err:
+                return f"Error: {gen_err}"
+
+            output_path = _output_path_for_generated_video()
+            if local_path and os.path.isfile(local_path):
+                shutil.copy2(local_path, output_path)
+            elif video_url:
+                try:
+                    import requests as _req
+                    resp = _req.get(video_url, timeout=120)
+                    resp.raise_for_status()
+                    with open(output_path, "wb") as fh:
+                        fh.write(resp.content)
+                except Exception as dl_exc:
+                    return f"Error: Download failed: {dl_exc}"
+            else:
+                return "Error: No video URL or local path returned from generation."
+
+            f, _import_err = _import_generated_video(output_path)
+            if not f:
+                log.warning("replace_object: File.get failed but add_files succeeded")
+            return (
+                f"Object replacement complete. A {gen_duration}s AI video with '{description}' "
+                "applied has been added to the imported clips panel. "
+                "Drag it to the timeline to replace the original clip."
+            )
+        finally:
+            shutil.rmtree(tmpdir, ignore_errors=True)
+    except Exception as e:
+        log.error("replace_object_in_selected_clip: %s", e, exc_info=True)
+        return f"Error: {e}"
+    finally:
+        _resume_auto_save(auto_save_was_active)
+
+
+def generate_transition_clip(clip_a_id="", clip_b_id="", prompt_hint="", **_kw) -> str:
+    """Generate a transition video between two clips using Kling V2V with video reference.
+
+    Pipeline:
+      1. Extract the last 3 s of clip A as a reference video (gives Kling visual context)
+      2. Extract the last frame of clip A and first frame of clip B as frame constraints
+      3. Generate via Kling V2V: reference video + first/last frame constraints
+         → the result matches clip A's visual style and bridges naturally to clip B
+      4. Import the transition clip and insert it between the two clips on the timeline
     """
     from classes.query import Clip, File
-    app = _get_app()
+    _get_app()
 
     clip_a = Clip.get(id=clip_a_id) if clip_a_id else None
     clip_b = Clip.get(id=clip_b_id) if clip_b_id else None
@@ -1644,15 +1786,51 @@ def generate_transition_clip(clip_a_id="", clip_b_id="", prompt_hint="", **_kw) 
             "with no abrupt cuts or unrelated imagery."
         )
 
+    # Clamp clip A dimensions to Kling O1 video-edit range [720, 2160]
+    vid_w = int(file_a.data.get("width", 1920))
+    vid_h = int(file_a.data.get("height", 1080))
+    _min_dim = 720
+    if vid_w < _min_dim or vid_h < _min_dim:
+        _sf = max(_min_dim / max(vid_w, 1), _min_dim / max(vid_h, 1))
+        vid_w = int(vid_w * _sf)
+        vid_h = int(vid_h * _sf)
+    vid_w += vid_w % 2
+    vid_h += vid_h % 2
+    if vid_w > 2160 or vid_h > 2160:
+        _sd = min(2160 / max(vid_w, 1), 2160 / max(vid_h, 1))
+        vid_w = int(vid_w * _sd)
+        vid_h = int(vid_h * _sd)
+        vid_w += vid_w % 2
+        vid_h += vid_h % 2
+
     # Pause auto-save during the generation pipeline
     auto_save_was_active = _pause_auto_save()
     try:
         tmpdir = tempfile.mkdtemp(prefix="zenvi_morph_")
         try:
+            ref_mp4 = os.path.join(tmpdir, "ref_a.mp4")
             frame_a_path = os.path.join(tmpdir, "frame_a.jpg")
             frame_b_path = os.path.join(tmpdir, "frame_b.jpg")
 
-            # Extract last frame of clip A (at the end time in the source)
+            # Extract last 3 s of clip A as the V2V reference video.
+            # This gives Kling the visual style/content of clip A so the
+            # generated transition matches it rather than generating arbitrary content.
+            ref_dur = min(3.0, duration_a)
+            ref_start = max(start_a, end_a - ref_dur)
+            vf = (
+                f"scale={vid_w}:{vid_h}:force_original_aspect_ratio=decrease,"
+                f"pad={vid_w}:{vid_h}:(ow-iw)/2:(oh-ih)/2,setsar=1"
+            )
+            ok, err = _ffmpeg_run([
+                "ffmpeg", "-y", "-ss", str(ref_start), "-i", path_a,
+                "-t", str(ref_dur), "-vf", vf, "-r", "24", "-an",
+                "-c:v", "libx264", "-preset", "veryfast", "-crf", "23", ref_mp4,
+            ])
+            if not ok:
+                log.warning("generate_transition: could not extract ref video: %s", err)
+                ref_mp4 = None  # fall back to frame-only mode
+
+            # Extract last frame of clip A
             time_a = max(0.0, end_a - 0.1) if end_a > 0 else 0.0
             ok, err = _ffmpeg_run([
                 "ffmpeg", "-y", "-ss", str(time_a), "-i", path_a,
@@ -1670,42 +1848,47 @@ def generate_transition_clip(clip_a_id="", clip_b_id="", prompt_hint="", **_kw) 
             if not ok:
                 return f"Error: Failed to extract first frame from clip B: {err}"
 
-            # Detect frame dimensions
-            frame_w, frame_h = 1920, 1080
-            try:
-                p = subprocess.run(
-                    ["ffprobe", "-v", "error", "-select_streams", "v:0",
-                     "-show_entries", "stream=width,height", "-of", "csv=p=0:s=x",
-                     frame_a_path],
-                    capture_output=True, text=True, check=True,
-                )
-                parts = p.stdout.strip().split("x")
-                if len(parts) == 2:
-                    frame_w, frame_h = int(parts[0]), int(parts[1])
-            except Exception:
-                pass
+            frame_images_paths = [
+                {"path": frame_a_path, "frame": "first"},
+                {"path": frame_b_path, "frame": "last"},
+            ]
 
-            # Pass local frame paths to backend (shared filesystem avoids base64 overhead)
-            # Generate morph via backend morph endpoint
             from classes.api_client import get_backend_client
             client = get_backend_client()
-            result = client.generate_morph_video(
-                first_image_url="",
-                last_image_url="",
-                start_image_path=frame_a_path,
-                end_image_path=frame_b_path,
-                prompt=prompt,
-                duration_seconds=int(morph_duration),
-                width=frame_w,
-                height=frame_h,
-            )
+
+            if ref_mp4 and os.path.isfile(ref_mp4):
+                # V2V + frame constraints: reference video gives visual context,
+                # frame constraints pin the start/end to match both clips exactly.
+                log.info("generate_transition: using V2V reference + frame constraints")
+                result = client.generate_video(
+                    prompt,
+                    duration_seconds=int(morph_duration),
+                    seed_video_path=ref_mp4,
+                    frame_images_paths=frame_images_paths,
+                    width=vid_w,
+                    height=vid_h,
+                )
+            else:
+                # Fallback: frame-only morph (original behaviour)
+                log.info("generate_transition: falling back to frame-only morph")
+                result = client.generate_morph_video(
+                    first_image_url="",
+                    last_image_url="",
+                    start_image_path=frame_a_path,
+                    end_image_path=frame_b_path,
+                    prompt=prompt,
+                    duration_seconds=int(morph_duration),
+                    width=vid_w,
+                    height=vid_h,
+                )
+
             video_url = result.get("video_url", "")
             local_path = result.get("local_path", "")
             gen_err = result.get("error", "")
             if gen_err:
                 return f"Error: {gen_err}"
 
-            # Download the morph video
+            # Download the transition video
             morph_path = os.path.join(tmpdir, "morph_video.mp4")
             if local_path and os.path.isfile(local_path):
                 shutil.copy2(local_path, morph_path)
@@ -1721,10 +1904,10 @@ def generate_transition_clip(clip_a_id="", clip_b_id="", prompt_hint="", **_kw) 
             else:
                 return "Error: No video URL or local path returned."
 
-            # Import the morph video
+            # Import the transition video
             f, import_err = _import_generated_video(morph_path)
             if not f:
-                return "Error: Morph video generated but could not be added to project."
+                return "Error: Transition video generated but could not be added to project."
 
             # Shift clip B (and all clips after it) right to make room
             all_clips = list(Clip.filter())
@@ -1734,7 +1917,7 @@ def generate_transition_clip(clip_a_id="", clip_b_id="", prompt_hint="", **_kw) 
                     c.data["position"] = c_pos + morph_duration
                     c.save()
 
-            # Insert the morph clip at the end of clip A
+            # Insert the transition clip at the end of clip A
             was_playing = _pause_player()
             try:
                 msg = add_clip_to_timeline(
@@ -1746,8 +1929,8 @@ def generate_transition_clip(clip_a_id="", clip_b_id="", prompt_hint="", **_kw) 
                 _resume_player(was_playing)
 
             return (
-                f"Morph transition created! A {morph_duration:.0f}s AI morph video was "
-                f"generated using Kling (last frame of clip A → first frame of clip B) "
+                f"Transition clip created! A {morph_duration:.0f}s AI transition video was "
+                f"generated using Kling (video reference from clip A + frame constraints) "
                 f"and inserted between the clips. {msg}"
             )
         finally:
@@ -2278,7 +2461,8 @@ TOOL_HANDLERS = {
     "fetch_remotion_video_from_supabase_tool": fetch_remotion_video_from_supabase,
     # Video generation
     "generate_video_and_add_to_timeline_tool": generate_video_and_add_to_timeline,
-    "insert_kling_v2v_clip_into_selected_clip_tool": insert_vidu_v2v_clip_into_selected_clip,
+    "insert_kling_v2v_clip_into_selected_clip_tool": insert_kling_v2v_clip_into_selected_clip,
+    "replace_object_in_selected_clip_tool": replace_object_in_selected_clip,
     "generate_transition_clip_tool": generate_transition_clip,
     # Transitions
     "list_transitions_tool": list_transitions,

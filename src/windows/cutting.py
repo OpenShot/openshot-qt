@@ -435,13 +435,12 @@ class Cutting(QDialog):
         if hasattr(self, 'slider_timer') and self.slider_timer:
             self.slider_timer.stop()
 
-        # 2. Stop the player rendering before anything else.
-        #    CloseAudioDevice + kill mirrors what the main window does.
+        # 2. Signal the player loop to stop.
+        #    Do NOT call CloseAudioDevice() here — the main window owns the
+        #    JUCE audio device lifecycle and calling it from a dialog leaves
+        #    the audio subsystem in a state that causes the main window's own
+        #    CloseAudioDevice() to hang on shutdown.
         if hasattr(self, 'preview_thread') and self.preview_thread:
-            try:
-                self.preview_thread.player.CloseAudioDevice()
-            except Exception:
-                pass
             self.preview_thread.kill()          # is_running = False → exits loop
 
         # 3. Stop the preview thread and WAIT for it to fully exit.
