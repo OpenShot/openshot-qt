@@ -160,6 +160,13 @@ python_modules = ["idna.idnadata",
                   "sentry_sdk.integrations.argv",
                   "sentry_sdk.integrations.logging",
                   "sentry_sdk.integrations.threading",
+                  # OpenGL platform modules — loaded dynamically by OpenGL/__init__.py
+                  "OpenGL.platform.darwin",
+                  "OpenGL.platform.ctypesloader",
+                  "OpenGL.platform.baseplatform",
+                  "OpenGL.arrays.ctypesarrays",
+                  "OpenGL.arrays.numpymodule",
+                  "OpenGL.arrays.formathandler",
                   ]
 
 # Determine absolute PATH of OpenShot folder
@@ -502,6 +509,9 @@ elif sys.platform == "linux":
         src_files.append((filename, os.path.join(os.path.relpath(filename, start=openshot_copy_path))))
 
 elif sys.platform == "darwin":
+    # Add OpenGL package so cx_Freeze bundles PyOpenGL platform modules (darwin, etc.)
+    python_packages.append("OpenGL")
+
     # Copy Mac specific files that cx_Freeze misses
     # Add libresvg (if found)
     resvg_path = "/usr/local/lib/librsvg-2.dylib"
