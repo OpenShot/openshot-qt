@@ -79,7 +79,7 @@ echo "Fix permissions inside MacOS folder"
 # files (*.txt, *.json, *.hash, etc.) with +x will cause signing to fail.
 chmod -R a+r "$OS_PATH/"
 find "$OS_PATH" \( -name '*.dylib' -o -name '*.so' \) -exec chmod +x {} \;
-for bin in zenvi launch launch-openshot launch-mac; do
+for bin in zenvi launch launch-zenvi launch-mac; do
     [ -f "$OS_PATH/MacOS/$bin" ] && chmod +x "$OS_PATH/MacOS/$bin"
 done
 

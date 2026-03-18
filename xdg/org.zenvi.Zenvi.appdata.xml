@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>org.zenvi.Zenvi</id>
+  <launchable type="desktop-id">org.zenvi.Zenvi.desktop</launchable>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <name>Zenvi</name>
+  <developer_name>Zenvi</developer_name>
+  <summary>An easy to use, quick to learn, and surprisingly powerful video editor</summary>
+  <description>
+    <p>
+        Zenvi is an award-winning, open-source video editor, available on Linux, Mac,
+        and Windows. Zenvi can create stunning videos, films, and animations with an easy-to-use interface
+        and rich set of features.
+    </p>
+        <p><em>Features include:</em></p>
+    <ul>
+        <li><em>Free &amp; open-source</em> (licensed under GPLv3)</li>
+        <li><em>Cross-platform</em> (Linux, macOS, and Windows)</li>
+        <li><em>Easy-to-use user interface</em> (designed for beginners, built-in tutorial)</li>
+        <li><em>Supports most video, audio, &amp; image formats</em> (based on FFmpeg)</li>
+        <li><em>Includes popular video profiles &amp; presets</em> (over 70+ profiles, including YouTube HD)</li>
+        <li><em>Advanced timeline</em> (including drag and drop, scrolling, panning, zooming, and snapping)</li>
+        <li><em>Advanced clips</em> (including trimming, alpha, scaling, location, rotation, and shearing)</li>
+        <li><em>Real-time preview</em> (multi-threaded, and optimized for performance)</li>
+        <li><em>Simple &amp; advanced views</em> (or customize your own unique view)</li>
+        <li><em>Powerful, curve-based Keyframe animations</em> (linear, Bezier, and constant interpolation)</li>
+        <li><em>Compositing, image overlays, watermarks, &amp; transparency</em></li>
+        <li><em>Unlimited tracks / layers</em> (support for complex projects)</li>
+        <li><em>Video transitions, masks, &amp; wipes</em> (grayscale images and animated masks)</li>
+        <li><em>Video &amp; audio effects</em> (including brightness, gamma, hue, chroma key / blue screen, and more)</li>
+        <li><em>Image sequences &amp; 2D animations</em> (001.png, 002.png, 003.png, etc...)</li>
+        <li><em>Blender 3D integration</em> (animated 3D title templates)</li>
+        <li><em>Vector file support &amp; editing</em> (SVG / scalable vector graphics used for titles and credits)</li>
+        <li><em>Audio mixing, waveform, &amp; editing</em></li>
+        <li><em>Emojis</em> (open-source stickers &amp; artwork included)</li>
+        <li><em>Frame accuracy</em> (step through each frame of video)</li>
+        <li><em>Time mapping &amp; speed changes</em> (slow/fast, forward/backward)</li>
+        <li><em>Advanced AI</em> (motion tracking, object detection, &amp; stabilization effects)</li>
+        <li><em>Credits &amp; captions</em> (scrolling and animated)</li>
+        <li><em>Hardware accelerated</em> (encoding &amp; decoding supports NVIDIA, AMD, Intel and more)</li>
+        <li><em>Import &amp; export</em> (EDL and Final Cut Pro formats, supports most video editors)</li>
+        <li><em>Customizable keyboard shortcuts</em></li>
+        <li><em>Translations</em> (available in 100+ languages)</li>
+    </ul>
+  </description>
+  <url type="homepage">https://zenvi.org/</url>
+  <content_rating type="oars-1.0">
+    <content_attribute id="social-info">moderate</content_attribute>
+  </content_rating>
+  <provides>
+    <binary>zenvi</binary>
+    <id>org.zenvi.Zenvi.desktop</id>
+  </provides>
+  <releases>
+    <release version="1.0.33" date="2025-06-12"/>
+  </releases>
+</component>

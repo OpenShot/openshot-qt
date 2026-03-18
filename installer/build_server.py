@@ -314,26 +314,26 @@ def main():
                     exe_dir = exe_path
                     break
 
-            app_dir_path = os.path.join(PATH, "build", "OpenShot.AppDir")
+            app_dir_path = os.path.join(PATH, "build", "Zenvi.AppDir")
 
             # Recursively create AppDir /usr folder
             os.makedirs(os.path.join(app_dir_path, "usr"), exist_ok=True)
 
             # XDG Freedesktop icon paths
             icons = [
-                ("scalable", os.path.join(PATH, "xdg", "openshot-qt.svg")),
-                ("64x64", os.path.join(PATH, "xdg", "icon", "64", "openshot-qt.png")),
-                ("128x128", os.path.join(PATH, "xdg", "icon", "128", "openshot-qt.png")),
-                ("256x256", os.path.join(PATH, "xdg", "icon", "256", "openshot-qt.png")),
-                ("512x512", os.path.join(PATH, "xdg", "icon", "512", "openshot-qt.png")),
+                ("scalable", os.path.join(PATH, "xdg", "openshot-qt.svg"), "zenvi.svg"),
+                ("64x64", os.path.join(PATH, "xdg", "icon", "64", "openshot-qt.png"), "zenvi.png"),
+                ("128x128", os.path.join(PATH, "xdg", "icon", "128", "openshot-qt.png"), "zenvi.png"),
+                ("256x256", os.path.join(PATH, "xdg", "icon", "256", "openshot-qt.png"), "zenvi.png"),
+                ("512x512", os.path.join(PATH, "xdg", "icon", "512", "openshot-qt.png"), "zenvi.png"),
                 ]
 
             # Copy desktop icons
             icon_theme_path = os.path.join(app_dir_path, "usr", "share", "icons", "hicolor")
 
-            # Copy each icon
-            for icon_size, icon_path in icons:
-                dest_icon_path = os.path.join(icon_theme_path, icon_size, "apps", os.path.split(icon_path)[-1])
+            # Copy each icon (rename from openshot-qt.* to zenvi.*)
+            for icon_size, icon_path, icon_dest_name in icons:
+                dest_icon_path = os.path.join(icon_theme_path, icon_size, "apps", icon_dest_name)
                 os.makedirs(os.path.split(dest_icon_path)[0], exist_ok=True)
                 shutil.copyfile(icon_path, dest_icon_path)
 
@@ -342,48 +342,48 @@ def main():
             shutil.copyfile(icons[3][1], os.path.join(app_dir_path, ".DirIcon"))
 
             # Install program icon
-            shutil.copyfile(icons[0][1], os.path.join(app_dir_path, "openshot-qt.svg"))
+            shutil.copyfile(icons[0][1], os.path.join(app_dir_path, "zenvi.svg"))
 
             dest = os.path.join(app_dir_path, "usr", "share", "pixmaps")
             os.makedirs(dest, exist_ok=True)
 
             # Copy pixmaps (as a 64x64 PNG & SVG)
-            shutil.copyfile(icons[0][1], os.path.join(dest, "openshot-qt.svg"))
-            shutil.copyfile(icons[1][1], os.path.join(dest, "openshot-qt.png"))
+            shutil.copyfile(icons[0][1], os.path.join(dest, "zenvi.svg"))
+            shutil.copyfile(icons[1][1], os.path.join(dest, "zenvi.png"))
 
             # Install MIME handler
             dest = os.path.join(app_dir_path, "usr", "share", "mime", "packages")
             os.makedirs(dest, exist_ok=True)
-            shutil.copyfile(os.path.join(PATH, "xdg", "org.openshot.OpenShot.xml"),
-                            os.path.join(dest, "org.openshot.OpenShot.xml"))
+            shutil.copyfile(os.path.join(PATH, "xdg", "org.zenvi.Zenvi.xml"),
+                            os.path.join(dest, "org.zenvi.Zenvi.xml"))
 
             # Install AppStream XML metadata
             dest = os.path.join(app_dir_path, "usr", "share", "metainfo")
             os.makedirs(dest, exist_ok=True)
-            shutil.copyfile(os.path.join(PATH, "xdg", "org.openshot.OpenShot.appdata.xml"),
-                            os.path.join(dest, "org.openshot.OpenShot.appdata.xml"))
+            shutil.copyfile(os.path.join(PATH, "xdg", "org.zenvi.Zenvi.appdata.xml"),
+                            os.path.join(dest, "org.zenvi.Zenvi.appdata.xml"))
 
             # Copy the entire frozen app
             shutil.copytree(os.path.join(PATH, "build", exe_dir),
                             os.path.join(app_dir_path, "usr", "bin"))
 
             # Copy .desktop file, replacing Exec= commandline
-            desk_in = os.path.join(PATH, "xdg", "org.openshot.OpenShot.desktop")
-            desk_out = os.path.join(app_dir_path, "org.openshot.OpenShot.desktop")
+            desk_in = os.path.join(PATH, "xdg", "org.zenvi.Zenvi.desktop")
+            desk_out = os.path.join(app_dir_path, "org.zenvi.Zenvi.desktop")
             with open(desk_in, "r") as inf, open(desk_out, "w") as outf:
                 for line in inf:
                     if line.startswith("Exec="):
-                        outf.write("Exec=openshot-qt-launch %F\n")
+                        outf.write("Exec=zenvi-launch %F\n")
                     else:
                         outf.write(line)
-            # Copy modified .desktop file to usr/share/applciations
+            # Copy modified .desktop file to usr/share/applications
             dest = os.path.join(app_dir_path, "usr", "share", "applications")
             os.makedirs(dest, exist_ok=True)
-            shutil.copyfile(os.path.join(app_dir_path, "org.openshot.OpenShot.desktop"),
-                            os.path.join(dest, "org.openshot.OpenShot.desktop"))
+            shutil.copyfile(os.path.join(app_dir_path, "org.zenvi.Zenvi.desktop"),
+                            os.path.join(dest, "org.zenvi.Zenvi.desktop"))
 
             # Rename executable launcher script
-            launcher_path = os.path.join(app_dir_path, "usr", "bin", "openshot-qt-launch")
+            launcher_path = os.path.join(app_dir_path, "usr", "bin", "zenvi-launch")
             os.rename(os.path.join(app_dir_path, "usr", "bin", "launch-linux.sh"), launcher_path)
 
             # Create AppRun file
@@ -523,7 +523,7 @@ def main():
                 only_64_bit = ""
 
             # Add version metadata to frozen app launcher
-            launcher_exe = os.path.join(exe_dir, "openshot-qt.exe")
+            launcher_exe = os.path.join(exe_dir, "zenvi.exe")
             verpatch_success = True
             verpatch_command = " ".join([
                 'verpatch.exe',
@@ -572,7 +572,7 @@ def main():
                     inno_output = line
 
             # Was the Inno Installer successful
-            inno_output_exe = os.path.join(PATH, "installer", "Output", "OpenShot.exe")
+            inno_output_exe = os.path.join(PATH, "installer", "Output", "Zenvi.exe")
             if not inno_success or not os.path.exists(inno_output_exe):
                 # Installer failed
                 error("Inno Compiler Error: Had output when none was expected (%s)" % inno_output)

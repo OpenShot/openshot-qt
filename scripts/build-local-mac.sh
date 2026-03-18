@@ -77,7 +77,7 @@ fi
 
 # Ensure all known entry points are executable.
 # Info.plist declares CFBundleExecutable=launch-mac so it must be +x.
-for bin in zenvi launch launch-openshot launch-mac; do
+for bin in zenvi launch launch-zenvi launch-mac; do
   [ -f "$APP/Contents/MacOS/$bin" ] && chmod +x "$APP/Contents/MacOS/$bin" || true
 done
 

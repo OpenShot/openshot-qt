@@ -64,9 +64,9 @@ if os.getenv("FAKEROOTKEY") is not None:
 
 os_files = [
     # XDG application description
-    ('share/applications', ['xdg/org.openshot.OpenShot.desktop']),
+    ('share/applications', ['xdg/org.zenvi.Zenvi.desktop']),
     # AppStream metadata
-    ('share/metainfo', ['xdg/org.openshot.OpenShot.appdata.xml']),
+    ('share/metainfo', ['xdg/org.zenvi.Zenvi.appdata.xml']),
     # Debian menu system application icon
     ('share/pixmaps', ['xdg/openshot-qt.svg']),
     # XDG Freedesktop icon paths
@@ -77,7 +77,7 @@ os_files = [
     ('share/icons/hicolor/256x256/apps', ['xdg/icon/256/openshot-qt.png']),
     ('share/icons/hicolor/512x512/apps', ['xdg/icon/512/openshot-qt.png']),
     # XDG desktop mime types cache
-    ('share/mime/packages', ['xdg/org.openshot.OpenShot.xml']),
+    ('share/mime/packages', ['xdg/org.zenvi.Zenvi.xml']),
     # launcher (mime.types)
     ('lib/mime/packages', ['xdg/openshot-qt']),
 ]
@@ -142,5 +142,5 @@ if ROOT and dist != None:
         sys.stderr.write(FAILED)
     sys.stdout.write("\n-----------------------------------------------")
     sys.stdout.write("\nInstallation Finished!")
-    sys.stdout.write("\nRun OpenShot by typing 'openshot-qt' or through the Applications menu.")
+    sys.stdout.write("\nRun Zenvi by typing 'zenvi' or through the Applications menu.")
     sys.stdout.write("\n-----------------------------------------------\n")

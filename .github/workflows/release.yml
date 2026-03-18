@@ -258,7 +258,7 @@ jobs:
           # Give execute permission to Mach-O libraries and known entry points.
           # Info.plist declares CFBundleExecutable=launch-mac, so that must be +x too.
           find "$APP" \( -name '*.dylib' -o -name '*.so' \) -exec chmod +x {} \;
-          for bin in zenvi launch launch-openshot launch-mac; do
+          for bin in zenvi launch launch-zenvi launch-mac; do
             [ -f "$APP/Contents/MacOS/$bin" ] && chmod +x "$APP/Contents/MacOS/$bin"
           done
 

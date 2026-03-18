@@ -1,1 +1,2 @@
-application/vnd.openshot-qt-project; /usr/bin/launch-openshot '%s'; test=test -n "$DISPLAY"; priority=5
+application/vnd.zenvi-project; /usr/bin/zenvi '%s'; test=test -n "$DISPLAY"; priority=5
+application/vnd.openshot-qt-project; /usr/bin/zenvi '%s'; test=test -n "$DISPLAY"; priority=3
