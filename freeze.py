@@ -604,7 +604,10 @@ build_exe_options["excludes"] = ["distutils",
                                  "pycparser",
                                  "pkg_resources"]
 if sys.platform == "darwin":
-    build_exe_options["excludes"].append("sentry_sdk.integrations.django")
+    # sentry_sdk.integrations.django must NOT be excluded — sentry's DEFAULT_INTEGRATIONS
+    # auto-imports it via importlib at runtime and crashes with ModuleNotFoundError when
+    # it is absent from the frozen bundle. The module handles missing Django gracefully.
+    pass
 
 # Set options
 build_options["build_exe"] = build_exe_options
