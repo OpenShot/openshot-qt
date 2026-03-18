@@ -287,10 +287,13 @@ jobs:
           find /tmp/libopenshot -name "CMakeLists.txt" -o -name "*.cmake" | \
             xargs grep -l "avresample" 2>/dev/null | \
             xargs sed -i '' 's/ avresample//g'
-          # 2. Make OpenMP optional (Apple clang needs keg-only libomp; skip for CI)
+          # 2. Completely disable OpenMP: replace find_package(OpenMP) with a stub
+          #    that sets OpenMP_FOUND=FALSE. This prevents cmake from trying to link
+          #    against libomp (which on macOS is keg-only and causes NOTFOUND errors).
           find /tmp/libopenshot -name "CMakeLists.txt" | \
             xargs grep -l "find_package.*OpenMP" 2>/dev/null | \
-            xargs sed -i '' 's/find_package(OpenMP REQUIRED)/find_package(OpenMP QUIET)/g; s/find_package(OpenMP)/find_package(OpenMP QUIET)/g'
+            xargs sed -i '' \
+              's/find_package(OpenMP[^)]*)/set(OpenMP_FOUND FALSE) # disabled for macOS CI/g'
 
           cmake -S /tmp/libopenshot -B /tmp/libopenshot/build \
             -DCMAKE_INSTALL_PREFIX="$INSTALL_PREFIX" \
