@@ -253,7 +253,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: /tmp/libopenshot-install
-          key: libopenshot-v0.5.0-audio-v0.5.0-arm64-macos-py311-v2
+          key: libopenshot-v0.5.0-audio-v0.5.0-arm64-macos-py311-v3
 
       - name: Build libopenshot from source (arm64 only)
         if: matrix.arch == 'arm64' && steps.cache-libopenshot.outputs.cache-hit != 'true'
@@ -287,13 +287,37 @@ jobs:
           find /tmp/libopenshot -name "CMakeLists.txt" -o -name "*.cmake" | \
             xargs grep -l "avresample" 2>/dev/null | \
             xargs sed -i '' 's/ avresample//g'
-          # 2. Completely disable OpenMP: replace find_package(OpenMP) with a stub
-          #    that sets OpenMP_FOUND=FALSE. This prevents cmake from trying to link
-          #    against libomp (which on macOS is keg-only and causes NOTFOUND errors).
+          # 2. Completely disable OpenMP in cmake (prevents NOTFOUND linker errors).
+          #    We provide a stub omp.h below so that OpenMPUtilities.h #include <omp.h>
+          #    compiles without errors even though we're not linking the OpenMP runtime.
           find /tmp/libopenshot -name "CMakeLists.txt" | \
             xargs grep -l "find_package.*OpenMP" 2>/dev/null | \
             xargs sed -i '' \
               's/find_package(OpenMP[^)]*)/set(OpenMP_FOUND FALSE) # disabled for macOS CI/g'
+
+          # 3. Create minimal omp.h stub so OpenMPUtilities.h compiles without libomp.
+          #    #pragma omp directives are silently ignored without -fopenmp; we only need
+          #    the header to exist so the #include <omp.h> does not fail.
+          mkdir -p /tmp/omp-stub
+          cat > /tmp/omp-stub/omp.h << 'OMPEOF'
+/* Minimal omp.h stub — used when building libopenshot without OpenMP runtime */
+#ifndef _OMP_H_STUB
+#define _OMP_H_STUB
+typedef int omp_lock_t;
+typedef int omp_nest_lock_t;
+static inline int  omp_get_num_threads(void)         { return 1; }
+static inline int  omp_get_thread_num(void)           { return 0; }
+static inline int  omp_get_max_threads(void)          { return 1; }
+static inline void omp_set_num_threads(int n)         { (void)n; }
+static inline int  omp_in_parallel(void)              { return 0; }
+static inline double omp_get_wtime(void)              { return 0.0; }
+static inline void omp_init_lock(omp_lock_t *l)       { (void)l; }
+static inline void omp_destroy_lock(omp_lock_t *l)    { (void)l; }
+static inline void omp_set_lock(omp_lock_t *l)        { (void)l; }
+static inline void omp_unset_lock(omp_lock_t *l)      { (void)l; }
+static inline int  omp_test_lock(omp_lock_t *l)       { (void)l; return 1; }
+#endif
+OMPEOF
 
           cmake -S /tmp/libopenshot -B /tmp/libopenshot/build \
             -DCMAKE_INSTALL_PREFIX="$INSTALL_PREFIX" \
@@ -303,6 +327,7 @@ jobs:
             -DENABLE_JAVA=OFF \
             -DENABLE_PYTHON=ON \
             -DPython3_EXECUTABLE="$(which python3)" \
+            -DCMAKE_CXX_FLAGS="-I/tmp/omp-stub" \
             -DCMAKE_PREFIX_PATH="$INSTALL_PREFIX;$QT5_PREFIX"
           cmake --build /tmp/libopenshot/build --parallel $(sysctl -n hw.logicalcpu)
           cmake --install /tmp/libopenshot/build
