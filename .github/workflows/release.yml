@@ -244,6 +244,72 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Cache libopenshot build
+        id: cache-libopenshot
+        uses: actions/cache@v4
+        with:
+          path: /tmp/libopenshot-install
+          key: libopenshot-v0.5.0-${{ matrix.arch }}-macos-py311-v1
+
+      - name: Build libopenshot from source (macOS)
+        if: steps.cache-libopenshot.outputs.cache-hit != 'true'
+        run: |
+          set -eo pipefail
+          INSTALL_PREFIX="/tmp/libopenshot-install"
+          mkdir -p "$INSTALL_PREFIX"
+
+          # Install build dependencies
+          brew install cmake swig zeromq libsamplerate libomp || true
+          # Ensure ffmpeg is available (usually pre-installed on runner)
+          brew install ffmpeg 2>/dev/null || true
+
+          # Build libopenshot-audio (required by libopenshot)
+          git clone --depth=1 --branch v0.3.1 \
+            https://github.com/OpenShot/libopenshot-audio.git /tmp/libopenshot-audio
+          cmake -S /tmp/libopenshot-audio -B /tmp/libopenshot-audio/build \
+            -DCMAKE_INSTALL_PREFIX="$INSTALL_PREFIX" \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_OSX_ARCHITECTURES="${{ matrix.arch }}"
+          cmake --build /tmp/libopenshot-audio/build --parallel $(sysctl -n hw.logicalcpu)
+          cmake --install /tmp/libopenshot-audio/build
+
+          # Build libopenshot with Python bindings
+          git clone --depth=1 --branch v0.5.0 \
+            https://github.com/OpenShot/libopenshot.git /tmp/libopenshot
+          cmake -S /tmp/libopenshot -B /tmp/libopenshot/build \
+            -DCMAKE_INSTALL_PREFIX="$INSTALL_PREFIX" \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_OSX_ARCHITECTURES="${{ matrix.arch }}" \
+            -DENABLE_TESTS=OFF \
+            -DENABLE_RUBY=OFF \
+            -DENABLE_JAVA=OFF \
+            -DENABLE_PYTHON=ON \
+            -DPython3_EXECUTABLE="$(which python3)" \
+            -DCMAKE_PREFIX_PATH="$INSTALL_PREFIX"
+          cmake --build /tmp/libopenshot/build --parallel $(sysctl -n hw.logicalcpu)
+          cmake --install /tmp/libopenshot/build
+
+      - name: Verify libopenshot Python bindings
+        run: |
+          INSTALL_PREFIX="/tmp/libopenshot-install"
+          PYVER=$(python3 -c "import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}')")
+          PYROOT="$INSTALL_PREFIX/lib/python${PYVER}/site-packages"
+          echo "ZENVI_OPENSHOT_PYROOT=$PYROOT" >> $GITHUB_ENV
+          echo "ZENVI_OPENSHOT_INSTALL=$INSTALL_PREFIX" >> $GITHUB_ENV
+          echo "DYLD_LIBRARY_PATH=$INSTALL_PREFIX/lib:${DYLD_LIBRARY_PATH:-}" >> $GITHUB_ENV
+
+          # Verify the binding is importable
+          DYLD_LIBRARY_PATH="$INSTALL_PREFIX/lib" python3 - <<'EOF'
+          import sys
+          import os
+          install = os.environ.get("ZENVI_OPENSHOT_INSTALL", "/tmp/libopenshot-install")
+          pyver = f"{sys.version_info.major}.{sys.version_info.minor}"
+          pyroot = f"{install}/lib/python{pyver}/site-packages"
+          sys.path.insert(0, pyroot)
+          import openshot
+          print(f"libopenshot version: {openshot.OPENSHOT_VERSION_FULL}")
+          EOF
+
       - name: Install Python dependencies
         run: |
           pip3 install --upgrade pip

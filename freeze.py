@@ -557,6 +557,22 @@ elif sys.platform == "darwin":
                 external_so_files.append((filename, os.path.join("qtwebengine_locales", os.path.relpath(filename, start=locales_dir))))
             break
 
+    # Bundle libopenshot and libopenshot-audio dylibs (built from source on CI)
+    _libopenshot_install = os.getenv("ZENVI_OPENSHOT_INSTALL", "")
+    _dylib_search_dirs = []
+    if _libopenshot_install:
+        _dylib_search_dirs.append(os.path.join(_libopenshot_install, "lib"))
+    _dylib_search_dirs.extend(["/usr/local/lib", "/opt/homebrew/lib"])
+    for _dylib_name in ["libopenshot.dylib", "libopenshot-audio.dylib"]:
+        for _lib_dir in _dylib_search_dirs:
+            _full_path = os.path.join(_lib_dir, _dylib_name)
+            if os.path.exists(_full_path):
+                log.info(f"Bundling {_dylib_name} from {_lib_dir}")
+                external_so_files.append((_full_path, _dylib_name))
+                break
+        else:
+            log.warning(f"WARNING: {_dylib_name} not found in any search directory — openshot may not work in frozen build")
+
     # Manually add BABL extensions (used in ChromaKey effect) - these are loaded at runtime,
     # and thus cx_freeze is not able to detect them
     babl_ext_path = "/usr/local/lib/babl-0.1"
