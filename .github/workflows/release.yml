@@ -249,7 +249,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: /tmp/libopenshot-install
-          key: libopenshot-v0.5.0-${{ matrix.arch }}-macos-py311-v1
+          key: libopenshot-v0.5.0-audio-v0.5.0-${{ matrix.arch }}-macos-py311-v1
 
       - name: Build libopenshot from source (macOS)
         if: steps.cache-libopenshot.outputs.cache-hit != 'true'
@@ -263,8 +263,8 @@ jobs:
           # Ensure ffmpeg is available (usually pre-installed on runner)
           brew install ffmpeg 2>/dev/null || true
 
-          # Build libopenshot-audio (required by libopenshot)
-          git clone --depth=1 --branch v0.3.1 \
+          # Build libopenshot-audio (required by libopenshot; v0.5.0 uses JUCE 7 which has arm64 fix)
+          git clone --depth=1 --branch v0.5.0 \
             https://github.com/OpenShot/libopenshot-audio.git /tmp/libopenshot-audio
           cmake -S /tmp/libopenshot-audio -B /tmp/libopenshot-audio/build \
             -DCMAKE_INSTALL_PREFIX="$INSTALL_PREFIX" \
