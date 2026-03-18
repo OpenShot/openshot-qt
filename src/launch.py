@@ -46,6 +46,15 @@ import argparse
 import json
 import logging
 
+# In a cx_Freeze frozen build, ensure the bundled lib/ directory is first in
+# sys.path so bundled modules (openshot, _openshot) take priority over any
+# system-installed versions (which may have incompatible native dependencies).
+_frozen_lib = os.path.join(os.path.dirname(os.path.abspath(sys.executable)), "lib")
+if os.path.isdir(_frozen_lib) and _frozen_lib != sys.path[0]:
+    if _frozen_lib in sys.path:
+        sys.path.remove(_frozen_lib)
+    sys.path.insert(0, _frozen_lib)
+
 try:
     # This needs to be imported before PyQt5
     # To prevent some issues on AppImage build: wrapping/forcing older glibc versions

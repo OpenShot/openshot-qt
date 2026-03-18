@@ -650,6 +650,62 @@ for frozen_path in os.listdir(build_path):
                 log.info("Post-build openshot copy: %s -> %s" % (_src, _dst))
                 shutil.copy2(_src, _dst)
 
+# Post-build: bundle shared library dependencies of _openshot and libopenshot.
+# cx_Freeze's include_files silently drops many .so files, so we use ldd to
+# find ALL deps of the bundled native libraries and copy them ourselves.
+# This ensures the frozen build works on distros with different lib versions
+# (e.g., building on 22.04, running on 24.04).
+if sys.platform == "linux":
+    import subprocess as _sp
+
+    # Libraries we never bundle (core OS / driver libs the host must provide)
+    _never_bundle = {
+        "linux-vdso.so.1", "ld-linux-x86-64.so.2",
+        "libc.so.6", "libm.so.6", "libdl.so.2", "librt.so.1",
+        "libpthread.so.0", "libstdc++.so.6", "libgcc_s.so.1",
+        "libGL.so.1", "libGLX.so.0", "libGLdispatch.so.0",
+        "libX11.so.6", "libX11-xcb.so.1", "libxcb.so.1",
+        "libdrm.so.2", "libasound.so.2",
+    }
+
+    for frozen_path in os.listdir(build_path):
+        if not frozen_path.startswith("exe"):
+            continue
+        frozen_dir = os.path.join(build_path, frozen_path)
+        # Collect all .so files in root and lib/ that we want to check
+        _so_to_check = []
+        for _so in glob.glob(os.path.join(frozen_dir, "libopenshot*.so*")):
+            if os.path.isfile(_so) and not os.path.islink(_so):
+                _so_to_check.append(_so)
+        for _so in glob.glob(os.path.join(frozen_dir, "lib", "_openshot*.so")):
+            _so_to_check.append(_so)
+
+        _already = set(os.listdir(frozen_dir))  # files already at root
+        _copied = 0
+        for _so in _so_to_check:
+            try:
+                _proc = _sp.run(["ldd", _so], capture_output=True, text=True)
+            except Exception:
+                continue
+            for _line in _proc.stdout.splitlines():
+                if "=>" not in _line or "not found" in _line:
+                    continue
+                parts = _line.split("=>")
+                if len(parts) < 2:
+                    continue
+                _dep_path = parts[1].strip().split("(")[0].strip()
+                _dep_name = os.path.basename(_dep_path)
+                if (not _dep_path or not os.path.exists(_dep_path)
+                        or _dep_name in _never_bundle
+                        or _dep_name in _already):
+                    continue
+                _dst = os.path.join(frozen_dir, _dep_name)
+                log.info("Post-build dep copy: %s -> %s" % (_dep_path, _dst))
+                shutil.copy2(_dep_path, _dst)
+                _already.add(_dep_name)
+                _copied += 1
+        log.info("Post-build: copied %d shared library dependencies" % _copied)
+
 # Fix a few things on the frozen folder(s)
 if sys.platform == "darwin":
     # Mac issues with frozen folder and *.app folder
@@ -668,7 +724,6 @@ elif sys.platform == "linux":
     for frozen_path in os.listdir(build_path):
             if frozen_path.startswith("exe"):
                 paths = ["lib/openshot_qt/",
-                         "lib/*opencv*",
                          "lib/libopenshot*",
                          "translations/",
                          "locales/",
