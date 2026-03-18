@@ -495,10 +495,12 @@ elif sys.platform == "linux":
             else:
                 log.info("Skipping external library: %s" % libpath)
 
-    # Append all source files
+    # Append all source files — place under lib/ so info.PATH resolves correctly
+    # (cx_Freeze puts compiled .pyc modules in lib/, and info.PATH is derived
+    # from the location of lib/classes/info.pyc at runtime)
     src_files.append((os.path.join(PATH, "installer", "qt.conf"), "qt.conf"))
     for filename in find_files("openshot_qt", ["*"]):
-        src_files.append((filename, os.path.join(os.path.relpath(filename, start=openshot_copy_path))))
+        src_files.append((filename, os.path.join("lib", os.path.relpath(filename, start=openshot_copy_path))))
 
 elif sys.platform == "darwin":
     # Copy Mac specific files that cx_Freeze misses
