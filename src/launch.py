@@ -252,10 +252,13 @@ def main():
     argv = [sys.argv[0]]
     argv.extend(extra_args)
     argv.extend(args.remain)
+    app = None
     try:
         app = OpenShotApp(argv)
     except Exception:
-        app.show_errors()
+        if app is not None:
+            app.show_errors()
+        raise
 
     # Setup Qt application details
     app.setApplicationName('zenvi')

@@ -121,10 +121,11 @@ python_packages = ["os",
 # compiled for its own bundled Python, so they are ABI-incompatible with the CI
 # Python and cannot be imported.  Rather than hard-failing, we skip the package
 # when it is not importable and let the frozen app load it at runtime.
+_openshot_available = False
 try:
     import openshot  # noqa: F401
-    python_packages.append("openshot")
-    print("openshot module found — will be included in frozen packages")
+    _openshot_available = True
+    print("openshot module found — will be included in frozen modules")
 except ImportError:
     print("WARNING: openshot module not importable — excluding from frozen packages")
 
@@ -139,6 +140,11 @@ python_modules = ["idna.idnadata",
                   "sentry_sdk.integrations.logging",
                   "sentry_sdk.integrations.threading",
                   ]
+
+# openshot is a single-file module (not a package dir), so use includes.
+# _openshot is the native C++ extension it imports — must be bundled too.
+if _openshot_available:
+    python_modules.extend(["openshot", "_openshot"])
 
 # Determine absolute PATH of OpenShot folder
 PATH = os.path.dirname(os.path.realpath(__file__))  # Primary openshot folder
@@ -290,6 +296,11 @@ elif sys.platform == "linux":
     if not os.path.exists(libopenshot_path):
         # Default to user install path
         libopenshot_path = "/usr/local/lib"
+    if not os.path.exists(os.path.join(libopenshot_path, "libopenshot.so")):
+        # PPA installs place libopenshot.so under the arch-qualified lib dir
+        _archlib_candidate = ARCHLIB.rstrip("/")
+        if os.path.exists(os.path.join(_archlib_candidate, "libopenshot.so")):
+            libopenshot_path = _archlib_candidate
 
     # Find all related SO files
     for filename in find_files(libopenshot_path, ["*openshot*.so*"]):
