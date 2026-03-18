@@ -67,8 +67,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y \
             libopenshot-audio-dev libopenshot-dev python3-openshot \
-            python3-pyqt5 python3-pyqt5.qtsvg python3-pyqt5.qtwebengine \
-            python3-pyqt5.qtopengl python3-zmq python3-xdg \
+            python3-zmq python3-xdg \
             libfuse2 desktop-file-utils
 
       - name: Install Python dependencies
@@ -78,6 +77,20 @@ jobs:
 
       - name: Freeze with cx_Freeze
         run: python3 freeze.py build --git-branch=production
+
+      - name: Smoke test frozen zenvi
+        run: |
+          FROZEN_DIR=$(find build -maxdepth 1 -type d -name 'exe.linux-*' | head -1)
+          if [ -z "$FROZEN_DIR" ]; then
+            echo "::error::cx_Freeze output directory build/exe.linux-* not found"
+            ls -la build/ || true
+            exit 1
+          fi
+          echo "Frozen directory: $FROZEN_DIR"
+          "$FROZEN_DIR/zenvi" -V 2>&1 || "$FROZEN_DIR/zenvi" --version 2>&1 || {
+            echo "::error::Frozen zenvi failed basic startup/version check"
+            exit 1
+          }
 
       - name: Build AppImage
         run: |
@@ -124,20 +137,30 @@ jobs:
         run: |
           DEB_DIR="zenvi_${VER}_amd64"
           mkdir -p "$DEB_DIR/DEBIAN"
+          mkdir -p "$DEB_DIR/opt/zenvi"
           mkdir -p "$DEB_DIR/usr/bin"
-          mkdir -p "$DEB_DIR/usr/share/zenvi"
           mkdir -p "$DEB_DIR/usr/share/applications"
           mkdir -p "$DEB_DIR/usr/share/icons/hicolor/256x256/apps"
 
-          # Copy frozen build
-          cp -r build/exe.linux-*/* "$DEB_DIR/usr/share/zenvi/"
+          FROZEN_DIR=$(find build -maxdepth 1 -type d -name 'exe.linux-*' | head -1)
+          if [ -z "$FROZEN_DIR" ]; then
+            echo "::error::cx_Freeze output directory build/exe.linux-* not found"
+            ls -la build/ || true
+            exit 1
+          fi
+          echo "Using frozen directory: $FROZEN_DIR"
+
+          # Copy frozen build into /opt/zenvi (self-contained layout)
+          cp -r "$FROZEN_DIR"/* "$DEB_DIR/opt/zenvi/"
 
           # Launcher script
           cat > "$DEB_DIR/usr/bin/zenvi" << 'LAUNCHER'
           #!/bin/bash
-          export LD_LIBRARY_PATH="/usr/share/zenvi:/usr/share/zenvi/lib:$LD_LIBRARY_PATH"
-          export QT_PLUGIN_PATH="/usr/share/zenvi"
-          exec /usr/share/zenvi/zenvi "$@"
+          HERE="/opt/zenvi"
+          export LD_LIBRARY_PATH="$HERE:$HERE/lib:${LD_LIBRARY_PATH}"
+          export QT_PLUGIN_PATH="$HERE"
+          export QT_QPA_PLATFORM_PLUGIN_PATH="$HERE/plugins/platforms"
+          exec "$HERE/zenvi" "$@"
           LAUNCHER
           chmod +x "$DEB_DIR/usr/bin/zenvi"
 
