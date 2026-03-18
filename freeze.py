@@ -589,12 +589,7 @@ build_exe_options["excludes"] = ["distutils",
                                  "tkinter",
                                  "pydoc_data",
                                  "pycparser",
-                                 "pkg_resources",
-                                 # Bundled manually via include_files (native C++ deps
-                                 # prevent ModuleFinder from importing at freeze time)
-                                 "openshot",
-                                 "_openshot",
-                                 ]
+                                 "pkg_resources"]
 if sys.platform == "darwin":
     build_exe_options["excludes"].append("sentry_sdk.integrations.django")
 
