@@ -282,11 +282,15 @@ jobs:
           git clone --depth=1 --branch v0.5.0 \
             https://github.com/OpenShot/libopenshot.git /tmp/libopenshot
 
-          # FFmpeg 5+ dropped libavresample; patch cmake to remove it from any
-          # find_package REQUIRED/OPTIONAL_COMPONENTS so the build still succeeds.
+          # Patch cmake files:
+          # 1. Remove avresample (dropped in FFmpeg 5+)
           find /tmp/libopenshot -name "CMakeLists.txt" -o -name "*.cmake" | \
             xargs grep -l "avresample" 2>/dev/null | \
             xargs sed -i '' 's/ avresample//g'
+          # 2. Make OpenMP optional (Apple clang needs keg-only libomp; skip for CI)
+          find /tmp/libopenshot -name "CMakeLists.txt" | \
+            xargs grep -l "find_package.*OpenMP" 2>/dev/null | \
+            xargs sed -i '' 's/find_package(OpenMP REQUIRED)/find_package(OpenMP QUIET)/g; s/find_package(OpenMP)/find_package(OpenMP QUIET)/g'
 
           cmake -S /tmp/libopenshot -B /tmp/libopenshot/build \
             -DCMAKE_INSTALL_PREFIX="$INSTALL_PREFIX" \
@@ -295,7 +299,6 @@ jobs:
             -DENABLE_RUBY=OFF \
             -DENABLE_JAVA=OFF \
             -DENABLE_PYTHON=ON \
-            -DENABLE_OPENMP=OFF \
             -DPython3_EXECUTABLE="$(which python3)" \
             -DCMAKE_PREFIX_PATH="$INSTALL_PREFIX;$QT5_PREFIX"
           cmake --build /tmp/libopenshot/build --parallel $(sysctl -n hw.logicalcpu)
