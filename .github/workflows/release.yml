@@ -295,13 +295,9 @@ jobs:
             -DENABLE_RUBY=OFF \
             -DENABLE_JAVA=OFF \
             -DENABLE_PYTHON=ON \
+            -DENABLE_OPENMP=OFF \
             -DPython3_EXECUTABLE="$(which python3)" \
-            -DCMAKE_PREFIX_PATH="$INSTALL_PREFIX;$QT5_PREFIX" \
-            -DOpenMP_C_FLAGS="-Xpreprocessor -fopenmp -I$LIBOMP_PREFIX/include" \
-            -DOpenMP_CXX_FLAGS="-Xpreprocessor -fopenmp -I$LIBOMP_PREFIX/include" \
-            -DOpenMP_C_LIB_NAMES="omp" \
-            -DOpenMP_CXX_LIB_NAMES="omp" \
-            -DOpenMP_omp_LIBRARY="$LIBOMP_PREFIX/lib/libomp.dylib"
+            -DCMAKE_PREFIX_PATH="$INSTALL_PREFIX;$QT5_PREFIX"
           cmake --build /tmp/libopenshot/build --parallel $(sysctl -n hw.logicalcpu)
           cmake --install /tmp/libopenshot/build
 
