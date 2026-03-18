@@ -46,14 +46,19 @@ import argparse
 import json
 import logging
 
-# In a cx_Freeze frozen build, ensure the bundled lib/ directory is first in
-# sys.path so bundled modules (openshot, _openshot) take priority over any
-# system-installed versions (which may have incompatible native dependencies).
-_frozen_lib = os.path.join(os.path.dirname(os.path.abspath(sys.executable)), "lib")
-if os.path.isdir(_frozen_lib) and _frozen_lib != sys.path[0]:
-    if _frozen_lib in sys.path:
-        sys.path.remove(_frozen_lib)
-    sys.path.insert(0, _frozen_lib)
+# In a cx_Freeze frozen build, remove system site-packages from sys.path to
+# prevent circular imports between bundled modules and system-installed copies
+# (e.g., zmq, openshot, PyQt5).  The frozen build is self-contained — all
+# required modules are in lib/.  System paths only cause version conflicts.
+if getattr(sys, 'frozen', False):
+    _system_prefixes = ('/usr/lib/python', '/usr/local/lib/python')
+    sys.path = [p for p in sys.path if not p.startswith(_system_prefixes)]
+    # Ensure bundled lib/ is present and first
+    _frozen_lib = os.path.join(os.path.dirname(os.path.abspath(sys.executable)), "lib")
+    if os.path.isdir(_frozen_lib):
+        if _frozen_lib in sys.path:
+            sys.path.remove(_frozen_lib)
+        sys.path.insert(0, _frozen_lib)
 
 try:
     # This needs to be imported before PyQt5

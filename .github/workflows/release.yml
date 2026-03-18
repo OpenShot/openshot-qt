@@ -67,7 +67,6 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y \
             libopenshot-audio-dev libopenshot-dev python3-openshot \
-            python3-zmq python3-xdg \
             libfuse2 desktop-file-utils
 
       - name: Install Python dependencies

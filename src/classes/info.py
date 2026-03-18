@@ -26,9 +26,10 @@
  """
 
 import os
+import sys
 from time import strftime
 
-VERSION = "1.0.46"
+VERSION = "1.0.47"
 GITHUB_REPO = "Zenvi-pro/zenvi-core"
 MINIMUM_LIBOPENSHOT_VERSION = "0.5.0"
 DATE = "20250612000000"
@@ -42,7 +43,13 @@ COPYRIGHT = "(c) 2008-{} {}".format(strftime("%Y"), COMPANY_NAME)
 CWD = os.getcwd()
 
 # Application paths
-PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))  # Primary openshot folder
+if getattr(sys, 'frozen', False):
+    # cx_Freeze frozen build — use the executable's directory as the app root
+    # (in frozen builds, __file__ resolves to lib/classes/info.pyc which gives
+    # lib/ as the parent, but resources live at the executable's root level)
+    PATH = os.path.dirname(os.path.realpath(sys.executable))
+else:
+    PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))  # Primary openshot folder
 RESOURCES_PATH = os.path.join(PATH, "resources")
 PROFILES_PATH = os.path.join(PATH, "profiles")
 IMAGES_PATH = os.path.join(PATH, "images")
