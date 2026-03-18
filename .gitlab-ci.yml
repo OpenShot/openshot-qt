@@ -80,7 +80,7 @@ mac-builder:
     - VERSION=$(python3 src/launch.py -V)
     - echo -e "CI_PROJECT_NAME:$CI_PROJECT_NAME\nCI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME\nCI_COMMIT_SHA:$CI_COMMIT_SHA\nCI_JOB_ID:$CI_JOB_ID\nCI_PIPELINE_ID:$CI_PIPELINE_ID\nVERSION:$VERSION" > "build/install-x64/share/$CI_PROJECT_NAME.env"
     - git log $(git describe --tags --abbrev=0 @^)..@ --oneline --pretty=format:"- %C(auto,yellow)%h%C(auto,magenta)% %C(auto,blue)%>(12,trunc)%ad %C(auto,green)%<(25,trunc)%aN%C(auto,reset)%s%C(auto,red)% gD% D" --date=short > "build/install-x64/share/$CI_PROJECT_NAME.log"
-    - python3 -u freeze.py bdist_mac --git-branch=$CI_COMMIT_REF_NAME --iconfile=installer/openshot.icns --custom-info-plist=installer/Info.plist --bundle-name="OpenShot Video Editor"
+    - python3 -u freeze.py bdist_mac --git-branch=$CI_COMMIT_REF_NAME --iconfile=installer/zenvi.icns --custom-info-plist=installer/Info.plist --bundle-name="Zenvi"
     - python3 -u installer/build_server.py "$SLACK_TOKEN" "$WINDOWS_KEY" "$WINDOWS_PASSWORD" "$GITHUB_USER" "$GITHUB_PASS" "False" "$CI_COMMIT_REF_NAME" "$MAC_PASSWORD"
   when: always
   except:

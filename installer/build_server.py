@@ -321,11 +321,11 @@ def main():
 
             # XDG Freedesktop icon paths
             icons = [
-                ("scalable", os.path.join(PATH, "xdg", "openshot-qt.svg"), "zenvi.svg"),
-                ("64x64", os.path.join(PATH, "xdg", "icon", "64", "openshot-qt.png"), "zenvi.png"),
-                ("128x128", os.path.join(PATH, "xdg", "icon", "128", "openshot-qt.png"), "zenvi.png"),
-                ("256x256", os.path.join(PATH, "xdg", "icon", "256", "openshot-qt.png"), "zenvi.png"),
-                ("512x512", os.path.join(PATH, "xdg", "icon", "512", "openshot-qt.png"), "zenvi.png"),
+                ("scalable", os.path.join(PATH, "xdg", "zenvi.svg"), "zenvi.svg"),
+                ("64x64", os.path.join(PATH, "xdg", "icon", "64", "zenvi.png"), "zenvi.png"),
+                ("128x128", os.path.join(PATH, "xdg", "icon", "128", "zenvi.png"), "zenvi.png"),
+                ("256x256", os.path.join(PATH, "xdg", "icon", "256", "zenvi.png"), "zenvi.png"),
+                ("512x512", os.path.join(PATH, "xdg", "icon", "512", "zenvi.png"), "zenvi.png"),
                 ]
 
             # Copy desktop icons

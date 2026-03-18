@@ -68,18 +68,18 @@ os_files = [
     # AppStream metadata
     ('share/metainfo', ['xdg/org.zenvi.Zenvi.appdata.xml']),
     # Debian menu system application icon
-    ('share/pixmaps', ['xdg/openshot-qt.svg']),
+    ('share/pixmaps', ['xdg/zenvi.svg']),
     # XDG Freedesktop icon paths
-    ('share/icons/hicolor/scalable/apps', ['xdg/openshot-qt.svg']),
-    ('share/icons/hicolor/scalable/mimetypes', ['xdg/openshot-qt-doc.svg']),
-    ('share/icons/hicolor/64x64/apps', ['xdg/icon/64/openshot-qt.png']),
-    ('share/icons/hicolor/128x128/apps', ['xdg/icon/128/openshot-qt.png']),
-    ('share/icons/hicolor/256x256/apps', ['xdg/icon/256/openshot-qt.png']),
-    ('share/icons/hicolor/512x512/apps', ['xdg/icon/512/openshot-qt.png']),
+    ('share/icons/hicolor/scalable/apps', ['xdg/zenvi.svg']),
+    ('share/icons/hicolor/scalable/mimetypes', ['xdg/zenvi-doc.svg']),
+    ('share/icons/hicolor/64x64/apps', ['xdg/icon/64/zenvi.png']),
+    ('share/icons/hicolor/128x128/apps', ['xdg/icon/128/zenvi.png']),
+    ('share/icons/hicolor/256x256/apps', ['xdg/icon/256/zenvi.png']),
+    ('share/icons/hicolor/512x512/apps', ['xdg/icon/512/zenvi.png']),
     # XDG desktop mime types cache
     ('share/mime/packages', ['xdg/org.zenvi.Zenvi.xml']),
     # launcher (mime.types)
-    ('lib/mime/packages', ['xdg/openshot-qt']),
+    ('lib/mime/packages', ['xdg/zenvi']),
 ]
 
 # Find files matching patterns

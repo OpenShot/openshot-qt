@@ -35,7 +35,7 @@
 # if you get errors while freezing.
 #
 # Mac Syntax to Build App Bundle:
-# 1) python3 freeze.py bdist_mac --qt-menu-nib="/usr/local/Cellar/qt5/5.4.2/plugins/platforms/" --iconfile=installer/openshot.icns --custom-info-plist=installer/Info.plist --bundle-name="OpenShot Video Editor"
+# 1) python3 freeze.py bdist_mac --qt-menu-nib="/usr/local/Cellar/qt5/5.4.2/plugins/platforms/" --iconfile=installer/zenvi.icns --custom-info-plist=installer/Info.plist --bundle-name="Zenvi"
 # 2) change Contents/Info.plist to use launch-mac.sh as the Executable name
 # 3) manually fix rsvg executable:
 #    sudo dylibbundler -od -of -b -x ~/apps/rsvg/rsvg-convert -d ./rsvg-libs/ -p @executable_path/rsvg-libs/
@@ -196,7 +196,7 @@ def find_files(directory, patterns):
 
 
 # GUI applications require a different base on Windows
-iconFile = "openshot-qt"
+iconFile = "zenvi"
 base = None
 src_files = []
 external_so_files = []
@@ -482,7 +482,7 @@ elif sys.platform == "darwin":
 
     # Append Mac ICON file (.icns format required for macOS app bundles)
     # Use the full path to the .icns file; override iconFile to an absolute path
-    iconFile = os.path.join(PATH, "installer", "openshot.icns")
+    iconFile = os.path.join(PATH, "installer", "zenvi.icns")
     src_files.append((iconFile, "icon.icns"))
 
     # Add QtWebEngineProcess / resources if found.
@@ -569,7 +569,7 @@ if sys.platform == "darwin":
 build_options["build_exe"] = build_exe_options
 
 # Define launcher executable to create
-# On macOS iconFile was set to a full absolute path (installer/openshot.icns).
+# On macOS iconFile was set to a full absolute path (installer/zenvi.icns).
 # On other platforms it is a bare filename resolved relative to xdg/.
 if sys.platform == "darwin":
     _icon_path = iconFile

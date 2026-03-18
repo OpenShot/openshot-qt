@@ -45,7 +45,7 @@ Compression=lzma
 SolidCompression=yes
 WizardSmallImageFile=installer-logo.bmp
 ; NOTE: Keep this path in sync with repo icons.
-SetupIconFile=..\xdg\openshot-qt.ico
+SetupIconFile=..\xdg\zenvi.ico
 UsePreviousLanguage=no
 Uninstallable=not PortableCheck
 UninstallDisplayIcon={app}\{#MyAppExeName}

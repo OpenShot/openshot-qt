@@ -68,8 +68,8 @@ sed "s/VERSION/${VER}/g" installer/Info.plist > "$APP/Contents/Resources/Info.pl
 cp "$APP/Contents/Resources/Info.plist" "$APP/Contents/Info.plist"
 
 # Icon
-if [ -f "installer/openshot.icns" ]; then
-  cp installer/openshot.icns "$APP/Contents/Resources/icon.icns"
+if [ -f "installer/zenvi.icns" ]; then
+  cp installer/zenvi.icns "$APP/Contents/Resources/icon.icns"
 else
   ICON=$(find xdg images -name "*.png" -path "*256*" 2>/dev/null | head -1)
   [ -n "$ICON" ] && cp "$ICON" "$APP/Contents/Resources/icon.png"
@@ -87,9 +87,9 @@ if [ -n "${SIGN_IDENTITY:-}" ]; then
   echo "  Production signing with identity: $SIGN_IDENTITY"
   find build \( -name '*.dylib' -o -name '*.so' \) \
     -exec codesign -s "$SIGN_IDENTITY" --timestamp=http://timestamp.apple.com/ts01 \
-      --entitlements installer/openshot.entitlements --force "{}" \;
+      --entitlements installer/zenvi.entitlements --force "{}" \;
   codesign -s "$SIGN_IDENTITY" --force --deep \
-    --entitlements installer/openshot.entitlements \
+    --entitlements installer/zenvi.entitlements \
     --options runtime --timestamp=http://timestamp.apple.com/ts01 \
     "$APP"
   spctl -a -vv "$APP"

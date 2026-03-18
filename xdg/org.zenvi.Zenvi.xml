@@ -8,6 +8,6 @@
   <mime-type type="application/vnd.openshot-qt-project">
     <comment>OpenShot project (legacy)</comment>
     <glob pattern="*.osp"/>
-    <generic-icon name="openshot-qt-doc"/>
+    <generic-icon name="zenvi-doc"/>
   </mime-type>
 </mime-info>

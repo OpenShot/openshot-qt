@@ -246,8 +246,8 @@ jobs:
           sed "s/VERSION/${VER}/g" installer/Info.plist > "$APP/Contents/Info.plist"
           cp "$APP/Contents/Info.plist" "$APP/Contents/Resources/Info.plist"
 
-          [ -f "installer/openshot.icns" ] \
-            && cp "installer/openshot.icns" "$APP/Contents/Resources/icon.icns"
+          [ -f "installer/zenvi.icns" ] \
+            && cp "installer/zenvi.icns" "$APP/Contents/Resources/icon.icns"
 
           # Make all files readable but do NOT add +x to everything.
           # chmod -R a+rx would give execute bits to text/data files (e.g.
