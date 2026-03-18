@@ -280,6 +280,13 @@ jobs:
           # Build libopenshot v0.5.0 with Python bindings
           git clone --depth=1 --branch v0.5.0 \
             https://github.com/OpenShot/libopenshot.git /tmp/libopenshot
+
+          # FFmpeg 5+ dropped libavresample; patch cmake to remove it from any
+          # find_package REQUIRED/OPTIONAL_COMPONENTS so the build still succeeds.
+          find /tmp/libopenshot -name "CMakeLists.txt" -o -name "*.cmake" | \
+            xargs grep -l "avresample" 2>/dev/null | \
+            xargs sed -i '' 's/ avresample//g'
+
           cmake -S /tmp/libopenshot -B /tmp/libopenshot/build \
             -DCMAKE_INSTALL_PREFIX="$INSTALL_PREFIX" \
             -DCMAKE_BUILD_TYPE=Release \
