@@ -121,30 +121,32 @@ python_packages = ["os",
 # compiled for its own bundled Python, so they are ABI-incompatible with the CI
 # Python and cannot be imported.  Rather than hard-failing, we skip the package
 # when it is not importable and let the frozen app load it at runtime.
-# Locate the openshot Python wrapper and _openshot native extension so we can
-# copy them directly into the frozen build via include_files.  We intentionally
-# avoid using cx_Freeze's "includes" or "packages" for these because the native
-# _openshot extension has C++ library dependencies that prevent cx_Freeze's
-# ModuleFinder from importing it at freeze time (especially on Windows).
-_openshot_files = []  # list of (src_path, dest_basename) to bundle
+# Locate the openshot Python wrapper and _openshot native extension.
+# We copy them manually into the frozen build's lib/ directory AFTER cx_Freeze
+# runs, because:
+#  - cx_Freeze's "packages"/"includes" tries to import _openshot at freeze time,
+#    which fails on Windows (native DLL deps not loadable by ModuleFinder)
+#  - cx_Freeze's "include_files" silently drops files under some conditions
+# The post-build copy into lib/ is the only reliable cross-platform approach.
+_openshot_src_files = []  # list of (src_path, basename) — copied after build
 try:
     import openshot  # noqa: F401
     import inspect
     _os_py = inspect.getfile(openshot)
     _os_dir = os.path.dirname(os.path.abspath(_os_py))
-    _openshot_files.append((_os_py, os.path.basename(_os_py)))
+    _openshot_src_files.append((_os_py, os.path.basename(_os_py)))
     # Find the native extension (_openshot.pyd on Windows, _openshot.so on Linux)
     for _ext in (".pyd", ".so"):
         _native = os.path.join(_os_dir, "_openshot" + _ext)
         if os.path.exists(_native):
-            _openshot_files.append((_native, os.path.basename(_native)))
+            _openshot_src_files.append((_native, os.path.basename(_native)))
     # Also check for _openshot.cpython-*.so (Linux naming convention)
     import glob as _glob
     for _match in _glob.glob(os.path.join(_os_dir, "_openshot.cpython-*.so")):
-        _openshot_files.append((_match, os.path.basename(_match)))
-    print("openshot module found — will copy %d file(s) into frozen build" % len(_openshot_files))
-    for _src, _dst in _openshot_files:
-        print("  %s -> %s" % (_src, _dst))
+        _openshot_src_files.append((_match, os.path.basename(_match)))
+    print("openshot module found — will copy %d file(s) into frozen build (post-build)" % len(_openshot_src_files))
+    for _src, _dst in _openshot_src_files:
+        print("  %s -> lib/%s" % (_src, _dst))
 except ImportError:
     print("WARNING: openshot module not importable — excluding from frozen build")
 
@@ -581,7 +583,7 @@ elif sys.platform == "darwin":
 
 # Dependencies are automatically detected, but it might need fine tuning.
 build_exe_options["packages"] = python_packages
-build_exe_options["include_files"] = src_files + external_so_files + _openshot_files
+build_exe_options["include_files"] = src_files + external_so_files
 build_exe_options["includes"] = python_modules
 build_exe_options["excludes"] = ["distutils",
                                  "numpy",
@@ -635,8 +637,20 @@ setup(name=info.PRODUCT_NAME,
 if os.path.exists(os.path.join(PATH, "src")):
     rmtree(openshot_copy_path, True)
 
-# Fix a few things on the frozen folder(s)
+# Copy openshot bindings into frozen lib/ (post-build, bypassing cx_Freeze).
+# This is done for all platforms because cx_Freeze cannot reliably handle
+# _openshot (native C++ deps prevent ModuleFinder from importing it).
 build_path = os.path.join(PATH, "build")
+for frozen_path in os.listdir(build_path):
+    if frozen_path.startswith("exe"):
+        lib_dir = os.path.join(build_path, frozen_path, "lib")
+        if os.path.isdir(lib_dir):
+            for _src, _basename in _openshot_src_files:
+                _dst = os.path.join(lib_dir, _basename)
+                log.info("Post-build openshot copy: %s -> %s" % (_src, _dst))
+                shutil.copy2(_src, _dst)
+
+# Fix a few things on the frozen folder(s)
 if sys.platform == "darwin":
     # Mac issues with frozen folder and *.app folder
     # We need to rewrite many dependency paths and library IDs
