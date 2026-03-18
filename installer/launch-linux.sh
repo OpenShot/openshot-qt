@@ -2,7 +2,11 @@
 
 # Add the current folder the library path
 HERE=$(dirname "$(realpath "$0")")
-export LD_LIBRARY_PATH="${HERE}"
+export LD_LIBRARY_PATH="${HERE}:${HERE}/lib:${LD_LIBRARY_PATH}"
+
+# Ensure bundled Python modules are found before system site-packages
+# (prevents conflicts with system-installed python3-openshot)
+export PYTHONPATH="${HERE}/lib:${PYTHONPATH}"
 
 # Set some environment variables
 export QT_PLUGIN_PATH="${HERE}"

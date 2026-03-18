@@ -78,8 +78,10 @@ if [ "$TEST_ONLY" = false ]; then
 #!/bin/bash
 HERE="/opt/zenvi"
 export LD_LIBRARY_PATH="$HERE:$HERE/lib:${LD_LIBRARY_PATH}"
+export PYTHONPATH="$HERE/lib:${PYTHONPATH}"
 export QT_PLUGIN_PATH="$HERE"
 export QT_QPA_PLATFORM_PLUGIN_PATH="$HERE/plugins/platforms"
+export OPENSSL_CONF="/dev/null"
 exec "$HERE/zenvi" "$@"
 LAUNCHER
     chmod +x "$DEB_DIR/usr/bin/zenvi"
@@ -100,7 +102,7 @@ Version: ${VER}
 Section: video
 Priority: optional
 Architecture: amd64
-Depends: libopenshot-dev, python3
+Depends: python3
 Maintainer: Zenvi Team <team@zenvi.org>
 Description: Zenvi Video Editor
  Create and edit stunning videos, films, and animations.
