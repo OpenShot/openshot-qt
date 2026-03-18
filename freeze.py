@@ -121,13 +121,32 @@ python_packages = ["os",
 # compiled for its own bundled Python, so they are ABI-incompatible with the CI
 # Python and cannot be imported.  Rather than hard-failing, we skip the package
 # when it is not importable and let the frozen app load it at runtime.
-_openshot_available = False
+# Locate the openshot Python wrapper and _openshot native extension so we can
+# copy them directly into the frozen build via include_files.  We intentionally
+# avoid using cx_Freeze's "includes" or "packages" for these because the native
+# _openshot extension has C++ library dependencies that prevent cx_Freeze's
+# ModuleFinder from importing it at freeze time (especially on Windows).
+_openshot_files = []  # list of (src_path, dest_basename) to bundle
 try:
     import openshot  # noqa: F401
-    _openshot_available = True
-    print("openshot module found — will be included in frozen modules")
+    import inspect
+    _os_py = inspect.getfile(openshot)
+    _os_dir = os.path.dirname(os.path.abspath(_os_py))
+    _openshot_files.append((_os_py, os.path.basename(_os_py)))
+    # Find the native extension (_openshot.pyd on Windows, _openshot.so on Linux)
+    for _ext in (".pyd", ".so"):
+        _native = os.path.join(_os_dir, "_openshot" + _ext)
+        if os.path.exists(_native):
+            _openshot_files.append((_native, os.path.basename(_native)))
+    # Also check for _openshot.cpython-*.so (Linux naming convention)
+    import glob as _glob
+    for _match in _glob.glob(os.path.join(_os_dir, "_openshot.cpython-*.so")):
+        _openshot_files.append((_match, os.path.basename(_match)))
+    print("openshot module found — will copy %d file(s) into frozen build" % len(_openshot_files))
+    for _src, _dst in _openshot_files:
+        print("  %s -> %s" % (_src, _dst))
 except ImportError:
-    print("WARNING: openshot module not importable — excluding from frozen packages")
+    print("WARNING: openshot module not importable — excluding from frozen build")
 
 # Modules to include
 python_modules = ["idna.idnadata",
@@ -140,11 +159,6 @@ python_modules = ["idna.idnadata",
                   "sentry_sdk.integrations.logging",
                   "sentry_sdk.integrations.threading",
                   ]
-
-# openshot is a single-file module (not a package dir), so use includes.
-# _openshot is the native C++ extension it imports — must be bundled too.
-if _openshot_available:
-    python_modules.extend(["openshot", "_openshot"])
 
 # Determine absolute PATH of OpenShot folder
 PATH = os.path.dirname(os.path.realpath(__file__))  # Primary openshot folder
@@ -567,7 +581,7 @@ elif sys.platform == "darwin":
 
 # Dependencies are automatically detected, but it might need fine tuning.
 build_exe_options["packages"] = python_packages
-build_exe_options["include_files"] = src_files + external_so_files
+build_exe_options["include_files"] = src_files + external_so_files + _openshot_files
 build_exe_options["includes"] = python_modules
 build_exe_options["excludes"] = ["distutils",
                                  "numpy",
@@ -575,7 +589,12 @@ build_exe_options["excludes"] = ["distutils",
                                  "tkinter",
                                  "pydoc_data",
                                  "pycparser",
-                                 "pkg_resources"]
+                                 "pkg_resources",
+                                 # Bundled manually via include_files (native C++ deps
+                                 # prevent ModuleFinder from importing at freeze time)
+                                 "openshot",
+                                 "_openshot",
+                                 ]
 if sys.platform == "darwin":
     build_exe_options["excludes"].append("sentry_sdk.integrations.django")
 
