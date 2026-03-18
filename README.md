@@ -1,154 +1,239 @@
 # Zenvi
 
-Zenvi is an award-winning free and open-source video editor 
-for Linux, Mac, and Windows, and is dedicated to delivering high quality 
-video editing and animation solutions to the world.
+**Local-first, AI-native video editor.** Zenvi runs 99% of operations on your own machine — your footage never leaves your computer. Built-in AI agents handle tedious editing tasks while you stay in creative control.
 
-## Build Status
+[![Zenvi Release](https://github.com/Zenvi-pro/zenvi-core/actions/workflows/release.yml/badge.svg)](https://github.com/Zenvi-pro/zenvi-core/actions/workflows/release.yml)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20macOS%20%7C%20Windows-lightgrey)]()
 
-[![openshot-qt CI Build](https://github.com/OpenShot/openshot-qt/actions/workflows/ci.yml/badge.svg)](https://github.com/OpenShot/openshot-qt/actions/workflows/ci.yml) 
-[![libopenshot CI Build](https://github.com/OpenShot/libopenshot/actions/workflows/ci.yml/badge.svg)](https://github.com/OpenShot/libopenshot/actions/workflows/ci.yml) 
-[![libopenshot-audio CI Build](https://github.com/OpenShot/libopenshot-audio/actions/workflows/ci.yml/badge.svg)](https://github.com/OpenShot/libopenshot-audio/actions/workflows/ci.yml)
-![Discord](https://img.shields.io/discord/1143390791507644496?style=flat)
+---
+
+## What is Zenvi?
+
+Zenvi is a free, open-source video editor for **Linux**, **macOS** (Intel & Apple Silicon), and **Windows**. It combines a full-featured non-linear editing timeline with AI-powered tools that can organize your media, generate voiceovers, create educational animations, and more — all running locally on your hardware.
+
+### Why Zenvi?
+
+- **Local-first** — Your footage, your compute, your privacy. No cloud uploads required.
+- **AI-native** — Built-in agents for media tagging, voice/music generation, face detection, and natural-language search — powered by your choice of LLM (OpenAI, Anthropic Claude, Ollama local models).
+- **Cross-platform** — Single codebase, native installers for all three desktop OSes.
+- **Open source** — GPLv3. Fork it, extend it, ship it.
+
+---
 
 ## Features
 
-* Cross-platform (Linux, Mac, and Windows)
-* Support for many video, audio, and image formats (based on FFmpeg)
-* Powerful curve-based Key frame animations
-* Desktop integration (drag and drop support)
-* Unlimited tracks / layers
-* Clip resizing, scaling, trimming, snapping, rotation, and cutting
-* Video transitions with real-time previews
-* Compositing, image overlays, watermarks
-* Title templates, title creation, sub-titles
-* 2D animation support (image sequences)
-* 3D animated titles (and effects)
-* SVG friendly, to create and include vector titles and credits
-* Scrolling motion picture credits
-* Advanced Timeline (including Drag & drop, scrolling, panning, zooming, and snapping)
-* Frame accuracy (step through each frame of video)
-* Time-mapping and speed changes on clips (slow/fast, forward/backward, etc...)
-* Audio mixing and editing
-* Digital video effects, including brightness, gamma, hue, greyscale, chroma key, and many more!
-* Experimental hardware encoding and decoding (VA-API, NVDEC, D3D9, D3D11, VTB)
-* Import & Export widely supported formats (EDL, XML)
-* Render videos in many codecs and formats (based on FFmpeg)
+### Core Editing
+- Unlimited tracks and layers
+- Clip resizing, scaling, trimming, snapping, rotation, and cutting
+- Frame-accurate stepping through video
+- Time-mapping and speed changes (slow/fast, forward/backward)
+- Powerful curve-based keyframe animations (linear, Bezier, constant)
+- Video transitions with real-time previews
+- Audio mixing, waveforms, and editing
+- Compositing, image overlays, and watermarks
+- Title templates, subtitles, and scrolling credits
+- Import & export EDL and Final Cut Pro XML
 
-## Getting Started
+### AI Tools
+- **AI Chat** — Describe what you want; the agent executes edits
+- **AI Media Manager** — Automatic tagging, search, and organization of assets
+- **AI Voice & Music** — Generate voiceovers and background tracks
+- **AI Manim** — Create animated educational videos from text prompts
+- **Face Detection** — Automatic face tracking and management
+- **Natural-language search** — Find clips by describing their content
+- **Multi-LLM support** — OpenAI, Anthropic Claude, Google, Ollama (local), AWS
 
-The quickest way to get started using Zenvi is to download one of 
-our pre-built installers. On our download page, click the **Daily Builds** 
-button to view the latest, experimental builds, which are created for each 
-new commit to this repo.
+### Media & Rendering
+- Supports most video, audio, and image formats (FFmpeg-based)
+- 70+ export profiles including YouTube HD, 4K, and social media presets
+- Hardware-accelerated encoding/decoding (VA-API, NVDEC, D3D9, D3D11, VideoToolbox)
+- 3D animated titles and effects via Blender 5.0+
+- SVG vector titles and credits
+- 2D animation and rotoscoping (image sequences)
 
-https://zenvi.org/download/
+---
 
-## Tutorial
+## Download
 
-Watch the official [step-by-step video tutorial](https://www.youtube.com/watch?list=PLymupH2aoNQNezYzv2lhSwvoyZgLp1Q0T&v=1k-ISfd-YBE), or read the official [user-guide](https://www.openshot.org/user-guide/):
+Grab the latest installer for your platform:
 
-## Developers
+| Platform | Format | Architecture |
+|----------|--------|--------------|
+| **Linux** | `.AppImage`, `.deb` | x86_64 |
+| **macOS** | `.dmg` | Intel (x86_64), Apple Silicon (arm64) |
+| **Windows** | `.exe` installer | x86_64 |
 
-Are you interested in becoming more involved in the development of 
-Zenvi? Build exciting new features, fix bugs, make friends, and become a hero! 
-Please read the [step-by-step](https://github.com/OpenShot/openshot-qt/wiki/Become-a-Developer) 
-instructions for getting source code, configuring dependencies, and building Zenvi.
+**[Download the latest release](https://github.com/Zenvi-pro/zenvi-core/releases/latest)**
 
-## Documentation
+Or visit [zenvi.org/download](https://zenvi.org/download/) for more options.
 
-Beautiful HTML documentation can be generated using Sphinx.
+---
 
-```sh
+## Build from Source
+
+### Requirements
+
+- **Python 3.11+**
+- **PyQt5** >= 5.15
+- **libopenshot** >= 0.5.0 ([build instructions](https://github.com/OpenShot/libopenshot))
+- **FFmpeg**
+- GCC / Clang / MSVC build tools
+
+### Quick Start
+
+```bash
+# Clone
+git clone https://github.com/Zenvi-pro/zenvi-core.git
+cd zenvi-core
+
+# Install Python dependencies
+pip install -r requirements.txt
+
+# Run directly (development)
+python3 src/launch.py
+
+# Or freeze into a standalone app
+python3 freeze.py build
+```
+
+### Platform-specific builds
+
+<details>
+<summary><strong>Linux (AppImage)</strong></summary>
+
+```bash
+# Install system dependencies (Ubuntu/Debian)
+sudo add-apt-repository -y ppa:openshot.developers/libopenshot-daily
+sudo apt-get update
+sudo apt-get install -y \
+  libopenshot-audio-dev libopenshot-dev python3-openshot \
+  python3-pyqt5 python3-pyqt5.qtsvg python3-pyqt5.qtwebengine \
+  python3-zmq libfuse2
+
+# Freeze
+python3 freeze.py build
+
+# Build AppImage
+wget -q "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage" \
+  -O appimagetool && chmod +x appimagetool
+# Follow the AppDir structure in .github/workflows/release.yml
+```
+</details>
+
+<details>
+<summary><strong>macOS (DMG)</strong></summary>
+
+```bash
+pip3 install -r requirements.txt pyobjc-framework-Cocoa
+python3 freeze.py build
+bash installer/build-mac-dmg.sh
+# Output: build/Zenvi-v<VERSION>-<ARCH>.dmg
+```
+
+Requires macOS 10.15 (Catalina) or later. Builds for both Intel and Apple Silicon.
+</details>
+
+<details>
+<summary><strong>Windows (Installer)</strong></summary>
+
+```powershell
+# From MSYS2/MinGW or standard Python
+pip install -r requirements.txt
+python freeze.py build
+
+# Requires Inno Setup 6
+& "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" `
+  /DVERSION=1.0.34 `
+  installer/windows-installer.iss
+```
+</details>
+
+### Using a local libopenshot build
+
+If you built `libopenshot` from source but didn't install it system-wide:
+
+```bash
+cd zenvi-core
+PYTHONPATH=/path/to/libopenshot/build/bindings/python python3 src/launch.py
+```
+
+---
+
+## Project Structure
+
+```
+zenvi-core/
+  src/
+    classes/         # Core application logic, AI tools, settings
+    launch.py        # Application entry point
+  installer/         # Platform-specific packaging (DMG, Inno Setup, entitlements)
+  xdg/               # Linux desktop integration (icons, .desktop, MIME types)
+  freeze.py          # cx_Freeze packaging script
+  .github/workflows/ # CI/CD (release builds for all platforms)
+```
+
+### Project File Format
+
+- **`.zvn`** — Zenvi project files (current)
+- **`.osp`** — OpenShot legacy projects (imported automatically)
+
+---
+
+## AI Configuration
+
+Zenvi's AI features work with multiple LLM providers. Configure your preferred provider in the app settings:
+
+| Provider | Local? | Setup |
+|----------|--------|-------|
+| **Ollama** | Yes | Install [Ollama](https://ollama.ai), pull a model, done |
+| **OpenAI** | No | Add your API key in settings |
+| **Anthropic Claude** | No | Add your API key in settings |
+| **Google** | No | Add your API key in settings |
+
+For fully offline AI editing, use Ollama with a local model — no internet connection needed.
+
+---
+
+## Contributing
+
+We welcome contributions. To get started:
+
+1. Fork this repo
+2. Create a feature branch (`git checkout -b feat/my-feature`)
+3. Make your changes and test locally
+4. Submit a pull request against `develop`
+
+### Generate Documentation
+
+```bash
 cd doc
 make html
 ```
 
-The documentation for the most recent release can be viewed online at [openshot.org/user-guide](https://www.openshot.org/user-guide/).
+---
 
-## Report a bug
+## Report a Bug
 
-Please report bugs using the official [Report a Bug](https://zenvi.org/support/) 
-feature on our website. This walks you through the bug reporting process, and helps 
-to create a high-quality bug report for the Zenvi community.
+- **GitHub Issues**: [zenvi-core/issues](https://github.com/Zenvi-pro/zenvi-core/issues)
+- **Website**: [zenvi.org/support](https://zenvi.org/support/)
 
-Or you can report a new issue directly on GitHub:
+---
 
-https://github.com/OpenShot/openshot-qt/issues
+## License
 
-## Translations
+Copyright (c) 2008-2026 Zenvi & contributors.
 
-Translating OpenShot into other languages is very easy! Please read the [step-by-step](https://github.com/OpenShot/openshot-qt/wiki/Become-a-Translator) instructions or login to LaunchPad and get started.
-All you need is a web browser.
+Zenvi is free software: you can redistribute it and/or modify it under the terms of the [GNU General Public License v3](https://www.gnu.org/licenses/gpl-3.0.html) as published by the Free Software Foundation.
 
-* Application Translations: https://translations.launchpad.net/openshot/2.0/+translations
-* Website Translations: https://translations.launchpad.net/openshot/website/+pots/django
+Zenvi builds on the foundation of [OpenShot Video Editor](https://www.openshot.org/) and the [libopenshot](https://github.com/OpenShot/libopenshot) library. We are grateful to the OpenShot community for their work.
 
-## Dependencies
+---
 
-Although installers are much easier to use, if you must build from 
-source, here are some tips: 
+## Links
 
-OpenShot is programmed in Python (version 3+), and thus does not need
-to be compiled to run. However, be sure you have the following 
-dependencies in order to run OpenShot successfully: 
-
-*  Python 3.0+ (http://www.python.org)
-*  PyQt5 (http://www.riverbankcomputing.co.uk/software/pyqt/download5)
-*  libopenshot: OpenShot Library (https://github.com/OpenShot/libopenshot)
-*  libopenshot-audio: OpenShot Audio Library (https://github.com/OpenShot/libopenshot-audio)
-*  FFmpeg or Libav (http://www.ffmpeg.org/ or http://libav.org/)
-*  GCC build tools (or MinGW on Windows)
-
-## Launch
-
-To run OpenShot from the command line with an installed `libopenshot`,
-use the following syntax:
-(be sure the change the path to match the install or repo location 
-of openshot-qt)
-
-```sh
-cd [openshot-qt folder]
-python3 src/launch.py
-```
-    
-To run with a version of `libopenshot` built from source but not installed,
-set `PYTHONPATH` to the location of the compiled Python bindings. e.g.:
-
-```sh
-cd [libopenshot folder]
-cmake -B build -S . [options]
-cmake --build build
-    
-cd [openshot-qt folder]
-PYTHONPATH=[libopenshot folder]/build/bindings/python \
-python3 src/launch.py
-```
-
-## Websites
-
-- https://www.openshot.org/  (Official website and blog)
-- https://github.com/OpenShot/openshot-qt (source code and issue tracker)
-- https://github.com/OpenShot/libopenshot-audio (source code for audio library)
-- https://github.com/OpenShot/libopenshot (source code for video library)
-- https://launchpad.net/openshot/
-
-### Copyright & License
-
-Copyright (c) 2008-2022 OpenShot Studios, LLC. This file is part of
-OpenShot Video Editor (https://www.openshot.org), an open-source project
-dedicated to delivering high quality video editing and animation solutions
-to the world.
-
-OpenShot Video Editor is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-OpenShot Video Editor is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
+- [zenvi.org](https://zenvi.org/) — Official website
+- [zenvi.org/community](https://zenvi.org/community/) — Community & support
+- [GitHub: Zenvi-pro](https://github.com/Zenvi-pro) — Organization
+- [libopenshot](https://github.com/OpenShot/libopenshot) — Video engine
+- [libopenshot-audio](https://github.com/OpenShot/libopenshot-audio) — Audio engine
