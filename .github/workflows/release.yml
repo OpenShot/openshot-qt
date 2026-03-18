@@ -87,6 +87,8 @@ jobs:
             exit 1
           fi
           echo "Frozen directory: $FROZEN_DIR"
+          # Force PyOpenGL to use a headless/null platform on CI runners that lack GLX
+          export PYOPENGL_PLATFORM=null
           "$FROZEN_DIR/zenvi" -V 2>&1 || "$FROZEN_DIR/zenvi" --version 2>&1 || {
             echo "::error::Frozen zenvi failed basic startup/version check"
             exit 1
