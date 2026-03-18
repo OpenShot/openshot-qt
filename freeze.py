@@ -280,6 +280,9 @@ if sys.platform == "win32":
         src_files.append((filename, os.path.join(os.path.relpath(filename, start=openshot_copy_path))))
 
 elif sys.platform == "linux":
+    # Add OpenGL package so cx_Freeze bundles PyOpenGL platform modules (glx, null, etc.)
+    python_packages.append("OpenGL")
+
     # Find libopenshot.so path (GitLab copies artifacts into local build/install folder)
     libopenshot_path = os.path.join(PATH, "build", "install-x64", "lib")
     if not os.path.exists(libopenshot_path):
