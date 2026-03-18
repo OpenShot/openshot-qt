@@ -244,52 +244,56 @@ jobs:
         with:
           python-version: "3.11"
 
+      # Build libopenshot from source only for arm64 (native build, no cross-compilation).
+      # x86_64 skips this: cross-compiling C++ for x86_64 via Rosetta is complex and
+      # the Homebrew Qt5/ffmpeg bottles are arm64-only on macos-15 runners.
       - name: Cache libopenshot build
         id: cache-libopenshot
+        if: matrix.arch == 'arm64'
         uses: actions/cache@v4
         with:
           path: /tmp/libopenshot-install
-          key: libopenshot-v0.5.0-audio-v0.5.0-${{ matrix.arch }}-macos-py311-v1
+          key: libopenshot-v0.5.0-audio-v0.5.0-arm64-macos-py311-v2
 
-      - name: Build libopenshot from source (macOS)
-        if: steps.cache-libopenshot.outputs.cache-hit != 'true'
+      - name: Build libopenshot from source (arm64 only)
+        if: matrix.arch == 'arm64' && steps.cache-libopenshot.outputs.cache-hit != 'true'
         run: |
           set -eo pipefail
           INSTALL_PREFIX="/tmp/libopenshot-install"
           mkdir -p "$INSTALL_PREFIX"
 
-          # Install build dependencies
-          brew install cmake swig zeromq libsamplerate libomp || true
-          # Ensure ffmpeg is available (usually pre-installed on runner)
+          # Install build dependencies (Homebrew arm64 bottles)
+          brew install swig zeromq libsamplerate qt@5 || true
           brew install ffmpeg 2>/dev/null || true
 
-          # Build libopenshot-audio (required by libopenshot; v0.5.0 uses JUCE 7 which has arm64 fix)
+          QT5_PREFIX="$(brew --prefix qt@5)"
+
+          # Build libopenshot-audio v0.5.0 (JUCE 7 — has arm64 fix, satisfies >=0.4.0)
           git clone --depth=1 --branch v0.5.0 \
             https://github.com/OpenShot/libopenshot-audio.git /tmp/libopenshot-audio
           cmake -S /tmp/libopenshot-audio -B /tmp/libopenshot-audio/build \
             -DCMAKE_INSTALL_PREFIX="$INSTALL_PREFIX" \
-            -DCMAKE_BUILD_TYPE=Release \
-            -DCMAKE_OSX_ARCHITECTURES="${{ matrix.arch }}"
+            -DCMAKE_BUILD_TYPE=Release
           cmake --build /tmp/libopenshot-audio/build --parallel $(sysctl -n hw.logicalcpu)
           cmake --install /tmp/libopenshot-audio/build
 
-          # Build libopenshot with Python bindings
+          # Build libopenshot v0.5.0 with Python bindings
           git clone --depth=1 --branch v0.5.0 \
             https://github.com/OpenShot/libopenshot.git /tmp/libopenshot
           cmake -S /tmp/libopenshot -B /tmp/libopenshot/build \
             -DCMAKE_INSTALL_PREFIX="$INSTALL_PREFIX" \
             -DCMAKE_BUILD_TYPE=Release \
-            -DCMAKE_OSX_ARCHITECTURES="${{ matrix.arch }}" \
             -DENABLE_TESTS=OFF \
             -DENABLE_RUBY=OFF \
             -DENABLE_JAVA=OFF \
             -DENABLE_PYTHON=ON \
             -DPython3_EXECUTABLE="$(which python3)" \
-            -DCMAKE_PREFIX_PATH="$INSTALL_PREFIX"
+            -DCMAKE_PREFIX_PATH="$INSTALL_PREFIX;$QT5_PREFIX"
           cmake --build /tmp/libopenshot/build --parallel $(sysctl -n hw.logicalcpu)
           cmake --install /tmp/libopenshot/build
 
-      - name: Verify libopenshot Python bindings
+      - name: Verify libopenshot Python bindings (arm64)
+        if: matrix.arch == 'arm64'
         run: |
           INSTALL_PREFIX="/tmp/libopenshot-install"
           PYVER=$(python3 -c "import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}')")
