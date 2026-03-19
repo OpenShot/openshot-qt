@@ -355,6 +355,121 @@ jobs:
         run: |
           python3 freeze.py build --git-branch=production
 
+      # Fix OpenSSL dylib mismatch (arm64 only).
+      # cx_Freeze may bundle libssl.3.dylib from the Python toolchain (OpenSSL 3.2+)
+      # but libcrypto.3.dylib from Homebrew (OpenSSL 3.0.x) because other bundled
+      # dylibs (ffmpeg, qt) also depend on libcrypto and cx_Freeze picks up whichever
+      # copy it resolves first. The mismatch causes:
+      #   Symbol not found: _BIO_ADDR_copy
+      #   Referenced from: libssl.3.dylib
+      #   Expected in: libcrypto.3.dylib
+      # Fix: after freeze, replace libcrypto with the one from the same source as libssl.
+      - name: Fix OpenSSL dylib mismatch in frozen build (arm64)
+        if: matrix.arch == 'arm64'
+        run: |
+          set -eo pipefail
+          FROZEN_DIR=$(find build -maxdepth 1 -type d -name 'exe.*' | head -1)
+          [ -n "$FROZEN_DIR" ] || { echo "No frozen dir, skipping"; exit 0; }
+
+          # Python's own lib dir — where its bundled libssl + libcrypto live.
+          # actions/setup-python installs a self-contained Python whose OpenSSL
+          # dylibs are co-located with libpython (same LIBDIR as sysconfig reports).
+          PY_LIBDIR=$(python3 -c "import sysconfig; print(sysconfig.get_config_var('LIBDIR'))")
+          echo "Python LIBDIR: $PY_LIBDIR"
+
+          # _ssl.so links against its own libssl; trace the exact path.
+          SSL_SO=$(python3 -c "import _ssl, os; print(os.path.realpath(_ssl.__file__))")
+          echo "_ssl.so: $SSL_SO"
+
+          # Get raw libssl reference from _ssl.so (may be @rpath/..., @loader_path/..., or absolute)
+          LIBSSL_RAW=$(otool -L "$SSL_SO" 2>/dev/null | awk '/libssl\.3\.dylib/{print $1; exit}')
+          echo "libssl raw ref: $LIBSSL_RAW"
+
+          # Resolve the raw path to an actual file
+          resolve_dylib() {
+            local raw="$1" base so_dir="$2"
+            base="$(basename "$raw")"
+            # 1. Try replacing @rpath/name with PY_LIBDIR/name
+            if [[ "$raw" == @rpath/* ]]; then
+              local candidate="$PY_LIBDIR/$base"
+              [ -f "$candidate" ] && echo "$candidate" && return
+              # Also try each rpath entry embedded in the .so
+              while IFS= read -r rp; do
+                [ -f "$rp/$base" ] && echo "$rp/$base" && return
+              done < <(otool -l "$SSL_SO" 2>/dev/null | awk '/LC_RPATH/{f=1} f && /path /{print $2; f=0}')
+            elif [ -f "$raw" ]; then
+              echo "$raw" && return
+            fi
+            # 2. Fallback: search near the .so itself
+            [ -f "$(dirname "$so_dir")/$base" ] && echo "$(dirname "$so_dir")/$base" && return
+            echo ""
+          }
+
+          LIBSSL_PATH="$(resolve_dylib "$LIBSSL_RAW" "$SSL_SO")"
+          echo "Resolved libssl: $LIBSSL_PATH"
+
+          if [ -z "$LIBSSL_PATH" ] || [ ! -f "$LIBSSL_PATH" ]; then
+            echo "WARNING: Cannot locate Python's libssl — falling back to PY_LIBDIR"
+            LIBSSL_PATH="$PY_LIBDIR/libssl.3.dylib"
+          fi
+
+          if [ ! -f "$LIBSSL_PATH" ]; then
+            echo "libssl not found at $LIBSSL_PATH; skipping OpenSSL fix"
+            exit 0
+          fi
+
+          # Derive the matching libcrypto from the same directory as libssl
+          LIBSSL_DIR="$(dirname "$LIBSSL_PATH")"
+          LIBCRYPTO_PATH="$LIBSSL_DIR/libcrypto.3.dylib"
+          if [ ! -f "$LIBCRYPTO_PATH" ]; then
+            # libssl's internal libcrypto reference
+            LIBCRYPTO_RAW=$(otool -L "$LIBSSL_PATH" 2>/dev/null | awk '/libcrypto\.3\.dylib/{print $1; exit}')
+            echo "libcrypto raw ref from libssl: $LIBCRYPTO_RAW"
+            if [[ "$LIBCRYPTO_RAW" == @rpath/* ]]; then
+              LIBCRYPTO_PATH="$PY_LIBDIR/$(basename "$LIBCRYPTO_RAW")"
+            elif [ -f "$LIBCRYPTO_RAW" ]; then
+              LIBCRYPTO_PATH="$LIBCRYPTO_RAW"
+            fi
+          fi
+
+          if [ ! -f "$LIBCRYPTO_PATH" ]; then
+            echo "Cannot find matching libcrypto; skipping OpenSSL fix"
+            exit 0
+          fi
+
+          echo "Matched OpenSSL pair:"
+          file "$LIBSSL_PATH" "$LIBCRYPTO_PATH"
+
+          # Replace libssl + libcrypto in the frozen build with the matched pair.
+          # cx_Freeze may have placed them in the exe root and/or lib/ subdir.
+          REPLACED=0
+          for search_dir in "$FROZEN_DIR" "$FROZEN_DIR/lib"; do
+            [ -d "$search_dir" ] || continue
+            if [ -f "$search_dir/libssl.3.dylib" ]; then
+              echo "Replacing $search_dir/libssl.3.dylib"
+              cp "$LIBSSL_PATH" "$search_dir/libssl.3.dylib"
+              # Fix the dylib ID so it's self-referencing correctly inside the bundle
+              install_name_tool -id "@executable_path/libssl.3.dylib" "$search_dir/libssl.3.dylib" 2>/dev/null || true
+              REPLACED=$((REPLACED+1))
+            fi
+            if [ -f "$search_dir/libcrypto.3.dylib" ]; then
+              echo "Replacing $search_dir/libcrypto.3.dylib"
+              cp "$LIBCRYPTO_PATH" "$search_dir/libcrypto.3.dylib"
+              install_name_tool -id "@executable_path/libcrypto.3.dylib" "$search_dir/libcrypto.3.dylib" 2>/dev/null || true
+              REPLACED=$((REPLACED+1))
+            fi
+          done
+
+          # If libcrypto.3.dylib wasn't in the frozen build at all, add it
+          if ! find "$FROZEN_DIR" -name 'libcrypto.3.dylib' | grep -q .; then
+            echo "libcrypto.3.dylib missing from frozen build — adding it"
+            cp "$LIBCRYPTO_PATH" "$FROZEN_DIR/libcrypto.3.dylib"
+            install_name_tool -id "@executable_path/libcrypto.3.dylib" "$FROZEN_DIR/libcrypto.3.dylib" 2>/dev/null || true
+            REPLACED=$((REPLACED+1))
+          fi
+
+          echo "OpenSSL fix: updated $REPLACED dylib location(s)"
+
       - name: Assemble .app bundle
         run: |
           FROZEN_DIR=$(find build -maxdepth 1 -type d -name 'exe.*' | head -1)
