@@ -220,6 +220,30 @@ def _ffmpeg_run(args):
         return False, str(e)
 
 
+def _ffprobe_video_duration(path) -> float:
+    """Return the video duration in seconds, or 0.0 on error."""
+    try:
+        p = subprocess.run(
+            ["ffprobe", "-v", "error", "-select_streams", "v:0",
+             "-show_entries", "stream=duration",
+             "-of", "default=noprint_wrappers=1:nokey=1", path],
+            stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=False,
+        )
+        val = (p.stdout or "").strip()
+        if val and val != "N/A":
+            return float(val)
+        # Fallback: use format duration
+        p2 = subprocess.run(
+            ["ffprobe", "-v", "error", "-show_entries", "format=duration",
+             "-of", "default=noprint_wrappers=1:nokey=1", path],
+            stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=False,
+        )
+        val2 = (p2.stdout or "").strip()
+        return float(val2) if val2 and val2 != "N/A" else 0.0
+    except Exception:
+        return 0.0
+
+
 def _ffprobe_has_audio(path):
     try:
         p = subprocess.run(
@@ -1115,15 +1139,18 @@ def _reencode_for_openshot(input_path, output_path=None, width=1920, height=1080
 def _import_generated_video(video_path):
     """Import a generated video into the project with clean metadata.
 
-    Re-encodes the video first, then adds it using skip_tagging=True
+    Re-encodes the video first to a permanent location (via
+    _output_path_for_generated_video), then adds it using skip_tagging=True
     to avoid nested event loops and metadata corruption.
 
     Returns (File object, None) on success, (None, error_string) on failure.
     """
     from classes.query import File
 
-    # Re-encode for libopenshot compatibility
-    clean_path, err = _reencode_for_openshot(video_path)
+    # Re-encode for libopenshot compatibility, writing to a permanent path
+    # so the file survives tmpdir cleanup after the caller returns.
+    perm_path = _output_path_for_generated_video()
+    clean_path, err = _reencode_for_openshot(video_path, output_path=perm_path)
     if err:
         log.warning("Re-encode failed, using original: %s", err)
         clean_path = video_path
@@ -1335,7 +1362,8 @@ def insert_kling_v2v_clip_into_selected_clip(query="", fade_ms="400", **_kw) -> 
 
     best_mid, best_score = None, -1.0
 
-    # Strategy 1: TwelveLabs
+    # Strategy 1: TwelveLabs — results are already sorted rank-1-first by the API.
+    # Use the END of the rank-1 window so the insert follows after the scene ends.
     if source_ai:
         tw = source_ai.get("twelvelabs") if isinstance(source_ai.get("twelvelabs"), dict) else {}
         status = (tw.get("status") or "").lower()
@@ -1349,11 +1377,18 @@ def insert_kling_v2v_clip_into_selected_clip(query="", fade_ms="400", **_kw) -> 
                     e = float(getattr(it, "end", 0.0) or 0.0)
                     if e < clip_start or s > clip_end:
                         continue
-                    mid = (max(s, clip_start) + min(e, clip_end)) / 2.0
-                    score = float(getattr(it, "score", 0.0) or 0.0)
-                    if score > best_score:
-                        best_score = score
-                        best_mid = mid
+                    # Use the end of the scene window, clamped to the clip bounds.
+                    insertion = min(e, clip_end)
+                    # Need at least 1 s of original content after insertion for a
+                    # meaningful crossfade back; pull the point back if too close to the end.
+                    if insertion > clip_end - 1.0:
+                        insertion = max(clip_start, clip_end - 1.0)
+                    best_mid = insertion
+                    log.info(
+                        "insert_v2v: rank-1 match [%.2f, %.2f] → insertion at %.2f",
+                        s, e, best_mid,
+                    )
+                    break  # rank-1 result found — stop here
 
     # Strategy 2: Scene descriptions
     if best_mid is None and source_ai:
@@ -1368,10 +1403,10 @@ def insert_kling_v2v_clip_into_selected_clip(query="", fade_ms="400", **_kw) -> 
                 best_score = 1.0
                 best_mid = t
 
-    # Strategy 3: midpoint
+    # Strategy 3: fallback — 80% through the clip (biased toward the end)
     if best_mid is None:
-        best_mid = (clip_start + clip_end) / 2.0
-        log.info("insert_v2v: no search results, using clip midpoint %.2fs", best_mid)
+        best_mid = clip_start + (clip_end - clip_start) * 0.8
+        log.info("insert_v2v: no search results, using 80%% fallback point %.2fs", best_mid)
 
     # Get video dimensions — clamp to Kling O1 video-edit range [720, 2160]
     vid_width = int(source_file.data.get("width", 1920))
@@ -1393,91 +1428,63 @@ def insert_kling_v2v_clip_into_selected_clip(query="", fade_ms="400", **_kw) -> 
         vid_height = int(vid_height * scale_down)
         vid_width = vid_width + (vid_width % 2)
         vid_height = vid_height + (vid_height % 2)
-    log.info("insert_v2v: seed video target dims %dx%d", vid_width, vid_height)
-    gen_duration = 4.0
+    log.info("insert_v2v: target dims %dx%d", vid_width, vid_height)
+    gen_duration = 5  # Kling O1 min supported duration; sent explicitly in I2V mode
 
     # Pause auto-save during the generation pipeline
     auto_save_was_active = _pause_auto_save()
     try:
         tmpdir = tempfile.mkdtemp(prefix="zenvi_v2v_")
         try:
-            # ---- Step 1: Build seed video from two segments around insertion point ----
-            seg1 = os.path.join(tmpdir, "seg1.mp4")
-            seg2 = os.path.join(tmpdir, "seg2.mp4")
-            concat_list = os.path.join(tmpdir, "list.txt")
+            # ---- Step 1: Extract 3 s of footage before the insertion point as V2V seed ----
+            # Sending Kling a reference video keeps the generated insert visually consistent
+            # with the original clip (same scene, lighting, style).
             seed_mp4 = os.path.join(tmpdir, "seed.mp4")
             first_jpg = os.path.join(tmpdir, "first.jpg")
-            last_jpg = os.path.join(tmpdir, "last.jpg")
             insert_mp4 = os.path.join(tmpdir, "insert.mp4")
 
-            start1 = max(0.0, best_mid - 2.5)
-            start2 = max(0.0, best_mid)
-            seg_duration = gen_duration / 2.0
+            ref_dur = min(3.0, best_mid - clip_start)
+            ref_start = max(0.0, best_mid - ref_dur)
             vf = (
                 f"scale={vid_width}:{vid_height}:force_original_aspect_ratio=decrease,"
                 f"pad={vid_width}:{vid_height}:(ow-iw)/2:(oh-ih)/2,setsar=1"
             )
-
             ok, err = _ffmpeg_run([
-                "ffmpeg", "-y", "-ss", str(start1), "-i", source_path,
-                "-t", str(seg_duration), "-vf", vf, "-r", "24", "-an",
-                "-c:v", "libx264", "-preset", "veryfast", "-crf", "23", seg1,
+                "ffmpeg", "-y", "-ss", str(ref_start), "-i", source_path,
+                "-t", str(ref_dur), "-vf", vf, "-r", "24", "-an",
+                "-c:v", "libx264", "-preset", "veryfast", "-crf", "23", seed_mp4,
             ])
             if not ok:
-                return f"Error: Failed to extract seed segment 1: {err}"
+                return f"Error: Failed to extract seed video: {err}"
 
+            # ---- Step 2: Extract the frame at the insertion point ----
+            # Used as the 'first' frame constraint so the generated clip picks up
+            # exactly where the original pauses.  No 'last' constraint — Kling
+            # generates freely after that, which gives natural-looking motion.
             ok, err = _ffmpeg_run([
-                "ffmpeg", "-y", "-ss", str(start2), "-i", source_path,
-                "-t", str(seg_duration), "-vf", vf, "-r", "24", "-an",
-                "-c:v", "libx264", "-preset", "veryfast", "-crf", "23", seg2,
+                "ffmpeg", "-y", "-ss", str(best_mid), "-i", source_path,
+                "-frames:v", "1", "-q:v", "2", first_jpg,
             ])
             if not ok:
-                return f"Error: Failed to extract seed segment 2: {err}"
+                return f"Error: Failed to extract insertion frame: {err}"
 
-            with open(concat_list, "w", encoding="utf-8") as f:
-                f.write(f"file '{seg1}'\nfile '{seg2}'\n")
-            ok, err = _ffmpeg_run([
-                "ffmpeg", "-y", "-f", "concat", "-safe", "0", "-i", concat_list,
-                "-c", "copy", seed_mp4,
-            ])
-            if not ok:
-                ok, err = _ffmpeg_run([
-                    "ffmpeg", "-y", "-f", "concat", "-safe", "0", "-i", concat_list,
-                    "-c:v", "libx264", "-preset", "veryfast", "-crf", "23", "-an", seed_mp4,
-                ])
-                if not ok:
-                    return f"Error: Failed to concat seed segments: {err}"
-
-            # ---- Step 2: Extract first/last frames for frame constraints ----
-            ok, _ = _ffmpeg_run(["ffmpeg", "-y", "-i", seed_mp4, "-frames:v", "1", first_jpg])
-            if not ok:
-                return "Error: Failed to extract first frame from seed video."
-            ok, _ = _ffmpeg_run(["ffmpeg", "-y", "-sseof", "-0.05", "-i", seed_mp4, "-frames:v", "1", last_jpg])
-            if not ok:
-                return "Error: Failed to extract last frame from seed video."
-
-            # ---- Step 3: Generate V2V insert via backend ----
-            # Pass local file paths — the backend converts them to data URIs
-            # for the Runware API. This avoids sending huge base64 payloads
-            # over the HTTP request from frontend to backend.
+            # ---- Step 3: Generate V2V insert ----
+            # seed_video_path → V2V mode: Kling uses the reference clip for visual style.
+            # duration is sent as a *hint* only; in V2V mode the API may infer the output
+            # length from the seed. We probe the actual duration after download (Step 4b).
             prompt = (
                 f"{query}\n\n"
-                "Constraints: the first frame must closely match the provided first frame, "
-                "and the last frame must closely match the provided last frame. "
-                "Keep it realistic for 4 seconds."
+                "Constraints: the first frame must exactly match the provided first frame. "
+                "Continue the scene naturally for the full duration."
             )
-            frame_images_paths = [
-                {"path": first_jpg, "frame": "first"},
-                {"path": last_jpg, "frame": "last"},
-            ]
+            frame_images_paths = [{"path": first_jpg, "frame": "first"}]
 
             from classes.api_client import get_backend_client
             client = get_backend_client()
             result = client.generate_video(
                 prompt,
-                duration_seconds=int(gen_duration),
+                duration_seconds=gen_duration,
                 seed_video_path=seed_mp4,
-                strength=0.6,
                 frame_images_paths=frame_images_paths,
                 width=vid_width,
                 height=vid_height,
@@ -1507,7 +1514,12 @@ def insert_kling_v2v_clip_into_selected_clip(query="", fade_ms="400", **_kw) -> 
             output_path = _output_path_for_generated_video()
             dur_a = max(0.0, best_mid - clip_start)
             dur_c = max(0.0, clip_end - best_mid)
-            insert_dur = gen_duration
+            # Probe the actual duration of the generated clip — do NOT assume it equals
+            # gen_duration.  Even a 1-second mismatch makes xfade offsets wrong → corruption.
+            insert_dur = _ffprobe_video_duration(insert_mp4)
+            if insert_dur < 0.5:
+                insert_dur = float(gen_duration)
+                log.warning("insert_v2v: could not probe insert duration, using %s", insert_dur)
 
             # Clamp fade so xfade offsets are valid
             fade = float(fade_s)
@@ -1575,7 +1587,7 @@ def insert_kling_v2v_clip_into_selected_clip(query="", fade_ms="400", **_kw) -> 
             if not f:
                 log.warning("insert_v2v: File.get failed but add_files succeeded")
             return (
-                f"The combined clip (with a {int(gen_duration)}s AI insert at "
+                f"The combined clip (with a {insert_dur:.1f}s AI insert at "
                 f"{_fmt_mmss(best_mid - clip_start)}, baked with {int(fade * 1000)}ms "
                 f"crossfades) has been added to the imported clips section. "
                 "The original clip on the timeline was left unchanged."
@@ -1909,13 +1921,52 @@ def generate_transition_clip(clip_a_id="", clip_b_id="", prompt_hint="", **_kw) 
             if not f:
                 return "Error: Transition video generated but could not be added to project."
 
-            # Shift clip B (and all clips after it) right to make room
-            all_clips = list(Clip.filter())
-            for c in all_clips:
-                c_pos = float(c.data.get("position", 0))
-                if c_pos >= end_position_a and c.id != clip_a_id:
-                    c.data["position"] = c_pos + morph_duration
-                    c.save()
+            # Probe actual duration from the re-encoded file that was imported
+            # (not morph_path — _import_generated_video re-encodes to a new file
+            # whose duration may differ slightly from the original download).
+            clean_path = f.absolute_path() if hasattr(f, "absolute_path") else None
+            actual_dur = _ffprobe_video_duration(clean_path) if clean_path else 0.0
+            if actual_dur < 0.5:
+                actual_dur = float(morph_duration)
+                log.warning("generate_transition: could not probe morph duration, using %s", actual_dur)
+            else:
+                log.info("generate_transition: probed morph duration=%.3fs", actual_dur)
+
+            # Shift clip B (and all clips after it) right to make room for the
+            # transition clip.  This MUST run on the main thread — Clip.save()
+            # triggers Qt signals that must fire as direct (synchronous)
+            # connections. When called from a background thread they become
+            # queued connections and arrive after subsequent timeline mutations,
+            # leaving clips in corrupted / overlapping positions.
+            #
+            # Two precision buffers are applied:
+            #  • _snap_tol  — condition tolerance: catches clip B when float drift
+            #                 from a prior snap-to-grid leaves its position a
+            #                 sub-frame behind end_position_a.
+            #  • _pad       — shift padding: shift clip B one frame further than
+            #                 actual_dur so that independent snap-to-grid rounding
+            #                 on the transition clip and on clip B can never
+            #                 produce a sub-frame overlap on the timeline.
+            try:
+                _fps = _get_app().project.get("fps") or {}
+                _fps_float = float(_fps.get("num", 30)) / float(_fps.get("den", 1) or 1)
+            except Exception:
+                _fps_float = 30.0
+            _one_frame = 1.0 / max(_fps_float, 1.0)
+
+            _clip_a_id = clip_a_id
+            _end_pos = end_position_a
+            _snap_tol = _one_frame          # look back up to 1 frame for clip B
+            _shift = actual_dur + _one_frame  # push clip B 1 frame beyond the transition end
+
+            def _shift_clips():
+                for c in list(Clip.filter()):
+                    c_pos = float(c.data.get("position", 0))
+                    if c_pos >= _end_pos - _snap_tol and c.id != _clip_a_id:
+                        c.data["position"] = c_pos + _shift
+                        c.save()
+
+            _run_on_main_thread(_shift_clips)
 
             # Insert the transition clip at the end of clip A
             was_playing = _pause_player()
@@ -1929,7 +1980,7 @@ def generate_transition_clip(clip_a_id="", clip_b_id="", prompt_hint="", **_kw) 
                 _resume_player(was_playing)
 
             return (
-                f"Transition clip created! A {morph_duration:.0f}s AI transition video was "
+                f"Transition clip created! A {actual_dur:.2f}s AI transition video was "
                 f"generated using Kling (video reference from clip A + frame constraints) "
                 f"and inserted between the clips. {msg}"
             )

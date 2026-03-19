@@ -323,6 +323,62 @@
 .chat-model-option-check { flex-shrink: 0; width: 14px; height: 14px; opacity: 0; }
 .chat-model-option.selected .chat-model-option-check { opacity: 1; color: var(--chat-accent); }
 
+/* ── Context tag pills ───────────────────────────────────────────────── */
+.chat-pick-hint {
+    padding: 4px 10px;
+    font-size: 11px;
+    color: var(--chat-accent);
+    background: color-mix(in srgb, var(--chat-accent) 8%, transparent);
+    border-bottom: 1px solid color-mix(in srgb, var(--chat-accent) 20%, transparent);
+    animation: chat-pick-pulse 1.5s ease-in-out infinite;
+}
+@keyframes chat-pick-pulse {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.55; }
+}
+
+.chat-tags-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 5px 8px 4px;
+    border-bottom: 1px solid var(--chat-border);
+}
+
+.chat-tag-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 6px 2px 8px;
+    border-radius: 99px;
+    font-size: 11px;
+    background: color-mix(in srgb, var(--chat-accent) 14%, transparent);
+    border: 1px solid color-mix(in srgb, var(--chat-accent) 30%, transparent);
+    color: var(--chat-text);
+    max-width: 260px;
+}
+.chat-tag-pill span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.chat-tag-pill.chat-tag-pending { opacity: 0.6; }
+
+.chat-tag-remove {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    border: none;
+    background: transparent;
+    color: var(--chat-muted);
+    font-size: 13px;
+    line-height: 1;
+    cursor: pointer;
+    border-radius: 50%;
+    padding: 0;
+    transition: color 0.1s, background 0.1s;
+}
+.chat-tag-remove:hover { color: #ef4444; background: rgba(239,68,68,0.12); }
+
 /* ── Icon buttons in the toolbar ────────────────────────────────────── */
 .chat-bottom-icon {
     display: flex;
