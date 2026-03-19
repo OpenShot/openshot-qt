@@ -253,7 +253,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: /tmp/libopenshot-install
-          key: libopenshot-v0.5.0-audio-v0.5.0-arm64-macos-py311-v4
+          key: libopenshot-v0.5.0-audio-v0.5.0-arm64-macos-py311-v5
 
       - name: Build libopenshot from source (arm64 only)
         if: matrix.arch == 'arm64' && steps.cache-libopenshot.outputs.cache-hit != 'true'
@@ -297,7 +297,7 @@ jobs:
 
           # 3. Guard omp.h include in OpenMPUtilities.h with #ifdef _OPENMP so the
           #    header compiles without -fopenmp (pragmas are ignored by clang anyway).
-          python3 -c 'import glob; [open(f,"w").write(open(f).read().replace("#include <omp.h>","#ifdef _OPENMP\n#include <omp.h>\n#endif")) for f in glob.glob("/tmp/libopenshot/**/*.h",recursive=True) if "#include <omp.h>" in open(f).read()]'
+          python3 -c 'import glob; [open(f,"w").write(t.replace("#include <omp.h>","#ifdef _OPENMP\n#include <omp.h>\n#endif")) for f in glob.glob("/tmp/libopenshot/**/*.h",recursive=True) if "#include <omp.h>" in (t:=open(f).read())]'
 
           cmake -S /tmp/libopenshot -B /tmp/libopenshot/build \
             -DCMAKE_INSTALL_PREFIX="$INSTALL_PREFIX" \
