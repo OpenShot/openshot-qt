@@ -29,7 +29,7 @@ import os
 import sys
 from time import strftime
 
-VERSION = "1.0.68"
+VERSION = "1.0.69"
 GITHUB_REPO = "Zenvi-pro/zenvi-core"
 MINIMUM_LIBOPENSHOT_VERSION = "0.5.0"
 DATE = "20250612000000"
@@ -44,10 +44,14 @@ CWD = os.getcwd()
 
 # Application paths
 if getattr(sys, 'frozen', False):
-    # cx_Freeze frozen build — use the executable's directory as the app root
-    # (in frozen builds, __file__ resolves to lib/classes/info.pyc which gives
-    # lib/ as the parent, but resources live at the executable's root level)
-    PATH = os.path.dirname(os.path.realpath(sys.executable))
+    _exe_dir = os.path.dirname(os.path.realpath(sys.executable))
+    # On macOS, freeze.py places all app resources (settings/, images/, etc.)
+    # inside a lib/ subdirectory next to the executable.
+    # On Linux/Windows, they live at the executable root level.
+    if sys.platform == 'darwin' and os.path.isdir(os.path.join(_exe_dir, 'lib', 'settings')):
+        PATH = os.path.join(_exe_dir, 'lib')
+    else:
+        PATH = _exe_dir
 else:
     PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))  # Primary openshot folder
 RESOURCES_PATH = os.path.join(PATH, "resources")

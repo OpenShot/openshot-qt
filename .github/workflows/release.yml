@@ -451,6 +451,15 @@ jobs:
               cp -f "$LIBSSL_PATH" "$search_dir/libssl.3.dylib"
               # Fix the dylib ID so it's self-referencing correctly inside the bundle
               install_name_tool -id "@executable_path/libssl.3.dylib" "$search_dir/libssl.3.dylib" 2>/dev/null || true
+              # Rewrite any absolute dep references in libssl to @loader_path
+              # (e.g. /Library/Frameworks/Python.framework/.../libcrypto.3.dylib → @loader_path/libcrypto.3.dylib)
+              while IFS= read -r dep; do
+                if [[ "$dep" != @* && "$dep" != /usr/* && "$dep" != /System/* ]]; then
+                  dep_name="$(basename "$dep")"
+                  install_name_tool -change "$dep" "@loader_path/$dep_name" "$search_dir/libssl.3.dylib" 2>/dev/null || true
+                  echo "  Rewrote libssl dep: $dep -> @loader_path/$dep_name"
+                fi
+              done < <(otool -L "$search_dir/libssl.3.dylib" 2>/dev/null | awk 'NR>1{print $1}' | sort -u)
               REPLACED=$((REPLACED+1))
             fi
             if [ -f "$search_dir/libcrypto.3.dylib" ]; then
@@ -471,6 +480,126 @@ jobs:
           fi
 
           echo "OpenSSL fix: updated $REPLACED dylib location(s)"
+
+      # Fix Mach-O rpath references in the frozen build (arm64 only).
+      # _openshot.so is built against system/CI-local paths (Homebrew Qt/FFmpeg,
+      # /tmp/libopenshot-install, Python.framework). These are valid on the CI
+      # runner but do not exist on user machines. cx_Freeze copies the libraries
+      # but does NOT rewrite the references in _openshot.so.
+      # This step rewrites all absolute, non-system dep references to @loader_path
+      # so they resolve correctly inside the frozen app bundle.
+      - name: Fix Mach-O rpath references in frozen build (arm64)
+        if: matrix.arch == 'arm64'
+        run: |
+          set -eo pipefail
+          FROZEN_DIR=$(find build -maxdepth 1 -type d -name 'exe.*' | head -1)
+          [ -n "$FROZEN_DIR" ] || { echo "No frozen dir, skipping"; exit 0; }
+
+          python3 - "$FROZEN_DIR" <<'PYEOF'
+          import os, subprocess, sys, shutil
+
+          FROZEN_DIR = sys.argv[1]
+
+          NON_EXEC_EXT = {'.py', '.svg', '.png', '.blend', '.a', '.pak', '.qm', '.pyc',
+                          '.txt', '.jpg', '.zip', '.dat', '.conf', '.xml', '.h', '.ui',
+                          '.json', '.exe', '.woff', '.html', '.css', '.js',
+                          '.pyx', '.pxd', '.md', '.rst', '.cfg', '.ini', '.ts', '.pot'}
+          MACH_MAGIC = {b'\xcf\xfa\xed\xfe', b'\xce\xfa\xed\xfe',
+                        b'\xca\xfe\xba\xbe', b'\xbe\xba\xfe\xca'}
+
+          def is_system(p):
+              return (p.startswith('/usr/lib') or p.startswith('/System/') or
+                      p.startswith('/Library/Apple') or p.startswith('@executable_path') or
+                      p.startswith('@loader_path') or p.startswith('@rpath'))
+
+          def get_deps(binary):
+              try:
+                  out = subprocess.check_output(['otool', '-L', binary],
+                                                stderr=subprocess.DEVNULL).decode()
+                  seen, deps = set(), []
+                  for line in out.split('\n')[1:]:
+                      line = line.strip()
+                      if ' (architecture ' in line or not line:
+                          continue
+                      path = line.split('(')[0].strip()
+                      if path and path not in seen:
+                          seen.add(path)
+                          deps.append(path)
+                  return deps
+              except Exception:
+                  return []
+
+          def find_in_bundle(name, frozen_dir):
+              for root, dirs, files in os.walk(frozen_dir):
+                  if name in files:
+                      return os.path.join(root, name)
+              return None
+
+          # Pass 1: rewrite all absolute (non-system) dep references to @loader_path
+          fixed = 0
+          for root, dirs, files in os.walk(FROZEN_DIR):
+              for basename in files:
+                  fp = os.path.join(root, basename)
+                  if os.path.splitext(fp)[-1].lower() in NON_EXEC_EXT or basename.startswith('.'):
+                      continue
+                  try:
+                      with open(fp, 'rb') as f:
+                          magic = f.read(4)
+                      if magic not in MACH_MAGIC:
+                          continue
+                  except Exception:
+                      continue
+                  for dep in get_deps(fp):
+                      if is_system(dep):
+                          continue
+                      dep_name = os.path.basename(dep)
+                      dep_in_bundle = find_in_bundle(dep_name, FROZEN_DIR)
+                      if dep_in_bundle:
+                          rel = os.path.relpath(dep_in_bundle, root)
+                          new_ref = '@loader_path/' + rel
+                          if dep != new_ref:
+                              os.chmod(fp, os.stat(fp).st_mode | 0o200)
+                              ret = subprocess.call(
+                                  ['install_name_tool', '-change', dep, new_ref, fp],
+                                  stderr=subprocess.DEVNULL)
+                              if ret == 0:
+                                  print(f"OK  {os.path.relpath(fp, FROZEN_DIR)}: {dep_name} -> {new_ref}")
+                                  fixed += 1
+                      else:
+                          print(f"MISS {os.path.relpath(fp, FROZEN_DIR)}: {dep_name} not found (from {dep})")
+          print(f"Pass 1: fixed {fixed} absolute path references")
+
+          # Pass 2: fix @rpath/libopenshot-audio.10.dylib in _openshot.so
+          # The soname symlink (.10) is not bundled — only libopenshot-audio.dylib /
+          # libopenshot-audio.0.5.0.dylib are. Create the soname file in lib/
+          # and rewrite _openshot.so's @rpath reference to @loader_path.
+          audio_soname = 'libopenshot-audio.10.dylib'
+          audio_src = (find_in_bundle('libopenshot-audio.0.5.0.dylib', FROZEN_DIR) or
+                       find_in_bundle('libopenshot-audio.dylib', FROZEN_DIR))
+          if audio_src:
+              lib_dir = os.path.join(FROZEN_DIR, 'lib')
+              os.makedirs(lib_dir, exist_ok=True)
+              audio_soname_path = os.path.join(lib_dir, audio_soname)
+              if not os.path.exists(audio_soname_path):
+                  shutil.copy2(audio_src, audio_soname_path)
+                  subprocess.call(
+                      ['install_name_tool', '-id', f'@loader_path/{audio_soname}', audio_soname_path],
+                      stderr=subprocess.DEVNULL)
+                  print(f"Created lib/{audio_soname} (copy of {os.path.basename(audio_src)})")
+              openshot_so = find_in_bundle('_openshot.so', FROZEN_DIR)
+              if openshot_so:
+                  openshot_dir = os.path.dirname(openshot_so)
+                  rel = os.path.relpath(audio_soname_path, openshot_dir)
+                  os.chmod(openshot_so, os.stat(openshot_so).st_mode | 0o200)
+                  ret = subprocess.call(
+                      ['install_name_tool', '-change', f'@rpath/{audio_soname}',
+                       f'@loader_path/{rel}', openshot_so],
+                      stderr=subprocess.DEVNULL)
+                  if ret == 0:
+                      print(f"Fixed @rpath/{audio_soname} in _openshot.so -> @loader_path/{rel}")
+          else:
+              print(f"WARNING: {audio_soname} source not found in bundle")
+          PYEOF
 
       - name: Assemble .app bundle
         run: |
