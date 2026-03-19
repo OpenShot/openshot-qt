@@ -328,22 +328,22 @@ jobs:
         run: |
           INSTALL_PREFIX="/tmp/libopenshot-install"
           PYVER=$(python3 -c "import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}')")
-          PYROOT="$INSTALL_PREFIX/lib/python${PYVER}/site-packages"
+
+          # cmake installs Python bindings to $INSTALL_PREFIX/python (PYTHON_MODULE_PATH default)
+          # Fall back to site-packages if not found there.
+          if [ -f "$INSTALL_PREFIX/python/openshot.py" ] || [ -f "$INSTALL_PREFIX/python/_openshot.so" ]; then
+            PYROOT="$INSTALL_PREFIX/python"
+          else
+            PYROOT="$INSTALL_PREFIX/lib/python${PYVER}/site-packages"
+          fi
+
           echo "ZENVI_OPENSHOT_PYROOT=$PYROOT" >> $GITHUB_ENV
           echo "ZENVI_OPENSHOT_INSTALL=$INSTALL_PREFIX" >> $GITHUB_ENV
           echo "DYLD_LIBRARY_PATH=$INSTALL_PREFIX/lib:${DYLD_LIBRARY_PATH:-}" >> $GITHUB_ENV
 
           # Verify the binding is importable
-          DYLD_LIBRARY_PATH="$INSTALL_PREFIX/lib" python3 - <<'EOF'
-          import sys
-          import os
-          install = os.environ.get("ZENVI_OPENSHOT_INSTALL", "/tmp/libopenshot-install")
-          pyver = f"{sys.version_info.major}.{sys.version_info.minor}"
-          pyroot = f"{install}/lib/python{pyver}/site-packages"
-          sys.path.insert(0, pyroot)
-          import openshot
-          print(f"libopenshot version: {openshot.OPENSHOT_VERSION_FULL}")
-          EOF
+          DYLD_LIBRARY_PATH="$INSTALL_PREFIX/lib" PYTHONPATH="$PYROOT" \
+            python3 -c "import openshot; print(f'libopenshot version: {openshot.OPENSHOT_VERSION_FULL}')"
 
       - name: Install Python dependencies
         run: |
