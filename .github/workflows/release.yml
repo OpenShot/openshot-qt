@@ -253,7 +253,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: /tmp/libopenshot-install
-          key: libopenshot-v0.5.0-audio-v0.5.0-arm64-macos-py311-v5
+          key: libopenshot-v0.5.0-audio-v0.5.0-arm64-macos-py311-v6
 
       - name: Build libopenshot from source (arm64 only)
         if: matrix.arch == 'arm64' && steps.cache-libopenshot.outputs.cache-hit != 'true'
@@ -263,7 +263,8 @@ jobs:
           mkdir -p "$INSTALL_PREFIX"
 
           # Install build dependencies (Homebrew arm64 bottles)
-          brew install swig zeromq libsamplerate qt@5 || true
+          # cppzmq provides zmq.hpp C++ header (separate from zeromq's libzmq/zmq.h)
+          brew install swig zeromq cppzmq libsamplerate qt@5 || true
           brew install ffmpeg 2>/dev/null || true
 
           QT5_PREFIX="$(brew --prefix qt@5)"
