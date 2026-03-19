@@ -253,7 +253,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: /tmp/libopenshot-install
-          key: libopenshot-v0.5.0-audio-v0.5.0-arm64-macos-py311-v3
+          key: libopenshot-v0.5.0-audio-v0.5.0-arm64-macos-py311-v4
 
       - name: Build libopenshot from source (arm64 only)
         if: matrix.arch == 'arm64' && steps.cache-libopenshot.outputs.cache-hit != 'true'
@@ -295,29 +295,9 @@ jobs:
             xargs sed -i '' \
               's/find_package(OpenMP[^)]*)/set(OpenMP_FOUND FALSE) # disabled for macOS CI/g'
 
-          # 3. Create minimal omp.h stub so OpenMPUtilities.h compiles without libomp.
-          #    #pragma omp directives are silently ignored without -fopenmp; we only need
-          #    the header to exist so the #include <omp.h> does not fail.
-          mkdir -p /tmp/omp-stub
-          cat > /tmp/omp-stub/omp.h << 'OMPEOF'
-/* Minimal omp.h stub — used when building libopenshot without OpenMP runtime */
-#ifndef _OMP_H_STUB
-#define _OMP_H_STUB
-typedef int omp_lock_t;
-typedef int omp_nest_lock_t;
-static inline int  omp_get_num_threads(void)         { return 1; }
-static inline int  omp_get_thread_num(void)           { return 0; }
-static inline int  omp_get_max_threads(void)          { return 1; }
-static inline void omp_set_num_threads(int n)         { (void)n; }
-static inline int  omp_in_parallel(void)              { return 0; }
-static inline double omp_get_wtime(void)              { return 0.0; }
-static inline void omp_init_lock(omp_lock_t *l)       { (void)l; }
-static inline void omp_destroy_lock(omp_lock_t *l)    { (void)l; }
-static inline void omp_set_lock(omp_lock_t *l)        { (void)l; }
-static inline void omp_unset_lock(omp_lock_t *l)      { (void)l; }
-static inline int  omp_test_lock(omp_lock_t *l)       { (void)l; return 1; }
-#endif
-OMPEOF
+          # 3. Guard omp.h include in OpenMPUtilities.h with #ifdef _OPENMP so the
+          #    header compiles without -fopenmp (pragmas are ignored by clang anyway).
+          python3 -c 'import glob; [open(f,"w").write(open(f).read().replace("#include <omp.h>","#ifdef _OPENMP\n#include <omp.h>\n#endif")) for f in glob.glob("/tmp/libopenshot/**/*.h",recursive=True) if "#include <omp.h>" in open(f).read()]'
 
           cmake -S /tmp/libopenshot -B /tmp/libopenshot/build \
             -DCMAKE_INSTALL_PREFIX="$INSTALL_PREFIX" \
@@ -327,7 +307,6 @@ OMPEOF
             -DENABLE_JAVA=OFF \
             -DENABLE_PYTHON=ON \
             -DPython3_EXECUTABLE="$(which python3)" \
-            -DCMAKE_CXX_FLAGS="-I/tmp/omp-stub" \
             -DCMAKE_PREFIX_PATH="$INSTALL_PREFIX;$QT5_PREFIX"
           cmake --build /tmp/libopenshot/build --parallel $(sysctl -n hw.logicalcpu)
           cmake --install /tmp/libopenshot/build
