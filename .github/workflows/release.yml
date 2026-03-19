@@ -220,7 +220,7 @@ jobs:
         include:
           - runner: macos-15   # Apple Silicon; x64 Python via Rosetta → x86_64 app
             arch: x86_64
-          - runner: macos-15   # Apple Silicon; native arm64 Python → arm64 app
+          - runner: macos-14   # macOS 14 Sonoma arm64; targets macOS 14+ users
             arch: arm64
     runs-on: ${{ matrix.runner }}
     env:
@@ -253,7 +253,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: /tmp/libopenshot-install
-          key: libopenshot-v0.5.0-audio-v0.5.0-arm64-macos-py311-v9
+          key: libopenshot-v0.5.0-audio-v0.5.0-arm64-macos14-py311-v1
 
       - name: Build libopenshot from source (arm64 only)
         if: matrix.arch == 'arm64' && steps.cache-libopenshot.outputs.cache-hit != 'true'
