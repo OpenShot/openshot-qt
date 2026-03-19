@@ -447,14 +447,16 @@ jobs:
             [ -d "$search_dir" ] || continue
             if [ -f "$search_dir/libssl.3.dylib" ]; then
               echo "Replacing $search_dir/libssl.3.dylib"
-              cp "$LIBSSL_PATH" "$search_dir/libssl.3.dylib"
+              chmod u+w "$search_dir/libssl.3.dylib" 2>/dev/null || true
+              cp -f "$LIBSSL_PATH" "$search_dir/libssl.3.dylib"
               # Fix the dylib ID so it's self-referencing correctly inside the bundle
               install_name_tool -id "@executable_path/libssl.3.dylib" "$search_dir/libssl.3.dylib" 2>/dev/null || true
               REPLACED=$((REPLACED+1))
             fi
             if [ -f "$search_dir/libcrypto.3.dylib" ]; then
               echo "Replacing $search_dir/libcrypto.3.dylib"
-              cp "$LIBCRYPTO_PATH" "$search_dir/libcrypto.3.dylib"
+              chmod u+w "$search_dir/libcrypto.3.dylib" 2>/dev/null || true
+              cp -f "$LIBCRYPTO_PATH" "$search_dir/libcrypto.3.dylib"
               install_name_tool -id "@executable_path/libcrypto.3.dylib" "$search_dir/libcrypto.3.dylib" 2>/dev/null || true
               REPLACED=$((REPLACED+1))
             fi
