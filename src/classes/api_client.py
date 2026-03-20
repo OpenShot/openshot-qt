@@ -679,6 +679,37 @@ class ZenviBackendClient:
             log.error("Queue file for analysis failed: %s", e)
             return {"success": False, "message": str(e)}
 
+    # ------------------------------------------------------------------
+    # Pexels stock video
+    # ------------------------------------------------------------------
+    def pexels_search(self, query: str, per_page: int = 15, page: int = 1) -> Dict[str, Any]:
+        """Search Pexels for stock videos."""
+        try:
+            r = self.session.get(
+                f"{self.api_url}/pexels/search",
+                params={"query": query, "per_page": per_page, "page": page},
+                timeout=20,
+            )
+            r.raise_for_status()
+            return r.json()
+        except Exception as e:
+            log.error("Pexels search failed: %s", e)
+            return {"videos": [], "error": str(e)}
+
+    def pexels_download(self, video_id: int, link: str, filename: str = "") -> Dict[str, Any]:
+        """Download a Pexels video via the backend and return its local path."""
+        try:
+            r = self.session.post(
+                f"{self.api_url}/pexels/download",
+                json={"video_id": video_id, "link": link, "filename": filename},
+                timeout=300,
+            )
+            r.raise_for_status()
+            return r.json()
+        except Exception as e:
+            log.error("Pexels download failed: %s", e)
+            return {"local_path": "", "error": str(e)}
+
 
 # Singleton
 _client: Optional[ZenviBackendClient] = None

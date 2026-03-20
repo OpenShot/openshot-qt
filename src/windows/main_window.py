@@ -4003,6 +4003,16 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         except Exception as e:
             log.error(f"Failed to initialize Thinking Dock: {e}", exc_info=True)
 
+        # Pexels stock-video search dock
+        try:
+            from windows.pexels_dock import PexelsDock
+            self.dockPexels = PexelsDock(self)
+            self.addDockWidget(Qt.LeftDockWidgetArea, self.dockPexels)
+            self.tabifyDockWidget(self.dockFiles, self.dockPexels)
+            self.dockPexels.setVisible(False)  # Hidden by default; accessible via View > Docks
+        except Exception as e:
+            log.error(f"Failed to initialize Pexels Dock: {e}", exc_info=True)
+
         # Add Docks submenu to View menu
         self.addViewDocksMenu()
 
