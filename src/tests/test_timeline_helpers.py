@@ -209,6 +209,8 @@ class TimelineHelperTests(unittest.TestCase):
         return Helper()
 
     def make_qwidget_cursor_helper(self):
+        qwidget_base_module = self.qwidget_base_module
+
         class GeometryStub:
             def __init__(self):
                 self.items = []
@@ -255,6 +257,9 @@ class TimelineHelperTests(unittest.TestCase):
             def unsetCursor(self):
                 self.cursor_value = None
                 self.unset_cursor_called = True
+
+            def _updateCursor(self, pos):
+                return qwidget_base_module.TimelineWidgetBase._updateCursor(self, pos)
 
             def _playhead_handle_rect(self):
                 return QRectF()
@@ -1013,6 +1018,38 @@ class TimelineHelperTests(unittest.TestCase):
 
         self.qwidget_base_module.TimelineWidgetBase._updateCursor(helper, QPointF(10.0, 10.0))
 
+        self.assertIs(helper.cursor_value, helper.cursors["hand"])
+        self.assertFalse(helper.unset_cursor_called)
+
+    def test_reset_drag_preview_refreshes_cursor_for_stationary_pointer(self):
+        helper = self.make_qwidget_cursor_helper()
+        helper._drag_preview_items = [object()]
+        helper._drag_payload = {"type": "clip"}
+        helper.item_ids = ["C1"]
+        helper.new_item = True
+        helper.item_type = "clip"
+        helper.drag_bbox = QRectF(0.0, 0.0, 50.0, 20.0)
+        helper.update_called = 0
+
+        def update():
+            helper.update_called += 1
+
+        helper.update = update
+        helper.mapFromGlobal = lambda pos: QPointF(float(pos.x()), float(pos.y()))
+        helper.rect = lambda: QRectF(0.0, 0.0, 200.0, 100.0)
+        helper._set_drag_preview_thumbnail_suspension = lambda _enabled: None
+        helper.geometry.items = [(QRectF(0.0, 0.0, 100.0, 20.0), object(), False, "clip")]
+
+        with patch.object(self.qwidget_base_module.QCursor, "pos", return_value=QPointF(10.0, 10.0)):
+            self.qwidget_base_module.TimelineWidgetBase._reset_drag_preview(helper)
+
+        self.assertEqual(helper._drag_preview_items, [])
+        self.assertIsNone(helper._drag_payload)
+        self.assertEqual(helper.item_ids, [])
+        self.assertFalse(helper.new_item)
+        self.assertIsNone(helper.item_type)
+        self.assertEqual(helper.drag_bbox, QRectF())
+        self.assertEqual(helper.update_called, 1)
         self.assertIs(helper.cursor_value, helper.cursors["hand"])
         self.assertFalse(helper.unset_cursor_called)
 

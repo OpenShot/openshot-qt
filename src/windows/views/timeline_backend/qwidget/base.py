@@ -1661,6 +1661,12 @@ class TimelineWidgetBase(QWidget):
         self.item_type = None
         self.drag_bbox = QRectF()
         self.update()
+        if self._fixed_cursor is None:
+            pos = self.mapFromGlobal(QCursor.pos())
+            if self.rect().contains(pos):
+                self._updateCursor(pos)
+            else:
+                self.unsetCursor()
 
     def _finalize_drag_preview(self):
         total = len(self._drag_preview_items)
