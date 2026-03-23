@@ -142,17 +142,18 @@ try:
     _search_dirs = [_os_dir]
     if os.path.basename(_os_py) == "__init__.py":
         _search_dirs.append(os.path.dirname(_os_dir))
+    import glob as _glob
     for _search_dir in _search_dirs:
+        # Exact names: _openshot.pyd / _openshot.so
         for _ext in (".pyd", ".so"):
             _native = os.path.join(_search_dir, "_openshot" + _ext)
             if os.path.exists(_native) and (_native, os.path.basename(_native)) not in _openshot_src_files:
                 _openshot_src_files.append((_native, os.path.basename(_native)))
-    # Also check for _openshot.cpython-*.so (Linux naming convention)
-    import glob as _glob
-    for _search_dir in _search_dirs:
-        for _match in _glob.glob(os.path.join(_search_dir, "_openshot.cpython-*.so")):
-            if (_match, os.path.basename(_match)) not in _openshot_src_files:
-                _openshot_src_files.append((_match, os.path.basename(_match)))
+        # Cpython-tagged names: _openshot.cp311-win_amd64.pyd / _openshot.cpython-311-x86_64-linux-gnu.so
+        for _pattern in ("_openshot.cp*.pyd", "_openshot.cpython-*.so"):
+            for _match in _glob.glob(os.path.join(_search_dir, _pattern)):
+                if (_match, os.path.basename(_match)) not in _openshot_src_files:
+                    _openshot_src_files.append((_match, os.path.basename(_match)))
     print("openshot module found — will copy %d file(s) into frozen build (post-build)" % len(_openshot_src_files))
     for _src, _dst in _openshot_src_files:
         print("  %s -> lib/%s" % (_src, _dst))

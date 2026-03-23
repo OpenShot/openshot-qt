@@ -708,6 +708,18 @@ jobs:
         run: |
           choco install openshot -y --no-progress
 
+          # Diagnostic: show all .pyd files in the OpenShot installation
+          $diagRoot = "C:\Program Files\OpenShot Video Editor"
+          if (Test-Path $diagRoot) {
+            Write-Host "=== OpenShot .pyd files ==="
+            Get-ChildItem -Path $diagRoot -Recurse -Filter "*.pyd" -ErrorAction SilentlyContinue |
+              Select-Object -ExpandProperty FullName | ForEach-Object { Write-Host $_ }
+            Write-Host "=== OpenShot openshot* files ==="
+            Get-ChildItem -Path $diagRoot -Recurse -ErrorAction SilentlyContinue |
+              Where-Object { $_.Name -match "^_?openshot" } |
+              Select-Object -ExpandProperty FullName | ForEach-Object { Write-Host $_ }
+          }
+
           $roots = @(
             "C:\Program Files\OpenShot Video Editor",
             "C:\Program Files (x86)\OpenShot Video Editor"
@@ -718,15 +730,25 @@ jobs:
           $foundRoot = $null
           foreach ($root in $roots) {
             if (Test-Path $root) {
-              # Prefer locating the real Python package root (site-packages parent),
-              # so we don't accidentally shadow stdlib modules (e.g. encodings).
+              # PRIORITY 1: Find _openshot*.pyd (real C++ bindings, possibly cpython-tagged)
+              # Check _internal/ first (PyInstaller 6+ layout), then recurse everywhere
+              $pyd = Get-ChildItem -Path $root -Recurse -ErrorAction SilentlyContinue |
+                Where-Object { $_.Name -match "^_openshot.*\.pyd$" } |
+                Select-Object -First 1
+              if ($pyd) { $foundRoot = $root; break }
+
+              # PRIORITY 2: Find openshot/__init__.py (package-style pure-Python bindings)
+              $initPy = Get-ChildItem -Path $root -Recurse -Filter "__init__.py" -ErrorAction SilentlyContinue |
+                Where-Object { $_.FullName -match "\\openshot\\__init__\.py$" -and
+                               $_.FullName -notmatch "\\classes\\legacy\\" } |
+                Select-Object -First 1
+              if ($initPy) { $foundRoot = $root; break }
+
+              # PRIORITY 3: Any openshot/__init__.py including legacy (last resort)
               $initPy = Get-ChildItem -Path $root -Recurse -Filter "__init__.py" -ErrorAction SilentlyContinue |
                 Where-Object { $_.FullName -match "\\openshot\\__init__\.py$" } |
                 Select-Object -First 1
               if ($initPy) { $foundRoot = $root; break }
-
-              $pyd = Get-ChildItem -Path $root -Recurse -Filter "_openshot.pyd" -ErrorAction SilentlyContinue | Select-Object -First 1
-              if ($pyd) { $foundRoot = $root; break }
             }
           }
 
@@ -738,15 +760,20 @@ jobs:
           $bindDir = $null
           $pythonPathRoot = $null
 
-          if ($initPy) {
-            $bindDir = Split-Path -Parent $initPy.FullName   # ...\openshot
-            $pythonPathRoot = Split-Path -Parent $bindDir    # ...\site-packages
-          } elseif ($pyd) {
+          if ($pyd) {
+            # Real C++ extension: _openshot.pyd or _openshot.cp311-win_amd64.pyd
+            # It lives alongside any openshot/__init__.py or standalone openshot.py
             $bindDir = $pyd.Directory.FullName
             $pythonPathRoot = $bindDir
+            # If inside an openshot/ subdir, walk up one more
             if ($pyd.Directory.Name -ieq "openshot") {
               $pythonPathRoot = $pyd.Directory.Parent.FullName
             }
+            Write-Host "Found _openshot*.pyd at: $($pyd.FullName)"
+          } elseif ($initPy) {
+            $bindDir = Split-Path -Parent $initPy.FullName   # ...\openshot
+            $pythonPathRoot = Split-Path -Parent $bindDir    # ...\site-packages
+            Write-Host "Found openshot/__init__.py at: $($initPy.FullName)"
           }
 
           if (-not $bindDir -or -not $pythonPathRoot) {
