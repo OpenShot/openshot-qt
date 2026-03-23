@@ -194,7 +194,7 @@ class OpenShotApp(QApplication):
             log.info("-" * 48)
 
             log.info("openshot-qt version: %s" % info.VERSION)
-            log.info("libopenshot version: %s" % openshot.OPENSHOT_VERSION_FULL)
+            log.info("libopenshot version: %s" % getattr(openshot, 'OPENSHOT_VERSION_FULL', 'unknown'))
             log.info("platform: %s" % platform.platform())
             log.info("processor: %s" % platform.processor())
             log.info("machine: %s" % platform.machine())
@@ -216,7 +216,13 @@ class OpenShotApp(QApplication):
     def check_libopenshot_version(self, info, openshot):
         """Detect minimum libopenshot version"""
         _ = self._tr
-        ver = openshot.OPENSHOT_VERSION_FULL
+        ver = getattr(openshot, 'OPENSHOT_VERSION_FULL', None)
+        if ver is None:
+            ver = "{}.{}.{}".format(
+                getattr(openshot, 'OPENSHOT_VERSION_MAJOR', 0),
+                getattr(openshot, 'OPENSHOT_VERSION_MINOR', 0),
+                getattr(openshot, 'OPENSHOT_VERSION_BUILD', 0)
+            )
         min_ver = info.MINIMUM_LIBOPENSHOT_VERSION
         if ver >= min_ver:
             return True
