@@ -772,13 +772,21 @@ jobs:
             Write-Host "Found _openshot*.pyd at: $($pyd.FullName)"
             # Create openshot.py wrapper if missing — _openshot.pyd is a bare C extension;
             # "import openshot" requires a Python wrapper that re-exports its symbols.
+            # Also call os.add_dll_directory() so Windows (Python 3.8+) can find the
+            # native DLLs (libopenshot.dll, FFMPEG DLLs, etc.) bundled in lib/.
             $wrapperPath = Join-Path $pythonPathRoot "openshot.py"
-            if (-not (Test-Path $wrapperPath)) {
-              Set-Content -Path $wrapperPath -Value "# Auto-generated wrapper`nfrom _openshot import *`n" -Encoding ascii
-              Write-Host "Created openshot.py wrapper at $wrapperPath"
-            } else {
-              Write-Host "openshot.py already exists at $wrapperPath"
-            }
+            $wrapperContent = @"
+# Auto-generated wrapper: re-exports _openshot C extension as 'openshot'.
+import os as _os
+# Python 3.8+ on Windows restricts DLL loading from PATH; explicitly add the
+# directory containing this file so libopenshot.dll and FFMPEG DLLs are found.
+_dll_dir = _os.path.dirname(_os.path.abspath(__file__))
+if hasattr(_os, 'add_dll_directory'):
+    _os.add_dll_directory(_dll_dir)
+from _openshot import *
+"@
+            Set-Content -Path $wrapperPath -Value $wrapperContent -Encoding ascii
+            Write-Host "Created/updated openshot.py wrapper at $wrapperPath"
           } elseif ($initPy) {
             $bindDir = Split-Path -Parent $initPy.FullName   # ...\openshot
             $pythonPathRoot = Split-Path -Parent $bindDir    # ...\site-packages

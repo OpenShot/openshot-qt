@@ -153,6 +153,27 @@ if _pyroot_env:
         if os.path.exists(_candidate):
             _openshot_src_files.append((_candidate, os.path.basename(_candidate)))
             break
+    # Bundle native DLLs that _openshot.pyd depends on (libopenshot.dll, FFMPEG DLLs, etc.).
+    # On Windows (Python 3.8+), DLL loading from PATH is restricted; the DLLs must be in
+    # the same directory as _openshot.pyd (lib/) and openshot.py adds that dir via
+    # os.add_dll_directory().  Search in ZENVI_OPENSHOT_BINDDIR and one level up (install root).
+    _binddir_env = os.environ.get('ZENVI_OPENSHOT_BINDDIR', _pyroot_env)
+    _install_root = os.path.dirname(_binddir_env)
+    _skip_dll_prefixes = (
+        'api-ms-win', 'msvcp', 'vcruntime', 'ucrtbase',  # Windows/MSVC runtime
+        'd3d', 'dxgi', 'dwrite', 'dwmapi',               # DirectX / desktop
+        'qt5',                                             # PyQt5 already bundles these
+        'python3',                                         # cx_Freeze bundles Python runtime
+    )
+    for _dll_dir in [_binddir_env, _install_root]:
+        if not os.path.isdir(_dll_dir):
+            continue
+        for _dll in _glob.glob(os.path.join(_dll_dir, '*.dll')):
+            _b = os.path.basename(_dll)
+            if any(_b.lower().startswith(x) for x in _skip_dll_prefixes):
+                continue
+            if (_dll, _b) not in _openshot_src_files:
+                _openshot_src_files.append((_dll, _b))
     if _openshot_src_files:
         print("ZENVI_OPENSHOT_PYROOT: direct discovery — will copy %d file(s) into frozen build" % len(_openshot_src_files))
         for _src, _dst in _openshot_src_files:
