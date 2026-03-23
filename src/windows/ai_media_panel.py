@@ -259,6 +259,11 @@ class AIMediaPanel(QDockWidget):
         except Exception as e:
             log.error(f"Failed to update selected clip tags: {e}")
 
+    def showEvent(self, event):
+        """Raise to the front of the tab stack when made visible via View > Docks."""
+        super().showEvent(event)
+        self.raise_()
+
     def on_tag_clicked(self, item, column):
         """Deprecated: tag click handler kept for backward compatibility."""
         return

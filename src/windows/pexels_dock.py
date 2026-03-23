@@ -248,7 +248,9 @@ class PexelsDock(QDockWidget):
         self.resize(340, 520)
 
         self._search_thread: QThread | None = None
-        self._dl_thread: QThread | None = None
+        # Keyed by video_id so concurrent downloads don't clobber each other.
+        self._dl_threads: Dict[int, QThread] = {}
+        self._dl_workers: Dict[int, _DownloadWorker] = {}
         self._cards: Dict[int, _VideoCard] = {}
         self._thumb_pool = QThreadPool.globalInstance()
 
@@ -457,6 +459,11 @@ class PexelsDock(QDockWidget):
     def _on_card_clicked(self, video: dict):
         vid_id = video.get("id", 0)
         card = self._cards.get(vid_id)
+
+        # Ignore clicks while this video is already downloading.
+        if vid_id in self._dl_threads:
+            return
+
         if card:
             card.set_downloading(True)
 
@@ -473,16 +480,35 @@ class PexelsDock(QDockWidget):
         link = chosen.get("link", "")
         filename = f"pexels_{vid_id}"
 
-        self._dl_thread = QThread()
-        self._dl_worker = _DownloadWorker(vid_id, link, filename)
-        self._dl_worker.moveToThread(self._dl_thread)
-        self._dl_thread.started.connect(self._dl_worker.run)
-        self._dl_worker.finished.connect(self._on_download_done)
-        self._dl_worker.finished.connect(self._dl_thread.quit)
-        self._dl_thread.start()
+        thread = QThread()
+        worker = _DownloadWorker(vid_id, link, filename)
+        worker.moveToThread(thread)
+        # Keep strong Python references in the dicts so the worker/thread are
+        # never GC'd while the download is in flight.
+        self._dl_threads[vid_id] = thread
+        self._dl_workers[vid_id] = worker
+        thread.started.connect(worker.run)
+        worker.finished.connect(self._on_download_done)
+        worker.finished.connect(thread.quit)
+        # Release Python refs only after QThread::finished fires.  That signal
+        # is emitted after Qt internally sets running=False, so destroying the
+        # wrapper there is safe.  Doing it inside _on_download_done (which is
+        # triggered by the *worker's* custom pyqtSignal) would race against the
+        # OS thread still running its cleanup, causing the
+        # "QThread: Destroyed while thread is still running" abort.
+        thread.finished.connect(lambda: self._cleanup_dl(vid_id))
+        thread.start()
+
+    def _cleanup_dl(self, video_id: int):
+        """Release per-video thread/worker refs after QThread::finished."""
+        self._dl_threads.pop(video_id, None)
+        self._dl_workers.pop(video_id, None)
 
     @pyqtSlot(int, str, str)
     def _on_download_done(self, video_id: int, local_path: str, error: str):
+        # NOTE: do NOT touch self._dl_threads/_dl_workers here — the QThread
+        # is still running its OS-level cleanup at this point.  _cleanup_dl
+        # (connected to thread.finished) handles that safely.
         card = self._cards.get(video_id)
         if error or not local_path:
             log.error("Pexels download error: %s", error)
@@ -493,13 +519,27 @@ class PexelsDock(QDockWidget):
         if card:
             card.set_done()
 
-        # Add to Project Files
+        # Add to Project Files and trigger tagging/indexing.
         try:
             from classes.app import get_app
+            from classes.query import File
             app = get_app()
             if app and hasattr(app, "window") and app.window:
-                app.window.files_model.add_files([local_path])
-                log.info("Pexels video added to Project Files: %s", local_path)
+                files_model = app.window.files_model
+                existing = File.get(path=local_path)
+                if existing:
+                    # File already in project — re-trigger tagging if it was
+                    # never successfully analyzed (e.g., backend was down during
+                    # the first import).
+                    if not (existing.data.get("ai_metadata") or {}).get("analyzed"):
+                        log.info(
+                            "Pexels video already in project but untagged, "
+                            "re-triggering tagging: %s", local_path,
+                        )
+                        files_model._tag_file_async(existing.id)
+                else:
+                    files_model.add_files([local_path])
+                    log.info("Pexels video added to Project Files: %s", local_path)
         except Exception as exc:
             log.error("Failed to add Pexels video to Project Files: %s", exc)
 
@@ -521,10 +561,13 @@ class PexelsDock(QDockWidget):
         self._status_label.setText("")
 
     def _cleanup_threads(self):
-        for t in (self._search_thread, self._dl_thread):
+        threads = [self._search_thread] + list(self._dl_threads.values())
+        for t in threads:
             if t and t.isRunning():
                 t.quit()
                 t.wait(2000)
+        self._dl_threads.clear()
+        self._dl_workers.clear()
 
     def resizeEvent(self, event):
         super().resizeEvent(event)

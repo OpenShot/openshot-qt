@@ -289,8 +289,6 @@
 }
 
 .chat-model-menu {
-    bottom: calc(100% + 6px);
-    left: 0;
     min-width: 200px;
     max-width: 260px;
     max-height: 280px;

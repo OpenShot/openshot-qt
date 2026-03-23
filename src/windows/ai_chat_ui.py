@@ -307,6 +307,21 @@ class ChatBridge(QObject):
         if self.window:
             self.window._cancel_clip_pick()
 
+    @pyqtSlot(str)
+    def createSession(self, model_id: str):
+        if self.window:
+            self.window._create_session(model_id)
+
+    @pyqtSlot(str)
+    def switchSession(self, session_id: str):
+        if self.window:
+            self.window._switch_session(session_id)
+
+    @pyqtSlot(str)
+    def closeSession(self, session_id: str):
+        if self.window:
+            self.window._close_session(session_id)
+
 
 class AIChatWindow(QDockWidget):
     """Zenvi Assistant chat dock. Supports markdown in assistant replies and matches app theme."""
@@ -323,26 +338,24 @@ class AIChatWindow(QDockWidget):
 
         self.is_processing = False
         self._use_web_ui = _WEBENGINE_AVAILABLE
-        self._first_prompt_summary = None  # AI-generated summary of first user message for preamble
+        self._first_prompt_summary = None  # mirrors active session's first_prompt_summary
         self._auto_attach_selected_clip_context = True
         self._clip_pick_purpose = None   # None | 'selected_clip' | 'transition_a' | 'transition_b'
 
-        # AI runs in a background thread.
-        # No Qt parent on the thread — we manage its lifetime explicitly so Qt
-        # doesn't auto-delete it (and crash) when the dock widget is destroyed.
-        self._ai_thread = QThread()
-        self._worker = AIChatWorker()  # no parent so we can moveToThread
-        self._worker.moveToThread(self._ai_thread)
-        self._worker.response_ready.connect(self._on_response_ready)
-        self._worker.error_occurred.connect(self._on_error)
-        self._ai_thread.start()
+        # Per-session state: each entry holds {"worker", "thread", "title",
+        # "messages", "processing", "first_prompt_summary"}.
+        self._sessions: dict = {}
+        self._active_sid: str = ""
 
-        # Stop the thread on app quit (covers the shutdown path where
+        # Stop all threads on app quit (covers the shutdown path where
         # closeEvent is never called on dock widgets).
         from PyQt5.QtWidgets import QApplication
         app_instance = QApplication.instance()
         if app_instance:
-            app_instance.aboutToQuit.connect(self._stop_thread)
+            app_instance.aboutToQuit.connect(self._stop_all_threads)
+
+        # Create the initial session before building the UI widgets.
+        self._create_initial_session()
 
         if self._use_web_ui:
             self._init_web_ui()
@@ -351,6 +364,116 @@ class AIChatWindow(QDockWidget):
 
         self.setMinimumWidth(400)
         self.setMinimumHeight(450)
+
+    # ------------------------------------------------------------------
+    # Session management
+    # ------------------------------------------------------------------
+
+    def _make_worker(self, session_id: str):
+        """Create and start a new AIChatWorker thread pair for the given session_id."""
+        thread = QThread()
+        worker = AIChatWorker()
+        worker._session_id = session_id   # used by signal handlers to route responses
+        worker.moveToThread(thread)
+        worker.response_ready.connect(self._on_response_ready)
+        worker.error_occurred.connect(self._on_error)
+        thread.start()
+        return worker, thread
+
+    def _create_initial_session(self):
+        import uuid
+        sid = str(uuid.uuid4())
+        worker, thread = self._make_worker(sid)
+        self._sessions[sid] = {
+            "worker": worker,
+            "thread": thread,
+            "title": "New Chat",
+            "messages": [],
+            "processing": False,
+            "first_prompt_summary": None,
+        }
+        self._active_sid = sid
+
+    def _create_session(self, model_id: str = ""):
+        """Create a new chat session and switch to it (called from the + tab button)."""
+        import uuid
+        sid = str(uuid.uuid4())
+        worker, thread = self._make_worker(sid)
+        self._sessions[sid] = {
+            "worker": worker,
+            "thread": thread,
+            "title": "New Chat",
+            "messages": [],
+            "processing": False,
+            "first_prompt_summary": None,
+        }
+        self._active_sid = sid
+        self._first_prompt_summary = None
+        self.is_processing = False
+        if self._use_web_ui:
+            self._run_js("clearMessages();")
+            self._push_tabs_to_js()
+            self._update_preamble()
+            self._add_system_msg("New session started. Ask anything about your project.")
+
+    def _switch_session(self, session_id: str):
+        """Switch the displayed session to *session_id* (called when user clicks a tab)."""
+        if session_id not in self._sessions or session_id == self._active_sid:
+            return
+        self._active_sid = session_id
+        sess = self._sessions[session_id]
+        self._first_prompt_summary = sess.get("first_prompt_summary")
+        self.is_processing = sess.get("processing", False)
+        if self._use_web_ui:
+            self._run_js("clearMessages();")
+            for role, html_body, is_assistant in sess.get("messages", []):
+                self._run_js("appendMessage(%s, %s, %s);" % (
+                    json.dumps(role),
+                    json.dumps(html_body),
+                    "true" if is_assistant else "false",
+                ))
+            self._push_tabs_to_js()
+            self._run_js("setProcessing(%s);" % ("true" if self.is_processing else "false"))
+        self._update_preamble()
+
+    def _close_session(self, session_id: str):
+        """Close a session and delete its Pinecone namespace (called from the × on a tab)."""
+        if len(self._sessions) <= 1:
+            return  # never close the last session
+        if session_id not in self._sessions:
+            return
+        sess = self._sessions.pop(session_id)
+        # Clear backend session in background
+        QMetaObject.invokeMethod(sess["worker"], "clear_session", Qt.QueuedConnection)
+        # Stop the worker thread
+        thread = sess["thread"]
+        if thread.isRunning():
+            thread.quit()
+            thread.wait(1000)
+        # If we just closed the active session, switch to the first remaining one
+        if self._active_sid == session_id:
+            self._active_sid = next(iter(self._sessions))
+            self._switch_session(self._active_sid)
+        else:
+            self._push_tabs_to_js()
+
+    def _push_tabs_to_js(self):
+        """Push the current session list to the JS tab bar."""
+        tabs = []
+        for sid, sess in self._sessions.items():
+            tabs.append({
+                "id": sid,
+                "title": sess.get("first_prompt_summary") or sess.get("title", "New Chat"),
+                "active": sid == self._active_sid,
+            })
+        self._run_js("setTabs(%s);" % json.dumps(json.dumps(tabs)))
+
+    def _active_session(self) -> dict:
+        return self._sessions.get(self._active_sid, {})
+
+    # ------------------------------------------------------------------
+    # Widget UI (fallback when WebEngine is unavailable)
+    # ------------------------------------------------------------------
 
     def _init_widget_ui(self):
         """Build classic Qt widget chat UI."""
@@ -599,6 +722,7 @@ class AIChatWindow(QDockWidget):
         self._run_js("setPreamble(%s);" % json.dumps(preamble))
 
         self._run_js("clearMessages();")
+        self._push_tabs_to_js()
 
     def _get_preamble_html(self):
         """Return preamble as HTML: AI summary as heading when set, else 'Zenvi Assistant'."""
@@ -608,8 +732,10 @@ class AIChatWindow(QDockWidget):
 
     def _request_preamble_summary(self, prompt: str):
         """Start a background thread to summarize the first user prompt and update preamble."""
-        if self._first_prompt_summary or not prompt or not prompt.strip():
+        sess = self._active_session()
+        if not sess or sess.get("first_prompt_summary") or not prompt or not prompt.strip():
             return
+        active_sid = self._active_sid  # capture for closure
 
         def run():
             summary = _summarize_prompt(prompt.strip())
@@ -618,18 +744,22 @@ class AIChatWindow(QDockWidget):
                     self,
                     "_on_preamble_summary",
                     Qt.QueuedConnection,
+                    Q_ARG(str, active_sid),
                     Q_ARG(str, summary),
                 )
 
         t = threading.Thread(target=run, daemon=True)
         t.start()
 
-    @pyqtSlot(str)
-    def _on_preamble_summary(self, text: str):
+    @pyqtSlot(str, str)
+    def _on_preamble_summary(self, session_id: str, text: str):
         """Called on main thread when first-prompt summary is ready."""
-        if not self._first_prompt_summary and text:
-            self._first_prompt_summary = text
-            self._update_preamble()
+        if session_id in self._sessions and not self._sessions[session_id].get("first_prompt_summary") and text:
+            self._sessions[session_id]["first_prompt_summary"] = text
+            if session_id == self._active_sid:
+                self._first_prompt_summary = text
+                self._update_preamble()
+            self._push_tabs_to_js()
 
     def _start_clip_pick(self, purpose: str):
         """Connect one-shot to SelectionChanged for the given pick purpose."""
@@ -753,6 +883,9 @@ class AIChatWindow(QDockWidget):
             return
         if not text:
             return
+        worker = self._active_session().get("worker")
+        if worker is None:
+            return
         self._add_user_msg(text)
         self._request_preamble_summary(text)
         augmented_text, attached_summary = self._augment_text_with_context(text, context_json)
@@ -760,38 +893,32 @@ class AIChatWindow(QDockWidget):
             self._add_system_msg(f"Context attached: {attached_summary}")
         self._set_processing_ui(True)
         QMetaObject.invokeMethod(
-            self._worker,
+            worker,
             "run_request",
             Qt.QueuedConnection,
             Q_ARG(str, augmented_text),
             Q_ARG(str, model_id),
         )
 
-    def _stop_thread(self):
-        """Cleanly stop the AI worker thread. Safe to call more than once.
-
-        Closes any active WebSocket first so ws.recv() unblocks immediately,
-        allowing the thread to exit naturally and preventing QThread::~QThread()
-        from blocking forever waiting for a Python thread stuck in C I/O.
-        """
-        if not hasattr(self, "_ai_thread") or self._ai_thread is None:
-            return
-        # Interrupt any in-flight WebSocket recv so the thread can exit on its own
+    def _stop_all_threads(self):
+        """Cleanly stop all session worker threads. Safe to call more than once."""
         try:
             from classes.api_client import get_backend_client
             get_backend_client().cancel_current_request()
         except Exception:
             pass
-        if self._ai_thread.isRunning():
-            self._ai_thread.quit()
-            if not self._ai_thread.wait(2000):
-                log.warning("AI chat thread did not stop within 2 s; terminating")
-                self._ai_thread.terminate()
-                self._ai_thread.wait(500)
+        for sess in list(self._sessions.values()):
+            thread = sess.get("thread")
+            if thread and thread.isRunning():
+                thread.quit()
+                if not thread.wait(2000):
+                    log.warning("AI chat thread did not stop within 2 s; terminating")
+                    thread.terminate()
+                    thread.wait(500)
 
     def closeEvent(self, event):
-        """Stop the AI worker thread when the dock is explicitly closed."""
-        self._stop_thread()
+        """Stop all AI worker threads when the dock is explicitly closed."""
+        self._stop_all_threads()
         super().closeEvent(event)
 
     def showEvent(self, event):
@@ -858,18 +985,23 @@ class AIChatWindow(QDockWidget):
         if not model_id and self.model_combo.count():
             model_id = self.model_combo.currentText()
         model_id_str = model_id if model_id else ""
-        QMetaObject.invokeMethod(
-            self._worker,
-            "run_request",
-            Qt.QueuedConnection,
-            Q_ARG(str, augmented_text),
-            Q_ARG(str, model_id_str),
-        )
+        worker = self._active_session().get("worker")
+        if worker:
+            QMetaObject.invokeMethod(
+                worker,
+                "run_request",
+                Qt.QueuedConnection,
+                Q_ARG(str, augmented_text),
+                Q_ARG(str, model_id_str),
+            )
         self.msg_input.setFocus()
 
     def _set_processing_ui(self, processing: bool):
         """Update Send/Cancel visibility and enabled state."""
         self.is_processing = processing
+        sess = self._active_session()
+        if sess:
+            sess["processing"] = processing
         if self._use_web_ui:
             self._run_js("setProcessing(%s);" % ("true" if processing else "false"))
             return
@@ -887,14 +1019,31 @@ class AIChatWindow(QDockWidget):
 
     @pyqtSlot(str)
     def _on_response_ready(self, text: str):
-        self._add_assistant_msg(text)
-        self._set_processing_ui(False)
+        sid = getattr(self.sender(), "_session_id", self._active_sid)
+        if sid in self._sessions:
+            self._sessions[sid]["processing"] = False
+        if sid == self._active_sid:
+            self._add_assistant_msg(text)
+            self._set_processing_ui(False)
+        else:
+            # Background session — store message and notify JS for unread badge
+            if sid in self._sessions:
+                html_body = _markdown_to_html(text)
+                self._sessions[sid]["messages"].append(("assistant", html_body, True))
+                self._run_js(
+                    "if(window.onBackgroundResponse) window.onBackgroundResponse(%s, %s);"
+                    % (json.dumps(sid), json.dumps(html_body))
+                )
 
     @pyqtSlot(str)
     def _on_error(self, text: str):
-        log.debug("ai_chat_ui _on_error: %s", text[:80] if text else "")
-        self._add_system_msg("Error: %s" % text)
-        self._set_processing_ui(False)
+        sid = getattr(self.sender(), "_session_id", self._active_sid)
+        if sid in self._sessions:
+            self._sessions[sid]["processing"] = False
+        if sid == self._active_sid:
+            log.debug("ai_chat_ui _on_error: %s", text[:80] if text else "")
+            self._add_system_msg("Error: %s" % text)
+            self._set_processing_ui(False)
 
     def clear_chat(self):
         reply = QMessageBox.question(
@@ -904,13 +1053,16 @@ class AIChatWindow(QDockWidget):
         )
         if reply == QMessageBox.Yes:
             self._first_prompt_summary = None
-            QMetaObject.invokeMethod(
-                self._worker,
-                "clear_session",
-                Qt.QueuedConnection,
-            )
+            sess = self._active_session()
+            if sess:
+                sess["messages"] = []
+                sess["first_prompt_summary"] = None
+                worker = sess.get("worker")
+                if worker:
+                    QMetaObject.invokeMethod(worker, "clear_session", Qt.QueuedConnection)
             if self._use_web_ui:
                 self._run_js("clearMessages();")
+                self._push_tabs_to_js()
             else:
                 self.chat_box.clear()
             self._update_preamble()
@@ -929,10 +1081,18 @@ class AIChatWindow(QDockWidget):
         if self._use_web_ui:
             if is_assistant:
                 html_body = _markdown_to_html(text)
-                self._run_js("appendMessage(%s, %s, true);" % (json.dumps(role), json.dumps(html_body)))
             else:
                 safe = html.escape(text).replace("\n", "<br/>")
-                self._run_js("appendMessage(%s, %s, false);" % (json.dumps(role), json.dumps("<p>" + safe + "</p>")))
+                html_body = "<p>" + safe + "</p>"
+            # Store for replay when the user switches back to this tab
+            sess = self._active_session()
+            if sess is not None:
+                sess["messages"].append((role, html_body, is_assistant))
+            self._run_js("appendMessage(%s, %s, %s);" % (
+                json.dumps(role),
+                json.dumps(html_body),
+                "true" if is_assistant else "false",
+            ))
             return
         cursor = self.chat_box.textCursor()
         cursor.movePosition(QTextCursor.End)

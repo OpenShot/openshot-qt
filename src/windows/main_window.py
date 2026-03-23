@@ -188,7 +188,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Stop AI chat thread early so its 1-second wait overlaps with the rest of shutdown
         if getattr(self, "dockAIChat", None):
-            self.dockAIChat._stop_thread()
+            self.dockAIChat._stop_all_threads()
 
         # Stop threads
         self.StopSignal.emit()

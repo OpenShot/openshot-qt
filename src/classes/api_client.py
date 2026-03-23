@@ -587,14 +587,17 @@ class ZenviBackendClient:
     # ------------------------------------------------------------------
     # Tagging & Indexing (for files_model)
     # ------------------------------------------------------------------
-    def tag_video(self, video_path: str, session=None) -> Dict[str, Any]:
+    def tag_video(self, video_path: str, file_id: str = "", session=None) -> Dict[str, Any]:
         """Send a video to the backend for AI tagging/analysis (replaces GeminiVideoTagger)."""
         try:
             s = session or self.session
+            payload: Dict[str, Any] = {"video_path": video_path}
+            if file_id:
+                payload["file_id"] = file_id
             r = s.post(
                 f"{self.api_url}/tags/analyze",
-                json={"video_path": video_path},
-                timeout=30,
+                json=payload,
+                timeout=180,  # frame extraction + Gemini upload + inference can take > 30s
             )
             r.raise_for_status()
             return r.json()

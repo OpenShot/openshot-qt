@@ -473,6 +473,12 @@
         if (menuOpen) return;
         menuOpen = true;
         renderMenu();
+        // Use fixed positioning so the menu escapes any overflow:hidden ancestors
+        var rect = modelTrigger.getBoundingClientRect();
+        modelMenu.style.position = 'fixed';
+        modelMenu.style.left = rect.left + 'px';
+        modelMenu.style.bottom = (window.innerHeight - rect.top + 6) + 'px';
+        modelMenu.style.top = '';
         modelMenu.style.display = 'block';
         modelTrigger.classList.add('active');
     }

@@ -34,7 +34,7 @@ import functools
 import uuid
 
 from PyQt5.QtCore import (
-    QMimeData, Qt, pyqtSignal, QEventLoop, QObject, QThread,
+    QMimeData, Qt, pyqtSignal, QEventLoop, QObject, QThread, QTimer,
     QSortFilterProxyModel, QItemSelectionModel, QPersistentModelIndex, QModelIndex
 )
 from PyQt5.QtGui import (
@@ -73,7 +73,8 @@ class BackendTaggingWorker(QThread):
         try:
             if self.file_data.get("media_type") == "video":
                 file_path = self.file_data.get("path", "")
-                metadata = client.tag_video(file_path, session=self._session)
+                file_id = self.file_data.get("id", "")
+                metadata = client.tag_video(file_path, file_id=file_id, session=self._session)
 
                 # TwelveLabs indexing — run synchronously so we can capture the
                 # index_id / video_id and store them in ai_metadata.  This worker
@@ -423,6 +424,11 @@ class FilesModel(QObject, updates.UpdateInterface):
         if not isinstance(files, (list, tuple)):
             files = [files]
         scroll_to_files = []
+        # Collect IDs of video files that need background tagging.  We start
+        # the workers *after* add_files returns (via QTimer.singleShot) so that
+        # any rapid worker completion doesn't deliver signals back into the model
+        # while we're still updating it (reentrancy → model corruption / crash).
+        _deferred_tag_ids: list = []
 
         start_count = len(files)
         for count, filepath in enumerate(files):
@@ -517,12 +523,10 @@ class FilesModel(QObject, updates.UpdateInterface):
                 new_file.save()
                 scroll_to_files.append(new_file)
 
-                # Kick off background AI tagging (non-blocking, fire-and-forget)
+                # Queue this video for background tagging (started after add_files
+                # returns to avoid reentrancy with processEvents below).
                 if not skip_tagging and new_file.data.get("media_type") == "video":
-                    try:
-                        self._tag_file_async(new_file.id)
-                    except Exception as e:
-                        log.warning(f"Failed to start background tagging: {e}")
+                    _deferred_tag_ids.append(new_file.id)
 
                 if start_count > 15:
                     message = _("Importing %(count)d / %(total)d") % {
@@ -560,6 +564,17 @@ class FilesModel(QObject, updates.UpdateInterface):
 
         message = _("Imported %(count)d files") % {"count": len(files) - 1}
         app.window.statusBar.showMessage(message, 3000)
+
+        # Start deferred tagging workers now that add_files has fully returned
+        # to a stable state.  singleShot(0) fires on the next event-loop tick,
+        # well outside this call frame, so worker callbacks can't re-enter here.
+        for _fid in _deferred_tag_ids:
+            def _start(_fid=_fid):
+                try:
+                    self._tag_file_async(_fid)
+                except Exception as _e:
+                    log.warning("Failed to start background tagging: %s", _e)
+            QTimer.singleShot(0, _start)
 
     def get_image_sequence_details(self, file_path):
         """Inspect a file path and determine if this is an image sequence"""
