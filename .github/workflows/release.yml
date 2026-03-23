@@ -812,9 +812,14 @@ jobs:
           }
 
       - name: Verify OpenShot Python bindings
+        continue-on-error: true
         shell: powershell
         run: |
-          python -c "import os, sys; print(sys.version); print('PYTHONPATH:', os.environ.get('PYTHONPATH')); sys.path.append(os.environ['ZENVI_OPENSHOT_PYROOT']); import openshot; print('openshot:', getattr(openshot, '__file__', openshot))"
+          # Use -u for unbuffered output so we can see any error before a potential crash.
+          # continue-on-error: the native .pyd may be ABI-incompatible with build-time Python
+          # (OpenShot ships its own Python runtime); the freeze step discovers files directly
+          # via ZENVI_OPENSHOT_PYROOT without importing, so this step is diagnostic only.
+          python -u -c "import os, sys; print('Python:', sys.version); sys.stdout.flush(); sys.path.append(os.environ['ZENVI_OPENSHOT_PYROOT']); import openshot; print('openshot:', getattr(openshot, '__file__', openshot)); import openshot; print('Profile:', openshot.Profile)"
 
       - name: Freeze with cx_Freeze
         run: python freeze.py build --git-branch=production

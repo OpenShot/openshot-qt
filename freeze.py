@@ -129,36 +129,65 @@ python_packages = ["os",
 #  - cx_Freeze's "include_files" silently drops files under some conditions
 # The post-build copy into lib/ is the only reliable cross-platform approach.
 _openshot_src_files = []  # list of (src_path, basename) — copied after build
-try:
-    import openshot  # noqa: F401
-    import inspect
-    _os_py = inspect.getfile(openshot)
-    _os_dir = os.path.dirname(os.path.abspath(_os_py))
-    _openshot_src_files.append((_os_py, os.path.basename(_os_py)))
-    # Find the native extension (_openshot.pyd on Windows, _openshot.so on Linux).
-    # Two layouts exist:
-    #   single-file:  openshot.py + _openshot.pyd in the same directory
-    #   package:      openshot/__init__.py + _openshot.pyd one level UP (sibling to openshot/)
-    _search_dirs = [_os_dir]
-    if os.path.basename(_os_py) == "__init__.py":
-        _search_dirs.append(os.path.dirname(_os_dir))
+
+# When ZENVI_OPENSHOT_PYROOT is set (CI builds), discover files directly from the
+# filesystem to avoid loading a potentially ABI-incompatible native extension at
+# build time.  OpenShot ships its own embedded Python; _openshot.pyd is compiled
+# against that runtime, which may differ from the CI build Python.
+_pyroot_env = os.environ.get('ZENVI_OPENSHOT_PYROOT', '')
+if _pyroot_env:
     import glob as _glob
-    for _search_dir in _search_dirs:
-        # Exact names: _openshot.pyd / _openshot.so
-        for _ext in (".pyd", ".so"):
-            _native = os.path.join(_search_dir, "_openshot" + _ext)
-            if os.path.exists(_native) and (_native, os.path.basename(_native)) not in _openshot_src_files:
-                _openshot_src_files.append((_native, os.path.basename(_native)))
-        # Cpython-tagged names: _openshot.cp311-win_amd64.pyd / _openshot.cpython-311-x86_64-linux-gnu.so
-        for _pattern in ("_openshot.cp*.pyd", "_openshot.cpython-*.so"):
-            for _match in _glob.glob(os.path.join(_search_dir, _pattern)):
-                if (_match, os.path.basename(_match)) not in _openshot_src_files:
-                    _openshot_src_files.append((_match, os.path.basename(_match)))
-    print("openshot module found — will copy %d file(s) into frozen build (post-build)" % len(_openshot_src_files))
-    for _src, _dst in _openshot_src_files:
-        print("  %s -> lib/%s" % (_src, _dst))
-except ImportError:
-    print("WARNING: openshot module not importable — excluding from frozen build")
+    # Native extension
+    for _pattern in ("_openshot.pyd", "_openshot.cp*.pyd",
+                      "_openshot.so", "_openshot.cpython-*.so"):
+        for _match in _glob.glob(os.path.join(_pyroot_env, _pattern)):
+            if (_match, os.path.basename(_match)) not in _openshot_src_files:
+                _openshot_src_files.append((_match, os.path.basename(_match)))
+    # Python wrapper: openshot.py (single-file layout) or openshot/__init__.py (package layout)
+    for _candidate in [
+        os.path.join(_pyroot_env, 'openshot.py'),
+        os.path.join(_pyroot_env, 'openshot', '__init__.py'),
+    ]:
+        if os.path.exists(_candidate):
+            _openshot_src_files.append((_candidate, os.path.basename(_candidate)))
+            break
+    if _openshot_src_files:
+        print("ZENVI_OPENSHOT_PYROOT: direct discovery — will copy %d file(s) into frozen build" % len(_openshot_src_files))
+        for _src, _dst in _openshot_src_files:
+            print("  %s -> lib/%s" % (_src, _dst))
+    else:
+        print("WARNING: ZENVI_OPENSHOT_PYROOT set but no openshot files found — openshot will be missing")
+else:
+    try:
+        import openshot  # noqa: F401
+        import inspect
+        _os_py = inspect.getfile(openshot)
+        _os_dir = os.path.dirname(os.path.abspath(_os_py))
+        _openshot_src_files.append((_os_py, os.path.basename(_os_py)))
+        # Find the native extension (_openshot.pyd on Windows, _openshot.so on Linux).
+        # Two layouts exist:
+        #   single-file:  openshot.py + _openshot.pyd in the same directory
+        #   package:      openshot/__init__.py + _openshot.pyd one level UP (sibling to openshot/)
+        _search_dirs = [_os_dir]
+        if os.path.basename(_os_py) == "__init__.py":
+            _search_dirs.append(os.path.dirname(_os_dir))
+        import glob as _glob
+        for _search_dir in _search_dirs:
+            # Exact names: _openshot.pyd / _openshot.so
+            for _ext in (".pyd", ".so"):
+                _native = os.path.join(_search_dir, "_openshot" + _ext)
+                if os.path.exists(_native) and (_native, os.path.basename(_native)) not in _openshot_src_files:
+                    _openshot_src_files.append((_native, os.path.basename(_native)))
+            # Cpython-tagged names: _openshot.cp311-win_amd64.pyd / _openshot.cpython-311-x86_64-linux-gnu.so
+            for _pattern in ("_openshot.cp*.pyd", "_openshot.cpython-*.so"):
+                for _match in _glob.glob(os.path.join(_search_dir, _pattern)):
+                    if (_match, os.path.basename(_match)) not in _openshot_src_files:
+                        _openshot_src_files.append((_match, os.path.basename(_match)))
+        print("openshot module found — will copy %d file(s) into frozen build (post-build)" % len(_openshot_src_files))
+        for _src, _dst in _openshot_src_files:
+            print("  %s -> lib/%s" % (_src, _dst))
+    except ImportError:
+        print("WARNING: openshot module not importable — excluding from frozen build")
 
 # Modules to include
 python_modules = ["idna.idnadata",
