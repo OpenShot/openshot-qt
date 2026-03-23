@@ -290,6 +290,17 @@ if sys.platform == "win32":
     # Append some additional files for Windows (this is a debug launcher)
     src_files.append((os.path.join(PATH, "installer", "launch-win.bat"), "launch-win.bat"))
 
+    # Bundle .env credentials file if present (required for Supabase auth)
+    env_file = os.path.join(PATH, ".env")
+    if os.path.exists(env_file):
+        src_files.append((env_file, ".env"))
+
+    # cx_Freeze 7.0.0 + Python 3.11: the `re` module is now a multi-file package
+    # stored in lib/re/. The cx_Freeze __startup__.py imports `string` (which imports
+    # `re`) before lib/ is added to sys.path, causing ModuleNotFoundError at startup.
+    # Force `re` into library.zip so it is accessible from the very first import.
+    build_exe_options["zip_include_packages"] = ["re"]
+
     # Add additional package
     python_packages.extend([
         "idna",
