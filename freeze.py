@@ -156,7 +156,12 @@ if _pyroot_env:
     # Bundle native DLLs that _openshot.pyd depends on (libopenshot.dll, FFMPEG DLLs, etc.).
     # On Windows (Python 3.8+), DLL loading from PATH is restricted; the DLLs must be in
     # the same directory as _openshot.pyd (lib/) and openshot.py adds that dir via
-    # os.add_dll_directory().  Search in ZENVI_OPENSHOT_BINDDIR and one level up (install root).
+    # os.add_dll_directory().
+    #
+    # Search BINDDIR first (lib/ — co-located with _openshot.pyd), then install root as
+    # fallback for any DLLs missing from lib/.  IMPORTANT: deduplicate by BASENAME so the
+    # lib/ copy always wins; copying the install-root copy of a DLL would overwrite the
+    # lib/ version with a potentially different build → "procedure not found" at runtime.
     _binddir_env = os.environ.get('ZENVI_OPENSHOT_BINDDIR', _pyroot_env)
     _install_root = os.path.dirname(_binddir_env)
     _skip_dll_prefixes = (
@@ -164,16 +169,21 @@ if _pyroot_env:
         'd3d', 'dxgi', 'dwrite', 'dwmapi',               # DirectX / desktop
         'qt5',                                             # PyQt5 already bundles these
         'python3',                                         # cx_Freeze bundles Python runtime
+        'libpython',                                       # OpenShot embedded Python (MinGW);
+                                                           # bundling conflicts with cx_Freeze's
+                                                           # CPython runtime in the same process
     )
+    _bundled_dll_names = {os.path.basename(p).lower() for _, p in _openshot_src_files}
     for _dll_dir in [_binddir_env, _install_root]:
         if not os.path.isdir(_dll_dir):
             continue
-        for _dll in _glob.glob(os.path.join(_dll_dir, '*.dll')):
+        for _dll in sorted(_glob.glob(os.path.join(_dll_dir, '*.dll'))):
             _b = os.path.basename(_dll)
             if any(_b.lower().startswith(x) for x in _skip_dll_prefixes):
                 continue
-            if (_dll, _b) not in _openshot_src_files:
+            if _b.lower() not in _bundled_dll_names:
                 _openshot_src_files.append((_dll, _b))
+                _bundled_dll_names.add(_b.lower())
     if _openshot_src_files:
         print("ZENVI_OPENSHOT_PYROOT: direct discovery — will copy %d file(s) into frozen build" % len(_openshot_src_files))
         for _src, _dst in _openshot_src_files:
