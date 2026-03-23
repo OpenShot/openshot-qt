@@ -695,10 +695,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          # OpenShot Chocolatey ships _openshot.pyd compiled for Python 3.8 (MinGW).
-          # The frozen app must use the same Python major.minor so that the C extension
-          # ABI, struct layouts, and Python runtime DLL all match.
-          python-version: "3.8"
+          python-version: "3.11"
 
       - name: Install dependencies
         run: |

@@ -169,9 +169,6 @@ if _pyroot_env:
         'd3d', 'dxgi', 'dwrite', 'dwmapi',               # DirectX / desktop
         'qt5',                                             # PyQt5 already bundles these
         'python3',                                         # cx_Freeze bundles Python runtime
-        'libpython',                                       # OpenShot embedded Python (MinGW);
-                                                           # bundling conflicts with cx_Freeze's
-                                                           # CPython runtime in the same process
     )
     _bundled_dll_names = {os.path.basename(p).lower() for _, p in _openshot_src_files}
     for _dll_dir in [_binddir_env, _install_root]:
