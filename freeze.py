@@ -135,15 +135,24 @@ try:
     _os_py = inspect.getfile(openshot)
     _os_dir = os.path.dirname(os.path.abspath(_os_py))
     _openshot_src_files.append((_os_py, os.path.basename(_os_py)))
-    # Find the native extension (_openshot.pyd on Windows, _openshot.so on Linux)
-    for _ext in (".pyd", ".so"):
-        _native = os.path.join(_os_dir, "_openshot" + _ext)
-        if os.path.exists(_native):
-            _openshot_src_files.append((_native, os.path.basename(_native)))
+    # Find the native extension (_openshot.pyd on Windows, _openshot.so on Linux).
+    # Two layouts exist:
+    #   single-file:  openshot.py + _openshot.pyd in the same directory
+    #   package:      openshot/__init__.py + _openshot.pyd one level UP (sibling to openshot/)
+    _search_dirs = [_os_dir]
+    if os.path.basename(_os_py) == "__init__.py":
+        _search_dirs.append(os.path.dirname(_os_dir))
+    for _search_dir in _search_dirs:
+        for _ext in (".pyd", ".so"):
+            _native = os.path.join(_search_dir, "_openshot" + _ext)
+            if os.path.exists(_native) and (_native, os.path.basename(_native)) not in _openshot_src_files:
+                _openshot_src_files.append((_native, os.path.basename(_native)))
     # Also check for _openshot.cpython-*.so (Linux naming convention)
     import glob as _glob
-    for _match in _glob.glob(os.path.join(_os_dir, "_openshot.cpython-*.so")):
-        _openshot_src_files.append((_match, os.path.basename(_match)))
+    for _search_dir in _search_dirs:
+        for _match in _glob.glob(os.path.join(_search_dir, "_openshot.cpython-*.so")):
+            if (_match, os.path.basename(_match)) not in _openshot_src_files:
+                _openshot_src_files.append((_match, os.path.basename(_match)))
     print("openshot module found — will copy %d file(s) into frozen build (post-build)" % len(_openshot_src_files))
     for _src, _dst in _openshot_src_files:
         print("  %s -> lib/%s" % (_src, _dst))
@@ -684,6 +693,11 @@ for frozen_path in os.listdir(build_path):
         lib_dir = os.path.join(build_path, frozen_path, "lib")
         if os.path.isdir(lib_dir):
             for _src, _basename in _openshot_src_files:
+                # Skip __init__.py — cx_Freeze already places openshot/__init__.py
+                # in lib/openshot/. Copying it again as lib/__init__.py would
+                # incorrectly mark the lib/ directory itself as a Python package.
+                if _basename == "__init__.py":
+                    continue
                 _dst = os.path.join(lib_dir, _basename)
                 log.info("Post-build openshot copy: %s -> %s" % (_src, _dst))
                 shutil.copy2(_src, _dst)
