@@ -775,17 +775,16 @@ jobs:
             # Also call os.add_dll_directory() so Windows (Python 3.8+) can find the
             # native DLLs (libopenshot.dll, FFMPEG DLLs, etc.) bundled in lib/.
             $wrapperPath = Join-Path $pythonPathRoot "openshot.py"
-            $wrapperContent = @"
-# Auto-generated wrapper: re-exports _openshot C extension as 'openshot'.
-import os as _os
-# Python 3.8+ on Windows restricts DLL loading from PATH; explicitly add the
-# directory containing this file so libopenshot.dll and FFMPEG DLLs are found.
-_dll_dir = _os.path.dirname(_os.path.abspath(__file__))
-if hasattr(_os, 'add_dll_directory'):
-    _os.add_dll_directory(_dll_dir)
-from _openshot import *
-"@
-            Set-Content -Path $wrapperPath -Value $wrapperContent -Encoding ascii
+            $wrapperLines = @(
+              "# Auto-generated wrapper: re-exports _openshot C extension as 'openshot'.",
+              "import os as _os",
+              "# Python 3.8+ Windows restricts DLL loading from PATH; add lib/ explicitly.",
+              "_dll_dir = _os.path.dirname(_os.path.abspath(__file__))",
+              "if hasattr(_os, 'add_dll_directory'):",
+              "    _os.add_dll_directory(_dll_dir)",
+              "from _openshot import *"
+            )
+            Set-Content -Path $wrapperPath -Value ($wrapperLines -join "`n") -Encoding ascii
             Write-Host "Created/updated openshot.py wrapper at $wrapperPath"
           } elseif ($initPy) {
             $bindDir = Split-Path -Parent $initPy.FullName   # ...\openshot
