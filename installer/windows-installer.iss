@@ -74,7 +74,7 @@ Name: "firewall"; Description: "{cm:FirewallException}"; GroupDescription: "{cm:
 ; Remove previous installed versions of Zenvi
 Type: filesandordirs; Name: "{app}\*"
 Type: dirifempty; Name: "{app}\*"
-Type: files; Name: "{group}\Zenvi"; BeforeInstall: DeleteInvalidFiles; Check: not PortableCheck;
+Type: files; Name: "{group}\Zenvi"; BeforeInstall: DeleteInvalidFiles; Check: not PortableCheck and IsAdminInstallMode;
 
 [Registry]
 ; Associate .zvn files with the installed application. Uninstaller will clean them up, when run.
@@ -83,8 +83,8 @@ Root: HKLM; Subkey: "Software\Classes\.zvn"; ValueType: string; ValueName: ""; V
 Root: HKLM; Subkey: "Software\Classes\ZenviProject"; ValueType: string; ValueName: ""; ValueData: "{#MyAppProjectFileDesc}"; Flags: uninsdeletekey; Tasks: fileassoc
 ; Launcher association for data files of type ZenviProject
 Root: HKLM; Subkey: "Software\Classes\ZenviProject\shell\open\command"; ValueType: string;  ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"""; Tasks: fileassoc
-; Clean-up old, incorrect AppID Uninstaller (used in 2.6.1-dev builds)
-Root: HKLM; Subkey: "Software\Microsoft\Windows\CurrentVersion\Uninstall\4BB0DCDC-BC24-49EC-8937-72956C33A470_is1"; ValueName: ""; Flags: deletekey;
+; Clean-up old, incorrect AppID Uninstaller (used in 2.6.1-dev builds) — admin only
+Root: HKLM; Subkey: "Software\Microsoft\Windows\CurrentVersion\Uninstall\4BB0DCDC-BC24-49EC-8937-72956C33A470_is1"; ValueName: ""; Flags: deletekey; Check: IsAdminInstallMode;
 
 [Files]
 ; Add all frozen files from cx_Freeze build
