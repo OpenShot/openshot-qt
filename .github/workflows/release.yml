@@ -706,11 +706,24 @@ jobs:
       - name: Install OpenShot (libopenshot Python bindings)
         shell: powershell
         run: |
-          choco install openshot -y --no-progress
+          # Install OpenShot v3.5.0 directly from GitHub (Chocolatey only has v3.4.0 which
+          # ships Python 3.8 MinGW bindings; v3.5.0 may ship Python 3.10+ compatible bindings)
+          $openShotUrl = "https://github.com/OpenShot/openshot-qt/releases/download/v3.5.0/OpenShot-v3.5.0-x86_64.exe"
+          $openShotInstaller = "C:\Temp\OpenShot-v3.5.0-x86_64.exe"
+          New-Item -ItemType Directory -Path "C:\Temp" -Force | Out-Null
+          Write-Host "Downloading OpenShot v3.5.0..."
+          Invoke-WebRequest -Uri $openShotUrl -OutFile $openShotInstaller -UseBasicParsing
+          Write-Host "Installing OpenShot v3.5.0 silently..."
+          Start-Process -FilePath $openShotInstaller -ArgumentList "/S" -Wait -NoNewWindow
+          Write-Host "OpenShot v3.5.0 installed."
+          Remove-Item $openShotInstaller -Force -ErrorAction SilentlyContinue
 
-          # Diagnostic: show all .pyd files in the OpenShot installation
+          # Diagnostic: show Python version shipped with this OpenShot build
           $diagRoot = "C:\Program Files\OpenShot Video Editor"
           if (Test-Path $diagRoot) {
+            Write-Host "=== OpenShot Python DLLs (shows which Python version was bundled) ==="
+            Get-ChildItem -Path $diagRoot -Recurse -Filter "libpython*.dll" -ErrorAction SilentlyContinue |
+              Select-Object -ExpandProperty FullName | ForEach-Object { Write-Host $_ }
             Write-Host "=== OpenShot .pyd files ==="
             Get-ChildItem -Path $diagRoot -Recurse -Filter "*.pyd" -ErrorAction SilentlyContinue |
               Select-Object -ExpandProperty FullName | ForEach-Object { Write-Host $_ }
@@ -777,11 +790,19 @@ jobs:
             $wrapperPath = Join-Path $pythonPathRoot "openshot.py"
             $wrapperLines = @(
               "# Auto-generated wrapper: re-exports _openshot C extension as 'openshot'.",
-              "import os as _os",
+              "import os as _os, sys as _sys, ctypes as _ctypes",
               "# Python 3.8+ Windows restricts DLL loading from PATH; add lib/ explicitly.",
               "_dll_dir = _os.path.dirname(_os.path.abspath(__file__))",
               "if hasattr(_os, 'add_dll_directory'):",
               "    _os.add_dll_directory(_dll_dir)",
+              "# Pre-load native deps explicitly so Windows finds them before loading _openshot.pyd.",
+              "for _dep in ['libopenshot-audio.dll', 'libopenshot.dll']:",
+              "    _dep_path = _os.path.join(_dll_dir, _dep)",
+              "    if _os.path.exists(_dep_path):",
+              "        try:",
+              "            _ctypes.WinDLL(_dep_path)",
+              "        except OSError as _e:",
+              "            print(f'openshot wrapper: pre-load {_dep} failed: {_e}', file=_sys.stderr)",
               "from _openshot import *"
             )
             Set-Content -Path $wrapperPath -Value ($wrapperLines -join "`n") -Encoding ascii
