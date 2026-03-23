@@ -770,6 +770,15 @@ jobs:
               $pythonPathRoot = $pyd.Directory.Parent.FullName
             }
             Write-Host "Found _openshot*.pyd at: $($pyd.FullName)"
+            # Create openshot.py wrapper if missing — _openshot.pyd is a bare C extension;
+            # "import openshot" requires a Python wrapper that re-exports its symbols.
+            $wrapperPath = Join-Path $pythonPathRoot "openshot.py"
+            if (-not (Test-Path $wrapperPath)) {
+              Set-Content -Path $wrapperPath -Value "# Auto-generated wrapper`nfrom _openshot import *`n" -Encoding ascii
+              Write-Host "Created openshot.py wrapper at $wrapperPath"
+            } else {
+              Write-Host "openshot.py already exists at $wrapperPath"
+            }
           } elseif ($initPy) {
             $bindDir = Split-Path -Parent $initPy.FullName   # ...\openshot
             $pythonPathRoot = Split-Path -Parent $bindDir    # ...\site-packages
