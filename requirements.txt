@@ -11,7 +11,7 @@ PyOpenGL
 # CI / packaging
 setuptools>=61
 wheel
-cx_Freeze==7.0.0
+cx_Freeze>=7.2.0,<8.0
 distro
 defusedxml
 requests

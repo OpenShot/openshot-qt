@@ -295,12 +295,6 @@ if sys.platform == "win32":
     if os.path.exists(env_file):
         src_files.append((env_file, ".env"))
 
-    # cx_Freeze 7.0.0 + Python 3.11: the `re` module is now a multi-file package
-    # stored in lib/re/. The cx_Freeze __startup__.py imports `string` (which imports
-    # `re`) before lib/ is added to sys.path, causing ModuleNotFoundError at startup.
-    # Force `re` into library.zip so it is accessible from the very first import.
-    build_exe_options["zip_include_packages"] = ["re"]
-
     # Add additional package
     python_packages.extend([
         "idna",
