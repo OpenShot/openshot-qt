@@ -72,10 +72,12 @@ print (str(cx_Freeze))
 # crash Python during initialization). Instead, let CI provide the OpenShot bindings
 # location via an env var and append it to sys.path at runtime.
 _zenvi_openshot_pyroot = os.getenv("ZENVI_OPENSHOT_PYROOT")
-if _zenvi_openshot_pyroot and os.path.isdir(_zenvi_openshot_pyroot):
-    if _zenvi_openshot_pyroot not in sys.path:
-        sys.path.append(_zenvi_openshot_pyroot)
-        print(f"Added ZENVI_OPENSHOT_PYROOT to sys.path: {_zenvi_openshot_pyroot}")
+# NOTE: We do NOT add ZENVI_OPENSHOT_PYROOT to sys.path here.
+# OpenShot's lib/ directory contains its own 'classes/' sub-package compiled
+# with an older Python (different ABI magic), which would shadow Zenvi's own
+# src/classes/ and cause an ImportError("bad magic number in 'classes'").
+# The openshot files are discovered via direct filesystem scan below and copied
+# into the frozen build post-build — no import is needed at build time.
 
 # Set '${ARCHLIB}' envvar to override system library path
 ARCHLIB = os.getenv('ARCHLIB', "/usr/lib/x86_64-linux-gnu/")
