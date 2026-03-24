@@ -708,7 +708,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: C:\libopenshot-install
-          key: libopenshot-v0.5.0-audio-v0.5.0-windows-msvc2022-qt5.15.2-py311-vcpkg-v14
+          key: libopenshot-v0.5.0-audio-v0.5.0-windows-msvc2022-qt5.15.2-py311-vcpkg-v15
 
       - name: Build libopenshot from source (Windows MSVC + Qt 5.15.2)
         if: steps.cache-libopenshot-win.outputs.cache-hit != 'true'
@@ -904,20 +904,16 @@ jobs:
             }
           }
 
-          # Fix C99 compound literals (not valid C++, MSVC rejects them).
-          # Pattern: (SomeType){...} → SomeType{...}
-          # Affects FFmpegReader.cpp: (AVRational){num, den} constructs.
+          # Fix AVRational C99 compound literals: (AVRational){num, den} → AVRational{num, den}
+          # ONLY target AVRational — broader compound-literal regex breaks initializer lists
+          # and if/while bodies (pattern (identifier){ also matches those).
           Get-ChildItem -Path C:\libopenshot-src\src -Filter "*.cpp" -Recurse |
             ForEach-Object {
               $f = $_.FullName; $t = Get-Content $f -Raw -ErrorAction SilentlyContinue
-              if ($t -match '\([A-Za-z_][A-Za-z0-9_]*\)\s*\{') {
-                $orig = $t
-                # Replace (TypeName){ with TypeName{ — converts C99 compound literals to C++ aggregate init
-                $t = [regex]::Replace($t, '\(([A-Za-z_][A-Za-z0-9_]*)\)\s*\{', '$1{')
-                if ($t -ne $orig) {
-                  [System.IO.File]::WriteAllText($f, $t)
-                  Write-Host "Patched compound literals in $($_.Name)"
-                }
+              if ($t -match '\(AVRational\)\s*\{') {
+                $t = $t -replace '\(AVRational\)\s*\{', 'AVRational{'
+                [System.IO.File]::WriteAllText($f, $t)
+                Write-Host "Patched AVRational compound literals in $($_.Name)"
               }
             }
 
