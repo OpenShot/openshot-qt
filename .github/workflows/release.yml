@@ -708,7 +708,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: C:\libopenshot-install
-          key: libopenshot-v0.5.0-audio-v0.5.0-windows-msvc2022-qt5.15.2-py311-vcpkg-v18
+          key: libopenshot-v0.5.0-audio-v0.5.0-windows-msvc2022-qt5.15.2-py311-vcpkg-v19
 
       - name: Build libopenshot from source (Windows MSVC + Qt 5.15.2)
         if: steps.cache-libopenshot-win.outputs.cache-hit != 'true'
@@ -770,15 +770,22 @@ jobs:
             [System.IO.File]::WriteAllText($appConfig, $t)
             Write-Host "Patched AppConfig.h: disabled JUCE_ASIO"
           }
-          # Patch root CMakeLists.txt to link dbghelp on Windows.
-          # JUCE core's SystemStats::getStackBacktrace() calls SymGetModuleInfo64 which
-          # lives in dbghelp.dll. CMAKE_SHARED_LINKER_FLAGS is ignored for static libs;
-          # target_link_libraries() is the correct way to propagate this dependency.
+          # Patch root CMakeLists.txt:
+          # 1. Link dbghelp on Windows (JUCE SystemStats::getStackBacktrace → SymGetModuleInfo64)
+          # 2. WINDOWS_EXPORT_ALL_SYMBOLS: on MSVC, JUCE does not mark symbols with
+          #    __declspec(dllexport) unless JUCE_DLL_BUILD is set. Without exports, the linker
+          #    does NOT generate an import library (.lib). cmake's WINDOWS_EXPORT_ALL_SYMBOLS
+          #    causes it to generate a .def file exporting all non-data symbols, producing the
+          #    import library that libopenshot needs to link against openshot-audio.dll.
           $audioRoot = "C:\libopenshot-audio-src\CMakeLists.txt"
-          $rt = Get-Content $audioRoot -Raw
+          $rt = [System.IO.File]::ReadAllText($audioRoot)
           if ($rt -notmatch "dbghelp") {
-            Add-Content $audioRoot "`nif(WIN32 AND TARGET openshot-audio)`n  target_link_libraries(openshot-audio PRIVATE dbghelp)`nendif()"
-            Write-Host "Patched CMakeLists.txt: added target_link_libraries(openshot-audio PRIVATE dbghelp)"
+            $patch  = "`nif(WIN32 AND TARGET openshot-audio)`n"
+            $patch += "  target_link_libraries(openshot-audio PRIVATE dbghelp)`n"
+            $patch += "  set_target_properties(openshot-audio PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)`n"
+            $patch += "endif()`n"
+            [System.IO.File]::AppendAllText($audioRoot, $patch)
+            Write-Host "Patched CMakeLists.txt: added dbghelp + WINDOWS_EXPORT_ALL_SYMBOLS"
           }
           # Fallback compile flag: /EHsc must be explicit (CMAKE_CXX_FLAGS replaces MSVC defaults).
           $juceAsioFlag = "/EHsc /DJUCE_ASIO=0"
@@ -1021,16 +1028,21 @@ jobs:
             "-DCMAKE_CXX_FLAGS=/EHsc /permissive- /std:c++17"
           if ($LASTEXITCODE -ne 0) { throw "libopenshot cmake configure failed (exit $LASTEXITCODE)" }
 
-          # libopenshot's 'test-install-audio-dll' custom rule copies OpenShot::Audio LOCATION
-          # to tests/. When OpenShotAudio is found via its BUILD-tree cmake config (rather than
-          # an installed one), IMPORTED_LOCATION resolves to the Debug/ path. Copy the Release
-          # DLL there so the rule doesn't fail.
+          # libopenshot's 'test-install-audio-dll' custom rule (ALL target) copies
+          # OpenShot::Audio LOCATION to ${PROJECT_BINARY_DIR}/tests/.
+          # Two workarounds needed:
+          # 1. Build-tree cmake config IMPORTED_LOCATION resolves to Debug/ path. Provide it.
+          # 2. tests/ directory is only created when ENABLE_TESTS=ON; create it manually.
           $audioBuildRelease = "C:\libopenshot-audio-src\build\Release\openshot-audio.dll"
           if (Test-Path $audioBuildRelease) {
             New-Item -ItemType Directory -Path "C:\libopenshot-audio-src\build\Debug" -Force | Out-Null
             Copy-Item $audioBuildRelease "C:\libopenshot-audio-src\build\Debug\openshot-audio.dll" -Force -ErrorAction SilentlyContinue
-            Write-Host "Copied audio DLL to Debug/ path (workaround for build-tree LOCATION in install rule)"
+            Write-Host "Copied audio DLL to Debug/ path (workaround for build-tree LOCATION)"
           }
+          # Create tests/ dir — cmake only creates it when ENABLE_TESTS=ON, but the ALL-target
+          # custom rule unconditionally tries to copy the audio DLL into it.
+          New-Item -ItemType Directory -Path "C:\libopenshot-src\build\tests" -Force | Out-Null
+          Write-Host "Created build/tests/ for audio DLL custom rule"
 
           cmake --build   C:\libopenshot-src\build --config Release --parallel
           if ($LASTEXITCODE -ne 0) { throw "libopenshot cmake build failed (exit $LASTEXITCODE)" }
