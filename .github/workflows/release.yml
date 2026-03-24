@@ -708,7 +708,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: C:\libopenshot-install
-          key: libopenshot-v0.5.0-audio-v0.5.0-windows-msvc2022-qt5.15.2-py311-vcpkg-v9
+          key: libopenshot-v0.5.0-audio-v0.5.0-windows-msvc2022-qt5.15.2-py311-vcpkg-v10
 
       - name: Build libopenshot from source (Windows MSVC + Qt 5.15.2)
         if: steps.cache-libopenshot-win.outputs.cache-hit != 'true'
@@ -746,8 +746,10 @@ jobs:
           # zlib: required by libopenshot-audio (JUCE) and libopenshot
           # libsamplerate: required by libopenshot-audio for sample-rate conversion
           $vcpkg = "C:\vcpkg\vcpkg.exe"
-          Write-Host "Installing vcpkg deps (zlib, libsamplerate)..."
-          & $vcpkg install "zlib:x64-windows" "libsamplerate:x64-windows" --triplet x64-windows 2>&1 |
+          Write-Host "Installing vcpkg deps..."
+          # zlib + libsamplerate: required by libopenshot-audio (JUCE)
+          # zeromq: required by libopenshot (inter-process communication)
+          & $vcpkg install "zlib:x64-windows" "libsamplerate:x64-windows" "zeromq:x64-windows" --triplet x64-windows 2>&1 |
             Where-Object { $_ -notmatch "^(  |Building|Fetching|Downloading|Installing|Stored)" } |
             ForEach-Object { Write-Host $_ }
           $vcpkgToolchain = "C:\vcpkg\scripts\buildsystems\vcpkg.cmake"
