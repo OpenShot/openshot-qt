@@ -708,7 +708,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: C:\libopenshot-install
-          key: libopenshot-v0.5.0-audio-v0.5.0-windows-msvc2022-qt5.15.2-py311-vcpkg-v15
+          key: libopenshot-v0.5.0-audio-v0.5.0-windows-msvc2022-qt5.15.2-py311-vcpkg-v16
 
       - name: Build libopenshot from source (Windows MSVC + Qt 5.15.2)
         if: steps.cache-libopenshot-win.outputs.cache-hit != 'true'
@@ -890,17 +890,51 @@ jobs:
             }
           }
           # Guard execinfo.h and cxxabi.h (GCC/Clang-only, not available on MSVC)
+          # Also fix __MINGW32__ guards → _WIN32 so MSVC uses the Windows DbgHelp path
           @("C:\libopenshot-src\src\CrashHandler.h") | ForEach-Object {
             if (Test-Path $_) {
-              $t = Get-Content $_ -Raw
+              $t = [System.IO.File]::ReadAllText($_)
               foreach ($hdr in @('execinfo\.h', 'cxxabi\.h')) {
                 if ($t -match "#include\s*<$hdr>") {
                   $t = [regex]::Replace($t, "(#include\s*<$hdr>)",
                     "#ifndef _WIN32`n`$1`n#endif // _WIN32")
                 }
               }
+              # __MINGW32__ is only defined when using MinGW compiler; MSVC sets _WIN32 instead.
+              # Changing the guard makes MSVC pick the Windows DbgHelp stack-trace path rather
+              # than the POSIX sigaction path (which doesn't compile on MSVC).
+              $t = $t -replace '#ifdef __MINGW32__', '#if defined(_WIN32)'
+              $t = $t -replace '#elif __MINGW32__', '#elif defined(_WIN32)'
               [System.IO.File]::WriteAllText($_, $t)
-              Write-Host "Patched GCC-only headers in $(Split-Path $_ -Leaf)"
+              Write-Host "Patched CrashHandler.h (__MINGW32__ -> _WIN32, GCC-only headers guarded)"
+            }
+          }
+          # Same __MINGW32__ → _WIN32 fix for CrashHandler.cpp
+          $crashCpp = "C:\libopenshot-src\src\CrashHandler.cpp"
+          if (Test-Path $crashCpp) {
+            $t = [System.IO.File]::ReadAllText($crashCpp)
+            $t = $t -replace '#ifdef __MINGW32__', '#if defined(_WIN32)'
+            $t = $t -replace '#elif __MINGW32__', '#elif defined(_WIN32)'
+            [System.IO.File]::WriteAllText($crashCpp, $t)
+            Write-Host "Patched CrashHandler.cpp (__MINGW32__ -> _WIN32)"
+          }
+
+          # Fix AV_GET_CODEC_CONTEXT macro in FFmpegUtilities.h:
+          # GCC statement expressions ({ ... }) are not valid C++ in MSVC.
+          # Replace with a C++ immediately-invoked lambda which is valid in C++11+.
+          $ffmpegUtils = "C:\libopenshot-src\src\FFmpegUtilities.h"
+          if (Test-Path $ffmpegUtils) {
+            $t = [System.IO.File]::ReadAllText($ffmpegUtils)
+            # Pattern matches the multi-line GCC statement expression body (backslash-continued lines)
+            $oldExpr = '\(\{ AVCodecContext \*context = avcodec_alloc_context3\(av_codec\); \\\r?\n[ \t]*avcodec_parameters_to_context\(context, av_stream->codecpar\); \\\r?\n[ \t]*context; \}\)'
+            $newExpr = '([&]() -> AVCodecContext* { AVCodecContext *context = avcodec_alloc_context3(av_codec); avcodec_parameters_to_context(context, av_stream->codecpar); return context; }())'
+            $count = ([regex]::Matches($t, $oldExpr)).Count
+            if ($count -gt 0) {
+              $t = [regex]::Replace($t, $oldExpr, $newExpr)
+              [System.IO.File]::WriteAllText($ffmpegUtils, $t)
+              Write-Host "Patched AV_GET_CODEC_CONTEXT GCC statement expr -> C++ lambda ($count occurrences)"
+            } else {
+              Write-Host "WARNING: AV_GET_CODEC_CONTEXT pattern not matched in FFmpegUtilities.h - check regex"
             }
           }
 
@@ -960,7 +994,7 @@ jobs:
             "-DPython3_EXECUTABLE=$pythonExe" `
             "-DSWIG_EXECUTABLE=$swigExe" `
             "-DOpenShotAudio_DIR=$audioConfigDir" `
-            "-DCMAKE_CXX_FLAGS=/EHsc /permissive- /std:c++17"
+            "-DCMAKE_CXX_FLAGS=/EHsc /std:c++17"
           if ($LASTEXITCODE -ne 0) { throw "libopenshot cmake configure failed (exit $LASTEXITCODE)" }
           cmake --build   C:\libopenshot-src\build --config Release --parallel
           if ($LASTEXITCODE -ne 0) { throw "libopenshot cmake build failed (exit $LASTEXITCODE)" }
