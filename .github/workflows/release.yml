@@ -708,7 +708,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: C:\libopenshot-install
-          key: libopenshot-v0.5.0-audio-v0.5.0-windows-msvc2022-qt5.15.2-py311-vcpkg-v5
+          key: libopenshot-v0.5.0-audio-v0.5.0-windows-msvc2022-qt5.15.2-py311-vcpkg-v6
 
       - name: Build libopenshot from source (Windows MSVC + Qt 5.15.2)
         if: steps.cache-libopenshot-win.outputs.cache-hit != 'true'
@@ -780,6 +780,7 @@ jobs:
             "-DCMAKE_TOOLCHAIN_FILE=$vcpkgToolchain" `
             -DVCPKG_TARGET_TRIPLET=x64-windows `
             "-DCMAKE_CXX_FLAGS=$juceAsioFlag" `
+            "-DCMAKE_SHARED_LINKER_FLAGS=dbghelp.lib" `
             -DCMAKE_BUILD_TYPE=Release
           cmake --build   C:\libopenshot-audio-src\build --config Release --parallel
           cmake --install C:\libopenshot-audio-src\build --config Release
