@@ -714,7 +714,14 @@ jobs:
           Write-Host "Downloading OpenShot v3.5.0..."
           Invoke-WebRequest -Uri $openShotUrl -OutFile $openShotInstaller -UseBasicParsing
           Write-Host "Installing OpenShot v3.5.0 silently..."
-          Start-Process -FilePath $openShotInstaller -ArgumentList "/S" -Wait -NoNewWindow
+          $proc = Start-Process -FilePath $openShotInstaller -ArgumentList "/VERYSILENT /NORESTART" -PassThru
+          if (!$proc.WaitForExit(300000)) {
+            $proc.Kill()
+            throw "OpenShot installer timed out after 5 minutes"
+          }
+          if ($proc.ExitCode -ne 0) {
+            throw "OpenShot installer failed with exit code $($proc.ExitCode)"
+          }
           Write-Host "OpenShot v3.5.0 installed."
           Remove-Item $openShotInstaller -Force -ErrorAction SilentlyContinue
 
