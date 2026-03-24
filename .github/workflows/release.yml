@@ -708,7 +708,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: C:\libopenshot-install
-          key: libopenshot-v0.5.0-audio-v0.5.0-windows-msvc2022-qt5.15.2-py311-vcpkg-v20
+          key: libopenshot-v0.5.0-audio-v0.5.0-windows-msvc2022-qt5.15.2-py311-vcpkg-v21
 
       - name: Build libopenshot from source (Windows MSVC + Qt 5.15.2)
         if: steps.cache-libopenshot-win.outputs.cache-hit != 'true'
@@ -966,6 +966,23 @@ jobs:
                 'av_channel_layout_from_mask(&$1, AV_CH_LAYOUT_STEREO)')
               [System.IO.File]::WriteAllText($ffmpegReader, $t)
               Write-Host "Patched FFmpegReader.cpp: AVChannelLayout compound literal -> av_channel_layout_from_mask()"
+            }
+          }
+
+          # libopenshot main library also needs WINDOWS_EXPORT_ALL_SYMBOLS ON so MSVC
+          # generates openshot.lib (import library) needed by pyopenshot.vcxproj.
+          # libopenshot uses GCC-default symbol visibility — no __declspec(dllexport) markers —
+          # so MSVC doesn't generate an import library without this setting.
+          $openshotCmake = "C:\libopenshot-src\src\CMakeLists.txt"
+          if (Test-Path $openshotCmake) {
+            $t = [System.IO.File]::ReadAllText($openshotCmake)
+            if ($t -notmatch 'WINDOWS_EXPORT_ALL_SYMBOLS') {
+              $patch  = "`nif(MSVC AND TARGET openshot)`n"
+              $patch += "  # Generate import library (.lib) for openshot.dll on MSVC`n"
+              $patch += "  set_target_properties(openshot PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)`n"
+              $patch += "endif()`n"
+              [System.IO.File]::AppendAllText($openshotCmake, $patch)
+              Write-Host "Patched src/CMakeLists.txt: added WINDOWS_EXPORT_ALL_SYMBOLS ON for openshot"
             }
           }
 
