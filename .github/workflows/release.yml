@@ -708,7 +708,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: C:\libopenshot-install
-          key: libopenshot-v0.5.0-audio-v0.5.0-windows-msvc2022-qt5.15.2-py311-vcpkg-v13
+          key: libopenshot-v0.5.0-audio-v0.5.0-windows-msvc2022-qt5.15.2-py311-vcpkg-v14
 
       - name: Build libopenshot from source (Windows MSVC + Qt 5.15.2)
         if: steps.cache-libopenshot-win.outputs.cache-hit != 'true'
@@ -889,16 +889,37 @@ jobs:
               }
             }
           }
-          $crashH = "C:\libopenshot-src\src\CrashHandler.h"
-          if (Test-Path $crashH) {
-            $t = Get-Content $crashH -Raw
-            if ($t -match '#include\s*<execinfo\.h>') {
-              $t = [regex]::Replace($t, '(#include\s*<execinfo\.h>)',
-                "#ifndef _WIN32`n`$1`n#endif // _WIN32")
-              [System.IO.File]::WriteAllText($crashH, $t)
-              Write-Host "Patched execinfo.h guard in CrashHandler.h"
+          # Guard execinfo.h and cxxabi.h (GCC/Clang-only, not available on MSVC)
+          @("C:\libopenshot-src\src\CrashHandler.h") | ForEach-Object {
+            if (Test-Path $_) {
+              $t = Get-Content $_ -Raw
+              foreach ($hdr in @('execinfo\.h', 'cxxabi\.h')) {
+                if ($t -match "#include\s*<$hdr>") {
+                  $t = [regex]::Replace($t, "(#include\s*<$hdr>)",
+                    "#ifndef _WIN32`n`$1`n#endif // _WIN32")
+                }
+              }
+              [System.IO.File]::WriteAllText($_, $t)
+              Write-Host "Patched GCC-only headers in $(Split-Path $_ -Leaf)"
             }
           }
+
+          # Fix C99 compound literals (not valid C++, MSVC rejects them).
+          # Pattern: (SomeType){...} → SomeType{...}
+          # Affects FFmpegReader.cpp: (AVRational){num, den} constructs.
+          Get-ChildItem -Path C:\libopenshot-src\src -Filter "*.cpp" -Recurse |
+            ForEach-Object {
+              $f = $_.FullName; $t = Get-Content $f -Raw -ErrorAction SilentlyContinue
+              if ($t -match '\([A-Za-z_][A-Za-z0-9_]*\)\s*\{') {
+                $orig = $t
+                # Replace (TypeName){ with TypeName{ — converts C99 compound literals to C++ aggregate init
+                $t = [regex]::Replace($t, '\(([A-Za-z_][A-Za-z0-9_]*)\)\s*\{', '$1{')
+                if ($t -ne $orig) {
+                  [System.IO.File]::WriteAllText($f, $t)
+                  Write-Host "Patched compound literals in $($_.Name)"
+                }
+              }
+            }
 
           # Build libopenshot with MSVC + Qt5.15.2 + FFmpeg + Python 3.11
           $pythonExe = (Get-Command python).Source
@@ -942,7 +963,8 @@ jobs:
             -DENABLE_OPENCV=OFF `
             "-DPython3_EXECUTABLE=$pythonExe" `
             "-DSWIG_EXECUTABLE=$swigExe" `
-            "-DOpenShotAudio_DIR=$audioConfigDir"
+            "-DOpenShotAudio_DIR=$audioConfigDir" `
+            "-DCMAKE_CXX_FLAGS=/EHsc /permissive- /std:c++17"
           if ($LASTEXITCODE -ne 0) { throw "libopenshot cmake configure failed (exit $LASTEXITCODE)" }
           cmake --build   C:\libopenshot-src\build --config Release --parallel
           if ($LASTEXITCODE -ne 0) { throw "libopenshot cmake build failed (exit $LASTEXITCODE)" }
