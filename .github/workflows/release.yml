@@ -708,7 +708,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: C:\libopenshot-install
-          key: libopenshot-v0.5.0-audio-v0.5.0-windows-msvc2022-qt5.15.2-py311-vcpkg-v6
+          key: libopenshot-v0.5.0-audio-v0.5.0-windows-msvc2022-qt5.15.2-py311-vcpkg-v7
 
       - name: Build libopenshot from source (Windows MSVC + Qt 5.15.2)
         if: steps.cache-libopenshot-win.outputs.cache-hit != 'true'
@@ -759,7 +759,6 @@ jobs:
 
           # Patch AppConfig.h to explicitly disable ASIO (JUCE defaults to enabled on Windows
           # but iasiodrv.h requires the Steinberg ASIO SDK which is not freely available on CI).
-          # Also disable WASAPI exclusive mode to avoid potential UAC issues in CI.
           $appConfig = "C:\libopenshot-audio-src\JuceLibraryCode\AppConfig.h"
           if (Test-Path $appConfig) {
             $t = Get-Content $appConfig -Raw
@@ -768,9 +767,17 @@ jobs:
             [System.IO.File]::WriteAllText($appConfig, $t)
             Write-Host "Patched AppConfig.h: disabled JUCE_ASIO"
           }
-          # Fallback: pass as compile flag (covers JuceLibraryCode that ignores AppConfig.h).
-          # Must include /EHsc: setting CMAKE_CXX_FLAGS replaces MSVC defaults (which include
-          # /EHsc for exception handling); JUCE checks _CPPUNWIND and refuses to compile without it.
+          # Patch root CMakeLists.txt to link dbghelp on Windows.
+          # JUCE core's SystemStats::getStackBacktrace() calls SymGetModuleInfo64 which
+          # lives in dbghelp.dll. CMAKE_SHARED_LINKER_FLAGS is ignored for static libs;
+          # target_link_libraries() is the correct way to propagate this dependency.
+          $audioRoot = "C:\libopenshot-audio-src\CMakeLists.txt"
+          $rt = Get-Content $audioRoot -Raw
+          if ($rt -notmatch "dbghelp") {
+            Add-Content $audioRoot "`nif(WIN32 AND TARGET openshot-audio)`n  target_link_libraries(openshot-audio PRIVATE dbghelp)`nendif()"
+            Write-Host "Patched CMakeLists.txt: added target_link_libraries(openshot-audio PRIVATE dbghelp)"
+          }
+          # Fallback compile flag: /EHsc must be explicit (CMAKE_CXX_FLAGS replaces MSVC defaults).
           $juceAsioFlag = "/EHsc /DJUCE_ASIO=0"
 
           cmake -S C:\libopenshot-audio-src -B C:\libopenshot-audio-src\build `
@@ -780,10 +787,12 @@ jobs:
             "-DCMAKE_TOOLCHAIN_FILE=$vcpkgToolchain" `
             -DVCPKG_TARGET_TRIPLET=x64-windows `
             "-DCMAKE_CXX_FLAGS=$juceAsioFlag" `
-            "-DCMAKE_SHARED_LINKER_FLAGS=dbghelp.lib" `
             -DCMAKE_BUILD_TYPE=Release
+          if ($LASTEXITCODE -ne 0) { throw "libopenshot-audio cmake configure failed (exit $LASTEXITCODE)" }
           cmake --build   C:\libopenshot-audio-src\build --config Release --parallel
+          if ($LASTEXITCODE -ne 0) { throw "libopenshot-audio cmake build failed (exit $LASTEXITCODE)" }
           cmake --install C:\libopenshot-audio-src\build --config Release
+          if ($LASTEXITCODE -ne 0) { throw "libopenshot-audio cmake install failed (exit $LASTEXITCODE)" }
 
           # Dynamically find where cmake installed OpenShotAudioConfig.cmake so we can
           # pass it explicitly via -DOpenShotAudio_DIR.  The vcpkg toolchain wraps
@@ -859,8 +868,11 @@ jobs:
             "-DPython3_EXECUTABLE=$pythonExe" `
             "-DSWIG_EXECUTABLE=$swigExe" `
             "-DOpenShotAudio_DIR=$audioConfigDir"
+          if ($LASTEXITCODE -ne 0) { throw "libopenshot cmake configure failed (exit $LASTEXITCODE)" }
           cmake --build   C:\libopenshot-src\build --config Release --parallel
+          if ($LASTEXITCODE -ne 0) { throw "libopenshot cmake build failed (exit $LASTEXITCODE)" }
           cmake --install C:\libopenshot-src\build --config Release
+          if ($LASTEXITCODE -ne 0) { throw "libopenshot cmake install failed (exit $LASTEXITCODE)" }
 
           # Consolidate everything (pyd + all DLLs) into a single bundle dir so
           # freeze.py can find them all from ZENVI_OPENSHOT_PYROOT / BINDDIR.
