@@ -708,7 +708,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: C:\libopenshot-install
-          key: libopenshot-v0.5.0-audio-v0.5.0-windows-msvc2022-qt5.15.2-py311-vcpkg-v16
+          key: libopenshot-v0.5.0-audio-v0.5.0-windows-msvc2022-qt5.15.2-py311-vcpkg-v17
 
       - name: Build libopenshot from source (Windows MSVC + Qt 5.15.2)
         if: steps.cache-libopenshot-win.outputs.cache-hit != 'true'
@@ -909,32 +909,67 @@ jobs:
               Write-Host "Patched CrashHandler.h (__MINGW32__ -> _WIN32, GCC-only headers guarded)"
             }
           }
-          # Same __MINGW32__ → _WIN32 fix for CrashHandler.cpp
+          # Same __MINGW32__ → _WIN32 fix for CrashHandler.cpp, and replace WINBOOL with BOOL.
+          # WINBOOL is a MinGW-specific typedef (defined in MinGW's windef.h) that MSVC does not
+          # provide. MSVC's windows.h uses plain BOOL instead.
           $crashCpp = "C:\libopenshot-src\src\CrashHandler.cpp"
           if (Test-Path $crashCpp) {
             $t = [System.IO.File]::ReadAllText($crashCpp)
             $t = $t -replace '#ifdef __MINGW32__', '#if defined(_WIN32)'
             $t = $t -replace '#elif __MINGW32__', '#elif defined(_WIN32)'
+            $t = $t -replace '\bWINBOOL\b', 'BOOL'
             [System.IO.File]::WriteAllText($crashCpp, $t)
-            Write-Host "Patched CrashHandler.cpp (__MINGW32__ -> _WIN32)"
+            Write-Host "Patched CrashHandler.cpp (__MINGW32__ -> _WIN32, WINBOOL -> BOOL)"
           }
 
           # Fix AV_GET_CODEC_CONTEXT macro in FFmpegUtilities.h:
           # GCC statement expressions ({ ... }) are not valid C++ in MSVC.
-          # Replace with a C++ immediately-invoked lambda which is valid in C++11+.
+          # Approach: append a #ifdef _MSC_VER override at the end of the file that #undefines
+          # and redefines the macro using a C++11 immediately-invoked lambda.
+          # This is more robust than regex-replacing the multi-line macro body.
           $ffmpegUtils = "C:\libopenshot-src\src\FFmpegUtilities.h"
           if (Test-Path $ffmpegUtils) {
             $t = [System.IO.File]::ReadAllText($ffmpegUtils)
-            # Pattern matches the multi-line GCC statement expression body (backslash-continued lines)
-            $oldExpr = '\(\{ AVCodecContext \*context = avcodec_alloc_context3\(av_codec\); \\\r?\n[ \t]*avcodec_parameters_to_context\(context, av_stream->codecpar\); \\\r?\n[ \t]*context; \}\)'
-            $newExpr = '([&]() -> AVCodecContext* { AVCodecContext *context = avcodec_alloc_context3(av_codec); avcodec_parameters_to_context(context, av_stream->codecpar); return context; }())'
-            $count = ([regex]::Matches($t, $oldExpr)).Count
-            if ($count -gt 0) {
-              $t = [regex]::Replace($t, $oldExpr, $newExpr)
+            if ($t -notmatch 'AV_GET_CODEC_CONTEXT.*lambda') {
+              # Find the last #endif and insert our override just before it
+              $lastEndif = $t.LastIndexOf('#endif')
+              $msvcOverride = @"
+
+`n#ifdef _MSC_VER
+// MSVC does not support GCC statement expressions ({...}) used in AV_GET_CODEC_CONTEXT.
+// Override with a C++11 immediately-invoked lambda which is MSVC-compatible.
+#ifdef AV_GET_CODEC_CONTEXT
+#  undef AV_GET_CODEC_CONTEXT
+#endif
+#define AV_GET_CODEC_CONTEXT(av_stream, av_codec) \
+  ([&]() -> AVCodecContext* { AVCodecContext *ctx = avcodec_alloc_context3(av_codec); \
+    avcodec_parameters_to_context(ctx, av_stream->codecpar); return ctx; }())
+#endif // _MSC_VER
+
+"@
+              if ($lastEndif -ge 0) {
+                $t = $t.Substring(0, $lastEndif) + $msvcOverride + $t.Substring($lastEndif)
+              } else {
+                $t += $msvcOverride
+              }
               [System.IO.File]::WriteAllText($ffmpegUtils, $t)
-              Write-Host "Patched AV_GET_CODEC_CONTEXT GCC statement expr -> C++ lambda ($count occurrences)"
-            } else {
-              Write-Host "WARNING: AV_GET_CODEC_CONTEXT pattern not matched in FFmpegUtilities.h - check regex"
+              Write-Host "Patched FFmpegUtilities.h: added _MSC_VER override for AV_GET_CODEC_CONTEXT"
+            }
+          }
+
+          # Fix AVChannelLayout compound literal in FFmpegReader.cpp (C4576 with /permissive-).
+          # The line: ->ch_layout = (AVChannelLayout) AV_CHANNEL_LAYOUT_STEREO
+          # expands to a C99 compound literal which MSVC rejects.
+          # Replace with av_channel_layout_from_mask() function call.
+          $ffmpegReader = "C:\libopenshot-src\src\FFmpegReader.cpp"
+          if (Test-Path $ffmpegReader) {
+            $t = [System.IO.File]::ReadAllText($ffmpegReader)
+            if ($t -match '\(AVChannelLayout\)\s*AV_CHANNEL_LAYOUT_STEREO') {
+              $t = [regex]::Replace($t,
+                '(AV_GET_CODEC_ATTRIBUTES\(\w+,\s*\w+\)->ch_layout)\s*=\s*\(AVChannelLayout\)\s*AV_CHANNEL_LAYOUT_STEREO',
+                'av_channel_layout_from_mask(&$1, AV_CH_LAYOUT_STEREO)')
+              [System.IO.File]::WriteAllText($ffmpegReader, $t)
+              Write-Host "Patched FFmpegReader.cpp: AVChannelLayout compound literal -> av_channel_layout_from_mask()"
             }
           }
 
@@ -994,8 +1029,20 @@ jobs:
             "-DPython3_EXECUTABLE=$pythonExe" `
             "-DSWIG_EXECUTABLE=$swigExe" `
             "-DOpenShotAudio_DIR=$audioConfigDir" `
-            "-DCMAKE_CXX_FLAGS=/EHsc /std:c++17"
+            "-DCMAKE_CXX_FLAGS=/EHsc /permissive- /std:c++17"
           if ($LASTEXITCODE -ne 0) { throw "libopenshot cmake configure failed (exit $LASTEXITCODE)" }
+
+          # libopenshot's 'test-install-audio-dll' custom rule copies OpenShot::Audio LOCATION
+          # to tests/. When OpenShotAudio is found via its BUILD-tree cmake config (rather than
+          # an installed one), IMPORTED_LOCATION resolves to the Debug/ path. Copy the Release
+          # DLL there so the rule doesn't fail.
+          $audioBuildRelease = "C:\libopenshot-audio-src\build\Release\openshot-audio.dll"
+          if (Test-Path $audioBuildRelease) {
+            New-Item -ItemType Directory -Path "C:\libopenshot-audio-src\build\Debug" -Force | Out-Null
+            Copy-Item $audioBuildRelease "C:\libopenshot-audio-src\build\Debug\openshot-audio.dll" -Force -ErrorAction SilentlyContinue
+            Write-Host "Copied audio DLL to Debug/ path (workaround for build-tree LOCATION in install rule)"
+          }
+
           cmake --build   C:\libopenshot-src\build --config Release --parallel
           if ($LASTEXITCODE -ne 0) { throw "libopenshot cmake build failed (exit $LASTEXITCODE)" }
           cmake --install C:\libopenshot-src\build --config Release
