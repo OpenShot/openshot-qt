@@ -708,7 +708,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: C:\libopenshot-install
-          key: libopenshot-v0.5.0-audio-v0.5.0-windows-msvc2022-qt5.15.2-py311-vcpkg-v10
+          key: libopenshot-v0.5.0-audio-v0.5.0-windows-msvc2022-qt5.15.2-py311-vcpkg-v11
 
       - name: Build libopenshot from source (Windows MSVC + Qt 5.15.2)
         if: steps.cache-libopenshot-win.outputs.cache-hit != 'true'
@@ -875,6 +875,18 @@ jobs:
 
           # Build libopenshot with MSVC + Qt5.15.2 + FFmpeg + Python 3.11
           $pythonExe = (Get-Command python).Source
+
+          # libopenshot's FindZeroMQ.cmake searches for library name "zmq" but vcpkg
+          # installs it as "libzmq-*.lib" (versioned). Locate the Release lib explicitly
+          # and pass it via cache variables to bypass the broken find_library call.
+          $zmqLib = Get-ChildItem "$vcpkgInstall\lib" -Filter "libzmq*.lib" -ErrorAction SilentlyContinue |
+            Where-Object { $_.Name -notmatch "d\.lib$" -and $_.Name -notmatch "-gd-" } |
+            Select-Object -First 1
+          if (!$zmqLib) { throw "ZeroMQ library not found under $vcpkgInstall\lib" }
+          Write-Host "Found ZeroMQ lib: $($zmqLib.FullName)"
+          $zmqLibPath    = $zmqLib.FullName
+          $zmqIncludeDir = "$vcpkgInstall\include"
+
           cmake -S C:\libopenshot-src -B C:\libopenshot-src\build `
             -G "Visual Studio 17 2022" -A x64 `
             -DCMAKE_INSTALL_PREFIX="$INSTALL" `
@@ -889,7 +901,9 @@ jobs:
             -DENABLE_OPENCV=OFF `
             "-DPython3_EXECUTABLE=$pythonExe" `
             "-DSWIG_EXECUTABLE=$swigExe" `
-            "-DOpenShotAudio_DIR=$audioConfigDir"
+            "-DOpenShotAudio_DIR=$audioConfigDir" `
+            "-DZeroMQ_LIBRARIES=$zmqLibPath" `
+            "-DZeroMQ_INCLUDE_DIRS=$zmqIncludeDir"
           if ($LASTEXITCODE -ne 0) { throw "libopenshot cmake configure failed (exit $LASTEXITCODE)" }
           cmake --build   C:\libopenshot-src\build --config Release --parallel
           if ($LASTEXITCODE -ne 0) { throw "libopenshot cmake build failed (exit $LASTEXITCODE)" }
@@ -908,6 +922,11 @@ jobs:
           # Copy FFmpeg DLLs (versioned names like avcodec-61.dll)
           Get-ChildItem "C:\ffmpeg\bin" -Filter "*.dll" -ErrorAction SilentlyContinue |
             ForEach-Object { Copy-Item $_.FullName $bundle -Force }
+
+          # Copy vcpkg runtime DLLs needed at runtime (zeromq, zlib, libsamplerate)
+          Get-ChildItem "$vcpkgInstall\bin" -Filter "*.dll" -ErrorAction SilentlyContinue |
+            Where-Object { $_.Name -match "^(libzmq|zlib|samplerate)" } |
+            ForEach-Object { Copy-Item $_.FullName $bundle -Force; Write-Host "Bundled vcpkg DLL: $($_.Name)" }
 
           # Copy _openshot*.pyd (may be in python/ or Release/ subdir)
           $pyd = Get-ChildItem -Path $INSTALL -Recurse -ErrorAction SilentlyContinue |
