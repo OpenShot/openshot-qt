@@ -708,7 +708,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: C:\libopenshot-install
-          key: libopenshot-v0.5.0-audio-v0.5.0-windows-msvc2022-qt5.15.2-py311-vcpkg-v11
+          key: libopenshot-v0.5.0-audio-v0.5.0-windows-msvc2022-qt5.15.2-py311-vcpkg-v12
 
       - name: Build libopenshot from source (Windows MSVC + Qt 5.15.2)
         if: steps.cache-libopenshot-win.outputs.cache-hit != 'true'
@@ -877,15 +877,29 @@ jobs:
           $pythonExe = (Get-Command python).Source
 
           # libopenshot's FindZeroMQ.cmake searches for library name "zmq" but vcpkg
-          # installs it as "libzmq-*.lib" (versioned). Locate the Release lib explicitly
-          # and pass it via cache variables to bypass the broken find_library call.
+          # installs it as "libzmq-mt-*.lib" (versioned, no plain zmq.lib alias).
+          # Fix: create a zmq.lib alias in the vcpkg lib dir so find_library finds it,
+          # AND patch FindZeroMQ.cmake to add libzmq to its NAMES list as fallback.
           $zmqLib = Get-ChildItem "$vcpkgInstall\lib" -Filter "libzmq*.lib" -ErrorAction SilentlyContinue |
             Where-Object { $_.Name -notmatch "d\.lib$" -and $_.Name -notmatch "-gd-" } |
             Select-Object -First 1
           if (!$zmqLib) { throw "ZeroMQ library not found under $vcpkgInstall\lib" }
           Write-Host "Found ZeroMQ lib: $($zmqLib.FullName)"
-          $zmqLibPath    = $zmqLib.FullName
-          $zmqIncludeDir = "$vcpkgInstall\include"
+          # Create zmq.lib alias (FindZeroMQ.cmake searches for NAMES zmq)
+          Copy-Item $zmqLib.FullName "$vcpkgInstall\lib\zmq.lib" -Force
+          Write-Host "Created zmq.lib alias"
+
+          # Also patch FindZeroMQ.cmake in the source to search both zmq and libzmq
+          $findZmq = "C:\libopenshot-src\cmake\Modules\FindZeroMQ.cmake"
+          if (Test-Path $findZmq) {
+            $fz = Get-Content $findZmq -Raw
+            # Expand NAMES to include libzmq variants and add vcpkg lib dir to HINTS
+            $fz = [regex]::Replace($fz,
+              "(?i)(find_library\s*\(\s*ZeroMQ_LIBRARIES\s+NAMES\s+)(zmq)",
+              ('$1zmq libzmq' + "`n    HINTS `"$vcpkgInstall/lib`""))
+            [System.IO.File]::WriteAllText($findZmq, $fz)
+            Write-Host "Patched FindZeroMQ.cmake: added libzmq to NAMES"
+          }
 
           cmake -S C:\libopenshot-src -B C:\libopenshot-src\build `
             -G "Visual Studio 17 2022" -A x64 `
@@ -901,9 +915,7 @@ jobs:
             -DENABLE_OPENCV=OFF `
             "-DPython3_EXECUTABLE=$pythonExe" `
             "-DSWIG_EXECUTABLE=$swigExe" `
-            "-DOpenShotAudio_DIR=$audioConfigDir" `
-            "-DZeroMQ_LIBRARIES=$zmqLibPath" `
-            "-DZeroMQ_INCLUDE_DIRS=$zmqIncludeDir"
+            "-DOpenShotAudio_DIR=$audioConfigDir"
           if ($LASTEXITCODE -ne 0) { throw "libopenshot cmake configure failed (exit $LASTEXITCODE)" }
           cmake --build   C:\libopenshot-src\build --config Release --parallel
           if ($LASTEXITCODE -ne 0) { throw "libopenshot cmake build failed (exit $LASTEXITCODE)" }
