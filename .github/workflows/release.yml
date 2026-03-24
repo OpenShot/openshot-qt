@@ -1203,7 +1203,7 @@ jobs:
           Write-Host "Wrote $($content.Length) bytes to $target"
           # Verify content was written correctly
           $written = Get-Content $target -Raw
-          if ($written -notmatch "openshot-audio") { throw "openshot.py patch verification failed — openshot-audio prefix missing" }
+          if ($written -notmatch "openshot-audio") { throw "openshot.py patch verification failed: openshot-audio prefix missing" }
           Write-Host "Verification OK: openshot-audio prefix present"
 
       - name: Install Inno Setup 6
