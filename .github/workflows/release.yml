@@ -703,148 +703,187 @@ jobs:
           pip install -r requirements.txt
         shell: powershell
 
-      - name: Install OpenShot (libopenshot Python bindings)
+      - name: Cache libopenshot build (Windows MSVC + Qt 5.15.2)
+        id: cache-libopenshot-win
+        uses: actions/cache@v4
+        with:
+          path: C:\libopenshot-install
+          key: libopenshot-v0.5.0-audio-v0.5.0-windows-msvc2022-qt5.15.2-py311-v1
+
+      - name: Build libopenshot from source (Windows MSVC + Qt 5.15.2)
+        if: steps.cache-libopenshot-win.outputs.cache-hit != 'true'
         shell: powershell
         run: |
-          # Install OpenShot v3.5.0 directly from GitHub (Chocolatey only has v3.4.0 which
-          # ships Python 3.8 MinGW bindings; v3.5.0 may ship Python 3.10+ compatible bindings)
-          $openShotUrl = "https://github.com/OpenShot/openshot-qt/releases/download/v3.5.0/OpenShot-v3.5.0-x86_64.exe"
-          $openShotInstaller = "C:\Temp\OpenShot-v3.5.0-x86_64.exe"
-          New-Item -ItemType Directory -Path "C:\Temp" -Force | Out-Null
-          Write-Host "Downloading OpenShot v3.5.0..."
-          Invoke-WebRequest -Uri $openShotUrl -OutFile $openShotInstaller -UseBasicParsing
-          Write-Host "Installing OpenShot v3.5.0 silently..."
-          $proc = Start-Process -FilePath $openShotInstaller -ArgumentList "/VERYSILENT /NORESTART" -PassThru
-          if (!$proc.WaitForExit(300000)) {
-            $proc.Kill()
-            throw "OpenShot installer timed out after 5 minutes"
-          }
-          if ($proc.ExitCode -ne 0) {
-            throw "OpenShot installer failed with exit code $($proc.ExitCode)"
-          }
-          Write-Host "OpenShot v3.5.0 installed."
-          Remove-Item $openShotInstaller -Force -ErrorAction SilentlyContinue
+          $ErrorActionPreference = "Stop"
+          $INSTALL = "C:\libopenshot-install"
+          New-Item -ItemType Directory -Path $INSTALL, "C:\Temp" -Force | Out-Null
 
-          # Diagnostic: show Python version shipped with this OpenShot build
-          $diagRoot = "C:\Program Files\OpenShot Video Editor"
-          if (Test-Path $diagRoot) {
-            Write-Host "=== OpenShot Python DLLs (shows which Python version was bundled) ==="
-            Get-ChildItem -Path $diagRoot -Recurse -Filter "libpython*.dll" -ErrorAction SilentlyContinue |
-              Select-Object -ExpandProperty FullName | ForEach-Object { Write-Host $_ }
-            Write-Host "=== OpenShot .pyd files ==="
-            Get-ChildItem -Path $diagRoot -Recurse -Filter "*.pyd" -ErrorAction SilentlyContinue |
-              Select-Object -ExpandProperty FullName | ForEach-Object { Write-Host $_ }
-            Write-Host "=== OpenShot openshot* files ==="
-            Get-ChildItem -Path $diagRoot -Recurse -ErrorAction SilentlyContinue |
-              Where-Object { $_.Name -match "^_?openshot" } |
-              Select-Object -ExpandProperty FullName | ForEach-Object { Write-Host $_ }
-          }
+          # Install Qt 5.15.2 MSVC2019 64-bit — same as PyQt5-Qt5-5.15.2 installed earlier.
+          # Building libopenshot with this Qt means libopenshot.dll will call Qt symbols that
+          # are already present in the MSVC Qt5Core/Gui/Widgets.dll that PyQt5 loads at runtime.
+          pip install aqtinstall --quiet
+          Write-Host "Installing Qt 5.15.2 MSVC2019 64-bit via aqtinstall..."
+          python -m aqt install-qt windows desktop 5.15.2 win64_msvc2019_64 -O C:\Qt5
+          $qtPrefix = "C:\Qt5\5.15.2\msvc2019_64"
 
-          $roots = @(
-            "C:\Program Files\OpenShot Video Editor",
-            "C:\Program Files (x86)\OpenShot Video Editor"
+          # SWIG: Python binding generator (generates _openshot.pyd + openshot.py)
+          choco install swig --yes --no-progress --quiet 2>&1 | Out-Null
+          $env:PATH = "C:\ProgramData\chocolatey\bin;$env:PATH"
+          $swigExe = (Get-Command swig -ErrorAction SilentlyContinue).Source
+          if (!$swigExe) { throw "swig not found after choco install" }
+          Write-Host "SWIG: $swigExe"
+
+          # FFmpeg MSVC shared build (includes .dll + .lib import libs + headers)
+          $ffmpegUrl = "https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-win64-lgpl-shared.zip"
+          Write-Host "Downloading FFmpeg MSVC shared build..."
+          Invoke-WebRequest -Uri $ffmpegUrl -OutFile "C:\Temp\ffmpeg.zip" -UseBasicParsing
+          Expand-Archive "C:\Temp\ffmpeg.zip" -DestinationPath "C:\ffmpeg-src" -Force
+          $ffmpegDir = (Get-ChildItem "C:\ffmpeg-src" -Directory | Select-Object -First 1).FullName
+          Rename-Item $ffmpegDir "C:\ffmpeg"
+          Write-Host "FFmpeg at C:\ffmpeg"
+
+          # Build libopenshot-audio v0.5.0
+          git clone --depth=1 --branch v0.5.0 `
+            https://github.com/OpenShot/libopenshot-audio.git C:\libopenshot-audio-src
+          cmake -S C:\libopenshot-audio-src -B C:\libopenshot-audio-src\build `
+            -G "Visual Studio 17 2022" -A x64 `
+            -DCMAKE_INSTALL_PREFIX="$INSTALL" `
+            -DCMAKE_PREFIX_PATH="$qtPrefix" `
+            -DCMAKE_BUILD_TYPE=Release
+          cmake --build   C:\libopenshot-audio-src\build --config Release --parallel
+          cmake --install C:\libopenshot-audio-src\build --config Release
+
+          # Clone libopenshot v0.5.0
+          git clone --depth=1 --branch v0.5.0 `
+            https://github.com/OpenShot/libopenshot.git C:\libopenshot-src
+
+          # Apply FFmpeg 7+ compatibility patches (same as macOS arm64 CI)
+          Get-ChildItem -Path C:\libopenshot-src -Recurse -Filter "*.cpp" |
+            ForEach-Object {
+              $f = $_.FullName; $t = Get-Content $f -Raw -ErrorAction SilentlyContinue
+              if (!$t) { return }
+              $changed = $false
+              if ($t -match "FF_PROFILE_") {
+                $t = $t -replace "FF_PROFILE_H264_BASELINE","AV_PROFILE_H264_BASELINE" `
+                        -replace "FF_PROFILE_H264_CONSTRAINED","AV_PROFILE_H264_CONSTRAINED" `
+                        -replace "FF_PROFILE_H264_MAIN","AV_PROFILE_H264_MAIN" `
+                        -replace "FF_PROFILE_H264_HIGH","AV_PROFILE_H264_HIGH"
+                $changed = $true
+              }
+              if ($t -match "av_stream_add_side_data") {
+                $t = [regex]::Replace($t, "av_stream_add_side_data\([^;]*\);", "(void)0; /* removed FFmpeg7+ */")
+                $changed = $true
+              }
+              if ($t -match "->nb_side_data") {
+                $t = $t -replace "->nb_side_data","->codecpar->nb_coded_side_data" `
+                        -replace "->side_data\[","->codecpar->coded_side_data["
+                $changed = $true
+              }
+              if ($changed) { [System.IO.File]::WriteAllText($f, $t) }
+            }
+
+          # Disable OpenMP in CMake (avoid linker issues on Windows CI)
+          Get-ChildItem -Path C:\libopenshot-src -Recurse -Filter "CMakeLists.txt" |
+            ForEach-Object {
+              $f = $_.FullName; $t = Get-Content $f -Raw -ErrorAction SilentlyContinue
+              if ($t -match "find_package.*OpenMP") {
+                $t = [regex]::Replace($t, "find_package\(OpenMP[^)]*\)",
+                  "set(OpenMP_FOUND FALSE) # disabled for Windows CI")
+                [System.IO.File]::WriteAllText($f, $t)
+              }
+            }
+
+          # Remove avresample (dropped in FFmpeg 5+)
+          Get-ChildItem -Path C:\libopenshot-src -Recurse -Include "CMakeLists.txt","*.cmake" |
+            ForEach-Object {
+              $f = $_.FullName; $t = Get-Content $f -Raw -ErrorAction SilentlyContinue
+              if ($t -match "avresample") {
+                [System.IO.File]::WriteAllText($f, ($t -replace " avresample",""))
+              }
+            }
+
+          # Build libopenshot with MSVC + Qt5.15.2 + FFmpeg + Python 3.11
+          $pythonExe = (Get-Command python).Source
+          cmake -S C:\libopenshot-src -B C:\libopenshot-src\build `
+            -G "Visual Studio 17 2022" -A x64 `
+            -DCMAKE_INSTALL_PREFIX="$INSTALL" `
+            "-DCMAKE_PREFIX_PATH=$qtPrefix;C:\ffmpeg;$INSTALL" `
+            -DCMAKE_BUILD_TYPE=Release `
+            -DENABLE_TESTS=OFF `
+            -DENABLE_RUBY=OFF `
+            -DENABLE_JAVA=OFF `
+            -DENABLE_PYTHON=ON `
+            -DENABLE_OPENCV=OFF `
+            "-DPython3_EXECUTABLE=$pythonExe" `
+            "-DSWIG_EXECUTABLE=$swigExe"
+          cmake --build   C:\libopenshot-src\build --config Release --parallel
+          cmake --install C:\libopenshot-src\build --config Release
+
+          # Consolidate everything (pyd + all DLLs) into a single bundle dir so
+          # freeze.py can find them all from ZENVI_OPENSHOT_PYROOT / BINDDIR.
+          $bundle = "$INSTALL\bundle"
+          New-Item -ItemType Directory -Path $bundle -Force | Out-Null
+
+          # Copy libopenshot + libopenshot-audio DLLs
+          Get-ChildItem "$INSTALL\bin" -Filter "*.dll" -ErrorAction SilentlyContinue |
+            ForEach-Object { Copy-Item $_.FullName $bundle -Force }
+
+          # Copy FFmpeg DLLs (versioned names like avcodec-61.dll)
+          Get-ChildItem "C:\ffmpeg\bin" -Filter "*.dll" -ErrorAction SilentlyContinue |
+            ForEach-Object { Copy-Item $_.FullName $bundle -Force }
+
+          # Copy _openshot*.pyd (may be in python/ or Release/ subdir)
+          $pyd = Get-ChildItem -Path $INSTALL -Recurse -ErrorAction SilentlyContinue |
+            Where-Object { $_.Name -match "^_openshot.*\.pyd$" } | Select-Object -First 1
+          if (!$pyd) {
+            $pyd = Get-ChildItem -Path C:\libopenshot-src\build -Recurse -ErrorAction SilentlyContinue |
+              Where-Object { $_.Name -match "^_openshot.*\.pyd$" } | Select-Object -First 1
+          }
+          if (!$pyd) { throw "Build completed but _openshot*.pyd not found" }
+          Copy-Item $pyd.FullName $bundle -Force
+          Write-Host "Copied $($pyd.Name) to bundle"
+
+          Write-Host "=== bundle contents ==="
+          Get-ChildItem $bundle | Select-Object -ExpandProperty Name | ForEach-Object { Write-Host $_ }
+
+      - name: Set up OpenShot paths (libopenshot MSVC build)
+        shell: powershell
+        run: |
+          $bundle = "C:\libopenshot-install\bundle"
+          if (!(Test-Path $bundle)) { throw "bundle dir not found: $bundle" }
+
+          # Create openshot.py wrapper with DLL pre-loading.
+          # Since libopenshot.dll is built with MSVC Qt5.15.2 (same as PyQt5), it is
+          # ABI-compatible with the Qt DLLs already loaded by PyQt5.  We pre-load the
+          # FFmpeg and libopenshot DLLs (by glob) before importing _openshot.pyd so
+          # Windows finds the versioned DLL names (e.g. avcodec-61.dll) in the process
+          # module list rather than searching for them at import time.
+          $wrapperLines = @(
+            "# Auto-generated wrapper: re-exports _openshot (MSVC build) as 'openshot'.",
+            "import os as _os, sys as _sys, ctypes as _ctypes, glob as _glob",
+            "_dll_dir = _os.path.dirname(_os.path.abspath(__file__))",
+            "if hasattr(_os, 'add_dll_directory'):",
+            "    _os.add_dll_directory(_dll_dir)",
+            "# Pre-load FFmpeg DLLs (versioned names) then libopenshot in dependency order.",
+            "_preload_prefixes = ['avutil', 'avcodec', 'avformat', 'swresample', 'swscale',",
+            "                     'postproc', 'libopenshot-audio', 'libopenshot']",
+            "for _pfx in _preload_prefixes:",
+            "    for _dep in sorted(_glob.glob(_os.path.join(_dll_dir, _pfx + '*.dll'))):",
+            "        try:",
+            "            _ctypes.WinDLL(_dep)",
+            "        except OSError as _e:",
+            "            print(f'openshot wrapper: WARNING: pre-load {_os.path.basename(_dep)} failed: {_e}',",
+            "                  file=_sys.stderr)",
+            "from _openshot import *"
           )
+          Set-Content -Path "$bundle\openshot.py" -Value ($wrapperLines -join "`n") -Encoding ascii
+          Write-Host "Created openshot.py wrapper at $bundle\openshot.py"
 
-          $initPy = $null
-          $pyd = $null
-          $foundRoot = $null
-          foreach ($root in $roots) {
-            if (Test-Path $root) {
-              # PRIORITY 1: Find _openshot*.pyd (real C++ bindings, possibly cpython-tagged)
-              # Check _internal/ first (PyInstaller 6+ layout), then recurse everywhere
-              $pyd = Get-ChildItem -Path $root -Recurse -ErrorAction SilentlyContinue |
-                Where-Object { $_.Name -match "^_openshot.*\.pyd$" } |
-                Select-Object -First 1
-              if ($pyd) { $foundRoot = $root; break }
-
-              # PRIORITY 2: Find openshot/__init__.py (package-style pure-Python bindings)
-              $initPy = Get-ChildItem -Path $root -Recurse -Filter "__init__.py" -ErrorAction SilentlyContinue |
-                Where-Object { $_.FullName -match "\\openshot\\__init__\.py$" -and
-                               $_.FullName -notmatch "\\classes\\legacy\\" } |
-                Select-Object -First 1
-              if ($initPy) { $foundRoot = $root; break }
-
-              # PRIORITY 3: Any openshot/__init__.py including legacy (last resort)
-              $initPy = Get-ChildItem -Path $root -Recurse -Filter "__init__.py" -ErrorAction SilentlyContinue |
-                Where-Object { $_.FullName -match "\\openshot\\__init__\.py$" } |
-                Select-Object -First 1
-              if ($initPy) { $foundRoot = $root; break }
-            }
-          }
-
-          if (-not $foundRoot) {
-            throw "Could not locate OpenShot installation root"
-          }
-
-          $installRoot = $foundRoot
-          $bindDir = $null
-          $pythonPathRoot = $null
-
-          if ($pyd) {
-            # Real C++ extension: _openshot.pyd or _openshot.cp311-win_amd64.pyd
-            # It lives alongside any openshot/__init__.py or standalone openshot.py
-            $bindDir = $pyd.Directory.FullName
-            $pythonPathRoot = $bindDir
-            # If inside an openshot/ subdir, walk up one more
-            if ($pyd.Directory.Name -ieq "openshot") {
-              $pythonPathRoot = $pyd.Directory.Parent.FullName
-            }
-            Write-Host "Found _openshot*.pyd at: $($pyd.FullName)"
-            # Create openshot.py wrapper if missing — _openshot.pyd is a bare C extension;
-            # "import openshot" requires a Python wrapper that re-exports its symbols.
-            # Also call os.add_dll_directory() so Windows (Python 3.8+) can find the
-            # native DLLs (libopenshot.dll, FFMPEG DLLs, etc.) bundled in lib/.
-            $wrapperPath = Join-Path $pythonPathRoot "openshot.py"
-            $wrapperLines = @(
-              "# Auto-generated wrapper: re-exports _openshot C extension as 'openshot'.",
-              "import os as _os, sys as _sys, ctypes as _ctypes",
-              "# Python 3.8+ Windows restricts DLL loading from PATH; add lib/ explicitly.",
-              "_dll_dir = _os.path.dirname(_os.path.abspath(__file__))",
-              "if hasattr(_os, 'add_dll_directory'):",
-              "    _os.add_dll_directory(_dll_dir)",
-              "# Pre-load native deps explicitly so Windows finds them before loading _openshot.pyd.",
-              "for _dep in ['libopenshot-audio.dll', 'libopenshot.dll']:",
-              "    _dep_path = _os.path.join(_dll_dir, _dep)",
-              "    if _os.path.exists(_dep_path):",
-              "        try:",
-              "            _ctypes.WinDLL(_dep_path)",
-              "        except OSError as _e:",
-              "            print(f'openshot wrapper: pre-load {_dep} failed: {_e}', file=_sys.stderr)",
-              "from _openshot import *"
-            )
-            Set-Content -Path $wrapperPath -Value ($wrapperLines -join "`n") -Encoding ascii
-            Write-Host "Created/updated openshot.py wrapper at $wrapperPath"
-          } elseif ($initPy) {
-            $bindDir = Split-Path -Parent $initPy.FullName   # ...\openshot
-            $pythonPathRoot = Split-Path -Parent $bindDir    # ...\site-packages
-            Write-Host "Found openshot/__init__.py at: $($initPy.FullName)"
-          }
-
-          if (-not $bindDir -or -not $pythonPathRoot) {
-            throw "Could not determine Python path root for OpenShot bindings"
-          }
-
-          $binDir = Join-Path $installRoot "bin"
-
-          Write-Host "OpenShot install root: $installRoot"
-          Write-Host "OpenShot bindings dir: $bindDir"
-          Write-Host "OpenShot PYTHONPATH root: $pythonPathRoot"
-
-          # IMPORTANT:
-          # Do NOT set PYTHONPATH here. Some OpenShot distributions bundle a partial/alternate
-          # Python stdlib under their install tree, which can shadow stdlib modules (e.g.
-          # encodings) and crash Python during initialization.
-          #
-          # Instead, pass the path to freeze.py via a dedicated env var, and let freeze.py
-          # append it to sys.path at runtime (after Python has initialized).
           Add-Content $env:GITHUB_ENV "PYTHONPATH="
-          Add-Content $env:GITHUB_ENV "ZENVI_OPENSHOT_PYROOT=$pythonPathRoot"
-          Add-Content $env:GITHUB_ENV "ZENVI_OPENSHOT_BINDDIR=$bindDir"
-          if (Test-Path $binDir) {
-            Add-Content $env:GITHUB_ENV "PATH=$bindDir;$binDir;$installRoot;$env:PATH"
-          } else {
-            Add-Content $env:GITHUB_ENV "PATH=$bindDir;$installRoot;$env:PATH"
-          }
+          Add-Content $env:GITHUB_ENV "ZENVI_OPENSHOT_PYROOT=$bundle"
+          Add-Content $env:GITHUB_ENV "ZENVI_OPENSHOT_BINDDIR=$bundle"
+          Add-Content $env:GITHUB_ENV "PATH=$bundle;$env:PATH"
+          Write-Host "ZENVI_OPENSHOT_PYROOT=$bundle"
 
       - name: Verify OpenShot Python bindings
         continue-on-error: true
