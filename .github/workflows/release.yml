@@ -708,7 +708,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: C:\libopenshot-install
-          key: libopenshot-v0.5.0-audio-v0.5.0-windows-msvc2022-qt5.15.2-py311-vcpkg-v2
+          key: libopenshot-v0.5.0-audio-v0.5.0-windows-msvc2022-qt5.15.2-py311-vcpkg-v3
 
       - name: Build libopenshot from source (Windows MSVC + Qt 5.15.2)
         if: steps.cache-libopenshot-win.outputs.cache-hit != 'true'
@@ -756,12 +756,28 @@ jobs:
           # Build libopenshot-audio v0.5.0
           git clone --depth=1 --branch v0.5.0 `
             https://github.com/OpenShot/libopenshot-audio.git C:\libopenshot-audio-src
+
+          # Patch AppConfig.h to explicitly disable ASIO (JUCE defaults to enabled on Windows
+          # but iasiodrv.h requires the Steinberg ASIO SDK which is not freely available on CI).
+          # Also disable WASAPI exclusive mode to avoid potential UAC issues in CI.
+          $appConfig = "C:\libopenshot-audio-src\JuceLibraryCode\AppConfig.h"
+          if (Test-Path $appConfig) {
+            $t = Get-Content $appConfig -Raw
+            $t = [regex]::Replace($t, "#define JUCE_ASIO\s+1",  "#define JUCE_ASIO 0")
+            if ($t -notmatch "JUCE_ASIO") { $t += "`n#define JUCE_ASIO 0`n" }
+            [System.IO.File]::WriteAllText($appConfig, $t)
+            Write-Host "Patched AppConfig.h: disabled JUCE_ASIO"
+          }
+          # Fallback: pass as compile flag (covers JuceLibraryCode that ignores AppConfig.h)
+          $juceAsioFlag = "/DJUCE_ASIO=0"
+
           cmake -S C:\libopenshot-audio-src -B C:\libopenshot-audio-src\build `
             -G "Visual Studio 17 2022" -A x64 `
             -DCMAKE_INSTALL_PREFIX="$INSTALL" `
             "-DCMAKE_PREFIX_PATH=$qtPrefix;$vcpkgInstall" `
             "-DCMAKE_TOOLCHAIN_FILE=$vcpkgToolchain" `
             -DVCPKG_TARGET_TRIPLET=x64-windows `
+            "-DCMAKE_CXX_FLAGS=$juceAsioFlag" `
             -DCMAKE_BUILD_TYPE=Release
           cmake --build   C:\libopenshot-audio-src\build --config Release --parallel
           cmake --install C:\libopenshot-audio-src\build --config Release
