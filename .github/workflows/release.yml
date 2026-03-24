@@ -1184,10 +1184,11 @@ jobs:
             "_dll_dir = _os.path.dirname(_os.path.abspath(__file__))",
             "if hasattr(_os, 'add_dll_directory'):",
             "    _os.add_dll_directory(_dll_dir)",
-            "# Pre-load FFmpeg DLLs then libopenshot in dependency order.",
-            "# Handles both MSVC naming (openshot.dll) and MinGW naming (libopenshot.dll).",
+            "# Pre-load DLLs in dependency order using full paths (so ctypes finds them",
+            "# even before add_dll_directory takes full effect for transitive deps).",
+            "# Includes vcomp140.dll (MSVC OpenMP runtime) required by openshot.dll.",
             "_preload_prefixes = ['avutil', 'avcodec', 'avformat', 'swresample', 'swscale',",
-            "                     'postproc', 'libopenshot-audio', 'openshot-audio',",
+            "                     'postproc', 'vcomp140', 'libopenshot-audio', 'openshot-audio',",
             "                     'libopenshot', 'openshot']",
             "for _pfx in _preload_prefixes:",
             "    for _dep in sorted(_glob.glob(_os.path.join(_dll_dir, _pfx + '*.dll'))):",
@@ -1205,6 +1206,39 @@ jobs:
           $written = Get-Content $target -Raw
           if ($written -notmatch "openshot-audio") { throw "openshot.py patch verification failed: openshot-audio prefix missing" }
           Write-Host "Verification OK: openshot-audio prefix present"
+
+      - name: Bundle VCOMP140.DLL (MSVC OpenMP runtime required by openshot.dll)
+        shell: powershell
+        run: |
+          # openshot.dll is compiled with OpenMP (/openmp) and requires VCOMP140.DLL.
+          # This DLL is part of the MSVC redistributable and must be bundled with the app.
+          $exeDir = Get-ChildItem -Path "build" -Directory -Filter "exe.*" | Select-Object -First 1
+          if (!$exeDir) { throw "cx_Freeze output directory build/exe.* not found" }
+          $libDir = Join-Path $exeDir.FullName "lib"
+          $dest = Join-Path $libDir "vcomp140.dll"
+          # Search for vcomp140.dll in MSVC redist (x64 variant)
+          $candidates = @(
+            "C:\Windows\System32\vcomp140.dll",
+            "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Redist\MSVC\14.40.33807\x64\Microsoft.VC143.OpenMP\vcomp140.dll",
+            "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Redist\MSVC\14.42.34433\x64\Microsoft.VC143.OpenMP\vcomp140.dll",
+            "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Redist\MSVC\14.38.33130\x64\Microsoft.VC143.OpenMP\vcomp140.dll"
+          )
+          $found = $null
+          foreach ($c in $candidates) {
+            if (Test-Path $c) { $found = $c; break }
+          }
+          if (!$found) {
+            # Broader search fallback
+            $found = Get-ChildItem "C:\Program Files\Microsoft Visual Studio" -Filter "vcomp140.dll" -Recurse -ErrorAction SilentlyContinue |
+              Where-Object { $_.FullName -notmatch 'debug|Debug' -and $_.FullName -match 'x64' } |
+              Select-Object -ExpandProperty FullName -First 1
+          }
+          if (!$found) {
+            throw "vcomp140.dll not found in MSVC redist or System32. Cannot bundle OpenMP runtime."
+          }
+          Copy-Item $found $dest -Force
+          Write-Host "Bundled vcomp140.dll from $found -> $dest"
+          Write-Host "File size: $((Get-Item $dest).Length) bytes"
 
       - name: Install Inno Setup 6
         run: choco install innosetup --yes --no-progress
