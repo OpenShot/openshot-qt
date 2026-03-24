@@ -1188,7 +1188,7 @@ jobs:
           if (!(Test-Path $target)) { throw "openshot.py not found at $target (freeze.py should have created it)" }
           $content = [System.IO.File]::ReadAllText($target, [System.Text.Encoding]::UTF8)
           Write-Host "lib/openshot.py size: $($content.Length) bytes"
-          if ($content -notmatch "class Profile") { throw "Verification failed: 'class Profile' missing — SWIG proxy classes were not included" }
+          if ($content -notmatch "class Profile") { throw "Verification failed: 'class Profile' missing - SWIG proxy classes were not included" }
           if ($content -notmatch "vcomp140") { throw "Verification failed: vcomp140 DLL setup missing from openshot.py" }
           Write-Host "Verification OK: SWIG proxy classes and vcomp140 DLL setup both present"
 
