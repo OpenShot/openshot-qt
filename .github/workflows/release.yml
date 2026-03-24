@@ -708,7 +708,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: C:\libopenshot-install
-          key: libopenshot-v0.5.0-audio-v0.5.0-windows-msvc2022-qt5.15.2-py311-vcpkg-v12
+          key: libopenshot-v0.5.0-audio-v0.5.0-windows-msvc2022-qt5.15.2-py311-vcpkg-v13
 
       - name: Build libopenshot from source (Windows MSVC + Qt 5.15.2)
         if: steps.cache-libopenshot-win.outputs.cache-hit != 'true'
@@ -749,7 +749,8 @@ jobs:
           Write-Host "Installing vcpkg deps..."
           # zlib + libsamplerate: required by libopenshot-audio (JUCE)
           # zeromq: required by libopenshot (inter-process communication)
-          & $vcpkg install "zlib:x64-windows" "libsamplerate:x64-windows" "zeromq:x64-windows" --triplet x64-windows 2>&1 |
+          # cppzmq: C++ header-only wrapper for zeromq (zmq.hpp, required by ZmqLogger.h)
+          & $vcpkg install "zlib:x64-windows" "libsamplerate:x64-windows" "zeromq:x64-windows" "cppzmq:x64-windows" --triplet x64-windows 2>&1 |
             Where-Object { $_ -notmatch "^(  |Building|Fetching|Downloading|Installing|Stored)" } |
             ForEach-Object { Write-Host $_ }
           $vcpkgToolchain = "C:\vcpkg\scripts\buildsystems\vcpkg.cmake"
@@ -872,6 +873,32 @@ jobs:
                 [System.IO.File]::WriteAllText($f, ($t -replace " avresample",""))
               }
             }
+
+          # Patch POSIX-only includes that MSVC doesn't have:
+          # unistd.h (sleep/read/write), execinfo.h (backtrace) — guard with #ifndef _WIN32
+          @("C:\libopenshot-src\src\ChunkWriter.h",
+            "C:\libopenshot-src\src\FFmpegReader.cpp",
+            "C:\libopenshot-src\src\FFmpegWriter.cpp") | ForEach-Object {
+            if (Test-Path $_) {
+              $t = Get-Content $_ -Raw
+              if ($t -match '#include\s*<unistd\.h>') {
+                $t = [regex]::Replace($t, '(#include\s*<unistd\.h>)',
+                  "#ifndef _WIN32`n`$1`n#endif // _WIN32")
+                [System.IO.File]::WriteAllText($_, $t)
+                Write-Host "Patched unistd.h guard in $(Split-Path $_ -Leaf)"
+              }
+            }
+          }
+          $crashH = "C:\libopenshot-src\src\CrashHandler.h"
+          if (Test-Path $crashH) {
+            $t = Get-Content $crashH -Raw
+            if ($t -match '#include\s*<execinfo\.h>') {
+              $t = [regex]::Replace($t, '(#include\s*<execinfo\.h>)',
+                "#ifndef _WIN32`n`$1`n#endif // _WIN32")
+              [System.IO.File]::WriteAllText($crashH, $t)
+              Write-Host "Patched execinfo.h guard in CrashHandler.h"
+            }
+          }
 
           # Build libopenshot with MSVC + Qt5.15.2 + FFmpeg + Python 3.11
           $pythonExe = (Get-Command python).Source
