@@ -739,7 +739,7 @@ jobs:
           Invoke-WebRequest -Uri $ffmpegUrl -OutFile "C:\Temp\ffmpeg.zip" -UseBasicParsing
           Expand-Archive "C:\Temp\ffmpeg.zip" -DestinationPath "C:\ffmpeg-src" -Force
           $ffmpegDir = (Get-ChildItem "C:\ffmpeg-src" -Directory | Select-Object -First 1).FullName
-          Rename-Item $ffmpegDir "C:\ffmpeg"
+          Move-Item $ffmpegDir "C:\ffmpeg"
           Write-Host "FFmpeg at C:\ffmpeg"
 
           # Build libopenshot-audio v0.5.0
