@@ -1120,7 +1120,7 @@ jobs:
           if (!(Test-Path $bundle)) { throw "bundle dir not found: $bundle" }
 
           # The SWIG build installs proxy-class definitions to python/ but not bundle/.
-          # Read the real SWIG openshot.py (contains class Profile, class Clip, class Timeline…)
+          # Read the real SWIG openshot.py (contains class Profile, class Clip, class Timeline...)
           # and PREPEND our DLL setup code so Windows finds vcomp140.dll + openshot.dll
           # before _openshot.pyd is imported. This preserves ALL proxy classes.
           $swigPy = "C:\libopenshot-install\python\openshot.py"
@@ -1154,7 +1154,7 @@ jobs:
           $combined = $prefix + $swigContent
           [System.IO.File]::WriteAllText("$bundle\openshot.py", $combined, [System.Text.Encoding]::UTF8)
           Write-Host "Created bundle\openshot.py: DLL prefix ($($prefix.Length)B) + SWIG ($($swigContent.Length)B) = $($combined.Length)B total"
-          if ($combined -notmatch "class Profile") { throw "SWIG content is missing 'class Profile' — SWIG build may have failed" }
+          if ($combined -notmatch "class Profile") { throw "SWIG content is missing 'class Profile': SWIG build may have failed" }
           Write-Host "Verification OK: 'class Profile' present in bundle\openshot.py"
 
           Add-Content $env:GITHUB_ENV "PYTHONPATH="
