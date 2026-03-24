@@ -708,7 +708,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: C:\libopenshot-install
-          key: libopenshot-v0.5.0-audio-v0.5.0-windows-msvc2022-qt5.15.2-py311-vcpkg-v4
+          key: libopenshot-v0.5.0-audio-v0.5.0-windows-msvc2022-qt5.15.2-py311-vcpkg-v5
 
       - name: Build libopenshot from source (Windows MSVC + Qt 5.15.2)
         if: steps.cache-libopenshot-win.outputs.cache-hit != 'true'
@@ -784,6 +784,14 @@ jobs:
           cmake --build   C:\libopenshot-audio-src\build --config Release --parallel
           cmake --install C:\libopenshot-audio-src\build --config Release
 
+          # Dynamically find where cmake installed OpenShotAudioConfig.cmake so we can
+          # pass it explicitly via -DOpenShotAudio_DIR.  The vcpkg toolchain wraps
+          # find_package and can prevent discovery via CMAKE_PREFIX_PATH alone.
+          $audioConfig = Get-ChildItem -Path $INSTALL -Recurse -Filter "OpenShotAudioConfig.cmake" -ErrorAction SilentlyContinue | Select-Object -First 1
+          if (!$audioConfig) { throw "OpenShotAudioConfig.cmake not found under $INSTALL after audio install" }
+          $audioConfigDir = $audioConfig.Directory.FullName
+          Write-Host "OpenShotAudio cmake config dir: $audioConfigDir"
+
           # Clone libopenshot v0.5.0
           git clone --depth=1 --branch v0.5.0 `
             https://github.com/OpenShot/libopenshot.git C:\libopenshot-src
@@ -848,7 +856,8 @@ jobs:
             -DENABLE_PYTHON=ON `
             -DENABLE_OPENCV=OFF `
             "-DPython3_EXECUTABLE=$pythonExe" `
-            "-DSWIG_EXECUTABLE=$swigExe"
+            "-DSWIG_EXECUTABLE=$swigExe" `
+            "-DOpenShotAudio_DIR=$audioConfigDir"
           cmake --build   C:\libopenshot-src\build --config Release --parallel
           cmake --install C:\libopenshot-src\build --config Release
 
