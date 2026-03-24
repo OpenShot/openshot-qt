@@ -708,7 +708,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: C:\libopenshot-install
-          key: libopenshot-v0.5.0-audio-v0.5.0-windows-msvc2022-qt5.15.2-py311-v1
+          key: libopenshot-v0.5.0-audio-v0.5.0-windows-msvc2022-qt5.15.2-py311-vcpkg-v2
 
       - name: Build libopenshot from source (Windows MSVC + Qt 5.15.2)
         if: steps.cache-libopenshot-win.outputs.cache-hit != 'true'
@@ -742,13 +742,26 @@ jobs:
           Move-Item $ffmpegDir "C:\ffmpeg"
           Write-Host "FFmpeg at C:\ffmpeg"
 
+          # Install required C/C++ libs via vcpkg (pre-installed on GitHub Actions Windows runners)
+          # zlib: required by libopenshot-audio (JUCE) and libopenshot
+          # libsamplerate: required by libopenshot-audio for sample-rate conversion
+          $vcpkg = "C:\vcpkg\vcpkg.exe"
+          Write-Host "Installing vcpkg deps (zlib, libsamplerate)..."
+          & $vcpkg install "zlib:x64-windows" "libsamplerate:x64-windows" --triplet x64-windows 2>&1 |
+            Where-Object { $_ -notmatch "^(  |Building|Fetching|Downloading|Installing|Stored)" } |
+            ForEach-Object { Write-Host $_ }
+          $vcpkgToolchain = "C:\vcpkg\scripts\buildsystems\vcpkg.cmake"
+          $vcpkgInstall   = "C:\vcpkg\installed\x64-windows"
+
           # Build libopenshot-audio v0.5.0
           git clone --depth=1 --branch v0.5.0 `
             https://github.com/OpenShot/libopenshot-audio.git C:\libopenshot-audio-src
           cmake -S C:\libopenshot-audio-src -B C:\libopenshot-audio-src\build `
             -G "Visual Studio 17 2022" -A x64 `
             -DCMAKE_INSTALL_PREFIX="$INSTALL" `
-            -DCMAKE_PREFIX_PATH="$qtPrefix" `
+            "-DCMAKE_PREFIX_PATH=$qtPrefix;$vcpkgInstall" `
+            "-DCMAKE_TOOLCHAIN_FILE=$vcpkgToolchain" `
+            -DVCPKG_TARGET_TRIPLET=x64-windows `
             -DCMAKE_BUILD_TYPE=Release
           cmake --build   C:\libopenshot-audio-src\build --config Release --parallel
           cmake --install C:\libopenshot-audio-src\build --config Release
@@ -807,7 +820,9 @@ jobs:
           cmake -S C:\libopenshot-src -B C:\libopenshot-src\build `
             -G "Visual Studio 17 2022" -A x64 `
             -DCMAKE_INSTALL_PREFIX="$INSTALL" `
-            "-DCMAKE_PREFIX_PATH=$qtPrefix;C:\ffmpeg;$INSTALL" `
+            "-DCMAKE_PREFIX_PATH=$qtPrefix;C:\ffmpeg;$INSTALL;$vcpkgInstall" `
+            "-DCMAKE_TOOLCHAIN_FILE=$vcpkgToolchain" `
+            -DVCPKG_TARGET_TRIPLET=x64-windows `
             -DCMAKE_BUILD_TYPE=Release `
             -DENABLE_TESTS=OFF `
             -DENABLE_RUBY=OFF `
