@@ -708,7 +708,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: C:\libopenshot-install
-          key: libopenshot-v0.5.0-audio-v0.5.0-windows-msvc2022-qt5.15.2-py311-vcpkg-v19
+          key: libopenshot-v0.5.0-audio-v0.5.0-windows-msvc2022-qt5.15.2-py311-vcpkg-v20
 
       - name: Build libopenshot from source (Windows MSVC + Qt 5.15.2)
         if: steps.cache-libopenshot-win.outputs.cache-hit != 'true'
@@ -966,6 +966,21 @@ jobs:
                 'av_channel_layout_from_mask(&$1, AV_CH_LAYOUT_STEREO)')
               [System.IO.File]::WriteAllText($ffmpegReader, $t)
               Write-Host "Patched FFmpegReader.cpp: AVChannelLayout compound literal -> av_channel_layout_from_mask()"
+            }
+          }
+
+          # Fix Python bindings cmake: -Wno-* flags are GCC/Clang-only, not valid in MSVC.
+          # Wrap the GENERATED_COMPILE_OPTIONS assignment in if(NOT MSVC) so MSVC skips them.
+          $pyBindCmake = "C:\libopenshot-src\bindings\python\CMakeLists.txt"
+          if (Test-Path $pyBindCmake) {
+            $t = [System.IO.File]::ReadAllText($pyBindCmake)
+            if ($t -notmatch 'NOT MSVC') {
+              # Literal string replacement (no regex) to safely handle ${sw_flags}
+              $oldProp = 'set_property(SOURCE openshot.i PROPERTY GENERATED_COMPILE_OPTIONS ${sw_flags})'
+              $newProp = "if(NOT MSVC)`n" + $oldProp + "`nendif() # NOT MSVC"
+              $t = $t.Replace($oldProp, $newProp)
+              [System.IO.File]::WriteAllText($pyBindCmake, $t)
+              Write-Host "Patched Python bindings cmake: wrapped GCC -Wno- flags in if(NOT MSVC)"
             }
           }
 
