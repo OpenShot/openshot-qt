@@ -1167,45 +1167,55 @@ jobs:
       - name: Freeze with cx_Freeze
         run: python freeze.py build --git-branch=production
 
-      - name: Patch openshot.py in frozen build (ensure correct MSVC DLL prefixes)
+      - name: Patch openshot.py in frozen build (prepend MSVC DLL setup to SWIG file)
         shell: powershell
         run: |
-          # This step runs after cx_Freeze to guarantee lib/openshot.py has the correct
-          # MSVC DLL names (openshot.dll, openshot-audio.dll).  freeze.py's post-build copy
-          # should also do this, but this explicit step is a belt-and-suspenders guard.
+          # The SWIG-generated openshot.py (copied by freeze.py from the libopenshot bundle)
+          # defines Python proxy classes (Profile, Clip, Timeline, etc.) AND does
+          # 'import _openshot'. On MSVC/Windows, _openshot.pyd needs its DLL dependencies
+          # (openshot.dll, vcomp140.dll, FFmpeg DLLs) discoverable via add_dll_directory
+          # BEFORE _openshot is imported. We PREPEND the DLL setup to the existing SWIG file
+          # rather than replacing it, so proxy classes are preserved.
           $exeDir = Get-ChildItem -Path "build" -Directory -Filter "exe.*" | Select-Object -First 1
           if (!$exeDir) { throw "cx_Freeze output directory build/exe.* not found" }
           $libDir = Join-Path $exeDir.FullName "lib"
           $target = Join-Path $libDir "openshot.py"
-          if (!(Test-Path $libDir)) { throw "lib dir not found: $libDir" }
-          $wrapperLines = @(
-            "# Auto-generated wrapper: re-exports _openshot (MSVC build) as 'openshot'.",
-            "import os as _os, sys as _sys, ctypes as _ctypes, glob as _glob",
-            "_dll_dir = _os.path.dirname(_os.path.abspath(__file__))",
-            "if hasattr(_os, 'add_dll_directory'):",
-            "    _os.add_dll_directory(_dll_dir)",
-            "# Pre-load DLLs in dependency order using full paths (so ctypes finds them",
-            "# even before add_dll_directory takes full effect for transitive deps).",
-            "# Includes vcomp140.dll (MSVC OpenMP runtime) required by openshot.dll.",
-            "_preload_prefixes = ['avutil', 'avcodec', 'avformat', 'swresample', 'swscale',",
-            "                     'postproc', 'vcomp140', 'libopenshot-audio', 'openshot-audio',",
-            "                     'libopenshot', 'openshot']",
-            "for _pfx in _preload_prefixes:",
-            "    for _dep in sorted(_glob.glob(_os.path.join(_dll_dir, _pfx + '*.dll'))):",
-            "        try:",
-            "            _ctypes.WinDLL(_dep)",
-            "        except OSError as _e:",
-            "            print(f'openshot wrapper: WARNING: pre-load {_os.path.basename(_dep)} failed: {_e}',",
-            "                  file=_sys.stderr)",
-            "from _openshot import *"
+          if (!(Test-Path $target)) { throw "openshot.py not found at $target (freeze.py should have created it)" }
+          # Read the existing SWIG-generated file
+          $swigContent = [System.IO.File]::ReadAllText($target, [System.Text.Encoding]::UTF8)
+          Write-Host "Existing openshot.py size: $($swigContent.Length) bytes"
+          # Build the DLL setup prefix (uses unique names to avoid clashing with SWIG code)
+          $prefixLines = @(
+            "# --- CI-prepended DLL setup for Windows MSVC build ---",
+            "# Must run before SWIG's 'import _openshot' so that vcomp140.dll (OpenMP",
+            "# runtime) and other dependencies are loaded into the process first.",
+            "def _openshot_win_dll_setup():",
+            "    import os, ctypes, glob",
+            "    _d = os.path.dirname(os.path.abspath(__file__))",
+            "    if hasattr(os, 'add_dll_directory'):",
+            "        os.add_dll_directory(_d)",
+            "    for _p in ['avutil', 'avcodec', 'avformat', 'swresample', 'swscale',",
+            "               'postproc', 'vcomp140', 'libopenshot-audio', 'openshot-audio',",
+            "               'libopenshot', 'openshot']:",
+            "        for _f in sorted(glob.glob(os.path.join(_d, _p + '*.dll'))):",
+            "            try:",
+            "                ctypes.WinDLL(_f)",
+            "            except OSError:",
+            "                pass",
+            "_openshot_win_dll_setup()",
+            "del _openshot_win_dll_setup",
+            "# --- end CI-prepended DLL setup ---",
+            ""
           )
-          $content = $wrapperLines -join "`n"
-          [System.IO.File]::WriteAllText($target, $content, [System.Text.Encoding]::ASCII)
-          Write-Host "Wrote $($content.Length) bytes to $target"
-          # Verify content was written correctly
-          $written = Get-Content $target -Raw
-          if ($written -notmatch "openshot-audio") { throw "openshot.py patch verification failed: openshot-audio prefix missing" }
-          Write-Host "Verification OK: openshot-audio prefix present"
+          $prefix = $prefixLines -join "`n"
+          $newContent = $prefix + $swigContent
+          [System.IO.File]::WriteAllText($target, $newContent, [System.Text.Encoding]::UTF8)
+          Write-Host "Patched openshot.py: prepended $($prefix.Length) bytes of DLL setup"
+          Write-Host "Total size: $($newContent.Length) bytes"
+          # Verify SWIG proxy classes are still present
+          if ($newContent -notmatch "class Profile") { throw "openshot.py patch verification failed: 'class Profile' missing from SWIG content" }
+          if ($newContent -notmatch "vcomp140") { throw "openshot.py patch verification failed: vcomp140 prefix missing from DLL setup" }
+          Write-Host "Verification OK: SWIG Profile class and vcomp140 preload both present"
 
       - name: Bundle VCOMP140.DLL (MSVC OpenMP runtime required by openshot.dll)
         shell: powershell
