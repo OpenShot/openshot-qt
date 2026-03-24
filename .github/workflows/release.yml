@@ -1167,6 +1167,45 @@ jobs:
       - name: Freeze with cx_Freeze
         run: python freeze.py build --git-branch=production
 
+      - name: Patch openshot.py in frozen build (ensure correct MSVC DLL prefixes)
+        shell: powershell
+        run: |
+          # This step runs after cx_Freeze to guarantee lib/openshot.py has the correct
+          # MSVC DLL names (openshot.dll, openshot-audio.dll).  freeze.py's post-build copy
+          # should also do this, but this explicit step is a belt-and-suspenders guard.
+          $exeDir = Get-ChildItem -Path "build" -Directory -Filter "exe.*" | Select-Object -First 1
+          if (!$exeDir) { throw "cx_Freeze output directory build/exe.* not found" }
+          $libDir = Join-Path $exeDir.FullName "lib"
+          $target = Join-Path $libDir "openshot.py"
+          if (!(Test-Path $libDir)) { throw "lib dir not found: $libDir" }
+          $wrapperLines = @(
+            "# Auto-generated wrapper: re-exports _openshot (MSVC build) as 'openshot'.",
+            "import os as _os, sys as _sys, ctypes as _ctypes, glob as _glob",
+            "_dll_dir = _os.path.dirname(_os.path.abspath(__file__))",
+            "if hasattr(_os, 'add_dll_directory'):",
+            "    _os.add_dll_directory(_dll_dir)",
+            "# Pre-load FFmpeg DLLs then libopenshot in dependency order.",
+            "# Handles both MSVC naming (openshot.dll) and MinGW naming (libopenshot.dll).",
+            "_preload_prefixes = ['avutil', 'avcodec', 'avformat', 'swresample', 'swscale',",
+            "                     'postproc', 'libopenshot-audio', 'openshot-audio',",
+            "                     'libopenshot', 'openshot']",
+            "for _pfx in _preload_prefixes:",
+            "    for _dep in sorted(_glob.glob(_os.path.join(_dll_dir, _pfx + '*.dll'))):",
+            "        try:",
+            "            _ctypes.WinDLL(_dep)",
+            "        except OSError as _e:",
+            "            print(f'openshot wrapper: WARNING: pre-load {_os.path.basename(_dep)} failed: {_e}',",
+            "                  file=_sys.stderr)",
+            "from _openshot import *"
+          )
+          $content = $wrapperLines -join "`n"
+          [System.IO.File]::WriteAllText($target, $content, [System.Text.Encoding]::ASCII)
+          Write-Host "Wrote $($content.Length) bytes to $target"
+          # Verify content was written correctly
+          $written = Get-Content $target -Raw
+          if ($written -notmatch "openshot-audio") { throw "openshot.py patch verification failed — openshot-audio prefix missing" }
+          Write-Host "Verification OK: openshot-audio prefix present"
+
       - name: Install Inno Setup 6
         run: choco install innosetup --yes --no-progress
         shell: powershell
