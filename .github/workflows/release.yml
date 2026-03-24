@@ -708,7 +708,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: C:\libopenshot-install
-          key: libopenshot-v0.5.0-audio-v0.5.0-windows-msvc2022-qt5.15.2-py311-vcpkg-v17
+          key: libopenshot-v0.5.0-audio-v0.5.0-windows-msvc2022-qt5.15.2-py311-vcpkg-v18
 
       - name: Build libopenshot from source (Windows MSVC + Qt 5.15.2)
         if: steps.cache-libopenshot-win.outputs.cache-hit != 'true'
@@ -924,36 +924,25 @@ jobs:
 
           # Fix AV_GET_CODEC_CONTEXT macro in FFmpegUtilities.h:
           # GCC statement expressions ({ ... }) are not valid C++ in MSVC.
-          # Approach: append a #ifdef _MSC_VER override at the end of the file that #undefines
-          # and redefines the macro using a C++11 immediately-invoked lambda.
-          # This is more robust than regex-replacing the multi-line macro body.
+          # Append a _MSC_VER-guarded undef+redefine block using C++11 lambda.
+          # Note: PowerShell @"..."@ here-strings are NOT used here because the "@ terminator
+          # must be at column-0 which conflicts with YAML block-literal indentation rules.
           $ffmpegUtils = "C:\libopenshot-src\src\FFmpegUtilities.h"
           if (Test-Path $ffmpegUtils) {
             $t = [System.IO.File]::ReadAllText($ffmpegUtils)
-            if ($t -notmatch 'AV_GET_CODEC_CONTEXT.*lambda') {
-              # Find the last #endif and insert our override just before it
-              $lastEndif = $t.LastIndexOf('#endif')
-              $msvcOverride = @"
-
-`n#ifdef _MSC_VER
-// MSVC does not support GCC statement expressions ({...}) used in AV_GET_CODEC_CONTEXT.
-// Override with a C++11 immediately-invoked lambda which is MSVC-compatible.
-#ifdef AV_GET_CODEC_CONTEXT
-#  undef AV_GET_CODEC_CONTEXT
-#endif
-#define AV_GET_CODEC_CONTEXT(av_stream, av_codec) \
-  ([&]() -> AVCodecContext* { AVCodecContext *ctx = avcodec_alloc_context3(av_codec); \
-    avcodec_parameters_to_context(ctx, av_stream->codecpar); return ctx; }())
-#endif // _MSC_VER
-
-"@
-              if ($lastEndif -ge 0) {
-                $t = $t.Substring(0, $lastEndif) + $msvcOverride + $t.Substring($lastEndif)
-              } else {
-                $t += $msvcOverride
-              }
-              [System.IO.File]::WriteAllText($ffmpegUtils, $t)
-              Write-Host "Patched FFmpegUtilities.h: added _MSC_VER override for AV_GET_CODEC_CONTEXT"
+            if ($t -notmatch '_MSC_VER.*AV_GET_CODEC_CONTEXT') {
+              $ov  = "`n#ifdef _MSC_VER`n"
+              $ov += "// GCC statement expressions ({...}) are not valid in MSVC.`n"
+              $ov += "// Override AV_GET_CODEC_CONTEXT with a C++11 immediately-invoked lambda.`n"
+              $ov += "#ifdef AV_GET_CODEC_CONTEXT`n"
+              $ov += "#  undef AV_GET_CODEC_CONTEXT`n"
+              $ov += "#endif`n"
+              $ov += '#define AV_GET_CODEC_CONTEXT(av_stream, av_codec) \' + "`n"
+              $ov += '  ([&]() -> AVCodecContext* { AVCodecContext *ctx = avcodec_alloc_context3(av_codec); \' + "`n"
+              $ov += '    avcodec_parameters_to_context(ctx, av_stream->codecpar); return ctx; }())' + "`n"
+              $ov += "#endif`n"
+              [System.IO.File]::AppendAllText($ffmpegUtils, $ov)
+              Write-Host "Patched FFmpegUtilities.h: appended _MSC_VER lambda override for AV_GET_CODEC_CONTEXT"
             }
           }
 
