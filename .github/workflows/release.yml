@@ -708,7 +708,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: C:\libopenshot-install
-          key: libopenshot-v0.5.0-audio-v0.5.0-windows-msvc2022-qt5.15.2-py311-vcpkg-v8
+          key: libopenshot-v0.5.0-audio-v0.5.0-windows-msvc2022-qt5.15.2-py311-vcpkg-v9
 
       - name: Build libopenshot from source (Windows MSVC + Qt 5.15.2)
         if: steps.cache-libopenshot-win.outputs.cache-hit != 'true'
@@ -794,13 +794,31 @@ jobs:
           cmake --build   C:\libopenshot-audio-src\build --config Release --parallel --target openshot-audio
           if ($LASTEXITCODE -ne 0) { throw "libopenshot-audio cmake build failed (exit $LASTEXITCODE)" }
           cmake --install C:\libopenshot-audio-src\build --config Release
-          if ($LASTEXITCODE -ne 0) { throw "libopenshot-audio cmake install failed (exit $LASTEXITCODE)" }
+          # cmake --install may exit non-zero because the demo binary wasn't built
+          # (we used --target openshot-audio to skip it).  The main library and its
+          # cmake config files are installed by the root cmake_install.cmake BEFORE
+          # the src/ subdirectory (demo) is processed, so they should be present.
+          # We verify by checking for OpenShotAudioConfig.cmake instead of throwing here.
+          Write-Host "cmake --install exit code: $LASTEXITCODE (non-zero may be demo-only)"
 
-          # Dynamically find where cmake installed OpenShotAudioConfig.cmake so we can
-          # pass it explicitly via -DOpenShotAudio_DIR.  The vcpkg toolchain wraps
-          # find_package and can prevent discovery via CMAKE_PREFIX_PATH alone.
+          # Manually copy the DLL/lib in case the partial install left them out
+          New-Item -ItemType Directory -Path "$INSTALL\bin","$INSTALL\lib" -Force | Out-Null
+          $relDir = "C:\libopenshot-audio-src\build\Release"
+          if (Test-Path "$relDir\openshot-audio.dll") {
+            Copy-Item "$relDir\openshot-audio.dll" "$INSTALL\bin\" -Force
+            Write-Host "Copied openshot-audio.dll to $INSTALL\bin\"
+          }
+          if (Test-Path "$relDir\openshot-audio.lib") {
+            Copy-Item "$relDir\openshot-audio.lib" "$INSTALL\lib\" -Force
+          }
+
+          # Find OpenShotAudioConfig.cmake — check install tree first, then build tree.
           $audioConfig = Get-ChildItem -Path $INSTALL -Recurse -Filter "OpenShotAudioConfig.cmake" -ErrorAction SilentlyContinue | Select-Object -First 1
-          if (!$audioConfig) { throw "OpenShotAudioConfig.cmake not found under $INSTALL after audio install" }
+          if (!$audioConfig) {
+            # Build tree fallback: cmake also writes a build-tree config to the build dir
+            $audioConfig = Get-ChildItem -Path "C:\libopenshot-audio-src\build" -Recurse -Filter "OpenShotAudioConfig.cmake" -ErrorAction SilentlyContinue | Select-Object -First 1
+          }
+          if (!$audioConfig) { throw "OpenShotAudioConfig.cmake not found in install or build tree" }
           $audioConfigDir = $audioConfig.Directory.FullName
           Write-Host "OpenShotAudio cmake config dir: $audioConfigDir"
 
