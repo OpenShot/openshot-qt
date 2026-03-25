@@ -98,6 +98,19 @@ except (ImportError, AttributeError):
     pass
 
 try:
+    # On Windows frozen builds, Qt5WebEngineCore.dll looks for QtWebEngineProcess.exe
+    # relative to the application executable directory. cx_Freeze places it in
+    # lib/PyQt5/Qt5/bin/ instead of the root, so we set QTWEBENGINEPROCESS_PATH.
+    if sys.platform == 'win32' and getattr(sys, 'frozen', False):
+        _app_dir = os.path.dirname(os.path.abspath(sys.executable))
+        _web_process = os.path.join(
+            _app_dir, 'lib', 'PyQt5', 'Qt5', 'bin', 'QtWebEngineProcess.exe')
+        if os.path.exists(_web_process):
+            os.environ.setdefault('QTWEBENGINEPROCESS_PATH', _web_process)
+except Exception:
+    pass
+
+try:
     # QtWebEngineWidgets must be loaded prior to creating a QApplication
     # But on systems with only WebKit, this will fail (and we ignore the failure)
     from PyQt5 import QtWebEngineWidgets
