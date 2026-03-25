@@ -33,9 +33,9 @@ from functools import partial
 from classes import info
 from classes.logger import log
 
-from PyQt5.QtCore import QFileInfo, QUrl, Qt, QTimer
+from PyQt5.QtCore import QFile, QFileInfo, QIODevice, QUrl, Qt, QTimer
 from PyQt5.QtGui import QColor
-from PyQt5.QtWebEngineWidgets import QWebEngineView, QWebEnginePage
+from PyQt5.QtWebEngineWidgets import QWebEngineView, QWebEnginePage, QWebEngineScript
 from PyQt5.QtWebChannel import QWebChannel
 
 
@@ -43,7 +43,7 @@ class LoggingWebEnginePage(QWebEnginePage):
     """Override console.log message to display messages"""
     def javaScriptConsoleMessage(self, level, msg, line, source):
         log.log(
-            self.levels[level],
+            self.levels[int(level)],
             '%s@L%d: %s', os.path.basename(source), line, msg)
 
     def __init__(self, parent=None):
@@ -75,6 +75,22 @@ class TimelineWebEngineView(QWebEngineView):
 
         # Enable smooth scrolling on timeline
         self.settings().setAttribute(self.settings().ScrollAnimatorEnabled, True)
+
+        # Inject qwebchannel.js via QWebEngineScript (runs at DocumentCreation, before page scripts).
+        # This avoids relying on qrc:// URL loading, which can fail in cx_Freeze frozen builds.
+        qwc_file = QFile(":/qtwebchannel/qwebchannel.js")
+        if qwc_file.open(QIODevice.ReadOnly):
+            qwc_content = bytes(qwc_file.readAll()).decode('utf-8')
+            qwc_file.close()
+            qwc_script = QWebEngineScript()
+            qwc_script.setName("qwebchannel.js")
+            qwc_script.setSourceCode(qwc_content)
+            qwc_script.setInjectionPoint(QWebEngineScript.DocumentCreation)
+            qwc_script.setWorldId(QWebEngineScript.MainWorld)
+            self.page().scripts().insert(qwc_script)
+            log.info("Injected qwebchannel.js via QWebEngineScript")
+        else:
+            log.warning("Could not inject qwebchannel.js from Qt resources: QFile open failed")
 
         # Set url from configuration (QUrl takes absolute paths for file system paths, create from QFileInfo)
         self.webchannel = QWebChannel(self.page())
@@ -126,11 +142,17 @@ class TimelineWebEngineView(QWebEngineView):
         """Get HTML for Timeline, adjusted for mixin"""
         with open(self.html_path, 'r', encoding='utf-8') as f:
             html = f.read()
-        return html.replace(
+        html = html.replace(
             '<!--MIXIN_JS_INCLUDE-->',
             """
                 <script type="text/javascript" src="js/mixin_webengine.js"></script>
             """)
+        # Remove the qrc:// reference since qwebchannel.js is injected via QWebEngineScript
+        html = html.replace(
+            '<script type="text/javascript" src="qrc:/qtwebchannel/qwebchannel.js"></script>',
+            '<!-- qwebchannel.js injected via QWebEngineScript -->'
+        )
+        return html
 
     def keyPressEvent(self, event):
         """ Keypress callback for timeline """

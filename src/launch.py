@@ -107,6 +107,10 @@ try:
             _app_dir, 'lib', 'PyQt5', 'Qt5', 'bin', 'QtWebEngineProcess.exe')
         if os.path.exists(_web_process):
             os.environ.setdefault('QTWEBENGINEPROCESS_PATH', _web_process)
+        # Disable GPU hardware acceleration for VMs/environments without GPU support
+        _flags = os.environ.get('QTWEBENGINE_CHROMIUM_FLAGS', '')
+        if '--disable-gpu' not in _flags:
+            os.environ['QTWEBENGINE_CHROMIUM_FLAGS'] = (_flags + ' --disable-gpu').strip()
 except Exception:
     pass
 
