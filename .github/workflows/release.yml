@@ -1225,6 +1225,56 @@ jobs:
           Write-Host "Bundled vcomp140.dll from $found -> $dest"
           Write-Host "File size: $((Get-Item $dest).Length) bytes"
 
+      - name: Update MSVC CRT DLLs to VS2022 version (fixes msvcp140.dll crash)
+        shell: powershell
+        run: |
+          # cx_Freeze pulls msvcp140.dll from Python's directory (v14.26, VS2019 era).
+          # openshot.dll is compiled with VS2022 (v14.40+) and crashes with the old version.
+          # Replace all MSVC CRT DLLs in the frozen build root with the VS2022 versions.
+          $exeDir = Get-ChildItem -Path "build" -Directory -Filter "exe.*" | Select-Object -First 1
+          if (!$exeDir) { throw "cx_Freeze output directory build/exe.* not found" }
+          $rootDir = $exeDir.FullName
+          # Find VS2022 CRT redist directory
+          $crtDir = $null
+          $crtCandidates = @(
+            "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Redist\MSVC\14.40.33807\x64\Microsoft.VC143.CRT",
+            "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Redist\MSVC\14.42.34433\x64\Microsoft.VC143.CRT",
+            "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Redist\MSVC\14.38.33130\x64\Microsoft.VC143.CRT",
+            "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Redist\MSVC\14.40.33807\x64\Microsoft.VC143.CRT",
+            "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Redist\MSVC\14.42.34433\x64\Microsoft.VC143.CRT"
+          )
+          foreach ($c in $crtCandidates) {
+            if (Test-Path $c) { $crtDir = $c; break }
+          }
+          if (!$crtDir) {
+            $crtDir = Get-ChildItem "C:\Program Files\Microsoft Visual Studio" -Filter "Microsoft.VC143.CRT" -Recurse -ErrorAction SilentlyContinue |
+              Where-Object { $_.FullName -match 'x64' } |
+              Select-Object -ExpandProperty FullName -First 1
+          }
+          if (!$crtDir) {
+            Write-Warning "VS2022 CRT redist not found - skipping MSVC CRT update"
+          } else {
+            Write-Host "Found VS2022 CRT redist: $crtDir"
+            # Copy CRT DLLs that are already in the frozen build root (replace old versions)
+            $crtDlls = @('msvcp140.dll', 'msvcp140_1.dll', 'msvcp140_2.dll',
+                         'vcruntime140.dll', 'vcruntime140_1.dll', 'concrt140.dll')
+            foreach ($dll in $crtDlls) {
+              $src = Join-Path $crtDir $dll
+              $dest = Join-Path $rootDir $dll
+              if (Test-Path $src) {
+                $srcVer = (Get-Item $src).VersionInfo.FileVersion
+                if (Test-Path $dest) {
+                  $oldVer = (Get-Item $dest).VersionInfo.FileVersion
+                  Copy-Item $src $dest -Force
+                  Write-Host "Updated $dll : $oldVer -> $srcVer"
+                } else {
+                  Copy-Item $src $dest -Force
+                  Write-Host "Added $dll : $srcVer"
+                }
+              }
+            }
+          }
+
       - name: Install Inno Setup 6
         run: choco install innosetup --yes --no-progress
         shell: powershell
