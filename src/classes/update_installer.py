@@ -60,14 +60,27 @@ def _log(msg):
 # ---------------------------------------------------------------------------
 
 def has_pending_update():
-    """Return True if a verified update package is staged and ready."""
+    """Return True if a verified update package is staged and ready to install."""
     if not os.path.exists(UPDATE_MANIFEST):
         return False
     try:
         with open(UPDATE_MANIFEST, "r", encoding="utf-8") as fh:
             manifest = json.load(fh)
         filepath = manifest.get("filepath", "")
-        return bool(filepath) and os.path.isfile(filepath)
+        if not (bool(filepath) and os.path.isfile(filepath)):
+            return False
+        # Skip update if staged version is not newer than the running version
+        staged_ver = manifest.get("version", "")
+        if staged_ver:
+            try:
+                from classes import info as _info
+                current = tuple(int(x) for x in _info.VERSION.split("."))
+                staged = tuple(int(x) for x in staged_ver.split("."))
+                if staged <= current:
+                    return False
+            except Exception:
+                pass
+        return True
     except Exception:
         return False
 
@@ -316,6 +329,7 @@ def _apply_windows(filepath, filename):
              "/SUPPRESSMSGBOXES",
              "/NORESTART",
              "/CLOSEAPPLICATIONS",
+             "/CURRENTUSER",
              "/SP-"],
         )
         _log("Windows silent installer launched — it will complete in the background")
@@ -365,12 +379,18 @@ def _verify_integrity(manifest):
 
 def _cleanup(manifest):
     """Remove staged update files after successful (or discarded) install."""
+    # Delete the manifest first so future launches don't re-trigger even if
+    # the installer .exe is still locked (e.g. running in background on Windows).
+    try:
+        if os.path.exists(UPDATE_MANIFEST):
+            os.unlink(UPDATE_MANIFEST)
+            _log("Manifest cleaned up")
+    except Exception as exc:
+        _log(f"Manifest cleanup error: {exc}")
     try:
         fp = manifest.get("filepath", "")
         if fp and os.path.exists(fp):
             os.unlink(fp)
-        if os.path.exists(UPDATE_MANIFEST):
-            os.unlink(UPDATE_MANIFEST)
-        _log("Staged files cleaned up")
+            _log("Installer file cleaned up")
     except Exception as exc:
         _log(f"Cleanup error: {exc}")

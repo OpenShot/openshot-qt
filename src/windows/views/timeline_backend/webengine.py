@@ -42,9 +42,13 @@ from PyQt5.QtWebChannel import QWebChannel
 class LoggingWebEnginePage(QWebEnginePage):
     """Override console.log message to display messages"""
     def javaScriptConsoleMessage(self, level, msg, line, source):
-        log.log(
-            self.levels[int(level)],
-            '%s@L%d: %s', os.path.basename(source), line, msg)
+        try:
+            log.log(
+                self.levels[int(level)],
+                '%s@L%d: %s', os.path.basename(source or ''), line, msg)
+        except Exception:
+            # Fallback: write directly so exceptions don't silently swallow console output
+            log.warning("JS[%s]@L%d: %s", source, line, msg)
 
     def __init__(self, parent=None):
         super().__init__(parent=parent)
@@ -92,14 +96,38 @@ class TimelineWebEngineView(QWebEngineView):
         else:
             log.warning("Could not inject qwebchannel.js from Qt resources: QFile open failed")
 
-        # Set url from configuration (QUrl takes absolute paths for file system paths, create from QFileInfo)
+        # Inject mixin_webengine.js via QWebEngineScript so that init_mixin() is defined before
+        # app.js runs (which calls init_mixin() inside $(document).ready()).
+        # This replaces the <!--MIXIN_JS_INCLUDE--> HTML substitution approach and allows us to
+        # load the HTML directly from disk (avoiding setHtml() file:// security restrictions).
+        mixin_path = os.path.join(info.PATH, 'timeline', 'js', 'mixin_webengine.js')
+        try:
+            with open(mixin_path, 'r', encoding='utf-8') as fh:
+                mixin_content = fh.read()
+            mixin_script = QWebEngineScript()
+            mixin_script.setName("mixin_webengine.js")
+            mixin_script.setSourceCode(mixin_content)
+            mixin_script.setInjectionPoint(QWebEngineScript.DocumentCreation)
+            mixin_script.setWorldId(QWebEngineScript.MainWorld)
+            self.page().scripts().insert(mixin_script)
+            log.info("Injected mixin_webengine.js via QWebEngineScript")
+        except Exception as exc:
+            log.warning("Could not inject mixin_webengine.js: %s", exc)
+
+        # Register WebChannel BEFORE loading the page so that qt.webChannelTransport is
+        # available to JavaScript from the very first document-creation event.
         self.webchannel = QWebChannel(self.page())
-        self.setHtml(self.get_html(), QUrl.fromLocalFile(QFileInfo(self.html_path).absoluteFilePath()))
         self.page().setWebChannel(self.webchannel)
 
-        # Connect signal of javascript initialization to our javascript reference init function
+        # Load the timeline HTML directly from disk (file:// URL).
+        # Using load() instead of setHtml() avoids security restrictions that can block
+        # external JS/CSS files when the page content is passed as an inline string.
+        self.load(QUrl.fromLocalFile(QFileInfo(self.html_path).absoluteFilePath()))
+
+        # Connect signals for page lifecycle
         log.info("WebEngine backend initializing")
         self.page().loadStarted.connect(self.setup_js_data)
+        self.page().loadFinished.connect(self.on_load_finished)
 
     def run_js(self, code, callback=None, retries=0):
         """Run JS code async and optionally have a callback for response"""
@@ -138,21 +166,16 @@ class TimelineWebEngineView(QWebEngineView):
         log.info("Registering WebChannel connection with WebEngine")
         self.webchannel.registerObject('timeline', self)
 
-    def get_html(self):
-        """Get HTML for Timeline, adjusted for mixin"""
-        with open(self.html_path, 'r', encoding='utf-8') as f:
-            html = f.read()
-        html = html.replace(
-            '<!--MIXIN_JS_INCLUDE-->',
-            """
-                <script type="text/javascript" src="js/mixin_webengine.js"></script>
-            """)
-        # Remove the qrc:// reference since qwebchannel.js is injected via QWebEngineScript
-        html = html.replace(
-            '<script type="text/javascript" src="qrc:/qtwebchannel/qwebchannel.js"></script>',
-            '<!-- qwebchannel.js injected via QWebEngineScript -->'
-        )
-        return html
+    def on_load_finished(self, ok):
+        """Called when the page finishes loading. Logs result and runs a JS diagnostic."""
+        log.info("WebEngine loadFinished: ok=%s", ok)
+        if ok:
+            # Check that key JS globals are available (QWebChannel from injection, qt from webchannel)
+            self.page().runJavaScript(
+                "JSON.stringify({QWebChannel: typeof QWebChannel, qt: typeof qt, "
+                "timeline_var: typeof timeline, jquery: typeof $})",
+                lambda r: log.info("WebEngine JS globals: %s", r)
+            )
 
     def keyPressEvent(self, event):
         """ Keypress callback for timeline """
