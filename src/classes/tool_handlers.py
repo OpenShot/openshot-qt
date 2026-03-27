@@ -2226,45 +2226,6 @@ def add_transition_to_clip(clip_id="", transition_name="", position="start", dur
 
 
 # ---------------------------------------------------------------------------
-# Music tools (frontend-delegated: timeline insertion for Suno)
-# ---------------------------------------------------------------------------
-
-
-def add_music_to_timeline(audio_path="", track=0, position=0.0, **kwargs) -> str:
-    """Add a generated music audio file to the timeline."""
-    try:
-        from classes.query import File, Clip
-        app = _get_app()
-
-        if not audio_path or not os.path.isfile(audio_path):
-            return f"Error: Audio file not found: {audio_path}"
-
-        # Import file into project
-        file_data = {
-            "path": audio_path,
-            "id": str(uuid_module.uuid4()),
-        }
-        app.updates.insert(["files"], file_data)
-
-        # Add as clip to timeline
-        clip_data = {
-            "id": str(uuid_module.uuid4()),
-            "file_id": file_data["id"],
-            "layer": int(track),
-            "position": float(position),
-            "start": 0,
-            "end": 0,  # auto-detected
-            "reader": {"path": audio_path, "has_audio": True, "has_video": False},
-        }
-        app.updates.insert(["clips"], clip_data)
-
-        return f"Added music audio to timeline at position {position}s on track {track}."
-    except Exception as e:
-        log.error("add_music_to_timeline: %s", e, exc_info=True)
-        return f"Error: {e}"
-
-
-# ---------------------------------------------------------------------------
 # TTS tools (frontend-delegated: timeline insertion for generated speech)
 # ---------------------------------------------------------------------------
 
@@ -2520,8 +2481,6 @@ TOOL_HANDLERS = {
     "search_transitions_tool": search_transitions,
     "add_transition_between_clips_tool": add_transition_between_clips,
     "add_transition_to_clip_tool": add_transition_to_clip,
-    # Music (Suno timeline insertion)
-    "add_music_to_timeline_tool": add_music_to_timeline,
     # TTS (timeline insertion)
     "add_tts_audio_to_timeline_tool": add_tts_audio_to_timeline,
     # Director analysis (read-only project state access)

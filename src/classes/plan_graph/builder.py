@@ -1,6 +1,6 @@
 """
 Plan graph builder: tree of what the AI is doing during an edit run.
-Root -> branches (Script, Imaging, Manim, Music) -> steps (tool calls).
+Root -> branches (Script, Imaging, Manim) -> steps (tool calls).
 Built by instrumenting the root agent (start_branch/end_branch) and
 main-thread tools (add_step).
 Thread-safe: worker thread sets branch, main thread adds steps.
@@ -19,7 +19,6 @@ BRANCH_LABELS = {
     "video": "Imaging",
     "manim": "Manim",
     "voice_music": "Script",
-    "music": "Music",
 }
 
 
@@ -75,7 +74,7 @@ class PlanBuilder:
         log.debug("PlanBuilder: start_plan")
 
     def start_branch(self, branch_key: str, task_description: str = "") -> None:
-        """Start a branch (e.g. video, manim, voice_music, music)."""
+        """Start a branch (e.g. video, manim, voice_music)."""
         with self._lock:
             if self._root is None:
                 return
@@ -174,7 +173,7 @@ class PlanBuilder:
         plan = self.get_plan_json()
         if not plan:
             return {}
-        breakdown: Dict[str, List[Dict]] = {"imaging": [], "script": [], "manim": [], "music": []}
+        breakdown: Dict[str, List[Dict]] = {"imaging": [], "script": [], "manim": []}
         for branch in plan.get("children", []):
             key = branch.get("branch_key", branch.get("label", "").lower())
             key = key.replace(" ", "_")
