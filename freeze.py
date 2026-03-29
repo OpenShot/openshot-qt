@@ -501,7 +501,9 @@ build_exe_options["excludes"] = ["distutils",
                                  "tkinter",
                                  "pydoc_data",
                                  "pycparser",
-                                 "pkg_resources"]
+                                 "pkg_resources",
+                                 "PyQt5.QtQml",
+                                 "PyQt5.QtQuick"]
 if sys.platform == "darwin":
     build_exe_options["excludes"].append("sentry_sdk.integrations.django")
 
