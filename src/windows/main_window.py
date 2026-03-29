@@ -4013,6 +4013,16 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         except Exception as e:
             log.error(f"Failed to initialize Pexels Dock: {e}", exc_info=True)
 
+        # Freesound stock-music/SFX search dock
+        try:
+            from windows.freesound_dock import FreesoundDock
+            self.dockFreesound = FreesoundDock(self)
+            self.addDockWidget(Qt.LeftDockWidgetArea, self.dockFreesound)
+            self.tabifyDockWidget(self.dockFiles, self.dockFreesound)
+            self.dockFreesound.setVisible(False)  # Hidden by default; accessible via View > Docks
+        except Exception as e:
+            log.error(f"Failed to initialize Freesound Dock: {e}", exc_info=True)
+
         # Add Docks submenu to View menu
         self.addViewDocksMenu()
 
