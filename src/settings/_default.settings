@@ -1388,7 +1388,7 @@
     "category": "AI",
     "title": "Backend URL",
     "setting": "zenvi-backend-url",
-    "value": "http://localhost:8500",
+    "value": "https://api.zenvi.pro",
     "type": "text",
     "restart": false
   },
