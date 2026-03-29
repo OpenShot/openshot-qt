@@ -38,7 +38,7 @@ try:
 except ImportError:
     pass
 
-_DEFAULT_BACKEND_URL = "http://localhost:8500"
+_DEFAULT_BACKEND_URL = "https://api.zenvi.pro"
 
 
 class ZenviBackendClient:
