@@ -7,7 +7,7 @@ import time
 from PyQt5.QtCore import (
     Qt, QPropertyAnimation, QEasingCurve,
     QObject, QThread, pyqtSignal, pyqtSlot, QMetaObject, Q_ARG,
-    QUrl, QFileInfo,
+    QUrl, QFileInfo, QTimer,
 )
 from PyQt5.QtWidgets import (
     QDockWidget, QWidget, QVBoxLayout, QHBoxLayout,
@@ -723,6 +723,39 @@ class AIChatWindow(QDockWidget):
 
         self._run_js("clearMessages();")
         self._push_tabs_to_js()
+
+        # Kick off credits balance display and start periodic refresh
+        self._start_credits_refresh()
+
+    def _start_credits_refresh(self):
+        """Fetch credits balance once and start a 60-second refresh timer."""
+        self._fetch_credits_balance()
+        if not getattr(self, "_credits_timer", None):
+            self._credits_timer = QTimer(self)
+            self._credits_timer.timeout.connect(self._fetch_credits_balance)
+            self._credits_timer.start(60_000)   # refresh every 60 seconds
+
+    def _fetch_credits_balance(self):
+        """Fetch balance in a background thread; push result to JS on main thread."""
+        def run():
+            try:
+                from classes.credits_client import credits as _creds
+                _, balance = _creds.check(0)
+                QMetaObject.invokeMethod(
+                    self,
+                    "_on_credits_balance",
+                    Qt.QueuedConnection,
+                    Q_ARG(int, balance),
+                )
+            except Exception as exc:
+                log.debug("credits refresh failed: %s", exc)
+
+        threading.Thread(target=run, daemon=True, name="credits-ui-refresh").start()
+
+    @pyqtSlot(int)
+    def _on_credits_balance(self, balance: int):
+        """Push updated balance to the JS badge (called on main thread)."""
+        self._run_js("if(window.updateCreditsBalance) updateCreditsBalance(%d);" % balance)
 
     def _get_preamble_html(self):
         """Return preamble as HTML: AI summary as heading when set, else 'Zenvi Assistant'."""

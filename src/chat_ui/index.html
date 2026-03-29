@@ -36,9 +36,15 @@
         <!-- ── Preamble header ─────────────────────────────────────────── -->
         <div class="flex-shrink-0 mx-2.5 mt-2 mb-1 px-3.5 py-2.5"
              style="background: #0d0d0d;">
-            <div id="chat-preamble-label"
-                 class="text-[13px] leading-relaxed"
-                 style="color: var(--chat-text);"></div>
+            <div class="flex items-center justify-between">
+                <div id="chat-preamble-label"
+                     class="text-[13px] leading-relaxed"
+                     style="color: var(--chat-text);"></div>
+                <div id="chat-credits-badge"
+                     class="flex-shrink-0 ml-2 px-2 py-0.5 rounded-full text-[11px] font-medium"
+                     style="display:none; background: rgba(124,111,247,0.12); color: rgba(124,111,247,0.9); border: 1px solid rgba(124,111,247,0.2);"
+                     title="AI credits remaining"></div>
+            </div>
             <div id="chat-preamble-status"
                  class="chat-preamble-status mt-1 text-[11px] font-mono leading-snug"
                  style="color: var(--chat-muted);"></div>

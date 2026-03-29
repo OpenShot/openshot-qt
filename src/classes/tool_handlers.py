@@ -1275,6 +1275,13 @@ def generate_video_and_add_to_timeline(prompt="", duration_seconds="", position_
     # Pause auto-save during generation to prevent backup interference
     auto_save_was_active = _pause_auto_save()
     try:
+        from classes.credits_client import credits as _creds
+        _ok, _bal = _creds.check(10)
+        if not _ok:
+            return (
+                f"You've used all your credits ({_bal} remaining). "
+                "Enable pay-as-you-go in Account → Credits, or wait for your next billing cycle."
+            )
         from classes.api_client import get_backend_client
         client = get_backend_client()
         result = client.generate_video(prompt, duration_seconds=duration)
@@ -1283,6 +1290,12 @@ def generate_video_and_add_to_timeline(prompt="", duration_seconds="", position_
         err = result.get("error", "")
         if err:
             return f"Error: {err}"
+
+        # Deduct points after confirmed success (non-blocking)
+        from classes.credits_client import credits
+        credits.deduct(10, "video_generation", provider="runware",
+                       note=f"txt2v: {prompt[:60]}")
+        credits.award_bonus("first_export")   # idempotent — only fires once ever
 
         # Prefer local_path from backend; fall back to downloading
         if local_path and os.path.isfile(local_path):
@@ -1479,6 +1492,13 @@ def insert_kling_v2v_clip_into_selected_clip(query="", fade_ms="400", **_kw) -> 
             )
             frame_images_paths = [{"path": first_jpg, "frame": "first"}]
 
+            from classes.credits_client import credits as _creds
+            _ok, _bal = _creds.check(10)
+            if not _ok:
+                return (
+                    f"You've used all your credits ({_bal} remaining). "
+                    "Enable pay-as-you-go in Account → Credits, or wait for your next billing cycle."
+                )
             from classes.api_client import get_backend_client
             client = get_backend_client()
             result = client.generate_video(
@@ -1494,6 +1514,11 @@ def insert_kling_v2v_clip_into_selected_clip(query="", fade_ms="400", **_kw) -> 
             gen_err = result.get("error", "")
             if gen_err:
                 return f"Error: {gen_err}"
+
+            # Deduct points after confirmed success (non-blocking)
+            from classes.credits_client import credits
+            credits.deduct(10, "video_generation", provider="runware",
+                           note=f"v2v insert: {query[:60]}")
 
             # Download the generated insert clip
             if local_path and os.path.isfile(local_path):
@@ -1696,6 +1721,14 @@ def replace_object_in_selected_clip(description="", duration_seconds="", **_kw) 
                 {"path": last_jpg, "frame": "last"},
             ]
 
+            from classes.credits_client import credits as _creds
+            _ok, _bal = _creds.check(10)
+            if not _ok:
+                return (
+                    f"You've used all your credits ({_bal} remaining). "
+                    "Enable pay-as-you-go in Account → Credits, or wait for your next billing cycle."
+                )
+
             from classes.api_client import get_backend_client
             client = get_backend_client()
             result = client.generate_video(
@@ -1711,6 +1744,11 @@ def replace_object_in_selected_clip(description="", duration_seconds="", **_kw) 
             gen_err = result.get("error", "")
             if gen_err:
                 return f"Error: {gen_err}"
+
+            # Deduct points after confirmed success (non-blocking)
+            from classes.credits_client import credits
+            credits.deduct(10, "video_generation", provider="runware",
+                           note=f"replace object: {description[:60]}")
 
             output_path = _output_path_for_generated_video()
             if local_path and os.path.isfile(local_path):
@@ -1865,6 +1903,14 @@ def generate_transition_clip(clip_a_id="", clip_b_id="", prompt_hint="", **_kw) 
                 {"path": frame_b_path, "frame": "last"},
             ]
 
+            from classes.credits_client import credits as _creds
+            _ok, _bal = _creds.check(10)
+            if not _ok:
+                return (
+                    f"You've used all your credits ({_bal} remaining). "
+                    "Enable pay-as-you-go in Account → Credits, or wait for your next billing cycle."
+                )
+
             from classes.api_client import get_backend_client
             client = get_backend_client()
 
@@ -1899,6 +1945,11 @@ def generate_transition_clip(clip_a_id="", clip_b_id="", prompt_hint="", **_kw) 
             gen_err = result.get("error", "")
             if gen_err:
                 return f"Error: {gen_err}"
+
+            # Deduct points after confirmed success (non-blocking)
+            from classes.credits_client import credits
+            credits.deduct(10, "video_generation", provider="runware",
+                           note="transition/morph generation")
 
             # Download the transition video
             morph_path = os.path.join(tmpdir, "morph_video.mp4")

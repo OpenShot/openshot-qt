@@ -538,6 +538,30 @@
         if (preambleEl) preambleEl.innerHTML = html;
     };
 
+    window.updateCreditsBalance = function (balance) {
+        var badge = document.getElementById('chat-credits-badge');
+        if (!badge) return;
+        if (balance === null || balance === undefined || balance < 0) {
+            badge.style.display = 'none';
+            return;
+        }
+        badge.style.display = 'inline-flex';
+        badge.textContent = balance + ' credits';
+        if (balance === 0) {
+            badge.style.background = 'rgba(239,68,68,0.12)';
+            badge.style.color = 'rgba(239,68,68,0.9)';
+            badge.style.borderColor = 'rgba(239,68,68,0.25)';
+        } else if (balance < 50) {
+            badge.style.background = 'rgba(245,158,11,0.12)';
+            badge.style.color = 'rgba(245,158,11,0.9)';
+            badge.style.borderColor = 'rgba(245,158,11,0.25)';
+        } else {
+            badge.style.background = 'rgba(124,111,247,0.12)';
+            badge.style.color = 'rgba(124,111,247,0.9)';
+            badge.style.borderColor = 'rgba(124,111,247,0.2)';
+        }
+    };
+
     window.setThemeColors = function (cssVarsJson) {
         try {
             const vars = JSON.parse(cssVarsJson);
