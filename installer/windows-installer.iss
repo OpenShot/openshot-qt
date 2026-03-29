@@ -8,14 +8,14 @@
   #define ONLY_64_BIT "x64"
 #endif
 #ifndef PY_EXE_DIR
-  #define PY_EXE_DIR "exe.win-amd64-3.11"
+  #define PY_EXE_DIR "exe.mingw-3.8"
 #endif
 
 #define MyAppName "Zenvi"
 #define MyAppProjectFileDesc "Zenvi Project File"
 #define MyAppPublisher "Zenvi"
-#define MyPublisherURL "https://zenvi.pro/"
-#define MySupportURL "https://zenvi.pro/community/"
+#define MyPublisherURL "https://zenvi.org/"
+#define MySupportURL "https://zenvi.org/community/"
 #define MyAppExeName "zenvi.exe"
 
 #include "isportable.iss"
@@ -44,109 +44,55 @@ ChangesEnvironment=not PortableCheck
 Compression=lzma
 SolidCompression=yes
 WizardSmallImageFile=installer-logo.bmp
+; NOTE: Keep this path in sync with repo icons.
+SetupIconFile=..\xdg\zenvi.ico
 UsePreviousLanguage=no
 Uninstallable=not PortableCheck
 UninstallDisplayIcon={app}\{#MyAppExeName}
+; CI builds do not have a code-signing tool configured. If SignedUninstaller=yes,
+; ISCC will abort and ask for a manual signing step.
+; For release signing, re-enable this and configure SignTool in CI.
 SignedUninstaller=no
+; SignedUninstallerDir=..\build\
 PrivilegesRequiredOverridesAllowed=commandline
 AllowNoIcons=yes
 
 [Languages]
+; CI builds use the default Inno Setup installation which may not include all
+; translation `.isl` files. Keep this minimal to ensure deterministic builds.
 Name: "english"; MessagesFile: "compiler:Default.isl"
-Name: "afrikaans"; MessagesFile: "compiler:Languages\Afrikaans.isl"
-Name: "albanian"; MessagesFile: "compiler:Languages\Albanian.isl"
-Name: "armenian"; MessagesFile: "compiler:Languages\Armenian.islu"
-Name: "basque"; MessagesFile: "compiler:Languages\Basque.isl"
-Name: "belarusian"; MessagesFile: "compiler:Languages\Belarusian.isl"
-Name: "bengali"; MessagesFile: "compiler:Languages\Bengali.islu"
-Name: "bosnian"; MessagesFile: "compiler:Languages\Bosnian.isl"
-Name: "brazilianportuguese"; MessagesFile: "compiler:Languages\BrazilianPortuguese.isl"
-Name: "bulgarian"; MessagesFile: "compiler:Languages\Bulgarian.isl"
-Name: "catalan"; MessagesFile: "compiler:Languages\Catalan.isl"
-Name: "corsican"; MessagesFile: "compiler:Languages\Corsican.isl"
-Name: "czech"; MessagesFile: "compiler:Languages\Czech.isl"
-Name: "danish"; MessagesFile: "compiler:Languages\Danish.isl"
-Name: "dutch"; MessagesFile: "compiler:Languages\Dutch.isl"
-Name: "englishbritish"; MessagesFile: "compiler:Languages\EnglishBritish.isl"
-Name: "esperanto"; MessagesFile: "compiler:Languages\Esperanto.isl"
-Name: "estonian"; MessagesFile: "compiler:Languages\Estonian.isl"
-Name: "farsi"; MessagesFile: "compiler:Languages\Farsi.isl"
-Name: "finnish"; MessagesFile: "compiler:Languages\Finnish.isl"
-Name: "french"; MessagesFile: "compiler:Languages\French.isl"
-Name: "german"; MessagesFile: "compiler:Languages\German.isl"
-Name: "hebrew"; MessagesFile: "compiler:Languages\Hebrew.isl"
-Name: "hindi"; MessagesFile: "compiler:Languages\Hindi.islu"
-Name: "hungarian"; MessagesFile: "compiler:Languages\Hungarian.isl"
-Name: "indonesian"; MessagesFile: "compiler:Languages\Indonesian.isl"
-Name: "italian"; MessagesFile: "compiler:Languages\Italian.isl"
-Name: "japanese"; MessagesFile: "compiler:Languages\Japanese.isl"
-Name: "montenegrian"; MessagesFile: "compiler:Languages\Montenegrian.isl"
-Name: "nepali"; MessagesFile: "compiler:Languages\Nepali.islu"
-Name: "norwegian"; MessagesFile: "compiler:Languages\Norwegian.isl"
-Name: "polish"; MessagesFile: "compiler:Languages\Polish.isl"
-Name: "portuguese"; MessagesFile: "compiler:Languages\Portuguese.isl"
-Name: "romanian"; MessagesFile: "compiler:Languages\Romanian.isl"
-Name: "russian"; MessagesFile: "compiler:Languages\Russian.isl"
-Name: "scottishgaelic"; MessagesFile: "compiler:Languages\ScottishGaelic.isl"
-Name: "serbiancyrillic"; MessagesFile: "compiler:Languages\SerbianCyrillic.isl"
-Name: "serbianlatin"; MessagesFile: "compiler:Languages\SerbianLatin.isl"
-Name: "sinhala"; MessagesFile: "compiler:Languages\Sinhala.islu"
-Name: "slovenian"; MessagesFile: "compiler:Languages\Slovenian.isl"
-Name: "spanish"; MessagesFile: "compiler:Languages\Spanish.isl"
-Name: "thai"; MessagesFile: "compiler:Languages\Thai.isl"
-Name: "turkish"; MessagesFile: "compiler:Languages\Turkish.isl"
-Name: "ukrainian"; MessagesFile: "compiler:Languages\Ukrainian.isl"
-Name: "uyghur"; MessagesFile: "compiler:Languages\Uyghur.islu"
-Name: "uzbek"; MessagesFile: "compiler:Languages\Uzbek.isl"
-Name: "valencian"; MessagesFile: "compiler:Languages\Valencian.isl"
-Name: "vietnamese"; MessagesFile: "compiler:Languages\Vietnamese.islu"
-;;;
-;;; XXX: The following language files are for InnoSetup 6.0, and may (or may
-;;;      not) cause problems when used with 5.5.x.
-Name: "arabic"; MessagesFile: "compiler:Languages\Arabic.isl"
-Name: "chinesesimplified"; MessagesFile: "compiler:Languages\ChineseSimplified.isl"
-Name: "chinesetraditional"; MessagesFile: "compiler:Languages\ChineseTraditional.isl"
-Name: "croatian"; MessagesFile: "compiler:Languages\Croatian.isl"
-Name: "korean"; MessagesFile: "compiler:Languages\Korean.isl"
-Name: "lithuanian"; MessagesFile: "compiler:Languages\Lithuanian.isl"
-;;;
-;;; Icelandic and Slovak are officially-supported languages in InnoSetup 6.0,
-;;; so if the compiler is upgraded they should be preinstalled.
-Name: "icelandic"; MessagesFile: "compiler:Languages\Icelandic.isl"
-Name: "slovak"; MessagesFile: "compiler:Languages\Slovak.isl"
 
 [CustomMessages]
 english.FirewallException=Add an exception to the Windows Firewall for optionally sending anonymized usage and error information.
-italian.FirewallException=Aggiungi un'eccezione a Windows Firewall per l'invio facoltativo di informazioni anonime sull'uso/errori dell'applicazione.
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; Check: not PortableCheck;
-Name: "fileassoc"; Description: "{cm:AssocFileExtension,{#MyAppName},.flow}"; GroupDescription: "{cm:AdditionalIcons}"; Check: not PortableCheck;
+Name: "fileassoc"; Description: "{cm:AssocFileExtension,{#MyAppName},.osp}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; Check: not PortableCheck and IsAdminInstallMode;
 Name: "firewall"; Description: "{cm:FirewallException}"; GroupDescription: "{cm:AdditionalIcons}"; Check: not PortableCheck;
 
 [InstallDelete]
 ; Remove previous installed versions of Zenvi
 Type: filesandordirs; Name: "{app}\*"
 Type: dirifempty; Name: "{app}\*"
-Type: files; Name: "{group}\Zenvi"; BeforeInstall: DeleteInvalidFiles; Check: not PortableCheck;
+Type: files; Name: "{group}\Zenvi"; BeforeInstall: DeleteInvalidFiles; Check: not PortableCheck and IsAdminInstallMode;
 
 [Registry]
-; Associate .flow files with the installed application. Uninstaller will clean them up, when run.
-Root: HKLM; Subkey: "Software\Classes\.flow"; ValueType: string; ValueName: ""; ValueData: "ZenviProject"; Flags: uninsdeletevalue; Tasks: fileassoc
-; .flow file description, "Zenvi Project File" (ZenviProject, internally)
+; Associate .zvn files with the installed application. Uninstaller will clean them up, when run.
+Root: HKLM; Subkey: "Software\Classes\.zvn"; ValueType: string; ValueName: ""; ValueData: "ZenviProject"; Flags: uninsdeletevalue; Tasks: fileassoc
+; .zvn file description, "Zenvi Project File" (ZenviProject, internally)
 Root: HKLM; Subkey: "Software\Classes\ZenviProject"; ValueType: string; ValueName: ""; ValueData: "{#MyAppProjectFileDesc}"; Flags: uninsdeletekey; Tasks: fileassoc
 ; Launcher association for data files of type ZenviProject
 Root: HKLM; Subkey: "Software\Classes\ZenviProject\shell\open\command"; ValueType: string;  ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"""; Tasks: fileassoc
-; Clean-up old, incorrect AppID Uninstaller (used in 2.6.1-dev builds)
-Root: HKLM; Subkey: "Software\Microsoft\Windows\CurrentVersion\Uninstall\4BB0DCDC-BC24-49EC-8937-72956C33A470_is1"; ValueName: ""; Flags: deletekey;
+; Clean-up old, incorrect AppID Uninstaller (used in 2.6.1-dev builds) — admin only
+Root: HKLM; Subkey: "Software\Microsoft\Windows\CurrentVersion\Uninstall\4BB0DCDC-BC24-49EC-8937-72956C33A470_is1"; ValueName: ""; Flags: deletekey; Check: IsAdminInstallMode;
 
 [Files]
 ; Add all frozen files from cx_Freeze build
 Source: "..\build\{#PY_EXE_DIR}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs
 
 [Icons]
-Name: "{commonprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Check: not WizardNoIcons;
-Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon; Check: not WizardNoIcons;
+Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Check: not WizardNoIcons;
+Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon; Check: not WizardNoIcons;
 
 [Run]
 Filename: "{sys}\netsh.exe"; Parameters: "advfirewall firewall add rule name=""{#MyAppName}"" program=""{app}\{#MyAppExeName}"" dir=in action=allow enable=yes"; Flags: runhidden; Tasks: firewall;

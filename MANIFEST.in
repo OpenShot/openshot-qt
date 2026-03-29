@@ -1,0 +1,12 @@
+include AUTHORS
+include COPYING
+include README
+recursive-include bin *
+recursive-include doc *
+recursive-include openshot_qt *
+recursive-include xdg *
+
+global-exclude *__pycache__*
+global-exclude *pyc
+global-exclude .idea
+global-exclude .git

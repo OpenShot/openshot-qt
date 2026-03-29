@@ -35,7 +35,7 @@
 # if you get errors while freezing.
 #
 # Mac Syntax to Build App Bundle:
-# 1) python3 freeze.py bdist_mac --qt-menu-nib="/usr/local/Cellar/qt5/5.4.2/plugins/platforms/" --iconfile=installer/openshot.icns --custom-info-plist=installer/Info.plist --bundle-name="OpenShot Video Editor"
+# 1) python3 freeze.py bdist_mac --qt-menu-nib="/usr/local/Cellar/qt5/5.4.2/plugins/platforms/" --iconfile=installer/zenvi.icns --custom-info-plist=installer/Info.plist --bundle-name="Zenvi"
 # 2) change Contents/Info.plist to use launch-mac.sh as the Executable name
 # 3) manually fix rsvg executable:
 #    sudo dylibbundler -od -of -b -x ~/apps/rsvg/rsvg-convert -d ./rsvg-libs/ -p @executable_path/rsvg-libs/
@@ -67,6 +67,18 @@ from installer.version_parser import parse_version_info, parse_build_name
 
 print (str(cx_Freeze))
 
+# CI support (Windows):
+# Avoid setting PYTHONPATH to OpenShot install folders (can shadow stdlib modules and
+# crash Python during initialization). Instead, let CI provide the OpenShot bindings
+# location via an env var and append it to sys.path at runtime.
+_zenvi_openshot_pyroot = os.getenv("ZENVI_OPENSHOT_PYROOT")
+# NOTE: We do NOT add ZENVI_OPENSHOT_PYROOT to sys.path here.
+# OpenShot's lib/ directory contains its own 'classes/' sub-package compiled
+# with an older Python (different ABI magic), which would shadow Zenvi's own
+# src/classes/ and cause an ImportError("bad magic number in 'classes'").
+# The openshot files are discovered via direct filesystem scan below and copied
+# into the frozen build post-build — no import is needed at build time.
+
 # Set '${ARCHLIB}' envvar to override system library path
 ARCHLIB = os.getenv('ARCHLIB', "/usr/lib/x86_64-linux-gnu/")
 if not ARCHLIB.endswith('/'):
@@ -76,7 +88,6 @@ if not ARCHLIB.endswith('/'):
 python_packages = ["os",
                    "sys",
                    "PyQt5",
-                   "openshot",
                    "time",
                    "uuid",
                    "idna",
@@ -93,7 +104,120 @@ python_packages = ["os",
                    "zmq",
                    "webbrowser",
                    "json",
+                   # pydantic + its lazily-imported subpackages (required by langchain)
+                   "pydantic",
+                   "pydantic.deprecated",
+                   "pydantic_core",
+                   # langchain ecosystem (imported by sentry_sdk integrations at startup)
+                   "langchain",
+                   "langchain_core",
+                   "langchain_community",
+                   "langchain_openai",
+                   "langchain_anthropic",
+                   "langchain_ollama",
                    ]
+
+# Conditionally include openshot — it requires native C++ bindings (libopenshot)
+# which are only available when installed as a system package (Linux PPA) or via
+# ZENVI_OPENSHOT_PYROOT (Windows CI).  The macOS Homebrew cask ships bindings
+# compiled for its own bundled Python, so they are ABI-incompatible with the CI
+# Python and cannot be imported.  Rather than hard-failing, we skip the package
+# when it is not importable and let the frozen app load it at runtime.
+# Locate the openshot Python wrapper and _openshot native extension.
+# We copy them manually into the frozen build's lib/ directory AFTER cx_Freeze
+# runs, because:
+#  - cx_Freeze's "packages"/"includes" tries to import _openshot at freeze time,
+#    which fails on Windows (native DLL deps not loadable by ModuleFinder)
+#  - cx_Freeze's "include_files" silently drops files under some conditions
+# The post-build copy into lib/ is the only reliable cross-platform approach.
+_openshot_src_files = []  # list of (src_path, basename) — copied after build
+
+# When ZENVI_OPENSHOT_PYROOT is set (CI builds), discover files directly from the
+# filesystem to avoid loading a potentially ABI-incompatible native extension at
+# build time.  OpenShot ships its own embedded Python; _openshot.pyd is compiled
+# against that runtime, which may differ from the CI build Python.
+_pyroot_env = os.environ.get('ZENVI_OPENSHOT_PYROOT', '')
+if _pyroot_env:
+    import glob as _glob
+    # Native extension
+    for _pattern in ("_openshot.pyd", "_openshot.cp*.pyd",
+                      "_openshot.so", "_openshot.cpython-*.so"):
+        for _match in _glob.glob(os.path.join(_pyroot_env, _pattern)):
+            if (_match, os.path.basename(_match)) not in _openshot_src_files:
+                _openshot_src_files.append((_match, os.path.basename(_match)))
+    # Python wrapper: openshot.py (single-file layout) or openshot/__init__.py (package layout)
+    for _candidate in [
+        os.path.join(_pyroot_env, 'openshot.py'),
+        os.path.join(_pyroot_env, 'openshot', '__init__.py'),
+    ]:
+        if os.path.exists(_candidate):
+            _openshot_src_files.append((_candidate, os.path.basename(_candidate)))
+            break
+    # Bundle native DLLs that _openshot.pyd depends on (libopenshot.dll, FFMPEG DLLs, etc.).
+    # On Windows (Python 3.8+), DLL loading from PATH is restricted; the DLLs must be in
+    # the same directory as _openshot.pyd (lib/) and openshot.py adds that dir via
+    # os.add_dll_directory().
+    #
+    # Search BINDDIR first (lib/ — co-located with _openshot.pyd), then install root as
+    # fallback for any DLLs missing from lib/.  IMPORTANT: deduplicate by BASENAME so the
+    # lib/ copy always wins; copying the install-root copy of a DLL would overwrite the
+    # lib/ version with a potentially different build → "procedure not found" at runtime.
+    _binddir_env = os.environ.get('ZENVI_OPENSHOT_BINDDIR', _pyroot_env)
+    _install_root = os.path.dirname(_binddir_env)
+    _skip_dll_prefixes = (
+        'api-ms-win', 'msvcp', 'vcruntime', 'ucrtbase',  # Windows/MSVC runtime
+        'd3d', 'dxgi', 'dwrite', 'dwmapi',               # DirectX / desktop
+        'qt5',                                             # PyQt5 already bundles these
+        'python3',                                         # cx_Freeze bundles Python runtime
+    )
+    _bundled_dll_names = {os.path.basename(p).lower() for _, p in _openshot_src_files}
+    for _dll_dir in [_binddir_env, _install_root]:
+        if not os.path.isdir(_dll_dir):
+            continue
+        for _dll in sorted(_glob.glob(os.path.join(_dll_dir, '*.dll'))):
+            _b = os.path.basename(_dll)
+            if any(_b.lower().startswith(x) for x in _skip_dll_prefixes):
+                continue
+            if _b.lower() not in _bundled_dll_names:
+                _openshot_src_files.append((_dll, _b))
+                _bundled_dll_names.add(_b.lower())
+    if _openshot_src_files:
+        print("ZENVI_OPENSHOT_PYROOT: direct discovery — will copy %d file(s) into frozen build" % len(_openshot_src_files))
+        for _src, _dst in _openshot_src_files:
+            print("  %s -> lib/%s" % (_src, _dst))
+    else:
+        print("WARNING: ZENVI_OPENSHOT_PYROOT set but no openshot files found — openshot will be missing")
+else:
+    try:
+        import openshot  # noqa: F401
+        import inspect
+        _os_py = inspect.getfile(openshot)
+        _os_dir = os.path.dirname(os.path.abspath(_os_py))
+        _openshot_src_files.append((_os_py, os.path.basename(_os_py)))
+        # Find the native extension (_openshot.pyd on Windows, _openshot.so on Linux).
+        # Two layouts exist:
+        #   single-file:  openshot.py + _openshot.pyd in the same directory
+        #   package:      openshot/__init__.py + _openshot.pyd one level UP (sibling to openshot/)
+        _search_dirs = [_os_dir]
+        if os.path.basename(_os_py) == "__init__.py":
+            _search_dirs.append(os.path.dirname(_os_dir))
+        import glob as _glob
+        for _search_dir in _search_dirs:
+            # Exact names: _openshot.pyd / _openshot.so
+            for _ext in (".pyd", ".so"):
+                _native = os.path.join(_search_dir, "_openshot" + _ext)
+                if os.path.exists(_native) and (_native, os.path.basename(_native)) not in _openshot_src_files:
+                    _openshot_src_files.append((_native, os.path.basename(_native)))
+            # Cpython-tagged names: _openshot.cp311-win_amd64.pyd / _openshot.cpython-311-x86_64-linux-gnu.so
+            for _pattern in ("_openshot.cp*.pyd", "_openshot.cpython-*.so"):
+                for _match in _glob.glob(os.path.join(_search_dir, _pattern)):
+                    if (_match, os.path.basename(_match)) not in _openshot_src_files:
+                        _openshot_src_files.append((_match, os.path.basename(_match)))
+        print("openshot module found — will copy %d file(s) into frozen build (post-build)" % len(_openshot_src_files))
+        for _src, _dst in _openshot_src_files:
+            print("  %s -> lib/%s" % (_src, _dst))
+    except ImportError:
+        print("WARNING: openshot module not importable — excluding from frozen build")
 
 # Modules to include
 python_modules = ["idna.idnadata",
@@ -105,6 +229,13 @@ python_modules = ["idna.idnadata",
                   "sentry_sdk.integrations.argv",
                   "sentry_sdk.integrations.logging",
                   "sentry_sdk.integrations.threading",
+                  # OpenGL platform modules — loaded dynamically by OpenGL/__init__.py
+                  "OpenGL.platform.darwin",
+                  "OpenGL.platform.ctypesloader",
+                  "OpenGL.platform.baseplatform",
+                  "OpenGL.arrays.ctypesarrays",
+                  "OpenGL.arrays.numpymodule",
+                  "OpenGL.arrays.formathandler",
                   ]
 
 # Determine absolute PATH of OpenShot folder
@@ -125,7 +256,7 @@ if os.path.exists(os.path.join(PATH, "src")):
     copytree(os.path.join(PATH, "src"), openshot_copy_path)
 
     # Make a copy of the launch.py script (to name it more appropriately)
-    copy(os.path.join(PATH, "src", "launch.py"), os.path.join(PATH, "openshot_qt", "launch-openshot"))
+    copy(os.path.join(PATH, "src", "launch.py"), os.path.join(PATH, "openshot_qt", "launch-zenvi"))
 
 if os.path.exists(openshot_copy_path):
     # Append path to system path
@@ -163,7 +294,7 @@ def find_files(directory, patterns):
 
 
 # GUI applications require a different base on Windows
-iconFile = "openshot-qt"
+iconFile = "zenvi"
 base = None
 src_files = []
 external_so_files = []
@@ -172,11 +303,13 @@ build_exe_options = {}
 exe_name = info.NAME
 
 # Copy QT translations to local folder (to be packaged)
+# Skipped on macOS CI builds (translations are optional; reduces build time/size).
 qt_local_path = os.path.join(PATH, "openshot_qt", "language")
 qt_system_path = QLibraryInfo.location(QLibraryInfo.TranslationsPath)
 log.info("Qt local translation files path: %s" % qt_local_path)
 log.info("Qt system translation files path: %s" % qt_system_path)
-if os.path.exists(qt_system_path):
+_skip_translations = sys.platform == "darwin" and os.getenv("CI")
+if os.path.exists(qt_system_path) and not _skip_translations:
     # Create local QT translation folder (if needed)
     if not os.path.exists(qt_local_path):
         os.mkdir(qt_local_path)
@@ -186,6 +319,8 @@ if os.path.exists(qt_system_path):
         if (file.startswith("qt_") or file.startswith("qtbase_")) and file.endswith(".qm"):
             log.info("Qt system translation, copied: %s" % file)
             shutil.copyfile(os.path.join(qt_system_path, file), os.path.join(qt_local_path, file))
+elif _skip_translations:
+    log.info("Qt translations skipped (macOS CI build)")
 
 # Copy git log files into src/settings files (if found)
 version_info = {}
@@ -224,11 +359,15 @@ if sys.platform == "win32":
     # Append some additional files for Windows (this is a debug launcher)
     src_files.append((os.path.join(PATH, "installer", "launch-win.bat"), "launch-win.bat"))
 
+    # Bundle .env credentials file if present (required for Supabase auth)
+    env_file = os.path.join(PATH, ".env")
+    if os.path.exists(env_file):
+        src_files.append((env_file, ".env"))
+
     # Add additional package
     python_packages.extend([
         "idna",
         "OpenGL",
-        "OpenGL_accelerate",
     ])
 
     # Manually add BABL extensions (used in ChromaKey effect) - these are loaded at runtime,
@@ -244,6 +383,9 @@ if sys.platform == "win32":
         src_files.append((filename, os.path.join(os.path.relpath(filename, start=openshot_copy_path))))
 
 elif sys.platform == "linux":
+    # Add OpenGL package so cx_Freeze bundles PyOpenGL platform modules (glx, null, etc.)
+    python_packages.append("OpenGL")
+
     # Find libopenshot.so path (GitLab copies artifacts into local build/install folder)
     libopenshot_path = os.path.join(PATH, "build", "install-x64", "lib")
     if not os.path.exists(libopenshot_path):
@@ -251,6 +393,11 @@ elif sys.platform == "linux":
     if not os.path.exists(libopenshot_path):
         # Default to user install path
         libopenshot_path = "/usr/local/lib"
+    if not os.path.exists(os.path.join(libopenshot_path, "libopenshot.so")):
+        # PPA installs place libopenshot.so under the arch-qualified lib dir
+        _archlib_candidate = ARCHLIB.rstrip("/")
+        if os.path.exists(os.path.join(_archlib_candidate, "libopenshot.so")):
+            libopenshot_path = _archlib_candidate
 
     # Find all related SO files
     for filename in find_files(libopenshot_path, ["*openshot*.so*"]):
@@ -296,7 +443,7 @@ elif sys.platform == "linux":
     src_files.append((os.path.join(PATH, "xdg", iconFile), iconFile))
 
     # Shorten name (since RPM can't have spaces)
-    info.PRODUCT_NAME = "openshot-qt"
+    info.PRODUCT_NAME = "zenvi"
 
     # Add custom launcher script for frozen linux version
     src_files.append((os.path.join(PATH, "installer", "launch-linux.sh"), "launch-linux.sh"))
@@ -429,14 +576,17 @@ elif sys.platform == "linux":
             else:
                 log.info("Skipping external library: %s" % libpath)
 
-    # Append all source files
+    # Append all source files (at root level — info.PATH is set to the
+    # executable's directory in frozen builds, see info.py frozen detection)
     src_files.append((os.path.join(PATH, "installer", "qt.conf"), "qt.conf"))
     for filename in find_files("openshot_qt", ["*"]):
         src_files.append((filename, os.path.join(os.path.relpath(filename, start=openshot_copy_path))))
 
 elif sys.platform == "darwin":
-    # Copy Mac specific files that cx_Freeze misses
+    # Add OpenGL package so cx_Freeze bundles PyOpenGL platform modules (darwin, etc.)
+    python_packages.append("OpenGL")
 
+    # Copy Mac specific files that cx_Freeze misses
     # Add libresvg (if found)
     resvg_path = "/usr/local/lib/librsvg-2.dylib"
     if os.path.exists(resvg_path):
@@ -446,26 +596,56 @@ elif sys.platform == "darwin":
     src_files.append((os.path.join(PATH, "installer", "launch-mac"), "launch-mac"))
 
     # Append Mac ICON file (.icns format required for macOS app bundles)
-    # iconFile is overridden here to the full path of the .icns file
-    iconFile = os.path.join(PATH, "installer", "openshot.icns")
+    # Use the full path to the .icns file; override iconFile to an absolute path
+    iconFile = os.path.join(PATH, "installer", "zenvi.icns")
     src_files.append((iconFile, "icon.icns"))
 
-    # Detect Qt paths dynamically via QLibraryInfo (already imported at top of file)
-    # This replaces the old hard-coded /usr/local/qt5.15.X/... path
-    qt_lib_path = QLibraryInfo.location(QLibraryInfo.LibrariesPath)
+    # Add QtWebEngineProcess / resources if found.
+    #
+    # NOTE: The historical OpenShot build scripts used a hard-coded Qt install path.
+    # GitHub hosted runners (and pip-installed PyQt) do not use that layout.
+    # We locate paths dynamically and include them only when present.
+    qt_prefix = QLibraryInfo.location(QLibraryInfo.PrefixPath)
     qt_plugins_path = QLibraryInfo.location(QLibraryInfo.PluginsPath)
+    qt_libexec_path = QLibraryInfo.location(QLibraryInfo.LibraryExecutablesPath)
 
-    # Add QtWebEngineProcess (if found — depends on PyQtWebEngine being installed)
-    qt_webengine_fw = os.path.join(qt_lib_path, "QtWebEngineCore.framework", "Versions", "5")
-    web_process_path = os.path.join(
-        qt_webengine_fw, "Helpers",
-        "QtWebEngineProcess.app", "Contents", "MacOS", "QtWebEngineProcess"
-    )
-    web_core_path = os.path.join(qt_webengine_fw, "QtWebEngineCore")
-    if os.path.exists(web_process_path):
-        external_so_files.append((web_process_path, os.path.basename(web_process_path)))
-    if os.path.exists(web_core_path):
-        external_so_files.append((web_core_path, os.path.basename(web_core_path)))
+    # Candidate QtWebEngineProcess paths (Qt on macOS often ships this as a .app helper)
+    web_process_candidates = [
+        os.path.join(qt_libexec_path, "QtWebEngineProcess"),
+        os.path.join(qt_libexec_path, "QtWebEngineProcess.app", "Contents", "MacOS", "QtWebEngineProcess"),
+    ]
+    for web_process_path in web_process_candidates:
+        if web_process_path and os.path.exists(web_process_path):
+            external_so_files.append((web_process_path, os.path.basename(web_process_path)))
+            break
+
+    # Candidate locales/resources locations
+    qtwebengine_locales_candidates = [
+        os.path.join(qt_prefix, "resources", "qtwebengine_locales"),
+        os.path.join(qt_prefix, "translations", "qtwebengine_locales"),
+        os.path.join(qt_prefix, "qtwebengine_locales"),
+    ]
+    for locales_dir in qtwebengine_locales_candidates:
+        if locales_dir and os.path.isdir(locales_dir):
+            for filename in find_files(locales_dir, ["*"]):
+                external_so_files.append((filename, os.path.join("qtwebengine_locales", os.path.relpath(filename, start=locales_dir))))
+            break
+
+    # Bundle libopenshot and libopenshot-audio dylibs (built from source on CI)
+    _libopenshot_install = os.getenv("ZENVI_OPENSHOT_INSTALL", "")
+    _dylib_search_dirs = []
+    if _libopenshot_install:
+        _dylib_search_dirs.append(os.path.join(_libopenshot_install, "lib"))
+    _dylib_search_dirs.extend(["/usr/local/lib", "/opt/homebrew/lib"])
+    for _dylib_name in ["libopenshot.dylib", "libopenshot-audio.dylib"]:
+        for _lib_dir in _dylib_search_dirs:
+            _full_path = os.path.join(_lib_dir, _dylib_name)
+            if os.path.exists(_full_path):
+                log.info(f"Bundling {_dylib_name} from {_lib_dir}")
+                external_so_files.append((_full_path, _dylib_name))
+                break
+        else:
+            log.warning(f"WARNING: {_dylib_name} not found in any search directory — openshot may not work in frozen build")
 
     # Manually add BABL extensions (used in ChromaKey effect) - these are loaded at runtime,
     # and thus cx_freeze is not able to detect them
@@ -473,32 +653,34 @@ elif sys.platform == "darwin":
     for filename in find_files(babl_ext_path, ["*.dylib"]):
         src_files.append((filename, os.path.join("lib", "babl-ext", os.path.relpath(filename, start=babl_ext_path))))
 
-    # Add QtWebEngine Resources (inside the framework bundle)
-    webengine_resources = os.path.join(qt_webengine_fw, "Resources")
-    if os.path.exists(webengine_resources):
-        for filename in find_files(webengine_resources, ["*"]):
-            external_so_files.append(
-                (filename, os.path.relpath(filename, start=webengine_resources))
-            )
-
-    # Add Qt plugins (imageformats + platforms only)
-    if os.path.exists(qt_plugins_path):
+    # Include a minimal set of Qt plugins when available (platform + imageformats)
+    if qt_plugins_path and os.path.isdir(qt_plugins_path):
         for filename in find_files(qt_plugins_path, ["*"]):
             relative_filepath = os.path.relpath(filename, start=qt_plugins_path)
             plugin_name = os.path.dirname(relative_filepath)
             if plugin_name in ["imageformats", "platforms"]:
-                external_so_files.append((filename, relative_filepath))
+                external_so_files.append((filename, os.path.join("plugins", relative_filepath)))
 
     # Append all source files
     src_files.append((os.path.join(PATH, "installer", "qt.conf"), "qt.conf"))
     for filename in find_files("openshot_qt", ["*"]):
         src_files.append((filename, os.path.join("lib", os.path.relpath(filename, start=openshot_copy_path))))
 
-    # Exclude gif library which crashes on Mac
-    build_exe_options["bin_excludes"] = ["/System/Library/Frameworks/ImageIO.framework/Versions/A/Resources/libGIF.dylib",
-                                         "/usr/local/opt/giflib/lib/libgif.dylib",
-                                         "/usr/local/opt/tesseract/lib/libtesseract.4.dylib",
-                                         "/usr/local/opt/leptonica/lib/liblept.5.dylib"]
+    # Exclude gif library which crashes on Mac, and system/Homebrew libs not present on CI runners
+    build_exe_options["bin_excludes"] = [
+        "/System/Library/Frameworks/ImageIO.framework/Versions/A/Resources/libGIF.dylib",
+        "/usr/local/opt/giflib/lib/libgif.dylib",
+        "/usr/local/opt/tesseract/lib/libtesseract.4.dylib",
+        "/usr/local/opt/leptonica/lib/liblept.5.dylib",
+        # PostgreSQL client library — not installed on CI runners (arm64 Homebrew paths)
+        "/opt/homebrew/opt/postgresql@15/lib/libpq.5.dylib",
+        "/opt/homebrew/opt/postgresql@14/lib/libpq.5.dylib",
+        "/opt/homebrew/opt/postgresql@16/lib/libpq.5.dylib",
+        "/opt/homebrew/lib/libpq.5.dylib",
+        # Basename pattern — catches libpq regardless of Homebrew prefix
+        "libpq.5.dylib",
+        "libpq.dylib",
+    ]
 
 # Dependencies are automatically detected, but it might need fine tuning.
 build_exe_options["packages"] = python_packages
@@ -510,16 +692,23 @@ build_exe_options["excludes"] = ["distutils",
                                  "tkinter",
                                  "pydoc_data",
                                  "pycparser",
-                                 "pkg_resources"]
+                                 "pkg_resources",
+                                 "PyQt5.QtQml",
+                                 "PyQt5.QtQuick",
+                                 "PyQt5.QtQuickWidgets"]
 if sys.platform == "darwin":
-    build_exe_options["excludes"].append("sentry_sdk.integrations.django")
+    # sentry_sdk.integrations.django must NOT be excluded — sentry's DEFAULT_INTEGRATIONS
+    # auto-imports it via importlib at runtime and crashes with ModuleNotFoundError when
+    # it is absent from the frozen bundle. The module handles missing Django gracefully.
+    pass
 
 # Set options
 build_options["build_exe"] = build_exe_options
 
 # Define launcher executable to create
+# On macOS iconFile was set to a full absolute path (installer/zenvi.icns).
+# On other platforms it is a bare filename resolved relative to xdg/.
 if sys.platform == "darwin":
-    # iconFile was set to the full absolute path in the darwin block above
     _icon_path = iconFile
 else:
     _icon_path = os.path.join(PATH, "xdg", iconFile)
@@ -527,17 +716,17 @@ else:
 exes = [Executable("openshot_qt/launch.py",
                    base=base,
                    icon=_icon_path,
-                   shortcutName="%s" % info.PRODUCT_NAME,
-                   shortcutDir="ProgramMenuFolder",
-                   targetName=exe_name,
+                   shortcut_name="%s" % info.PRODUCT_NAME,
+                   shortcut_dir="ProgramMenuFolder",
+                   target_name=exe_name,
                    copyright=info.COPYRIGHT)]
 
 try:
     # Include extra launcher configuration, if defined
     exes.append(Executable("openshot_qt/launch.py",
                 base=extra_exe['base'],
-                icon=os.path.join(PATH, "xdg", iconFile),
-                targetName=extra_exe['name'],
+                icon=_icon_path,
+                target_name=extra_exe['name'],
                 copyright=info.COPYRIGHT))
 except NameError:
     pass
@@ -555,8 +744,81 @@ setup(name=info.PRODUCT_NAME,
 if os.path.exists(os.path.join(PATH, "src")):
     rmtree(openshot_copy_path, True)
 
-# Fix a few things on the frozen folder(s)
+# Copy openshot bindings into frozen lib/ (post-build, bypassing cx_Freeze).
+# This is done for all platforms because cx_Freeze cannot reliably handle
+# _openshot (native C++ deps prevent ModuleFinder from importing it).
 build_path = os.path.join(PATH, "build")
+for frozen_path in os.listdir(build_path):
+    if frozen_path.startswith("exe"):
+        lib_dir = os.path.join(build_path, frozen_path, "lib")
+        if os.path.isdir(lib_dir):
+            for _src, _basename in _openshot_src_files:
+                # Skip __init__.py — cx_Freeze already places openshot/__init__.py
+                # in lib/openshot/. Copying it again as lib/__init__.py would
+                # incorrectly mark the lib/ directory itself as a Python package.
+                if _basename == "__init__.py":
+                    continue
+                _dst = os.path.join(lib_dir, _basename)
+                log.info("Post-build openshot copy: %s -> %s" % (_src, _dst))
+                shutil.copy2(_src, _dst)
+
+# Post-build: bundle shared library dependencies of _openshot and libopenshot.
+# cx_Freeze's include_files silently drops many .so files, so we use ldd to
+# find ALL deps of the bundled native libraries and copy them ourselves.
+# This ensures the frozen build works on distros with different lib versions
+# (e.g., building on 22.04, running on 24.04).
+if sys.platform == "linux":
+    import subprocess as _sp
+
+    # Libraries we never bundle (core OS / driver libs the host must provide)
+    _never_bundle = {
+        "linux-vdso.so.1", "ld-linux-x86-64.so.2",
+        "libc.so.6", "libm.so.6", "libdl.so.2", "librt.so.1",
+        "libpthread.so.0", "libstdc++.so.6", "libgcc_s.so.1",
+        "libGL.so.1", "libGLX.so.0", "libGLdispatch.so.0",
+        "libX11.so.6", "libX11-xcb.so.1", "libxcb.so.1",
+        "libdrm.so.2", "libasound.so.2",
+    }
+
+    for frozen_path in os.listdir(build_path):
+        if not frozen_path.startswith("exe"):
+            continue
+        frozen_dir = os.path.join(build_path, frozen_path)
+        # Collect all .so files in root and lib/ that we want to check
+        _so_to_check = []
+        for _so in glob.glob(os.path.join(frozen_dir, "libopenshot*.so*")):
+            if os.path.isfile(_so) and not os.path.islink(_so):
+                _so_to_check.append(_so)
+        for _so in glob.glob(os.path.join(frozen_dir, "lib", "_openshot*.so")):
+            _so_to_check.append(_so)
+
+        _already = set(os.listdir(frozen_dir))  # files already at root
+        _copied = 0
+        for _so in _so_to_check:
+            try:
+                _proc = _sp.run(["ldd", _so], capture_output=True, text=True)
+            except Exception:
+                continue
+            for _line in _proc.stdout.splitlines():
+                if "=>" not in _line or "not found" in _line:
+                    continue
+                parts = _line.split("=>")
+                if len(parts) < 2:
+                    continue
+                _dep_path = parts[1].strip().split("(")[0].strip()
+                _dep_name = os.path.basename(_dep_path)
+                if (not _dep_path or not os.path.exists(_dep_path)
+                        or _dep_name in _never_bundle
+                        or _dep_name in _already):
+                    continue
+                _dst = os.path.join(frozen_dir, _dep_name)
+                log.info("Post-build dep copy: %s -> %s" % (_dep_path, _dst))
+                shutil.copy2(_dep_path, _dst)
+                _already.add(_dep_name)
+                _copied += 1
+        log.info("Post-build: copied %d shared library dependencies" % _copied)
+
+# Fix a few things on the frozen folder(s)
 if sys.platform == "darwin":
     # Mac issues with frozen folder and *.app folder
     # We need to rewrite many dependency paths and library IDs
@@ -574,7 +836,6 @@ elif sys.platform == "linux":
     for frozen_path in os.listdir(build_path):
             if frozen_path.startswith("exe"):
                 paths = ["lib/openshot_qt/",
-                         "lib/*opencv*",
                          "lib/libopenshot*",
                          "translations/",
                          "locales/",

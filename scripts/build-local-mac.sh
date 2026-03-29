@@ -7,7 +7,7 @@
 # Requires: Python 3.11, PyQt5, cx_Freeze 7.0.0
 #   pip3 install -r requirements.txt
 #
-# Optional env vars (same as installer/build-mac-dmg.sh):
+# Optional env vars:
 #   SIGN_IDENTITY         — codesign identity for production signing
 #   MAC_NOTARIZE_PASSWORD — notarytool password (requires SIGN_IDENTITY)
 #   APPLE_ID              — Apple ID for notarytool
@@ -45,88 +45,73 @@ pip3 install -r requirements.txt
 pip3 install pyobjc-framework-Cocoa 2>/dev/null || true
 
 # ── Step 2: Freeze ────────────────────────────────────────────────────────────
-echo "[2/5] Running cx_Freeze (bdist_mac)..."
-python3 freeze.py bdist_mac --git-branch=production
+echo "[2/5] Running cx_Freeze (build)..."
+python3 freeze.py build --git-branch=production
 
-# ── Step 3: Verify .app bundle exists ────────────────────────────────────────
-APP_BUNDLE=$(find build -maxdepth 1 -name "*.app" -type d | head -1)
-if [ -z "$APP_BUNDLE" ]; then
-  echo "ERROR: No .app bundle found in build/. The freeze step likely failed."
+# ── Step 3: Locate frozen output ─────────────────────────────────────────────
+FROZEN_DIR=$(find build -maxdepth 1 -type d -name 'exe.*' | head -1)
+if [ -z "$FROZEN_DIR" ]; then
+  echo "ERROR: No cx_Freeze output directory found in build/. The freeze step likely failed."
   exit 1
 fi
-echo "Found app bundle: $APP_BUNDLE"
+echo "Found frozen dir: $FROZEN_DIR"
 
-EXPECTED="build/${APP_NAME}.app"
-if [ "$APP_BUNDLE" != "$EXPECTED" ]; then
-  echo "Renaming $APP_BUNDLE → $EXPECTED"
-  mv "$APP_BUNDLE" "$EXPECTED"
+# ── Step 4: Construct .app bundle ────────────────────────────────────────────
+echo "[3/5] Constructing .app bundle..."
+APP="${APP_NAME}.app"
+mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
+
+cp -R "$FROZEN_DIR"/* "$APP/Contents/MacOS/"
+
+# Substitute VERSION in Info.plist
+sed "s/VERSION/${VER}/g" installer/Info.plist > "$APP/Contents/Resources/Info.plist"
+cp "$APP/Contents/Resources/Info.plist" "$APP/Contents/Info.plist"
+
+# Icon
+if [ -f "installer/zenvi.icns" ]; then
+  cp installer/zenvi.icns "$APP/Contents/Resources/icon.icns"
+else
+  ICON=$(find xdg images -name "*.png" -path "*256*" 2>/dev/null | head -1)
+  [ -n "$ICON" ] && cp "$ICON" "$APP/Contents/Resources/icon.png"
 fi
 
-# ── Step 4: Structure bundle + sign ──────────────────────────────────────────
-echo "[3/5] Structuring .app bundle..."
-OS_PATH="$EXPECTED/Contents"
-mkdir -p "$OS_PATH/MacOS" "$OS_PATH/Resources"
-
-cp installer/Info.plist "$OS_PATH/Info.plist"
-sed -i '' "s/VERSION/${VER}/g" "$OS_PATH/Info.plist"
-echo "  Info.plist updated with version $VER"
-
-# Move resource directories to Resources/ and symlink back
-for dir in classes effects emojis images themes language presets \
-           profiles resources settings timeline titles transitions windows blender; do
-  SRC="$OS_PATH/MacOS/lib/$dir"
-  DST="$OS_PATH/Resources/$dir"
-  if [ -d "$SRC" ]; then
-    mv "$SRC" "$DST"
-    ln -s "../../Resources/$dir" "$SRC"
-    echo "  Symlinked: $dir"
-  fi
+# Ensure all known entry points are executable.
+# Info.plist declares CFBundleExecutable=launch-mac so it must be +x.
+for bin in zenvi launch launch-zenvi launch-mac; do
+  [ -f "$APP/Contents/MacOS/$bin" ] && chmod +x "$APP/Contents/MacOS/$bin" || true
 done
 
-if [ -d "$OS_PATH/MacOS/qtwebengine_locales" ]; then
-  mv "$OS_PATH/MacOS/qtwebengine_locales" "$OS_PATH/Resources/"
-  ln -s "../Resources/qtwebengine_locales" "$OS_PATH/MacOS/qtwebengine_locales"
-  echo "  Symlinked: qtwebengine_locales"
-fi
-
-if [ -f "$OS_PATH/MacOS/qt.conf" ]; then
-  mv "$OS_PATH/MacOS/qt.conf" "$OS_PATH/Resources/qt.conf"
-  ln -s "../Resources/qt.conf" "$OS_PATH/MacOS/qt.conf"
-  echo "  Symlinked: qt.conf"
-fi
-
-[ -f "$OS_PATH/MacOS/icon.icns" ] && mv "$OS_PATH/MacOS/icon.icns" "$OS_PATH/Resources/icon.icns"
-[ ! -f "$OS_PATH/Resources/icon.icns" ] && cp installer/openshot.icns "$OS_PATH/Resources/icon.icns"
-
-[ ! -L "$OS_PATH/Resources/lib" ] && ln -s "../MacOS/lib" "$OS_PATH/Resources/lib"
-chmod -R a+rx "$OS_PATH/"
-
+# ── Step 5: Sign ─────────────────────────────────────────────────────────────
 echo "[4/5] Signing..."
 if [ -n "${SIGN_IDENTITY:-}" ]; then
   echo "  Production signing with identity: $SIGN_IDENTITY"
   find build \( -name '*.dylib' -o -name '*.so' \) \
     -exec codesign -s "$SIGN_IDENTITY" --timestamp=http://timestamp.apple.com/ts01 \
-      --entitlements installer/openshot.entitlements --force "{}" \;
+      --entitlements installer/zenvi.entitlements --force "{}" \;
   codesign -s "$SIGN_IDENTITY" --force --deep \
-    --entitlements installer/openshot.entitlements \
+    --entitlements installer/zenvi.entitlements \
     --options runtime --timestamp=http://timestamp.apple.com/ts01 \
-    "$EXPECTED"
-  spctl -a -vv "$EXPECTED"
+    "$APP"
+  spctl -a -vv "$APP"
 else
   echo "  Ad-hoc signing (no SIGN_IDENTITY set)"
   find build \( -name '*.dylib' -o -name '*.so' \) \
     -exec codesign -s - --force "{}" \; 2>/dev/null || true
-  codesign -s - --deep --force "$EXPECTED"
+  codesign -s - --deep --force "$APP"
 fi
 
-# ── Step 5: Create DMG ────────────────────────────────────────────────────────
+# ── Step 6: Create DMG ────────────────────────────────────────────────────────
 DMG_NAME="Zenvi-v${VER}-${ARCH}.dmg"
 echo "[5/5] Creating DMG: $DMG_NAME"
+rm -rf dmgroot && mkdir dmgroot
+cp -R "$APP" dmgroot/
+ln -s /Applications dmgroot/Applications
 hdiutil create \
   -volname "Zenvi" \
-  -srcfolder "$EXPECTED" \
+  -srcfolder "dmgroot" \
   -ov -format UDZO \
   "$DMG_NAME"
+rm -rf dmgroot
 
 echo ""
 echo "======================================"

@@ -109,6 +109,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     PlayPauseToggleSignal = pyqtSignal()
     RecoverBackup = pyqtSignal()
     FoundVersionSignal = pyqtSignal(str)
+    UpdateReadySignal = pyqtSignal(str)
     TransformSignal = pyqtSignal(list)
     KeyFrameTransformSignal = pyqtSignal(str, str)
     SelectRegionSignal = pyqtSignal(str)
@@ -3035,6 +3036,21 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     def setup_toolbars(self):
         _ = get_app()._tr  # Get translation function
 
+        # Logout button — icon-only, pinned to the top-right of the menu bar
+        from classes.ui_util import get_icon
+        _logout_icon = get_icon("system-log-out")
+        if not _logout_icon or _logout_icon.isNull():
+            # Fallback: bundled icon (works on Linux, macOS, Windows)
+            _logout_icon = QIcon(os.path.join(info.IMAGES_PATH, "logout.svg"))
+        self._logout_btn = QToolButton(self.menubar)
+        self._logout_btn.setObjectName("logout-btn")
+        self._logout_btn.setIcon(_logout_icon)
+        self._logout_btn.setToolTip("Log Out")
+        self._logout_btn.setToolButtonStyle(Qt.ToolButtonIconOnly)
+        self._logout_btn.setAutoRaise(True)
+        self._logout_btn.clicked.connect(self.logout_clicked)
+        self.menubar.setCornerWidget(self._logout_btn, Qt.TopRightCorner)
+
         # Start undo and redo actions disabled
         self.actionUndo.setEnabled(False)
         self.actionRedo.setEnabled(False)
@@ -3142,6 +3158,31 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Add timeline toolbar to web frame
         self.frameWeb.addWidget(self.timelineToolbar)
 
+    def logout_clicked(self):
+        """Sign the current user out of their Zenvi account."""
+        reply = QMessageBox.question(
+            self,
+            "Log Out",
+            "Are you sure you want to log out?",
+            QMessageBox.Yes | QMessageBox.Cancel,
+            QMessageBox.Cancel,
+        )
+        if reply != QMessageBox.Yes:
+            return
+
+        from classes.auth_manager import AuthManager
+        AuthManager.instance().clear_session()
+
+        # Hide main window and re-show login dialog
+        self.hide()
+        from windows.login_window import LoginWindow
+        login_dlg = LoginWindow(parent=None)
+        result = login_dlg.exec_()
+        if result == LoginWindow.Accepted:
+            self.show()
+        else:
+            self.close()
+
     def clearSelections(self):
         """Clear all selection containers and reset preview transforms"""
         # Reset any active transform state on the video preview. This prevents
@@ -3205,6 +3246,38 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Initialize sentry exception tracing (now that we know the current version)
         from classes import sentry
         sentry.init_tracing()
+
+    def updateDownloaded(self, version):
+        """Handle the callback when a new version has been downloaded and staged.
+        The update will be applied automatically on the next app launch."""
+        _ = get_app()._tr
+
+        if info.VERSION >= version:
+            return
+
+        # Update the toolbar button text to reflect that the update is ready
+        self.actionUpdate.setVisible(True)
+        self.actionUpdate.setText(_("Update Ready — Restart to Apply"))
+        self.actionUpdate.setToolTip(
+            _("Version <b>%s</b> has been downloaded and will be "
+              "installed automatically when you restart Zenvi.") % version
+        )
+
+        # Add toolbar button for non-cosmic dusk themes
+        if get_app().theme_manager:
+            from themes.manager import ThemeName
+            theme = get_app().theme_manager.get_current_theme()
+            if theme and theme.name != ThemeName.COSMIC.value:
+                spacer = QWidget(self)
+                spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
+                self.toolBar.addWidget(spacer)
+
+                updateButton = QToolButton(self)
+                updateButton.setDefaultAction(self.actionUpdate)
+                updateButton.setToolButtonStyle(Qt.ToolButtonTextBesideIcon)
+                self.toolBar.addWidget(updateButton)
+        else:
+            log.warning("No ThemeManager loaded yet. Skip update-ready button.")
 
     def handleSeek(self, frame):
         """ Always update the property view when we seek to a new position """
@@ -3911,6 +3984,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Get current version of OpenShot via HTTP
         self.FoundVersionSignal.connect(self.foundCurrentVersion)
+        self.UpdateReadySignal.connect(self.updateDownloaded)
         get_current_Version()
 
         # Initialize and start the thumbnail HTTP server

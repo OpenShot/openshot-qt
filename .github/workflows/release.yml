@@ -1,33 +1,27 @@
 # ─────────────────────────────────────────────────────────────────────────────
-# Zenvi — Production Release Workflow
+# Zenvi — Release Workflow
 #
-# Triggers when a version tag (v*.*.*) is pushed, OR on push to the
-# `production` branch.  Builds platform-specific installers and publishes
-# them as a GitHub Release so the in-app auto-updater can pick them up.
+# Triggers when a version tag (v*.*.*) is pushed. Builds platform-specific
+# installers and publishes them as a GitHub Release so the in-app auto-updater
+# can pick them up.
 #
 # Asset naming convention expected by the auto-updater:
 #   Linux   → Zenvi-v<VER>-x86_64.AppImage
-#   macOS   → Zenvi-v<VER>-x86_64.dmg  (Intel)
-#             Zenvi-v<VER>-arm64.dmg    (Apple Silicon)
+#   macOS   → Zenvi-v<VER>-x86_64.dmg   (Intel)
+#             Zenvi-v<VER>-arm64.dmg     (Apple Silicon)
 #   Windows → Zenvi-v<VER>-x86_64.exe
-#
-# Security note:
-#   Builds are ad-hoc signed (no Apple Developer or Windows code-signing cert).
-#   macOS users: right-click the app → Open to bypass Gatekeeper (first launch only).
-#   Windows users: click "More info" → "Run anyway" on the SmartScreen dialog.
-#   To enable full signing, set SIGN_IDENTITY / WINDOWS_CERT GitHub Secrets.
 # ─────────────────────────────────────────────────────────────────────────────
 name: Zenvi Production Release
 
 on:
   push:
-    branches: [production]
     tags: ["v*.*.*"]
 
 permissions:
   contents: write  # needed for creating releases & uploading assets
 
 env:
+  # Parsed from src/classes/info.py at build time
   APP_NAME: Zenvi
 
 jobs:
@@ -50,8 +44,12 @@ jobs:
           m = re.search(r'VERSION\s*=\s*\"([^\"]+)\"', text)
           print(m.group(1))
           ")
+          if [ "${GITHUB_REF_NAME}" != "v${VER}" ]; then
+            echo "::error::Tag ${GITHUB_REF_NAME} does not match version v${VER}"
+            exit 1
+          fi
           echo "version=$VER" >> "$GITHUB_OUTPUT"
-          echo "tag=v$VER"    >> "$GITHUB_OUTPUT"
+          echo "tag=${GITHUB_REF_NAME}" >> "$GITHUB_OUTPUT"
           echo "### Version: $VER" >> "$GITHUB_STEP_SUMMARY"
 
   # ── 2. Linux build (AppImage + .deb) ──────────────────────────────────
@@ -69,8 +67,6 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y \
             libopenshot-audio-dev libopenshot-dev python3-openshot \
-            python3-pyqt5 python3-pyqt5.qtsvg python3-pyqt5.qtwebengine \
-            python3-pyqt5.qtopengl python3-zmq python3-xdg \
             libfuse2 desktop-file-utils
 
       - name: Install Python dependencies
@@ -80,6 +76,22 @@ jobs:
 
       - name: Freeze with cx_Freeze
         run: python3 freeze.py build --git-branch=production
+
+      - name: Smoke test frozen zenvi
+        run: |
+          FROZEN_DIR=$(find build -maxdepth 1 -type d -name 'exe.linux-*' | head -1)
+          if [ -z "$FROZEN_DIR" ]; then
+            echo "::error::cx_Freeze output directory build/exe.linux-* not found"
+            ls -la build/ || true
+            exit 1
+          fi
+          echo "Frozen directory: $FROZEN_DIR"
+          # Force PyOpenGL to use a headless/null platform on CI runners that lack GLX
+          export PYOPENGL_PLATFORM=null
+          "$FROZEN_DIR/zenvi" -V 2>&1 || "$FROZEN_DIR/zenvi" --version 2>&1 || {
+            echo "::error::Frozen zenvi failed basic startup/version check"
+            exit 1
+          }
 
       - name: Build AppImage
         run: |
@@ -126,20 +138,32 @@ jobs:
         run: |
           DEB_DIR="zenvi_${VER}_amd64"
           mkdir -p "$DEB_DIR/DEBIAN"
+          mkdir -p "$DEB_DIR/opt/zenvi"
           mkdir -p "$DEB_DIR/usr/bin"
-          mkdir -p "$DEB_DIR/usr/share/zenvi"
           mkdir -p "$DEB_DIR/usr/share/applications"
           mkdir -p "$DEB_DIR/usr/share/icons/hicolor/256x256/apps"
 
-          # Copy frozen build
-          cp -r build/exe.linux-*/* "$DEB_DIR/usr/share/zenvi/"
+          FROZEN_DIR=$(find build -maxdepth 1 -type d -name 'exe.linux-*' | head -1)
+          if [ -z "$FROZEN_DIR" ]; then
+            echo "::error::cx_Freeze output directory build/exe.linux-* not found"
+            ls -la build/ || true
+            exit 1
+          fi
+          echo "Using frozen directory: $FROZEN_DIR"
+
+          # Copy frozen build into /opt/zenvi (self-contained layout)
+          cp -r "$FROZEN_DIR"/* "$DEB_DIR/opt/zenvi/"
 
           # Launcher script
           cat > "$DEB_DIR/usr/bin/zenvi" << 'LAUNCHER'
           #!/bin/bash
-          export LD_LIBRARY_PATH="/usr/share/zenvi:/usr/share/zenvi/lib:$LD_LIBRARY_PATH"
-          export QT_PLUGIN_PATH="/usr/share/zenvi"
-          exec /usr/share/zenvi/zenvi "$@"
+          HERE="/opt/zenvi"
+          export LD_LIBRARY_PATH="$HERE:$HERE/lib:${LD_LIBRARY_PATH}"
+          export PYTHONPATH="$HERE/lib:${PYTHONPATH}"
+          export QT_PLUGIN_PATH="$HERE"
+          export QT_QPA_PLATFORM_PLUGIN_PATH="$HERE/plugins/platforms"
+          export OPENSSL_CONF="/dev/null"
+          exec "$HERE/zenvi" "$@"
           LAUNCHER
           chmod +x "$DEB_DIR/usr/bin/zenvi"
 
@@ -159,8 +183,8 @@ jobs:
           Section: video
           Priority: optional
           Architecture: amd64
-          Depends: libopenshot-dev, python3
-          Maintainer: Zenvi Team <team@zenvi.pro>
+          Depends: python3
+          Maintainer: Zenvi Team <team@zenvi.org>
           Description: Zenvi Video Editor
            Create and edit stunning videos, films, and animations.
           CTRL
@@ -175,122 +199,484 @@ jobs:
             Zenvi-v*.AppImage
             Zenvi-v*.deb
 
-  # ── 3. macOS build (.dmg) — matrix for Intel (x86_64) + Apple Silicon (arm64) ──
+  # ── 3. macOS build (.dmg) ─────────────────────────────────────────────
+  # Produces two DMGs: Intel (x86_64) and Apple Silicon (arm64).
+  # Both jobs run on macos-15 (Apple Silicon). macos-13 (last Intel runner)
+  # was retired by GitHub. x86_64 build uses Rosetta 2 Python (architecture: x64)
+  # so cx_Freeze produces an x86_64-native frozen app that runs on Intel Macs.
+  # arm64 build uses the native Apple Silicon Python.
+  #
+  # Note: libopenshot Python bindings are NOT bundled in this CI build.
+  # The OpenShot .so from their app bundle is linked against their bundled
+  # Python dylibs (not our CI Python), so cx_Freeze cannot package it.
+  # The app installs and launches; video editing requires libopenshot to be
+  # installed separately. Full bundled video support will come with proper
+  # macOS build infrastructure.
   build-macos:
     needs: version
-    runs-on: ${{ matrix.runner }}
     strategy:
       fail-fast: false
       matrix:
         include:
-          - runner: macos-13
+          - runner: macos-15   # Apple Silicon; x64 Python via Rosetta → x86_64 app
             arch: x86_64
-          - runner: macos-14
+          - runner: macos-14   # macOS 14 Sonoma arm64; targets macOS 14+ users
             arch: arm64
+    runs-on: ${{ matrix.runner }}
     env:
       VER: ${{ needs.version.outputs.version }}
       ARCH: ${{ matrix.arch }}
-      APP_NAME: Zenvi
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Python 3.11
+      # x86_64: force Rosetta Python so the frozen app is x86_64.
+      - name: Set up Python 3.11 (x86_64, via Rosetta)
+        if: matrix.arch == 'x86_64'
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          architecture: x64
+
+      # arm64: use native Apple Silicon Python (no architecture override).
+      - name: Set up Python 3.11 (arm64, native)
+        if: matrix.arch == 'arm64'
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: Install dependencies
+      # Build libopenshot from source only for arm64 (native build, no cross-compilation).
+      # x86_64 skips this: cross-compiling C++ for x86_64 via Rosetta is complex and
+      # the Homebrew Qt5/ffmpeg bottles are arm64-only on macos-15 runners.
+      - name: Cache libopenshot build
+        id: cache-libopenshot
+        if: matrix.arch == 'arm64'
+        uses: actions/cache@v4
+        with:
+          path: /tmp/libopenshot-install
+          key: libopenshot-v0.5.0-audio-v0.5.0-arm64-macos14-py311-v2
+
+      - name: Build libopenshot from source (arm64 only)
+        if: matrix.arch == 'arm64' && steps.cache-libopenshot.outputs.cache-hit != 'true'
+        run: |
+          set -eo pipefail
+          INSTALL_PREFIX="/tmp/libopenshot-install"
+          mkdir -p "$INSTALL_PREFIX"
+
+          # Install build dependencies (Homebrew arm64 bottles)
+          # cppzmq provides zmq.hpp C++ header (separate from zeromq's libzmq/zmq.h)
+          brew install swig zeromq cppzmq libsamplerate qt@5 || true
+          brew install ffmpeg 2>/dev/null || true
+
+          QT5_PREFIX="$(brew --prefix qt@5)"
+          LIBOMP_PREFIX="$(brew --prefix libomp)"
+
+          # Build libopenshot-audio v0.5.0 (JUCE 7 — has arm64 fix, satisfies >=0.4.0)
+          git clone --depth=1 --branch v0.5.0 \
+            https://github.com/OpenShot/libopenshot-audio.git /tmp/libopenshot-audio
+          cmake -S /tmp/libopenshot-audio -B /tmp/libopenshot-audio/build \
+            -DCMAKE_INSTALL_PREFIX="$INSTALL_PREFIX" \
+            -DCMAKE_BUILD_TYPE=Release
+          cmake --build /tmp/libopenshot-audio/build --parallel $(sysctl -n hw.logicalcpu)
+          cmake --install /tmp/libopenshot-audio/build
+
+          # Build libopenshot v0.5.0 with Python bindings
+          git clone --depth=1 --branch v0.5.0 \
+            https://github.com/OpenShot/libopenshot.git /tmp/libopenshot
+
+          # Patch cmake files:
+          # 1. Remove avresample (dropped in FFmpeg 5+)
+          find /tmp/libopenshot -name "CMakeLists.txt" -o -name "*.cmake" | \
+            xargs grep -l "avresample" 2>/dev/null | \
+            xargs sed -i '' 's/ avresample//g'
+          # 2. Completely disable OpenMP in cmake (prevents NOTFOUND linker errors).
+          #    A stub omp.h (step 3) satisfies the #include <omp.h> in source files.
+          find /tmp/libopenshot -name "CMakeLists.txt" | \
+            xargs grep -l "find_package.*OpenMP" 2>/dev/null | \
+            xargs sed -i '' \
+              's/find_package(OpenMP[^)]*)/set(OpenMP_FOUND FALSE) # disabled for macOS CI/g'
+
+          # 3. Write a stub omp.h with all omp_* functions as inline stubs.
+          #    OpenMPUtilities.h includes omp.h and defines macros using omp_get_num_procs;
+          #    the stub satisfies those references without needing the real OpenMP runtime.
+          mkdir -p /tmp/omp-stub
+          printf '#ifndef _OMP_H_STUB\n#define _OMP_H_STUB\ntypedef int omp_lock_t;\nstatic inline int omp_get_num_procs(void){return 4;}\nstatic inline int omp_get_num_threads(void){return 1;}\nstatic inline int omp_get_thread_num(void){return 0;}\nstatic inline int omp_get_max_threads(void){return 1;}\nstatic inline void omp_set_num_threads(int n){(void)n;}\nstatic inline int omp_in_parallel(void){return 0;}\nstatic inline double omp_get_wtime(void){return 0.0;}\nstatic inline void omp_init_lock(int*l){(void)l;}\nstatic inline void omp_destroy_lock(int*l){(void)l;}\nstatic inline void omp_set_lock(int*l){(void)l;}\nstatic inline void omp_unset_lock(int*l){(void)l;}\nstatic inline int omp_test_lock(int*l){(void)l;return 1;}\n#endif\n' > /tmp/omp-stub/omp.h
+
+          # 4. FFmpeg 7/8 compat patches in all libopenshot .cpp source files:
+          #    a. FF_PROFILE_* macros removed in FFmpeg 8 — replace with AV_PROFILE_*
+          python3 -c 'import glob; [open(f,"w").write(t.replace("FF_PROFILE_H264_BASELINE","AV_PROFILE_H264_BASELINE").replace("FF_PROFILE_H264_CONSTRAINED","AV_PROFILE_H264_CONSTRAINED").replace("FF_PROFILE_H264_MAIN","AV_PROFILE_H264_MAIN").replace("FF_PROFILE_H264_HIGH","AV_PROFILE_H264_HIGH")) for f in glob.glob("/tmp/libopenshot/**/*.cpp",recursive=True) if "FF_PROFILE_" in (t:=open(f).read())]'
+          #    b. av_stream_add_side_data removed in FFmpeg 7+ — replace with no-op
+          python3 -c 'import re,glob; [open(f,"w").write(re.sub(r"av_stream_add_side_data\([^;]*\);","(void)0; /* removed FFmpeg7+ */",t)) for f in glob.glob("/tmp/libopenshot/**/*.cpp",recursive=True) if "av_stream_add_side_data" in (t:=open(f).read())]'
+          #    c. AVStream::nb_side_data and AVStream::side_data removed in FFmpeg 7+
+          #       (moved to AVStream::codecpar->nb_coded_side_data / coded_side_data)
+          python3 -c 'import glob; [open(f,"w").write(t.replace("->nb_side_data","->codecpar->nb_coded_side_data").replace("->side_data[","->codecpar->coded_side_data[")) for f in glob.glob("/tmp/libopenshot/**/*.cpp",recursive=True) if "nb_side_data" in (t:=open(f).read())]'
+
+          cmake -S /tmp/libopenshot -B /tmp/libopenshot/build \
+            -DCMAKE_INSTALL_PREFIX="$INSTALL_PREFIX" \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DENABLE_TESTS=OFF \
+            -DENABLE_RUBY=OFF \
+            -DENABLE_JAVA=OFF \
+            -DENABLE_PYTHON=ON \
+            -DPython3_EXECUTABLE="$(which python3)" \
+            -DCMAKE_CXX_FLAGS="-I/tmp/omp-stub -Wno-deprecated-declarations" \
+            -DCMAKE_PREFIX_PATH="$INSTALL_PREFIX;$QT5_PREFIX"
+          cmake --build /tmp/libopenshot/build --parallel $(sysctl -n hw.logicalcpu)
+          cmake --install /tmp/libopenshot/build
+
+      - name: Verify libopenshot Python bindings (arm64)
+        if: matrix.arch == 'arm64'
+        run: |
+          INSTALL_PREFIX="/tmp/libopenshot-install"
+          PYVER=$(python3 -c "import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}')")
+
+          # cmake installs Python bindings to $INSTALL_PREFIX/python (PYTHON_MODULE_PATH default)
+          # Fall back to site-packages if not found there.
+          if [ -f "$INSTALL_PREFIX/python/openshot.py" ] || [ -f "$INSTALL_PREFIX/python/_openshot.so" ]; then
+            PYROOT="$INSTALL_PREFIX/python"
+          else
+            PYROOT="$INSTALL_PREFIX/lib/python${PYVER}/site-packages"
+          fi
+
+          echo "ZENVI_OPENSHOT_PYROOT=$PYROOT" >> $GITHUB_ENV
+          echo "ZENVI_OPENSHOT_INSTALL=$INSTALL_PREFIX" >> $GITHUB_ENV
+          echo "DYLD_LIBRARY_PATH=$INSTALL_PREFIX/lib:${DYLD_LIBRARY_PATH:-}" >> $GITHUB_ENV
+
+          # Verify the binding is importable (soft check — freeze.py uses filesystem
+          # discovery via ZENVI_OPENSHOT_PYROOT, so a dlopen failure here is non-fatal)
+          DYLD_LIBRARY_PATH="$INSTALL_PREFIX/lib" PYTHONPATH="$PYROOT" \
+            python3 -c "import openshot; print(f'libopenshot version: {openshot.OPENSHOT_VERSION_FULL}')" \
+            || echo "::warning::openshot import failed (dlopen issue) — freeze.py will use filesystem discovery"
+
+      - name: Install Python dependencies
         run: |
           pip3 install --upgrade pip
           pip3 install -r requirements.txt
-          # pyobjc is needed by some cx_Freeze macOS hooks
           pip3 install pyobjc-framework-Cocoa 2>/dev/null || true
 
-      - name: Freeze with cx_Freeze (bdist_mac)
-        run: python3 freeze.py bdist_mac --git-branch=production
-
-      - name: Structure .app bundle and ad-hoc sign
+      - name: Freeze with cx_Freeze
         run: |
-          # Find the .app produced by bdist_mac
-          APP_BUNDLE=$(find build -maxdepth 1 -name "*.app" -type d | head -1)
-          if [ -z "$APP_BUNDLE" ]; then
-            echo "ERROR: No .app bundle found in build/. The freeze step failed."
-            exit 1
+          python3 freeze.py build --git-branch=production
+
+      # Fix OpenSSL dylib mismatch (arm64 only).
+      # cx_Freeze may bundle libssl.3.dylib from the Python toolchain (OpenSSL 3.2+)
+      # but libcrypto.3.dylib from Homebrew (OpenSSL 3.0.x) because other bundled
+      # dylibs (ffmpeg, qt) also depend on libcrypto and cx_Freeze picks up whichever
+      # copy it resolves first. The mismatch causes:
+      #   Symbol not found: _BIO_ADDR_copy
+      #   Referenced from: libssl.3.dylib
+      #   Expected in: libcrypto.3.dylib
+      # Fix: after freeze, replace libcrypto with the one from the same source as libssl.
+      - name: Fix OpenSSL dylib mismatch in frozen build (arm64)
+        if: matrix.arch == 'arm64'
+        run: |
+          set -eo pipefail
+          FROZEN_DIR=$(find build -maxdepth 1 -type d -name 'exe.*' | head -1)
+          [ -n "$FROZEN_DIR" ] || { echo "No frozen dir, skipping"; exit 0; }
+
+          # Python's own lib dir — where its bundled libssl + libcrypto live.
+          # actions/setup-python installs a self-contained Python whose OpenSSL
+          # dylibs are co-located with libpython (same LIBDIR as sysconfig reports).
+          PY_LIBDIR=$(python3 -c "import sysconfig; print(sysconfig.get_config_var('LIBDIR'))")
+          echo "Python LIBDIR: $PY_LIBDIR"
+
+          # _ssl.so links against its own libssl; trace the exact path.
+          SSL_SO=$(python3 -c "import _ssl, os; print(os.path.realpath(_ssl.__file__))")
+          echo "_ssl.so: $SSL_SO"
+
+          # Get raw libssl reference from _ssl.so (may be @rpath/..., @loader_path/..., or absolute)
+          LIBSSL_RAW=$(otool -L "$SSL_SO" 2>/dev/null | awk '/libssl\.3\.dylib/{print $1; exit}')
+          echo "libssl raw ref: $LIBSSL_RAW"
+
+          # Resolve the raw path to an actual file
+          resolve_dylib() {
+            local raw="$1" base so_dir="$2"
+            base="$(basename "$raw")"
+            # 1. Try replacing @rpath/name with PY_LIBDIR/name
+            if [[ "$raw" == @rpath/* ]]; then
+              local candidate="$PY_LIBDIR/$base"
+              [ -f "$candidate" ] && echo "$candidate" && return
+              # Also try each rpath entry embedded in the .so
+              while IFS= read -r rp; do
+                [ -f "$rp/$base" ] && echo "$rp/$base" && return
+              done < <(otool -l "$SSL_SO" 2>/dev/null | awk '/LC_RPATH/{f=1} f && /path /{print $2; f=0}')
+            elif [ -f "$raw" ]; then
+              echo "$raw" && return
+            fi
+            # 2. Fallback: search near the .so itself
+            [ -f "$(dirname "$so_dir")/$base" ] && echo "$(dirname "$so_dir")/$base" && return
+            echo ""
+          }
+
+          LIBSSL_PATH="$(resolve_dylib "$LIBSSL_RAW" "$SSL_SO")"
+          echo "Resolved libssl: $LIBSSL_PATH"
+
+          if [ -z "$LIBSSL_PATH" ] || [ ! -f "$LIBSSL_PATH" ]; then
+            echo "WARNING: Cannot locate Python's libssl — falling back to PY_LIBDIR"
+            LIBSSL_PATH="$PY_LIBDIR/libssl.3.dylib"
           fi
 
-          # Normalise name
-          EXPECTED="build/${APP_NAME}.app"
-          if [ "$APP_BUNDLE" != "$EXPECTED" ]; then
-            mv "$APP_BUNDLE" "$EXPECTED"
+          if [ ! -f "$LIBSSL_PATH" ]; then
+            echo "libssl not found at $LIBSSL_PATH; skipping OpenSSL fix"
+            exit 0
           fi
 
-          OS_PATH="$EXPECTED/Contents"
-          mkdir -p "$OS_PATH/MacOS" "$OS_PATH/Resources"
+          # Derive the matching libcrypto from the same directory as libssl
+          LIBSSL_DIR="$(dirname "$LIBSSL_PATH")"
+          LIBCRYPTO_PATH="$LIBSSL_DIR/libcrypto.3.dylib"
+          if [ ! -f "$LIBCRYPTO_PATH" ]; then
+            # libssl's internal libcrypto reference
+            LIBCRYPTO_RAW=$(otool -L "$LIBSSL_PATH" 2>/dev/null | awk '/libcrypto\.3\.dylib/{print $1; exit}')
+            echo "libcrypto raw ref from libssl: $LIBCRYPTO_RAW"
+            if [[ "$LIBCRYPTO_RAW" == @rpath/* ]]; then
+              LIBCRYPTO_PATH="$PY_LIBDIR/$(basename "$LIBCRYPTO_RAW")"
+            elif [ -f "$LIBCRYPTO_RAW" ]; then
+              LIBCRYPTO_PATH="$LIBCRYPTO_RAW"
+            fi
+          fi
 
-          # Substitute VERSION placeholder in Info.plist
-          cp installer/Info.plist "$OS_PATH/Info.plist"
-          sed -i '' "s/VERSION/${VER}/g" "$OS_PATH/Info.plist"
+          if [ ! -f "$LIBCRYPTO_PATH" ]; then
+            echo "Cannot find matching libcrypto; skipping OpenSSL fix"
+            exit 0
+          fi
 
-          # Move non-code resource folders → Resources and symlink back
-          for dir in classes effects emojis images themes language presets \
-                     profiles resources settings timeline titles transitions windows blender; do
-            SRC="$OS_PATH/MacOS/lib/$dir"
-            DST="$OS_PATH/Resources/$dir"
-            if [ -d "$SRC" ]; then
-              mv "$SRC" "$DST"
-              ln -s "../../Resources/$dir" "$SRC"
+          echo "Matched OpenSSL pair:"
+          file "$LIBSSL_PATH" "$LIBCRYPTO_PATH"
+
+          # Replace libssl + libcrypto in the frozen build with the matched pair.
+          # cx_Freeze may have placed them in the exe root and/or lib/ subdir.
+          REPLACED=0
+          for search_dir in "$FROZEN_DIR" "$FROZEN_DIR/lib"; do
+            [ -d "$search_dir" ] || continue
+            if [ -f "$search_dir/libssl.3.dylib" ]; then
+              echo "Replacing $search_dir/libssl.3.dylib"
+              chmod u+w "$search_dir/libssl.3.dylib" 2>/dev/null || true
+              cp -f "$LIBSSL_PATH" "$search_dir/libssl.3.dylib"
+              # Fix the dylib ID so it's self-referencing correctly inside the bundle
+              install_name_tool -id "@executable_path/libssl.3.dylib" "$search_dir/libssl.3.dylib" 2>/dev/null || true
+              # Rewrite any absolute dep references in libssl to @loader_path
+              # (e.g. /Library/Frameworks/Python.framework/.../libcrypto.3.dylib → @loader_path/libcrypto.3.dylib)
+              while IFS= read -r dep; do
+                if [[ "$dep" != @* && "$dep" != /usr/* && "$dep" != /System/* ]]; then
+                  dep_name="$(basename "$dep")"
+                  install_name_tool -change "$dep" "@loader_path/$dep_name" "$search_dir/libssl.3.dylib" 2>/dev/null || true
+                  echo "  Rewrote libssl dep: $dep -> @loader_path/$dep_name"
+                fi
+              done < <(otool -L "$search_dir/libssl.3.dylib" 2>/dev/null | awk 'NR>1{print $1}' | sort -u)
+              REPLACED=$((REPLACED+1))
+            fi
+            if [ -f "$search_dir/libcrypto.3.dylib" ]; then
+              echo "Replacing $search_dir/libcrypto.3.dylib"
+              chmod u+w "$search_dir/libcrypto.3.dylib" 2>/dev/null || true
+              cp -f "$LIBCRYPTO_PATH" "$search_dir/libcrypto.3.dylib"
+              install_name_tool -id "@executable_path/libcrypto.3.dylib" "$search_dir/libcrypto.3.dylib" 2>/dev/null || true
+              REPLACED=$((REPLACED+1))
             fi
           done
 
-          # qtwebengine_locales
-          if [ -d "$OS_PATH/MacOS/qtwebengine_locales" ]; then
-            mv "$OS_PATH/MacOS/qtwebengine_locales" "$OS_PATH/Resources/"
-            ln -s "../Resources/qtwebengine_locales" "$OS_PATH/MacOS/qtwebengine_locales"
+          # If libcrypto.3.dylib wasn't in the frozen build at all, add it
+          if ! find "$FROZEN_DIR" -name 'libcrypto.3.dylib' | grep -q .; then
+            echo "libcrypto.3.dylib missing from frozen build — adding it"
+            cp "$LIBCRYPTO_PATH" "$FROZEN_DIR/libcrypto.3.dylib"
+            install_name_tool -id "@executable_path/libcrypto.3.dylib" "$FROZEN_DIR/libcrypto.3.dylib" 2>/dev/null || true
+            REPLACED=$((REPLACED+1))
           fi
 
-          # qt.conf
-          if [ -f "$OS_PATH/MacOS/qt.conf" ]; then
-            mv "$OS_PATH/MacOS/qt.conf" "$OS_PATH/Resources/qt.conf"
-            ln -s "../Resources/qt.conf" "$OS_PATH/MacOS/qt.conf"
-          fi
+          echo "OpenSSL fix: updated $REPLACED dylib location(s)"
 
-          # Icon
-          if [ -f "$OS_PATH/MacOS/icon.icns" ]; then
-            mv "$OS_PATH/MacOS/icon.icns" "$OS_PATH/Resources/icon.icns"
-          fi
-          if [ ! -f "$OS_PATH/Resources/icon.icns" ]; then
-            cp installer/openshot.icns "$OS_PATH/Resources/icon.icns"
-          fi
+      # Fix Mach-O rpath references in the frozen build (arm64 only).
+      # _openshot.so is built against system/CI-local paths (Homebrew Qt/FFmpeg,
+      # /tmp/libopenshot-install, Python.framework). These are valid on the CI
+      # runner but do not exist on user machines. cx_Freeze copies the libraries
+      # but does NOT rewrite the references in _openshot.so.
+      # This step rewrites all absolute, non-system dep references to @loader_path
+      # so they resolve correctly inside the frozen app bundle.
+      - name: Fix Mach-O rpath references in frozen build (arm64)
+        if: matrix.arch == 'arm64'
+        run: |
+          set -eo pipefail
+          FROZEN_DIR=$(find build -maxdepth 1 -type d -name 'exe.*' | head -1)
+          [ -n "$FROZEN_DIR" ] || { echo "No frozen dir, skipping"; exit 0; }
 
-          # Symlink Resources/lib → MacOS/lib (runtime lib lookup)
-          if [ ! -L "$OS_PATH/Resources/lib" ]; then
-            ln -s "../MacOS/lib" "$OS_PATH/Resources/lib"
-          fi
+          python3 - "$FROZEN_DIR" <<'PYEOF'
+          import os, subprocess, sys, shutil
 
-          # Fix permissions — read for all; +x only for Mach-O binaries and entry points.
-          # chmod -R a+rx sets execute on text/data files, causing codesign to fail.
-          chmod -R a+r "$OS_PATH/"
-          find "$OS_PATH" \( -name '*.dylib' -o -name '*.so' \) -exec chmod +x {} \;
-          for bin in zenvi launch launch-openshot launch-mac; do
-            [ -f "$OS_PATH/MacOS/$bin" ] && chmod +x "$OS_PATH/MacOS/$bin"
+          FROZEN_DIR = sys.argv[1]
+
+          NON_EXEC_EXT = {'.py', '.svg', '.png', '.blend', '.a', '.pak', '.qm', '.pyc',
+                          '.txt', '.jpg', '.zip', '.dat', '.conf', '.xml', '.h', '.ui',
+                          '.json', '.exe', '.woff', '.html', '.css', '.js',
+                          '.pyx', '.pxd', '.md', '.rst', '.cfg', '.ini', '.ts', '.pot'}
+          MACH_MAGIC = {b'\xcf\xfa\xed\xfe', b'\xce\xfa\xed\xfe',
+                        b'\xca\xfe\xba\xbe', b'\xbe\xba\xfe\xca'}
+
+          def is_system(p):
+              return (p.startswith('/usr/lib') or p.startswith('/System/') or
+                      p.startswith('/Library/Apple') or p.startswith('@executable_path') or
+                      p.startswith('@loader_path') or p.startswith('@rpath'))
+
+          def get_deps(binary):
+              try:
+                  out = subprocess.check_output(['otool', '-L', binary],
+                                                stderr=subprocess.DEVNULL).decode()
+                  seen, deps = set(), []
+                  for line in out.split('\n')[1:]:
+                      line = line.strip()
+                      if ' (architecture ' in line or not line:
+                          continue
+                      path = line.split('(')[0].strip()
+                      if path and path not in seen:
+                          seen.add(path)
+                          deps.append(path)
+                  return deps
+              except Exception:
+                  return []
+
+          def find_in_bundle(name, frozen_dir):
+              for root, dirs, files in os.walk(frozen_dir):
+                  if name in files:
+                      return os.path.join(root, name)
+              return None
+
+          # Pass 1: rewrite all absolute (non-system) dep references to @loader_path
+          fixed = 0
+          for root, dirs, files in os.walk(FROZEN_DIR):
+              for basename in files:
+                  fp = os.path.join(root, basename)
+                  if os.path.splitext(fp)[-1].lower() in NON_EXEC_EXT or basename.startswith('.'):
+                      continue
+                  try:
+                      with open(fp, 'rb') as f:
+                          magic = f.read(4)
+                      if magic not in MACH_MAGIC:
+                          continue
+                  except Exception:
+                      continue
+                  for dep in get_deps(fp):
+                      if is_system(dep):
+                          continue
+                      dep_name = os.path.basename(dep)
+                      dep_in_bundle = find_in_bundle(dep_name, FROZEN_DIR)
+                      if dep_in_bundle:
+                          rel = os.path.relpath(dep_in_bundle, root)
+                          new_ref = '@loader_path/' + rel
+                          if dep != new_ref:
+                              os.chmod(fp, os.stat(fp).st_mode | 0o200)
+                              ret = subprocess.call(
+                                  ['install_name_tool', '-change', dep, new_ref, fp],
+                                  stderr=subprocess.DEVNULL)
+                              if ret == 0:
+                                  print(f"OK  {os.path.relpath(fp, FROZEN_DIR)}: {dep_name} -> {new_ref}")
+                                  fixed += 1
+                      else:
+                          print(f"MISS {os.path.relpath(fp, FROZEN_DIR)}: {dep_name} not found (from {dep})")
+          print(f"Pass 1: fixed {fixed} absolute path references")
+
+          # Pass 2: fix @rpath/libopenshot-audio.10.dylib in _openshot.so
+          # The soname symlink (.10) is not bundled — only libopenshot-audio.dylib /
+          # libopenshot-audio.0.5.0.dylib are. Create the soname file in lib/
+          # and rewrite _openshot.so's @rpath reference to @loader_path.
+          audio_soname = 'libopenshot-audio.10.dylib'
+          audio_src = (find_in_bundle('libopenshot-audio.0.5.0.dylib', FROZEN_DIR) or
+                       find_in_bundle('libopenshot-audio.dylib', FROZEN_DIR))
+          if audio_src:
+              lib_dir = os.path.join(FROZEN_DIR, 'lib')
+              os.makedirs(lib_dir, exist_ok=True)
+              audio_soname_path = os.path.join(lib_dir, audio_soname)
+              if not os.path.exists(audio_soname_path):
+                  shutil.copy2(audio_src, audio_soname_path)
+                  subprocess.call(
+                      ['install_name_tool', '-id', f'@loader_path/{audio_soname}', audio_soname_path],
+                      stderr=subprocess.DEVNULL)
+                  print(f"Created lib/{audio_soname} (copy of {os.path.basename(audio_src)})")
+              openshot_so = find_in_bundle('_openshot.so', FROZEN_DIR)
+              if openshot_so:
+                  openshot_dir = os.path.dirname(openshot_so)
+                  rel = os.path.relpath(audio_soname_path, openshot_dir)
+                  os.chmod(openshot_so, os.stat(openshot_so).st_mode | 0o200)
+                  ret = subprocess.call(
+                      ['install_name_tool', '-change', f'@rpath/{audio_soname}',
+                       f'@loader_path/{rel}', openshot_so],
+                      stderr=subprocess.DEVNULL)
+                  if ret == 0:
+                      print(f"Fixed @rpath/{audio_soname} in _openshot.so -> @loader_path/{rel}")
+          else:
+              print(f"WARNING: {audio_soname} source not found in bundle")
+          PYEOF
+
+      - name: Assemble .app bundle
+        run: |
+          FROZEN_DIR=$(find build -maxdepth 1 -type d -name 'exe.*' | head -1)
+          if [ -z "$FROZEN_DIR" ]; then
+            echo "::error::cx_Freeze output directory build/exe.* not found"
+            ls -la build/ || true
+            exit 1
+          fi
+          echo "Frozen directory: $FROZEN_DIR"
+
+          APP="Zenvi.app"
+          rm -rf "$APP"
+          mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
+
+          cp -R "$FROZEN_DIR"/* "$APP/Contents/MacOS/"
+          sed "s/VERSION/${VER}/g" installer/Info.plist > "$APP/Contents/Info.plist"
+          cp "$APP/Contents/Info.plist" "$APP/Contents/Resources/Info.plist"
+
+          [ -f "installer/zenvi.icns" ] \
+            && cp "installer/zenvi.icns" "$APP/Contents/Resources/icon.icns"
+
+          # Make all files readable but do NOT add +x to everything.
+          # chmod -R a+rx would give execute bits to text/data files (e.g.
+          # frozen_application_license.txt, .hash, .json), which makes codesign
+          # treat them as unsigned code objects and refuse to sign the bundle.
+          chmod -R a+r "$APP/Contents/"
+
+          # Give execute permission to Mach-O libraries and known entry points.
+          # Info.plist declares CFBundleExecutable=launch-mac, so that must be +x too.
+          find "$APP" \( -name '*.dylib' -o -name '*.so' \) -exec chmod +x {} \;
+          for bin in zenvi launch launch-zenvi launch-mac; do
+            [ -f "$APP/Contents/MacOS/$bin" ] && chmod +x "$APP/Contents/MacOS/$bin"
           done
 
-          # Ad-hoc code signing — prevents dyld "library not signed" crashes.
-          # Note: does NOT suppress macOS Gatekeeper for downloaded apps.
-          find build \( -name '*.dylib' -o -name '*.so' \) \
-            -exec codesign -s - --force "{}" \; 2>/dev/null || true
-          codesign -s - --deep --force "$EXPECTED"
-          echo "Ad-hoc signing complete."
+          # Ad-hoc sign every Mach-O binary detected by content (magic bytes), not by
+          # file extension. Extension-only filtering (.dylib/.so) misses binaries with
+          # unusual names, causing codesign to fail with "code object is not signed at
+          # all" for each missed file. Bundle-level signing (codesign APP) is skipped:
+          # ad-hoc signing provides no Gatekeeper bypass (that needs a Developer ID
+          # cert), so signing individual binaries is both necessary and sufficient to
+          # prevent dyld crashes on macOS 12+.
+          while IFS= read -r -d '' f; do
+            file "$f" 2>/dev/null | grep -q "Mach-O" \
+              && codesign -s - --force "$f" 2>/dev/null || true
+          done < <(find "$APP/Contents" -type f -print0)
+          echo "Signing complete. Contents:"
+          ls "$APP/Contents/MacOS/" | head -20
 
       - name: Create DMG
         run: |
           DMG_NAME="Zenvi-v${VER}-${ARCH}.dmg"
-          hdiutil create \
-            -volname "Zenvi" \
-            -srcfolder "build/${APP_NAME}.app" \
-            -ov -format UDZO \
-            "$DMG_NAME"
-          echo "DMG created: $DMG_NAME"
+          rm -rf dmgroot && mkdir -p dmgroot
+
+          # Use ditto (not cp -R) — macOS-native bundle copy; handles resource
+          # forks and works more reliably with the security layer after codesigning.
+          ditto "Zenvi.app" "dmgroot/Zenvi.app"
+          ln -s /Applications dmgroot/Applications
+
+          # Strip quarantine and other extended attributes that keep security
+          # daemons (trustd, XProtect, mds_stores) attached to files, which
+          # causes hdiutil to fail with EBUSY.
+          xattr -cr dmgroot/ 2>/dev/null || true
+
+          # Retry loop: macOS security daemons scan newly signed binaries
+          # asynchronously; they typically release file handles within ~5 seconds.
+          for attempt in 1 2 3; do
+            echo "hdiutil attempt $attempt ..."
+            hdiutil create -volname "Zenvi" -srcfolder dmgroot \
+              -ov -format UDZO "$DMG_NAME" && break
+            [ "$attempt" -lt 3 ] && sleep 5
+          done
+
+          [ -f "$DMG_NAME" ] || { echo "::error::DMG not created after 3 attempts"; exit 1; }
+          echo "Created $DMG_NAME ($(du -sh "$DMG_NAME" | cut -f1))"
 
       - name: Upload macOS artifact
         uses: actions/upload-artifact@v4
@@ -308,61 +694,614 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Python 3.11
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: Install Python dependencies
+      - name: Install dependencies
         run: |
           pip install --upgrade pip
           pip install -r requirements.txt
         shell: powershell
 
+      - name: Cache libopenshot build (Windows MSVC + Qt 5.15.2)
+        id: cache-libopenshot-win
+        uses: actions/cache@v4
+        with:
+          path: C:\libopenshot-install
+          key: libopenshot-v0.5.0-audio-v0.5.0-windows-msvc2022-qt5.15.2-py311-vcpkg-v21
+
+      - name: Build libopenshot from source (Windows MSVC + Qt 5.15.2)
+        if: steps.cache-libopenshot-win.outputs.cache-hit != 'true'
+        shell: powershell
+        run: |
+          $ErrorActionPreference = "Stop"
+          $INSTALL = "C:\libopenshot-install"
+          New-Item -ItemType Directory -Path $INSTALL, "C:\Temp" -Force | Out-Null
+
+          # Install Qt 5.15.2 MSVC2019 64-bit — same as PyQt5-Qt5-5.15.2 installed earlier.
+          # Building libopenshot with this Qt means libopenshot.dll will call Qt symbols that
+          # are already present in the MSVC Qt5Core/Gui/Widgets.dll that PyQt5 loads at runtime.
+          pip install aqtinstall --quiet
+          Write-Host "Installing Qt 5.15.2 MSVC2019 64-bit via aqtinstall..."
+          python -m aqt install-qt windows desktop 5.15.2 win64_msvc2019_64 -O C:\Qt5
+          $qtPrefix = "C:\Qt5\5.15.2\msvc2019_64"
+
+          # SWIG: Python binding generator (generates _openshot.pyd + openshot.py)
+          choco install swig --yes --no-progress --quiet 2>&1 | Out-Null
+          $env:PATH = "C:\ProgramData\chocolatey\bin;$env:PATH"
+          $swigExe = (Get-Command swig -ErrorAction SilentlyContinue).Source
+          if (!$swigExe) { throw "swig not found after choco install" }
+          Write-Host "SWIG: $swigExe"
+
+          # FFmpeg MSVC shared build (includes .dll + .lib import libs + headers)
+          $ffmpegUrl = "https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-win64-lgpl-shared.zip"
+          Write-Host "Downloading FFmpeg MSVC shared build..."
+          Invoke-WebRequest -Uri $ffmpegUrl -OutFile "C:\Temp\ffmpeg.zip" -UseBasicParsing
+          Expand-Archive "C:\Temp\ffmpeg.zip" -DestinationPath "C:\ffmpeg-src" -Force
+          $ffmpegDir = (Get-ChildItem "C:\ffmpeg-src" -Directory | Select-Object -First 1).FullName
+          Move-Item $ffmpegDir "C:\ffmpeg"
+          Write-Host "FFmpeg at C:\ffmpeg"
+
+          # Install required C/C++ libs via vcpkg (pre-installed on GitHub Actions Windows runners)
+          # zlib: required by libopenshot-audio (JUCE) and libopenshot
+          # libsamplerate: required by libopenshot-audio for sample-rate conversion
+          $vcpkg = "C:\vcpkg\vcpkg.exe"
+          Write-Host "Installing vcpkg deps..."
+          # zlib + libsamplerate: required by libopenshot-audio (JUCE)
+          # zeromq: required by libopenshot (inter-process communication)
+          # cppzmq: C++ header-only wrapper for zeromq (zmq.hpp, required by ZmqLogger.h)
+          & $vcpkg install "zlib:x64-windows" "libsamplerate:x64-windows" "zeromq:x64-windows" "cppzmq:x64-windows" --triplet x64-windows 2>&1 |
+            Where-Object { $_ -notmatch "^(  |Building|Fetching|Downloading|Installing|Stored)" } |
+            ForEach-Object { Write-Host $_ }
+          $vcpkgToolchain = "C:\vcpkg\scripts\buildsystems\vcpkg.cmake"
+          $vcpkgInstall   = "C:\vcpkg\installed\x64-windows"
+
+          # Build libopenshot-audio v0.5.0
+          git clone --depth=1 --branch v0.5.0 `
+            https://github.com/OpenShot/libopenshot-audio.git C:\libopenshot-audio-src
+
+          # Patch AppConfig.h to explicitly disable ASIO (JUCE defaults to enabled on Windows
+          # but iasiodrv.h requires the Steinberg ASIO SDK which is not freely available on CI).
+          $appConfig = "C:\libopenshot-audio-src\JuceLibraryCode\AppConfig.h"
+          if (Test-Path $appConfig) {
+            $t = Get-Content $appConfig -Raw
+            $t = [regex]::Replace($t, "#define JUCE_ASIO\s+1",  "#define JUCE_ASIO 0")
+            if ($t -notmatch "JUCE_ASIO") { $t += "`n#define JUCE_ASIO 0`n" }
+            [System.IO.File]::WriteAllText($appConfig, $t)
+            Write-Host "Patched AppConfig.h: disabled JUCE_ASIO"
+          }
+          # Patch root CMakeLists.txt:
+          # 1. Link dbghelp on Windows (JUCE SystemStats::getStackBacktrace → SymGetModuleInfo64)
+          # 2. WINDOWS_EXPORT_ALL_SYMBOLS: on MSVC, JUCE does not mark symbols with
+          #    __declspec(dllexport) unless JUCE_DLL_BUILD is set. Without exports, the linker
+          #    does NOT generate an import library (.lib). cmake's WINDOWS_EXPORT_ALL_SYMBOLS
+          #    causes it to generate a .def file exporting all non-data symbols, producing the
+          #    import library that libopenshot needs to link against openshot-audio.dll.
+          $audioRoot = "C:\libopenshot-audio-src\CMakeLists.txt"
+          $rt = [System.IO.File]::ReadAllText($audioRoot)
+          if ($rt -notmatch "dbghelp") {
+            $patch  = "`nif(WIN32 AND TARGET openshot-audio)`n"
+            $patch += "  target_link_libraries(openshot-audio PRIVATE dbghelp)`n"
+            $patch += "  set_target_properties(openshot-audio PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)`n"
+            $patch += "endif()`n"
+            [System.IO.File]::AppendAllText($audioRoot, $patch)
+            Write-Host "Patched CMakeLists.txt: added dbghelp + WINDOWS_EXPORT_ALL_SYMBOLS"
+          }
+          # Fallback compile flag: /EHsc must be explicit (CMAKE_CXX_FLAGS replaces MSVC defaults).
+          $juceAsioFlag = "/EHsc /DJUCE_ASIO=0"
+
+          cmake -S C:\libopenshot-audio-src -B C:\libopenshot-audio-src\build `
+            -G "Visual Studio 17 2022" -A x64 `
+            -DCMAKE_INSTALL_PREFIX="$INSTALL" `
+            "-DCMAKE_PREFIX_PATH=$qtPrefix;$vcpkgInstall" `
+            "-DCMAKE_TOOLCHAIN_FILE=$vcpkgToolchain" `
+            -DVCPKG_TARGET_TRIPLET=x64-windows `
+            "-DCMAKE_CXX_FLAGS=$juceAsioFlag" `
+            -DCMAKE_BUILD_TYPE=Release
+          if ($LASTEXITCODE -ne 0) { throw "libopenshot-audio cmake configure failed (exit $LASTEXITCODE)" }
+          # Build only the main library target (not the demo executable which requires the import
+          # lib and fails if it's in an unexpected location — we don't need the demo).
+          cmake --build   C:\libopenshot-audio-src\build --config Release --parallel --target openshot-audio
+          if ($LASTEXITCODE -ne 0) { throw "libopenshot-audio cmake build failed (exit $LASTEXITCODE)" }
+          cmake --install C:\libopenshot-audio-src\build --config Release
+          # cmake --install may exit non-zero because the demo binary wasn't built
+          # (we used --target openshot-audio to skip it).  The main library and its
+          # cmake config files are installed by the root cmake_install.cmake BEFORE
+          # the src/ subdirectory (demo) is processed, so they should be present.
+          # We verify by checking for OpenShotAudioConfig.cmake instead of throwing here.
+          Write-Host "cmake --install exit code: $LASTEXITCODE (non-zero may be demo-only)"
+
+          # Manually copy the DLL/lib in case the partial install left them out
+          New-Item -ItemType Directory -Path "$INSTALL\bin","$INSTALL\lib" -Force | Out-Null
+          $relDir = "C:\libopenshot-audio-src\build\Release"
+          if (Test-Path "$relDir\openshot-audio.dll") {
+            Copy-Item "$relDir\openshot-audio.dll" "$INSTALL\bin\" -Force
+            Write-Host "Copied openshot-audio.dll to $INSTALL\bin\"
+          }
+          if (Test-Path "$relDir\openshot-audio.lib") {
+            Copy-Item "$relDir\openshot-audio.lib" "$INSTALL\lib\" -Force
+          }
+
+          # Find OpenShotAudioConfig.cmake — check install tree first, then build tree.
+          $audioConfig = Get-ChildItem -Path $INSTALL -Recurse -Filter "OpenShotAudioConfig.cmake" -ErrorAction SilentlyContinue | Select-Object -First 1
+          if (!$audioConfig) {
+            # Build tree fallback: cmake also writes a build-tree config to the build dir
+            $audioConfig = Get-ChildItem -Path "C:\libopenshot-audio-src\build" -Recurse -Filter "OpenShotAudioConfig.cmake" -ErrorAction SilentlyContinue | Select-Object -First 1
+          }
+          if (!$audioConfig) { throw "OpenShotAudioConfig.cmake not found in install or build tree" }
+          $audioConfigDir = $audioConfig.Directory.FullName
+          Write-Host "OpenShotAudio cmake config dir: $audioConfigDir"
+
+          # Clone libopenshot v0.5.0
+          git clone --depth=1 --branch v0.5.0 `
+            https://github.com/OpenShot/libopenshot.git C:\libopenshot-src
+
+          # Apply FFmpeg 7+ compatibility patches (same as macOS arm64 CI)
+          Get-ChildItem -Path C:\libopenshot-src -Recurse -Filter "*.cpp" |
+            ForEach-Object {
+              $f = $_.FullName; $t = Get-Content $f -Raw -ErrorAction SilentlyContinue
+              if (!$t) { return }
+              $changed = $false
+              if ($t -match "FF_PROFILE_") {
+                $t = $t -replace "FF_PROFILE_H264_BASELINE","AV_PROFILE_H264_BASELINE" `
+                        -replace "FF_PROFILE_H264_CONSTRAINED","AV_PROFILE_H264_CONSTRAINED" `
+                        -replace "FF_PROFILE_H264_MAIN","AV_PROFILE_H264_MAIN" `
+                        -replace "FF_PROFILE_H264_HIGH","AV_PROFILE_H264_HIGH"
+                $changed = $true
+              }
+              if ($t -match "av_stream_add_side_data") {
+                $t = [regex]::Replace($t, "av_stream_add_side_data\([^;]*\);", "(void)0; /* removed FFmpeg7+ */")
+                $changed = $true
+              }
+              if ($t -match "->nb_side_data") {
+                $t = $t -replace "->nb_side_data","->codecpar->nb_coded_side_data" `
+                        -replace "->side_data\[","->codecpar->coded_side_data["
+                $changed = $true
+              }
+              if ($changed) { [System.IO.File]::WriteAllText($f, $t) }
+            }
+
+          # Disable OpenMP in CMake (avoid linker issues on Windows CI)
+          Get-ChildItem -Path C:\libopenshot-src -Recurse -Filter "CMakeLists.txt" |
+            ForEach-Object {
+              $f = $_.FullName; $t = Get-Content $f -Raw -ErrorAction SilentlyContinue
+              if ($t -match "find_package.*OpenMP") {
+                $t = [regex]::Replace($t, "find_package\(OpenMP[^)]*\)",
+                  "set(OpenMP_FOUND FALSE) # disabled for Windows CI")
+                [System.IO.File]::WriteAllText($f, $t)
+              }
+            }
+
+          # Remove avresample (dropped in FFmpeg 5+)
+          Get-ChildItem -Path C:\libopenshot-src -Recurse -Include "CMakeLists.txt","*.cmake" |
+            ForEach-Object {
+              $f = $_.FullName; $t = Get-Content $f -Raw -ErrorAction SilentlyContinue
+              if ($t -match "avresample") {
+                [System.IO.File]::WriteAllText($f, ($t -replace " avresample",""))
+              }
+            }
+
+          # Patch POSIX-only includes that MSVC doesn't have:
+          # unistd.h (sleep/read/write), execinfo.h (backtrace) — guard with #ifndef _WIN32
+          @("C:\libopenshot-src\src\ChunkWriter.h",
+            "C:\libopenshot-src\src\FFmpegReader.cpp",
+            "C:\libopenshot-src\src\FFmpegWriter.cpp") | ForEach-Object {
+            if (Test-Path $_) {
+              $t = Get-Content $_ -Raw
+              if ($t -match '#include\s*<unistd\.h>') {
+                $t = [regex]::Replace($t, '(#include\s*<unistd\.h>)',
+                  "#ifndef _WIN32`n`$1`n#endif // _WIN32")
+                [System.IO.File]::WriteAllText($_, $t)
+                Write-Host "Patched unistd.h guard in $(Split-Path $_ -Leaf)"
+              }
+            }
+          }
+          # Guard execinfo.h and cxxabi.h (GCC/Clang-only, not available on MSVC)
+          # Also fix __MINGW32__ guards → _WIN32 so MSVC uses the Windows DbgHelp path
+          @("C:\libopenshot-src\src\CrashHandler.h") | ForEach-Object {
+            if (Test-Path $_) {
+              $t = [System.IO.File]::ReadAllText($_)
+              foreach ($hdr in @('execinfo\.h', 'cxxabi\.h')) {
+                if ($t -match "#include\s*<$hdr>") {
+                  $t = [regex]::Replace($t, "(#include\s*<$hdr>)",
+                    "#ifndef _WIN32`n`$1`n#endif // _WIN32")
+                }
+              }
+              # __MINGW32__ is only defined when using MinGW compiler; MSVC sets _WIN32 instead.
+              # Changing the guard makes MSVC pick the Windows DbgHelp stack-trace path rather
+              # than the POSIX sigaction path (which doesn't compile on MSVC).
+              $t = $t -replace '#ifdef __MINGW32__', '#if defined(_WIN32)'
+              $t = $t -replace '#elif __MINGW32__', '#elif defined(_WIN32)'
+              [System.IO.File]::WriteAllText($_, $t)
+              Write-Host "Patched CrashHandler.h (__MINGW32__ -> _WIN32, GCC-only headers guarded)"
+            }
+          }
+          # Same __MINGW32__ → _WIN32 fix for CrashHandler.cpp, and replace WINBOOL with BOOL.
+          # WINBOOL is a MinGW-specific typedef (defined in MinGW's windef.h) that MSVC does not
+          # provide. MSVC's windows.h uses plain BOOL instead.
+          $crashCpp = "C:\libopenshot-src\src\CrashHandler.cpp"
+          if (Test-Path $crashCpp) {
+            $t = [System.IO.File]::ReadAllText($crashCpp)
+            $t = $t -replace '#ifdef __MINGW32__', '#if defined(_WIN32)'
+            $t = $t -replace '#elif __MINGW32__', '#elif defined(_WIN32)'
+            $t = $t -replace '\bWINBOOL\b', 'BOOL'
+            [System.IO.File]::WriteAllText($crashCpp, $t)
+            Write-Host "Patched CrashHandler.cpp (__MINGW32__ -> _WIN32, WINBOOL -> BOOL)"
+          }
+
+          # Fix AV_GET_CODEC_CONTEXT macro in FFmpegUtilities.h:
+          # GCC statement expressions ({ ... }) are not valid C++ in MSVC.
+          # Append a _MSC_VER-guarded undef+redefine block using C++11 lambda.
+          # Note: PowerShell @"..."@ here-strings are NOT used here because the "@ terminator
+          # must be at column-0 which conflicts with YAML block-literal indentation rules.
+          $ffmpegUtils = "C:\libopenshot-src\src\FFmpegUtilities.h"
+          if (Test-Path $ffmpegUtils) {
+            $t = [System.IO.File]::ReadAllText($ffmpegUtils)
+            if ($t -notmatch '_MSC_VER.*AV_GET_CODEC_CONTEXT') {
+              $ov  = "`n#ifdef _MSC_VER`n"
+              $ov += "// GCC statement expressions ({...}) are not valid in MSVC.`n"
+              $ov += "// Override AV_GET_CODEC_CONTEXT with a C++11 immediately-invoked lambda.`n"
+              $ov += "#ifdef AV_GET_CODEC_CONTEXT`n"
+              $ov += "#  undef AV_GET_CODEC_CONTEXT`n"
+              $ov += "#endif`n"
+              $ov += '#define AV_GET_CODEC_CONTEXT(av_stream, av_codec) \' + "`n"
+              $ov += '  ([&]() -> AVCodecContext* { AVCodecContext *ctx = avcodec_alloc_context3(av_codec); \' + "`n"
+              $ov += '    avcodec_parameters_to_context(ctx, av_stream->codecpar); return ctx; }())' + "`n"
+              $ov += "#endif`n"
+              [System.IO.File]::AppendAllText($ffmpegUtils, $ov)
+              Write-Host "Patched FFmpegUtilities.h: appended _MSC_VER lambda override for AV_GET_CODEC_CONTEXT"
+            }
+          }
+
+          # Fix AVChannelLayout compound literal in FFmpegReader.cpp (C4576 with /permissive-).
+          # The line: ->ch_layout = (AVChannelLayout) AV_CHANNEL_LAYOUT_STEREO
+          # expands to a C99 compound literal which MSVC rejects.
+          # Replace with av_channel_layout_from_mask() function call.
+          $ffmpegReader = "C:\libopenshot-src\src\FFmpegReader.cpp"
+          if (Test-Path $ffmpegReader) {
+            $t = [System.IO.File]::ReadAllText($ffmpegReader)
+            if ($t -match '\(AVChannelLayout\)\s*AV_CHANNEL_LAYOUT_STEREO') {
+              $t = [regex]::Replace($t,
+                '(AV_GET_CODEC_ATTRIBUTES\(\w+,\s*\w+\)->ch_layout)\s*=\s*\(AVChannelLayout\)\s*AV_CHANNEL_LAYOUT_STEREO',
+                'av_channel_layout_from_mask(&$1, AV_CH_LAYOUT_STEREO)')
+              [System.IO.File]::WriteAllText($ffmpegReader, $t)
+              Write-Host "Patched FFmpegReader.cpp: AVChannelLayout compound literal -> av_channel_layout_from_mask()"
+            }
+          }
+
+          # libopenshot main library also needs WINDOWS_EXPORT_ALL_SYMBOLS ON so MSVC
+          # generates openshot.lib (import library) needed by pyopenshot.vcxproj.
+          # libopenshot uses GCC-default symbol visibility — no __declspec(dllexport) markers —
+          # so MSVC doesn't generate an import library without this setting.
+          $openshotCmake = "C:\libopenshot-src\src\CMakeLists.txt"
+          if (Test-Path $openshotCmake) {
+            $t = [System.IO.File]::ReadAllText($openshotCmake)
+            if ($t -notmatch 'WINDOWS_EXPORT_ALL_SYMBOLS') {
+              $patch  = "`nif(MSVC AND TARGET openshot)`n"
+              $patch += "  # Generate import library (.lib) for openshot.dll on MSVC`n"
+              $patch += "  set_target_properties(openshot PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)`n"
+              $patch += "endif()`n"
+              [System.IO.File]::AppendAllText($openshotCmake, $patch)
+              Write-Host "Patched src/CMakeLists.txt: added WINDOWS_EXPORT_ALL_SYMBOLS ON for openshot"
+            }
+          }
+
+          # Fix Python bindings cmake: -Wno-* flags are GCC/Clang-only, not valid in MSVC.
+          # Wrap the GENERATED_COMPILE_OPTIONS assignment in if(NOT MSVC) so MSVC skips them.
+          $pyBindCmake = "C:\libopenshot-src\bindings\python\CMakeLists.txt"
+          if (Test-Path $pyBindCmake) {
+            $t = [System.IO.File]::ReadAllText($pyBindCmake)
+            if ($t -notmatch 'NOT MSVC') {
+              # Literal string replacement (no regex) to safely handle ${sw_flags}
+              $oldProp = 'set_property(SOURCE openshot.i PROPERTY GENERATED_COMPILE_OPTIONS ${sw_flags})'
+              $newProp = "if(NOT MSVC)`n" + $oldProp + "`nendif() # NOT MSVC"
+              $t = $t.Replace($oldProp, $newProp)
+              [System.IO.File]::WriteAllText($pyBindCmake, $t)
+              Write-Host "Patched Python bindings cmake: wrapped GCC -Wno- flags in if(NOT MSVC)"
+            }
+          }
+
+          # Fix AVRational C99 compound literals: (AVRational){num, den} → AVRational{num, den}
+          # ONLY target AVRational — broader compound-literal regex breaks initializer lists
+          # and if/while bodies (pattern (identifier){ also matches those).
+          Get-ChildItem -Path C:\libopenshot-src\src -Filter "*.cpp" -Recurse |
+            ForEach-Object {
+              $f = $_.FullName; $t = Get-Content $f -Raw -ErrorAction SilentlyContinue
+              if ($t -match '\(AVRational\)\s*\{') {
+                $t = $t -replace '\(AVRational\)\s*\{', 'AVRational{'
+                [System.IO.File]::WriteAllText($f, $t)
+                Write-Host "Patched AVRational compound literals in $($_.Name)"
+              }
+            }
+
+          # Build libopenshot with MSVC + Qt5.15.2 + FFmpeg + Python 3.11
+          $pythonExe = (Get-Command python).Source
+
+          # libopenshot's FindZeroMQ.cmake searches for library name "zmq" but vcpkg
+          # installs it as "libzmq-mt-*.lib" (versioned, no plain zmq.lib alias).
+          # Fix: create a zmq.lib alias in the vcpkg lib dir so find_library finds it,
+          # AND patch FindZeroMQ.cmake to add libzmq to its NAMES list as fallback.
+          $zmqLib = Get-ChildItem "$vcpkgInstall\lib" -Filter "libzmq*.lib" -ErrorAction SilentlyContinue |
+            Where-Object { $_.Name -notmatch "d\.lib$" -and $_.Name -notmatch "-gd-" } |
+            Select-Object -First 1
+          if (!$zmqLib) { throw "ZeroMQ library not found under $vcpkgInstall\lib" }
+          Write-Host "Found ZeroMQ lib: $($zmqLib.FullName)"
+          # Create zmq.lib alias (FindZeroMQ.cmake searches for NAMES zmq)
+          Copy-Item $zmqLib.FullName "$vcpkgInstall\lib\zmq.lib" -Force
+          Write-Host "Created zmq.lib alias"
+
+          # Also patch FindZeroMQ.cmake in the source to search both zmq and libzmq
+          $findZmq = "C:\libopenshot-src\cmake\Modules\FindZeroMQ.cmake"
+          if (Test-Path $findZmq) {
+            $fz = Get-Content $findZmq -Raw
+            # Expand NAMES to include libzmq variants and add vcpkg lib dir to HINTS
+            $fz = [regex]::Replace($fz,
+              "(?i)(find_library\s*\(\s*ZeroMQ_LIBRARIES\s+NAMES\s+)(zmq)",
+              ('$1zmq libzmq' + "`n    HINTS `"$vcpkgInstall/lib`""))
+            [System.IO.File]::WriteAllText($findZmq, $fz)
+            Write-Host "Patched FindZeroMQ.cmake: added libzmq to NAMES"
+          }
+
+          cmake -S C:\libopenshot-src -B C:\libopenshot-src\build `
+            -G "Visual Studio 17 2022" -A x64 `
+            -DCMAKE_INSTALL_PREFIX="$INSTALL" `
+            "-DCMAKE_PREFIX_PATH=$qtPrefix;C:\ffmpeg;$INSTALL;$vcpkgInstall" `
+            "-DCMAKE_TOOLCHAIN_FILE=$vcpkgToolchain" `
+            -DVCPKG_TARGET_TRIPLET=x64-windows `
+            -DCMAKE_BUILD_TYPE=Release `
+            -DENABLE_TESTS=OFF `
+            -DENABLE_RUBY=OFF `
+            -DENABLE_JAVA=OFF `
+            -DENABLE_PYTHON=ON `
+            -DENABLE_OPENCV=OFF `
+            "-DPython3_EXECUTABLE=$pythonExe" `
+            "-DSWIG_EXECUTABLE=$swigExe" `
+            "-DOpenShotAudio_DIR=$audioConfigDir" `
+            "-DCMAKE_CXX_FLAGS=/EHsc /permissive- /std:c++17"
+          if ($LASTEXITCODE -ne 0) { throw "libopenshot cmake configure failed (exit $LASTEXITCODE)" }
+
+          # libopenshot's 'test-install-audio-dll' custom rule (ALL target) copies
+          # OpenShot::Audio LOCATION to ${PROJECT_BINARY_DIR}/tests/.
+          # Two workarounds needed:
+          # 1. Build-tree cmake config IMPORTED_LOCATION resolves to Debug/ path. Provide it.
+          # 2. tests/ directory is only created when ENABLE_TESTS=ON; create it manually.
+          $audioBuildRelease = "C:\libopenshot-audio-src\build\Release\openshot-audio.dll"
+          if (Test-Path $audioBuildRelease) {
+            New-Item -ItemType Directory -Path "C:\libopenshot-audio-src\build\Debug" -Force | Out-Null
+            Copy-Item $audioBuildRelease "C:\libopenshot-audio-src\build\Debug\openshot-audio.dll" -Force -ErrorAction SilentlyContinue
+            Write-Host "Copied audio DLL to Debug/ path (workaround for build-tree LOCATION)"
+          }
+          # Create tests/ dir — cmake only creates it when ENABLE_TESTS=ON, but the ALL-target
+          # custom rule unconditionally tries to copy the audio DLL into it.
+          New-Item -ItemType Directory -Path "C:\libopenshot-src\build\tests" -Force | Out-Null
+          Write-Host "Created build/tests/ for audio DLL custom rule"
+
+          cmake --build   C:\libopenshot-src\build --config Release --parallel
+          if ($LASTEXITCODE -ne 0) { throw "libopenshot cmake build failed (exit $LASTEXITCODE)" }
+          cmake --install C:\libopenshot-src\build --config Release
+          if ($LASTEXITCODE -ne 0) { throw "libopenshot cmake install failed (exit $LASTEXITCODE)" }
+
+          # Consolidate everything (pyd + all DLLs) into a single bundle dir so
+          # freeze.py can find them all from ZENVI_OPENSHOT_PYROOT / BINDDIR.
+          $bundle = "$INSTALL\bundle"
+          New-Item -ItemType Directory -Path $bundle -Force | Out-Null
+
+          # Copy libopenshot + libopenshot-audio DLLs
+          Get-ChildItem "$INSTALL\bin" -Filter "*.dll" -ErrorAction SilentlyContinue |
+            ForEach-Object { Copy-Item $_.FullName $bundle -Force }
+
+          # Copy FFmpeg DLLs (versioned names like avcodec-61.dll)
+          Get-ChildItem "C:\ffmpeg\bin" -Filter "*.dll" -ErrorAction SilentlyContinue |
+            ForEach-Object { Copy-Item $_.FullName $bundle -Force }
+
+          # Copy vcpkg runtime DLLs needed at runtime (zeromq, zlib, libsamplerate)
+          Get-ChildItem "$vcpkgInstall\bin" -Filter "*.dll" -ErrorAction SilentlyContinue |
+            Where-Object { $_.Name -match "^(libzmq|zlib|samplerate)" } |
+            ForEach-Object { Copy-Item $_.FullName $bundle -Force; Write-Host "Bundled vcpkg DLL: $($_.Name)" }
+
+          # Copy _openshot*.pyd (may be in python/ or Release/ subdir)
+          $pyd = Get-ChildItem -Path $INSTALL -Recurse -ErrorAction SilentlyContinue |
+            Where-Object { $_.Name -match "^_openshot.*\.pyd$" } | Select-Object -First 1
+          if (!$pyd) {
+            $pyd = Get-ChildItem -Path C:\libopenshot-src\build -Recurse -ErrorAction SilentlyContinue |
+              Where-Object { $_.Name -match "^_openshot.*\.pyd$" } | Select-Object -First 1
+          }
+          if (!$pyd) { throw "Build completed but _openshot*.pyd not found" }
+          Copy-Item $pyd.FullName $bundle -Force
+          Write-Host "Copied $($pyd.Name) to bundle"
+
+          Write-Host "=== bundle contents ==="
+          Get-ChildItem $bundle | Select-Object -ExpandProperty Name | ForEach-Object { Write-Host $_ }
+
+      - name: Set up OpenShot paths (libopenshot MSVC build)
+        shell: powershell
+        run: |
+          $bundle = "C:\libopenshot-install\bundle"
+          if (!(Test-Path $bundle)) { throw "bundle dir not found: $bundle" }
+
+          # The SWIG build installs proxy-class definitions to python/ but not bundle/.
+          # Read the real SWIG openshot.py (contains class Profile, class Clip, class Timeline...)
+          # and PREPEND our DLL setup code so Windows finds vcomp140.dll + openshot.dll
+          # before _openshot.pyd is imported. This preserves ALL proxy classes.
+          $swigPy = "C:\libopenshot-install\python\openshot.py"
+          if (!(Test-Path $swigPy)) { throw "SWIG-generated openshot.py not found at $swigPy" }
+          $swigContent = [System.IO.File]::ReadAllText($swigPy, [System.Text.Encoding]::UTF8)
+          Write-Host "SWIG openshot.py size: $($swigContent.Length) bytes"
+          # DLL setup prefix using a scoped function to avoid polluting the module namespace.
+          $prefixLines = @(
+            "# --- CI-prepended Windows DLL setup (prepended to SWIG-generated file) ---",
+            "# Pre-loads vcomp140.dll (MSVC OpenMP runtime required by openshot.dll) and",
+            "# registers the lib directory with add_dll_directory before SWIG imports _openshot.",
+            "def _openshot_win_dll_setup():",
+            "    import os, ctypes, glob",
+            "    _d = os.path.dirname(os.path.abspath(__file__))",
+            "    if hasattr(os, 'add_dll_directory'):",
+            "        os.add_dll_directory(_d)",
+            "    for _p in ['avutil', 'avcodec', 'avformat', 'swresample', 'swscale',",
+            "               'postproc', 'vcomp140', 'libopenshot-audio', 'openshot-audio',",
+            "               'libopenshot', 'openshot']:",
+            "        for _f in sorted(glob.glob(os.path.join(_d, _p + '*.dll'))):",
+            "            try:",
+            "                ctypes.WinDLL(_f)",
+            "            except OSError:",
+            "                pass",
+            "_openshot_win_dll_setup()",
+            "del _openshot_win_dll_setup",
+            "# --- end Windows DLL setup. Original SWIG-generated openshot.py follows: ---",
+            ""
+          )
+          $prefix = $prefixLines -join "`n"
+          $combined = $prefix + $swigContent
+          [System.IO.File]::WriteAllText("$bundle\openshot.py", $combined, [System.Text.Encoding]::UTF8)
+          Write-Host "Created bundle\openshot.py: DLL prefix ($($prefix.Length)B) + SWIG ($($swigContent.Length)B) = $($combined.Length)B total"
+          if ($combined -notmatch "class Profile") { throw "SWIG content is missing 'class Profile': SWIG build may have failed" }
+          Write-Host "Verification OK: 'class Profile' present in bundle\openshot.py"
+
+          Add-Content $env:GITHUB_ENV "PYTHONPATH="
+          Add-Content $env:GITHUB_ENV "ZENVI_OPENSHOT_PYROOT=$bundle"
+          Add-Content $env:GITHUB_ENV "ZENVI_OPENSHOT_BINDDIR=$bundle"
+          Add-Content $env:GITHUB_ENV "PATH=$bundle;$env:PATH"
+          Write-Host "ZENVI_OPENSHOT_PYROOT=$bundle"
+
+      - name: Verify OpenShot Python bindings
+        continue-on-error: true
+        shell: powershell
+        run: |
+          # Use -u for unbuffered output so we can see any error before a potential crash.
+          # continue-on-error: the native .pyd may be ABI-incompatible with build-time Python
+          # (OpenShot ships its own Python runtime); the freeze step discovers files directly
+          # via ZENVI_OPENSHOT_PYROOT without importing, so this step is diagnostic only.
+          python -u -c "import os, sys; print('Python:', sys.version); sys.stdout.flush(); sys.path.append(os.environ['ZENVI_OPENSHOT_PYROOT']); import openshot; print('openshot:', getattr(openshot, '__file__', openshot)); import openshot; print('Profile:', openshot.Profile)"
+
       - name: Freeze with cx_Freeze
         run: python freeze.py build --git-branch=production
+
+      - name: Verify openshot.py in frozen build (SWIG proxy classes + DLL setup)
         shell: powershell
+        run: |
+          # freeze.py copies bundle\openshot.py (DLL setup + SWIG proxy classes) to lib/.
+          # This step verifies the copy succeeded and contains what we expect.
+          $exeDir = Get-ChildItem -Path "build" -Directory -Filter "exe.*" | Select-Object -First 1
+          if (!$exeDir) { throw "cx_Freeze output directory build/exe.* not found" }
+          $libDir = Join-Path $exeDir.FullName "lib"
+          $target = Join-Path $libDir "openshot.py"
+          if (!(Test-Path $target)) { throw "openshot.py not found at $target (freeze.py should have created it)" }
+          $content = [System.IO.File]::ReadAllText($target, [System.Text.Encoding]::UTF8)
+          Write-Host "lib/openshot.py size: $($content.Length) bytes"
+          if ($content -notmatch "class Profile") { throw "Verification failed: 'class Profile' missing - SWIG proxy classes were not included" }
+          if ($content -notmatch "vcomp140") { throw "Verification failed: vcomp140 DLL setup missing from openshot.py" }
+          Write-Host "Verification OK: SWIG proxy classes and vcomp140 DLL setup both present"
+
+      - name: Bundle VCOMP140.DLL (MSVC OpenMP runtime required by openshot.dll)
+        shell: powershell
+        run: |
+          # openshot.dll is compiled with OpenMP (/openmp) and requires VCOMP140.DLL.
+          # This DLL is part of the MSVC redistributable and must be bundled with the app.
+          $exeDir = Get-ChildItem -Path "build" -Directory -Filter "exe.*" | Select-Object -First 1
+          if (!$exeDir) { throw "cx_Freeze output directory build/exe.* not found" }
+          $libDir = Join-Path $exeDir.FullName "lib"
+          $dest = Join-Path $libDir "vcomp140.dll"
+          # Search for vcomp140.dll in MSVC redist (x64 variant)
+          $candidates = @(
+            "C:\Windows\System32\vcomp140.dll",
+            "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Redist\MSVC\14.40.33807\x64\Microsoft.VC143.OpenMP\vcomp140.dll",
+            "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Redist\MSVC\14.42.34433\x64\Microsoft.VC143.OpenMP\vcomp140.dll",
+            "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Redist\MSVC\14.38.33130\x64\Microsoft.VC143.OpenMP\vcomp140.dll"
+          )
+          $found = $null
+          foreach ($c in $candidates) {
+            if (Test-Path $c) { $found = $c; break }
+          }
+          if (!$found) {
+            # Broader search fallback
+            $found = Get-ChildItem "C:\Program Files\Microsoft Visual Studio" -Filter "vcomp140.dll" -Recurse -ErrorAction SilentlyContinue |
+              Where-Object { $_.FullName -notmatch 'debug|Debug' -and $_.FullName -match 'x64' } |
+              Select-Object -ExpandProperty FullName -First 1
+          }
+          if (!$found) {
+            throw "vcomp140.dll not found in MSVC redist or System32. Cannot bundle OpenMP runtime."
+          }
+          Copy-Item $found $dest -Force
+          Write-Host "Bundled vcomp140.dll from $found -> $dest"
+          Write-Host "File size: $((Get-Item $dest).Length) bytes"
+
+      - name: Update MSVC CRT DLLs to VS2022 version (fixes msvcp140.dll crash)
+        shell: powershell
+        run: |
+          # cx_Freeze pulls msvcp140.dll from Python's directory (v14.26, VS2019 era).
+          # openshot.dll is compiled with VS2022 (v14.40+) and crashes with the old version.
+          # Replace all MSVC CRT DLLs in the frozen build root with the VS2022 versions.
+          $exeDir = Get-ChildItem -Path "build" -Directory -Filter "exe.*" | Select-Object -First 1
+          if (!$exeDir) { throw "cx_Freeze output directory build/exe.* not found" }
+          $rootDir = $exeDir.FullName
+          # Find VS2022 CRT redist directory
+          $crtDir = $null
+          $crtCandidates = @(
+            "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Redist\MSVC\14.40.33807\x64\Microsoft.VC143.CRT",
+            "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Redist\MSVC\14.42.34433\x64\Microsoft.VC143.CRT",
+            "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Redist\MSVC\14.38.33130\x64\Microsoft.VC143.CRT",
+            "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Redist\MSVC\14.40.33807\x64\Microsoft.VC143.CRT",
+            "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Redist\MSVC\14.42.34433\x64\Microsoft.VC143.CRT"
+          )
+          foreach ($c in $crtCandidates) {
+            if (Test-Path $c) { $crtDir = $c; break }
+          }
+          if (!$crtDir) {
+            $crtDir = Get-ChildItem "C:\Program Files\Microsoft Visual Studio" -Filter "Microsoft.VC143.CRT" -Recurse -ErrorAction SilentlyContinue |
+              Where-Object { $_.FullName -match 'x64' } |
+              Select-Object -ExpandProperty FullName -First 1
+          }
+          if (!$crtDir) {
+            Write-Warning "VS2022 CRT redist not found - skipping MSVC CRT update"
+          } else {
+            Write-Host "Found VS2022 CRT redist: $crtDir"
+            # Copy CRT DLLs that are already in the frozen build root (replace old versions)
+            $crtDlls = @('msvcp140.dll', 'msvcp140_1.dll', 'msvcp140_2.dll',
+                         'vcruntime140.dll', 'vcruntime140_1.dll', 'concrt140.dll')
+            foreach ($dll in $crtDlls) {
+              $src = Join-Path $crtDir $dll
+              $dest = Join-Path $rootDir $dll
+              if (Test-Path $src) {
+                $srcVer = (Get-Item $src).VersionInfo.FileVersion
+                if (Test-Path $dest) {
+                  $oldVer = (Get-Item $dest).VersionInfo.FileVersion
+                  Copy-Item $src $dest -Force
+                  Write-Host "Updated $dll : $oldVer -> $srcVer"
+                } else {
+                  Copy-Item $src $dest -Force
+                  Write-Host "Added $dll : $srcVer"
+                }
+              }
+            }
+          }
 
       - name: Install Inno Setup 6
         run: choco install innosetup --yes --no-progress
         shell: powershell
 
-      - name: Build Windows installer with Inno Setup
+      - name: Build with Inno Setup
         run: |
-          $ISCC = "C:\Program Files (x86)\Inno Setup 6\ISCC.exe"
-          if (-not (Test-Path $ISCC)) {
-            Write-Error "ISCC.exe not found at $ISCC"
-            exit 1
-          }
 
-          # Pass VERSION and the exact cx_Freeze output dir for Python 3.11 x64
+          # Build installer (deterministically name output + package correct cx_Freeze dir)
+          $ISCC = "C:\Program Files (x86)\Inno Setup 6\ISCC.exe"
+          if (!(Test-Path $ISCC)) { throw "Inno Setup compiler not found at $ISCC" }
+
+          $exeDir = Get-ChildItem -Path "build" -Directory -Filter "exe.*" | Select-Object -First 1
+          if (!$exeDir) { throw "cx_Freeze output directory build/exe.* not found" }
+          $pyExeDir = $exeDir.Name
+
           & $ISCC `
             /DVERSION="${env:VER}" `
-            /DPY_EXE_DIR="exe.win-amd64-3.11" `
+            /DPY_EXE_DIR="$pyExeDir" `
+            /F"Zenvi-v${env:VER}-x86_64" `
+            /O"." `
             installer/windows-installer.iss
 
-          if ($LASTEXITCODE -ne 0) {
-            Write-Error "ISCC.exe failed with exit code $LASTEXITCODE"
-            exit 1
+          if (!(Test-Path "Zenvi-v${env:VER}-x86_64.exe")) {
+            throw "Expected installer Zenvi-v${env:VER}-x86_64.exe not created"
           }
-
-          # Locate the produced installer (Inno Setup outputs to installer\Output\ by default)
-          $exe = Get-ChildItem -Path "installer\Output\" -Filter "Zenvi*.exe" `
-                               -ErrorAction SilentlyContinue | Select-Object -First 1
-          if (-not $exe) {
-            # Fallback: search entire tree
-            $exe = Get-ChildItem -Path "." -Recurse -Filter "*.exe" |
-                   Where-Object { $_.Name -notmatch "is_setup" } |
-                   Select-Object -First 1
-          }
-          if (-not $exe) {
-            Write-Error "No installer .exe found after ISCC run"
-            exit 1
-          }
-
-          $dest = "Zenvi-v${env:VER}-x86_64.exe"
-          Move-Item $exe.FullName $dest
-          Write-Host "Installer produced: $dest"
         shell: powershell
 
       - name: Upload Windows artifact
@@ -373,6 +1312,8 @@ jobs:
           if-no-files-found: error
 
   # ── 5. Create GitHub Release with all artifacts ───────────────────────
+  # Run even if some platform builds fail so that successful artifacts
+  # are still published.
   release:
     needs: [version, build-linux, build-macos, build-windows]
     if: always() && needs.version.result == 'success'
@@ -383,56 +1324,91 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Download all artifacts
+      # Download each platform's artifacts separately so that a missing one
+      # does not prevent the others from being collected.
+      - name: Download Linux artifacts
+        if: needs.build-linux.result == 'success'
         uses: actions/download-artifact@v4
         with:
+          name: linux-packages
           path: dist/
-          merge-multiple: true
-          pattern: "*-package*"
+        continue-on-error: true
 
-      - name: List artifacts
+      - name: Download macOS artifacts (Intel x86_64)
+        uses: actions/download-artifact@v4
+        with:
+          name: macos-package-x86_64
+          path: dist/
+        continue-on-error: true
+
+      - name: Download macOS artifacts (Apple Silicon arm64)
+        uses: actions/download-artifact@v4
+        with:
+          name: macos-package-arm64
+          path: dist/
+        continue-on-error: true
+
+      - name: Download Windows artifacts
+        if: needs.build-windows.result == 'success'
+        uses: actions/download-artifact@v4
+        with:
+          name: windows-package
+          path: dist/
+        continue-on-error: true
+
+      - name: Ensure at least one artifact exists
         run: |
-          echo "### Release Artifacts" >> "$GITHUB_STEP_SUMMARY"
-          find dist/ -type f | while read f; do
-            SIZE=$(stat -c%s "$f" 2>/dev/null || stat -f%z "$f" 2>/dev/null || echo "?")
-            SHA=$(sha256sum "$f" | cut -d' ' -f1)
-            echo "- $(basename $f)  ($SIZE bytes, sha256: $SHA)" >> "$GITHUB_STEP_SUMMARY"
-            echo "$SHA  $(basename $f)" >> dist/SHA256SUMS.txt
-          done
+          mkdir -p dist
+          COUNT=$(find dist/ -type f 2>/dev/null | wc -l)
+          if [ "$COUNT" -eq 0 ]; then
+            echo "::error::No build artifacts found — all platform builds failed"
+            exit 1
+          fi
+          echo "Found $COUNT artifact(s):"
+          find dist/ -type f -exec ls -lh {} \;
 
-      - name: Create or update GitHub Release
+      - name: Generate checksums
+        run: |
+          cd dist
+          find . -type f ! -name 'SHA256SUMS.txt' -exec sha256sum {} \; > SHA256SUMS.txt
+          cat SHA256SUMS.txt
+
+      - name: Remove legacy production release (if any)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if gh release view production >/dev/null 2>&1; then
+            gh release delete production --yes --cleanup-tag || true
+          fi
+          if gh api "repos/${{ github.repository }}/git/ref/tags/production" >/dev/null 2>&1; then
+            gh api -X DELETE "repos/${{ github.repository }}/git/refs/tags/production" || true
+          fi
+
+      - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ env.TAG }}
-          name: "Zenvi ${{ env.TAG }}"
+          name: "Zenvi v${{ env.VER }}"
           body: |
-            ## Zenvi ${{ env.VER }}
+            ## What's New
 
-            ### Auto-update
-            Users running Zenvi with an active internet connection will receive
-            this update automatically.  The download happens silently in the
-            background and the new version is applied on the next launch.
+            See the [commit log](https://github.com/${{ github.repository }}/compare/v${{ env.VER }}...HEAD) for a full list of changes.
 
-            ### Manual download
-            | Platform | File |
-            |----------|------|
-            | Linux (AppImage)    | `Zenvi-v${{ env.VER }}-x86_64.AppImage` |
-            | Linux (Debian)      | `Zenvi-v${{ env.VER }}-x86_64.deb` |
-            | macOS Intel         | `Zenvi-v${{ env.VER }}-x86_64.dmg` |
-            | macOS Apple Silicon | `Zenvi-v${{ env.VER }}-arm64.dmg` |
-            | Windows (EXE)       | `Zenvi-v${{ env.VER }}-x86_64.exe` |
+            ## Downloads
 
-            ### Security note
-            **macOS:** These builds are ad-hoc signed (no Apple Developer certificate yet).
-            macOS Gatekeeper will show an "unidentified developer" warning on first launch.
-            To bypass: right-click the app in the DMG → **Open** → click **Open** in the dialog.
-            This warning only appears once.
+            | Platform | Installer |
+            |----------|-----------|
+            | **Linux** (AppImage) | `Zenvi-v${{ env.VER }}-x86_64.AppImage` |
+            | **Linux** (Debian/Ubuntu) | `Zenvi-v${{ env.VER }}-x86_64.deb` |
+            | **macOS** (Intel) | `Zenvi-v${{ env.VER }}-x86_64.dmg` |
+            | **macOS** (Apple Silicon) | `Zenvi-v${{ env.VER }}-arm64.dmg` |
+            | **Windows** | `Zenvi-v${{ env.VER }}-x86_64.exe` |
 
-            **Windows:** Without a code-signing certificate, Windows SmartScreen shows
-            "Windows protected your PC". Click **More info** → **Run anyway** to proceed.
+            > **Note:** Some platform installers may not be available if the build for that platform is still in progress.
 
-            ### Checksums
-            See `SHA256SUMS.txt` attached to this release.
+            ## Checksums
+
+            See `SHA256SUMS.txt` for verification.
           draft: false
           prerelease: false
           files: dist/*

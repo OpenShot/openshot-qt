@@ -67,14 +67,21 @@ if [ -f "$OS_PATH/MacOS/icon.icns" ]; then
 fi
 # Ensure icon.icns exists in Resources (fallback from installer/)
 if [ ! -f "$OS_PATH/Resources/icon.icns" ]; then
-    cp installer/openshot.icns "$OS_PATH/Resources/icon.icns"
+    cp installer/zenvi.icns "$OS_PATH/Resources/icon.icns"
 fi
 
 echo "Symlink lib folder into Resources - needed to find lib/babl-ext at runtime"
 ln -sf "../MacOS/lib" "$OS_PATH/Resources/lib" 2>/dev/null || true
 
 echo "Fix permissions inside MacOS folder"
-chmod -R a+rx "$OS_PATH/"*
+# Give read access to all files; do NOT set +x on everything — codesign treats
+# any file with execute bits as a code object that must be signed, so non-binary
+# files (*.txt, *.json, *.hash, etc.) with +x will cause signing to fail.
+chmod -R a+r "$OS_PATH/"
+find "$OS_PATH" \( -name '*.dylib' -o -name '*.so' \) -exec chmod +x {} \;
+for bin in zenvi launch launch-zenvi launch-mac; do
+    [ -f "$OS_PATH/MacOS/$bin" ] && chmod +x "$OS_PATH/MacOS/$bin"
+done
 
 echo "Loop through bundled files and sign all binary files"
 if [ -n "$SIGN_IDENTITY" ]; then
@@ -82,12 +89,12 @@ if [ -n "$SIGN_IDENTITY" ]; then
     find "build" \( -iname '*.dylib' -o -iname '*.so' \) \
         -exec codesign -s "$SIGN_IDENTITY" \
             --timestamp=http://timestamp.apple.com/ts01 \
-            --entitlements "installer/openshot.entitlements" \
+            --entitlements "installer/zenvi.entitlements" \
             --force "{}" \;
 
     echo "Code Sign App Bundle (deep)"
     codesign -s "$SIGN_IDENTITY" --force --deep \
-        --entitlements "installer/openshot.entitlements" \
+        --entitlements "installer/zenvi.entitlements" \
         --options runtime \
         --timestamp=http://timestamp.apple.com/ts01 \
         "build/$OS_APP_NAME"
@@ -122,7 +129,7 @@ hdiutil create \
 if [ -n "$SIGN_IDENTITY" ]; then
     echo "Code Sign DMG"
     codesign -s "$SIGN_IDENTITY" --force \
-        --entitlements "installer/openshot.entitlements" \
+        --entitlements "installer/zenvi.entitlements" \
         --timestamp=http://timestamp.apple.com/ts01 \
         "build/$OS_DMG_NAME"
 fi

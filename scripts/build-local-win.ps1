@@ -37,24 +37,15 @@ Write-Host "[2/5] Running cx_Freeze..." -ForegroundColor Yellow
 python freeze.py build --git-branch=production
 if ($LASTEXITCODE -ne 0) { throw "cx_Freeze failed (exit $LASTEXITCODE)" }
 
-# ── Step 3: Validate build output ────────────────────────────────────────────
-Write-Host "[3/5] Validating build output..." -ForegroundColor Yellow
-$BUILD_DIR = "build\exe.win-amd64-3.11"
-if (-not (Test-Path $BUILD_DIR)) {
-  # Try to find whatever cx_Freeze produced
-  $found = Get-ChildItem -Path "build" -Directory -Filter "exe.*" |
-           Select-Object -First 1
-  if ($found) {
-    Write-Warning "Expected '$BUILD_DIR' but found '$($found.FullName)'."
-    Write-Warning "Update PY_EXE_DIR in windows-installer.iss if the directory name differs."
-    $BUILD_DIR = $found.FullName
-  } else {
-    throw "No cx_Freeze output directory found under 'build\'. Freeze step may have failed silently."
-  }
+# ── Step 3: Detect build output ──────────────────────────────────────────────
+Write-Host "[3/5] Locating build output..." -ForegroundColor Yellow
+$buildDirItem = Get-ChildItem -Path "build" -Directory -Filter "exe.*" | Select-Object -First 1
+if (-not $buildDirItem) {
+  throw "No cx_Freeze output directory found under 'build\'. Freeze step may have failed silently."
 }
-
-$fileCount = (Get-ChildItem -Path $BUILD_DIR -Recurse -File).Count
-Write-Host "  Build directory: $BUILD_DIR ($fileCount files)"
+$BUILD_DIR = $buildDirItem.Name
+$fileCount = (Get-ChildItem -Path "build\$BUILD_DIR" -Recurse -File).Count
+Write-Host "  Build directory: build\$BUILD_DIR ($fileCount files)"
 if ($fileCount -lt 10) {
   Write-Warning "Very few files in build output — the freeze step may be incomplete."
 }
@@ -74,36 +65,33 @@ if (-not (Test-Path $ISCC)) {
 
 & $ISCC `
   /DVERSION="$VER" `
-  /DPY_EXE_DIR="exe.win-amd64-3.11" `
+  /DPY_EXE_DIR="$BUILD_DIR" `
+  /F"Zenvi-v${VER}-x86_64" `
+  /O"." `
   installer\windows-installer.iss
 
 if ($LASTEXITCODE -ne 0) {
   throw "ISCC.exe failed with exit code $LASTEXITCODE"
 }
 
-# Locate the installer output (Inno Setup writes to installer\Output\ by default)
-$exe = Get-ChildItem -Path "installer\Output\" -Filter "Zenvi*.exe" `
-                     -ErrorAction SilentlyContinue | Select-Object -First 1
-if (-not $exe) {
-  $exe = Get-ChildItem -Path "." -Recurse -Filter "*.exe" |
-         Where-Object { $_.Name -notmatch "is_setup" } |
-         Select-Object -First 1
-}
-if (-not $exe) { throw "No installer .exe found after ISCC run" }
-
 $DEST = "Zenvi-v${VER}-x86_64.exe"
-Move-Item $exe.FullName $DEST -Force
-$fileInfo = Get-Item $DEST
+if (-not (Test-Path $DEST)) {
+  # Fallback: search current directory
+  $found = Get-ChildItem -Path "." -Filter "Zenvi*.exe" | Select-Object -First 1
+  if ($found) { $DEST = $found.Name }
+  else { throw "No installer .exe found after ISCC run" }
+}
 
 # ── Step 5: Verify ───────────────────────────────────────────────────────────
 Write-Host "[5/5] Verifying installer..." -ForegroundColor Yellow
+$fileInfo = Get-Item $DEST
 $sizeMB = [math]::Round($fileInfo.Length / 1MB, 2)
 Write-Host "  File   : $DEST"
 Write-Host "  Size   : $sizeMB MB"
 
 if ($fileInfo.Length -lt 1MB) {
   Write-Warning "Installer is very small ($sizeMB MB) — the payload may be missing."
-  Write-Warning "Check that PY_EXE_DIR matches the cx_Freeze output directory name."
+  Write-Warning "Check that freeze.py completed successfully and the build directory is populated."
 }
 
 Write-Host ""

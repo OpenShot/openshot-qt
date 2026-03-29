@@ -712,12 +712,12 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         # Get frame's QImage from libopenshot
         self.current_image = image
 
-        # Force repaint on this widget
-        self.repaint()
+        # Schedule repaint on the GUI thread (thread-safe, unlike repaint())
+        self.update()
 
     def connectSignals(self, renderer):
         """ Connect signals to renderer """
-        renderer.present.connect(self.present)
+        renderer.present.connect(self.present, Qt.QueuedConnection)
 
     def mousePressEvent(self, event):
         """Capture mouse press event on video preview window"""

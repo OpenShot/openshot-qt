@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=Zenvi
+GenericName=Video Editor
+X-GNOME-FullName=Zenvi
+Comment=Create and edit amazing videos and movies
+Exec=zenvi %F
+Terminal=false
+Type=Application
+Icon=zenvi
+Categories=GNOME;GTK;AudioVideo;Video;AudioVideoEditing;
+MimeType=application/vnd.zenvi-project;
+X-AppInstall-Package=zenvi
