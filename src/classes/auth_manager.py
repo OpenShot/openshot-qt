@@ -52,9 +52,9 @@ def _load_dotenv(env_path: str) -> None:
 _load_dotenv(os.path.join(os.path.dirname(__file__), "..", "..", ".env"))
 
 # ── Constants ──────────────────────────────────────────────────────────────────
-SUPABASE_URL = os.environ.get("SUPABASE_URL", "")
-SUPABASE_ANON_KEY = os.environ.get("SUPABASE_ANON_KEY", "")
-ZENVI_WEBSITE = os.environ.get("ZENVI_WEBSITE", "https://zenvi.app")
+SUPABASE_URL = os.environ.get("SUPABASE_URL", "https://xktarhzbrdnxkaovtdxj.supabase.co/")
+SUPABASE_ANON_KEY = os.environ.get("SUPABASE_ANON_KEY", "sb_publishable_2-FCBkJ96Ss35jqL9krVEQ_otR5iGmA")
+ZENVI_WEBSITE = os.environ.get("ZENVI_WEBSITE", "https://zenvi.pro")
 AUTH_FILE = os.path.join(info.USER_PATH, "zenvi_auth.json")
 
 POLL_INTERVAL = 2
