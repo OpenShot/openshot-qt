@@ -28,6 +28,7 @@
 import os
 import functools
 import json
+from copy import deepcopy
 
 from PyQt5.QtCore import pyqtSignal, QTimer
 from PyQt5.QtWidgets import QDialog, QMessageBox, QSizePolicy, QSlider
@@ -38,6 +39,8 @@ from classes import info, ui_util, time_parts
 from classes.app import get_app
 from classes.logger import log
 from classes.metrics import track_metric_screen
+from classes.ai_metadata_utils import adjust_scene_descriptions_for_subclip
+from classes.query import File
 from windows.preview_thread import PreviewParent
 from windows.video_widget import VideoWidget
 
@@ -137,7 +140,9 @@ class Cutting(QDialog):
         try:
             # Add clip for current preview file
             self.clip = openshot.Clip(self.file_path)
-            self.clip.SetJson(json.dumps({"reader": file.data}))
+            # NOTE: Do NOT inject file.data into the reader via SetJson.
+            # file.data may contain ai_metadata, tags, etc. that corrupt
+            # the native FrameMapper and cause preview drift / SIGSEGV.
             self.clip.Start(clip_start)
             self.clip.End(clip_end)
 
@@ -387,24 +392,35 @@ class Cutting(QDialog):
         """Add the selected clip to the project"""
         log.info('btnAddClip_clicked')
 
-        # Remove unneeded attributes
-        if 'name' in self.file.data:
-            self.file.data.pop('name')
+        # Calculate new start and end times
+        new_start = self.previous_start + ((self.start_frame - 1) / self.fps)
+        new_end = self.previous_start + (self.end_frame / self.fps)
 
-        # Save new file
-        self.file.id = None
-        self.file.key = None
-        self.file.type = 'insert'
-        self.file.data['start'] = self.previous_start + ((self.start_frame - 1) / self.fps)
-        self.file.data['end'] = self.previous_start + (self.end_frame / self.fps)
+        # Build a NEW File entry (do not mutate the original file object)
+        new_file = File()
+        new_file.data = deepcopy(self.file.data)
+        new_file.data.pop('name', None)
+        new_file.id = None
+        new_file.key = None
+        new_file.type = 'insert'
+        new_file.data['start'] = new_start
+        new_file.data['end'] = new_end
+
+        # Handle ai_metadata translation for sub-clips (stored in source-media time)
+        if 'ai_metadata' in new_file.data and isinstance(new_file.data.get('ai_metadata'), dict):
+            new_file.data['ai_metadata'] = adjust_scene_descriptions_for_subclip(
+                new_file.data['ai_metadata'], new_start, new_end
+            )
+
         if self.txtName.text():
-            self.file.data['name'] = self.txtName.text()
+            new_file.data['name'] = self.txtName.text()
         else:
             global_frame = round(self.previous_start * self.fps) + self.start_frame
             timestamp = self.frame_to_timestamp(global_frame)
             base = os.path.splitext(os.path.basename(self.file_path))[0]
-            self.file.data['name'] = f"{base} ({timestamp})"
-        self.file.save()
+            new_file.data['name'] = f"{base} ({timestamp})"
+
+        new_file.save()
 
         # Move to next frame
         self.sliderVideo.setValue(self.end_frame + 1)
@@ -415,15 +431,34 @@ class Cutting(QDialog):
     def closeEvent(self, event):
         log.debug('closeEvent')
 
-        # Stop playback
-        get_app().updates.disconnect_listener(self.videoPreview)
-        if self.videoPreview:
+        # 1. Stop any pending main-thread timers first
+        if hasattr(self, 'slider_timer') and self.slider_timer:
+            self.slider_timer.stop()
+
+        # 2. Signal the player loop to stop.
+        #    Do NOT call CloseAudioDevice() here — the main window owns the
+        #    JUCE audio device lifecycle and calling it from a dialog leaves
+        #    the audio subsystem in a state that causes the main window's own
+        #    CloseAudioDevice() to hang on shutdown.
+        if hasattr(self, 'preview_thread') and self.preview_thread:
+            self.preview_thread.kill()          # is_running = False → exits loop
+
+        # 3. Stop the preview thread and WAIT for it to fully exit.
+        #    This must complete before we touch readers or the video widget.
+        if hasattr(self, 'preview_parent') and self.preview_parent:
+            self.preview_parent.Stop()          # disconnect, stop, exit, wait(5 s)
+
+        # 4. Now the background QThread is finished — safe to close readers.
+        if hasattr(self, 'r') and self.r:
+            self.r.Close()
+            self.r.ClearAllCache()
+        if hasattr(self, 'clip') and self.clip:
+            self.clip.Close()
+
+        # 5. Finally schedule videoPreview for deletion (no more timer callbacks
+        #    can reference it since the worker thread is gone).
+        if hasattr(self, 'videoPreview') and self.videoPreview:
+            get_app().updates.disconnect_listener(self.videoPreview)
             self.videoPreview.deleteLater()
             self.videoPreview = None
-        self.preview_parent.Stop()
-
-        # Close readers
-        self.r.Close()
-        self.clip.Close()
-        self.r.ClearAllCache()
 

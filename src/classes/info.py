@@ -26,12 +26,11 @@
  """
 
 import os
-import sys
 from time import strftime
 
-VERSION = "1.0.120"
-GITHUB_REPO = "Zenvi-pro/zenvi-core"
-MINIMUM_LIBOPENSHOT_VERSION = "0.5.0"
+VERSION = "1.0.0"
+# 0.5.0+ preferred; 0.3.2 minimum for systems where only stable PPA (or older) is available (e.g. aarch64)
+MINIMUM_LIBOPENSHOT_VERSION = "0.3.2"
 DATE = "20250612000000"
 NAME = "zenvi"
 PRODUCT_NAME = "Zenvi"
@@ -43,17 +42,7 @@ COPYRIGHT = "(c) 2008-{} {}".format(strftime("%Y"), COMPANY_NAME)
 CWD = os.getcwd()
 
 # Application paths
-if getattr(sys, 'frozen', False):
-    _exe_dir = os.path.dirname(os.path.realpath(sys.executable))
-    # On macOS, freeze.py places all app resources (settings/, images/, etc.)
-    # inside a lib/ subdirectory next to the executable.
-    # On Linux/Windows, they live at the executable root level.
-    if sys.platform == 'darwin' and os.path.isdir(os.path.join(_exe_dir, 'lib', 'settings')):
-        PATH = os.path.join(_exe_dir, 'lib')
-    else:
-        PATH = _exe_dir
-else:
-    PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))  # Primary openshot folder
+PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))  # Primary openshot folder
 RESOURCES_PATH = os.path.join(PATH, "resources")
 PROFILES_PATH = os.path.join(PATH, "profiles")
 IMAGES_PATH = os.path.join(PATH, "images")
@@ -79,16 +68,19 @@ USER_COLORS_PATH = os.path.join(USER_PATH, "colors")
 PROTOBUF_DATA_PATH = os.path.join(USER_PATH, "protobuf_data")
 YOLO_PATH = os.path.join(USER_PATH, "yolo")
 CLIPBOARD_PATH = os.path.join(USER_PATH, "clipboard")
-UPDATE_PATH = os.path.join(USER_PATH, "updates")
 # Project file extensions
-PROJECT_EXT = ".zvn"
-LEGACY_PROJECT_EXT = ".osp"
+PROJECT_EXT = ".flow"
+LEGACY_PROJECT_EXTS = (".zvn", ".osp")
+ALL_PROJECT_EXTS = (PROJECT_EXT,) + LEGACY_PROJECT_EXTS
+LEGACY_PROJECT_EXT = LEGACY_PROJECT_EXTS[-1]  # Backwards-compat for older code paths
 # User files
-BACKUP_FILE = os.path.join(BACKUP_PATH, "backup.zvn")
-USER_DEFAULT_PROJECT = os.path.join(USER_PATH, "default.zvn")
+BACKUP_FILE = os.path.join(BACKUP_PATH, "backup.flow")
+USER_DEFAULT_PROJECT = os.path.join(USER_PATH, "default.flow")
 LEGACY_DEFAULT_PROJECT = USER_DEFAULT_PROJECT.replace(PROJECT_EXT, ".project")
 LEGACY_BACKUP_FILE = os.path.join(BACKUP_PATH, "backup.osp")
 LEGACY_USER_DEFAULT_PROJECT = os.path.join(USER_PATH, "default.osp")
+PREVIOUS_DEFAULT_PROJECT = os.path.join(USER_PATH, "default.zvn")
+PREVIOUS_BACKUP_FILE = os.path.join(BACKUP_PATH, "backup.zvn")
 
 # Back up "default" values for user paths
 _path_defaults = {
@@ -182,7 +174,7 @@ SETUP = {
     "author_email": JT["email"],
     "maintainer": JT["name"],
     "maintainer_email": JT["email"],
-    "url": "https://zenvi.org/",
+    "url": "https://zenvi.pro/",
     "license": "GNU GPL v." + GPL_VERSION,
     "description": DESCRIPTION,
     "long_description": "Create and edit videos and movies\n"
@@ -236,14 +228,21 @@ def setup_userdirs():
     ]):
         print("Migrating default project file to new name")
         os.rename(LEGACY_DEFAULT_PROJECT, USER_DEFAULT_PROJECT)
-    # Migrate default.osp to default.zvn
+    # Migrate default.osp to default.flow
     if all([
         os.path.exists(LEGACY_USER_DEFAULT_PROJECT),
         not os.path.exists(USER_DEFAULT_PROJECT),
     ]):
-        print("Migrating default project file from .osp to .zvn")
+        print("Migrating default project file from .osp to .flow")
         os.rename(LEGACY_USER_DEFAULT_PROJECT, USER_DEFAULT_PROJECT)
-    # Migrate backup.osp to backup.zvn
+    # Migrate default.zvn to default.flow
+    if all([
+        os.path.exists(PREVIOUS_DEFAULT_PROJECT),
+        not os.path.exists(USER_DEFAULT_PROJECT),
+    ]):
+        print("Migrating default project file from .zvn to .flow")
+        os.rename(PREVIOUS_DEFAULT_PROJECT, USER_DEFAULT_PROJECT)
+    # Migrate backup.osp to backup.flow
     if all([
         os.path.exists(LEGACY_BACKUP_FILE),
         not os.path.exists(BACKUP_FILE),
@@ -252,7 +251,19 @@ def setup_userdirs():
             import shutil
             shutil.copy2(LEGACY_BACKUP_FILE, BACKUP_FILE)
             os.unlink(LEGACY_BACKUP_FILE)
-            print("Migrated backup.osp to backup.zvn")
+            print("Migrated backup.osp to backup.flow")
+        except OSError:
+            pass
+    # Migrate backup.zvn to backup.flow
+    if all([
+        os.path.exists(PREVIOUS_BACKUP_FILE),
+        not os.path.exists(BACKUP_FILE),
+    ]):
+        try:
+            import shutil
+            shutil.copy2(PREVIOUS_BACKUP_FILE, BACKUP_FILE)
+            os.unlink(PREVIOUS_BACKUP_FILE)
+            print("Migrated backup.zvn to backup.flow")
         except OSError:
             pass
 

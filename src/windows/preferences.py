@@ -848,6 +848,9 @@ class Preferences(QDialog):
         self.reject()
 
     def reject(self):
+        # Save all settings to disk
+        self.s.save()
+        
         # Enable video caching
         openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = True
 

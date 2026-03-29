@@ -26,6 +26,7 @@
  """
 
 import time
+import threading
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
 from classes.updates import UpdateInterface
@@ -40,6 +41,10 @@ class TimelineSync(UpdateInterface):
         self.app = get_app()
         self.window = window
         project = self.app.project
+        # Protect libopenshot timeline operations from concurrent access patterns
+        # (e.g. UI cache polling vs. JSON diff application), which can otherwise
+        # result in blocking calls and UI unresponsiveness.
+        self.timeline_lock = threading.RLock()
 
         # Get some settings from the project
         fps = project.get("fps")
@@ -61,7 +66,8 @@ class TimelineSync(UpdateInterface):
         self.timeline.info.channels = channels
 
         # Open the timeline reader
-        self.timeline.Open()
+        with self.timeline_lock:
+            self.timeline.Open()
 
         # Add self as listener to project data updates (at the beginning of the list)
         # This listener will receive events before others.
@@ -77,42 +83,43 @@ class TimelineSync(UpdateInterface):
         if action and len(action.key) >= 1 and action.key[0].lower() in ["files", "history", "markers", "layers", "scale", "profile", "export_settings", "export_overrides"]:
             return
 
-        # Disable video caching temporarily
-        caching_value = openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING
-        openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = False
+        with self.timeline_lock:
+            # Disable video caching temporarily
+            caching_value = openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING
+            openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = False
 
-        try:
-            if action.type == "load":
-                # Clear any selections in UI (since we are clearing the timeline)
-                self.window.clearSelections()
+            try:
+                if action.type == "load":
+                    # Clear any selections in UI (since we are clearing the timeline)
+                    self.window.clearSelections()
 
-                # Clear any existing clips & effects (free memory)
-                self.timeline.Close()
-                self.timeline.Clear()
+                    # Clear any existing clips & effects (free memory)
+                    self.timeline.Close()
+                    self.timeline.Clear()
 
-                # This JSON is initially loaded to libopenshot to update the timeline
-                self.timeline.SetJson(action.json(only_value=True))
-                self.timeline.Open()  # Re-Open the Timeline reader
+                    # This JSON is initially loaded to libopenshot to update the timeline
+                    self.timeline.SetJson(action.json(only_value=True))
+                    self.timeline.Open()  # Re-Open the Timeline reader
 
-                # The timeline's profile changed, so update all clips
-                self.timeline.ApplyMapperToClips()
+                    # The timeline's profile changed, so update all clips
+                    self.timeline.ApplyMapperToClips()
 
-                # Always seek back to frame 1
-                self.window.SeekSignal.emit(1)
+                    # Always seek back to frame 1
+                    self.window.SeekSignal.emit(1)
 
-                # Refresh current frame (since the entire timeline was updated)
-                self.window.refreshFrameSignal.emit()
+                    # Refresh current frame (since the entire timeline was updated)
+                    self.window.refreshFrameSignal.emit()
 
-            else:
-                # This JSON DIFF is passed to libopenshot to update the timeline
-                self.timeline.ApplyJsonDiff(action.json(is_array=True))
+                else:
+                    # This JSON DIFF is passed to libopenshot to update the timeline
+                    self.timeline.ApplyJsonDiff(action.json(is_array=True))
 
-        except Exception as e:
-            log.error("Error applying JSON to timeline object in libopenshot: %s. %s" %
-                     (e, action.json(is_array=True)))
+            except Exception as e:
+                log.error("Error applying JSON to timeline object in libopenshot: %s. %s" %
+                         (e, action.json(is_array=True)))
 
-        # Resume video caching original value
-        openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = caching_value
+            # Resume video caching original value
+            openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = caching_value
 
     def MaxSizeChangedCB(self, new_size):
         """Callback for max sized change (i.e. max size of video widget)"""
@@ -131,14 +138,16 @@ class TimelineSync(UpdateInterface):
         previous_preview_width = self.timeline.preview_width
         previous_preview_height = self.timeline.preview_height
 
-        self.timeline.SetMaxSize(scaled_width, scaled_height)
+        with self.timeline_lock:
+            self.timeline.SetMaxSize(scaled_width, scaled_height)
 
         if (
             previous_preview_width != self.timeline.preview_width
             or previous_preview_height != self.timeline.preview_height
         ):
-            # Clear timeline preview cache (since our video size has changed)
-            self.timeline.ClearAllCache(True)
+            with self.timeline_lock:
+                # Clear timeline preview cache (since our video size has changed)
+                self.timeline.ClearAllCache(True)
 
             # Refresh current frame (since the entire timeline was updated)
             self.window.refreshFrameSignal.emit()

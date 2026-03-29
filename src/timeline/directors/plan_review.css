@@ -1,0 +1,362 @@
+/* Plan Review UI Styles */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: #1a1a1a;
+    color: #e0e0e0;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+#app {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #888;
+}
+
+.empty-icon {
+    font-size: 64px;
+    margin-bottom: 20px;
+    opacity: 0.5;
+}
+
+.empty-state h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #aaa;
+}
+
+.empty-state p {
+    font-size: 16px;
+}
+
+/* Plan Container */
+.plan-container {
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Header */
+.plan-header {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #333;
+}
+
+.plan-title {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.plan-meta {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.directors-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    background: #2a2a2a;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #6366f1;
+}
+
+.confidence-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    background: #2a2a2a;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.confidence-high { color: #4ade80; }
+.confidence-medium { color: #facc15; }
+.confidence-low { color: #f87171; }
+
+.count-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    background: #6366f1;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: white;
+    margin-left: 8px;
+}
+
+/* Summary */
+.plan-summary {
+    background: #252525;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    border-left: 4px solid #6366f1;
+}
+
+.plan-summary h3 {
+    font-size: 18px;
+    margin-bottom: 12px;
+    color: #fff;
+}
+
+.plan-summary p {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #d0d0d0;
+    white-space: pre-wrap;
+}
+
+/* Steps Section */
+.steps-section {
+    margin-bottom: 30px;
+}
+
+.steps-section h3 {
+    font-size: 20px;
+    margin-bottom: 16px;
+    color: #fff;
+}
+
+.steps-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.step-card {
+    background: #252525;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 16px;
+    transition: all 0.2s ease;
+}
+
+.step-card:hover {
+    border-color: #6366f1;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
+}
+
+.step-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.step-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: #6366f1;
+    color: white;
+    border-radius: 50%;
+    font-weight: 600;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.step-content {
+    flex: 1;
+}
+
+.step-description {
+    font-size: 16px;
+    font-weight: 500;
+    color: #fff;
+    margin-bottom: 6px;
+}
+
+.step-meta {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    font-size: 13px;
+    color: #999;
+}
+
+.step-type {
+    padding: 3px 8px;
+    background: #333;
+    border-radius: 4px;
+    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.step-agent {
+    color: #6366f1;
+}
+
+.step-confidence {
+    font-weight: 500;
+}
+
+.step-rationale {
+    margin-top: 10px;
+    padding: 10px;
+    background: #2a2a2a;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #aaa;
+    border-left: 3px solid #444;
+}
+
+/* Debate Section */
+.debate-section {
+    margin-bottom: 30px;
+}
+
+.collapsible-header {
+    cursor: pointer;
+    user-select: none;
+    font-size: 20px;
+    margin-bottom: 16px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+}
+
+.collapsible-header:hover {
+    color: #6366f1;
+}
+
+.toggle-icon {
+    display: inline-block;
+    margin-right: 8px;
+    transition: transform 0.2s ease;
+}
+
+.toggle-icon.expanded {
+    transform: rotate(90deg);
+}
+
+.debate-transcript {
+    max-height: 500px;
+    overflow-y: auto;
+    padding: 16px;
+    background: #252525;
+    border-radius: 8px;
+}
+
+.debate-message {
+    margin-bottom: 16px;
+    padding: 12px;
+    background: #2a2a2a;
+    border-radius: 6px;
+    border-left: 3px solid #6366f1;
+}
+
+.debate-message-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.debate-director {
+    font-weight: 600;
+    color: #6366f1;
+    font-size: 14px;
+}
+
+.debate-round {
+    font-size: 12px;
+    color: #888;
+}
+
+.debate-content {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #d0d0d0;
+    white-space: pre-wrap;
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    padding-top: 20px;
+    border-top: 2px solid #333;
+}
+
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn-primary {
+    background: #6366f1;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #4f46e5;
+}
+
+.btn-secondary {
+    background: #333;
+    color: #e0e0e0;
+}
+
+.btn-secondary:hover {
+    background: #444;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

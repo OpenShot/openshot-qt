@@ -38,7 +38,93 @@
     const typingTextEl = document.getElementById('chat-typing-text');
     const sendBtn = document.getElementById('chat-send-btn');
     const cancelBtn = document.getElementById('chat-cancel-btn');
+    const attachClipBtn = document.getElementById('chat-attach-clip-btn');
+    const transitionClipsBtn = document.getElementById('chat-transition-clips-btn');
     const clearBtn = document.getElementById('chat-clear-btn');
+    const tagsRow = document.getElementById('chat-tags-row');
+
+    // ── Tag / pick-mode state ─────────────────────────────────────────────
+    var attachedContext = null;   // null | {type, ...}
+    var pickMode = null;          // null | 'selected_clip' | 'transition_a' | 'transition_b'
+
+    function renderTags() {
+        if (!tagsRow) return;
+        tagsRow.innerHTML = '';
+        if (!attachedContext) { tagsRow.style.display = 'none'; return; }
+        tagsRow.style.display = 'flex';
+
+        var pill = document.createElement('span');
+        pill.className = 'chat-tag-pill';
+
+        var labelEl = document.createElement('span');
+        if (attachedContext.type === 'selected_clip') {
+            labelEl.textContent = '@clip: ' + (attachedContext.title || 'clip');
+        } else if (attachedContext.type === 'transition_clips') {
+            var aTitle = (attachedContext.clipA && attachedContext.clipA.title) || '…';
+            var bTitle = (attachedContext.clipB && attachedContext.clipB.title) || '…';
+            labelEl.textContent = '@transition: ' + aTitle + ' → ' + bTitle;
+            if (!attachedContext.clipB) pill.classList.add('chat-tag-pending');
+        }
+        pill.appendChild(labelEl);
+
+        var xBtn = document.createElement('button');
+        xBtn.type = 'button';
+        xBtn.className = 'chat-tag-remove';
+        xBtn.setAttribute('aria-label', 'Remove');
+        xBtn.textContent = '×';
+        xBtn.addEventListener('click', function () {
+            attachedContext = null;
+            pickMode = null;
+            hidePendingPickHint();
+            getBridge(function (bridge) { if (bridge && bridge.cancelClipPick) bridge.cancelClipPick(); });
+            renderTags();
+        });
+        pill.appendChild(xBtn);
+        tagsRow.appendChild(pill);
+    }
+
+    function showPickHint(msg) {
+        var existing = document.getElementById('chat-pick-hint');
+        if (!existing) {
+            existing = document.createElement('div');
+            existing.id = 'chat-pick-hint';
+            existing.className = 'chat-pick-hint';
+            if (tagsRow && tagsRow.parentNode) {
+                tagsRow.parentNode.insertBefore(existing, tagsRow);
+            }
+        }
+        existing.textContent = msg;
+        existing.style.display = 'block';
+    }
+
+    function hidePendingPickHint() {
+        var el = document.getElementById('chat-pick-hint');
+        if (el) el.style.display = 'none';
+    }
+
+    // Called from Python: window.chatSetPickResult({id, title, start, end})
+    window.chatSetPickResult = function (json) {
+        try {
+            var data = typeof json === 'string' ? JSON.parse(json) : json;
+            if (pickMode === 'selected_clip') {
+                attachedContext = { type: 'selected_clip', id: data.id, title: data.title,
+                                    start: data.start, end: data.end };
+                pickMode = null;
+                hidePendingPickHint();
+            } else if (pickMode === 'transition_a') {
+                attachedContext = { type: 'transition_clips', clipA: data, clipB: null };
+                pickMode = 'transition_b';
+                showPickHint('Now click the second clip (B) on the timeline…');
+                // Re-enter pick mode on Python side for clip B
+                getBridge(function (bridge) { if (bridge) bridge.requestClipPick('transition_b'); });
+            } else if (pickMode === 'transition_b') {
+                attachedContext.clipB = data;
+                pickMode = null;
+                hidePendingPickHint();
+            }
+            renderTags();
+        } catch (e) {}
+    };
 
     var processingStartTime = null;
     var lastRunTimestamp = null;
@@ -119,11 +205,17 @@
     }
 
     window.appendMessage = function (role, bodyHtml, isAssistant) {
-        if (role === 'system') return;
         removePlaceholder();
         const div = document.createElement('div');
-        div.className = 'chat-message chat-message-enter ' + (role === 'user' ? 'chat-message-user' : '');
-        div.innerHTML = '<div class="chat-message-body">' + (isAssistant ? bodyHtml : '<p>' + bodyHtml + '</p>') + '</div>';
+        var cls = 'chat-message chat-message-enter ';
+        if (role === 'user') cls += 'chat-message-user ';
+        if (role === 'system') cls += 'chat-message-system ';
+        div.className = cls;
+        if (role === 'system') {
+            div.innerHTML = '<div class="chat-message-body">' + '<p>' + bodyHtml + '</p>' + '</div>';
+        } else {
+            div.innerHTML = '<div class="chat-message-body">' + (isAssistant ? bodyHtml : '<p>' + bodyHtml + '</p>') + '</div>';
+        }
         messagesEl.appendChild(div);
         messagesEl.scrollTop = messagesEl.scrollHeight;
     };
@@ -381,6 +473,12 @@
         if (menuOpen) return;
         menuOpen = true;
         renderMenu();
+        // Use fixed positioning so the menu escapes any overflow:hidden ancestors
+        var rect = modelTrigger.getBoundingClientRect();
+        modelMenu.style.position = 'fixed';
+        modelMenu.style.left = rect.left + 'px';
+        modelMenu.style.bottom = (window.innerHeight - rect.top + 6) + 'px';
+        modelMenu.style.top = '';
         modelMenu.style.display = 'block';
         modelTrigger.classList.add('active');
     }
@@ -459,12 +557,30 @@
         const text = (inputEl.value || '').trim();
         if (!text) return;
         exitIdle();
+        var ctxJson = attachedContext ? JSON.stringify(attachedContext) : '';
         getBridge(function (bridge) {
             if (!bridge) return;
-            bridge.sendMessage(text, modelSelect.value || '');
+            bridge.sendMessage(text, modelSelect.value || '', ctxJson);
             inputEl.value = '';
+            attachedContext = null;
+            pickMode = null;
+            hidePendingPickHint();
+            renderTags();
             window.setProcessing(true);
         });
+    }
+
+    function insertAtCursor(text) {
+        try {
+            if (!inputEl) return;
+            const start = inputEl.selectionStart || 0;
+            const end = inputEl.selectionEnd || 0;
+            const before = inputEl.value.slice(0, start);
+            const after = inputEl.value.slice(end);
+            inputEl.value = before + text + after;
+            const pos = start + text.length;
+            inputEl.selectionStart = inputEl.selectionEnd = pos;
+        } catch (e) {}
     }
 
     function cancelRequest() {
@@ -485,6 +601,31 @@
     }
 
     sendBtn.addEventListener('click', sendMessage);
+
+    // Attach single clip: enter pick mode → user clicks clip on timeline
+    if (attachClipBtn) {
+        attachClipBtn.addEventListener('click', function () {
+            hideOverlay();
+            pickMode = 'selected_clip';
+            showPickHint('Click a clip on the timeline…');
+            getBridge(function (bridge) { if (bridge) bridge.requestClipPick('selected_clip'); });
+            if (inputEl) inputEl.focus();
+        });
+    }
+
+    // Attach two clips for transition
+    if (transitionClipsBtn) {
+        transitionClipsBtn.addEventListener('click', function () {
+            hideOverlay();
+            pickMode = 'transition_a';
+            attachedContext = { type: 'transition_clips', clipA: null, clipB: null };
+            renderTags();
+            showPickHint('Click the first clip (A) on the timeline…');
+            getBridge(function (bridge) { if (bridge) bridge.requestClipPick('transition_a'); });
+            if (inputEl) inputEl.focus();
+        });
+    }
+
     cancelBtn.addEventListener('click', cancelRequest);
     clearBtn.addEventListener('click', clearChat);
 
@@ -502,7 +643,22 @@
         if (glowWrap) glowWrap.classList.remove('glow-active');
     });
     inputEl.addEventListener('input', function () {
-        if ((inputEl.value || '').trim().length > 0) hideOverlay();
+        var val = inputEl.value || '';
+        if (val.trim().length > 0) hideOverlay();
+        // Auto-detect typed @mentions and convert them to tags
+        if (val.includes('@transition_clips') || val.includes('@transition')) {
+            inputEl.value = val.replace(/@transition_clips?/g, '').replace(/\s+/g, ' ').trim();
+            pickMode = 'transition_a';
+            attachedContext = { type: 'transition_clips', clipA: null, clipB: null };
+            renderTags();
+            showPickHint('Click the first clip (A) on the timeline…');
+            getBridge(function (bridge) { if (bridge) bridge.requestClipPick('transition_a'); });
+        } else if (val.includes('@selected_clip') || val.includes('@clip')) {
+            inputEl.value = val.replace(/@selected_clip\b/g, '').replace(/@clip\b/g, '').replace(/\s+/g, ' ').trim();
+            pickMode = 'selected_clip';
+            showPickHint('Click a clip on the timeline…');
+            getBridge(function (bridge) { if (bridge) bridge.requestClipPick('selected_clip'); });
+        }
     });
 
     if (inputOverlay) {
@@ -543,6 +699,11 @@
                 preambleStatus.classList.remove('visible');
                 preambleStatus.innerHTML = '';
             }
+            // Reset tag state
+            attachedContext = null;
+            pickMode = null;
+            hidePendingPickHint();
+            renderTags();
             updateIdleState();
         };
     })(window.clearMessages);
@@ -573,6 +734,9 @@
         // Remove all existing tab buttons (keep the "+" button)
         var existing = tabBarEl.querySelectorAll('.chat-tab');
         existing.forEach(function (el) { el.remove(); });
+
+        // Show the tab bar only when there are multiple tabs
+        tabBarEl.style.display = (currentTabs.length > 1) ? 'flex' : 'none';
 
         currentTabs.forEach(function (tab) {
             var btn = document.createElement('button');
@@ -624,6 +788,144 @@
         unreadSessions[sessionId] = true;
         renderTabs();
     };
+
+    // ==================================================================
+    // Version Cards for Parallel Execution
+    // ==================================================================
+    var versionCards = {}; // version_id -> card element
+
+    window.addVersionCard = function (versionData) {
+        removePlaceholder();
+        var data;
+        try {
+            data = typeof versionData === 'string' ? JSON.parse(versionData) : versionData;
+        } catch (e) {
+            console.error('Failed to parse version data:', e);
+            return;
+        }
+
+        var versionId = data.version_id;
+        var title = data.title || 'Untitled';
+        var status = data.status || 'pending';
+        var progress = data.progress || 0;
+
+        // Create version card
+        var card = document.createElement('div');
+        card.className = 'chat-version-card chat-message-enter';
+        card.setAttribute('data-version-id', versionId);
+
+        var statusBadge = getStatusBadge(status);
+        var progressBarHtml = status === 'running' || status === 'pending'
+            ? '<div class="version-progress-bar"><div class="version-progress-fill" style="width: ' + (progress * 100) + '%"></div></div>'
+            : '';
+
+        card.innerHTML =
+            '<div class="version-header">' +
+                '<span class="version-title">' + escapeHtml(title) + '</span>' +
+                statusBadge +
+            '</div>' +
+            progressBarHtml +
+            '<div class="version-activity-log" data-version-id="' + versionId + '"></div>' +
+            '<button class="version-switch-btn" data-version-id="' + versionId + '" ' +
+                (status === 'completed' ? '' : 'disabled') + '>' +
+                'Switch to this version' +
+            '</button>';
+
+        messagesEl.appendChild(card);
+        versionCards[versionId] = card;
+
+        // Add click handler for switch button
+        var switchBtn = card.querySelector('.version-switch-btn');
+        if (switchBtn) {
+            switchBtn.addEventListener('click', function () {
+                var vid = this.getAttribute('data-version-id');
+                getBridge(function (bridge) {
+                    if (bridge && bridge.switchToVersion) {
+                        bridge.switchToVersion(vid);
+                    }
+                });
+            });
+        }
+
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+    };
+
+    window.updateVersionProgress = function (versionId, progress, status) {
+        var card = versionCards[versionId];
+        if (!card) return;
+
+        // Update progress bar
+        var progressFill = card.querySelector('.version-progress-fill');
+        if (progressFill) {
+            progressFill.style.width = (progress * 100) + '%';
+        }
+
+        // Update status badge if provided
+        if (status) {
+            var oldBadge = card.querySelector('.version-status-badge');
+            if (oldBadge) {
+                var newBadge = getStatusBadge(status);
+                oldBadge.outerHTML = newBadge;
+            }
+
+            // Enable/disable switch button based on status
+            var switchBtn = card.querySelector('.version-switch-btn');
+            if (switchBtn) {
+                switchBtn.disabled = status !== 'completed';
+            }
+
+            // Remove progress bar if completed or failed
+            if (status === 'completed' || status === 'failed') {
+                var progressBar = card.querySelector('.version-progress-bar');
+                if (progressBar) progressBar.remove();
+            }
+        }
+    };
+
+    window.addVersionActivityStep = function (versionId, label, detail) {
+        var card = versionCards[versionId];
+        if (!card) return;
+
+        var activityLog = card.querySelector('.version-activity-log[data-version-id="' + versionId + '"]');
+        if (!activityLog) return;
+
+        var step = document.createElement('div');
+        step.className = 'version-activity-step running';
+        step.innerHTML =
+            '<span class="activity-icon">' + ACTIVITY_SPINNER_SVG + '</span>' +
+            '<span class="activity-label">' + escapeHtml(label) + '</span>' +
+            (detail ? '<span class="activity-detail">' + escapeHtml(detail) + '</span>' : '');
+
+        activityLog.appendChild(step);
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+    };
+
+    window.completeVersionActivityStep = function (versionId) {
+        var card = versionCards[versionId];
+        if (!card) return;
+
+        var activityLog = card.querySelector('.version-activity-log[data-version-id="' + versionId + '"]');
+        if (!activityLog) return;
+
+        var steps = activityLog.querySelectorAll('.version-activity-step.running');
+        if (steps.length > 0) {
+            var lastStep = steps[steps.length - 1];
+            lastStep.classList.remove('running');
+            lastStep.classList.add('done');
+            var icon = lastStep.querySelector('.activity-icon');
+            if (icon) icon.innerHTML = ACTIVITY_CHECK_SVG;
+        }
+    };
+
+    function getStatusBadge(status) {
+        var badges = {
+            'pending': '<span class="version-status-badge status-pending">Pending</span>',
+            'running': '<span class="version-status-badge status-running">Running</span>',
+            'completed': '<span class="version-status-badge status-completed">✓ Completed</span>',
+            'failed': '<span class="version-status-badge status-failed">✗ Failed</span>'
+        };
+        return badges[status] || badges['pending'];
+    }
 
     // ==================================================================
     // Context progress ring + popover

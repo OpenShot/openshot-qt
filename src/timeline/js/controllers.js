@@ -1167,7 +1167,8 @@ $scope.selectItem = function (item_id, item_type, clear_selections, event, force
       return "../images/AudioThumbnail.svg";
     }
     var file_fps = clip["reader"]["fps"]["num"] / clip["reader"]["fps"]["den"];
-    return $scope.ThumbServer + clip.file_id + "/" + ((file_fps * clip.start) + 1) + "/";
+    var thumb_url = $scope.ThumbServer + clip.file_id + "/" + ((file_fps * clip.start) + 1) + "/";
+    return thumb_url;
   };
 
   // Constrain canvas width values to under 32Kpixels

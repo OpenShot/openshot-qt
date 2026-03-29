@@ -375,6 +375,8 @@ def _reader_bounds(reader: Any) -> Tuple[Optional[float], Optional[int]]:
     duration = _to_float(metadata.get("duration"))
     if duration is not None and duration < 0.0:
         duration = None
+    logger.info("DIAG _reader_bounds: raw duration=%s fps=%s video_length=%s",
+                metadata.get("duration"), metadata.get("fps"), metadata.get("video_length"))
 
     project_fps = project_fps_fraction()
     project_fps_float = float(project_fps) if project_fps else None

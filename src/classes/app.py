@@ -179,9 +179,6 @@ class OpenShotApp(QApplication):
         # Empty window
         self.window = None
 
-        # Auto-updater instance (started later in gui())
-        self.auto_updater = None
-
         # Instantiate Theme Manager (Singleton)
         from themes.manager import ThemeManager
         self.theme_manager = ThemeManager(self)
@@ -194,7 +191,7 @@ class OpenShotApp(QApplication):
             log.info("-" * 48)
 
             log.info("openshot-qt version: %s" % info.VERSION)
-            log.info("libopenshot version: %s" % getattr(openshot, 'OPENSHOT_VERSION_FULL', 'unknown'))
+            log.info("libopenshot version: %s" % openshot.OPENSHOT_VERSION_FULL)
             log.info("platform: %s" % platform.platform())
             log.info("processor: %s" % platform.processor())
             log.info("machine: %s" % platform.machine())
@@ -216,13 +213,7 @@ class OpenShotApp(QApplication):
     def check_libopenshot_version(self, info, openshot):
         """Detect minimum libopenshot version"""
         _ = self._tr
-        ver = getattr(openshot, 'OPENSHOT_VERSION_FULL', None)
-        if ver is None:
-            ver = "{}.{}.{}".format(
-                getattr(openshot, 'OPENSHOT_VERSION_MAJOR', 0),
-                getattr(openshot, 'OPENSHOT_VERSION_MINOR', 0),
-                getattr(openshot, 'OPENSHOT_VERSION_BUILD', 0)
-            )
+        ver = openshot.OPENSHOT_VERSION_FULL
         min_ver = info.MINIMUM_LIBOPENSHOT_VERSION
         if ver >= min_ver:
             return True
@@ -277,7 +268,7 @@ class OpenShotApp(QApplication):
             log.debug("Testing write access to user directory")
             # Create test paths
             TEST_PATH_DIR = os.path.join(info.USER_PATH, 'PERMISSION')
-            TEST_PATH_FILE = os.path.join(TEST_PATH_DIR, 'test.zvn')
+            TEST_PATH_FILE = os.path.join(TEST_PATH_DIR, f'test{info.PROJECT_EXT}')
             os.makedirs(TEST_PATH_DIR, exist_ok=True)
             with open(TEST_PATH_FILE, 'w') as f:
                 f.write('{}')
@@ -322,16 +313,21 @@ class OpenShotApp(QApplication):
         # Connect our exit signals
         self.aboutToQuit.connect(self.cleanup)
 
+        # Show auth dialog if user is not signed in
+        from classes.auth_manager import AuthManager
+        auth = AuthManager.instance()
+        if not auth.is_authenticated():
+            from windows.login_window import LoginWindow
+            login_dlg = LoginWindow(parent=None)
+            result = login_dlg.exec_()
+            # If user cancelled auth, quit the application
+            if result != LoginWindow.Accepted:
+                log.info("Auth cancelled by user — exiting.")
+                self.window.close()
+                return False
+
         # Show main window
         self.window.show()
-
-        # Start background auto-updater (downloads updates silently)
-        try:
-            from classes.auto_updater import AutoUpdater
-            self.auto_updater = AutoUpdater()
-            self.auto_updater.start()
-        except Exception:
-            log.warning("Failed to start auto-updater", exc_info=True)
 
         args = self.args
         if len(args) < 2:
@@ -341,8 +337,8 @@ class OpenShotApp(QApplication):
 
         log.info('Process command-line arguments: %s', args[1:])
 
-        # Auto load project if passed as argument (.zvn or .osp)
-        if args[1].endswith((self.info.PROJECT_EXT, self.info.LEGACY_PROJECT_EXT)):
+        # Auto load project if passed as argument (.flow or legacy)
+        if args[1].endswith(self.info.ALL_PROJECT_EXTS):
             self.window.OpenProjectSignal.emit(args[1])
             return True
 
@@ -383,13 +379,6 @@ class OpenShotApp(QApplication):
     def cleanup(self):
         """aboutToQuit signal handler for application exit"""
         self.log.debug("Saving settings in app.cleanup")
-
-        # Stop the background auto-updater thread
-        if self.auto_updater:
-            try:
-                self.auto_updater.stop()
-            except Exception:
-                self.log.debug("Error stopping auto-updater", exc_info=True)
 
         try:
             self.settings.save()

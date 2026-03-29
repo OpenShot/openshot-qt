@@ -46,19 +46,13 @@ import argparse
 import json
 import logging
 
-# In a cx_Freeze frozen build, remove system site-packages from sys.path to
-# prevent circular imports between bundled modules and system-installed copies
-# (e.g., zmq, openshot, PyQt5).  The frozen build is self-contained — all
-# required modules are in lib/.  System paths only cause version conflicts.
-if getattr(sys, 'frozen', False):
-    _system_prefixes = ('/usr/lib/python', '/usr/local/lib/python')
-    sys.path = [p for p in sys.path if not p.startswith(_system_prefixes)]
-    # Ensure bundled lib/ is present and first
-    _frozen_lib = os.path.join(os.path.dirname(os.path.abspath(sys.executable)), "lib")
-    if os.path.isdir(_frozen_lib):
-        if _frozen_lib in sys.path:
-            sys.path.remove(_frozen_lib)
-        sys.path.insert(0, _frozen_lib)
+# Enable faulthandler early so native crashes (SIGSEGV) dump Python stack traces.
+try:
+    import faulthandler
+
+    faulthandler.enable(all_threads=True)
+except Exception:
+    pass
 
 try:
     # This needs to be imported before PyQt5
@@ -98,23 +92,6 @@ except (ImportError, AttributeError):
     pass
 
 try:
-    # On Windows frozen builds, Qt5WebEngineCore.dll looks for QtWebEngineProcess.exe
-    # relative to the application executable directory. cx_Freeze places it in
-    # lib/PyQt5/Qt5/bin/ instead of the root, so we set QTWEBENGINEPROCESS_PATH.
-    if sys.platform == 'win32' and getattr(sys, 'frozen', False):
-        _app_dir = os.path.dirname(os.path.abspath(sys.executable))
-        _web_process = os.path.join(
-            _app_dir, 'lib', 'PyQt5', 'Qt5', 'bin', 'QtWebEngineProcess.exe')
-        if os.path.exists(_web_process):
-            os.environ.setdefault('QTWEBENGINEPROCESS_PATH', _web_process)
-        # Disable GPU hardware acceleration for VMs/environments without GPU support
-        _flags = os.environ.get('QTWEBENGINE_CHROMIUM_FLAGS', '')
-        if '--disable-gpu' not in _flags:
-            os.environ['QTWEBENGINE_CHROMIUM_FLAGS'] = (_flags + ' --disable-gpu').strip()
-except Exception:
-    pass
-
-try:
     # QtWebEngineWidgets must be loaded prior to creating a QApplication
     # But on systems with only WebKit, this will fail (and we ignore the failure)
     from PyQt5 import QtWebEngineWidgets
@@ -146,43 +123,10 @@ except ImportError:
 app = None
 
 
-def _try_apply_staged_update():
-    """Check for a staged auto-update and apply it before the GUI starts.
-
-    This runs *before* PyQt5 or any heavy dependency is loaded so the user
-    sees the updated version on the very next launch.  If the update is
-    applied successfully we restart the process so it picks up the new code.
-    """
-    try:
-        from classes.update_installer import has_pending_update, apply_pending_update
-        if not has_pending_update():
-            return
-        print("[ZenviUpdater] Staged update detected — applying...")
-        if apply_pending_update():
-            print("[ZenviUpdater] Update applied. Restarting...")
-            # Re-exec the current process so the new binary / code runs.
-            # On Windows the Inno Setup installer runs asynchronously and
-            # replaces files itself, so we only need to exit — the user
-            # will relaunch the app manually or via the installer's
-            # /RESTARTAPPLICATIONS flag.
-            if sys.platform == "win32":
-                sys.exit(0)
-            else:
-                os.execv(sys.executable, [sys.executable] + sys.argv)
-                sys.exit(0)  # os.execv does not return, but just in case
-        else:
-            print("[ZenviUpdater] Update could not be applied — continuing with current version")
-    except Exception as exc:
-        print(f"[ZenviUpdater] Pre-launch update check failed: {exc}")
-
-
 def main():
     """"Initialize settings (not implemented) and create main window/application."""
 
     global app
-
-    # --- Auto-update: apply any staged update before heavy imports ----------
-    _try_apply_staged_update()
 
     # Configure argument handling for commandline launches
     parser = argparse.ArgumentParser(description='OpenShot version ' + info.SETUP['version'])
@@ -283,13 +227,10 @@ def main():
     argv = [sys.argv[0]]
     argv.extend(extra_args)
     argv.extend(args.remain)
-    app = None
     try:
         app = OpenShotApp(argv)
     except Exception:
-        if app is not None:
-            app.show_errors()
-        raise
+        app.show_errors()
 
     # Setup Qt application details
     app.setApplicationName('zenvi')

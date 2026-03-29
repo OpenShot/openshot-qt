@@ -187,6 +187,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Disable video caching
         openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = False
 
+        # Stop AI chat thread early so its 1-second wait overlaps with the rest of shutdown
+        if getattr(self, "dockAIChat", None):
+            self.dockAIChat._stop_all_threads()
+
         # Stop threads
         self.StopSignal.emit()
 
@@ -230,35 +234,15 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         """Recover the backup file (if any)"""
         log.info("recover_backup")
 
-        # Check for backup file (backup.zvn)
-        if os.path.exists(info.BACKUP_FILE):
-            # Load recovery project
-            log.info("Recovering backup file: %s" % info.BACKUP_FILE)
-            self.open_project(info.BACKUP_FILE, clear_thumbnails=False)
-
-            # Clear the file_path (which is set by saving the project)
-            project = get_app().project
-            project.current_filepath = None
-            project.has_unsaved_changes = True
-
-            # Set Window title
-            self.SetWindowTitle()
-
-            # Show message to user
-            msg = QMessageBox()
-            _ = get_app()._tr
-            msg.setWindowTitle(_("Backup Recovered"))
-            msg.setText(_("Your most recent unsaved project has been recovered."))
-            msg.exec_()
-
-        else:
-            # No backup project found
-            # Load a blank project (to propagate the default settings)
-            get_app().project.load("")
-            self.actionUndo.setEnabled(False)
-            self.actionRedo.setEnabled(False)
-            self.actionClearHistory.setEnabled(False)
-            self.SetWindowTitle()
+        # Automatic backup recovery is disabled - user can manually open backup if needed.
+        # Always load a blank project to initialize the JS timeline with proper project data
+        # (layers, fps, etc.). Without this, the JS uses hardcoded defaults (layers 0-4)
+        # that don't match the Python project state (layers 1000000-5000000).
+        get_app().project.load("")
+        self.actionUndo.setEnabled(False)
+        self.actionRedo.setEnabled(False)
+        self.actionClearHistory.setEnabled(False)
+        self.SetWindowTitle()
 
     def create_lock_file(self):
         """Create a lock file"""
@@ -762,6 +746,13 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         import time
 
         app = get_app()
+
+        # Skip auto-save if a video generation pipeline is in progress.
+        # The generation code pauses and resumes this timer, but as a
+        # secondary safeguard we also check a flag.
+        if getattr(app, '_generation_in_progress', False):
+            log.debug("auto_save_project: skipped — generation in progress")
+            return
 
         # Get current filepath (if any)
         file_path = app.project.current_filepath
@@ -2759,6 +2750,14 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Notify UI that selection has been potentially changed
         self.SelectionChanged.emit()
 
+        # Cache last clip selection for AI tools/UI that may query selection after focus changes.
+        try:
+            clip_ids = self.selected_clips
+            if clip_ids:
+                self.ai_last_selected_clips = list(clip_ids)
+        except Exception:
+            pass
+
         # Clear caption editor (if nothing is selected)
         get_app().window.CaptionTextLoaded.emit("", None)
 
@@ -3041,7 +3040,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.actionUndo.setEnabled(False)
         self.actionRedo.setEnabled(False)
 
-        # Add files toolbar
+        # Build files toolbar (hidden – actions remain available via context menu)
         self.filesToolbar = QToolBar("Files Toolbar")
         self.filesActionGroup = QActionGroup(self)
         self.filesActionGroup.setExclusive(True)
@@ -3050,16 +3049,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.filesActionGroup.addAction(self.actionFilesShowAudio)
         self.filesActionGroup.addAction(self.actionFilesShowImage)
         self.actionFilesShowAll.setChecked(True)
-        self.filesToolbar.addAction(self.actionFilesShowAll)
-        self.filesToolbar.addAction(self.actionFilesShowVideo)
-        self.filesToolbar.addAction(self.actionFilesShowAudio)
-        self.filesToolbar.addAction(self.actionFilesShowImage)
+        # Keep filesFilter widget alive (referenced by FilesListView) but don't show it
         self.filesFilter = QLineEdit()
         self.filesFilter.setObjectName("filesFilter")
-        self.filesFilter.setPlaceholderText(_("Filter"))
-        self.filesFilter.setClearButtonEnabled(True)
-        self.filesToolbar.addWidget(self.filesFilter)
-        self.tabFiles.layout().insertWidget(0, self.filesToolbar)
+        # filesToolbar intentionally NOT inserted into tabFiles layout
 
         # Add transitions toolbar
         self.transitionsToolbar = QToolBar("Transitions Toolbar")
@@ -3250,6 +3243,24 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         """ Always update the property view when we seek to a new position """
         # Notify properties dialog
         self.propertyTableView.select_frame(frame)
+
+    def on_plan_approved(self, plan_id):
+        """Handle director plan approval — send approval to backend via chat."""
+        log.info(f"Plan approved: {plan_id}")
+        try:
+            # Send the approval to the backend via the AI chat
+            if hasattr(self, 'dockAIChat'):
+                self.dockAIChat.send_message(f"Execute approved plan: {plan_id}")
+            if hasattr(self, 'dockPlanReview'):
+                self.dockPlanReview.hide()
+        except Exception as e:
+            log.error(f"Plan approval handling failed: {e}", exc_info=True)
+
+    def on_plan_rejected(self, plan_id):
+        """Handle director plan rejection."""
+        log.info(f"Plan rejected: {plan_id}")
+        if hasattr(self, 'dockPlanReview'):
+            self.dockPlanReview.hide()
 
     def moveEvent(self, event):
         """ Move tutorial dialogs also (if any)"""
@@ -3824,15 +3835,16 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
             elif theme and theme.name == ThemeName.COSMIC.value:
                 # handle COSMIC theme dock widgets
-                if tabified_widgets:
-                    # Apply custom title bar with grab handle (for grouped/tabbed docks)
-                    dock_widget.setTitleBarWidget(HiddenTitleBar(dock_widget, ""))
-                elif dock_widget.isFloating():
-                    # Use standard system title bar (minimize, maximize, close) for floating docks
+                _nav_docks = {"dockFiles", "dockTransitions", "dockEffects", "dockEmojis"}
+                if dock_widget.isFloating():
+                    # Use standard system title bar for floating docks
                     dock_widget.setTitleBarWidget(None)
+                elif dock_widget.objectName() in _nav_docks:
+                    # Nav docks: compact title bar with float + close buttons, no title text
+                    dock_widget.setTitleBarWidget(HiddenTitleBar(dock_widget, show_buttons=True))
                 else:
-                    # Apply custom title bar with text (no grab handle) for non-tabbed, non-floating docks
-                    dock_widget.setTitleBarWidget(HiddenTitleBar(dock_widget, dock_widget.windowTitle()))
+                    # All other docks: completely suppress the title bar (no space, no buttons)
+                    dock_widget.setTitleBarWidget(QWidget())
 
             else:
                 # for ALL other themes, regardless of floating or tabbed
@@ -3920,6 +3932,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Init UI
         ui_util.init_ui(self)
 
+        # Hide the Help menu from the menu bar
+        if hasattr(self, "menuHelp"):
+            self.menuHelp.menuAction().setVisible(False)
+
         # Create dock toolbars, set initial state of items, etc
         self.setup_toolbars()
 
@@ -3980,6 +3996,56 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.dockAIMedia = AIMediaPanel(self)
         self.addDockWidget(Qt.RightDockWidgetArea, self.dockAIMedia)
         self.dockAIMedia.setVisible(False)  # Hidden by default
+
+        # Setup Director Panel (must be before addViewDocksMenu)
+        try:
+            from windows.director_panel_ui import get_director_panel_dock
+            self.dockDirectorPanel = get_director_panel_dock(self)
+            self.addDockWidget(Qt.RightDockWidgetArea, self.dockDirectorPanel)
+            self.dockDirectorPanel.setVisible(False)  # Hidden by default
+        except Exception as e:
+            log.error(f"Failed to initialize Director Panel: {e}", exc_info=True)
+
+        # Setup Plan Review Panel (must be before addViewDocksMenu)
+        try:
+            from windows.director_plan_review_ui import get_plan_review_dock
+            self.dockPlanReview = get_plan_review_dock(self)
+            self.addDockWidget(Qt.BottomDockWidgetArea, self.dockPlanReview)
+            self.dockPlanReview.setVisible(False)  # Hidden by default
+
+            # Connect plan approval/rejection handlers
+            self.dockPlanReview.plan_approved.connect(self.on_plan_approved)
+            self.dockPlanReview.plan_rejected.connect(self.on_plan_rejected)
+        except Exception as e:
+            log.error(f"Failed to initialize Plan Review: {e}", exc_info=True)
+
+        # Plan Graph dock (edit plan hierarchy)
+        try:
+            from classes.plan_graph import PlanGraphDock
+            self.plan_graph_dock = PlanGraphDock(self)
+            self.addDockWidget(Qt.RightDockWidgetArea, self.plan_graph_dock)
+            self.plan_graph_dock.setVisible(False)
+        except Exception as e:
+            log.error(f"Failed to initialize Plan Graph: {e}", exc_info=True)
+
+        # Thinking dock (director communication window)
+        try:
+            from windows.thinking_dock import ThinkingDockWidget
+            self.thinking_dock = ThinkingDockWidget(self)
+            self.addDockWidget(Qt.RightDockWidgetArea, self.thinking_dock)
+            self.thinking_dock.setVisible(False)  # Hidden by default, shown when directors run
+        except Exception as e:
+            log.error(f"Failed to initialize Thinking Dock: {e}", exc_info=True)
+
+        # Pexels stock-video search dock
+        try:
+            from windows.pexels_dock import PexelsDock
+            self.dockPexels = PexelsDock(self)
+            self.addDockWidget(Qt.LeftDockWidgetArea, self.dockPexels)
+            self.tabifyDockWidget(self.dockFiles, self.dockPexels)
+            self.dockPexels.setVisible(False)  # Hidden by default; accessible via View > Docks
+        except Exception as e:
+            log.error(f"Failed to initialize Pexels Dock: {e}", exc_info=True)
 
         # Add Docks submenu to View menu
         self.addViewDocksMenu()
