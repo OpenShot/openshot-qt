@@ -1,0 +1,27 @@
+name: openshot-qt CI Build
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-22.04, ubuntu-24.04]
+    defaults:
+      run:
+        shell: bash
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v3
+
+    - name: Install dependencies
+      run: |
+        sudo add-apt-repository ppa:openshot.developers/libopenshot-daily
+        sudo apt update
+        sudo apt install libopenshot-audio-dev libopenshot-dev python3-openshot
+        sudo apt install qttranslations5-l10n libssl-dev xvfb
+        sudo apt install python3-pyqt5 python3-pyqt5.qtsvg python3-pyqt5.qtwebengine python3-pyqt5.qtopengl python3-zmq python3-xdg
+        pip3 install setuptools wheel sentry-sdk
+        pip3 install cx_Freeze==7.0.0 distro defusedxml requests certifi chardet urllib3
+
+    - name: Test
+      run: python3 ./src/tests/query_tests.py -platform minimal
