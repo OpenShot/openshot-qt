@@ -123,6 +123,9 @@ LOG_LEVEL_CONSOLE = 'INFO'
 # Web backend selection, overridable at launch
 WEB_BACKEND = 'auto'
 
+# Backend API URL
+BACKEND_URL = os.getenv("ZENVI_BACKEND_URL", "https://api.zenvi.pro")
+
 # Sentry.io error & transaction reporting rate (0.0 TO 1.0)
 # 0.0 = no error reporting to Sentry
 # 0.5 = 1/2 of errors reported to Sentry
