@@ -10,8 +10,8 @@ from classes.logger import log
 PROVIDER_LIST = [
     ("openai/gpt-4o-mini", "OpenAI GPT-4o mini", "openai_provider", 128_000),
     ("openai/gpt-4o", "OpenAI GPT-4o", "openai_provider", 128_000),
-    ("anthropic/claude-3-5-sonnet", "Anthropic Claude 3.5 Sonnet", "anthropic_provider", 200_000),
-    ("anthropic/claude-3-haiku", "Anthropic Claude 3 Haiku", "anthropic_provider", 200_000),
+    ("anthropic/claude-sonnet-4-6", "Anthropic Claude Sonnet 4.6", "anthropic_provider", 1_000_000),
+    ("anthropic/claude-haiku-4-5", "Anthropic Claude Haiku 4.5", "anthropic_provider", 200_000),
     ("ollama/llama3.2", "Ollama Llama 3.2 (local)", "ollama_provider", 128_000),
     ("ollama/llama3.1", "Ollama Llama 3.1 (local)", "ollama_provider", 128_000),
 ]

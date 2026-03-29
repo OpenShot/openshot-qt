@@ -163,7 +163,7 @@ def find_files(directory, patterns):
 
 
 # GUI applications require a different base on Windows
-iconFile = "openshot-qt"
+iconFile = info.NAME
 base = None
 src_files = []
 external_so_files = []
@@ -241,7 +241,7 @@ if sys.platform == "win32":
     # Append all source files
     src_files.append((os.path.join(PATH, "installer", "qt.conf"), "qt.conf"))
     for filename in find_files("openshot_qt", ["*"]):
-        src_files.append((filename, os.path.join(os.path.relpath(filename, start=openshot_copy_path))))
+        src_files.append((filename, os.path.join("lib", os.path.relpath(filename, start=openshot_copy_path))))
 
 elif sys.platform == "linux":
     # Find libopenshot.so path (GitLab copies artifacts into local build/install folder)
@@ -296,7 +296,7 @@ elif sys.platform == "linux":
     src_files.append((os.path.join(PATH, "xdg", iconFile), iconFile))
 
     # Shorten name (since RPM can't have spaces)
-    info.PRODUCT_NAME = "openshot-qt"
+    info.PRODUCT_NAME = info.NAME
 
     # Add custom launcher script for frozen linux version
     src_files.append((os.path.join(PATH, "installer", "launch-linux.sh"), "launch-linux.sh"))
@@ -432,7 +432,7 @@ elif sys.platform == "linux":
     # Append all source files
     src_files.append((os.path.join(PATH, "installer", "qt.conf"), "qt.conf"))
     for filename in find_files("openshot_qt", ["*"]):
-        src_files.append((filename, os.path.join(os.path.relpath(filename, start=openshot_copy_path))))
+        src_files.append((filename, os.path.join("lib", os.path.relpath(filename, start=openshot_copy_path))))
 
 elif sys.platform == "darwin":
     # Copy Mac specific files that cx_Freeze misses
