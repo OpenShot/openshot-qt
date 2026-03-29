@@ -15,6 +15,7 @@ cx_Freeze>=7.2.0,<8.0
 distro
 defusedxml
 requests
+websocket-client>=1.7.0
 certifi
 # Runware SDK (WebSocket) for in-app video generation; optional but recommended
 runware>=0.4.33
