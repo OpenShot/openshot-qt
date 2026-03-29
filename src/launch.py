@@ -88,7 +88,7 @@ try:
     # (via QtWebEgine) AND before creating the QApplication instance
     QApplication.setAttribute(Qt.AA_ShareOpenGLContexts)
     from OpenGL import GL  # noqa
-except (ImportError, AttributeError):
+except Exception:
     pass
 
 try:
