@@ -12,6 +12,7 @@ Fallback flow (email + password):
   — call Supabase Auth REST API directly; no browser required.
 """
 
+import base64
 import json
 import logging
 import os
@@ -126,16 +127,75 @@ class AuthManager:
             log.warning("Could not clear Zenvi auth file: %s", exc)
         self._session = None
 
+    # ── Token helpers ─────────────────────────────────────────────────────────
+
+    @staticmethod
+    def _decode_jwt_exp(token: str) -> int | None:
+        """Extract the ``exp`` claim from a JWT using stdlib only."""
+        try:
+            payload_b64 = token.split(".")[1]
+            padding = 4 - len(payload_b64) % 4
+            if padding != 4:
+                payload_b64 += "=" * padding
+            payload = json.loads(base64.urlsafe_b64decode(payload_b64))
+            return payload.get("exp")
+        except Exception:
+            return None
+
+    def _refresh_session(self) -> bool:
+        """Use the stored refresh_token to obtain a new access_token.
+        Returns True on success (session is updated on disk)."""
+        if not self._session or not self._session.get("refresh_token"):
+            return False
+        if not SUPABASE_URL or not SUPABASE_ANON_KEY:
+            return False
+        try:
+            resp = requests.post(
+                f"{SUPABASE_URL}/auth/v1/token?grant_type=refresh_token",
+                headers=self._anon_headers(),
+                json={"refresh_token": self._session["refresh_token"]},
+                timeout=10,
+            )
+            if resp.status_code == 200:
+                data = resp.json()
+                access_token = data.get("access_token")
+                if access_token:
+                    user = data.get("user") or {}
+                    new_session = {
+                        "access_token": access_token,
+                        "refresh_token": data.get("refresh_token", self._session.get("refresh_token")),
+                        "expires_at": data.get("expires_at"),
+                        "user_id": user.get("id", self._session.get("user_id")),
+                        "user_email": user.get("email", self._session.get("user_email")),
+                    }
+                    self.save_session(new_session)
+                    return True
+            log.info("Token refresh failed (status=%s)", resp.status_code)
+        except requests.RequestException as exc:
+            log.warning("Token refresh network error: %s", exc)
+        return False
+
     # ── Session queries ────────────────────────────────────────────────────────
 
     def is_authenticated(self) -> bool:
+        """Check for a valid (non-expired) session, refreshing if needed."""
         if self._session is None:
             self.load_session()
-        return bool(self._session and self._session.get("access_token"))
+        if not self._session or not self._session.get("access_token"):
+            return False
+
+        exp = self._decode_jwt_exp(self._session["access_token"])
+        if exp is not None and exp < time.time():
+            log.info("Access token expired (exp=%s), attempting refresh", exp)
+            if self._refresh_session():
+                return True
+            self.clear_session()
+            return False
+        return True
 
     def get_access_token(self) -> str | None:
-        if self._session is None:
-            self.load_session()
+        if not self.is_authenticated():
+            return None
         return (self._session or {}).get("access_token")
 
     def get_user_email(self) -> str | None:
@@ -249,6 +309,7 @@ class AuthManager:
             session = {
                 "access_token": access_token,
                 "refresh_token": data.get("refresh_token"),
+                "expires_at": data.get("expires_at"),
                 "user_id": user.get("id"),
                 "user_email": user.get("email") or email,
             }
@@ -295,6 +356,7 @@ class AuthManager:
             session = {
                 "access_token": access_token,
                 "refresh_token": data.get("refresh_token"),
+                "expires_at": data.get("expires_at"),
                 "user_id": user.get("id"),
                 "user_email": user.get("email") or email,
             }

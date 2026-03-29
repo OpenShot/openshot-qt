@@ -135,6 +135,7 @@
     <addaction name="menuImport_Project"/>
     <addaction name="menuExport"/>
     <addaction name="separator"/>
+    <addaction name="actionSignOut"/>
     <addaction name="actionQuit"/>
    </widget>
    <widget class="QMenu" name="menu_Edit">
@@ -681,6 +682,14 @@
    </property>
    <property name="toolTip">
     <string>Upload Video</string>
+   </property>
+  </action>
+  <action name="actionSignOut">
+   <property name="text">
+    <string>Sign Out</string>
+   </property>
+   <property name="toolTip">
+    <string>Sign out of your Zenvi account</string>
    </property>
   </action>
   <action name="actionQuit">

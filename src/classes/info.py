@@ -26,9 +26,10 @@
  """
 
 import os
+import sys
 from time import strftime
 
-VERSION = "1.0.127"
+VERSION = "1.0.128"
 # 0.5.0+ preferred; 0.3.2 minimum for systems where only stable PPA (or older) is available (e.g. aarch64)
 MINIMUM_LIBOPENSHOT_VERSION = "0.3.2"
 DATE = "20250612000000"
@@ -43,6 +44,18 @@ CWD = os.getcwd()
 
 # Application paths
 PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))  # Primary openshot folder
+
+# In frozen builds (cx_Freeze), __file__ may resolve differently across versions.
+# Verify PATH by checking for a known subdirectory; fall back to exe-relative paths.
+if getattr(sys, 'frozen', False):
+    _settings_check = os.path.join(PATH, 'settings', '_default.settings')
+    if not os.path.exists(_settings_check):
+        _exe_dir = os.path.dirname(sys.executable)
+        if os.path.exists(os.path.join(_exe_dir, 'lib', 'settings', '_default.settings')):
+            PATH = os.path.join(_exe_dir, 'lib')
+        elif os.path.exists(os.path.join(_exe_dir, 'settings', '_default.settings')):
+            PATH = _exe_dir
+
 RESOURCES_PATH = os.path.join(PATH, "resources")
 PROFILES_PATH = os.path.join(PATH, "profiles")
 IMAGES_PATH = os.path.join(PATH, "images")
