@@ -58,7 +58,11 @@ class PreviewParent(QObject, UpdateInterface):
 
     # Signal when the frame position changes in the preview player
     def onPositionChanged(self, current_frame):
-        self.parent.movePlayhead(current_frame)
+        try:
+            self.parent.movePlayhead(current_frame)
+        except RuntimeError:
+            # Timeline widget was deleted during shutdown — ignore stale callback
+            return
 
         # Check if we are at the end of the timeline
         if self.worker.player.Mode() == openshot.PLAYBACK_PLAY:
@@ -81,8 +85,9 @@ class PreviewParent(QObject, UpdateInterface):
                 self.parent.SetPlayheadFollow(False)
             else:
                 self.parent.SetPlayheadFollow(True)
-        except AttributeError:
-            # Parent object doesn't need the playhead follow code
+        except (AttributeError, RuntimeError):
+            # Parent object doesn't need the playhead follow code,
+            # or the timeline widget was deleted during shutdown
             pass
 
     # Signal when the playback encounters an error

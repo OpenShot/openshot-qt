@@ -327,6 +327,23 @@ QPushButton#dock-close-button:hover {
     color: #ef4444;
 }
 
+/* Menu-bar logout button (top-right corner widget) */
+QToolButton#logout-btn {
+    background: transparent;
+    border: none;
+    border-radius: 4px;
+    padding: 3px 6px;
+    margin: 1px 4px;
+    color: #8a8a8a;
+}
+QToolButton#logout-btn:hover {
+    background: rgba(239,68,68,0.15);
+    color: #ef4444;
+}
+QToolButton#logout-btn:pressed {
+    background: rgba(239,68,68,0.25);
+}
+
 QDockWidget QWidget { border: none; }
 
 /* Dock content areas */
