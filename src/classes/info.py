@@ -29,7 +29,7 @@ import os
 import sys
 from time import strftime
 
-VERSION = "1.0.132"
+VERSION = "1.0.133"
 # 0.5.0+ preferred; 0.3.2 minimum for systems where only stable PPA (or older) is available (e.g. aarch64)
 MINIMUM_LIBOPENSHOT_VERSION = "0.3.2"
 DATE = "20250612000000"
@@ -138,6 +138,9 @@ WEB_BACKEND = 'auto'
 
 # Backend API URL
 BACKEND_URL = os.getenv("ZENVI_BACKEND_URL", "https://api.zenvi.pro")
+
+# GitHub repo for auto-updater (org/repo format)
+GITHUB_REPO = "Zenvi-pro/zenvi-core"
 
 # Sentry.io error & transaction reporting rate (0.0 TO 1.0)
 # 0.0 = no error reporting to Sentry

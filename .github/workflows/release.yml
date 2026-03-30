@@ -656,6 +656,28 @@ jobs:
             otool -L "$OPENSHOT_SO" 2>/dev/null | head -20 || true
           fi
 
+      - name: Install Apple Developer ID certificate
+        env:
+          APPLE_CERT_BASE64: ${{ secrets.APPLE_CERT_BASE64 }}
+          APPLE_CERT_PASSWORD: ${{ secrets.APPLE_CERT_PASSWORD }}
+        run: |
+          KEYCHAIN_PATH="$RUNNER_TEMP/signing.keychain-db"
+          KEYCHAIN_PASSWORD="$(openssl rand -hex 16)"
+          security create-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+          security set-keychain-settings -lut 21600 "$KEYCHAIN_PATH"
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+          echo "$APPLE_CERT_BASE64" | base64 --decode > "$RUNNER_TEMP/cert.p12"
+          security import "$RUNNER_TEMP/cert.p12" \
+            -k "$KEYCHAIN_PATH" \
+            -P "$APPLE_CERT_PASSWORD" \
+            -T /usr/bin/codesign \
+            -T /usr/bin/security
+          security set-key-partition-list \
+            -S apple-tool:,apple: \
+            -s -k "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+          security list-keychains -d user -s "$KEYCHAIN_PATH" login.keychain-db
+          security find-identity -v -p codesigning "$KEYCHAIN_PATH"
+
       - name: Assemble .app bundle
         run: |
           FROZEN_DIR=$(find build -maxdepth 1 -type d -name 'exe.*' | head -1)
@@ -677,50 +699,73 @@ jobs:
           [ -f "installer/zenvi.icns" ] \
             && cp "installer/zenvi.icns" "$APP/Contents/Resources/icon.icns"
 
-          # Make all files readable but do NOT add +x to everything.
-          # chmod -R a+rx would give execute bits to text/data files (e.g.
-          # frozen_application_license.txt, .hash, .json), which makes codesign
-          # treat them as unsigned code objects and refuse to sign the bundle.
-          chmod -R a+r "$APP/Contents/"
+          # Strip extended attributes
+          xattr -cr "$APP" 2>/dev/null || true
 
-          # Give execute permission to Mach-O libraries and known entry points.
-          # Info.plist declares CFBundleExecutable=launch-mac, so that must be +x too.
+          # Remove .hash dirs that confuse codesign
+          find "$APP" -type d -name ".hash" -exec rm -rf {} + 2>/dev/null || true
+
+          # Make all files readable; strip execute bits then restore only on binaries
+          chmod -R a+r "$APP/Contents/"
+          find "$APP/Contents" -type f -exec chmod a-x {} \;
           find "$APP" \( -name '*.dylib' -o -name '*.so' \) -exec chmod +x {} \;
           for bin in zenvi launch launch-zenvi launch-mac; do
             [ -f "$APP/Contents/MacOS/$bin" ] && chmod +x "$APP/Contents/MacOS/$bin"
           done
 
-          # Ad-hoc sign every Mach-O binary detected by content (magic bytes), not by
-          # file extension. Extension-only filtering (.dylib/.so) misses binaries with
-          # unusual names, causing codesign to fail with "code object is not signed at
-          # all" for each missed file. Bundle-level signing (codesign APP) is skipped:
-          # ad-hoc signing provides no Gatekeeper bypass (that needs a Developer ID
-          # cert), so signing individual binaries is both necessary and sufficient to
-          # prevent dyld crashes on macOS 12+.
-          while IFS= read -r -d '' f; do
-            file "$f" 2>/dev/null | grep -q "Mach-O" \
-              && codesign -s - --force "$f" 2>/dev/null || true
-          done < <(find "$APP/Contents" -type f -print0)
-          echo "Signing complete. Contents:"
+          # Move non-code subdirectories to Resources and symlink back
+          # so codesign only sees Mach-O binaries in MacOS/
+          for dir in lib share PyQt5.uic.widget-plugins; do
+            if [ -d "$APP/Contents/MacOS/$dir" ] && [ ! -L "$APP/Contents/MacOS/$dir" ]; then
+              mv "$APP/Contents/MacOS/$dir" "$APP/Contents/Resources/$dir"
+              ln -s "../../Resources/$dir" "$APP/Contents/MacOS/$dir"
+            fi
+          done
+
+          echo "Bundle assembled. Contents:"
           ls "$APP/Contents/MacOS/" | head -20
+
+      - name: Sign .app bundle
+        env:
+          SIGN_IDENTITY: "Developer ID Application: NILAY GOYAL (LF75V32M27)"
+        run: |
+          APP="Zenvi.app"
+
+          # Sign all .dylib and .so files first
+          find "$APP" \( -name '*.dylib' -o -name '*.so' \) | while read -r f; do
+            codesign -s "$SIGN_IDENTITY" \
+              --timestamp=http://timestamp.apple.com/ts01 \
+              --entitlements installer/zenvi.entitlements \
+              --force "$f"
+          done
+
+          # Sign QtWebEngineProcess if present
+          QWE="$APP/Contents/MacOS/share/QtWebEngineProcess.app"
+          if [ -d "$QWE" ]; then
+            codesign -s "$SIGN_IDENTITY" \
+              --timestamp=http://timestamp.apple.com/ts01 \
+              --entitlements installer/qtwebengine.entitlements \
+              --options runtime --force "$QWE"
+          fi
+
+          # Sign the full app bundle
+          codesign -s "$SIGN_IDENTITY" \
+            --timestamp=http://timestamp.apple.com/ts01 \
+            --entitlements installer/zenvi.entitlements \
+            --options runtime --deep --force "$APP"
+
+          echo "Signing complete:"
+          codesign -dvvv "$APP" 2>&1 | head -6
+          spctl -a -vv "$APP" 2>&1 || true
 
       - name: Create DMG
         run: |
           DMG_NAME="Zenvi-v${VER}-${ARCH}.dmg"
           rm -rf dmgroot && mkdir -p dmgroot
-
-          # Use ditto (not cp -R) — macOS-native bundle copy; handles resource
-          # forks and works more reliably with the security layer after codesigning.
           ditto "Zenvi.app" "dmgroot/Zenvi.app"
           ln -s /Applications dmgroot/Applications
-
-          # Strip quarantine and other extended attributes that keep security
-          # daemons (trustd, XProtect, mds_stores) attached to files, which
-          # causes hdiutil to fail with EBUSY.
           xattr -cr dmgroot/ 2>/dev/null || true
 
-          # Retry loop: macOS security daemons scan newly signed binaries
-          # asynchronously; they typically release file handles within ~5 seconds.
           for attempt in 1 2 3; do
             echo "hdiutil attempt $attempt ..."
             hdiutil create -volname "Zenvi" -srcfolder dmgroot \
@@ -730,6 +775,31 @@ jobs:
 
           [ -f "$DMG_NAME" ] || { echo "::error::DMG not created after 3 attempts"; exit 1; }
           echo "Created $DMG_NAME ($(du -sh "$DMG_NAME" | cut -f1))"
+
+      - name: Sign and notarize DMG
+        env:
+          SIGN_IDENTITY: "Developer ID Application: NILAY GOYAL (LF75V32M27)"
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          APPLE_NOTARIZE_PASSWORD: ${{ secrets.APPLE_NOTARIZE_PASSWORD }}
+        run: |
+          DMG_NAME="Zenvi-v${VER}-${ARCH}.dmg"
+
+          # Sign the DMG itself
+          codesign -s "$SIGN_IDENTITY" \
+            --timestamp=http://timestamp.apple.com/ts01 \
+            --force "$DMG_NAME"
+
+          # Submit for notarization and wait
+          xcrun notarytool submit "$DMG_NAME" \
+            --apple-id "$APPLE_ID" \
+            --team-id "$APPLE_TEAM_ID" \
+            --password "$APPLE_NOTARIZE_PASSWORD" \
+            --wait
+
+          # Staple the notarization ticket
+          xcrun stapler staple "$DMG_NAME"
+          echo "Notarization complete: $DMG_NAME"
 
       - name: Upload macOS artifact
         uses: actions/upload-artifact@v4

@@ -235,12 +235,21 @@ class PlayerWorker(QObject):
         log.info("QThread Start Method Invoked")
 
         # Init new player
-        self.initPlayer()
+        try:
+            self.initPlayer()
+        except Exception as exc:
+            log.error("Start: initPlayer raised unexpected exception: %s", exc, exc_info=True)
+            # Still try to start playback even if signal connection failed
+            pass
 
         # Connect player to timeline reader
-        self.player.Reader(self.timeline)
-        self.player.Play()
-        self.player.Pause()
+        try:
+            self.player.Reader(self.timeline)
+            self.player.Play()
+            self.player.Pause()
+        except Exception as exc:
+            log.error("Start: player init (Reader/Play/Pause) failed: %s", exc, exc_info=True)
+            return
 
         # Check for any Player initialization errors (only JUCE errors bubble up here now)
         # But slightly delay, to allow for correct audio thread initialization with the
@@ -280,9 +289,23 @@ class PlayerWorker(QObject):
 
         # Get the address of the player's renderer (a QObject that emits signals when frames are ready)
         self.renderer_address = self.player.GetRendererQObject()
+        log.info("initPlayer: renderer_address=%s", self.renderer_address)
+
+        if not self.renderer_address:
+            log.error("initPlayer: GetRendererQObject() returned null/zero — frames will not be delivered!")
+            return
+
         self.player.SetQWidget(sip.unwrapinstance(self.videoPreview))
+        log.info("initPlayer: SetQWidget called with ptr=%s", sip.unwrapinstance(self.videoPreview))
+
         self.renderer = sip.wrapinstance(self.renderer_address, QObject)
-        self.videoPreview.connectSignals(self.renderer)
+        log.info("initPlayer: renderer wrapped: %s", self.renderer)
+
+        try:
+            self.videoPreview.connectSignals(self.renderer)
+            log.info("initPlayer: connectSignals OK — present signal connected")
+        except Exception as exc:
+            log.error("initPlayer: connectSignals FAILED: %s", exc, exc_info=True)
 
     def kill(self):
         """ Kill this thread """

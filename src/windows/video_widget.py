@@ -706,8 +706,19 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             self.present_fps = self.present_fps_counter
             self.present_fps_sec = current_sec
             self.present_fps_counter = 1
+            # Log once per second so we know frames are arriving
+            log.debug(
+                "video_widget: present() called — image valid=%s size=%s",
+                not image.isNull() if image else False,
+                image.size() if image and not image.isNull() else "null",
+            )
         else:
             self.present_fps_counter += 1
+
+        # Validate image before storing
+        if image is None or image.isNull():
+            log.warning("video_widget: present() received null/empty frame — skipping")
+            return
 
         # Get frame's QImage from libopenshot
         self.current_image = image
