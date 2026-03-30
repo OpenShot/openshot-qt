@@ -14,11 +14,13 @@ Usage (from ai_chat_ui.py):
 import copy
 import json
 import os
+import re
 import shutil
 import subprocess
 import tempfile
 import threading
 import uuid as uuid_module
+from typing import Optional
 
 from classes.logger import log
 
@@ -410,7 +412,7 @@ def save_project(file_path="", **_kw) -> str:
     if not file_path or not isinstance(file_path, str):
         return "Error: file_path is required."
     file_path = file_path.strip()
-    if not file_path.endswith(info.PROJECT_EXT):
+    if not file_path.endswith(info.ALL_PROJECT_EXTS):
         file_path += info.PROJECT_EXT
     try:
         _get_app().window.save_project(file_path)
@@ -951,6 +953,192 @@ def _parse_occurrence(occurrence_str: str, query: str) -> int:
     return 0
 
 
+def _parse_mmss_or_hhmmss_token(tok: str):
+    """Return seconds for 'SS', 'M:SS', or 'H:M:SS' tokens, else None."""
+    if not tok or not isinstance(tok, str):
+        return None
+    tok = tok.strip()
+    if not tok:
+        return None
+    if ":" not in tok:
+        try:
+            return float(tok)
+        except ValueError:
+            return None
+    parts = tok.split(":")
+    if len(parts) > 3:
+        return None
+    try:
+        nums = [float(p) for p in parts]
+    except ValueError:
+        return None
+    if len(parts) == 2:
+        return nums[0] * 60.0 + nums[1]
+    return nums[0] * 3600.0 + nums[1] * 60.0 + nums[2]
+
+
+def _parse_explicit_source_time_range_sec(query: str):
+    """If *query* names a concrete time range in source seconds, return (t0, t1).
+
+    t0/t1 are absolute times in the same frame as timeline clip start/end (source media).
+    Returns None when no explicit numeric range is detected (caller uses semantic search).
+    """
+    if not query or not isinstance(query, str):
+        return None
+    s = query.strip()
+    m = re.search(
+        r"(\d+(?:\.\d+)?)\s*(?:seconds?|secs?)\s+to\s+(\d+(?:\.\d+)?)\s*(?:seconds?|secs?)\b",
+        s,
+        re.IGNORECASE,
+    )
+    if m:
+        t0, t1 = float(m.group(1)), float(m.group(2))
+        if t1 > t0:
+            return (t0, t1)
+    m = re.search(
+        r"from\s+(\d+(?:\.\d+)?)\s+to\s+(\d+(?:\.\d+)?)\s*(?:seconds?|secs?)\b",
+        s,
+        re.IGNORECASE,
+    )
+    if m:
+        t0, t1 = float(m.group(1)), float(m.group(2))
+        if t1 > t0:
+            return (t0, t1)
+    m = re.search(
+        r"(\d+(?:\.\d+)?)\s*s\b\s+to\s+(\d+(?:\.\d+)?)\s*s\b",
+        s,
+        re.IGNORECASE,
+    )
+    if m:
+        t0, t1 = float(m.group(1)), float(m.group(2))
+        if t1 > t0:
+            return (t0, t1)
+    m = re.search(
+        r"(\d+:\d{2}(?::\d{2})?)\s+to\s+(\d+:\d{2}(?::\d{2})?)",
+        s,
+        re.IGNORECASE,
+    )
+    if m:
+        t0 = _parse_mmss_or_hhmmss_token(m.group(1))
+        t1 = _parse_mmss_or_hhmmss_token(m.group(2))
+        if t0 is not None and t1 is not None and t1 > t0:
+            return (t0, t1)
+    if re.search(r"\bsec", s, re.IGNORECASE):
+        m = re.search(
+            r"from\s+(\d+(?:\.\d+)?)\s+to\s+(\d+(?:\.\d+)?)\b",
+            s,
+            re.IGNORECASE,
+        )
+        if m:
+            t0, t1 = float(m.group(1)), float(m.group(2))
+            if t1 > t0:
+                return (t0, t1)
+    return None
+
+
+def _slice_timeline_clip_at_source_times(
+    clip_id_str: str,
+    clip_start: float,
+    clip_end: float,
+    clip_pos: float,
+    layer_num: int,
+    file_id_str: str,
+    t0: float,
+    t1: float,
+) -> str:
+    """Slice once or twice so the middle segment is approximately source [t0, t1]."""
+    from windows.views.timeline_backend.enums import MenuSlice
+    from classes.query import Clip
+
+    app = _get_app()
+    win = app.window
+    fps = app.project.get("fps") or {}
+    fps_num = float(fps.get("num", 30))
+    fps_den = float(fps.get("den", 1)) or 1.0
+
+    def snap(pos: float) -> float:
+        return float(round((float(pos) * fps_num) / fps_den) * fps_den) / fps_num
+
+    eps = 1e-3
+    clip_tl_end = clip_pos + (clip_end - clip_start)
+
+    def _find_right_segment(after_pos: float, src_start: float) -> Optional[str]:
+        best_id, best_score = None, 1e9
+        for c in Clip.filter():
+            try:
+                c_ly = int(float(c.data.get("layer", 0) or 0))
+            except (TypeError, ValueError):
+                continue
+            if c_ly != int(layer_num):
+                continue
+            try:
+                p = float(c.data.get("position", 0))
+                st = float(c.data.get("start", 0))
+            except (TypeError, ValueError):
+                continue
+            if file_id_str and str(c.data.get("file_id") or "") != file_id_str:
+                continue
+            score = abs(p - after_pos) + abs(st - src_start)
+            if score < best_score:
+                best_score = score
+                best_id = str(c.id)
+        if best_id is not None and best_score < 0.25:
+            return best_id
+        return None
+
+    # Degenerate: full clip
+    if t0 <= clip_start + eps and t1 >= clip_end - eps:
+        return "Nothing to slice: the requested range spans the whole clip."
+
+    # Only upper boundary inside clip
+    if t0 <= clip_start + eps:
+        pos2 = snap(clip_pos + (t1 - clip_start))
+        if pos2 <= clip_pos + eps or pos2 >= clip_tl_end - eps:
+            return (
+                f"Error: End time maps outside the clip "
+                f"(clip source {clip_start:.3f}s–{clip_end:.3f}s on timeline)."
+            )
+        win.timeline.Slice_Triggered(MenuSlice.KEEP_BOTH, [clip_id_str], [], pos2)
+        return f"Sliced at {_fmt_mmss(t1 - clip_start)} from clip start; middle+right kept."
+
+    # Only lower boundary inside clip
+    if t1 >= clip_end - eps:
+        pos1 = snap(clip_pos + (t0 - clip_start))
+        if pos1 <= clip_pos + eps or pos1 >= clip_tl_end - eps:
+            return (
+                f"Error: Start time maps outside the clip "
+                f"(clip source {clip_start:.3f}s–{clip_end:.3f}s on timeline)."
+            )
+        win.timeline.Slice_Triggered(MenuSlice.KEEP_BOTH, [clip_id_str], [], pos1)
+        return f"Sliced at {_fmt_mmss(t0 - clip_start)} from clip start; left+middle kept."
+
+    pos1 = snap(clip_pos + (t0 - clip_start))
+    pos2_abs = snap(clip_pos + (t1 - clip_start))
+    if pos1 <= clip_pos + eps or pos1 >= clip_tl_end - eps:
+        return "Error: First slice position is outside the clip on the timeline."
+    if pos2_abs <= pos1 + eps or pos2_abs >= clip_tl_end - eps:
+        return "Error: Second slice position is outside the clip on the timeline."
+
+    win.timeline.Slice_Triggered(MenuSlice.KEEP_BOTH, [clip_id_str], [], pos1)
+    right_id = _find_right_segment(pos1, t0)
+    if not right_id:
+        return (
+            "First slice succeeded but the app could not find the new segment "
+            "for the second cut. Try slicing once at the playhead, then again."
+        )
+
+    pos2 = snap(pos1 + (t1 - t0))
+    right_tl_end = pos1 + (clip_end - t0)
+    if pos2 <= pos1 + eps or pos2 >= right_tl_end - eps:
+        return "Error: Second slice maps outside the trimmed segment."
+
+    win.timeline.Slice_Triggered(MenuSlice.KEEP_BOTH, [right_id], [], pos2)
+    return (
+        f"Sliced at {_fmt_mmss(t0 - clip_start)} and {_fmt_mmss(t1 - clip_start)} "
+        f"(source). Three segments: before, selected range, after."
+    )
+
+
 def slice_selected_clip_at_best_match(query="", occurrence="0", **_kw) -> str:
     try:
         from classes.api_client import get_backend_client
@@ -958,7 +1146,7 @@ def slice_selected_clip_at_best_match(query="", occurrence="0", **_kw) -> str:
         # ── 1. Read clip/file metadata on the MAIN thread so we see the
         #       latest project state (avoids stale-cache problems when
         #       reading from the background AI-chat thread).
-        clip_info_box = [None]   # will hold (clip_id, clip_start, clip_end, clip_pos, index_id, video_id)
+        clip_info_box = [None]   # (... , tw_status, tw_error)
         error_box_pre = [None]
 
         def _read_clip_info():
@@ -971,6 +1159,12 @@ def slice_selected_clip_at_best_match(query="", occurrence="0", **_kw) -> str:
                 cs = float(d.get("start", 0.0) or 0.0)
                 ce = float(d.get("end", 0.0) or 0.0)
                 cp = float(d.get("position", 0.0) or 0.0)
+                ly = d.get("layer", 1)
+                try:
+                    layer_num = int(ly) if ly is not None else 1
+                except (TypeError, ValueError):
+                    layer_num = 1
+                fid = str(d.get("file_id") or "")
                 sf = _get_source_file_for_clip(obj)
                 sa = (
                     sf.data.get("ai_metadata")
@@ -983,25 +1177,14 @@ def slice_selected_clip_at_best_match(query="", occurrence="0", **_kw) -> str:
                 tw_status = (tw.get("status") or "").lower()
                 iid = tw.get("index_id") or ""
                 vid = tw.get("video_id") or ""
-                if tw_status == "failed":
-                    error_box_pre[0] = (
-                        "TwelveLabs indexing failed for this video. "
-                        "Try re-importing the file."
-                    )
-                    return
-                if tw_status == "indexing":
-                    error_box_pre[0] = (
-                        "TwelveLabs is still indexing this video. "
-                        "Please wait for indexing to finish and try again."
-                    )
-                    return
                 if not iid:
                     log.warning(
                         "TwelveLabs metadata missing for source file; "
                         "falling back to default index lookup."
                     )
+                tw_err = str(tw.get("error") or "").strip()
                 clip_info_box[0] = (
-                    str(obj.id), cs, ce, cp, str(iid), str(vid)
+                    str(obj.id), cs, ce, cp, str(iid), str(vid), layer_num, fid, tw_status, tw_err
                 )
             except Exception as exc:
                 error_box_pre[0] = f"Error: {exc}"
@@ -1013,7 +1196,51 @@ def slice_selected_clip_at_best_match(query="", occurrence="0", **_kw) -> str:
         if not clip_info_box[0]:
             return "Error: Could not read clip metadata."
 
-        clip_id_str, clip_start, clip_end, clip_pos, index_id, video_id = clip_info_box[0]
+        clip_id_str, clip_start, clip_end, clip_pos, index_id, video_id, layer_num, file_id_str, tw_status, tw_error = clip_info_box[0]
+
+        time_rng = _parse_explicit_source_time_range_sec(query or "")
+        if time_rng is not None:
+            t0, t1 = time_rng
+            eps = 1e-3
+            if t0 < clip_start - eps or t1 > clip_end + eps:
+                return (
+                    f"Error: Requested range [{t0:.2f}s–{t1:.2f}s] is outside this clip's "
+                    f"source window [{clip_start:.2f}s–{clip_end:.2f}s]."
+                )
+
+            def _do_time_slice():
+                return _slice_timeline_clip_at_source_times(
+                    clip_id_str,
+                    clip_start,
+                    clip_end,
+                    clip_pos,
+                    layer_num,
+                    file_id_str,
+                    t0,
+                    t1,
+                )
+
+            try:
+                return _run_on_main_thread(_do_time_slice)
+            except Exception as exc:
+                log.error("time-based slice failed: %s", exc, exc_info=True)
+                return f"Error: {exc}"
+
+        if tw_status == "failed":
+            detail = f" ({tw_error})" if tw_error else ""
+            return (
+                "TwelveLabs indexing failed for this video"
+                + detail
+                + ". Common cause: the cloud API backend cannot open paths on your computer "
+                "(indexing runs on the server). Use a local Zenvi backend, or index via a "
+                "server-visible path. You can still slice by explicit times, e.g. "
+                "'from 4 seconds to 10 seconds'."
+            )
+        if tw_status == "indexing":
+            return (
+                "TwelveLabs is still indexing this video. "
+                "Please wait for indexing to finish and try again."
+            )
 
         # ── 2. Check backend connectivity (can run on any thread)
         client = get_backend_client()
