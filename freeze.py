@@ -101,6 +101,7 @@ python_packages = ["os",
                    "logging",
                    "urllib",
                    "requests",
+                   "websocket",
                    "zmq",
                    "webbrowser",
                    "json",
@@ -253,7 +254,7 @@ openshot_copy_path = os.path.join(PATH, "openshot_qt")
 if os.path.exists(os.path.join(PATH, "src")):
     print("Copying modules to openshot_qt directory: %s" % openshot_copy_path)
     # Only make a copy if the SRC directory is present (otherwise ignore this)
-    copytree(os.path.join(PATH, "src"), openshot_copy_path)
+    copytree(os.path.join(PATH, "src"), openshot_copy_path, dirs_exist_ok=True)
 
     # Make a copy of the launch.py script (to name it more appropriately)
     copy(os.path.join(PATH, "src", "launch.py"), os.path.join(PATH, "openshot_qt", "launch-zenvi"))

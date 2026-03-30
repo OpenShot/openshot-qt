@@ -73,11 +73,22 @@ fi
 echo "Symlink lib folder into Resources - needed to find lib/babl-ext at runtime"
 ln -sf "../MacOS/lib" "$OS_PATH/Resources/lib" 2>/dev/null || true
 
+echo "Strip quarantine and extended attributes from bundle"
+xattr -cr "build/$OS_APP_NAME" 2>/dev/null || true
+
+echo "Remove Cython .hash build artifact directories (not valid code bundles)"
+find "build/$OS_APP_NAME" -type d -name ".hash" -exec rm -rf {} + 2>/dev/null || true
+
+echo "Remove non-code files from MacOS/ that confuse codesign"
+rm -f "build/$OS_APP_NAME/Contents/MacOS/zenvi.icns" 2>/dev/null || true
+
 echo "Fix permissions inside MacOS folder"
-# Give read access to all files; do NOT set +x on everything — codesign treats
-# any file with execute bits as a code object that must be signed, so non-binary
-# files (*.txt, *.json, *.hash, etc.) with +x will cause signing to fail.
+# Give read access to all files; strip execute bits from everything first, then
+# add +x only to actual binaries. codesign treats any file with execute bits as
+# a code object that must be signed, so non-binary files (*.hash, *.txt, etc.)
+# with +x will cause "bundle format unrecognized" errors.
 chmod -R a+r "$OS_PATH/"
+find "$OS_PATH" -type f -exec chmod a-x {} \;
 find "$OS_PATH" \( -name '*.dylib' -o -name '*.so' \) -exec chmod +x {} \;
 for bin in zenvi launch launch-zenvi launch-mac; do
     [ -f "$OS_PATH/MacOS/$bin" ] && chmod +x "$OS_PATH/MacOS/$bin"
@@ -92,8 +103,8 @@ if [ -n "$SIGN_IDENTITY" ]; then
             --entitlements "installer/zenvi.entitlements" \
             --force "{}" \;
 
-    echo "Code Sign App Bundle (deep)"
-    codesign -s "$SIGN_IDENTITY" --force --deep \
+    echo "Code Sign App Bundle"
+    codesign -s "$SIGN_IDENTITY" --force \
         --entitlements "installer/zenvi.entitlements" \
         --options runtime \
         --timestamp=http://timestamp.apple.com/ts01 \
@@ -115,7 +126,7 @@ else
     echo "Note: Gatekeeper will still warn users for downloaded apps (expected without a cert)"
     find "build" \( -iname '*.dylib' -o -iname '*.so' \) \
         -exec codesign -s - --force "{}" \; 2>/dev/null || true
-    codesign -s - --deep --force "build/$OS_APP_NAME"
+    codesign -s - --force "build/$OS_APP_NAME"
     codesign -dv --verbose=4 "build/$OS_APP_NAME" 2>&1 || true
 fi
 
