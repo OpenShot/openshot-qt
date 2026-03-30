@@ -969,6 +969,24 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Restore normal cursor
         get_app().restoreOverrideCursor()
 
+    def actionSignOut_trigger(self, checked=True):
+        """Sign out of the Zenvi account and prompt re-login."""
+        from PyQt5.QtWidgets import QMessageBox
+        reply = QMessageBox.question(
+            self, "Sign Out",
+            "Are you sure you want to sign out?",
+            QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        if reply == QMessageBox.Yes:
+            from classes.auth_manager import AuthManager
+            auth = AuthManager.instance()
+            auth.clear_session()
+            log.info("User signed out — closing app for re-login.")
+            QMessageBox.information(
+                self, "Signed Out",
+                "You have been signed out. The app will now close.\n"
+                "Please reopen it to sign in again.")
+            self.close()
+
     def actionFilesShowAll_trigger(self, checked=True):
         self.refreshFilesSignal.emit()
 
@@ -3975,6 +3993,16 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Hide the Help menu from the menu bar
         if hasattr(self, "menuHelp"):
             self.menuHelp.menuAction().setVisible(False)
+
+        # Update Sign Out label with user email
+        if hasattr(self, "actionSignOut"):
+            try:
+                from classes.auth_manager import AuthManager
+                email = AuthManager.instance().get_user_email()
+                if email:
+                    self.actionSignOut.setText(f"Sign Out ({email})")
+            except Exception:
+                pass
 
         # Create dock toolbars, set initial state of items, etc
         self.setup_toolbars()

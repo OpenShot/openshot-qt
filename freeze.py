@@ -377,10 +377,11 @@ if sys.platform == "win32":
     for filename in find_files(babl_ext_path, ["*.dll"]):
         src_files.append((filename, os.path.join("lib", "babl-ext", os.path.relpath(filename, start=babl_ext_path))))
 
-    # Append all source files
+    # Append all source files under lib/ (cx_Freeze 7.2+ puts modules there;
+    # info.PATH resolves to lib/ so data files must be co-located)
     src_files.append((os.path.join(PATH, "installer", "qt.conf"), "qt.conf"))
     for filename in find_files("openshot_qt", ["*"]):
-        src_files.append((filename, os.path.join(os.path.relpath(filename, start=openshot_copy_path))))
+        src_files.append((filename, os.path.join("lib", os.path.relpath(filename, start=openshot_copy_path))))
 
 elif sys.platform == "linux":
     # Add OpenGL package so cx_Freeze bundles PyOpenGL platform modules (glx, null, etc.)
@@ -576,11 +577,11 @@ elif sys.platform == "linux":
             else:
                 log.info("Skipping external library: %s" % libpath)
 
-    # Append all source files (at root level — info.PATH is set to the
-    # executable's directory in frozen builds, see info.py frozen detection)
+    # Append all source files under lib/ (cx_Freeze 7.2+ puts modules there;
+    # info.PATH resolves to lib/ so data files must be co-located)
     src_files.append((os.path.join(PATH, "installer", "qt.conf"), "qt.conf"))
     for filename in find_files("openshot_qt", ["*"]):
-        src_files.append((filename, os.path.join(os.path.relpath(filename, start=openshot_copy_path))))
+        src_files.append((filename, os.path.join("lib", os.path.relpath(filename, start=openshot_copy_path))))
 
 elif sys.platform == "darwin":
     # Add OpenGL package so cx_Freeze bundles PyOpenGL platform modules (darwin, etc.)
