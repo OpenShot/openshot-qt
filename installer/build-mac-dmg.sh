@@ -73,6 +73,12 @@ fi
 echo "Symlink lib folder into Resources - needed to find lib/babl-ext at runtime"
 ln -sf "../MacOS/lib" "$OS_PATH/Resources/lib" 2>/dev/null || true
 
+echo "Symlink QtWebEngine resources so Qt finds them at default DataPath location (Prefix = .)"
+[ -d "$OS_PATH/MacOS/lib/PyQt5/Qt5/resources" ] && \
+    ln -sf "lib/PyQt5/Qt5/resources" "$OS_PATH/MacOS/resources" 2>/dev/null || true
+[ -d "$OS_PATH/MacOS/lib/PyQt5/Qt5/translations" ] && \
+    ln -sf "lib/PyQt5/Qt5/translations" "$OS_PATH/MacOS/translations" 2>/dev/null || true
+
 echo "Strip quarantine and extended attributes from bundle"
 xattr -cr "build/$OS_APP_NAME" 2>/dev/null || true
 

@@ -6,7 +6,20 @@ CURR_DIR="$( cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd )"
 export DYLD_LIBRARY_PATH="$CURR_DIR"
 export MAGICK_CONFIGURE_PATH="$CURR_DIR/ImageMagick/etc/configuration"
 export MAGICK_CODER_MODULE_PATH="$CURR_DIR/ImageMagick/modules-Q16/coders"
-export QT_PLUGIN_PATH="$CURR_DIR"
+export QT_PLUGIN_PATH="$CURR_DIR/plugins"
+
+# QtWebEngine: locate the helper process (cx_Freeze places it inside an .app bundle)
+if [ -f "$CURR_DIR/share/QtWebEngineProcess.app/Contents/MacOS/QtWebEngineProcess" ]; then
+    export QTWEBENGINEPROCESS_PATH="$CURR_DIR/share/QtWebEngineProcess.app/Contents/MacOS/QtWebEngineProcess"
+elif [ -f "$CURR_DIR/QtWebEngineProcess" ]; then
+    export QTWEBENGINEPROCESS_PATH="$CURR_DIR/QtWebEngineProcess"
+fi
+
+# Disable QtWebEngine sandbox (avoids conflicts in ad-hoc signed bundles on macOS)
+export QTWEBENGINE_DISABLE_SANDBOX=1
+
+# Required for OpenGL widget rendering on macOS 12+ (video preview pane)
+export QT_MAC_WANTS_LAYER=1
 
 # Launch application
 exec "$CURR_DIR/zenvi" "$@"
