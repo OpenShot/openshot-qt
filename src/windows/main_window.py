@@ -969,6 +969,24 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Restore normal cursor
         get_app().restoreOverrideCursor()
 
+    def actionSignOut_trigger(self, checked=True):
+        """Sign out of the Zenvi account and prompt re-login."""
+        from PyQt5.QtWidgets import QMessageBox
+        reply = QMessageBox.question(
+            self, "Sign Out",
+            "Are you sure you want to sign out?",
+            QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        if reply == QMessageBox.Yes:
+            from classes.auth_manager import AuthManager
+            auth = AuthManager.instance()
+            auth.clear_session()
+            log.info("User signed out — closing app for re-login.")
+            QMessageBox.information(
+                self, "Signed Out",
+                "You have been signed out. The app will now close.\n"
+                "Please reopen it to sign in again.")
+            self.close()
+
     def actionFilesShowAll_trigger(self, checked=True):
         self.refreshFilesSignal.emit()
 
@@ -3036,6 +3054,21 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     def setup_toolbars(self):
         _ = get_app()._tr  # Get translation function
 
+        # Logout button — icon-only, pinned to the top-right of the menu bar
+        from classes.ui_util import get_icon
+        _logout_icon = get_icon("system-log-out")
+        if not _logout_icon or _logout_icon.isNull():
+            # Fallback: bundled icon (works on Linux, macOS, Windows)
+            _logout_icon = QIcon(os.path.join(info.IMAGES_PATH, "logout.svg"))
+        self._logout_btn = QToolButton(self.menubar)
+        self._logout_btn.setObjectName("logout-btn")
+        self._logout_btn.setIcon(_logout_icon)
+        self._logout_btn.setToolTip("Log Out")
+        self._logout_btn.setToolButtonStyle(Qt.ToolButtonIconOnly)
+        self._logout_btn.setAutoRaise(True)
+        self._logout_btn.clicked.connect(self.logout_clicked)
+        self.menubar.setCornerWidget(self._logout_btn, Qt.TopRightCorner)
+
         # Start undo and redo actions disabled
         self.actionUndo.setEnabled(False)
         self.actionRedo.setEnabled(False)
@@ -3142,6 +3175,31 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Add timeline toolbar to web frame
         self.frameWeb.addWidget(self.timelineToolbar)
+
+    def logout_clicked(self):
+        """Sign the current user out of their Zenvi account."""
+        reply = QMessageBox.question(
+            self,
+            "Log Out",
+            "Are you sure you want to log out?",
+            QMessageBox.Yes | QMessageBox.Cancel,
+            QMessageBox.Cancel,
+        )
+        if reply != QMessageBox.Yes:
+            return
+
+        from classes.auth_manager import AuthManager
+        AuthManager.instance().clear_session()
+
+        # Hide main window and re-show login dialog
+        self.hide()
+        from windows.login_window import LoginWindow
+        login_dlg = LoginWindow(parent=None)
+        result = login_dlg.exec_()
+        if result == LoginWindow.Accepted:
+            self.show()
+        else:
+            self.close()
 
     def clearSelections(self):
         """Clear all selection containers and reset preview transforms"""
@@ -3936,6 +3994,16 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         if hasattr(self, "menuHelp"):
             self.menuHelp.menuAction().setVisible(False)
 
+        # Update Sign Out label with user email
+        if hasattr(self, "actionSignOut"):
+            try:
+                from classes.auth_manager import AuthManager
+                email = AuthManager.instance().get_user_email()
+                if email:
+                    self.actionSignOut.setText(f"Sign Out ({email})")
+            except Exception:
+                pass
+
         # Create dock toolbars, set initial state of items, etc
         self.setup_toolbars()
 
@@ -4046,6 +4114,16 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             self.dockPexels.setVisible(False)  # Hidden by default; accessible via View > Docks
         except Exception as e:
             log.error(f"Failed to initialize Pexels Dock: {e}", exc_info=True)
+
+        # Freesound stock-music/SFX search dock
+        try:
+            from windows.freesound_dock import FreesoundDock
+            self.dockFreesound = FreesoundDock(self)
+            self.addDockWidget(Qt.LeftDockWidgetArea, self.dockFreesound)
+            self.tabifyDockWidget(self.dockFiles, self.dockFreesound)
+            self.dockFreesound.setVisible(False)  # Hidden by default; accessible via View > Docks
+        except Exception as e:
+            log.error(f"Failed to initialize Freesound Dock: {e}", exc_info=True)
 
         # Add Docks submenu to View menu
         self.addViewDocksMenu()

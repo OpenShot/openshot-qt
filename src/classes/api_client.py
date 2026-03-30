@@ -713,6 +713,37 @@ class ZenviBackendClient:
             log.error("Pexels download failed: %s", e)
             return {"local_path": "", "error": str(e)}
 
+    # ------------------------------------------------------------------
+    # Freesound stock music / SFX
+    # ------------------------------------------------------------------
+    def freesound_search(self, query: str, page_size: int = 15, page: int = 1) -> Dict[str, Any]:
+        """Search Freesound for stock music and sound effects."""
+        try:
+            r = self.session.get(
+                f"{self.api_url}/freesound/search",
+                params={"query": query, "page_size": page_size, "page": page},
+                timeout=20,
+            )
+            r.raise_for_status()
+            return r.json()
+        except Exception as e:
+            log.error("Freesound search failed: %s", e)
+            return {"sounds": [], "error": str(e)}
+
+    def freesound_download(self, sound_id: int, preview_url: str, filename: str = "") -> Dict[str, Any]:
+        """Download a Freesound HQ MP3 preview via the backend and return its local path."""
+        try:
+            r = self.session.post(
+                f"{self.api_url}/freesound/download",
+                json={"sound_id": sound_id, "preview_url": preview_url, "filename": filename},
+                timeout=120,
+            )
+            r.raise_for_status()
+            return r.json()
+        except Exception as e:
+            log.error("Freesound download failed: %s", e)
+            return {"local_path": "", "error": str(e)}
+
 
 # Singleton
 _client: Optional[ZenviBackendClient] = None

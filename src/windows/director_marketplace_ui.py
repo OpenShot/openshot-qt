@@ -230,8 +230,8 @@ class DirectorMarketplaceDialog(QDialog):
         self.model_combo = QComboBox()
         self.model_combo.addItems([
             "openai/gpt-4o",
-            "anthropic/claude-sonnet-4",
-            "anthropic/claude-opus-4",
+            "anthropic/claude-sonnet-4-6",
+            "anthropic/claude-haiku-4-5",
             "openai/gpt-4-turbo",
         ])
         form_layout.addRow("AI Model:", self.model_combo)

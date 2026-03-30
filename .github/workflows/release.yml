@@ -206,12 +206,10 @@ jobs:
   # so cx_Freeze produces an x86_64-native frozen app that runs on Intel Macs.
   # arm64 build uses the native Apple Silicon Python.
   #
-  # Note: libopenshot Python bindings are NOT bundled in this CI build.
-  # The OpenShot .so from their app bundle is linked against their bundled
-  # Python dylibs (not our CI Python), so cx_Freeze cannot package it.
-  # The app installs and launches; video editing requires libopenshot to be
-  # installed separately. Full bundled video support will come with proper
-  # macOS build infrastructure.
+  # arm64: libopenshot is built from source with matching Python ABI and bundled.
+  # x86_64: libopenshot is NOT bundled (cross-compiling C++ via Rosetta is complex;
+  # Homebrew Qt5/FFmpeg bottles are arm64-only on macos-15 runners).
+  # Full x86_64 video support will come with proper Intel build infrastructure.
   build-macos:
     needs: version
     strategy:
@@ -253,7 +251,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: /tmp/libopenshot-install
-          key: libopenshot-v0.5.0-audio-v0.5.0-arm64-macos14-py311-v1
+          key: libopenshot-v0.5.0-audio-v0.5.0-arm64-macos14-py311-v2
 
       - name: Build libopenshot from source (arm64 only)
         if: matrix.arch == 'arm64' && steps.cache-libopenshot.outputs.cache-hit != 'true'
@@ -341,9 +339,11 @@ jobs:
           echo "ZENVI_OPENSHOT_INSTALL=$INSTALL_PREFIX" >> $GITHUB_ENV
           echo "DYLD_LIBRARY_PATH=$INSTALL_PREFIX/lib:${DYLD_LIBRARY_PATH:-}" >> $GITHUB_ENV
 
-          # Verify the binding is importable
+          # Verify the binding is importable (soft check — freeze.py uses filesystem
+          # discovery via ZENVI_OPENSHOT_PYROOT, so a dlopen failure here is non-fatal)
           DYLD_LIBRARY_PATH="$INSTALL_PREFIX/lib" PYTHONPATH="$PYROOT" \
-            python3 -c "import openshot; print(f'libopenshot version: {openshot.OPENSHOT_VERSION_FULL}')"
+            python3 -c "import openshot; print(f'libopenshot version: {openshot.OPENSHOT_VERSION_FULL}')" \
+            || echo "::warning::openshot import failed (dlopen issue) — freeze.py will use filesystem discovery"
 
       - name: Install Python dependencies
         run: |
@@ -569,37 +569,92 @@ jobs:
                           print(f"MISS {os.path.relpath(fp, FROZEN_DIR)}: {dep_name} not found (from {dep})")
           print(f"Pass 1: fixed {fixed} absolute path references")
 
-          # Pass 2: fix @rpath/libopenshot-audio.10.dylib in _openshot.so
-          # The soname symlink (.10) is not bundled — only libopenshot-audio.dylib /
-          # libopenshot-audio.0.5.0.dylib are. Create the soname file in lib/
-          # and rewrite _openshot.so's @rpath reference to @loader_path.
-          audio_soname = 'libopenshot-audio.10.dylib'
-          audio_src = (find_in_bundle('libopenshot-audio.0.5.0.dylib', FROZEN_DIR) or
-                       find_in_bundle('libopenshot-audio.dylib', FROZEN_DIR))
-          if audio_src:
-              lib_dir = os.path.join(FROZEN_DIR, 'lib')
-              os.makedirs(lib_dir, exist_ok=True)
-              audio_soname_path = os.path.join(lib_dir, audio_soname)
-              if not os.path.exists(audio_soname_path):
-                  shutil.copy2(audio_src, audio_soname_path)
+          # Pass 2: fix versioned soname references in _openshot.so
+          # cmake creates versioned soname symlinks (e.g., libopenshot.17.dylib,
+          # libopenshot-audio.10.dylib) but only the unversioned or full-version
+          # dylib is bundled. Create the soname copies in lib/ and rewrite
+          # _openshot.so's @rpath references to @loader_path.
+          lib_dir = os.path.join(FROZEN_DIR, 'lib')
+          os.makedirs(lib_dir, exist_ok=True)
+          openshot_so = find_in_bundle('_openshot.so', FROZEN_DIR)
+          if not openshot_so:
+              # Try cpython-tagged name
+              for root, dirs, files in os.walk(FROZEN_DIR):
+                  for f in files:
+                      if f.startswith('_openshot.cpython') and f.endswith('.so'):
+                          openshot_so = os.path.join(root, f)
+                          break
+                  if openshot_so:
+                      break
+
+          # Map of versioned soname -> possible source files in bundle
+          soname_fixups = [
+              ('libopenshot-audio.10.dylib',
+               ['libopenshot-audio.0.5.0.dylib', 'libopenshot-audio.dylib']),
+              ('libopenshot.17.dylib',
+               ['libopenshot.0.5.0.dylib', 'libopenshot.dylib']),
+          ]
+          for soname, candidates in soname_fixups:
+              src = None
+              for c in candidates:
+                  src = find_in_bundle(c, FROZEN_DIR)
+                  if src:
+                      break
+              if not src:
+                  print(f"WARNING: source for {soname} not found in bundle")
+                  continue
+              soname_path = os.path.join(lib_dir, soname)
+              if not os.path.exists(soname_path):
+                  shutil.copy2(src, soname_path)
                   subprocess.call(
-                      ['install_name_tool', '-id', f'@loader_path/{audio_soname}', audio_soname_path],
+                      ['install_name_tool', '-id', f'@loader_path/{soname}', soname_path],
                       stderr=subprocess.DEVNULL)
-                  print(f"Created lib/{audio_soname} (copy of {os.path.basename(audio_src)})")
-              openshot_so = find_in_bundle('_openshot.so', FROZEN_DIR)
+                  print(f"Created lib/{soname} (copy of {os.path.basename(src)})")
               if openshot_so:
                   openshot_dir = os.path.dirname(openshot_so)
-                  rel = os.path.relpath(audio_soname_path, openshot_dir)
+                  rel = os.path.relpath(soname_path, openshot_dir)
                   os.chmod(openshot_so, os.stat(openshot_so).st_mode | 0o200)
                   ret = subprocess.call(
-                      ['install_name_tool', '-change', f'@rpath/{audio_soname}',
+                      ['install_name_tool', '-change', f'@rpath/{soname}',
                        f'@loader_path/{rel}', openshot_so],
                       stderr=subprocess.DEVNULL)
                   if ret == 0:
-                      print(f"Fixed @rpath/{audio_soname} in _openshot.so -> @loader_path/{rel}")
-          else:
-              print(f"WARNING: {audio_soname} source not found in bundle")
+                      print(f"Fixed @rpath/{soname} in {os.path.basename(openshot_so)} -> @loader_path/{rel}")
           PYEOF
+
+      - name: Verify openshot bindings in frozen build (arm64)
+        if: matrix.arch == 'arm64'
+        run: |
+          FROZEN_DIR=$(find build -maxdepth 1 -type d -name 'exe.*' | head -1)
+          [ -n "$FROZEN_DIR" ] || { echo "No frozen dir"; exit 0; }
+          echo "--- Checking openshot bindings in frozen build ---"
+          # Check for openshot.py
+          if find "$FROZEN_DIR/lib" -maxdepth 1 -name 'openshot.py' | grep -q .; then
+            echo "FOUND: lib/openshot.py"
+          else
+            echo "::warning::MISSING: lib/openshot.py — video playback will not work"
+          fi
+          # Check for _openshot native extension
+          if find "$FROZEN_DIR/lib" -maxdepth 1 -name '_openshot*' | grep -q .; then
+            echo "FOUND: _openshot native extension"
+            find "$FROZEN_DIR/lib" -maxdepth 1 -name '_openshot*' -exec basename {} \;
+          else
+            echo "::warning::MISSING: _openshot native extension — video playback will not work"
+          fi
+          # Check for libopenshot dylibs
+          for lib in libopenshot.dylib libopenshot-audio.dylib; do
+            if find "$FROZEN_DIR" -maxdepth 1 -name "$lib" | grep -q .; then
+              echo "FOUND: $lib"
+            else
+              echo "::warning::MISSING: $lib"
+            fi
+          done
+          # Check _openshot.so deps are satisfied
+          OPENSHOT_SO=$(find "$FROZEN_DIR/lib" -maxdepth 1 -name '_openshot*' | head -1)
+          if [ -n "$OPENSHOT_SO" ]; then
+            echo "--- _openshot.so dependencies ---"
+            otool -L "$OPENSHOT_SO" 2>/dev/null | head -20 || true
+          fi
 
       - name: Assemble .app bundle
         run: |

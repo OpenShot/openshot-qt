@@ -15,8 +15,8 @@ from classes.logger import log
 MODEL_CONTEXT_LIMITS: Dict[str, int] = {
     "openai/gpt-4o-mini": 128_000,
     "openai/gpt-4o": 128_000,
-    "anthropic/claude-3-5-sonnet": 200_000,
-    "anthropic/claude-3-haiku": 200_000,
+    "anthropic/claude-sonnet-4-6": 1_000_000,
+    "anthropic/claude-haiku-4-5": 200_000,
     "ollama/llama3.2": 128_000,
     "ollama/llama3.1": 128_000,
 }
