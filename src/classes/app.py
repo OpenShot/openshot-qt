@@ -337,7 +337,7 @@ class OpenShotApp(QApplication):
 
         log.info('Process command-line arguments: %s', args[1:])
 
-        # Auto load project if passed as argument (.flow or legacy)
+        # Auto load project if passed as argument (.zvn or legacy)
         if args[1].endswith(self.info.ALL_PROJECT_EXTS):
             self.window.OpenProjectSignal.emit(args[1])
             return True

@@ -81,19 +81,19 @@ USER_COLORS_PATH = os.path.join(USER_PATH, "colors")
 PROTOBUF_DATA_PATH = os.path.join(USER_PATH, "protobuf_data")
 YOLO_PATH = os.path.join(USER_PATH, "yolo")
 CLIPBOARD_PATH = os.path.join(USER_PATH, "clipboard")
-# Project file extensions
-PROJECT_EXT = ".flow"
-LEGACY_PROJECT_EXTS = (".zvn", ".osp")
+# Project file extensions (canonical: .zvn; .osp / .flow still open for legacy projects)
+PROJECT_EXT = ".zvn"
+LEGACY_PROJECT_EXTS = (".osp", ".flow")
 ALL_PROJECT_EXTS = (PROJECT_EXT,) + LEGACY_PROJECT_EXTS
-LEGACY_PROJECT_EXT = LEGACY_PROJECT_EXTS[-1]  # Backwards-compat for older code paths
+LEGACY_PROJECT_EXT = LEGACY_PROJECT_EXTS[0]  # .osp — backwards-compat for older code paths
 # User files
-BACKUP_FILE = os.path.join(BACKUP_PATH, "backup.flow")
-USER_DEFAULT_PROJECT = os.path.join(USER_PATH, "default.flow")
+BACKUP_FILE = os.path.join(BACKUP_PATH, "backup.zvn")
+USER_DEFAULT_PROJECT = os.path.join(USER_PATH, "default.zvn")
 LEGACY_DEFAULT_PROJECT = USER_DEFAULT_PROJECT.replace(PROJECT_EXT, ".project")
 LEGACY_BACKUP_FILE = os.path.join(BACKUP_PATH, "backup.osp")
 LEGACY_USER_DEFAULT_PROJECT = os.path.join(USER_PATH, "default.osp")
-PREVIOUS_DEFAULT_PROJECT = os.path.join(USER_PATH, "default.zvn")
-PREVIOUS_BACKUP_FILE = os.path.join(BACKUP_PATH, "backup.zvn")
+FLOW_DEFAULT_PROJECT = os.path.join(USER_PATH, "default.flow")
+FLOW_BACKUP_FILE = os.path.join(BACKUP_PATH, "backup.flow")
 
 # Back up "default" values for user paths
 _path_defaults = {
@@ -244,21 +244,21 @@ def setup_userdirs():
     ]):
         print("Migrating default project file to new name")
         os.rename(LEGACY_DEFAULT_PROJECT, USER_DEFAULT_PROJECT)
-    # Migrate default.osp to default.flow
+    # Migrate default.osp to default.zvn
     if all([
         os.path.exists(LEGACY_USER_DEFAULT_PROJECT),
         not os.path.exists(USER_DEFAULT_PROJECT),
     ]):
-        print("Migrating default project file from .osp to .flow")
+        print("Migrating default project file from .osp to .zvn")
         os.rename(LEGACY_USER_DEFAULT_PROJECT, USER_DEFAULT_PROJECT)
-    # Migrate default.zvn to default.flow
+    # Migrate default.flow to default.zvn (short-lived .flow era)
     if all([
-        os.path.exists(PREVIOUS_DEFAULT_PROJECT),
+        os.path.exists(FLOW_DEFAULT_PROJECT),
         not os.path.exists(USER_DEFAULT_PROJECT),
     ]):
-        print("Migrating default project file from .zvn to .flow")
-        os.rename(PREVIOUS_DEFAULT_PROJECT, USER_DEFAULT_PROJECT)
-    # Migrate backup.osp to backup.flow
+        print("Migrating default project file from .flow to .zvn")
+        os.rename(FLOW_DEFAULT_PROJECT, USER_DEFAULT_PROJECT)
+    # Migrate backup.osp to backup.zvn
     if all([
         os.path.exists(LEGACY_BACKUP_FILE),
         not os.path.exists(BACKUP_FILE),
@@ -267,19 +267,19 @@ def setup_userdirs():
             import shutil
             shutil.copy2(LEGACY_BACKUP_FILE, BACKUP_FILE)
             os.unlink(LEGACY_BACKUP_FILE)
-            print("Migrated backup.osp to backup.flow")
+            print("Migrated backup.osp to backup.zvn")
         except OSError:
             pass
-    # Migrate backup.zvn to backup.flow
+    # Migrate backup.flow to backup.zvn
     if all([
-        os.path.exists(PREVIOUS_BACKUP_FILE),
+        os.path.exists(FLOW_BACKUP_FILE),
         not os.path.exists(BACKUP_FILE),
     ]):
         try:
             import shutil
-            shutil.copy2(PREVIOUS_BACKUP_FILE, BACKUP_FILE)
-            os.unlink(PREVIOUS_BACKUP_FILE)
-            print("Migrated backup.zvn to backup.flow")
+            shutil.copy2(FLOW_BACKUP_FILE, BACKUP_FILE)
+            os.unlink(FLOW_BACKUP_FILE)
+            print("Migrated backup.flow to backup.zvn")
         except OSError:
             pass
 

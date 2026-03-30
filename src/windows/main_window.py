@@ -527,7 +527,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         """Ensures recovery files adhere to the configured daily and historical limits."""
         recovery_files = sorted(
             ((f, os.path.getmtime(os.path.join(info.RECOVERY_PATH, f)))
-             for f in os.listdir(info.RECOVERY_PATH) if f.endswith(".zip") or f.endswith(".zvn") or f.endswith(".osp")),
+             for f in os.listdir(info.RECOVERY_PATH)
+             if f.endswith((".zip",) + info.ALL_PROJECT_EXTS)),
             key=lambda x: x[1],
             reverse=True
         )
@@ -702,12 +703,12 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 # User canceled prompt
                 return
 
-        # Prompt for open project file (accept both .zvn and .osp)
+        # Open: .zvn primary; .osp / .flow still supported for older projects
         file_path = QFileDialog.getOpenFileName(
             self,
             _("Open Project..."),
             recommended_folder,
-            _("Zenvi Project (*.zvn);;OpenShot Project (*.osp)"))[0]
+            _("Zenvi Project (*.zvn);;Legacy projects (*.osp *.flow)"))[0]
 
         if file_path:
             # Load project file
@@ -730,12 +731,12 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 self,
                 _("Save Project..."),
                 recommended_path,
-                _("Zenvi Project (*.zvn)"))[0]
+                _("Zenvi Project (*.zvn);;Legacy projects (*.osp *.flow)"))[0]
 
         if file_path:
             s.setDefaultPath(s.actionType.SAVE, file_path)
-            # Append .zvn if needed (new save only; existing path kept as-is)
-            if not file_path.endswith(info.PROJECT_EXT) and not file_path.endswith(info.LEGACY_PROJECT_EXT):
+            # Append .zvn if no recognised project extension (legacy paths kept as-is)
+            if not file_path.endswith(info.ALL_PROJECT_EXTS):
                 file_path = "%s%s" % (file_path, info.PROJECT_EXT)
 
             # Save project
@@ -760,7 +761,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             return
 
         if file_path:
-            # A Real project file exists (keep current path; may be .zvn or .osp)
+            # A real project file exists (keep current path; may be .zvn / .osp / .flow)
             # Save project
             log.info("Auto save project file: %s", file_path)
             threading.Thread(target=self.save_project, args=(file_path,), daemon=True).start()
@@ -800,10 +801,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             self,
             _("Save Project As..."),
             recommended_path,
-            _("Zenvi Project (*.zvn)"))[0]
+            _("Zenvi Project (*.zvn);;Legacy projects (*.osp *.flow)"))[0]
         if file_path:
             s.setDefaultPath(s.actionType.SAVE, file_path)
-            # Save As always uses .zvn
+            # Save As always writes the canonical .zvn extension
             file_path = os.path.splitext(file_path)[0] + info.PROJECT_EXT
 
             # Save new project
@@ -2971,7 +2972,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             base_no_ext = os.path.splitext(os.path.basename(current_filepath))[0]
             recovery_files = [
                 f for f in os.listdir(recovery_dir)
-                if (f.endswith(".osp") or f.endswith(".zvn") or f.endswith(".zip")) and "-" in f and f.split("-", 1)[1].startswith(base_no_ext)
+                if (f.endswith(".zip") or f.endswith(info.ALL_PROJECT_EXTS))
+                and "-" in f
+                and f.split("-", 1)[1].startswith(base_no_ext)
             ]
 
         # Show just a placeholder menu, if we have no recovery files
@@ -3005,7 +3008,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
             try:
                 # Rename the original project file
-                recovered_filename = os.path.splitext(os.path.basename(current_filepath))[0] + f"-{int(time())}-backup.osp"
+                recovered_filename = (
+                    os.path.splitext(os.path.basename(current_filepath))[0]
+                    + f"-{int(time())}-backup{info.PROJECT_EXT}"
+                )
                 recovered_filepath = os.path.join(os.path.dirname(current_filepath), recovered_filename)
                 if os.path.exists(current_filepath):
                     shutil.move(current_filepath, recovered_filepath)

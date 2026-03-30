@@ -154,7 +154,7 @@ def save_project(file_path: str) -> str:
     if not file_path or not isinstance(file_path, str):
         return "Error: file_path is required (string)."
     file_path = file_path.strip()
-    if not file_path.endswith(info.PROJECT_EXT):
+    if not file_path.endswith(info.ALL_PROJECT_EXTS):
         file_path = file_path + info.PROJECT_EXT
     try:
         app = _get_app()
