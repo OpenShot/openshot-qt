@@ -730,6 +730,46 @@ class ZenviBackendClient:
             log.error("Freesound search failed: %s", e)
             return {"sounds": [], "error": str(e)}
 
+    # ------------------------------------------------------------------
+    # Re-tagging and re-indexing (manual triggers)
+    # ------------------------------------------------------------------
+    def retag_video(self, file_id: str, file_path: str, force: bool = True) -> Dict[str, Any]:
+        """Re-run Gemini tagging for a file. Clips > 30 min are rejected by the backend."""
+        try:
+            r = self.session.post(
+                f"{self.api_url}/tags/retag",
+                json={"file_id": file_id, "file_path": file_path, "force": force},
+                timeout=300,
+            )
+            r.raise_for_status()
+            return r.json()
+        except Exception as e:
+            log.error("retag_video failed: %s", e)
+            return {"success": False, "error": str(e)}
+
+    def reindex_video(self, file_id: str, file_path: str, index_name: str = "zenvi-videos",
+                      existing_index_id: str = "") -> Dict[str, Any]:
+        """Re-index a video in TwelveLabs. Clips > 30 min are rejected by the backend."""
+        try:
+            payload: Dict[str, Any] = {
+                "file_id": file_id,
+                "file_path": file_path,
+                "index_name": index_name,
+                "force": True,
+            }
+            if existing_index_id:
+                payload["existing_index_id"] = existing_index_id
+            r = self.session.post(
+                f"{self.api_url}/indexing/reindex",
+                json=payload,
+                timeout=600,
+            )
+            r.raise_for_status()
+            return r.json()
+        except Exception as e:
+            log.error("reindex_video failed: %s", e)
+            return {"success": False, "error": str(e)}
+
     def freesound_download(self, sound_id: int, preview_url: str, filename: str = "") -> Dict[str, Any]:
         """Download a Freesound HQ MP3 preview via the backend and return its local path."""
         try:

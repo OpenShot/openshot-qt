@@ -685,10 +685,16 @@ def split_file_add_clip(file_id="", start_frame=0, end_frame=0, name="", **_kw) 
             timestamp = "{}:{}:{}:{}".format(t["hour"], t["min"], t["sec"], t["frame"])
             base = os.path.splitext(os.path.basename(f.data.get("path") or f.data.get("name", "clip")))[0]
             new_file.data["name"] = f"{base} ({timestamp})"
+        # Mark as agent-created subclip so it's hidden from the project files panel
+        new_file.data["zenvi_subclip"] = True
         new_file.save()
         _last_split_file_id = new_file.id
         clip_name = new_file.data.get("name", "")
-        return f'Added clip from frame {start_frame} to {end_frame} (name: {clip_name}). Ask: "Would you like this clip added to the timeline at the playhead?" If they say yes, call add_clip_to_timeline_tool with no arguments.'
+        return (
+            f'Subclip created: "{clip_name}" (file_id={new_file.id}) '
+            f'from frames {start_frame}–{end_frame}. '
+            f'Call add_clip_to_timeline_tool(file_id="{new_file.id}") to place it on the timeline.'
+        )
     except Exception as e:
         return f"Error: {e}"
 
@@ -712,21 +718,54 @@ def add_clip_to_timeline(file_id="", position_seconds="", track="", **_kw) -> st
         fps = app.project.get("fps") or {}
         fps_float = float(fps.get("num", 30)) / float(fps.get("den", 1) or 1)
 
-        if not position_seconds or (isinstance(position_seconds, str) and not position_seconds.strip()):
-            pos_sec = float(win.preview_thread.current_frame - 1) / fps_float
-        else:
-            pos_sec = float(position_seconds)
+        # Detect audio-only files (mp3, wav, ogg, etc. or media_type=="audio")
+        file_data = f.data
+        _ext = (file_data.get("path") or "").rsplit(".", 1)[-1].lower()
+        _audio_exts = {"mp3", "wav", "ogg", "flac", "aac", "m4a", "wma"}
+        _is_audio_only = (
+            file_data.get("media_type", "") == "audio"
+            or _ext in _audio_exts
+            or (not file_data.get("has_video", True) and file_data.get("has_audio", False))
+        )
 
+        # Determine track FIRST so we can compute position relative to that layer
         if not track or (isinstance(track, str) and not track.strip()):
-            selected = getattr(win, "selected_tracks", []) or []
-            if selected:
-                t = Track.get(id=selected[0])
-                track_num = int(t.data.get("number", 1)) if t else 1
+            layers = app.project.get("layers") or []
+            if _is_audio_only:
+                # Audio: use the lowest-numbered layer (bottom track)
+                track_num = int(min(layers, key=lambda l: l.get("number", 0)).get("number", 1)) if layers else 1
             else:
-                layers = app.project.get("layers") or []
-                track_num = int(layers[0].get("number", 1)) if layers else 1
+                selected = getattr(win, "selected_tracks", []) or []
+                if selected:
+                    t = Track.get(id=selected[0])
+                    track_num = int(t.data.get("number", 1)) if t else 1
+                else:
+                    # Video: use the highest-numbered layer (top track)
+                    track_num = int(max(layers, key=lambda l: l.get("number", 0)).get("number", 1)) if layers else 1
         else:
             track_num = int(track)
+
+        if not position_seconds or (isinstance(position_seconds, str) and not position_seconds.strip()):
+            if _is_audio_only:
+                # Audio: always start at position 0 so music covers the whole timeline
+                pos_sec = 0.0
+            else:
+                # Video: append after the last clip on THIS SAME LAYER to avoid cross-track interference
+                from classes.query import Clip as _Clip
+                same_layer = [c for c in _Clip.filter() if c.data.get("layer", 0) == track_num]
+                # 1-frame buffer to prevent adjacent clips from touching (snap-to-grid rounding
+                # can otherwise cause the new clip to slightly overlap the previous one)
+                _one_frame = 1.0 / max(fps_float, 1.0)
+                if same_layer:
+                    last_end = max(
+                        c.data.get("position", 0) + (c.data.get("end", 0) - c.data.get("start", 0))
+                        for c in same_layer
+                    )
+                    pos_sec = last_end + _one_frame
+                else:
+                    pos_sec = 0.0
+        else:
+            pos_sec = float(position_seconds)
 
         if QPointF is None:
             from PyQt5.QtCore import QPointF as _QPointF
@@ -1303,6 +1342,59 @@ def generate_video_and_add_to_timeline(prompt="", duration_seconds="", position_
             f, import_err = _import_generated_video(output_path)
             if not f:
                 return "Video generated and added to project files."
+
+            # When inserting at a specific position, ripple downstream clips
+            # forward so the generated clip doesn't overlap them.
+            _pos = None
+            if position_seconds and str(position_seconds).strip():
+                try:
+                    _pos = float(position_seconds)
+                except Exception:
+                    _pos = None
+
+            if _pos is not None:
+                # Compute the generated clip's duration from the file metadata
+                _gen_dur = float(f.data.get("duration") or duration)
+
+                from classes.query import Clip as _Clip
+                _app_ref = app
+                _snap_tol = 0.001
+
+                # Determine which layer to ripple: prefer the explicit track arg,
+                # then detect from which clips are actually sitting at position >= _pos.
+                # Using max(layers) was unreliable — the highest-numbered layer may not
+                # be the one the plan agent placed clips on.
+                _ripple_layer = None
+                if track and str(track).strip():
+                    try:
+                        _ripple_layer = int(float(track))
+                    except Exception:
+                        pass
+                if _ripple_layer is None:
+                    _clips_at_pos = [
+                        c for c in list(_Clip.filter())
+                        if float(c.data.get("position", 0)) >= _pos - _snap_tol
+                        and c.data.get("id")
+                    ]
+                    if _clips_at_pos:
+                        closest = min(_clips_at_pos,
+                                      key=lambda c: float(c.data.get("position", 0)))
+                        _ripple_layer = closest.data.get("layer", None)
+
+                def _do_ripple_insert():
+                    for c in list(_Clip.filter()):
+                        c_pos = float(c.data.get("position", 0))
+                        c_layer = c.data.get("layer", 0)
+                        cid = c.data.get("id")
+                        if (cid
+                                and c_pos >= _pos - _snap_tol
+                                and (_ripple_layer is None or c_layer == _ripple_layer)):
+                            _app_ref.updates.update(
+                                ["clips", {"id": cid}], {"position": c_pos + _gen_dur}
+                            )
+
+                _run_on_main_thread(_do_ripple_insert)
+
             was_playing = _pause_player()
             try:
                 msg = add_clip_to_timeline(file_id=f.id, position_seconds=position_seconds or "", track=track or "")
@@ -1959,12 +2051,22 @@ def generate_transition_clip(clip_a_id="", clip_b_id="", prompt_hint="", **_kw) 
             _snap_tol = _one_frame          # look back up to 1 frame for clip B
             _shift = actual_dur + _one_frame  # push clip B 1 frame beyond the transition end
 
+            # Determine clip A's layer so we only ripple same-layer clips
+            _clip_a_layer = clip_a.data.get("layer", 0)
+            _app_ref = _get_app()
+
             def _shift_clips():
                 for c in list(Clip.filter()):
                     c_pos = float(c.data.get("position", 0))
-                    if c_pos >= _end_pos - _snap_tol and c.id != _clip_a_id:
-                        c.data["position"] = c_pos + _shift
-                        c.save()
+                    c_layer = c.data.get("layer", 0)
+                    if (c_pos >= _end_pos - _snap_tol
+                            and c.id != _clip_a_id
+                            and c_layer == _clip_a_layer):
+                        cid = c.data.get("id")
+                        if cid:
+                            _app_ref.updates.update(
+                                ["clips", {"id": cid}], {"position": c_pos + _shift}
+                            )
 
             _run_on_main_thread(_shift_clips)
 
@@ -2086,6 +2188,7 @@ def add_transition_between_clips(clip1_id="", clip2_id="", transition_name="", d
         from classes import info
 
         app = _get_app()
+        win = app.window
         clip1 = Clip.get(id=clip1_id)
         clip2 = Clip.get(id=clip2_id)
         if not clip1:
@@ -2116,35 +2219,64 @@ def add_transition_between_clips(clip1_id="", clip2_id="", transition_name="", d
         except ValueError:
             dur = 1.0
 
-        trans_position = max(clip1_end - dur / 2, 0)
         layer1 = clip1.data.get("layer", 0)
         layer2 = clip2.data.get("layer", 0)
+        target_layer_for_trans = max(layer1, layer2)
+        transition_title = os.path.splitext(os.path.basename(transition_path))[0]
 
-        transition_data = {
-            "id": str(uuid_module.uuid4()), "layer": max(layer1, layer2),
-            "position": trans_position, "start": 0, "end": dur,
-            "brightness": 1.0, "contrast": 3.0,
-            "reader": {
-                "acodec": "", "audio_bit_rate": 0, "audio_stream_index": -1,
-                "audio_timebase": {"den": 1, "num": 1}, "channel_layout": 4, "channels": 0,
-                "display_ratio": {"den": 1, "num": 1}, "duration": dur,
-                "file_size": "0", "fps": {"den": 1, "num": 30},
-                "has_audio": False, "has_single_image": True, "has_video": True,
-                "height": 1080, "interlaced_frame": False, "metadata": {},
-                "path": transition_path, "pixel_ratio": {"den": 1, "num": 1},
-                "sample_rate": 0, "top_field_first": True, "type": "QtImageReader",
-                "vcodec": "", "video_bit_rate": 0, "video_length": "0",
-                "video_stream_index": -1, "video_timebase": {"den": 30, "num": 1}, "width": 1920,
-            },
-            "replace_image": False, "type": "Mask",
-            "title": os.path.splitext(os.path.basename(transition_path))[0],
-        }
+        # OpenShot Mask transitions require clips to OVERLAP to cross-dissolve.
+        # Move clip2 backward by `dur` to create the overlap region, then place
+        # the Mask at the overlap start.  Only clip2 is moved — downstream clips
+        # are NOT rippled.
+        clip2_pos = float(clip2.data.get("position", 0))
+        clip2_id_val = clip2.data.get("id", clip2_id)
+        new_clip2_pos = max(clip2_pos - dur, 0)
 
-        app.updates.insert(["transitions"], transition_data)
+        # ALL Qt/openshot calls MUST run on the Qt main thread
+        result_box = [None]
 
+        def _do_transition():
+            import openshot as _os
+
+            # Build proper keyframe objects (required by OpenShot's Mask renderer)
+            fps_data = app.project.get("fps") or {}
+            fps_f = float(fps_data.get("num", 30)) / float(fps_data.get("den", 1) or 1)
+            snap = lambda t: round(t * fps_f) / fps_f
+            snapped_dur = snap(dur)
+            snapped_c2_pos = snap(new_clip2_pos)
+
+            # Step 1: Move clip2 backward to create overlap with clip1
+            app.updates.update(["clips", {"id": clip2_id_val}], {"position": snapped_c2_pos})
+
+            # Step 2: Place Mask transition in the overlap region
+            brightness = _os.Keyframe()
+            brightness.AddPoint(1, 1.0, _os.BEZIER)
+            brightness.AddPoint(round(snapped_dur * fps_f) + 1, -1.0, _os.BEZIER)
+            contrast = _os.Keyframe(3.0)
+            trans_reader = _os.QtImageReader(transition_path)
+
+            tid = str(uuid_module.uuid4())
+            transition_data = {
+                "id": tid,
+                "layer": target_layer_for_trans,
+                "position": snapped_c2_pos,   # start of the overlap region
+                "start": 0.0,
+                "end": snapped_dur,
+                "brightness": json.loads(brightness.Json()),
+                "contrast": json.loads(contrast.Json()),
+                "reader": json.loads(trans_reader.Json()),
+                "replace_image": False,
+                "type": "Mask",
+                "title": transition_title,
+            }
+            win.timeline.update_transition_data(transition_data, only_basic_props=False)
+            result_box[0] = (tid, snapped_dur, snapped_c2_pos)
+
+        _run_on_main_thread(_do_transition)
+        tid, actual_dur, actual_pos = result_box[0] if result_box[0] else ("?", dur, new_clip2_pos)
         return (
-            f"Added '{transition_name}' transition between clips.\n"
-            f"ID: {transition_data['id']}, Duration: {dur}s, Position: {trans_position}s"
+            f"Added '{transition_name}' transition between clips (overlap: {actual_dur:.2f}s).\n"
+            f"Clip2 moved to {actual_pos:.2f}s. Transition ID: {tid}"
         )
     except Exception as e:
         log.error("add_transition_between_clips: %s", e, exc_info=True)
@@ -2183,6 +2315,8 @@ def add_transition_to_clip(clip_id="", transition_name="", position="start", dur
         clip_end = clip.data.get("end", 0)
         clip_duration = clip_end - clip_start
         clip_layer = clip.data.get("layer", 0)
+        win = app.window
+        transition_title = os.path.splitext(os.path.basename(transition_path))[0]
 
         try:
             dur = float(duration)
@@ -2194,31 +2328,53 @@ def add_transition_to_clip(clip_id="", transition_name="", position="start", dur
         else:
             trans_position = clip_position
 
-        transition_data = {
-            "id": str(uuid_module.uuid4()), "layer": clip_layer,
-            "position": trans_position, "start": 0, "end": dur,
-            "brightness": 1.0, "contrast": 3.0,
-            "reader": {
-                "acodec": "", "audio_bit_rate": 0, "audio_stream_index": -1,
-                "audio_timebase": {"den": 1, "num": 1}, "channel_layout": 4, "channels": 0,
-                "display_ratio": {"den": 1, "num": 1}, "duration": dur,
-                "file_size": "0", "fps": {"den": 1, "num": 30},
-                "has_audio": False, "has_single_image": True, "has_video": True,
-                "height": 1080, "interlaced_frame": False, "metadata": {},
-                "path": transition_path, "pixel_ratio": {"den": 1, "num": 1},
-                "sample_rate": 0, "top_field_first": True, "type": "QtImageReader",
-                "vcodec": "", "video_bit_rate": 0, "video_length": "0",
-                "video_stream_index": -1, "video_timebase": {"den": 30, "num": 1}, "width": 1920,
-            },
-            "replace_image": False, "type": "Mask",
-            "title": os.path.splitext(os.path.basename(transition_path))[0],
-        }
+        result_box = [None]
 
-        app.updates.insert(["transitions"], transition_data)
+        # Must run on Qt main thread — openshot.QtImageReader and update_transition_data
+        # both touch Qt objects and dispatch to Qt listeners (properties_model, timeline, etc.)
+        _is_fade_out = (position or "").lower() == "end"
 
+        def _do_insert():
+            import openshot as _os
+            fps_data = app.project.get("fps") or {}
+            fps_f = float(fps_data.get("num", 30)) / float(fps_data.get("den", 1) or 1)
+            snap = lambda t: round(t * fps_f) / fps_f
+            snapped_dur = snap(dur)
+
+            brightness = _os.Keyframe()
+            if _is_fade_out:
+                # Fade OUT: clip starts visible (-1.0) and goes hidden (1.0)
+                brightness.AddPoint(1, -1.0, _os.BEZIER)
+                brightness.AddPoint(round(snapped_dur * fps_f) + 1, 1.0, _os.BEZIER)
+            else:
+                # Fade IN: clip starts hidden (1.0) and becomes visible (-1.0)
+                brightness.AddPoint(1, 1.0, _os.BEZIER)
+                brightness.AddPoint(round(snapped_dur * fps_f) + 1, -1.0, _os.BEZIER)
+            contrast = _os.Keyframe(3.0)
+            trans_reader = _os.QtImageReader(transition_path)
+
+            tid = str(uuid_module.uuid4())
+            transition_data = {
+                "id": tid,
+                "layer": clip_layer,
+                "position": snap(trans_position),
+                "start": 0.0,
+                "end": snapped_dur,
+                "brightness": json.loads(brightness.Json()),
+                "contrast": json.loads(contrast.Json()),
+                "reader": json.loads(trans_reader.Json()),
+                "replace_image": False,
+                "type": "Mask",
+                "title": transition_title,
+            }
+            win.timeline.update_transition_data(transition_data, only_basic_props=False)
+            result_box[0] = (tid, snapped_dur, snap(trans_position))
+
+        _run_on_main_thread(_do_insert)
+        tid, actual_dur, actual_pos = result_box[0] if result_box[0] else ("?", dur, trans_position)
         return (
             f"Added '{transition_name}' transition at {position} of clip.\n"
-            f"ID: {transition_data['id']}, Duration: {dur}s, Position: {trans_position}s"
+            f"ID: {tid}, Duration: {actual_dur:.2f}s, Position: {actual_pos:.2f}s"
         )
     except Exception as e:
         log.error("add_transition_to_clip: %s", e, exc_info=True)
@@ -2243,8 +2399,6 @@ def add_tts_audio_to_timeline(audio_path="", track=0, position=0.0, **kwargs) ->
             "path": audio_path,
             "id": str(uuid_module.uuid4()),
         }
-        app.updates.insert(["files"], file_data)
-
         clip_data = {
             "id": str(uuid_module.uuid4()),
             "file_id": file_data["id"],
@@ -2254,7 +2408,13 @@ def add_tts_audio_to_timeline(audio_path="", track=0, position=0.0, **kwargs) ->
             "end": 0,
             "reader": {"path": audio_path, "has_audio": True, "has_video": False},
         }
-        app.updates.insert(["clips"], clip_data)
+
+        # Must run on Qt main thread — app.updates dispatches to Qt listeners
+        def _do_insert():
+            app.updates.insert(["files"], file_data)
+            app.updates.insert(["clips"], clip_data)
+
+        _run_on_main_thread(_do_insert)
 
         return f"Added TTS audio to timeline at position {position}s on track {track}."
     except Exception as e:
@@ -2429,8 +2589,236 @@ def analyze_clip_visual_content(clip_id=None, **kwargs) -> str:
 
 
 # ---------------------------------------------------------------------------
+# Stock media / retag / reindex / planning handlers
+# ---------------------------------------------------------------------------
+
+def add_stock_media_to_project(local_path: str = "", **kwargs) -> str:
+    """Import a downloaded stock file into Project Files."""
+    try:
+        if not local_path:
+            return "Error: local_path is required."
+        import os
+        if not os.path.isfile(local_path):
+            return f"Error: File not found: {local_path}"
+        app = _get_app()
+        files_model = app.window.files_model
+        from classes.query import File
+        existing = File.get(path=local_path)
+        if existing:
+            return f"File already in project (id={existing.id}): {local_path}"
+
+        # MUST run on main thread — files_model.add_files touches Qt objects
+        def _do_add():
+            files_model.add_files([local_path])
+
+        _run_on_main_thread(_do_add, timeout=30)
+
+        # Look up the File object so we can return the file_id to the agent
+        f = File.get(path=local_path)
+        if not f:
+            f = File.get(path=os.path.normpath(local_path))
+        if not f:
+            f = File.get(path=os.path.realpath(local_path))
+        if not f:
+            for candidate in File.filter():
+                try:
+                    if getattr(candidate, "absolute_path", None) and candidate.absolute_path() == local_path:
+                        f = candidate
+                        break
+                except Exception:
+                    continue
+
+        if f:
+            log.info("Stock media added to project: %s (id=%s)", local_path, f.id)
+            return (
+                f"Added to project: {local_path} (file_id={f.id}). "
+                f"IMPORTANT: Call add_clip_to_timeline_tool with file_id='{f.id}' to place it on the timeline."
+            )
+        log.info("Stock media added to project: %s (id not yet available)", local_path)
+        return (
+            f"Added to project: {local_path}. "
+            f"Use list_files_tool to find the file_id, then call add_clip_to_timeline_tool."
+        )
+    except Exception as e:
+        log.error("add_stock_media_to_project: %s", e, exc_info=True)
+        return f"Error: {e}"
+
+
+def retag_project_file(file_id: str = "", **kwargs) -> str:
+    """Re-run AI tagging for an existing project file."""
+    try:
+        if not file_id:
+            return "Error: file_id is required."
+        from classes.query import File
+        file_obj = File.get(id=file_id)
+        if not file_obj:
+            return f"Error: File not found (id={file_id})."
+        file_path = file_obj.data.get("path", "")
+        duration = file_obj.data.get("duration", 0) or 0
+
+        MAX_SECONDS = 30 * 60
+        if duration > MAX_SECONDS:
+            return (
+                f"Error: Clip is {duration / 60:.1f} min — exceeds the "
+                f"30-minute re-tagging limit."
+            )
+        app = _get_app()
+        files_model = app.window.files_model
+        files_model._tag_file_async(file_id)
+        return f"Re-tagging started for file {file_id} ({file_path})."
+    except Exception as e:
+        log.error("retag_project_file: %s", e, exc_info=True)
+        return f"Error: {e}"
+
+
+def reindex_project_file(file_id: str = "", **kwargs) -> str:
+    """Re-index an existing project file in TwelveLabs."""
+    try:
+        if not file_id:
+            return "Error: file_id is required."
+        from classes.query import File
+        file_obj = File.get(id=file_id)
+        if not file_obj:
+            return f"Error: File not found (id={file_id})."
+        file_path = file_obj.data.get("path", "")
+        duration = file_obj.data.get("duration", 0) or 0
+
+        MAX_SECONDS = 30 * 60
+        if duration > MAX_SECONDS:
+            return (
+                f"Error: Clip is {duration / 60:.1f} min — exceeds the "
+                f"30-minute re-indexing limit."
+            )
+
+        from classes.api_client import get_backend_client
+        client = get_backend_client()
+        if not client.is_indexing_configured():
+            return "TwelveLabs is not configured — re-indexing unavailable."
+
+        project_id = ""
+        try:
+            project_id = _get_app().project.get("id") or ""
+        except Exception:
+            pass
+        index_name = f"zenvi-{project_id}" if project_id else "zenvi-videos"
+
+        result = client.index_video(file_path, index_name, async_mode=False)
+        if isinstance(result, dict) and result.get("index_id"):
+            return (
+                f"Re-indexing complete for file {file_id}. "
+                f"index_id={result['index_id']}  video_id={result.get('video_id', '')}"
+            )
+        return f"Re-indexing failed: {result.get('error', result.get('message', 'unknown'))}"
+    except Exception as e:
+        log.error("reindex_project_file: %s", e, exc_info=True)
+        return f"Error: {e}"
+
+
+def get_clips_with_full_metadata(**kwargs) -> str:
+    """Return all project files with full AI metadata for planning complex edits."""
+    try:
+        from classes.query import File
+        files = File.filter()
+        if not files:
+            return "No files in project."
+        lines = ["Project files with full metadata:"]
+        for f in files:
+            d = f.data
+            dur = d.get("duration", 0) or 0
+            m, s = divmod(int(dur), 60)
+            media_type = d.get("media_type", "?")
+            name = d.get("name") or d.get("path", "?").split("/")[-1]
+            ai = d.get("ai_metadata") or {}
+            tags = ai.get("tags", {})
+            analyzed = ai.get("analyzed", False)
+            tl = ai.get("twelvelabs", {}) or {}
+            indexed = bool(tl.get("index_id"))
+            scene_count = len(ai.get("scene_descriptions") or [])
+            objects = ", ".join((tags.get("objects") or [])[:5])
+            scenes = ", ".join((tags.get("scenes") or [])[:3])
+            desc = (ai.get("description") or "")[:120]
+            lines.append(
+                f"\n  id={f.id}  name={name}  type={media_type}  "
+                f"duration={m}:{s:02d}\n"
+                f"    analyzed={analyzed}  indexed={indexed}  scene_count={scene_count}\n"
+                f"    objects=[{objects}]\n"
+                f"    scenes=[{scenes}]\n"
+                f"    description={desc}"
+            )
+        return "\n".join(lines)
+    except Exception as e:
+        log.error("get_clips_with_full_metadata: %s", e, exc_info=True)
+        return f"Error: {e}"
+
+
+# ---------------------------------------------------------------------------
 # Tool name → handler mapping
 # ---------------------------------------------------------------------------
+
+def get_timeline_state(**_kw) -> str:
+    """Return a structured snapshot of the current timeline: tracks, clips with positions, and effects."""
+    try:
+        from classes.query import Clip, Track
+        app = _get_app()
+
+        layers = app.project.get("layers") or []
+        layer_map = {l.get("number"): l.get("label") or f"Track {l.get('number')}" for l in layers}
+
+        clips = Clip.filter()
+        effects_raw = app.project.get("effects") or []
+
+        if not clips and not effects_raw:
+            return "Timeline is empty — no clips or effects have been added yet."
+
+        # Group clips by layer
+        by_layer = {}
+        for c in clips:
+            d = c.data
+            layer = d.get("layer", 0)
+            by_layer.setdefault(layer, []).append(d)
+
+        # Sort each layer by position
+        lines = ["=== TIMELINE STATE ==="]
+        for layer_num in sorted(by_layer.keys(), reverse=True):
+            track_label = layer_map.get(layer_num, f"Track (layer={layer_num})")
+            lines.append(f"\n{track_label}:")
+            for d in sorted(by_layer[layer_num], key=lambda x: x.get("position", 0)):
+                clip_dur = d.get("end", 0) - d.get("start", 0)
+                clip_end = d.get("position", 0) + clip_dur
+                # Get file name from file_id
+                try:
+                    from classes.query import File as _File
+                    fobj = _File.get(id=d.get("file_id", ""))
+                    fname = fobj.data.get("name", d.get("file_id", "?")) if fobj else d.get("file_id", "?")
+                except Exception:
+                    fname = d.get("file_id", "?")
+                lines.append(
+                    f"  clip id={d.get('id','')} file={fname!r}"
+                    f" @ {d.get('position',0):.2f}s–{clip_end:.2f}s (dur={clip_dur:.2f}s)"
+                )
+
+        # Summarise effects/transitions
+        if effects_raw:
+            lines.append(f"\nEffects/Transitions ({len(effects_raw)}):")
+            for e in effects_raw:
+                lines.append(
+                    f"  id={e.get('id','')} title={e.get('title','?')!r}"
+                    f" layer={e.get('layer','')} @ {e.get('position',0):.2f}s end={e.get('end',0):.2f}s"
+                )
+
+        # Total timeline duration
+        all_ends = [
+            d.get("position", 0) + (d.get("end", 0) - d.get("start", 0))
+            for c in clips for d in [c.data]
+        ]
+        if all_ends:
+            lines.append(f"\nTotal timeline duration: {max(all_ends):.2f}s")
+
+        return "\n".join(lines)
+    except Exception as e:
+        log.error("get_timeline_state: %s", e, exc_info=True)
+        return f"Error: {e}"
+
 
 TOOL_HANDLERS = {
     # Project
@@ -2492,6 +2880,12 @@ TOOL_HANDLERS = {
     "analyze_music_sync_tool": analyze_music_sync,
     "get_project_metadata_tool": get_project_metadata_info,
     "analyze_clip_visual_content_tool": analyze_clip_visual_content,
+    # Stock media / retag / reindex / planning
+    "add_stock_media_to_project_tool": add_stock_media_to_project,
+    "retag_project_file_tool": retag_project_file,
+    "reindex_project_file_tool": reindex_project_file,
+    "get_clips_with_full_metadata_tool": get_clips_with_full_metadata,
+    "get_timeline_state_tool": get_timeline_state,
 }
 
 

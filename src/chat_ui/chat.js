@@ -30,6 +30,9 @@
     const modelTrigger = document.getElementById('chat-model-trigger');
     const modelLabel = document.getElementById('chat-model-label');
     const modelMenu = document.getElementById('chat-model-menu');
+    // Move menu to <body> so it escapes any CSS transform on ancestor elements
+    // (transform creates a new containing block that breaks position:fixed)
+    document.body.appendChild(modelMenu);
     const messagesEl = document.getElementById('chat-messages');
     const inputEl = document.getElementById('chat-input');
     const inputRow = document.getElementById('chat-input-row');
@@ -477,8 +480,18 @@
         var rect = modelTrigger.getBoundingClientRect();
         modelMenu.style.position = 'fixed';
         modelMenu.style.left = rect.left + 'px';
-        modelMenu.style.bottom = (window.innerHeight - rect.top + 6) + 'px';
-        modelMenu.style.top = '';
+        // Open upward or downward based on available space — when the input is
+        // centred (idle/no-messages state) rect.top is mid-screen, which made
+        // the upward bottom calculation push the menu to the very top.
+        var spaceAbove = rect.top;
+        var spaceBelow = window.innerHeight - rect.bottom;
+        if (spaceAbove > spaceBelow) {
+            modelMenu.style.bottom = (window.innerHeight - rect.top + 6) + 'px';
+            modelMenu.style.top = '';
+        } else {
+            modelMenu.style.top = (rect.bottom + 6) + 'px';
+            modelMenu.style.bottom = '';
+        }
         modelMenu.style.display = 'block';
         modelTrigger.classList.add('active');
     }
