@@ -54,6 +54,7 @@ from PyQt5.QtWidgets import (
 )
 
 from classes import exceptions, info, qt_types, sentry, ui_util, updates
+from classes.auto_updater import AutoUpdater
 from classes.app import get_app
 from classes.exporters.edl import export_edl
 from classes.exporters.final_cut_pro import export_xml
@@ -4014,6 +4015,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.FoundVersionSignal.connect(self.foundCurrentVersion)
         self.UpdateReadySignal.connect(self.updateDownloaded)
         get_current_Version()
+
+        # Start background auto-updater (checks GitHub 15s after launch)
+        self._auto_updater = AutoUpdater()
+        self._auto_updater.start()
 
         # Initialize and start the thumbnail HTTP server
         try:
