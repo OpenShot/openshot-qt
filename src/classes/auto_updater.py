@@ -38,7 +38,7 @@ GITHUB_API_URL = (
     "https://api.github.com/repos/{repo}/releases/latest"
 )
 
-UPDATE_STAGING_DIR = info.UPDATE_PATH
+UPDATE_STAGING_DIR = os.path.join(info.USER_PATH, "updates")
 UPDATE_MANIFEST = os.path.join(UPDATE_STAGING_DIR, "update_manifest.json")
 
 # How long to wait after app launch before first check (seconds)
