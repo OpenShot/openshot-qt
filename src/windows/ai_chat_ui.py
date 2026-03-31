@@ -171,6 +171,7 @@ class AIChatWorker(QObject):
     def __init__(self, parent=None):
         super().__init__(parent)
         self._backend_session_id = None
+        self._stopping = False  # Set to True during app shutdown to suppress fallback/emit
 
     @pyqtSlot(str, str)
     def run_request(self, text: str, model_id: str):
@@ -215,6 +216,11 @@ class AIChatWorker(QObject):
             )
 
             if final_error:
+                # App is shutting down — the WS was closed intentionally.
+                # Don't fall back to REST or emit signals into a dying Qt stack.
+                if self._stopping:
+                    return
+
                 # If a tool already executed successfully (e.g. v2v clip
                 # was generated and imported), use that result instead of
                 # falling back to REST which would re-run the entire agent.
@@ -241,6 +247,8 @@ class AIChatWorker(QObject):
                     self.error_occurred.emit("No response from backend.")
                 return
 
+            if self._stopping:
+                return
             if result is not None:
                 self.response_ready.emit(result)
             elif final_response is not None:
@@ -248,6 +256,8 @@ class AIChatWorker(QObject):
             else:
                 self.error_occurred.emit("No response from backend.")
         except Exception as e:
+            if self._stopping:
+                return  # Swallow exceptions during shutdown — Qt stack is going away
             log.error("AI chat error: %s", e, exc_info=True)
             self.error_occurred.emit(str(e))
 
@@ -902,6 +912,14 @@ class AIChatWindow(QDockWidget):
 
     def _stop_all_threads(self):
         """Cleanly stop all session worker threads. Safe to call more than once."""
+        # Mark all workers as stopping FIRST so that when cancel_current_request()
+        # closes the WebSocket, the worker's run_request slot sees _stopping=True
+        # and returns silently instead of trying to fall back to REST or emit signals
+        # into a Qt stack that is already being torn down.
+        for sess in list(self._sessions.values()):
+            worker = sess.get("worker")
+            if worker:
+                worker._stopping = True
         try:
             from classes.api_client import get_backend_client
             get_backend_client().cancel_current_request()

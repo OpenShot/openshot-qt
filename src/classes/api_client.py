@@ -390,19 +390,50 @@ class ZenviBackendClient:
     # ------------------------------------------------------------------
     # Indexing
     # ------------------------------------------------------------------
-    def index_video(self, file_path: str, index_name: str, filename: Optional[str] = None, async_mode: bool = True) -> Dict[str, Any]:
-        """Index a video file."""
+    def index_video(self, file_path: str, index_name: str, filename: Optional[str] = None,
+                    async_mode: bool = True) -> Dict[str, Any]:
+        """Index a video file.
+
+        Always uses the background-job pattern: POST returns a job_id immediately,
+        then we poll GET /indexing/job/{job_id} until complete. This avoids the
+        read-timeout that occurred when TwelveLabs took longer than the HTTP timeout.
+        The async_mode parameter is kept for backwards compatibility but ignored.
+        """
         try:
-            payload = {"file_path": file_path, "index_name": index_name}
+            payload: Dict[str, Any] = {"file_path": file_path, "index_name": index_name}
             if filename:
                 payload["filename"] = filename
-            endpoint = "indexing/async" if async_mode else "indexing"
-            r = self.session.post(f"{self.api_url}/{endpoint}", json=payload, timeout=300)
+            r = self.session.post(f"{self.api_url}/indexing", json=payload, timeout=30)
             r.raise_for_status()
-            return r.json()
+            job_id = r.json().get("job_id")
+            if not job_id:
+                return {"success": False, "message": "Backend returned no job_id"}
+            return self._poll_indexing_job(job_id)
         except Exception as e:
             log.error("Indexing failed: %s", e)
             return {"success": False, "message": str(e)}
+
+    def _poll_indexing_job(self, job_id: str, max_wait: int = 1800, poll_interval: int = 10) -> Dict[str, Any]:
+        """Poll /indexing/job/{job_id} until the job finishes or max_wait seconds pass."""
+        import time
+        deadline = time.time() + max_wait
+        while time.time() < deadline:
+            try:
+                r = self.session.get(f"{self.api_url}/indexing/job/{job_id}", timeout=15)
+                r.raise_for_status()
+                data = r.json()
+                status = data.get("status", "running")
+                if status == "done":
+                    return data.get("result") or {"success": True}
+                if status == "failed":
+                    result = data.get("result") or {}
+                    return {"success": False, "message": result.get("error", "Indexing failed")}
+                if status == "not_found":
+                    return {"success": False, "message": f"Job {job_id} not found on backend"}
+            except Exception as e:
+                log.warning("Indexing poll error (will retry): %s", e)
+            time.sleep(poll_interval)
+        return {"success": False, "message": f"Indexing job {job_id} timed out after {max_wait}s"}
 
     # ------------------------------------------------------------------
     # Video Generation
@@ -612,7 +643,7 @@ class ZenviBackendClient:
         filename: str = "",
         existing_index_id: Optional[str] = None,
     ) -> Dict[str, Any]:
-        """Index a video via the backend (replaces twelvelabs_indexer.index_video_blocking)."""
+        """Index a video via the backend. Uses the job-based async pattern to avoid read timeouts."""
         try:
             r = self.session.post(
                 f"{self.api_url}/indexing/index",
@@ -622,10 +653,13 @@ class ZenviBackendClient:
                     "filename": filename,
                     "existing_index_id": existing_index_id,
                 },
-                timeout=300,
+                timeout=30,
             )
             r.raise_for_status()
-            return r.json()
+            job_id = r.json().get("job_id")
+            if not job_id:
+                return {"error": "Backend returned no job_id"}
+            return self._poll_indexing_job(job_id)
         except Exception as e:
             log.error("Video indexing failed: %s", e)
             return {"error": str(e)}
