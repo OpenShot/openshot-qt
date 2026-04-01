@@ -322,7 +322,13 @@ class PlayerWorker(QObject):
 
     def refreshFrame(self):
         """ Refresh a certain frame """
-        log.debug("refreshFrame")
+        log.debug("refreshFrame pos=%s mode=%s", self.player.Position(), self.player.Mode())
+
+        # Re-set the timeline reader so libopenshot picks up any clip changes
+        # (e.g. clips added since the last Reader() call at startup).
+        # Without this, Play+Pause serves stale cached frames from before the clip was added.
+        if not self.clip_path:
+            self.player.Reader(self.timeline)
 
         # Always load back in the timeline reader
         self.parent.LoadFileSignal.emit('')
@@ -330,7 +336,7 @@ class PlayerWorker(QObject):
         # Mark frame number for processing (if parent is done initializing)
         self.Seek(self.player.Position())
 
-        log.debug("player Position(): %s", self.player.Position())
+        log.debug("refreshFrame done pos=%s", self.player.Position())
 
     def LoadFile(self, path=None):
         """ Load a media file into the video player """
@@ -438,6 +444,12 @@ class PlayerWorker(QObject):
         # Seek to frame
         if self.parent.initialized:
             self.player.Seek(number)
+            # Force frame delivery when paused — libopenshot doesn't emit the
+            # present signal on Seek alone when the player is not playing.
+            # Play+Pause triggers the same frame-render path used at startup.
+            if self.player.Mode() != openshot.PLAYBACK_PLAY:
+                self.player.Play()
+                self.player.Pause()
 
     def Speed(self, new_speed):
         """ Set the speed of the video player """

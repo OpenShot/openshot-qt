@@ -1545,7 +1545,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         points = c.data.get(property_key, {}).get("Points", [])
         for point in points:
             co = point.get("co", {})
-            log.info("looping points: co.X = %s" % co.get("X"))
+            log.debug("looping points: co.X = %s" % co.get("X"))
 
             if co.get("X") == frame_number:
                 found_point = True
@@ -1602,7 +1602,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
         for point in points_list:
             co = point.get("co", {})
-            log.info("looping points: co.X = %s" % co.get("X"))
+            log.debug("looping points: co.X = %s" % co.get("X"))
 
             if co.get("X") == frame_number:
                 found_point = True

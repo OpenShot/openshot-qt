@@ -114,6 +114,13 @@ class TimelineSync(UpdateInterface):
                     # This JSON DIFF is passed to libopenshot to update the timeline
                     self.timeline.ApplyJsonDiff(action.json(is_array=True))
 
+                    # Clear frame cache so the next render picks up the new clip data
+                    # (without this, libopenshot serves the cached pre-change frame)
+                    self.timeline.ClearAllCache(True)
+
+                    # Refresh the preview so the video widget reflects the change
+                    self.window.refreshFrameSignal.emit()
+
             except Exception as e:
                 log.error("Error applying JSON to timeline object in libopenshot: %s. %s" %
                          (e, action.json(is_array=True)))
