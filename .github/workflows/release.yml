@@ -657,6 +657,8 @@ jobs:
           fi
 
       - name: Install Apple Developer ID certificate
+        id: cert
+        continue-on-error: true
         env:
           APPLE_CERT_BASE64: ${{ secrets.APPLE_CERT_BASE64 }}
           APPLE_CERT_PASSWORD: ${{ secrets.APPLE_CERT_PASSWORD }}
@@ -726,6 +728,7 @@ jobs:
           ls "$APP/Contents/MacOS/" | head -20
 
       - name: Sign .app bundle
+        if: steps.cert.outcome == 'success'
         env:
           SIGN_IDENTITY: "Developer ID Application: NILAY GOYAL (LF75V32M27)"
         run: |
@@ -777,6 +780,7 @@ jobs:
           echo "Created $DMG_NAME ($(du -sh "$DMG_NAME" | cut -f1))"
 
       - name: Sign and notarize DMG
+        if: steps.cert.outcome == 'success'
         env:
           SIGN_IDENTITY: "Developer ID Application: NILAY GOYAL (LF75V32M27)"
           APPLE_ID: ${{ secrets.APPLE_ID }}
