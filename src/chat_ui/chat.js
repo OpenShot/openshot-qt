@@ -45,10 +45,150 @@
     const transitionClipsBtn = document.getElementById('chat-transition-clips-btn');
     const clearBtn = document.getElementById('chat-clear-btn');
     const tagsRow = document.getElementById('chat-tags-row');
+    const inputRowEl = document.getElementById('chat-input-row');
 
     // ── Tag / pick-mode state ─────────────────────────────────────────────
     var attachedContext = null;   // null | {type, ...}
     var pickMode = null;          // null | 'selected_clip' | 'transition_a' | 'transition_b'
+
+    // ── Command palette state ("/" commands) ─────────────────────────────
+    var commandPaletteEl = null;
+    var commandPaletteOpen = false;
+    var commandActiveIndex = -1;
+    var commandQuery = '';
+    var COMMANDS = [
+        { prefix: '/add-track', label: 'Add track', description: 'Add a new track to the timeline' },
+        { prefix: '/split', label: 'Split clip', description: 'Split the selected clip at the playhead' },
+        { prefix: '/export', label: 'Export', description: 'Export the current project (choose preset)' },
+        { prefix: '/caption', label: 'Generate captions', description: 'Generate captions for the selected clip' },
+        { prefix: '/transition', label: 'Transition', description: 'Generate a transition clip between two selected clips' }
+    ];
+
+    function ensureCommandPaletteEl() {
+        if (commandPaletteEl) return commandPaletteEl;
+        // Mount inside the input glow inner card so it's clipped correctly and
+        // positioned relative to the input area (no fixed positioning issues).
+        var inner = document.querySelector('.chat-input-glow-inner');
+        if (!inner) return null;
+        var el = document.createElement('div');
+        el.id = 'chat-command-palette';
+        el.className = 'chat-command-palette';
+        el.setAttribute('role', 'listbox');
+        el.setAttribute('aria-label', 'Command suggestions');
+        el.style.display = 'none';
+        inner.appendChild(el);
+        commandPaletteEl = el;
+        return el;
+    }
+
+    function getCommandMatches(query) {
+        var q = (query || '').toLowerCase();
+        if (!q) return COMMANDS.slice();
+        return COMMANDS.filter(function (cmd) {
+            return (cmd.prefix || '').toLowerCase().indexOf(q) === 0
+                || (cmd.label || '').toLowerCase().indexOf(q) !== -1;
+        });
+    }
+
+    function openCommandPalette(query) {
+        var el = ensureCommandPaletteEl();
+        if (!el) return;
+        commandPaletteOpen = true;
+        commandQuery = query || '';
+        renderCommandPalette();
+        el.style.display = 'block';
+    }
+
+    function closeCommandPalette() {
+        if (!commandPaletteEl) return;
+        commandPaletteOpen = false;
+        commandActiveIndex = -1;
+        commandQuery = '';
+        commandPaletteEl.style.display = 'none';
+        commandPaletteEl.innerHTML = '';
+    }
+
+    function renderCommandPalette() {
+        var el = ensureCommandPaletteEl();
+        if (!el) return;
+
+        var matches = getCommandMatches(commandQuery);
+        if (!matches.length) {
+            // Keep palette visible but show a small empty state.
+            el.innerHTML = '<div class="chat-command-empty">No commands</div>';
+            commandActiveIndex = -1;
+            return;
+        }
+
+        if (commandActiveIndex < 0 || commandActiveIndex >= matches.length) {
+            // Try to preselect best match (exact prefix start)
+            var exact = matches.findIndex(function (cmd) { return cmd.prefix === commandQuery; });
+            commandActiveIndex = exact >= 0 ? exact : 0;
+        }
+
+        var html = '';
+        for (var i = 0; i < matches.length; i++) {
+            var cmd = matches[i];
+            var active = i === commandActiveIndex;
+            html += '<button type="button" class="chat-command-item' + (active ? ' active' : '') + '"'
+                + ' role="option" aria-selected="' + (active ? 'true' : 'false') + '"'
+                + ' data-index="' + i + '">'
+                +   '<span class="chat-command-prefix">' + escapeHtml(cmd.prefix) + '</span>'
+                +   '<span class="chat-command-label">' + escapeHtml(cmd.label) + '</span>'
+                +   '<span class="chat-command-desc">' + escapeHtml(cmd.description) + '</span>'
+                + '</button>';
+        }
+        el.innerHTML = html;
+
+        // Click handler (delegated)
+        el.onclick = function (ev) {
+            var target = ev.target;
+            var btn = target && target.closest ? target.closest('.chat-command-item') : null;
+            if (!btn) return;
+            var idx = parseInt(btn.getAttribute('data-index') || '-1', 10);
+            if (!isNaN(idx)) {
+                selectCommandIndex(idx);
+            }
+        };
+    }
+
+    function selectCommandIndex(idx) {
+        var matches = getCommandMatches(commandQuery);
+        if (!matches.length) return;
+        var safeIdx = Math.max(0, Math.min(idx, matches.length - 1));
+        var cmd = matches[safeIdx];
+        if (!cmd) return;
+        inputEl.value = cmd.prefix + ' ';
+        closeCommandPalette();
+        // Trigger input side-effects (e.g. hide overlay)
+        try {
+            inputEl.dispatchEvent(new Event('input', { bubbles: true }));
+        } catch (e) {}
+        adjustTextareaHeight();
+        inputEl.focus();
+    }
+
+    function maybeUpdateCommandPaletteFromValue(val) {
+        var v = (val || '');
+        // Only show when starts with "/" and no space yet
+        if (v.charAt(0) === '/' && v.indexOf(' ') === -1) {
+            openCommandPalette(v.trim());
+            return;
+        }
+        closeCommandPalette();
+    }
+
+    function adjustTextareaHeight() {
+        if (!inputEl) return;
+        try {
+            // reset to measure scrollHeight accurately
+            inputEl.style.height = '0px';
+            var minPx = 60;
+            var maxPx = 200;
+            var next = Math.max(minPx, Math.min(inputEl.scrollHeight, maxPx));
+            inputEl.style.height = next + 'px';
+        } catch (e) {}
+    }
 
     function renderTags() {
         if (!tagsRow) return;
@@ -570,11 +710,13 @@
         const text = (inputEl.value || '').trim();
         if (!text) return;
         exitIdle();
+        closeCommandPalette();
         var ctxJson = attachedContext ? JSON.stringify(attachedContext) : '';
         getBridge(function (bridge) {
             if (!bridge) return;
             bridge.sendMessage(text, modelSelect.value || '', ctxJson);
             inputEl.value = '';
+            adjustTextareaHeight();
             attachedContext = null;
             pickMode = null;
             hidePendingPickHint();
@@ -643,6 +785,38 @@
     clearBtn.addEventListener('click', clearChat);
 
     inputEl.addEventListener('keydown', function (e) {
+        if (commandPaletteOpen) {
+            var matches = getCommandMatches(commandQuery);
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                if (matches.length) {
+                    commandActiveIndex = (commandActiveIndex + 1) % matches.length;
+                    renderCommandPalette();
+                }
+                return;
+            }
+            if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (matches.length) {
+                    commandActiveIndex = (commandActiveIndex - 1 + matches.length) % matches.length;
+                    renderCommandPalette();
+                }
+                return;
+            }
+            if (e.key === 'Enter' || e.key === 'Tab') {
+                e.preventDefault();
+                if (matches.length && commandActiveIndex >= 0) {
+                    selectCommandIndex(commandActiveIndex);
+                }
+                return;
+            }
+            if (e.key === 'Escape') {
+                e.preventDefault();
+                closeCommandPalette();
+                return;
+            }
+        }
+
         if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault();
             sendMessage();
@@ -657,10 +831,14 @@
     });
     inputEl.addEventListener('input', function () {
         var val = inputEl.value || '';
+        adjustTextareaHeight();
+        maybeUpdateCommandPaletteFromValue(val);
         if (val.trim().length > 0) hideOverlay();
         // Auto-detect typed @mentions and convert them to tags
         if (val.includes('@transition_clips') || val.includes('@transition')) {
             inputEl.value = val.replace(/@transition_clips?/g, '').replace(/\s+/g, ' ').trim();
+            closeCommandPalette();
+            adjustTextareaHeight();
             pickMode = 'transition_a';
             attachedContext = { type: 'transition_clips', clipA: null, clipB: null };
             renderTags();
@@ -668,11 +846,24 @@
             getBridge(function (bridge) { if (bridge) bridge.requestClipPick('transition_a'); });
         } else if (val.includes('@selected_clip') || val.includes('@clip')) {
             inputEl.value = val.replace(/@selected_clip\b/g, '').replace(/@clip\b/g, '').replace(/\s+/g, ' ').trim();
+            closeCommandPalette();
+            adjustTextareaHeight();
             pickMode = 'selected_clip';
             showPickHint('Click a clip on the timeline…');
             getBridge(function (bridge) { if (bridge) bridge.requestClipPick('selected_clip'); });
         }
     });
+
+    // Close command palette on outside click (but keep model menu behavior intact)
+    document.addEventListener('mousedown', function (e) {
+        if (!commandPaletteOpen || !commandPaletteEl) return;
+        var t = e.target;
+        if (commandPaletteEl.contains(t) || inputEl.contains(t)) return;
+        closeCommandPalette();
+    });
+
+    // Initial textarea sizing
+    adjustTextareaHeight();
 
     if (inputOverlay) {
         inputOverlay.addEventListener('click', function () { hideOverlay(); });
@@ -748,21 +939,25 @@
         var existing = tabBarEl.querySelectorAll('.chat-tab');
         existing.forEach(function (el) { el.remove(); });
 
-        // Show the tab bar only when there are multiple tabs
-        tabBarEl.style.display = (currentTabs.length > 1) ? 'flex' : 'none';
+        // Always show the tab bar so the "+" new chat button is visible (Cursor-style).
+        tabBarEl.style.display = 'flex';
 
         currentTabs.forEach(function (tab) {
             var btn = document.createElement('button');
             btn.type = 'button';
-            btn.className = 'chat-tab' + (tab.active ? ' active' : '') + (unreadSessions[tab.id] ? ' has-unread' : '');
+            btn.className = 'chat-tab'
+                + (tab.active ? ' active' : '')
+                + (unreadSessions[tab.id] ? ' has-unread' : '')
+                + (tab.processing ? ' is-processing' : '');
             btn.setAttribute('role', 'tab');
             btn.setAttribute('data-session-id', tab.id);
             btn.setAttribute('aria-selected', tab.active ? 'true' : 'false');
 
             var titleSpan = '<span class="chat-tab-title">' + escapeHtml(tab.title || 'New Chat') + '</span>';
             var badge = '<span class="chat-tab-badge"></span>';
+            var processingDot = tab.processing ? '<span class="chat-tab-processing" title="Processing"></span>' : '';
             var closeBtn = '<button type="button" class="chat-tab-close" data-close-id="' + escapeHtml(tab.id) + '" title="Close">&times;</button>';
-            btn.innerHTML = badge + titleSpan + closeBtn;
+            btn.innerHTML = processingDot + badge + titleSpan + closeBtn;
 
             btn.addEventListener('click', function (e) {
                 if (e.target.classList.contains('chat-tab-close') || e.target.closest('.chat-tab-close')) {

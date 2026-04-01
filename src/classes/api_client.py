@@ -48,14 +48,41 @@ class ZenviBackendClient:
         self.base_url = (base_url or self._get_backend_url()).rstrip("/")
         self.api_url = f"{self.base_url}/api/v1"
         self._session = None
-        self._current_ws = None  # active WebSocket during a chat request
+        self._active_wss = set()  # active WebSockets during parallel chat requests
+        self._ws_lock = threading.Lock()
 
     @staticmethod
     def _get_backend_url() -> str:
-        """Get backend URL from app settings or environment."""
-        url = os.environ.get("ZENVI_BACKEND_URL", "")
+        """Get backend URL from app settings or environment.
+
+        Supports multi-URL fallback:
+          - ZENVI_BACKEND_URLS: comma-separated priority list (first healthy wins)
+          - ZENVI_BACKEND_URL: single URL (legacy)
+          - settings key zenvi-backend-url (legacy)
+
+        If ZENVI_BACKEND_URLS is set, we probe /health quickly to select a URL.
+        """
+        urls_raw = os.environ.get("ZENVI_BACKEND_URLS", "").strip()
+        if urls_raw:
+            candidates = [u.strip().rstrip("/") for u in urls_raw.split(",") if u.strip()]
+            if candidates:
+                try:
+                    import requests
+                    for u in candidates:
+                        try:
+                            r = requests.get(f"{u}/health", timeout=1.5)
+                            if r.status_code == 200:
+                                return u
+                        except Exception:
+                            continue
+                    # If none respond, fall back to the first candidate to surface real errors upstream.
+                    return candidates[0]
+                except Exception:
+                    return candidates[0]
+
+        url = os.environ.get("ZENVI_BACKEND_URL", "").strip()
         if url:
-            return url
+            return url.rstrip("/")
         try:
             from classes.app import get_app
             app = get_app()
@@ -63,7 +90,7 @@ class ZenviBackendClient:
                 s = app.get_settings()
                 url = s.get("zenvi-backend-url") if s else ""
                 if url:
-                    return url
+                    return str(url).rstrip("/")
         except Exception:
             pass
         return _DEFAULT_BACKEND_URL
@@ -146,7 +173,7 @@ class ZenviBackendClient:
             if session_id:
                 payload["session_id"] = session_id
 
-            r = self.session.post(f"{self.api_url}/chat", json=payload, timeout=180)
+            r = self.session.post(f"{self.api_url}/chat", json=payload, timeout=600)
             r.raise_for_status()
             return r.json()
         except Exception as e:
@@ -203,7 +230,8 @@ class ZenviBackendClient:
 
         try:
             ws = websocket.create_connection(ws_url, timeout=600)
-            self._current_ws = ws
+            with self._ws_lock:
+                self._active_wss.add(ws)
 
             # Send user message
             ws.send(json.dumps({
@@ -336,6 +364,9 @@ class ZenviBackendClient:
                 elif msg_type == "done":
                     break
 
+                elif msg_type == "keepalive":
+                    pass
+
             ws.close()
             return final_response
 
@@ -345,7 +376,12 @@ class ZenviBackendClient:
                 on_error(str(e))
             return None
         finally:
-            self._current_ws = None
+            try:
+                with self._ws_lock:
+                    if "ws" in locals():
+                        self._active_wss.discard(ws)
+            except Exception:
+                pass
 
     def cancel_current_request(self) -> None:
         """Close the active WebSocket connection, unblocking any pending recv() call.
@@ -353,8 +389,11 @@ class ZenviBackendClient:
         Safe to call from any thread. Used during app shutdown to allow the
         chat worker thread to exit cleanly instead of blocking QThread::~QThread().
         """
-        ws = self._current_ws
-        if ws is not None:
+        with self._ws_lock:
+            websockets = list(self._active_wss)
+            self._active_wss.clear()
+
+        for ws in websockets:
             try:
                 ws.close()
             except Exception:

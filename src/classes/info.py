@@ -81,6 +81,8 @@ USER_COLORS_PATH = os.path.join(USER_PATH, "colors")
 PROTOBUF_DATA_PATH = os.path.join(USER_PATH, "protobuf_data")
 YOLO_PATH = os.path.join(USER_PATH, "yolo")
 CLIPBOARD_PATH = os.path.join(USER_PATH, "clipboard")
+# Updates staging directory (required by auto_updater.py)
+UPDATE_PATH = os.path.join(USER_PATH, "updates")
 # Project file extensions (canonical: .zvn; .osp / .flow still open for legacy projects)
 PROJECT_EXT = ".zvn"
 LEGACY_PROJECT_EXTS = (".osp", ".flow")
@@ -138,6 +140,10 @@ WEB_BACKEND = 'auto'
 
 # Backend API URL
 BACKEND_URL = os.getenv("ZENVI_BACKEND_URL", "https://api.zenvi.pro")
+
+# GitHub repository used for releases checks (required by version/auto-updater).
+# Must be in the form "owner/repo" for the GitHub API URL formatter.
+GITHUB_REPO = os.getenv("ZENVI_GITHUB_REPO", "Zenvi-pro/zenvi-core")
 
 # Sentry.io error & transaction reporting rate (0.0 TO 1.0)
 # 0.0 = no error reporting to Sentry

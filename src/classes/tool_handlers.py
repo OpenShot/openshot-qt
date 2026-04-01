@@ -23,6 +23,12 @@ import uuid as uuid_module
 from typing import Optional
 
 from classes.logger import log
+from classes.track_display import (
+    format_track_label_for_llm,
+    layer_number_to_display_index,
+    layers_sorted_by_number,
+    normalize_track_or_layer_arg,
+)
 
 try:
     from PyQt5.QtCore import (
@@ -319,8 +325,8 @@ def _output_path_for_generated_video():
     return os.path.join(tempfile.gettempdir(), f"zenvi_generated_{uuid_module.uuid4().hex[:12]}.mp4")
 
 
-# Context for add_clip_to_timeline (remembers last split file id)
-_last_split_file_id = None
+# Context for add_clip_to_timeline (remembers last split file id per chat session)
+_last_split_file_id_by_chat_session = {}
 
 
 # ---------------------------------------------------------------------------
@@ -356,19 +362,42 @@ def list_files(**_kw) -> str:
 def list_clips(layer="", **_kw) -> str:
     try:
         from classes.query import Clip
+
+        app = _get_app()
+        layers_raw = app.project.get("layers") or []
         kwargs = {}
-        if layer:
-            try:
-                kwargs["layer"] = int(layer)
-            except ValueError:
-                pass
+        if layer and str(layer).strip():
+            resolved, err = normalize_track_or_layer_arg(str(layer).strip(), layers_raw)
+            if err:
+                return err
+            kwargs["layer"] = resolved
         clips = Clip.filter(**kwargs)
         if not clips:
             return "No clips in project."
         lines = []
         for c in clips:
             d = c.data
-            lines.append(f"  id={d.get('id','')} layer={d.get('layer','')} position={d.get('position',0)} start={d.get('start',0)} end={d.get('end',0)}")
+            lid = d.get("layer", "")
+            try:
+                lid_int = int(lid) if lid != "" and lid is not None else None
+            except (TypeError, ValueError):
+                lid_int = None
+            ui = layer_number_to_display_index(lid_int, layers_raw) if lid_int is not None else None
+            ui_part = f" ui_track={ui}" if ui is not None else ""
+            tids = (
+                [
+                    str(L.get("id", ""))
+                    for L in layers_raw
+                    if int(L.get("number") or 0) == lid_int
+                ]
+                if lid_int is not None
+                else []
+            )
+            tid_part = f" track_id={tids[0]}" if tids and tids[0] else ""
+            lines.append(
+                f"  id={d.get('id','')} layer_number={lid_int if lid_int is not None else lid}{ui_part}{tid_part} "
+                f"position={d.get('position',0)} start={d.get('start',0)} end={d.get('end',0)}"
+            )
         return f"Clips ({len(clips)}):\n" + "\n".join(lines)
     except Exception as e:
         return f"Error: {e}"
@@ -379,7 +408,14 @@ def list_layers(**_kw) -> str:
         layers = _get_app().project.get("layers") or []
         if not layers:
             return "No layers in project."
-        lines = [f"  number={L.get('number','')} name={L.get('name','')} lock={L.get('lock',False)}" for L in layers]
+        asc = layers_sorted_by_number(layers)
+        lines = []
+        for ui_track, L in enumerate(asc, start=1):
+            label = (L.get("label") or L.get("name") or "").strip()
+            lines.append(
+                f"  id={L.get('id','')} number={L.get('number','')} ui_track={ui_track} "
+                f"label={label!r} lock={L.get('lock', False)}"
+            )
         return f"Layers ({len(layers)}):\n" + "\n".join(lines)
     except Exception as e:
         return f"Error: {e}"
@@ -499,6 +535,88 @@ def remove_clip(**_kw) -> str:
     try:
         _get_app().window.actionRemoveClip_trigger()
         return "Selected clip(s) removed."
+    except Exception as e:
+        return f"Error: {e}"
+
+
+def delete_clips_on_track(track: str = "", include_transitions: bool = True, **_kw) -> str:
+    """
+    Delete all clips on a UI track (Track 1..N bottom=1) or storage layer_number.
+    Optionally also deletes timeline transitions/effects that sit on the same layer.
+
+    Important: this is implemented as ONE atomic UpdateManager transaction so that
+    a single undo restores the entire operation.
+    """
+    try:
+        from classes.query import Clip, Transition
+
+        app = _get_app()
+        win = app.window
+
+        layers = app.project.get("layers") or []
+        if track is None or (isinstance(track, str) and not track.strip()):
+            return "Error: track is required."
+
+        layer_num, err = normalize_track_or_layer_arg(str(track).strip(), layers)
+        if err:
+            return err
+        if layer_num is None:
+            return "Error: Unknown track or layer."
+
+        layer_num = int(layer_num)
+        layers_out = app.project.get("layers") or []
+        track_lbl = format_track_label_for_llm(layer_num, layers_out)
+
+        # Respect locked tracks.
+        for L in layers_out:
+            try:
+                if int(L.get("number") or 0) == layer_num and bool(L.get("lock", False)):
+                    return f"Error: Track {track_lbl} is locked."
+            except Exception:
+                continue
+
+        # One shared transaction id makes undo/redo atomic.
+        tid = str(uuid_module.uuid4())
+        app.updates.transaction_id = tid
+        try:
+            # Avoid stale selections pointing at soon-to-be-deleted objects.
+            if hasattr(win, "clearSelections"):
+                win.clearSelections()
+
+            clips = Clip.filter(layer=layer_num)
+            transitions = Transition.filter(layer=layer_num) if include_transitions else []
+
+            # Delete transitions first (they may reference clip time ranges).
+            for t in transitions:
+                # Clear selection to reduce UI churn (doesn't affect history).
+                try:
+                    if hasattr(win, "removeSelection"):
+                        win.removeSelection(t.id, "transition")
+                except Exception:
+                    pass
+                t.delete()
+
+            for c in clips:
+                try:
+                    if hasattr(win, "removeSelection"):
+                        win.removeSelection(c.id, "clip")
+                except Exception:
+                    pass
+                c.delete()
+
+        finally:
+            app.updates.transaction_id = None
+
+        # Refresh preview frame to reflect the new timeline immediately.
+        try:
+            app.window.refreshFrameSignal.emit()
+        except Exception:
+            pass
+
+        return (
+            f"Deleted {len(clips)} clips and {len(transitions)} transitions on track {track_lbl} "
+            f"(atomic undo)."
+        )
     except Exception as e:
         return f"Error: {e}"
 
@@ -634,11 +752,12 @@ def get_file_info(file_id="", **_kw) -> str:
 
 
 def split_file_add_clip(file_id="", start_frame=0, end_frame=0, name="", **_kw) -> str:
-    global _last_split_file_id
     try:
         from classes.query import File
         from classes import time_parts
         from classes.ai_metadata_utils import adjust_scene_descriptions_for_subclip
+
+        chat_session_id = str(_kw.get("chat_session_id", "") or "default")
 
         if not file_id:
             return "Error: file_id is required."
@@ -690,7 +809,7 @@ def split_file_add_clip(file_id="", start_frame=0, end_frame=0, name="", **_kw) 
         # Mark as agent-created subclip so it's hidden from the project files panel
         new_file.data["zenvi_subclip"] = True
         new_file.save()
-        _last_split_file_id = new_file.id
+        _last_split_file_id_by_chat_session[chat_session_id] = new_file.id
         clip_name = new_file.data.get("name", "")
         return (
             f'Subclip created: "{clip_name}" (file_id={new_file.id}) '
@@ -702,12 +821,13 @@ def split_file_add_clip(file_id="", start_frame=0, end_frame=0, name="", **_kw) 
 
 
 def add_clip_to_timeline(file_id="", position_seconds="", track="", **_kw) -> str:
-    global _last_split_file_id
     try:
         from classes.query import File, Track
 
+        chat_session_id = str(_kw.get("chat_session_id", "") or "default")
+
         if not file_id or (isinstance(file_id, str) and not file_id.strip()):
-            file_id = _last_split_file_id
+            file_id = _last_split_file_id_by_chat_session.get(chat_session_id)
             if not file_id:
                 return "Error: No clip was just created."
         else:
@@ -745,7 +865,11 @@ def add_clip_to_timeline(file_id="", position_seconds="", track="", **_kw) -> st
                     # Video: use the highest-numbered layer (top track)
                     track_num = int(max(layers, key=lambda l: l.get("number", 0)).get("number", 1)) if layers else 1
         else:
-            track_num = int(track)
+            layers_for_track = app.project.get("layers") or []
+            resolved, err = normalize_track_or_layer_arg(str(track).strip(), layers_for_track)
+            if err:
+                return err
+            track_num = resolved
 
         if not position_seconds or (isinstance(position_seconds, str) and not position_seconds.strip()):
             if _is_audio_only:
@@ -780,8 +904,10 @@ def add_clip_to_timeline(file_id="", position_seconds="", track="", **_kw) -> st
 
         _run_on_main_thread(_do_add)
 
-        _last_split_file_id = None
-        return f"Added clip to timeline at position {pos_sec}s on track {track_num}."
+        _last_split_file_id_by_chat_session.pop(chat_session_id, None)
+        layers_out = app.project.get("layers") or []
+        track_lbl = format_track_label_for_llm(int(track_num), layers_out)
+        return f"Added clip to timeline at position {pos_sec}s on track {track_lbl}."
     except Exception as e:
         return f"Error: {e}"
 
@@ -1593,10 +1719,12 @@ def generate_video_and_add_to_timeline(prompt="", duration_seconds="", position_
                 # be the one the plan agent placed clips on.
                 _ripple_layer = None
                 if track and str(track).strip():
-                    try:
-                        _ripple_layer = int(float(track))
-                    except Exception:
-                        pass
+                    _layers_ripple = _app_ref.project.get("layers") or []
+                    _resolved_r, _err_r = normalize_track_or_layer_arg(
+                        str(track).strip(), _layers_ripple
+                    )
+                    if not _err_r and _resolved_r is not None:
+                        _ripple_layer = _resolved_r
                 if _ripple_layer is None:
                     _clips_at_pos = [
                         c for c in list(_Clip.filter())
@@ -2985,11 +3113,10 @@ def get_clips_with_full_metadata(**kwargs) -> str:
 def get_timeline_state(**_kw) -> str:
     """Return a structured snapshot of the current timeline: tracks, clips with positions, and effects."""
     try:
-        from classes.query import Clip, Track
+        from classes.query import Clip
         app = _get_app()
 
         layers = app.project.get("layers") or []
-        layer_map = {l.get("number"): l.get("label") or f"Track {l.get('number')}" for l in layers}
 
         clips = Clip.filter()
         effects_raw = app.project.get("effects") or []
@@ -3004,11 +3131,29 @@ def get_timeline_state(**_kw) -> str:
             layer = d.get("layer", 0)
             by_layer.setdefault(layer, []).append(d)
 
-        # Sort each layer by position
+        def _track_heading(layer_num):
+            ui = layer_number_to_display_index(int(layer_num), layers)
+            tid = ""
+            label = ""
+            for L in layers:
+                if int(L.get("number") or 0) == int(layer_num):
+                    tid = str(L.get("id", ""))
+                    label = (L.get("label") or "").strip()
+                    break
+            parts = []
+            if ui is not None:
+                parts.append(f"UI Track {ui}")
+            parts.append(f"layer_number={layer_num}")
+            if tid:
+                parts.append(f"track_id={tid}")
+            if label:
+                parts.append(f"label={label!r}")
+            return " | ".join(parts) if parts else f"layer_number={layer_num}"
+
+        # Sort each layer by position (high layer number first matches top-of-stack feel)
         lines = ["=== TIMELINE STATE ==="]
         for layer_num in sorted(by_layer.keys(), reverse=True):
-            track_label = layer_map.get(layer_num, f"Track (layer={layer_num})")
-            lines.append(f"\n{track_label}:")
+            lines.append(f"\n{_track_heading(layer_num)}:")
             for d in sorted(by_layer[layer_num], key=lambda x: x.get("position", 0)):
                 clip_dur = d.get("end", 0) - d.get("start", 0)
                 clip_end = d.get("position", 0) + clip_dur
@@ -3047,6 +3192,24 @@ def get_timeline_state(**_kw) -> str:
         return f"Error: {e}"
 
 
+def build_editor_snapshot_for_chat(max_chars: int = 3500) -> str:
+    """Compact timeline + file count for LLM grounding. Call from Qt GUI thread."""
+    try:
+        from classes.query import File
+
+        tl = get_timeline_state()
+        nfiles = len(File.filter() or [])
+        head = f"[Editor snapshot]\nProject files count: {nfiles}\n"
+        body = tl.strip()
+        out = f"{head}{body}\n" if body else f"{head}(timeline state unavailable)\n"
+        if len(out) > max_chars:
+            out = out[: max(0, max_chars - 24)].rstrip() + "\n... (truncated)\n"
+        return out + "[/Editor snapshot]\n"
+    except Exception as e:
+        log.debug("build_editor_snapshot_for_chat: %s", e)
+        return ""
+
+
 TOOL_HANDLERS = {
     # Project
     "get_project_info_tool": get_project_info,
@@ -3067,6 +3230,7 @@ TOOL_HANDLERS = {
     "add_track_tool": add_track,
     "add_marker_tool": add_marker,
     "remove_clip_tool": remove_clip,
+    "delete_clips_on_track_tool": delete_clips_on_track,
     "zoom_in_tool": zoom_in,
     "zoom_out_tool": zoom_out,
     "center_on_playhead_tool": center_on_playhead,
@@ -3121,8 +3285,28 @@ def execute_tool(tool_name: str, tool_args: dict) -> str:
     handler = TOOL_HANDLERS.get(tool_name)
     if not handler:
         return f"Error: Unknown tool '{tool_name}'."
+
+    # chat_session_id is used for tool state isolation (e.g. split/add clip chains).
+    # Only pass it through to the relevant handlers.
+    if isinstance(tool_args, dict) and "chat_session_id" in tool_args:
+        if tool_name not in ("split_file_add_clip_tool", "add_clip_to_timeline_tool"):
+            tool_args = dict(tool_args)
+            tool_args.pop("chat_session_id", None)
+
+    def _invoke():
+        try:
+            return handler(**tool_args)
+        except Exception as e:
+            log.error("Tool %s execution failed: %s", tool_name, e, exc_info=True)
+            return f"Error: {e}"
+
     try:
-        return handler(**tool_args)
+        if QThread is None:
+            return _invoke()
+        app = _get_app()
+        if QThread.currentThread() is app.thread():
+            return _invoke()
+        return _run_on_main_thread(_invoke)
     except Exception as e:
-        log.error("Tool %s execution failed: %s", tool_name, e, exc_info=True)
+        log.error("Tool %s dispatch failed: %s", tool_name, e, exc_info=True)
         return f"Error: {e}"
