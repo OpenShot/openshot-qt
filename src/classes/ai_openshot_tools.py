@@ -8,6 +8,12 @@ import json
 import os
 import uuid as uuid_module
 from classes.logger import log
+from classes.track_display import (
+    format_track_label_for_llm,
+    layer_number_to_display_index,
+    layers_sorted_by_number,
+    normalize_track_or_layer_arg,
+)
 
 try:
     from PyQt5.QtCore import QObject, QThread, pyqtSignal, pyqtSlot, QEventLoop
@@ -72,12 +78,13 @@ def list_clips(layer: str = "") -> str:
     try:
         from classes.query import Clip
         app = _get_app()
+        layers_raw = app.project.get("layers") or []
         kwargs = {}
-        if layer:
-            try:
-                kwargs["layer"] = int(layer)
-            except ValueError:
-                pass
+        if layer and str(layer).strip():
+            resolved, err = normalize_track_or_layer_arg(str(layer).strip(), layers_raw)
+            if err:
+                return err
+            kwargs["layer"] = resolved
         clips = Clip.filter(**kwargs)
         if not clips:
             return "No clips in project."
@@ -88,7 +95,27 @@ def list_clips(layer: str = "") -> str:
             start = c.data.get("start", 0)
             end = c.data.get("end", 0)
             cid = c.data.get("id", "")
-            lines.append("  id={} layer={} position={} start={} end={}".format(cid, lid, pos, start, end))
+            try:
+                lid_int = int(lid) if lid != "" and lid is not None else None
+            except (TypeError, ValueError):
+                lid_int = None
+            ui = layer_number_to_display_index(lid_int, layers_raw) if lid_int is not None else None
+            ui_part = " ui_track={}".format(ui) if ui is not None else ""
+            tids = (
+                [
+                    str(L.get("id", ""))
+                    for L in layers_raw
+                    if int(L.get("number") or 0) == lid_int
+                ]
+                if lid_int is not None
+                else []
+            )
+            tid_part = " track_id={}".format(tids[0]) if tids and tids[0] else ""
+            lines.append(
+                "  id={} layer_number={}{}{} position={} start={} end={}".format(
+                    cid, lid_int if lid_int is not None else lid, ui_part, tid_part, pos, start, end
+                )
+            )
         return "Clips ({}):\n{}".format(len(clips), "\n".join(lines))
     except Exception as e:
         log.error("list_clips: %s", e, exc_info=True)
@@ -102,12 +129,19 @@ def list_layers() -> str:
         layers = app.project.get("layers") or []
         if not layers:
             return "No layers in project."
+        asc = layers_sorted_by_number(layers)
         lines = []
-        for L in layers:
-            num = L.get("number", "")
-            name = L.get("name", "")
-            lock = L.get("lock", False)
-            lines.append("  number={} name={} lock={}".format(num, name, lock))
+        for ui_track, L in enumerate(asc, start=1):
+            label = (L.get("label") or L.get("name") or "").strip()
+            lines.append(
+                "  id={} number={} ui_track={} label={!r} lock={}".format(
+                    L.get("id", ""),
+                    L.get("number", ""),
+                    ui_track,
+                    label,
+                    L.get("lock", False),
+                )
+            )
         return "Layers ({}):\n{}".format(len(layers), "\n".join(lines))
     except Exception as e:
         log.error("list_layers: %s", e, exc_info=True)
@@ -154,7 +188,7 @@ def save_project(file_path: str) -> str:
     if not file_path or not isinstance(file_path, str):
         return "Error: file_path is required (string)."
     file_path = file_path.strip()
-    if not file_path.endswith(info.PROJECT_EXT):
+    if not file_path.endswith(info.ALL_PROJECT_EXTS):
         file_path = file_path + info.PROJECT_EXT
     try:
         app = _get_app()
@@ -553,15 +587,18 @@ def add_clip_to_timeline(file_id: str = "", position_seconds: str = "", track: s
                 layers = app.project.get("layers") or []
                 track_num = int(layers[0].get("number", 1)) if layers else 1
         else:
-            try:
-                track_num = int(track)
-            except (TypeError, ValueError):
-                return "Error: track must be a layer number or empty."
+            layers_for_track = app.project.get("layers") or []
+            resolved, err = normalize_track_or_layer_arg(str(track).strip(), layers_for_track)
+            if err:
+                return err
+            track_num = resolved
         from PyQt5.QtCore import QPointF
         pos = QPointF(pos_sec, 0.0)
         win.timeline.addClip(file_id, pos, track_num)
         _last_split_file_id = None  # clear so next no-arg call does not reuse
-        return "Added clip to timeline at position {}s on track {}.".format(pos_sec, track_num)
+        layers_out = app.project.get("layers") or []
+        track_lbl = format_track_label_for_llm(int(track_num), layers_out)
+        return "Added clip to timeline at position {}s on track {}.".format(pos_sec, track_lbl)
     except Exception as e:
         log.error("add_clip_to_timeline: %s", e, exc_info=True)
         return "Error: {}".format(e)
@@ -835,6 +872,21 @@ def get_openshot_tools_for_langchain():
         """Remove the currently selected clip(s) from the timeline."""
         return remove_clip()
 
+
+    @tool
+    def delete_clips_on_track_tool(
+        track: str = "",
+        include_transitions: bool = True,
+    ) -> str:
+        """Delete all clips on a track (UI Track 1..N bottom=1 or storage layer_number).
+        If include_transitions is true, also deletes timeline transitions/effects on that same layer.
+        Use this for “delete/clear track N” so undo is atomic (one undo restores everything)."""
+        from classes.tool_handlers import delete_clips_on_track
+        return delete_clips_on_track(
+            track=track,
+            include_transitions=include_transitions,
+        )
+
     @tool
     def zoom_in_tool() -> str:
         """Zoom in the timeline."""
@@ -938,6 +990,7 @@ def get_openshot_tools_for_langchain():
         add_track_tool,
         add_marker_tool,
         remove_clip_tool,
+        delete_clips_on_track_tool,
         zoom_in_tool,
         zoom_out_tool,
         center_on_playhead_tool,

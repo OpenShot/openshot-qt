@@ -63,6 +63,9 @@ class BackendTaggingWorker(QThread):
         self.project_id = project_id or ""
         self._session = None  # requests.Session, stored so we can close() it to interrupt
 
+    # Hard limit: clips longer than 30 minutes are not tagged or indexed.
+    _MAX_TAGGING_SECONDS = 30 * 60
+
     def run(self):
         import os as _os
         import requests
@@ -74,6 +77,22 @@ class BackendTaggingWorker(QThread):
             if self.file_data.get("media_type") == "video":
                 file_path = self.file_data.get("path", "")
                 file_id = self.file_data.get("id", "")
+
+                # ── Duration guard ──────────────────────────────────────
+                # Reject clips > 30 min before touching any AI API.
+                duration = float(self.file_data.get("duration") or 0)
+                if duration > self._MAX_TAGGING_SECONDS:
+                    log.warning(
+                        "Skipping tagging+indexing for %s: duration %.0fs > 30-minute limit.",
+                        file_path, duration,
+                    )
+                    metadata["skip_reason"] = (
+                        f"Clip duration {duration / 60:.1f} min exceeds the 30-minute limit. "
+                        "Tagging and indexing were skipped."
+                    )
+                    self.completed.emit(self.file_data, metadata, None)
+                    return
+
                 metadata = client.tag_video(file_path, file_id=file_id, session=self._session)
 
                 # TwelveLabs indexing — run synchronously so we can capture the
@@ -269,6 +288,11 @@ class FilesModel(QObject, updates.UpdateInterface):
         # add item for each file
         row_added_count = 0
         for file in files:
+            # Skip agent-created subclips (from split_file_add_clip_tool) —
+            # they're internal segments and shouldn't clutter the panel.
+            if file.data.get("zenvi_subclip"):
+                continue
+
             id = file.data["id"]
             if id in self.model_ids and self.model_ids[id].isValid():
                 # Ignore files that already exist in model
@@ -660,7 +684,7 @@ class FilesModel(QObject, updates.UpdateInterface):
             filepath = uri.toLocalFile()
             if not os.path.exists(filepath):
                 continue
-            if filepath.endswith((".zvn", ".osp")) and os.path.isfile(filepath):
+            if filepath.endswith(info.ALL_PROJECT_EXTS) and os.path.isfile(filepath):
                 # Auto load project passed as argument
                 get_app().window.OpenProjectSignal.emit(filepath)
                 return True

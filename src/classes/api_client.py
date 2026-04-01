@@ -48,16 +48,43 @@ class ZenviBackendClient:
         self.base_url = (base_url or self._get_backend_url()).rstrip("/")
         self.api_url = f"{self.base_url}/api/v1"
         self._session = None
-        self._current_ws = None  # active WebSocket during a chat request
+        self._active_wss = set()  # active WebSockets during parallel chat requests
+        self._ws_lock = threading.Lock()
         # Disable SSL verification for non-production backends (self-signed certs)
         self._ssl_verify = (self.base_url.rstrip("/") == _DEFAULT_BACKEND_URL.rstrip("/"))
 
     @staticmethod
     def _get_backend_url() -> str:
-        """Get backend URL from app settings or environment."""
-        url = os.environ.get("ZENVI_BACKEND_URL", "")
+        """Get backend URL from app settings or environment.
+
+        Supports multi-URL fallback:
+          - ZENVI_BACKEND_URLS: comma-separated priority list (first healthy wins)
+          - ZENVI_BACKEND_URL: single URL (legacy)
+          - settings key zenvi-backend-url (legacy)
+
+        If ZENVI_BACKEND_URLS is set, we probe /health quickly to select a URL.
+        """
+        urls_raw = os.environ.get("ZENVI_BACKEND_URLS", "").strip()
+        if urls_raw:
+            candidates = [u.strip().rstrip("/") for u in urls_raw.split(",") if u.strip()]
+            if candidates:
+                try:
+                    import requests
+                    for u in candidates:
+                        try:
+                            r = requests.get(f"{u}/health", timeout=1.5)
+                            if r.status_code == 200:
+                                return u
+                        except Exception:
+                            continue
+                    # If none respond, fall back to the first candidate to surface real errors upstream.
+                    return candidates[0]
+                except Exception:
+                    return candidates[0]
+
+        url = os.environ.get("ZENVI_BACKEND_URL", "").strip()
         if url:
-            return url
+            return url.rstrip("/")
         try:
             from classes.app import get_app
             app = get_app()
@@ -65,7 +92,7 @@ class ZenviBackendClient:
                 s = app.get_settings()
                 url = s.get("zenvi-backend-url") if s else ""
                 if url:
-                    return url
+                    return str(url).rstrip("/")
         except Exception:
             pass
         return _DEFAULT_BACKEND_URL
@@ -152,7 +179,7 @@ class ZenviBackendClient:
             if session_id:
                 payload["session_id"] = session_id
 
-            r = self.session.post(f"{self.api_url}/chat", json=payload, timeout=180)
+            r = self.session.post(f"{self.api_url}/chat", json=payload, timeout=600)
             r.raise_for_status()
             return r.json()
         except Exception as e:
@@ -210,7 +237,8 @@ class ZenviBackendClient:
         try:
             sslopt = {} if self._ssl_verify else {"cert_reqs": 0}  # 0 = ssl.CERT_NONE
             ws = websocket.create_connection(ws_url, timeout=600, sslopt=sslopt)
-            self._current_ws = ws
+            with self._ws_lock:
+                self._active_wss.add(ws)
 
             # Send user message
             ws.send(json.dumps({
@@ -343,6 +371,9 @@ class ZenviBackendClient:
                 elif msg_type == "done":
                     break
 
+                elif msg_type == "keepalive":
+                    pass
+
             ws.close()
             return final_response
 
@@ -352,7 +383,12 @@ class ZenviBackendClient:
                 on_error(str(e))
             return None
         finally:
-            self._current_ws = None
+            try:
+                with self._ws_lock:
+                    if "ws" in locals():
+                        self._active_wss.discard(ws)
+            except Exception:
+                pass
 
     def cancel_current_request(self) -> None:
         """Close the active WebSocket connection, unblocking any pending recv() call.
@@ -360,8 +396,11 @@ class ZenviBackendClient:
         Safe to call from any thread. Used during app shutdown to allow the
         chat worker thread to exit cleanly instead of blocking QThread::~QThread().
         """
-        ws = self._current_ws
-        if ws is not None:
+        with self._ws_lock:
+            websockets = list(self._active_wss)
+            self._active_wss.clear()
+
+        for ws in websockets:
             try:
                 ws.close()
             except Exception:
@@ -397,19 +436,50 @@ class ZenviBackendClient:
     # ------------------------------------------------------------------
     # Indexing
     # ------------------------------------------------------------------
-    def index_video(self, file_path: str, index_name: str, filename: Optional[str] = None, async_mode: bool = True) -> Dict[str, Any]:
-        """Index a video file."""
+    def index_video(self, file_path: str, index_name: str, filename: Optional[str] = None,
+                    async_mode: bool = True) -> Dict[str, Any]:
+        """Index a video file.
+
+        Always uses the background-job pattern: POST returns a job_id immediately,
+        then we poll GET /indexing/job/{job_id} until complete. This avoids the
+        read-timeout that occurred when TwelveLabs took longer than the HTTP timeout.
+        The async_mode parameter is kept for backwards compatibility but ignored.
+        """
         try:
-            payload = {"file_path": file_path, "index_name": index_name}
+            payload: Dict[str, Any] = {"file_path": file_path, "index_name": index_name}
             if filename:
                 payload["filename"] = filename
-            endpoint = "indexing/async" if async_mode else "indexing"
-            r = self.session.post(f"{self.api_url}/{endpoint}", json=payload, timeout=300)
+            r = self.session.post(f"{self.api_url}/indexing", json=payload, timeout=30)
             r.raise_for_status()
-            return r.json()
+            job_id = r.json().get("job_id")
+            if not job_id:
+                return {"success": False, "message": "Backend returned no job_id"}
+            return self._poll_indexing_job(job_id)
         except Exception as e:
             log.error("Indexing failed: %s", e)
             return {"success": False, "message": str(e)}
+
+    def _poll_indexing_job(self, job_id: str, max_wait: int = 1800, poll_interval: int = 10) -> Dict[str, Any]:
+        """Poll /indexing/job/{job_id} until the job finishes or max_wait seconds pass."""
+        import time
+        deadline = time.time() + max_wait
+        while time.time() < deadline:
+            try:
+                r = self.session.get(f"{self.api_url}/indexing/job/{job_id}", timeout=15)
+                r.raise_for_status()
+                data = r.json()
+                status = data.get("status", "running")
+                if status == "done":
+                    return data.get("result") or {"success": True}
+                if status == "failed":
+                    result = data.get("result") or {}
+                    return {"success": False, "message": result.get("error", "Indexing failed")}
+                if status == "not_found":
+                    return {"success": False, "message": f"Job {job_id} not found on backend"}
+            except Exception as e:
+                log.warning("Indexing poll error (will retry): %s", e)
+            time.sleep(poll_interval)
+        return {"success": False, "message": f"Indexing job {job_id} timed out after {max_wait}s"}
 
     # ------------------------------------------------------------------
     # Video Generation
@@ -619,7 +689,7 @@ class ZenviBackendClient:
         filename: str = "",
         existing_index_id: Optional[str] = None,
     ) -> Dict[str, Any]:
-        """Index a video via the backend (replaces twelvelabs_indexer.index_video_blocking)."""
+        """Index a video via the backend. Uses the job-based async pattern to avoid read timeouts."""
         try:
             r = self.session.post(
                 f"{self.api_url}/indexing/index",
@@ -629,10 +699,13 @@ class ZenviBackendClient:
                     "filename": filename,
                     "existing_index_id": existing_index_id,
                 },
-                timeout=300,
+                timeout=30,
             )
             r.raise_for_status()
-            return r.json()
+            job_id = r.json().get("job_id")
+            if not job_id:
+                return {"error": "Backend returned no job_id"}
+            return self._poll_indexing_job(job_id)
         except Exception as e:
             log.error("Video indexing failed: %s", e)
             return {"error": str(e)}
@@ -736,6 +809,46 @@ class ZenviBackendClient:
         except Exception as e:
             log.error("Freesound search failed: %s", e)
             return {"sounds": [], "error": str(e)}
+
+    # ------------------------------------------------------------------
+    # Re-tagging and re-indexing (manual triggers)
+    # ------------------------------------------------------------------
+    def retag_video(self, file_id: str, file_path: str, force: bool = True) -> Dict[str, Any]:
+        """Re-run Gemini tagging for a file. Clips > 30 min are rejected by the backend."""
+        try:
+            r = self.session.post(
+                f"{self.api_url}/tags/retag",
+                json={"file_id": file_id, "file_path": file_path, "force": force},
+                timeout=300,
+            )
+            r.raise_for_status()
+            return r.json()
+        except Exception as e:
+            log.error("retag_video failed: %s", e)
+            return {"success": False, "error": str(e)}
+
+    def reindex_video(self, file_id: str, file_path: str, index_name: str = "zenvi-videos",
+                      existing_index_id: str = "") -> Dict[str, Any]:
+        """Re-index a video in TwelveLabs. Clips > 30 min are rejected by the backend."""
+        try:
+            payload: Dict[str, Any] = {
+                "file_id": file_id,
+                "file_path": file_path,
+                "index_name": index_name,
+                "force": True,
+            }
+            if existing_index_id:
+                payload["existing_index_id"] = existing_index_id
+            r = self.session.post(
+                f"{self.api_url}/indexing/reindex",
+                json=payload,
+                timeout=600,
+            )
+            r.raise_for_status()
+            return r.json()
+        except Exception as e:
+            log.error("reindex_video failed: %s", e)
+            return {"success": False, "error": str(e)}
 
     def freesound_download(self, sound_id: int, preview_url: str, filename: str = "") -> Dict[str, Any]:
         """Download a Freesound HQ MP3 preview via the backend and return its local path."""

@@ -12,7 +12,7 @@ from PyQt5.QtCore import (
 from PyQt5.QtWidgets import (
     QDockWidget, QWidget, QVBoxLayout, QHBoxLayout,
     QTextEdit, QPushButton, QLabel, QComboBox, QMessageBox, QFrame,
-    QGraphicsOpacityEffect,
+    QGraphicsOpacityEffect, QScrollArea, QToolButton,
 )
 from PyQt5.QtGui import QColor, QTextCursor
 
@@ -171,6 +171,7 @@ class AIChatWorker(QObject):
     def __init__(self, parent=None):
         super().__init__(parent)
         self._backend_session_id = None
+        self._stopping = False  # Set to True during app shutdown to suppress fallback/emit
 
     @pyqtSlot(str, str)
     def run_request(self, text: str, model_id: str):
@@ -186,7 +187,12 @@ class AIChatWorker(QObject):
                 """Execute a tool locally and return the result."""
                 nonlocal last_tool_result
                 log.info("Tool delegated from backend: %s", tool_name)
-                result = execute_tool(tool_name, tool_args or {})
+                args = tool_args or {}
+                # Ensure tool state that depends on the chat/request identity
+                # (e.g. split→add_clip chains) is isolated per UI tab/session.
+                if self._backend_session_id:
+                    args["chat_session_id"] = self._backend_session_id
+                result = execute_tool(tool_name, args)
                 # Remember the last successful tool result so we can use it
                 # if the WebSocket breaks after the tool already completed.
                 if result and not str(result).startswith("Error"):
@@ -215,6 +221,11 @@ class AIChatWorker(QObject):
             )
 
             if final_error:
+                # App is shutting down — the WS was closed intentionally.
+                # Don't fall back to REST or emit signals into a dying Qt stack.
+                if self._stopping:
+                    return
+
                 # If a tool already executed successfully (e.g. v2v clip
                 # was generated and imported), use that result instead of
                 # falling back to REST which would re-run the entire agent.
@@ -241,6 +252,8 @@ class AIChatWorker(QObject):
                     self.error_occurred.emit("No response from backend.")
                 return
 
+            if self._stopping:
+                return
             if result is not None:
                 self.response_ready.emit(result)
             elif final_response is not None:
@@ -248,6 +261,8 @@ class AIChatWorker(QObject):
             else:
                 self.error_occurred.emit("No response from backend.")
         except Exception as e:
+            if self._stopping:
+                return  # Swallow exceptions during shutdown — Qt stack is going away
             log.error("AI chat error: %s", e, exc_info=True)
             self.error_occurred.emit(str(e))
 
@@ -259,7 +274,8 @@ class AIChatWorker(QObject):
                 get_backend_client().clear_chat_session(self._backend_session_id)
             except Exception:
                 pass
-            self._backend_session_id = None
+            # Keep the backend session_id stable for this UI tab/session.
+            # Clearing only resets conversation state + Supabase memory rows.
 
     @pyqtSlot(str, str)
     def on_tool_completed(self, tool_name: str, result: str):
@@ -346,6 +362,7 @@ class AIChatWindow(QDockWidget):
         # "messages", "processing", "first_prompt_summary"}.
         self._sessions: dict = {}
         self._active_sid: str = ""
+        self._history_restore_started = False
 
         # Stop all threads on app quit (covers the shutdown path where
         # closeEvent is never called on dock widgets).
@@ -354,8 +371,38 @@ class AIChatWindow(QDockWidget):
         if app_instance:
             app_instance.aboutToQuit.connect(self._stop_all_threads)
 
-        # Create the initial session before building the UI widgets.
-        self._create_initial_session()
+        # Restore previously open chat sessions (if any) before building UI.
+        store = self._load_chat_sessions_store()
+        restored_sessions = store.get("sessions", []) if isinstance(store, dict) else []
+        if isinstance(restored_sessions, list) and restored_sessions:
+            for entry in restored_sessions:
+                if not isinstance(entry, dict):
+                    continue
+                sid = entry.get("session_id")
+                title = entry.get("title") or "New Chat"
+                if not sid or sid in self._sessions:
+                    continue
+                worker, thread = self._make_worker(sid)
+                self._sessions[sid] = {
+                    "worker": worker,
+                    "thread": thread,
+                    "title": title,
+                    "messages": [],
+                    "processing": False,
+                    "unread": False,
+                    "first_prompt_summary": title,
+                }
+
+            active_from_store = store.get("active_session_id") if isinstance(store, dict) else None
+            if active_from_store in self._sessions:
+                self._active_sid = active_from_store
+            elif self._sessions:
+                self._active_sid = next(iter(self._sessions))
+            self._first_prompt_summary = self._sessions[self._active_sid].get("first_prompt_summary")
+        if not self._sessions:
+            # Create the initial session before building the UI widgets.
+            self._create_initial_session()
+            self._save_chat_sessions_store()
 
         if self._use_web_ui:
             self._init_web_ui()
@@ -374,6 +421,8 @@ class AIChatWindow(QDockWidget):
         thread = QThread()
         worker = AIChatWorker()
         worker._session_id = session_id   # used by signal handlers to route responses
+        # Keep backend memory namespaced by the same session id as the UI tab.
+        worker._backend_session_id = session_id
         worker.moveToThread(thread)
         worker.response_ready.connect(self._on_response_ready)
         worker.error_occurred.connect(self._on_error)
@@ -390,6 +439,7 @@ class AIChatWindow(QDockWidget):
             "title": "New Chat",
             "messages": [],
             "processing": False,
+            "unread": False,
             "first_prompt_summary": None,
         }
         self._active_sid = sid
@@ -405,6 +455,7 @@ class AIChatWindow(QDockWidget):
             "title": "New Chat",
             "messages": [],
             "processing": False,
+            "unread": False,
             "first_prompt_summary": None,
         }
         self._active_sid = sid
@@ -415,6 +466,12 @@ class AIChatWindow(QDockWidget):
             self._push_tabs_to_js()
             self._update_preamble()
             self._add_system_msg("New session started. Ask anything about your project.")
+        else:
+            self.chat_box.clear()
+            self._add_system_msg("New session started. Ask anything about your project.")
+            self._update_preamble()
+            self._rebuild_widget_tabs()
+        self._save_chat_sessions_store()
 
     def _switch_session(self, session_id: str):
         """Switch the displayed session to *session_id* (called when user clicks a tab)."""
@@ -435,6 +492,12 @@ class AIChatWindow(QDockWidget):
             self._push_tabs_to_js()
             self._run_js("setProcessing(%s);" % ("true" if self.is_processing else "false"))
         self._update_preamble()
+        self._save_chat_sessions_store()
+        if not self._use_web_ui:
+            # Widget mode: render the stored messages for the newly active session.
+            sess["unread"] = False
+            self._render_active_session_widget()
+            self._rebuild_widget_tabs()
 
     def _close_session(self, session_id: str):
         """Close a session and delete its Pinecone namespace (called from the × on a tab)."""
@@ -455,7 +518,11 @@ class AIChatWindow(QDockWidget):
             self._active_sid = next(iter(self._sessions))
             self._switch_session(self._active_sid)
         else:
-            self._push_tabs_to_js()
+            if self._use_web_ui:
+                self._push_tabs_to_js()
+            else:
+                self._rebuild_widget_tabs()
+        self._save_chat_sessions_store()
 
     def _push_tabs_to_js(self):
         """Push the current session list to the JS tab bar."""
@@ -465,11 +532,240 @@ class AIChatWindow(QDockWidget):
                 "id": sid,
                 "title": sess.get("first_prompt_summary") or sess.get("title", "New Chat"),
                 "active": sid == self._active_sid,
+                "processing": bool(sess.get("processing", False)),
             })
         self._run_js("setTabs(%s);" % json.dumps(json.dumps(tabs)))
 
+    # ------------------------------------------------------------------
+    # Local persistence for open chat sessions (session ids + titles)
+    # ------------------------------------------------------------------
+    def _chat_sessions_store_path(self) -> str:
+        from classes import info
+        return os.path.join(info.USER_PATH, "zenvi_chat_sessions.json")
+
+    def _load_chat_sessions_store(self) -> dict:
+        try:
+            path = self._chat_sessions_store_path()
+            with open(path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            if not isinstance(data, dict):
+                return {}
+            return data
+        except Exception:
+            return {}
+
+    def _save_chat_sessions_store(self) -> None:
+        try:
+            from classes import info
+
+            path = self._chat_sessions_store_path()
+            os.makedirs(info.USER_PATH, exist_ok=True)
+
+            sessions_payload = []
+            for sid, sess in self._sessions.items():
+                title = sess.get("first_prompt_summary") or sess.get("title", "New Chat")
+                sessions_payload.append({"session_id": sid, "title": title})
+
+            payload = {
+                "version": 1,
+                "active_session_id": self._active_sid,
+                "sessions": sessions_payload,
+            }
+
+            tmp_path = path + ".tmp"
+            with open(tmp_path, "w", encoding="utf-8") as f:
+                json.dump(payload, f)
+            os.replace(tmp_path, path)
+        except Exception:
+            # Non-fatal: chat can still run without local persistence.
+            pass
+
+    @pyqtSlot(str, str)
+    def _on_history_restored(self, session_id: str, messages_json: str):
+        """Apply restored /chat/history data into in-memory + visible UI."""
+        if session_id not in self._sessions:
+            return
+        try:
+            restored_items = json.loads(messages_json) if messages_json else []
+        except Exception:
+            restored_items = []
+
+        system_parts = [m for m in self._sessions[session_id].get("messages", []) if m and m[0] == "system"]
+        restored_messages = [(m.get("role", ""), m.get("html_body", ""), bool(m.get("is_assistant", False))) for m in restored_items]
+        # Preserve any existing system messages (if present) and append restored conversation turns.
+        self._sessions[session_id]["messages"] = system_parts + restored_messages
+        self._sessions[session_id]["unread"] = False
+        self._sessions[session_id]["processing"] = False
+
+        if session_id != self._active_sid:
+            # Inactive tabs only need data stored for the next switch.
+            if self._use_web_ui:
+                self._push_tabs_to_js()
+            else:
+                self._rebuild_widget_tabs()
+            return
+
+        if self._use_web_ui:
+            self._run_js("clearMessages();")
+            for role, html_body, is_assistant in self._sessions[session_id].get("messages", []):
+                self._run_js(
+                    "appendMessage(%s, %s, %s);" % (
+                        json.dumps(role),
+                        json.dumps(html_body),
+                        "true" if is_assistant else "false",
+                    )
+                )
+            self._push_tabs_to_js()
+        else:
+            self._render_active_session_widget()
+            self._rebuild_widget_tabs()
+
+    def _start_restore_chat_histories_async(self) -> None:
+        """Fetch /chat/history/{session_id} for all open sessions."""
+        if self._history_restore_started:
+            return
+        self._history_restore_started = True
+
+        session_ids = list(self._sessions.keys())
+
+        def _restore_all():
+            try:
+                client = get_backend_client()
+            except Exception:
+                client = None
+
+            for sid in session_ids:
+                if client is None:
+                    return
+                try:
+                    resp = client.get_chat_history(sid)
+                    messages = (resp or {}).get("messages", []) or []
+                except Exception:
+                    messages = []
+
+                restored_items = []
+                for m in messages:
+                    role = m.get("role", "")
+                    content = m.get("content", "") or ""
+                    if role == "assistant":
+                        html_body = _markdown_to_html(content)
+                        restored_items.append({"role": role, "html_body": html_body, "is_assistant": True})
+                    else:
+                        safe = html.escape(content).replace("\n", "<br/>")
+                        html_body = "<p>" + safe + "</p>"
+                        restored_items.append({"role": role, "html_body": html_body, "is_assistant": False})
+
+                # Apply on the Qt main thread.
+                try:
+                    QMetaObject.invokeMethod(
+                        self,
+                        "_on_history_restored",
+                        Qt.QueuedConnection,
+                        Q_ARG(str, sid),
+                        Q_ARG(str, json.dumps(restored_items)),
+                    )
+                except Exception:
+                    pass
+
+        threading.Thread(target=_restore_all, daemon=True).start()
+
     def _active_session(self) -> dict:
         return self._sessions.get(self._active_sid, {})
+
+    # ------------------------------------------------------------------
+    # Widget multi-chat tab bar + rendering helpers
+    # ------------------------------------------------------------------
+    def _display_stored_msg_widget(self, role: str, html_body: str, is_assistant: bool):
+        """Render a stored (role, html_body) tuple into the widget chat box."""
+        if not getattr(self, "chat_box", None):
+            return
+
+        cursor = self.chat_box.textCursor()
+        cursor.movePosition(QTextCursor.End)
+        self.chat_box.setTextCursor(cursor)
+
+        role_display = "You" if role == "user" else ("Assistant" if role == "assistant" else role)
+        if is_assistant:
+            role_label = f'<span style="font-weight: bold;">{html.escape(role_display)}</span><br/>'
+        else:
+            role_style = "color: #3B82F6;" if role == "user" else ""
+            role_label = (
+                f'<span style="font-weight: bold; {role_style}">{html.escape(role_display)}</span><br/>'
+            )
+
+        self.chat_box.insertHtml(role_label + html_body + "<br/>")
+
+        cursor = self.chat_box.textCursor()
+        cursor.movePosition(QTextCursor.End)
+        self.chat_box.setTextCursor(cursor)
+
+    def _render_active_session_widget(self):
+        """Clear and re-render stored messages for the active session (widget mode only)."""
+        if self._use_web_ui:
+            return
+        if not getattr(self, "chat_box", None):
+            return
+        self.chat_box.clear()
+        sess = self._active_session()
+        for role, html_body, is_assistant in sess.get("messages", []):
+            self._display_stored_msg_widget(role, html_body, is_assistant)
+
+    def _rebuild_widget_tabs(self):
+        """Rebuild the widget fallback multi-chat tab bar."""
+        if self._use_web_ui:
+            return
+        layout = getattr(self, "_widget_tabs_layout", None)
+        if layout is None:
+            return
+
+        while layout.count():
+            item = layout.takeAt(0)
+            w = item.widget()
+            if w is not None:
+                w.deleteLater()
+
+        for sid, sess in self._sessions.items():
+            title = sess.get("first_prompt_summary") or sess.get("title", "New Chat")
+            processing = bool(sess.get("processing", False))
+            unread = bool(sess.get("unread", False))
+
+            suffix = ""
+            if processing:
+                suffix += " [P]"
+            if unread:
+                suffix += " [U]"
+
+            tab_btn = QPushButton(title + suffix)
+            tab_btn.setObjectName("chatWidgetTabBtn")
+            tab_btn.setFlat(True)
+            tab_btn.setCheckable(False)
+            tab_btn.setStyleSheet(
+                "text-align: left; background: transparent; border: 1px solid transparent;"
+                if sid != self._active_sid else
+                "text-align: left; background: rgba(77,156,246,0.14); border: 1px solid rgba(77,156,246,0.35);"
+            )
+            tab_btn.clicked.connect(lambda _=False, s=sid: self._switch_session(s))
+            layout.addWidget(tab_btn)
+
+            if len(self._sessions) > 1:
+                close_btn = QToolButton()
+                close_btn.setObjectName("chatWidgetTabCloseBtn")
+                close_btn.setAutoRaise(True)
+                close_btn.setText("x")
+                close_btn.setStyleSheet("border: none; color: #6b7280;")
+                close_btn.clicked.connect(lambda _=False, s=sid: self._close_session(s))
+                layout.addWidget(close_btn)
+
+        add_btn = QPushButton("+")
+        add_btn.setObjectName("chatWidgetTabAddBtn")
+        add_btn.setFlat(True)
+        add_btn.setStyleSheet("border: 1px solid rgba(255,255,255,0.08);")
+        add_btn.clicked.connect(
+            lambda _=False: self._create_session(
+                self.model_combo.currentData() if getattr(self, "model_combo", None) else ""
+            )
+        )
+        layout.addWidget(add_btn)
 
     # ------------------------------------------------------------------
     # Widget UI (fallback when WebEngine is unavailable)
@@ -493,6 +789,24 @@ class AIChatWindow(QDockWidget):
         self._chat_fade_anim.setStartValue(0.0)
         self._chat_fade_anim.setEndValue(1.0)
         self._chat_fade_anim.finished.connect(self._on_chat_fade_finished)
+
+        # ------------------------------------------------------------------
+        # Widget multi-chat tab bar (fallback mode)
+        # ------------------------------------------------------------------
+        self._widget_tab_scroll = QScrollArea()
+        self._widget_tab_scroll.setWidgetResizable(True)
+        self._widget_tab_scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+        self._widget_tab_scroll.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self._widget_tab_scroll.setFrameShape(QFrame.NoFrame)
+        self._widget_tabs_container = QWidget()
+        self._widget_tabs_container.setObjectName("widgetChatTabContainer")
+        self._widget_tabs_layout = QHBoxLayout()
+        self._widget_tabs_layout.setContentsMargins(8, 4, 8, 4)
+        self._widget_tabs_layout.setSpacing(6)
+        self._widget_tabs_container.setLayout(self._widget_tabs_layout)
+        self._widget_tab_scroll.setWidget(self._widget_tabs_container)
+        self._widget_tab_scroll.setFixedHeight(38)
+        layout.addWidget(self._widget_tab_scroll)
 
         self.preamble_frame = QFrame()
         self.preamble_frame.setObjectName("chatPreamble")
@@ -554,6 +868,8 @@ class AIChatWindow(QDockWidget):
 
         self.msg_input.keyPressEvent = self._key_press
         self._add_system_msg("Chat started. Ask to list files, add tracks, export video, or describe your project.")
+        self._rebuild_widget_tabs()
+        self._start_restore_chat_histories_async()
 
     def _insert_selected_clip_token(self):
         """Attach the currently selected timeline clip as context (widget UI only)."""
@@ -633,6 +949,18 @@ class AIChatWindow(QDockWidget):
             return f"{ctx}\n\n{text}", summary
 
         return text, ""
+
+    def _prepend_editor_snapshot(self, text: str) -> str:
+        """Ground the model with a bounded timeline snapshot (main thread)."""
+        try:
+            from classes.tool_handlers import build_editor_snapshot_for_chat
+
+            snap = build_editor_snapshot_for_chat()
+            if snap:
+                return f"{snap}\n{text}"
+        except Exception:
+            pass
+        return text
 
     def _init_web_ui(self):
         """Build CEP/WebEngine HTML chat UI."""
@@ -723,6 +1051,7 @@ class AIChatWindow(QDockWidget):
 
         self._run_js("clearMessages();")
         self._push_tabs_to_js()
+        self._start_restore_chat_histories_async()
 
         # Kick off credits balance display and start periodic refresh
         self._start_credits_refresh()
@@ -793,6 +1122,7 @@ class AIChatWindow(QDockWidget):
                 self._first_prompt_summary = text
                 self._update_preamble()
             self._push_tabs_to_js()
+            self._save_chat_sessions_store()
 
     def _start_clip_pick(self, purpose: str):
         """Connect one-shot to SelectionChanged for the given pick purpose."""
@@ -922,6 +1252,7 @@ class AIChatWindow(QDockWidget):
         self._add_user_msg(text)
         self._request_preamble_summary(text)
         augmented_text, attached_summary = self._augment_text_with_context(text, context_json)
+        augmented_text = self._prepend_editor_snapshot(augmented_text)
         if attached_summary:
             self._add_system_msg(f"Context attached: {attached_summary}")
         self._set_processing_ui(True)
@@ -935,6 +1266,14 @@ class AIChatWindow(QDockWidget):
 
     def _stop_all_threads(self):
         """Cleanly stop all session worker threads. Safe to call more than once."""
+        # Mark all workers as stopping FIRST so that when cancel_current_request()
+        # closes the WebSocket, the worker's run_request slot sees _stopping=True
+        # and returns silently instead of trying to fall back to REST or emit signals
+        # into a Qt stack that is already being torn down.
+        for sess in list(self._sessions.values()):
+            worker = sess.get("worker")
+            if worker:
+                worker._stopping = True
         try:
             from classes.api_client import get_backend_client
             get_backend_client().cancel_current_request()
@@ -1010,6 +1349,7 @@ class AIChatWindow(QDockWidget):
         self._add_user_msg(text)
         self._request_preamble_summary(text)
         augmented_text, attached_summary = self._augment_text_with_clip_context(text)
+        augmented_text = self._prepend_editor_snapshot(augmented_text)
         if attached_summary:
             self._add_system_msg(f"Context attached: {attached_summary}")
         self.msg_input.clear()
@@ -1037,7 +1377,12 @@ class AIChatWindow(QDockWidget):
             sess["processing"] = processing
         if self._use_web_ui:
             self._run_js("setProcessing(%s);" % ("true" if processing else "false"))
+            # Refresh tab bar so per-session processing indicators stay in sync.
+            self._push_tabs_to_js()
             return
+        # Widget mode: rebuild tabs so the active processing indicator updates.
+        if getattr(self, "_widget_tabs_layout", None):
+            self._rebuild_widget_tabs()
         if self.send_btn:
             self.send_btn.setEnabled(not processing)
             self.send_btn.setText("Processing..." if processing else "Send")
@@ -1055,6 +1400,13 @@ class AIChatWindow(QDockWidget):
         sid = getattr(self.sender(), "_session_id", self._active_sid)
         if sid in self._sessions:
             self._sessions[sid]["processing"] = False
+            if sid == self._active_sid:
+                self._sessions[sid]["unread"] = False
+            else:
+                # Widget mode uses an in-Python unread flag; WebEngine unread is
+                # tracked inside chat.js.
+                if not self._use_web_ui:
+                    self._sessions[sid]["unread"] = True
         if sid == self._active_sid:
             self._add_assistant_msg(text)
             self._set_processing_ui(False)
@@ -1067,6 +1419,10 @@ class AIChatWindow(QDockWidget):
                     "if(window.onBackgroundResponse) window.onBackgroundResponse(%s, %s);"
                     % (json.dumps(sid), json.dumps(html_body))
                 )
+            if self._use_web_ui:
+                self._push_tabs_to_js()
+            else:
+                self._rebuild_widget_tabs()
 
     @pyqtSlot(str)
     def _on_error(self, text: str):
@@ -1090,6 +1446,7 @@ class AIChatWindow(QDockWidget):
             if sess:
                 sess["messages"] = []
                 sess["first_prompt_summary"] = None
+                sess["unread"] = False
                 worker = sess.get("worker")
                 if worker:
                     QMetaObject.invokeMethod(worker, "clear_session", Qt.QueuedConnection)
@@ -1098,6 +1455,7 @@ class AIChatWindow(QDockWidget):
                 self._push_tabs_to_js()
             else:
                 self.chat_box.clear()
+                self._rebuild_widget_tabs()
             self._update_preamble()
             self._add_system_msg("Chat cleared. Ask anything about your project or editing.")
 
@@ -1127,19 +1485,15 @@ class AIChatWindow(QDockWidget):
                 "true" if is_assistant else "false",
             ))
             return
-        cursor = self.chat_box.textCursor()
-        cursor.movePosition(QTextCursor.End)
-        self.chat_box.setTextCursor(cursor)
-        role_display = "You" if role == "user" else ("Assistant" if role == "assistant" else role)
         if is_assistant:
             html_body = _markdown_to_html(text)
-            role_label = f'<span style="font-weight: bold;">{html.escape(role_display)}</span><br/>'
-            self.chat_box.insertHtml(role_label + html_body + "<br/>")
         else:
             safe = html.escape(text).replace("\n", "<br/>")
-            role_style = "color: #3B82F6;" if role == "user" else ""
-            role_label = f'<span style="font-weight: bold; {role_style}">{html.escape(role_display)}</span><br/>'
-            self.chat_box.insertHtml(role_label + "<p>" + safe + "</p><br/>")
-        cursor = self.chat_box.textCursor()
-        cursor.movePosition(QTextCursor.End)
-        self.chat_box.setTextCursor(cursor)
+            html_body = "<p>" + safe + "</p>"
+
+        # Store for replay when switching sessions (widget mode).
+        sess = self._active_session()
+        if sess is not None:
+            sess["messages"].append((role, html_body, is_assistant))
+
+        self._display_stored_msg_widget(role, html_body, is_assistant)

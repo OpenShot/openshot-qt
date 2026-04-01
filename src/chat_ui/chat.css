@@ -165,6 +165,74 @@
 .chat-input-overlay         { transition: opacity 0.15s; }
 .chat-input-overlay.hidden  { display: none !important; pointer-events: none; }
 
+/* ── Input textarea sizing (auto-grow in JS) ─────────────────────────── */
+.chat-input {
+    overflow-y: auto;
+    line-height: 1.45;
+    /* Height is controlled by JS; keep stable box model */
+    padding-bottom: 6px;
+}
+
+/* ── Command palette ("/" suggestions) ───────────────────────────────── */
+.chat-command-palette {
+    position: absolute;
+    left: 8px;
+    right: 8px;
+    bottom: 42px; /* sits above bottom toolbar */
+    z-index: 20;
+    border-radius: 10px;
+    border: 1px solid var(--chat-border);
+    background: var(--chat-surface);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.55), 0 1px 4px rgba(0,0,0,0.35);
+    overflow: hidden;
+    max-height: 220px;
+}
+
+.chat-command-item {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2px;
+    padding: 9px 10px;
+    border: none;
+    background: transparent;
+    color: var(--chat-text);
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.12s ease, color 0.12s ease;
+}
+
+.chat-command-item:hover {
+    background: rgba(255,255,255,0.05);
+}
+
+.chat-command-item.active {
+    background: color-mix(in srgb, var(--chat-accent) 14%, transparent);
+}
+
+.chat-command-prefix {
+    font-family: ui-monospace, monospace;
+    font-size: 12px;
+    color: var(--chat-text);
+}
+
+.chat-command-label {
+    font-size: 12px;
+    color: var(--chat-muted);
+}
+
+.chat-command-desc {
+    font-size: 12px;
+    color: var(--chat-muted);
+    opacity: 0.9;
+}
+
+.chat-command-empty {
+    padding: 10px;
+    font-size: 12px;
+    color: var(--chat-muted);
+}
+
 /* ── Idle layout: centre input when there are no messages ───────────── */
 .chat-container.chat-input-idle .chat-input-row {
     position: absolute;
@@ -212,6 +280,11 @@
 /* Resting border when glow is off */
 .chat-input-glow-wrap:not(.glow-active) .chat-input-glow-inner {
     box-shadow: inset 0 0 0 1px var(--chat-border);
+}
+
+/* Make focused state feel like a clean "card" (keep existing glow behavior) */
+.chat-input-glow-wrap.glow-active .chat-input-glow-inner {
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--chat-accent) 40%, transparent);
 }
 
 /* ── Activity log (Reasoning / tool steps) ──────────────────────────── */
@@ -412,3 +485,86 @@
 }
 .chat-send-circle:hover:not(:disabled) { opacity: 0.85; }
 .chat-send-circle:disabled             { opacity: 0.4; cursor: not-allowed; }
+
+/* ── Multi-chat tab bar ─────────────────────────────────────────────── */
+.chat-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--chat-muted);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.12s, color 0.12s, border-color 0.12s;
+    white-space: nowrap;
+    font-size: 12px;
+}
+
+.chat-tab:hover {
+    background: rgba(255,255,255,0.06);
+    color: var(--chat-text);
+}
+
+.chat-tab.active {
+    background: rgba(77,156,246,0.14);
+    border-color: rgba(77,156,246,0.35);
+    color: var(--chat-text);
+}
+
+.chat-tab.has-unread {
+    border-color: rgba(77,156,246,0.22);
+}
+
+.chat-tab-badge {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: transparent;
+    flex-shrink: 0;
+}
+
+.chat-tab.has-unread .chat-tab-badge {
+    background: var(--chat-accent);
+    box-shadow: 0 0 0 2px rgba(77,156,246,0.14);
+}
+
+.chat-tab-processing {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--chat-accent);
+    flex-shrink: 0;
+    animation: chat-processing-pulse 1.1s ease-in-out infinite;
+    opacity: 0.75;
+}
+
+.chat-tab-close {
+    margin-left: 6px;
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--chat-muted);
+    cursor: pointer;
+    transition: background 0.12s, color 0.12s;
+    font-size: 14px;
+    line-height: 1;
+    padding: 0;
+}
+
+.chat-tab-close:hover {
+    background: rgba(239,68,68,0.14);
+    color: #ef4444;
+}
+
+@keyframes chat-processing-pulse {
+    0%, 100% { transform: scale(0.9); opacity: 0.55; }
+    50% { transform: scale(1.25); opacity: 1; }
+}

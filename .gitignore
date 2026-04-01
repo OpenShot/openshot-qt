@@ -4,6 +4,9 @@
 .idea
 .settings
 idea/*
+# Local packaged installers (do not commit)
+*.deb
+
 # Exclude results of the build process
 doc/_build
 **/__pycache__/
