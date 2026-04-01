@@ -1250,6 +1250,8 @@ class AIChatWindow(QDockWidget):
         if worker is None:
             return
         self._add_user_msg(text)
+        if self._try_local_command(text):
+            return
         self._request_preamble_summary(text)
         augmented_text, attached_summary = self._augment_text_with_context(text, context_json)
         augmented_text = self._prepend_editor_snapshot(augmented_text)
@@ -1339,6 +1341,30 @@ class AIChatWindow(QDockWidget):
         else:
             QTextEdit.keyPressEvent(self.msg_input, event)
 
+    _WATCH_CLIP_PATTERNS = [
+        "watch clip", "view clip", "show clip", "play clip",
+        "play the feral", "show the feral", "watch the feral",
+        "play the trailer", "show me the clip", "show me the trailer",
+        "load the feral", "open the feral",
+    ]
+
+    def _try_local_command(self, text: str) -> bool:
+        """Execute certain commands locally without sending to the backend.
+        Returns True if the command was handled and no backend call is needed.
+        """
+        lower = text.lower().strip()
+        if any(pat in lower for pat in self._WATCH_CLIP_PATTERNS):
+            self._add_system_msg("Loading Feral trailer and starting playback...")
+            try:
+                from classes.tool_handlers import execute_tool
+                result = execute_tool("watch_clip_tool", {})
+                self._add_assistant_msg(result)
+            except Exception as exc:
+                self._add_assistant_msg(f"Error: {exc}")
+            self._set_processing_ui(False)
+            return True
+        return False
+
     def send_message(self):
         if self.is_processing:
             QMessageBox.warning(self, "Wait", "Processing previous message...")
@@ -1347,12 +1373,14 @@ class AIChatWindow(QDockWidget):
         if not text:
             return
         self._add_user_msg(text)
+        self.msg_input.clear()
+        if self._try_local_command(text):
+            return
         self._request_preamble_summary(text)
         augmented_text, attached_summary = self._augment_text_with_clip_context(text)
         augmented_text = self._prepend_editor_snapshot(augmented_text)
         if attached_summary:
             self._add_system_msg(f"Context attached: {attached_summary}")
-        self.msg_input.clear()
         self._set_processing_ui(True)
         model_id = self.model_combo.currentData()
         if not model_id and self.model_combo.count():

@@ -471,6 +471,66 @@ def open_project(file_path="", **_kw) -> str:
 # Playback & history
 # ---------------------------------------------------------------------------
 
+_WATCH_CLIP_DEFAULT_PATH = os.path.expanduser(
+    "~/Downloads/Feral - Concept Trailer.mp4"
+)
+
+
+def watch_clip_and_play(file_path: str = "", **_kw) -> str:
+    """Import a video file into the media bin, add it to the timeline, and start playback.
+
+    If file_path is empty, defaults to the Feral concept trailer test video.
+    This is the handler for natural-language commands like 'watch clip',
+    'play the feral trailer', 'show me the clip', etc.
+    """
+    try:
+        resolved_path = (file_path or _WATCH_CLIP_DEFAULT_PATH).strip()
+        if not os.path.isfile(resolved_path):
+            return f"Error: File not found: {resolved_path}"
+
+        from classes.query import File as _File
+        from PyQt5.QtCore import QUrl as _QUrl
+
+        app = _get_app()
+        win = app.window
+
+        # Step 1: Import into media bin (must run on main thread — uses libopenshot)
+        def _do_import():
+            existing = _File.get(path=resolved_path)
+            if existing:
+                return existing.id
+            win.files_model.add_files([resolved_path], quiet=True, prevent_image_seq=True)
+            added = _File.get(path=resolved_path)
+            return added.id if added else None
+
+        file_id = _run_on_main_thread(_do_import)
+        if not file_id:
+            return f"Error: Could not import file into media bin: {resolved_path}"
+
+        # Step 2: Add to timeline (position 0, top video track)
+        add_result = add_clip_to_timeline(file_id=file_id, position_seconds="0", **_kw)
+        if add_result.startswith("Error"):
+            return add_result
+
+        # Step 3: Seek to start + play
+        def _do_play():
+            win.actionJumpStart_trigger()
+            # Ensure player is playing (actionPlay_trigger toggles, so check mode)
+            try:
+                import openshot
+                player = win.preview_thread.player
+                if player.Mode() != openshot.PLAYBACK_PLAY:
+                    win.actionPlay_trigger()
+            except Exception:
+                win.actionPlay_trigger()
+
+        _run_on_main_thread(_do_play)
+        return f"Loaded and playing: {os.path.basename(resolved_path)}"
+    except Exception as e:
+        log.error("watch_clip_and_play failed: %s", e, exc_info=True)
+        return f"Error: {e}"
+
+
 def play(**_kw) -> str:
     try:
         _get_app().window.actionPlay_trigger()
@@ -3272,6 +3332,7 @@ TOOL_HANDLERS = {
     "save_project_tool": save_project,
     "open_project_tool": open_project,
     # Playback
+    "watch_clip_tool": watch_clip_and_play,
     "play_tool": play,
     "go_to_start_tool": go_to_start,
     "go_to_end_tool": go_to_end,
