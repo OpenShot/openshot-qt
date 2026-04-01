@@ -704,27 +704,31 @@ jobs:
           # Strip extended attributes
           xattr -cr "$APP" 2>/dev/null || true
 
-          # Remove .hash dirs that confuse codesign
-          find "$APP" -type d -name ".hash" -exec rm -rf {} + 2>/dev/null || true
-
-          # Make all files readable; strip execute bits then restore only on binaries
+          # Make all files readable but do NOT add +x to everything.
+          # chmod -R a+rx would give execute bits to text/data files (e.g.
+          # frozen_application_license.txt, .hash, .json), which makes codesign
+          # treat them as unsigned code objects and refuse to sign the bundle.
           chmod -R a+r "$APP/Contents/"
-          find "$APP/Contents" -type f -exec chmod a-x {} \;
+
+          # Give execute permission to Mach-O libraries and known entry points.
           find "$APP" \( -name '*.dylib' -o -name '*.so' \) -exec chmod +x {} \;
           for bin in zenvi launch launch-zenvi launch-mac; do
             [ -f "$APP/Contents/MacOS/$bin" ] && chmod +x "$APP/Contents/MacOS/$bin"
           done
 
-          # Move non-code subdirectories to Resources and symlink back
-          # so codesign only sees Mach-O binaries in MacOS/
-          for dir in lib share PyQt5.uic.widget-plugins; do
-            if [ -d "$APP/Contents/MacOS/$dir" ] && [ ! -L "$APP/Contents/MacOS/$dir" ]; then
-              mv "$APP/Contents/MacOS/$dir" "$APP/Contents/Resources/$dir"
-              ln -s "../../Resources/$dir" "$APP/Contents/MacOS/$dir"
-            fi
-          done
+          # Ad-hoc sign every Mach-O binary detected by content (magic bytes), not by
+          # file extension. Extension-only filtering (.dylib/.so) misses binaries with
+          # unusual names, causing codesign to fail with "code object is not signed at
+          # all" for each missed file. Bundle-level signing (codesign APP) is skipped:
+          # ad-hoc signing provides no Gatekeeper bypass (that needs a Developer ID
+          # cert), so signing individual binaries is both necessary and sufficient to
+          # prevent dyld crashes on macOS 12+.
+          while IFS= read -r -d '' f; do
+            file "$f" 2>/dev/null | grep -q "Mach-O" \
+              && codesign -s - --force "$f" 2>/dev/null || true
+          done < <(find "$APP/Contents" -type f -print0)
 
-          echo "Bundle assembled. Contents:"
+          echo "Bundle assembled and ad-hoc signed. Contents:"
           ls "$APP/Contents/MacOS/" | head -20
 
       - name: Sign .app bundle
