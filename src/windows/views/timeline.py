@@ -4620,14 +4620,25 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             return
 
         log.info("Dropping item on timeline - item_ids: %s, item_type: %s" % (self.item_ids, self.item_type))
-
+        print("Dropped mimeData content:", event.mimeData().text())
         # Accept the event
         event.accept()
+    def dragEnterEvent(self, event):
+    if event.mimeData().hasText() and self._is_valid_file(event.mimeData().text()):
+        event.acceptProposedAction()
 
-        if self.item_type == "effect":
-            pos = event.posF()
-            data = json.loads(event.mimeData().text())
-            self.addEffect(data, pos)
+    def dropEvent(self, event):
+        file_path = event.mimeData().text()
+        position = self._pixels_to_frames(event.pos().x())
+    
+        # Create new clip
+        clip = Clip(file_path)
+        clip.position = position
+        self.current_track.addClip(clip)
+            if self.item_type == "effect":
+                pos = event.posF()
+                data = json.loads(event.mimeData().text())
+                self.addEffect(data, pos)
 
         elif self.item_type in ["clip", "transition"] and self.item_ids:
             # Update most recent clip or transition

@@ -259,7 +259,8 @@ class FilesTreeView(QTreeView):
 
             menu.addAction(self.win.actionFile_Properties)
             menu.addSeparator()
-            menu.addAction(self.win.actionRemove_from_Project)
+            confirm_action = menu.addAction(_("Remove from Project"))
+            confirm_action.triggered.connect(self.confirm_remove_file)
             menu.addSeparator()
 
         # Show menu
@@ -442,6 +443,19 @@ class FilesTreeView(QTreeView):
         # Update file thumbnail
         self.win.FileUpdated.emit(file_id)
 
+    def confirm_remove_file(self):
+        from PyQt5.QtWidgets import QMessageBox
+        _ = get_app()._tr
+
+        reply = QMessageBox.question(
+            self,
+            _("Confirm Delete"),
+            _("Are you sure you want to delete this file from the project?"),
+            QMessageBox.Yes | QMessageBox.Cancel
+        )
+
+        if reply == QMessageBox.Yes:
+            self.win.actionRemove_from_Project.trigger()
     def __init__(self, model, *args):
         # Invoke parent init
         super().__init__(*args)
