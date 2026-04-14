@@ -97,3 +97,8 @@ The helper reads against live UCRT64 package data. If the machine is stale or pa
 ## Notes for upstream review
 
 This package intentionally keeps the OpenShot attribution visible because the point is to support the OpenShot workflow, not hijack it.
+
+
+## OpenShot pull request fit
+
+This helper is packaged to fit OpenShot's usual GitHub contribution flow: make changes in a branch based on `develop`, open a PR to `develop`, and explain clearly that this helper complements the existing packaging installer by focusing on stock-Windows source builds. If the work is still under review, a draft / WIP PR is appropriate.

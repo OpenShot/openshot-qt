@@ -55,7 +55,7 @@ This is noisy, but not fatal. It means a listener registration was attempted twi
 ### `INFO sentry: Sentry initialized ...`
 Error reporting initialized successfully. Nice to have, not required for a launch.
 
-### `INFO generation_service: ComfyUI check failed at http://127.0.0.1:8188 ...`
+### `INFO generation_service: ComfyUI check failed at 127.0.0.1:8188 ...`
 This is also not a launch blocker. It just means a local ComfyUI service was not running.
 
 ### `INFO main_window: InitCacheSettings` and cache lines

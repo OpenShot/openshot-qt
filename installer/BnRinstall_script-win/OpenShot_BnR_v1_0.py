@@ -140,9 +140,9 @@ MIN_WINDOWS_BUILD = 17763
 SUPPORTED_HOST_PYTHON_MIN = (3, 9)
 
 REPOS = {
-    "libopenshot-audio": "https://github.com/OpenShot/libopenshot-audio.git",
-    "libopenshot": "https://github.com/OpenShot/libopenshot.git",
-    "openshot-qt": "https://github.com/OpenShot/openshot-qt.git",
+    "libopenshot-audio": "https://github.com/OpenShot/libopenshot-audio",
+    "libopenshot": "https://github.com/OpenShot/libopenshot",
+    "openshot-qt": "https://github.com/OpenShot/openshot-qt",
 }
 
 CAPABILITIES: Dict[str, Dict[str, object]] = {
@@ -613,7 +613,7 @@ def ensure_winget() -> Path:
     warn("RegisterByFamilyName did not restore winget. Trying official aka.ms/getwinget bootstrap...")
     ps2 = (
         'try { '
-        'Add-AppxPackage https://aka.ms/getwinget -ErrorAction Stop; '
+        'Add-AppxPackage https://learn.microsoft.com/en-us/windows/package-manager/winget/ -ErrorAction Stop; '
         'exit 0 '
         '} catch { '
         'Write-Host $_.Exception.Message; exit 1 '

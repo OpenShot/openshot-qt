@@ -24,6 +24,7 @@ OpenShot itself is the work of the **OpenShot project and contributors**.
 - OpenShot website: https://www.openshot.org/
 - OpenShot source repository: https://github.com/OpenShot/openshot-qt
 - OpenShot developer docs: https://www.openshot.org/static/files/user-guide/developers.html
+- OpenShot contribution guide: https://github.com/OpenShot/openshot-qt/blob/develop/CONTRIBUTING.md
 
 This helper sits beside that work. Its job is the painful part on a fresh or half-broken Windows machine: verifying prerequisites, restoring toolchain pieces, building dependencies in the right order, checking bindings honestly, and leaving behind logs and launch helpers that are readable.
 
@@ -84,6 +85,18 @@ py -3 OpenShot_BnR_v1_0.py --debug
 - [TROUBLESHOOTING.md](TROUBLESHOOTING.md) — common failure paths and fixes
 - [RELEASE_GUIDE.md](RELEASE_GUIDE.md) — release and review checklist
 - [help.html](help.html) — local browser help page
+
+## OpenShot submission notes
+
+To align with the OpenShot contribution workflow, this helper is shaped as a **source-build bootstrap contribution**, not a replacement for the official installer.
+
+- branch from `develop`
+- open a pull request against `develop`
+- draft / WIP pull requests are acceptable when feedback is needed early
+- the PR description should clearly explain the problem and the solution
+- if reporting a bug instead of submitting code, include the operating system and attach relevant log files
+
+The cleanest framing is: **make OpenShot easier to build and launch from source on stock Windows**.
 
 ## Contribution-shaped trim
 
