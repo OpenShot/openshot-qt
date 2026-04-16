@@ -1,8 +1,15 @@
 #!/bin/sh
 
-# XXX: These paths should be set using `brew prefix` commands,
-#      for future-proofing against upgrades
-PATH=/usr/local/Cellar/python@3.7/3.7.9_2/Frameworks/Python.framework/Versions/3.7/bin:/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/qt5/5.5/clang_64/bin:/opt/X11/bin
+# Detect Homebrew prefix so this script works on both Apple Silicon
+# (/opt/homebrew) and Intel (/usr/local) Macs without hard-coded paths.
+if [ -x /opt/homebrew/bin/brew ]; then
+    BREW_PREFIX="$(/opt/homebrew/bin/brew --prefix)"
+elif [ -x /usr/local/bin/brew ]; then
+    BREW_PREFIX="$(/usr/local/bin/brew --prefix)"
+else
+    BREW_PREFIX="/usr/local"
+fi
+PATH="${BREW_PREFIX}/bin:${BREW_PREFIX}/sbin:/opt/local/bin:/opt/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin"
 MAC_NOTARIZE_PASSWORD=$1
 
 # Get Version
