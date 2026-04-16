@@ -455,7 +455,7 @@ class Preferences(QDialog):
                             icon = QIcon(":/hw/hw-accel-dx.svg")
                         elif k == "Windows D3D11" or i == 4:
                             icon = QIcon(":/hw/hw-accel-dx.svg")
-                        elif k == "MacOS" or i == 5:
+                        elif k == "Apple VideoToolbox" or i == 5:
                             icon = QIcon(":/hw/hw-accel-vtb.svg")
                         elif k == "Intel QSV" or i == 7:
                             icon = QIcon(":/hw/hw-accel-qsv.svg")
