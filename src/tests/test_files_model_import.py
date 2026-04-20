@@ -80,8 +80,8 @@ class FilesModelImportTests(unittest.TestCase):
             file_data, duration = self.files_model_module.inspect_media("example.flac", 128, 72)
 
         self.assertEqual(create_reader_calls, [("example.flac", False), ("example.flac", True)])
-        self.assertEqual(first_reader.max_decode_sizes, [(128, 72)])
-        self.assertEqual(second_reader.max_decode_sizes, [(128, 72)])
+        self.assertEqual(first_reader.max_decode_sizes, [])
+        self.assertEqual(second_reader.max_decode_sizes, [])
         self.assertEqual(first_reader.open_calls, 1)
         self.assertEqual(first_reader.close_calls, 0)
         self.assertEqual(second_reader.open_calls, 1)
@@ -96,11 +96,24 @@ class FilesModelImportTests(unittest.TestCase):
             file_data, duration = self.files_model_module.inspect_media("example.wav", 64, 64)
 
         create_reader.assert_called_once_with("example.wav", False)
-        self.assertEqual(reader.max_decode_sizes, [(64, 64)])
+        self.assertEqual(reader.max_decode_sizes, [])
         self.assertEqual(reader.open_calls, 1)
         self.assertEqual(reader.close_calls, 1)
         self.assertEqual(file_data, {"media": "ok"})
         self.assertEqual(duration, 3.0)
+
+    def test_inspect_media_preserves_reader_reported_dimensions_when_max_size_requested(self):
+        reader = ReaderStub(
+            json_text='{"media":"ok","width":1920,"height":1080}',
+            duration=3.0,
+        )
+
+        with patch.object(self.files_model_module.openshot.Clip, "CreateReader", return_value=reader):
+            file_data, _duration = self.files_model_module.inspect_media("example.mp4", 128, 128)
+
+        self.assertEqual(reader.max_decode_sizes, [])
+        self.assertEqual(file_data["width"], 1920)
+        self.assertEqual(file_data["height"], 1080)
 
 
 if __name__ == "__main__":

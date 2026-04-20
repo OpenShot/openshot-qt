@@ -116,6 +116,80 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         if updated:
             log.info("Updated %s optimized reader path(s) to use %s", updated, optimized_path)
 
+    def _repair_capped_media_dimensions(self):
+        """Repair media imported while metadata readers were decode-size capped."""
+        repaired = 0
+        files_by_id = {}
+
+        for file_data in self._data.get("files", []):
+            if not isinstance(file_data, dict):
+                continue
+            files_by_id[file_data.get("id")] = file_data
+
+            if not file_data.get("has_video"):
+                continue
+
+            try:
+                width = int(file_data.get("width") or 0)
+                height = int(file_data.get("height") or 0)
+            except (TypeError, ValueError):
+                continue
+
+            if width <= 0 or height <= 0 or max(width, height) > 128:
+                continue
+
+            path = file_data.get("path")
+            if not path or not os.path.exists(path):
+                continue
+
+            reader = openshot.Clip.CreateReader(path, False)
+            if not reader:
+                continue
+
+            try:
+                reader.Open()
+                original_data = json.loads(reader.Json())
+            except Exception:
+                log.warning("Unable to repair capped media dimensions for %s", path, exc_info=1)
+                continue
+            finally:
+                try:
+                    reader.Close()
+                except Exception:
+                    pass
+
+            try:
+                original_width = int(original_data.get("width") or 0)
+                original_height = int(original_data.get("height") or 0)
+            except (TypeError, ValueError):
+                continue
+
+            if max(original_width, original_height) <= max(width, height):
+                continue
+
+            for key in (
+                "width", "height", "display_ratio", "pixel_ratio", "fps",
+                "video_length", "duration", "has_video", "has_audio",
+            ):
+                if key in original_data:
+                    file_data[key] = original_data[key]
+            repaired += 1
+
+        if not repaired:
+            return
+
+        for clip in self._data.get("clips", []):
+            if not isinstance(clip, dict):
+                continue
+            reader_data = clip.get("reader")
+            if not isinstance(reader_data, dict):
+                continue
+            file_data = files_by_id.get(reader_data.get("id"))
+            if file_data:
+                clip["reader"] = copy.deepcopy(file_data)
+
+        log.info("Repaired capped dimensions for %s imported media file(s)", repaired)
+
     def _drop_obsolete_effect_resource(self, effect):
         """Remove legacy resource paths once a reader payload is available."""
         if not isinstance(effect, dict):
@@ -486,6 +560,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
             # Check if paths are all valid
             self.check_if_paths_are_valid()
+            self._repair_capped_media_dimensions()
 
             # Clear old thumbnails
             openshot_thumbnails = info.get_default_path("THUMBNAIL_PATH")
