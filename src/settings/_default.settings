@@ -331,6 +331,23 @@
     ]
   },
   {
+    "title": "Optimized Preview Encoder",
+    "category": "Preview",
+    "setting": "optimize-preview-encoder",
+    "type": "dropdown",
+    "value": "mjpeg",
+    "values": [
+      {
+        "value": "mjpeg",
+        "name": "Fast and robust - MJPEG/PCM"
+      },
+      {
+        "value": "dnxhr_lb",
+        "name": "Compact professional - DNxHR LB"
+      }
+    ]
+  },
+  {
     "max": 12,
     "title": "Thumbnail Preload Rate / second",
     "category": "Preview",

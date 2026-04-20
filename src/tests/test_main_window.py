@@ -428,6 +428,39 @@ class MainWindowTests(unittest.TestCase):
         self.assertEqual(tracker, [False])
         self.assertTrue(fake_window.shutting_down)
 
+    def test_shutdown_cleans_global_hidden_optimized_files(self):
+        calls = []
+        tracker = []
+        fake_window = types.SimpleNamespace(
+            tutorial_manager=None,
+            shutting_down=False,
+            save_settings=lambda: calls.append("settings"),
+            StopSignal=SignalRecorder(),
+            http_server_thread=None,
+            generation_queue=None,
+            generation_service=None,
+            proxy_service=types.SimpleNamespace(
+                uses_global_hidden_proxy_root=lambda: True,
+                delete_internal_project_proxy_files=lambda: calls.append("delete_proxy"),
+                shutdown=lambda: calls.append("proxy_shutdown"),
+            ),
+            preview_thread=None,
+            preview_parent=None,
+            videoPreview=None,
+            timeline_sync=None,
+            destroy_lock_file=lambda: calls.append("destroy_lock"),
+        )
+        self.app.logger_libopenshot = None
+
+        with ExitStack() as stack:
+            stack.enter_context(patch.object(self.main_window_module, "track_metric_session", tracker.append))
+            stack.enter_context(patch.object(self.main_window_module.QCoreApplication, "processEvents", lambda: None))
+            self.main_window_module.MainWindow._shutdown(fake_window)
+
+        self.assertIn("delete_proxy", calls)
+        self.assertIn("proxy_shutdown", calls)
+        self.assertEqual(tracker, [False])
+
     def test_clear_optimized_files_cancel_does_nothing(self):
         proxy_calls = []
         fake_window = types.SimpleNamespace(

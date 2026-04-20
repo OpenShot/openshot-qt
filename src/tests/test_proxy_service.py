@@ -355,7 +355,8 @@ class ProxyServiceTests(unittest.TestCase):
                      "fps": {"num": 30, "den": 1},
                      "pixel_ratio": {"num": 1, "den": 1},
                      "video_length": 3,
-                     "has_audio": False,
+                     "has_audio": True,
+                     "channels": 2,
                  }
              ),
              GetFrame="frame-{}".format,
@@ -389,9 +390,13 @@ class ProxyServiceTests(unittest.TestCase):
              opened=False,
              closed=False,
              frames=[],
-             SetVideoOptions=lambda *args: None,
+             video_options=[],
+             audio_options=[],
+             stream_options=[],
+             SetVideoOptions=lambda *args: writer_obj.video_options.append(args),
              PrepareStreams=lambda: None,
-             SetAudioOptions=lambda *args: None,
+             SetAudioOptions=lambda *args: writer_obj.audio_options.append(args),
+             SetOption=lambda *args: writer_obj.stream_options.append(args),
              Open=lambda: setattr(writer_obj, "opened", True),
              Close=lambda: setattr(writer_obj, "closed", True),
              WriteFrame=lambda frame: writer_obj.frames.append(frame),
@@ -412,7 +417,7 @@ class ProxyServiceTests(unittest.TestCase):
               patch("classes.proxy_service.openshot.Fraction", side_effect=lambda num, den: (num, den)), \
               patch("classes.proxy_service.GenerateThumbnailFromFrame", side_effect=lambda frame, path, width, height, mask, overlay, rotate=0.0: thumbnail_calls.append((frame, path, width, height, rotate))), \
               patch.object(self.service, "_proxy_root", return_value="/project/optimized"), \
-              patch.object(self.service, "_reader_json_for_path", return_value={"id": "F1", "path": "/project/optimized/source_proxy.mp4"}):
+              patch.object(self.service, "_reader_json_for_path", return_value={"id": "F1", "path": "/project/optimized/source_proxy.mov"}):
              result = self.service._build_proxy_reader("F1", {"path": "/media/source.mp4", "media_type": "video"})
 
          self.assertTrue(clip_obj.opened)
@@ -424,13 +429,17 @@ class ProxyServiceTests(unittest.TestCase):
          self.assertEqual(created_timelines[0].preview_height, 720)
          self.assertEqual(clip_obj.parent_timeline_calls[0], created_timelines[0])
          self.assertIsNone(clip_obj.parent_timeline_calls[-1])
+         self.assertEqual(writer_obj.video_options[0][1], "mjpeg")
+         self.assertEqual(writer_obj.audio_options[0][1], "pcm_s16le")
+         self.assertEqual(writer_obj.audio_options[0][2], 48000)
+         self.assertTrue(any(option[1:] == ("qscale", "1") for option in writer_obj.stream_options))
          self.assertEqual(writer_obj.frames, ["frame-1", "frame-2", "frame-3"])
          self.assertEqual([os.path.basename(call[1]) for call in thumbnail_calls], ["1.png", "3.png"])
          self.assertEqual(clip_cache.max_bytes, [self.service.OPTIMIZE_CACHE_MAX_BYTES])
          self.assertEqual(reader_cache.max_bytes, [self.service.OPTIMIZE_CACHE_MAX_BYTES])
          self.assertGreaterEqual(clip_cache.clears, 2)
          self.assertGreaterEqual(reader_cache.clears, 2)
-         self.assertEqual(result["path"], "/project/optimized/source_proxy.mp4")
+         self.assertEqual(result["path"], "/project/optimized/source_proxy.mov")
 
      def test_thumbnail_prewarm_frames_uses_coarse_4fps_grid(self):
          with patch.object(self.service, "_thumbnail_prewarm_rate", return_value=4):
@@ -449,6 +458,7 @@ class ProxyServiceTests(unittest.TestCase):
          self.app.settings.values["optimize-preview-jobs"] = 3
          self.app.settings.values["optimize-preview-max-size"] = "1920x1080"
          self.app.settings.values["optimize-preview-thumbnails"] = 5
+         self.app.settings.values["optimize-preview-encoder"] = "dnxhr_lb"
 
          self.service._jobs.clear()
          self.service._ensure_executor()
@@ -456,6 +466,13 @@ class ProxyServiceTests(unittest.TestCase):
          self.assertEqual(self.service._executor._max_workers, 3)
          self.assertEqual(self.service._max_optimize_bounds(), (1920, 1080))
          self.assertEqual(self.service._thumbnail_prewarm_rate(), 5)
+         self.assertEqual(self.service._proxy_encoder_settings()["video_codec"], "dnxhd")
+
+     def test_proxy_encoder_defaults_to_mjpeg(self):
+         settings = self.service._proxy_encoder_settings()
+
+         self.assertEqual(settings["video_codec"], "mjpeg")
+         self.assertEqual(settings["video_options"]["pix_fmt"], "yuvj420p")
 
      def test_create_for_files_skips_already_optimized_files(self):
          ready_file = types.SimpleNamespace(
@@ -486,13 +503,13 @@ class ProxyServiceTests(unittest.TestCase):
          submitted = []
 
          with patch.object(self.service, "has_missing_proxy", return_value=False), \
-              patch.object(self.service, "_existing_proxy_output_path", return_value="/project/optimized/source_proxy.mp4"), \
-              patch.object(self.service, "_reader_json_for_path", return_value={"id": "F1", "path": "/project/optimized/source_proxy.mp4"}), \
+              patch.object(self.service, "_existing_proxy_output_path", return_value="/project/optimized/source_proxy.mov"), \
+              patch.object(self.service, "_reader_json_for_path", return_value={"id": "F1", "path": "/project/optimized/source_proxy.mov"}), \
               patch.object(self.service, "_save_proxy_reader", return_value=None) as save_proxy_reader, \
               patch.object(self.service._executor, "submit", side_effect=lambda *args: submitted.append(args)):
              self.service.create_for_files([file_obj])
 
-         save_proxy_reader.assert_called_once_with("F1", {"id": "F1", "path": "/project/optimized/source_proxy.mp4"})
+         save_proxy_reader.assert_called_once_with("F1", {"id": "F1", "path": "/project/optimized/source_proxy.mov"})
          self.assertEqual(submitted, [])
          self.assertEqual(self.win.status_messages[-1][0], "Optimize Preview: linked 1 item(s)")
 
@@ -504,18 +521,25 @@ class ProxyServiceTests(unittest.TestCase):
          submitted = []
 
          with patch.object(self.service, "has_missing_proxy", return_value=False), \
-              patch.object(self.service, "_existing_proxy_output_path", return_value="/project/optimized/source_proxy.mp4"), \
+              patch.object(self.service, "_existing_proxy_output_path", return_value="/project/optimized/source_proxy.mov"), \
               patch.object(self.service, "_reader_json_for_path", side_effect=RuntimeError("invalid proxy")), \
               patch("classes.proxy_service.os.remove") as remove_file, \
-              patch.object(self.service, "_reserve_proxy_output_path", return_value="/project/optimized/source_proxy.mp4"), \
+              patch.object(self.service, "_reserve_proxy_output_path", return_value="/project/optimized/source_proxy.mov"), \
               patch.object(self.service._executor, "submit", side_effect=lambda *args: submitted.append(args) or Mock(add_done_callback=lambda callback: None)):
              self.service.create_for_files([file_obj])
 
-         remove_file.assert_called_once_with("/project/optimized/source_proxy.mp4")
+         remove_file.assert_called_once_with("/project/optimized/source_proxy.mov")
          self.assertEqual(len(submitted), 1)
          self.assertEqual(submitted[0][1], "F1")
 
      def test_existing_proxy_output_path_reuses_default_name_when_file_exists(self):
+         with patch.object(self.service, "_proxy_root", return_value="/project/optimized"), \
+              patch("classes.proxy_service.os.path.exists", side_effect=lambda path: path == "/project/optimized/clip001_proxy.mov"):
+             existing_path = self.service._existing_proxy_output_path("F2", {"path": "/media/clip001.mov"})
+
+         self.assertEqual(existing_path, "/project/optimized/clip001_proxy.mov")
+
+     def test_existing_proxy_output_path_reuses_legacy_mp4_proxy_when_present(self):
          with patch.object(self.service, "_proxy_root", return_value="/project/optimized"), \
               patch("classes.proxy_service.os.path.exists", side_effect=lambda path: path == "/project/optimized/clip001_proxy.mp4"):
              existing_path = self.service._existing_proxy_output_path("F2", {"path": "/media/clip001.mov"})
@@ -565,7 +589,7 @@ class ProxyServiceTests(unittest.TestCase):
          self.assertEqual(saved[0], ("F1", {"id": "F1", "path": "/optimized/F1.mp4"}))
          self.assertEqual(saved[1][0], "F2")
          self.assertTrue(saved[1][1]["missing"])
-         self.assertEqual(saved[1][1]["path"], "/optimized/source-b_proxy.mp4")
+         self.assertEqual(saved[1][1]["path"], "/optimized/source-b_proxy.mov")
 
      def test_use_existing_for_files_skips_invalid_matches_without_crashing(self):
          file_one = types.SimpleNamespace(id="F1", data={"id": "F1", "path": "/media/source-a.mp4"})
@@ -667,17 +691,17 @@ class ProxyServiceTests(unittest.TestCase):
              existing_names={"other_proxy.mp4"},
          )
 
-         self.assertEqual(filename, "clip001_proxy.mp4")
+         self.assertEqual(filename, "clip001_proxy.mov")
 
      def test_preferred_proxy_filename_appends_file_id_on_collision(self):
          filename = self.service._preferred_proxy_filename(
              "F1",
              {"path": "/media/clip001.mov"},
              "/project/optimized",
-             existing_names={"clip001_proxy.mp4"},
+             existing_names={"clip001_proxy.mov"},
          )
 
-         self.assertEqual(filename, "clip001_proxy_F1.mp4")
+         self.assertEqual(filename, "clip001_proxy_F1.mov")
 
      def test_reserve_proxy_output_path_avoids_collisions_with_already_reserved_jobs(self):
          self.service._jobs["F1"] = {
@@ -685,7 +709,7 @@ class ProxyServiceTests(unittest.TestCase):
              "status": "queued",
              "progress": 0,
              "cancel_requested": False,
-             "output_path": "/project/optimized/clip001_proxy.mp4",
+             "output_path": "/project/optimized/clip001_proxy.mov",
          }
 
          with patch.object(self.service, "_proxy_root", return_value="/project/optimized"), \
@@ -693,7 +717,7 @@ class ProxyServiceTests(unittest.TestCase):
               patch("classes.proxy_service.os.makedirs"):
              output_path = self.service._reserve_proxy_output_path("F2", {"path": "/media/clip001.mov"})
 
-         self.assertEqual(output_path, "/project/optimized/clip001_proxy_F2.mp4")
+         self.assertEqual(output_path, "/project/optimized/clip001_proxy_F2.mov")
 
      def test_index_existing_optimized_files_limits_matches_to_common_video_extensions(self):
          def fake_walk(_):
