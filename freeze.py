@@ -300,10 +300,30 @@ elif sys.platform == "linux":
     for filename in find_files(os.path.join(qt5_path, "translations", "qtwebengine_locales"), ["*"]):
         external_so_files.append((filename, os.path.relpath(filename, start=qt5_path)))
 
-    # Add Qt xcbglintegrations plugin
-    xcbgl_path = ARCHLIB + "qt5/"
-    for filename in find_files(os.path.join(xcbgl_path, "plugins", "xcbglintegrations"), ["*"]):
-        external_so_files.append((filename, os.path.relpath(filename, start=xcbgl_path)))
+    qt5_plugin_root = os.path.join(ARCHLIB, "qt5")
+
+    # Add Qt platform integration plugins required at runtime.
+    #
+    # Wayland sessions on GNOME/Ubuntu can request the `wayland` platform plugin
+    # before falling back to xcb. If QtWayland is not bundled in the AppImage,
+    # startup aborts with "Could not find the Qt platform plugin \"wayland\"".
+    qt_platform_dir = os.path.join(qt5_plugin_root, "plugins", "platforms")
+    for filename in find_files(qt_platform_dir, ["libqwayland*.so"]):
+        external_so_files.append((filename, os.path.relpath(filename, start=qt5_plugin_root)))
+
+    qt_plugin_dirs = [
+        "xcbglintegrations",
+        "wayland-decoration-client",
+        "wayland-graphics-integration-client",
+        "wayland-shell-integration",
+    ]
+    for plugin_dir in qt_plugin_dirs:
+        plugin_dir_path = os.path.join(qt5_plugin_root, "plugins", plugin_dir)
+        if not os.path.exists(plugin_dir_path):
+            log.warning("Missing optional Qt plugin directory: %s", plugin_dir_path)
+            continue
+        for filename in find_files(plugin_dir_path, ["*"]):
+            external_so_files.append((filename, os.path.relpath(filename, start=qt5_plugin_root)))
 
     # Add libsoftokn3
     nss_path = ARCHLIB + "nss/"
@@ -357,13 +377,17 @@ elif sys.platform == "linux":
         lib_list.append(inspect.getfile(_ssl))
     except Exception as ex:
         log.warning("Skipping _ssl module: %s", ex)
-    for lib_name in [
-            os.path.join(libopenshot_path, "libopenshot.so"),
-            "/usr/local/lib/libresvg.so",
-            ARCHLIB + "qt5/plugins/platforms/libqxcb.so"
-            ]:
+    qt_runtime_libs = [
+        os.path.join(libopenshot_path, "libopenshot.so"),
+        "/usr/local/lib/libresvg.so",
+        os.path.join(qt5_plugin_root, "plugins", "platforms", "libqxcb.so"),
+    ]
+    qt_runtime_libs.extend(find_files(qt_platform_dir, ["libqwayland*.so"]))
+    for lib_name in qt_runtime_libs:
         if os.path.exists(lib_name):
             lib_list.append(lib_name)
+        else:
+            log.warning("Missing optional Qt runtime library: %s", lib_name)
 
     system_libs_to_skip = {
         "libdl.so.2",
@@ -391,6 +415,11 @@ elif sys.platform == "linux":
     appimage_driver_libs = {
         "libGLdispatch.so.0",
         "libGLX.so.0",
+        "libEGL.so.1",
+        "libwayland-client.so.0",
+        "libwayland-cursor.so.0",
+        "libwayland-egl.so.1",
+        "libxkbcommon.so.0",
         "libva-drm.so.2",
         "libva-x11.so.2",
         "libva.so.2",
