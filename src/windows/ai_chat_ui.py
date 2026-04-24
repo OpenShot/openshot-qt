@@ -1,6 +1,7 @@
 import html
 import json
 import os
+import re
 import threading
 import time
 
@@ -106,6 +107,25 @@ def _plain_to_html(text: str) -> str:
     return "<p>" + html.escape(text).replace("\n", "<br/>") + "</p>"
 
 
+# Wrapper blocks that we prepend to the user's prompt before sending to the LLM
+# (editor snapshot, attached clip context, transition clips context). The backend
+# stores the augmented prompt verbatim, so we must strip them when rendering
+# restored history into the chat — otherwise they leak into the user's bubble.
+_CONTEXT_BLOCK_RE = re.compile(
+    r"\[(Editor snapshot|Selected timeline clip context|Transition clips context)\]"
+    r".*?"
+    r"\[/\1\]\s*",
+    re.DOTALL,
+)
+
+
+def _strip_context_blocks(text: str) -> str:
+    """Remove any [Editor snapshot] / [...clip context] wrapper blocks from text."""
+    if not text:
+        return text
+    return _CONTEXT_BLOCK_RE.sub("", text).lstrip()
+
+
 def _summarize_prompt(prompt: str, max_words: int = 6) -> str:
     """Ask the backend to summarize the user prompt in a few words. Returns empty on failure."""
     try:
@@ -167,6 +187,7 @@ class AIChatWorker(QObject):
 
     response_ready = pyqtSignal(str)
     error_occurred = pyqtSignal(str)
+    token_received = pyqtSignal(str)
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -211,6 +232,10 @@ class AIChatWorker(QObject):
                 nonlocal final_error
                 final_error = error_message
 
+            def on_token(text):
+                if text and not self._stopping:
+                    self.token_received.emit(text)
+
             result = client.send_message_ws(
                 message=text,
                 model_id=model_id or None,
@@ -218,6 +243,7 @@ class AIChatWorker(QObject):
                 on_tool_call=on_tool_call,
                 on_response=on_response,
                 on_error=on_error,
+                on_token=on_token,
             )
 
             if final_error:
@@ -426,6 +452,7 @@ class AIChatWindow(QDockWidget):
         worker.moveToThread(thread)
         worker.response_ready.connect(self._on_response_ready)
         worker.error_occurred.connect(self._on_error)
+        worker.token_received.connect(self._on_token)
         thread.start()
         return worker, thread
 
@@ -651,7 +678,8 @@ class AIChatWindow(QDockWidget):
                         html_body = _markdown_to_html(content)
                         restored_items.append({"role": role, "html_body": html_body, "is_assistant": True})
                     else:
-                        safe = html.escape(content).replace("\n", "<br/>")
+                        visible = _strip_context_blocks(content) if role == "user" else content
+                        safe = html.escape(visible).replace("\n", "<br/>")
                         html_body = "<p>" + safe + "</p>"
                         restored_items.append({"role": role, "html_body": html_body, "is_assistant": False})
 
@@ -1363,6 +1391,20 @@ class AIChatWindow(QDockWidget):
         self._set_processing_ui(False)
 
     @pyqtSlot(str)
+    def _on_token(self, text: str):
+        """Forward a streamed LLM token chunk to the active chat view."""
+        if not text:
+            return
+        sid = getattr(self.sender(), "_session_id", self._active_sid)
+        # Only stream into the visible session; background tabs get the
+        # full assistant_response when their turn finishes.
+        if sid != self._active_sid:
+            return
+        if self._use_web_ui:
+            self._run_js("if(window.appendOrUpdateStreamingMessage) window.appendOrUpdateStreamingMessage(%s);"
+                         % json.dumps(text))
+
+    @pyqtSlot(str)
     def _on_response_ready(self, text: str):
         sid = getattr(self.sender(), "_session_id", self._active_sid)
         if sid in self._sessions:
@@ -1375,6 +1417,10 @@ class AIChatWindow(QDockWidget):
                 if not self._use_web_ui:
                     self._sessions[sid]["unread"] = True
         if sid == self._active_sid:
+            # If we streamed tokens, replace the streaming bubble with the
+            # finalised markdown-rendered message instead of appending a new one.
+            if self._use_web_ui:
+                self._run_js("if(window.finalizeStreamingMessage) window.finalizeStreamingMessage();")
             self._add_assistant_msg(text)
             self._set_processing_ui(False)
         else:

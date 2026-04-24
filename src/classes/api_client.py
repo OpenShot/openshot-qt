@@ -209,6 +209,7 @@ class ZenviBackendClient:
         on_tool_call: Optional[Callable] = None,
         on_response: Optional[Callable] = None,
         on_error: Optional[Callable] = None,
+        on_token: Optional[Callable] = None,
     ) -> Optional[str]:
         """
         Send a chat message via WebSocket with tool delegation support.
@@ -216,6 +217,7 @@ class ZenviBackendClient:
         on_tool_call(tool_name, tool_args, call_id) -> str: Execute tool locally, return result.
         on_response(response_text, session_id): Called with the final response.
         on_error(error_message): Called on error.
+        on_token(text): Called for each streamed token chunk as the LLM generates it.
         """
         try:
             import websocket
@@ -350,6 +352,13 @@ class ZenviBackendClient:
                                     on_error(f"WebSocket closed after tool completed: {_ws_err}")
                                 return str(result)
                             raise  # re-raise if the tool itself failed
+
+                elif msg_type == "token":
+                    if on_token:
+                        try:
+                            on_token(data.get("text", ""))
+                        except Exception as _te:
+                            log.debug("on_token handler error: %s", _te)
 
                 elif msg_type == "assistant_response":
                     final_response = data.get("response", "")
