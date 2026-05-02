@@ -3384,9 +3384,30 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Load Recent Projects
         self.load_recent_menu()
 
+
+        self.load_available_themes()
+
         # The method restoreState restores the visibility of the toolBar,
         # but does not set the correct flag in the actionView_Toolbar.
         self.actionView_Toolbar.setChecked(self.toolBar.isVisibleTo(self))
+
+    def load_available_themes(self):
+        """Load available themes in the menu"""
+        s = get_app().get_settings()
+        _ = get_app()._tr  # Get translation function
+
+        # Get list of available themes
+        available_themes = ThemeName.get_sorted_theme_names()
+
+        if not available_themes:
+            self.menuThemes.addAction(_("No Available Themes")).setDisabled(True)
+            return
+
+        for theme_name in reversed(available_themes):
+            # Add each theme as an action
+            new_action = self.menuThemes.addAction(theme_name)
+            new_action.triggered.connect(functools.partial(self.apply_theme_clicked, theme_name))
+
 
     def load_recent_menu(self):
         """ Clear and load the list of recent menu items """
@@ -3585,6 +3606,14 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     def recent_project_clicked(self, file_path):
         """ Load a recent project when clicked """
         self.OpenProjectSignal.emit(file_path)
+
+
+    def apply_theme_clicked(self, theme_name):
+        """ Change theme when clicked """
+        s = get_app().get_settings()
+        theme = get_app().theme_manager.apply_theme(theme_name)
+        s.set("theme", theme.name)
+        self.ThemeChangedSignal.emit(theme_name)
 
     def clear_recents_clicked(self):
         """Clear all recent projects"""
