@@ -349,6 +349,18 @@
 
     window.appendMessage = function (role, bodyHtml, isAssistant) {
         removePlaceholder();
+        // If a streaming bubble for this turn exists and the caller is now
+        // delivering the finalised assistant message, replace its body with
+        // the proper markdown HTML instead of appending a duplicate.
+        if (isAssistant && streamingMessageEl) {
+            var body = streamingMessageEl.querySelector('.chat-message-body');
+            if (body) body.innerHTML = bodyHtml;
+            streamingMessageEl.classList.remove('chat-message-streaming');
+            streamingMessageEl = null;
+            streamingBuffer = '';
+            messagesEl.scrollTop = messagesEl.scrollHeight;
+            return;
+        }
         const div = document.createElement('div');
         var cls = 'chat-message chat-message-enter ';
         if (role === 'user') cls += 'chat-message-user ';
@@ -361,6 +373,49 @@
         }
         messagesEl.appendChild(div);
         messagesEl.scrollTop = messagesEl.scrollHeight;
+    };
+
+    // ── Streaming-token rendering ──────────────────────────────────────────
+    // Tokens arrive incrementally from the backend WebSocket; we paint them
+    // into a single in-progress assistant bubble that's later replaced with
+    // the finalised markdown-rendered HTML when the full response arrives.
+    var streamingMessageEl = null;
+    var streamingBuffer = '';
+
+    function escapeHtmlForStream(s) {
+        return s.replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+    }
+
+    window.appendOrUpdateStreamingMessage = function (text) {
+        if (!text) return;
+        removePlaceholder();
+        if (!streamingMessageEl) {
+            streamingMessageEl = document.createElement('div');
+            streamingMessageEl.className = 'chat-message chat-message-enter chat-message-streaming';
+            streamingMessageEl.innerHTML = '<div class="chat-message-body"><p></p></div>';
+            messagesEl.appendChild(streamingMessageEl);
+            streamingBuffer = '';
+        }
+        streamingBuffer += text;
+        var body = streamingMessageEl.querySelector('.chat-message-body');
+        if (body) {
+            // Render line breaks; keep it cheap — full markdown comes with the
+            // finalised message via appendMessage() once the turn completes.
+            body.innerHTML = '<p>' + escapeHtmlForStream(streamingBuffer).replace(/\n/g, '<br/>') + '</p>';
+        }
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+    };
+
+    window.finalizeStreamingMessage = function () {
+        // Called right before appendMessage delivers the markdown-rendered
+        // version of the same content.  appendMessage handles the swap, so
+        // we just ensure no stale buffer lingers if appendMessage isn't
+        // called (e.g. error path).
+        if (streamingMessageEl) {
+            streamingMessageEl.classList.remove('chat-message-streaming');
+        }
     };
 
     /* ── Activity log helpers (tool step display during processing) ── */
@@ -423,10 +478,13 @@
         sendBtn.disabled = processing;
         cancelBtn.style.display = processing ? 'flex' : 'none';
         if (processing) {
+            // Guard against duplicate calls (JS sendMessage + Python _set_processing_ui
+            // both fire setProcessing(true) for the same turn). Without this we'd append
+            // a second activity container and end up with two "Reasoning" rows.
+            if (activityContainer) return;
             processingStartTime = Date.now();
             if (glowWrap) glowWrap.classList.add('glow-active');
             removePlaceholder();
-            // Create activity log for this request
             activityContainer = document.createElement('div');
             activityContainer.className = 'chat-activity-log';
             activityContainer.setAttribute('aria-live', 'polite');
@@ -745,7 +803,9 @@
             pickMode = null;
             hidePendingPickHint();
             renderTags();
-            window.setProcessing(true);
+            // Note: Python's _handle_web_send_message will fire setProcessing(true)
+            // *after* the user message is appended, so the "Reasoning" row lines up
+            // beneath the user bubble instead of above it.
         });
     }
 
