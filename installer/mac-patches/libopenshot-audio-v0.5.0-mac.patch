@@ -1,0 +1,12 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index f5eba26..331cf7f 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -243,7 +243,6 @@ if(APPLE)
+     "-framework CoreAudio"
+     "-framework CoreMidi"
+     "-framework IOKit"
+-    "-framework AGL"
+     "-framework AudioToolbox"
+     "-framework QuartzCore"
+     "-framework Accelerate"

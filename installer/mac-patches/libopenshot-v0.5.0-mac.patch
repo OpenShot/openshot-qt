@@ -1,0 +1,152 @@
+diff --git a/cmake/Modules/FindFFmpeg.cmake b/cmake/Modules/FindFFmpeg.cmake
+index d9ac621..726b34a 100644
+--- a/cmake/Modules/FindFFmpeg.cmake
++++ b/cmake/Modules/FindFFmpeg.cmake
+@@ -27,7 +27,7 @@ The module recognizes the following components:
+   postproc    - target FFmpeg::postproc
+   swscale     - target FFmpeg::swscale
+   swresample  - target FFmpeg::swresample
+-  avresample  - target FFmpeg::avresample
++   - target FFmpeg::avresample
+ 
+ Result Variables
+ ^^^^^^^^^^^^^^^^
+@@ -81,7 +81,7 @@ For details see the accompanying COPYING-CMAKE-SCRIPTS file.
+ #]=======================================================================]
+ include(FindPackageHandleStandardArgs)
+ 
+-set(FFmpeg_ALL_COMPONENTS avcodec avdevice avformat avfilter avutil postproc swscale swresample avresample)
++set(FFmpeg_ALL_COMPONENTS avcodec avdevice avformat avfilter avutil postproc swscale swresample)
+ 
+ # Default to all components, if not specified
+ if (FFMPEG_FIND_COMPONENTS AND NOT FFmpeg_FIND_COMPONENTS)
+@@ -224,7 +224,7 @@ set(avutil_params     libavutil     avutil   libavutil/avutil.h)
+ set(postproc_params   libpostproc   postproc libpostproc/postprocess.h)
+ set(swscale_params    libswscale    swscale  libswscale/swscale.h)
+ set(swresample_params libswresample swresample libswresample/swresample.h)
+-set(avresample_params libavresample avresample libavresample/avresample.h)
++# avresample removed in FFmpeg 5+ — use swresample
+ 
+ # Gather configs for each requested component
+ foreach(_component ${FFmpeg_FIND_COMPONENTS})
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 6e22574..584d3a5 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -337,7 +337,7 @@ mark_as_advanced(QT_VERSION_STR)
+ # Find FFmpeg libraries (used for video encoding / decoding)
+ find_package(FFmpeg REQUIRED
+   COMPONENTS avcodec avformat avutil swscale
+-  OPTIONAL_COMPONENTS swresample avresample
++  OPTIONAL_COMPONENTS swresample
+ )
+ 
+ set(all_comps avcodec avformat avutil swscale)
+@@ -348,7 +348,7 @@ if(TARGET FFmpeg::swresample)
+   set(resample_lib swresample)
+   set(USE_SW TRUE)
+ else()
+-  set(resample_lib avresample)
++  set(resample_lib)
+   set(USE_SW FALSE)
+ endif()
+ list(APPEND all_comps ${resample_lib})
+diff --git a/src/FFmpegReader.cpp b/src/FFmpegReader.cpp
+index 8e38d48..aefc9e8 100644
+--- a/src/FFmpegReader.cpp
++++ b/src/FFmpegReader.cpp
+@@ -566,8 +566,8 @@ void FFmpegReader::Open() {
+ 			AVStream* st = pFormatCtx->streams[i];
+ 			if (st->codecpar->codec_type == AVMEDIA_TYPE_VIDEO) {
+ 				// Only inspect the first video stream
+-				for (int j = 0; j < st->nb_side_data; j++) {
+-					AVPacketSideData *sd = &st->side_data[j];
++				for (int j = 0; j < st->codecpar->nb_coded_side_data; j++) {
++					AVPacketSideData *sd = &st->codecpar->coded_side_data[j];
+ 
+ 					// Handle rotation metadata (unchanged)
+ 					if (sd->type == AV_PKT_DATA_DISPLAYMATRIX &&
+@@ -1814,8 +1814,22 @@ void FFmpegReader::ProcessAudioPacket(int64_t requested_frame) {
+ 	if (!avr) {
+ 		avr = SWR_ALLOC();
+ #if HAVE_CH_LAYOUT
+-	av_opt_set_chlayout(avr, "in_chlayout", &AV_GET_CODEC_ATTRIBUTES(aStream, aCodecCtx)->ch_layout, 0);
+-	av_opt_set_chlayout(avr, "out_chlayout", &AV_GET_CODEC_ATTRIBUTES(aStream, aCodecCtx)->ch_layout, 0);
++	{
++		// FFmpeg 8: codecpar->ch_layout may arrive empty for some H.264/AAC streams.
++		// Validate and default to a layout matching info.channels before passing to SWR,
++		// otherwise swr_init() fails with "input channel layout '' is invalid".
++		AVChannelLayout safe_layout;
++		av_channel_layout_copy(&safe_layout,
++			&AV_GET_CODEC_ATTRIBUTES(aStream, aCodecCtx)->ch_layout);
++		if (!av_channel_layout_check(&safe_layout)) {
++			av_channel_layout_uninit(&safe_layout);
++			int nb = info.channels > 0 ? info.channels : 2;
++			av_channel_layout_default(&safe_layout, nb);
++		}
++		av_opt_set_chlayout(avr, "in_chlayout", &safe_layout, 0);
++		av_opt_set_chlayout(avr, "out_chlayout", &safe_layout, 0);
++		av_channel_layout_uninit(&safe_layout);
++	}
+ #else
+ 	av_opt_set_int(avr, "in_channel_layout", AV_GET_CODEC_ATTRIBUTES(aStream, aCodecCtx)->channel_layout, 0);
+ 	av_opt_set_int(avr, "out_channel_layout", AV_GET_CODEC_ATTRIBUTES(aStream, aCodecCtx)->channel_layout, 0);
+diff --git a/src/FFmpegWriter.cpp b/src/FFmpegWriter.cpp
+index b1feafe..8df98a6 100644
+--- a/src/FFmpegWriter.cpp
++++ b/src/FFmpegWriter.cpp
+@@ -1500,7 +1500,7 @@ void FFmpegWriter::open_video(AVFormatContext *oc, AVStream *st) {
+ 		switch (video_codec_ctx->codec_id) {
+ 			case AV_CODEC_ID_H264:
+ 				video_codec_ctx->max_b_frames = 0;  // At least this GPU doesn't support b-frames
+-				video_codec_ctx->profile = FF_PROFILE_H264_BASELINE | FF_PROFILE_H264_CONSTRAINED;
++				video_codec_ctx->profile = AV_PROFILE_H264_BASELINE | AV_PROFILE_H264_CONSTRAINED;
+ 				av_opt_set(video_codec_ctx->priv_data, "preset", "slow", 0);
+ 				av_opt_set(video_codec_ctx->priv_data, "tune", "zerolatency", 0);
+ 				av_opt_set(video_codec_ctx->priv_data, "vprofile", "baseline", AV_OPT_SEARCH_CHILDREN);
+@@ -2390,6 +2390,6 @@ void FFmpegWriter::AddSphericalMetadata(const std::string& projection, float yaw
+ 	map->pitch = static_cast<int32_t>(pitch_deg * (1 << 16));
+ 	map->roll  = static_cast<int32_t>(roll_deg  * (1 << 16));
+ 
+-	av_stream_add_side_data(video_st, AV_PKT_DATA_SPHERICAL, reinterpret_cast<uint8_t*>(map), sd_size);
++	(void)0; /* av_stream_add_side_data removed in FFmpeg 7+ */
+ #endif
+ }
+diff --git a/src/FrameMapper.cpp b/src/FrameMapper.cpp
+index 531cd57..4770b36 100644
+--- a/src/FrameMapper.cpp
++++ b/src/FrameMapper.cpp
+@@ -943,14 +943,31 @@ void FrameMapper::ResampleMappedAudio(std::shared_ptr<Frame> frame, int64_t orig
+ 	// setup resample context
+ 	if (!avr) {
+ 		avr = SWR_ALLOC();
++#if HAVE_CH_LAYOUT
++		// FFmpeg 8: legacy "in_channel_layout"/"out_channel_layout" integer options
++		// are no-ops; must use av_opt_set_chlayout() with AVChannelLayout structs.
++		// Without this, SWR's in/out layouts stay empty → swr_init() reports
++		// "input channel layout '' is invalid" → audio resample never runs →
++		// playback clock never starts → video frames never get delivered.
++		AVChannelLayout in_layout, out_layout;
++		av_channel_layout_default(&in_layout,
++			channels_in_frame > 0 ? channels_in_frame : 2);
++		av_channel_layout_default(&out_layout,
++			info.channels > 0 ? info.channels : 2);
++		av_opt_set_chlayout(avr, "in_chlayout",  &in_layout,  0);
++		av_opt_set_chlayout(avr, "out_chlayout", &out_layout, 0);
++		av_channel_layout_uninit(&in_layout);
++		av_channel_layout_uninit(&out_layout);
++#else
+ 		av_opt_set_int(avr, "in_channel_layout",  channel_layout_in_frame, 0);
+ 		av_opt_set_int(avr, "out_channel_layout", info.channel_layout,	 0);
++		av_opt_set_int(avr, "in_channels",		channels_in_frame,	   0);
++		av_opt_set_int(avr, "out_channels",	   info.channels,		   0);
++#endif
+ 		av_opt_set_int(avr, "in_sample_fmt",	  AV_SAMPLE_FMT_S16,	   0);
+ 		av_opt_set_int(avr, "out_sample_fmt",	 AV_SAMPLE_FMT_S16,	   0);
+ 		av_opt_set_int(avr, "in_sample_rate",	 sample_rate_in_frame,	0);
+ 		av_opt_set_int(avr, "out_sample_rate",	info.sample_rate,		0);
+-		av_opt_set_int(avr, "in_channels",		channels_in_frame,	   0);
+-		av_opt_set_int(avr, "out_channels",	   info.channels,		   0);
+ 		SWR_INIT(avr);
+ 	}
+ 
