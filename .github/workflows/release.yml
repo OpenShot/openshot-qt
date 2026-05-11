@@ -251,7 +251,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: /tmp/libopenshot-install
-          key: libopenshot-v0.5.0-audio-v0.5.0-arm64-macos14-py311-v2
+          key: libopenshot-v0.5.0-audio-v0.5.0-arm64-macos14-py311-v3-swr-chlayout
 
       - name: Build libopenshot from source (arm64 only)
         if: matrix.arch == 'arm64' && steps.cache-libopenshot.outputs.cache-hit != 'true'
@@ -271,6 +271,13 @@ jobs:
           # Build libopenshot-audio v0.5.0 (JUCE 7 — has arm64 fix, satisfies >=0.4.0)
           git clone --depth=1 --branch v0.5.0 \
             https://github.com/OpenShot/libopenshot-audio.git /tmp/libopenshot-audio
+
+          # Apply zenvi-core Mac patches (removes -framework AGL — Apple removed
+          # AGL in macOS 10.14; modern SDKs may not provide it at all).
+          # Single source of truth with local build (scripts/build-mac-libopenshot.sh).
+          git -C /tmp/libopenshot-audio apply --whitespace=nowarn \
+            "$GITHUB_WORKSPACE/installer/mac-patches/libopenshot-audio-v0.5.0-mac.patch"
+
           cmake -S /tmp/libopenshot-audio -B /tmp/libopenshot-audio/build \
             -DCMAKE_INSTALL_PREFIX="$INSTALL_PREFIX" \
             -DCMAKE_BUILD_TYPE=Release
@@ -281,32 +288,35 @@ jobs:
           git clone --depth=1 --branch v0.5.0 \
             https://github.com/OpenShot/libopenshot.git /tmp/libopenshot
 
-          # Patch cmake files:
-          # 1. Remove avresample (dropped in FFmpeg 5+)
-          find /tmp/libopenshot -name "CMakeLists.txt" -o -name "*.cmake" | \
-            xargs grep -l "avresample" 2>/dev/null | \
-            xargs sed -i '' 's/ avresample//g'
-          # 2. Completely disable OpenMP in cmake (prevents NOTFOUND linker errors).
-          #    A stub omp.h (step 3) satisfies the #include <omp.h> in source files.
+          # ── 1. Apply zenvi-core Mac source patches ────────────────────────
+          # Single source of truth with local build script. Covers:
+          #   - avresample removed from cmake (dropped in FFmpeg 5+)
+          #   - FF_PROFILE_*  → AV_PROFILE_*  (renamed in FFmpeg 8)
+          #   - av_stream_add_side_data → no-op (removed in FFmpeg 7+)
+          #   - AVStream::nb_side_data → codecpar->nb_coded_side_data (moved in FFmpeg 7+)
+          #   - SWR channel layout: av_opt_set_chlayout in FrameMapper + FFmpegReader.
+          #     THIS is the critical fix that unblocks audio playback on FFmpeg 8
+          #     (without it: swr_init fails → playback clock never starts →
+          #     video preview stays black even though file decodes successfully).
+          # See installer/mac-patches/README.md for per-patch detail.
+          git -C /tmp/libopenshot apply --whitespace=nowarn \
+            "$GITHUB_WORKSPACE/installer/mac-patches/libopenshot-v0.5.0-mac.patch"
+
+          # ── 2. Disable OpenMP in cmake (CI-environment workaround) ────────
+          # Real libomp isn't installed on the GitHub runner; the stub omp.h
+          # (step 3) satisfies the #include <omp.h> in libopenshot source files.
+          # Not patched into the source tree because real-OpenMP local builds
+          # don't want this — it's a CI-only concession.
           find /tmp/libopenshot -name "CMakeLists.txt" | \
             xargs grep -l "find_package.*OpenMP" 2>/dev/null | \
             xargs sed -i '' \
               's/find_package(OpenMP[^)]*)/set(OpenMP_FOUND FALSE) # disabled for macOS CI/g'
 
-          # 3. Write a stub omp.h with all omp_* functions as inline stubs.
-          #    OpenMPUtilities.h includes omp.h and defines macros using omp_get_num_procs;
-          #    the stub satisfies those references without needing the real OpenMP runtime.
+          # ── 3. Stub omp.h providing inline-noop omp_* functions ───────────
+          # OpenMPUtilities.h includes omp.h and references omp_get_num_procs;
+          # this stub satisfies those at compile time without OpenMP runtime.
           mkdir -p /tmp/omp-stub
           printf '#ifndef _OMP_H_STUB\n#define _OMP_H_STUB\ntypedef int omp_lock_t;\nstatic inline int omp_get_num_procs(void){return 4;}\nstatic inline int omp_get_num_threads(void){return 1;}\nstatic inline int omp_get_thread_num(void){return 0;}\nstatic inline int omp_get_max_threads(void){return 1;}\nstatic inline void omp_set_num_threads(int n){(void)n;}\nstatic inline int omp_in_parallel(void){return 0;}\nstatic inline double omp_get_wtime(void){return 0.0;}\nstatic inline void omp_init_lock(int*l){(void)l;}\nstatic inline void omp_destroy_lock(int*l){(void)l;}\nstatic inline void omp_set_lock(int*l){(void)l;}\nstatic inline void omp_unset_lock(int*l){(void)l;}\nstatic inline int omp_test_lock(int*l){(void)l;return 1;}\n#endif\n' > /tmp/omp-stub/omp.h
-
-          # 4. FFmpeg 7/8 compat patches in all libopenshot .cpp source files:
-          #    a. FF_PROFILE_* macros removed in FFmpeg 8 — replace with AV_PROFILE_*
-          python3 -c 'import glob; [open(f,"w").write(t.replace("FF_PROFILE_H264_BASELINE","AV_PROFILE_H264_BASELINE").replace("FF_PROFILE_H264_CONSTRAINED","AV_PROFILE_H264_CONSTRAINED").replace("FF_PROFILE_H264_MAIN","AV_PROFILE_H264_MAIN").replace("FF_PROFILE_H264_HIGH","AV_PROFILE_H264_HIGH")) for f in glob.glob("/tmp/libopenshot/**/*.cpp",recursive=True) if "FF_PROFILE_" in (t:=open(f).read())]'
-          #    b. av_stream_add_side_data removed in FFmpeg 7+ — replace with no-op
-          python3 -c 'import re,glob; [open(f,"w").write(re.sub(r"av_stream_add_side_data\([^;]*\);","(void)0; /* removed FFmpeg7+ */",t)) for f in glob.glob("/tmp/libopenshot/**/*.cpp",recursive=True) if "av_stream_add_side_data" in (t:=open(f).read())]'
-          #    c. AVStream::nb_side_data and AVStream::side_data removed in FFmpeg 7+
-          #       (moved to AVStream::codecpar->nb_coded_side_data / coded_side_data)
-          python3 -c 'import glob; [open(f,"w").write(t.replace("->nb_side_data","->codecpar->nb_coded_side_data").replace("->side_data[","->codecpar->coded_side_data[")) for f in glob.glob("/tmp/libopenshot/**/*.cpp",recursive=True) if "nb_side_data" in (t:=open(f).read())]'
 
           cmake -S /tmp/libopenshot -B /tmp/libopenshot/build \
             -DCMAKE_INSTALL_PREFIX="$INSTALL_PREFIX" \
