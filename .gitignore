@@ -4,6 +4,14 @@
 .idea
 .settings
 idea/*
+
+# Exclude AI agent scratchpads / internal session state
+# (developer-local context, paths, and credentials notes — not for the repo)
+agent-log.md
+AGENTS.md
+CLAUDE.md
+.cursor/
+.claude/
 # Local packaged installers (do not commit)
 *.deb
 
