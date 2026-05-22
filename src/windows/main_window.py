@@ -243,6 +243,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             self.generation_service.shutdown()
             self.generation_service.cleanup_temp_files()
         if getattr(self, "proxy_service", None):
+            if self.proxy_service.uses_global_hidden_proxy_root():
+                self.proxy_service.delete_internal_project_proxy_files()
             self.proxy_service.shutdown()
 
         # Stop ZMQ polling thread (if any)

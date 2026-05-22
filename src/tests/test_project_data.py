@@ -104,6 +104,22 @@ class DummyAction:
         self.enabled = value
 
 
+class ReaderStub:
+    def __init__(self, json_text):
+        self.json_text = json_text
+        self.open_calls = 0
+        self.close_calls = 0
+
+    def Open(self):
+        self.open_calls += 1
+
+    def Json(self):
+        return self.json_text
+
+    def Close(self):
+        self.close_calls += 1
+
+
 def make_store():
     store = ProjectDataStore.__new__(ProjectDataStore)
     store.data_type = "project data"
@@ -218,6 +234,53 @@ class ProjectDataTests(unittest.TestCase):
         self.assertEqual(store._data["history"], {"undo": [], "redo": []})
         self.assertTrue(clear_waveform_action.enabled)
         self.assertEqual(loaded_payloads, [store._data])
+
+    def test_repair_capped_media_dimensions_updates_file_and_clip_reader(self):
+        store = make_store()
+        with tempfile.TemporaryDirectory() as tmpdir:
+            media_path = os.path.join(tmpdir, "source.mp4")
+            with open(media_path, "wb") as handle:
+                handle.write(b"video")
+
+            store._data = {
+                "files": [{
+                    "id": "F1",
+                    "path": media_path,
+                    "has_video": True,
+                    "has_audio": True,
+                    "width": 128,
+                    "height": 72,
+                    "display_ratio": {"num": 16, "den": 9},
+                    "pixel_ratio": {"num": 1, "den": 1},
+                }],
+                "clips": [{
+                    "id": "C1",
+                    "reader": {
+                        "id": "F1",
+                        "path": media_path,
+                        "width": 128,
+                        "height": 72,
+                    },
+                }],
+            }
+            reader = ReaderStub(
+                '{"id":"F1","path":"%s","has_video":true,"has_audio":true,'
+                '"width":1920,"height":1080,'
+                '"display_ratio":{"num":16,"den":9},'
+                '"pixel_ratio":{"num":1,"den":1},'
+                '"fps":{"num":30000,"den":1001},'
+                '"video_length":300,"duration":10.0}' % media_path.replace("\\", "\\\\")
+            )
+
+            with patch("classes.project_data.openshot.Clip.CreateReader", return_value=reader):
+                ProjectDataStore._repair_capped_media_dimensions(store)
+
+        self.assertEqual(reader.open_calls, 1)
+        self.assertEqual(reader.close_calls, 1)
+        self.assertEqual(store._data["files"][0]["width"], 1920)
+        self.assertEqual(store._data["files"][0]["height"], 1080)
+        self.assertEqual(store._data["clips"][0]["reader"]["width"], 1920)
+        self.assertEqual(store._data["clips"][0]["reader"]["height"], 1080)
 
     def test_load_migrates_flat_thumbnails_into_per_file_folders(self):
         store = make_store()

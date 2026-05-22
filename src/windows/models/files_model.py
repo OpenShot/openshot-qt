@@ -57,14 +57,17 @@ IMPORT_READER_MAX_SIZE = 128
 
 
 def inspect_media(path, max_width=0, max_height=0):
-    """Inspect media using the shared libopenshot reader-selection logic."""
+    """Inspect media using the shared libopenshot reader-selection logic.
+
+    The max-size arguments are kept for API compatibility with older callers,
+    but are intentionally not applied during metadata inspection. Applying a
+    decode-size cap here can cause libopenshot to report preview dimensions in
+    reader.Json(), which then stores imported 1080p media as a tiny clip.
+    """
     def _inspect_with_reader(inspect_reader):
         reader = openshot.Clip.CreateReader(path, inspect_reader)
         if not reader:
             raise RuntimeError(f"No reader available for path: {path}")
-
-        if max_width > 0 and max_height > 0 and hasattr(reader, "SetMaxDecodeSize"):
-            reader.SetMaxDecodeSize(int(max_width), int(max_height))
 
         reader.Open()
         try:

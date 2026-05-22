@@ -361,6 +361,13 @@ class ProxyService(QObject):
                  return True
          return False
 
+     def uses_global_hidden_proxy_root(self):
+         """Return True when optimized files are stored in .openshot_qt/optimized."""
+         try:
+             return os.path.abspath(str(self._proxy_root() or "")) == os.path.abspath(str(info.PROXY_PATH or ""))
+         except Exception:
+             return False
+
      def delete_internal_project_proxy_files(self):
          proxy_root = os.path.abspath(str(self._proxy_root() or ""))
          proxy_root_prefix = proxy_root + os.sep if proxy_root else ""
@@ -701,31 +708,38 @@ class ProxyService(QObject):
                  target_width, target_height = self._scaled_dimensions(width, height, max_width, max_height)
                  fps = source_reader.get("fps", {"num": 30, "den": 1})
                  pixel_ratio = source_reader.get("pixel_ratio", {"num": 1, "den": 1})
+                 encoder_settings = self._proxy_encoder_settings()
                  writer = openshot.FFmpegWriter(output_path)
                  writer.SetVideoOptions(
                      True,
-                     "libx264",
+                     encoder_settings["video_codec"],
                      openshot.Fraction(int(fps.get("num", 30)), int(fps.get("den", 1))),
                      target_width,
                      target_height,
                      openshot.Fraction(int(pixel_ratio.get("num", 1)), int(pixel_ratio.get("den", 1))),
                      False,
                      False,
-                     28,
+                     int(encoder_settings["video_bitrate"]),
                  )
-                 writer.PrepareStreams()
 
                  if source_reader.get("has_audio"):
                      channel_layout = openshot.LAYOUT_STEREO if int(source_reader.get("channels", 2) or 2) > 1 else openshot.LAYOUT_MONO
                      writer.SetAudioOptions(
                          True,
-                         "aac",
+                         "pcm_s16le",
                          48000,
                          2 if channel_layout == openshot.LAYOUT_STEREO else 1,
                          channel_layout,
-                         128000,
+                         1536000,
                      )
-                     writer.PrepareStreams()
+
+                 writer.PrepareStreams()
+                 try:
+                     for option_name, option_value in encoder_settings["video_options"].items():
+                         writer.SetOption(openshot.VIDEO_STREAM, option_name, option_value)
+                     writer.SetOption(openshot.VIDEO_STREAM, "muxing_preset", "mp4_faststart")
+                 except Exception:
+                     log.debug("Optimize Preview writer options unavailable", exc_info=1)
 
                  writer.Open()
                  try:
@@ -966,12 +980,18 @@ class ProxyService(QObject):
          default_filename = self._preferred_proxy_filename(file_id, file_data, proxy_root, existing_names=set())
          default_path = os.path.join(proxy_root, default_filename)
          source_stem = os.path.splitext(os.path.basename(absolute_media_path((file_data or {}).get("path")) or ""))[0]
-         specific_path = os.path.join(proxy_root, "{}_{}.mp4".format(self._proxy_filename_stem(source_stem), str(file_id or "")))
+         specific_path = os.path.join(proxy_root, "{}_{}.mov".format(self._proxy_filename_stem(source_stem), str(file_id or "")))
+         legacy_default_path = os.path.splitext(default_path)[0] + ".mp4"
+         legacy_specific_path = os.path.join(proxy_root, "{}_{}.mp4".format(self._proxy_filename_stem(source_stem), str(file_id or "")))
 
          if os.path.exists(specific_path):
              return specific_path
          if os.path.exists(default_path):
              return default_path
+         if os.path.exists(legacy_specific_path):
+             return legacy_specific_path
+         if os.path.exists(legacy_default_path):
+             return legacy_default_path
          return None
 
      def _reserve_proxy_output_path(self, file_id, file_data):
@@ -1001,7 +1021,7 @@ class ProxyService(QObject):
          source_path = absolute_media_path(data.get("path"))
          source_stem = os.path.splitext(os.path.basename(source_path or ""))[0]
          base_stem = self._proxy_filename_stem(source_stem)
-         default_name = "{}.mp4".format(base_stem)
+         default_name = "{}.mov".format(base_stem)
 
          if existing_names is None:
              try:
@@ -1012,7 +1032,7 @@ class ProxyService(QObject):
 
          if default_name.lower() not in existing_names_lower:
              return default_name
-         return "{}_{}.mp4".format(base_stem, file_id)
+         return "{}_{}.mov".format(base_stem, file_id)
 
      @staticmethod
      def _proxy_filename_stem(source_stem):
@@ -1215,6 +1235,28 @@ class ProxyService(QObject):
              return width, height
          except (AttributeError, TypeError, ValueError):
              return 1280, 720
+
+     def _proxy_encoder_settings(self):
+         mode = str(self._setting_value("optimize-preview-encoder", "mjpeg") or "mjpeg").strip().lower()
+         if mode in ("dnxhr", "dnxhr_lb", "dnxhr-lb"):
+             return {
+                 "video_codec": "dnxhd",
+                 "video_bitrate": 36 * 1000 * 1000,
+                 "video_options": {
+                     "profile": "dnxhr_lb",
+                     "pix_fmt": "yuv422p",
+                 },
+             }
+         return {
+             "video_codec": "mjpeg",
+             "video_bitrate": 1,
+             "video_options": {
+                 "qscale": "1",
+                 "qmin": "1",
+                 "qmax": "1",
+                 "pix_fmt": "yuvj420p",
+             },
+         }
 
      @staticmethod
      def _setting_value(name, default):
