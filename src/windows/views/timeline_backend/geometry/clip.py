@@ -43,7 +43,9 @@ class ClipGeometryMixin:
             str(item_id)
             for item_id in (getattr(win, "selected_clips", []) or [])
         }
-        for clip in Clip.filter():
+        clips = list(Clip.filter())
+        clips.extend(getattr(w, "_recording_preview_clips", []) or [])
+        for clip in clips:
             clip_data = clip.data if isinstance(clip.data, dict) else {}
             override = overrides_map.get(clip.id, {})
 

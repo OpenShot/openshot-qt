@@ -350,9 +350,11 @@ class SelectRegion(QDialog):
         self.fps_den = c_info.fps.den
         self.width = c_info.width
         self.height = c_info.height
-        self.sample_rate = int(c_info.sample_rate)
-        self.channels = int(c_info.channels)
-        self.channel_layout = int(c_info.channel_layout)
+        project = getattr(get_app(), "project", None)
+        if project:
+            self.sample_rate = int(project.get("sample_rate"))
+            self.channels = int(project.get("channels"))
+            self.channel_layout = int(project.get("channel_layout"))
         self.video_length = int(self.clip.Duration() * self.fps) + 1
 
         # Apply effects to region frames

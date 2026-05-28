@@ -175,6 +175,7 @@ from .repeat import apply_repeat, reset_repeat, RepeatDialog
 
 # Constants used by this file
 JS_SCOPE_SELECTOR = "$('body').scope()"
+MICROPHONE_ICON = "tool-microphone.svg"
 ViewClass = TimelineWidget
 
 log.info("Timeline backend: QWidget (%s)", getattr(ViewClass, "__name__", "unknown"))
@@ -247,6 +248,58 @@ class TimelineView(updates.UpdateInterface, ViewClass):
     # Create signal for adding waveforms to clips
     clipAudioDataReady = pyqtSignal(str, object, str)
     fileAudioDataReady = pyqtSignal(str, object, str)
+
+    def _microphone_icon(self):
+        return QIcon(os.path.join(info.PATH, "themes/cosmic/images", MICROPHONE_ICON))
+
+    def _recording_track_for_clip(self, clip):
+        """Prefer the nearest lower unlocked track with room for a voiceover."""
+        try:
+            clip_data = clip.data if isinstance(clip.data, dict) else {}
+            source_track = int(clip_data.get("layer", 1) or 1)
+            start = float(clip_data.get("position", 0.0) or 0.0)
+            duration = max(
+                0.0,
+                float(clip_data.get("end", 0.0) or 0.0) - float(clip_data.get("start", 0.0) or 0.0),
+            )
+        except (TypeError, ValueError):
+            return 1
+
+        end = start + max(duration, 0.001)
+        try:
+            tracks = sorted(
+                Track.filter(),
+                key=lambda t: int(t.data.get("number", 0) or 0),
+                reverse=True,
+            )
+        except Exception:
+            tracks = []
+
+        candidate_numbers = [
+            int(track.data.get("number", 0) or 0)
+            for track in tracks
+            if int(track.data.get("number", 0) or 0) < source_track
+            and not track.data.get("lock", False)
+        ]
+        if not candidate_numbers:
+            return source_track
+
+        occupied = {}
+        for existing in Clip.filter():
+            data = existing.data if isinstance(existing.data, dict) else {}
+            try:
+                layer = int(data.get("layer", 0) or 0)
+                left = float(data.get("position", 0.0) or 0.0)
+                right = left + max(0.0, float(data.get("end", 0.0) or 0.0) - float(data.get("start", 0.0) or 0.0))
+            except (TypeError, ValueError):
+                continue
+            occupied.setdefault(layer, []).append((left, right))
+
+        for track_number in candidate_numbers:
+            has_overlap = any(left < end and right > start for left, right in occupied.get(track_number, []))
+            if not has_overlap:
+                return track_number
+        return source_track
 
     def connect_playback(self):
         """Connect playback signals to the QWidget timeline."""
@@ -1381,22 +1434,27 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             # Update the found_start to the end of the current clip
             found_start = max(found_start, right_edge)
 
-        # Don't show context menu
-        if not has_clipboard and not found_gap:
-            return
-
         # Get track object (ignore locked tracks for edit operations)
         track = Track.get(number=layer_number)
         if not track:
             return
         locked = track.data.get("lock", False)
-        if locked:
+        if locked and (has_clipboard or found_gap):
             return
 
         # New context menu
         menu = StyledContextMenu(parent=self)
 
         has_edit_actions = False
+        record_action = menu.addAction(
+            self._microphone_icon(),
+            _("Record Audio"))
+        record_action.triggered.connect(lambda: self.window.show_audio_recording_dock(
+            start_time=max(0.0, float(position)),
+            track_number=int(layer_number)))
+        if locked:
+            record_action.setEnabled(False)
+        menu.addSeparator()
 
         if found_gap:
             # Add 'Remove Gap' Menu
@@ -1996,6 +2054,15 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
         # Audio Menu (Volume, Separate Audio, Waveform, Analyze Levels)
         Audio_Menu = StyledContextMenu(title=_("Audio"), parent=self)
+        audio_menu_has_actions = False
+        Record_Voiceover = Audio_Menu.addAction(
+            self._microphone_icon(),
+            _("Record Audio"))
+        Record_Voiceover.triggered.connect(lambda: self.window.show_audio_recording_dock(
+            start_time=float(clip.data.get("position", 0.0)),
+            track_number=self._recording_track_for_clip(clip)))
+        audio_menu_has_actions = True
+        Audio_Menu.addSeparator()
 
         Volume_Menu = StyledContextMenu(title=_("Volume"), parent=self)
         Volume_None = Volume_Menu.addAction(_("Reset Volume"))
@@ -2033,6 +2100,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
         if clip_has_audio:
             Audio_Menu.addMenu(Volume_Menu)
+            audio_menu_has_actions = True
 
         Split_Audio_Channels_Menu = StyledContextMenu(title=_("Separate"), parent=self)
         Split_Single_Clip = Split_Audio_Channels_Menu.addAction(_("Single Clip (all channels)"))
@@ -2043,6 +2111,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             self.Split_Audio_Triggered, MenuSplitAudio.MULTIPLE, clip_ids))
         if clip_has_audio:
             Audio_Menu.addMenu(Split_Audio_Channels_Menu)
+            audio_menu_has_actions = True
 
         if clip_has_audio:
             Audio_Menu.addSeparator()
@@ -2062,7 +2131,9 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 QIcon(os.path.join(info.PATH, "themes/cosmic/images/view-analysis.svg")),
                 _("Analyze Levels"))
             Analyze_Levels.triggered.connect(lambda: get_app().window.show_scope_audio_dock())
+            audio_menu_has_actions = True
 
+        if audio_menu_has_actions:
             menu.addMenu(Audio_Menu)
 
         # If Playhead overlapping clip
@@ -2120,6 +2191,9 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         for clip_id in clip_ids:
             # Get existing clip object
             clip = Clip.get(id=clip_id)
+            if not clip:
+                log.warning("Skipping waveform request for missing clip: %s", clip_id)
+                continue
             file_id = clip.data.get("file_id")
 
             if file_id not in files:
@@ -4783,6 +4857,14 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         menu.addAction(self.window.actionAddTrackAbove)
         menu.addAction(self.window.actionAddTrackBelow)
         menu.addAction(self.window.actionRenameTrack)
+        record_track_action = menu.addAction(
+            self._microphone_icon(),
+            _("Record Audio"))
+        record_track_action.triggered.connect(lambda: self.window.show_audio_recording_dock(
+            start_time=self.window._current_timeline_seconds(),
+            track_number=int(layer_number)))
+        if locked:
+            record_track_action.setEnabled(False)
         if found_gap:
             # Add 'Remove Gap' Menu
             log.info(f"Found gap at {first_gap_start}")
@@ -5887,6 +5969,47 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         self.new_item = False
         self.item_type = None
         self.item_ids = []
+
+    def set_audio_recording_preview(self, preview_id, position, track, duration, audio_data):
+        """Draw a transient recording clip without committing project data."""
+        duration = max(0.05, float(duration or 0.0))
+        preview_clip = Clip()
+        preview_clip.id = str(preview_id)
+        preview_clip.data = {
+            "id": preview_clip.id,
+            "title": get_app()._tr("Recording"),
+            "position": max(0.0, float(position or 0.0)),
+            "layer": int(track or 1),
+            "start": 0.0,
+            "end": duration,
+            "duration": duration,
+            "reader": {
+                "has_audio": True,
+                "has_video": False,
+                "media_type": "audio",
+                "path": "",
+            },
+            "ui": {
+                "audio_data": list(audio_data or []),
+                "waveform_token": str(len(audio_data or [])),
+            },
+            "waveform": True,
+        }
+        self._recording_preview_clips = [preview_clip]
+        if hasattr(self, "geometry"):
+            self.geometry.mark_dirty()
+        # Keep recording previews paint-only. Do not update project data or clear
+        # playback/backend caches while capture is active.
+        self.update()
+
+    def clear_audio_recording_preview(self):
+        """Remove the transient recording clip from the timeline view."""
+        if not getattr(self, "_recording_preview_clips", None):
+            return
+        self._recording_preview_clips = []
+        if hasattr(self, "geometry"):
+            self.geometry.mark_dirty()
+        self.update()
 
     def redraw_audio_onTimeout(self):
         """Timer is ready to redraw audio (if any)"""

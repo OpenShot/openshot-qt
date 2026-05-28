@@ -328,9 +328,11 @@ class Cutting(QDialog):
         self.fps_num = int(getattr(fps_info, "num", self.fps_num))
         self.fps_den = int(getattr(fps_info, "den", self.fps_den))
         self.fps = float(self.fps_num) / float(self.fps_den or 1)
-        self.sample_rate = int(getattr(c_info, "sample_rate", self.sample_rate))
-        self.channels = int(getattr(c_info, "channels", self.channels))
-        self.channel_layout = int(getattr(c_info, "channel_layout", self.channel_layout))
+        project = getattr(get_app(), "project", None)
+        if project:
+            self.sample_rate = int(project.get("sample_rate"))
+            self.channels = int(project.get("channels"))
+            self.channel_layout = int(project.get("channel_layout"))
 
         base_width = max(2, int(self.width or max_size.width() or 2))
         base_height = max(2, int(self.height or max_size.height() or 2))

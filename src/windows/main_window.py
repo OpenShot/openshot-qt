@@ -80,6 +80,7 @@ from windows.models.emoji_model import EmojisModel
 from windows.models.files_model import FilesModel
 from windows.views.optimized_preview_menu import populate_optimized_preview_menu
 from windows.models.transition_model import TransitionsModel
+from windows.audio_recording import AudioRecordingDockContent
 from windows.preview_thread import PreviewParent
 from windows.scope_panel import WaveformDockContent, HistogramDockContent, VectorscopeDockContent, AudioMeterWidget
 from windows.video_widget import VideoWidget
@@ -1532,6 +1533,32 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         """Show Audio Levels dock, anchoring to right if needed."""
         self._anchor_and_show_scope_dock(self.dockAudio)
 
+    def show_audio_recording_dock(self, start_time=None, track_number=None):
+        """Show the Record Audio dock, pre-filling context when provided."""
+        self._ensure_audio_recording_dock_content()
+        if self.dockWidgetArea(self.dockAudioRecording) == Qt.NoDockWidgetArea:
+            self.addDockWidget(Qt.RightDockWidgetArea, self.dockAudioRecording)
+        if self.dockWidgetArea(self.dockAudio) == Qt.NoDockWidgetArea:
+            self.addDockWidget(Qt.RightDockWidgetArea, self.dockAudio)
+        self.dockAudioRecording.show()
+        self.dockAudio.show()
+        self.splitDockWidget(self.dockAudioRecording, self.dockAudio, Qt.Vertical)
+        if hasattr(self, "audio_recording_content"):
+            self.audio_recording_content.set_recording_context(start_time, track_number)
+        self.dockAudioRecording.raise_()
+
+    def _ensure_audio_recording_dock_content(self):
+        """Create recording controls only when the user opens recording UI."""
+        if getattr(self, "audio_recording_content", None):
+            return
+        self.audio_recording_content = AudioRecordingDockContent(self)
+        self.dockAudioRecording.setWidget(self.audio_recording_content)
+
+    def _on_audio_recording_visibility_changed(self, visible):
+        """Ensure restored Recording View docks are populated when shown."""
+        if visible:
+            self._ensure_audio_recording_dock_content()
+
     def _scope_docks(self):
         """Return docks that display video/audio scope data."""
         return [
@@ -2935,6 +2962,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         for dock in docks:
             if dock is color_grade_dock and hasattr(property_view, "_ensure_color_grade_wheels_dock_attached"):
                 property_view._ensure_color_grade_wheels_dock_attached()
+            if dock is getattr(self, "dockAudioRecording", None):
+                self._ensure_audio_recording_dock_content()
             if self.dockWidgetArea(dock) != Qt.NoDockWidgetArea:
                 # Only show correctly docked widgets
                 dock.show()
@@ -2955,6 +2984,12 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             if action.isSeparator():
                 separator_after_views = action
                 break
+        mic_icon = QIcon(os.path.join(info.PATH, "themes/cosmic/images/tool-microphone.svg"))
+        self.actionAudio_Recording_View = QAction(mic_icon, _("Recording View"), self.menuView)
+        self.actionAudio_Recording_View.setObjectName("actionAudio_Recording_View")
+        self.actionAudio_Recording_View.setShortcut(QKeySequence("Alt+Shift+3"))
+        self.actionAudio_Recording_View.triggered.connect(self.actionAudio_Recording_View_trigger)
+        self.menuView.insertAction(separator_after_views, self.actionAudio_Recording_View)
         self.menuView.insertSeparator(separator_after_views)
         self.menuView.insertMenu(separator_after_views, self.custom_views_menu)
         self.custom_views_menu.aboutToShow.connect(self._rebuild_custom_views_menu)
@@ -3290,6 +3325,50 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                     Qt.Vertical,
                 )
             QTimer.singleShot(0, _resize_right_column)
+
+    def actionAudio_Recording_View_trigger(self):
+        """Switch to a recording focused view."""
+        self._set_active_custom_view_id("")
+        self._ensure_audio_recording_dock_content()
+        self.removeDocks()
+
+        self.addDocks([self.dockFiles], Qt.LeftDockWidgetArea)
+        self.addDocks([self.dockVideo], Qt.TopDockWidgetArea)
+        self.addDocks([self.dockAudioRecording], Qt.RightDockWidgetArea)
+        self.addDocks([self.dockAudio], Qt.RightDockWidgetArea)
+        self.splitDockWidget(self.dockAudioRecording, self.dockAudio, Qt.Vertical)
+        self.splitDockWidget(self.dockVideo, self.dockTimeline, Qt.Vertical)
+        self.setTabPosition(Qt.RightDockWidgetArea, QTabWidget.North)
+
+        self.floatDocks(False)
+        self.showDocks([
+            self.dockFiles,
+            self.dockVideo,
+            self.dockTimeline,
+            self.dockAudioRecording,
+            self.dockAudio,
+        ])
+        QCoreApplication.processEvents()
+        self.resizeDocks(
+            [self.dockAudioRecording, self.dockAudio],
+            [max(260, self.height() * 2 // 3), max(140, self.height() // 3)],
+            Qt.Vertical,
+        )
+        self.dockAudioRecording.raise_()
+        self.style_dock_widgets()
+
+    def actionRecordAudio_trigger(self, checked=True):
+        """Open the Record Audio dock at the current playhead position."""
+        self.show_audio_recording_dock(start_time=self._current_timeline_seconds())
+
+    def _current_timeline_seconds(self):
+        """Return the current playhead position in seconds."""
+        try:
+            fps = get_app().project.get("fps")
+            fps_float = float(fps["num"]) / float(fps["den"])
+            return max(0.0, float(self.preview_thread.current_frame - 1) / fps_float)
+        except Exception:
+            return 0.0
 
     def actionTutorial_trigger(self):
         """ Show tutorial again """
@@ -4020,6 +4099,15 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # add zoom widgets
         self.timelineToolbar.addWidget(self.sliderZoomWidget)
+        if not hasattr(self, "actionRecordAudio"):
+            self.actionRecordAudio = QAction(
+                QIcon(os.path.join(info.PATH, "themes/cosmic/images/tool-microphone.svg")),
+                _("Record Audio"),
+                self)
+            self.actionRecordAudio.setObjectName("actionRecordAudio")
+            self.actionRecordAudio.setToolTip(_("Record Audio"))
+            self.actionRecordAudio.triggered.connect(self.actionRecordAudio_trigger)
+        self.timelineToolbar.addAction(self.actionRecordAudio)
 
         # Add timeline toolbar to web frame
         self.frameWeb.insertWidget(0, self.timelineToolbar)
@@ -5197,6 +5285,14 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.dockAudio.hide()
         self.addDockWidget(Qt.RightDockWidgetArea, self.dockAudio)
 
+        self.audio_recording_content = None
+        self.dockAudioRecording = QDockWidget(_("Record Audio"), self)
+        self.dockAudioRecording.setObjectName("dockAudioRecording")
+        self.dockAudioRecording.setProperty("_skip_auto_tab_order", True)
+        self.dockAudioRecording.setFocusPolicy(Qt.NoFocus)
+        self.dockAudioRecording.hide()
+        self.addDockWidget(Qt.RightDockWidgetArea, self.dockAudioRecording)
+
         # Add Docks submenu to View menu
         self.addViewDocksMenu()
 
@@ -5405,6 +5501,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 functools.partial(self._on_scope_dock_toggled, dock=_dock))
         for _dock in [self.dockLumaWaveform, self.dockHistogram, self.dockVectorscope]:
             _dock.visibilityChanged.connect(self._on_video_scope_visibility_changed)
+        self.dockAudioRecording.visibilityChanged.connect(self._on_audio_recording_visibility_changed)
+        if self.dockAudioRecording.isVisible():
+            self._ensure_audio_recording_dock_content()
 
         # Create tutorial manager
         self.tutorial_manager = TutorialManager(self)

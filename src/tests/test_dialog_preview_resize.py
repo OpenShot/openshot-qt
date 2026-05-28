@@ -351,14 +351,21 @@ class DialogPreviewResizeTests(unittest.TestCase):
             source_reader_data={"path": "/source.mp4"},
             proxy_reader_data={"path": ""},
         )
+        fake_app = types.SimpleNamespace(project=types.SimpleNamespace(get=lambda key: {
+            "sample_rate": 44100,
+            "channels": 2,
+            "channel_layout": 3,
+        }.get(key, 0)))
 
         with patch("windows.cutting.openshot.Timeline", FakeTimeline), \
              patch("windows.cutting.openshot.Clip", FakeClip), \
              patch("windows.cutting.openshot.Fraction", DummyFraction), \
-             patch("windows.cutting.openshot.FRAME_DISPLAY_CLIP", 7):
+             patch("windows.cutting.openshot.FRAME_DISPLAY_CLIP", 7), \
+             patch("windows.cutting.get_app", return_value=fake_app):
             Cutting._build_preview_timeline(fake, {"path": "/source.mp4"}, QSize(640, 360))
 
         self.assertEqual(timeline_args[0][0:2], (3840, 2160))
+        self.assertEqual(timeline_args[0][3:6], (44100, 2, 3))
         self.assertEqual(timeline_setmax, [(640, 360)])
         self.assertEqual(json.loads(fake.clip.payload), {
             "reader_orientation_mode": "reader",
