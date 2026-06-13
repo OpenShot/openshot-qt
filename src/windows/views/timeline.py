@@ -252,6 +252,16 @@ class TimelineView(updates.UpdateInterface, ViewClass):
     def _microphone_icon(self):
         return QIcon(os.path.join(info.PATH, "themes/cosmic/images", MICROPHONE_ICON))
 
+    def _show_recording_dock_deferred(self, start_time=None, track_number=None):
+        """Open recording after context-menu event handling has unwound."""
+        QTimer.singleShot(
+            50,
+            lambda: self.window.show_audio_recording_dock(
+                start_time=start_time,
+                track_number=track_number,
+            )
+        )
+
     def _recording_track_for_clip(self, clip):
         """Prefer the nearest lower unlocked track with room for a voiceover."""
         try:
@@ -1448,8 +1458,8 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         has_edit_actions = False
         record_action = menu.addAction(
             self._microphone_icon(),
-            _("Record Audio"))
-        record_action.triggered.connect(lambda: self.window.show_audio_recording_dock(
+            _("Record"))
+        record_action.triggered.connect(lambda: self._show_recording_dock_deferred(
             start_time=max(0.0, float(position)),
             track_number=int(layer_number)))
         if locked:
@@ -2057,8 +2067,8 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         audio_menu_has_actions = False
         Record_Voiceover = Audio_Menu.addAction(
             self._microphone_icon(),
-            _("Record Audio"))
-        Record_Voiceover.triggered.connect(lambda: self.window.show_audio_recording_dock(
+            _("Record"))
+        Record_Voiceover.triggered.connect(lambda: self._show_recording_dock_deferred(
             start_time=float(clip.data.get("position", 0.0)),
             track_number=self._recording_track_for_clip(clip)))
         audio_menu_has_actions = True
@@ -4859,8 +4869,8 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         menu.addAction(self.window.actionRenameTrack)
         record_track_action = menu.addAction(
             self._microphone_icon(),
-            _("Record Audio"))
-        record_track_action.triggered.connect(lambda: self.window.show_audio_recording_dock(
+            _("Record"))
+        record_track_action.triggered.connect(lambda: self._show_recording_dock_deferred(
             start_time=self.window._current_timeline_seconds(),
             track_number=int(layer_number)))
         if locked:
