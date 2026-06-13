@@ -5980,37 +5980,96 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         self.item_type = None
         self.item_ids = []
 
-    def set_audio_recording_preview(self, preview_id, position, track, duration, audio_data):
-        """Draw a transient recording clip without committing project data."""
-        duration = max(0.05, float(duration or 0.0))
-        preview_clip = Clip()
-        preview_clip.id = str(preview_id)
-        preview_clip.data = {
-            "id": preview_clip.id,
-            "title": get_app()._tr("Recording"),
-            "position": max(0.0, float(position or 0.0)),
-            "layer": int(track or 1),
-            "start": 0.0,
-            "end": duration,
-            "duration": duration,
-            "reader": {
-                "has_audio": True,
-                "has_video": False,
-                "media_type": "audio",
+    def set_audio_recording_previews(self, previews):
+        """Draw transient recording clips without committing project data."""
+        preview_clips = []
+        for preview in previews or []:
+            if not isinstance(preview, dict):
+                continue
+            try:
+                duration = max(0.05, float(preview.get("duration") or 0.0))
+            except (TypeError, ValueError):
+                duration = 0.05
+            source_type = str(preview.get("source_type") or "recording")
+            preview_id = str(preview.get("id") or "recording-preview-%s" % source_type)
+            file_id = str(preview.get("file_id") or "")
+            has_audio = source_type == "mic"
+            has_video = source_type in ("screen", "webcam")
+            try:
+                fps_value = float(preview.get("fps") or getattr(self, "fps_float", 30.0) or 30.0)
+            except (TypeError, ValueError):
+                fps_value = 30.0
+            fps_value = max(1.0, fps_value)
+            video_length = max(1, int(round(duration * fps_value)))
+            reader = {
+                "has_audio": has_audio,
+                "has_video": has_video,
+                "media_type": "audio" if has_audio and not has_video else "video",
                 "path": "",
-            },
-            "ui": {
-                "audio_data": list(audio_data or []),
-                "waveform_token": str(len(audio_data or [])),
-            },
-            "waveform": True,
-        }
-        self._recording_preview_clips = [preview_clip]
+                "duration": duration,
+                "start": 0.0,
+                "end": duration,
+                "video_length": video_length,
+                "fps": {"num": int(round(fps_value)), "den": 1},
+            }
+            if file_id:
+                reader["id"] = file_id
+            if has_video:
+                try:
+                    reader["width"] = int(preview.get("width") or 1280)
+                    reader["height"] = int(preview.get("height") or 720)
+                except (TypeError, ValueError):
+                    reader["width"] = 1280
+                    reader["height"] = 720
+
+            preview_clip = Clip()
+            preview_clip.id = preview_id
+            try:
+                position = max(0.0, float(preview.get("position") or 0.0))
+            except (TypeError, ValueError):
+                position = 0.0
+            try:
+                track = int(preview.get("track") or 1)
+            except (TypeError, ValueError):
+                track = 1
+            preview_clip.data = {
+                "id": preview_clip.id,
+                "file_id": file_id,
+                "title": preview.get("title") or get_app()._tr("Recording"),
+                "position": position,
+                "layer": track,
+                "start": 0.0,
+                "end": duration,
+                "duration": duration,
+                "reader": reader,
+            }
+            if has_audio:
+                audio_data = list(preview.get("audio_data") or [])
+                preview_clip.data["ui"] = {
+                    "audio_data": audio_data,
+                    "waveform_token": str(len(audio_data)),
+                }
+                preview_clip.data["waveform"] = True
+            preview_clips.append(preview_clip)
+
+        self._recording_preview_clips = preview_clips
         if hasattr(self, "geometry"):
             self.geometry.mark_dirty()
         # Keep recording previews paint-only. Do not update project data or clear
         # playback/backend caches while capture is active.
         self.update()
+
+    def set_audio_recording_preview(self, preview_id, position, track, duration, audio_data):
+        """Draw a transient recording clip without committing project data."""
+        duration = max(0.05, float(duration or 0.0))
+        self.set_audio_recording_previews([{
+            "id": str(preview_id),
+            "source_type": "mic",
+            "position": max(0.0, float(position or 0.0)),
+            "track": int(track or 1),
+            "duration": duration,
+            "audio_data": list(audio_data or []),
+        }])
 
     def clear_audio_recording_preview(self):
         """Remove the transient recording clip from the timeline view."""

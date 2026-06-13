@@ -29,6 +29,7 @@ import os
 import glob
 import json
 import re
+import shutil
 import subprocess
 import sys
 import threading
@@ -48,6 +49,10 @@ from classes.app import get_app
 from classes.assets import get_assets_path
 from classes.logger import log
 from classes.query import Clip, File, Track
+from classes.thumbnail import (
+    RoundFrameToThumbnailGrid,
+    ThumbnailPathForFrame,
+)
 from classes.tray_status import TrayStatus
 from windows.models.files_model import inspect_media
 from windows.recording_widgets import (
@@ -126,6 +131,99 @@ class RecordingLevelMeter(QWidget):
             painter.fillRect(0, 0, self.width(), 4, QColor(230, 45, 45))
 
 
+def recording_preview_file_id(session_id, source_type):
+    """Return a stable temporary file ID for live recording previews."""
+    safe_source = re.sub(r"[^A-Za-z0-9_-]+", "-", str(source_type or "source")).strip("-")
+    return "recording-preview-%s-%s" % (session_id, safe_source or "source")
+
+
+class LiveRecordingThumbnailCache:
+    """Save coarse thumbnail-grid frames while a live video recording is written."""
+
+    def __init__(self, file_id, fps, width=None, height=None, thumb_size=None):
+        self.file_id = str(file_id or "")
+        self.fps = float(fps or 0.0)
+        self.saved_frames = set()
+        if thumb_size is None:
+            thumb_size = info.LIST_ICON_SIZE
+        self.thumb_width = int(thumb_size.width())
+        self.thumb_height = int(thumb_size.height())
+
+    def thumbnail_frame_for_output_frame(self, frame_number):
+        """Return the canonical thumbnail frame to save, or 0 if this frame is skipped."""
+        if not self.file_id:
+            return 0
+        frame_number = max(1, int(frame_number or 1))
+        thumbnail_frame = RoundFrameToThumbnailGrid(frame_number, self.fps)
+        return thumbnail_frame if thumbnail_frame == frame_number else 0
+
+    def save_frame(self, frame, frame_number):
+        thumbnail_frame = self.thumbnail_frame_for_output_frame(frame_number)
+        if not thumbnail_frame or thumbnail_frame in self.saved_frames:
+            return ThumbnailPathForFrame(self.file_id, thumbnail_frame) if thumbnail_frame else ""
+        thumb_path = ThumbnailPathForFrame(self.file_id, thumbnail_frame)
+        if os.path.exists(thumb_path):
+            self.saved_frames.add(thumbnail_frame)
+            return thumb_path
+        try:
+            self._save_thumbnail_from_frame(frame, thumb_path)
+            self.saved_frames.add(thumbnail_frame)
+            return thumb_path
+        except Exception:
+            log.debug(
+                "Unable to save live recording thumbnail file_id=%s frame=%s",
+                self.file_id,
+                thumbnail_frame,
+                exc_info=True,
+            )
+        return ""
+
+    def _save_thumbnail_from_frame(self, frame, thumb_path):
+        image = frame_to_qimage(frame)
+        if image is None or image.isNull():
+            return False
+
+        os.makedirs(os.path.dirname(thumb_path), exist_ok=True)
+        scaled = image.scaled(
+            self.thumb_width,
+            self.thumb_height,
+            Qt.KeepAspectRatioByExpanding,
+            Qt.SmoothTransformation,
+        )
+        if scaled.width() > self.thumb_width or scaled.height() > self.thumb_height:
+            x = max(0, int((scaled.width() - self.thumb_width) / 2))
+            y = max(0, int((scaled.height() - self.thumb_height) / 2))
+            scaled = scaled.copy(x, y, self.thumb_width, self.thumb_height)
+        if not scaled.save(thumb_path, "PNG"):
+            raise IOError("Unable to save thumbnail: %s" % thumb_path)
+        return True
+
+    def copy_to_file_id(self, final_file_id):
+        """Copy live thumbnails to the final imported File ID folder."""
+        final_file_id = str(final_file_id or "")
+        if not self.file_id or not final_file_id or self.file_id == final_file_id:
+            return 0
+        source_dir = os.path.dirname(ThumbnailPathForFrame(self.file_id, 1))
+        target_dir = os.path.dirname(ThumbnailPathForFrame(final_file_id, 1))
+        if not os.path.isdir(source_dir):
+            return 0
+        copied = 0
+        os.makedirs(target_dir, exist_ok=True)
+        for filename in os.listdir(source_dir):
+            if not filename.lower().endswith(".png"):
+                continue
+            source_path = os.path.join(source_dir, filename)
+            target_path = os.path.join(target_dir, filename)
+            if not os.path.isfile(source_path):
+                continue
+            try:
+                shutil.copy2(source_path, target_path)
+                copied += 1
+            except OSError:
+                log.debug("Unable to copy live thumbnail: %s", source_path, exc_info=True)
+        return copied
+
+
 class LiveVideoRecordingJob(QObject):
     """Small background writer for live libopenshot video capture readers."""
 
@@ -134,7 +232,7 @@ class LiveVideoRecordingJob(QObject):
     previewFrameReady = pyqtSignal(object)
 
     def __init__(self, reader, path, width, height, fps, codec="libx264", bit_rate=4000000,
-                 source_type="video", use_reader_fps=True):
+                 source_type="video", use_reader_fps=True, preview_file_id=""):
         super().__init__()
         self.reader = reader
         self.path = path
@@ -147,6 +245,8 @@ class LiveVideoRecordingJob(QObject):
         self.error = None
         self.frames = 0
         self.use_reader_fps = bool(use_reader_fps)
+        self.preview_file_id = str(preview_file_id or "")
+        self.thumbnail_cache = None
         self._writer = None
         self._thread = None
         self._stop = threading.Event()
@@ -167,6 +267,14 @@ class LiveVideoRecordingJob(QObject):
             self.source_type, self.width, self.height,
             self.fps.num, self.fps.den,
         )
+        fps_value = max(1.0, float(self.fps.num) / float(self.fps.den or 1))
+        if self.preview_file_id:
+            self.thumbnail_cache = LiveRecordingThumbnailCache(
+                self.preview_file_id,
+                fps_value,
+                self.width,
+                self.height,
+            )
         self._writer = openshot.FFmpegWriter(self.path)
         self._writer.SetVideoOptions(
             True,
@@ -200,6 +308,8 @@ class LiveVideoRecordingJob(QObject):
                 while written_frames < target_frames:
                     self._writer.WriteFrame(frame)
                     written_frames += 1
+                    if self.thumbnail_cache:
+                        self.thumbnail_cache.save_frame(frame, written_frames)
                 if self.source_type == "webcam":
                     if now - last_preview_emit >= 0.2:
                         image = frame_to_qimage(frame)
@@ -336,8 +446,11 @@ class AudioRecordingDockContent(QWidget):
         self._hide_openshot_user_set = False
         self._screen_window_id = ""
         self._recording_preview_id = ""
+        self._recording_preview_file_ids = {}
+        self._recording_track_map = {}
         self._recording_timeline_position = 0.0
         self._recording_preview_size = None
+        self._recording_waveform_samples = []
         self._last_timeline_preview_at = 0.0
         self._last_timeline_preview_samples = 0
         self._preferred_format = "flac"
@@ -1096,6 +1209,14 @@ class AudioRecordingDockContent(QWidget):
                 self._recording_timeline_position = self._current_playhead_seconds()
             self._context_start = self._recording_timeline_position
             self._recording_sources = []
+            source_types = self._selected_recording_source_types()
+            session_id = str(int(time.monotonic() * 1000))
+            self._recording_preview_id = "recording-preview-%s" % session_id
+            self._recording_track_map = self._recording_track_assignments(source_types)
+            self._recording_preview_file_ids = {
+                source_type: recording_preview_file_id(session_id, source_type)
+                for source_type in source_types
+            }
             if self.mic_card.isChecked():
                 settings = self._build_recorder_settings(recording=True)
                 recorder = openshot.AudioRecorder(settings)
@@ -1143,6 +1264,7 @@ class AudioRecordingDockContent(QWidget):
             except OSError:
                 log.debug("Unable to remove canceled recording file: %s", self._recording_path, exc_info=True)
         self._recording_path = ""
+        self._reset_recording_preview_state()
         self._restore_recording_preview_scale()
         self._restore_openshot_after_recording()
         self._set_record_button_idle()
@@ -1188,12 +1310,13 @@ class AudioRecordingDockContent(QWidget):
             self._start_timeline_playback()
         self._last_timeline_preview_at = 0.0
         self._last_timeline_preview_samples = 0
-        self._recording_preview_id = "recording-preview-%d" % int(self._recording_started_at * 1000)
+        if not self._recording_preview_id:
+            self._recording_preview_id = "recording-preview-%d" % int(self._recording_started_at * 1000)
         self._set_record_button_recording()
         self._show_recording_tray()
         self.level_meter.update_levels()
-        if self.mic_card.isChecked():
-            self._update_timeline_preview([], 0.05)
+        self._recording_waveform_samples = []
+        self._update_timeline_preview([], 0.05)
         self.timer.start()
         self.poll_timer.start()
         self.recordingStarted.emit()
@@ -1245,6 +1368,7 @@ class AudioRecordingDockContent(QWidget):
         self._set_record_button_idle()
         self._ensure_monitoring()
         self._restart_webcam_preview()
+        self._reset_recording_preview_state()
         self.recordingStopped.emit(path or "")
 
     def _build_recorder_settings(self, recording=False):
@@ -1340,6 +1464,7 @@ class AudioRecordingDockContent(QWidget):
                 settings.height,
                 screen_fps,
                 source_type="screen",
+                preview_file_id=self._recording_preview_file_ids.get("screen", ""),
             ))
         if self.camera_card.isChecked():
             camera_fps = openshot.Fraction(int(self.camera_fps_combo.currentData() or 30), 1)
@@ -1367,6 +1492,7 @@ class AudioRecordingDockContent(QWidget):
                 camera_fps,
                 source_type="webcam",
                 use_reader_fps=False,
+                preview_file_id=self._recording_preview_file_ids.get("webcam", ""),
             )
             job.previewFrameReady.connect(self._update_webcam_preview)
             jobs.append(job)
@@ -1485,6 +1611,7 @@ class AudioRecordingDockContent(QWidget):
             waveform = recorder.GetWaveformSnapshot()
             waveform_vectors = waveform.vectors()
             samples = list(waveform_vectors[0]) if len(waveform_vectors) > 0 else []
+            self._recording_waveform_samples = samples
             self._update_timeline_preview_throttled(samples)
         except Exception:
             log.debug("Unable to poll audio recording feedback", exc_info=True)
@@ -1510,24 +1637,81 @@ class AudioRecordingDockContent(QWidget):
 
     def _update_timeline_preview(self, samples, duration):
         timeline = getattr(self.window, "timeline", None)
-        if not timeline or not hasattr(timeline, "set_audio_recording_preview"):
+        if not timeline:
             return
-        track = self._recording_track_assignments(["mic"]).get("mic", 1)
         position = self._context_start
         if position is None:
             position = self._recording_timeline_position
-        timeline.set_audio_recording_preview(
-            self._recording_preview_id,
-            float(position or 0.0),
-            int(track or 1),
-            duration,
-            samples,
-        )
+        previews = self._recording_preview_payloads(float(position or 0.0), duration, samples)
+        if hasattr(timeline, "set_audio_recording_previews"):
+            timeline.set_audio_recording_previews(previews)
+        elif hasattr(timeline, "set_audio_recording_preview") and previews:
+            mic_preview = next((preview for preview in previews if preview.get("source_type") == "mic"), previews[0])
+            timeline.set_audio_recording_preview(
+                mic_preview["id"],
+                mic_preview["position"],
+                mic_preview["track"],
+                mic_preview["duration"],
+                mic_preview.get("audio_data") or [],
+            )
+
+    def _recording_preview_payloads(self, position, duration, samples):
+        duration = max(0.05, float(duration or 0.0))
+        previews = []
+        source_types = self._selected_recording_source_types()
+        assignments = self._recording_track_map or self._recording_track_assignments(source_types)
+        file_ids = self._recording_preview_file_ids or {}
+        for source_type in source_types:
+            preview = {
+                "id": "%s-%s" % (self._recording_preview_id or "recording-preview", source_type),
+                "source_type": source_type,
+                "position": float(position or 0.0),
+                "track": int(assignments.get(source_type, self._recording_top_track()) or 1),
+                "duration": duration,
+                "file_id": file_ids.get(source_type, ""),
+            }
+            if source_type == "mic":
+                preview["audio_data"] = list(samples or [])
+            elif source_type == "screen":
+                fps = float(self.video_fps_combo.currentData() or 30)
+                preview.update({
+                    "width": int(self.screen_width_spin.value()),
+                    "height": int(self.screen_height_spin.value()),
+                    "fps": fps,
+                    "title": get_app()._tr("Screen Recording"),
+                })
+            elif source_type == "webcam":
+                camera_size = self.camera_size_combo.currentData() or (1280, 720)
+                fps = float(self.camera_fps_combo.currentData() or 30)
+                preview.update({
+                    "width": int(camera_size[0]),
+                    "height": int(camera_size[1]),
+                    "fps": fps,
+                    "title": get_app()._tr("Webcam Recording"),
+                })
+            previews.append(preview)
+        return previews
 
     def _clear_timeline_preview(self):
         timeline = getattr(self.window, "timeline", None)
         if timeline and hasattr(timeline, "clear_audio_recording_preview"):
             timeline.clear_audio_recording_preview()
+
+    def _reset_recording_preview_state(self):
+        self._recording_preview_id = ""
+        self._recording_preview_file_ids = {}
+        self._recording_track_map = {}
+        self._recording_waveform_samples = []
+
+    def _selected_recording_source_types(self):
+        source_types = []
+        if self.mic_card.isChecked():
+            source_types.append("mic")
+        if self.screen_card.isChecked():
+            source_types.append("screen")
+        if self.camera_card.isChecked():
+            source_types.append("webcam")
+        return source_types
 
     def _import_recording_group(self, sources):
         selected = []
@@ -1536,7 +1720,8 @@ class AudioRecordingDockContent(QWidget):
             for source_type, path in sources
             if path and os.path.exists(path)
         ]
-        assignments = self._recording_track_assignments([source_type for source_type, _ in existing_sources])
+        assignments = self._recording_track_map or self._recording_track_assignments(
+            [source_type for source_type, _ in existing_sources])
         if assignments:
             log.info("Recording track assignments: %s", assignments)
         import_order = {"mic": 0, "screen": 1, "webcam": 2}
@@ -1669,6 +1854,7 @@ class AudioRecordingDockContent(QWidget):
         if not recorded_file:
             return
 
+        self._copy_live_recording_thumbnails(source_type, recorded_file.id)
         position = self._context_start
         if position is None:
             position = self._recording_timeline_position
@@ -1701,6 +1887,21 @@ class AudioRecordingDockContent(QWidget):
             if source_type == "webcam":
                 timeline.update_clip_data(new_clip, only_basic_props=False, ignore_refresh=False)
         return new_clip
+
+    def _copy_live_recording_thumbnails(self, source_type, final_file_id):
+        temp_file_id = (self._recording_preview_file_ids or {}).get(source_type)
+        if not temp_file_id or not final_file_id:
+            return 0
+        cache = LiveRecordingThumbnailCache(temp_file_id, 0.0)
+        copied = cache.copy_to_file_id(final_file_id)
+        if copied:
+            log.info(
+                "Copied %s live recording thumbnails from %s to %s",
+                copied,
+                temp_file_id,
+                final_file_id,
+            )
+        return copied
 
     def _apply_webcam_clip_layout(self, clip_data):
         layout = self._webcam_layout()
@@ -1823,6 +2024,7 @@ class AudioRecordingDockContent(QWidget):
     def _update_elapsed_time(self):
         elapsed = max(0.0, time.monotonic() - self._recording_started_at)
         self._set_record_button_recording(elapsed)
+        self._update_timeline_preview(self._recording_waveform_samples, elapsed)
 
     def _format_elapsed_time(self, elapsed):
         minutes = int(elapsed // 60)
