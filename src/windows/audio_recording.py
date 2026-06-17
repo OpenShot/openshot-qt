@@ -412,7 +412,7 @@ class LiveVideoRecordingJob(QObject):
                 last_output_frame_number = output_frame_number
                 self.frames = output_frame_number
                 self._last_output_frame_number = output_frame_number
-                self._last_frame = frame.DeepCopy() if hasattr(frame, "DeepCopy") else frame
+                self._last_frame = self._copy_frame(frame)
                 capture_frame_number += 1
         except Exception as ex:
             if not self._stop.is_set():
@@ -460,12 +460,23 @@ class LiveVideoRecordingJob(QObject):
         final_frame_number = max(1, int(round(elapsed * fps_value)) + 1)
         if final_frame_number <= self._last_output_frame_number + 1:
             return
-        frame = self._last_frame.DeepCopy() if hasattr(self._last_frame, "DeepCopy") else self._last_frame
+        frame = self._copy_frame(self._last_frame)
         if hasattr(frame, "SetFrameNumber"):
             frame.SetFrameNumber(final_frame_number)
         self._writer.WriteFrame(frame)
         self.frames = final_frame_number
         self._last_output_frame_number = final_frame_number
+
+    def _copy_frame(self, frame):
+        if frame is None:
+            return None
+        try:
+            copied = openshot.Frame()
+            copied.DeepCopy(frame)
+            return copied
+        except Exception:
+            log.debug("Unable to deep copy live video frame", exc_info=True)
+        return frame
 
     @staticmethod
     def _safe_even_dimension(value):
