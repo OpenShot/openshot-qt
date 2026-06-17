@@ -296,7 +296,7 @@ def get_windows_authenticode_subject(signed_path):
         "-NoProfile",
         "-ExecutionPolicy", "Bypass",
         "-Command",
-        powershell_command,
+        "& { %s }" % powershell_command,
         signed_path,
     ]
     try:
