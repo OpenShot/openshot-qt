@@ -197,12 +197,20 @@ if (([System.IO.Path]::GetFullPath($installerPath)) -ne ([System.IO.Path]::GetFu
 $outputDir = Join-Path $PWD "build\msix"
 New-Item -Path $outputDir -ItemType Directory -Force | Out-Null
 Remove-Item -Path (Join-Path $outputDir "*.msix") -Force -ErrorAction SilentlyContinue
+$toolLogPath = Join-Path $outputDir "msix-packaging-tool.log"
+Remove-Item -Path $toolLogPath -Force -ErrorAction SilentlyContinue
 
 $startTime = Get-Date
-& $ToolExe create-package --template $templatePath -v
+Write-Host "Running MSIX Packaging Tool. Full output will be saved to: $toolLogPath"
+& $ToolExe create-package --template $templatePath -v *> $toolLogPath
 if ($LASTEXITCODE -ne 0) {
+    if (Test-Path -Path $toolLogPath -PathType Leaf) {
+        Write-Host "MSIX Packaging Tool failed. Last 120 log lines:"
+        Get-Content -Path $toolLogPath -Tail 120
+    }
     throw "MSIX Packaging Tool failed with exit code $LASTEXITCODE."
 }
+Write-Host "MSIX Packaging Tool completed successfully."
 
 $searchRoots = @(
     (Split-Path -Path $templatePath -Parent),
