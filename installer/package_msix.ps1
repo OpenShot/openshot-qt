@@ -126,7 +126,7 @@ function Resolve-MsixPackagingTool {
             $executable = $appNode.GetAttribute("Executable")
             if ($appId -eq "Msix.App" -and $executable) {
                 $manifestExe = Join-Path $ToolDir $executable
-                Write-Host "Checking manifest executable for $appId: $manifestExe"
+                Write-Host "Checking manifest executable for ${appId}: $manifestExe"
                 if (Test-Path -Path $manifestExe -PathType Leaf) {
                     return $manifestExe
                 }
