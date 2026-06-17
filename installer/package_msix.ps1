@@ -92,6 +92,65 @@ function Assert-SingleArtifact {
     }
 }
 
+function Resolve-MsixPackagingTool {
+    param(
+        [Parameter(Mandatory = $true)]
+        [object] $ToolPackage
+    )
+
+    $ToolDir = $ToolPackage.InstallLocation
+    Write-Host "MSIX Packaging Tool package location: $ToolDir"
+
+    $rootExe = Join-Path $ToolDir "MsixPackagingTool.exe"
+    Write-Host "Checking package-root CLI path: $rootExe"
+    if (Test-Path -Path $rootExe -PathType Leaf) {
+        return $rootExe
+    }
+
+    $aliasCommand = @(Get-Command "MsixPackagingTool.exe" -ErrorAction SilentlyContinue)
+    if ($aliasCommand.Count -gt 0) {
+        $aliasPath = $aliasCommand[0].Path
+        if (-not $aliasPath) {
+            $aliasPath = $aliasCommand[0].Source
+        }
+        Write-Host "Using MSIX Packaging Tool app execution alias: $aliasPath"
+        return $aliasPath
+    }
+
+    $manifestPath = Join-Path $ToolDir "AppxManifest.xml"
+    if (Test-Path -Path $manifestPath -PathType Leaf) {
+        [xml] $manifestXml = Get-Content -Path $manifestPath -Raw
+        $appNodes = $manifestXml.SelectNodes("//*[local-name()='Application']")
+        foreach ($appNode in $appNodes) {
+            $appId = $appNode.GetAttribute("Id")
+            $executable = $appNode.GetAttribute("Executable")
+            if ($appId -eq "Msix.App" -and $executable) {
+                $manifestExe = Join-Path $ToolDir $executable
+                Write-Host "Checking manifest executable for $appId: $manifestExe"
+                if (Test-Path -Path $manifestExe -PathType Leaf) {
+                    return $manifestExe
+                }
+            }
+        }
+    }
+
+    $packageExeMatches = @(
+        Get-ChildItem -Path $ToolDir -Filter "*.exe" -File -Recurse -ErrorAction SilentlyContinue |
+            Where-Object { $_.Name -match '^Msix.*Packaging.*Tool.*\.exe$' -or $_.Name -eq "MsixPackagingTool.exe" }
+    )
+
+    if ($packageExeMatches.Count -eq 1) {
+        Write-Host "Using MSIX Packaging Tool executable found under package location: $($packageExeMatches[0].FullName)"
+        return $packageExeMatches[0].FullName
+    }
+
+    $allPackageExes = @(
+        Get-ChildItem -Path $ToolDir -Filter "*.exe" -File -Recurse -ErrorAction SilentlyContinue |
+            Select-Object -ExpandProperty FullName
+    )
+    throw "MSIX Packaging Tool CLI not found. Checked package-root path, app execution alias, manifest AppID Msix.App, and package executable search. Package executables found: $($allPackageExes -join ', ')"
+}
+
 if (-not (Test-Administrator)) {
     throw "MSIX packaging requires an elevated/admin Windows runner."
 }
@@ -110,10 +169,7 @@ if (-not $toolPackage) {
 }
 
 $ToolDir = $toolPackage.InstallLocation
-$ToolExe = Join-Path $ToolDir "MsixPackagingTool.exe"
-if (-not (Test-Path -Path $ToolExe -PathType Leaf)) {
-    throw "MSIX Packaging Tool CLI not found: $ToolExe"
-}
+$ToolExe = Resolve-MsixPackagingTool -ToolPackage $toolPackage
 Write-Host "Using MSIX Packaging Tool: $ToolExe"
 
 $templatePath = "C:\OpenShot-MSIX\OpenShotTemplate\OpenShot_template.xml"
