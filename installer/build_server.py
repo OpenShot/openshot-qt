@@ -256,7 +256,133 @@ def run_command_with_exit_code(command, working_dir=None):
     return p.wait()
 
 
-def sign_windows_installer(installer_path):
+def shell_quote(value):
+    """Quote a value for Windows shell commands."""
+    return '"%s"' % str(value).replace('"', '\\"')
+
+
+def get_signtool_path():
+    return os.getenv(
+        "SIGNTOOL_PATH",
+        "C:\\Program Files (x86)\\Windows Kits\\10\\bin\\10.0.26100.0\\x64\\signtool.exe")
+
+
+def get_azure_codesign_dlib_path():
+    return os.getenv(
+        "AZURE_CODESIGN_DLIB_PATH",
+        "C:\\Users\\Administrator\\AppData\\Local\\Microsoft\\MicrosoftArtifactSigningClientTools\\Azure.CodeSigning.Dlib.dll")
+
+
+def get_windows_authenticode_subject(signed_path):
+    """Return the Authenticode signer subject from a signed Windows artifact."""
+    subject = subprocess.check_output([
+        "powershell.exe",
+        "-NoProfile",
+        "-Command",
+        "$signature = Get-AuthenticodeSignature -FilePath $args[0]; "
+        "if (-not $signature.SignerCertificate) { throw 'No signer certificate found' }; "
+        "$signature.SignerCertificate.Subject",
+        signed_path,
+    ], stderr=subprocess.STDOUT)
+    return subject.decode("UTF-8").strip()
+
+
+def prepare_windows_msix_for_signing(msix_path, signed_installer_path):
+    """Patch the MSIX manifest publisher to match the signing certificate."""
+    signer_subject = get_windows_authenticode_subject(signed_installer_path)
+    output("Windows signing certificate subject: %s" % signer_subject)
+
+    signtool_path = get_signtool_path()
+    makeappx_path = os.getenv(
+        "MAKEAPPX_PATH",
+        os.path.join(os.path.dirname(signtool_path), "MakeAppx.exe"))
+    if not os.path.exists(makeappx_path):
+        error("MakeAppx.exe not found: %s" % makeappx_path)
+        return False
+
+    unpack_dir = "%s.unpack" % msix_path
+    repacked_path = "%s.repacked.msix" % msix_path
+    if os.path.isdir(unpack_dir):
+        shutil.rmtree(unpack_dir)
+    if os.path.exists(repacked_path):
+        os.remove(repacked_path)
+
+    unpack_command = " ".join([
+        shell_quote(makeappx_path),
+        "unpack",
+        "/o",
+        "/p", shell_quote(msix_path),
+        "/d", shell_quote(unpack_dir),
+    ])
+    if run_command_with_exit_code(unpack_command) != 0:
+        error("Failed to unpack MSIX package: %s" % msix_path)
+        return False
+
+    manifest_path = os.path.join(unpack_dir, "AppxManifest.xml")
+    if not os.path.exists(manifest_path):
+        error("MSIX manifest not found after unpacking: %s" % manifest_path)
+        return False
+
+    try:
+        import xml.etree.ElementTree as ET
+
+        ET.register_namespace("", "http://schemas.microsoft.com/appx/manifest/foundation/windows10")
+        manifest_tree = ET.parse(manifest_path)
+        manifest_root = manifest_tree.getroot()
+        namespace = manifest_root.tag[1:].split("}")[0] if manifest_root.tag.startswith("{") else ""
+        identity_tag = "{%s}Identity" % namespace if namespace else "Identity"
+        identity = manifest_root.find(identity_tag)
+        if identity is None:
+            error("MSIX manifest Identity element not found: %s" % manifest_path)
+            return False
+
+        current_publisher = identity.attrib.get("Publisher", "")
+        output("MSIX manifest publisher before signing: %s" % current_publisher)
+        if current_publisher != signer_subject:
+            output("Updating MSIX manifest publisher to match signing certificate subject")
+            identity.set("Publisher", signer_subject)
+            manifest_tree.write(manifest_path, encoding="UTF-8", xml_declaration=True)
+    except Exception as ex:
+        error("Failed to update MSIX manifest publisher: %s" % ex)
+        return False
+
+    pack_command = " ".join([
+        shell_quote(makeappx_path),
+        "pack",
+        "/o",
+        "/h", "SHA256",
+        "/d", shell_quote(unpack_dir),
+        "/p", shell_quote(repacked_path),
+    ])
+    if run_command_with_exit_code(pack_command) != 0 or not os.path.exists(repacked_path):
+        error("Failed to repack MSIX package: %s" % msix_path)
+        return False
+
+    shutil.move(repacked_path, msix_path)
+    shutil.rmtree(unpack_dir)
+    output("Repacked MSIX package for signing: %s" % msix_path)
+    return True
+
+
+def dump_appx_packaging_events():
+    """Log recent AppxPackagingOM events for MSIX signing diagnostics."""
+    command = " ".join([
+        "powershell.exe",
+        "-NoProfile",
+        "-Command",
+        shell_quote(
+            "Get-WinEvent -LogName 'Microsoft-Windows-AppxPackaging/Operational' -MaxEvents 8 | "
+            "Select-Object TimeCreated, Id, ProviderName, Message | Format-List"
+        ),
+    ])
+    try:
+        for line in run_command(command):
+            output(line)
+    except Exception as ex:
+        error("Unable to read AppxPackagingOM event log: %s" % ex)
+
+
+def sign_windows_installer(installer_path, debug=False):
     """Sign a Windows installer package with Azure Code Signing"""
     output("Signing Windows package: %s" % installer_path)
 
@@ -288,29 +414,29 @@ def sign_windows_installer(installer_path):
     with open(metadata_path, "w", encoding="UTF-8") as f:
         json.dump(metadata, f)
 
-    signtool_path = os.getenv(
-        "SIGNTOOL_PATH",
-        "C:\\Program Files (x86)\\Windows Kits\\10\\bin\\10.0.26100.0\\x64\\signtool.exe")
-    dlib_path = os.getenv(
-        "AZURE_CODESIGN_DLIB_PATH",
-        "C:\\Users\\Administrator\\AppData\\Local\\Microsoft\\MicrosoftArtifactSigningClientTools\\Azure.CodeSigning.Dlib.dll")
+    signtool_path = get_signtool_path()
+    dlib_path = get_azure_codesign_dlib_path()
     timestamp_url = os.getenv("AZURE_CODESIGN_TIMESTAMP_URL", "http://timestamp.acs.microsoft.com")
 
     sign_command = " ".join([
-        '"%s"' % signtool_path,
+        shell_quote(signtool_path),
         "sign",
+        "/debug" if debug else "",
         "/v",
         "/fd SHA256",
         '/tr "%s"' % timestamp_url,
         "/td SHA256",
-        '/dlib "%s"' % dlib_path,
-        '/dmdf "%s"' % metadata_path,
-        '"%s"' % installer_path,
+        "/dlib", shell_quote(dlib_path),
+        "/dmdf", shell_quote(metadata_path),
+        shell_quote(installer_path),
     ])
-    return run_command_with_exit_code(sign_command) == 0
+    success = run_command_with_exit_code(sign_command) == 0
+    if not success and installer_path.lower().endswith((".msix", ".appx", ".msixbundle", ".appxbundle")):
+        dump_appx_packaging_events()
+    return success
 
 
-def sign_windows_msix_artifacts():
+def sign_windows_msix_artifacts(signed_installer_path):
     """Sign any MSIX artifacts prepared for the x64 Windows signing job."""
     msix_dir = os.path.join(PATH, "build", "msix")
     if not os.path.isdir(msix_dir):
@@ -326,7 +452,10 @@ def sign_windows_msix_artifacts():
 
     for msix_path in msix_paths:
         output("Found Windows MSIX artifact: %s" % msix_path)
-        if not sign_windows_installer(msix_path):
+        if not prepare_windows_msix_for_signing(msix_path, signed_installer_path):
+            error("Windows MSIX preparation failed: %s" % msix_path)
+            return False
+        if not sign_windows_installer(msix_path, debug=True):
             error("Windows MSIX signing failed: %s" % msix_path)
             return False
 
@@ -707,7 +836,7 @@ def main():
             elif os.path.exists(app_build_path):
                 sign_success = sign_windows_installer(app_build_path)
                 if sign_success and not windows_32bit:
-                    sign_success = sign_windows_msix_artifacts()
+                    sign_success = sign_windows_msix_artifacts(app_build_path)
                 if not sign_success:
                     needs_upload = False
                     os.remove(app_build_path)
