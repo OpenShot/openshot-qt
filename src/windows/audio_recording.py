@@ -137,6 +137,46 @@ def recording_preview_file_id(session_id, source_type):
     return "recording-preview-%s-%s" % (session_id, safe_source or "source")
 
 
+def screen_capture_backend():
+    """Return the libopenshot screen backend best suited for the current session."""
+    auto_backend = getattr(openshot, "SCREEN_CAPTURE_AUTO", None)
+    default_backend = getattr(getattr(openshot, "ScreenCaptureReader", None), "DefaultBackend", None)
+    if callable(default_backend):
+        try:
+            return default_backend()
+        except Exception:
+            log.debug("Unable to query default screen capture backend", exc_info=True)
+
+    session = os.environ.get("XDG_SESSION_TYPE", "x11").lower()
+    if session == "wayland" and hasattr(openshot, "SCREEN_CAPTURE_WAYLAND"):
+        return openshot.SCREEN_CAPTURE_WAYLAND
+    if hasattr(openshot, "SCREEN_CAPTURE_X11"):
+        return openshot.SCREEN_CAPTURE_X11
+    return auto_backend
+
+
+def screen_capture_backend_supported(backend=None):
+    """Return whether libopenshot exposes and supports the selected screen backend."""
+    if not (
+        sys.platform.startswith("linux")
+        and all(hasattr(openshot, name) for name in ("ScreenCaptureReader", "ScreenCaptureSettings"))
+    ):
+        return False
+
+    selected_backend = screen_capture_backend() if backend is None else backend
+    is_supported = getattr(openshot.ScreenCaptureReader, "IsBackendSupported", None)
+    if callable(is_supported) and selected_backend is not None:
+        try:
+            return bool(is_supported(selected_backend))
+        except Exception:
+            log.debug("Unable to query screen capture backend support", exc_info=True)
+
+    session = os.environ.get("XDG_SESSION_TYPE", "x11").lower()
+    if session == "wayland":
+        return False
+    return selected_backend == getattr(openshot, "SCREEN_CAPTURE_X11", object())
+
+
 class LiveRecordingThumbnailCache:
     """Save coarse thumbnail-grid frames while a live video recording is written."""
 
@@ -717,11 +757,7 @@ class AudioRecordingDockContent(QWidget):
         return audio_available or video_available
 
     def _screen_backend_available(self):
-        return (
-            sys.platform.startswith("linux")
-            and os.environ.get("XDG_SESSION_TYPE", "x11").lower() == "x11"
-            and all(hasattr(openshot, name) for name in ("ScreenCaptureReader", "ScreenCaptureSettings"))
-        )
+        return screen_capture_backend_supported()
 
     def _camera_backend_available(self):
         return (
@@ -735,7 +771,7 @@ class AudioRecordingDockContent(QWidget):
         self.mic_card.setAvailable(audio_available, "" if audio_available else _("Audio recording is not available."))
 
         screen_available = self._screen_backend_available()
-        screen_tip = "" if screen_available else _("Screen recording is only enabled for X11 on Linux in this build.")
+        screen_tip = "" if screen_available else _("Screen recording is not available for this Linux session or libopenshot build.")
         self.screen_card.setAvailable(screen_available, screen_tip)
 
         camera_available = self._camera_backend_available()
@@ -1437,7 +1473,7 @@ class AudioRecordingDockContent(QWidget):
                 screen_width = self._safe_even_dimension(min(screen_width, root_width - screen_x))
                 screen_height = self._safe_even_dimension(min(screen_height, root_height - screen_y))
             settings = openshot.ScreenCaptureSettings()
-            settings.backend = openshot.SCREEN_CAPTURE_X11
+            settings.backend = screen_capture_backend()
             settings.display = self.screen_display_edit.text().strip() or os.environ.get("DISPLAY", ":0.0")
             settings.x = screen_x
             settings.y = screen_y
@@ -1452,8 +1488,8 @@ class AudioRecordingDockContent(QWidget):
             self.screen_width_spin.setValue(settings.width)
             self.screen_height_spin.setValue(settings.height)
             log.info(
-                "Preparing screen capture: display=%s x=%s y=%s width=%s height=%s fps=%s/%s",
-                settings.display, settings.x, settings.y, settings.width, settings.height,
+                "Preparing screen capture: backend=%s display=%s x=%s y=%s width=%s height=%s fps=%s/%s",
+                settings.backend, settings.display, settings.x, settings.y, settings.width, settings.height,
                 screen_fps.num, screen_fps.den,
             )
             path = self._next_named_recording_path("Screen", "mp4")

@@ -80,6 +80,46 @@ class RecordingPreviewTests(unittest.TestCase):
             "recording-preview-session-1-source",
         )
 
+    def test_screen_capture_backend_uses_libopenshot_default_backend(self):
+        helper = self.audio_recording_module
+
+        class FakeReader:
+            @staticmethod
+            def DefaultBackend():
+                return 2
+
+            @staticmethod
+            def IsBackendSupported(backend):
+                return backend == 2
+
+        fake_openshot = types.SimpleNamespace(
+            ScreenCaptureReader=FakeReader,
+            ScreenCaptureSettings=object,
+            SCREEN_CAPTURE_AUTO=0,
+            SCREEN_CAPTURE_X11=1,
+            SCREEN_CAPTURE_WAYLAND=2,
+        )
+
+        with patch.object(helper.sys, "platform", "linux"), patch.object(helper, "openshot", fake_openshot):
+            self.assertEqual(helper.screen_capture_backend(), 2)
+            self.assertTrue(helper.screen_capture_backend_supported())
+
+    def test_screen_capture_backend_requires_explicit_wayland_support(self):
+        helper = self.audio_recording_module
+
+        fake_openshot = types.SimpleNamespace(
+            ScreenCaptureReader=object,
+            ScreenCaptureSettings=object,
+            SCREEN_CAPTURE_AUTO=0,
+            SCREEN_CAPTURE_X11=1,
+            SCREEN_CAPTURE_WAYLAND=2,
+        )
+
+        with patch.object(helper.sys, "platform", "linux"), patch.object(helper, "openshot", fake_openshot):
+            with patch.dict(helper.os.environ, {"XDG_SESSION_TYPE": "wayland"}, clear=False):
+                self.assertEqual(helper.screen_capture_backend(), 2)
+                self.assertFalse(helper.screen_capture_backend_supported())
+
     def test_live_thumbnail_cache_saves_only_grid_frames_once(self):
         helper = self.audio_recording_module
         temp_dir = tempfile.mkdtemp()
