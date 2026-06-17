@@ -349,7 +349,6 @@ class LiveVideoRecordingJob(QObject):
     def _run(self):
         capture_frame_number = 2 if self._initial_frame is not None else 1
         written_frames = 0
-        fps_value = max(1.0, float(self.fps.num) / float(self.fps.den or 1))
         last_preview_emit = 0.0
         try:
             while not self._stop.is_set():
@@ -359,15 +358,10 @@ class LiveVideoRecordingJob(QObject):
                 else:
                     frame = self.reader.GetFrame(capture_frame_number)
                 now = time.monotonic()
-                target_frames = max(1, int(round((now - self._start_time) * fps_value)))
-                if target_frames <= written_frames:
-                    capture_frame_number += 1
-                    continue
-                while written_frames < target_frames:
-                    self._writer.WriteFrame(frame)
-                    written_frames += 1
-                    if self.thumbnail_cache:
-                        self.thumbnail_cache.save_frame(frame, written_frames)
+                self._writer.WriteFrame(frame)
+                written_frames += 1
+                if self.thumbnail_cache:
+                    self.thumbnail_cache.save_frame(frame, written_frames)
                 if self.source_type == "webcam":
                     if now - last_preview_emit >= 0.2:
                         image = frame_to_qimage(frame)
