@@ -298,12 +298,19 @@ class LiveVideoRecordingJob(QObject):
         self._thread = None
         self._stop = threading.Event()
         self._start_time = 0.0
+        self._initial_frame = None
 
     def start(self):
         self.reader.Open()
+        self._initial_frame = self.reader.GetFrame(1)
+        frame_width = int(self._initial_frame.GetWidth() or 0)
+        frame_height = int(self._initial_frame.GetHeight() or 0)
         actual_width = int(getattr(getattr(self.reader, "info", None), "width", 0) or 0)
         actual_height = int(getattr(getattr(self.reader, "info", None), "height", 0) or 0)
-        if actual_width > 0 and actual_height > 0:
+        if frame_width > 0 and frame_height > 0:
+            self.width = self._safe_even_dimension(frame_width)
+            self.height = self._safe_even_dimension(frame_height)
+        elif actual_width > 0 and actual_height > 0:
             self.width = self._safe_even_dimension(actual_width)
             self.height = self._safe_even_dimension(actual_height)
         actual_fps = getattr(getattr(self.reader, "info", None), "fps", None)
@@ -340,13 +347,17 @@ class LiveVideoRecordingJob(QObject):
         self._thread.start()
 
     def _run(self):
-        capture_frame_number = 1
+        capture_frame_number = 2 if self._initial_frame is not None else 1
         written_frames = 0
         fps_value = max(1.0, float(self.fps.num) / float(self.fps.den or 1))
         last_preview_emit = 0.0
         try:
             while not self._stop.is_set():
-                frame = self.reader.GetFrame(capture_frame_number)
+                if self._initial_frame is not None:
+                    frame = self._initial_frame
+                    self._initial_frame = None
+                else:
+                    frame = self.reader.GetFrame(capture_frame_number)
                 now = time.monotonic()
                 target_frames = max(1, int(round((now - self._start_time) * fps_value)))
                 if target_frames <= written_frames:
@@ -1316,6 +1327,7 @@ class AudioRecordingDockContent(QWidget):
             self._video_jobs = self._build_video_jobs()
             self._hide_openshot_for_recording()
             for job in self._video_jobs:
+                job.errorOccurred.connect(self._live_video_recording_error)
                 job.start()
                 self._recording_sources.append((job.source_type, job.path))
             self._begin_recording()
@@ -1600,6 +1612,12 @@ class AudioRecordingDockContent(QWidget):
                     os.remove(job.path)
                 except OSError:
                     log.debug("Unable to remove canceled video recording file: %s", job.path, exc_info=True)
+
+    def _live_video_recording_error(self, source_type, message):
+        log.error("Live video recording error for %s: %s", source_type, message)
+        if self._recording:
+            self.record_button.setToolTip(get_app()._tr("Recording stopped: %s") % message)
+            QTimer.singleShot(0, self.stop_recording)
 
     def _restart_webcam_preview(self):
         if self._recording or self._starting:
