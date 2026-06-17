@@ -297,10 +297,35 @@ class LiveVideoRecordingJob(QObject):
         self._writer = None
         self._thread = None
         self._stop = threading.Event()
+        self._writer_lock = threading.Lock()
         self._start_time = 0.0
         self._initial_frame = None
+        self._last_frame = None
+        self._last_output_frame_number = 0
+        self._opened = threading.Event()
 
     def start(self):
+        self._open()
+        self._thread = threading.Thread(target=self._run, name="OpenShotLiveVideoRecording", daemon=True)
+        self._thread.start()
+
+    def start_async(self):
+        if self._thread and self._thread.is_alive():
+            return
+        self._thread = threading.Thread(target=self._open_and_run, name="OpenShotLiveVideoRecording", daemon=True)
+        self._thread.start()
+
+    def _open_and_run(self):
+        try:
+            self._open()
+            if not self._stop.is_set():
+                self._run()
+        except Exception as ex:
+            if not self._stop.is_set():
+                self.error = ex
+                self.errorOccurred.emit(self.source_type, str(ex))
+
+    def _open(self):
         self.reader.Open()
         self._initial_frame = self.reader.GetFrame(1)
         frame_width = int(self._initial_frame.GetWidth() or 0)
@@ -343,13 +368,21 @@ class LiveVideoRecordingJob(QObject):
         )
         self._writer.Open()
         self._start_time = time.monotonic()
-        self._thread = threading.Thread(target=self._run, name="OpenShotLiveVideoRecording", daemon=True)
-        self._thread.start()
+        self._opened.set()
+
+    def wait_until_opened(self):
+        while not self._opened.is_set() and not self.error and not self._stop.is_set():
+            QApplication.processEvents()
+            time.sleep(0.02)
+        if self.error:
+            raise self.error
 
     def _run(self):
         capture_frame_number = 2 if self._initial_frame is not None else 1
         written_frames = 0
+        last_output_frame_number = 0
         last_preview_emit = 0.0
+        fps_value = max(1.0, float(self.fps.num) / float(self.fps.den or 1))
         try:
             while not self._stop.is_set():
                 if self._initial_frame is not None:
@@ -358,17 +391,28 @@ class LiveVideoRecordingJob(QObject):
                 else:
                     frame = self.reader.GetFrame(capture_frame_number)
                 now = time.monotonic()
-                self._writer.WriteFrame(frame)
+                elapsed = max(0.0, now - float(self._start_time or now))
+                output_frame_number = max(1, int(round(elapsed * fps_value)) + 1)
+                output_frame_number = max(output_frame_number, last_output_frame_number + 1)
+                if hasattr(frame, "SetFrameNumber"):
+                    frame.SetFrameNumber(output_frame_number)
+                with self._writer_lock:
+                    if not self._writer:
+                        break
+                    self._writer.WriteFrame(frame)
                 written_frames += 1
                 if self.thumbnail_cache:
-                    self.thumbnail_cache.save_frame(frame, written_frames)
+                    self.thumbnail_cache.save_frame(frame, output_frame_number)
                 if self.source_type == "webcam":
                     if now - last_preview_emit >= 0.2:
                         image = frame_to_qimage(frame)
                         if image:
                             self.previewFrameReady.emit(image)
                         last_preview_emit = now
-                self.frames = written_frames
+                last_output_frame_number = output_frame_number
+                self.frames = output_frame_number
+                self._last_output_frame_number = output_frame_number
+                self._last_frame = frame.DeepCopy() if hasattr(frame, "DeepCopy") else frame
                 capture_frame_number += 1
         except Exception as ex:
             if not self._stop.is_set():
@@ -378,22 +422,50 @@ class LiveVideoRecordingJob(QObject):
     def stop(self):
         self._stop.set()
         if self._thread:
+            self._thread.join(timeout=2.0)
+        if self._thread and self._thread.is_alive():
+            try:
+                self.reader.Close()
+            except Exception:
+                log.debug("Unable to close live video capture reader", exc_info=True)
             self._thread.join(timeout=5.0)
+        else:
+            try:
+                self.reader.Close()
+            except Exception:
+                log.debug("Unable to close live video capture reader", exc_info=True)
         if self._thread and self._thread.is_alive():
             log.warning("Live video capture thread did not stop cleanly for %s", self.path)
+            if not self.error:
+                self.error = RuntimeError("Live video capture did not stop cleanly")
+                self.errorOccurred.emit(self.source_type, str(self.error))
             return
         try:
-            self.reader.Close()
-        except Exception:
-            log.debug("Unable to close live video capture reader", exc_info=True)
-        try:
-            if self._writer:
-                self._writer.Close()
+            with self._writer_lock:
+                if self._writer:
+                    self._write_final_gap_frame()
+                    self._writer.Close()
+                    self._writer = None
         except Exception as ex:
             if not self.error:
                 self.error = ex
                 self.errorOccurred.emit(self.source_type, str(ex))
         self.finished.emit(self.path)
+
+    def _write_final_gap_frame(self):
+        if not self._writer or not self._last_frame or not self._start_time:
+            return
+        fps_value = max(1.0, float(self.fps.num) / float(self.fps.den or 1))
+        elapsed = max(0.0, time.monotonic() - float(self._start_time))
+        final_frame_number = max(1, int(round(elapsed * fps_value)) + 1)
+        if final_frame_number <= self._last_output_frame_number + 1:
+            return
+        frame = self._last_frame.DeepCopy() if hasattr(self._last_frame, "DeepCopy") else self._last_frame
+        if hasattr(frame, "SetFrameNumber"):
+            frame.SetFrameNumber(final_frame_number)
+        self._writer.WriteFrame(frame)
+        self.frames = final_frame_number
+        self._last_output_frame_number = final_frame_number
 
     @staticmethod
     def _safe_even_dimension(value):
@@ -788,6 +860,15 @@ class AudioRecordingDockContent(QWidget):
             and all(hasattr(openshot, name) for name in ("CameraCaptureReader", "CameraCaptureSettings"))
         )
 
+    def _selected_camera_device(self):
+        device = self.camera_combo.currentData() if hasattr(self, "camera_combo") else None
+        if device and os.path.exists(device):
+            return device
+        return ""
+
+    def _camera_device_available(self):
+        return bool(self._camera_backend_available() and self._selected_camera_device())
+
     def _sync_source_availability(self):
         _ = get_app()._tr
         audio_available = all(hasattr(openshot, name) for name in ("AudioRecorder", "AudioRecorderSettings"))
@@ -797,8 +878,14 @@ class AudioRecordingDockContent(QWidget):
         screen_tip = "" if screen_available else _("Screen recording is not available for this Linux session or libopenshot build.")
         self.screen_card.setAvailable(screen_available, screen_tip)
 
-        camera_available = self._camera_backend_available()
-        camera_tip = "" if camera_available else _("Webcam recording is only enabled for v4l2 on Linux in this build.")
+        camera_backend_available = self._camera_backend_available()
+        camera_available = camera_backend_available and self._camera_device_available()
+        if not camera_backend_available:
+            camera_tip = _("Webcam recording is only enabled for v4l2 on Linux in this build.")
+        elif not camera_available:
+            camera_tip = _("No webcam device was found.")
+        else:
+            camera_tip = ""
         self.camera_card.setAvailable(camera_available, camera_tip)
         self._sync_screen_backend_ui()
 
@@ -1084,9 +1171,9 @@ class AudioRecordingDockContent(QWidget):
         current = self.camera_combo.currentData() if hasattr(self, "camera_combo") else None
         self.camera_combo.blockSignals(True)
         self.camera_combo.clear()
-        devices = sorted(glob.glob("/dev/video*"))
+        devices = [device for device in sorted(glob.glob("/dev/video*")) if os.path.exists(device)]
         if not devices:
-            devices = ["/dev/video0"]
+            self.camera_combo.addItem(_("No webcam found"), None)
         for device in devices:
             self.camera_combo.addItem(os.path.basename(device), device)
         if current:
@@ -1096,9 +1183,11 @@ class AudioRecordingDockContent(QWidget):
                     break
         self.camera_combo.blockSignals(False)
         self._refresh_camera_modes()
+        self._sync_source_availability()
 
     def _camera_device_changed(self):
         self._refresh_camera_modes()
+        self._sync_source_availability()
         self._restart_webcam_preview()
 
     def _camera_size_changed(self):
@@ -1108,7 +1197,19 @@ class AudioRecordingDockContent(QWidget):
 
     def _refresh_camera_modes(self):
         current_size = self.camera_size_combo.currentData() if hasattr(self, "camera_size_combo") else None
-        device = self.camera_combo.currentData() or "/dev/video0"
+        device = self._selected_camera_device()
+        if not device:
+            self._camera_modes = {}
+            self._camera_mode_formats = {}
+            self.camera_size_combo.blockSignals(True)
+            self.camera_size_combo.clear()
+            self.camera_size_combo.blockSignals(False)
+            self.camera_fps_combo.blockSignals(True)
+            self.camera_fps_combo.clear()
+            self.camera_fps_combo.blockSignals(False)
+            self.webcam_preview_label.setText(get_app()._tr("No webcam found"))
+            self._update_webcam_preview_aspect()
+            return
         self._camera_modes = self._probe_camera_modes(device)
 
         common_order = [
@@ -1285,6 +1386,10 @@ class AudioRecordingDockContent(QWidget):
         if not self.mic_card.isChecked() and not self.screen_card.isChecked() and not self.camera_card.isChecked():
             self.record_button.setToolTip(_("Select at least one recording source."))
             return
+        validation_error = self._recording_start_validation_error()
+        if validation_error:
+            self.record_button.setToolTip(validation_error)
+            return
 
         self._starting = True
         self._set_record_button_starting()
@@ -1322,7 +1427,11 @@ class AudioRecordingDockContent(QWidget):
             self._hide_openshot_for_recording()
             for job in self._video_jobs:
                 job.errorOccurred.connect(self._live_video_recording_error)
-                job.start()
+                if job.source_type == "screen" and screen_capture_backend_is_wayland():
+                    job.start_async()
+                    job.wait_until_opened()
+                else:
+                    job.start()
                 self._recording_sources.append((job.source_type, job.path))
             self._begin_recording()
         except Exception as ex:
@@ -1340,6 +1449,22 @@ class AudioRecordingDockContent(QWidget):
             return
         finally:
             self._set_wait_cursor(False)
+
+    def _recording_start_validation_error(self):
+        _ = get_app()._tr
+        if self.screen_card.isChecked() and not self._screen_backend_available():
+            return _("Screen recording is not available for this Linux session or libopenshot build.")
+        if self.camera_card.isChecked():
+            if not self._camera_backend_available():
+                return _("Webcam recording is only enabled for v4l2 on Linux in this build.")
+            device = self.camera_combo.currentData()
+            if not device:
+                return _("No webcam device was found.")
+            if not os.path.exists(device):
+                return _("Webcam device was not found: %s") % device
+            if not os.access(device, os.R_OK):
+                return _("Webcam device is not accessible: %s") % device
+        return ""
 
     def _cancel_starting(self, restart_monitoring=True):
         self._starting = False
@@ -1562,9 +1687,12 @@ class AudioRecordingDockContent(QWidget):
         if self.camera_card.isChecked():
             camera_fps = openshot.Fraction(int(self.camera_fps_combo.currentData() or 30), 1)
             camera_size = self.camera_size_combo.currentData() or (1280, 720)
+            camera_device = self._selected_camera_device()
+            if not camera_device:
+                raise RuntimeError(get_app()._tr("No webcam device was found."))
             settings = openshot.CameraCaptureSettings()
             settings.backend = openshot.CAMERA_CAPTURE_V4L2
-            settings.device = self.camera_combo.currentData() or "/dev/video0"
+            settings.device = camera_device
             settings.width = self._safe_even_dimension(camera_size[0])
             settings.height = self._safe_even_dimension(camera_size[1])
             settings.fps = camera_fps
@@ -1619,7 +1747,10 @@ class AudioRecordingDockContent(QWidget):
         self._stop_webcam_preview()
         if not self._dock_visible() or not self.camera_card.isChecked() or not self._camera_backend_available():
             return
-        device = self.camera_combo.currentData() or "/dev/video0"
+        device = self._selected_camera_device()
+        if not device:
+            self.webcam_preview_label.setText(get_app()._tr("No webcam found"))
+            return
         camera_size = self.camera_size_combo.currentData() or (640, 480)
         width = self._safe_even_dimension(camera_size[0])
         height = self._safe_even_dimension(camera_size[1])

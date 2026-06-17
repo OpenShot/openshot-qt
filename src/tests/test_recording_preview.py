@@ -199,6 +199,119 @@ class RecordingPreviewTests(unittest.TestCase):
         finally:
             shutil.rmtree(temp_dir, ignore_errors=True)
 
+    def test_live_video_recording_preserves_elapsed_frame_numbers(self):
+        helper = self.audio_recording_module
+
+        class FakeFrame:
+            def __init__(self):
+                self.number = 0
+
+            def SetFrameNumber(self, frame_number):
+                self.number = frame_number
+
+        class FakeReader:
+            def GetFrame(self, _frame_number):
+                return FakeFrame()
+
+        class FakeWriter:
+            def __init__(self, job):
+                self.job = job
+                self.frame_numbers = []
+
+            def WriteFrame(self, frame):
+                self.frame_numbers.append(frame.number)
+                if len(self.frame_numbers) >= 3:
+                    self.job._stop.set()
+
+        fps = types.SimpleNamespace(num=30, den=1)
+        job = helper.LiveVideoRecordingJob(FakeReader(), "screen.mp4", 640, 480, fps)
+        writer = FakeWriter(job)
+        job._writer = writer
+        job._start_time = 100.0
+
+        with patch.object(helper.time, "monotonic", side_effect=[100.0, 100.5, 101.0]):
+            job._run()
+
+        self.assertEqual(writer.frame_numbers, [1, 16, 31])
+        self.assertEqual(job.frames, 31)
+
+    def test_live_video_stop_closes_reader_to_unblock_and_finalizes_writer(self):
+        helper = self.audio_recording_module
+
+        class FakeReader:
+            def __init__(self):
+                self.closed = False
+
+            def Close(self):
+                self.closed = True
+
+        class FakeWriter:
+            def __init__(self):
+                self.closed = False
+
+            def Close(self):
+                self.closed = True
+
+        class FakeThread:
+            def __init__(self):
+                self.joins = 0
+
+            def join(self, timeout=None):
+                self.joins += 1
+
+            def is_alive(self):
+                return self.joins < 2
+
+        reader = FakeReader()
+        writer = FakeWriter()
+        fps = types.SimpleNamespace(num=30, den=1)
+        job = helper.LiveVideoRecordingJob(reader, "screen.mp4", 640, 480, fps)
+        job._thread = FakeThread()
+        job._writer = writer
+
+        job.stop()
+
+        self.assertTrue(reader.closed)
+        self.assertTrue(writer.closed)
+        self.assertIsNone(job._writer)
+
+    def test_live_video_stop_writes_final_gap_frame(self):
+        helper = self.audio_recording_module
+
+        class FakeFrame:
+            def __init__(self):
+                self.number = 0
+
+            def SetFrameNumber(self, frame_number):
+                self.number = frame_number
+
+            def DeepCopy(self):
+                copied = FakeFrame()
+                copied.number = self.number
+                return copied
+
+        class FakeWriter:
+            def __init__(self):
+                self.frame_numbers = []
+
+            def WriteFrame(self, frame):
+                self.frame_numbers.append(frame.number)
+
+        fps = types.SimpleNamespace(num=30, den=1)
+        job = helper.LiveVideoRecordingJob(object(), "screen.mp4", 640, 480, fps)
+        writer = FakeWriter()
+        job._writer = writer
+        job._start_time = 100.0
+        job._last_output_frame_number = 31
+        job._last_frame = FakeFrame()
+        job._last_frame.SetFrameNumber(31)
+
+        with patch.object(helper.time, "monotonic", return_value=105.0):
+            job._write_final_gap_frame()
+
+        self.assertEqual(writer.frame_numbers, [151])
+        self.assertEqual(job.frames, 151)
+
     def test_timeline_recording_previews_build_audio_and_video_clip_data(self):
         timeline_module = self.timeline_module
         helper = types.SimpleNamespace(
