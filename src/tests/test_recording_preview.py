@@ -220,19 +220,19 @@ class RecordingPreviewTests(unittest.TestCase):
 
             def WriteFrame(self, frame):
                 self.frame_numbers.append(frame.number)
-                if len(self.frame_numbers) >= 3:
+                if frame.number >= 31:
                     self.job._stop.set()
 
         fps = types.SimpleNamespace(num=30, den=1)
         job = helper.LiveVideoRecordingJob(FakeReader(), "screen.mp4", 640, 480, fps)
         writer = FakeWriter(job)
         job._writer = writer
-        job._start_time = 100.0
+        job.begin(100.0)
 
         with patch.object(helper.time, "monotonic", side_effect=[100.0, 100.5, 101.0]):
             job._run()
 
-        self.assertEqual(writer.frame_numbers, [1, 16, 31])
+        self.assertEqual(writer.frame_numbers, list(range(1, 32)))
         self.assertEqual(job.frames, 31)
 
     def test_live_video_stop_closes_reader_to_unblock_and_finalizes_writer(self):
@@ -309,7 +309,7 @@ class RecordingPreviewTests(unittest.TestCase):
         with patch.object(helper.time, "monotonic", return_value=105.0):
             job._write_final_gap_frame()
 
-        self.assertEqual(writer.frame_numbers, [151])
+        self.assertEqual(writer.frame_numbers, list(range(32, 152)))
         self.assertEqual(job.frames, 151)
 
     def test_timeline_recording_previews_build_audio_and_video_clip_data(self):

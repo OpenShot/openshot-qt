@@ -298,6 +298,7 @@ class LiveVideoRecordingJob(QObject):
         self._thread = None
         self._stop = threading.Event()
         self._writer_lock = threading.Lock()
+        self._recording_started = threading.Event()
         self._start_time = 0.0
         self._initial_frame = None
         self._last_frame = None
@@ -367,7 +368,6 @@ class LiveVideoRecordingJob(QObject):
             self.bit_rate,
         )
         self._writer.Open()
-        self._start_time = time.monotonic()
         self._opened.set()
 
     def wait_until_opened(self):
@@ -377,7 +377,15 @@ class LiveVideoRecordingJob(QObject):
         if self.error:
             raise self.error
 
+    def begin(self, start_time=None):
+        self._start_time = float(start_time or time.monotonic())
+        self._recording_started.set()
+
     def _run(self):
+        while not self._recording_started.is_set() and not self._stop.is_set():
+            time.sleep(0.01)
+        if self._stop.is_set():
+            return
         capture_frame_number = 2 if self._initial_frame is not None else 1
         written_frames = 0
         last_output_frame_number = 0
@@ -394,12 +402,11 @@ class LiveVideoRecordingJob(QObject):
                 elapsed = max(0.0, now - float(self._start_time or now))
                 output_frame_number = max(1, int(round(elapsed * fps_value)) + 1)
                 output_frame_number = max(output_frame_number, last_output_frame_number + 1)
-                if hasattr(frame, "SetFrameNumber"):
-                    frame.SetFrameNumber(output_frame_number)
                 with self._writer_lock:
                     if not self._writer:
                         break
-                    self._writer.WriteFrame(frame)
+                    self._write_gap_frames(last_output_frame_number, output_frame_number)
+                    self._write_numbered_frame(frame, output_frame_number)
                 written_frames += 1
                 if self.thumbnail_cache:
                     self.thumbnail_cache.save_frame(frame, output_frame_number)
@@ -421,6 +428,7 @@ class LiveVideoRecordingJob(QObject):
 
     def stop(self):
         self._stop.set()
+        self._recording_started.set()
         if self._thread:
             self._thread.join(timeout=2.0)
         if self._thread and self._thread.is_alive():
@@ -461,11 +469,24 @@ class LiveVideoRecordingJob(QObject):
         if final_frame_number <= self._last_output_frame_number + 1:
             return
         frame = self._copy_frame(self._last_frame)
-        if hasattr(frame, "SetFrameNumber"):
-            frame.SetFrameNumber(final_frame_number)
-        self._writer.WriteFrame(frame)
+        self._write_gap_frames(self._last_output_frame_number, final_frame_number)
+        self._write_numbered_frame(frame, final_frame_number)
         self.frames = final_frame_number
         self._last_output_frame_number = final_frame_number
+
+    def _write_gap_frames(self, last_frame_number, next_frame_number):
+        if not self._writer or not self._last_frame:
+            return
+        for frame_number in range(int(last_frame_number) + 1, int(next_frame_number)):
+            self._write_numbered_frame(self._last_frame, frame_number)
+
+    def _write_numbered_frame(self, frame, frame_number):
+        if not self._writer or frame is None:
+            return
+        frame_to_write = self._copy_frame(frame)
+        if hasattr(frame_to_write, "SetFrameNumber"):
+            frame_to_write.SetFrameNumber(frame_number)
+        self._writer.WriteFrame(frame_to_write)
 
     def _copy_frame(self, frame):
         if frame is None:
@@ -1423,17 +1444,8 @@ class AudioRecordingDockContent(QWidget):
                 source_type: recording_preview_file_id(session_id, source_type)
                 for source_type in source_types
             }
-            if self.mic_card.isChecked():
-                settings = self._build_recorder_settings(recording=True)
-                recorder = openshot.AudioRecorder(settings)
-                recorder.Open()
-                if hasattr(recorder, "PrepareRecording"):
-                    recorder.PrepareRecording()
-                self._recorder = recorder
-                self._recording_sources.append(("mic", self._recording_path))
-            else:
-                self._recorder = None
-                self._recording_path = ""
+            self._recorder = None
+            self._recording_path = ""
             self._video_jobs = self._build_video_jobs()
             self._hide_openshot_for_recording()
             for job in self._video_jobs:
@@ -1511,10 +1523,15 @@ class AudioRecordingDockContent(QWidget):
                     settings = self._build_recorder_settings(recording=True)
                     recorder = openshot.AudioRecorder(settings)
                     recorder.Open()
+                    if hasattr(recorder, "PrepareRecording"):
+                        recorder.PrepareRecording()
                     self._recorder = recorder
             self._apply_recording_preview_scale()
             if recorder is not None:
                 recorder.Start()
+            recording_started_at = time.monotonic()
+            for job in self._video_jobs or []:
+                job.begin(recording_started_at)
         except Exception as ex:
             self._recorder = None
             self._recording = False
@@ -1532,7 +1549,9 @@ class AudioRecordingDockContent(QWidget):
         self._starting = False
         self._recorder = recorder
         self._recording = True
-        self._recording_started_at = time.monotonic()
+        self._recording_started_at = recording_started_at
+        if self.mic_card.isChecked() and self._recording_path:
+            self._recording_sources.append(("mic", self._recording_path))
         if self._should_preview_timeline():
             self._start_timeline_playback()
         self._last_timeline_preview_at = 0.0

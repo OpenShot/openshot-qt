@@ -1441,6 +1441,9 @@ class ClipPainter(BasePainter):
                 self.thumb_cache[key] = pix
                 return pix
 
+        if str(file_id).startswith("recording-preview-"):
+            return None
+
         if getattr(self.w, "_suspend_thumbnail_requests", False):
             return None
 
