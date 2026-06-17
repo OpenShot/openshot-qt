@@ -275,16 +275,47 @@ def get_azure_codesign_dlib_path():
 
 def get_windows_authenticode_subject(signed_path):
     """Return the Authenticode signer subject from a signed Windows artifact."""
-    subject = subprocess.check_output([
+    configured_subject = os.getenv("WINDOWS_MSIX_PUBLISHER")
+    if configured_subject:
+        output("Using WINDOWS_MSIX_PUBLISHER for MSIX manifest publisher: %s" % configured_subject)
+        return configured_subject
+
+    powershell_command = (
+        "param([string]$Path) "
+        "$ErrorActionPreference = 'Stop'; "
+        "$signature = Get-AuthenticodeSignature -LiteralPath $Path; "
+        "Write-Host ('Authenticode status: ' + $signature.Status); "
+        "if (-not $signature.SignerCertificate) { "
+        "  throw ('No signer certificate found for ' + $Path + '; status=' + $signature.Status) "
+        "}; "
+        "$signature.SignerCertificate.Subject"
+    )
+
+    command = [
         "powershell.exe",
         "-NoProfile",
+        "-ExecutionPolicy", "Bypass",
         "-Command",
-        "$signature = Get-AuthenticodeSignature -FilePath $args[0]; "
-        "if (-not $signature.SignerCertificate) { throw 'No signer certificate found' }; "
-        "$signature.SignerCertificate.Subject",
+        powershell_command,
         signed_path,
-    ], stderr=subprocess.STDOUT)
-    return subject.decode("UTF-8").strip()
+    ]
+    try:
+        subject_output = subprocess.check_output(command, stderr=subprocess.STDOUT)
+    except subprocess.CalledProcessError as ex:
+        error("Failed to inspect signed Windows package certificate subject. PowerShell output: %s" %
+              ex.output.decode("UTF-8", errors="replace"))
+        raise
+
+    output_lines = [
+        line.strip()
+        for line in subject_output.decode("UTF-8", errors="replace").splitlines()
+        if line.strip()
+    ]
+    for line in output_lines[:-1]:
+        output(line)
+    if not output_lines:
+        raise RuntimeError("Get-AuthenticodeSignature returned no output for %s" % signed_path)
+    return output_lines[-1]
 
 
 def prepare_windows_msix_for_signing(msix_path, signed_installer_path):
