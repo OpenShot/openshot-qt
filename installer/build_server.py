@@ -38,6 +38,7 @@ import stat
 import subprocess
 import sysconfig
 import traceback
+from collections import deque
 from github3 import login, GitHubError
 from requests.auth import HTTPBasicAuth
 from requests import post
@@ -70,9 +71,11 @@ log = open(log_path, 'w+')
 
 def output(line):
     """Append output to list and print it"""
-    print(line)
     if isinstance(line, bytes):
-        line = line.decode('UTF-8').strip()
+        line = line.decode('UTF-8', errors="replace")
+
+    line = str(line).rstrip("\r\n")
+    print(line)
 
     if not line.endswith(os.linesep):
         # Append missing line return (if needed)
@@ -241,7 +244,7 @@ def upload(file_path, github_release):
     return url
 
 
-def run_command_with_exit_code(command, working_dir=None):
+def run_command_with_exit_code(command, working_dir=None, stream_output=True, failure_tail_lines=120):
     """Run command and stream output to log, returning process exit code"""
     short_command = shlex.split(command)[0]  # We don't need to print args
     output("Running %s... (%s)" % (short_command, working_dir))
@@ -251,9 +254,20 @@ def run_command_with_exit_code(command, working_dir=None):
         cwd=working_dir,
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT)
+    captured_output = deque(maxlen=failure_tail_lines)
     for line in iter(p.stdout.readline, b""):
-        output(line)
-    return p.wait()
+        if stream_output:
+            output(line)
+        else:
+            captured_output.append(line)
+
+    exit_code = p.wait()
+    if not stream_output and exit_code != 0:
+        output("Command failed with exit code %s. Last %s output lines:" % (
+            exit_code, len(captured_output)))
+        for line in captured_output:
+            output(line)
+    return exit_code
 
 
 def shell_quote(value):
@@ -345,7 +359,7 @@ def prepare_windows_msix_for_signing(msix_path, signed_installer_path):
         "/p", shell_quote(msix_path),
         "/d", shell_quote(unpack_dir),
     ])
-    if run_command_with_exit_code(unpack_command) != 0:
+    if run_command_with_exit_code(unpack_command, stream_output=False) != 0:
         error("Failed to unpack MSIX package: %s" % msix_path)
         return False
 
@@ -355,24 +369,27 @@ def prepare_windows_msix_for_signing(msix_path, signed_installer_path):
         return False
 
     try:
-        import xml.etree.ElementTree as ET
+        from xml.dom import minidom
 
-        ET.register_namespace("", "http://schemas.microsoft.com/appx/manifest/foundation/windows10")
-        manifest_tree = ET.parse(manifest_path)
-        manifest_root = manifest_tree.getroot()
-        namespace = manifest_root.tag[1:].split("}")[0] if manifest_root.tag.startswith("{") else ""
-        identity_tag = "{%s}Identity" % namespace if namespace else "Identity"
-        identity = manifest_root.find(identity_tag)
+        with open(manifest_path, "rb") as manifest_file:
+            manifest_document = minidom.parse(manifest_file)
+
+        identity = None
+        for element in manifest_document.getElementsByTagName("*"):
+            if element.localName == "Identity":
+                identity = element
+                break
         if identity is None:
             error("MSIX manifest Identity element not found: %s" % manifest_path)
             return False
 
-        current_publisher = identity.attrib.get("Publisher", "")
+        current_publisher = identity.getAttribute("Publisher")
         output("MSIX manifest publisher before signing: %s" % current_publisher)
         if current_publisher != signer_subject:
             output("Updating MSIX manifest publisher to match signing certificate subject")
-            identity.set("Publisher", signer_subject)
-            manifest_tree.write(manifest_path, encoding="UTF-8", xml_declaration=True)
+            identity.setAttribute("Publisher", signer_subject)
+            with open(manifest_path, "wb") as manifest_file:
+                manifest_file.write(manifest_document.toxml(encoding="UTF-8"))
     except Exception as ex:
         error("Failed to update MSIX manifest publisher: %s" % ex)
         return False
@@ -385,7 +402,7 @@ def prepare_windows_msix_for_signing(msix_path, signed_installer_path):
         "/d", shell_quote(unpack_dir),
         "/p", shell_quote(repacked_path),
     ])
-    if run_command_with_exit_code(pack_command) != 0 or not os.path.exists(repacked_path):
+    if run_command_with_exit_code(pack_command, stream_output=False) != 0 or not os.path.exists(repacked_path):
         error("Failed to repack MSIX package: %s" % msix_path)
         return False
 
@@ -461,7 +478,9 @@ def sign_windows_installer(installer_path, debug=False):
         "/dmdf", shell_quote(metadata_path),
         shell_quote(installer_path),
     ])
-    success = run_command_with_exit_code(sign_command) == 0
+    success = run_command_with_exit_code(sign_command, stream_output=False) == 0
+    if success:
+        output("Successfully signed Windows package: %s" % installer_path)
     if not success and installer_path.lower().endswith((".msix", ".appx", ".msixbundle", ".appxbundle")):
         dump_appx_packaging_events()
     return success
