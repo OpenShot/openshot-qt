@@ -257,7 +257,9 @@ def run_command_with_exit_code(command, working_dir=None):
 
 
 def sign_windows_installer(installer_path):
-    """Sign a Windows installer with Azure Code Signing"""
+    """Sign a Windows installer package with Azure Code Signing"""
+    output("Signing Windows package: %s" % installer_path)
+
     azure_tenant = os.getenv("AZURE_TENANT_ID")
     azure_client = os.getenv("AZURE_CLIENT_ID")
     azure_secret = os.getenv("AZURE_CLIENT_SECRET")
@@ -306,6 +308,29 @@ def sign_windows_installer(installer_path):
         '"%s"' % installer_path,
     ])
     return run_command_with_exit_code(sign_command) == 0
+
+
+def sign_windows_msix_artifacts():
+    """Sign any MSIX artifacts prepared for the x64 Windows signing job."""
+    msix_dir = os.path.join(PATH, "build", "msix")
+    if not os.path.isdir(msix_dir):
+        return True
+
+    msix_paths = [
+        os.path.join(msix_dir, filename)
+        for filename in os.listdir(msix_dir)
+        if filename.lower().endswith(".msix")
+    ]
+    if not msix_paths:
+        return True
+
+    for msix_path in msix_paths:
+        output("Found Windows MSIX artifact: %s" % msix_path)
+        if not sign_windows_installer(msix_path):
+            error("Windows MSIX signing failed: %s" % msix_path)
+            return False
+
+    return True
 
 
 def main():
@@ -681,6 +706,8 @@ def main():
                 needs_upload = False
             elif os.path.exists(app_build_path):
                 sign_success = sign_windows_installer(app_build_path)
+                if sign_success and not windows_32bit:
+                    sign_success = sign_windows_msix_artifacts()
                 if not sign_success:
                     needs_upload = False
                     os.remove(app_build_path)

@@ -1,6 +1,7 @@
 stages:
   - init-builders
   - build
+  - msix-package
   - sign
   - deploy
   - publish
@@ -191,19 +192,40 @@ win-x86:
   tags:
     - windows
 
+windows:msix:package:
+  stage: msix-package
+  artifacts:
+    when: always
+    expire_in: 2 weeks
+    paths:
+    - build\msix\*.msix
+  dependencies:
+    - win-x64
+  script:
+    - $PSVersionTable
+    - powershell.exe -NoProfile -ExecutionPolicy Bypass -File installer\package_msix.ps1
+  when: on_success
+  except:
+  - tags
+  tags:
+    - code-sign
+
 win-sign-x64:
   stage: sign
   artifacts:
     expire_in: 2 weeks
     paths:
     - build\*-x86_64.exe
+    - build\msix\*.msix
     - build\build-server.log
   dependencies:
     - win-x64
+    - windows:msix:package
   script:
     - $PSVersionTable
     - $env:Path = $env:Path + ";C:\msys64\usr\local\bin;C:\msys64\usr\bin"
     - if (-not (Get-ChildItem -Path "build\*-x86_64.exe" -ErrorAction SilentlyContinue)) { throw "No x64 Windows installer found in build\\*-x86_64.exe" }
+    - if (-not (Get-ChildItem -Path "build\msix\*.msix" -ErrorAction SilentlyContinue)) { throw "No x64 MSIX package found in build\\msix\\*.msix" }
     - py -3 -u installer/build_server.py "$SLACK_TOKEN" "$GITHUB_USER" "$GITHUB_PASS" "False" "$CI_COMMIT_REF_NAME" "$MAC_PASSWORD" "sign-upload-only"
   when: on_success
   except:
