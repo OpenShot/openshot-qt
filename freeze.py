@@ -542,6 +542,8 @@ elif sys.platform == "linux":
     }
 
     # Driver/system libs detected inside the AppImage; keep them shared with the host OS
+    # Wayland capture intentionally bundles libpipewire via the ldd scan above. The
+    # xdg-desktop-portal service itself remains a host desktop runtime dependency.
     appimage_driver_libs = {
         "libGLdispatch.so.0",
         "libGLX.so.0",

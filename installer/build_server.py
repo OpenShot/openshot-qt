@@ -313,10 +313,13 @@ def main():
     # are also used in the deploy.py script.
     try:
         windows_mode = "full"
+        git_branch_name = "develop"
 
         # Validate command-line arguments
         if len(sys.argv) >= 2:
             zulip_token = sys.argv[1]
+        if len(sys.argv) >= 6:
+            git_branch_name = sys.argv[5]
         if len(sys.argv) >= 4:
             github_user = sys.argv[2]
             github_pass = sys.argv[3]
@@ -329,10 +332,6 @@ def main():
             windows_32bit = False
             if sys.argv[4] == 'True':
                 windows_32bit = True
-
-        git_branch_name = "develop"
-        if len(sys.argv) >= 6:
-            git_branch_name = sys.argv[5]
 
         mac_password = ""
         if len(sys.argv) >= 7:
