@@ -102,7 +102,32 @@ class RecordingPreviewTests(unittest.TestCase):
 
         with patch.object(helper.sys, "platform", "linux"), patch.object(helper, "openshot", fake_openshot):
             self.assertEqual(helper.screen_capture_backend(), 2)
+            self.assertTrue(helper.screen_capture_backend_is_wayland())
             self.assertTrue(helper.screen_capture_backend_supported())
+
+    def test_screen_capture_auto_backend_does_not_enable_screen_source(self):
+        helper = self.audio_recording_module
+
+        class FakeReader:
+            @staticmethod
+            def DefaultBackend():
+                return 0
+
+            @staticmethod
+            def IsBackendSupported(backend):
+                return backend == 0
+
+        fake_openshot = types.SimpleNamespace(
+            ScreenCaptureReader=FakeReader,
+            ScreenCaptureSettings=object,
+            SCREEN_CAPTURE_AUTO=0,
+            SCREEN_CAPTURE_X11=1,
+            SCREEN_CAPTURE_WAYLAND=2,
+        )
+
+        with patch.object(helper.sys, "platform", "linux"), patch.object(helper, "openshot", fake_openshot):
+            self.assertEqual(helper.screen_capture_backend(), 0)
+            self.assertFalse(helper.screen_capture_backend_supported())
 
     def test_screen_capture_backend_requires_explicit_wayland_support(self):
         helper = self.audio_recording_module

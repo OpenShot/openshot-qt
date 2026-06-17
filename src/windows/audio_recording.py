@@ -164,6 +164,8 @@ def screen_capture_backend_supported(backend=None):
         return False
 
     selected_backend = screen_capture_backend() if backend is None else backend
+    if selected_backend == getattr(openshot, "SCREEN_CAPTURE_AUTO", object()):
+        return False
     is_supported = getattr(openshot.ScreenCaptureReader, "IsBackendSupported", None)
     if callable(is_supported) and selected_backend is not None:
         try:
@@ -175,6 +177,11 @@ def screen_capture_backend_supported(backend=None):
     if session == "wayland":
         return False
     return selected_backend == getattr(openshot, "SCREEN_CAPTURE_X11", object())
+
+
+def screen_capture_backend_is_wayland(backend=None):
+    selected_backend = screen_capture_backend() if backend is None else backend
+    return selected_backend == getattr(openshot, "SCREEN_CAPTURE_WAYLAND", object())
 
 
 class LiveRecordingThumbnailCache:
@@ -574,16 +581,20 @@ class AudioRecordingDockContent(QWidget):
         layout.addWidget(self.mic_section)
 
         self.screen_section = RecordingSection(_("Screen"), "▣", self)
-        screen_mode_row = QHBoxLayout()
+        self.screen_mode_widget = QWidget(self.screen_section)
+        screen_mode_row = QHBoxLayout(self.screen_mode_widget)
+        screen_mode_row.setContentsMargins(0, 0, 0, 0)
+        screen_mode_row.setSpacing(0)
         self.full_screen_button = SegmentButton(_("Full Screen"), self.screen_section)
         self.window_button = SegmentButton(_("Window"), self.screen_section)
         self.region_button = SegmentButton(_("Region"), self.screen_section)
         self.full_screen_button.setChecked(True)
         for button in (self.full_screen_button, self.window_button, self.region_button):
             screen_mode_row.addWidget(button)
-        self.screen_section.body_layout.addLayout(screen_mode_row)
+        self.screen_section.body_layout.addWidget(self.screen_mode_widget)
         self.screen_status_label = QLabel("", self.screen_section)
         self.screen_status_label.setStyleSheet("color: #9aa8bd;")
+        self.screen_status_label.setWordWrap(True)
         self.screen_section.body_layout.addWidget(self.screen_status_label)
 
         self.screen_display_edit = QLineEdit(os.environ.get("DISPLAY", ":0.0"), self.screen_section)
@@ -607,20 +618,27 @@ class AudioRecordingDockContent(QWidget):
         for fps in (15, 24, 30, 60):
             self.video_fps_combo.addItem(str(fps), fps)
         self.video_fps_combo.setCurrentIndex(self.video_fps_combo.findData(30))
-        self.screen_section.advanced_layout.addWidget(QLabel(_("Display:"), self.screen_section), 0, 0)
+        self.screen_display_label = QLabel(_("Display:"), self.screen_section)
+        self.screen_x_label = QLabel("X:", self.screen_section)
+        self.screen_y_label = QLabel("Y:", self.screen_section)
+        self.screen_size_label = QLabel(_("Size:"), self.screen_section)
+        self.screen_fps_label = QLabel(_("FPS:"), self.screen_section)
+        self.screen_cursor_label = QLabel(_("Cursor:"), self.screen_section)
+        self.screen_hide_label = QLabel(_("Hide OpenShot:"), self.screen_section)
+        self.screen_section.advanced_layout.addWidget(self.screen_display_label, 0, 0)
         self.screen_section.advanced_layout.addWidget(self.screen_display_edit, 0, 1, 1, 3)
-        self.screen_section.advanced_layout.addWidget(QLabel("X:"), 1, 0)
+        self.screen_section.advanced_layout.addWidget(self.screen_x_label, 1, 0)
         self.screen_section.advanced_layout.addWidget(self.screen_x_spin, 1, 1)
-        self.screen_section.advanced_layout.addWidget(QLabel("Y:"), 1, 2)
+        self.screen_section.advanced_layout.addWidget(self.screen_y_label, 1, 2)
         self.screen_section.advanced_layout.addWidget(self.screen_y_spin, 1, 3)
-        self.screen_section.advanced_layout.addWidget(QLabel(_("Size:"), self.screen_section), 2, 0)
+        self.screen_section.advanced_layout.addWidget(self.screen_size_label, 2, 0)
         self.screen_section.advanced_layout.addWidget(self.screen_width_spin, 2, 1)
         self.screen_section.advanced_layout.addWidget(self.screen_height_spin, 2, 2)
-        self.screen_section.advanced_layout.addWidget(QLabel(_("FPS:"), self.screen_section), 3, 0)
+        self.screen_section.advanced_layout.addWidget(self.screen_fps_label, 3, 0)
         self.screen_section.advanced_layout.addWidget(self.video_fps_combo, 3, 1)
-        self.screen_section.advanced_layout.addWidget(QLabel(_("Cursor:"), self.screen_section), 4, 0)
+        self.screen_section.advanced_layout.addWidget(self.screen_cursor_label, 4, 0)
         self.screen_section.advanced_layout.addWidget(self.capture_cursor_combo, 4, 1)
-        self.screen_section.advanced_layout.addWidget(QLabel(_("Hide OpenShot:"), self.screen_section), 5, 0)
+        self.screen_section.advanced_layout.addWidget(self.screen_hide_label, 5, 0)
         self.screen_section.advanced_layout.addWidget(self.hide_openshot_combo, 5, 1)
         layout.addWidget(self.screen_section)
 
@@ -777,6 +795,26 @@ class AudioRecordingDockContent(QWidget):
         camera_available = self._camera_backend_available()
         camera_tip = "" if camera_available else _("Webcam recording is only enabled for v4l2 on Linux in this build.")
         self.camera_card.setAvailable(camera_available, camera_tip)
+        self._sync_screen_backend_ui()
+
+    def _sync_screen_backend_ui(self):
+        _ = get_app()._tr
+        wayland = screen_capture_backend_is_wayland()
+        self.screen_mode_widget.setVisible(not wayland)
+        self.screen_display_label.setVisible(not wayland)
+        self.screen_display_edit.setVisible(not wayland)
+        self.screen_x_label.setVisible(not wayland)
+        self.screen_x_spin.setVisible(not wayland)
+        self.screen_y_label.setVisible(not wayland)
+        self.screen_y_spin.setVisible(not wayland)
+        self.screen_size_label.setVisible(not wayland)
+        self.screen_width_spin.setVisible(not wayland)
+        self.screen_height_spin.setVisible(not wayland)
+        self.screen_hide_label.setVisible(not wayland)
+        self.hide_openshot_combo.setVisible(not wayland)
+        if wayland:
+            self.screen_status_label.setText(_("Your desktop will ask what to share when recording starts."))
+            self._screen_window_id = ""
 
     def _source_toggled(self):
         self._sync_source_sections()
@@ -825,6 +863,9 @@ class AudioRecordingDockContent(QWidget):
         self.screen_status_label.setText(label)
 
     def _select_full_screen(self):
+        if screen_capture_backend_is_wayland():
+            self.screen_status_label.setText(get_app()._tr("Your desktop will ask what to share when recording starts."))
+            return
         self.full_screen_button.setChecked(True)
         self.window_button.setChecked(False)
         self.region_button.setChecked(False)
@@ -833,6 +874,9 @@ class AudioRecordingDockContent(QWidget):
         self._set_screen_to_primary()
 
     def _select_window(self):
+        if screen_capture_backend_is_wayland():
+            self.screen_status_label.setText(get_app()._tr("Your desktop will ask what to share when recording starts."))
+            return
         self.window_button.setChecked(True)
         self.full_screen_button.setChecked(False)
         self.region_button.setChecked(False)
@@ -851,6 +895,9 @@ class AudioRecordingDockContent(QWidget):
             self.screen_status_label.setText(get_app()._tr("Window selection canceled."))
 
     def _select_region(self):
+        if screen_capture_backend_is_wayland():
+            self.screen_status_label.setText(get_app()._tr("Region selection is not available for Wayland screen recording."))
+            return
         self.region_button.setChecked(True)
         self.full_screen_button.setChecked(False)
         self.window_button.setChecked(False)
@@ -880,6 +927,8 @@ class AudioRecordingDockContent(QWidget):
         self.hide_openshot_combo.blockSignals(False)
 
     def _hide_openshot_enabled(self):
+        if screen_capture_backend_is_wayland():
+            return False
         return bool(self.hide_openshot_combo.currentData())
 
     def _hide_openshot_for_picker(self):
@@ -1458,12 +1507,14 @@ class AudioRecordingDockContent(QWidget):
         jobs = []
         screen_fps = openshot.Fraction(int(self.video_fps_combo.currentData() or 30), 1)
         if self.screen_card.isChecked():
+            screen_backend = screen_capture_backend()
+            wayland_screen = screen_capture_backend_is_wayland(screen_backend)
             screen_x = int(self.screen_x_spin.value())
             screen_y = int(self.screen_y_spin.value())
             screen_width = self._safe_even_dimension(self.screen_width_spin.value())
             screen_height = self._safe_even_dimension(self.screen_height_spin.value())
-            root_width, root_height = x11_root_size()
-            if root_width and root_height:
+            root_width, root_height = (None, None) if wayland_screen else x11_root_size()
+            if not wayland_screen and root_width and root_height:
                 root_width = int(root_width)
                 root_height = int(root_height)
                 screen_width = min(screen_width, root_width)
@@ -1473,7 +1524,7 @@ class AudioRecordingDockContent(QWidget):
                 screen_width = self._safe_even_dimension(min(screen_width, root_width - screen_x))
                 screen_height = self._safe_even_dimension(min(screen_height, root_height - screen_y))
             settings = openshot.ScreenCaptureSettings()
-            settings.backend = screen_capture_backend()
+            settings.backend = screen_backend
             settings.display = self.screen_display_edit.text().strip() or os.environ.get("DISPLAY", ":0.0")
             settings.x = screen_x
             settings.y = screen_y
@@ -1481,7 +1532,7 @@ class AudioRecordingDockContent(QWidget):
             settings.height = screen_height
             settings.fps = screen_fps
             settings.include_cursor = bool(self.capture_cursor_combo.currentData())
-            if self._screen_window_id and self.window_button.isChecked():
+            if not wayland_screen and self._screen_window_id and self.window_button.isChecked():
                 settings.options["window_id"] = str(self._screen_window_id)
             self.screen_x_spin.setValue(settings.x)
             self.screen_y_spin.setValue(settings.y)
