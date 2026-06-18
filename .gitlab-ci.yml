@@ -199,7 +199,6 @@ windows:msix:package:
     expire_in: 2 weeks
     paths:
     - build\msix\*.msix
-    - build\msix\msix-packaging-tool.log
   dependencies:
     - win-x64
   script:
