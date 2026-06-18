@@ -128,7 +128,8 @@ function Set-TemplatePublisher {
     )
 
     if ($publisherAttributes.Count -eq 0) {
-        throw "Generated MSIX template does not contain a Publisher attribute"
+        Write-Host "Generated MSIX template does not expose a Publisher attribute; signing step will verify publisher"
+        return $false
     }
 
     foreach ($attribute in $publisherAttributes) {
@@ -136,6 +137,7 @@ function Set-TemplatePublisher {
     }
 
     $templateXml.Save($TemplatePath)
+    return $true
 }
 
 function Assert-SourceInstallerNotPackaged {
@@ -290,8 +292,10 @@ $msixPublisher = $env:WINDOWS_MSIX_PUBLISHER
 if (-not $msixPublisher) {
     $msixPublisher = 'CN="OpenShot Studios, LLC", O="OpenShot Studios, LLC", STREET="2931 Ridge Rd #101", L=Rockwall, S=Texas, C=US, PostalCode=75032'
 }
-Set-TemplatePublisher -TemplatePath $workingTemplatePath -Publisher $msixPublisher
-Write-Host "Generated MSIX template publisher: $msixPublisher"
+$templatePublisherUpdated = Set-TemplatePublisher -TemplatePath $workingTemplatePath -Publisher $msixPublisher
+if ($templatePublisherUpdated) {
+    Write-Host "Generated MSIX template publisher: $msixPublisher"
+}
 Write-Host "Generated MSIX template: $workingTemplatePath"
 
 $startTime = Get-Date
