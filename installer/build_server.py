@@ -39,6 +39,7 @@ import subprocess
 import sysconfig
 import time
 import traceback
+import zipfile
 from collections import deque
 from github3 import login, GitHubError
 from requests.auth import HTTPBasicAuth
@@ -350,10 +351,37 @@ def get_windows_authenticode_subject(signed_path):
     return output_lines[-1]
 
 
+def get_msix_manifest_publisher(msix_path):
+    """Return the Identity Publisher value from an MSIX manifest."""
+    try:
+        from xml.dom import minidom
+
+        with zipfile.ZipFile(msix_path, "r") as package:
+            with package.open("AppxManifest.xml") as manifest_file:
+                manifest_document = minidom.parse(manifest_file)
+
+        for element in manifest_document.getElementsByTagName("*"):
+            if element.localName == "Identity":
+                return element.getAttribute("Publisher")
+    except Exception as ex:
+        error("Failed to read MSIX manifest publisher: %s" % ex)
+        return None
+
+    error("MSIX manifest Identity element not found: %s" % msix_path)
+    return None
+
+
 def prepare_windows_msix_for_signing(msix_path, signed_installer_path):
     """Patch the MSIX manifest publisher to match the signing certificate."""
     signer_subject = get_windows_authenticode_subject(signed_installer_path)
     output("Windows signing certificate subject: %s" % signer_subject)
+
+    current_publisher = get_msix_manifest_publisher(msix_path)
+    if current_publisher:
+        output("MSIX manifest publisher before signing: %s" % current_publisher)
+        if current_publisher == signer_subject:
+            output("MSIX manifest publisher already matches signing certificate; skipping repack")
+            return True
 
     signtool_path = get_signtool_path()
     makeappx_path = os.getenv(

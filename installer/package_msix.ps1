@@ -107,6 +107,37 @@ function Assert-TemplateInstallerPath {
     }
 }
 
+function Set-TemplatePublisher {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string] $TemplatePath,
+
+        [Parameter(Mandatory = $true)]
+        [string] $Publisher
+    )
+
+    [xml] $templateXml = Get-Content -Path $TemplatePath -Raw
+    $publisherAttributes = @(
+        foreach ($node in $templateXml.SelectNodes('//*')) {
+            foreach ($attribute in $node.Attributes) {
+                if ($attribute.Name -eq "Publisher") {
+                    $attribute
+                }
+            }
+        }
+    )
+
+    if ($publisherAttributes.Count -eq 0) {
+        throw "Generated MSIX template does not contain a Publisher attribute"
+    }
+
+    foreach ($attribute in $publisherAttributes) {
+        $attribute.Value = $Publisher
+    }
+
+    $templateXml.Save($TemplatePath)
+}
+
 function Assert-SourceInstallerNotPackaged {
     param(
         [Parameter(Mandatory = $true)]
@@ -255,6 +286,12 @@ if ($workingTemplateText -eq $templateText) {
 }
 Set-Content -Path $workingTemplatePath -Value $workingTemplateText -Encoding UTF8
 Assert-TemplateInstallerPath -TemplatePath $workingTemplatePath -ExpectedInstallerPath $sourceInstallerPath
+$msixPublisher = $env:WINDOWS_MSIX_PUBLISHER
+if (-not $msixPublisher) {
+    $msixPublisher = 'CN="OpenShot Studios, LLC", O="OpenShot Studios, LLC", STREET="2931 Ridge Rd #101", L=Rockwall, S=Texas, C=US, PostalCode=75032'
+}
+Set-TemplatePublisher -TemplatePath $workingTemplatePath -Publisher $msixPublisher
+Write-Host "Generated MSIX template publisher: $msixPublisher"
 Write-Host "Generated MSIX template: $workingTemplatePath"
 
 $startTime = Get-Date
