@@ -92,6 +92,54 @@ function Assert-SingleArtifact {
     }
 }
 
+function Assert-TemplateInstallerPath {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string] $TemplatePath,
+
+        [Parameter(Mandatory = $true)]
+        [string] $ExpectedInstallerPath
+    )
+
+    $templateInstallerPath = Get-TemplateInstallerPath -TemplatePath $TemplatePath
+    if (([System.IO.Path]::GetFullPath($templateInstallerPath)) -ne ([System.IO.Path]::GetFullPath($ExpectedInstallerPath))) {
+        throw "Generated MSIX template points at '$templateInstallerPath', expected '$ExpectedInstallerPath'"
+    }
+}
+
+function Assert-SourceInstallerNotPackaged {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string] $PackagePath,
+
+        [Parameter(Mandatory = $true)]
+        [string] $SourceInstallerPath
+    )
+
+    Add-Type -AssemblyName System.IO.Compression.FileSystem
+
+    $sourceInstallerName = [System.IO.Path]::GetFileName($SourceInstallerPath)
+    $archive = [System.IO.Compression.ZipFile]::OpenRead($PackagePath)
+    try {
+        $capturedInstallers = @(
+            foreach ($entry in $archive.Entries) {
+                $normalizedName = $entry.FullName -replace '\\', '/'
+                if ($normalizedName -like "VFS/AppVPackageDrive/*/$sourceInstallerName" -or
+                    $normalizedName -like "VFS/AppVPackageDrive/*/OpenShot-*-x86_64.exe") {
+                    $entry.FullName
+                }
+            }
+        )
+    }
+    finally {
+        $archive.Dispose()
+    }
+
+    if ($capturedInstallers.Count -gt 0) {
+        throw "MSIX package includes the source installer, which should not be packaged: $($capturedInstallers -join ', ')"
+    }
+}
+
 function Resolve-MsixPackagingTool {
     param(
         [Parameter(Mandatory = $true)]
@@ -177,6 +225,12 @@ if (-not (Test-Path -Path $templatePath -PathType Leaf)) {
     throw "MSIX template not found: $templatePath"
 }
 
+$outputDir = Join-Path $PWD "build\msix"
+New-Item -Path $outputDir -ItemType Directory -Force | Out-Null
+Remove-Item -Path (Join-Path $outputDir "*.msix") -Force -ErrorAction SilentlyContinue
+$toolLogPath = Join-Path $outputDir "msix-packaging-tool.log"
+Remove-Item -Path $toolLogPath -Force -ErrorAction SilentlyContinue
+
 $templateText = Get-Content -Path $templatePath -Raw
 foreach ($arg in @("/VERYSILENT", "/SUPPRESSMSGBOXES", "/NORESTART", "/SP-")) {
     if ($templateText -notmatch [regex]::Escape($arg)) {
@@ -187,22 +241,25 @@ foreach ($arg in @("/VERYSILENT", "/SUPPRESSMSGBOXES", "/NORESTART", "/SP-")) {
 $expectedInstallerPath = Get-TemplateInstallerPath -TemplatePath $templatePath
 Write-Host "MSIX template expects installer: $expectedInstallerPath"
 
-if (([System.IO.Path]::GetFullPath($installerPath)) -ne ([System.IO.Path]::GetFullPath($expectedInstallerPath))) {
-    $expectedInstallerDir = Split-Path -Path $expectedInstallerPath -Parent
-    New-Item -Path $expectedInstallerDir -ItemType Directory -Force | Out-Null
-    Copy-Item -Path $installerPath -Destination $expectedInstallerPath -Force
-    Write-Host "Copied installer to template path: $expectedInstallerPath"
-}
+$sourceInstallerDir = Join-Path ([System.IO.Path]::GetTempPath()) "OpenShot-MSIX-InstallerSource"
+Remove-Item -Path $sourceInstallerDir -Recurse -Force -ErrorAction SilentlyContinue
+New-Item -Path $sourceInstallerDir -ItemType Directory -Force | Out-Null
+$sourceInstallerPath = Join-Path $sourceInstallerDir ([System.IO.Path]::GetFileName($installerPath))
+Copy-Item -Path $installerPath -Destination $sourceInstallerPath -Force
+Write-Host "Staged MSIX source installer: $sourceInstallerPath"
 
-$outputDir = Join-Path $PWD "build\msix"
-New-Item -Path $outputDir -ItemType Directory -Force | Out-Null
-Remove-Item -Path (Join-Path $outputDir "*.msix") -Force -ErrorAction SilentlyContinue
-$toolLogPath = Join-Path $outputDir "msix-packaging-tool.log"
-Remove-Item -Path $toolLogPath -Force -ErrorAction SilentlyContinue
+$workingTemplatePath = Join-Path $outputDir "OpenShot_template.generated.xml"
+$workingTemplateText = $templateText.Replace($expectedInstallerPath, $sourceInstallerPath)
+if ($workingTemplateText -eq $templateText) {
+    throw "Unable to update MSIX template installer path from '$expectedInstallerPath' to '$sourceInstallerPath'"
+}
+Set-Content -Path $workingTemplatePath -Value $workingTemplateText -Encoding UTF8
+Assert-TemplateInstallerPath -TemplatePath $workingTemplatePath -ExpectedInstallerPath $sourceInstallerPath
+Write-Host "Generated MSIX template: $workingTemplatePath"
 
 $startTime = Get-Date
 Write-Host "Running MSIX Packaging Tool. Full output will be saved to: $toolLogPath"
-& $ToolExe create-package --template $templatePath -v *> $toolLogPath
+& $ToolExe create-package --template $workingTemplatePath -v *> $toolLogPath
 if ($LASTEXITCODE -ne 0) {
     if (Test-Path -Path $toolLogPath -PathType Leaf) {
         Write-Host "MSIX Packaging Tool failed. Last 120 log lines:"
@@ -230,6 +287,8 @@ $generatedPackages = @(
 Assert-SingleArtifact -Artifacts $generatedPackages -Description "generated .msix package"
 
 $generatedPackage = $generatedPackages[0]
+Assert-SourceInstallerNotPackaged -PackagePath $generatedPackage.FullName -SourceInstallerPath $sourceInstallerPath
+
 $artifactPath = Join-Path $outputDir "OpenShot-x86_64.msix"
 Copy-Item -Path $generatedPackage.FullName -Destination $artifactPath -Force
 Write-Host "Published MSIX artifact: $artifactPath"
