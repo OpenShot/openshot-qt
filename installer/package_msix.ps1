@@ -140,6 +140,33 @@ function Set-TemplatePublisher {
     return $true
 }
 
+function Set-TemplateElementText {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string] $TemplatePath,
+
+        [Parameter(Mandatory = $true)]
+        [string] $ElementName,
+
+        [Parameter(Mandatory = $true)]
+        [string] $Value
+    )
+
+    [xml] $templateXml = Get-Content -Path $TemplatePath -Raw
+    $matchingElements = @($templateXml.SelectNodes("//*[local-name()='$ElementName']"))
+    if ($matchingElements.Count -eq 0) {
+        Write-Host "Generated MSIX template does not expose a $ElementName element; signing step will verify it"
+        return $false
+    }
+
+    foreach ($element in $matchingElements) {
+        $element.InnerText = $Value
+    }
+
+    $templateXml.Save($TemplatePath)
+    return $true
+}
+
 function Assert-SourceInstallerNotPackaged {
     param(
         [Parameter(Mandatory = $true)]
@@ -295,6 +322,17 @@ if (-not $msixPublisher) {
 $templatePublisherUpdated = Set-TemplatePublisher -TemplatePath $workingTemplatePath -Publisher $msixPublisher
 if ($templatePublisherUpdated) {
     Write-Host "Generated MSIX template publisher: $msixPublisher"
+}
+$publisherDisplayName = $env:WINDOWS_MSIX_PUBLISHER_DISPLAY_NAME
+if (-not $publisherDisplayName) {
+    $publisherDisplayName = "OpenShot Studios"
+}
+$templatePublisherDisplayNameUpdated = Set-TemplateElementText `
+    -TemplatePath $workingTemplatePath `
+    -ElementName "PublisherDisplayName" `
+    -Value $publisherDisplayName
+if ($templatePublisherDisplayNameUpdated) {
+    Write-Host "Generated MSIX template publisher display name: $publisherDisplayName"
 }
 Write-Host "Generated MSIX template: $workingTemplatePath"
 

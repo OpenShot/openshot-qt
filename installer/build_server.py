@@ -351,8 +351,8 @@ def get_windows_authenticode_subject(signed_path):
     return output_lines[-1]
 
 
-def get_msix_manifest_publisher(msix_path):
-    """Return the Identity Publisher value from an MSIX manifest."""
+def get_msix_manifest_metadata(msix_path):
+    """Return key identity/properties values from an MSIX manifest."""
     try:
         from xml.dom import minidom
 
@@ -360,27 +360,41 @@ def get_msix_manifest_publisher(msix_path):
             with package.open("AppxManifest.xml") as manifest_file:
                 manifest_document = minidom.parse(manifest_file)
 
+        metadata = {
+            "publisher": None,
+            "publisher_display_name": None,
+        }
         for element in manifest_document.getElementsByTagName("*"):
             if element.localName == "Identity":
-                return element.getAttribute("Publisher")
+                metadata["publisher"] = element.getAttribute("Publisher")
+            elif element.localName == "PublisherDisplayName":
+                metadata["publisher_display_name"] = "".join(
+                    node.data
+                    for node in element.childNodes
+                    if node.nodeType == node.TEXT_NODE
+                )
+        return metadata
     except Exception as ex:
-        error("Failed to read MSIX manifest publisher: %s" % ex)
+        error("Failed to read MSIX manifest metadata: %s" % ex)
         return None
-
-    error("MSIX manifest Identity element not found: %s" % msix_path)
-    return None
 
 
 def prepare_windows_msix_for_signing(msix_path, signed_installer_path):
     """Patch the MSIX manifest publisher to match the signing certificate."""
     signer_subject = get_windows_authenticode_subject(signed_installer_path)
+    publisher_display_name = os.getenv("WINDOWS_MSIX_PUBLISHER_DISPLAY_NAME", "OpenShot Studios")
     output("Windows signing certificate subject: %s" % signer_subject)
 
-    current_publisher = get_msix_manifest_publisher(msix_path)
-    if current_publisher:
-        output("MSIX manifest publisher before signing: %s" % current_publisher)
-        if current_publisher == signer_subject:
-            output("MSIX manifest publisher already matches signing certificate; skipping repack")
+    manifest_metadata = get_msix_manifest_metadata(msix_path)
+    if manifest_metadata:
+        output("MSIX manifest publisher before signing: %s" % manifest_metadata["publisher"])
+        output("MSIX manifest publisher display name before signing: %s" %
+               manifest_metadata["publisher_display_name"])
+        if (
+                manifest_metadata["publisher"] == signer_subject
+                and manifest_metadata["publisher_display_name"] == publisher_display_name
+        ):
+            output("MSIX manifest publisher fields already match signing configuration; skipping repack")
             return True
 
     signtool_path = get_signtool_path()
@@ -434,6 +448,31 @@ def prepare_windows_msix_for_signing(msix_path, signed_installer_path):
         if current_publisher != signer_subject:
             output("Updating MSIX manifest publisher to match signing certificate subject")
             identity.setAttribute("Publisher", signer_subject)
+
+        publisher_display_name_element = None
+        for element in manifest_document.getElementsByTagName("*"):
+            if element.localName == "PublisherDisplayName":
+                publisher_display_name_element = element
+                break
+        if publisher_display_name_element is None:
+            error("MSIX manifest PublisherDisplayName element not found: %s" % manifest_path)
+            return False
+
+        current_display_name = "".join(
+            node.data
+            for node in publisher_display_name_element.childNodes
+            if node.nodeType == node.TEXT_NODE
+        )
+        output("MSIX manifest publisher display name before signing: %s" % current_display_name)
+        if current_display_name != publisher_display_name:
+            output("Updating MSIX manifest publisher display name to: %s" % publisher_display_name)
+            for child in list(publisher_display_name_element.childNodes):
+                publisher_display_name_element.removeChild(child)
+            publisher_display_name_element.appendChild(
+                manifest_document.createTextNode(publisher_display_name)
+            )
+
+        if current_publisher != signer_subject or current_display_name != publisher_display_name:
             with open(manifest_path, "wb") as manifest_file:
                 manifest_file.write(manifest_document.toxml(encoding="UTF-8"))
     except Exception as ex:
