@@ -330,6 +330,7 @@ Assert-SingleArtifact -Artifacts $generatedPackages -Description "generated .msi
 $generatedPackage = $generatedPackages[0]
 Assert-SourceInstallerNotPackaged -PackagePath $generatedPackage.FullName -SourceInstallerPath $sourceInstallerPath
 
-$artifactPath = Join-Path $outputDir "OpenShot-x86_64.msix"
+$artifactName = [System.IO.Path]::ChangeExtension([System.IO.Path]::GetFileName($installerPath), ".msix")
+$artifactPath = Join-Path $outputDir $artifactName
 Copy-Item -Path $generatedPackage.FullName -Destination $artifactPath -Force
 Write-Host "Published MSIX artifact: $artifactPath"
