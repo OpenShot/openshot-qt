@@ -27,6 +27,11 @@ from classes.app import get_app
 from classes.logger import log
 
 
+_WIN32_USER32 = None
+_WIN32_DWMAPI = None
+_WIN32_ENUMPROC = None
+
+
 CARD_STYLE = """
 QFrame#recordingCard {
     background-color: rgba(20, 31, 48, 190);
@@ -421,10 +426,58 @@ def pick_screen_window():
     return pick_x11_window()
 
 
+def _windows_enum_proc_type():
+    global _WIN32_ENUMPROC
+    if _WIN32_ENUMPROC is None:
+        _WIN32_ENUMPROC = ctypes.WINFUNCTYPE(wintypes.BOOL, wintypes.HWND, wintypes.LPARAM)
+    return _WIN32_ENUMPROC
+
+
+def _windows_user32():
+    global _WIN32_USER32
+    if _WIN32_USER32 is None:
+        user32 = ctypes.windll.user32
+        user32.GetSystemMetrics.argtypes = [ctypes.c_int]
+        user32.GetSystemMetrics.restype = ctypes.c_int
+        user32.GetWindowTextLengthW.argtypes = [wintypes.HWND]
+        user32.GetWindowTextLengthW.restype = ctypes.c_int
+        user32.GetWindowTextW.argtypes = [wintypes.HWND, wintypes.LPWSTR, ctypes.c_int]
+        user32.GetWindowTextW.restype = ctypes.c_int
+        user32.GetWindowRect.argtypes = [wintypes.HWND, ctypes.POINTER(wintypes.RECT)]
+        user32.GetWindowRect.restype = wintypes.BOOL
+        user32.IsWindowVisible.argtypes = [wintypes.HWND]
+        user32.IsWindowVisible.restype = wintypes.BOOL
+        user32.IsIconic.argtypes = [wintypes.HWND]
+        user32.IsIconic.restype = wintypes.BOOL
+        user32.GetWindowThreadProcessId.argtypes = [wintypes.HWND, ctypes.POINTER(wintypes.DWORD)]
+        user32.GetWindowThreadProcessId.restype = wintypes.DWORD
+        user32.EnumWindows.argtypes = [_windows_enum_proc_type(), wintypes.LPARAM]
+        user32.EnumWindows.restype = wintypes.BOOL
+        user32.GetCursorPos.argtypes = [ctypes.POINTER(wintypes.POINT)]
+        user32.GetCursorPos.restype = wintypes.BOOL
+        _WIN32_USER32 = user32
+    return _WIN32_USER32
+
+
+def _windows_dwmapi():
+    global _WIN32_DWMAPI
+    if _WIN32_DWMAPI is None:
+        try:
+            dwmapi = ctypes.windll.dwmapi
+            dwmapi.DwmGetWindowAttribute.argtypes = [
+                wintypes.HWND, ctypes.c_uint, ctypes.c_void_p, ctypes.c_uint,
+            ]
+            dwmapi.DwmGetWindowAttribute.restype = ctypes.c_long
+            _WIN32_DWMAPI = dwmapi
+        except Exception:
+            _WIN32_DWMAPI = False
+    return _WIN32_DWMAPI or None
+
+
 def windows_virtual_screen_geometry():
     if not sys.platform.startswith("win"):
         return 0, 0, None, None
-    user32 = ctypes.windll.user32
+    user32 = _windows_user32()
     x = int(user32.GetSystemMetrics(76))      # SM_XVIRTUALSCREEN
     y = int(user32.GetSystemMetrics(77))      # SM_YVIRTUALSCREEN
     width = int(user32.GetSystemMetrics(78))  # SM_CXVIRTUALSCREEN
@@ -444,7 +497,7 @@ def pick_windows_region(parent=None):
 
 
 def _windows_window_title(hwnd):
-    user32 = ctypes.windll.user32
+    user32 = _windows_user32()
     length = user32.GetWindowTextLengthW(hwnd)
     if length <= 0:
         return ""
@@ -459,28 +512,31 @@ def _windows_hwnd_value(hwnd):
 
 
 def _windows_window_rect(hwnd):
-    user32 = ctypes.windll.user32
+    user32 = _windows_user32()
     rect = wintypes.RECT()
-    try:
-        dwmapi = ctypes.windll.dwmapi
+    dwmapi = _windows_dwmapi()
+    if dwmapi is not None:
         # DWMWA_EXTENDED_FRAME_BOUNDS gives visual bounds without the invisible
         # resize border on modern Windows.
         if dwmapi.DwmGetWindowAttribute(hwnd, 9, ctypes.byref(rect), ctypes.sizeof(rect)) == 0:
             return rect
-    except Exception:
-        pass
     if user32.GetWindowRect(hwnd, ctypes.byref(rect)):
         return rect
     return None
 
 
+def _windows_cursor_pos():
+    point = wintypes.POINT()
+    if _windows_user32().GetCursorPos(ctypes.byref(point)):
+        return int(point.x), int(point.y)
+    return None
+
+
 def _windows_pick_window_at(x, y):
-    user32 = ctypes.windll.user32
+    user32 = _windows_user32()
     current_pid = os.getpid()
     point = wintypes.POINT(int(x), int(y))
     candidates = []
-
-    enum_proc_type = ctypes.WINFUNCTYPE(wintypes.BOOL, wintypes.HWND, wintypes.LPARAM)
 
     def enum_proc(hwnd, _lparam):
         if not user32.IsWindowVisible(hwnd) or user32.IsIconic(hwnd):
@@ -504,7 +560,7 @@ def _windows_pick_window_at(x, y):
             return False
         return True
 
-    user32.EnumWindows(enum_proc_type(enum_proc), 0)
+    user32.EnumWindows(_windows_enum_proc_type()(enum_proc), 0)
     return candidates[0] if candidates else None
 
 
@@ -529,13 +585,20 @@ class WindowsWindowSelectorOverlay(QDialog):
             accepted = QDialog.DialogCode.Accepted
         return self.selected_result if exec_method() == accepted else None
 
-    def _global_pos(self, event):
-        if hasattr(event, "globalPosition"):
-            return event.globalPosition().toPoint()
-        return event.globalPos()
+    def _physical_to_overlay_point(self, x, y):
+        screen = self.screen_geometry
+        scale_x = float(self.width() or 1) / float(screen.width() or 1)
+        scale_y = float(self.height() or 1) / float(screen.height() or 1)
+        return QPoint(
+            int(round((int(x) - screen.x()) * scale_x)),
+            int(round((int(y) - screen.y()) * scale_y)),
+        )
 
-    def _update_hover(self, global_pos):
-        picked = _windows_pick_window_at(global_pos.x(), global_pos.y())
+    def _update_hover(self):
+        cursor_pos = _windows_cursor_pos()
+        if cursor_pos is None:
+            return None
+        picked = _windows_pick_window_at(cursor_pos[0], cursor_pos[1])
         if not picked:
             self.hover_rect = QRect()
             self.hover_title = ""
@@ -543,18 +606,18 @@ class WindowsWindowSelectorOverlay(QDialog):
             return None
         _hwnd, rect, title = picked
         self.hover_rect = QRect(
-            self.mapFromGlobal(QPoint(int(rect.left), int(rect.top))),
-            self.mapFromGlobal(QPoint(int(rect.right), int(rect.bottom))),
+            self._physical_to_overlay_point(rect.left, rect.top),
+            self._physical_to_overlay_point(rect.right, rect.bottom),
         ).normalized()
         self.hover_title = title
         self.update()
         return picked
 
     def mouseMoveEvent(self, event):
-        self._update_hover(self._global_pos(event))
+        self._update_hover()
 
     def mouseReleaseEvent(self, event):
-        picked = self._update_hover(self._global_pos(event))
+        picked = self._update_hover()
         if not picked:
             self.reject()
             return

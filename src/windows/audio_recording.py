@@ -57,7 +57,7 @@ from classes.tray_status import TrayStatus
 from windows.models.files_model import inspect_media
 from windows.recording_widgets import (
     RecordingSourceCard, RecordingSection, SegmentButton,
-    pick_screen_region, pick_screen_window, screen_root_geometry, screen_root_size,
+    pick_screen_region, pick_screen_window, screen_root_geometry,
 )
 
 
@@ -1256,6 +1256,8 @@ class AudioRecordingDockContent(QWidget):
                         devices.append((str(label or device), str(device or label)))
             except Exception as ex:
                 log.debug("Unable to list DirectShow webcam devices: %s", ex, exc_info=True)
+            if not devices:
+                devices = self._probe_windows_cameras_with_ffmpeg()
         else:
             devices = [
                 (os.path.basename(device), device)
@@ -1274,6 +1276,41 @@ class AudioRecordingDockContent(QWidget):
         self.camera_combo.blockSignals(False)
         self._refresh_camera_modes()
         self._sync_source_availability()
+
+    def _probe_windows_cameras_with_ffmpeg(self):
+        ffmpeg_path = shutil.which("ffmpeg")
+        if not ffmpeg_path:
+            return []
+        try:
+            result = subprocess.run(
+                [ffmpeg_path, "-hide_banner", "-list_devices", "true", "-f", "dshow", "-i", "dummy"],
+                text=True,
+                capture_output=True,
+                timeout=8,
+            )
+        except Exception as ex:
+            log.debug("Unable to list DirectShow webcam devices with ffmpeg: %s", ex, exc_info=True)
+            return []
+
+        devices = []
+        in_video_section = False
+        for line in (result.stderr or "").splitlines():
+            if "DirectShow video devices" in line:
+                in_video_section = True
+                continue
+            if "DirectShow audio devices" in line:
+                in_video_section = False
+                continue
+            if not in_video_section or "Alternative name" in line:
+                continue
+            match = re.search(r'"([^"]+)"', line)
+            if match:
+                label = match.group(1).strip()
+                if label:
+                    devices.append((label, label))
+        if devices:
+            log.debug("Detected %s DirectShow webcam device(s) with ffmpeg fallback", len(devices))
+        return devices
 
     def _camera_device_changed(self):
         self._refresh_camera_modes()
