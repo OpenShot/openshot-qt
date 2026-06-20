@@ -57,7 +57,7 @@ from classes.tray_status import TrayStatus
 from windows.models.files_model import inspect_media
 from windows.recording_widgets import (
     RecordingSourceCard, RecordingSection, SegmentButton,
-    pick_x11_region, pick_x11_window, x11_root_size,
+    pick_screen_region, pick_screen_window, screen_root_geometry, screen_root_size,
 )
 
 
@@ -975,7 +975,7 @@ class AudioRecordingDockContent(QWidget):
         self.screen_size_label.setVisible(not wayland)
         self.screen_width_spin.setVisible(not wayland)
         self.screen_height_spin.setVisible(not wayland)
-        self.window_button.setEnabled(not wayland and not screen_capture_backend_is_windows())
+        self.window_button.setEnabled(not wayland)
         self.screen_hide_label.setVisible(not wayland)
         self.hide_openshot_combo.setVisible(not wayland)
         if wayland:
@@ -997,10 +997,10 @@ class AudioRecordingDockContent(QWidget):
             self._stop_webcam_preview()
 
     def _set_screen_to_primary(self):
-        root_width, root_height = (None, None) if sys.platform.startswith("win") else x11_root_size()
+        root_x, root_y, root_width, root_height = screen_root_geometry()
         if root_width and root_height:
-            self.screen_x_spin.setValue(0)
-            self.screen_y_spin.setValue(0)
+            self.screen_x_spin.setValue(int(root_x or 0))
+            self.screen_y_spin.setValue(int(root_y or 0))
             self.screen_width_spin.setValue(int(root_width))
             self.screen_height_spin.setValue(int(root_height))
             self.screen_status_label.setText(get_app()._tr("Full screen: %sx%s") % (root_width, root_height))
@@ -1045,20 +1045,13 @@ class AudioRecordingDockContent(QWidget):
         if screen_capture_backend_is_wayland():
             self.screen_status_label.setText(get_app()._tr("Your desktop will ask what to share when recording starts."))
             return
-        if screen_capture_backend_is_windows():
-            self.full_screen_button.setChecked(True)
-            self.window_button.setChecked(False)
-            self.region_button.setChecked(False)
-            self._screen_window_id = ""
-            self.screen_status_label.setText(get_app()._tr("Window selection is not available for Windows screen recording yet."))
-            return
         self.window_button.setChecked(True)
         self.full_screen_button.setChecked(False)
         self.region_button.setChecked(False)
         self._set_hide_openshot_default(True)
         hidden_state = self._hide_openshot_for_picker()
         try:
-            result = pick_x11_window()
+            result = pick_screen_window()
         finally:
             self._restore_openshot_window(hidden_state)
         if result:
@@ -1078,12 +1071,9 @@ class AudioRecordingDockContent(QWidget):
         self.window_button.setChecked(False)
         self._screen_window_id = ""
         self._set_hide_openshot_default(True)
-        if screen_capture_backend_is_windows():
-            self.screen_status_label.setText(get_app()._tr("Region: adjust X, Y, width, and height."))
-            return
         hidden_state = self._hide_openshot_for_picker()
         try:
-            result = pick_x11_region(None if hidden_state is not None else self)
+            result = pick_screen_region(None if hidden_state is not None else self)
         finally:
             self._restore_openshot_window(hidden_state)
         if result:
@@ -1745,16 +1735,23 @@ class AudioRecordingDockContent(QWidget):
             screen_width = self._safe_even_dimension(self.screen_width_spin.value())
             screen_height = self._safe_even_dimension(self.screen_height_spin.value())
             windows_screen = screen_capture_backend_is_windows(screen_backend)
-            root_width, root_height = (None, None) if (wayland_screen or windows_screen) else x11_root_size()
+            if wayland_screen:
+                root_x, root_y, root_width, root_height = 0, 0, None, None
+            else:
+                root_x, root_y, root_width, root_height = screen_root_geometry()
             if not wayland_screen and root_width and root_height:
+                root_x = int(root_x or 0)
+                root_y = int(root_y or 0)
                 root_width = int(root_width)
                 root_height = int(root_height)
+                root_right = root_x + root_width
+                root_bottom = root_y + root_height
                 screen_width = min(screen_width, root_width)
                 screen_height = min(screen_height, root_height)
-                screen_x = max(0, min(screen_x, max(0, root_width - screen_width)))
-                screen_y = max(0, min(screen_y, max(0, root_height - screen_height)))
-                screen_width = self._safe_even_dimension(min(screen_width, root_width - screen_x))
-                screen_height = self._safe_even_dimension(min(screen_height, root_height - screen_y))
+                screen_x = max(root_x, min(screen_x, max(root_x, root_right - screen_width)))
+                screen_y = max(root_y, min(screen_y, max(root_y, root_bottom - screen_height)))
+                screen_width = self._safe_even_dimension(min(screen_width, root_right - screen_x))
+                screen_height = self._safe_even_dimension(min(screen_height, root_bottom - screen_y))
             settings = openshot.ScreenCaptureSettings()
             settings.backend = screen_backend
             settings.display = (

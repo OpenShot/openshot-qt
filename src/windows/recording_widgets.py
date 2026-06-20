@@ -9,9 +9,13 @@
  SPDX-License-Identifier: GPL-3.0-or-later
  """
 
+import ctypes
+from ctypes import wintypes
+import os
 import re
 import shutil
 import subprocess
+import sys
 
 from qt_api import (
     Qt, pyqtSignal, QRect, QPoint,
@@ -249,22 +253,25 @@ class SegmentButton(QPushButton):
 
 
 class RegionSelectorOverlay(QDialog):
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, screen_geometry=None, x11_geometry=True):
         super().__init__(parent)
         self.origin = QPoint()
         self.selection = QRect()
         self.global_origin = QPoint()
         self.global_selection = QRect()
+        self.screen_geometry = screen_geometry
+        self.x11_geometry = bool(x11_geometry)
         self.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint | Qt.Tool)
         self.setMouseTracking(True)
         self.setCursor(Qt.CrossCursor)
         self.setWindowOpacity(0.35)
 
     def select(self):
-        screen = QApplication.primaryScreen()
-        screen_geometry = None
-        if screen:
-            screen_geometry = screen.geometry()
+        screen_geometry = self.screen_geometry
+        if screen_geometry is None:
+            screen = QApplication.primaryScreen()
+            screen_geometry = screen.geometry() if screen else None
+        if screen_geometry:
             self.setGeometry(screen_geometry)
         exec_method = getattr(self, "exec", None) or getattr(self, "exec_", None)
         accepted = getattr(QDialog, "Accepted", None)
@@ -272,8 +279,19 @@ class RegionSelectorOverlay(QDialog):
             accepted = QDialog.DialogCode.Accepted
         if exec_method() == accepted and self.selection.isValid():
             rect = self.selection.normalized()
-            return self._to_x11_geometry(rect, screen_geometry)
+            if self.x11_geometry:
+                return self._to_x11_geometry(rect, screen_geometry)
+            return self._to_global_geometry(rect)
         return None
+
+    def _to_global_geometry(self, rect):
+        top_left = self.mapToGlobal(rect.topLeft())
+        bottom_right = self.mapToGlobal(rect.bottomRight())
+        x = int(min(top_left.x(), bottom_right.x()))
+        y = int(min(top_left.y(), bottom_right.y()))
+        width = int(abs(bottom_right.x() - top_left.x()) + 1)
+        height = int(abs(bottom_right.y() - top_left.y()) + 1)
+        return x, y, max(1, width), max(1, height)
 
     def _to_x11_geometry(self, rect, screen_geometry):
         root_width, root_height = x11_root_size()
@@ -349,6 +367,12 @@ def pick_x11_region(parent=None):
     return RegionSelectorOverlay(parent).select()
 
 
+def pick_screen_region(parent=None):
+    if sys.platform.startswith("win"):
+        return pick_windows_region(parent)
+    return pick_x11_region(parent)
+
+
 def x11_root_size():
     try:
         result = subprocess.run(
@@ -370,11 +394,201 @@ def x11_root_size():
     return None, None
 
 
+def screen_root_size():
+    if sys.platform.startswith("win"):
+        _, _, width, height = windows_virtual_screen_geometry()
+        return width, height
+    return x11_root_size()
+
+
+def screen_root_geometry():
+    if sys.platform.startswith("win"):
+        return windows_virtual_screen_geometry()
+    width, height = x11_root_size()
+    return 0, 0, width, height
+
+
 def pick_x11_window():
     result = pick_x11_window_with_xdotool()
     if result:
         return result
     return pick_x11_window_with_xwininfo()
+
+
+def pick_screen_window():
+    if sys.platform.startswith("win"):
+        return pick_windows_window()
+    return pick_x11_window()
+
+
+def windows_virtual_screen_geometry():
+    if not sys.platform.startswith("win"):
+        return 0, 0, None, None
+    user32 = ctypes.windll.user32
+    x = int(user32.GetSystemMetrics(76))      # SM_XVIRTUALSCREEN
+    y = int(user32.GetSystemMetrics(77))      # SM_YVIRTUALSCREEN
+    width = int(user32.GetSystemMetrics(78))  # SM_CXVIRTUALSCREEN
+    height = int(user32.GetSystemMetrics(79)) # SM_CYVIRTUALSCREEN
+    return x, y, width, height
+
+
+def pick_windows_region(parent=None):
+    x, y, width, height = windows_virtual_screen_geometry()
+    if not width or not height:
+        return None
+    return RegionSelectorOverlay(
+        parent,
+        QRect(int(x), int(y), int(width), int(height)),
+        x11_geometry=False,
+    ).select()
+
+
+def _windows_window_title(hwnd):
+    user32 = ctypes.windll.user32
+    length = user32.GetWindowTextLengthW(hwnd)
+    if length <= 0:
+        return ""
+    buffer = ctypes.create_unicode_buffer(length + 1)
+    user32.GetWindowTextW(hwnd, buffer, length + 1)
+    return buffer.value
+
+
+def _windows_hwnd_value(hwnd):
+    value = getattr(hwnd, "value", hwnd)
+    return int(value or 0)
+
+
+def _windows_window_rect(hwnd):
+    user32 = ctypes.windll.user32
+    rect = wintypes.RECT()
+    try:
+        dwmapi = ctypes.windll.dwmapi
+        # DWMWA_EXTENDED_FRAME_BOUNDS gives visual bounds without the invisible
+        # resize border on modern Windows.
+        if dwmapi.DwmGetWindowAttribute(hwnd, 9, ctypes.byref(rect), ctypes.sizeof(rect)) == 0:
+            return rect
+    except Exception:
+        pass
+    if user32.GetWindowRect(hwnd, ctypes.byref(rect)):
+        return rect
+    return None
+
+
+def _windows_pick_window_at(x, y):
+    user32 = ctypes.windll.user32
+    current_pid = os.getpid()
+    point = wintypes.POINT(int(x), int(y))
+    candidates = []
+
+    enum_proc_type = ctypes.WINFUNCTYPE(wintypes.BOOL, wintypes.HWND, wintypes.LPARAM)
+
+    def enum_proc(hwnd, _lparam):
+        if not user32.IsWindowVisible(hwnd) or user32.IsIconic(hwnd):
+            return True
+        pid = wintypes.DWORD()
+        user32.GetWindowThreadProcessId(hwnd, ctypes.byref(pid))
+        if int(pid.value) == current_pid:
+            return True
+        title = _windows_window_title(hwnd)
+        if not title:
+            return True
+        rect = _windows_window_rect(hwnd)
+        if not rect:
+            return True
+        width = int(rect.right - rect.left)
+        height = int(rect.bottom - rect.top)
+        if width <= 8 or height <= 8:
+            return True
+        if rect.left <= point.x <= rect.right and rect.top <= point.y <= rect.bottom:
+            candidates.append((hwnd, rect, title))
+            return False
+        return True
+
+    user32.EnumWindows(enum_proc_type(enum_proc), 0)
+    return candidates[0] if candidates else None
+
+
+class WindowsWindowSelectorOverlay(QDialog):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        x, y, width, height = windows_virtual_screen_geometry()
+        self.screen_geometry = QRect(int(x), int(y), int(width or 1), int(height or 1))
+        self.hover_rect = QRect()
+        self.hover_title = ""
+        self.selected_result = None
+        self.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint | Qt.Tool)
+        self.setMouseTracking(True)
+        self.setCursor(Qt.CrossCursor)
+        self.setWindowOpacity(0.22)
+        self.setGeometry(self.screen_geometry)
+
+    def select(self):
+        exec_method = getattr(self, "exec", None) or getattr(self, "exec_", None)
+        accepted = getattr(QDialog, "Accepted", None)
+        if accepted is None and hasattr(QDialog, "DialogCode"):
+            accepted = QDialog.DialogCode.Accepted
+        return self.selected_result if exec_method() == accepted else None
+
+    def _global_pos(self, event):
+        if hasattr(event, "globalPosition"):
+            return event.globalPosition().toPoint()
+        return event.globalPos()
+
+    def _update_hover(self, global_pos):
+        picked = _windows_pick_window_at(global_pos.x(), global_pos.y())
+        if not picked:
+            self.hover_rect = QRect()
+            self.hover_title = ""
+            self.update()
+            return None
+        _hwnd, rect, title = picked
+        self.hover_rect = QRect(
+            self.mapFromGlobal(QPoint(int(rect.left), int(rect.top))),
+            self.mapFromGlobal(QPoint(int(rect.right), int(rect.bottom))),
+        ).normalized()
+        self.hover_title = title
+        self.update()
+        return picked
+
+    def mouseMoveEvent(self, event):
+        self._update_hover(self._global_pos(event))
+
+    def mouseReleaseEvent(self, event):
+        picked = self._update_hover(self._global_pos(event))
+        if not picked:
+            self.reject()
+            return
+        hwnd, rect, title = picked
+        width = int(rect.right - rect.left)
+        height = int(rect.bottom - rect.top)
+        if width > 8 and height > 8:
+            hwnd_value = _windows_hwnd_value(hwnd)
+            log.info(
+                "Selected Windows window: hwnd=%s title=%s x=%s y=%s width=%s height=%s",
+                hwnd_value, title, int(rect.left), int(rect.top), width, height,
+            )
+            self.selected_result = int(rect.left), int(rect.top), width, height, str(hwnd_value)
+            self.accept()
+        else:
+            self.reject()
+
+    def keyPressEvent(self, event):
+        if event.key() == Qt.Key_Escape:
+            self.reject()
+        super().keyPressEvent(event)
+
+    def paintEvent(self, event):
+        painter = QPainter(self)
+        painter.fillRect(self.rect(), QColor(0, 0, 0, 95))
+        if self.hover_rect.isValid():
+            painter.setPen(QPen(QColor(64, 145, 255), 3))
+            painter.fillRect(self.hover_rect, QColor(64, 145, 255, 45))
+            painter.drawRect(self.hover_rect)
+
+
+def pick_windows_window(parent=None):
+    overlay = WindowsWindowSelectorOverlay(parent)
+    return overlay.select()
 
 
 def pick_x11_window_with_xdotool():
