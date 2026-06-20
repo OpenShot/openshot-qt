@@ -150,6 +150,8 @@ def screen_capture_backend():
     session = os.environ.get("XDG_SESSION_TYPE", "x11").lower()
     if session == "wayland" and hasattr(openshot, "SCREEN_CAPTURE_WAYLAND"):
         return openshot.SCREEN_CAPTURE_WAYLAND
+    if sys.platform.startswith("win") and hasattr(openshot, "SCREEN_CAPTURE_WINDOWS_GDI"):
+        return openshot.SCREEN_CAPTURE_WINDOWS_GDI
     if hasattr(openshot, "SCREEN_CAPTURE_X11"):
         return openshot.SCREEN_CAPTURE_X11
     return auto_backend
@@ -157,10 +159,7 @@ def screen_capture_backend():
 
 def screen_capture_backend_supported(backend=None):
     """Return whether libopenshot exposes and supports the selected screen backend."""
-    if not (
-        sys.platform.startswith("linux")
-        and all(hasattr(openshot, name) for name in ("ScreenCaptureReader", "ScreenCaptureSettings"))
-    ):
+    if not all(hasattr(openshot, name) for name in ("ScreenCaptureReader", "ScreenCaptureSettings")):
         return False
 
     selected_backend = screen_capture_backend() if backend is None else backend
@@ -176,12 +175,38 @@ def screen_capture_backend_supported(backend=None):
     session = os.environ.get("XDG_SESSION_TYPE", "x11").lower()
     if session == "wayland":
         return False
+    if sys.platform.startswith("win"):
+        return selected_backend == getattr(openshot, "SCREEN_CAPTURE_WINDOWS_GDI", object())
     return selected_backend == getattr(openshot, "SCREEN_CAPTURE_X11", object())
 
 
 def screen_capture_backend_is_wayland(backend=None):
     selected_backend = screen_capture_backend() if backend is None else backend
     return selected_backend == getattr(openshot, "SCREEN_CAPTURE_WAYLAND", object())
+
+
+def screen_capture_backend_is_windows(backend=None):
+    selected_backend = screen_capture_backend() if backend is None else backend
+    return selected_backend == getattr(openshot, "SCREEN_CAPTURE_WINDOWS_GDI", object())
+
+
+def camera_capture_backend():
+    default_backend = getattr(getattr(openshot, "CameraCaptureReader", None), "DefaultBackend", None)
+    if callable(default_backend):
+        try:
+            return default_backend()
+        except Exception:
+            log.debug("Unable to query default camera capture backend", exc_info=True)
+    if sys.platform.startswith("win") and hasattr(openshot, "CAMERA_CAPTURE_WINDOWS_DSHOW"):
+        return openshot.CAMERA_CAPTURE_WINDOWS_DSHOW
+    if hasattr(openshot, "CAMERA_CAPTURE_V4L2"):
+        return openshot.CAMERA_CAPTURE_V4L2
+    return getattr(openshot, "CAMERA_CAPTURE_AUTO", None)
+
+
+def camera_capture_backend_is_windows(backend=None):
+    selected_backend = camera_capture_backend() if backend is None else backend
+    return selected_backend == getattr(openshot, "CAMERA_CAPTURE_WINDOWS_DSHOW", object())
 
 
 class LiveRecordingThumbnailCache:
@@ -509,11 +534,12 @@ class WebcamPreviewJob(QObject):
     frameReady = pyqtSignal(object)
     errorOccurred = pyqtSignal(str)
 
-    def __init__(self, device, width, height, parent=None):
+    def __init__(self, device, width, height, backend=None, parent=None):
         super().__init__(parent)
         self.device = device
         self.width = int(width)
         self.height = int(height)
+        self.backend = backend if backend is not None else camera_capture_backend()
         self._reader = None
         self._thread = None
         self._stop = threading.Event()
@@ -541,7 +567,7 @@ class WebcamPreviewJob(QObject):
     def _run(self):
         try:
             settings = openshot.CameraCaptureSettings()
-            settings.backend = openshot.CAMERA_CAPTURE_V4L2
+            settings.backend = self.backend
             settings.device = self.device
             settings.width = self.width
             settings.height = self.height
@@ -706,7 +732,10 @@ class AudioRecordingDockContent(QWidget):
         self.screen_status_label.setWordWrap(True)
         self.screen_section.body_layout.addWidget(self.screen_status_label)
 
-        self.screen_display_edit = QLineEdit(os.environ.get("DISPLAY", ":0.0"), self.screen_section)
+        self.screen_display_edit = QLineEdit(
+            "desktop" if sys.platform.startswith("win") else os.environ.get("DISPLAY", ":0.0"),
+            self.screen_section,
+        )
         self.screen_x_spin = QSpinBox(self.screen_section)
         self.screen_y_spin = QSpinBox(self.screen_section)
         self.screen_width_spin = QSpinBox(self.screen_section)
@@ -887,14 +916,26 @@ class AudioRecordingDockContent(QWidget):
         return screen_capture_backend_supported()
 
     def _camera_backend_available(self):
+        if not all(hasattr(openshot, name) for name in ("CameraCaptureReader", "CameraCaptureSettings")):
+            return False
+        backend = camera_capture_backend()
+        is_supported = getattr(openshot.CameraCaptureReader, "IsBackendSupported", None)
+        if callable(is_supported) and backend is not None:
+            try:
+                return bool(is_supported(backend))
+            except Exception:
+                log.debug("Unable to query camera backend support", exc_info=True)
         return (
-            sys.platform.startswith("linux")
-            and all(hasattr(openshot, name) for name in ("CameraCaptureReader", "CameraCaptureSettings"))
+            backend == getattr(openshot, "CAMERA_CAPTURE_V4L2", object())
+            and sys.platform.startswith("linux")
+        ) or (
+            backend == getattr(openshot, "CAMERA_CAPTURE_WINDOWS_DSHOW", object())
+            and sys.platform.startswith("win")
         )
 
     def _selected_camera_device(self):
         device = self.camera_combo.currentData() if hasattr(self, "camera_combo") else None
-        if device and os.path.exists(device):
+        if device and (camera_capture_backend_is_windows() or os.path.exists(device)):
             return device
         return ""
 
@@ -907,13 +948,13 @@ class AudioRecordingDockContent(QWidget):
         self.mic_card.setAvailable(audio_available, "" if audio_available else _("Audio recording is not available."))
 
         screen_available = self._screen_backend_available()
-        screen_tip = "" if screen_available else _("Screen recording is not available for this Linux session or libopenshot build.")
+        screen_tip = "" if screen_available else _("Screen recording is not available for this platform or libopenshot build.")
         self.screen_card.setAvailable(screen_available, screen_tip)
 
         camera_backend_available = self._camera_backend_available()
         camera_available = camera_backend_available and self._camera_device_available()
         if not camera_backend_available:
-            camera_tip = _("Webcam recording is only enabled for v4l2 on Linux in this build.")
+            camera_tip = _("Webcam recording is not available for this platform or libopenshot build.")
         elif not camera_available:
             camera_tip = _("No webcam device was found.")
         else:
@@ -934,11 +975,14 @@ class AudioRecordingDockContent(QWidget):
         self.screen_size_label.setVisible(not wayland)
         self.screen_width_spin.setVisible(not wayland)
         self.screen_height_spin.setVisible(not wayland)
+        self.window_button.setEnabled(not wayland and not screen_capture_backend_is_windows())
         self.screen_hide_label.setVisible(not wayland)
         self.hide_openshot_combo.setVisible(not wayland)
         if wayland:
             self.screen_status_label.setText(_("Your desktop will ask what to share when recording starts."))
             self._screen_window_id = ""
+        elif screen_capture_backend_is_windows():
+            self.screen_status_label.setText(_("Windows screen recording uses full screen or numeric region bounds."))
 
     def _source_toggled(self):
         self._sync_source_sections()
@@ -953,7 +997,7 @@ class AudioRecordingDockContent(QWidget):
             self._stop_webcam_preview()
 
     def _set_screen_to_primary(self):
-        root_width, root_height = x11_root_size()
+        root_width, root_height = (None, None) if sys.platform.startswith("win") else x11_root_size()
         if root_width and root_height:
             self.screen_x_spin.setValue(0)
             self.screen_y_spin.setValue(0)
@@ -1001,6 +1045,13 @@ class AudioRecordingDockContent(QWidget):
         if screen_capture_backend_is_wayland():
             self.screen_status_label.setText(get_app()._tr("Your desktop will ask what to share when recording starts."))
             return
+        if screen_capture_backend_is_windows():
+            self.full_screen_button.setChecked(True)
+            self.window_button.setChecked(False)
+            self.region_button.setChecked(False)
+            self._screen_window_id = ""
+            self.screen_status_label.setText(get_app()._tr("Window selection is not available for Windows screen recording yet."))
+            return
         self.window_button.setChecked(True)
         self.full_screen_button.setChecked(False)
         self.region_button.setChecked(False)
@@ -1027,6 +1078,9 @@ class AudioRecordingDockContent(QWidget):
         self.window_button.setChecked(False)
         self._screen_window_id = ""
         self._set_hide_openshot_default(True)
+        if screen_capture_backend_is_windows():
+            self.screen_status_label.setText(get_app()._tr("Region: adjust X, Y, width, and height."))
+            return
         hidden_state = self._hide_openshot_for_picker()
         try:
             result = pick_x11_region(None if hidden_state is not None else self)
@@ -1203,11 +1257,25 @@ class AudioRecordingDockContent(QWidget):
         current = self.camera_combo.currentData() if hasattr(self, "camera_combo") else None
         self.camera_combo.blockSignals(True)
         self.camera_combo.clear()
-        devices = [device for device in sorted(glob.glob("/dev/video*")) if os.path.exists(device)]
+        devices = []
+        if camera_capture_backend_is_windows():
+            try:
+                get_devices = getattr(openshot.CameraCaptureReader, "GetDeviceNames", None)
+                if callable(get_devices):
+                    for label, device in get_devices(camera_capture_backend()):
+                        devices.append((str(label or device), str(device or label)))
+            except Exception as ex:
+                log.debug("Unable to list DirectShow webcam devices: %s", ex, exc_info=True)
+        else:
+            devices = [
+                (os.path.basename(device), device)
+                for device in sorted(glob.glob("/dev/video*"))
+                if os.path.exists(device)
+            ]
         if not devices:
             self.camera_combo.addItem(_("No webcam found"), None)
-        for device in devices:
-            self.camera_combo.addItem(os.path.basename(device), device)
+        for label, device in devices:
+            self.camera_combo.addItem(label, device)
         if current:
             for index in range(self.camera_combo.count()):
                 if self.camera_combo.itemData(index) == current:
@@ -1309,6 +1377,8 @@ class AudioRecordingDockContent(QWidget):
             (640, 360): {30},
         }
         self._camera_mode_formats = {}
+        if camera_capture_backend_is_windows():
+            return fallback
         try:
             result = subprocess.run(
                 ["v4l2-ctl", "--list-formats-ext", "-d", device],
@@ -1476,16 +1546,16 @@ class AudioRecordingDockContent(QWidget):
     def _recording_start_validation_error(self):
         _ = get_app()._tr
         if self.screen_card.isChecked() and not self._screen_backend_available():
-            return _("Screen recording is not available for this Linux session or libopenshot build.")
+            return _("Screen recording is not available for this platform or libopenshot build.")
         if self.camera_card.isChecked():
             if not self._camera_backend_available():
-                return _("Webcam recording is only enabled for v4l2 on Linux in this build.")
+                return _("Webcam recording is not available for this platform or libopenshot build.")
             device = self.camera_combo.currentData()
             if not device:
                 return _("No webcam device was found.")
-            if not os.path.exists(device):
+            if not camera_capture_backend_is_windows() and not os.path.exists(device):
                 return _("Webcam device was not found: %s") % device
-            if not os.access(device, os.R_OK):
+            if not camera_capture_backend_is_windows() and not os.access(device, os.R_OK):
                 return _("Webcam device is not accessible: %s") % device
         return ""
 
@@ -1674,7 +1744,8 @@ class AudioRecordingDockContent(QWidget):
             screen_y = int(self.screen_y_spin.value())
             screen_width = self._safe_even_dimension(self.screen_width_spin.value())
             screen_height = self._safe_even_dimension(self.screen_height_spin.value())
-            root_width, root_height = (None, None) if wayland_screen else x11_root_size()
+            windows_screen = screen_capture_backend_is_windows(screen_backend)
+            root_width, root_height = (None, None) if (wayland_screen or windows_screen) else x11_root_size()
             if not wayland_screen and root_width and root_height:
                 root_width = int(root_width)
                 root_height = int(root_height)
@@ -1686,7 +1757,9 @@ class AudioRecordingDockContent(QWidget):
                 screen_height = self._safe_even_dimension(min(screen_height, root_height - screen_y))
             settings = openshot.ScreenCaptureSettings()
             settings.backend = screen_backend
-            settings.display = self.screen_display_edit.text().strip() or os.environ.get("DISPLAY", ":0.0")
+            settings.display = (
+                "desktop" if windows_screen else self.screen_display_edit.text().strip() or os.environ.get("DISPLAY", ":0.0")
+            )
             settings.x = screen_x
             settings.y = screen_y
             settings.width = screen_width
@@ -1721,7 +1794,7 @@ class AudioRecordingDockContent(QWidget):
             if not camera_device:
                 raise RuntimeError(get_app()._tr("No webcam device was found."))
             settings = openshot.CameraCaptureSettings()
-            settings.backend = openshot.CAMERA_CAPTURE_V4L2
+            settings.backend = camera_capture_backend()
             settings.device = camera_device
             settings.width = self._safe_even_dimension(camera_size[0])
             settings.height = self._safe_even_dimension(camera_size[1])
@@ -1784,7 +1857,7 @@ class AudioRecordingDockContent(QWidget):
         camera_size = self.camera_size_combo.currentData() or (640, 480)
         width = self._safe_even_dimension(camera_size[0])
         height = self._safe_even_dimension(camera_size[1])
-        self._webcam_preview = WebcamPreviewJob(device, min(width, 640), min(height, 360), self)
+        self._webcam_preview = WebcamPreviewJob(device, min(width, 640), min(height, 360), camera_capture_backend(), self)
         self._webcam_preview.frameReady.connect(self._update_webcam_preview)
         self._webcam_preview.errorOccurred.connect(self._webcam_preview_error)
         self._webcam_preview.start()

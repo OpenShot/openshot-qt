@@ -145,6 +145,32 @@ class RecordingPreviewTests(unittest.TestCase):
                 self.assertEqual(helper.screen_capture_backend(), 2)
                 self.assertFalse(helper.screen_capture_backend_supported())
 
+    def test_windows_screen_capture_backend_uses_gdi_when_supported(self):
+        helper = self.audio_recording_module
+
+        class FakeReader:
+            @staticmethod
+            def DefaultBackend():
+                return 3
+
+            @staticmethod
+            def IsBackendSupported(backend):
+                return backend == 3
+
+        fake_openshot = types.SimpleNamespace(
+            ScreenCaptureReader=FakeReader,
+            ScreenCaptureSettings=object,
+            SCREEN_CAPTURE_AUTO=0,
+            SCREEN_CAPTURE_X11=1,
+            SCREEN_CAPTURE_WAYLAND=2,
+            SCREEN_CAPTURE_WINDOWS_GDI=3,
+        )
+
+        with patch.object(helper.sys, "platform", "win32"), patch.object(helper, "openshot", fake_openshot):
+            self.assertEqual(helper.screen_capture_backend(), 3)
+            self.assertTrue(helper.screen_capture_backend_is_windows())
+            self.assertTrue(helper.screen_capture_backend_supported())
+
     def test_live_thumbnail_cache_saves_only_grid_frames_once(self):
         helper = self.audio_recording_module
         temp_dir = tempfile.mkdtemp()
