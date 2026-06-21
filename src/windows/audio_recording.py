@@ -588,7 +588,7 @@ class WebcamPreviewJob(QObject):
             settings.width = self.width
             settings.height = self.height
             settings.fps = openshot.Fraction(5, 1)
-            if camera_capture_backend_is_windows(self.backend):
+            if camera_capture_backend_is_windows(self.backend) or camera_capture_backend_is_mac(self.backend):
                 settings.options["use_device_defaults"] = "1"
             self._reader = openshot.CameraCaptureReader(settings)
             self._reader.Open()
@@ -754,7 +754,7 @@ class AudioRecordingDockContent(QWidget):
         if sys.platform.startswith("win"):
             default_screen_display = "desktop"
         elif sys.platform == "darwin":
-            default_screen_display = "1:none"
+            default_screen_display = "Capture screen 0:none"
         self.screen_display_edit = QLineEdit(
             default_screen_display,
             self.screen_section,
@@ -1799,7 +1799,7 @@ class AudioRecordingDockContent(QWidget):
             if windows_screen:
                 settings.display = "desktop"
             elif mac_screen:
-                settings.display = self.screen_display_edit.text().strip() or "1:none"
+                settings.display = self.screen_display_edit.text().strip() or "Capture screen 0:none"
             else:
                 settings.display = self.screen_display_edit.text().strip() or os.environ.get("DISPLAY", ":0.0")
             settings.x = screen_x
