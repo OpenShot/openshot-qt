@@ -152,6 +152,8 @@ def screen_capture_backend():
         return openshot.SCREEN_CAPTURE_WAYLAND
     if sys.platform.startswith("win") and hasattr(openshot, "SCREEN_CAPTURE_WINDOWS_GDI"):
         return openshot.SCREEN_CAPTURE_WINDOWS_GDI
+    if sys.platform == "darwin" and hasattr(openshot, "SCREEN_CAPTURE_MAC_AVFOUNDATION"):
+        return openshot.SCREEN_CAPTURE_MAC_AVFOUNDATION
     if hasattr(openshot, "SCREEN_CAPTURE_X11"):
         return openshot.SCREEN_CAPTURE_X11
     return auto_backend
@@ -177,6 +179,8 @@ def screen_capture_backend_supported(backend=None):
         return False
     if sys.platform.startswith("win"):
         return selected_backend == getattr(openshot, "SCREEN_CAPTURE_WINDOWS_GDI", object())
+    if sys.platform == "darwin":
+        return selected_backend == getattr(openshot, "SCREEN_CAPTURE_MAC_AVFOUNDATION", object())
     return selected_backend == getattr(openshot, "SCREEN_CAPTURE_X11", object())
 
 
@@ -190,6 +194,11 @@ def screen_capture_backend_is_windows(backend=None):
     return selected_backend == getattr(openshot, "SCREEN_CAPTURE_WINDOWS_GDI", object())
 
 
+def screen_capture_backend_is_mac(backend=None):
+    selected_backend = screen_capture_backend() if backend is None else backend
+    return selected_backend == getattr(openshot, "SCREEN_CAPTURE_MAC_AVFOUNDATION", object())
+
+
 def camera_capture_backend():
     default_backend = getattr(getattr(openshot, "CameraCaptureReader", None), "DefaultBackend", None)
     if callable(default_backend):
@@ -199,6 +208,8 @@ def camera_capture_backend():
             log.debug("Unable to query default camera capture backend", exc_info=True)
     if sys.platform.startswith("win") and hasattr(openshot, "CAMERA_CAPTURE_WINDOWS_DSHOW"):
         return openshot.CAMERA_CAPTURE_WINDOWS_DSHOW
+    if sys.platform == "darwin" and hasattr(openshot, "CAMERA_CAPTURE_MAC_AVFOUNDATION"):
+        return openshot.CAMERA_CAPTURE_MAC_AVFOUNDATION
     if hasattr(openshot, "CAMERA_CAPTURE_V4L2"):
         return openshot.CAMERA_CAPTURE_V4L2
     return getattr(openshot, "CAMERA_CAPTURE_AUTO", None)
@@ -207,6 +218,11 @@ def camera_capture_backend():
 def camera_capture_backend_is_windows(backend=None):
     selected_backend = camera_capture_backend() if backend is None else backend
     return selected_backend == getattr(openshot, "CAMERA_CAPTURE_WINDOWS_DSHOW", object())
+
+
+def camera_capture_backend_is_mac(backend=None):
+    selected_backend = camera_capture_backend() if backend is None else backend
+    return selected_backend == getattr(openshot, "CAMERA_CAPTURE_MAC_AVFOUNDATION", object())
 
 
 class LiveRecordingThumbnailCache:
@@ -734,8 +750,13 @@ class AudioRecordingDockContent(QWidget):
         self.screen_status_label.setWordWrap(True)
         self.screen_section.body_layout.addWidget(self.screen_status_label)
 
+        default_screen_display = os.environ.get("DISPLAY", ":0.0")
+        if sys.platform.startswith("win"):
+            default_screen_display = "desktop"
+        elif sys.platform == "darwin":
+            default_screen_display = "1:none"
         self.screen_display_edit = QLineEdit(
-            "desktop" if sys.platform.startswith("win") else os.environ.get("DISPLAY", ":0.0"),
+            default_screen_display,
             self.screen_section,
         )
         self.screen_x_spin = QSpinBox(self.screen_section)
@@ -933,11 +954,14 @@ class AudioRecordingDockContent(QWidget):
         ) or (
             backend == getattr(openshot, "CAMERA_CAPTURE_WINDOWS_DSHOW", object())
             and sys.platform.startswith("win")
+        ) or (
+            backend == getattr(openshot, "CAMERA_CAPTURE_MAC_AVFOUNDATION", object())
+            and sys.platform == "darwin"
         )
 
     def _selected_camera_device(self):
         device = self.camera_combo.currentData() if hasattr(self, "camera_combo") else None
-        if device and (camera_capture_backend_is_windows() or os.path.exists(device)):
+        if device and (camera_capture_backend_is_windows() or camera_capture_backend_is_mac() or os.path.exists(device)):
             return device
         return ""
 
@@ -967,6 +991,7 @@ class AudioRecordingDockContent(QWidget):
     def _sync_screen_backend_ui(self):
         _ = get_app()._tr
         wayland = screen_capture_backend_is_wayland()
+        mac_screen = screen_capture_backend_is_mac()
         self.screen_mode_widget.setVisible(not wayland)
         self.screen_display_label.setVisible(not wayland)
         self.screen_display_edit.setVisible(not wayland)
@@ -977,11 +1002,15 @@ class AudioRecordingDockContent(QWidget):
         self.screen_size_label.setVisible(not wayland)
         self.screen_width_spin.setVisible(not wayland)
         self.screen_height_spin.setVisible(not wayland)
-        self.window_button.setEnabled(not wayland)
+        self.window_button.setEnabled(not wayland and not mac_screen)
+        self.region_button.setEnabled(not wayland and not mac_screen)
         self.screen_hide_label.setVisible(not wayland)
         self.hide_openshot_combo.setVisible(not wayland)
         if wayland:
             self.screen_status_label.setText(_("Your desktop will ask what to share when recording starts."))
+            self._screen_window_id = ""
+        elif mac_screen:
+            self.screen_status_label.setText(_("macOS screen recording uses the selected AVFoundation display device."))
             self._screen_window_id = ""
         elif screen_capture_backend_is_windows():
             self.screen_status_label.setText(_("Windows screen recording uses full screen or numeric region bounds."))
@@ -1047,6 +1076,11 @@ class AudioRecordingDockContent(QWidget):
         if screen_capture_backend_is_wayland():
             self.screen_status_label.setText(get_app()._tr("Your desktop will ask what to share when recording starts."))
             return
+        if screen_capture_backend_is_mac():
+            self.full_screen_button.setChecked(True)
+            self.window_button.setChecked(False)
+            self.screen_status_label.setText(get_app()._tr("Window selection is not available for macOS AVFoundation recording."))
+            return
         self.window_button.setChecked(True)
         self.full_screen_button.setChecked(False)
         self.region_button.setChecked(False)
@@ -1067,6 +1101,11 @@ class AudioRecordingDockContent(QWidget):
     def _select_region(self):
         if screen_capture_backend_is_wayland():
             self.screen_status_label.setText(get_app()._tr("Region selection is not available for Wayland screen recording."))
+            return
+        if screen_capture_backend_is_mac():
+            self.full_screen_button.setChecked(True)
+            self.region_button.setChecked(False)
+            self.screen_status_label.setText(get_app()._tr("Region selection is not available for macOS AVFoundation recording."))
             return
         self.region_button.setChecked(True)
         self.full_screen_button.setChecked(False)
@@ -1250,7 +1289,7 @@ class AudioRecordingDockContent(QWidget):
         self.camera_combo.blockSignals(True)
         self.camera_combo.clear()
         devices = []
-        if camera_capture_backend_is_windows():
+        if camera_capture_backend_is_windows() or camera_capture_backend_is_mac():
             try:
                 get_devices = getattr(openshot.CameraCaptureReader, "GetDeviceNames", None)
                 if callable(get_devices):
@@ -1369,7 +1408,7 @@ class AudioRecordingDockContent(QWidget):
             (640, 360): {30},
         }
         self._camera_mode_formats = {}
-        if camera_capture_backend_is_windows():
+        if camera_capture_backend_is_windows() or camera_capture_backend_is_mac():
             return fallback
         try:
             result = subprocess.run(
@@ -1545,9 +1584,9 @@ class AudioRecordingDockContent(QWidget):
             device = self.camera_combo.currentData()
             if not device:
                 return _("No webcam device was found.")
-            if not camera_capture_backend_is_windows() and not os.path.exists(device):
+            if not (camera_capture_backend_is_windows() or camera_capture_backend_is_mac()) and not os.path.exists(device):
                 return _("Webcam device was not found: %s") % device
-            if not camera_capture_backend_is_windows() and not os.access(device, os.R_OK):
+            if not (camera_capture_backend_is_windows() or camera_capture_backend_is_mac()) and not os.access(device, os.R_OK):
                 return _("Webcam device is not accessible: %s") % device
         return ""
 
@@ -1737,6 +1776,7 @@ class AudioRecordingDockContent(QWidget):
             screen_width = self._safe_even_dimension(self.screen_width_spin.value())
             screen_height = self._safe_even_dimension(self.screen_height_spin.value())
             windows_screen = screen_capture_backend_is_windows(screen_backend)
+            mac_screen = screen_capture_backend_is_mac(screen_backend)
             if wayland_screen:
                 root_x, root_y, root_width, root_height = 0, 0, None, None
             else:
@@ -1756,9 +1796,12 @@ class AudioRecordingDockContent(QWidget):
                 screen_height = self._safe_even_dimension(min(screen_height, root_bottom - screen_y))
             settings = openshot.ScreenCaptureSettings()
             settings.backend = screen_backend
-            settings.display = (
-                "desktop" if windows_screen else self.screen_display_edit.text().strip() or os.environ.get("DISPLAY", ":0.0")
-            )
+            if windows_screen:
+                settings.display = "desktop"
+            elif mac_screen:
+                settings.display = self.screen_display_edit.text().strip() or "1:none"
+            else:
+                settings.display = self.screen_display_edit.text().strip() or os.environ.get("DISPLAY", ":0.0")
             settings.x = screen_x
             settings.y = screen_y
             settings.width = screen_width
@@ -1801,7 +1844,7 @@ class AudioRecordingDockContent(QWidget):
             settings.height = self._safe_even_dimension(camera_size[1])
             settings.fps = camera_fps
             input_format = self._camera_mode_formats.get((settings.width, settings.height, int(camera_fps.num)))
-            if camera_capture_backend_is_windows(settings.backend):
+            if camera_capture_backend_is_windows(settings.backend) or camera_capture_backend_is_mac(settings.backend):
                 settings.options["use_device_defaults"] = "1"
             elif input_format:
                 settings.options["input_format"] = input_format
