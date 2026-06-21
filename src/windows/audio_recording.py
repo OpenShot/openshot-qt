@@ -572,6 +572,8 @@ class WebcamPreviewJob(QObject):
             settings.width = self.width
             settings.height = self.height
             settings.fps = openshot.Fraction(5, 1)
+            if camera_capture_backend_is_windows(self.backend):
+                settings.options["use_device_defaults"] = "1"
             self._reader = openshot.CameraCaptureReader(settings)
             self._reader.Open()
             frame_number = 1
@@ -1769,10 +1771,11 @@ class AudioRecordingDockContent(QWidget):
             self.screen_y_spin.setValue(settings.y)
             self.screen_width_spin.setValue(settings.width)
             self.screen_height_spin.setValue(settings.height)
+            screen_bit_rate = self._screen_recording_bit_rate(settings.width, settings.height, screen_fps)
             log.info(
-                "Preparing screen capture: backend=%s display=%s x=%s y=%s width=%s height=%s fps=%s/%s",
+                "Preparing screen capture: backend=%s display=%s x=%s y=%s width=%s height=%s fps=%s/%s bit_rate=%s",
                 settings.backend, settings.display, settings.x, settings.y, settings.width, settings.height,
-                screen_fps.num, screen_fps.den,
+                screen_fps.num, screen_fps.den, screen_bit_rate,
             )
             path = self._next_named_recording_path("Screen", "mp4")
             jobs.append(LiveVideoRecordingJob(
@@ -1781,6 +1784,7 @@ class AudioRecordingDockContent(QWidget):
                 settings.width,
                 settings.height,
                 screen_fps,
+                bit_rate=screen_bit_rate,
                 source_type="screen",
                 preview_file_id=self._recording_preview_file_ids.get("screen", ""),
             ))
@@ -1797,7 +1801,9 @@ class AudioRecordingDockContent(QWidget):
             settings.height = self._safe_even_dimension(camera_size[1])
             settings.fps = camera_fps
             input_format = self._camera_mode_formats.get((settings.width, settings.height, int(camera_fps.num)))
-            if input_format:
+            if camera_capture_backend_is_windows(settings.backend):
+                settings.options["use_device_defaults"] = "1"
+            elif input_format:
                 settings.options["input_format"] = input_format
             log.info(
                 "Preparing webcam capture: device=%s width=%s height=%s fps=%s/%s input_format=%s",
@@ -1818,6 +1824,11 @@ class AudioRecordingDockContent(QWidget):
             job.previewFrameReady.connect(self._update_webcam_preview)
             jobs.append(job)
         return jobs
+
+    def _screen_recording_bit_rate(self, width, height, fps):
+        fps_value = max(1.0, float(fps.num) / float(fps.den or 1))
+        pixels_per_second = max(1.0, float(width) * float(height) * fps_value)
+        return int(max(8000000, min(80000000, pixels_per_second * 0.08)))
 
     def _stop_video_jobs(self, delete_files=False):
         jobs = list(self._video_jobs or [])
