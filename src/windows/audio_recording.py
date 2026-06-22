@@ -28,6 +28,7 @@
 import os
 import glob
 import json
+import math
 import re
 import shutil
 import subprocess
@@ -441,12 +442,13 @@ class LiveVideoRecordingJob(QObject):
                     frame = self.reader.GetFrame(capture_frame_number)
                 now = time.monotonic()
                 elapsed = max(0.0, now - float(self._start_time or now))
-                output_frame_number = max(1, int(round(elapsed * fps_value)) + 1)
-                output_frame_number = max(output_frame_number, last_output_frame_number + 1)
+                output_frame_number = max(1, int(math.floor((elapsed * fps_value) + 0.5)) + 1)
+                if output_frame_number <= last_output_frame_number:
+                    capture_frame_number += 1
+                    continue
                 with self._writer_lock:
                     if not self._writer:
                         break
-                    self._write_gap_frames(last_output_frame_number, output_frame_number)
                     self._write_numbered_frame(frame, output_frame_number)
                 written_frames += 1
                 if self.thumbnail_cache:
@@ -492,7 +494,6 @@ class LiveVideoRecordingJob(QObject):
         try:
             with self._writer_lock:
                 if self._writer:
-                    self._write_final_gap_frame()
                     self._writer.Close()
                     self._writer = None
         except Exception as ex:
@@ -501,33 +502,17 @@ class LiveVideoRecordingJob(QObject):
                 self.errorOccurred.emit(self.source_type, str(ex))
         self.finished.emit(self.path)
 
-    def _write_final_gap_frame(self):
-        if not self._writer or not self._last_frame or not self._start_time:
-            return
-        fps_value = max(1.0, float(self.fps.num) / float(self.fps.den or 1))
-        elapsed = max(0.0, time.monotonic() - float(self._start_time))
-        final_frame_number = max(1, int(round(elapsed * fps_value)) + 1)
-        if final_frame_number <= self._last_output_frame_number + 1:
-            return
-        frame = self._copy_frame(self._last_frame)
-        self._write_gap_frames(self._last_output_frame_number, final_frame_number)
-        self._write_numbered_frame(frame, final_frame_number)
-        self.frames = final_frame_number
-        self._last_output_frame_number = final_frame_number
-
-    def _write_gap_frames(self, last_frame_number, next_frame_number):
-        if not self._writer or not self._last_frame:
-            return
-        for frame_number in range(int(last_frame_number) + 1, int(next_frame_number)):
-            self._write_numbered_frame(self._last_frame, frame_number)
-
     def _write_numbered_frame(self, frame, frame_number):
         if not self._writer or frame is None:
             return
         frame_to_write = self._copy_frame(frame)
         if hasattr(frame_to_write, "SetFrameNumber"):
             frame_to_write.SetFrameNumber(frame_number)
-        self._writer.WriteFrame(frame_to_write)
+        write_at = getattr(self._writer, "WriteFrameAt", None)
+        if callable(write_at):
+            write_at(frame_to_write, int(frame_number))
+        else:
+            self._writer.WriteFrame(frame_to_write)
 
     def _copy_frame(self, frame):
         if frame is None:

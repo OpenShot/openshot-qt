@@ -258,8 +258,50 @@ class RecordingPreviewTests(unittest.TestCase):
         with patch.object(helper.time, "monotonic", side_effect=[100.0, 100.5, 101.0]):
             job._run()
 
-        self.assertEqual(writer.frame_numbers, list(range(1, 32)))
+        self.assertEqual(writer.frame_numbers, [1, 16, 31])
         self.assertEqual(job.frames, 31)
+
+    def test_live_video_recording_drops_frames_that_arrive_before_next_fps_slot(self):
+        helper = self.audio_recording_module
+        frame_times = [100.0, 100.010, 100.020, 100.0334, 100.050, 100.0667, 100.100]
+
+        class FakeFrame:
+            def __init__(self):
+                self.number = 0
+
+            def SetFrameNumber(self, frame_number):
+                self.number = frame_number
+
+        class FakeReader:
+            def __init__(self):
+                self.job = None
+                self.frames_read = 0
+
+            def GetFrame(self, _frame_number):
+                self.frames_read += 1
+                if self.job and self.frames_read >= len(frame_times):
+                    self.job._stop.set()
+                return FakeFrame()
+
+        class FakeWriter:
+            def __init__(self):
+                self.frame_numbers = []
+
+            def WriteFrame(self, frame):
+                self.frame_numbers.append(frame.number)
+
+        fps = types.SimpleNamespace(num=30, den=1)
+        reader = FakeReader()
+        job = helper.LiveVideoRecordingJob(reader, "screen.mp4", 640, 480, fps)
+        reader.job = job
+        writer = FakeWriter()
+        job._writer = writer
+        job.begin(100.0)
+
+        with patch.object(helper.time, "monotonic", side_effect=frame_times):
+            job._run()
+
+        self.assertEqual(writer.frame_numbers, [1, 2, 3, 4])
 
     def test_live_video_stop_closes_reader_to_unblock_and_finalizes_writer(self):
         helper = self.audio_recording_module
@@ -301,7 +343,7 @@ class RecordingPreviewTests(unittest.TestCase):
         self.assertTrue(writer.closed)
         self.assertIsNone(job._writer)
 
-    def test_live_video_stop_writes_final_gap_frame(self):
+    def test_live_video_write_uses_write_frame_at_when_available(self):
         helper = self.audio_recording_module
 
         class FakeFrame:
@@ -311,20 +353,50 @@ class RecordingPreviewTests(unittest.TestCase):
             def SetFrameNumber(self, frame_number):
                 self.number = frame_number
 
-            def DeepCopy(self):
-                copied = FakeFrame()
-                copied.number = self.number
-                return copied
-
         class FakeWriter:
             def __init__(self):
                 self.frame_numbers = []
 
-            def WriteFrame(self, frame):
-                self.frame_numbers.append(frame.number)
+            def WriteFrameAt(self, frame, frame_number):
+                self.frame_numbers.append((frame.number, frame_number))
 
         fps = types.SimpleNamespace(num=30, den=1)
         job = helper.LiveVideoRecordingJob(object(), "screen.mp4", 640, 480, fps)
+        writer = FakeWriter()
+        job._writer = writer
+        frame = FakeFrame()
+
+        job._write_numbered_frame(frame, 42)
+
+        self.assertEqual(writer.frame_numbers, [(42, 42)])
+
+    def test_live_video_stop_does_not_write_final_gap_frames(self):
+        helper = self.audio_recording_module
+
+        class FakeFrame:
+            def __init__(self):
+                self.number = 0
+
+            def SetFrameNumber(self, frame_number):
+                self.number = frame_number
+
+        class FakeWriter:
+            def __init__(self):
+                self.frame_numbers = []
+                self.closed = False
+
+            def WriteFrame(self, frame):
+                self.frame_numbers.append(frame.number)
+
+            def Close(self):
+                self.closed = True
+
+        class FakeReader:
+            def Close(self):
+                pass
+
+        fps = types.SimpleNamespace(num=30, den=1)
+        job = helper.LiveVideoRecordingJob(FakeReader(), "screen.mp4", 640, 480, fps)
         writer = FakeWriter()
         job._writer = writer
         job._start_time = 100.0
@@ -332,11 +404,45 @@ class RecordingPreviewTests(unittest.TestCase):
         job._last_frame = FakeFrame()
         job._last_frame.SetFrameNumber(31)
 
-        with patch.object(helper.time, "monotonic", return_value=105.0):
-            job._write_final_gap_frame()
+        with patch.object(helper.time, "monotonic", return_value=110.0):
+            job.stop()
 
-        self.assertEqual(writer.frame_numbers, list(range(32, 152)))
-        self.assertEqual(job.frames, 151)
+        self.assertIsNone(job._writer)
+        self.assertTrue(writer.closed)
+        self.assertEqual(writer.frame_numbers, [])
+        self.assertEqual(job.frames, 0)
+
+    def test_recording_duration_keeps_existing_media_duration(self):
+        helper = self.audio_recording_module
+
+        class FakeFile:
+            def __init__(self):
+                self.data = {
+                    "duration": 1.0,
+                    "end": 1.0,
+                    "video_length": 30,
+                    "has_video": True,
+                    "has_audio": False,
+                    "media_type": "video",
+                }
+                self.saved = False
+
+            def save(self):
+                self.saved = True
+
+        fake_file = FakeFile()
+        fake_app = types.SimpleNamespace(
+            project=types.SimpleNamespace(get=lambda key: {"num": 30, "den": 1} if key == "fps" else None)
+        )
+        dock = types.SimpleNamespace(_recorded_duration=2.49)
+
+        with patch.object(helper.File, "get", return_value=fake_file), patch.object(helper, "get_app", return_value=fake_app):
+            helper.AudioRecordingDockContent._apply_recording_duration(dock, "mic.wav")
+
+        self.assertFalse(fake_file.saved)
+        self.assertEqual(fake_file.data["duration"], 1.0)
+        self.assertEqual(fake_file.data["end"], 1.0)
+        self.assertEqual(fake_file.data["video_length"], 30)
 
     def test_timeline_recording_previews_build_audio_and_video_clip_data(self):
         timeline_module = self.timeline_module
