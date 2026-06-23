@@ -10,7 +10,6 @@
  """
 
 import ctypes
-from ctypes import wintypes
 import os
 import re
 import shutil
@@ -30,6 +29,7 @@ from classes.logger import log
 _WIN32_USER32 = None
 _WIN32_DWMAPI = None
 _WIN32_ENUMPROC = None
+_WIN32_TYPES = None
 
 
 CARD_STYLE = """
@@ -420,13 +420,23 @@ def pick_screen_window():
 def _windows_enum_proc_type():
     global _WIN32_ENUMPROC
     if _WIN32_ENUMPROC is None:
+        wintypes = _windows_types()
         _WIN32_ENUMPROC = ctypes.WINFUNCTYPE(wintypes.BOOL, wintypes.HWND, wintypes.LPARAM)
     return _WIN32_ENUMPROC
+
+
+def _windows_types():
+    global _WIN32_TYPES
+    if _WIN32_TYPES is None:
+        from ctypes import wintypes
+        _WIN32_TYPES = wintypes
+    return _WIN32_TYPES
 
 
 def _windows_user32():
     global _WIN32_USER32
     if _WIN32_USER32 is None:
+        wintypes = _windows_types()
         user32 = ctypes.windll.user32
         user32.GetSystemMetrics.argtypes = [ctypes.c_int]
         user32.GetSystemMetrics.restype = ctypes.c_int
@@ -453,6 +463,7 @@ def _windows_user32():
 def _windows_dwmapi():
     global _WIN32_DWMAPI
     if _WIN32_DWMAPI is None:
+        wintypes = _windows_types()
         try:
             dwmapi = ctypes.windll.dwmapi
             dwmapi.DwmGetWindowAttribute.argtypes = [
@@ -503,6 +514,7 @@ def _windows_hwnd_value(hwnd):
 
 
 def _windows_window_rect(hwnd):
+    wintypes = _windows_types()
     user32 = _windows_user32()
     rect = wintypes.RECT()
     dwmapi = _windows_dwmapi()
@@ -517,6 +529,7 @@ def _windows_window_rect(hwnd):
 
 
 def _windows_cursor_pos():
+    wintypes = _windows_types()
     point = wintypes.POINT()
     if _windows_user32().GetCursorPos(ctypes.byref(point)):
         return int(point.x), int(point.y)
@@ -524,6 +537,7 @@ def _windows_cursor_pos():
 
 
 def _windows_pick_window_at(x, y):
+    wintypes = _windows_types()
     user32 = _windows_user32()
     current_pid = os.getpid()
     point = wintypes.POINT(int(x), int(y))
