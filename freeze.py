@@ -541,9 +541,9 @@ elif sys.platform == "linux":
         "libharfbuzz.so.0",
     }
 
-    # Driver/system libs detected inside the AppImage; keep them shared with the host OS
-    # Wayland capture intentionally bundles libpipewire via the ldd scan above. The
-    # xdg-desktop-portal service itself remains a host desktop runtime dependency.
+    # Driver/system libs detected inside the AppImage; keep them shared with the host OS.
+    # PipeWire must also stay host-provided: it loads host modules/plugins, and bundling
+    # libpipewire can mix incompatible AppImage and host PipeWire components at runtime.
     appimage_driver_libs = {
         "libGLdispatch.so.0",
         "libGLX.so.0",
@@ -559,6 +559,8 @@ elif sys.platform == "linux":
         "libresolv.so.2",
         "libXau.so.6",
         "libXdmcp.so.6",
+        "libpipewire-0.3.so.0",
+        "libspa-0.2.so",
     }
     system_libs_to_skip.update(appimage_driver_libs)
 
