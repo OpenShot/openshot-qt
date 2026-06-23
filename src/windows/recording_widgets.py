@@ -141,20 +141,11 @@ class RecordingSourceCard(QFrame):
         layout.setContentsMargins(10, 10, 10, 10)
         layout.setSpacing(4)
 
-        top = QGridLayout()
-        top.setContentsMargins(0, 0, 0, 0)
-        top.setColumnStretch(0, 1)
-        top.setColumnStretch(1, 0)
-        top.setColumnStretch(2, 1)
         icon = QLabel(symbol, self)
         icon.setAlignment(Qt.AlignCenter)
+        icon.setFixedHeight(30)
         icon.setStyleSheet("color: #7db7ff; font-size: 22px;")
-        self.check_label = QLabel("", self)
-        self.check_label.setAlignment(Qt.AlignRight | Qt.AlignTop)
-        self.check_label.setStyleSheet("color: #7db7ff; font-size: 17px;")
-        top.addWidget(icon, 0, 1)
-        top.addWidget(self.check_label, 0, 2)
-        layout.addLayout(top)
+        layout.addWidget(icon, 0, Qt.AlignCenter)
 
         title_label = QLabel(title, self)
         title_label.setObjectName("recordingCardTitle")
@@ -162,6 +153,7 @@ class RecordingSourceCard(QFrame):
         subtitle_label = QLabel(subtitle, self)
         subtitle_label.setObjectName("recordingCardSubtitle")
         subtitle_label.setAlignment(Qt.AlignCenter)
+        subtitle_label.setWordWrap(True)
         layout.addWidget(title_label)
         layout.addWidget(subtitle_label)
 
@@ -173,7 +165,6 @@ class RecordingSourceCard(QFrame):
         if self._checked == checked:
             return
         self._checked = checked
-        self.check_label.setText("✓" if checked else "")
         self.setProperty("checked", checked)
         self.style().unpolish(self)
         self.style().polish(self)

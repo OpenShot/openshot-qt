@@ -62,6 +62,9 @@ from windows.recording_widgets import (
 )
 
 
+RECORDING_DOCK_MIN_WIDTH = 320
+
+
 def frame_to_qimage(frame):
     """Copy a libopenshot RGBA frame into a Qt image for preview signals."""
     width = int(frame.GetWidth())
@@ -644,6 +647,7 @@ class AudioRecordingDockContent(QWidget):
 
         _ = get_app()._tr
         self.setFocusPolicy(Qt.NoFocus)
+        self.setMinimumWidth(RECORDING_DOCK_MIN_WIDTH)
 
         outer_layout = QVBoxLayout(self)
         outer_layout.setContentsMargins(0, 0, 0, 0)
@@ -662,6 +666,9 @@ class AudioRecordingDockContent(QWidget):
 
         source_grid = QGridLayout()
         source_grid.setHorizontalSpacing(8)
+        for column in range(3):
+            source_grid.setColumnStretch(column, 1)
+            source_grid.setColumnMinimumWidth(column, 0)
         self.mic_card = RecordingSourceCard(_("Mic"), _("Record your voice"), "🎙", self)
         self.screen_card = RecordingSourceCard(_("Screen"), _("Capture your screen"), "▣", self)
         self.camera_card = RecordingSourceCard(_("Webcam"), _("Record yourself"), "◉", self)
@@ -797,14 +804,11 @@ class AudioRecordingDockContent(QWidget):
         )
         camera_details_row = QHBoxLayout()
         camera_details_row.setContentsMargins(0, 0, 0, 0)
-        camera_details_row.setSpacing(12)
-        camera_details_row.addWidget(self.webcam_preview_label, 0, Qt.AlignTop)
+        camera_details_row.addStretch()
+        camera_details_row.addWidget(self.webcam_preview_label, 0, Qt.AlignCenter)
+        camera_details_row.addStretch()
+        self.camera_section.body_layout.addLayout(camera_details_row)
 
-        camera_controls_box = QVBoxLayout()
-        camera_controls_box.setSpacing(6)
-        camera_options_label = QLabel(_("Options"), self.camera_section)
-        camera_options_label.setStyleSheet("color: #9aa8bd;")
-        camera_controls_box.addWidget(camera_options_label)
         self.webcam_layout_combo = QComboBox(self.camera_section)
         self.webcam_layout_combo.addItem(_("Bottom R"), "bottom-right")
         self.webcam_layout_combo.addItem(_("Top R"), "top-right")
@@ -815,7 +819,6 @@ class AudioRecordingDockContent(QWidget):
         self.webcam_layout_combo.addItem(_("Center"), "center")
         self.webcam_layout_combo.addItem(_("Full"), "full")
         self.webcam_layout_combo.setToolTip(_("Layout"))
-        camera_controls_box.addWidget(self.webcam_layout_combo)
 
         self.webcam_layout_size_combo = QComboBox(self.camera_section)
         self.webcam_layout_size_combo.addItem(_("Small"), 0.2)
@@ -823,18 +826,12 @@ class AudioRecordingDockContent(QWidget):
         self.webcam_layout_size_combo.addItem(_("Large"), 0.5)
         self.webcam_layout_size_combo.setCurrentIndex(self.webcam_layout_size_combo.findData(0.3))
         self.webcam_layout_size_combo.setToolTip(_("Size"))
-        camera_controls_box.addWidget(self.webcam_layout_size_combo)
 
         self.webcam_mask_combo = QComboBox(self.camera_section)
         self.webcam_mask_combo.addItem(_("Rounded"), "rounded")
         self.webcam_mask_combo.addItem(_("Circle"), "circle")
         self.webcam_mask_combo.addItem(_("None"), "none")
         self.webcam_mask_combo.setToolTip(_("Mask"))
-        camera_controls_box.addWidget(self.webcam_mask_combo)
-        camera_controls_box.addStretch()
-        camera_details_row.addLayout(camera_controls_box)
-        camera_details_row.addStretch()
-        self.camera_section.body_layout.addLayout(camera_details_row)
         self.camera_combo = QComboBox(self.camera_section)
         self.camera_size_combo = QComboBox(self.camera_section)
         self.camera_fps_combo = QComboBox(self.camera_section)
@@ -844,6 +841,12 @@ class AudioRecordingDockContent(QWidget):
         self.camera_section.advanced_layout.addWidget(self.camera_size_combo, 1, 1, 1, 2)
         self.camera_section.advanced_layout.addWidget(QLabel(_("Record FPS:"), self.camera_section), 2, 0)
         self.camera_section.advanced_layout.addWidget(self.camera_fps_combo, 2, 1)
+        self.camera_section.advanced_layout.addWidget(QLabel(_("Layout:"), self.camera_section), 3, 0)
+        self.camera_section.advanced_layout.addWidget(self.webcam_layout_combo, 3, 1, 1, 2)
+        self.camera_section.advanced_layout.addWidget(QLabel(_("Size:"), self.camera_section), 4, 0)
+        self.camera_section.advanced_layout.addWidget(self.webcam_layout_size_combo, 4, 1, 1, 2)
+        self.camera_section.advanced_layout.addWidget(QLabel(_("Mask:"), self.camera_section), 5, 0)
+        self.camera_section.advanced_layout.addWidget(self.webcam_mask_combo, 5, 1, 1, 2)
         layout.addWidget(self.camera_section)
 
         target_row = QHBoxLayout()

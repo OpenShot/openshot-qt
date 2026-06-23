@@ -340,7 +340,8 @@ QPushButton#dock-float-button {
 QLabel#dock-title-label {
     color: #91C3FF;
     font-weight: 500;
-    padding: 16px;
+    min-height: 20px;
+    padding: 10px 16px 8px 16px;
 }
 
 QLabel#dock-title-handle {

@@ -80,7 +80,7 @@ from windows.models.emoji_model import EmojisModel
 from windows.models.files_model import FilesModel
 from windows.views.optimized_preview_menu import populate_optimized_preview_menu
 from windows.models.transition_model import TransitionsModel
-from windows.audio_recording import AudioRecordingDockContent
+from windows.audio_recording import AudioRecordingDockContent, RECORDING_DOCK_MIN_WIDTH
 from windows.preview_thread import PreviewParent
 from windows.scope_panel import WaveformDockContent, HistogramDockContent, VectorscopeDockContent, AudioMeterWidget
 from windows.video_widget import VideoWidget
@@ -1553,6 +1553,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         if getattr(self, "audio_recording_content", None):
             return
         self.audio_recording_content = AudioRecordingDockContent(self)
+        self.dockAudioRecording.setMinimumWidth(RECORDING_DOCK_MIN_WIDTH)
         self.dockAudioRecording.setWidget(self.audio_recording_content)
 
     def _on_audio_recording_visibility_changed(self, visible):
@@ -5285,6 +5286,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.dockAudioRecording.setObjectName("dockAudioRecording")
         self.dockAudioRecording.setProperty("_skip_auto_tab_order", True)
         self.dockAudioRecording.setFocusPolicy(Qt.NoFocus)
+        self.dockAudioRecording.setMinimumWidth(RECORDING_DOCK_MIN_WIDTH)
         self.dockAudioRecording.hide()
         self.addDockWidget(Qt.RightDockWidgetArea, self.dockAudioRecording)
 
