@@ -412,6 +412,26 @@ class RecordingPreviewTests(unittest.TestCase):
         self.assertEqual(writer.frame_numbers, [])
         self.assertEqual(job.frames, 0)
 
+    def test_live_video_wait_until_opened_times_out_and_closes_reader(self):
+        helper = self.audio_recording_module
+
+        class FakeReader:
+            def __init__(self):
+                self.closed = False
+
+            def Close(self):
+                self.closed = True
+
+        reader = FakeReader()
+        fps = types.SimpleNamespace(num=30, den=1)
+        job = helper.LiveVideoRecordingJob(reader, "screen.mp4", 640, 480, fps)
+
+        with self.assertRaises(RuntimeError):
+            job.wait_until_opened(timeout=0.01)
+
+        self.assertTrue(reader.closed)
+        self.assertTrue(job._stop.is_set())
+
     def test_recording_duration_keeps_existing_media_duration(self):
         helper = self.audio_recording_module
 

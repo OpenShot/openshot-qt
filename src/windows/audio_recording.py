@@ -351,6 +351,10 @@ class LiveVideoRecordingJob(QObject):
         self._opened = threading.Event()
 
     def start(self):
+        self.start_async()
+
+    def start_sync(self):
+        """Open synchronously for tests and callers that are already off the UI thread."""
         self._open()
         self._thread = threading.Thread(target=self._run, name="OpenShotLiveVideoRecording", daemon=True)
         self._thread.start()
@@ -415,8 +419,19 @@ class LiveVideoRecordingJob(QObject):
         self._writer.Open()
         self._opened.set()
 
-    def wait_until_opened(self):
+    def wait_until_opened(self, timeout=10.0):
+        started_at = time.monotonic()
         while not self._opened.is_set() and not self.error and not self._stop.is_set():
+            if timeout and time.monotonic() - started_at >= float(timeout):
+                self.error = RuntimeError(
+                    get_app()._tr("Timed out opening %s capture device.") % self.source_type
+                )
+                self._stop.set()
+                try:
+                    self.reader.Close()
+                except Exception:
+                    log.debug("Unable to close timed out live capture reader", exc_info=True)
+                break
             QApplication.processEvents()
             time.sleep(0.02)
         if self.error:
@@ -990,15 +1005,15 @@ class AudioRecordingDockContent(QWidget):
         self.screen_size_label.setVisible(not wayland)
         self.screen_width_spin.setVisible(not wayland)
         self.screen_height_spin.setVisible(not wayland)
-        self.window_button.setEnabled(not wayland and not mac_screen)
-        self.region_button.setEnabled(not wayland and not mac_screen)
+        self.window_button.setEnabled(not wayland)
+        self.region_button.setEnabled(not wayland)
         self.screen_hide_label.setVisible(not wayland)
         self.hide_openshot_combo.setVisible(not wayland)
         if wayland:
             self.screen_status_label.setText(_("Your desktop will ask what to share when recording starts."))
             self._screen_window_id = ""
         elif mac_screen:
-            self.screen_status_label.setText(_("macOS screen recording uses the selected AVFoundation display device."))
+            self.screen_status_label.setText(_("macOS screen recording uses full screen or cropped window and region bounds."))
             self._screen_window_id = ""
         elif screen_capture_backend_is_windows():
             self.screen_status_label.setText(_("Windows screen recording uses full screen or numeric region bounds."))
@@ -1064,11 +1079,6 @@ class AudioRecordingDockContent(QWidget):
         if screen_capture_backend_is_wayland():
             self.screen_status_label.setText(get_app()._tr("Your desktop will ask what to share when recording starts."))
             return
-        if screen_capture_backend_is_mac():
-            self.full_screen_button.setChecked(True)
-            self.window_button.setChecked(False)
-            self.screen_status_label.setText(get_app()._tr("Window selection is not available for macOS AVFoundation recording."))
-            return
         self.window_button.setChecked(True)
         self.full_screen_button.setChecked(False)
         self.region_button.setChecked(False)
@@ -1089,11 +1099,6 @@ class AudioRecordingDockContent(QWidget):
     def _select_region(self):
         if screen_capture_backend_is_wayland():
             self.screen_status_label.setText(get_app()._tr("Region selection is not available for Wayland screen recording."))
-            return
-        if screen_capture_backend_is_mac():
-            self.full_screen_button.setChecked(True)
-            self.region_button.setChecked(False)
-            self.screen_status_label.setText(get_app()._tr("Region selection is not available for macOS AVFoundation recording."))
             return
         self.region_button.setChecked(True)
         self.full_screen_button.setChecked(False)
@@ -1539,11 +1544,7 @@ class AudioRecordingDockContent(QWidget):
             self._hide_openshot_for_recording()
             for job in self._video_jobs:
                 job.errorOccurred.connect(self._live_video_recording_error)
-                if job.source_type == "screen" and screen_capture_backend_is_wayland():
-                    job.start_async()
-                    job.wait_until_opened()
-                else:
-                    job.start()
+                job.start_async()
                 self._recording_sources.append((job.source_type, job.path))
             self._begin_recording()
         except Exception as ex:
@@ -1796,7 +1797,9 @@ class AudioRecordingDockContent(QWidget):
             settings.height = screen_height
             settings.fps = screen_fps
             settings.include_cursor = bool(self.capture_cursor_combo.currentData())
-            if not wayland_screen and self._screen_window_id and self.window_button.isChecked():
+            if mac_screen and (self.window_button.isChecked() or self.region_button.isChecked()):
+                settings.options["crop_after_capture"] = "1"
+            if not wayland_screen and not mac_screen and self._screen_window_id and self.window_button.isChecked():
                 settings.options["window_id"] = str(self._screen_window_id)
             self.screen_x_spin.setValue(settings.x)
             self.screen_y_spin.setValue(settings.y)
@@ -1879,7 +1882,7 @@ class AudioRecordingDockContent(QWidget):
 
     def _live_video_recording_error(self, source_type, message):
         log.error("Live video recording error for %s: %s", source_type, message)
-        if self._recording:
+        if self._recording or self._starting:
             self.record_button.setToolTip(get_app()._tr("Recording stopped: %s") % message)
             QTimer.singleShot(0, self.stop_recording)
 
@@ -2194,11 +2197,13 @@ class AudioRecordingDockContent(QWidget):
         duration = float(self._recorded_duration or 0.0)
         if not recorded_file or duration <= 0.0:
             return
+        if bool(recorded_file.data.get("has_video", False)):
+            return
+        existing_duration = 0.0
         try:
-            if float(recorded_file.data.get("duration", 0.0) or 0.0) > 0.0:
-                return
+            existing_duration = float(recorded_file.data.get("duration", 0.0) or 0.0)
         except (TypeError, ValueError):
-            pass
+            existing_duration = 0.0
 
         try:
             fps = get_app().project.get("fps")
@@ -2206,9 +2211,14 @@ class AudioRecordingDockContent(QWidget):
         except Exception:
             fps_float = 30.0
 
-        duration_frames = max(1, int(round(duration * fps_float)))
-        snapped_duration = duration_frames / fps_float
-        recorded_file.data["duration"] = snapped_duration
+        snapped_duration = existing_duration if existing_duration > 0.0 else None
+        if snapped_duration:
+            duration_frames = max(1, int(round(snapped_duration * fps_float)))
+        else:
+            duration_frames = max(1, int(round(duration * fps_float)))
+            snapped_duration = duration_frames / fps_float
+        if existing_duration <= 0.0:
+            recorded_file.data["duration"] = snapped_duration
         recorded_file.data["start"] = 0.0
         recorded_file.data["end"] = snapped_duration
         recorded_file.data["video_length"] = duration_frames

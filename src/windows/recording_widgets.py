@@ -10,6 +10,7 @@
  """
 
 import ctypes
+import ctypes.util
 import os
 import re
 import shutil
@@ -30,6 +31,9 @@ _WIN32_USER32 = None
 _WIN32_DWMAPI = None
 _WIN32_ENUMPROC = None
 _WIN32_TYPES = None
+_MAC_COREGRAPHICS = None
+_MAC_COREFOUNDATION = None
+_MAC_KEYS = None
 
 
 CARD_STYLE = """
@@ -366,6 +370,8 @@ def pick_x11_region(parent=None):
 def pick_screen_region(parent=None):
     if sys.platform.startswith("win"):
         return pick_windows_region(parent)
+    if sys.platform == "darwin":
+        return pick_mac_region(parent)
     return pick_x11_region(parent)
 
 
@@ -394,12 +400,17 @@ def screen_root_size():
     if sys.platform.startswith("win"):
         _, _, width, height = windows_virtual_screen_geometry()
         return width, height
+    if sys.platform == "darwin":
+        _, _, width, height = mac_primary_screen_geometry()
+        return width, height
     return x11_root_size()
 
 
 def screen_root_geometry():
     if sys.platform.startswith("win"):
         return windows_virtual_screen_geometry()
+    if sys.platform == "darwin":
+        return mac_primary_screen_geometry()
     width, height = x11_root_size()
     return 0, 0, width, height
 
@@ -414,7 +425,307 @@ def pick_x11_window():
 def pick_screen_window():
     if sys.platform.startswith("win"):
         return pick_windows_window()
+    if sys.platform == "darwin":
+        return pick_mac_window()
     return pick_x11_window()
+
+
+def mac_primary_screen_geometry():
+    if sys.platform != "darwin":
+        return 0, 0, None, None
+    try:
+        screen = QApplication.primaryScreen()
+        geometry = screen.geometry() if screen else None
+        if not geometry:
+            return 0, 0, None, None
+        scale = float(screen.devicePixelRatio() or 1.0)
+        return (
+            0,
+            0,
+            max(1, int(round(geometry.width() * scale))),
+            max(1, int(round(geometry.height() * scale))),
+        )
+    except Exception:
+        log.debug("Unable to query macOS primary screen geometry", exc_info=True)
+        return 0, 0, None, None
+
+
+def _mac_point_to_capture_pixels(x, y, width, height):
+    screen = QApplication.screenAt(QPoint(int(x), int(y))) or QApplication.primaryScreen()
+    geometry = screen.geometry() if screen else None
+    scale = float(screen.devicePixelRatio() or 1.0) if screen else 1.0
+    origin_x = geometry.x() if geometry else 0
+    origin_y = geometry.y() if geometry else 0
+    return (
+        max(0, int(round((int(x) - origin_x) * scale))),
+        max(0, int(round((int(y) - origin_y) * scale))),
+        max(1, int(round(int(width) * scale))),
+        max(1, int(round(int(height) * scale))),
+    )
+
+
+def pick_mac_region(parent=None):
+    screen = QApplication.primaryScreen()
+    geometry = screen.geometry() if screen else None
+    result = RegionSelectorOverlay(parent, geometry, x11_geometry=False).select()
+    if not result:
+        return None
+    return _mac_point_to_capture_pixels(*result)
+
+
+def _mac_frameworks():
+    global _MAC_COREGRAPHICS, _MAC_COREFOUNDATION
+    if _MAC_COREGRAPHICS is None:
+        path = ctypes.util.find_library("CoreGraphics")
+        _MAC_COREGRAPHICS = ctypes.cdll.LoadLibrary(path) if path else False
+    if _MAC_COREFOUNDATION is None:
+        path = ctypes.util.find_library("CoreFoundation")
+        _MAC_COREFOUNDATION = ctypes.cdll.LoadLibrary(path) if path else False
+    if not _MAC_COREGRAPHICS or not _MAC_COREFOUNDATION:
+        return None, None
+    return _MAC_COREGRAPHICS, _MAC_COREFOUNDATION
+
+
+def _mac_define_signatures():
+    CG, CF = _mac_frameworks()
+    if not CG or not CF:
+        return None, None
+
+    CFArrayRef = ctypes.c_void_p
+    CFTypeRef = ctypes.c_void_p
+    CFStringRef = ctypes.c_void_p
+    CFNumberRef = ctypes.c_void_p
+    CFIndex = ctypes.c_long
+
+    CG.CGWindowListCopyWindowInfo.argtypes = [ctypes.c_uint32, ctypes.c_uint32]
+    CG.CGWindowListCopyWindowInfo.restype = CFArrayRef
+
+    CF.CFRelease.argtypes = [CFTypeRef]
+    CF.CFRelease.restype = None
+    CF.CFArrayGetCount.argtypes = [CFArrayRef]
+    CF.CFArrayGetCount.restype = CFIndex
+    CF.CFArrayGetValueAtIndex.argtypes = [CFArrayRef, CFIndex]
+    CF.CFArrayGetValueAtIndex.restype = CFTypeRef
+    CF.CFDictionaryGetValueIfPresent.argtypes = [ctypes.c_void_p, CFTypeRef, ctypes.POINTER(CFTypeRef)]
+    CF.CFDictionaryGetValueIfPresent.restype = ctypes.c_bool
+    CF.CFStringCreateWithCString.argtypes = [CFTypeRef, ctypes.c_char_p, ctypes.c_uint32]
+    CF.CFStringCreateWithCString.restype = CFStringRef
+    CF.CFStringGetCString.argtypes = [CFStringRef, ctypes.c_char_p, CFIndex, ctypes.c_uint32]
+    CF.CFStringGetCString.restype = ctypes.c_bool
+    CF.CFNumberGetValue.argtypes = [CFNumberRef, ctypes.c_int, ctypes.c_void_p]
+    CF.CFNumberGetValue.restype = ctypes.c_bool
+    return CG, CF
+
+
+def _mac_keys():
+    global _MAC_KEYS
+    if _MAC_KEYS is not None:
+        return _MAC_KEYS
+    _CG, CF = _mac_define_signatures()
+    if not CF:
+        return {}
+    encoding = 0x08000100
+    names = (
+        "kCGWindowNumber",
+        "kCGWindowOwnerName",
+        "kCGWindowOwnerPID",
+        "kCGWindowName",
+        "kCGWindowLayer",
+        "kCGWindowAlpha",
+        "kCGWindowBounds",
+        "X",
+        "Y",
+        "Width",
+        "Height",
+    )
+    _MAC_KEYS = {
+        name: CF.CFStringCreateWithCString(None, name.encode("utf-8"), encoding)
+        for name in names
+    }
+    return _MAC_KEYS
+
+
+def _mac_dict_value(dictionary, key):
+    _CG, CF = _mac_define_signatures()
+    keys = _mac_keys()
+    if not CF or key not in keys:
+        return None
+    value = ctypes.c_void_p()
+    if CF.CFDictionaryGetValueIfPresent(dictionary, keys[key], ctypes.byref(value)):
+        return value.value
+    return None
+
+
+def _mac_number(value, as_int=False):
+    if not value:
+        return None
+    _CG, CF = _mac_define_signatures()
+    if not CF:
+        return None
+    if as_int:
+        out = ctypes.c_int()
+        return int(out.value) if CF.CFNumberGetValue(value, 3, ctypes.byref(out)) else None
+    out = ctypes.c_double()
+    return float(out.value) if CF.CFNumberGetValue(value, 13, ctypes.byref(out)) else None
+
+
+def _mac_string(value):
+    if not value:
+        return ""
+    _CG, CF = _mac_define_signatures()
+    if not CF:
+        return ""
+    buffer = ctypes.create_string_buffer(4096)
+    if CF.CFStringGetCString(value, buffer, len(buffer), 0x08000100):
+        return buffer.value.decode("utf-8", "replace")
+    return ""
+
+
+def _mac_window_bounds(bounds):
+    if not bounds:
+        return None
+    x = _mac_number(_mac_dict_value(bounds, "X"))
+    y = _mac_number(_mac_dict_value(bounds, "Y"))
+    width = _mac_number(_mac_dict_value(bounds, "Width"))
+    height = _mac_number(_mac_dict_value(bounds, "Height"))
+    if x is None or y is None or width is None or height is None:
+        return None
+    return int(round(x)), int(round(y)), int(round(width)), int(round(height))
+
+
+def _mac_visible_windows():
+    CG, CF = _mac_define_signatures()
+    if not CG or not CF:
+        return []
+    options = (1 << 0) | (1 << 4)  # On-screen only, excluding desktop elements.
+    window_array = CG.CGWindowListCopyWindowInfo(options, 0)
+    if not window_array:
+        return []
+    windows = []
+    try:
+        count = int(CF.CFArrayGetCount(window_array))
+        current_pid = os.getpid()
+        for index in range(count):
+            window = CF.CFArrayGetValueAtIndex(window_array, index)
+            layer = _mac_number(_mac_dict_value(window, "kCGWindowLayer"), as_int=True)
+            alpha = _mac_number(_mac_dict_value(window, "kCGWindowAlpha"))
+            if layer != 0 or alpha == 0:
+                continue
+            owner = _mac_string(_mac_dict_value(window, "kCGWindowOwnerName"))
+            owner_pid = _mac_number(_mac_dict_value(window, "kCGWindowOwnerPID"), as_int=True)
+            title = _mac_string(_mac_dict_value(window, "kCGWindowName"))
+            bounds = _mac_window_bounds(_mac_dict_value(window, "kCGWindowBounds"))
+            number = _mac_number(_mac_dict_value(window, "kCGWindowNumber"), as_int=True)
+            if not bounds:
+                continue
+            x, y, width, height = bounds
+            if width <= 8 or height <= 8:
+                continue
+            if owner_pid == current_pid:
+                continue
+            windows.append({
+                "id": number or 0,
+                "owner": owner,
+                "title": title,
+                "x": x,
+                "y": y,
+                "width": width,
+                "height": height,
+            })
+    finally:
+        CF.CFRelease(window_array)
+    return windows
+
+
+def _mac_pick_window_at(x, y):
+    for window in _mac_visible_windows():
+        left = window["x"]
+        top = window["y"]
+        right = left + window["width"]
+        bottom = top + window["height"]
+        if left <= x <= right and top <= y <= bottom:
+            return window
+    return None
+
+
+class MacWindowSelectorOverlay(QDialog):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        screen = QApplication.primaryScreen()
+        self.screen_geometry = screen.geometry() if screen else QRect(0, 0, 1, 1)
+        self.hover_rect = QRect()
+        self.selected_result = None
+        self.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint | Qt.Tool)
+        self.setMouseTracking(True)
+        self.setCursor(Qt.CrossCursor)
+        self.setWindowOpacity(0.22)
+        self.setGeometry(self.screen_geometry)
+
+    def select(self):
+        exec_method = getattr(self, "exec", None) or getattr(self, "exec_", None)
+        accepted = getattr(QDialog, "Accepted", None)
+        if accepted is None and hasattr(QDialog, "DialogCode"):
+            accepted = QDialog.DialogCode.Accepted
+        return self.selected_result if exec_method() == accepted else None
+
+    def _event_global_pos(self, event):
+        if hasattr(event, "globalPosition"):
+            return event.globalPosition().toPoint()
+        return event.globalPos()
+
+    def _update_hover(self, point):
+        picked = _mac_pick_window_at(int(point.x()), int(point.y()))
+        if not picked:
+            self.hover_rect = QRect()
+            self.update()
+            return None
+        self.hover_rect = QRect(
+            self.mapFromGlobal(QPoint(picked["x"], picked["y"])),
+            self.mapFromGlobal(QPoint(picked["x"] + picked["width"], picked["y"] + picked["height"])),
+        ).normalized()
+        self.update()
+        return picked
+
+    def mouseMoveEvent(self, event):
+        self._update_hover(self._event_global_pos(event))
+
+    def mouseReleaseEvent(self, event):
+        picked = self._update_hover(self._event_global_pos(event))
+        if not picked:
+            self.reject()
+            return
+        x, y, width, height = _mac_point_to_capture_pixels(
+            picked["x"], picked["y"], picked["width"], picked["height"])
+        if width > 8 and height > 8:
+            log.info(
+                "Selected macOS window: id=%s owner=%s title=%s x=%s y=%s width=%s height=%s",
+                picked["id"], picked["owner"], picked["title"], x, y, width, height,
+            )
+            self.selected_result = x, y, width, height, str(picked["id"])
+            self.accept()
+        else:
+            self.reject()
+
+    def keyPressEvent(self, event):
+        if event.key() == Qt.Key_Escape:
+            self.reject()
+        super().keyPressEvent(event)
+
+    def paintEvent(self, event):
+        painter = QPainter(self)
+        painter.fillRect(self.rect(), QColor(0, 0, 0, 95))
+        if self.hover_rect.isValid():
+            painter.setPen(QPen(QColor(64, 145, 255), 3))
+            painter.fillRect(self.hover_rect, QColor(64, 145, 255, 45))
+            painter.drawRect(self.hover_rect)
+
+
+def pick_mac_window(parent=None):
+    try:
+        return MacWindowSelectorOverlay(parent).select()
+    except Exception as ex:
+        log.warning("Unable to select macOS window: %s", ex, exc_info=True)
+        return None
 
 
 def _windows_enum_proc_type():
