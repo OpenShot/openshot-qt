@@ -1799,6 +1799,9 @@ class AudioRecordingDockContent(QWidget):
             settings.include_cursor = bool(self.capture_cursor_combo.currentData())
             if mac_screen and (self.window_button.isChecked() or self.region_button.isChecked()):
                 settings.options["crop_after_capture"] = "1"
+                if root_width and root_height:
+                    settings.options["crop_source_width"] = str(int(root_width))
+                    settings.options["crop_source_height"] = str(int(root_height))
             if not wayland_screen and not mac_screen and self._screen_window_id and self.window_button.isChecked():
                 settings.options["window_id"] = str(self._screen_window_id)
             self.screen_x_spin.setValue(settings.x)
