@@ -112,6 +112,12 @@ class TimelineHelperTests(unittest.TestCase):
         timeline_module = self.timeline_module
 
         class Helper:
+            def __init__(self):
+                self.updated = []
+
+            def update_clip_data(self, clip_data, **kwargs):
+                self.updated.append((copy.deepcopy(clip_data), dict(kwargs)))
+
             def _transition_mask_reader(self, transition_data, fallback_data=None):
                 return timeline_module.TimelineView._transition_mask_reader(
                     self,
@@ -127,6 +133,24 @@ class TimelineHelperTests(unittest.TestCase):
 
         return Helper()
 
+    def make_layout_clip(self, clip_id, position=0.0):
+        def kf(value):
+            return {"Points": [{"co": {"X": 1, "Y": value}, "interpolation": openshot.BEZIER}]}
+
+        return types.SimpleNamespace(
+            id=clip_id,
+            data={
+                "id": clip_id,
+                "position": position,
+                "scale": openshot.SCALE_FIT,
+                "gravity": openshot.GRAVITY_CENTER,
+                "scale_x": kf(1.0),
+                "scale_y": kf(1.0),
+                "location_x": kf(0.0),
+                "location_y": kf(0.0),
+            },
+        )
+
     @classmethod
     def tearDownClass(cls):
         if getattr(cls, "_owns_app", False) and cls.app:
@@ -140,6 +164,34 @@ class TimelineHelperTests(unittest.TestCase):
         self.assertEqual(edit.parse_text("0"), 1)
         self.assertEqual(edit.parse_text("00:00:00,00"), 1)
         self.assertIsNone(edit.parse_text("bad"))
+
+    def test_show_all_clips_maintain_ratio_uses_uniform_scale(self):
+        helper = self.make_helper()
+        clips = [self.make_layout_clip("C1"), self.make_layout_clip("C2")]
+
+        with patch.object(self.timeline_module, "Clip", types.SimpleNamespace(filter=lambda: clips)):
+            self.timeline_module.TimelineView.show_all_clips(helper, clips[0], stretch=False)
+
+        for clip in clips:
+            self.assertEqual(clip.data["scale"], openshot.SCALE_FIT)
+            self.assertEqual(clip.data["gravity"], openshot.GRAVITY_TOP_LEFT)
+            self.assertAlmostEqual(clip.data["scale_x"]["Points"][0]["co"]["Y"], 0.5)
+            self.assertAlmostEqual(clip.data["scale_y"]["Points"][0]["co"]["Y"], 0.5)
+        self.assertAlmostEqual(clips[0].data["location_x"]["Points"][0]["co"]["Y"], 0.0)
+        self.assertAlmostEqual(clips[1].data["location_x"]["Points"][0]["co"]["Y"], 0.5)
+        self.assertEqual(len(helper.updated), 2)
+
+    def test_show_all_clips_distort_uses_cell_width_and_height(self):
+        helper = self.make_helper()
+        clips = [self.make_layout_clip("C1"), self.make_layout_clip("C2")]
+
+        with patch.object(self.timeline_module, "Clip", types.SimpleNamespace(filter=lambda: clips)):
+            self.timeline_module.TimelineView.show_all_clips(helper, clips[0], stretch=True)
+
+        for clip in clips:
+            self.assertEqual(clip.data["scale"], openshot.SCALE_STRETCH)
+            self.assertAlmostEqual(clip.data["scale_x"]["Points"][0]["co"]["Y"], 0.5)
+            self.assertAlmostEqual(clip.data["scale_y"]["Points"][0]["co"]["Y"], 1.0)
 
     def test_playhead_time_edit_commit_centers_on_new_playhead_frame(self):
         helper = types.SimpleNamespace()

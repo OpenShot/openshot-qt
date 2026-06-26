@@ -4629,11 +4629,17 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 else:
                     selected_clip.data["scale"] = openshot.SCALE_FIT
 
+                if stretch:
+                    scale_x = width
+                    scale_y = height
+                else:
+                    scale_x = scale_y = min(width, height)
+
                 # Set scale keyframes
-                w = openshot.Point(1, width, openshot.BEZIER)
+                w = openshot.Point(1, scale_x, openshot.BEZIER)
                 w_object = json.loads(w.Json())
                 selected_clip.data["scale_x"] = {"Points": [w_object]}
-                h = openshot.Point(1, height, openshot.BEZIER)
+                h = openshot.Point(1, scale_y, openshot.BEZIER)
                 h_object = json.loads(h.Json())
                 selected_clip.data["scale_y"] = {"Points": [h_object]}
                 x_point = openshot.Point(1, X, openshot.BEZIER)
