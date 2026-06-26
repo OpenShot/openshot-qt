@@ -1823,6 +1823,7 @@ class AudioRecordingDockContent(QWidget):
                 screen_fps,
                 bit_rate=screen_bit_rate,
                 source_type="screen",
+                use_reader_fps=False,
                 preview_file_id=self._recording_preview_file_ids.get("screen", ""),
             ))
         if self.camera_card.isChecked():
