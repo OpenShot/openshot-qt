@@ -55,7 +55,6 @@ from classes.thumbnail import (
     ThumbnailPathForFrame,
 )
 from classes.tray_status import TrayStatus
-from windows.models.files_model import inspect_media
 from windows.recording_widgets import (
     RecordingSourceCard, RecordingSection, SegmentButton,
     pick_screen_region, pick_screen_window, screen_root_geometry,
@@ -345,7 +344,9 @@ class LiveVideoRecordingJob(QObject):
         self._writer_lock = threading.Lock()
         self._recording_started = threading.Event()
         self._start_time = 0.0
+        self._stop_time = None
         self._initial_frame = None
+        self._initial_frame_time = 0.0
         self._last_frame = None
         self._last_output_frame_number = 0
         self._opened = threading.Event()
@@ -378,6 +379,7 @@ class LiveVideoRecordingJob(QObject):
     def _open(self):
         self.reader.Open()
         self._initial_frame = self.reader.GetFrame(1)
+        self._initial_frame_time = time.monotonic()
         frame_width = int(self._initial_frame.GetWidth() or 0)
         frame_height = int(self._initial_frame.GetHeight() or 0)
         actual_width = int(getattr(getattr(self.reader, "info", None), "width", 0) or 0)
@@ -441,28 +443,45 @@ class LiveVideoRecordingJob(QObject):
         self._start_time = float(start_time or time.monotonic())
         self._recording_started.set()
 
+    def request_stop(self, stop_time=None):
+        self._stop_time = float(stop_time or time.monotonic())
+        self._stop.set()
+        self._recording_started.set()
+
     def _run(self):
         while not self._recording_started.is_set() and not self._stop.is_set():
             time.sleep(0.01)
-        if self._stop.is_set():
+        stop_time = self._stop_time
+        if self._stop.is_set() and stop_time is None:
             return
+        if self._initial_frame is not None and self._initial_frame_time < float(self._start_time or 0.0):
+            self._initial_frame = None
         capture_frame_number = 2 if self._initial_frame is not None else 1
         written_frames = 0
         last_output_frame_number = 0
         last_preview_emit = 0.0
         fps_value = max(1.0, float(self.fps.num) / float(self.fps.den or 1))
         try:
-            while not self._stop.is_set():
+            while True:
+                stop_time = self._stop_time
+                if self._stop.is_set() and stop_time is None:
+                    break
                 if self._initial_frame is not None:
                     frame = self._initial_frame
                     self._initial_frame = None
                 else:
+                    if self._stop.is_set():
+                        break
                     frame = self.reader.GetFrame(capture_frame_number)
                 now = time.monotonic()
+                if stop_time is not None:
+                    now = min(now, stop_time)
                 elapsed = max(0.0, now - float(self._start_time or now))
                 output_frame_number = max(1, int(math.floor((elapsed * fps_value) + 0.5)) + 1)
                 if output_frame_number <= last_output_frame_number:
                     capture_frame_number += 1
+                    if stop_time is not None:
+                        break
                     continue
                 with self._writer_lock:
                     if not self._writer:
@@ -482,14 +501,18 @@ class LiveVideoRecordingJob(QObject):
                 self._last_output_frame_number = output_frame_number
                 self._last_frame = self._copy_frame(frame)
                 capture_frame_number += 1
+                if stop_time is not None:
+                    break
         except Exception as ex:
             if not self._stop.is_set():
                 self.error = ex
                 self.errorOccurred.emit(self.source_type, str(ex))
 
-    def stop(self):
-        self._stop.set()
-        self._recording_started.set()
+    def stop(self, stop_time=None):
+        self.request_stop(stop_time)
+        self.finish_stop()
+
+    def finish_stop(self):
         if self._thread:
             self._thread.join(timeout=2.0)
         if self._thread and self._thread.is_alive():
@@ -656,6 +679,7 @@ class AudioRecordingDockContent(QWidget):
         self._recording_waveform_samples = []
         self._last_timeline_preview_at = 0.0
         self._last_timeline_preview_samples = 0
+        self._webcam_layout_default_state = None
         self._preferred_format = "flac"
         self._sample_rate = 48000
         self._channels = 1
@@ -766,10 +790,16 @@ class AudioRecordingDockContent(QWidget):
             default_screen_display,
             self.screen_section,
         )
+        self.screen_display_edit.setMinimumWidth(0)
+        self.screen_display_edit.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Fixed)
         self.screen_x_spin = QSpinBox(self.screen_section)
         self.screen_y_spin = QSpinBox(self.screen_section)
         self.screen_width_spin = QSpinBox(self.screen_section)
         self.screen_height_spin = QSpinBox(self.screen_section)
+        for spin in (self.screen_x_spin, self.screen_y_spin, self.screen_width_spin, self.screen_height_spin):
+            spin.setMinimumWidth(78)
+            spin.setMaximumWidth(96)
+            spin.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         for spin in (self.screen_x_spin, self.screen_y_spin):
             spin.setRange(-32768, 32767)
         for spin in (self.screen_width_spin, self.screen_height_spin):
@@ -786,22 +816,40 @@ class AudioRecordingDockContent(QWidget):
         for fps in (15, 24, 30, 60):
             self.video_fps_combo.addItem(str(fps), fps)
         self.video_fps_combo.setCurrentIndex(self.video_fps_combo.findData(30))
+        for combo in (self.capture_cursor_combo, self.hide_openshot_combo, self.video_fps_combo):
+            combo.setMinimumWidth(0)
+            combo.setMaximumWidth(120)
+            combo.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Fixed)
         self.screen_display_label = QLabel(_("Display:"), self.screen_section)
-        self.screen_x_label = QLabel("X:", self.screen_section)
-        self.screen_y_label = QLabel("Y:", self.screen_section)
+        self.screen_offset_label = QLabel(_("Offset:"), self.screen_section)
         self.screen_size_label = QLabel(_("Size:"), self.screen_section)
         self.screen_fps_label = QLabel(_("FPS:"), self.screen_section)
         self.screen_cursor_label = QLabel(_("Cursor:"), self.screen_section)
         self.screen_hide_label = QLabel(_("Hide OpenShot:"), self.screen_section)
+        self.screen_offset_widget = QWidget(self.screen_section)
+        screen_offset_row = QHBoxLayout(self.screen_offset_widget)
+        screen_offset_row.setContentsMargins(0, 0, 0, 0)
+        screen_offset_row.setSpacing(6)
+        screen_offset_row.addWidget(self.screen_x_spin)
+        screen_offset_row.addWidget(QLabel(",", self.screen_offset_widget))
+        screen_offset_row.addWidget(self.screen_y_spin)
+        screen_offset_row.addStretch()
+        self.screen_size_widget = QWidget(self.screen_section)
+        screen_size_row = QHBoxLayout(self.screen_size_widget)
+        screen_size_row.setContentsMargins(0, 0, 0, 0)
+        screen_size_row.setSpacing(6)
+        screen_size_row.addWidget(self.screen_width_spin)
+        screen_size_row.addWidget(QLabel("x", self.screen_size_widget))
+        screen_size_row.addWidget(self.screen_height_spin)
+        screen_size_row.addStretch()
+        self.screen_section.advanced_layout.setColumnStretch(0, 0)
+        self.screen_section.advanced_layout.setColumnStretch(1, 1)
         self.screen_section.advanced_layout.addWidget(self.screen_display_label, 0, 0)
-        self.screen_section.advanced_layout.addWidget(self.screen_display_edit, 0, 1, 1, 3)
-        self.screen_section.advanced_layout.addWidget(self.screen_x_label, 1, 0)
-        self.screen_section.advanced_layout.addWidget(self.screen_x_spin, 1, 1)
-        self.screen_section.advanced_layout.addWidget(self.screen_y_label, 1, 2)
-        self.screen_section.advanced_layout.addWidget(self.screen_y_spin, 1, 3)
+        self.screen_section.advanced_layout.addWidget(self.screen_display_edit, 0, 1)
+        self.screen_section.advanced_layout.addWidget(self.screen_offset_label, 1, 0)
+        self.screen_section.advanced_layout.addWidget(self.screen_offset_widget, 1, 1)
         self.screen_section.advanced_layout.addWidget(self.screen_size_label, 2, 0)
-        self.screen_section.advanced_layout.addWidget(self.screen_width_spin, 2, 1)
-        self.screen_section.advanced_layout.addWidget(self.screen_height_spin, 2, 2)
+        self.screen_section.advanced_layout.addWidget(self.screen_size_widget, 2, 1)
         self.screen_section.advanced_layout.addWidget(self.screen_fps_label, 3, 0)
         self.screen_section.advanced_layout.addWidget(self.video_fps_combo, 3, 1)
         self.screen_section.advanced_layout.addWidget(self.screen_cursor_label, 4, 0)
@@ -825,28 +873,28 @@ class AudioRecordingDockContent(QWidget):
         self.camera_section.body_layout.addLayout(camera_details_row)
 
         self.webcam_layout_combo = QComboBox(self.camera_section)
-        self.webcam_layout_combo.addItem(_("Bottom R"), "bottom-right")
-        self.webcam_layout_combo.addItem(_("Top R"), "top-right")
-        self.webcam_layout_combo.addItem(_("Bottom L"), "bottom-left")
-        self.webcam_layout_combo.addItem(_("Top L"), "top-left")
+        self.webcam_layout_combo.addItem(_("Bottom Right"), "bottom-right")
+        self.webcam_layout_combo.addItem(_("Top Right"), "top-right")
+        self.webcam_layout_combo.addItem(_("Bottom Left"), "bottom-left")
+        self.webcam_layout_combo.addItem(_("Top Left"), "top-left")
         self.webcam_layout_combo.addItem(_("Left"), "left")
         self.webcam_layout_combo.addItem(_("Right"), "right")
         self.webcam_layout_combo.addItem(_("Center"), "center")
-        self.webcam_layout_combo.addItem(_("Full"), "full")
+        self.webcam_layout_combo.addItem(_("Full Size"), "full")
         self.webcam_layout_combo.setToolTip(_("Layout"))
 
         self.webcam_layout_size_combo = QComboBox(self.camera_section)
-        self.webcam_layout_size_combo.addItem(_("Small"), 0.2)
-        self.webcam_layout_size_combo.addItem(_("Medium"), 0.3)
-        self.webcam_layout_size_combo.addItem(_("Large"), 0.5)
+        self.webcam_layout_size_combo.addItem(_("Corner (20%)"), 0.2)
+        self.webcam_layout_size_combo.addItem(_("Corner (30%)"), 0.3)
+        self.webcam_layout_size_combo.addItem(_("Corner (40%)"), 0.4)
         self.webcam_layout_size_combo.setCurrentIndex(self.webcam_layout_size_combo.findData(0.3))
         self.webcam_layout_size_combo.setToolTip(_("Size"))
 
-        self.webcam_mask_combo = QComboBox(self.camera_section)
-        self.webcam_mask_combo.addItem(_("Rounded"), "rounded")
-        self.webcam_mask_combo.addItem(_("Circle"), "circle")
-        self.webcam_mask_combo.addItem(_("None"), "none")
-        self.webcam_mask_combo.setToolTip(_("Mask"))
+        self.webcam_corner_radius_combo = QComboBox(self.camera_section)
+        self.webcam_corner_radius_combo.addItem(_("Rectangle"), 0.0)
+        self.webcam_corner_radius_combo.addItem(_("Rounded"), 0.15)
+        self.webcam_corner_radius_combo.addItem(_("Oval"), 0.5)
+        self.webcam_corner_radius_combo.setToolTip(_("Corners"))
         self.camera_combo = QComboBox(self.camera_section)
         self.camera_size_combo = QComboBox(self.camera_section)
         self.camera_fps_combo = QComboBox(self.camera_section)
@@ -860,8 +908,8 @@ class AudioRecordingDockContent(QWidget):
         self.camera_section.advanced_layout.addWidget(self.webcam_layout_combo, 3, 1, 1, 2)
         self.camera_section.advanced_layout.addWidget(QLabel(_("Size:"), self.camera_section), 4, 0)
         self.camera_section.advanced_layout.addWidget(self.webcam_layout_size_combo, 4, 1, 1, 2)
-        self.camera_section.advanced_layout.addWidget(QLabel(_("Mask:"), self.camera_section), 5, 0)
-        self.camera_section.advanced_layout.addWidget(self.webcam_mask_combo, 5, 1, 1, 2)
+        self.camera_section.advanced_layout.addWidget(QLabel(_("Corners:"), self.camera_section), 5, 0)
+        self.camera_section.advanced_layout.addWidget(self.webcam_corner_radius_combo, 5, 1, 1, 2)
         layout.addWidget(self.camera_section)
 
         target_row = QHBoxLayout()
@@ -911,8 +959,8 @@ class AudioRecordingDockContent(QWidget):
         self.camera_size_combo.currentIndexChanged.connect(self._camera_size_changed)
         self.camera_fps_combo.currentIndexChanged.connect(self._restart_webcam_preview)
         self.webcam_layout_combo.currentIndexChanged.connect(self._webcam_layout_changed)
-        self.webcam_layout_size_combo.currentIndexChanged.connect(self._refresh_webcam_preview_mask)
-        self.webcam_mask_combo.currentIndexChanged.connect(self._refresh_webcam_preview_mask)
+        self.webcam_layout_size_combo.currentIndexChanged.connect(self._refresh_webcam_preview_corners)
+        self.webcam_corner_radius_combo.currentIndexChanged.connect(self._refresh_webcam_preview_corners)
         self.mono_button.clicked.connect(lambda: self._set_channels(1))
         self.stereo_button.clicked.connect(lambda: self._set_channels(2))
         self.full_screen_button.clicked.connect(self._select_full_screen)
@@ -998,11 +1046,12 @@ class AudioRecordingDockContent(QWidget):
         self.screen_mode_widget.setVisible(not wayland)
         self.screen_display_label.setVisible(not wayland)
         self.screen_display_edit.setVisible(not wayland)
-        self.screen_x_label.setVisible(not wayland)
+        self.screen_offset_label.setVisible(not wayland)
+        self.screen_offset_widget.setVisible(not wayland)
         self.screen_x_spin.setVisible(not wayland)
-        self.screen_y_label.setVisible(not wayland)
         self.screen_y_spin.setVisible(not wayland)
         self.screen_size_label.setVisible(not wayland)
+        self.screen_size_widget.setVisible(not wayland)
         self.screen_width_spin.setVisible(not wayland)
         self.screen_height_spin.setVisible(not wayland)
         self.window_button.setEnabled(not wayland)
@@ -1019,6 +1068,7 @@ class AudioRecordingDockContent(QWidget):
             self.screen_status_label.setText(_("Windows screen recording uses full screen or numeric region bounds."))
 
     def _source_toggled(self):
+        self._sync_webcam_layout_defaults()
         self._sync_source_sections()
         self._restart_monitoring()
         self._restart_webcam_preview()
@@ -1027,8 +1077,31 @@ class AudioRecordingDockContent(QWidget):
         self.mic_section.setActive(self.mic_card.isChecked())
         self.screen_section.setActive(self.screen_card.isChecked())
         self.camera_section.setActive(self.camera_card.isChecked())
+        self.webcam_layout_combo.setEnabled(self.screen_card.isChecked())
+        self.webcam_layout_size_combo.setEnabled(self.screen_card.isChecked())
+        self.webcam_corner_radius_combo.setEnabled(self.screen_card.isChecked())
         if not self.camera_card.isChecked():
             self._stop_webcam_preview()
+
+    def _sync_webcam_layout_defaults(self):
+        state = (self.camera_card.isChecked(), self.screen_card.isChecked())
+        if self._webcam_layout_default_state == state:
+            return
+        self._webcam_layout_default_state = state
+        if not state[0]:
+            return
+        if state[1]:
+            self._set_combo_data(self.webcam_layout_combo, "bottom-right")
+            self._set_combo_data(self.webcam_layout_size_combo, 0.3)
+            self._set_combo_data(self.webcam_corner_radius_combo, 0.15)
+        else:
+            self._set_combo_data(self.webcam_layout_combo, "full")
+            self._set_combo_data(self.webcam_corner_radius_combo, 0.0)
+
+    def _set_combo_data(self, combo, value):
+        index = combo.findData(value)
+        if index >= 0 and combo.currentIndex() != index:
+            combo.setCurrentIndex(index)
 
     def _set_screen_to_primary(self):
         root_x, root_y, root_width, root_height = screen_root_geometry()
@@ -1371,7 +1444,7 @@ class AudioRecordingDockContent(QWidget):
         preview_width = 220
         preview_height = max(80, int(round(preview_width * float(height) / float(width))))
         self.webcam_preview_label.setFixedSize(preview_width, preview_height)
-        self._refresh_webcam_preview_mask()
+        self._refresh_webcam_preview_corners()
 
     def _refresh_camera_fps_options(self):
         current_fps = self.camera_fps_combo.currentData() if hasattr(self, "camera_fps_combo") else None
@@ -1546,6 +1619,8 @@ class AudioRecordingDockContent(QWidget):
                 job.errorOccurred.connect(self._live_video_recording_error)
                 job.start_async()
                 self._recording_sources.append((job.source_type, job.path))
+            for job in self._video_jobs:
+                job.wait_until_opened()
             self._begin_recording()
         except Exception as ex:
             self._recorder = None
@@ -1665,7 +1740,8 @@ class AudioRecordingDockContent(QWidget):
         if not self._recording and not self._recorder:
             return
 
-        recorded_duration = max(0.0, time.monotonic() - self._recording_started_at)
+        stop_time = time.monotonic()
+        recorded_duration = max(0.0, stop_time - self._recording_started_at)
         self._recording = False
         self._tray_status.hide()
         self.timer.stop()
@@ -1677,6 +1753,12 @@ class AudioRecordingDockContent(QWidget):
         path = self._recording_path
         sources = list(self._recording_sources)
         try:
+            for job in list(self._video_jobs or []):
+                try:
+                    if hasattr(job, "request_stop"):
+                        job.request_stop(stop_time)
+                except Exception:
+                    log.debug("Unable to request live video recording stop", exc_info=True)
             if self._recorder:
                 self._recorder.Stop()
                 try:
@@ -1685,7 +1767,7 @@ class AudioRecordingDockContent(QWidget):
                 except Exception:
                     log.debug("Unable to read audio recorder duration", exc_info=True)
                 self._recorder.Close()
-            self._stop_video_jobs(delete_files=False)
+            self._stop_video_jobs(delete_files=False, stop_time=stop_time)
         except Exception as ex:
             self.record_button.setToolTip(_("Unable to finish recording: %s") % ex)
             log.error("Unable to finish audio recording", exc_info=True)
@@ -1868,12 +1950,22 @@ class AudioRecordingDockContent(QWidget):
         pixels_per_second = max(1.0, float(width) * float(height) * fps_value)
         return int(max(8000000, min(80000000, pixels_per_second * 0.08)))
 
-    def _stop_video_jobs(self, delete_files=False):
+    def _stop_video_jobs(self, delete_files=False, stop_time=None):
         jobs = list(self._video_jobs or [])
         self._video_jobs = []
+        shared_stop_time = float(stop_time or time.monotonic())
         for job in jobs:
             try:
-                job.stop()
+                if hasattr(job, "request_stop"):
+                    job.request_stop(shared_stop_time)
+            except Exception:
+                log.debug("Unable to request live video recording stop", exc_info=True)
+        for job in jobs:
+            try:
+                if hasattr(job, "finish_stop"):
+                    job.finish_stop()
+                else:
+                    job.stop(shared_stop_time)
                 if job.error:
                     log.error("Live video recording error for %s: %s", job.path, job.error)
             except Exception:
@@ -1924,18 +2016,18 @@ class AudioRecordingDockContent(QWidget):
         pixmap = QPixmap.fromImage(image)
         if not pixmap.isNull():
             self._webcam_preview_pixmap = pixmap
-            self.webcam_preview_label.setPixmap(self._masked_webcam_pixmap(pixmap))
+            self.webcam_preview_label.setPixmap(self._webcam_preview_pixmap_with_corners(pixmap))
 
-    def _refresh_webcam_preview_mask(self):
+    def _refresh_webcam_preview_corners(self):
         pixmap = self._webcam_preview_pixmap
         if pixmap and not pixmap.isNull():
-            self.webcam_preview_label.setPixmap(self._masked_webcam_pixmap(pixmap))
+            self.webcam_preview_label.setPixmap(self._webcam_preview_pixmap_with_corners(pixmap))
 
     def _webcam_layout_changed(self):
         self.webcam_layout_size_combo.setEnabled(self._webcam_layout() != "full")
-        self._refresh_webcam_preview_mask()
+        self._refresh_webcam_preview_corners()
 
-    def _masked_webcam_pixmap(self, pixmap):
+    def _webcam_preview_pixmap_with_corners(self, pixmap):
         target_size = self.webcam_preview_label.size()
         scaled = pixmap.scaled(target_size, Qt.KeepAspectRatio, Qt.SmoothTransformation)
         canvas = QPixmap(target_size)
@@ -1943,21 +2035,13 @@ class AudioRecordingDockContent(QWidget):
 
         x = int((target_size.width() - scaled.width()) / 2)
         y = int((target_size.height() - scaled.height()) / 2)
-        shape = self._webcam_mask_shape()
+        corner_radius = self._webcam_corner_radius()
         painter = QPainter(canvas)
         painter.setRenderHint(QPainter.Antialiasing, True)
-        if shape != "none":
+        if corner_radius > 0.0:
+            radius_pixels = corner_radius * min(scaled.width(), scaled.height())
             path = QPainterPath()
-            if shape == "circle":
-                diameter = min(scaled.width(), scaled.height())
-                path.addEllipse(
-                    x + int((scaled.width() - diameter) / 2),
-                    y + int((scaled.height() - diameter) / 2),
-                    diameter,
-                    diameter,
-                )
-            else:
-                path.addRoundedRect(x, y, scaled.width(), scaled.height(), 12, 12)
+            path.addRoundedRect(x, y, scaled.width(), scaled.height(), radius_pixels, radius_pixels)
             painter.setClipPath(path)
         painter.drawPixmap(x, y, scaled)
         painter.end()
@@ -2263,7 +2347,6 @@ class AudioRecordingDockContent(QWidget):
             saved_clip = Clip.get(id=clip_id) if clip_id else None
             if source_type == "webcam":
                 self._apply_webcam_clip_layout(new_clip)
-                self._apply_webcam_clip_mask(new_clip)
             if saved_clip and int(saved_clip.data.get("layer", 0) or 0) != int(track):
                 saved_clip.data.update(new_clip)
                 saved_clip.save()
@@ -2308,60 +2391,14 @@ class AudioRecordingDockContent(QWidget):
         clip_data["scale_y"] = {"Points": [self._keyframe_point(scale)]}
         clip_data["location_x"] = {"Points": [self._keyframe_point(0.0)]}
         clip_data["location_y"] = {"Points": [self._keyframe_point(0.0)]}
-
-    def _apply_webcam_clip_mask(self, clip_data):
-        shape = self._webcam_mask_shape()
-        if shape == "none":
-            return
-        mask_path = self._webcam_mask_path(shape)
-        if not mask_path:
-            return
-        try:
-            effect = openshot.EffectInfo().CreateEffect("Mask")
-            effect.Id(get_app().project.generate_id())
-            effect_data = json.loads(effect.Json())
-            effect_data["mask_reader"], _ = inspect_media(mask_path)
-            effect_data["order"] = len(clip_data.get("effects") or [])
-            effects = clip_data.get("effects")
-            if not isinstance(effects, list):
-                effects = []
-                clip_data["effects"] = effects
-            effects.append(effect_data)
-        except Exception:
-            log.debug("Unable to attach webcam mask effect", exc_info=True)
-
-    def _webcam_mask_path(self, shape):
-        size = self.camera_size_combo.currentData() or (640, 480)
-        width = self._safe_even_dimension(size[0])
-        height = self._safe_even_dimension(size[1])
-        recordings_path = os.path.dirname(self._next_named_recording_path("Mask", "png"))
-        path = os.path.join(recordings_path, "webcam-alpha-mask-%s-%sx%s.png" % (shape, width, height))
-        if os.path.exists(path):
-            return path
-        image = QImage(width, height, QImage.Format_RGB32)
-        image.fill(QColor(255, 255, 255))
-        painter = QPainter(image)
-        painter.setRenderHint(QPainter.Antialiasing, True)
-        painter.setPen(Qt.NoPen)
-        painter.setBrush(QColor(0, 0, 0))
-        if shape == "circle":
-            diameter = min(width, height)
-            painter.drawEllipse(
-                int((width - diameter) / 2),
-                int((height - diameter) / 2),
-                diameter,
-                diameter,
-            )
-        else:
-            radius = max(12, int(min(width, height) * 0.08))
-            painter.drawRoundedRect(0, 0, width, height, radius, radius)
-        painter.end()
-        return path if image.save(path) else ""
-
-    def _webcam_mask_shape(self):
-        return self.webcam_mask_combo.currentData() or "rounded"
+        margin = 0.0 if layout == "full" else 0.03
+        corner_radius = 0.0 if layout == "full" else self._webcam_corner_radius()
+        clip_data["margin"] = {"Points": [self._keyframe_point(margin)]}
+        clip_data["corner_radius"] = {"Points": [self._keyframe_point(corner_radius)]}
 
     def _webcam_layout(self):
+        if not self.screen_card.isChecked():
+            return "full"
         return self.webcam_layout_combo.currentData() or "bottom-right"
 
     def _webcam_layout_scale(self):
@@ -2369,6 +2406,14 @@ class AudioRecordingDockContent(QWidget):
             return float(self.webcam_layout_size_combo.currentData() or 0.3)
         except (TypeError, ValueError):
             return 0.3
+
+    def _webcam_corner_radius(self):
+        if not self.screen_card.isChecked():
+            return 0.0
+        try:
+            return float(self.webcam_corner_radius_combo.currentData() or 0.0)
+        except (TypeError, ValueError):
+            return 0.0
 
     def _keyframe_point(self, value):
         return json.loads(openshot.Point(1, float(value), openshot.BEZIER).Json())

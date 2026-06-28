@@ -945,6 +945,52 @@ class MainWindowTests(unittest.TestCase):
         self.assertTrue(normal_dock.features() & QDockWidget.DockWidgetMovable)
         self.assertTrue(normal_dock.features() & QDockWidget.DockWidgetFloatable)
 
+    def test_properties_dock_reanchors_to_files_when_shown_after_view_removed_it(self):
+        fake_window = QMainWindow()
+        fake_window.dockFiles = QDockWidget("Project Files", fake_window)
+        fake_window.dockFiles.setObjectName("dockFiles")
+        fake_window.dockProperties = QDockWidget("Properties", fake_window)
+        fake_window.dockProperties.setObjectName("dockProperties")
+        fake_window.style_dock_widgets = lambda: None
+
+        fake_window.addDockWidget(Qt.LeftDockWidgetArea, fake_window.dockFiles)
+        fake_window.removeDockWidget(fake_window.dockProperties)
+
+        self.main_window_module.MainWindow._anchor_and_show_properties_dock(fake_window)
+
+        self.assertEqual(fake_window.dockWidgetArea(fake_window.dockProperties), Qt.LeftDockWidgetArea)
+        self.assertIn(fake_window.dockProperties, fake_window.tabifiedDockWidgets(fake_window.dockFiles))
+        self.assertFalse(fake_window.dockProperties.isFloating())
+        self.assertFalse(fake_window.dockProperties.isHidden())
+
+    def test_recording_view_keeps_properties_hidden_but_tabified_with_files(self):
+        fake_window = QMainWindow()
+        fake_window.dockFiles = QDockWidget("Project Files", fake_window)
+        fake_window.dockFiles.setObjectName("dockFiles")
+        fake_window.dockProperties = QDockWidget("Properties", fake_window)
+        fake_window.dockProperties.setObjectName("dockProperties")
+        fake_window.dockVideo = QDockWidget("Video Preview", fake_window)
+        fake_window.dockVideo.setObjectName("dockVideo")
+        fake_window.dockTimeline = QDockWidget("Timeline", fake_window)
+        fake_window.dockTimeline.setObjectName("dockTimeline")
+        fake_window.dockAudioRecording = QDockWidget("Recording", fake_window)
+        fake_window.dockAudioRecording.setObjectName("dockAudioRecording")
+        fake_window._set_active_custom_view_id = lambda _view_id: None
+        fake_window._ensure_audio_recording_dock_content = lambda: None
+        fake_window.getDocks = lambda: fake_window.findChildren(QDockWidget)
+        fake_window.removeDocks = lambda: self.main_window_module.MainWindow.removeDocks(fake_window)
+        fake_window.addDocks = lambda docks, area: self.main_window_module.MainWindow.addDocks(fake_window, docks, area)
+        fake_window.floatDocks = lambda is_floating: self.main_window_module.MainWindow.floatDocks(fake_window, is_floating)
+        fake_window.showDocks = lambda docks: self.main_window_module.MainWindow.showDocks(fake_window, docks)
+        fake_window.style_dock_widgets = lambda: None
+
+        self.main_window_module.MainWindow.actionAudio_Recording_View_trigger(fake_window)
+
+        self.assertEqual(fake_window.dockWidgetArea(fake_window.dockProperties), Qt.LeftDockWidgetArea)
+        self.assertIn(fake_window.dockProperties, fake_window.tabifiedDockWidgets(fake_window.dockFiles))
+        self.assertTrue(fake_window.dockProperties.isHidden())
+        self.assertFalse(fake_window.dockFiles.isHidden())
+
     def test_scope_menu_keeps_conditional_show_and_close_all_actions(self):
         fake_window = QMainWindow()
         fake_window.scopes_menu = QMenu(fake_window)

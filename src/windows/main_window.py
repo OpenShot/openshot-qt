@@ -1564,6 +1564,37 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         elif getattr(self, "audio_recording_content", None):
             self.audio_recording_content.deactivate_if_hidden()
 
+    def _anchor_and_show_properties_dock(self):
+        """Ensure Properties is docked with Project Files before showing it."""
+        files_dock = getattr(self, "dockFiles", None)
+        props_dock = getattr(self, "dockProperties", None)
+        if not props_dock:
+            return
+
+        if props_dock.isFloating():
+            props_dock.setFloating(False)
+        if self.dockWidgetArea(props_dock) == Qt.NoDockWidgetArea:
+            target_area = (
+                self.dockWidgetArea(files_dock)
+                if files_dock and self.dockWidgetArea(files_dock) != Qt.NoDockWidgetArea
+                else Qt.LeftDockWidgetArea
+            )
+            self.addDockWidget(target_area, props_dock)
+
+        if files_dock and self.dockWidgetArea(files_dock) != Qt.NoDockWidgetArea:
+            if props_dock not in self.tabifiedDockWidgets(files_dock):
+                self.tabifyDockWidget(files_dock, props_dock)
+            self.setTabPosition(self.dockWidgetArea(files_dock), QTabWidget.North)
+
+        props_dock.show()
+        props_dock.raise_()
+        self.style_dock_widgets()
+
+    def _on_properties_dock_toggled(self, checked):
+        """Re-anchor Properties when it is toggled back on after a view switch."""
+        if checked:
+            self._anchor_and_show_properties_dock()
+
     def _scope_docks(self):
         """Return docks that display video/audio scope data."""
         return [
@@ -2655,8 +2686,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         log.debug('actionProperties_trigger')
 
         # Show properties dock
-        if not self.dockProperties.isVisible():
-            self.dockProperties.show()
+        if (not self.dockProperties.isVisible()
+                or self.dockProperties.isFloating()
+                or self.dockWidgetArea(self.dockProperties) == Qt.NoDockWidgetArea):
+            self._anchor_and_show_properties_dock()
 
     def actionRemoveEffect_trigger(self):
         log.debug('actionRemoveEffect_trigger')
@@ -3337,11 +3370,14 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self._ensure_audio_recording_dock_content()
         self.removeDocks()
 
-        self.addDocks([self.dockFiles], Qt.LeftDockWidgetArea)
+        self.addDocks([self.dockFiles, self.dockProperties], Qt.LeftDockWidgetArea)
         self.addDocks([self.dockVideo], Qt.TopDockWidgetArea)
         self.addDocks([self.dockAudioRecording], Qt.RightDockWidgetArea)
+        self.tabifyDockWidget(self.dockFiles, self.dockProperties)
+        self.dockProperties.hide()
         self.splitDockWidget(self.dockVideo, self.dockTimeline, Qt.Vertical)
         self.setTabPosition(Qt.RightDockWidgetArea, QTabWidget.North)
+        self.setTabPosition(Qt.LeftDockWidgetArea, QTabWidget.North)
 
         self.floatDocks(False)
         self.showDocks([
@@ -5498,6 +5534,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 functools.partial(self._on_scope_dock_toggled, dock=_dock))
         for _dock in [self.dockLumaWaveform, self.dockHistogram, self.dockVectorscope]:
             _dock.visibilityChanged.connect(self._on_video_scope_visibility_changed)
+        self.dockProperties.toggleViewAction().triggered.connect(self._on_properties_dock_toggled)
         self.dockAudioRecording.visibilityChanged.connect(self._on_audio_recording_visibility_changed)
         if self.dockAudioRecording.isVisible():
             self._ensure_audio_recording_dock_content()

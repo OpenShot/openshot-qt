@@ -313,6 +313,21 @@ This view is focused on color correction and scopes. It enlarges the video previ
 keeps the timeline and properties visible, places the :guilabel:`Color Wheels` dock on the right, and tabifies the
 :guilabel:`Luma Waveform` and :guilabel:`Histogram` docks together below it.
 
+Recording View
+^^^^^^^^^^^^^^
+This view is focused on creating new recordings inside OpenShot. It shows :guilabel:`Project Files`,
+:guilabel:`Video Preview`, :guilabel:`Timeline`, and the :guilabel:`Recording` dock. The :guilabel:`Properties`
+dock is grouped with :guilabel:`Project Files` as a tab, so you can show it from :guilabel:`View->Docks->Properties`
+without disrupting the recording layout.
+
+The :guilabel:`Recording` dock can record microphone audio, screen capture, webcam video, or combinations of those
+sources. When screen and webcam are recorded together, OpenShot can place the webcam as a corner picture-in-picture
+clip. Those corner camera clips use normal clip properties after they are added to the timeline:
+:guilabel:`Gravity` chooses the corner, :guilabel:`Scale X` and :guilabel:`Scale Y` set the corner size,
+:guilabel:`Margin` creates the inset layout area that keeps the camera away from the screen edge, and
+:guilabel:`Corner Radius` rounds the camera clip without adding a separate Mask effect. See :ref:`clip_properties_ref`
+for details.
+
 .. _my_views_ref:
 
 My Views
@@ -379,6 +394,8 @@ under :guilabel:`View->Scopes`.
      - View and manage all the media files imported into your project. Organize, filter, and tag video, audio, and image files. See :ref:`files_ref`.
    * - Properties
      - View and edit the properties of a selected effect, transition, or clip. Adjust settings such as duration, size, position, etc... See :ref:`clip_properties_ref`.
+   * - Recording
+     - Record microphone audio, screen video, webcam video, or combined screen-and-camera recordings.
    * - Transitions
      - Browse and apply transitions between video clips. Choose from a variety of transition wipes to create smooth changes between scenes. See :ref:`transitions_ref`.
    * - Video Preview

@@ -2905,6 +2905,18 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         """Callback for the layout context menus"""
         log.debug(action)
 
+        if action in (MenuLayout.ALL_WITH_ASPECT, MenuLayout.ALL_WITHOUT_ASPECT):
+            for clip_id in clip_ids:
+                clip = Clip.get(id=clip_id)
+                if clip:
+                    self.show_all_clips(
+                        clip,
+                        action == MenuLayout.ALL_WITHOUT_ASPECT,
+                        clip_ids=clip_ids,
+                    )
+                    break
+            return
+
         # Loop through each selected clip
         for clip_id in clip_ids:
 
@@ -2964,17 +2976,8 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 clip.data["location_x"] = {"Points": [p_object]}
                 clip.data["location_y"] = {"Points": [p_object]}
 
-            if action == MenuLayout.ALL_WITH_ASPECT:
-                # Update all intersecting clips
-                self.show_all_clips(clip, False)
-
-            elif action == MenuLayout.ALL_WITHOUT_ASPECT:
-                # Update all intersecting clips
-                self.show_all_clips(clip, True)
-
-            else:
-                # Save changes
-                self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
+            # Save changes
+            self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
 
     def Animate_Triggered(self, action, clip_ids, transaction_id=None):
         """Apply one-click motion presets to selected clips.
@@ -4578,18 +4581,29 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         if has_waveform:
             self.Show_Waveform_Triggered([clip.id], transaction_id=tid)
 
-    def show_all_clips(self, clip, stretch=False):
+    def show_all_clips(self, clip, stretch=False, clip_ids=None):
         """ Show all clips at the same time (arranged col by col, row by row)  """
         from math import sqrt
 
-        # Get list of nearby clips
+        # Get selected clips when available. Older callers without clip_ids keep
+        # the legacy "nearby clips" behavior.
         available_clips = []
-        start_position = float(clip.data["position"])
-        for c in Clip.filter():
-            if (float(c.data["position"]) >= (start_position - 0.5)
-               and float(c.data["position"]) <= (start_position + 0.5)):
-                # add to list
-                available_clips.append(c)
+        if clip_ids:
+            selected_ids = {str(clip_id) for clip_id in clip_ids}
+            for c in Clip.filter():
+                clip_id = str(getattr(c, "id", c.data.get("id")))
+                if clip_id in selected_ids:
+                    available_clips.append(c)
+        else:
+            start_position = float(clip.data["position"])
+            for c in Clip.filter():
+                if (float(c.data["position"]) >= (start_position - 0.5)
+                   and float(c.data["position"]) <= (start_position + 0.5)):
+                    # add to list
+                    available_clips.append(c)
+
+        if not available_clips:
+            return
 
         # Get the number of rows
         number_of_clips = len(available_clips)

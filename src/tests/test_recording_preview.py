@@ -303,6 +303,43 @@ class RecordingPreviewTests(unittest.TestCase):
 
         self.assertEqual(writer.frame_numbers, [1, 2, 3, 4])
 
+    def test_live_video_recording_discards_prestart_initial_frame(self):
+        helper = self.audio_recording_module
+
+        class FakeFrame:
+            def __init__(self, label):
+                self.label = label
+                self.number = 0
+
+            def SetFrameNumber(self, frame_number):
+                self.number = frame_number
+
+        class FakeReader:
+            def GetFrame(self, _frame_number):
+                return FakeFrame("fresh")
+
+        class FakeWriter:
+            def __init__(self, job):
+                self.job = job
+                self.frames = []
+
+            def WriteFrame(self, frame):
+                self.frames.append((frame.label, frame.number))
+                self.job._stop.set()
+
+        fps = types.SimpleNamespace(num=30, den=1)
+        job = helper.LiveVideoRecordingJob(FakeReader(), "webcam.mp4", 640, 480, fps)
+        writer = FakeWriter(job)
+        job._writer = writer
+        job._initial_frame = FakeFrame("stale")
+        job._initial_frame_time = 99.0
+        job.begin(100.0)
+
+        with patch.object(helper.time, "monotonic", return_value=100.0):
+            job._run()
+
+        self.assertEqual(writer.frames, [("fresh", 1)])
+
     def test_live_video_stop_closes_reader_to_unblock_and_finalizes_writer(self):
         helper = self.audio_recording_module
 
@@ -342,6 +379,31 @@ class RecordingPreviewTests(unittest.TestCase):
         self.assertTrue(reader.closed)
         self.assertTrue(writer.closed)
         self.assertIsNone(job._writer)
+
+    def test_stop_video_jobs_requests_shared_stop_before_finalize(self):
+        helper = self.audio_recording_module
+        calls = []
+
+        class FakeJob:
+            path = "screen.mp4"
+            error = None
+
+            def __init__(self, name):
+                self.name = name
+
+            def request_stop(self, stop_time):
+                calls.append(("request", self.name, stop_time))
+
+            def finish_stop(self):
+                calls.append(("finish", self.name, None))
+
+        dock = types.SimpleNamespace(_video_jobs=[FakeJob("screen"), FakeJob("webcam")])
+
+        helper.AudioRecordingDockContent._stop_video_jobs(dock, stop_time=123.45)
+
+        self.assertEqual(calls[:2], [("request", "screen", 123.45), ("request", "webcam", 123.45)])
+        self.assertEqual(calls[2:], [("finish", "screen", None), ("finish", "webcam", None)])
+        self.assertEqual(dock._video_jobs, [])
 
     def test_live_video_write_uses_write_frame_at_when_available(self):
         helper = self.audio_recording_module
@@ -463,6 +525,98 @@ class RecordingPreviewTests(unittest.TestCase):
         self.assertEqual(fake_file.data["duration"], 1.0)
         self.assertEqual(fake_file.data["end"], 1.0)
         self.assertEqual(fake_file.data["video_length"], 30)
+
+    def test_webcam_layout_defaults_follow_screen_selection(self):
+        helper = self.audio_recording_module
+
+        class FakeCard:
+            def __init__(self, checked):
+                self.checked = checked
+
+            def isChecked(self):
+                return self.checked
+
+        class FakeCombo:
+            def __init__(self, values, current):
+                self.values = list(values)
+                self.index = self.values.index(current)
+
+            def findData(self, value):
+                try:
+                    return self.values.index(value)
+                except ValueError:
+                    return -1
+
+            def currentIndex(self):
+                return self.index
+
+            def setCurrentIndex(self, index):
+                self.index = index
+
+            def currentData(self):
+                return self.values[self.index]
+
+        dock = types.SimpleNamespace(
+            camera_card=FakeCard(True),
+            screen_card=FakeCard(False),
+            webcam_layout_combo=FakeCombo(["bottom-right", "full"], "bottom-right"),
+            webcam_layout_size_combo=FakeCombo([0.2, 0.3, 0.4], 0.4),
+            webcam_corner_radius_combo=FakeCombo([0.0, 0.15, 0.5], 0.15),
+            _webcam_layout_default_state=None,
+        )
+
+        helper.AudioRecordingDockContent._sync_webcam_layout_defaults(dock)
+
+        self.assertEqual(dock.webcam_layout_combo.currentData(), "full")
+        self.assertEqual(dock.webcam_corner_radius_combo.currentData(), 0.0)
+        self.assertEqual(helper.AudioRecordingDockContent._webcam_layout(dock), "full")
+        self.assertEqual(helper.AudioRecordingDockContent._webcam_corner_radius(dock), 0.0)
+
+        dock.screen_card.checked = True
+        helper.AudioRecordingDockContent._sync_webcam_layout_defaults(dock)
+
+        self.assertEqual(dock.webcam_layout_combo.currentData(), "bottom-right")
+        self.assertEqual(dock.webcam_layout_size_combo.currentData(), 0.3)
+        self.assertEqual(dock.webcam_corner_radius_combo.currentData(), 0.15)
+
+        dock.webcam_layout_combo.setCurrentIndex(dock.webcam_layout_combo.findData("full"))
+        helper.AudioRecordingDockContent._sync_webcam_layout_defaults(dock)
+
+        self.assertEqual(dock.webcam_layout_combo.currentData(), "full")
+
+    def test_webcam_corner_layout_uses_native_margin_and_corner_radius(self):
+        helper = self.audio_recording_module
+
+        class FakeCard:
+            def __init__(self, checked):
+                self.checked = checked
+
+            def isChecked(self):
+                return self.checked
+
+        class FakeCombo:
+            def __init__(self, value):
+                self.value = value
+
+            def currentData(self):
+                return self.value
+
+        dock = types.SimpleNamespace(
+            screen_card=FakeCard(True),
+            webcam_layout_combo=FakeCombo("bottom-right"),
+            webcam_layout_size_combo=FakeCombo(0.3),
+            webcam_corner_radius_combo=FakeCombo(0.15),
+            _keyframe_point=lambda value: {"co": {"X": 1.0, "Y": float(value)}},
+        )
+        clip_data = {}
+
+        helper.AudioRecordingDockContent._apply_webcam_clip_layout(dock, clip_data)
+
+        self.assertEqual(clip_data["scale_x"]["Points"][0]["co"]["Y"], 0.3)
+        self.assertEqual(clip_data["scale_y"]["Points"][0]["co"]["Y"], 0.3)
+        self.assertEqual(clip_data["margin"]["Points"][0]["co"]["Y"], 0.03)
+        self.assertEqual(clip_data["corner_radius"]["Points"][0]["co"]["Y"], 0.15)
+        self.assertNotIn("effects", clip_data)
 
     def test_timeline_recording_previews_build_audio_and_video_clip_data(self):
         timeline_module = self.timeline_module

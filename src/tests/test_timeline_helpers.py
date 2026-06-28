@@ -193,6 +193,28 @@ class TimelineHelperTests(unittest.TestCase):
             self.assertAlmostEqual(clip.data["scale_x"]["Points"][0]["co"]["Y"], 0.5)
             self.assertAlmostEqual(clip.data["scale_y"]["Points"][0]["co"]["Y"], 1.0)
 
+    def test_show_all_clips_uses_selected_clip_ids_when_available(self):
+        helper = self.make_helper()
+        clips = [
+            self.make_layout_clip("C1"),
+            self.make_layout_clip("C2"),
+            self.make_layout_clip("C3"),
+        ]
+
+        with patch.object(self.timeline_module, "Clip", types.SimpleNamespace(filter=lambda: clips)):
+            self.timeline_module.TimelineView.show_all_clips(
+                helper,
+                clips[0],
+                stretch=False,
+                clip_ids=["C1", "C2"],
+            )
+
+        self.assertAlmostEqual(clips[0].data["location_x"]["Points"][0]["co"]["Y"], 0.0)
+        self.assertAlmostEqual(clips[1].data["location_x"]["Points"][0]["co"]["Y"], 0.5)
+        self.assertAlmostEqual(clips[2].data["location_x"]["Points"][0]["co"]["Y"], 0.0)
+        self.assertAlmostEqual(clips[2].data["scale_x"]["Points"][0]["co"]["Y"], 1.0)
+        self.assertEqual(len(helper.updated), 2)
+
     def test_playhead_time_edit_commit_centers_on_new_playhead_frame(self):
         helper = types.SimpleNamespace()
         helper.current_frame = 1
