@@ -613,6 +613,7 @@ class RecordingPreviewTests(unittest.TestCase):
             webcam_corner_radius_combo=FakeCombo([0.0, 0.15, 0.5], 0.15),
             _webcam_layout_default_state=None,
         )
+        dock._set_combo_data = lambda combo, value: helper.AudioRecordingDockContent._set_combo_data(dock, combo, value)
 
         helper.AudioRecordingDockContent._sync_webcam_layout_defaults(dock)
 
@@ -657,6 +658,9 @@ class RecordingPreviewTests(unittest.TestCase):
             webcam_corner_radius_combo=FakeCombo(0.15),
             _keyframe_point=lambda value: {"co": {"X": 1.0, "Y": float(value)}},
         )
+        dock._webcam_layout = lambda: helper.AudioRecordingDockContent._webcam_layout(dock)
+        dock._webcam_layout_scale = lambda: helper.AudioRecordingDockContent._webcam_layout_scale(dock)
+        dock._webcam_corner_radius = lambda: helper.AudioRecordingDockContent._webcam_corner_radius(dock)
         clip_data = {}
 
         helper.AudioRecordingDockContent._apply_webcam_clip_layout(dock, clip_data)
