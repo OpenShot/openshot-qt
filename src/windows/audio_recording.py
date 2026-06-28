@@ -347,6 +347,8 @@ class LiveVideoRecordingJob(QObject):
         self._stop_time = None
         self._initial_frame = None
         self._initial_frame_time = 0.0
+        self._initial_capture_timestamp = None
+        self._output_capture_start_timestamp = None
         self._last_frame = None
         self._last_output_frame_number = 0
         self._opened = threading.Event()
@@ -380,6 +382,7 @@ class LiveVideoRecordingJob(QObject):
         self.reader.Open()
         self._initial_frame = self.reader.GetFrame(1)
         self._initial_frame_time = time.monotonic()
+        self._initial_capture_timestamp = self._frame_capture_timestamp(self._initial_frame)
         frame_width = int(self._initial_frame.GetWidth() or 0)
         frame_height = int(self._initial_frame.GetHeight() or 0)
         actual_width = int(getattr(getattr(self.reader, "info", None), "width", 0) or 0)
@@ -454,7 +457,13 @@ class LiveVideoRecordingJob(QObject):
         stop_time = self._stop_time
         if self._stop.is_set() and stop_time is None:
             return
-        if self._initial_frame is not None and self._initial_frame_time < float(self._start_time or 0.0):
+        start_time = float(self._start_time or 0.0)
+        estimated_capture_start = None
+        if (self._initial_capture_timestamp is not None
+                and self._initial_frame_time
+                and self._initial_frame_time < start_time):
+            estimated_capture_start = self._initial_capture_timestamp + (start_time - self._initial_frame_time)
+        if self._initial_frame is not None and self._initial_frame_time < start_time:
             self._initial_frame = None
         capture_frame_number = 2 if self._initial_frame is not None else 1
         written_frames = 0
@@ -473,10 +482,21 @@ class LiveVideoRecordingJob(QObject):
                     if self._stop.is_set():
                         break
                     frame = self.reader.GetFrame(capture_frame_number)
+                capture_timestamp = self._frame_capture_timestamp(frame)
+                if (estimated_capture_start is not None
+                        and capture_timestamp is not None
+                        and capture_timestamp < estimated_capture_start):
+                    capture_frame_number += 1
+                    continue
                 now = time.monotonic()
                 if stop_time is not None:
                     now = min(now, stop_time)
-                elapsed = max(0.0, now - float(self._start_time or now))
+                if capture_timestamp is not None:
+                    if self._output_capture_start_timestamp is None:
+                        self._output_capture_start_timestamp = capture_timestamp
+                    elapsed = max(0.0, capture_timestamp - self._output_capture_start_timestamp)
+                else:
+                    elapsed = max(0.0, now - float(self._start_time or now))
                 output_frame_number = max(1, int(math.floor((elapsed * fps_value) + 0.5)) + 1)
                 if output_frame_number <= last_output_frame_number:
                     capture_frame_number += 1
@@ -565,6 +585,16 @@ class LiveVideoRecordingJob(QObject):
         except Exception:
             log.debug("Unable to deep copy live video frame", exc_info=True)
         return frame
+
+    @staticmethod
+    def _frame_capture_timestamp(frame):
+        try:
+            timestamp = float(getattr(frame, "capture_timestamp"))
+        except (TypeError, ValueError, AttributeError):
+            return None
+        if not math.isfinite(timestamp):
+            return None
+        return timestamp
 
     @staticmethod
     def _safe_even_dimension(value):

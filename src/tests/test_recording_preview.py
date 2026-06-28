@@ -340,6 +340,55 @@ class RecordingPreviewTests(unittest.TestCase):
 
         self.assertEqual(writer.frames, [("fresh", 1)])
 
+    def test_live_video_recording_drops_queued_source_frames_before_start(self):
+        helper = self.audio_recording_module
+
+        class FakeFrame:
+            def __init__(self, label, capture_timestamp):
+                self.label = label
+                self.capture_timestamp = capture_timestamp
+                self.number = 0
+
+            def SetFrameNumber(self, frame_number):
+                self.number = frame_number
+
+        class FakeReader:
+            def __init__(self):
+                self.frames = [
+                    FakeFrame("queued-1", 10.033),
+                    FakeFrame("queued-2", 10.066),
+                    FakeFrame("live-1", 10.300),
+                    FakeFrame("live-2", 10.333),
+                ]
+
+            def GetFrame(self, _frame_number):
+                return self.frames.pop(0)
+
+        class FakeWriter:
+            def __init__(self, job):
+                self.job = job
+                self.frames = []
+
+            def WriteFrame(self, frame):
+                self.frames.append((frame.label, frame.number))
+                if len(self.frames) >= 2:
+                    self.job._stop.set()
+
+        fps = types.SimpleNamespace(num=30, den=1)
+        reader = FakeReader()
+        job = helper.LiveVideoRecordingJob(reader, "webcam.mp4", 640, 480, fps)
+        writer = FakeWriter(job)
+        job._writer = writer
+        job._initial_frame = FakeFrame("stale", 10.0)
+        job._initial_frame_time = 100.0
+        job._initial_capture_timestamp = 10.0
+        job.begin(100.3)
+
+        with patch.object(helper.time, "monotonic", return_value=100.3):
+            job._run()
+
+        self.assertEqual(writer.frames, [("live-1", 1), ("live-2", 2)])
+
     def test_live_video_stop_closes_reader_to_unblock_and_finalizes_writer(self):
         helper = self.audio_recording_module
 
