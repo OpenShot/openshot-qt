@@ -16,7 +16,7 @@ PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 if PATH not in sys.path:
     sys.path.append(PATH)
 
-from qt_api import QCoreApplication, QSize, Qt
+from qt_api import QByteArray, QCoreApplication, QSize, Qt
 from qt_api import QApplication
 
 from tests.qt_test_app import ensure_app_state as ensure_qt_app_state, get_or_create_app
@@ -633,6 +633,82 @@ class RecordingPreviewTests(unittest.TestCase):
         helper.AudioRecordingDockContent._sync_webcam_layout_defaults(dock)
 
         self.assertEqual(dock.webcam_layout_combo.currentData(), "full")
+
+    def test_restore_hidden_openshot_maximized_window_keeps_maximized_state(self):
+        helper = self.audio_recording_module
+
+        class FakeWindow:
+            def __init__(self):
+                self.calls = []
+
+            def restoreGeometry(self, geometry):
+                self.calls.append(("restoreGeometry", bytes(geometry)))
+
+            def showFullScreen(self):
+                self.calls.append("showFullScreen")
+
+            def showMaximized(self):
+                self.calls.append("showMaximized")
+
+            def showNormal(self):
+                self.calls.append("showNormal")
+
+            def raise_(self):
+                self.calls.append("raise")
+
+            def activateWindow(self):
+                self.calls.append("activateWindow")
+
+        window = FakeWindow()
+        dock = types.SimpleNamespace(window=window)
+        state = {
+            "window_state": Qt.WindowMaximized,
+            "geometry": QByteArray(b"saved-geometry"),
+        }
+
+        helper.AudioRecordingDockContent._restore_openshot_window(dock, state)
+
+        self.assertEqual(window.calls[:3], ["showMaximized", "raise", "activateWindow"])
+        self.assertNotIn(("restoreGeometry", b"saved-geometry"), window.calls)
+
+    def test_restore_hidden_openshot_normal_window_restores_geometry(self):
+        helper = self.audio_recording_module
+
+        class FakeWindow:
+            def __init__(self):
+                self.calls = []
+
+            def restoreGeometry(self, geometry):
+                self.calls.append(("restoreGeometry", bytes(geometry)))
+
+            def showFullScreen(self):
+                self.calls.append("showFullScreen")
+
+            def showMaximized(self):
+                self.calls.append("showMaximized")
+
+            def showNormal(self):
+                self.calls.append("showNormal")
+
+            def raise_(self):
+                self.calls.append("raise")
+
+            def activateWindow(self):
+                self.calls.append("activateWindow")
+
+        window = FakeWindow()
+        dock = types.SimpleNamespace(window=window)
+        state = {
+            "window_state": Qt.WindowNoState,
+            "geometry": QByteArray(b"saved-geometry"),
+        }
+
+        helper.AudioRecordingDockContent._restore_openshot_window(dock, state)
+
+        self.assertEqual(
+            window.calls[:4],
+            [("restoreGeometry", b"saved-geometry"), "showNormal", "raise", "activateWindow"],
+        )
 
     def test_webcam_corner_layout_uses_native_margin_and_corner_radius(self):
         helper = self.audio_recording_module

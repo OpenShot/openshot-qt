@@ -1334,13 +1334,13 @@ class AudioRecordingDockContent(QWidget):
         try:
             window_state = state.get("window_state") if isinstance(state, dict) else state
             geometry = state.get("geometry") if isinstance(state, dict) else None
-            if geometry:
-                self.window.restoreGeometry(geometry)
             if window_state & Qt.WindowFullScreen:
                 self.window.showFullScreen()
             elif window_state & Qt.WindowMaximized:
                 self.window.showMaximized()
             else:
+                if geometry:
+                    self.window.restoreGeometry(geometry)
                 self.window.showNormal()
             self.window.raise_()
             self.window.activateWindow()
