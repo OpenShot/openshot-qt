@@ -667,9 +667,127 @@ class RecordingPreviewTests(unittest.TestCase):
 
         self.assertEqual(clip_data["scale_x"]["Points"][0]["co"]["Y"], 0.3)
         self.assertEqual(clip_data["scale_y"]["Points"][0]["co"]["Y"], 0.3)
+        self.assertEqual(clip_data["scale"], helper.openshot.SCALE_FIT)
         self.assertEqual(clip_data["margin"]["Points"][0]["co"]["Y"], 0.03)
         self.assertEqual(clip_data["corner_radius"]["Points"][0]["co"]["Y"], 0.15)
         self.assertNotIn("effects", clip_data)
+
+    def test_webcam_full_layout_uses_best_fit_not_stretch(self):
+        helper = self.audio_recording_module
+
+        class FakeCard:
+            def __init__(self, checked):
+                self.checked = checked
+
+            def isChecked(self):
+                return self.checked
+
+        class FakeCombo:
+            def __init__(self, value):
+                self.value = value
+
+            def currentData(self):
+                return self.value
+
+        dock = types.SimpleNamespace(
+            screen_card=FakeCard(False),
+            webcam_layout_combo=FakeCombo("full"),
+            webcam_layout_size_combo=FakeCombo(0.3),
+            webcam_corner_radius_combo=FakeCombo(0.15),
+            _keyframe_point=lambda value: {"co": {"X": 1.0, "Y": float(value)}},
+        )
+        dock._webcam_layout = lambda: helper.AudioRecordingDockContent._webcam_layout(dock)
+        dock._webcam_layout_scale = lambda: helper.AudioRecordingDockContent._webcam_layout_scale(dock)
+        dock._webcam_corner_radius = lambda: helper.AudioRecordingDockContent._webcam_corner_radius(dock)
+        clip_data = {"scale": helper.openshot.SCALE_STRETCH}
+
+        helper.AudioRecordingDockContent._apply_webcam_clip_layout(dock, clip_data)
+
+        self.assertEqual(clip_data["gravity"], helper.openshot.GRAVITY_CENTER)
+        self.assertEqual(clip_data["scale"], helper.openshot.SCALE_FIT)
+        self.assertEqual(clip_data["scale_x"]["Points"][0]["co"]["Y"], 1.0)
+        self.assertEqual(clip_data["scale_y"]["Points"][0]["co"]["Y"], 1.0)
+        self.assertEqual(clip_data["margin"]["Points"][0]["co"]["Y"], 0.0)
+        self.assertEqual(clip_data["corner_radius"]["Points"][0]["co"]["Y"], 0.0)
+
+    def test_recording_clip_defaults_use_best_fit(self):
+        helper = self.audio_recording_module
+        dock = types.SimpleNamespace()
+        clip_data = {"scale": helper.openshot.SCALE_STRETCH}
+
+        helper.AudioRecordingDockContent._apply_recording_clip_defaults(dock, clip_data)
+
+        self.assertEqual(clip_data["scale"], helper.openshot.SCALE_FIT)
+
+    def test_screen_source_maps_to_backend_value(self):
+        helper = self.audio_recording_module
+
+        class FakeScreenCombo:
+            def __init__(self, source):
+                self.source = source
+
+            def currentData(self):
+                return self.source
+
+        dock = types.SimpleNamespace(screen_display_edit=FakeScreenCombo({"display": ":0.0"}))
+        dock._selected_screen_source = lambda: helper.AudioRecordingDockContent._selected_screen_source(dock)
+        self.assertEqual(
+            helper.AudioRecordingDockContent._screen_display_value(dock, ":1.0"),
+            ":0.0",
+        )
+
+        dock.screen_display_edit.source = {}
+        self.assertEqual(
+            helper.AudioRecordingDockContent._screen_display_value(dock, ":1.0"),
+            ":1.0",
+        )
+
+    def test_selected_screen_source_sets_full_screen_bounds(self):
+        helper = self.audio_recording_module
+
+        class FakeScreenCombo:
+            def currentData(self):
+                return {
+                    "id": "screen-2",
+                    "display": "desktop",
+                    "x": 1920,
+                    "y": 0,
+                    "width": 1280,
+                    "height": 720,
+                    "all": False,
+                }
+
+        class FakeSpin:
+            def __init__(self):
+                self.value = None
+
+            def setValue(self, value):
+                self.value = value
+
+        class FakeLabel:
+            def __init__(self):
+                self.text = ""
+
+            def setText(self, text):
+                self.text = text
+
+        dock = types.SimpleNamespace(
+            screen_display_edit=FakeScreenCombo(),
+            screen_x_spin=FakeSpin(),
+            screen_y_spin=FakeSpin(),
+            screen_width_spin=FakeSpin(),
+            screen_height_spin=FakeSpin(),
+            screen_status_label=FakeLabel(),
+        )
+        dock._selected_screen_source = lambda: helper.AudioRecordingDockContent._selected_screen_source(dock)
+
+        helper.AudioRecordingDockContent._set_screen_to_selected_source(dock)
+
+        self.assertEqual(dock.screen_x_spin.value, 1920)
+        self.assertEqual(dock.screen_y_spin.value, 0)
+        self.assertEqual(dock.screen_width_spin.value, 1280)
+        self.assertEqual(dock.screen_height_spin.value, 720)
+        self.assertIn("1280x720", dock.screen_status_label.text)
 
     def test_timeline_recording_previews_build_audio_and_video_clip_data(self):
         timeline_module = self.timeline_module

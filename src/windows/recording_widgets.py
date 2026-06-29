@@ -30,6 +30,7 @@ from classes.logger import log
 _WIN32_USER32 = None
 _WIN32_DWMAPI = None
 _WIN32_ENUMPROC = None
+_WIN32_MONITOR_ENUMPROC = None
 _WIN32_TYPES = None
 _MAC_COREGRAPHICS = None
 _MAC_COREFOUNDATION = None
@@ -415,6 +416,124 @@ def screen_root_geometry():
     return 0, 0, width, height
 
 
+def screen_capture_sources():
+    if sys.platform.startswith("win"):
+        sources = windows_monitor_geometries()
+        all_x, all_y, all_width, all_height = windows_virtual_screen_geometry()
+        if all_width and all_height and len(sources) > 1:
+            sources.append({
+                "id": "all",
+                "label": get_app()._tr("All Screens"),
+                "display": "desktop",
+                "x": int(all_x or 0),
+                "y": int(all_y or 0),
+                "width": int(all_width),
+                "height": int(all_height),
+                "all": True,
+                "primary": False,
+            })
+        return sources
+
+    screens = list(QApplication.screens() or [])
+    if sys.platform == "darwin":
+        sources = []
+        primary = QApplication.primaryScreen()
+        for index, screen in enumerate(screens):
+            geometry = screen.geometry()
+            scale = float(screen.devicePixelRatio() or 1.0)
+            label = screen.name() or get_app()._tr("Screen %s") % (index + 1)
+            sources.append({
+                "id": "screen-%s" % index,
+                "label": "%s (%sx%s)" % (
+                    label,
+                    int(round(geometry.width() * scale)),
+                    int(round(geometry.height() * scale)),
+                ),
+                "display": "Capture screen %s:none" % index,
+                "x": 0,
+                "y": 0,
+                "width": max(1, int(round(geometry.width() * scale))),
+                "height": max(1, int(round(geometry.height() * scale))),
+                "all": False,
+                "primary": screen is primary,
+            })
+        if sources:
+            return sources
+        x, y, width, height = mac_primary_screen_geometry()
+        return [{
+            "id": "screen-0",
+            "label": get_app()._tr("Screen 1"),
+            "display": "Capture screen 0:none",
+            "x": int(x or 0),
+            "y": int(y or 0),
+            "width": int(width or 1280),
+            "height": int(height or 720),
+            "all": False,
+            "primary": True,
+        }]
+
+    display = os.environ.get("DISPLAY", ":0.0")
+    root_width, root_height = x11_root_size()
+    virtual = None
+    try:
+        primary = QApplication.primaryScreen()
+        virtual = primary.virtualGeometry() if primary else None
+    except Exception:
+        virtual = None
+    scale_x = 1.0
+    scale_y = 1.0
+    if virtual and virtual.width() > 0 and virtual.height() > 0 and root_width and root_height:
+        scale_x = float(root_width) / float(virtual.width())
+        scale_y = float(root_height) / float(virtual.height())
+    sources = []
+    primary = QApplication.primaryScreen()
+    for index, screen in enumerate(screens):
+        geometry = screen.geometry()
+        origin_x = virtual.x() if virtual else 0
+        origin_y = virtual.y() if virtual else 0
+        x = int(round((geometry.x() - origin_x) * scale_x))
+        y = int(round((geometry.y() - origin_y) * scale_y))
+        width = max(1, int(round(geometry.width() * scale_x)))
+        height = max(1, int(round(geometry.height() * scale_y)))
+        label = screen.name() or get_app()._tr("Screen %s") % (index + 1)
+        sources.append({
+            "id": "screen-%s" % index,
+            "label": "%s (%sx%s)" % (label, width, height),
+            "display": display,
+            "x": x,
+            "y": y,
+            "width": width,
+            "height": height,
+            "all": False,
+            "primary": screen is primary,
+        })
+    if root_width and root_height and len(sources) > 1:
+        sources.append({
+            "id": "all",
+            "label": get_app()._tr("All Screens"),
+            "display": display,
+            "x": 0,
+            "y": 0,
+            "width": int(root_width),
+            "height": int(root_height),
+            "all": True,
+            "primary": False,
+        })
+    if sources:
+        return sources
+    return [{
+        "id": "screen-0",
+        "label": get_app()._tr("Screen 1"),
+        "display": display,
+        "x": 0,
+        "y": 0,
+        "width": int(root_width or 1280),
+        "height": int(root_height or 720),
+        "all": False,
+        "primary": True,
+    }]
+
+
 def pick_x11_window():
     result = pick_x11_window_with_xdotool()
     if result:
@@ -736,6 +855,20 @@ def _windows_enum_proc_type():
     return _WIN32_ENUMPROC
 
 
+def _windows_monitor_enum_proc_type():
+    global _WIN32_MONITOR_ENUMPROC
+    if _WIN32_MONITOR_ENUMPROC is None:
+        wintypes = _windows_types()
+        _WIN32_MONITOR_ENUMPROC = ctypes.WINFUNCTYPE(
+            wintypes.BOOL,
+            wintypes.HMONITOR,
+            wintypes.HDC,
+            ctypes.POINTER(wintypes.RECT),
+            wintypes.LPARAM,
+        )
+    return _WIN32_MONITOR_ENUMPROC
+
+
 def _windows_types():
     global _WIN32_TYPES
     if _WIN32_TYPES is None:
@@ -765,6 +898,13 @@ def _windows_user32():
         user32.GetWindowThreadProcessId.restype = wintypes.DWORD
         user32.EnumWindows.argtypes = [_windows_enum_proc_type(), wintypes.LPARAM]
         user32.EnumWindows.restype = wintypes.BOOL
+        user32.EnumDisplayMonitors.argtypes = [
+            wintypes.HDC,
+            ctypes.POINTER(wintypes.RECT),
+            _windows_monitor_enum_proc_type(),
+            wintypes.LPARAM,
+        ]
+        user32.EnumDisplayMonitors.restype = wintypes.BOOL
         user32.GetCursorPos.argtypes = [ctypes.POINTER(wintypes.POINT)]
         user32.GetCursorPos.restype = wintypes.BOOL
         _WIN32_USER32 = user32
@@ -796,6 +936,40 @@ def windows_virtual_screen_geometry():
     width = int(user32.GetSystemMetrics(78))  # SM_CXVIRTUALSCREEN
     height = int(user32.GetSystemMetrics(79)) # SM_CYVIRTUALSCREEN
     return x, y, width, height
+
+
+def windows_monitor_geometries():
+    if not sys.platform.startswith("win"):
+        return []
+    user32 = _windows_user32()
+    sources = []
+
+    def enum_proc(_hmonitor, _hdc, rect, _lparam):
+        geometry = rect.contents
+        width = int(geometry.right - geometry.left)
+        height = int(geometry.bottom - geometry.top)
+        if width > 0 and height > 0:
+            index = len(sources) + 1
+            sources.append({
+                "id": "screen-%s" % index,
+                "label": "%s (%sx%s)" % (get_app()._tr("Screen %s") % index, width, height),
+                "display": "desktop",
+                "x": int(geometry.left),
+                "y": int(geometry.top),
+                "width": width,
+                "height": height,
+                "all": False,
+                "primary": int(geometry.left) <= 0 < int(geometry.right)
+                    and int(geometry.top) <= 0 < int(geometry.bottom),
+            })
+        return True
+
+    try:
+        user32.EnumDisplayMonitors(None, None, _windows_monitor_enum_proc_type()(enum_proc), 0)
+    except Exception:
+        log.debug("Unable to enumerate Windows monitors", exc_info=True)
+        return []
+    return sources
 
 
 def pick_windows_region(parent=None):

@@ -41,7 +41,7 @@ from qt_api import (
     Qt, QObject, pyqtSignal, pyqtSlot, QPointF,
     QWidget, QLabel, QPushButton, QComboBox, QApplication,
     QVBoxLayout, QHBoxLayout, QGridLayout, QSizePolicy, QIcon, QTimer,
-    QPainter, QColor, QPen, QSpinBox, QLineEdit, QImage, QPixmap, QButtonGroup,
+    QPainter, QColor, QPen, QSpinBox, QImage, QPixmap, QButtonGroup,
     QScrollArea, QPainterPath,
 )
 
@@ -57,7 +57,7 @@ from classes.thumbnail import (
 from classes.tray_status import TrayStatus
 from windows.recording_widgets import (
     RecordingSourceCard, RecordingSection, SegmentButton,
-    pick_screen_region, pick_screen_window, screen_root_geometry,
+    pick_screen_region, pick_screen_window, screen_capture_sources, screen_root_geometry,
 )
 
 
@@ -811,15 +811,8 @@ class AudioRecordingDockContent(QWidget):
         self.screen_status_label.setWordWrap(True)
         self.screen_section.body_layout.addWidget(self.screen_status_label)
 
-        default_screen_display = os.environ.get("DISPLAY", ":0.0")
-        if sys.platform.startswith("win"):
-            default_screen_display = "desktop"
-        elif sys.platform == "darwin":
-            default_screen_display = "Capture screen 0:none"
-        self.screen_display_edit = QLineEdit(
-            default_screen_display,
-            self.screen_section,
-        )
+        self.screen_display_edit = QComboBox(self.screen_section)
+        self.screen_display_edit.setEditable(False)
         self.screen_display_edit.setMinimumWidth(0)
         self.screen_display_edit.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Fixed)
         self.screen_x_spin = QSpinBox(self.screen_section)
@@ -834,7 +827,7 @@ class AudioRecordingDockContent(QWidget):
             spin.setRange(-32768, 32767)
         for spin in (self.screen_width_spin, self.screen_height_spin):
             spin.setRange(16, 16384)
-        self._set_screen_to_primary()
+        self._refresh_screen_sources()
         self.capture_cursor_combo = QComboBox(self.screen_section)
         self.capture_cursor_combo.addItem(_("On"), True)
         self.capture_cursor_combo.addItem(_("Off"), False)
@@ -850,7 +843,7 @@ class AudioRecordingDockContent(QWidget):
             combo.setMinimumWidth(0)
             combo.setMaximumWidth(120)
             combo.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Fixed)
-        self.screen_display_label = QLabel(_("Display:"), self.screen_section)
+        self.screen_display_label = QLabel(_("Screen:"), self.screen_section)
         self.screen_offset_label = QLabel(_("Offset:"), self.screen_section)
         self.screen_size_label = QLabel(_("Size:"), self.screen_section)
         self.screen_fps_label = QLabel(_("FPS:"), self.screen_section)
@@ -982,6 +975,7 @@ class AudioRecordingDockContent(QWidget):
         self.channels_combo.currentIndexChanged.connect(self._channels_changed)
         self.device_combo.currentIndexChanged.connect(self._mic_device_changed)
         self.hide_openshot_combo.currentIndexChanged.connect(self._hide_openshot_changed)
+        self.screen_display_edit.currentIndexChanged.connect(self._screen_source_changed)
         self.mic_card.toggled.connect(self._source_toggled)
         self.screen_card.toggled.connect(self._source_toggled)
         self.camera_card.toggled.connect(self._source_toggled)
@@ -1133,7 +1127,62 @@ class AudioRecordingDockContent(QWidget):
         if index >= 0 and combo.currentIndex() != index:
             combo.setCurrentIndex(index)
 
+    def _refresh_screen_sources(self):
+        current = self._selected_screen_source()
+        current_id = current.get("id") if current else None
+        try:
+            sources = screen_capture_sources()
+        except Exception:
+            log.debug("Unable to enumerate screen capture sources", exc_info=True)
+            sources = []
+        self.screen_display_edit.blockSignals(True)
+        self.screen_display_edit.clear()
+        for source in sources:
+            self.screen_display_edit.addItem(source.get("label") or get_app()._tr("Screen"), source)
+        selected_index = 0
+        for index in range(self.screen_display_edit.count()):
+            source = self.screen_display_edit.itemData(index) or {}
+            if current_id and source.get("id") == current_id:
+                selected_index = index
+                break
+            if not current_id and source.get("primary"):
+                selected_index = index
+                break
+            if not current_id and selected_index == 0 and not source.get("all"):
+                selected_index = index
+        if self.screen_display_edit.count():
+            self.screen_display_edit.setCurrentIndex(selected_index)
+        self.screen_display_edit.blockSignals(False)
+        self._set_screen_to_selected_source()
+
+    def _selected_screen_source(self):
+        if not hasattr(self, "screen_display_edit"):
+            return None
+        source = self.screen_display_edit.currentData()
+        return source if isinstance(source, dict) else None
+
+    def _screen_source_changed(self):
+        if self.full_screen_button.isChecked():
+            self._screen_window_id = ""
+            self._set_screen_to_selected_source()
+
     def _set_screen_to_primary(self):
+        self._set_screen_to_selected_source()
+
+    def _set_screen_to_selected_source(self):
+        source = self._selected_screen_source()
+        if source:
+            width = int(source.get("width") or 0)
+            height = int(source.get("height") or 0)
+            if width > 0 and height > 0:
+                self.screen_x_spin.setValue(int(source.get("x") or 0))
+                self.screen_y_spin.setValue(int(source.get("y") or 0))
+                self.screen_width_spin.setValue(width)
+                self.screen_height_spin.setValue(height)
+                label = get_app()._tr("All screens: %sx%s") if source.get("all") else get_app()._tr("Full screen: %sx%s")
+                self.screen_status_label.setText(label % (width, height))
+                return
+
         root_x, root_y, root_width, root_height = screen_root_geometry()
         if root_width and root_height:
             self.screen_x_spin.setValue(int(root_x or 0))
@@ -1878,8 +1927,14 @@ class AudioRecordingDockContent(QWidget):
             screen_height = self._safe_even_dimension(self.screen_height_spin.value())
             windows_screen = screen_capture_backend_is_windows(screen_backend)
             mac_screen = screen_capture_backend_is_mac(screen_backend)
+            screen_source = self._selected_screen_source()
             if wayland_screen:
                 root_x, root_y, root_width, root_height = 0, 0, None, None
+            elif self.full_screen_button.isChecked() and screen_source:
+                root_x = int(screen_source.get("x") or 0)
+                root_y = int(screen_source.get("y") or 0)
+                root_width = int(screen_source.get("width") or 0) or None
+                root_height = int(screen_source.get("height") or 0) or None
             else:
                 root_x, root_y, root_width, root_height = screen_root_geometry()
             if not wayland_screen and root_width and root_height:
@@ -1900,9 +1955,9 @@ class AudioRecordingDockContent(QWidget):
             if windows_screen:
                 settings.display = "desktop"
             elif mac_screen:
-                settings.display = self.screen_display_edit.text().strip() or "Capture screen 0:none"
+                settings.display = self._screen_display_value("Capture screen 0:none")
             else:
-                settings.display = self.screen_display_edit.text().strip() or os.environ.get("DISPLAY", ":0.0")
+                settings.display = self._screen_display_value(os.environ.get("DISPLAY", ":0.0"))
             settings.x = screen_x
             settings.y = screen_y
             settings.width = screen_width
@@ -2373,19 +2428,23 @@ class AudioRecordingDockContent(QWidget):
         )
         if isinstance(new_clip, dict):
             new_clip["layer"] = int(track)
+            self._apply_recording_clip_defaults(new_clip)
             clip_id = new_clip.get("id")
             saved_clip = Clip.get(id=clip_id) if clip_id else None
             if source_type == "webcam":
                 self._apply_webcam_clip_layout(new_clip)
-            if saved_clip and int(saved_clip.data.get("layer", 0) or 0) != int(track):
+            if saved_clip:
                 saved_clip.data.update(new_clip)
                 saved_clip.save()
-            elif saved_clip and source_type == "webcam":
-                saved_clip.data.update(new_clip)
-                saved_clip.save()
-            if source_type == "webcam":
+            if hasattr(timeline, "update_clip_data"):
                 timeline.update_clip_data(new_clip, only_basic_props=False, ignore_refresh=False)
         return new_clip
+
+    def _screen_display_value(self, fallback):
+        source = self._selected_screen_source()
+        if source and source.get("display"):
+            return str(source.get("display"))
+        return str(fallback or "")
 
     def _copy_live_recording_thumbnails(self, source_type, final_file_id):
         temp_file_id = (self._recording_preview_file_ids or {}).get(source_type)
@@ -2402,6 +2461,9 @@ class AudioRecordingDockContent(QWidget):
             )
         return copied
 
+    def _apply_recording_clip_defaults(self, clip_data):
+        clip_data["scale"] = openshot.SCALE_FIT
+
     def _apply_webcam_clip_layout(self, clip_data):
         layout = self._webcam_layout()
         scale = 1.0 if layout == "full" else self._webcam_layout_scale()
@@ -2416,7 +2478,7 @@ class AudioRecordingDockContent(QWidget):
             "full": openshot.GRAVITY_CENTER,
         }.get(layout, openshot.GRAVITY_BOTTOM_RIGHT)
         clip_data["gravity"] = gravity
-        clip_data["scale"] = openshot.SCALE_FIT if layout != "full" else openshot.SCALE_STRETCH
+        clip_data["scale"] = openshot.SCALE_FIT
         clip_data["scale_x"] = {"Points": [self._keyframe_point(scale)]}
         clip_data["scale_y"] = {"Points": [self._keyframe_point(scale)]}
         clip_data["location_x"] = {"Points": [self._keyframe_point(0.0)]}
