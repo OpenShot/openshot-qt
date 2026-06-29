@@ -1819,6 +1819,93 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             " (inserted {} at {})".format(insert_num, insert_at) if insert_at else "")
         )
 
+    def _track_numbers(self):
+        try:
+            tracks = get_app().project.get("layers") or []
+            return sorted(
+                int(track.get("number", 0))
+                for track in tracks
+                if int(track.get("number", 0) or 0) > 0
+            )
+        except Exception:
+            return []
+
+    def _create_track(self, number):
+        number = int(number)
+        track = Track()
+        track.data = {"number": number, "y": 0, "label": "", "lock": False}
+        track.save()
+        return number
+
+    def create_track_below(self, layer_number=None):
+        """Create a track below layer_number, or below the bottom track."""
+        numbers = self._track_numbers()
+        if not numbers:
+            return self._create_track(1000000)
+
+        if layer_number is not None:
+            try:
+                layer_number = int(layer_number)
+            except (TypeError, ValueError):
+                layer_number = None
+        if layer_number in numbers:
+            index = numbers.index(layer_number)
+            if index > 0:
+                return numbers[index - 1]
+
+        bottom = numbers[0]
+        if bottom > 2:
+            return self._create_track(max(1, int(round(bottom / 2.0))))
+
+        self.renumber_all_layers(insert_at=0)
+        numbers = self._track_numbers()
+        return numbers[0] if numbers else 1000000
+
+    def track_stack_from(self, layer_number, count):
+        """Return count tracks starting at layer_number and continuing downward."""
+        try:
+            count = int(count)
+        except (TypeError, ValueError):
+            count = 0
+        if count <= 0:
+            return []
+
+        try:
+            layer_number = int(layer_number)
+        except (TypeError, ValueError):
+            layer_number = None
+
+        numbers = self._track_numbers()
+        if layer_number is None or layer_number <= 0:
+            layer_number = numbers[-1] if numbers else self.create_track_below()
+        elif layer_number not in numbers:
+            self.ensure_tracks_for_layers([layer_number])
+
+        tracks = [layer_number]
+        current = layer_number
+        while len(tracks) < count:
+            current = self.create_track_below(current)
+            if current in tracks:
+                break
+            tracks.append(current)
+        return tracks
+
+    def ensure_tracks_for_layers(self, layers):
+        """Create any missing positive track numbers needed by upcoming inserts."""
+        existing = set(self._track_numbers())
+        created = []
+        for layer in sorted(set(layers or [])):
+            try:
+                layer = int(layer)
+            except (TypeError, ValueError):
+                continue
+            if layer <= 0 or layer in existing:
+                continue
+            self._create_track(layer)
+            existing.add(layer)
+            created.append(layer)
+        return created
+
     def actionAddTrack_trigger(self, checked=True):
         log.info("actionAddTrack_trigger")
 

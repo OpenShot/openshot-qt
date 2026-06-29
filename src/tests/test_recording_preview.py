@@ -719,6 +719,27 @@ class RecordingPreviewTests(unittest.TestCase):
 
         self.assertEqual(clip_data["scale"], helper.openshot.SCALE_FIT)
 
+    def test_recording_track_stack_creates_lower_tracks_when_needed(self):
+        helper = self.audio_recording_module
+
+        class FakeCombo:
+            def currentData(self):
+                return 2000000
+
+        created = []
+        fake_window = types.SimpleNamespace(
+            create_track_below=lambda layer: created.append(max(1, int(layer / 2))) or created[-1]
+        )
+        fake_app = types.SimpleNamespace(window=fake_window)
+        dock = types.SimpleNamespace(track_combo=FakeCombo())
+        dock._available_recording_tracks = lambda: [2000000, 1000000]
+
+        with patch.object(helper, "get_app", return_value=fake_app):
+            tracks = helper.AudioRecordingDockContent._recording_track_stack(dock, 3)
+
+        self.assertEqual(tracks, [2000000, 1000000, 500000])
+        self.assertEqual(created, [500000])
+
     def test_screen_source_maps_to_backend_value(self):
         helper = self.audio_recording_module
 

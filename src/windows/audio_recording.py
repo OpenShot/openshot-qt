@@ -1607,7 +1607,6 @@ class AudioRecordingDockContent(QWidget):
         selected = self._context_track or self.track_combo.currentData()
         self.track_combo.blockSignals(True)
         self.track_combo.clear()
-        self.track_combo.addItem(_("Auto"), None)
         try:
             labels = self._track_labels()
             tracks = sorted(Track.filter(), key=lambda t: int(t.data.get("number", 0)), reverse=True)
@@ -1617,11 +1616,10 @@ class AudioRecordingDockContent(QWidget):
                 self.track_combo.addItem(str(label), number)
         except Exception as ex:
             log.debug("Unable to list timeline tracks for recording: %s", ex, exc_info=True)
-        if selected is not None:
-            for index in range(self.track_combo.count()):
-                if self.track_combo.itemData(index) == selected:
-                    self.track_combo.setCurrentIndex(index)
-                    break
+        for index in range(self.track_combo.count()):
+            if self.track_combo.itemData(index) == selected:
+                self.track_combo.setCurrentIndex(index)
+                break
         self.track_combo.blockSignals(False)
 
     def set_recording_context(self, start_time=None, track_number=None):
@@ -2310,11 +2308,17 @@ class AudioRecordingDockContent(QWidget):
         start_index = available.index(selected)
         tracks = available[start_index:start_index + count]
         if len(tracks) < count:
-            tracks.extend([track for track in available[:start_index] if track not in tracks])
-        if len(tracks) < count:
-            lowest = min(available)
+            window = getattr(get_app(), "window", None)
+            track_stack = getattr(window, "track_stack_from", None)
+            if callable(track_stack):
+                return track_stack(selected, count)
+            lowest = min(tracks or available)
             while len(tracks) < count:
-                lowest = max(1, lowest - 1)
+                create_below = getattr(window, "create_track_below", None)
+                if callable(create_below):
+                    lowest = create_below(lowest)
+                else:
+                    lowest = max(1, lowest - 1)
                 if lowest not in tracks:
                     tracks.append(lowest)
         return tracks[:count]
@@ -2340,6 +2344,9 @@ class AudioRecordingDockContent(QWidget):
                 return max(1, int(track))
             except (TypeError, ValueError):
                 pass
+        available = self._available_recording_tracks()
+        if available:
+            return available[0]
         try:
             tracks = [int(t.data.get("number", 0)) for t in Track.filter()]
             tracks = [number for number in tracks if number > 0]

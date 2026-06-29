@@ -489,6 +489,18 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 top_most_layer = max(obj.data.get("layer", 0) for obj in objects)
                 position_diff = target_position - left_most_position
                 layer_diff = target_layer - top_most_layer if target_layer != -1 else 0
+                layer_map = {}
+                if target_layer != -1:
+                    source_layers = sorted(
+                        {
+                            int(obj.data.get("layer", 0))
+                            for obj in objects
+                            if obj.data.get("layer") is not None
+                        },
+                        reverse=True,
+                    )
+                    target_layers = TimelineView._track_stack_from(self, target_layer, len(source_layers))
+                    layer_map = dict(zip(source_layers, target_layers))
 
                 for obj in objects:
                     obj.type = "insert"
@@ -496,7 +508,13 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                     obj.id = None
                     self._assign_new_effect_ids(obj.data)
                     obj.data["position"] = obj.data.get("position", 0.0) + position_diff
-                    obj.data["layer"] = obj.data.get("layer", 0) + layer_diff
+                    old_layer = obj.data.get("layer", 0)
+                    try:
+                        old_layer_key = int(old_layer)
+                    except (TypeError, ValueError):
+                        old_layer_key = old_layer
+                    obj.data["layer"] = layer_map.get(old_layer_key, obj.data.get("layer", 0) + layer_diff)
+                    TimelineView._ensure_layers_exist(self, [obj.data.get("layer")])
                     obj.save()
                     item_id = getattr(obj, "id", None) or obj.data.get("id")
                     item_type = None
@@ -573,6 +591,24 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 self._select_inserted_paste_items(inserted_items)
         finally:
             get_app().updates.transaction_id = None
+
+    def _ensure_layers_exist(self, layers):
+        window = getattr(get_app(), "window", None)
+        ensure = getattr(window, "ensure_tracks_for_layers", None)
+        if callable(ensure):
+            ensure(list(layers or []))
+
+    def _track_stack_from(self, layer_number, count):
+        window = getattr(get_app(), "window", None)
+        stack = getattr(window, "track_stack_from", None)
+        if callable(stack):
+            return stack(layer_number, count)
+
+        try:
+            layer_number = int(layer_number)
+        except (TypeError, ValueError):
+            layer_number = 0
+        return [max(1, layer_number - index) for index in range(max(0, int(count or 0)))]
 
     def _qwidget_paste_coordinates(self, local_pos, clip_ids, tran_ids):
         """Resolve paste coordinates for the QWidget timeline backend."""
@@ -2341,7 +2377,12 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 continue
 
             def get_track_below(layer_number):
-                """Return the track number directly below the provided layer (or the same layer if none found)."""
+                """Return the track number directly below the provided layer, creating one when needed."""
+                window = getattr(get_app(), "window", None)
+                create_below = getattr(window, "create_track_below", None)
+                if callable(create_below):
+                    return create_below(layer_number)
+
                 next_track_number = layer_number
                 found_track = False
                 for track in reversed(sorted(all_tracks, key=itemgetter('number'))):
@@ -2391,7 +2432,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
                         # Keep first clip on the same layer, others below
                         target_layer = current_layer if channel == 0 else get_track_below(current_layer)
-                        clip.data['layer'] = max(target_layer, 0)
+                        clip.data['layer'] = target_layer
                         current_layer = clip.data['layer']
 
                         # Adjust the clip title
@@ -2479,7 +2520,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
                     # Adjust the layer, so this new audio clip doesn't overlap the parent
                     target_layer = get_track_below(current_layer)
-                    clip.data['layer'] = max(target_layer, 0)
+                    clip.data['layer'] = target_layer
                     current_layer = clip.data['layer']
 
                     # Adjust the clip title
@@ -5575,6 +5616,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             new_clip["_auto_transition"] = True
 
         # Add the clip to the timeline
+        self._ensure_layers_exist([track])
         self.update_clip_data(new_clip, only_basic_props=False, ignore_refresh=ignore_refresh)
 
         # Track the added clip
@@ -5670,6 +5712,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         self._auto_orient_transition_keyframes(transition_data)
 
         # Send to update manager
+        self._ensure_layers_exist([track])
         self.update_transition_data(transition_data, only_basic_props=False, ignore_refresh=ignore_refresh)
 
         # Track the added transition
