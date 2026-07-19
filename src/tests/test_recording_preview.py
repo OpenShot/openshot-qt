@@ -697,6 +697,78 @@ class RecordingPreviewTests(unittest.TestCase):
 
         self.assertEqual(dock.webcam_layout_combo.currentData(), "full")
 
+    def test_screen_recording_forces_preview_off_then_restores_it(self):
+        helper = self.audio_recording_module
+
+        class FakeCard:
+            checked = False
+
+            def isChecked(self):
+                return self.checked
+
+        class FakeCombo:
+            values = ["none", "full", "half", "quarter"]
+
+            def __init__(self):
+                self.index = self.values.index("half")
+                self.enabled = True
+
+            def currentData(self):
+                return self.values[self.index]
+
+            def currentIndex(self):
+                return self.index
+
+            def findData(self, value):
+                return self.values.index(value)
+
+            def setCurrentIndex(self, index):
+                self.index = index
+
+            def setEnabled(self, enabled):
+                self.enabled = enabled
+
+        card = FakeCard()
+        combo = FakeCombo()
+        label = types.SimpleNamespace(setEnabled=lambda enabled: setattr(label, "enabled", enabled))
+        dock = types.SimpleNamespace(
+            screen_card=card,
+            preview_combo=combo,
+            preview_label=label,
+            _preview_before_screen="full",
+            _preview_forced_off=False,
+        )
+        dock._set_combo_data = lambda target, value: helper.AudioRecordingDockContent._set_combo_data(dock, target, value)
+
+        card.checked = True
+        helper.AudioRecordingDockContent._sync_preview_control(dock)
+        self.assertEqual(combo.currentData(), "none")
+        self.assertFalse(combo.enabled)
+        self.assertFalse(label.enabled)
+
+        card.checked = False
+        helper.AudioRecordingDockContent._sync_preview_control(dock)
+        self.assertEqual(combo.currentData(), "half")
+        self.assertTrue(combo.enabled)
+        self.assertTrue(label.enabled)
+
+    def test_recording_only_stops_playback_it_started(self):
+        helper = self.audio_recording_module
+        pause_calls = []
+        dock = types.SimpleNamespace(
+            _timeline_playback_started=True,
+            _playback_active=lambda: True,
+            window=types.SimpleNamespace(
+                PauseSignal=types.SimpleNamespace(emit=lambda: pause_calls.append(True)),
+            ),
+        )
+
+        helper.AudioRecordingDockContent._stop_timeline_playback(dock)
+        helper.AudioRecordingDockContent._stop_timeline_playback(dock)
+
+        self.assertEqual(pause_calls, [True])
+        self.assertFalse(dock._timeline_playback_started)
+
     def test_restore_hidden_openshot_maximized_window_keeps_maximized_state(self):
         helper = self.audio_recording_module
 

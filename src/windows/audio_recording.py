@@ -728,6 +728,9 @@ class AudioRecordingDockContent(QWidget):
         self._recording_track_map = {}
         self._recording_timeline_position = 0.0
         self._recording_preview_size = None
+        self._preview_before_screen = "full"
+        self._preview_forced_off = False
+        self._timeline_playback_started = False
         self._recording_waveform_samples = []
         self._recording_waveform_rms = []
         self._waveform_samples_per_second = DEFAULT_SAMPLES_PER_SECOND
@@ -975,20 +978,21 @@ class AudioRecordingDockContent(QWidget):
         layout.addWidget(self.camera_section)
 
         target_row = QHBoxLayout()
-        target_label = QLabel(_("Track:"), self)
         self.track_combo = QComboBox(self)
         self.track_combo.setSizeAdjustPolicy(QComboBox.AdjustToContents)
-        target_row.addWidget(target_label)
         target_row.addWidget(self.track_combo, 1)
-        layout.addLayout(target_row)
-
         self.preview_combo = QComboBox(self)
-        self.preview_combo.addItem(_("No Preview"), "none")
-        self.preview_combo.addItem(_("Timeline (full)"), "full")
-        self.preview_combo.addItem(_("Timeline (50%)"), "half")
-        self.preview_combo.addItem(_("Timeline (25%)"), "quarter")
+        self.preview_combo.addItem(_("Off"), "none")
+        self.preview_combo.addItem(_("Full"), "full")
+        self.preview_combo.addItem(_("Half"), "half")
+        self.preview_combo.addItem(_("Quarter"), "quarter")
         self.preview_combo.setCurrentIndex(self.preview_combo.findData("full"))
-        self.preview_combo.hide()
+        self.preview_combo.setSizeAdjustPolicy(QComboBox.AdjustToContents)
+        self.preview_combo.setToolTip(_("Play the timeline while recording. Lower resolutions can improve recording performance."))
+        self.preview_label = QLabel(_("Preview:"), self)
+        target_row.addWidget(self.preview_label)
+        target_row.addWidget(self.preview_combo)
+        layout.addLayout(target_row)
 
         control_row = QHBoxLayout()
         self.record_button = QPushButton(_("Start Recording"), self)
@@ -1165,8 +1169,24 @@ class AudioRecordingDockContent(QWidget):
         self.webcam_layout_combo.setEnabled(self.screen_card.isChecked())
         self.webcam_layout_size_combo.setEnabled(self.screen_card.isChecked())
         self.webcam_corner_radius_combo.setEnabled(self.screen_card.isChecked())
+        self._sync_preview_control()
         if not self.camera_card.isChecked():
             self._stop_webcam_preview()
+
+    def _sync_preview_control(self):
+        """Disable timeline playback while screen capture is selected."""
+        screen_selected = self.screen_card.isChecked()
+        if screen_selected and not self._preview_forced_off:
+            current = self.preview_combo.currentData()
+            if current != "none":
+                self._preview_before_screen = current
+            self._set_combo_data(self.preview_combo, "none")
+            self._preview_forced_off = True
+        elif not screen_selected and self._preview_forced_off:
+            self._set_combo_data(self.preview_combo, self._preview_before_screen or "full")
+            self._preview_forced_off = False
+        self.preview_label.setEnabled(not screen_selected)
+        self.preview_combo.setEnabled(not screen_selected)
 
     def _sync_webcam_layout_defaults(self):
         state = (self.camera_card.isChecked(), self.screen_card.isChecked())
@@ -1882,6 +1902,7 @@ class AudioRecordingDockContent(QWidget):
         stop_time = time.monotonic()
         recorded_duration = max(0.0, stop_time - self._recording_started_at)
         self._recording = False
+        self._stop_timeline_playback()
         self._tray_status.hide()
         self.timer.stop()
         self.poll_timer.stop()
@@ -2624,10 +2645,16 @@ class AudioRecordingDockContent(QWidget):
     def _start_timeline_playback(self):
         if self._playback_active():
             return
+        self._timeline_playback_started = True
         if hasattr(self.window, "actionPlay_trigger"):
             self.window.actionPlay_trigger()
         else:
             self.window.PlaySignal.emit()
+
+    def _stop_timeline_playback(self):
+        if self._timeline_playback_started and self._playback_active():
+            self.window.PauseSignal.emit()
+        self._timeline_playback_started = False
 
     def _update_elapsed_time(self):
         elapsed = max(0.0, time.monotonic() - self._recording_started_at)

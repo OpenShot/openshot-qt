@@ -317,6 +317,25 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 return track_number
         return source_track
 
+    def _record_from_clip(self, clip):
+        """Seek to a clip's first frame and open Recording on a free lower track."""
+        clip_data = clip.data if isinstance(clip.data, dict) else {}
+        try:
+            position = max(0.0, float(clip_data.get("position", 0.0) or 0.0))
+        except (TypeError, ValueError):
+            position = 0.0
+        try:
+            fps = get_app().project.get("fps")
+            fps_value = float(fps["num"]) / float(fps["den"])
+        except (KeyError, TypeError, ValueError, ZeroDivisionError):
+            fps_value = 30.0
+        frame_number = max(1, int(round(position * fps_value)) + 1)
+        self.PlayheadMoved(frame_number, True)
+        self._show_recording_dock_deferred(
+            start_time=position,
+            track_number=self._recording_track_for_clip(clip),
+        )
+
     def connect_playback(self):
         """Connect playback signals to the QWidget timeline."""
         TimelineWidget.connect_playback(self)
@@ -1498,15 +1517,6 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         menu = StyledContextMenu(parent=self)
 
         has_edit_actions = False
-        record_action = menu.addAction(
-            self._microphone_icon(),
-            _("Record"))
-        record_action.triggered.connect(lambda: self._show_recording_dock_deferred(
-            start_time=max(0.0, float(position)),
-            track_number=int(layer_number)))
-        if locked:
-            record_action.setEnabled(False)
-        menu.addSeparator()
 
         if found_gap:
             # Add 'Remove Gap' Menu
@@ -1528,6 +1538,9 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 partial(self.Paste_Triggered, MenuCopy.PASTE, [], [])
             )
             has_edit_actions = True
+
+        if not has_edit_actions:
+            return
 
         # Show context menu
         self.context_menu_cursor_position = QCursor.pos()
@@ -2110,9 +2123,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         Record_Voiceover = Audio_Menu.addAction(
             self._microphone_icon(),
             _("Record"))
-        Record_Voiceover.triggered.connect(lambda: self._show_recording_dock_deferred(
-            start_time=float(clip.data.get("position", 0.0)),
-            track_number=self._recording_track_for_clip(clip)))
+        Record_Voiceover.triggered.connect(lambda: self._record_from_clip(clip))
         audio_menu_has_actions = True
         Audio_Menu.addSeparator()
 
@@ -4937,14 +4948,6 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         menu.addAction(self.window.actionAddTrackAbove)
         menu.addAction(self.window.actionAddTrackBelow)
         menu.addAction(self.window.actionRenameTrack)
-        record_track_action = menu.addAction(
-            self._microphone_icon(),
-            _("Record"))
-        record_track_action.triggered.connect(lambda: self._show_recording_dock_deferred(
-            start_time=self.window._current_timeline_seconds(),
-            track_number=int(layer_number)))
-        if locked:
-            record_track_action.setEnabled(False)
         if found_gap:
             # Add 'Remove Gap' Menu
             log.info(f"Found gap at {first_gap_start}")

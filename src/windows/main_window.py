@@ -3482,10 +3482,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.dockAudioRecording.raise_()
         self.style_dock_widgets()
 
-    def actionRecordAudio_trigger(self, checked=True):
-        """Open the Recording dock at the current playhead position."""
-        self.show_audio_recording_dock(start_time=self._current_timeline_seconds())
-
     def _current_timeline_seconds(self):
         """Return the current playhead position in seconds."""
         try:
@@ -4224,15 +4220,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # add zoom widgets
         self.timelineToolbar.addWidget(self.sliderZoomWidget)
-        if not hasattr(self, "actionRecordAudio"):
-            self.actionRecordAudio = QAction(
-                QIcon(os.path.join(info.PATH, "themes/cosmic/images/tool-microphone.svg")),
-                _("Record"),
-                self)
-            self.actionRecordAudio.setObjectName("actionRecordAudio")
-            self.actionRecordAudio.setToolTip(_("Open Recording"))
-            self.actionRecordAudio.triggered.connect(self.actionRecordAudio_trigger)
-        self.timelineToolbar.addAction(self.actionRecordAudio)
 
         # Add timeline toolbar to web frame
         self.frameWeb.insertWidget(0, self.timelineToolbar)

@@ -38,11 +38,21 @@ Quick Start
 1. Move the timeline playhead to the point where the recording should begin.
 2. Open :guilabel:`View → Recording View`.
 3. Enable :guilabel:`Mic`, :guilabel:`Screen`, :guilabel:`Webcam`, or any combination of them.
-4. Select the destination :guilabel:`Track`. Multiple sources use adjacent tracks automatically.
+4. Select the destination :guilabel:`Track`. Multiple sources use adjacent tracks automatically. Choose whether the
+   timeline :guilabel:`Preview` should play during Mic or Webcam recording.
 5. Open each source's :guilabel:`Advanced` section and verify its device and quality options.
 6. Click :guilabel:`Start Recording`. Perform the narration or action you want to capture.
 7. Click :guilabel:`Stop Recording`, either in the dock or from the recording status control.
 8. Wait briefly while OpenShot finishes the files. They are imported into Project Files and placed on the timeline.
+
+Quick Audio Commentary
+----------------------
+
+To begin commentary at an existing clip, right-click the clip and choose :guilabel:`Audio → Record`. OpenShot moves
+the playhead to the clip's first frame, opens the Recording dock, and selects the first available unlocked track below
+the clip. Verify that :guilabel:`Mic` is enabled, then click :guilabel:`Start Recording`. The full
+:guilabel:`View → Recording View` remains the general entry point for screen, webcam, microphone, and combined
+recording sessions.
 
 Recording Sources
 -----------------
@@ -98,6 +108,30 @@ All enabled sources start at the same timeline position. OpenShot stacks them in
 If there are not enough tracks below the selected track, OpenShot creates or selects additional tracks as needed.
 Recordings are also added to :guilabel:`Project Files`, so they can be reused even if you remove their first timeline
 clips.
+
+Timeline Preview During Recording
+---------------------------------
+
+The :guilabel:`Preview` control beside :guilabel:`Track` can play the project from the current playhead while a Mic,
+Webcam, or combined Mic + Webcam recording is captured. This is useful for voice-over, commentary, and reaction
+videos. Stopping the recording also stops timeline playback when the recorder started it.
+
+.. table:: Preview options
+   :widths: 26 74
+
+   ==================  =========================================================================================
+   Option              Behavior
+   ==================  =========================================================================================
+   Off                 Records without starting timeline playback.
+   Full                Plays the timeline using the normal preview resolution.
+   Half                Reduces preview rendering resolution to improve recording performance.
+   Quarter             Uses the lowest preview resolution for demanding projects or slower computers.
+   ==================  =========================================================================================
+
+Preview resolution changes only the temporary OpenShot preview. It does not reduce the resolution or quality of the
+recorded Mic or Webcam files. Use headphones when the timeline contains audio so the microphone does not record the
+speakers. When :guilabel:`Screen` is selected, Preview is forced to :guilabel:`Off` and disabled; deselecting Screen
+restores the previous choice.
 
 Microphone Recording
 --------------------

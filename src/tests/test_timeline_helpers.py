@@ -417,6 +417,55 @@ class TimelineHelperTests(unittest.TestCase):
         self.assertAlmostEqual(window["start_ratio"], 0.25)
         self.assertAlmostEqual(window["end_ratio"], 0.75)
 
+    def test_clip_recording_seeks_to_clip_start_and_selects_lower_track(self):
+        helper = types.SimpleNamespace(
+            PlayheadMoved=MagicMock(),
+            _recording_track_for_clip=MagicMock(return_value=2),
+            _show_recording_dock_deferred=MagicMock(),
+        )
+        clip = types.SimpleNamespace(data={"position": 3.25, "layer": 3})
+        app = types.SimpleNamespace(project=types.SimpleNamespace(
+            get=lambda key: {"num": 24, "den": 1} if key == "fps" else None
+        ))
+
+        with patch.object(self.timeline_module, "get_app", return_value=app):
+            self.timeline_module.TimelineView._record_from_clip(helper, clip)
+
+        helper.PlayheadMoved.assert_called_once_with(79, True)
+        helper._recording_track_for_clip.assert_called_once_with(clip)
+        helper._show_recording_dock_deferred.assert_called_once_with(
+            start_time=3.25,
+            track_number=2,
+        )
+
+    def test_clip_recording_chooses_first_unoccupied_unlocked_track_below(self):
+        source = types.SimpleNamespace(data={
+            "position": 5.0,
+            "start": 0.0,
+            "end": 3.0,
+            "layer": 5,
+        })
+        tracks = [
+            types.SimpleNamespace(data={"number": 5, "lock": False}),
+            types.SimpleNamespace(data={"number": 4, "lock": False}),
+            types.SimpleNamespace(data={"number": 3, "lock": True}),
+            types.SimpleNamespace(data={"number": 2, "lock": False}),
+        ]
+        occupied = [types.SimpleNamespace(data={
+            "position": 6.0,
+            "start": 0.0,
+            "end": 1.0,
+            "layer": 4,
+        })]
+
+        with patch.object(self.timeline_module.Track, "filter", return_value=tracks), \
+                patch.object(self.timeline_module.Clip, "filter", return_value=occupied):
+            track_number = self.timeline_module.TimelineView._recording_track_for_clip(
+                types.SimpleNamespace(), source
+            )
+
+        self.assertEqual(track_number, 2)
+
     def make_qwidget_finish_drag_helper(self):
         qwidget_clip_module = self.qwidget_clip_module
 
