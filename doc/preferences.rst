@@ -109,9 +109,9 @@ The Timeline tab controls default timeline behavior and clip/transition insertio
    Setting                              Default             Description
    ===================================  ==================  ===========
    Thumbnail Style                      Entire Clip         Thumbnail density for the timeline
-   Waveform Samples Per Second          200                 Detail stored for new peak/RMS timeline waveforms
    Image Length (seconds)               10.00               Default duration for still images added to the timeline
    Transition Length (seconds)          10.00               Default duration for newly added transitions
+   Waveform Samples (per second)        200                 Detail stored for new peak/RMS timeline waveforms (20–400)
    Auto-Transition (overlap clips)      Enabled             Automatically create transitions when clips overlap
    ===================================  ==================  ===========
 

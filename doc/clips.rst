@@ -507,7 +507,7 @@ curves and use the same fixed display curve. A subtle center line keeps silent p
 them look louder than they are.
 
 New waveforms use 200 samples per second by default, providing several measurements within a typical video frame.
-Change this density with :guilabel:`Edit → Preferences → Timeline → Waveform Samples Per Second`. Higher values show
+Change this density with :guilabel:`Edit → Preferences → Timeline → Waveform Samples (per second)`. Higher values show
 more detail when zoomed in but increase project data size and analysis time. The painter reduces dense data to the
 visible timeline pixels, and its rendered-waveform cache keeps normal scrolling and repainting inexpensive. Live
 microphone previews use the selected density and the same peak/RMS display as completed recordings.

@@ -120,7 +120,7 @@ meter for the common channel choice, and open :guilabel:`Advanced` for all setti
 Aim for a healthy meter response without clipping. A quiet waveform should remain visually quiet; OpenShot no longer
 normalizes every newly generated waveform to full height. The lighter peak envelope highlights transients while the
 solid RMS envelope summarizes sustained energy. Their detail is controlled by :guilabel:`Edit → Preferences →
-Timeline → Waveform Samples Per Second`. See :ref:`clip_presets_ref` for waveform display and audio volume controls
+Timeline → Waveform Samples (per second)`. See :ref:`clip_presets_ref` for waveform display and audio volume controls
 after recording.
 
 Screen Recording
