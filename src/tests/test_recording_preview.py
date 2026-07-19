@@ -261,6 +261,59 @@ class RecordingPreviewTests(unittest.TestCase):
         self.assertEqual(writer.frame_numbers, [1, 16, 31])
         self.assertEqual(job.frames, 31)
 
+    def test_live_video_writer_enables_audio_for_screen_reader_audio(self):
+        helper = self.audio_recording_module
+
+        class FakeFrame:
+            def GetWidth(self):
+                return 640
+
+            def GetHeight(self):
+                return 360
+
+        class FakeReader:
+            info = types.SimpleNamespace(
+                width=640,
+                height=360,
+                fps=types.SimpleNamespace(num=30, den=1),
+                has_audio=True,
+                sample_rate=48000,
+                channels=2,
+            )
+
+            def Open(self):
+                pass
+
+            def GetFrame(self, _number):
+                return FakeFrame()
+
+        class FakeWriter:
+            instance = None
+
+            def __init__(self, path):
+                self.path = path
+                self.audio_options = None
+                FakeWriter.instance = self
+
+            def SetVideoOptions(self, *args):
+                pass
+
+            def SetAudioOptions(self, *args):
+                self.audio_options = args
+
+            def Open(self):
+                pass
+
+        fps = types.SimpleNamespace(num=30, den=1)
+        job = helper.LiveVideoRecordingJob(FakeReader(), "screen.mp4", 640, 360, fps)
+        with patch.object(helper.openshot, "FFmpegWriter", FakeWriter):
+            job._open()
+
+        self.assertEqual(
+            FakeWriter.instance.audio_options,
+            (True, "aac", 48000, 2, helper.openshot.LAYOUT_STEREO, 192000),
+        )
+
     def test_live_video_recording_drops_frames_that_arrive_before_next_fps_slot(self):
         helper = self.audio_recording_module
         frame_times = [100.0, 100.010, 100.020, 100.0334, 100.050, 100.0667, 100.100]
@@ -276,12 +329,20 @@ class RecordingPreviewTests(unittest.TestCase):
             def __init__(self):
                 self.job = None
                 self.frames_read = 0
+                self.audio_frames = []
+                self.audio_reset = False
 
             def GetFrame(self, _frame_number):
                 self.frames_read += 1
                 if self.job and self.frames_read >= len(frame_times):
                     self.job._stop.set()
                 return FakeFrame()
+
+            def ResetSystemAudio(self):
+                self.audio_reset = True
+
+            def AddSystemAudio(self, _frame, frame_number):
+                self.audio_frames.append(frame_number)
 
         class FakeWriter:
             def __init__(self):
@@ -302,6 +363,8 @@ class RecordingPreviewTests(unittest.TestCase):
             job._run()
 
         self.assertEqual(writer.frame_numbers, [1, 2, 3, 4])
+        self.assertTrue(reader.audio_reset)
+        self.assertEqual(reader.audio_frames, [1, 2, 3, 4])
 
     def test_live_video_recording_discards_prestart_initial_frame(self):
         helper = self.audio_recording_module

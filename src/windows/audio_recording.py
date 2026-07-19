@@ -421,6 +421,21 @@ class LiveVideoRecordingJob(QObject):
             False,
             self.bit_rate,
         )
+        reader_info = getattr(self.reader, "info", None)
+        if bool(getattr(reader_info, "has_audio", False)):
+            sample_rate = int(getattr(reader_info, "sample_rate", 0) or 48000)
+            channels = int(getattr(reader_info, "channels", 0) or 2)
+            channel_layout = (
+                openshot.LAYOUT_MONO if channels == 1 else openshot.LAYOUT_STEREO
+            )
+            self._writer.SetAudioOptions(
+                True,
+                "aac",
+                sample_rate,
+                channels,
+                channel_layout,
+                192000,
+            )
         self._writer.Open()
         self._opened.set()
 
@@ -444,6 +459,9 @@ class LiveVideoRecordingJob(QObject):
 
     def begin(self, start_time=None):
         self._start_time = float(start_time or time.monotonic())
+        reset_system_audio = getattr(self.reader, "ResetSystemAudio", None)
+        if callable(reset_system_audio):
+            reset_system_audio()
         self._recording_started.set()
 
     def request_stop(self, stop_time=None):
@@ -506,6 +524,9 @@ class LiveVideoRecordingJob(QObject):
                 with self._writer_lock:
                     if not self._writer:
                         break
+                    add_system_audio = getattr(self.reader, "AddSystemAudio", None)
+                    if callable(add_system_audio):
+                        add_system_audio(frame, output_frame_number)
                     self._write_numbered_frame(frame, output_frame_number)
                 written_frames += 1
                 if self.thumbnail_cache:
@@ -811,6 +832,19 @@ class AudioRecordingDockContent(QWidget):
         self.screen_status_label.setWordWrap(True)
         self.screen_section.body_layout.addWidget(self.screen_status_label)
 
+        system_audio_row = QHBoxLayout()
+        system_audio_row.setContentsMargins(0, 0, 0, 0)
+        self.system_audio_label = QLabel(_("System Audio:"), self.screen_section)
+        self.system_audio_combo = QComboBox(self.screen_section)
+        self.system_audio_combo.addItem(_("On"), True)
+        self.system_audio_combo.addItem(_("Off"), False)
+        self.system_audio_combo.setCurrentIndex(self.system_audio_combo.findData(False))
+        self.system_audio_combo.setToolTip(_("Record sound playing through the system output in the screen recording."))
+        system_audio_row.addWidget(self.system_audio_label)
+        system_audio_row.addStretch()
+        system_audio_row.addWidget(self.system_audio_combo)
+        self.screen_section.body_layout.addLayout(system_audio_row)
+
         self.screen_display_edit = QComboBox(self.screen_section)
         self.screen_display_edit.setEditable(False)
         self.screen_display_edit.setMinimumWidth(0)
@@ -834,6 +868,7 @@ class AudioRecordingDockContent(QWidget):
         self.hide_openshot_combo = QComboBox(self.screen_section)
         self.hide_openshot_combo.addItem(_("Yes"), True)
         self.hide_openshot_combo.addItem(_("No"), False)
+        self.hide_openshot_combo.setCurrentIndex(self.hide_openshot_combo.findData(False))
         self.hide_openshot_combo.setToolTip(_("Temporarily hide OpenShot while selecting or recording a window or region."))
         self.video_fps_combo = QComboBox(self.screen_section)
         for fps in (15, 24, 30, 60):
@@ -1013,6 +1048,18 @@ class AudioRecordingDockContent(QWidget):
     def _screen_backend_available(self):
         return screen_capture_backend_supported()
 
+    def _system_audio_available(self):
+        if not hasattr(openshot, "ScreenCaptureReader"):
+            return False
+        is_supported = getattr(openshot.ScreenCaptureReader, "IsSystemAudioSupported", None)
+        if not callable(is_supported):
+            return False
+        try:
+            return bool(is_supported(screen_capture_backend()))
+        except Exception:
+            log.debug("Unable to query system audio capture support", exc_info=True)
+            return False
+
     def _camera_backend_available(self):
         if not all(hasattr(openshot, name) for name in ("CameraCaptureReader", "CameraCaptureSettings")):
             return False
@@ -1082,6 +1129,16 @@ class AudioRecordingDockContent(QWidget):
         self.region_button.setEnabled(not wayland)
         self.screen_hide_label.setVisible(not wayland)
         self.hide_openshot_combo.setVisible(not wayland)
+        system_audio_available = self._system_audio_available()
+        self.system_audio_label.setEnabled(system_audio_available)
+        self.system_audio_combo.setEnabled(system_audio_available)
+        if not system_audio_available:
+            off_index = self.system_audio_combo.findData(False)
+            if off_index >= 0:
+                self.system_audio_combo.setCurrentIndex(off_index)
+            unavailable_tip = _("System audio recording is not available for this platform or libopenshot build.")
+            self.system_audio_label.setToolTip(unavailable_tip)
+            self.system_audio_combo.setToolTip(unavailable_tip)
         if wayland:
             self.screen_status_label.setText(_("Your desktop will ask what to share when recording starts."))
             self._screen_window_id = ""
@@ -1234,7 +1291,7 @@ class AudioRecordingDockContent(QWidget):
         self.window_button.setChecked(True)
         self.full_screen_button.setChecked(False)
         self.region_button.setChecked(False)
-        self._set_hide_openshot_default(True)
+        self._set_hide_openshot_default(False)
         hidden_state = self._hide_openshot_for_picker()
         try:
             result = pick_screen_window()
@@ -1256,7 +1313,7 @@ class AudioRecordingDockContent(QWidget):
         self.full_screen_button.setChecked(False)
         self.window_button.setChecked(False)
         self._screen_window_id = ""
-        self._set_hide_openshot_default(True)
+        self._set_hide_openshot_default(False)
         hidden_state = self._hide_openshot_for_picker()
         try:
             result = pick_screen_region(None if hidden_state is not None else self)
@@ -1962,6 +2019,12 @@ class AudioRecordingDockContent(QWidget):
             settings.height = screen_height
             settings.fps = screen_fps
             settings.include_cursor = bool(self.capture_cursor_combo.currentData())
+            settings.capture_audio = bool(
+                self._system_audio_available()
+                and self.system_audio_combo.currentData()
+            )
+            settings.audio_sample_rate = 48000
+            settings.audio_channels = 2
             if mac_screen and (self.window_button.isChecked() or self.region_button.isChecked()):
                 settings.options["crop_after_capture"] = "1"
                 if root_width and root_height:
