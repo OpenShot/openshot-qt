@@ -50,6 +50,7 @@ from classes.app import get_app
 from classes.assets import get_assets_path
 from classes.logger import log
 from classes.query import Clip, File, Track
+from classes.waveform import DEFAULT_SAMPLES_PER_SECOND, configured_waveform_sample_rate
 from classes.thumbnail import (
     RoundFrameToThumbnailGrid,
     ThumbnailPathForFrame,
@@ -728,6 +729,8 @@ class AudioRecordingDockContent(QWidget):
         self._recording_timeline_position = 0.0
         self._recording_preview_size = None
         self._recording_waveform_samples = []
+        self._recording_waveform_rms = []
+        self._waveform_samples_per_second = DEFAULT_SAMPLES_PER_SECOND
         self._last_timeline_preview_at = 0.0
         self._last_timeline_preview_samples = 0
         self._webcam_layout_default_state = None
@@ -1862,7 +1865,8 @@ class AudioRecordingDockContent(QWidget):
         self._show_recording_tray()
         self.level_meter.update_levels()
         self._recording_waveform_samples = []
-        self._update_timeline_preview([], 0.05)
+        self._recording_waveform_rms = []
+        self._update_timeline_preview([], 0.05, [])
         self.timer.start()
         self.poll_timer.start()
         self.recordingStarted.emit()
@@ -1937,7 +1941,8 @@ class AudioRecordingDockContent(QWidget):
         settings.channel_layout = openshot.LAYOUT_MONO if self._channels == 1 else openshot.LAYOUT_STEREO
         settings.bit_rate = 192000 if self._preferred_format != "mp3" else 160000
         settings.buffer_size = 512
-        settings.waveform_samples_per_second = 20
+        self._waveform_samples_per_second = configured_waveform_sample_rate()
+        settings.waveform_samples_per_second = self._waveform_samples_per_second
         settings.max_queue_seconds = 10
         settings.codec = {
             "wav": "pcm_s16le",
@@ -2221,12 +2226,14 @@ class AudioRecordingDockContent(QWidget):
             waveform = recorder.GetWaveformSnapshot()
             waveform_vectors = waveform.vectors()
             samples = list(waveform_vectors[0]) if len(waveform_vectors) > 0 else []
+            rms_samples = list(waveform_vectors[1]) if len(waveform_vectors) > 1 else []
             self._recording_waveform_samples = samples
-            self._update_timeline_preview_throttled(samples)
+            self._recording_waveform_rms = rms_samples
+            self._update_timeline_preview_throttled(samples, rms_samples)
         except Exception:
             log.debug("Unable to poll audio recording feedback", exc_info=True)
 
-    def _update_timeline_preview_throttled(self, samples):
+    def _update_timeline_preview_throttled(self, samples, rms_samples=None):
         now = time.monotonic()
         sample_count = len(samples or [])
         duration = max(0.0, now - self._recording_started_at)
@@ -2243,16 +2250,18 @@ class AudioRecordingDockContent(QWidget):
 
         self._last_timeline_preview_at = now
         self._last_timeline_preview_samples = sample_count
-        self._update_timeline_preview(samples, duration)
+        self._update_timeline_preview(samples, duration, rms_samples)
 
-    def _update_timeline_preview(self, samples, duration):
+    def _update_timeline_preview(self, samples, duration, rms_samples=None):
         timeline = getattr(self.window, "timeline", None)
         if not timeline:
             return
         position = self._context_start
         if position is None:
             position = self._recording_timeline_position
-        previews = self._recording_preview_payloads(float(position or 0.0), duration, samples)
+        previews = self._recording_preview_payloads(
+            float(position or 0.0), duration, samples, rms_samples
+        )
         if hasattr(timeline, "set_audio_recording_previews"):
             timeline.set_audio_recording_previews(previews)
         elif hasattr(timeline, "set_audio_recording_preview") and previews:
@@ -2265,7 +2274,7 @@ class AudioRecordingDockContent(QWidget):
                 mic_preview.get("audio_data") or [],
             )
 
-    def _recording_preview_payloads(self, position, duration, samples):
+    def _recording_preview_payloads(self, position, duration, samples, rms_samples=None):
         duration = max(0.05, float(duration or 0.0))
         previews = []
         source_types = self._selected_recording_source_types()
@@ -2282,6 +2291,10 @@ class AudioRecordingDockContent(QWidget):
             }
             if source_type == "mic":
                 preview["audio_data"] = list(samples or [])
+                preview["audio_data_rms"] = list(rms_samples or [])
+                preview["audio_data_rate"] = getattr(
+                    self, "_waveform_samples_per_second", DEFAULT_SAMPLES_PER_SECOND
+                )
             elif source_type == "screen":
                 fps = float(self.video_fps_combo.currentData() or 30)
                 preview.update({
@@ -2312,6 +2325,7 @@ class AudioRecordingDockContent(QWidget):
         self._recording_preview_file_ids = {}
         self._recording_track_map = {}
         self._recording_waveform_samples = []
+        self._recording_waveform_rms = []
 
     def _selected_recording_source_types(self):
         source_types = []
@@ -2618,7 +2632,11 @@ class AudioRecordingDockContent(QWidget):
     def _update_elapsed_time(self):
         elapsed = max(0.0, time.monotonic() - self._recording_started_at)
         self._set_record_button_recording(elapsed)
-        self._update_timeline_preview(self._recording_waveform_samples, elapsed)
+        self._update_timeline_preview(
+            self._recording_waveform_samples,
+            elapsed,
+            self._recording_waveform_rms,
+        )
 
     def _format_elapsed_time(self, elapsed):
         minutes = int(elapsed // 60)

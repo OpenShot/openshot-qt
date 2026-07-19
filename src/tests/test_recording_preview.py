@@ -968,6 +968,8 @@ class RecordingPreviewTests(unittest.TestCase):
                 "track": 2,
                 "duration": 3.0,
                 "audio_data": [0.1, 0.4],
+                "audio_data_rms": [0.05, 0.2],
+                "audio_data_rate": 200,
             },
             {
                 "id": "preview-screen",
@@ -991,6 +993,8 @@ class RecordingPreviewTests(unittest.TestCase):
         self.assertTrue(mic_data["reader"]["has_audio"])
         self.assertFalse(mic_data["reader"]["has_video"])
         self.assertEqual(mic_data["ui"]["audio_data"], [0.1, 0.4])
+        self.assertEqual(mic_data["ui"]["audio_data_rms"], [0.05, 0.2])
+        self.assertEqual(mic_data["ui"]["audio_data_rate"], 200)
         self.assertEqual(mic_data["ui"]["audio_data_format"], "absolute_peak_v2")
 
         screen_data = helper._recording_preview_clips[1].data

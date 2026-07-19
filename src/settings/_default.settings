@@ -114,6 +114,36 @@
     ]
   },
   {
+    "value": 200,
+    "title": "Waveform Samples Per Second",
+    "category": "Timeline",
+    "setting": "timeline-waveform-samples-per-second",
+    "type": "dropdown",
+    "restart": false,
+    "values": [
+      {
+        "value": 20,
+        "name": "20 (Smallest)"
+      },
+      {
+        "value": 50,
+        "name": "50"
+      },
+      {
+        "value": 100,
+        "name": "100"
+      },
+      {
+        "value": 200,
+        "name": "200 (Recommended)"
+      },
+      {
+        "value": 400,
+        "name": "400 (Most Detail)"
+      }
+    ]
+  },
+  {
     "max": 10000,
     "title": "Image Length (seconds)",
     "category": "Timeline",

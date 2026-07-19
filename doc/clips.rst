@@ -501,22 +501,31 @@ process the recorded audio.
    ``-60 dBFS``       3%                  Very quiet detail near the center line.
    =================  ==================  ================================================
 
-OpenShot samples a peak envelope at regular time intervals, applies the clip's Volume and Time curves, reduces the
-visible samples to approximately one value per horizontal pixel, and then applies the fixed display curve. A lookup
-table and rendered-waveform cache keep scrolling and repainting inexpensive. Live microphone previews use the same
-scale as the completed recording, so stopping a recording should not suddenly change its apparent level.
+OpenShot samples both **peak** and **RMS** envelopes at regular time intervals. The lighter outer envelope shows brief
+peaks and transients; the solid inner envelope shows sustained RMS energy. Both follow the clip's Volume and Time
+curves and use the same fixed display curve. A subtle center line keeps silent passages identifiable without making
+them look louder than they are.
+
+New waveforms use 200 samples per second by default, providing several measurements within a typical video frame.
+Change this density with :guilabel:`Edit → Preferences → Timeline → Waveform Samples Per Second`. Higher values show
+more detail when zoomed in but increase project data size and analysis time. The painter reduces dense data to the
+visible timeline pixels, and its rendered-waveform cache keeps normal scrolling and repainting inexpensive. Live
+microphone previews use the selected density and the same peak/RMS display as completed recordings.
 
 Projects saved by older OpenShot versions can contain independently peak-normalized waveform data. These waveforms
 have no format marker, so OpenShot deliberately displays them with the original legacy scaling. They remain familiar
-instead of becoming unexpectedly thin. A project may safely contain both legacy and new waveforms.
+instead of becoming unexpectedly thin. Older waveform data without a stored density defaults to its original 20
+samples per second, and data without an RMS envelope remains a single solid waveform. A project may safely contain
+legacy and new waveforms together.
 
 To regenerate cached waveform data using the current method, choose :guilabel:`Edit → Clear → Waveform Display Data`,
 then show the waveform again. This affects only cached display data and does not modify the media file or its audio.
 
 .. note::
 
-   Waveform height is based on audio peaks, not perceived loudness. Use the :guilabel:`Audio Levels` scope and your
-   ears when mixing, and watch for clipping near ``0 dBFS``. See :ref:`playback_ref` for audio troubleshooting.
+   The peak envelope identifies transient level and possible clipping; RMS summarizes sustained energy but is not a
+   loudness-standard measurement. Use the :guilabel:`Audio Levels` scope and your ears when mixing. See
+   :ref:`playback_ref` for audio troubleshooting.
 
 Properties
 """"""""""

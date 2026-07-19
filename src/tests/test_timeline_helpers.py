@@ -369,7 +369,6 @@ class TimelineHelperTests(unittest.TestCase):
         class Helper(qwidget_clip_module.ClipInteractionMixin):
             def __init__(self):
                 self._pending_clip_overrides = {}
-                self._waveform_samples_per_second = None
                 self.enable_timing = False
                 self.enable_snapping = False
                 self.pixels_per_second = 24.0
@@ -387,6 +386,36 @@ class TimelineHelperTests(unittest.TestCase):
                 return float(delta_seconds)
 
         return Helper()
+
+    def test_waveform_window_uses_legacy_density_when_metadata_is_missing(self):
+        helper = self.make_qwidget_clip_helper()
+        clip = types.SimpleNamespace(data={
+            "start": 0.5,
+            "end": 1.5,
+            "ui": {"audio_data": [0.25] * 40},
+        })
+
+        window = helper.clip_waveform_window(clip)
+
+        self.assertAlmostEqual(window["start_ratio"], 0.25)
+        self.assertAlmostEqual(window["end_ratio"], 0.75)
+
+    def test_waveform_window_uses_stored_v2_density(self):
+        helper = self.make_qwidget_clip_helper()
+        clip = types.SimpleNamespace(data={
+            "start": 0.5,
+            "end": 1.5,
+            "ui": {
+                "audio_data": [0.25] * 400,
+                "audio_data_format": "absolute_peak_v2",
+                "audio_data_rate": 200,
+            },
+        })
+
+        window = helper.clip_waveform_window(clip)
+
+        self.assertAlmostEqual(window["start_ratio"], 0.25)
+        self.assertAlmostEqual(window["end_ratio"], 0.75)
 
     def make_qwidget_finish_drag_helper(self):
         qwidget_clip_module = self.qwidget_clip_module
@@ -2110,7 +2139,7 @@ class TimelineHelperTests(unittest.TestCase):
 
         token = helper.clip_waveform_cache_token(clip)
 
-        self.assertEqual(token, (3, "wf-2", "absolute_peak_v2"))
+        self.assertEqual(token, (3, 0, "wf-2", "absolute_peak_v2", None))
 
     def test_find_missing_transition_details_ignores_tiny_overlap(self):
         clip_data = {"id": "B", "layer": 1, "position": 4.7, "start": 0.0, "end": 6.0}
@@ -3680,7 +3709,12 @@ class TimelineHelperTests(unittest.TestCase):
                 "id": "F1",
                 "path": "/project/example.wav",
                 "has_audio": True,
-                "ui": {"audio_data": [1.0, 1.0, 1.0, 1.0, 1.0]},
+                "ui": {
+                    "audio_data": [1.0, 1.0, 1.0, 1.0, 1.0],
+                    "audio_data_rms": [0.4, 0.4, 0.4, 0.4, 0.4],
+                    "audio_data_format": "absolute_peak_v2",
+                    "audio_data_rate": 20,
+                },
             },
         )
         clip = types.SimpleNamespace(
@@ -3730,9 +3764,11 @@ class TimelineHelperTests(unittest.TestCase):
         self.assertEqual(captured[-1][0], "C1")
         self.assertEqual(captured[-1][2], "wf-time-1")
         self.assertEqual(captured[-1][1]["ui"]["audio_data"], [0.5, 0.5, 0.5, 0.5])
+        self.assertEqual(captured[-1][1]["ui"]["audio_data_rms"], [0.2, 0.2, 0.2, 0.2])
+        self.assertEqual(captured[-1][1]["ui"]["audio_data_rate"], 20)
         self.assertEqual(
             captured[-1][1]["ui"]["audio_data_format"],
-            self.waveform_module.LEGACY_WAVEFORM_FORMAT,
+            self.waveform_module.ABSOLUTE_WAVEFORM_FORMAT,
         )
 
     def test_legacy_waveform_format_is_default_and_keeps_linear_amplitude(self):
@@ -3747,9 +3783,10 @@ class TimelineHelperTests(unittest.TestCase):
             0.1,
         )
 
-    def _render_test_waveform(self, audio_data, width=24, height=24):
+    def _render_test_waveform(self, audio_data, rms_data=None, width=24, height=24):
         theme = types.SimpleNamespace(
             waveform_color=QColor("#2A82DA"),
+            waveform_peak_color=QColor(42, 130, 218, 128),
         )
         widget = types.SimpleNamespace(
             theme=theme,
@@ -3759,10 +3796,13 @@ class TimelineHelperTests(unittest.TestCase):
                 "scale": False,
             },
         )
-        clip = types.SimpleNamespace(data={"ui": {
+        ui_data = {
             "audio_data": list(audio_data),
             "audio_data_format": "absolute_peak_v2",
-        }})
+        }
+        if rms_data is not None:
+            ui_data["audio_data_rms"] = list(rms_data)
+        clip = types.SimpleNamespace(data={"ui": ui_data})
         clip_painter = self.clip_paint_module.ClipPainter.__new__(
             self.clip_paint_module.ClipPainter
         )
@@ -3797,6 +3837,71 @@ class TimelineHelperTests(unittest.TestCase):
         }
 
         self.assertEqual(visible_colors, {QColor("#2A82DA").rgb()})
+
+    def test_waveform_renders_peak_and_rms_as_distinct_envelopes(self):
+        image = self._render_test_waveform([0.8] * 24, [0.2] * 24)
+        alphas = {
+            image.pixelColor(x, y).alpha()
+            for y in range(image.height())
+            for x in range(image.width())
+            if image.pixelColor(x, y).alpha() > 0
+        }
+
+        self.assertIn(255, alphas)
+        self.assertTrue(any(120 < alpha < 255 for alpha in alphas))
+
+    def test_waveform_clip_keeps_full_height_and_uses_transparent_title(self):
+        clip_painter = self.clip_paint_module.ClipPainter.__new__(
+            self.clip_paint_module.ClipPainter
+        )
+        clip_painter.border_width = 0.0
+        clip_painter.menu_margin = 4.0
+        captured = {}
+
+        def draw_waveform(_self, _painter, _clip, inner, _segment):
+            captured["waveform_rect"] = QRectF(inner)
+            return True
+
+        def draw_text(_self, _painter, _clip, inner, _x, _right, **kwargs):
+            captured["title_transparent"] = kwargs.get("transparent_container")
+            return {"rect": QRectF(inner)}
+
+        clip_painter._draw_waveform = types.MethodType(draw_waveform, clip_painter)
+        clip_painter._draw_clip_text = types.MethodType(draw_text, clip_painter)
+        clip_painter._draw_thumbnails = lambda *_args, **_kwargs: False
+
+        image = QImage(120, 60, QImage.Format_ARGB32)
+        painter = QPainter(image)
+        inner = QRectF(2.0, 3.0, 116.0, 54.0)
+        try:
+            clip_painter._draw_clip_contents(
+                painter,
+                types.SimpleNamespace(data={"title": "Audio"}),
+                inner,
+                {"includes_start": True, "segment_width": inner.width()},
+            )
+        finally:
+            painter.end()
+
+        self.assertEqual(captured["waveform_rect"], inner)
+        self.assertTrue(captured["title_transparent"])
+
+    def test_waveform_density_defaults_to_legacy_rate_when_missing(self):
+        waveform = self.waveform_module
+
+        self.assertEqual(waveform.waveform_sample_rate({}), 20)
+        self.assertEqual(waveform.waveform_sample_rate({"audio_data_rate": 200}), 200)
+
+    def test_new_waveform_density_uses_timeline_preference(self):
+        waveform = self.waveform_module
+        app = types.SimpleNamespace(
+            get_settings=lambda: types.SimpleNamespace(
+                get=lambda key: 400 if key == "timeline-waveform-samples-per-second" else None
+            )
+        )
+
+        with patch.object(waveform, "get_app", return_value=app):
+            self.assertEqual(waveform.configured_waveform_sample_rate(), 400)
 
     def test_absolute_waveform_uses_fixed_root_scale_without_clip_normalization(self):
         waveform = self.waveform_module
@@ -3854,6 +3959,8 @@ class TimelineHelperTests(unittest.TestCase):
         )
         completed = [payload for _, payload, _ in emitted if payload["ui"].get("audio_data")]
         self.assertEqual(completed[0]["ui"]["audio_data"], [0.05, 0.1])
+        self.assertEqual(completed[0]["ui"]["audio_data_rms"], [0.02, 0.04])
+        self.assertEqual(completed[0]["ui"]["audio_data_rate"], 200)
         self.assertEqual(
             completed[0]["ui"]["audio_data_format"],
             self.waveform_module.ABSOLUTE_WAVEFORM_FORMAT,

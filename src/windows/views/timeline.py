@@ -156,7 +156,13 @@ from classes.logger import log
 from classes.query import File, Clip, Transition, Track, Effect
 from classes.clipboard import ClipboardManager
 from classes.thumbnail import GetThumbPath
-from classes.waveform import ABSOLUTE_WAVEFORM_FORMAT, WAVEFORM_FORMAT_KEY, get_audio_data
+from classes.waveform import (
+    ABSOLUTE_WAVEFORM_FORMAT,
+    WAVEFORM_FORMAT_KEY,
+    WAVEFORM_RATE_KEY,
+    WAVEFORM_RMS_KEY,
+    get_audio_data,
+)
 from classes.path_utils import absolute_media_path
 from .timeline_backend.enums import (
     MenuFade, MenuRotate, MenuLayout, MenuAlign, MenuAnimate, MenuVolume,
@@ -4609,6 +4615,9 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         ui_data = clip.data.get("ui")
         if isinstance(ui_data, dict) and "audio_data" in ui_data:
             ui_data.pop("audio_data", None)
+            ui_data.pop("audio_data_rms", None)
+            ui_data.pop("audio_data_rate", None)
+            ui_data.pop("audio_data_format", None)
 
         tid = str(uuid.uuid4())
         self.update_clip_data(
@@ -6108,10 +6117,13 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             }
             if has_audio:
                 audio_data = list(preview.get("audio_data") or [])
+                audio_rms = list(preview.get(WAVEFORM_RMS_KEY) or [])
                 preview_clip.data["ui"] = {
                     "audio_data": audio_data,
+                    WAVEFORM_RMS_KEY: audio_rms,
+                    WAVEFORM_RATE_KEY: int(preview.get(WAVEFORM_RATE_KEY) or 20),
                     WAVEFORM_FORMAT_KEY: ABSOLUTE_WAVEFORM_FORMAT,
-                    "waveform_token": str(len(audio_data)),
+                    "waveform_token": "%s:%s" % (len(audio_data), len(audio_rms)),
                 }
                 preview_clip.data["waveform"] = True
             preview_clips.append(preview_clip)

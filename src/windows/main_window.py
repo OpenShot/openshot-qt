@@ -519,6 +519,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 log.debug("File %s has audio data. Deleting it." % os.path.split(file_path)[1])
                 del file.data["ui"]["audio_data"]
                 file.data["ui"].pop("audio_data_format", None)
+                file.data["ui"].pop("audio_data_rms", None)
+                file.data["ui"].pop("audio_data_rate", None)
                 file.save()
 
         clips = Clip.filter()
@@ -527,6 +529,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 log.debug("Clip %s has audio data. Deleting it." % clip.id)
                 del clip.data["ui"]["audio_data"]
                 clip.data["ui"].pop("audio_data_format", None)
+                clip.data["ui"].pop("audio_data_rms", None)
+                clip.data["ui"].pop("audio_data_rate", None)
                 clip.save()
 
         # Clear transaction id

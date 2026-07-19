@@ -33,7 +33,7 @@ from qt_api import QApplication
 from classes.app import get_app
 from classes.clip_utils import is_single_image_media
 from classes.query import Clip, Transition
-from classes.waveform import SAMPLES_PER_SECOND as WAVEFORM_SAMPLES_PER_SECOND
+from classes.waveform import waveform_sample_rate
 from windows.views.retime import retime_clip
 
 
@@ -253,6 +253,9 @@ class ClipInteractionMixin:
             ui_data = clip.data.get("ui")
             if isinstance(ui_data, dict) and "audio_data" in ui_data:
                 ui_data.pop("audio_data", None)
+                ui_data.pop("audio_data_rms", None)
+                ui_data.pop("audio_data_rate", None)
+                ui_data.pop("audio_data_format", None)
             self.update_clip_data(
                 clip.data,
                 only_basic_props=False,
@@ -384,17 +387,8 @@ class ClipInteractionMixin:
                 initial_end = initial_start
             scale_waveform = bool(overrides.get("scale"))
 
-        samples_per_second = getattr(self, "_waveform_samples_per_second", None)
-        if not samples_per_second:
-            try:
-                samples_per_second = int(WAVEFORM_SAMPLES_PER_SECOND)
-            except Exception:
-                samples_per_second = 20
-            if samples_per_second <= 0:
-                samples_per_second = 20
-            self._waveform_samples_per_second = samples_per_second
-
         ui_data = data.get("ui", {}) if isinstance(data, dict) else {}
+        samples_per_second = waveform_sample_rate(ui_data)
         audio_data = ui_data.get("audio_data") if isinstance(ui_data, dict) else None
         sample_count = len(audio_data) if isinstance(audio_data, list) else 0
         media_duration = 0.0
@@ -446,10 +440,13 @@ class ClipInteractionMixin:
         ui_data = data.get("ui", {}) if isinstance(data, dict) else {}
         audio_data = ui_data.get("audio_data") if isinstance(ui_data, dict) else None
         if isinstance(audio_data, list):
+            rms_data = ui_data.get("audio_data_rms")
             return (
                 len(audio_data),
+                len(rms_data) if isinstance(rms_data, list) else 0,
                 ui_data.get("waveform_token"),
                 ui_data.get("audio_data_format"),
+                ui_data.get("audio_data_rate"),
             )
         return 0
 
