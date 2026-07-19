@@ -55,6 +55,7 @@ from classes.keyframe_scaler import KeyframeScaler
 from classes.logger import log
 from classes.thumbnail import RoundFrameToThumbnailGrid
 from classes.time_parts import secondsToTime
+from classes.waveform import waveform_data_format, waveform_display_amplitude
 from classes import info
 from classes.clip_utils import is_single_image_media
 from classes.qt_types import font_metrics_horizontal_advance
@@ -1841,6 +1842,7 @@ class ClipPainter(BasePainter):
             return False
 
         samples = len(audio_data)
+        audio_data_format = waveform_data_format(ui_data)
         display = self.w.clip_waveform_window(clip)
         scale_waveform = display.get("scale", False)
         if scale_waveform:
@@ -1952,8 +1954,12 @@ class ClipPainter(BasePainter):
 
             max_amp = max(values)
             avg_amp = sum(values) / len(values)
-            peak_heights.append(max_amp * amplitude_scale)
-            avg_heights.append(avg_amp * amplitude_scale)
+            peak_heights.append(
+                waveform_display_amplitude(max_amp, audio_data_format) * amplitude_scale
+            )
+            avg_heights.append(
+                waveform_display_amplitude(avg_amp, audio_data_format) * amplitude_scale
+            )
             x_positions.append(inner.left() + column + 0.5)
 
         if x_positions:

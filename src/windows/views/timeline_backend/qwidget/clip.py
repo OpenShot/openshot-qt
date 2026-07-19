@@ -449,6 +449,7 @@ class ClipInteractionMixin:
             return (
                 len(audio_data),
                 ui_data.get("waveform_token"),
+                ui_data.get("audio_data_format"),
             )
         return 0
 

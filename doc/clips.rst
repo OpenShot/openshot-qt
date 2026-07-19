@@ -475,6 +475,49 @@ for clips that have no video track.
 - **Usage Example:** Displaying the audio waveform for precise audio editing and alignment.
 - **Tip:** Use this to visually spot loud or quiet sections in a music clip without opening the audio scopes.
 
+**How timeline waveforms are scaled**
+
+Timeline waveforms are an editing aid: they help you find speech, beats, silence, and transients, and compare the
+approximate levels of different clips. New waveform data preserves the source's **absolute peak level**. OpenShot does
+not enlarge every quiet file until its highest peak fills the clip, so a quiet recording remains visibly quieter than
+a loud recording.
+
+Pure linear amplitude is accurate but makes ordinary speech difficult to see. OpenShot therefore applies a fixed,
+gentle square-root display curve. This expands useful detail while preserving the order of levels: a louder source
+always appears taller than a quieter source. The curve changes only the drawing; it does not alter, normalize, or
+process the recorded audio.
+
+.. table:: Approximate waveform height for new clips
+   :widths: 25 25 50
+
+   =================  ==================  ================================================
+   Peak Level         Display Height      What It Often Looks Like
+   =================  ==================  ================================================
+   ``0 dBFS``         100%                Full-scale peak; check for possible clipping.
+   ``-6 dBFS``        71%                 Strong transient or loud program audio.
+   ``-12 dBFS``       50%                 Healthy speech or other prominent audio.
+   ``-20 dBFS``       32%                 Moderate speech or background program audio.
+   ``-40 dBFS``       10%                 Quiet room tone or microphone noise floor.
+   ``-60 dBFS``       3%                  Very quiet detail near the center line.
+   =================  ==================  ================================================
+
+OpenShot samples a peak envelope at regular time intervals, applies the clip's Volume and Time curves, reduces the
+visible samples to approximately one value per horizontal pixel, and then applies the fixed display curve. A lookup
+table and rendered-waveform cache keep scrolling and repainting inexpensive. Live microphone previews use the same
+scale as the completed recording, so stopping a recording should not suddenly change its apparent level.
+
+Projects saved by older OpenShot versions can contain independently peak-normalized waveform data. These waveforms
+have no format marker, so OpenShot deliberately displays them with the original legacy scaling. They remain familiar
+instead of becoming unexpectedly thin. A project may safely contain both legacy and new waveforms.
+
+To regenerate cached waveform data using the current method, choose :guilabel:`Edit → Clear → Waveform Display Data`,
+then show the waveform again. This affects only cached display data and does not modify the media file or its audio.
+
+.. note::
+
+   Waveform height is based on audio peaks, not perceived loudness. Use the :guilabel:`Audio Levels` scope and your
+   ears when mixing, and watch for clipping near ``0 dBFS``. See :ref:`playback_ref` for audio troubleshooting.
+
 Properties
 """"""""""
 The :guilabel:`Properties` preset opens the properties panel for a clip, allowing quick access for adjustments

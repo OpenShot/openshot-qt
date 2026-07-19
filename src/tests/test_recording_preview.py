@@ -991,6 +991,7 @@ class RecordingPreviewTests(unittest.TestCase):
         self.assertTrue(mic_data["reader"]["has_audio"])
         self.assertFalse(mic_data["reader"]["has_video"])
         self.assertEqual(mic_data["ui"]["audio_data"], [0.1, 0.4])
+        self.assertEqual(mic_data["ui"]["audio_data_format"], "absolute_peak_v2")
 
         screen_data = helper._recording_preview_clips[1].data
         self.assertEqual(screen_data["file_id"], "temp-screen")

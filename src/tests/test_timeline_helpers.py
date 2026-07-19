@@ -33,7 +33,7 @@ import sys
 import types
 import unittest
 from contextlib import ExitStack
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 import openshot
 
@@ -2101,12 +2101,16 @@ class TimelineHelperTests(unittest.TestCase):
     def test_clip_waveform_cache_token_includes_waveform_generation_token(self):
         helper = self.make_qwidget_clip_helper()
         clip = types.SimpleNamespace(
-            data={"ui": {"audio_data": [0.1, 0.2, 0.3], "waveform_token": "wf-2"}}
+            data={"ui": {
+                "audio_data": [0.1, 0.2, 0.3],
+                "audio_data_format": "absolute_peak_v2",
+                "waveform_token": "wf-2",
+            }}
         )
 
         token = helper.clip_waveform_cache_token(clip)
 
-        self.assertEqual(token, (3, "wf-2"))
+        self.assertEqual(token, (3, "wf-2", "absolute_peak_v2"))
 
     def test_find_missing_transition_details_ignores_tiny_overlap(self):
         clip_data = {"id": "B", "layer": 1, "position": 4.7, "start": 0.0, "end": 6.0}
@@ -3726,6 +3730,83 @@ class TimelineHelperTests(unittest.TestCase):
         self.assertEqual(captured[-1][0], "C1")
         self.assertEqual(captured[-1][2], "wf-time-1")
         self.assertEqual(captured[-1][1]["ui"]["audio_data"], [0.5, 0.5, 0.5, 0.5])
+        self.assertEqual(
+            captured[-1][1]["ui"]["audio_data_format"],
+            self.waveform_module.LEGACY_WAVEFORM_FORMAT,
+        )
+
+    def test_legacy_waveform_format_is_default_and_keeps_linear_amplitude(self):
+        waveform = self.waveform_module
+
+        self.assertEqual(
+            waveform.waveform_data_format({"audio_data": [0.1, 1.0]}),
+            waveform.LEGACY_WAVEFORM_FORMAT,
+        )
+        self.assertEqual(
+            waveform.waveform_display_amplitude(0.1, waveform.LEGACY_WAVEFORM_FORMAT),
+            0.1,
+        )
+
+    def test_absolute_waveform_uses_fixed_root_scale_without_clip_normalization(self):
+        waveform = self.waveform_module
+        def display(value):
+            return waveform.waveform_display_amplitude(
+                value, waveform.ABSOLUTE_WAVEFORM_FORMAT
+            )
+
+        self.assertEqual(display(0.0), 0.0)
+        self.assertAlmostEqual(display(1.0), 1.0)
+        self.assertAlmostEqual(display(0.1), math.sqrt(0.1), places=2)
+        self.assertLess(display(0.01), display(0.1))
+        self.assertEqual(display(2.0), 1.0)
+
+    def test_new_waveform_extraction_is_absolute_and_tagged(self):
+        emitted = []
+        extracted = types.SimpleNamespace(
+            vectors=lambda: ([0.05, 0.1], [0.02, 0.04]),
+            clear=lambda: None,
+        )
+        waveformer = types.SimpleNamespace(ExtractSamples=MagicMock(return_value=extracted))
+        reader = types.SimpleNamespace(info=types.SimpleNamespace(has_audio=True))
+        source_clip = types.SimpleNamespace(Reader=lambda: reader)
+        file_obj = types.SimpleNamespace(
+            id="F1",
+            data={
+                "id": "F1",
+                "path": "/project/new.wav",
+                "has_audio": True,
+                "ui": {},
+            },
+        )
+        app = types.SimpleNamespace(
+            window=types.SimpleNamespace(
+                WaitCursorSignal=types.SimpleNamespace(emit=lambda *_args: None),
+                timeline=types.SimpleNamespace(
+                    fileAudioDataReady=types.SimpleNamespace(
+                        emit=lambda file_id, ui_data, tid: emitted.append(
+                            (file_id, ui_data, tid)
+                        )
+                    )
+                ),
+            )
+        )
+
+        with ExitStack() as stack:
+            stack.enter_context(patch.object(self.waveform_module.File, "get", return_value=file_obj))
+            stack.enter_context(patch.object(self.waveform_module, "get_app", return_value=app))
+            stack.enter_context(patch.object(self.waveform_module.openshot, "Clip", return_value=source_clip))
+            stack.enter_context(patch.object(self.waveform_module.openshot, "AudioWaveformer", return_value=waveformer))
+            self.waveform_module.get_waveform_thread("F1", [], "wf-new-1")
+
+        waveformer.ExtractSamples.assert_called_once_with(
+            -1, self.waveform_module.SAMPLES_PER_SECOND, False
+        )
+        completed = [payload for _, payload, _ in emitted if payload["ui"].get("audio_data")]
+        self.assertEqual(completed[0]["ui"]["audio_data"], [0.05, 0.1])
+        self.assertEqual(
+            completed[0]["ui"]["audio_data_format"],
+            self.waveform_module.ABSOLUTE_WAVEFORM_FORMAT,
+        )
 
     def test_clip_audio_data_ready_preserves_existing_waveform_when_pending_samples_are_none(self):
         helper = types.SimpleNamespace(
@@ -3735,7 +3816,11 @@ class TimelineHelperTests(unittest.TestCase):
         )
         clip = types.SimpleNamespace(
             id="C1",
-            data={"ui": {"audio_data": [0.2, 0.4], "waveform_token": "wf-old"}},
+            data={"ui": {
+                "audio_data": [0.2, 0.4],
+                "audio_data_format": "normalized_peak_v1",
+                "waveform_token": "wf-old",
+            }},
             save=lambda: None,
         )
         app = types.SimpleNamespace(
@@ -3757,6 +3842,7 @@ class TimelineHelperTests(unittest.TestCase):
             )
 
         self.assertEqual(clip.data["ui"]["audio_data"], [0.2, 0.4])
+        self.assertEqual(clip.data["ui"]["audio_data_format"], "normalized_peak_v1")
         self.assertEqual(clip.data["ui"]["waveform_token"], "wf-old")
 
     def test_draw_thumbnails_entire_style_uses_expected_linear_frames(self):

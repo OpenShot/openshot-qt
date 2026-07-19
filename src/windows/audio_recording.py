@@ -832,18 +832,12 @@ class AudioRecordingDockContent(QWidget):
         self.screen_status_label.setWordWrap(True)
         self.screen_section.body_layout.addWidget(self.screen_status_label)
 
-        system_audio_row = QHBoxLayout()
-        system_audio_row.setContentsMargins(0, 0, 0, 0)
         self.system_audio_label = QLabel(_("System Audio:"), self.screen_section)
         self.system_audio_combo = QComboBox(self.screen_section)
         self.system_audio_combo.addItem(_("On"), True)
         self.system_audio_combo.addItem(_("Off"), False)
-        self.system_audio_combo.setCurrentIndex(self.system_audio_combo.findData(False))
+        self.system_audio_combo.setCurrentIndex(self.system_audio_combo.findData(True))
         self.system_audio_combo.setToolTip(_("Record sound playing through the system output in the screen recording."))
-        system_audio_row.addWidget(self.system_audio_label)
-        system_audio_row.addStretch()
-        system_audio_row.addWidget(self.system_audio_combo)
-        self.screen_section.body_layout.addLayout(system_audio_row)
 
         self.screen_display_edit = QComboBox(self.screen_section)
         self.screen_display_edit.setEditable(False)
@@ -874,7 +868,12 @@ class AudioRecordingDockContent(QWidget):
         for fps in (15, 24, 30, 60):
             self.video_fps_combo.addItem(str(fps), fps)
         self.video_fps_combo.setCurrentIndex(self.video_fps_combo.findData(30))
-        for combo in (self.capture_cursor_combo, self.hide_openshot_combo, self.video_fps_combo):
+        for combo in (
+            self.system_audio_combo,
+            self.capture_cursor_combo,
+            self.hide_openshot_combo,
+            self.video_fps_combo,
+        ):
             combo.setMinimumWidth(0)
             combo.setMaximumWidth(120)
             combo.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Fixed)
@@ -910,10 +909,12 @@ class AudioRecordingDockContent(QWidget):
         self.screen_section.advanced_layout.addWidget(self.screen_size_widget, 2, 1)
         self.screen_section.advanced_layout.addWidget(self.screen_fps_label, 3, 0)
         self.screen_section.advanced_layout.addWidget(self.video_fps_combo, 3, 1)
-        self.screen_section.advanced_layout.addWidget(self.screen_cursor_label, 4, 0)
-        self.screen_section.advanced_layout.addWidget(self.capture_cursor_combo, 4, 1)
-        self.screen_section.advanced_layout.addWidget(self.screen_hide_label, 5, 0)
-        self.screen_section.advanced_layout.addWidget(self.hide_openshot_combo, 5, 1)
+        self.screen_section.advanced_layout.addWidget(self.system_audio_label, 4, 0)
+        self.screen_section.advanced_layout.addWidget(self.system_audio_combo, 4, 1)
+        self.screen_section.advanced_layout.addWidget(self.screen_cursor_label, 5, 0)
+        self.screen_section.advanced_layout.addWidget(self.capture_cursor_combo, 5, 1)
+        self.screen_section.advanced_layout.addWidget(self.screen_hide_label, 6, 0)
+        self.screen_section.advanced_layout.addWidget(self.hide_openshot_combo, 6, 1)
         layout.addWidget(self.screen_section)
 
         self.camera_section = RecordingSection(_("Webcam"), "◉", self)

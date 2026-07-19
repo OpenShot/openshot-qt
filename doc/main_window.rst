@@ -326,7 +326,7 @@ clip. Those corner camera clips use normal clip properties after they are added 
 :guilabel:`Gravity` chooses the corner, :guilabel:`Scale X` and :guilabel:`Scale Y` set the corner size,
 :guilabel:`Margin` creates the inset layout area that keeps the camera away from the screen edge, and
 :guilabel:`Corner Radius` rounds the camera clip without adding a separate Mask effect. See :ref:`clip_properties_ref`
-for details.
+for details. See :ref:`recording_ref` for the complete recording workflow and all source options.
 
 .. _my_views_ref:
 
@@ -395,7 +395,7 @@ under :guilabel:`View->Scopes`.
    * - Properties
      - View and edit the properties of a selected effect, transition, or clip. Adjust settings such as duration, size, position, etc... See :ref:`clip_properties_ref`.
    * - Recording
-     - Record microphone audio, screen video, webcam video, or combined screen-and-camera recordings.
+     - Record microphone audio, screen video, webcam video, or combined recordings. See :ref:`recording_ref`.
    * - Transitions
      - Browse and apply transitions between video clips. Choose from a variety of transition wipes to create smooth changes between scenes. See :ref:`transitions_ref`.
    * - Video Preview

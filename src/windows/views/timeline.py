@@ -156,7 +156,7 @@ from classes.logger import log
 from classes.query import File, Clip, Transition, Track, Effect
 from classes.clipboard import ClipboardManager
 from classes.thumbnail import GetThumbPath
-from classes.waveform import get_audio_data
+from classes.waveform import ABSOLUTE_WAVEFORM_FORMAT, WAVEFORM_FORMAT_KEY, get_audio_data
 from classes.path_utils import absolute_media_path
 from .timeline_backend.enums import (
     MenuFade, MenuRotate, MenuLayout, MenuAlign, MenuAnimate, MenuVolume,
@@ -6110,6 +6110,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 audio_data = list(preview.get("audio_data") or [])
                 preview_clip.data["ui"] = {
                     "audio_data": audio_data,
+                    WAVEFORM_FORMAT_KEY: ABSOLUTE_WAVEFORM_FORMAT,
                     "waveform_token": str(len(audio_data)),
                 }
                 preview_clip.data["waveform"] = True
