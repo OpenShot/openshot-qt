@@ -1906,20 +1906,25 @@ class ClipPainter(BasePainter):
 
         center_y = inner.center().y()
         amplitude_scale = (height * 0.5) * 0.95
-        peak_color = self.w.theme.waveform_peak_color
         fill_color = self.w.theme.waveform_color
-        if not peak_color.isValid():
-            peak_color = QColor(fill_color)
-            peak_color.setAlpha(128)
         if not fill_color.isValid():
             fill_color = QColor("#2a82da")
 
         painter.save()
-        painter.setPen(Qt.NoPen)
         painter.setClipRect(inner, Qt.IntersectClip)
 
+        # Keep digital silence and very quiet passages identifiable as audio.
+        # Draw this first so the waveform fills naturally cover it where sound
+        # is present, while zero-height samples retain a subtle center line.
+        center_color = QColor(fill_color)
+        center_color.setAlpha(120)
+        center_pen = QPen(center_color, 1.0)
+        center_pen.setCosmetic(True)
+        painter.setPen(center_pen)
+        painter.drawLine(QPointF(inner.left(), center_y), QPointF(inner.right(), center_y))
+        painter.setPen(Qt.NoPen)
+
         peak_heights = []
-        avg_heights = []
         x_positions = []
 
         for column in range(visible_left, visible_right):
@@ -1948,17 +1953,12 @@ class ClipPainter(BasePainter):
 
             if not values:
                 peak_heights.append(0.0)
-                avg_heights.append(0.0)
                 x_positions.append(inner.left() + column + 0.5)
                 continue
 
             max_amp = max(values)
-            avg_amp = sum(values) / len(values)
             peak_heights.append(
                 waveform_display_amplitude(max_amp, audio_data_format) * amplitude_scale
-            )
-            avg_heights.append(
-                waveform_display_amplitude(avg_amp, audio_data_format) * amplitude_scale
             )
             x_positions.append(inner.left() + column + 0.5)
 
@@ -1972,19 +1972,8 @@ class ClipPainter(BasePainter):
                 peak_path.lineTo(x_pos, center_y + height_px)
             peak_path.closeSubpath()
 
-            fill_path = QPainterPath()
-            fill_path.moveTo(x_positions[0], center_y)
-            for x_pos, height_px in zip(x_positions, avg_heights):
-                fill_path.lineTo(x_pos, center_y - height_px)
-            fill_path.lineTo(x_positions[-1], center_y)
-            for x_pos, height_px in zip(reversed(x_positions), reversed(avg_heights)):
-                fill_path.lineTo(x_pos, center_y + height_px)
-            fill_path.closeSubpath()
-
             if any(height > 0.0 for height in peak_heights):
-                painter.fillPath(peak_path, peak_color)
-            if any(height > 0.0 for height in avg_heights):
-                painter.fillPath(fill_path, fill_color)
+                painter.fillPath(peak_path, fill_color)
 
         painter.restore()
         return True

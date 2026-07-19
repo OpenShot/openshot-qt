@@ -3747,6 +3747,57 @@ class TimelineHelperTests(unittest.TestCase):
             0.1,
         )
 
+    def _render_test_waveform(self, audio_data, width=24, height=24):
+        theme = types.SimpleNamespace(
+            waveform_color=QColor("#2A82DA"),
+        )
+        widget = types.SimpleNamespace(
+            theme=theme,
+            clip_waveform_window=lambda _clip: {
+                "start_ratio": 0.0,
+                "end_ratio": 1.0,
+                "scale": False,
+            },
+        )
+        clip = types.SimpleNamespace(data={"ui": {
+            "audio_data": list(audio_data),
+            "audio_data_format": "absolute_peak_v2",
+        }})
+        clip_painter = self.clip_paint_module.ClipPainter.__new__(
+            self.clip_paint_module.ClipPainter
+        )
+        clip_painter.w = widget
+        image = QImage(width, height, QImage.Format_ARGB32)
+        image.fill(Qt.transparent)
+        painter = QPainter(image)
+        try:
+            self.assertTrue(
+                clip_painter._draw_waveform(
+                    painter, clip, QRectF(0.0, 0.0, float(width), float(height))
+                )
+            )
+        finally:
+            painter.end()
+        return image
+
+    def test_waveform_silence_draws_a_visible_center_line(self):
+        image = self._render_test_waveform([0.0] * 24)
+        center_y = image.height() // 2
+
+        self.assertGreater(image.pixelColor(image.width() // 2, center_y).alpha(), 0)
+        self.assertEqual(image.pixelColor(image.width() // 2, center_y - 3).alpha(), 0)
+
+    def test_waveform_uses_solid_fill_without_artificial_peak_border(self):
+        image = self._render_test_waveform([0.5] * 24)
+        visible_colors = {
+            image.pixelColor(x, y).rgb()
+            for y in range(image.height())
+            for x in range(image.width())
+            if image.pixelColor(x, y).alpha() == 255
+        }
+
+        self.assertEqual(visible_colors, {QColor("#2A82DA").rgb()})
+
     def test_absolute_waveform_uses_fixed_root_scale_without_clip_normalization(self):
         waveform = self.waveform_module
         def display(value):
