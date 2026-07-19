@@ -36,7 +36,7 @@ import unittest
 import zipfile
 from contextlib import ExitStack
 from datetime import datetime, timedelta
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 import openshot
 
@@ -193,6 +193,34 @@ class MainWindowTests(unittest.TestCase):
     def tearDownClass(cls):
         if getattr(cls, "_owns_app", False) and cls.app:
             cls.app.quit()
+
+    def test_cosmic_play_toggle_uses_hidpi_svg_renderer_for_both_states(self):
+        from themes.cosmic.theme import CosmicTheme
+
+        button = types.SimpleNamespace(setIcon=MagicMock())
+        icon_size = object()
+        action_play = object()
+        toolbar = types.SimpleNamespace(
+            widgetForAction=lambda action: button if action is action_play else None,
+            iconSize=lambda: icon_size,
+        )
+        theme = CosmicTheme.__new__(CosmicTheme)
+        theme.app = types.SimpleNamespace(
+            window=types.SimpleNamespace(videoToolbar=toolbar, actionPlay=action_play)
+        )
+        theme.create_svg_icon = MagicMock(side_effect=["pause-icon", "play-icon"])
+
+        theme.togglePlayIcon(True)
+        pause_path, pause_size = theme.create_svg_icon.call_args.args
+        self.assertEqual(os.path.basename(pause_path), "tool-media-pause.svg")
+        self.assertIs(pause_size, icon_size)
+        button.setIcon.assert_called_with("pause-icon")
+
+        theme.togglePlayIcon(False)
+        play_path, play_size = theme.create_svg_icon.call_args.args
+        self.assertEqual(os.path.basename(play_path), "tool-media-play.svg")
+        self.assertIs(play_size, icon_size)
+        button.setIcon.assert_called_with("play-icon")
 
     def setUp(self):
         ensure_app_state(self.app)
