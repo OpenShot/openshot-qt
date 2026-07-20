@@ -205,6 +205,11 @@ If the control is disabled, the active platform or libopenshot build does not pr
 forces the option Off rather than producing a misleading silent audio track. Operating-system privacy settings and
 audio-routing configuration can also affect capture.
 
+.. note::
+
+   System Audio recording is not currently available on macOS. Screen video, microphone, and webcam recording remain
+   available, but the :guilabel:`System Audio` option is disabled and forced to :guilabel:`Off`.
+
 .. warning::
 
    Avoid playing captured system audio through speakers while also recording a microphone unless that sound is
@@ -286,7 +291,8 @@ adapt to the available backend.
 - **Linux/Wayland:** The desktop sharing portal chooses the capture source after recording starts.
 - **Windows:** Desktop capture uses the available Windows screen backend; camera devices use Windows capture services.
 - **macOS:** Screen capture uses the supported macOS backend, with window and region choices represented as cropped
-  screen bounds when required.
+  screen bounds when required. System Audio recording is not currently supported; microphone recording remains
+  available as a separate audio source.
 
 The first recording may trigger Screen Recording, Microphone, Camera, or desktop-sharing permission prompts. Approve
 the requested source, then restart OpenShot if the operating system requires it. A disabled source card or option is
