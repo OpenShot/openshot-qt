@@ -1571,12 +1571,16 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             self.audio_recording_content.deactivate_if_hidden()
 
     def _anchor_and_show_properties_dock(self):
-        """Ensure Properties is docked with Project Files before showing it."""
+        """Reattach Properties when needed without replacing a view's layout."""
         files_dock = getattr(self, "dockFiles", None)
         props_dock = getattr(self, "dockProperties", None)
         if not props_dock:
             return
 
+        needs_anchor = (
+            props_dock.isFloating()
+            or self.dockWidgetArea(props_dock) == Qt.NoDockWidgetArea
+        )
         if props_dock.isFloating():
             props_dock.setFloating(False)
         if self.dockWidgetArea(props_dock) == Qt.NoDockWidgetArea:
@@ -1587,7 +1591,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             )
             self.addDockWidget(target_area, props_dock)
 
-        if files_dock and self.dockWidgetArea(files_dock) != Qt.NoDockWidgetArea:
+        if (needs_anchor
+                and files_dock
+                and self.dockWidgetArea(files_dock) != Qt.NoDockWidgetArea):
             if props_dock not in self.tabifiedDockWidgets(files_dock):
                 self.tabifyDockWidget(files_dock, props_dock)
             self.setTabPosition(self.dockWidgetArea(files_dock), QTabWidget.North)
@@ -3163,6 +3169,24 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self._active_custom_view_id_value = view_id or ""
         s = get_app().get_settings()
         s.set("active_custom_view", self._active_custom_view_id_value)
+        if self._active_custom_view_id_value:
+            s.set("active_builtin_view", "")
+        if hasattr(s, "save"):
+            s.save()
+
+    def _active_builtin_view(self):
+        """Return the built-in view whose critical layout should survive restart."""
+        value = get_app().get_settings().get("active_builtin_view") or ""
+        return value if value in {"simple", "color", "recording"} else ""
+
+    def _set_active_builtin_view(self, view_id):
+        """Persist the selected built-in view independently from custom views."""
+        value = view_id if view_id in {"simple", "color", "recording"} else ""
+        s = get_app().get_settings()
+        s.set("active_builtin_view", value)
+        if value:
+            self._active_custom_view_id_value = ""
+            s.set("active_custom_view", "")
         if hasattr(s, "save"):
             s.save()
 
@@ -3370,6 +3394,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     def actionSimple_View_trigger(self):
         """ Switch to the default / simple view  """
         self._set_active_custom_view_id("")
+        self._set_active_builtin_view("simple")
         self.removeDocks()
 
         # Add Docks
@@ -3403,6 +3428,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     def actionColor_Grade_View_trigger(self):
         """Switch to a color grading focused view."""
         self._set_active_custom_view_id("")
+        self._set_active_builtin_view("color")
         self.removeDocks()
 
         color_grade_dock = getattr(getattr(self, "propertyTableView", None), "color_grade_wheels_dock", None)
@@ -3460,6 +3486,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     def actionAudio_Recording_View_trigger(self):
         """Switch to a recording focused view."""
         self._set_active_custom_view_id("")
+        self._set_active_builtin_view("recording")
         self._ensure_audio_recording_dock_content()
         self.removeDocks()
 
@@ -4351,6 +4378,30 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         hidden_names = get_app().get_settings().get('hidden_docks') or []
         self._restore_hidden_docks(hidden_names)
         self._apply_saved_dock_sizes()
+        if self._active_builtin_view() == "recording":
+            QTimer.singleShot(250, self._repair_recording_view_split)
+
+    def _repair_recording_view_split(self):
+        """Restore Recording View's adjustable Video/Timeline vertical split."""
+        if self._active_builtin_view() != "recording":
+            return
+        video_dock = getattr(self, "dockVideo", None)
+        timeline_dock = getattr(self, "dockTimeline", None)
+        if not video_dock or not timeline_dock:
+            return
+        if video_dock.isFloating():
+            video_dock.setFloating(False)
+        if timeline_dock.isFloating():
+            timeline_dock.setFloating(False)
+        if self.dockWidgetArea(video_dock) == Qt.NoDockWidgetArea:
+            self.addDockWidget(Qt.TopDockWidgetArea, video_dock)
+        if self.dockWidgetArea(timeline_dock) == Qt.NoDockWidgetArea:
+            self.addDockWidget(Qt.BottomDockWidgetArea, timeline_dock)
+        self.splitDockWidget(video_dock, timeline_dock, Qt.Vertical)
+        video_dock.show()
+        timeline_dock.show()
+        self._apply_saved_timeline_height()
+        self.style_dock_widgets()
 
     @staticmethod
     def _positive_int(value):

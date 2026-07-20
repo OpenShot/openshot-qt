@@ -205,6 +205,13 @@
     "setting": "active_custom_view"
   },
   {
+    "value": "simple",
+    "title": "",
+    "type": "hidden",
+    "category": "Qt",
+    "setting": "active_builtin_view"
+  },
+  {
     "value": "thumbnail",
     "title": "",
     "type": "hidden",

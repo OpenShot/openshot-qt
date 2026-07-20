@@ -337,9 +337,10 @@ class MainWindowTests(unittest.TestCase):
         with open(os.path.join(PATH, "settings", "_default.settings"), encoding="utf-8") as fh:
             settings = json.load(fh)
 
-        names = {item.get("setting") for item in settings}
+        values = {item.get("setting"): item.get("value") for item in settings}
 
-        self.assertIn("video_dock_width", names)
+        self.assertIn("video_dock_width", values)
+        self.assertEqual(values["active_builtin_view"], "simple")
 
     def test_setting_store_invalid_key_warns_without_crashing(self):
         store = SettingStore()
@@ -398,6 +399,82 @@ class MainWindowTests(unittest.TestCase):
         self.assertTrue(callable(fake_window._active_custom_view_id))
         self.assertEqual(fake_window._active_custom_view_id(), "view-1")
         self.assertEqual(self.app.settings.values["active_custom_view"], "view-1")
+        self.assertEqual(self.app.settings.values["active_builtin_view"], "")
+
+    def test_builtin_and_custom_view_identity_are_mutually_exclusive(self):
+        fake_window = types.SimpleNamespace(_active_custom_view_id_value="view-1")
+
+        self.main_window_module.MainWindow._set_active_builtin_view(fake_window, "recording")
+
+        self.assertEqual(self.app.settings.values["active_builtin_view"], "recording")
+        self.assertEqual(self.app.settings.values["active_custom_view"], "")
+        self.assertEqual(fake_window._active_custom_view_id_value, "")
+
+        self.main_window_module.MainWindow._set_active_custom_view_id(fake_window, "custom-1")
+
+        self.assertEqual(self.app.settings.values["active_builtin_view"], "")
+        self.assertEqual(self.app.settings.values["active_custom_view"], "custom-1")
+
+    def test_restore_schedules_split_repair_only_for_recording_view(self):
+        scheduled = []
+
+        def make_window(view_name):
+            return types.SimpleNamespace(
+                saved_state=None,
+                _active_builtin_view=lambda: view_name,
+                _restore_hidden_docks=lambda _names: None,
+                _apply_saved_dock_sizes=lambda: None,
+                _repair_recording_view_split=lambda: None,
+            )
+
+        with patch.object(self.main_window_module.QTimer, "singleShot", lambda delay, callback: scheduled.append((delay, callback))):
+            self.main_window_module.MainWindow._restore_state_and_dock_sizes(make_window("simple"))
+            self.main_window_module.MainWindow._restore_state_and_dock_sizes(make_window("color"))
+            self.main_window_module.MainWindow._restore_state_and_dock_sizes(make_window("recording"))
+
+        self.assertEqual(len(scheduled), 1)
+        self.assertEqual(scheduled[0][0], 250)
+
+    def test_recording_view_repair_restores_adjustable_video_timeline_split(self):
+        calls = []
+
+        class RepairDock:
+            def __init__(self, name, floating=False):
+                self.name = name
+                self.floating = floating
+                self.shown = False
+
+            def isFloating(self):
+                return self.floating
+
+            def setFloating(self, floating):
+                self.floating = floating
+                calls.append(("floating", self.name, floating))
+
+            def show(self):
+                self.shown = True
+
+        video = RepairDock("video", floating=True)
+        timeline = RepairDock("timeline")
+        areas = {video: Qt.NoDockWidgetArea, timeline: Qt.NoDockWidgetArea}
+        fake_window = types.SimpleNamespace(
+            dockVideo=video,
+            dockTimeline=timeline,
+            _active_builtin_view=lambda: "recording",
+            dockWidgetArea=lambda dock: areas[dock],
+            addDockWidget=lambda area, dock: (areas.__setitem__(dock, area), calls.append(("add", dock.name, area))),
+            splitDockWidget=lambda first, second, orientation: calls.append(("split", first.name, second.name, orientation)),
+            _apply_saved_timeline_height=lambda: calls.append("height"),
+            style_dock_widgets=lambda: calls.append("style"),
+        )
+
+        self.main_window_module.MainWindow._repair_recording_view_split(fake_window)
+
+        self.assertIn(("split", "video", "timeline", Qt.Vertical), calls)
+        self.assertTrue(video.shown)
+        self.assertTrue(timeline.shown)
+        self.assertIn("height", calls)
+        self.assertIn("style", calls)
 
     def test_scheduled_dock_style_update_waits_for_mouse_release(self):
         starts = []
@@ -991,6 +1068,24 @@ class MainWindowTests(unittest.TestCase):
         self.assertFalse(fake_window.dockProperties.isFloating())
         self.assertFalse(fake_window.dockProperties.isHidden())
 
+    def test_properties_dock_preserves_existing_simple_view_position(self):
+        fake_window = QMainWindow()
+        fake_window.dockFiles = QDockWidget("Project Files", fake_window)
+        fake_window.dockFiles.setObjectName("dockFiles")
+        fake_window.dockProperties = QDockWidget("Properties", fake_window)
+        fake_window.dockProperties.setObjectName("dockProperties")
+        fake_window.style_dock_widgets = lambda: None
+
+        fake_window.addDockWidget(Qt.TopDockWidgetArea, fake_window.dockFiles)
+        fake_window.addDockWidget(Qt.LeftDockWidgetArea, fake_window.dockProperties)
+        fake_window.dockProperties.hide()
+
+        self.main_window_module.MainWindow._anchor_and_show_properties_dock(fake_window)
+
+        self.assertEqual(fake_window.dockWidgetArea(fake_window.dockProperties), Qt.LeftDockWidgetArea)
+        self.assertNotIn(fake_window.dockProperties, fake_window.tabifiedDockWidgets(fake_window.dockFiles))
+        self.assertFalse(fake_window.dockProperties.isHidden())
+
     def test_recording_view_keeps_properties_hidden_but_tabified_with_files(self):
         fake_window = QMainWindow()
         fake_window.dockFiles = QDockWidget("Project Files", fake_window)
@@ -1004,6 +1099,7 @@ class MainWindowTests(unittest.TestCase):
         fake_window.dockAudioRecording = QDockWidget("Recording", fake_window)
         fake_window.dockAudioRecording.setObjectName("dockAudioRecording")
         fake_window._set_active_custom_view_id = lambda _view_id: None
+        fake_window._set_active_builtin_view = lambda _view_id: None
         fake_window._ensure_audio_recording_dock_content = lambda: None
         fake_window.getDocks = lambda: fake_window.findChildren(QDockWidget)
         fake_window.removeDocks = lambda: self.main_window_module.MainWindow.removeDocks(fake_window)
