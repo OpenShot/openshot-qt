@@ -14,7 +14,7 @@ import ctypes.util
 import os
 import re
 import shutil
-import subprocess
+import subprocess  # nosec B404 -- fixed argv only; shell execution is never used
 import sys
 
 from qt_api import (
@@ -274,11 +274,10 @@ class RegionSelectorOverlay(QDialog):
             screen_geometry = screen.geometry() if screen else None
         if screen_geometry:
             self.setGeometry(screen_geometry)
-        exec_method = getattr(self, "exec", None) or getattr(self, "exec_", None)
         accepted = getattr(QDialog, "Accepted", None)
         if accepted is None and hasattr(QDialog, "DialogCode"):
             accepted = QDialog.DialogCode.Accepted
-        if exec_method() == accepted and self.selection.isValid():
+        if self.exec_() == accepted and self.selection.isValid():
             rect = self.selection.normalized()
             if self.x11_geometry:
                 return self._to_x11_geometry(rect, screen_geometry)
@@ -378,7 +377,7 @@ def pick_screen_region(parent=None):
 
 def x11_root_size():
     try:
-        result = subprocess.run(
+        result = subprocess.run(  # nosec B603 -- fixed argv list, no shell
             ["xwininfo", "-root"],
             check=True,
             text=True,
@@ -781,11 +780,10 @@ class MacWindowSelectorOverlay(QDialog):
         self.setGeometry(self.screen_geometry)
 
     def select(self):
-        exec_method = getattr(self, "exec", None) or getattr(self, "exec_", None)
         accepted = getattr(QDialog, "Accepted", None)
         if accepted is None and hasattr(QDialog, "DialogCode"):
             accepted = QDialog.DialogCode.Accepted
-        return self.selected_result if exec_method() == accepted else None
+        return self.selected_result if self.exec_() == accepted else None
 
     def _event_global_pos(self, event):
         if hasattr(event, "globalPosition"):
@@ -1069,11 +1067,10 @@ class WindowsWindowSelectorOverlay(QDialog):
         self.setGeometry(self.screen_geometry)
 
     def select(self):
-        exec_method = getattr(self, "exec", None) or getattr(self, "exec_", None)
         accepted = getattr(QDialog, "Accepted", None)
         if accepted is None and hasattr(QDialog, "DialogCode"):
             accepted = QDialog.DialogCode.Accepted
-        return self.selected_result if exec_method() == accepted else None
+        return self.selected_result if self.exec_() == accepted else None
 
     def _physical_to_overlay_point(self, x, y):
         screen = self.screen_geometry
@@ -1148,7 +1145,7 @@ def pick_x11_window_with_xdotool():
     if not shutil.which("xdotool"):
         return None
     try:
-        selected = subprocess.run(
+        selected = subprocess.run(  # nosec B603 -- fixed argv list, no shell
             ["xdotool", "selectwindow"],
             check=True,
             text=True,
@@ -1156,9 +1153,9 @@ def pick_x11_window_with_xdotool():
             timeout=30,
         )
         window_id = selected.stdout.strip()
-        if not window_id:
+        if not re.fullmatch(r"(?:0[xX][0-9a-fA-F]+|[0-9]+)", window_id):
             return None
-        geometry = subprocess.run(
+        geometry = subprocess.run(  # nosec B603 -- validated ID, argv list, no shell
             ["xdotool", "getwindowgeometry", "--shell", window_id],
             check=True,
             text=True,
@@ -1190,7 +1187,7 @@ def pick_x11_window_with_xdotool():
 
 def pick_x11_window_with_xwininfo():
     try:
-        result = subprocess.run(
+        result = subprocess.run(  # nosec B603 -- fixed argv list, no shell
             ["xwininfo"],
             check=True,
             text=True,

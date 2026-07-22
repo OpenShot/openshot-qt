@@ -31,7 +31,7 @@ import json
 import math
 import re
 import shutil
-import subprocess
+import subprocess  # nosec B404 -- fixed argv only; shell execution is never used
 import sys
 import threading
 import time
@@ -591,9 +591,8 @@ class LiveVideoRecordingJob(QObject):
         frame_to_write = self._copy_frame(frame)
         if hasattr(frame_to_write, "SetFrameNumber"):
             frame_to_write.SetFrameNumber(frame_number)
-        write_at = getattr(self._writer, "WriteFrameAt", None)
-        if callable(write_at):
-            write_at(frame_to_write, int(frame_number))
+        if callable(getattr(self._writer, "WriteFrameAt", None)):
+            self._writer.WriteFrameAt(frame_to_write, int(frame_number))
         else:
             self._writer.WriteFrame(frame_to_write)
 
@@ -689,7 +688,7 @@ class WebcamPreviewJob(QObject):
                 try:
                     self._reader.Close()
                 except Exception:
-                    pass
+                    log.debug("Unable to close webcam preview reader", exc_info=True)
             self._reader = None
 
 class AudioRecordingDockContent(QWidget):
@@ -1637,7 +1636,7 @@ class AudioRecordingDockContent(QWidget):
         if camera_capture_backend_is_windows() or camera_capture_backend_is_mac():
             return fallback
         try:
-            result = subprocess.run(
+            result = subprocess.run(  # nosec B603 -- argv list, no shell
                 ["v4l2-ctl", "--list-formats-ext", "-d", device],
                 check=True,
                 text=True,

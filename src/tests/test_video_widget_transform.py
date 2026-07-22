@@ -162,8 +162,9 @@ class VideoWidgetTransformTests(unittest.TestCase):
                 self.assertGreaterEqual(right.x(), self.viewport.width())
 
     def test_clip_margin_offsets_edge_gravity_handle_rect(self):
+        project_values = {"width": 160, "height": 90}
         app = types.SimpleNamespace(project=types.SimpleNamespace(
-            get=lambda key: {"width": 160, "height": 90}.get(key)))
+            get=project_values.get))
         with patch("windows.video_widget.get_app", return_value=app):
             rect = VideoWidget._clip_display_rect(
                 self.widget,

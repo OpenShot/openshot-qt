@@ -59,8 +59,10 @@ class RecordingPreviewTests(unittest.TestCase):
         app, cls._owns_app = get_or_create_app(DummyApp)
         cls.app = ensure_app_state(app)
         import windows.audio_recording as audio_recording_module
+        import windows.recording_widgets as recording_widgets_module
         import windows.views.timeline as timeline_module
         cls.audio_recording_module = audio_recording_module
+        cls.recording_widgets_module = recording_widgets_module
         cls.timeline_module = timeline_module
 
     @classmethod
@@ -78,6 +80,22 @@ class RecordingPreviewTests(unittest.TestCase):
         self.assertEqual(
             helper.recording_preview_file_id("session-1", ""),
             "recording-preview-session-1-source",
+        )
+
+    def test_xdotool_window_picker_rejects_invalid_window_id(self):
+        helper = self.recording_widgets_module
+        selected = types.SimpleNamespace(stdout="123;touch /tmp/not-safe\n")
+
+        with patch.object(helper.shutil, "which", return_value="/usr/bin/xdotool"), \
+                patch.object(helper.subprocess, "run", return_value=selected) as run:
+            self.assertIsNone(helper.pick_x11_window_with_xdotool())
+
+        run.assert_called_once_with(
+            ["xdotool", "selectwindow"],
+            check=True,
+            text=True,
+            capture_output=True,
+            timeout=30,
         )
 
     def test_screen_capture_backend_uses_libopenshot_default_backend(self):
