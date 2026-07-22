@@ -333,7 +333,8 @@ def get_windows_authenticode_subject(signed_path):
         signed_path,
     ]
     try:
-        subject_output = subprocess.check_output(command, stderr=subprocess.STDOUT)
+        subject_output = subprocess.check_output(  # nosec B603 - fixed command, no shell.
+            command, stderr=subprocess.STDOUT)
     except subprocess.CalledProcessError as ex:
         error("Failed to inspect signed Windows package certificate subject. PowerShell output: %s" %
               ex.output.decode("UTF-8", errors="replace"))
@@ -354,7 +355,7 @@ def get_windows_authenticode_subject(signed_path):
 def get_msix_manifest_metadata(msix_path):
     """Return key identity/properties values from an MSIX manifest."""
     try:
-        from xml.dom import minidom
+        from defusedxml import minidom
 
         with zipfile.ZipFile(msix_path, "r") as package:
             with package.open("AppxManifest.xml") as manifest_file:
@@ -429,7 +430,7 @@ def prepare_windows_msix_for_signing(msix_path, signed_installer_path):
         return False
 
     try:
-        from xml.dom import minidom
+        from defusedxml import minidom
 
         with open(manifest_path, "rb") as manifest_file:
             manifest_document = minidom.parse(manifest_file)

@@ -108,6 +108,7 @@ function Assert-TemplateInstallerPath {
 }
 
 function Set-TemplatePublisher {
+    [CmdletBinding(SupportsShouldProcess)]
     param(
         [Parameter(Mandatory = $true)]
         [string] $TemplatePath,
@@ -128,7 +129,7 @@ function Set-TemplatePublisher {
     )
 
     if ($publisherAttributes.Count -eq 0) {
-        Write-Host "Generated MSIX template does not expose a Publisher attribute; signing step will verify publisher"
+        Write-Information "Generated MSIX template does not expose a Publisher attribute; signing step will verify publisher"
         return $false
     }
 
@@ -136,11 +137,15 @@ function Set-TemplatePublisher {
         $attribute.Value = $Publisher
     }
 
-    $templateXml.Save($TemplatePath)
-    return $true
+    if ($PSCmdlet.ShouldProcess($TemplatePath, "Update template publisher")) {
+        $templateXml.Save($TemplatePath)
+        return $true
+    }
+    return $false
 }
 
 function Set-TemplateElementText {
+    [CmdletBinding(SupportsShouldProcess)]
     param(
         [Parameter(Mandatory = $true)]
         [string] $TemplatePath,
@@ -155,7 +160,7 @@ function Set-TemplateElementText {
     [xml] $templateXml = Get-Content -Path $TemplatePath -Raw
     $matchingElements = @($templateXml.SelectNodes("//*[local-name()='$ElementName']"))
     if ($matchingElements.Count -eq 0) {
-        Write-Host "Generated MSIX template does not expose a $ElementName element; signing step will verify it"
+        Write-Information "Generated MSIX template does not expose a $ElementName element; signing step will verify it"
         return $false
     }
 
@@ -163,8 +168,11 @@ function Set-TemplateElementText {
         $element.InnerText = $Value
     }
 
-    $templateXml.Save($TemplatePath)
-    return $true
+    if ($PSCmdlet.ShouldProcess($TemplatePath, "Update $ElementName element")) {
+        $templateXml.Save($TemplatePath)
+        return $true
+    }
+    return $false
 }
 
 function Assert-SourceInstallerNotPackaged {
@@ -207,10 +215,10 @@ function Resolve-MsixPackagingTool {
     )
 
     $ToolDir = $ToolPackage.InstallLocation
-    Write-Host "MSIX Packaging Tool package location: $ToolDir"
+    Write-Information "MSIX Packaging Tool package location: $ToolDir"
 
     $rootExe = Join-Path $ToolDir "MsixPackagingTool.exe"
-    Write-Host "Checking package-root CLI path: $rootExe"
+    Write-Information "Checking package-root CLI path: $rootExe"
     if (Test-Path -Path $rootExe -PathType Leaf) {
         return $rootExe
     }
@@ -221,7 +229,7 @@ function Resolve-MsixPackagingTool {
         if (-not $aliasPath) {
             $aliasPath = $aliasCommand[0].Source
         }
-        Write-Host "Using MSIX Packaging Tool app execution alias: $aliasPath"
+        Write-Information "Using MSIX Packaging Tool app execution alias: $aliasPath"
         return $aliasPath
     }
 
@@ -234,7 +242,7 @@ function Resolve-MsixPackagingTool {
             $executable = $appNode.GetAttribute("Executable")
             if ($appId -eq "Msix.App" -and $executable) {
                 $manifestExe = Join-Path $ToolDir $executable
-                Write-Host "Checking manifest executable for ${appId}: $manifestExe"
+                Write-Information "Checking manifest executable for ${appId}: $manifestExe"
                 if (Test-Path -Path $manifestExe -PathType Leaf) {
                     return $manifestExe
                 }
@@ -248,7 +256,7 @@ function Resolve-MsixPackagingTool {
     )
 
     if ($packageExeMatches.Count -eq 1) {
-        Write-Host "Using MSIX Packaging Tool executable found under package location: $($packageExeMatches[0].FullName)"
+        Write-Information "Using MSIX Packaging Tool executable found under package location: $($packageExeMatches[0].FullName)"
         return $packageExeMatches[0].FullName
     }
 
@@ -269,7 +277,7 @@ Start-Service wuauserv
 $installerMatches = @(Get-ChildItem -Path "build" -Filter "OpenShot-*-x86_64.exe" -File)
 Assert-SingleArtifact -Artifacts $installerMatches -Description "build\OpenShot-*-x86_64.exe installer"
 $installerPath = $installerMatches[0].FullName
-Write-Host "Using Inno installer: $installerPath"
+Write-Information "Using Inno installer: $installerPath"
 
 $toolPackage = Get-AppxPackage Microsoft.MSIXPackagingTool
 if (-not $toolPackage) {
@@ -278,7 +286,7 @@ if (-not $toolPackage) {
 
 $ToolDir = $toolPackage.InstallLocation
 $ToolExe = Resolve-MsixPackagingTool -ToolPackage $toolPackage
-Write-Host "Using MSIX Packaging Tool: $ToolExe"
+Write-Information "Using MSIX Packaging Tool: $ToolExe"
 
 $templatePath = "C:\OpenShot-MSIX\OpenShotTemplate\OpenShot_template.xml"
 if (-not (Test-Path -Path $templatePath -PathType Leaf)) {
@@ -299,14 +307,14 @@ foreach ($arg in @("/VERYSILENT", "/SUPPRESSMSGBOXES", "/NORESTART", "/SP-")) {
 }
 
 $expectedInstallerPath = Get-TemplateInstallerPath -TemplatePath $templatePath
-Write-Host "MSIX template expects installer: $expectedInstallerPath"
+Write-Information "MSIX template expects installer: $expectedInstallerPath"
 
 $sourceInstallerDir = Join-Path ([System.IO.Path]::GetTempPath()) "OpenShot-MSIX-InstallerSource"
 Remove-Item -Path $sourceInstallerDir -Recurse -Force -ErrorAction SilentlyContinue
 New-Item -Path $sourceInstallerDir -ItemType Directory -Force | Out-Null
 $sourceInstallerPath = Join-Path $sourceInstallerDir ([System.IO.Path]::GetFileName($installerPath))
 Copy-Item -Path $installerPath -Destination $sourceInstallerPath -Force
-Write-Host "Staged MSIX source installer: $sourceInstallerPath"
+Write-Information "Staged MSIX source installer: $sourceInstallerPath"
 
 $workingTemplatePath = Join-Path $outputDir "OpenShot_template.generated.xml"
 $workingTemplateText = $templateText.Replace($expectedInstallerPath, $sourceInstallerPath)
@@ -321,7 +329,7 @@ if (-not $msixPublisher) {
 }
 $templatePublisherUpdated = Set-TemplatePublisher -TemplatePath $workingTemplatePath -Publisher $msixPublisher
 if ($templatePublisherUpdated) {
-    Write-Host "Generated MSIX template publisher: $msixPublisher"
+    Write-Information "Generated MSIX template publisher: $msixPublisher"
 }
 $publisherDisplayName = $env:WINDOWS_MSIX_PUBLISHER_DISPLAY_NAME
 if (-not $publisherDisplayName) {
@@ -332,21 +340,21 @@ $templatePublisherDisplayNameUpdated = Set-TemplateElementText `
     -ElementName "PublisherDisplayName" `
     -Value $publisherDisplayName
 if ($templatePublisherDisplayNameUpdated) {
-    Write-Host "Generated MSIX template publisher display name: $publisherDisplayName"
+    Write-Information "Generated MSIX template publisher display name: $publisherDisplayName"
 }
-Write-Host "Generated MSIX template: $workingTemplatePath"
+Write-Information "Generated MSIX template: $workingTemplatePath"
 
 $startTime = Get-Date
-Write-Host "Running MSIX Packaging Tool. Full output will be saved to: $toolLogPath"
+Write-Information "Running MSIX Packaging Tool. Full output will be saved to: $toolLogPath"
 & $ToolExe create-package --template $workingTemplatePath -v *> $toolLogPath
 if ($LASTEXITCODE -ne 0) {
     if (Test-Path -Path $toolLogPath -PathType Leaf) {
-        Write-Host "MSIX Packaging Tool failed. Last 120 log lines:"
+        Write-Information "MSIX Packaging Tool failed. Last 120 log lines:"
         Get-Content -Path $toolLogPath -Tail 120
     }
     throw "MSIX Packaging Tool failed with exit code $LASTEXITCODE."
 }
-Write-Host "MSIX Packaging Tool completed successfully."
+Write-Information "MSIX Packaging Tool completed successfully."
 
 $searchRoots = @(
     (Split-Path -Path $templatePath -Parent),
@@ -371,4 +379,4 @@ Assert-SourceInstallerNotPackaged -PackagePath $generatedPackage.FullName -Sourc
 $artifactName = [System.IO.Path]::ChangeExtension([System.IO.Path]::GetFileName($installerPath), ".msix")
 $artifactPath = Join-Path $outputDir $artifactName
 Copy-Item -Path $generatedPackage.FullName -Destination $artifactPath -Force
-Write-Host "Published MSIX artifact: $artifactPath"
+Write-Information "Published MSIX artifact: $artifactPath"
