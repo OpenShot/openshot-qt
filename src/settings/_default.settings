@@ -132,6 +132,16 @@
     "type": "spinner"
   },
   {
+    "min": 20,
+    "max": 400,
+    "value": 200,
+    "title": "Waveform Samples (per second)",
+    "category": "Timeline",
+    "setting": "timeline-waveform-samples-per-second",
+    "type": "spinner-int",
+    "restart": false
+  },
+  {
     "value": "blender",
     "title": "Blender Command (path)",
     "type": "browse",
@@ -193,6 +203,13 @@
     "type": "hidden",
     "category": "Qt",
     "setting": "active_custom_view"
+  },
+  {
+    "value": "simple",
+    "title": "",
+    "type": "hidden",
+    "category": "Qt",
+    "setting": "active_builtin_view"
   },
   {
     "value": "thumbnail",

@@ -80,6 +80,7 @@ from windows.models.emoji_model import EmojisModel
 from windows.models.files_model import FilesModel
 from windows.views.optimized_preview_menu import populate_optimized_preview_menu
 from windows.models.transition_model import TransitionsModel
+from windows.audio_recording import AudioRecordingDockContent, RECORDING_DOCK_MIN_WIDTH
 from windows.preview_thread import PreviewParent
 from windows.scope_panel import WaveformDockContent, HistogramDockContent, VectorscopeDockContent, AudioMeterWidget
 from windows.video_widget import VideoWidget
@@ -517,6 +518,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 file_path = file.data.get("path")
                 log.debug("File %s has audio data. Deleting it." % os.path.split(file_path)[1])
                 del file.data["ui"]["audio_data"]
+                file.data["ui"].pop("audio_data_format", None)
+                file.data["ui"].pop("audio_data_rms", None)
+                file.data["ui"].pop("audio_data_rate", None)
                 file.save()
 
         clips = Clip.filter()
@@ -524,6 +528,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             if "audio_data" in clip.data.get("ui", {}):
                 log.debug("Clip %s has audio data. Deleting it." % clip.id)
                 del clip.data["ui"]["audio_data"]
+                clip.data["ui"].pop("audio_data_format", None)
+                clip.data["ui"].pop("audio_data_rms", None)
+                clip.data["ui"].pop("audio_data_rate", None)
                 clip.save()
 
         # Clear transaction id
@@ -1532,6 +1539,74 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         """Show Audio Levels dock, anchoring to right if needed."""
         self._anchor_and_show_scope_dock(self.dockAudio)
 
+    def show_audio_recording_dock(self, start_time=None, track_number=None):
+        """Show the Recording dock, pre-filling context when provided."""
+        self.WaitCursorSignal.emit(True)
+        QApplication.processEvents()
+        try:
+            self._ensure_audio_recording_dock_content()
+            if self.dockWidgetArea(self.dockAudioRecording) == Qt.NoDockWidgetArea:
+                self.addDockWidget(Qt.RightDockWidgetArea, self.dockAudioRecording)
+            self.dockAudioRecording.show()
+            if hasattr(self, "audio_recording_content"):
+                self.audio_recording_content.set_recording_context(start_time, track_number)
+            self.dockAudioRecording.raise_()
+        finally:
+            self.WaitCursorSignal.emit(False)
+
+    def _ensure_audio_recording_dock_content(self):
+        """Create recording controls only when the user opens recording UI."""
+        if getattr(self, "audio_recording_content", None):
+            return
+        self.audio_recording_content = AudioRecordingDockContent(self)
+        self.dockAudioRecording.setMinimumWidth(RECORDING_DOCK_MIN_WIDTH)
+        self.dockAudioRecording.setWidget(self.audio_recording_content)
+
+    def _on_audio_recording_visibility_changed(self, visible):
+        """Ensure restored Recording View docks are populated when shown."""
+        if visible:
+            self._ensure_audio_recording_dock_content()
+            self.audio_recording_content.activate_if_visible()
+        elif getattr(self, "audio_recording_content", None):
+            self.audio_recording_content.deactivate_if_hidden()
+
+    def _anchor_and_show_properties_dock(self):
+        """Reattach Properties when needed without replacing a view's layout."""
+        files_dock = getattr(self, "dockFiles", None)
+        props_dock = getattr(self, "dockProperties", None)
+        if not props_dock:
+            return
+
+        needs_anchor = (
+            props_dock.isFloating()
+            or self.dockWidgetArea(props_dock) == Qt.NoDockWidgetArea
+        )
+        if props_dock.isFloating():
+            props_dock.setFloating(False)
+        if self.dockWidgetArea(props_dock) == Qt.NoDockWidgetArea:
+            target_area = (
+                self.dockWidgetArea(files_dock)
+                if files_dock and self.dockWidgetArea(files_dock) != Qt.NoDockWidgetArea
+                else Qt.LeftDockWidgetArea
+            )
+            self.addDockWidget(target_area, props_dock)
+
+        if (needs_anchor
+                and files_dock
+                and self.dockWidgetArea(files_dock) != Qt.NoDockWidgetArea):
+            if props_dock not in self.tabifiedDockWidgets(files_dock):
+                self.tabifyDockWidget(files_dock, props_dock)
+            self.setTabPosition(self.dockWidgetArea(files_dock), QTabWidget.North)
+
+        props_dock.show()
+        props_dock.raise_()
+        self.style_dock_widgets()
+
+    def _on_properties_dock_toggled(self, checked):
+        """Re-anchor Properties when it is toggled back on after a view switch."""
+        if checked:
+            self._anchor_and_show_properties_dock()
+
     def _scope_docks(self):
         """Return docks that display video/audio scope data."""
         return [
@@ -1755,6 +1830,93 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             renum_count, renum_min, renum_max,
             " (inserted {} at {})".format(insert_num, insert_at) if insert_at else "")
         )
+
+    def _track_numbers(self):
+        try:
+            tracks = get_app().project.get("layers") or []
+            return sorted(
+                int(track.get("number", 0))
+                for track in tracks
+                if int(track.get("number", 0) or 0) > 0
+            )
+        except Exception:
+            return []
+
+    def _create_track(self, number):
+        number = int(number)
+        track = Track()
+        track.data = {"number": number, "y": 0, "label": "", "lock": False}
+        track.save()
+        return number
+
+    def create_track_below(self, layer_number=None):
+        """Create a track below layer_number, or below the bottom track."""
+        numbers = self._track_numbers()
+        if not numbers:
+            return self._create_track(1000000)
+
+        if layer_number is not None:
+            try:
+                layer_number = int(layer_number)
+            except (TypeError, ValueError):
+                layer_number = None
+        if layer_number in numbers:
+            index = numbers.index(layer_number)
+            if index > 0:
+                return numbers[index - 1]
+
+        bottom = numbers[0]
+        if bottom > 2:
+            return self._create_track(max(1, int(round(bottom / 2.0))))
+
+        self.renumber_all_layers(insert_at=0)
+        numbers = self._track_numbers()
+        return numbers[0] if numbers else 1000000
+
+    def track_stack_from(self, layer_number, count):
+        """Return count tracks starting at layer_number and continuing downward."""
+        try:
+            count = int(count)
+        except (TypeError, ValueError):
+            count = 0
+        if count <= 0:
+            return []
+
+        try:
+            layer_number = int(layer_number)
+        except (TypeError, ValueError):
+            layer_number = None
+
+        numbers = self._track_numbers()
+        if layer_number is None or layer_number <= 0:
+            layer_number = numbers[-1] if numbers else self.create_track_below()
+        elif layer_number not in numbers:
+            self.ensure_tracks_for_layers([layer_number])
+
+        tracks = [layer_number]
+        current = layer_number
+        while len(tracks) < count:
+            current = self.create_track_below(current)
+            if current in tracks:
+                break
+            tracks.append(current)
+        return tracks
+
+    def ensure_tracks_for_layers(self, layers):
+        """Create any missing positive track numbers needed by upcoming inserts."""
+        existing = set(self._track_numbers())
+        created = []
+        for layer in sorted(set(layers or [])):
+            try:
+                layer = int(layer)
+            except (TypeError, ValueError):
+                continue
+            if layer <= 0 or layer in existing:
+                continue
+            self._create_track(layer)
+            existing.add(layer)
+            created.append(layer)
+        return created
 
     def actionAddTrack_trigger(self, checked=True):
         log.info("actionAddTrack_trigger")
@@ -2623,8 +2785,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         log.debug('actionProperties_trigger')
 
         # Show properties dock
-        if not self.dockProperties.isVisible():
-            self.dockProperties.show()
+        if (not self.dockProperties.isVisible()
+                or self.dockProperties.isFloating()
+                or self.dockWidgetArea(self.dockProperties) == Qt.NoDockWidgetArea):
+            self._anchor_and_show_properties_dock()
 
     def actionRemoveEffect_trigger(self):
         log.debug('actionRemoveEffect_trigger')
@@ -2935,6 +3099,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         for dock in docks:
             if dock is color_grade_dock and hasattr(property_view, "_ensure_color_grade_wheels_dock_attached"):
                 property_view._ensure_color_grade_wheels_dock_attached()
+            if dock is getattr(self, "dockAudioRecording", None):
+                self._ensure_audio_recording_dock_content()
             if self.dockWidgetArea(dock) != Qt.NoDockWidgetArea:
                 # Only show correctly docked widgets
                 dock.show()
@@ -2955,6 +3121,12 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             if action.isSeparator():
                 separator_after_views = action
                 break
+        mic_icon = QIcon(os.path.join(info.PATH, "themes/cosmic/images/tool-microphone.svg"))
+        self.actionAudio_Recording_View = QAction(mic_icon, _("Recording View"), self.menuView)
+        self.actionAudio_Recording_View.setObjectName("actionAudio_Recording_View")
+        self.actionAudio_Recording_View.setShortcut(QKeySequence("Alt+Shift+3"))
+        self.actionAudio_Recording_View.triggered.connect(self.actionAudio_Recording_View_trigger)
+        self.menuView.insertAction(separator_after_views, self.actionAudio_Recording_View)
         self.menuView.insertSeparator(separator_after_views)
         self.menuView.insertMenu(separator_after_views, self.custom_views_menu)
         self.custom_views_menu.aboutToShow.connect(self._rebuild_custom_views_menu)
@@ -2997,6 +3169,24 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self._active_custom_view_id_value = view_id or ""
         s = get_app().get_settings()
         s.set("active_custom_view", self._active_custom_view_id_value)
+        if self._active_custom_view_id_value:
+            s.set("active_builtin_view", "")
+        if hasattr(s, "save"):
+            s.save()
+
+    def _active_builtin_view(self):
+        """Return the built-in view whose critical layout should survive restart."""
+        value = get_app().get_settings().get("active_builtin_view") or ""
+        return value if value in {"simple", "color", "recording"} else ""
+
+    def _set_active_builtin_view(self, view_id):
+        """Persist the selected built-in view independently from custom views."""
+        value = view_id if view_id in {"simple", "color", "recording"} else ""
+        s = get_app().get_settings()
+        s.set("active_builtin_view", value)
+        if value:
+            self._active_custom_view_id_value = ""
+            s.set("active_custom_view", "")
         if hasattr(s, "save"):
             s.save()
 
@@ -3204,6 +3394,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     def actionSimple_View_trigger(self):
         """ Switch to the default / simple view  """
         self._set_active_custom_view_id("")
+        self._set_active_builtin_view("simple")
         self.removeDocks()
 
         # Add Docks
@@ -3237,6 +3428,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     def actionColor_Grade_View_trigger(self):
         """Switch to a color grading focused view."""
         self._set_active_custom_view_id("")
+        self._set_active_builtin_view("color")
         self.removeDocks()
 
         color_grade_dock = getattr(getattr(self, "propertyTableView", None), "color_grade_wheels_dock", None)
@@ -3290,6 +3482,41 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                     Qt.Vertical,
                 )
             QTimer.singleShot(0, _resize_right_column)
+
+    def actionAudio_Recording_View_trigger(self):
+        """Switch to a recording focused view."""
+        self._set_active_custom_view_id("")
+        self._set_active_builtin_view("recording")
+        self._ensure_audio_recording_dock_content()
+        self.removeDocks()
+
+        self.addDocks([self.dockFiles, self.dockProperties], Qt.LeftDockWidgetArea)
+        self.addDocks([self.dockVideo], Qt.TopDockWidgetArea)
+        self.addDocks([self.dockAudioRecording], Qt.RightDockWidgetArea)
+        self.tabifyDockWidget(self.dockFiles, self.dockProperties)
+        self.dockProperties.hide()
+        self.splitDockWidget(self.dockVideo, self.dockTimeline, Qt.Vertical)
+        self.setTabPosition(Qt.RightDockWidgetArea, QTabWidget.North)
+        self.setTabPosition(Qt.LeftDockWidgetArea, QTabWidget.North)
+
+        self.floatDocks(False)
+        self.showDocks([
+            self.dockFiles,
+            self.dockVideo,
+            self.dockTimeline,
+            self.dockAudioRecording,
+        ])
+        self.dockAudioRecording.raise_()
+        self.style_dock_widgets()
+
+    def _current_timeline_seconds(self):
+        """Return the current playhead position in seconds."""
+        try:
+            fps = get_app().project.get("fps")
+            fps_float = float(fps["num"]) / float(fps["den"])
+            return max(0.0, float(self.preview_thread.current_frame - 1) / fps_float)
+        except Exception:
+            return 0.0
 
     def actionTutorial_trigger(self):
         """ Show tutorial again """
@@ -4151,6 +4378,30 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         hidden_names = get_app().get_settings().get('hidden_docks') or []
         self._restore_hidden_docks(hidden_names)
         self._apply_saved_dock_sizes()
+        if self._active_builtin_view() == "recording":
+            QTimer.singleShot(250, self._repair_recording_view_split)
+
+    def _repair_recording_view_split(self):
+        """Restore Recording View's adjustable Video/Timeline vertical split."""
+        if self._active_builtin_view() != "recording":
+            return
+        video_dock = getattr(self, "dockVideo", None)
+        timeline_dock = getattr(self, "dockTimeline", None)
+        if not video_dock or not timeline_dock:
+            return
+        if video_dock.isFloating():
+            video_dock.setFloating(False)
+        if timeline_dock.isFloating():
+            timeline_dock.setFloating(False)
+        if self.dockWidgetArea(video_dock) == Qt.NoDockWidgetArea:
+            self.addDockWidget(Qt.TopDockWidgetArea, video_dock)
+        if self.dockWidgetArea(timeline_dock) == Qt.NoDockWidgetArea:
+            self.addDockWidget(Qt.BottomDockWidgetArea, timeline_dock)
+        self.splitDockWidget(video_dock, timeline_dock, Qt.Vertical)
+        video_dock.show()
+        timeline_dock.show()
+        self._apply_saved_timeline_height()
+        self.style_dock_widgets()
 
     @staticmethod
     def _positive_int(value):
@@ -5197,6 +5448,15 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.dockAudio.hide()
         self.addDockWidget(Qt.RightDockWidgetArea, self.dockAudio)
 
+        self.audio_recording_content = None
+        self.dockAudioRecording = QDockWidget(_("Recording"), self)
+        self.dockAudioRecording.setObjectName("dockAudioRecording")
+        self.dockAudioRecording.setProperty("_skip_auto_tab_order", True)
+        self.dockAudioRecording.setFocusPolicy(Qt.NoFocus)
+        self.dockAudioRecording.setMinimumWidth(RECORDING_DOCK_MIN_WIDTH)
+        self.dockAudioRecording.hide()
+        self.addDockWidget(Qt.RightDockWidgetArea, self.dockAudioRecording)
+
         # Add Docks submenu to View menu
         self.addViewDocksMenu()
 
@@ -5405,6 +5665,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 functools.partial(self._on_scope_dock_toggled, dock=_dock))
         for _dock in [self.dockLumaWaveform, self.dockHistogram, self.dockVectorscope]:
             _dock.visibilityChanged.connect(self._on_video_scope_visibility_changed)
+        self.dockProperties.toggleViewAction().triggered.connect(self._on_properties_dock_toggled)
+        self.dockAudioRecording.visibilityChanged.connect(self._on_audio_recording_visibility_changed)
+        if self.dockAudioRecording.isVisible():
+            self._ensure_audio_recording_dock_content()
 
         # Create tutorial manager
         self.tutorial_manager = TutorialManager(self)

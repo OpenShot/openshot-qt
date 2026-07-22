@@ -98,7 +98,7 @@ identify a clip's start is by utilizing the 'next/previous marker' feature on th
 
 List of Effects
 ---------------
-OpenShot Video Editor has a total of 41 built-in video and audio effects: 32 video effects and 9 audio effects.
+OpenShot Video Editor has a total of 43 built-in video and audio effects: 34 video effects and 9 audio effects.
 These effects can be added to a clip by dragging the effect onto a clip. The following table contains
 the name and short description of each effect.
 
@@ -222,6 +222,10 @@ the name and short description of each effect.
    :width: 50px
    :alt: Stabilizer Icon
 
+.. |timer_icon| image:: ../src/effects/icons/timer@2x.png
+   :width: 50px
+   :alt: Timer Icon
+
 .. |tracker_icon| image:: ../src/effects/icons/tracker@2x.png
    :width: 50px
    :alt: Tracker Icon
@@ -310,6 +314,7 @@ the name and short description of each effect.
    |shift_icon|                Shift                         Shift image in different directions.
    |sphericalprojection_icon|  Spherical Projection          Flatten or project 360° and fisheye footage.
    |stabilizer_icon|           Stabilizer                    Reduce video shake.
+   |timer_icon|                Timer                         Render a styled count up, count down, clock, timecode, or frame number overlay.
    |tracker_icon|              Tracker                       Track bounding box in video.
    |wave_icon|                 Wave                          Distort image into a wave pattern.
    |whisperization_icon|       Whisperization                Transform audio into whispers.
@@ -1558,6 +1563,57 @@ a tripod was not used.
    ==========================  ============
    zoom                        ``(float, 0 to 2)`` Percentage to zoom into the clip, to crop off the shaking and uneven edges
    ==========================  ============
+
+Timer
+"""""
+The Timer effect renders a styled time overlay on top of a clip. It can count up, count down, display a wall-clock
+style timer, show timecode, or show frame numbers. Use it for sports clips, tutorials, races, countdowns, progress
+timers, timecode burn-ins, or any clip that needs an on-screen timer.
+
+By default, Timer uses :guilabel:`Source Time`, so speed changes and time keyframes on the parent clip also affect
+the timer. For example, if a clip is slowed down, the timer slows down with it. Switch to :guilabel:`Clip Time` when
+you want the timer to follow the clip's timeline position instead.
+
+Use :guilabel:`Font Name`, :guilabel:`Font Size`, text color, stroke, and background controls to style the timer.
+Use :guilabel:`Gravity` to choose the starting position, then adjust :guilabel:`X Offset (%)` and
+:guilabel:`Y Offset (%)` to fine-tune the placement.
+
+- :guilabel:`Mode` controls what kind of timer is displayed.
+- :guilabel:`Countdown Duration` controls count-down length. Set it to ``0`` to count down from the clip's duration.
+- :guilabel:`Start Time` offsets count-up, clock, timecode, frame, and count-down values.
+- :guilabel:`Gravity` places the timer in one of nine positions on the frame.
+- :guilabel:`X Offset (%)` and :guilabel:`Y Offset (%)` move the timer by a percentage of the frame size.
+- Font, color, stroke, background, and opacity controls can be keyframed for animated timer styles.
+
+.. table::
+   :widths: 26 80
+
+   ==========================  ============================================================================
+   Property Name               Description
+   ==========================  ============================================================================
+   background                  ``(color)`` Background box color behind the timer text.
+   background_alpha            ``(float, 0 to 1)`` Background opacity.
+   background_corner           ``(float, 0 to 100)`` Background corner radius.
+   background_padding          ``(float, 0 to 100)`` Padding around the timer text.
+   clamp                       ``(int, choices: ['Yes', 'No'])`` Clamp duration-style timer output at zero.
+   color                       ``(color)`` Timer text color.
+   end_time                    ``(float, 0 to 86400)`` Countdown duration in seconds. Use ``0`` to count down from the clip duration.
+   font_alpha                  ``(float, 0 to 1)`` Timer text and stroke opacity.
+   font_name                   ``(font)`` Font name or family name.
+   font_size                   ``(float, 1 to 300)`` Timer font size.
+   format                      ``(int, choices: ['MM:SS', 'HH:MM:SS', 'HH:MM:SS.mmm', 'Timecode', 'Frames'])`` Timer display format.
+   gravity                     ``(int, choices: ['Top Left', 'Top Center', 'Top Right', 'Left', 'Center', 'Right', 'Bottom Left', 'Bottom Center', 'Bottom Right'])`` Position of the timer on the frame.
+   mode                        ``(int, choices: ['Count Up', 'Count Down', 'Clock', 'Timecode', 'Frame Number'])`` Timer mode.
+   prefix                      ``(string)`` Text shown before the timer value.
+   show_background             ``(int, choices: ['Yes', 'No'])`` Show or hide the background box.
+   start_time                  ``(float, -86400 to 86400)`` Starting offset in seconds.
+   stroke                      ``(color)`` Timer text border / stroke color.
+   stroke_width                ``(float, 0 to 20)`` Width of the timer text border / stroke.
+   suffix                      ``(string)`` Text shown after the timer value.
+   time_source                 ``(int, choices: ['Clip Time', 'Source Time'])`` Choose whether the timer follows clip time or the clip's source-time keyframe curve.
+   x_offset                    ``(float, -100 to 100)`` Horizontal offset as a percentage of frame width.
+   y_offset                    ``(float, -100 to 100)`` Vertical offset as a percentage of frame height.
+   ==========================  ============================================================================
 
 Tracker
 """""""

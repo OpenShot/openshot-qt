@@ -33,7 +33,7 @@ import sys
 import types
 import unittest
 from contextlib import ExitStack
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 import openshot
 
@@ -112,6 +112,12 @@ class TimelineHelperTests(unittest.TestCase):
         timeline_module = self.timeline_module
 
         class Helper:
+            def __init__(self):
+                self.updated = []
+
+            def update_clip_data(self, clip_data, **kwargs):
+                self.updated.append((copy.deepcopy(clip_data), dict(kwargs)))
+
             def _transition_mask_reader(self, transition_data, fallback_data=None):
                 return timeline_module.TimelineView._transition_mask_reader(
                     self,
@@ -127,6 +133,24 @@ class TimelineHelperTests(unittest.TestCase):
 
         return Helper()
 
+    def make_layout_clip(self, clip_id, position=0.0):
+        def kf(value):
+            return {"Points": [{"co": {"X": 1, "Y": value}, "interpolation": openshot.BEZIER}]}
+
+        return types.SimpleNamespace(
+            id=clip_id,
+            data={
+                "id": clip_id,
+                "position": position,
+                "scale": openshot.SCALE_FIT,
+                "gravity": openshot.GRAVITY_CENTER,
+                "scale_x": kf(1.0),
+                "scale_y": kf(1.0),
+                "location_x": kf(0.0),
+                "location_y": kf(0.0),
+            },
+        )
+
     @classmethod
     def tearDownClass(cls):
         if getattr(cls, "_owns_app", False) and cls.app:
@@ -140,6 +164,56 @@ class TimelineHelperTests(unittest.TestCase):
         self.assertEqual(edit.parse_text("0"), 1)
         self.assertEqual(edit.parse_text("00:00:00,00"), 1)
         self.assertIsNone(edit.parse_text("bad"))
+
+    def test_show_all_clips_maintain_ratio_uses_uniform_scale(self):
+        helper = self.make_helper()
+        clips = [self.make_layout_clip("C1"), self.make_layout_clip("C2")]
+
+        with patch.object(self.timeline_module, "Clip", types.SimpleNamespace(filter=lambda: clips)):
+            self.timeline_module.TimelineView.show_all_clips(helper, clips[0], stretch=False)
+
+        for clip in clips:
+            self.assertEqual(clip.data["scale"], openshot.SCALE_FIT)
+            self.assertEqual(clip.data["gravity"], openshot.GRAVITY_TOP_LEFT)
+            self.assertAlmostEqual(clip.data["scale_x"]["Points"][0]["co"]["Y"], 0.5)
+            self.assertAlmostEqual(clip.data["scale_y"]["Points"][0]["co"]["Y"], 0.5)
+        self.assertAlmostEqual(clips[0].data["location_x"]["Points"][0]["co"]["Y"], 0.0)
+        self.assertAlmostEqual(clips[1].data["location_x"]["Points"][0]["co"]["Y"], 0.5)
+        self.assertEqual(len(helper.updated), 2)
+
+    def test_show_all_clips_distort_uses_cell_width_and_height(self):
+        helper = self.make_helper()
+        clips = [self.make_layout_clip("C1"), self.make_layout_clip("C2")]
+
+        with patch.object(self.timeline_module, "Clip", types.SimpleNamespace(filter=lambda: clips)):
+            self.timeline_module.TimelineView.show_all_clips(helper, clips[0], stretch=True)
+
+        for clip in clips:
+            self.assertEqual(clip.data["scale"], openshot.SCALE_STRETCH)
+            self.assertAlmostEqual(clip.data["scale_x"]["Points"][0]["co"]["Y"], 0.5)
+            self.assertAlmostEqual(clip.data["scale_y"]["Points"][0]["co"]["Y"], 1.0)
+
+    def test_show_all_clips_uses_selected_clip_ids_when_available(self):
+        helper = self.make_helper()
+        clips = [
+            self.make_layout_clip("C1"),
+            self.make_layout_clip("C2"),
+            self.make_layout_clip("C3"),
+        ]
+
+        with patch.object(self.timeline_module, "Clip", types.SimpleNamespace(filter=lambda: clips)):
+            self.timeline_module.TimelineView.show_all_clips(
+                helper,
+                clips[0],
+                stretch=False,
+                clip_ids=["C1", "C2"],
+            )
+
+        self.assertAlmostEqual(clips[0].data["location_x"]["Points"][0]["co"]["Y"], 0.0)
+        self.assertAlmostEqual(clips[1].data["location_x"]["Points"][0]["co"]["Y"], 0.5)
+        self.assertAlmostEqual(clips[2].data["location_x"]["Points"][0]["co"]["Y"], 0.0)
+        self.assertAlmostEqual(clips[2].data["scale_x"]["Points"][0]["co"]["Y"], 1.0)
+        self.assertEqual(len(helper.updated), 2)
 
     def test_playhead_time_edit_commit_centers_on_new_playhead_frame(self):
         helper = types.SimpleNamespace()
@@ -295,7 +369,6 @@ class TimelineHelperTests(unittest.TestCase):
         class Helper(qwidget_clip_module.ClipInteractionMixin):
             def __init__(self):
                 self._pending_clip_overrides = {}
-                self._waveform_samples_per_second = None
                 self.enable_timing = False
                 self.enable_snapping = False
                 self.pixels_per_second = 24.0
@@ -313,6 +386,85 @@ class TimelineHelperTests(unittest.TestCase):
                 return float(delta_seconds)
 
         return Helper()
+
+    def test_waveform_window_uses_legacy_density_when_metadata_is_missing(self):
+        helper = self.make_qwidget_clip_helper()
+        clip = types.SimpleNamespace(data={
+            "start": 0.5,
+            "end": 1.5,
+            "ui": {"audio_data": [0.25] * 40},
+        })
+
+        window = helper.clip_waveform_window(clip)
+
+        self.assertAlmostEqual(window["start_ratio"], 0.25)
+        self.assertAlmostEqual(window["end_ratio"], 0.75)
+
+    def test_waveform_window_uses_stored_v2_density(self):
+        helper = self.make_qwidget_clip_helper()
+        clip = types.SimpleNamespace(data={
+            "start": 0.5,
+            "end": 1.5,
+            "ui": {
+                "audio_data": [0.25] * 400,
+                "audio_data_format": "absolute_peak_v2",
+                "audio_data_rate": 200,
+            },
+        })
+
+        window = helper.clip_waveform_window(clip)
+
+        self.assertAlmostEqual(window["start_ratio"], 0.25)
+        self.assertAlmostEqual(window["end_ratio"], 0.75)
+
+    def test_clip_recording_seeks_to_clip_start_and_selects_lower_track(self):
+        helper = types.SimpleNamespace(
+            PlayheadMoved=MagicMock(),
+            _recording_track_for_clip=MagicMock(return_value=2),
+            _show_recording_dock_deferred=MagicMock(),
+        )
+        clip = types.SimpleNamespace(data={"position": 3.25, "layer": 3})
+        app = types.SimpleNamespace(project=types.SimpleNamespace(
+            get=lambda key: {"num": 24, "den": 1} if key == "fps" else None
+        ))
+
+        with patch.object(self.timeline_module, "get_app", return_value=app):
+            self.timeline_module.TimelineView._record_from_clip(helper, clip)
+
+        helper.PlayheadMoved.assert_called_once_with(79, True)
+        helper._recording_track_for_clip.assert_called_once_with(clip)
+        helper._show_recording_dock_deferred.assert_called_once_with(
+            start_time=3.25,
+            track_number=2,
+        )
+
+    def test_clip_recording_chooses_first_unoccupied_unlocked_track_below(self):
+        source = types.SimpleNamespace(data={
+            "position": 5.0,
+            "start": 0.0,
+            "end": 3.0,
+            "layer": 5,
+        })
+        tracks = [
+            types.SimpleNamespace(data={"number": 5, "lock": False}),
+            types.SimpleNamespace(data={"number": 4, "lock": False}),
+            types.SimpleNamespace(data={"number": 3, "lock": True}),
+            types.SimpleNamespace(data={"number": 2, "lock": False}),
+        ]
+        occupied = [types.SimpleNamespace(data={
+            "position": 6.0,
+            "start": 0.0,
+            "end": 1.0,
+            "layer": 4,
+        })]
+
+        with patch.object(self.timeline_module.Track, "filter", return_value=tracks), \
+                patch.object(self.timeline_module.Clip, "filter", return_value=occupied):
+            track_number = self.timeline_module.TimelineView._recording_track_for_clip(
+                types.SimpleNamespace(), source
+            )
+
+        self.assertEqual(track_number, 2)
 
     def make_qwidget_finish_drag_helper(self):
         qwidget_clip_module = self.qwidget_clip_module
@@ -2027,12 +2179,16 @@ class TimelineHelperTests(unittest.TestCase):
     def test_clip_waveform_cache_token_includes_waveform_generation_token(self):
         helper = self.make_qwidget_clip_helper()
         clip = types.SimpleNamespace(
-            data={"ui": {"audio_data": [0.1, 0.2, 0.3], "waveform_token": "wf-2"}}
+            data={"ui": {
+                "audio_data": [0.1, 0.2, 0.3],
+                "audio_data_format": "absolute_peak_v2",
+                "waveform_token": "wf-2",
+            }}
         )
 
         token = helper.clip_waveform_cache_token(clip)
 
-        self.assertEqual(token, (3, "wf-2"))
+        self.assertEqual(token, (3, 0, "wf-2", "absolute_peak_v2", None))
 
     def test_find_missing_transition_details_ignores_tiny_overlap(self):
         clip_data = {"id": "B", "layer": 1, "position": 4.7, "start": 0.0, "end": 6.0}
@@ -3602,7 +3758,12 @@ class TimelineHelperTests(unittest.TestCase):
                 "id": "F1",
                 "path": "/project/example.wav",
                 "has_audio": True,
-                "ui": {"audio_data": [1.0, 1.0, 1.0, 1.0, 1.0]},
+                "ui": {
+                    "audio_data": [1.0, 1.0, 1.0, 1.0, 1.0],
+                    "audio_data_rms": [0.4, 0.4, 0.4, 0.4, 0.4],
+                    "audio_data_format": "absolute_peak_v2",
+                    "audio_data_rate": 20,
+                },
             },
         )
         clip = types.SimpleNamespace(
@@ -3652,6 +3813,207 @@ class TimelineHelperTests(unittest.TestCase):
         self.assertEqual(captured[-1][0], "C1")
         self.assertEqual(captured[-1][2], "wf-time-1")
         self.assertEqual(captured[-1][1]["ui"]["audio_data"], [0.5, 0.5, 0.5, 0.5])
+        self.assertEqual(captured[-1][1]["ui"]["audio_data_rms"], [0.2, 0.2, 0.2, 0.2])
+        self.assertEqual(captured[-1][1]["ui"]["audio_data_rate"], 20)
+        self.assertEqual(
+            captured[-1][1]["ui"]["audio_data_format"],
+            self.waveform_module.ABSOLUTE_WAVEFORM_FORMAT,
+        )
+
+    def test_legacy_waveform_format_is_default_and_keeps_linear_amplitude(self):
+        waveform = self.waveform_module
+
+        self.assertEqual(
+            waveform.waveform_data_format({"audio_data": [0.1, 1.0]}),
+            waveform.LEGACY_WAVEFORM_FORMAT,
+        )
+        self.assertEqual(
+            waveform.waveform_display_amplitude(0.1, waveform.LEGACY_WAVEFORM_FORMAT),
+            0.1,
+        )
+
+    def _render_test_waveform(self, audio_data, rms_data=None, width=24, height=24):
+        theme = types.SimpleNamespace(
+            waveform_color=QColor("#2A82DA"),
+            waveform_peak_color=QColor(42, 130, 218, 128),
+        )
+        widget = types.SimpleNamespace(
+            theme=theme,
+            clip_waveform_window=lambda _clip: {
+                "start_ratio": 0.0,
+                "end_ratio": 1.0,
+                "scale": False,
+            },
+        )
+        ui_data = {
+            "audio_data": list(audio_data),
+            "audio_data_format": "absolute_peak_v2",
+        }
+        if rms_data is not None:
+            ui_data["audio_data_rms"] = list(rms_data)
+        clip = types.SimpleNamespace(data={"ui": ui_data})
+        clip_painter = self.clip_paint_module.ClipPainter.__new__(
+            self.clip_paint_module.ClipPainter
+        )
+        clip_painter.w = widget
+        image = QImage(width, height, QImage.Format_ARGB32)
+        image.fill(Qt.transparent)
+        painter = QPainter(image)
+        try:
+            self.assertTrue(
+                clip_painter._draw_waveform(
+                    painter, clip, QRectF(0.0, 0.0, float(width), float(height))
+                )
+            )
+        finally:
+            painter.end()
+        return image
+
+    def test_waveform_silence_draws_a_visible_center_line(self):
+        image = self._render_test_waveform([0.0] * 24)
+        center_y = image.height() // 2
+
+        self.assertGreater(image.pixelColor(image.width() // 2, center_y).alpha(), 0)
+        self.assertEqual(image.pixelColor(image.width() // 2, center_y - 3).alpha(), 0)
+
+    def test_waveform_uses_solid_fill_without_artificial_peak_border(self):
+        image = self._render_test_waveform([0.5] * 24)
+        visible_colors = {
+            image.pixelColor(x, y).rgb()
+            for y in range(image.height())
+            for x in range(image.width())
+            if image.pixelColor(x, y).alpha() == 255
+        }
+
+        self.assertEqual(visible_colors, {QColor("#2A82DA").rgb()})
+
+    def test_waveform_renders_peak_and_rms_as_distinct_envelopes(self):
+        image = self._render_test_waveform([0.8] * 24, [0.2] * 24)
+        alphas = {
+            image.pixelColor(x, y).alpha()
+            for y in range(image.height())
+            for x in range(image.width())
+            if image.pixelColor(x, y).alpha() > 0
+        }
+
+        self.assertIn(255, alphas)
+        self.assertTrue(any(120 < alpha < 255 for alpha in alphas))
+
+    def test_waveform_clip_keeps_full_height_and_uses_transparent_title(self):
+        clip_painter = self.clip_paint_module.ClipPainter.__new__(
+            self.clip_paint_module.ClipPainter
+        )
+        clip_painter.border_width = 0.0
+        clip_painter.menu_margin = 4.0
+        captured = {}
+
+        def draw_waveform(_self, _painter, _clip, inner, _segment):
+            captured["waveform_rect"] = QRectF(inner)
+            return True
+
+        def draw_text(_self, _painter, _clip, inner, _x, _right, **kwargs):
+            captured["title_transparent"] = kwargs.get("transparent_container")
+            return {"rect": QRectF(inner)}
+
+        clip_painter._draw_waveform = types.MethodType(draw_waveform, clip_painter)
+        clip_painter._draw_clip_text = types.MethodType(draw_text, clip_painter)
+        clip_painter._draw_thumbnails = lambda *_args, **_kwargs: False
+
+        image = QImage(120, 60, QImage.Format_ARGB32)
+        painter = QPainter(image)
+        inner = QRectF(2.0, 3.0, 116.0, 54.0)
+        try:
+            clip_painter._draw_clip_contents(
+                painter,
+                types.SimpleNamespace(data={"title": "Audio"}),
+                inner,
+                {"includes_start": True, "segment_width": inner.width()},
+            )
+        finally:
+            painter.end()
+
+        self.assertEqual(captured["waveform_rect"], inner)
+        self.assertTrue(captured["title_transparent"])
+
+    def test_waveform_density_defaults_to_legacy_rate_when_missing(self):
+        waveform = self.waveform_module
+
+        self.assertEqual(waveform.waveform_sample_rate({}), 20)
+        self.assertEqual(waveform.waveform_sample_rate({"audio_data_rate": 200}), 200)
+
+    def test_new_waveform_density_uses_timeline_preference(self):
+        waveform = self.waveform_module
+        app = types.SimpleNamespace(
+            get_settings=lambda: types.SimpleNamespace(
+                get=lambda key: 400 if key == "timeline-waveform-samples-per-second" else None
+            )
+        )
+
+        with patch.object(waveform, "get_app", return_value=app):
+            self.assertEqual(waveform.configured_waveform_sample_rate(), 400)
+
+    def test_absolute_waveform_uses_fixed_root_scale_without_clip_normalization(self):
+        waveform = self.waveform_module
+        def display(value):
+            return waveform.waveform_display_amplitude(
+                value, waveform.ABSOLUTE_WAVEFORM_FORMAT
+            )
+
+        self.assertEqual(display(0.0), 0.0)
+        self.assertAlmostEqual(display(1.0), 1.0)
+        self.assertAlmostEqual(display(0.1), math.sqrt(0.1), places=2)
+        self.assertLess(display(0.01), display(0.1))
+        self.assertEqual(display(2.0), 1.0)
+
+    def test_new_waveform_extraction_is_absolute_and_tagged(self):
+        emitted = []
+        extracted = types.SimpleNamespace(
+            vectors=lambda: ([0.05, 0.1], [0.02, 0.04]),
+            clear=lambda: None,
+        )
+        waveformer = types.SimpleNamespace(ExtractSamples=MagicMock(return_value=extracted))
+        reader = types.SimpleNamespace(info=types.SimpleNamespace(has_audio=True))
+        source_clip = types.SimpleNamespace(Reader=lambda: reader)
+        file_obj = types.SimpleNamespace(
+            id="F1",
+            data={
+                "id": "F1",
+                "path": "/project/new.wav",
+                "has_audio": True,
+                "ui": {},
+            },
+        )
+        app = types.SimpleNamespace(
+            window=types.SimpleNamespace(
+                WaitCursorSignal=types.SimpleNamespace(emit=lambda *_args: None),
+                timeline=types.SimpleNamespace(
+                    fileAudioDataReady=types.SimpleNamespace(
+                        emit=lambda file_id, ui_data, tid: emitted.append(
+                            (file_id, ui_data, tid)
+                        )
+                    )
+                ),
+            )
+        )
+
+        with ExitStack() as stack:
+            stack.enter_context(patch.object(self.waveform_module.File, "get", return_value=file_obj))
+            stack.enter_context(patch.object(self.waveform_module, "get_app", return_value=app))
+            stack.enter_context(patch.object(self.waveform_module.openshot, "Clip", return_value=source_clip))
+            stack.enter_context(patch.object(self.waveform_module.openshot, "AudioWaveformer", return_value=waveformer))
+            self.waveform_module.get_waveform_thread("F1", [], "wf-new-1")
+
+        waveformer.ExtractSamples.assert_called_once_with(
+            -1, self.waveform_module.SAMPLES_PER_SECOND, False
+        )
+        completed = [payload for _, payload, _ in emitted if payload["ui"].get("audio_data")]
+        self.assertEqual(completed[0]["ui"]["audio_data"], [0.05, 0.1])
+        self.assertEqual(completed[0]["ui"]["audio_data_rms"], [0.02, 0.04])
+        self.assertEqual(completed[0]["ui"]["audio_data_rate"], 200)
+        self.assertEqual(
+            completed[0]["ui"]["audio_data_format"],
+            self.waveform_module.ABSOLUTE_WAVEFORM_FORMAT,
+        )
 
     def test_clip_audio_data_ready_preserves_existing_waveform_when_pending_samples_are_none(self):
         helper = types.SimpleNamespace(
@@ -3661,7 +4023,11 @@ class TimelineHelperTests(unittest.TestCase):
         )
         clip = types.SimpleNamespace(
             id="C1",
-            data={"ui": {"audio_data": [0.2, 0.4], "waveform_token": "wf-old"}},
+            data={"ui": {
+                "audio_data": [0.2, 0.4],
+                "audio_data_format": "normalized_peak_v1",
+                "waveform_token": "wf-old",
+            }},
             save=lambda: None,
         )
         app = types.SimpleNamespace(
@@ -3683,6 +4049,7 @@ class TimelineHelperTests(unittest.TestCase):
             )
 
         self.assertEqual(clip.data["ui"]["audio_data"], [0.2, 0.4])
+        self.assertEqual(clip.data["ui"]["audio_data_format"], "normalized_peak_v1")
         self.assertEqual(clip.data["ui"]["waveform_token"], "wf-old")
 
     def test_draw_thumbnails_entire_style_uses_expected_linear_frames(self):
@@ -4608,9 +4975,11 @@ class TimelineHelperTests(unittest.TestCase):
         )
         inserted_clip.save = save_inserted_clip
         copied_objects = [inserted_clip]
+        ensured_layers = []
         app = types.SimpleNamespace(
             clipboard=clipboard_stub,
             updates=types.SimpleNamespace(transaction_id=None),
+            window=types.SimpleNamespace(ensure_tracks_for_layers=lambda layers: ensured_layers.extend(layers)),
         )
         helper = types.SimpleNamespace(
             get_uuid=lambda: "tx-paste-1",
@@ -4639,8 +5008,65 @@ class TimelineHelperTests(unittest.TestCase):
             )
 
         self.assertEqual(saved, [{"id": "C1-copy", "position": 20.0, "layer": 4, "start": 0.0, "end": 4.0}])
+        self.assertEqual(ensured_layers, [4])
         self.assertEqual(helper._extend_timeline_to_fit_items_calls, [True])
         self.assertEqual(helper._select_inserted_paste_items_calls, [[("C1-copy", "clip")]])
+        self.assertIsNone(app.updates.transaction_id)
+
+    def test_handle_paste_callback_maps_multitrack_selection_downward(self):
+        saved = []
+
+        class FakeClip:
+            def __init__(self, clip_id, data):
+                self.id = clip_id
+                self.type = "copy"
+                self.data = data
+
+            def save(self):
+                self.id = "%s-copy" % self.data["title"]
+                self.data["id"] = self.id
+                saved.append(copy.deepcopy(self.data))
+
+        def clipboard_stub():
+            return types.SimpleNamespace(mimeData=object)
+
+        copied_objects = [
+            FakeClip("top", {"id": "top", "title": "top", "position": 5.0, "layer": 3000000, "start": 0.0, "end": 4.0}),
+            FakeClip("mid", {"id": "mid", "title": "mid", "position": 5.0, "layer": 2000000, "start": 0.0, "end": 4.0}),
+            FakeClip("bot", {"id": "bot", "title": "bot", "position": 5.0, "layer": 1000000, "start": 0.0, "end": 4.0}),
+        ]
+        ensured_layers = []
+        app = types.SimpleNamespace(
+            clipboard=clipboard_stub,
+            updates=types.SimpleNamespace(transaction_id=None),
+            window=types.SimpleNamespace(
+                track_stack_from=lambda layer, count: [1000000, 500000, 250000][:count],
+                ensure_tracks_for_layers=lambda layers: ensured_layers.extend(layers),
+            ),
+        )
+        helper = types.SimpleNamespace(
+            get_uuid=lambda: "tx-paste-2",
+            _assign_new_effect_ids=lambda data: self.timeline_module.TimelineView._assign_new_effect_ids(helper, data),
+            _extend_timeline_to_fit_items_calls=[],
+            _select_inserted_paste_items_calls=[],
+        )
+        helper._extend_timeline_to_fit_items = lambda: helper._extend_timeline_to_fit_items_calls.append(True)
+        helper._select_inserted_paste_items = lambda items: helper._select_inserted_paste_items_calls.append(list(items))
+
+        with ExitStack() as stack:
+            stack.enter_context(patch.object(self.timeline_module.ClipboardManager, "from_mime", return_value=copied_objects))
+            stack.enter_context(patch.object(self.timeline_module, "Clip", FakeClip))
+            stack.enter_context(patch.object(self.timeline_module, "get_app", return_value=app))
+            self.timeline_module.TimelineView._handle_paste_callback(
+                helper,
+                [],
+                [],
+                {"position": 20.0, "track": 1000000},
+            )
+
+        self.assertEqual([item["layer"] for item in saved], [1000000, 500000, 250000])
+        self.assertEqual(ensured_layers, [1000000, 500000, 250000])
+        self.assertEqual(helper._extend_timeline_to_fit_items_calls, [True])
         self.assertIsNone(app.updates.transaction_id)
 
     def test_qwidget_paste_coordinates_uses_viewport_adjusted_tracks(self):

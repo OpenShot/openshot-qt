@@ -20,5 +20,11 @@
 	<string>10.15.0</string>
 	<key>NSHighResolutionCapable</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>OpenShot uses the camera when you choose to record webcam video.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>OpenShot uses the microphone when you choose to record audio.</string>
+	<key>NSScreenCaptureUsageDescription</key>
+	<string>OpenShot uses screen recording when you choose to capture your display.</string>
 </dict>
 </plist>

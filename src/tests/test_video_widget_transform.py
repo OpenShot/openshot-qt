@@ -86,12 +86,18 @@ def clip_with(scale_mode, gravity=openshot.GRAVITY_CENTER):
     return types.SimpleNamespace(data={"scale": scale_mode, "gravity": gravity})
 
 
-def props(location_x=0.0, location_y=0.0, scale_x=1.0, scale_y=1.0):
+def props(location_x=0.0, location_y=0.0, scale_x=1.0, scale_y=1.0, margin=0.0):
     return {
         "scale_x": {"value": scale_x},
         "scale_y": {"value": scale_y},
+        "rotation": {"value": 0.0},
+        "shear_x": {"value": 0.0},
+        "shear_y": {"value": 0.0},
+        "origin_x": {"value": 0.5},
+        "origin_y": {"value": 0.5},
         "location_x": {"value": location_x},
         "location_y": {"value": location_y},
+        "margin": {"value": margin},
         "parentObjectId": {"memo": ""},
     }
 
@@ -154,6 +160,57 @@ class VideoWidgetTransformTests(unittest.TestCase):
 
                 self.assertLessEqual(left.x() + left.width(), 0.0)
                 self.assertGreaterEqual(right.x(), self.viewport.width())
+
+    def test_clip_margin_offsets_edge_gravity_handle_rect(self):
+        project_values = {"width": 160, "height": 90}
+        app = types.SimpleNamespace(project=types.SimpleNamespace(
+            get=project_values.get))
+        with patch("windows.video_widget.get_app", return_value=app):
+            rect = VideoWidget._clip_display_rect(
+                self.widget,
+                40,
+                30,
+                clip_with(openshot.SCALE_NONE, openshot.GRAVITY_BOTTOM_RIGHT),
+                props(scale_x=1.0, scale_y=1.0, margin=0.1),
+                self.viewport,
+            )
+
+        self.assertAlmostEqual(rect.x(), 111.0)
+        self.assertAlmostEqual(rect.y(), 51.0)
+        self.assertAlmostEqual(rect.width(), 40.0)
+        self.assertAlmostEqual(rect.height(), 30.0)
+
+    def test_clip_margin_reduces_fit_layout_handle_rect(self):
+        rect = VideoWidget._clip_display_rect(
+            self.widget,
+            160,
+            90,
+            clip_with(openshot.SCALE_FIT, openshot.GRAVITY_CENTER),
+            props(margin=0.1),
+            self.viewport,
+        )
+
+        self.assertAlmostEqual(rect.x(), 16.0)
+        self.assertAlmostEqual(rect.y(), 9.0)
+        self.assertAlmostEqual(rect.width(), 128.0)
+        self.assertAlmostEqual(rect.height(), 72.0)
+
+    def test_clip_screen_rect_applies_clip_scale_before_group_union(self):
+        first = VideoWidget._clip_screen_rect(
+            self.widget,
+            QRectF(0.0, 0.0, 160.0, 90.0),
+            props(scale_x=0.5, scale_y=0.5),
+        )
+        second = VideoWidget._clip_screen_rect(
+            self.widget,
+            QRectF(80.0, 0.0, 160.0, 90.0),
+            props(scale_x=0.5, scale_y=0.5),
+        )
+        union = first.united(second)
+
+        self.assertAlmostEqual(first.width(), 80.0)
+        self.assertAlmostEqual(second.x(), 80.0)
+        self.assertAlmostEqual(union.width(), 160.0)
 
     def test_yolo5_file_sha256(self):
         with tempfile.NamedTemporaryFile(delete=False) as test_file:
@@ -535,7 +592,7 @@ class VideoWidgetTransformTests(unittest.TestCase):
 
     def test_location_offset_inverse_round_trips_drag_motion(self):
         # Crop square in a 16:9 viewport renders as 160x160, centered at y=-35.
-        source_w, source_h, scaled_w, scaled_h, anchor_x, anchor_y = (
+        source_w, source_h, scaled_w, scaled_h, anchor_x, anchor_y, layout_x, layout_y, layout_w, layout_h = (
             VideoWidget._clip_location_geometry(
                 self.widget,
                 40,
@@ -545,8 +602,9 @@ class VideoWidgetTransformTests(unittest.TestCase):
                 self.viewport,
             )
         )
-        self.assertEqual((source_w, source_h, scaled_w, scaled_h, anchor_x, anchor_y),
-                         (160.0, 160.0, 160.0, 160.0, 0.0, -35.0))
+        self.assertEqual(
+            (source_w, source_h, scaled_w, scaled_h, anchor_x, anchor_y, layout_x, layout_y, layout_w, layout_h),
+            (160.0, 160.0, 160.0, 160.0, 0.0, -35.0, 0.0, 0.0, 160.0, 90.0))
 
         for location in (-1.0, -0.5, 0.0, 0.5, 1.0):
             with self.subTest(location=location):

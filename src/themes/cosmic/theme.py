@@ -340,7 +340,8 @@ QPushButton#dock-float-button {
 QLabel#dock-title-label {
     color: #91C3FF;
     font-weight: 500;
-    padding: 16px;
+    min-height: 20px;
+    padding: 10px 16px 8px 16px;
 }
 
 QLabel#dock-title-handle {
@@ -851,9 +852,7 @@ QMessageBox QPushButton[text="&{_('Cancel')}"] {{
         """ Toggle the play icon from play to pause and back """
         button = self.app.window.videoToolbar.widgetForAction(self.app.window.actionPlay)
         if button:
-            if not isPlay:
-                play_icon_path = os.path.join(PATH, "themes/cosmic/images/tool-media-play.svg")
-                button.setIcon(QIcon(play_icon_path))
-            else:
-                pause_icon_path = os.path.join(PATH, "themes/cosmic/images/tool-media-pause.svg")
-                button.setIcon(QIcon(pause_icon_path))
+            icon_name = "tool-media-pause.svg" if isPlay else "tool-media-play.svg"
+            icon_path = os.path.join(PATH, "themes/cosmic/images", icon_name)
+            icon = self.create_svg_icon(icon_path, self.app.window.videoToolbar.iconSize())
+            button.setIcon(icon)

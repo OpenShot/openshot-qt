@@ -38,6 +38,7 @@ Table of Contents:
    getting_started
    main_window
    timeline
+   recording
    files
    clips
    transitions

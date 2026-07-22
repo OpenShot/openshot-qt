@@ -78,8 +78,11 @@ Keep Shooting
 Record more video and audio than you think you will need for your project. Include
 video that enhances the scene, sets a mood, or tells a story. You can use
 the extra video for smooth transitions in your project. If your project requires
-voice overs or narration, we suggest using an external application to record
-your microphone (since OpenShot does not include any recording capabilities yet).
+voice overs, narration, screen capture, or webcam footage, you can use
+:guilabel:`View->Recording View` to open OpenShot's recording tools. For more
+details, including microphone, system audio, screen, and webcam options, see
+:ref:`recording_ref`. For more specialized capture workflows, you can still record with an external application
+and import the finished media into OpenShot.
 
 Organize Your Project Files
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^

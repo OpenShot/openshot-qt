@@ -55,6 +55,11 @@ from classes.keyframe_scaler import KeyframeScaler
 from classes.logger import log
 from classes.thumbnail import RoundFrameToThumbnailGrid
 from classes.time_parts import secondsToTime
+from classes.waveform import (
+    WAVEFORM_RMS_KEY,
+    waveform_data_format,
+    waveform_display_amplitude,
+)
 from classes import info
 from classes.clip_utils import is_single_image_media
 from classes.qt_types import font_metrics_horizontal_advance
@@ -963,6 +968,7 @@ class ClipPainter(BasePainter):
                 text_right,
                 visible_width=float(segment.get("segment_width") or inner_rect.width()) if isinstance(segment, dict) else float(inner_rect.width()),
                 icon_entries=icon_entries,
+                transparent_container=has_waveform,
             )
 
         painter.restore()
@@ -1441,6 +1447,9 @@ class ClipPainter(BasePainter):
                 self.thumb_cache[key] = pix
                 return pix
 
+        if str(file_id).startswith("recording-preview-"):
+            return None
+
         if getattr(self.w, "_suspend_thumbnail_requests", False):
             return None
 
@@ -1614,7 +1623,17 @@ class ClipPainter(BasePainter):
         painter.setFont(original_font)
         return x
 
-    def _draw_clip_text(self, painter, clip, inner, x, right, visible_width=None, icon_entries=None):
+    def _draw_clip_text(
+        self,
+        painter,
+        clip,
+        inner,
+        x,
+        right,
+        visible_width=None,
+        icon_entries=None,
+        transparent_container=False,
+    ):
         text_width = right - x
         if text_width <= 0:
             return None
@@ -1741,10 +1760,11 @@ class ClipPainter(BasePainter):
         radius = min(4.0, container_rect.width() / 2.0, container_rect.height() / 2.0)
         path = QPainterPath()
         path.addRoundedRect(container_rect, radius, radius)
-        painter.save()
-        painter.setRenderHint(QPainter.Antialiasing, True)
-        painter.fillPath(path, QColor(0, 0, 0, 140))
-        painter.restore()
+        if not transparent_container:
+            painter.save()
+            painter.setRenderHint(QPainter.Antialiasing, True)
+            painter.fillPath(path, QColor(0, 0, 0, 140))
+            painter.restore()
 
         # Pre-scale the arrow once for both modes
         arrow_pix = self.dropdown_arrow_pix
@@ -1838,6 +1858,9 @@ class ClipPainter(BasePainter):
             return False
 
         samples = len(audio_data)
+        rms_data = ui_data.get(WAVEFORM_RMS_KEY)
+        has_rms = isinstance(rms_data, list) and len(rms_data) == samples
+        audio_data_format = waveform_data_format(ui_data)
         display = self.w.clip_waveform_window(clip)
         scale_waveform = display.get("scale", False)
         if scale_waveform:
@@ -1901,20 +1924,30 @@ class ClipPainter(BasePainter):
 
         center_y = inner.center().y()
         amplitude_scale = (height * 0.5) * 0.95
-        peak_color = self.w.theme.waveform_peak_color
         fill_color = self.w.theme.waveform_color
+        peak_color = self.w.theme.waveform_peak_color
+        if not fill_color.isValid():
+            fill_color = QColor("#2a82da")
         if not peak_color.isValid():
             peak_color = QColor(fill_color)
             peak_color.setAlpha(128)
-        if not fill_color.isValid():
-            fill_color = QColor("#2a82da")
 
         painter.save()
-        painter.setPen(Qt.NoPen)
         painter.setClipRect(inner, Qt.IntersectClip)
 
+        # Keep digital silence and very quiet passages identifiable as audio.
+        # Draw this first so the waveform fills naturally cover it where sound
+        # is present, while zero-height samples retain a subtle center line.
+        center_color = QColor(fill_color)
+        center_color.setAlpha(120)
+        center_pen = QPen(center_color, 1.0)
+        center_pen.setCosmetic(True)
+        painter.setPen(center_pen)
+        painter.drawLine(QPointF(inner.left(), center_y), QPointF(inner.right(), center_y))
+        painter.setPen(Qt.NoPen)
+
         peak_heights = []
-        avg_heights = []
+        rms_heights = []
         x_positions = []
 
         for column in range(visible_left, visible_right):
@@ -1923,34 +1956,51 @@ class ClipPainter(BasePainter):
             start_idx = max(0, int(math.floor(px_start)))
             end_idx = min(samples, int(math.ceil(px_end)))
             values = []
+            rms_values = []
 
             if end_idx <= start_idx:
                 idx = min(samples - 1, max(0, int(round(px_start)))) if samples else 0
                 if samples:
                     sample = audio_data[idx]
                     values.append(abs(sample) if isinstance(sample, (int, float)) else 0.0)
+                    if has_rms:
+                        rms_sample = rms_data[idx]
+                        rms_values.append(abs(rms_sample) if isinstance(rms_sample, (int, float)) else 0.0)
             else:
                 step = max(1, int(math.ceil((end_idx - start_idx) / 20.0)))
                 idx = start_idx
                 while idx < end_idx:
                     sample = audio_data[idx]
                     values.append(abs(sample) if isinstance(sample, (int, float)) else 0.0)
+                    if has_rms:
+                        rms_sample = rms_data[idx]
+                        rms_values.append(abs(rms_sample) if isinstance(rms_sample, (int, float)) else 0.0)
                     idx += step
                 last_idx = end_idx - 1
                 if values and (last_idx - start_idx) % step != 0:
                     sample = audio_data[last_idx]
                     values.append(abs(sample) if isinstance(sample, (int, float)) else 0.0)
+                    if has_rms:
+                        rms_sample = rms_data[last_idx]
+                        rms_values.append(abs(rms_sample) if isinstance(rms_sample, (int, float)) else 0.0)
 
             if not values:
                 peak_heights.append(0.0)
-                avg_heights.append(0.0)
+                rms_heights.append(0.0)
                 x_positions.append(inner.left() + column + 0.5)
                 continue
 
             max_amp = max(values)
-            avg_amp = sum(values) / len(values)
-            peak_heights.append(max_amp * amplitude_scale)
-            avg_heights.append(avg_amp * amplitude_scale)
+            peak_heights.append(
+                waveform_display_amplitude(max_amp, audio_data_format) * amplitude_scale
+            )
+            if rms_values:
+                rms_amp = math.sqrt(sum(value * value for value in rms_values) / len(rms_values))
+                rms_heights.append(
+                    waveform_display_amplitude(rms_amp, audio_data_format) * amplitude_scale
+                )
+            else:
+                rms_heights.append(0.0)
             x_positions.append(inner.left() + column + 0.5)
 
         if x_positions:
@@ -1963,19 +2013,19 @@ class ClipPainter(BasePainter):
                 peak_path.lineTo(x_pos, center_y + height_px)
             peak_path.closeSubpath()
 
-            fill_path = QPainterPath()
-            fill_path.moveTo(x_positions[0], center_y)
-            for x_pos, height_px in zip(x_positions, avg_heights):
-                fill_path.lineTo(x_pos, center_y - height_px)
-            fill_path.lineTo(x_positions[-1], center_y)
-            for x_pos, height_px in zip(reversed(x_positions), reversed(avg_heights)):
-                fill_path.lineTo(x_pos, center_y + height_px)
-            fill_path.closeSubpath()
-
             if any(height > 0.0 for height in peak_heights):
-                painter.fillPath(peak_path, peak_color)
-            if any(height > 0.0 for height in avg_heights):
-                painter.fillPath(fill_path, fill_color)
+                painter.fillPath(peak_path, peak_color if has_rms else fill_color)
+
+            if has_rms and any(height > 0.0 for height in rms_heights):
+                rms_path = QPainterPath()
+                rms_path.moveTo(x_positions[0], center_y)
+                for x_pos, height_px in zip(x_positions, rms_heights):
+                    rms_path.lineTo(x_pos, center_y - height_px)
+                rms_path.lineTo(x_positions[-1], center_y)
+                for x_pos, height_px in zip(reversed(x_positions), reversed(rms_heights)):
+                    rms_path.lineTo(x_pos, center_y + height_px)
+                rms_path.closeSubpath()
+                painter.fillPath(rms_path, fill_color)
 
         painter.restore()
         return True

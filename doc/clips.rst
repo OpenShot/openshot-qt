@@ -232,7 +232,8 @@ Layout
 """"""
 The :guilabel:`Transform → Layout` submenu adjusts the size of a clip and snaps it to a chosen corner of the
 screen, useful for picture-in-picture or watermark effects.
-See :ref:`clip_location_x_ref` and :ref:`clip_scale_x_ref` key-frames.
+See :ref:`clip_location_x_ref`, :ref:`clip_scale_x_ref`, :guilabel:`Margin`, and :guilabel:`Corner Radius`
+key-frames.
 
 - :guilabel:`Reset Layout` — removes any layout keyframes.
 - :guilabel:`1/4 Size` — positions the clip at 1/4 of the screen in the Center, Top Left, Top Right, Bottom Left, or Bottom Right corner.
@@ -240,6 +241,8 @@ See :ref:`clip_location_x_ref` and :ref:`clip_scale_x_ref` key-frames.
 - :guilabel:`Show All (Distort)` — stretches the entire clip frame to fill the screen, ignoring aspect ratio.
 
 - **Usage Example:** Placing a logo in the corner of a video using the layout preset.
+- **Tip:** Use :guilabel:`Margin` to create an inset layout area for a clip, and :guilabel:`Corner Radius` to round
+  picture-in-picture camera clips without adding a Mask effect.
 - **Tip:** Combine with animation presets for dynamic transitions involving resizing and repositioning.
 
 Speed
@@ -472,6 +475,58 @@ for clips that have no video track.
 - **Usage Example:** Displaying the audio waveform for precise audio editing and alignment.
 - **Tip:** Use this to visually spot loud or quiet sections in a music clip without opening the audio scopes.
 
+**How timeline waveforms are scaled**
+
+Timeline waveforms are an editing aid: they help you find speech, beats, silence, and transients, and compare the
+approximate levels of different clips. New waveform data preserves the source's **absolute peak level**. OpenShot does
+not enlarge every quiet file until its highest peak fills the clip, so a quiet recording remains visibly quieter than
+a loud recording.
+
+Pure linear amplitude is accurate but makes ordinary speech difficult to see. OpenShot therefore applies a fixed,
+gentle square-root display curve. This expands useful detail while preserving the order of levels: a louder source
+always appears taller than a quieter source. The curve changes only the drawing; it does not alter, normalize, or
+process the recorded audio.
+
+.. table:: Approximate waveform height for new clips
+   :widths: 25 25 50
+
+   =================  ==================  ================================================
+   Peak Level         Display Height      What It Often Looks Like
+   =================  ==================  ================================================
+   ``0 dBFS``         100%                Full-scale peak; check for possible clipping.
+   ``-6 dBFS``        71%                 Strong transient or loud program audio.
+   ``-12 dBFS``       50%                 Healthy speech or other prominent audio.
+   ``-20 dBFS``       32%                 Moderate speech or background program audio.
+   ``-40 dBFS``       10%                 Quiet room tone or microphone noise floor.
+   ``-60 dBFS``       3%                  Very quiet detail near the center line.
+   =================  ==================  ================================================
+
+OpenShot samples both **peak** and **RMS** envelopes at regular time intervals. The lighter outer envelope shows brief
+peaks and transients; the solid inner envelope shows sustained RMS energy. Both follow the clip's Volume and Time
+curves and use the same fixed display curve. A subtle center line keeps silent passages identifiable without making
+them look louder than they are.
+
+New waveforms use 200 samples per second by default, providing several measurements within a typical video frame.
+Change this density with :guilabel:`Edit → Preferences → Timeline → Waveform Samples (per second)`. Higher values show
+more detail when zoomed in but increase project data size and analysis time. The painter reduces dense data to the
+visible timeline pixels, and its rendered-waveform cache keeps normal scrolling and repainting inexpensive. Live
+microphone previews use the selected density and the same peak/RMS display as completed recordings.
+
+Projects saved by older OpenShot versions can contain independently peak-normalized waveform data. These waveforms
+have no format marker, so OpenShot deliberately displays them with the original legacy scaling. They remain familiar
+instead of becoming unexpectedly thin. Older waveform data without a stored density defaults to its original 20
+samples per second, and data without an RMS envelope remains a single solid waveform. A project may safely contain
+legacy and new waveforms together.
+
+To regenerate cached waveform data using the current method, choose :guilabel:`Edit → Clear → Waveform Display Data`,
+then show the waveform again. This affects only cached display data and does not modify the media file or its audio.
+
+.. note::
+
+   The peak envelope identifies transient level and possible clipping; RMS summarizes sustained energy but is not a
+   loudness-standard measurement. Use the :guilabel:`Audio Levels` scope and your ears when mixing. See
+   :ref:`playback_ref` for audio troubleshooting.
+
 Properties
 """"""""""
 The :guilabel:`Properties` preset opens the properties panel for a clip, allowing quick access for adjustments
@@ -570,6 +625,7 @@ See the table below for a full list of clip properties.
    Channel Filter          Key-Frame   A number representing an audio channel to filter (clears all other channels)
    Channel Mapping         Key-Frame   A number representing an audio channel to output (only works when filtering a channel)
    Composite (Blend Mode)  Enum        The blend mode used to composite this clip into lower layers. Default is **Normal**. See :ref:`clip_composite_ref`.
+   Corner Radius           Key-Frame   Curve representing the radius used to round the clip's corners (0 to 0.5)
    Duration                Float       The length of the clip (in seconds). Read-only property. This is calculated by: End - Start.
    Enable Audio            Enum        An optional override to determine if this clip has audio (-1=undefined, 0=no, 1=yes)
    Enable Video            Enum        An optional override to determine if this clip has video (-1=undefined, 0=no, 1=yes)
@@ -579,6 +635,7 @@ See the table below for a full list of clip properties.
    ID                      String      A randomly generated GUID (globally unique identifier) assigned to each clip. Read-only property.
    Location X              Key-Frame   Curve representing the relative X position in percent based on the gravity (-1 to 1)
    Location Y              Key-Frame   Curve representing the relative Y position in percent based on the gravity (-1 to 1)
+   Margin                  Key-Frame   Curve representing edge spacing for gravity-aligned clips (0 to 0.5)
    Origin X                Key-Frame   Curve representing the rotation origin point, X position in percent (-1 to 1)
    Origin Y                Key-Frame   Curve representing the rotation origin point, Y position in percent (-1 to 1)
    Parent                  String      The parent object to this clip, which makes many of these keyframe values initialize to the parent value
@@ -651,6 +708,15 @@ of the image in the clip. The curve ranges from 1 (fully opaque) to 0 (completel
 
 - **Usage Example:** Applying a gradual fade-in or fade-out effect to smoothly transition clips.
 - **Tip:** Use keyframes to create complex fading patterns, such as fading in and then fading out for a ghostly effect.
+
+Corner Radius
+"""""""""""""
+The :guilabel:`Corner Radius` property is a key-frame curve that rounds the visible corners of a clip. The curve ranges
+from 0 (square corners) to 0.5 (maximum rounding, based on the clip's shortest side).
+
+- **Usage Example:** Rounding the corners of a picture-in-picture camera recording without adding a separate mask effect.
+- **Usage Example:** In :guilabel:`Recording View`, corner webcam clips use this property for the :guilabel:`Corners` setting.
+- **Tip:** Use 0 for normal full-frame video, a small value for rounded rectangles, or 0.5 for a pill or oval-like shape.
 
 Channel Filter
 """"""""""""""
@@ -749,6 +815,22 @@ expressed in percentages, based on the specified gravity. The range for these cu
 
 - **Usage Example:** Animating a clip's movement across the screen using key-frame curves for both X and Y locations.
 - **Tip:** Combine with gravity settings to create dynamic animations that adhere to consistent alignment rules.
+
+Margin
+""""""
+The :guilabel:`Margin` property is a key-frame curve that creates an inset layout area for a clip. The curve is measured
+as a percentage of the project's shortest side and ranges from 0 to 0.5. For example, in a 1920x1080 project, a margin
+of 0.05 creates a 54-pixel inset on every side, and the clip is laid out inside the remaining rectangle.
+
+Margin is applied before the clip's scale and gravity are calculated. This means :guilabel:`Scale` modes such as
+``Fit``, ``Crop``, and ``Stretch`` use the smaller inset area instead of the full project frame. It also means all
+:guilabel:`Gravity` options, including ``Center``, are resolved inside the inset area.
+
+- **Usage Example:** Keeping a corner webcam clip slightly away from the screen edge during a screen recording.
+- **Usage Example:** Adding a clean border around a full-frame image by using ``Fit`` or ``Stretch`` with a small margin.
+- **Usage Example:** Creating safe-area layouts, split-screen spacing, or picture-in-picture spacing without adding Crop or Mask effects.
+- **Usage Example:** In :guilabel:`Recording View`, screen-plus-camera recordings use this property to inset the corner webcam clip.
+- **Tip:** Use a small value such as 0.02 to 0.05 for normal edge spacing. Larger values intentionally shrink the available layout area.
 
 .. _clip_volume_mixing_ref:
 

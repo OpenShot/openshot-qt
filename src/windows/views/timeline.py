@@ -156,7 +156,13 @@ from classes.logger import log
 from classes.query import File, Clip, Transition, Track, Effect
 from classes.clipboard import ClipboardManager
 from classes.thumbnail import GetThumbPath
-from classes.waveform import get_audio_data
+from classes.waveform import (
+    ABSOLUTE_WAVEFORM_FORMAT,
+    WAVEFORM_FORMAT_KEY,
+    WAVEFORM_RATE_KEY,
+    WAVEFORM_RMS_KEY,
+    get_audio_data,
+)
 from classes.path_utils import absolute_media_path
 from .timeline_backend.enums import (
     MenuFade, MenuRotate, MenuLayout, MenuAlign, MenuAnimate, MenuVolume,
@@ -175,6 +181,7 @@ from .repeat import apply_repeat, reset_repeat, RepeatDialog
 
 # Constants used by this file
 JS_SCOPE_SELECTOR = "$('body').scope()"
+MICROPHONE_ICON = "tool-microphone.svg"
 ViewClass = TimelineWidget
 
 log.info("Timeline backend: QWidget (%s)", getattr(ViewClass, "__name__", "unknown"))
@@ -247,6 +254,87 @@ class TimelineView(updates.UpdateInterface, ViewClass):
     # Create signal for adding waveforms to clips
     clipAudioDataReady = pyqtSignal(str, object, str)
     fileAudioDataReady = pyqtSignal(str, object, str)
+
+    def _microphone_icon(self):
+        return QIcon(os.path.join(info.PATH, "themes/cosmic/images", MICROPHONE_ICON))
+
+    def _show_recording_dock_deferred(self, start_time=None, track_number=None):
+        """Open recording after context-menu event handling has unwound."""
+        QTimer.singleShot(
+            50,
+            lambda: self.window.show_audio_recording_dock(
+                start_time=start_time,
+                track_number=track_number,
+            )
+        )
+
+    def _recording_track_for_clip(self, clip):
+        """Prefer the nearest lower unlocked track with room for a voiceover."""
+        try:
+            clip_data = clip.data if isinstance(clip.data, dict) else {}
+            source_track = int(clip_data.get("layer", 1) or 1)
+            start = float(clip_data.get("position", 0.0) or 0.0)
+            duration = max(
+                0.0,
+                float(clip_data.get("end", 0.0) or 0.0) - float(clip_data.get("start", 0.0) or 0.0),
+            )
+        except (TypeError, ValueError):
+            return 1
+
+        end = start + max(duration, 0.001)
+        try:
+            tracks = sorted(
+                Track.filter(),
+                key=lambda t: int(t.data.get("number", 0) or 0),
+                reverse=True,
+            )
+        except Exception:
+            tracks = []
+
+        candidate_numbers = [
+            int(track.data.get("number", 0) or 0)
+            for track in tracks
+            if int(track.data.get("number", 0) or 0) < source_track
+            and not track.data.get("lock", False)
+        ]
+        if not candidate_numbers:
+            return source_track
+
+        occupied = {}
+        for existing in Clip.filter():
+            data = existing.data if isinstance(existing.data, dict) else {}
+            try:
+                layer = int(data.get("layer", 0) or 0)
+                left = float(data.get("position", 0.0) or 0.0)
+                right = left + max(0.0, float(data.get("end", 0.0) or 0.0) - float(data.get("start", 0.0) or 0.0))
+            except (TypeError, ValueError):
+                continue
+            occupied.setdefault(layer, []).append((left, right))
+
+        for track_number in candidate_numbers:
+            has_overlap = any(left < end and right > start for left, right in occupied.get(track_number, []))
+            if not has_overlap:
+                return track_number
+        return source_track
+
+    def _record_from_clip(self, clip):
+        """Seek to a clip's first frame and open Recording on a free lower track."""
+        clip_data = clip.data if isinstance(clip.data, dict) else {}
+        try:
+            position = max(0.0, float(clip_data.get("position", 0.0) or 0.0))
+        except (TypeError, ValueError):
+            position = 0.0
+        try:
+            fps = get_app().project.get("fps")
+            fps_value = float(fps["num"]) / float(fps["den"])
+        except (KeyError, TypeError, ValueError, ZeroDivisionError):
+            fps_value = 30.0
+        frame_number = max(1, int(round(position * fps_value)) + 1)
+        self.PlayheadMoved(frame_number, True)
+        self._show_recording_dock_deferred(
+            start_time=position,
+            track_number=self._recording_track_for_clip(clip),
+        )
 
     def connect_playback(self):
         """Connect playback signals to the QWidget timeline."""
@@ -426,6 +514,18 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 top_most_layer = max(obj.data.get("layer", 0) for obj in objects)
                 position_diff = target_position - left_most_position
                 layer_diff = target_layer - top_most_layer if target_layer != -1 else 0
+                layer_map = {}
+                if target_layer != -1:
+                    source_layers = sorted(
+                        {
+                            int(obj.data.get("layer", 0))
+                            for obj in objects
+                            if obj.data.get("layer") is not None
+                        },
+                        reverse=True,
+                    )
+                    target_layers = TimelineView._track_stack_from(self, target_layer, len(source_layers))
+                    layer_map = dict(zip(source_layers, target_layers))
 
                 for obj in objects:
                     obj.type = "insert"
@@ -433,7 +533,13 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                     obj.id = None
                     self._assign_new_effect_ids(obj.data)
                     obj.data["position"] = obj.data.get("position", 0.0) + position_diff
-                    obj.data["layer"] = obj.data.get("layer", 0) + layer_diff
+                    old_layer = obj.data.get("layer", 0)
+                    try:
+                        old_layer_key = int(old_layer)
+                    except (TypeError, ValueError):
+                        old_layer_key = old_layer
+                    obj.data["layer"] = layer_map.get(old_layer_key, obj.data.get("layer", 0) + layer_diff)
+                    TimelineView._ensure_layers_exist(self, [obj.data.get("layer")])
                     obj.save()
                     item_id = getattr(obj, "id", None) or obj.data.get("id")
                     item_type = None
@@ -510,6 +616,24 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 self._select_inserted_paste_items(inserted_items)
         finally:
             get_app().updates.transaction_id = None
+
+    def _ensure_layers_exist(self, layers):
+        window = getattr(get_app(), "window", None)
+        ensure = getattr(window, "ensure_tracks_for_layers", None)
+        if callable(ensure):
+            ensure(list(layers or []))
+
+    def _track_stack_from(self, layer_number, count):
+        window = getattr(get_app(), "window", None)
+        stack = getattr(window, "track_stack_from", None)
+        if callable(stack):
+            return stack(layer_number, count)
+
+        try:
+            layer_number = int(layer_number)
+        except (TypeError, ValueError):
+            layer_number = 0
+        return [max(1, layer_number - index) for index in range(max(0, int(count or 0)))]
 
     def _qwidget_paste_coordinates(self, local_pos, clip_ids, tran_ids):
         """Resolve paste coordinates for the QWidget timeline backend."""
@@ -1381,16 +1505,12 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             # Update the found_start to the end of the current clip
             found_start = max(found_start, right_edge)
 
-        # Don't show context menu
-        if not has_clipboard and not found_gap:
-            return
-
         # Get track object (ignore locked tracks for edit operations)
         track = Track.get(number=layer_number)
         if not track:
             return
         locked = track.data.get("lock", False)
-        if locked:
+        if locked and (has_clipboard or found_gap):
             return
 
         # New context menu
@@ -1418,6 +1538,9 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 partial(self.Paste_Triggered, MenuCopy.PASTE, [], [])
             )
             has_edit_actions = True
+
+        if not has_edit_actions:
+            return
 
         # Show context menu
         self.context_menu_cursor_position = QCursor.pos()
@@ -1996,6 +2119,13 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
         # Audio Menu (Volume, Separate Audio, Waveform, Analyze Levels)
         Audio_Menu = StyledContextMenu(title=_("Audio"), parent=self)
+        audio_menu_has_actions = False
+        Record_Voiceover = Audio_Menu.addAction(
+            self._microphone_icon(),
+            _("Record"))
+        Record_Voiceover.triggered.connect(lambda: self._record_from_clip(clip))
+        audio_menu_has_actions = True
+        Audio_Menu.addSeparator()
 
         Volume_Menu = StyledContextMenu(title=_("Volume"), parent=self)
         Volume_None = Volume_Menu.addAction(_("Reset Volume"))
@@ -2033,6 +2163,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
         if clip_has_audio:
             Audio_Menu.addMenu(Volume_Menu)
+            audio_menu_has_actions = True
 
         Split_Audio_Channels_Menu = StyledContextMenu(title=_("Separate"), parent=self)
         Split_Single_Clip = Split_Audio_Channels_Menu.addAction(_("Single Clip (all channels)"))
@@ -2043,6 +2174,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             self.Split_Audio_Triggered, MenuSplitAudio.MULTIPLE, clip_ids))
         if clip_has_audio:
             Audio_Menu.addMenu(Split_Audio_Channels_Menu)
+            audio_menu_has_actions = True
 
         if clip_has_audio:
             Audio_Menu.addSeparator()
@@ -2062,7 +2194,9 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 QIcon(os.path.join(info.PATH, "themes/cosmic/images/view-analysis.svg")),
                 _("Analyze Levels"))
             Analyze_Levels.triggered.connect(lambda: get_app().window.show_scope_audio_dock())
+            audio_menu_has_actions = True
 
+        if audio_menu_has_actions:
             menu.addMenu(Audio_Menu)
 
         # If Playhead overlapping clip
@@ -2120,6 +2254,9 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         for clip_id in clip_ids:
             # Get existing clip object
             clip = Clip.get(id=clip_id)
+            if not clip:
+                log.warning("Skipping waveform request for missing clip: %s", clip_id)
+                continue
             file_id = clip.data.get("file_id")
 
             if file_id not in files:
@@ -2257,7 +2394,12 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 continue
 
             def get_track_below(layer_number):
-                """Return the track number directly below the provided layer (or the same layer if none found)."""
+                """Return the track number directly below the provided layer, creating one when needed."""
+                window = getattr(get_app(), "window", None)
+                create_below = getattr(window, "create_track_below", None)
+                if callable(create_below):
+                    return create_below(layer_number)
+
                 next_track_number = layer_number
                 found_track = False
                 for track in reversed(sorted(all_tracks, key=itemgetter('number'))):
@@ -2307,7 +2449,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
                         # Keep first clip on the same layer, others below
                         target_layer = current_layer if channel == 0 else get_track_below(current_layer)
-                        clip.data['layer'] = max(target_layer, 0)
+                        clip.data['layer'] = target_layer
                         current_layer = clip.data['layer']
 
                         # Adjust the clip title
@@ -2395,7 +2537,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
                     # Adjust the layer, so this new audio clip doesn't overlap the parent
                     target_layer = get_track_below(current_layer)
-                    clip.data['layer'] = max(target_layer, 0)
+                    clip.data['layer'] = target_layer
                     current_layer = clip.data['layer']
 
                     # Adjust the clip title
@@ -2821,6 +2963,18 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         """Callback for the layout context menus"""
         log.debug(action)
 
+        if action in (MenuLayout.ALL_WITH_ASPECT, MenuLayout.ALL_WITHOUT_ASPECT):
+            for clip_id in clip_ids:
+                clip = Clip.get(id=clip_id)
+                if clip:
+                    self.show_all_clips(
+                        clip,
+                        action == MenuLayout.ALL_WITHOUT_ASPECT,
+                        clip_ids=clip_ids,
+                    )
+                    break
+            return
+
         # Loop through each selected clip
         for clip_id in clip_ids:
 
@@ -2880,17 +3034,8 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 clip.data["location_x"] = {"Points": [p_object]}
                 clip.data["location_y"] = {"Points": [p_object]}
 
-            if action == MenuLayout.ALL_WITH_ASPECT:
-                # Update all intersecting clips
-                self.show_all_clips(clip, False)
-
-            elif action == MenuLayout.ALL_WITHOUT_ASPECT:
-                # Update all intersecting clips
-                self.show_all_clips(clip, True)
-
-            else:
-                # Save changes
-                self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
+            # Save changes
+            self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
 
     def Animate_Triggered(self, action, clip_ids, transaction_id=None):
         """Apply one-click motion presets to selected clips.
@@ -4481,6 +4626,9 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         ui_data = clip.data.get("ui")
         if isinstance(ui_data, dict) and "audio_data" in ui_data:
             ui_data.pop("audio_data", None)
+            ui_data.pop("audio_data_rms", None)
+            ui_data.pop("audio_data_rate", None)
+            ui_data.pop("audio_data_format", None)
 
         tid = str(uuid.uuid4())
         self.update_clip_data(
@@ -4494,18 +4642,29 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         if has_waveform:
             self.Show_Waveform_Triggered([clip.id], transaction_id=tid)
 
-    def show_all_clips(self, clip, stretch=False):
+    def show_all_clips(self, clip, stretch=False, clip_ids=None):
         """ Show all clips at the same time (arranged col by col, row by row)  """
         from math import sqrt
 
-        # Get list of nearby clips
+        # Get selected clips when available. Older callers without clip_ids keep
+        # the legacy "nearby clips" behavior.
         available_clips = []
-        start_position = float(clip.data["position"])
-        for c in Clip.filter():
-            if (float(c.data["position"]) >= (start_position - 0.5)
-               and float(c.data["position"]) <= (start_position + 0.5)):
-                # add to list
-                available_clips.append(c)
+        if clip_ids:
+            selected_ids = {str(clip_id) for clip_id in clip_ids}
+            for c in Clip.filter():
+                clip_id = str(getattr(c, "id", c.data.get("id")))
+                if clip_id in selected_ids:
+                    available_clips.append(c)
+        else:
+            start_position = float(clip.data["position"])
+            for c in Clip.filter():
+                if (float(c.data["position"]) >= (start_position - 0.5)
+                   and float(c.data["position"]) <= (start_position + 0.5)):
+                    # add to list
+                    available_clips.append(c)
+
+        if not available_clips:
+            return
 
         # Get the number of rows
         number_of_clips = len(available_clips)
@@ -4545,11 +4704,17 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 else:
                     selected_clip.data["scale"] = openshot.SCALE_FIT
 
+                if stretch:
+                    scale_x = width
+                    scale_y = height
+                else:
+                    scale_x = scale_y = min(width, height)
+
                 # Set scale keyframes
-                w = openshot.Point(1, width, openshot.BEZIER)
+                w = openshot.Point(1, scale_x, openshot.BEZIER)
                 w_object = json.loads(w.Json())
                 selected_clip.data["scale_x"] = {"Points": [w_object]}
-                h = openshot.Point(1, height, openshot.BEZIER)
+                h = openshot.Point(1, scale_y, openshot.BEZIER)
                 h_object = json.loads(h.Json())
                 selected_clip.data["scale_y"] = {"Points": [h_object]}
                 x_point = openshot.Point(1, X, openshot.BEZIER)
@@ -5463,6 +5628,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             new_clip["_auto_transition"] = True
 
         # Add the clip to the timeline
+        self._ensure_layers_exist([track])
         self.update_clip_data(new_clip, only_basic_props=False, ignore_refresh=ignore_refresh)
 
         # Track the added clip
@@ -5558,6 +5724,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         self._auto_orient_transition_keyframes(transition_data)
 
         # Send to update manager
+        self._ensure_layers_exist([track])
         self.update_transition_data(transition_data, only_basic_props=False, ignore_refresh=ignore_refresh)
 
         # Track the added transition
@@ -5887,6 +6054,110 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         self.new_item = False
         self.item_type = None
         self.item_ids = []
+
+    def set_audio_recording_previews(self, previews):
+        """Draw transient recording clips without committing project data."""
+        preview_clips = []
+        for preview in previews or []:
+            if not isinstance(preview, dict):
+                continue
+            try:
+                duration = max(0.05, float(preview.get("duration") or 0.0))
+            except (TypeError, ValueError):
+                duration = 0.05
+            source_type = str(preview.get("source_type") or "recording")
+            preview_id = str(preview.get("id") or "recording-preview-%s" % source_type)
+            file_id = str(preview.get("file_id") or "")
+            has_audio = source_type == "mic"
+            has_video = source_type in ("screen", "webcam")
+            try:
+                fps_value = float(preview.get("fps") or getattr(self, "fps_float", 30.0) or 30.0)
+            except (TypeError, ValueError):
+                fps_value = 30.0
+            fps_value = max(1.0, fps_value)
+            video_length = max(1, int(round(duration * fps_value)))
+            reader = {
+                "has_audio": has_audio,
+                "has_video": has_video,
+                "media_type": "audio" if has_audio and not has_video else "video",
+                "path": "",
+                "duration": duration,
+                "start": 0.0,
+                "end": duration,
+                "video_length": video_length,
+                "fps": {"num": int(round(fps_value)), "den": 1},
+            }
+            if file_id:
+                reader["id"] = file_id
+            if has_video:
+                try:
+                    reader["width"] = int(preview.get("width") or 1280)
+                    reader["height"] = int(preview.get("height") or 720)
+                except (TypeError, ValueError):
+                    reader["width"] = 1280
+                    reader["height"] = 720
+
+            preview_clip = Clip()
+            preview_clip.id = preview_id
+            try:
+                position = max(0.0, float(preview.get("position") or 0.0))
+            except (TypeError, ValueError):
+                position = 0.0
+            try:
+                track = int(preview.get("track") or 1)
+            except (TypeError, ValueError):
+                track = 1
+            preview_clip.data = {
+                "id": preview_clip.id,
+                "file_id": file_id,
+                "title": preview.get("title") or get_app()._tr("Recording"),
+                "position": position,
+                "layer": track,
+                "start": 0.0,
+                "end": duration,
+                "duration": duration,
+                "reader": reader,
+            }
+            if has_audio:
+                audio_data = list(preview.get("audio_data") or [])
+                audio_rms = list(preview.get(WAVEFORM_RMS_KEY) or [])
+                preview_clip.data["ui"] = {
+                    "audio_data": audio_data,
+                    WAVEFORM_RMS_KEY: audio_rms,
+                    WAVEFORM_RATE_KEY: int(preview.get(WAVEFORM_RATE_KEY) or 20),
+                    WAVEFORM_FORMAT_KEY: ABSOLUTE_WAVEFORM_FORMAT,
+                    "waveform_token": "%s:%s" % (len(audio_data), len(audio_rms)),
+                }
+                preview_clip.data["waveform"] = True
+            preview_clips.append(preview_clip)
+
+        self._recording_preview_clips = preview_clips
+        if hasattr(self, "geometry"):
+            self.geometry.mark_dirty()
+        # Keep recording previews paint-only. Do not update project data or clear
+        # playback/backend caches while capture is active.
+        self.update()
+
+    def set_audio_recording_preview(self, preview_id, position, track, duration, audio_data):
+        """Draw a transient recording clip without committing project data."""
+        duration = max(0.05, float(duration or 0.0))
+        self.set_audio_recording_previews([{
+            "id": str(preview_id),
+            "source_type": "mic",
+            "position": max(0.0, float(position or 0.0)),
+            "track": int(track or 1),
+            "duration": duration,
+            "audio_data": list(audio_data or []),
+        }])
+
+    def clear_audio_recording_preview(self):
+        """Remove the transient recording clip from the timeline view."""
+        if not getattr(self, "_recording_preview_clips", None):
+            return
+        self._recording_preview_clips = []
+        if hasattr(self, "geometry"):
+            self.geometry.mark_dirty()
+        self.update()
 
     def redraw_audio_onTimeout(self):
         """Timer is ready to redraw audio (if any)"""

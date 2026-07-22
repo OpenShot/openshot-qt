@@ -1,0 +1,2923 @@
+"""
+ @file
+ @brief Audio recording dock controls.
+ @author Jonathan Thomas <jonathan@openshot.org>
+
+ @section LICENSE
+
+ Copyright (c) 2008-2026 OpenShot Studios, LLC
+ (http://www.openshotstudios.com). This file is part of
+ OpenShot Video Editor (http://www.openshot.org), an open-source project
+ dedicated to delivering high quality video editing and animation solutions
+ to the world.
+
+ OpenShot Video Editor is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ OpenShot Video Editor is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
+ """
+
+import os
+import glob
+import json
+import math
+import re
+import shutil
+import subprocess  # nosec B404 -- fixed argv only; shell execution is never used
+import sys
+import threading
+import time
+
+import openshot
+from qt_api import (
+    Qt, QObject, pyqtSignal, pyqtSlot, QPointF,
+    QWidget, QLabel, QPushButton, QComboBox, QApplication,
+    QVBoxLayout, QHBoxLayout, QGridLayout, QSizePolicy, QIcon, QTimer,
+    QPainter, QColor, QPen, QSpinBox, QImage, QPixmap, QButtonGroup,
+    QScrollArea, QPainterPath,
+)
+
+from classes import info
+from classes.app import get_app
+from classes.assets import get_assets_path
+from classes.logger import log
+from classes.query import Clip, File, Track
+from classes.waveform import DEFAULT_SAMPLES_PER_SECOND, configured_waveform_sample_rate
+from classes.thumbnail import (
+    RoundFrameToThumbnailGrid,
+    ThumbnailPathForFrame,
+)
+from classes.tray_status import TrayStatus
+from windows.recording_widgets import (
+    RecordingSourceCard, RecordingSection, SegmentButton,
+    pick_screen_region, pick_screen_window, screen_capture_sources, screen_root_geometry,
+)
+
+
+RECORDING_DOCK_MIN_WIDTH = 320
+
+
+def frame_to_qimage(frame):
+    """Copy a libopenshot RGBA frame into a Qt image for preview signals."""
+    width = int(frame.GetWidth())
+    height = int(frame.GetHeight())
+    bytes_per_line = int(frame.GetBytesPerLine())
+    pixels = frame.GetPixelsBytes()
+    if not pixels or width <= 0 or height <= 0 or bytes_per_line <= 0:
+        return None
+    return QImage(
+        pixels,
+        width,
+        height,
+        bytes_per_line,
+        QImage.Format_RGBA8888_Premultiplied,
+    ).copy()
+
+
+class RecordingLevelMeter(QWidget):
+    """Compact input meter for the recording dock."""
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self._peak = [0.0]
+        self._rms = [0.0]
+        self._clipped = False
+        self.setMinimumHeight(34)
+        self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+        self.setFocusPolicy(Qt.NoFocus)
+
+    def update_levels(self, peak=None, rms=None, clipped=False):
+        self._peak = list(peak or [0.0])
+        self._rms = list(rms or [0.0])
+        self._clipped = bool(clipped)
+        self.update()
+
+    def paintEvent(self, event):
+        painter = QPainter(self)
+        painter.setRenderHint(QPainter.Antialiasing, False)
+        painter.fillRect(self.rect(), QColor(28, 30, 34))
+
+        channels = max(1, len(self._peak), len(self._rms))
+        gap = 4
+        usable_h = max(1, self.height() - (channels + 1) * gap)
+        bar_h = max(8, usable_h // channels)
+
+        for channel in range(channels):
+            y = gap + channel * (bar_h + gap)
+            rect_w = self.width() - (2 * gap)
+            painter.fillRect(gap, y, rect_w, bar_h, QColor(45, 48, 54))
+
+            rms = self._rms[channel] if channel < len(self._rms) else 0.0
+            peak = self._peak[channel] if channel < len(self._peak) else 0.0
+            rms_w = int(max(0.0, min(1.0, rms)) * rect_w)
+            peak_x = gap + int(max(0.0, min(1.0, peak)) * rect_w)
+
+            if rms_w:
+                color = QColor(45, 185, 90)
+                if rms > 0.75:
+                    color = QColor(220, 70, 60)
+                elif rms > 0.55:
+                    color = QColor(220, 190, 55)
+                painter.fillRect(gap, y, rms_w, bar_h, color)
+
+            painter.setPen(QPen(QColor(255, 235, 90), 2))
+            painter.drawLine(peak_x, y, peak_x, y + bar_h)
+
+        if self._clipped:
+            painter.fillRect(0, 0, self.width(), 4, QColor(230, 45, 45))
+
+
+def recording_preview_file_id(session_id, source_type):
+    """Return a stable temporary file ID for live recording previews."""
+    safe_source = re.sub(r"[^A-Za-z0-9_-]+", "-", str(source_type or "source")).strip("-")
+    return "recording-preview-%s-%s" % (session_id, safe_source or "source")
+
+
+def screen_capture_backend():
+    """Return the libopenshot screen backend best suited for the current session."""
+    auto_backend = getattr(openshot, "SCREEN_CAPTURE_AUTO", None)
+    default_backend = getattr(getattr(openshot, "ScreenCaptureReader", None), "DefaultBackend", None)
+    if callable(default_backend):
+        try:
+            return default_backend()
+        except Exception:
+            log.debug("Unable to query default screen capture backend", exc_info=True)
+
+    session = os.environ.get("XDG_SESSION_TYPE", "x11").lower()
+    if session == "wayland" and hasattr(openshot, "SCREEN_CAPTURE_WAYLAND"):
+        return openshot.SCREEN_CAPTURE_WAYLAND
+    if sys.platform.startswith("win") and hasattr(openshot, "SCREEN_CAPTURE_WINDOWS_GDI"):
+        return openshot.SCREEN_CAPTURE_WINDOWS_GDI
+    if sys.platform == "darwin" and hasattr(openshot, "SCREEN_CAPTURE_MAC_AVFOUNDATION"):
+        return openshot.SCREEN_CAPTURE_MAC_AVFOUNDATION
+    if hasattr(openshot, "SCREEN_CAPTURE_X11"):
+        return openshot.SCREEN_CAPTURE_X11
+    return auto_backend
+
+
+def screen_capture_backend_supported(backend=None):
+    """Return whether libopenshot exposes and supports the selected screen backend."""
+    if not all(hasattr(openshot, name) for name in ("ScreenCaptureReader", "ScreenCaptureSettings")):
+        return False
+
+    selected_backend = screen_capture_backend() if backend is None else backend
+    if selected_backend == getattr(openshot, "SCREEN_CAPTURE_AUTO", object()):
+        return False
+    is_supported = getattr(openshot.ScreenCaptureReader, "IsBackendSupported", None)
+    if callable(is_supported) and selected_backend is not None:
+        try:
+            return bool(is_supported(selected_backend))
+        except Exception:
+            log.debug("Unable to query screen capture backend support", exc_info=True)
+
+    session = os.environ.get("XDG_SESSION_TYPE", "x11").lower()
+    if session == "wayland":
+        return False
+    if sys.platform.startswith("win"):
+        return selected_backend == getattr(openshot, "SCREEN_CAPTURE_WINDOWS_GDI", object())
+    if sys.platform == "darwin":
+        return selected_backend == getattr(openshot, "SCREEN_CAPTURE_MAC_AVFOUNDATION", object())
+    return selected_backend == getattr(openshot, "SCREEN_CAPTURE_X11", object())
+
+
+def screen_capture_backend_is_wayland(backend=None):
+    selected_backend = screen_capture_backend() if backend is None else backend
+    return selected_backend == getattr(openshot, "SCREEN_CAPTURE_WAYLAND", object())
+
+
+def screen_capture_backend_is_windows(backend=None):
+    selected_backend = screen_capture_backend() if backend is None else backend
+    return selected_backend == getattr(openshot, "SCREEN_CAPTURE_WINDOWS_GDI", object())
+
+
+def screen_capture_backend_is_mac(backend=None):
+    selected_backend = screen_capture_backend() if backend is None else backend
+    return selected_backend == getattr(openshot, "SCREEN_CAPTURE_MAC_AVFOUNDATION", object())
+
+
+def camera_capture_backend():
+    default_backend = getattr(getattr(openshot, "CameraCaptureReader", None), "DefaultBackend", None)
+    if callable(default_backend):
+        try:
+            return default_backend()
+        except Exception:
+            log.debug("Unable to query default camera capture backend", exc_info=True)
+    if sys.platform.startswith("win") and hasattr(openshot, "CAMERA_CAPTURE_WINDOWS_DSHOW"):
+        return openshot.CAMERA_CAPTURE_WINDOWS_DSHOW
+    if sys.platform == "darwin" and hasattr(openshot, "CAMERA_CAPTURE_MAC_AVFOUNDATION"):
+        return openshot.CAMERA_CAPTURE_MAC_AVFOUNDATION
+    if hasattr(openshot, "CAMERA_CAPTURE_V4L2"):
+        return openshot.CAMERA_CAPTURE_V4L2
+    return getattr(openshot, "CAMERA_CAPTURE_AUTO", None)
+
+
+def camera_capture_backend_is_windows(backend=None):
+    selected_backend = camera_capture_backend() if backend is None else backend
+    return selected_backend == getattr(openshot, "CAMERA_CAPTURE_WINDOWS_DSHOW", object())
+
+
+def camera_capture_backend_is_mac(backend=None):
+    selected_backend = camera_capture_backend() if backend is None else backend
+    return selected_backend == getattr(openshot, "CAMERA_CAPTURE_MAC_AVFOUNDATION", object())
+
+
+class LiveRecordingThumbnailCache:
+    """Save coarse thumbnail-grid frames while a live video recording is written."""
+
+    def __init__(self, file_id, fps, width=None, height=None, thumb_size=None):
+        self.file_id = str(file_id or "")
+        self.fps = float(fps or 0.0)
+        self.saved_frames = set()
+        if thumb_size is None:
+            thumb_size = info.LIST_ICON_SIZE
+        self.thumb_width = int(thumb_size.width())
+        self.thumb_height = int(thumb_size.height())
+
+    def thumbnail_frame_for_output_frame(self, frame_number):
+        """Return the canonical thumbnail frame to save, or 0 if this frame is skipped."""
+        if not self.file_id:
+            return 0
+        frame_number = max(1, int(frame_number or 1))
+        thumbnail_frame = RoundFrameToThumbnailGrid(frame_number, self.fps)
+        return thumbnail_frame if thumbnail_frame == frame_number else 0
+
+    def save_frame(self, frame, frame_number):
+        thumbnail_frame = self.thumbnail_frame_for_output_frame(frame_number)
+        if not thumbnail_frame or thumbnail_frame in self.saved_frames:
+            return ThumbnailPathForFrame(self.file_id, thumbnail_frame) if thumbnail_frame else ""
+        thumb_path = ThumbnailPathForFrame(self.file_id, thumbnail_frame)
+        if os.path.exists(thumb_path):
+            self.saved_frames.add(thumbnail_frame)
+            return thumb_path
+        try:
+            self._save_thumbnail_from_frame(frame, thumb_path)
+            self.saved_frames.add(thumbnail_frame)
+            return thumb_path
+        except Exception:
+            log.debug(
+                "Unable to save live recording thumbnail file_id=%s frame=%s",
+                self.file_id,
+                thumbnail_frame,
+                exc_info=True,
+            )
+        return ""
+
+    def _save_thumbnail_from_frame(self, frame, thumb_path):
+        image = frame_to_qimage(frame)
+        if image is None or image.isNull():
+            return False
+
+        os.makedirs(os.path.dirname(thumb_path), exist_ok=True)
+        scaled = image.scaled(
+            self.thumb_width,
+            self.thumb_height,
+            Qt.KeepAspectRatioByExpanding,
+            Qt.SmoothTransformation,
+        )
+        if scaled.width() > self.thumb_width or scaled.height() > self.thumb_height:
+            x = max(0, int((scaled.width() - self.thumb_width) / 2))
+            y = max(0, int((scaled.height() - self.thumb_height) / 2))
+            scaled = scaled.copy(x, y, self.thumb_width, self.thumb_height)
+        if not scaled.save(thumb_path, "PNG"):
+            raise IOError("Unable to save thumbnail: %s" % thumb_path)
+        return True
+
+    def copy_to_file_id(self, final_file_id):
+        """Copy live thumbnails to the final imported File ID folder."""
+        final_file_id = str(final_file_id or "")
+        if not self.file_id or not final_file_id or self.file_id == final_file_id:
+            return 0
+        source_dir = os.path.dirname(ThumbnailPathForFrame(self.file_id, 1))
+        target_dir = os.path.dirname(ThumbnailPathForFrame(final_file_id, 1))
+        if not os.path.isdir(source_dir):
+            return 0
+        copied = 0
+        os.makedirs(target_dir, exist_ok=True)
+        for filename in os.listdir(source_dir):
+            if not filename.lower().endswith(".png"):
+                continue
+            source_path = os.path.join(source_dir, filename)
+            target_path = os.path.join(target_dir, filename)
+            if not os.path.isfile(source_path):
+                continue
+            try:
+                shutil.copy2(source_path, target_path)
+                copied += 1
+            except OSError:
+                log.debug("Unable to copy live thumbnail: %s", source_path, exc_info=True)
+        return copied
+
+
+class LiveVideoRecordingJob(QObject):
+    """Small background writer for live libopenshot video capture readers."""
+
+    errorOccurred = pyqtSignal(str, str)
+    finished = pyqtSignal(str)
+    previewFrameReady = pyqtSignal(object)
+
+    def __init__(self, reader, path, width, height, fps, codec="libx264", bit_rate=4000000,
+                 source_type="video", use_reader_fps=True, preview_file_id=""):
+        super().__init__()
+        self.reader = reader
+        self.path = path
+        self.source_type = source_type
+        self.width = int(width)
+        self.height = int(height)
+        self.fps = fps
+        self.codec = codec
+        self.bit_rate = int(bit_rate)
+        self.error = None
+        self.frames = 0
+        self.use_reader_fps = bool(use_reader_fps)
+        self.preview_file_id = str(preview_file_id or "")
+        self.thumbnail_cache = None
+        self._writer = None
+        self._thread = None
+        self._stop = threading.Event()
+        self._writer_lock = threading.Lock()
+        self._recording_started = threading.Event()
+        self._start_time = 0.0
+        self._stop_time = None
+        self._initial_frame = None
+        self._initial_frame_time = 0.0
+        self._initial_capture_timestamp = None
+        self._output_capture_start_timestamp = None
+        self._last_frame = None
+        self._last_output_frame_number = 0
+        self._opened = threading.Event()
+
+    def start(self):
+        self.start_async()
+
+    def start_sync(self):
+        """Open synchronously for tests and callers that are already off the UI thread."""
+        self._open()
+        self._thread = threading.Thread(target=self._run, name="OpenShotLiveVideoRecording", daemon=True)
+        self._thread.start()
+
+    def start_async(self):
+        if self._thread and self._thread.is_alive():
+            return
+        self._thread = threading.Thread(target=self._open_and_run, name="OpenShotLiveVideoRecording", daemon=True)
+        self._thread.start()
+
+    def _open_and_run(self):
+        try:
+            self._open()
+            if not self._stop.is_set():
+                self._run()
+        except Exception as ex:
+            if not self._stop.is_set():
+                self.error = ex
+                self.errorOccurred.emit(self.source_type, str(ex))
+
+    def _open(self):
+        self.reader.Open()
+        self._initial_frame = self.reader.GetFrame(1)
+        self._initial_frame_time = time.monotonic()
+        self._initial_capture_timestamp = self._frame_capture_timestamp(self._initial_frame)
+        frame_width = int(self._initial_frame.GetWidth() or 0)
+        frame_height = int(self._initial_frame.GetHeight() or 0)
+        actual_width = int(getattr(getattr(self.reader, "info", None), "width", 0) or 0)
+        actual_height = int(getattr(getattr(self.reader, "info", None), "height", 0) or 0)
+        if frame_width > 0 and frame_height > 0:
+            self.width = self._safe_even_dimension(frame_width)
+            self.height = self._safe_even_dimension(frame_height)
+        elif actual_width > 0 and actual_height > 0:
+            self.width = self._safe_even_dimension(actual_width)
+            self.height = self._safe_even_dimension(actual_height)
+        actual_fps = getattr(getattr(self.reader, "info", None), "fps", None)
+        if self.use_reader_fps and actual_fps and getattr(actual_fps, "num", 0) > 0 and getattr(actual_fps, "den", 0) > 0:
+            self.fps = actual_fps
+        log.info(
+            "Live %s capture opened: width=%s height=%s fps=%s/%s",
+            self.source_type, self.width, self.height,
+            self.fps.num, self.fps.den,
+        )
+        fps_value = max(1.0, float(self.fps.num) / float(self.fps.den or 1))
+        if self.preview_file_id:
+            self.thumbnail_cache = LiveRecordingThumbnailCache(
+                self.preview_file_id,
+                fps_value,
+                self.width,
+                self.height,
+            )
+        self._writer = openshot.FFmpegWriter(self.path)
+        self._writer.SetVideoOptions(
+            True,
+            self.codec,
+            self.fps,
+            self.width,
+            self.height,
+            openshot.Fraction(1, 1),
+            False,
+            False,
+            self.bit_rate,
+        )
+        reader_info = getattr(self.reader, "info", None)
+        if bool(getattr(reader_info, "has_audio", False)):
+            sample_rate = int(getattr(reader_info, "sample_rate", 0) or 48000)
+            channels = int(getattr(reader_info, "channels", 0) or 2)
+            channel_layout = (
+                openshot.LAYOUT_MONO if channels == 1 else openshot.LAYOUT_STEREO
+            )
+            self._writer.SetAudioOptions(
+                True,
+                "aac",
+                sample_rate,
+                channels,
+                channel_layout,
+                192000,
+            )
+        self._writer.Open()
+        self._opened.set()
+
+    def wait_until_opened(self, timeout=10.0):
+        started_at = time.monotonic()
+        while not self._opened.is_set() and not self.error and not self._stop.is_set():
+            if timeout and time.monotonic() - started_at >= float(timeout):
+                self.error = RuntimeError(
+                    get_app()._tr("Timed out opening %s capture device.") % self.source_type
+                )
+                self._stop.set()
+                try:
+                    self.reader.Close()
+                except Exception:
+                    log.debug("Unable to close timed out live capture reader", exc_info=True)
+                break
+            QApplication.processEvents()
+            time.sleep(0.02)
+        if self.error:
+            raise self.error
+
+    def begin(self, start_time=None):
+        self._start_time = float(start_time or time.monotonic())
+        reset_system_audio = getattr(self.reader, "ResetSystemAudio", None)
+        if callable(reset_system_audio):
+            reset_system_audio()
+        self._recording_started.set()
+
+    def request_stop(self, stop_time=None):
+        self._stop_time = float(stop_time or time.monotonic())
+        self._stop.set()
+        self._recording_started.set()
+
+    def _run(self):
+        while not self._recording_started.is_set() and not self._stop.is_set():
+            time.sleep(0.01)
+        stop_time = self._stop_time
+        if self._stop.is_set() and stop_time is None:
+            return
+        start_time = float(self._start_time or 0.0)
+        estimated_capture_start = None
+        if (self._initial_capture_timestamp is not None
+                and self._initial_frame_time
+                and self._initial_frame_time < start_time):
+            estimated_capture_start = self._initial_capture_timestamp + (start_time - self._initial_frame_time)
+        if self._initial_frame is not None and self._initial_frame_time < start_time:
+            self._initial_frame = None
+        capture_frame_number = 2 if self._initial_frame is not None else 1
+        written_frames = 0
+        last_output_frame_number = 0
+        last_preview_emit = 0.0
+        fps_value = max(1.0, float(self.fps.num) / float(self.fps.den or 1))
+        try:
+            while True:
+                stop_time = self._stop_time
+                if self._stop.is_set() and stop_time is None:
+                    break
+                if self._initial_frame is not None:
+                    frame = self._initial_frame
+                    self._initial_frame = None
+                else:
+                    if self._stop.is_set():
+                        break
+                    frame = self.reader.GetFrame(capture_frame_number)
+                capture_timestamp = self._frame_capture_timestamp(frame)
+                if (estimated_capture_start is not None
+                        and capture_timestamp is not None
+                        and capture_timestamp < estimated_capture_start):
+                    capture_frame_number += 1
+                    continue
+                now = time.monotonic()
+                if stop_time is not None:
+                    now = min(now, stop_time)
+                if capture_timestamp is not None:
+                    if self._output_capture_start_timestamp is None:
+                        self._output_capture_start_timestamp = capture_timestamp
+                    elapsed = max(0.0, capture_timestamp - self._output_capture_start_timestamp)
+                else:
+                    elapsed = max(0.0, now - float(self._start_time or now))
+                output_frame_number = max(1, int(math.floor((elapsed * fps_value) + 0.5)) + 1)
+                if output_frame_number <= last_output_frame_number:
+                    capture_frame_number += 1
+                    if stop_time is not None:
+                        break
+                    continue
+                with self._writer_lock:
+                    if not self._writer:
+                        break
+                    add_system_audio = getattr(self.reader, "AddSystemAudio", None)
+                    if callable(add_system_audio):
+                        add_system_audio(frame, output_frame_number)
+                    self._write_numbered_frame(frame, output_frame_number)
+                written_frames += 1
+                if self.thumbnail_cache:
+                    self.thumbnail_cache.save_frame(frame, output_frame_number)
+                if self.source_type == "webcam":
+                    if now - last_preview_emit >= 0.2:
+                        image = frame_to_qimage(frame)
+                        if image:
+                            self.previewFrameReady.emit(image)
+                        last_preview_emit = now
+                last_output_frame_number = output_frame_number
+                self.frames = output_frame_number
+                self._last_output_frame_number = output_frame_number
+                self._last_frame = self._copy_frame(frame)
+                capture_frame_number += 1
+                if stop_time is not None:
+                    break
+        except Exception as ex:
+            if not self._stop.is_set():
+                self.error = ex
+                self.errorOccurred.emit(self.source_type, str(ex))
+
+    def stop(self, stop_time=None):
+        self.request_stop(stop_time)
+        self.finish_stop()
+
+    def finish_stop(self):
+        if self._thread:
+            self._thread.join(timeout=2.0)
+        if self._thread and self._thread.is_alive():
+            try:
+                self.reader.Close()
+            except Exception:
+                log.debug("Unable to close live video capture reader", exc_info=True)
+            self._thread.join(timeout=5.0)
+        else:
+            try:
+                self.reader.Close()
+            except Exception:
+                log.debug("Unable to close live video capture reader", exc_info=True)
+        if self._thread and self._thread.is_alive():
+            log.warning("Live video capture thread did not stop cleanly for %s", self.path)
+            if not self.error:
+                self.error = RuntimeError("Live video capture did not stop cleanly")
+                self.errorOccurred.emit(self.source_type, str(self.error))
+            return
+        try:
+            with self._writer_lock:
+                if self._writer:
+                    self._writer.Close()
+                    self._writer = None
+        except Exception as ex:
+            if not self.error:
+                self.error = ex
+                self.errorOccurred.emit(self.source_type, str(ex))
+        self.finished.emit(self.path)
+
+    def _write_numbered_frame(self, frame, frame_number):
+        if not self._writer or frame is None:
+            return
+        frame_to_write = self._copy_frame(frame)
+        if hasattr(frame_to_write, "SetFrameNumber"):
+            frame_to_write.SetFrameNumber(frame_number)
+        if callable(getattr(self._writer, "WriteFrameAt", None)):
+            self._writer.WriteFrameAt(frame_to_write, int(frame_number))
+        else:
+            self._writer.WriteFrame(frame_to_write)
+
+    def _copy_frame(self, frame):
+        if frame is None:
+            return None
+        try:
+            copied = openshot.Frame()
+            copied.DeepCopy(frame)
+            return copied
+        except Exception:
+            log.debug("Unable to deep copy live video frame", exc_info=True)
+        return frame
+
+    @staticmethod
+    def _frame_capture_timestamp(frame):
+        try:
+            timestamp = float(getattr(frame, "capture_timestamp"))
+        except (TypeError, ValueError, AttributeError):
+            return None
+        if not math.isfinite(timestamp):
+            return None
+        return timestamp
+
+    @staticmethod
+    def _safe_even_dimension(value):
+        value = max(16, int(value))
+        return value if value % 2 == 0 else value - 1
+
+
+class WebcamPreviewJob(QObject):
+    frameReady = pyqtSignal(object)
+    errorOccurred = pyqtSignal(str)
+
+    def __init__(self, device, width, height, backend=None, parent=None):
+        super().__init__(parent)
+        self.device = device
+        self.width = int(width)
+        self.height = int(height)
+        self.backend = backend if backend is not None else camera_capture_backend()
+        self._reader = None
+        self._thread = None
+        self._stop = threading.Event()
+
+    def start(self):
+        if self._thread and self._thread.is_alive():
+            return
+        self._stop.clear()
+        self._thread = threading.Thread(target=self._run, name="OpenShotWebcamPreview", daemon=True)
+        self._thread.start()
+
+    def stop(self):
+        self._stop.set()
+        if self._thread:
+            self._thread.join(timeout=2.0)
+        if self._thread and self._thread.is_alive():
+            log.debug("Webcam preview thread did not stop cleanly")
+            return
+        if self._reader:
+            try:
+                self._reader.Close()
+            except Exception:
+                log.debug("Unable to close webcam preview reader", exc_info=True)
+
+    def _run(self):
+        try:
+            settings = openshot.CameraCaptureSettings()
+            settings.backend = self.backend
+            settings.device = self.device
+            settings.width = self.width
+            settings.height = self.height
+            settings.fps = openshot.Fraction(5, 1)
+            if camera_capture_backend_is_windows(self.backend) or camera_capture_backend_is_mac(self.backend):
+                settings.options["use_device_defaults"] = "1"
+            self._reader = openshot.CameraCaptureReader(settings)
+            self._reader.Open()
+            frame_number = 1
+            last_emit = 0.0
+            while not self._stop.is_set():
+                frame = self._reader.GetFrame(frame_number)
+                now = time.monotonic()
+                if now - last_emit >= 0.2:
+                    image = frame_to_qimage(frame)
+                    if image:
+                        self.frameReady.emit(image)
+                    last_emit = now
+                frame_number += 1
+        except Exception as ex:
+            if not self._stop.is_set():
+                self.errorOccurred.emit(str(ex))
+        finally:
+            if self._reader:
+                try:
+                    self._reader.Close()
+                except Exception:
+                    log.debug("Unable to close webcam preview reader", exc_info=True)
+            self._reader = None
+
+class AudioRecordingDockContent(QWidget):
+    """Compact dock for recording audio, screen, and webcam sources."""
+
+    recordingStarted = pyqtSignal()
+    recordingStopped = pyqtSignal(str)
+
+    def __init__(self, window, parent=None):
+        super().__init__(parent)
+        self.window = window
+        self._recording = False
+        self._starting = False
+        self._recording_started_at = 0.0
+        self._context_start = None
+        self._context_track = None
+        self._recorder = None
+        self._monitor_recorder = None
+        self._video_jobs = []
+        self._webcam_preview = None
+        self._webcam_preview_pixmap = None
+        self._tray_status = TrayStatus(self)
+        self._camera_modes = {}
+        self._camera_mode_formats = {}
+        self._recording_path = ""
+        self._recording_sources = []
+        self._recorded_duration = 0.0
+        self._audio_channel_support_cache = {}
+        self._activation_pending = False
+        self._recording_hidden_window_state = None
+        self._hiding_openshot_window = False
+        self._hide_openshot_user_set = False
+        self._screen_window_id = ""
+        self._recording_preview_id = ""
+        self._recording_preview_file_ids = {}
+        self._recording_track_map = {}
+        self._recording_timeline_position = 0.0
+        self._recording_preview_size = None
+        self._preview_before_screen = "full"
+        self._preview_forced_off = False
+        self._timeline_playback_started = False
+        self._recording_waveform_samples = []
+        self._recording_waveform_rms = []
+        self._waveform_samples_per_second = DEFAULT_SAMPLES_PER_SECOND
+        self._last_timeline_preview_at = 0.0
+        self._last_timeline_preview_samples = 0
+        self._webcam_layout_default_state = None
+        self._preferred_format = "flac"
+        self._sample_rate = 48000
+        self._channels = 1
+
+        _ = get_app()._tr
+        self.setFocusPolicy(Qt.NoFocus)
+        self.setMinimumWidth(RECORDING_DOCK_MIN_WIDTH)
+
+        outer_layout = QVBoxLayout(self)
+        outer_layout.setContentsMargins(0, 0, 0, 0)
+        self.scroll_area = QScrollArea(self)
+        self.scroll_area.setWidgetResizable(True)
+        self.scroll_area.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.scroll_area.setFrameShape(QScrollArea.NoFrame)
+        self.scroll_area.setStyleSheet("QScrollArea { border: none; background: transparent; }")
+        outer_layout.addWidget(self.scroll_area)
+
+        self.scroll_content = QWidget()
+        self.scroll_area.setWidget(self.scroll_content)
+        layout = QVBoxLayout(self.scroll_content)
+        layout.setContentsMargins(10, 8, 10, 10)
+        layout.setSpacing(8)
+
+        source_grid = QGridLayout()
+        source_grid.setHorizontalSpacing(8)
+        for column in range(3):
+            source_grid.setColumnStretch(column, 1)
+            source_grid.setColumnMinimumWidth(column, 0)
+        self.mic_card = RecordingSourceCard(_("Mic"), _("Record your voice"), "🎙", self)
+        self.screen_card = RecordingSourceCard(_("Screen"), _("Capture your screen"), "▣", self)
+        self.camera_card = RecordingSourceCard(_("Webcam"), _("Record yourself"), "◉", self)
+        self.mic_card.setChecked(True)
+        source_grid.addWidget(self.mic_card, 0, 0)
+        source_grid.addWidget(self.screen_card, 0, 1)
+        source_grid.addWidget(self.camera_card, 0, 2)
+        layout.addLayout(source_grid)
+
+        self.mic_section = RecordingSection(_("Mic"), "🎙", self)
+        self.level_meter = RecordingLevelMeter(self.mic_section)
+        mic_input_row = QHBoxLayout()
+        mic_input_row.setContentsMargins(0, 0, 0, 0)
+        mic_input_row.setSpacing(8)
+        self.mono_button = SegmentButton(_("Mono"), self.mic_section)
+        self.stereo_button = SegmentButton(_("Stereo"), self.mic_section)
+        self.mono_button.setProperty("position", "left")
+        self.stereo_button.setProperty("position", "right")
+        self.mono_button.setChecked(True)
+        self.channel_button_group = QButtonGroup(self.mic_section)
+        self.channel_button_group.setExclusive(True)
+        self.channel_button_group.addButton(self.mono_button, 1)
+        self.channel_button_group.addButton(self.stereo_button, 2)
+        channel_strip = QWidget(self.mic_section)
+        channel_strip_layout = QHBoxLayout(channel_strip)
+        channel_strip_layout.setContentsMargins(0, 0, 0, 0)
+        channel_strip_layout.setSpacing(0)
+        channel_strip_layout.addWidget(self.mono_button)
+        channel_strip_layout.addWidget(self.stereo_button)
+        mic_input_row.addWidget(self.level_meter, 1)
+        mic_input_row.addWidget(channel_strip)
+        self.mic_section.body_layout.addLayout(mic_input_row)
+
+        self.device_combo = QComboBox(self.mic_section)
+        self.device_combo.setSizeAdjustPolicy(QComboBox.AdjustToContents)
+        self.device_combo.setMinimumContentsLength(16)
+        self.format_combo = QComboBox(self.mic_section)
+        for key, label in (("wav", "WAV"), ("flac", "FLAC"), ("mp3", "MP3")):
+            self.format_combo.addItem(label, key)
+        self.format_combo.setCurrentIndex(self.format_combo.findData(self._preferred_format))
+        self.sample_rate_combo = QComboBox(self.mic_section)
+        for rate in (44100, 48000, 96000):
+            self.sample_rate_combo.addItem("%s Hz" % rate, rate)
+        self.channels_combo = QComboBox(self.mic_section)
+        self.channels_combo.addItem(_("Mono"), 1)
+        self.channels_combo.addItem(_("Stereo"), 2)
+        self.mic_section.advanced_layout.addWidget(QLabel(_("Input:"), self.mic_section), 0, 0)
+        self.mic_section.advanced_layout.addWidget(self.device_combo, 0, 1)
+        self.mic_section.advanced_layout.addWidget(QLabel(_("Format:"), self.mic_section), 1, 0)
+        self.mic_section.advanced_layout.addWidget(self.format_combo, 1, 1)
+        self.mic_section.advanced_layout.addWidget(QLabel(_("Sample Rate:"), self.mic_section), 2, 0)
+        self.mic_section.advanced_layout.addWidget(self.sample_rate_combo, 2, 1)
+        self.mic_section.advanced_layout.addWidget(QLabel(_("Channels:"), self.mic_section), 3, 0)
+        self.mic_section.advanced_layout.addWidget(self.channels_combo, 3, 1)
+        layout.addWidget(self.mic_section)
+
+        self.screen_section = RecordingSection(_("Screen"), "▣", self)
+        self.screen_mode_widget = QWidget(self.screen_section)
+        screen_mode_row = QHBoxLayout(self.screen_mode_widget)
+        screen_mode_row.setContentsMargins(0, 0, 0, 0)
+        screen_mode_row.setSpacing(0)
+        self.full_screen_button = SegmentButton(_("Full Screen"), self.screen_section)
+        self.window_button = SegmentButton(_("Window"), self.screen_section)
+        self.region_button = SegmentButton(_("Region"), self.screen_section)
+        self.full_screen_button.setChecked(True)
+        for button in (self.full_screen_button, self.window_button, self.region_button):
+            screen_mode_row.addWidget(button)
+        self.screen_section.body_layout.addWidget(self.screen_mode_widget)
+        self.screen_status_label = QLabel("", self.screen_section)
+        self.screen_status_label.setStyleSheet("color: #9aa8bd;")
+        self.screen_status_label.setWordWrap(True)
+        self.screen_section.body_layout.addWidget(self.screen_status_label)
+
+        self.system_audio_label = QLabel(_("System Audio:"), self.screen_section)
+        self.system_audio_combo = QComboBox(self.screen_section)
+        self.system_audio_combo.addItem(_("On"), True)
+        self.system_audio_combo.addItem(_("Off"), False)
+        self.system_audio_combo.setCurrentIndex(self.system_audio_combo.findData(True))
+        self.system_audio_combo.setToolTip(_("Record sound playing through the system output in the screen recording."))
+
+        self.screen_display_edit = QComboBox(self.screen_section)
+        self.screen_display_edit.setEditable(False)
+        self.screen_display_edit.setMinimumWidth(0)
+        self.screen_display_edit.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Fixed)
+        self.screen_x_spin = QSpinBox(self.screen_section)
+        self.screen_y_spin = QSpinBox(self.screen_section)
+        self.screen_width_spin = QSpinBox(self.screen_section)
+        self.screen_height_spin = QSpinBox(self.screen_section)
+        for spin in (self.screen_x_spin, self.screen_y_spin, self.screen_width_spin, self.screen_height_spin):
+            spin.setMinimumWidth(78)
+            spin.setMaximumWidth(96)
+            spin.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        for spin in (self.screen_x_spin, self.screen_y_spin):
+            spin.setRange(-32768, 32767)
+        for spin in (self.screen_width_spin, self.screen_height_spin):
+            spin.setRange(16, 16384)
+        self._refresh_screen_sources()
+        self.capture_cursor_combo = QComboBox(self.screen_section)
+        self.capture_cursor_combo.addItem(_("On"), True)
+        self.capture_cursor_combo.addItem(_("Off"), False)
+        self.hide_openshot_combo = QComboBox(self.screen_section)
+        self.hide_openshot_combo.addItem(_("Yes"), True)
+        self.hide_openshot_combo.addItem(_("No"), False)
+        self.hide_openshot_combo.setCurrentIndex(self.hide_openshot_combo.findData(False))
+        self.hide_openshot_combo.setToolTip(_("Temporarily hide OpenShot while selecting or recording a window or region."))
+        self.video_fps_combo = QComboBox(self.screen_section)
+        for fps in (15, 24, 30, 60):
+            self.video_fps_combo.addItem(str(fps), fps)
+        self.video_fps_combo.setCurrentIndex(self.video_fps_combo.findData(30))
+        for combo in (
+            self.system_audio_combo,
+            self.capture_cursor_combo,
+            self.hide_openshot_combo,
+            self.video_fps_combo,
+        ):
+            combo.setMinimumWidth(0)
+            combo.setMaximumWidth(120)
+            combo.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Fixed)
+        self.screen_display_label = QLabel(_("Screen:"), self.screen_section)
+        self.screen_offset_label = QLabel(_("Offset:"), self.screen_section)
+        self.screen_size_label = QLabel(_("Size:"), self.screen_section)
+        self.screen_fps_label = QLabel(_("FPS:"), self.screen_section)
+        self.screen_cursor_label = QLabel(_("Cursor:"), self.screen_section)
+        self.screen_hide_label = QLabel(_("Hide OpenShot:"), self.screen_section)
+        self.screen_offset_widget = QWidget(self.screen_section)
+        screen_offset_row = QHBoxLayout(self.screen_offset_widget)
+        screen_offset_row.setContentsMargins(0, 0, 0, 0)
+        screen_offset_row.setSpacing(6)
+        screen_offset_row.addWidget(self.screen_x_spin)
+        screen_offset_row.addWidget(QLabel(",", self.screen_offset_widget))
+        screen_offset_row.addWidget(self.screen_y_spin)
+        screen_offset_row.addStretch()
+        self.screen_size_widget = QWidget(self.screen_section)
+        screen_size_row = QHBoxLayout(self.screen_size_widget)
+        screen_size_row.setContentsMargins(0, 0, 0, 0)
+        screen_size_row.setSpacing(6)
+        screen_size_row.addWidget(self.screen_width_spin)
+        screen_size_row.addWidget(QLabel("x", self.screen_size_widget))
+        screen_size_row.addWidget(self.screen_height_spin)
+        screen_size_row.addStretch()
+        self.screen_section.advanced_layout.setColumnStretch(0, 0)
+        self.screen_section.advanced_layout.setColumnStretch(1, 1)
+        self.screen_section.advanced_layout.addWidget(self.screen_display_label, 0, 0)
+        self.screen_section.advanced_layout.addWidget(self.screen_display_edit, 0, 1)
+        self.screen_section.advanced_layout.addWidget(self.screen_offset_label, 1, 0)
+        self.screen_section.advanced_layout.addWidget(self.screen_offset_widget, 1, 1)
+        self.screen_section.advanced_layout.addWidget(self.screen_size_label, 2, 0)
+        self.screen_section.advanced_layout.addWidget(self.screen_size_widget, 2, 1)
+        self.screen_section.advanced_layout.addWidget(self.screen_fps_label, 3, 0)
+        self.screen_section.advanced_layout.addWidget(self.video_fps_combo, 3, 1)
+        self.screen_section.advanced_layout.addWidget(self.system_audio_label, 4, 0)
+        self.screen_section.advanced_layout.addWidget(self.system_audio_combo, 4, 1)
+        self.screen_section.advanced_layout.addWidget(self.screen_cursor_label, 5, 0)
+        self.screen_section.advanced_layout.addWidget(self.capture_cursor_combo, 5, 1)
+        self.screen_section.advanced_layout.addWidget(self.screen_hide_label, 6, 0)
+        self.screen_section.advanced_layout.addWidget(self.hide_openshot_combo, 6, 1)
+        layout.addWidget(self.screen_section)
+
+        self.camera_section = RecordingSection(_("Webcam"), "◉", self)
+        self.webcam_preview_label = QLabel(_("Preview"), self.camera_section)
+        self.webcam_preview_label.setAlignment(Qt.AlignCenter)
+        self.webcam_preview_label.setFixedSize(220, 124)
+        self.webcam_preview_label.setStyleSheet(
+            "QLabel { background-color: rgba(8, 14, 24, 170); color: #8c9aaf; border-radius: 8px; }"
+        )
+        camera_details_row = QHBoxLayout()
+        camera_details_row.setContentsMargins(0, 0, 0, 0)
+        camera_details_row.addStretch()
+        camera_details_row.addWidget(self.webcam_preview_label, 0, Qt.AlignCenter)
+        camera_details_row.addStretch()
+        self.camera_section.body_layout.addLayout(camera_details_row)
+
+        self.webcam_layout_combo = QComboBox(self.camera_section)
+        self.webcam_layout_combo.addItem(_("Bottom Right"), "bottom-right")
+        self.webcam_layout_combo.addItem(_("Top Right"), "top-right")
+        self.webcam_layout_combo.addItem(_("Bottom Left"), "bottom-left")
+        self.webcam_layout_combo.addItem(_("Top Left"), "top-left")
+        self.webcam_layout_combo.addItem(_("Left"), "left")
+        self.webcam_layout_combo.addItem(_("Right"), "right")
+        self.webcam_layout_combo.addItem(_("Center"), "center")
+        self.webcam_layout_combo.addItem(_("Full Size"), "full")
+        self.webcam_layout_combo.setToolTip(_("Layout"))
+
+        self.webcam_layout_size_combo = QComboBox(self.camera_section)
+        self.webcam_layout_size_combo.addItem(_("Corner (20%)"), 0.2)
+        self.webcam_layout_size_combo.addItem(_("Corner (30%)"), 0.3)
+        self.webcam_layout_size_combo.addItem(_("Corner (40%)"), 0.4)
+        self.webcam_layout_size_combo.setCurrentIndex(self.webcam_layout_size_combo.findData(0.3))
+        self.webcam_layout_size_combo.setToolTip(_("Size"))
+
+        self.webcam_corner_radius_combo = QComboBox(self.camera_section)
+        self.webcam_corner_radius_combo.addItem(_("Rectangle"), 0.0)
+        self.webcam_corner_radius_combo.addItem(_("Rounded"), 0.15)
+        self.webcam_corner_radius_combo.addItem(_("Oval"), 0.5)
+        self.webcam_corner_radius_combo.setToolTip(_("Corners"))
+        self.camera_combo = QComboBox(self.camera_section)
+        self.camera_size_combo = QComboBox(self.camera_section)
+        self.camera_fps_combo = QComboBox(self.camera_section)
+        self.camera_section.advanced_layout.addWidget(QLabel(_("Input:"), self.camera_section), 0, 0)
+        self.camera_section.advanced_layout.addWidget(self.camera_combo, 0, 1, 1, 2)
+        self.camera_section.advanced_layout.addWidget(QLabel(_("Resolution:"), self.camera_section), 1, 0)
+        self.camera_section.advanced_layout.addWidget(self.camera_size_combo, 1, 1, 1, 2)
+        self.camera_section.advanced_layout.addWidget(QLabel(_("Record FPS:"), self.camera_section), 2, 0)
+        self.camera_section.advanced_layout.addWidget(self.camera_fps_combo, 2, 1)
+        self.camera_section.advanced_layout.addWidget(QLabel(_("Layout:"), self.camera_section), 3, 0)
+        self.camera_section.advanced_layout.addWidget(self.webcam_layout_combo, 3, 1, 1, 2)
+        self.camera_section.advanced_layout.addWidget(QLabel(_("Size:"), self.camera_section), 4, 0)
+        self.camera_section.advanced_layout.addWidget(self.webcam_layout_size_combo, 4, 1, 1, 2)
+        self.camera_section.advanced_layout.addWidget(QLabel(_("Corners:"), self.camera_section), 5, 0)
+        self.camera_section.advanced_layout.addWidget(self.webcam_corner_radius_combo, 5, 1, 1, 2)
+        layout.addWidget(self.camera_section)
+
+        target_row = QHBoxLayout()
+        self.track_combo = QComboBox(self)
+        self.track_combo.setSizeAdjustPolicy(QComboBox.AdjustToContents)
+        target_row.addWidget(self.track_combo, 1)
+        self.preview_combo = QComboBox(self)
+        self.preview_combo.addItem(_("Off"), "none")
+        self.preview_combo.addItem(_("Full"), "full")
+        self.preview_combo.addItem(_("Half"), "half")
+        self.preview_combo.addItem(_("Quarter"), "quarter")
+        self.preview_combo.setCurrentIndex(self.preview_combo.findData("full"))
+        self.preview_combo.setSizeAdjustPolicy(QComboBox.AdjustToContents)
+        self.preview_combo.setToolTip(_("Play the timeline while recording. Lower resolutions can improve recording performance."))
+        self.preview_label = QLabel(_("Preview:"), self)
+        target_row.addWidget(self.preview_label)
+        target_row.addWidget(self.preview_combo)
+        layout.addLayout(target_row)
+
+        control_row = QHBoxLayout()
+        self.record_button = QPushButton(_("Start Recording"), self)
+        self.record_button.setObjectName("recordingPrimary")
+        self.record_button.setIcon(QIcon(os.path.join(info.PATH, "themes/cosmic/images/tool-microphone.svg")))
+        self.record_button.setMinimumHeight(38)
+        self.record_button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+        self.record_button.setStyleSheet("font-weight: 600;")
+        control_row.addWidget(self.record_button)
+        layout.addLayout(control_row)
+
+        layout.addStretch()
+
+        self.timer = QTimer(self)
+        self.timer.setInterval(100)
+        self.timer.timeout.connect(self._update_elapsed_time)
+        self.poll_timer = QTimer(self)
+        self.poll_timer.setInterval(50)
+        self.poll_timer.timeout.connect(self._poll_recording_feedback)
+        self.record_button.clicked.connect(self._toggle_recording)
+        self.format_combo.currentIndexChanged.connect(self._format_changed)
+        self.sample_rate_combo.currentIndexChanged.connect(self._sample_rate_changed)
+        self.channels_combo.currentIndexChanged.connect(self._channels_changed)
+        self.device_combo.currentIndexChanged.connect(self._mic_device_changed)
+        self.hide_openshot_combo.currentIndexChanged.connect(self._hide_openshot_changed)
+        self.screen_display_edit.currentIndexChanged.connect(self._screen_source_changed)
+        self.mic_card.toggled.connect(self._source_toggled)
+        self.screen_card.toggled.connect(self._source_toggled)
+        self.camera_card.toggled.connect(self._source_toggled)
+        self.camera_combo.currentIndexChanged.connect(self._camera_device_changed)
+        self.camera_size_combo.currentIndexChanged.connect(self._camera_size_changed)
+        self.camera_fps_combo.currentIndexChanged.connect(self._restart_webcam_preview)
+        self.webcam_layout_combo.currentIndexChanged.connect(self._webcam_layout_changed)
+        self.webcam_layout_size_combo.currentIndexChanged.connect(self._refresh_webcam_preview_corners)
+        self.webcam_corner_radius_combo.currentIndexChanged.connect(self._refresh_webcam_preview_corners)
+        self.mono_button.clicked.connect(lambda: self._set_channels(1))
+        self.stereo_button.clicked.connect(lambda: self._set_channels(2))
+        self.full_screen_button.clicked.connect(self._select_full_screen)
+        self.window_button.clicked.connect(self._select_window)
+        self.region_button.clicked.connect(self._select_region)
+
+        self._sync_source_availability()
+        self._sync_source_sections()
+        self._webcam_layout_changed()
+        self._sync_backend_state()
+
+    def _backend_available(self):
+        audio_available = all(hasattr(openshot, name) for name in (
+            "AudioRecorder",
+            "AudioRecorderSettings",
+        ))
+        video_available = all(hasattr(openshot, name) for name in (
+            "ScreenCaptureReader",
+            "ScreenCaptureSettings",
+            "CameraCaptureReader",
+            "CameraCaptureSettings",
+            "FFmpegWriter",
+        ))
+        return audio_available or video_available
+
+    def _screen_backend_available(self):
+        return screen_capture_backend_supported()
+
+    def _system_audio_available(self):
+        if not hasattr(openshot, "ScreenCaptureReader"):
+            return False
+        is_supported = getattr(openshot.ScreenCaptureReader, "IsSystemAudioSupported", None)
+        if not callable(is_supported):
+            return False
+        try:
+            return bool(is_supported(screen_capture_backend()))
+        except Exception:
+            log.debug("Unable to query system audio capture support", exc_info=True)
+            return False
+
+    def _camera_backend_available(self):
+        if not all(hasattr(openshot, name) for name in ("CameraCaptureReader", "CameraCaptureSettings")):
+            return False
+        backend = camera_capture_backend()
+        is_supported = getattr(openshot.CameraCaptureReader, "IsBackendSupported", None)
+        if callable(is_supported) and backend is not None:
+            try:
+                return bool(is_supported(backend))
+            except Exception:
+                log.debug("Unable to query camera backend support", exc_info=True)
+        return (
+            backend == getattr(openshot, "CAMERA_CAPTURE_V4L2", object())
+            and sys.platform.startswith("linux")
+        ) or (
+            backend == getattr(openshot, "CAMERA_CAPTURE_WINDOWS_DSHOW", object())
+            and sys.platform.startswith("win")
+        ) or (
+            backend == getattr(openshot, "CAMERA_CAPTURE_MAC_AVFOUNDATION", object())
+            and sys.platform == "darwin"
+        )
+
+    def _selected_camera_device(self):
+        device = self.camera_combo.currentData() if hasattr(self, "camera_combo") else None
+        if device and (camera_capture_backend_is_windows() or camera_capture_backend_is_mac() or os.path.exists(device)):
+            return device
+        return ""
+
+    def _camera_device_available(self):
+        return bool(self._camera_backend_available() and self._selected_camera_device())
+
+    def _sync_source_availability(self):
+        _ = get_app()._tr
+        audio_available = all(hasattr(openshot, name) for name in ("AudioRecorder", "AudioRecorderSettings"))
+        self.mic_card.setAvailable(audio_available, "" if audio_available else _("Audio recording is not available."))
+
+        screen_available = self._screen_backend_available()
+        screen_tip = "" if screen_available else _("Screen recording is not available for this platform or libopenshot build.")
+        self.screen_card.setAvailable(screen_available, screen_tip)
+
+        camera_backend_available = self._camera_backend_available()
+        camera_available = camera_backend_available and self._camera_device_available()
+        if not camera_backend_available:
+            camera_tip = _("Webcam recording is not available for this platform or libopenshot build.")
+        elif not camera_available:
+            camera_tip = _("No webcam device was found.")
+        else:
+            camera_tip = ""
+        self.camera_card.setAvailable(camera_available, camera_tip)
+        self._sync_screen_backend_ui()
+
+    def _sync_screen_backend_ui(self):
+        _ = get_app()._tr
+        wayland = screen_capture_backend_is_wayland()
+        mac_screen = screen_capture_backend_is_mac()
+        self.screen_mode_widget.setVisible(not wayland)
+        self.screen_display_label.setVisible(not wayland)
+        self.screen_display_edit.setVisible(not wayland)
+        self.screen_offset_label.setVisible(not wayland)
+        self.screen_offset_widget.setVisible(not wayland)
+        self.screen_x_spin.setVisible(not wayland)
+        self.screen_y_spin.setVisible(not wayland)
+        self.screen_size_label.setVisible(not wayland)
+        self.screen_size_widget.setVisible(not wayland)
+        self.screen_width_spin.setVisible(not wayland)
+        self.screen_height_spin.setVisible(not wayland)
+        self.window_button.setEnabled(not wayland)
+        self.region_button.setEnabled(not wayland)
+        self.screen_hide_label.setVisible(not wayland)
+        self.hide_openshot_combo.setVisible(not wayland)
+        system_audio_available = self._system_audio_available()
+        self.system_audio_label.setEnabled(system_audio_available)
+        self.system_audio_combo.setEnabled(system_audio_available)
+        if not system_audio_available:
+            off_index = self.system_audio_combo.findData(False)
+            if off_index >= 0:
+                self.system_audio_combo.setCurrentIndex(off_index)
+            unavailable_tip = _("System audio recording is not available for this platform or libopenshot build.")
+            self.system_audio_label.setToolTip(unavailable_tip)
+            self.system_audio_combo.setToolTip(unavailable_tip)
+        if wayland:
+            self.screen_status_label.setText(_("Your desktop will ask what to share when recording starts."))
+            self._screen_window_id = ""
+        elif mac_screen:
+            self.screen_status_label.setText(_("macOS screen recording uses full screen or cropped window and region bounds."))
+            self._screen_window_id = ""
+        elif screen_capture_backend_is_windows():
+            self.screen_status_label.setText(_("Windows screen recording uses full screen or numeric region bounds."))
+
+    def _source_toggled(self):
+        self._sync_webcam_layout_defaults()
+        self._sync_source_sections()
+        self._restart_monitoring()
+        self._restart_webcam_preview()
+
+    def _sync_source_sections(self):
+        self.mic_section.setActive(self.mic_card.isChecked())
+        self.screen_section.setActive(self.screen_card.isChecked())
+        self.camera_section.setActive(self.camera_card.isChecked())
+        self.webcam_layout_combo.setEnabled(self.screen_card.isChecked())
+        self.webcam_layout_size_combo.setEnabled(self.screen_card.isChecked())
+        self.webcam_corner_radius_combo.setEnabled(self.screen_card.isChecked())
+        self._sync_preview_control()
+        if not self.camera_card.isChecked():
+            self._stop_webcam_preview()
+
+    def _sync_preview_control(self):
+        """Disable timeline playback while screen capture is selected."""
+        screen_selected = self.screen_card.isChecked()
+        if screen_selected and not self._preview_forced_off:
+            current = self.preview_combo.currentData()
+            if current != "none":
+                self._preview_before_screen = current
+            self._set_combo_data(self.preview_combo, "none")
+            self._preview_forced_off = True
+        elif not screen_selected and self._preview_forced_off:
+            self._set_combo_data(self.preview_combo, self._preview_before_screen or "full")
+            self._preview_forced_off = False
+        self.preview_label.setEnabled(not screen_selected)
+        self.preview_combo.setEnabled(not screen_selected)
+
+    def _sync_webcam_layout_defaults(self):
+        state = (self.camera_card.isChecked(), self.screen_card.isChecked())
+        if self._webcam_layout_default_state == state:
+            return
+        self._webcam_layout_default_state = state
+        if not state[0]:
+            return
+        if state[1]:
+            self._set_combo_data(self.webcam_layout_combo, "bottom-right")
+            self._set_combo_data(self.webcam_layout_size_combo, 0.3)
+            self._set_combo_data(self.webcam_corner_radius_combo, 0.15)
+        else:
+            self._set_combo_data(self.webcam_layout_combo, "full")
+            self._set_combo_data(self.webcam_corner_radius_combo, 0.0)
+
+    def _set_combo_data(self, combo, value):
+        index = combo.findData(value)
+        if index >= 0 and combo.currentIndex() != index:
+            combo.setCurrentIndex(index)
+
+    def _refresh_screen_sources(self):
+        current = self._selected_screen_source()
+        current_id = current.get("id") if current else None
+        try:
+            sources = screen_capture_sources()
+        except Exception:
+            log.debug("Unable to enumerate screen capture sources", exc_info=True)
+            sources = []
+        self.screen_display_edit.blockSignals(True)
+        self.screen_display_edit.clear()
+        for source in sources:
+            self.screen_display_edit.addItem(source.get("label") or get_app()._tr("Screen"), source)
+        selected_index = 0
+        for index in range(self.screen_display_edit.count()):
+            source = self.screen_display_edit.itemData(index) or {}
+            if current_id and source.get("id") == current_id:
+                selected_index = index
+                break
+            if not current_id and source.get("primary"):
+                selected_index = index
+                break
+            if not current_id and selected_index == 0 and not source.get("all"):
+                selected_index = index
+        if self.screen_display_edit.count():
+            self.screen_display_edit.setCurrentIndex(selected_index)
+        self.screen_display_edit.blockSignals(False)
+        self._set_screen_to_selected_source()
+
+    def _selected_screen_source(self):
+        if not hasattr(self, "screen_display_edit"):
+            return None
+        source = self.screen_display_edit.currentData()
+        return source if isinstance(source, dict) else None
+
+    def _screen_source_changed(self):
+        if self.full_screen_button.isChecked():
+            self._screen_window_id = ""
+            self._set_screen_to_selected_source()
+
+    def _set_screen_to_primary(self):
+        self._set_screen_to_selected_source()
+
+    def _set_screen_to_selected_source(self):
+        source = self._selected_screen_source()
+        if source:
+            width = int(source.get("width") or 0)
+            height = int(source.get("height") or 0)
+            if width > 0 and height > 0:
+                self.screen_x_spin.setValue(int(source.get("x") or 0))
+                self.screen_y_spin.setValue(int(source.get("y") or 0))
+                self.screen_width_spin.setValue(width)
+                self.screen_height_spin.setValue(height)
+                label = get_app()._tr("All screens: %sx%s") if source.get("all") else get_app()._tr("Full screen: %sx%s")
+                self.screen_status_label.setText(label % (width, height))
+                return
+
+        root_x, root_y, root_width, root_height = screen_root_geometry()
+        if root_width and root_height:
+            self.screen_x_spin.setValue(int(root_x or 0))
+            self.screen_y_spin.setValue(int(root_y or 0))
+            self.screen_width_spin.setValue(int(root_width))
+            self.screen_height_spin.setValue(int(root_height))
+            self.screen_status_label.setText(get_app()._tr("Full screen: %sx%s") % (root_width, root_height))
+            return
+        try:
+            screen = QApplication.primaryScreen()
+            geometry = screen.geometry() if screen else None
+            if geometry:
+                self.screen_x_spin.setValue(int(geometry.x()))
+                self.screen_y_spin.setValue(int(geometry.y()))
+                self.screen_width_spin.setValue(int(geometry.width()))
+                self.screen_height_spin.setValue(int(geometry.height()))
+                self.screen_status_label.setText(get_app()._tr("Full screen: %sx%s") % (geometry.width(), geometry.height()))
+                return
+        except Exception:
+            pass
+        self.screen_x_spin.setValue(0)
+        self.screen_y_spin.setValue(0)
+        self.screen_width_spin.setValue(1280)
+        self.screen_height_spin.setValue(720)
+        self.screen_status_label.setText(get_app()._tr("Full screen"))
+
+    def _set_screen_target(self, x, y, width, height, label):
+        self.screen_x_spin.setValue(int(x))
+        self.screen_y_spin.setValue(int(y))
+        self.screen_width_spin.setValue(max(16, int(width)))
+        self.screen_height_spin.setValue(max(16, int(height)))
+        self.screen_status_label.setText(label)
+
+    def _select_full_screen(self):
+        if screen_capture_backend_is_wayland():
+            self.screen_status_label.setText(get_app()._tr("Your desktop will ask what to share when recording starts."))
+            return
+        self.full_screen_button.setChecked(True)
+        self.window_button.setChecked(False)
+        self.region_button.setChecked(False)
+        self._screen_window_id = ""
+        self._set_hide_openshot_default(False)
+        self._set_screen_to_primary()
+
+    def _select_window(self):
+        if screen_capture_backend_is_wayland():
+            self.screen_status_label.setText(get_app()._tr("Your desktop will ask what to share when recording starts."))
+            return
+        self.window_button.setChecked(True)
+        self.full_screen_button.setChecked(False)
+        self.region_button.setChecked(False)
+        self._set_hide_openshot_default(False)
+        hidden_state = self._hide_openshot_for_picker()
+        try:
+            result = pick_screen_window()
+        finally:
+            self._restore_openshot_window(hidden_state)
+        if result:
+            x, y, width, height = result[:4]
+            self._screen_window_id = str(result[4]) if len(result) > 4 and result[4] else ""
+            self._set_screen_target(x, y, width, height, get_app()._tr("Window: %sx%s") % (width, height))
+        else:
+            self._screen_window_id = ""
+            self.screen_status_label.setText(get_app()._tr("Window selection canceled."))
+
+    def _select_region(self):
+        if screen_capture_backend_is_wayland():
+            self.screen_status_label.setText(get_app()._tr("Region selection is not available for Wayland screen recording."))
+            return
+        self.region_button.setChecked(True)
+        self.full_screen_button.setChecked(False)
+        self.window_button.setChecked(False)
+        self._screen_window_id = ""
+        self._set_hide_openshot_default(False)
+        hidden_state = self._hide_openshot_for_picker()
+        try:
+            result = pick_screen_region(None if hidden_state is not None else self)
+        finally:
+            self._restore_openshot_window(hidden_state)
+        if result:
+            x, y, width, height = result
+            self._set_screen_target(x, y, width, height, get_app()._tr("Region: %sx%s") % (width, height))
+        else:
+            self.screen_status_label.setText(get_app()._tr("Region selection canceled."))
+
+    def _hide_openshot_changed(self):
+        self._hide_openshot_user_set = True
+
+    def _set_hide_openshot_default(self, checked):
+        if self._hide_openshot_user_set:
+            return
+        self.hide_openshot_combo.blockSignals(True)
+        index = self.hide_openshot_combo.findData(bool(checked))
+        if index >= 0:
+            self.hide_openshot_combo.setCurrentIndex(index)
+        self.hide_openshot_combo.blockSignals(False)
+
+    def _hide_openshot_enabled(self):
+        if screen_capture_backend_is_wayland():
+            return False
+        return bool(self.hide_openshot_combo.currentData())
+
+    def _hide_openshot_for_picker(self):
+        if not self._hide_openshot_enabled():
+            return None
+        return self._hide_openshot_window(delay_ms=0)
+
+    def _hide_openshot_for_recording(self):
+        if (
+            self._recording_hidden_window_state is not None
+            or not self.screen_card.isChecked()
+            or not self._hide_openshot_enabled()
+        ):
+            return
+        self._recording_hidden_window_state = self._hide_openshot_window(delay_ms=50)
+
+    def _restore_openshot_after_recording(self):
+        state = self._recording_hidden_window_state
+        self._recording_hidden_window_state = None
+        self._restore_openshot_window(state)
+
+    def _hide_openshot_window(self, delay_ms=75):
+        if not self.window or not self.window.isVisible():
+            return None
+        state = {
+            "window_state": self.window.windowState(),
+            "geometry": self.window.saveGeometry(),
+        }
+        self._hiding_openshot_window = True
+        try:
+            self.window.hide()
+            QApplication.processEvents()
+            if delay_ms:
+                deadline = time.monotonic() + (float(delay_ms) / 1000.0)
+                while time.monotonic() < deadline:
+                    QApplication.processEvents()
+                    time.sleep(0.005)
+                QApplication.processEvents()
+            return state
+        except Exception:
+            log.debug("Unable to hide OpenShot window", exc_info=True)
+        finally:
+            self._hiding_openshot_window = False
+        return None
+
+    def _restore_openshot_window(self, state):
+        if state is None or not self.window:
+            return
+        try:
+            window_state = state.get("window_state") if isinstance(state, dict) else state
+            geometry = state.get("geometry") if isinstance(state, dict) else None
+            if window_state & Qt.WindowFullScreen:
+                self.window.showFullScreen()
+            elif window_state & Qt.WindowMaximized:
+                self.window.showMaximized()
+            else:
+                if geometry:
+                    self.window.restoreGeometry(geometry)
+                self.window.showNormal()
+            self.window.raise_()
+            self.window.activateWindow()
+            QApplication.processEvents()
+        except Exception:
+            log.debug("Unable to restore OpenShot window", exc_info=True)
+
+    def _sync_backend_state(self):
+        _ = get_app()._tr
+        if self._recording:
+            self._set_record_button_recording()
+            return
+        if self._starting:
+            self._set_record_button_starting()
+            return
+        available = self._backend_available()
+        if available:
+            self._set_record_button_idle()
+        else:
+            self._set_record_button_unavailable()
+
+    def refresh_devices(self):
+        _ = get_app()._tr
+        current = self.device_combo.currentData()
+        self.device_combo.blockSignals(True)
+        self.device_combo.clear()
+        self.device_combo.addItem(_("Default input"), ("", ""))
+        try:
+            audio_devices = openshot.AudioDevices()
+            if hasattr(audio_devices, "getInputNames"):
+                devices = audio_devices.getInputNames()
+            else:
+                devices = audio_devices.getNames()
+            for name, device_type in devices:
+                self.device_combo.addItem(str(name), (str(name), str(device_type)))
+        except Exception as ex:
+            log.debug("Unable to list audio input devices: %s", ex, exc_info=True)
+        if current:
+            for index in range(self.device_combo.count()):
+                if self.device_combo.itemData(index) == current:
+                    self.device_combo.setCurrentIndex(index)
+                    break
+        self.device_combo.blockSignals(False)
+
+    def _mic_device_changed(self):
+        self._stop_monitoring()
+        self._sync_channel_options()
+        self._restart_monitoring()
+
+    def _sync_channel_options(self):
+        supported = self._supported_audio_channels()
+        if not supported:
+            supported = {1, 2}
+
+        self.mono_button.setEnabled(1 in supported)
+        self.stereo_button.setEnabled(2 in supported)
+        for channels in (1, 2):
+            index = self.channels_combo.findData(channels)
+            item = self.channels_combo.model().item(index) if index >= 0 else None
+            if item:
+                item.setEnabled(channels in supported)
+
+        if self._channels not in supported:
+            self._set_channels(1 if 1 in supported else 2, restart=False)
+        else:
+            self._set_channels(self._channels, restart=False)
+
+    def _supported_audio_channels(self):
+        cache_key = self.device_combo.currentData() or ("", "")
+        if cache_key in self._audio_channel_support_cache:
+            return set(self._audio_channel_support_cache[cache_key])
+        supported = set()
+        for channels in (1, 2):
+            try:
+                settings = self._build_recorder_settings(recording=False)
+                settings.channels = channels
+                settings.channel_layout = openshot.LAYOUT_MONO if channels == 1 else openshot.LAYOUT_STEREO
+                settings.path = os.path.join(info.USER_PATH, "recording-channel-probe.wav")
+                recorder = openshot.AudioRecorder(settings)
+                recorder.Open()
+                recorder.Close()
+                supported.add(channels)
+            except Exception:
+                log.debug("Audio input does not support %s channel(s)", channels, exc_info=True)
+        self._audio_channel_support_cache[cache_key] = set(supported)
+        return supported
+
+    def refresh_cameras(self):
+        _ = get_app()._tr
+        current = self.camera_combo.currentData() if hasattr(self, "camera_combo") else None
+        self.camera_combo.blockSignals(True)
+        self.camera_combo.clear()
+        devices = []
+        if camera_capture_backend_is_windows() or camera_capture_backend_is_mac():
+            try:
+                get_devices = getattr(openshot.CameraCaptureReader, "GetDeviceNames", None)
+                if callable(get_devices):
+                    for label, device in get_devices(camera_capture_backend()):
+                        devices.append((str(label or device), str(device or label)))
+            except Exception as ex:
+                log.debug("Unable to list DirectShow webcam devices: %s", ex, exc_info=True)
+        else:
+            devices = [
+                (os.path.basename(device), device)
+                for device in sorted(glob.glob("/dev/video*"))
+                if os.path.exists(device)
+            ]
+        if not devices:
+            self.camera_combo.addItem(_("No webcam found"), None)
+        for label, device in devices:
+            self.camera_combo.addItem(label, device)
+        if current:
+            for index in range(self.camera_combo.count()):
+                if self.camera_combo.itemData(index) == current:
+                    self.camera_combo.setCurrentIndex(index)
+                    break
+        self.camera_combo.blockSignals(False)
+        self._refresh_camera_modes()
+        self._sync_source_availability()
+
+    def _camera_device_changed(self):
+        self._refresh_camera_modes()
+        self._sync_source_availability()
+        self._restart_webcam_preview()
+
+    def _camera_size_changed(self):
+        self._update_webcam_preview_aspect()
+        self._refresh_camera_fps_options()
+        self._restart_webcam_preview()
+
+    def _refresh_camera_modes(self):
+        current_size = self.camera_size_combo.currentData() if hasattr(self, "camera_size_combo") else None
+        device = self._selected_camera_device()
+        if not device:
+            self._camera_modes = {}
+            self._camera_mode_formats = {}
+            self.camera_size_combo.blockSignals(True)
+            self.camera_size_combo.clear()
+            self.camera_size_combo.blockSignals(False)
+            self.camera_fps_combo.blockSignals(True)
+            self.camera_fps_combo.clear()
+            self.camera_fps_combo.blockSignals(False)
+            self.webcam_preview_label.setText(get_app()._tr("No webcam found"))
+            self._update_webcam_preview_aspect()
+            return
+        self._camera_modes = self._probe_camera_modes(device)
+
+        common_order = [
+            (3840, 2160), (2560, 1440), (1920, 1080), (1600, 900),
+            (1280, 720), (1024, 768), (800, 600), (640, 480), (640, 360),
+        ]
+        common_sizes = [size for size in common_order if size in self._camera_modes]
+        sizes = common_sizes or sorted(self._camera_modes.keys(), key=lambda size: (size[0] * size[1], size[0]), reverse=True)
+        preferred = current_size if current_size in self._camera_modes else None
+        if preferred is None:
+            for candidate in ((1280, 720), (640, 480), (1920, 1080), (640, 360)):
+                if candidate in self._camera_modes:
+                    preferred = candidate
+                    break
+        if preferred is None and sizes:
+            preferred = sizes[0]
+
+        self.camera_size_combo.blockSignals(True)
+        self.camera_size_combo.clear()
+        for width, height in sizes:
+            self.camera_size_combo.addItem("%s x %s" % (width, height), (width, height))
+        if preferred:
+            index = self.camera_size_combo.findData(preferred)
+            if index >= 0:
+                self.camera_size_combo.setCurrentIndex(index)
+        self.camera_size_combo.blockSignals(False)
+        self._update_webcam_preview_aspect()
+        self._refresh_camera_fps_options()
+
+    def _update_webcam_preview_aspect(self):
+        size = self.camera_size_combo.currentData() if hasattr(self, "camera_size_combo") else None
+        width, height = size or (16, 9)
+        if width <= 0 or height <= 0:
+            width, height = 16, 9
+        preview_width = 220
+        preview_height = max(80, int(round(preview_width * float(height) / float(width))))
+        self.webcam_preview_label.setFixedSize(preview_width, preview_height)
+        self._refresh_webcam_preview_corners()
+
+    def _refresh_camera_fps_options(self):
+        current_fps = self.camera_fps_combo.currentData() if hasattr(self, "camera_fps_combo") else None
+        size = self.camera_size_combo.currentData()
+        fps_values = sorted(self._camera_modes.get(size, {15, 24, 30, 60}))
+        if 30 in fps_values:
+            preferred = 30
+        elif current_fps in fps_values:
+            preferred = current_fps
+        else:
+            preferred = fps_values[0] if fps_values else 30
+
+        self.camera_fps_combo.blockSignals(True)
+        self.camera_fps_combo.clear()
+        for fps in fps_values:
+            self.camera_fps_combo.addItem(str(fps), fps)
+        index = self.camera_fps_combo.findData(preferred)
+        if index >= 0:
+            self.camera_fps_combo.setCurrentIndex(index)
+        self.camera_fps_combo.blockSignals(False)
+
+    def _probe_camera_modes(self, device):
+        fallback = {
+            (1920, 1080): {30},
+            (1280, 720): {30},
+            (640, 480): {30},
+            (640, 360): {30},
+        }
+        self._camera_mode_formats = {}
+        if camera_capture_backend_is_windows() or camera_capture_backend_is_mac():
+            return fallback
+        try:
+            result = subprocess.run(  # nosec B603 -- argv list, no shell
+                ["v4l2-ctl", "--list-formats-ext", "-d", device],
+                check=True,
+                text=True,
+                capture_output=True,
+                timeout=4,
+            )
+        except Exception as ex:
+            log.debug("Unable to probe webcam modes for %s: %s", device, ex)
+            return fallback
+
+        modes = {}
+        current_size = None
+        current_format = ""
+        for line in result.stdout.splitlines():
+            format_match = re.search(r"\[\d+\]:\s+'([^']+)'", line)
+            if format_match:
+                current_format = self._ffmpeg_v4l2_format(format_match.group(1))
+                current_size = None
+                continue
+            size_match = re.search(r"Size:\s+Discrete\s+(\d+)x(\d+)", line)
+            if size_match:
+                current_size = (int(size_match.group(1)), int(size_match.group(2)))
+                modes.setdefault(current_size, set())
+                continue
+            fps_match = re.search(r"\((\d+(?:\.\d+)?)\s+fps\)", line)
+            if fps_match and current_size:
+                fps = max(1, int(round(float(fps_match.group(1)))))
+                modes.setdefault(current_size, set()).add(fps)
+                if current_format:
+                    key = (current_size[0], current_size[1], fps)
+                    existing = self._camera_mode_formats.get(key)
+                    if not existing or existing != "mjpeg":
+                        self._camera_mode_formats[key] = current_format
+
+        for size in list(modes):
+            if not modes[size]:
+                modes[size] = {30}
+        return modes or fallback
+
+    def _ffmpeg_v4l2_format(self, format_code):
+        return {
+            "MJPG": "mjpeg",
+            "YUYV": "yuyv422",
+        }.get(str(format_code).upper(), str(format_code).lower())
+
+    def refresh_tracks(self):
+        _ = get_app()._tr
+        selected = self._context_track or self.track_combo.currentData()
+        self.track_combo.blockSignals(True)
+        self.track_combo.clear()
+        try:
+            labels = self._track_labels()
+            tracks = sorted(Track.filter(), key=lambda t: int(t.data.get("number", 0)), reverse=True)
+            for track in tracks:
+                number = int(track.data.get("number", 0))
+                label = labels.get(number, _("Track %s") % number)
+                self.track_combo.addItem(str(label), number)
+        except Exception as ex:
+            log.debug("Unable to list timeline tracks for recording: %s", ex, exc_info=True)
+        for index in range(self.track_combo.count()):
+            if self.track_combo.itemData(index) == selected:
+                self.track_combo.setCurrentIndex(index)
+                break
+        self.track_combo.blockSignals(False)
+
+    def set_recording_context(self, start_time=None, track_number=None):
+        self._context_start = start_time
+        self._context_track = track_number
+        self.refresh_tracks()
+
+    def _track_labels(self):
+        _ = get_app()._tr
+        labels = {}
+        try:
+            layers = list(get_app().project.get("layers") or [])
+            display_count = len(layers)
+            for track in reversed(sorted(layers, key=lambda layer: int(layer.get("number", 0)))):
+                number = int(track.get("number", 0))
+                labels[number] = str(track.get("label") or _("Track %s") % display_count)
+                display_count -= 1
+        except Exception:
+            for track in sorted(Track.filter(), key=lambda t: int(t.data.get("number", 0)), reverse=True):
+                number = int(track.data.get("number", 0))
+                labels[number] = str(track.data.get("label") or _("Track %s") % number)
+        return labels
+
+    @pyqtSlot()
+    def _toggle_recording(self):
+        if self._recording:
+            self.stop_recording()
+        elif self._starting:
+            return
+        else:
+            self.start_recording()
+
+    def start_recording(self):
+        _ = get_app()._tr
+        if not self._backend_available():
+            self._sync_backend_state()
+            return
+        if self._recording:
+            return
+        if not self.mic_card.isChecked() and not self.screen_card.isChecked() and not self.camera_card.isChecked():
+            self.record_button.setToolTip(_("Select at least one recording source."))
+            return
+        validation_error = self._recording_start_validation_error()
+        if validation_error:
+            self.record_button.setToolTip(validation_error)
+            return
+
+        self._starting = True
+        self._set_record_button_starting()
+        QApplication.processEvents()
+
+        self._set_wait_cursor(True)
+        self._stop_monitoring()
+        self._stop_webcam_preview()
+        try:
+            self._recording_timeline_position = self._context_start
+            if self._recording_timeline_position is None:
+                self._recording_timeline_position = self._current_playhead_seconds()
+            self._context_start = self._recording_timeline_position
+            self._recording_sources = []
+            source_types = self._selected_recording_source_types()
+            session_id = str(int(time.monotonic() * 1000))
+            self._recording_preview_id = "recording-preview-%s" % session_id
+            self._recording_track_map = self._recording_track_assignments(source_types)
+            self._recording_preview_file_ids = {
+                source_type: recording_preview_file_id(session_id, source_type)
+                for source_type in source_types
+            }
+            self._recorder = None
+            self._recording_path = ""
+            self._video_jobs = self._build_video_jobs()
+            self._hide_openshot_for_recording()
+            for job in self._video_jobs:
+                job.errorOccurred.connect(self._live_video_recording_error)
+                job.start_async()
+                self._recording_sources.append((job.source_type, job.path))
+            for job in self._video_jobs:
+                job.wait_until_opened()
+            self._begin_recording()
+        except Exception as ex:
+            self._recorder = None
+            self._recording = False
+            self._starting = False
+            self._restore_recording_preview_scale()
+            self._restore_openshot_after_recording()
+            self._set_record_button_idle()
+            self.record_button.setToolTip(_("Unable to prepare recording: %s") % ex)
+            self._stop_video_jobs(delete_files=True)
+            log.error("Unable to prepare recording", exc_info=True)
+            self._ensure_monitoring()
+            self._restart_webcam_preview()
+            return
+        finally:
+            self._set_wait_cursor(False)
+
+    def _recording_start_validation_error(self):
+        _ = get_app()._tr
+        if self.screen_card.isChecked() and not self._screen_backend_available():
+            return _("Screen recording is not available for this platform or libopenshot build.")
+        if self.camera_card.isChecked():
+            if not self._camera_backend_available():
+                return _("Webcam recording is not available for this platform or libopenshot build.")
+            device = self.camera_combo.currentData()
+            if not device:
+                return _("No webcam device was found.")
+            if not (camera_capture_backend_is_windows() or camera_capture_backend_is_mac()) and not os.path.exists(device):
+                return _("Webcam device was not found: %s") % device
+            if not (camera_capture_backend_is_windows() or camera_capture_backend_is_mac()) and not os.access(device, os.R_OK):
+                return _("Webcam device is not accessible: %s") % device
+        return ""
+
+    def _cancel_starting(self, restart_monitoring=True):
+        self._starting = False
+        if self._recorder:
+            try:
+                self._recorder.Close()
+            except Exception:
+                log.debug("Unable to close prepared audio recorder", exc_info=True)
+            self._recorder = None
+        if self._recording_path and os.path.exists(self._recording_path):
+            try:
+                os.remove(self._recording_path)
+            except OSError:
+                log.debug("Unable to remove canceled recording file: %s", self._recording_path, exc_info=True)
+        self._recording_path = ""
+        self._reset_recording_preview_state()
+        self._restore_recording_preview_scale()
+        self._restore_openshot_after_recording()
+        self._set_record_button_idle()
+        if restart_monitoring:
+            self._ensure_monitoring()
+            self._restart_webcam_preview()
+
+    def _begin_recording(self):
+        _ = get_app()._tr
+        try:
+            if self._should_preview_timeline() or self._playback_active():
+                self._recording_timeline_position = self._current_playhead_seconds()
+            self._context_start = self._recording_timeline_position
+            recorder = self._recorder
+            if recorder is None:
+                if self.mic_card.isChecked():
+                    settings = self._build_recorder_settings(recording=True)
+                    recorder = openshot.AudioRecorder(settings)
+                    recorder.Open()
+                    if hasattr(recorder, "PrepareRecording"):
+                        recorder.PrepareRecording()
+                    self._recorder = recorder
+            self._apply_recording_preview_scale()
+            if recorder is not None:
+                recorder.Start()
+            recording_started_at = time.monotonic()
+            for job in self._video_jobs or []:
+                job.begin(recording_started_at)
+        except Exception as ex:
+            self._recorder = None
+            self._recording = False
+            self._starting = False
+            self._restore_recording_preview_scale()
+            self._restore_openshot_after_recording()
+            self._set_record_button_idle()
+            self.record_button.setToolTip(_("Unable to start recording: %s") % ex)
+            self._stop_video_jobs(delete_files=True)
+            log.error("Unable to start recording", exc_info=True)
+            self._ensure_monitoring()
+            self._restart_webcam_preview()
+            return
+
+        self._starting = False
+        self._recorder = recorder
+        self._recording = True
+        self._recording_started_at = recording_started_at
+        if self.mic_card.isChecked() and self._recording_path:
+            self._recording_sources.append(("mic", self._recording_path))
+        if self._should_preview_timeline():
+            self._start_timeline_playback()
+        self._last_timeline_preview_at = 0.0
+        self._last_timeline_preview_samples = 0
+        if not self._recording_preview_id:
+            self._recording_preview_id = "recording-preview-%d" % int(self._recording_started_at * 1000)
+        self._set_record_button_recording()
+        self._show_recording_tray()
+        self.level_meter.update_levels()
+        self._recording_waveform_samples = []
+        self._recording_waveform_rms = []
+        self._update_timeline_preview([], 0.05, [])
+        self.timer.start()
+        self.poll_timer.start()
+        self.recordingStarted.emit()
+
+    def stop_recording(self):
+        _ = get_app()._tr
+        if self._starting:
+            self._cancel_starting()
+            return
+        if not self._recording and not self._recorder:
+            return
+
+        stop_time = time.monotonic()
+        recorded_duration = max(0.0, stop_time - self._recording_started_at)
+        self._recording = False
+        self._stop_timeline_playback()
+        self._tray_status.hide()
+        self.timer.stop()
+        self.poll_timer.stop()
+        self._poll_recording_feedback()
+        self._set_record_button_stopping()
+        QApplication.processEvents()
+
+        path = self._recording_path
+        sources = list(self._recording_sources)
+        try:
+            for job in list(self._video_jobs or []):
+                try:
+                    if hasattr(job, "request_stop"):
+                        job.request_stop(stop_time)
+                except Exception:
+                    log.debug("Unable to request live video recording stop", exc_info=True)
+            if self._recorder:
+                self._recorder.Stop()
+                try:
+                    stats = self._recorder.GetStats()
+                    recorded_duration = max(recorded_duration, float(getattr(stats, "duration", 0.0) or 0.0))
+                except Exception:
+                    log.debug("Unable to read audio recorder duration", exc_info=True)
+                self._recorder.Close()
+            self._stop_video_jobs(delete_files=False, stop_time=stop_time)
+        except Exception as ex:
+            self.record_button.setToolTip(_("Unable to finish recording: %s") % ex)
+            log.error("Unable to finish audio recording", exc_info=True)
+            path = ""
+        finally:
+            self._recorder = None
+            self._recorded_duration = recorded_duration
+
+        self._restore_recording_preview_scale()
+        self._restore_openshot_after_recording()
+        if any(record_path and os.path.exists(record_path) for _, record_path in sources):
+            self._set_record_button_saving()
+            QApplication.processEvents()
+        self._import_recording_group(sources)
+        self._clear_timeline_preview()
+        self._set_record_button_idle()
+        self._ensure_monitoring()
+        self._restart_webcam_preview()
+        self._reset_recording_preview_state()
+        self.recordingStopped.emit(path or "")
+
+    def _build_recorder_settings(self, recording=False):
+        settings = openshot.AudioRecorderSettings()
+        device_name, device_type = self.device_combo.currentData() or ("", "")
+        path = self._next_recording_path() if recording else os.path.join(info.USER_PATH, "recording-monitor.wav")
+
+        settings.path = path
+        settings.device_name = device_name or ""
+        settings.device_type = device_type or ""
+        settings.sample_rate = int(self._sample_rate)
+        settings.channels = int(self._channels)
+        settings.channel_layout = openshot.LAYOUT_MONO if self._channels == 1 else openshot.LAYOUT_STEREO
+        settings.bit_rate = 192000 if self._preferred_format != "mp3" else 160000
+        settings.buffer_size = 512
+        self._waveform_samples_per_second = configured_waveform_sample_rate()
+        settings.waveform_samples_per_second = self._waveform_samples_per_second
+        settings.max_queue_seconds = 10
+        settings.codec = {
+            "wav": "pcm_s16le",
+            "flac": "flac",
+            "mp3": "libmp3lame",
+        }.get(self._preferred_format, "pcm_s16le")
+
+        if recording:
+            self._recording_path = path
+        return settings
+
+    def _next_recording_path(self):
+        return self._next_named_recording_path("Mic", self._preferred_format or "wav")
+
+    def _next_named_recording_path(self, prefix, extension):
+        project_path = getattr(get_app().project, "current_filepath", None)
+        assets_path = get_assets_path(project_path)
+        recordings_path = os.path.join(assets_path or info.USER_PATH, "recordings")
+        os.makedirs(recordings_path, exist_ok=True)
+
+        timestamp = time.strftime("%Y%m%d-%H%M%S")
+        base = os.path.join(recordings_path, "%s-%s.%s" % (prefix, timestamp, extension))
+        if not os.path.exists(base):
+            return base
+        for index in range(2, 1000):
+            candidate = os.path.join(
+                recordings_path,
+                "%s-%s-%03d.%s" % (prefix, timestamp, index, extension),
+            )
+            if not os.path.exists(candidate):
+                return candidate
+        return base
+
+    def _build_video_jobs(self):
+        jobs = []
+        screen_fps = openshot.Fraction(int(self.video_fps_combo.currentData() or 30), 1)
+        if self.screen_card.isChecked():
+            screen_backend = screen_capture_backend()
+            wayland_screen = screen_capture_backend_is_wayland(screen_backend)
+            screen_x = int(self.screen_x_spin.value())
+            screen_y = int(self.screen_y_spin.value())
+            screen_width = self._safe_even_dimension(self.screen_width_spin.value())
+            screen_height = self._safe_even_dimension(self.screen_height_spin.value())
+            windows_screen = screen_capture_backend_is_windows(screen_backend)
+            mac_screen = screen_capture_backend_is_mac(screen_backend)
+            screen_source = self._selected_screen_source()
+            if wayland_screen:
+                root_x, root_y, root_width, root_height = 0, 0, None, None
+            elif self.full_screen_button.isChecked() and screen_source:
+                root_x = int(screen_source.get("x") or 0)
+                root_y = int(screen_source.get("y") or 0)
+                root_width = int(screen_source.get("width") or 0) or None
+                root_height = int(screen_source.get("height") or 0) or None
+            else:
+                root_x, root_y, root_width, root_height = screen_root_geometry()
+            if not wayland_screen and root_width and root_height:
+                root_x = int(root_x or 0)
+                root_y = int(root_y or 0)
+                root_width = int(root_width)
+                root_height = int(root_height)
+                root_right = root_x + root_width
+                root_bottom = root_y + root_height
+                screen_width = min(screen_width, root_width)
+                screen_height = min(screen_height, root_height)
+                screen_x = max(root_x, min(screen_x, max(root_x, root_right - screen_width)))
+                screen_y = max(root_y, min(screen_y, max(root_y, root_bottom - screen_height)))
+                screen_width = self._safe_even_dimension(min(screen_width, root_right - screen_x))
+                screen_height = self._safe_even_dimension(min(screen_height, root_bottom - screen_y))
+            settings = openshot.ScreenCaptureSettings()
+            settings.backend = screen_backend
+            if windows_screen:
+                settings.display = "desktop"
+            elif mac_screen:
+                settings.display = self._screen_display_value("Capture screen 0:none")
+            else:
+                settings.display = self._screen_display_value(os.environ.get("DISPLAY", ":0.0"))
+            settings.x = screen_x
+            settings.y = screen_y
+            settings.width = screen_width
+            settings.height = screen_height
+            settings.fps = screen_fps
+            settings.include_cursor = bool(self.capture_cursor_combo.currentData())
+            settings.capture_audio = bool(
+                self._system_audio_available()
+                and self.system_audio_combo.currentData()
+            )
+            settings.audio_sample_rate = 48000
+            settings.audio_channels = 2
+            if mac_screen and (self.window_button.isChecked() or self.region_button.isChecked()):
+                settings.options["crop_after_capture"] = "1"
+                if root_width and root_height:
+                    settings.options["crop_source_width"] = str(int(root_width))
+                    settings.options["crop_source_height"] = str(int(root_height))
+            if not wayland_screen and not mac_screen and self._screen_window_id and self.window_button.isChecked():
+                settings.options["window_id"] = str(self._screen_window_id)
+            self.screen_x_spin.setValue(settings.x)
+            self.screen_y_spin.setValue(settings.y)
+            self.screen_width_spin.setValue(settings.width)
+            self.screen_height_spin.setValue(settings.height)
+            screen_bit_rate = self._screen_recording_bit_rate(settings.width, settings.height, screen_fps)
+            log.info(
+                "Preparing screen capture: backend=%s display=%s x=%s y=%s width=%s height=%s fps=%s/%s bit_rate=%s",
+                settings.backend, settings.display, settings.x, settings.y, settings.width, settings.height,
+                screen_fps.num, screen_fps.den, screen_bit_rate,
+            )
+            path = self._next_named_recording_path("Screen", "mp4")
+            jobs.append(LiveVideoRecordingJob(
+                openshot.ScreenCaptureReader(settings),
+                path,
+                settings.width,
+                settings.height,
+                screen_fps,
+                bit_rate=screen_bit_rate,
+                source_type="screen",
+                use_reader_fps=False,
+                preview_file_id=self._recording_preview_file_ids.get("screen", ""),
+            ))
+        if self.camera_card.isChecked():
+            camera_fps = openshot.Fraction(int(self.camera_fps_combo.currentData() or 30), 1)
+            camera_size = self.camera_size_combo.currentData() or (1280, 720)
+            camera_device = self._selected_camera_device()
+            if not camera_device:
+                raise RuntimeError(get_app()._tr("No webcam device was found."))
+            settings = openshot.CameraCaptureSettings()
+            settings.backend = camera_capture_backend()
+            settings.device = camera_device
+            settings.width = self._safe_even_dimension(camera_size[0])
+            settings.height = self._safe_even_dimension(camera_size[1])
+            settings.fps = camera_fps
+            input_format = self._camera_mode_formats.get((settings.width, settings.height, int(camera_fps.num)))
+            if camera_capture_backend_is_windows(settings.backend) or camera_capture_backend_is_mac(settings.backend):
+                settings.options["use_device_defaults"] = "1"
+            elif input_format:
+                settings.options["input_format"] = input_format
+            log.info(
+                "Preparing webcam capture: device=%s width=%s height=%s fps=%s/%s input_format=%s",
+                settings.device, settings.width, settings.height, camera_fps.num, camera_fps.den,
+                input_format or "default",
+            )
+            path = self._next_named_recording_path("Webcam", "mp4")
+            job = LiveVideoRecordingJob(
+                openshot.CameraCaptureReader(settings),
+                path,
+                settings.width,
+                settings.height,
+                camera_fps,
+                source_type="webcam",
+                use_reader_fps=False,
+                preview_file_id=self._recording_preview_file_ids.get("webcam", ""),
+            )
+            job.previewFrameReady.connect(self._update_webcam_preview)
+            jobs.append(job)
+        return jobs
+
+    def _screen_recording_bit_rate(self, width, height, fps):
+        fps_value = max(1.0, float(fps.num) / float(fps.den or 1))
+        pixels_per_second = max(1.0, float(width) * float(height) * fps_value)
+        return int(max(8000000, min(80000000, pixels_per_second * 0.08)))
+
+    def _stop_video_jobs(self, delete_files=False, stop_time=None):
+        jobs = list(self._video_jobs or [])
+        self._video_jobs = []
+        shared_stop_time = float(stop_time or time.monotonic())
+        for job in jobs:
+            try:
+                if hasattr(job, "request_stop"):
+                    job.request_stop(shared_stop_time)
+            except Exception:
+                log.debug("Unable to request live video recording stop", exc_info=True)
+        for job in jobs:
+            try:
+                if hasattr(job, "finish_stop"):
+                    job.finish_stop()
+                else:
+                    job.stop(shared_stop_time)
+                if job.error:
+                    log.error("Live video recording error for %s: %s", job.path, job.error)
+            except Exception:
+                log.debug("Unable to stop live video recording job", exc_info=True)
+            if delete_files and job.path and os.path.exists(job.path):
+                try:
+                    os.remove(job.path)
+                except OSError:
+                    log.debug("Unable to remove canceled video recording file: %s", job.path, exc_info=True)
+
+    def _live_video_recording_error(self, source_type, message):
+        log.error("Live video recording error for %s: %s", source_type, message)
+        if self._recording or self._starting:
+            self.record_button.setToolTip(get_app()._tr("Recording stopped: %s") % message)
+            QTimer.singleShot(0, self.stop_recording)
+
+    def _restart_webcam_preview(self):
+        if self._recording or self._starting:
+            return
+        self._stop_webcam_preview()
+        if not self._dock_visible() or not self.camera_card.isChecked() or not self._camera_backend_available():
+            return
+        device = self._selected_camera_device()
+        if not device:
+            self.webcam_preview_label.setText(get_app()._tr("No webcam found"))
+            return
+        camera_size = self.camera_size_combo.currentData() or (640, 480)
+        width = self._safe_even_dimension(camera_size[0])
+        height = self._safe_even_dimension(camera_size[1])
+        self._webcam_preview = WebcamPreviewJob(device, min(width, 640), min(height, 360), camera_capture_backend(), self)
+        self._webcam_preview.frameReady.connect(self._update_webcam_preview)
+        self._webcam_preview.errorOccurred.connect(self._webcam_preview_error)
+        self._webcam_preview.start()
+
+    def _stop_webcam_preview(self):
+        preview = self._webcam_preview
+        self._webcam_preview = None
+        if preview:
+            try:
+                preview.stop()
+            except Exception:
+                log.debug("Unable to stop webcam preview", exc_info=True)
+
+    @pyqtSlot(object)
+    def _update_webcam_preview(self, image):
+        if not image:
+            return
+        pixmap = QPixmap.fromImage(image)
+        if not pixmap.isNull():
+            self._webcam_preview_pixmap = pixmap
+            self.webcam_preview_label.setPixmap(self._webcam_preview_pixmap_with_corners(pixmap))
+
+    def _refresh_webcam_preview_corners(self):
+        pixmap = self._webcam_preview_pixmap
+        if pixmap and not pixmap.isNull():
+            self.webcam_preview_label.setPixmap(self._webcam_preview_pixmap_with_corners(pixmap))
+
+    def _webcam_layout_changed(self):
+        self.webcam_layout_size_combo.setEnabled(self._webcam_layout() != "full")
+        self._refresh_webcam_preview_corners()
+
+    def _webcam_preview_pixmap_with_corners(self, pixmap):
+        target_size = self.webcam_preview_label.size()
+        scaled = pixmap.scaled(target_size, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+        canvas = QPixmap(target_size)
+        canvas.fill(Qt.transparent)
+
+        x = int((target_size.width() - scaled.width()) / 2)
+        y = int((target_size.height() - scaled.height()) / 2)
+        corner_radius = self._webcam_corner_radius()
+        painter = QPainter(canvas)
+        painter.setRenderHint(QPainter.Antialiasing, True)
+        if corner_radius > 0.0:
+            radius_pixels = corner_radius * min(scaled.width(), scaled.height())
+            path = QPainterPath()
+            path.addRoundedRect(x, y, scaled.width(), scaled.height(), radius_pixels, radius_pixels)
+            painter.setClipPath(path)
+        painter.drawPixmap(x, y, scaled)
+        painter.end()
+        return canvas
+
+    @pyqtSlot(str)
+    def _webcam_preview_error(self, message):
+        self.webcam_preview_label.setText(get_app()._tr("Preview unavailable"))
+        log.debug("Unable to update webcam preview: %s", message)
+
+    def _safe_even_dimension(self, value):
+        value = max(16, int(value))
+        return value if value % 2 == 0 else value - 1
+
+    def _poll_recording_feedback(self):
+        recorder = self._recorder or self._monitor_recorder
+        if not recorder:
+            return
+        try:
+            level = recorder.GetLevelSnapshot()
+            level_vectors = level.vectors()
+            peak = list(level_vectors[0]) if len(level_vectors) > 0 else []
+            rms = list(level_vectors[1]) if len(level_vectors) > 1 else []
+            clipped = bool(level.clipped)
+            self.level_meter.update_levels(peak, rms, clipped)
+
+            if not self._recording:
+                return
+
+            waveform = recorder.GetWaveformSnapshot()
+            waveform_vectors = waveform.vectors()
+            samples = list(waveform_vectors[0]) if len(waveform_vectors) > 0 else []
+            rms_samples = list(waveform_vectors[1]) if len(waveform_vectors) > 1 else []
+            self._recording_waveform_samples = samples
+            self._recording_waveform_rms = rms_samples
+            self._update_timeline_preview_throttled(samples, rms_samples)
+        except Exception:
+            log.debug("Unable to poll audio recording feedback", exc_info=True)
+
+    def _update_timeline_preview_throttled(self, samples, rms_samples=None):
+        now = time.monotonic()
+        sample_count = len(samples or [])
+        duration = max(0.0, now - self._recording_started_at)
+        if (
+            sample_count == self._last_timeline_preview_samples
+            and duration < 0.25
+        ):
+            return
+        if (
+            now - self._last_timeline_preview_at < 0.2
+            and sample_count - self._last_timeline_preview_samples < 4
+        ):
+            return
+
+        self._last_timeline_preview_at = now
+        self._last_timeline_preview_samples = sample_count
+        self._update_timeline_preview(samples, duration, rms_samples)
+
+    def _update_timeline_preview(self, samples, duration, rms_samples=None):
+        timeline = getattr(self.window, "timeline", None)
+        if not timeline:
+            return
+        position = self._context_start
+        if position is None:
+            position = self._recording_timeline_position
+        previews = self._recording_preview_payloads(
+            float(position or 0.0), duration, samples, rms_samples
+        )
+        if hasattr(timeline, "set_audio_recording_previews"):
+            timeline.set_audio_recording_previews(previews)
+        elif hasattr(timeline, "set_audio_recording_preview") and previews:
+            mic_preview = next((preview for preview in previews if preview.get("source_type") == "mic"), previews[0])
+            timeline.set_audio_recording_preview(
+                mic_preview["id"],
+                mic_preview["position"],
+                mic_preview["track"],
+                mic_preview["duration"],
+                mic_preview.get("audio_data") or [],
+            )
+
+    def _recording_preview_payloads(self, position, duration, samples, rms_samples=None):
+        duration = max(0.05, float(duration or 0.0))
+        previews = []
+        source_types = self._selected_recording_source_types()
+        assignments = self._recording_track_map or self._recording_track_assignments(source_types)
+        file_ids = self._recording_preview_file_ids or {}
+        for source_type in source_types:
+            preview = {
+                "id": "%s-%s" % (self._recording_preview_id or "recording-preview", source_type),
+                "source_type": source_type,
+                "position": float(position or 0.0),
+                "track": int(assignments.get(source_type, self._recording_top_track()) or 1),
+                "duration": duration,
+                "file_id": file_ids.get(source_type, ""),
+            }
+            if source_type == "mic":
+                preview["audio_data"] = list(samples or [])
+                preview["audio_data_rms"] = list(rms_samples or [])
+                preview["audio_data_rate"] = getattr(
+                    self, "_waveform_samples_per_second", DEFAULT_SAMPLES_PER_SECOND
+                )
+            elif source_type == "screen":
+                fps = float(self.video_fps_combo.currentData() or 30)
+                preview.update({
+                    "width": int(self.screen_width_spin.value()),
+                    "height": int(self.screen_height_spin.value()),
+                    "fps": fps,
+                    "title": get_app()._tr("Screen Recording"),
+                })
+            elif source_type == "webcam":
+                camera_size = self.camera_size_combo.currentData() or (1280, 720)
+                fps = float(self.camera_fps_combo.currentData() or 30)
+                preview.update({
+                    "width": int(camera_size[0]),
+                    "height": int(camera_size[1]),
+                    "fps": fps,
+                    "title": get_app()._tr("Webcam Recording"),
+                })
+            previews.append(preview)
+        return previews
+
+    def _clear_timeline_preview(self):
+        timeline = getattr(self.window, "timeline", None)
+        if timeline and hasattr(timeline, "clear_audio_recording_preview"):
+            timeline.clear_audio_recording_preview()
+
+    def _reset_recording_preview_state(self):
+        self._recording_preview_id = ""
+        self._recording_preview_file_ids = {}
+        self._recording_track_map = {}
+        self._recording_waveform_samples = []
+        self._recording_waveform_rms = []
+
+    def _selected_recording_source_types(self):
+        source_types = []
+        if self.mic_card.isChecked():
+            source_types.append("mic")
+        if self.screen_card.isChecked():
+            source_types.append("screen")
+        if self.camera_card.isChecked():
+            source_types.append("webcam")
+        return source_types
+
+    def _import_recording_group(self, sources):
+        selected = []
+        existing_sources = [
+            (source_type, path)
+            for source_type, path in sources
+            if path and os.path.exists(path)
+        ]
+        assignments = self._recording_track_map or self._recording_track_assignments(
+            [source_type for source_type, _ in existing_sources])
+        if assignments:
+            log.info("Recording track assignments: %s", assignments)
+        import_order = {"mic": 0, "screen": 1, "webcam": 2}
+        for source_type, path in sorted(existing_sources, key=lambda item: import_order.get(item[0], 99)):
+            track = assignments.get(source_type, self._recording_top_track())
+            clip_data = self._import_recording(path, source_type, track)
+            if clip_data:
+                selected.append(clip_data)
+
+        if selected:
+            self._select_recording_clip(selected[-1], float(self._recording_timeline_position or 0.0))
+
+    def _recording_track_assignments(self, source_types):
+        top_order = ["webcam", "screen", "mic"]
+        source_set = set(source_types or [])
+        ordered_sources = [source for source in top_order if source in source_set]
+        if not ordered_sources:
+            return {}
+
+        tracks = self._recording_track_stack(len(ordered_sources))
+        assignments = dict(zip(ordered_sources, tracks))
+        return assignments
+
+    def _recording_track_stack(self, count):
+        available = self._available_recording_tracks()
+        if not available:
+            top_track = self._recording_top_track()
+            return [max(1, top_track - index) for index in range(count)]
+
+        selected = self.track_combo.currentData()
+        try:
+            selected = int(selected)
+        except (TypeError, ValueError):
+            selected = available[0]
+        if selected not in available:
+            selected = available[0]
+
+        start_index = available.index(selected)
+        tracks = available[start_index:start_index + count]
+        if len(tracks) < count:
+            window = getattr(get_app(), "window", None)
+            track_stack = getattr(window, "track_stack_from", None)
+            if callable(track_stack):
+                return track_stack(selected, count)
+            lowest = min(tracks or available)
+            while len(tracks) < count:
+                create_below = getattr(window, "create_track_below", None)
+                if callable(create_below):
+                    lowest = create_below(lowest)
+                else:
+                    lowest = max(1, lowest - 1)
+                if lowest not in tracks:
+                    tracks.append(lowest)
+        return tracks[:count]
+
+    def _available_recording_tracks(self):
+        tracks = []
+        try:
+            layers = list(get_app().project.get("layers") or [])
+            tracks = [int(layer.get("number", 0)) for layer in layers]
+        except Exception:
+            tracks = []
+        if not tracks:
+            try:
+                tracks = [int(t.data.get("number", 0)) for t in Track.filter()]
+            except Exception:
+                tracks = []
+        return sorted([track for track in tracks if track > 0], reverse=True)
+
+    def _recording_top_track(self):
+        track = self.track_combo.currentData()
+        if track is not None:
+            try:
+                return max(1, int(track))
+            except (TypeError, ValueError):
+                pass
+        available = self._available_recording_tracks()
+        if available:
+            return available[0]
+        try:
+            tracks = [int(t.data.get("number", 0)) for t in Track.filter()]
+            tracks = [number for number in tracks if number > 0]
+            if tracks:
+                return max(tracks)
+        except Exception:
+            log.debug("Unable to determine top recording track", exc_info=True)
+        return 1
+
+    def _import_recording(self, path, source_type="mic", track=None):
+        try:
+            self.window.files_model.add_files(
+                path,
+                quiet=True,
+                prevent_image_seq=True,
+                prevent_recent_folder=True,
+            )
+            if source_type == "mic":
+                self._apply_recording_duration(path)
+            self.window.refreshFilesSignal.emit()
+            return self._add_recording_to_timeline(path, source_type=source_type, track=track)
+        except Exception:
+            log.error("Unable to import recorded file: %s", path, exc_info=True)
+        return None
+
+    def _apply_recording_duration(self, path):
+        recorded_file = File.get(path=path)
+        duration = float(self._recorded_duration or 0.0)
+        if not recorded_file or duration <= 0.0:
+            return
+        if bool(recorded_file.data.get("has_video", False)):
+            return
+        existing_duration = 0.0
+        try:
+            existing_duration = float(recorded_file.data.get("duration", 0.0) or 0.0)
+        except (TypeError, ValueError):
+            existing_duration = 0.0
+
+        try:
+            fps = get_app().project.get("fps")
+            fps_float = float(fps["num"]) / float(fps["den"])
+        except Exception:
+            fps_float = 30.0
+
+        snapped_duration = existing_duration if existing_duration > 0.0 else None
+        if snapped_duration:
+            duration_frames = max(1, int(round(snapped_duration * fps_float)))
+        else:
+            duration_frames = max(1, int(round(duration * fps_float)))
+            snapped_duration = duration_frames / fps_float
+        if existing_duration <= 0.0:
+            recorded_file.data["duration"] = snapped_duration
+        recorded_file.data["start"] = 0.0
+        recorded_file.data["end"] = snapped_duration
+        recorded_file.data["video_length"] = duration_frames
+        recorded_file.data["has_audio"] = True
+        recorded_file.data["has_video"] = False
+        recorded_file.data["media_type"] = "audio"
+        recorded_file.save()
+
+    def _add_recording_to_timeline(self, path, source_type="mic", track=None):
+        timeline = getattr(self.window, "timeline", None)
+        if not timeline:
+            return
+
+        recorded_file = File.get(path=path)
+        if not recorded_file:
+            return
+
+        self._copy_live_recording_thumbnails(source_type, recorded_file.id)
+        position = self._context_start
+        if position is None:
+            position = self._recording_timeline_position
+
+        if track is None:
+            track = self.track_combo.currentData()
+            if track is None:
+                track = self._context_track or 1
+
+        new_clip = timeline.addClip(
+            recorded_file.id,
+            QPointF(float(position or 0.0), float(track)),
+            int(track),
+            ignore_refresh=False,
+            call_manual_move=False,
+        )
+        if isinstance(new_clip, dict):
+            new_clip["layer"] = int(track)
+            self._apply_recording_clip_defaults(new_clip)
+            clip_id = new_clip.get("id")
+            saved_clip = Clip.get(id=clip_id) if clip_id else None
+            if source_type == "webcam":
+                self._apply_webcam_clip_layout(new_clip)
+            if saved_clip:
+                saved_clip.data.update(new_clip)
+                saved_clip.save()
+            if hasattr(timeline, "update_clip_data"):
+                timeline.update_clip_data(new_clip, only_basic_props=False, ignore_refresh=False)
+        return new_clip
+
+    def _screen_display_value(self, fallback):
+        source = self._selected_screen_source()
+        if source and source.get("display"):
+            return str(source.get("display"))
+        return str(fallback or "")
+
+    def _copy_live_recording_thumbnails(self, source_type, final_file_id):
+        temp_file_id = (self._recording_preview_file_ids or {}).get(source_type)
+        if not temp_file_id or not final_file_id:
+            return 0
+        cache = LiveRecordingThumbnailCache(temp_file_id, 0.0)
+        copied = cache.copy_to_file_id(final_file_id)
+        if copied:
+            log.info(
+                "Copied %s live recording thumbnails from %s to %s",
+                copied,
+                temp_file_id,
+                final_file_id,
+            )
+        return copied
+
+    def _apply_recording_clip_defaults(self, clip_data):
+        clip_data["scale"] = openshot.SCALE_FIT
+
+    def _apply_webcam_clip_layout(self, clip_data):
+        layout = self._webcam_layout()
+        scale = 1.0 if layout == "full" else self._webcam_layout_scale()
+        gravity = {
+            "top-left": openshot.GRAVITY_TOP_LEFT,
+            "top-right": openshot.GRAVITY_TOP_RIGHT,
+            "bottom-left": openshot.GRAVITY_BOTTOM_LEFT,
+            "bottom-right": openshot.GRAVITY_BOTTOM_RIGHT,
+            "left": openshot.GRAVITY_LEFT,
+            "right": openshot.GRAVITY_RIGHT,
+            "center": openshot.GRAVITY_CENTER,
+            "full": openshot.GRAVITY_CENTER,
+        }.get(layout, openshot.GRAVITY_BOTTOM_RIGHT)
+        clip_data["gravity"] = gravity
+        clip_data["scale"] = openshot.SCALE_FIT
+        clip_data["scale_x"] = {"Points": [self._keyframe_point(scale)]}
+        clip_data["scale_y"] = {"Points": [self._keyframe_point(scale)]}
+        clip_data["location_x"] = {"Points": [self._keyframe_point(0.0)]}
+        clip_data["location_y"] = {"Points": [self._keyframe_point(0.0)]}
+        margin = 0.0 if layout == "full" else 0.03
+        corner_radius = 0.0 if layout == "full" else self._webcam_corner_radius()
+        clip_data["margin"] = {"Points": [self._keyframe_point(margin)]}
+        clip_data["corner_radius"] = {"Points": [self._keyframe_point(corner_radius)]}
+
+    def _webcam_layout(self):
+        if not self.screen_card.isChecked():
+            return "full"
+        return self.webcam_layout_combo.currentData() or "bottom-right"
+
+    def _webcam_layout_scale(self):
+        try:
+            return float(self.webcam_layout_size_combo.currentData() or 0.3)
+        except (TypeError, ValueError):
+            return 0.3
+
+    def _webcam_corner_radius(self):
+        if not self.screen_card.isChecked():
+            return 0.0
+        try:
+            return float(self.webcam_corner_radius_combo.currentData() or 0.0)
+        except (TypeError, ValueError):
+            return 0.0
+
+    def _keyframe_point(self, value):
+        return json.loads(openshot.Point(1, float(value), openshot.BEZIER).Json())
+
+    def _select_recording_clip(self, clip_data, position):
+        clip_id = clip_data.get("id") if isinstance(clip_data, dict) else None
+        if clip_id and hasattr(self.window, "addSelection"):
+            self.window.addSelection(clip_id, "clip", clear_existing=True)
+
+        try:
+            fps = get_app().project.get("fps")
+            fps_float = float(fps["num"]) / float(fps["den"])
+            frame_number = max(1, int(round(position * fps_float)) + 1)
+            self.window.SeekSignal.emit(frame_number, True)
+        except Exception:
+            log.debug("Unable to seek to recorded audio clip start", exc_info=True)
+
+    def _current_playhead_seconds(self):
+        try:
+            return float(self.window._current_timeline_seconds())
+        except Exception:
+            return 0.0
+
+    def _playback_active(self):
+        try:
+            player = self.window.preview_thread.player
+            return player.Mode() == openshot.PLAYBACK_PLAY and player.Speed() != 0
+        except Exception:
+            return False
+
+    def _start_timeline_playback(self):
+        if self._playback_active():
+            return
+        self._timeline_playback_started = True
+        if hasattr(self.window, "actionPlay_trigger"):
+            self.window.actionPlay_trigger()
+        else:
+            self.window.PlaySignal.emit()
+
+    def _stop_timeline_playback(self):
+        if self._timeline_playback_started and self._playback_active():
+            self.window.PauseSignal.emit()
+        self._timeline_playback_started = False
+
+    def _update_elapsed_time(self):
+        elapsed = max(0.0, time.monotonic() - self._recording_started_at)
+        self._set_record_button_recording(elapsed)
+        self._update_timeline_preview(
+            self._recording_waveform_samples,
+            elapsed,
+            self._recording_waveform_rms,
+        )
+
+    def _format_elapsed_time(self, elapsed):
+        minutes = int(elapsed // 60)
+        seconds = elapsed - (minutes * 60)
+        return "%02d:%04.1f" % (minutes, seconds)
+
+    def _show_recording_tray(self):
+        self._tray_status.show_recording(
+            on_stop=lambda: QTimer.singleShot(0, self.stop_recording),
+        )
+
+    def _set_record_button_idle(self):
+        self.record_button.setEnabled(True)
+        self.record_button.setText(get_app()._tr("Start Recording"))
+        self.record_button.setStyleSheet(
+            "QPushButton { background-color: #087cff; color: white; border: none; border-radius: 8px; padding: 11px; font-weight: 700; }"
+            "QPushButton:hover { background-color: #1688ff; }"
+            "QPushButton:pressed { background-color: #0567d6; }"
+        )
+        self.record_button.setToolTip("")
+
+    def _set_record_button_unavailable(self):
+        self.record_button.setEnabled(False)
+        self.record_button.setText(get_app()._tr("Unavailable"))
+        self.record_button.setStyleSheet("QPushButton { color: #8b96a8; font-weight: 600; }")
+        self.record_button.setToolTip("")
+
+    def _set_record_button_starting(self):
+        self.record_button.setEnabled(False)
+        self.record_button.setText(get_app()._tr("Starting..."))
+        self.record_button.setStyleSheet("QPushButton { color: #d8e3f2; font-weight: 600; }")
+        self.record_button.setToolTip("")
+
+    def _set_record_button_stopping(self):
+        self.record_button.setEnabled(False)
+        self.record_button.setText(get_app()._tr("Stopping..."))
+        self.record_button.setStyleSheet(
+            "QPushButton { background-color: #8F2D2D; color: white; font-weight: 700; }"
+        )
+        self.record_button.setToolTip("")
+
+    def _set_record_button_saving(self):
+        self.record_button.setEnabled(False)
+        self.record_button.setText(get_app()._tr("Saving..."))
+        self.record_button.setStyleSheet("QPushButton { color: #d8e3f2; font-weight: 600; }")
+        self.record_button.setToolTip("")
+
+    def _set_record_button_recording(self, elapsed=None):
+        self.record_button.setEnabled(True)
+        if elapsed is None:
+            elapsed = 0.0
+        self.record_button.setText(
+            "%s  %s" % (get_app()._tr("Stop Recording"), self._format_elapsed_time(elapsed))
+        )
+        self.record_button.setStyleSheet(
+            "QPushButton { background-color: #B83232; color: white; font-weight: 700; }"
+            "QPushButton:hover { background-color: #C93A3A; }"
+            "QPushButton:pressed { background-color: #972626; }"
+        )
+        self.record_button.setToolTip("")
+
+    def _format_changed(self):
+        self._set_format(self.format_combo.currentData() or "wav")
+
+    def _sample_rate_changed(self):
+        self._set_sample_rate(self.sample_rate_combo.currentData() or 48000)
+
+    def _channels_changed(self):
+        self._set_channels(self.channels_combo.currentData() or 1)
+
+    def _set_format(self, value):
+        self._preferred_format = value
+
+    def _set_sample_rate(self, value):
+        self._sample_rate = int(value)
+        self._restart_monitoring()
+
+    def _set_channels(self, value, restart=True):
+        value = int(value)
+        if value == 2 and not self.stereo_button.isEnabled():
+            value = 1
+        if value == 1 and not self.mono_button.isEnabled() and self.stereo_button.isEnabled():
+            value = 2
+        self._channels = value
+        self.mono_button.setChecked(self._channels == 1)
+        self.stereo_button.setChecked(self._channels == 2)
+        index = self.channels_combo.findData(self._channels)
+        if index >= 0 and self.channels_combo.currentIndex() != index:
+            self.channels_combo.blockSignals(True)
+            self.channels_combo.setCurrentIndex(index)
+            self.channels_combo.blockSignals(False)
+        if restart:
+            self._restart_monitoring()
+
+    def _ensure_monitoring(self):
+        if (
+            self._recording
+            or self._starting
+            or not self._dock_visible()
+            or not self._backend_available()
+            or not self.mic_card.isChecked()
+        ):
+            return
+        if self._monitor_recorder:
+            return
+        self._set_wait_cursor(True)
+        try:
+            settings = self._build_recorder_settings(recording=False)
+            recorder = openshot.AudioRecorder(settings)
+            recorder.Open()
+            if hasattr(recorder, "StartMonitoring"):
+                recorder.StartMonitoring()
+            else:
+                recorder.Close()
+                return
+            self._monitor_recorder = recorder
+            if not self.poll_timer.isActive():
+                self.poll_timer.start()
+        except Exception as ex:
+            self._monitor_recorder = None
+            self.record_button.setToolTip(get_app()._tr("Unable to monitor input: %s") % ex)
+            log.debug("Unable to monitor audio input", exc_info=True)
+        finally:
+            self._set_wait_cursor(False)
+
+    def _stop_monitoring(self):
+        recorder = self._monitor_recorder
+        self._monitor_recorder = None
+        if recorder:
+            try:
+                if hasattr(recorder, "StopMonitoring"):
+                    recorder.StopMonitoring()
+                recorder.Close()
+            except Exception:
+                log.debug("Unable to stop audio input monitoring", exc_info=True)
+        if not self._recording and not self._starting:
+            self.poll_timer.stop()
+
+    def _restart_monitoring(self):
+        if self._recording or self._starting:
+            return
+        self._stop_monitoring()
+        self._ensure_monitoring()
+
+    def _dock_visible(self):
+        if not self.isVisible():
+            return False
+        dock = self.parentWidget()
+        while dock is not None:
+            if getattr(dock, "objectName", lambda: "")() == "dockAudioRecording":
+                return dock.isVisible()
+            dock = dock.parentWidget()
+        return True
+
+    def deactivate_if_hidden(self):
+        if self._recording or self._starting:
+            return
+        self._stop_monitoring()
+        self._stop_webcam_preview()
+
+    def _should_preview_timeline(self):
+        return self.preview_combo.currentData() != "none"
+
+    def _preview_scale(self):
+        return {
+            "half": 0.5,
+            "quarter": 0.25,
+        }.get(self.preview_combo.currentData(), 1.0)
+
+    def _apply_recording_preview_scale(self):
+        if not self._should_preview_timeline():
+            return
+        scale = self._preview_scale()
+        if scale >= 1.0:
+            return
+        try:
+            timeline = self.window.timeline_sync.timeline
+            current_width = int(getattr(timeline, "preview_width", 0) or 0)
+            current_height = int(getattr(timeline, "preview_height", 0) or 0)
+            if current_width <= 0 or current_height <= 0:
+                viewport = self.window.videoPreview.centeredViewport(
+                    self.window.videoPreview.width(),
+                    self.window.videoPreview.height(),
+                )
+                current_width = int(viewport.width())
+                current_height = int(viewport.height())
+            if current_width <= 0 or current_height <= 0:
+                return
+
+            self._recording_preview_size = (current_width, current_height)
+            scaled_width = max(16, int(round(current_width * scale)))
+            scaled_height = max(16, int(round(current_height * scale)))
+            timeline.SetMaxSize(scaled_width, scaled_height)
+            timeline.ClearAllCache(True)
+            self.window.refreshFrameSignal.emit()
+        except Exception:
+            self._recording_preview_size = None
+            log.debug("Unable to reduce recording preview resolution", exc_info=True)
+
+    def _restore_recording_preview_scale(self):
+        if not self._recording_preview_size:
+            return
+        try:
+            width, height = self._recording_preview_size
+            timeline = self.window.timeline_sync.timeline
+            timeline.SetMaxSize(int(width), int(height))
+            timeline.ClearAllCache(True)
+            self.window.refreshFrameSignal.emit()
+        except Exception:
+            log.debug("Unable to restore recording preview resolution", exc_info=True)
+        finally:
+            self._recording_preview_size = None
+
+    def _set_wait_cursor(self, enabled):
+        try:
+            self.window.WaitCursorSignal.emit(bool(enabled))
+            QApplication.processEvents()
+        except Exception:
+            pass
+
+    def showEvent(self, event):
+        super().showEvent(event)
+        self.activate_if_visible()
+
+    def activate_if_visible(self):
+        if self._activation_pending or not self._dock_visible():
+            return
+        self._activation_pending = True
+        QTimer.singleShot(0, self._activate_after_show)
+
+    def _activate_after_show(self):
+        self._activation_pending = False
+        if not self._dock_visible():
+            return
+        self._set_wait_cursor(True)
+        started = time.monotonic()
+        try:
+            self.refresh_devices()
+            self.refresh_cameras()
+            self.refresh_tracks()
+            self._sync_channel_options()
+            self._sync_backend_state()
+            if self._dock_visible():
+                self._ensure_monitoring()
+                self._restart_webcam_preview()
+        finally:
+            log.debug("Recording dock activation took %.3fs", time.monotonic() - started)
+            self._set_wait_cursor(False)
+
+    def hideEvent(self, event):
+        if self._hiding_openshot_window:
+            super().hideEvent(event)
+            return
+        if not self._recording:
+            if self._starting:
+                self._cancel_starting(restart_monitoring=False)
+            self.deactivate_if_hidden()
+        super().hideEvent(event)
