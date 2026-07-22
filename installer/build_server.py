@@ -37,7 +37,10 @@ import shlex
 import stat
 import subprocess
 import sysconfig
+import time
 import traceback
+import zipfile
+from collections import deque
 from github3 import login, GitHubError
 from requests.auth import HTTPBasicAuth
 from requests import post
@@ -70,9 +73,11 @@ log = open(log_path, 'w+')
 
 def output(line):
     """Append output to list and print it"""
-    print(line)
     if isinstance(line, bytes):
-        line = line.decode('UTF-8').strip()
+        line = line.decode('UTF-8', errors="replace")
+
+    line = str(line).rstrip("\r\n")
+    print(line)
 
     if not line.endswith(os.linesep):
         # Append missing line return (if needed)
@@ -155,13 +160,30 @@ def get_release(repo, tag_name):
     @param repo:        github3 repository object
     @returns:           github3 release object or None
     """
-    if hasattr(repo, 'releases'):
-        release_iter = repo.releases()
-    else:
-        release_iter = repo.iter_releases()
-    for release in release_iter:
-        if release.tag_name == tag_name:
-            return release
+    retry_delay_seconds = 5
+    for attempt in range(1, 4):
+        try:
+            output("GitHub: Looking up release by tag: %s [attempt %s/3]" % (tag_name, attempt))
+
+            if hasattr(repo, 'release_by_tag_name'):
+                return repo.release_by_tag_name(tag_name)
+
+            output("GitHub: Direct release lookup unavailable; scanning releases")
+            if hasattr(repo, 'releases'):
+                release_iter = repo.releases()
+            else:
+                release_iter = repo.iter_releases()
+            for release in release_iter:
+                if release.tag_name == tag_name:
+                    return release
+            return None
+        except Exception as ex:
+            if attempt == 3:
+                raise
+            output("GitHub: Release lookup failed: %s; retrying in %s seconds" % (
+                truncate(str(ex)), retry_delay_seconds))
+            time.sleep(retry_delay_seconds)
+            retry_delay_seconds *= 2
 
 
 def upload(file_path, github_release):
@@ -241,7 +263,7 @@ def upload(file_path, github_release):
     return url
 
 
-def run_command_with_exit_code(command, working_dir=None):
+def run_command_with_exit_code(command, working_dir=None, stream_output=True, failure_tail_lines=120):
     """Run command and stream output to log, returning process exit code"""
     short_command = shlex.split(command)[0]  # We don't need to print args
     output("Running %s... (%s)" % (short_command, working_dir))
@@ -251,13 +273,253 @@ def run_command_with_exit_code(command, working_dir=None):
         cwd=working_dir,
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT)
+    captured_output = deque(maxlen=failure_tail_lines)
     for line in iter(p.stdout.readline, b""):
+        if stream_output:
+            output(line)
+        else:
+            captured_output.append(line)
+
+    exit_code = p.wait()
+    if not stream_output and exit_code != 0:
+        output("Command failed with exit code %s. Last %s output lines:" % (
+            exit_code, len(captured_output)))
+        for line in captured_output:
+            output(line)
+    return exit_code
+
+
+def shell_quote(value):
+    """Quote a value for Windows shell commands."""
+    return '"%s"' % str(value).replace('"', '\\"')
+
+
+def get_signtool_path():
+    return os.getenv(
+        "SIGNTOOL_PATH",
+        "C:\\Program Files (x86)\\Windows Kits\\10\\bin\\10.0.26100.0\\x64\\signtool.exe")
+
+
+def get_azure_codesign_dlib_path():
+    return os.getenv(
+        "AZURE_CODESIGN_DLIB_PATH",
+        "C:\\Users\\Administrator\\AppData\\Local\\Microsoft\\MicrosoftArtifactSigningClientTools\\Azure.CodeSigning.Dlib.dll")
+
+
+def get_windows_authenticode_subject(signed_path):
+    """Return the Authenticode signer subject from a signed Windows artifact."""
+    configured_subject = os.getenv("WINDOWS_MSIX_PUBLISHER")
+    if configured_subject:
+        output("Using WINDOWS_MSIX_PUBLISHER for MSIX manifest publisher: %s" % configured_subject)
+        return configured_subject
+
+    powershell_command = (
+        "param([string]$Path) "
+        "$ErrorActionPreference = 'Stop'; "
+        "$signature = Get-AuthenticodeSignature -LiteralPath $Path; "
+        "Write-Host ('Authenticode status: ' + $signature.Status); "
+        "if (-not $signature.SignerCertificate) { "
+        "  throw ('No signer certificate found for ' + $Path + '; status=' + $signature.Status) "
+        "}; "
+        "$signature.SignerCertificate.Subject"
+    )
+
+    command = [
+        "powershell.exe",
+        "-NoProfile",
+        "-ExecutionPolicy", "Bypass",
+        "-Command",
+        "& { %s }" % powershell_command,
+        signed_path,
+    ]
+    try:
+        subject_output = subprocess.check_output(  # nosec B603 - fixed command, no shell.
+            command, stderr=subprocess.STDOUT)
+    except subprocess.CalledProcessError as ex:
+        error("Failed to inspect signed Windows package certificate subject. PowerShell output: %s" %
+              ex.output.decode("UTF-8", errors="replace"))
+        raise
+
+    output_lines = [
+        line.strip()
+        for line in subject_output.decode("UTF-8", errors="replace").splitlines()
+        if line.strip()
+    ]
+    for line in output_lines[:-1]:
         output(line)
-    return p.wait()
+    if not output_lines:
+        raise RuntimeError("Get-AuthenticodeSignature returned no output for %s" % signed_path)
+    return output_lines[-1]
 
 
-def sign_windows_installer(installer_path):
-    """Sign a Windows installer with Azure Code Signing"""
+def get_msix_manifest_metadata(msix_path):
+    """Return key identity/properties values from an MSIX manifest."""
+    try:
+        from defusedxml import minidom
+
+        with zipfile.ZipFile(msix_path, "r") as package:
+            with package.open("AppxManifest.xml") as manifest_file:
+                manifest_document = minidom.parse(manifest_file)
+
+        metadata = {
+            "publisher": None,
+            "publisher_display_name": None,
+        }
+        for element in manifest_document.getElementsByTagName("*"):
+            if element.localName == "Identity":
+                metadata["publisher"] = element.getAttribute("Publisher")
+            elif element.localName == "PublisherDisplayName":
+                metadata["publisher_display_name"] = "".join(
+                    node.data
+                    for node in element.childNodes
+                    if node.nodeType == node.TEXT_NODE
+                )
+        return metadata
+    except Exception as ex:
+        error("Failed to read MSIX manifest metadata: %s" % ex)
+        return None
+
+
+def prepare_windows_msix_for_signing(msix_path, signed_installer_path):
+    """Patch the MSIX manifest publisher to match the signing certificate."""
+    signer_subject = get_windows_authenticode_subject(signed_installer_path)
+    publisher_display_name = os.getenv("WINDOWS_MSIX_PUBLISHER_DISPLAY_NAME", "OpenShot Studios")
+    output("Windows signing certificate subject: %s" % signer_subject)
+
+    manifest_metadata = get_msix_manifest_metadata(msix_path)
+    if manifest_metadata:
+        output("MSIX manifest publisher before signing: %s" % manifest_metadata["publisher"])
+        output("MSIX manifest publisher display name before signing: %s" %
+               manifest_metadata["publisher_display_name"])
+        if (
+                manifest_metadata["publisher"] == signer_subject
+                and manifest_metadata["publisher_display_name"] == publisher_display_name
+        ):
+            output("MSIX manifest publisher fields already match signing configuration; skipping repack")
+            return True
+
+    signtool_path = get_signtool_path()
+    makeappx_path = os.getenv(
+        "MAKEAPPX_PATH",
+        os.path.join(os.path.dirname(signtool_path), "MakeAppx.exe"))
+    if not os.path.exists(makeappx_path):
+        error("MakeAppx.exe not found: %s" % makeappx_path)
+        return False
+
+    unpack_dir = "%s.unpack" % msix_path
+    repacked_path = "%s.repacked.msix" % msix_path
+    if os.path.isdir(unpack_dir):
+        shutil.rmtree(unpack_dir)
+    if os.path.exists(repacked_path):
+        os.remove(repacked_path)
+
+    unpack_command = " ".join([
+        shell_quote(makeappx_path),
+        "unpack",
+        "/o",
+        "/p", shell_quote(msix_path),
+        "/d", shell_quote(unpack_dir),
+    ])
+    if run_command_with_exit_code(unpack_command, stream_output=False) != 0:
+        error("Failed to unpack MSIX package: %s" % msix_path)
+        return False
+
+    manifest_path = os.path.join(unpack_dir, "AppxManifest.xml")
+    if not os.path.exists(manifest_path):
+        error("MSIX manifest not found after unpacking: %s" % manifest_path)
+        return False
+
+    try:
+        from defusedxml import minidom
+
+        with open(manifest_path, "rb") as manifest_file:
+            manifest_document = minidom.parse(manifest_file)
+
+        identity = None
+        for element in manifest_document.getElementsByTagName("*"):
+            if element.localName == "Identity":
+                identity = element
+                break
+        if identity is None:
+            error("MSIX manifest Identity element not found: %s" % manifest_path)
+            return False
+
+        current_publisher = identity.getAttribute("Publisher")
+        output("MSIX manifest publisher before signing: %s" % current_publisher)
+        if current_publisher != signer_subject:
+            output("Updating MSIX manifest publisher to match signing certificate subject")
+            identity.setAttribute("Publisher", signer_subject)
+
+        publisher_display_name_element = None
+        for element in manifest_document.getElementsByTagName("*"):
+            if element.localName == "PublisherDisplayName":
+                publisher_display_name_element = element
+                break
+        if publisher_display_name_element is None:
+            error("MSIX manifest PublisherDisplayName element not found: %s" % manifest_path)
+            return False
+
+        current_display_name = "".join(
+            node.data
+            for node in publisher_display_name_element.childNodes
+            if node.nodeType == node.TEXT_NODE
+        )
+        output("MSIX manifest publisher display name before signing: %s" % current_display_name)
+        if current_display_name != publisher_display_name:
+            output("Updating MSIX manifest publisher display name to: %s" % publisher_display_name)
+            for child in list(publisher_display_name_element.childNodes):
+                publisher_display_name_element.removeChild(child)
+            publisher_display_name_element.appendChild(
+                manifest_document.createTextNode(publisher_display_name)
+            )
+
+        if current_publisher != signer_subject or current_display_name != publisher_display_name:
+            with open(manifest_path, "wb") as manifest_file:
+                manifest_file.write(manifest_document.toxml(encoding="UTF-8"))
+    except Exception as ex:
+        error("Failed to update MSIX manifest publisher: %s" % ex)
+        return False
+
+    pack_command = " ".join([
+        shell_quote(makeappx_path),
+        "pack",
+        "/o",
+        "/h", "SHA256",
+        "/d", shell_quote(unpack_dir),
+        "/p", shell_quote(repacked_path),
+    ])
+    if run_command_with_exit_code(pack_command, stream_output=False) != 0 or not os.path.exists(repacked_path):
+        error("Failed to repack MSIX package: %s" % msix_path)
+        return False
+
+    shutil.move(repacked_path, msix_path)
+    shutil.rmtree(unpack_dir)
+    output("Repacked MSIX package for signing: %s" % msix_path)
+    return True
+
+
+def dump_appx_packaging_events():
+    """Log recent AppxPackagingOM events for MSIX signing diagnostics."""
+    command = " ".join([
+        "powershell.exe",
+        "-NoProfile",
+        "-Command",
+        shell_quote(
+            "Get-WinEvent -LogName 'Microsoft-Windows-AppxPackaging/Operational' -MaxEvents 8 | "
+            "Select-Object TimeCreated, Id, ProviderName, Message | Format-List"
+        ),
+    ])
+    try:
+        for line in run_command(command):
+            output(line)
+    except Exception as ex:
+        error("Unable to read AppxPackagingOM event log: %s" % ex)
+
+
+def sign_windows_installer(installer_path, debug=False):
+    """Sign a Windows installer package with Azure Code Signing"""
+    output("Signing Windows package: %s" % installer_path)
+
     azure_tenant = os.getenv("AZURE_TENANT_ID")
     azure_client = os.getenv("AZURE_CLIENT_ID")
     azure_secret = os.getenv("AZURE_CLIENT_SECRET")
@@ -286,26 +548,54 @@ def sign_windows_installer(installer_path):
     with open(metadata_path, "w", encoding="UTF-8") as f:
         json.dump(metadata, f)
 
-    signtool_path = os.getenv(
-        "SIGNTOOL_PATH",
-        "C:\\Program Files (x86)\\Windows Kits\\10\\bin\\10.0.26100.0\\x64\\signtool.exe")
-    dlib_path = os.getenv(
-        "AZURE_CODESIGN_DLIB_PATH",
-        "C:\\Users\\Administrator\\AppData\\Local\\Microsoft\\MicrosoftArtifactSigningClientTools\\Azure.CodeSigning.Dlib.dll")
+    signtool_path = get_signtool_path()
+    dlib_path = get_azure_codesign_dlib_path()
     timestamp_url = os.getenv("AZURE_CODESIGN_TIMESTAMP_URL", "http://timestamp.acs.microsoft.com")
 
     sign_command = " ".join([
-        '"%s"' % signtool_path,
+        shell_quote(signtool_path),
         "sign",
+        "/debug" if debug else "",
         "/v",
         "/fd SHA256",
         '/tr "%s"' % timestamp_url,
         "/td SHA256",
-        '/dlib "%s"' % dlib_path,
-        '/dmdf "%s"' % metadata_path,
-        '"%s"' % installer_path,
+        "/dlib", shell_quote(dlib_path),
+        "/dmdf", shell_quote(metadata_path),
+        shell_quote(installer_path),
     ])
-    return run_command_with_exit_code(sign_command) == 0
+    success = run_command_with_exit_code(sign_command, stream_output=False) == 0
+    if success:
+        output("Successfully signed Windows package: %s" % installer_path)
+    if not success and installer_path.lower().endswith((".msix", ".appx", ".msixbundle", ".appxbundle")):
+        dump_appx_packaging_events()
+    return success
+
+
+def sign_windows_msix_artifacts(signed_installer_path):
+    """Sign any MSIX artifacts prepared for the x64 Windows signing job."""
+    msix_dir = os.path.join(PATH, "build", "msix")
+    if not os.path.isdir(msix_dir):
+        return True
+
+    msix_paths = [
+        os.path.join(msix_dir, filename)
+        for filename in os.listdir(msix_dir)
+        if filename.lower().endswith(".msix")
+    ]
+    if not msix_paths:
+        return True
+
+    for msix_path in msix_paths:
+        output("Found Windows MSIX artifact: %s" % msix_path)
+        if not prepare_windows_msix_for_signing(msix_path, signed_installer_path):
+            error("Windows MSIX preparation failed: %s" % msix_path)
+            return False
+        if not sign_windows_installer(msix_path, debug=True):
+            error("Windows MSIX signing failed: %s" % msix_path)
+            return False
+
+    return True
 
 
 def main():
@@ -680,6 +970,8 @@ def main():
                 needs_upload = False
             elif os.path.exists(app_build_path):
                 sign_success = sign_windows_installer(app_build_path)
+                if sign_success and not windows_32bit:
+                    sign_success = sign_windows_msix_artifacts(app_build_path)
                 if not sign_success:
                     needs_upload = False
                     os.remove(app_build_path)
