@@ -423,8 +423,8 @@ QDockWidget QWidget#dockFilesContents, QWidget#dockTransitionsContents, QWidget#
     border-radius: 4px;
     border: 1px solid {tokens.palette["border_subtle"]};
     margin-top: 5px;
-    margin-left: 16px;
-    margin-right: 16px;
+    margin-left: 5px;
+    margin-right: 5px;
 }}
 
 QDockWidget QWidget#dockTimelineContents {{
@@ -966,7 +966,7 @@ QMessageBox QPushButton[text="&{_('Cancel')}"] {{
             {"expand": True},
             {"action": self.app.window.actionSave, "icon": "themes/modern/images/tool-save-project.svg", "style": Qt.ToolButtonTextBesideIcon},
             {"action": self.app.window.actionExportVideo, "icon": "themes/modern/images/tool-export.svg",
-             "style": Qt.ToolButtonTextBesideIcon, "stylesheet": "QToolButton { background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #0078FF, stop:1 #00C6FF); color: #FFFFFF; border: 1px solid transparent; border-radius: 4px; padding: 6px 14px; margin: 5px; margin-right: 10px; font-weight: bold; } QToolButton:hover { background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #1A85FF, stop:1 #1ACDFF); } QToolButton:pressed { background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #0066D6, stop:1 #00B3E6); } QToolButton:focus { border: 1px solid #7FB8FF; }"},
+             "style": Qt.ToolButtonTextBesideIcon, "stylesheet": "QToolButton { background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #0078FF, stop:1 #00C6FF); color: #FFFFFF; border: 1px solid transparent; border-radius: 4px; padding: 4px 14px; margin: 5px; margin-right: 10px; font-weight: bold; } QToolButton:hover { background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #1A85FF, stop:1 #1ACDFF); } QToolButton:pressed { background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #0066D6, stop:1 #00B3E6); } QToolButton:focus { border: 1px solid #7FB8FF; }"},
             {"action": self.app.window.actionUpdate, "icon": "themes/modern/images/warning.svg", "visible": False, "style": Qt.ToolButtonTextBesideIcon, "stylesheet": "QToolButton {  background-color: #141923; color: #FABE0A; }"}
         ]
         
