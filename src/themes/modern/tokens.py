@@ -2,48 +2,67 @@
 # Centralizes colors, radii, spacing, and fonts for both QSS and Timeline painting.
 
 palette = {
-    # Elevation levels
-    "window_bg": "#141820",     # Base bg
-    "surface_bg": "#1A1F29",    # Panel bg
-    "control_bg": "#232A36",    # Control bg
-    
-    # Inner borders / splitters
-    "border_subtle": "#2A3140", 
-    "border_highlight": "#384254", # 1px inner highlights
-    
-    # Text
-    "text_primary": "#E8EAED",
-    "text_secondary": "#8B95A5", # Dimmed labels
-    
-    # One single accent hue
-    "accent": "#0078FF", 
-    "cta_gradient_start": "#0078FF",
-    "cta_gradient_end": "#0078FF",
-    
-    # Selection and Hover
-    "hover_bg": "#2A3140",
-    "selected_bg": "#004B99", # Darker accent for selections
+    # 4-tier surface elevation (from reference design)
+    "window_bg": "#0E1116",      # bg-0 app/canvas
+    "surface_bg": "#151A22",     # bg-1 panels
+    "control_bg": "#1C2230",     # bg-2 inputs/controls
+    "hover_bg": "#232A3A",       # bg-3 hover/raised
+    "panel_hdr": "#10141B",      # panel header strips (darker than panels)
 
-    # Timeline specific
-    "playhead": "#0078FF",
-    "clip_bg": "#1A1F29",
-    "clip_border": "#2A3140",
-    "track_bg": "#141820",
-    "ruler_bg": "#141820",
+    # hairline borders (white-alpha pre-blended over bg-1)
+    "border_subtle": "#232830",     # line-1
+    "border_highlight": "#2C3138",  # line-2
+    "border_strong": "#3A3F45",     # line-3
+
+    # 4-tier text
+    "text_primary": "#E7ECF3",
+    "text_secondary": "#A9B2C0",
+    "text_tertiary": "#6B7688",
+    "text_disabled": "#4B5464",
+
+    # accent — one hue
+    "accent": "#4C8DFF",
+    "accent_hi": "#6BA3FF",
+    "accent_dim": "#1F2F4A",     # 18% accent over bg-1 (selection fills)
+    "accent_line": "#33599B",    # 55% accent over bg-1 (focus borders)
+
+    # signal colors
+    "ok": "#4EC28A",
+    "warn": "#E5A24B",
+    "err": "#E5695B",
+
+    # CTA is flat accent now (no gradient)
+    "cta_gradient_start": "#4C8DFF",
+    "cta_gradient_end": "#4C8DFF",
+
+    # selection / hover
+    "selected_bg": "#1F2F4A",
+
+    # timeline canvas
+    "playhead": "#6BA3FF",
+    "clip_bg": "#232A3A",
+    "clip_border": "#4C8DFF",
+    "track_bg": "#0E1116",
+    "ruler_bg": "#10141B",
 }
 
 typography = {
-    "font_family": "Ubuntu", # Default to system/Ubuntu for now
-    "base_size": "13px",     # Controls
-    "title_size": "15px",    # Panel titles
-    "caption_size": "11px",  # Labels, slightly tracked, dimmed
+    "font_family": "Inter",
+    "mono_family": "IBM Plex Mono",
+    "base_size": "13px",
+    "title_size": "11px",     # panel titles: uppercase, tracked (styled in QSS)
+    "caption_size": "11px",
 }
 
 spacing = {
-    "panel_radius": "4px",
-    "button_radius": "4px",
-    "input_radius": "4px",
+    "panel_radius": "6px",
+    "button_radius": "6px",
+    "input_radius": "6px",
+    "radius_small": "3px",
     "grid_4": "4px",
     "grid_8": "8px",
+    "grid_12": "12px",
     "control_height": "28px",
+    "header_height": "32px",
+    "status_height": "24px",
 }

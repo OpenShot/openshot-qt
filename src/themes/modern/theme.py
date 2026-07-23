@@ -940,6 +940,7 @@ QMessageBox QPushButton[text="&{_('Cancel')}"] {{
         from classes.logger import log
         from qt_api import QStyleFactory
         from qt_api import QFont
+        from qt_api import QFontDatabase
 
         _ = get_app()._tr
 
@@ -948,8 +949,17 @@ QMessageBox QPushButton[text="&{_('Cancel')}"] {{
         modern_palette = ui_util.make_modern_palette(self.app.palette())
         self.app.setPalette(modern_palette)
 
+        fonts_dir = os.path.join(os.path.dirname(__file__), "fonts")
+        count = 0
+        if os.path.exists(fonts_dir):
+            for filename in os.listdir(fonts_dir):
+                if filename.endswith(".ttf"):
+                    QFontDatabase.addApplicationFont(os.path.join(fonts_dir, filename))
+                    count += 1
+        log.info("Loaded %d modern theme fonts", count)
+
         # Set font for all widgets
-        font = QFont("Ubuntu")
+        font = QFont("Inter")
         font.setPointSizeF(10)
         self.app.setFont(font)
 
@@ -979,8 +989,8 @@ QMessageBox QPushButton[text="&{_('Cancel')}"] {{
             {"expand": True},
             {"action": self.app.window.actionSave, "icon": "themes/modern/images/tool-save-project.svg", "style": Qt.ToolButtonTextBesideIcon},
             {"action": self.app.window.actionExportVideo, "icon": "themes/modern/images/tool-export.svg",
-             "style": Qt.ToolButtonTextBesideIcon, "stylesheet": "QToolButton { background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #0078FF, stop:1 #00C6FF); color: #FFFFFF; border: 1px solid transparent; border-radius: 4px; padding: 4px 14px; margin: 5px; margin-right: 10px; font-weight: bold; } QToolButton:hover { background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #1A85FF, stop:1 #1ACDFF); } QToolButton:pressed { background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #0066D6, stop:1 #00B3E6); } QToolButton:focus { border: 1px solid #7FB8FF; }"},
-            {"action": self.app.window.actionUpdate, "icon": "themes/modern/images/warning.svg", "visible": False, "style": Qt.ToolButtonTextBesideIcon, "stylesheet": "QToolButton {  background-color: #141923; color: #FABE0A; }"}
+             "style": Qt.ToolButtonTextBesideIcon, "stylesheet": f"QToolButton {{ background: {tokens.palette['accent']}; color: #FFFFFF; border: none; border-radius: 6px; padding: 4px 14px; margin: 5px; margin-right: 10px; font-weight: 600; }} QToolButton:hover {{ background: {tokens.palette['accent_hi']}; }} QToolButton:pressed {{ background: {tokens.palette['accent_line']}; }}"},
+            {"action": self.app.window.actionUpdate, "icon": "themes/modern/images/warning.svg", "visible": False, "style": Qt.ToolButtonTextBesideIcon, "stylesheet": "QToolButton {  background-color: #151A22; color: #E5A24B; }"}
         ]
         
         # Add a couple of spaces to the action text to create a gap between icon and text
