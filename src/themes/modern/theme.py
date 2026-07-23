@@ -414,18 +414,18 @@ QLabel#dock-title-label {{
 }}
 
 
-QLabel#dock-title-handle {
+QLabel#dock-title-handle {{
     padding-left: 8px;
     qproperty-pixmap: url({PATH}/themes/modern/images/dock-move.svg);
-}
+}}
 
-QDockWidget {
+QDockWidget {{
     background-color: {tokens.palette["surface_bg"]};
     titlebar-close-icon: url({PATH}/themes/modern/images/dock-close.svg);
     titlebar-normal-icon: url({PATH}/themes/modern/images/dock-float.svg);
     color: {tokens.palette["text_primary"]};
     font-weight: normal;
-}
+}}
 
 QDockWidget QWidget {{
     border: none;
