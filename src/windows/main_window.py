@@ -3232,6 +3232,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             "AAAA/wAAAAD9AAAAAwAAAAAAAAEnAAAC3/wCAAAAA/wAAAJeAAAApwAAAAAA////+gAAAAACAAAAAfsAAAAYAGQAbwBjAGsASwBlAHkAZgByAGEAbQBlAAAAAAD/////AAAAAAAAAAD7AAAAHABkAG8AYwBrAFAAcgBvAHAAZQByAHQAaQBlAHMAAAAAJwAAAt8AAAChAP////sAAAAYAGQAbwBjAGsAVAB1AHQAbwByAGkAYQBsAgAABUQAAAF6AAABYAAAANwAAAABAAABHAAAAUD8AgAAAAH7AAAAGABkAG8AYwBrAEsAZQB5AGYAcgBhAG0AZQEAAAFYAAAAFQAAAAAAAAAAAAAAAgAABEYAAALC/AEAAAAC/AAAAAAAAARGAAAA+gD////8AgAAAAL8AAAAPQAAAa4AAACvAP////wBAAAAAvwAAAAAAAABwQAAAJcA////+gAAAAACAAAABPsAAAASAGQAbwBjAGsARgBpAGwAZQBzAQAAAAD/////AAAAkgD////7AAAAHgBkAG8AYwBrAFQAcgBhAG4AcwBpAHQAaQBvAG4AcwEAAAAA/////wAAAJIA////+wAAABYAZABvAGMAawBFAGYAZgBlAGMAdABzAQAAAAD/////AAAAkgD////7AAAAFABkAG8AYwBrAEUAbQBvAGoAaQBzAQAAAAD/////AAAAkgD////7AAAAEgBkAG8AYwBrAFYAaQBkAGUAbwEAAAHHAAACfwAAAEcA////+wAAABgAZABvAGMAawBUAGkAbQBlAGwAaQBuAGUBAAAB8QAAAQ4AAACWAP////sAAAAiAGQAbwBjAGsAQwBhAHAAdABpAG8AbgBFAGQAaQB0AG8AcgAAAANtAAAA2QAAAFgA////AAAERgAAAAEAAAABAAAAAgAAAAEAAAAC/AAAAAEAAAACAAAAAQAAAA4AdABvAG8AbABCAGEAcgEAAAAA/////wAAAAAAAAAA"
         ])
         self.restoreState(qt_types.str_to_bytes(simple_state))
+        self.tabifyDockWidget(self.dockFiles, self.dockTransitions)
+        self.tabifyDockWidget(self.dockTransitions, self.dockEffects)
+        self.tabifyDockWidget(self.dockEffects, self.dockEmojis)
+        self.dockFiles.raise_()
         QCoreApplication.processEvents()
 
     def actionColor_Grade_View_trigger(self):
@@ -3660,6 +3664,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         s = get_app().get_settings()
 
         # Save window state and geometry (saves toolbar and dock locations)
+        s.set('window_state_v3', qt_types.bytes_to_str(self.saveState()))
         s.set('window_state_v2', qt_types.bytes_to_str(self.saveState()))
         s.set('window_geometry_v2', qt_types.bytes_to_str(self.saveGeometry()))
         # Qt's saveState() does not capture docks removed via removeDockWidget(); save them explicitly.
@@ -3681,8 +3686,11 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Window state and geometry (also toolbar, dock locations and frozen UI state)
         if s.get('window_geometry_v2'):
             self.saved_geometry = qt_types.str_to_bytes(s.get('window_geometry_v2'))
-        if s.get('window_state_v2'):
-            self.saved_state = qt_types.str_to_bytes(s.get('window_state_v2'))
+        if s.get('window_state_v3'):
+            self.saved_state = qt_types.str_to_bytes(s.get('window_state_v3'))
+        elif s.get('window_state_v2'):
+            # Invalidate legacy v2 saved layout so the new Phase 4 tabbed left dock default applies
+            self.saved_state = None
         self.saved_timeline_height = self._positive_int(s.get('timeline_height'))
         self.saved_video_dock_width = self._positive_int(s.get('video_dock_width'))
 
@@ -4149,6 +4157,13 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         """Restore saved dock state and then apply stable logical dock sizes."""
         if self.saved_state:
             self.restoreState(self.saved_state)
+        # Ensure left-side docks remain tabified into one consolidated panel area
+        if hasattr(self, "dockFiles") and hasattr(self, "dockTransitions") and hasattr(self, "dockEffects"):
+            self.tabifyDockWidget(self.dockFiles, self.dockTransitions)
+            self.tabifyDockWidget(self.dockTransitions, self.dockEffects)
+            if hasattr(self, "dockEmojis"):
+                self.tabifyDockWidget(self.dockEffects, self.dockEmojis)
+            self.dockFiles.raise_()
         # Re-apply removed-dock state that Qt's saveState/restoreState doesn't preserve.
         hidden_names = get_app().get_settings().get('hidden_docks') or []
         self._restore_hidden_docks(hidden_names)
@@ -5198,6 +5213,12 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.dockAudio.setWidget(self.audio_meter)
         self.dockAudio.hide()
         self.addDockWidget(Qt.RightDockWidgetArea, self.dockAudio)
+
+        # Tabify left-side docks into a single consolidated panel area (Project Files, Transitions, Effects, Emojis)
+        self.tabifyDockWidget(self.dockFiles, self.dockTransitions)
+        self.tabifyDockWidget(self.dockTransitions, self.dockEffects)
+        self.tabifyDockWidget(self.dockEffects, self.dockEmojis)
+        self.dockFiles.raise_()
 
         # Add Docks submenu to View menu
         self.addViewDocksMenu()

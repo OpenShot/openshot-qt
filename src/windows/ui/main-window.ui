@@ -338,7 +338,7 @@
     <string>Effects</string>
    </property>
    <attribute name="dockWidgetArea">
-    <number>8</number>
+    <number>4</number>
    </attribute>
    <widget class="QWidget" name="dockEffectsContents">
     <layout class="QGridLayout" name="gridLayout_5">

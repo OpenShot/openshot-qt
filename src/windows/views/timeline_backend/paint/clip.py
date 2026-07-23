@@ -861,6 +861,11 @@ class ClipPainter(BasePainter):
         if radius <= 0.0:
             return None
 
+        if includes_start and includes_end:
+            path = QPainterPath()
+            path.addRoundedRect(rect, radius, radius)
+            return path
+
         left = rect.left()
         right = rect.right()
         top = rect.top()
@@ -2104,40 +2109,43 @@ class ClipPainter(BasePainter):
 
         painter.setRenderHint(QPainter.Antialiasing, True)
 
-        if radius > 0.0 and (includes_start or includes_end):
-            left = rect.left()
-            right = rect.right()
-            top = rect.top()
-            bottom = rect.bottom()
-            path = QPainterPath()
+        if radius > 0.0:
+            if includes_start and includes_end:
+                painter.drawRoundedRect(rect, radius, radius)
+            elif includes_start or includes_end:
+                left = rect.left()
+                right = rect.right()
+                top = rect.top()
+                bottom = rect.bottom()
+                path = QPainterPath()
 
-            if includes_start:
-                path.moveTo(left, top + radius)
-                path.quadTo(left, top, left + radius, top)
+                if includes_start:
+                    path.moveTo(left, top + radius)
+                    path.quadTo(left, top, left + radius, top)
+                else:
+                    path.moveTo(left, top)
+
+                if includes_end:
+                    path.lineTo(right - radius, top)
+                    path.quadTo(right, top, right, top + radius)
+                    path.lineTo(right, bottom - radius)
+                    path.quadTo(right, bottom, right - radius, bottom)
+                else:
+                    path.lineTo(right, top)
+                    path.lineTo(right, bottom)
+
+                if includes_start:
+                    path.lineTo(left + radius, bottom)
+                    path.quadTo(left, bottom, left, bottom - radius)
+                    path.lineTo(left, top + radius)
+                else:
+                    path.lineTo(left, bottom)
+                    path.lineTo(left, top)
+
+                path.closeSubpath()
+                painter.drawPath(path)
             else:
-                path.moveTo(left, top)
-
-            if includes_end:
-                path.lineTo(right - radius, top)
-                path.quadTo(right, top, right, top + radius)
-                path.lineTo(right, bottom - radius)
-                path.quadTo(right, bottom, right - radius, bottom)
-            else:
-                path.lineTo(right, top)
-                path.lineTo(right, bottom)
-
-            if includes_start:
-                path.lineTo(left + radius, bottom)
-                path.quadTo(left, bottom, left, bottom - radius)
-                path.lineTo(left, top + radius)
-            else:
-                path.lineTo(left, bottom)
-                path.lineTo(left, top)
-
-            path.closeSubpath()
-            painter.drawPath(path)
-        elif radius > 0.0:
-            painter.drawRoundedRect(rect, radius, radius)
+                painter.drawRect(rect)
         else:
             painter.drawRect(rect)
         painter.restore()

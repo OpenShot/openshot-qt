@@ -28,6 +28,7 @@
 from qt_api import QPointF, QRectF, Qt
 from qt_api import (
     QBrush,
+    QColor,
     QFont,
     QFontMetrics,
     QLinearGradient,
@@ -64,6 +65,11 @@ class RulerPainter(BasePainter):
         )
         self.tick_pen = QPen(self.w.theme.ruler.border_color)
         self.tick_pen.setCosmetic(True)
+        minor_col = QColor(self.w.theme.ruler.border_color)
+        if minor_col.isValid():
+            minor_col.setAlpha(int(minor_col.alpha() * 0.5))
+        self.minor_tick_pen = QPen(minor_col)
+        self.minor_tick_pen.setCosmetic(True)
         self.text_pen = QPen(self.w.theme.ruler.font_color)
         self.tick_font = QFont()
         if self.w.theme.ruler.font_size:
@@ -194,9 +200,11 @@ class RulerPainter(BasePainter):
         while frame <= end_frame:
             t = frame / fps_float
             x = self.w.track_name_width + t * pps - offset_px
-            ht = long_ht if frame % (fpt * 2) == 0 else short_ht
+            is_major = (frame % (fpt * 2) == 0)
+            ht = long_ht if is_major else short_ht
 
             if x >= self.w.track_name_width - 2 and x <= self.w.track_name_width + visible_px + 2:
+                painter.setPen(self.tick_pen if is_major else self.minor_tick_pen)
                 painter.drawLine(QPointF(x, base_y), QPointF(x, base_y - ht))
 
             if frame % (fpt * 2) == 0 and (

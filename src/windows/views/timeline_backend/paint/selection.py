@@ -33,7 +33,7 @@ from .base import BasePainter
 
 class SelectionPainter(BasePainter):
     def update_theme(self):
-        bw = self.w.theme.selection_border_width
+        bw = float(getattr(self.w.theme, "selection_border_width", 1.0) or 1.0)
         col = (
             self.w.theme.selection_border
             if self.w.theme.selection_border.isValid()

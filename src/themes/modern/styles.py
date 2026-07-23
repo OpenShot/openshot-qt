@@ -21,6 +21,18 @@ class ModernTimelineTheme(HumanityDarkTimelineTheme):
         self.background             = QColor(tokens.palette["window_bg"])
         self.background2            = QColor()
         self.playhead_color         = QColor(tokens.palette["playhead"])
+        self.playhead_width         = 2.0
+        self.clip_selected          = QColor(tokens.palette["accent"])
+
+        sel_fill = QColor(tokens.palette["accent"])
+        sel_fill.setAlpha(45)
+        self.selection              = sel_fill
+
+        sel_border = QColor(tokens.palette["accent"])
+        sel_border.setAlpha(160)
+        self.selection_border       = sel_border
+        self.selection_border_width = 1.0
+
         self.ruler_name_background  = QColor(tokens.palette["window_bg"])
         self.ruler_name_background2 = QColor()
         self.scrollbar_track        = QColor(tokens.palette["window_bg"])
@@ -37,7 +49,7 @@ class ModernTimelineTheme(HumanityDarkTimelineTheme):
         self.clip.background2   = QColor()
         self.clip.top_overlay   = QColor()      # gradient overlay disabled
         self.clip.top_overlay2  = QColor()
-        self.clip.border_color  = QColor(tokens.palette["accent"])
+        self.clip.border_color  = QColor(tokens.palette["clip_border"])
         self.clip.border_radius = 8
         self.clip.height        = 48
 
@@ -63,8 +75,10 @@ class ModernTimelineTheme(HumanityDarkTimelineTheme):
         self.transition.height = 48
 
         # ── Ruler ─────────────────────────────────────────────────────────
-        self.ruler.background  = QColor(tokens.palette["window_bg"])
-        self.ruler.background2 = QColor()
+        self.ruler.background   = QColor(tokens.palette["window_bg"])
+        self.ruler.background2  = QColor()
+        self.ruler.border_color = QColor(tokens.palette["border_subtle"])
+        self.ruler.font_color   = QColor(tokens.palette["text_secondary"])
 
         # ── Icons ─────────────────────────────────────────────────────────
         _c = "themes/modern/images/"

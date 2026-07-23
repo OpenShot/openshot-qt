@@ -448,7 +448,7 @@ class TrackPainter(BasePainter):
             if radius_tl > 0.0 and self.name_border_top_width and name_border_top.isValid():
                 pen = QPen(name_border_top, float(self.name_border_top_width))
                 pen.setCapStyle(Qt.FlatCap)
-                pen.setJoinStyle(Qt.RoundJoin)
+                pen.setJoinStyle(Qt.PenJoinStyle.RoundJoin)
                 painter.setPen(pen)
                 painter.setBrush(Qt.NoBrush)
                 arc = QRectF(
@@ -461,7 +461,7 @@ class TrackPainter(BasePainter):
             if radius_bl > 0.0 and self.name_border_bottom_width and name_border_bottom.isValid():
                 pen = QPen(name_border_bottom, float(self.name_border_bottom_width))
                 pen.setCapStyle(Qt.FlatCap)
-                pen.setJoinStyle(Qt.RoundJoin)
+                pen.setJoinStyle(Qt.PenJoinStyle.RoundJoin)
                 painter.setPen(pen)
                 painter.setBrush(Qt.NoBrush)
                 arc = QRectF(

@@ -36,7 +36,7 @@ class PlayheadPainter(BasePainter):
     def update_theme(self):
         col = QColor(self.w.theme.playhead_color)
         self.line_brush = QBrush(col)
-        self.line_width = float(self.w.theme.playhead_width)
+        self.line_width = float(getattr(self.w.theme, "playhead_width", 2.0) or 2.0)
         self.pen = QPen(self.line_brush, self.line_width)
         self.pen.setCosmetic(True)
         self.icon_pix = None
