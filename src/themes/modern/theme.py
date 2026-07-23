@@ -1026,7 +1026,7 @@ QMessageBox QPushButton[text="&{_('Cancel')}"] {{
         self.set_toolbar_buttons(self.app.window.videoToolbar, icon_size=32, settings=toolbar_buttons)
 
         # Nav rail
-        from qt_api import QToolBar, QSize
+        from qt_api import QToolBar, QSize, QActionGroup, QByteArray, QPixmap, QPainter
         win = self.app.window
         rail = win.findChild(QToolBar, "modernNavRail")
         if rail is None:
@@ -1037,6 +1037,9 @@ QMessageBox QPushButton[text="&{_('Cancel')}"] {{
             rail.setIconSize(QSize(22, 22))
             win.addToolBar(Qt.ToolBarArea.LeftToolBarArea, rail)
 
+            nav_group = QActionGroup(rail)
+            nav_group.setExclusive(True)
+
             nav_items = [
                 (win.dockFiles, "themes/modern/images/tool-import-files.svg", "Project Files"),
                 (win.dockTransitions, "themes/modern/images/view-waveform.svg", "Transitions"),
@@ -1045,14 +1048,61 @@ QMessageBox QPushButton[text="&{_('Cancel')}"] {{
                 (win.dockProperties, "themes/modern/images/tool-profile.svg", "Properties"),
             ]
             for dock, icon_path, tooltip in nav_items:
-                action = rail.addAction(QIcon(os.path.join(PATH, icon_path)), "")
+                icon = QIcon()
+                try:
+                    with open(os.path.join(PATH, icon_path), "r") as f:
+                        svg_data = f.read()
+                    
+                    # Convert any blues to neutral gray
+                    svg_gray = re.sub(r'#0078FF|#2A82DA|#53A0ED', '#8B95A5', svg_data, flags=re.IGNORECASE)
+                    # Active gets the accent blue
+                    svg_active = re.sub(r'#8B95A5|#0078FF|#2A82DA|#53A0ED', '#0078FF', svg_data, flags=re.IGNORECASE)
+                    
+                    pm_gray = QPixmap()
+                    pm_gray.loadFromData(QByteArray(svg_gray.encode("utf-8")))
+                    
+                    pm_active = QPixmap()
+                    pm_active.loadFromData(QByteArray(svg_active.encode("utf-8")))
+
+                    # Normal (Off) -> 55% opacity gray
+                    pm_off = QPixmap(pm_gray.size())
+                    pm_off.fill(Qt.transparent)
+                    painter = QPainter(pm_off)
+                    painter.setOpacity(0.55)
+                    painter.drawPixmap(0, 0, pm_gray)
+                    painter.end()
+
+                    # Hover (Active, Off) -> 80% opacity gray
+                    pm_hover = QPixmap(pm_gray.size())
+                    pm_hover.fill(Qt.transparent)
+                    painter = QPainter(pm_hover)
+                    painter.setOpacity(0.80)
+                    painter.drawPixmap(0, 0, pm_gray)
+                    painter.end()
+
+                    icon.addPixmap(pm_off, QIcon.Normal, QIcon.Off)
+                    icon.addPixmap(pm_hover, QIcon.Active, QIcon.Off)
+                    icon.addPixmap(pm_active, QIcon.Normal, QIcon.On)
+                    icon.addPixmap(pm_active, QIcon.Active, QIcon.On)
+                except Exception:
+                    icon = QIcon(os.path.join(PATH, icon_path))
+                
+                action = rail.addAction(icon, "")
                 action.setToolTip(tooltip)
-                action.triggered.connect(lambda checked, d=dock: (d.show(), d.raise_()))
+                action.setCheckable(True)
+                nav_group.addAction(action)
+                
+                # Make the first one checked by default
+                if tooltip == "Project Files":
+                    action.setChecked(True)
+                
+                action.triggered.connect(lambda checked, d=dock, a=action: (d.show(), d.raise_(), a.setChecked(True)))
 
             rail.setStyleSheet(
-                "background-color: #141821; border: none; "
-                "QToolButton { padding: 10px; border-radius: 8px; border: none; } "
-                "QToolButton:hover { background-color: #222733; }"
+                "QToolBar { background-color: #141820; border: none; padding-top: 8px; } "
+                "QToolButton { padding: 8px 10px; border-radius: 0px; border: none; margin: 4px 0px; border-left: 2px solid transparent; } "
+                "QToolButton:hover { background-color: #1A1F29; border-left: 2px solid #232A36; } "
+                "QToolButton:checked { border-left: 2px solid #0078FF; background-color: #1A1F29; }"
             )
 
         from .styles import ModernTimelineTheme

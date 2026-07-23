@@ -170,7 +170,7 @@ class PropertyDelegate(QItemDelegate):
                 painter.setPen(QPen(get_app().window.palette().color(QPalette.Disabled, QPalette.Text)))
             else:
                 path = QPainterPath()
-                path.addRoundedRect(QRectF(option.rect), 6, 6)
+                path.addRoundedRect(QRectF(option.rect), 4, 4)
                 painter.fillPath(path, background_color)
                 painter.drawPath(path)
 
@@ -189,7 +189,7 @@ class PropertyDelegate(QItemDelegate):
                 painter.setBrush(gradient)
                 path = QPainterPath()
                 value_rect = QRectF(option.rect)
-                path.addRoundedRect(value_rect, 6, 6)
+                path.addRoundedRect(value_rect, 4, 4)
                 painter.fillPath(path, gradient)
                 painter.drawPath(path)
                 painter.setClipping(False)
