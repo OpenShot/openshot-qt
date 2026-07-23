@@ -400,19 +400,31 @@ QLabel#dock-title-label {{
     padding: 16px;
 }}
 
-QLabel#dock-title-handle {{
-    padding-left: 16px;
-    qproperty-pixmap: url({PATH}/themes/modern/images/dock-move.svg);
-}}
+HiddenTitleBar {
+    background-color: {tokens.palette["window_bg"]};
+    min-height: 24px;
+    max-height: 24px;
+}
 
-QDockWidget {{
+QLabel#dock-title-label {
+    color: {tokens.palette["text_secondary"]};
+    font-size: {tokens.typography["title_size"]};
+    font-weight: normal;
+    padding-left: 8px;
+}
+
+QLabel#dock-title-handle {
+    padding-left: 8px;
+    qproperty-pixmap: url({PATH}/themes/modern/images/dock-move.svg);
+}
+
+QDockWidget {
     background-color: {tokens.palette["surface_bg"]};
     titlebar-close-icon: url({PATH}/themes/modern/images/dock-close.svg);
     titlebar-normal-icon: url({PATH}/themes/modern/images/dock-float.svg);
     color: {tokens.palette["text_primary"]};
-    font-weight: 500;
-    padding: 16px;
-}}
+    font-weight: normal;
+}
 
 QDockWidget QWidget {{
     border: none;

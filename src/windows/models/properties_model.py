@@ -1387,7 +1387,10 @@ class PropertiesModel(updates.UpdateInterface):
             elif type == "int":
                 try:
                     int_value = int(float(value))
-                    col.setText("%d" % int_value)
+                    if label in ["Channel Filter", "Channel Mapping"] and int_value == -1:
+                        col.setText(_("All channels"))
+                    else:
+                        col.setText("%d" % int_value)
                 except (TypeError, ValueError):
                     col.setText("" if value is None else str(value))
             else:
@@ -1395,7 +1398,20 @@ class PropertiesModel(updates.UpdateInterface):
                 if value == "" or value is None:
                     col.setText("")
                 else:
-                    col.setText(QLocale().system().toString(float(value), "f", precision=3))
+                    if name in ["duration", "end", "start", "time"]:
+                        try:
+                            fps = get_app().project.get("fps")
+                            fps_float = float(fps["num"]) / float(fps["den"])
+                            frames = int(round(float(value) * fps_float))
+                            h = frames // int(fps_float * 3600)
+                            m = (frames // int(fps_float * 60)) % 60
+                            s = (frames // int(fps_float)) % 60
+                            f = frames % int(fps_float)
+                            col.setText(f"{h:02d}:{m:02d}:{s:02d};{f:02d}")
+                        except Exception:
+                            col.setText(QLocale().system().toString(float(value), "f", precision=3))
+                    else:
+                        col.setText(QLocale().system().toString(float(value), "f", precision=3))
             col.setData([(obj.Id(), t) for obj, t in self.selected])
             if points > 1:
                 # Apply icon to cell
@@ -1493,7 +1509,10 @@ class PropertiesModel(updates.UpdateInterface):
             elif type == "int":
                 try:
                     int_value = int(float(value))
-                    col.setText("%d" % int_value)
+                    if label in ["Channel Filter", "Channel Mapping"] and int_value == -1:
+                        col.setText(_("All channels"))
+                    else:
+                        col.setText("%d" % int_value)
                 except (TypeError, ValueError):
                     col.setText("" if value is None else str(value))
             elif type == "reader":
@@ -1503,7 +1522,20 @@ class PropertiesModel(updates.UpdateInterface):
                 if value == "" or value is None:
                     col.setText("")
                 else:
-                    col.setText(QLocale().system().toString(float(value), "f", precision=3))
+                    if name in ["duration", "end", "start", "time"]:
+                        try:
+                            fps = get_app().project.get("fps")
+                            fps_float = float(fps["num"]) / float(fps["den"])
+                            frames = int(round(float(value) * fps_float))
+                            h = frames // int(fps_float * 3600)
+                            m = (frames // int(fps_float * 60)) % 60
+                            s = (frames // int(fps_float)) % 60
+                            f = frames % int(fps_float)
+                            col.setText(f"{h:02d}:{m:02d}:{s:02d};{f:02d}")
+                        except Exception:
+                            col.setText(QLocale().system().toString(float(value), "f", precision=3))
+                    else:
+                        col.setText(QLocale().system().toString(float(value), "f", precision=3))
 
             if points > 1:
                 # Apply icon to cell
@@ -1613,8 +1645,20 @@ class PropertiesModel(updates.UpdateInterface):
 
                     raw_properties = shared
 
-                # Sort all properties (by 'name')
-                all_properties = OrderedDict(sorted(raw_properties.items(), key=lambda x: x[1]['name']))
+                # Sort all properties (by task group, then name)
+                def sort_key(x):
+                    name = x[1].get('name', '').lower()
+                    if name in ['location x', 'location y', 'scale x', 'scale y', 'rotation', 'shear x', 'shear y', 'origin x', 'origin y', 'gravity']:
+                        return (0, name)
+                    elif name in ['alpha', 'color', 'color_offset', 'perspective c1 x', 'perspective c1 y', 'perspective c2 x', 'perspective c2 y', 'perspective c3 x', 'perspective c3 y', 'perspective c4 x', 'perspective c4 y', 'enable video']:
+                        return (1, name)
+                    elif name in ['duration', 'end', 'start', 'time', 'layer', 'track']:
+                        return (2, name)
+                    elif name in ['volume', 'channel mapping', 'channel filter', 'enable audio']:
+                        return (3, name)
+                    return (4, name)
+
+                all_properties = OrderedDict(sorted(raw_properties.items(), key=sort_key))
 
                 # Check if filter was changed (if so, wipe previous model data)
                 if self.previous_filter != filter:

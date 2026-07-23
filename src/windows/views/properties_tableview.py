@@ -113,25 +113,24 @@ class PropertyDelegate(QItemDelegate):
             interpolation = cur_property[1]["interpolation"]
 
             # Calculate percentage value
-            if property_type in ["float", "int"]:
-                # Get the current value
-                current_value = QLocale().system().toDouble(selected_value.text())[0]
+            value_percent = 0.0
+            # Only draw proportional blue fills for actual percentage/level properties
+            if property_name in ["alpha", "volume", "rotation"]:
+                if property_type in ["float", "int"]:
+                    # Get the current value
+                    current_value = QLocale().system().toDouble(selected_value.text())[0]
 
-                # Shift my range to be positive
-                if property_min < 0.0:
-                    property_shift = 0.0 - property_min
-                    property_min += property_shift
-                    property_max += property_shift
-                    current_value += property_shift
+                    # Shift my range to be positive
+                    if property_min < 0.0:
+                        property_shift = 0.0 - property_min
+                        property_min += property_shift
+                        property_max += property_shift
+                        current_value += property_shift
 
-                # Calculate current value as % of min/max range
-                min_max_range = float(property_max) - float(property_min)
-                if abs(min_max_range) <= 1e-12:
-                    value_percent = 0.0
-                else:
-                    value_percent = current_value / min_max_range
-            else:
-                value_percent = 0.0
+                    # Calculate current value as % of min/max range
+                    min_max_range = float(property_max) - float(property_min)
+                    if abs(min_max_range) > 1e-12:
+                        value_percent = current_value / min_max_range
 
             # Get theme colors
             if get_app().theme_manager:
@@ -2352,11 +2351,9 @@ class SelectionLabel(QFrame):
 
         # Look up item for more info
         if self.item_type == "multi":
-            self.lblSelection.setText("<strong>%s</strong>" % _("Selection:"))
-            self.btnSelectionName.setText(_("%d selections") % count)
-            self.btnSelectionName.setVisible(True)
-            self.btnSelectionName.setIcon(QIcon())
-            self.btnSelectionName.setMenu(None)
+            get_app().window.dockProperties.setWindowTitle(_("%d selections") % count)
+            self.lblSelection.setVisible(False)
+            self.btnSelectionName.setVisible(False)
             return
         def _set_item_icon(path):
             if path and isinstance(path, (str, bytes, os.PathLike)) and os.path.exists(path):
@@ -2384,15 +2381,15 @@ class SelectionLabel(QFrame):
         if self.item_name and len(self.item_name) > 25:
             self.item_name = "%s..." % self.item_name[:22]
 
-        # Set label
+        # Set label and Dock window title
+        win = get_app().window
         if self.item_id:
-            self.lblSelection.setText("<strong>%s</strong>" % _("Selection:"))
-            self.btnSelectionName.setText(self.item_name)
-            self.btnSelectionName.setVisible(True)
-            if self.item_icon:
-                self.btnSelectionName.setIcon(self.item_icon)
+            win.dockProperties.setWindowTitle(self.item_name)
+            self.lblSelection.setVisible(False)
+            self.btnSelectionName.setVisible(False)
         else:
-            self.lblSelection.setText("<strong>%s</strong>" % _("No Selection"))
+            win.dockProperties.setWindowTitle(_("Properties"))
+            self.lblSelection.setVisible(False)
             self.btnSelectionName.setVisible(False)
 
         # Set the menu on the button

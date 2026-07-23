@@ -42,3 +42,28 @@ class BackgroundPainter(BasePainter):
             painter.fillRect(rect, QBrush(grad))
         else:
             painter.fillRect(rect, bg)
+            
+        # Draw empty state hint if timeline has no clips
+        try:
+            if not any(True for _ in self.w.geometry.iter_clips()):
+                from qt_api import QPen
+                pen = QPen(QColor("#384254"))
+                pen.setStyle(Qt.DashLine)
+                pen.setWidth(2)
+                painter.setPen(pen)
+                
+                # Center hint in viewport
+                vp_width = self.w.viewport().width()
+                vp_height = self.w.viewport().height()
+                hint_rect = QRectF(vp_width/2 - 150, vp_height/2 - 25, 300, 50)
+                
+                painter.drawRoundedRect(hint_rect, 8, 8)
+                
+                painter.setPen(QColor("#8B95A5"))
+                font = painter.font()
+                font.setPixelSize(13)
+                painter.setFont(font)
+                text = "Drag clips here to start editing"
+                painter.drawText(hint_rect, Qt.AlignCenter, text)
+        except Exception:
+            pass

@@ -170,6 +170,17 @@ class FilesListView(QListView):
     drag_item_size = QSize(48, 48)
     drag_item_center = QPoint(24, 24)
 
+    def paintEvent(self, event):
+        super().paintEvent(event)
+        if self.model() and self.model().rowCount() == 0:
+            painter = QPainter(self.viewport())
+            painter.setPen(QColor("#8B95A5"))
+            font = painter.font()
+            font.setPixelSize(13)
+            painter.setFont(font)
+            text = "Drag media here or press ⌘I" if os.name == 'posix' else "Drag media here or press Ctrl+I"
+            painter.drawText(self.viewport().rect(), Qt.AlignCenter, text)
+
     def contextMenuEvent(self, event):
         event.accept()
 

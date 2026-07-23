@@ -2,39 +2,46 @@
 # Centralizes colors, radii, spacing, and fonts for both QSS and Timeline painting.
 
 palette = {
-    "window_bg": "#0E1116",
-    "surface_bg": "#181C23",
-    "border_subtle": "#2A2F3A",
+    # Elevation levels
+    "window_bg": "#141820",     # Base bg
+    "surface_bg": "#1A1F29",    # Panel bg
+    "control_bg": "#232A36",    # Control bg
+    
+    # Inner borders / splitters
+    "border_subtle": "#2A3140", 
+    "border_highlight": "#384254", # 1px inner highlights
+    
+    # Text
     "text_primary": "#E8EAED",
-    "text_secondary": "#9AA3B2",
-    "accent": "#7FB8FF",
-    "cta_gradient_start": "#0078FF", # Fallback gradient colors
-    "cta_gradient_end": "#00C6FF",
+    "text_secondary": "#8B95A5", # Dimmed labels
+    
+    # One single accent hue
+    "accent": "#0078FF", 
     
     # Selection and Hover
-    "hover_bg": "#222733",
-    "selected_bg": "#1A2E4C",
+    "hover_bg": "#2A3140",
+    "selected_bg": "#004B99", # Darker accent for selections
 
     # Timeline specific
-    "playhead": "#7FB8FF",
-    "clip_bg": "#181C23",
-    "clip_border": "#2A2F3A",
-    "track_bg": "#0E1116",
-    "ruler_bg": "#0E1116",
+    "playhead": "#0078FF",
+    "clip_bg": "#1A1F29",
+    "clip_border": "#2A3140",
+    "track_bg": "#141820",
+    "ruler_bg": "#141820",
 }
 
 typography = {
-    "font_family": "Ubuntu",
-    "base_size": "10pt",
-    "title_size": "13px",
-    "caption_size": "9pt",
+    "font_family": "Ubuntu", # Default to system/Ubuntu for now
+    "base_size": "13px",     # Controls
+    "title_size": "15px",    # Panel titles
+    "caption_size": "11px",  # Labels, slightly tracked, dimmed
 }
 
 spacing = {
     "panel_radius": "4px",
     "button_radius": "4px",
     "input_radius": "4px",
-    "padding_small": "4px",
-    "padding_medium": "8px",
-    "padding_large": "16px",
+    "grid_4": "4px",
+    "grid_8": "8px",
+    "control_height": "28px",
 }
