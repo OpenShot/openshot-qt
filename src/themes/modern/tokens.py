@@ -17,6 +17,8 @@ palette = {
     
     # One single accent hue
     "accent": "#0078FF", 
+    "cta_gradient_start": "#0078FF",
+    "cta_gradient_end": "#0078FF",
     
     # Selection and Hover
     "hover_bg": "#2A3140",
