@@ -52,8 +52,8 @@ QMainWindow {{
 
 QMainWindow::separator {{
     background: {tokens.palette["window_bg"]};
-    width: 8px;
-    height: 8px;
+    width: 2px;
+    height: 2px;
 }}
 
 QWidget#tutorial {{
@@ -280,13 +280,13 @@ QToolBar#toolBar QToolButton:hover {{
 
 QToolBar#videoToolbar {{
     background-color: {tokens.palette["surface_bg"]};
-    border-radius: 18px;
+    border-radius: 4px;
     border: 1px solid {tokens.palette["border_subtle"]};
     margin: 6px 220px 10px 220px;
 }}
 
 QToolBar#videoToolbar QToolButton {{
-    border-radius: 14px;
+    border-radius: 4px;
     padding: 6px;
 }}
 
@@ -420,14 +420,14 @@ QDockWidget QWidget {{
 
 QDockWidget QWidget#dockFilesContents, QWidget#dockTransitionsContents, QWidget#dockEmojisContents, QWidget#dockEffectsContents, QWidget#dockCaptionContents, QWidget#dockVideoContents, QWidget#dockPropertiesContents {{
     background-color: {tokens.palette["surface_bg"]};
-    border-radius: 12px;
+    border-radius: 4px;
     border: 1px solid {tokens.palette["border_subtle"]};
     margin-left: 16px;
     margin-right: 16px;
 }}
 
 QDockWidget QWidget#dockTimelineContents {{
-    border-radius: 0px;
+    border-radius: 4px;
     margin-left: 0px;
     margin-right: 0px;
     padding: 0px;
@@ -455,7 +455,7 @@ QMainWindow > QTabBar::tab {{
 QTabBar::tab {{
     height: 16px;
     border: none;
-    border-radius: 10px;
+    border-radius: 4px;
     margin-left: 16px;
     margin-top: 16px;
     margin-bottom: 0px;
@@ -965,9 +965,18 @@ QMessageBox QPushButton[text="&{_('Cancel')}"] {{
             {"expand": True},
             {"action": self.app.window.actionSave, "icon": "themes/modern/images/tool-save-project.svg", "style": Qt.ToolButtonTextBesideIcon},
             {"action": self.app.window.actionExportVideo, "icon": "themes/modern/images/tool-export.svg",
-             "style": Qt.ToolButtonTextBesideIcon, "stylesheet": "QToolButton { background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #0078FF, stop:1 #00C6FF); color: #FFFFFF; border: 1px solid transparent; border-radius: 16px; padding: 6px 14px; font-weight: bold; } QToolButton:hover { background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #1A85FF, stop:1 #1ACDFF); } QToolButton:pressed { background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #0066D6, stop:1 #00B3E6); } QToolButton:focus { border: 1px solid #7FB8FF; }"},
+             "style": Qt.ToolButtonTextBesideIcon, "stylesheet": "QToolButton { background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #0078FF, stop:1 #00C6FF); color: #FFFFFF; border: 1px solid transparent; border-radius: 4px; padding: 6px 14px; font-weight: bold; } QToolButton:hover { background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #1A85FF, stop:1 #1ACDFF); } QToolButton:pressed { background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #0066D6, stop:1 #00B3E6); } QToolButton:focus { border: 1px solid #7FB8FF; }"},
             {"action": self.app.window.actionUpdate, "icon": "themes/modern/images/warning.svg", "visible": False, "style": Qt.ToolButtonTextBesideIcon, "stylesheet": "QToolButton {  background-color: #141923; color: #FABE0A; }"}
         ]
+        
+        # Add a couple of spaces to the action text to create a gap between icon and text
+        for btn in toolbar_buttons:
+            if "action" in btn:
+                action = btn["action"]
+                text = action.text()
+                if not text.startswith("  "):
+                    action.setText("  " + text.strip())
+
         self.set_toolbar_buttons(self.app.window.toolBar, icon_size=20, settings=toolbar_buttons)
 
         self.app.window.actionColor_Grade_View.setIcon(

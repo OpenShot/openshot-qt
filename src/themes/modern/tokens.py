@@ -31,9 +31,9 @@ typography = {
 }
 
 spacing = {
-    "panel_radius": "12px",
-    "button_radius": "16px",
-    "input_radius": "8px",
+    "panel_radius": "4px",
+    "button_radius": "4px",
+    "input_radius": "4px",
     "padding_small": "4px",
     "padding_medium": "8px",
     "padding_large": "16px",
