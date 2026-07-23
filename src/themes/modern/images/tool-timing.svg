@@ -1,5 +1,18 @@
-<svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="6" cy="6" r="4.5" stroke="#7FB8FF"/>
-  <line x1="6" y1="6" x2="6" y2="3" stroke="#7FB8FF"/>
-  <line x1="6" y1="6" x2="8" y2="6" stroke="#7FB8FF"/>
+<!-- @license lucide-static v0.525.0 - ISC -->
+<svg
+  class="lucide lucide-arrow-left-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="20"
+  height="20"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="#C4CBD6"
+  stroke-width="1.8"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M8 3 4 7l4 4" />
+  <path d="M4 7h16" />
+  <path d="m16 21 4-4-4-4" />
+  <path d="M20 17H4" />
 </svg>

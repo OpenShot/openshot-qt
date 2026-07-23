@@ -1,8 +1,19 @@
-<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M9.9999 2.2L11.3706 6.0793L15.2499 7.45L11.3706 8.8207L9.9999 12.7L8.6292 8.8207L4.7499 7.45L8.6292 6.0793L9.9999 2.2Z"
-        stroke="#7FB8FF" stroke-width="1.2" stroke-linejoin="round"/>
-  <path d="M15.4999 11.3L16.1602 13.1397L17.9999 13.8L16.1602 14.4603L15.4999 16.3L14.8396 14.4603L12.9999 13.8L14.8396 13.1397L15.4999 11.3Z"
-        stroke="#7FB8FF" stroke-width="1.2" stroke-linejoin="round"/>
-  <path d="M4.1999 12.1L4.6201 13.2798L5.7999 13.7L4.6201 14.1202L4.1999 15.3L3.7797 14.1202L2.5999 13.7L3.7797 13.2798L4.1999 12.1Z"
-        stroke="#7FB8FF" stroke-width="1.2" stroke-linejoin="round"/>
+<!-- @license lucide-static v0.525.0 - ISC -->
+<svg
+  class="lucide lucide-sparkles"
+  xmlns="http://www.w3.org/2000/svg"
+  width="20"
+  height="20"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="#C4CBD6"
+  stroke-width="1.8"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" />
+  <path d="M20 3v4" />
+  <path d="M22 5h-4" />
+  <path d="M4 17v2" />
+  <path d="M5 18H3" />
 </svg>

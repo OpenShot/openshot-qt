@@ -56,6 +56,21 @@ QMainWindow::separator {{
     height: 2px;
 }}
 
+QStatusBar {{
+    background: {tokens.palette["panel_hdr"]};
+    color: {tokens.palette["text_tertiary"]};
+    font-family: "{tokens.typography["mono_family"]}";
+    font-size: 11px;
+    border-top: 1px solid {tokens.palette["border_subtle"]};
+}}
+
+QToolTip {{
+    background-color: {tokens.palette["hover_bg"]};
+    color: {tokens.palette["text_primary"]};
+    border: 1px solid {tokens.palette["border_highlight"]};
+    padding: 4px 8px;
+}}
+
 QWidget#tutorial {{
     background-color: {tokens.palette["window_bg"]};
     border: 1.2px solid {tokens.palette["accent"]};
@@ -128,8 +143,8 @@ QMenu {{
     padding-left: 8px;
     padding-right: 8px;
     min-width: 40px;
-    border: 1.2px solid {tokens.palette["accent"]};
-    border-radius: 3px 3px;
+    border: 1px solid {tokens.palette["border_highlight"]};
+    border-radius: 6px;
 }}
 
 QMenu::item {{
@@ -146,7 +161,7 @@ QMenu::indicator {{
 }}
 
 QMenu::item:selected {{
-    background-color: {tokens.palette["window_bg"]};
+    background-color: {tokens.palette["hover_bg"]};
     color: {tokens.palette["text_primary"]};
 }}
 
@@ -155,25 +170,48 @@ QMenu::separator {{
     background-color: {tokens.palette["surface_bg"]};
 }}
 
+QToolBar#modernNavRail {{
+    background: {tokens.palette["surface_bg"]};
+    border-right: 1px solid {tokens.palette["border_subtle"]};
+    padding: 8px 0px;
+    spacing: 2px;
+}}
+
+QToolBar#modernNavRail QToolButton {{
+    background: transparent;
+    border: none;
+    border-left: 2px solid transparent;
+    border-radius: 0px;
+    padding: 10px;
+}}
+
+QToolBar#modernNavRail QToolButton:hover {{
+    background: transparent;
+}}
+
+QToolBar#modernNavRail QToolButton:checked {{
+    border-left: 2px solid {tokens.palette["accent"]};
+    background: transparent;
+}}
+
 QToolBar#toolBar {{
-    background-color: {tokens.palette["hover_bg"]};
+    background-color: {tokens.palette["surface_bg"]};
     spacing: 0px;
     padding: 0px;
     border: none;
+    border-bottom: 1px solid {tokens.palette["border_subtle"]};
 }}
 
 QToolBar#toolBar QToolButton {{
-    background-color: {tokens.palette["hover_bg"]};
+    background: transparent;
     color: {tokens.palette["text_primary"]};
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 8px;
-    padding-right: 8px;
+    border-radius: 6px;
+    padding: 4px 10px;
     border: none;
 }}
 
 QToolBar#toolBar QToolButton:hover {{
-    background-color: {tokens.palette["selected_bg"]};
+    background-color: {tokens.palette["hover_bg"]};
 }}
 
 QToolBar QToolButton:hover {{
@@ -275,7 +313,7 @@ QToolBar#effectsToolbar QToolButton:pressed {{
 }}
 
 QToolBar#toolBar QToolButton:hover {{
-    background-color: {tokens.palette["selected_bg"]};
+    background-color: {tokens.palette["hover_bg"]};
 }}
 
 QToolBar#videoToolbar {{
@@ -393,24 +431,16 @@ QPushButton#dock-float-button {{
 }}
 
 QLabel#dock-title-label {{
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 600;
+    letter-spacing: 1px;
     color: {tokens.palette["text_secondary"]};
-    letter-spacing: 0.3px;
-    padding: 16px;
+    padding-left: 4px;
 }}
 
 HiddenTitleBar {{
-    background-color: {tokens.palette["window_bg"]};
-    min-height: 24px;
-    max-height: 24px;
-}}
-
-QLabel#dock-title-label {{
-    color: {tokens.palette["text_secondary"]};
-    font-size: {tokens.typography["title_size"]};
-    font-weight: normal;
-    padding-left: 8px;
+    background: {tokens.palette["panel_hdr"]};
+    border-bottom: 1px solid {tokens.palette["border_subtle"]};
 }}
 
 
@@ -467,14 +497,14 @@ QMainWindow > QTabBar::tab {{
 }}
 
 QTabBar::tab {{
-    height: 16px;
+    height: 18px;
     border: none;
-    border-radius: 4px;
-    margin-left: 16px;
-    margin-top: 16px;
-    margin-bottom: 0px;
-    padding: 6px 14px;
-    color: {tokens.palette["text_secondary"]};
+    border-radius: 0;
+    margin: 0px 2px;
+    padding: 8px 12px;
+    background: transparent;
+    color: {tokens.palette["text_tertiary"]};
+    font-weight: 500;
 }}
 
 QTabWidget#exportTabs QTabBar::tab,
@@ -489,10 +519,14 @@ QTabWidget#generateTabs QTabBar::tab:selected {{
 }}
 
 QTabBar::tab:selected {{
-    background-color: {tokens.palette["selected_bg"]};
-    color: {tokens.palette["accent"]};
-    border-bottom: 1.2px solid {tokens.palette["accent"]};
+    background: transparent;
+    color: {tokens.palette["text_primary"]};
+    border-bottom: 2px solid {tokens.palette["accent"]};
     font-weight: 600;
+}}
+
+QTabBar::tab:hover {{
+    color: {tokens.palette["text_primary"]};
 }}
 
 QTabBar:focus {{
@@ -512,8 +546,9 @@ QCheckBox:focus {{
 }}
 
 QLineEdit#filesFilter, QLineEdit#effectsFilter, QLineEdit#transitionsFilter, QLineEdit#emojisFilter, QLineEdit#txtPropertyFilter {{
-    background-color: {tokens.palette["window_bg"]};
-    border-radius: 4px;
+    background-color: {tokens.palette["control_bg"]};
+    border: 1px solid {tokens.palette["border_subtle"]};
+    border-radius: 6px;
     padding: 6px;
     padding-left: 8px;
     padding-right: 8px;
@@ -608,25 +643,23 @@ QDoubleSpinBox:focus {{
 }}
 
 QLineEdit#filesFilter:focus, QLineEdit#effectsFilter:focus, QLineEdit#transitionsFilter:focus, QLineEdit#emojisFilter:focus, QLineEdit#txtPropertyFilter:focus {{
-    border-width: 1.2px;
-    border-style: solid;
-    border-color: {tokens.palette["accent"]};
+    border: 1px solid {tokens.palette["accent_line"]};
 }}
 
 QScrollBar:vertical {{
     border: none;
     background: transparent;
-    width: 6px;
+    width: 10px;
 }}
 
 QScrollBar::handle:vertical {{
-    background-color: {tokens.palette["border_subtle"]};
-    border-radius: 3px;
-    min-height: 20px;
+    background-color: {tokens.palette["hover_bg"]};
+    border-radius: 5px;
+    min-height: 24px;
 }}
 
 QScrollBar::handle:vertical:hover {{
-    background-color: {tokens.palette["text_secondary"]};
+    background-color: {tokens.palette["border_strong"]};
 }}
 
 QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {{
@@ -642,17 +675,17 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {{
 QScrollBar:horizontal {{
     border: none;
     background: transparent;
-    height: 6px;
+    height: 10px;
 }}
 
 QScrollBar::handle:horizontal {{
-    background-color: {tokens.palette["border_subtle"]};
-    border-radius: 3px;
-    min-width: 20px;
+    background-color: {tokens.palette["hover_bg"]};
+    border-radius: 5px;
+    min-width: 24px;
 }}
 
 QScrollBar::handle:horizontal:hover {{
-    background-color: {tokens.palette["text_secondary"]};
+    background-color: {tokens.palette["border_strong"]};
 }}
 
 QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {{
@@ -666,10 +699,10 @@ QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {{
 }}
 
 QComboBox {{
-    background-color: {tokens.palette["surface_bg"]};
+    background-color: {tokens.palette["control_bg"]};
     color: {tokens.palette["text_primary"]};
-    border: 1.2px solid transparent;
-    border-radius: 4px;
+    border: 1px solid {tokens.palette["border_subtle"]};
+    border-radius: 6px;
     padding: 6px;
     padding-left: 8px;
     padding-right: 8px;
@@ -677,7 +710,7 @@ QComboBox {{
 }}
 
 QComboBox:focus {{
-    border-color: {tokens.palette["accent"]};
+    border-color: {tokens.palette["accent_line"]};
 }}
 
 QComboBox::drop-down {{
@@ -693,7 +726,7 @@ QComboBox::down-arrow {{
 
 QComboBox QAbstractItemView {{
     color: {tokens.palette["text_primary"]};
-    border: 1.2px solid {tokens.palette["accent"]};
+    border: 1px solid {tokens.palette["border_highlight"]};
     border-radius: 3px 3px 0px 0px;
     padding: 6px;
     padding-left: 8px;
@@ -1045,7 +1078,8 @@ QMessageBox QPushButton[text="&{_('Cancel')}"] {{
             rail.setObjectName("modernNavRail")
             rail.setMovable(False)
             rail.setOrientation(Qt.Orientation.Vertical)
-            rail.setIconSize(QSize(22, 22))
+            rail.setFixedWidth(44)
+            rail.setIconSize(QSize(18, 18))
             win.addToolBar(Qt.ToolBarArea.LeftToolBarArea, rail)
 
             nav_group = QActionGroup(rail)

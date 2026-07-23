@@ -1,3 +1,15 @@
-<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M23.9056 14.7201L10.2822 6.39466C9.28265 5.78384 8 6.50319 8 7.67459V24.3254C8 25.4968 9.28264 26.2162 10.2822 25.6053L23.9056 17.2799C24.8627 16.695 24.8627 15.305 23.9056 14.7201Z" fill="white"/>
+<!-- @license lucide-static v0.525.0 - ISC -->
+<svg
+  class="lucide lucide-play"
+  xmlns="http://www.w3.org/2000/svg"
+  width="20"
+  height="20"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="#C4CBD6"
+  stroke-width="1.8"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <polygon points="6 3 20 12 6 21 6 3" />
 </svg>

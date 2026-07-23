@@ -31,6 +31,18 @@ from classes.app import get_app
 
 
 class HiddenTitleBar(QWidget):
+    def _display_text(self, text):
+        """Uppercase panel titles for the Modern Dark theme only."""
+        try:
+            tm = get_app().theme_manager
+            theme = tm.get_current_theme() if tm else None
+            from themes.manager import ThemeName
+            if theme and theme.name == ThemeName.MODERN_DARK.value:
+                return text.upper()
+        except Exception:
+            pass
+        return text
+
     def __init__(self, dock_widget, title_text="", show_buttons=True):
         super().__init__()
         self.dock_widget = dock_widget
@@ -44,7 +56,7 @@ class HiddenTitleBar(QWidget):
         layout = QHBoxLayout(self)
 
         # Add a QLabel for the title (optional, based on title_text)
-        self.title_label = QLabel(title_text)
+        self.title_label = QLabel(self._display_text(title_text))
         self.title_label.setFocusPolicy(Qt.NoFocus)
         self.title_label.installEventFilter(self)
         if title_text:
@@ -87,7 +99,15 @@ class HiddenTitleBar(QWidget):
         layout.setContentsMargins(0, 0, 0, 0)
         if title_text:
             # Taller for title with bottom margin
-            self.setFixedHeight(40)
+            is_modern = False
+            try:
+                tm = get_app().theme_manager
+                theme = tm.get_current_theme() if tm else None
+                from themes.manager import ThemeName
+                is_modern = bool(theme and theme.name == ThemeName.MODERN_DARK.value)
+            except Exception:
+                pass
+            self.setFixedHeight(32 if is_modern else 40)
         else:
             # Shorter for just drag handle + buttons (tabbed docks)
             self.setFixedHeight(20)
@@ -95,7 +115,7 @@ class HiddenTitleBar(QWidget):
 
     def update_title(self, text):
         """Update label text when dock title changes."""
-        self.title_label.setText(text)
+        self.title_label.setText(self._display_text(text))
 
     def _update_accessible_labels(self):
         if self._tr is None:
