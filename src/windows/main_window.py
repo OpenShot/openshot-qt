@@ -4950,7 +4950,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 dock_widget.setTitleBarWidget(QWidget())
             elif required_state.startswith("tabbed:"):
                 dock_widget.setTitleBarWidget(
-                    HiddenTitleBar(dock_widget, "", show_buttons=show_titlebar_buttons))
+                    HiddenTitleBar(
+                        dock_widget, dock_widget.windowTitle(),
+                        show_buttons=show_titlebar_buttons))
             elif required_state == "floating" or required_state == "system":
                 dock_widget.setTitleBarWidget(None)
             else:  # "docked:<title>"
