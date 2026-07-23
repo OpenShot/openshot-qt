@@ -4931,7 +4931,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                     | QDockWidget.DockWidgetFloatable))
             if dock_widget.objectName() == "dockTimeline":
                 required_state = "timeline"
-            elif theme and theme.name == ThemeName.COSMIC.value:
+            elif theme and theme.name in (ThemeName.COSMIC.value, ThemeName.MODERN_DARK.value):
                 if tabified_widgets:
                     required_state = f"tabbed:{feature_state}"
                 elif dock_widget.isFloating():

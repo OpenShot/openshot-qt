@@ -50,6 +50,12 @@ QMainWindow {{
     color: {tokens.palette["text_primary"]};
 }}
 
+QMainWindow::separator {{
+    background: {tokens.palette["window_bg"]};
+    width: 8px;
+    height: 8px;
+}}
+
 QWidget#tutorial {{
     background-color: {tokens.palette["window_bg"]};
     border: 1.2px solid {tokens.palette["accent"]};
@@ -411,7 +417,8 @@ QDockWidget QWidget {{
 
 QDockWidget QWidget#dockFilesContents, QWidget#dockTransitionsContents, QWidget#dockEmojisContents, QWidget#dockEffectsContents, QWidget#dockCaptionContents, QWidget#dockVideoContents, QWidget#dockPropertiesContents {{
     background-color: {tokens.palette["surface_bg"]};
-    border-radius: 4px;
+    border-radius: 12px;
+    border: 1px solid {tokens.palette["border_subtle"]};
     margin-left: 16px;
     margin-right: 16px;
 }}
@@ -983,6 +990,36 @@ QMessageBox QPushButton[text="&{_('Cancel')}"] {{
             {"expand": True}
         ]
         self.set_toolbar_buttons(self.app.window.videoToolbar, icon_size=32, settings=toolbar_buttons)
+
+        # Nav rail
+        from qt_api import QToolBar, QSize
+        win = self.app.window
+        rail = win.findChild(QToolBar, "modernNavRail")
+        if rail is None:
+            rail = QToolBar("Navigation", win)
+            rail.setObjectName("modernNavRail")
+            rail.setMovable(False)
+            rail.setOrientation(Qt.Orientation.Vertical)
+            rail.setIconSize(QSize(22, 22))
+            win.addToolBar(Qt.ToolBarArea.LeftToolBarArea, rail)
+
+            nav_items = [
+                (win.dockFiles, "themes/modern/images/tool-import-files.svg", "Project Files"),
+                (win.dockTransitions, "themes/modern/images/view-waveform.svg", "Transitions"),
+                (win.dockEffects, "themes/modern/images/tool-generate-sparkle.svg", "Effects"),
+                (win.dockEmojis, "themes/modern/images/ai-category-create.svg", "Emojis"),
+                (win.dockProperties, "themes/modern/images/tool-profile.svg", "Properties"),
+            ]
+            for dock, icon_path, tooltip in nav_items:
+                action = rail.addAction(QIcon(os.path.join(PATH, icon_path)), "")
+                action.setToolTip(tooltip)
+                action.triggered.connect(lambda checked, d=dock: (d.show(), d.raise_()))
+
+            rail.setStyleSheet(
+                "background-color: #141821; border: none; "
+                "QToolButton { padding: 10px; border-radius: 8px; border: none; } "
+                "QToolButton:hover { background-color: #222733; }"
+            )
 
         from .styles import ModernTimelineTheme
         self.app.window.timeline.apply_theme(ModernTimelineTheme())
