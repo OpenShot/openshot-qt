@@ -105,6 +105,7 @@ class PropertyDelegate(QItemDelegate):
             cur_property = selected_label.data()
 
             # Get min/max values for this property
+            property_name = cur_property[0]
             property_type = cur_property[1]["type"]
             property_max = cur_property[1]["max"]
             property_min = cur_property[1]["min"]
