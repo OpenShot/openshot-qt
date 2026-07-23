@@ -5226,6 +5226,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.dockTransitions.setTitleBarWidget(QWidget())
         self.dockEffects.setTitleBarWidget(QWidget())
         self.dockEmojis.setTitleBarWidget(QWidget())
+        self.dockProperties.setTitleBarWidget(QWidget())
 
         # Add Docks submenu to View menu
         self.addViewDocksMenu()
