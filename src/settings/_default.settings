@@ -15,7 +15,10 @@
     "setting": "theme",
     "type": "dropdown",
     "translate_values": true,
-    "values": [],
+    "values": [
+      {"name": "Humanity: Dark", "value": "Humanity: Dark"},
+      {"name": "Modern Dark", "value": "Modern Dark"}
+    ],
     "restart": false
   },
   {

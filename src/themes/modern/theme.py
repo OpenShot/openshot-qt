@@ -373,7 +373,7 @@ QWidget#scrollAreaWidgetContents {{
 }}
 
 QPushButton#dock-close-button {{
-    image: url({PATH}themes/modern/images/dock-close.svg);
+    image: url({PATH}/themes/modern/images/dock-close.svg);
     padding: 0px;
     padding-top: 2px;
     padding-bottom: 2px;
@@ -383,7 +383,7 @@ QPushButton#dock-close-button {{
     height: 16px;
 }}
 QPushButton#dock-float-button {{
-    image: url({PATH}themes/modern/images/dock-float.svg);
+    image: url({PATH}/themes/modern/images/dock-float.svg);
     padding: 0px;
     padding-top: 2px;
     padding-bottom: 2px;
@@ -402,13 +402,13 @@ QLabel#dock-title-label {{
 
 QLabel#dock-title-handle {{
     padding-left: 16px;
-    qproperty-pixmap: url({PATH}themes/modern/images/dock-move.svg);
+    qproperty-pixmap: url({PATH}/themes/modern/images/dock-move.svg);
 }}
 
 QDockWidget {{
     background-color: {tokens.palette["surface_bg"]};
-    titlebar-close-icon: url({PATH}themes/modern/images/dock-close.svg);
-    titlebar-normal-icon: url({PATH}themes/modern/images/dock-float.svg);
+    titlebar-close-icon: url({PATH}/themes/modern/images/dock-close.svg);
+    titlebar-normal-icon: url({PATH}/themes/modern/images/dock-float.svg);
     color: {tokens.palette["text_primary"]};
     font-weight: 500;
     padding: 16px;
@@ -572,14 +572,14 @@ QDoubleSpinBox::down-button:pressed {{
 
 QSpinBox::up-arrow,
 QDoubleSpinBox::up-arrow {{
-    image: url({PATH}themes/modern/images/spin-up-arrow.svg);
+    image: url({PATH}/themes/modern/images/spin-up-arrow.svg);
     width: 12px;
     height: 12px;
 }}
 
 QSpinBox::down-arrow,
 QDoubleSpinBox::down-arrow {{
-    image: url({PATH}themes/modern/images/spin-down-arrow.svg);
+    image: url({PATH}/themes/modern/images/spin-down-arrow.svg);
     width: 12px;
     height: 12px;
 }}
@@ -674,7 +674,7 @@ QComboBox::drop-down {{
 }}
 
 QComboBox::down-arrow {{
-    image: url({PATH}themes/modern/images/dropdown-arrow.svg);
+    image: url({PATH}/themes/modern/images/dropdown-arrow.svg);
 }}
 
 QComboBox QAbstractItemView {{
@@ -705,7 +705,7 @@ QComboBox::item:checked {{
 }}
 
 QComboBox::indicator::checked {{
-    image: url({PATH}themes/modern/images/dropdown-tick.svg);
+    image: url({PATH}/themes/modern/images/dropdown-tick.svg);
 }}
 
 QHeaderView::section {{
