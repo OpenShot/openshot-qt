@@ -1,0 +1,34 @@
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   style="fill:none"
+   id="svg8"
+   version="1.1"
+   viewBox="0 0 16.033897 16.033899"
+   height="16.033899"
+   width="16.033897">
+  <defs
+     id="defs12" />
+  <path
+     style="fill:#0078ff;stroke-width:0.99999994"
+     id="path2"
+     d="m 16,8.033898 -7.9999999,-8 -8.0000001,8 8.0000001,8 z" />
+  <rect
+     style="fill:#192332;stroke-width:0.99999994"
+     id="rect4"
+     height="8.0169487"
+     width="1.6033899"
+     y="4.0084743"
+     x="7.2152538" />
+  <rect
+     style="fill:#192332;stroke-width:0.99999994"
+     id="rect6"
+     transform="rotate(-90)"
+     height="8.0169487"
+     width="1.6033899"
+     y="4.0084743"
+     x="-8.8186445" />
+</svg>

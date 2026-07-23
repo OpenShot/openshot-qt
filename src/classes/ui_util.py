@@ -140,6 +140,38 @@ def make_dark_palette(darkPalette: QPalette) -> QPalette:
     return darkPalette
 
 
+def make_modern_palette(darkPalette: QPalette) -> QPalette:
+    darkPalette.setColor(QPalette.Window, QColor("#0E1116"))
+    darkPalette.setColor(QPalette.WindowText, QColor("#E8EAED"))
+    darkPalette.setColor(QPalette.Base, QColor("#181C23"))
+    darkPalette.setColor(QPalette.AlternateBase, QColor("#0E1116"))
+    darkPalette.setColor(QPalette.Light, QColor(68, 68, 68))
+    darkPalette.setColor(QPalette.Text, QColor("#E8EAED"))
+    darkPalette.setColor(QPalette.Button, QColor("#181C23"))
+    darkPalette.setColor(QPalette.ButtonText, QColor("#E8EAED"))
+    darkPalette.setColor(QPalette.Highlight, QColor("#7FB8FF"))
+    darkPalette.setColor(QPalette.HighlightedText, Qt.black)
+    #
+    # Disabled palette
+    #
+    darkPalette.setColor(QPalette.Disabled, QPalette.WindowText, QColor(255, 255, 255, 128))
+    darkPalette.setColor(QPalette.Disabled, QPalette.Base, QColor(68, 68, 68))
+    darkPalette.setColor(QPalette.Disabled, QPalette.Text, QColor(255, 255, 255, 128))
+    darkPalette.setColor(QPalette.Disabled, QPalette.Button, QColor(53, 53, 53, 128))
+    darkPalette.setColor(QPalette.Disabled, QPalette.ButtonText, QColor(255, 255, 255, 128))
+    darkPalette.setColor(QPalette.Disabled, QPalette.Highlight, QColor(151, 151, 151, 192))
+    darkPalette.setColor(QPalette.Disabled, QPalette.HighlightedText, Qt.black)
+
+    # Tooltips
+    darkPalette.setColor(QPalette.ToolTipBase, QColor(42, 130, 218))
+    darkPalette.setColor(QPalette.ToolTipText, Qt.white)
+    # Links
+    darkPalette.setColor(QPalette.Link, QColor(85, 170, 255))
+    darkPalette.setColor(QPalette.LinkVisited, QColor(136, 85, 255))
+
+    return darkPalette
+
+
 def search_dir(base_path, theme_name):
     """ Search for theme name """
 

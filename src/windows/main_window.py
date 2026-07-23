@@ -3427,7 +3427,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             widget.setEnabled(True)
             widget.setFocusPolicy(Qt.StrongFocus)
             widget.setProperty("_original_focus_policy", None)
-        self.captionTextEdit.setTextInteractionFlags(Qt.TextEditorInteraction)
+        flag = getattr(Qt, "TextEditorInteraction", getattr(Qt.TextInteractionFlag, "TextEditorInteraction", None))
+        if flag is not None:
+            self.captionTextEdit.setTextInteractionFlags(flag)
         self.captionTextEdit.setReadOnly(not editable)
 
     def _focus_caption_editor(self):

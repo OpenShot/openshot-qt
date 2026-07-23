@@ -93,6 +93,8 @@ def unwrapinstance(obj):
 
 def wrapinstance(ptr, base_type):
     """Wrap a C++ pointer into a Qt object."""
+    if not ptr:
+        return None
     backend, mod = _load_sip_like()
     if mod is None:
         raise RuntimeError("No SIP/shiboken module available for wrapinstance()")

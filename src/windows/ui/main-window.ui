@@ -221,7 +221,7 @@
     </sizepolicy>
    </property>
    <property name="windowTitle">
-    <string>Project Files</string>
+    <string>Project Files (AGY Dev Workspace)</string>
    </property>
    <attribute name="dockWidgetArea">
     <number>4</number>
