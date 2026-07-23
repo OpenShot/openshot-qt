@@ -36,6 +36,7 @@ class ModernTimelineTheme(HumanityDarkTimelineTheme):
         self.ruler_name_background  = QColor(tokens.palette["window_bg"])
         self.ruler_name_background2 = QColor()
         self.scrollbar_track        = QColor(tokens.palette["window_bg"])
+        self.scrollbar_handle       = QColor(tokens.palette["border_subtle"])
         self.scrollbar_width        = 8
         self.keyframe_inactive_opacity       = 0.5
         self.keyframe_panel_property_bg      = QColor()
