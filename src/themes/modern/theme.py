@@ -400,18 +400,19 @@ QLabel#dock-title-label {{
     padding: 16px;
 }}
 
-HiddenTitleBar {
+HiddenTitleBar {{
     background-color: {tokens.palette["window_bg"]};
     min-height: 24px;
     max-height: 24px;
-}
+}}
 
-QLabel#dock-title-label {
+QLabel#dock-title-label {{
     color: {tokens.palette["text_secondary"]};
     font-size: {tokens.typography["title_size"]};
     font-weight: normal;
     padding-left: 8px;
-}
+}}
+
 
 QLabel#dock-title-handle {
     padding-left: 8px;
