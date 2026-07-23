@@ -45,7 +45,7 @@ from classes.logger import log
 from classes.query import File
 from classes.qt_types import font_metrics_horizontal_advance
 from .ai_tools_menu import add_ai_tools_menu
-from .files_thumbnail_overlay import paint_media_overlay, paint_proxy_badge
+from .files_thumbnail_overlay import paint_media_overlay, paint_proxy_badge, paint_meta_badges
 from .menu import StyledContextMenu, add_bound_action
 from .optimized_preview_menu import add_optimized_preview_menu
 
@@ -85,6 +85,15 @@ class FilesTreeProgressDelegate(QStyledItemDelegate):
         paint_media_overlay(painter, deco_rect, media_type)
 
         file_id = index.sibling(index.row(), 5).data(Qt.DisplayRole)
+
+        file_obj2 = File.get(id=file_id) if (file_id and not _is_generation_placeholder(file_id)) else None
+        if file_obj2:
+            paint_meta_badges(
+                painter, deco_rect, media_type,
+                duration=float(file_obj2.data.get("duration", 0) or 0),
+                width=int(file_obj2.data.get("width", 0) or 0),
+                height=int(file_obj2.data.get("height", 0) or 0))
+
         queue = getattr(self.view.win, "generation_queue", None)
         generation_badge = None
         if file_id and queue:

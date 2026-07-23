@@ -97,6 +97,18 @@ class PropertyDelegate(QItemDelegate):
         try:
             painter.setRenderHint(QPainter.Antialiasing)
 
+            try:
+                tm = get_app().theme_manager
+                theme = tm.get_current_theme() if tm else None
+                from themes.manager import ThemeName
+                if theme and theme.name == ThemeName.MODERN_DARK.value:
+                    mono_font = painter.font()
+                    mono_font.setFamily("IBM Plex Mono")
+                    mono_font.setPixelSize(11)
+                    painter.setFont(mono_font)
+            except Exception:
+                pass
+
             # Get data model and selection
             model = self.model
             row = model.itemFromIndex(index).row()

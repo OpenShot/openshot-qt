@@ -225,37 +225,43 @@ QToolBar QToolButton:pressed {{
 QToolBar#filesToolbar,
 QToolBar#transitionsToolbar,
 QToolBar#effectsToolbar {{
-    background-color: transparent;
-    spacing: 4px;
-    padding: 2px;
+    background: {tokens.palette["surface_bg"]};
     border: none;
+    border-bottom: 1px solid {tokens.palette["border_subtle"]};
 }}
 
 QToolBar#filesToolbar QToolButton,
 QToolBar#transitionsToolbar QToolButton,
 QToolBar#effectsToolbar QToolButton {{
-    background-color: {tokens.palette["surface_bg"]};
-    color: {tokens.palette["text_primary"]};
-    border-radius: 3px;
-    padding: 3px 6px;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    border-radius: 0;
+    padding: 6px 10px;
+    color: {tokens.palette["text_tertiary"]};
+    font-weight: 500;
 }}
 
 QToolBar#filesToolbar QToolButton:hover,
 QToolBar#transitionsToolbar QToolButton:hover,
 QToolBar#effectsToolbar QToolButton:hover {{
-    background-color: {tokens.palette["window_bg"]};
+    color: {tokens.palette["text_primary"]};
+    background: transparent;
 }}
 
 QToolBar#filesToolbar QToolButton:checked,
 QToolBar#transitionsToolbar QToolButton:checked,
 QToolBar#effectsToolbar QToolButton:checked {{
-    background-color: #202b3a;
+    color: {tokens.palette["text_primary"]};
+    border-bottom: 2px solid {tokens.palette["accent"]};
+    background: transparent;
+    font-weight: 600;
 }}
 
 QToolBar#filesToolbar QToolButton:focus,
 QToolBar#transitionsToolbar QToolButton:focus,
 QToolBar#effectsToolbar QToolButton:focus {{
-    background-color: #1d2737;
+    outline: none;
 }}
 
 
@@ -309,7 +315,7 @@ QToolBar#toolBar QToolButton:pressed {{
 QToolBar#filesToolbar QToolButton:pressed,
 QToolBar#transitionsToolbar QToolButton:pressed,
 QToolBar#effectsToolbar QToolButton:pressed {{
-    background-color: #2a374a;
+    background: transparent;
 }}
 
 QToolBar#toolBar QToolButton:hover {{
@@ -763,18 +769,18 @@ QHeaderView::section {{
 }}
 
 QTableView {{
-    background-color: {tokens.palette["surface_bg"]};
-    gridline-color: {tokens.palette["surface_bg"]};
+    background-color: {tokens.palette["window_bg"]};
+    gridline-color: {tokens.palette["window_bg"]};
 }}
 
 QTableView#propertyTableView::item:selected {{
     background-color: {tokens.palette["selected_bg"]};
-    color: {tokens.palette["accent"]};
-    border: 1.2px solid {tokens.palette["accent"]};
+    color: {tokens.palette["text_primary"]};
+    border: 1px solid {tokens.palette["accent_line"]};
 }}
 
 QTreeView {{
-    background-color: {tokens.palette["surface_bg"]};
+    background-color: {tokens.palette["window_bg"]};
 }}
 
 QListView::item,
@@ -788,11 +794,11 @@ QListView::item:selected,
 QTableView::item:selected,
 QListWidget::item:selected {{
     background-color: {tokens.palette["selected_bg"]};
-    color: {tokens.palette["accent"]};
+    color: {tokens.palette["text_primary"]};
 }}
 
 QListView {{
-    background-color: {tokens.palette["surface_bg"]};
+    background-color: {tokens.palette["window_bg"]};
 }}
 
 QWidget#Details, QWidget#Output {{
@@ -876,16 +882,16 @@ QWidget#cutting QPushButton#btnAddClip:disabled {{
 }}
 
 .property_value {{
-    foreground-color: {tokens.palette["accent"]};
-    background-color: {tokens.palette["hover_bg"]};
+    foreground-color: {tokens.palette["text_primary"]};
+    background-color: {tokens.palette["control_bg"]};
 }}
 
 .zoom_slider_playhead {{
-    background-color: #FABE0A;
+    background-color: {tokens.palette["accent_hi"]};
 }}
 
 QWidget#videoPreview {{
-    background-color: {tokens.palette["surface_bg"]};
+    background-color: #000000;
 }}
         
 /* Typography Scales */
