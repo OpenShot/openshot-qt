@@ -423,8 +423,8 @@ QDockWidget QWidget#dockFilesContents, QWidget#dockTransitionsContents, QWidget#
     border-radius: 4px;
     border: 1px solid {tokens.palette["border_subtle"]};
     margin-top: 5px;
-    margin-left: 5px;
-    margin-right: 5px;
+    margin-left: 2px;
+    margin-right: 2px;
 }}
 
 QDockWidget QWidget#dockTimelineContents {{
@@ -946,7 +946,7 @@ QMessageBox QPushButton[text="&{_('Cancel')}"] {{
             self.app.window.setTabPosition(area, QTabWidget.North)
 
         # Set dock widget content margins to 0
-        self.set_dock_margins([16, 0, 16, 0])
+        self.set_dock_margins([2, 0, 2, 0])
         self.set_dock_margins([0, 0, 0, 0], [0, 10, 0, 0], "dockTimelineContents")
 
         # Apply new stylesheet
