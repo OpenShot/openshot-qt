@@ -4929,7 +4929,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 dock_widget.features() & (
                     QDockWidget.DockWidgetClosable
                     | QDockWidget.DockWidgetFloatable))
-            if dock_widget.objectName() == "dockTimeline":
+            if dock_widget.objectName() in ("dockTimeline", "dockVideo", "dockProperties", "dockFiles", "dockTransitions", "dockEffects", "dockEmojis"):
                 required_state = "timeline"
             elif theme and theme.name in (ThemeName.COSMIC.value, ThemeName.MODERN_DARK.value):
                 if tabified_widgets:

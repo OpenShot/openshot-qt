@@ -62,15 +62,15 @@ class ModernTimelineTheme(HumanityDarkTimelineTheme):
         # ── Track ─────────────────────────────────────────────────────────
         self.track.background               = QColor(tokens.palette["track_bg"])
         self.track.background2              = QColor()
-        self.track.border_color             = QColor(tokens.palette["track_bg"])
+        self.track.border_color             = QColor(tokens.palette["border_subtle"])
         self.track.border_radius            = 0
         self.track.height                   = 48
         self.track.name_background          = QColor(tokens.palette["clip_bg"])
         self.track.name_border_color        = QColor(tokens.palette["accent"])
         self.track.name_border_width        = 4
-        self.track.name_border_top_color    = QColor(tokens.palette["clip_bg"])
+        self.track.name_border_top_color    = QColor(tokens.palette["border_subtle"])
         self.track.name_border_top_width    = 1
-        self.track.name_border_bottom_color = QColor(tokens.palette["clip_bg"])
+        self.track.name_border_bottom_color = QColor(tokens.palette["border_subtle"])
         self.track.name_border_bottom_width = 1
         self.track.name_radius_tl           = 0   # gradient overlay/radius disabled
         self.track.name_radius_bl           = 0
