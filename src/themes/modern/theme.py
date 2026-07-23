@@ -278,15 +278,16 @@ QToolBar#toolBar QToolButton:hover {{
     background-color: {tokens.palette["selected_bg"]};
 }}
 
-QToolBar#videoToolbar QToolButton:focus {{
-    background-color: #1d2737;
-}}
-QToolBar#effectsToolbar QToolButton:pressed {{
-    background-color: #2a374a;
+QToolBar#videoToolbar {{
+    background-color: {tokens.palette["surface_bg"]};
+    border-radius: 18px;
+    border: 1px solid {tokens.palette["border_subtle"]};
+    margin: 6px 220px 10px 220px;
 }}
 
-QToolBar#toolBar QToolButton:hover {{
-    background-color: {tokens.palette["selected_bg"]};
+QToolBar#videoToolbar QToolButton {{
+    border-radius: 14px;
+    padding: 6px;
 }}
 
 QToolBar#videoToolbar QToolButton:focus {{
@@ -392,8 +393,10 @@ QPushButton#dock-float-button {{
 }}
 
 QLabel#dock-title-label {{
-    color: {tokens.palette["text_primary"]};
-    font-weight: 500;
+    font-size: 12px;
+    font-weight: 600;
+    color: {tokens.palette["text_secondary"]};
+    letter-spacing: 0.3px;
     padding: 16px;
 }}
 
@@ -440,10 +443,11 @@ QTabBar {{
 QTabBar::tab {{
     height: 16px;
     border: none;
+    border-radius: 10px;
     margin-left: 16px;
     margin-top: 16px;
     margin-bottom: 0px;
-    padding-bottom: 0px;
+    padding: 6px 14px;
     color: {tokens.palette["text_secondary"]};
 }}
 
@@ -462,6 +466,7 @@ QTabBar::tab:selected {{
     background-color: {tokens.palette["selected_bg"]};
     color: {tokens.palette["accent"]};
     border-bottom: 1.2px solid {tokens.palette["accent"]};
+    font-weight: 600;
 }}
 
 QTabBar:focus {{
@@ -713,6 +718,12 @@ QTreeView {{
     background-color: {tokens.palette["surface_bg"]};
 }}
 
+QListView::item,
+QTreeView::item {{
+    padding: 4px;
+    border-radius: 6px;
+}}
+
 QTreeView::item:selected,
 QListView::item:selected,
 QTableView::item:selected,
@@ -820,7 +831,6 @@ QWidget#videoPreview {{
         
 /* Typography Scales */
 QWidget {{ font-family: {tokens.typography["font_family"]}; font-size: {tokens.typography["base_size"]}; }}
-QLabel#dock-title-label {{ font-size: {tokens.typography["title_size"]}; font-weight: bold; }}
 QLabel#lblMissingFileHint {{ font-size: {tokens.typography["caption_size"]}; }}
 
 /* Phase 5: Interaction-State Polish & CTA */
@@ -859,17 +869,7 @@ QTabWidget::pane {{
     border-radius: {tokens.spacing["panel_radius"]};
 }}
 
-QTabBar::tab {{
-    border-radius: 10px;
-    padding: 6px 12px;
-    margin: 2px;
-    color: {tokens.palette["text_secondary"]};
-}}
 
-QTabBar::tab:selected {{
-    background-color: {tokens.palette["selected_bg"]};
-    color: {tokens.palette["accent"]};
-}}
 
 QScrollBar:vertical {{
     width: 6px;
