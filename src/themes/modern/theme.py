@@ -440,6 +440,18 @@ QTabBar {{
     padding: 0px;
 }}
 
+/* Hide dock widget tabs (Project Files, Transitions, etc.) */
+QMainWindow > QTabBar,
+QMainWindow > QTabBar::tab {{
+    height: 0px;
+    width: 0px;
+    margin: 0px;
+    padding: 0px;
+    border: none;
+    color: transparent;
+    background: transparent;
+}}
+
 QTabBar::tab {{
     height: 16px;
     border: none;

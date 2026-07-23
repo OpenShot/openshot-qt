@@ -5220,6 +5220,13 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.tabifyDockWidget(self.dockEffects, self.dockEmojis)
         self.dockFiles.raise_()
 
+        # Hide title bars for clean UI
+        self.dockVideo.setTitleBarWidget(QWidget())
+        self.dockFiles.setTitleBarWidget(QWidget())
+        self.dockTransitions.setTitleBarWidget(QWidget())
+        self.dockEffects.setTitleBarWidget(QWidget())
+        self.dockEmojis.setTitleBarWidget(QWidget())
+
         # Add Docks submenu to View menu
         self.addViewDocksMenu()
 
