@@ -155,7 +155,10 @@ class Export(QDialog):
         # Load the "export" Timeline reader with the JSON from the real timeline
         try:
             json_timeline = json.dumps(self.project._data)
-            self.timeline.SetJson(json_timeline)
+            export_payload = copy.deepcopy(self.project._data)
+            if hasattr(get_app().window, "proxy_service"):
+                get_app().window.proxy_service.rewrite_hidden_and_muted_layers(export_payload)
+            self.timeline.SetJson(json.dumps(export_payload))
         except Exception as ex:
             msg = QMessageBox()
             msg.setWindowTitle(_("Project Data Error"))
@@ -1151,7 +1154,10 @@ class Export(QDialog):
             self.project.apply_profile(profile)
 
             # Update the timeline with rescaled keyframes and adjusted profile's FPS precision
-            self.timeline.SetJson(json.dumps(self.project._data))
+            export_payload = copy.deepcopy(self.project._data)
+            if hasattr(get_app().window, "proxy_service"):
+                get_app().window.proxy_service.rewrite_hidden_and_muted_layers(export_payload)
+            self.timeline.SetJson(json.dumps(export_payload))
 
         # Re-update the timeline FPS again (since the timeline just got clobbered)
         self.updateFrameRate(set_limits=False)

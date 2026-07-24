@@ -87,11 +87,48 @@ class TrackPainter(BasePainter):
         self.toggle_margin = self.w.theme.menu_margin
 
         self.toolbar_order = (
+            "visibility-toggle",
+            "mute-toggle",
             "lock-toggle",
             "keyframe-panel",
         )
 
         toolbar = {}
+
+        lock_locked_disabled = _scaled_toggle(getattr(self.w.theme, "track_locked_disabled_icon", None))
+        lock_locked_enabled = _scaled_toggle(getattr(self.w.theme, "track_locked_enabled_icon", None))
+        lock_unlocked_disabled = _scaled_toggle(getattr(self.w.theme, "track_unlocked_disabled_icon", None))
+        lock_unlocked_enabled = _scaled_toggle(getattr(self.w.theme, "track_unlocked_enabled_icon", None))
+
+        # Visibility toggle (Eye icon)
+        vis_enabled = _scaled_toggle(getattr(self.w.theme, "track_visible_enabled_icon", None)) or lock_unlocked_enabled
+        vis_disabled = _scaled_toggle(getattr(self.w.theme, "track_visible_disabled_icon", None)) or lock_locked_enabled
+        if vis_enabled or vis_disabled:
+            toolbar["visibility-toggle"] = {
+                "visible": {
+                    "disabled": vis_enabled,
+                    "enabled": vis_enabled,
+                },
+                "hidden": {
+                    "disabled": vis_disabled,
+                    "enabled": vis_disabled,
+                },
+            }
+
+        # Mute toggle (Speaker icon)
+        mute_enabled = _scaled_toggle(getattr(self.w.theme, "track_muted_enabled_icon", None)) or lock_unlocked_enabled
+        mute_disabled = _scaled_toggle(getattr(self.w.theme, "track_muted_disabled_icon", None)) or lock_locked_enabled
+        if mute_enabled or mute_disabled:
+            toolbar["mute-toggle"] = {
+                "unmuted": {
+                    "disabled": mute_enabled,
+                    "enabled": mute_enabled,
+                },
+                "muted": {
+                    "disabled": mute_disabled,
+                    "enabled": mute_disabled,
+                },
+            }
 
         keyframe_disabled = _scaled_toggle(
             getattr(self.w.theme, "track_keyframe_panel_disabled_icon", None)
