@@ -43,7 +43,7 @@ from qt_api import (
 from qt_api import QAbstractItemView
 from classes import updates
 from classes import info
-from classes.image_types import get_media_type
+from classes.image_types import get_media_type, is_audio_only_container
 from classes.query import File
 from classes.logger import log
 from classes.app import get_app
@@ -476,6 +476,8 @@ class FilesModel(QObject, updates.UpdateInterface):
                     max_width=IMPORT_READER_MAX_SIZE,
                     max_height=IMPORT_READER_MAX_SIZE,
                 )
+                if file_data.get("has_audio") and is_audio_only_container({"path": filepath}):
+                    file_data["has_video"] = False
 
                 # Determine media type
                 file_data["media_type"] = get_media_type(file_data)
@@ -506,6 +508,8 @@ class FilesModel(QObject, updates.UpdateInterface):
                         max_width=IMPORT_READER_MAX_SIZE,
                         max_height=IMPORT_READER_MAX_SIZE,
                     )
+                    if new_file.data.get("has_audio") and is_audio_only_container({"path": new_path}):
+                        new_file.data["has_video"] = False
                     if media_duration > 0.0:
                         # Update file details
                         new_file.data["media_type"] = "video"

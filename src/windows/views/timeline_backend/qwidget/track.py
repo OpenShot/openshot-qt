@@ -25,6 +25,7 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
+import json
 from qt_api import QRectF, QLocale
 from classes.app import get_app
 
@@ -71,6 +72,9 @@ class TrackInteractionMixin:
                 base_pix = variant.get("enabled") or variant.get("disabled")
             elif key == "visibility-toggle":
                 variant = pix_info.get("visible") or pix_info.get("hidden") or {}
+                base_pix = variant.get("enabled") or variant.get("disabled")
+            elif key == "mute-toggle":
+                variant = pix_info.get("unmuted") or pix_info.get("muted") or {}
                 base_pix = variant.get("enabled") or variant.get("disabled")
             else:
                 base_pix = pix_info.get("enabled") or pix_info.get("disabled")
@@ -216,6 +220,13 @@ class TrackInteractionMixin:
             pix = variant.get(state) or variant.get("enabled") or variant.get("disabled")
             return pix
 
+        if key == "mute-toggle":
+            muted = bool(getattr(track, "data", {}).get("muted"))
+            variant = pixmaps.get("muted" if muted else "unmuted") or {}
+            state = "disabled" if muted else "enabled"
+            pix = variant.get(state) or variant.get("enabled") or variant.get("disabled")
+            return pix
+
         if key == "lock-toggle":
             locked = bool(getattr(track, "data", {}).get("lock"))
             variant = pixmaps.get("locked" if locked else "unlocked") or {}
@@ -287,6 +298,31 @@ class TrackInteractionMixin:
                     if hasattr(self.win, "proxy_service"):
                         payload = self.win.proxy_service.rewrite_json_for_preview(payload)
                     self.win.timeline_sync.timeline.SetJson(payload)
+                    # SetJson alone does not invalidate the frame cache, so the
+                    # preview would keep serving the pre-toggle frame for the
+                    # current playhead position without this call.
+                    self.win.timeline_sync.timeline.ClearAllCache(True)
+                except Exception:
+                    pass
+            if hasattr(self.win, "SeekSignal"):
+                cur_frame = getattr(self.win, "current_frame", 1) or 1
+                self.win.SeekSignal.emit(cur_frame, True)
+            if hasattr(self.win, "refreshFrameSignal"):
+                self.win.refreshFrameSignal.emit()
+            return
+
+        if key == "mute-toggle" and track:
+            muted = bool(getattr(track, "data", {}).get("muted"))
+            track.data["muted"] = not muted
+            self.geometry.mark_dirty()
+            self.update()
+            if hasattr(self.win, "timeline_sync") and hasattr(self.win.timeline_sync, "timeline"):
+                try:
+                    payload = json.dumps(get_app().project._data)
+                    if hasattr(self.win, "proxy_service"):
+                        payload = self.win.proxy_service.rewrite_json_for_preview(payload)
+                    self.win.timeline_sync.timeline.SetJson(payload)
+                    self.win.timeline_sync.timeline.ClearAllCache(True)
                 except Exception:
                     pass
             if hasattr(self.win, "SeekSignal"):

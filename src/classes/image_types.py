@@ -55,8 +55,23 @@ def is_image(file_object):
     )
     return path.endswith(img_file_extensions)
 
+_AUDIO_ONLY_EXTENSIONS = (
+    ".mp3", ".wav", ".flac", ".aac", ".m4a", ".ogg", ".oga",
+    ".wma", ".aiff", ".aif", ".opus", ".ac3", ".alac", ".ape",
+)
+
+def is_audio_only_container(file_object):
+    """Check a File object if the file extension is a known audio-only
+    container format. Some of these can embed cover art as an
+    'attached picture' stream, which FFmpeg reports as has_video=True -
+    that must never promote the file to media_type='video'."""
+    path = file_object["path"].lower()
+    return path.endswith(_AUDIO_ONLY_EXTENSIONS)
+
 def get_media_type(file_object):
     """Check a File object and determine the media type (video, image, audio)"""
+    if file_object["has_audio"] and is_audio_only_container(file_object):
+        return "audio"
     if file_object["has_video"] and not is_image(file_object):
         return "video"
     elif file_object["has_video"] and is_image(file_object):

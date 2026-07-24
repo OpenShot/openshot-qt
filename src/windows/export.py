@@ -154,6 +154,12 @@ class Export(QDialog):
 
         # Load the "export" Timeline reader with the JSON from the real timeline
         try:
+            proxy_service = getattr(get_app().window, "proxy_service", None)
+            if proxy_service:
+                # Exports must respect hidden/muted tracks the same way the
+                # preview does - but never substitute proxy readers, since
+                # export needs full-resolution source media.
+                proxy_service.rewrite_hidden_and_muted_layers(self.project._data)
             json_timeline = json.dumps(self.project._data)
             self.timeline.SetJson(json_timeline)
         except Exception as ex:
@@ -1151,6 +1157,9 @@ class Export(QDialog):
             self.project.apply_profile(profile)
 
             # Update the timeline with rescaled keyframes and adjusted profile's FPS precision
+            proxy_service = getattr(get_app().window, "proxy_service", None)
+            if proxy_service:
+                proxy_service.rewrite_hidden_and_muted_layers(self.project._data)
             self.timeline.SetJson(json.dumps(self.project._data))
 
         # Re-update the timeline FPS again (since the timeline just got clobbered)
