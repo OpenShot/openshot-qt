@@ -5,11 +5,11 @@
       <stop offset="0.18" stop-color="#ff9f1a"/>
       <stop offset="0.34" stop-color="#ffd400"/>
       <stop offset="0.5" stop-color="#36d67e"/>
-      <stop offset="0.68" stop-color="#7FB8FF"/>
+      <stop offset="0.68" stop-color="#6BA3FF"/>
       <stop offset="0.84" stop-color="#7a5cff"/>
       <stop offset="1" stop-color="#ff4fd8"/>
     </linearGradient>
   </defs>
   <circle cx="12" cy="12" r="7.25" stroke="url(#ring)" stroke-width="3.5"/>
-  <circle cx="12" cy="12" r="2.1" fill="#7FB8FF" fill-opacity="0.9"/>
+  <circle cx="12" cy="12" r="2.1" fill="#6BA3FF" fill-opacity="0.9"/>
 </svg>

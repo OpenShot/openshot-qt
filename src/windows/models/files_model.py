@@ -219,16 +219,19 @@ class FilesModel(QObject, updates.UpdateInterface):
             pixmap = QPixmap()
             if pixmap.load(thumb_source) and not pixmap.isNull():
                 from qt_api import QPainter, QPainterPath, Qt
-                rounded = QPixmap(pixmap.size())
-                rounded.fill(Qt.transparent)
-                painter = QPainter(rounded)
-                painter.setRenderHint(QPainter.Antialiasing)
-                path = QPainterPath()
-                path.addRoundedRect(0, 0, pixmap.width(), pixmap.height(), 4, 4)
-                painter.setClipPath(path)
-                painter.drawPixmap(0, 0, pixmap)
-                painter.end()
-                return QIcon(rounded)
+                try:
+                    rounded = QPixmap(pixmap.width(), pixmap.height())
+                    rounded.fill(Qt.transparent)
+                    painter = QPainter(rounded)
+                    painter.setRenderHint(QPainter.Antialiasing)
+                    path = QPainterPath()
+                    path.addRoundedRect(0, 0, pixmap.width(), pixmap.height(), 4, 4)
+                    painter.setClipPath(path)
+                    painter.drawPixmap(0, 0, pixmap)
+                    painter.end()
+                    return QIcon(rounded)
+                except Exception:
+                    return QIcon(pixmap)
         return QIcon(thumb_source)
 
     def _thumbnail_source_for_file(self, file, clear_cache=False):

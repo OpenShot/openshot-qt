@@ -77,6 +77,10 @@ class RulerPainter(BasePainter):
         self.play_font = QFont()
         if self.w.theme.ruler_time_font_size:
             self.play_font.setPointSize(self.w.theme.ruler_time_font_size)
+        fam = str(getattr(self.w.theme.ruler, "font_family", "") or "")
+        if fam:
+            self.tick_font.setFamily(fam)
+            self.play_font.setFamily(fam)
         self.label_top = self.w.theme.ruler_label_top
         self.pad_left = self.w.theme.ruler_time_pad_left
         self.pad_top = self.w.theme.ruler_time_pad_top

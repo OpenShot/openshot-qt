@@ -274,7 +274,7 @@ QToolBar#timelineToolbar {{
 
 QToolBar#timelineToolbar QToolButton {{
     color: {tokens.palette["text_primary"]};
-    background-color: {tokens.palette["surface_bg"]};
+    background-color: transparent;
     padding: 8px;
     margin-bottom: 4px;
     margin-right: 5px;
@@ -289,7 +289,7 @@ QToolBar#timelineToolbar QToolButton:hover {{
 
 
 QToolBar#timelineToolbar QToolButton:checked {{
-    background-color: {tokens.palette["hover_bg"]};
+    background-color: {tokens.palette["selected_bg"]};
 }}
 
 QToolBar#toolBar QToolButton:focus {{
@@ -323,23 +323,37 @@ QToolBar#toolBar QToolButton:hover {{
 }}
 
 QToolBar#videoToolbar {{
-    background-color: {tokens.palette["surface_bg"]};
-    border-radius: 4px;
-    border: 1px solid {tokens.palette["border_subtle"]};
-    margin: 6px 220px 10px 220px;
+    background: {tokens.palette["surface_bg"]};
+    border: none;
+    border-top: 1px solid {tokens.palette["border_subtle"]};
+    spacing: 2px;
+    padding: 4px;
 }}
 
 QToolBar#videoToolbar QToolButton {{
+    background: transparent;
+    border: none;
     border-radius: 4px;
-    padding: 6px;
+    padding: 5px;
+    color: {tokens.palette["text_secondary"]};
+}}
+
+QToolBar#videoToolbar QToolButton:hover {{
+    background: {tokens.palette["hover_bg"]};
+    color: {tokens.palette["text_primary"]};
+}}
+
+QToolBar#videoToolbar QToolButton:checked {{
+    background: {tokens.palette["accent"]};
+    color: #FFFFFF;
 }}
 
 QToolBar#videoToolbar QToolButton:focus {{
-    background-color: #1d2737;
+    background-color: transparent;
 }}
 
 QToolBar#videoToolbar QToolButton:pressed {{
-    background-color: #2a374a;
+    background-color: {tokens.palette["hover_bg"]};
 }}
 
 QPushButton#acceptButton,
@@ -1013,6 +1027,19 @@ QMessageBox QPushButton[text="&{_('Cancel')}"] {{
 
         # Apply new stylesheet
         self.app.setStyleSheet(self.compose_stylesheet())
+
+        # Soft drop shadow around the video preview (reference-design viewer)
+        try:
+            from qt_api import QGraphicsDropShadowEffect, QColor
+            video_widget = self.app.window.findChild(QWidget, "videoPreview")
+            if video_widget is not None and video_widget.graphicsEffect() is None:
+                shadow = QGraphicsDropShadowEffect(video_widget)
+                shadow.setBlurRadius(32)
+                shadow.setOffset(0, 12)
+                shadow.setColor(QColor(0, 0, 0, 102))
+                video_widget.setGraphicsEffect(shadow)
+        except Exception:
+            pass
 
         # Create a transparent spacer widget
         spacer = QWidget(self.app.window)

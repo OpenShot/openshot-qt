@@ -21,8 +21,8 @@ class ModernTimelineTheme(HumanityDarkTimelineTheme):
         self.background             = QColor(tokens.palette["window_bg"])
         self.background2            = QColor()
         self.playhead_color         = QColor(tokens.palette["playhead"])
-        self.playhead_width         = 2.0
-        self.clip_selected          = QColor(tokens.palette["accent"])
+        self.playhead_width         = 1.5
+        self.clip_selected          = QColor("#6BA3FF")            # accent-hi ring replaces red
 
         sel_fill = QColor(tokens.palette["accent"])
         sel_fill.setAlpha(45)
@@ -33,15 +33,15 @@ class ModernTimelineTheme(HumanityDarkTimelineTheme):
         self.selection_border       = sel_border
         self.selection_border_width = 1.0
 
-        self.ruler_name_background  = QColor(tokens.palette["window_bg"])
+        self.ruler_name_background  = QColor("#10141B")
         self.ruler_name_background2 = QColor()
         self.ruler_time_font_size   = 10
         self.scrollbar_track        = QColor(tokens.palette["window_bg"])
-        self.scrollbar_handle       = QColor(tokens.palette["border_subtle"])
+        self.scrollbar_handle       = QColor("#232A3A")
         self.scrollbar_width        = 8
-        self.waveform_color         = QColor(tokens.palette["accent"])
-        self.waveform_peak_color    = QColor(127, 184, 255, 110)
-        self.keyframe_fill          = QColor(tokens.palette["accent"])
+        self.waveform_color         = QColor("#4EC28A")
+        self.waveform_peak_color    = QColor(78, 194, 138, 110)
+        self.keyframe_fill          = QColor("#6BA3FF")
         self.keyframe_border        = QColor(tokens.palette["window_bg"])
         self.keyframe_inactive_opacity       = 0.5
         self.keyframe_panel_property_bg      = QColor()
@@ -51,12 +51,17 @@ class ModernTimelineTheme(HumanityDarkTimelineTheme):
         self.keyframe_panel_marker_border    = QColor()
 
         # ── Clip ──────────────────────────────────────────────────────────
-        self.clip.background    = QColor(tokens.palette["clip_bg"])
+        self.clip.background    = QColor("#232A3A")          # fallback fill (bg-3)
         self.clip.background2   = QColor()
         self.clip.top_overlay   = QColor()      # gradient overlay disabled
         self.clip.top_overlay2  = QColor()
-        self.clip.border_color  = QColor(tokens.palette["clip_border"])
-        self.clip.border_radius = 8
+        self.clip.border_color  = QColor("#232830")        # hairline outline
+        self.clip.border_radius = 3
+        self.clip.type_styles = {
+            "video": {"fill": QColor("#152034"), "edge": QColor("#4C8DFF")},
+            "audio": {"fill": QColor("#162624"), "edge": QColor("#4EC28A")},
+            "image": {"fill": QColor("#28221C"), "edge": QColor("#E5A24B")},
+        }
         self.clip.height        = 48
 
         # ── Track ─────────────────────────────────────────────────────────
@@ -65,9 +70,9 @@ class ModernTimelineTheme(HumanityDarkTimelineTheme):
         self.track.border_color             = QColor(tokens.palette["border_subtle"])
         self.track.border_radius            = 0
         self.track.height                   = 48
-        self.track.name_background          = QColor(tokens.palette["clip_bg"])
-        self.track.name_border_color        = QColor(tokens.palette["accent"])
-        self.track.name_border_width        = 4
+        self.track.name_background          = QColor("#151A22")
+        self.track.name_border_color        = QColor("#4C8DFF")
+        self.track.name_border_width        = 3
         self.track.name_border_top_color    = QColor(tokens.palette["border_subtle"])
         self.track.name_border_top_width    = 1
         self.track.name_border_bottom_color = QColor(tokens.palette["border_subtle"])
@@ -79,12 +84,15 @@ class ModernTimelineTheme(HumanityDarkTimelineTheme):
 
         # ── Transition ────────────────────────────────────────────────────
         self.transition.height = 48
+        self.transition.background = QColor("#221F32")
+        self.transition.border_color = QColor("#B586FF")
 
         # ── Ruler ─────────────────────────────────────────────────────────
-        self.ruler.background   = QColor(tokens.palette["window_bg"])
+        self.ruler.background   = QColor("#10141B")
         self.ruler.background2  = QColor()
         self.ruler.border_color = QColor(tokens.palette["border_subtle"])
-        self.ruler.font_color   = QColor(tokens.palette["text_secondary"])
+        self.ruler.font_color   = QColor("#6B7688")
+        self.ruler.font_family = "IBM Plex Mono"     # new attribute, consumed by ruler painter
 
         # ── Icons ─────────────────────────────────────────────────────────
         _c = "themes/modern/images/"

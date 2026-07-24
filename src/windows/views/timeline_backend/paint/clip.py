@@ -188,6 +188,17 @@ class ClipPainter(BasePainter):
 
     MAX_THUMB_SLOTS = 150
 
+    def _clip_media_type(self, clip):
+        try:
+            data = clip.data if isinstance(getattr(clip, "data", None), dict) else {}
+            reader = data.get("reader") or {}
+            mt = str(reader.get("media_type") or data.get("media_type") or "").strip().lower()
+            if mt == "video" and self._clip_is_audio_media(clip):
+                return "audio"
+            return mt
+        except Exception:
+            return ""
+
     def _clip_timeline_position(self, clip):
         """Return the clip's left-edge position on the timeline in seconds.
 
@@ -219,6 +230,19 @@ class ClipPainter(BasePainter):
         self.clip_pen.setCosmetic(True)
         self.sel_pen = QPen(QBrush(self.w.theme.clip_selected), bw)
         self.sel_pen.setCosmetic(True)
+        self.type_fills = {}
+        self.type_pens = {}
+        self.type_edges = {}
+        for mt, st in (getattr(self.w.theme.clip, "type_styles", None) or {}).items():
+            fill = st.get("fill")
+            edge = st.get("edge")
+            if fill is not None and fill.isValid():
+                self.type_fills[mt] = QColor(fill)
+            if edge is not None and edge.isValid():
+                self.type_edges[mt] = QColor(edge)
+                pen = QPen(QBrush(edge), bw)
+                pen.setCosmetic(True)
+                self.type_pens[mt] = pen
         self.top_overlay = QColor(self.w.theme.clip.top_overlay)
         self.top_overlay2 = QColor(self.w.theme.clip.top_overlay2)
         self.menu_pix = None  # menu icon removed; title container is now the click target
@@ -425,7 +449,7 @@ class ClipPainter(BasePainter):
                 rect.height(),
             )
 
-            pen = self.sel_pen if selected else self.clip_pen
+            pen = self.sel_pen if selected else self.type_pens.get(self._clip_media_type(clip), self.clip_pen)
             locked = self.w._is_track_locked((clip.data if isinstance(clip.data, dict) else {}).get("layer"))
             if locked:
                 pen = self.dimmed_pen(pen)
@@ -790,7 +814,7 @@ class ClipPainter(BasePainter):
         text_entry = None
         pending_thumbs = False
         if not tiny:
-            self._fill_clip_background(painter, inner_rect, segment_info)
+            self._fill_clip_background(painter, inner_rect, segment_info, clip=clip)
             icon_entries, pending_thumbs, text_entry = self._draw_clip_contents(
                 painter, clip, inner_rect, segment_info
             )
@@ -898,7 +922,7 @@ class ClipPainter(BasePainter):
         path.closeSubpath()
         return path
 
-    def _fill_clip_background(self, painter, inner_rect, segment=None):
+    def _fill_clip_background(self, painter, inner_rect, segment=None, clip=None):
         includes_start = True
         includes_end = True
         if isinstance(segment, dict):
@@ -906,8 +930,14 @@ class ClipPainter(BasePainter):
             includes_end = bool(segment.get("includes_end", True))
         shape_path = self._clip_fill_path(inner_rect, includes_start, includes_end)
 
-        bg = self.w.theme.clip.background
+        mt = self._clip_media_type(clip) if clip is not None else ""
+        type_fill = self.type_fills.get(mt) if mt else None
+
+        bg = type_fill or self.w.theme.clip.background
         bg2 = self.w.theme.clip.background2
+        if type_fill is not None:
+            bg2 = QColor()
+
         if bg2.isValid() and bg2 != bg:
             grad = QLinearGradient(QPointF(inner_rect.topLeft()), QPointF(inner_rect.bottomLeft()))
             grad.setColorAt(0, bg)
@@ -938,6 +968,14 @@ class ClipPainter(BasePainter):
                 painter.fillPath(shape_path, QBrush(overlay))
             else:
                 painter.fillRect(inner_rect, QBrush(overlay))
+
+        edge = self.type_edges.get(mt) if mt else None
+        if edge is not None and includes_start:
+            painter.save()
+            if shape_path:
+                painter.setClipPath(shape_path)
+            painter.fillRect(QRectF(inner_rect.left(), inner_rect.top(), 3.0, inner_rect.height()), edge)
+            painter.restore()
 
     def _draw_clip_contents(self, painter, clip, inner_rect, segment):
         bw = float(self.border_width or 0.0)
@@ -2065,7 +2103,7 @@ class ClipPainter(BasePainter):
 
         includes_end = (full_rect.right() - segment_rect.right()) <= 0.5
 
-        border_pen = pen if isinstance(pen, QPen) else (self.sel_pen if selected else self.clip_pen)
+        border_pen = pen if isinstance(pen, QPen) else (self.sel_pen if selected else self.type_pens.get(self._clip_media_type(clip), self.clip_pen))
         self._stroke_visible_border(
             painter,
             segment_rect,
