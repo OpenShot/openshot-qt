@@ -451,12 +451,13 @@ class ClipPainter(BasePainter):
 
             pen = self.sel_pen if selected else self.type_pens.get(self._clip_media_type(clip), self.clip_pen)
             locked = self.w._is_track_locked((clip.data if isinstance(clip.data, dict) else {}).get("layer"))
-            if locked:
+            hidden = self.w._is_track_hidden((clip.data if isinstance(clip.data, dict) else {}).get("layer"))
+            if locked or hidden:
                 pen = self.dimmed_pen(pen)
                 painter.save()
-                painter.setOpacity(0.8)
+                painter.setOpacity(0.35 if hidden else 0.8)
             self._draw_clip(painter, rect, segment_rect, clip, pen, selected)
-            if locked:
+            if locked or hidden:
                 painter.restore()
         painter.restore()
 

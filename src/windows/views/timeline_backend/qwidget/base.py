@@ -1516,6 +1516,14 @@ class TimelineWidgetBase(QWidget):
                 return bool(data.get("lock"))
         return False
 
+    def _is_track_hidden(self, track_num):
+        normalized = self.normalize_track_number(track_num)
+        for track in self.track_list:
+            data = track.data if isinstance(track.data, dict) else {}
+            if self.normalize_track_number(data.get("number")) == normalized:
+                return bool(data.get("hidden"))
+        return False
+
     def _nearest_unlocked_track_index(self, preferred_idx):
         try:
             idx = int(preferred_idx)

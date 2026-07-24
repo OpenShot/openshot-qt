@@ -206,6 +206,13 @@ class TrackInteractionMixin:
         pixmaps = button.get("pixmaps") or {}
         key = button.get("key")
 
+        if key == "visibility-toggle":
+            hidden = bool(getattr(track, "data", {}).get("hidden"))
+            variant = pixmaps.get("hidden" if hidden else "visible") or {}
+            state = "disabled" if hidden else "enabled"
+            pix = variant.get(state) or variant.get("enabled") or variant.get("disabled")
+            return pix
+
         if key == "lock-toggle":
             locked = bool(getattr(track, "data", {}).get("lock"))
             variant = pixmaps.get("locked" if locked else "unlocked") or {}
@@ -264,6 +271,15 @@ class TrackInteractionMixin:
             return
 
         if not self.win:
+            return
+
+        if key == "visibility-toggle" and track:
+            hidden = bool(getattr(track, "data", {}).get("hidden"))
+            track.data["hidden"] = not hidden
+            self.geometry.mark_dirty()
+            self.update()
+            if hasattr(self.win, "timeline") and hasattr(self.win.timeline, "refresh_timeline"):
+                self.win.timeline.refresh_timeline()
             return
 
         if key == "lock-toggle" and track_id:

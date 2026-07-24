@@ -218,14 +218,30 @@ class FilesModel(QObject, updates.UpdateInterface):
         if thumb_source:
             pixmap = QPixmap()
             if pixmap.load(thumb_source) and not pixmap.isNull():
-                from qt_api import QPainter, QPainterPath, Qt
+                from qt_api import QPainter, QPainterPath, Qt, QColor
                 try:
-                    rounded = QPixmap(pixmap.width(), pixmap.height())
+                    w, h = pixmap.width(), pixmap.height()
+                    if h > w and h > 0:
+                        # Pillarbox portrait image into 16:9 canvas with black side bars
+                        canvas_w = int(h * 16.0 / 9.0)
+                        canvas_h = h
+                        offset_x = (canvas_w - w) // 2
+                        
+                        canvas = QPixmap(canvas_w, canvas_h)
+                        canvas.fill(QColor("#000000"))
+                        p = QPainter(canvas)
+                        p.setRenderHint(QPainter.Antialiasing)
+                        p.drawPixmap(offset_x, 0, pixmap)
+                        p.end()
+                        pixmap = canvas
+                        w, h = canvas_w, canvas_h
+
+                    rounded = QPixmap(w, h)
                     rounded.fill(Qt.transparent)
                     painter = QPainter(rounded)
                     painter.setRenderHint(QPainter.Antialiasing)
                     path = QPainterPath()
-                    path.addRoundedRect(0, 0, pixmap.width(), pixmap.height(), 4, 4)
+                    path.addRoundedRect(0, 0, w, h, 4, 4)
                     painter.setClipPath(path)
                     painter.drawPixmap(0, 0, pixmap)
                     painter.end()

@@ -87,11 +87,27 @@ class TrackPainter(BasePainter):
         self.toggle_margin = self.w.theme.menu_margin
 
         self.toolbar_order = (
+            "visibility-toggle",
             "lock-toggle",
             "keyframe-panel",
         )
 
         toolbar = {}
+
+        # Visibility toggle (Eye icon)
+        vis_enabled = _scaled_toggle(getattr(self.w.theme, "track_visible_enabled_icon", None)) or lock_unlocked_enabled
+        vis_disabled = _scaled_toggle(getattr(self.w.theme, "track_visible_disabled_icon", None)) or lock_locked_enabled
+        if vis_enabled or vis_disabled:
+            toolbar["visibility-toggle"] = {
+                "visible": {
+                    "disabled": vis_enabled,
+                    "enabled": vis_enabled,
+                },
+                "hidden": {
+                    "disabled": vis_disabled,
+                    "enabled": vis_disabled,
+                },
+            }
 
         keyframe_disabled = _scaled_toggle(
             getattr(self.w.theme, "track_keyframe_panel_disabled_icon", None)
