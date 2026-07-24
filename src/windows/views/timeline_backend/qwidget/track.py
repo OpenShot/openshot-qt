@@ -69,6 +69,12 @@ class TrackInteractionMixin:
             if key == "lock-toggle":
                 variant = pix_info.get("locked") or pix_info.get("unlocked") or {}
                 base_pix = variant.get("enabled") or variant.get("disabled")
+            elif key == "visibility-toggle":
+                variant = pix_info.get("visible") or pix_info.get("hidden") or {}
+                base_pix = variant.get("enabled") or variant.get("disabled")
+            elif key == "mute-toggle":
+                variant = pix_info.get("unmuted") or pix_info.get("muted") or {}
+                base_pix = variant.get("enabled") or variant.get("disabled")
             else:
                 base_pix = pix_info.get("enabled") or pix_info.get("disabled")
             if not base_pix:
@@ -206,6 +212,20 @@ class TrackInteractionMixin:
         pixmaps = button.get("pixmaps") or {}
         key = button.get("key")
 
+        if key == "visibility-toggle":
+            hidden = bool(getattr(track, "data", {}).get("hidden"))
+            variant = pixmaps.get("hidden" if hidden else "visible") or {}
+            state = "disabled" if hidden else "enabled"
+            pix = variant.get(state) or variant.get("enabled") or variant.get("disabled")
+            return pix
+
+        if key == "mute-toggle":
+            muted = bool(getattr(track, "data", {}).get("muted"))
+            variant = pixmaps.get("muted" if muted else "unmuted") or {}
+            state = "disabled" if muted else "enabled"
+            pix = variant.get(state) or variant.get("enabled") or variant.get("disabled")
+            return pix
+
         if key == "lock-toggle":
             locked = bool(getattr(track, "data", {}).get("lock"))
             variant = pixmaps.get("locked" if locked else "unlocked") or {}
@@ -264,6 +284,48 @@ class TrackInteractionMixin:
             return
 
         if not self.win:
+            return
+
+        if key == "visibility-toggle" and track:
+            hidden = bool(getattr(track, "data", {}).get("hidden"))
+            track.data["hidden"] = not hidden
+            self.geometry.mark_dirty()
+            self.update()
+            if hasattr(self.win, "timeline_sync") and hasattr(self.win.timeline_sync, "timeline"):
+                try:
+                    payload = json.dumps(get_app().project._data)
+                    if hasattr(self.win, "proxy_service"):
+                        payload = self.win.proxy_service.rewrite_json_for_preview(payload)
+                    self.win.timeline_sync.timeline.SetJson(payload)
+                    self.win.timeline_sync.timeline.ClearAllCache(True)
+                except Exception:
+                    pass
+            if hasattr(self.win, "SeekSignal"):
+                cur_frame = getattr(self.win, "current_frame", 1) or 1
+                self.win.SeekSignal.emit(cur_frame, True)
+            if hasattr(self.win, "refreshFrameSignal"):
+                self.win.refreshFrameSignal.emit()
+            return
+
+        if key == "mute-toggle" and track:
+            muted = bool(getattr(track, "data", {}).get("muted"))
+            track.data["muted"] = not muted
+            self.geometry.mark_dirty()
+            self.update()
+            if hasattr(self.win, "timeline_sync") and hasattr(self.win.timeline_sync, "timeline"):
+                try:
+                    payload = json.dumps(get_app().project._data)
+                    if hasattr(self.win, "proxy_service"):
+                        payload = self.win.proxy_service.rewrite_json_for_preview(payload)
+                    self.win.timeline_sync.timeline.SetJson(payload)
+                    self.win.timeline_sync.timeline.ClearAllCache(True)
+                except Exception:
+                    pass
+            if hasattr(self.win, "SeekSignal"):
+                cur_frame = getattr(self.win, "current_frame", 1) or 1
+                self.win.SeekSignal.emit(cur_frame, True)
+            if hasattr(self.win, "refreshFrameSignal"):
+                self.win.refreshFrameSignal.emit()
             return
 
         if key == "lock-toggle" and track_id:

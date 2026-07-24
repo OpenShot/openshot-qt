@@ -481,6 +481,90 @@ class ProxyService(QObject):
          self._emit_job_change(file_id)
          return True
 
+     @staticmethod
+     def _zero_keyframe():
+         return {
+             "Points": [
+                 {
+                     "co": {"X": 1.0, "Y": 0.0},
+                     "handle_left": {"X": 0.0, "Y": 0.0},
+                     "handle_right": {"X": 0.0, "Y": 0.0},
+                     "interpolation": 0
+                 }
+             ]
+         }
+
+     @staticmethod
+     def _layer_number_set(layer_num):
+         """Return the {int, str, raw} forms of a layer number for tolerant matching."""
+         out = {layer_num, str(layer_num)}
+         try:
+             out.add(int(layer_num))
+         except Exception:
+             pass
+         return out
+
+     def rewrite_hidden_and_muted_layers(self, parsed):
+         """Zero alpha on clips whose track is hidden, and volume on clips whose
+         track is muted. Safe to call standalone (no proxy substitution) so both
+         the live preview AND export can apply the same visibility/mute rules.
+         Returns True if the payload (dict, mutated in place) was changed."""
+         try:
+             from classes.app import get_app
+             win = get_app().window
+             if not win or not hasattr(win, "timeline"):
+                 return False
+             hidden_layers = set()
+             muted_layers = set()
+             for track in getattr(win.timeline, "track_list", []):
+                 if not isinstance(track.data, dict):
+                     continue
+                 layer_num = track.data.get("number")
+                 if layer_num is None:
+                     continue
+                 if track.data.get("hidden"):
+                     hidden_layers |= self._layer_number_set(layer_num)
+                 if track.data.get("muted"):
+                     muted_layers |= self._layer_number_set(layer_num)
+
+             if not hidden_layers and not muted_layers:
+                 return False
+
+             changed = False
+
+             def _apply(clip_dict):
+                 nonlocal changed
+                 if not isinstance(clip_dict, dict):
+                     return
+                 layer = clip_dict.get("layer")
+                 if layer in hidden_layers or str(layer) in hidden_layers:
+                     clip_dict["display"] = 0
+                     clip_dict["alpha"] = self._zero_keyframe()
+                     changed = True
+                 if layer in muted_layers or str(layer) in muted_layers:
+                     clip_dict["volume"] = self._zero_keyframe()
+                     changed = True
+
+             if isinstance(parsed, dict):
+                 clips = parsed.get("clips")
+                 if isinstance(clips, list):
+                     for clip in clips:
+                         _apply(clip)
+             elif isinstance(parsed, list):
+                 for action in parsed:
+                     if isinstance(action, dict):
+                         key = action.get("key")
+                         values = action.get("values")
+                         if isinstance(key, list) and len(key) >= 1 and key[0] == "clips":
+                             _apply(values)
+             return changed
+         except Exception:
+             return False
+
+     def _rewrite_hidden_tracks_in_payload(self, parsed):
+         """Backward-compat alias - use rewrite_hidden_and_muted_layers directly."""
+         return self.rewrite_hidden_and_muted_layers(parsed)
+
      def rewrite_json_for_preview(self, payload):
          """Return preview-bound JSON/object with proxy readers substituted when available."""
          original_is_text = isinstance(payload, str)
@@ -491,6 +575,8 @@ class ProxyService(QObject):
                  return payload
          else:
              parsed = copy.deepcopy(payload)
+
+         self.rewrite_hidden_and_muted_layers(parsed)
 
          proxy_lookup, path_lookup = self._proxy_lookup_from_payload(parsed)
          if not proxy_lookup:
