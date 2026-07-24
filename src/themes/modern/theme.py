@@ -26,6 +26,7 @@
  """
 
 import os
+import re
 
 from qt_api import Qt
 from qt_api import QIcon
@@ -566,12 +567,10 @@ QCheckBox:focus {{
 }}
 
 QLineEdit#filesFilter, QLineEdit#effectsFilter, QLineEdit#transitionsFilter, QLineEdit#emojisFilter, QLineEdit#txtPropertyFilter {{
-    background-color: {tokens.palette["control_bg"]};
-    border: 1px solid {tokens.palette["border_subtle"]};
-    border-radius: 6px;
-    padding: 6px;
-    padding-left: 8px;
-    padding-right: 8px;
+    background-color: {tokens.palette["window_bg"]};
+    border: 1px solid transparent;
+    border-radius: 5px;
+    padding: 4px 8px;
 }}
 
 QLineEdit,
@@ -800,7 +799,7 @@ QTreeView {{
 QListView::item,
 QTreeView::item {{
     padding: 4px;
-    border-radius: 6px;
+    border-radius: 4px;
 }}
 
 QTreeView::item:selected,
@@ -896,7 +895,7 @@ QWidget#cutting QPushButton#btnAddClip:disabled {{
 }}
 
 .property_value {{
-    foreground-color: {tokens.palette["text_primary"]};
+    foreground-color: {tokens.palette["accent"]};
     background-color: {tokens.palette["control_bg"]};
 }}
 
@@ -1055,7 +1054,7 @@ QMessageBox QPushButton[text="&{_('Cancel')}"] {{
             {"expand": True},
             {"action": self.app.window.actionSave, "icon": "themes/modern/images/tool-save-project.svg", "style": Qt.ToolButtonTextBesideIcon},
             {"action": self.app.window.actionExportVideo, "icon": "themes/modern/images/tool-export.svg",
-             "style": Qt.ToolButtonTextBesideIcon, "stylesheet": f"QToolButton {{ background: {tokens.palette['accent']}; color: #FFFFFF; border: none; border-radius: 6px; padding: 4px 14px; margin: 5px; margin-right: 10px; font-weight: 600; }} QToolButton:hover {{ background: {tokens.palette['accent_hi']}; }} QToolButton:pressed {{ background: {tokens.palette['accent_line']}; }}"},
+             "style": Qt.ToolButtonTextBesideIcon, "stylesheet": f"QToolButton {{ background: {tokens.palette['accent']}; color: #FFFFFF; border: none; border-radius: 6px; padding: 4px 14px; margin: 10px 10px 10px 6px; font-weight: 600; }} QToolButton:hover {{ background: {tokens.palette['accent_hi']}; }} QToolButton:pressed {{ background: {tokens.palette['accent_line']}; }}"},
             {"action": self.app.window.actionUpdate, "icon": "themes/modern/images/warning.svg", "visible": False, "style": Qt.ToolButtonTextBesideIcon, "stylesheet": "QToolButton {  background-color: #151A22; color: #E5A24B; }"}
         ]
         
@@ -1119,22 +1118,22 @@ QMessageBox QPushButton[text="&{_('Cancel')}"] {{
             nav_group.setExclusive(True)
 
             nav_items = [
-                (win.dockFiles, "themes/modern/images/tool-import-files.svg", "Project Files"),
-                (win.dockTransitions, "themes/modern/images/view-waveform.svg", "Transitions"),
-                (win.dockEffects, "themes/modern/images/tool-generate-sparkle.svg", "Effects"),
-                (win.dockEmojis, "themes/modern/images/ai-category-create.svg", "Emojis"),
-                (win.dockProperties, "themes/modern/images/tool-profile.svg", "Properties"),
+                (win.dockFiles, "themes/modern/images/nav-files.svg", "Project Files"),
+                (win.dockTransitions, "themes/modern/images/nav-transitions.svg", "Transitions"),
+                (win.dockEffects, "themes/modern/images/nav-effects.svg", "Effects"),
+                (win.dockEmojis, "themes/modern/images/nav-emojis.svg", "Emojis"),
+                (win.dockProperties, "themes/modern/images/nav-properties.svg", "Properties"),
             ]
             for dock, icon_path, tooltip in nav_items:
                 icon = QIcon()
                 try:
                     with open(os.path.join(PATH, icon_path), "r") as f:
                         svg_data = f.read()
-                    
-                    # Convert any blues to neutral gray
-                    svg_gray = re.sub(r'#0078FF|#2A82DA|#53A0ED', '#8B95A5', svg_data, flags=re.IGNORECASE)
+
+                    # Recolor any stroke/fill hex to neutral gray (inactive state)
+                    svg_gray = re.sub(r'#[0-9A-Fa-f]{6}', tokens.palette["text_secondary"], svg_data)
                     # Active gets the accent blue
-                    svg_active = re.sub(r'#8B95A5|#0078FF|#2A82DA|#53A0ED', '#0078FF', svg_data, flags=re.IGNORECASE)
+                    svg_active = re.sub(r'#[0-9A-Fa-f]{6}', tokens.palette["accent"], svg_data)
                     
                     pm_gray = QPixmap()
                     pm_gray.loadFromData(QByteArray(svg_gray.encode("utf-8")))

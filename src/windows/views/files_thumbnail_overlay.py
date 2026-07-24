@@ -81,7 +81,7 @@ def paint_proxy_badge(painter, deco_rect, proxy_state):
 
 
 def _paint_chip(painter, x, y, text, bg, fg, align_right=False, align_bottom=False):
-    from qt_api import QFont, QColor, QRectF, QPainterPath, Qt
+    from qt_api import QFont, QColor, QRectF, QPainterPath, Qt, QPen
     font = QFont("IBM Plex Mono")
     font.setPixelSize(9)
     if hasattr(QFont, "Weight"):
@@ -100,6 +100,8 @@ def _paint_chip(painter, x, y, text, bg, fg, align_right=False, align_bottom=Fal
     path = QPainterPath()
     path.addRoundedRect(QRectF(rx, ry, w, h), 3.0, 3.0)
     painter.fillPath(path, QColor(*bg))
+    painter.setPen(QPen(QColor(255, 255, 255, 40), 1))
+    painter.drawPath(path)
     painter.setPen(QColor(fg))
     align_center = Qt.AlignmentFlag.AlignCenter if hasattr(Qt, "AlignmentFlag") else Qt.AlignCenter
     painter.drawText(QRectF(rx, ry, w, h), align_center, text)
@@ -115,7 +117,7 @@ def paint_meta_badges(painter, deco_rect, media_type, duration=0.0, width=0, hei
     m = 6.0
     kind = str(media_type or "").strip().upper()
     if kind:
-        _paint_chip(painter, deco_rect.left() + m, deco_rect.top() + m, kind, (0, 0, 0, 165), "#E7ECF3")
+        _paint_chip(painter, deco_rect.left() + m, deco_rect.top() + m, kind, (10, 12, 16, 210), "#E7ECF3")
     if deco_rect.width() >= 70:
         mt = str(media_type or "").strip().lower()
         if mt in ("video", "audio") and duration and duration > 0:
@@ -124,7 +126,7 @@ def paint_meta_badges(painter, deco_rect, media_type, duration=0.0, width=0, hei
                 txt = "%d:%02d:%02d" % (secs // 3600, (secs % 3600) // 60, secs % 60)
             else:
                 txt = "%02d:%02d" % (secs // 60, secs % 60)
-            _paint_chip(painter, deco_rect.right() - m, deco_rect.bottom() - m, txt, (0, 0, 0, 178), "#E7ECF3", align_right=True, align_bottom=True)
+            _paint_chip(painter, deco_rect.right() - m, deco_rect.bottom() - m, txt, (10, 12, 16, 220), "#E7ECF3", align_right=True, align_bottom=True)
         if mt in ("video", "image") and width and height:
-            _paint_chip(painter, deco_rect.left() + m, deco_rect.bottom() - m, "%d×%d" % (int(width), int(height)), (0, 0, 0, 140), "#A9B2C0", align_bottom=True)
+            _paint_chip(painter, deco_rect.left() + m, deco_rect.bottom() - m, "%d×%d" % (int(width), int(height)), (10, 12, 16, 190), "#A9B2C0", align_bottom=True)
     painter.restore()

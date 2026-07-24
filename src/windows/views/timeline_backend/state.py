@@ -25,6 +25,7 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
+from classes.logger import log
 from qt_api import QState, QStateMachine
 
 
@@ -34,10 +35,16 @@ class DragState(QState):
         self.widget = widget
 
     def onEntry(self, event):
-        self.widget._startClipDrag()
+        try:
+            self.widget._startClipDrag()
+        except Exception:
+            log.error("DragState.onEntry failed", exc_info=True)
 
     def onExit(self, event):
-        self.widget._finishClipDrag()
+        try:
+            self.widget._finishClipDrag()
+        except Exception:
+            log.error("DragState.onExit failed", exc_info=True)
 
 
 class ResizeState(QState):
@@ -46,10 +53,16 @@ class ResizeState(QState):
         self.widget = widget
 
     def onEntry(self, event):
-        self.widget._startResize()
+        try:
+            self.widget._startResize()
+        except Exception:
+            log.error("ResizeState.onEntry failed", exc_info=True)
 
     def onExit(self, event):
-        self.widget._finishResize()
+        try:
+            self.widget._finishResize()
+        except Exception:
+            log.error("ResizeState.onExit failed", exc_info=True)
 
 
 class PlayheadState(QState):
@@ -58,10 +71,16 @@ class PlayheadState(QState):
         self.widget = widget
 
     def onEntry(self, event):
-        self.widget._startPlayhead()
+        try:
+            self.widget._startPlayhead()
+        except Exception:
+            log.error("PlayheadState.onEntry failed", exc_info=True)
 
     def onExit(self, event):
-        self.widget._finishPlayhead()
+        try:
+            self.widget._finishPlayhead()
+        except Exception:
+            log.error("PlayheadState.onExit failed", exc_info=True)
 
 
 class BoxSelectState(QState):
@@ -70,10 +89,16 @@ class BoxSelectState(QState):
         self.widget = widget
 
     def onEntry(self, event):
-        self.widget._startBoxSelect()
+        try:
+            self.widget._startBoxSelect()
+        except Exception:
+            log.error("BoxSelectState.onEntry failed", exc_info=True)
 
     def onExit(self, event):
-        self.widget._finishBoxSelect()
+        try:
+            self.widget._finishBoxSelect()
+        except Exception:
+            log.error("BoxSelectState.onExit failed", exc_info=True)
 
 
 class KeyframeState(QState):
@@ -82,10 +107,16 @@ class KeyframeState(QState):
         self.widget = widget
 
     def onEntry(self, event):
-        self.widget._startKeyframeDrag()
+        try:
+            self.widget._startKeyframeDrag()
+        except Exception:
+            log.error("KeyframeState.onEntry failed", exc_info=True)
 
     def onExit(self, event):
-        self.widget._finishKeyframeDrag()
+        try:
+            self.widget._finishKeyframeDrag()
+        except Exception:
+            log.error("KeyframeState.onExit failed", exc_info=True)
 
 
 class TimelineStateMachine(QStateMachine):
