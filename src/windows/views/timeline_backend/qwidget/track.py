@@ -289,6 +289,9 @@ class TrackInteractionMixin:
                     self.win.timeline_sync.timeline.SetJson(payload)
                 except Exception:
                     pass
+            if hasattr(self.win, "SeekSignal"):
+                cur_frame = getattr(self.win, "current_frame", 1) or 1
+                self.win.SeekSignal.emit(cur_frame, True)
             if hasattr(self.win, "refreshFrameSignal"):
                 self.win.refreshFrameSignal.emit()
             return

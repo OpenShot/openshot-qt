@@ -493,6 +493,11 @@ class ProxyService(QObject):
                      layer_num = track.data.get("number")
                      if layer_num is not None:
                          hidden_layers.add(layer_num)
+                         hidden_layers.add(str(layer_num))
+                         try:
+                             hidden_layers.add(int(layer_num))
+                         except Exception:
+                             pass
 
              if not hidden_layers:
                  return False
@@ -501,8 +506,18 @@ class ProxyService(QObject):
              def _apply_clip_hidden(clip_dict):
                  if isinstance(clip_dict, dict):
                      layer = clip_dict.get("layer")
-                     if layer in hidden_layers:
-                         clip_dict["alpha"] = {"value": 0.0}
+                     if layer in hidden_layers or str(layer) in hidden_layers:
+                         clip_dict["display"] = 0
+                         clip_dict["alpha"] = {
+                             "Points": [
+                                 {
+                                     "co": {"X": 1.0, "Y": 0.0},
+                                     "handle_left": {"X": 0.0, "Y": 0.0},
+                                     "handle_right": {"X": 0.0, "Y": 0.0},
+                                     "interpolation": 0
+                                 }
+                             ]
+                         }
                          return True
                  return False
 
