@@ -5,12 +5,12 @@
   width="20"
   height="20"
   viewBox="0 0 24 24"
-  fill="none"
-  stroke="#C4CBD6"
+  fill="#C4CBD6"
+  stroke="none"
   stroke-width="1.8"
   stroke-linecap="round"
   stroke-linejoin="round"
 >
   <polygon points="5 4 15 12 5 20 5 4" />
-  <line x1="19" x2="19" y1="5" y2="19" />
+  <rect x="17.7" y="5" width="2.6" height="14" rx="1" />
 </svg>

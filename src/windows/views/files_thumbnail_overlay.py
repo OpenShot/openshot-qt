@@ -23,8 +23,8 @@ def _overlay_icon_path(media_type):
     return os.path.join(info.PATH, "themes", "cosmic", "images", _VIDEO_OVERLAY_ICON)
 
 
-def paint_media_overlay(painter, deco_rect, media_type):
-    """Paint a centered translucent play glyph for video thumbnails."""
+def paint_media_overlay(painter, deco_rect, media_type, hovered=False):
+    """Paint a centered play glyph for video thumbnails, dim at rest and full on hover."""
     if not deco_rect or not deco_rect.isValid():
         return
 
@@ -34,9 +34,9 @@ def paint_media_overlay(painter, deco_rect, media_type):
 
     painter.save()
     painter.setRenderHint(QPainter.Antialiasing, True)
-    painter.setOpacity(0.7)
+    painter.setOpacity(0.9 if hovered else 0.32)
 
-    glyph_size = max(16.0, min(deco_rect.width(), deco_rect.height()) * 0.36)
+    glyph_size = max(16.0, min(deco_rect.width(), deco_rect.height()) * (0.30 if hovered else 0.22))
     glyph_rect = QRectF(
         deco_rect.center().x() - (glyph_size / 2.0),
         deco_rect.center().y() - (glyph_size / 2.0),
@@ -80,53 +80,73 @@ def paint_proxy_badge(painter, deco_rect, proxy_state):
     painter.restore()
 
 
-def _paint_chip(painter, x, y, text, bg, fg, align_right=False, align_bottom=False):
-    from qt_api import QFont, QColor, QRectF, QPainterPath, Qt, QPen
-    font = QFont("IBM Plex Mono")
-    font.setPixelSize(9)
-    if hasattr(QFont, "Weight"):
-        font.setWeight(QFont.Weight.DemiBold)
-    else:
-        font.setBold(True)
+def _paint_scrim(painter, deco_rect):
+    """Soft bottom gradient so overlaid text stays legible without hard chip edges."""
+    from qt_api import QLinearGradient, QPointF, QColor
+    top = deco_rect.bottom() - deco_rect.height() * 0.42
+    grad = QLinearGradient(QPointF(0, top), QPointF(0, deco_rect.bottom()))
+    grad.setColorAt(0.0, QColor(0, 0, 0, 0))
+    grad.setColorAt(1.0, QColor(0, 0, 0, 145))
+    painter.fillRect(QRectF(deco_rect.left(), top, deco_rect.width(), deco_rect.bottom() - top), grad)
+
+
+def _paint_label(painter, x, y, text, font_family, pixel_size, weight_demibold, fg, align_right=False, align_bottom=False, shadow=True):
+    """Paint plain text (optionally with a soft drop shadow) - no chip background."""
+    from qt_api import QFont, QColor, QRectF, Qt
+    font = QFont(font_family)
+    font.setPixelSize(pixel_size)
+    if weight_demibold:
+        if hasattr(QFont, "Weight"):
+            font.setWeight(QFont.Weight.DemiBold)
+        else:
+            font.setBold(True)
     painter.setFont(font)
     fm = painter.fontMetrics()
     tw = fm.horizontalAdvance(text)
     th = fm.height()
-    pad_h, pad_v = 5.0, 2.0
-    w = tw + pad_h * 2
-    h = th + pad_v * 2
-    rx = x - w if align_right else x
-    ry = y - h if align_bottom else y
-    path = QPainterPath()
-    path.addRoundedRect(QRectF(rx, ry, w, h), 3.0, 3.0)
-    painter.fillPath(path, QColor(*bg))
-    painter.setPen(QPen(QColor(255, 255, 255, 40), 1))
-    painter.drawPath(path)
-    painter.setPen(QColor(fg))
+    rx = x - tw if align_right else x
+    ry = y - th if align_bottom else y
+    rect = QRectF(rx, ry, tw, th)
     align_center = Qt.AlignmentFlag.AlignCenter if hasattr(Qt, "AlignmentFlag") else Qt.AlignCenter
-    painter.drawText(QRectF(rx, ry, w, h), align_center, text)
+    if shadow:
+        painter.setPen(QColor(0, 0, 0, 190))
+        painter.drawText(rect.translated(0.6, 0.6), align_center, text)
+    painter.setPen(QColor(fg))
+    painter.drawText(rect, align_center, text)
 
 
-def paint_meta_badges(painter, deco_rect, media_type, duration=0.0, width=0, height=0):
-    """Paint kind/duration/resolution chips over a thumbnail rect."""
+def paint_meta_badges(painter, deco_rect, media_type, duration=0.0, width=0, height=0, hovered=False):
+    """Paint a subtle kind label always, and a combined resolution/duration readout on hover only."""
     if not deco_rect or not deco_rect.isValid():
         return
     painter.save()
-    from qt_api import QPainter
     painter.setRenderHint(QPainter.Antialiasing, True)
-    m = 6.0
-    kind = str(media_type or "").strip().upper()
+    m = 7.0
+    mt = str(media_type or "").strip().lower()
+    kind = mt.upper()
+
+    if hovered and deco_rect.width() >= 70:
+        _paint_scrim(painter, deco_rect)
+
     if kind:
-        _paint_chip(painter, deco_rect.left() + m, deco_rect.top() + m, kind, (10, 12, 16, 210), "#E7ECF3")
-    if deco_rect.width() >= 70:
-        mt = str(media_type or "").strip().lower()
+        _paint_label(
+            painter, deco_rect.left() + m, deco_rect.top() + m, kind,
+            "Inter", 9, True, "#E7ECF3", shadow=True)
+
+    if hovered and deco_rect.width() >= 70:
+        parts = []
+        if mt in ("video", "image") and width and height:
+            parts.append("%d×%d" % (int(width), int(height)))
         if mt in ("video", "audio") and duration and duration > 0:
             secs = int(round(float(duration)))
             if secs >= 3600:
-                txt = "%d:%02d:%02d" % (secs // 3600, (secs % 3600) // 60, secs % 60)
+                parts.append("%d:%02d:%02d" % (secs // 3600, (secs % 3600) // 60, secs % 60))
             else:
-                txt = "%02d:%02d" % (secs // 60, secs % 60)
-            _paint_chip(painter, deco_rect.right() - m, deco_rect.bottom() - m, txt, (10, 12, 16, 220), "#E7ECF3", align_right=True, align_bottom=True)
-        if mt in ("video", "image") and width and height:
-            _paint_chip(painter, deco_rect.left() + m, deco_rect.bottom() - m, "%d×%d" % (int(width), int(height)), (10, 12, 16, 190), "#A9B2C0", align_bottom=True)
+                parts.append("%02d:%02d" % (secs // 60, secs % 60))
+        if parts:
+            _paint_label(
+                painter, deco_rect.right() - m, deco_rect.bottom() - m, "  ·  ".join(parts),
+                "IBM Plex Mono", 9, False, "#E7ECF3",
+                align_right=True, align_bottom=True, shadow=True)
+
     painter.restore()

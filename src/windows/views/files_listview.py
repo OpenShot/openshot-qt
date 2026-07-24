@@ -85,8 +85,14 @@ class FilesListProgressDelegate(QStyledItemDelegate):
         if not deco_rect.isValid():
             return
 
+        state_mouse_over = getattr(QStyle, "State_MouseOver", None)
+        if state_mouse_over is None:
+            state_flag = getattr(QStyle, "StateFlag", None)
+            state_mouse_over = getattr(state_flag, "State_MouseOver", None) if state_flag else None
+        hovered = bool(state_mouse_over and (option.state & state_mouse_over))
+
         media_type = source_index.sibling(source_index.row(), 3).data(Qt.DisplayRole)
-        paint_media_overlay(painter, deco_rect, media_type)
+        paint_media_overlay(painter, deco_rect, media_type, hovered=hovered)
 
         file_id = source_index.sibling(source_index.row(), 5).data(Qt.DisplayRole)
 
@@ -96,7 +102,8 @@ class FilesListProgressDelegate(QStyledItemDelegate):
                 painter, deco_rect, media_type,
                 duration=float(file_obj2.data.get("duration", 0) or 0),
                 width=int(file_obj2.data.get("width", 0) or 0),
-                height=int(file_obj2.data.get("height", 0) or 0))
+                height=int(file_obj2.data.get("height", 0) or 0),
+                hovered=hovered)
 
         queue = getattr(self.view.win, "generation_queue", None)
         generation_badge = None
@@ -466,6 +473,10 @@ class FilesListView(QListView):
         self.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.setSelectionModel(self.files_model.list_selection_model)
         self.setItemDelegate(FilesListProgressDelegate(self))
+
+        # Enable passive hover tracking so thumbnail overlays can react to mouse-over
+        self.setMouseTracking(True)
+        self.viewport().setMouseTracking(True)
 
         # Keep track of mouse press start position to determine when to start drag
         self.setAcceptDrops(True)
