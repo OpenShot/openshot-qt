@@ -481,8 +481,51 @@ class ProxyService(QObject):
          self._emit_job_change(file_id)
          return True
 
+     def _rewrite_hidden_tracks_in_payload(self, parsed):
+         try:
+             from classes.app import get_app
+             win = get_app().window
+             if not win or not hasattr(win, "timeline"):
+                 return False
+             hidden_layers = set()
+             for track in getattr(win.timeline, "track_list", []):
+                 if isinstance(track.data, dict) and track.data.get("hidden"):
+                     layer_num = track.data.get("number")
+                     if layer_num is not None:
+                         hidden_layers.add(layer_num)
+
+             if not hidden_layers:
+                 return False
+
+             changed = False
+             def _apply_clip_hidden(clip_dict):
+                 if isinstance(clip_dict, dict):
+                     layer = clip_dict.get("layer")
+                     if layer in hidden_layers:
+                         clip_dict["alpha"] = {"value": 0.0}
+                         return True
+                 return False
+
+             if isinstance(parsed, dict):
+                 clips = parsed.get("clips")
+                 if isinstance(clips, list):
+                     for clip in clips:
+                         if _apply_clip_hidden(clip):
+                             changed = True
+             elif isinstance(parsed, list):
+                 for action in parsed:
+                     if isinstance(action, dict):
+                         key = action.get("key")
+                         values = action.get("values")
+                         if isinstance(key, list) and len(key) >= 1 and key[0] == "clips":
+                             if _apply_clip_hidden(values):
+                                 changed = True
+             return changed
+         except Exception:
+             return False
+
      def rewrite_json_for_preview(self, payload):
-         """Return preview-bound JSON/object with proxy readers substituted when available."""
+         """Return preview-bound JSON/object with proxy readers substituted when available and hidden tracks zeroed."""
          original_is_text = isinstance(payload, str)
          if original_is_text:
              try:
@@ -492,14 +535,17 @@ class ProxyService(QObject):
          else:
              parsed = copy.deepcopy(payload)
 
+         hidden_changed = self._rewrite_hidden_tracks_in_payload(parsed)
+
          proxy_lookup, path_lookup = self._proxy_lookup_from_payload(parsed)
          if not proxy_lookup:
              proxy_lookup, path_lookup = self._proxy_lookup_from_project()
-         if not proxy_lookup:
-             return payload
 
-         changed = self._rewrite_payload_in_place(parsed, proxy_lookup, path_lookup)
-         if not changed:
+         changed = False
+         if proxy_lookup:
+             changed = self._rewrite_payload_in_place(parsed, proxy_lookup, path_lookup)
+
+         if not changed and not hidden_changed:
              return payload
          if original_is_text:
              return json.dumps(parsed)

@@ -111,6 +111,8 @@ class ModernTimelineTheme(HumanityDarkTimelineTheme):
         self.track_locked_enabled_icon          = _icon(_c + "track-locked-enabled.svg")
         self.track_unlocked_disabled_icon       = _icon(_c + "track-unlocked-disabled.svg")
         self.track_unlocked_enabled_icon        = _icon(_c + "track-unlocked-enabled.svg")
+        self.track_visible_enabled_icon         = _icon(_c + "track-visible-enabled.svg")
+        self.track_visible_disabled_icon        = _icon(_c + "track-visible-disabled.svg")
 
         self.keyframe_toggle_off_icon = self.track_keyframe_panel_disabled_icon
         self.keyframe_toggle_on_icon  = self.track_keyframe_panel_enabled_icon

@@ -281,8 +281,16 @@ class TrackInteractionMixin:
             track.data["hidden"] = not hidden
             self.geometry.mark_dirty()
             self.update()
-            if hasattr(self.win, "timeline") and hasattr(self.win.timeline, "refresh_timeline"):
-                self.win.timeline.refresh_timeline()
+            if hasattr(self.win, "timeline_sync") and hasattr(self.win.timeline_sync, "timeline"):
+                try:
+                    payload = json.dumps(get_app().project._data)
+                    if hasattr(self.win, "proxy_service"):
+                        payload = self.win.proxy_service.rewrite_json_for_preview(payload)
+                    self.win.timeline_sync.timeline.SetJson(payload)
+                except Exception:
+                    pass
+            if hasattr(self.win, "refreshFrameSignal"):
+                self.win.refreshFrameSignal.emit()
             return
 
         if key == "lock-toggle" and track_id:

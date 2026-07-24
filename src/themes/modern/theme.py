@@ -573,6 +573,28 @@ QLineEdit#filesFilter, QLineEdit#effectsFilter, QLineEdit#transitionsFilter, QLi
     padding: 4px 8px;
 }}
 
+QListView#filesListView,
+QTreeView#filesTreeView,
+QListView#transitionsListView,
+QListView#effectsListView,
+QListView#emojiListView {{
+    font-size: 11px;
+    color: {tokens.palette["text_secondary"]};
+}}
+
+QListView#filesListView::item,
+QTreeView#filesTreeView::item {{
+    color: {tokens.palette["text_secondary"]};
+    font-size: 11px;
+}}
+
+QListView#filesListView::item:selected,
+QTreeView#filesTreeView::item:selected {{
+    color: {tokens.palette["text_primary"]};
+    background-color: {tokens.palette["selected_bg"]};
+}}
+
+
 QLineEdit,
 QSpinBox,
 QDoubleSpinBox {{
@@ -1099,7 +1121,7 @@ QMessageBox QPushButton[text="&{_('Cancel')}"] {{
             {"action": self.app.window.actionJumpEnd, "icon": "themes/modern/images/tool-media-skip-forward.svg", "style": Qt.ToolButtonIconOnly},
             {"expand": True}
         ]
-        self.set_toolbar_buttons(self.app.window.videoToolbar, icon_size=32, settings=toolbar_buttons)
+        self.set_toolbar_buttons(self.app.window.videoToolbar, icon_size=22, settings=toolbar_buttons)
 
         # Nav rail
         from qt_api import QToolBar, QSize, QActionGroup, QByteArray, QPixmap, QPainter
