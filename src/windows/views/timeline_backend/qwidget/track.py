@@ -69,6 +69,9 @@ class TrackInteractionMixin:
             if key == "lock-toggle":
                 variant = pix_info.get("locked") or pix_info.get("unlocked") or {}
                 base_pix = variant.get("enabled") or variant.get("disabled")
+            elif key == "visibility-toggle":
+                variant = pix_info.get("visible") or pix_info.get("hidden") or {}
+                base_pix = variant.get("enabled") or variant.get("disabled")
             else:
                 base_pix = pix_info.get("enabled") or pix_info.get("disabled")
             if not base_pix:
