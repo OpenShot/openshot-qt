@@ -33,6 +33,7 @@ import unittest
 from contextlib import ExitStack
 from unittest.mock import patch
 
+import openshot
 
 PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 if PATH not in sys.path:
@@ -451,6 +452,148 @@ class ProjectDataTests(unittest.TestCase):
         self.assertEqual(tracked["background_alpha"]["Points"][0]["co"]["Y"], 0.8)
         self.assertEqual(tracked["stroke_alpha"]["Points"][0]["co"]["Y"], 0.19999999999999996)
         self.assertEqual(store._data["clips"][1]["parentObjectId"], "obj-1")
+
+    def test_upgrade_migrates_legacy_centered_crop_locations(self):
+        store = make_store()
+        store._data = {
+            "version": {"openshot-qt": "3.5.1", "libopenshot": "0.7.0"},
+            "id": "P1",
+            "width": 1920,
+            "height": 1080,
+            "files": [],
+            "clips": [{
+                "id": "C1",
+                "scale": openshot.SCALE_CROP,
+                "gravity": openshot.GRAVITY_CENTER,
+                "reader": {"width": 1080, "height": 1920},
+                "scale_x": {"Points": [{"co": {"X": 1, "Y": 1.0}}]},
+                "scale_y": {"Points": [{"co": {"X": 1, "Y": 1.0}}]},
+                "location_x": {"Points": [{"co": {"X": 1, "Y": 0.5}}]},
+                "location_y": {"Points": [{"co": {"X": 1, "Y": -0.5}}]},
+                "effects": [],
+            }],
+        }
+
+        ProjectDataStore.upgrade_project_data_structures(store)
+
+        clip = store._data["clips"][0]
+        self.assertAlmostEqual(clip["location_x"]["Points"][0]["co"]["Y"], 0.5)
+        crop_height = 1920 * (1920 / 1080)
+        expected_y = -0.5 * (2 * 1080 / (1080 + crop_height))
+        self.assertAlmostEqual(
+            clip["location_y"]["Points"][0]["co"]["Y"], expected_y
+        )
+
+    def test_upgrade_migrates_crop_locations_for_gravity_and_keyframed_scale(self):
+        store = make_store()
+        store._data = {
+            "version": {"openshot-qt": "3.5.1", "libopenshot": "0.7.0"},
+            "id": "P1",
+            "width": 1920,
+            "height": 1080,
+            "files": [{"id": "F1", "width": 1920, "height": 800}],
+            "clips": [{
+                "id": "C1",
+                "file_id": "F1",
+                "scale": openshot.SCALE_CROP,
+                "gravity": openshot.GRAVITY_TOP_RIGHT,
+                "scale_x": {"Points": [
+                    {"co": {"X": 1, "Y": 1.0}, "interpolation": openshot.LINEAR},
+                    {"co": {"X": 11, "Y": 2.0}, "interpolation": openshot.LINEAR},
+                ]},
+                "scale_y": {"Points": [{"co": {"X": 1, "Y": 1.0}}]},
+                "location_x": {"Points": [
+                    {"co": {"X": 1, "Y": -0.25}},
+                    {"co": {"X": 11, "Y": 0.25}},
+                ]},
+                "location_y": {"Points": [{"co": {"X": 1, "Y": 0.25}}]},
+                "effects": [],
+            }],
+        }
+
+        ProjectDataStore.upgrade_project_data_structures(store)
+
+        clip = store._data["clips"][0]
+        crop_width = 1920 * (1080 / 800)
+        self.assertAlmostEqual(
+            clip["location_x"]["Points"][0]["co"]["Y"], -0.25
+        )
+        self.assertAlmostEqual(
+            clip["location_x"]["Points"][1]["co"]["Y"],
+            0.25 * 1920 / (crop_width * 2.0),
+        )
+        self.assertAlmostEqual(
+            clip["location_y"]["Points"][0]["co"]["Y"], 0.25
+        )
+
+    def test_upgrade_does_not_migrate_new_or_non_crop_locations(self):
+        for libopenshot_version, scale_mode in (
+            ("1.0.0", openshot.SCALE_CROP),
+            ("0.7.0", openshot.SCALE_FIT),
+        ):
+            with self.subTest(
+                libopenshot_version=libopenshot_version,
+                scale_mode=scale_mode,
+            ):
+                store = make_store()
+                store._data = {
+                    "version": {
+                        "openshot-qt": "4.0.0",
+                        "libopenshot": libopenshot_version,
+                    },
+                    "id": "P1",
+                    "width": 1920,
+                    "height": 1080,
+                    "files": [],
+                    "clips": [{
+                        "id": "C1",
+                        "scale": scale_mode,
+                        "gravity": openshot.GRAVITY_CENTER,
+                        "reader": {"width": 1080, "height": 1920},
+                        "location_x": {
+                            "Points": [{"co": {"X": 1, "Y": 0.5}}]
+                        },
+                        "location_y": {
+                            "Points": [{"co": {"X": 1, "Y": -0.5}}]
+                        },
+                        "effects": [],
+                    }],
+                }
+
+                ProjectDataStore.upgrade_project_data_structures(store)
+
+                clip = store._data["clips"][0]
+                self.assertEqual(
+                    clip["location_x"]["Points"][0]["co"]["Y"], 0.5
+                )
+                self.assertEqual(
+                    clip["location_y"]["Points"][0]["co"]["Y"], -0.5
+                )
+
+    def test_upgrade_does_not_remigrate_development_project(self):
+        store = make_store()
+        store._data = {
+            "version": {"openshot-qt": "3.5.1-dev", "libopenshot": "0.7.0"},
+            "id": "P1",
+            "width": 1920,
+            "height": 1080,
+            "files": [],
+            "clips": [{
+                "id": "C1",
+                "scale": openshot.SCALE_CROP,
+                "gravity": openshot.GRAVITY_CENTER,
+                "reader": {"width": 1080, "height": 1920},
+                "location_x": {"Points": [{"co": {"X": 1, "Y": 0.5}}]},
+                "location_y": {"Points": [{"co": {"X": 1, "Y": -0.5}}]},
+                "effects": [],
+            }],
+        }
+
+        ProjectDataStore.upgrade_project_data_structures(store)
+
+        clip = store._data["clips"][0]
+        self.assertEqual(clip["location_x"]["Points"][0]["co"]["Y"], 0.5)
+        self.assertEqual(clip["location_y"]["Points"][0]["co"]["Y"], -0.5)
 
     def test_check_if_paths_are_valid_updates_missing_file_and_syncs_clip_reader(self):
         store = make_store()
