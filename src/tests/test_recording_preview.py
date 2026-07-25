@@ -82,6 +82,29 @@ class RecordingPreviewTests(unittest.TestCase):
             "recording-preview-session-1-source",
         )
 
+    def test_webcam_preview_stop_closes_reader_before_joining_worker(self):
+        helper = self.audio_recording_module
+        released = helper.threading.Event()
+
+        class BlockingReader:
+            def __init__(self):
+                self.closed = False
+
+            def Close(self):
+                self.closed = True
+                released.set()
+
+        reader = BlockingReader()
+        job = helper.WebcamPreviewJob("", 640, 480)
+        job._reader = reader
+        job._thread = helper.threading.Thread(target=released.wait, daemon=True)
+        job._thread.start()
+
+        job.stop()
+
+        self.assertTrue(reader.closed)
+        self.assertFalse(job._thread.is_alive())
+
     def test_xdotool_window_picker_rejects_invalid_window_id(self):
         helper = self.recording_widgets_module
         selected = types.SimpleNamespace(stdout="123;touch /tmp/not-safe\n")

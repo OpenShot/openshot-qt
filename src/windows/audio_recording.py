@@ -646,16 +646,17 @@ class WebcamPreviewJob(QObject):
 
     def stop(self):
         self._stop.set()
-        if self._thread:
-            self._thread.join(timeout=2.0)
-        if self._thread and self._thread.is_alive():
-            log.debug("Webcam preview thread did not stop cleanly")
-            return
+        # Camera GetFrame() can block in a native capture read. Close first to
+        # interrupt that read, then wait for the worker to finish.
         if self._reader:
             try:
                 self._reader.Close()
             except Exception:
                 log.debug("Unable to close webcam preview reader", exc_info=True)
+        if self._thread:
+            self._thread.join(timeout=2.0)
+        if self._thread and self._thread.is_alive():
+            log.debug("Webcam preview thread did not stop cleanly")
 
     def _run(self):
         try:
