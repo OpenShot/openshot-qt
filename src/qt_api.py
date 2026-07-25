@@ -1488,7 +1488,7 @@ def _patch_enums_for_qt6():
 
     text_interaction = getattr(QtCore.Qt, "TextInteractionFlag", None)
     if text_interaction:
-        for name in ("TextBrowserInteraction", "TextSelectableByKeyboard", "TextSelectableByMouse", "LinksAccessibleByMouse", "LinksAccessibleByKeyboard"):
+        for name in ("TextEditorInteraction", "TextBrowserInteraction", "TextSelectableByKeyboard", "TextSelectableByMouse", "LinksAccessibleByMouse", "LinksAccessibleByKeyboard"):
             if hasattr(text_interaction, name) and not hasattr(QtCore.Qt, name):
                 try:
                     setattr(QtCore.Qt, name, getattr(text_interaction, name))
