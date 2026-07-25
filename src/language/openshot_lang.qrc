@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/locale">
-        <file>OpenShot_ady.qm</file>
+                <file>OpenShot_ady.qm</file>
         <file>OpenShot_af.qm</file>
         <file>OpenShot_am.qm</file>
         <file>OpenShot_ar.qm</file>
@@ -59,6 +59,7 @@
         <file>OpenShot_ku.qm</file>
         <file>OpenShot_ky.qm</file>
         <file>OpenShot_la.qm</file>
+        <file>OpenShot_lo.qm</file>
         <file>OpenShot_lt.qm</file>
         <file>OpenShot_lv.qm</file>
         <file>OpenShot_mk.qm</file>

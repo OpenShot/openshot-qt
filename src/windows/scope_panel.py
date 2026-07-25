@@ -59,6 +59,11 @@ _vectorscope_intensity_lut = None
 _vectorscope_label_lut_cache = {}   # size → (6, size*size) float32 numpy array
 
 
+def N_(message):
+    """Mark a deferred UI string for translation without translating at import time."""
+    return message
+
+
 def _settings():
     try:
         from classes.app import get_app
@@ -90,11 +95,13 @@ def _scope_region_icon(size=16):
 
 
 def _make_scope_region_button(parent):
+    from classes.app import get_app
+    _ = get_app()._tr
     button = QToolButton(parent)
     button.setCheckable(True)
     button.setAutoRaise(True)
     button.setIcon(_scope_region_icon())
-    button.setToolTip("Analyze selected preview region")
+    button.setToolTip(_("Analyze selected preview region"))
     button.setFocusPolicy(Qt.NoFocus)
     return button
 
@@ -828,10 +835,12 @@ class AudioMeterWidget(QWidget):
 
 def _make_combo(parent, items):
     """Create a QComboBox from a list of (data_key, display_label) tuples."""
+    from classes.app import get_app
+    _ = get_app()._tr
     cb = QComboBox(parent)
     cb.setSizeAdjustPolicy(QComboBox.AdjustToContents)
     for key, label in items:
-        cb.addItem(label, key)
+        cb.addItem(_(label), key)
     return cb
 
 
@@ -850,17 +859,17 @@ class WaveformDockContent(QWidget):
     renderSettingsChanged = pyqtSignal()
 
     _MODES = [
-        ("luma",        "Luma"),
-        ("rgb_overlay", "RGB Overlay"),
-        ("rgb_parade",  "RGB Parade"),
-        ("red",         "Red"),
-        ("green",       "Green"),
-        ("blue",        "Blue"),
+        ("luma",        N_("Luma")),
+        ("rgb_overlay", N_("RGB Overlay")),
+        ("rgb_parade",  N_("RGB Parade")),
+        ("red",         N_("Red")),
+        ("green",       N_("Green")),
+        ("blue",        N_("Blue")),
     ]
     _COLORS = [
-        ("green",  "Green"),
-        ("white",  "White"),
-        ("orange", "Orange"),
+        ("green",  N_("Green")),
+        ("white",  N_("White")),
+        ("orange", N_("Orange")),
     ]
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -933,15 +942,15 @@ class HistogramDockContent(QWidget):
     scopeRegionToggled = pyqtSignal(bool)
 
     _CHANNELS = [
-        ("rgba",  "All Channels"),
-        ("luma",  "Luma"),
-        ("red",   "Red"),
-        ("green", "Green"),
-        ("blue",  "Blue"),
+        ("rgba",  N_("All Channels")),
+        ("luma",  N_("Luma")),
+        ("red",   N_("Red")),
+        ("green", N_("Green")),
+        ("blue",  N_("Blue")),
     ]
     _SCALES = [
-        ("log",    "Logarithmic"),
-        ("linear", "Linear"),
+        ("log",    N_("Logarithmic")),
+        ("linear", N_("Linear")),
     ]
 
     def __init__(self, parent=None):
@@ -998,9 +1007,9 @@ class VectorscopeDockContent(QWidget):
     renderSettingsChanged = pyqtSignal()
 
     _DISPLAYS = [
-        ("colorized", "Colorized"),
-        ("density", "Density"),
-        ("intensity", "Intensity"),
+        ("colorized", N_("Colorized")),
+        ("density", N_("Density")),
+        ("intensity", N_("Intensity")),
     ]
     _ZOOMS = [
         ("100", "100%"),

@@ -5343,6 +5343,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Load UI from designer
         self.selected_items = []
         ui_util.load_ui(self, self.ui_path)
+        self.actionFullscreen.setText(_("Fullscreen"))
+        self.actionColor_Grade_View.setText(_("Color View"))
 
         # Init UI
         ui_util.init_ui(self)

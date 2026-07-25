@@ -1259,8 +1259,10 @@ class AudioRecordingDockContent(QWidget):
                 self.screen_y_spin.setValue(int(source.get("y") or 0))
                 self.screen_width_spin.setValue(width)
                 self.screen_height_spin.setValue(height)
-                label = get_app()._tr("All screens: %sx%s") if source.get("all") else get_app()._tr("Full screen: %sx%s")
-                self.screen_status_label.setText(label % (width, height))
+                label = (get_app()._tr("All screens: %(width)sx%(height)s")
+                         if source.get("all")
+                         else get_app()._tr("Full screen: %(width)sx%(height)s"))
+                self.screen_status_label.setText(label % {"width": width, "height": height})
                 return
 
         root_x, root_y, root_width, root_height = screen_root_geometry()
@@ -1269,7 +1271,9 @@ class AudioRecordingDockContent(QWidget):
             self.screen_y_spin.setValue(int(root_y or 0))
             self.screen_width_spin.setValue(int(root_width))
             self.screen_height_spin.setValue(int(root_height))
-            self.screen_status_label.setText(get_app()._tr("Full screen: %sx%s") % (root_width, root_height))
+            self.screen_status_label.setText(
+                get_app()._tr("Full screen: %(width)sx%(height)s")
+                % {"width": root_width, "height": root_height})
             return
         try:
             screen = QApplication.primaryScreen()
@@ -1279,7 +1283,9 @@ class AudioRecordingDockContent(QWidget):
                 self.screen_y_spin.setValue(int(geometry.y()))
                 self.screen_width_spin.setValue(int(geometry.width()))
                 self.screen_height_spin.setValue(int(geometry.height()))
-                self.screen_status_label.setText(get_app()._tr("Full screen: %sx%s") % (geometry.width(), geometry.height()))
+                self.screen_status_label.setText(
+                    get_app()._tr("Full screen: %(width)sx%(height)s")
+                    % {"width": geometry.width(), "height": geometry.height()})
                 return
         except Exception:
             pass
@@ -1314,6 +1320,7 @@ class AudioRecordingDockContent(QWidget):
         self.window_button.setChecked(True)
         self.full_screen_button.setChecked(False)
         self.region_button.setChecked(False)
+        QApplication.processEvents()
         self._set_hide_openshot_default(False)
         hidden_state = self._hide_openshot_for_picker()
         try:
@@ -1323,7 +1330,10 @@ class AudioRecordingDockContent(QWidget):
         if result:
             x, y, width, height = result[:4]
             self._screen_window_id = str(result[4]) if len(result) > 4 and result[4] else ""
-            self._set_screen_target(x, y, width, height, get_app()._tr("Window: %sx%s") % (width, height))
+            self._set_screen_target(
+                x, y, width, height,
+                get_app()._tr("Window: %(width)sx%(height)s")
+                % {"width": width, "height": height})
         else:
             self._screen_window_id = ""
             self.screen_status_label.setText(get_app()._tr("Window selection canceled."))
@@ -1335,6 +1345,7 @@ class AudioRecordingDockContent(QWidget):
         self.region_button.setChecked(True)
         self.full_screen_button.setChecked(False)
         self.window_button.setChecked(False)
+        QApplication.processEvents()
         self._screen_window_id = ""
         self._set_hide_openshot_default(False)
         hidden_state = self._hide_openshot_for_picker()
@@ -1344,7 +1355,10 @@ class AudioRecordingDockContent(QWidget):
             self._restore_openshot_window(hidden_state)
         if result:
             x, y, width, height = result
-            self._set_screen_target(x, y, width, height, get_app()._tr("Region: %sx%s") % (width, height))
+            self._set_screen_target(
+                x, y, width, height,
+                get_app()._tr("Region: %(width)sx%(height)s")
+                % {"width": width, "height": height})
         else:
             self.screen_status_label.setText(get_app()._tr("Region selection canceled."))
 
