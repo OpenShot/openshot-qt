@@ -64,6 +64,10 @@ github_release = None
 windows_32bit = False
 version_info = {}
 windows_mode = "full"
+LINUX_PORTAL_THEME_PLUGIN = (
+    "/usr/lib/x86_64-linux-gnu/qt5/plugins/platformthemes/"
+    "libqxdgdesktopportal.so"
+)
 
 # Create temp log
 os.makedirs(os.path.join(PATH, 'build'), exist_ok=True)
@@ -83,6 +87,25 @@ def output(line):
         # Append missing line return (if needed)
         line += "\n"
     log.write(line)
+
+
+def install_linux_portal_theme(app_dir_path):
+    """Bundle Qt's XDG desktop portal platform theme in the AppImage."""
+    if not os.path.isfile(LINUX_PORTAL_THEME_PLUGIN):
+        raise FileNotFoundError(
+            "Missing Qt XDG desktop portal plugin: %s\n"
+            "Install it on the build server with:\n"
+            "  sudo apt-get install qt5-xdgdesktopportal-platformtheme"
+            % LINUX_PORTAL_THEME_PLUGIN
+        )
+
+    plugin_dir = os.path.join(
+        app_dir_path, "usr", "bin", "platformthemes")
+    os.makedirs(plugin_dir, exist_ok=True)
+    plugin_path = os.path.join(
+        plugin_dir, os.path.basename(LINUX_PORTAL_THEME_PLUGIN))
+    shutil.copy2(LINUX_PORTAL_THEME_PLUGIN, plugin_path)
+    output("Bundled Qt XDG desktop portal plugin: %s" % plugin_path)
 
 
 def run_command(command, working_dir=None):
@@ -747,6 +770,9 @@ def main():
             # Copy the entire frozen app
             shutil.copytree(os.path.join(PATH, "build", exe_dir),
                             os.path.join(app_dir_path, "usr", "bin"))
+
+            # Prefer the desktop's native file picker through XDG portals.
+            install_linux_portal_theme(app_dir_path)
 
             # Copy .desktop file, replacing Exec= commandline
             desk_in = os.path.join(PATH, "xdg", "org.openshot.OpenShot.desktop")
