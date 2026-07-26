@@ -3395,6 +3395,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         """ Switch to the default / simple view  """
         self._set_active_custom_view_id("")
         self._set_active_builtin_view("simple")
+        self._apply_simple_view_layout()
+
+    def _apply_simple_view_layout(self):
+        """Apply the shared Simple View dock topology."""
         self.removeDocks()
 
         # Add Docks
@@ -3484,28 +3488,16 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             QTimer.singleShot(0, _resize_right_column)
 
     def actionAudio_Recording_View_trigger(self):
-        """Switch to a recording focused view."""
+        """Show the Simple View layout with Recording docked on the right."""
         self._set_active_custom_view_id("")
         self._set_active_builtin_view("recording")
         self._ensure_audio_recording_dock_content()
-        self.removeDocks()
-
-        self.addDocks([self.dockFiles, self.dockProperties], Qt.LeftDockWidgetArea)
-        self.addDocks([self.dockVideo], Qt.TopDockWidgetArea)
+        self._apply_simple_view_layout()
         self.addDocks([self.dockAudioRecording], Qt.RightDockWidgetArea)
-        self.tabifyDockWidget(self.dockFiles, self.dockProperties)
-        self.dockProperties.hide()
-        self.splitDockWidget(self.dockVideo, self.dockTimeline, Qt.Vertical)
         self.setTabPosition(Qt.RightDockWidgetArea, QTabWidget.North)
-        self.setTabPosition(Qt.LeftDockWidgetArea, QTabWidget.North)
 
         self.floatDocks(False)
-        self.showDocks([
-            self.dockFiles,
-            self.dockVideo,
-            self.dockTimeline,
-            self.dockAudioRecording,
-        ])
+        self.showDocks([self.dockAudioRecording])
         self.dockAudioRecording.raise_()
         self.style_dock_widgets()
 
@@ -4378,30 +4370,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         hidden_names = get_app().get_settings().get('hidden_docks') or []
         self._restore_hidden_docks(hidden_names)
         self._apply_saved_dock_sizes()
-        if self._active_builtin_view() == "recording":
-            QTimer.singleShot(250, self._repair_recording_view_split)
-
-    def _repair_recording_view_split(self):
-        """Restore Recording View's adjustable Video/Timeline vertical split."""
-        if self._active_builtin_view() != "recording":
-            return
-        video_dock = getattr(self, "dockVideo", None)
-        timeline_dock = getattr(self, "dockTimeline", None)
-        if not video_dock or not timeline_dock:
-            return
-        if video_dock.isFloating():
-            video_dock.setFloating(False)
-        if timeline_dock.isFloating():
-            timeline_dock.setFloating(False)
-        if self.dockWidgetArea(video_dock) == Qt.NoDockWidgetArea:
-            self.addDockWidget(Qt.TopDockWidgetArea, video_dock)
-        if self.dockWidgetArea(timeline_dock) == Qt.NoDockWidgetArea:
-            self.addDockWidget(Qt.BottomDockWidgetArea, timeline_dock)
-        self.splitDockWidget(video_dock, timeline_dock, Qt.Vertical)
-        video_dock.show()
-        timeline_dock.show()
-        self._apply_saved_timeline_height()
-        self.style_dock_widgets()
 
     @staticmethod
     def _positive_int(value):

@@ -9,7 +9,7 @@ import sys
 import tempfile
 import types
 import unittest
-from unittest.mock import patch
+from unittest.mock import MagicMock, call, patch
 
 
 PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
@@ -81,6 +81,91 @@ class RecordingPreviewTests(unittest.TestCase):
             helper.recording_preview_file_id("session-1", ""),
             "recording-preview-session-1-source",
         )
+
+    def test_recording_dock_starts_with_microphone_unselected(self):
+        helper = self.audio_recording_module
+        content_class = helper.AudioRecordingDockContent
+        with patch.object(content_class, "_sync_source_availability"), \
+                patch.object(content_class, "_webcam_layout_changed"), \
+                patch.object(content_class, "_sync_backend_state"):
+            dock = content_class(types.SimpleNamespace())
+        try:
+            self.assertFalse(dock.mic_card.isChecked())
+            self.assertFalse(dock.mic_section.property("active"))
+            self.assertFalse(dock.mic_section.advanced_button.isEnabled())
+        finally:
+            dock.deleteLater()
+
+    def test_recording_dock_idle_activation_skips_device_discovery(self):
+        helper = self.audio_recording_module
+        dock = types.SimpleNamespace(
+            _activation_pending=True,
+            mic_card=types.SimpleNamespace(isChecked=lambda: False),
+            camera_card=types.SimpleNamespace(isChecked=lambda: False),
+            _dock_visible=lambda: True,
+            refresh_tracks=MagicMock(),
+            _sync_backend_state=MagicMock(),
+            _refresh_source_devices=MagicMock(),
+            _ensure_monitoring=MagicMock(),
+            _restart_webcam_preview=MagicMock(),
+        )
+
+        helper.AudioRecordingDockContent._activate_after_show(dock)
+
+        self.assertFalse(dock._activation_pending)
+        dock.refresh_tracks.assert_called_once_with()
+        dock._refresh_source_devices.assert_called_once_with(
+            microphone=False,
+            camera=False,
+        )
+        dock._ensure_monitoring.assert_called_once_with()
+        dock._restart_webcam_preview.assert_called_once_with()
+
+    def test_recording_source_discovery_runs_only_for_requested_source(self):
+        helper = self.audio_recording_module
+        dock = types.SimpleNamespace(
+            _set_wait_cursor=MagicMock(),
+            refresh_devices=MagicMock(),
+            _sync_channel_options=MagicMock(),
+            refresh_cameras=MagicMock(),
+        )
+
+        helper.AudioRecordingDockContent._refresh_source_devices(
+            dock, microphone=True
+        )
+
+        dock.refresh_devices.assert_called_once_with()
+        dock._sync_channel_options.assert_called_once_with()
+        dock.refresh_cameras.assert_not_called()
+        self.assertEqual(
+            dock._set_wait_cursor.call_args_list,
+            [call(True), call(False)],
+        )
+
+    def test_webcam_source_stays_selectable_until_lazy_discovery_runs(self):
+        helper = self.audio_recording_module
+        dock = types.SimpleNamespace(
+            mic_card=types.SimpleNamespace(setAvailable=MagicMock()),
+            screen_card=types.SimpleNamespace(setAvailable=MagicMock()),
+            camera_card=types.SimpleNamespace(setAvailable=MagicMock()),
+            _screen_backend_available=lambda: False,
+            _camera_backend_available=lambda: True,
+            _camera_device_available=lambda: False,
+            _sync_screen_backend_ui=MagicMock(),
+            _camera_devices_refreshed=False,
+        )
+
+        helper.AudioRecordingDockContent._sync_source_availability(dock)
+
+        dock.camera_card.setAvailable.assert_called_once_with(True, "")
+
+        dock.camera_card.setAvailable.reset_mock()
+        dock._camera_devices_refreshed = True
+        helper.AudioRecordingDockContent._sync_source_availability(dock)
+
+        available, tooltip = dock.camera_card.setAvailable.call_args.args
+        self.assertFalse(available)
+        self.assertIn("No webcam", tooltip)
 
     def test_webcam_preview_stop_closes_reader_before_joining_worker(self):
         helper = self.audio_recording_module

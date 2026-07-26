@@ -714,6 +714,7 @@ class AudioRecordingDockContent(QWidget):
         self._tray_status = TrayStatus(self)
         self._camera_modes = {}
         self._camera_mode_formats = {}
+        self._camera_devices_refreshed = False
         self._recording_path = ""
         self._recording_sources = []
         self._recorded_duration = 0.0
@@ -768,7 +769,7 @@ class AudioRecordingDockContent(QWidget):
         self.mic_card = RecordingSourceCard(_("Mic"), _("Record your voice"), "🎙", self)
         self.screen_card = RecordingSourceCard(_("Screen"), _("Capture your screen"), "▣", self)
         self.camera_card = RecordingSourceCard(_("Webcam"), _("Record yourself"), "◉", self)
-        self.mic_card.setChecked(True)
+        self.mic_card.setChecked(False)
         source_grid.addWidget(self.mic_card, 0, 0)
         source_grid.addWidget(self.screen_card, 0, 1)
         source_grid.addWidget(self.camera_card, 0, 2)
@@ -1108,10 +1109,13 @@ class AudioRecordingDockContent(QWidget):
         self.screen_card.setAvailable(screen_available, screen_tip)
 
         camera_backend_available = self._camera_backend_available()
-        camera_available = camera_backend_available and self._camera_device_available()
+        camera_discovered = getattr(self, "_camera_devices_refreshed", False)
+        camera_available = camera_backend_available and (
+            not camera_discovered or self._camera_device_available()
+        )
         if not camera_backend_available:
             camera_tip = _("Webcam recording is not available for this platform or libopenshot build.")
-        elif not camera_available:
+        elif camera_discovered and not camera_available:
             camera_tip = _("No webcam device was found.")
         else:
             camera_tip = ""
@@ -1157,10 +1161,29 @@ class AudioRecordingDockContent(QWidget):
             self.screen_status_label.setText(_("Windows screen recording uses full screen or numeric region bounds."))
 
     def _source_toggled(self):
+        source = self.sender()
+        if source is self.mic_card and self.mic_card.isChecked():
+            self._refresh_source_devices(microphone=True)
+        elif source is self.camera_card and self.camera_card.isChecked():
+            self._refresh_source_devices(camera=True)
         self._sync_webcam_layout_defaults()
         self._sync_source_sections()
         self._restart_monitoring()
         self._restart_webcam_preview()
+
+    def _refresh_source_devices(self, microphone=False, camera=False):
+        """Discover devices only for recording sources the user selected."""
+        if not microphone and not camera:
+            return
+        self._set_wait_cursor(True)
+        try:
+            if microphone:
+                self.refresh_devices()
+                self._sync_channel_options()
+            if camera:
+                self.refresh_cameras()
+        finally:
+            self._set_wait_cursor(False)
 
     def _sync_source_sections(self):
         self.mic_section.setActive(self.mic_card.isChecked())
@@ -1525,6 +1548,7 @@ class AudioRecordingDockContent(QWidget):
 
     def refresh_cameras(self):
         _ = get_app()._tr
+        self._camera_devices_refreshed = True
         current = self.camera_combo.currentData() if hasattr(self, "camera_combo") else None
         self.camera_combo.blockSignals(True)
         self.camera_combo.clear()
@@ -2912,20 +2936,19 @@ class AudioRecordingDockContent(QWidget):
         self._activation_pending = False
         if not self._dock_visible():
             return
-        self._set_wait_cursor(True)
         started = time.monotonic()
         try:
-            self.refresh_devices()
-            self.refresh_cameras()
             self.refresh_tracks()
-            self._sync_channel_options()
             self._sync_backend_state()
+            self._refresh_source_devices(
+                microphone=self.mic_card.isChecked(),
+                camera=self.camera_card.isChecked(),
+            )
             if self._dock_visible():
                 self._ensure_monitoring()
                 self._restart_webcam_preview()
         finally:
             log.debug("Recording dock activation took %.3fs", time.monotonic() - started)
-            self._set_wait_cursor(False)
 
     def hideEvent(self, event):
         if self._hiding_openshot_window:
