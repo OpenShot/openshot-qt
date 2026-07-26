@@ -4363,13 +4363,14 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             self.saved_video_dock_width = video_dock.width()
 
     def _restore_state_and_dock_sizes(self):
-        """Restore saved dock state and then apply stable logical dock sizes."""
+        """Restore the complete Qt dock topology from one authoritative state."""
         if self.saved_state:
             self.restoreState(self.saved_state)
         # Re-apply removed-dock state that Qt's saveState/restoreState doesn't preserve.
         hidden_names = get_app().get_settings().get('hidden_docks') or []
         self._restore_hidden_docks(hidden_names)
-        self._apply_saved_dock_sizes()
+        QTimer.singleShot(0, self._apply_saved_dock_sizes)
+        QTimer.singleShot(250, self._apply_saved_dock_sizes)
 
     @staticmethod
     def _positive_int(value):
@@ -4381,40 +4382,48 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         return value if value > 0 else None
 
     def _force_dock_extent_once(self, dock, size, orientation):
-        """Force one saved logical dock splitter extent, then restore flexibility."""
+        """Temporarily constrain a dock extent, safely coalescing repeated calls."""
         if not dock:
             return
         size = self._positive_int(size)
         if not size:
             return
+        pending = getattr(self, "_pending_dock_extent_restores", None)
+        if pending is None:
+            pending = {}
+            self._pending_dock_extent_restores = pending
+
         if orientation == Qt.Horizontal:
             size = min(size, max(160, int(self.width() * 0.85)))
             current = dock.width()
-            old_min = dock.minimumWidth()
-            old_max = dock.maximumWidth()
+            get_limits = lambda: (dock.minimumWidth(), dock.maximumWidth())
             set_fixed = dock.setFixedWidth
-            restore = lambda: (dock.setMinimumWidth(old_min), dock.setMaximumWidth(old_max))
+            restore = lambda limits: (
+                dock.setMinimumWidth(limits[0]),
+                dock.setMaximumWidth(limits[1]),
+            )
         else:
             size = min(size, max(100, int(self.height() * 0.85)))
             current = dock.height()
-            old_min = dock.minimumHeight()
-            old_max = dock.maximumHeight()
+            get_limits = lambda: (dock.minimumHeight(), dock.maximumHeight())
             set_fixed = dock.setFixedHeight
-            restore = lambda: (dock.setMinimumHeight(old_min), dock.setMaximumHeight(old_max))
-        if current != size:
-            set_fixed(size)
-            QTimer.singleShot(0, restore)
+            restore = lambda limits: (
+                dock.setMinimumHeight(limits[0]),
+                dock.setMaximumHeight(limits[1]),
+            )
 
-    def _apply_saved_dock_sizes(self):
-        """Apply saved logical sizes for docks Qt state commonly drifts."""
-        self._force_dock_extent_once(
-            getattr(self, "dockTimeline", None),
-            self.saved_timeline_height,
-            Qt.Vertical)
-        self._force_dock_extent_once(
-            getattr(self, "dockVideo", None),
-            self.saved_video_dock_width,
-            Qt.Horizontal)
+        if current == size and dock not in pending:
+            return
+        if dock not in pending:
+            pending[dock] = get_limits()
+
+            def restore_flexibility():
+                limits = pending.pop(dock, None)
+                if limits is not None:
+                    restore(limits)
+
+            QTimer.singleShot(0, restore_flexibility)
+        set_fixed(size)
 
     def _apply_saved_timeline_height(self):
         """Apply the saved timeline dock height."""
@@ -4422,6 +4431,33 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             getattr(self, "dockTimeline", None),
             self.saved_timeline_height,
             Qt.Vertical)
+
+    def _apply_saved_dock_sizes(self):
+        """Restore complete splitter groups after fractional-scale state restore."""
+        if self._active_builtin_view() not in {"simple", "recording"}:
+            return
+        files = getattr(self, "dockFiles", None)
+        video = getattr(self, "dockVideo", None)
+        timeline = getattr(self, "dockTimeline", None)
+        video_width = self._positive_int(self.saved_video_dock_width)
+        timeline_height = self._positive_int(self.saved_timeline_height)
+
+        if files and video and video_width:
+            total_width = files.width() + video.width()
+            files_width = max(1, total_width - video_width)
+            self.resizeDocks(
+                [files, video],
+                [files_width, video_width],
+                Qt.Horizontal,
+            )
+        if video and timeline and timeline_height:
+            total_height = video.height() + timeline.height()
+            video_height = max(1, total_height - timeline_height)
+            self.resizeDocks(
+                [video, timeline],
+                [video_height, timeline_height],
+                Qt.Vertical,
+            )
 
     def show_property_timeout(self):
         """Callback for show property timer"""
@@ -5649,12 +5685,13 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         theme = get_app().theme_manager.apply_theme(theme_name)
         s.set("theme", theme.name)
 
+        # Restore geometry and dock topology before the first show. Restoring a
+        # serialized dock state after a fractionally-scaled window is visible
+        # causes Qt to reinterpret its splitter sizes on every launch.
+        self._restore_saved_window()
+
         # Save settings
         s.save()
-
-        # Re-apply saved logical dock sizes after theme settles (theme changes dock sizes)
-        QTimer.singleShot(0, self._apply_saved_dock_sizes)
-        QTimer.singleShot(250, self._apply_saved_dock_sizes)
 
         # Refresh frame
         QTimer.singleShot(100, lambda: self.refreshFrameSignal.emit())
