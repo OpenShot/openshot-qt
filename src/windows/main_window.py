@@ -4967,6 +4967,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             "actionAddMarker",
             "actionSnappingTool",
             "actionTimingTool",
+            "actionProperties",
             "actionJumpStart",
             "actionJumpEnd",
             "actionRippleSliceKeepLeft",

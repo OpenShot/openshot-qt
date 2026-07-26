@@ -44,7 +44,7 @@ PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 if PATH not in sys.path:
     sys.path.append(PATH)
 
-from qt_api import QByteArray, QCoreApplication, Qt
+from qt_api import QByteArray, QCoreApplication, QEvent, QKeySequence, Qt
 from qt_api import QApplication, QDockWidget, QMainWindow, QMenu, QStandardItem, QStandardItemModel
 
 from classes.project_data import ProjectDataStore
@@ -349,6 +349,32 @@ class MainWindowTests(unittest.TestCase):
         store.set("unknown", 2)
 
         self.assertEqual(store.get("known"), 1)
+
+    def test_project_files_focus_blocks_properties_shortcut_for_keyboard_search(self):
+        event = types.SimpleNamespace(
+            type=lambda: QEvent.ShortcutOverride,
+            modifiers=lambda: Qt.NoModifier,
+            key=lambda: Qt.Key_U,
+            accept=MagicMock(),
+        )
+        inactive_view = types.SimpleNamespace(hasFocus=lambda: False)
+        window = types.SimpleNamespace(
+            focusWidget=lambda: object(),
+            _blocks_timeline_shortcuts=lambda _widget: False,
+            emojiListView=inactive_view,
+            filesView=types.SimpleNamespace(hasFocus=lambda: True),
+            transitionsView=inactive_view,
+            effectsView=inactive_view,
+            getShortcutByName=lambda name: (
+                [QKeySequence("U")] if name == "actionProperties" else []
+            ),
+        )
+        self.app.window = window
+
+        handled = self.main_window_module.MainWindow.eventFilter(window, None, event)
+
+        self.assertTrue(handled)
+        event.accept.assert_called_once_with()
 
     def test_apply_saved_dock_sizes_restores_video_width_and_timeline_height(self):
         timeline_dock = FakeDock("dockTimeline", height=140, area=Qt.BottomDockWidgetArea)
