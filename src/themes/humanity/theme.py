@@ -63,6 +63,84 @@ QLabel#lblMissingFileHint,
 QLabel#lblMissingFilePath {
     color: #b8b8b8;
 }
+
+QFrame#recordingCard {
+    background-color: #303030;
+    border: 1px solid #555b63;
+    border-radius: 8px;
+}
+QFrame#recordingCard[checked="true"] {
+    background-color: #3a4655;
+    border: 2px solid #2f8cff;
+}
+QFrame#recordingCard[available="false"] {
+    background-color: #292929;
+    border: 1px solid #454545;
+}
+QLabel#recordingCardIcon {
+    color: #70adf5;
+    font-size: 22px;
+}
+QLabel#recordingCardTitle {
+    color: #f1f1f1;
+    font-size: 14px;
+    font-weight: 700;
+}
+QLabel#recordingCardSubtitle {
+    color: #b8bec8;
+    font-size: 11px;
+}
+QFrame#recordingSection {
+    background-color: #292929;
+    border: 1px solid #50555c;
+    border-radius: 8px;
+}
+QFrame#recordingSection[active="true"] {
+    border-color: #4779b8;
+}
+QFrame#recordingSection[active="false"] {
+    background-color: #252525;
+    color: #858b94;
+}
+QLabel#recordingSectionIcon {
+    color: #78aef0;
+    font-size: 16px;
+}
+QLabel#recordingSectionTitle {
+    color: #f1f1f1;
+    font-weight: 700;
+}
+QPushButton#recordingAdvancedLink {
+    color: #4f9aff;
+    border: none;
+    padding: 0;
+    text-align: right;
+}
+QPushButton#recordingAdvancedLink:hover {
+    color: #b8d7ff;
+    text-decoration: underline;
+}
+QPushButton#recordingSegment {
+    color: #d0d3d8;
+    background-color: #303030;
+    border: 1px solid #555b63;
+    border-radius: 6px;
+    padding: 7px 10px;
+}
+QPushButton#recordingSegment[position="left"] {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+QPushButton#recordingSegment[position="right"] {
+    border-left: none;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+QPushButton#recordingSegment:checked {
+    color: #a9d0ff;
+    background-color: #3a526f;
+    border: 1px solid #2f8cff;
+}
         """
 
     def apply_theme(self):
@@ -112,6 +190,84 @@ QWidget#videoPreview {
 QLabel#lblMissingFileHint,
 QLabel#lblMissingFilePath {
     color: #5a5a5a;
+}
+
+QFrame#recordingCard {
+    background-color: #e5e7ea;
+    border: 1px solid #a5abb3;
+    border-radius: 8px;
+}
+QFrame#recordingCard[checked="true"] {
+    background-color: #d7e8fb;
+    border: 2px solid #287dcc;
+}
+QFrame#recordingCard[available="false"] {
+    background-color: #ededed;
+    border: 1px solid #c4c4c4;
+}
+QLabel#recordingCardIcon {
+    color: #287dcc;
+    font-size: 22px;
+}
+QLabel#recordingCardTitle {
+    color: #25282d;
+    font-size: 14px;
+    font-weight: 700;
+}
+QLabel#recordingCardSubtitle {
+    color: #586473;
+    font-size: 11px;
+}
+QFrame#recordingSection {
+    background-color: #eeeeee;
+    border: 1px solid #a9adb3;
+    border-radius: 8px;
+}
+QFrame#recordingSection[active="true"] {
+    border-color: #4a8fca;
+}
+QFrame#recordingSection[active="false"] {
+    background-color: #e4e4e4;
+    color: #777d84;
+}
+QLabel#recordingSectionIcon {
+    color: #287dcc;
+    font-size: 16px;
+}
+QLabel#recordingSectionTitle {
+    color: #25282d;
+    font-weight: 700;
+}
+QPushButton#recordingAdvancedLink {
+    color: #176fba;
+    border: none;
+    padding: 0;
+    text-align: right;
+}
+QPushButton#recordingAdvancedLink:hover {
+    color: #0c4f89;
+    text-decoration: underline;
+}
+QPushButton#recordingSegment {
+    color: #30343a;
+    background-color: #f7f7f7;
+    border: 1px solid #a9adb3;
+    border-radius: 6px;
+    padding: 7px 10px;
+}
+QPushButton#recordingSegment[position="left"] {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+QPushButton#recordingSegment[position="right"] {
+    border-left: none;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+QPushButton#recordingSegment:checked {
+    color: #155f9e;
+    background-color: #d7e8fb;
+    border: 1px solid #287dcc;
 }
 
 QComboBox {

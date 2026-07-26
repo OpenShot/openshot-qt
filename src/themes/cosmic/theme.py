@@ -83,6 +83,84 @@ QLabel#lblMissingFilePath {
     color: #9bb2cc;
 }
 
+QFrame#recordingCard {
+    background-color: rgba(20, 31, 48, 190);
+    border: 1px solid rgba(70, 134, 230, 110);
+    border-radius: 8px;
+}
+QFrame#recordingCard[checked="true"] {
+    border: 2px solid #2f8cff;
+    background-color: rgba(26, 58, 105, 170);
+}
+QFrame#recordingCard[available="false"] {
+    border: 1px solid rgba(80, 91, 110, 90);
+    background-color: rgba(20, 25, 34, 120);
+}
+QLabel#recordingCardIcon {
+    color: #7db7ff;
+    font-size: 22px;
+}
+QLabel#recordingCardTitle {
+    color: #f4f7ff;
+    font-size: 14px;
+    font-weight: 700;
+}
+QLabel#recordingCardSubtitle {
+    color: #9aa8bd;
+    font-size: 11px;
+}
+QFrame#recordingSection {
+    background-color: rgba(13, 24, 38, 165);
+    border: 1px solid rgba(83, 105, 134, 95);
+    border-radius: 8px;
+}
+QFrame#recordingSection[active="true"] {
+    border: 1px solid rgba(70, 141, 255, 125);
+}
+QFrame#recordingSection[active="false"] {
+    color: #6f7b8d;
+    background-color: rgba(15, 20, 28, 95);
+}
+QLabel#recordingSectionIcon {
+    color: #8fbfff;
+    font-size: 16px;
+}
+QLabel#recordingSectionTitle {
+    color: #f4f7ff;
+    font-weight: 700;
+}
+QPushButton#recordingAdvancedLink {
+    color: #4f9aff;
+    border: none;
+    padding: 0;
+    text-align: right;
+}
+QPushButton#recordingAdvancedLink:hover {
+    color: #b8d7ff;
+    text-decoration: underline;
+}
+QPushButton#recordingSegment {
+    border: 1px solid rgba(83, 105, 134, 120);
+    border-radius: 6px;
+    padding: 7px 10px;
+    color: #c4cedd;
+    background-color: rgba(14, 25, 40, 170);
+}
+QPushButton#recordingSegment[position="left"] {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+QPushButton#recordingSegment[position="right"] {
+    border-left: none;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+QPushButton#recordingSegment:checked {
+    color: #9dccff;
+    border: 1px solid #2f8cff;
+    background-color: rgba(40, 94, 170, 135);
+}
+
 QWidget#Simple, QWidget#Advanced, QWidget#PreferencePanel {
     background-color: #141923;
     border: none;

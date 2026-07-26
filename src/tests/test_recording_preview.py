@@ -82,6 +82,27 @@ class RecordingPreviewTests(unittest.TestCase):
             "recording-preview-session-1-source",
         )
 
+    def test_recording_styles_are_owned_by_application_themes(self):
+        from themes.cosmic.theme import CosmicTheme
+        from themes.humanity.theme import HumanityDarkTheme, Retro
+
+        cosmic = CosmicTheme(self.app).style_sheet
+        humanity = HumanityDarkTheme(self.app).style_sheet
+        retro = Retro(self.app).style_sheet
+
+        self.assertIn("QFrame#recordingCard", cosmic)
+        self.assertIn("background-color: #303030", humanity)
+        self.assertIn("background-color: #e5e7ea", retro)
+
+        card = self.recording_widgets_module.RecordingSourceCard("Mic", "Voice", "M")
+        section = self.recording_widgets_module.RecordingSection("Mic", "M")
+        try:
+            self.assertEqual(card.styleSheet(), "")
+            self.assertEqual(section.styleSheet(), "")
+        finally:
+            card.deleteLater()
+            section.deleteLater()
+
     def test_recording_dock_starts_with_microphone_unselected(self):
         helper = self.audio_recording_module
         content_class = helper.AudioRecordingDockContent
