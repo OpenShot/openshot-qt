@@ -42,7 +42,8 @@ import threading
 
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 from qt_api import (
-    Qt, pyqtSignal, pyqtSlot, QCoreApplication, QTimer, QDateTime, QFileInfo, QEvent, QUrl, QLocale
+    QT_API, Qt, pyqtSignal, pyqtSlot, QCoreApplication, QTimer, QDateTime,
+    QFileInfo, QEvent, QUrl, QLocale
 )
 from qt_api import QIcon, QCursor, QKeySequence, QTextCursor
 from qt_api import show_open_file_dialog, show_save_file_dialog, file_exists, ensure_extension, path_basename
@@ -4354,6 +4355,11 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         if self.saved_state:
             self._restore_state_and_dock_sizes()
 
+    def _restore_saved_window_before_show(self):
+        """Restore early on Qt 5; Qt 6 restores safely from showEvent()."""
+        if QT_API == "pyqt5":
+            self._restore_saved_window()
+
     def _capture_missing_dock_size_fallbacks(self):
         """Use the initial shown layout as a fallback for newly introduced dock sizes."""
         video_dock = getattr(self, "dockVideo", None)
@@ -5685,10 +5691,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         theme = get_app().theme_manager.apply_theme(theme_name)
         s.set("theme", theme.name)
 
-        # Restore geometry and dock topology before the first show. Restoring a
-        # serialized dock state after a fractionally-scaled window is visible
-        # causes Qt to reinterpret its splitter sizes on every launch.
-        self._restore_saved_window()
+        # Qt 5 needs pre-show restoration to avoid fractional-scale dock drift.
+        # Qt 6 can crash while activating a dock layout restored before the
+        # main window has been shown, so showEvent() schedules its restoration.
+        self._restore_saved_window_before_show()
 
         # Save settings
         s.save()

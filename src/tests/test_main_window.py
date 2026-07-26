@@ -434,6 +434,26 @@ class MainWindowTests(unittest.TestCase):
 
         self.assertEqual(fake_window.saved_video_dock_width, 540)
 
+    def test_qt5_restores_saved_window_before_first_show(self):
+        restore = MagicMock()
+        fake_window = types.SimpleNamespace(_restore_saved_window=restore)
+
+        with patch.object(self.main_window_module, "QT_API", "pyqt5"):
+            self.main_window_module.MainWindow._restore_saved_window_before_show(fake_window)
+
+        restore.assert_called_once_with()
+
+    def test_qt6_defers_saved_window_restore_until_show_event(self):
+        for binding in ("pyqt6", "pyside6"):
+            with self.subTest(binding=binding):
+                restore = MagicMock()
+                fake_window = types.SimpleNamespace(_restore_saved_window=restore)
+
+                with patch.object(self.main_window_module, "QT_API", binding):
+                    self.main_window_module.MainWindow._restore_saved_window_before_show(fake_window)
+
+                restore.assert_not_called()
+
     def test_active_custom_view_setter_does_not_shadow_reader(self):
         fake_window = types.SimpleNamespace()
         fake_window._active_custom_view_id = types.MethodType(
