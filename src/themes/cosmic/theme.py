@@ -457,6 +457,8 @@ QDockWidget QWidget#dockTimelineContents {
 QTabBar {
     border: none;
     qproperty-drawBase: 0;
+    qproperty-expanding: 0;
+    qproperty-usesScrollButtons: 1;
     margin: 0px;
     padding: 0px;
 }
