@@ -96,6 +96,43 @@ class RecordingPreviewTests(unittest.TestCase):
         finally:
             dock.deleteLater()
 
+    def test_recording_button_requires_selected_source_while_idle(self):
+        helper = self.audio_recording_module
+
+        class FakeButton:
+            def setEnabled(self, enabled):
+                self.enabled = enabled
+
+            def setText(self, text):
+                self.text = text
+
+            def setStyleSheet(self, stylesheet):
+                self.stylesheet = stylesheet
+
+            def setToolTip(self, tooltip):
+                self.tooltip = tooltip
+
+        selected = {"mic": False}
+        dock = types.SimpleNamespace(
+            mic_card=types.SimpleNamespace(isChecked=lambda: selected["mic"]),
+            screen_card=types.SimpleNamespace(isChecked=lambda: False),
+            camera_card=types.SimpleNamespace(isChecked=lambda: False),
+            record_button=FakeButton(),
+        )
+        dock._has_selected_recording_source = lambda: (
+            helper.AudioRecordingDockContent._has_selected_recording_source(dock)
+        )
+
+        helper.AudioRecordingDockContent._set_record_button_idle(dock)
+        self.assertFalse(dock.record_button.enabled)
+        self.assertIn("Select at least one", dock.record_button.tooltip)
+        self.assertIn("QPushButton:disabled", dock.record_button.stylesheet)
+
+        selected["mic"] = True
+        helper.AudioRecordingDockContent._set_record_button_idle(dock)
+        self.assertTrue(dock.record_button.enabled)
+        self.assertEqual(dock.record_button.tooltip, "")
+
     def test_recording_dock_idle_activation_skips_device_discovery(self):
         helper = self.audio_recording_module
         dock = types.SimpleNamespace(
@@ -894,6 +931,24 @@ class RecordingPreviewTests(unittest.TestCase):
 
         self.assertEqual(pause_calls, [True])
         self.assertFalse(dock._timeline_playback_started)
+
+    def test_recording_start_context_is_consumed_once(self):
+        helper = self.audio_recording_module
+        playhead = {"position": 20.0}
+        dock = types.SimpleNamespace(
+            _context_start=5.0,
+            _recording_timeline_position=0.0,
+            _current_playhead_seconds=lambda: playhead["position"],
+        )
+
+        first = helper.AudioRecordingDockContent._capture_recording_timeline_position(dock)
+        self.assertEqual(first, 5.0)
+        self.assertIsNone(dock._context_start)
+
+        playhead["position"] = 30.0
+        second = helper.AudioRecordingDockContent._capture_recording_timeline_position(dock)
+        self.assertEqual(second, 30.0)
+        self.assertEqual(dock._recording_timeline_position, 30.0)
 
     def test_restore_hidden_openshot_maximized_window_keeps_maximized_state(self):
         helper = self.audio_recording_module

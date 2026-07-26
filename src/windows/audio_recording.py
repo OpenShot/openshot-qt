@@ -1168,6 +1168,7 @@ class AudioRecordingDockContent(QWidget):
             self._refresh_source_devices(camera=True)
         self._sync_webcam_layout_defaults()
         self._sync_source_sections()
+        self._sync_backend_state()
         self._restart_monitoring()
         self._restart_webcam_preview()
 
@@ -1794,10 +1795,7 @@ class AudioRecordingDockContent(QWidget):
         self._stop_monitoring()
         self._stop_webcam_preview()
         try:
-            self._recording_timeline_position = self._context_start
-            if self._recording_timeline_position is None:
-                self._recording_timeline_position = self._current_playhead_seconds()
-            self._context_start = self._recording_timeline_position
+            self._capture_recording_timeline_position()
             self._recording_sources = []
             source_types = self._selected_recording_source_types()
             session_id = str(int(time.monotonic() * 1000))
@@ -1850,6 +1848,15 @@ class AudioRecordingDockContent(QWidget):
                 return _("Webcam device is not accessible: %s") % device
         return ""
 
+    def _capture_recording_timeline_position(self):
+        """Consume an optional insertion context or use the current playhead."""
+        position = self._context_start
+        self._context_start = None
+        if position is None:
+            position = self._current_playhead_seconds()
+        self._recording_timeline_position = float(position or 0.0)
+        return self._recording_timeline_position
+
     def _cancel_starting(self, restart_monitoring=True):
         self._starting = False
         if self._recorder:
@@ -1877,7 +1884,6 @@ class AudioRecordingDockContent(QWidget):
         try:
             if self._should_preview_timeline() or self._playback_active():
                 self._recording_timeline_position = self._current_playhead_seconds()
-            self._context_start = self._recording_timeline_position
             recorder = self._recorder
             if recorder is None:
                 if self.mic_card.isChecked():
@@ -2315,9 +2321,7 @@ class AudioRecordingDockContent(QWidget):
         timeline = getattr(self.window, "timeline", None)
         if not timeline:
             return
-        position = self._context_start
-        if position is None:
-            position = self._recording_timeline_position
+        position = self._recording_timeline_position
         previews = self._recording_preview_payloads(
             float(position or 0.0), duration, samples, rms_samples
         )
@@ -2554,9 +2558,7 @@ class AudioRecordingDockContent(QWidget):
             return
 
         self._copy_live_recording_thumbnails(source_type, recorded_file.id)
-        position = self._context_start
-        if position is None:
-            position = self._recording_timeline_position
+        position = self._recording_timeline_position
 
         if track is None:
             track = self.track_combo.currentData()
@@ -2714,14 +2716,25 @@ class AudioRecordingDockContent(QWidget):
         )
 
     def _set_record_button_idle(self):
-        self.record_button.setEnabled(True)
+        source_selected = self._has_selected_recording_source()
+        self.record_button.setEnabled(source_selected)
         self.record_button.setText(get_app()._tr("Start Recording"))
         self.record_button.setStyleSheet(
             "QPushButton { background-color: #087cff; color: white; border: none; border-radius: 8px; padding: 11px; font-weight: 700; }"
             "QPushButton:hover { background-color: #1688ff; }"
             "QPushButton:pressed { background-color: #0567d6; }"
+            "QPushButton:disabled { background-color: #3c4655; color: #8b96a8; }"
         )
-        self.record_button.setToolTip("")
+        self.record_button.setToolTip(
+            "" if source_selected else get_app()._tr("Select at least one recording source.")
+        )
+
+    def _has_selected_recording_source(self):
+        return any(card.isChecked() for card in (
+            self.mic_card,
+            self.screen_card,
+            self.camera_card,
+        ))
 
     def _set_record_button_unavailable(self):
         self.record_button.setEnabled(False)
