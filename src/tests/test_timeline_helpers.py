@@ -1005,6 +1005,7 @@ class TimelineHelperTests(unittest.TestCase):
         class Helper:
             def __init__(self):
                 self.geometry = GeometryStub()
+                self.ruler_height = 0.0
                 self._press_marker = None
                 self._press_keyframe = None
                 self._active_keyframe_marker = None
@@ -1020,6 +1021,11 @@ class TimelineHelperTests(unittest.TestCase):
 
             def _marker_at(self, pos):
                 return None
+
+            def _is_timeline_content_pos(self, pos):
+                return qwidget_base_module.TimelineWidgetBase._is_timeline_content_pos(
+                    self, pos
+                )
 
             def _get_keyframe_at(self, pos):
                 return None
@@ -1043,7 +1049,7 @@ class TimelineHelperTests(unittest.TestCase):
                 return list(self.resize_items)
 
             def _hitTest(self, pos):
-                return "clip"
+                return "ruler" if pos.y() <= self.ruler_height else "clip"
 
             def _item_resize_edge_at(self, rect, pos, edge=5):
                 return qwidget_base_module.TimelineWidgetBase._item_resize_edge_at(
@@ -1199,6 +1205,7 @@ class TimelineHelperTests(unittest.TestCase):
             def __init__(self):
                 self._fixed_cursor = None
                 self.enable_razor = False
+                self.ruler_height = 0.0
                 self.geometry = GeometryStub()
                 self.playhead_painter = types.SimpleNamespace(icon_pix=None)
                 self.cursors = {
@@ -1219,6 +1226,11 @@ class TimelineHelperTests(unittest.TestCase):
 
             def _playhead_handle_rect(self):
                 return QRectF()
+
+            def _is_timeline_content_pos(self, pos):
+                return qwidget_base_module.TimelineWidgetBase._is_timeline_content_pos(
+                    self, pos
+                )
 
             def _effect_icon_at(self, pos):
                 return None
@@ -2622,6 +2634,20 @@ class TimelineHelperTests(unittest.TestCase):
         self.assertIs(helper.cursor_value, helper.cursors["resize_x"])
         self.assertFalse(helper.unset_cursor_called)
 
+    def test_qwidget_cursor_ignores_item_occluded_by_ruler(self):
+        helper = self.make_qwidget_cursor_helper()
+        helper.ruler_height = 30.0
+        helper.geometry.items = [
+            (QRectF(10.0, 10.0, 40.0, 40.0), object(), True, "clip")
+        ]
+
+        self.qwidget_base_module.TimelineWidgetBase._updateCursor(
+            helper, QPointF(10.0, 20.0)
+        )
+
+        self.assertIsNone(helper.cursor_value)
+        self.assertTrue(helper.unset_cursor_called)
+
     def test_qwidget_resize_move_ignores_non_handle_press_hits(self):
         helper = types.SimpleNamespace(
             _press_hit="clip",
@@ -3518,6 +3544,24 @@ class TimelineHelperTests(unittest.TestCase):
         self.assertEqual(helper._press_hit, "clip-edge")
         self.assertEqual(helper._resize_edge, "right")
         self.assertEqual([item.id for item in helper._resize_items], ["A"])
+
+    def test_qwidget_assign_press_target_ignores_item_occluded_by_ruler(self):
+        helper, event_cls = self.make_qwidget_assign_press_helper(resize_items=[object()])
+        helper.ruler_height = 30.0
+        item = types.SimpleNamespace(
+            id="A", data={"position": 1.0, "start": 0.0, "end": 3.0}
+        )
+        helper.geometry.items = [
+            (QRectF(10.0, 10.0, 40.0, 40.0), item, True, "clip")
+        ]
+
+        self.qwidget_base_module.TimelineWidgetBase._assign_press_target(
+            helper, event_cls(10.0, 20.0)
+        )
+
+        self.assertEqual(helper._press_hit, "ruler")
+        self.assertIsNone(helper._resizing_item)
+        self.assertEqual(helper._resize_items, [])
 
     def test_qwidget_pending_clip_menu_release_opens_without_drag_threshold(self):
         helper = self.make_qwidget_pending_clip_menu_helper()

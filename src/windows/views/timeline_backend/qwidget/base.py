@@ -2516,6 +2516,10 @@ class TimelineWidgetBase(QWidget):
     def _hitTest(self, pos):
         return self.geometry.hit(pos)
 
+    def _is_timeline_content_pos(self, pos):
+        """Return whether *pos* is below the fixed ruler overlay."""
+        return pos.y() > self.ruler_height
+
 
 
 
@@ -2818,6 +2822,9 @@ class TimelineWidgetBase(QWidget):
 
     def _hover_tooltip_for_pos(self, pos):
         _ = get_app()._tr
+        if not self._is_timeline_content_pos(pos):
+            return ""
+
         button = self._track_toolbar_button_at(pos)
         if button:
             return self._track_button_tooltip(button)
@@ -3016,6 +3023,17 @@ class TimelineWidgetBase(QWidget):
             self.setCursor(self.cursors["hand"])
             return
 
+        # Items can extend behind the fixed ruler after vertical scrolling.
+        # Preserve ruler marker interaction, but do not let obscured timeline
+        # content claim the cursor.
+        if not self._is_timeline_content_pos(pos):
+            marker_entry = self._marker_at(pos)
+            if marker_entry and isinstance(marker_entry, dict):
+                self.setCursor(Qt.PointingHandCursor)
+            else:
+                self.unsetCursor()
+            return
+
         icon_entry = self._effect_icon_at(pos)
         if icon_entry:
             self.setCursor(Qt.PointingHandCursor)
@@ -3095,6 +3113,9 @@ class TimelineWidgetBase(QWidget):
         if event.button() == Qt.LeftButton:
             self.geometry.ensure()
             pos = _event_posf(event)
+            if not self._is_timeline_content_pos(pos):
+                super().mouseDoubleClickEvent(event)
+                return
             for rect, item, _selected, _type in self.geometry.iter_items(reverse=True):
                 if rect.contains(pos):
                     self.win.actionProperties.trigger()
@@ -3109,18 +3130,19 @@ class TimelineWidgetBase(QWidget):
         self._clear_pending_transition_menu_click()
         posf = _event_posf(event)
         pos = posf
+        content_pos = self._is_timeline_content_pos(pos)
         if event.button() == Qt.RightButton:
             self._last_event = event
-            keyframe_marker = self._get_keyframe_at(posf)
+            keyframe_marker = self._get_keyframe_at(posf) if content_pos else None
             if keyframe_marker:
                 self._active_keyframe_marker = keyframe_marker
                 if self.show_keyframe_context_menu(posf, marker=keyframe_marker):
                     event.accept()
                     return
-            if self._panel_show_property_menu_at(posf):
+            if content_pos and self._panel_show_property_menu_at(posf):
                 event.accept()
                 return
-            icon_entry = self._effect_icon_at(posf)
+            icon_entry = self._effect_icon_at(posf) if content_pos else None
             if icon_entry and self._trigger_effect_context_menu(
                 icon_entry, event.modifiers() if hasattr(event, "modifiers") else None
             ):
@@ -3149,7 +3171,7 @@ class TimelineWidgetBase(QWidget):
                 if self._start_playhead_time_edit():
                     event.accept()
                     return
-            toolbar_button = self._track_toolbar_button_at(pos)
+            toolbar_button = self._track_toolbar_button_at(pos) if content_pos else None
             if toolbar_button:
                 self._last_event = event
                 self._toolbar_pressed_key = (toolbar_button.get("track_id"), toolbar_button.get("key"))
@@ -3158,17 +3180,19 @@ class TimelineWidgetBase(QWidget):
                 self.update()
                 event.accept()
                 return
-            self._begin_pending_transition_menu_click(pos)
-            self._begin_pending_clip_menu_click(pos)
+            if content_pos:
+                self._begin_pending_transition_menu_click(pos)
+                self._begin_pending_clip_menu_click(pos)
 
         if (
-            not getattr(self, "_pending_clip_menu_target", None)
+            content_pos
+            and not getattr(self, "_pending_clip_menu_target", None)
             and not getattr(self, "_pending_transition_menu_target", None)
             and self._handle_menu_icon_clicks(pos)
         ):
             return
 
-        if self.enable_razor and event.button() == Qt.LeftButton:
+        if content_pos and self.enable_razor and event.button() == Qt.LeftButton:
             if self._handle_razor_press(pos):
                 event.accept()
                 return
@@ -3269,6 +3293,18 @@ class TimelineWidgetBase(QWidget):
             self._select_marker(marker_entry)
             return
         self._press_marker = None
+        if not self._is_timeline_content_pos(pos):
+            self._press_keyframe = None
+            self._active_keyframe_marker = None
+            self._press_keyframe_clear = True
+            self._panel_press_info = None
+            self._press_effect_icon = None
+            self._resizing_item = None
+            self._resize_items = []
+            self._resize_edge = None
+            self._press_hit = self._hitTest(pos)
+            return
+
         marker = self._get_keyframe_at(pos)
         if marker:
             self._press_hit = "keyframe"
@@ -3870,6 +3906,9 @@ class TimelineWidgetBase(QWidget):
                 self._select_marker(marker_entry)
                 self.win.timeline.ShowMarkerMenu(marker_id)
                 return True
+
+        if not self._is_timeline_content_pos(pos):
+            return False
 
         # Transition context menu (prioritized over clips)
         for rect, tran, _selected in self.geometry.iter_transitions(reverse=True):
