@@ -1135,6 +1135,27 @@ class ProcessEffect(QDialog):
         self.process_button.setEnabled(enabled)
         self.cancel_button.setEnabled(True)
 
+    @staticmethod
+    def cancel_processing_job(processing, max_wait_seconds=1.0):
+        """Cancel a native processing job and tolerate its handle becoming invalid."""
+        try:
+            processing.CancelProcessing()
+        except RuntimeError:
+            # Cancellation can invalidate the SWIG-backed job immediately.
+            return
+
+        wait_start = time.time()
+        while (time.time() - wait_start) < max_wait_seconds:
+            try:
+                if processing.IsDone():
+                    return
+            except RuntimeError:
+                # An invalid handle after CancelProcessing means there is
+                # nothing left for the dialog to poll.
+                return
+            QCoreApplication.processEvents()
+            time.sleep(0.01)
+
     def file_sha256(self, path):
         """Return the SHA256 checksum of a file."""
         digest = hashlib.sha256()
@@ -1710,14 +1731,6 @@ class ProcessEffect(QDialog):
             self.update_file_validation()
             QMessageBox.warning(self, _("Processing Failed"), message)
 
-        def cancel_processing(max_wait_seconds=1.0):
-            """Request cancellation without allowing libopenshot to freeze this dialog."""
-            processing.CancelProcessing()
-            wait_start = time.time()
-            while not processing.IsDone() and (time.time() - wait_start) < max_wait_seconds:
-                QCoreApplication.processEvents()
-                time.sleep(0.01)
-
         # Generate processed data
         try:
             processing = openshot.ClipProcessingJobs(self.effect_class, jsonString)
@@ -1734,14 +1747,14 @@ class ProcessEffect(QDialog):
                 message = (processing.GetErrorMessage() or "").strip()
                 if message:
                     log.error("Effect processing failed: %s", message)
-                    cancel_processing()
+                    self.cancel_processing_job(processing)
                     show_processing_error(message)
                     return
                 if blank_error_start is None:
                     blank_error_start = time.time()
                 elif time.time() - blank_error_start > 3.0:
                     log.error("Effect processing failed without an error message")
-                    cancel_processing()
+                    self.cancel_processing_job(processing)
                     show_processing_error()
                     return
             else:
@@ -1757,7 +1770,8 @@ class ProcessEffect(QDialog):
 
             # if the cancel button was pressed, close the processing thread
             if(self.cancel_clip_processing):
-                cancel_processing()
+                self.cancel_processing_job(processing)
+                return
 
         if not self.cancel_clip_processing and processing.GetError():
             message = (processing.GetErrorMessage() or "").strip()

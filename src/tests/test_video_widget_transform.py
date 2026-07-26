@@ -540,6 +540,26 @@ class VideoWidgetTransformTests(unittest.TestCase):
         self.assertEqual(enabled_calls["process"], [False])
         self.assertEqual(enabled_calls["cancel"], [True])
 
+    def test_process_effect_cancel_tolerates_invalidated_native_job(self):
+        class InvalidatedProcessingJob:
+            def __init__(self):
+                self.cancel_calls = 0
+                self.done_calls = 0
+
+            def CancelProcessing(self):
+                self.cancel_calls += 1
+
+            def IsDone(self):
+                self.done_calls += 1
+                raise RuntimeError("Invalid argument")
+
+        processing = InvalidatedProcessingJob()
+
+        ProcessEffect.cancel_processing_job(processing)
+
+        self.assertEqual(processing.cancel_calls, 1)
+        self.assertEqual(processing.done_calls, 1)
+
     def test_yolo5_ssl_context_prefers_certifi_bundle(self):
         certifi_stub = types.SimpleNamespace(where=lambda: "/tmp/cacert.pem")
         context_stub = object()
