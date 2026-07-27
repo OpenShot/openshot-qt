@@ -141,6 +141,42 @@ QPushButton#recordingSegment:checked {
     background-color: #3a526f;
     border: 1px solid #2f8cff;
 }
+
+QMessageBox {
+    background-color: #292929;
+}
+QMessageBox QLabel#qt_msgbox_label {
+    color: #f2f2f2;
+}
+QMessageBox QPushButton[dialogRole="primary"] {
+    color: #ffffff;
+    background-color: #287dcc;
+    border: 1px solid #348de0;
+}
+QMessageBox QPushButton[dialogRole="primary"]:hover {
+    background-color: #348de0;
+}
+QMessageBox QPushButton[dialogRole="secondary"] {
+    color: #e8e8e8;
+    background-color: #3a3a3a;
+    border: 1px solid #565656;
+}
+QMessageBox QPushButton[dialogRole="secondary"]:hover {
+    background-color: #474747;
+    border-color: #6b6b6b;
+}
+QMessageBox QPushButton[dialogRole="cancel"] {
+    color: #8fc0f5;
+}
+QMessageBox QPushButton[dialogRole="cancel"]:hover {
+    color: #b7d8fa;
+    background-color: #353535;
+}
+QMessageBox QPushButton[dialogRole="destructive"] {
+    color: #ffffff;
+    background-color: #b83b48;
+    border: 1px solid #d04a58;
+}
         """
 
     def apply_theme(self):
@@ -268,6 +304,42 @@ QPushButton#recordingSegment:checked {
     color: #155f9e;
     background-color: #d7e8fb;
     border: 1px solid #287dcc;
+}
+
+QMessageBox {
+    background-color: #f7f7f7;
+}
+QMessageBox QLabel#qt_msgbox_label {
+    color: #25282d;
+}
+QMessageBox QPushButton[dialogRole="primary"] {
+    color: #ffffff;
+    background-color: #287dcc;
+    border: 1px solid #176fba;
+}
+QMessageBox QPushButton[dialogRole="primary"]:hover {
+    background-color: #176fba;
+}
+QMessageBox QPushButton[dialogRole="secondary"] {
+    color: #30343a;
+    background-color: #ffffff;
+    border: 1px solid #a9adb3;
+}
+QMessageBox QPushButton[dialogRole="secondary"]:hover {
+    background-color: #e9edf2;
+    border-color: #7f8791;
+}
+QMessageBox QPushButton[dialogRole="cancel"] {
+    color: #176fba;
+}
+QMessageBox QPushButton[dialogRole="cancel"]:hover {
+    color: #0c4f89;
+    background-color: #e9edf2;
+}
+QMessageBox QPushButton[dialogRole="destructive"] {
+    color: #ffffff;
+    background-color: #c43d4b;
+    border: 1px solid #a92e3a;
 }
 
 QComboBox {

@@ -39,9 +39,6 @@ class CosmicTheme(BaseTheme):
     def __init__(self, app):
         super().__init__(app)
 
-        from classes.app import get_app
-        _ = get_app()._tr
-
         self.style_sheet = """
 QMainWindow {
     background-color: #192332;
@@ -825,15 +822,55 @@ QWidget#videoPreview {
         """
         path_unix_slashes = PATH.replace("\\", "/")
         self.style_sheet = f"""
-QMessageBox QPushButton[text="&{_('Yes')}"] {{
-    padding: 8px 16px 8px 12px;
-    border-radius: 4px;
-    background-color: #0078FF;
-    color: #FFFFFF;
+QMessageBox {{
+    background: qlineargradient(
+        x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 #1d2a3c,
+        stop: 0.55 #192536,
+        stop: 1 #151f2e
+    );
+    border: 1px solid #344b68;
 }}
-
-QMessageBox QPushButton[text="&{_('Cancel')}"] {{
-    qproperty-icon: none;
+QMessageBox QLabel#qt_msgbox_label {{
+    color: #f4f7ff;
+    font-size: 12px;
+}}
+QMessageBox QPushButton[dialogRole="primary"] {{
+    background: qlineargradient(
+        x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 #1688ff,
+        stop: 1 #0875e8
+    );
+    color: #FFFFFF;
+    border: 1px solid #3398ff;
+}}
+QMessageBox QPushButton[dialogRole="primary"]:hover {{
+    background: qlineargradient(
+        x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 #2996ff,
+        stop: 1 #1685f4
+    );
+}}
+QMessageBox QPushButton[dialogRole="secondary"] {{
+    color: #b8d7ff;
+    background-color: #283241;
+    border: 1px solid #3b4b61;
+}}
+QMessageBox QPushButton[dialogRole="secondary"]:hover {{
+    background-color: #334156;
+    border-color: #536984;
+}}
+QMessageBox QPushButton[dialogRole="cancel"] {{
+    color: #7fb8ff;
+}}
+QMessageBox QPushButton[dialogRole="cancel"]:hover {{
+    color: #b8d7ff;
+    background-color: #283241;
+}}
+QMessageBox QPushButton[dialogRole="destructive"] {{
+    color: #ffffff;
+    background-color: #c43d4b;
+    border: 1px solid #df5361;
 }}
         """ + self.style_sheet.replace("{PATH}", f"{path_unix_slashes}/")
 
