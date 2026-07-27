@@ -42,7 +42,7 @@ import threading
 
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 from qt_api import (
-    QT_API, Qt, pyqtSignal, pyqtSlot, QCoreApplication, QTimer, QDateTime,
+    Qt, pyqtSignal, pyqtSlot, QCoreApplication, QTimer, QDateTime,
     QFileInfo, QEvent, QUrl, QLocale
 )
 from qt_api import QIcon, QCursor, QKeySequence, QTextCursor
@@ -154,6 +154,12 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     # Save window settings on close
     def closeEvent(self, event):
         app = get_app()
+        save_geometry = getattr(self, "saveGeometry", None)
+        if callable(save_geometry):
+            # A parented modal can temporarily alter the main window's state
+            # before shutdown reaches save_settings(). Preserve the state from
+            # the instant the user requested the close.
+            self._pending_close_geometry = save_geometry()
 
         # Prompt user to save (if needed)
         if app.project.needs_save():
@@ -175,6 +181,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 # Show tutorial again, if any
                 self.tutorial_manager.re_show_dialog()
                 # User canceled prompt - don't quit
+                self._pending_close_geometry = None
                 event.ignore()
                 return
 
@@ -3879,30 +3886,28 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Save window state and geometry (saves toolbar and dock locations)
         s.set('window_state_v2', qt_types.bytes_to_str(self.saveState()))
-        s.set('window_geometry_v2', qt_types.bytes_to_str(self.saveGeometry()))
+        close_geometry = getattr(self, "_pending_close_geometry", None)
+        geometry = close_geometry if close_geometry is not None else self.saveGeometry()
+        s.set('window_geometry_v2', qt_types.bytes_to_str(geometry))
+        self._pending_close_geometry = None
         # Qt's saveState() does not capture docks removed via removeDockWidget(); save them explicitly.
         hidden = [d.objectName() for d in self.getDocks()
                   if self.dockWidgetArea(d) == Qt.NoDockWidgetArea]
         s.set('hidden_docks', hidden)
-        dock = getattr(self, "dockTimeline", None)
-        if dock:
-            s.set('timeline_height', dock.height())
-        dock = getattr(self, "dockVideo", None)
-        if dock:
-            s.set('video_dock_width', dock.width())
+        video = getattr(self, "dockVideo", None)
+        if video:
+            s.set('video_dock_width', video.width())
 
     # Get window settings from setting store
     def load_settings(self):
         s = get_app().get_settings()
-        from qt_api import QT_API
-
         # Window state and geometry (also toolbar, dock locations and frozen UI state)
         if s.get('window_geometry_v2'):
             self.saved_geometry = qt_types.str_to_bytes(s.get('window_geometry_v2'))
         if s.get('window_state_v2'):
             self.saved_state = qt_types.str_to_bytes(s.get('window_state_v2'))
-        self.saved_timeline_height = self._positive_int(s.get('timeline_height'))
-        self.saved_video_dock_width = self._positive_int(s.get('video_dock_width'))
+        self.saved_video_dock_width = self._positive_int(
+            s.get('video_dock_width'))
 
         # Load Recent Projects
         self.load_recent_menu()
@@ -4333,10 +4338,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             if child.isFloating() and child.isEnabled():
                 child.raise_()
                 child.show()
-        if (self.saved_geometry or self.saved_state) and not self._restored_saved_window:
-            # Delay the restore until after the window is shown so layouts are settled.
-            QTimer.singleShot(0, self._restore_saved_window)
-
     def hideEvent(self, event):
         """ Have any child windows hide with main window """
         QMainWindow.hideEvent(self, event)
@@ -4344,39 +4345,37 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             if child.isFloating() and child.isVisible():
                 child.hide()
 
-    def _restore_saved_window(self):
-        """Apply saved geometry/state after the first show event."""
+    def _restore_saved_window_state(self):
+        """Restore Qt's serialized dock state after final window sizing."""
         if self._restored_saved_window:
             return
         self._restored_saved_window = True
-        self._capture_missing_dock_size_fallbacks()
-        if self.saved_geometry:
-            self.restoreGeometry(self.saved_geometry)
-        if self.saved_state:
-            self._restore_state_and_dock_sizes()
-
-    def _restore_saved_window_before_show(self):
-        """Restore early on Qt 5; Qt 6 restores safely from showEvent()."""
-        if QT_API == "pyqt5":
-            self._restore_saved_window()
-
-    def _capture_missing_dock_size_fallbacks(self):
-        """Use the initial shown layout as a fallback for newly introduced dock sizes."""
-        video_dock = getattr(self, "dockVideo", None)
-        if (video_dock
-                and not getattr(self, "saved_video_dock_width", None)
-                and video_dock.width() > 0):
-            self.saved_video_dock_width = video_dock.width()
-
-    def _restore_state_and_dock_sizes(self):
-        """Restore the complete Qt dock topology from one authoritative state."""
         if self.saved_state:
             self.restoreState(self.saved_state)
-        # Re-apply removed-dock state that Qt's saveState/restoreState doesn't preserve.
+        # Qt state does not remember docks explicitly removed from all areas.
         hidden_names = get_app().get_settings().get('hidden_docks') or []
         self._restore_hidden_docks(hidden_names)
-        QTimer.singleShot(0, self._apply_saved_dock_sizes)
-        QTimer.singleShot(250, self._apply_saved_dock_sizes)
+        QTimer.singleShot(0, self._restore_saved_video_dock_width)
+
+    def _restore_saved_video_dock_width(self):
+        """Correct Qt 5 fractional-scale drift in the horizontal dock splitter."""
+        files = getattr(self, "dockFiles", None)
+        video = getattr(self, "dockVideo", None)
+        width = self._positive_int(
+            getattr(self, "saved_video_dock_width", None))
+        if not (files and video and width):
+            return
+        total_width = files.width() + video.width()
+        self.resizeDocks(
+            [files, video],
+            [max(1, total_width - width), width],
+            Qt.Horizontal,
+        )
+
+    def _restore_saved_geometry_before_show(self):
+        """Restore outer geometry before the window is mapped."""
+        if self.saved_geometry:
+            self.restoreGeometry(self.saved_geometry)
 
     @staticmethod
     def _positive_int(value):
@@ -4437,33 +4436,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             getattr(self, "dockTimeline", None),
             self.saved_timeline_height,
             Qt.Vertical)
-
-    def _apply_saved_dock_sizes(self):
-        """Restore complete splitter groups after fractional-scale state restore."""
-        if self._active_builtin_view() not in {"simple", "recording"}:
-            return
-        files = getattr(self, "dockFiles", None)
-        video = getattr(self, "dockVideo", None)
-        timeline = getattr(self, "dockTimeline", None)
-        video_width = self._positive_int(self.saved_video_dock_width)
-        timeline_height = self._positive_int(self.saved_timeline_height)
-
-        if files and video and video_width:
-            total_width = files.width() + video.width()
-            files_width = max(1, total_width - video_width)
-            self.resizeDocks(
-                [files, video],
-                [files_width, video_width],
-                Qt.Horizontal,
-            )
-        if video and timeline and timeline_height:
-            total_height = video.height() + timeline.height()
-            video_height = max(1, total_height - timeline_height)
-            self.resizeDocks(
-                [video, timeline],
-                [video_height, timeline_height],
-                Qt.Vertical,
-            )
 
     def show_property_timeout(self):
         """Callback for show property timer"""
@@ -5523,7 +5495,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Load window state and geometry
         self.saved_state = None
         self.saved_geometry = None
-        self.saved_timeline_height = None
         self.saved_video_dock_width = None
         self._restored_saved_window = False
         self.load_settings()
@@ -5691,10 +5662,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         theme = get_app().theme_manager.apply_theme(theme_name)
         s.set("theme", theme.name)
 
-        # Qt 5 needs pre-show restoration to avoid fractional-scale dock drift.
-        # Qt 6 can crash while activating a dock layout restored before the
-        # main window has been shown, so showEvent() schedules its restoration.
-        self._restore_saved_window_before_show()
+        # Restore only the outer geometry before mapping. Dock state is applied
+        # after the window manager has established the final window size.
+        self._restore_saved_geometry_before_show()
 
         # Save settings
         s.save()

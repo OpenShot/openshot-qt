@@ -47,6 +47,7 @@ if PATH not in sys.path:
 from qt_api import QByteArray, QCoreApplication, QEvent, QKeySequence, Qt
 from qt_api import QApplication, QDockWidget, QMainWindow, QMenu, QStandardItem, QStandardItemModel
 
+from classes import qt_types
 from classes.project_data import ProjectDataStore
 from classes.settings import SettingStore
 from classes.updates import UpdateManager
@@ -316,7 +317,7 @@ class MainWindowTests(unittest.TestCase):
 
         self.assertEqual(calls, ["interaction", ("style", {"delay": 0})])
 
-    def test_save_settings_persists_video_width_and_timeline_height(self):
+    def test_save_settings_uses_serialized_qt_state(self):
         timeline_dock = FakeDock("dockTimeline", height=240, area=Qt.BottomDockWidgetArea)
         video_dock = FakeDock("dockVideo", height=360, width=520, area=Qt.TopDockWidgetArea)
         fake_window = types.SimpleNamespace(
@@ -330,8 +331,28 @@ class MainWindowTests(unittest.TestCase):
 
         self.main_window_module.MainWindow.save_settings(fake_window)
 
-        self.assertEqual(self.app.settings.values["timeline_height"], 240)
+        saved = qt_types.str_to_bytes(
+            self.app.settings.values["window_state_v2"])
+        self.assertEqual(bytes(saved), b"state")
         self.assertEqual(self.app.settings.values["video_dock_width"], 520)
+
+    def test_save_settings_prefers_geometry_captured_before_close_dialog(self):
+        fake_window = types.SimpleNamespace(
+            _pending_close_geometry=QByteArray(b"maximized-geometry"),
+            dockTimeline=None,
+            dockVideo=None,
+            saveState=lambda: QByteArray(b"state"),
+            saveGeometry=lambda: QByteArray(b"dialog-altered-geometry"),
+            getDocks=lambda: [],
+            dockWidgetArea=lambda dock: Qt.NoDockWidgetArea,
+        )
+
+        self.main_window_module.MainWindow.save_settings(fake_window)
+
+        saved = qt_types.str_to_bytes(
+            self.app.settings.values["window_geometry_v2"])
+        self.assertEqual(bytes(saved), b"maximized-geometry")
+        self.assertIsNone(fake_window._pending_close_geometry)
 
     def test_default_settings_include_video_dock_width(self):
         with open(os.path.join(PATH, "settings", "_default.settings"), encoding="utf-8") as fh:
@@ -379,80 +400,57 @@ class MainWindowTests(unittest.TestCase):
     def test_startup_restore_uses_qt_state_without_scalar_dock_overrides(self):
         calls = []
         fake_window = types.SimpleNamespace(
+            _restored_saved_window=False,
             saved_state=QByteArray(b"state"),
             restoreState=lambda state: calls.append(("state", state)),
             _restore_hidden_docks=lambda names: calls.append(("hidden", names)),
-            _apply_saved_dock_sizes=lambda: calls.append(("sizes",)),
+            _restore_saved_video_dock_width=lambda: calls.append(("video",)),
         )
 
         with patch.object(
                 self.main_window_module.QTimer,
                 "singleShot",
                 lambda delay, callback: calls.append(("timer", delay, callback))):
-            self.main_window_module.MainWindow._restore_state_and_dock_sizes(fake_window)
+            self.main_window_module.MainWindow._restore_saved_window_state(
+                fake_window)
 
         self.assertEqual(calls[:2], [
             ("state", QByteArray(b"state")),
             ("hidden", []),
         ])
-        self.assertEqual([item[1] for item in calls[2:]], [0, 250])
+        self.assertEqual(calls[2][:2], ("timer", 0))
 
-    def test_saved_dock_sizes_restore_complete_splitter_groups(self):
-        files = FakeDock("dockFiles", height=300, width=900)
-        video = FakeDock("dockVideo", height=500, width=300)
-        timeline = FakeDock("dockTimeline", height=200, width=1200)
-        for view_name in ("simple", "recording"):
-            with self.subTest(view=view_name):
-                calls = []
-                fake_window = types.SimpleNamespace(
-                    dockFiles=files,
-                    dockVideo=video,
-                    dockTimeline=timeline,
-                    saved_video_dock_width=700,
-                    saved_timeline_height=350,
-                    _active_builtin_view=lambda: view_name,
-                    resizeDocks=lambda docks, sizes, orientation: calls.append(
-                        (docks, sizes, orientation)),
-                )
-                fake_window._positive_int = self.main_window_module.MainWindow._positive_int
-
-                self.main_window_module.MainWindow._apply_saved_dock_sizes(fake_window)
-
-                self.assertEqual(calls, [
-                    ([files, video], [500, 700], Qt.Horizontal),
-                    ([video, timeline], [350, 350], Qt.Vertical),
-                ])
-
-    def test_missing_video_dock_width_uses_initial_shown_layout_as_fallback(self):
-        video_dock = FakeDock("dockVideo", height=300, width=540, area=Qt.TopDockWidgetArea)
+    def test_video_width_correction_resizes_one_horizontal_group(self):
+        files = FakeDock("dockFiles", width=700)
+        video = FakeDock("dockVideo", width=300)
+        calls = []
         fake_window = types.SimpleNamespace(
-            dockVideo=video_dock,
-            saved_video_dock_width=None,
+            dockFiles=files,
+            dockVideo=video,
+            saved_video_dock_width=450,
+            resizeDocks=lambda docks, sizes, orientation:
+                calls.append((docks, sizes, orientation)),
+        )
+        fake_window._positive_int = self.main_window_module.MainWindow._positive_int
+
+        self.main_window_module.MainWindow._restore_saved_video_dock_width(
+            fake_window)
+
+        self.assertEqual(calls, [
+            ([files, video], [550, 450], Qt.Horizontal),
+        ])
+
+    def test_geometry_is_restored_before_show(self):
+        calls = []
+        fake_window = types.SimpleNamespace(
+            saved_geometry=QByteArray(b"geometry"),
+            restoreGeometry=lambda value: calls.append(value),
         )
 
-        self.main_window_module.MainWindow._capture_missing_dock_size_fallbacks(fake_window)
+        self.main_window_module.MainWindow._restore_saved_geometry_before_show(
+            fake_window)
 
-        self.assertEqual(fake_window.saved_video_dock_width, 540)
-
-    def test_qt5_restores_saved_window_before_first_show(self):
-        restore = MagicMock()
-        fake_window = types.SimpleNamespace(_restore_saved_window=restore)
-
-        with patch.object(self.main_window_module, "QT_API", "pyqt5"):
-            self.main_window_module.MainWindow._restore_saved_window_before_show(fake_window)
-
-        restore.assert_called_once_with()
-
-    def test_qt6_defers_saved_window_restore_until_show_event(self):
-        for binding in ("pyqt6", "pyside6"):
-            with self.subTest(binding=binding):
-                restore = MagicMock()
-                fake_window = types.SimpleNamespace(_restore_saved_window=restore)
-
-                with patch.object(self.main_window_module, "QT_API", binding):
-                    self.main_window_module.MainWindow._restore_saved_window_before_show(fake_window)
-
-                restore.assert_not_called()
+        self.assertEqual(calls, [QByteArray(b"geometry")])
 
     def test_active_custom_view_setter_does_not_shadow_reader(self):
         fake_window = types.SimpleNamespace()
