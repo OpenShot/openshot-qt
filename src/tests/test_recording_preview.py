@@ -7,6 +7,7 @@ import os
 import shutil
 import sys
 import tempfile
+import threading
 import types
 import unittest
 from unittest.mock import MagicMock, call, patch
@@ -636,7 +637,30 @@ class RecordingPreviewTests(unittest.TestCase):
 
         self.assertEqual(writer.frames, [("live-1", 1), ("live-2", 2)])
 
-    def test_live_video_stop_closes_reader_to_unblock_and_finalizes_writer(self):
+    def test_live_video_async_closes_reader_on_worker_thread(self):
+        helper = self.audio_recording_module
+        calls = []
+
+        class FakeReader:
+            def Close(self):
+                calls.append(("close", threading.get_ident()))
+
+        fps = types.SimpleNamespace(num=30, den=1)
+        job = helper.LiveVideoRecordingJob(FakeReader(), "webcam.mp4", 640, 480, fps)
+        job._open = lambda: calls.append(("open", threading.get_ident()))
+        job._run = lambda: calls.append(("run", threading.get_ident()))
+
+        caller_thread = threading.get_ident()
+        job.start_async()
+        job._thread.join(timeout=2.0)
+        job.finish_stop()
+
+        self.assertFalse(job._thread.is_alive())
+        self.assertEqual([name for name, _thread in calls], ["open", "run", "close"])
+        self.assertEqual(calls[0][1], calls[2][1])
+        self.assertNotEqual(caller_thread, calls[2][1])
+
+    def test_live_video_stop_force_closes_reader_to_unblock_and_finalizes_writer(self):
         helper = self.audio_recording_module
 
         class FakeReader:

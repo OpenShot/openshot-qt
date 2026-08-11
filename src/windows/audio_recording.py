@@ -378,6 +378,11 @@ class LiveVideoRecordingJob(QObject):
             if not self._stop.is_set():
                 self.error = ex
                 self.errorOccurred.emit(self.source_type, str(ex))
+        finally:
+            try:
+                self.reader.Close()
+            except Exception:
+                log.debug("Unable to close live video capture reader", exc_info=True)
 
     def _open(self):
         self.reader.Open()
@@ -563,11 +568,6 @@ class LiveVideoRecordingJob(QObject):
             except Exception:
                 log.debug("Unable to close live video capture reader", exc_info=True)
             self._thread.join(timeout=5.0)
-        else:
-            try:
-                self.reader.Close()
-            except Exception:
-                log.debug("Unable to close live video capture reader", exc_info=True)
         if self._thread and self._thread.is_alive():
             log.warning("Live video capture thread did not stop cleanly for %s", self.path)
             if not self.error:
