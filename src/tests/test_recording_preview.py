@@ -1177,6 +1177,49 @@ class RecordingPreviewTests(unittest.TestCase):
         self.assertEqual(tracks, [2000000, 1000000, 500000])
         self.assertEqual(created, [500000])
 
+    def test_no_track_disables_preview_and_timeline_insertion(self):
+        helper = self.audio_recording_module
+
+        combo = types.SimpleNamespace(currentData=lambda: helper.NO_RECORDING_TRACK)
+        dock = types.SimpleNamespace(track_combo=combo)
+        dock._recording_timeline_enabled = lambda: (
+            helper.AudioRecordingDockContent._recording_timeline_enabled(dock)
+        )
+
+        previews = helper.AudioRecordingDockContent._recording_preview_payloads(
+            dock, 0.0, 1.0, [])
+        assignments = helper.AudioRecordingDockContent._recording_track_assignments(
+            dock, ["mic", "screen", "webcam"])
+
+        self.assertEqual(previews, [])
+        self.assertEqual(assignments, {})
+        self.assertFalse(dock._recording_timeline_enabled())
+
+    def test_recording_import_without_track_only_adds_project_file(self):
+        helper = self.audio_recording_module
+        files_model = types.SimpleNamespace(add_files=MagicMock())
+        refresh_signal = types.SimpleNamespace(emit=MagicMock())
+        dock = types.SimpleNamespace(
+            window=types.SimpleNamespace(
+                files_model=files_model,
+                refreshFilesSignal=refresh_signal,
+            ),
+            _add_recording_to_timeline=MagicMock(),
+        )
+
+        result = helper.AudioRecordingDockContent._import_recording(
+            dock, "Screen-1.mp4", "screen", add_to_timeline=False)
+
+        self.assertIsNone(result)
+        files_model.add_files.assert_called_once_with(
+            "Screen-1.mp4",
+            quiet=True,
+            prevent_image_seq=True,
+            prevent_recent_folder=True,
+        )
+        refresh_signal.emit.assert_called_once_with()
+        dock._add_recording_to_timeline.assert_not_called()
+
     def test_screen_source_maps_to_backend_value(self):
         helper = self.audio_recording_module
 
@@ -1246,6 +1289,90 @@ class RecordingPreviewTests(unittest.TestCase):
         self.assertEqual(dock.screen_width_spin.value, 1280)
         self.assertEqual(dock.screen_height_spin.value, 720)
         self.assertIn("1280x720", dock.screen_status_label.text)
+
+    def test_windows_screen_job_uses_selected_monitor_bounds(self):
+        helper = self.audio_recording_module
+
+        class FakeCard:
+            def __init__(self, checked):
+                self.checked = checked
+
+            def isChecked(self):
+                return self.checked
+
+        class FakeControl:
+            def __init__(self, value):
+                self.current = value
+
+            def currentData(self):
+                return self.current
+
+            def value(self):
+                return self.current
+
+            def setValue(self, value):
+                self.current = value
+
+            def isChecked(self):
+                return bool(self.current)
+
+        class FakeSettings:
+            pass
+
+        captured = []
+
+        class FakeReader:
+            def __init__(self, settings):
+                captured.append(settings)
+
+        for x, width, all_screens in (
+                (1920, 1920, False),
+                (-1920, 1920, False),
+                (-1920, 5760, True)):
+            source = {
+                "id": "screen-2",
+                "display": "desktop",
+                "x": x,
+                "y": 0,
+                "width": width,
+                "height": 1080,
+                "all": all_screens,
+            }
+            dock = types.SimpleNamespace(
+                screen_card=FakeCard(True),
+                camera_card=FakeCard(False),
+                video_fps_combo=FakeControl(30),
+                screen_x_spin=FakeControl(x),
+                screen_y_spin=FakeControl(0),
+                screen_width_spin=FakeControl(width),
+                screen_height_spin=FakeControl(1080),
+                full_screen_button=FakeControl(True),
+                window_button=FakeControl(False),
+                region_button=FakeControl(False),
+                capture_cursor_combo=FakeControl(True),
+                system_audio_combo=FakeControl(False),
+                _screen_window_id="",
+                _recording_preview_file_ids={},
+                _selected_screen_source=lambda source=source: source,
+                _system_audio_available=lambda: False,
+                _safe_even_dimension=helper.AudioRecordingDockContent._safe_even_dimension,
+                _screen_recording_bit_rate=lambda width, height, fps: 8000000,
+                _next_named_recording_path=lambda prefix, extension: "Screen.mp4",
+            )
+
+            with patch.object(helper, "screen_capture_backend", return_value=7), \
+                    patch.object(helper, "screen_capture_backend_is_wayland", return_value=False), \
+                    patch.object(helper, "screen_capture_backend_is_windows", return_value=True), \
+                    patch.object(helper, "screen_capture_backend_is_mac", return_value=False), \
+                    patch.object(helper.openshot, "ScreenCaptureSettings", FakeSettings), \
+                    patch.object(helper.openshot, "ScreenCaptureReader", FakeReader):
+                jobs = helper.AudioRecordingDockContent._build_video_jobs(dock)
+
+            self.assertEqual(len(jobs), 1)
+            settings = captured[-1]
+            self.assertEqual((settings.x, settings.y), (x, 0))
+            self.assertEqual((settings.width, settings.height), (width, 1080))
+            self.assertEqual(settings.display, "desktop")
 
     def test_timeline_recording_previews_build_audio_and_video_clip_data(self):
         timeline_module = self.timeline_module

@@ -1901,14 +1901,39 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         elif layer_number not in numbers:
             self.ensure_tracks_for_layers([layer_number])
 
-        tracks = [layer_number]
-        current = layer_number
+        selected_track_id = None
+        try:
+            selected_track = Track.get(number=layer_number)
+            selected_track_id = selected_track.id if selected_track else None
+        except Exception:
+            selected_track_id = None
+
+        def current_selected_number(fallback):
+            if selected_track_id:
+                try:
+                    selected_track = Track.get(id=selected_track_id)
+                    if selected_track:
+                        return int(selected_track.data.get("number", fallback))
+                except Exception:
+                    pass
+            return fallback
+
+        def existing_stack(start):
+            current_numbers = self._track_numbers()
+            if start not in current_numbers:
+                return [start]
+            start_index = current_numbers.index(start)
+            return [start] + list(reversed(current_numbers[:start_index]))
+
+        tracks = existing_stack(layer_number)
         while len(tracks) < count:
-            current = self.create_track_below(current)
-            if current in tracks:
+            previous_tracks = list(tracks)
+            self.create_track_below(tracks[-1])
+            layer_number = current_selected_number(layer_number)
+            tracks = existing_stack(layer_number)
+            if tracks == previous_tracks:
                 break
-            tracks.append(current)
-        return tracks
+        return tracks[:count]
 
     def ensure_tracks_for_layers(self, layers):
         """Create any missing positive track numbers needed by upcoming inserts."""

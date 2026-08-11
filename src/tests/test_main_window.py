@@ -195,6 +195,49 @@ class MainWindowTests(unittest.TestCase):
         if getattr(cls, "_owns_app", False) and cls.app:
             cls.app.quit()
 
+    def test_track_stack_preserves_selected_track_across_renumbering(self):
+        module = self.main_window_module
+        layers = [
+            {"id": "selected", "number": 1},
+            {"id": "upper", "number": 1000000},
+        ]
+
+        class FakeTrack:
+            def __init__(self, layer):
+                self.id = layer["id"]
+                self.data = layer
+
+            @classmethod
+            def get(cls, number=None, id=None):
+                for layer in layers:
+                    if number is not None and layer["number"] == number:
+                        return cls(layer)
+                    if id is not None and layer["id"] == id:
+                        return cls(layer)
+                return None
+
+        helper = types.SimpleNamespace()
+        helper._track_numbers = lambda: sorted(layer["number"] for layer in layers)
+        helper.ensure_tracks_for_layers = lambda _layers: None
+
+        def create_track_below(number):
+            if min(helper._track_numbers()) <= 2:
+                layers[0]["number"] = 2000000
+                layers[1]["number"] = 3000000
+                layers.append({"id": "lower-1", "number": 1000000})
+                return 1000000
+            new_number = int(number / 2)
+            layers.append({"id": "lower-2", "number": new_number})
+            return new_number
+
+        helper.create_track_below = create_track_below
+
+        with patch.object(module, "Track", FakeTrack):
+            tracks = module.MainWindow.track_stack_from(helper, 1, 3)
+
+        self.assertEqual(tracks, [2000000, 1000000, 500000])
+        self.assertNotIn(1, tracks)
+
     def test_cosmic_play_toggle_uses_hidpi_svg_renderer_for_both_states(self):
         from themes.cosmic.theme import CosmicTheme
 

@@ -63,6 +63,7 @@ from windows.recording_widgets import (
 
 
 RECORDING_DOCK_MIN_WIDTH = 320
+NO_RECORDING_TRACK = "__no_recording_track__"
 
 
 def frame_to_qimage(frame):
@@ -981,6 +982,10 @@ class AudioRecordingDockContent(QWidget):
         target_row = QHBoxLayout()
         self.track_combo = QComboBox(self)
         self.track_combo.setSizeAdjustPolicy(QComboBox.AdjustToContents)
+        self.track_combo.setToolTip(_(
+            "Choose the top track for recorded clips. Additional recording sources "
+            "use tracks below it. Select No Track to add recordings to Project Files only."
+        ))
         target_row.addWidget(self.track_combo, 1)
         self.preview_combo = QComboBox(self)
         self.preview_combo.addItem(_("Off"), "none")
@@ -1727,6 +1732,7 @@ class AudioRecordingDockContent(QWidget):
         selected = self._context_track or self.track_combo.currentData()
         self.track_combo.blockSignals(True)
         self.track_combo.clear()
+        self.track_combo.addItem(_("No Track"), NO_RECORDING_TRACK)
         try:
             labels = self._track_labels()
             tracks = sorted(Track.filter(), key=lambda t: int(t.data.get("number", 0)), reverse=True)
@@ -1740,6 +1746,9 @@ class AudioRecordingDockContent(QWidget):
             if self.track_combo.itemData(index) == selected:
                 self.track_combo.setCurrentIndex(index)
                 break
+        else:
+            if self.track_combo.count() > 1:
+                self.track_combo.setCurrentIndex(1)
         self.track_combo.blockSignals(False)
 
     def set_recording_context(self, start_time=None, track_number=None):
@@ -1801,10 +1810,13 @@ class AudioRecordingDockContent(QWidget):
             session_id = str(int(time.monotonic() * 1000))
             self._recording_preview_id = "recording-preview-%s" % session_id
             self._recording_track_map = self._recording_track_assignments(source_types)
-            self._recording_preview_file_ids = {
-                source_type: recording_preview_file_id(session_id, source_type)
-                for source_type in source_types
-            }
+            self._recording_preview_file_ids = (
+                {
+                    source_type: recording_preview_file_id(session_id, source_type)
+                    for source_type in source_types
+                }
+                if self._recording_timeline_enabled() else {}
+            )
             self._recorder = None
             self._recording_path = ""
             self._video_jobs = self._build_video_jobs()
@@ -2338,6 +2350,8 @@ class AudioRecordingDockContent(QWidget):
             )
 
     def _recording_preview_payloads(self, position, duration, samples, rms_samples=None):
+        if not self._recording_timeline_enabled():
+            return []
         duration = max(0.05, float(duration or 0.0))
         previews = []
         source_types = self._selected_recording_source_types()
@@ -2407,14 +2421,19 @@ class AudioRecordingDockContent(QWidget):
             for source_type, path in sources
             if path and os.path.exists(path)
         ]
-        assignments = self._recording_track_map or self._recording_track_assignments(
-            [source_type for source_type, _ in existing_sources])
+        add_to_timeline = self._recording_timeline_enabled()
+        assignments = (
+            self._recording_track_map or self._recording_track_assignments(
+                [source_type for source_type, _ in existing_sources])
+            if add_to_timeline else {}
+        )
         if assignments:
             log.info("Recording track assignments: %s", assignments)
         import_order = {"mic": 0, "screen": 1, "webcam": 2}
         for source_type, path in sorted(existing_sources, key=lambda item: import_order.get(item[0], 99)):
-            track = assignments.get(source_type, self._recording_top_track())
-            clip_data = self._import_recording(path, source_type, track)
+            track = assignments.get(source_type) if add_to_timeline else None
+            clip_data = self._import_recording(
+                path, source_type, track, add_to_timeline=add_to_timeline)
             if clip_data:
                 selected.append(clip_data)
 
@@ -2422,6 +2441,8 @@ class AudioRecordingDockContent(QWidget):
             self._select_recording_clip(selected[-1], float(self._recording_timeline_position or 0.0))
 
     def _recording_track_assignments(self, source_types):
+        if not self._recording_timeline_enabled():
+            return {}
         top_order = ["webcam", "screen", "mic"]
         source_set = set(source_types or [])
         ordered_sources = [source for source in top_order if source in source_set]
@@ -2464,6 +2485,9 @@ class AudioRecordingDockContent(QWidget):
                     tracks.append(lowest)
         return tracks[:count]
 
+    def _recording_timeline_enabled(self):
+        return self.track_combo.currentData() != NO_RECORDING_TRACK
+
     def _available_recording_tracks(self):
         tracks = []
         try:
@@ -2497,7 +2521,7 @@ class AudioRecordingDockContent(QWidget):
             log.debug("Unable to determine top recording track", exc_info=True)
         return 1
 
-    def _import_recording(self, path, source_type="mic", track=None):
+    def _import_recording(self, path, source_type="mic", track=None, add_to_timeline=True):
         try:
             self.window.files_model.add_files(
                 path,
@@ -2508,6 +2532,8 @@ class AudioRecordingDockContent(QWidget):
             if source_type == "mic":
                 self._apply_recording_duration(path)
             self.window.refreshFilesSignal.emit()
+            if not add_to_timeline:
+                return None
             return self._add_recording_to_timeline(path, source_type=source_type, track=track)
         except Exception:
             log.error("Unable to import recorded file: %s", path, exc_info=True)
