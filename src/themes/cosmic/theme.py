@@ -40,6 +40,19 @@ class CosmicTheme(BaseTheme):
         super().__init__(app)
 
         self.style_sheet = """
+QToolTip {
+    color: #f4f7ff;
+    font-size: 12px;
+    font-weight: normal;
+    background-color: rgba(40, 50, 65, 230);
+    border: 1px solid #536984;
+    border-radius: 6px;
+    margin: 0;
+    min-width: 0;
+    min-height: 0;
+    padding: 2px 4px;
+}
+
 QMainWindow {
     background-color: #192332;
     color: #91C3FF;

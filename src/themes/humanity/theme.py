@@ -34,8 +34,15 @@ class HumanityDarkTheme(BaseTheme):
         self.style_sheet = """
 QToolTip {
     color: #ffffff;
-    background-color: #2a82da;
-    border: 0px solid white;
+    font-size: 12px;
+    font-weight: normal;
+    background-color: rgba(58, 58, 58, 230);
+    border: 1px solid #666a70;
+    border-radius: 6px;
+    margin: 0;
+    min-width: 0;
+    min-height: 0;
+    padding: 2px 4px;
 }
 
 QComboBox::item {
@@ -202,6 +209,19 @@ class Retro(BaseTheme):
     def __init__(self, app):
         super().__init__(app)
         self.style_sheet = """
+QToolTip {
+    color: #20242a;
+    font-size: 12px;
+    font-weight: normal;
+    background-color: rgba(244, 246, 248, 230);
+    border: 1px solid #aeb6c0;
+    border-radius: 6px;
+    margin: 0;
+    min-width: 0;
+    min-height: 0;
+    padding: 2px 4px;
+}
+
 QComboBox::item {
     height: 24px;
 }

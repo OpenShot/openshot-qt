@@ -983,8 +983,9 @@ class AudioRecordingDockContent(QWidget):
         self.track_combo = QComboBox(self)
         self.track_combo.setSizeAdjustPolicy(QComboBox.AdjustToContents)
         self.track_combo.setToolTip(_(
-            "Choose the top track for recorded clips. Additional recording sources "
-            "use tracks below it. Select No Track to add recordings to Project Files only."
+            "Choose the top track for recorded clips.\n"
+            "Additional recording sources use tracks below it.\n"
+            "Select No Track to add recordings to Project Files only."
         ))
         target_row.addWidget(self.track_combo, 1)
         self.preview_combo = QComboBox(self)
@@ -994,7 +995,10 @@ class AudioRecordingDockContent(QWidget):
         self.preview_combo.addItem(_("Quarter"), "quarter")
         self.preview_combo.setCurrentIndex(self.preview_combo.findData("full"))
         self.preview_combo.setSizeAdjustPolicy(QComboBox.AdjustToContents)
-        self.preview_combo.setToolTip(_("Play the timeline while recording. Lower resolutions can improve recording performance."))
+        self.preview_combo.setToolTip(_(
+            "Play the timeline while recording.\n"
+            "Lower resolutions can improve recording performance."
+        ))
         self.preview_label = QLabel(_("Preview:"), self)
         target_row.addWidget(self.preview_label)
         target_row.addWidget(self.preview_combo)
