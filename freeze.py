@@ -514,7 +514,8 @@ elif sys.platform == "linux":
     for lib_name in [
             os.path.join(libopenshot_path, "libopenshot.so"),
             "/usr/local/lib/libresvg.so",
-            ARCHLIB + "qt5/plugins/platforms/libqxcb.so"
+            ARCHLIB + "qt5/plugins/platforms/libqxcb.so",
+            sndfile_path,
             ]:
         if os.path.exists(lib_name):
             lib_list.append(lib_name)
@@ -561,6 +562,14 @@ elif sys.platform == "linux":
         "libXdmcp.so.6",
         "libpipewire-0.3.so.0",
         "libspa-0.2.so",
+        # libmpg123 must also stay host-provided. Our bundled libsndfile.so.1
+        # depends on it, but host ALSA plugins (e.g. the PulseAudio/PipeWire
+        # PCM plugin) dlopen the *host's* libsndfile.so.1 at runtime too, and
+        # LD_LIBRARY_PATH puts our bundled copy ahead of the host's own. A
+        # stale bundled libmpg123 (missing symbols newer libsndfile expects,
+        # e.g. mpg123_info2) breaks ALSA device enumeration for the whole
+        # process, not just OpenShot's own audio decoding (see issue #5825).
+        "libmpg123.so.0",
     }
     system_libs_to_skip.update(appimage_driver_libs)
 
