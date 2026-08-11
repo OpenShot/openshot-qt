@@ -2285,7 +2285,8 @@ class AudioRecordingDockContent(QWidget):
         self.webcam_preview_label.setText(get_app()._tr("Preview unavailable"))
         log.debug("Unable to update webcam preview: %s", message)
 
-    def _safe_even_dimension(self, value):
+    @staticmethod
+    def _safe_even_dimension(value):
         value = max(16, int(value))
         return value if value % 2 == 0 else value - 1
 
