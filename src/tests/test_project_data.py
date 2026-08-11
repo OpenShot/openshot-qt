@@ -1034,6 +1034,91 @@ class ProjectDataTests(unittest.TestCase):
             self.assertTrue(os.path.exists(expected_blender))
             self.assertTrue(os.path.exists(expected_protobuf))
 
+    def test_first_save_moves_runtime_recording_and_updates_readers(self):
+        store = make_store()
+        with tempfile.TemporaryDirectory() as tmpdir:
+            user_path = os.path.join(tmpdir, "user")
+            recording_root = os.path.join(user_path, "recordings")
+            os.makedirs(recording_root)
+            recording = os.path.join(recording_root, "Webcam-1.mp4")
+            with open(recording, "wb") as handle:
+                handle.write(b"recording")
+
+            project_path = os.path.join(tmpdir, "example.osp")
+            asset_path = os.path.join(tmpdir, "example_assets")
+            runtime_paths = {
+                name: os.path.join(tmpdir, name.lower())
+                for name in (
+                    "THUMBNAIL_PATH", "TITLE_PATH", "BLENDER_PATH",
+                    "PROTOBUF_DATA_PATH", "CLIPBOARD_PATH",
+                    "COMFYUI_OUTPUT_PATH", "PROXY_PATH",
+                )
+            }
+            for runtime_path in runtime_paths.values():
+                os.makedirs(runtime_path)
+            store._data = {
+                "files": [{"id": "F1", "path": recording}],
+                "clips": [{
+                    "id": "C1",
+                    "file_id": "F1",
+                    "reader": {"path": recording},
+                    "effects": [],
+                }],
+            }
+
+            with ExitStack() as stack:
+                stack.enter_context(patch("classes.project_data.info.USER_PATH", user_path))
+                stack.enter_context(patch("classes.project_data.get_assets_path", return_value=asset_path))
+                for name, runtime_path in runtime_paths.items():
+                    stack.enter_context(
+                        patch("classes.project_data.info.%s" % name, runtime_path)
+                    )
+                ProjectDataStore.move_temp_paths_to_project_folder(store, project_path)
+
+            expected = os.path.join(asset_path, "recordings", "Webcam-1.mp4")
+            self.assertFalse(os.path.exists(recording))
+            self.assertTrue(os.path.exists(expected))
+            self.assertEqual(store._data["files"][0]["path"], expected)
+            self.assertEqual(store._data["clips"][0]["reader"]["path"], expected)
+
+    def test_save_as_copies_project_recording_and_updates_readers(self):
+        store = make_store()
+        with tempfile.TemporaryDirectory() as tmpdir:
+            old_project = os.path.join(tmpdir, "old.osp")
+            new_project = os.path.join(tmpdir, "new.osp")
+            old_assets = os.path.join(tmpdir, "old_assets")
+            new_assets = os.path.join(tmpdir, "new_assets")
+            old_recording_root = os.path.join(old_assets, "recordings")
+            os.makedirs(old_recording_root)
+            recording = os.path.join(old_recording_root, "Screen-1.mp4")
+            with open(recording, "wb") as handle:
+                handle.write(b"recording")
+
+            store._data = {
+                "files": [{"id": "F1", "path": recording}],
+                "clips": [{
+                    "id": "C1",
+                    "file_id": "F1",
+                    "reader": {"path": recording},
+                    "effects": [],
+                }],
+            }
+
+            def assets_for(path, create_paths=True):
+                return old_assets if path == old_project else new_assets
+
+            with ExitStack() as stack:
+                stack.enter_context(patch("classes.project_data.info.USER_PATH", os.path.join(tmpdir, "user")))
+                stack.enter_context(patch("classes.project_data.get_assets_path", side_effect=assets_for))
+                ProjectDataStore.move_temp_paths_to_project_folder(
+                    store, new_project, previous_path=old_project)
+
+            expected = os.path.join(new_assets, "recordings", "Screen-1.mp4")
+            self.assertTrue(os.path.exists(recording))
+            self.assertTrue(os.path.exists(expected))
+            self.assertEqual(store._data["files"][0]["path"], expected)
+            self.assertEqual(store._data["clips"][0]["reader"]["path"], expected)
+
     def test_move_temp_paths_to_project_folder_copies_effect_protobuf_from_stale_path(self):
         store = make_store()
         with tempfile.TemporaryDirectory() as tmpdir:

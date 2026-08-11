@@ -1108,6 +1108,20 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             return False
         return os.path.normcase(os.path.abspath(path_a)) == os.path.normcase(os.path.abspath(path_b))
 
+    @staticmethod
+    def _path_relative_to_root(path, root):
+        """Return a safe relative path when path is contained by root."""
+        if not path or not root:
+            return None
+        path_abs = os.path.normcase(os.path.abspath(path))
+        root_abs = os.path.normcase(os.path.abspath(root))
+        try:
+            if os.path.commonpath([path_abs, root_abs]) != root_abs:
+                return None
+        except ValueError:
+            return None
+        return os.path.relpath(os.path.abspath(path), os.path.abspath(root))
+
     def _should_move_runtime_assets(self, source_root, default_name):
         """Return True when a source root is the active runtime temp directory."""
         default_root = info.get_default_path(default_name)
@@ -1195,13 +1209,14 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             target_clipboard_path = os.path.join(asset_path, "clipboard")
             target_comfy_output_path = os.path.join(asset_path, "comfyui-output")
             target_proxy_path = os.path.join(asset_path, "optimized")
+            target_recording_path = os.path.join(asset_path, "recordings")
 
             # Create any missing target paths
             try:
                 for target_dir in [asset_path, target_thumb_path, target_title_path,
                                    target_blender_path, target_protobuf_path,
                                    target_clipboard_path, target_comfy_output_path,
-                                   target_proxy_path]:
+                                   target_proxy_path, target_recording_path]:
                     if not os.path.exists(target_dir):
                         os.mkdir(target_dir)
             except OSError:
@@ -1228,6 +1243,14 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                 "proxy": set(),
             }
             reader_paths = {}
+            recording_roots = [
+                (os.path.join(info.USER_PATH, "recordings"), True),
+            ]
+            if previous_path:
+                previous_recording_path = os.path.join(
+                    get_assets_path(previous_path), "recordings")
+                if not self._paths_match(previous_recording_path, recording_roots[0][0]):
+                    recording_roots.append((previous_recording_path, False))
 
             def relocate_effect_protobuf(effect):
                 if not isinstance(effect, dict) or "protobuf_data_path" not in effect:
@@ -1289,6 +1312,27 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
                 # Assets which need to be copied
                 new_asset_path = None
+                for recording_root, move_recording in recording_roots:
+                    relative_recording_path = self._path_relative_to_root(path, recording_root)
+                    if relative_recording_path is None:
+                        continue
+                    recording_asset_path = os.path.join(
+                        target_recording_path, relative_recording_path)
+                    relocated_recording = not self._paths_match(path, recording_asset_path)
+                    if relocated_recording:
+                        self._sync_asset_entry(
+                            path, recording_asset_path, move=move_recording)
+                    if os.path.exists(recording_asset_path):
+                        new_asset_path = recording_asset_path
+                        if relocated_recording:
+                            log.info(
+                                "%s recording %s to %s",
+                                "Moved" if move_recording else "Copied",
+                                path,
+                                recording_asset_path,
+                            )
+                    break
+
                 if info.BLENDER_PATH in path:
                     path_abs = os.path.abspath(path)
                     blender_root_abs = os.path.abspath(info.BLENDER_PATH)
