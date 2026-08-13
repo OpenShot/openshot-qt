@@ -228,7 +228,7 @@ win-sign-x64:
     - $env:Path = $env:Path + ";C:\msys64\usr\local\bin;C:\msys64\usr\bin"
     - if (-not (Get-ChildItem -Path "build\*-x86_64.exe" -ErrorAction SilentlyContinue)) { throw "No x64 Windows installer found in build\\*-x86_64.exe" }
     - if (-not (Get-ChildItem -Path "build\msix\*.msix" -ErrorAction SilentlyContinue)) { throw "No x64 MSIX package found in build\\msix\\*.msix" }
-    - py -3 -m pip install defusedxml
+    - py -3 -m pip install defusedxml pillow
     - py -3 -u installer/build_server.py "$SLACK_TOKEN" "$GITHUB_USER" "$GITHUB_PASS" "False" "$CI_COMMIT_REF_NAME" "$MAC_PASSWORD" "sign-upload-only"
   when: on_success
   except:

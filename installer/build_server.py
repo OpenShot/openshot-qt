@@ -387,39 +387,67 @@ def get_msix_manifest_metadata(msix_path):
         metadata = {
             "publisher": None,
             "publisher_display_name": None,
+            "version": None,
+            "application_id": None,
+            "executable": None,
+            "entry_point": None,
         }
         for element in manifest_document.getElementsByTagName("*"):
             if element.localName == "Identity":
                 metadata["publisher"] = element.getAttribute("Publisher")
+                metadata["version"] = element.getAttribute("Version")
             elif element.localName == "PublisherDisplayName":
                 metadata["publisher_display_name"] = "".join(
                     node.data
                     for node in element.childNodes
                     if node.nodeType == node.TEXT_NODE
                 )
+            elif element.localName == "Application":
+                metadata["application_id"] = element.getAttribute("Id")
+                metadata["executable"] = element.getAttribute("Executable")
+                metadata["entry_point"] = element.getAttribute("EntryPoint")
         return metadata
     except Exception as ex:
         error("Failed to read MSIX manifest metadata: %s" % ex)
         return None
 
 
+def get_expected_msix_version():
+    """Return the artifact OpenShot version in the four-part MSIX format."""
+    source_version = version_info.get("openshot-qt", {}).get("VERSION")
+    match = re.match(r"^(\d+)\.(\d+)\.(\d+)(?:\.(\d+))?(?:[-+].*)?$", source_version or "")
+    if not match:
+        raise RuntimeError("Invalid or missing openshot-qt artifact version: %s" % source_version)
+    return ".".join((match.group(1), match.group(2), match.group(3), match.group(4) or "0"))
+
+
 def prepare_windows_msix_for_signing(msix_path, signed_installer_path):
-    """Patch the MSIX manifest publisher to match the signing certificate."""
+    """Normalize the MSIX manifest and replace generated visual assets."""
     signer_subject = get_windows_authenticode_subject(signed_installer_path)
     publisher_display_name = os.getenv("WINDOWS_MSIX_PUBLISHER_DISPLAY_NAME", "OpenShot Studios")
     output("Windows signing certificate subject: %s" % signer_subject)
 
     manifest_metadata = get_msix_manifest_metadata(msix_path)
-    if manifest_metadata:
-        output("MSIX manifest publisher before signing: %s" % manifest_metadata["publisher"])
-        output("MSIX manifest publisher display name before signing: %s" %
-               manifest_metadata["publisher_display_name"])
-        if (
-                manifest_metadata["publisher"] == signer_subject
-                and manifest_metadata["publisher_display_name"] == publisher_display_name
-        ):
-            output("MSIX manifest publisher fields already match signing configuration; skipping repack")
-            return True
+    if not manifest_metadata:
+        return False
+    output("MSIX manifest publisher before signing: %s" % manifest_metadata["publisher"])
+    output("MSIX manifest publisher display name before signing: %s" %
+           manifest_metadata["publisher_display_name"])
+    expected_version = get_expected_msix_version()
+    if manifest_metadata["version"] != expected_version:
+        error("Unexpected MSIX version: %s (expected artifact version %s)" % (
+            manifest_metadata["version"], expected_version))
+        return False
+    expected_application = {
+        "application_id": "OPENSHOTQT",
+        "executable": "openshot-qt.exe",
+        "entry_point": "Windows.FullTrustApplication",
+    }
+    for key, expected_value in expected_application.items():
+        if manifest_metadata[key] != expected_value:
+            error("Unexpected MSIX %s: %s (expected %s)" % (
+                key, manifest_metadata[key], expected_value))
+            return False
 
     signtool_path = get_signtool_path()
     makeappx_path = os.getenv(
@@ -451,6 +479,37 @@ def prepare_windows_msix_for_signing(msix_path, signed_installer_path):
     if not os.path.exists(manifest_path):
         error("MSIX manifest not found after unpacking: %s" % manifest_path)
         return False
+
+    package_assets_dir = os.path.join(unpack_dir, "Assets")
+    source_logo_path = os.path.join(PATH, "xdg", "icon", "512", "openshot-qt.png")
+    asset_specs = {
+        "StoreLogo.png": ((50, 50), (44, 44)),
+        "OPENSHOTQT-Square44x44Logo.png": ((44, 44), (40, 40)),
+        "OPENSHOTQT-Square71x71Logo.png": ((71, 71), (62, 62)),
+        "OPENSHOTQT-Square150x150Logo.png": ((150, 150), (128, 128)),
+        "OPENSHOTQT-Square310x310Logo.png": ((310, 310), (264, 264)),
+        "OPENSHOTQT-Wide310x150Logo.png": ((310, 150), (128, 128)),
+    }
+    if not os.path.isfile(source_logo_path):
+        error("Canonical OpenShot logo not found: %s" % source_logo_path)
+        return False
+
+    from PIL import Image
+
+    os.makedirs(package_assets_dir, exist_ok=True)
+    with Image.open(source_logo_path) as source_logo:
+        source_logo = source_logo.convert("RGBA")
+        for package_name, (canvas_size, logo_size) in asset_specs.items():
+            resized_logo = source_logo.copy()
+            resized_logo.thumbnail(logo_size, Image.Resampling.LANCZOS)
+            canvas = Image.new("RGBA", canvas_size, (0, 0, 0, 0))
+            position = (
+                (canvas_size[0] - resized_logo.width) // 2,
+                (canvas_size[1] - resized_logo.height) // 2,
+            )
+            canvas.alpha_composite(resized_logo, position)
+            canvas.save(os.path.join(package_assets_dir, package_name), format="PNG")
+            output("Generated MSIX visual asset from canonical logo: %s" % package_name)
 
     try:
         from defusedxml import minidom
@@ -937,8 +996,8 @@ def main():
                     'verpatch.exe',
                     '{}'.format(launcher_exe),
                     '/va',
-                    '/high "{}"'.format(info.VERSION),
-                    '/pv "{}"'.format(info.VERSION),
+                    '/high "{}"'.format(version),
+                    '/pv "{}"'.format(version),
                     '/s product "{}"'.format(info.PRODUCT_NAME),
                     '/s company "{}"'.format(info.COMPANY_NAME),
                     '/s copyright "{}"'.format(info.COPYRIGHT),
