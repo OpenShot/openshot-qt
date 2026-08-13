@@ -30,6 +30,7 @@ import sys
 import json
 
 import datetime
+import hashlib
 import platform
 import re
 import shutil
@@ -39,6 +40,7 @@ import subprocess
 import sysconfig
 import time
 import traceback
+import urllib.request
 import zipfile
 from collections import deque
 from github3 import login, GitHubError
@@ -67,6 +69,12 @@ windows_mode = "full"
 LINUX_PORTAL_THEME_PLUGIN = (
     "/usr/lib/x86_64-linux-gnu/qt5/plugins/platformthemes/"
     "libqxdgdesktopportal.so"
+)
+PSF_VERSION = "1.0.240212.1"
+PSF_PACKAGE_SHA256 = "1d8e26ce29657b042cea1c134fe0cda5f3ee4a1575c4776091aeae3f683e5fba"
+PSF_PACKAGE_URL = (
+    "https://api.nuget.org/v3-flatcontainer/microsoft.packagesupportframework/"
+    f"{PSF_VERSION}/microsoft.packagesupportframework.{PSF_VERSION}.nupkg"
 )
 
 # Create temp log
@@ -421,6 +429,107 @@ def get_expected_msix_version():
     return ".".join((match.group(1), match.group(2), match.group(3), match.group(4) or "0"))
 
 
+def install_psf_launcher(package_root):
+    """Install the pinned official x64 Package Support Framework launcher."""
+    download_dir = os.path.join(PATH, "build", "psf")
+    package_path = os.path.join(download_dir, "Microsoft.PackageSupportFramework.nupkg")
+    extract_dir = os.path.join(download_dir, PSF_VERSION)
+    os.makedirs(download_dir, exist_ok=True)
+
+    if not os.path.isfile(package_path):
+        output("Downloading Microsoft Package Support Framework %s" % PSF_VERSION)
+        urllib.request.urlretrieve(PSF_PACKAGE_URL, package_path)  # nosec B310 - pinned HTTPS URL.
+
+    digest = hashlib.sha256()
+    with open(package_path, "rb") as package_file:
+        for chunk in iter(lambda: package_file.read(1024 * 1024), b""):
+            digest.update(chunk)
+    if digest.hexdigest() != PSF_PACKAGE_SHA256:
+        error("Package Support Framework checksum mismatch: %s" % package_path)
+        return False
+
+    if not os.path.isdir(extract_dir):
+        with zipfile.ZipFile(package_path, "r") as package:
+            package.extractall(extract_dir)
+
+    required_files = ("PsfLauncher64.exe", "PsfRuntime64.dll", "PsfRunDll64.exe")
+    for filename in required_files:
+        source_path = os.path.join(extract_dir, "bin", filename)
+        if not os.path.isfile(source_path):
+            error("Required x64 Package Support Framework file not found: %s" % source_path)
+            return False
+        shutil.copy2(source_path, os.path.join(package_root, filename))
+        output("Installed Package Support Framework component: %s" % filename)
+
+    license_path = os.path.join(PATH, "installer", "PackageSupportFramework-LICENSE.txt")
+    shutil.copy2(license_path, os.path.join(package_root, "PackageSupportFramework-LICENSE.txt"))
+
+    config = {
+        "applications": [{
+            "id": "OPENSHOTQT",
+            "executable": "openshot-qt.exe",
+            "workingDirectory": ".",
+        }],
+        "processes": [],
+    }
+    with open(os.path.join(package_root, "config.json"), "w", encoding="UTF-8") as config_file:
+        json.dump(config, config_file, indent=2)
+        config_file.write("\n")
+    return True
+
+
+def replace_msix_visual_assets(package_root):
+    """Replace every Packaging Tool logo variant using the canonical OpenShot logo."""
+    from PIL import Image
+
+    package_assets_dir = os.path.join(package_root, "Assets")
+    source_logo_path = os.path.join(PATH, "xdg", "icon", "512", "openshot-qt.png")
+    asset_specs = {
+        "StoreLogo": (50, 50),
+        "OPENSHOTQT-Square44x44Logo": (44, 44),
+        "OPENSHOTQT-Square71x71Logo": (71, 71),
+        "OPENSHOTQT-Square150x150Logo": (150, 150),
+        "OPENSHOTQT-Square310x310Logo": (310, 310),
+        "OPENSHOTQT-Wide310x150Logo": (310, 150),
+    }
+    if not os.path.isfile(source_logo_path):
+        error("Canonical OpenShot logo not found: %s" % source_logo_path)
+        return False
+
+    os.makedirs(package_assets_dir, exist_ok=True)
+    with Image.open(source_logo_path) as source_logo:
+        source_logo = source_logo.convert("RGBA")
+        existing_assets = os.listdir(package_assets_dir)
+        for asset_stem, default_size in asset_specs.items():
+            matching_names = [
+                filename for filename in existing_assets
+                if filename.lower().startswith(asset_stem.lower())
+                and filename.lower().endswith(".png")
+            ]
+            base_name = "%s.png" % asset_stem
+            if base_name not in matching_names:
+                matching_names.append(base_name)
+
+            for package_name in matching_names:
+                package_path = os.path.join(package_assets_dir, package_name)
+                canvas_size = default_size
+                if os.path.isfile(package_path):
+                    with Image.open(package_path) as existing_asset:
+                        canvas_size = existing_asset.size
+                logo_edge = max(1, round(min(canvas_size) * 0.92))
+                resized_logo = source_logo.resize((logo_edge, logo_edge), Image.Resampling.LANCZOS)
+                canvas = Image.new("RGBA", canvas_size, (0, 0, 0, 0))
+                position = (
+                    (canvas_size[0] - logo_edge) // 2,
+                    (canvas_size[1] - logo_edge) // 2,
+                )
+                canvas.alpha_composite(resized_logo, position)
+                canvas.save(package_path, format="PNG")
+                output("Replaced MSIX visual asset from canonical logo: %s (%sx%s)" % (
+                    package_name, canvas_size[0], canvas_size[1]))
+    return True
+
+
 def prepare_windows_msix_for_signing(msix_path, signed_installer_path):
     """Normalize the MSIX manifest and replace generated visual assets."""
     signer_subject = get_windows_authenticode_subject(signed_installer_path)
@@ -480,36 +589,10 @@ def prepare_windows_msix_for_signing(msix_path, signed_installer_path):
         error("MSIX manifest not found after unpacking: %s" % manifest_path)
         return False
 
-    package_assets_dir = os.path.join(unpack_dir, "Assets")
-    source_logo_path = os.path.join(PATH, "xdg", "icon", "512", "openshot-qt.png")
-    asset_specs = {
-        "StoreLogo.png": ((50, 50), (44, 44)),
-        "OPENSHOTQT-Square44x44Logo.png": ((44, 44), (40, 40)),
-        "OPENSHOTQT-Square71x71Logo.png": ((71, 71), (62, 62)),
-        "OPENSHOTQT-Square150x150Logo.png": ((150, 150), (128, 128)),
-        "OPENSHOTQT-Square310x310Logo.png": ((310, 310), (264, 264)),
-        "OPENSHOTQT-Wide310x150Logo.png": ((310, 150), (128, 128)),
-    }
-    if not os.path.isfile(source_logo_path):
-        error("Canonical OpenShot logo not found: %s" % source_logo_path)
+    if not install_psf_launcher(unpack_dir):
         return False
-
-    from PIL import Image
-
-    os.makedirs(package_assets_dir, exist_ok=True)
-    with Image.open(source_logo_path) as source_logo:
-        source_logo = source_logo.convert("RGBA")
-        for package_name, (canvas_size, logo_size) in asset_specs.items():
-            resized_logo = source_logo.copy()
-            resized_logo.thumbnail(logo_size, Image.Resampling.LANCZOS)
-            canvas = Image.new("RGBA", canvas_size, (0, 0, 0, 0))
-            position = (
-                (canvas_size[0] - resized_logo.width) // 2,
-                (canvas_size[1] - resized_logo.height) // 2,
-            )
-            canvas.alpha_composite(resized_logo, position)
-            canvas.save(os.path.join(package_assets_dir, package_name), format="PNG")
-            output("Generated MSIX visual asset from canonical logo: %s" % package_name)
+    if not replace_msix_visual_assets(unpack_dir):
+        return False
 
     try:
         from defusedxml import minidom
@@ -525,6 +608,27 @@ def prepare_windows_msix_for_signing(msix_path, signed_installer_path):
         if identity is None:
             error("MSIX manifest Identity element not found: %s" % manifest_path)
             return False
+
+        application = None
+        visual_elements = None
+        default_tile = None
+        package_logo = None
+        for element in manifest_document.getElementsByTagName("*"):
+            if element.localName == "Application":
+                application = element
+            elif element.localName == "VisualElements":
+                visual_elements = element
+            elif element.localName == "DefaultTile":
+                default_tile = element
+            elif element.localName == "Logo" and element.parentNode.localName == "Properties":
+                package_logo = element
+        if not all((application, visual_elements, default_tile, package_logo)):
+            error("MSIX manifest is missing required application visual metadata")
+            return False
+
+        application.setAttribute("Executable", "PsfLauncher64.exe")
+        application.setAttribute("EntryPoint", "Windows.FullTrustApplication")
+        visual_elements.setAttribute("BackgroundColor", "transparent")
 
         current_publisher = identity.getAttribute("Publisher")
         output("MSIX manifest publisher before signing: %s" % current_publisher)
@@ -555,9 +659,8 @@ def prepare_windows_msix_for_signing(msix_path, signed_installer_path):
                 manifest_document.createTextNode(publisher_display_name)
             )
 
-        if current_publisher != signer_subject or current_display_name != publisher_display_name:
-            with open(manifest_path, "wb") as manifest_file:
-                manifest_file.write(manifest_document.toxml(encoding="UTF-8"))
+        with open(manifest_path, "wb") as manifest_file:
+            manifest_file.write(manifest_document.toxml(encoding="UTF-8"))
     except Exception as ex:
         error("Failed to update MSIX manifest publisher: %s" % ex)
         return False
@@ -577,6 +680,10 @@ def prepare_windows_msix_for_signing(msix_path, signed_installer_path):
     shutil.move(repacked_path, msix_path)
     shutil.rmtree(unpack_dir)
     output("Repacked MSIX package for signing: %s" % msix_path)
+    final_metadata = get_msix_manifest_metadata(msix_path)
+    if not final_metadata or final_metadata["executable"] != "PsfLauncher64.exe":
+        error("Repacked MSIX does not use the x64 Package Support Framework launcher")
+        return False
     return True
 
 
