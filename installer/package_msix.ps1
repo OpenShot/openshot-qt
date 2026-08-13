@@ -312,7 +312,7 @@ if ($workingTemplateText -eq $templateText) {
 Set-Content -Path $workingTemplatePath -Value $workingTemplateText -Encoding UTF8
 Assert-TemplateInstallerPath -TemplatePath $workingTemplatePath -ExpectedInstallerPath $sourceInstallerPath
 $msixVersion = Get-MsixVersion -ArtifactRoot $PWD.Path
-$generatedPackagePath = Join-Path $outputDir "OpenShot.generated.msix"
+$generatedPackagePath = Join-Path $sourceInstallerDir "OpenShot.generated.msix"
 $generatedTemplateOutputPath = Join-Path $outputDir "OpenShot_template.output.xml"
 Set-TemplateAttribute -TemplatePath $workingTemplatePath -ElementName "PackageInformation" `
     -AttributeName "Version" -Value $msixVersion | Out-Null
@@ -337,7 +337,6 @@ Set-TemplateAttribute -TemplatePath $workingTemplatePath -ElementName "PackageIn
 Write-Information "Generated MSIX template publisher display name: $publisherDisplayName"
 Write-Information "Generated MSIX template: $workingTemplatePath"
 
-$startTime = Get-Date
 Write-Information "Running MSIX Packaging Tool. Full output will be saved to: $toolLogPath"
 & $ToolExe create-package --template $workingTemplatePath -v *> $toolLogPath
 if ($LASTEXITCODE -ne 0) {
@@ -349,27 +348,14 @@ if ($LASTEXITCODE -ne 0) {
 }
 Write-Information "MSIX Packaging Tool completed successfully."
 
-$searchRoots = @(
-    (Split-Path -Path $templatePath -Parent),
-    "C:\OpenShot-MSIX",
-    $PWD.Path
-) | Select-Object -Unique
-
-$generatedPackages = @(
-    foreach ($root in $searchRoots) {
-        if (Test-Path -Path $root) {
-            Get-ChildItem -Path $root -Filter "*.msix" -File -Recurse -ErrorAction SilentlyContinue |
-                Where-Object { $_.LastWriteTime -ge $startTime.AddSeconds(-2) }
-        }
-    }
-) | Sort-Object FullName -Unique | Sort-Object LastWriteTime -Descending
-
-Assert-SingleArtifact -Artifacts $generatedPackages -Description "generated .msix package"
-
-$generatedPackage = $generatedPackages[0]
-Assert-SourceInstallerNotPackaged -PackagePath $generatedPackage.FullName -SourceInstallerPath $sourceInstallerPath
+if (-not (Test-Path -Path $generatedPackagePath -PathType Leaf)) {
+    throw "MSIX Packaging Tool did not create the expected package: $generatedPackagePath"
+}
+Assert-SourceInstallerNotPackaged -PackagePath $generatedPackagePath -SourceInstallerPath $sourceInstallerPath
 
 $artifactName = [System.IO.Path]::ChangeExtension([System.IO.Path]::GetFileName($installerPath), ".msix")
 $artifactPath = Join-Path $outputDir $artifactName
-Copy-Item -Path $generatedPackage.FullName -Destination $artifactPath -Force
+Move-Item -Path $generatedPackagePath -Destination $artifactPath -Force
+$publishedPackages = @(Get-ChildItem -Path $outputDir -Filter "*.msix" -File)
+Assert-SingleArtifact -Artifacts $publishedPackages -Description "published build\msix\*.msix artifact"
 Write-Information "Published MSIX artifact: $artifactPath"
