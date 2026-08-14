@@ -472,72 +472,6 @@ def replace_msix_visual_assets(package_root):
     return True
 
 
-def install_msix_diagnostic_launcher(package_root):
-    """Build a native launcher which captures packaged-process startup failures."""
-    compiler = os.getenv(
-        "MSIX_DIAGNOSTIC_CC",
-        r"C:\msys64\mingw64\bin\gcc.exe")
-    source_path = os.path.join(PATH, "installer", "msix_diagnostic_launcher.c")
-    launcher_path = os.path.join(package_root, "OpenShotMsixDiagnostic.exe")
-    target_path = os.path.join(package_root, "openshot-qt-cli.exe")
-    if not os.path.isfile(compiler):
-        error("MSIX diagnostic launcher compiler not found: %s" % compiler)
-        return False
-    if not os.path.isfile(source_path):
-        error("MSIX diagnostic launcher source not found: %s" % source_path)
-        return False
-    if not os.path.isfile(target_path):
-        error("MSIX diagnostic target not found: %s" % target_path)
-        return False
-
-    command = [
-        compiler,
-        "-O2",
-        "-Wall",
-        "-Wextra",
-        "-static-libgcc",
-        "-s",
-        "-municode",
-        "-mwindows",
-        source_path,
-        "-o", launcher_path,
-    ]
-    output("Building native MSIX diagnostic launcher")
-    try:
-        compiler_result = subprocess.run(  # nosec B603 - explicit compiler and arguments.
-            command,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT,
-            check=False,
-        )
-    except OSError as ex:
-        error("Failed to execute MSIX diagnostic launcher compiler: %s" % ex)
-        return False
-    compiler_output = compiler_result.stdout.decode("UTF-8", errors="replace").strip()
-    if compiler_output:
-        output(compiler_output)
-    if compiler_result.returncode != 0 or not os.path.isfile(launcher_path):
-        error("Failed to build native MSIX diagnostic launcher (compiler exit code %s)" %
-              compiler_result.returncode)
-        return False
-    with open(launcher_path, "rb") as launcher_file:
-        if launcher_file.read(2) != b"MZ":
-            error("MSIX diagnostic launcher is not a PE executable")
-            return False
-        launcher_file.seek(0x3C)
-        pe_offset = int.from_bytes(launcher_file.read(4), byteorder="little")
-        launcher_file.seek(pe_offset)
-        if launcher_file.read(4) != b"PE\0\0":
-            error("MSIX diagnostic launcher has no valid PE header")
-            return False
-        machine = int.from_bytes(launcher_file.read(2), byteorder="little")
-        if machine != 0x8664:
-            error("MSIX diagnostic launcher is not x64 (PE machine 0x%04X)" % machine)
-            return False
-    output("Installed native MSIX diagnostic launcher: %s" % launcher_path)
-    return True
-
-
 def prepare_windows_msix_for_signing(msix_path, signed_installer_path):
     """Normalize the MSIX manifest and replace generated visual assets."""
     signer_subject = get_windows_authenticode_subject(signed_installer_path)
@@ -599,8 +533,12 @@ def prepare_windows_msix_for_signing(msix_path, signed_installer_path):
 
     if not replace_msix_visual_assets(unpack_dir):
         return False
-    if not install_msix_diagnostic_launcher(unpack_dir):
+    diagnostic_executable = "openshot-qt-cli.exe"
+    if not os.path.isfile(os.path.join(unpack_dir, diagnostic_executable)):
+        error("MSIX diagnostic executable not found: %s" % diagnostic_executable)
         return False
+    output("Using existing frozen executable for MSIX diagnostics: %s" %
+           diagnostic_executable)
 
     try:
         from defusedxml import minidom
@@ -634,7 +572,7 @@ def prepare_windows_msix_for_signing(msix_path, signed_installer_path):
             error("MSIX manifest is missing required application visual metadata")
             return False
 
-        application.setAttribute("Executable", "OpenShotMsixDiagnostic.exe")
+        application.setAttribute("Executable", diagnostic_executable)
         application.setAttribute("EntryPoint", "Windows.FullTrustApplication")
         visual_elements.setAttribute("BackgroundColor", "transparent")
 
@@ -689,8 +627,8 @@ def prepare_windows_msix_for_signing(msix_path, signed_installer_path):
     shutil.rmtree(unpack_dir)
     output("Repacked MSIX package for signing: %s" % msix_path)
     final_metadata = get_msix_manifest_metadata(msix_path)
-    if not final_metadata or final_metadata["executable"] != "OpenShotMsixDiagnostic.exe":
-        error("Repacked MSIX does not use the native diagnostic launcher")
+    if not final_metadata or final_metadata["executable"] != diagnostic_executable:
+        error("Repacked MSIX does not use the diagnostic CLI executable")
         return False
     return True
 

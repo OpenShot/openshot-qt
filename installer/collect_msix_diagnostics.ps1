@@ -52,7 +52,6 @@ $manifest = Get-AppxPackageManifest -Package $package.PackageFullName
 $manifest.Save((Join-Path $outputDir "AppxManifest.xml"))
 
 $executables = @(
-    "OpenShotMsixDiagnostic.exe",
     "openshot-qt-cli.exe",
     "openshot-qt.exe"
 )
@@ -82,7 +81,7 @@ Start-Sleep -Seconds $WaitSeconds
 
 Write-Report -Name "05-processes-after-launch" -Action {
     Get-Process | Where-Object {
-        $_.ProcessName -match "OpenShot|PsfLauncher"
+        $_.ProcessName -match "OpenShot"
     } | Format-List *
 }
 
@@ -107,7 +106,7 @@ foreach ($eventLog in $eventLogs) {
     Write-Report -Name "event-$safeName" -Action {
         Get-WinEvent -FilterHashtable @{LogName = $eventLog; StartTime = $startTime} -ErrorAction Stop |
             Where-Object {
-                $_.Message -match "OpenShot|OpenShotMsixDiagnostic|openshot-qt|$($package.PackageFamilyName)" -or
+                $_.Message -match "OpenShot|openshot-qt|$($package.PackageFamilyName)" -or
                 $eventLog -eq "Application"
             } |
             Select-Object TimeCreated, Id, LevelDisplayName, ProviderName, Message |
@@ -117,11 +116,11 @@ foreach ($eventLog in $eventLogs) {
 
 Write-Report -Name "06-windows-error-reporting" -Action {
     Get-ChildItem "C:\ProgramData\Microsoft\Windows\WER\ReportArchive" -Directory -ErrorAction SilentlyContinue |
-        Where-Object { $_.Name -match "OpenShot|openshot|PsfLauncher" } |
+        Where-Object { $_.Name -match "OpenShot|openshot" } |
         Sort-Object LastWriteTime -Descending |
         Select-Object -First 20 FullName, CreationTimeUtc, LastWriteTimeUtc
     Get-ChildItem "$env:LOCALAPPDATA\CrashDumps" -File -ErrorAction SilentlyContinue |
-        Where-Object { $_.Name -match "OpenShot|openshot|PsfLauncher" } |
+        Where-Object { $_.Name -match "OpenShot|openshot" } |
         Select-Object FullName, Length, CreationTimeUtc, LastWriteTimeUtc
 }
 

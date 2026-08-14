@@ -50,16 +50,54 @@ import logging
 import traceback
 
 
-_msix_diagnostics = os.environ.get("OPENSHOT_MSIX_DIAGNOSTICS") == "1"
+def _is_packaged_windows_process():
+    """Return True when Windows started this process with package identity."""
+    if os.name != "nt":
+        return False
+    try:
+        import ctypes
+        package_name_length = ctypes.c_uint32()
+        result = ctypes.windll.kernel32.GetCurrentPackageFullName(
+            ctypes.byref(package_name_length), None)
+        return result == 122  # ERROR_INSUFFICIENT_BUFFER means a package name is available.
+    except (AttributeError, OSError):
+        return False
+
+
+_msix_diagnostics = (
+    os.environ.get("OPENSHOT_MSIX_DIAGNOSTICS") == "1" or
+    _is_packaged_windows_process()
+)
+_msix_log = None
+if _msix_diagnostics:
+    try:
+        _msix_log_dir = os.path.join(
+            os.environ.get("LOCALAPPDATA", os.path.expanduser("~")),
+            "OpenShot Video Editor")
+        os.makedirs(_msix_log_dir, exist_ok=True)
+        _msix_log = open(
+            os.path.join(_msix_log_dir, "msix-startup.log"),
+            "a", encoding="utf-8", buffering=1)
+    except OSError:
+        _msix_log = None
 
 
 def _msix_diagnostic(message):
     if _msix_diagnostics:
-        print("[OpenShot MSIX Python] {}".format(message), file=sys.stderr, flush=True)
+        line = "[OpenShot MSIX Python] {}".format(message)
+        try:
+            print(line, file=sys.stderr, flush=True)
+        except (AttributeError, OSError):
+            pass
+        if _msix_log:
+            try:
+                print(line, file=_msix_log, flush=True)
+            except OSError:
+                pass
 
 
 if _msix_diagnostics:
-    faulthandler.enable(file=sys.stderr, all_threads=True)
+    faulthandler.enable(file=_msix_log or sys.stderr, all_threads=True)
     _msix_diagnostic("Python entry point reached")
     _msix_diagnostic("version={!r}".format(sys.version))
     _msix_diagnostic("executable={!r}".format(sys.executable))
@@ -83,6 +121,8 @@ if _msix_diagnostics:
 
     sys.excepthook = _diagnostic_exception
     sys.addaudithook(_diagnostic_audit)
+    if _msix_log:
+        atexit.register(_msix_log.close)
     atexit.register(lambda: _msix_diagnostic("Python process exiting normally"))
 
 # Ensure Qt plugin DLL dependencies are found on Windows packaged builds.
