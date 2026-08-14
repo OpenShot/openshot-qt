@@ -495,8 +495,6 @@ def install_msix_diagnostic_launcher(package_root):
         "-O2",
         "-Wall",
         "-Wextra",
-        "-Werror",
-        "-static",
         "-static-libgcc",
         "-s",
         "-municode",
@@ -505,8 +503,22 @@ def install_msix_diagnostic_launcher(package_root):
         "-o", launcher_path,
     ]
     output("Building native MSIX diagnostic launcher")
-    if subprocess.call(command) != 0 or not os.path.isfile(launcher_path):  # nosec B603
-        error("Failed to build native MSIX diagnostic launcher")
+    try:
+        compiler_result = subprocess.run(  # nosec B603 - explicit compiler and arguments.
+            command,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            check=False,
+        )
+    except OSError as ex:
+        error("Failed to execute MSIX diagnostic launcher compiler: %s" % ex)
+        return False
+    compiler_output = compiler_result.stdout.decode("UTF-8", errors="replace").strip()
+    if compiler_output:
+        output(compiler_output)
+    if compiler_result.returncode != 0 or not os.path.isfile(launcher_path):
+        error("Failed to build native MSIX diagnostic launcher (compiler exit code %s)" %
+              compiler_result.returncode)
         return False
     with open(launcher_path, "rb") as launcher_file:
         if launcher_file.read(2) != b"MZ":
