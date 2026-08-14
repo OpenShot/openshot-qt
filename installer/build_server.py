@@ -68,6 +68,9 @@ LINUX_PORTAL_THEME_PLUGIN = (
     "/usr/lib/x86_64-linux-gnu/qt5/plugins/platformthemes/"
     "libqxdgdesktopportal.so"
 )
+WINDOWS_STORE_MSIX_NAME = "OpenShotStudios.OpenShotforWindows"
+WINDOWS_STORE_MSIX_PUBLISHER = "CN=5FE34B8B-A62B-4594-911F-0D6CFC87D00F"
+WINDOWS_STORE_MSIX_PUBLISHER_DISPLAY_NAME = "OpenShot Studios"
 # Create temp log
 os.makedirs(os.path.join(PATH, 'build'), exist_ok=True)
 log_path = os.path.join(PATH, 'build', 'build-server.log')
@@ -328,52 +331,6 @@ def get_azure_codesign_dlib_path():
         "C:\\Users\\Administrator\\AppData\\Local\\Microsoft\\MicrosoftArtifactSigningClientTools\\Azure.CodeSigning.Dlib.dll")
 
 
-def get_windows_authenticode_subject(signed_path):
-    """Return the Authenticode signer subject from a signed Windows artifact."""
-    configured_subject = os.getenv("WINDOWS_MSIX_PUBLISHER")
-    if configured_subject:
-        output("Using WINDOWS_MSIX_PUBLISHER for MSIX manifest publisher: %s" % configured_subject)
-        return configured_subject
-
-    powershell_command = (
-        "param([string]$Path) "
-        "$ErrorActionPreference = 'Stop'; "
-        "$signature = Get-AuthenticodeSignature -LiteralPath $Path; "
-        "Write-Host ('Authenticode status: ' + $signature.Status); "
-        "if (-not $signature.SignerCertificate) { "
-        "  throw ('No signer certificate found for ' + $Path + '; status=' + $signature.Status) "
-        "}; "
-        "$signature.SignerCertificate.Subject"
-    )
-
-    command = [
-        "powershell.exe",
-        "-NoProfile",
-        "-ExecutionPolicy", "Bypass",
-        "-Command",
-        "& { %s }" % powershell_command,
-        signed_path,
-    ]
-    try:
-        subject_output = subprocess.check_output(  # nosec B603 - fixed command, no shell.
-            command, stderr=subprocess.STDOUT)
-    except subprocess.CalledProcessError as ex:
-        error("Failed to inspect signed Windows package certificate subject. PowerShell output: %s" %
-              ex.output.decode("UTF-8", errors="replace"))
-        raise
-
-    output_lines = [
-        line.strip()
-        for line in subject_output.decode("UTF-8", errors="replace").splitlines()
-        if line.strip()
-    ]
-    for line in output_lines[:-1]:
-        output(line)
-    if not output_lines:
-        raise RuntimeError("Get-AuthenticodeSignature returned no output for %s" % signed_path)
-    return output_lines[-1]
-
-
 def get_msix_manifest_metadata(msix_path):
     """Return key identity/properties values from an MSIX manifest."""
     try:
@@ -384,6 +341,7 @@ def get_msix_manifest_metadata(msix_path):
                 manifest_document = minidom.parse(manifest_file)
 
         metadata = {
+            "name": None,
             "publisher": None,
             "publisher_display_name": None,
             "version": None,
@@ -393,6 +351,7 @@ def get_msix_manifest_metadata(msix_path):
         }
         for element in manifest_document.getElementsByTagName("*"):
             if element.localName == "Identity":
+                metadata["name"] = element.getAttribute("Name")
                 metadata["publisher"] = element.getAttribute("Publisher")
                 metadata["version"] = element.getAttribute("Version")
             elif element.localName == "PublisherDisplayName":
@@ -472,18 +431,25 @@ def replace_msix_visual_assets(package_root):
     return True
 
 
-def prepare_windows_msix_for_signing(msix_path, signed_installer_path):
-    """Normalize the MSIX manifest and replace generated visual assets."""
-    signer_subject = get_windows_authenticode_subject(signed_installer_path)
-    publisher_display_name = os.getenv("WINDOWS_MSIX_PUBLISHER_DISPLAY_NAME", "OpenShot Studios")
-    output("Windows signing certificate subject: %s" % signer_subject)
+def prepare_windows_store_msix(msix_path):
+    """Normalize an MSIX for submission under its Partner Center identity."""
 
     manifest_metadata = get_msix_manifest_metadata(msix_path)
     if not manifest_metadata:
         return False
-    output("MSIX manifest publisher before signing: %s" % manifest_metadata["publisher"])
-    output("MSIX manifest publisher display name before signing: %s" %
+    output("MSIX manifest publisher before Store preparation: %s" % manifest_metadata["publisher"])
+    output("MSIX manifest publisher display name before Store preparation: %s" %
            manifest_metadata["publisher_display_name"])
+    expected_identity = {
+        "name": WINDOWS_STORE_MSIX_NAME,
+        "publisher": WINDOWS_STORE_MSIX_PUBLISHER,
+        "publisher_display_name": WINDOWS_STORE_MSIX_PUBLISHER_DISPLAY_NAME,
+    }
+    for key, expected_value in expected_identity.items():
+        if manifest_metadata[key] != expected_value:
+            error("Unexpected Store MSIX %s: %s (expected %s)" % (
+                key, manifest_metadata[key], expected_value))
+            return False
     expected_version = get_expected_msix_version()
     if manifest_metadata["version"] != expected_version:
         error("Unexpected MSIX version: %s (expected artifact version %s)" % (
@@ -533,12 +499,6 @@ def prepare_windows_msix_for_signing(msix_path, signed_installer_path):
 
     if not replace_msix_visual_assets(unpack_dir):
         return False
-    diagnostic_executable = "openshot-qt-cli.exe"
-    if not os.path.isfile(os.path.join(unpack_dir, diagnostic_executable)):
-        error("MSIX diagnostic executable not found: %s" % diagnostic_executable)
-        return False
-    output("Using existing frozen executable for MSIX diagnostics: %s" %
-           diagnostic_executable)
 
     try:
         from defusedxml import minidom
@@ -572,15 +532,9 @@ def prepare_windows_msix_for_signing(msix_path, signed_installer_path):
             error("MSIX manifest is missing required application visual metadata")
             return False
 
-        application.setAttribute("Executable", diagnostic_executable)
+        application.setAttribute("Executable", "openshot-qt.exe")
         application.setAttribute("EntryPoint", "Windows.FullTrustApplication")
         visual_elements.setAttribute("BackgroundColor", "transparent")
-
-        current_publisher = identity.getAttribute("Publisher")
-        output("MSIX manifest publisher before signing: %s" % current_publisher)
-        if current_publisher != signer_subject:
-            output("Updating MSIX manifest publisher to match signing certificate subject")
-            identity.setAttribute("Publisher", signer_subject)
 
         publisher_display_name_element = None
         for element in manifest_document.getElementsByTagName("*"):
@@ -596,14 +550,11 @@ def prepare_windows_msix_for_signing(msix_path, signed_installer_path):
             for node in publisher_display_name_element.childNodes
             if node.nodeType == node.TEXT_NODE
         )
-        output("MSIX manifest publisher display name before signing: %s" % current_display_name)
-        if current_display_name != publisher_display_name:
-            output("Updating MSIX manifest publisher display name to: %s" % publisher_display_name)
-            for child in list(publisher_display_name_element.childNodes):
-                publisher_display_name_element.removeChild(child)
-            publisher_display_name_element.appendChild(
-                manifest_document.createTextNode(publisher_display_name)
-            )
+        output("MSIX manifest publisher display name after unpacking: %s" % current_display_name)
+        if current_display_name != WINDOWS_STORE_MSIX_PUBLISHER_DISPLAY_NAME:
+            error("Unexpected Store MSIX publisher display name after unpacking: %s" %
+                  current_display_name)
+            return False
 
         with open(manifest_path, "wb") as manifest_file:
             manifest_file.write(manifest_document.toxml(encoding="UTF-8"))
@@ -625,10 +576,16 @@ def prepare_windows_msix_for_signing(msix_path, signed_installer_path):
 
     shutil.move(repacked_path, msix_path)
     shutil.rmtree(unpack_dir)
-    output("Repacked MSIX package for signing: %s" % msix_path)
+    output("Repacked MSIX package for Microsoft Store submission: %s" % msix_path)
     final_metadata = get_msix_manifest_metadata(msix_path)
-    if not final_metadata or final_metadata["executable"] != diagnostic_executable:
-        error("Repacked MSIX does not use the diagnostic CLI executable")
+    if not final_metadata:
+        return False
+    for key, expected_value in expected_identity.items():
+        if final_metadata[key] != expected_value:
+            error("Repacked Store MSIX has unexpected %s: %s" % (key, final_metadata[key]))
+            return False
+    if final_metadata["executable"] != "openshot-qt.exe":
+        error("Repacked MSIX does not use the OpenShot GUI executable")
         return False
     return True
 
@@ -707,8 +664,8 @@ def sign_windows_installer(installer_path, debug=False):
     return success
 
 
-def sign_windows_msix_artifacts(signed_installer_path):
-    """Sign any MSIX artifacts prepared for the x64 Windows signing job."""
+def prepare_windows_msix_artifacts():
+    """Prepare unsigned MSIX artifacts for Microsoft Store submission."""
     msix_dir = os.path.join(PATH, "build", "msix")
     if not os.path.isdir(msix_dir):
         return True
@@ -723,12 +680,10 @@ def sign_windows_msix_artifacts(signed_installer_path):
 
     for msix_path in msix_paths:
         output("Found Windows MSIX artifact: %s" % msix_path)
-        if not prepare_windows_msix_for_signing(msix_path, signed_installer_path):
+        if not prepare_windows_store_msix(msix_path):
             error("Windows MSIX preparation failed: %s" % msix_path)
             return False
-        if not sign_windows_installer(msix_path, debug=True):
-            error("Windows MSIX signing failed: %s" % msix_path)
-            return False
+        output("Leaving Store MSIX unsigned; Microsoft signs it during certification")
 
     return True
 
@@ -1109,7 +1064,7 @@ def main():
             elif os.path.exists(app_build_path):
                 sign_success = sign_windows_installer(app_build_path)
                 if sign_success and not windows_32bit:
-                    sign_success = sign_windows_msix_artifacts(app_build_path)
+                    sign_success = prepare_windows_msix_artifacts()
                 if not sign_success:
                     needs_upload = False
                     os.remove(app_build_path)

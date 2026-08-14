@@ -321,17 +321,15 @@ Set-TemplateAttribute -TemplatePath $workingTemplatePath -ElementName "SaveLocat
 Set-TemplateAttribute -TemplatePath $workingTemplatePath -ElementName "SaveLocation" `
     -AttributeName "TemplatePath" -Value $generatedTemplateOutputPath | Out-Null
 Write-Information "Generated MSIX template version: $msixVersion"
-$msixPublisher = $env:WINDOWS_MSIX_PUBLISHER
-if (-not $msixPublisher) {
-    $msixPublisher = 'CN="OpenShot Studios, LLC", O="OpenShot Studios, LLC", STREET="2931 Ridge Rd #101", L=Rockwall, S=Texas, C=US, PostalCode=75032'
-}
+$msixPackageName = "OpenShotStudios.OpenShotforWindows"
+Set-TemplateAttribute -TemplatePath $workingTemplatePath -ElementName "PackageInformation" `
+    -AttributeName "PackageName" -Value $msixPackageName | Out-Null
+Write-Information "Generated MSIX template package identity name: $msixPackageName"
+$msixPublisher = "CN=5FE34B8B-A62B-4594-911F-0D6CFC87D00F"
 Set-TemplateAttribute -TemplatePath $workingTemplatePath -ElementName "PackageInformation" `
     -AttributeName "PublisherName" -Value $msixPublisher | Out-Null
 Write-Information "Generated MSIX template publisher: $msixPublisher"
-$publisherDisplayName = $env:WINDOWS_MSIX_PUBLISHER_DISPLAY_NAME
-if (-not $publisherDisplayName) {
-    $publisherDisplayName = "OpenShot Studios"
-}
+$publisherDisplayName = "OpenShot Studios"
 Set-TemplateAttribute -TemplatePath $workingTemplatePath -ElementName "PackageInformation" `
     -AttributeName "PublisherDisplayName" -Value $publisherDisplayName | Out-Null
 Write-Information "Generated MSIX template publisher display name: $publisherDisplayName"

@@ -300,7 +300,7 @@
   <PrepareComputer DisableWindowsUpdateService="false" />
   <SaveLocation PackagePath="C:\OpenShot-MSIX\OpenShot.msix" TemplatePath="C:\OpenShot-MSIX\OpenShotTemplate.msix\OpenShot_template.xml" />
   <Installer Path="C:\GitLab-Runner\builds\02d42ef72\0\OpenShot\openshot-qt\build\OpenShot-v3.5.1-dev-daily-16436-3e9de94e-48516e0b-x86_64.exe" Arguments="/VERYSILENT /SUPPRESSMSGBOXES /NORESTART /SP-" InstallLocation="C:\Program Files\OpenShot Video Editor" />
-  <PackageInformation PackageName="OpenShotVideoEditor" PackageDisplayName="OpenShot Video Editor" PublisherName="CN=OpenShotStudios" PublisherDisplayName="OpenShot Studios, LLC" Version="3.5.1.0" p4:PackageDescription="OpenShot Video Editor is an open-source video editor for Windows." xmlns:p4="http://schemas.microsoft.com/msix/msixpackagingtool/template/1910">
+  <PackageInformation PackageName="OpenShotStudios.OpenShotforWindows" PackageDisplayName="OpenShot Video Editor" PublisherName="CN=5FE34B8B-A62B-4594-911F-0D6CFC87D00F" PublisherDisplayName="OpenShot Studios" Version="3.5.1.0" p4:PackageDescription="OpenShot Video Editor is an open-source video editor for Windows." xmlns:p4="http://schemas.microsoft.com/msix/msixpackagingtool/template/1910">
     <Applications>
       <Application Id="OPENSHOTQT" Description="OpenShot Video Editor" DisplayName="OpenShot Video Editor" ExecutableName="openshot-qt.exe" />
     </Applications>
