@@ -43,8 +43,47 @@ Welcome to the OpenShot Video Editor 2.0 Qt documentation. OpenShot was develope
 import sys
 import os
 import argparse
+import atexit
+import faulthandler
 import json
 import logging
+import traceback
+
+
+_msix_diagnostics = os.environ.get("OPENSHOT_MSIX_DIAGNOSTICS") == "1"
+
+
+def _msix_diagnostic(message):
+    if _msix_diagnostics:
+        print("[OpenShot MSIX Python] {}".format(message), file=sys.stderr, flush=True)
+
+
+if _msix_diagnostics:
+    faulthandler.enable(file=sys.stderr, all_threads=True)
+    _msix_diagnostic("Python entry point reached")
+    _msix_diagnostic("version={!r}".format(sys.version))
+    _msix_diagnostic("executable={!r}".format(sys.executable))
+    _msix_diagnostic("argv={!r}".format(sys.argv))
+    _msix_diagnostic("cwd={!r}".format(os.getcwd()))
+    _msix_diagnostic("__file__={!r}".format(__file__))
+    for _variable in (
+            "LOCALAPPDATA", "APPDATA", "USERPROFILE", "PATH", "QT_PLUGIN_PATH",
+            "QT_QPA_PLATFORM_PLUGIN_PATH", "PYTHONHOME", "PYTHONPATH"):
+        _msix_diagnostic("env {}={!r}".format(_variable, os.environ.get(_variable)))
+
+    def _diagnostic_exception(exception_type, exception, exception_traceback):
+        _msix_diagnostic("unhandled exception follows")
+        traceback.print_exception(
+            exception_type, exception, exception_traceback, file=sys.stderr)
+        sys.stderr.flush()
+
+    def _diagnostic_audit(event, arguments):
+        if event == "import" and arguments:
+            _msix_diagnostic("import {!r}".format(arguments[0]))
+
+    sys.excepthook = _diagnostic_exception
+    sys.addaudithook(_diagnostic_audit)
+    atexit.register(lambda: _msix_diagnostic("Python process exiting normally"))
 
 # Ensure Qt plugin DLL dependencies are found on Windows packaged builds.
 if os.name == "nt":
@@ -60,9 +99,12 @@ if os.name == "nt":
 try:
     # This needs to be imported before the Qt binding
     # To prevent some issues on AppImage build: wrapping/forcing older glibc versions
+    _msix_diagnostic("importing openshot")
     import openshot
-except ImportError:
-    pass
+except ImportError as exc:
+    _msix_diagnostic("openshot import failed: {!r}".format(exc))
+else:
+    _msix_diagnostic("openshot import completed")
 
 # Load user-configured UI scale before importing the Qt binding
 scale = 1.0
@@ -83,11 +125,14 @@ scale = max(0.5, min(3.0, scale))
 if scale != 1.0:
     os.environ["QT_SCALE_FACTOR"] = str(scale)
 
+_msix_diagnostic("importing qt_api")
 from qt_api import QtCore, QtWidgets
+_msix_diagnostic("qt_api import completed")
 
 Qt = QtCore.Qt
 QApplication = QtWidgets.QApplication
 
+_msix_diagnostic("importing OpenShot application modules")
 try:
     # This must be done before creating QApplication
     QApplication.setAttribute(Qt.AA_ShareOpenGLContexts)
@@ -121,6 +166,7 @@ def main():
     """"Initialize settings (not implemented) and create main window/application."""
 
     global app
+    _msix_diagnostic("main() entered")
 
     # Configure argument handling for commandline launches
     parser = argparse.ArgumentParser(description='OpenShot version ' + info.SETUP['version'])
@@ -213,14 +259,23 @@ def main():
     info.setup_userdirs()
 
     # Create Qt application, pass any unprocessed arguments
+    _msix_diagnostic("importing classes.app.OpenShotApp")
     from classes.app import OpenShotApp
+    _msix_diagnostic("OpenShotApp import completed")
 
     argv = [sys.argv[0]]
     argv.extend(extra_args)
     argv.extend(args.remain)
     try:
+        _msix_diagnostic("constructing OpenShotApp")
         app = OpenShotApp(argv)
+        _msix_diagnostic("OpenShotApp construction completed")
     except Exception:
+        _msix_diagnostic("OpenShotApp construction raised an exception")
+        if _msix_diagnostics:
+            traceback.print_exc(file=sys.stderr)
+            sys.stderr.flush()
+            raise
         app.show_errors()
 
     # Setup Qt application details
@@ -233,7 +288,9 @@ def main():
         pass
 
     # Launch GUI and start event loop
+    _msix_diagnostic("calling app.gui()")
     if app.gui():
+        _msix_diagnostic("GUI initialized; entering Qt event loop")
         if hasattr(app, "exec") and callable(app.exec):
             exit_code = app.exec()
         elif hasattr(app, "exec_") and callable(app.exec_):

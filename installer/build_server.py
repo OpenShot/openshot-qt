@@ -30,7 +30,6 @@ import sys
 import json
 
 import datetime
-import hashlib
 import platform
 import re
 import shutil
@@ -40,7 +39,6 @@ import subprocess
 import sysconfig
 import time
 import traceback
-import urllib.request
 import zipfile
 from collections import deque
 from github3 import login, GitHubError
@@ -70,13 +68,6 @@ LINUX_PORTAL_THEME_PLUGIN = (
     "/usr/lib/x86_64-linux-gnu/qt5/plugins/platformthemes/"
     "libqxdgdesktopportal.so"
 )
-PSF_VERSION = "1.0.240212.1"
-PSF_PACKAGE_SHA256 = "1d8e26ce29657b042cea1c134fe0cda5f3ee4a1575c4776091aeae3f683e5fba"
-PSF_PACKAGE_URL = (
-    "https://api.nuget.org/v3-flatcontainer/microsoft.packagesupportframework/"
-    f"{PSF_VERSION}/microsoft.packagesupportframework.{PSF_VERSION}.nupkg"
-)
-
 # Create temp log
 os.makedirs(os.path.join(PATH, 'build'), exist_ok=True)
 log_path = os.path.join(PATH, 'build', 'build-server.log')
@@ -429,55 +420,6 @@ def get_expected_msix_version():
     return ".".join((match.group(1), match.group(2), match.group(3), match.group(4) or "0"))
 
 
-def install_psf_launcher(package_root):
-    """Install the pinned official x64 Package Support Framework launcher."""
-    download_dir = os.path.join(PATH, "build", "psf")
-    package_path = os.path.join(download_dir, "Microsoft.PackageSupportFramework.nupkg")
-    extract_dir = os.path.join(download_dir, PSF_VERSION)
-    os.makedirs(download_dir, exist_ok=True)
-
-    if not os.path.isfile(package_path):
-        output("Downloading Microsoft Package Support Framework %s" % PSF_VERSION)
-        urllib.request.urlretrieve(PSF_PACKAGE_URL, package_path)  # nosec B310 - pinned HTTPS URL.
-
-    digest = hashlib.sha256()
-    with open(package_path, "rb") as package_file:
-        for chunk in iter(lambda: package_file.read(1024 * 1024), b""):
-            digest.update(chunk)
-    if digest.hexdigest() != PSF_PACKAGE_SHA256:
-        error("Package Support Framework checksum mismatch: %s" % package_path)
-        return False
-
-    if not os.path.isdir(extract_dir):
-        with zipfile.ZipFile(package_path, "r") as package:
-            package.extractall(extract_dir)
-
-    required_files = ("PsfLauncher64.exe", "PsfRuntime64.dll", "PsfRunDll64.exe")
-    for filename in required_files:
-        source_path = os.path.join(extract_dir, "bin", filename)
-        if not os.path.isfile(source_path):
-            error("Required x64 Package Support Framework file not found: %s" % source_path)
-            return False
-        shutil.copy2(source_path, os.path.join(package_root, filename))
-        output("Installed Package Support Framework component: %s" % filename)
-
-    license_path = os.path.join(PATH, "installer", "PackageSupportFramework-LICENSE.txt")
-    shutil.copy2(license_path, os.path.join(package_root, "PackageSupportFramework-LICENSE.txt"))
-
-    config = {
-        "applications": [{
-            "id": "OPENSHOTQT",
-            "executable": "openshot-qt.exe",
-            "workingDirectory": ".",
-        }],
-        "processes": [],
-    }
-    with open(os.path.join(package_root, "config.json"), "w", encoding="UTF-8") as config_file:
-        json.dump(config, config_file, indent=2)
-        config_file.write("\n")
-    return True
-
-
 def replace_msix_visual_assets(package_root):
     """Replace every Packaging Tool logo variant using the canonical OpenShot logo."""
     from PIL import Image
@@ -527,6 +469,60 @@ def replace_msix_visual_assets(package_root):
                 canvas.save(package_path, format="PNG")
                 output("Replaced MSIX visual asset from canonical logo: %s (%sx%s)" % (
                     package_name, canvas_size[0], canvas_size[1]))
+    return True
+
+
+def install_msix_diagnostic_launcher(package_root):
+    """Build a native launcher which captures packaged-process startup failures."""
+    compiler = os.getenv(
+        "MSIX_DIAGNOSTIC_CC",
+        r"C:\msys64\mingw64\bin\gcc.exe")
+    source_path = os.path.join(PATH, "installer", "msix_diagnostic_launcher.c")
+    launcher_path = os.path.join(package_root, "OpenShotMsixDiagnostic.exe")
+    target_path = os.path.join(package_root, "openshot-qt-cli.exe")
+    if not os.path.isfile(compiler):
+        error("MSIX diagnostic launcher compiler not found: %s" % compiler)
+        return False
+    if not os.path.isfile(source_path):
+        error("MSIX diagnostic launcher source not found: %s" % source_path)
+        return False
+    if not os.path.isfile(target_path):
+        error("MSIX diagnostic target not found: %s" % target_path)
+        return False
+
+    command = [
+        compiler,
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-static",
+        "-static-libgcc",
+        "-s",
+        "-municode",
+        "-mwindows",
+        source_path,
+        "-o", launcher_path,
+    ]
+    output("Building native MSIX diagnostic launcher")
+    if subprocess.call(command) != 0 or not os.path.isfile(launcher_path):  # nosec B603
+        error("Failed to build native MSIX diagnostic launcher")
+        return False
+    with open(launcher_path, "rb") as launcher_file:
+        if launcher_file.read(2) != b"MZ":
+            error("MSIX diagnostic launcher is not a PE executable")
+            return False
+        launcher_file.seek(0x3C)
+        pe_offset = int.from_bytes(launcher_file.read(4), byteorder="little")
+        launcher_file.seek(pe_offset)
+        if launcher_file.read(4) != b"PE\0\0":
+            error("MSIX diagnostic launcher has no valid PE header")
+            return False
+        machine = int.from_bytes(launcher_file.read(2), byteorder="little")
+        if machine != 0x8664:
+            error("MSIX diagnostic launcher is not x64 (PE machine 0x%04X)" % machine)
+            return False
+    output("Installed native MSIX diagnostic launcher: %s" % launcher_path)
     return True
 
 
@@ -589,9 +585,9 @@ def prepare_windows_msix_for_signing(msix_path, signed_installer_path):
         error("MSIX manifest not found after unpacking: %s" % manifest_path)
         return False
 
-    if not install_psf_launcher(unpack_dir):
-        return False
     if not replace_msix_visual_assets(unpack_dir):
+        return False
+    if not install_msix_diagnostic_launcher(unpack_dir):
         return False
 
     try:
@@ -626,7 +622,7 @@ def prepare_windows_msix_for_signing(msix_path, signed_installer_path):
             error("MSIX manifest is missing required application visual metadata")
             return False
 
-        application.setAttribute("Executable", "PsfLauncher64.exe")
+        application.setAttribute("Executable", "OpenShotMsixDiagnostic.exe")
         application.setAttribute("EntryPoint", "Windows.FullTrustApplication")
         visual_elements.setAttribute("BackgroundColor", "transparent")
 
@@ -681,8 +677,8 @@ def prepare_windows_msix_for_signing(msix_path, signed_installer_path):
     shutil.rmtree(unpack_dir)
     output("Repacked MSIX package for signing: %s" % msix_path)
     final_metadata = get_msix_manifest_metadata(msix_path)
-    if not final_metadata or final_metadata["executable"] != "PsfLauncher64.exe":
-        error("Repacked MSIX does not use the x64 Package Support Framework launcher")
+    if not final_metadata or final_metadata["executable"] != "OpenShotMsixDiagnostic.exe":
+        error("Repacked MSIX does not use the native diagnostic launcher")
         return False
     return True
 
