@@ -180,6 +180,8 @@ What you can do in the dialog:
 - Provide tracking points/rectangles for tracking workflows.
 - Start the job with :guilabel:`Generate` or close with :guilabel:`Cancel`.
 
+.. _ai_tracking_ref:
+
 Tracking (Mask, Blur, Highlight)
 --------------------------------
 
@@ -221,7 +223,8 @@ How Tracking Works
 
 OpenShot sends your positive and negative markers as seed coordinates to the
 tracking model, which builds a mask for the subject and then follows it over
-time. Better seeds usually produce cleaner masks and less drift. [sam2]_
+time. Better seeds usually produce cleaner masks and less drift. This workflow
+uses `SAM2 (Segment Anything Model 2) <https://github.com/facebookresearch/sam2>`_.
 
 How to use it
 ^^^^^^^^^^^^^
@@ -251,8 +254,6 @@ Best Practices
 - If needed, add a more nuanced set of positive/negative points and rectangles.
 - Keep positive and negative points separated clearly.
 - If tracking becomes messy, use the Delete icon and restart with cleaner seeds.
-
-.. [sam2] *SAM2 (Segment Anything Model 2) project:* `facebookresearch/sam2 <https://github.com/facebookresearch/sam2>`_
 
 Job Queue, Progress, and Cancel
 -------------------------------
