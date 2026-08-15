@@ -44,7 +44,8 @@ from xml.parsers.expat import ExpatError
 
 from qt_api import Qt, QCoreApplication, QTimer, QSize, QPoint, pyqtSignal, pyqtSlot
 from qt_api import (
-    QMessageBox, QDialog, QFileDialog, QDialogButtonBox, QPushButton, QWidget, QLineEdit, QComboBox, QSpinBox, QCheckBox
+    QMessageBox, QDialog, QFileDialog, QDialogButtonBox, QPushButton, QWidget, QLineEdit, QComboBox, QSpinBox, QCheckBox,
+    location_file_dialog_options,
 )
 from qt_api import QIcon
 from functools import partial
@@ -817,9 +818,13 @@ class Export(QDialog):
         default_path = self.s.getDefaultPath(self.s.actionType.EXPORT)
 
         # update export folder path
-        file_path = QFileDialog.getExistingDirectory(self,
-                                                     _("Choose a Folder..."),
-                                                     default_path)
+        options = location_file_dialog_options()
+        if options is None:
+            file_path = QFileDialog.getExistingDirectory(
+                self, _("Choose a Folder..."), default_path)
+        else:
+            file_path = QFileDialog.getExistingDirectory(
+                self, _("Choose a Folder..."), default_path, options=options)
 
         # Don't change path if chosen path isn't valid
         if os.path.exists(file_path):
