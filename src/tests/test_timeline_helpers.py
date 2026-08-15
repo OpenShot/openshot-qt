@@ -258,6 +258,10 @@ class TimelineHelperTests(unittest.TestCase):
             def AddPoint(self, keyframe, new_point):
                 return timeline_module.TimelineView.AddPoint(self, keyframe, new_point)
 
+            def _remove_keypoints_in_range(self, points_data, frame_start, frame_end):
+                return timeline_module.TimelineView._remove_keypoints_in_range(
+                    self, points_data, frame_start, frame_end)
+
             def update_clip_data(self, clip_data, **_kwargs):
                 self.updated.append(copy.deepcopy(clip_data))
 
@@ -2373,6 +2377,43 @@ class TimelineHelperTests(unittest.TestCase):
             {"waveform_refresh": [clip.id], "transaction_id": "tx-vol-1"},
             helper.updated,
         )
+
+    def test_fast_fade_in_out_keeps_four_keyframes_on_four_second_clip(self):
+        helper = self.make_time_helper()
+        clip = types.SimpleNamespace(
+            id="C1",
+            data={
+                "id": "C1",
+                "start": 0.0,
+                "end": 4.0,
+                "duration": 4.0,
+                "reader": {"has_video": True, "has_audio": False},
+                "alpha": {"Points": [
+                    {"co": {"X": 1, "Y": 1.0}, "interpolation": openshot.LINEAR}
+                ]},
+                "volume": {"Points": [
+                    {"co": {"X": 1, "Y": 1.0}, "interpolation": openshot.LINEAR}
+                ]},
+                "ui": {},
+            },
+        )
+        app = types.SimpleNamespace(
+            project=types.SimpleNamespace(
+                get=lambda key: {"num": 30, "den": 1} if key == "fps" else None),
+            updates=types.SimpleNamespace(transaction_id=None),
+        )
+
+        with patch.object(self.timeline_module.Clip, "get", return_value=clip), \
+                patch.object(self.timeline_module, "get_app", return_value=app):
+            self.timeline_module.TimelineView.Fade_Triggered(
+                helper,
+                self.timeline_module.MenuFade.IN_OUT_FAST,
+                [clip.id],
+            )
+
+        points = clip.data["alpha"]["Points"]
+        self.assertEqual([point["co"]["X"] for point in points], [1.0, 31.0, 91.0, 121.0])
+        self.assertEqual([point["co"]["Y"] for point in points], [0.0, 1.0, 1.0, 0.0])
 
     def test_finalize_keyframe_drag_refreshes_waveform_for_volume_curve_changes(self):
         helper = self.make_finalize_keyframe_helper()

@@ -3973,19 +3973,53 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                     start_animation = max(1.0, end_of_clip - (3.0 * fps_float))
                     end_animation = end_of_clip
 
-                # Fade in and out (special case) — recurse for start + end independently
-                if position == "Entire Clip" and action in [MenuFade.IN_OUT_FAST, MenuFade.IN_OUT_SLOW]:
-                    if action == MenuFade.IN_OUT_FAST:
-                        self.Fade_Triggered(MenuFade.IN_FAST, clip_ids, "Start of Clip", transaction_id=tid)
-                        self.Fade_Triggered(MenuFade.OUT_FAST, clip_ids, "End of Clip", transaction_id=tid)
-                    elif action == MenuFade.IN_OUT_SLOW:
-                        self.Fade_Triggered(MenuFade.IN_SLOW, clip_ids, "Start of Clip", transaction_id=tid)
-                        self.Fade_Triggered(MenuFade.OUT_SLOW, clip_ids, "End of Clip", transaction_id=tid)
-                    return
-
                 reader = clip.data.get("reader", {}) if isinstance(clip.data, dict) else {}
                 fade_alpha = bool(reader.get("has_video", True)) or bool(clip.data.get("waveform", False))
                 fade_volume = bool(reader.get("has_audio", True))
+
+                # Fade in and out (special case). Clear both replacement zones
+                # before adding either fade, so overlapping cleanup ranges on
+                # short clips cannot delete keyframes created by the first fade.
+                if position == "Entire Clip" and action in [MenuFade.IN_OUT_FAST, MenuFade.IN_OUT_SLOW]:
+                    fade_seconds = 1.0 if action == MenuFade.IN_OUT_FAST else 3.0
+                    clip_frames = max(0.0, end_of_clip - start_of_clip)
+                    # Leave room between the two fades, even on clips shorter
+                    # than twice the requested fade duration.
+                    fade_frames = min(fade_seconds * fps_float, clip_frames / 3.0)
+                    fade_in_end = start_of_clip + fade_frames
+                    fade_out_start = end_of_clip - fade_frames
+
+                    c = self.window.timeline_sync.timeline.GetClip(clip_id)
+                    target_alpha = c.alpha.GetValue(int(round(fade_in_end))) if c else 1.0
+                    source_alpha = c.alpha.GetValue(int(round(fade_out_start))) if c else 1.0
+                    target_vol = c.volume.GetValue(int(round(fade_in_end))) if c else 1.0
+                    source_vol = c.volume.GetValue(int(round(fade_out_start))) if c else 1.0
+
+                    cleanup_end = min(start_of_clip + (3.0 * fps_float), end_of_clip)
+                    cleanup_start = max(start_of_clip, end_of_clip - (3.0 * fps_float))
+
+                    def apply_combined_fade(keyframe, target_value, source_value):
+                        self._remove_keypoints_in_range(keyframe, start_of_clip, cleanup_end)
+                        self._remove_keypoints_in_range(keyframe, cleanup_start, end_of_clip)
+                        self.AddPoint(keyframe, json.loads(openshot.Point(
+                            start_of_clip, 0.0, openshot.BEZIER).Json()))
+                        self.AddPoint(keyframe, json.loads(openshot.Point(
+                            fade_in_end, target_value, openshot.BEZIER).Json()))
+                        self.AddPoint(keyframe, json.loads(openshot.Point(
+                            fade_out_start, source_value, openshot.BEZIER).Json()))
+                        self.AddPoint(keyframe, json.loads(openshot.Point(
+                            end_of_clip, 0.0, openshot.BEZIER).Json()))
+
+                    if fade_alpha:
+                        apply_combined_fade(clip.data['alpha'], target_alpha, source_alpha)
+                    if fade_volume:
+                        apply_combined_fade(clip.data['volume'], target_vol, source_vol)
+
+                    self.update_clip_data(
+                        clip.data, only_basic_props=False, ignore_reader=True, transaction_id=tid)
+                    if clip.data.get("ui", {}).get("audio_data", []):
+                        clips_with_waveforms.append(clip.id)
+                    continue
 
                 if action == MenuFade.NONE:
                     p_object = json.loads(openshot.Point(1, 1.0, openshot.BEZIER).Json())
