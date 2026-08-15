@@ -71,6 +71,34 @@ LINUX_PORTAL_THEME_PLUGIN = (
 WINDOWS_STORE_MSIX_NAME = "OpenShotStudios.OpenShotforWindows"
 WINDOWS_STORE_MSIX_PUBLISHER = "CN=5FE34B8B-A62B-4594-911F-0D6CFC87D00F"
 WINDOWS_STORE_MSIX_PUBLISHER_DISPLAY_NAME = "OpenShot Studios"
+WINDOWS_STORE_MSIX_LANGUAGES = (
+    "en-US",
+    "ar-SA",
+    "bn-BD",
+    "de-DE",
+    "es-ES",
+    "fa-IR",
+    "fi-FI",
+    "fr-FR",
+    "hi-IN",
+    "hr-HR",
+    "id-ID",
+    "is-IS",
+    "it-IT",
+    "ja-JP",
+    "ko-KR",
+    "nb-NO",
+    "nl-NL",
+    "pl-PL",
+    "pt-PT",
+    "ro-RO",
+    "ru-RU",
+    "tr-TR",
+    "uk-UA",
+    "vi-VN",
+    "zh-Hans",
+    "zh-Hant",
+)
 # Create temp log
 os.makedirs(os.path.join(PATH, 'build'), exist_ok=True)
 log_path = os.path.join(PATH, 'build', 'build-server.log')
@@ -348,6 +376,7 @@ def get_msix_manifest_metadata(msix_path):
             "application_id": None,
             "executable": None,
             "entry_point": None,
+            "languages": [],
         }
         for element in manifest_document.getElementsByTagName("*"):
             if element.localName == "Identity":
@@ -364,10 +393,35 @@ def get_msix_manifest_metadata(msix_path):
                 metadata["application_id"] = element.getAttribute("Id")
                 metadata["executable"] = element.getAttribute("Executable")
                 metadata["entry_point"] = element.getAttribute("EntryPoint")
+            elif element.localName == "Resource" and element.hasAttribute("Language"):
+                metadata["languages"].append(element.getAttribute("Language"))
         return metadata
     except Exception as ex:
         error("Failed to read MSIX manifest metadata: %s" % ex)
         return None
+
+
+def set_msix_manifest_languages(manifest_document, languages):
+    """Replace the MSIX manifest language declarations, preserving other qualifiers."""
+    resources = next(
+        (element for element in manifest_document.getElementsByTagName("*")
+         if element.localName == "Resources"),
+        None,
+    )
+    if resources is None:
+        raise RuntimeError("MSIX manifest Resources element not found")
+
+    for child in list(resources.childNodes):
+        if (child.nodeType == child.ELEMENT_NODE
+                and child.localName == "Resource"
+                and child.hasAttribute("Language")):
+            resources.removeChild(child)
+
+    namespace = resources.namespaceURI or manifest_document.documentElement.namespaceURI
+    for language in languages:
+        resource = manifest_document.createElementNS(namespace, "Resource")
+        resource.setAttribute("Language", language)
+        resources.appendChild(resource)
 
 
 def get_expected_msix_version():
@@ -535,6 +589,9 @@ def prepare_windows_store_msix(msix_path):
         application.setAttribute("Executable", "openshot-qt.exe")
         application.setAttribute("EntryPoint", "Windows.FullTrustApplication")
         visual_elements.setAttribute("BackgroundColor", "transparent")
+        set_msix_manifest_languages(manifest_document, WINDOWS_STORE_MSIX_LANGUAGES)
+        output("MSIX manifest languages: %s" %
+               ", ".join(WINDOWS_STORE_MSIX_LANGUAGES))
 
         publisher_display_name_element = None
         for element in manifest_document.getElementsByTagName("*"):
@@ -559,7 +616,7 @@ def prepare_windows_store_msix(msix_path):
         with open(manifest_path, "wb") as manifest_file:
             manifest_file.write(manifest_document.toxml(encoding="UTF-8"))
     except Exception as ex:
-        error("Failed to update MSIX manifest publisher: %s" % ex)
+        error("Failed to update MSIX manifest: %s" % ex)
         return False
 
     pack_command = " ".join([
@@ -586,6 +643,10 @@ def prepare_windows_store_msix(msix_path):
             return False
     if final_metadata["executable"] != "openshot-qt.exe":
         error("Repacked MSIX does not use the OpenShot GUI executable")
+        return False
+    if final_metadata["languages"] != list(WINDOWS_STORE_MSIX_LANGUAGES):
+        error("Repacked MSIX has unexpected languages: %s" %
+              ", ".join(final_metadata["languages"]))
         return False
     return True
 
