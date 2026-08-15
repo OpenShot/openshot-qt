@@ -197,7 +197,7 @@ win-x86:
 windows:msix:package:
   stage: msix-package
   artifacts:
-    when: always
+    when: on_success
     expire_in: 2 weeks
     paths:
     - build\msix\*.msix
@@ -208,6 +208,8 @@ windows:msix:package:
     - powershell.exe -NoProfile -ExecutionPolicy Bypass -File installer\package_msix.ps1
     - $msixPackages = @(Get-ChildItem -Path "build\msix\*.msix" -File -ErrorAction SilentlyContinue)
     - if ($msixPackages.Count -ne 1) { throw "Expected exactly one x64 MSIX package, found $($msixPackages.Count)" }
+    - py -3 -m pip install defusedxml pillow
+    - py -3 -u installer/build_server.py "" "" "" "False" "$CI_COMMIT_REF_NAME" "" "msix-package-only"
   when: on_success
   except:
   - tags
@@ -220,18 +222,13 @@ win-sign-x64:
     expire_in: 2 weeks
     paths:
     - build\*-x86_64.exe
-    - build\msix\*.msix
     - build\build-server.log
   dependencies:
     - win-x64
-    - windows:msix:package
   script:
     - $PSVersionTable
     - $env:Path = $env:Path + ";C:\msys64\usr\local\bin;C:\msys64\usr\bin"
     - if (-not (Get-ChildItem -Path "build\*-x86_64.exe" -ErrorAction SilentlyContinue)) { throw "No x64 Windows installer found in build\\*-x86_64.exe" }
-    - $msixPackages = @(Get-ChildItem -Path "build\msix\*.msix" -File -ErrorAction SilentlyContinue)
-    - if ($msixPackages.Count -ne 1) { throw "Expected exactly one x64 MSIX package, found $($msixPackages.Count)" }
-    - py -3 -m pip install defusedxml pillow
     - py -3 -u installer/build_server.py "$SLACK_TOKEN" "$GITHUB_USER" "$GITHUB_PASS" "False" "$CI_COMMIT_REF_NAME" "$MAC_PASSWORD" "sign-upload-only"
   when: on_success
   except:

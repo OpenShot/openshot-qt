@@ -761,7 +761,9 @@ def main():
             zulip_token = sys.argv[1]
         if len(sys.argv) >= 6:
             git_branch_name = sys.argv[5]
-        if len(sys.argv) >= 4:
+        if len(sys.argv) >= 8:
+            windows_mode = sys.argv[7]
+        if len(sys.argv) >= 4 and windows_mode != "msix-package-only":
             github_user = sys.argv[2]
             github_pass = sys.argv[3]
 
@@ -777,8 +779,6 @@ def main():
         mac_password = ""
         if len(sys.argv) >= 7:
             mac_password = sys.argv[6]
-        if len(sys.argv) >= 8:
-            windows_mode = sys.argv[7]
 
         # Start log
         output(
@@ -802,6 +802,14 @@ def main():
             version_info.update(
                 parse_version_info(os.path.join(artifact_path, "share", data_file)))
         output(str(version_info))
+
+        # The MSIX packaging job owns Store manifest preparation and validation.
+        # It does not need GitHub access or executable signing credentials.
+        if windows_mode == "msix-package-only":
+            if not prepare_windows_msix_artifacts():
+                raise RuntimeError("Windows MSIX preparation failed")
+            output("Successfully prepared Windows MSIX artifact")
+            return
 
         # Get GIT description of openshot-qt-git branch (i.e. v2.0.6-18-ga01a98c)
         openshot_qt_git_desc = parse_build_name(version_info, git_branch_name)
@@ -1124,8 +1132,6 @@ def main():
                 needs_upload = False
             elif os.path.exists(app_build_path):
                 sign_success = sign_windows_installer(app_build_path)
-                if sign_success and not windows_32bit:
-                    sign_success = prepare_windows_msix_artifacts()
                 if not sign_success:
                     needs_upload = False
                     os.remove(app_build_path)
