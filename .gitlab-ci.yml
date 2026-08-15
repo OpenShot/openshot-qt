@@ -209,7 +209,7 @@ windows:msix:package:
     - $msixPackages = @(Get-ChildItem -Path "build\msix\*.msix" -File -ErrorAction SilentlyContinue)
     - if ($msixPackages.Count -ne 1) { throw "Expected exactly one x64 MSIX package, found $($msixPackages.Count)" }
     - py -3 -m pip install defusedxml pillow
-    - py -3 -u installer/build_server.py "" "" "" "False" "$CI_COMMIT_REF_NAME" "" "msix-package-only"
+    - py -3 -u installer/build_server.py --prepare-msix
   when: on_success
   except:
   - tags

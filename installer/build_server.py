@@ -754,16 +754,19 @@ def main():
     # are also used in the deploy.py script.
     try:
         windows_mode = "full"
+        windows_32bit = False
         git_branch_name = "develop"
+        zulip_token = None
+        prepare_msix_only = "--prepare-msix" in sys.argv
 
         # Validate command-line arguments
-        if len(sys.argv) >= 2:
+        if len(sys.argv) >= 2 and not prepare_msix_only:
             zulip_token = sys.argv[1]
         if len(sys.argv) >= 6:
             git_branch_name = sys.argv[5]
         if len(sys.argv) >= 8:
             windows_mode = sys.argv[7]
-        if len(sys.argv) >= 4 and windows_mode != "msix-package-only":
+        if len(sys.argv) >= 4 and not prepare_msix_only:
             github_user = sys.argv[2]
             github_pass = sys.argv[3]
 
@@ -772,7 +775,6 @@ def main():
             repo = gh.repository("OpenShot", "openshot-qt")
 
         if len(sys.argv) >= 5:
-            windows_32bit = False
             if sys.argv[4] == 'True':
                 windows_32bit = True
 
@@ -805,7 +807,7 @@ def main():
 
         # The MSIX packaging job owns Store manifest preparation and validation.
         # It does not need GitHub access or executable signing credentials.
-        if windows_mode == "msix-package-only":
+        if prepare_msix_only:
             if not prepare_windows_msix_artifacts():
                 raise RuntimeError("Windows MSIX preparation failed")
             output("Successfully prepared Windows MSIX artifact")
