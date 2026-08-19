@@ -25,7 +25,9 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-from qt_api import Qt, QSize, QPoint
+import os
+
+from qt_api import Qt, QSize, QPoint, QPointF
 from qt_api import clear_override_cursor
 from qt_api import QDrag
 from qt_api import QListView, QAbstractItemView
@@ -34,9 +36,10 @@ from classes import info
 from classes.app import get_app
 from classes.logger import log
 from .menu import StyledContextMenu, add_bound_action
+from .thumbnail_action_overlay import ThumbnailActionViewMixin
 
 
-class TransitionsListView(QListView):
+class TransitionsListView(ThumbnailActionViewMixin, QListView):
     """ A QListView QWidget used on the main window """
     drag_item_size = QSize(48, 48)
     drag_item_center = QPoint(24, 24)
@@ -95,6 +98,112 @@ class TransitionsListView(QListView):
         self.transition_model.proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
         self.transition_model.proxy_model.sort(0, Qt.AscendingOrder)
 
+    def add_item_to_timeline(self, index):
+        """Add the transition at index to the timeline."""
+        if not index.isValid():
+            log.warning("add_item_to_timeline called with invalid index")
+            return
+
+        # Map list_proxy_model -> proxy_model -> source model
+        proxy_index = self.transition_model.list_proxy_model.mapToSource(index)
+        if not proxy_index or not proxy_index.isValid():
+            log.warning("add_item_to_timeline failed to map list_proxy_model index to proxy_index")
+            return
+        source_index = self.transition_model.proxy_model.mapToSource(proxy_index)
+        if not source_index or not source_index.isValid():
+            log.warning("add_item_to_timeline failed to map proxy_index to source_index")
+            return
+
+        # Column 3 contains the transition file path
+        path_item = source_index.sibling(source_index.row(), 3)
+        trans_path = path_item.data(Qt.DisplayRole) or path_item.data()
+        if not trans_path:
+            log.warning("No transition path found for row %s", source_index.row())
+            return
+        trans_path = os.path.normpath(str(trans_path))
+
+        timeline = getattr(self.win, "timeline", None)
+        if not timeline:
+            log.warning("No timeline found in window")
+            return
+
+        from classes.query import Clip, Transition
+        log.info("One-click adding transition '%s' to timeline", trans_path)
+
+        # 1. Determine position (playhead position in seconds)
+        pos_seconds = 0.0
+        if hasattr(self.win, "_current_timeline_seconds"):
+            pos_seconds = self.win._current_timeline_seconds()
+        elif hasattr(self.win, "preview_thread"):
+            fps = get_app().project.get("fps")
+            fps_float = float(fps["num"]) / float(fps["den"])
+            cur_frame = getattr(self.win.preview_thread, "current_frame", None)
+            if cur_frame is None and hasattr(self.win.preview_thread, "player") and self.win.preview_thread.player:
+                cur_frame = self.win.preview_thread.player.Position()
+            if cur_frame:
+                pos_seconds = max(0.0, float(cur_frame - 1) / fps_float)
+
+        # 2. Determine target track layer
+        track_num = None
+        selected_clips = list(getattr(self.win, "selected_clips", []) or [])
+        selected_trans = list(getattr(self.win, "selected_transitions", []) or [])
+        if selected_clips:
+            first_clip = Clip.get(id=selected_clips[0])
+            if first_clip and isinstance(first_clip.data, dict):
+                track_num = first_clip.data.get("layer")
+        elif selected_trans:
+            first_tran = Transition.get(id=selected_trans[0])
+            if first_tran and isinstance(first_tran.data, dict):
+                track_num = first_tran.data.get("layer")
+
+        if track_num is None:
+            intersecting_clips = Clip.filter(intersect=pos_seconds)
+            if intersecting_clips:
+                sorted_clips = sorted(
+                    intersecting_clips,
+                    key=lambda c: int(c.data.get("layer", 0) if isinstance(c.data, dict) else 0),
+                    reverse=True,
+                )
+                track_num = sorted_clips[0].data.get("layer")
+
+        if track_num is not None:
+            try:
+                track_num = int(track_num)
+            except (TypeError, ValueError):
+                track_num = None
+
+        if hasattr(timeline, "_nearest_unlocked_track_number"):
+            if track_num is not None:
+                track_num = timeline._nearest_unlocked_track_number(track_num)
+            if track_num is None and hasattr(timeline, "track_list") and timeline.track_list:
+                track_num = timeline._nearest_unlocked_track_number(
+                    timeline.track_list[0].data.get("number")
+                )
+
+        if track_num is None:
+            track_num = 1
+
+        log.info("Adding transition '%s' at position %.2fs on track %s", trans_path, pos_seconds, track_num)
+
+        # 3. Call timeline.addTransition
+        item = timeline.addTransition(
+            trans_path,
+            QPointF(pos_seconds, 0),
+            track_num,
+            ignore_refresh=False,
+            call_manual_move=False,
+        )
+
+        # 4. Auto-select added transition
+        if item and hasattr(timeline, "_select_added_items"):
+            timeline._select_added_items("transition")
+        elif item and item.get("id"):
+            self.win.addSelection(str(item.get("id")), "transition", clear_existing=True)
+
+        if hasattr(self.win, "statusBar") and self.win.statusBar:
+            trans_title = source_index.sibling(source_index.row(), 1).data(Qt.DisplayRole) or "Transition"
+            self.win.statusBar.showMessage(get_app()._tr(f"Added {trans_title} transition to timeline"), 3000)
+
     def __init__(self, model):
         # Invoke parent init
         QListView.__init__(self)
@@ -129,6 +238,9 @@ class TransitionsListView(QListView):
         self.setUniformItemSizes(True)
         self.setWordWrap(False)
         self.setTextElideMode(Qt.ElideRight)
+
+        # Initialize thumbnail hover '+' button overlay and mouse tracking
+        self.init_thumbnail_action_overlay()
 
         # setup filter events
         app.window.transitionsFilter.textChanged.connect(self.filter_changed)
