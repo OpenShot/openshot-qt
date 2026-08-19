@@ -34,9 +34,10 @@ from classes import info
 from classes.app import get_app
 from classes.logger import log
 from .menu import StyledContextMenu, add_bound_action
+from .thumbnail_action_overlay import ThumbnailActionViewMixin
 
 
-class EffectsListView(QListView):
+class EffectsListView(ThumbnailActionViewMixin, QListView):
     """ A TreeView QWidget used on the main window """
     drag_item_size = QSize(48, 48)
     drag_item_center = QPoint(24, 24)
@@ -94,6 +95,103 @@ class EffectsListView(QListView):
         self.effects_model.proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
         self.effects_model.proxy_model.sort(0, Qt.AscendingOrder)
 
+    def add_item_to_timeline(self, index):
+        """Add the effect at index to the timeline."""
+        if not index.isValid():
+            log.warning("add_item_to_timeline called with invalid index")
+            return
+
+        # Map list_proxy_model -> proxy_model -> source model
+        proxy_index = self.effects_model.list_proxy_model.mapToSource(index)
+        if not proxy_index or not proxy_index.isValid():
+            log.warning("add_item_to_timeline failed to map list_proxy_model index to proxy_index")
+            return
+        source_index = self.effects_model.proxy_model.mapToSource(proxy_index)
+        if not source_index or not source_index.isValid():
+            log.warning("add_item_to_timeline failed to map proxy_index to source_index")
+            return
+
+        # Column 4 contains the effect class_name (e.g. "Blur", "Color")
+        effect_name_item = source_index.sibling(source_index.row(), 4)
+        effect_name = effect_name_item.data(Qt.DisplayRole) or effect_name_item.data()
+        if not effect_name:
+            log.warning("No effect name found for row %s", source_index.row())
+            return
+
+        timeline = getattr(self.win, "timeline", None)
+        if not timeline:
+            log.warning("No timeline found in window")
+            return
+
+        from classes.query import Clip
+        log.info("One-click adding effect '%s' to timeline", effect_name)
+
+        # 1. If clips are selected on the timeline, apply effect to each selected clip
+        selected_clip_ids = list(getattr(self.win, "selected_clips", []) or [])
+        applied = False
+        if selected_clip_ids:
+            log.info("Applying effect '%s' to %d selected clips: %s", effect_name, len(selected_clip_ids), selected_clip_ids)
+            for clip_id in selected_clip_ids:
+                clip = Clip.get(id=clip_id)
+                if clip:
+                    timeline._apply_effect_to_clip(clip, effect_name)
+                    applied = True
+            if applied and hasattr(self.win, "statusBar") and self.win.statusBar:
+                self.win.statusBar.showMessage(get_app()._tr(f"Applied {effect_name} effect to selected clip(s)"), 3000)
+            return
+
+        # 2. Check for clips under the current playhead position
+        pos_seconds = 0.0
+        if hasattr(self.win, "_current_timeline_seconds"):
+            pos_seconds = self.win._current_timeline_seconds()
+        elif hasattr(self.win, "preview_thread"):
+            fps = get_app().project.get("fps")
+            fps_float = float(fps["num"]) / float(fps["den"])
+            cur_frame = getattr(self.win.preview_thread, "current_frame", None)
+            if cur_frame is None and hasattr(self.win.preview_thread, "player") and self.win.preview_thread.player:
+                cur_frame = self.win.preview_thread.player.Position()
+            if cur_frame:
+                pos_seconds = max(0.0, float(cur_frame - 1) / fps_float)
+
+        intersecting_clips = Clip.filter(intersect=pos_seconds)
+        if intersecting_clips:
+            # Sort by layer descending so the top-most visual clip is targeted
+            sorted_clips = sorted(
+                intersecting_clips,
+                key=lambda c: int(c.data.get("layer", 0) if isinstance(c.data, dict) else 0),
+                reverse=True,
+            )
+            target_clip = sorted_clips[0]
+            log.info("Applying effect '%s' to clip under playhead (id=%s, layer=%s)", effect_name, target_clip.id, target_clip.data.get("layer"))
+            timeline._apply_effect_to_clip(target_clip, effect_name)
+            if hasattr(self.win, "statusBar") and self.win.statusBar:
+                self.win.statusBar.showMessage(get_app()._tr(f"Applied {effect_name} effect to clip"), 3000)
+            return
+
+        # 3. Fallback: if no clip at playhead, find the nearest clip on the timeline
+        all_clips = Clip.filter()
+        if all_clips:
+            def clip_dist(c):
+                data = c.data if isinstance(c.data, dict) else {}
+                c_pos = float(data.get("position", 0.0) or 0.0)
+                c_start = float(data.get("start", 0.0) or 0.0)
+                c_end = float(data.get("end", c_start) or c_start)
+                c_finish = c_pos + (c_end - c_start)
+                if c_pos <= pos_seconds <= c_finish:
+                    return 0.0
+                return min(abs(pos_seconds - c_pos), abs(pos_seconds - c_finish))
+
+            nearest_clip = min(all_clips, key=clip_dist)
+            log.info("Applying effect '%s' to nearest clip on timeline (id=%s, layer=%s)", effect_name, nearest_clip.id, nearest_clip.data.get("layer"))
+            timeline._apply_effect_to_clip(nearest_clip, effect_name)
+            if hasattr(self.win, "statusBar") and self.win.statusBar:
+                self.win.statusBar.showMessage(get_app()._tr(f"Applied {effect_name} effect to clip"), 3000)
+            return
+
+        log.warning("Cannot add effect '%s': No clips found on timeline. Add a clip first.", effect_name)
+        if hasattr(self.win, "statusBar") and self.win.statusBar:
+            self.win.statusBar.showMessage(get_app()._tr("Please add a clip to the timeline before applying effects"), 4000)
+
     def __init__(self, model):
         # Invoke parent init
         QListView.__init__(self)
@@ -128,6 +226,9 @@ class EffectsListView(QListView):
         self.setUniformItemSizes(True)
         self.setWordWrap(False)
         self.setTextElideMode(Qt.ElideRight)
+
+        # Initialize thumbnail hover '+' button overlay and mouse tracking
+        self.init_thumbnail_action_overlay()
 
         # setup filter events
         app.window.effectsFilter.textChanged.connect(self.filter_changed)

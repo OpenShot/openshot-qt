@@ -25,7 +25,7 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-from qt_api import QMimeData, QSize, QPoint, Qt, QUrl, pyqtSlot
+from qt_api import QMimeData, QSize, QPoint, QPointF, Qt, QUrl, pyqtSlot
 from qt_api import clear_override_cursor
 from qt_api import QDrag, QListView
 import openshot  # Python module for libopenshot (required video editing module installed separately)
@@ -33,11 +33,12 @@ from classes import info
 from classes.query import File
 from classes.app import get_app
 from classes.logger import log
+from .thumbnail_action_overlay import ThumbnailActionViewMixin
 import json
 import uuid
 
 
-class EmojisListView(QListView):
+class EmojisListView(ThumbnailActionViewMixin, QListView):
     """ A QListView QWidget used on the main window """
     drag_item_size = QSize(48, 48)
     drag_item_center = QPoint(24, 24)
@@ -180,6 +181,126 @@ class EmojisListView(QListView):
         info.EMOJI_PATH = file_path
         info.EMOJI_ICON = file_path
 
+    def add_item_to_timeline(self, index):
+        """Add the emoji at index as a clip to the timeline."""
+        if not index or not index.isValid():
+            log.warning("add_item_to_timeline called with invalid index")
+            return
+
+        from .thumbnail_action_overlay import to_qmodelindex
+        index = to_qmodelindex(index)
+
+        # Map through proxy_model -> group_model -> standard model
+        group_index = self.model.mapToSource(index)
+        if not group_index or not group_index.isValid():
+            log.warning("Failed to map index to group_index in EmojisListView")
+            return
+        source_index = self.group_model.mapToSource(group_index)
+        if not source_index or not source_index.isValid():
+            log.warning("Failed to map group_index to source_index in EmojisListView")
+            return
+
+        selected_item = self.emojis_model.model.itemFromIndex(source_index)
+        emoji_name = selected_item.text() if selected_item else "Emoji"
+        emoji_path = selected_item.data() if selected_item else None
+        if not emoji_path:
+            emoji_path = source_index.data(Qt.UserRole + 1)
+        if not emoji_path:
+            log.warning("No emoji path found for index %s", index.row())
+            return
+
+        timeline = getattr(self.win, "timeline", None)
+        if not timeline:
+            log.warning("No timeline found in window")
+            return
+
+        from classes.query import Clip, Transition
+        log.info("One-click adding emoji '%s' (%s) to timeline", emoji_name, emoji_path)
+
+        # 1. Determine position (playhead position in seconds)
+        pos_seconds = 0.0
+        if hasattr(self.win, "_current_timeline_seconds"):
+            pos_seconds = self.win._current_timeline_seconds()
+        elif hasattr(self.win, "preview_thread"):
+            fps = get_app().project.get("fps")
+            fps_float = float(fps["num"]) / float(fps["den"])
+            cur_frame = getattr(self.win.preview_thread, "current_frame", None)
+            if cur_frame is None and hasattr(self.win.preview_thread, "player") and self.win.preview_thread.player:
+                cur_frame = self.win.preview_thread.player.Position()
+            if cur_frame:
+                pos_seconds = max(0.0, float(cur_frame - 1) / fps_float)
+
+        # 2. Determine target track layer
+        track_num = None
+        selected_clips = list(getattr(self.win, "selected_clips", []) or [])
+        selected_trans = list(getattr(self.win, "selected_transitions", []) or [])
+        if selected_clips:
+            first_clip = Clip.get(id=selected_clips[0])
+            if first_clip and isinstance(first_clip.data, dict):
+                track_num = first_clip.data.get("layer")
+        elif selected_trans:
+            first_tran = Transition.get(id=selected_trans[0])
+            if first_tran and isinstance(first_tran.data, dict):
+                track_num = first_tran.data.get("layer")
+
+        if track_num is None:
+            intersecting_clips = Clip.filter(intersect=pos_seconds)
+            if intersecting_clips:
+                sorted_clips = sorted(
+                    intersecting_clips,
+                    key=lambda c: int(c.data.get("layer", 0) if isinstance(c.data, dict) else 0),
+                    reverse=True,
+                )
+                track_num = sorted_clips[0].data.get("layer")
+
+        if track_num is not None:
+            try:
+                track_num = int(track_num)
+            except (TypeError, ValueError):
+                track_num = None
+
+        if hasattr(timeline, "_nearest_unlocked_track_number"):
+            if track_num is not None:
+                track_num = timeline._nearest_unlocked_track_number(track_num)
+            if track_num is None and hasattr(timeline, "track_list") and timeline.track_list:
+                track_num = timeline._nearest_unlocked_track_number(
+                    timeline.track_list[0].data.get("number")
+                )
+
+        if track_num is None:
+            track_num = 1
+
+        log.info("Adding emoji '%s' clip at position %.2fs on track %s", emoji_name, pos_seconds, track_num)
+
+        # 3. Create File + Clip wrapped in a transaction for undo
+        tid = str(uuid.uuid4())
+        get_app().updates.transaction_id = tid
+        try:
+            file = self.add_file(emoji_path, emoji_name)
+            if not file:
+                log.warning("Failed to add emoji file: %s", emoji_path)
+                return
+
+            clip = timeline.addClip(
+                file.id,
+                QPointF(pos_seconds, 0),
+                track_num,
+                ignore_refresh=False,
+                call_manual_move=False,
+                auto_transition=False,
+            )
+
+            # Auto-select added emoji clip
+            if clip and hasattr(timeline, "_select_added_items"):
+                timeline._select_added_items("clip")
+            elif clip and clip.get("id"):
+                self.win.addSelection(str(clip.get("id")), "clip", clear_existing=True)
+
+            if hasattr(self.win, "statusBar") and self.win.statusBar:
+                self.win.statusBar.showMessage(get_app()._tr(f"Added {emoji_name} to timeline"), 3000)
+        finally:
+            get_app().updates.transaction_id = None
+
     def __init__(self, model, *args):
         # Invoke parent init
         super().__init__(*args)
@@ -212,6 +333,9 @@ class EmojisListView(QListView):
         self.setUniformItemSizes(True)
         self.setWordWrap(False)
         self.setTextElideMode(Qt.ElideRight)
+
+        # Initialize thumbnail hover '+' button overlay and mouse tracking
+        self.init_thumbnail_action_overlay()
 
         self.emojis_model.ModelRefreshed.connect(self.refresh_view)
         # Activate filter and group selection
