@@ -17,7 +17,7 @@ PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 if PATH not in sys.path:
     sys.path.append(PATH)
 
-from qt_api import QByteArray, QCoreApplication, QSize, Qt
+from qt_api import QByteArray, QCoreApplication, QEvent, QPoint, QRect, QSize, Qt
 from qt_api import QApplication
 
 from tests.qt_test_app import ensure_app_state as ensure_qt_app_state, get_or_create_app
@@ -1289,6 +1289,103 @@ class RecordingPreviewTests(unittest.TestCase):
         self.assertEqual(dock.screen_width_spin.value, 1280)
         self.assertEqual(dock.screen_height_spin.value, 720)
         self.assertIn("1280x720", dock.screen_status_label.text)
+
+    def test_windows_region_uses_native_cursor_pixels_and_monitor_bounds(self):
+        helper = self.recording_widgets_module
+        overlay = helper.WindowsRegionSelectorOverlay(
+            capture_geometry=(3840, 0, 3840, 2160),
+            overlay_geometry=QRect(2560, 0, 2560, 1440),
+        )
+
+        class FakeMouseEvent:
+            def buttons(self):
+                return Qt.LeftButton
+
+        positions = [(3990, 150), (4590, 750), (8000, 3000)]
+        with patch.object(helper, "_windows_cursor_pos", side_effect=positions):
+            overlay.mousePressEvent(FakeMouseEvent())
+            overlay.mouseMoveEvent(FakeMouseEvent())
+            overlay.mouseReleaseEvent(FakeMouseEvent())
+
+        # The returned rectangle is in native gdigrab pixels, not the
+        # 150%-scaled Qt coordinate space, and it cannot escape Screen 2.
+        self.assertEqual(overlay.selected_geometry(), (3990, 150, 3690, 2010))
+
+    def test_windows_region_overlay_matches_high_dpi_qt_screen(self):
+        helper = self.recording_widgets_module
+        fake_screen = types.SimpleNamespace(
+            geometry=lambda: QRect(2560, 0, 2560, 1440),
+            devicePixelRatio=lambda: 1.5,
+        )
+        with patch.object(helper.QApplication, "screens", return_value=[fake_screen]):
+            geometry = helper._windows_region_overlay_geometry((3840, 0, 3840, 2160))
+
+        self.assertEqual(geometry, QRect(2560, 0, 2560, 1440))
+
+    def test_windows_all_screens_region_uses_qt_virtual_desktop_overlay(self):
+        helper = self.recording_widgets_module
+        virtual_geometry = QRect(-1280, 0, 3200, 1080)
+        fake_primary = types.SimpleNamespace(virtualGeometry=lambda: virtual_geometry)
+        fake_overlay = MagicMock()
+        fake_overlay.select.return_value = (10, 20, 30, 40)
+        with patch.object(helper, "windows_virtual_screen_geometry", return_value=(-1920, 0, 3840, 1080)), \
+                patch.object(helper.QApplication, "primaryScreen", return_value=fake_primary), \
+                patch.object(helper, "WindowsRegionSelectorOverlay", return_value=fake_overlay) as overlay_class:
+            result = helper.pick_windows_region()
+
+        self.assertEqual(result, (10, 20, 30, 40))
+        overlay_class.assert_called_once_with(
+            None, (-1920, 0, 3840, 1080), virtual_geometry)
+
+    def test_select_region_limits_windows_picker_to_selected_screen(self):
+        helper = self.audio_recording_module
+        button = lambda: types.SimpleNamespace(setChecked=MagicMock())
+        dock = types.SimpleNamespace(
+            region_button=button(),
+            full_screen_button=button(),
+            window_button=button(),
+            _screen_window_id="old-window",
+            _set_hide_openshot_default=MagicMock(),
+            _hide_openshot_for_picker=MagicMock(return_value=None),
+            _restore_openshot_window=MagicMock(),
+            _selected_screen_source=MagicMock(return_value={
+                "id": "screen-2", "x": 3840, "y": 0,
+                "width": 3840, "height": 2160, "all": False,
+            }),
+            _set_screen_target=MagicMock(),
+            screen_status_label=types.SimpleNamespace(setText=MagicMock()),
+        )
+        with patch.object(helper, "screen_capture_backend_is_wayland", return_value=False), \
+                patch.object(helper.sys, "platform", "win32"), \
+                patch.object(helper.QApplication, "processEvents"), \
+                patch.object(helper, "pick_screen_region", return_value=(4000, 100, 800, 600)) as picker:
+            helper.AudioRecordingDockContent._select_region(dock)
+
+        picker.assert_called_once_with(
+            dock,
+            capture_geometry=(3840, 0, 3840, 2160),
+        )
+        dock._set_screen_target.assert_called_once()
+
+    def test_region_and_window_overlays_cancel_escape_from_application(self):
+        helper = self.recording_widgets_module
+
+        class EscapeEvent:
+            def type(self):
+                return QEvent.KeyPress
+
+            def key(self):
+                return Qt.Key_Escape
+
+        with patch.object(helper, "windows_virtual_screen_geometry", return_value=(0, 0, 1920, 1080)):
+            overlays = (
+                helper.RegionSelectorOverlay(),
+                helper.WindowsWindowSelectorOverlay(),
+            )
+        for overlay in overlays:
+            overlay.reject = MagicMock()
+            self.assertTrue(overlay.eventFilter(self.app, EscapeEvent()))
+            overlay.reject.assert_called_once_with()
 
     def test_windows_screen_job_uses_selected_monitor_bounds(self):
         helper = self.audio_recording_module

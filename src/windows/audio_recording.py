@@ -1384,7 +1384,19 @@ class AudioRecordingDockContent(QWidget):
         self._set_hide_openshot_default(False)
         hidden_state = self._hide_openshot_for_picker()
         try:
-            result = pick_screen_region(None if hidden_state is not None else self)
+            source = self._selected_screen_source()
+            capture_geometry = None
+            if sys.platform.startswith("win") and source and not source.get("all"):
+                capture_geometry = (
+                    int(source.get("x") or 0),
+                    int(source.get("y") or 0),
+                    int(source.get("width") or 0),
+                    int(source.get("height") or 0),
+                )
+            result = pick_screen_region(
+                None if hidden_state is not None else self,
+                capture_geometry=capture_geometry,
+            )
         finally:
             self._restore_openshot_window(hidden_state)
         if result:

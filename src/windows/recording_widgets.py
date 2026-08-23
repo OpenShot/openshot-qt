@@ -18,7 +18,7 @@ import subprocess  # nosec B404 -- fixed argv only; shell execution is never use
 import sys
 
 from qt_api import (
-    Qt, pyqtSignal, QRect, QPoint,
+    Qt, pyqtSignal, QRect, QPoint, QEvent, QTimer,
     QWidget, QFrame, QLabel, QPushButton, QVBoxLayout, QHBoxLayout,
     QGridLayout, QApplication, QDialog, QPainter, QColor, QPen,
 )
@@ -189,6 +189,32 @@ class RegionSelectorOverlay(QDialog):
             return self._to_global_geometry(rect)
         return None
 
+    def _activate_for_keyboard(self):
+        """Ensure modal picker keyboard shortcuts reach this window."""
+        self.raise_()
+        self.activateWindow()
+        self.setFocus(Qt.ActiveWindowFocusReason)
+
+    def eventFilter(self, watched, event):
+        # The Windows tool window can briefly lose focus while its parent is
+        # hidden. Catch Escape anywhere in this application while the modal
+        # picker is active, rather than depending on child/window focus.
+        if event.type() == QEvent.KeyPress and event.key() == Qt.Key_Escape:
+            self.reject()
+            return True
+        return super().eventFilter(watched, event)
+
+    def showEvent(self, event):
+        super().showEvent(event)
+        QApplication.instance().installEventFilter(self)
+        QTimer.singleShot(0, self._activate_for_keyboard)
+
+    def done(self, result):
+        app = QApplication.instance()
+        if app:
+            app.removeEventFilter(self)
+        super().done(result)
+
     def _to_global_geometry(self, rect):
         top_left = self.mapToGlobal(rect.topLeft())
         bottom_right = self.mapToGlobal(rect.bottomRight())
@@ -272,9 +298,9 @@ def pick_x11_region(parent=None):
     return RegionSelectorOverlay(parent).select()
 
 
-def pick_screen_region(parent=None):
+def pick_screen_region(parent=None, capture_geometry=None, overlay_geometry=None):
     if sys.platform.startswith("win"):
-        return pick_windows_region(parent)
+        return pick_windows_region(parent, capture_geometry, overlay_geometry)
     if sys.platform == "darwin":
         return pick_mac_region(parent)
     return pick_x11_region(parent)
@@ -875,14 +901,123 @@ def windows_monitor_geometries():
     return sources
 
 
-def pick_windows_region(parent=None):
-    x, y, width, height = windows_virtual_screen_geometry()
+class WindowsRegionSelectorOverlay(RegionSelectorOverlay):
+    """Select a gdigrab rectangle in native Windows desktop pixels."""
+
+    def __init__(self, parent=None, capture_geometry=None, overlay_geometry=None):
+        x, y, width, height = capture_geometry or windows_virtual_screen_geometry()
+        self.capture_geometry = QRect(int(x), int(y), int(width or 1), int(height or 1))
+        super().__init__(
+            parent,
+            overlay_geometry or self.capture_geometry,
+            x11_geometry=False,
+        )
+        self.native_origin = None
+        self.native_selection = QRect()
+
+    def _native_cursor_pos(self):
+        position = _windows_cursor_pos()
+        return QPoint(*position) if position is not None else None
+
+    def _clamped_native_point(self, point):
+        bounds = self.capture_geometry
+        return QPoint(
+            max(bounds.left(), min(point.x(), bounds.right())),
+            max(bounds.top(), min(point.y(), bounds.bottom())),
+        )
+
+    def mousePressEvent(self, event):
+        point = self._native_cursor_pos()
+        if point is None:
+            return super().mousePressEvent(event)
+        self.native_origin = self._clamped_native_point(point)
+        self.native_selection = QRect(self.native_origin, self.native_origin)
+        self.update()
+
+    def mouseMoveEvent(self, event):
+        if self.native_origin is None or not (event.buttons() & Qt.LeftButton):
+            return
+        point = self._native_cursor_pos()
+        if point is not None:
+            self.native_selection = QRect(
+                self.native_origin, self._clamped_native_point(point)).normalized()
+            self.update()
+
+    def mouseReleaseEvent(self, event):
+        if self.native_origin is None:
+            return super().mouseReleaseEvent(event)
+        point = self._native_cursor_pos()
+        if point is not None:
+            self.native_selection = QRect(
+                self.native_origin, self._clamped_native_point(point)).normalized()
+        if self.native_selection.width() > 8 and self.native_selection.height() > 8:
+            self.accept()
+        else:
+            self.reject()
+
+    def selected_geometry(self):
+        rect = self.native_selection.normalized()
+        return rect.x(), rect.y(), max(1, rect.width()), max(1, rect.height())
+
+    def select(self):
+        accepted = getattr(QDialog, "Accepted", None)
+        if accepted is None and hasattr(QDialog, "DialogCode"):
+            accepted = QDialog.DialogCode.Accepted
+        self.setGeometry(self.screen_geometry)
+        return self.selected_geometry() if self.exec_() == accepted else None
+
+    def paintEvent(self, event):
+        painter = QPainter(self)
+        painter.fillRect(self.rect(), QColor(0, 0, 0, 120))
+        if self.native_selection.isValid():
+            bounds = self.capture_geometry
+            scale_x = float(self.width() or 1) / float(bounds.width() or 1)
+            scale_y = float(self.height() or 1) / float(bounds.height() or 1)
+            native = self.native_selection.normalized()
+            rect = QRect(
+                int(round((native.x() - bounds.x()) * scale_x)),
+                int(round((native.y() - bounds.y()) * scale_y)),
+                max(1, int(round(native.width() * scale_x))),
+                max(1, int(round(native.height() * scale_y))),
+            )
+            painter.setPen(QPen(QColor(64, 145, 255), 2))
+            painter.fillRect(rect, QColor(64, 145, 255, 45))
+            painter.drawRect(rect)
+
+
+def _windows_region_overlay_geometry(capture_geometry):
+    """Find the Qt logical screen rect corresponding to native capture bounds."""
+    x, y, width, height = capture_geometry
+    candidates = []
+    for screen in QApplication.screens() or []:
+        geometry = screen.geometry()
+        scale = float(screen.devicePixelRatio() or 1.0)
+        size_error = (
+            abs(int(round(geometry.width() * scale)) - int(width))
+            + abs(int(round(geometry.height() * scale)) - int(height))
+        )
+        origin_match = geometry.contains(QPoint(int(x), int(y)))
+        candidates.append((0 if origin_match else 1, size_error, geometry))
+    if candidates:
+        return min(candidates, key=lambda candidate: candidate[:2])[2]
+    return QRect(int(x), int(y), int(width), int(height))
+
+
+def pick_windows_region(parent=None, capture_geometry=None, overlay_geometry=None):
+    uses_virtual_desktop = capture_geometry is None
+    x, y, width, height = capture_geometry or windows_virtual_screen_geometry()
     if not width or not height:
         return None
-    return RegionSelectorOverlay(
+    if overlay_geometry is None:
+        if uses_virtual_desktop:
+            primary = QApplication.primaryScreen()
+            overlay_geometry = primary.virtualGeometry() if primary else None
+        overlay_geometry = overlay_geometry or _windows_region_overlay_geometry(
+            (x, y, width, height))
+    return WindowsRegionSelectorOverlay(
         parent,
-        QRect(int(x), int(y), int(width), int(height)),
-        x11_geometry=False,
+        (x, y, width, height),
+        overlay_geometry,
     ).select()
 
 
@@ -976,6 +1111,28 @@ class WindowsWindowSelectorOverlay(QDialog):
         if accepted is None and hasattr(QDialog, "DialogCode"):
             accepted = QDialog.DialogCode.Accepted
         return self.selected_result if self.exec_() == accepted else None
+
+    def _activate_for_keyboard(self):
+        self.raise_()
+        self.activateWindow()
+        self.setFocus(Qt.ActiveWindowFocusReason)
+
+    def eventFilter(self, watched, event):
+        if event.type() == QEvent.KeyPress and event.key() == Qt.Key_Escape:
+            self.reject()
+            return True
+        return super().eventFilter(watched, event)
+
+    def showEvent(self, event):
+        super().showEvent(event)
+        QApplication.instance().installEventFilter(self)
+        QTimer.singleShot(0, self._activate_for_keyboard)
+
+    def done(self, result):
+        app = QApplication.instance()
+        if app:
+            app.removeEventFilter(self)
+        super().done(result)
 
     def _physical_to_overlay_point(self, x, y):
         screen = self.screen_geometry
