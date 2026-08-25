@@ -200,6 +200,13 @@ Screen Advanced Options
    Hide OpenShot       No               Temporarily hides OpenShot during selection and recording when enabled.
    ==================  ===============  ========================================================================
 
+.. note::
+
+   On some Windows systems using high-DPI display scaling, the mouse pointer may be displaced or missing from screen
+   recordings made on a scaled display. If pointer visibility is important, record on a display configured at 100%
+   scaling, temporarily set the target display to 100%, or use a separate screen-capture application. Screen video is
+   still recorded normally, and setting :guilabel:`Cursor` to :guilabel:`Off` avoids the affected pointer overlay.
+
 System Audio
 ^^^^^^^^^^^^
 
@@ -320,6 +327,7 @@ Troubleshooting Recording
    System Audio is silent       Play audio before testing, verify the output device, and inspect OS privacy/routing.
    Voice contains game echo     Use headphones so the mic does not capture speaker playback.
    Screen source is incorrect   Re-select Full Screen/Window/Region; on Wayland, choose again in the portal.
+   Cursor missing on Windows    High-DPI scaling can affect the pointer overlay; try the target display at 100%.
    Webcam is unavailable        Check camera permission, close other camera apps, and reconnect the device.
    Recording is choppy          Lower screen/camera FPS or resolution and close CPU-intensive applications.
    Clips appear on wrong track  Choose the top destination Track before recording, then move clips if needed.
