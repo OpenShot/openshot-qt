@@ -1003,6 +1003,25 @@ def _windows_region_overlay_geometry(capture_geometry):
     return QRect(int(x), int(y), int(width), int(height))
 
 
+def _windows_physical_point_to_qt(x, y):
+    """Map a native desktop pixel to Qt's logical desktop coordinates."""
+    for monitor in windows_monitor_geometries():
+        left = int(monitor["x"])
+        top = int(monitor["y"])
+        width = int(monitor["width"])
+        height = int(monitor["height"])
+        # Window rectangles use exclusive right/bottom edges, so accept the
+        # outer desktop boundary as well as ordinary points inside a monitor.
+        if left <= x <= left + width and top <= y <= top + height:
+            logical = _windows_region_overlay_geometry(
+                (left, top, width, height))
+            return QPoint(
+                logical.x() + int(round((x - left) * logical.width() / width)),
+                logical.y() + int(round((y - top) * logical.height() / height)),
+            )
+    return QPoint(int(x), int(y))
+
+
 def pick_windows_region(parent=None, capture_geometry=None, overlay_geometry=None):
     uses_virtual_desktop = capture_geometry is None
     x, y, width, height = capture_geometry or windows_virtual_screen_geometry()
@@ -1059,19 +1078,20 @@ def _windows_cursor_pos():
     return None
 
 
-def _windows_pick_window_at(x, y):
+def _windows_pick_window_at(x, y, excluded_hwnd=None):
     wintypes = _windows_types()
     user32 = _windows_user32()
-    current_pid = os.getpid()
+    excluded_hwnd = int(excluded_hwnd or 0)
     point = wintypes.POINT(int(x), int(y))
     candidates = []
 
     def enum_proc(hwnd, _lparam):
         if not user32.IsWindowVisible(hwnd) or user32.IsIconic(hwnd):
             return True
-        pid = wintypes.DWORD()
-        user32.GetWindowThreadProcessId(hwnd, ctypes.byref(pid))
-        if int(pid.value) == current_pid:
+        # The selector itself covers the desktop and is the first top-level
+        # hit. Do not exclude the entire current process: users must be able
+        # to select OpenShot's main window for recording.
+        if excluded_hwnd and _windows_hwnd_value(hwnd) == excluded_hwnd:
             return True
         title = _windows_window_title(hwnd)
         if not title:
@@ -1096,7 +1116,10 @@ class WindowsWindowSelectorOverlay(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
         x, y, width, height = windows_virtual_screen_geometry()
-        self.screen_geometry = QRect(int(x), int(y), int(width or 1), int(height or 1))
+        self.capture_geometry = QRect(int(x), int(y), int(width or 1), int(height or 1))
+        primary = QApplication.primaryScreen()
+        self.screen_geometry = (
+            primary.virtualGeometry() if primary else self.capture_geometry)
         self.hover_rect = QRect()
         self.hover_title = ""
         self.selected_result = None
@@ -1135,19 +1158,15 @@ class WindowsWindowSelectorOverlay(QDialog):
         super().done(result)
 
     def _physical_to_overlay_point(self, x, y):
-        screen = self.screen_geometry
-        scale_x = float(self.width() or 1) / float(screen.width() or 1)
-        scale_y = float(self.height() or 1) / float(screen.height() or 1)
-        return QPoint(
-            int(round((int(x) - screen.x()) * scale_x)),
-            int(round((int(y) - screen.y()) * scale_y)),
-        )
+        global_point = _windows_physical_point_to_qt(int(x), int(y))
+        return self.mapFromGlobal(global_point)
 
     def _update_hover(self):
         cursor_pos = _windows_cursor_pos()
         if cursor_pos is None:
             return None
-        picked = _windows_pick_window_at(cursor_pos[0], cursor_pos[1])
+        picked = _windows_pick_window_at(
+            cursor_pos[0], cursor_pos[1], _windows_hwnd_value(self.winId()))
         if not picked:
             self.hover_rect = QRect()
             self.hover_title = ""

@@ -1322,6 +1322,68 @@ class RecordingPreviewTests(unittest.TestCase):
 
         self.assertEqual(geometry, QRect(2560, 0, 2560, 1440))
 
+    def test_windows_physical_point_maps_with_each_monitors_dpi(self):
+        helper = self.recording_widgets_module
+        monitors = [
+            {"x": 0, "y": 0, "width": 3840, "height": 2160},
+            {"x": 3840, "y": 0, "width": 1920, "height": 1080},
+        ]
+        screens = [
+            types.SimpleNamespace(
+                geometry=lambda: QRect(0, 0, 2560, 1440),
+                devicePixelRatio=lambda: 1.5),
+            types.SimpleNamespace(
+                geometry=lambda: QRect(2560, 0, 1920, 1080),
+                devicePixelRatio=lambda: 1.0),
+        ]
+        with patch.object(helper, "windows_monitor_geometries", return_value=monitors), \
+                patch.object(helper.QApplication, "screens", return_value=screens):
+            high_dpi_point = helper._windows_physical_point_to_qt(1920, 1080)
+            standard_dpi_point = helper._windows_physical_point_to_qt(4800, 540)
+
+        self.assertEqual(high_dpi_point, QPoint(1280, 720))
+        self.assertEqual(standard_dpi_point, QPoint(3520, 540))
+
+    def test_windows_window_picker_excludes_overlay_not_openshot_window(self):
+        helper = self.recording_widgets_module
+
+        class FakePoint:
+            def __init__(self, x, y):
+                self.x = x
+                self.y = y
+
+        class FakeUser32:
+            def IsWindowVisible(self, _hwnd):
+                return True
+
+            def IsIconic(self, _hwnd):
+                return False
+
+            def GetWindowThreadProcessId(self, *_args):
+                raise AssertionError("The picker must not reject all OpenShot windows")
+
+            def EnumWindows(self, callback, _lparam):
+                for hwnd in (11, 22, 33):
+                    if not callback(hwnd, 0):
+                        break
+                return True
+
+        rects = {
+            11: types.SimpleNamespace(left=0, top=0, right=4000, bottom=2200),
+            22: types.SimpleNamespace(left=600, top=300, right=3200, bottom=1900),
+            33: types.SimpleNamespace(left=0, top=0, right=4000, bottom=2200),
+        }
+        fake_types = types.SimpleNamespace(POINT=FakePoint)
+        with patch.object(helper, "_windows_types", return_value=fake_types), \
+                patch.object(helper, "_windows_user32", return_value=FakeUser32()), \
+                patch.object(helper, "_windows_enum_proc_type", return_value=lambda callback: callback), \
+                patch.object(helper, "_windows_window_title", side_effect=lambda hwnd: "OpenShot" if hwnd == 22 else "Other"), \
+                patch.object(helper, "_windows_window_rect", side_effect=lambda hwnd: rects[hwnd]):
+            picked = helper._windows_pick_window_at(1000, 800, excluded_hwnd=11)
+
+        self.assertEqual(picked[0], 22)
+        self.assertEqual(picked[2], "OpenShot")
+
     def test_windows_all_screens_region_uses_qt_virtual_desktop_overlay(self):
         helper = self.recording_widgets_module
         virtual_geometry = QRect(-1280, 0, 3200, 1080)
