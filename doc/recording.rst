@@ -38,12 +38,14 @@ Quick Start
 1. Move the timeline playhead to the point where the recording should begin.
 2. Open :guilabel:`View → Recording View`.
 3. Enable :guilabel:`Mic`, :guilabel:`Screen`, :guilabel:`Webcam`, or any combination of them.
-4. Select the destination :guilabel:`Track`. Multiple sources use adjacent tracks automatically. Choose whether the
-   timeline :guilabel:`Preview` should play during Mic or Webcam recording.
+4. Select the destination :guilabel:`Track`. Multiple sources use adjacent tracks automatically. Select
+   :guilabel:`No Track` to add completed recordings to :guilabel:`Project Files` without creating live previews or
+   clips on the timeline. Choose whether the timeline :guilabel:`Preview` should play during Mic or Webcam recording.
 5. Open each source's :guilabel:`Advanced` section and verify its device and quality options.
 6. Click :guilabel:`Start Recording`. Perform the narration or action you want to capture.
 7. Click :guilabel:`Stop Recording`, either in the dock or from the recording status control.
-8. Wait briefly while OpenShot finishes the files. They are imported into Project Files and placed on the timeline.
+8. Wait briefly while OpenShot finishes the files. They are imported into :guilabel:`Project Files` and, unless
+   :guilabel:`No Track` is selected, placed on the timeline.
 
 Quick Audio Commentary
 ----------------------
@@ -91,6 +93,10 @@ Live Feedback and Timeline Placement
 The microphone meter responds before and during recording, which helps confirm that the selected input is working.
 During recording, OpenShot draws a temporary clip and live microphone waveform on the timeline. The completed files
 replace these previews after recording stops.
+
+Select :guilabel:`No Track` in the Track list when you want to capture media without adding live objects or completed
+clips to the timeline. The finished recordings are still imported into :guilabel:`Project Files`, ready to preview,
+organize, or add to the timeline later. This is useful when recording several takes before choosing which one to edit.
 
 All enabled sources start at the same timeline position. OpenShot stacks them in a useful compositing order:
 
@@ -193,6 +199,13 @@ Screen Advanced Options
    Cursor              On               Includes the mouse pointer in the screen recording.
    Hide OpenShot       No               Temporarily hides OpenShot during selection and recording when enabled.
    ==================  ===============  ========================================================================
+
+.. note::
+
+   On some Windows systems using high-DPI display scaling, the mouse pointer may be displaced or missing from screen
+   recordings made on a scaled display. If pointer visibility is important, record on a display configured at 100%
+   scaling, temporarily set the target display to 100%, or use a separate screen-capture application. Screen video is
+   still recorded normally, and setting :guilabel:`Cursor` to :guilabel:`Off` avoids the affected pointer overlay.
 
 System Audio
 ^^^^^^^^^^^^
@@ -314,6 +327,7 @@ Troubleshooting Recording
    System Audio is silent       Play audio before testing, verify the output device, and inspect OS privacy/routing.
    Voice contains game echo     Use headphones so the mic does not capture speaker playback.
    Screen source is incorrect   Re-select Full Screen/Window/Region; on Wayland, choose again in the portal.
+   Cursor missing on Windows    High-DPI scaling can affect the pointer overlay; try the target display at 100%.
    Webcam is unavailable        Check camera permission, close other camera apps, and reconnect the device.
    Recording is choppy          Lower screen/camera FPS or resolution and close CPU-intensive applications.
    Clips appear on wrong track  Choose the top destination Track before recording, then move clips if needed.

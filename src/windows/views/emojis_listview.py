@@ -34,7 +34,55 @@ from classes.query import File
 from classes.app import get_app
 from classes.logger import log
 import json
+import os
 import uuid
+
+
+def builtin_emoji_reader_data(filepath):
+    """Return reader metadata for a bundled 72x72 OpenMoji SVG."""
+    emoji_root = os.path.realpath(
+        os.path.join(info.PATH, "emojis", "color", "svg")
+    )
+    resolved_path = os.path.realpath(filepath)
+    try:
+        is_bundled = os.path.commonpath(
+            (emoji_root, resolved_path)
+        ) == emoji_root
+    except ValueError:
+        is_bundled = False
+    if not is_bundled or not resolved_path.lower().endswith(".svg"):
+        return None
+
+    return {
+        "acodec": "",
+        "audio_bit_rate": 0,
+        "audio_stream_index": -1,
+        "audio_timebase": {"den": 1, "num": 1},
+        "channel_layout": openshot.LAYOUT_MONO,
+        "channels": 0,
+        "display_ratio": {"den": 1, "num": 1},
+        "duration": 3600.0,
+        "file_size": os.path.getsize(resolved_path),
+        "fps": {"den": 1, "num": 30},
+        "has_audio": False,
+        "has_single_image": True,
+        "has_video": True,
+        "height": 72,
+        "interlaced_frame": False,
+        "metadata": {},
+        "path": resolved_path,
+        "pixel_format": -1,
+        "pixel_ratio": {"den": 1, "num": 1},
+        "sample_rate": 0,
+        "top_field_first": True,
+        "type": "QtImageReader",
+        "vcodec": "",
+        "video_bit_rate": 0,
+        "video_length": 108000,
+        "video_stream_index": -1,
+        "video_timebase": {"den": 30, "num": 1},
+        "width": 72,
+    }
 
 
 class EmojisListView(QListView):
@@ -119,13 +167,16 @@ class EmojisListView(QListView):
         if file:
             return file
 
-        # Load filepath in libopenshot clip object (which will try multiple readers to open it)
-        clip = openshot.Clip(filepath)
-
-        # Get the JSON for the clip's internal reader
         try:
-            reader = clip.Reader()
-            file_data = json.loads(reader.Json())
+            # Bundled OpenMoji SVGs are standardized 72x72 single images.
+            # Avoid synchronously parsing the SVG through the full libopenshot
+            # reader stack before QDrag.exec(), which causes a cold-start hitch.
+            file_data = builtin_emoji_reader_data(filepath)
+            if file_data is None:
+                # User-supplied emoji assets still require normal inspection.
+                clip = openshot.Clip(filepath)
+                reader = clip.Reader()
+                file_data = json.loads(reader.Json())
 
             # Determine media type
             file_data["media_type"] = "image"

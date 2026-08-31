@@ -5,4 +5,7 @@ To compile a Qt resource file with new translations, follow these steps:
      $ make
    or, if make is unavailable:
      $ pyrcc5 openshot_lang.qrc -o openshot_lang.py
+     $ python3 neutralize_resource_import.py openshot_lang.py
 
+The final step replaces the resource compiler's binding-specific QtCore import
+with OpenShot's qt_api compatibility module.

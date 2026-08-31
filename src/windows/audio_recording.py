@@ -63,6 +63,7 @@ from windows.recording_widgets import (
 
 
 RECORDING_DOCK_MIN_WIDTH = 320
+NO_RECORDING_TRACK = "__no_recording_track__"
 
 
 def frame_to_qimage(frame):
@@ -378,6 +379,11 @@ class LiveVideoRecordingJob(QObject):
             if not self._stop.is_set():
                 self.error = ex
                 self.errorOccurred.emit(self.source_type, str(ex))
+        finally:
+            try:
+                self.reader.Close()
+            except Exception:
+                log.debug("Unable to close live video capture reader", exc_info=True)
 
     def _open(self):
         self.reader.Open()
@@ -563,11 +569,6 @@ class LiveVideoRecordingJob(QObject):
             except Exception:
                 log.debug("Unable to close live video capture reader", exc_info=True)
             self._thread.join(timeout=5.0)
-        else:
-            try:
-                self.reader.Close()
-            except Exception:
-                log.debug("Unable to close live video capture reader", exc_info=True)
         if self._thread and self._thread.is_alive():
             log.warning("Live video capture thread did not stop cleanly for %s", self.path)
             if not self.error:
@@ -646,16 +647,17 @@ class WebcamPreviewJob(QObject):
 
     def stop(self):
         self._stop.set()
-        if self._thread:
-            self._thread.join(timeout=2.0)
-        if self._thread and self._thread.is_alive():
-            log.debug("Webcam preview thread did not stop cleanly")
-            return
+        # Camera GetFrame() can block in a native capture read. Close first to
+        # interrupt that read, then wait for the worker to finish.
         if self._reader:
             try:
                 self._reader.Close()
             except Exception:
                 log.debug("Unable to close webcam preview reader", exc_info=True)
+        if self._thread:
+            self._thread.join(timeout=2.0)
+        if self._thread and self._thread.is_alive():
+            log.debug("Webcam preview thread did not stop cleanly")
 
     def _run(self):
         try:
@@ -713,6 +715,7 @@ class AudioRecordingDockContent(QWidget):
         self._tray_status = TrayStatus(self)
         self._camera_modes = {}
         self._camera_mode_formats = {}
+        self._camera_devices_refreshed = False
         self._recording_path = ""
         self._recording_sources = []
         self._recorded_duration = 0.0
@@ -767,7 +770,7 @@ class AudioRecordingDockContent(QWidget):
         self.mic_card = RecordingSourceCard(_("Mic"), _("Record your voice"), "🎙", self)
         self.screen_card = RecordingSourceCard(_("Screen"), _("Capture your screen"), "▣", self)
         self.camera_card = RecordingSourceCard(_("Webcam"), _("Record yourself"), "◉", self)
-        self.mic_card.setChecked(True)
+        self.mic_card.setChecked(False)
         source_grid.addWidget(self.mic_card, 0, 0)
         source_grid.addWidget(self.screen_card, 0, 1)
         source_grid.addWidget(self.camera_card, 0, 2)
@@ -979,6 +982,11 @@ class AudioRecordingDockContent(QWidget):
         target_row = QHBoxLayout()
         self.track_combo = QComboBox(self)
         self.track_combo.setSizeAdjustPolicy(QComboBox.AdjustToContents)
+        self.track_combo.setToolTip(_(
+            "Choose the top track for recorded clips.\n"
+            "Additional recording sources use tracks below it.\n"
+            "Select No Track to add recordings to Project Files only."
+        ))
         target_row.addWidget(self.track_combo, 1)
         self.preview_combo = QComboBox(self)
         self.preview_combo.addItem(_("Off"), "none")
@@ -987,7 +995,10 @@ class AudioRecordingDockContent(QWidget):
         self.preview_combo.addItem(_("Quarter"), "quarter")
         self.preview_combo.setCurrentIndex(self.preview_combo.findData("full"))
         self.preview_combo.setSizeAdjustPolicy(QComboBox.AdjustToContents)
-        self.preview_combo.setToolTip(_("Play the timeline while recording. Lower resolutions can improve recording performance."))
+        self.preview_combo.setToolTip(_(
+            "Play the timeline while recording.\n"
+            "Lower resolutions can improve recording performance."
+        ))
         self.preview_label = QLabel(_("Preview:"), self)
         target_row.addWidget(self.preview_label)
         target_row.addWidget(self.preview_combo)
@@ -1107,10 +1118,13 @@ class AudioRecordingDockContent(QWidget):
         self.screen_card.setAvailable(screen_available, screen_tip)
 
         camera_backend_available = self._camera_backend_available()
-        camera_available = camera_backend_available and self._camera_device_available()
+        camera_discovered = getattr(self, "_camera_devices_refreshed", False)
+        camera_available = camera_backend_available and (
+            not camera_discovered or self._camera_device_available()
+        )
         if not camera_backend_available:
             camera_tip = _("Webcam recording is not available for this platform or libopenshot build.")
-        elif not camera_available:
+        elif camera_discovered and not camera_available:
             camera_tip = _("No webcam device was found.")
         else:
             camera_tip = ""
@@ -1156,10 +1170,30 @@ class AudioRecordingDockContent(QWidget):
             self.screen_status_label.setText(_("Windows screen recording uses full screen or numeric region bounds."))
 
     def _source_toggled(self):
+        source = self.sender()
+        if source is self.mic_card and self.mic_card.isChecked():
+            self._refresh_source_devices(microphone=True)
+        elif source is self.camera_card and self.camera_card.isChecked():
+            self._refresh_source_devices(camera=True)
         self._sync_webcam_layout_defaults()
         self._sync_source_sections()
+        self._sync_backend_state()
         self._restart_monitoring()
         self._restart_webcam_preview()
+
+    def _refresh_source_devices(self, microphone=False, camera=False):
+        """Discover devices only for recording sources the user selected."""
+        if not microphone and not camera:
+            return
+        self._set_wait_cursor(True)
+        try:
+            if microphone:
+                self.refresh_devices()
+                self._sync_channel_options()
+            if camera:
+                self.refresh_cameras()
+        finally:
+            self._set_wait_cursor(False)
 
     def _sync_source_sections(self):
         self.mic_section.setActive(self.mic_card.isChecked())
@@ -1259,8 +1293,10 @@ class AudioRecordingDockContent(QWidget):
                 self.screen_y_spin.setValue(int(source.get("y") or 0))
                 self.screen_width_spin.setValue(width)
                 self.screen_height_spin.setValue(height)
-                label = get_app()._tr("All screens: %sx%s") if source.get("all") else get_app()._tr("Full screen: %sx%s")
-                self.screen_status_label.setText(label % (width, height))
+                label = (get_app()._tr("All screens: %(width)sx%(height)s")
+                         if source.get("all")
+                         else get_app()._tr("Full screen: %(width)sx%(height)s"))
+                self.screen_status_label.setText(label % {"width": width, "height": height})
                 return
 
         root_x, root_y, root_width, root_height = screen_root_geometry()
@@ -1269,7 +1305,9 @@ class AudioRecordingDockContent(QWidget):
             self.screen_y_spin.setValue(int(root_y or 0))
             self.screen_width_spin.setValue(int(root_width))
             self.screen_height_spin.setValue(int(root_height))
-            self.screen_status_label.setText(get_app()._tr("Full screen: %sx%s") % (root_width, root_height))
+            self.screen_status_label.setText(
+                get_app()._tr("Full screen: %(width)sx%(height)s")
+                % {"width": root_width, "height": root_height})
             return
         try:
             screen = QApplication.primaryScreen()
@@ -1279,7 +1317,9 @@ class AudioRecordingDockContent(QWidget):
                 self.screen_y_spin.setValue(int(geometry.y()))
                 self.screen_width_spin.setValue(int(geometry.width()))
                 self.screen_height_spin.setValue(int(geometry.height()))
-                self.screen_status_label.setText(get_app()._tr("Full screen: %sx%s") % (geometry.width(), geometry.height()))
+                self.screen_status_label.setText(
+                    get_app()._tr("Full screen: %(width)sx%(height)s")
+                    % {"width": geometry.width(), "height": geometry.height()})
                 return
         except Exception:
             pass
@@ -1314,6 +1354,7 @@ class AudioRecordingDockContent(QWidget):
         self.window_button.setChecked(True)
         self.full_screen_button.setChecked(False)
         self.region_button.setChecked(False)
+        QApplication.processEvents()
         self._set_hide_openshot_default(False)
         hidden_state = self._hide_openshot_for_picker()
         try:
@@ -1323,7 +1364,10 @@ class AudioRecordingDockContent(QWidget):
         if result:
             x, y, width, height = result[:4]
             self._screen_window_id = str(result[4]) if len(result) > 4 and result[4] else ""
-            self._set_screen_target(x, y, width, height, get_app()._tr("Window: %sx%s") % (width, height))
+            self._set_screen_target(
+                x, y, width, height,
+                get_app()._tr("Window: %(width)sx%(height)s")
+                % {"width": width, "height": height})
         else:
             self._screen_window_id = ""
             self.screen_status_label.setText(get_app()._tr("Window selection canceled."))
@@ -1335,16 +1379,32 @@ class AudioRecordingDockContent(QWidget):
         self.region_button.setChecked(True)
         self.full_screen_button.setChecked(False)
         self.window_button.setChecked(False)
+        QApplication.processEvents()
         self._screen_window_id = ""
         self._set_hide_openshot_default(False)
         hidden_state = self._hide_openshot_for_picker()
         try:
-            result = pick_screen_region(None if hidden_state is not None else self)
+            source = self._selected_screen_source()
+            capture_geometry = None
+            if sys.platform.startswith("win") and source and not source.get("all"):
+                capture_geometry = (
+                    int(source.get("x") or 0),
+                    int(source.get("y") or 0),
+                    int(source.get("width") or 0),
+                    int(source.get("height") or 0),
+                )
+            result = pick_screen_region(
+                None if hidden_state is not None else self,
+                capture_geometry=capture_geometry,
+            )
         finally:
             self._restore_openshot_window(hidden_state)
         if result:
             x, y, width, height = result
-            self._set_screen_target(x, y, width, height, get_app()._tr("Region: %sx%s") % (width, height))
+            self._set_screen_target(
+                x, y, width, height,
+                get_app()._tr("Region: %(width)sx%(height)s")
+                % {"width": width, "height": height})
         else:
             self.screen_status_label.setText(get_app()._tr("Region selection canceled."))
 
@@ -1510,6 +1570,7 @@ class AudioRecordingDockContent(QWidget):
 
     def refresh_cameras(self):
         _ = get_app()._tr
+        self._camera_devices_refreshed = True
         current = self.camera_combo.currentData() if hasattr(self, "camera_combo") else None
         self.camera_combo.blockSignals(True)
         self.camera_combo.clear()
@@ -1687,6 +1748,7 @@ class AudioRecordingDockContent(QWidget):
         selected = self._context_track or self.track_combo.currentData()
         self.track_combo.blockSignals(True)
         self.track_combo.clear()
+        self.track_combo.addItem(_("No Track"), NO_RECORDING_TRACK)
         try:
             labels = self._track_labels()
             tracks = sorted(Track.filter(), key=lambda t: int(t.data.get("number", 0)), reverse=True)
@@ -1700,6 +1762,9 @@ class AudioRecordingDockContent(QWidget):
             if self.track_combo.itemData(index) == selected:
                 self.track_combo.setCurrentIndex(index)
                 break
+        else:
+            if self.track_combo.count() > 1:
+                self.track_combo.setCurrentIndex(1)
         self.track_combo.blockSignals(False)
 
     def set_recording_context(self, start_time=None, track_number=None):
@@ -1755,19 +1820,19 @@ class AudioRecordingDockContent(QWidget):
         self._stop_monitoring()
         self._stop_webcam_preview()
         try:
-            self._recording_timeline_position = self._context_start
-            if self._recording_timeline_position is None:
-                self._recording_timeline_position = self._current_playhead_seconds()
-            self._context_start = self._recording_timeline_position
+            self._capture_recording_timeline_position()
             self._recording_sources = []
             source_types = self._selected_recording_source_types()
             session_id = str(int(time.monotonic() * 1000))
             self._recording_preview_id = "recording-preview-%s" % session_id
             self._recording_track_map = self._recording_track_assignments(source_types)
-            self._recording_preview_file_ids = {
-                source_type: recording_preview_file_id(session_id, source_type)
-                for source_type in source_types
-            }
+            self._recording_preview_file_ids = (
+                {
+                    source_type: recording_preview_file_id(session_id, source_type)
+                    for source_type in source_types
+                }
+                if self._recording_timeline_enabled() else {}
+            )
             self._recorder = None
             self._recording_path = ""
             self._video_jobs = self._build_video_jobs()
@@ -1811,6 +1876,15 @@ class AudioRecordingDockContent(QWidget):
                 return _("Webcam device is not accessible: %s") % device
         return ""
 
+    def _capture_recording_timeline_position(self):
+        """Consume an optional insertion context or use the current playhead."""
+        position = self._context_start
+        self._context_start = None
+        if position is None:
+            position = self._current_playhead_seconds()
+        self._recording_timeline_position = float(position or 0.0)
+        return self._recording_timeline_position
+
     def _cancel_starting(self, restart_monitoring=True):
         self._starting = False
         if self._recorder:
@@ -1838,7 +1912,6 @@ class AudioRecordingDockContent(QWidget):
         try:
             if self._should_preview_timeline() or self._playback_active():
                 self._recording_timeline_position = self._current_playhead_seconds()
-            self._context_start = self._recording_timeline_position
             recorder = self._recorder
             if recorder is None:
                 if self.mic_card.isChecked():
@@ -2224,7 +2297,8 @@ class AudioRecordingDockContent(QWidget):
         self.webcam_preview_label.setText(get_app()._tr("Preview unavailable"))
         log.debug("Unable to update webcam preview: %s", message)
 
-    def _safe_even_dimension(self, value):
+    @staticmethod
+    def _safe_even_dimension(value):
         value = max(16, int(value))
         return value if value % 2 == 0 else value - 1
 
@@ -2276,9 +2350,7 @@ class AudioRecordingDockContent(QWidget):
         timeline = getattr(self.window, "timeline", None)
         if not timeline:
             return
-        position = self._context_start
-        if position is None:
-            position = self._recording_timeline_position
+        position = self._recording_timeline_position
         previews = self._recording_preview_payloads(
             float(position or 0.0), duration, samples, rms_samples
         )
@@ -2295,6 +2367,8 @@ class AudioRecordingDockContent(QWidget):
             )
 
     def _recording_preview_payloads(self, position, duration, samples, rms_samples=None):
+        if not self._recording_timeline_enabled():
+            return []
         duration = max(0.05, float(duration or 0.0))
         previews = []
         source_types = self._selected_recording_source_types()
@@ -2364,14 +2438,19 @@ class AudioRecordingDockContent(QWidget):
             for source_type, path in sources
             if path and os.path.exists(path)
         ]
-        assignments = self._recording_track_map or self._recording_track_assignments(
-            [source_type for source_type, _ in existing_sources])
+        add_to_timeline = self._recording_timeline_enabled()
+        assignments = (
+            self._recording_track_map or self._recording_track_assignments(
+                [source_type for source_type, _ in existing_sources])
+            if add_to_timeline else {}
+        )
         if assignments:
             log.info("Recording track assignments: %s", assignments)
         import_order = {"mic": 0, "screen": 1, "webcam": 2}
         for source_type, path in sorted(existing_sources, key=lambda item: import_order.get(item[0], 99)):
-            track = assignments.get(source_type, self._recording_top_track())
-            clip_data = self._import_recording(path, source_type, track)
+            track = assignments.get(source_type) if add_to_timeline else None
+            clip_data = self._import_recording(
+                path, source_type, track, add_to_timeline=add_to_timeline)
             if clip_data:
                 selected.append(clip_data)
 
@@ -2379,6 +2458,8 @@ class AudioRecordingDockContent(QWidget):
             self._select_recording_clip(selected[-1], float(self._recording_timeline_position or 0.0))
 
     def _recording_track_assignments(self, source_types):
+        if not self._recording_timeline_enabled():
+            return {}
         top_order = ["webcam", "screen", "mic"]
         source_set = set(source_types or [])
         ordered_sources = [source for source in top_order if source in source_set]
@@ -2421,6 +2502,9 @@ class AudioRecordingDockContent(QWidget):
                     tracks.append(lowest)
         return tracks[:count]
 
+    def _recording_timeline_enabled(self):
+        return self.track_combo.currentData() != NO_RECORDING_TRACK
+
     def _available_recording_tracks(self):
         tracks = []
         try:
@@ -2454,7 +2538,7 @@ class AudioRecordingDockContent(QWidget):
             log.debug("Unable to determine top recording track", exc_info=True)
         return 1
 
-    def _import_recording(self, path, source_type="mic", track=None):
+    def _import_recording(self, path, source_type="mic", track=None, add_to_timeline=True):
         try:
             self.window.files_model.add_files(
                 path,
@@ -2465,6 +2549,8 @@ class AudioRecordingDockContent(QWidget):
             if source_type == "mic":
                 self._apply_recording_duration(path)
             self.window.refreshFilesSignal.emit()
+            if not add_to_timeline:
+                return None
             return self._add_recording_to_timeline(path, source_type=source_type, track=track)
         except Exception:
             log.error("Unable to import recorded file: %s", path, exc_info=True)
@@ -2515,9 +2601,7 @@ class AudioRecordingDockContent(QWidget):
             return
 
         self._copy_live_recording_thumbnails(source_type, recorded_file.id)
-        position = self._context_start
-        if position is None:
-            position = self._recording_timeline_position
+        position = self._recording_timeline_position
 
         if track is None:
             track = self.track_combo.currentData()
@@ -2675,14 +2759,25 @@ class AudioRecordingDockContent(QWidget):
         )
 
     def _set_record_button_idle(self):
-        self.record_button.setEnabled(True)
+        source_selected = self._has_selected_recording_source()
+        self.record_button.setEnabled(source_selected)
         self.record_button.setText(get_app()._tr("Start Recording"))
         self.record_button.setStyleSheet(
             "QPushButton { background-color: #087cff; color: white; border: none; border-radius: 8px; padding: 11px; font-weight: 700; }"
             "QPushButton:hover { background-color: #1688ff; }"
             "QPushButton:pressed { background-color: #0567d6; }"
+            "QPushButton:disabled { background-color: #3c4655; color: #8b96a8; }"
         )
-        self.record_button.setToolTip("")
+        self.record_button.setToolTip(
+            "" if source_selected else get_app()._tr("Select at least one recording source.")
+        )
+
+    def _has_selected_recording_source(self):
+        return any(card.isChecked() for card in (
+            self.mic_card,
+            self.screen_card,
+            self.camera_card,
+        ))
 
     def _set_record_button_unavailable(self):
         self.record_button.setEnabled(False)
@@ -2897,20 +2992,19 @@ class AudioRecordingDockContent(QWidget):
         self._activation_pending = False
         if not self._dock_visible():
             return
-        self._set_wait_cursor(True)
         started = time.monotonic()
         try:
-            self.refresh_devices()
-            self.refresh_cameras()
             self.refresh_tracks()
-            self._sync_channel_options()
             self._sync_backend_state()
+            self._refresh_source_devices(
+                microphone=self.mic_card.isChecked(),
+                camera=self.camera_card.isChecked(),
+            )
             if self._dock_visible():
                 self._ensure_monitoring()
                 self._restart_webcam_preview()
         finally:
             log.debug("Recording dock activation took %.3fs", time.monotonic() - started)
-            self._set_wait_cursor(False)
 
     def hideEvent(self, event):
         if self._hiding_openshot_window:

@@ -47,6 +47,7 @@ from classes.qt_types import font_metrics_horizontal_advance
 from .ai_tools_menu import add_ai_tools_menu
 from .files_thumbnail_overlay import paint_media_overlay, paint_proxy_badge
 from .menu import StyledContextMenu, add_bound_action
+from .name_search_treeview import NameColumnKeyboardSearchMixin
 from .optimized_preview_menu import add_optimized_preview_menu
 
 
@@ -161,7 +162,7 @@ class FilesTreeProgressDelegate(QStyledItemDelegate):
         painter.restore()
 
 
-class FilesTreeView(QTreeView):
+class FilesTreeView(NameColumnKeyboardSearchMixin, QTreeView):
     """ A TreeView QWidget used on the main window """
     drag_item_size = QSize(48, 48)
     drag_item_center = QPoint(24, 24)

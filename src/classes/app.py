@@ -34,7 +34,7 @@ import platform
 import traceback
 import json
 
-from qt_api import QT_API, QT_VERSION_STR, BINDING_VERSION_STR, Slot
+from qt_api import QT_API, QT_VERSION_STR, BINDING_VERSION_STR, Qt, Slot
 from qt_api import QApplication, QMessageBox, QTimer
 from qt_api import request_android_storage_permission_if_needed
 
@@ -202,6 +202,21 @@ class OpenShotApp(QApplication):
             level="error",
         ))
 
+    @staticmethod
+    def _show_main_window(window):
+        """Map the final window geometry, then restore its serialized dock state."""
+        state = window.windowState()
+        window.show()
+        if state & Qt.WindowFullScreen:
+            QTimer.singleShot(
+                0, lambda: (window.showNormal(), window.showFullScreen()))
+        elif state & Qt.WindowMaximized:
+            QTimer.singleShot(
+                0, lambda: (window.showNormal(), window.showMaximized()))
+        restore_state = getattr(window, "_restore_saved_window_state", None)
+        if callable(restore_state):
+            QTimer.singleShot(100, restore_state)
+
     def gui(self):
         """
         Initialize GUI and main window.
@@ -267,8 +282,8 @@ class OpenShotApp(QApplication):
         # Connect our exit signals
         self.aboutToQuit.connect(self.cleanup)
 
-        # Show main window
-        self.window.show()
+        # Show the main window using the state restored from saveGeometry().
+        self._show_main_window(self.window)
 
         # On Android, prompt for All Files Access once the window is visible so
         # the permission is in place before the user first taps Import Files.

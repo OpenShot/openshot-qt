@@ -248,8 +248,11 @@ class TutorialManager(QObject):
             # Get QWidget
             tutorial_object = self.get_object(tutorial_details["object_id"])
 
-            # Skip completed tutorials (and invisible widgets)
-            if not self.tutorial_enabled or tutorial_id in self.tutorial_ids or tutorial_object.visibleRegion().isEmpty():
+            # Skip completed tutorials and targets which are unavailable or hidden
+            if (not self.tutorial_enabled
+                    or tutorial_id in self.tutorial_ids
+                    or tutorial_object is None
+                    or tutorial_object.visibleRegion().isEmpty()):
                 continue
 
             # Create tutorial
@@ -303,12 +306,15 @@ class TutorialManager(QObject):
             return self.win.emojiListView
         elif object_id == "actionPlay":
             # Find play/pause button on transport controls toolbar
-            for w in self._get_associated_widgets(self.win.actionPlay):
-                if isinstance(w, QToolButton) and w.isVisible():
-                    return w
-            for w in self._get_associated_widgets(self.win.actionPause):
-                if isinstance(w, QToolButton) and w.isVisible():
-                    return w
+            # Some UI versions use one action whose icon changes, while older
+            # versions may provide separate play and pause actions.
+            for action_name in ("actionPlay", "actionPause"):
+                action = getattr(self.win, action_name, None)
+                if action is None:
+                    continue
+                for w in self._get_associated_widgets(action):
+                    if isinstance(w, QToolButton) and w.isVisible():
+                        return w
         elif object_id == "export_button":
             # Find export toolbar button on main window
             for w in reversed(self._get_associated_widgets(self.win.actionExportVideo)):

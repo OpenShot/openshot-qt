@@ -814,6 +814,22 @@ def request_android_storage_permission_if_needed():
         pass
 
 
+def location_file_dialog_options():
+    """Return options that preserve requested folders with the Linux portal theme.
+
+    The Qt 5 xdgdesktopportal platform theme used by our AppImage ignores the
+    initial directory passed to static native file dialogs. Use Qt's own dialog
+    for location-aware operations so Recent Folder and Project Folder settings
+    remain effective.
+    """
+    platform_theme = os.environ.get("QT_QPA_PLATFORMTHEME", "")
+    if platform_theme.lower() != "xdgdesktopportal":
+        return None
+
+    QFileDialog = getattr(QtWidgets, "QFileDialog", None)
+    return getattr(QFileDialog, "DontUseNativeDialog", None)
+
+
 def show_open_file_dialog(parent, caption, directory, file_filter, on_complete, allow_multiple=True):
     """Show a file-open dialog and call on_complete([QUrl, ...]) with the result.
 
@@ -833,7 +849,12 @@ def show_open_file_dialog(parent, caption, directory, file_filter, on_complete, 
     else:
         QFileDialog = getattr(QtWidgets, "QFileDialog", None)
         dir_url = QtCore.QUrl.fromLocalFile(directory) if directory else QtCore.QUrl()
-        urls, _ = QFileDialog.getOpenFileUrls(parent, caption, dir_url, file_filter)
+        options = location_file_dialog_options()
+        if options is None:
+            urls, _ = QFileDialog.getOpenFileUrls(parent, caption, dir_url, file_filter)
+        else:
+            urls, _ = QFileDialog.getOpenFileUrls(
+                parent, caption, dir_url, file_filter, options=options)
         on_complete(urls)
 
 
@@ -862,7 +883,12 @@ def show_save_file_dialog(parent, caption, suggested_name, mime_type, on_complet
     else:
         QFileDialog = getattr(QtWidgets, "QFileDialog", None)
         initial_path = os.path.join(directory, suggested_name) if directory else suggested_name
-        path, _ = QFileDialog.getSaveFileName(parent, caption, initial_path)
+        options = location_file_dialog_options()
+        if options is None:
+            path, _ = QFileDialog.getSaveFileName(parent, caption, initial_path)
+        else:
+            path, _ = QFileDialog.getSaveFileName(
+                parent, caption, initial_path, options=options)
         on_complete(path or "")
 
 

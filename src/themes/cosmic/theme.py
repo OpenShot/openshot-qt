@@ -39,10 +39,20 @@ class CosmicTheme(BaseTheme):
     def __init__(self, app):
         super().__init__(app)
 
-        from classes.app import get_app
-        _ = get_app()._tr
-
         self.style_sheet = """
+QToolTip {
+    color: #f4f7ff;
+    font-size: 12px;
+    font-weight: normal;
+    background-color: rgba(40, 50, 65, 230);
+    border: 1px solid #536984;
+    border-radius: 6px;
+    margin: 0;
+    min-width: 0;
+    min-height: 0;
+    padding: 2px 4px;
+}
+
 QMainWindow {
     background-color: #192332;
     color: #91C3FF;
@@ -81,6 +91,84 @@ QDialog {
 QLabel#lblMissingFileHint,
 QLabel#lblMissingFilePath {
     color: #9bb2cc;
+}
+
+QFrame#recordingCard {
+    background-color: rgba(20, 31, 48, 190);
+    border: 1px solid rgba(70, 134, 230, 110);
+    border-radius: 8px;
+}
+QFrame#recordingCard[checked="true"] {
+    border: 2px solid #2f8cff;
+    background-color: rgba(26, 58, 105, 170);
+}
+QFrame#recordingCard[available="false"] {
+    border: 1px solid rgba(80, 91, 110, 90);
+    background-color: rgba(20, 25, 34, 120);
+}
+QLabel#recordingCardIcon {
+    color: #7db7ff;
+    font-size: 22px;
+}
+QLabel#recordingCardTitle {
+    color: #f4f7ff;
+    font-size: 14px;
+    font-weight: 700;
+}
+QLabel#recordingCardSubtitle {
+    color: #9aa8bd;
+    font-size: 11px;
+}
+QFrame#recordingSection {
+    background-color: rgba(13, 24, 38, 165);
+    border: 1px solid rgba(83, 105, 134, 95);
+    border-radius: 8px;
+}
+QFrame#recordingSection[active="true"] {
+    border: 1px solid rgba(70, 141, 255, 125);
+}
+QFrame#recordingSection[active="false"] {
+    color: #6f7b8d;
+    background-color: rgba(15, 20, 28, 95);
+}
+QLabel#recordingSectionIcon {
+    color: #8fbfff;
+    font-size: 16px;
+}
+QLabel#recordingSectionTitle {
+    color: #f4f7ff;
+    font-weight: 700;
+}
+QPushButton#recordingAdvancedLink {
+    color: #4f9aff;
+    border: none;
+    padding: 0;
+    text-align: right;
+}
+QPushButton#recordingAdvancedLink:hover {
+    color: #b8d7ff;
+    text-decoration: underline;
+}
+QPushButton#recordingSegment {
+    border: 1px solid rgba(83, 105, 134, 120);
+    border-radius: 6px;
+    padding: 7px 10px;
+    color: #c4cedd;
+    background-color: rgba(14, 25, 40, 170);
+}
+QPushButton#recordingSegment[position="left"] {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+QPushButton#recordingSegment[position="right"] {
+    border-left: none;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+QPushButton#recordingSegment:checked {
+    color: #9dccff;
+    border: 1px solid #2f8cff;
+    background-color: rgba(40, 94, 170, 135);
 }
 
 QWidget#Simple, QWidget#Advanced, QWidget#PreferencePanel {
@@ -379,6 +467,8 @@ QDockWidget QWidget#dockTimelineContents {
 QTabBar {
     border: none;
     qproperty-drawBase: 0;
+    qproperty-expanding: 0;
+    qproperty-usesScrollButtons: 1;
     margin: 0px;
     padding: 0px;
 }
@@ -745,15 +835,55 @@ QWidget#videoPreview {
         """
         path_unix_slashes = PATH.replace("\\", "/")
         self.style_sheet = f"""
-QMessageBox QPushButton[text="&{_('Yes')}"] {{
-    padding: 8px 16px 8px 12px;
-    border-radius: 4px;
-    background-color: #0078FF;
-    color: #FFFFFF;
+QMessageBox {{
+    background: qlineargradient(
+        x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 #1d2a3c,
+        stop: 0.55 #192536,
+        stop: 1 #151f2e
+    );
+    border: 1px solid #344b68;
 }}
-
-QMessageBox QPushButton[text="&{_('Cancel')}"] {{
-    qproperty-icon: none;
+QMessageBox QLabel#qt_msgbox_label {{
+    color: #f4f7ff;
+    font-size: 12px;
+}}
+QMessageBox QPushButton[dialogRole="primary"] {{
+    background: qlineargradient(
+        x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 #1688ff,
+        stop: 1 #0875e8
+    );
+    color: #FFFFFF;
+    border: 1px solid #3398ff;
+}}
+QMessageBox QPushButton[dialogRole="primary"]:hover {{
+    background: qlineargradient(
+        x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 #2996ff,
+        stop: 1 #1685f4
+    );
+}}
+QMessageBox QPushButton[dialogRole="secondary"] {{
+    color: #b8d7ff;
+    background-color: #283241;
+    border: 1px solid #3b4b61;
+}}
+QMessageBox QPushButton[dialogRole="secondary"]:hover {{
+    background-color: #334156;
+    border-color: #536984;
+}}
+QMessageBox QPushButton[dialogRole="cancel"] {{
+    color: #7fb8ff;
+}}
+QMessageBox QPushButton[dialogRole="cancel"]:hover {{
+    color: #b8d7ff;
+    background-color: #283241;
+}}
+QMessageBox QPushButton[dialogRole="destructive"] {{
+    color: #ffffff;
+    background-color: #c43d4b;
+    border: 1px solid #df5361;
 }}
         """ + self.style_sheet.replace("{PATH}", f"{path_unix_slashes}/")
 

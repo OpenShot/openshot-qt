@@ -34,8 +34,15 @@ class HumanityDarkTheme(BaseTheme):
         self.style_sheet = """
 QToolTip {
     color: #ffffff;
-    background-color: #2a82da;
-    border: 0px solid white;
+    font-size: 12px;
+    font-weight: normal;
+    background-color: rgba(58, 58, 58, 230);
+    border: 1px solid #666a70;
+    border-radius: 6px;
+    margin: 0;
+    min-width: 0;
+    min-height: 0;
+    padding: 2px 4px;
 }
 
 QComboBox::item {
@@ -63,6 +70,120 @@ QLabel#lblMissingFileHint,
 QLabel#lblMissingFilePath {
     color: #b8b8b8;
 }
+
+QFrame#recordingCard {
+    background-color: #303030;
+    border: 1px solid #555b63;
+    border-radius: 8px;
+}
+QFrame#recordingCard[checked="true"] {
+    background-color: #3a4655;
+    border: 2px solid #2f8cff;
+}
+QFrame#recordingCard[available="false"] {
+    background-color: #292929;
+    border: 1px solid #454545;
+}
+QLabel#recordingCardIcon {
+    color: #70adf5;
+    font-size: 22px;
+}
+QLabel#recordingCardTitle {
+    color: #f1f1f1;
+    font-size: 14px;
+    font-weight: 700;
+}
+QLabel#recordingCardSubtitle {
+    color: #b8bec8;
+    font-size: 11px;
+}
+QFrame#recordingSection {
+    background-color: #292929;
+    border: 1px solid #50555c;
+    border-radius: 8px;
+}
+QFrame#recordingSection[active="true"] {
+    border-color: #4779b8;
+}
+QFrame#recordingSection[active="false"] {
+    background-color: #252525;
+    color: #858b94;
+}
+QLabel#recordingSectionIcon {
+    color: #78aef0;
+    font-size: 16px;
+}
+QLabel#recordingSectionTitle {
+    color: #f1f1f1;
+    font-weight: 700;
+}
+QPushButton#recordingAdvancedLink {
+    color: #4f9aff;
+    border: none;
+    padding: 0;
+    text-align: right;
+}
+QPushButton#recordingAdvancedLink:hover {
+    color: #b8d7ff;
+    text-decoration: underline;
+}
+QPushButton#recordingSegment {
+    color: #d0d3d8;
+    background-color: #303030;
+    border: 1px solid #555b63;
+    border-radius: 6px;
+    padding: 7px 10px;
+}
+QPushButton#recordingSegment[position="left"] {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+QPushButton#recordingSegment[position="right"] {
+    border-left: none;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+QPushButton#recordingSegment:checked {
+    color: #a9d0ff;
+    background-color: #3a526f;
+    border: 1px solid #2f8cff;
+}
+
+QMessageBox {
+    background-color: #292929;
+}
+QMessageBox QLabel#qt_msgbox_label {
+    color: #f2f2f2;
+}
+QMessageBox QPushButton[dialogRole="primary"] {
+    color: #ffffff;
+    background-color: #287dcc;
+    border: 1px solid #348de0;
+}
+QMessageBox QPushButton[dialogRole="primary"]:hover {
+    background-color: #348de0;
+}
+QMessageBox QPushButton[dialogRole="secondary"] {
+    color: #e8e8e8;
+    background-color: #3a3a3a;
+    border: 1px solid #565656;
+}
+QMessageBox QPushButton[dialogRole="secondary"]:hover {
+    background-color: #474747;
+    border-color: #6b6b6b;
+}
+QMessageBox QPushButton[dialogRole="cancel"] {
+    color: #8fc0f5;
+}
+QMessageBox QPushButton[dialogRole="cancel"]:hover {
+    color: #b7d8fa;
+    background-color: #353535;
+}
+QMessageBox QPushButton[dialogRole="destructive"] {
+    color: #ffffff;
+    background-color: #b83b48;
+    border: 1px solid #d04a58;
+}
         """
 
     def apply_theme(self):
@@ -88,6 +209,19 @@ class Retro(BaseTheme):
     def __init__(self, app):
         super().__init__(app)
         self.style_sheet = """
+QToolTip {
+    color: #20242a;
+    font-size: 12px;
+    font-weight: normal;
+    background-color: rgba(244, 246, 248, 230);
+    border: 1px solid #aeb6c0;
+    border-radius: 6px;
+    margin: 0;
+    min-width: 0;
+    min-height: 0;
+    padding: 2px 4px;
+}
+
 QComboBox::item {
     height: 24px;
 }
@@ -112,6 +246,120 @@ QWidget#videoPreview {
 QLabel#lblMissingFileHint,
 QLabel#lblMissingFilePath {
     color: #5a5a5a;
+}
+
+QFrame#recordingCard {
+    background-color: #e5e7ea;
+    border: 1px solid #a5abb3;
+    border-radius: 8px;
+}
+QFrame#recordingCard[checked="true"] {
+    background-color: #d7e8fb;
+    border: 2px solid #287dcc;
+}
+QFrame#recordingCard[available="false"] {
+    background-color: #ededed;
+    border: 1px solid #c4c4c4;
+}
+QLabel#recordingCardIcon {
+    color: #287dcc;
+    font-size: 22px;
+}
+QLabel#recordingCardTitle {
+    color: #25282d;
+    font-size: 14px;
+    font-weight: 700;
+}
+QLabel#recordingCardSubtitle {
+    color: #586473;
+    font-size: 11px;
+}
+QFrame#recordingSection {
+    background-color: #eeeeee;
+    border: 1px solid #a9adb3;
+    border-radius: 8px;
+}
+QFrame#recordingSection[active="true"] {
+    border-color: #4a8fca;
+}
+QFrame#recordingSection[active="false"] {
+    background-color: #e4e4e4;
+    color: #777d84;
+}
+QLabel#recordingSectionIcon {
+    color: #287dcc;
+    font-size: 16px;
+}
+QLabel#recordingSectionTitle {
+    color: #25282d;
+    font-weight: 700;
+}
+QPushButton#recordingAdvancedLink {
+    color: #176fba;
+    border: none;
+    padding: 0;
+    text-align: right;
+}
+QPushButton#recordingAdvancedLink:hover {
+    color: #0c4f89;
+    text-decoration: underline;
+}
+QPushButton#recordingSegment {
+    color: #30343a;
+    background-color: #f7f7f7;
+    border: 1px solid #a9adb3;
+    border-radius: 6px;
+    padding: 7px 10px;
+}
+QPushButton#recordingSegment[position="left"] {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+QPushButton#recordingSegment[position="right"] {
+    border-left: none;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+QPushButton#recordingSegment:checked {
+    color: #155f9e;
+    background-color: #d7e8fb;
+    border: 1px solid #287dcc;
+}
+
+QMessageBox {
+    background-color: #f7f7f7;
+}
+QMessageBox QLabel#qt_msgbox_label {
+    color: #25282d;
+}
+QMessageBox QPushButton[dialogRole="primary"] {
+    color: #ffffff;
+    background-color: #287dcc;
+    border: 1px solid #176fba;
+}
+QMessageBox QPushButton[dialogRole="primary"]:hover {
+    background-color: #176fba;
+}
+QMessageBox QPushButton[dialogRole="secondary"] {
+    color: #30343a;
+    background-color: #ffffff;
+    border: 1px solid #a9adb3;
+}
+QMessageBox QPushButton[dialogRole="secondary"]:hover {
+    background-color: #e9edf2;
+    border-color: #7f8791;
+}
+QMessageBox QPushButton[dialogRole="cancel"] {
+    color: #176fba;
+}
+QMessageBox QPushButton[dialogRole="cancel"]:hover {
+    color: #0c4f89;
+    background-color: #e9edf2;
+}
+QMessageBox QPushButton[dialogRole="destructive"] {
+    color: #ffffff;
+    background-color: #c43d4b;
+    border: 1px solid #a92e3a;
 }
 
 QComboBox {

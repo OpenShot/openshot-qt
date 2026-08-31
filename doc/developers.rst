@@ -136,6 +136,26 @@ For PyQt6, install these packages:
                         qt6-tools-dev \
                         qt6-svg-dev
 
+The PyQt6 runtime must provide ``QtCore``, ``QtGui``, ``QtWidgets``,
+``QtSvg``, ``QtStateMachine``, and ``uic``. Some distributions split these
+modules into separate packages. In particular, Ubuntu 24.04's
+``python3-pyqt6`` package does not include ``QtStateMachine``. On that
+release, use the PySide6 packages above or install the complete PyQt6 wheel
+in a Python virtual environment:
+
+.. code-block:: bash
+
+   python3 -m venv .venv
+   .venv/bin/python -m pip install PyQt6
+
+Verify the selected Qt binding and its required modules before launching
+OpenShot:
+
+.. code-block:: bash
+
+   PYTHONPATH=src OPENSHOT_QT_API=pyqt6 .venv/bin/python -c \
+       "from qt_api import QT_API, QStateMachine; print(QT_API, QStateMachine)"
+
 At this point, you should have all 3 OpenShot components source code cloned into local folders, the OpenShot
 daily PPA installed, and all of the required development and runtime dependencies installed. This is a
 great start, and we are now ready to start compiling some code!

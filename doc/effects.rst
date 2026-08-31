@@ -194,6 +194,10 @@ the name and short description of each effect.
    :width: 50px
    :alt: Object Detector Icon
 
+.. |objectmask_icon| image:: ../src/effects/icons/objectmask@2x.png
+   :width: 50px
+   :alt: Object Mask Icon
+
 .. |outline_icon| image:: ../src/effects/icons/outline@2x.png
    :width: 50px
    :alt: Outline Icon
@@ -305,6 +309,7 @@ the name and short description of each effect.
    |negate_icon|               Negative                      Produce a negative image.
    |noise_icon|                Noise                         Add random equal-intensity signals.
    |objectdetection_icon|      Object Detector               Detect objects in video.
+   |objectmask_icon|           Object Mask                   Select and follow a subject with a detailed animated mask.
    |outline_icon|              Outline                       Add outline around any image or text.
    |parametriceq_icon|         Parametric EQ                 Adjust frequency volume in audio.
    |pixelate_icon|             Pixelate                      Increase or decrease visible pixels.
@@ -1318,20 +1323,99 @@ The Negative effect inverts the colors of the video, producing an image that res
 This can be used for artistic effects, to create a surreal or otherworldly look, or to highlight specific elements
 within the frame.
 
+Object Mask
+"""""""""""
+The Object Mask effect creates a detailed, animated mask around a subject that you identify. Instead of drawing a
+rectangular tracking box, you mark the subject with points or rectangles and OpenShot follows its visible outline
+through the clip. Use it to highlight a person or product, create a colored cutout or outline, or provide the
+:guilabel:`Mask: Source` for another effect such as Blur, Pixelate, or Color Grade.
+
+Object Mask runs locally in OpenShot and does not require a ComfyUI server. OpenShot uses an
+`EfficientSAM model <https://github.com/OpenShot/openshot-onnx/tree/main/efficient-sam>`_ to turn your prompts into a
+mask on selected frames, then uses
+`Cutie models <https://github.com/OpenShot/openshot-onnx/tree/main/cutie>`_ to propagate that mask through the video.
+These OpenCV-friendly model packages are maintained in the
+`OpenShot ONNX repository <https://github.com/OpenShot/openshot-onnx>`_. The model files are downloaded the first time
+you use the effect and are stored for later use.
+
+Creating an Object Mask
+^^^^^^^^^^^^^^^^^^^^^^^
+1. Drag :guilabel:`Object Mask` from the :guilabel:`Effects` panel onto a video clip.
+2. In the initialization dialog, choose a :guilabel:`Quality` level and download the Object Mask model files if they
+   are not installed. Higher quality generally takes more processing time and memory.
+3. Leave :guilabel:`Processing Device` set to :guilabel:`CPU` for maximum compatibility, or select an available GPU
+   option. :guilabel:`GPU (Auto)` falls back to CPU when a supported GPU backend is unavailable.
+4. Click :guilabel:`Select Points`. On a frame where the subject is clearly visible, add at least one positive point
+   or rectangle on the subject. Add negative points or rectangles over nearby background or unwanted objects when
+   they help separate the subject.
+5. Enable the mask preview to check the selected area. Add prompts on other frames if the subject changes greatly,
+   becomes hidden, or the initial selection is ambiguous.
+6. Click :guilabel:`Process Effect`. Processing analyzes the clip and creates the animated mask data used by the
+   effect. Cancel the job if you need to revise the prompts or settings.
+
+After processing, select the Object Mask effect to change its fill and outline. To apply another effect only inside
+the detected subject, add that effect to the same clip and select Object Mask under its :guilabel:`Mask: Source`
+property. Use :guilabel:`Mask: Invert` on the other effect when you want to modify the background instead.
+
+Object Mask and Advanced AI
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Object Mask is the quickest built-in workflow when you need a reusable mask inside an OpenShot project. The similar
+ComfyUI :guilabel:`Mask...`, :guilabel:`Blur...`, and :guilabel:`Highlight...` workflows generate new media files
+through a separately installed ComfyUI server and provide more customizable AI pipelines. See
+:ref:`ai_tracking_ref` for those Advanced AI workflows.
+
+Properties
+^^^^^^^^^^
+
+.. table::
+   :widths: 26 80
+
+   ==========================  ================================================================================
+   Property Name               Description
+   ==========================  ================================================================================
+   draw_mask                   ``(int, choices: ['Yes', 'No'])`` Show or hide the colored mask overlay.
+   mask_color                  ``(color)`` Color drawn over the selected subject.
+   mask_alpha                  ``(float, 0 to 1)`` Opacity of the colored mask overlay.
+   stroke_color                ``(color)`` Color of the outline around the selected subject.
+   stroke_alpha                ``(float, 0 to 1)`` Opacity of the subject outline.
+   stroke_width                ``(int, 0 to 50)`` Width of the subject outline in pixels. Use ``0`` to hide it.
+   protobuf_data_path          ``(string)`` Internal path to the processed mask data. Normally managed by OpenShot.
+   ==========================  ================================================================================
+
 Object Detector
 """""""""""""""
-The Object Detector effect employs machine learning algorithms (such as neural networks) to identify and highlight
-objects within the video frame. It can recognize multiple object types, such as vehicles, people, animals,
-and more! This can be used for analytical purposes, to add interactive elements to videos, or to track the movement
-of specific objects across the frame.
+The Object Detector effect automatically finds and follows known classes of objects throughout a video. Depending
+on the selected YOLO model, these can include people, vehicles, animals, and many common objects. OpenShot stores each
+detection as a tracked object, allowing you to display boxes and labels, customize individual detections, parent
+another clip to a detected object, or use detections as the :guilabel:`Mask: Source` for another effect.
+
+Unlike Object Mask, Object Detector does not require you to mark a particular subject first. It scans the clip for
+all object classes known by the selected model. Use Object Detector when you want automatic discovery or several
+tracked objects; use Object Mask when you need a precise subject silhouette selected with your own prompts.
+
+Creating Object Detections
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+1. Drag :guilabel:`Object Detector` from the :guilabel:`Effects` panel onto a video clip.
+2. Choose a YOLO :guilabel:`Version` and download its model and class-name files if needed. Nano models are normally
+   the fastest starting point; larger models can improve detection at the cost of processing time and memory.
+3. Leave :guilabel:`Processing Device` set to :guilabel:`CPU` for maximum compatibility, or select an available GPU
+   option. :guilabel:`GPU (Auto)` falls back to CPU when necessary.
+4. Click :guilabel:`Process Effect`. OpenShot analyzes the clip and creates the tracked-object data. Processing can
+   take time for long or high-resolution clips and can be canceled.
+5. Select the processed effect and adjust its Properties. Use :guilabel:`Class Filter` and
+   :guilabel:`Confidence Threshold` to reduce the visible results, then select an individual object to customize its
+   box, label, mask, or styling.
 
 Class Filters & Confidence
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
-To adjust the detection process to your specific needs, the Object Detector includes properties for ``class filters``
-and ``confidence thresholds``. By setting a class filter, such as "Truck" or "Person," you can instruct the detector to
-focus on specific types of objects, limiting the types of objects tracked. The confidence threshold allows you to
-set a minimum level of certainty for detections, ensuring that only objects detected with a confidence level above
-this threshold are considered, which helps in reducing false positives and focusing on more accurate detections.
+Enter one or more comma-separated names in :guilabel:`Class Filter`, such as ``person, car``, to display only those
+classes. Class names depend on the selected model and its class-name file. Leave the field empty to display all
+detected classes. Raise :guilabel:`Confidence Threshold` to hide uncertain detections and reduce false positives;
+lower it when the model is missing a partially hidden or difficult subject.
+
+Object Detector can also produce segmentation masks when the selected YOLO model supports them. Those masks can be
+displayed on the clip or used by another effect. Models that only output bounding boxes still work as rectangular
+mask sources.
 
 How Parenting Works
 ^^^^^^^^^^^^^^^^^^^
@@ -1352,12 +1436,14 @@ Properties
    ==========================  ============
    Property Name               Description
    ==========================  ============
-   class_filter                ``(string)`` Type of object class to filter (i.e. car, person)
+   class_filter                ``(string)`` Comma-separated object classes to display (for example, ``person, car``). Leave empty for all classes.
    confidence_threshold        ``(float, 0 to 1)`` Minimum confidence value to display the detected objects
    display_box_text            ``(int, choices: ['Yes', 'No'])`` Draw class name and ID of ALL tracked objects
    display_boxes               ``(int, choices: ['Yes', 'No'])`` Draw bounding box around ALL tracked objects (a quick way to hide all tracked objects)
    selected_object_index       ``(int, 0 to 200)`` Index of the tracked object that is `selected` to modify its properties
    draw_box                    ``(int, choices: ['Yes', 'No'])`` Whether to draw the box around the selected tracked object
+   draw_mask                   ``(int, choices: ['Yes', 'No'])`` Whether to draw the segmentation mask for the selected object, when available
+   draw_text                   ``(int, choices: ['Yes', 'No'])`` Whether to draw the class name and ID for the selected object
    box_id                      ``(string)`` Internal ID of a tracked object box for identification purposes
    x1                          ``(float, 0 to 1)`` Top left X coordinate of a tracked object box, normalized to the video frame width
    y1                          ``(float, 0 to 1)`` Top left Y coordinate of a tracked object box, normalized to the video frame height
@@ -1375,6 +1461,8 @@ Properties
    background_alpha            ``(float, 0 to 1)`` Opacity of the background fill inside the tracked object box
    background_corner           ``(int, 0 to 150)`` Radius of the corners for the background fill inside the tracked object box
    background                  ``(color)`` Color of the background fill inside the tracked object box
+   mask_color                  ``(color)`` Color of the selected object's segmentation mask, when available
+   mask_alpha                  ``(float, 0 to 1)`` Opacity of the selected object's segmentation mask
    ==========================  ============
 
 Outline

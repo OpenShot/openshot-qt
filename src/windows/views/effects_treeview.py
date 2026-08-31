@@ -34,9 +34,10 @@ from classes import info
 from classes.app import get_app
 from classes.logger import log
 from .menu import StyledContextMenu, add_bound_action
+from .name_search_treeview import NameColumnKeyboardSearchMixin
 
 
-class EffectsTreeView(QTreeView):
+class EffectsTreeView(NameColumnKeyboardSearchMixin, QTreeView):
     """ A TreeView QWidget used on the main window """
     drag_item_size = QSize(48, 48)
     drag_item_center = QPoint(24, 24)

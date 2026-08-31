@@ -64,7 +64,41 @@ github_release = None
 windows_32bit = False
 version_info = {}
 windows_mode = "full"
-
+LINUX_PORTAL_THEME_PLUGIN = (
+    "/usr/lib/x86_64-linux-gnu/qt5/plugins/platformthemes/"
+    "libqxdgdesktopportal.so"
+)
+WINDOWS_STORE_MSIX_NAME = "OpenShotStudios.OpenShotforWindows"
+WINDOWS_STORE_MSIX_PUBLISHER = "CN=5FE34B8B-A62B-4594-911F-0D6CFC87D00F"
+WINDOWS_STORE_MSIX_PUBLISHER_DISPLAY_NAME = "OpenShot Studios"
+WINDOWS_STORE_MSIX_LANGUAGES = (
+    "en-US",
+    "ar-SA",
+    "bn-BD",
+    "de-DE",
+    "es-ES",
+    "fa-IR",
+    "fi-FI",
+    "fr-FR",
+    "hi-IN",
+    "hr-HR",
+    "id-ID",
+    "is-IS",
+    "it-IT",
+    "ja-JP",
+    "ko-KR",
+    "nb-NO",
+    "nl-NL",
+    "pl-PL",
+    "pt-PT",
+    "ro-RO",
+    "ru-RU",
+    "tr-TR",
+    "uk-UA",
+    "vi-VN",
+    "zh-Hans",
+    "zh-Hant",
+)
 # Create temp log
 os.makedirs(os.path.join(PATH, 'build'), exist_ok=True)
 log_path = os.path.join(PATH, 'build', 'build-server.log')
@@ -83,6 +117,25 @@ def output(line):
         # Append missing line return (if needed)
         line += "\n"
     log.write(line)
+
+
+def install_linux_portal_theme(app_dir_path):
+    """Bundle Qt's XDG desktop portal platform theme in the AppImage."""
+    if not os.path.isfile(LINUX_PORTAL_THEME_PLUGIN):
+        raise FileNotFoundError(
+            "Missing Qt XDG desktop portal plugin: %s\n"
+            "Install it on the build server with:\n"
+            "  sudo apt-get install qt5-xdgdesktopportal-platformtheme"
+            % LINUX_PORTAL_THEME_PLUGIN
+        )
+
+    plugin_dir = os.path.join(
+        app_dir_path, "usr", "bin", "platformthemes")
+    os.makedirs(plugin_dir, exist_ok=True)
+    plugin_path = os.path.join(
+        plugin_dir, os.path.basename(LINUX_PORTAL_THEME_PLUGIN))
+    shutil.copy2(LINUX_PORTAL_THEME_PLUGIN, plugin_path)
+    output("Bundled Qt XDG desktop portal plugin: %s" % plugin_path)
 
 
 def run_command(command, working_dir=None):
@@ -306,52 +359,6 @@ def get_azure_codesign_dlib_path():
         "C:\\Users\\Administrator\\AppData\\Local\\Microsoft\\MicrosoftArtifactSigningClientTools\\Azure.CodeSigning.Dlib.dll")
 
 
-def get_windows_authenticode_subject(signed_path):
-    """Return the Authenticode signer subject from a signed Windows artifact."""
-    configured_subject = os.getenv("WINDOWS_MSIX_PUBLISHER")
-    if configured_subject:
-        output("Using WINDOWS_MSIX_PUBLISHER for MSIX manifest publisher: %s" % configured_subject)
-        return configured_subject
-
-    powershell_command = (
-        "param([string]$Path) "
-        "$ErrorActionPreference = 'Stop'; "
-        "$signature = Get-AuthenticodeSignature -LiteralPath $Path; "
-        "Write-Host ('Authenticode status: ' + $signature.Status); "
-        "if (-not $signature.SignerCertificate) { "
-        "  throw ('No signer certificate found for ' + $Path + '; status=' + $signature.Status) "
-        "}; "
-        "$signature.SignerCertificate.Subject"
-    )
-
-    command = [
-        "powershell.exe",
-        "-NoProfile",
-        "-ExecutionPolicy", "Bypass",
-        "-Command",
-        "& { %s }" % powershell_command,
-        signed_path,
-    ]
-    try:
-        subject_output = subprocess.check_output(  # nosec B603 - fixed command, no shell.
-            command, stderr=subprocess.STDOUT)
-    except subprocess.CalledProcessError as ex:
-        error("Failed to inspect signed Windows package certificate subject. PowerShell output: %s" %
-              ex.output.decode("UTF-8", errors="replace"))
-        raise
-
-    output_lines = [
-        line.strip()
-        for line in subject_output.decode("UTF-8", errors="replace").splitlines()
-        if line.strip()
-    ]
-    for line in output_lines[:-1]:
-        output(line)
-    if not output_lines:
-        raise RuntimeError("Get-AuthenticodeSignature returned no output for %s" % signed_path)
-    return output_lines[-1]
-
-
 def get_msix_manifest_metadata(msix_path):
     """Return key identity/properties values from an MSIX manifest."""
     try:
@@ -362,41 +369,156 @@ def get_msix_manifest_metadata(msix_path):
                 manifest_document = minidom.parse(manifest_file)
 
         metadata = {
+            "name": None,
             "publisher": None,
             "publisher_display_name": None,
+            "version": None,
+            "application_id": None,
+            "executable": None,
+            "entry_point": None,
+            "languages": [],
         }
         for element in manifest_document.getElementsByTagName("*"):
             if element.localName == "Identity":
+                metadata["name"] = element.getAttribute("Name")
                 metadata["publisher"] = element.getAttribute("Publisher")
+                metadata["version"] = element.getAttribute("Version")
             elif element.localName == "PublisherDisplayName":
                 metadata["publisher_display_name"] = "".join(
                     node.data
                     for node in element.childNodes
                     if node.nodeType == node.TEXT_NODE
                 )
+            elif element.localName == "Application":
+                metadata["application_id"] = element.getAttribute("Id")
+                metadata["executable"] = element.getAttribute("Executable")
+                metadata["entry_point"] = element.getAttribute("EntryPoint")
+            elif element.localName == "Resource" and element.hasAttribute("Language"):
+                metadata["languages"].append(element.getAttribute("Language"))
         return metadata
     except Exception as ex:
         error("Failed to read MSIX manifest metadata: %s" % ex)
         return None
 
 
-def prepare_windows_msix_for_signing(msix_path, signed_installer_path):
-    """Patch the MSIX manifest publisher to match the signing certificate."""
-    signer_subject = get_windows_authenticode_subject(signed_installer_path)
-    publisher_display_name = os.getenv("WINDOWS_MSIX_PUBLISHER_DISPLAY_NAME", "OpenShot Studios")
-    output("Windows signing certificate subject: %s" % signer_subject)
+def set_msix_manifest_languages(manifest_document, languages):
+    """Replace the MSIX manifest language declarations, preserving other qualifiers."""
+    resources = next(
+        (element for element in manifest_document.getElementsByTagName("*")
+         if element.localName == "Resources"),
+        None,
+    )
+    if resources is None:
+        raise RuntimeError("MSIX manifest Resources element not found")
+
+    for child in list(resources.childNodes):
+        if (child.nodeType == child.ELEMENT_NODE
+                and child.localName == "Resource"
+                and child.hasAttribute("Language")):
+            resources.removeChild(child)
+
+    namespace = resources.namespaceURI or manifest_document.documentElement.namespaceURI
+    for language in languages:
+        resource = manifest_document.createElementNS(namespace, "Resource")
+        resource.setAttribute("Language", language)
+        resources.appendChild(resource)
+
+
+def get_expected_msix_version():
+    """Return the artifact OpenShot version in the four-part MSIX format."""
+    source_version = version_info.get("openshot-qt", {}).get("VERSION")
+    match = re.match(r"^(\d+)\.(\d+)\.(\d+)(?:\.(\d+))?(?:[-+].*)?$", source_version or "")
+    if not match:
+        raise RuntimeError("Invalid or missing openshot-qt artifact version: %s" % source_version)
+    return ".".join((match.group(1), match.group(2), match.group(3), match.group(4) or "0"))
+
+
+def replace_msix_visual_assets(package_root):
+    """Replace every Packaging Tool logo variant using the canonical OpenShot logo."""
+    from PIL import Image
+
+    package_assets_dir = os.path.join(package_root, "Assets")
+    source_logo_path = os.path.join(PATH, "xdg", "icon", "512", "openshot-qt.png")
+    asset_specs = {
+        "StoreLogo": (50, 50),
+        "OPENSHOTQT-Square44x44Logo": (44, 44),
+        "OPENSHOTQT-Square71x71Logo": (71, 71),
+        "OPENSHOTQT-Square150x150Logo": (150, 150),
+        "OPENSHOTQT-Square310x310Logo": (310, 310),
+        "OPENSHOTQT-Wide310x150Logo": (310, 150),
+    }
+    if not os.path.isfile(source_logo_path):
+        error("Canonical OpenShot logo not found: %s" % source_logo_path)
+        return False
+
+    os.makedirs(package_assets_dir, exist_ok=True)
+    with Image.open(source_logo_path) as source_logo:
+        source_logo = source_logo.convert("RGBA")
+        existing_assets = os.listdir(package_assets_dir)
+        for asset_stem, default_size in asset_specs.items():
+            matching_names = [
+                filename for filename in existing_assets
+                if filename.lower().startswith(asset_stem.lower())
+                and filename.lower().endswith(".png")
+            ]
+            base_name = "%s.png" % asset_stem
+            if base_name not in matching_names:
+                matching_names.append(base_name)
+
+            for package_name in matching_names:
+                package_path = os.path.join(package_assets_dir, package_name)
+                canvas_size = default_size
+                if os.path.isfile(package_path):
+                    with Image.open(package_path) as existing_asset:
+                        canvas_size = existing_asset.size
+                logo_edge = max(1, round(min(canvas_size) * 0.92))
+                resized_logo = source_logo.resize((logo_edge, logo_edge), Image.Resampling.LANCZOS)
+                canvas = Image.new("RGBA", canvas_size, (0, 0, 0, 0))
+                position = (
+                    (canvas_size[0] - logo_edge) // 2,
+                    (canvas_size[1] - logo_edge) // 2,
+                )
+                canvas.alpha_composite(resized_logo, position)
+                canvas.save(package_path, format="PNG")
+                output("Replaced MSIX visual asset from canonical logo: %s (%sx%s)" % (
+                    package_name, canvas_size[0], canvas_size[1]))
+    return True
+
+
+def prepare_windows_store_msix(msix_path):
+    """Normalize an MSIX for submission under its Partner Center identity."""
 
     manifest_metadata = get_msix_manifest_metadata(msix_path)
-    if manifest_metadata:
-        output("MSIX manifest publisher before signing: %s" % manifest_metadata["publisher"])
-        output("MSIX manifest publisher display name before signing: %s" %
-               manifest_metadata["publisher_display_name"])
-        if (
-                manifest_metadata["publisher"] == signer_subject
-                and manifest_metadata["publisher_display_name"] == publisher_display_name
-        ):
-            output("MSIX manifest publisher fields already match signing configuration; skipping repack")
-            return True
+    if not manifest_metadata:
+        return False
+    output("MSIX manifest publisher before Store preparation: %s" % manifest_metadata["publisher"])
+    output("MSIX manifest publisher display name before Store preparation: %s" %
+           manifest_metadata["publisher_display_name"])
+    expected_identity = {
+        "name": WINDOWS_STORE_MSIX_NAME,
+        "publisher": WINDOWS_STORE_MSIX_PUBLISHER,
+        "publisher_display_name": WINDOWS_STORE_MSIX_PUBLISHER_DISPLAY_NAME,
+    }
+    for key, expected_value in expected_identity.items():
+        if manifest_metadata[key] != expected_value:
+            error("Unexpected Store MSIX %s: %s (expected %s)" % (
+                key, manifest_metadata[key], expected_value))
+            return False
+    expected_version = get_expected_msix_version()
+    if manifest_metadata["version"] != expected_version:
+        error("Unexpected MSIX version: %s (expected artifact version %s)" % (
+            manifest_metadata["version"], expected_version))
+        return False
+    expected_application = {
+        "application_id": "OPENSHOTQT",
+        "executable": "openshot-qt.exe",
+        "entry_point": "Windows.FullTrustApplication",
+    }
+    for key, expected_value in expected_application.items():
+        if manifest_metadata[key] != expected_value:
+            error("Unexpected MSIX %s: %s (expected %s)" % (
+                key, manifest_metadata[key], expected_value))
+            return False
 
     signtool_path = get_signtool_path()
     makeappx_path = os.getenv(
@@ -429,6 +551,9 @@ def prepare_windows_msix_for_signing(msix_path, signed_installer_path):
         error("MSIX manifest not found after unpacking: %s" % manifest_path)
         return False
 
+    if not replace_msix_visual_assets(unpack_dir):
+        return False
+
     try:
         from defusedxml import minidom
 
@@ -444,11 +569,29 @@ def prepare_windows_msix_for_signing(msix_path, signed_installer_path):
             error("MSIX manifest Identity element not found: %s" % manifest_path)
             return False
 
-        current_publisher = identity.getAttribute("Publisher")
-        output("MSIX manifest publisher before signing: %s" % current_publisher)
-        if current_publisher != signer_subject:
-            output("Updating MSIX manifest publisher to match signing certificate subject")
-            identity.setAttribute("Publisher", signer_subject)
+        application = None
+        visual_elements = None
+        default_tile = None
+        package_logo = None
+        for element in manifest_document.getElementsByTagName("*"):
+            if element.localName == "Application":
+                application = element
+            elif element.localName == "VisualElements":
+                visual_elements = element
+            elif element.localName == "DefaultTile":
+                default_tile = element
+            elif element.localName == "Logo" and element.parentNode.localName == "Properties":
+                package_logo = element
+        if not all((application, visual_elements, default_tile, package_logo)):
+            error("MSIX manifest is missing required application visual metadata")
+            return False
+
+        application.setAttribute("Executable", "openshot-qt.exe")
+        application.setAttribute("EntryPoint", "Windows.FullTrustApplication")
+        visual_elements.setAttribute("BackgroundColor", "transparent")
+        set_msix_manifest_languages(manifest_document, WINDOWS_STORE_MSIX_LANGUAGES)
+        output("MSIX manifest languages: %s" %
+               ", ".join(WINDOWS_STORE_MSIX_LANGUAGES))
 
         publisher_display_name_element = None
         for element in manifest_document.getElementsByTagName("*"):
@@ -464,20 +607,16 @@ def prepare_windows_msix_for_signing(msix_path, signed_installer_path):
             for node in publisher_display_name_element.childNodes
             if node.nodeType == node.TEXT_NODE
         )
-        output("MSIX manifest publisher display name before signing: %s" % current_display_name)
-        if current_display_name != publisher_display_name:
-            output("Updating MSIX manifest publisher display name to: %s" % publisher_display_name)
-            for child in list(publisher_display_name_element.childNodes):
-                publisher_display_name_element.removeChild(child)
-            publisher_display_name_element.appendChild(
-                manifest_document.createTextNode(publisher_display_name)
-            )
+        output("MSIX manifest publisher display name after unpacking: %s" % current_display_name)
+        if current_display_name != WINDOWS_STORE_MSIX_PUBLISHER_DISPLAY_NAME:
+            error("Unexpected Store MSIX publisher display name after unpacking: %s" %
+                  current_display_name)
+            return False
 
-        if current_publisher != signer_subject or current_display_name != publisher_display_name:
-            with open(manifest_path, "wb") as manifest_file:
-                manifest_file.write(manifest_document.toxml(encoding="UTF-8"))
+        with open(manifest_path, "wb") as manifest_file:
+            manifest_file.write(manifest_document.toxml(encoding="UTF-8"))
     except Exception as ex:
-        error("Failed to update MSIX manifest publisher: %s" % ex)
+        error("Failed to update MSIX manifest: %s" % ex)
         return False
 
     pack_command = " ".join([
@@ -494,7 +633,21 @@ def prepare_windows_msix_for_signing(msix_path, signed_installer_path):
 
     shutil.move(repacked_path, msix_path)
     shutil.rmtree(unpack_dir)
-    output("Repacked MSIX package for signing: %s" % msix_path)
+    output("Repacked MSIX package for Microsoft Store submission: %s" % msix_path)
+    final_metadata = get_msix_manifest_metadata(msix_path)
+    if not final_metadata:
+        return False
+    for key, expected_value in expected_identity.items():
+        if final_metadata[key] != expected_value:
+            error("Repacked Store MSIX has unexpected %s: %s" % (key, final_metadata[key]))
+            return False
+    if final_metadata["executable"] != "openshot-qt.exe":
+        error("Repacked MSIX does not use the OpenShot GUI executable")
+        return False
+    if final_metadata["languages"] != list(WINDOWS_STORE_MSIX_LANGUAGES):
+        error("Repacked MSIX has unexpected languages: %s" %
+              ", ".join(final_metadata["languages"]))
+        return False
     return True
 
 
@@ -572,8 +725,8 @@ def sign_windows_installer(installer_path, debug=False):
     return success
 
 
-def sign_windows_msix_artifacts(signed_installer_path):
-    """Sign any MSIX artifacts prepared for the x64 Windows signing job."""
+def prepare_windows_msix_artifacts():
+    """Prepare unsigned MSIX artifacts for Microsoft Store submission."""
     msix_dir = os.path.join(PATH, "build", "msix")
     if not os.path.isdir(msix_dir):
         return True
@@ -588,12 +741,10 @@ def sign_windows_msix_artifacts(signed_installer_path):
 
     for msix_path in msix_paths:
         output("Found Windows MSIX artifact: %s" % msix_path)
-        if not prepare_windows_msix_for_signing(msix_path, signed_installer_path):
+        if not prepare_windows_store_msix(msix_path):
             error("Windows MSIX preparation failed: %s" % msix_path)
             return False
-        if not sign_windows_installer(msix_path, debug=True):
-            error("Windows MSIX signing failed: %s" % msix_path)
-            return False
+        output("Leaving Store MSIX unsigned; Microsoft signs it during certification")
 
     return True
 
@@ -603,14 +754,19 @@ def main():
     # are also used in the deploy.py script.
     try:
         windows_mode = "full"
+        windows_32bit = False
         git_branch_name = "develop"
+        zulip_token = None
+        prepare_msix_only = "--prepare-msix" in sys.argv
 
         # Validate command-line arguments
-        if len(sys.argv) >= 2:
+        if len(sys.argv) >= 2 and not prepare_msix_only:
             zulip_token = sys.argv[1]
         if len(sys.argv) >= 6:
             git_branch_name = sys.argv[5]
-        if len(sys.argv) >= 4:
+        if len(sys.argv) >= 8:
+            windows_mode = sys.argv[7]
+        if len(sys.argv) >= 4 and not prepare_msix_only:
             github_user = sys.argv[2]
             github_pass = sys.argv[3]
 
@@ -619,15 +775,12 @@ def main():
             repo = gh.repository("OpenShot", "openshot-qt")
 
         if len(sys.argv) >= 5:
-            windows_32bit = False
             if sys.argv[4] == 'True':
                 windows_32bit = True
 
         mac_password = ""
         if len(sys.argv) >= 7:
             mac_password = sys.argv[6]
-        if len(sys.argv) >= 8:
-            windows_mode = sys.argv[7]
 
         # Start log
         output(
@@ -651,6 +804,14 @@ def main():
             version_info.update(
                 parse_version_info(os.path.join(artifact_path, "share", data_file)))
         output(str(version_info))
+
+        # The MSIX packaging job owns Store manifest preparation and validation.
+        # It does not need GitHub access or executable signing credentials.
+        if prepare_msix_only:
+            if not prepare_windows_msix_artifacts():
+                raise RuntimeError("Windows MSIX preparation failed")
+            output("Successfully prepared Windows MSIX artifact")
+            return
 
         # Get GIT description of openshot-qt-git branch (i.e. v2.0.6-18-ga01a98c)
         openshot_qt_git_desc = parse_build_name(version_info, git_branch_name)
@@ -747,6 +908,9 @@ def main():
             # Copy the entire frozen app
             shutil.copytree(os.path.join(PATH, "build", exe_dir),
                             os.path.join(app_dir_path, "usr", "bin"))
+
+            # Prefer the desktop's native file picker through XDG portals.
+            install_linux_portal_theme(app_dir_path)
 
             # Copy .desktop file, replacing Exec= commandline
             desk_in = os.path.join(PATH, "xdg", "org.openshot.OpenShot.desktop")
@@ -911,8 +1075,8 @@ def main():
                     'verpatch.exe',
                     '{}'.format(launcher_exe),
                     '/va',
-                    '/high "{}"'.format(info.VERSION),
-                    '/pv "{}"'.format(info.VERSION),
+                    '/high "{}"'.format(version),
+                    '/pv "{}"'.format(version),
                     '/s product "{}"'.format(info.PRODUCT_NAME),
                     '/s company "{}"'.format(info.COMPANY_NAME),
                     '/s copyright "{}"'.format(info.COPYRIGHT),
@@ -970,8 +1134,6 @@ def main():
                 needs_upload = False
             elif os.path.exists(app_build_path):
                 sign_success = sign_windows_installer(app_build_path)
-                if sign_success and not windows_32bit:
-                    sign_success = sign_windows_msix_artifacts(app_build_path)
                 if not sign_success:
                     needs_upload = False
                     os.remove(app_build_path)

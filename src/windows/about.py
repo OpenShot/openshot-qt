@@ -457,12 +457,19 @@ class About(QDialog):
         try:
             release_metadata = None
             if url:
-                release_metadata = http_client.get_json(
-                    http_client.urls_with_http_fallback(url),
-                    "OpenShot release details",
-                    headers={"user-agent": "openshot-qt-%s" % info.VERSION},
-                )
-                log.info("Found current release: %s" % release_metadata)
+                try:
+                    release_metadata = http_client.get_json(
+                        http_client.urls_with_http_fallback(url),
+                        "OpenShot release details",
+                        headers={"user-agent": "openshot-qt-%s" % info.VERSION},
+                    )
+                    log.info("Found current release: %s" % release_metadata)
+                except Exception as ex:
+                    # Release metadata only enriches the locally-installed version
+                    # information. A missing release (for example, a development
+                    # build whose version number looks final) or a network failure
+                    # must not prevent the About dialog from displaying its version.
+                    log.warning("OpenShot release details unavailable: %s", ex)
             else:
                 log.info("Skipping OpenShot release details lookup for non-release version: %s", info.VERSION)
 

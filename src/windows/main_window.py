@@ -42,7 +42,8 @@ import threading
 
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 from qt_api import (
-    Qt, pyqtSignal, pyqtSlot, QCoreApplication, QTimer, QDateTime, QFileInfo, QEvent, QUrl, QLocale
+    Qt, pyqtSignal, pyqtSlot, QCoreApplication, QTimer, QDateTime,
+    QFileInfo, QEvent, QUrl, QLocale
 )
 from qt_api import QIcon, QCursor, QKeySequence, QTextCursor
 from qt_api import show_open_file_dialog, show_save_file_dialog, file_exists, ensure_extension, path_basename
@@ -153,6 +154,12 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     # Save window settings on close
     def closeEvent(self, event):
         app = get_app()
+        save_geometry = getattr(self, "saveGeometry", None)
+        if callable(save_geometry):
+            # A parented modal can temporarily alter the main window's state
+            # before shutdown reaches save_settings(). Preserve the state from
+            # the instant the user requested the close.
+            self._pending_close_geometry = save_geometry()
 
         # Prompt user to save (if needed)
         if app.project.needs_save():
@@ -174,6 +181,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 # Show tutorial again, if any
                 self.tutorial_manager.re_show_dialog()
                 # User canceled prompt - don't quit
+                self._pending_close_geometry = None
                 event.ignore()
                 return
 
@@ -1893,14 +1901,39 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         elif layer_number not in numbers:
             self.ensure_tracks_for_layers([layer_number])
 
-        tracks = [layer_number]
-        current = layer_number
+        selected_track_id = None
+        try:
+            selected_track = Track.get(number=layer_number)
+            selected_track_id = selected_track.id if selected_track else None
+        except Exception:
+            selected_track_id = None
+
+        def current_selected_number(fallback):
+            if selected_track_id:
+                try:
+                    selected_track = Track.get(id=selected_track_id)
+                    if selected_track:
+                        return int(selected_track.data.get("number", fallback))
+                except Exception:
+                    pass
+            return fallback
+
+        def existing_stack(start):
+            current_numbers = self._track_numbers()
+            if start not in current_numbers:
+                return [start]
+            start_index = current_numbers.index(start)
+            return [start] + list(reversed(current_numbers[:start_index]))
+
+        tracks = existing_stack(layer_number)
         while len(tracks) < count:
-            current = self.create_track_below(current)
-            if current in tracks:
+            previous_tracks = list(tracks)
+            self.create_track_below(tracks[-1])
+            layer_number = current_selected_number(layer_number)
+            tracks = existing_stack(layer_number)
+            if tracks == previous_tracks:
                 break
-            tracks.append(current)
-        return tracks
+        return tracks[:count]
 
     def ensure_tracks_for_layers(self, layers):
         """Create any missing positive track numbers needed by upcoming inserts."""
@@ -3395,6 +3428,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         """ Switch to the default / simple view  """
         self._set_active_custom_view_id("")
         self._set_active_builtin_view("simple")
+        self._apply_simple_view_layout()
+
+    def _apply_simple_view_layout(self):
+        """Apply the shared Simple View dock topology."""
         self.removeDocks()
 
         # Add Docks
@@ -3484,28 +3521,16 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             QTimer.singleShot(0, _resize_right_column)
 
     def actionAudio_Recording_View_trigger(self):
-        """Switch to a recording focused view."""
+        """Show the Simple View layout with Recording docked on the right."""
         self._set_active_custom_view_id("")
         self._set_active_builtin_view("recording")
         self._ensure_audio_recording_dock_content()
-        self.removeDocks()
-
-        self.addDocks([self.dockFiles, self.dockProperties], Qt.LeftDockWidgetArea)
-        self.addDocks([self.dockVideo], Qt.TopDockWidgetArea)
+        self._apply_simple_view_layout()
         self.addDocks([self.dockAudioRecording], Qt.RightDockWidgetArea)
-        self.tabifyDockWidget(self.dockFiles, self.dockProperties)
-        self.dockProperties.hide()
-        self.splitDockWidget(self.dockVideo, self.dockTimeline, Qt.Vertical)
         self.setTabPosition(Qt.RightDockWidgetArea, QTabWidget.North)
-        self.setTabPosition(Qt.LeftDockWidgetArea, QTabWidget.North)
 
         self.floatDocks(False)
-        self.showDocks([
-            self.dockFiles,
-            self.dockVideo,
-            self.dockTimeline,
-            self.dockAudioRecording,
-        ])
+        self.showDocks([self.dockAudioRecording])
         self.dockAudioRecording.raise_()
         self.style_dock_widgets()
 
@@ -3886,30 +3911,28 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Save window state and geometry (saves toolbar and dock locations)
         s.set('window_state_v2', qt_types.bytes_to_str(self.saveState()))
-        s.set('window_geometry_v2', qt_types.bytes_to_str(self.saveGeometry()))
+        close_geometry = getattr(self, "_pending_close_geometry", None)
+        geometry = close_geometry if close_geometry is not None else self.saveGeometry()
+        s.set('window_geometry_v2', qt_types.bytes_to_str(geometry))
+        self._pending_close_geometry = None
         # Qt's saveState() does not capture docks removed via removeDockWidget(); save them explicitly.
         hidden = [d.objectName() for d in self.getDocks()
                   if self.dockWidgetArea(d) == Qt.NoDockWidgetArea]
         s.set('hidden_docks', hidden)
-        dock = getattr(self, "dockTimeline", None)
-        if dock:
-            s.set('timeline_height', dock.height())
-        dock = getattr(self, "dockVideo", None)
-        if dock:
-            s.set('video_dock_width', dock.width())
+        video = getattr(self, "dockVideo", None)
+        if video:
+            s.set('video_dock_width', video.width())
 
     # Get window settings from setting store
     def load_settings(self):
         s = get_app().get_settings()
-        from qt_api import QT_API
-
         # Window state and geometry (also toolbar, dock locations and frozen UI state)
         if s.get('window_geometry_v2'):
             self.saved_geometry = qt_types.str_to_bytes(s.get('window_geometry_v2'))
         if s.get('window_state_v2'):
             self.saved_state = qt_types.str_to_bytes(s.get('window_state_v2'))
-        self.saved_timeline_height = self._positive_int(s.get('timeline_height'))
-        self.saved_video_dock_width = self._positive_int(s.get('video_dock_width'))
+        self.saved_video_dock_width = self._positive_int(
+            s.get('video_dock_width'))
 
         # Load Recent Projects
         self.load_recent_menu()
@@ -4340,10 +4363,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             if child.isFloating() and child.isEnabled():
                 child.raise_()
                 child.show()
-        if (self.saved_geometry or self.saved_state) and not self._restored_saved_window:
-            # Delay the restore until after the window is shown so layouts are settled.
-            QTimer.singleShot(0, self._restore_saved_window)
-
     def hideEvent(self, event):
         """ Have any child windows hide with main window """
         QMainWindow.hideEvent(self, event)
@@ -4351,57 +4370,37 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             if child.isFloating() and child.isVisible():
                 child.hide()
 
-    def _restore_saved_window(self):
-        """Apply saved geometry/state after the first show event."""
+    def _restore_saved_window_state(self):
+        """Restore Qt's serialized dock state after final window sizing."""
         if self._restored_saved_window:
             return
         self._restored_saved_window = True
-        self._capture_missing_dock_size_fallbacks()
-        if self.saved_geometry:
-            self.restoreGeometry(self.saved_geometry)
-        if self.saved_state:
-            self._restore_state_and_dock_sizes()
-
-    def _capture_missing_dock_size_fallbacks(self):
-        """Use the initial shown layout as a fallback for newly introduced dock sizes."""
-        video_dock = getattr(self, "dockVideo", None)
-        if (video_dock
-                and not getattr(self, "saved_video_dock_width", None)
-                and video_dock.width() > 0):
-            self.saved_video_dock_width = video_dock.width()
-
-    def _restore_state_and_dock_sizes(self):
-        """Restore saved dock state and then apply stable logical dock sizes."""
         if self.saved_state:
             self.restoreState(self.saved_state)
-        # Re-apply removed-dock state that Qt's saveState/restoreState doesn't preserve.
+        # Qt state does not remember docks explicitly removed from all areas.
         hidden_names = get_app().get_settings().get('hidden_docks') or []
         self._restore_hidden_docks(hidden_names)
-        self._apply_saved_dock_sizes()
-        if self._active_builtin_view() == "recording":
-            QTimer.singleShot(250, self._repair_recording_view_split)
+        QTimer.singleShot(0, self._restore_saved_video_dock_width)
 
-    def _repair_recording_view_split(self):
-        """Restore Recording View's adjustable Video/Timeline vertical split."""
-        if self._active_builtin_view() != "recording":
+    def _restore_saved_video_dock_width(self):
+        """Correct Qt 5 fractional-scale drift in the horizontal dock splitter."""
+        files = getattr(self, "dockFiles", None)
+        video = getattr(self, "dockVideo", None)
+        width = self._positive_int(
+            getattr(self, "saved_video_dock_width", None))
+        if not (files and video and width):
             return
-        video_dock = getattr(self, "dockVideo", None)
-        timeline_dock = getattr(self, "dockTimeline", None)
-        if not video_dock or not timeline_dock:
-            return
-        if video_dock.isFloating():
-            video_dock.setFloating(False)
-        if timeline_dock.isFloating():
-            timeline_dock.setFloating(False)
-        if self.dockWidgetArea(video_dock) == Qt.NoDockWidgetArea:
-            self.addDockWidget(Qt.TopDockWidgetArea, video_dock)
-        if self.dockWidgetArea(timeline_dock) == Qt.NoDockWidgetArea:
-            self.addDockWidget(Qt.BottomDockWidgetArea, timeline_dock)
-        self.splitDockWidget(video_dock, timeline_dock, Qt.Vertical)
-        video_dock.show()
-        timeline_dock.show()
-        self._apply_saved_timeline_height()
-        self.style_dock_widgets()
+        total_width = files.width() + video.width()
+        self.resizeDocks(
+            [files, video],
+            [max(1, total_width - width), width],
+            Qt.Horizontal,
+        )
+
+    def _restore_saved_geometry_before_show(self):
+        """Restore outer geometry before the window is mapped."""
+        if self.saved_geometry:
+            self.restoreGeometry(self.saved_geometry)
 
     @staticmethod
     def _positive_int(value):
@@ -4413,40 +4412,48 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         return value if value > 0 else None
 
     def _force_dock_extent_once(self, dock, size, orientation):
-        """Force one saved logical dock splitter extent, then restore flexibility."""
+        """Temporarily constrain a dock extent, safely coalescing repeated calls."""
         if not dock:
             return
         size = self._positive_int(size)
         if not size:
             return
+        pending = getattr(self, "_pending_dock_extent_restores", None)
+        if pending is None:
+            pending = {}
+            self._pending_dock_extent_restores = pending
+
         if orientation == Qt.Horizontal:
             size = min(size, max(160, int(self.width() * 0.85)))
             current = dock.width()
-            old_min = dock.minimumWidth()
-            old_max = dock.maximumWidth()
+            get_limits = lambda: (dock.minimumWidth(), dock.maximumWidth())
             set_fixed = dock.setFixedWidth
-            restore = lambda: (dock.setMinimumWidth(old_min), dock.setMaximumWidth(old_max))
+            restore = lambda limits: (
+                dock.setMinimumWidth(limits[0]),
+                dock.setMaximumWidth(limits[1]),
+            )
         else:
             size = min(size, max(100, int(self.height() * 0.85)))
             current = dock.height()
-            old_min = dock.minimumHeight()
-            old_max = dock.maximumHeight()
+            get_limits = lambda: (dock.minimumHeight(), dock.maximumHeight())
             set_fixed = dock.setFixedHeight
-            restore = lambda: (dock.setMinimumHeight(old_min), dock.setMaximumHeight(old_max))
-        if current != size:
-            set_fixed(size)
-            QTimer.singleShot(0, restore)
+            restore = lambda limits: (
+                dock.setMinimumHeight(limits[0]),
+                dock.setMaximumHeight(limits[1]),
+            )
 
-    def _apply_saved_dock_sizes(self):
-        """Apply saved logical sizes for docks Qt state commonly drifts."""
-        self._force_dock_extent_once(
-            getattr(self, "dockTimeline", None),
-            self.saved_timeline_height,
-            Qt.Vertical)
-        self._force_dock_extent_once(
-            getattr(self, "dockVideo", None),
-            self.saved_video_dock_width,
-            Qt.Horizontal)
+        if current == size and dock not in pending:
+            return
+        if dock not in pending:
+            pending[dock] = get_limits()
+
+            def restore_flexibility():
+                limits = pending.pop(dock, None)
+                if limits is not None:
+                    restore(limits)
+
+            QTimer.singleShot(0, restore_flexibility)
+        set_fixed(size)
 
     def _apply_saved_timeline_height(self):
         """Apply the saved timeline dock height."""
@@ -4967,6 +4974,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             "actionAddMarker",
             "actionSnappingTool",
             "actionTimingTool",
+            "actionProperties",
             "actionJumpStart",
             "actionJumpEnd",
             "actionRippleSliceKeepLeft",
@@ -5343,6 +5351,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Load UI from designer
         self.selected_items = []
         ui_util.load_ui(self, self.ui_path)
+        self.actionFullscreen.setText(_("Fullscreen"))
+        self.actionColor_Grade_View.setText(_("Color View"))
 
         # Init UI
         ui_util.init_ui(self)
@@ -5510,7 +5520,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Load window state and geometry
         self.saved_state = None
         self.saved_geometry = None
-        self.saved_timeline_height = None
         self.saved_video_dock_width = None
         self._restored_saved_window = False
         self.load_settings()
@@ -5678,12 +5687,12 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         theme = get_app().theme_manager.apply_theme(theme_name)
         s.set("theme", theme.name)
 
+        # Restore only the outer geometry before mapping. Dock state is applied
+        # after the window manager has established the final window size.
+        self._restore_saved_geometry_before_show()
+
         # Save settings
         s.save()
-
-        # Re-apply saved logical dock sizes after theme settles (theme changes dock sizes)
-        QTimer.singleShot(0, self._apply_saved_dock_sizes)
-        QTimer.singleShot(250, self._apply_saved_dock_sizes)
 
         # Refresh frame
         QTimer.singleShot(100, lambda: self.refreshFrameSignal.emit())

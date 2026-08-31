@@ -39,7 +39,8 @@ linux:
     - cp -r "$CI_PROJECT_DIR/build/install-x64/python/." "$CI_PROJECT_DIR"
     - export LD_LIBRARY_PATH=$OPENCV_ROOT/lib:$CI_PROJECT_DIR/build/install-x64/lib:$LD_LIBRARY_PATH
     - ldd "$CI_PROJECT_DIR/build/install-x64/lib/libopenshot.so" | tee "$CI_PROJECT_DIR/build/install-x64/share/libopenshot-linux-deps.log"
-    - if ! grep -q "libpipewire-0.3" "$CI_PROJECT_DIR/build/install-x64/share/libopenshot-linux-deps.log"; then echo "WARNING libopenshot artifact was built without PipeWire Wayland capture support"; fi
+    - if grep -q "libpipewire-0.3" "$CI_PROJECT_DIR/build/install-x64/share/libopenshot-linux-deps.log"; then echo "ERROR libopenshot must not link PipeWire directly"; exit 1; fi
+    - if [ ! -f "$CI_PROJECT_DIR/build/install-x64/lib/libopenshot-wayland-capture.so" ]; then echo "WARNING libopenshot artifact was built without the optional PipeWire Wayland capture module"; fi
     - export QT_QPA_PLATFORM=offscreen
     - python3 -m unittest discover -s src/tests -t src/tests --quiet
     - VERSION=$(python3 src/launch.py -V)
@@ -197,7 +198,7 @@ win-x86:
 windows:msix:package:
   stage: msix-package
   artifacts:
-    when: always
+    when: on_success
     expire_in: 2 weeks
     paths:
     - build\msix\*.msix
@@ -206,6 +207,10 @@ windows:msix:package:
   script:
     - $PSVersionTable
     - powershell.exe -NoProfile -ExecutionPolicy Bypass -File installer\package_msix.ps1
+    - $msixPackages = @(Get-ChildItem -Path "build\msix\*.msix" -File -ErrorAction SilentlyContinue)
+    - if ($msixPackages.Count -ne 1) { throw "Expected exactly one x64 MSIX package, found $($msixPackages.Count)" }
+    - py -3 -m pip install defusedxml pillow
+    - py -3 -u installer/build_server.py --prepare-msix
   when: on_success
   except:
   - tags
@@ -218,17 +223,13 @@ win-sign-x64:
     expire_in: 2 weeks
     paths:
     - build\*-x86_64.exe
-    - build\msix\*.msix
     - build\build-server.log
   dependencies:
     - win-x64
-    - windows:msix:package
   script:
     - $PSVersionTable
     - $env:Path = $env:Path + ";C:\msys64\usr\local\bin;C:\msys64\usr\bin"
     - if (-not (Get-ChildItem -Path "build\*-x86_64.exe" -ErrorAction SilentlyContinue)) { throw "No x64 Windows installer found in build\\*-x86_64.exe" }
-    - if (-not (Get-ChildItem -Path "build\msix\*.msix" -ErrorAction SilentlyContinue)) { throw "No x64 MSIX package found in build\\msix\\*.msix" }
-    - py -3 -m pip install defusedxml
     - py -3 -u installer/build_server.py "$SLACK_TOKEN" "$GITHUB_USER" "$GITHUB_PASS" "False" "$CI_COMMIT_REF_NAME" "$MAC_PASSWORD" "sign-upload-only"
   when: on_success
   except:

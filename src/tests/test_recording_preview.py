@@ -7,16 +7,17 @@ import os
 import shutil
 import sys
 import tempfile
+import threading
 import types
 import unittest
-from unittest.mock import patch
+from unittest.mock import MagicMock, call, patch
 
 
 PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 if PATH not in sys.path:
     sys.path.append(PATH)
 
-from qt_api import QByteArray, QCoreApplication, QSize, Qt
+from qt_api import QByteArray, QCoreApplication, QEvent, QPoint, QRect, QSize, Qt
 from qt_api import QApplication
 
 from tests.qt_test_app import ensure_app_state as ensure_qt_app_state, get_or_create_app
@@ -81,6 +82,172 @@ class RecordingPreviewTests(unittest.TestCase):
             helper.recording_preview_file_id("session-1", ""),
             "recording-preview-session-1-source",
         )
+
+    def test_recording_styles_are_owned_by_application_themes(self):
+        from themes.cosmic.theme import CosmicTheme
+        from themes.humanity.theme import HumanityDarkTheme, Retro
+
+        cosmic = CosmicTheme(self.app).style_sheet
+        humanity = HumanityDarkTheme(self.app).style_sheet
+        retro = Retro(self.app).style_sheet
+
+        self.assertIn("QFrame#recordingCard", cosmic)
+        self.assertIn("background-color: #303030", humanity)
+        self.assertIn("background-color: #e5e7ea", retro)
+
+        card = self.recording_widgets_module.RecordingSourceCard("Mic", "Voice", "M")
+        section = self.recording_widgets_module.RecordingSection("Mic", "M")
+        try:
+            self.assertEqual(card.styleSheet(), "")
+            self.assertEqual(section.styleSheet(), "")
+        finally:
+            card.deleteLater()
+            section.deleteLater()
+
+    def test_recording_dock_starts_with_microphone_unselected(self):
+        helper = self.audio_recording_module
+        content_class = helper.AudioRecordingDockContent
+        with patch.object(content_class, "_sync_source_availability"), \
+                patch.object(content_class, "_webcam_layout_changed"), \
+                patch.object(content_class, "_sync_backend_state"):
+            dock = content_class(types.SimpleNamespace())
+        try:
+            self.assertFalse(dock.mic_card.isChecked())
+            self.assertFalse(dock.mic_section.property("active"))
+            self.assertFalse(dock.mic_section.advanced_button.isEnabled())
+        finally:
+            dock.deleteLater()
+
+    def test_recording_button_requires_selected_source_while_idle(self):
+        helper = self.audio_recording_module
+
+        class FakeButton:
+            def setEnabled(self, enabled):
+                self.enabled = enabled
+
+            def setText(self, text):
+                self.text = text
+
+            def setStyleSheet(self, stylesheet):
+                self.stylesheet = stylesheet
+
+            def setToolTip(self, tooltip):
+                self.tooltip = tooltip
+
+        selected = {"mic": False}
+        dock = types.SimpleNamespace(
+            mic_card=types.SimpleNamespace(isChecked=lambda: selected["mic"]),
+            screen_card=types.SimpleNamespace(isChecked=lambda: False),
+            camera_card=types.SimpleNamespace(isChecked=lambda: False),
+            record_button=FakeButton(),
+        )
+        dock._has_selected_recording_source = lambda: (
+            helper.AudioRecordingDockContent._has_selected_recording_source(dock)
+        )
+
+        helper.AudioRecordingDockContent._set_record_button_idle(dock)
+        self.assertFalse(dock.record_button.enabled)
+        self.assertIn("Select at least one", dock.record_button.tooltip)
+        self.assertIn("QPushButton:disabled", dock.record_button.stylesheet)
+
+        selected["mic"] = True
+        helper.AudioRecordingDockContent._set_record_button_idle(dock)
+        self.assertTrue(dock.record_button.enabled)
+        self.assertEqual(dock.record_button.tooltip, "")
+
+    def test_recording_dock_idle_activation_skips_device_discovery(self):
+        helper = self.audio_recording_module
+        dock = types.SimpleNamespace(
+            _activation_pending=True,
+            mic_card=types.SimpleNamespace(isChecked=lambda: False),
+            camera_card=types.SimpleNamespace(isChecked=lambda: False),
+            _dock_visible=lambda: True,
+            refresh_tracks=MagicMock(),
+            _sync_backend_state=MagicMock(),
+            _refresh_source_devices=MagicMock(),
+            _ensure_monitoring=MagicMock(),
+            _restart_webcam_preview=MagicMock(),
+        )
+
+        helper.AudioRecordingDockContent._activate_after_show(dock)
+
+        self.assertFalse(dock._activation_pending)
+        dock.refresh_tracks.assert_called_once_with()
+        dock._refresh_source_devices.assert_called_once_with(
+            microphone=False,
+            camera=False,
+        )
+        dock._ensure_monitoring.assert_called_once_with()
+        dock._restart_webcam_preview.assert_called_once_with()
+
+    def test_recording_source_discovery_runs_only_for_requested_source(self):
+        helper = self.audio_recording_module
+        dock = types.SimpleNamespace(
+            _set_wait_cursor=MagicMock(),
+            refresh_devices=MagicMock(),
+            _sync_channel_options=MagicMock(),
+            refresh_cameras=MagicMock(),
+        )
+
+        helper.AudioRecordingDockContent._refresh_source_devices(
+            dock, microphone=True
+        )
+
+        dock.refresh_devices.assert_called_once_with()
+        dock._sync_channel_options.assert_called_once_with()
+        dock.refresh_cameras.assert_not_called()
+        self.assertEqual(
+            dock._set_wait_cursor.call_args_list,
+            [call(True), call(False)],
+        )
+
+    def test_webcam_source_stays_selectable_until_lazy_discovery_runs(self):
+        helper = self.audio_recording_module
+        dock = types.SimpleNamespace(
+            mic_card=types.SimpleNamespace(setAvailable=MagicMock()),
+            screen_card=types.SimpleNamespace(setAvailable=MagicMock()),
+            camera_card=types.SimpleNamespace(setAvailable=MagicMock()),
+            _screen_backend_available=lambda: False,
+            _camera_backend_available=lambda: True,
+            _camera_device_available=lambda: False,
+            _sync_screen_backend_ui=MagicMock(),
+            _camera_devices_refreshed=False,
+        )
+
+        helper.AudioRecordingDockContent._sync_source_availability(dock)
+
+        dock.camera_card.setAvailable.assert_called_once_with(True, "")
+
+        dock.camera_card.setAvailable.reset_mock()
+        dock._camera_devices_refreshed = True
+        helper.AudioRecordingDockContent._sync_source_availability(dock)
+
+        available, tooltip = dock.camera_card.setAvailable.call_args.args
+        self.assertFalse(available)
+        self.assertIn("No webcam", tooltip)
+
+    def test_webcam_preview_stop_closes_reader_before_joining_worker(self):
+        helper = self.audio_recording_module
+        released = helper.threading.Event()
+
+        class BlockingReader:
+            def __init__(self):
+                self.closed = False
+
+            def Close(self):
+                self.closed = True
+                released.set()
+
+        reader = BlockingReader()
+        job = helper.WebcamPreviewJob("", 640, 480)
+        job._reader = reader
+        job._thread = helper.threading.Thread(target=released.wait, daemon=True)
+        job._thread.start()
+
+        job.stop()
+
+        self.assertTrue(reader.closed)
+        self.assertFalse(job._thread.is_alive())
 
     def test_xdotool_window_picker_rejects_invalid_window_id(self):
         helper = self.recording_widgets_module
@@ -470,7 +637,30 @@ class RecordingPreviewTests(unittest.TestCase):
 
         self.assertEqual(writer.frames, [("live-1", 1), ("live-2", 2)])
 
-    def test_live_video_stop_closes_reader_to_unblock_and_finalizes_writer(self):
+    def test_live_video_async_closes_reader_on_worker_thread(self):
+        helper = self.audio_recording_module
+        calls = []
+
+        class FakeReader:
+            def Close(self):
+                calls.append(("close", threading.get_ident()))
+
+        fps = types.SimpleNamespace(num=30, den=1)
+        job = helper.LiveVideoRecordingJob(FakeReader(), "webcam.mp4", 640, 480, fps)
+        job._open = lambda: calls.append(("open", threading.get_ident()))
+        job._run = lambda: calls.append(("run", threading.get_ident()))
+
+        caller_thread = threading.get_ident()
+        job.start_async()
+        job._thread.join(timeout=2.0)
+        job.finish_stop()
+
+        self.assertFalse(job._thread.is_alive())
+        self.assertEqual([name for name, _thread in calls], ["open", "run", "close"])
+        self.assertEqual(calls[0][1], calls[2][1])
+        self.assertNotEqual(caller_thread, calls[2][1])
+
+    def test_live_video_stop_force_closes_reader_to_unblock_and_finalizes_writer(self):
         helper = self.audio_recording_module
 
         class FakeReader:
@@ -787,6 +977,24 @@ class RecordingPreviewTests(unittest.TestCase):
         self.assertEqual(pause_calls, [True])
         self.assertFalse(dock._timeline_playback_started)
 
+    def test_recording_start_context_is_consumed_once(self):
+        helper = self.audio_recording_module
+        playhead = {"position": 20.0}
+        dock = types.SimpleNamespace(
+            _context_start=5.0,
+            _recording_timeline_position=0.0,
+            _current_playhead_seconds=lambda: playhead["position"],
+        )
+
+        first = helper.AudioRecordingDockContent._capture_recording_timeline_position(dock)
+        self.assertEqual(first, 5.0)
+        self.assertIsNone(dock._context_start)
+
+        playhead["position"] = 30.0
+        second = helper.AudioRecordingDockContent._capture_recording_timeline_position(dock)
+        self.assertEqual(second, 30.0)
+        self.assertEqual(dock._recording_timeline_position, 30.0)
+
     def test_restore_hidden_openshot_maximized_window_keeps_maximized_state(self):
         helper = self.audio_recording_module
 
@@ -969,6 +1177,49 @@ class RecordingPreviewTests(unittest.TestCase):
         self.assertEqual(tracks, [2000000, 1000000, 500000])
         self.assertEqual(created, [500000])
 
+    def test_no_track_disables_preview_and_timeline_insertion(self):
+        helper = self.audio_recording_module
+
+        combo = types.SimpleNamespace(currentData=lambda: helper.NO_RECORDING_TRACK)
+        dock = types.SimpleNamespace(track_combo=combo)
+        dock._recording_timeline_enabled = lambda: (
+            helper.AudioRecordingDockContent._recording_timeline_enabled(dock)
+        )
+
+        previews = helper.AudioRecordingDockContent._recording_preview_payloads(
+            dock, 0.0, 1.0, [])
+        assignments = helper.AudioRecordingDockContent._recording_track_assignments(
+            dock, ["mic", "screen", "webcam"])
+
+        self.assertEqual(previews, [])
+        self.assertEqual(assignments, {})
+        self.assertFalse(dock._recording_timeline_enabled())
+
+    def test_recording_import_without_track_only_adds_project_file(self):
+        helper = self.audio_recording_module
+        files_model = types.SimpleNamespace(add_files=MagicMock())
+        refresh_signal = types.SimpleNamespace(emit=MagicMock())
+        dock = types.SimpleNamespace(
+            window=types.SimpleNamespace(
+                files_model=files_model,
+                refreshFilesSignal=refresh_signal,
+            ),
+            _add_recording_to_timeline=MagicMock(),
+        )
+
+        result = helper.AudioRecordingDockContent._import_recording(
+            dock, "Screen-1.mp4", "screen", add_to_timeline=False)
+
+        self.assertIsNone(result)
+        files_model.add_files.assert_called_once_with(
+            "Screen-1.mp4",
+            quiet=True,
+            prevent_image_seq=True,
+            prevent_recent_folder=True,
+        )
+        refresh_signal.emit.assert_called_once_with()
+        dock._add_recording_to_timeline.assert_not_called()
+
     def test_screen_source_maps_to_backend_value(self):
         helper = self.audio_recording_module
 
@@ -1038,6 +1289,249 @@ class RecordingPreviewTests(unittest.TestCase):
         self.assertEqual(dock.screen_width_spin.value, 1280)
         self.assertEqual(dock.screen_height_spin.value, 720)
         self.assertIn("1280x720", dock.screen_status_label.text)
+
+    def test_windows_region_uses_native_cursor_pixels_and_monitor_bounds(self):
+        helper = self.recording_widgets_module
+        overlay = helper.WindowsRegionSelectorOverlay(
+            capture_geometry=(3840, 0, 3840, 2160),
+            overlay_geometry=QRect(2560, 0, 2560, 1440),
+        )
+
+        class FakeMouseEvent:
+            def buttons(self):
+                return Qt.LeftButton
+
+        positions = [(3990, 150), (4590, 750), (8000, 3000)]
+        with patch.object(helper, "_windows_cursor_pos", side_effect=positions):
+            overlay.mousePressEvent(FakeMouseEvent())
+            overlay.mouseMoveEvent(FakeMouseEvent())
+            overlay.mouseReleaseEvent(FakeMouseEvent())
+
+        # The returned rectangle is in native gdigrab pixels, not the
+        # 150%-scaled Qt coordinate space, and it cannot escape Screen 2.
+        self.assertEqual(overlay.selected_geometry(), (3990, 150, 3690, 2010))
+
+    def test_windows_region_overlay_matches_high_dpi_qt_screen(self):
+        helper = self.recording_widgets_module
+        fake_screen = types.SimpleNamespace(
+            geometry=lambda: QRect(2560, 0, 2560, 1440),
+            devicePixelRatio=lambda: 1.5,
+        )
+        with patch.object(helper.QApplication, "screens", return_value=[fake_screen]):
+            geometry = helper._windows_region_overlay_geometry((3840, 0, 3840, 2160))
+
+        self.assertEqual(geometry, QRect(2560, 0, 2560, 1440))
+
+    def test_windows_physical_point_maps_with_each_monitors_dpi(self):
+        helper = self.recording_widgets_module
+        monitors = [
+            {"x": 0, "y": 0, "width": 3840, "height": 2160},
+            {"x": 3840, "y": 0, "width": 1920, "height": 1080},
+        ]
+        screens = [
+            types.SimpleNamespace(
+                geometry=lambda: QRect(0, 0, 2560, 1440),
+                devicePixelRatio=lambda: 1.5),
+            types.SimpleNamespace(
+                geometry=lambda: QRect(2560, 0, 1920, 1080),
+                devicePixelRatio=lambda: 1.0),
+        ]
+        with patch.object(helper, "windows_monitor_geometries", return_value=monitors), \
+                patch.object(helper.QApplication, "screens", return_value=screens):
+            high_dpi_point = helper._windows_physical_point_to_qt(1920, 1080)
+            standard_dpi_point = helper._windows_physical_point_to_qt(4800, 540)
+
+        self.assertEqual(high_dpi_point, QPoint(1280, 720))
+        self.assertEqual(standard_dpi_point, QPoint(3520, 540))
+
+    def test_windows_window_picker_excludes_overlay_not_openshot_window(self):
+        helper = self.recording_widgets_module
+
+        class FakePoint:
+            def __init__(self, x, y):
+                self.x = x
+                self.y = y
+
+        class FakeUser32:
+            def IsWindowVisible(self, _hwnd):
+                return True
+
+            def IsIconic(self, _hwnd):
+                return False
+
+            def GetWindowThreadProcessId(self, *_args):
+                raise AssertionError("The picker must not reject all OpenShot windows")
+
+            def EnumWindows(self, callback, _lparam):
+                for hwnd in (11, 22, 33):
+                    if not callback(hwnd, 0):
+                        break
+                return True
+
+        rects = {
+            11: types.SimpleNamespace(left=0, top=0, right=4000, bottom=2200),
+            22: types.SimpleNamespace(left=600, top=300, right=3200, bottom=1900),
+            33: types.SimpleNamespace(left=0, top=0, right=4000, bottom=2200),
+        }
+        fake_types = types.SimpleNamespace(POINT=FakePoint)
+        with patch.object(helper, "_windows_types", return_value=fake_types), \
+                patch.object(helper, "_windows_user32", return_value=FakeUser32()), \
+                patch.object(helper, "_windows_enum_proc_type", return_value=lambda callback: callback), \
+                patch.object(helper, "_windows_window_title", side_effect=lambda hwnd: "OpenShot" if hwnd == 22 else "Other"), \
+                patch.object(helper, "_windows_window_rect", side_effect=lambda hwnd: rects[hwnd]):
+            picked = helper._windows_pick_window_at(1000, 800, excluded_hwnd=11)
+
+        self.assertEqual(picked[0], 22)
+        self.assertEqual(picked[2], "OpenShot")
+
+    def test_windows_all_screens_region_uses_qt_virtual_desktop_overlay(self):
+        helper = self.recording_widgets_module
+        virtual_geometry = QRect(-1280, 0, 3200, 1080)
+        fake_primary = types.SimpleNamespace(virtualGeometry=lambda: virtual_geometry)
+        fake_overlay = MagicMock()
+        fake_overlay.select.return_value = (10, 20, 30, 40)
+        with patch.object(helper, "windows_virtual_screen_geometry", return_value=(-1920, 0, 3840, 1080)), \
+                patch.object(helper.QApplication, "primaryScreen", return_value=fake_primary), \
+                patch.object(helper, "WindowsRegionSelectorOverlay", return_value=fake_overlay) as overlay_class:
+            result = helper.pick_windows_region()
+
+        self.assertEqual(result, (10, 20, 30, 40))
+        overlay_class.assert_called_once_with(
+            None, (-1920, 0, 3840, 1080), virtual_geometry)
+
+    def test_select_region_limits_windows_picker_to_selected_screen(self):
+        helper = self.audio_recording_module
+        button = lambda: types.SimpleNamespace(setChecked=MagicMock())
+        dock = types.SimpleNamespace(
+            region_button=button(),
+            full_screen_button=button(),
+            window_button=button(),
+            _screen_window_id="old-window",
+            _set_hide_openshot_default=MagicMock(),
+            _hide_openshot_for_picker=MagicMock(return_value=None),
+            _restore_openshot_window=MagicMock(),
+            _selected_screen_source=MagicMock(return_value={
+                "id": "screen-2", "x": 3840, "y": 0,
+                "width": 3840, "height": 2160, "all": False,
+            }),
+            _set_screen_target=MagicMock(),
+            screen_status_label=types.SimpleNamespace(setText=MagicMock()),
+        )
+        with patch.object(helper, "screen_capture_backend_is_wayland", return_value=False), \
+                patch.object(helper.sys, "platform", "win32"), \
+                patch.object(helper.QApplication, "processEvents"), \
+                patch.object(helper, "pick_screen_region", return_value=(4000, 100, 800, 600)) as picker:
+            helper.AudioRecordingDockContent._select_region(dock)
+
+        picker.assert_called_once_with(
+            dock,
+            capture_geometry=(3840, 0, 3840, 2160),
+        )
+        dock._set_screen_target.assert_called_once()
+
+    def test_region_and_window_overlays_cancel_escape_from_application(self):
+        helper = self.recording_widgets_module
+
+        class EscapeEvent:
+            def type(self):
+                return QEvent.KeyPress
+
+            def key(self):
+                return Qt.Key_Escape
+
+        with patch.object(helper, "windows_virtual_screen_geometry", return_value=(0, 0, 1920, 1080)):
+            overlays = (
+                helper.RegionSelectorOverlay(),
+                helper.WindowsWindowSelectorOverlay(),
+            )
+        for overlay in overlays:
+            overlay.reject = MagicMock()
+            self.assertTrue(overlay.eventFilter(self.app, EscapeEvent()))
+            overlay.reject.assert_called_once_with()
+
+    def test_windows_screen_job_uses_selected_monitor_bounds(self):
+        helper = self.audio_recording_module
+
+        class FakeCard:
+            def __init__(self, checked):
+                self.checked = checked
+
+            def isChecked(self):
+                return self.checked
+
+        class FakeControl:
+            def __init__(self, value):
+                self.current = value
+
+            def currentData(self):
+                return self.current
+
+            def value(self):
+                return self.current
+
+            def setValue(self, value):
+                self.current = value
+
+            def isChecked(self):
+                return bool(self.current)
+
+        class FakeSettings:
+            pass
+
+        captured = []
+
+        class FakeReader:
+            def __init__(self, settings):
+                captured.append(settings)
+
+        for x, width, all_screens in (
+                (1920, 1920, False),
+                (-1920, 1920, False),
+                (-1920, 5760, True)):
+            source = {
+                "id": "screen-2",
+                "display": "desktop",
+                "x": x,
+                "y": 0,
+                "width": width,
+                "height": 1080,
+                "all": all_screens,
+            }
+            dock = types.SimpleNamespace(
+                screen_card=FakeCard(True),
+                camera_card=FakeCard(False),
+                video_fps_combo=FakeControl(30),
+                screen_x_spin=FakeControl(x),
+                screen_y_spin=FakeControl(0),
+                screen_width_spin=FakeControl(width),
+                screen_height_spin=FakeControl(1080),
+                full_screen_button=FakeControl(True),
+                window_button=FakeControl(False),
+                region_button=FakeControl(False),
+                capture_cursor_combo=FakeControl(True),
+                system_audio_combo=FakeControl(False),
+                _screen_window_id="",
+                _recording_preview_file_ids={},
+                _selected_screen_source=lambda source=source: source,
+                _system_audio_available=lambda: False,
+                _safe_even_dimension=helper.AudioRecordingDockContent._safe_even_dimension,
+                _screen_recording_bit_rate=lambda width, height, fps: 8000000,
+                _next_named_recording_path=lambda prefix, extension: "Screen.mp4",
+            )
+
+            with patch.object(helper, "screen_capture_backend", return_value=7), \
+                    patch.object(helper, "screen_capture_backend_is_wayland", return_value=False), \
+                    patch.object(helper, "screen_capture_backend_is_windows", return_value=True), \
+                    patch.object(helper, "screen_capture_backend_is_mac", return_value=False), \
+                    patch.object(helper.openshot, "ScreenCaptureSettings", FakeSettings), \
+                    patch.object(helper.openshot, "ScreenCaptureReader", FakeReader):
+                jobs = helper.AudioRecordingDockContent._build_video_jobs(dock)
+
+            self.assertEqual(len(jobs), 1)
+            settings = captured[-1]
+            self.assertEqual((settings.x, settings.y), (x, 0))
+            self.assertEqual((settings.width, settings.height), (width, 1080))
+            self.assertEqual(settings.display, "desktop")
 
     def test_timeline_recording_previews_build_audio_and_video_clip_data(self):
         timeline_module = self.timeline_module

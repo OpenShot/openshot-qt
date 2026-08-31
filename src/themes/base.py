@@ -27,13 +27,105 @@
 import os
 import re
 
-from qt_api import Qt, QSize
+from qt_api import Qt, QSize, QEvent, QObject
 from qt_api import QColor, QIcon, QPixmap, QPainter
 from qt_api import QSvgRenderer
-from qt_api import QTabWidget, QWidget, QSizePolicy
+from qt_api import (
+    QDialogButtonBox, QLabel, QMessageBox, QPushButton, QTabWidget, QWidget,
+    QSizePolicy,
+)
 
 from classes import ui_util
 from classes.info import PATH
+
+
+class MessageBoxStyleFilter(QObject):
+    """Add semantic styling hooks to QMessageBox instances as they appear."""
+
+    def eventFilter(self, watched, event):
+        if isinstance(watched, QMessageBox) and event.type() == QEvent.Show:
+            self.style_message_box(watched)
+        return False
+
+    @staticmethod
+    def style_message_box(message_box):
+        """Modernize a message box while retaining Qt's platform behavior."""
+        message_box.setProperty("openshotMessageBox", True)
+        message_box.setMinimumWidth(400)
+
+        layout = message_box.layout()
+        if layout:
+            layout.setContentsMargins(20, 16, 20, 16)
+            layout.setHorizontalSpacing(12)
+            layout.setVerticalSpacing(12)
+
+        button_box = message_box.findChild(
+            QDialogButtonBox, "qt_msgbox_buttonbox")
+        if button_box and button_box.layout():
+            button_box.layout().setSpacing(10)
+            button_box.layout().setAlignment(Qt.AlignRight)
+
+        # The glossy stock question-mark icon is visually dated and adds a
+        # large empty column. Other message types retain their useful icons.
+        if message_box.icon() == QMessageBox.Question:
+            icon_label = message_box.findChild(
+                QWidget, "qt_msgboxex_icon_label")
+            if icon_label:
+                icon_label.hide()
+                icon_label.setMaximumSize(0, 0)
+
+            # QMessageBox reserves a spacer column between its icon and text.
+            # Collapse it along with the hidden question icon, then let the
+            # message occupy the full content width.
+            if layout:
+                spacer_item = layout.itemAtPosition(0, 1)
+                if spacer_item and spacer_item.spacerItem():
+                    spacer_item.spacerItem().changeSize(
+                        0, 0, QSizePolicy.Fixed, QSizePolicy.Fixed)
+                layout.setColumnStretch(0, 0)
+                layout.setColumnStretch(1, 0)
+                layout.setColumnStretch(2, 1)
+                layout.invalidate()
+
+        message_label = message_box.findChild(
+            QLabel, "qt_msgbox_label")
+        if message_label:
+            message_label.setAlignment(Qt.AlignLeft | Qt.AlignVCenter)
+
+        for button in message_box.buttons():
+            if not isinstance(button, QPushButton):
+                continue
+
+            # Standard dialog-button icons vary dramatically by platform and
+            # icon theme. Text-only actions are calmer and more consistent.
+            button.setIcon(QIcon())
+            button.setText(
+                button.text().replace("&&", "\0").replace("&", "")
+                .replace("\0", "&")
+            )
+            size_policy = button.sizePolicy()
+            size_policy.setHorizontalPolicy(QSizePolicy.Maximum)
+            button.setSizePolicy(size_policy)
+
+            standard_button = message_box.standardButton(button)
+            role = message_box.buttonRole(button)
+            if standard_button == QMessageBox.Cancel:
+                style_role = "cancel"
+            elif role in (
+                    QDialogButtonBox.AcceptRole,
+                    QDialogButtonBox.YesRole,
+                    QDialogButtonBox.ApplyRole):
+                style_role = "primary"
+            elif role == QDialogButtonBox.DestructiveRole:
+                style_role = "destructive"
+            else:
+                style_role = "secondary"
+            button.setProperty("dialogRole", style_role)
+
+            # Dynamic properties added after construction need repolishing
+            # before their attribute selectors take effect.
+            button.style().unpolish(button)
+            button.style().polish(button)
 
 
 class BaseTheme:
@@ -93,7 +185,32 @@ QLineEdit#txtChangeLogFilter_libopenshot:focus, QLineEdit#txtChangeLogFilter_lib
         return " QToolButton:focus { border: 2px solid #ff00ff; }"
 
     def compose_stylesheet(self):
-        return self.style_sheet + self._debug_focus_styles()
+        return (
+            self._message_box_styles()
+            + self.style_sheet
+            + self._debug_focus_styles()
+        )
+
+    @staticmethod
+    def _message_box_styles():
+        """Shared message-box geometry; themes supply their own colors."""
+        return """
+QMessageBox QLabel#qt_msgbox_label {
+    font-size: 14px;
+    padding: 0;
+}
+QMessageBox QDialogButtonBox#qt_msgbox_buttonbox QPushButton {
+    min-width: 72px;
+    padding: 7px 14px;
+    border-radius: 6px;
+}
+QMessageBox QDialogButtonBox#qt_msgbox_buttonbox QPushButton[dialogRole="cancel"] {
+    min-width: 48px;
+    padding: 7px 10px;
+    border: none;
+    background-color: transparent;
+}
+        """
 
     def create_svg_icon(self, svg_path, size):
         """Create Dynamic High DPI icons"""
@@ -264,6 +381,7 @@ QLineEdit#txtChangeLogFilter_libopenshot:focus, QLineEdit#txtChangeLogFilter_lib
         if self.app.theme_manager.original_palette:
             self.app.setPalette(self.app.theme_manager.original_palette)
         self.app.setStyleSheet(self.compose_stylesheet())
+        self.install_message_box_styling()
 
         # Hide main window status bar
         if hasattr(self.app, "window") and hasattr(self.app.window, "statusBar"):
@@ -344,6 +462,17 @@ QLineEdit#txtChangeLogFilter_libopenshot:focus, QLineEdit#txtChangeLogFilter_lib
 
         # Emit signal
         self.app.window.ThemeChangedSignal.emit(self)
+
+    def install_message_box_styling(self):
+        """Install one application-wide message-box styling filter."""
+        previous_filter = getattr(
+            self.app, "_openshot_message_box_style_filter", None)
+        if previous_filter:
+            self.app.removeEventFilter(previous_filter)
+
+        message_box_filter = MessageBoxStyleFilter(self.app)
+        self.app.installEventFilter(message_box_filter)
+        self.app._openshot_message_box_style_filter = message_box_filter
 
     def togglePlayIcon(self, isPlay):
         """ Toggle the play icon from play to pause and back """
