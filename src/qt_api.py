@@ -2488,6 +2488,13 @@ def _select_binding() -> str:
                 )
                 if m is not None
             ]
+            # Python 3.6 does not support module-level __getattr__ (PEP 562),
+            # so expose Qt types eagerly as well as through the lazy fallback
+            # below. Preserve the same module precedence used by __getattr__.
+            for module in _MODULES:
+                for name in dir(module):
+                    if not name.startswith("_"):
+                        globals().setdefault(name, getattr(module, name))
             _patch_enums_for_qt6()
             QByteArray = getattr(QtCore, "QByteArray", None)
             QDir = getattr(QtCore, "QDir", None)
