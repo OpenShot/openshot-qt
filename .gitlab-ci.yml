@@ -149,6 +149,60 @@ win-x64:
   tags:
     - windows
 
+win-arm64:
+  stage: build
+  artifacts:
+    when: always
+    expire_in: 2 weeks
+    paths:
+    - build\*.exe
+    - build\*.torrent
+    - build\install-arm64\share\*.env
+    - build\install-arm64\share\*.log
+    - build\build-server.log
+    - build\arm64-architecture-report.json
+    - build\frozen-arm64-architecture-report.json
+  script:
+    - $PSVersionTable
+    - $PSDefaultParameterValues['Out-File:Encoding'] = 'utf8'
+    - try { Invoke-WebRequest -Uri "https://gitlab.openshot.org/OpenShot/libopenshot/-/jobs/artifacts/$CI_COMMIT_REF_NAME/download?job=windows-builder-arm64" -Headers @{"PRIVATE-TOKEN"="$ACCESS_TOKEN"} -OutFile "artifacts.zip" } catch { $_.Exception.Response.StatusCode.Value__ }
+    - if (-not (Test-Path "artifacts.zip")) { Invoke-WebRequest -Uri "https://gitlab.openshot.org/OpenShot/libopenshot/-/jobs/artifacts/develop/download?job=windows-builder-arm64" -Headers @{"PRIVATE-TOKEN"="$ACCESS_TOKEN"} -OutFile "artifacts.zip" }
+    - Expand-Archive -Path artifacts.zip -DestinationPath .
+    - Copy-Item "$CI_PROJECT_DIR/build/install-arm64/python/*" -Destination "$CI_PROJECT_DIR"
+    - $env:MSYSTEM = "CLANGARM64"
+    - $env:OPENSHOT_QT_API = "pyqt6"
+    - $originalPath = $env:Path
+    - $PY_ABI = (python3 -c "import sysconfig; print(sysconfig.get_config_var('py_version_short'))")
+    - $PathSegments = @("$CI_PROJECT_DIR\build\install-arm64\bin", "$CI_PROJECT_DIR\build\install-arm64\python", "C:\msys64\clangarm64\bin", "C:\msys64\usr\bin", "C:\msys64\clangarm64\lib\python$PY_ABI", "C:\msys64\clangarm64\lib\python$PY_ABI\site-packages", "C:\msys64\clangarm64\lib\python$PY_ABI\site-packages\PyQt6")
+    - $env:Path = ($PathSegments -join ";") + ";" + $originalPath
+    - $env:PYTHONPATH = "$CI_PROJECT_DIR\build\install-arm64\python;C:\msys64\clangarm64\lib\python" + $PY_ABI + "\site-packages\PyQt6;"
+    - python3 -m unittest discover -s ci -p "test_*.py" -v
+    - python3 -m unittest discover -s src\tests -t src\tests -p test_native_arm64_process_oracle.py -v
+    - python3 ci\validate_arm64_architecture.py --require-native-arm64 --package-lock ci\windows-arm64-packages.lock --payload-root "$CI_PROJECT_DIR\build\install-arm64" --require-payload --json-report build\arm64-architecture-report.json
+    - $VERSION=(python3 src/launch.py -V)
+    - New-Item -path "build/install-arm64/share/" -Name "$CI_PROJECT_NAME.env" -Value "CI_PROJECT_NAME:$CI_PROJECT_NAME`nCI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME`nCI_COMMIT_SHA:$CI_COMMIT_SHA`nCI_JOB_ID:$CI_JOB_ID`nCI_PIPELINE_ID:$env:CI_PIPELINE_ID`nVERSION:$VERSION" -ItemType file -force
+    - $PREV_GIT_LABEL=(git describe --tags --abbrev=0 '@^')
+    - git log "$PREV_GIT_LABEL..@" --oneline --pretty=format:"- %C(auto,yellow)%h%C(auto,magenta)% %C(auto,blue)%>(12,trunc)%ad %C(auto,green)%<(25,trunc)%aN%C(auto,reset)%s%C(auto,red)% gD% D" --date=short > "build/install-arm64/share/$CI_PROJECT_NAME.log"
+    - python3 -u freeze.py build --git-branch=$CI_COMMIT_REF_NAME
+    - $EXE_PATH = "$CI_PROJECT_DIR\build\exe.mingw-" + $PY_ABI + "\openshot-qt.exe"
+    - python3 ci\validate_arm64_architecture.py --require-native-arm64 --payload-root "$CI_PROJECT_DIR\build\exe.mingw-$PY_ABI" --require-payload --json-report build\frozen-arm64-architecture-report.json
+    - $manifestPath = "installer/windows.manifest"
+    - (Get-Content $manifestPath) -creplace "ARCHITECTURE", "arm64" | Set-Content $manifestPath
+    - mt.exe -manifest installer/windows.manifest -validate_manifest
+    - mt.exe  -manifest installer/windows.manifest -outputresource:$EXE_PATH;1
+    - python3 -u installer/build_server.py "$SLACK_TOKEN" "$GITHUB_USER" "$GITHUB_PASS" "arm64" "$CI_COMMIT_REF_NAME" "$MAC_PASSWORD" "build-only"
+  when: always
+  rules:
+    - if: '$ENABLE_WINDOWS_ARM64 == "1" && $CI_COMMIT_TAG == null'
+    - when: never
+  tags:
+    - windows-arm64
+  # Requires PR B's published windows-builder-arm64 artifact/digest and a
+  # native/virtual Windows Arm64 GitLab runner (design-spec.md
+  # release-infrastructure surface). Does not weaken or replace the
+  # existing win-x64/win-x86 jobs above.
+  allow_failure: true
+
 win-x86:
   stage: build
   artifacts:
@@ -256,6 +310,60 @@ win-sign-x86:
   - tags
   tags:
     - code-sign
+
+windows:msix:package:arm64:
+  stage: msix-package
+  artifacts:
+    when: always
+    expire_in: 2 weeks
+    paths:
+    - build\msix\*.msix
+  dependencies:
+    - win-arm64
+  script:
+    - $PSVersionTable
+    - powershell.exe -NoProfile -ExecutionPolicy Bypass -File installer\package_msix.ps1 -Architecture arm64
+  when: on_success
+  rules:
+    - if: '$ENABLE_WINDOWS_ARM64 == "1" && $CI_COMMIT_TAG == null'
+    - when: never
+  tags:
+    - code-sign-arm64
+  # Requires an Arm64-capable MSIX packaging/signing runner tagged
+  # code-sign-arm64 and the release-owned MSIX template
+  # (C:\OpenShot-MSIX\OpenShotTemplate\OpenShot_template.xml) generated with
+  # ProcessorArchitecture="arm64" per design-spec.md G10-G12. Does not
+  # weaken or replace the existing windows:msix:package (x64) job above.
+  allow_failure: true
+
+win-sign-arm64:
+  stage: sign
+  artifacts:
+    expire_in: 2 weeks
+    paths:
+    - build\*-arm64.exe
+    - build\msix\*.msix
+    - build\build-server.log
+  dependencies:
+    - win-arm64
+    - windows:msix:package:arm64
+  script:
+    - $PSVersionTable
+    - $env:Path = $env:Path + ";C:\msys64\usr\local\bin;C:\msys64\usr\bin"
+    - if (-not (Get-ChildItem -Path "build\*-arm64.exe" -ErrorAction SilentlyContinue)) { throw "No arm64 Windows installer found in build\\*-arm64.exe" }
+    - if (-not (Get-ChildItem -Path "build\msix\*.msix" -ErrorAction SilentlyContinue)) { throw "No arm64 MSIX package found in build\\msix\\*.msix" }
+    - py -3 -m pip install defusedxml
+    - py -3 -u installer/build_server.py "$SLACK_TOKEN" "$GITHUB_USER" "$GITHUB_PASS" "arm64" "$CI_COMMIT_REF_NAME" "$MAC_PASSWORD" "sign-upload-only"
+  when: on_success
+  rules:
+    - if: '$ENABLE_WINDOWS_ARM64 == "1" && $CI_COMMIT_TAG == null'
+    - when: never
+  tags:
+    - code-sign-arm64
+  # Requires signing credentials/tooling capable of signing an Arm64 PE
+  # payload and a code-sign-arm64 runner (design-spec.md G12). Does not
+  # weaken or replace the existing win-sign-x64/win-sign-x86 jobs above.
+  allow_failure: true
 
 re-init-builders:
   stage: deploy
