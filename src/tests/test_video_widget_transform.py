@@ -161,6 +161,41 @@ class VideoWidgetTransformTests(unittest.TestCase):
                 self.assertLessEqual(left.x() + left.width(), 0.0)
                 self.assertGreaterEqual(right.x(), self.viewport.width())
 
+    def test_non_crop_locations_remain_canvas_relative(self):
+        for scale_mode in (
+            openshot.SCALE_FIT,
+            openshot.SCALE_STRETCH,
+            openshot.SCALE_NONE,
+        ):
+            with self.subTest(scale_mode=scale_mode):
+                anchored = self.rect_for(scale_mode)
+                moved = self.rect_for(
+                    scale_mode, location_x=-0.25, location_y=0.25)
+
+                self.assertAlmostEqual(moved.x() - anchored.x(), -40.0)
+                self.assertAlmostEqual(moved.y() - anchored.y(), 22.5)
+
+    def test_fit_handles_match_reported_legacy_project_position(self):
+        viewport = QRect(0, 0, 720, 720)
+        rect = VideoWidget._clip_display_rect(
+            self.widget,
+            266,
+            178,
+            clip_with(openshot.SCALE_FIT),
+            props(
+                location_x=-5.0 / 12.0,
+                location_y=-31.0 / 72.0,
+                scale_x=1.0 / 9.0,
+                scale_y=1.0 / 9.0,
+            ),
+            viewport,
+        )
+
+        self.assertAlmostEqual(rect.x(), 20.0, places=5)
+        self.assertAlmostEqual(rect.y(), 23.233083, places=5)
+        self.assertAlmostEqual(rect.width(), 720.0)
+        self.assertAlmostEqual(rect.height(), 481.804511, places=5)
+
     def test_clip_margin_offsets_edge_gravity_handle_rect(self):
         project_values = {"width": 160, "height": 90}
         app = types.SimpleNamespace(project=types.SimpleNamespace(

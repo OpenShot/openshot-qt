@@ -538,7 +538,9 @@ class ProjectDataTests(unittest.TestCase):
                 store = make_store()
                 store._data = {
                     "version": {
-                        "openshot-qt": "4.0.0",
+                        "openshot-qt": (
+                            "4.0.0" if scale_mode == openshot.SCALE_CROP else "3.5.1"
+                        ),
                         "libopenshot": libopenshot_version,
                     },
                     "id": "P1",
@@ -569,6 +571,81 @@ class ProjectDataTests(unittest.TestCase):
                 self.assertEqual(
                     clip["location_y"]["Points"][0]["co"]["Y"], -0.5
                 )
+
+    def test_upgrade_migrates_400_fit_location_to_restored_canvas_units(self):
+        store = make_store()
+        fitted_height = 720.0 * 178.0 / 266.0
+        scaled_height = fitted_height / 9.0
+        store._data = {
+            "version": {"openshot-qt": "4.0.0", "libopenshot": "1.0.0"},
+            "id": "P1",
+            "width": 720,
+            "height": 720,
+            "files": [],
+            "clips": [{
+                "id": "C1",
+                "scale": openshot.SCALE_FIT,
+                "gravity": openshot.GRAVITY_CENTER,
+                "reader": {"width": 266, "height": 178},
+                "scale_x": {"Points": [{"co": {"X": 30, "Y": 1.0 / 9.0}}]},
+                "scale_y": {"Points": [{"co": {"X": 30, "Y": 1.0 / 9.0}}]},
+                "location_x": {"Points": [{"co": {"X": 30, "Y": -0.75}}]},
+                "location_y": {"Points": [{"co": {
+                    "X": 30,
+                    "Y": -310.0 / ((720.0 + scaled_height) / 2.0),
+                }}]},
+                "effects": [],
+            }],
+        }
+
+        ProjectDataStore.upgrade_project_data_structures(store)
+
+        clip = store._data["clips"][0]
+        self.assertAlmostEqual(
+            clip["location_x"]["Points"][0]["co"]["Y"], -5.0 / 12.0)
+        self.assertAlmostEqual(
+            clip["location_y"]["Points"][0]["co"]["Y"], -31.0 / 72.0)
+
+    def test_upgrade_migrates_400_non_crop_modes_with_gravity_margin_and_scale(self):
+        expected_locations = {
+            openshot.SCALE_FIT: (0.16, -0.18),
+            openshot.SCALE_STRETCH: (0.18, -0.18),
+            openshot.SCALE_NONE: (0.08, -0.09),
+        }
+        for scale_mode, expected in expected_locations.items():
+            with self.subTest(scale_mode=scale_mode):
+                store = make_store()
+                store._data = {
+                    "version": {"openshot-qt": "4.0.0", "libopenshot": "1.0.0"},
+                    "id": "P1", "width": 200, "height": 100, "files": [],
+                    "clips": [{
+                        "id": "C1", "scale": scale_mode,
+                        "gravity": openshot.GRAVITY_TOP_RIGHT,
+                        "reader": {"width": 80, "height": 40},
+                        "margin": {"Points": [{"co": {"X": 10, "Y": 0.1}}]},
+                        "scale_x": {"Points": [{"co": {"X": 10, "Y": 0.5}}]},
+                        "scale_y": {"Points": [{"co": {"X": 10, "Y": 0.75}}]},
+                        "location_x": {"Points": [{"co": {"X": 10, "Y": 0.4}}]},
+                        "location_y": {"Points": [{"co": {"X": 10, "Y": -0.3}}]},
+                        "effects": [],
+                    }],
+                }
+
+                ProjectDataStore.upgrade_project_data_structures(store)
+                clip = store._data["clips"][0]
+                x = clip["location_x"]["Points"][0]["co"]["Y"]
+                y = clip["location_y"]["Points"][0]["co"]["Y"]
+                self.assertAlmostEqual(x, expected[0])
+                self.assertAlmostEqual(y, expected[1])
+
+                # Re-running migration must not touch a project once its saved
+                # version advances beyond the affected 4.0.0 release.
+                store._data["version"]["openshot-qt"] = "4.0.1"
+                ProjectDataStore.upgrade_project_data_structures(store)
+                self.assertEqual(
+                    clip["location_x"]["Points"][0]["co"]["Y"], x)
+                self.assertEqual(
+                    clip["location_y"]["Points"][0]["co"]["Y"], y)
 
     def test_upgrade_does_not_remigrate_development_project(self):
         store = make_store()

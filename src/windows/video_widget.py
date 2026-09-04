@@ -1522,17 +1522,21 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                         layout_height) = self._clip_location_geometry(
                             base_w, base_h, self.transforming_clip, raw_properties, viewport_rect)
 
-                    # Convert from screen-pixel motion to libopenshot's normalized
-                    # location coordinates, which are relative to the gravity anchor
-                    # and the distance to the offscreen edge.
-                    current_x_offset = self._location_offset(
-                        location_x, anchored_x - layout_x, layout_width, scaled_w)
-                    current_y_offset = self._location_offset(
-                        location_y, anchored_y - layout_y, layout_height, scaled_h)
-                    location_x = self._location_value_from_offset(
-                        current_x_offset + x_motion, anchored_x - layout_x, layout_width, scaled_w)
-                    location_y = self._location_value_from_offset(
-                        current_y_offset + y_motion, anchored_y - layout_y, layout_height, scaled_h)
+                    # Match libopenshot's location contract: Crop uses the
+                    # distance to the offscreen edge, while all other scale
+                    # modes retain canvas-relative coordinates.
+                    if self.transforming_clip.data['scale'] == openshot.SCALE_CROP:
+                        current_x_offset = self._location_offset(
+                            location_x, anchored_x - layout_x, layout_width, scaled_w)
+                        current_y_offset = self._location_offset(
+                            location_y, anchored_y - layout_y, layout_height, scaled_h)
+                        location_x = self._location_value_from_offset(
+                            current_x_offset + x_motion, anchored_x - layout_x, layout_width, scaled_w)
+                        location_y = self._location_value_from_offset(
+                            current_y_offset + y_motion, anchored_y - layout_y, layout_height, scaled_h)
+                    else:
+                        location_x += x_motion / viewport_rect.width()
+                        location_y += y_motion / viewport_rect.height()
 
                     # Update keyframe value (or create new one)
                     self.updateClipProperty(
@@ -2528,8 +2532,12 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
         location_x = float(raw_properties.get('location_x', {}).get('value', 0.0))
         location_y = float(raw_properties.get('location_y', {}).get('value', 0.0))
-        x += self._location_offset(location_x, anchored_x - layout_x, layout_width, scaled_width)
-        y += self._location_offset(location_y, anchored_y - layout_y, layout_height, scaled_height)
+        if clip.data['scale'] == openshot.SCALE_CROP:
+            x += self._location_offset(location_x, anchored_x - layout_x, layout_width, scaled_width)
+            y += self._location_offset(location_y, anchored_y - layout_y, layout_height, scaled_height)
+        else:
+            x += player_width * location_x
+            y += player_height * location_y
 
         return QRectF(x, y, source_width, source_height)
 
