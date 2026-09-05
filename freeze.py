@@ -459,7 +459,8 @@ elif sys.platform == "linux":
 
     # Find all related SO files
     for filename in find_files(libopenshot_path, ["*openshot*.so*"]):
-        if '_' in filename or filename.count(".") == 2:
+        if ('_' in filename or filename.count(".") == 2
+                or os.path.basename(filename) == "libopenshot-wayland-capture.so"):
             external_so_files.append((filename, os.path.relpath(filename, start=libopenshot_path)))
 
     # Add libresvg (if found)
@@ -513,6 +514,7 @@ elif sys.platform == "linux":
         log.warning("Skipping _ssl module: %s", ex)
     for lib_name in [
             os.path.join(libopenshot_path, "libopenshot.so"),
+            os.path.join(libopenshot_path, "libopenshot-wayland-capture.so"),
             "/usr/local/lib/libresvg.so",
             ARCHLIB + "qt5/plugins/platforms/libqxcb.so"
             ]:
