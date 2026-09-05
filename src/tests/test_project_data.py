@@ -1112,7 +1112,14 @@ class ProjectDataTests(unittest.TestCase):
             self.assertTrue(os.path.exists(expected_protobuf))
 
     def test_first_save_moves_runtime_recording_and_updates_readers(self):
-        self._check_runtime_recording_relocation()
+        with patch("classes.project_data.shutil.copy2") as copy_recording:
+            self._check_runtime_recording_relocation()
+        copy_recording.assert_not_called()
+
+    def test_first_save_copies_runtime_recording_across_filesystems(self):
+        import errno
+        with patch("classes.project_data.os.rename", side_effect=OSError(errno.EXDEV, "Cross-device move")):
+            self._check_runtime_recording_relocation()
 
     def test_save_copies_locked_runtime_recording_and_updates_readers(self):
         self._check_runtime_recording_relocation(locked=True)

@@ -22,7 +22,7 @@ Both repositories started clean on `develop`; changes are on
 
 ## Validation
 
-- 124 Python tests passed across `tests.test_main_window`,
+- 126 Python tests passed across `tests.test_main_window`,
   `tests.test_project_data`, and `tests.test_recording_preview` using
   `QT_QPA_PLATFORM=offscreen PYTHONPATH=src python3 -m unittest`.
 - Regression coverage includes first and repeated saves of locked recordings,
@@ -66,3 +66,17 @@ assertions remain unchanged when initialization succeeds.
 
 After this test-only correction, the full libopenshot suite completed in
 99.01 seconds: 517 passed, two VAAPI tests skipped, zero failures (519 total).
+
+## Final review follow-ups
+
+- Restore same-filesystem rename for runtime recordings, avoiding a full copy
+  and its extra disk-space requirement. Fall back to atomic copying only for
+  cross-device moves or Windows sharing violation 32. Save As continues copying
+  the previous project's assets. Tests cover the no-copy fast path and EXDEV
+  fallback alongside the existing locked-reader and interrupted-copy cases.
+- Accept OpenShot repair backup filenames ending in `.osp.bak` or
+  `.osp.bak.<number>`, case-insensitively, as well as `.osp`. Reject misleading
+  suffixes and media inside directories containing `.osp`. Project contents
+  still pass through the existing loader; Android document URIs are unchanged.
+- Seven of the top ten reports are addressed across the two repositories;
+  FY5H, FYP5, and FYMJ remain outside this fix batch as documented above.

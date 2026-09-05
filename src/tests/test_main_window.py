@@ -666,10 +666,14 @@ class MainWindowTests(unittest.TestCase):
         )
         with patch.object(self.main_window_module.QMessageBox, "warning") as warning, \
                 patch.object(self.app.project, "load") as load:
-            for filename in ("video.mp4", "video.mkv", "image.JPG"):
+            for filename in (
+                    "video.mp4", "video.mkv", "image.JPG", "project.osp.mp4",
+                    "project.osp.bak.mp4", "project.osp.bak.1.mp4",
+                    "project.osp.bak.extra", "project.osp.bak.",
+                    "project.osp.folder/video.mp4"):
                 with self.subTest(filename=filename):
                     self.main_window_module.MainWindow.open_project(window, filename)
-            self.assertEqual(warning.call_count, 3)
+            self.assertEqual(warning.call_count, 9)
             load.assert_not_called()
         window.SpeedSignal.emit.assert_not_called()
         window.PauseSignal.emit.assert_not_called()
@@ -969,6 +973,12 @@ class MainWindowTests(unittest.TestCase):
 
     def test_open_project_accepts_uppercase_extension(self):
         self._check_open_project_success("existing.OSP")
+
+    def test_open_project_accepts_repair_backup_names(self):
+        for filename in ("existing.osp.bak", "existing.osp.bak.1",
+                         "existing.osp.bak.999", "existing.OSP.BAK.2"):
+            with self.subTest(filename=filename):
+                self._check_open_project_success(filename)
 
     def test_open_project_accepts_android_document_uri(self):
         self._check_open_project_success("content://documents/document/123")

@@ -28,6 +28,7 @@
  """
 
 import copy
+import errno
 import glob
 import os
 import random
@@ -1420,6 +1421,15 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                         target_recording_path, relative_recording_path)
                     relocated_recording = not self._paths_match(path, recording_asset_path)
                     if relocated_recording:
+                        # Keep same-filesystem moves cheap. Save As must still
+                        # copy assets owned by the previous project.
+                        if move_recording and os.path.exists(path) and not os.path.exists(recording_asset_path):
+                            os.makedirs(os.path.dirname(recording_asset_path), exist_ok=True)
+                            try:
+                                os.rename(path, recording_asset_path)
+                            except OSError as ex:
+                                if ex.errno != errno.EXDEV and getattr(ex, "winerror", None) != 32:
+                                    raise
                         # Readers may still hold the recording open on Windows.
                         # Copy it before attempting to remove the runtime file so
                         # a sharing violation cannot prevent path relocation.

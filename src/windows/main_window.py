@@ -688,8 +688,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Reject media passed through Open Project (including command-line
         # arguments) before clearing the current project or its temporary files.
+        # Include backups created by JsonDataStore.make_repair_backup.
         # Android document URIs do not expose a filename extension.
-        if not is_content_uri(file_path) and os.path.splitext(file_path)[1].lower() != ".osp":
+        if not is_content_uri(file_path) and not re.search(
+                r"\.osp(?:\.bak(?:\.[0-9]+)?)?\Z", os.path.basename(file_path), re.IGNORECASE):
             QMessageBox.warning(
                 self,
                 _("Invalid Project File"),
