@@ -45,8 +45,9 @@ from qt_api import (
     Qt, pyqtSignal, pyqtSlot, QCoreApplication, QTimer, QDateTime,
     QFileInfo, QEvent, QUrl, QLocale
 )
-from qt_api import QIcon, QCursor, QKeySequence, QTextCursor
+from qt_api import QIcon, QCursor, QKeySequence, QTextCursor, QMouseEvent
 from qt_api import show_open_file_dialog, show_save_file_dialog, file_exists, ensure_extension, path_basename
+from qt_api import is_content_uri
 from qt_api import (
     QMainWindow, QWidget, QDockWidget,
     QApplication, QMenu, QMessageBox, QDialog, QFileDialog, QInputDialog,
@@ -683,6 +684,18 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # First check for empty file_path (probably user cancellation)
         if not file_path:
             # Ignore the request
+            return
+
+        # Reject media passed through Open Project (including command-line
+        # arguments) before clearing the current project or its temporary files.
+        # Include backups created by JsonDataStore.make_repair_backup.
+        # Android document URIs do not expose a filename extension.
+        if not is_content_uri(file_path) and not re.search(
+                r"\.osp(?:\.bak(?:\.[0-9]+)?)?\Z", os.path.basename(file_path), re.IGNORECASE):
+            QMessageBox.warning(
+                self,
+                _("Invalid Project File"),
+                _("Please select an OpenShot project (.osp). To add video, audio, or images, use Import Files."))
             return
 
         # Stop preview thread
@@ -4959,6 +4972,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         if (isinstance(obj, QTabBar)
                 and event.type() == QEvent.MouseButtonRelease
+                and isinstance(event, QMouseEvent)
                 and event.button() == Qt.MiddleButton):
             if self._close_dock_tab_from_middle_click(obj, event):
                 return True

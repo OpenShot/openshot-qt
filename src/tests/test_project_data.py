@@ -1112,6 +1112,44 @@ class ProjectDataTests(unittest.TestCase):
             self.assertTrue(os.path.exists(expected_protobuf))
 
     def test_first_save_moves_runtime_recording_and_updates_readers(self):
+        with patch("classes.project_data.shutil.copy2") as copy_recording:
+            self._check_runtime_recording_relocation()
+        copy_recording.assert_not_called()
+
+    def test_first_save_copies_runtime_recording_across_filesystems(self):
+        import errno
+        with patch("classes.project_data.os.rename", side_effect=OSError(errno.EXDEV, "Cross-device move")):
+            self._check_runtime_recording_relocation()
+
+    def test_save_copies_locked_runtime_recording_and_updates_readers(self):
+        self._check_runtime_recording_relocation(locked=True)
+
+    def test_save_reuses_copied_recording_when_runtime_source_is_locked(self):
+        self._check_runtime_recording_relocation(locked=True, target_exists=True)
+
+    def test_failed_recording_copy_does_not_publish_partial_asset(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            source = os.path.join(tmpdir, "source.flac")
+            target = os.path.join(tmpdir, "assets", "recording.flac")
+            with open(source, "wb") as handle:
+                handle.write(b"complete recording")
+
+            def interrupted_copy(_source, destination):
+                with open(destination, "wb") as handle:
+                    handle.write(b"partial")
+                raise OSError("Disk full")
+
+            with patch("classes.project_data.shutil.copy2", side_effect=interrupted_copy):
+                with self.assertRaises(OSError):
+                    ProjectDataStore._copy_recording_asset(source, target)
+            self.assertTrue(os.path.isfile(source))
+            self.assertEqual(os.listdir(os.path.dirname(target)), [])
+
+            ProjectDataStore._copy_recording_asset(source, target)
+            with open(target, "rb") as handle:
+                self.assertEqual(handle.read(), b"complete recording")
+
+    def _check_runtime_recording_relocation(self, locked=False, target_exists=False):
         store = make_store()
         with tempfile.TemporaryDirectory() as tmpdir:
             user_path = os.path.join(tmpdir, "user")
@@ -1123,6 +1161,11 @@ class ProjectDataTests(unittest.TestCase):
 
             project_path = os.path.join(tmpdir, "example.osp")
             asset_path = os.path.join(tmpdir, "example_assets")
+            expected = os.path.join(asset_path, "recordings", "Webcam-1.mp4")
+            if target_exists:
+                os.makedirs(os.path.dirname(expected))
+                with open(expected, "wb") as handle:
+                    handle.write(b"recording")
             runtime_paths = {
                 name: os.path.join(tmpdir, name.lower())
                 for name in (
@@ -1144,6 +1187,27 @@ class ProjectDataTests(unittest.TestCase):
             }
 
             with ExitStack() as stack:
+                if locked:
+                    original_remove = os.remove
+                    original_rename = os.rename
+
+                    def sharing_violation():
+                        error = PermissionError("Recording is in use")
+                        error.winerror = 32
+                        return error
+
+                    def remove(path, *args, **kwargs):
+                        if path == recording:
+                            raise sharing_violation()
+                        return original_remove(path, *args, **kwargs)
+
+                    def rename(source, destination, *args, **kwargs):
+                        if source == recording:
+                            raise sharing_violation()
+                        return original_rename(source, destination, *args, **kwargs)
+
+                    stack.enter_context(patch("classes.project_data.os.remove", side_effect=remove))
+                    stack.enter_context(patch("classes.project_data.os.rename", side_effect=rename))
                 stack.enter_context(patch("classes.project_data.info.USER_PATH", user_path))
                 stack.enter_context(patch("classes.project_data.get_assets_path", return_value=asset_path))
                 for name, runtime_path in runtime_paths.items():
@@ -1152,9 +1216,10 @@ class ProjectDataTests(unittest.TestCase):
                     )
                 ProjectDataStore.move_temp_paths_to_project_folder(store, project_path)
 
-            expected = os.path.join(asset_path, "recordings", "Webcam-1.mp4")
-            self.assertFalse(os.path.exists(recording))
+            self.assertEqual(os.path.exists(recording), locked)
             self.assertTrue(os.path.exists(expected))
+            with open(expected, "rb") as handle:
+                self.assertEqual(handle.read(), b"recording")
             self.assertEqual(store._data["files"][0]["path"], expected)
             self.assertEqual(store._data["clips"][0]["reader"]["path"], expected)
 

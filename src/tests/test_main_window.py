@@ -45,6 +45,7 @@ if PATH not in sys.path:
     sys.path.append(PATH)
 
 from qt_api import QByteArray, QCoreApplication, QEvent, QKeySequence, Qt
+from qt_api import QContextMenuEvent, QMouseEvent, QPoint, QPointF, QTabBar
 from qt_api import QApplication, QDockWidget, QMainWindow, QMenu, QStandardItem, QStandardItemModel
 
 from classes import qt_types
@@ -440,6 +441,31 @@ class MainWindowTests(unittest.TestCase):
         self.assertTrue(handled)
         event.accept.assert_called_once_with()
 
+    def test_dock_tab_event_filter_checks_mouse_event_class(self):
+        window = self.main_window_module.MainWindow.__new__(self.main_window_module.MainWindow)
+        QMainWindow.__init__(window)
+        tab_bar = QTabBar()
+        close_tab = MagicMock(return_value=True)
+        window._close_dock_tab_from_middle_click = close_tab
+        try:
+            # Reproduce an event wrapper with a release type but no button().
+            class MismatchedContextEvent(QContextMenuEvent):
+                def type(self):
+                    return QEvent.MouseButtonRelease
+
+            context = MismatchedContextEvent(QContextMenuEvent.Mouse, QPoint(0, 0))
+            self.assertFalse(window.eventFilter(tab_bar, context))
+            close_tab.assert_not_called()
+
+            for button in (Qt.LeftButton, Qt.RightButton, Qt.MiddleButton):
+                event = QMouseEvent(QEvent.MouseButtonRelease, QPointF(0, 0),
+                                    button, Qt.NoButton, Qt.NoModifier)
+                self.assertEqual(window.eventFilter(tab_bar, event), button == Qt.MiddleButton)
+            close_tab.assert_called_once()
+        finally:
+            window.deleteLater()
+            tab_bar.deleteLater()
+
     def test_startup_restore_uses_qt_state_without_scalar_dock_overrides(self):
         calls = []
         fake_window = types.SimpleNamespace(
@@ -631,6 +657,29 @@ class MainWindowTests(unittest.TestCase):
             self.main_window_module.MainWindow.actionOptimizedPreviewCancel_trigger(fake_window)
 
         self.assertEqual(proxy_calls, [("cancel", ["F1"])])
+
+    def test_open_project_rejects_media_before_modifying_current_project(self):
+        window = types.SimpleNamespace(
+            SpeedSignal=MagicMock(), PauseSignal=MagicMock(),
+            videoPreview=MagicMock(), clearSelections=MagicMock(),
+            clear_temporary_files=MagicMock(),
+        )
+        with patch.object(self.main_window_module.QMessageBox, "warning") as warning, \
+                patch.object(self.app.project, "load") as load:
+            for filename in (
+                    "video.mp4", "video.mkv", "image.JPG", "project.osp.mp4",
+                    "project.osp.bak.mp4", "project.osp.bak.1.mp4",
+                    "project.osp.bak.extra", "project.osp.bak.",
+                    "project.osp.folder/video.mp4"):
+                with self.subTest(filename=filename):
+                    self.main_window_module.MainWindow.open_project(window, filename)
+            self.assertEqual(warning.call_count, 9)
+            load.assert_not_called()
+        window.SpeedSignal.emit.assert_not_called()
+        window.PauseSignal.emit.assert_not_called()
+        window.videoPreview.clearTransformState.assert_not_called()
+        window.clearSelections.assert_not_called()
+        window.clear_temporary_files.assert_not_called()
 
     def test_open_project_missing_file_removes_recent_project_and_seeks_start(self):
         status_messages = []
@@ -920,6 +969,21 @@ class MainWindowTests(unittest.TestCase):
         self.assertTrue(fake_window.shutting_down)
 
     def test_open_project_success_loads_project_and_refreshes_ui(self):
+        self._check_open_project_success()
+
+    def test_open_project_accepts_uppercase_extension(self):
+        self._check_open_project_success("existing.OSP")
+
+    def test_open_project_accepts_repair_backup_names(self):
+        for filename in ("existing.osp.bak", "existing.osp.bak.1",
+                         "existing.osp.bak.999", "existing.OSP.BAK.2"):
+            with self.subTest(filename=filename):
+                self._check_open_project_success(filename)
+
+    def test_open_project_accepts_android_document_uri(self):
+        self._check_open_project_success("content://documents/document/123")
+
+    def _check_open_project_success(self, path=None):
         refresh_files = SignalRecorder()
         refresh_frame = SignalRecorder()
         max_size = SignalRecorder()
@@ -968,7 +1032,7 @@ class MainWindowTests(unittest.TestCase):
 
         try:
             with tempfile.TemporaryDirectory() as tmpdir:
-                project_path = os.path.join(tmpdir, "existing.osp")
+                project_path = path or os.path.join(tmpdir, "existing.osp")
                 with ExitStack() as stack:
                     stack.enter_context(
                         patch.object(self.main_window_module.os.path, "exists", return_value=True)

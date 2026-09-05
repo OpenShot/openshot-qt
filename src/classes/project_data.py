@@ -28,12 +28,14 @@
  """
 
 import copy
+import errno
 import glob
 import os
 import random
 import re
 import shutil
 import json
+import tempfile
 
 from classes import info
 from classes.app import get_app
@@ -1280,6 +1282,22 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                 replace_existing=replace_existing,
             )
 
+    @staticmethod
+    def _copy_recording_asset(source_path, target_path):
+        """Publish a complete recording copy before relocating its reader paths."""
+        if os.path.exists(target_path) or not os.path.exists(source_path):
+            return
+        parent_path = os.path.dirname(target_path)
+        os.makedirs(parent_path, exist_ok=True)
+        descriptor, temporary_path = tempfile.mkstemp(prefix=".recording-", dir=parent_path)
+        os.close(descriptor)
+        try:
+            shutil.copy2(source_path, temporary_path)
+            os.replace(temporary_path, target_path)
+        finally:
+            if os.path.exists(temporary_path):
+                os.remove(temporary_path)
+
     def move_temp_paths_to_project_folder(self, file_path, previous_path=None):
         """ Move all temp files (such as Thumbnails, Titles, and Blender animations) to the project asset folder. """
         try:
@@ -1403,8 +1421,27 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                         target_recording_path, relative_recording_path)
                     relocated_recording = not self._paths_match(path, recording_asset_path)
                     if relocated_recording:
-                        self._sync_asset_entry(
-                            path, recording_asset_path, move=move_recording)
+                        # Keep same-filesystem moves cheap. Save As must still
+                        # copy assets owned by the previous project.
+                        if move_recording and os.path.exists(path) and not os.path.exists(recording_asset_path):
+                            os.makedirs(os.path.dirname(recording_asset_path), exist_ok=True)
+                            try:
+                                os.rename(path, recording_asset_path)
+                            except OSError as ex:
+                                if ex.errno != errno.EXDEV and getattr(ex, "winerror", None) != 32:
+                                    raise
+                        # Readers may still hold the recording open on Windows.
+                        # Copy it before attempting to remove the runtime file so
+                        # a sharing violation cannot prevent path relocation.
+                        self._copy_recording_asset(path, recording_asset_path)
+                        if move_recording and os.path.isfile(recording_asset_path) and os.path.exists(path):
+                            try:
+                                os.remove(path)
+                            except OSError as ex:
+                                if getattr(ex, "winerror", None) != 32:
+                                    raise
+                                log.debug("Retaining open runtime recording: %s", path)
+                                move_recording = False
                     if os.path.exists(recording_asset_path):
                         new_asset_path = recording_asset_path
                         if relocated_recording:
