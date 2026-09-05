@@ -54,3 +54,15 @@ Windows microphone hardware is not available in this Linux environment.
 When a runtime recording remains locked, its complete project copy is used and
 the original runtime file is retained. This deliberately favors preserving
 media over forced cleanup. No new background cleanup mechanism is introduced.
+
+## Follow-up: VAAPI test prerequisites
+
+The host's NVIDIA render node is accessible, but both `vainfo` and standalone
+FFmpeg fail to initialize VAAPI. The tests previously treated any render node
+and FFmpeg's compiled VAAPI support as sufficient. They now probe
+`/dev/dri/renderD128` with the linked FFmpeg library, matching the adapter used
+by the tests. CTest reports unavailable prerequisites as skipped; decode
+assertions remain unchanged when initialization succeeds.
+
+After this test-only correction, the full libopenshot suite completed in
+99.01 seconds: 517 passed, two VAAPI tests skipped, zero failures (519 total).
