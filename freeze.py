@@ -139,13 +139,22 @@ if os.path.exists(openshot_copy_path):
     sys.path.append(openshot_copy_path)
     print("Loaded modules from openshot_qt directory: %s" % openshot_copy_path)
 
-# Detect artifact folder (if any)
-artifact_path = os.path.join(PATH, "build", "install-x64")
-if not os.path.exists(artifact_path):
-    artifact_path = os.path.join(PATH, "build", "install-x86")
-if not os.path.exists(artifact_path):
-    # Default to user install path
-    artifact_path = ""
+# Detect artifact folder (if any). Prefer the active MSYS2 architecture, while
+# preserving the historical x64 -> x86 fallback when MSYSTEM is unset.
+msystem_artifact = {
+    "clangarm64": "install-arm64",
+    "mingw64": "install-x64",
+    "mingw32": "install-x86",
+}.get(os.getenv("MSYSTEM", "").lower())
+artifact_names = [msystem_artifact] if msystem_artifact else ["install-x64", "install-x86"]
+artifact_path = next(
+    (
+        os.path.join(PATH, "build", artifact_name)
+        for artifact_name in dict.fromkeys(artifact_names)
+        if os.path.exists(os.path.join(PATH, "build", artifact_name))
+    ),
+    "",
+)
 
 # Append possible build server paths
 if artifact_path:

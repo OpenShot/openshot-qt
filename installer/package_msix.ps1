@@ -1,5 +1,36 @@
+[CmdletBinding()]
+param(
+    [Parameter(Mandatory = $false)]
+    [ValidateSet("x86_64", "x86", "arm64")]
+    [string] $Architecture = "x86_64",
+
+    [Parameter(Mandatory = $false)]
+    [string] $InstallerPath,
+
+    [Parameter(Mandatory = $false)]
+    [string] $TemplatePath,
+
+    [Parameter(Mandatory = $false)]
+    [switch] $PrepareOnly,
+
+    [Parameter(Mandatory = $false)]
+    [string] $PreparationReportPath
+)
+
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
+
+$InstallerFilter = "OpenShot-*-$Architecture.exe"
+$InstallDirectoryName = @{
+    "x86_64" = "install-x64"
+    "x86" = "install-x86"
+    "arm64" = "install-arm64"
+}[$Architecture]
+$ProcessorArchitecture = @{
+    "x86_64" = "x64"
+    "x86" = "x86"
+    "arm64" = "arm64"
+}[$Architecture]
 
 function Test-Administrator {
     $identity = [Security.Principal.WindowsIdentity]::GetCurrent()
@@ -148,7 +179,7 @@ function Get-MsixVersion {
         [string] $ArtifactRoot
     )
 
-    $versionFile = Join-Path $ArtifactRoot "build\install-x64\share\openshot-qt.env"
+    $versionFile = Join-Path $ArtifactRoot "build\$InstallDirectoryName\share\openshot-qt.env"
     if (-not (Test-Path -Path $versionFile -PathType Leaf)) {
         throw "OpenShot version metadata not found: $versionFile"
     }
@@ -184,7 +215,7 @@ function Assert-SourceInstallerNotPackaged {
             foreach ($entry in $archive.Entries) {
                 $normalizedName = $entry.FullName -replace '\\', '/'
                 if ($normalizedName -like "VFS/AppVPackageDrive/*/$sourceInstallerName" -or
-                    $normalizedName -like "VFS/AppVPackageDrive/*/OpenShot-*-x86_64.exe") {
+                    $normalizedName -like "VFS/AppVPackageDrive/*/$InstallerFilter") {
                     $entry.FullName
                 }
             }
@@ -258,50 +289,99 @@ function Resolve-MsixPackagingTool {
     throw "MSIX Packaging Tool CLI not found. Checked package-root path, app execution alias, manifest AppID Msix.App, and package executable search. Package executables found: $($allPackageExes -join ', ')"
 }
 
-if (-not (Test-Administrator)) {
+function Assert-PackageProcessorArchitecture {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string] $PackagePath,
+
+        [Parameter(Mandatory = $true)]
+        [string] $ExpectedArchitecture
+    )
+
+    Add-Type -AssemblyName System.IO.Compression.FileSystem
+    $archive = [System.IO.Compression.ZipFile]::OpenRead($PackagePath)
+    try {
+        $manifestEntry = $archive.GetEntry("AppxManifest.xml")
+        if (-not $manifestEntry) {
+            throw "MSIX package has no AppxManifest.xml: $PackagePath"
+        }
+        $reader = New-Object System.IO.StreamReader($manifestEntry.Open())
+        try {
+            [xml] $manifestXml = $reader.ReadToEnd()
+        }
+        finally {
+            $reader.Dispose()
+        }
+    }
+    finally {
+        $archive.Dispose()
+    }
+
+    $identity = $manifestXml.SelectSingleNode("//*[local-name()='Identity']")
+    if (-not $identity) {
+        throw "MSIX manifest has no Identity element: $PackagePath"
+    }
+    $actualArchitecture = $identity.GetAttribute("ProcessorArchitecture")
+    if ($actualArchitecture -ne $ExpectedArchitecture) {
+        throw "MSIX ProcessorArchitecture is '$actualArchitecture', expected '$ExpectedArchitecture'."
+    }
+}
+
+if (-not $PrepareOnly -and -not (Test-Administrator)) {
     throw "MSIX packaging requires an elevated/admin Windows runner."
 }
 
-$installerMatches = @(Get-ChildItem -Path "build" -Filter "OpenShot-*-x86_64.exe" -File)
-Assert-SingleArtifact -Artifacts $installerMatches -Description "build\OpenShot-*-x86_64.exe installer"
-$installerPath = $installerMatches[0].FullName
-Write-Information "Using Inno installer: $installerPath"
+if ($InstallerPath) {
+    $InstallerPath = (Resolve-Path -Path $InstallerPath).Path
+}
+else {
+    $installerMatches = @(Get-ChildItem -Path "build" -Filter $InstallerFilter -File)
+    Assert-SingleArtifact -Artifacts $installerMatches -Description "build\$InstallerFilter installer"
+    $InstallerPath = $installerMatches[0].FullName
+}
+Write-Information "Using Inno installer: $InstallerPath"
 
-$toolPackage = Get-AppxPackage Microsoft.MSIXPackagingTool
-if (-not $toolPackage) {
-    throw "Microsoft.MSIXPackagingTool is not installed."
+if (-not $PrepareOnly) {
+    $toolPackage = Get-AppxPackage Microsoft.MSIXPackagingTool
+    if (-not $toolPackage) {
+        throw "Microsoft.MSIXPackagingTool is not installed."
+    }
+
+    $ToolDir = $toolPackage.InstallLocation
+    $ToolExe = Resolve-MsixPackagingTool -ToolPackage $toolPackage
+    Write-Information "Using MSIX Packaging Tool: $ToolExe"
 }
 
-$ToolDir = $toolPackage.InstallLocation
-$ToolExe = Resolve-MsixPackagingTool -ToolPackage $toolPackage
-Write-Information "Using MSIX Packaging Tool: $ToolExe"
-
-$templatePath = Join-Path $PSScriptRoot "openshot-msix-template.xml"
-if (-not (Test-Path -Path $templatePath -PathType Leaf)) {
-    throw "MSIX template not found: $templatePath"
+if (-not $TemplatePath) {
+    $TemplatePath = Join-Path $PSScriptRoot "openshot-msix-template.xml"
+}
+if (-not (Test-Path -Path $TemplatePath -PathType Leaf)) {
+    throw "MSIX template not found: $TemplatePath"
 }
 
 $outputDir = Join-Path $PWD "build\msix"
 New-Item -Path $outputDir -ItemType Directory -Force | Out-Null
-Remove-Item -Path (Join-Path $outputDir "*.msix") -Force -ErrorAction SilentlyContinue
 $toolLogPath = Join-Path $outputDir "msix-packaging-tool.log"
-Remove-Item -Path $toolLogPath -Force -ErrorAction SilentlyContinue
+if (-not $PrepareOnly) {
+    Remove-Item -Path (Join-Path $outputDir "*.msix") -Force -ErrorAction SilentlyContinue
+    Remove-Item -Path $toolLogPath -Force -ErrorAction SilentlyContinue
+}
 
-$templateText = Get-Content -Path $templatePath -Raw
+$templateText = Get-Content -Path $TemplatePath -Raw
 foreach ($arg in @("/VERYSILENT", "/SUPPRESSMSGBOXES", "/NORESTART", "/SP-")) {
     if ($templateText -notmatch [regex]::Escape($arg)) {
         throw "MSIX template is missing required Inno silent argument: $arg"
     }
 }
 
-$expectedInstallerPath = Get-TemplateInstallerPath -TemplatePath $templatePath
+$expectedInstallerPath = Get-TemplateInstallerPath -TemplatePath $TemplatePath
 Write-Information "MSIX template expects installer: $expectedInstallerPath"
 
-$sourceInstallerDir = Join-Path ([System.IO.Path]::GetTempPath()) "OpenShot-MSIX-InstallerSource"
+$sourceInstallerDir = Join-Path $outputDir "installer-source"
 Remove-Item -Path $sourceInstallerDir -Recurse -Force -ErrorAction SilentlyContinue
 New-Item -Path $sourceInstallerDir -ItemType Directory -Force | Out-Null
-$sourceInstallerPath = Join-Path $sourceInstallerDir ([System.IO.Path]::GetFileName($installerPath))
-Copy-Item -Path $installerPath -Destination $sourceInstallerPath -Force
+$sourceInstallerPath = Join-Path $sourceInstallerDir ([System.IO.Path]::GetFileName($InstallerPath))
+Copy-Item -Path $InstallerPath -Destination $sourceInstallerPath -Force
 Write-Information "Staged MSIX source installer: $sourceInstallerPath"
 
 $workingTemplatePath = Join-Path $outputDir "OpenShot_template.generated.xml"
@@ -335,6 +415,30 @@ Set-TemplateAttribute -TemplatePath $workingTemplatePath -ElementName "PackageIn
 Write-Information "Generated MSIX template publisher display name: $publisherDisplayName"
 Write-Information "Generated MSIX template: $workingTemplatePath"
 
+if ($PreparationReportPath) {
+    $reportDir = Split-Path -Path $PreparationReportPath -Parent
+    if ($reportDir) {
+        New-Item -Path $reportDir -ItemType Directory -Force | Out-Null
+    }
+    [ordered]@{
+        architecture = $Architecture
+        processor_architecture = $ProcessorArchitecture
+        output_dir = $outputDir
+        installer_path = $InstallerPath
+        source_installer_dir = $sourceInstallerDir
+        source_installer_path = $sourceInstallerPath
+        working_template_path = $workingTemplatePath
+        generated_package_path = $generatedPackagePath
+        publisher = $msixPublisher
+        publisher_display_name = $publisherDisplayName
+    } | ConvertTo-Json | Set-Content -Path $PreparationReportPath -Encoding UTF8
+}
+
+if ($PrepareOnly) {
+    Write-Information "MSIX preparation-only mode completed."
+    return
+}
+
 Write-Information "Running MSIX Packaging Tool. Full output will be saved to: $toolLogPath"
 & $ToolExe create-package --template $workingTemplatePath -v *> $toolLogPath
 if ($LASTEXITCODE -ne 0) {
@@ -350,8 +454,11 @@ if (-not (Test-Path -Path $generatedPackagePath -PathType Leaf)) {
     throw "MSIX Packaging Tool did not create the expected package: $generatedPackagePath"
 }
 Assert-SourceInstallerNotPackaged -PackagePath $generatedPackagePath -SourceInstallerPath $sourceInstallerPath
+Assert-PackageProcessorArchitecture `
+    -PackagePath $generatedPackagePath `
+    -ExpectedArchitecture $ProcessorArchitecture
 
-$artifactName = [System.IO.Path]::ChangeExtension([System.IO.Path]::GetFileName($installerPath), ".msix")
+$artifactName = [System.IO.Path]::ChangeExtension([System.IO.Path]::GetFileName($InstallerPath), ".msix")
 $artifactPath = Join-Path $outputDir $artifactName
 Move-Item -Path $generatedPackagePath -Destination $artifactPath -Force
 $publishedPackages = @(Get-ChildItem -Path $outputDir -Filter "*.msix" -File)
