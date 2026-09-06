@@ -429,7 +429,7 @@ class About(QDialog):
             "2": "NVDEC",
             "3": "D3D9",
             "4": "D3D11",
-            "5": "MacOS",
+            "5": "VideoToolbox",
             "6": "VDPAU",
             "7": "QSV",
         }
