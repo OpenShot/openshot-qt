@@ -3008,6 +3008,7 @@ class TimelineWidgetBase(QWidget):
             self.setCursor(self._fixed_cursor)
             return
 
+        pos = QPointF(pos)
         self.geometry.ensure()
 
         if (

@@ -1198,7 +1198,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         if (self.transforming_effect and self.transforming_effect_object and
             getattr(self.transforming_effect_object.info, 'class_name', '') == 'Crop'):
             # Test the screen-space rect first
-            if self.cropOriginHandleScreen and self.cropOriginHandleScreen.contains(event.pos()):
+            if self.cropOriginHandleScreen and self.cropOriginHandleScreen.contains(QPointF(event.pos())):
                 cursor = self.rotateCursor(self.cursors.get('hand'), rotation, shear_x, shear_y)
                 self.hover_cursor = cursor
                 self.hover_transform_mode = 'origin'
@@ -2949,7 +2949,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             self.pan_y = 0.0
         elif not keep_centered and old_zoom > 0.0:
             scale = self.zoom / old_zoom
-            anchor = QPointF(event.pos())
+            anchor = QPointF(event.position() if hasattr(event, "position") else event.pos())
             old_center = old_viewport.center()
             new_center = anchor + ((old_center - anchor) * scale)
             window_center = QRectF(QPointF(0, 0), QSizeF(self.width(), self.height())).center()

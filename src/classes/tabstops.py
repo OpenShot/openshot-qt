@@ -3,7 +3,7 @@
  @brief Auto-assign tab order based on on-screen widget geometry.
 """
 
-from qt_api import Qt, QPoint, QTimer
+from qt_api import Qt, QPoint, QTimer, isdeleted
 from qt_api import (
     QWidget,
     QLayout,
@@ -93,6 +93,8 @@ def _dock_is_active(root, dock, active_tabs=None):
 
 
 def _is_focusable(widget, root, include_hidden, include_disabled):
+    if isdeleted(widget) or (root is not None and isdeleted(root)):
+        return False
     if widget is root:
         return False
     if isinstance(widget, QToolBar):
@@ -514,10 +516,12 @@ def apply_explicit_tab_order(
     widgets, root=None, include_hidden=False, include_disabled=False
 ):
     """Apply tab order using an explicit widget list."""
+    if root is not None and isdeleted(root):
+        return
     ordered = []
     seen = set()
     for widget in widgets:
-        if widget is None or widget in seen:
+        if widget is None or widget in seen or isdeleted(widget):
             continue
         target_root = root or widget.window()
         if _is_focusable(widget, target_root, include_hidden, include_disabled):
