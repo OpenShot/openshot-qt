@@ -836,7 +836,10 @@ def main():
             app_name += "-x86_64.AppImage"
             app_upload_bucket = "releases.openshot.org/linux"
         elif platform.system() == "Darwin":
-            app_name += "-x86_64.dmg"
+            # Apple Silicon (arm64) and Intel (x86_64) Macs produce arch-suffixed
+            # DMGs so both can be published side-by-side to the mac release bucket.
+            mac_arch = "arm64" if platform.machine() == "arm64" else "x86_64"
+            app_name += "-%s.dmg" % mac_arch
             app_upload_bucket = "releases.openshot.org/mac"
         elif platform.system() == "Windows" and not windows_32bit:
             app_name += "-x86_64.exe"
@@ -960,7 +963,7 @@ def main():
                 os.remove(app_build_path)
 
         if platform.system() == "Darwin":
-            # Create DMG (OpenShot-%s-x86_64.DMG)
+            # Create DMG (OpenShot-%s-arm64.dmg or OpenShot-%s-x86_64.dmg)
             app_image_success = False
 
             # Build app.bundle and create DMG
