@@ -1329,6 +1329,15 @@ def _patch_enums_for_qt6():
                 except Exception:
                     pass
 
+    pen_join_style = getattr(QtCore.Qt, "PenJoinStyle", None)
+    if pen_join_style:
+        for name in ("MiterJoin", "BevelJoin", "RoundJoin", "SvgMiterJoin", "MPenJoinStyle"):
+            if hasattr(pen_join_style, name) and not hasattr(QtCore.Qt, name):
+                try:
+                    setattr(QtCore.Qt, name, getattr(pen_join_style, name))
+                except Exception:
+                    pass
+
     brush_style = getattr(QtCore.Qt, "BrushStyle", None)
     if brush_style:
         for name in (
@@ -1729,6 +1738,14 @@ def _patch_enums_for_qt6():
                         setattr(QAbstractItemView, name, getattr(scroll_hint, name))
                     except Exception:
                         pass
+
+    if QAbstractItemView and not hasattr(QAbstractItemView, "EditKeyPressed"):
+        edit_trigger = getattr(QAbstractItemView, "EditTrigger", None)
+        if edit_trigger and hasattr(edit_trigger, "EditKeyPressed"):
+            try:
+                setattr(QAbstractItemView, "EditKeyPressed", edit_trigger.EditKeyPressed)
+            except Exception:
+                pass
 
     QSortFilterProxyModel = getattr(QtCore, "QSortFilterProxyModel", None)
     if QSortFilterProxyModel:
@@ -2232,6 +2249,14 @@ def _patch_enums_for_qt6():
                         pass
 
     QTextCursor = getattr(QtGui, "QTextCursor", None)
+    if QTextCursor and not hasattr(QTextCursor, "KeepAnchor"):
+        move_mode = getattr(QTextCursor, "MoveMode", None)
+        if move_mode and hasattr(move_mode, "KeepAnchor"):
+            try:
+                setattr(QTextCursor, "KeepAnchor", move_mode.KeepAnchor)
+            except Exception:
+                pass
+
     if QTextCursor and not hasattr(QTextCursor, "StartOfLine"):
         move_operation = getattr(QTextCursor, "MoveOperation", None)
         if move_operation:
