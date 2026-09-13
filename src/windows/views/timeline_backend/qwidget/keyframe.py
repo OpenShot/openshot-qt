@@ -42,6 +42,28 @@ from ..colors import effect_color_qcolor
 from windows.views.menu import StyledContextMenu, populate_keyframe_context_menu
 
 
+def keyframe_hit_at(pos, candidates):
+    """Prefer icon hits, then the nearest icon within three logical pixels.
+
+    Candidates are (rect, marker) pairs in their normal hit-test order.
+    Keep hover, click, and drag targets identical without enlarging the artwork.
+    """
+    nearest = None
+    nearest_distance = float("inf")
+    for rect, marker in candidates:
+        if not isinstance(rect, QRectF) or rect.isNull():
+            continue
+        if rect.contains(pos):
+            return marker
+        if rect.adjusted(-3, -3, 3, 3).contains(pos):
+            delta = rect.center() - pos
+            distance = delta.x() ** 2 + delta.y() ** 2
+            if distance < nearest_distance:
+                nearest = marker
+                nearest_distance = distance
+    return nearest
+
+
 class KeyframeMixin:
     def _keyframe_item_position(self, item):
         """Return the item's timeline position, honoring live preview overrides."""
@@ -918,11 +940,10 @@ class KeyframeMixin:
 
     def _get_keyframe_at(self, pos):
         self._ensure_keyframe_markers()
-        for marker in reversed(self._keyframe_markers):
-            rect = marker.get("rect")
-            if isinstance(rect, QRectF) and rect.contains(pos):
-                return marker
-        return None
+        return keyframe_hit_at(
+            pos,
+            ((marker.get("rect"), marker) for marker in reversed(self._keyframe_markers)),
+        )
 
     def _clamp_keyframe_seconds(self, seconds, clip_start, clip_end):
         max_sec = clip_end

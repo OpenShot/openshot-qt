@@ -32,6 +32,7 @@ from qt_api import QPointF, QRectF, Qt, QTimer
 from classes.app import get_app
 from classes.logger import log
 from classes.query import Clip, Transition, Effect
+from .keyframe import keyframe_hit_at
 
 
 class KeyframePanelMixin:
@@ -696,20 +697,20 @@ class KeyframePanelMixin:
         prop = lane.get("property")
         lane_rect = lane.get("render_rect", lane.get("lane_rect", QRectF()))
         lane_padding = lane.get("lane_padding", self._panel_lane_padding())
+        candidates = []
         for point in prop.get("points") or []:
             seconds = point.get("seconds")
             if seconds is None:
                 continue
             marker_rect = self._panel_marker_rect(lane_rect, lane_padding, seconds)
-            if marker_rect.contains(pos):
-                info = dict(lane)
-                info["point"] = point
-                info["marker_rect"] = marker_rect
-                point_context = point.get("_panel_context") if isinstance(point, dict) else None
-                if isinstance(point_context, dict):
-                    info["context"] = point_context
-                return info
-        return None
+            info = dict(lane)
+            info["point"] = point
+            info["marker_rect"] = marker_rect
+            point_context = point.get("_panel_context") if isinstance(point, dict) else None
+            if isinstance(point_context, dict):
+                info["context"] = point_context
+            candidates.append((marker_rect, info))
+        return keyframe_hit_at(pos, candidates)
 
     def _panel_add_button_at(self, pos):
         for lane in self._iter_panel_lanes() or []:
@@ -1686,9 +1687,13 @@ class KeyframePanelMixin:
             if hasattr(self.win, "show_property_timeout"):
                 QTimer.singleShot(0, self.win.show_property_timeout)
             anchor = (drag.get("anchor") or ((drag.get("entries") or [None])[0])) or {}
-            frame_seek = anchor.get("pending_frame")
-            if frame_seek is not None and hasattr(self, "win") and hasattr(self.win, "SeekSignal"):
-                self.win.SeekSignal.emit(max(1, int(frame_seek)), True)
+            # pending_frame is source-relative; pending_seconds is the absolute
+            # timeline position used while dragging, including trim and offset.
+            seconds = anchor.get("pending_seconds")
+            fps = drag.get("fps") or self.fps_float or 1.0
+            if seconds is not None and hasattr(self, "win") and hasattr(self.win, "SeekSignal"):
+                frame_seek = int(round(seconds * fps)) + 1
+                self.win.SeekSignal.emit(max(1, frame_seek), True)
         self._dragging_panel_keyframes = None
         self.mouse_dragging = False
         info = dict(self._panel_press_info or {})

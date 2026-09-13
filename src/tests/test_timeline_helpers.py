@@ -2698,6 +2698,85 @@ class TimelineHelperTests(unittest.TestCase):
         self.assertIs(helper.cursor_value, helper.cursors["resize_x"])
         self.assertFalse(helper.unset_cursor_called)
 
+    def test_qwidget_keyframe_cursor_wins_over_clip_edges_and_body(self):
+        for marker_type in ("clip", "effect", "transition", "panel"):
+            for x in (10.0, 30.0, 50.0):
+                with self.subTest(marker_type=marker_type, x=x):
+                    helper = self.make_qwidget_cursor_helper()
+                    helper.geometry.items = [
+                        (QRectF(10, 10, 40, 20), object(), True, "clip")
+                    ]
+                    marker = {"rect": QRectF(x - 5, 25, 10, 10), "type": marker_type}
+                    if marker_type == "panel":
+                        helper._panel_marker_at = lambda pos: marker
+                    else:
+                        helper._keyframe_markers = [marker]
+                        helper._ensure_keyframe_markers = lambda: None
+                        helper._get_keyframe_at = lambda pos: (
+                            self.qwidget_keyframe_module.KeyframeMixin._get_keyframe_at(helper, pos)
+                        )
+                    # Just outside the artwork, still inside the clip's edge/body.
+                    self.qwidget_base_module.TimelineWidgetBase._updateCursor(
+                        helper, QPointF(x, 23)
+                    )
+                    self.assertIs(helper.cursor_value, helper.cursors["resize_x"])
+
+    def test_keyframe_hit_padding_preserves_exact_and_nearest_targets(self):
+        hit = self.qwidget_keyframe_module.keyframe_hit_at
+        left = (QRectF(10, 10, 10, 10), "left")
+        right = (QRectF(22, 10, 10, 10), "right")
+        self.assertEqual(hit(QPointF(20, 15), [right, left]), "left")
+        self.assertEqual(hit(QPointF(21.5, 15), [left, right]), "right")
+        self.assertEqual(hit(QPointF(8, 22), [left, right]), "left")
+        self.assertIsNone(hit(QPointF(6, 15), [left, right]))
+
+    def test_keyframe_hit_padding_boundaries_and_stacking(self):
+        hit = self.qwidget_keyframe_module.keyframe_hit_at
+        rect = QRectF(10, 10, 10, 10)
+        for pos in (QPointF(7, 15), QPointF(23, 15), QPointF(15, 7), QPointF(15, 23)):
+            with self.subTest(pos=pos):
+                self.assertEqual(hit(pos, [(rect, "top"), (rect, "bottom")]), "top")
+        for pos in (QPointF(6.9, 15), QPointF(23.1, 15), QPointF(15, 6.9), QPointF(15, 23.1)):
+            self.assertIsNone(hit(pos, [(rect, "marker")]))
+        self.assertIsNone(hit(QPointF(), [(None, "missing"), (QRectF(), "empty")]))
+        self.assertEqual(hit(rect.center(), [(rect, "top"), (rect, "bottom")]), "top")
+
+    def test_padded_keyframe_press_takes_priority_over_clip_resize(self):
+        for x in (10, 50):
+            with self.subTest(x=x):
+                helper, event_cls = self.make_qwidget_assign_press_helper(resize_items=[object()])
+                marker = {"rect": QRectF(x - 5, 25, 10, 10), "type": "clip"}
+                helper.geometry.items = [(QRectF(10, 10, 40, 20), object(), True, "clip")]
+                helper._keyframe_markers = [marker]
+                helper._ensure_keyframe_markers = lambda: None
+                helper._get_keyframe_at = lambda pos: (
+                    self.qwidget_keyframe_module.KeyframeMixin._get_keyframe_at(helper, pos)
+                )
+                helper._select_marker_owner = MagicMock()
+                self.qwidget_base_module.TimelineWidgetBase._assign_press_target(helper, event_cls(x, 23))
+                self.assertEqual(helper._press_hit, "keyframe")
+                self.assertIs(helper._press_keyframe, marker)
+
+    def test_panel_marker_padding_preserves_point_context_and_lane_boundaries(self):
+        mixin = self.qwidget_keyframe_panel_module.KeyframePanelMixin
+        context = {"id": "effect1"}
+        point = {"seconds": 15, "_panel_context": context}
+        lane = {"lane_rect": QRectF(0, 0, 40, 20), "property": {"points": [point]}}
+        helper = types.SimpleNamespace(
+            _iter_panel_lanes=lambda: [lane],
+            _panel_lane_padding=lambda: 2,
+            keyframe_panel_painter=types.SimpleNamespace(marker_size=8),
+            _panel_seconds_to_x=lambda seconds: seconds,
+        )
+        helper._panel_lane_at = lambda pos, include_label=False: mixin._panel_lane_at(helper, pos, include_label)
+        helper._panel_marker_rect = lambda *args: mixin._panel_marker_rect(helper, *args)
+        result = mixin._panel_marker_at(helper, QPointF(21, 10))
+        self.assertIs(result["point"], point)
+        self.assertIs(result["context"], context)
+        self.assertIsNone(mixin._panel_marker_at(helper, QPointF(23, 10)))
+        point["seconds"] = 40
+        self.assertIsNone(mixin._panel_marker_at(helper, QPointF(41, 10)))
+
     def test_qwidget_cursor_ignores_item_occluded_by_ruler(self):
         helper = self.make_qwidget_cursor_helper()
         helper.ruler_height = 30.0
@@ -3778,6 +3857,44 @@ class TimelineHelperTests(unittest.TestCase):
         self.assertIsNone(helper._dragging_panel_keyframes)
         self.assertFalse(helper.mouse_dragging)
         self.assertEqual(helper.release_calls, 1)
+
+    def test_qwidget_panel_keyframe_release_keeps_absolute_drag_position(self):
+        helper = self.make_qwidget_panel_keyframe_drag_helper()
+        drag = helper._dragging_panel_keyframes
+        drag["base_position"] = 10.0
+        drag["context"] = {"position": 10.0, "clip_start": 2.0}
+        drag["entries"][0].update(original_seconds=11.0, original_frame=73)
+        event = types.SimpleNamespace(pos=lambda: QPointF(288.0, 0.0))
+
+        self.qwidget_keyframe_panel_module.KeyframePanelMixin._panel_keyframe_move(helper, event)
+        preview_frame = helper.seek_calls[-1][0]
+        self.assertNotEqual(preview_frame, drag["anchor"]["pending_frame"])
+        self.qwidget_keyframe_panel_module.KeyframePanelMixin._finish_panel_keyframe_drag(helper)
+
+        self.assertEqual(helper.seek_calls[-1], (preview_frame, True))
+
+    def test_panel_keyframe_release_uses_selected_anchor_at_timeline_fps(self):
+        for fps in (24.0, 30000.0 / 1001.0, 60.0):
+            for seconds in (0.0, 12.5):
+                with self.subTest(fps=fps, seconds=seconds):
+                    helper = self.make_qwidget_panel_keyframe_drag_helper()
+                    drag = helper._dragging_panel_keyframes
+                    drag["fps"] = fps
+                    drag["moved"] = True
+                    anchor = {"pending_seconds": seconds, "pending_frame": 73}
+                    drag["entries"].append(anchor)
+                    drag["anchor"] = anchor
+                    self.qwidget_keyframe_panel_module.KeyframePanelMixin._finish_panel_keyframe_drag(helper)
+                    self.assertEqual(helper.seek_calls, [(int(round(seconds * fps)) + 1, True)])
+                    self.assertEqual(helper.finalize_calls, [("clip", "C1")])
+
+    def test_panel_keyframe_release_without_movement_does_not_commit_or_seek(self):
+        helper = self.make_qwidget_panel_keyframe_drag_helper()
+        self.qwidget_keyframe_panel_module.KeyframePanelMixin._finish_panel_keyframe_drag(helper)
+        self.assertEqual(helper.begin_calls, 0)
+        self.assertEqual(helper.finalize_calls, [])
+        self.assertEqual(helper.seek_calls, [])
+        self.assertIsNone(helper._dragging_panel_keyframes)
 
     def test_frame_rounding_increment_caps_to_nearby_frames(self):
         painter = self.make_clip_painter(project_fps=30.0)

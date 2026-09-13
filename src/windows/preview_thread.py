@@ -380,9 +380,18 @@ class PlayerWorker(QObject):
         # Always load back in the timeline reader
         self.parent.LoadFileSignal.emit('')
 
-        # Refreshes should not trigger preroll/cache invalidation behavior.
-        refresh_frame = int(self.player.Position())
-        self.Seek(refresh_frame, False)
+        # A refresh must not replace a user seek which the worker has not
+        # applied yet (for example, the final seek after a keyframe drag).
+        # Check and enqueue under the same lock as user seek requests.
+        if not self.parent.initialized:
+            return
+        with self._seek_lock:
+            if self._pending_seek is not None:
+                return
+            # Refreshes should not trigger preroll/cache invalidation behavior.
+            request = (max(1, int(self.player.Position())), False)
+            self._last_queued_seek_request = request
+            self._pending_seek = request
 
     @pyqtSlot(int, bool, bool, bool, bool, object, object, object)
     def queue_scope_analysis(self, frame_number, need_waveform, need_histogram, need_vectorscope, need_audio, scope_region, waveform_render, vectorscope_render):
