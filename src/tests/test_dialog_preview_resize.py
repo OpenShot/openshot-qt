@@ -3,6 +3,7 @@ import sys
 import types
 import unittest
 import json
+import threading
 from unittest.mock import patch
 
 from qt_api import QRect, QSize
@@ -246,6 +247,57 @@ class DialogPreviewResizeTests(unittest.TestCase):
         PlayerWorker.Play(worker)
 
         self.assertEqual(applied, [(1, False), ("play",)])
+
+    def test_player_worker_refresh_preserves_pending_user_seek(self):
+        for pending in ((121, True), (121, False), None):
+            with self.subTest(pending=pending):
+                worker = types.SimpleNamespace(
+                    parent=types.SimpleNamespace(initialized=True, LoadFileSignal=DummySignal()),
+                    player=types.SimpleNamespace(Mode=lambda: openshot.PLAYBACK_PAUSED, Position=lambda: 25),
+                    _seek_lock=threading.Lock(),
+                    _pending_seek=pending,
+                    _last_queued_seek_request=pending,
+                )
+                PlayerWorker.refreshFrame(worker)
+                expected = pending if pending is not None else (25, False)
+                self.assertEqual(PlayerWorker._take_pending_seek(worker), expected)
+
+    def test_player_worker_user_seek_wins_before_or_after_refresh(self):
+        for refresh_first in (False, True):
+            with self.subTest(refresh_first=refresh_first):
+                worker = types.SimpleNamespace(
+                    parent=types.SimpleNamespace(initialized=True, LoadFileSignal=DummySignal()),
+                    player=types.SimpleNamespace(Mode=lambda: openshot.PLAYBACK_PAUSED, Position=lambda: 25),
+                    _seek_lock=threading.Lock(),
+                    _pending_seek=None,
+                    _last_queued_seek_request=None,
+                    _last_applied_seek_request=None,
+                    _last_applied_seek_time=0.0,
+                )
+                if refresh_first:
+                    PlayerWorker.refreshFrame(worker)
+                PlayerWorker.queue_seek(worker, 121, True)
+                PlayerWorker.refreshFrame(worker)
+                self.assertEqual(PlayerWorker._take_pending_seek(worker), (121, True))
+                # Once the seek is applied, later edits can refresh that frame.
+                worker.player.Position = lambda: 121
+                PlayerWorker.refreshFrame(worker)
+                self.assertEqual(PlayerWorker._take_pending_seek(worker), (121, False))
+                self.assertIsNone(worker._last_queued_seek_request)
+
+    def test_player_worker_refresh_skips_playback_and_uninitialized_player(self):
+        for initialized, mode, speed in (
+            (True, openshot.PLAYBACK_PLAY, 1.0),
+            (False, openshot.PLAYBACK_PAUSED, 0.0),
+        ):
+            with self.subTest(initialized=initialized, mode=mode):
+                worker = types.SimpleNamespace(
+                    parent=types.SimpleNamespace(initialized=initialized, LoadFileSignal=DummySignal()),
+                    player=types.SimpleNamespace(Mode=lambda: mode, Speed=lambda: speed),
+                    _pending_seek=None,
+                )
+                PlayerWorker.refreshFrame(worker)
+                self.assertIsNone(worker._pending_seek)
 
     def test_video_widget_resize_event_skips_pause_for_dialog_preview(self):
         pause_calls = []
