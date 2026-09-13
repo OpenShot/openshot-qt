@@ -5198,8 +5198,9 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         self.window.LoadFileSignal.emit(preview_path)
         self.window.SpeedSignal.emit(0)
 
-        # Seek to frame
-        self.window.SeekSignal.emit(frame_number, True)
+        # Use scrub seeks while trimming, as with a paused playhead drag.
+        # Preroll/prefetch would compete with the next trim preview request.
+        self.window.SeekSignal.emit(frame_number, False)
 
     @pyqtSlot(str, int)
     def PreviewTransitionFrame(self, transition_id, frame_number):
@@ -5222,8 +5223,8 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         self.window.LoadFilePreviewSignal.emit(preview_path, True)
         self.window.SpeedSignal.emit(0)
 
-        # Seek to frame
-        self.window.SeekSignal.emit(frame_number, True)
+        # Match clip trimming: defer preroll until returning to the timeline.
+        self.window.SeekSignal.emit(frame_number, False)
 
     @pyqtSlot(int)
     def SeekToKeyframe(self, frame_number):
