@@ -3,8 +3,7 @@
         <file>openshot.svg</file>
     </qresource>
     <qresource prefix="/about">
-        <file>AboutLogo.png</file>
-        <file>AboutLogo@2x.png</file>
+        <file>about-wordmark.svg</file>
         <file>bitcoin-icon.svg</file>
         <file>kickstarter-icon.svg</file>
         <file>patreon-icon.svg</file>

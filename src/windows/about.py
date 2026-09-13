@@ -31,10 +31,14 @@ import codecs
 import re
 import platform
 import ctypes
+import math
+import random
 
 from qt_api import Qt, pyqtSignal
 from qt_api import QIcon, QSize, QTimer
 from qt_api import QDialog, QLabel
+from qt_api import QColor, QLinearGradient, QPainter, QPointF, QRadialGradient, QRectF, QSvgRenderer
+from qt_api import QElapsedTimer, QEvent, QPixmap, QRegion
 
 from classes import http_client, info, release_details, ui_util
 from classes.logger import log
@@ -96,21 +100,55 @@ class About(QDialog):
 
         # Load UI from designer & init
         ui_util.load_ui(self, self.ui_path)
+        self.setObjectName("aboutDialog")
         ui_util.init_ui(self)
+        self.about_logo = QSvgRenderer(":/about/about-wordmark.svg", self)
+        self.background_cache_key = None
+        self.particle_time = 0.0
+        self.particle_clock = QElapsedTimer()
+        self.particle_timer = QTimer(self)
+        self.particle_timer.setInterval(50)
+        self.particle_timer.timeout.connect(self.advance_particles)
+        # Fixed seeds keep resizing/reopening from reshuffling the star field.
+        rng = random.Random(2008)
+        self.particles = [
+            (rng.random(), rng.random(), rng.uniform(9.0, 22.0),
+             rng.uniform(-6.0, 6.0), rng.uniform(0, math.tau), i % 6)
+            for i in range(28)
+        ]
+        self.particle_frame = []
 
         # get translations
         self.app = get_app()
         _ = self.app._tr
 
         self.setStyleSheet("""
-            QDialog {
-                background-image: url(:/about/AboutLogo.png);
-                background-repeat: no-repeat;
-                background-position: center;
-                background-size: stretch;
+            QDialog#aboutDialog {
+                background: transparent;
                 margin: 0px;
                 padding: 0px;
                 border: none;
+            }
+            QLabel {
+                background: transparent;
+                color: #F4F7FF;
+            }
+            QPushButton {
+                background: #283241;
+                color: #F4F7FF;
+                border: 1px solid #536984;
+                border-radius: 4px;
+                padding: 5px 12px;
+            }
+            QPushButton:hover {
+                background: #323C50;
+                border-color: #91C3FF;
+            }
+            QPushButton:pressed {
+                background: #141923;
+            }
+            QPushButton:focus, QToolButton#btnCopyVersionInfo:focus {
+                border: 1px solid #91C3FF;
             }
             QLabel#txtversion, QLabel#lblAboutCompany {
                 background: transparent;
@@ -187,7 +225,7 @@ class About(QDialog):
         self.copy_feedback_label.setAlignment(Qt.AlignCenter)
         self.copy_feedback_label.setStyleSheet("""
             QLabel#copyFeedbackLabel {
-                background: rgba(35, 35, 35, 220);
+                background: rgba(20, 25, 35, 240);
                 border-radius: 15px;
                 color: #FFFFFF;
                 font-size: 11px;
@@ -211,6 +249,167 @@ class About(QDialog):
 
         # Load release details from HTTP
         self.get_current_release()
+
+    def paintEvent(self, event):
+        """Composite cached artwork with a small, softly drifting particle field."""
+        ratio = self.devicePixelRatioF()
+        key = (self.width(), self.height(), ratio, self.lblAboutLogo.geometry().getRect())
+        if key != self.background_cache_key:
+            self.background_cache_key = key
+            self.background_cache = self.make_about_pixmap(ratio)
+            background_painter = QPainter(self.background_cache)
+            self.paint_background(background_painter)
+            background_painter.end()
+            self.logo_rect = self.about_logo_rect()
+            self.logo_cache = self.make_about_pixmap(ratio, self.logo_rect.size(), transparent=True)
+            logo_painter = QPainter(self.logo_cache)
+            self.about_logo.render(logo_painter, QRectF(QPointF(0, 0), self.logo_rect.size()))
+            logo_painter.end()
+            self.particle_sprites = []
+            for color, radius in (("#FFFFFF", 3), ("#91C3FF", 4), ("#E35CFF", 5),
+                                  ("#FFFFFF", 2), ("#91C3FF", 3), ("#E35CFF", 4)):
+                sprite = QPixmap(math.ceil(12 * ratio), math.ceil(12 * ratio))
+                sprite.setDevicePixelRatio(ratio)
+                sprite.fill(Qt.transparent)
+                glow = QRadialGradient(QPointF(6, 6), radius)
+                glow.setColorAt(0, QColor(color))
+                tint = QColor(color)
+                tint.setAlpha(110)
+                glow.setColorAt(0.3, tint)
+                tint.setAlpha(0)
+                glow.setColorAt(1, tint)
+                sprite_painter = QPainter(sprite)
+                sprite_painter.fillRect(QRectF(0, 0, 12, 12), glow)
+                sprite_painter.end()
+                self.particle_sprites.append(sprite)
+            self.particle_frame = self.current_particle_frame()
+
+        painter = QPainter(self)
+        painter.drawPixmap(0, 0, self.background_cache)
+        exposed = event.region()
+        for x, y, opacity, sprite in self.particle_frame:
+            if not exposed.intersects(QRectF(x - 6, y - 6, 12, 12).toAlignedRect()):
+                continue
+            painter.setOpacity(opacity)
+            painter.drawPixmap(QPointF(x - 6, y - 6), self.particle_sprites[sprite])
+        painter.setOpacity(1)
+        if exposed.intersects(self.logo_rect.toAlignedRect()):
+            painter.drawPixmap(self.logo_rect.topLeft(), self.logo_cache)
+        painter.end()
+
+    def make_about_pixmap(self, ratio, size=None, transparent=False):
+        """Keep the background opaque and alpha compositing limited to the logo."""
+        size = size or self.size()
+        pixmap = QPixmap(math.ceil(size.width() * ratio), math.ceil(size.height() * ratio))
+        pixmap.setDevicePixelRatio(ratio)
+        pixmap.fill(Qt.transparent if transparent else QColor("#101827"))
+        return pixmap
+
+    def current_particle_frame(self):
+        """Return buoyant independent drifts, with fades to hide edge wrapping."""
+        frame = []
+        width, height = self.width(), self.height()
+        t = self.particle_time
+        for u, v, speed, drift, phase, sprite in self.particles:
+            x = (u * width + drift * t + 12 * math.sin(t * 0.55 + phase)) % width
+            y = (v * height - speed * t) % height
+            edge = min(1.0, x / 16, (width - x) / 16, y / 16, (height - y) / 16)
+            opacity = (0.30 + 0.12 * math.sin(t * 0.22 + phase)) * edge
+            # Fade toward the footer, where the small version text needs contrast.
+            opacity *= 1.0 - 0.65 * (y / height) ** 2
+            frame.append((x, y, opacity, sprite))
+        return frame
+
+    def advance_particles(self):
+        """Update only the old/new sprite bounds, leaving most pixels untouched."""
+        self.particle_time += min(self.particle_clock.restart() / 1000.0, 0.1)
+        frame = self.current_particle_frame()
+        dirty = QRegion()
+        for old, new in zip(self.particle_frame, frame):
+            old_rect = QRectF(old[0] - 7, old[1] - 7, 14, 14).toAlignedRect()
+            new_rect = QRectF(new[0] - 7, new[1] - 7, 14, 14).toAlignedRect()
+            # One small rectangle per particle keeps the clip region simple.
+            # At a wrap, keep the two edges separate instead of dirtying a strip.
+            if old_rect.intersects(new_rect):
+                dirty |= QRegion(old_rect.united(new_rect))
+            else:
+                dirty |= QRegion(old_rect)
+                dirty |= QRegion(new_rect)
+        self.particle_frame = frame
+        self.update(dirty)
+
+    def update_particle_timer(self):
+        """Do no animation work while hidden or minimized."""
+        if self.isVisible() and not self.isMinimized():
+            if not self.particle_timer.isActive():
+                self.particle_clock.start()
+                self.particle_timer.start()
+        else:
+            self.particle_timer.stop()
+
+    def showEvent(self, event):
+        super().showEvent(event)
+        # Set after stylesheet polishing, which resets this attribute. Every
+        # exposed pixel is covered by our cache, so Qt need not clear beneath it.
+        self.setAttribute(Qt.WA_OpaquePaintEvent)
+        self.update_particle_timer()
+
+    def hideEvent(self, event):
+        self.particle_timer.stop()
+        super().hideEvent(event)
+
+    def changeEvent(self, event):
+        super().changeEvent(event)
+        if event.type() == QEvent.WindowStateChange and hasattr(self, "particle_timer"):
+            self.update_particle_timer()
+
+    def paint_background(self, painter):
+        """Generate the gradient once per size or display-density change."""
+        width, height = self.width(), self.height()
+
+        # Overlapping blue, violet and pink light pools echo the website hero.
+        # Normalized coordinates keep the composition at any size/aspect ratio.
+        painter.save()
+        painter.scale(width, height)
+        canvas = QRectF(0, 0, 1, 1)
+        base = QLinearGradient(0, 0, 1, 1)
+        base.setColorAt(0, QColor("#0C1730"))
+        base.setColorAt(0.40, QColor("#21123D"))
+        base.setColorAt(0.72, QColor("#341442"))
+        base.setColorAt(1, QColor("#101827"))
+        painter.fillRect(canvas, base)
+        for x, y, radius, color, alpha in (
+                (-0.04, 0.18, 0.72, "#0065ED", 215),
+                (0.58, -0.16, 0.74, "#741BEB", 235),
+                (1.06, 0.43, 0.66, "#EA189B", 235),
+                (0.28, 0.85, 0.55, "#3625CB", 125)):
+            glow = QRadialGradient(QPointF(x, y), radius)
+            tint = QColor(color)
+            tint.setAlpha(alpha)
+            glow.setColorAt(0, tint)
+            tint.setAlpha(int(alpha * 0.55))
+            glow.setColorAt(0.45, tint)
+            tint.setAlpha(0)
+            glow.setColorAt(1, tint)
+            painter.fillRect(canvas, glow)
+
+        # Gently shade the footer to keep version information and controls legible.
+        shade = QLinearGradient(0, 0, 0, 1)
+        shade.setColorAt(0, QColor(20, 25, 35, 0))
+        shade.setColorAt(0.55, QColor(20, 25, 35, 0))
+        shade.setColorAt(1, QColor(20, 25, 35, 190))
+        painter.fillRect(canvas, shade)
+        painter.restore()
+
+    def about_logo_rect(self):
+        """Fit the wordmark to its layout space without stretching it."""
+        # Reserve real layout space for the logo so translated text cannot overlap it.
+        area = QRectF(self.lblAboutLogo.geometry()).adjusted(24, 16, -24, -16)
+        size = self.about_logo.viewBoxF().size()
+        size.scale(area.size(), Qt.KeepAspectRatio)
+        logo_rect = QRectF(QPointF(0, 0), size)
+        logo_rect.moveCenter(area.center())
+        return logo_rect
 
     def contextMenuEvent(self, event):
         """Handle right-click context menu."""
