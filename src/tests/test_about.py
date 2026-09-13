@@ -2,10 +2,16 @@
 
 import math
 from pathlib import Path
+import sys
 import types
 import unittest
 from unittest.mock import patch
 import xml.etree.ElementTree as ET
+
+# CI discovers this file with src/tests as the import root, not src.
+SOURCE_ROOT = str(Path(__file__).resolve().parents[1])
+if SOURCE_ROOT not in sys.path:
+    sys.path.insert(0, SOURCE_ROOT)
 
 from qt_api import QApplication, QFile, QIODevice, QRectF, Qt
 from tests.qt_test_app import ensure_app_state, get_or_create_app
