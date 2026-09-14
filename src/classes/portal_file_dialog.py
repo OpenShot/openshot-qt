@@ -63,7 +63,7 @@ def _options(directory, file_filter, multiple, folder, save_name):
     return options
 
 
-async def _request(parent_id, caption, options, save=False):
+async def _request(parent_id, caption, options, save=False, on_opened=None):
     """Run one request on a private connection, subscribing before opening it."""
     from dbus_next import Message, MessageType, Variant
     from dbus_next.aio import MessageBus
@@ -127,6 +127,8 @@ async def _request(parent_id, caption, options, save=False):
             if reply.signature == "o":
                 handle = reply.body[0]
             raise RuntimeError("Unexpected portal request handle")
+        if not response.done() and on_opened is not None:
+            on_opened()
         disconnected = asyncio.ensure_future(bus.wait_for_disconnect())
         await asyncio.wait([response, disconnected], return_when=asyncio.FIRST_COMPLETED)
         result = response.result() if response.done() else None
@@ -169,13 +171,22 @@ def show_dialog(parent, caption, directory, file_filter="", multiple=False,
     task = None
     parent_connected = False
     window = parent.window() if parent is not None else None
-    was_enabled = window.isEnabled() if window is not None else False
+    window_disabled = False
     try:
         parent_id = ""
         if window is not None and QtWidgets.QApplication.platformName() == "xcb":
             parent_id = "x11:%x" % int(window.winId())
         options = _options(directory, file_filter, multiple, folder, save_name)
-        task = loop.create_task(_request(parent_id, caption, options, save_name is not None))
+
+        def on_opened():
+            nonlocal window_disabled
+            # Probing an older or unavailable portal must not gray out the
+            # application before its ordinary Qt dialog opens.
+            if window is not None and window.isEnabled():
+                window.setEnabled(False)
+                window_disabled = True
+
+        task = loop.create_task(_request(parent_id, caption, options, save_name is not None, on_opened))
 
         def advance():
             loop.call_soon(loop.stop)
@@ -185,8 +196,6 @@ def show_dialog(parent, caption, directory, file_filter="", multiple=False,
 
         timer.timeout.connect(advance)
         timer.start(10)
-        if was_enabled:
-            window.setEnabled(False)
         if window is not None:
             window.destroyed.connect(qt_loop.quit)
             parent_connected = True
@@ -208,7 +217,7 @@ def show_dialog(parent, caption, directory, file_filter="", multiple=False,
             try:
                 if parent_connected:
                     window.destroyed.disconnect(qt_loop.quit)
-                if was_enabled:
+                if window_disabled:
                     window.setEnabled(True)
             except RuntimeError:
                 # The parent can be destroyed during application shutdown.

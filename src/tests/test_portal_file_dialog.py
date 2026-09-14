@@ -91,12 +91,14 @@ class PortalBusTests(unittest.TestCase):
         cls.daemon.terminate()
         cls.daemon.communicate(timeout=5)
 
-    def request(self, version=4, status=0, uris=None, failure=None, save=False, folder=False, multiple=False):
+    def request(self, version=4, status=0, uris=None, failure=None, save=False, folder=False,
+                multiple=False, delayed=False):
         from dbus_next import Message, MessageType, Variant
         from dbus_next.aio import MessageBus
 
         captured = []
         self.closed_requests = 0
+        self.opened_requests = 0
 
         async def scenario():
             service = await MessageBus().connect()
@@ -128,14 +130,21 @@ class PortalBusTests(unittest.TestCase):
                         "uris": Variant("as", uris if uris is not None else ["file:///media/vid%C3%A9o%20one.mp4"])}
                     # Intentionally send Response before the method reply. This
                     # catches the lost-signal race that can hang native dialogs.
-                    service.send(Message.new_signal(path, portal.REQUEST, "Response", "ua{sv}", [status, result]))
+                    signal = Message.new_signal(path, portal.REQUEST, "Response", "ua{sv}", [status, result])
+                    if delayed:
+                        asyncio.get_event_loop().call_later(0.05, service.send, signal)
+                    else:
+                        service.send(signal)
                 return Message.new_method_return(message, "o", [path])
 
             service.add_message_handler(handle)
             try:
                 options = portal._options("/media/vidéo files", "Project (*.osp)", multiple, folder,
                                           "new.osp" if save else None)
-                client = asyncio.ensure_future(portal._request("x11:123", "Choose", options, save))
+                def on_opened():
+                    self.opened_requests += 1
+
+                client = asyncio.ensure_future(portal._request("x11:123", "Choose", options, save, on_opened))
                 return await asyncio.wait_for(client, 2)
             finally:
                 await portal._close_bus(service)
@@ -159,6 +168,13 @@ class PortalBusTests(unittest.TestCase):
                 result, calls = self.request(version=version)
                 self.assertIsNone(result)
                 self.assertEqual(calls, [])
+                self.assertEqual(self.opened_requests, 0)
+
+    def test_window_blocking_waits_for_accepted_pending_request(self):
+        self.request(delayed=True)
+        self.assertEqual(self.opened_requests, 1)
+        self.request(status=1)
+        self.assertEqual(self.opened_requests, 0)
 
     def test_newer_portal_and_save_folder_modes(self):
         for save, folder in ((True, False), (False, True)):
@@ -199,8 +215,10 @@ class PortalBusTests(unittest.TestCase):
     def test_method_errors_and_timeouts_are_bounded(self):
         with self.assertRaises(RuntimeError):
             self.request(failure="method_error")
+        self.assertEqual(self.opened_requests, 0)
         with self.assertRaises(asyncio.TimeoutError):
             self.request(failure="version_timeout")
+        self.assertEqual(self.opened_requests, 0)
 
     def test_repeated_dialogs_close_connections(self):
         before = len(os.listdir("/proc/self/fd"))
@@ -217,7 +235,10 @@ class PortalQtLoopTests(unittest.TestCase):
     def test_qt_loop_preserves_cancel_success_and_failure(self):
         for result in ([], None, [qt_api.QtCore.QUrl.fromLocalFile("/tmp/test.osp")]):
             async def request(*args):
-                self.assertFalse(parent.isEnabled())
+                self.assertTrue(parent.isEnabled())
+                if result is not None:
+                    args[-1]()  # The portal accepted a native dialog request.
+                    self.assertFalse(parent.isEnabled())
                 await asyncio.sleep(0.01)
                 return result
 
@@ -234,6 +255,19 @@ class PortalQtLoopTests(unittest.TestCase):
                 self.assertLogs(portal.logger, level="WARNING"):
             self.assertIsNone(portal.show_dialog(parent, "Open", "/tmp"))
         self.assertTrue(parent.isEnabled())
+        parent.deleteLater()
+
+    def test_fallback_never_disables_parent(self):
+        async def unavailable(*args):
+            await asyncio.sleep(0.01)
+            return None
+
+        parent = qt_api.QtWidgets.QWidget()
+        with patch.object(portal, "_options", return_value={}), \
+                patch.object(portal, "_request", side_effect=unavailable), \
+                patch.object(parent, "setEnabled", wraps=parent.setEnabled) as set_enabled:
+            self.assertIsNone(portal.show_dialog(parent, "Open", "/tmp"))
+            set_enabled.assert_not_called()
         parent.deleteLater()
 
     def test_request_failure_restores_parent(self):
