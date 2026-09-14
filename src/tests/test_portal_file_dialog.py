@@ -5,7 +5,8 @@ import importlib.util
 import os
 import select
 import shutil
-import subprocess
+# Launch an isolated test D-Bus daemon with fixed argv, without a shell.
+import subprocess  # nosec B404
 import sys
 import tempfile
 import unittest
@@ -19,6 +20,7 @@ import qt_api
 from classes import portal_file_dialog as portal
 
 HAS_DBUS_NEXT = importlib.util.find_spec("dbus_next") is not None
+DBUS_DAEMON = shutil.which("dbus-daemon")
 
 
 class PortalRoutingTests(unittest.TestCase):
@@ -107,13 +109,14 @@ class PortalOptionsTests(unittest.TestCase):
         self.assertFalse(options["multiple"].value)
 
 
-@unittest.skipUnless(sys.platform.startswith("linux") and HAS_DBUS_NEXT and shutil.which("dbus-daemon"),
+@unittest.skipUnless(sys.platform.startswith("linux") and HAS_DBUS_NEXT and DBUS_DAEMON,
                      "requires Linux, dbus-next and dbus-daemon")
 class PortalBusTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.daemon = subprocess.Popen(
-            ["dbus-daemon", "--session", "--nofork", "--print-address=1"],
+        # Resolved test executable, fixed arguments, no shell.
+        cls.daemon = subprocess.Popen(  # nosec B603
+            [DBUS_DAEMON, "--session", "--nofork", "--print-address=1"],
             stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
         if not select.select([cls.daemon.stdout], [], [], 5)[0]:
             cls.daemon.terminate()
@@ -279,7 +282,7 @@ class PortalBusTests(unittest.TestCase):
 
     def test_repeated_dialogs_close_connections(self):
         before = len(os.listdir("/proc/self/fd"))
-        for unused in range(3):
+        for _ in range(3):
             self.request()
         self.assertEqual(len(os.listdir("/proc/self/fd")), before)
 

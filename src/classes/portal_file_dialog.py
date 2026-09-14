@@ -9,7 +9,8 @@ import asyncio
 import logging
 import os
 import re
-import subprocess
+# Probe the checked portal executable with fixed argv, without a shell.
+import subprocess  # nosec B404
 import uuid
 
 from qt_api import QtCore, QtWidgets
@@ -38,7 +39,8 @@ def _portal_release(pid):
         for variable in ("LD_LIBRARY_PATH", "LD_PRELOAD", "LD_AUDIT"):
             environment.pop(variable, None)
         environment["LC_ALL"] = "C"
-        result = subprocess.run(
+        # D-Bus supplies the PID; the executable name is checked above. No shell.
+        result = subprocess.run(  # nosec B603
             [executable, "--version"], env=environment, stdout=subprocess.PIPE,
             stderr=subprocess.DEVNULL, timeout=1, check=True)
         match = re.fullmatch(rb"xdg-desktop-portal (\d+)\.(\d+)\.(\d+)\s*", result.stdout)
@@ -53,8 +55,8 @@ async def _close_bus(bus):
     try:
         if bus.unique_name:
             await asyncio.wait_for(bus.wait_for_disconnect(), CALL_TIMEOUT)
-    except Exception:
-        pass
+    except Exception as exc:
+        logger.debug("File portal disconnect did not finish cleanly: %s", exc)
     finally:
         # dbus-next 0.2.3 shuts down, but does not close, these descriptors.
         # Release them before closing our per-dialog asyncio loop.
@@ -190,8 +192,8 @@ async def _request(parent_id, caption, options, save=False, on_opened=None):
             # Also closes the dialog when the application quits or setup fails.
             try:
                 await call(owner, handle, REQUEST, "Close")
-            except Exception:
-                pass
+            except Exception as exc:
+                logger.debug("Could not close file portal request: %s", exc)
         await _close_bus(bus)
         if disconnected is not None:
             await asyncio.gather(disconnected, return_exceptions=True)
@@ -254,6 +256,6 @@ def show_dialog(parent, caption, directory, file_filter="", multiple=False,
                     window.destroyed.disconnect(qt_loop.quit)
                 if window_disabled:
                     window.setEnabled(True)
-            except RuntimeError:
+            except RuntimeError as exc:
                 # The parent can be destroyed during application shutdown.
-                pass
+                logger.debug("File dialog parent unavailable during cleanup: %s", exc)
