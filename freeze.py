@@ -498,6 +498,15 @@ elif sys.platform == "linux":
     # Add custom launcher script for frozen linux version
     src_files.append((os.path.join(PATH, "installer", "launch-linux.sh"), "launch-linux.sh"))
 
+    # Pure Python portal client (QtDBus cannot marshal the nested filter types
+    # from Python). Fail the build rather than silently ship only Qt fallbacks.
+    try:
+        import dbus_next
+    except ImportError as exc:
+        raise RuntimeError("Linux AppImage builds require: pip install dbus-next==0.2.3") from exc
+    log.info("Linux portal client: %s", dbus_next.__file__)
+    python_packages.append("dbus_next")
+
     # Get a list of all openshot.so dependencies (scan these libraries for their dependencies)
     qt_mod_files = []
     from importlib import import_module
@@ -700,6 +709,10 @@ build_exe_options["excludes"] = ["distutils",
                                  "{}.QtWebKitWidgets".format(QT_BINDING_PACKAGE)]
 if sys.platform == "darwin":
     build_exe_options["excludes"].append("sentry_sdk.integrations.django")
+elif sys.platform == "linux":
+    # The portal client uses asyncio; its optional GLib adapter must not pull
+    # PyGObject and GTK into the AppImage.
+    build_exe_options["excludes"].append("gi")
 
 # Set options
 build_options["build_exe"] = build_exe_options
