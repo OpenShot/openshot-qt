@@ -41,6 +41,41 @@ class PortalRoutingTests(unittest.TestCase):
             show.assert_called_once_with(None, "Open", "/tmp", multiple=True)
 
 
+class PortalReleaseTests(unittest.TestCase):
+    def test_running_executable_is_probed_without_appimage_libraries(self):
+        result = subprocess.CompletedProcess([], 0, b"xdg-desktop-portal 1.18.4\n")
+        with patch.object(os, "readlink", return_value="/usr/libexec/xdg-desktop-portal"), \
+                patch.dict(os.environ, {"LD_LIBRARY_PATH": "/app/lib", "LD_PRELOAD": "/app/wrap.so",
+                                        "LD_AUDIT": "/app/audit.so"}), \
+                patch.object(subprocess, "run", return_value=result) as run:
+            self.assertEqual(portal._portal_release(123), (1, 18, 4))
+            self.assertEqual(run.call_args.args[0], ["/proc/123/exe", "--version"])
+            environment = run.call_args.kwargs["env"]
+            for name in ("LD_LIBRARY_PATH", "LD_PRELOAD", "LD_AUDIT"):
+                self.assertNotIn(name, environment)
+            self.assertEqual(run.call_args.kwargs["timeout"], 1)
+
+    def test_old_running_executable_after_package_upgrade(self):
+        result = subprocess.CompletedProcess([], 0, b"xdg-desktop-portal 1.14.3\n")
+        with patch.object(os, "readlink", return_value="/usr/libexec/xdg-desktop-portal (deleted)"), \
+                patch.object(subprocess, "run", return_value=result):
+            self.assertEqual(portal._portal_release(123), (1, 14, 3))
+
+    def test_unrecognized_executable_is_not_run(self):
+        with patch.object(os, "readlink", return_value="/usr/bin/something-else"), \
+                patch.object(subprocess, "run") as run:
+            self.assertIsNone(portal._portal_release(123))
+            run.assert_not_called()
+
+    def test_failed_or_unrecognized_version_is_unknown(self):
+        with patch.object(os, "readlink", return_value="/usr/libexec/xdg-desktop-portal"):
+            for failure in (OSError("denied"), subprocess.TimeoutExpired("portal", 1)):
+                with self.subTest(failure=failure), patch.object(subprocess, "run", side_effect=failure):
+                    self.assertIsNone(portal._portal_release(123))
+            with patch.object(subprocess, "run", return_value=subprocess.CompletedProcess([], 0, b"unknown")):
+                self.assertIsNone(portal._portal_release(123))
+
+
 @unittest.skipUnless(HAS_DBUS_NEXT, "dbus-next is only required for Linux AppImage portals")
 class PortalOptionsTests(unittest.TestCase):
     def test_paths_and_filters_have_portal_types(self):
@@ -92,7 +127,7 @@ class PortalBusTests(unittest.TestCase):
         cls.daemon.communicate(timeout=5)
 
     def request(self, version=4, status=0, uris=None, failure=None, save=False, folder=False,
-                multiple=False, delayed=False):
+                multiple=False, delayed=False, daemon_release=(1, 14, 3)):
         from dbus_next import Message, MessageType, Variant
         from dbus_next.aio import MessageBus
 
@@ -150,7 +185,8 @@ class PortalBusTests(unittest.TestCase):
                 await portal._close_bus(service)
 
         with patch.dict(os.environ, {"DBUS_SESSION_BUS_ADDRESS": self.address}), \
-                patch.object(portal, "CALL_TIMEOUT", 0.2):
+                patch.object(portal, "CALL_TIMEOUT", 0.2), \
+                patch.object(portal, "_portal_release", return_value=daemon_release):
             result = asyncio.run(scenario())
         return result, captured
 
@@ -175,6 +211,27 @@ class PortalBusTests(unittest.TestCase):
         self.assertEqual(self.opened_requests, 1)
         self.request(status=1)
         self.assertEqual(self.opened_requests, 0)
+
+    def test_ubuntu_2404_v3_portal_preserves_starting_folder(self):
+        # xdg-desktop-portal 1.18.4 forwards current_folder for OpenFile,
+        # although its public FileChooser interface still reports version 3.
+        for save, folder in ((False, False), (True, False), (False, True)):
+            with self.subTest(save=save, folder=folder):
+                result, calls = self.request(version=3, daemon_release=(1, 18, 4), save=save, folder=folder)
+                self.assertIsNotNone(result)
+                self.assertEqual(len(calls), 1)
+                self.assertEqual(calls[0].body[2]["current_folder"].value,
+                                 os.fsencode("/media/vidéo files") + b"\0")
+
+    def test_v3_release_boundary_and_unknown_daemon(self):
+        for release in (None, (1, 14, 3), (1, 16, 0)):
+            with self.subTest(release=release):
+                result, calls = self.request(version=3, daemon_release=release)
+                self.assertIsNone(result)
+                self.assertEqual(calls, [])
+        result, calls = self.request(version=3, daemon_release=(1, 18, 0))
+        self.assertIsNotNone(result)
+        self.assertEqual(len(calls), 1)
 
     def test_newer_portal_and_save_folder_modes(self):
         for save, folder in ((True, False), (False, True)):

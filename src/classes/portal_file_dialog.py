@@ -1,7 +1,7 @@
 """Location-aware Linux file dialogs, bypassing old Qt portal plugins.
 
-FileChooser v4 introduced OpenFile.current_folder. Older services must use
-QFileDialog instead. None means unavailable/failed; [] means user cancelled.
+FileChooser v4 advertises OpenFile.current_folder. xdg-desktop-portal 1.18
+already supports it while reporting v3. None means fallback; [] means cancelled.
 The optional dbus-next dependency is bundled in Linux AppImages.
 """
 
@@ -9,6 +9,7 @@ import asyncio
 import logging
 import os
 import re
+import subprocess
 import uuid
 
 from qt_api import QtCore, QtWidgets
@@ -19,6 +20,32 @@ DESKTOP = "/org/freedesktop/portal/desktop"
 CHOOSER = "org.freedesktop.portal.FileChooser"
 REQUEST = "org.freedesktop.portal.Request"
 CALL_TIMEOUT = 3.0
+
+
+def _portal_release(pid):
+    """Check the running daemon, including v3 releases with current_folder.
+
+    Query its actual executable rather than the installed package, which might
+    have been upgraded without restarting the service. Do not load AppImage
+    libraries into this host executable.
+    """
+    executable = "/proc/%d/exe" % pid
+    try:
+        name = os.path.basename(os.readlink(executable)).replace(" (deleted)", "")
+        if name != "xdg-desktop-portal":
+            return None
+        environment = dict(os.environ)
+        for variable in ("LD_LIBRARY_PATH", "LD_PRELOAD", "LD_AUDIT"):
+            environment.pop(variable, None)
+        environment["LC_ALL"] = "C"
+        result = subprocess.run(
+            [executable, "--version"], env=environment, stdout=subprocess.PIPE,
+            stderr=subprocess.DEVNULL, timeout=1, check=True)
+        match = re.fullmatch(rb"xdg-desktop-portal (\d+)\.(\d+)\.(\d+)\s*", result.stdout)
+        return tuple(int(part) for part in match.groups()) if match else None
+    except (OSError, subprocess.SubprocessError) as exc:
+        logger.info("Cannot determine running file portal release: %s", exc)
+        return None
 
 
 async def _close_bus(bus):
@@ -88,9 +115,17 @@ async def _request(parent_id, caption, options, save=False, on_opened=None):
         reply = await call(SERVICE, DESKTOP, "org.freedesktop.DBus.Properties",
                            "Get", "ss", [CHOOSER, "version"])
         version = reply.body[0]
-        if version.signature != "u" or version.value < 4:
-            return None
         owner = reply.sender
+        supported = version.signature == "u" and version.value >= 4
+        if version.signature == "u" and version.value == 3:
+            pid = await call("org.freedesktop.DBus", "/org/freedesktop/DBus",
+                             "org.freedesktop.DBus", "GetConnectionUnixProcessID", "s", [owner])
+            release = _portal_release(pid.body[0])
+            supported = release is not None and release >= (1, 18, 0)
+            logger.info("File portal interface 3, running daemon release: %s", release)
+        logger.info("File portal interface %s: starting-folder support %s", version.value, supported)
+        if not supported:
+            return None
         token = "openshot_" + uuid.uuid4().hex
         handle = DESKTOP + "/request/" + bus.unique_name[1:].replace(".", "_") + "/" + token
         options = dict(options, handle_token=Variant("s", token))

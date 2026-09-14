@@ -825,7 +825,7 @@ def location_file_dialog_options():
 
 
 def _portal_file_dialog(parent, caption, directory, **kwargs):
-    """Try the v4 portal only for Linux installations selecting that theme."""
+    """Try a location-aware portal for Linux installations selecting that theme."""
     if (not sys.platform.startswith("linux") or _is_android_runtime()
             or os.environ.get("QT_QPA_PLATFORMTHEME", "").lower() != "xdgdesktopportal"):
         return None
