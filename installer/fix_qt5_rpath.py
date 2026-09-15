@@ -109,9 +109,27 @@ def print_min_versions(PATH):
 
 
 if __name__ == "__main__":
-    # Run these methods manually for testing
+    # Run these methods manually for testing.
+    # Usage: python3 fix_qt5_rpath.py [BUILD_PATH]
+    # With no argument, the most recent cx_Freeze build directory under
+    # <repo>/build/exe.macosx-* is used, which works on any architecture
+    # (arm64 or x86_64) and any Python / macOS SDK version.
+    import sys
+    import glob
 
-    # XXX: This path should be set programmatically, somehow
-    PATH = "/Users/jonathanthomas/apps/openshot-qt/build/exe.macosx-10.15-x86_64-3.7"
+    if len(sys.argv) > 1:
+        PATH = sys.argv[1]
+    else:
+        repo_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        candidates = sorted(glob.glob(os.path.join(repo_root, "build", "exe.macosx-*")))
+        if not candidates:
+            sys.exit(
+                "Usage: python3 fix_qt5_rpath.py [BUILD_PATH]\n"
+                "No cx_Freeze build directory found under %s/build/exe.macosx-*"
+                % repo_root
+            )
+        PATH = candidates[-1]
+
+    print("Running fix_rpath and print_min_versions against: %s" % PATH)
     fix_rpath(PATH)
     print_min_versions(PATH)
