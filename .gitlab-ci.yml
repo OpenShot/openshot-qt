@@ -31,6 +31,7 @@ linux:
     - build/build-server.log
     - build/freeze-linux.log
   script:
+    - python3 -m pip install --user dbus-next==0.2.3
     - "curl -O -J -L --header PRIVATE-TOKEN:$ACCESS_TOKEN http://gitlab.openshot.org/OpenShot/libopenshot/-/jobs/artifacts/$CI_COMMIT_REF_NAME/download?job=linux-builder"
     - if [ ! -f artifacts.zip ]; then
     -    "curl -O -J -L --header PRIVATE-TOKEN:$ACCESS_TOKEN http://gitlab.openshot.org/OpenShot/libopenshot/-/jobs/artifacts/develop/download?job=linux-builder"

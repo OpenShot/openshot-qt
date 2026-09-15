@@ -815,19 +815,34 @@ def request_android_storage_permission_if_needed():
 
 
 def location_file_dialog_options():
-    """Return options that preserve requested folders with the Linux portal theme.
-
-    The Qt 5 xdgdesktopportal platform theme used by our AppImage ignores the
-    initial directory passed to static native file dialogs. Use Qt's own dialog
-    for location-aware operations so Recent Folder and Project Folder settings
-    remain effective.
-    """
+    """Use Qt's picker when the direct, location-aware portal helper falls back."""
     platform_theme = os.environ.get("QT_QPA_PLATFORMTHEME", "")
     if platform_theme.lower() != "xdgdesktopportal":
         return None
 
     QFileDialog = getattr(QtWidgets, "QFileDialog", None)
     return getattr(QFileDialog, "DontUseNativeDialog", None)
+
+
+def _portal_file_dialog(parent, caption, directory, **kwargs):
+    """Try a location-aware portal for Linux installations selecting that theme."""
+    if (not sys.platform.startswith("linux") or _is_android_runtime()
+            or os.environ.get("QT_QPA_PLATFORMTHEME", "").lower() != "xdgdesktopportal"):
+        return None
+    from classes.portal_file_dialog import show_dialog
+    return show_dialog(parent, caption, directory, **kwargs)
+
+
+def get_existing_directory(parent, caption, directory):
+    """Select an export folder, preserving the requested starting directory."""
+    urls = _portal_file_dialog(parent, caption, directory, folder=True)
+    if urls is not None:
+        return urls[0].toLocalFile() if urls else ""
+    options = location_file_dialog_options()
+    if options is None:
+        return QtWidgets.QFileDialog.getExistingDirectory(parent, caption, directory)
+    return QtWidgets.QFileDialog.getExistingDirectory(
+        parent, caption, directory, options=options | QtWidgets.QFileDialog.ShowDirsOnly)
 
 
 def show_open_file_dialog(parent, caption, directory, file_filter, on_complete, allow_multiple=True):
@@ -847,14 +862,20 @@ def show_open_file_dialog(parent, caption, directory, file_filter, on_complete, 
         _active_picker = _AndroidFilePicker(on_complete, allow_multiple=allow_multiple)
         _active_picker.open()
     else:
+        urls = _portal_file_dialog(
+            parent, caption, directory, file_filter=file_filter, multiple=allow_multiple)
+        if urls is not None:
+            on_complete(urls)
+            return
         QFileDialog = getattr(QtWidgets, "QFileDialog", None)
         dir_url = QtCore.QUrl.fromLocalFile(directory) if directory else QtCore.QUrl()
         options = location_file_dialog_options()
-        if options is None:
-            urls, _ = QFileDialog.getOpenFileUrls(parent, caption, dir_url, file_filter)
+        kwargs = {} if options is None else {"options": options}
+        if allow_multiple:
+            urls, _ = QFileDialog.getOpenFileUrls(parent, caption, dir_url, file_filter, **kwargs)
         else:
-            urls, _ = QFileDialog.getOpenFileUrls(
-                parent, caption, dir_url, file_filter, options=options)
+            url, _ = QFileDialog.getOpenFileUrl(parent, caption, dir_url, file_filter, **kwargs)
+            urls = [url] if not url.isEmpty() else []
         on_complete(urls)
 
 
@@ -883,6 +904,11 @@ def show_save_file_dialog(parent, caption, suggested_name, mime_type, on_complet
     else:
         QFileDialog = getattr(QtWidgets, "QFileDialog", None)
         initial_path = os.path.join(directory, suggested_name) if directory else suggested_name
+        urls = _portal_file_dialog(
+            parent, caption, os.path.dirname(initial_path), save_name=os.path.basename(initial_path))
+        if urls is not None:
+            on_complete(urls[0].toLocalFile() if urls else "")
+            return
         options = location_file_dialog_options()
         if options is None:
             path, _ = QFileDialog.getSaveFileName(parent, caption, initial_path)
