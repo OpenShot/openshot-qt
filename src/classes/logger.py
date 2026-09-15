@@ -88,7 +88,7 @@ root_log = logging.getLogger()
 
 # Set up our top-level logging context
 log = root_log.getChild('OpenShot')
-log.setLevel(info.LOG_LEVEL_FILE)
+log.setLevel(logging.DEBUG)
 # Don't pass messages on to root logger
 log.propagate = False
 
@@ -114,6 +114,7 @@ if fh:
     log.addHandler(fh)
 else:
     fh = logging.NullHandler()
+    fh.setLevel(info.LOG_LEVEL_FILE)
 
 #
 # Create typical stream handler which logs to stderr
@@ -127,6 +128,8 @@ filt = StreamFilter()
 sh.addFilter(filt)
 
 log.addHandler(sh)
+# Let each handler filter independently, including console-only DEBUG.
+log.setLevel(min(fh.level, sh.level))
 
 
 def reroute_output():
@@ -141,8 +144,10 @@ def reroute_output():
 def set_level_file(level=logging.INFO):
     """Adjust the minimum log level written to our logfile"""
     fh.setLevel(level)
+    log.setLevel(min(fh.level, sh.level))
 
 
 def set_level_console(level=logging.INFO):
     """Adjust the minimum log level for output to the terminal"""
     sh.setLevel(level)
+    log.setLevel(min(fh.level, sh.level))

@@ -141,15 +141,8 @@ def main():
         action='store_true',
         help="Load Qt's QAbstractItemModelTester into data models "
         '(requires Qt 5.11+)')
-    parser.add_argument(
-        '-d', '--debug', action='store_true',
-        help='Enable debugging output')
-    parser.add_argument(
-        '--debug-file', action='store_true',
-        help='Debugging output (logfile only)')
-    parser.add_argument(
-        '--debug-console', action='store_true',
-        help='Debugging output (console only)')
+    from classes import log_config
+    log_config.add_arguments(parser)
     parser.add_argument('-V', '--version', action='store_true')
     parser.add_argument(
         '--feedback-preview', action='store_true',
@@ -169,11 +162,10 @@ def main():
         print(info.SETUP['version'])
         sys.exit()
 
-    # Set up debugging log level to requested streams
-    if args.debug or args.debug_file:
-        info.LOG_LEVEL_FILE = 'DEBUG'
-    if args.debug or args.debug_console:
-        info.LOG_LEVEL_CONSOLE = 'DEBUG'
+    log_config.configure_arguments(parser, args)
+    # Apply CLI/environment levels before importing modules which create loggers.
+    info.LOG_LEVEL_FILE = log_config.LEVELS[log_config.resolve("python", "file")[0]]
+    info.LOG_LEVEL_CONSOLE = log_config.LEVELS[log_config.resolve("python", "console")[0]]
 
     if args.list_languages:
         from classes.language import get_all_languages
@@ -210,15 +202,18 @@ def main():
     # Normal startup, print module path and lauch application
     print(f"Loaded modules from: {info.PATH}")
 
+    # Create paths before importing modules which initialize the file logger.
+    info.setup_userdirs()
+
+    from classes import logger_libopenshot
+    logger_libopenshot.configure(initialize=True)
+
     # Configure packaged CA certificates before optional network integrations start.
     from classes import http_client, sentry
     http_client.configure_ssl_environment()
 
     # Initialize sentry exception tracing
     sentry.init_tracing()
-
-    # Create any missing paths in the user's settings dir
-    info.setup_userdirs()
 
     # Create Qt application, pass any unprocessed arguments
     from classes.app import OpenShotApp

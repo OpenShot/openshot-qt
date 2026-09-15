@@ -575,18 +575,16 @@
     "setting": "comfy-ui-url"
   },
   {
-    "min": 0,
-    "max": 9999,
-    "value": 5556,
-    "title": "Debug Mode (Port)",
-    "type": "spinner-int",
+    "value": false,
+    "title": "User Interface Debug Logging",
+    "type": "bool",
     "category": "Advanced",
-    "setting": "debug-port",
-    "restart": true
+    "setting": "debug-ui",
+    "restart": false
   },
   {
     "value": false,
-    "title": "Debug Mode (Verbose)",
+    "title": "Video & Audio Engine Debug Logging",
     "type": "bool",
     "category": "Advanced",
     "setting": "debug-mode",

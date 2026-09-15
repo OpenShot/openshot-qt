@@ -100,7 +100,6 @@ python_packages = ["os",
                    "logging",
                    "urllib",
                    "requests",
-                   "zmq",
                    "webbrowser",
                    "json",
                    ]
