@@ -256,13 +256,13 @@ class MainWindowTests(unittest.TestCase):
         theme.create_svg_icon = MagicMock(side_effect=["pause-icon", "play-icon"])
 
         theme.togglePlayIcon(True)
-        pause_path, pause_size = theme.create_svg_icon.call_args.args
+        pause_path, pause_size = theme.create_svg_icon.call_args[0]
         self.assertEqual(os.path.basename(pause_path), "tool-media-pause.svg")
         self.assertIs(pause_size, icon_size)
         button.setIcon.assert_called_with("pause-icon")
 
         theme.togglePlayIcon(False)
-        play_path, play_size = theme.create_svg_icon.call_args.args
+        play_path, play_size = theme.create_svg_icon.call_args[0]
         self.assertEqual(os.path.basename(play_path), "tool-media-play.svg")
         self.assertIs(play_size, icon_size)
         button.setIcon.assert_called_with("play-icon")

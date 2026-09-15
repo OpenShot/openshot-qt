@@ -86,8 +86,9 @@ def verify():
     finally:
         app.quit()
 
-QTimer.singleShot(4000, verify)
 assert app.gui()
+# Start after GUI initialization; slow builders may process events during gui().
+QTimer.singleShot(4000, verify)
 app.exec_()
 assert passed, "Notification startup checks failed"
 '''
@@ -96,5 +97,5 @@ assert passed, "Notification startup checks failed"
                    QT_QUICK_BACKEND="software")
         result = subprocess.run([sys.executable, "-c", script], env=env,
                                 stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                                text=True, timeout=60)
+                                universal_newlines=True, timeout=60)
         self.assertEqual(result.returncode, 0, result.stdout[-16000:])

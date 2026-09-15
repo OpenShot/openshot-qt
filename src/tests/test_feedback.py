@@ -655,6 +655,29 @@ class FeedbackActionHookTests(unittest.TestCase):
         next_command(["one"])
         self.assertEqual(self.policy.action_count, 1)
 
+    def test_nested_commands_share_a_snapshot_but_other_threads_do_not(self):
+        from concurrent.futures import ThreadPoolExecutor
+        from classes import feedback
+
+        @feedback.feedback_command("adjustments")
+        def inner(clip_ids):
+            return "edited"
+
+        @feedback.feedback_command("structure")
+        def outer(clip_ids):
+            self.assertEqual(inner(clip_ids), "edited")
+            # A command in another thread must still take its own snapshot.
+            with ThreadPoolExecutor(max_workers=1) as pool:
+                self.assertEqual(pool.submit(inner, ["two"]).result(timeout=5), "edited")
+
+        with patch.object(feedback, "_feedback_clip_snapshot", return_value={}) as snapshot:
+            outer(["one"])
+            self.assertEqual(snapshot.call_count, 2)
+            snapshot.assert_any_call(["one"])
+            snapshot.assert_any_call(["two"])
+            inner(["one"])
+            self.assertEqual(snapshot.call_count, 3)
+
     def test_tracking_failure_does_not_break_user_command(self):
         from classes.feedback import feedback_command
 

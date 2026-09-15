@@ -54,8 +54,8 @@ class HttpClientTests(unittest.TestCase):
             )
 
         self.assertEqual(result, {"ok": True})
-        self.assertEqual(get.call_args_list[0].args[0], "https://example.com/version/json/")
-        self.assertEqual(get.call_args_list[1].args[0], "http://example.com/version/json/")
+        self.assertEqual(get.call_args_list[0][0][0], "https://example.com/version/json/")
+        self.assertEqual(get.call_args_list[1][0][0], "http://example.com/version/json/")
 
     def test_download_file_does_not_fallback_after_cancel(self):
         class Cancelled(Exception):

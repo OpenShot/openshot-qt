@@ -121,7 +121,7 @@ class SentryMiscTests(unittest.TestCase):
                         patch.object(self.timeline, "StyledContextMenu", return_value=menu):
                     self.timeline.TimelineView.ShowClipMenu(helper, "C1")
                 menu.show_at.assert_called_once()
-                callbacks = [call.args[0] for call in menu.addAction.return_value.triggered.connect.call_args_list]
+                callbacks = [call[0][0] for call in menu.addAction.return_value.triggered.connect.call_args_list]
                 slices = [callback for callback in callbacks if getattr(callback, "func", None) is helper.Slice_Triggered]
                 self.assertTrue(slices)
                 self.assertTrue(all(callback.args[3] == seconds for callback in slices))

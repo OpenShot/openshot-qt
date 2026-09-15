@@ -222,7 +222,7 @@ class RecordingPreviewTests(unittest.TestCase):
         dock._camera_devices_refreshed = True
         helper.AudioRecordingDockContent._sync_source_availability(dock)
 
-        available, tooltip = dock.camera_card.setAvailable.call_args.args
+        available, tooltip = dock.camera_card.setAvailable.call_args[0]
         self.assertFalse(available)
         self.assertIn("No webcam", tooltip)
 

@@ -15,6 +15,7 @@ if SOURCE_ROOT not in sys.path:
 
 from qt_api import QApplication, QFile, QIODevice, QRectF, Qt
 from tests.qt_test_app import ensure_app_state, get_or_create_app
+from tests.source_tree import source_path
 
 
 class DummySettings:
@@ -88,7 +89,11 @@ class AboutTests(unittest.TestCase):
         dialog.particle_timer.stop()
         self.assertEqual(dialog.objectName(), "aboutDialog")
         self.assertTrue(dialog.testAttribute(Qt.WA_OpaquePaintEvent))
-        self.assertFalse(dialog.background_cache.hasAlphaChannel())
+        # Qt's minimal backend can retain an alpha channel for opaque pixmaps.
+        # Verify the painted pixels, not the backend's storage format.
+        image = dialog.background_cache.toImage()
+        self.assertTrue(all(image.pixelColor(x, y).alpha() == 255
+                            for y in range(image.height()) for x in range(image.width())))
         background = dialog.background_cache.cacheKey()
         logo = dialog.logo_cache.cacheKey()
         dialog.particle_time += 1
@@ -177,7 +182,7 @@ class AboutTests(unittest.TestCase):
         self.assertLess(dialog.btnCopyVersionInfo.geometry().bottom(), dialog.pushButton_3.y())
 
     def test_packaged_resources_match_manifest(self):
-        images = Path(__file__).resolve().parents[2] / "images"
+        images = source_path("images")
         for resource in ET.parse(str(images / "openshot.qrc")).getroot():
             for entry in resource:
                 name = ":" + resource.get("prefix").rstrip("/") + "/" + entry.get("alias", entry.text)

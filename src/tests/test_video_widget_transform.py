@@ -310,10 +310,10 @@ class VideoWidgetTransformTests(unittest.TestCase):
 
         with tempfile.NamedTemporaryFile(suffix=".onnx") as test_model, \
                 patch("windows.process_effect.get_app") as get_app, \
-                patch(
-                    "windows.process_effect.openshot.ClipProcessingJobs.ValidateONNXModel",
-                    return_value="",
-                ) as validate:
+                patch.object(openshot, "ClipProcessingJobs", create=True) as jobs:
+            # The processing API is optional in libopenshot builds (e.g. Bionic).
+            validate = jobs.ValidateONNXModel
+            validate.return_value = ""
             get_app.return_value = types.SimpleNamespace(_tr=lambda text: text)
 
             valid, message = ProcessEffect.validate_onnx_model_load(process, test_model.name)
@@ -328,10 +328,8 @@ class VideoWidgetTransformTests(unittest.TestCase):
 
         with tempfile.NamedTemporaryFile(suffix=".onnx") as test_model, \
                 patch("windows.process_effect.get_app") as get_app, \
-                patch(
-                    "windows.process_effect.openshot.ClipProcessingJobs.ValidateONNXModel",
-                    return_value="Failed to load ONNX model: bad graph",
-                ):
+                patch.object(openshot, "ClipProcessingJobs", create=True) as jobs:
+            jobs.ValidateONNXModel.return_value = "Failed to load ONNX model: bad graph"
             get_app.return_value = types.SimpleNamespace(_tr=lambda text: text)
 
             valid, message = ProcessEffect.validate_onnx_model_load(process, test_model.name)
@@ -641,7 +639,7 @@ class VideoWidgetTransformTests(unittest.TestCase):
             with open(test_path, "rb") as output_file:
                 self.assertEqual(output_file.read(), b"hello world")
             self.assertEqual(progress, [(6, 11), (11, 11)])
-            self.assertIs(urlopen.call_args.kwargs["context"], context_stub)
+            self.assertIs(urlopen.call_args[1]["context"], context_stub)
         finally:
             os.remove(test_path)
 
