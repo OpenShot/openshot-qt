@@ -45,6 +45,7 @@ import os
 import argparse
 import json
 import logging
+import traceback
 
 # Ensure Qt plugin DLL dependencies are found on Windows packaged builds.
 if os.name == "nt":
@@ -224,7 +225,11 @@ def main():
     try:
         app = OpenShotApp(argv)
     except Exception:
-        app.show_errors()
+        if app is not None:
+            app.show_errors()
+        else:
+            from classes.app import StartupError
+            StartupError("Startup Error", traceback.format_exc(), level="error").show()
 
     # Setup Qt application details
     app.setApplicationName('openshot')
