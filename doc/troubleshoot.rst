@@ -25,6 +25,202 @@ Troubleshooting
 If you are experiencing an issue with OpenShot, such as a freeze, crash, or error message, there are many different
 techniques which can be useful for troubleshooting the issue.
 
+.. _logging_ref:
+
+Using Logs to Troubleshoot a Problem
+--------------------------------------
+
+A log is a text file that records what OpenShot is doing, along with warnings
+and errors. These files can help the support team understand a problem, even
+when you do not see an error message on screen.
+
+OpenShot keeps two log files in the ``.openshot_qt`` folder inside your home
+folder. On Linux and macOS, this location is written as ``~/.openshot_qt/``.
+The folder may be hidden in your file manager.
+
+.. list-table:: The two log files
+   :header-rows: 1
+   :widths: 25 75
+
+   * - File
+     - What it records
+   * - ``openshot-qt.log``
+     - Activity in the editor: starting OpenShot, loading projects, changing
+       settings, and using the interface. This is usually the best place to
+       start when investigating a problem.
+   * - ``libopenshot.log``
+     - Activity in OpenShot's video and audio engine, the part that reads media
+       and builds the pictures and sound used in previews and exported videos.
+       Detailed engine logging can help investigate playback and export problems.
+
+These files record different parts of the same application. When reporting a
+problem, include both files if available. You do not need to understand every
+line yourself.
+
+Choose which part of OpenShot to log
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Open **Edit → Preferences → Advanced** to find these two settings:
+
+.. list-table:: Preferences and matching terminal options
+   :header-rows: 1
+   :widths: 45 30 25
+
+   * - Preference
+     - Matching argument
+     - Log file
+   * - User Interface Debug Logging
+     - ``--debug-ui``
+     - ``openshot-qt.log``
+   * - Video & Audio Engine Debug Logging
+     - ``--debug-engine``
+     - ``libopenshot.log``
+
+Both preferences are off by default, which keeps the normal summary messages.
+Turning one on adds detail to its log file immediately. It does not change the
+other log or add messages to the terminal. Preferences stay enabled between
+launches until you turn them off.
+
+**User Interface Debug Logging** is a good starting point for problems with
+startup, project loading, settings, or the interface. **Video & Audio Engine
+Debug Logging** adds details about video and audio processing, which can help
+investigate playback and export problems. Engine logs can grow very quickly
+and may slow OpenShot down. Turn this setting on shortly before repeating the
+problem, then turn it off afterward.
+
+The engine preference was previously called **Debug Mode (Verbose)**. Its saved
+on/off setting carries over to the new name.
+
+Use a terminal for one launch
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+A terminal is a window where you type commands. The matching arguments enable
+the same extra detail as the preferences, and also display it in the terminal:
+
+.. code-block:: bash
+
+   openshot-qt --debug-ui
+
+This records interface details for one launch. The familiar ``--debug`` and
+shorter ``-d`` options mean exactly the same thing as ``--debug-ui``.
+For video and audio engine details, use:
+
+.. code-block:: bash
+
+   openshot-qt --debug-engine
+
+To collect both types of detail together:
+
+.. code-block:: bash
+
+   openshot-qt --debug-ui --debug-engine
+
+Repeat the steps that cause the problem, then close OpenShot and collect the
+logs. These arguments do not change your saved preferences. Starting OpenShot
+normally returns to your usual logging settings.
+
+``openshot-qt.log`` starts a new file when it reaches about 25 MB and keeps
+three older copies. ``libopenshot.log`` keeps growing as messages are added.
+After saving any logs you need, you can remove old log files while OpenShot
+is closed.
+
+Other command-line options
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Most users only need the two controls above. The following options let you
+choose how much detail goes into the files or appears in the terminal.
+Here, *console* means the terminal output.
+
+.. list-table:: Logging options
+   :header-rows: 1
+   :widths: 40 60
+
+   * - Option
+     - What it does
+   * - ``--debug-ui``, ``--debug``, or ``-d``
+     - Enables User Interface Debug Logging in its file and the terminal.
+   * - ``--debug-engine``
+     - Enables Video & Audio Engine Debug Logging in its file and the terminal.
+   * - ``--debug-file``
+     - Adds editor details to ``openshot-qt.log`` without adding terminal detail.
+   * - ``--debug-console``
+     - Adds editor details in the terminal without adding file detail.
+   * - ``--log-level LEVEL``
+     - Sets the detail for both logs and their terminal output.
+   * - ``--log-file-level LEVEL``
+     - Sets the detail for both log files, leaving terminal settings alone.
+   * - ``--log-console-level LEVEL``
+     - Sets the detail in the terminal for both the editor and engine,
+       leaving file settings alone.
+
+Replace ``LEVEL`` with ``debug`` for detailed messages or ``info`` for the
+normal summary. ``warning`` shows warnings and errors; ``error`` shows errors
+and critical failures; ``critical`` shows only critical failures. ``off`` stops
+ordinary log messages, but existing crash diagnostics may still be written.
+Uppercase names such as ``DEBUG`` work too.
+
+For example, to collect detailed messages in **both files** while keeping the
+terminal at its usual level:
+
+.. code-block:: bash
+
+   openshot-qt --log-file-level debug
+
+This also enables the large engine log, so use it briefly. The older
+``--debug-file`` and ``--debug-console`` options still work even though they
+are not listed in ``--help``.
+
+Environment variables
+^^^^^^^^^^^^^^^^^^^^^^^
+
+An environment variable is a named setting passed to a program when it starts.
+These are useful when starting OpenShot from a script or when a support person
+asks you to try a particular setting. You do not need to set them for normal use.
+
+.. list-table:: Optional environment settings
+   :header-rows: 1
+   :widths: 45 55
+
+   * - Variable
+     - What it controls
+   * - ``OPENSHOT_LOG_LEVEL``
+     - Detail in both files and the terminal.
+   * - ``OPENSHOT_LOG_FILE_LEVEL``
+     - Detail in both files only.
+   * - ``OPENSHOT_LOG_CONSOLE_LEVEL``
+     - Detail in the terminal only, for both parts of OpenShot.
+   * - ``LIBOPENSHOT_LOG_LEVEL``
+     - Detail for the video and audio engine, in its file and the terminal.
+   * - ``LIBOPENSHOT_LOG_FILE_LEVEL``
+     - Detail in ``libopenshot.log`` only.
+   * - ``LIBOPENSHOT_LOG_CONSOLE_LEVEL``
+     - Engine detail in the terminal only.
+
+For example, this Linux/macOS terminal command requests detailed engine logging
+in its file for one launch:
+
+.. code-block:: bash
+
+   LIBOPENSHOT_LOG_FILE_LEVEL=debug openshot-qt
+
+If settings overlap, command-line options take priority, followed by environment
+variables, then Preferences, then the normal defaults. Each control only affects
+the output it describes: ``--debug`` does not override the engine preference.
+Temporary overrides do not change your saved preferences. Hover over either
+checkbox to see whether another setting is controlling that log file.
+
+Within the environment settings, ``LIBOPENSHOT_`` values take priority over
+``OPENSHOT_`` values for the engine. Within either group, a file-only or
+console-only level takes priority over the general level. Command-line options
+follow the same file/console rule. Conflicting command-line levels for the same
+output are rejected; invalid environment levels are reported and ignored.
+
+For older scripts, ``LIBOPENSHOT_DEBUG`` still enables detailed engine messages
+in the terminal whenever it is present, even if its value is ``0``. The newer
+level settings take priority over it. ``LIBOPENSHOT_LOG_FILE`` is intended for
+programs using the engine separately; OpenShot itself uses the log folder above.
+Changing logging settings does not change your error-reporting preference.
+
 Windows 11 Unresponsive
 -----------------------
 

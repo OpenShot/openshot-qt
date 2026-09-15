@@ -98,10 +98,8 @@ unofficial Ubuntu repository, which has our software packages available to downl
                         libxcursor-dev \
                         libxinerama-dev \
                         libxrandr-dev \
-                        libzmq3-dev \
                         pkg-config \
                         python3-dev \
-                        python3-zmq \
                         protobuf-compiler \
                         qtbase5-dev \
                         libqt5svg5-dev \

@@ -258,10 +258,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         if getattr(self, "proxy_service", None):
             self.proxy_service.shutdown()
 
-        # Stop ZMQ polling thread (if any)
-        if app.logger_libopenshot:
-            app.logger_libopenshot.kill()
-
         # Process any queued events
         QCoreApplication.processEvents()
 
