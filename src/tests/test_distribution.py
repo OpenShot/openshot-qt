@@ -16,6 +16,7 @@ if PATH not in sys.path:
 
 from classes import distribution, info
 from classes.distribution import detect_distribution
+from tests.source_tree import source_path
 
 
 class DistributionTests(unittest.TestCase):
@@ -115,7 +116,7 @@ class DistributionTests(unittest.TestCase):
 
 class BuildProvenanceTests(unittest.TestCase):
     def test_only_our_ci_project_marks_official_and_local_rebuild_clears_marker(self):
-        sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+        sys.path.insert(0, str(source_path("installer").parent))
         self.addCleanup(sys.path.pop, 0)
         from installer.version_parser import write_build_metadata
         with tempfile.TemporaryDirectory() as folder:

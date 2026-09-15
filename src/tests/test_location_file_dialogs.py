@@ -40,9 +40,9 @@ class LocationFileDialogTests(unittest.TestCase):
                 None, "Import", "/media/recent", "", callback_results.extend)
 
         self.assertEqual(callback_results, selected)
-        self.assertEqual(get_urls.call_args.args[2].toLocalFile(), "/media/recent")
+        self.assertEqual(get_urls.call_args[0][2].toLocalFile(), "/media/recent")
         self.assertEqual(
-            get_urls.call_args.kwargs["options"],
+            get_urls.call_args[1]["options"],
             qt_api.QtWidgets.QFileDialog.DontUseNativeDialog,
         )
 
@@ -59,9 +59,9 @@ class LocationFileDialogTests(unittest.TestCase):
             )
 
         self.assertEqual(callback_results, ["/projects/recent/movie.osp"])
-        self.assertEqual(get_name.call_args.args[2], "/projects/recent/movie.osp")
+        self.assertEqual(get_name.call_args[0][2], "/projects/recent/movie.osp")
         self.assertEqual(
-            get_name.call_args.kwargs["options"],
+            get_name.call_args[1]["options"],
             qt_api.QtWidgets.QFileDialog.DontUseNativeDialog,
         )
 
@@ -88,7 +88,7 @@ class LocationFileDialogTests(unittest.TestCase):
                 qt_api.show_open_file_dialog(
                     None, "Open", "/projects", "Project (*.osp)", received.append, allow_multiple=False)
                 self.assertEqual(received, [[selected]] if not result.isEmpty() else [[]])
-                self.assertFalse(self.portal.call_args.kwargs["multiple"])
+                self.assertFalse(self.portal.call_args[1]["multiple"])
                 fallback.assert_called_once()
 
     def test_native_save_and_cancel_do_not_open_fallback(self):

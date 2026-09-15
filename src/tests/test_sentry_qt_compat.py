@@ -33,7 +33,10 @@ class SentryQtCompatibilityTests(unittest.TestCase):
 
     def delete_widget(self, widget):
         widget.deleteLater()
-        QCoreApplication.sendPostedEvents(None, QEvent.Type.DeferredDelete)
+        event_type = getattr(QEvent, "DeferredDelete", None)
+        if event_type is None:
+            event_type = QEvent.Type.DeferredDelete
+        QCoreApplication.sendPostedEvents(None, event_type)
         self.assertTrue(qt_api.isdeleted(widget))
 
     def test_deferred_tab_order_skips_deleted_control(self):

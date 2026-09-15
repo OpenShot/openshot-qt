@@ -51,11 +51,11 @@ class PortalReleaseTests(unittest.TestCase):
                                         "LD_AUDIT": "/app/audit.so"}), \
                 patch.object(subprocess, "run", return_value=result) as run:
             self.assertEqual(portal._portal_release(123), (1, 18, 4))
-            self.assertEqual(run.call_args.args[0], ["/proc/123/exe", "--version"])
-            environment = run.call_args.kwargs["env"]
+            self.assertEqual(run.call_args[0][0], ["/proc/123/exe", "--version"])
+            environment = run.call_args[1]["env"]
             for name in ("LD_LIBRARY_PATH", "LD_PRELOAD", "LD_AUDIT"):
                 self.assertNotIn(name, environment)
-            self.assertEqual(run.call_args.kwargs["timeout"], 1)
+            self.assertEqual(run.call_args[1]["timeout"], 1)
 
     def test_old_running_executable_after_package_upgrade(self):
         result = subprocess.CompletedProcess([], 0, b"xdg-desktop-portal 1.14.3\n")
@@ -117,7 +117,7 @@ class PortalBusTests(unittest.TestCase):
         # Resolved test executable, fixed arguments, no shell.
         cls.daemon = subprocess.Popen(  # nosec B603
             [DBUS_DAEMON, "--session", "--nofork", "--print-address=1"],
-            stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+            stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
         if not select.select([cls.daemon.stdout], [], [], 5)[0]:
             cls.daemon.terminate()
             cls.daemon.communicate(timeout=5)
@@ -190,7 +190,13 @@ class PortalBusTests(unittest.TestCase):
         with patch.dict(os.environ, {"DBUS_SESSION_BUS_ADDRESS": self.address}), \
                 patch.object(portal, "CALL_TIMEOUT", 0.2), \
                 patch.object(portal, "_portal_release", return_value=daemon_release):
-            result = asyncio.run(scenario())
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+            try:
+                result = loop.run_until_complete(scenario())
+            finally:
+                loop.close()
+                asyncio.set_event_loop(None)
         return result, captured
 
     def test_modern_portal_receives_starting_folder_and_filter(self):

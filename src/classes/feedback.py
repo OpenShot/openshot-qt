@@ -4,7 +4,7 @@ import base64
 import json
 import math
 from copy import deepcopy
-from contextvars import ContextVar
+from threading import local
 from functools import wraps
 from inspect import signature
 from urllib.parse import urlencode
@@ -12,7 +12,8 @@ from urllib.parse import urlencode
 SURVEY_URL = "https://www.openshot.org/{language}feedback/"
 FEEDBACK_DELAY_SECONDS = 20 * 60
 FEEDBACK_ACTION_CATEGORIES = frozenset(("structure", "adjustments", "effects", "titles", "profile", "export"))
-_feedback_command_active = ContextVar("feedback_command_active", default=False)
+# Commands are synchronous; keep nested-command tracking local to their thread.
+_feedback_command_active = local()
 
 
 def survey_url(distribution, install_id, website_language=""):
@@ -119,15 +120,15 @@ def feedback_command(category):
             if len(args) == positional_count + 1 and isinstance(args[-1], bool):
                 args = args[:-1]
             # Some presets delegate to other commands (e.g. volume fade in + out).
-            if _feedback_command_active.get():
+            if getattr(_feedback_command_active, "active", False):
                 return command(*args, **kwargs)
             clip_ids = arguments.bind(*args, **kwargs).arguments.get("clip_ids", ())
             before = _feedback_clip_snapshot(clip_ids)
-            token = _feedback_command_active.set(True)
+            _feedback_command_active.active = True
             try:
                 result = command(*args, **kwargs)
             finally:
-                _feedback_command_active.reset(token)
+                _feedback_command_active.active = False
             if before:
                 record_feedback_changes(category, before)
             return result

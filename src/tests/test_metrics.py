@@ -92,7 +92,7 @@ class MetricsTests(unittest.TestCase):
 
         post.assert_called_once()
         self.assertEqual(
-            post.call_args.kwargs["timeout"],
+            post.call_args[1]["timeout"],
             (metrics.METRIC_CONNECT_TIMEOUT, metrics.METRIC_READ_TIMEOUT),
         )
         self.assertFalse(metrics.metric_queue)

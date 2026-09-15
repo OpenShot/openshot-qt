@@ -107,8 +107,8 @@ def verify():
         traceback.print_exc()
     finally:
         app.quit()
-QTimer.singleShot(4000,verify)
 assert app.gui()
+QTimer.singleShot(4000,verify)
 app.exec_()
 assert passed
 '''
@@ -120,14 +120,14 @@ assert passed
                 "-f", "lavfi", "-i", "color=c=blue:s=160x90:r=24",
                 "-f", "lavfi", "-i", "anullsrc=r=48000:cl=stereo",
                 "-t", "2", "-c:v", "mpeg4", "-c:a", "aac", "-y", media,
-            ], check=True, capture_output=True, timeout=30)
+            ], check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=30)
             env = dict(os.environ, PYTHONPATH=str(Path(__file__).resolve().parents[1]),
                        QT_QPA_PLATFORM="offscreen", QT_QUICK_BACKEND="software",
                        FEEDBACK_TEST_MEDIA=media)
             # Execute only the literal test script above, using this Python interpreter.
             result = subprocess.run([sys.executable, "-c", script], env=env,  # nosec B603
                                     stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                                    text=True, timeout=90)
+                                    universal_newlines=True, timeout=90)
         self.assertEqual(result.returncode, 0, result.stdout[-16000:])
         # Qt callbacks can report exceptions without a nonzero process exit.
         self.assertNotIn("Traceback (most recent call last)", result.stdout, result.stdout[-16000:])

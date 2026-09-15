@@ -17,10 +17,7 @@
  (at your option) any later version.
  """
 
-from __future__ import annotations
-
-from dataclasses import dataclass
-from typing import Dict, Optional, Tuple
+from typing import Dict, NamedTuple, Optional, Tuple
 
 
 PAN_AUTO = "auto"
@@ -40,8 +37,7 @@ KEN_BURNS_TOP_TO_BOTTOM = "top_to_bottom"
 KEN_BURNS_BOTTOM_TO_TOP = "bottom_to_top"
 
 
-@dataclass(frozen=True)
-class CameraKeyframes:
+class CameraKeyframes(NamedTuple):
     """Plain keyframe values returned by camera motion helpers."""
 
     scale_x: Tuple[float, float]

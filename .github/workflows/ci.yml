@@ -27,3 +27,11 @@ jobs:
       env:
         QT_QPA_PLATFORM: offscreen
       run: python3 -m unittest discover -s src/tests -t src/tests --quiet
+
+    - name: Test package layout
+      env:
+        QT_QPA_PLATFORM: minimal
+      run: |
+        python3 setup.py build --build-base build/ppa-tests
+        cd build/ppa-tests/lib
+        python3 -m unittest discover --quiet
