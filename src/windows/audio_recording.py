@@ -31,7 +31,6 @@ import json
 import math
 import re
 import shutil
-import subprocess  # nosec B404 -- fixed argv only; shell execution is never used
 import sys
 import threading
 import time
@@ -404,9 +403,10 @@ class LiveVideoRecordingJob(QObject):
         if self.use_reader_fps and actual_fps and getattr(actual_fps, "num", 0) > 0 and getattr(actual_fps, "den", 0) > 0:
             self.fps = actual_fps
         log.info(
-            "Live %s capture opened: width=%s height=%s fps=%s/%s",
+            "Live %s capture opened: width=%s height=%s output_fps=%s/%s reader_fps=%s/%s",
             self.source_type, self.width, self.height,
             self.fps.num, self.fps.den,
+            getattr(actual_fps, "num", 0), getattr(actual_fps, "den", 1),
         )
         fps_value = max(1.0, float(self.fps.num) / float(self.fps.den or 1))
         if self.preview_file_id:
@@ -1669,7 +1669,7 @@ class AudioRecordingDockContent(QWidget):
     def _refresh_camera_fps_options(self):
         current_fps = self.camera_fps_combo.currentData() if hasattr(self, "camera_fps_combo") else None
         size = self.camera_size_combo.currentData()
-        fps_values = sorted(self._camera_modes.get(size, {15, 24, 30, 60}))
+        fps_values = sorted(self._camera_modes.get(size, set()))
         if 30 in fps_values:
             preferred = 30
         elif current_fps in fps_values:
@@ -1680,7 +1680,7 @@ class AudioRecordingDockContent(QWidget):
         self.camera_fps_combo.blockSignals(True)
         self.camera_fps_combo.clear()
         for fps in fps_values:
-            self.camera_fps_combo.addItem(str(fps), fps)
+            self.camera_fps_combo.addItem("%g" % fps, fps)
         index = self.camera_fps_combo.findData(preferred)
         if index >= 0:
             self.camera_fps_combo.setCurrentIndex(index)
@@ -1694,54 +1694,30 @@ class AudioRecordingDockContent(QWidget):
             (640, 360): {30},
         }
         self._camera_mode_formats = {}
+        self._camera_mode_rates = {}
         if camera_capture_backend_is_windows() or camera_capture_backend_is_mac():
             return fallback
         try:
-            result = subprocess.run(  # nosec B603 -- argv list, no shell
-                ["v4l2-ctl", "--list-formats-ext", "-d", device],
-                check=True,
-                text=True,
-                capture_output=True,
-                timeout=4,
-            )
+            native_modes = openshot.CameraCaptureReader.GetDeviceModes(device, camera_capture_backend())
         except Exception as ex:
-            log.debug("Unable to probe webcam modes for %s: %s", device, ex)
-            return fallback
+            log.warning("Unable to discover webcam modes for %s: %s", device, ex)
+            return {}
 
         modes = {}
-        current_size = None
-        current_format = ""
-        for line in result.stdout.splitlines():
-            format_match = re.search(r"\[\d+\]:\s+'([^']+)'", line)
-            if format_match:
-                current_format = self._ffmpeg_v4l2_format(format_match.group(1))
-                current_size = None
+        for mode in native_modes:
+            if mode.width <= 0 or mode.height <= 0 or mode.fps.num <= 0 or mode.fps.den <= 0 or not mode.input_format:
                 continue
-            size_match = re.search(r"Size:\s+Discrete\s+(\d+)x(\d+)", line)
-            if size_match:
-                current_size = (int(size_match.group(1)), int(size_match.group(2)))
-                modes.setdefault(current_size, set())
-                continue
-            fps_match = re.search(r"\((\d+(?:\.\d+)?)\s+fps\)", line)
-            if fps_match and current_size:
-                fps = max(1, int(round(float(fps_match.group(1)))))
-                modes.setdefault(current_size, set()).add(fps)
-                if current_format:
-                    key = (current_size[0], current_size[1], fps)
-                    existing = self._camera_mode_formats.get(key)
-                    if not existing or existing != "mjpeg":
-                        self._camera_mode_formats[key] = current_format
-
-        for size in list(modes):
-            if not modes[size]:
-                modes[size] = {30}
-        return modes or fallback
-
-    def _ffmpeg_v4l2_format(self, format_code):
-        return {
-            "MJPG": "mjpeg",
-            "YUYV": "yuyv422",
-        }.get(str(format_code).upper(), str(format_code).lower())
+            fps = float(mode.fps.num) / mode.fps.den
+            size = (mode.width, mode.height)
+            modes.setdefault(size, set()).add(fps)
+            self._camera_mode_rates[fps] = (mode.fps.num, mode.fps.den)
+            key = (mode.width, mode.height, fps)
+            existing = self._camera_mode_formats.get(key)
+            if not existing or mode.input_format == "mjpeg":
+                self._camera_mode_formats[key] = mode.input_format
+        if not modes:
+            log.warning("No supported webcam modes discovered for %s", device)
+        return modes
 
     def refresh_tracks(self):
         _ = get_app()._tr
@@ -2154,7 +2130,12 @@ class AudioRecordingDockContent(QWidget):
                 preview_file_id=self._recording_preview_file_ids.get("screen", ""),
             ))
         if self.camera_card.isChecked():
-            camera_fps = openshot.Fraction(int(self.camera_fps_combo.currentData() or 30), 1)
+            selected_fps = self.camera_fps_combo.currentData()
+            if not (camera_capture_backend_is_windows() or camera_capture_backend_is_mac()) and selected_fps is None:
+                raise RuntimeError(get_app()._tr("Unable to discover supported webcam recording modes."))
+            selected_fps = selected_fps or 30
+            rate = getattr(self, "_camera_mode_rates", {}).get(selected_fps, (int(selected_fps), 1))
+            camera_fps = openshot.Fraction(*rate)
             camera_size = self.camera_size_combo.currentData() or (1280, 720)
             camera_device = self._selected_camera_device()
             if not camera_device:
@@ -2165,11 +2146,13 @@ class AudioRecordingDockContent(QWidget):
             settings.width = self._safe_even_dimension(camera_size[0])
             settings.height = self._safe_even_dimension(camera_size[1])
             settings.fps = camera_fps
-            input_format = self._camera_mode_formats.get((settings.width, settings.height, int(camera_fps.num)))
+            input_format = self._camera_mode_formats.get((settings.width, settings.height, selected_fps))
             if camera_capture_backend_is_windows(settings.backend) or camera_capture_backend_is_mac(settings.backend):
                 settings.options["use_device_defaults"] = "1"
             elif input_format:
                 settings.options["input_format"] = input_format
+            else:
+                raise RuntimeError(get_app()._tr("Unable to discover supported webcam recording modes."))
             log.info(
                 "Preparing webcam capture: device=%s width=%s height=%s fps=%s/%s input_format=%s",
                 settings.device, settings.width, settings.height, camera_fps.num, camera_fps.den,
