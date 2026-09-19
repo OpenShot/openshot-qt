@@ -43,7 +43,7 @@ from build_server import (
     version_info, parse_version_info)
 
 PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))  # Primary openshot folder
-RELEASE_NAME_REGEX = re.compile(r'^OpenShot-v.*?(-.*?)-x86[_64]*')
+RELEASE_NAME_REGEX = re.compile(r'^OpenShot-v.*?(-.*?)-(?:x86(?:_64)?|arm64)(?=$|[-.])')
 DOWNLOAD_PAGE_URLS = re.compile(r'"(//github.com/OpenShot/openshot-qt/releases/download/v.*?/OpenShot-.*?)"',
                                 re.MULTILINE)
 
