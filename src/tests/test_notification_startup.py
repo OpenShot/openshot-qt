@@ -8,6 +8,52 @@ import unittest
 
 
 class NotificationStartupTests(unittest.TestCase):
+    def test_banner_icons_fit_and_keep_menu_artwork_at_display_scales(self):
+        # Scaling is fixed when QApplication starts, so each scale needs a process.
+        script = r'''
+from types import SimpleNamespace
+from qt_api import QApplication, Qt, QColor
+QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
+QApplication.setAttribute(Qt.AA_UseHighDpiPixmaps)
+app = QApplication([])
+from windows.notifications import NotificationBanner, banner_colors, notification_icon
+for kind in ('feedback', 'update'):
+    banner = NotificationBanner(None, kind, 'Open', lambda: None, lambda: None,
+                                str, icon_name=kind)
+    for name in ('Cosmic Dusk', 'Humanity: Dark', 'Retro'):
+        theme = SimpleNamespace(name=name)
+        colors = banner_colors(banner, theme)
+        banner.apply_colors(colors, theme)
+        pixmap = banner.symbol.pixmap()
+        assert not pixmap.isNull(), (kind, name)
+        ratio = pixmap.devicePixelRatioF()
+        assert pixmap.width() / ratio == banner.symbol.width(), (kind, name, ratio)
+        assert pixmap.height() / ratio == banner.symbol.height(), (kind, name, ratio)
+        source = notification_icon(banner, kind, theme).pixmap(banner.symbol.size()).toImage()
+        actual = pixmap.toImage()
+        assert source.size() == actual.size()
+        expected = QColor(colors['text'])
+        visible = 0
+        for y in range(actual.height()):
+            for x in range(actual.width()):
+                pixel = actual.pixelColor(x, y)
+                assert pixel.alpha() == source.pixelColor(x, y).alpha()
+                if pixel.alpha() > 128:
+                    visible += 1
+                    for channel in ('red', 'green', 'blue'):
+                        assert abs(getattr(pixel, channel)() - getattr(expected, channel)()) <= 2
+        assert visible > 0, (kind, name)
+'''
+        source = str(Path(__file__).resolve().parents[1])
+        for scale in ('1', '1.5', '2'):
+            with self.subTest(scale=scale):
+                env = dict(os.environ, PYTHONPATH=source, QT_QPA_PLATFORM='offscreen',
+                           QT_SCALE_FACTOR=scale)
+                result = subprocess.run([sys.executable, '-c', script], env=env,
+                                        stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                                        universal_newlines=True, timeout=30)
+                self.assertEqual(result.returncode, 0, result.stdout)
+
     def test_help_shortcuts_and_three_themes(self):
         # A subprocess isolates OpenShotApp from other tests' QApplication stubs.
         script = r'''

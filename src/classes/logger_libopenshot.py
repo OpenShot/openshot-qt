@@ -33,11 +33,17 @@ from classes.logger import log, set_level_file, set_level_console
 
 def configure(debug=False, initialize=False, ui_debug=False):
     """Configure independent Python/native sinks. No forwarding thread is needed."""
-    native = openshot.Logger.Instance()
-    if initialize:
+    logger_type = getattr(openshot, "Logger", None)
+    native = logger_type.Instance() if logger_type is not None else None
+    if initialize and native is None:
+        log.warning("Installed libopenshot lacks the Logger API; native logging controls "
+                    "are unavailable. Update libopenshot and its Python bindings.")
+    if initialize and native is not None:
         # The GUI owns the destination; standalone users can use LIBOPENSHOT_LOG_FILE.
         native.Path(os.path.join(info.USER_PATH, "libopenshot.log"))
     for component in ("python", "native"):
+        if component == "native" and native is None:
+            continue
         for destination in ("file", "console"):
             value, source = log_config.resolve(
                 component, destination, ui_debug if component == "python" else debug)
@@ -52,4 +58,6 @@ def configure(debug=False, initialize=False, ui_debug=False):
 
 
 def close():
-    openshot.Logger.Instance().Close()
+    logger_type = getattr(openshot, "Logger", None)
+    if logger_type is not None:
+        logger_type.Instance().Close()
