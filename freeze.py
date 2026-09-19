@@ -68,6 +68,7 @@ PATH = os.path.dirname(os.path.realpath(__file__))  # Primary openshot folder
 sys.path.insert(0, os.path.join(PATH, "src"))
 from qt_api import QLibraryInfo, QT_API
 
+
 print (str(cx_Freeze))
 
 QT_BINDING_PACKAGE = {
@@ -682,11 +683,13 @@ elif sys.platform == "darwin":
         if should_package_source_file(filename):
             src_files.append((filename, os.path.join("lib", os.path.relpath(filename, start=openshot_copy_path))))
 
-    # Exclude gif library which crashes on Mac
+    for ocr_path in ("/usr/local/opt/tesseract/lib/libtesseract.4.dylib",
+                     "/usr/local/opt/leptonica/lib/liblept.5.dylib"):
+        if os.path.exists(ocr_path):
+            src_files.append((ocr_path, os.path.basename(ocr_path)))
+
     build_exe_options["bin_excludes"] = ["/System/Library/Frameworks/ImageIO.framework/Versions/A/Resources/libGIF.dylib",
-                                         "/usr/local/opt/giflib/lib/libgif.dylib",
-                                         "/usr/local/opt/tesseract/lib/libtesseract.4.dylib",
-                                         "/usr/local/opt/leptonica/lib/liblept.5.dylib"]
+                                         "/usr/local/opt/giflib/lib/libgif.dylib"]
 
 # Dependencies are automatically detected, but it might need fine tuning.
 build_exe_options["packages"] = python_packages
