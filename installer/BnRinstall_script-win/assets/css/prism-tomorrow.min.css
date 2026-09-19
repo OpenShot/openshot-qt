@@ -1,0 +1,27 @@
+/* Prism placeholder theme hook.
+   This file exists so the repo has a local style entry point.
+   help.html also loads Prism from CDN for actual highlighting when online. */
+pre[class*="language-"], code[class*="language-"] {
+  color: #e6eef2;
+  background: #0b0f12;
+  text-shadow: none;
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  font-size: 14px;
+  direction: ltr;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  line-height: 1.55;
+  tab-size: 4;
+  hyphens: none;
+}
+.token.comment,.token.prolog,.token.doctype,.token.cdata{color:#8a99a6}
+.token.punctuation{color:#cbd6dc}
+.token.property,.token.tag,.token.constant,.token.symbol,.token.deleted{color:#ff7c7c}
+.token.boolean,.token.number{color:#f1b972}
+.token.selector,.token.attr-name,.token.string,.token.char,.token.builtin,.token.inserted{color:#8bd49c}
+.token.operator,.token.entity,.token.url,.language-css .token.string,.style .token.string{color:#7ac7ff}
+.token.atrule,.token.attr-value,.token.keyword{color:#72a8ff}
+.token.function,.token.class-name{color:#7fe7d8}
+.token.regex,.token.important,.token.variable{color:#ffd479}
