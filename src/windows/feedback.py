@@ -4,7 +4,7 @@ import time
 
 import openshot
 
-from qt_api import QAction, QApplication, QDesktopServices, QTimer, QUrl, QObject, QMessageBox, QEvent, QWidget, Qt, isdeleted
+from qt_api import QAction, QApplication, QDesktopServices, QTimer, QUrl, QObject, QMessageBox, QEvent, QMouseEvent, QWidget, Qt, isdeleted
 
 from classes import info
 from classes.app import get_app
@@ -68,7 +68,8 @@ class FeedbackController(QObject):
             if event.type() in (QEvent.KeyPress, QEvent.MouseButtonPress, QEvent.MouseButtonRelease,
                                 QEvent.Wheel, QEvent.TouchBegin, QEvent.TouchUpdate, QEvent.WindowActivate):
                 self.last_input = time.monotonic()
-            elif event.type() == QEvent.MouseMove and event.buttons() != Qt.NoButton:
+            elif (event.type() == QEvent.MouseMove and isinstance(event, QMouseEvent)
+                  and event.buttons() != Qt.NoButton):
                 self.last_input = time.monotonic()
         return False
 
@@ -123,7 +124,7 @@ class FeedbackController(QObject):
         _ = self.translate
         self.banner = NotificationBanner(
             self.window, _("Help us make OpenShot even better!"), _("Share feedback"),
-            self.open_from_banner, self.dismiss, _)
+            self.open_from_banner, self.dismiss, _, icon_name="feedback")
         self.area.add("feedback", self.banner)
         self.presented = True
         self.timer.stop()

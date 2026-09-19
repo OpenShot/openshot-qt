@@ -59,6 +59,27 @@ class LoggingPreferenceTests(unittest.TestCase):
                 self.native.SetConsoleLevel.assert_called_with('INFO')
         self.native.Path.assert_not_called()  # Changing levels must not reopen the file.
 
+    def test_legacy_binding_allows_startup_preferences_and_shutdown(self):
+        legacy = types.SimpleNamespace(ZmqLogger=Mock())
+        with patch.object(self.coordinator, 'openshot', legacy):
+            self.coordinator.configure(initialize=True)
+            self.python_logger.set_level_file.assert_called_with(20)
+            self.python_logger.set_level_console.assert_called_with(20)
+            self.coordinator.configure(debug=True, ui_debug=True)
+            self.python_logger.set_level_file.assert_called_with(10)
+            self.python_logger.set_level_console.assert_called_with(20)
+            self.coordinator.close()
+        self.python_logger.log.warning.assert_called_once()
+        legacy.ZmqLogger.Instance.assert_not_called()
+
+    def test_native_logger_startup_and_shutdown(self):
+        self.coordinator.configure(initialize=True)
+        self.native.Path.assert_called_once_with(os.path.join('/test-user', 'libopenshot.log'))
+        self.native.SetFileLevel.assert_called_once_with('INFO')
+        self.native.SetConsoleLevel.assert_called_once_with('INFO')
+        self.coordinator.close()
+        self.native.Close.assert_called_once_with()
+
     def test_checkbox_updates_preserve_other_setting_and_respect_cli(self):
         parser = argparse.ArgumentParser()
         log_config.add_arguments(parser)

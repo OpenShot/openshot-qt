@@ -4,7 +4,7 @@ import os
 
 from qt_api import (
     QObject, Qt, QEvent, QFrame, QHBoxLayout, QLabel, QPushButton, QToolBar,
-    QVBoxLayout, QWidget, QSizePolicy, QPalette, QTimer, QIcon, QMessageBox,
+    QVBoxLayout, QWidget, QSizePolicy, QPalette, QTimer, QIcon, QMessageBox, QPainter, QColor,
 )
 
 from classes.notifications import release_version, should_notify_update
@@ -41,7 +41,7 @@ def banner_colors(window, theme=None):
 
 
 class NotificationBanner(QFrame):
-    def __init__(self, parent, message, action_text, on_action, on_dismiss, translate):
+    def __init__(self, parent, message, action_text, on_action, on_dismiss, translate, icon_name="update"):
         super().__init__(parent)
         _ = translate
         self.setObjectName("notificationBanner")
@@ -49,11 +49,11 @@ class NotificationBanner(QFrame):
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
         self.setAccessibleName(message)
         self._dismiss = on_dismiss
+        self.icon_name = icon_name
         layout = QHBoxLayout(self)
         layout.setContentsMargins(12, 4, 8, 4)
         layout.setSpacing(10)
-        # Native text/shape styling keeps the glyph sharp at every UI scale.
-        self.symbol = QLabel("!", self)
+        self.symbol = QLabel(self)
         self.symbol.setObjectName("notificationSymbol")
         self.symbol.setAlignment(Qt.AlignCenter)
         self.symbol.setFixedSize(20, 20)
@@ -74,16 +74,21 @@ class NotificationBanner(QFrame):
         self.close_button.clicked.connect(on_dismiss)
         layout.addWidget(self.close_button)
 
-    def apply_colors(self, colors):
+    def apply_colors(self, colors, theme=None):
+        # Reuse the menu artwork, preserving its alpha while matching banner text.
+        # QIcon handles the display scale; request the label's logical size.
+        pixmap = notification_icon(self, self.icon_name, theme).pixmap(self.symbol.size())
+        painter = QPainter(pixmap)
+        painter.setCompositionMode(QPainter.CompositionMode_SourceIn)
+        painter.fillRect(pixmap.rect(), QColor(colors["text"]))
+        painter.end()
+        self.symbol.setPixmap(pixmap)
         self.setStyleSheet("""
             QFrame#notificationBanner {
                 background: %(surface)s; border: 1px solid %(border)s; border-radius: 6px;
             }
             QFrame#notificationBanner QLabel {
                 background: transparent; color: %(text)s; border: none; font-weight: 600;
-            }
-            QFrame#notificationBanner QLabel#notificationSymbol {
-                border: 2px solid %(text)s; border-radius: 10px;
             }
             QFrame#notificationBanner QPushButton {
                 background: transparent; color: %(action)s; border: none;
@@ -169,7 +174,7 @@ class NotificationArea(QObject):
             self.container.setStyleSheet(
                 "QWidget#notificationContainer { background: %s; }" % colors["backdrop"])
         for banner in self.banners.values():
-            banner.apply_colors(colors)
+            banner.apply_colors(colors, theme)
 
     def sync_visibility(self):
         if self.toolbar:

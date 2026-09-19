@@ -440,6 +440,37 @@ class FeedbackTests(unittest.TestCase):
             self.assertFalse(controller.eventFilter(controller.window, event))
             self.assertEqual(controller.last_input, 42)
 
+    def test_mouse_move_type_without_mouse_event_does_not_reset_idle_time(self):
+        from qt_api import QContextMenuEvent, QEvent, QPoint
+
+        # Sentry reported a QContextMenuEvent wrapper whose type was MouseMove.
+        class MisclassifiedContextMenuEvent(QContextMenuEvent):
+            def type(self):
+                return QEvent.MouseMove
+
+        controller = self.make_controller(Settings())
+        events = (QEvent(QEvent.MouseMove),
+                  MisclassifiedContextMenuEvent(QContextMenuEvent.Mouse, QPoint(1, 1)))
+        controller.last_input = 0
+        with patch("windows.feedback.time.monotonic", return_value=42):
+            for event in events:
+                with self.subTest(event=type(event).__name__):
+                    self.assertFalse(controller.eventFilter(controller.window, event))
+                    self.assertEqual(controller.last_input, 0)
+
+    def test_mouse_drag_resets_idle_time_but_hover_does_not(self):
+        from qt_api import QEvent, QMouseEvent, QPointF, Qt, QWidget
+        controller = self.make_controller(Settings())
+        child = QWidget(controller.window)
+        controller.last_input = 0
+        with patch("windows.feedback.time.monotonic", return_value=42):
+            for buttons, expected in ((Qt.NoButton, 0), (Qt.LeftButton, 42)):
+                with self.subTest(buttons=buttons):
+                    event = QMouseEvent(QEvent.MouseMove, QPointF(1, 1),
+                                        Qt.NoButton, buttons, Qt.NoModifier)
+                    self.assertFalse(controller.eventFilter(child, event))
+                    self.assertEqual(controller.last_input, expected)
+
     def test_shutdown_removes_input_filter_and_flushes_time(self):
         from qt_api import QEvent, QKeyEvent, Qt
         controller = self.make_controller(Settings())
