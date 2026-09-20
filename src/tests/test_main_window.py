@@ -1146,6 +1146,22 @@ class MainWindowTests(unittest.TestCase):
         self.assertEqual(refreshed.calls, [()])
         self.assertIsNone(self.app.updates.transaction_id)
 
+    def test_delete_item_does_not_remove_effect_after_keyframe_error(self):
+        def failed_delete():
+            raise RuntimeError("Keyframe update failed")
+
+        calls = []
+        self.app.updates = types.SimpleNamespace(transaction_id=None)
+        window = types.SimpleNamespace(
+            filesView=types.SimpleNamespace(hasFocus=lambda: False),
+            timeline=types.SimpleNamespace(delete_selected_keyframes=failed_delete),
+            actionRemoveEffect_trigger=lambda: calls.append("effect"),
+            actionRemoveClip_trigger=lambda **kwargs: calls.append("clip"),
+            actionRemoveTransition_trigger=lambda **kwargs: calls.append("transition"))
+        self.main_window_module.MainWindow.deleteItem(window)
+        self.assertEqual(calls, [])
+        self.assertIsNone(self.app.updates.transaction_id)
+
     def test_add_and_show_docks_keep_default_dock_features(self):
         fake_window = QMainWindow()
         normal_dock = QDockWidget("Normal", fake_window)

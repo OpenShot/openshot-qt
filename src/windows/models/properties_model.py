@@ -405,6 +405,11 @@ class PropertiesModel(updates.UpdateInterface):
 
     # This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface)
     def changed(self, action):
+        # A rich editor already owns this value and updates its row preview.
+        # Skip only its synchronous save notification, not other edits or undo.
+        preview_values = getattr(self, "_live_preview_values", None)
+        if preview_values is not None and action and action.values is preview_values:
+            return
 
         # Handle change
         if action and len(action.key) >= 1 and action.key[0] in ["clips", "effects"] and action.type in ["update", "insert"]:
@@ -901,7 +906,7 @@ class PropertiesModel(updates.UpdateInterface):
         _walk(updated)
         return updated, changed
 
-    def value_updated(self, item, interpolation=-1, value=None, interpolation_details=[]):
+    def value_updated(self, item, interpolation=-1, value=None, interpolation_details=[], refresh_model=True):
         """ Table cell change event - also handles context menu to update interpolation value """
 
         if self.ignore_update_signal:
@@ -1239,7 +1244,13 @@ class PropertiesModel(updates.UpdateInterface):
                 if clip_updated:
                     # Save
                     c.data = clip_data
-                    c.save()
+                    previous_preview = getattr(self, "_live_preview_values", None)
+                    if not refresh_model:
+                        self._live_preview_values = clip_data
+                    try:
+                        c.save()
+                    finally:
+                        self._live_preview_values = previous_preview
 
                     # Update waveforms (if needed)
                     if has_waveform:

@@ -69,10 +69,14 @@ class UpdateAction:
             # Auto set transaction id to GUID
             self.transaction = str(uuid.uuid4())
 
-    def copy(self):
+    def copy(self, include_old_values=True):
         """Create and return a copy of UpdateAction - with no references to the original"""
+        data = self.__dict__.copy()
+        if not include_old_values:
+            # UI consumers do not need a copy of the previous animation.
+            data["old_values"] = {}
         # Serialize as JSON string, then load JSON string and cast back into UpdateAction
-        return UpdateAction(**json.loads(json.dumps(self, default=lambda o: o.__dict__)))
+        return UpdateAction(**json.loads(json.dumps(data, default=lambda o: o.__dict__)))
 
     def set_old_values(self, old_vals):
         self.old_values = old_vals

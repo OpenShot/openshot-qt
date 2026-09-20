@@ -604,7 +604,8 @@ class PropertiesTableView(QTableView):
         if not self.live_property_session:
             return
         self.update_in_progress = True
-        self.clip_properties_model.value_updated(self.live_property_session["item"], value=value)
+        self.clip_properties_model.value_updated(
+            self.live_property_session["item"], value=value, refresh_model=False)
         self._update_live_property_preview(value)
         get_app().updates.ignore_history = True
 
@@ -638,7 +639,7 @@ class PropertiesTableView(QTableView):
         if not item:
             return
         self.update_in_progress = True
-        self.clip_properties_model.value_updated(item, value=value)
+        self.clip_properties_model.value_updated(item, value=value, refresh_model=False)
         self._update_property_preview(item, "colorgrade_curve", property_key, value)
         get_app().updates.ignore_history = True
 

@@ -750,9 +750,8 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                     self._apply_pending_trim_refresh()
 
         try:
-            # Duplicate UpdateAction, and remove unused action attribute (old_values)
-            action = action.copy()
-            action.old_values = {}
+            # Copy the new state without serializing history we immediately discard.
+            action = action.copy(include_old_values=False)
         except:
             log.error("Error duplicating UpdateAction", exc_info=1)
             return

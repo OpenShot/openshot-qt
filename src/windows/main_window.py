@@ -4653,7 +4653,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                     try:
                         keyframes_deleted = bool(timeline_widget.delete_selected_keyframes())
                     except Exception:
-                        keyframes_deleted = False
+                        log.exception("Unable to delete selected keyframes")
+                        return
                 if keyframes_deleted:
                     self.refreshFrameSignal.emit()
                     return

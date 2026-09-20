@@ -69,6 +69,12 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         # Ignore changes that don't affect this
         if (action and len(action.key) >= 1 and action.key[0].lower() in ["files", "history", "profile"]) or self.ignore_updates:
             return
+        # Effect edits cannot change the clip/transition rectangles or markers.
+        if action and action.type == "update" and action.key and (
+            action.key[0] == "effects"
+            or (len(action.key) >= 3 and action.key[0] == "clips" and action.key[2] == "effects")
+        ):
+            return
 
         # Clear previous rects
         self.clip_rects.clear()

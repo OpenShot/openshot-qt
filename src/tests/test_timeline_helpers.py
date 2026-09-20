@@ -5537,7 +5537,9 @@ class TimelineHelperTests(unittest.TestCase):
             "paths": {path},
         }]
 
+        original = copy.deepcopy(clip.data)
         helper._apply_keyframe_remove(None, panel_targets)
+        self.assertEqual(clip.data, original)
 
         self.assertEqual(len(helper.clip_updates), 1)
         self.assertEqual(helper.clip_updates[0]["volume"]["Points"], [])
