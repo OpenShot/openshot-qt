@@ -133,6 +133,60 @@ class VideoWidgetTransformTests(unittest.TestCase):
         self.widget = VideoWidget.__new__(VideoWidget)
         self.viewport = QRect(0, 0, 160, 90)
 
+    def test_live_transform_suspends_cache_until_commit_or_clear(self):
+        for initially_enabled in (True, False):
+            for finish, effect_type in (
+                    (finish, effect_type)
+                    for finish in ("release", "clear", "pause_then_release")
+                    for effect_type in (None, "Crop", "Mask")):
+                with self.subTest(initially_enabled=initially_enabled, finish=finish,
+                                  effect_type=effect_type):
+                    settings = types.SimpleNamespace(ENABLE_PLAYBACK_CACHING=initially_enabled)
+                    playing = [True]
+                    cache_during_save = []
+                    clip = types.SimpleNamespace(
+                        id="clip", data={"id": "clip"},
+                        save=lambda: cache_during_save.append(settings.ENABLE_PLAYBACK_CACHING))
+                    history = []
+                    updates = types.SimpleNamespace(
+                        ignore_history=False, transaction_id=None,
+                        apply_last_action_to_history=lambda original: history.append(
+                            (original, settings.ENABLE_PLAYBACK_CACHING)))
+                    fake_app = types.SimpleNamespace(updates=updates)
+                    widget = types.SimpleNamespace(
+                        zoom=1.0, region_enabled=False, hover_transform_mode="location",
+                        hover_cursor=Qt.ArrowCursor,
+                        transforming_clips=[] if effect_type else [clip],
+                        transforming_clip_objects=[],
+                        transforming_effect=(types.SimpleNamespace(data={"class_name": effect_type})
+                                             if effect_type else None),
+                        setCursor=lambda cursor: None, update=lambda: None,
+                        _is_playing=lambda: playing[0])
+                    widget._restore_transform_playback_cache = types.MethodType(
+                        VideoWidget._restore_transform_playback_cache, widget)
+                    event = types.SimpleNamespace(
+                        accept=lambda: None, button=lambda: Qt.LeftButton,
+                        pos=lambda: QPoint(10, 10))
+                    with patch("windows.video_widget.get_app", return_value=fake_app), \
+                         patch("windows.video_widget.openshot.Settings",
+                               types.SimpleNamespace(Instance=lambda: settings)):
+                        VideoWidget.mousePressEvent(widget, event)
+                        self.assertFalse(settings.ENABLE_PLAYBACK_CACHING)
+                        if finish == "clear":
+                            VideoWidget.clearTransformState(widget)
+                        else:
+                            if finish == "pause_then_release":
+                                playing[0] = False
+                            VideoWidget.mouseReleaseEvent(widget, event)
+                            self.assertEqual(cache_during_save, [] if effect_type else [False])
+                            self.assertEqual(len(history), 1)
+                            self.assertFalse(history[0][1])
+                            self.assertFalse(updates.ignore_history)
+                            self.assertIsNone(updates.transaction_id)
+                        expected = initially_enabled if playing[0] else False
+                        self.assertEqual(settings.ENABLE_PLAYBACK_CACHING, expected)
+                        self.assertIsNone(widget._transform_playback_cache_state)
+
     def rect_for(self, scale_mode, location_x=0.0, location_y=0.0, scale_x=1.0, scale_y=1.0):
         return VideoWidget._clip_display_rect(
             self.widget,

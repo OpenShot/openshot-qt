@@ -408,7 +408,7 @@ class PropertiesModel(updates.UpdateInterface):
 
         # Handle change
         if action and len(action.key) >= 1 and action.key[0] in ["clips", "effects"] and action.type in ["update", "insert"]:
-            log.debug(action.values)
+            log.debug("Property model received %s for %s", action.type, action.key)
             self._refresh_selected_effect_filters()
             # Update the model data
             self.update_model(get_app().window.txtPropertyFilter.text())
@@ -949,10 +949,6 @@ class PropertiesModel(updates.UpdateInterface):
             new_value = None
 
         for item_id, item_type in item_data:
-            log.info(
-                "%s for %s changed to %s at frame %s with interpolation: %s at closest x: %s",
-                property_key, item_id, new_value, self.frame_number, interpolation, closest_point_x)
-
             # Start each iteration with the original value
             value = new_value
 
@@ -1252,7 +1248,8 @@ class PropertiesModel(updates.UpdateInterface):
                     # Update the preview
                     get_app().window.refreshFrameSignal.emit()
 
-                    log.info("Item %s: changed %s to %s at frame %s (x: %s)" % (item_id, property_key, value, self.frame_number, closest_point_x))
+                    log.debug("Item %s: changed %s at frame %s (x: %s)",
+                              item_id, property_key, self.frame_number, closest_point_x)
 
                 # Clear selection and restore focus to label column
                 current_row = self.parent.currentIndex().row()
