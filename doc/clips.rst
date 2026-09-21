@@ -163,6 +163,18 @@ selection, and use **Undo** to reverse a cut.
 To cut several clips at the playhead instead, use **Slice Selected** or
 **Slice All**, described above.
 
+Clip controls while zoomed in
+-----------------------------
+
+When a clip's start scrolls off screen, its title, effect badges, and menu stay
+near the left side of the visible timeline. Click an effect badge to access that
+effect, or use the title's dropdown to open the clip menu. The controls stay
+within the visible portion of their clip and shorten as space runs out.
+
+Only these controls follow the viewport. The clip's outline, thumbnails,
+waveform, and trim handles remain at their actual timeline positions. A small
+inset separates the pinned controls from the viewport edge.
+
 Selections
 ----------
 Selecting clips and transitions on the timeline is an essential part of editing in OpenShot. Multiple selection methods

@@ -437,6 +437,7 @@ class ClipPainter(BasePainter):
                 painter.save()
                 painter.setOpacity(0.8)
             self._draw_clip(painter, rect, segment_rect, clip, pen, selected)
+            self._draw_clip_header(painter, clip, rect, area)
             if locked:
                 painter.restore()
         painter.restore()
@@ -945,34 +946,54 @@ class ClipPainter(BasePainter):
         painter.save()
         painter.setClipRect(inner)
 
-        right = inner.right() - self.menu_margin
-        text_right = inner.right()
-        icon_entries = []
-        text_entry = None
-        pending_thumbs = False
-
         has_waveform = self._draw_waveform(painter, clip, inner, segment)
-
-        includes_start = segment.get("includes_start", True) if isinstance(segment, dict) else True
-
+        pending_thumbs = False
         if not has_waveform:
             pending_thumbs = self._draw_thumbnails(painter, clip, inner, segment)
 
-        if includes_start:
-            # Title container anchored at top-left; effect badges drawn inside it
-            text_entry = self._draw_clip_text(
-                painter,
-                clip,
-                inner,
-                inner.x(),
-                text_right,
-                visible_width=float(segment.get("segment_width") or inner_rect.width()) if isinstance(segment, dict) else float(inner_rect.width()),
-                icon_entries=icon_entries,
-                transparent_container=has_waveform,
-            )
-
+        # Controls are painted in viewport coordinates, outside the cached media.
         painter.restore()
-        return icon_entries, pending_thumbs, text_entry
+        return [], pending_thumbs, None
+
+    def _draw_clip_header(self, painter, clip, full_rect, area):
+        """Keep controls inside the visible clip without moving its true edges."""
+        bw = float(self.border_width or 0.0)
+        inner = full_rect.adjusted(bw, bw, -bw, -bw)
+        visible = inner.intersected(area)
+        if visible.isEmpty():
+            return
+        # A little space before a pinned header leaves media visible beneath it
+        # and distinguishes the floating controls from the offscreen trim edge.
+        if inner.left() < area.left():
+            visible.setLeft(visible.left() + 6.0)
+        if visible.width() <= 4.0:
+            return
+        header = QRectF(visible.left(), inner.top(), visible.width(), inner.height())
+        data = clip.data if isinstance(clip.data, dict) else {}
+        ui = data.get("ui", {})
+        audio = ui.get("audio_data") if isinstance(ui, dict) else None
+        icons = []
+        painter.save()
+        painter.setClipRect(visible, Qt.IntersectClip)
+        # Match the default font of the former QImage cache painter rather than
+        # inheriting the timeline widget's stylesheet font and resizing badges.
+        painter.setFont(QFont())
+        text = self._draw_clip_text(
+            painter, clip, header, header.left(), header.right(),
+            visible_width=header.width(), icon_entries=icons,
+            transparent_container=isinstance(audio, list) and len(audio) > 1,
+        )
+        painter.restore()
+        for entry in icons:
+            entry = dict(entry)
+            entry["rect"] = entry["rect"].intersected(visible)
+            entry["clip"] = clip
+            self.w._effect_icon_rects.append(entry)
+        if text:
+            text = dict(text)
+            text["rect"] = text["rect"].intersected(visible)
+            text["clip"] = clip
+            self.w._clip_text_rects.append(text)
 
     def _add_slot_if_valid(self, slots, seen, center_clip_time, half_interval, segment_start,
                            segment_end, trim_start, media_duration, inner_x, top,

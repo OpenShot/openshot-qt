@@ -4188,6 +4188,7 @@ class TimelineHelperTests(unittest.TestCase):
         )
         clip_painter.border_width = 0.0
         clip_painter.menu_margin = 4.0
+        clip_painter.w = types.SimpleNamespace(_effect_icon_rects=[], _clip_text_rects=[])
         captured = {}
 
         def draw_waveform(_self, _painter, _clip, inner, _segment):
@@ -4212,11 +4213,161 @@ class TimelineHelperTests(unittest.TestCase):
                 inner,
                 {"includes_start": True, "segment_width": inner.width()},
             )
+            self.assertNotIn("title_transparent", captured)
+            clip_painter._draw_clip_header(
+                painter,
+                types.SimpleNamespace(data={"title": "Audio", "ui": {"audio_data": [0, 1]}}),
+                inner, inner,
+            )
         finally:
             painter.end()
 
         self.assertEqual(captured["waveform_rect"], inner)
         self.assertTrue(captured["title_transparent"])
+
+    def test_clip_header_sticks_inside_viewport_and_preserves_hit_targets(self):
+        from windows.views.timeline_backend.qwidget.effect import EffectInteractionMixin
+
+        helper = self.make_clip_painter()
+        widget = helper.w
+        widget._effect_color = lambda _effect: QColor("blue")
+        clip = types.SimpleNamespace(id="C1", data={
+            "title": "A long clip with effects.mp4",
+            "effects": [{"id": "E1", "type": "Blur"}, {"id": "E2", "type": "Crop"}],
+        })
+        area = QRectF(100, 0, 500, 100)
+        image = QImage(640, 100, QImage.Format_ARGB32)
+        # Includes the cache overdraw region, deep zoom, and the departing right edge.
+        for left, right in [(150, 580), (99, 1200), (-20, 1200),
+                            (-10000, 1200), (-10000, 230), (150, 580)]:
+            with self.subTest(left=left, right=right):
+                image.fill(0)
+                widget._effect_icon_rects = []
+                widget._clip_text_rects = []
+                full = QRectF(left, 10, right - left, 70)
+                original = QRectF(full)
+                painter = QPainter(image)
+                try:
+                    helper._draw_clip_header(painter, clip, full, area)
+                finally:
+                    painter.end()
+                self.assertEqual(full, original)
+                self.assertEqual(len(widget._clip_text_rects), 1)
+                entry = widget._clip_text_rects[0]
+                expected_left = left + 1 if left + 1 >= area.left() else 106
+                self.assertEqual(entry["rect"].left(), expected_left)
+                self.assertLessEqual(entry["rect"].right(), min(right - 1, area.right()))
+                self.assertTrue(entry["open_menu"])
+                self.assertEqual(len(widget._effect_icon_rects), 2)
+                for badge in widget._effect_icon_rects:
+                    hit = EffectInteractionMixin._effect_icon_at(widget, badge["rect"].center())
+                    self.assertIs(hit["clip"], clip)
+                    self.assertTrue(entry["rect"].contains(badge["rect"]))
+                menu = self.make_qwidget_pending_clip_menu_helper()
+                menu._clip_text_rects = widget._clip_text_rects
+                pos = QPointF(entry["rect"].right() - 3, entry["rect"].center().y())
+                self.assertTrue(menu._begin_pending_clip_menu_click(pos))
+                self.assertTrue(menu._handle_pending_clip_menu_release(pos))
+                self.assertEqual(menu.menu_calls, ["C1"])
+                if left < 0:
+                    # Header only: no false full-height clip boundary at the pin.
+                    self.assertEqual(image.pixelColor(106, 65).alpha(), 0)
+
+    def test_floating_clip_header_matches_original_cached_rendering(self):
+        from qt_api import QFont
+
+        helper = self.make_clip_painter()
+        widget = helper.w
+        widget._effect_color = lambda _effect: QColor("blue")
+        helper.menu_margin = 4.0
+        clip = types.SimpleNamespace(id="C1", data={
+            "title": "Clip title.mp4",
+            "effects": [{"id": "E1", "type": "Blur"}, {"id": "E2", "type": "Crop"}],
+        })
+        full = QRectF(10, 10, 500, 70)
+        inner = full.adjusted(1, 1, -1, -1)
+        area = QRectF(0, 0, 640, 100)
+        for ratio in (1, 2):
+            for font_size in (9, 18):
+                with self.subTest(ratio=ratio, font_size=font_size):
+                    original = QImage(640 * ratio, 100 * ratio, QImage.Format_ARGB32)
+                    original.fill(0)
+                    painter = QPainter(original)
+                    painter.scale(ratio, ratio)
+                    painter.setRenderHint(QPainter.Antialiasing, True)
+                    icons = []
+                    try:
+                        # The old cache used a fresh image painter's default font.
+                        old_title = helper._draw_clip_text(
+                            painter, clip, inner, inner.left(), inner.right(),
+                            visible_width=full.width(), icon_entries=icons,
+                        )
+                    finally:
+                        painter.end()
+                    floating = QImage(original.size(), original.format())
+                    floating.fill(0)
+                    painter = QPainter(floating)
+                    painter.scale(ratio, ratio)
+                    painter.setRenderHint(QPainter.Antialiasing, True)
+                    widget_font = QFont()
+                    widget_font.setPointSize(font_size)
+                    painter.setFont(widget_font)
+                    widget._clip_text_rects = []
+                    widget._effect_icon_rects = []
+                    try:
+                        helper._draw_clip_header(painter, clip, full, area)
+                        self.assertEqual(painter.font(), widget_font)
+                    finally:
+                        painter.end()
+                    self.assertEqual(
+                        [entry["rect"] for entry in widget._effect_icon_rects],
+                        [entry["rect"] for entry in icons],
+                    )
+                    self.assertEqual(widget._clip_text_rects[0]["rect"], old_title["rect"])
+                    self.assertEqual(floating, original)
+
+    def test_scrolling_cached_clip_paints_one_header_without_false_trim_edge(self):
+        helper = self.make_clip_painter()
+        widget = helper.w
+        widget.resize(640, 120)
+        widget.track_name_width = 100
+        widget.ruler_height = 0
+        widget.scroll_bar_thickness = 10
+        widget._is_track_locked = lambda _layer: False
+        widget._effect_color = lambda _effect: QColor("blue")
+        helper._draw_thumbnails = lambda *_args: False
+        helper._draw_waveform = lambda *_args: False
+        clip = types.SimpleNamespace(id="C1", data={
+            "title": "Long video.mp4", "position": 0, "start": 0,
+            "end": 100, "duration": 100,
+            "effects": [{"id": "E1", "type": "Blur"}],
+        })
+        image = QImage(640, 120, QImage.Format_ARGB32)
+        for left in [150, 80, -5000, -5010, -5010, 700]:
+            with self.subTest(left=left):
+                full = QRectF(left, 10, 10000, 70)
+                widget.geometry = types.SimpleNamespace(iter_clips=lambda: [(full, clip, True)])
+                image.fill(0)
+                painter = QPainter(image)
+                try:
+                    helper.paint(painter)
+                finally:
+                    painter.end()
+                if left == 700:
+                    self.assertEqual(widget._clip_text_rects, [])
+                    self.assertEqual(widget._effect_icon_rects, [])
+                    continue
+                self.assertEqual(len(widget._clip_text_rects), 1)
+                self.assertEqual(len(widget._effect_icon_rects), 1)
+                expected = 151 if left == 150 else 106
+                self.assertEqual(widget._clip_text_rects[0]["rect"].left(), expected)
+                # Cached media must not carry a second title or stale hit boxes.
+                cached = helper._retime_preview_cache["C1"]
+                self.assertEqual(cached["icons"], [])
+                self.assertIsNone(cached["text_entry"])
+                if left < 100:
+                    self.assertNotEqual(image.pixelColor(100, 60), QColor("red"))
+                    self.assertNotEqual(image.pixelColor(106, 60), QColor("red"))
 
     def test_waveform_density_defaults_to_legacy_rate_when_missing(self):
         waveform = self.waveform_module
