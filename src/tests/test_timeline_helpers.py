@@ -30,6 +30,7 @@ import importlib
 import math
 import os
 import sys
+import tempfile
 import types
 import unittest
 from contextlib import ExitStack
@@ -4417,7 +4418,8 @@ class TimelineHelperTests(unittest.TestCase):
             project_fps=30.0,
         )
 
-        self.assertEqual(frames, [1175, 1025, 875, 719, 570, 420, 264, 114, 18])
+        # Sample the actual pixel-slot centers before mapping to reader frames.
+        self.assertEqual(frames, [1175, 1025, 875, 725, 570, 420, 270, 114, 18])
 
     def test_draw_thumbnails_entire_style_long_retimed_clip_generates_tail_slots(self):
         clip = types.SimpleNamespace(
@@ -4572,6 +4574,154 @@ class TimelineHelperTests(unittest.TestCase):
                 for spacing in spacings
             )
         )
+
+    def test_thumbnail_strip_samples_visible_positions_across_zoom_levels(self):
+        # Fractional frames per slot must not accumulate into source-time drift,
+        # even far from the media origin or with a trimmed, repositioned clip.
+        for fps_num, fps_den in ((30, 1), (24000, 1001), (30000, 1001), (60000, 1001)):
+            for trim_start in (0.0, 120.37):
+                for pixels_per_second in (609.0, 676.7, 751.9, 2400.0):
+                    with self.subTest(fps=fps_num / fps_den, trim_start=trim_start, zoom=pixels_per_second):
+                        painter = self.make_clip_painter(
+                            pixels_per_second=pixels_per_second, project_fps=30.0
+                        )
+                        painter.w.theme.clip.thumb_width = 116
+                        clip = types.SimpleNamespace(id="C1", data={
+                            "file_id": "F1", "start": trim_start,
+                            "end": trim_start + 60.0, "duration": 60.0,
+                            "position": 7.0,
+                            "reader": {"fps": {"num": fps_num, "den": fps_den}, "duration": 200.0},
+                        })
+                        inner = QRectF(42.0, 0.0, 1100.0, 65.0)
+                        segment = {
+                            "segment_width": inner.width(),
+                            "clip_width": 60.0 * pixels_per_second,
+                            "offset_seconds": 22.0,
+                            "duration_seconds": inner.width() / pixels_per_second,
+                            "clip_duration": 60.0,
+                            "includes_start": False, "includes_end": False,
+                        }
+                        slots, interval = painter._build_thumbnail_slots(
+                            clip, inner, segment, "entire", painter._segment_timing(segment, 60.0)
+                        )
+                        for slot_start, rect in slots:
+                            self.assertAlmostEqual(
+                                slot_start, 22.0 + (rect.left() - inner.left()) / pixels_per_second
+                            )
+                            self.assertAlmostEqual(interval, rect.width() / pixels_per_second)
+                        requests = []
+
+                        def capture(_clip, clip_key, file_id, frame, rect, generation, **kwargs):
+                            requests.append((frame, rect))
+                            return None
+
+                        painter._get_thumbnail_pixmap = capture
+                        painter._draw_thumbnails(None, clip, inner, segment)
+                        self.assertGreater(len(requests), 5)
+                        for frame, rect in requests:
+                            visible_center = (
+                                max(rect.left(), inner.left()) + min(rect.right(), inner.right())
+                            ) / 2.0
+                            expected_time = trim_start + 22.0 + (
+                                visible_center - inner.left()
+                            ) / pixels_per_second
+                            # Allow local cache rounding, but never cumulative drift.
+                            self.assertAlmostEqual(
+                                (frame - 1) / (fps_num / fps_den), expected_time, delta=0.26
+                            )
+
+    def test_thumbnail_strip_renders_correct_cached_frames_during_repeated_zoom(self):
+        # Encode source frame numbers in solid-color PNGs so we can verify the
+        # actual painted pixels through the normal request, load, and cache path.
+        for fps_num in (24000, 30000, 60000):
+            with self.subTest(fps=fps_num / 1001.0), tempfile.TemporaryDirectory() as folder:
+                fps = fps_num / 1001.0
+                painter = self.make_clip_painter(project_fps=30.0)
+                painter.w.theme.clip.thumb_width = 116
+                clip = types.SimpleNamespace(id="C1", data={
+                    "file_id": "F1", "start": 120.37, "end": 180.37,
+                    "duration": 60.0, "position": 7.0,
+                    "reader": {"fps": {"num": fps_num, "den": 1001}, "duration": 200.0},
+                })
+                requests = []
+                painter.w.thumbnail_manager = types.SimpleNamespace(
+                    request_thumbnail=lambda *args: requests.append(args)
+                )
+                painter._existing_thumb_path = lambda *args: ""
+                inner = QRectF(42.0, 0.0, 1100.0, 65.0)
+                snapshots = {}
+                stale_requests = []
+
+                def render(segment):
+                    image = QImage(1200, 65, QImage.Format_ARGB32)
+                    image.fill(QColor("magenta"))
+                    canvas = QPainter(image)
+                    try:
+                        pending = painter._draw_thumbnails(canvas, clip, inner, segment)
+                    finally:
+                        canvas.end()
+                    return image, pending
+
+                def deliver(request):
+                    clip_id, file_id, frame, generation = request
+                    path = os.path.join(folder, f"{frame}.png")
+                    thumbnail = QImage(116, 65, QImage.Format_ARGB32)
+                    thumbnail.fill(QColor((frame >> 16) & 255, (frame >> 8) & 255, frame & 255))
+                    self.assertTrue(thumbnail.save(path))
+                    painter.handle_thumbnail_ready(clip_id, frame, path, generation)
+
+                zooms = (609.0, 676.7, 751.9, 2400.0, 751.9, 676.7, 609.0, 2400.0, 609.0)
+                for generation, zoom in enumerate(zooms, 1):
+                    painter.w.pixels_per_second = zoom
+                    painter.w.thumbnail_generation = generation
+                    painter.expire_thumbnail_requests(generation)
+                    painter.clear_render_cache()
+                    # Keep a fixed playhead time at the same screen position.
+                    offset = 22.25 - (206.0 - inner.left()) / zoom
+                    segment = {
+                        "segment_width": inner.width(), "clip_width": 60.0 * zoom,
+                        "offset_seconds": offset, "duration_seconds": inner.width() / zoom,
+                        "clip_duration": 60.0, "includes_start": False, "includes_end": False,
+                    }
+                    requests.clear()
+                    render(segment)
+                    if generation == 1:
+                        # Leave one old-generation request outstanding during zoom.
+                        self.assertGreater(len(requests), 1)
+                        stale_requests.append(requests.pop())
+                    if generation == 2:
+                        cache_before = dict(painter.thumb_cache)
+                        pending_before = dict(painter._thumb_pending)
+                        for request in stale_requests:
+                            deliver(request)
+                        self.assertEqual(painter.thumb_cache, cache_before)
+                        self.assertEqual(painter._thumb_pending, pending_before)
+                    if zoom in snapshots:
+                        self.assertEqual(requests, [], "Returning to a populated zoom should reuse its frames")
+                    for request in requests:
+                        deliver(request)
+                    if generation == 1:
+                        # Zoom away with a partially populated cache and work
+                        # still in flight. Its result will arrive at generation 2.
+                        self.assertTrue(painter.thumb_cache)
+                        self.assertTrue(painter._thumb_pending)
+                        continue
+                    image, pending = render(segment)
+                    self.assertFalse(pending)
+                    self.assertTrue(painter.thumb_cache)
+                    # Read rendered pixels independently of the slot builder.
+                    for x in range(50, 1135, 17):
+                        color = image.pixelColor(x, 32)
+                        frame = (color.red() << 16) | (color.green() << 8) | color.blue()
+                        expected_time = 120.37 + offset + (x - inner.left()) / zoom
+                        self.assertAlmostEqual(
+                            (frame - 1) / fps, expected_time,
+                            delta=0.26 + 58.0 / zoom,
+                        )
+                    if zoom in snapshots:
+                        self.assertEqual(image, snapshots[zoom])
+                    else:
+                        snapshots[zoom] = image
 
     def test_expire_thumbnail_requests_clears_edge_slot_fallback_cache(self):
         painter = self.make_clip_painter(thumbnail_style="entire", pixels_per_second=24.0, project_fps=24.0)

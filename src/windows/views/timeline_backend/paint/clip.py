@@ -1129,22 +1129,15 @@ class ClipPainter(BasePainter):
         time_points = time_data.get("Points") if isinstance(time_data.get("Points"), list) else []
         has_time_curve = len(time_points) >= 2
 
-        # Slot spacing in time. Keep visual geometry tied to the nominal
-        # thumbnail width in pixels. Frame sampling can still use a quantized
-        # interval, but quantizing the drawn slot positions causes all slots to
-        # jump by a pixel as smooth zoom crosses frame-rounding thresholds.
+        # Use the same exact interval for placement and sampling. Rounding the
+        # interval to frames before multiplying by a slot index accumulates
+        # source-time drift, especially far from media zero at high zoom.
+        # Frame/cache rounding belongs only on the final per-slot sample.
         interval_pixels = max(thumb_w, self._min_thumb_slot_width)
-        geometry_interval_seconds = interval_pixels / pixels_per_second
-        if geometry_interval_seconds <= 0.0:
-            geometry_interval_seconds = 0.01
-        interval_seconds = geometry_interval_seconds
-        if style == "entire":
-            clip_fps = self._clip_media_fps(clip)
-            if clip_fps > 0.0:
-                interval_frames = max(1, int(round(interval_seconds * clip_fps)))
-                interval_seconds = interval_frames / clip_fps
-        half_interval = interval_seconds * 0.5
-        slot_duration_seconds = geometry_interval_seconds
+        interval_seconds = interval_pixels / pixels_per_second
+        if interval_seconds <= 0.0:
+            interval_seconds = 0.01
+        slot_duration_seconds = interval_seconds
 
         includes_start = bool(timing.get("includes_start", True))
         includes_end = bool(timing.get("includes_end", True))
@@ -1167,26 +1160,15 @@ class ClipPainter(BasePainter):
 
         epsilon = 1e-6
 
-        def add_center_world(center_world, geometry_world=None):
-            """
-            Add a slot whose sampling left edge begins at `center_world` (timeline
-            seconds), if it overlaps the visible segment and lies within clip & media.
-            `geometry_world` can differ for pixel-stable visual placement during
-            smooth zoom while keeping prior frame sampling.
-            """
-            if geometry_world is None:
-                geometry_world = center_world
+        def add_slot_world(slot_world):
+            """Add a slot at a world time, using that time for sampling too."""
 
             # Media time (0 at media start), using the visual slot coverage.
-            slot_start_media_time = geometry_world - anchor_world
+            slot_start_media_time = slot_world - anchor_world
 
             # Clip-local time (0 at clip's left edge), using the visual slot coverage.
-            slot_start_clip_time = geometry_world - clip_pos
+            slot_start_clip_time = slot_world - clip_pos
             slot_end_clip_time = slot_start_clip_time + slot_duration_seconds
-
-            # Clip-local sampling time. This is what _draw_thumbnails uses for
-            # frame selection.
-            sample_start_clip_time = center_world - clip_pos
 
             # Require positive overlap with the visible segment. Boundary-only
             # slots can oscillate in/out during smooth zoom and fight with the
@@ -1215,23 +1197,23 @@ class ClipPainter(BasePainter):
                 return
 
             # Deduplicate by clip-local time to avoid overlapping slots
-            key = round(sample_start_clip_time, 4)
+            key = round(slot_start_clip_time, 4)
             if key in seen:
                 return
             seen.add(key)
 
             rect = QRectF(inner.x() + local_x, top, thumb_w, thumb_h)
             # Store slot start time; _draw_thumbnails samples near the center.
-            slots.append((sample_start_clip_time, rect))
+            slots.append((slot_start_clip_time, rect))
 
         # --- Style handling -----------------------------------------------
 
         if style == "start":
             if includes_start:
-                add_center_world(segment_start_world)
+                add_slot_world(segment_start_world)
         elif style == "start-end":
             if includes_start:
-                add_center_world(segment_start_world)
+                add_slot_world(segment_start_world)
             # If the visible segment cannot fit two full slots, prioritize the
             # start slot to avoid the end slot covering it on very short clips.
             allow_end_slot = True
@@ -1240,26 +1222,24 @@ class ClipPainter(BasePainter):
             if includes_end and allow_end_slot:
                 # Start slot so its right edge aligns with the clip end
                 clip_end_world = clip_pos + max(0.0, clip_duration - slot_duration_seconds)
-                add_center_world(clip_end_world)
+                add_slot_world(clip_end_world)
         else:
             # Full-grid style ("entire", etc.)
             # Slot starts should cover any thumbnail overlapping the visible
             # segment, including partials at either edge.
             n_min = int(
                 math.floor(
-                    (segment_start_world - slot_duration_seconds - anchor_world) / geometry_interval_seconds
+                    (segment_start_world - slot_duration_seconds - anchor_world) / interval_seconds
                 )
             ) - 2
             n_max = int(
                 math.ceil(
-                    (segment_end_world - anchor_world) / geometry_interval_seconds
+                    (segment_end_world - anchor_world) / interval_seconds
                 )
             ) + 2
 
             for n in range(n_min, n_max + 1):
-                center_world = anchor_world + n * interval_seconds
-                geometry_world = anchor_world + n * geometry_interval_seconds
-                add_center_world(center_world, geometry_world)
+                add_slot_world(anchor_world + n * interval_seconds)
 
         if not slots:
             return [], interval_seconds
