@@ -2819,10 +2819,16 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     def actionRippleSliceKeepLeft(self):
         """Slice and keep the left side of a clip/transition, and then ripple the position change to the right."""
+        razor = getattr(self.timeline, "razor_ripple_at_cursor", None)
+        if razor and razor(True):
+            return
         self.slice_clips(MenuSlice.KEEP_LEFT, selected_only=True, ripple=True)
 
     def actionRippleSliceKeepRight(self):
         """Slice and keep the right side of a clip/transition, and then ripple the position change to the right."""
+        razor = getattr(self.timeline, "razor_ripple_at_cursor", None)
+        if razor and razor(False):
+            return
         self.slice_clips(MenuSlice.KEEP_RIGHT, selected_only=True, ripple=True)
 
     def actionProperties_trigger(self):

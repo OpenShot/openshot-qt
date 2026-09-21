@@ -2664,6 +2664,9 @@ class TimelineHelperTests(unittest.TestCase):
     def test_qwidget_cursor_uses_razor_cursor_for_items_when_enabled(self):
         helper = self.make_qwidget_cursor_helper()
         helper.enable_razor = True
+        helper.track_name_width = 0
+        helper._razor_in_track_area = lambda pos: True
+        helper._razor_target_at = lambda pos: {"frame": 1}
         helper.geometry.items = [(QRectF(0.0, 0.0, 100.0, 20.0), object(), False, "clip")]
 
         self.qwidget_base_module.TimelineWidgetBase._updateCursor(helper, QPointF(10.0, 10.0))
@@ -2671,14 +2674,68 @@ class TimelineHelperTests(unittest.TestCase):
         self.assertIs(helper.cursor_value, helper.cursors["razor"])
         self.assertFalse(helper.unset_cursor_called)
 
-    def test_qwidget_razor_cursor_hotspot_matches_web_alignment(self):
-        helper = types.SimpleNamespace()
+    def test_qwidget_razor_cursor_uses_scissors_hotspot(self):
+        helper = types.SimpleNamespace(devicePixelRatioF=lambda: 1.0)
 
         cursor = self.qwidget_base_module.TimelineWidgetBase._load_razor_cursor(helper)
 
         self.assertIsInstance(cursor, QCursor)
-        self.assertEqual(cursor.hotSpot().x(), 0)
-        self.assertEqual(cursor.hotSpot().y(), 2)
+        self.assertEqual(cursor.hotSpot().x(), 7)
+        self.assertEqual(cursor.hotSpot().y(), 4)
+        self.assertEqual(cursor.pixmap().height(), 24)
+
+    def test_razor_cut_uses_preview_modifiers_instead_of_stale_global_state(self):
+        calls = []
+        helper = types.SimpleNamespace(Slice_Triggered=lambda *args: calls.append(args))
+        for modifiers, expected in (
+            (Qt.NoModifier, self.timeline_module.MenuSlice.KEEP_BOTH),
+            (Qt.ShiftModifier, self.timeline_module.MenuSlice.KEEP_LEFT),
+            (Qt.ControlModifier, self.timeline_module.MenuSlice.KEEP_RIGHT),
+        ):
+            with patch.object(QApplication, "keyboardModifiers", return_value=Qt.ShiftModifier), \
+                    patch.object(self.timeline_module.QTimer, "singleShot", side_effect=lambda delay, fn: fn()):
+                self.timeline_module.TimelineView.RazorSliceAtCursor(
+                    helper, "C1", "", 3.0, modifiers
+                )
+            self.assertEqual(calls[-1], (expected, ["C1"], [], 3.0, False))
+
+    def test_razor_alt_dispatches_existing_ripple_slice_for_clips_and_transitions(self):
+        calls = []
+        helper = types.SimpleNamespace(Slice_Triggered=lambda *args: calls.append(args))
+        for clip_id, transition_id in (("C1", ""), ("", "T1")):
+            for modifier, mode in ((Qt.ShiftModifier, self.timeline_module.MenuSlice.KEEP_LEFT),
+                                   (Qt.ControlModifier, self.timeline_module.MenuSlice.KEEP_RIGHT)):
+                with patch.object(self.timeline_module.QTimer, "singleShot", side_effect=lambda delay, fn: fn()):
+                    self.timeline_module.TimelineView.RazorSliceAtCursor(
+                        helper, clip_id, transition_id, 3.0, modifier | Qt.AltModifier
+                    )
+                self.assertEqual(calls[-1], (
+                    mode, [clip_id] if clip_id else [], [transition_id] if transition_id else [], 3.0, True
+                ))
+
+    def test_razor_source_preview_reuses_trim_mapping_without_emitting_normal_seek(self):
+        requests = []
+        mapping = []
+        curve = types.SimpleNamespace(
+            GetCount=lambda: 2,
+            GetValue=lambda frame: mapping.append(frame) or 480.0,
+        )
+        window = types.SimpleNamespace(
+            timeline_sync=types.SimpleNamespace(timeline=types.SimpleNamespace(
+                GetClip=lambda clip_id: types.SimpleNamespace(time=curve))),
+            preview_thread=types.SimpleNamespace(
+                queue_razor_preview=lambda *args: requests.append(args) or True),
+        )
+        helper = types.SimpleNamespace(window=window)
+        helper._clip_preview_source = types.MethodType(self.timeline_module.TimelineView._clip_preview_source, helper)
+        clip = types.SimpleNamespace(data={"file_id": "F1", "reader": {}})
+        file = types.SimpleNamespace(absolute_path=lambda: "/media/hidden-lower.mp4")
+        with patch.object(self.timeline_module.Clip, "get", return_value=clip), \
+                patch.object(self.timeline_module.File, "get", return_value=file):
+            accepted = self.timeline_module.TimelineView.PreviewRazorFrame(helper, "C1", 241, 61)
+        self.assertTrue(accepted)
+        self.assertEqual(mapping, [241])
+        self.assertEqual(requests, [(480, 61, "/media/hidden-lower.mp4", False)])
 
     def test_qwidget_cursor_keeps_hand_cursor_for_items_when_razor_disabled(self):
         helper = self.make_qwidget_cursor_helper()

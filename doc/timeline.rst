@@ -100,6 +100,12 @@ Timeline Toolbar and Zoom
 The timeline toolbar helps with common navigation and editing actions (snapping,
 retime, razor, markers, centering, and zoom).
 
+The :ref:`razor_tool_ref` shows a cut guide and timecode over the target clip.
+While paused, hovering also previews the cut frame without moving the playhead.
+Click to cut, or press :kbd:`Esc` to leave Razor mode.
+The Razor guide respects the existing **Snapping** toggle and uses the same
+snap targets and tolerance as other timeline edits.
+
 Tip: If timeline editing feels crowded, zoom in with the timeline slider to make
 small clip adjustments easier.
 

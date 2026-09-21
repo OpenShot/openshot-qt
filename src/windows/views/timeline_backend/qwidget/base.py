@@ -70,6 +70,7 @@ from classes.logger import log
 from classes.clip_utils import is_single_image_media
 from .thumbnails import TimelineThumbnailManager
 from .timecode import TimecodeLineEdit
+from .razor import RazorMixin
 
 
 class TimelineEvents(QObject):
@@ -135,7 +136,7 @@ class _ConditionalTransition(QtCore.QSignalTransition):
         return super().eventTest(event) and self._condition()
 
 
-class TimelineWidgetBase(QWidget):
+class TimelineWidgetBase(RazorMixin, QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
 
@@ -273,6 +274,7 @@ class TimelineWidgetBase(QWidget):
         self.enable_timing = False
         self.enable_snapping = True
         self.enable_razor = False
+        self._init_razor()
         self._resizing_item = None
         self._resize_edge = None
         self._resize_initial_rect = QRectF()
@@ -374,7 +376,6 @@ class TimelineWidgetBase(QWidget):
             else:
                 self.cursors[cursor_name] = QCursor(pixmap)
         self.cursors["razor"] = self._load_razor_cursor()
-        self.cursors["razor"] = self._load_razor_cursor()
 
         # Init Qt widget's properties (background repainting, etc...)
         super().setAttribute(Qt.WA_OpaquePaintEvent)
@@ -388,6 +389,8 @@ class TimelineWidgetBase(QWidget):
 
         # Get a reference to the window object
         self.win = get_app().window
+        self.win.SeekSignal.connect(self._razor_user_seek)
+        self.win.PlaySignal.connect(self._razor_user_seek)
         self.win.ThemeChangedSignal.connect(self.apply_theme)
 
         # Connect zoom functionality
@@ -723,6 +726,13 @@ class TimelineWidgetBase(QWidget):
     def setRazorMode(self, enable):
         """Enable or disable razor tool mode."""
         self.enable_razor = bool(enable)
+        if self.enable_razor:
+            self.cursors["razor"] = self._load_razor_cursor()
+            self.setFocus(Qt.OtherFocusReason)
+            self._razor_timer.start()
+        else:
+            self._razor_timer.stop()
+            self._clear_razor_hover()
         if self._fixed_cursor is not None:
             return
         pos = self.mapFromGlobal(QCursor.pos())
@@ -745,16 +755,17 @@ class TimelineWidgetBase(QWidget):
         self._fixed_cursor = None
 
     def _load_razor_cursor(self):
-        """Load the native razor cursor used by the legacy timeline."""
-        asset_path = os.path.join(PATH, "themes/humanity/images/razor_line_with_razor.png")
-        pixmap = QPixmap(asset_path)
+        """Use the same scissors artwork as the Razor toolbar action."""
+        action = getattr(getattr(get_app(), "window", None), "actionRazorTool", None)
+        icon = action.icon() if action else QIcon()
+        if icon.isNull():
+            icon = QIcon(os.path.join(PATH, "themes/cosmic/images/tool-razor.svg"))
+        scale = max(1.0, self.devicePixelRatioF())
+        pixmap = icon.pixmap(round(24 * scale), round(24 * scale))
         if pixmap.isNull():
             return QCursor(Qt.CrossCursor)
-        # Match the web timeline hotspot, which uses the asset's top-left
-        # corner as the active cursor position.
-        hot_x = 0
-        hot_y = min(2, max(0, pixmap.height() - 1))
-        return QCursor(pixmap, hot_x, hot_y)
+        pixmap.setDevicePixelRatio(scale)
+        return QCursor(pixmap, 7, 4)
 
     def _snap_time(self, seconds):
         """Snap a time in seconds to the nearest frame boundary."""
@@ -1001,6 +1012,7 @@ class TimelineWidgetBase(QWidget):
             self.marker_painter.paint(painter)
             self.playhead_painter.paint(painter)
             self.ruler_painter.paint_overlay(painter)
+            self._paint_razor(painter)
             self.scrollbar_painter.paint(painter)
         finally:
             if painter.isActive():
@@ -3035,6 +3047,11 @@ class TimelineWidgetBase(QWidget):
                 self.unsetCursor()
             return
 
+        if self.enable_razor and self._razor_in_track_area(pos):
+            target = self._razor_target_at(pos)
+            self.setCursor(self.cursors.get("razor", Qt.CrossCursor) if target else Qt.ForbiddenCursor)
+            return
+
         icon_entry = self._effect_icon_at(pos)
         if icon_entry:
             self.setCursor(Qt.PointingHandCursor)
@@ -3066,12 +3083,6 @@ class TimelineWidgetBase(QWidget):
         if panel_marker:
             self.setCursor(self.cursors.get("resize_x", Qt.SizeHorCursor))
             return
-
-        if self.enable_razor:
-            for rect, _item, _selected, _type in self.geometry.iter_items(reverse=True):
-                if rect.contains(pos):
-                    self.setCursor(self.cursors.get("razor", Qt.CrossCursor))
-                    return
 
         # Clip title container (dropdown click target)
         for entry in reversed(getattr(self, "_clip_text_rects", [])):
@@ -3111,6 +3122,9 @@ class TimelineWidgetBase(QWidget):
         self.unsetCursor()
 
     def mouseDoubleClickEvent(self, event):
+        if self.enable_razor and event.button() == Qt.LeftButton:
+            event.accept()
+            return
         if event.button() == Qt.LeftButton:
             self.geometry.ensure()
             pos = _event_posf(event)
@@ -3125,6 +3139,10 @@ class TimelineWidgetBase(QWidget):
         super().mouseDoubleClickEvent(event)
 
     def mousePressEvent(self, event):
+        if self.enable_razor and not (
+            event.button() == Qt.LeftButton and self._razor_in_track_area(_event_posf(event))
+        ):
+            self._clear_razor_hover()
         self._reset_ctrl_mouse_zoom()
         self._press_marker = None
         self._clear_pending_clip_menu_click()
@@ -3218,6 +3236,7 @@ class TimelineWidgetBase(QWidget):
         self.events.pressed.emit(event)
 
     def leaveEvent(self, event):
+        self._clear_razor_hover()
         if self._ctrl_zooming:
             self._finish_ctrl_mouse_zoom()
         self._reset_ctrl_mouse_zoom()
@@ -3274,17 +3293,19 @@ class TimelineWidgetBase(QWidget):
 
     def _handle_razor_press(self, pos):
         """Invoke razor slicing when the razor tool is enabled and an item is clicked."""
-        for rect, obj, _sel, typ in self.geometry.iter_items(reverse=True):
-            if not rect.contains(pos):
-                continue
-            seconds = self._seconds_from_x(pos.x())
-            clip_id = str(getattr(obj, "id", "")) if typ == "clip" else ""
-            tran_id = str(getattr(obj, "id", "")) if typ == "transition" else ""
+        if not self._razor_in_track_area(pos):
+            return False
+        target = self._razor_target_at(pos)
+        if target:
+            self._clear_razor_hover()
+            obj = target["item"]
+            clip_id = str(obj.id) if target["kind"] == "clip" else ""
+            tran_id = str(obj.id) if target["kind"] == "transition" else ""
             razor_cb = getattr(self, "RazorSliceAtCursor", None)
             if callable(razor_cb):
-                razor_cb(clip_id, tran_id, seconds)
-            return True
-        return False
+                razor_cb(clip_id, tran_id, target["seconds"], self._razor_modifiers)
+        # Razor mode owns clicks even on locked clips, edges, and empty space.
+        return True
 
     def _assign_press_target(self, event):
         pos = _event_posf(event)
@@ -3498,7 +3519,12 @@ class TimelineWidgetBase(QWidget):
         if self._toolbar_pressed_key:
             self._update_toolbar_pressed_state(posf)
         self._update_toolbar_hover(posf)
-        self._update_hover_tooltip(posf)
+        if self.enable_razor:
+            self._set_hover_tooltip("")
+            self._razor_pos = QPointF(posf)
+            self._refresh_razor_hover(event.modifiers())
+        else:
+            self._update_hover_tooltip(posf)
 
         self._updateCursor(posf)
         self.events.moved.emit(event)

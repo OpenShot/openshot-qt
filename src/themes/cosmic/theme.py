@@ -40,7 +40,7 @@ class CosmicTheme(BaseTheme):
         super().__init__(app)
 
         self.style_sheet = """
-QToolTip {
+QToolTip, QLabel#razorHint {
     color: #f4f7ff;
     font-size: 12px;
     font-weight: normal;

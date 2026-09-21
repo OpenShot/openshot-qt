@@ -4099,22 +4099,23 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 get_app().updates.transaction_id = None
 
     @pyqtSlot(str, str, float)
-    def RazorSliceAtCursor(self, clip_id, trans_id, cursor_position):
-        """Callback from javascript that the razor tool was clicked"""
+    def RazorSliceAtCursor(self, clip_id, trans_id, cursor_position, modifiers=None):
+        """Cut using the previewed modifiers, or keyboard state for legacy callers."""
+        if modifiers is None:
+            modifiers = QCoreApplication.instance().keyboardModifiers()
 
         # Determine slice mode (keep both [default], keep left [shift], keep right [ctrl]
         slice_mode = MenuSlice.KEEP_BOTH
-        if modifiers_has(QCoreApplication.instance().keyboardModifiers(), Qt.ControlModifier):
+        if modifiers_has(modifiers, Qt.ControlModifier):
             slice_mode = MenuSlice.KEEP_RIGHT
-        elif modifiers_has(QCoreApplication.instance().keyboardModifiers(), Qt.ShiftModifier):
+        elif modifiers_has(modifiers, Qt.ShiftModifier):
             slice_mode = MenuSlice.KEEP_LEFT
 
+        ripple = slice_mode != MenuSlice.KEEP_BOTH and modifiers_has(modifiers, Qt.AltModifier)
         if clip_id:
-            # Slice clip
-            QTimer.singleShot(0, partial(self.Slice_Triggered, slice_mode, [clip_id], [], cursor_position))
+            QTimer.singleShot(0, partial(self.Slice_Triggered, slice_mode, [clip_id], [], cursor_position, ripple))
         elif trans_id:
-            # Slice transitions
-            QTimer.singleShot(0, partial(self.Slice_Triggered, slice_mode, [], [trans_id], cursor_position))
+            QTimer.singleShot(0, partial(self.Slice_Triggered, slice_mode, [], [trans_id], cursor_position, ripple))
 
     @feedback_command("structure")
     def Slice_Triggered(self, action, clip_ids, trans_ids, playhead_position=0, ripple=False):
@@ -5144,9 +5145,8 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         self.window.LoadTimelineAndSeekSignal.emit(target_frame)
         QTimer.singleShot(0, lambda: setattr(self.window, "_trim_refresh_pending", False))
 
-    @pyqtSlot(str, int)
-    def PreviewClipFrame(self, clip_id, frame_number):
-
+    def _clip_preview_source(self, clip_id, frame_number):
+        """Resolve the same source path and time mapping for trim and razor previews."""
         # Get existing clip object
         clip = Clip.get(id=clip_id)
         if not clip:
@@ -5191,7 +5191,14 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 except Exception as exc:
                     log.debug("Failed to map time curve for clip %s: %s", clip_id, exc, exc_info=True)
 
-        frame_number = max(mapped_frame, 1)
+        return preview_path, max(mapped_frame, 1)
+
+    @pyqtSlot(str, int)
+    def PreviewClipFrame(self, clip_id, frame_number):
+        source = self._clip_preview_source(clip_id, frame_number)
+        if not source:
+            return
+        preview_path, frame_number = source
 
         # Load the clip into the Player (ignored if this has already happened)
         self.window.LoadFileSignal.emit(preview_path)
@@ -5200,6 +5207,24 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         # Use scrub seeks while trimming, as with a paused playhead drag.
         # Preroll/prefetch would compete with the next trim preview request.
         self.window.SeekSignal.emit(frame_number, False)
+
+    def PreviewRazorFrame(self, item_id, frame_number, restore_frame, kind="clip"):
+        """Preview a hovered source without moving the timeline playhead."""
+        if kind == "clip":
+            source = self._clip_preview_source(item_id, frame_number)
+        else:
+            transition = Transition.get(id=item_id)
+            if not transition:
+                return False
+            reader = self._transition_mask_reader(transition.data)
+            path = absolute_media_path(reader.get("path")) if isinstance(reader, dict) else None
+            source = (path, frame_number) if path else None
+        if not source:
+            return False
+        path, frame_number = source
+        return self.window.preview_thread.queue_razor_preview(
+            frame_number, restore_frame, path, kind == "transition"
+        )
 
     @pyqtSlot(str, int)
     def PreviewTransitionFrame(self, transition_id, frame_number):
