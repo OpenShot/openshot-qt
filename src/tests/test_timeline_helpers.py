@@ -4854,6 +4854,119 @@ class TimelineHelperTests(unittest.TestCase):
             )
         )
 
+    def test_thumbnail_grid_stays_fixed_during_anchored_smooth_zoom(self):
+        # Exercise the tail of a still image and five-frame cuts, including
+        # repositioned media. A media-zero grid slips faster at later times.
+        for position, start, duration, anchor in (
+            (0.0, 0.0, 10.0, 0.0),
+            (0.0, 0.0, 10.0, 9.5),
+            (9.5, 9.5, 5.0 / 30.0, 9.6),
+            (109.5, 9.5, 5.0 / 30.0, 109.6),
+        ):
+            with self.subTest(position=position, start=start):
+                painter = self.make_clip_painter(pixels_per_second=1600.0, project_fps=30.0)
+                clip = types.SimpleNamespace(id="C1", data={
+                    "position": position, "start": start, "end": start + duration,
+                    "duration": duration, "reader": {"duration": 10.0},
+                })
+                phases = []
+                for pps in (1600.0, 1600.3, 1601.1, 1610.0, 1800.0, 2000.0, 1800.0, 1600.0):
+                    painter.w.pixels_per_second = pps
+                    painter.w.h_scroll_offset = max(0.0, anchor * pps - 100.0)
+                    left = max(0.0, (painter.w.h_scroll_offset - position * pps) / pps)
+                    span = min(duration - left, 200.0 / pps)
+                    segment = {
+                        "offset_seconds": left, "duration_seconds": span,
+                        "clip_duration": duration, "clip_width": duration * pps,
+                        "segment_width": span * pps,
+                    }
+                    slots, interval = painter._build_thumbnail_slots(
+                        clip, QRectF(0, 0, span * pps, 40), segment, "entire", {}
+                    )
+                    self.assertGreater(len(slots), 1)
+                    for slot_time, rect in slots:
+                        self.assertAlmostEqual(slot_time, left + rect.left() / pps)
+                        self.assertAlmostEqual(interval, rect.width() / pps)
+                    screen_x = position * pps - painter.w.h_scroll_offset + left * pps + slots[0][1].left()
+                    phases.append(screen_x % slots[0][1].width())
+                for phase in phases[1:]:
+                    self.assertAlmostEqual(phase, phases[0], places=6)
+
+                # Panning at a fixed zoom must still move the strip with media.
+                phase_before = painter._thumbnail_grid_phase(clip, 48.0)
+                painter.w.h_scroll_offset += 17.0
+                self.assertEqual(painter._thumbnail_grid_phase(clip, 48.0), phase_before)
+
+    def test_clip_render_cache_distinguishes_subpixel_pan_at_extreme_zoom(self):
+        painter = self.make_clip_painter(pixels_per_second=2000.0)
+        clip = types.SimpleNamespace(id="C1", data={
+            "position": 0.0, "start": 0.0, "end": 10.0, "duration": 10.0,
+        })
+        # The old four-decimal time key maps both offsets to the same cache
+        # entry, despite different pixel geometry. Identical views still reuse it.
+        painter._draw_clip_contents = MagicMock(return_value=([], False, None))
+        segment = QRectF(0, 0, 300, 40)
+        for offset in (18000.0, 18000.0, 18000.08, 18000.08):
+            painter.w.h_scroll_offset = offset
+            result = painter._clip_pixmap(QRectF(-offset, 0, 20000, 40), segment, clip)
+            self.assertIsNotNone(result)
+        self.assertEqual(painter._draw_clip_contents.call_count, 2)
+
+    def test_frame_bands_overlay_media_at_eighth_opacity_and_preserve_headers(self):
+        painter = self.make_clip_painter()
+        widget = painter.w
+        widget.track_name_width = 0
+        widget.ruler_height = 0
+        widget.scroll_bar_thickness = 0
+        widget._is_track_locked = lambda _layer: False
+        clip = types.SimpleNamespace(id="C1", data={"layer": 1})
+        widget.geometry = types.SimpleNamespace(iter_clips=lambda: [(QRectF(0, 0, 100, 40), clip, False)])
+        cfg = {"pps": 600.0, "fps": 30.0, "offset_px": 15.0}
+        widget.track_painter = types.SimpleNamespace(_frame_banding_config=lambda: cfg)
+        painter._draw_clip_header = lambda canvas, *_args: canvas.fillRect(QRectF(0, 0, 10, 10), QColor("red"))
+        for background in ("white", "black"):
+            for banding in (True, False):
+                with self.subTest(background=background, banding=banding):
+                    widget.track_painter._frame_banding_config = lambda: cfg if banding else None
+                    painter._draw_clip = lambda canvas, *_args: canvas.fillRect(QRectF(0, 0, 100, 40), QColor(background))
+                    image = QImage(100, 40, QImage.Format_ARGB32)
+                    image.fill(Qt.transparent)
+                    canvas = QPainter(image)
+                    try:
+                        painter.paint(canvas)
+                    finally:
+                        canvas.end()
+                    # Titles stay above the overlay, and the media stays opaque.
+                    self.assertEqual(image.pixelColor(5, 5), QColor("red"))
+                    for x in (3, 10, 30, 50, 70, 90):
+                        frame = (x + 15) // 20
+                        original = 255 if background == "white" else 0
+                        expected = original
+                        if banding:
+                            expected = min(255, original + 32) if frame % 2 == 0 else max(0, original - 32)
+                        pixel = image.pixelColor(x, 20)
+                        self.assertEqual(pixel.alpha(), 255)
+                        self.assertAlmostEqual(pixel.red(), expected, delta=1)
+                        self.assertEqual(pixel.red(), pixel.green())
+                        self.assertEqual(pixel.red(), pixel.blue())
+                    self.assertEqual(image.pixelColor(25, 0), QColor(background))
+
+    def test_frame_bands_align_with_fractional_fps_and_scroll(self):
+        painter = self.make_clip_painter()
+        painter.w.track_name_width = 17
+        cfg = {"pps": 997.0, "fps": 30000.0 / 1001.0, "offset_px": 26731.25}
+        canvas = MagicMock()
+        painter._draw_frame_bands(canvas, QRectF(-100, 0, 1000, 40), QRectF(17, 0, 300, 40), cfg)
+        self.assertGreater(canvas.fillRect.call_count, 5)
+        for call in canvas.fillRect.call_args_list:
+            rect = call.args[0]
+            frame = (rect.left() - 17 + cfg["offset_px"]) / cfg["pps"] * cfg["fps"]
+            self.assertAlmostEqual(frame, round(frame), places=8)
+            self.assertAlmostEqual(rect.width(), cfg["pps"] / cfg["fps"])
+            color = call.args[1]
+            self.assertEqual(color.alpha(), 32)
+            self.assertEqual(color.red(), 255 if round(frame) % 2 == 0 else 0)
+
     def test_thumbnail_strip_samples_visible_positions_across_zoom_levels(self):
         # Fractional frames per slot must not accumulate into source-time drift,
         # even far from the media origin or with a trimmed, repositioned clip.

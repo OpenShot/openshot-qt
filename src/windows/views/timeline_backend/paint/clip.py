@@ -190,6 +190,7 @@ class ClipPainter(BasePainter):
         self._slot_fallback_cache = {}
         self._trim_request_cooldown = 0.12
         self._retime_preview_cache = {}
+        self._thumbnail_grid = {}
 
     MAX_THUMB_SLOTS = 150
 
@@ -402,6 +403,8 @@ class ClipPainter(BasePainter):
             self.w.width() - self.w.track_name_width - self.w.scroll_bar_thickness,
             self.w.height() - self.w.ruler_height - self.w.scroll_bar_thickness,
         )
+        track_painter = getattr(self.w, "track_painter", None)
+        frame_banding = track_painter and track_painter._frame_banding_config()
         overdraw = self._segment_overdraw(area.width())
         expanded = QRectF(
             area.left() - overdraw,
@@ -437,9 +440,35 @@ class ClipPainter(BasePainter):
                 painter.save()
                 painter.setOpacity(0.8)
             self._draw_clip(painter, rect, segment_rect, clip, pen, selected)
+            if frame_banding:
+                self._draw_frame_bands(painter, rect, area, frame_banding)
             self._draw_clip_header(painter, clip, rect, area)
             if locked:
                 painter.restore()
+        painter.restore()
+
+    def _draw_frame_bands(self, painter, clip_rect, area, cfg):
+        """Overlay alternating translucent frame bands on clip media."""
+        bw = max(1.0, float(self.border_width or 0.0))
+        visible = clip_rect.adjusted(bw, bw, -bw, -bw).intersected(area)
+        pps = cfg["pps"]
+        fps = cfg["fps"]
+        if visible.isEmpty() or pps <= 0.0 or fps <= 0.0:
+            return
+        offset = cfg["offset_px"]
+        origin = self.w.track_name_width
+        first = int(math.floor((visible.left() - origin + offset) / pps * fps))
+        last = int(math.ceil((visible.right() - origin + offset) / pps * fps))
+        painter.save()
+        painter.setClipRect(visible, Qt.IntersectClip)
+        # Match the track's even-frame highlight with alternating light/dark
+        # overlays. At 12.5% opacity these remain legible on bright or dark media.
+        light = QColor(255, 255, 255, 32)
+        dark = QColor(0, 0, 0, 32)
+        for frame in range(first, min(last + 1, first + 2000)):
+            x = origin + (frame / fps) * pps - offset
+            color = light if frame % 2 == 0 else dark
+            painter.fillRect(QRectF(x, visible.top(), pps / fps, visible.height()), color)
         painter.restore()
 
     @staticmethod
@@ -745,6 +774,10 @@ class ClipPainter(BasePainter):
             "clip_duration": clip_duration_seconds,
         }
 
+        thumb_width = self._thumbnail_slot_width(clip, h - 2.0 * self.border_width)
+        grid_phase = self._thumbnail_grid_phase(clip, thumb_width)
+        segment_info["thumbnail_grid_phase"] = grid_phase
+
         use_cache = not self.w.clip_has_pending_override(clip)
         waveform_token = self.w.clip_waveform_cache_token(clip) if use_cache else None
         key = (
@@ -753,8 +786,10 @@ class ClipPainter(BasePainter):
             h,
             waveform_token,
             round(ratio, 4),
-            round(offset_seconds, 4),
-            round(duration_seconds, 4),
+            offset_seconds,
+            duration_seconds,
+            float(self.w.pixels_per_second),
+            grid_phase,
             includes_start,
             includes_end,
         ) if use_cache else None
@@ -1086,6 +1121,36 @@ class ClipPainter(BasePainter):
         self._resize_allow_left_overflow = False
         self._resize_clip_is_single_image = False
 
+    def _thumbnail_slot_width(self, clip, height):
+        width = self.w.theme.clip.thumb_width
+        if not width:
+            width = round(height * self._clip_aspect_ratio(clip))
+        return float(max(self._min_thumb_slot_width, float(width)))
+
+    def _thumbnail_grid_phase(self, clip, width):
+        """Keep fixed-size tiles stationary in the viewport while zooming.
+
+        A media-zero grid moves by playhead_time * delta_pps during anchored
+        zoom. Preserve its pixel phase using the actual scroll change instead;
+        ordinary panning still moves the strip with the clip. Sampling remains
+        based on each tile's current timeline position, independently of phase.
+        """
+        pps = float(self.w.pixels_per_second or 0.0)
+        start = self._clip_trim_start(clip)
+        position = self._clip_timeline_position(clip)
+        scroll = getattr(self.w, "h_scroll_offset", None)
+        phase = (-start * pps) % width
+        if scroll is None:
+            return phase
+        key = self._clip_key(clip)
+        previous = self._thumbnail_grid.get(key)
+        if previous and previous[3:6] == (position, start, width):
+            old_pps, old_scroll, phase = previous[:3]
+            if pps != old_pps:
+                phase = (phase + float(scroll) - old_scroll - position * (pps - old_pps)) % width
+        self._thumbnail_grid[key] = (pps, float(scroll), phase, position, start, width)
+        return phase
+
     def _build_thumbnail_slots(self, clip, inner, segment, style, timing):
         """ Build thumbnail slots for a clip. """
         if style == "none":
@@ -1108,10 +1173,7 @@ class ClipPainter(BasePainter):
         # thumb_w must be an integer pixel value so all slot positions share the same
         # fractional offset and round consistently in drawPixmap, preventing per-slot jitter.
         thumb_h = max(self._min_thumb_slot_width, inner.height())
-        if self.w.theme.clip.thumb_width:
-            thumb_w = float(max(self._min_thumb_slot_width, float(self.w.theme.clip.thumb_width)))
-        else:
-            thumb_w = float(max(self._min_thumb_slot_width, round(inner.height() * self._clip_aspect_ratio(clip))))
+        thumb_w = self._thumbnail_slot_width(clip, inner.height())
         top = inner.y()
 
         pixels_per_second = float(self.w.pixels_per_second or 0.0)
@@ -1245,22 +1307,15 @@ class ClipPainter(BasePainter):
                 clip_end_world = clip_pos + max(0.0, clip_duration - slot_duration_seconds)
                 add_slot_world(clip_end_world)
         else:
-            # Full-grid style ("entire", etc.)
-            # Slot starts should cover any thumbnail overlapping the visible
-            # segment, including partials at either edge.
-            n_min = int(
-                math.floor(
-                    (segment_start_world - slot_duration_seconds - anchor_world) / interval_seconds
-                )
-            ) - 2
-            n_max = int(
-                math.ceil(
-                    (segment_end_world - anchor_world) / interval_seconds
-                )
-            ) + 2
-
-            for n in range(n_min, n_max + 1):
-                add_slot_world(anchor_world + n * interval_seconds)
+            # Place tiles in pixel space so a zoom gesture can preserve the
+            # viewport phase without changing the media-time sampling math.
+            phase = segment.get("thumbnail_grid_phase")
+            if phase is None:
+                phase = self._thumbnail_grid_phase(clip, thumb_w)
+            first = int(math.floor((segment_start * pixels_per_second - phase) / thumb_w))
+            last = int(math.ceil((segment_end * pixels_per_second - phase) / thumb_w))
+            for n in range(first, last + 1):
+                add_slot_world(clip_pos + (phase + n * thumb_w) / pixels_per_second)
 
         if not slots:
             return [], interval_seconds
