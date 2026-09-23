@@ -191,11 +191,6 @@ class MainWindowTests(unittest.TestCase):
         cls.properties_tableview_module = importlib.import_module("windows.views.properties_tableview")
         cls.properties_model_module = importlib.import_module("windows.models.properties_model")
 
-    @classmethod
-    def tearDownClass(cls):
-        if getattr(cls, "_owns_app", False) and cls.app:
-            cls.app.quit()
-
     def test_track_stack_preserves_selected_track_across_renumbering(self):
         module = self.main_window_module
         layers = [

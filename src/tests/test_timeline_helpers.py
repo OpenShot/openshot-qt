@@ -223,11 +223,6 @@ class TimelineHelperTests(unittest.TestCase):
             },
         )
 
-    @classmethod
-    def tearDownClass(cls):
-        if getattr(cls, "_owns_app", False) and cls.app:
-            cls.app.quit()
-
     def test_timecode_editor_parses_blank_and_zero_as_timeline_start(self):
         edit = self.qwidget_timecode_module.TimecodeLineEdit()
         edit.set_context(30, 1, 31)

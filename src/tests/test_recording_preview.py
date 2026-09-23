@@ -66,11 +66,6 @@ class RecordingPreviewTests(unittest.TestCase):
         cls.recording_widgets_module = recording_widgets_module
         cls.timeline_module = timeline_module
 
-    @classmethod
-    def tearDownClass(cls):
-        if getattr(cls, "_owns_app", False) and cls.app:
-            cls.app.quit()
-
     def test_native_camera_modes_choose_mjpeg_and_preserve_fractional_rates(self):
         helper = self.audio_recording_module
         dock = types.SimpleNamespace()
