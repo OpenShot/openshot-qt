@@ -130,6 +130,8 @@ class OpenShotApp(QApplication):
         # Init data objects
         self.settings = settings.SettingStore(parent=self)
         self.settings.load()
+        assets_path = info.configure_asset_defaults(self.settings.get("unsaved-assets-path"))
+        log.info("Unsaved project assets: %s", assets_path)
         if self.mode != "unittest":
             from classes import logger_libopenshot
             logger_libopenshot.configure(

@@ -292,7 +292,16 @@ starting folder (options described below).
    File Import                       Default folder to choose when importing a file
    Save or Open Project              Default folder to choose when saving or opening a project file
    Video Export                      Default folder to choose when exporting a video
+   Unsaved Project Assets Folder     Folder for assets created before a project is saved (restart required)
    ================================  ==================
+
+On Linux, the unsaved assets folder defaults to ``~/Videos/.openshot-tmp`` when
+``~/Videos`` exists and the hidden child folder is writable. Otherwise, OpenShot
+uses ``~/.openshot_qt``, which is also the default on other platforms. You can
+choose a different folder in Preferences. Saving a project relocates its assets
+into the project's ``<project>_assets`` folder; subsequent titles and animations
+use that folder. These assets can include media needed by an unsaved project or
+crash recovery, so do not delete the folder as ordinary disposable cache data.
 
 .. table::
    :widths: 25 80

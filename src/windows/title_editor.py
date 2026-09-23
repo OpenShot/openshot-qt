@@ -321,10 +321,27 @@ class TitleEditor(QDialog):
 
     def create_temp_title(self, template_path):
         """Set temp file path & make copy of template"""
-        self.filename = os.path.join(info.USER_PATH, "title", "temp.svg")
+        if not getattr(self, "_temp_title", None):
+            os.makedirs(info.TITLE_PATH, exist_ok=True)
+            fd, self._temp_title = tempfile.mkstemp(prefix="openshot-", suffix=".svg", dir=info.TITLE_PATH)
+            os.close(fd)
+            self.finished.connect(self._remove_temp_title)
+        self.filename = self._temp_title
         # Copy template to temp file (NOT preserving attributes)
         shutil.copyfile(template_path, self.filename)
         return self.filename
+
+    def _remove_temp_title(self, result=None):
+        """Remove only this dialog's scratch SVG, never the accepted title."""
+        path = getattr(self, "_temp_title", None)
+        if path:
+            try:
+                os.remove(path)
+            except FileNotFoundError:
+                pass
+            except OSError:
+                log.warning("Unable to remove temporary title %s", path, exc_info=True)
+            self._temp_title = None
 
     def detect_font(self):
         """ Detect font from SVG: TEXT and TSPAN nodes (or use fallback font) """
