@@ -93,10 +93,15 @@ class RazorTests(unittest.TestCase):
     def test_cut_preview_and_callback_agree_at_fractional_fps_and_zoom(self):
         for fps in (24.0, 30000 / 1001, 60.0):
             widget = RazorWidget(fps)
-            for zoom in (100.0, 731.5):
+            for zoom in (100.0, 731.5, 6000.0):
                 widget.pixels_per_second = zoom
                 widget.h_scroll_offset = zoom * 1.25
-                for modifier, extra_frame in ((Qt.NoModifier, 0), (Qt.ShiftModifier, 1), (Qt.ControlModifier, 0)):
+                for modifier, extra_frame in (
+                    (Qt.NoModifier, 0), (Qt.ShiftModifier, 1), (Qt.ControlModifier, 0),
+                    (Qt.AltModifier, 0), (Qt.ShiftModifier | Qt.AltModifier, 1),
+                    (Qt.ControlModifier | Qt.AltModifier, 0),
+                    (Qt.ShiftModifier | Qt.ControlModifier | Qt.AltModifier, 0),
+                ):
                     with self.subTest(fps=fps, zoom=zoom, modifier=modifier):
                         pos = QPointF(330.5, 80)
                         calls = []
@@ -107,6 +112,8 @@ class RazorTests(unittest.TestCase):
                             widget._refresh_razor_hover(modifier)
                             TimelineWidgetBase._handle_razor_press(widget, pos)
                         self.assertEqual(calls[0][:2], ("C1", ""))
+                        expected_cut = widget._snap_time(widget._seconds_from_x(pos.x()))
+                        self.assertEqual(target["cut_seconds"], expected_cut)
                         cut_frame = round(calls[0][2] * fps) + extra_frame + 1
                         self.assertEqual(target["frame"], cut_frame)
                         self.assertEqual(widget.previews[-1], (cut_frame + round(5 * fps), 61))
@@ -132,6 +139,21 @@ class RazorTests(unittest.TestCase):
                 )
         self.assertEqual(widget.previews, [])
         self.assertEqual(calls, [])
+        widget.close()
+
+    def test_modifiers_preserve_first_and_last_interior_boundaries(self):
+        widget = RazorWidget()
+        widget.pixels_per_second = 6000.0
+        for boundary in (0, 1, 209, 210):
+            widget.h_scroll_offset = boundary / widget.fps_float * widget.pixels_per_second - 300
+            for modifiers in (Qt.NoModifier, Qt.ShiftModifier, Qt.ControlModifier,
+                              Qt.ShiftModifier | Qt.AltModifier, Qt.ControlModifier | Qt.AltModifier):
+                with self.subTest(boundary=boundary, modifiers=modifiers):
+                    target = widget._razor_target_at(QPointF(400, 80), modifiers)
+                    if boundary in (0, 210):
+                        self.assertIsNone(target)
+                    else:
+                        self.assertEqual(target["frame"], boundary + 1)
         widget.close()
 
     def test_hover_deduplicates_and_restores_without_moving_playhead(self):
@@ -239,7 +261,7 @@ class RazorTests(unittest.TestCase):
         self.assertEqual(widget._razor_target["mode"], "right")
         widget.keyReleaseEvent(QKeyEvent(QEvent.KeyRelease, Qt.Key_Control, both))
         self.assertEqual(widget._razor_target["mode"], "left")
-        self.assertEqual(widget._razor_hint.text(), "Keep left · 00:00:03,01")
+        self.assertEqual(widget._razor_hint.text(), "Keep left · 00:00:03,00")
         widget._clear_razor_hover()
         self.assertTrue(widget._razor_hint.isHidden())
         widget.close()
@@ -324,6 +346,37 @@ class RazorTests(unittest.TestCase):
         self.assertEqual(widget._razor_target["mode"], "both")
         widget.close()
 
+    def test_modifier_shortcut_override_updates_stationary_hover_immediately(self):
+        widget = RazorWidget(30000 / 1001)
+        widget.pixels_per_second = 6000.0
+        widget.h_scroll_offset = 12000.0
+        widget._razor_pos = QPointF(400, 80)
+        widget._refresh_razor_hover(Qt.NoModifier)
+        cut = widget._razor_target["cut_seconds"]
+        previews = list(widget.previews)
+        for key, modifiers, mode, ripple in (
+            (Qt.Key_Shift, Qt.NoModifier, "left", False),
+            (Qt.Key_Alt, Qt.ShiftModifier, "left", True),
+            (Qt.Key_Control, Qt.ShiftModifier | Qt.AltModifier, "right", True),
+        ):
+            with self.subTest(key=key):
+                # No mouse move, timer tick, or subsequent KeyPress is needed.
+                event = QKeyEvent(QEvent.ShortcutOverride, key, modifiers)
+                event.ignore()
+                QApplication.sendEvent(widget, event)
+                self.assertTrue(event.isAccepted())
+                self.assertEqual(widget._razor_target["mode"], mode)
+                self.assertEqual(widget._razor_target["ripple"], ripple)
+                self.assertEqual("Close gap" in widget._razor_hint.text(), ripple)
+                self.assertEqual(widget._razor_target["cut_seconds"], cut)
+                self.assertEqual(widget.previews, previews)
+        widget.enable_razor = False
+        event = QKeyEvent(QEvent.ShortcutOverride, Qt.Key_Alt, Qt.NoModifier)
+        event.ignore()
+        QApplication.sendEvent(widget, event)
+        self.assertFalse(event.isAccepted())
+        widget.close()
+
     def test_ripple_shortcuts_use_hover_and_consume_invalid_target(self):
         widget = RazorWidget()
         calls = []
@@ -331,7 +384,8 @@ class RazorTests(unittest.TestCase):
         for keep_left, flag in ((True, Qt.ShiftModifier), (False, Qt.ControlModifier)):
             widget._razor_pos = QPointF(400, 80)
             self.assertTrue(widget.razor_ripple_at_cursor(keep_left))
-            self.assertEqual(calls[-1], ("C1", "", 3.0, flag | Qt.AltModifier))
+            seconds = 3.0 - (1 / widget.fps_float if keep_left else 0)
+            self.assertEqual(calls[-1], ("C1", "", seconds, flag | Qt.AltModifier))
         widget._razor_pos = QPointF(400, 80)
         widget.locked = True
         self.assertTrue(widget.razor_ripple_at_cursor(True))

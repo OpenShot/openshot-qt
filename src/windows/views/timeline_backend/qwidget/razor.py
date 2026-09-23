@@ -27,7 +27,7 @@
 
 import math
 
-from qt_api import QCursor, QColor, QLabel, QPen, QPointF, QRectF, Qt, QTimer, QToolTip
+from qt_api import QCursor, QColor, QEvent, QLabel, QPen, QPointF, QRectF, Qt, QTimer, QToolTip
 from classes.app import get_app
 from classes.time_parts import secondsToTime
 
@@ -64,9 +64,7 @@ class RazorMixin:
         modifiers = self._razor_modifiers if modifiers is None else modifiers
         mode = "right" if modifiers & Qt.ControlModifier else "left" if modifiers & Qt.ShiftModifier else "both"
         pointer_seconds = self._seconds_from_x(pos.x())
-        seconds = self._snap_time(pointer_seconds)
-        # Keep-left includes the hovered frame (Slice_Triggered's existing rule).
-        cut_seconds = seconds + (1.0 / self.fps_float if mode == "left" else 0.0)
+        cut_seconds = self._snap_time(pointer_seconds)
         for rect, obj, _selected, kind in self.geometry.iter_items(reverse=True):
             if not rect.contains(pos):
                 continue
@@ -96,9 +94,9 @@ class RazorMixin:
                 self._snap_keyframe_seconds = previous_keyframes
             if snapped:
                 cut_seconds = self._snap_time(snapped_seconds)
-                # KEEP_LEFT adds one frame in Slice_Triggered. Compensate so
-                # every cut mode commits at the guide's snapped boundary.
-                seconds = cut_seconds - (1.0 / self.fps_float if mode == "left" else 0.0)
+            # KEEP_LEFT adds one frame in Slice_Triggered. Compensate only in
+            # the callback time, whether or not a shared snap target was found.
+            seconds = cut_seconds - (1.0 / self.fps_float if mode == "left" else 0.0)
             return dict(item=obj, kind=kind, rect=QRectF(rect), seconds=seconds,
                         cut_seconds=cut_seconds, frame=int(round(cut_seconds * self.fps_float)) + 1,
                         mode=mode, ripple=mode != "both" and bool(modifiers & Qt.AltModifier))
@@ -228,6 +226,16 @@ class RazorMixin:
     def focusOutEvent(self, event):
         self._clear_razor_hover()
         super().focusOutEvent(event)
+
+    def event(self, event):
+        if (event.type() == QEvent.ShortcutOverride
+                and getattr(self, "enable_razor", False)
+                and event.key() in (Qt.Key_Shift, Qt.Key_Control, Qt.Key_Alt)):
+            # Update before menu/shortcut handling can consume the key press
+            # (notably Alt), even while the pointer is stationary.
+            self.keyPressEvent(event)
+            return True
+        return super().event(event)
 
     def keyPressEvent(self, event):
         if self.enable_razor and event.key() == Qt.Key_Escape:
