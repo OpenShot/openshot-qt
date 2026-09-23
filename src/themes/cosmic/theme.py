@@ -225,9 +225,13 @@ QMenu::indicator {
     height: 12px;
 }
 
-QMenu::item:selected {
+QMenu::item:selected:enabled {
     background-color: #192332;
     color: #ffffff;
+}
+
+QMenu::item:disabled {
+    color: #69788c;
 }
 
 QMenu::separator {

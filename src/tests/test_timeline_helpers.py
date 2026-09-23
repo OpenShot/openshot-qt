@@ -45,7 +45,7 @@ if PATH not in sys.path:
 
 from qt_api import QCoreApplication, QPointF, QRectF, Qt
 from qt_api import QColor, QCursor, QImage, QPainter
-from qt_api import QApplication
+from qt_api import QAction, QApplication, QWidget
 from classes import info
 from classes.updates import UpdateAction
 from tests.qt_test_app import ensure_app_state as ensure_qt_app_state, get_or_create_app
@@ -108,6 +108,77 @@ class TimelineHelperTests(unittest.TestCase):
         cls.waveform_module = importlib.import_module("classes.waveform")
         cls.humanity_theme_module = importlib.import_module("themes.humanity.styles")
         cls.cosmic_theme_module = importlib.import_module("themes.cosmic.styles")
+
+    def test_locked_item_context_menus(self):
+        timeline_module = self.timeline_module
+
+        class MenuHost(QWidget):
+            def __getattr__(self, name):
+                method = getattr(timeline_module.TimelineView, name)
+                return method.__get__(self, type(self))
+
+        host = MenuHost()
+        host.window = QWidget()
+        host.window.preview_thread = types.SimpleNamespace(current_frame=1)
+        host.window.getShortcutByName = lambda name: []
+        host.window.copyAll = MagicMock()
+        host.window.cutAll = MagicMock()
+        host.window.actionProperties = QAction("Properties", host.window)
+        host._can_create_effect = lambda name: False
+        clip = timeline_module.Clip()
+        clip.id = "clip"
+        clip.data = {
+            "layer": 1, "start": 0, "end": 10, "position": 0,
+            "reader": {"has_video": True, "has_audio": True},
+        }
+        transition = timeline_module.Transition()
+        transition.id = "transition"
+        transition.data = dict(clip.data)
+        effect = types.SimpleNamespace(parent={"layer": 1})
+        project = types.SimpleNamespace(get=lambda key: {"num": 30, "den": 1})
+
+        with ExitStack() as stack:
+            stack.enter_context(patch.object(self.app, "project", project, create=True))
+            stack.enter_context(patch.object(timeline_module.Clip, "get", return_value=clip))
+            stack.enter_context(patch.object(timeline_module.Transition, "get", return_value=transition))
+            stack.enter_context(patch.object(timeline_module.Effect, "get", return_value=effect))
+            stack.enter_context(patch.object(
+                timeline_module.StyledContextMenu, "show_at", lambda menu, pos: menu))
+            for kind, item in (("Clip", clip), ("Transition", transition), ("Effect", effect)):
+                shared_remove = QAction("Remove " + kind, host.window)
+                remove_callback = MagicMock()
+                setattr(host.window, "actionRemove" + kind, shared_remove)
+                setattr(host.window, "actionRemove" + kind + "_trigger", remove_callback)
+                for multiple in (False, True):
+                    host.window.selected_clips = ["clip"] if kind == "Clip" else []
+                    host.window.selected_transitions = ["transition"] if kind == "Transition" else []
+                    if multiple:
+                        host.window.selected_clips += ["other", "another"]
+                    # Reopen unlocked after locked to catch leaked shared action state.
+                    for locked in (True, False):
+                        with self.subTest(kind=kind, multiple=multiple, locked=locked), \
+                                patch.object(timeline_module.Track, "get", return_value=types.SimpleNamespace(
+                                    data={"lock": locked})) as track_get, \
+                                patch.object(timeline_module.ClipboardManager, "from_mime", return_value=item):
+                            menu = getattr(host, "Show" + kind + "Menu")(kind.lower())
+                            track_get.assert_called_with(number=1)
+                            actions = [a for a in menu.actions() if not a.isSeparator()]
+                            labels = {a.text() for a in actions}
+                            self.assertTrue({"Copy", "Properties", "Remove " + kind} <= labels)
+                            if kind != "Effect":
+                                self.assertTrue({"Cut", "Paste", "Slice"} <= labels)
+                            for action in actions:
+                                expected = not locked or action.text() in ("Copy", "Properties")
+                                self.assertEqual(action.isEnabled(), expected, action.text())
+                            self.assertTrue(shared_remove.isEnabled())
+                            remove_action = next(a for a in actions if a.text() == "Remove " + kind)
+                            self.assertIsNot(remove_action, shared_remove)
+                            if not locked:
+                                remove_callback.reset_mock()
+                                remove_action.trigger()
+                                remove_callback.assert_called_once_with()
+                            menu.deleteLater()
+        host.deleteLater()
 
     def make_helper(self):
         timeline_module = self.timeline_module

@@ -171,7 +171,7 @@ from .timeline_backend.enums import (
 )
 from .timeline_backend.qwidget import TimelineWidget
 from .timeline_backend.colors import effect_color_hex
-from .menu import StyledContextMenu
+from .menu import StyledContextMenu, add_bound_action
 from classes.clip_utils import (
     clamp_timing_to_media,
     apply_file_caption_to_clip,
@@ -1439,6 +1439,12 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         log.debug('ShowEffectMenu: %s' % effect_id)
         self._context_menu_paste_data = None
 
+        effect = Effect.get(id=effect_id)
+        if not effect:
+            return
+        track = Track.get(number=effect.parent.get("layer"))
+        locked = bool(track and track.data.get("lock", False))
+
         # Get translation method
         _ = get_app()._tr
 
@@ -1456,7 +1462,10 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
         # Remove Effect Menu
         menu.addSeparator()
-        menu.addAction(self.window.actionRemoveEffect)
+        add_bound_action(
+            menu, self.window, "actionRemoveEffect", _("Remove Effect"),
+            enabled=not locked and self.window.actionRemoveEffect.isEnabled(),
+        )
 
         # Show context menu
         self.context_menu_cursor_position = QCursor.pos()
@@ -1570,6 +1579,9 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             # Not a valid clip id
             return
 
+        track = Track.get(number=clip.data.get("layer"))
+        locked = bool(track and track.data.get("lock", False))
+
         # Get list of selected clips
         clip_ids = self.window.selected_clips
         tran_ids = self.window.selected_transitions
@@ -1605,6 +1617,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         if len(tran_ids) + len(clip_ids) > 1:
             # Show Copy All menu (clips and transitions are selected)
             Copy_All = menu.addAction(_("Copy"))
+            copy_action = Copy_All
             Copy_All.setShortcuts(self.window.getShortcutByName("copyAll"))
             Copy_All.triggered.connect(self.window.copyAll)
             # Show Cut All menu
@@ -1650,7 +1663,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             Copy_Effects.triggered.connect(partial(
                 self.Copy_Triggered, MenuCopy.ALL_EFFECTS, [clip_id], [], []))
             Copy_Menu.addMenu(Keyframe_Menu)
-            menu.addMenu(Copy_Menu)
+            copy_action = menu.addMenu(Copy_Menu)
 
             # Show Cut menu
             Cut_All = menu.addAction(_("Cut"))
@@ -2240,13 +2253,24 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
                 menu.addMenu(Slice_Menu)
 
+        # Keep Copy and Properties available on locked tracks. Disabling the
+        # editing submenus also prevents activating their nested actions.
+        if locked:
+            for action in menu.actions():
+                if action != copy_action and not action.isSeparator():
+                    action.setEnabled(False)
+
         # Properties
         menu.addSeparator()
         menu.addAction(self.window.actionProperties)
 
-        # Remove Clip Menu
+        # Use a menu-owned action so this lock state cannot disable the shared
+        # Remove Clip action in other menus or shortcuts.
         menu.addSeparator()
-        menu.addAction(self.window.actionRemoveClip)
+        add_bound_action(
+            menu, self.window, "actionRemoveClip", _("Remove Clip"),
+            enabled=not locked and self.window.actionRemoveClip.isEnabled(),
+        )
 
         # Show context menu
         self.context_menu_cursor_position = QCursor.pos()
@@ -4827,6 +4851,9 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             # Not a valid transition id
             return
 
+        track = Track.get(number=tran.data.get("layer"))
+        locked = bool(track and track.data.get("lock", False))
+
         # Get list of all selected transitions
         tran_ids = self.window.selected_transitions
         clip_ids = self.window.selected_clips
@@ -4850,6 +4877,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         if len(tran_ids) + len(clip_ids) > 1:
             # Show Copy All menu (clips and transitions are selected)
             Copy_All = menu.addAction(_("Copy"))
+            copy_action = Copy_All
             Copy_All.setShortcuts(self.window.getShortcutByName("copyAll"))
             Copy_All.triggered.connect(self.window.copyAll)
             # Show Cut All menu
@@ -4877,7 +4905,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
             # Only show copy->keyframe if a single transitions is selected
             Copy_Menu.addMenu(Keyframe_Menu)
-            menu.addMenu(Copy_Menu)
+            copy_action = menu.addMenu(Copy_Menu)
 
         # Show Cut menu
         Cut_All = menu.addAction(_("Cut"))
@@ -4937,13 +4965,22 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         Reverse_Transition = menu.addAction(_("Reverse Transition"))
         Reverse_Transition.triggered.connect(partial(self.Reverse_Transition_Triggered, tran_ids))
 
+        # Match the clip menu: keep Copy and Properties available while locked.
+        if locked:
+            for action in menu.actions():
+                if action != copy_action and not action.isSeparator():
+                    action.setEnabled(False)
+
         # Properties
         menu.addSeparator()
         menu.addAction(self.window.actionProperties)
 
         # Remove transition menu
         menu.addSeparator()
-        menu.addAction(self.window.actionRemoveTransition)
+        add_bound_action(
+            menu, self.window, "actionRemoveTransition", _("Remove Transition"),
+            enabled=not locked and self.window.actionRemoveTransition.isEnabled(),
+        )
 
         # Show context menu
         self.context_menu_cursor_position = QCursor.pos()
