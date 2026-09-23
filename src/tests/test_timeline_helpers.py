@@ -5614,7 +5614,146 @@ class TimelineHelperTests(unittest.TestCase):
         self.assertEqual(snap_calls, [(5.0, 1.5)])
         self.assertEqual(result, 1.75)
 
-    def test_thumbnail_worker_sorts_requests_and_reuses_clip_instance(self):
+    def test_thumbnail_worker_cancels_backlog_during_slow_decode(self):
+        from threading import Event
+
+        started, release, finished = Event(), Event(), Event()
+        decoded = []
+
+        def decode(file_id, frame):
+            decoded.append(frame)
+            if frame == 100:
+                started.set()
+                release.wait(3)
+            if frame == 900:
+                finished.set()
+            return f"{file_id}:{frame}"
+
+        with patch.object(self.thumbnails_module, "GetThumbPath", side_effect=decode):
+            manager = self.thumbnails_module.TimelineThumbnailManager()
+            try:
+                for frame in (100, 200, 300):
+                    manager.request_thumbnail("C1", "F1", frame, 1)
+                self.assertTrue(started.wait(2))
+                # Simulate zooming while the old viewport's first decode blocks.
+                manager.clear_pending()
+                manager.request_thumbnail("C1", "F1", 900, 2)
+                release.set()
+                self.assertTrue(finished.wait(2))
+            finally:
+                release.set()
+                manager.shutdown()
+        self.assertEqual(decoded, [100, 900])
+
+    def test_thumbnail_worker_clear_before_callback_keeps_single_wakeup(self):
+        worker = self.thumbnails_module._ThumbnailWorker()
+        scheduled = []
+        with patch.object(self.thumbnails_module.QTimer, "singleShot",
+                          side_effect=lambda _delay, callback: scheduled.append(callback)), \
+                patch.object(self.thumbnails_module, "GetThumbPath", return_value="thumb") as decode:
+            worker.request_thumbnail("C1", "F1", 100, 1)
+            worker.clear_pending()
+            worker.clear_pending()
+            worker.request_thumbnail("C1", "F1", 900, 3)
+            self.assertEqual(len(scheduled), 1)
+            scheduled.pop(0)()
+            decode.assert_called_once_with("F1", 900)
+            self.assertEqual(scheduled, [])
+
+    def test_viewport_thumbnail_reset_is_immediate_and_expires_old_results(self):
+        from windows.views.timeline_backend.qwidget.base import TimelineWidgetBase
+
+        painter = self.make_clip_painter()
+        widget = painter.w
+        manager = MagicMock()
+        widget.thumbnail_manager = manager
+        widget.clip_painter = painter
+        widget._reset_thumbnail_requests = lambda: TimelineWidgetBase._reset_thumbnail_requests(widget)
+        painter._thumb_pending[("C1", 100)] = 0
+        painter._thumb_regions[("C1", 100)] = QRectF(0, 0, 20, 20)
+        TimelineWidgetBase._schedule_viewport_thumbnail_reset(widget)
+        manager.clear_pending.assert_called_once_with()
+        self.assertEqual(widget.thumbnail_generation, 1)
+        self.assertEqual(painter._thumb_pending, {})
+        painter.handle_thumbnail_ready("C1", 100, "", 0)
+        self.assertNotIn(("C1", 100), painter.thumb_cache)
+
+    def test_thumbnail_paint_cancels_slots_after_clip_moves_or_leaves_view(self):
+        from windows.views.timeline_backend.qwidget.base import TimelineWidgetBase
+
+        helper = self.make_clip_painter(pixels_per_second=2400)
+        widget = helper.w
+        widget.resize(640, 120)
+        widget.track_name_width = 100
+        widget.ruler_height = 0
+        widget.scroll_bar_thickness = 10
+        widget._is_track_locked = lambda _layer: False
+        widget.clip_painter = helper
+        widget.thumbnail_manager = MagicMock()
+        widget._reset_thumbnail_requests = lambda: TimelineWidgetBase._reset_thumbnail_requests(widget)
+        helper._existing_thumb_path = lambda *_args: None
+        helper._draw_waveform = lambda *_args: False
+        clip = types.SimpleNamespace(id="C1", data={
+            "file_id": "F1", "position": 0, "start": 0,
+            "end": 100, "duration": 100,
+        })
+        full = QRectF(-5000, 10, 240000, 70)
+        widget.geometry = types.SimpleNamespace(iter_clips=lambda: [(full, clip, False)])
+        image = QImage(640, 120, QImage.Format_ARGB32)
+
+        def paint():
+            canvas = QPainter(image)
+            try:
+                helper.paint(canvas)
+            finally:
+                canvas.end()
+
+        paint()
+        self.assertTrue(helper._thumb_pending)
+        initial = dict(helper._thumb_pending)
+        slot_width = helper._thumbnail_slot_width(clip, 70 - 2 * helper.border_width)
+        self.assertLessEqual(len(initial), math.ceil(530 / slot_width) + 1)
+        paint()
+        widget.thumbnail_manager.clear_pending.assert_not_called()
+        self.assertEqual(dict(helper._thumb_pending), initial)
+
+        # Geometry can change independently of the scroll and zoom handlers.
+        full.translate(-2400, 0)
+        paint()
+        widget.thumbnail_manager.clear_pending.assert_called_once_with()
+        self.assertTrue(helper._thumb_pending)
+        self.assertEqual(set(helper._thumb_pending.values()), {1})
+        full.translate(0, 200)
+        paint()
+        self.assertEqual(widget.thumbnail_manager.clear_pending.call_count, 2)
+        self.assertEqual(helper._thumb_pending, {})
+
+    def test_thumbnail_slots_exclude_render_overdraw_at_extreme_zoom(self):
+        for pps in (10.0, 2400.0, 100000.0):
+            with self.subTest(pixels_per_second=pps):
+                painter = self.make_clip_painter(pixels_per_second=pps)
+                clip = types.SimpleNamespace(id="C1", data={
+                    "file_id": "F1", "start": 0, "end": 1000,
+                    "duration": 1000, "position": 0,
+                })
+                inner = QRectF(1, 1, 1000, 60)
+                segment = {
+                    "segment_width": 1000, "clip_width": 1000 * pps,
+                    "offset_seconds": 50, "duration_seconds": 1000 / pps,
+                    "clip_duration": 1000,
+                    "includes_start": False, "includes_end": False,
+                    "thumbnail_view_left": 250, "thumbnail_view_right": 750,
+                }
+                slots, _ = painter._build_thumbnail_slots(clip, inner, segment, "entire", segment)
+                self.assertTrue(slots)
+                for _, rect in slots:
+                    self.assertGreater(rect.right() - inner.left(), 250)
+                    self.assertLess(rect.left() - inner.left(), 750)
+                # Partially visible edge slots must still be filled.
+                self.assertLessEqual(slots[0][1].left() - inner.left(), 250)
+                self.assertGreaterEqual(slots[-1][1].right() - inner.left(), 750)
+
+    def test_thumbnail_worker_sorts_requests_and_yields_after_each_decode(self):
         worker = self.thumbnails_module._ThumbnailWorker()
         ready = []
         worker.thumbnail_ready.connect(lambda clip_id, frame, path, generation: ready.append((clip_id, frame, path, generation)))
@@ -5630,7 +5769,11 @@ class TimelineHelperTests(unittest.TestCase):
             worker.request_thumbnail("C1", "F1", 100, 1)
             worker.request_thumbnail("C1", "F1", 300, 1)
             self.assertEqual(len(scheduled), 1)
-            scheduled[0]()
+            scheduled.pop(0)()
+            self.assertEqual([item[1] for item in ready], [100])
+            self.assertEqual(len(scheduled), 1)
+            while scheduled:
+                scheduled.pop(0)()
 
         self.assertEqual([item[1] for item in ready], [100, 300, 400])
         self.assertEqual([item[2] for item in ready], ["F1:100", "F1:300", "F1:400"])

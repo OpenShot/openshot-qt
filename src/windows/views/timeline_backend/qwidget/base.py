@@ -306,10 +306,6 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         self._drag_preview_thumbnail_suspended = False
         self._drag_preview_prev_thumb_suspend = False
         self.thumbnail_manager = TimelineThumbnailManager(self)
-        self._viewport_thumbnail_reset_timer = QTimer(self)
-        self._viewport_thumbnail_reset_timer.setSingleShot(True)
-        self._viewport_thumbnail_reset_timer.setInterval(150)
-        self._viewport_thumbnail_reset_timer.timeout.connect(self._apply_viewport_thumbnail_reset)
 
         # Helpers for geometry, snapping and painting
         self.geometry = Geometry(self)
@@ -2405,17 +2401,9 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         self.update()
 
     def _schedule_viewport_thumbnail_reset(self):
-        timer = getattr(self, "_viewport_thumbnail_reset_timer", None)
-        if timer:
-            timer.stop()
-            timer.start()
-
-    def _apply_viewport_thumbnail_reset(self):
-        timer = getattr(self, "_viewport_thumbnail_reset_timer", None)
-        if timer:
-            timer.stop()
+        # Cancel before the next paint can enqueue slots for the new viewport.
+        # Debouncing this leaves old zoom/scroll work ahead of visible slots.
         self._reset_thumbnail_requests()
-        self.update()
 
     def zoomIn(self):
         """Zoom into timeline"""

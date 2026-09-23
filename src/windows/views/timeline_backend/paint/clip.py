@@ -413,12 +413,29 @@ class ClipPainter(BasePainter):
             area.height(),
         )
 
+        clips = list(self.w.geometry.iter_clips())
+        # Also catch clip moves, track changes, and geometry updates which do
+        # not pass through the zoom/scroll handlers.
+        visible_state = (
+            area.getRect(), self.w.pixels_per_second,
+            tuple((rect.getRect(), self._clip_key(clip),
+                   self._clip_trim_start(clip), self._clip_time_bounds(clip))
+                  for rect, clip, _selected in clips if rect.intersects(area)),
+        )
+        previous_state = getattr(self, "_thumbnail_visible_state", None)
+        if previous_state is not None and previous_state != visible_state:
+            reset = getattr(self.w, "_reset_thumbnail_requests", None)
+            if callable(reset):
+                reset()
+        self._thumbnail_visible_state = visible_state
+        self._thumbnail_viewport = area
+
         self.w._effect_icon_rects = []
         self.w._clip_text_rects = []
         painter.save()
         painter.setClipRect(area)
-        for rect, clip, selected in self.w.geometry.iter_clips():
-            if not rect.intersects(expanded):
+        for rect, clip, selected in clips:
+            if not rect.intersects(area):
                 continue
 
             segment_left = max(rect.left(), expanded.left())
@@ -774,6 +791,11 @@ class ClipPainter(BasePainter):
             "clip_duration": clip_duration_seconds,
         }
 
+        viewport = getattr(self, "_thumbnail_viewport", None)
+        if viewport is not None:
+            segment_info["thumbnail_view_left"] = max(0.0, viewport.left() - segment_rect.left() - self.border_width)
+            segment_info["thumbnail_view_right"] = min(segment_rect.width(), viewport.right() - segment_rect.left() - self.border_width)
+
         thumb_width = self._thumbnail_slot_width(clip, h - 2.0 * self.border_width)
         grid_phase = self._thumbnail_grid_phase(clip, thumb_width)
         segment_info["thumbnail_grid_phase"] = grid_phase
@@ -790,6 +812,8 @@ class ClipPainter(BasePainter):
             duration_seconds,
             float(self.w.pixels_per_second),
             grid_phase,
+            segment_info.get("thumbnail_view_left"),
+            segment_info.get("thumbnail_view_right"),
             includes_start,
             includes_end,
         ) if use_cache else None
@@ -1235,8 +1259,8 @@ class ClipPainter(BasePainter):
         segment_start_world = clip_pos + segment_start
         segment_end_world = segment_start_world + segment_duration
 
-        view_left = 0.0
-        view_right = visible_width
+        view_left = max(0.0, self._to_float(segment.get("thumbnail_view_left"), 0.0))
+        view_right = min(visible_width, self._to_float(segment.get("thumbnail_view_right"), visible_width))
 
         slots = []
         seen = set()
@@ -1455,7 +1479,7 @@ class ClipPainter(BasePainter):
                 if throttle_requests:
                     allow_request = self._can_request_thumbnail(clip_key, throttle_requests)
 
-                # Always queue/load for all slots in the clip (since clip is visible during paint)
+                # Queue/load only slots in the visible clip segment.
                 pix = self._get_thumbnail_pixmap(
                     clip,
                     clip_key,

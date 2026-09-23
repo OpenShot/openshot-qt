@@ -57,29 +57,35 @@ class _ThumbnailWorker(QObject):
     def clear_pending(self):
         """Discard any pending thumbnail work."""
         self._queue.clear()
-        self._processing = False
-        self._scheduled = False
+        # Keep any already scheduled callback: it will see the updated queue.
 
     def _process_next(self):
         if self._processing:
             return
         self._scheduled = False
-        while self._queue:
-            clip_id, file_id, frame, generation = self._queue.popleft()
-            self._processing = True
-            path = ""
+        if not self._queue:
+            return
+        clip_id, file_id, frame, generation = self._queue.popleft()
+        self._processing = True
+        path = ""
+        try:
             if clip_id and file_id and frame > 0:
-                try:
-                    path = GetThumbPath(file_id, frame)
-                except Exception:
-                    log.warning(
-                        "Thumbnail request failed for file_id=%s frame=%s",
-                        file_id,
-                        frame,
-                        exc_info=1,
-                    )
-            self.thumbnail_ready.emit(clip_id, frame, path or "", generation)
-        self._processing = False
+                path = GetThumbPath(file_id, frame)
+        except Exception:
+            log.warning(
+                "Thumbnail request failed for file_id=%s frame=%s",
+                file_id,
+                frame,
+                exc_info=1,
+            )
+        finally:
+            self._processing = False
+        self.thumbnail_ready.emit(clip_id, frame, path or "", generation)
+        # Yield after every decode so queued cancellations and new viewport
+        # requests can run before we start another (potentially slow) decode.
+        if self._queue and not self._scheduled:
+            self._scheduled = True
+            QTimer.singleShot(0, self._process_next)
 
 
 class TimelineThumbnailManager(QObject):
