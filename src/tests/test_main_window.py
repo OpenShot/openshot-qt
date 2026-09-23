@@ -1541,7 +1541,7 @@ class MainWindowTests(unittest.TestCase):
                 view_type._wheels_drag_finished(view)
             self.assertEqual(calls, [("start", False), ("save", False)])
             self.assertTrue(settings.ENABLE_PLAYBACK_CACHING)
-            self.assertTrue(updates.ignore_history)
+            self.assertFalse(updates.ignore_history)
         finally:
             settings.ENABLE_PLAYBACK_CACHING = original
 

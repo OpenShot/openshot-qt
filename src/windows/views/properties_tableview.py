@@ -543,6 +543,7 @@ class PropertiesTableView(QTableView):
                 get_app().updates.ignore_history = False
 
         get_app().updates.transaction_id = None
+        get_app().updates.ignore_history = False
         self.transaction_id = None
         record_feedback_changes("adjustments", {
             item_id: item["data"] for item_id, item in self.original_data_map.items()
@@ -598,7 +599,8 @@ class PropertiesTableView(QTableView):
             "property_key": property_key,
             "original_value": copy.deepcopy(original_value),
         }
-        get_app().updates.ignore_history = True
+        # Binding a modeless editor must not suppress unrelated undo history.
+        # Actual edits own suppression through start/finalize_transaction.
 
     def preview_live_property_value(self, value):
         if not self.live_property_session:
@@ -607,7 +609,6 @@ class PropertiesTableView(QTableView):
         self.clip_properties_model.value_updated(
             self.live_property_session["item"], value=value, refresh_model=False)
         self._update_live_property_preview(value)
-        get_app().updates.ignore_history = True
 
     def _resolve_live_property_item(self, item, property_key, property_type, item_data=None):
         if item:
@@ -641,7 +642,6 @@ class PropertiesTableView(QTableView):
         self.update_in_progress = True
         self.clip_properties_model.value_updated(item, value=value, refresh_model=False)
         self._update_property_preview(item, "colorgrade_curve", property_key, value)
-        get_app().updates.ignore_history = True
 
     def _update_live_property_preview(self, value):
         session = self.live_property_session or {}
@@ -692,7 +692,14 @@ class PropertiesTableView(QTableView):
         self._update_color_grade_preview_meta(updated_meta)
         if value_item:
             summary = updated_meta.get("summary") or updated_meta.get("memo") or ""
-            value_item.setText(summary)
+            # This is display-only: itemChanged must not treat it as a user
+            # edit and finalize the active curve/wheel drag transaction.
+            previous_ignore = self.clip_properties_model.ignore_update_signal
+            self.clip_properties_model.ignore_update_signal = True
+            try:
+                value_item.setText(summary)
+            finally:
+                self.clip_properties_model.ignore_update_signal = previous_ignore
 
         self.viewport().update()
 
@@ -865,8 +872,7 @@ class PropertiesTableView(QTableView):
         """Commit the drag as one undo step when the user releases a wheel control."""
         if self.transaction_id:
             self.finalize_transaction()
-        # Keep history suppressed between drags so incidental signals don't leak in.
-        get_app().updates.ignore_history = True
+        get_app().updates.ignore_history = False
         self.resume_live_property_caching()
 
     def accept_live_property_session(self):
@@ -1014,6 +1020,15 @@ class PropertiesTableView(QTableView):
                 self.accept_live_property_session()
             else:
                 self.cancel_live_property_session()
+
+        # Curve dialogs can edit without a wheels session. Their close signals
+        # are blocked below, so finish an interrupted edit before closing them.
+        if self.color_grade_curve_dialogs and self.transaction_id:
+            if commit_changes:
+                self.finalize_transaction()
+            else:
+                self.cancel_transaction()
+            self.resume_live_property_caching()
 
         for dialog in list(getattr(self, "color_grade_curve_dialogs", [])):
             if isdeleted(dialog):
@@ -1445,7 +1460,7 @@ class PropertiesTableView(QTableView):
         """Update the selected items in the properties window"""
 
         self.current_selection = list(selection or [])
-        if selection and not self._selection_is_color_grade(selection):
+        if not self._selection_is_color_grade(selection):
             self._close_color_grade_editors(commit_changes=True)
 
         self._update_color_grade_wheels_enabled(selection)
@@ -2164,9 +2179,9 @@ class PropertiesTableView(QTableView):
             self._update_color_grade_wheels_enabled()
             QTimer.singleShot(125, self._reconnect_color_grade_wheels_session)
             return
-        # Only end the session if the dock was truly closed, not just hidden behind
-        # another tab in a tabified group (dockWidgetArea still valid in that case).
-        if self.win.dockWidgetArea(self.color_grade_wheels_dock) != Qt.NoDockWidgetArea:
+        # Closing a dock leaves it attached to its dock area. A tab obscured by
+        # another tab is not explicitly hidden and should keep its binding.
+        if not self.color_grade_wheels_dock.isHidden():
             return
         if self.live_property_session and self.live_property_session.get("property_type") == "colorgrade_wheels":
             self.accept_live_property_session()

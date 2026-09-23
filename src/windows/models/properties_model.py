@@ -414,6 +414,7 @@ class PropertiesModel(updates.UpdateInterface):
         # Handle change
         if action and len(action.key) >= 1 and action.key[0] in ["clips", "effects"] and action.type in ["update", "insert"]:
             log.debug("Property model received %s for %s", action.type, action.key)
+            self._refresh_selected_objects()
             self._refresh_selected_effect_filters()
             # Update the model data
             self.update_model(get_app().window.txtPropertyFilter.text())
@@ -457,6 +458,8 @@ class PropertiesModel(updates.UpdateInterface):
                         self.selected_parent = e.ParentClip()
                         self._refresh_selected_effect_filters()
 
+            self.selected_ids = [(obj.Id(), kind) for obj, kind in self.selected]
+
             # Update frame # from timeline
             self.update_frame(get_app().window.preview_thread.player.Position(), reload_model=False)
 
@@ -464,7 +467,29 @@ class PropertiesModel(updates.UpdateInterface):
             self.new_item = True
 
         # Update the model data
+        if not selection:
+            self.selected_ids = []
         self.update_model(get_app().window.txtPropertyFilter.text())
+
+    def _refresh_selected_objects(self):
+        """Resolve borrowed native objects after a clip/effect was replaced."""
+        selected_ids = getattr(self, "selected_ids", None)
+        if not selected_ids:
+            return
+        timeline = get_app().window.timeline_sync.timeline
+        getters = {"clip": timeline.GetClip, "transition": timeline.GetEffect,
+                   "effect": timeline.GetClipEffect}
+        previous_count = len(self.selected)
+        self.selected = []
+        self.selected_parent = None
+        for item_id, item_type in selected_ids:
+            obj = getters[item_type](item_id)
+            if obj:
+                self.selected.append((obj, item_type))
+                if item_type == "effect":
+                    self.selected_parent = obj.ParentClip()
+        if len(self.selected) != previous_count:
+            self.new_item = True
 
     # Update the values of the selected clip, based on the current frame
     def update_frame(self, frame_number, reload_model=True):
@@ -1559,6 +1584,8 @@ class PropertiesModel(updates.UpdateInterface):
             log.debug("ignoring update signal, because we are already in an update...")
             return
 
+        self._refresh_selected_objects()
+
         # Ignore any events from this method
         self.ignore_update_signal = True
 
@@ -1674,6 +1701,7 @@ class PropertiesModel(updates.UpdateInterface):
 
         # Keep track of the selected items (clips, transitions, etc...)
         self.selected = []
+        self.selected_ids = []
         self.current_item_id = None
         self.frame_number = 1
         self.new_item = True
