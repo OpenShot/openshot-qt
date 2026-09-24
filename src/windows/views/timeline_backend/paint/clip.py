@@ -1152,12 +1152,12 @@ class ClipPainter(BasePainter):
         return float(max(self._min_thumb_slot_width, float(width)))
 
     def _thumbnail_grid_phase(self, clip, width):
-        """Keep fixed-size tiles stationary in the viewport while zooming.
+        """Anchor tiles to clips for slider resizing, or the viewport for wheel zoom.
 
-        A media-zero grid moves by playhead_time * delta_pps during anchored
-        zoom. Preserve its pixel phase using the actual scroll change instead;
-        ordinary panning still moves the strip with the clip. Sampling remains
-        based on each tile's current timeline position, independently of phase.
+        Slider handles move the clip edges, so their thumbnail strip must travel
+        with them instead of looking like a stationary background being revealed.
+        Playhead-anchored zoom preserves the viewport phase to avoid tile drift.
+        Sampling always follows each tile's current timeline position.
         """
         pps = float(self.w.pixels_per_second or 0.0)
         start = self._clip_trim_start(clip)
@@ -1170,7 +1170,7 @@ class ClipPainter(BasePainter):
         previous = self._thumbnail_grid.get(key)
         if previous and previous[3:6] == (position, start, width):
             old_pps, old_scroll, phase = previous[:3]
-            if pps != old_pps:
+            if pps != old_pps and not getattr(self.w, "_thumbnail_zoom_with_clip", False):
                 phase = (phase + float(scroll) - old_scroll - position * (pps - old_pps)) % width
         self._thumbnail_grid[key] = (pps, float(scroll), phase, position, start, width)
         return phase

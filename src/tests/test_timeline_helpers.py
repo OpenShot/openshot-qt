@@ -4849,6 +4849,70 @@ class TimelineHelperTests(unittest.TestCase):
             )
         )
 
+    def test_slider_zoom_keeps_thumbnails_attached_to_clips_and_scale_consistent(self):
+        base = self.qwidget_base_module.TimelineWidgetBase
+        for edge in ("left", "right"):
+            for factors in ((1.0, 0.9, 0.8, 0.9, 1.0), (0.06, 0.05, 0.04, 0.03, 0.06)):
+                with self.subTest(edge=edge, factors=factors):
+                    painter = self.make_clip_painter()
+                    helper = painter.w
+                    slider = types.SimpleNamespace(
+                        _syncing_backend=True, zoom_factor=1.0,
+                        left_handle_dragging=edge == "left",
+                        right_handle_dragging=edge == "right",
+                        scrollbar_position=[0.0, 1.0, 0.0, 1000.0],
+                        setZoomFactor=lambda *args, **kwargs: None,
+                        update_scrollbars=lambda *args: None,
+                    )
+                    helper.win = types.SimpleNamespace(sliderZoomWidget=slider)
+                    helper.scrollbar_position = [0.0, 1.0, 10000.0, 1000.0]
+                    helper._external_zoom_span = None
+                    helper._suspend_changed_update = 0
+                    helper.is_auto_center = False
+                    helper.changed = lambda _action: None
+                    helper._schedule_viewport_thumbnail_reset = lambda: None
+                    helper._clamp_zoom_factor = lambda value: base._clamp_zoom_factor(helper, value)
+                    helper._current_project_duration = lambda: 100.0
+                    helper._center_on_seconds = lambda *args, **kwargs: base._center_on_seconds(helper, *args, **kwargs)
+                    helper.setZoomFactor = lambda *args, **kwargs: base.setZoomFactor(helper, *args, **kwargs)
+                    clip = types.SimpleNamespace(id="still", data={
+                        "position": 0.0, "start": 0.0, "end": 100.0,
+                        "reader": {"type": "QtImageReader", "duration": 100.0},
+                    })
+                    phases = []
+                    app = types.SimpleNamespace(project=types.SimpleNamespace(get=lambda key: 100.0))
+                    with patch.object(self.qwidget_base_module, "get_app", return_value=app):
+                        for factor in factors:
+                            requested_width = factor / 10.0
+                            left = 0.5 - requested_width if edge == "left" else 0.5
+                            slider.scrollbar_position[:2] = [left, left + requested_width]
+                            base._apply_external_zoom(helper, factor)
+                            self.assertAlmostEqual(helper.scrollbar_position[2], 100.0 * helper.pixels_per_second)
+                            self.assertAlmostEqual(
+                                (helper.scrollbar_position[1] - helper.scrollbar_position[0]) *
+                                helper.scrollbar_position[2], 1000.0)
+                            fixed = helper.scrollbar_position[1 if edge == "left" else 0]
+                            self.assertAlmostEqual(fixed, 0.5)
+                            phase = painter._thumbnail_grid_phase(clip, 48.0)
+                            # Slider resizing must preserve the clip-local tile
+                            # offset, not pin the strip behind moving clip edges.
+                            phases.append(phase)
+                    for phase in phases[1:]:
+                        self.assertAlmostEqual(phase, phases[0], places=6)
+
+                    # Release/repaint must not snap the strip to another grid.
+                    slider.left_handle_dragging = slider.right_handle_dragging = False
+                    self.assertAlmostEqual(painter._thumbnail_grid_phase(clip, 48.0), phases[-1])
+
+                    # Switching back to playhead-anchored zoom retains the
+                    # established viewport phase, without an initial jump.
+                    screen_phase = (phases[-1] - helper.h_scroll_offset) % 48.0
+                    helper._zoom_playhead_anchor = (50.0, 500.0)
+                    with patch.object(self.qwidget_base_module, "get_app", return_value=app):
+                        base.setZoomFactor(helper, helper.zoom_factor * 1.1, emit=False)
+                    phase = painter._thumbnail_grid_phase(clip, 48.0)
+                    self.assertAlmostEqual((phase - helper.h_scroll_offset) % 48.0, screen_phase)
+
     def test_thumbnail_grid_stays_fixed_during_anchored_smooth_zoom(self):
         # Exercise the tail of a still image and five-frame cuts, including
         # repositioned media. A media-zero grid slips faster at later times.

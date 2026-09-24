@@ -162,6 +162,7 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         self.v_scrollbar_position_previous = [0.0, 0.0, 0.0, 0.0]
         self.h_scroll_offset = 0.0
         self._external_zoom_span = None
+        self._thumbnail_zoom_with_clip = False
         self.left_handle_rect = QRectF()
         self.left_handle_dragging = False
         self.right_handle_rect = QRectF()
@@ -709,11 +710,8 @@ class TimelineWidgetBase(RazorMixin, QWidget):
             self._external_zoom_span = None
 
         self.setZoomFactor(zoom_factor, emit=False)
-        project_duration = self._current_project_duration()
-        tick_pixels = 100.0
-        self.scrollbar_position[2] = (
-            project_duration * tick_pixels / zoom_factor if zoom_factor else 0.0
-        )
+        # setZoomFactor owns the effective scale and viewport dimensions. The
+        # requested factor can exceed its limits; never overwrite them with it.
 
     def setSnappingMode(self, enable):
         """Enable or disable snapping mode."""
@@ -2340,13 +2338,27 @@ class TimelineWidgetBase(RazorMixin, QWidget):
 
         span = self._external_zoom_span
         self._external_zoom_span = None
+        slider = getattr(self.win, "sliderZoomWidget", None)
+        # Keep tiles attached to their clips while resizing the overview. Wheel
+        # zoom retains its viewport anchor. Store the mode until the next zoom
+        # so a deferred paint after mouse release uses the same placement.
+        self._thumbnail_zoom_with_clip = bool(span and slider and (
+            getattr(slider, "left_handle_dragging", False)
+            or getattr(slider, "right_handle_dragging", False)
+        ))
         playhead_anchor = getattr(self, "_zoom_playhead_anchor", None)
         if not getattr(self, "_zoom_anchor_locked", False):
             self._zoom_playhead_anchor = None
 
         if span and project_duration > 0.0:
-            width_norm = max(0.0, min(span[1] - span[0], 1.0))
-            center_norm = span[0] + (width_norm / 2.0)
+            # The requested span may exceed the zoom limits. Use the effective
+            # viewport width and preserve the handle that the user isn't moving.
+            if slider and getattr(slider, "right_handle_dragging", False):
+                center_norm = span[0] + width_norm / 2.0
+            elif slider and getattr(slider, "left_handle_dragging", False):
+                center_norm = span[1] - width_norm / 2.0
+            else:
+                center_norm = (span[0] + span[1]) / 2.0
             center_norm = max(0.0, min(center_norm, 1.0))
             center_seconds = center_norm * project_duration
             self._center_on_seconds(
