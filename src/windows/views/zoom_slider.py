@@ -107,6 +107,73 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
             return "move"
         return "create"
 
+    def _playhead_seconds(self):
+        fps = get_app().project.get("fps")
+        rate = float(fps.get("num", 24)) / float(fps.get("den", 1) or 1)
+        return max(0.0, (self.current_frame - 1) / rate) if rate > 0 else 0.0
+
+    def _snap_resize(self, left, right, is_left):
+        """Snap only the dragged resize edge to matching clip edges or the playhead."""
+        action = getattr(self.win, "actionSnappingTool", None)
+        modifiers = QCoreApplication.instance().keyboardModifiers()
+        if not action or not action.isChecked() or modifiers_has(modifiers, Qt.AltModifier):
+            self._snap_target = None
+            return left, right
+        duration = float(get_app().project.get("duration") or 0.0)
+        if duration <= 0:
+            self._snap_target = None
+            return left, right
+        symmetric = modifiers_has(modifiers, Qt.ShiftModifier)
+        midpoint_sum = sum(self.scrollbar_position_previous[:2])
+        width = self._track_rect().width()
+
+        def candidate(target, snap_left):
+            new_left = target if snap_left else left
+            new_right = right if snap_left else target
+            if symmetric:
+                if snap_left:
+                    new_right = midpoint_sum - target
+                else:
+                    new_left = midpoint_sum - target
+            if not (0.0 <= new_left < new_right <= 1.0):
+                return None
+            if new_right - new_left < self.min_distance - 1e-12:
+                return None
+            # Do not snap a resize beyond the backend's zoom limits.
+            clamp = getattr(getattr(self.win, "timeline", None), "_clamp_zoom_factor", None)
+            view_width = self.scrollbar_position[3]
+            if callable(clamp) and view_width > 0:
+                ticks = float(get_app().project.get("tick_pixels") or 100.0)
+                factor = (new_right - new_left) * duration * ticks / view_width
+                if not math.isclose(clamp(factor), factor, rel_tol=1e-9, abs_tol=1e-9):
+                    return None
+            return new_left, new_right
+
+        acquire_radius, release_radius = 3.0, 4.0
+        if self._snap_target is not None and self._snap_is_left == is_left:
+            edge = left if self._snap_is_left else right
+            if abs(self._snap_target - edge) * width <= release_radius:
+                result = candidate(self._snap_target, self._snap_is_left)
+                if result is not None:
+                    return result
+        self._snap_target = None
+        playhead = self._playhead_seconds() / duration
+        targets = []
+        edge = left if is_left else right
+        positions = self.snap_clip_starts if is_left else self.snap_clip_ends
+        for target, priority in [(playhead, 0)] + [(seconds / duration, 1) for seconds in positions]:
+            distance = abs(target - edge) * width
+            if distance <= acquire_radius:
+                targets.append((priority, distance, target, is_left))
+        targets.sort()
+        for _priority, _distance, target, snap_left in targets:
+            result = candidate(target, snap_left)
+            if result is not None:
+                self._snap_target = target
+                self._snap_is_left = snap_left
+                return result
+        return left, right
+
     def _set_target_cursor(self, target):
         if self.hover_target != target:
             self.hover_target = target
@@ -142,6 +209,8 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         self.clip_rects.clear()
         self.clip_rects_selected.clear()
         self.marker_rects.clear()
+        self.snap_clip_starts.clear()
+        self.snap_clip_ends.clear()
 
         # Get layer lookup
         layers = {}
@@ -163,6 +232,10 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
             vertical_factor = max(0.0, self.height() - 4.0) / max(1, len(layers))
 
             for clip in Clip.filter():
+                position = float(clip.data.get('position', 0.0))
+                duration = max(0.0, float(clip.data.get('end', 0.0)) - float(clip.data.get('start', 0.0)))
+                self.snap_clip_starts.append(position)
+                self.snap_clip_ends.append(position + duration)
                 # Calculate clip geometry (and cache it)
                 clip_x = track.left() + (clip.data.get('position', 0.0) * pixels_per_second)
                 clip_y = preview_top + layers.get(clip.data.get('layer', 0), 0) * vertical_factor
@@ -273,11 +346,6 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
             pixels_per_second = track.width() / project_duration
             self._update_handle_geometry()
 
-            # Get FPS info
-            fps_num = get_app().project.get("fps").get("num", 24)
-            fps_den = get_app().project.get("fps").get("den", 1) or 1
-            fps_float = float(fps_num / fps_den)
-
             # Determine scale factor
             vertical_factor = self.height() / max(1, len(layers))
 
@@ -298,7 +366,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
                 painter.drawRect(marker_rect)
 
             painter.restore()
-            playhead_x = track.left() + ((self.current_frame / fps_float) * pixels_per_second)
+            playhead_x = track.left() + (self._playhead_seconds() * pixels_per_second)
             playhead_rect = QRectF(playhead_x, 0, 0.5, len(layers) * vertical_factor)
 
             # Draw scroll bars (if available)
@@ -377,6 +445,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         event.accept()
         if event.button() != Qt.LeftButton:
             return
+        self._snap_target = None
         self.press_target = self._hit_target(_event_posf(event))
         self._set_target_cursor(self.press_target)
         self.mouse_pressed = True
@@ -423,6 +492,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
             self.update()
 
         # Finalize drag selection
+        self._snap_target = None
         self.mouse_pressed = False
         self.mouse_dragging = False
         self.left_handle_dragging = False
@@ -488,6 +558,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
 
                 # Enforce limits (don't allow handles to go past each other, or out of bounds)
                 new_left_pos, new_right_pos = self.set_handle_limits(new_left_pos, new_right_pos, is_left)
+                new_left_pos, new_right_pos = self._snap_resize(new_left_pos, new_right_pos, is_left)
 
                 self.scrollbar_position = [new_left_pos, new_right_pos, self.scrollbar_position[2], self.scrollbar_position[3]]
                 self.delayed_resize_callback()
@@ -511,6 +582,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
 
                 # Enforce limits
                 new_left_pos, new_right_pos = self.set_handle_limits(new_left_pos, new_right_pos, is_left)
+                new_left_pos, new_right_pos = self._snap_resize(new_left_pos, new_right_pos, is_left)
 
                 self.scrollbar_position = [new_left_pos, new_right_pos, self.scrollbar_position[2], self.scrollbar_position[3]]
                 self.delayed_resize_callback()
@@ -761,6 +833,10 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         self.clip_rects = []
         self.clip_rects_selected = []
         self.marker_rects = []
+        self.snap_clip_starts = []
+        self.snap_clip_ends = []
+        self._snap_is_left = None
+        self._snap_target = None
         self.current_frame = 0
         self.is_auto_center = True
         self.min_distance = 0.002
@@ -783,7 +859,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         get_app().updates.add_listener(self)
 
         self.setToolTip(_("Drag inside the range or above/below the grips to move the timeline view. Drag either grip to zoom. "
-                          "Hold Shift while resizing to adjust both sides."))
+                          "Hold Shift while resizing to adjust both sides. Hold Alt to bypass snapping."))
 
         # Set mouse tracking
         self.setMouseTracking(True)

@@ -99,6 +99,8 @@ class LivePropertyUpdateTests(unittest.TestCase):
         widget.clip_rects = ["existing"]
         widget.clip_rects_selected = []
         widget.marker_rects = []
+        widget.snap_clip_starts = [2.0, 5.0]
+        widget.snap_clip_ends = [2.0, 5.0]
         widget.update = Mock()
         app = types.SimpleNamespace(window=types.SimpleNamespace())
         with patch.object(zoom_slider, "get_app", return_value=app), \
@@ -107,11 +109,15 @@ class LivePropertyUpdateTests(unittest.TestCase):
                 zoom_slider.ZoomSlider.changed(widget, UpdateAction("update", key, {}))
             tracks.assert_not_called()
             self.assertEqual(widget.clip_rects, ["existing"])
+            self.assertEqual(widget.snap_clip_starts, [2.0, 5.0])
+            self.assertEqual(widget.snap_clip_ends, [2.0, 5.0])
             widget.update.assert_not_called()
             zoom_slider.ZoomSlider.changed(widget, UpdateAction("update", ["clips", {"id": "clip"}], {"position": 2}))
             tracks.assert_called_once()
             widget.update.assert_called_once()
             self.assertEqual(widget.clip_rects, [])
+            self.assertEqual(widget.snap_clip_starts, [])
+            self.assertEqual(widget.snap_clip_ends, [])
             # Structural changes retain normal refresh/selection handling.
             for operation in ("insert", "delete"):
                 zoom_slider.ZoomSlider.changed(widget, UpdateAction(operation, ["effects"], {}))

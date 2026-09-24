@@ -32,7 +32,11 @@ class ZoomSliderTests(unittest.TestCase):
 
     def setUp(self):
         self.window = Mock()
-        app = SimpleNamespace(_tr=lambda text: text, window=self.window, updates=Mock())
+        self.window.actionSnappingTool.isChecked.return_value = False
+        project = SimpleNamespace(get=lambda key: {
+            "duration": 100.0, "fps": {"num": 25, "den": 1}, "tick_pixels": 100.0,
+        }.get(key))
+        app = SimpleNamespace(_tr=lambda text: text, window=self.window, updates=Mock(), project=project)
         self.patch = patch('windows.views.zoom_slider.get_app', return_value=app)
         self.patch.start()
         self.slider = ZoomSlider()
@@ -201,6 +205,131 @@ class ZoomSliderTests(unittest.TestCase):
         track = self.slider._track_rect()
         self.drag((track.right(), 10), (track.left() + track.width() * 0.75, 10))
         self.assertEqual(self.slider.scrollbar_position[:2], [0.75, 1.0])
+
+    def enable_snapping(self):
+        self.window.actionSnappingTool.isChecked.return_value = True
+        self.window.timeline = SimpleNamespace()
+        self.slider.current_frame = 1
+        self.slider.snap_clip_starts = [50.0]
+        self.slider.snap_clip_ends = [50.0]
+
+    def test_snap_targets_use_timeline_edges_of_trimmed_clips(self):
+        self.enable_snapping()
+        self.window.selected_clips = []
+        self.window.selected_transitions = []
+        clip = SimpleNamespace(id="trimmed", data={"position": 20.0, "start": 5.0, "end": 15.0, "layer": 1})
+        with patch('windows.views.zoom_slider.Track.filter', return_value=[SimpleNamespace(data={"number": 1})]), \
+                patch('windows.views.zoom_slider.Clip.filter', return_value=[clip]), \
+                patch('windows.views.zoom_slider.Transition.filter', return_value=[]), \
+                patch('windows.views.zoom_slider.Marker.filter', return_value=[]):
+            self.slider.changed(None)
+        self.assertEqual(self.slider.snap_clip_starts, [20.0])
+        self.assertEqual(self.slider.snap_clip_ends, [30.0])
+
+    def test_resize_snaps_each_edge_and_preserves_opposite_edge(self):
+        self.enable_snapping()
+        for target, span, wanted in (("left", [0.2, 0.7], [0.5, 0.7]),
+                                     ("right", [0.2, 0.7], [0.2, 0.5])):
+            self.slider.scrollbar_position[:2] = span
+            self.slider._update_handle_geometry()
+            x = getattr(self.slider, target + '_handle_rect').center().x()
+            end = self.slider._track_rect().left() + 0.49 * self.slider._track_rect().width()
+            self.slider.mousePressEvent(MouseEvent(x, 10))
+            self.slider.mouseMoveEvent(MouseEvent(end, 10))
+            self.assertEqual(self.slider.scrollbar_position[:2], wanted)
+            self.assertEqual(self.slider._snap_target, 0.5)
+            self.slider.mouseReleaseEvent(MouseEvent(end, 10))
+            self.assertIsNone(self.slider._snap_target)
+
+    def test_snap_prefers_playhead_and_uses_timeline_frame_numbering(self):
+        self.enable_snapping()
+        self.slider.current_frame = 1251  # 50 seconds at 25 fps (frame 1 is zero)
+        self.slider.snap_clip_starts = [49.0]
+        self.slider.snap_clip_ends = [49.0]
+        self.assertEqual(self.slider._snap_resize(0.2, 0.49, False), (0.2, 0.5))
+        self.assertEqual(self.slider._playhead_seconds(), 50.0)
+
+    def test_snap_holds_target_until_pointer_leaves_release_radius(self):
+        self.enable_snapping()
+        self.slider.snap_clip_starts = [50.0, 51.0]
+        self.slider.snap_clip_ends = [50.0, 51.0]
+        self.assertEqual(self.slider._snap_resize(0.2, 0.49, False), (0.2, 0.5))
+        self.assertEqual(self.slider._snap_resize(0.2, 0.515, False), (0.2, 0.5))
+        self.assertEqual(self.slider._snap_resize(0.2, 0.55, False), (0.2, 0.55))
+        self.assertIsNone(self.slider._snap_target)
+
+    def test_alt_and_snapping_toggle_release_target(self):
+        self.enable_snapping()
+        self.slider._snap_resize(0.2, 0.49, False)
+        with patch('windows.views.zoom_slider.modifiers_has',
+                   side_effect=lambda modifiers, flag: flag == Qt.AltModifier):
+            self.assertEqual(self.slider._snap_resize(0.2, 0.49, False), (0.2, 0.49))
+        self.assertIsNone(self.slider._snap_target)
+        self.slider._snap_resize(0.2, 0.49, False)
+        self.window.actionSnappingTool.isChecked.return_value = False
+        self.assertEqual(self.slider._snap_resize(0.2, 0.49, False), (0.2, 0.49))
+        self.assertIsNone(self.slider._snap_target)
+
+    def test_shift_snap_preserves_center_and_rejects_invalid_spans(self):
+        self.enable_snapping()
+        self.slider.scrollbar_position_previous[:2] = [0.2, 0.7]
+        self.slider.snap_clip_starts = [30.0]
+        self.slider.snap_clip_ends = [30.0]
+        with patch('windows.views.zoom_slider.modifiers_has',
+                   side_effect=lambda modifiers, flag: flag == Qt.ShiftModifier):
+            left, right = self.slider._snap_resize(0.299, 0.601, True)
+            self.assertAlmostEqual(left, 0.3)
+            self.assertAlmostEqual(right, 0.6)
+        self.slider._snap_target = None
+        self.slider.snap_clip_starts = [70.0]
+        self.slider.snap_clip_ends = [70.0]
+        self.assertEqual(self.slider._snap_resize(0.69, 0.7, True), (0.69, 0.7))
+        self.assertIsNone(self.slider._snap_target)
+
+    def test_snap_rejects_targets_beyond_backend_zoom_limits(self):
+        self.enable_snapping()
+        self.window.timeline._clamp_zoom_factor = lambda factor: max(0.05, min(200, factor))
+        self.slider.snap_clip_starts = [50.0]
+        self.slider.snap_clip_ends = [50.0]
+        self.slider.scrollbar_position[3] = 10000.0
+        self.assertEqual(self.slider._snap_resize(0.49, 0.51, False), (0.49, 0.51))
+        self.assertIsNone(self.slider._snap_target)
+
+    def test_panning_ignores_nearby_snap_target_and_preserves_span(self):
+        self.enable_snapping()
+        self.slider.scrollbar_position[:2] = [0.2, 0.4]
+        self.slider._update_handle_geometry()
+        x = self.slider.move_handle_rect.center().x()
+        self.drag((x, 1), (x + 20, 1))
+        self.assertAlmostEqual(self.slider.scrollbar_position[0], 0.2 + 20 / self.slider._track_rect().width())
+        self.assertAlmostEqual(self.slider.scrollbar_position[1] - self.slider.scrollbar_position[0], 0.2)
+        self.assertIsNone(self.slider._snap_target)
+
+    def test_resize_ignores_opposite_clip_edges(self):
+        self.enable_snapping()
+        self.slider.snap_clip_starts = [30.0]
+        self.slider.snap_clip_ends = [70.0]
+        self.assertEqual(self.slider._snap_resize(0.69, 0.9, True), (0.69, 0.9))
+        self.assertIsNone(self.slider._snap_target)
+        self.assertEqual(self.slider._snap_resize(0.1, 0.31, False), (0.1, 0.31))
+        self.assertIsNone(self.slider._snap_target)
+        self.assertEqual(self.slider._snap_resize(0.29, 0.9, True), (0.3, 0.9))
+        self.slider._snap_target = None
+        self.assertEqual(self.slider._snap_resize(0.1, 0.69, False), (0.1, 0.7))
+
+    def test_resize_snap_has_narrow_acquisition_and_release_radius(self):
+        self.enable_snapping()
+        width = self.slider._track_rect().width()
+        outside = 0.5 - 3.1 / width
+        self.assertEqual(self.slider._snap_resize(0.2, outside, False), (0.2, outside))
+        self.assertIsNone(self.slider._snap_target)
+        inside = 0.5 - 2.9 / width
+        self.assertEqual(self.slider._snap_resize(0.2, inside, False), (0.2, 0.5))
+        held = 0.5 + 3.9 / width
+        self.assertEqual(self.slider._snap_resize(0.2, held, False), (0.2, 0.5))
+        released = 0.5 + 4.1 / width
+        self.assertEqual(self.slider._snap_resize(0.2, released, False), (0.2, released))
+        self.assertIsNone(self.slider._snap_target)
 
     def test_background_drag_maps_through_gutters(self):
         track = self.slider._track_rect()
