@@ -199,6 +199,7 @@ Learning a few of these shortcuts can save you a bunch of time!
    Select All                            :kbd:`Ctrl+A`
    Select Item (Ripple)                  :kbd:`Alt+A`              :kbd:`Alt+Click`
    Select None                           :kbd:`Ctrl+Shift+A`
+   Share Feedback...                     :kbd:`F8`
    Simple View                           :kbd:`Alt+Shift+0`
    Slice All: Keep Both Sides            :kbd:`Ctrl+Shift+K`
    Slice All: Keep Left Side             :kbd:`Ctrl+Shift+J`
@@ -215,6 +216,7 @@ Learning a few of these shortcuts can save you a bunch of time!
    Title                                 :kbd:`Ctrl+T`
    Translate this Application...         :kbd:`F6`
    Undo                                  :kbd:`Ctrl+Z`
+   Update Available                      :kbd:`F9`
    View Toolbar                          :kbd:`Ctrl+Shift+B`
    Zoom In                               :kbd:`=`                  :kbd:`Ctrl+=`
    Zoom Out                              :kbd:`-`                  :kbd:`Ctrl+-`
@@ -269,23 +271,39 @@ are renamed and/or rearranged.
        - :guilabel:`Tutorial` Access the built-in tutorial for new users.
        - :guilabel:`Report a Bug` Report a bug or issue.
        - :guilabel:`Ask a Question` Ask a question about the software.
+       - :guilabel:`Share Feedback` Open a survey about your experience with OpenShot.
+       - :guilabel:`Update Available` Open the download page when a newer version is available.
        - :guilabel:`Translate` Contribute to translations of the software.
        - :guilabel:`Donate` Make a donation to support the project.
        - :guilabel:`About` View information about the software (version, contributors, translators, changelog, and supporters).
+
+Notifications
+-------------
+
+OpenShot may show a notice near the top of the window when a newer version is
+available. Choose :guilabel:`Upgrade` to open the download page, or close the
+notice to hide it for that version. You can still open the download page from
+:guilabel:`Help → Update Available` or press :kbd:`F9` when an update is available.
+
+After you have spent some time editing, OpenShot may also invite you to share
+feedback. The survey is optional. You can open it from the notice or dismiss the
+invitation. At any time, choose :guilabel:`Help → Share Feedback` or press
+:kbd:`F8` to share your thoughts.
 
 About OpenShot
 --------------
 Use :guilabel:`Help→About OpenShot` to check your OpenShot version. Click
 :guilabel:`Copy` next to the version number to copy a short version and system
-details report, which is the preferred way to share this information when
-reporting a bug or asking for help.
+details report, including how OpenShot was installed. This is a useful way to
+share the information when reporting a bug or asking for help.
 
 Example output:
 
 .. code-block:: text
 
    **OpenShot Version Info**
-   Version: 3.5.1-dev | libopenshot: 0.7.0
+   Version: 4.0.1 | libopenshot: 1.0.1
+   Distribution: appimage | Official distribution: yes
    OS: Ubuntu 24.04
    CPU: AMD Ryzen 7 8840HS w/ Radeon 780M Graphics (16 threads) | RAM: 15 GB
    Cache: Memory, 900 MB, 905 frames, ahead 50%, pre-roll 24/48

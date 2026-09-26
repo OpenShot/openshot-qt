@@ -235,6 +235,63 @@ You now have a working local version of OpenShot, which is running off your loca
 Try making some changes to the source code and re-launch OpenShot...
 you should now see your changes!
 
+Command-Line Options
+--------------------
+
+These options work with the installed OpenShot application, including
+``openshot-qt.exe`` on Windows. When running from source, use
+``python3 src/launch.py`` in place of the application name. Put options before
+any file paths you want OpenShot to open.
+
+.. list-table:: OpenShot command-line options
+   :header-rows: 1
+   :widths: 38 62
+
+   * - Option
+     - What it does
+   * - ``-h``, ``--help``
+     - Show the available options and exit.
+   * - ``-V``, ``--version``
+     - Print the OpenShot version and exit.
+   * - ``-l CODE``, ``--lang CODE``
+     - Use the chosen interface language for this launch. The code must be one
+       of those shown by ``--list-languages``.
+   * - ``--list-languages``
+     - List supported language codes and exit.
+   * - ``--path FOLDER``
+     - Add a folder to the Python module search path. You can repeat this option
+       to add more than one folder.
+   * - ``--feedback-preview``
+     - Show the feedback notice on launch without marking the invitation as shown
+       in saved settings.
+   * - ``--update-preview``
+     - Show the update notice on launch. Both preview options can be used together.
+   * - ``--test-models``
+     - Enable Qt's data model tester for development (requires Qt 5.11 or later).
+   * - ``-d``, ``--debug``, ``--debug-ui``
+     - Add detailed interface messages to its log file and the terminal.
+   * - ``--debug-engine``
+     - Add detailed video and audio engine messages to its log file and the terminal.
+   * - ``--log-level LEVEL``
+     - Set the logging level for both parts of OpenShot, in files and the terminal.
+   * - ``--log-file-level LEVEL``
+     - Set the logging level in both log files.
+   * - ``--log-console-level LEVEL``
+     - Set the logging level in the terminal for both parts of OpenShot.
+   * - ``--debug-file``
+     - Add detailed interface messages to its log file only. This older option
+       is accepted but is not shown by ``--help``.
+   * - ``--debug-console``
+     - Add detailed interface messages to the terminal only. This older option
+       is accepted but is not shown by ``--help``.
+   * - ``PROJECT.osp`` or media file paths
+     - Open a project when the first file path ends in ``.osp``. Otherwise,
+       start a new project and import the supplied media files.
+
+For ``LEVEL``, use ``debug``, ``info``, ``warning``, ``error``, ``critical``, or
+``off``. See :ref:`logging_ref` for log file locations, examples, and more
+about choosing logging options.
+
 GitHub Issues
 -------------
 Now that you have successfully compiled and launched OpenShot Video Editor from source code,
