@@ -30,6 +30,7 @@ import importlib
 import math
 import os
 import sys
+import tempfile
 import types
 import unittest
 from contextlib import ExitStack
@@ -44,7 +45,7 @@ if PATH not in sys.path:
 
 from qt_api import QCoreApplication, QPointF, QRectF, Qt
 from qt_api import QColor, QCursor, QImage, QPainter
-from qt_api import QApplication
+from qt_api import QAction, QApplication, QWidget
 from classes import info
 from classes.updates import UpdateAction
 from tests.qt_test_app import ensure_app_state as ensure_qt_app_state, get_or_create_app
@@ -108,6 +109,77 @@ class TimelineHelperTests(unittest.TestCase):
         cls.humanity_theme_module = importlib.import_module("themes.humanity.styles")
         cls.cosmic_theme_module = importlib.import_module("themes.cosmic.styles")
 
+    def test_locked_item_context_menus(self):
+        timeline_module = self.timeline_module
+
+        class MenuHost(QWidget):
+            def __getattr__(self, name):
+                method = getattr(timeline_module.TimelineView, name)
+                return method.__get__(self, type(self))
+
+        host = MenuHost()
+        host.window = QWidget()
+        host.window.preview_thread = types.SimpleNamespace(current_frame=1)
+        host.window.getShortcutByName = lambda name: []
+        host.window.copyAll = MagicMock()
+        host.window.cutAll = MagicMock()
+        host.window.actionProperties = QAction("Properties", host.window)
+        host._can_create_effect = lambda name: False
+        clip = timeline_module.Clip()
+        clip.id = "clip"
+        clip.data = {
+            "layer": 1, "start": 0, "end": 10, "position": 0,
+            "reader": {"has_video": True, "has_audio": True},
+        }
+        transition = timeline_module.Transition()
+        transition.id = "transition"
+        transition.data = dict(clip.data)
+        effect = types.SimpleNamespace(parent={"layer": 1})
+        project = types.SimpleNamespace(get=lambda key: {"num": 30, "den": 1})
+
+        with ExitStack() as stack:
+            stack.enter_context(patch.object(self.app, "project", project, create=True))
+            stack.enter_context(patch.object(timeline_module.Clip, "get", return_value=clip))
+            stack.enter_context(patch.object(timeline_module.Transition, "get", return_value=transition))
+            stack.enter_context(patch.object(timeline_module.Effect, "get", return_value=effect))
+            stack.enter_context(patch.object(
+                timeline_module.StyledContextMenu, "show_at", lambda menu, pos: menu))
+            for kind, item in (("Clip", clip), ("Transition", transition), ("Effect", effect)):
+                shared_remove = QAction("Remove " + kind, host.window)
+                remove_callback = MagicMock()
+                setattr(host.window, "actionRemove" + kind, shared_remove)
+                setattr(host.window, "actionRemove" + kind + "_trigger", remove_callback)
+                for multiple in (False, True):
+                    host.window.selected_clips = ["clip"] if kind == "Clip" else []
+                    host.window.selected_transitions = ["transition"] if kind == "Transition" else []
+                    if multiple:
+                        host.window.selected_clips += ["other", "another"]
+                    # Reopen unlocked after locked to catch leaked shared action state.
+                    for locked in (True, False):
+                        with self.subTest(kind=kind, multiple=multiple, locked=locked), \
+                                patch.object(timeline_module.Track, "get", return_value=types.SimpleNamespace(
+                                    data={"lock": locked})) as track_get, \
+                                patch.object(timeline_module.ClipboardManager, "from_mime", return_value=item):
+                            menu = getattr(host, "Show" + kind + "Menu")(kind.lower())
+                            track_get.assert_called_with(number=1)
+                            actions = [a for a in menu.actions() if not a.isSeparator()]
+                            labels = {a.text() for a in actions}
+                            self.assertTrue({"Copy", "Properties", "Remove " + kind} <= labels)
+                            if kind != "Effect":
+                                self.assertTrue({"Cut", "Paste", "Slice"} <= labels)
+                            for action in actions:
+                                expected = not locked or action.text() in ("Copy", "Properties")
+                                self.assertEqual(action.isEnabled(), expected, action.text())
+                            self.assertTrue(shared_remove.isEnabled())
+                            remove_action = next(a for a in actions if a.text() == "Remove " + kind)
+                            self.assertIsNot(remove_action, shared_remove)
+                            if not locked:
+                                remove_callback.reset_mock()
+                                remove_action.trigger()
+                                remove_callback.assert_called_once_with()
+                            menu.deleteLater()
+        host.deleteLater()
+
     def make_helper(self):
         timeline_module = self.timeline_module
 
@@ -150,11 +222,6 @@ class TimelineHelperTests(unittest.TestCase):
                 "location_y": kf(0.0),
             },
         )
-
-    @classmethod
-    def tearDownClass(cls):
-        if getattr(cls, "_owns_app", False) and cls.app:
-            cls.app.quit()
 
     def test_timecode_editor_parses_blank_and_zero_as_timeline_start(self):
         edit = self.qwidget_timecode_module.TimecodeLineEdit()
@@ -2663,6 +2730,9 @@ class TimelineHelperTests(unittest.TestCase):
     def test_qwidget_cursor_uses_razor_cursor_for_items_when_enabled(self):
         helper = self.make_qwidget_cursor_helper()
         helper.enable_razor = True
+        helper.track_name_width = 0
+        helper._razor_in_track_area = lambda pos: True
+        helper._razor_target_at = lambda pos: {"frame": 1}
         helper.geometry.items = [(QRectF(0.0, 0.0, 100.0, 20.0), object(), False, "clip")]
 
         self.qwidget_base_module.TimelineWidgetBase._updateCursor(helper, QPointF(10.0, 10.0))
@@ -2670,14 +2740,68 @@ class TimelineHelperTests(unittest.TestCase):
         self.assertIs(helper.cursor_value, helper.cursors["razor"])
         self.assertFalse(helper.unset_cursor_called)
 
-    def test_qwidget_razor_cursor_hotspot_matches_web_alignment(self):
-        helper = types.SimpleNamespace()
+    def test_qwidget_razor_cursor_uses_scissors_hotspot(self):
+        helper = types.SimpleNamespace(devicePixelRatioF=lambda: 1.0)
 
         cursor = self.qwidget_base_module.TimelineWidgetBase._load_razor_cursor(helper)
 
         self.assertIsInstance(cursor, QCursor)
-        self.assertEqual(cursor.hotSpot().x(), 0)
-        self.assertEqual(cursor.hotSpot().y(), 2)
+        self.assertEqual(cursor.hotSpot().x(), 7)
+        self.assertEqual(cursor.hotSpot().y(), 4)
+        self.assertEqual(cursor.pixmap().height(), 24)
+
+    def test_razor_cut_uses_preview_modifiers_instead_of_stale_global_state(self):
+        calls = []
+        helper = types.SimpleNamespace(Slice_Triggered=lambda *args: calls.append(args))
+        for modifiers, expected in (
+            (Qt.NoModifier, self.timeline_module.MenuSlice.KEEP_BOTH),
+            (Qt.ShiftModifier, self.timeline_module.MenuSlice.KEEP_LEFT),
+            (Qt.ControlModifier, self.timeline_module.MenuSlice.KEEP_RIGHT),
+        ):
+            with patch.object(QApplication, "keyboardModifiers", return_value=Qt.ShiftModifier), \
+                    patch.object(self.timeline_module.QTimer, "singleShot", side_effect=lambda delay, fn: fn()):
+                self.timeline_module.TimelineView.RazorSliceAtCursor(
+                    helper, "C1", "", 3.0, modifiers
+                )
+            self.assertEqual(calls[-1], (expected, ["C1"], [], 3.0, False))
+
+    def test_razor_alt_dispatches_existing_ripple_slice_for_clips_and_transitions(self):
+        calls = []
+        helper = types.SimpleNamespace(Slice_Triggered=lambda *args: calls.append(args))
+        for clip_id, transition_id in (("C1", ""), ("", "T1")):
+            for modifier, mode in ((Qt.ShiftModifier, self.timeline_module.MenuSlice.KEEP_LEFT),
+                                   (Qt.ControlModifier, self.timeline_module.MenuSlice.KEEP_RIGHT)):
+                with patch.object(self.timeline_module.QTimer, "singleShot", side_effect=lambda delay, fn: fn()):
+                    self.timeline_module.TimelineView.RazorSliceAtCursor(
+                        helper, clip_id, transition_id, 3.0, modifier | Qt.AltModifier
+                    )
+                self.assertEqual(calls[-1], (
+                    mode, [clip_id] if clip_id else [], [transition_id] if transition_id else [], 3.0, True
+                ))
+
+    def test_razor_source_preview_reuses_trim_mapping_without_emitting_normal_seek(self):
+        requests = []
+        mapping = []
+        curve = types.SimpleNamespace(
+            GetCount=lambda: 2,
+            GetValue=lambda frame: mapping.append(frame) or 480.0,
+        )
+        window = types.SimpleNamespace(
+            timeline_sync=types.SimpleNamespace(timeline=types.SimpleNamespace(
+                GetClip=lambda clip_id: types.SimpleNamespace(time=curve))),
+            preview_thread=types.SimpleNamespace(
+                queue_razor_preview=lambda *args: requests.append(args) or True),
+        )
+        helper = types.SimpleNamespace(window=window)
+        helper._clip_preview_source = types.MethodType(self.timeline_module.TimelineView._clip_preview_source, helper)
+        clip = types.SimpleNamespace(data={"file_id": "F1", "reader": {}})
+        file = types.SimpleNamespace(absolute_path=lambda: "/media/hidden-lower.mp4")
+        with patch.object(self.timeline_module.Clip, "get", return_value=clip), \
+                patch.object(self.timeline_module.File, "get", return_value=file):
+            accepted = self.timeline_module.TimelineView.PreviewRazorFrame(helper, "C1", 241, 61)
+        self.assertTrue(accepted)
+        self.assertEqual(mapping, [241])
+        self.assertEqual(requests, [(480, 61, "/media/hidden-lower.mp4", False)])
 
     def test_qwidget_cursor_keeps_hand_cursor_for_items_when_razor_disabled(self):
         helper = self.make_qwidget_cursor_helper()
@@ -4130,6 +4254,7 @@ class TimelineHelperTests(unittest.TestCase):
         )
         clip_painter.border_width = 0.0
         clip_painter.menu_margin = 4.0
+        clip_painter.w = types.SimpleNamespace(_effect_icon_rects=[], _clip_text_rects=[])
         captured = {}
 
         def draw_waveform(_self, _painter, _clip, inner, _segment):
@@ -4154,11 +4279,161 @@ class TimelineHelperTests(unittest.TestCase):
                 inner,
                 {"includes_start": True, "segment_width": inner.width()},
             )
+            self.assertNotIn("title_transparent", captured)
+            clip_painter._draw_clip_header(
+                painter,
+                types.SimpleNamespace(data={"title": "Audio", "ui": {"audio_data": [0, 1]}}),
+                inner, inner,
+            )
         finally:
             painter.end()
 
         self.assertEqual(captured["waveform_rect"], inner)
         self.assertTrue(captured["title_transparent"])
+
+    def test_clip_header_sticks_inside_viewport_and_preserves_hit_targets(self):
+        from windows.views.timeline_backend.qwidget.effect import EffectInteractionMixin
+
+        helper = self.make_clip_painter()
+        widget = helper.w
+        widget._effect_color = lambda _effect: QColor("blue")
+        clip = types.SimpleNamespace(id="C1", data={
+            "title": "A long clip with effects.mp4",
+            "effects": [{"id": "E1", "type": "Blur"}, {"id": "E2", "type": "Crop"}],
+        })
+        area = QRectF(100, 0, 500, 100)
+        image = QImage(640, 100, QImage.Format_ARGB32)
+        # Includes the cache overdraw region, deep zoom, and the departing right edge.
+        for left, right in [(150, 580), (99, 1200), (-20, 1200),
+                            (-10000, 1200), (-10000, 230), (150, 580)]:
+            with self.subTest(left=left, right=right):
+                image.fill(0)
+                widget._effect_icon_rects = []
+                widget._clip_text_rects = []
+                full = QRectF(left, 10, right - left, 70)
+                original = QRectF(full)
+                painter = QPainter(image)
+                try:
+                    helper._draw_clip_header(painter, clip, full, area)
+                finally:
+                    painter.end()
+                self.assertEqual(full, original)
+                self.assertEqual(len(widget._clip_text_rects), 1)
+                entry = widget._clip_text_rects[0]
+                expected_left = left + 1 if left + 1 >= area.left() else 106
+                self.assertEqual(entry["rect"].left(), expected_left)
+                self.assertLessEqual(entry["rect"].right(), min(right - 1, area.right()))
+                self.assertTrue(entry["open_menu"])
+                self.assertEqual(len(widget._effect_icon_rects), 2)
+                for badge in widget._effect_icon_rects:
+                    hit = EffectInteractionMixin._effect_icon_at(widget, badge["rect"].center())
+                    self.assertIs(hit["clip"], clip)
+                    self.assertTrue(entry["rect"].contains(badge["rect"]))
+                menu = self.make_qwidget_pending_clip_menu_helper()
+                menu._clip_text_rects = widget._clip_text_rects
+                pos = QPointF(entry["rect"].right() - 3, entry["rect"].center().y())
+                self.assertTrue(menu._begin_pending_clip_menu_click(pos))
+                self.assertTrue(menu._handle_pending_clip_menu_release(pos))
+                self.assertEqual(menu.menu_calls, ["C1"])
+                if left < 0:
+                    # Header only: no false full-height clip boundary at the pin.
+                    self.assertEqual(image.pixelColor(106, 65).alpha(), 0)
+
+    def test_floating_clip_header_matches_original_cached_rendering(self):
+        from qt_api import QFont
+
+        helper = self.make_clip_painter()
+        widget = helper.w
+        widget._effect_color = lambda _effect: QColor("blue")
+        helper.menu_margin = 4.0
+        clip = types.SimpleNamespace(id="C1", data={
+            "title": "Clip title.mp4",
+            "effects": [{"id": "E1", "type": "Blur"}, {"id": "E2", "type": "Crop"}],
+        })
+        full = QRectF(10, 10, 500, 70)
+        inner = full.adjusted(1, 1, -1, -1)
+        area = QRectF(0, 0, 640, 100)
+        for ratio in (1, 2):
+            for font_size in (9, 18):
+                with self.subTest(ratio=ratio, font_size=font_size):
+                    original = QImage(640 * ratio, 100 * ratio, QImage.Format_ARGB32)
+                    original.fill(0)
+                    painter = QPainter(original)
+                    painter.scale(ratio, ratio)
+                    painter.setRenderHint(QPainter.Antialiasing, True)
+                    icons = []
+                    try:
+                        # The old cache used a fresh image painter's default font.
+                        old_title = helper._draw_clip_text(
+                            painter, clip, inner, inner.left(), inner.right(),
+                            visible_width=full.width(), icon_entries=icons,
+                        )
+                    finally:
+                        painter.end()
+                    floating = QImage(original.size(), original.format())
+                    floating.fill(0)
+                    painter = QPainter(floating)
+                    painter.scale(ratio, ratio)
+                    painter.setRenderHint(QPainter.Antialiasing, True)
+                    widget_font = QFont()
+                    widget_font.setPointSize(font_size)
+                    painter.setFont(widget_font)
+                    widget._clip_text_rects = []
+                    widget._effect_icon_rects = []
+                    try:
+                        helper._draw_clip_header(painter, clip, full, area)
+                        self.assertEqual(painter.font(), widget_font)
+                    finally:
+                        painter.end()
+                    self.assertEqual(
+                        [entry["rect"] for entry in widget._effect_icon_rects],
+                        [entry["rect"] for entry in icons],
+                    )
+                    self.assertEqual(widget._clip_text_rects[0]["rect"], old_title["rect"])
+                    self.assertEqual(floating, original)
+
+    def test_scrolling_cached_clip_paints_one_header_without_false_trim_edge(self):
+        helper = self.make_clip_painter()
+        widget = helper.w
+        widget.resize(640, 120)
+        widget.track_name_width = 100
+        widget.ruler_height = 0
+        widget.scroll_bar_thickness = 10
+        widget._is_track_locked = lambda _layer: False
+        widget._effect_color = lambda _effect: QColor("blue")
+        helper._draw_thumbnails = lambda *_args: False
+        helper._draw_waveform = lambda *_args: False
+        clip = types.SimpleNamespace(id="C1", data={
+            "title": "Long video.mp4", "position": 0, "start": 0,
+            "end": 100, "duration": 100,
+            "effects": [{"id": "E1", "type": "Blur"}],
+        })
+        image = QImage(640, 120, QImage.Format_ARGB32)
+        for left in [150, 80, -5000, -5010, -5010, 700]:
+            with self.subTest(left=left):
+                full = QRectF(left, 10, 10000, 70)
+                widget.geometry = types.SimpleNamespace(iter_clips=lambda: [(full, clip, True)])
+                image.fill(0)
+                painter = QPainter(image)
+                try:
+                    helper.paint(painter)
+                finally:
+                    painter.end()
+                if left == 700:
+                    self.assertEqual(widget._clip_text_rects, [])
+                    self.assertEqual(widget._effect_icon_rects, [])
+                    continue
+                self.assertEqual(len(widget._clip_text_rects), 1)
+                self.assertEqual(len(widget._effect_icon_rects), 1)
+                expected = 151 if left == 150 else 106
+                self.assertEqual(widget._clip_text_rects[0]["rect"].left(), expected)
+                # Cached media must not carry a second title or stale hit boxes.
+                cached = helper._retime_preview_cache["C1"]
+                self.assertEqual(cached["icons"], [])
+                self.assertIsNone(cached["text_entry"])
+                if left < 100:
+                    self.assertNotEqual(image.pixelColor(100, 60), QColor("red"))
+                    self.assertNotEqual(image.pixelColor(106, 60), QColor("red"))
 
     def test_waveform_density_defaults_to_legacy_rate_when_missing(self):
         waveform = self.waveform_module
@@ -4417,7 +4692,8 @@ class TimelineHelperTests(unittest.TestCase):
             project_fps=30.0,
         )
 
-        self.assertEqual(frames, [1175, 1025, 875, 719, 570, 420, 264, 114, 18])
+        # Sample the actual pixel-slot centers before mapping to reader frames.
+        self.assertEqual(frames, [1175, 1025, 875, 725, 570, 420, 270, 114, 18])
 
     def test_draw_thumbnails_entire_style_long_retimed_clip_generates_tail_slots(self):
         clip = types.SimpleNamespace(
@@ -4572,6 +4848,331 @@ class TimelineHelperTests(unittest.TestCase):
                 for spacing in spacings
             )
         )
+
+    def test_slider_zoom_keeps_thumbnails_attached_to_clips_and_scale_consistent(self):
+        base = self.qwidget_base_module.TimelineWidgetBase
+        for edge in ("left", "right"):
+            for factors in ((1.0, 0.9, 0.8, 0.9, 1.0), (0.06, 0.05, 0.04, 0.03, 0.06)):
+                with self.subTest(edge=edge, factors=factors):
+                    painter = self.make_clip_painter()
+                    helper = painter.w
+                    slider = types.SimpleNamespace(
+                        _syncing_backend=True, zoom_factor=1.0,
+                        left_handle_dragging=edge == "left",
+                        right_handle_dragging=edge == "right",
+                        scrollbar_position=[0.0, 1.0, 0.0, 1000.0],
+                        setZoomFactor=lambda *args, **kwargs: None,
+                        update_scrollbars=lambda *args: None,
+                    )
+                    helper.win = types.SimpleNamespace(sliderZoomWidget=slider)
+                    helper.scrollbar_position = [0.0, 1.0, 10000.0, 1000.0]
+                    helper._external_zoom_span = None
+                    helper._suspend_changed_update = 0
+                    helper.is_auto_center = False
+                    helper.changed = lambda _action: None
+                    helper._schedule_viewport_thumbnail_reset = lambda: None
+                    helper._clamp_zoom_factor = lambda value: base._clamp_zoom_factor(helper, value)
+                    helper._current_project_duration = lambda: 100.0
+                    helper._center_on_seconds = lambda *args, **kwargs: base._center_on_seconds(helper, *args, **kwargs)
+                    helper.setZoomFactor = lambda *args, **kwargs: base.setZoomFactor(helper, *args, **kwargs)
+                    clip = types.SimpleNamespace(id="still", data={
+                        "position": 0.0, "start": 0.0, "end": 100.0,
+                        "reader": {"type": "QtImageReader", "duration": 100.0},
+                    })
+                    phases = []
+                    app = types.SimpleNamespace(project=types.SimpleNamespace(get=lambda key: 100.0))
+                    with patch.object(self.qwidget_base_module, "get_app", return_value=app):
+                        for factor in factors:
+                            requested_width = factor / 10.0
+                            left = 0.5 - requested_width if edge == "left" else 0.5
+                            slider.scrollbar_position[:2] = [left, left + requested_width]
+                            base._apply_external_zoom(helper, factor)
+                            self.assertAlmostEqual(helper.scrollbar_position[2], 100.0 * helper.pixels_per_second)
+                            self.assertAlmostEqual(
+                                (helper.scrollbar_position[1] - helper.scrollbar_position[0]) *
+                                helper.scrollbar_position[2], 1000.0)
+                            fixed = helper.scrollbar_position[1 if edge == "left" else 0]
+                            self.assertAlmostEqual(fixed, 0.5)
+                            phase = painter._thumbnail_grid_phase(clip, 48.0)
+                            # Slider resizing must preserve the clip-local tile
+                            # offset, not pin the strip behind moving clip edges.
+                            phases.append(phase)
+                    for phase in phases[1:]:
+                        self.assertAlmostEqual(phase, phases[0], places=6)
+
+                    # Release/repaint must not snap the strip to another grid.
+                    slider.left_handle_dragging = slider.right_handle_dragging = False
+                    self.assertAlmostEqual(painter._thumbnail_grid_phase(clip, 48.0), phases[-1])
+
+                    # Switching back to playhead-anchored zoom retains the
+                    # established viewport phase, without an initial jump.
+                    screen_phase = (phases[-1] - helper.h_scroll_offset) % 48.0
+                    helper._zoom_playhead_anchor = (50.0, 500.0)
+                    with patch.object(self.qwidget_base_module, "get_app", return_value=app):
+                        base.setZoomFactor(helper, helper.zoom_factor * 1.1, emit=False)
+                    phase = painter._thumbnail_grid_phase(clip, 48.0)
+                    self.assertAlmostEqual((phase - helper.h_scroll_offset) % 48.0, screen_phase)
+
+    def test_thumbnail_grid_stays_fixed_during_anchored_smooth_zoom(self):
+        # Exercise the tail of a still image and five-frame cuts, including
+        # repositioned media. A media-zero grid slips faster at later times.
+        for position, start, duration, anchor in (
+            (0.0, 0.0, 10.0, 0.0),
+            (0.0, 0.0, 10.0, 9.5),
+            (9.5, 9.5, 5.0 / 30.0, 9.6),
+            (109.5, 9.5, 5.0 / 30.0, 109.6),
+        ):
+            with self.subTest(position=position, start=start):
+                painter = self.make_clip_painter(pixels_per_second=1600.0, project_fps=30.0)
+                clip = types.SimpleNamespace(id="C1", data={
+                    "position": position, "start": start, "end": start + duration,
+                    "duration": duration, "reader": {"duration": 10.0},
+                })
+                phases = []
+                for pps in (1600.0, 1600.3, 1601.1, 1610.0, 1800.0, 2000.0, 1800.0, 1600.0):
+                    painter.w.pixels_per_second = pps
+                    painter.w.h_scroll_offset = max(0.0, anchor * pps - 100.0)
+                    left = max(0.0, (painter.w.h_scroll_offset - position * pps) / pps)
+                    span = min(duration - left, 200.0 / pps)
+                    segment = {
+                        "offset_seconds": left, "duration_seconds": span,
+                        "clip_duration": duration, "clip_width": duration * pps,
+                        "segment_width": span * pps,
+                    }
+                    slots, interval = painter._build_thumbnail_slots(
+                        clip, QRectF(0, 0, span * pps, 40), segment, "entire", {}
+                    )
+                    self.assertGreater(len(slots), 1)
+                    for slot_time, rect in slots:
+                        self.assertAlmostEqual(slot_time, left + rect.left() / pps)
+                        self.assertAlmostEqual(interval, rect.width() / pps)
+                    screen_x = position * pps - painter.w.h_scroll_offset + left * pps + slots[0][1].left()
+                    phases.append(screen_x % slots[0][1].width())
+                for phase in phases[1:]:
+                    self.assertAlmostEqual(phase, phases[0], places=6)
+
+                # Panning at a fixed zoom must still move the strip with media.
+                phase_before = painter._thumbnail_grid_phase(clip, 48.0)
+                painter.w.h_scroll_offset += 17.0
+                self.assertEqual(painter._thumbnail_grid_phase(clip, 48.0), phase_before)
+
+    def test_clip_render_cache_distinguishes_subpixel_pan_at_extreme_zoom(self):
+        painter = self.make_clip_painter(pixels_per_second=2000.0)
+        clip = types.SimpleNamespace(id="C1", data={
+            "position": 0.0, "start": 0.0, "end": 10.0, "duration": 10.0,
+        })
+        # The old four-decimal time key maps both offsets to the same cache
+        # entry, despite different pixel geometry. Identical views still reuse it.
+        painter._draw_clip_contents = MagicMock(return_value=([], False, None))
+        segment = QRectF(0, 0, 300, 40)
+        for offset in (18000.0, 18000.0, 18000.08, 18000.08):
+            painter.w.h_scroll_offset = offset
+            result = painter._clip_pixmap(QRectF(-offset, 0, 20000, 40), segment, clip)
+            self.assertIsNotNone(result)
+        self.assertEqual(painter._draw_clip_contents.call_count, 2)
+
+    def test_frame_bands_overlay_media_at_eighth_opacity_and_preserve_headers(self):
+        painter = self.make_clip_painter()
+        widget = painter.w
+        widget.track_name_width = 0
+        widget.ruler_height = 0
+        widget.scroll_bar_thickness = 0
+        widget._is_track_locked = lambda _layer: False
+        clip = types.SimpleNamespace(id="C1", data={"layer": 1})
+        widget.geometry = types.SimpleNamespace(iter_clips=lambda: [(QRectF(0, 0, 100, 40), clip, False)])
+        cfg = {"pps": 600.0, "fps": 30.0, "offset_px": 15.0}
+        widget.track_painter = types.SimpleNamespace(_frame_banding_config=lambda: cfg)
+        painter._draw_clip_header = lambda canvas, *_args: canvas.fillRect(QRectF(0, 0, 10, 10), QColor("red"))
+        for background in ("white", "black"):
+            for banding in (True, False):
+                with self.subTest(background=background, banding=banding):
+                    widget.track_painter._frame_banding_config = lambda: cfg if banding else None
+                    painter._draw_clip = lambda canvas, *_args: canvas.fillRect(QRectF(0, 0, 100, 40), QColor(background))
+                    image = QImage(100, 40, QImage.Format_ARGB32)
+                    image.fill(Qt.transparent)
+                    canvas = QPainter(image)
+                    try:
+                        painter.paint(canvas)
+                    finally:
+                        canvas.end()
+                    # Titles stay above the overlay, and the media stays opaque.
+                    self.assertEqual(image.pixelColor(5, 5), QColor("red"))
+                    for x in (3, 10, 30, 50, 70, 90):
+                        frame = (x + 15) // 20
+                        original = 255 if background == "white" else 0
+                        expected = original
+                        if banding:
+                            expected = min(255, original + 32) if frame % 2 == 0 else max(0, original - 32)
+                        pixel = image.pixelColor(x, 20)
+                        self.assertEqual(pixel.alpha(), 255)
+                        self.assertAlmostEqual(pixel.red(), expected, delta=1)
+                        self.assertEqual(pixel.red(), pixel.green())
+                        self.assertEqual(pixel.red(), pixel.blue())
+                    self.assertEqual(image.pixelColor(25, 0), QColor(background))
+
+    def test_frame_bands_align_with_fractional_fps_and_scroll(self):
+        painter = self.make_clip_painter()
+        painter.w.track_name_width = 17
+        cfg = {"pps": 997.0, "fps": 30000.0 / 1001.0, "offset_px": 26731.25}
+        canvas = MagicMock()
+        painter._draw_frame_bands(canvas, QRectF(-100, 0, 1000, 40), QRectF(17, 0, 300, 40), cfg)
+        self.assertGreater(canvas.fillRect.call_count, 5)
+        for call in canvas.fillRect.call_args_list:
+            rect = call.args[0]
+            frame = (rect.left() - 17 + cfg["offset_px"]) / cfg["pps"] * cfg["fps"]
+            self.assertAlmostEqual(frame, round(frame), places=8)
+            self.assertAlmostEqual(rect.width(), cfg["pps"] / cfg["fps"])
+            color = call.args[1]
+            self.assertEqual(color.alpha(), 32)
+            self.assertEqual(color.red(), 255 if round(frame) % 2 == 0 else 0)
+
+    def test_thumbnail_strip_samples_visible_positions_across_zoom_levels(self):
+        # Fractional frames per slot must not accumulate into source-time drift,
+        # even far from the media origin or with a trimmed, repositioned clip.
+        for fps_num, fps_den in ((30, 1), (24000, 1001), (30000, 1001), (60000, 1001)):
+            for trim_start in (0.0, 120.37):
+                for pixels_per_second in (609.0, 676.7, 751.9, 2400.0):
+                    with self.subTest(fps=fps_num / fps_den, trim_start=trim_start, zoom=pixels_per_second):
+                        painter = self.make_clip_painter(
+                            pixels_per_second=pixels_per_second, project_fps=30.0
+                        )
+                        painter.w.theme.clip.thumb_width = 116
+                        clip = types.SimpleNamespace(id="C1", data={
+                            "file_id": "F1", "start": trim_start,
+                            "end": trim_start + 60.0, "duration": 60.0,
+                            "position": 7.0,
+                            "reader": {"fps": {"num": fps_num, "den": fps_den}, "duration": 200.0},
+                        })
+                        inner = QRectF(42.0, 0.0, 1100.0, 65.0)
+                        segment = {
+                            "segment_width": inner.width(),
+                            "clip_width": 60.0 * pixels_per_second,
+                            "offset_seconds": 22.0,
+                            "duration_seconds": inner.width() / pixels_per_second,
+                            "clip_duration": 60.0,
+                            "includes_start": False, "includes_end": False,
+                        }
+                        slots, interval = painter._build_thumbnail_slots(
+                            clip, inner, segment, "entire", painter._segment_timing(segment, 60.0)
+                        )
+                        for slot_start, rect in slots:
+                            self.assertAlmostEqual(
+                                slot_start, 22.0 + (rect.left() - inner.left()) / pixels_per_second
+                            )
+                            self.assertAlmostEqual(interval, rect.width() / pixels_per_second)
+                        requests = []
+
+                        def capture(_clip, clip_key, file_id, frame, rect, generation, **kwargs):
+                            requests.append((frame, rect))
+                            return None
+
+                        painter._get_thumbnail_pixmap = capture
+                        painter._draw_thumbnails(None, clip, inner, segment)
+                        self.assertGreater(len(requests), 5)
+                        for frame, rect in requests:
+                            visible_center = (
+                                max(rect.left(), inner.left()) + min(rect.right(), inner.right())
+                            ) / 2.0
+                            expected_time = trim_start + 22.0 + (
+                                visible_center - inner.left()
+                            ) / pixels_per_second
+                            # Allow local cache rounding, but never cumulative drift.
+                            self.assertAlmostEqual(
+                                (frame - 1) / (fps_num / fps_den), expected_time, delta=0.26
+                            )
+
+    def test_thumbnail_strip_renders_correct_cached_frames_during_repeated_zoom(self):
+        # Encode source frame numbers in solid-color PNGs so we can verify the
+        # actual painted pixels through the normal request, load, and cache path.
+        for fps_num in (24000, 30000, 60000):
+            with self.subTest(fps=fps_num / 1001.0), tempfile.TemporaryDirectory() as folder:
+                fps = fps_num / 1001.0
+                painter = self.make_clip_painter(project_fps=30.0)
+                painter.w.theme.clip.thumb_width = 116
+                clip = types.SimpleNamespace(id="C1", data={
+                    "file_id": "F1", "start": 120.37, "end": 180.37,
+                    "duration": 60.0, "position": 7.0,
+                    "reader": {"fps": {"num": fps_num, "den": 1001}, "duration": 200.0},
+                })
+                requests = []
+                painter.w.thumbnail_manager = types.SimpleNamespace(
+                    request_thumbnail=lambda *args: requests.append(args)
+                )
+                painter._existing_thumb_path = lambda *args: ""
+                inner = QRectF(42.0, 0.0, 1100.0, 65.0)
+                snapshots = {}
+                stale_requests = []
+
+                def render(segment):
+                    image = QImage(1200, 65, QImage.Format_ARGB32)
+                    image.fill(QColor("magenta"))
+                    canvas = QPainter(image)
+                    try:
+                        pending = painter._draw_thumbnails(canvas, clip, inner, segment)
+                    finally:
+                        canvas.end()
+                    return image, pending
+
+                def deliver(request):
+                    clip_id, file_id, frame, generation = request
+                    path = os.path.join(folder, f"{frame}.png")
+                    thumbnail = QImage(116, 65, QImage.Format_ARGB32)
+                    thumbnail.fill(QColor((frame >> 16) & 255, (frame >> 8) & 255, frame & 255))
+                    self.assertTrue(thumbnail.save(path))
+                    painter.handle_thumbnail_ready(clip_id, frame, path, generation)
+
+                zooms = (609.0, 676.7, 751.9, 2400.0, 751.9, 676.7, 609.0, 2400.0, 609.0)
+                for generation, zoom in enumerate(zooms, 1):
+                    painter.w.pixels_per_second = zoom
+                    painter.w.thumbnail_generation = generation
+                    painter.expire_thumbnail_requests(generation)
+                    painter.clear_render_cache()
+                    # Keep a fixed playhead time at the same screen position.
+                    offset = 22.25 - (206.0 - inner.left()) / zoom
+                    segment = {
+                        "segment_width": inner.width(), "clip_width": 60.0 * zoom,
+                        "offset_seconds": offset, "duration_seconds": inner.width() / zoom,
+                        "clip_duration": 60.0, "includes_start": False, "includes_end": False,
+                    }
+                    requests.clear()
+                    render(segment)
+                    if generation == 1:
+                        # Leave one old-generation request outstanding during zoom.
+                        self.assertGreater(len(requests), 1)
+                        stale_requests.append(requests.pop())
+                    if generation == 2:
+                        cache_before = dict(painter.thumb_cache)
+                        pending_before = dict(painter._thumb_pending)
+                        for request in stale_requests:
+                            deliver(request)
+                        self.assertEqual(painter.thumb_cache, cache_before)
+                        self.assertEqual(painter._thumb_pending, pending_before)
+                    if zoom in snapshots:
+                        self.assertEqual(requests, [], "Returning to a populated zoom should reuse its frames")
+                    for request in requests:
+                        deliver(request)
+                    if generation == 1:
+                        # Zoom away with a partially populated cache and work
+                        # still in flight. Its result will arrive at generation 2.
+                        self.assertTrue(painter.thumb_cache)
+                        self.assertTrue(painter._thumb_pending)
+                        continue
+                    image, pending = render(segment)
+                    self.assertFalse(pending)
+                    self.assertTrue(painter.thumb_cache)
+                    # Read rendered pixels independently of the slot builder.
+                    for x in range(50, 1135, 17):
+                        color = image.pixelColor(x, 32)
+                        frame = (color.red() << 16) | (color.green() << 8) | color.blue()
+                        expected_time = 120.37 + offset + (x - inner.left()) / zoom
+                        self.assertAlmostEqual(
+                            (frame - 1) / fps, expected_time,
+                            delta=0.26 + 58.0 / zoom,
+                        )
+                    if zoom in snapshots:
+                        self.assertEqual(image, snapshots[zoom])
+                    else:
+                        snapshots[zoom] = image
 
     def test_expire_thumbnail_requests_clears_edge_slot_fallback_cache(self):
         painter = self.make_clip_painter(thumbnail_style="entire", pixels_per_second=24.0, project_fps=24.0)
@@ -5077,7 +5678,146 @@ class TimelineHelperTests(unittest.TestCase):
         self.assertEqual(snap_calls, [(5.0, 1.5)])
         self.assertEqual(result, 1.75)
 
-    def test_thumbnail_worker_sorts_requests_and_reuses_clip_instance(self):
+    def test_thumbnail_worker_cancels_backlog_during_slow_decode(self):
+        from threading import Event
+
+        started, release, finished = Event(), Event(), Event()
+        decoded = []
+
+        def decode(file_id, frame):
+            decoded.append(frame)
+            if frame == 100:
+                started.set()
+                release.wait(3)
+            if frame == 900:
+                finished.set()
+            return f"{file_id}:{frame}"
+
+        with patch.object(self.thumbnails_module, "GetThumbPath", side_effect=decode):
+            manager = self.thumbnails_module.TimelineThumbnailManager()
+            try:
+                for frame in (100, 200, 300):
+                    manager.request_thumbnail("C1", "F1", frame, 1)
+                self.assertTrue(started.wait(2))
+                # Simulate zooming while the old viewport's first decode blocks.
+                manager.clear_pending()
+                manager.request_thumbnail("C1", "F1", 900, 2)
+                release.set()
+                self.assertTrue(finished.wait(2))
+            finally:
+                release.set()
+                manager.shutdown()
+        self.assertEqual(decoded, [100, 900])
+
+    def test_thumbnail_worker_clear_before_callback_keeps_single_wakeup(self):
+        worker = self.thumbnails_module._ThumbnailWorker()
+        scheduled = []
+        with patch.object(self.thumbnails_module.QTimer, "singleShot",
+                          side_effect=lambda _delay, callback: scheduled.append(callback)), \
+                patch.object(self.thumbnails_module, "GetThumbPath", return_value="thumb") as decode:
+            worker.request_thumbnail("C1", "F1", 100, 1)
+            worker.clear_pending()
+            worker.clear_pending()
+            worker.request_thumbnail("C1", "F1", 900, 3)
+            self.assertEqual(len(scheduled), 1)
+            scheduled.pop(0)()
+            decode.assert_called_once_with("F1", 900)
+            self.assertEqual(scheduled, [])
+
+    def test_viewport_thumbnail_reset_is_immediate_and_expires_old_results(self):
+        from windows.views.timeline_backend.qwidget.base import TimelineWidgetBase
+
+        painter = self.make_clip_painter()
+        widget = painter.w
+        manager = MagicMock()
+        widget.thumbnail_manager = manager
+        widget.clip_painter = painter
+        widget._reset_thumbnail_requests = lambda: TimelineWidgetBase._reset_thumbnail_requests(widget)
+        painter._thumb_pending[("C1", 100)] = 0
+        painter._thumb_regions[("C1", 100)] = QRectF(0, 0, 20, 20)
+        TimelineWidgetBase._schedule_viewport_thumbnail_reset(widget)
+        manager.clear_pending.assert_called_once_with()
+        self.assertEqual(widget.thumbnail_generation, 1)
+        self.assertEqual(painter._thumb_pending, {})
+        painter.handle_thumbnail_ready("C1", 100, "", 0)
+        self.assertNotIn(("C1", 100), painter.thumb_cache)
+
+    def test_thumbnail_paint_cancels_slots_after_clip_moves_or_leaves_view(self):
+        from windows.views.timeline_backend.qwidget.base import TimelineWidgetBase
+
+        helper = self.make_clip_painter(pixels_per_second=2400)
+        widget = helper.w
+        widget.resize(640, 120)
+        widget.track_name_width = 100
+        widget.ruler_height = 0
+        widget.scroll_bar_thickness = 10
+        widget._is_track_locked = lambda _layer: False
+        widget.clip_painter = helper
+        widget.thumbnail_manager = MagicMock()
+        widget._reset_thumbnail_requests = lambda: TimelineWidgetBase._reset_thumbnail_requests(widget)
+        helper._existing_thumb_path = lambda *_args: None
+        helper._draw_waveform = lambda *_args: False
+        clip = types.SimpleNamespace(id="C1", data={
+            "file_id": "F1", "position": 0, "start": 0,
+            "end": 100, "duration": 100,
+        })
+        full = QRectF(-5000, 10, 240000, 70)
+        widget.geometry = types.SimpleNamespace(iter_clips=lambda: [(full, clip, False)])
+        image = QImage(640, 120, QImage.Format_ARGB32)
+
+        def paint():
+            canvas = QPainter(image)
+            try:
+                helper.paint(canvas)
+            finally:
+                canvas.end()
+
+        paint()
+        self.assertTrue(helper._thumb_pending)
+        initial = dict(helper._thumb_pending)
+        slot_width = helper._thumbnail_slot_width(clip, 70 - 2 * helper.border_width)
+        self.assertLessEqual(len(initial), math.ceil(530 / slot_width) + 1)
+        paint()
+        widget.thumbnail_manager.clear_pending.assert_not_called()
+        self.assertEqual(dict(helper._thumb_pending), initial)
+
+        # Geometry can change independently of the scroll and zoom handlers.
+        full.translate(-2400, 0)
+        paint()
+        widget.thumbnail_manager.clear_pending.assert_called_once_with()
+        self.assertTrue(helper._thumb_pending)
+        self.assertEqual(set(helper._thumb_pending.values()), {1})
+        full.translate(0, 200)
+        paint()
+        self.assertEqual(widget.thumbnail_manager.clear_pending.call_count, 2)
+        self.assertEqual(helper._thumb_pending, {})
+
+    def test_thumbnail_slots_exclude_render_overdraw_at_extreme_zoom(self):
+        for pps in (10.0, 2400.0, 100000.0):
+            with self.subTest(pixels_per_second=pps):
+                painter = self.make_clip_painter(pixels_per_second=pps)
+                clip = types.SimpleNamespace(id="C1", data={
+                    "file_id": "F1", "start": 0, "end": 1000,
+                    "duration": 1000, "position": 0,
+                })
+                inner = QRectF(1, 1, 1000, 60)
+                segment = {
+                    "segment_width": 1000, "clip_width": 1000 * pps,
+                    "offset_seconds": 50, "duration_seconds": 1000 / pps,
+                    "clip_duration": 1000,
+                    "includes_start": False, "includes_end": False,
+                    "thumbnail_view_left": 250, "thumbnail_view_right": 750,
+                }
+                slots, _ = painter._build_thumbnail_slots(clip, inner, segment, "entire", segment)
+                self.assertTrue(slots)
+                for _, rect in slots:
+                    self.assertGreater(rect.right() - inner.left(), 250)
+                    self.assertLess(rect.left() - inner.left(), 750)
+                # Partially visible edge slots must still be filled.
+                self.assertLessEqual(slots[0][1].left() - inner.left(), 250)
+                self.assertGreaterEqual(slots[-1][1].right() - inner.left(), 750)
+
+    def test_thumbnail_worker_sorts_requests_and_yields_after_each_decode(self):
         worker = self.thumbnails_module._ThumbnailWorker()
         ready = []
         worker.thumbnail_ready.connect(lambda clip_id, frame, path, generation: ready.append((clip_id, frame, path, generation)))
@@ -5093,7 +5833,11 @@ class TimelineHelperTests(unittest.TestCase):
             worker.request_thumbnail("C1", "F1", 100, 1)
             worker.request_thumbnail("C1", "F1", 300, 1)
             self.assertEqual(len(scheduled), 1)
-            scheduled[0]()
+            scheduled.pop(0)()
+            self.assertEqual([item[1] for item in ready], [100])
+            self.assertEqual(len(scheduled), 1)
+            while scheduled:
+                scheduled.pop(0)()
 
         self.assertEqual([item[1] for item in ready], [100, 300, 400])
         self.assertEqual([item[2] for item in ready], ["F1:100", "F1:300", "F1:400"])
@@ -5537,7 +6281,9 @@ class TimelineHelperTests(unittest.TestCase):
             "paths": {path},
         }]
 
+        original = copy.deepcopy(clip.data)
         helper._apply_keyframe_remove(None, panel_targets)
+        self.assertEqual(clip.data, original)
 
         self.assertEqual(len(helper.clip_updates), 1)
         self.assertEqual(helper.clip_updates[0]["volume"]["Points"], [])

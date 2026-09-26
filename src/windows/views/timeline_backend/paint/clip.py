@@ -190,6 +190,7 @@ class ClipPainter(BasePainter):
         self._slot_fallback_cache = {}
         self._trim_request_cooldown = 0.12
         self._retime_preview_cache = {}
+        self._thumbnail_grid = {}
 
     MAX_THUMB_SLOTS = 150
 
@@ -402,6 +403,8 @@ class ClipPainter(BasePainter):
             self.w.width() - self.w.track_name_width - self.w.scroll_bar_thickness,
             self.w.height() - self.w.ruler_height - self.w.scroll_bar_thickness,
         )
+        track_painter = getattr(self.w, "track_painter", None)
+        frame_banding = track_painter and track_painter._frame_banding_config()
         overdraw = self._segment_overdraw(area.width())
         expanded = QRectF(
             area.left() - overdraw,
@@ -410,12 +413,29 @@ class ClipPainter(BasePainter):
             area.height(),
         )
 
+        clips = list(self.w.geometry.iter_clips())
+        # Also catch clip moves, track changes, and geometry updates which do
+        # not pass through the zoom/scroll handlers.
+        visible_state = (
+            area.getRect(), self.w.pixels_per_second,
+            tuple((rect.getRect(), self._clip_key(clip),
+                   self._clip_trim_start(clip), self._clip_time_bounds(clip))
+                  for rect, clip, _selected in clips if rect.intersects(area)),
+        )
+        previous_state = getattr(self, "_thumbnail_visible_state", None)
+        if previous_state is not None and previous_state != visible_state:
+            reset = getattr(self.w, "_reset_thumbnail_requests", None)
+            if callable(reset):
+                reset()
+        self._thumbnail_visible_state = visible_state
+        self._thumbnail_viewport = area
+
         self.w._effect_icon_rects = []
         self.w._clip_text_rects = []
         painter.save()
         painter.setClipRect(area)
-        for rect, clip, selected in self.w.geometry.iter_clips():
-            if not rect.intersects(expanded):
+        for rect, clip, selected in clips:
+            if not rect.intersects(area):
                 continue
 
             segment_left = max(rect.left(), expanded.left())
@@ -437,8 +457,35 @@ class ClipPainter(BasePainter):
                 painter.save()
                 painter.setOpacity(0.8)
             self._draw_clip(painter, rect, segment_rect, clip, pen, selected)
+            if frame_banding:
+                self._draw_frame_bands(painter, rect, area, frame_banding)
+            self._draw_clip_header(painter, clip, rect, area)
             if locked:
                 painter.restore()
+        painter.restore()
+
+    def _draw_frame_bands(self, painter, clip_rect, area, cfg):
+        """Overlay alternating translucent frame bands on clip media."""
+        bw = max(1.0, float(self.border_width or 0.0))
+        visible = clip_rect.adjusted(bw, bw, -bw, -bw).intersected(area)
+        pps = cfg["pps"]
+        fps = cfg["fps"]
+        if visible.isEmpty() or pps <= 0.0 or fps <= 0.0:
+            return
+        offset = cfg["offset_px"]
+        origin = self.w.track_name_width
+        first = int(math.floor((visible.left() - origin + offset) / pps * fps))
+        last = int(math.ceil((visible.right() - origin + offset) / pps * fps))
+        painter.save()
+        painter.setClipRect(visible, Qt.IntersectClip)
+        # Match the track's even-frame highlight with alternating light/dark
+        # overlays. At 12.5% opacity these remain legible on bright or dark media.
+        light = QColor(255, 255, 255, 32)
+        dark = QColor(0, 0, 0, 32)
+        for frame in range(first, min(last + 1, first + 2000)):
+            x = origin + (frame / fps) * pps - offset
+            color = light if frame % 2 == 0 else dark
+            painter.fillRect(QRectF(x, visible.top(), pps / fps, visible.height()), color)
         painter.restore()
 
     @staticmethod
@@ -744,6 +791,15 @@ class ClipPainter(BasePainter):
             "clip_duration": clip_duration_seconds,
         }
 
+        viewport = getattr(self, "_thumbnail_viewport", None)
+        if viewport is not None:
+            segment_info["thumbnail_view_left"] = max(0.0, viewport.left() - segment_rect.left() - self.border_width)
+            segment_info["thumbnail_view_right"] = min(segment_rect.width(), viewport.right() - segment_rect.left() - self.border_width)
+
+        thumb_width = self._thumbnail_slot_width(clip, h - 2.0 * self.border_width)
+        grid_phase = self._thumbnail_grid_phase(clip, thumb_width)
+        segment_info["thumbnail_grid_phase"] = grid_phase
+
         use_cache = not self.w.clip_has_pending_override(clip)
         waveform_token = self.w.clip_waveform_cache_token(clip) if use_cache else None
         key = (
@@ -752,8 +808,12 @@ class ClipPainter(BasePainter):
             h,
             waveform_token,
             round(ratio, 4),
-            round(offset_seconds, 4),
-            round(duration_seconds, 4),
+            offset_seconds,
+            duration_seconds,
+            float(self.w.pixels_per_second),
+            grid_phase,
+            segment_info.get("thumbnail_view_left"),
+            segment_info.get("thumbnail_view_right"),
             includes_start,
             includes_end,
         ) if use_cache else None
@@ -945,34 +1005,54 @@ class ClipPainter(BasePainter):
         painter.save()
         painter.setClipRect(inner)
 
-        right = inner.right() - self.menu_margin
-        text_right = inner.right()
-        icon_entries = []
-        text_entry = None
-        pending_thumbs = False
-
         has_waveform = self._draw_waveform(painter, clip, inner, segment)
-
-        includes_start = segment.get("includes_start", True) if isinstance(segment, dict) else True
-
+        pending_thumbs = False
         if not has_waveform:
             pending_thumbs = self._draw_thumbnails(painter, clip, inner, segment)
 
-        if includes_start:
-            # Title container anchored at top-left; effect badges drawn inside it
-            text_entry = self._draw_clip_text(
-                painter,
-                clip,
-                inner,
-                inner.x(),
-                text_right,
-                visible_width=float(segment.get("segment_width") or inner_rect.width()) if isinstance(segment, dict) else float(inner_rect.width()),
-                icon_entries=icon_entries,
-                transparent_container=has_waveform,
-            )
-
+        # Controls are painted in viewport coordinates, outside the cached media.
         painter.restore()
-        return icon_entries, pending_thumbs, text_entry
+        return [], pending_thumbs, None
+
+    def _draw_clip_header(self, painter, clip, full_rect, area):
+        """Keep controls inside the visible clip without moving its true edges."""
+        bw = float(self.border_width or 0.0)
+        inner = full_rect.adjusted(bw, bw, -bw, -bw)
+        visible = inner.intersected(area)
+        if visible.isEmpty():
+            return
+        # A little space before a pinned header leaves media visible beneath it
+        # and distinguishes the floating controls from the offscreen trim edge.
+        if inner.left() < area.left():
+            visible.setLeft(visible.left() + 6.0)
+        if visible.width() <= 4.0:
+            return
+        header = QRectF(visible.left(), inner.top(), visible.width(), inner.height())
+        data = clip.data if isinstance(clip.data, dict) else {}
+        ui = data.get("ui", {})
+        audio = ui.get("audio_data") if isinstance(ui, dict) else None
+        icons = []
+        painter.save()
+        painter.setClipRect(visible, Qt.IntersectClip)
+        # Match the default font of the former QImage cache painter rather than
+        # inheriting the timeline widget's stylesheet font and resizing badges.
+        painter.setFont(QFont())
+        text = self._draw_clip_text(
+            painter, clip, header, header.left(), header.right(),
+            visible_width=header.width(), icon_entries=icons,
+            transparent_container=isinstance(audio, list) and len(audio) > 1,
+        )
+        painter.restore()
+        for entry in icons:
+            entry = dict(entry)
+            entry["rect"] = entry["rect"].intersected(visible)
+            entry["clip"] = clip
+            self.w._effect_icon_rects.append(entry)
+        if text:
+            text = dict(text)
+            text["rect"] = text["rect"].intersected(visible)
+            text["clip"] = clip
+            self.w._clip_text_rects.append(text)
 
     def _add_slot_if_valid(self, slots, seen, center_clip_time, half_interval, segment_start,
                            segment_end, trim_start, media_duration, inner_x, top,
@@ -1065,6 +1145,36 @@ class ClipPainter(BasePainter):
         self._resize_allow_left_overflow = False
         self._resize_clip_is_single_image = False
 
+    def _thumbnail_slot_width(self, clip, height):
+        width = self.w.theme.clip.thumb_width
+        if not width:
+            width = round(height * self._clip_aspect_ratio(clip))
+        return float(max(self._min_thumb_slot_width, float(width)))
+
+    def _thumbnail_grid_phase(self, clip, width):
+        """Anchor tiles to clips for slider resizing, or the viewport for wheel zoom.
+
+        Slider handles move the clip edges, so their thumbnail strip must travel
+        with them instead of looking like a stationary background being revealed.
+        Playhead-anchored zoom preserves the viewport phase to avoid tile drift.
+        Sampling always follows each tile's current timeline position.
+        """
+        pps = float(self.w.pixels_per_second or 0.0)
+        start = self._clip_trim_start(clip)
+        position = self._clip_timeline_position(clip)
+        scroll = getattr(self.w, "h_scroll_offset", None)
+        phase = (-start * pps) % width
+        if scroll is None:
+            return phase
+        key = self._clip_key(clip)
+        previous = self._thumbnail_grid.get(key)
+        if previous and previous[3:6] == (position, start, width):
+            old_pps, old_scroll, phase = previous[:3]
+            if pps != old_pps and not getattr(self.w, "_thumbnail_zoom_with_clip", False):
+                phase = (phase + float(scroll) - old_scroll - position * (pps - old_pps)) % width
+        self._thumbnail_grid[key] = (pps, float(scroll), phase, position, start, width)
+        return phase
+
     def _build_thumbnail_slots(self, clip, inner, segment, style, timing):
         """ Build thumbnail slots for a clip. """
         if style == "none":
@@ -1087,10 +1197,7 @@ class ClipPainter(BasePainter):
         # thumb_w must be an integer pixel value so all slot positions share the same
         # fractional offset and round consistently in drawPixmap, preventing per-slot jitter.
         thumb_h = max(self._min_thumb_slot_width, inner.height())
-        if self.w.theme.clip.thumb_width:
-            thumb_w = float(max(self._min_thumb_slot_width, float(self.w.theme.clip.thumb_width)))
-        else:
-            thumb_w = float(max(self._min_thumb_slot_width, round(inner.height() * self._clip_aspect_ratio(clip))))
+        thumb_w = self._thumbnail_slot_width(clip, inner.height())
         top = inner.y()
 
         pixels_per_second = float(self.w.pixels_per_second or 0.0)
@@ -1129,22 +1236,15 @@ class ClipPainter(BasePainter):
         time_points = time_data.get("Points") if isinstance(time_data.get("Points"), list) else []
         has_time_curve = len(time_points) >= 2
 
-        # Slot spacing in time. Keep visual geometry tied to the nominal
-        # thumbnail width in pixels. Frame sampling can still use a quantized
-        # interval, but quantizing the drawn slot positions causes all slots to
-        # jump by a pixel as smooth zoom crosses frame-rounding thresholds.
+        # Use the same exact interval for placement and sampling. Rounding the
+        # interval to frames before multiplying by a slot index accumulates
+        # source-time drift, especially far from media zero at high zoom.
+        # Frame/cache rounding belongs only on the final per-slot sample.
         interval_pixels = max(thumb_w, self._min_thumb_slot_width)
-        geometry_interval_seconds = interval_pixels / pixels_per_second
-        if geometry_interval_seconds <= 0.0:
-            geometry_interval_seconds = 0.01
-        interval_seconds = geometry_interval_seconds
-        if style == "entire":
-            clip_fps = self._clip_media_fps(clip)
-            if clip_fps > 0.0:
-                interval_frames = max(1, int(round(interval_seconds * clip_fps)))
-                interval_seconds = interval_frames / clip_fps
-        half_interval = interval_seconds * 0.5
-        slot_duration_seconds = geometry_interval_seconds
+        interval_seconds = interval_pixels / pixels_per_second
+        if interval_seconds <= 0.0:
+            interval_seconds = 0.01
+        slot_duration_seconds = interval_seconds
 
         includes_start = bool(timing.get("includes_start", True))
         includes_end = bool(timing.get("includes_end", True))
@@ -1159,34 +1259,23 @@ class ClipPainter(BasePainter):
         segment_start_world = clip_pos + segment_start
         segment_end_world = segment_start_world + segment_duration
 
-        view_left = 0.0
-        view_right = visible_width
+        view_left = max(0.0, self._to_float(segment.get("thumbnail_view_left"), 0.0))
+        view_right = min(visible_width, self._to_float(segment.get("thumbnail_view_right"), visible_width))
 
         slots = []
         seen = set()
 
         epsilon = 1e-6
 
-        def add_center_world(center_world, geometry_world=None):
-            """
-            Add a slot whose sampling left edge begins at `center_world` (timeline
-            seconds), if it overlaps the visible segment and lies within clip & media.
-            `geometry_world` can differ for pixel-stable visual placement during
-            smooth zoom while keeping prior frame sampling.
-            """
-            if geometry_world is None:
-                geometry_world = center_world
+        def add_slot_world(slot_world):
+            """Add a slot at a world time, using that time for sampling too."""
 
             # Media time (0 at media start), using the visual slot coverage.
-            slot_start_media_time = geometry_world - anchor_world
+            slot_start_media_time = slot_world - anchor_world
 
             # Clip-local time (0 at clip's left edge), using the visual slot coverage.
-            slot_start_clip_time = geometry_world - clip_pos
+            slot_start_clip_time = slot_world - clip_pos
             slot_end_clip_time = slot_start_clip_time + slot_duration_seconds
-
-            # Clip-local sampling time. This is what _draw_thumbnails uses for
-            # frame selection.
-            sample_start_clip_time = center_world - clip_pos
 
             # Require positive overlap with the visible segment. Boundary-only
             # slots can oscillate in/out during smooth zoom and fight with the
@@ -1215,23 +1304,23 @@ class ClipPainter(BasePainter):
                 return
 
             # Deduplicate by clip-local time to avoid overlapping slots
-            key = round(sample_start_clip_time, 4)
+            key = round(slot_start_clip_time, 4)
             if key in seen:
                 return
             seen.add(key)
 
             rect = QRectF(inner.x() + local_x, top, thumb_w, thumb_h)
             # Store slot start time; _draw_thumbnails samples near the center.
-            slots.append((sample_start_clip_time, rect))
+            slots.append((slot_start_clip_time, rect))
 
         # --- Style handling -----------------------------------------------
 
         if style == "start":
             if includes_start:
-                add_center_world(segment_start_world)
+                add_slot_world(segment_start_world)
         elif style == "start-end":
             if includes_start:
-                add_center_world(segment_start_world)
+                add_slot_world(segment_start_world)
             # If the visible segment cannot fit two full slots, prioritize the
             # start slot to avoid the end slot covering it on very short clips.
             allow_end_slot = True
@@ -1240,26 +1329,17 @@ class ClipPainter(BasePainter):
             if includes_end and allow_end_slot:
                 # Start slot so its right edge aligns with the clip end
                 clip_end_world = clip_pos + max(0.0, clip_duration - slot_duration_seconds)
-                add_center_world(clip_end_world)
+                add_slot_world(clip_end_world)
         else:
-            # Full-grid style ("entire", etc.)
-            # Slot starts should cover any thumbnail overlapping the visible
-            # segment, including partials at either edge.
-            n_min = int(
-                math.floor(
-                    (segment_start_world - slot_duration_seconds - anchor_world) / geometry_interval_seconds
-                )
-            ) - 2
-            n_max = int(
-                math.ceil(
-                    (segment_end_world - anchor_world) / geometry_interval_seconds
-                )
-            ) + 2
-
-            for n in range(n_min, n_max + 1):
-                center_world = anchor_world + n * interval_seconds
-                geometry_world = anchor_world + n * geometry_interval_seconds
-                add_center_world(center_world, geometry_world)
+            # Place tiles in pixel space so a zoom gesture can preserve the
+            # viewport phase without changing the media-time sampling math.
+            phase = segment.get("thumbnail_grid_phase")
+            if phase is None:
+                phase = self._thumbnail_grid_phase(clip, thumb_w)
+            first = int(math.floor((segment_start * pixels_per_second - phase) / thumb_w))
+            last = int(math.ceil((segment_end * pixels_per_second - phase) / thumb_w))
+            for n in range(first, last + 1):
+                add_slot_world(clip_pos + (phase + n * thumb_w) / pixels_per_second)
 
         if not slots:
             return [], interval_seconds
@@ -1399,7 +1479,7 @@ class ClipPainter(BasePainter):
                 if throttle_requests:
                     allow_request = self._can_request_thumbnail(clip_key, throttle_requests)
 
-                # Always queue/load for all slots in the clip (since clip is visible during paint)
+                # Queue/load only slots in the visible clip segment.
                 pix = self._get_thumbnail_pixmap(
                     clip,
                     clip_key,

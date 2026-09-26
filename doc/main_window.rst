@@ -109,7 +109,7 @@ keyframes, and common workflows), see :ref:`timeline_ref`.
      - Undo or redo your latest timeline edits.
    * - 3
      - Snap, Retime, Razor
-     - Snapping toggles magnetic alignment. Timing Tool enables retiming by dragging clip edges. Razor Tool cuts clips at the clicked position.
+     - Snapping toggles magnetic alignment. Timing Tool enables retiming by dragging clip edges. The :ref:`razor_tool_ref` previews and cuts at the guide position; press :kbd:`Esc` to exit.
    * - 4
      - Add Marker, Next/Prev Marker
      - Add a marker at the playhead and jump to previous or next marker/clip boundaries.

@@ -189,7 +189,8 @@ def _evaluate_keyframe(data, frame_number, default_value=0.0):
 
 def _set_keyframe_value(data, frame_number, value, interpolation=openshot.BEZIER):
     normalized = _normalize_keyframe_data(data, value)
-    points = copy.deepcopy(normalized["Points"])
+    # Normalization already creates independent points and handles.
+    points = normalized["Points"]
     target_frame = int(frame_number)
     for point in points:
         if int(round(point["co"]["X"])) == target_frame:
@@ -418,7 +419,9 @@ def normalize_single_wheel_data(data):
 
 
 def normalize_wheels_data(data):
-    data = copy.deepcopy(data or {})
+    # Each channel normalizer builds fresh data; copying the input first would
+    # duplicate the entire animation only to immediately rebuild it again.
+    data = data or {}
     normalized = default_wheels_data()
     normalized["enabled_keyframes"] = _normalize_keyframe_data(
         data.get("enabled_keyframes", data.get("enabled")),
@@ -466,8 +469,8 @@ def colorgrade_keyframe_frames(data, property_type):
 
 
 def wheels_enabled_at_frame(data, frame_number):
-    wheels = normalize_wheels_data(data)
-    return _evaluate_keyframe(wheels["enabled_keyframes"], frame_number, 1.0) >= 0.5
+    wheels = data or {}
+    return _evaluate_keyframe(wheels.get("enabled_keyframes", wheels.get("enabled")), frame_number, 1.0) >= 0.5
 
 
 def wheel_snapshot(data, frame_number):
@@ -481,7 +484,8 @@ def wheel_snapshot(data, frame_number):
 
 
 def wheels_snapshot(data, frame_number):
-    wheels = normalize_wheels_data(data)
+    # Snapshot helpers normalize only the channels they read.
+    wheels = data or {}
     snapshot = {"enabled": wheels_enabled_at_frame(wheels, frame_number)}
     for name in ("global", "shadows", "midtones", "highlights"):
         snapshot[name] = wheel_snapshot(wheels.get(name), frame_number)
@@ -694,6 +698,7 @@ class ColorWheelControl(QWidget):
 
 class CurvePreviewWidget(QWidget):
     curveChanged = pyqtSignal(dict)
+    editFrameRequested = pyqtSignal()
     dragStarted = pyqtSignal()
     dragFinished = pyqtSignal()
 
@@ -882,6 +887,7 @@ class CurvePreviewWidget(QWidget):
                 self._show_node_menu(event.globalPos() if hasattr(event, "globalPos") else self.mapToGlobal(pos.toPoint()))
             return
 
+        self.editFrameRequested.emit()
         handle_hit = self._find_handle_hit(pos)
         if handle_hit is not None:
             self._drag_target = handle_hit
@@ -910,6 +916,7 @@ class CurvePreviewWidget(QWidget):
     def mouseMoveEvent(self, event):
         if self._drag_target is None:
             return
+        self.editFrameRequested.emit()
         pos = event.position() if hasattr(event, "position") else QPointF(event.pos())
         if self._drag_target["type"] == "handle":
             self._set_handle_from_position(
@@ -1439,6 +1446,7 @@ class PropertySlider(QWidget):
 
 class WheelRow(QWidget):
     changed = pyqtSignal()
+    editFrameRequested = pyqtSignal()
     dragStarted = pyqtSignal()
     dragFinished = pyqtSignal()
 
@@ -1489,9 +1497,10 @@ class WheelRow(QWidget):
 
         self._apply_data()
 
-    def set_frame_number(self, frame_number):
+    def set_frame_number(self, frame_number, update_controls=True):
         self._frame_number = int(frame_number)
-        self._apply_data()
+        if update_controls:
+            self._apply_data()
 
     def _snapshot(self):
         return wheel_snapshot(self._data, self._frame_number)
@@ -1511,6 +1520,7 @@ class WheelRow(QWidget):
         self.luma_input.blockSignals(False)
 
     def _on_input_changed(self, key, value):
+        self.editFrameRequested.emit()
         key_name = f"{key}_keyframes"
         self._data[key_name] = _set_keyframe_value(
             self._data.get(key_name), self._frame_number, value)
@@ -1522,6 +1532,7 @@ class WheelRow(QWidget):
 
     def _on_wheel_control_changed(self):
         snapshot = self.wheel_control.wheel_data()
+        self.editFrameRequested.emit()
         self._data["color_keyframes"] = _set_color_value(
             self._data.get("color_keyframes"), self._frame_number, QColor(snapshot["color"]))
         self._data["amount_keyframes"] = _set_keyframe_value(
@@ -1919,14 +1930,15 @@ class ColorGradeWheelsDialog(QDialog):
         self._refresh_preview()
 
     def wheels_data(self):
-        payload = {"enabled_keyframes": copy.deepcopy(self._data.get("enabled_keyframes", _keyframe_value(value=1.0)))}
+        payload = {"enabled_keyframes": self._data.get("enabled_keyframes", _keyframe_value(value=1.0))}
         for name, row in self.rows.items():
-            payload[name] = row.value()
+            payload[name] = row._data
         return normalize_wheels_data(payload)
 
 
 class ColorGradeWheelsPanel(QWidget):
     wheelsChanged = pyqtSignal(dict)
+    editFrameRequested = pyqtSignal()
     dragStarted = pyqtSignal()
     dragFinished = pyqtSignal()
 
@@ -1947,6 +1959,7 @@ class ColorGradeWheelsPanel(QWidget):
         ):
             row = WheelRow(title, self._data[name], self._frame_number, self)
             row.changed.connect(self._refresh_preview)
+            row.editFrameRequested.connect(self.editFrameRequested)
             row.dragStarted.connect(self.dragStarted)
             row.dragFinished.connect(self.dragFinished)
             self.rows[name] = row
@@ -1972,11 +1985,12 @@ class ColorGradeWheelsPanel(QWidget):
             row._apply_data()
         self._update_enabled_state()
 
-    def set_frame_number(self, frame_number):
+    def set_frame_number(self, frame_number, update_controls=True):
         self._frame_number = int(frame_number)
         for row in self.rows.values():
-            row.set_frame_number(self._frame_number)
-        self._update_enabled_state()
+            row.set_frame_number(self._frame_number, update_controls=update_controls)
+        if update_controls:
+            self._update_enabled_state()
 
     def _refresh_preview(self):
         wheels = self.wheels_data()
@@ -2004,7 +2018,7 @@ class ColorGradeWheelsPanel(QWidget):
             row.setEnabled(enabled)
 
     def wheels_data(self):
-        payload = {"enabled_keyframes": copy.deepcopy(self._data.get("enabled_keyframes", _keyframe_value(value=1.0)))}
+        payload = {"enabled_keyframes": self._data.get("enabled_keyframes", _keyframe_value(value=1.0))}
         for name, row in self.rows.items():
-            payload[name] = row.value()
+            payload[name] = row._data
         return normalize_wheels_data(payload)

@@ -120,11 +120,6 @@ class ProjectDataTests(unittest.TestCase):
         app, cls._owns_app = get_or_create_app(DummyApp)
         cls.app = ensure_app_state(app)
 
-    @classmethod
-    def tearDownClass(cls):
-        if getattr(cls, "_owns_app", False) and cls.app:
-            cls.app.quit()
-
     def setUp(self):
         ensure_app_state(self.app)
         self.app.settings = DummySettings()

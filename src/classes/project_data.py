@@ -482,6 +482,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                     raise
 
             # Merge default and project settings, excluding settings not in default.
+            recovery_assets = project_data.pop("runtime_assets_path", info.USER_PATH)
             self._data = self.merge_settings(default_project, project_data)
 
             # On success, save current filepath
@@ -489,6 +490,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
             # Update info paths to assets folders
             if clear_thumbnails:
+                info.ASSETS_PATH = get_assets_path(self.current_filepath)
                 info.THUMBNAIL_PATH = os.path.join(get_assets_path(self.current_filepath), "thumbnail")
                 info.TITLE_PATH = os.path.join(get_assets_path(self.current_filepath), "title")
                 info.BLENDER_PATH = os.path.join(get_assets_path(self.current_filepath), "blender")
@@ -499,6 +501,12 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                 migrated = MigrateThumbnailLayout(info.THUMBNAIL_PATH)
                 if migrated:
                     log.info("Migrated %s thumbnail(s) to per-file folders", migrated)
+            elif self._paths_match(file_path, info.BACKUP_FILE):
+                # Backups contain absolute media paths. Keep using their asset
+                # root even if the preference changed since the backup was made.
+                # Older backups used USER_PATH and have no root metadata.
+                if isinstance(recovery_assets, str) and os.path.isabs(recovery_assets):
+                    info.set_assets_path(recovery_assets)
 
             self._migrate_optimized_asset_paths()
 
@@ -1166,9 +1174,12 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                                  "libopenshot": openshot.OPENSHOT_VERSION_FULL}
 
         # Try to save project settings file, will raise error on failure
+        save_data = self._data
+        if backup_only:
+            save_data = dict(self._data, runtime_assets_path=os.path.dirname(info.TITLE_PATH))
         self.write_to_file(
             file_path,
-            self._data,
+            save_data,
             path_mode="ignore" if backup_only else "relative",
             previous_path=self.current_filepath if not backup_only else None)
 
@@ -1177,6 +1188,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             self.current_filepath = file_path
 
             # Update info paths to assets folders
+            info.ASSETS_PATH = get_assets_path(self.current_filepath)
             info.THUMBNAIL_PATH = os.path.join(get_assets_path(self.current_filepath), "thumbnail")
             info.TITLE_PATH = os.path.join(get_assets_path(self.current_filepath), "title")
             info.BLENDER_PATH = os.path.join(get_assets_path(self.current_filepath), "blender")
@@ -1402,6 +1414,12 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             recording_roots = [
                 (os.path.join(info.USER_PATH, "recordings"), True),
             ]
+            active_recordings = os.path.join(info.ASSETS_PATH, "recordings")
+            if not self._paths_match(active_recordings, recording_roots[0][0]):
+                recording_roots.append((
+                    active_recordings,
+                    not previous_path and self._should_move_runtime_assets(info.ASSETS_PATH, "ASSETS_PATH"),
+                ))
             if previous_path:
                 previous_recording_path = os.path.join(
                     get_assets_path(previous_path), "recordings")

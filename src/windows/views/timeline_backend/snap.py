@@ -371,6 +371,44 @@ class SnapHelper:
         delta_sec += diff_px / self.widget.pixels_per_second
         return delta_sec
 
+    def snap_position(self, seconds, *, label="position", bounds=None):
+        """Snap a timeline point using the same targets/tolerance as clip edits.
+
+        Return (seconds, snapped). Optional inclusive bounds restrict valid edit
+        positions, for example to non-empty cuts inside a clip.
+        """
+        pps = float(self.widget.pixels_per_second or 0.0)
+        if not self.widget.enable_snapping or pps <= 0.0:
+            self.reset([label])
+            return seconds, False
+        origin = self.widget.track_name_width
+        fps = float(self.widget.fps_float or 0.0)
+        targets = []
+        for entry in self._target_edges_px(viewport=False):
+            px = entry[0] if isinstance(entry, tuple) else entry
+            candidate = (px - origin) / pps
+            if fps > 0.0:
+                candidate = round(candidate * fps) / fps
+            if bounds and not bounds[0] <= candidate <= bounds[1]:
+                continue
+            targets.append(entry)
+
+        active = self._active_targets()
+        previous = active.get(label)
+        if previous and not any(
+            (entry[0] if isinstance(entry, tuple) else entry) == previous.get("px")
+            for entry in targets
+        ):
+            self.reset([label])
+        diff, target, _, tolerance = self._diff_to_target(
+            label, origin + seconds * pps, self._snap_tolerance_px(), targets, active
+        )
+        if diff is None:
+            self.reset([label])
+            return seconds, False
+        active[label] = {"px": target, "tol": tolerance}
+        return (target - origin) / pps, True
+
     def snap_edge(self, orig_edge_sec: float, delta_sec: float) -> float:
         """Snap a moving edge (in seconds) to nearby clip edges or playhead."""
         self.geometry.ensure()

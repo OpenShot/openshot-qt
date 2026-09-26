@@ -83,7 +83,7 @@ class AnimatedTitle(QDialog):
 
         # Init variables
         self.unique_folder_name = str(uuid.uuid1())
-        self.output_dir = os.path.join(info.USER_PATH, "blender")
+        self.output_dir = info.BLENDER_PATH
         self.selected_template = ""
         self.is_rendering = False
         self.my_blender = None

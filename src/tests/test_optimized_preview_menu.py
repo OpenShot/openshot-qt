@@ -76,11 +76,6 @@ class OptimizedPreviewMenuTests(unittest.TestCase):
     def setUpClass(cls):
         cls.app, cls._owns_app = get_or_create_app(DummyApp)
 
-    @classmethod
-    def tearDownClass(cls):
-        if getattr(cls, "_owns_app", False) and cls.app:
-            cls.app.quit()
-
     def test_populate_menu_adds_cancel_for_running_jobs(self):
         win = DummyWindow(states={"F1": "running"}, has_proxy={"F1": False})
         menu = StyledContextMenu("Optimize Preview")

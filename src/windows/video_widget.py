@@ -338,6 +338,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
     def clearTransformState(self):
         """Clear all transform-related state to avoid using invalid clip/effect objects"""
+        self._restore_transform_playback_cache()
         self.transforming_clip = None
         self.transforming_clips.clear()
         self.transforming_clip_objects.clear()
@@ -1043,10 +1044,24 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             self.original_clip_data_map = {}
             self.original_effect_data = None
 
-        # Disable video caching during drag operation (for performance reasons)
-        if not self._is_playing():
+        # Live edits invalidate the frames the background cache worker is filling.
+        # Suspend that work during transforms so it does not compete with playback
+        # and mouse updates for the native timeline's render lock.
+        if (self._is_playing() and not self.region_enabled
+                and (self.transforming_clips or self.transforming_effect)):
+            settings = openshot.Settings.Instance()
+            if getattr(self, "_transform_playback_cache_state", None) is None:
+                self._transform_playback_cache_state = settings.ENABLE_PLAYBACK_CACHING
+            settings.ENABLE_PLAYBACK_CACHING = False
+        elif not self._is_playing():
             openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = False
         log.debug('mousePressEvent: Stop caching frames on timeline')
+
+    def _restore_transform_playback_cache(self):
+        previous = getattr(self, "_transform_playback_cache_state", None)
+        self._transform_playback_cache_state = None
+        if previous is not None and self._is_playing():
+            openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = previous
 
     def mouseReleaseEvent(self, event):
         event.accept()
@@ -1165,6 +1180,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         self.original_clip_data = None
         self.original_clip_data_map = {}
         self.original_effect_data = None
+        self._restore_transform_playback_cache()
         self.setCursor(Qt.ArrowCursor)
 
     def rotateCursor(self, pixmap, rotation, shear_x, shear_y):
@@ -2134,7 +2150,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
         if not found_point and new_value is not None:
             clip_updated = True
-            log.info("Creating new point at X=%s", frame_number)
+            log.debug("Creating new point at X=%s", frame_number)
             c.data[property_key]["Points"].append({
                 'co': {'X': frame_number, 'Y': float(new_value)},
                 'interpolation': openshot.BEZIER
@@ -2259,7 +2275,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                     })
 
             if not found_point and new_value is not None:
-                log.info("Creating new point at X=%s", frame_number)
+                log.debug("Creating new point at X=%s", frame_number)
                 points_list.append({
                     'co': {'X': frame_number, 'Y': float(new_value)},
                     'interpolation': openshot.BEZIER
@@ -2930,24 +2946,10 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             self.delayed_resize_timer.start()
             return
 
-        # Ensure width & height are divisible by 2 (round decimals).
-        # Trying to find the closest even number to the requested aspect ratio
-        # so that both width and height are divisible by 2. This is to prevent some
-        # strange phantom scaling lines on the edges of the preview window.
-
-        # Scale project size (with aspect ratio) to the delayed widget size
-        project_size = QSize(get_app().project.get("width"), get_app().project.get("height"))
-        project_size.scale(self.delayed_size, Qt.KeepAspectRatio)
-
-        if project_size.height() > 0:
-            # Ensure width and height are divisible by 2
-            ratio = float(project_size.width()) / float(project_size.height())
-            even_width = round(project_size.width() / 2.0) * 2
-            even_height = round(round(even_width / ratio) / 2.0) * 2
-            project_size = QSize(int(even_width), int(even_height))
-
-        # Emit signal that video widget changed size
-        self.win.MaxSizeChanged.emit(project_size)
+        # Send logical widget bounds. The receiver applies DPI scaling, then
+        # libopenshot fits and aligns the actual preview dimensions. Rounding
+        # here can be undone by either of those later operations.
+        self.win.MaxSizeChanged.emit(QSize(self.delayed_size))
 
     # Capture wheel event to alter zoom/scale of widget
     def wheelEvent(self, event):

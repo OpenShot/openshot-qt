@@ -1,5 +1,6 @@
 """Shared notification layout, release dismissal, and theme behavior."""
 
+import importlib
 import os
 import sys
 import unittest
@@ -10,9 +11,12 @@ PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 if PATH not in sys.path:
     sys.path.append(PATH)
 
-from qt_api import QApplication, QMainWindow, QAction, QColor, Qt
+from qt_api import QApplication, QMainWindow, QAction, QColor, Qt, QT_API
 from classes.notifications import should_notify_update
 from windows.notifications import NotificationBanner, notification_area, UpdateNotificationController, banner_colors
+
+binding = {"pyqt5": "PyQt5", "pyqt6": "PyQt6", "pyside6": "PySide6"}[QT_API]
+QTest = importlib.import_module(binding + ".QtTest").QTest
 
 
 class Settings:
@@ -158,7 +162,8 @@ class NotificationTests(unittest.TestCase):
         for theme in ("Cosmic Dusk", "Humanity: Dark", "Retro"):
             area.apply_theme(SimpleNamespace(name=theme))
             for banner in area.banners.values():
-                self.assertIn(banner_colors(window, SimpleNamespace(name=theme))["surface"], banner.styleSheet())
+                colors = banner_colors(window, SimpleNamespace(name=theme), banner.icon_name)
+                self.assertIn(colors["surface"], banner.styleSheet())
                 self.assertLess(banner.close_button.geometry().right(), banner.width())
         area.banners["feedback"].close_button.click()
         self.assertFalse(area.toolbar.isHidden())
@@ -177,7 +182,33 @@ class NotificationTests(unittest.TestCase):
                         for x in (c.redF(), c.greenF(), c.blueF())]
             return sum(a * b for a, b in zip(channels, (0.2126, 0.7152, 0.0722)))
         for name in ("Cosmic Dusk", "Humanity: Dark", "Retro"):
-            colors = banner_colors(self.make_window(), SimpleNamespace(name=name))
-            for role in ("text", "action", "close"):
-                values = sorted([luminance(colors["surface"]), luminance(colors[role])])
-                self.assertGreaterEqual((values[1] + 0.05) / (values[0] + 0.05), 4.5)
+            for kind in ("update", "feedback"):
+                colors = banner_colors(self.make_window(), SimpleNamespace(name=name), kind)
+                for role in ("text", "action", "close"):
+                    values = sorted([luminance(colors["surface"]), luminance(colors[role])])
+                    self.assertGreaterEqual((values[1] + 0.05) / (values[0] + 0.05), 4.5)
+
+    def test_banner_surface_click_and_dismiss_are_separate(self):
+        window = self.make_window()
+        action = Mock()
+        dismiss = Mock()
+        banner = NotificationBanner(window, "Your feedback matters", "Share feedback",
+                                    action, dismiss, str, icon_name="feedback")
+        area = notification_area(window)
+        area.add("feedback", banner)
+        window.show()
+        self.app.processEvents()
+        self.assertEqual(banner.cursor().shape(), Qt.PointingHandCursor)
+        self.assertTrue(banner.message.testAttribute(Qt.WA_TransparentForMouseEvents))
+        self.assertIn("QFrame#notificationBanner:hover", banner.styleSheet())
+        for child in (banner.message, banner.symbol):
+            self.assertIs(QApplication.widgetAt(child.mapToGlobal(child.rect().center())), banner)
+        for point in (banner.rect().center(), banner.message.geometry().center(),
+                      banner.symbol.geometry().center()):
+            QTest.mouseClick(banner, Qt.LeftButton, pos=point)
+        banner.primary.click()
+        self.assertEqual(action.call_count, 4)
+        banner.close_button.click()
+        dismiss.assert_called_once()
+        self.assertEqual(action.call_count, 4)
+        window.close()

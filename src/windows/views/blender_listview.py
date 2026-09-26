@@ -32,8 +32,9 @@ import re
 import functools
 import shlex
 import json
-from time import sleep
+from time import sleep, monotonic
 import signal
+import tempfile
 
 # Try to get the security-patched XML functions from defusedxml
 try:
@@ -321,7 +322,7 @@ class BlenderListView(QListView):
     @pyqtSlot()
     def render_finished(self):
         # Don't try to capture image sequences for preview frames
-        if not self.final_render:
+        if not self.final_render or self.worker is None or self.worker.canceled:
             return
 
         # Compose image sequence data
@@ -628,13 +629,29 @@ Blender Path: {}
 
     def Cancel(self):
         """Cancel the current render, if any"""
-        if "worker" in dir(self):
-            self.worker.Cancel()
+        self.preview_timer.stop()
+        background = getattr(self, "background", None)
+        if background is not None:
+            if background.isRunning():
+                try:
+                    self.worker.Cancel()
+                except RuntimeError:
+                    # The worker may already have completed and been deleted.
+                    pass
+                background.quit()
+                # A QThread must finish before its owning dialog is destroyed.
+                # Worker subprocess reads are bounded and cancellation kills the
+                # process group, including during the version check.
+                background.wait()
+            background.deleteLater()
+            self.background = None
+            self.worker = None
 
     def Render(self, frame=None):
         """ Render an images sequence of the current template using Blender 2.62+ and the
         Blender Python API. """
 
+        self.Cancel()
         self.processing_mode(restore_focus=frame is None)
 
         # Init blender paths
@@ -675,9 +692,9 @@ Blender Path: {}
         self.worker.frame_render.connect(self.render_progress)
 
         # Cleanup signals all 'round
-        self.worker.finished.connect(self.worker.deleteLater)
         self.worker.finished.connect(self.background.quit, Qt.DirectConnection)
-        self.background.finished.connect(self.background.deleteLater)
+        # Keep the QThread wrapper until Cancel joins/releases it. Otherwise a
+        # later dialog close can call into an already-deleted wrapper.
         self.background.finished.connect(self.worker.deleteLater)
 
         # Read .py file, inject user parameters, and write to output path
@@ -695,6 +712,7 @@ Blender Path: {}
 
         self.win = parent
         self.app = get_app()
+        self.app.aboutToQuit.connect(self.Cancel)
 
         # Get Model data
         self.blender_model = BlenderModel()
@@ -789,6 +807,9 @@ class Worker(QObject):
         self.version = None
         self.process = None
         self.canceled = False
+        self._output_writer = None
+        self._output_reader = None
+        self._output_path = None
 
         # Get environment variables needed for launching a process without trying to load libraries
         # from our frozen app bundle
@@ -807,27 +828,112 @@ class Worker(QObject):
     def Cancel(self):
         """Cancel worker render"""
         self.canceled = True
-        if self.process and self.process.poll() is None:
+        process = self.process
+        if process is not None:
             log.debug("Terminating Blender Process")
             try:
                 if sys.platform != "win32":
-                    os.killpg(self.process.pid, signal.SIGTERM)
+                    os.killpg(process.pid, signal.SIGTERM)
                 else:
-                    self.process.terminate()
+                    process.terminate()
             except (OSError, ProcessLookupError):
                 pass  # Process already terminated
             for _ in range(30):
-                if not self.process or self.process.poll() is not None:
+                if process.poll() is not None:
                     break
                 sleep(0.05)
-            if self.process and self.process.poll() is None:
+            if sys.platform != "win32" or process.poll() is None:
                 try:
                     if sys.platform != "win32":
-                        os.killpg(self.process.pid, signal.SIGKILL)
+                        os.killpg(process.pid, signal.SIGKILL)
                     else:
-                        self.process.kill()
+                        process.kill()
                 except Exception as ex:
                     log.debug("Failed to kill Blender process: %s", ex)
+
+    def _close_output(self):
+        """Release Windows output capture without waiting on pipe readers."""
+        for stream in (self._output_reader, self._output_writer):
+            if stream is not None:
+                stream.close()
+        self._output_reader = self._output_writer = None
+        if self._output_path:
+            try:
+                os.remove(self._output_path)
+            except FileNotFoundError:
+                pass
+            except OSError:
+                log.warning("Unable to remove Blender output log %s", self._output_path)
+            self._output_path = None
+
+    def _spawn_process(self, command):
+        self._close_output()
+        output = subprocess.PIPE
+        if sys.platform == "win32":
+            # Windows communicate() buffers until EOF in a background reader
+            # thread. Use separate regular-file handles so progress is visible
+            # immediately and cancellation cannot block closing a pipe reader.
+            self._output_writer = tempfile.NamedTemporaryFile(
+                prefix="openshot-blender-", suffix=".log", delete=False)
+            self._output_path = self._output_writer.name
+            self._output_reader = open(self._output_path, "rb")
+            output = self._output_writer
+        self.process = subprocess.Popen(
+            command, stdout=output, stderr=subprocess.STDOUT,
+            startupinfo=self.startupinfo, creationflags=self.creationflags,
+            start_new_session=(sys.platform != "win32"),
+            env=self.env, cwd=info.HOME_PATH,
+        )
+
+    def _read_output_file(self, timeout=None, progress=False):
+        deadline = monotonic() + timeout if timeout is not None else None
+        output = bytearray()
+        pending = b""
+        while not self.canceled:
+            # Poll before reading: after exit, drain the last bytes as well.
+            complete = self.process.poll() is not None
+            chunk = self._output_reader.read()
+            if progress:
+                pending += chunk
+                end = len(pending) if complete else pending.rfind(b"\n") + 1
+                for line in pending[:end].splitlines():
+                    self.process_line(line)
+                pending = pending[end:]
+            else:
+                output.extend(chunk)
+            if complete:
+                return bytes(output)
+            if deadline is not None and monotonic() >= deadline:
+                raise subprocess.TimeoutExpired(self.process.args, timeout)
+            sleep(0.05)
+        return None
+
+    def _communicate(self, timeout=None, progress=False):
+        """Drain output without an uninterruptible readline or losing fast exits."""
+        if self._output_reader is not None:
+            return self._read_output_file(timeout, progress)
+        deadline = monotonic() + timeout if timeout is not None else None
+        consumed = 0
+        while not self.canceled:
+            complete = False
+            try:
+                output, _ = self.process.communicate(timeout=0.1)
+                complete = True
+            except subprocess.TimeoutExpired as ex:
+                output = ex.output or b""
+                if deadline is not None and monotonic() >= deadline:
+                    raise
+            if progress:
+                # communicate retries return cumulative bytes. Only parse new,
+                # complete lines; flush any final unterminated line on exit.
+                end = len(output) if complete else output.rfind(b"\n") + 1
+                if end > consumed:
+                    for line in output[consumed:end].splitlines():
+                        self.process_line(line)
+                    consumed = end
+            if complete:
+                return output
+        return None
 
     def blender_version_check(self):
         # Check the version of Blender
@@ -842,16 +948,14 @@ class Worker(QObject):
         try:
             if self.process:
                 self.process.terminate()
-            self.process = subprocess.Popen(
-                command_get_version,
-                stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                startupinfo=self.startupinfo, env=self.env, cwd=info.HOME_PATH
-            )
+            self._spawn_process(command_get_version)
             # Give Blender up to 10 seconds to respond
-            (out, err) = self.process.communicate(timeout=10)
+            out = self._communicate(timeout=10)
+            if self.canceled:
+                return False
         except subprocess.TimeoutExpired:
             log.error("Blender version check timed out")
-            self.process.kill()
+            self.Cancel()
             self.blender_error_nodata.emit()
             return False
         except FileNotFoundError:
@@ -882,7 +986,7 @@ class Worker(QObject):
         return (self.version >= info.BLENDER_MIN_VERSION)
 
     def process_line(self, out_line):
-        line = out_line.decode('utf-8').strip()
+        line = out_line.decode('utf-8', errors='replace').strip()
 
         # Skip blank output lines
         if not line:
@@ -894,8 +998,8 @@ class Worker(QObject):
 
         # Look for progress info in the Blender Output
         output_frame = self.blender_frame_re.search(line)
-        if output_frame and self.current_frame != int(output_frame.group(1)):
-            self.current_frame = int(output_frame.group(1))
+        if output_frame and self.current_frame != int(output_frame.group(1).replace(',', '')):
+            self.current_frame = int(output_frame.group(1).replace(',', ''))
             # update progress on frame change
             self.progress.emit(self.current_frame)
         else:
@@ -945,91 +1049,66 @@ class Worker(QObject):
 
     @pyqtSlot()
     def Render(self):
-        """ Worker's Render method which invokes the Blender rendering commands """
-
+        """Render and always release the process and worker thread."""
         _ = get_app()._tr
-
-        if self.canceled:
-            self.finished.emit()
-            return
-
-        if not self.version and not self.blender_version_check():
-            self.finished.emit()
-            return
-
         self.command_output = ""
         self.current_frame = 0
         self.frame_count = 0
         try:
-            # Shell the blender command to create the image sequence
+            if self.canceled:
+                return
+            if not self.version and not self.blender_version_check():
+                return
+            if self.canceled:
+                return
+
             command_render = [
                 self.blender_exec_path,
                 '--factory-startup',
-                '-b',  # run in background (no UI)
-                self.blend_file_path,
-                '-y',  # automatically execute Python script
+                '-b', self.blend_file_path,
+                '-y',
                 '-P', self.target_script,
             ]
-
             if self.preview_frame > 0:
-                # Render specific frame
                 command_render.extend(['-f', str(self.preview_frame)])
             else:
-                # Render entire animation
                 command_render.extend(['-a'])
 
-            # debug info
-            log.debug("Running Blender, command: {}".format(
-                " ".join([shlex.quote(x) for x in command_render])))
+            log.debug("Running Blender, command: %s", " ".join(
+                shlex.quote(x) for x in command_render))
             log.debug("Blender output:")
-
-            # Run command to render Blender frame(s)
-            if self.process:
-                self.process.terminate()
-            self.process = subprocess.Popen(
-                command_render, bufsize=512,
-                stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                startupinfo=self.startupinfo,
-                creationflags=self.creationflags,
-                start_new_session=(sys.platform != "win32"),
-                env=self.env,
-                cwd=info.HOME_PATH,
-            )
-            # Signal UI that background task is running
+            self._spawn_process(command_render)
             self.start_processing.emit()
-
+            self._communicate(progress=True)
             if self.canceled:
-                self.Cancel()
-                self.end_processing.emit()
-                self.finished.emit()
                 return
 
-        except subprocess.SubprocessError as ex:
-            # Error running command.  Most likely the blender executable path in
-            # the settings is incorrect, or is not a supported Blender version
-            self.blender_error_with_data.emit(str(ex))
-            raise
-        except Exception:
-            log.error("Worker exception", exc_info=1)
-            return
-        else:
-            while not self.canceled and self.process.poll() is None:
-                for out_line in iter(self.process.stdout.readline, b''):
-                    self.process_line(out_line)
-
-            # Signal UI that background task is complete
-            self.end_processing.emit()
-            log.info("Blender process exited, %d frames saved.", self.frame_count)
-
-            if self.frame_count < 1:
-                log.warning("No frame detected from Blender!")
-                log.warning("Blender output:\n{}".format(
-                    self.command_output))
-                # Show Error that no frames are detected.  This is likely caused by
-                # the wrong command being executed... or an error in Blender.
-                self.blender_error_with_data.emit(_("No frame was found in the output from Blender"))
+            log.info("Blender process exited (%s), %d frames saved.",
+                     self.process.returncode, self.frame_count)
+            if self.process.returncode != 0 or self.frame_count < 1:
+                log.warning("Blender output:\n%s", self.command_output)
+                self.blender_error_with_data.emit(
+                    self.command_output or _("No frame was found in the output from Blender"))
             else:
                 self.render_complete.emit()
+        except Exception as ex:
+            log.error("Blender worker exception", exc_info=True)
+            if not self.canceled:
+                self.blender_error_with_data.emit(str(ex))
         finally:
-            # Done with render (i.e. shut down worker and thread)
-            self.finished.emit()
+            try:
+                if self.process is not None:
+                    if self.canceled or self.process.poll() is None:
+                        self.Cancel()
+                    try:
+                        self.process.wait(timeout=2)
+                    except subprocess.TimeoutExpired:
+                        log.warning("Blender process did not exit after cancellation")
+                    if self.process.stdout:
+                        self.process.stdout.close()
+            finally:
+                try:
+                    self._close_output()
+                finally:
+                    self.end_processing.emit()
+                    self.finished.emit()

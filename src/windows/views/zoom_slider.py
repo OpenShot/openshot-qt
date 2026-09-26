@@ -59,7 +59,136 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
 
     def minimumSizeHint(self):
         """Allow the slider to shrink horizontally when space is limited."""
-        return QSize(0, 20)
+        return QSize(24, 20)
+
+    def _track_rect(self):
+        """Reserve space for the grips even at the ends of the timeline."""
+        gutter = min(10.0, max(0.0, (self.width() - 1.0) / 2.0))
+        return QRectF(gutter, 0.0, max(1.0, self.width() - 2 * gutter), self.height())
+
+    def _position_ratio(self, x):
+        track = self._track_rect()
+        return max(0.0, min(1.0, (x - track.left()) / track.width()))
+
+    def _update_handle_geometry(self):
+        """Keep the true range separate from the minimum-sized interaction grips."""
+        track = self._track_rect()
+        left = track.left() + self.scrollbar_position[0] * track.width()
+        right = track.left() + self.scrollbar_position[1] * track.width()
+        self.scroll_bar_rect = QRectF(left, 0.0, max(0.0, right - left), self.height())
+        # The visible handles sit on the exact time boundaries. Above and
+        # below them, retain a generous move target even for sub-pixel spans.
+        self.move_handle_rect = self.scroll_bar_rect.adjusted(-8.0, 0.0, 8.0, 0.0)
+        handle_height = self.height() * 0.5
+        self.left_handle_rect = QRectF(left - 6.0, self.height() * 0.25,
+                                      12.0, handle_height)
+        self.right_handle_rect = QRectF(right - 6.0, self.height() * 0.25,
+                                       12.0, handle_height)
+
+    def _hit_target(self, pos):
+        self._update_handle_geometry()
+        # Resize targets extend beyond the painted grips, with continuous left
+        # and right halves when they overlap. Reserve top/bottom strips for pan.
+        margin = min(4.0, self.height() / 5.0)
+        hit_top = margin
+        hit_height = max(0.0, self.height() - 2 * margin)
+        left_hit = QRectF(self.left_handle_rect.left() - 4, hit_top,
+                          20.0, hit_height).contains(pos)
+        right_hit = QRectF(self.right_handle_rect.left() - 4, hit_top,
+                           20.0, hit_height).contains(pos)
+        if left_hit and right_hit:
+            # Split overlapping grips by proximity; neither edge masks the other.
+            return "left" if pos.x() <= self.scroll_bar_rect.center().x() else "right"
+        if left_hit:
+            return "left"
+        if right_hit:
+            return "right"
+        if self.move_handle_rect.contains(pos):
+            return "move"
+        return "create"
+
+    def _playhead_seconds(self):
+        fps = get_app().project.get("fps")
+        rate = float(fps.get("num", 24)) / float(fps.get("den", 1) or 1)
+        return max(0.0, (self.current_frame - 1) / rate) if rate > 0 else 0.0
+
+    def _snap_resize(self, left, right, is_left):
+        """Snap only the dragged resize edge to matching clip edges or the playhead."""
+        action = getattr(self.win, "actionSnappingTool", None)
+        modifiers = QCoreApplication.instance().keyboardModifiers()
+        if not action or not action.isChecked() or modifiers_has(modifiers, Qt.AltModifier):
+            self._snap_target = None
+            return left, right
+        duration = float(get_app().project.get("duration") or 0.0)
+        if duration <= 0:
+            self._snap_target = None
+            return left, right
+        symmetric = modifiers_has(modifiers, Qt.ShiftModifier)
+        midpoint_sum = sum(self.scrollbar_position_previous[:2])
+        width = self._track_rect().width()
+
+        def candidate(target, snap_left):
+            new_left = target if snap_left else left
+            new_right = right if snap_left else target
+            if symmetric:
+                if snap_left:
+                    new_right = midpoint_sum - target
+                else:
+                    new_left = midpoint_sum - target
+            if not (0.0 <= new_left < new_right <= 1.0):
+                return None
+            if new_right - new_left < self.min_distance - 1e-12:
+                return None
+            # Do not snap a resize beyond the backend's zoom limits.
+            clamp = getattr(getattr(self.win, "timeline", None), "_clamp_zoom_factor", None)
+            view_width = self.scrollbar_position[3]
+            if callable(clamp) and view_width > 0:
+                ticks = float(get_app().project.get("tick_pixels") or 100.0)
+                factor = (new_right - new_left) * duration * ticks / view_width
+                if not math.isclose(clamp(factor), factor, rel_tol=1e-9, abs_tol=1e-9):
+                    return None
+            return new_left, new_right
+
+        acquire_radius, release_radius = 3.0, 4.0
+        if self._snap_target is not None and self._snap_is_left == is_left:
+            edge = left if self._snap_is_left else right
+            if abs(self._snap_target - edge) * width <= release_radius:
+                result = candidate(self._snap_target, self._snap_is_left)
+                if result is not None:
+                    return result
+        self._snap_target = None
+        playhead = self._playhead_seconds() / duration
+        targets = []
+        edge = left if is_left else right
+        positions = self.snap_clip_starts if is_left else self.snap_clip_ends
+        for target, priority in [(playhead, 0)] + [(seconds / duration, 1) for seconds in positions]:
+            distance = abs(target - edge) * width
+            if distance <= acquire_radius:
+                targets.append((priority, distance, target, is_left))
+        targets.sort()
+        for _priority, _distance, target, snap_left in targets:
+            result = candidate(target, snap_left)
+            if result is not None:
+                self._snap_target = target
+                self._snap_is_left = snap_left
+                return result
+        return left, right
+
+    def _set_target_cursor(self, target):
+        if self.hover_target != target:
+            self.hover_target = target
+            self.update()
+        if target in ("left", "right"):
+            self.setCursor(self.cursors['resize_x'])
+        elif target == "move":
+            self.setCursor(self.cursors['move'])
+        else:
+            self.setCursor(Qt.ArrowCursor)
+
+    def leaveEvent(self, event):
+        if not self.mouse_pressed:
+            self._set_target_cursor(None)
+        super().leaveEvent(event)
 
     # This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface)
     def changed(self, action):
@@ -69,11 +198,19 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         # Ignore changes that don't affect this
         if (action and len(action.key) >= 1 and action.key[0].lower() in ["files", "history", "profile"]) or self.ignore_updates:
             return
+        # Effect edits cannot change the clip/transition rectangles or markers.
+        if action and action.type == "update" and action.key and (
+            action.key[0] == "effects"
+            or (len(action.key) >= 3 and action.key[0] == "clips" and action.key[2] == "effects")
+        ):
+            return
 
         # Clear previous rects
         self.clip_rects.clear()
         self.clip_rects_selected.clear()
         self.marker_rects.clear()
+        self.snap_clip_starts.clear()
+        self.snap_clip_ends.clear()
 
         # Get layer lookup
         layers = {}
@@ -85,15 +222,23 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         if hasattr(get_app().window, "timeline"):  # and self.scrollbar_position[2] != 0.0:
             # Get max width of timeline
             project_duration = get_app().project.get("duration")
-            pixels_per_second = self.width() / project_duration
+            track = self._track_rect()
+            pixels_per_second = track.width() / project_duration
 
             # Determine scale factor
-            vertical_factor = self.height() / len(layers.keys())
+            # Inset preview strokes inside the range outline (pens straddle
+            # their geometry, so a rectangle at y=0 would protrude above it).
+            preview_top = 2.0
+            vertical_factor = max(0.0, self.height() - 4.0) / max(1, len(layers))
 
             for clip in Clip.filter():
+                position = float(clip.data.get('position', 0.0))
+                duration = max(0.0, float(clip.data.get('end', 0.0)) - float(clip.data.get('start', 0.0)))
+                self.snap_clip_starts.append(position)
+                self.snap_clip_ends.append(position + duration)
                 # Calculate clip geometry (and cache it)
-                clip_x = (clip.data.get('position', 0.0) * pixels_per_second)
-                clip_y = layers.get(clip.data.get('layer', 0), 0) * vertical_factor
+                clip_x = track.left() + (clip.data.get('position', 0.0) * pixels_per_second)
+                clip_y = preview_top + layers.get(clip.data.get('layer', 0), 0) * vertical_factor
                 clip_width = ((clip.data.get('end', 0.0) - clip.data.get('start', 0.0))
                               * pixels_per_second)
                 clip_rect = QRectF(clip_x, clip_y, clip_width, 1.0 * vertical_factor)
@@ -106,8 +251,8 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
 
             for clip in Transition.filter():
                 # Calculate clip geometry (and cache it)
-                clip_x = (clip.data.get('position', 0.0) * pixels_per_second)
-                clip_y = layers.get(clip.data.get('layer', 0), 0) * vertical_factor
+                clip_x = track.left() + (clip.data.get('position', 0.0) * pixels_per_second)
+                clip_y = preview_top + layers.get(clip.data.get('layer', 0), 0) * vertical_factor
                 clip_width = ((clip.data.get('end', 0.0) - clip.data.get('start', 0.0))
                               * pixels_per_second)
                 clip_rect = QRectF(clip_x, clip_y, clip_width, 1.0 * vertical_factor)
@@ -120,8 +265,8 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
 
             for marker in Marker.filter():
                 # Calculate clip geometry (and cache it)
-                marker_x = (marker.data.get('position', 0.0) * pixels_per_second)
-                marker_rect = QRectF(marker_x, 0, 0.5, len(layers) * vertical_factor)
+                marker_x = track.left() + (marker.data.get('position', 0.0) * pixels_per_second)
+                marker_rect = QRectF(marker_x, preview_top, 0.5, len(layers) * vertical_factor)
                 self.marker_rects.append(marker_rect)
 
         # Force re-paint
@@ -140,6 +285,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
             playhead_color = theme.get_color(".zoom_slider_playhead", "background-color")
         else:
             log.warning("No ThemeManager loaded yet. Skip rendering zoom slider widget.")
+            return
 
         # Paint timeline preview on QWidget
         painter = QPainter(self)
@@ -150,18 +296,32 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         if base_role is None:
             base_role = QPalette.ColorRole.Base
         background_color = self.palette().color(base_role)
-        painter.fillRect(event.rect(), background_color)
+        window_role = getattr(QPalette, "Window", None)
+        if window_role is None:
+            window_role = QPalette.ColorRole.Window
+        panel_color = self.palette().color(window_role)
+        # Stylesheet toolbar colors are not necessarily reflected in the slider's
+        # Window palette (Cosmic Dusk otherwise inherits a gray gutter).
+        toolbar_color = theme.get_color("QToolBar#timelineToolbar", "background-color")
+        if toolbar_color is not None and toolbar_color.isValid():
+            panel_color = toolbar_color
+        # Gutters are control space, not part of the time overview.
+        painter.fillRect(event.rect(), panel_color)
+        track = self._track_rect()
+        overview_path = QPainterPath()
+        overview_path.addRoundedRect(track.adjusted(0, 1, 0, -1), 5, 5)
+        painter.fillPath(overview_path, background_color)
 
         # Create pens / colors
-        clip_pen = QPen(QBrush(QColor("#53a0ed")), 1.5)
+        clip_pen = QPen(QBrush(QColor("#53a0ed")), 1.0)
         clip_pen.setCosmetic(True)
         painter.setPen(clip_pen)
 
-        selected_clip_pen = QPen(QBrush(QColor("Red")), 1.5)
+        selected_clip_pen = QPen(QBrush(QColor("Red")), 1.0)
         selected_clip_pen.setCosmetic(True)
 
-        scroll_color = QColor("#4053a0ed")
-        scroll_pen = QPen(QBrush(scroll_color), 2.0)
+        scroll_color = QColor("#300078ff")
+        scroll_pen = QPen(QBrush(QColor("#0078ff")), 1.0)
         scroll_pen.setCosmetic(True)
 
         marker_color = QColor("#4053a0ed")
@@ -172,9 +332,8 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         playhead_pen = QPen(QBrush(playhead_color), 1.0)
         playhead_pen.setCosmetic(True)
 
-        handle_color = QColor("#a653a0ed")
-        handle_pen = QPen(QBrush(handle_color), 1.5)
-        handle_pen.setCosmetic(True)
+        handle_color = QColor("#0078ff")
+        handle_hover_color = QColor("#66b2ff")
 
         # Get layer lookup
         layers = Track.filter()
@@ -183,17 +342,16 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         if get_app().window.timeline:
             # Get max width of timeline
             project_duration = get_app().project.get("duration")
-            pixels_per_second = event.rect().width() / project_duration
-            scroll_width = (self.scrollbar_position[1] - self.scrollbar_position[0]) * event.rect().width()
-
-            # Get FPS info
-            fps_num = get_app().project.get("fps").get("num", 24)
-            fps_den = get_app().project.get("fps").get("den", 1) or 1
-            fps_float = float(fps_num / fps_den)
+            track = self._track_rect()
+            pixels_per_second = track.width() / project_duration
+            self._update_handle_geometry()
 
             # Determine scale factor
-            vertical_factor = event.rect().height() / len(layers)
+            vertical_factor = self.height() / max(1, len(layers))
 
+            # Keep project content out of the control gutters.
+            painter.save()
+            painter.setClipPath(overview_path)
             # Loop through each clip
             painter.setPen(clip_pen)
             for clip_rect in self.clip_rects:
@@ -207,43 +365,47 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
             for marker_rect in self.marker_rects:
                 painter.drawRect(marker_rect)
 
-            painter.setPen(playhead_pen)
-            playhead_x = ((self.current_frame / fps_float) * pixels_per_second)
+            painter.restore()
+            playhead_x = track.left() + (self._playhead_seconds() * pixels_per_second)
             playhead_rect = QRectF(playhead_x, 0, 0.5, len(layers) * vertical_factor)
-            painter.drawRect(playhead_rect)
 
             # Draw scroll bars (if available)
             if self.scrollbar_position:
                 painter.setPen(scroll_pen)
 
-                # scroll bar path
-                scroll_x = self.scrollbar_position[0] * event.rect().width()
-                self.scroll_bar_rect = QRectF(scroll_x, 0.0, scroll_width, event.rect().height())
-                scroll_path = QPainterPath()
-                scroll_path.addRoundedRect(self.scroll_bar_rect, 6, 6)
+                # Outline the actual time range; never inflate it for hit testing.
+                path = QPainterPath()
+                path.addRoundedRect(self.scroll_bar_rect.adjusted(0, 1, 0, -1), 5, 5)
+                painter.fillPath(path, scroll_color)
+                painter.drawPath(path)
+                midpoint = self.scroll_bar_rect.center().x()
+                for is_left, rect in ((True, self.left_handle_rect),
+                                      (False, self.right_handle_rect)):
+                    painter.save()
+                    # At extreme zoom the two handles meet, with a left and right
+                    # half matching the hit test instead of obscuring one another.
+                    if self.scroll_bar_rect.width() < rect.width():
+                        clip_left = 0.0 if is_left else midpoint
+                        clip_right = midpoint if is_left else float(self.width())
+                        painter.setClipRect(QRectF(clip_left, 0, clip_right - clip_left, self.height()))
+                    path = QPainterPath()
+                    path.addRoundedRect(rect, 3, 3)
+                    target = "left" if is_left else "right"
+                    highlighted = self.hover_target == target
+                    painter.fillPath(path, handle_hover_color if highlighted else handle_color)
+                    painter.setPen(QPen(QColor("#e0f0ff" if highlighted else "#80c0ff"), 1.0))
+                    for dx in (-2, 2):
+                        for dy in (-3, 0, 3):
+                            painter.drawPoint(QPointF(rect.center().x() + dx, rect.center().y() + dy))
+                    painter.restore()
 
-                # draw scroll bar rect
-                painter.fillPath(scroll_path, scroll_color)
-                painter.drawPath(scroll_path)
-
-                # draw handles
-                painter.setPen(handle_pen)
-                handle_width = 12.0
-
-                # left handle
-                left_handle_x = (self.scrollbar_position[0] * event.rect().width()) - (handle_width/2.0)
-                self.left_handle_rect = QRectF(left_handle_x, event.rect().height() / 4.0, handle_width, event.rect().height() / 2.0)
-                left_handle_path = QPainterPath()
-                left_handle_path.addRoundedRect(self.left_handle_rect, handle_width, handle_width)
-                painter.fillPath(left_handle_path, handle_color)
-
-                # right handle
-                right_handle_x = self.scroll_bar_rect.right() - (handle_width/2.0)
-                right_handle_x = min(right_handle_x, event.rect().width() - (handle_width/2.0))
-                self.right_handle_rect = QRectF(right_handle_x, event.rect().height() / 4.0, handle_width, event.rect().height() / 2.0)
-                right_handle_path = QPainterPath()
-                right_handle_path.addRoundedRect(self.right_handle_rect, handle_width, handle_width)
-                painter.fillPath(right_handle_path, handle_color)
+            # Draw the playhead last so the selection cannot obscure time zero.
+            painter.setPen(playhead_pen)
+            if track.left() <= playhead_x <= track.right():
+                painter.save()
+                painter.setClipPath(overview_path)
+                painter.drawRect(playhead_rect)
+                painter.restore()
 
             # Determine if play-head is inside scroll area
             if get_app().window.preview_thread.player.Mode() == openshot.PLAYBACK_PLAY and self.is_auto_center:
@@ -268,13 +430,24 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         self.delayed_resize_callback()
 
     def mouseDoubleClickEvent(self, event):
+        if event.button() != Qt.LeftButton:
+            event.ignore()
+            return
         self.zoomToTimeline()
+        # Qt replaces the second press with this event. Keep the release active
+        # so it clears the gesture and resumes incoming scrollbar updates.
+        self.mouse_pressed = True
         self.mouse_dragging = True  # Prevent mouseReleaseEvent from moving selection
         event.accept()
 
     def mousePressEvent(self, event):
         """Capture mouse press event"""
         event.accept()
+        if event.button() != Qt.LeftButton:
+            return
+        self._snap_target = None
+        self.press_target = self._hit_target(_event_posf(event))
+        self._set_target_cursor(self.press_target)
         self.mouse_pressed = True
         self.mouse_dragging = False
         self.mouse_position = _event_posf(event).x()
@@ -285,10 +458,13 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         event.accept()
         posf = _event_posf(event)
 
-        # Handle the case where no dragging occurred (single click)
-        if not self.mouse_dragging and not self.scroll_bar_rect.contains(posf):
+        if event.button() != Qt.LeftButton or not self.mouse_pressed:
+            return
+
+        # Only a click on the background recenters the selection.
+        if not self.mouse_dragging and self.press_target == "create":
             # Center the scroll region at the click position (if outside the selection)
-            click_pos = posf.x() / self.width()
+            click_pos = self._position_ratio(posf.x())
             selection_width = self.scrollbar_position[1] - self.scrollbar_position[0]
             half_width = selection_width / 2
 
@@ -316,6 +492,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
             self.update()
 
         # Finalize drag selection
+        self._snap_target = None
         self.mouse_pressed = False
         self.mouse_dragging = False
         self.left_handle_dragging = False
@@ -323,25 +500,20 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         self.scroll_bar_dragging = False
         self.create_bar_dragging = False
         self._emit_pending_zoom()
+        self._set_target_cursor(self._hit_target(posf))
         self.update()
 
     def set_handle_limits(self, left_handle, right_handle, is_left=False):
         """Set min/max limits on the bounds of the handles (to prevent invalid values)"""
-        if left_handle < 0.0:
-            left_handle = 0.0
-            right_handle = self.scroll_bar_rect.width() / self.width()
-        if right_handle > 1.0:
-            left_handle = 1.0 - (self.scroll_bar_rect.width() / self.width())
-            right_handle = 1.0
-
-        # Don't allow handles to extend past each other
-        diff = right_handle - left_handle
-
-        # Adjust currently dragged handle (if exceeding min distance)
-        if is_left and diff < self.min_distance:
-            left_handle = right_handle - self.min_distance
-        elif not is_left and diff < self.min_distance:
-            right_handle = left_handle + self.min_distance
+        # Resizing clamps the active edge without moving the opposite edge.
+        if is_left:
+            right_handle = max(0.0, min(right_handle, 1.0))
+            minimum = min(self.min_distance, right_handle)
+            left_handle = max(0.0, min(left_handle, right_handle - minimum))
+        else:
+            left_handle = max(0.0, min(left_handle, 1.0))
+            minimum = min(self.min_distance, 1.0 - left_handle)
+            right_handle = min(1.0, max(right_handle, left_handle + minimum))
 
         return left_handle, right_handle
 
@@ -350,45 +522,26 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         event.accept()
         posf = _event_posf(event)
 
-        # Get current mouse position
         mouse_pos = posf.x()
-        if mouse_pos < 0:
-            mouse_pos = 0
-        elif mouse_pos > self.width():
-            mouse_pos = self.width()
+        track_width = self._track_rect().width()
+        if not self.mouse_pressed:
+            self._set_target_cursor(self._hit_target(posf))
 
-        # Set cursor (based on current mouse position)
-        drag_threshold = 5
-        if not self.mouse_dragging:
-            if self.left_handle_rect.contains(posf):
-                self.setCursor(self.cursors.get('resize_x'))
-            elif self.right_handle_rect.contains(posf):
-                self.setCursor(self.cursors.get('resize_x'))
-            elif self.scroll_bar_rect.contains(posf):
-                self.setCursor(self.cursors.get('move'))
-            else:
-                self.setCursor(Qt.ArrowCursor)
-
-        # Detect dragging (only if the user clicked and started dragging beyond the threshold)
+        # Choose the gesture at press time, before the pointer can leave a tiny grip.
         if self.mouse_pressed and not self.mouse_dragging:
+            if abs(self.mouse_position - mouse_pos) < 5:
+                return
             self.mouse_dragging = True
-            if self.left_handle_rect.contains(posf):
-                self.left_handle_dragging = True
-            elif self.right_handle_rect.contains(posf):
-                self.right_handle_dragging = True
-            elif self.scroll_bar_rect.contains(posf):
-                self.scroll_bar_dragging = True
-            elif abs(self.mouse_position - mouse_pos) > drag_threshold:
-                # If clicking outside the current selection, initiate drag to create a new selection
-                self.create_bar_dragging = True
-            else:
-                self.mouse_dragging = False
+            self.left_handle_dragging = self.press_target == "left"
+            self.right_handle_dragging = self.press_target == "right"
+            self.scroll_bar_dragging = self.press_target == "move"
+            self.create_bar_dragging = self.press_target == "create"
 
         # Handle dragging the selection (scroll bar dragging)
         if self.mouse_dragging:
             if self.left_handle_dragging:
                 # Dragging the left handle to resize the selection
-                delta = (self.mouse_position - mouse_pos) / self.width()
+                delta = (self.mouse_position - mouse_pos) / track_width
                 new_left_pos = self.scrollbar_position_previous[0] - delta
                 is_left = True
 
@@ -405,13 +558,14 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
 
                 # Enforce limits (don't allow handles to go past each other, or out of bounds)
                 new_left_pos, new_right_pos = self.set_handle_limits(new_left_pos, new_right_pos, is_left)
+                new_left_pos, new_right_pos = self._snap_resize(new_left_pos, new_right_pos, is_left)
 
                 self.scrollbar_position = [new_left_pos, new_right_pos, self.scrollbar_position[2], self.scrollbar_position[3]]
                 self.delayed_resize_callback()
 
             elif self.right_handle_dragging:
                 # Dragging the right handle to resize the selection
-                delta = (self.mouse_position - mouse_pos) / self.width()
+                delta = (self.mouse_position - mouse_pos) / track_width
                 new_right_pos = self.scrollbar_position_previous[1] - delta
                 is_left = False
 
@@ -428,37 +582,42 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
 
                 # Enforce limits
                 new_left_pos, new_right_pos = self.set_handle_limits(new_left_pos, new_right_pos, is_left)
+                new_left_pos, new_right_pos = self._snap_resize(new_left_pos, new_right_pos, is_left)
 
                 self.scrollbar_position = [new_left_pos, new_right_pos, self.scrollbar_position[2], self.scrollbar_position[3]]
                 self.delayed_resize_callback()
 
             elif self.scroll_bar_dragging:
                 # Dragging the entire selection (scrolling the timeline)
-                delta = (self.mouse_position - mouse_pos) / self.width()
+                delta = (self.mouse_position - mouse_pos) / track_width
                 new_left_pos = self.scrollbar_position_previous[0] - delta
                 new_right_pos = self.scrollbar_position_previous[1] - delta
 
-                # Enforce limits
-                new_left_pos, new_right_pos = self.set_handle_limits(new_left_pos, new_right_pos)
+                # Panning preserves the exact span, including sub-pixel selections.
+                span = self.scrollbar_position_previous[1] - self.scrollbar_position_previous[0]
+                new_left_pos = max(0.0, min(new_left_pos, 1.0 - span))
+                new_right_pos = new_left_pos + span
 
                 self.scrollbar_position = [new_left_pos, new_right_pos, self.scrollbar_position[2], self.scrollbar_position[3]]
                 get_app().window.TimelineScroll.emit(new_left_pos)
 
             elif self.create_bar_dragging:
                 # Handle creating a new selection region
-                new_pos = mouse_pos / self.width()
+                new_pos = self._position_ratio(mouse_pos)
 
                 if self.mouse_position < mouse_pos:
                     # Dragging to the right: set both handles to the starting position,
                     # then move the right handle (left handle stays where the drag started)
-                    new_left_pos = self.mouse_position / self.width()
+                    new_left_pos = self._position_ratio(self.mouse_position)
                     new_right_pos = new_pos
                 else:
                     # Dragging to the left: set both handles to the starting position,
                     # then move the left handle (right handle stays where the drag started)
-                    new_right_pos = self.mouse_position / self.width()
+                    new_right_pos = self._position_ratio(self.mouse_position)
                     new_left_pos = new_pos
 
+                # A new selection needs room for its minimum span at the end.
+                new_left_pos = min(new_left_pos, 1.0 - self.min_distance)
                 # Enforce limits for the new selection
                 new_left_pos, new_right_pos = self.set_handle_limits(new_left_pos, new_right_pos)
                 self.scrollbar_position = [new_left_pos, new_right_pos, self.scrollbar_position[2], self.scrollbar_position[3]]
@@ -470,6 +629,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
     def resizeEvent(self, event):
         """Widget resize event"""
         event.accept()
+        self.changed(None)
         self.delayed_size = self.size()
         self.delayed_resize_timer.start()
 
@@ -482,8 +642,8 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         timeline_pixels_per_second = 100.0 / get_app().project.get("scale")
         timeline_project_width = project_duration * timeline_pixels_per_second
         scroll_ratio = self.scrollbar_position[3] / timeline_project_width
-        scroll_width = scroll_ratio * self.width()
-        scroll_width = min(scroll_width, self.width())
+        scroll_width = scroll_ratio * self._track_rect().width()
+        scroll_width = min(scroll_width, self._track_rect().width())
         return scroll_width, scroll_ratio
 
     def delayed_resize_callback(self):
@@ -656,6 +816,10 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         self.mouse_pressed = False
         self.mouse_dragging = False
         self.mouse_position = None
+        self.press_target = None
+        self.hover_target = None
+        self.create_bar_dragging = False
+        self.move_handle_rect = QRectF()
         self.zoom_factor = 15.0
         self.scrollbar_position = [0.0, 0.0, 0.0, 0.0]
         self.scrollbar_position_previous = [0.0, 0.0, 0.0, 0.0]
@@ -669,6 +833,10 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         self.clip_rects = []
         self.clip_rects_selected = []
         self.marker_rects = []
+        self.snap_clip_starts = []
+        self.snap_clip_ends = []
+        self._snap_is_left = None
+        self._snap_target = None
         self.current_frame = 0
         self.is_auto_center = True
         self.min_distance = 0.002
@@ -689,6 +857,9 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
 
         # Add self as listener to project data updates (used to update the timeline)
         get_app().updates.add_listener(self)
+
+        self.setToolTip(_("Drag inside the range or above/below the grips to move the timeline view. Drag either grip to zoom. "
+                          "Hold Shift while resizing to adjust both sides. Hold Alt to bypass snapping."))
 
         # Set mouse tracking
         self.setMouseTracking(True)

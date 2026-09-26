@@ -405,10 +405,16 @@ class PropertiesModel(updates.UpdateInterface):
 
     # This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface)
     def changed(self, action):
+        # A rich editor already owns this value and updates its row preview.
+        # Skip only its synchronous save notification, not other edits or undo.
+        preview_values = getattr(self, "_live_preview_values", None)
+        if preview_values is not None and action and action.values is preview_values:
+            return
 
         # Handle change
         if action and len(action.key) >= 1 and action.key[0] in ["clips", "effects"] and action.type in ["update", "insert"]:
-            log.debug(action.values)
+            log.debug("Property model received %s for %s", action.type, action.key)
+            self._refresh_selected_objects()
             self._refresh_selected_effect_filters()
             # Update the model data
             self.update_model(get_app().window.txtPropertyFilter.text())
@@ -452,6 +458,8 @@ class PropertiesModel(updates.UpdateInterface):
                         self.selected_parent = e.ParentClip()
                         self._refresh_selected_effect_filters()
 
+            self.selected_ids = [(obj.Id(), kind) for obj, kind in self.selected]
+
             # Update frame # from timeline
             self.update_frame(get_app().window.preview_thread.player.Position(), reload_model=False)
 
@@ -459,7 +467,29 @@ class PropertiesModel(updates.UpdateInterface):
             self.new_item = True
 
         # Update the model data
+        if not selection:
+            self.selected_ids = []
         self.update_model(get_app().window.txtPropertyFilter.text())
+
+    def _refresh_selected_objects(self):
+        """Resolve borrowed native objects after a clip/effect was replaced."""
+        selected_ids = getattr(self, "selected_ids", None)
+        if not selected_ids:
+            return
+        timeline = get_app().window.timeline_sync.timeline
+        getters = {"clip": timeline.GetClip, "transition": timeline.GetEffect,
+                   "effect": timeline.GetClipEffect}
+        previous_count = len(self.selected)
+        self.selected = []
+        self.selected_parent = None
+        for item_id, item_type in selected_ids:
+            obj = getters[item_type](item_id)
+            if obj:
+                self.selected.append((obj, item_type))
+                if item_type == "effect":
+                    self.selected_parent = obj.ParentClip()
+        if len(self.selected) != previous_count:
+            self.new_item = True
 
     # Update the values of the selected clip, based on the current frame
     def update_frame(self, frame_number, reload_model=True):
@@ -901,7 +931,7 @@ class PropertiesModel(updates.UpdateInterface):
         _walk(updated)
         return updated, changed
 
-    def value_updated(self, item, interpolation=-1, value=None, interpolation_details=[]):
+    def value_updated(self, item, interpolation=-1, value=None, interpolation_details=[], refresh_model=True):
         """ Table cell change event - also handles context menu to update interpolation value """
 
         if self.ignore_update_signal:
@@ -949,10 +979,6 @@ class PropertiesModel(updates.UpdateInterface):
             new_value = None
 
         for item_id, item_type in item_data:
-            log.info(
-                "%s for %s changed to %s at frame %s with interpolation: %s at closest x: %s",
-                property_key, item_id, new_value, self.frame_number, interpolation, closest_point_x)
-
             # Start each iteration with the original value
             value = new_value
 
@@ -1243,7 +1269,13 @@ class PropertiesModel(updates.UpdateInterface):
                 if clip_updated:
                     # Save
                     c.data = clip_data
-                    c.save()
+                    previous_preview = getattr(self, "_live_preview_values", None)
+                    if not refresh_model:
+                        self._live_preview_values = clip_data
+                    try:
+                        c.save()
+                    finally:
+                        self._live_preview_values = previous_preview
 
                     # Update waveforms (if needed)
                     if has_waveform:
@@ -1252,7 +1284,8 @@ class PropertiesModel(updates.UpdateInterface):
                     # Update the preview
                     get_app().window.refreshFrameSignal.emit()
 
-                    log.info("Item %s: changed %s to %s at frame %s (x: %s)" % (item_id, property_key, value, self.frame_number, closest_point_x))
+                    log.debug("Item %s: changed %s at frame %s (x: %s)",
+                              item_id, property_key, self.frame_number, closest_point_x)
 
                 # Clear selection and restore focus to label column
                 current_row = self.parent.currentIndex().row()
@@ -1551,6 +1584,8 @@ class PropertiesModel(updates.UpdateInterface):
             log.debug("ignoring update signal, because we are already in an update...")
             return
 
+        self._refresh_selected_objects()
+
         # Ignore any events from this method
         self.ignore_update_signal = True
 
@@ -1666,6 +1701,7 @@ class PropertiesModel(updates.UpdateInterface):
 
         # Keep track of the selected items (clips, transitions, etc...)
         self.selected = []
+        self.selected_ids = []
         self.current_item_id = None
         self.frame_number = 1
         self.new_item = True

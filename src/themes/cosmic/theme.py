@@ -40,7 +40,7 @@ class CosmicTheme(BaseTheme):
         super().__init__(app)
 
         self.style_sheet = """
-QToolTip {
+QToolTip, QLabel#razorHint {
     color: #f4f7ff;
     font-size: 12px;
     font-weight: normal;
@@ -225,9 +225,13 @@ QMenu::indicator {
     height: 12px;
 }
 
-QMenu::item:selected {
+QMenu::item:selected:enabled {
     background-color: #192332;
     color: #ffffff;
+}
+
+QMenu::item:disabled {
+    color: #69788c;
 }
 
 QMenu::separator {
