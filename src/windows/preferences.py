@@ -682,13 +682,10 @@ class Preferences(QDialog):
         from classes import log_config
         _ = get_app()._tr
         if setting == "debug-ui":
-            description = _("Record interface and project activity in openshot-qt.log. "
-                            "Use --debug-ui (or --debug) for one launch, including terminal output.")
+            description = _("Log interface details")
             component = "python"
         else:
-            description = _("Record video and audio processing in libopenshot.log. "
-                            "Use --debug-engine for one launch, including terminal output. "
-                            "Logs can grow quickly; turn this off when finished.")
+            description = _("Log video and audio details")
             component = "native"
         override = log_config.preference_description(self.s.get(setting), component)
         return description + ("\n" + override if override else "")

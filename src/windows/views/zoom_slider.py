@@ -177,6 +177,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
     def _set_target_cursor(self, target):
         if self.hover_target != target:
             self.hover_target = target
+            self.setToolTip(self._target_tooltips.get(target, ""))
             self.update()
         if target in ("left", "right"):
             self.setCursor(self.cursors['resize_x'])
@@ -818,6 +819,12 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         self.mouse_position = None
         self.press_target = None
         self.hover_target = None
+        self._target_tooltips = {
+            "left": _("Zoom left edge"),
+            "right": _("Zoom right edge"),
+            "move": _("Pan timeline"),
+            "create": _("Click: center · Drag: zoom"),
+        }
         self.create_bar_dragging = False
         self.move_handle_rect = QRectF()
         self.zoom_factor = 15.0
@@ -857,9 +864,6 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
 
         # Add self as listener to project data updates (used to update the timeline)
         get_app().updates.add_listener(self)
-
-        self.setToolTip(_("Drag inside the range or above/below the grips to move the timeline view. Drag either grip to zoom. "
-                          "Hold Shift while resizing to adjust both sides. Hold Alt to bypass snapping."))
 
         # Set mouse tracking
         self.setMouseTracking(True)
