@@ -185,7 +185,7 @@
         "icons": [
             "p"
         ],
-        "name": "Ad\u00e9rito",
+        "name": "Adérito",
         "website": null
     },
     {
@@ -227,7 +227,7 @@
         "icons": [
             "p"
         ],
-        "name": "Adte (Logiciels Libres - Canada-Qu\u00e9bec)",
+        "name": "Adte (Logiciels Libres - Canada-Québec)",
         "website": null
     },
     {
@@ -1159,7 +1159,7 @@
         "icons": [
             "p"
         ],
-        "name": "Andr\u00e9",
+        "name": "André",
         "website": null
     },
     {
@@ -1399,15 +1399,15 @@
     },
     {
         "icons": [
-            "p"
+            "p",
+            "s"
         ],
         "name": "Andy",
         "website": null
     },
     {
         "icons": [
-            "p",
-            "s"
+            "p"
         ],
         "name": "Andy",
         "website": null
@@ -1680,6 +1680,70 @@
     },
     {
         "icons": [
+            "p"
+        ],
+        "name": "Anoniem",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anoniem",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anoniem",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anoniem",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anoniem",
+        "website": null
+    },
+    {
+        "icons": [
+            "p",
+            "s"
+        ],
+        "name": "Anoniem",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anoniem",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anoniem",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anoniem",
+        "website": null
+    },
+    {
+        "icons": [
             "p",
             "s"
         ],
@@ -1786,20 +1850,6 @@
     },
     {
         "icons": [
-            "p"
-        ],
-        "name": "Anoniem",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anoniem",
-        "website": null
-    },
-    {
-        "icons": [
             "p",
             "s"
         ],
@@ -1830,56 +1880,6 @@
     {
         "icons": [
             "p"
-        ],
-        "name": "Anoniem",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anoniem",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anoniem",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anoniem",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anoniem",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anoniem",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anoniem",
-        "website": null
-    },
-    {
-        "icons": [
-            "p",
-            "s"
         ],
         "name": "Anoniem",
         "website": null
@@ -1936,107 +1936,36 @@
     },
     {
         "icons": [
+            "p"
+        ],
+        "name": "Anonimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonimo",
+        "website": null
+    },
+    {
+        "icons": [
             "p",
             "s"
-        ],
-        "name": "Anonimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p",
-            "s"
-        ],
-        "name": "Anonimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
         ],
         "name": "Anonimo",
         "website": null
@@ -2128,51 +2057,8 @@
     },
     {
         "icons": [
-            "p"
-        ],
-        "name": "Anonimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonimo",
-        "website": null
-    },
-    {
-        "icons": [
             "p",
             "s"
-        ],
-        "name": "Anonimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p",
-            "s"
-        ],
-        "name": "Anonimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
         ],
         "name": "Anonimo",
         "website": null
@@ -2322,7 +2208,7 @@
         "icons": [
             "p"
         ],
-        "name": "An\u00f3nimo",
+        "name": "Anonimo",
         "website": null
     },
     {
@@ -2330,56 +2216,42 @@
             "p",
             "s"
         ],
-        "name": "An\u00f3nimo",
+        "name": "Anonimo",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "An\u00f3nimo",
+        "name": "Anonimo",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "An\u00f3nimo",
+        "name": "Anonimo",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "An\u00f3nimo",
+        "name": "Anonimo",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "An\u00f3nimo",
+        "name": "Anonimo",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
+        "name": "Anonimo",
         "website": null
     },
     {
@@ -2387,106 +2259,21 @@
             "p",
             "s"
         ],
-        "name": "An\u00f3nimo",
+        "name": "Anonimo",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p",
-            "s"
-        ],
-        "name": "An\u00f3nimo",
+        "name": "Anonimo",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
+        "name": "Anonimo",
         "website": null
     },
     {
@@ -2494,7 +2281,56 @@
             "p",
             "s"
         ],
-        "name": "An\u00f3nimo",
+        "name": "Anonimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonimo",
         "website": null
     },
     {
@@ -2502,7 +2338,7 @@
             "p",
             "s"
         ],
-        "name": "An\u00f3nimo",
+        "name": "Anónimo",
         "website": null
     },
     {
@@ -2510,56 +2346,14 @@
             "p",
             "s"
         ],
-        "name": "An\u00f3nimo",
+        "name": "Anónimo",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
+        "name": "Anónimo",
         "website": null
     },
     {
@@ -2567,21 +2361,42 @@
             "p",
             "s"
         ],
-        "name": "An\u00f3nimo",
+        "name": "Anónimo",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "An\u00f3nimo",
+        "name": "Anónimo",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "An\u00f3nimo",
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
         "website": null
     },
     {
@@ -2589,98 +2404,7 @@
             "p",
             "s"
         ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
+        "name": "Anónimo",
         "website": null
     },
     {
@@ -2688,28 +2412,133 @@
             "p",
             "s"
         ],
-        "name": "An\u00f3nimo",
+        "name": "Anónimo",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "An\u00f3nimo",
+        "name": "Anónimo",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "An\u00f3nimo",
+        "name": "Anónimo",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "An\u00f3nimo",
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
         "website": null
     },
     {
@@ -2717,91 +2546,42 @@
             "p",
             "s"
         ],
-        "name": "An\u00f3nimo",
+        "name": "Anónimo",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "An\u00f3nimo",
+        "name": "Anónimo",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "An\u00f3nimo",
+        "name": "Anónimo",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "An\u00f3nimo",
+        "name": "Anónimo",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "An\u00f3nimo",
+        "name": "Anónimo",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
+        "name": "Anónimo",
         "website": null
     },
     {
@@ -2809,21 +2589,7 @@
             "p",
             "s"
         ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
+        "name": "Anónimo",
         "website": null
     },
     {
@@ -2831,140 +2597,49 @@
             "p",
             "s"
         ],
-        "name": "An\u00f3nimo",
+        "name": "Anónimo",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "An\u00f3nimo",
+        "name": "Anónimo",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "An\u00f3nimo",
+        "name": "Anónimo",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "An\u00f3nimo",
+        "name": "Anónimo",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "An\u00f3nimo",
+        "name": "Anónimo",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "An\u00f3nimo",
+        "name": "Anónimo",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "An\u00f3nimo",
+        "name": "Anónimo",
         "website": null
     },
     {
@@ -2972,63 +2647,403 @@
             "p",
             "s"
         ],
-        "name": "An\u00f3nimo",
+        "name": "Anónimo",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "An\u00f3nimo",
+        "name": "Anónimo",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "An\u00f3nimo",
+        "name": "Anónimo",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "An\u00f3nimo",
+        "name": "Anónimo",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "An\u00f3nimo",
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p",
+            "s"
+        ],
+        "name": "Anónimo",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "An\u00f3nimo",
+        "name": "Anónimo",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "An\u00f3nimo",
+        "name": "Anónimo",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "An\u00f3nimo",
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p",
+            "s"
+        ],
+        "name": "Anónimo",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "An\u00f3nimo",
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p",
+            "s"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p",
+            "s"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anónimo",
         "website": null
     },
     {
@@ -3103,6 +3118,13 @@
     },
     {
         "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
             "p",
             "s"
         ],
@@ -3118,189 +3140,16 @@
     },
     {
         "icons": [
-            "p"
+            "p",
+            "s"
         ],
         "name": "Anonym",
         "website": null
     },
     {
         "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
+            "p",
+            "s"
         ],
         "name": "Anonym",
         "website": null
@@ -3505,92 +3354,6 @@
     {
         "icons": [
             "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p",
-            "s"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p",
-            "s"
         ],
         "name": "Anonym",
         "website": null
@@ -3830,175 +3593,6 @@
     {
         "icons": [
             "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonym",
-        "website": null
-    },
-    {
-        "icons": [
-            "p",
-            "s"
         ],
         "name": "Anonym",
         "website": null
@@ -4307,6 +3901,484 @@
     },
     {
         "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p",
+            "s"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonym",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonyme",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonyme",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonyme",
+        "website": null
+    },
+    {
+        "icons": [
+            "p",
+            "s"
+        ],
+        "name": "Anonyme",
+        "website": null
+    },
+    {
+        "icons": [
             "p",
             "s"
         ],
@@ -4357,6 +4429,244 @@
     },
     {
         "icons": [
+            "p"
+        ],
+        "name": "Anonyme",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonyme",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonyme",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonyme",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonyme",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonyme",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonyme",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonyme",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonyme",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonyme",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonyme",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonyme",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonyme",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonyme",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonyme",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonyme",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonyme",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonyme",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonyme",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonyme",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonyme",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonyme",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonyme",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonyme",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonyme",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonyme",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonyme",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonyme",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonyme",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonyme",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonyme",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonyme",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonyme",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Anonyme",
+        "website": null
+    },
+    {
+        "icons": [
             "p",
             "s"
         ],
@@ -4387,70 +4697,6 @@
     },
     {
         "icons": [
-            "p",
-            "s"
-        ],
-        "name": "Anonyme",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonyme",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonyme",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonyme",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonyme",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonyme",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonyme",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonyme",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonyme",
-        "website": null
-    },
-    {
-        "icons": [
             "p"
         ],
         "name": "Anonyme",
@@ -4460,202 +4706,6 @@
         "icons": [
             "p",
             "s"
-        ],
-        "name": "Anonyme",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonyme",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonyme",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonyme",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonyme",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonyme",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonyme",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonyme",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonyme",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonyme",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonyme",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonyme",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonyme",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonyme",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonyme",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonyme",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonyme",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonyme",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonyme",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonyme",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonyme",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonyme",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonyme",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonyme",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonyme",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonyme",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonyme",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Anonyme",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
         ],
         "name": "Anonyme",
         "website": null
@@ -5105,7 +5155,7 @@
         "icons": [
             "p"
         ],
-        "name": "Antonio S\u00e1nchez Le\u00f3n",
+        "name": "Antonio Sánchez León",
         "website": null
     },
     {
@@ -5241,7 +5291,7 @@
         "icons": [
             "p"
         ],
-        "name": "Argemiro Le\u00e3o",
+        "name": "Argemiro Leão",
         "website": null
     },
     {
@@ -5361,7 +5411,7 @@
         "icons": [
             "p"
         ],
-        "name": "Art\u20ac",
+        "name": "Art€",
         "website": null
     },
     {
@@ -5389,7 +5439,7 @@
         "icons": [
             "p"
         ],
-        "name": "Arturo Mart\u00edn Romero",
+        "name": "Arturo Martín Romero",
         "website": null
     },
     {
@@ -5588,7 +5638,7 @@
         "icons": [
             "p"
         ],
-        "name": "Axel B\u00fcrkle",
+        "name": "Axel Bürkle",
         "website": null
     },
     {
@@ -5712,6 +5762,13 @@
             "p"
         ],
         "name": "Barth",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Bartlett Bible Group",
         "website": null
     },
     {
@@ -5997,7 +6054,7 @@
         "icons": [
             "p"
         ],
-        "name": "Bernhard H\u00f6ll",
+        "name": "Bernhard Höll",
         "website": null
     },
     {
@@ -6291,7 +6348,7 @@
         "icons": [
             "p"
         ],
-        "name": "Bj\u00f6rn Austen",
+        "name": "Björn Austen",
         "website": null
     },
     {
@@ -6299,7 +6356,7 @@
             "p",
             "s"
         ],
-        "name": "Bj\u00f8rn Sand\u00e5ker",
+        "name": "Bjørn Sandåker",
         "website": null
     },
     {
@@ -6645,7 +6702,7 @@
         "icons": [
             "p"
         ],
-        "name": "Brenda Fern\u00e1ndez",
+        "name": "Brenda Fernández",
         "website": null
     },
     {
@@ -7233,14 +7290,14 @@
         "icons": [
             "p"
         ],
-        "name": "Carles F. Juli\u00e0",
+        "name": "Carles F. Julià",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "Carles L\u00f3pez Cerezuela",
+        "name": "Carles López Cerezuela",
         "website": null
     },
     {
@@ -7297,7 +7354,7 @@
         "icons": [
             "p"
         ],
-        "name": "Carlos Sol\u00e3\u00adS",
+        "name": "Carlos Solã­S",
         "website": null
     },
     {
@@ -7404,7 +7461,7 @@
         "icons": [
             "p"
         ],
-        "name": "Casal Catal\u00e0 De Costa Rica",
+        "name": "Casal Català De Costa Rica",
         "website": null
     },
     {
@@ -7958,7 +8015,7 @@
         "icons": [
             "p"
         ],
-        "name": "Christian L\u00fcck",
+        "name": "Christian Lück",
         "website": null
     },
     {
@@ -8311,14 +8368,14 @@
         "icons": [
             "p"
         ],
-        "name": "Claus-J\u00f6rg Richter",
+        "name": "Claus-Jörg Richter",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "Cl\u00e9mentr Bardes",
+        "name": "Clémentr Bardes",
         "website": null
     },
     {
@@ -8978,7 +9035,7 @@
             "p",
             "s"
         ],
-        "name": "Daniel Harl\u00e9",
+        "name": "Daniel Harlé",
         "website": null
     },
     {
@@ -9014,7 +9071,7 @@
         "icons": [
             "p"
         ],
-        "name": "Daniel L\u00e9vesque",
+        "name": "Daniel Lévesque",
         "website": null
     },
     {
@@ -9160,22 +9217,22 @@
     },
     {
         "icons": [
-            "p"
-        ],
-        "name": "Dario",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Dario",
-        "website": null
-    },
-    {
-        "icons": [
             "p",
             "s"
+        ],
+        "name": "Dario",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Dario",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
         ],
         "name": "Dario",
         "website": null
@@ -9286,7 +9343,7 @@
         "icons": [
             "p"
         ],
-        "name": "D\u00e1til Whippet",
+        "name": "Dátil Whippet",
         "website": null
     },
     {
@@ -10132,6 +10189,13 @@
         "icons": [
             "p"
         ],
+        "name": "Didier Hatt",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
         "name": "Did Wong",
         "website": null
     },
@@ -10517,7 +10581,7 @@
         "icons": [
             "p"
         ],
-        "name": "\u0110or\u0111e Talovi\u0107",
+        "name": "Đorđe Talović",
         "website": null
     },
     {
@@ -10781,7 +10845,7 @@
         "icons": [
             "p"
         ],
-        "name": "Du\u0161an",
+        "name": "Dušan",
         "website": null
     },
     {
@@ -10954,6 +11018,13 @@
         "icons": [
             "p"
         ],
+        "name": "Edward Kennedy",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
         "name": "Edward Khula",
         "website": null
     },
@@ -11088,7 +11159,7 @@
         "icons": [
             "p"
         ],
-        "name": "Elbormes Produ\u00e7\u00f5es",
+        "name": "Elbormes Produções",
         "website": null
     },
     {
@@ -11366,6 +11437,13 @@
         "icons": [
             "p"
         ],
+        "name": "Erasmo Esquivel Durán",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
         "name": "Eric",
         "website": null
     },
@@ -11381,7 +11459,7 @@
             "p",
             "s"
         ],
-        "name": "\u00c9ric Apffel",
+        "name": "Éric Apffel",
         "website": null
     },
     {
@@ -11445,7 +11523,7 @@
         "icons": [
             "p"
         ],
-        "name": "Eric J\u00e4rpe",
+        "name": "Eric Järpe",
         "website": null
     },
     {
@@ -11564,7 +11642,7 @@
         "icons": [
             "p"
         ],
-        "name": "Ernst S\u00f6hnel",
+        "name": "Ernst Söhnel",
         "website": null
     },
     {
@@ -11769,7 +11847,7 @@
         "icons": [
             "p"
         ],
-        "name": "Fabian St\u00fcrmer",
+        "name": "Fabian Stürmer",
         "website": null
     },
     {
@@ -11952,7 +12030,7 @@
         "icons": [
             "p"
         ],
-        "name": "F\u00e8lix C.C.",
+        "name": "Fèlix C.C.",
         "website": null
     },
     {
@@ -12108,7 +12186,7 @@
         "icons": [
             "p"
         ],
-        "name": "Filippo Carr\u00e0",
+        "name": "Filippo Carrà",
         "website": null
     },
     {
@@ -12127,15 +12205,15 @@
     },
     {
         "icons": [
-            "p"
+            "p",
+            "s"
         ],
         "name": "Flavio",
         "website": null
     },
     {
         "icons": [
-            "p",
-            "s"
+            "p"
         ],
         "name": "Flavio",
         "website": null
@@ -12243,6 +12321,13 @@
             "p"
         ],
         "name": "Francesco",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Francesco Forno",
         "website": null
     },
     {
@@ -12623,14 +12708,14 @@
         "icons": [
             "p"
         ],
-        "name": "Ga\u00e1l Zsuzsa",
+        "name": "Gaál Zsuzsa",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "G\u00e1bor Auth",
+        "name": "Gábor Auth",
         "website": null
     },
     {
@@ -12769,15 +12854,15 @@
     },
     {
         "icons": [
-            "p",
-            "s"
+            "p"
         ],
         "name": "Gary",
         "website": null
     },
     {
         "icons": [
-            "p"
+            "p",
+            "s"
         ],
         "name": "Gary",
         "website": null
@@ -12901,7 +12986,7 @@
             "p",
             "s"
         ],
-        "name": "G\u00e9d\u00e9on",
+        "name": "Gédéon",
         "website": null
     },
     {
@@ -13192,14 +13277,14 @@
     },
     {
         "icons": [
-            "b"
+            "p"
         ],
         "name": "Gerhard",
         "website": null
     },
     {
         "icons": [
-            "p"
+            "b"
         ],
         "name": "Gerhard",
         "website": null
@@ -13349,7 +13434,7 @@
         "icons": [
             "p"
         ],
-        "name": "Gibr\u00e1n Majalca",
+        "name": "Gibrán Majalca",
         "website": null
     },
     {
@@ -13570,6 +13655,13 @@
             "p"
         ],
         "name": "Glen Schermerhorn",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Glitchedlime",
         "website": null
     },
     {
@@ -13940,6 +14032,13 @@
         "icons": [
             "p"
         ],
+        "name": "Guido",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
         "name": "Guillaume",
         "website": null
     },
@@ -13961,7 +14060,7 @@
         "icons": [
             "p"
         ],
-        "name": "G\u00fcnter Berger",
+        "name": "Günter Berger",
         "website": null
     },
     {
@@ -14091,6 +14190,13 @@
             "p"
         ],
         "name": "Hands On Massage Netherlands",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Hannes Manser",
         "website": null
     },
     {
@@ -14310,7 +14416,7 @@
         "icons": [
             "p"
         ],
-        "name": "H\u00e4usi",
+        "name": "Häusi",
         "website": null
     },
     {
@@ -15221,7 +15327,8 @@
     },
     {
         "icons": [
-            "p"
+            "p",
+            "s"
         ],
         "name": "Jack Kent",
         "website": null
@@ -15322,7 +15429,7 @@
         "icons": [
             "p"
         ],
-        "name": "J\u00e4ger",
+        "name": "Jäger",
         "website": null
     },
     {
@@ -15555,7 +15662,7 @@
         "icons": [
             "p"
         ],
-        "name": "Jan Jaro\u0161",
+        "name": "Jan Jaroš",
         "website": null
     },
     {
@@ -15577,14 +15684,14 @@
         "icons": [
             "p"
         ],
-        "name": "J\u00e1nos Endreffy",
+        "name": "János Endreffy",
         "website": null
     },
     {
         "icons": [
             "b"
         ],
-        "name": "J\u00e1n S\u00e1ren\u00edk",
+        "name": "Ján Sáreník",
         "website": null
     },
     {
@@ -16107,6 +16214,13 @@
         "icons": [
             "p"
         ],
+        "name": "Jeff Stanek",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
         "name": "Jekfromsebastian",
         "website": null
     },
@@ -16192,7 +16306,7 @@
             "p",
             "s"
         ],
-        "name": "Jens Wei\u00dfkopf",
+        "name": "Jens Weißkopf",
         "website": null
     },
     {
@@ -16312,7 +16426,7 @@
         "icons": [
             "p"
         ],
-        "name": "Jesper H\u00f8jer",
+        "name": "Jesper Højer",
         "website": null
     },
     {
@@ -16368,7 +16482,7 @@
         "icons": [
             "p"
         ],
-        "name": "Jesus M Casta\u00f1eda",
+        "name": "Jesus M Castañeda",
         "website": null
     },
     {
@@ -16391,14 +16505,14 @@
             "p",
             "s"
         ],
-        "name": "Jes\u00fas Rubio",
+        "name": "Jesús Rubio",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "Jes\u00fas Rubio",
+        "name": "Jesús Rubio",
         "website": null
     },
     {
@@ -16440,7 +16554,7 @@
         "icons": [
             "p"
         ],
-        "name": "Ji\u001a\u00cd Pag\u00e1\u001a",
+        "name": "Ji\u001aÍ Pagá\u001a",
         "website": null
     },
     {
@@ -16476,6 +16590,13 @@
             "p"
         ],
         "name": "Jim Clough",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Jim Gossett",
         "website": null
     },
     {
@@ -16737,7 +16858,7 @@
         "icons": [
             "b"
         ],
-        "name": "Joel Herv\u00e9n",
+        "name": "Joel Hervén",
         "website": null
     },
     {
@@ -16780,7 +16901,7 @@
         "icons": [
             "p"
         ],
-        "name": "Johan Sj\u00f6str\u00f6m",
+        "name": "Johan Sjöström",
         "website": null
     },
     {
@@ -17162,14 +17283,14 @@
     },
     {
         "icons": [
-            "p"
+            "b"
         ],
         "name": "Jonathan",
         "website": null
     },
     {
         "icons": [
-            "b"
+            "p"
         ],
         "name": "Jonathan",
         "website": null
@@ -17185,7 +17306,7 @@
         "icons": [
             "p"
         ],
-        "name": "Jonathan Bascu\u00f1an Blanco",
+        "name": "Jonathan Bascuñan Blanco",
         "website": null
     },
     {
@@ -17222,6 +17343,13 @@
             "s"
         ],
         "name": "Jonathan Naylor",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Jonathan Neufeld",
         "website": null
     },
     {
@@ -17278,7 +17406,7 @@
         "icons": [
             "p"
         ],
-        "name": "Jon Mu\u00f1oz",
+        "name": "Jon Muñoz",
         "website": null
     },
     {
@@ -17320,7 +17448,7 @@
         "icons": [
             "p"
         ],
-        "name": "J\u00f6rg Bechlars",
+        "name": "Jörg Bechlars",
         "website": null
     },
     {
@@ -17334,7 +17462,7 @@
         "icons": [
             "p"
         ],
-        "name": "Jorge De Alejandr\u00eda",
+        "name": "Jorge De Alejandría",
         "website": null
     },
     {
@@ -17376,7 +17504,7 @@
         "icons": [
             "p"
         ],
-        "name": "J\u00f8rgen I. Larsen",
+        "name": "Jørgen I. Larsen",
         "website": null
     },
     {
@@ -17404,7 +17532,7 @@
         "icons": [
             "p"
         ],
-        "name": "J\u00f6rg, Springe",
+        "name": "Jörg, Springe",
         "website": null
     },
     {
@@ -17426,7 +17554,7 @@
         "icons": [
             "p"
         ],
-        "name": "Jose Antonio Cordero Garc\u00eda",
+        "name": "Jose Antonio Cordero García",
         "website": null
     },
     {
@@ -17440,7 +17568,7 @@
         "icons": [
             "p"
         ],
-        "name": "Jos\u00e9 Baeza Cordob\u00e9s",
+        "name": "José Baeza Cordobés",
         "website": null
     },
     {
@@ -17455,7 +17583,7 @@
         "icons": [
             "p"
         ],
-        "name": "Jos\u00e9 De Souza Muniz Jr.",
+        "name": "José De Souza Muniz Jr.",
         "website": null
     },
     {
@@ -17463,21 +17591,21 @@
             "p",
             "s"
         ],
-        "name": "Josef Kulh\u00e1nek",
+        "name": "Josef Kulhánek",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "Jos\u00e9 Francisco Facundo P\u00e9rez",
+        "name": "José Francisco Facundo Pérez",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "Josef Sch\u00f6nbrunner",
+        "name": "Josef Schönbrunner",
         "website": null
     },
     {
@@ -17498,7 +17626,7 @@
         "icons": [
             "p"
         ],
-        "name": "Jos\u00e9 Luis Anaut",
+        "name": "José Luis Anaut",
         "website": null
     },
     {
@@ -17520,7 +17648,7 @@
         "icons": [
             "p"
         ],
-        "name": "Jos\u00e9 Luis Mondrag\u00f3n Garibay",
+        "name": "José Luis Mondragón Garibay",
         "website": null
     },
     {
@@ -17534,7 +17662,7 @@
         "icons": [
             "p"
         ],
-        "name": "Jos\u00e9 Natividad Fuerte",
+        "name": "José Natividad Fuerte",
         "website": null
     },
     {
@@ -17583,14 +17711,14 @@
         "icons": [
             "p"
         ],
-        "name": "Josep M Clar\u00e0",
+        "name": "Josep M Clarà",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "Jos\u00e9 Salavert Torres",
+        "name": "José Salavert Torres",
         "website": null
     },
     {
@@ -17604,7 +17732,7 @@
         "icons": [
             "p"
         ],
-        "name": "Jos\u00e9 Terol",
+        "name": "José Terol",
         "website": null
     },
     {
@@ -17647,7 +17775,7 @@
         "icons": [
             "p"
         ],
-        "name": "Joublot C\u00e9dric",
+        "name": "Joublot Cédric",
         "website": null
     },
     {
@@ -17696,7 +17824,7 @@
         "icons": [
             "p"
         ],
-        "name": "J\u00f3zsef",
+        "name": "József",
         "website": null
     },
     {
@@ -17760,7 +17888,7 @@
         "icons": [
             "p"
         ],
-        "name": "Juan Cant\u00f3n",
+        "name": "Juan Cantón",
         "website": null
     },
     {
@@ -17774,7 +17902,7 @@
         "icons": [
             "p"
         ],
-        "name": "Juan De Dios Gal\u00e1n Herrero",
+        "name": "Juan De Dios Galán Herrero",
         "website": null
     },
     {
@@ -17802,7 +17930,7 @@
         "icons": [
             "p"
         ],
-        "name": "Juan Ram\u00f3n Molina Menor",
+        "name": "Juan Ramón Molina Menor",
         "website": null
     },
     {
@@ -17831,7 +17959,7 @@
         "icons": [
             "p"
         ],
-        "name": "Juha M\u00e4kel\u00e4 Finland",
+        "name": "Juha Mäkelä Finland",
         "website": null
     },
     {
@@ -17960,6 +18088,13 @@
         "icons": [
             "p"
         ],
+        "name": "Jürg Boss",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
         "name": "Jurij",
         "website": null
     },
@@ -18010,7 +18145,7 @@
         "icons": [
             "p"
         ],
-        "name": "Kaarel Rep\u00e4n",
+        "name": "Kaarel Repän",
         "website": null
     },
     {
@@ -18031,7 +18166,7 @@
         "icons": [
             "p"
         ],
-        "name": "Kai B\u00f6hr",
+        "name": "Kai Böhr",
         "website": null
     },
     {
@@ -18879,7 +19014,7 @@
         "icons": [
             "p"
         ],
-        "name": "Kwanyin Guill\u00e9n",
+        "name": "Kwanyin Guillén",
         "website": null
     },
     {
@@ -18949,6 +19084,13 @@
         "icons": [
             "p"
         ],
+        "name": "Lallo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
         "name": "Lamceddo",
         "website": null
     },
@@ -19005,7 +19147,7 @@
         "icons": [
             "p"
         ],
-        "name": "Lars N\u00e3\u00b8Stdal",
+        "name": "Lars Nã¸Stdal",
         "website": null
     },
     {
@@ -19062,7 +19204,7 @@
         "icons": [
             "p"
         ],
-        "name": "Laurent S\u00e9guin",
+        "name": "Laurent Séguin",
         "website": null
     },
     {
@@ -19182,7 +19324,7 @@
         "icons": [
             "p"
         ],
-        "name": "*Le_Facepalm*  \ud83d\udc4d\ud83c\udffb\ud83d\ude01\ud83d\udc4d\ud83c\udffb",
+        "name": "*Le_Facepalm*  👍🏻😁👍🏻",
         "website": null
     },
     {
@@ -19380,6 +19522,13 @@
         "icons": [
             "p"
         ],
+        "name": "Lextone",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
         "name": "Lhoyor",
         "website": null
     },
@@ -19392,7 +19541,8 @@
     },
     {
         "icons": [
-            "p"
+            "p",
+            "s"
         ],
         "name": "Lightning Gunne",
         "website": null
@@ -19828,7 +19978,7 @@
         "icons": [
             "p"
         ],
-        "name": "Luis \u00c1ngel Pi\u00f1a Saucedo",
+        "name": "Luis Ángel Piña Saucedo",
         "website": null
     },
     {
@@ -19884,7 +20034,7 @@
         "icons": [
             "p"
         ],
-        "name": "Luk\u00e1\u0161 Velev",
+        "name": "Lukáš Velev",
         "website": null
     },
     {
@@ -20008,15 +20158,15 @@
     },
     {
         "icons": [
-            "p",
-            "s"
+            "p"
         ],
         "name": "Mac",
         "website": null
     },
     {
         "icons": [
-            "p"
+            "p",
+            "s"
         ],
         "name": "Mac",
         "website": null
@@ -20109,7 +20259,7 @@
         "icons": [
             "p"
         ],
-        "name": "Magnus J\u00f8rgensen",
+        "name": "Magnus Jørgensen",
         "website": null
     },
     {
@@ -20165,7 +20315,7 @@
         "icons": [
             "p"
         ],
-        "name": "Manfred M\u00f6hle",
+        "name": "Manfred Möhle",
         "website": null
     },
     {
@@ -20286,7 +20436,7 @@
         "icons": [
             "p"
         ],
-        "name": "Marc Bartol\u00ed Mercader",
+        "name": "Marc Bartolí Mercader",
         "website": null
     },
     {
@@ -20541,7 +20691,7 @@
         "icons": [
             "p"
         ],
-        "name": "Mario Eli Ortiz M\u00e9ndez",
+        "name": "Mario Eli Ortiz Méndez",
         "website": null
     },
     {
@@ -20591,6 +20741,13 @@
             "p"
         ],
         "name": "Marisa Alonso",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Mariusz",
         "website": null
     },
     {
@@ -21317,7 +21474,7 @@
         "icons": [
             "p"
         ],
-        "name": "Matthias Kr\u00e4mer",
+        "name": "Matthias Krämer",
         "website": null
     },
     {
@@ -21507,7 +21664,7 @@
         "icons": [
             "p"
         ],
-        "name": "M\u00e9gane",
+        "name": "Mégane",
         "website": null
     },
     {
@@ -21736,6 +21893,14 @@
     },
     {
         "icons": [
+            "p",
+            "s"
+        ],
+        "name": "Michael Garzella",
+        "website": null
+    },
+    {
+        "icons": [
             "p"
         ],
         "name": "Michael Hampson",
@@ -21830,15 +21995,15 @@
     },
     {
         "icons": [
-            "p",
-            "s"
+            "p"
         ],
         "name": "Michael Sloan",
         "website": null
     },
     {
         "icons": [
-            "p"
+            "p",
+            "s"
         ],
         "name": "Michael Sloan",
         "website": null
@@ -21904,7 +22069,7 @@
         "icons": [
             "p"
         ],
-        "name": "Micha\u0142",
+        "name": "Michał",
         "website": null
     },
     {
@@ -22046,7 +22211,7 @@
         "icons": [
             "p"
         ],
-        "name": "Miguel Alarc\u00f3n",
+        "name": "Miguel Alarcón",
         "website": null
     },
     {
@@ -22067,7 +22232,7 @@
         "icons": [
             "p"
         ],
-        "name": "Miguel \u00c1ngel",
+        "name": "Miguel Ángel",
         "website": null
     },
     {
@@ -22100,15 +22265,15 @@
     },
     {
         "icons": [
-            "p",
-            "s"
+            "p"
         ],
         "name": "Mike",
         "website": null
     },
     {
         "icons": [
-            "p"
+            "p",
+            "s"
         ],
         "name": "Mike",
         "website": null
@@ -22414,7 +22579,7 @@
         "icons": [
             "p"
         ],
-        "name": "Mirko M\u00e4licke",
+        "name": "Mirko Mälicke",
         "website": null
     },
     {
@@ -23225,7 +23390,7 @@
         "icons": [
             "p"
         ],
-        "name": "Nelson Rojas N\u00fa\u00f1ez",
+        "name": "Nelson Rojas Núñez",
         "website": null
     },
     {
@@ -23400,7 +23565,7 @@
         "icons": [
             "p"
         ],
-        "name": "Nicolas M\u00e9rel",
+        "name": "Nicolas Mérel",
         "website": null
     },
     {
@@ -23428,7 +23593,7 @@
         "icons": [
             "p"
         ],
-        "name": "Niels Lund-S\u00f8rensen",
+        "name": "Niels Lund-Sørensen",
         "website": null
     },
     {
@@ -23678,7 +23843,7 @@
         "icons": [
             "p"
         ],
-        "name": "Oddbj\u00f8rn Brox",
+        "name": "Oddbjørn Brox",
         "website": null
     },
     {
@@ -23833,7 +23998,7 @@
         "icons": [
             "p"
         ],
-        "name": "Olivier Laupr\u00eatre",
+        "name": "Olivier Lauprêtre",
         "website": null
     },
     {
@@ -23946,7 +24111,7 @@
         "icons": [
             "p"
         ],
-        "name": "Osvaldo Rosado Qui\u00f1ones",
+        "name": "Osvaldo Rosado Quiñones",
         "website": null
     },
     {
@@ -24277,15 +24442,15 @@
     },
     {
         "icons": [
-            "p"
+            "p",
+            "s"
         ],
         "name": "Paul",
         "website": null
     },
     {
         "icons": [
-            "p",
-            "s"
+            "p"
         ],
         "name": "Paul",
         "website": null
@@ -24591,15 +24756,15 @@
     },
     {
         "icons": [
-            "p"
+            "p",
+            "s"
         ],
         "name": "Per Harslund",
         "website": null
     },
     {
         "icons": [
-            "p",
-            "s"
+            "p"
         ],
         "name": "Per Harslund",
         "website": null
@@ -24828,7 +24993,7 @@
         "icons": [
             "p"
         ],
-        "name": "Petr Hansl\u00edk",
+        "name": "Petr Hanslík",
         "website": null
     },
     {
@@ -24914,7 +25079,7 @@
         "icons": [
             "p"
         ],
-        "name": "Philippe B\u00e9lair",
+        "name": "Philippe Bélair",
         "website": null
     },
     {
@@ -25048,7 +25213,7 @@
         "icons": [
             "p"
         ],
-        "name": "Pierre W\u00e9ry",
+        "name": "Pierre Wéry",
         "website": null
     },
     {
@@ -25196,7 +25361,7 @@
         "icons": [
             "p"
         ],
-        "name": "Pot\u00e9",
+        "name": "Poté",
         "website": null
     },
     {
@@ -25408,7 +25573,7 @@
         "icons": [
             "p"
         ],
-        "name": "Radovan Kremli\u010dka",
+        "name": "Radovan Kremlička",
         "website": null
     },
     {
@@ -25578,7 +25743,7 @@
         "icons": [
             "p"
         ],
-        "name": "Ralph Sch\u00e4fer",
+        "name": "Ralph Schäfer",
         "website": null
     },
     {
@@ -25621,7 +25786,7 @@
         "icons": [
             "p"
         ],
-        "name": "Ram\u00f3n Puig Ca\u00f1ellas",
+        "name": "Ramón Puig Cañellas",
         "website": null
     },
     {
@@ -25691,7 +25856,7 @@
         "icons": [
             "p"
         ],
-        "name": "Rapha\u00ebl Guignard",
+        "name": "Raphaël Guignard",
         "website": null
     },
     {
@@ -25738,15 +25903,15 @@
     },
     {
         "icons": [
-            "p"
+            "p",
+            "s"
         ],
         "name": "Ray",
         "website": null
     },
     {
         "icons": [
-            "p",
-            "s"
+            "p"
         ],
         "name": "Ray",
         "website": null
@@ -25764,6 +25929,13 @@
             "p"
         ],
         "name": "Ray Cefola",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Ray Clutts",
         "website": null
     },
     {
@@ -25900,13 +26072,6 @@
             "s"
         ],
         "name": "Redento",
-        "website": null
-    },
-    {
-        "icons": [
-            "p"
-        ],
-        "name": "Redento Levorato",
         "website": null
     },
     {
@@ -26566,6 +26731,13 @@
             "p"
         ],
         "name": "Robert Neumann",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Roberto",
         "website": null
     },
     {
@@ -27345,6 +27517,13 @@
         "icons": [
             "p"
         ],
+        "name": "Salam Jalil",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
         "name": "Saleem Yousaf",
         "website": null
     },
@@ -27436,7 +27615,7 @@
         "icons": [
             "p"
         ],
-        "name": "Samuel Zarza Fern\u00e1ndez",
+        "name": "Samuel Zarza Fernández",
         "website": null
     },
     {
@@ -27528,7 +27707,7 @@
         "icons": [
             "p"
         ],
-        "name": "Santiago L\u00f3pez",
+        "name": "Santiago López",
         "website": null
     },
     {
@@ -27704,14 +27883,14 @@
     },
     {
         "icons": [
-            "t"
+            "p"
         ],
         "name": "Scott Macquarrie",
         "website": null
     },
     {
         "icons": [
-            "p"
+            "t"
         ],
         "name": "Scott Macquarrie",
         "website": null
@@ -27861,7 +28040,7 @@
             "p",
             "s"
         ],
-        "name": "\u015eerban & Monica St\u0103nescu",
+        "name": "Şerban & Monica Stănescu",
         "website": null
     },
     {
@@ -28825,7 +29004,7 @@
         "icons": [
             "p"
         ],
-        "name": "St\u00e9phane Panigale",
+        "name": "Stéphane Panigale",
         "website": null
     },
     {
@@ -29217,6 +29396,13 @@
         "icons": [
             "p"
         ],
+        "name": "Stu Slicer",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
         "name": "Styven",
         "website": null
     },
@@ -29571,7 +29757,7 @@
         "icons": [
             "p"
         ],
-        "name": "Teddyb\u00e4r 62",
+        "name": "Teddybär 62",
         "website": null
     },
     {
@@ -29818,7 +30004,7 @@
         "icons": [
             "p"
         ],
-        "name": "Th\u00e9o Roy",
+        "name": "Théo Roy",
         "website": null
     },
     {
@@ -29973,7 +30159,7 @@
         "icons": [
             "p"
         ],
-        "name": "Thomas R\u00f8ntved",
+        "name": "Thomas Røntved",
         "website": null
     },
     {
@@ -30269,15 +30455,15 @@
     },
     {
         "icons": [
-            "p",
-            "s"
+            "p"
         ],
         "name": "Tobias",
         "website": null
     },
     {
         "icons": [
-            "p"
+            "p",
+            "s"
         ],
         "name": "Tobias",
         "website": null
@@ -30351,7 +30537,7 @@
         "icons": [
             "p"
         ],
-        "name": "Tolvaj M\u00e1rton|Firegear",
+        "name": "Tolvaj Márton|Firegear",
         "website": null
     },
     {
@@ -30359,6 +30545,13 @@
             "p"
         ],
         "name": "Tom",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Tomas",
         "website": null
     },
     {
@@ -30428,6 +30621,13 @@
         "icons": [
             "p"
         ],
+        "name": "Tommaso Chiodo",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
         "name": "Tommaso Mauro Tautonico",
         "website": null
     },
@@ -30486,6 +30686,13 @@
             "p"
         ],
         "name": "Tom Tom",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
+        "name": "Toni",
         "website": null
     },
     {
@@ -30831,7 +31038,7 @@
             "p",
             "s"
         ],
-        "name": "Ulrich H\u00f6fer",
+        "name": "Ulrich Höfer",
         "website": null
     },
     {
@@ -30881,7 +31088,7 @@
         "icons": [
             "p"
         ],
-        "name": "Uro\u0161 Plavec",
+        "name": "Uroš Plavec",
         "website": null
     },
     {
@@ -30980,6 +31187,13 @@
         "icons": [
             "p"
         ],
+        "name": "Valentin Diaz Fernandez",
+        "website": null
+    },
+    {
+        "icons": [
+            "p"
+        ],
         "name": "Valentino",
         "website": null
     },
@@ -31009,7 +31223,7 @@
         "icons": [
             "p"
         ],
-        "name": "V\u00e4ljaren",
+        "name": "Väljaren",
         "website": null
     },
     {
@@ -31229,7 +31443,7 @@
         "icons": [
             "p"
         ],
-        "name": "Vin\u00edcius Borges",
+        "name": "Vinícius Borges",
         "website": null
     },
     {
@@ -31315,7 +31529,7 @@
         "icons": [
             "p"
         ],
-        "name": "Vit\u011bzslav Vondr\u00e1\u010dek",
+        "name": "Vitězslav Vondráček",
         "website": null
     },
     {
@@ -31400,7 +31614,7 @@
         "icons": [
             "p"
         ],
-        "name": "Volker M\u00fcnch",
+        "name": "Volker Münch",
         "website": null
     },
     {
@@ -31971,7 +32185,7 @@
         "icons": [
             "p"
         ],
-        "name": "Winni Popp\u00e4lustich",
+        "name": "Winni Poppälustich",
         "website": null
     },
     {
@@ -32048,7 +32262,7 @@
         "icons": [
             "p"
         ],
-        "name": "Wojciech Jawie\u0144",
+        "name": "Wojciech Jawień",
         "website": null
     },
     {
@@ -32343,15 +32557,15 @@
     },
     {
         "icons": [
-            "p"
+            "p",
+            "s"
         ],
         "name": "Yoga For Scleroderma",
         "website": null
     },
     {
         "icons": [
-            "p",
-            "s"
+            "p"
         ],
         "name": "Yoga For Scleroderma",
         "website": null
@@ -32594,7 +32808,7 @@
         "icons": [
             "p"
         ],
-        "name": "Zoran \u017diki\u0107",
+        "name": "Zoran Žikić",
         "website": null
     },
     {
@@ -32622,98 +32836,98 @@
         "icons": [
             "p"
         ],
-        "name": "\u0410\u043d\u043e\u043d\u0438\u043c\u043d\u044b\u0439",
+        "name": "Анонимный",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "\u0410\u043d\u043e\u043d\u0456\u043c",
+        "name": "Анонім",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "\u0412\u043b\u0430\u0434\u0438\u0441\u043b\u0430\u0432",
+        "name": "Владислав",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "\u0420\u0443\u0441\u043b\u0430\u043d \u0411",
+        "name": "Руслан Б",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "\u0639\u0628\u062f\u0627\u0644\u0644\u0647 \u0627\u0644\u0634\u0647\u0631\u064a \u0627\u0644\u0633\u0639\u0648\u062f\u064a\u0629",
+        "name": "عبدالله الشهري السعودية",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "\u0645\u062c\u0647\u0648\u0644 \u0627\u0644\u0647\u0648\u064a\u0629",
+        "name": "مجهول الهوية",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "\u0b85\u0bb0\u0bb5\u0bbf\u0ba8\u0bcd\u0ba4\u0ba9\u0bcd",
+        "name": "அரவிந்தன்",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "\u533f\u540d\u8005",
+        "name": "匿名者",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "\u533f\u540d\u8005",
+        "name": "匿名者",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "\u533f\u540d\u8005",
+        "name": "匿名者",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "\u533f\u540d\u8005",
+        "name": "匿名者",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "\u533f\u540d\u8005",
+        "name": "匿名者",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "\u5433\u570b\u6cf0",
+        "name": "吳國泰",
         "website": null
     },
     {
         "icons": [
             "p"
         ],
-        "name": "\u59dc\u5b87\u8b19",
+        "name": "姜宇謙",
         "website": null
     },
     {
@@ -32827,7 +33041,7 @@
         "icons": [
             "k"
         ],
-        "name": "Adri\u00e1n Prado Castro",
+        "name": "Adrián Prado Castro",
         "website": null
     },
     {
@@ -33132,7 +33346,7 @@
         "icons": [
             "k"
         ],
-        "name": "Andreas L\u00f6wenborg",
+        "name": "Andreas Löwenborg",
         "website": null
     },
     {
@@ -33147,7 +33361,7 @@
         "icons": [
             "n"
         ],
-        "name": "Andreas Sch\u00fcle",
+        "name": "Andreas Schüle",
         "website": "http://www.patreon.com/andreasschuele"
     },
     {
@@ -33184,7 +33398,7 @@
         "icons": [
             "k"
         ],
-        "name": "Andr\u00e9 Cotte",
+        "name": "André Cotte",
         "website": null
     },
     {
@@ -33199,7 +33413,7 @@
             "k",
             "s"
         ],
-        "name": "Andr\u00e9 Peter",
+        "name": "André Peter",
         "website": null
     },
     {
@@ -33364,7 +33578,7 @@
         "icons": [
             "k"
         ],
-        "name": "Antonio S\u00e1nchez Le\u00f3n",
+        "name": "Antonio Sánchez León",
         "website": null
     },
     {
@@ -33436,7 +33650,7 @@
             "k",
             "s"
         ],
-        "name": "\u00c1ron Nov\u00e1k",
+        "name": "Áron Novák",
         "website": null
     },
     {
@@ -33559,7 +33773,7 @@
         "icons": [
             "k"
         ],
-        "name": "Balder Lingeg\u00e5rd",
+        "name": "Balder Lingegård",
         "website": null
     },
     {
@@ -33580,7 +33794,7 @@
         "icons": [
             "n"
         ],
-        "name": "Bart\u0142omiej \u0141ukaszewski",
+        "name": "Bartłomiej Łukaszewski",
         "website": "http://www.patreon.com/user?u=13350324"
     },
     {
@@ -34080,7 +34294,7 @@
         "icons": [
             "k"
         ],
-        "name": "Carlos Garc\u00eda G\u00f3mez",
+        "name": "Carlos García Gómez",
         "website": null
     },
     {
@@ -34125,7 +34339,7 @@
         "icons": [
             "k"
         ],
-        "name": "C\u00e9sar Enrique Themudo Goday",
+        "name": "César Enrique Themudo Goday",
         "website": null
     },
     {
@@ -34385,7 +34599,7 @@
         "icons": [
             "k"
         ],
-        "name": "Christoffer Sj\u00f6wall",
+        "name": "Christoffer Sjöwall",
         "website": null
     },
     {
@@ -34485,7 +34699,7 @@
             "k",
             "s"
         ],
-        "name": "Cl\u00e9ment Benoit",
+        "name": "Clément Benoit",
         "website": null
     },
     {
@@ -34493,7 +34707,7 @@
             "k",
             "s"
         ],
-        "name": "Clement \u00d8stergaard",
+        "name": "Clement Østergaard",
         "website": null
     },
     {
@@ -35662,7 +35876,7 @@
         "icons": [
             "k"
         ],
-        "name": "Esteban Llop Ram\u00edrez",
+        "name": "Esteban Llop Ramírez",
         "website": null
     },
     {
@@ -35829,7 +36043,7 @@
         "icons": [
             "k"
         ],
-        "name": "Fran\u00e7ois-Xavier Leroy",
+        "name": "François-Xavier Leroy",
         "website": null
     },
     {
@@ -35999,7 +36213,7 @@
             "k",
             "s"
         ],
-        "name": "Geoffroy Sylv\u00e8re",
+        "name": "Geoffroy Sylvère",
         "website": null
     },
     {
@@ -36092,7 +36306,7 @@
         "icons": [
             "n"
         ],
-        "name": "G\u00f6khan G\u00f6kt\u00fcrkler",
+        "name": "Gökhan Göktürkler",
         "website": "http://www.patreon.com/user?u=15668402"
     },
     {
@@ -36122,7 +36336,7 @@
             "k",
             "s"
         ],
-        "name": "Gr\u00e1 Linnaea",
+        "name": "Grá Linnaea",
         "website": null
     },
     {
@@ -36359,7 +36573,7 @@
             "k",
             "s"
         ],
-        "name": "Hugo Fr\u00f8ystad",
+        "name": "Hugo Frøystad",
         "website": null
     },
     {
@@ -36409,7 +36623,7 @@
         "icons": [
             "k"
         ],
-        "name": "In\u00eas Matos",
+        "name": "Inês Matos",
         "website": null
     },
     {
@@ -36623,7 +36837,7 @@
         "icons": [
             "n"
         ],
-        "name": "Janko Miheli\u0107",
+        "name": "Janko Mihelić",
         "website": "http://www.patreon.com/user?u=2587249"
     },
     {
@@ -36740,7 +36954,7 @@
             "k",
             "s"
         ],
-        "name": "Javier Oscar Cordero P\u00e9rez",
+        "name": "Javier Oscar Cordero Pérez",
         "website": "http://www.cinecaretasinc.org"
     },
     {
@@ -36944,7 +37158,7 @@
             "k",
             "s"
         ],
-        "name": "J\u00e9r\u00e9mie Quenet",
+        "name": "Jérémie Quenet",
         "website": ""
     },
     {
@@ -36987,7 +37201,7 @@
         "icons": [
             "k"
         ],
-        "name": "J\u00e9r\u00f4me Foray (@Meroje01)",
+        "name": "Jérôme Foray (@Meroje01)",
         "website": null
     },
     {
@@ -37039,14 +37253,14 @@
             "k",
             "s"
         ],
-        "name": "Ji\u0159\u00ed Dvo\u0159\u00e1k",
+        "name": "Jiří Dvořák",
         "website": null
     },
     {
         "icons": [
             "k"
         ],
-        "name": "Ji\u0159\u00ed T\u00fd\u0159",
+        "name": "Jiří Týř",
         "website": null
     },
     {
@@ -37054,7 +37268,7 @@
             "k",
             "s"
         ],
-        "name": "Ji\u0159\u00ed Vysko\u010dil",
+        "name": "Jiří Vyskočil",
         "website": null
     },
     {
@@ -37091,7 +37305,7 @@
             "k",
             "s"
         ],
-        "name": "Jo\u00e3o Filipe Justiniano",
+        "name": "João Filipe Justiniano",
         "website": null
     },
     {
@@ -37549,7 +37763,7 @@
             "k",
             "s"
         ],
-        "name": "Julien Chans\u00e9aume",
+        "name": "Julien Chanséaume",
         "website": null
     },
     {
@@ -37586,14 +37800,14 @@
         "icons": [
             "k"
         ],
-        "name": "J\u00fcrgen Braun",
+        "name": "Jürgen Braun",
         "website": null
     },
     {
         "icons": [
             "k"
         ],
-        "name": "J\u00fcrgen C. F\u00f6rster",
+        "name": "Jürgen C. Förster",
         "website": null
     },
     {
@@ -37623,7 +37837,7 @@
             "k",
             "s"
         ],
-        "name": "K\u0105mykolas?",
+        "name": "Kąmykolas?",
         "website": "http://kamiccolo.vhost.lt"
     },
     {
@@ -38022,7 +38236,7 @@
             "k",
             "s"
         ],
-        "name": "Lars Tr\u00f8en",
+        "name": "Lars Trøen",
         "website": "http://core-four.info/"
     },
     {
@@ -38161,7 +38375,7 @@
         "icons": [
             "k"
         ],
-        "name": "Lo\u00efc Marchand",
+        "name": "Loïc Marchand",
         "website": null
     },
     {
@@ -38386,7 +38600,7 @@
         "icons": [
             "k"
         ],
-        "name": "Mario Fern\u00e1ndez (Mafergo)",
+        "name": "Mario Fernández (Mafergo)",
         "website": null
     },
     {
@@ -38459,7 +38673,7 @@
             "k",
             "s"
         ],
-        "name": "Markus L\u00e5ngstr\u00f6m",
+        "name": "Markus Långström",
         "website": null
     },
     {
@@ -38560,7 +38774,7 @@
         "icons": [
             "k"
         ],
-        "name": "Matej \u013dach",
+        "name": "Matej Ľach",
         "website": null
     },
     {
@@ -38753,7 +38967,7 @@
         "icons": [
             "k"
         ],
-        "name": "Maxime Th\u00e9or\u00eat",
+        "name": "Maxime Théorêt",
         "website": null
     },
     {
@@ -39137,7 +39351,7 @@
         "icons": [
             "n"
         ],
-        "name": "Muon It Udo P\u00fctz",
+        "name": "Muon It Udo Pütz",
         "website": "http://www.patreon.com/user?u=55869567"
     },
     {
@@ -39641,7 +39855,7 @@
             "k",
             "s"
         ],
-        "name": "Pedro \u00c2ngelo",
+        "name": "Pedro Ângelo",
         "website": null
     },
     {
@@ -39677,7 +39891,7 @@
         "icons": [
             "k"
         ],
-        "name": "Per Sj\u00f6d\u00e9n",
+        "name": "Per Sjödén",
         "website": null
     },
     {
@@ -39768,7 +39982,7 @@
         "icons": [
             "k"
         ],
-        "name": "Peter St\u00e5hlberg",
+        "name": "Peter Ståhlberg",
         "website": null
     },
     {
@@ -40879,7 +41093,7 @@
             "k",
             "s"
         ],
-        "name": "Stefan Sch\u00f6rghofer",
+        "name": "Stefan Schörghofer",
         "website": null
     },
     {
@@ -40979,7 +41193,7 @@
         "icons": [
             "n"
         ],
-        "name": "Steve Jobs\u2019 Ghost",
+        "name": "Steve Jobs’ Ghost",
         "website": "http://www.patreon.com/user?u=847174"
     },
     {
@@ -41079,7 +41293,7 @@
         "icons": [
             "k"
         ],
-        "name": "Stian R\u00f8dven Eide",
+        "name": "Stian Rødven Eide",
         "website": null
     },
     {
@@ -41494,7 +41708,7 @@
         "icons": [
             "k"
         ],
-        "name": "Tommy Lang\u00e5s Arnkv\u00e6rn",
+        "name": "Tommy Langås Arnkværn",
         "website": ""
     },
     {
@@ -41532,7 +41746,7 @@
             "k",
             "s"
         ],
-        "name": "Toni M\u00fcller",
+        "name": "Toni Müller",
         "website": null
     },
     {
@@ -41560,7 +41774,7 @@
         "icons": [
             "k"
         ],
-        "name": "Tore B. J\u00f8rgensen",
+        "name": "Tore B. Jørgensen",
         "website": null
     },
     {
@@ -41662,7 +41876,7 @@
         "icons": [
             "k"
         ],
-        "name": "V\u00e1clav Hor\u010d\u00e1k",
+        "name": "Václav Horčák",
         "website": null
     },
     {
@@ -41670,7 +41884,7 @@
             "k",
             "s"
         ],
-        "name": "V\u00e1clav Shinobi M\u00ed\u0161ek",
+        "name": "Václav Shinobi Míšek",
         "website": null
     },
     {
@@ -42086,7 +42300,7 @@
         "icons": [
             "n"
         ],
-        "name": "\u0410\u043d\u0434\u0440\u0435\u0439 \u0413\u0435\u043a\u043e\u0432",
+        "name": "Андрей Геков",
         "website": "http://www.patreon.com/user?u=17878794"
     }
 ]
