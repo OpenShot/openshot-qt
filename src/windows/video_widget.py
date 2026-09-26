@@ -2946,24 +2946,10 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             self.delayed_resize_timer.start()
             return
 
-        # Ensure width & height are divisible by 2 (round decimals).
-        # Trying to find the closest even number to the requested aspect ratio
-        # so that both width and height are divisible by 2. This is to prevent some
-        # strange phantom scaling lines on the edges of the preview window.
-
-        # Scale project size (with aspect ratio) to the delayed widget size
-        project_size = QSize(get_app().project.get("width"), get_app().project.get("height"))
-        project_size.scale(self.delayed_size, Qt.KeepAspectRatio)
-
-        if project_size.height() > 0:
-            # Ensure width and height are divisible by 2
-            ratio = float(project_size.width()) / float(project_size.height())
-            even_width = round(project_size.width() / 2.0) * 2
-            even_height = round(round(even_width / ratio) / 2.0) * 2
-            project_size = QSize(int(even_width), int(even_height))
-
-        # Emit signal that video widget changed size
-        self.win.MaxSizeChanged.emit(project_size)
+        # Send logical widget bounds. The receiver applies DPI scaling, then
+        # libopenshot fits and aligns the actual preview dimensions. Rounding
+        # here can be undone by either of those later operations.
+        self.win.MaxSizeChanged.emit(QSize(self.delayed_size))
 
     # Capture wheel event to alter zoom/scale of widget
     def wheelEvent(self, event):
