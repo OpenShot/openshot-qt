@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-09-26 14:26-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -67,21 +67,21 @@ msgstr ""
 # Translated with gpt-4.1-mini
 #: ../preferences.rst:46 ../preferences.rst:109 ../preferences.rst:132
 #: ../preferences.rst:157 ../preferences.rst:204 ../preferences.rst:234
-#: ../preferences.rst:290 ../preferences.rst:320
+#: ../preferences.rst:290 ../preferences.rst:329
 msgid "Setting"
 msgstr "Thiết lập"
 
 # Translated with gpt-4.1-mini
 #: ../preferences.rst:47 ../preferences.rst:50 ../preferences.rst:109
 #: ../preferences.rst:132 ../preferences.rst:134 ../preferences.rst:157
-#: ../preferences.rst:321
+#: ../preferences.rst:330
 msgid "Default"
 msgstr "Mặc định"
 
 # Translated with gpt-4.1-mini
 #: ../preferences.rst:48 ../preferences.rst:109 ../preferences.rst:132
 #: ../preferences.rst:204 ../preferences.rst:235 ../preferences.rst:290
-#: ../preferences.rst:301 ../preferences.rst:322
+#: ../preferences.rst:310 ../preferences.rst:331
 msgid "Description"
 msgstr "Mô tả"
 
@@ -365,8 +365,8 @@ msgid "Auto-Transition (overlap clips)"
 msgstr "Chuyển tiếp Tự động (chồng clip)"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:115 ../preferences.rst:159 ../preferences.rst:333
-#: ../preferences.rst:339
+#: ../preferences.rst:115 ../preferences.rst:159 ../preferences.rst:342
+#: ../preferences.rst:348
 msgid "Enabled"
 msgstr "Đã bật"
 
@@ -1048,18 +1048,48 @@ msgstr "Xuất Video"
 msgid "Default folder to choose when exporting a video"
 msgstr "Thư mục mặc định để chọn khi xuất video"
 
+#: ../preferences.rst:295
+msgid "Unsaved Project Assets Folder"
+msgstr "Thư mục Tài sản Dự án Chưa lưu"
+
+#: ../preferences.rst:295
+msgid "Folder for assets created before a project is saved (restart required)"
+msgstr ""
+"Thư mục cho các tài sản được tạo trước khi dự án được lưu (cần khởi động "
+"lại)"
+
+#: ../preferences.rst:298
+msgid ""
+"On Linux, the unsaved assets folder defaults to ``~/Videos/.openshot-tmp`` "
+"when ``~/Videos`` exists and the hidden child folder is writable. Otherwise,"
+" OpenShot uses ``~/.openshot_qt``, which is also the default on other "
+"platforms. You can choose a different folder in Preferences. Saving a "
+"project relocates its assets into the project's ``<project>_assets`` folder;"
+" subsequent titles and animations use that folder. These assets can include "
+"media needed by an unsaved project or crash recovery, so do not delete the "
+"folder as ordinary disposable cache data."
+msgstr ""
+"Trên Linux, thư mục tài sản chưa lưu mặc định là ``~/Videos/.openshot-tmp`` "
+"khi ``~/Videos`` tồn tại và thư mục con ẩn có thể ghi được. Nếu không, "
+"OpenShot sử dụng ``~/.openshot_qt``, cũng là mặc định trên các nền tảng "
+"khác. Bạn có thể chọn thư mục khác trong phần Tùy chọn. Việc lưu dự án sẽ di"
+" chuyển các tài sản của nó vào thư mục ``<project>_assets`` của dự án; các "
+"tiêu đề và hoạt ảnh tiếp theo sẽ sử dụng thư mục đó. Các tài sản này có thể "
+"bao gồm phương tiện cần thiết cho dự án chưa lưu hoặc phục hồi sau sự cố, vì"
+" vậy không xóa thư mục này như dữ liệu bộ nhớ đệm dùng một lần thông thường."
+
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:301
+#: ../preferences.rst:310
 msgid "Values"
 msgstr "Giá trị"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:303
+#: ../preferences.rst:312
 msgid "**Recent Folder**"
 msgstr "**Thư Mục Gần Đây**"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:303
+#: ../preferences.rst:312
 msgid ""
 "The last folder used for this same operation. Project folders, Import "
 "folders, and Export folders are tracked separately."
@@ -1068,12 +1098,12 @@ msgstr ""
 " nhập và thư mục xuất được theo dõi riêng biệt."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:304
+#: ../preferences.rst:313
 msgid "**Project Folder**"
 msgstr "**Thư Mục Dự Án**"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:304
+#: ../preferences.rst:313
 msgid ""
 "The current project folder (or the user's home folder, if the project is not"
 " yet saved)"
@@ -1082,93 +1112,98 @@ msgstr ""
 "được lưu)"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:310
+#: ../preferences.rst:319
 msgid "Advanced"
 msgstr "Nâng Cao"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:314
+#: ../preferences.rst:323
 msgid "The Advanced tab includes ComfyUI integration and debugging options."
 msgstr "Tab Nâng Cao bao gồm tích hợp ComfyUI và các tùy chọn gỡ lỗi."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:323
+#: ../preferences.rst:332
 msgid "Comfy UI URL"
 msgstr "URL Comfy UI"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:324
+#: ../preferences.rst:333
 msgid "``http://127.0.0.1:8188``"
 msgstr "``http://127.0.0.1:8188``"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:325
+#: ../preferences.rst:334
 msgid "URL of your local or remote ComfyUI server"
 msgstr "URL của máy chủ ComfyUI cục bộ hoặc từ xa của bạn"
 
-# Translated with gpt-4.1-mini
-#: ../preferences.rst:326
-msgid "Debug Mode (Port)"
-msgstr "Chế Độ Gỡ Lỗi (Cổng)"
+#: ../preferences.rst:335
+msgid "User Interface Debug Logging"
+msgstr "Ghi nhật ký Gỡ lỗi Giao diện Người dùng"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:327
-msgid "5556"
-msgstr "5556"
-
-# Translated with gpt-4.1-mini
-#: ../preferences.rst:328
-msgid "Port used by debug logging features"
-msgstr "Cổng được sử dụng bởi các tính năng ghi nhật ký gỡ lỗi"
-
-# Translated with gpt-4.1-mini
-#: ../preferences.rst:329
-msgid "Debug Mode (Verbose)"
-msgstr "Chế Độ Gỡ Lỗi (Chi Tiết)"
-
-# Translated with gpt-4.1-mini
-#: ../preferences.rst:330 ../preferences.rst:336
+#: ../preferences.rst:336 ../preferences.rst:339 ../preferences.rst:345
 #, fuzzy
 msgid "Disabled"
 msgstr "Đã bật"
 
-# Translated with gpt-4.1-mini
-#: ../preferences.rst:331
-msgid "Enable verbose debugging output"
-msgstr "Bật xuất gỡ lỗi chi tiết"
+#: ../preferences.rst:337
+msgid ""
+"Record interface and project details in ``openshot-qt.log``. The matching "
+"``--debug-ui`` (or ``--debug``) argument enables these details for one "
+"launch, including terminal output. See :ref:`logging_ref`."
+msgstr ""
+"Ghi lại chi tiết giao diện và dự án trong ``openshot-qt.log``. Tham số tương"
+" ứng ``--debug-ui`` (hoặc ``--debug``) cho phép ghi các chi tiết này trong "
+"một lần khởi chạy, bao gồm cả đầu ra trên terminal. Xem :ref:`logging_ref`."
+
+#: ../preferences.rst:338
+msgid "Video & Audio Engine Debug Logging"
+msgstr "Ghi nhật ký Gỡ lỗi Bộ máy Video & Âm thanh"
+
+#: ../preferences.rst:340
+msgid ""
+"Record video and audio processing details in ``libopenshot.log``. The "
+"matching ``--debug-engine`` argument enables these details for one launch, "
+"including terminal output. Logs can grow quickly; turn off when finished. "
+"See :ref:`logging_ref`."
+msgstr ""
+"Ghi lại chi tiết xử lý video và âm thanh trong ``libopenshot.log``. Tham số "
+"tương ứng ``--debug-engine`` cho phép ghi các chi tiết này trong một lần "
+"khởi chạy, bao gồm cả đầu ra trên terminal. Nhật ký có thể tăng nhanh; tắt "
+"khi hoàn thành. Xem :ref:`logging_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:332
+#: ../preferences.rst:341
 msgid "Send Anonymous Metrics and Errors"
 msgstr "Gửi Số Liệu và Lỗi Ẩn Danh"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:334
+#: ../preferences.rst:343
 msgid "Send anonymous telemetry and error reports"
 msgstr "Gửi báo cáo lỗi và dữ liệu thu thập ẩn danh"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:335
+#: ../preferences.rst:344
 msgid "Show Playback Performance (FPS)"
 msgstr "Hiển Thị Hiệu Suất Phát (FPS)"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:337
+#: ../preferences.rst:346
 msgid "Display live FPS in preview playback"
 msgstr "Hiển thị FPS trực tiếp khi phát xem trước"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:338
+#: ../preferences.rst:347
 msgid "Show Export Dialog when Finished"
 msgstr "Hiển thị hộp thoại Xuất khi hoàn thành"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:340
+#: ../preferences.rst:349
 msgid "Display the Export Video window when export completes"
 msgstr "Hiển thị cửa sổ Xuất Video khi xuất hoàn tất"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:342
+#: ../preferences.rst:351
 msgid ""
 "The ComfyUI **Check** button updates an inline status icon: green checkmark "
 "for success, red icon for failure. If OpenShot cannot reach this server, AI "
@@ -1182,12 +1217,12 @@ msgstr ""
 "làm việc."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:349
+#: ../preferences.rst:358
 msgid "Reset (Default Values)"
 msgstr "Đặt Lại (Giá Trị Mặc Định)"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:351
+#: ../preferences.rst:360
 msgid ""
 "To reset **all** preferences to their default values, please delete the "
 "``openshot.settings`` file and re-launch OpenShot. The settings file can be "
@@ -1204,7 +1239,7 @@ msgstr ""
 "mặc định."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:356
+#: ../preferences.rst:365
 msgid ""
 "Optionally, you can delete the entire ``.openshot_qt/`` folder and re-launch"
 " OpenShot. However, please make a **backup** of any customized folders: "
@@ -1219,7 +1254,7 @@ msgstr ""
 " của bạn (các tệp ``*.osp``)."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:361
+#: ../preferences.rst:370
 msgid ""
 "Deleting the ``.openshot_qt/`` folder is the quickest method to restore "
 "OpenShot preferences and settings to their Default values (i.e. also called "
@@ -1235,6 +1270,26 @@ msgstr ""
 "bước <https://github.com/OpenShot/openshot-qt/wiki/Clean-Installation-of-"
 "OpenShot>`_ của chúng tôi để biết thêm thông tin về **cài đặt sạch** của "
 "OpenShot."
+
+# Translated with gpt-4.1-mini
+#~ msgid "Debug Mode (Port)"
+#~ msgstr "Chế Độ Gỡ Lỗi (Cổng)"
+
+# Translated with gpt-4.1-mini
+#~ msgid "5556"
+#~ msgstr "5556"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Port used by debug logging features"
+#~ msgstr "Cổng được sử dụng bởi các tính năng ghi nhật ký gỡ lỗi"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Debug Mode (Verbose)"
+#~ msgstr "Chế Độ Gỡ Lỗi (Chi Tiết)"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Enable verbose debugging output"
+#~ msgstr "Bật xuất gỡ lỗi chi tiết"
 
 # Translated with gpt-4.1-mini
 #~ msgid ""

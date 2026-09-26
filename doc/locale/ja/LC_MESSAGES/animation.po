@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-09-26 14:26-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -123,7 +123,6 @@ msgstr "4"
 msgid "Key frame Markers"
 msgstr "キーフレームマーカー"
 
-# Translated with gpt-4.1-mini
 #: ../animation.rst:44
 msgid ""
 "Colorful icons line the bottom of the clip for every keyframe "
@@ -132,10 +131,10 @@ msgid ""
 "icons are shown brighter. Filtering the property list also filters these "
 "icons. Click any icon to jump the play-head, load its properties, and select"
 " its clip, effect, or transition. Drag an icon left or right to move the "
-"keyframe and fine‑tune your animation timing."
+"keyframe and fine‑tune your animation timing. The play-head moves to the "
+"keyframe's new position when you finish dragging."
 msgstr ""
-"カラフルなアイコンが各キーフレームのためにクリップの下部に並びます（`circle=ベジェ`, `diamond=線形`, `square=一定` "
-"）。各アイコンはそのクリップ、エフェクト、またはトランジションの色に対応しています。選択されたアイテムのキーフレームアイコンは明るく表示されます。プロパティリストのフィルタリングはこれらのアイコンもフィルタリングします。任意のアイコンをクリックするとプレイヘッドがジャンプし、そのプロパティが読み込まれ、クリップ、エフェクト、またはトランジションが選択されます。アイコンを左右にドラッグしてキーフレームを移動し、アニメーションのタイミングを微調整します。"
+"カラフルなアイコンが各キーフレームのクリップの下部に並んでいます（`circle=Bézier`、`diamond=linear`、`square=constant`）。各アイコンはそのクリップ、エフェクト、またはトランジションの色に対応しています。選択された項目のキーフレームアイコンは明るく表示されます。プロパティリストのフィルタリングはこれらのアイコンにも適用されます。任意のアイコンをクリックすると、プレイヘッドがその位置にジャンプし、プロパティが読み込まれ、対応するクリップ、エフェクト、またはトランジションが選択されます。アイコンを左右にドラッグするとキーフレームを移動でき、アニメーションのタイミングを微調整できます。ドラッグを終了するとプレイヘッドはキーフレームの新しい位置に移動します。"
 
 # Translated with gpt-4.1-mini
 #: ../animation.rst:48
@@ -413,6 +412,19 @@ msgid ""
 "Adjust the frame rate of the animation. Typically, hand-drawn animations use"
 " 12 frames per second."
 msgstr "アニメーションのフレームレートを調整します。通常、手描きアニメーションは1秒あたり12フレームを使用します。"
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "Colorful icons line the bottom of the clip for every keyframe "
+#~ "(`circle=Bézier`, `diamond=linear`, `square=constant`). Each icon matches "
+#~ "the color of its clip, effect, or transition. The selected item's keyframe "
+#~ "icons are shown brighter. Filtering the property list also filters these "
+#~ "icons. Click any icon to jump the play-head, load its properties, and select"
+#~ " its clip, effect, or transition. Drag an icon left or right to move the "
+#~ "keyframe and fine‑tune your animation timing."
+#~ msgstr ""
+#~ "カラフルなアイコンが各キーフレームのためにクリップの下部に並びます（`circle=ベジェ`, `diamond=線形`, `square=一定` "
+#~ "）。各アイコンはそのクリップ、エフェクト、またはトランジションの色に対応しています。選択されたアイテムのキーフレームアイコンは明るく表示されます。プロパティリストのフィルタリングはこれらのアイコンもフィルタリングします。任意のアイコンをクリックするとプレイヘッドがジャンプし、そのプロパティが読み込まれ、クリップ、エフェクト、またはトランジションが選択されます。アイコンを左右にドラッグしてキーフレームを移動し、アニメーションのタイミングを微調整します。"
 
 # Translated with gpt-4.1-mini
 #~ msgid ""

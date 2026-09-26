@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-16 18:08-0500\n"
+"POT-Creation-Date: 2026-09-26 14:26-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,16 +28,18 @@ msgid ""
 "The latest official **stable** version of OpenShot Video Editor for Linux, "
 "Mac, Chrome OS, and Windows can be downloaded from the official download "
 "page at https://www.openshot.org/download/. You can find our latest "
-"**unstable** versions (i.e. daily builds) at https://www.openshot.org/"
-"download#daily (these versions are updated very frequently, and often "
-"contain many improvements not yet released in our stable build)."
+"**unstable** versions (i.e. daily builds) at "
+"https://www.openshot.org/download#daily (these versions are updated very "
+"frequently, and often contain many improvements not yet released in our "
+"stable build)."
 msgstr ""
 "Linux, Mac, Chrome OS, এবং Windows এর জন্য OpenShot Video Editor এর সর্বশেষ "
-"অফিসিয়াল **স্থিতিশীল** সংস্করণটি অফিসিয়াল ডাউনলোড পেজ https://www.openshot.org/"
-"download/ থেকে ডাউনলোড করা যাবে। আমাদের সর্বশেষ **অস্থিতিশীল** সংস্করণগুলি "
-"(অর্থাৎ দৈনিক বিল্ড) https://www.openshot.org/download#daily এ পাওয়া যাবে (এই "
-"সংস্করণগুলি খুব ঘন ঘন আপডেট হয়, এবং প্রায়ই অনেক উন্নতি থাকে যা এখনও আমাদের "
-"স্থিতিশীল বিল্ডে মুক্তি পায়নি)।"
+"অফিসিয়াল **স্থিতিশীল** সংস্করণটি অফিসিয়াল ডাউনলোড পেজ "
+"https://www.openshot.org/download/ থেকে ডাউনলোড করা যাবে। আমাদের সর্বশেষ "
+"**অস্থিতিশীল** সংস্করণগুলি (অর্থাৎ দৈনিক বিল্ড) "
+"https://www.openshot.org/download#daily এ পাওয়া যাবে (এই সংস্করণগুলি খুব ঘন"
+" ঘন আপডেট হয়, এবং প্রায়ই অনেক উন্নতি থাকে যা এখনও আমাদের স্থিতিশীল বিল্ডে "
+"মুক্তি পায়নি)।"
 
 # Translated with gpt-4.1-mini
 #: ../installation.rst:32
@@ -47,15 +49,17 @@ msgstr "পরিষ্কার ইনস্টল"
 # Translated with gpt-4.1-mini
 #: ../installation.rst:34
 msgid ""
-"If you are upgrading from a previous version of OpenShot or are experiencing "
-"a crash or error message after launching OpenShot, please see :ref:"
-"`preferences_reset_ref` for instructions on clearing the previous ``openshot."
-"settings`` file (for a clean install with **default preferences**)."
+"If you are upgrading from a previous version of OpenShot or are experiencing"
+" a crash or error message after launching OpenShot, please see "
+":ref:`preferences_reset_ref` for instructions on clearing the previous "
+"``openshot.settings`` file (for a clean install with **default "
+"preferences**)."
 msgstr ""
-"যদি আপনি OpenShot এর পূর্ববর্তী সংস্করণ থেকে আপগ্রেড করছেন অথবা OpenShot চালু করার "
-"পর ক্র্যাশ বা ত্রুটি বার্তা পাচ্ছেন, তাহলে পূর্ববর্তী ``openshot.settings`` ফাইল মুছে "
-"ফেলার নির্দেশনার জন্য :ref:`preferences_reset_ref` দেখুন (পরিষ্কার ইনস্টল করার "
-"জন্য **ডিফল্ট পছন্দসই** সহ)।"
+"যদি আপনি OpenShot এর পূর্ববর্তী সংস্করণ থেকে আপগ্রেড করছেন অথবা OpenShot "
+"চালু করার পর ক্র্যাশ বা ত্রুটি বার্তা পাচ্ছেন, তাহলে পূর্ববর্তী "
+"``openshot.settings`` ফাইল মুছে ফেলার নির্দেশনার জন্য "
+":ref:`preferences_reset_ref` দেখুন (পরিষ্কার ইনস্টল করার জন্য **ডিফল্ট "
+"পছন্দসই** সহ)।"
 
 # Translated with gpt-4.1-mini
 #: ../installation.rst:39
@@ -65,15 +69,17 @@ msgstr "Windows (ইনস্টলার)"
 # Translated with gpt-4.1-mini
 #: ../installation.rst:41
 msgid ""
-"Download the Windows installer from the `official download page <https://www."
-"openshot.org/download/>`_ (the download page contains both 64-bit and 32-bit "
-"versions), double click it, and follow the directions on screen. Once "
-"completed, OpenShot will be installed and available in your Start menu."
+"Download the Windows installer from the `official download page "
+"<https://www.openshot.org/download/>`_ (the download page contains both "
+"64-bit and 32-bit versions), double click it, and follow the directions on "
+"screen. Once completed, OpenShot will be installed and available in your "
+"Start menu."
 msgstr ""
-"Windows ইনস্টলারটি `অফিসিয়াল ডাউনলোড পেজ <https://www.openshot.org/download/"
-">`_ থেকে ডাউনলোড করুন (ডাউনলোড পেজে 64-বিট এবং 32-বিট উভয় সংস্করণ রয়েছে), ডাবল "
-"ক্লিক করুন এবং স্ক্রিনে নির্দেশাবলী অনুসরণ করুন। সম্পন্ন হলে, OpenShot ইনস্টল হয়ে "
-"আপনার Start মেনুতে পাওয়া যাবে।"
+"Windows ইনস্টলারটি `অফিসিয়াল ডাউনলোড পেজ "
+"<https://www.openshot.org/download/>`_ থেকে ডাউনলোড করুন (ডাউনলোড পেজে "
+"64-বিট এবং 32-বিট উভয় সংস্করণ রয়েছে), ডাবল ক্লিক করুন এবং স্ক্রিনে "
+"নির্দেশাবলী অনুসরণ করুন। সম্পন্ন হলে, OpenShot ইনস্টল হয়ে আপনার Start "
+"মেনুতে পাওয়া যাবে।"
 
 # Translated with gpt-4.1-mini
 #: ../installation.rst:50
@@ -85,145 +91,159 @@ msgstr "Windows (পোর্টেবল)"
 msgid ""
 "If you need to install OpenShot on Windows without Administrator "
 "permissions, we also support a portable installation process. Download the "
-"Windows installer from the `official download page <https://www.openshot.org/"
-"download/>`_, open the command prompt, and type the following commands:"
+"Windows installer from the `official download page "
+"<https://www.openshot.org/download/>`_, open the command prompt, and type "
+"the following commands:"
 msgstr ""
-"যদি আপনাকে Windows-এ Administrator অনুমতি ছাড়া OpenShot ইনস্টল করতে হয়, আমরা "
-"একটি পোর্টেবল ইনস্টলেশন প্রক্রিয়াও সমর্থন করি। Windows ইনস্টলারটি `অফিসিয়াল "
-"ডাউনলোড পেজ <https://www.openshot.org/download/>`_ থেকে ডাউনলোড করুন, কমান্ড "
-"প্রম্পট খুলুন, এবং নিম্নলিখিত কমান্ডগুলি টাইপ করুন:"
+"যদি আপনাকে Windows-এ Administrator অনুমতি ছাড়া OpenShot ইনস্টল করতে হয়, "
+"আমরা একটি পোর্টেবল ইনস্টলেশন প্রক্রিয়াও সমর্থন করি। Windows ইনস্টলারটি "
+"`অফিসিয়াল ডাউনলোড পেজ <https://www.openshot.org/download/>`_ থেকে ডাউনলোড "
+"করুন, কমান্ড প্রম্পট খুলুন, এবং নিম্নলিখিত কমান্ডগুলি টাইপ করুন:"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:67 ../installation.rst:181
+#: ../installation.rst:67 ../installation.rst:185
 msgid "Mac"
 msgstr "Mac"
 
 # Translated with gpt-4.1-mini
 #: ../installation.rst:69
 msgid ""
-"Download the DMG file from the `official download page <https://www.openshot."
-"org/download/>`_, double click it, and then drag the OpenShot application "
-"icon into your **Applications** shortcut. This is very similar to how most "
-"Mac applications are installed. Now launch OpenShot from `Launchpad` or "
-"`Applications` in Finder."
+"Download the DMG file from the `official download page "
+"<https://www.openshot.org/download/>`_, double click it, and then drag the "
+"OpenShot application icon into your **Applications** shortcut. This is very "
+"similar to how most Mac applications are installed. Now launch OpenShot from"
+" `Launchpad` or `Applications` in Finder."
 msgstr ""
-"`অফিসিয়াল ডাউনলোড পেজ <https://www.openshot.org/download/>`_ থেকে DMG ফাইলটি "
-"ডাউনলোড করুন, ডাবল ক্লিক করুন, এবং তারপর OpenShot অ্যাপ্লিকেশন আইকনটি আপনার "
-"**Applications** শর্টকাটে টেনে আনুন। এটি বেশিরভাগ Mac অ্যাপ্লিকেশন ইনস্টল করার "
-"মতোই। এখন OpenShot চালু করুন `Launchpad` অথবা Finder এর `Applications` থেকে।"
+"`অফিসিয়াল ডাউনলোড পেজ <https://www.openshot.org/download/>`_ থেকে DMG "
+"ফাইলটি ডাউনলোড করুন, ডাবল ক্লিক করুন, এবং তারপর OpenShot অ্যাপ্লিকেশন আইকনটি"
+" আপনার **Applications** শর্টকাটে টেনে আনুন। এটি বেশিরভাগ Mac অ্যাপ্লিকেশন "
+"ইনস্টল করার মতোই। এখন OpenShot চালু করুন `Launchpad` অথবা Finder এর "
+"`Applications` থেকে।"
+
+#: ../installation.rst:74
+msgid ""
+"The current Mac download is built for Intel Macs. On an Apple Silicon Mac, "
+"you can run this Intel version using Rosetta. A native Apple Silicon version"
+" is not currently available."
+msgstr ""
+"বর্তমান Mac ডাউনলোডটি Intel Macs এর জন্য তৈরি করা হয়েছে। একটি Apple Silicon"
+" Mac এ, আপনি Rosetta ব্যবহার করে এই Intel সংস্করণটি চালাতে পারেন। একটি "
+"স্থানীয় Apple Silicon সংস্করণ বর্তমানে উপলব্ধ নয়।"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:77
+#: ../installation.rst:81
 msgid "Linux (AppImage)"
 msgstr "Linux (AppImage)"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:79
+#: ../installation.rst:83
 msgid ""
 "Most Linux distributions have a version of OpenShot in their software "
 "repositories, which can be installed using your package manager / software "
 "store. However, these packaged versions are often very outdated (be sure to "
-"check the version number: :guilabel:`Help→About OpenShot`). For this reason, "
-"we recommend installing an AppImage from the `official download page "
+"check the version number: :guilabel:`Help→About OpenShot`). For this reason,"
+" we recommend installing an AppImage from the `official download page "
 "<https://www.openshot.org/download/>`_."
 msgstr ""
 "অধিকাংশ Linux ডিস্ট্রিবিউশনে তাদের সফটওয়্যার রিপোজিটরিতে OpenShot এর একটি "
-"সংস্করণ থাকে, যা আপনার প্যাকেজ ম্যানেজার / সফটওয়্যার স্টোর ব্যবহার করে ইনস্টল করা "
-"যায়। তবে, এই প্যাকেজকৃত সংস্করণগুলি প্রায়ই অনেক পুরানো হয় (সংস্করণ নম্বর পরীক্ষা করতে "
-"ভুলবেন না: :guilabel:`Help→About OpenShot`)। এই কারণে, আমরা `অফিসিয়াল ডাউনলোড "
-"পেজ <https://www.openshot.org/download/>`_ থেকে AppImage ইনস্টল করার পরামর্শ "
-"দিই।"
+"সংস্করণ থাকে, যা আপনার প্যাকেজ ম্যানেজার / সফটওয়্যার স্টোর ব্যবহার করে "
+"ইনস্টল করা যায়। তবে, এই প্যাকেজকৃত সংস্করণগুলি প্রায়ই অনেক পুরানো হয় "
+"(সংস্করণ নম্বর পরীক্ষা করতে ভুলবেন না: :guilabel:`Help→About OpenShot`)। এই "
+"কারণে, আমরা `অফিসিয়াল ডাউনলোড পেজ <https://www.openshot.org/download/>`_ "
+"থেকে AppImage ইনস্টল করার পরামর্শ দিই।"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:85
+#: ../installation.rst:89
 msgid ""
 "Once downloaded, right click on the AppImage, choose Properties, and mark "
 "the file as **Executable**. Finally, double click the AppImage to launch "
 "OpenShot. If double clicking does not launch OpenShot, you can also right "
 "click on the AppImage, and choose `Execute` or `Run`. For a detailed guide "
-"on installing our AppImage and creating a launcher for it, see our `AppImage "
-"Installation Guide <https://github.com/OpenShot/openshot-qt/wiki/AppImage-"
+"on installing our AppImage and creating a launcher for it, see our `AppImage"
+" Installation Guide <https://github.com/OpenShot/openshot-qt/wiki/AppImage-"
 "Installation>`_."
 msgstr ""
 "ডাউনলোড করার পর, AppImage-এ রাইট ক্লিক করুন, Properties নির্বাচন করুন, এবং "
-"ফাইলটিকে **Executable** হিসেবে চিহ্নিত করুন। শেষে, OpenShot চালু করতে AppImage-"
-"এ ডাবল ক্লিক করুন। যদি ডাবল ক্লিক করলে OpenShot চালু না হয়, তাহলে AppImage-এ "
-"রাইট ক্লিক করে `Execute` অথবা `Run` নির্বাচন করতে পারেন। আমাদের AppImage ইনস্টল "
-"এবং এর জন্য লঞ্চার তৈরির বিস্তারিত গাইডের জন্য দেখুন `AppImage Installation Guide "
-"<https://github.com/OpenShot/openshot-qt/wiki/AppImage-Installation>`_।"
+"ফাইলটিকে **Executable** হিসেবে চিহ্নিত করুন। শেষে, OpenShot চালু করতে "
+"AppImage-এ ডাবল ক্লিক করুন। যদি ডাবল ক্লিক করলে OpenShot চালু না হয়, তাহলে "
+"AppImage-এ রাইট ক্লিক করে `Execute` অথবা `Run` নির্বাচন করতে পারেন। আমাদের "
+"AppImage ইনস্টল এবং এর জন্য লঞ্চার তৈরির বিস্তারিত গাইডের জন্য দেখুন "
+"`AppImage Installation Guide <https://github.com/OpenShot/openshot-"
+"qt/wiki/AppImage-Installation>`_।"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:94
+#: ../installation.rst:98
 msgid "Unable to Launch AppImage?"
 msgstr "AppImage চালু করতে পারছেন না?"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:95
+#: ../installation.rst:99
 msgid ""
 "Please verify that the ``libfuse2`` library is installed, which is required "
 "to mount and read an AppImage. On newer versions of Ubuntu (i.e. 22.04+), "
 "``libfuse2`` is not installed by default. You can install it with the "
 "following command:"
 msgstr ""
-"অনুগ্রহ করে নিশ্চিত করুন যে ``libfuse2`` লাইব্রেরি ইনস্টল করা আছে, যা AppImage "
-"মাউন্ট এবং পড়ার জন্য প্রয়োজন। Ubuntu এর নতুন সংস্করণে (যেমন 22.04+) ``libfuse2`` "
-"ডিফল্টভাবে ইনস্টল থাকে না। আপনি নিচের কমান্ড দিয়ে এটি ইনস্টল করতে পারেন:"
+"অনুগ্রহ করে নিশ্চিত করুন যে ``libfuse2`` লাইব্রেরি ইনস্টল করা আছে, যা "
+"AppImage মাউন্ট এবং পড়ার জন্য প্রয়োজন। Ubuntu এর নতুন সংস্করণে (যেমন "
+"22.04+) ``libfuse2`` ডিফল্টভাবে ইনস্টল থাকে না। আপনি নিচের কমান্ড দিয়ে এটি "
+"ইনস্টল করতে পারেন:"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:104
+#: ../installation.rst:108
 msgid "Install AppImage Launcher"
 msgstr "AppImage লঞ্চার ইনস্টল করুন"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:105
+#: ../installation.rst:109
 msgid ""
 "If you plan on using OpenShot often, you will probably want an integrated "
-"launcher for our AppImage. We recommend using AppImageLauncher, which is the "
-"officially supported way to launch (and manage) AppImage files on your Linux "
-"desktop. If you are on a Debian-based distro (Ubuntu, Mint, etc...), there "
-"is an official AppImageLauncher PPA:"
+"launcher for our AppImage. We recommend using AppImageLauncher, which is the"
+" officially supported way to launch (and manage) AppImage files on your "
+"Linux desktop. If you are on a Debian-based distro (Ubuntu, Mint, etc...), "
+"there is an official AppImageLauncher PPA:"
 msgstr ""
-"যদি আপনি প্রায়ই OpenShot ব্যবহার করতে চান, তাহলে সম্ভবত আমাদের AppImage এর জন্য "
-"একটি ইন্টিগ্রেটেড লঞ্চার চাইবেন। আমরা AppImageLauncher ব্যবহারের পরামর্শ দিই, যা "
-"আপনার Linux ডেস্কটপে AppImage ফাইল চালানো (এবং পরিচালনা) করার অফিসিয়ালি "
-"সমর্থিত উপায়। আপনি যদি Debian-ভিত্তিক ডিস্ট্রো (Ubuntu, Mint, ইত্যাদি) ব্যবহার "
-"করেন, তাহলে একটি অফিসিয়াল AppImageLauncher PPA আছে:"
+"যদি আপনি প্রায়ই OpenShot ব্যবহার করতে চান, তাহলে সম্ভবত আমাদের AppImage এর "
+"জন্য একটি ইন্টিগ্রেটেড লঞ্চার চাইবেন। আমরা AppImageLauncher ব্যবহারের "
+"পরামর্শ দিই, যা আপনার Linux ডেস্কটপে AppImage ফাইল চালানো (এবং পরিচালনা) "
+"করার অফিসিয়ালি সমর্থিত উপায়। আপনি যদি Debian-ভিত্তিক ডিস্ট্রো (Ubuntu, "
+"Mint, ইত্যাদি) ব্যবহার করেন, তাহলে একটি অফিসিয়াল AppImageLauncher PPA আছে:"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:117
+#: ../installation.rst:121
 msgid "Linux (PPA)"
 msgstr "Linux (PPA)"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:119
+#: ../installation.rst:123
 msgid ""
 "For Debian-based Linux distributions (Ubuntu, Mint, etc...), we also have a "
 "PPA (Personal Package Archive), which adds our official OpenShot software "
-"repository to your package manager, making it possible to install our latest "
-"version, without relying on our AppImages."
+"repository to your package manager, making it possible to install our latest"
+" version, without relying on our AppImages."
 msgstr ""
-"Debian-ভিত্তিক Linux ডিস্ট্রিবিউশনগুলোর জন্য (Ubuntu, Mint, ইত্যাদি), আমাদের একটি "
-"PPA (Personal Package Archive) আছে, যা আপনার প্যাকেজ ম্যানেজারে আমাদের "
-"অফিসিয়াল OpenShot সফটওয়্যার রিপোজিটরি যোগ করে, যাতে আপনি আমাদের AppImage-র "
-"উপর নির্ভর না করে সর্বশেষ সংস্করণ ইনস্টল করতে পারেন।"
+"Debian-ভিত্তিক Linux ডিস্ট্রিবিউশনগুলোর জন্য (Ubuntu, Mint, ইত্যাদি), আমাদের"
+" একটি PPA (Personal Package Archive) আছে, যা আপনার প্যাকেজ ম্যানেজারে আমাদের"
+" অফিসিয়াল OpenShot সফটওয়্যার রিপোজিটরি যোগ করে, যাতে আপনি আমাদের "
+"AppImage-র উপর নির্ভর না করে সর্বশেষ সংস্করণ ইনস্টল করতে পারেন।"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:124
+#: ../installation.rst:128
 msgid "Stable PPA (Contains only official releases)"
 msgstr "স্থিতিশীল PPA (শুধুমাত্র অফিসিয়াল রিলিজসমূহ অন্তর্ভুক্ত)"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:133
+#: ../installation.rst:137
 msgid "Daily PPA (Highly experimental and unstable, for testers)"
 msgstr "দৈনিক PPA (অত্যন্ত পরীক্ষামূলক এবং অস্থিতিশীল, পরীক্ষকদের জন্য)"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:142
+#: ../installation.rst:146
 msgid "Chrome OS (Chromebook)"
 msgstr "Chrome OS (Chromebook)"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:144
+#: ../installation.rst:148
 msgid ""
 "Chrome OS supports Linux apps, but this feature is off by default. You can "
 "turn it on in *Settings*. Once Linux is enabled, you can install and run "
@@ -231,146 +251,148 @@ msgid ""
 "will download our AppImage and configure your system to run OpenShot "
 "successfully."
 msgstr ""
-"Chrome OS Linux অ্যাপ সমর্থন করে, কিন্তু এই ফিচারটি ডিফল্টভাবে বন্ধ থাকে। আপনি এটি "
-"*Settings* এ চালু করতে পারেন। একবার Linux সক্রিয় হলে, আপনি যেকোনো *x86-ভিত্তিক* "
-"Chromebook-এ OpenShot Linux AppImage ইনস্টল এবং চালাতে পারবেন। নিচের কমান্ডটি "
-"আমাদের AppImage ডাউনলোড করবে এবং OpenShot সফলভাবে চালানোর জন্য আপনার সিস্টেম "
-"কনফিগার করবে।"
+"Chrome OS Linux অ্যাপ সমর্থন করে, কিন্তু এই ফিচারটি ডিফল্টভাবে বন্ধ থাকে। "
+"আপনি এটি *Settings* এ চালু করতে পারেন। একবার Linux সক্রিয় হলে, আপনি যেকোনো "
+"*x86-ভিত্তিক* Chromebook-এ OpenShot Linux AppImage ইনস্টল এবং চালাতে পারবেন।"
+" নিচের কমান্ডটি আমাদের AppImage ডাউনলোড করবে এবং OpenShot সফলভাবে চালানোর "
+"জন্য আপনার সিস্টেম কনফিগার করবে।"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:149
+#: ../installation.rst:153
 msgid "Navigate to *chrome://os-settings/crostini* (Copy/Paste)"
 msgstr "*chrome://os-settings/crostini* এ যান (কপি/পেস্ট করুন)"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:150
+#: ../installation.rst:154
 msgid "Under \"Linux (Beta)\" select \"Turn On\". Default values are fine."
-msgstr ""
-"\"Linux (Beta)\" এর অধীনে \"Turn On\" নির্বাচন করুন। ডিফল্ট মানগুলি ঠিক আছে।"
+msgstr "\"Linux (Beta)\" এর অধীনে \"Turn On\" নির্বাচন করুন। ডিফল্ট মানগুলি ঠিক আছে।"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:152
+#: ../installation.rst:156
 msgid ""
 "When the Terminal appears (i.e. black window), Copy/Paste the following "
 "command:"
 msgstr ""
-"যখন টার্মিনাল প্রদর্শিত হবে (অর্থাৎ কালো উইন্ডো), নিচের কমান্ডটি কপি/পেস্ট করুন:"
+"যখন টার্মিনাল প্রদর্শিত হবে (অর্থাৎ কালো উইন্ডো), নিচের কমান্ডটি কপি/পেস্ট "
+"করুন:"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:152
+#: ../installation.rst:156
 msgid ""
 "``bash <(wget -O - http://openshot.org/files/chromeos/install-stable.sh)``"
 msgstr ""
 "``bash <(wget -O - http://openshot.org/files/chromeos/install-stable.sh)``"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:155
+#: ../installation.rst:159
 msgid "Previous Versions"
 msgstr "পূর্ববর্তী সংস্করণসমূহ"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:157
+#: ../installation.rst:161
 msgid ""
-"To download old versions of OpenShot Video Editor, you can visit https://"
-"github.com/OpenShot/openshot-qt/tags. Click on the version number you need, "
-"and scroll to the bottom, under the release notes. You will find download "
-"links for each operating system. Download the appropriate version for your "
-"computer, and follow the installation instructions above."
+"To download old versions of OpenShot Video Editor, you can visit "
+"https://github.com/OpenShot/openshot-qt/tags. Click on the version number "
+"you need, and scroll to the bottom, under the release notes. You will find "
+"download links for each operating system. Download the appropriate version "
+"for your computer, and follow the installation instructions above."
 msgstr ""
-"OpenShot Video Editor এর পুরানো সংস্করণ ডাউনলোড করতে, আপনি https://github.com/"
-"OpenShot/openshot-qt/tags এ যেতে পারেন। আপনার প্রয়োজনীয় সংস্করণ নম্বর ক্লিক করুন, "
-"এবং রিলিজ নোটসের নিচে স্ক্রল করুন। আপনি প্রতিটি অপারেটিং সিস্টেমের জন্য ডাউনলোড "
-"লিঙ্ক পাবেন। আপনার কম্পিউটারের জন্য উপযুক্ত সংস্করণ ডাউনলোড করুন এবং উপরের ইনস্টলেশন "
-"নির্দেশাবলী অনুসরণ করুন।"
+"OpenShot Video Editor এর পুরানো সংস্করণ ডাউনলোড করতে, আপনি "
+"https://github.com/OpenShot/openshot-qt/tags এ যেতে পারেন। আপনার প্রয়োজনীয়"
+" সংস্করণ নম্বর ক্লিক করুন, এবং রিলিজ নোটসের নিচে স্ক্রল করুন। আপনি প্রতিটি "
+"অপারেটিং সিস্টেমের জন্য ডাউনলোড লিঙ্ক পাবেন। আপনার কম্পিউটারের জন্য উপযুক্ত "
+"সংস্করণ ডাউনলোড করুন এবং উপরের ইনস্টলেশন নির্দেশাবলী অনুসরণ করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:162
+#: ../installation.rst:166
 msgid ""
 "NOTE: Projects (\\*.osp) made with newer versions of OpenShot Video Editor "
 "might not support older versions."
 msgstr ""
-"দ্রষ্টব্য: নতুন সংস্করণের OpenShot Video Editor দিয়ে তৈরি প্রকল্পসমূহ (\\*.osp) "
-"পুরানো সংস্করণগুলিতে সমর্থিত নাও হতে পারে।"
+"দ্রষ্টব্য: নতুন সংস্করণের OpenShot Video Editor দিয়ে তৈরি প্রকল্পসমূহ "
+"(\\*.osp) পুরানো সংস্করণগুলিতে সমর্থিত নাও হতে পারে।"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:165
+#: ../installation.rst:169
 msgid "Uninstall"
 msgstr "অপসারণ"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:167
+#: ../installation.rst:171
 msgid ""
 "To fully uninstall OpenShot from your system, you must **manually delete** "
-"the ``.openshot_qt`` folder: ``~/.openshot_qt/`` or ``C:\\Users\\USERNAME\\."
-"openshot_qt\\``, which contains all settings and files used by OpenShot. Be "
-"sure to **backup** any recovery files of your existing projects first (\\*."
-"osp files). Please see :ref:`preferences_reset_ref` for instructions on "
-"clearing the previous ``openshot.settings`` file (for a clean install with "
-"**default preferences**)."
+"the ``.openshot_qt`` folder: ``~/.openshot_qt/`` or "
+"``C:\\Users\\USERNAME\\.openshot_qt\\``, which contains all settings and "
+"files used by OpenShot. Be sure to **backup** any recovery files of your "
+"existing projects first (\\*.osp files). Please see "
+":ref:`preferences_reset_ref` for instructions on clearing the previous "
+"``openshot.settings`` file (for a clean install with **default "
+"preferences**)."
 msgstr ""
-"OpenShot সম্পূর্ণরূপে অপসারণ করতে, আপনাকে অবশ্যই **ম্যানুয়ালি মুছে ফেলতে হবে** ``."
-"openshot_qt`` ফোল্ডারটি: ``~/.openshot_qt/`` অথবা ``C:\\Users\\USERNAME\\."
-"openshot_qt\\``, যা OpenShot দ্বারা ব্যবহৃত সমস্ত সেটিংস এবং ফাইল ধারণ করে। "
-"আপনার বিদ্যমান প্রকল্পগুলির (\\*.osp ফাইল) যেকোনো পুনরুদ্ধার ফাইল প্রথমে **ব্যাকআপ** "
-"নিতে ভুলবেন না। পূর্ববর্তী ``openshot.settings`` ফাইল মুছে ফেলার নির্দেশনার জন্য :"
-"ref:`preferences_reset_ref` দেখুন (পরিষ্কার ইনস্টলেশনের জন্য **ডিফল্ট পছন্দসই** "
-"সহ)।"
+"OpenShot সম্পূর্ণরূপে অপসারণ করতে, আপনাকে অবশ্যই **ম্যানুয়ালি মুছে ফেলতে "
+"হবে** ``.openshot_qt`` ফোল্ডারটি: ``~/.openshot_qt/`` অথবা "
+"``C:\\Users\\USERNAME\\.openshot_qt\\``, যা OpenShot দ্বারা ব্যবহৃত সমস্ত "
+"সেটিংস এবং ফাইল ধারণ করে। আপনার বিদ্যমান প্রকল্পগুলির (\\*.osp ফাইল) যেকোনো "
+"পুনরুদ্ধার ফাইল প্রথমে **ব্যাকআপ** নিতে ভুলবেন না। পূর্ববর্তী "
+"``openshot.settings`` ফাইল মুছে ফেলার নির্দেশনার জন্য "
+":ref:`preferences_reset_ref` দেখুন (পরিষ্কার ইনস্টলেশনের জন্য **ডিফল্ট "
+"পছন্দসই** সহ)।"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:174
+#: ../installation.rst:178
 msgid "Windows"
 msgstr "উইন্ডোজ"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:176
+#: ../installation.rst:180
 msgid "Open **Control Panel** from the Start menu"
 msgstr "স্টার্ট মেনু থেকে **কন্ট্রোল প্যানেল** খুলুন"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:177
+#: ../installation.rst:181
 msgid "Click on **Programs and Features**"
 msgstr "**প্রোগ্রাম এবং ফিচারস**-এ ক্লিক করুন"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:178
+#: ../installation.rst:182
 msgid "Select OpenShot Video Editor, then click **Uninstall**"
 msgstr "OpenShot Video Editor নির্বাচন করুন, তারপর **অপসারণ**-এ ক্লিক করুন"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:183
+#: ../installation.rst:187
 msgid "Open **Finder** and go to **Applications**"
 msgstr "**ফাইন্ডার** খুলুন এবং **অ্যাপ্লিকেশনস**-এ যান"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:184
+#: ../installation.rst:188
 msgid "Drag the OpenShot Video Editor icon to the **Trash** in the Dock"
 msgstr "Dock-এ OpenShot Video Editor আইকনটি **ট্র্যাশ**-এ টেনে আনুন"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:185
+#: ../installation.rst:189
 msgid "Right-click **Trash** and choose **Empty Trash**"
 msgstr "**ট্র্যাশ**-এ রাইট-ক্লিক করুন এবং **ট্র্যাশ খালি করুন** নির্বাচন করুন"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:188
+#: ../installation.rst:192
 msgid "Ubuntu (Linux)"
 msgstr "উবুন্টু (লিনাক্স)"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:190
+#: ../installation.rst:194
 msgid "Open up **Files**"
 msgstr "**ফাইলস** খুলুন"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:191
+#: ../installation.rst:195
 msgid "Locate the ``*.AppImage`` and delete the file"
 msgstr "``*.AppImage`` ফাইলটি খুঁজে বের করুন এবং মুছে ফেলুন"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:192
+#: ../installation.rst:196
 msgid ""
 "OR click Activities, Right-click on OpenShot Video Editor icon, and choose "
 "**Remove AppImage from System**"
 msgstr ""
-"অথবা Activities-এ ক্লিক করুন, OpenShot Video Editor আইকনে রাইট-ক্লিক করুন, এবং "
-"**সিস্টেম থেকে AppImage সরান** নির্বাচন করুন"
+"অথবা Activities-এ ক্লিক করুন, OpenShot Video Editor আইকনে রাইট-ক্লিক করুন, "
+"এবং **সিস্টেম থেকে AppImage সরান** নির্বাচন করুন"

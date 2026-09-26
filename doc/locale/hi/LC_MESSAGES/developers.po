@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-09-26 14:26-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -140,7 +140,7 @@ msgstr ""
 " PPA <https://www.openshot.org/ppa/>`_ है। PPA एक अनौपचारिक Ubuntu रिपॉजिटरी"
 " है, जिसमें हमारे सॉफ़्टवेयर पैकेज डाउनलोड और इंस्टॉल के लिए उपलब्ध हैं।"
 
-#: ../developers.rst:112
+#: ../developers.rst:110
 msgid ""
 "OpenShot supports PyQt5, PyQt6, and PySide6. libopenshot must be built "
 "against the correct Qt version for the binding you are using (Qt5: PyQt5, "
@@ -150,15 +150,15 @@ msgstr ""
 "Qt संस्करण के खिलाफ बनाया जाना चाहिए जिसका आप उपयोग कर रहे हैं (Qt5: PyQt5, "
 "Qt6: PyQt6 या PySide6)।"
 
-#: ../developers.rst:116
+#: ../developers.rst:114
 msgid "For PySide6 (Qt6) bindings, install these packages:"
 msgstr "PySide6 (Qt6) बाइंडिंग के लिए, ये पैकेज इंस्टॉल करें:"
 
-#: ../developers.rst:129
+#: ../developers.rst:127
 msgid "For PyQt6, install these packages:"
 msgstr "PyQt6 के लिए, ये पैकेज इंस्टॉल करें:"
 
-#: ../developers.rst:139
+#: ../developers.rst:137
 msgid ""
 "The PyQt6 runtime must provide ``QtCore``, ``QtGui``, ``QtWidgets``, "
 "``QtSvg``, ``QtStateMachine``, and ``uic``. Some distributions split these "
@@ -174,7 +174,7 @@ msgstr ""
 " ऊपर दिए गए PySide6 पैकेजों का उपयोग करें या Python वर्चुअल एनवायरनमेंट में "
 "पूरा PyQt6 व्हील इंस्टॉल करें:"
 
-#: ../developers.rst:151
+#: ../developers.rst:149
 msgid ""
 "Verify the selected Qt binding and its required modules before launching "
 "OpenShot:"
@@ -183,7 +183,7 @@ msgstr ""
 "पुष्टि करें:"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:159
+#: ../developers.rst:157
 msgid ""
 "At this point, you should have all 3 OpenShot components source code cloned "
 "into local folders, the OpenShot daily PPA installed, and all of the "
@@ -196,12 +196,12 @@ msgstr ""
 " है, और अब हम कुछ कोड कंपाइल करना शुरू करने के लिए तैयार हैं!"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:164
+#: ../developers.rst:162
 msgid "libopenshot-audio (Build Instructions)"
 msgstr "libopenshot-audio (बिल्ड निर्देश)"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:165
+#: ../developers.rst:163
 msgid ""
 "This library is required for audio playback and audio effects. It is based "
 "on the JUCE audio framework. Here are the commands to build it:"
@@ -210,7 +210,7 @@ msgstr ""
 " फ्रेमवर्क पर आधारित है। इसे बनाने के लिए ये कमांड हैं:"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:178
+#: ../developers.rst:176
 msgid ""
 "Essentially, we are switching to the ``libopenshot-audio/build`` folder, "
 "then running ``cmake ..`` on the parent folder. This finds dependencies and "
@@ -229,12 +229,12 @@ msgstr ""
 "``make install`` को चलाने के लिए प्रशासनिक अधिकारों की आवश्यकता होगी।"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:186
+#: ../developers.rst:184
 msgid "libopenshot (Build Instructions)"
 msgstr "libopenshot (बिल्ड निर्देश)"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:187
+#: ../developers.rst:185
 msgid ""
 "This library is required for video decoding, encoding, animation, and just "
 "about everything else. It does all the heavy lifting of video editing and "
@@ -245,7 +245,7 @@ msgstr ""
 "बनाने के लिए ये कमांड हैं:"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:199
+#: ../developers.rst:197
 msgid ""
 "Essentially, we are switching to the ``libopenshot/build`` folder, then "
 "running ``cmake ..`` on the parent folder. This finds dependencies and "
@@ -262,7 +262,7 @@ msgstr ""
 "लाइब्रेरी का संस्करण सिस्टम संस्करण के बजाय उपयोग किया जाएगा (यदि कोई हो)।"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:206
+#: ../developers.rst:204
 msgid ""
 "We don't install our ``libopenshot`` after building, because we don't need "
 "to. For testing purposes, we can tell OpenShot to use ``libopenshot`` right "
@@ -273,12 +273,12 @@ msgstr ""
 "हमारे ``build`` डायरेक्टरी से ``libopenshot`` का उपयोग करे।"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:210
+#: ../developers.rst:208
 msgid "Language Bindings"
 msgstr "भाषा बाइंडिंग्स"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:211
+#: ../developers.rst:209
 msgid ""
 "The ``libopenshot`` API is available in several languages through SWIG "
 "bindings.  Python is used by the OpenShot user interface, and we also "
@@ -295,12 +295,12 @@ msgstr ""
 "पसंदीदा पर्यावरण से वीडियो संपादित कर सकें।"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:217
+#: ../developers.rst:215
 msgid "openshot-qt (Launch Instructions)"
 msgstr "openshot-qt (लॉन्च निर्देश)"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:218
+#: ../developers.rst:216
 msgid ""
 "This is our main PyQt Python application. Because it is written in Python, "
 "it does not require any compiling to run. To launch OpenShot from the source"
@@ -313,7 +313,7 @@ msgstr ""
 "OpenShot लॉन्च करने के लिए निम्नलिखित कमांड का उपयोग करें:"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:229
+#: ../developers.rst:227
 msgid ""
 "This should launch the OpenShot user interface. Any changes you have made to"
 " the source code files (``*.py`` Python files, ``*.ui`` PyQt UI files, "
@@ -328,7 +328,7 @@ msgstr ""
 "कुछ गलत हुआ है, तो OpenShot संभवतः लॉन्च नहीं होगा।"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:235
+#: ../developers.rst:233
 msgid ""
 "If OpenShot launches at this point, congratulations! You now have a working "
 "local version of OpenShot, which is running off your local source code. Try "
@@ -340,13 +340,214 @@ msgstr ""
 "स्रोत कोड में कुछ परिवर्तन करें और OpenShot को पुनः लॉन्च करें... अब आपको "
 "अपने परिवर्तन दिखाई देंगे!"
 
-# Translated with gpt-4.1-mini
+#: ../developers.rst:239
+msgid "Command-Line Options"
+msgstr "कमांड-लाइन विकल्प"
+
 #: ../developers.rst:241
+msgid ""
+"These options work with the installed OpenShot application, including "
+"``openshot-qt.exe`` on Windows. When running from source, use ``python3 "
+"src/launch.py`` in place of the application name. Put options before any "
+"file paths you want OpenShot to open."
+msgstr ""
+"ये विकल्प इंस्टॉल किए गए OpenShot एप्लिकेशन के साथ काम करते हैं, जिसमें "
+"Windows पर ``openshot-qt.exe`` शामिल है। स्रोत से चलाते समय, एप्लिकेशन नाम "
+"के स्थान पर ``python3 src/launch.py`` का उपयोग करें। विकल्पों को उन फ़ाइल "
+"पथों से पहले रखें जिन्हें आप OpenShot में खोलना चाहते हैं।"
+
+#: ../developers.rst:246
+msgid "OpenShot command-line options"
+msgstr "OpenShot कमांड-लाइन विकल्प"
+
+#: ../developers.rst:250
+msgid "Option"
+msgstr "विकल्प"
+
+#: ../developers.rst:251
+msgid "What it does"
+msgstr "यह क्या करता है"
+
+#: ../developers.rst:252
+msgid "``-h``, ``--help``"
+msgstr "``-h``, ``--help``"
+
+#: ../developers.rst:253
+msgid "Show the available options and exit."
+msgstr "उपलब्ध विकल्प दिखाएं और बाहर निकलें।"
+
+#: ../developers.rst:254
+msgid "``-V``, ``--version``"
+msgstr "``-V``, ``--version``"
+
+#: ../developers.rst:255
+msgid "Print the OpenShot version and exit."
+msgstr "OpenShot संस्करण दिखाएं और बाहर निकलें।"
+
+#: ../developers.rst:256
+msgid "``-l CODE``, ``--lang CODE``"
+msgstr "``-l CODE``, ``--lang CODE``"
+
+#: ../developers.rst:257
+msgid ""
+"Use the chosen interface language for this launch. The code must be one of "
+"those shown by ``--list-languages``."
+msgstr ""
+"इस लॉन्च के लिए चुनी गई इंटरफ़ेस भाषा का उपयोग करें। कोड ``--list-"
+"languages`` द्वारा दिखाए गए कोडों में से एक होना चाहिए।"
+
+#: ../developers.rst:259
+msgid "``--list-languages``"
+msgstr "``--list-languages``"
+
+#: ../developers.rst:260
+msgid "List supported language codes and exit."
+msgstr "समर्थित भाषा कोड सूचीबद्ध करें और बाहर निकलें।"
+
+#: ../developers.rst:261
+msgid "``--path FOLDER``"
+msgstr "``--path FOLDER``"
+
+#: ../developers.rst:262
+msgid ""
+"Add a folder to the Python module search path. You can repeat this option to"
+" add more than one folder."
+msgstr ""
+"Python मॉड्यूल खोज पथ में एक फ़ोल्डर जोड़ें। आप एक से अधिक फ़ोल्डर जोड़ने के"
+" लिए इस विकल्प को दोहरा सकते हैं।"
+
+#: ../developers.rst:264
+msgid "``--feedback-preview``"
+msgstr "``--feedback-preview``"
+
+#: ../developers.rst:265
+msgid ""
+"Show the feedback notice on launch without marking the invitation as shown "
+"in saved settings."
+msgstr ""
+"लॉन्च पर फीडबैक नोटिस दिखाएं बिना निमंत्रण को सहेजे गए सेटिंग्स में दिखाए गए"
+" के रूप में चिह्नित किए।"
+
+#: ../developers.rst:267
+msgid "``--update-preview``"
+msgstr "``--update-preview``"
+
+#: ../developers.rst:268
+msgid ""
+"Show the update notice on launch. Both preview options can be used together."
+msgstr ""
+"लॉन्च पर अपडेट नोटिस दिखाएं। दोनों पूर्वावलोकन विकल्प एक साथ उपयोग किए जा "
+"सकते हैं।"
+
+#: ../developers.rst:269
+msgid "``--test-models``"
+msgstr "``--test-models``"
+
+#: ../developers.rst:270
+msgid ""
+"Enable Qt's data model tester for development (requires Qt 5.11 or later)."
+msgstr ""
+"विकास के लिए Qt के डेटा मॉडल टेस्टर को सक्षम करें (Qt 5.11 या बाद के संस्करण"
+" की आवश्यकता)।"
+
+#: ../developers.rst:271
+msgid "``-d``, ``--debug``, ``--debug-ui``"
+msgstr "``-d``, ``--debug``, ``--debug-ui``"
+
+#: ../developers.rst:272
+msgid "Add detailed interface messages to its log file and the terminal."
+msgstr "इसके लॉग फ़ाइल और टर्मिनल में विस्तृत इंटरफ़ेस संदेश जोड़ें।"
+
+#: ../developers.rst:273
+msgid "``--debug-engine``"
+msgstr "``--debug-engine``"
+
+#: ../developers.rst:274
+msgid ""
+"Add detailed video and audio engine messages to its log file and the "
+"terminal."
+msgstr ""
+"इसके लॉग फ़ाइल और टर्मिनल में विस्तृत वीडियो और ऑडियो इंजन संदेश जोड़ें।"
+
+#: ../developers.rst:275
+msgid "``--log-level LEVEL``"
+msgstr "``--log-level LEVEL``"
+
+#: ../developers.rst:276
+msgid ""
+"Set the logging level for both parts of OpenShot, in files and the terminal."
+msgstr ""
+"OpenShot के दोनों भागों के लिए लॉगिंग स्तर सेट करें, फ़ाइलों और टर्मिनल में।"
+
+#: ../developers.rst:277
+msgid "``--log-file-level LEVEL``"
+msgstr "``--log-file-level LEVEL``"
+
+#: ../developers.rst:278
+msgid "Set the logging level in both log files."
+msgstr "दोनों लॉग फ़ाइलों में लॉगिंग स्तर सेट करें।"
+
+#: ../developers.rst:279
+msgid "``--log-console-level LEVEL``"
+msgstr "``--log-console-level LEVEL``"
+
+#: ../developers.rst:280
+msgid "Set the logging level in the terminal for both parts of OpenShot."
+msgstr "OpenShot के दोनों भागों के लिए टर्मिनल में लॉगिंग स्तर सेट करें।"
+
+#: ../developers.rst:281
+msgid "``--debug-file``"
+msgstr "``--debug-file``"
+
+#: ../developers.rst:282
+msgid ""
+"Add detailed interface messages to its log file only. This older option is "
+"accepted but is not shown by ``--help``."
+msgstr ""
+"केवल इसके लॉग फ़ाइल में विस्तृत इंटरफ़ेस संदेश जोड़ें। यह पुराना विकल्प "
+"स्वीकार किया जाता है लेकिन ``--help`` द्वारा नहीं दिखाया जाता।"
+
+#: ../developers.rst:284
+msgid "``--debug-console``"
+msgstr "``--debug-console``"
+
+#: ../developers.rst:285
+msgid ""
+"Add detailed interface messages to the terminal only. This older option is "
+"accepted but is not shown by ``--help``."
+msgstr ""
+"केवल टर्मिनल में विस्तृत इंटरफ़ेस संदेश जोड़ें। यह पुराना विकल्प स्वीकार "
+"किया जाता है लेकिन ``--help`` द्वारा नहीं दिखाया जाता।"
+
+#: ../developers.rst:287
+msgid "``PROJECT.osp`` or media file paths"
+msgstr "``PROJECT.osp`` या मीडिया फ़ाइल पथ"
+
+#: ../developers.rst:288
+msgid ""
+"Open a project when the first file path ends in ``.osp``. Otherwise, start a"
+" new project and import the supplied media files."
+msgstr ""
+"जब पहला फ़ाइल पथ ``.osp`` पर समाप्त होता है तो एक प्रोजेक्ट खोलें। अन्यथा, "
+"एक नया प्रोजेक्ट शुरू करें और प्रदान की गई मीडिया फ़ाइलें आयात करें।"
+
+#: ../developers.rst:291
+msgid ""
+"For ``LEVEL``, use ``debug``, ``info``, ``warning``, ``error``, "
+"``critical``, or ``off``. See :ref:`logging_ref` for log file locations, "
+"examples, and more about choosing logging options."
+msgstr ""
+"``LEVEL`` के लिए, ``debug``, ``info``, ``warning``, ``error``, ``critical``,"
+" या ``off`` का उपयोग करें। लॉग फ़ाइल स्थानों, उदाहरणों, और लॉगिंग विकल्प "
+"चुनने के बारे में अधिक जानकारी के लिए :ref:`logging_ref` देखें।"
+
+# Translated with gpt-4.1-mini
+#: ../developers.rst:296
 msgid "GitHub Issues"
 msgstr "GitHub समस्याएँ"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:242
+#: ../developers.rst:297
 msgid ""
 "Now that you have successfully compiled and launched OpenShot Video Editor "
 "from source code, be sure to check out our list of bug reports on GitHub: "
@@ -360,12 +561,12 @@ msgstr ""
 "<https://forms.gle/CRqkS5tLMJE1V36V8>`_ भरें और अपना परिचय दें!"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:248
+#: ../developers.rst:303
 msgid "Share your Changes"
 msgstr "अपने परिवर्तनों को साझा करें"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:249
+#: ../developers.rst:304
 msgid ""
 "Once you have fixed a bug or added an amazing new feature, be sure to share "
 "it with the OpenShot team. Ideally, we can merge this into our main source "

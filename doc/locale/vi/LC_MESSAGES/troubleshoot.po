@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-16 18:08-0500\n"
+"POT-Creation-Date: 2026-09-26 14:26-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,59 +31,512 @@ msgid ""
 "error message, there are many different techniques which can be useful for "
 "troubleshooting the issue."
 msgstr ""
-"Nếu bạn gặp sự cố với OpenShot, chẳng hạn như bị treo, bị lỗi hoặc thông báo "
-"lỗi, có nhiều kỹ thuật khác nhau có thể hữu ích để khắc phục sự cố."
+"Nếu bạn gặp sự cố với OpenShot, chẳng hạn như bị treo, bị lỗi hoặc thông báo"
+" lỗi, có nhiều kỹ thuật khác nhau có thể hữu ích để khắc phục sự cố."
+
+#: ../troubleshoot.rst:31
+msgid "Using Logs to Troubleshoot a Problem"
+msgstr "Sử dụng nhật ký để khắc phục sự cố"
+
+#: ../troubleshoot.rst:33
+msgid ""
+"A log is a text file that records what OpenShot is doing, along with "
+"warnings and errors. These files can help the support team understand a "
+"problem, even when you do not see an error message on screen."
+msgstr ""
+"Nhật ký là một tệp văn bản ghi lại những gì OpenShot đang làm, cùng với các "
+"cảnh báo và lỗi. Những tệp này có thể giúp đội hỗ trợ hiểu vấn đề, ngay cả "
+"khi bạn không thấy thông báo lỗi trên màn hình."
+
+#: ../troubleshoot.rst:37
+msgid ""
+"OpenShot keeps two log files in the ``.openshot_qt`` folder inside your home"
+" folder. On Linux and macOS, this location is written as "
+"``~/.openshot_qt/``. The folder may be hidden in your file manager."
+msgstr ""
+"OpenShot giữ hai tệp nhật ký trong thư mục ``.openshot_qt`` bên trong thư "
+"mục chính của bạn. Trên Linux và macOS, vị trí này được ghi là "
+"``~/.openshot_qt/``. Thư mục này có thể bị ẩn trong trình quản lý tệp của "
+"bạn."
+
+#: ../troubleshoot.rst:41
+msgid "The two log files"
+msgstr "Hai tệp nhật ký"
+
+#: ../troubleshoot.rst:45
+msgid "File"
+msgstr "Tệp"
+
+#: ../troubleshoot.rst:46
+msgid "What it records"
+msgstr "Nội dung ghi lại"
+
+#: ../troubleshoot.rst:47 ../troubleshoot.rst:74
+msgid "``openshot-qt.log``"
+msgstr "``openshot-qt.log``"
+
+#: ../troubleshoot.rst:48
+msgid ""
+"Activity in the editor: starting OpenShot, loading projects, changing "
+"settings, and using the interface. This is usually the best place to start "
+"when investigating a problem."
+msgstr ""
+"Hoạt động trong trình chỉnh sửa: khởi động OpenShot, tải dự án, thay đổi cài"
+" đặt và sử dụng giao diện. Đây thường là nơi tốt nhất để bắt đầu khi điều "
+"tra một vấn đề."
+
+#: ../troubleshoot.rst:51 ../troubleshoot.rst:77
+msgid "``libopenshot.log``"
+msgstr "``libopenshot.log``"
+
+#: ../troubleshoot.rst:52
+msgid ""
+"Activity in OpenShot's video and audio engine, the part that reads media and"
+" builds the pictures and sound used in previews and exported videos. "
+"Detailed engine logging can help investigate playback and export problems."
+msgstr ""
+"Hoạt động trong bộ xử lý video và âm thanh của OpenShot, phần đọc phương "
+"tiện và tạo hình ảnh cùng âm thanh dùng trong xem trước và video xuất ra. "
+"Nhật ký chi tiết của bộ xử lý có thể giúp điều tra các vấn đề phát lại và "
+"xuất video."
+
+#: ../troubleshoot.rst:56
+msgid ""
+"These files record different parts of the same application. When reporting a"
+" problem, include both files if available. You do not need to understand "
+"every line yourself."
+msgstr ""
+"Những tệp này ghi lại các phần khác nhau của cùng một ứng dụng. Khi báo cáo "
+"sự cố, hãy bao gồm cả hai tệp nếu có. Bạn không cần phải hiểu từng dòng một."
+
+#: ../troubleshoot.rst:61
+msgid "Choose which part of OpenShot to log"
+msgstr "Chọn phần của OpenShot để ghi nhật ký"
+
+#: ../troubleshoot.rst:63
+msgid "Open **Edit → Preferences → Advanced** to find these two settings:"
+msgstr "Mở **Chỉnh sửa → Tùy chọn → Nâng cao** để tìm hai cài đặt này:"
+
+#: ../troubleshoot.rst:65
+msgid "Preferences and matching terminal options"
+msgstr "Tùy chọn và các tham số tương ứng trong terminal"
+
+#: ../troubleshoot.rst:69
+msgid "Preference"
+msgstr "Tùy chọn"
+
+#: ../troubleshoot.rst:70
+msgid "Matching argument"
+msgstr "Tham số tương ứng"
+
+#: ../troubleshoot.rst:71
+msgid "Log file"
+msgstr "Tệp nhật ký"
+
+#: ../troubleshoot.rst:72
+msgid "User Interface Debug Logging"
+msgstr "Ghi nhật ký gỡ lỗi giao diện người dùng"
+
+#: ../troubleshoot.rst:73
+msgid "``--debug-ui``"
+msgstr "``--debug-ui``"
+
+#: ../troubleshoot.rst:75
+msgid "Video & Audio Engine Debug Logging"
+msgstr "Ghi nhật ký gỡ lỗi bộ xử lý video & âm thanh"
+
+#: ../troubleshoot.rst:76 ../troubleshoot.rst:142
+msgid "``--debug-engine``"
+msgstr "``--debug-engine``"
+
+#: ../troubleshoot.rst:79
+msgid ""
+"Both preferences are off by default, which keeps the normal summary "
+"messages. Turning one on adds detail to its log file immediately. It does "
+"not change the other log or add messages to the terminal. Preferences stay "
+"enabled between launches until you turn them off."
+msgstr ""
+"Cả hai tùy chọn mặc định đều tắt, giữ lại các thông báo tóm tắt bình thường."
+" Bật một trong hai sẽ thêm chi tiết vào tệp nhật ký tương ứng ngay lập tức. "
+"Nó không thay đổi nhật ký kia hoặc thêm thông báo vào terminal. Tùy chọn sẽ "
+"được giữ bật giữa các lần khởi động cho đến khi bạn tắt chúng."
+
+#: ../troubleshoot.rst:84
+msgid ""
+"**User Interface Debug Logging** is a good starting point for problems with "
+"startup, project loading, settings, or the interface. **Video & Audio Engine"
+" Debug Logging** adds details about video and audio processing, which can "
+"help investigate playback and export problems. Engine logs can grow very "
+"quickly and may slow OpenShot down. Turn this setting on shortly before "
+"repeating the problem, then turn it off afterward."
+msgstr ""
+"**Ghi nhật ký gỡ lỗi giao diện người dùng** là điểm khởi đầu tốt cho các vấn"
+" đề về khởi động, tải dự án, cài đặt hoặc giao diện. **Ghi nhật ký gỡ lỗi bộ"
+" xử lý video & âm thanh** thêm chi tiết về xử lý video và âm thanh, giúp "
+"điều tra các vấn đề phát lại và xuất video. Nhật ký bộ xử lý có thể tăng "
+"nhanh và làm chậm OpenShot. Bật cài đặt này ngay trước khi lặp lại vấn đề, "
+"sau đó tắt nó đi."
+
+#: ../troubleshoot.rst:91
+msgid ""
+"The engine preference was previously called **Debug Mode (Verbose)**. Its "
+"saved on/off setting carries over to the new name."
+msgstr ""
+"Tùy chọn bộ xử lý trước đây được gọi là **Chế độ gỡ lỗi (Chi tiết)**. Cài "
+"đặt bật/tắt đã lưu được chuyển sang tên mới."
+
+#: ../troubleshoot.rst:95
+msgid "Use a terminal for one launch"
+msgstr "Sử dụng terminal cho một lần khởi động"
+
+#: ../troubleshoot.rst:97
+msgid ""
+"A terminal is a window where you type commands. The matching arguments "
+"enable the same extra detail as the preferences, and also display it in the "
+"terminal:"
+msgstr ""
+"Terminal là một cửa sổ nơi bạn nhập lệnh. Các tham số tương ứng cho phép chi"
+" tiết bổ sung giống như tùy chọn, và cũng hiển thị trong terminal:"
+
+#: ../troubleshoot.rst:104
+msgid ""
+"This records interface details for one launch. The familiar ``--debug`` and "
+"shorter ``-d`` options mean exactly the same thing as ``--debug-ui``. For "
+"video and audio engine details, use:"
+msgstr ""
+"Điều này ghi lại chi tiết giao diện cho một lần khởi động. Các tùy chọn quen"
+" thuộc ``--debug`` và ngắn hơn ``-d`` có nghĩa hoàn toàn giống như "
+"``--debug-ui``. Để ghi chi tiết bộ xử lý video và âm thanh, sử dụng:"
+
+#: ../troubleshoot.rst:112
+msgid "To collect both types of detail together:"
+msgstr "Để thu thập cả hai loại chi tiết cùng lúc:"
+
+#: ../troubleshoot.rst:118
+msgid ""
+"Repeat the steps that cause the problem, then close OpenShot and collect the"
+" logs. These arguments do not change your saved preferences. Starting "
+"OpenShot normally returns to your usual logging settings."
+msgstr ""
+"Lặp lại các bước gây ra sự cố, sau đó đóng OpenShot và thu thập nhật ký. Các"
+" tham số này không thay đổi tùy chọn đã lưu của bạn. Khởi động OpenShot bình"
+" thường sẽ trở lại cài đặt ghi nhật ký thông thường của bạn."
+
+#: ../troubleshoot.rst:122
+msgid ""
+"``openshot-qt.log`` starts a new file when it reaches about 25 MB and keeps "
+"three older copies. ``libopenshot.log`` keeps growing as messages are added."
+" After saving any logs you need, you can remove old log files while OpenShot"
+" is closed."
+msgstr ""
+"``openshot-qt.log`` bắt đầu một tệp mới khi đạt khoảng 25 MB và giữ ba bản "
+"sao cũ hơn. ``libopenshot.log`` tiếp tục tăng kích thước khi có thêm thông "
+"báo. Sau khi lưu các nhật ký cần thiết, bạn có thể xóa các tệp nhật ký cũ "
+"khi OpenShot đang đóng."
+
+#: ../troubleshoot.rst:128
+msgid "Other command-line options"
+msgstr "Các tùy chọn dòng lệnh khác"
+
+#: ../troubleshoot.rst:130
+msgid ""
+"Most users only need the two controls above. The following options let you "
+"choose how much detail goes into the files or appears in the terminal. Here,"
+" *console* means the terminal output."
+msgstr ""
+"Hầu hết người dùng chỉ cần hai điều khiển trên. Các tùy chọn sau cho phép "
+"bạn chọn mức độ chi tiết ghi vào tệp hoặc hiển thị trong terminal. Ở đây, "
+"*console* nghĩa là đầu ra terminal."
+
+#: ../troubleshoot.rst:134
+msgid "Logging options"
+msgstr "Tùy chọn ghi nhật ký"
+
+#: ../troubleshoot.rst:138
+msgid "Option"
+msgstr "Tùy chọn"
+
+#: ../troubleshoot.rst:139
+msgid "What it does"
+msgstr "Chức năng"
+
+#: ../troubleshoot.rst:140
+msgid "``--debug-ui``, ``--debug``, or ``-d``"
+msgstr "``--debug-ui``, ``--debug``, hoặc ``-d``"
+
+#: ../troubleshoot.rst:141
+msgid "Enables User Interface Debug Logging in its file and the terminal."
+msgstr "Bật ghi nhật ký gỡ lỗi giao diện người dùng trong tệp và terminal."
+
+#: ../troubleshoot.rst:143
+msgid ""
+"Enables Video & Audio Engine Debug Logging in its file and the terminal."
+msgstr ""
+"Bật ghi nhật ký gỡ lỗi bộ xử lý video & âm thanh trong tệp và terminal."
+
+#: ../troubleshoot.rst:144
+msgid "``--debug-file``"
+msgstr "``--debug-file``"
+
+#: ../troubleshoot.rst:145
+msgid ""
+"Adds editor details to ``openshot-qt.log`` without adding terminal detail."
+msgstr ""
+"Thêm chi tiết trình chỉnh sửa vào ``openshot-qt.log`` mà không thêm chi tiết"
+" vào terminal."
+
+#: ../troubleshoot.rst:146
+msgid "``--debug-console``"
+msgstr "``--debug-console``"
+
+#: ../troubleshoot.rst:147
+msgid "Adds editor details in the terminal without adding file detail."
+msgstr ""
+"Thêm chi tiết trình chỉnh sửa trong terminal mà không thêm chi tiết vào tệp."
+
+#: ../troubleshoot.rst:148
+msgid "``--log-level LEVEL``"
+msgstr "``--log-level LEVEL``"
+
+#: ../troubleshoot.rst:149
+msgid "Sets the detail for both logs and their terminal output."
+msgstr "Đặt mức độ chi tiết cho cả hai nhật ký và đầu ra terminal của chúng."
+
+#: ../troubleshoot.rst:150
+msgid "``--log-file-level LEVEL``"
+msgstr "``--log-file-level LEVEL``"
+
+#: ../troubleshoot.rst:151
+msgid "Sets the detail for both log files, leaving terminal settings alone."
+msgstr ""
+"Đặt mức độ chi tiết cho cả hai tệp nhật ký, không thay đổi cài đặt terminal."
+
+#: ../troubleshoot.rst:152
+msgid "``--log-console-level LEVEL``"
+msgstr "``--log-console-level LEVEL``"
+
+#: ../troubleshoot.rst:153
+msgid ""
+"Sets the detail in the terminal for both the editor and engine, leaving file"
+" settings alone."
+msgstr ""
+"Đặt mức chi tiết trong terminal cho cả trình chỉnh sửa và engine, giữ nguyên"
+" cài đặt tệp."
+
+#: ../troubleshoot.rst:156
+msgid ""
+"Replace ``LEVEL`` with ``debug`` for detailed messages or ``info`` for the "
+"normal summary. ``warning`` shows warnings and errors; ``error`` shows "
+"errors and critical failures; ``critical`` shows only critical failures. "
+"``off`` stops ordinary log messages, but existing crash diagnostics may "
+"still be written. Uppercase names such as ``DEBUG`` work too."
+msgstr ""
+"Thay thế ``LEVEL`` bằng ``debug`` để nhận thông báo chi tiết hoặc ``info`` "
+"cho tóm tắt bình thường. ``warning`` hiển thị cảnh báo và lỗi; ``error`` "
+"hiển thị lỗi và sự cố nghiêm trọng; ``critical`` chỉ hiển thị sự cố nghiêm "
+"trọng. ``off`` dừng các thông báo nhật ký thông thường, nhưng các chẩn đoán "
+"sự cố hiện có vẫn có thể được ghi lại. Các tên viết hoa như ``DEBUG`` cũng "
+"hoạt động."
+
+#: ../troubleshoot.rst:162
+msgid ""
+"For example, to collect detailed messages in **both files** while keeping "
+"the terminal at its usual level:"
+msgstr ""
+"Ví dụ, để thu thập thông báo chi tiết trong **cả hai tệp** trong khi giữ "
+"terminal ở mức bình thường:"
+
+#: ../troubleshoot.rst:169
+msgid ""
+"This also enables the large engine log, so use it briefly. The older "
+"``--debug-file`` and ``--debug-console`` options still work even though they"
+" are not listed in ``--help``."
+msgstr ""
+"Điều này cũng kích hoạt nhật ký engine lớn, vì vậy hãy sử dụng nó trong thời"
+" gian ngắn. Các tùy chọn cũ ``--debug-file`` và ``--debug-console`` vẫn hoạt"
+" động mặc dù không được liệt kê trong ``--help``."
+
+#: ../troubleshoot.rst:174
+msgid "Environment variables"
+msgstr "Biến môi trường"
+
+#: ../troubleshoot.rst:176
+msgid ""
+"An environment variable is a named setting passed to a program when it "
+"starts. These are useful when starting OpenShot from a script or when a "
+"support person asks you to try a particular setting. You do not need to set "
+"them for normal use."
+msgstr ""
+"Biến môi trường là một cài đặt được đặt tên và truyền cho chương trình khi "
+"nó khởi động. Chúng hữu ích khi khởi động OpenShot từ một script hoặc khi "
+"nhân viên hỗ trợ yêu cầu bạn thử một cài đặt cụ thể. Bạn không cần thiết lập"
+" chúng cho việc sử dụng bình thường."
+
+#: ../troubleshoot.rst:180
+msgid "Optional environment settings"
+msgstr "Cài đặt môi trường tùy chọn"
+
+#: ../troubleshoot.rst:184
+msgid "Variable"
+msgstr "Biến"
+
+#: ../troubleshoot.rst:185
+msgid "What it controls"
+msgstr "Điều khiển cái gì"
+
+#: ../troubleshoot.rst:186
+msgid "``OPENSHOT_LOG_LEVEL``"
+msgstr "``OPENSHOT_LOG_LEVEL``"
+
+#: ../troubleshoot.rst:187
+msgid "Detail in both files and the terminal."
+msgstr "Chi tiết trong cả hai tệp và terminal."
+
+#: ../troubleshoot.rst:188
+msgid "``OPENSHOT_LOG_FILE_LEVEL``"
+msgstr "``OPENSHOT_LOG_FILE_LEVEL``"
+
+#: ../troubleshoot.rst:189
+msgid "Detail in both files only."
+msgstr "Chỉ chi tiết trong cả hai tệp."
+
+#: ../troubleshoot.rst:190
+msgid "``OPENSHOT_LOG_CONSOLE_LEVEL``"
+msgstr "``OPENSHOT_LOG_CONSOLE_LEVEL``"
+
+#: ../troubleshoot.rst:191
+msgid "Detail in the terminal only, for both parts of OpenShot."
+msgstr "Chỉ chi tiết trong terminal, cho cả hai phần của OpenShot."
+
+#: ../troubleshoot.rst:192
+msgid "``LIBOPENSHOT_LOG_LEVEL``"
+msgstr "``LIBOPENSHOT_LOG_LEVEL``"
+
+#: ../troubleshoot.rst:193
+msgid "Detail for the video and audio engine, in its file and the terminal."
+msgstr "Chi tiết cho engine video và âm thanh, trong tệp và terminal của nó."
+
+#: ../troubleshoot.rst:194
+msgid "``LIBOPENSHOT_LOG_FILE_LEVEL``"
+msgstr "``LIBOPENSHOT_LOG_FILE_LEVEL``"
+
+#: ../troubleshoot.rst:195
+msgid "Detail in ``libopenshot.log`` only."
+msgstr "Chỉ chi tiết trong ``libopenshot.log``."
+
+#: ../troubleshoot.rst:196
+msgid "``LIBOPENSHOT_LOG_CONSOLE_LEVEL``"
+msgstr "``LIBOPENSHOT_LOG_CONSOLE_LEVEL``"
+
+#: ../troubleshoot.rst:197
+msgid "Engine detail in the terminal only."
+msgstr "Chi tiết engine chỉ trong terminal."
+
+#: ../troubleshoot.rst:199
+msgid ""
+"For example, this Linux/macOS terminal command requests detailed engine "
+"logging in its file for one launch:"
+msgstr ""
+"Ví dụ, lệnh terminal Linux/macOS này yêu cầu ghi nhật ký engine chi tiết "
+"trong tệp cho một lần khởi chạy:"
+
+#: ../troubleshoot.rst:206
+msgid ""
+"If settings overlap, command-line options take priority, followed by "
+"environment variables, then Preferences, then the normal defaults. Each "
+"control only affects the output it describes: ``--debug`` does not override "
+"the engine preference. Temporary overrides do not change your saved "
+"preferences. Hover over either checkbox to see whether another setting is "
+"controlling that log file."
+msgstr ""
+"Nếu các cài đặt chồng chéo, tùy chọn dòng lệnh được ưu tiên, tiếp theo là "
+"biến môi trường, rồi đến Tùy chọn, sau đó là mặc định bình thường. Mỗi điều "
+"khiển chỉ ảnh hưởng đến đầu ra mà nó mô tả: ``--debug`` không ghi đè tùy "
+"chọn engine. Ghi đè tạm thời không thay đổi tùy chọn đã lưu của bạn. Di "
+"chuột qua bất kỳ hộp kiểm nào để xem liệu cài đặt khác có đang kiểm soát tệp"
+" nhật ký đó không."
+
+#: ../troubleshoot.rst:212
+msgid ""
+"Within the environment settings, ``LIBOPENSHOT_`` values take priority over "
+"``OPENSHOT_`` values for the engine. Within either group, a file-only or "
+"console-only level takes priority over the general level. Command-line "
+"options follow the same file/console rule. Conflicting command-line levels "
+"for the same output are rejected; invalid environment levels are reported "
+"and ignored."
+msgstr ""
+"Trong các cài đặt môi trường, giá trị ``LIBOPENSHOT_`` được ưu tiên hơn giá "
+"trị ``OPENSHOT_`` cho engine. Trong mỗi nhóm, mức chỉ dành cho tệp hoặc chỉ "
+"dành cho console được ưu tiên hơn mức chung. Tùy chọn dòng lệnh tuân theo "
+"quy tắc tệp/console tương tự. Các mức dòng lệnh xung đột cho cùng một đầu ra"
+" bị từ chối; các mức môi trường không hợp lệ được báo cáo và bỏ qua."
+
+#: ../troubleshoot.rst:218
+msgid ""
+"For older scripts, ``LIBOPENSHOT_DEBUG`` still enables detailed engine "
+"messages in the terminal whenever it is present, even if its value is ``0``."
+" The newer level settings take priority over it. ``LIBOPENSHOT_LOG_FILE`` is"
+" intended for programs using the engine separately; OpenShot itself uses the"
+" log folder above. Changing logging settings does not change your error-"
+"reporting preference."
+msgstr ""
+"Đối với các script cũ hơn, ``LIBOPENSHOT_DEBUG`` vẫn kích hoạt các thông báo"
+" engine chi tiết trong terminal khi nó tồn tại, ngay cả khi giá trị của nó "
+"là ``0``. Các cài đặt mức mới hơn được ưu tiên hơn. ``LIBOPENSHOT_LOG_FILE``"
+" dành cho các chương trình sử dụng engine riêng biệt; chính OpenShot sử dụng"
+" thư mục nhật ký ở trên. Thay đổi cài đặt ghi nhật ký không làm thay đổi tùy"
+" chọn báo cáo lỗi của bạn."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:29
+#: ../troubleshoot.rst:225
 msgid "Windows 11 Unresponsive"
 msgstr "Windows 11 không phản hồi"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:31
+#: ../troubleshoot.rst:227
 msgid ""
 "If you experience a freeze on Windows 11, this is a known issue with PyQt5 "
 "and Windows 11, related to the accessibility features in Qt. This is "
 "triggered by pressing :kbd:`Ctrl+C` in OpenShot (*only on Windows 11*). "
 "OpenShot will become unresponsive and a memory leak is also present (i.e. "
-"the longer OpenShot is unresponsive, the larger your memory leak will become "
-"until OpenShot finally crashes or the user kills the process)."
+"the longer OpenShot is unresponsive, the larger your memory leak will become"
+" until OpenShot finally crashes or the user kills the process)."
 msgstr ""
 "Nếu bạn gặp hiện tượng treo trên Windows 11, đây là một vấn đề đã biết với "
-"PyQt5 và Windows 11, liên quan đến các tính năng trợ năng trong Qt. Điều này "
-"xảy ra khi nhấn :kbd:`Ctrl+C` trong OpenShot (*chỉ trên Windows 11*). "
+"PyQt5 và Windows 11, liên quan đến các tính năng trợ năng trong Qt. Điều này"
+" xảy ra khi nhấn :kbd:`Ctrl+C` trong OpenShot (*chỉ trên Windows 11*). "
 "OpenShot sẽ không phản hồi và có hiện tượng rò rỉ bộ nhớ (tức là càng lâu "
 "OpenShot không phản hồi, rò rỉ bộ nhớ càng lớn cho đến khi OpenShot cuối "
 "cùng bị lỗi hoặc người dùng kết thúc tiến trình)."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:36
+#: ../troubleshoot.rst:232
 msgid ""
 "A simple work-around is to avoid :kbd:`Ctrl+C` on Windows 11, and instead "
 "use the right-click Copy/Paste menus. Another work-around is to remap your "
-"\"Copy\" from :kbd:`Ctrl+C` to something else, for example :kbd:`Alt+C`. You "
-"can change your keyboard mappings in the OpenShot Preferences. See :ref:"
-"`preferences_keyboard_ref`."
+"\"Copy\" from :kbd:`Ctrl+C` to something else, for example :kbd:`Alt+C`. You"
+" can change your keyboard mappings in the OpenShot Preferences. See "
+":ref:`preferences_keyboard_ref`."
 msgstr ""
 "Một cách khắc phục đơn giản là tránh sử dụng :kbd:`Ctrl+C` trên Windows 11, "
 "thay vào đó sử dụng menu sao chép/dán khi nhấp chuột phải. Cách khác là đổi "
 "phím tắt \"Sao chép\" từ :kbd:`Ctrl+C` sang phím khác, ví dụ :kbd:`Alt+C`. "
-"Bạn có thể thay đổi phím tắt trong phần Cài đặt của OpenShot. Xem :ref:"
-"`preferences_keyboard_ref`."
+"Bạn có thể thay đổi phím tắt trong phần Cài đặt của OpenShot. Xem "
+":ref:`preferences_keyboard_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:41
+#: ../troubleshoot.rst:237
 msgid "Windows Debugging with GDB"
 msgstr "Gỡ lỗi Windows với GDB"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:43
+#: ../troubleshoot.rst:239
 msgid ""
 "If you are experiencing a crash or freeze with OpenShot in Windows 10/11, "
-"the following step by step instructions will help you determine the cause of "
-"the crash. These instructions will display a stack trace of OpenShot's "
-"source code, at the location of the crash. This information can be extremely "
-"useful for our development team, and very useful to attach to bug reports "
+"the following step by step instructions will help you determine the cause of"
+" the crash. These instructions will display a stack trace of OpenShot's "
+"source code, at the location of the crash. This information can be extremely"
+" useful for our development team, and very useful to attach to bug reports "
 "(for a quicker resolution)."
 msgstr ""
 "Nếu bạn gặp sự cố treo hoặc lỗi với OpenShot trên Windows 10/11, các hướng "
@@ -93,12 +546,12 @@ msgstr ""
 "thiết để đính kèm vào báo cáo lỗi (để giải quyết nhanh hơn)."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:49
+#: ../troubleshoot.rst:245
 msgid "Install the Latest Daily Build"
 msgstr "Cài đặt Phiên bản Daily Build Mới nhất"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:51
+#: ../troubleshoot.rst:247
 msgid ""
 "Before attaching a debugger, please download the **latest version** of "
 "OpenShot: https://www.openshot.org/download#daily. Install this version of "
@@ -108,84 +561,84 @@ msgid ""
 "Debugging-with-GDB>`_."
 msgstr ""
 "Trước khi gắn trình gỡ lỗi, vui lòng tải xuống **phiên bản mới nhất** của "
-"OpenShot: https://www.openshot.org/download#daily. Cài đặt phiên bản này vào "
-"vị trí mặc định: ``C:\\Program Files\\OpenShot Video Editor\\``. Để biết "
+"OpenShot: https://www.openshot.org/download#daily. Cài đặt phiên bản này vào"
+" vị trí mặc định: ``C:\\Program Files\\OpenShot Video Editor\\``. Để biết "
 "hướng dẫn chi tiết về gỡ lỗi OpenShot trên Windows, vui lòng xem `wiki này "
 "<https://github.com/OpenShot/openshot-qt/wiki/Windows-Debugging-with-GDB>`_."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:56
+#: ../troubleshoot.rst:252
 msgid "Install MSYS2"
 msgstr "Cài đặt MSYS2"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:58
+#: ../troubleshoot.rst:254
 msgid ""
 "The Windows version of OpenShot is compiled using an environment called "
-"MSYS2. In order to attach the GDB debugger to our executable, ``openshot-qt."
-"exe``, you must first install MSYS2. This step is only required once."
+"MSYS2. In order to attach the GDB debugger to our executable, ``openshot-"
+"qt.exe``, you must first install MSYS2. This step is only required once."
 msgstr ""
 "Phiên bản OpenShot trên Windows được biên dịch sử dụng môi trường gọi là "
-"MSYS2. Để gắn trình gỡ lỗi GDB vào tệp thực thi của chúng tôi, ``openshot-qt."
-"exe``, bạn phải cài đặt MSYS2 trước. Bước này chỉ cần thực hiện một lần."
+"MSYS2. Để gắn trình gỡ lỗi GDB vào tệp thực thi của chúng tôi, ``openshot-"
+"qt.exe``, bạn phải cài đặt MSYS2 trước. Bước này chỉ cần thực hiện một lần."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:61
+#: ../troubleshoot.rst:257
 msgid "Download & Install MSYS2: `<http://www.msys2.org/>`_"
 msgstr "Tải xuống & Cài đặt MSYS2: `<http://www.msys2.org/>`_"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:62 ../troubleshoot.rst:78
+#: ../troubleshoot.rst:258 ../troubleshoot.rst:274
 msgid ""
-"Run ``MSYS2 MinGW x64`` command prompt (for example: ``C:"
-"\\msys64\\msys2_shell.cmd -mingw64``)"
+"Run ``MSYS2 MinGW x64`` command prompt (for example: "
+"``C:\\msys64\\msys2_shell.cmd -mingw64``)"
 msgstr ""
-"Chạy cửa sổ lệnh ``MSYS2 MinGW x64`` (ví dụ: ``C:\\msys64\\msys2_shell.cmd -"
-"mingw64``)"
+"Chạy cửa sổ lệnh ``MSYS2 MinGW x64`` (ví dụ: ``C:\\msys64\\msys2_shell.cmd "
+"-mingw64``)"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:63
+#: ../troubleshoot.rst:259
 msgid "Update all packages (*Copy/Paste the following command*):"
 msgstr "Cập nhật tất cả các gói (*Sao chép/Dán lệnh sau*):"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:69
+#: ../troubleshoot.rst:265
 msgid "Install GDB debugger (*Copy/Paste the following command*):"
 msgstr "Cài đặt trình gỡ lỗi GDB (*Sao chép/Dán lệnh sau*):"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:76
+#: ../troubleshoot.rst:272
 msgid "Launch OpenShot with GDB Debugger"
 msgstr "Khởi chạy OpenShot với trình gỡ lỗi GDB"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:80
+#: ../troubleshoot.rst:276
 msgid "Update the PATH (*Copy/Paste the following commands*):"
 msgstr "Cập nhật PATH (*Sao chép/Dán các lệnh sau*):"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:87
+#: ../troubleshoot.rst:283
 msgid ""
 "Load OpenShot into the GDB debugger (*Copy/Paste the following commands*):"
 msgstr "Nạp OpenShot vào trình gỡ lỗi GDB (*Sao chép/Dán các lệnh sau*):"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:94
+#: ../troubleshoot.rst:290
 msgid "Launch OpenShot from GDB prompt (*Copy/Paste the following command*):"
 msgstr "Khởi chạy OpenShot từ dấu nhắc GDB (*Sao chép/Dán lệnh sau*):"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:101
+#: ../troubleshoot.rst:297
 msgid "Print Debugging Info"
 msgstr "In thông tin gỡ lỗi"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:103
+#: ../troubleshoot.rst:299
 msgid ""
 "Once OpenShot has launched successfully with GDB attached, all you need to "
 "do is trigger a crash or freeze in OpenShot. When a crash occurs, switch "
-"back to the MSYS2 MinGW64 terminal and run one of the following commands (by "
-"typing it and pressing ENTER). Usually, the first command to enter is "
+"back to the MSYS2 MinGW64 terminal and run one of the following commands (by"
+" typing it and pressing ENTER). Usually, the first command to enter is "
 "``bt``, which stands for ``backtrace``. More commands are listed below."
 msgstr ""
 "Khi OpenShot đã khởi chạy thành công với GDB được gắn, bạn chỉ cần gây ra "
@@ -195,12 +648,12 @@ msgstr ""
 "khác được liệt kê bên dưới."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:117
+#: ../troubleshoot.rst:313
 msgid "High DPI / 4K Monitors"
 msgstr "Màn hình DPI cao / 4K"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:119
+#: ../troubleshoot.rst:315
 msgid ""
 "OpenShot Video Editor provides robust support for High DPI (Dots Per Inch) "
 "monitors, ensuring that the interface looks sharp and is easily readable on "
@@ -213,73 +666,73 @@ msgstr ""
 "phân giải cao khác."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:125
+#: ../troubleshoot.rst:321
 msgid "Per Monitor DPI Awareness"
 msgstr "Nhận biết DPI theo từng màn hình"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:127
+#: ../troubleshoot.rst:323
 msgid ""
 "OpenShot is DPI aware on a per-monitor basis, meaning it can adjust its "
-"scaling dynamically depending on the DPI settings of each connected monitor. "
-"This helps provide a consistent experience across different displays."
+"scaling dynamically depending on the DPI settings of each connected monitor."
+" This helps provide a consistent experience across different displays."
 msgstr ""
 "OpenShot nhận biết DPI theo từng màn hình, nghĩa là nó có thể điều chỉnh tỷ "
-"lệ động dựa trên thiết lập DPI của từng màn hình được kết nối. Điều này giúp "
-"mang lại trải nghiệm nhất quán trên các màn hình khác nhau."
+"lệ động dựa trên thiết lập DPI của từng màn hình được kết nối. Điều này giúp"
+" mang lại trải nghiệm nhất quán trên các màn hình khác nhau."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:132
+#: ../troubleshoot.rst:328
 msgid "DPI Scaling on Windows"
 msgstr "Tỷ lệ DPI trên Windows"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:134
+#: ../troubleshoot.rst:330
 msgid ""
-"On Windows, OpenShot rounds the scaling factor to the nearest whole value to "
-"maintain visual integrity. This helps avoid visual artifacts in the UI and "
+"On Windows, OpenShot rounds the scaling factor to the nearest whole value to"
+" maintain visual integrity. This helps avoid visual artifacts in the UI and "
 "keeps interface elements crisp and well-aligned. Due to this rounding, some "
 "scaling options can lead to larger fonts and UI elements than expected."
 msgstr ""
 "Trên Windows, OpenShot làm tròn hệ số tỷ lệ đến giá trị nguyên gần nhất để "
 "duy trì tính toàn vẹn hình ảnh. Điều này giúp tránh các hiện tượng sai lệch "
-"hình ảnh trong giao diện và giữ cho các phần tử giao diện sắc nét, căn chỉnh "
-"tốt. Do việc làm tròn này, một số tùy chọn tỷ lệ có thể dẫn đến phông chữ và "
-"phần tử giao diện lớn hơn mong đợi."
+"hình ảnh trong giao diện và giữ cho các phần tử giao diện sắc nét, căn chỉnh"
+" tốt. Do việc làm tròn này, một số tùy chọn tỷ lệ có thể dẫn đến phông chữ "
+"và phần tử giao diện lớn hơn mong đợi."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:139
+#: ../troubleshoot.rst:335
 msgid "**125% scaling** rounds to **100%**"
 msgstr "**Tỷ lệ 125%** được làm tròn thành **100%**"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:140
+#: ../troubleshoot.rst:336
 msgid "**150% scaling** rounds to **200%**"
 msgstr "**Tỷ lệ 150%** được làm tròn thành **200%**"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:143
+#: ../troubleshoot.rst:339
 msgid "Workarounds for Fine-Grained Adjustment"
 msgstr "Giải pháp thay thế cho điều chỉnh chi tiết"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:145
+#: ../troubleshoot.rst:341
 msgid ""
 "While rounding helps maintain a clean interface, there are workarounds for "
-"users who require more precise control over scaling. These methods are **not "
-"recommended** due to potential visual artifacts:"
+"users who require more precise control over scaling. These methods are **not"
+" recommended** due to potential visual artifacts:"
 msgstr ""
-"Mặc dù việc làm tròn giúp duy trì giao diện sạch sẽ, có những giải pháp thay "
-"thế cho người dùng cần kiểm soát tỷ lệ chính xác hơn. Các phương pháp này "
+"Mặc dù việc làm tròn giúp duy trì giao diện sạch sẽ, có những giải pháp thay"
+" thế cho người dùng cần kiểm soát tỷ lệ chính xác hơn. Các phương pháp này "
 "**không được khuyến nghị** do có thể gây ra hiện tượng sai lệch hình ảnh:"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:149
+#: ../troubleshoot.rst:345
 msgid "**QT_SCALE_FACTOR_ROUNDING_POLICY=PassThrough**"
 msgstr "**QT_SCALE_FACTOR_ROUNDING_POLICY=PassThrough**"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:151
+#: ../troubleshoot.rst:347
 msgid ""
 "Setting this environment variable can disable rounding and allow more "
 "precise scaling."
@@ -288,21 +741,21 @@ msgstr ""
 "chỉnh tỷ lệ chính xác hơn."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:152
+#: ../troubleshoot.rst:348
 msgid ""
-"**Note:** This may cause visual artifacts, particularly in the timeline, and "
-"is not recommended."
+"**Note:** This may cause visual artifacts, particularly in the timeline, and"
+" is not recommended."
 msgstr ""
 "**Lưu ý:** Điều này có thể gây ra hiện tượng sai lệch hình ảnh, đặc biệt là "
 "trên dòng thời gian, và không được khuyến nghị."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:154
+#: ../troubleshoot.rst:350
 msgid "**QT_SCALE_FACTOR=1.25** (or similar value)"
 msgstr "**QT_SCALE_FACTOR=1.25** (hoặc giá trị tương tự)"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:156
+#: ../troubleshoot.rst:352
 msgid ""
 "Manually setting the scale factor can provide finer adjustments to the font "
 "and UI scaling."
@@ -311,7 +764,7 @@ msgstr ""
 "phông chữ và tỷ lệ giao diện."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:157
+#: ../troubleshoot.rst:353
 msgid ""
 "This can also be set via Preferences (User Interface Scale), but expect "
 "border/line issues on Windows with fractional scales."
@@ -321,7 +774,7 @@ msgstr ""
 "phân số."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:158
+#: ../troubleshoot.rst:354
 msgid ""
 "**Note:** This method can also lead to visual artifacts and make OpenShot "
 "harder to use."
@@ -330,10 +783,10 @@ msgstr ""
 "và làm OpenShot khó sử dụng hơn."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:160
+#: ../troubleshoot.rst:356
 msgid ""
-"For more info on adjusting these environment variables, please visit https://"
-"github.com/OpenShot/openshot-qt/wiki/OpenShot-UI-too-large."
+"For more info on adjusting these environment variables, please visit "
+"https://github.com/OpenShot/openshot-qt/wiki/OpenShot-UI-too-large."
 msgstr ""
 "Để biết thêm thông tin về cách điều chỉnh các biến môi trường này, vui lòng "
 "truy cập https://github.com/OpenShot/openshot-qt/wiki/OpenShot-UI-too-large."

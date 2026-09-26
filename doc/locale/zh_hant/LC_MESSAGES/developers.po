@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-09-26 14:26-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -129,7 +129,7 @@ msgstr ""
 "為了編譯或執行 OpenShot，我們需要在系統上安裝一些相依套件。最簡單的方法是使用我們的 `Daily PPA "
 "<https://www.openshot.org/ppa/>`_ 。PPA 是非官方的 Ubuntu 軟體庫，提供我們的軟體套件供下載與安裝。"
 
-#: ../developers.rst:112
+#: ../developers.rst:110
 msgid ""
 "OpenShot supports PyQt5, PyQt6, and PySide6. libopenshot must be built "
 "against the correct Qt version for the binding you are using (Qt5: PyQt5, "
@@ -138,15 +138,15 @@ msgstr ""
 "OpenShot 支援 PyQt5、PyQt6 和 PySide6。libopenshot 必須針對您使用的綁定所對應的正確 Qt "
 "版本進行建置（Qt5：PyQt5，Qt6：PyQt6 或 PySide6）。"
 
-#: ../developers.rst:116
+#: ../developers.rst:114
 msgid "For PySide6 (Qt6) bindings, install these packages:"
 msgstr "對於 PySide6（Qt6）綁定，請安裝這些套件："
 
-#: ../developers.rst:129
+#: ../developers.rst:127
 msgid "For PyQt6, install these packages:"
 msgstr "對於 PyQt6，請安裝這些套件："
 
-#: ../developers.rst:139
+#: ../developers.rst:137
 msgid ""
 "The PyQt6 runtime must provide ``QtCore``, ``QtGui``, ``QtWidgets``, "
 "``QtSvg``, ``QtStateMachine``, and ``uic``. Some distributions split these "
@@ -160,14 +160,14 @@ msgstr ""
 "``uic``。某些發行版將這些模組拆分成獨立套件。特別是 Ubuntu 24.04 的 ``python3-pyqt6`` 套件不包含 "
 "``QtStateMachine``。在該版本中，請使用上述 PySide6 套件或在 Python 虛擬環境中安裝完整的 PyQt6 wheel："
 
-#: ../developers.rst:151
+#: ../developers.rst:149
 msgid ""
 "Verify the selected Qt binding and its required modules before launching "
 "OpenShot:"
 msgstr "在啟動 OpenShot 之前，請確認所選的 Qt 綁定及其所需模組："
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:159
+#: ../developers.rst:157
 msgid ""
 "At this point, you should have all 3 OpenShot components source code cloned "
 "into local folders, the OpenShot daily PPA installed, and all of the "
@@ -178,19 +178,19 @@ msgstr ""
 "PPA，並安裝了所有必要的開發與執行時相依套件。這是個良好的開始，我們現在準備開始編譯程式碼！"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:164
+#: ../developers.rst:162
 msgid "libopenshot-audio (Build Instructions)"
 msgstr "libopenshot-audio（建置說明）"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:165
+#: ../developers.rst:163
 msgid ""
 "This library is required for audio playback and audio effects. It is based "
 "on the JUCE audio framework. Here are the commands to build it:"
 msgstr "此函式庫用於音訊播放與音效，基於 JUCE 音訊框架。以下是建置指令："
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:178
+#: ../developers.rst:176
 msgid ""
 "Essentially, we are switching to the ``libopenshot-audio/build`` folder, "
 "then running ``cmake ..`` on the parent folder. This finds dependencies and "
@@ -206,12 +206,12 @@ msgstr ""
 " install`` 需要管理員權限。"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:186
+#: ../developers.rst:184
 msgid "libopenshot (Build Instructions)"
 msgstr "libopenshot（建置說明）"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:187
+#: ../developers.rst:185
 msgid ""
 "This library is required for video decoding, encoding, animation, and just "
 "about everything else. It does all the heavy lifting of video editing and "
@@ -219,7 +219,7 @@ msgid ""
 msgstr "此函式庫負責影片解碼、編碼、動畫及其他幾乎所有功能，承擔影片編輯與播放的主要工作。以下是建置指令："
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:199
+#: ../developers.rst:197
 msgid ""
 "Essentially, we are switching to the ``libopenshot/build`` folder, then "
 "running ``cmake ..`` on the parent folder. This finds dependencies and "
@@ -233,7 +233,7 @@ msgstr ""
 "``libopenshot-audio`` 安裝位置，將使用該版本函式庫取代系統版本（若有）。"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:206
+#: ../developers.rst:204
 msgid ""
 "We don't install our ``libopenshot`` after building, because we don't need "
 "to. For testing purposes, we can tell OpenShot to use ``libopenshot`` right "
@@ -243,12 +243,12 @@ msgstr ""
 "``libopenshot`` 。"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:210
+#: ../developers.rst:208
 msgid "Language Bindings"
 msgstr "語言綁定"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:211
+#: ../developers.rst:209
 msgid ""
 "The ``libopenshot`` API is available in several languages through SWIG "
 "bindings.  Python is used by the OpenShot user interface, and we also "
@@ -262,12 +262,12 @@ msgstr ""
 "C++ 程式碼庫，讓您能在偏好的環境中編輯影片。"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:217
+#: ../developers.rst:215
 msgid "openshot-qt (Launch Instructions)"
 msgstr "openshot-qt（啟動說明）"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:218
+#: ../developers.rst:216
 msgid ""
 "This is our main PyQt Python application. Because it is written in Python, "
 "it does not require any compiling to run. To launch OpenShot from the source"
@@ -278,7 +278,7 @@ msgstr ""
 "OpenShot，並使用我們新建置的 ``libopenshot-audio`` 和 ``libopenshot`` 函式庫，請使用以下指令："
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:229
+#: ../developers.rst:227
 msgid ""
 "This should launch the OpenShot user interface. Any changes you have made to"
 " the source code files (``*.py`` Python files, ``*.ui`` PyQt UI files, "
@@ -291,7 +291,7 @@ msgstr ""
 "函式庫，如果上述步驟有任何錯誤，OpenShot 很可能無法啟動。"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:235
+#: ../developers.rst:233
 msgid ""
 "If OpenShot launches at this point, congratulations! You now have a working "
 "local version of OpenShot, which is running off your local source code. Try "
@@ -301,13 +301,193 @@ msgstr ""
 "如果此時 OpenShot 成功啟動，恭喜！您現在擁有一個可運作的本地 OpenShot "
 "版本，並且是從您的本地原始碼執行。試著對原始碼做些更改並重新啟動 OpenShot……您應該會看到您的更改！"
 
-# Translated with gpt-4.1-mini
+#: ../developers.rst:239
+msgid "Command-Line Options"
+msgstr "命令列選項"
+
 #: ../developers.rst:241
+msgid ""
+"These options work with the installed OpenShot application, including "
+"``openshot-qt.exe`` on Windows. When running from source, use ``python3 "
+"src/launch.py`` in place of the application name. Put options before any "
+"file paths you want OpenShot to open."
+msgstr ""
+"這些選項適用於已安裝的 OpenShot 應用程式，包括 Windows 上的 ``openshot-qt.exe``。從原始碼執行時，請使用 "
+"``python3 src/launch.py`` 取代應用程式名稱。將選項放在您想讓 OpenShot 開啟的任何檔案路徑之前。"
+
+#: ../developers.rst:246
+msgid "OpenShot command-line options"
+msgstr "OpenShot 命令列選項"
+
+#: ../developers.rst:250
+msgid "Option"
+msgstr "選項"
+
+#: ../developers.rst:251
+msgid "What it does"
+msgstr "功能說明"
+
+#: ../developers.rst:252
+msgid "``-h``, ``--help``"
+msgstr "``-h``, ``--help``"
+
+#: ../developers.rst:253
+msgid "Show the available options and exit."
+msgstr "顯示可用選項並結束。"
+
+#: ../developers.rst:254
+msgid "``-V``, ``--version``"
+msgstr "``-V``, ``--version``"
+
+#: ../developers.rst:255
+msgid "Print the OpenShot version and exit."
+msgstr "顯示 OpenShot 版本並結束。"
+
+#: ../developers.rst:256
+msgid "``-l CODE``, ``--lang CODE``"
+msgstr "``-l CODE``, ``--lang CODE``"
+
+#: ../developers.rst:257
+msgid ""
+"Use the chosen interface language for this launch. The code must be one of "
+"those shown by ``--list-languages``."
+msgstr "本次啟動時使用所選的介面語言。代碼必須是 ``--list-languages`` 顯示的其中一個。"
+
+#: ../developers.rst:259
+msgid "``--list-languages``"
+msgstr "``--list-languages``"
+
+#: ../developers.rst:260
+msgid "List supported language codes and exit."
+msgstr "列出支援的語言代碼並結束。"
+
+#: ../developers.rst:261
+msgid "``--path FOLDER``"
+msgstr "``--path FOLDER``"
+
+#: ../developers.rst:262
+msgid ""
+"Add a folder to the Python module search path. You can repeat this option to"
+" add more than one folder."
+msgstr "將資料夾加入 Python 模組搜尋路徑。您可以重複此選項以加入多個資料夾。"
+
+#: ../developers.rst:264
+msgid "``--feedback-preview``"
+msgstr "``--feedback-preview``"
+
+#: ../developers.rst:265
+msgid ""
+"Show the feedback notice on launch without marking the invitation as shown "
+"in saved settings."
+msgstr "啟動時顯示回饋通知，但不會在已儲存的設定中標記邀請為已顯示。"
+
+#: ../developers.rst:267
+msgid "``--update-preview``"
+msgstr "``--update-preview``"
+
+#: ../developers.rst:268
+msgid ""
+"Show the update notice on launch. Both preview options can be used together."
+msgstr "啟動時顯示更新通知。兩個預覽選項可以同時使用。"
+
+#: ../developers.rst:269
+msgid "``--test-models``"
+msgstr "``--test-models``"
+
+#: ../developers.rst:270
+msgid ""
+"Enable Qt's data model tester for development (requires Qt 5.11 or later)."
+msgstr "啟用 Qt 的資料模型測試工具以進行開發（需要 Qt 5.11 或更新版本）。"
+
+#: ../developers.rst:271
+msgid "``-d``, ``--debug``, ``--debug-ui``"
+msgstr "``-d``, ``--debug``, ``--debug-ui``"
+
+#: ../developers.rst:272
+msgid "Add detailed interface messages to its log file and the terminal."
+msgstr "將詳細的介面訊息加入日誌檔案及終端機。"
+
+#: ../developers.rst:273
+msgid "``--debug-engine``"
+msgstr "``--debug-engine``"
+
+#: ../developers.rst:274
+msgid ""
+"Add detailed video and audio engine messages to its log file and the "
+"terminal."
+msgstr "將詳細的視訊與音訊引擎訊息加入日誌檔案及終端機。"
+
+#: ../developers.rst:275
+msgid "``--log-level LEVEL``"
+msgstr "``--log-level LEVEL``"
+
+#: ../developers.rst:276
+msgid ""
+"Set the logging level for both parts of OpenShot, in files and the terminal."
+msgstr "設定 OpenShot 兩個部分在檔案及終端機的日誌等級。"
+
+#: ../developers.rst:277
+msgid "``--log-file-level LEVEL``"
+msgstr "``--log-file-level LEVEL``"
+
+#: ../developers.rst:278
+msgid "Set the logging level in both log files."
+msgstr "設定兩個日誌檔案的日誌等級。"
+
+#: ../developers.rst:279
+msgid "``--log-console-level LEVEL``"
+msgstr "``--log-console-level LEVEL``"
+
+#: ../developers.rst:280
+msgid "Set the logging level in the terminal for both parts of OpenShot."
+msgstr "設定 OpenShot 兩個部分在終端機的日誌等級。"
+
+#: ../developers.rst:281
+msgid "``--debug-file``"
+msgstr "``--debug-file``"
+
+#: ../developers.rst:282
+msgid ""
+"Add detailed interface messages to its log file only. This older option is "
+"accepted but is not shown by ``--help``."
+msgstr "僅將詳細的介面訊息加入日誌檔案。此舊選項仍被接受，但不會在 ``--help`` 中顯示。"
+
+#: ../developers.rst:284
+msgid "``--debug-console``"
+msgstr "``--debug-console``"
+
+#: ../developers.rst:285
+msgid ""
+"Add detailed interface messages to the terminal only. This older option is "
+"accepted but is not shown by ``--help``."
+msgstr "僅將詳細的介面訊息加入終端機。此舊選項仍被接受，但不會在 ``--help`` 中顯示。"
+
+#: ../developers.rst:287
+msgid "``PROJECT.osp`` or media file paths"
+msgstr "``PROJECT.osp`` 或媒體檔案路徑"
+
+#: ../developers.rst:288
+msgid ""
+"Open a project when the first file path ends in ``.osp``. Otherwise, start a"
+" new project and import the supplied media files."
+msgstr "當第一個檔案路徑以 ``.osp`` 結尾時開啟專案。否則，啟動新專案並匯入提供的媒體檔案。"
+
+#: ../developers.rst:291
+msgid ""
+"For ``LEVEL``, use ``debug``, ``info``, ``warning``, ``error``, "
+"``critical``, or ``off``. See :ref:`logging_ref` for log file locations, "
+"examples, and more about choosing logging options."
+msgstr ""
+"``LEVEL`` 可使用 ``debug``、``info``、``warning``、``error``、``critical`` 或 "
+"``off``。請參閱 :ref:`logging_ref` 了解日誌檔案位置、範例及更多日誌選項說明。"
+
+# Translated with gpt-4.1-mini
+#: ../developers.rst:296
 msgid "GitHub Issues"
 msgstr "GitHub 問題"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:242
+#: ../developers.rst:297
 msgid ""
 "Now that you have successfully compiled and launched OpenShot Video Editor "
 "from source code, be sure to check out our list of bug reports on GitHub: "
@@ -320,12 +500,12 @@ msgstr ""
 "並自我介紹！"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:248
+#: ../developers.rst:303
 msgid "Share your Changes"
 msgstr "分享您的更改"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:249
+#: ../developers.rst:304
 msgid ""
 "Once you have fixed a bug or added an amazing new feature, be sure to share "
 "it with the OpenShot team. Ideally, we can merge this into our main source "

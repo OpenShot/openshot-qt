@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-09-26 14:26-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -51,7 +51,7 @@ msgstr "नाम"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:35 ../main_window.rst:80 ../main_window.rst:103
-#: ../main_window.rst:235 ../main_window.rst:349 ../main_window.rst:378
+#: ../main_window.rst:237 ../main_window.rst:367 ../main_window.rst:396
 msgid "Description"
 msgstr "विवरण"
 
@@ -93,7 +93,7 @@ msgid "3"
 msgstr "3"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:39 ../main_window.rst:393
+#: ../main_window.rst:39 ../main_window.rst:411
 msgid "Project Files"
 msgstr "प्रोजेक्ट फाइलें"
 
@@ -407,15 +407,15 @@ msgstr "अपने नवीनतम टाइमलाइन संपाद
 msgid "Snap, Retime, Razor"
 msgstr "स्नैप, रीटाइम, रेज़र"
 
-# Translated with gpt-4.1-mini
 #: ../main_window.rst:112
 msgid ""
 "Snapping toggles magnetic alignment. Timing Tool enables retiming by "
-"dragging clip edges. Razor Tool cuts clips at the clicked position."
+"dragging clip edges. The :ref:`razor_tool_ref` previews and cuts at the "
+"guide position; press :kbd:`Esc` to exit."
 msgstr ""
 "स्नैपिंग चुंबकीय संरेखण को चालू या बंद करता है। टाइमिंग टूल क्लिप किनारों को"
-" खींचकर रीटाइमिंग सक्षम करता है। रेज़र टूल क्लिक किए गए स्थान पर क्लिप्स को "
-"काटता है।"
+" खींचकर पुनःसमय निर्धारण सक्षम करता है। :ref:`razor_tool_ref` गाइड स्थिति पर"
+" पूर्वावलोकन करता है और काटता है; बाहर निकलने के लिए :kbd:`Esc` दबाएं।"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:114
@@ -506,7 +506,7 @@ msgid "Shortcut 3"
 msgstr "शॉर्टकट 3"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:142 ../main_window.rst:277
+#: ../main_window.rst:142 ../main_window.rst:294
 msgid "About OpenShot"
 msgstr "OpenShot के बारे में"
 
@@ -570,7 +570,7 @@ msgstr ":kbd:`Shift+C`"
 msgid ":kbd:`Alt+Up`"
 msgstr ":kbd:`Alt+Up`"
 
-#: ../main_window.rst:149 ../main_window.rst:311
+#: ../main_window.rst:149 ../main_window.rst:329
 msgid "Color View"
 msgstr "रंग दृश्य"
 
@@ -984,7 +984,7 @@ msgid ":kbd:`Alt+P`"
 msgstr ":kbd:`Alt+P`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:186 ../main_window.rst:221
+#: ../main_window.rst:186 ../main_window.rst:223
 msgid ":kbd:`Double Click`"
 msgstr ":kbd:`Double Click`"
 
@@ -1019,7 +1019,7 @@ msgid ":kbd:`Alt+Left`"
 msgstr ":kbd:`Alt+Left`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:189 ../main_window.rst:395
+#: ../main_window.rst:189 ../main_window.rst:413
 msgid "Properties"
 msgstr "गुण"
 
@@ -1153,233 +1153,249 @@ msgstr "कोई चयन न करें"
 msgid ":kbd:`Ctrl+Shift+A`"
 msgstr ":kbd:`Ctrl+Shift+A`"
 
+#: ../main_window.rst:202
+msgid "Share Feedback..."
+msgstr "प्रतिक्रिया साझा करें..."
+
+#: ../main_window.rst:202
+msgid ":kbd:`F8`"
+msgstr ":kbd:`F8`"
+
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:202 ../main_window.rst:304
+#: ../main_window.rst:203 ../main_window.rst:322
 msgid "Simple View"
 msgstr "सरल दृश्य"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:202
+#: ../main_window.rst:203
 msgid ":kbd:`Alt+Shift+0`"
 msgstr ":kbd:`Alt+Shift+0`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:203
+#: ../main_window.rst:204
 msgid "Slice All: Keep Both Sides"
 msgstr "सभी को काटें: दोनों पक्ष रखें"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:203
+#: ../main_window.rst:204
 msgid ":kbd:`Ctrl+Shift+K`"
 msgstr ":kbd:`Ctrl+Shift+K`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:204
+#: ../main_window.rst:205
 msgid "Slice All: Keep Left Side"
 msgstr "सभी को काटें: बायाँ पक्ष रखें"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:204
+#: ../main_window.rst:205
 msgid ":kbd:`Ctrl+Shift+J`"
 msgstr ":kbd:`Ctrl+Shift+J`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:205
+#: ../main_window.rst:206
 msgid "Slice All: Keep Right Side"
 msgstr "सभी को काटें: दायाँ पक्ष रखें"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:205
+#: ../main_window.rst:206
 msgid ":kbd:`Ctrl+Shift+L`"
 msgstr ":kbd:`Ctrl+Shift+L`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:206
+#: ../main_window.rst:207
 msgid "Slice Selected: Keep Both Sides"
 msgstr "चयनित को काटें: दोनों पक्ष रखें"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:206
+#: ../main_window.rst:207
 msgid ":kbd:`Ctrl+K`"
 msgstr ":kbd:`Ctrl+K`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:207
+#: ../main_window.rst:208
 msgid "Slice Selected: Keep Left Side"
 msgstr "चयनित को काटें: बायाँ पक्ष रखें"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:207
+#: ../main_window.rst:208
 msgid ":kbd:`Ctrl+J`"
 msgstr ":kbd:`Ctrl+J`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:208
+#: ../main_window.rst:209
 msgid "Slice Selected: Keep Right Side"
 msgstr "चयनित को काटें: दायाँ पक्ष रखें"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:208
+#: ../main_window.rst:209
 msgid ":kbd:`Ctrl+L`"
 msgstr ":kbd:`Ctrl+L`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:209
+#: ../main_window.rst:210
 msgid "Slice Selected: Keep Left (Ripple)"
 msgstr "चयनित को काटें: बायाँ रखें (रिपल)"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:209
+#: ../main_window.rst:210
 msgid ":kbd:`W`"
 msgstr ":kbd:`W`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:210
+#: ../main_window.rst:211
 msgid "Slice Selected: Keep Right (Ripple)"
 msgstr "चयनित को काटें: दायाँ रखें (रिपल)"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:210
+#: ../main_window.rst:211
 msgid ":kbd:`Q`"
 msgstr ":kbd:`Q`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:211
+#: ../main_window.rst:212
 msgid "Snapping Toggle"
 msgstr "स्नैपिंग टॉगल"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:211
+#: ../main_window.rst:212
 msgid ":kbd:`S`"
 msgstr ":kbd:`S`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:212
+#: ../main_window.rst:213
 msgid "Split File"
 msgstr "फ़ाइल विभाजित करें"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:212
+#: ../main_window.rst:213
 msgid ":kbd:`Alt+S`"
 msgstr ":kbd:`Alt+S`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:212
+#: ../main_window.rst:213
 msgid ":kbd:`Shift+Double Click`"
 msgstr ":kbd:`Shift+Double Click`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:213
+#: ../main_window.rst:214
 msgid "Thumbnail View"
 msgstr "थंबनेल दृश्य"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:213
+#: ../main_window.rst:214
 msgid ":kbd:`Ctrl+Page Down`"
 msgstr ":kbd:`Ctrl+Page Down`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:214
+#: ../main_window.rst:215
 msgid "Timing Toggle"
 msgstr "टाइमिंग टॉगल"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:214
+#: ../main_window.rst:215
 msgid ":kbd:`T`"
 msgstr ":kbd:`T`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:215 ../main_window.rst:255
+#: ../main_window.rst:216 ../main_window.rst:257
 msgid "Title"
 msgstr "शीर्षक"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:215
+#: ../main_window.rst:216
 msgid ":kbd:`Ctrl+T`"
 msgstr ":kbd:`Ctrl+T`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:216
+#: ../main_window.rst:217
 msgid "Translate this Application..."
 msgstr "इस एप्लिकेशन का अनुवाद करें..."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:216
+#: ../main_window.rst:217
 msgid ":kbd:`F6`"
 msgstr ":kbd:`F6`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:217
+#: ../main_window.rst:218
 msgid "Undo"
 msgstr "पूर्ववत करें"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:217
+#: ../main_window.rst:218
 msgid ":kbd:`Ctrl+Z`"
 msgstr ":kbd:`Ctrl+Z`"
 
+#: ../main_window.rst:219
+msgid "Update Available"
+msgstr "अपडेट उपलब्ध है"
+
+#: ../main_window.rst:219
+msgid ":kbd:`F9`"
+msgstr ":kbd:`F9`"
+
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:218
+#: ../main_window.rst:220
 msgid "View Toolbar"
 msgstr "टूलबार देखें"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:218
+#: ../main_window.rst:220
 msgid ":kbd:`Ctrl+Shift+B`"
 msgstr ":kbd:`Ctrl+Shift+B`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:219
+#: ../main_window.rst:221
 msgid "Zoom In"
 msgstr "ज़ूम इन करें"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:219
+#: ../main_window.rst:221
 msgid ":kbd:`=`"
 msgstr ":kbd:`=`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:219
+#: ../main_window.rst:221
 msgid ":kbd:`Ctrl+=`"
 msgstr ":kbd:`Ctrl+=`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:220
+#: ../main_window.rst:222
 msgid "Zoom Out"
 msgstr "ज़ूम आउट करें"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:220
+#: ../main_window.rst:222
 msgid ":kbd:`-`"
 msgstr ":kbd:`-`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:220
+#: ../main_window.rst:222
 msgid ":kbd:`Ctrl+-`"
 msgstr ":kbd:`Ctrl+-`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:221
+#: ../main_window.rst:223
 msgid "Zoom to Timeline"
 msgstr "टाइमलाइन पर ज़ूम करें"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:221
+#: ../main_window.rst:223
 msgid ":kbd:`\\\\`"
 msgstr ":kbd:`\\\\`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:221
+#: ../main_window.rst:223
 msgid ":kbd:`Shift+\\\\`"
 msgstr ":kbd:`Shift+\\\\`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:225
+#: ../main_window.rst:227
 msgid "Menu"
 msgstr "मेनू"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:226
+#: ../main_window.rst:228
 msgid ""
 "The following menu options are available on the main window on OpenShot. "
 "Most of these options can be accessed by the keyboard shortcuts mentioned "
@@ -1392,33 +1408,33 @@ msgstr ""
 "व्यवस्थित किए गए हैं।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:234
+#: ../main_window.rst:236
 msgid "Menu Name"
 msgstr "मेनू नाम"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:236
+#: ../main_window.rst:238
 msgid "File"
 msgstr "फ़ाइल"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:238
+#: ../main_window.rst:240
 msgid ":guilabel:`New Project` Create a blank new project."
 msgstr ":guilabel:`New Project` एक नया खाली प्रोजेक्ट बनाएं।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:239
+#: ../main_window.rst:241
 msgid ":guilabel:`Open Project` Open an existing project."
 msgstr ":guilabel:`Open Project` एक मौजूदा प्रोजेक्ट खोलें।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:240
+#: ../main_window.rst:242
 msgid ":guilabel:`Recent Projects` Access recently opened projects."
 msgstr ""
 ":guilabel:`Recent Projects` हाल ही में खोले गए प्रोजेक्ट्स तक पहुँचें।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:241
+#: ../main_window.rst:243
 msgid ""
 ":guilabel:`Recovery` Restore a previously saved version of your current "
 "project."
@@ -1427,17 +1443,17 @@ msgstr ""
 "पुनर्स्थापित करें।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:242
+#: ../main_window.rst:244
 msgid ":guilabel:`Save Project` Save the current project."
 msgstr ":guilabel:`Save Project` वर्तमान प्रोजेक्ट सहेजें।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:243
+#: ../main_window.rst:245
 msgid ":guilabel:`Import Files` Import media files into the project."
 msgstr ":guilabel:`Import Files` मीडिया फ़ाइलों को प्रोजेक्ट में आयात करें।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:244
+#: ../main_window.rst:246
 msgid ""
 ":guilabel:`Choose Profile` Select a project profile (*i.e. 1080p @ 30fps, "
 "720p @ 24fps, ...*)."
@@ -1446,7 +1462,7 @@ msgstr ""
 "30fps, 720p @ 24fps, ...*)."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:245
+#: ../main_window.rst:247
 msgid ""
 ":guilabel:`Save Current Frame` Save the current preview video frame as an "
 "image (sometimes represented with a camera icon)."
@@ -1455,7 +1471,7 @@ msgstr ""
 " रूप में सहेजें (कभी-कभी कैमरा आइकन के साथ दर्शाया जाता है)।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:246
+#: ../main_window.rst:248
 msgid ""
 ":guilabel:`Import Project` Import another project into the current project "
 "(*Adobe and Final Cut Pro formats partially supported*)."
@@ -1464,7 +1480,7 @@ msgstr ""
 "करें (*Adobe और Final Cut Pro फॉर्मेट आंशिक रूप से समर्थित हैं*)."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:247
+#: ../main_window.rst:249
 msgid ""
 ":guilabel:`Export Project` Export the current project to a specified format "
 "(*EDL, Adobe, and Final Cut Pro formats partially supported*)."
@@ -1474,27 +1490,27 @@ msgstr ""
 "हैं*)."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:248
+#: ../main_window.rst:250
 msgid ":guilabel:`Quit` Exit the application."
 msgstr ":guilabel:`Quit` एप्लिकेशन से बाहर निकलें।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:249
+#: ../main_window.rst:251
 msgid "Edit"
 msgstr "संपादित करें"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:251
+#: ../main_window.rst:253
 msgid ":guilabel:`Undo` Undo the last action."
 msgstr ":guilabel:`Undo` अंतिम क्रिया पूर्ववत करें।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:252
+#: ../main_window.rst:254
 msgid ":guilabel:`Redo` Redo the last undone action."
 msgstr ":guilabel:`Redo` अंतिम पूर्ववत की गई क्रिया को पुनः करें।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:253
+#: ../main_window.rst:255
 msgid ""
 ":guilabel:`Clear` Clear the current history or waveform cached data. This "
 "makes the `.osp project` file a much smaller file size."
@@ -1503,7 +1519,7 @@ msgstr ""
 "`.osp प्रोजेक्ट` फ़ाइल का आकार काफी छोटा हो जाता है।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:254
+#: ../main_window.rst:256
 msgid ""
 ":guilabel:`Preferences` Open the preferences dialog to customize settings."
 msgstr ""
@@ -1511,7 +1527,7 @@ msgstr ""
 "खोलें।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:257
+#: ../main_window.rst:259
 msgid ""
 ":guilabel:`Title` Add a SVG vector title to the project. See "
 ":ref:`text_and_titles_ref`."
@@ -1520,7 +1536,7 @@ msgstr ""
 ":ref:`text_and_titles_ref`।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:258
+#: ../main_window.rst:260
 msgid ""
 ":guilabel:`Animated Title` Add an animated title to the project. See "
 ":ref:`animated_titles_ref`."
@@ -1529,11 +1545,11 @@ msgstr ""
 ":ref:`animated_titles_ref`।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:259
+#: ../main_window.rst:261
 msgid "View"
 msgstr "व्यू"
 
-#: ../main_window.rst:261
+#: ../main_window.rst:263
 msgid ""
 ":guilabel:`Simple View` and :guilabel:`Color View` switch or reset the main "
 "window layout."
@@ -1541,7 +1557,7 @@ msgstr ""
 ":guilabel:`Simple View` और :guilabel:`Color View` मुख्य विंडो लेआउट को स्विच"
 " या रीसेट करते हैं।"
 
-#: ../main_window.rst:262
+#: ../main_window.rst:264
 msgid ""
 ":guilabel:`My Views` Save, load, update, and delete your own named layouts. "
 "See :ref:`my_views_ref`."
@@ -1549,18 +1565,18 @@ msgstr ""
 ":guilabel:`My Views` अपने नामित लेआउट को सहेजें, लोड करें, अपडेट करें, और "
 "हटाएं। देखें :ref:`my_views_ref`।"
 
-#: ../main_window.rst:263
+#: ../main_window.rst:265
 msgid ":guilabel:`Docks` Show or hide various dockable panels."
 msgstr ":guilabel:`Docks` विभिन्न डॉक पैनलों को दिखाएं या छिपाएं।"
 
-#: ../main_window.rst:264
+#: ../main_window.rst:266
 msgid ""
 ":guilabel:`Scopes` Show or hide scope docks, or open all scopes at once."
 msgstr ""
 ":guilabel:`Scopes` स्कोप डॉक को दिखाएं या छिपाएं, या सभी स्कोप्स को एक साथ "
 "खोलें।"
 
-#: ../main_window.rst:265
+#: ../main_window.rst:267
 msgid ""
 ":guilabel:`Window` Show or hide the main window toolbar, or toggle "
 "fullscreen mode."
@@ -1569,44 +1585,59 @@ msgstr ""
 " टॉगल करें।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:266
+#: ../main_window.rst:268
 msgid "Help"
 msgstr "सहायता"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:268
+#: ../main_window.rst:270
 msgid ":guilabel:`Contents` Open the user guide online."
 msgstr ":guilabel:`Contents` ऑनलाइन उपयोगकर्ता गाइड खोलें।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:269
+#: ../main_window.rst:271
 msgid ":guilabel:`Tutorial` Access the built-in tutorial for new users."
 msgstr ""
 ":guilabel:`Tutorial` नए उपयोगकर्ताओं के लिए अंतर्निर्मित ट्यूटोरियल तक "
 "पहुँचें।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:270
+#: ../main_window.rst:272
 msgid ":guilabel:`Report a Bug` Report a bug or issue."
 msgstr ":guilabel:`Report a Bug` बग या समस्या रिपोर्ट करें।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:271
+#: ../main_window.rst:273
 msgid ":guilabel:`Ask a Question` Ask a question about the software."
 msgstr ":guilabel:`Ask a Question` सॉफ़्टवेयर के बारे में प्रश्न पूछें।"
 
+#: ../main_window.rst:274
+msgid ""
+":guilabel:`Share Feedback` Open a survey about your experience with "
+"OpenShot."
+msgstr ""
+":guilabel:`प्रतिक्रिया साझा करें` OpenShot के साथ अपने अनुभव के बारे में एक "
+"सर्वेक्षण खोलें।"
+
+#: ../main_window.rst:275
+msgid ""
+":guilabel:`Update Available` Open the download page when a newer version is "
+"available."
+msgstr ""
+":guilabel:`अपडेट उपलब्ध है` जब नया संस्करण उपलब्ध हो तो डाउनलोड पृष्ठ खोलें।"
+
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:272
+#: ../main_window.rst:276
 msgid ":guilabel:`Translate` Contribute to translations of the software."
 msgstr ":guilabel:`Translate` सॉफ़्टवेयर के अनुवाद में योगदान दें।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:273
+#: ../main_window.rst:277
 msgid ":guilabel:`Donate` Make a donation to support the project."
 msgstr ":guilabel:`Donate` प्रोजेक्ट का समर्थन करने के लिए दान करें।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:274
+#: ../main_window.rst:278
 msgid ""
 ":guilabel:`About` View information about the software (version, "
 "contributors, translators, changelog, and supporters)."
@@ -1614,28 +1645,59 @@ msgstr ""
 ":guilabel:`About` सॉफ़्टवेयर के बारे में जानकारी देखें (संस्करण, "
 "योगदानकर्ता, अनुवादक, चेंजलॉग, और समर्थक)।"
 
-#: ../main_window.rst:278
+#: ../main_window.rst:281
+msgid "Notifications"
+msgstr "सूचनाएं"
+
+#: ../main_window.rst:283
+msgid ""
+"OpenShot may show a notice near the top of the window when a newer version "
+"is available. Choose :guilabel:`Upgrade` to open the download page, or close"
+" the notice to hide it for that version. You can still open the download "
+"page from :guilabel:`Help → Update Available` or press :kbd:`F9` when an "
+"update is available."
+msgstr ""
+"जब नया संस्करण उपलब्ध हो, तो OpenShot विंडो के शीर्ष के पास एक सूचना दिखा "
+"सकता है। डाउनलोड पृष्ठ खोलने के लिए :guilabel:`अपग्रेड` चुनें, या उस संस्करण"
+" के लिए सूचना छिपाने के लिए इसे बंद करें। आप अभी भी :guilabel:`सहायता → "
+"अपडेट उपलब्ध` से डाउनलोड पृष्ठ खोल सकते हैं या जब अपडेट उपलब्ध हो तो "
+":kbd:`F9` दबा सकते हैं।"
+
+#: ../main_window.rst:288
+msgid ""
+"After you have spent some time editing, OpenShot may also invite you to "
+"share feedback. The survey is optional. You can open it from the notice or "
+"dismiss the invitation. At any time, choose :guilabel:`Help → Share "
+"Feedback` or press :kbd:`F8` to share your thoughts."
+msgstr ""
+"कुछ समय संपादन करने के बाद, OpenShot आपको प्रतिक्रिया साझा करने के लिए भी "
+"आमंत्रित कर सकता है। सर्वेक्षण वैकल्पिक है। आप इसे सूचना से खोल सकते हैं या "
+"निमंत्रण को अस्वीकार कर सकते हैं। किसी भी समय, अपने विचार साझा करने के लिए "
+":guilabel:`सहायता → प्रतिक्रिया साझा करें` चुनें या :kbd:`F8` दबाएं।"
+
+#: ../main_window.rst:295
 msgid ""
 "Use :guilabel:`Help→About OpenShot` to check your OpenShot version. Click "
 ":guilabel:`Copy` next to the version number to copy a short version and "
-"system details report, which is the preferred way to share this information "
-"when reporting a bug or asking for help."
+"system details report, including how OpenShot was installed. This is a "
+"useful way to share the information when reporting a bug or asking for help."
 msgstr ""
-":guilabel:`Help→About OpenShot` का उपयोग करके अपने OpenShot संस्करण की जांच "
-"करें। संस्करण संख्या के बगल में :guilabel:`Copy` पर क्लिक करें ताकि एक "
-"संक्षिप्त संस्करण और सिस्टम विवरण रिपोर्ट कॉपी हो जाए, जो बग रिपोर्ट करते "
-"समय या सहायता मांगते समय इस जानकारी को साझा करने का पसंदीदा तरीका है।"
+":guilabel:`सहायता→OpenShot के बारे में` का उपयोग करके अपने OpenShot संस्करण "
+"की जांच करें। संस्करण संख्या के बगल में :guilabel:`कॉपी` पर क्लिक करें ताकि "
+"एक संक्षिप्त संस्करण और सिस्टम विवरण रिपोर्ट कॉपी हो सके, जिसमें यह भी शामिल"
+" है कि OpenShot कैसे स्थापित किया गया था। यह बग रिपोर्ट करते समय या मदद "
+"मांगते समय जानकारी साझा करने का एक उपयोगी तरीका है।"
 
-#: ../main_window.rst:283
+#: ../main_window.rst:300
 msgid "Example output:"
 msgstr "उदाहरण आउटपुट:"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:297
+#: ../main_window.rst:315
 msgid "Views"
 msgstr "व्यू"
 
-#: ../main_window.rst:299
+#: ../main_window.rst:317
 msgid ""
 "The OpenShot main window is composed of multiple **docks**. These **docks** "
 "are arranged and snapped together into a grouping that we call a **View**. "
@@ -1647,7 +1709,7 @@ msgstr ""
 ":guilabel:`Simple View`, :guilabel:`Color View`, और :guilabel:`My Views` "
 "(उपयोगकर्ता-परिभाषित लेआउट) शामिल हैं।"
 
-#: ../main_window.rst:305
+#: ../main_window.rst:323
 msgid ""
 "This is the **default** view, and is designed to be easy-to-use, especially "
 "for first-time users. It contains :guilabel:`Project Files` on the top left,"
@@ -1663,7 +1725,7 @@ msgstr ""
 "स्क्रीन के शीर्ष पर :guilabel:`View->Simple View` मेनू का उपयोग करके सभी "
 "डॉक्स को उनकी डिफ़ॉल्ट स्थिति में जल्दी से रीसेट कर सकते हैं।"
 
-#: ../main_window.rst:312
+#: ../main_window.rst:330
 msgid ""
 "This view is focused on color correction and scopes. It enlarges the video "
 "preview, hides file-management docks, keeps the timeline and properties "
@@ -1677,11 +1739,11 @@ msgstr ""
 ":guilabel:`Luma Waveform` और :guilabel:`Histogram` डॉक्स को टैब में "
 "व्यवस्थित करता है।"
 
-#: ../main_window.rst:317
+#: ../main_window.rst:335
 msgid "Recording View"
 msgstr "रिकॉर्डिंग दृश्य"
 
-#: ../main_window.rst:318
+#: ../main_window.rst:336
 msgid ""
 "This view is focused on creating new recordings inside OpenShot. It shows "
 ":guilabel:`Project Files`, :guilabel:`Video Preview`, :guilabel:`Timeline`, "
@@ -1696,7 +1758,7 @@ msgstr ""
 "आप इसे :guilabel:`View->Docks->Properties` से रिकॉर्डिंग लेआउट को बाधित किए "
 "बिना दिखा सकें।"
 
-#: ../main_window.rst:323
+#: ../main_window.rst:341
 msgid ""
 "The :guilabel:`Recording` dock can record microphone audio, screen capture, "
 "webcam video, or combinations of those sources. When screen and webcam are "
@@ -1722,11 +1784,11 @@ msgstr ""
 ":ref:`clip_properties_ref`। पूर्ण रिकॉर्डिंग वर्कफ़्लो और सभी स्रोत विकल्पों"
 " के लिए देखें :ref:`recording_ref`।"
 
-#: ../main_window.rst:334
+#: ../main_window.rst:352
 msgid "My Views"
 msgstr "मेरे दृश्य"
 
-#: ../main_window.rst:335
+#: ../main_window.rst:353
 msgid ""
 "**My Views** lets you save any dock arrangement as a named layout and recall"
 " it instantly. This is ideal for workflows that require switching between "
@@ -1740,7 +1802,7 @@ msgstr ""
 "के लिए, एक विस्तृत ऑडियो मिक्स लेआउट और एक केंद्रित रंग ग्रेडिंग लेआउट — "
 "बिना हर बार डॉक्स को मैन्युअल रूप से पुनःस्थित किए।"
 
-#: ../main_window.rst:339
+#: ../main_window.rst:357
 msgid ""
 "Each saved view captures the position, size, and visibility of every dock, "
 "as well as the timeline height. Saved views are stored in your project "
@@ -1750,59 +1812,59 @@ msgstr ""
 "टाइमलाइन की ऊंचाई भी कैप्चर होती है। सहेजे गए दृश्य आपके प्रोजेक्ट सेटिंग्स "
 "में संग्रहीत होते हैं और सत्रों के बीच बने रहते हैं।"
 
-#: ../main_window.rst:342
+#: ../main_window.rst:360
 msgid "**View → My Views** menu options:"
 msgstr "**View → My Views** मेनू विकल्प:"
 
-#: ../main_window.rst:348
+#: ../main_window.rst:366
 msgid "Menu Item"
 msgstr "मेनू आइटम"
 
-#: ../main_window.rst:350
+#: ../main_window.rst:368
 msgid "List of user-defined views"
 msgstr "उपयोगकर्ता-परिभाषित दृश्यों की सूची"
 
-#: ../main_window.rst:351
+#: ../main_window.rst:369
 msgid ""
 "Click to restore that layout. The currently active view shows a checkmark."
 msgstr ""
 "उस लेआउट को पुनर्स्थापित करने के लिए क्लिक करें। वर्तमान सक्रिय दृश्य पर "
 "चेकमार्क दिखता है।"
 
-#: ../main_window.rst:352
+#: ../main_window.rst:370
 msgid "Update \"*[name]*\""
 msgstr "\"*[name]*\" अपडेट करें"
 
-#: ../main_window.rst:353
+#: ../main_window.rst:371
 msgid "Save your current dock arrangement over the active view, replacing it."
 msgstr "सक्रिय दृश्य पर अपनी वर्तमान डॉक व्यवस्था सहेजें, इसे बदलते हुए।"
 
-#: ../main_window.rst:354
+#: ../main_window.rst:372
 msgid "Delete \"*[name]*\""
 msgstr "\"*[name]*\" हटाएं"
 
-#: ../main_window.rst:355
+#: ../main_window.rst:373
 msgid "Remove the active view (asks for confirmation first)."
 msgstr "सक्रिय दृश्य को हटाएं (पहले पुष्टि मांगी जाएगी)।"
 
-#: ../main_window.rst:356
+#: ../main_window.rst:374
 msgid "Save Current View As..."
 msgstr "वर्तमान दृश्य को इस नाम से सहेजें..."
 
-#: ../main_window.rst:357
+#: ../main_window.rst:375
 msgid "Name and save your current dock arrangement as a new view."
 msgstr ""
 "अपनी वर्तमान डॉक व्यवस्था को एक नए दृश्य के रूप में नामित करें और सहेजें।"
 
-#: ../main_window.rst:359
+#: ../main_window.rst:377
 msgid "**Typical workflow:**"
 msgstr "**सामान्य कार्यप्रवाह:**"
 
-#: ../main_window.rst:361
+#: ../main_window.rst:379
 msgid "Arrange your docks exactly how you like them."
 msgstr "अपने डॉक्स को ठीक वैसे ही व्यवस्थित करें जैसे आप चाहते हैं।"
 
-#: ../main_window.rst:362
+#: ../main_window.rst:380
 msgid ""
 "Open :guilabel:`View → My Views → Save Current View As...` and enter a name "
 "(e.g. *\"Audio Mix\"*)."
@@ -1810,7 +1872,7 @@ msgstr ""
 ":guilabel:`View → My Views → Save Current View As...` खोलें और एक नाम दर्ज "
 "करें (जैसे *\"Audio Mix\"*)."
 
-#: ../main_window.rst:363
+#: ../main_window.rst:381
 msgid ""
 "Later, open :guilabel:`View → My Views` and click the view name to restore "
 "that layout instantly."
@@ -1818,7 +1880,7 @@ msgstr ""
 "बाद में, :guilabel:`View → My Views` खोलें और उस लेआउट को तुरंत पुनर्स्थापित"
 " करने के लिए दृश्य नाम पर क्लिक करें।"
 
-#: ../main_window.rst:364
+#: ../main_window.rst:382
 msgid ""
 "If you adjust the layout and want to keep the changes, choose "
 ":guilabel:`Update \"Audio Mix\"` to overwrite it."
@@ -1827,11 +1889,11 @@ msgstr ""
 "अधिलेखित करने के लिए :guilabel:`Update \"Audio Mix\"` चुनें।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:367
+#: ../main_window.rst:385
 msgid "Docks"
 msgstr "डॉक्स"
 
-#: ../main_window.rst:368
+#: ../main_window.rst:386
 msgid ""
 "Each widget on the OpenShot main window is contained in a **dock**. These "
 "docks can be dragged and snapped around the main window, and even grouped "
@@ -1848,17 +1910,17 @@ msgstr ""
 ":guilabel:`View->Scopes` के अंतर्गत समूहित होते हैं।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:377
+#: ../main_window.rst:395
 msgid "Dock Name"
 msgstr "डॉक का नाम"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:379
+#: ../main_window.rst:397
 msgid "Captions"
 msgstr "कैप्शन"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:380
+#: ../main_window.rst:398
 msgid ""
 "Manage and add captions or subtitles to your video project. Allows you to "
 "create, edit, and manage caption data. See :ref:`caption_effect_ref` effect."
@@ -1868,12 +1930,12 @@ msgstr ""
 ":ref:`caption_effect_ref` प्रभाव।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:381
+#: ../main_window.rst:399
 msgid "Effects"
 msgstr "इफेक्ट्स"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:382
+#: ../main_window.rst:400
 msgid ""
 "Browse and apply video and audio effects to your video clips. Includes "
 "filters, color adjustments, and special effects. See :ref:`effects_ref`."
@@ -1881,11 +1943,11 @@ msgstr ""
 "अपने वीडियो क्लिप्स पर वीडियो और ऑडियो इफेक्ट्स ब्राउज़ और लागू करें। इसमें "
 "फ़िल्टर, रंग समायोजन, और विशेष प्रभाव शामिल हैं। देखें :ref:`effects_ref`।"
 
-#: ../main_window.rst:383
+#: ../main_window.rst:401
 msgid "Color Wheels"
 msgstr "रंग पहिए"
 
-#: ../main_window.rst:384
+#: ../main_window.rst:402
 msgid ""
 "Edit Color Grade wheel controls for global, shadows, midtones, and "
 "highlights from a dedicated right-side dock."
@@ -1894,12 +1956,12 @@ msgstr ""
 "रंग ग्रेड पहिया नियंत्रण संपादित करें।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:385
+#: ../main_window.rst:403
 msgid "Emojis"
 msgstr "इमोजी"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:386
+#: ../main_window.rst:404
 msgid ""
 "Add emoji graphics to your video project. Choose from a variety of emojis to"
 " enhance your video content."
@@ -1907,34 +1969,34 @@ msgstr ""
 "अपने वीडियो प्रोजेक्ट में इमोजी ग्राफिक्स जोड़ें। अपने वीडियो सामग्री को "
 "बेहतर बनाने के लिए विभिन्न इमोजी में से चुनें।"
 
-#: ../main_window.rst:387
+#: ../main_window.rst:405
 msgid "Histogram"
 msgstr "हिस्टोग्राम"
 
-#: ../main_window.rst:388
+#: ../main_window.rst:406
 msgid ""
 "Analyze the tonal and channel distribution of the current preview frame."
 msgstr "वर्तमान पूर्वावलोकन फ्रेम के टोनल और चैनल वितरण का विश्लेषण करें।"
 
-#: ../main_window.rst:389
+#: ../main_window.rst:407
 msgid "Luma Waveform"
 msgstr "ल्यूमा वेवफ़ॉर्म"
 
-#: ../main_window.rst:390
+#: ../main_window.rst:408
 msgid "Analyze brightness distribution across the current preview frame."
 msgstr "वर्तमान पूर्वावलोकन फ्रेम में चमक वितरण का विश्लेषण करें।"
 
-#: ../main_window.rst:391
+#: ../main_window.rst:409
 msgid "Audio Levels"
 msgstr "ऑडियो स्तर"
 
-#: ../main_window.rst:392
+#: ../main_window.rst:410
 msgid "Monitor audio level scope data for the current preview frame."
 msgstr ""
 "वर्तमान पूर्वावलोकन फ्रेम के लिए ऑडियो स्तर स्कोप डेटा की निगरानी करें।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:394
+#: ../main_window.rst:412
 msgid ""
 "View and manage all the media files imported into your project. Organize, "
 "filter, and tag video, audio, and image files. See :ref:`files_ref`."
@@ -1944,7 +2006,7 @@ msgstr ""
 ":ref:`files_ref`।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:396
+#: ../main_window.rst:414
 msgid ""
 "View and edit the properties of a selected effect, transition, or clip. "
 "Adjust settings such as duration, size, position, etc... See "
@@ -1954,11 +2016,11 @@ msgstr ""
 "अवधि, आकार, स्थिति आदि जैसी सेटिंग्स समायोजित करें। देखें "
 ":ref:`clip_properties_ref`।"
 
-#: ../main_window.rst:397
+#: ../main_window.rst:415
 msgid "Recording"
 msgstr "रिकॉर्डिंग"
 
-#: ../main_window.rst:398
+#: ../main_window.rst:416
 msgid ""
 "Record microphone audio, screen video, webcam video, or combined recordings."
 " See :ref:`recording_ref`."
@@ -1967,12 +2029,12 @@ msgstr ""
 "रिकॉर्ड करें। देखें :ref:`recording_ref`।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:399
+#: ../main_window.rst:417
 msgid "Transitions"
 msgstr "ट्रांज़िशन"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:400
+#: ../main_window.rst:418
 msgid ""
 "Browse and apply transitions between video clips. Choose from a variety of "
 "transition wipes to create smooth changes between scenes. See "
@@ -1983,12 +2045,12 @@ msgstr ""
 ":ref:`transitions_ref`।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:401
+#: ../main_window.rst:419
 msgid "Video Preview"
 msgstr "वीडियो पूर्वावलोकन"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:402
+#: ../main_window.rst:420
 msgid ""
 "Preview the current state of your video project. Allows you to play back and"
 " review your edits in real-time. See :ref:`playback_ref`."
@@ -1997,7 +2059,7 @@ msgstr ""
 "में अपनी संपादित सामग्री को प्ले और समीक्षा करने की अनुमति देता है। देखें "
 ":ref:`playback_ref`।"
 
-#: ../main_window.rst:404
+#: ../main_window.rst:422
 msgid ""
 "If you have accidentally closed or moved a dock and can no longer find it, "
 "there are a couple easy solutions. First, you can use the "
@@ -2012,6 +2074,26 @@ msgstr ""
 "डिफ़ॉल्ट पर पुनर्स्थापित कर सकते हैं। या आप :guilabel:`View->Docks->...` "
 "मेनू का उपयोग करके मुख्य विंडो पर विशिष्ट डॉक विजेट्स को दिखा या छुपा सकते "
 "हैं।"
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "Snapping toggles magnetic alignment. Timing Tool enables retiming by "
+#~ "dragging clip edges. Razor Tool cuts clips at the clicked position."
+#~ msgstr ""
+#~ "स्नैपिंग चुंबकीय संरेखण को चालू या बंद करता है। टाइमिंग टूल क्लिप किनारों को"
+#~ " खींचकर रीटाइमिंग सक्षम करता है। रेज़र टूल क्लिक किए गए स्थान पर क्लिप्स को "
+#~ "काटता है।"
+
+#~ msgid ""
+#~ "Use :guilabel:`Help→About OpenShot` to check your OpenShot version. Click "
+#~ ":guilabel:`Copy` next to the version number to copy a short version and "
+#~ "system details report, which is the preferred way to share this information "
+#~ "when reporting a bug or asking for help."
+#~ msgstr ""
+#~ ":guilabel:`Help→About OpenShot` का उपयोग करके अपने OpenShot संस्करण की जांच "
+#~ "करें। संस्करण संख्या के बगल में :guilabel:`Copy` पर क्लिक करें ताकि एक "
+#~ "संक्षिप्त संस्करण और सिस्टम विवरण रिपोर्ट कॉपी हो जाए, जो बग रिपोर्ट करते "
+#~ "समय या सहायता मांगते समय इस जानकारी को साझा करने का पसंदीदा तरीका है।"
 
 # Translated with gpt-4.1-mini
 #~ msgid ""

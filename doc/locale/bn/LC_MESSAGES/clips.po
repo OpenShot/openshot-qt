@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-09-26 14:26-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -115,8 +115,8 @@ msgid "Name"
 msgstr "নাম"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:51 ../clips.rst:76 ../clips.rst:110 ../clips.rst:149
-#: ../clips.rst:622
+#: ../clips.rst:51 ../clips.rst:76 ../clips.rst:189 ../clips.rst:228
+#: ../clips.rst:701
 msgid "Description"
 msgstr "বর্ণনা"
 
@@ -291,15 +291,17 @@ msgstr ""
 msgid "**Razor Tool**"
 msgstr "**রেজর টুল**"
 
-# Translated with gpt-4.1-mini
 #: ../clips.rst:88
 msgid ""
 "The :guilabel:`razor tool` from the **Timeline Toolbar** cuts a clip at the "
-"position where it is clicked. Use :kbd:`SHIFT` to slice and keep the left "
-"side, or :kbd:`CTRL` to keep the right side."
+"position where it is clicked. See :ref:`razor_tool_ref` for cut guides and "
+"frame previews. Use :kbd:`SHIFT` to slice and keep the left side, or "
+":kbd:`CTRL` to keep the right side."
 msgstr ""
-"**Timeline Toolbar** থেকে :guilabel:`razor tool` ক্লিক করা অবস্থানে ক্লিপ "
-"কাটে। বাম পাশ রাখতে :kbd:`SHIFT` এবং ডান পাশ রাখতে :kbd:`CTRL` ব্যবহার করুন।"
+"**Timeline Toolbar** থেকে :guilabel:`razor tool` ক্লিক করা অবস্থানে একটি "
+"ক্লিপ কাটে। কাটার নির্দেশিকা এবং ফ্রেম প্রিভিউ দেখতে :ref:`razor_tool_ref` "
+"দেখুন। বাম পাশ রাখতে :kbd:`SHIFT` এবং ডান পাশ রাখতে :kbd:`CTRL` ব্যবহার "
+"করুন।"
 
 # Translated with gpt-4.1-mini
 #: ../clips.rst:90
@@ -333,13 +335,246 @@ msgstr ""
 "যদি একাধিক নির্বাচিত ক্লিপ এবং/অথবা ট্রানজিশন একই বাম প্রান্ত বা ডান প্রান্ত"
 " ভাগ করে, আপনি সেই ভাগ করা প্রান্তটি একবার টেনে একসাথে ট্রিম করতে পারেন।"
 
+#: ../clips.rst:102
+msgid "Razor Tool"
+msgstr "রেজর টুল"
+
+#: ../clips.rst:104
+msgid ""
+"Use the **Razor Tool** to preview a cut and split a clip or transition "
+"directly on the timeline. Each click affects only the item under the "
+"pointer."
+msgstr ""
+"টাইমলাইনে সরাসরি একটি কাটের প্রিভিউ দেখতে এবং একটি ক্লিপ বা ট্রানজিশন ভাগ "
+"করতে **Razor Tool** ব্যবহার করুন। প্রতিটি ক্লিক শুধুমাত্র পয়েন্টারের নিচে "
+"থাকা আইটেমটিকেই প্রভাবিত করে।"
+
+#: ../clips.rst:107
+msgid "Enable :guilabel:`Razor Tool` in the **Timeline Toolbar**."
+msgstr "**Timeline Toolbar**-এ :guilabel:`Razor Tool` সক্রিয় করুন।"
+
+#: ../clips.rst:108
+msgid ""
+"Move over the clip you want to cut. A vertical dashed guide marks the exact "
+"frame boundary, with a timecode and the action that clicking will perform."
+msgstr ""
+"যে ক্লিপটি কাটতে চান তার উপর মাউস সরান। একটি উল্লম্ব ড্যাশড গাইড সঠিক ফ্রেম "
+"সীমানা চিহ্নিত করে, সাথে একটি টাইমকোড এবং ক্লিক করলে যে কাজ হবে তা দেখায়।"
+
+#: ../clips.rst:110
+msgid ""
+"While playback is paused, **Video Preview** shows the source frame of the "
+"hovered clip, including its time mapping. Higher tracks cannot obscure this "
+"preview. The playhead stays in place, and the guide's timecode is timeline "
+"time."
+msgstr ""
+"প্লেব্যাক বিরতি দেওয়া অবস্থায়, **Video Preview** হোভার করা ক্লিপের সোর্স "
+"ফ্রেম দেখায়, যার মধ্যে তার সময় মানচিত্রও থাকে। উচ্চতর ট্র্যাকগুলি এই "
+"প্রিভিউকে ঢেকে দিতে পারে না। প্লেহেড একই স্থানে থাকে, এবং গাইডের টাইমকোড "
+"টাইমলাইন সময়।"
+
+#: ../clips.rst:113
+msgid "Click to split. Razor stays enabled so you can make more cuts."
+msgstr ""
+"বিভাজনের জন্য ক্লিক করুন। Razor সক্রিয় থাকে যাতে আপনি আরও কাট করতে পারেন।"
+
+#: ../clips.rst:114
+msgid ""
+"Press :kbd:`Esc`, or toggle the toolbar button again, to return to normal "
+"editing."
+msgstr ""
+"সাধারণ সম্পাদনায় ফিরে যেতে :kbd:`Esc` চাপুন, অথবা টুলবার বোতামটি আবার টগল "
+"করুন।"
+
+#: ../clips.rst:116
+msgid ""
+"Moving away from the clip or leaving Razor mode restores the preview at the "
+"playhead. Hovering during playback does not interrupt playback. Like edge "
+"trimming, Razor previews the individual source rather than the composed "
+"timeline. Hovering a transition previews its mask source."
+msgstr ""
+"ক্লিপ থেকে দূরে গেলে বা Razor মোড থেকে বের হলে প্লেহেডে প্রিভিউ পুনরুদ্ধার "
+"হয়। প্লেব্যাক চলাকালীন হোভার করলে প্লেব্যাক বন্ধ হয় না। এজ ট্রিমিংয়ের "
+"মতো, Razor পৃথক সোর্সের প্রিভিউ দেখায়, সমন্বিত টাইমলাইন নয়। একটি "
+"ট্রানজিশনে হোভার করলে তার মাস্ক সোর্সের প্রিভিউ দেখায়।"
+
+#: ../clips.rst:121
+msgid "Razor actions"
+msgstr "রেজর ক্রিয়াকলাপ"
+
+#: ../clips.rst:125
+msgid "Action"
+msgstr "ক্রিয়া"
+
+#: ../clips.rst:126
+msgid "Result"
+msgstr "ফলাফল"
+
+#: ../clips.rst:127
+msgid "Click"
+msgstr "ক্লিক"
+
+#: ../clips.rst:128
+msgid ""
+"Split at the guide and keep both sides. The previewed frame starts the right"
+" side."
+msgstr ""
+"গাইডে বিভাজন করুন এবং উভয় পাশই রাখুন। প্রিভিউ করা ফ্রেম ডান পাশ থেকে শুরু "
+"হয়।"
+
+#: ../clips.rst:129
+msgid ":kbd:`Shift+Click`"
+msgstr ":kbd:`Shift+Click`"
+
+#: ../clips.rst:130
+msgid ""
+"Keep the left side of the guide. The right side is shaded to show what will "
+"be removed."
+msgstr ""
+"গাইডের বাম পাশ রাখুন। ডান পাশ ছায়াযুক্ত থাকে যা দেখায় কী মুছে ফেলা হবে।"
+
+#: ../clips.rst:131
+msgid ":kbd:`Ctrl+Click`"
+msgstr ":kbd:`Ctrl+Click`"
+
+#: ../clips.rst:132
+msgid ""
+"Keep the right side. The left side is shaded to show what will be removed."
+msgstr "ডান পাশ রাখুন। বাম পাশ ছায়াযুক্ত থাকে যা দেখায় কী মুছে ফেলা হবে।"
+
+#: ../clips.rst:133
+msgid ":kbd:`Alt+Shift+Click`"
+msgstr ":kbd:`Alt+Shift+Click`"
+
+#: ../clips.rst:134
+msgid ""
+"Keep the left side and close the gap, shifting later items on the same track"
+" left."
+msgstr ""
+"বাম পাশ রাখুন এবং ফাঁক বন্ধ করুন, একই ট্র্যাকের পরবর্তী আইটেমগুলো বামে সরান।"
+
+#: ../clips.rst:135
+msgid ":kbd:`Alt+Ctrl+Click`"
+msgstr ":kbd:`Alt+Ctrl+Click`"
+
+#: ../clips.rst:136
+msgid ""
+"Keep the right side and close the gap, shifting later items on the same "
+"track left."
+msgstr ""
+"ডান পাশ রাখুন এবং ফাঁক বন্ধ করুন, একই ট্র্যাকের পরবর্তী আইটেমগুলো বামে সরান।"
+
+#: ../clips.rst:137
+msgid ":kbd:`W` / :kbd:`Q` while hovering"
+msgstr ":kbd:`W` / :kbd:`Q` হোভার করার সময়"
+
+#: ../clips.rst:138
+msgid ""
+"Use the existing ripple-slice shortcuts at the pointer: keep left (:kbd:`W`)"
+" or right (:kbd:`Q`) and close the gap. Customized bindings work too."
+msgstr ""
+"পয়েন্টারে বিদ্যমান ripple-slice শর্টকাট ব্যবহার করুন: বাম রাখুন (:kbd:`W`) "
+"অথবা ডান রাখুন (:kbd:`Q`) এবং ফাঁক বন্ধ করুন। কাস্টমাইজড বাইনডিংসও কাজ করে।"
+
+#: ../clips.rst:141
+msgid ""
+"Holding :kbd:`Alt` with :kbd:`Shift` or :kbd:`Ctrl` adds **Close gap** to "
+"the hint. The red shading shows the portion being removed. These operations "
+"reuse **Slice Selected (Ripple)**; they move later clips and transitions on "
+"the same track, not on other tracks. Outside Razor hover, the ripple "
+"shortcuts retain their normal selected-item/playhead behavior. A locked or "
+"invalid Razor target does not fall back to cutting a different selected "
+"clip."
+msgstr ""
+":kbd:`Alt` ধরে :kbd:`Shift` বা :kbd:`Ctrl` চাপলে ইঙ্গিতের সাথে **Close gap**"
+" যুক্ত হয়। লাল ছায়া দেখায় কোন অংশ মুছে ফেলা হচ্ছে। এই অপারেশনগুলো **Slice"
+" Selected (Ripple)** পুনরায় ব্যবহার করে; এগুলো একই ট্র্যাকের পরবর্তী ক্লিপ "
+"এবং ট্রানজিশন সরায়, অন্য ট্র্যাক নয়। Razor হোভার ছাড়া ripple শর্টকাটগুলি "
+"তাদের স্বাভাবিক নির্বাচিত আইটেম/প্লেহেড আচরণ বজায় রাখে। একটি লক করা বা অবৈধ"
+" Razor লক্ষ্য অন্য নির্বাচিত ক্লিপ কাটতে ফিরে যায় না।"
+
+#: ../clips.rst:148
+msgid ""
+"Cuts align to project frames. With **Snapping** enabled, the Razor guide "
+"uses the same snap targets and distance tolerance as other timeline edits: "
+"clip and transition edges, markers, the playhead, and the hovered clip's "
+"keyframe targets. The hovered item's own endpoints are excluded. Preview, "
+"mouse cuts, and ripple shortcuts all use the guide's snapped boundary. "
+"Toggle the timeline's existing **Snapping** button to cut freely between "
+"these targets."
+msgstr ""
+"কাটগুলি প্রকল্পের ফ্রেমের সাথে সঙ্গতিপূর্ণ হয়। **Snapping** সক্রিয় থাকলে, "
+"Razor গাইড অন্যান্য টাইমলাইন সম্পাদনার মতো একই স্ন্যাপ লক্ষ্য এবং দূরত্ব "
+"সহনশীলতা ব্যবহার করে: ক্লিপ এবং ট্রানজিশন প্রান্ত, মার্কার, প্লেহেড, এবং "
+"হোভার করা ক্লিপের কীফ্রেম লক্ষ্য। হোভার করা আইটেমের নিজস্ব শেষ বিন্দুগুলি "
+"বাদ দেওয়া হয়। প্রিভিউ, মাউস কাট এবং ripple শর্টকাট সবই গাইডের স্ন্যাপ করা "
+"সীমানা ব্যবহার করে। এই লক্ষ্যগুলির মধ্যে স্বাধীনভাবে কাটতে টাইমলাইনের "
+"বিদ্যমান **Snapping** বোতাম টগল করুন।"
+
+#: ../clips.rst:155
+msgid ""
+"Without snapping to a target, :kbd:`Shift+Click` includes the frame under "
+"the pointer in the left side, placing the guide at the following frame "
+"boundary. When snapped, the snapped boundary takes priority for all cut "
+"modes."
+msgstr ""
+"কোন লক্ষ্য স্ন্যাপ না করলে, :kbd:`Shift+Click` পয়েন্টারের নিচের ফ্রেমকে বাম"
+" পাশে অন্তর্ভুক্ত করে, গাইডটি পরবর্তী ফ্রেম সীমানায় রাখে। স্ন্যাপ করলে, "
+"স্ন্যাপ করা সীমানা সব কাট মোডের জন্য অগ্রাধিকার পায়।"
+
+#: ../clips.rst:159
+msgid ""
+"Locked tracks, empty space, and boundaries that would leave an empty side do"
+" not show a valid cut guide. Zoom in for finer frame selection, and use "
+"**Undo** to reverse a cut."
+msgstr ""
+"লক করা ট্র্যাক, খালি স্থান, এবং এমন সীমানা যা একটি খালি পাশ রেখে দেয়, বৈধ "
+"কাট গাইড দেখায় না। সূক্ষ্ম ফ্রেম নির্বাচন করতে জুম ইন করুন, এবং কাট ফিরিয়ে"
+" আনতে **Undo** ব্যবহার করুন।"
+
+#: ../clips.rst:163
+msgid ""
+"To cut several clips at the playhead instead, use **Slice Selected** or "
+"**Slice All**, described above."
+msgstr ""
+"প্লেহেডে একাধিক ক্লিপ কাটতে উপরে বর্ণিত **Slice Selected** বা **Slice All** "
+"ব্যবহার করুন।"
+
+#: ../clips.rst:167
+msgid "Clip controls while zoomed in"
+msgstr "জুম ইন করার সময় ক্লিপ নিয়ন্ত্রণ"
+
+#: ../clips.rst:169
+msgid ""
+"When a clip's start scrolls off screen, its title, effect badges, and menu "
+"stay near the left side of the visible timeline. Click an effect badge to "
+"access that effect, or use the title's dropdown to open the clip menu. The "
+"controls stay within the visible portion of their clip and shorten as space "
+"runs out."
+msgstr ""
+"যখন একটি ক্লিপের শুরু স্ক্রিন থেকে সরে যায়, তার শিরোনাম, ইফেক্ট ব্যাজ এবং "
+"মেনু দৃশ্যমান টাইমলাইনের বাম পাশে থাকে। একটি ইফেক্ট ব্যাজে ক্লিক করে সেই "
+"ইফেক্ট অ্যাক্সেস করুন, অথবা শিরোনামের ড্রপডাউন থেকে ক্লিপ মেনু খুলুন। "
+"নিয়ন্ত্রণগুলি তাদের ক্লিপের দৃশ্যমান অংশের মধ্যে থাকে এবং স্থান কমে গেলে "
+"ছোট হয়।"
+
+#: ../clips.rst:174
+msgid ""
+"Only these controls follow the viewport. The clip's outline, thumbnails, "
+"waveform, and trim handles remain at their actual timeline positions. A "
+"small inset separates the pinned controls from the viewport edge."
+msgstr ""
+"শুধুমাত্র এই নিয়ন্ত্রণগুলি ভিউপোর্ট অনুসরণ করে। ক্লিপের আউটলাইন, থাম্বনেইল,"
+" ওয়েভফর্ম এবং ট্রিম হ্যান্ডেলগুলি তাদের প্রকৃত টাইমলাইন অবস্থানে থাকে। একটি"
+" ছোট ইনসেট পিন করা নিয়ন্ত্রণগুলোকে ভিউপোর্টের প্রান্ত থেকে আলাদা করে।"
+
 # Translated with gpt-4.1-mini
-#: ../clips.rst:100
+#: ../clips.rst:179
 msgid "Selections"
 msgstr "নির্বাচন"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:101
+#: ../clips.rst:180
 msgid ""
 "Selecting clips and transitions on the timeline is an essential part of "
 "editing in OpenShot. Multiple selection methods are available to streamline "
@@ -350,22 +585,22 @@ msgstr ""
 " যা ক্লিপ এবং ট্রানজিশন দক্ষতার সাথে সম্পাদনা করতে সাহায্য করে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:104
+#: ../clips.rst:183
 msgid "Here is a list of all methods for selecting clips in OpenShot:"
 msgstr "OpenShot-এ ক্লিপ নির্বাচন করার সমস্ত পদ্ধতির তালিকা এখানে দেওয়া হলো:"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:110
+#: ../clips.rst:189
 msgid "Selection Method"
 msgstr "নির্বাচন পদ্ধতি"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:112
+#: ../clips.rst:191
 msgid "**Box Selection**"
 msgstr "**বক্স নির্বাচন**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:112
+#: ../clips.rst:191
 msgid ""
 "Click and drag a selection box around clips or transitions to select "
 "multiple items at once. Hold down :kbd:`Ctrl` to add to your current "
@@ -376,12 +611,12 @@ msgstr ""
 " ধরুন।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:113
+#: ../clips.rst:192
 msgid "**Click Selection**"
 msgstr "**ক্লিক নির্বাচন**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:113
+#: ../clips.rst:192
 msgid ""
 "Click on a clip or transition to select it. This will deselect all other "
 "items unless you hold down :kbd:`Ctrl`."
@@ -390,12 +625,12 @@ msgstr ""
 "এটি অন্য সব আইটেমের নির্বাচন বাতিল করবে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:114
+#: ../clips.rst:193
 msgid "**Add to Selection**"
 msgstr "**নির্বাচনে যোগ করুন**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:114
+#: ../clips.rst:193
 msgid ""
 "Hold down :kbd:`Ctrl` while clicking to add or remove clips from the current"
 " selection, allowing you to select non-adjacent clips."
@@ -404,12 +639,12 @@ msgstr ""
 "ধরুন, যা আপনাকে অ-সংলগ্ন ক্লিপ নির্বাচন করতে দেয়।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:115
+#: ../clips.rst:194
 msgid "**Range Selection**"
 msgstr "**পরিসর নির্বাচন**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:115
+#: ../clips.rst:194
 msgid ""
 "Hold down :kbd:`Shift` while clicking to select a range of clips/transitions"
 " from the previous selection to the new selection. This supports ranges that"
@@ -420,12 +655,12 @@ msgstr ""
 "জুড়ে পরিসর সমর্থন করে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:116
+#: ../clips.rst:195
 msgid "**Ripple Selection**"
 msgstr "**রিপল নির্বাচন**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:116
+#: ../clips.rst:195
 msgid ""
 "Hold down :kbd:`Alt` while clicking to ripple select all clips/transitions "
 "from your selection to the end of the track. This always adds to your "
@@ -436,12 +671,12 @@ msgstr ""
 "বর্তমান নির্বাচনে যোগ করবে, এমনকি :kbd:`Ctrl` চাপা না থাকলেও।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:117
+#: ../clips.rst:196
 msgid "**Clear Selection**"
 msgstr "**নির্বাচন পরিষ্কার করুন**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:117
+#: ../clips.rst:196
 msgid ""
 "Click anywhere on the timeline or on a new clip/transition to reset the "
 "current selection, unless :kbd:`Ctrl` is pressed."
@@ -450,23 +685,23 @@ msgstr ""
 "জায়গায় ক্লিক করুন, যদি না :kbd:`Ctrl` চাপা থাকে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:118
+#: ../clips.rst:197
 msgid "**Select All**"
 msgstr "**সব নির্বাচন করুন**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:118
+#: ../clips.rst:197
 msgid ""
 "Press :kbd:`Ctrl+A` to select all clips and transitions on the timeline."
 msgstr "টাইমলাইনের সব ক্লিপ এবং ট্রানজিশন নির্বাচন করতে :kbd:`Ctrl+A` চাপুন।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:119
+#: ../clips.rst:198
 msgid "**Select None**"
 msgstr "**কোনোটিই নির্বাচন করবেন না**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:119
+#: ../clips.rst:198
 msgid ""
 "Press :kbd:`Ctrl+Shift+A` to deselect all clips and transitions on the "
 "timeline."
@@ -475,7 +710,7 @@ msgstr ""
 "চাপুন।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:122
+#: ../clips.rst:201
 msgid ""
 "Mastering these selection techniques will streamline your editing process, "
 "especially when dealing with complex projects. For more advanced tips on "
@@ -487,12 +722,12 @@ msgstr ""
 "জন্য :ref:`clips_cutting_slicing_ref` অংশ দেখুন।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:128
+#: ../clips.rst:207
 msgid "Context Menu"
 msgstr "প্রসঙ্গ মেনু"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:129
+#: ../clips.rst:208
 msgid ""
 "OpenShot has tons of great preset animations and clip properties, such as "
 "fading, sliding, zooming, reversing time, adjusting volume, etc... These "
@@ -507,7 +742,7 @@ msgstr ""
 " প্রিসেট ব্যবহারকারীকে ম্যানুয়ালি কী-ফ্রেম ক্লিপ বৈশিষ্ট্য সেট না করেই এক "
 "বা একাধিক ক্লিপ বৈশিষ্ট্য নির্ধারণ করে। দেখুন :ref:`clip_properties_ref`।"
 
-#: ../clips.rst:134
+#: ../clips.rst:213
 msgid ""
 "Some presets allow the user to target either the start, end, or entire clip,"
 " and most presets allow the user to reset a specific clip property. For "
@@ -519,34 +754,34 @@ msgstr ""
 "রিসেট করার অনুমতি দেয়। উদাহরণস্বরূপ, :guilabel:`Audio → Volume` প্রিসেট "
 "ব্যবহার করার সময়, ব্যবহারকারীর কাছে নিম্নলিখিত মেনু বিকল্পগুলি থাকে:"
 
-#: ../clips.rst:138
+#: ../clips.rst:217
 msgid "**Reset Volume** — resets the volume to the original level."
 msgstr "**ভলিউম রিসেট করুন** — ভলিউমকে মূল স্তরে রিসেট করে।"
 
-#: ../clips.rst:139
+#: ../clips.rst:218
 msgid ""
 "**Start of Clip** — the volume change applies at the beginning of the clip."
 msgstr "**ক্লিপের শুরু** — ভলিউম পরিবর্তন ক্লিপের শুরুতে প্রযোজ্য।"
 
-#: ../clips.rst:140
+#: ../clips.rst:219
 msgid "**End of Clip** — the volume change applies at the end of the clip."
 msgstr "**ক্লিপের শেষ** — ভলিউম পরিবর্তন ক্লিপের শেষে প্রযোজ্য।"
 
-#: ../clips.rst:141
+#: ../clips.rst:220
 msgid "**Entire Clip** — the volume change applies to the entire clip."
 msgstr "**সম্পূর্ণ ক্লিপ** — ভলিউম পরিবর্তন সম্পূর্ণ ক্লিপে প্রযোজ্য।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:149
+#: ../clips.rst:228
 msgid "Preset Name"
 msgstr "প্রিসেট নাম"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:151 ../clips.rst:539
+#: ../clips.rst:230 ../clips.rst:618
 msgid "Copy / Cut / Paste"
 msgstr "কপি / কাট / পেস্ট"
 
-#: ../clips.rst:151
+#: ../clips.rst:230
 msgid ""
 "Copy selected clip data, cut selected clips, or paste copied clip data. Copy"
 " supports full clips, effects, and keyframe groups."
@@ -554,11 +789,11 @@ msgstr ""
 "নির্বাচিত ক্লিপ ডেটা কপি করুন, নির্বাচিত ক্লিপ কাটুন, অথবা কপি করা ক্লিপ "
 "ডেটা পেস্ট করুন। কপি সম্পূর্ণ ক্লিপ, ইফেক্ট এবং কীফ্রেম গ্রুপ সমর্থন করে।"
 
-#: ../clips.rst:152
+#: ../clips.rst:231
 msgid "Align"
 msgstr "সামঞ্জস্য করুন"
 
-#: ../clips.rst:152
+#: ../clips.rst:231
 msgid ""
 "Align the left or right edge of multiple selected clips and transitions "
 "(only shown when multiple clips are selected)."
@@ -567,11 +802,11 @@ msgstr ""
 "(শুধুমাত্র একাধিক ক্লিপ নির্বাচিত হলে প্রদর্শিত হয়)।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:153 ../clips.rst:165
+#: ../clips.rst:232 ../clips.rst:244
 msgid "Fade"
 msgstr "ফেড"
 
-#: ../clips.rst:153
+#: ../clips.rst:232
 msgid ""
 "Fade the clip in or out — automatically fades video (alpha) and/or audio "
 "(volume) based on what the clip contains."
@@ -579,11 +814,11 @@ msgstr ""
 "ক্লিপটি ফেড ইন বা আউট করুন — ক্লিপে থাকা উপাদানের উপর ভিত্তি করে "
 "স্বয়ংক্রিয়ভাবে ভিডিও (আলফা) এবং/অথবা অডিও (ভলিউম) ফেড করে।"
 
-#: ../clips.rst:154 ../clips.rst:182
+#: ../clips.rst:233 ../clips.rst:261
 msgid "Motion"
 msgstr "মোশন"
 
-#: ../clips.rst:154
+#: ../clips.rst:233
 msgid ""
 "Add animated motion to a clip: slide in/out, bounce, blur, wipe/focus-wipe, "
 "zoom, emphasis effects at the playhead, camera movements, and scrolling "
@@ -594,11 +829,11 @@ msgstr ""
 " স্ক্রলিং ক্রেডিট। শুধুমাত্র ভিজ্যুয়াল ক্লিপের জন্য প্রদর্শিত।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:155 ../clips.rst:417
+#: ../clips.rst:234 ../clips.rst:496
 msgid "Transform"
 msgstr "ট্রান্সফর্ম"
 
-#: ../clips.rst:155
+#: ../clips.rst:234
 msgid ""
 "Apply geometric presets to a clip: rotate/flip, crop, or snap to a corner "
 "layout. Also provides a **No Transform** reset. Only shown for visual clips."
@@ -607,11 +842,11 @@ msgstr ""
 " স্ন্যাপ করুন। এছাড়াও একটি **কোনো রূপান্তর নয়** রিসেট প্রদান করে। "
 "শুধুমাত্র ভিজ্যুয়াল ক্লিপের জন্য প্রদর্শিত।"
 
-#: ../clips.rst:156 ../clips.rst:318
+#: ../clips.rst:235 ../clips.rst:397
 msgid "Look"
 msgstr "দেখা"
 
-#: ../clips.rst:156
+#: ../clips.rst:235
 msgid ""
 "Apply visual style presets: color grades, film grain, analog tape, sharpen, "
 "blur, shadow, and glow effects. Includes **Adjust Colors** (Color Wheels "
@@ -622,11 +857,11 @@ msgstr ""
 "করুন** (কালার হুইল সম্পাদক) এবং **রঙ বিশ্লেষণ করুন** (ভিডিও স্কোপ)। "
 "শুধুমাত্র ভিজ্যুয়াল ক্লিপের জন্য প্রদর্শিত।"
 
-#: ../clips.rst:157 ../clips.rst:249
+#: ../clips.rst:236 ../clips.rst:328
 msgid "Speed"
 msgstr "গতি"
 
-#: ../clips.rst:157
+#: ../clips.rst:236
 msgid ""
 "Reverse, repeat, speed up, or slow down video. Includes Freeze and Freeze & "
 "Zoom options."
@@ -634,11 +869,11 @@ msgstr ""
 "ভিডিও উল্টানো, পুনরাবৃত্তি, দ্রুত করা, অথবা ধীর করা। এতে ফ্রিজ এবং ফ্রিজ ও "
 "জুম অপশন অন্তর্ভুক্ত।"
 
-#: ../clips.rst:158 ../clips.rst:365
+#: ../clips.rst:237 ../clips.rst:444
 msgid "Audio"
 msgstr "অডিও"
 
-#: ../clips.rst:158
+#: ../clips.rst:237
 msgid ""
 "Control audio properties: adjust volume levels, fade volume in/out, separate"
 " audio channels, show/hide the timeline waveform, or open the Audio Levels "
@@ -649,11 +884,11 @@ msgstr ""
 "লেভেল স্কোপ খুলুন।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:159 ../clips.rst:392
+#: ../clips.rst:238 ../clips.rst:471
 msgid "Slice"
 msgstr "স্লাইস"
 
-#: ../clips.rst:159
+#: ../clips.rst:238
 msgid ""
 "Cut the clip at the play-head position, with options to keep either side, "
 "both sides, or ripple-delete one side. Only shown when the playhead overlaps"
@@ -664,24 +899,24 @@ msgstr ""
 " প্রদর্শিত।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:160 ../clips.rst:531
+#: ../clips.rst:239 ../clips.rst:610
 msgid "Properties"
 msgstr "বৈশিষ্ট্য"
 
-#: ../clips.rst:160
+#: ../clips.rst:239
 msgid "Show the properties panel for a clip."
 msgstr "একটি ক্লিপের জন্য বৈশিষ্ট্য প্যানেল দেখান।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:161 ../clips.rst:563
+#: ../clips.rst:240 ../clips.rst:642
 msgid "Remove Clip"
 msgstr "ক্লিপ সরান"
 
-#: ../clips.rst:161
+#: ../clips.rst:240
 msgid "Remove a clip from the timeline."
 msgstr "টাইমলাইনের থেকে একটি ক্লিপ সরান।"
 
-#: ../clips.rst:166
+#: ../clips.rst:245
 msgid ""
 "The :guilabel:`Fade` preset creates a smooth fade-in or fade-out on the "
 "selected clip. It automatically fades **video** (alpha/opacity) and/or "
@@ -695,11 +930,11 @@ msgstr ""
 "পায়, শুধুমাত্র অডিও ক্লিপ শুধুমাত্র ভলিউম ফেড পায়, এবং একটি ইমেজ ক্লিপ "
 "শুধুমাত্র আলফা ফেড পায়।"
 
-#: ../clips.rst:170
+#: ../clips.rst:249
 msgid ":guilabel:`No Fade` — removes all fade keyframes."
 msgstr ":guilabel:`কোনো ফেড নয়` — সমস্ত ফেড কীফ্রেম সরিয়ে দেয়।"
 
-#: ../clips.rst:171
+#: ../clips.rst:250
 msgid ""
 ":guilabel:`Fade In` → :guilabel:`Fast` / :guilabel:`Slow` — fades from "
 "transparent/silent at the start of the clip."
@@ -707,7 +942,7 @@ msgstr ""
 ":guilabel:`ফেড ইন` → :guilabel:`দ্রুত` / :guilabel:`ধীর` — ক্লিপের শুরুতে "
 "স্বচ্ছ/নীরব থেকে ফেড হয়।"
 
-#: ../clips.rst:172
+#: ../clips.rst:251
 msgid ""
 ":guilabel:`Fade Out` → :guilabel:`Fast` / :guilabel:`Slow` — fades to "
 "transparent/silent at the end of the clip."
@@ -715,7 +950,7 @@ msgstr ""
 ":guilabel:`ফেড আউট` → :guilabel:`দ্রুত` / :guilabel:`ধীর` — ক্লিপের শেষে "
 "স্বচ্ছ/নীরব হয়ে ফেড হয়।"
 
-#: ../clips.rst:173
+#: ../clips.rst:252
 msgid ""
 ":guilabel:`Fade In and Out` → :guilabel:`Fast` / :guilabel:`Slow` — applies "
 "both a fade-in at the start and a fade-out at the end."
@@ -723,7 +958,7 @@ msgstr ""
 ":guilabel:`ফেড ইন এবং আউট` → :guilabel:`দ্রুত` / :guilabel:`ধীর` — শুরুতে "
 "ফেড-ইন এবং শেষে ফেড-আউট উভয় প্রয়োগ করে।"
 
-#: ../clips.rst:175
+#: ../clips.rst:254
 msgid ""
 "Fast fades span approximately 1 second; Slow fades span approximately 3 "
 "seconds. See :ref:`clip_alpha_ref` and :ref:`clip_volume_ref` key-frames."
@@ -732,7 +967,7 @@ msgstr ""
 "হয়। দেখুন :ref:`clip_alpha_ref` এবং :ref:`clip_volume_ref` কী-ফ্রেম।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:178
+#: ../clips.rst:257
 msgid ""
 "**Usage Example:** Applying a fade-out to a video clip to gently conclude a "
 "scene."
@@ -740,7 +975,7 @@ msgstr ""
 "**ব্যবহারের উদাহরণ:** একটি ভিডিও ক্লিপে ধীরে ধীরে ফেড-আউট প্রয়োগ করে "
 "দৃশ্যটি কোমলভাবে শেষ করা।"
 
-#: ../clips.rst:179
+#: ../clips.rst:258
 msgid ""
 "**Tip:** Fade and Volume fade are independent — use :guilabel:`Fade` for a "
 "combined video+audio fade, or use :guilabel:`Audio → Volume` to fade only "
@@ -750,7 +985,7 @@ msgstr ""
 ":guilabel:`Fade` ব্যবহার করুন, অথবা শুধুমাত্র অডিও ফেডের জন্য "
 ":guilabel:`Audio → Volume` ব্যবহার করুন।"
 
-#: ../clips.rst:183
+#: ../clips.rst:262
 msgid ""
 "The :guilabel:`Motion` menu adds animated movement to visual clips using "
 "keyframe presets. It is organized into several submenus. See "
@@ -760,16 +995,16 @@ msgstr ""
 "অ্যানিমেটেড মুভমেন্ট যোগ করে। এটি কয়েকটি সাবমেনুতে সংগঠিত। দেখুন "
 ":ref:`clip_location_x_ref` এবং :ref:`clip_scale_x_ref` কী-ফ্রেম।"
 
-#: ../clips.rst:186
+#: ../clips.rst:265
 msgid ":guilabel:`No Motion` — removes all motion keyframes from the clip."
 msgstr ""
 ":guilabel:`কোনো মোশন নয়` — ক্লিপ থেকে সমস্ত মোশন কীফ্রেম সরিয়ে দেয়।"
 
-#: ../clips.rst:187
+#: ../clips.rst:266
 msgid ":guilabel:`In` — entrance animations applied at the start of the clip:"
 msgstr ":guilabel:`ইন` — ক্লিপের শুরুতে প্রয়োগকৃত প্রবেশ অ্যানিমেশন:"
 
-#: ../clips.rst:189
+#: ../clips.rst:268
 msgid ""
 "**Back In** (From Bottom / Left / Right / Top) — clip overshoots and springs"
 " back into position."
@@ -777,11 +1012,11 @@ msgstr ""
 "**ব্যাক ইন** (নীচ থেকে / বাম থেকে / ডান থেকে / উপরে থেকে) — ক্লিপ অতিরিক্ত "
 "গতি নিয়ে ফিরে আসেন।"
 
-#: ../clips.rst:190
+#: ../clips.rst:269
 msgid "**Blur In** — clip fades in from a motion blur."
 msgstr "**ব্লার ইন** — ক্লিপ মোশন ব্লার থেকে ফেড ইন হয়।"
 
-#: ../clips.rst:191
+#: ../clips.rst:270
 msgid ""
 "**Bounce In** (Center / From Bottom / Left / Right / Top) — clip bounces as "
 "it enters."
@@ -789,7 +1024,7 @@ msgstr ""
 "**বাউন্স ইন** (মধ্য / নীচ থেকে / বাম থেকে / ডান থেকে / উপরে থেকে) — ক্লিপ "
 "প্রবেশের সময় বাউন্স করে।"
 
-#: ../clips.rst:192
+#: ../clips.rst:271
 msgid ""
 "**Focus Wipe In** (Circle Expand / Circle Shrink / From Bottom / Left / "
 "Right / Top) — clip is revealed by a wipe while sharpening from blur into "
@@ -799,11 +1034,11 @@ msgstr ""
 " ডান থেকে / উপরে থেকে) — ক্লিপ একটি ওয়াইপ দ্বারা প্রকাশ পায় যখন ব্লার থেকে"
 " ফোকাসে শার্পেন হয়।"
 
-#: ../clips.rst:193
+#: ../clips.rst:272
 msgid "**Pop In** — clip scales up quickly from nothing."
 msgstr "**পপ ইন** — ক্লিপ দ্রুত কিছু না থেকে স্কেল আপ হয়।"
 
-#: ../clips.rst:194
+#: ../clips.rst:273
 msgid ""
 "**Slide In** (From Bottom / Left / Right / Top) — clip slides onto the "
 "screen."
@@ -811,11 +1046,11 @@ msgstr ""
 "**স্লাইড ইন** (নীচ থেকে / বাম থেকে / ডান থেকে / উপরে থেকে) — ক্লিপ স্ক্রিনে "
 "স্লাইড করে প্রবেশ করে।"
 
-#: ../clips.rst:195
+#: ../clips.rst:274
 msgid "**Spiral In** — clip rotates in while scaling up."
 msgstr "**স্পাইরাল ইন** — ক্লিপ ঘুরে স্কেল আপ হয়।"
 
-#: ../clips.rst:196
+#: ../clips.rst:275
 msgid ""
 "**Wipe In** (Circle Expand / Circle Shrink / From Bottom / Left / Right / "
 "Top) — clip is revealed by a wipe."
@@ -823,7 +1058,7 @@ msgstr ""
 "**ওয়াইপ ইন** (বৃত্ত সম্প্রসারণ / বৃত্ত সংকোচন / নীচ থেকে / বাম থেকে / ডান "
 "থেকে / উপরে থেকে) — ক্লিপ একটি ওয়াইপ দ্বারা প্রকাশ পায়।"
 
-#: ../clips.rst:198
+#: ../clips.rst:277
 msgid ""
 ":guilabel:`Out` — exit animations applied at the end of the clip (mirrors "
 "the In options: Back Out, Blur Out, Bounce Out, Focus Wipe Out, Pop Out, "
@@ -833,7 +1068,7 @@ msgstr ""
 "প্রতিফলন: ব্যাক আউট, ব্লার আউট, বাউন্স আউট, ফোকাস ওয়াইপ আউট, পপ আউট, স্লাইড"
 " আউট, স্পাইরাল আউট, ওয়াইপ আউট)।"
 
-#: ../clips.rst:200
+#: ../clips.rst:279
 msgid ""
 ":guilabel:`Emphasis` — short attention-grabbing animations **inserted at the"
 " current playhead position** (not applied across the whole clip). Useful for"
@@ -847,7 +1082,7 @@ msgstr ""
 "**হার্টবিট**, **জেলো**, **পালস**, **রাবার ব্যান্ড**, **শেক এক্স**, **শেক "
 "ওয়াই**, **সুইং**, **টাডা**, **ওব্বল**।"
 
-#: ../clips.rst:202
+#: ../clips.rst:281
 msgid ""
 ":guilabel:`Camera` — simulates camera movement on the clip by animating "
 "scale and position:"
@@ -855,11 +1090,11 @@ msgstr ""
 ":guilabel:`ক্যামেরা` — স্কেল এবং অবস্থান অ্যানিমেট করে ক্লিপে ক্যামেরার গতি "
 "অনুকরণ করে:"
 
-#: ../clips.rst:204
+#: ../clips.rst:283
 msgid "**Zoom** → In / Out — a simple push-in or pull-out."
 msgstr "**জুম** → ভিতরে / বাইরে — একটি সহজ পুশ-ইন বা পুল-আউট।"
 
-#: ../clips.rst:205
+#: ../clips.rst:284
 msgid ""
 "**Pan** → Auto Direction / Left to Right / Right to Left / Top to Bottom / "
 "Bottom to Top — a lateral camera pan. *Auto Direction* picks the best "
@@ -869,7 +1104,7 @@ msgstr ""
 "/ নিচ থেকে উপরে — একটি পার্শ্ববর্তী ক্যামেরা প্যান। *স্বয়ংক্রিয় দিক* "
 "ক্লিপের দিকানুপাতের ভিত্তিতে সেরা দিক নির্বাচন করে।"
 
-#: ../clips.rst:206
+#: ../clips.rst:285
 msgid ""
 "**Zoom & Pan** → In or Out, with directional variants — combines a zoom with"
 " a pan (Ken Burns style). *Auto Direction* picks the best direction based on"
@@ -879,7 +1114,7 @@ msgstr ""
 "একত্রিত করে (কেন বার্নস স্টাইল)। *স্বয়ংক্রিয় দিক* ক্লিপের দিকানুপাতের "
 "ভিত্তিতে সেরা দিক নির্বাচন করে।"
 
-#: ../clips.rst:208
+#: ../clips.rst:287
 msgid ""
 ":guilabel:`Credits` — scrolling credit animations: **Scroll Up** and "
 "**Scroll Down**."
@@ -887,7 +1122,7 @@ msgstr ""
 ":guilabel:`ক্রেডিটস` — স্ক্রলিং ক্রেডিট অ্যানিমেশন: **উপর স্ক্রল** এবং "
 "**নিচে স্ক্রল**।"
 
-#: ../clips.rst:210
+#: ../clips.rst:289
 msgid ""
 "**Tip:** Emphasis presets are placed at the current playhead position, so "
 "position the playhead over the moment you want to highlight before applying "
@@ -897,7 +1132,7 @@ msgstr ""
 "তাই একটি প্রয়োগ করার আগে আপনি যে মুহূর্তটি হাইলাইট করতে চান তার উপরে "
 "প্লেহেড অবস্থান করুন।"
 
-#: ../clips.rst:211
+#: ../clips.rst:290
 msgid ""
 "**Tip:** Camera presets use *Auto Direction* by default, which picks the "
 "optimal pan direction for wide or tall media to avoid black bars."
@@ -907,11 +1142,11 @@ msgstr ""
 "করে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:216
+#: ../clips.rst:295
 msgid "Rotate"
 msgstr "রোটেট"
 
-#: ../clips.rst:217
+#: ../clips.rst:296
 msgid ""
 "The :guilabel:`Transform → Rotate` submenu introduces easy rotation and "
 "flipping of clips. It enables orientation adjustment by rotating and "
@@ -922,27 +1157,27 @@ msgstr ""
 "পরিচয় করিয়ে দেয়। এটি সৃজনশীল ভিজ্যুয়াল রূপান্তরের জন্য ক্লিপ ঘোরানো এবং "
 "উল্টিয়ে অভিমুখ সমন্বয় সক্ষম করে। দেখুন :ref:`clip_rotation_ref` কী-ফ্রেম।"
 
-#: ../clips.rst:221
+#: ../clips.rst:300
 msgid ":guilabel:`No Rotation` — removes any rotation keyframes."
 msgstr ":guilabel:`কোনো ঘূর্ণন নেই` — যেকোনো ঘূর্ণন কী-ফ্রেম সরিয়ে দেয়।"
 
-#: ../clips.rst:222
+#: ../clips.rst:301
 msgid ":guilabel:`Rotate 90 (Right)` — rotates the clip 90 degrees clockwise."
 msgstr ""
 ":guilabel:`৯০ ডিগ্রি ঘোরান (ডান)` — ক্লিপটিকে ৯০ ডিগ্রি কাঁটার দিকে ঘোরায়।"
 
-#: ../clips.rst:223
+#: ../clips.rst:302
 msgid ""
 ":guilabel:`Rotate 90 (Left)` — rotates the clip 90 degrees counterclockwise."
 msgstr ""
 ":guilabel:`৯০ ডিগ্রি ঘোরান (বাম)` — ক্লিপটিকে ৯০ ডিগ্রি বিপরীত কাঁটার দিকে "
 "ঘোরায়।"
 
-#: ../clips.rst:224
+#: ../clips.rst:303
 msgid ":guilabel:`Rotate 180 (Flip)` — flips the clip upside down."
 msgstr ":guilabel:`১৮০ ডিগ্রি ঘোরান (ফ্লিপ)` — ক্লিপটিকে উল্টে দেয়।"
 
-#: ../clips.rst:226
+#: ../clips.rst:305
 msgid ""
 "**Usage Example:** Rotating a photo or video by 90 degrees (a portrait video"
 " to a landscape)."
@@ -950,7 +1185,7 @@ msgstr ""
 "**ব্যবহারের উদাহরণ:** একটি ছবি বা ভিডিও ৯০ ডিগ্রি ঘোরানো (একটি পোর্ট্রেট "
 "ভিডিওকে ল্যান্ডস্কেপে রূপান্তর করা)।"
 
-#: ../clips.rst:227
+#: ../clips.rst:306
 msgid ""
 "**Usage Example:** If your video is upside down, rotate it by 180 degrees to"
 " correct the orientation."
@@ -959,11 +1194,11 @@ msgstr ""
 "ডিগ্রি ঘোরান।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:232
+#: ../clips.rst:311
 msgid "Layout"
 msgstr "লেআউট"
 
-#: ../clips.rst:233
+#: ../clips.rst:312
 msgid ""
 "The :guilabel:`Transform → Layout` submenu adjusts the size of a clip and "
 "snaps it to a chosen corner of the screen, useful for picture-in-picture or "
@@ -976,11 +1211,11 @@ msgstr ""
 ":ref:`clip_scale_x_ref`, :guilabel:`মার্জিন`, এবং :guilabel:`কোণার "
 "ব্যাসার্ধ` কী-ফ্রেম।"
 
-#: ../clips.rst:238
+#: ../clips.rst:317
 msgid ":guilabel:`Reset Layout` — removes any layout keyframes."
 msgstr ":guilabel:`লেআউট রিসেট করুন` — যেকোনো লেআউট কী-ফ্রেম সরিয়ে দেয়।"
 
-#: ../clips.rst:239
+#: ../clips.rst:318
 msgid ""
 ":guilabel:`1/4 Size` — positions the clip at 1/4 of the screen in the "
 "Center, Top Left, Top Right, Bottom Left, or Bottom Right corner."
@@ -988,7 +1223,7 @@ msgstr ""
 ":guilabel:`১/৪ আকার` — ক্লিপটিকে স্ক্রিনের ১/৪ অংশে কেন্দ্র, উপরের বাম, "
 "উপরের ডান, নিচের বাম, অথবা নিচের ডান কোনায় অবস্থান করায়।"
 
-#: ../clips.rst:240
+#: ../clips.rst:319
 msgid ""
 ":guilabel:`Show All (Maintain Ratio)` — fits the entire clip frame within "
 "the screen while preserving its aspect ratio."
@@ -996,7 +1231,7 @@ msgstr ""
 ":guilabel:`সব দেখান (অনুপাত বজায় রেখে)` — ক্লিপের সম্পূর্ণ ফ্রেমকে অনুপাত "
 "বজায় রেখে স্ক্রিনের মধ্যে ফিট করে।"
 
-#: ../clips.rst:241
+#: ../clips.rst:320
 msgid ""
 ":guilabel:`Show All (Distort)` — stretches the entire clip frame to fill the"
 " screen, ignoring aspect ratio."
@@ -1005,7 +1240,7 @@ msgstr ""
 "স্ক্রিন পূর্ণ করে প্রসারিত করে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:243
+#: ../clips.rst:322
 msgid ""
 "**Usage Example:** Placing a logo in the corner of a video using the layout "
 "preset."
@@ -1013,7 +1248,7 @@ msgstr ""
 "**ব্যবহারের উদাহরণ:** Layout প্রিসেট ব্যবহার করে একটি ভিডিওর কোনায় লোগো "
 "স্থাপন করা।"
 
-#: ../clips.rst:244
+#: ../clips.rst:323
 msgid ""
 "**Tip:** Use :guilabel:`Margin` to create an inset layout area for a clip, "
 "and :guilabel:`Corner Radius` to round picture-in-picture camera clips "
@@ -1024,7 +1259,7 @@ msgstr ""
 "ক্লিপগুলিকে গোলাকার করতে :guilabel:`কোণার ব্যাসার্ধ` ব্যবহার করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:246
+#: ../clips.rst:325
 msgid ""
 "**Tip:** Combine with animation presets for dynamic transitions involving "
 "resizing and repositioning."
@@ -1032,7 +1267,7 @@ msgstr ""
 "**টিপ:** আকার পরিবর্তন এবং পুনঃঅবস্থান সংক্রান্ত গতিশীল ট্রানজিশনের জন্য "
 "অ্যানিমেশন প্রিসেটের সাথে মিলিয়ে ব্যবহার করুন।"
 
-#: ../clips.rst:250
+#: ../clips.rst:329
 msgid ""
 "The :guilabel:`Speed` menu manipulates clip playback speed, allowing for "
 "reverse playback, time-lapse, slow-motion, freezes, and looping effects. See"
@@ -1042,15 +1277,15 @@ msgstr ""
 "প্লেব্যাক, টাইম-ল্যাপস, স্লো-মোশন, ফ্রিজ এবং লুপিং প্রভাবের অনুমতি দেয়। "
 "দেখুন :ref:`clip_time_ref` কী-ফ্রেম।"
 
-#: ../clips.rst:253
+#: ../clips.rst:332
 msgid ":guilabel:`Reset Speed` — restores the clip to normal 1× speed."
 msgstr ":guilabel:`গতি রিসেট করুন` — ক্লিপকে স্বাভাবিক ১× গতিতে ফিরিয়ে আনে।"
 
-#: ../clips.rst:254
+#: ../clips.rst:333
 msgid ":guilabel:`Reverse` — plays the clip backwards at normal speed."
 msgstr ":guilabel:`রিভার্স` — ক্লিপকে স্বাভাবিক গতিতে উল্টো দিকে চালায়।"
 
-#: ../clips.rst:255
+#: ../clips.rst:334
 msgid ""
 ":guilabel:`Speed Up` → Forward / Backward → 2×, 4×, 8×, 16× — speeds up "
 "playback in either direction."
@@ -1058,7 +1293,7 @@ msgstr ""
 ":guilabel:`গতি বাড়ান` → সামনে / পিছনে → ২×, ৪×, ৮×, ১৬× — যেকোনো দিকে "
 "প্লেব্যাকের গতি বাড়ায়।"
 
-#: ../clips.rst:256
+#: ../clips.rst:335
 msgid ""
 ":guilabel:`Slow Down` → Forward / Backward → 1/2×, 1/4×, 1/8×, 1/16× — slows"
 " down playback in either direction."
@@ -1066,11 +1301,11 @@ msgstr ""
 ":guilabel:`গতি কমান` → সামনে / পিছনে → ১/২×, ১/৪×, ১/৮×, ১/১৬× — যেকোনো দিকে"
 " প্লেব্যাকের গতি কমায়।"
 
-#: ../clips.rst:257
+#: ../clips.rst:336
 msgid ":guilabel:`Repeat` — see below."
 msgstr ":guilabel:`পুনরাবৃত্তি` — নিচে দেখুন।"
 
-#: ../clips.rst:258
+#: ../clips.rst:337
 msgid ""
 ":guilabel:`Freeze` — freezes on the frame at the current playhead position "
 "for 2, 4, 6, 8, 10, 20, or 30 seconds."
@@ -1078,14 +1313,14 @@ msgstr ""
 ":guilabel:`ফ্রিজ` — বর্তমান প্লেহেড অবস্থানের ফ্রেমে ২, ৪, ৬, ৮, ১০, ২০, "
 "অথবা ৩০ সেকেন্ডের জন্য স্থির করে।"
 
-#: ../clips.rst:259
+#: ../clips.rst:338
 msgid ""
 ":guilabel:`Freeze && Zoom` — freezes and simultaneously zooms in on that "
 "frozen frame."
 msgstr ""
 ":guilabel:`ফ্রিজ এবং জুম` — ফ্রেমটিকে স্থির করে এবং একই সাথে জুম ইন করে।"
 
-#: ../clips.rst:261
+#: ../clips.rst:340
 msgid ""
 "**Slow motion** — :guilabel:`Slow Down → 1/2×` or :guilabel:`1/4×` for "
 "dreamy or dramatic footage."
@@ -1093,7 +1328,7 @@ msgstr ""
 "**স্লো মোশন** — স্বপ্নময় বা নাটকীয় ফুটেজের জন্য :guilabel:`গতি কমান → "
 "১/২×` অথবা :guilabel:`১/৪×`।"
 
-#: ../clips.rst:262
+#: ../clips.rst:341
 msgid ""
 "**Time-lapse** — :guilabel:`Speed Up → 8×` or :guilabel:`16×` to compress "
 "hours into seconds."
@@ -1101,7 +1336,7 @@ msgstr ""
 "**টাইম-ল্যাপস** — ঘণ্টাকে সেকেন্ডে সংকুচিত করতে :guilabel:`গতি বাড়ান → ৮×` "
 "অথবা :guilabel:`১৬×`।"
 
-#: ../clips.rst:263
+#: ../clips.rst:342
 msgid ""
 "**Speed ramp** — use the :guilabel:`Timing` tool to drag clip edges and "
 "create a natural-feeling speed change; OpenShot scales all keyframes "
@@ -1111,7 +1346,7 @@ msgstr ""
 "প্রাকৃতিক অনুভূতির গতি পরিবর্তন তৈরি করুন; OpenShot স্বয়ংক্রিয়ভাবে সব "
 "কী-ফ্রেম স্কেল করে।"
 
-#: ../clips.rst:264
+#: ../clips.rst:343
 msgid ""
 "**Tip:** Combine :guilabel:`Freeze` with :guilabel:`Speed Up` for an impact-"
 "freeze-then-fast-forward effect."
@@ -1120,11 +1355,11 @@ msgstr ""
 ":guilabel:`গতি বাড়ান` একত্রিত করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:269
+#: ../clips.rst:348
 msgid "Repeat"
 msgstr "পুনরাবৃত্তি"
 
-#: ../clips.rst:270
+#: ../clips.rst:349
 msgid ""
 "Use :guilabel:`Speed → Repeat` to play a clip multiple times, without "
 "building the time curve by hand. OpenShot writes the needed :guilabel:`Time`"
@@ -1135,11 +1370,11 @@ msgstr ""
 "কী-ফ্রেমগুলি লেখে (আপনি পরে সেগুলি সম্পাদনা করতে পারেন)।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:273
+#: ../clips.rst:352
 msgid "**Menu path**"
 msgstr "**মেনু পথ**"
 
-#: ../clips.rst:275
+#: ../clips.rst:354
 msgid ""
 ":guilabel:`Speed → Repeat → Loop → Forward` – plays left to right, then "
 "starts again from the beginning"
@@ -1147,7 +1382,7 @@ msgstr ""
 ":guilabel:`গতি → পুনরাবৃত্তি → লুপ → সামনে` – বাম থেকে ডানে চালায়, তারপর "
 "শুরু থেকে আবার শুরু করে"
 
-#: ../clips.rst:276
+#: ../clips.rst:355
 msgid ""
 ":guilabel:`Speed → Repeat → Loop → Reverse` – plays right to left, then "
 "starts again from the end"
@@ -1155,7 +1390,7 @@ msgstr ""
 ":guilabel:`গতি → পুনরাবৃত্তি → লুপ → রিভার্স` – ডান থেকে বামে চালায়, তারপর "
 "শেষে থেকে আবার শুরু করে"
 
-#: ../clips.rst:277
+#: ../clips.rst:356
 msgid ""
 ":guilabel:`Speed → Repeat → Ping-Pong → Forward` – forward, then backward, "
 "then forward…"
@@ -1163,7 +1398,7 @@ msgstr ""
 ":guilabel:`গতি → পুনরাবৃত্তি → পিং-পং → সামনে` – সামনে, তারপর পিছনে, তারপর "
 "আবার সামনে…"
 
-#: ../clips.rst:278
+#: ../clips.rst:357
 msgid ""
 ":guilabel:`Speed → Repeat → Ping-Pong → Reverse` – backward, then forward, "
 "then backward…"
@@ -1172,13 +1407,13 @@ msgstr ""
 "সামনে, তারপর আবার পিছনে…"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:279
+#: ../clips.rst:358
 msgid ":guilabel:`Custom…` – opens a dialog for extra options (see below)"
 msgstr ""
 ":guilabel:`Custom…` – অতিরিক্ত বিকল্পের জন্য একটি ডায়ালগ খুলে (নীচে দেখুন)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:281
+#: ../clips.rst:360
 msgid ""
 "Counts are **finite** (2x, 3x, 4x, 5x, 8x, 10x, or a custom number). "
 "Example: “Forward then Back and stop” = :guilabel:`Ping-Pong → Forward → "
@@ -1188,18 +1423,18 @@ msgstr ""
 "“সামনে তারপর পিছনে এবং থামুন” = :guilabel:`Ping-Pong → Forward → 2x`।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:284
+#: ../clips.rst:363
 msgid "**What gets repeated**"
 msgstr "**কি পুনরাবৃত্তি হয়**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:286
+#: ../clips.rst:365
 msgid "Repeat always acts on the **currently trimmed** in/out of the clip."
 msgstr ""
 "পুনরাবৃত্তি সবসময় ক্লিপের **বর্তমানে ট্রিম করা** ইন/আউট অংশে কাজ করে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:287
+#: ../clips.rst:366
 msgid ""
 "The :guilabel:`Time` curve is stamped as a simple shape: - Loop Forward = "
 "rising saw - Loop Reverse = falling saw - Ping-Pong = triangle (direction "
@@ -1210,19 +1445,19 @@ msgstr ""
 "পরিবর্তন হয়)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:291
+#: ../clips.rst:370
 msgid ""
 "To avoid a double frame at the seam, the last frame of each pass is not "
 "duplicated."
 msgstr "সীমায় ডবল ফ্রেম এড়াতে, প্রতিটি পাসের শেষ ফ্রেমটি নকল করা হয় না।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:293
+#: ../clips.rst:372
 msgid "**Keyframes during Repeat**"
 msgstr "**পুনরাবৃত্তির সময় কী-ফ্রেম**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:295
+#: ../clips.rst:374
 msgid ""
 "When you use Repeat, OpenShot will also **repeat other keyframes** found "
 "inside the trimmed section (location, scale, effects, etc.) into each pass "
@@ -1233,28 +1468,28 @@ msgstr ""
 "**পুনরাবৃত্তি** করবে যাতে আপনার অ্যানিমেশন সিঙ্কে থাকে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:296
+#: ../clips.rst:375
 msgid "Repeated keyframes keep their relative timing inside each pass."
 msgstr ""
 "পুনরাবৃত্ত কী-ফ্রেমগুলো প্রতিটি পাসের মধ্যে তাদের আপেক্ষিক সময় বজায় রাখে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:298
+#: ../clips.rst:377
 msgid "**Custom Repeat** (dialog options)"
 msgstr "**কাস্টম পুনরাবৃত্তি** (ডায়ালগ বিকল্প)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:300
+#: ../clips.rst:379
 msgid ":guilabel:`Pattern:` Loop | Ping-Pong"
 msgstr ":guilabel:`Pattern:` লুপ | পিং-পং"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:301
+#: ../clips.rst:380
 msgid ":guilabel:`Direction:` Forward | Reverse"
 msgstr ":guilabel:`Direction:` সামনে | বিপরীত"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:302
+#: ../clips.rst:381
 msgid ""
 ":guilabel:`Passes:` integer (2 or more). This is the number of times it will"
 " play."
@@ -1262,7 +1497,7 @@ msgstr ""
 ":guilabel:`Passes:` পূর্ণসংখ্যা (২ বা তার বেশি)। এটি প্লে করার সংখ্যা।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:303
+#: ../clips.rst:382
 msgid ""
 ":guilabel:`Delay:` number + units [frames | ms | sec]. This is an optional "
 "delay between each repeated pass."
@@ -1271,7 +1506,7 @@ msgstr ""
 " পুনরাবৃত্ত পাসের মধ্যে ঐচ্ছিক বিলম্ব।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:304
+#: ../clips.rst:383
 msgid ""
 ":guilabel:`Speed Ramp (%):` % speed change per pass (optional). Positive "
 "speeds up each pass; negative slows down each pass."
@@ -1280,11 +1515,11 @@ msgstr ""
 "মান প্রতিটি পাসকে দ্রুত করে; ঋণাত্মক মান ধীর করে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:306
+#: ../clips.rst:385
 msgid "**Reset**"
 msgstr "**রিসেট**"
 
-#: ../clips.rst:308
+#: ../clips.rst:387
 msgid ""
 ":guilabel:`Speed → Reset Speed` completely removes any Time curve (including"
 " Repeat) and restores the clip to its original playback, **without deleting "
@@ -1295,12 +1530,12 @@ msgstr ""
 "মূল নন-টাইম কীফ্রেমগুলি মুছে না ফেলে**।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:312
+#: ../clips.rst:391
 msgid "Timing Tool"
 msgstr "টাইমিং টুল"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:313
+#: ../clips.rst:392
 msgid ""
 "Another way to change a clip's speed is with the :guilabel:`Timing` tool on "
 "the timeline toolbar. Enable the clock icon and drag a clip's edges. "
@@ -1314,7 +1549,7 @@ msgstr ""
 "এর ইফেক্টের সব কীফ্রেম স্কেল করা হয় যাতে তাদের আপেক্ষিক অবস্থান অক্ষুণ্ণ "
 "থাকে।"
 
-#: ../clips.rst:319
+#: ../clips.rst:398
 msgid ""
 "The :guilabel:`Look` menu applies one-click visual style presets to clips. "
 "All presets work by adding or updating effects on the clip — you can inspect"
@@ -1326,7 +1561,7 @@ msgstr ""
 "পর্যালোচনা বা প্রোপার্টিজ ডকে আরও অ্যানিমেট করতে পারেন। মেনুটি চারটি সাবমেনু"
 " এবং নিচে দুটি সরাসরি অ্যাকশনে বিভক্ত।"
 
-#: ../clips.rst:323
+#: ../clips.rst:402
 msgid ""
 ":guilabel:`Reset Look` — removes all Look-managed effects (Color Grade, Film"
 " Grain, Analog Tape, Sharpen, Blur, Shadow, Glow) from the selected clips in"
@@ -1336,7 +1571,7 @@ msgstr ""
 "ইফেক্ট (কালার গ্রেড, ফিল্ম গ্রেন, অ্যানালগ টেপ, শার্পেন, ব্লার, শ্যাডো, "
 "গ্লো) সরিয়ে দেয়।"
 
-#: ../clips.rst:326
+#: ../clips.rst:405
 msgid ""
 "**Color** — applies a :guilabel:`Color Grade` effect with one of four quick "
 "presets:"
@@ -1344,31 +1579,31 @@ msgstr ""
 "**রঙ** — চারটি দ্রুত প্রিসেটের মধ্যে একটি দিয়ে :guilabel:`কালার গ্রেড` "
 "ইফেক্ট প্রয়োগ করে:"
 
-#: ../clips.rst:328
+#: ../clips.rst:407
 msgid ""
 "**Auto Contrast** — boosts contrast by lifting shadows and pulling "
 "highlights."
 msgstr ""
 "**অটো কনট্রাস্ট** — ছায়া উজ্জ্বল করে এবং হাইলাইট টেনে কনট্রাস্ট বাড়ায়।"
 
-#: ../clips.rst:329
+#: ../clips.rst:408
 msgid "**Lift Shadows** — brightens the dark areas of the image."
 msgstr "**ছায়া উজ্জ্বল করুন** — ছবির অন্ধকার অংশগুলো উজ্জ্বল করে।"
 
-#: ../clips.rst:330
+#: ../clips.rst:409
 msgid "**Warm Up** — shifts the color balance toward warm orange/amber tones."
 msgstr ""
 "**ওয়ার্ম আপ** — রঙের ভারসাম্যকে উষ্ণ কমলা/অ্যাম্বার টোনের দিকে সরায়।"
 
-#: ../clips.rst:331
+#: ../clips.rst:410
 msgid "**Boost Color** — increases color saturation."
 msgstr "**রঙ বাড়ান** — রঙের স্যাচুরেশন বাড়ায়।"
 
-#: ../clips.rst:333
+#: ../clips.rst:412
 msgid "**Film** — cinematic film simulation:"
 msgstr "**ফিল্ম** — সিনেমাটিক ফিল্ম সিমুলেশন:"
 
-#: ../clips.rst:335
+#: ../clips.rst:414
 msgid ""
 ":guilabel:`Film Grain` → **No Film Grain**, then: **35mm Fine**, **35mm "
 "Classic**, **35mm Gritty**, **16mm Classic**, **Super 8**, **High ISO** — "
@@ -1378,7 +1613,7 @@ msgstr ""
 "**৩৫মিমি ক্লাসিক**, **৩৫মিমি গ্রিটি**, **১৬মিমি ক্লাসিক**, **সুপার ৮**, "
 "**হাই আইএসও** — বিভিন্ন শক্তি ও আকারে ফটোগ্রাফিক গ্রেন যোগ করে।"
 
-#: ../clips.rst:337
+#: ../clips.rst:416
 msgid ""
 ":guilabel:`Analog Tape` → **No Analog Tape**, then: **Subtle**, **VHS**, "
 "**Heavy** — adds tape noise and color degradation for a retro video look."
@@ -1387,11 +1622,11 @@ msgstr ""
 "**ভিএইচএস**, **হেভি** — রেট্রো ভিডিও লুকের জন্য টেপ নয়েজ এবং রঙের অবনতি যোগ"
 " করে।"
 
-#: ../clips.rst:340
+#: ../clips.rst:419
 msgid "**Focus** — sharpness adjustments:"
 msgstr "**ফোকাস** — শার্পনেস সমন্বয়:"
 
-#: ../clips.rst:342
+#: ../clips.rst:421
 msgid ""
 ":guilabel:`Sharpen` → **No Sharpen**, then: **Subtle**, **Medium**, "
 "**Strong** — sharpens fine detail."
@@ -1399,7 +1634,7 @@ msgstr ""
 ":guilabel:`শার্পেন` → **কোন শার্পেন নেই**, তারপর: **সাবটল**, **মাঝারি**, "
 "**মজবুত** — সূক্ষ্ম বিবরণ শার্প করে।"
 
-#: ../clips.rst:343
+#: ../clips.rst:422
 msgid ""
 ":guilabel:`Blur` → **No Blur**, then: **Soft Focus**, **Medium**, **Heavy** "
 "— softens the image."
@@ -1407,11 +1642,11 @@ msgstr ""
 ":guilabel:`ব্লার` → **কোন ব্লার নেই**, তারপর: **সফট ফোকাস**, **মাঝারি**, "
 "**হেভি** — ছবিকে নরম করে।"
 
-#: ../clips.rst:345
+#: ../clips.rst:424
 msgid "**Lighting** — light and shadow overlays:"
 msgstr "**আলো** — আলো এবং ছায়ার ওভারলে:"
 
-#: ../clips.rst:347
+#: ../clips.rst:426
 msgid ""
 ":guilabel:`Shadow` → **No Shadow**, then: **Subtle**, **Soft**, **Strong**, "
 "**Long** — casts a drop shadow across the clip."
@@ -1419,7 +1654,7 @@ msgstr ""
 ":guilabel:`শ্যাডো` → **কোন শ্যাডো নেই**, তারপর: **সাবটল**, **সফট**, "
 "**মজবুত**, **লম্বা** — ক্লিপ জুড়ে ড্রপ শ্যাডো দেয়।"
 
-#: ../clips.rst:349
+#: ../clips.rst:428
 msgid ""
 ":guilabel:`Glow` → **No Glow**, then: **Soft White**, **Warm**, **Neon**, "
 "**Inner Glow** — adds a soft halo or glow effect."
@@ -1427,11 +1662,11 @@ msgstr ""
 ":guilabel:`গ্লো` → **কোন গ্লো নেই**, তারপর: **সফট হোয়াইট**, **ওয়ার্ম**, "
 "**নিয়ন**, **ইনার গ্লো** — নরম হ্যালো বা গ্লো ইফেক্ট যোগ করে।"
 
-#: ../clips.rst:352
+#: ../clips.rst:431
 msgid "At the bottom of the Look menu:"
 msgstr "লুক মেনুর নিচে:"
 
-#: ../clips.rst:354
+#: ../clips.rst:433
 msgid ""
 ":guilabel:`Adjust Colors` — opens the :guilabel:`Color Wheels` dock for full"
 " manual color grading with lift/gamma/gain wheels, curves, and an "
@@ -1441,7 +1676,7 @@ msgstr ""
 ":guilabel:`কালার হুইলস` ডক খুলে, যেখানে লিফট/গামা/গেইন হুইল, কার্ভ এবং "
 "Amount/Luma ব্লেন্ড স্লাইডার থাকে।"
 
-#: ../clips.rst:356
+#: ../clips.rst:435
 msgid ""
 ":guilabel:`Analyze Colors` — opens the :guilabel:`Luma Waveform` and "
 ":guilabel:`Histogram` video scopes on the right side of the window, tabified"
@@ -1450,7 +1685,7 @@ msgstr ""
 ":guilabel:`রঙ বিশ্লেষণ করুন` — উইন্ডোর ডান পাশে :guilabel:`লুমা ওয়েভফর্ম` "
 "এবং :guilabel:`হিস্টোগ্রাম` ভিডিও স্কোপ একসাথে ট্যাব আকারে খুলে।"
 
-#: ../clips.rst:359
+#: ../clips.rst:438
 msgid ""
 "**Tip:** Each Look submenu has a \"No …\" option at the top to remove just "
 "that single effect without affecting the others."
@@ -1458,7 +1693,7 @@ msgstr ""
 "**টিপ:** প্রতিটি লুক সাবমেনুর উপরে একটি \"কোন ... নেই\" অপশন থাকে যা "
 "শুধুমাত্র ঐ একক ইফেক্টটি সরায়, অন্যগুলোকে প্রভাবিত না করে।"
 
-#: ../clips.rst:361
+#: ../clips.rst:440
 msgid ""
 "**Tip:** After applying a Look preset, double-click the effect badge on the "
 "clip (or use Properties) to fine-tune every parameter or animate it over "
@@ -1468,7 +1703,7 @@ msgstr ""
 "করুন (অথবা প্রোপার্টিজ ব্যবহার করুন) প্রতিটি প্যারামিটার সূক্ষ্মভাবে "
 "সামঞ্জস্য করতে বা সময়ের সাথে অ্যানিমেট করতে।"
 
-#: ../clips.rst:366
+#: ../clips.rst:445
 msgid ""
 "The :guilabel:`Audio` menu groups all audio-related clip actions in one "
 "place."
@@ -1476,7 +1711,7 @@ msgstr ""
 ":guilabel:`অডিও` মেনু সব অডিও-সংক্রান্ত ক্লিপ অ্যাকশন এক জায়গায় গুছিয়ে "
 "রাখে।"
 
-#: ../clips.rst:368
+#: ../clips.rst:447
 msgid ""
 "**Volume** — controls the clip's audio level. See :ref:`clip_volume_ref` "
 "key-frame."
@@ -1484,7 +1719,7 @@ msgstr ""
 "**ভলিউম** — ক্লিপের অডিও স্তর নিয়ন্ত্রণ করে। দেখুন :ref:`clip_volume_ref` "
 "কী-ফ্রেম।"
 
-#: ../clips.rst:370
+#: ../clips.rst:449
 msgid ""
 ":guilabel:`Reset Volume` — removes all volume keyframes, returning to full "
 "(1×) volume."
@@ -1492,7 +1727,7 @@ msgstr ""
 ":guilabel:`ভলিউম রিসেট করুন` — সব ভলিউম কী-ফ্রেম মুছে ফেলে, পূর্ণ (১×) "
 "ভলিউমে ফিরে যায়।"
 
-#: ../clips.rst:371
+#: ../clips.rst:450
 msgid ""
 ":guilabel:`Level` — sets a fixed volume percentage (0 % to 130 %) for the "
 "entire clip."
@@ -1500,7 +1735,7 @@ msgstr ""
 ":guilabel:`লেভেল` — পুরো ক্লিপের জন্য একটি নির্দিষ্ট ভলিউম শতাংশ (০% থেকে "
 "১৩০%) নির্ধারণ করে।"
 
-#: ../clips.rst:372
+#: ../clips.rst:451
 msgid ""
 ":guilabel:`Fade In` → :guilabel:`Fast` / :guilabel:`Slow` — fades volume "
 "from silence at the start of the clip."
@@ -1508,7 +1743,7 @@ msgstr ""
 ":guilabel:`ফেড ইন` → :guilabel:`দ্রুত` / :guilabel:`ধীরে` — ক্লিপের শুরুতে "
 "নীরবতা থেকে ভলিউম বাড়ায়।"
 
-#: ../clips.rst:373
+#: ../clips.rst:452
 msgid ""
 ":guilabel:`Fade Out` → :guilabel:`Fast` / :guilabel:`Slow` — fades volume to"
 " silence at the end of the clip."
@@ -1516,7 +1751,7 @@ msgstr ""
 ":guilabel:`ফেড আউট` → :guilabel:`দ্রুত` / :guilabel:`ধীরে` — ক্লিপের শেষে "
 "ভলিউম নীরবতায় নামায়।"
 
-#: ../clips.rst:374
+#: ../clips.rst:453
 msgid ""
 ":guilabel:`Fade In and Out` → :guilabel:`Fast` / :guilabel:`Slow` — applies "
 "both a volume fade-in and fade-out."
@@ -1524,11 +1759,11 @@ msgstr ""
 ":guilabel:`ফেড ইন এবং আউট` → :guilabel:`দ্রুত` / :guilabel:`ধীরে` — ভলিউম "
 "ফেড-ইন এবং ফেড-আউট উভয় প্রয়োগ করে।"
 
-#: ../clips.rst:376
+#: ../clips.rst:455
 msgid "**Separate** — splits the audio track out of a clip:"
 msgstr "**বিভক্ত করুন** — একটি ক্লিপ থেকে অডিও ট্র্যাক আলাদা করে:"
 
-#: ../clips.rst:378
+#: ../clips.rst:457
 msgid ""
 ":guilabel:`Single Clip (all channels)` — creates one detached audio clip on "
 "a layer below the original."
@@ -1536,7 +1771,7 @@ msgstr ""
 ":guilabel:`একক ক্লিপ (সব চ্যানেল)` — মূল ক্লিপের নিচে একটি স্তরে একটি "
 "বিচ্ছিন্ন অডিও ক্লিপ তৈরি করে।"
 
-#: ../clips.rst:379
+#: ../clips.rst:458
 msgid ""
 ":guilabel:`Multiple Clips (each channel)` — creates separate detached audio "
 "clips, one per audio channel, on multiple layers below the original."
@@ -1544,7 +1779,7 @@ msgstr ""
 ":guilabel:`একাধিক ক্লিপ (প্রতিটি চ্যানেল)` — মূল ক্লিপের নিচে একাধিক স্তরে "
 "প্রতিটি অডিও চ্যানেলের জন্য পৃথক বিচ্ছিন্ন অডিও ক্লিপ তৈরি করে।"
 
-#: ../clips.rst:381
+#: ../clips.rst:460
 msgid ""
 "**Show Waveform / Hide Waveform** — toggles the audio waveform visualization"
 " on the timeline for audio-only clips. Only shown for clips that do not have"
@@ -1554,7 +1789,7 @@ msgstr ""
 "ওয়েভফর্ম ভিজ্যুয়ালাইজেশন চালু বা বন্ধ করে। শুধুমাত্র ভিডিও ট্র্যাক না থাকা"
 " ক্লিপগুলির জন্য দেখানো হয়।"
 
-#: ../clips.rst:384
+#: ../clips.rst:463
 msgid ""
 "**Analyze Levels** — opens the :guilabel:`Audio Levels` scope dock. If other"
 " scope docks are already open, OpenShot tabifies :guilabel:`Audio Levels` "
@@ -1565,7 +1800,7 @@ msgstr ""
 "ট্যাব আকারে দেখায়।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:387
+#: ../clips.rst:466
 msgid ""
 "**Usage Example:** Applying a gradual volume fade-out to transition between "
 "scenes."
@@ -1573,7 +1808,7 @@ msgstr ""
 "**ব্যবহারের উদাহরণ:** দৃশ্যগুলোর মধ্যে পরিবর্তনের জন্য ধীরে ধীরে ভলিউম "
 "ফেড-আউট প্রয়োগ করা।"
 
-#: ../clips.rst:388
+#: ../clips.rst:467
 msgid ""
 "**Usage Example:** Extracting background music from a video clip for "
 "independent volume control."
@@ -1581,7 +1816,7 @@ msgstr ""
 "**ব্যবহারের উদাহরণ:** স্বাধীন ভলিউম নিয়ন্ত্রণের জন্য একটি ভিডিও ক্লিপ থেকে "
 "ব্যাকগ্রাউন্ড মিউজিক আলাদা করা।"
 
-#: ../clips.rst:389
+#: ../clips.rst:468
 msgid ""
 "**Tip:** Use :guilabel:`Audio → Volume → Fade In/Out` for audio-only fades. "
 "Use the top-level :guilabel:`Fade` menu for a combined video+audio fade."
@@ -1591,7 +1826,7 @@ msgstr ""
 "ব্যবহার করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:393
+#: ../clips.rst:472
 msgid ""
 "The :guilabel:`Slice` tool lets you cut a clip at the position of the play-"
 "head (*the vertical line that shows your current position in the timeline*)."
@@ -1603,7 +1838,7 @@ msgstr ""
 "স্থানে দুইটি আলাদা অংশে ভাগ করবে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:396
+#: ../clips.rst:475
 msgid ""
 "Slicing is a key feature for making precise edits and rearranging sections "
 "of your video. You can slice a clip and choose to keep one side or both, and"
@@ -1616,12 +1851,12 @@ msgstr ""
 "স্বয়ংক্রিয়ভাবে সরিয়ে কাটার কারণে সৃষ্ট ফাঁক পূরণ করবে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:400
+#: ../clips.rst:479
 msgid "**Slicing Options:**"
 msgstr "**স্লাইসিং অপশনসমূহ:**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:402
+#: ../clips.rst:481
 msgid ""
 "**Keep Both Sides**: This option splits the clip into two parts, keeping "
 "everything on both sides of the play-head. It’s useful when you want to "
@@ -1632,7 +1867,7 @@ msgstr ""
 "কিছু মুছে ফেলতে চান না।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:403
+#: ../clips.rst:482
 msgid ""
 "**Keep Left Side**: This option cuts the clip and removes the part to the "
 "right of the play-head, keeping only the part before the play-head. Use this"
@@ -1643,7 +1878,7 @@ msgstr ""
 "ব্যবহার করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:404
+#: ../clips.rst:483
 msgid ""
 "**Keep Right Side**: This option cuts the clip and removes the part to the "
 "left of the play-head, keeping only the part after the play-head. It’s handy"
@@ -1654,7 +1889,7 @@ msgstr ""
 "উপযোগী।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:405
+#: ../clips.rst:484
 msgid ""
 "**Ripple Slicing**: Ripple slicing not only cuts the clip but also moves any"
 " clips and transitions that follow to close the gap. This way, your timeline"
@@ -1666,12 +1901,12 @@ msgstr ""
 " থাকে এবং পরবর্তী ক্লিপগুলো ম্যানুয়ালি সামঞ্জস্য করার ঝামেলা বাঁচে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:407 ../clips.rst:581
+#: ../clips.rst:486 ../clips.rst:660
 msgid "**Tips for Beginners:**"
 msgstr "**শুরু করার জন্য টিপস:**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:409
+#: ../clips.rst:488
 msgid ""
 "**Example**: If there’s a part of a clip you don’t want (like the end of a "
 "scene), use **Keep Left Side** or **Keep Right Side** to remove it. If you "
@@ -1684,7 +1919,7 @@ msgstr ""
 " ব্যবহার করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:410
+#: ../clips.rst:489
 msgid ""
 "**Quick Tip**: Slicing can also be used to break a long clip into smaller "
 "parts, making it easier to manage and edit each section separately."
@@ -1693,7 +1928,7 @@ msgstr ""
 " যায়, যা প্রতিটি অংশ আলাদাভাবে পরিচালনা এবং সম্পাদনা করা সহজ করে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:412
+#: ../clips.rst:491
 msgid ""
 "For a complete guide to slicing and all available keyboard shortcuts, see "
 "the :ref:`clips_cutting_slicing_ref` section."
@@ -1701,7 +1936,7 @@ msgstr ""
 "স্লাইসিং এবং সব উপলব্ধ কীবোর্ড শর্টকাটের সম্পূর্ণ গাইডের জন্য, "
 ":ref:`clips_cutting_slicing_ref` অংশ দেখুন।"
 
-#: ../clips.rst:418
+#: ../clips.rst:497
 msgid ""
 "The :guilabel:`Transform` context menu provides geometric preset actions for"
 " visual clips:"
@@ -1709,7 +1944,7 @@ msgstr ""
 ":guilabel:`ট্রান্সফর্ম` কনটেক্সট মেনু ভিজ্যুয়াল ক্লিপের জন্য জ্যামিতিক "
 "প্রিসেট অ্যাকশন প্রদান করে:"
 
-#: ../clips.rst:420
+#: ../clips.rst:499
 msgid ""
 ":guilabel:`No Transform` — removes all Rotate, Layout, and crop presets from"
 " the selected clips in one step."
@@ -1717,7 +1952,7 @@ msgstr ""
 ":guilabel:`কোন ট্রান্সফর্ম নেই` — নির্বাচিত ক্লিপ থেকে একবারে সব রোটেট, "
 "লেআউট, এবং ক্রপ প্রিসেট সরিয়ে দেয়।"
 
-#: ../clips.rst:421
+#: ../clips.rst:500
 msgid ""
 ":guilabel:`Rotate` — rotate or flip the clip. See the :ref:`Rotate "
 "<clip_presets_rotate_ref>` section above."
@@ -1725,7 +1960,7 @@ msgstr ""
 ":guilabel:`Rotate` — ক্লিপটি ঘোরান বা উল্টান। উপরের :ref:`Rotate "
 "<clip_presets_rotate_ref>` অংশটি দেখুন।"
 
-#: ../clips.rst:422
+#: ../clips.rst:501
 msgid ""
 ":guilabel:`Crop` — add or remove a crop effect. See the :ref:`Crop "
 "<clip_presets_crop_ref>` section below."
@@ -1733,7 +1968,7 @@ msgstr ""
 ":guilabel:`Crop` — একটি ক্রপ ইফেক্ট যোগ বা অপসারণ করুন। নিচের :ref:`Crop "
 "<clip_presets_crop_ref>` অংশটি দেখুন।"
 
-#: ../clips.rst:423
+#: ../clips.rst:502
 msgid ""
 ":guilabel:`Layout` — resize and snap the clip to a corner or fit position. "
 "See the :ref:`Layout <clip_presets_layout_ref>` section above."
@@ -1741,12 +1976,12 @@ msgstr ""
 ":guilabel:`Layout` — ক্লিপের আকার পরিবর্তন করুন এবং একটি কোণ বা ফিট অবস্থানে"
 " স্ন্যাপ করুন। উপরের :ref:`Layout <clip_presets_layout_ref>` অংশটি দেখুন।"
 
-#: ../clips.rst:428
+#: ../clips.rst:507
 msgid "Transform Tool"
 msgstr "রূপান্তর সরঞ্জাম"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:429
+#: ../clips.rst:508
 msgid ""
 "The **Transform Tool** lets you quickly adjust a clip directly in the "
 "preview window, instead of changing location, scale, rotation, shear, and "
@@ -1767,24 +2002,24 @@ msgstr ""
 "স্থানান্তর, স্কেল, বা ঘূর্ণন সমস্ত নির্বাচিত ক্লিপে একসাথে প্রয়োগ করা হয়।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:438
+#: ../clips.rst:517
 msgid "Dragging the blue squares will adjust the **scale** of the image."
 msgstr "নীল বর্গক্ষেত্রগুলো টেনে ছবির **স্কেল** সামঞ্জস্য করা হবে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:439
+#: ../clips.rst:518
 msgid "Dragging the center will move the **location** of the image."
 msgstr "মধ্যবিন্দু টেনে ছবির **অবস্থান** পরিবর্তন করা হবে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:440
+#: ../clips.rst:519
 msgid ""
 "Dragging the mouse on the outside of the blue lines will **rotate** the "
 "image."
 msgstr "নীল লাইনের বাইরে মাউস টেনে ছবিটি **ঘুরানো** হবে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:441
+#: ../clips.rst:520
 msgid ""
 "Hold :kbd:`Ctrl` or :kbd:`Shift` while rotating to snap to 15-degree "
 "increments."
@@ -1793,13 +2028,13 @@ msgstr ""
 "ইঙ্ক্রিমেন্টে স্ন্যাপ করার জন্য।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:442
+#: ../clips.rst:521
 msgid ""
 "Dragging along the blue lines will **shear** the image in that direction."
 msgstr "নীল লাইনের বরাবর টেনে ছবিটি ঐ দিক দিয়ে **শিয়ার** করা হবে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:443
+#: ../clips.rst:522
 msgid ""
 "Dragging the circle in the middle will move the **origin point** that "
 "controls the center of **rotation**."
@@ -1808,7 +2043,7 @@ msgstr ""
 "সরানো হবে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:445
+#: ../clips.rst:524
 msgid ""
 "Note: Pay close attention to the play-head position (red playback line). Key"
 " frames are automatically created at the current playback position, to help "
@@ -1825,7 +2060,7 @@ msgstr ""
 "পারেন, দেখুন :ref:`clip_properties_ref`।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:452
+#: ../clips.rst:531
 #, fuzzy
 msgid ""
 "**Usage Example:** Use the transform handles to resize and reposition a clip"
@@ -1835,7 +2070,7 @@ msgstr ""
 "এবং পুনঃঅবস্থান করতে ট্রান্সফর্ম মোড ব্যবহার।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:453
+#: ../clips.rst:532
 #, fuzzy
 msgid "**Tip:** Use these handles to precisely control a clip's appearance."
 msgstr ""
@@ -1843,11 +2078,11 @@ msgstr ""
 "করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:458
+#: ../clips.rst:537
 msgid "Crop"
 msgstr "ক্রপ"
 
-#: ../clips.rst:459
+#: ../clips.rst:538
 msgid ""
 "The :guilabel:`Transform → Crop` submenu adds a crop effect to the selected "
 "clip and displays interactive crop handles in the video preview. The submenu"
@@ -1858,12 +2093,12 @@ msgstr ""
 " করে:"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:462
+#: ../clips.rst:541
 msgid ":guilabel:`No Crop` – remove any existing crop effect."
 msgstr ":guilabel:`কোন ক্রপ নেই` – বিদ্যমান কোনো ক্রপ ইফেক্ট সরান।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:463
+#: ../clips.rst:542
 msgid ""
 ":guilabel:`Crop (No Resize)` – trim the clip without scaling the remaining "
 "area."
@@ -1871,7 +2106,7 @@ msgstr ""
 ":guilabel:`ক্রপ (রিসাইজ নয়)` – বাকি অংশ স্কেল না করে ক্লিপ ট্রিম করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:464
+#: ../clips.rst:543
 msgid ""
 ":guilabel:`Crop (Resize)` – trim the clip and scale the cropped region to "
 "fill the frame."
@@ -1880,7 +2115,7 @@ msgstr ""
 "স্কেল করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:466
+#: ../clips.rst:545
 msgid ""
 "Drag the blue handles to adjust the crop boundaries, move the cropped area "
 "around, or move the center handle to reposition the image inside the cropped"
@@ -1891,11 +2126,11 @@ msgstr ""
 "পরিবর্তন করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:470 ../clips.rst:655 ../clips.rst:988
+#: ../clips.rst:549 ../clips.rst:734 ../clips.rst:1067
 msgid "Waveform"
 msgstr "ওয়েভফর্ম"
 
-#: ../clips.rst:471
+#: ../clips.rst:550
 msgid ""
 "The :guilabel:`Audio → Show Waveform` / :guilabel:`Hide Waveform` action "
 "toggles whether an audio-only clip shows its waveform visualization on the "
@@ -1907,7 +2142,7 @@ msgstr ""
 "দেখাবে কিনা, ডিফল্ট থাম্বনেইলের পরিবর্তে। এই বিকল্পটি শুধুমাত্র সেই "
 "ক্লিপগুলির জন্য প্রদর্শিত হয় যাদের ভিডিও ট্র্যাক নেই।"
 
-#: ../clips.rst:475
+#: ../clips.rst:554
 msgid ""
 "**Usage Example:** Displaying the audio waveform for precise audio editing "
 "and alignment."
@@ -1915,7 +2150,7 @@ msgstr ""
 "**ব্যবহারের উদাহরণ:** সঠিক অডিও সম্পাদনা এবং সারিবদ্ধতার জন্য অডিও ওয়েভফর্ম"
 " প্রদর্শন।"
 
-#: ../clips.rst:476
+#: ../clips.rst:555
 msgid ""
 "**Tip:** Use this to visually spot loud or quiet sections in a music clip "
 "without opening the audio scopes."
@@ -1923,11 +2158,11 @@ msgstr ""
 "**টিপ:** অডিও স্কোপ খুলে না দেখে একটি মিউজিক ক্লিপে উচ্চ বা নীরব অংশগুলি "
 "بصریভাবে সনাক্ত করতে এটি ব্যবহার করুন।"
 
-#: ../clips.rst:478
+#: ../clips.rst:557
 msgid "**How timeline waveforms are scaled**"
 msgstr "**কিভাবে টাইমলাইন ওয়েভফর্ম স্কেল করা হয়**"
 
-#: ../clips.rst:480
+#: ../clips.rst:559
 msgid ""
 "Timeline waveforms are an editing aid: they help you find speech, beats, "
 "silence, and transients, and compare the approximate levels of different "
@@ -1941,7 +2176,7 @@ msgstr ""
 " প্রতিটি নীরব ফাইলকে তার সর্বোচ্চ শিখর ক্লিপ পূরণ না করা পর্যন্ত বড় করে না,"
 " তাই একটি নীরব রেকর্ডিং দৃশ্যমানভাবে একটি উচ্চ রেকর্ডিং থেকে নীরব থাকে।"
 
-#: ../clips.rst:485
+#: ../clips.rst:564
 msgid ""
 "Pure linear amplitude is accurate but makes ordinary speech difficult to "
 "see. OpenShot therefore applies a fixed, gentle square-root display curve. "
@@ -1955,95 +2190,95 @@ msgstr ""
 "নীরব উৎসের চেয়ে বড় দেখায়। বক্ররেখাটি শুধুমাত্র অঙ্কন পরিবর্তন করে; এটি "
 "রেকর্ড করা অডিও পরিবর্তন, স্বাভাবিককরণ বা প্রক্রিয়াকরণ করে না।"
 
-#: ../clips.rst:490
+#: ../clips.rst:569
 msgid "Approximate waveform height for new clips"
 msgstr "নতুন ক্লিপের আনুমানিক ওয়েভফর্ম উচ্চতা"
 
-#: ../clips.rst:494
+#: ../clips.rst:573
 msgid "Peak Level"
 msgstr "শিখর স্তর"
 
-#: ../clips.rst:494
+#: ../clips.rst:573
 msgid "Display Height"
 msgstr "প্রদর্শন উচ্চতা"
 
-#: ../clips.rst:494
+#: ../clips.rst:573
 msgid "What It Often Looks Like"
 msgstr "এটি সাধারণত কেমন দেখায়"
 
-#: ../clips.rst:496
+#: ../clips.rst:575
 msgid "``0 dBFS``"
 msgstr "``0 dBFS``"
 
-#: ../clips.rst:496
+#: ../clips.rst:575
 msgid "100%"
 msgstr "১০০%"
 
-#: ../clips.rst:496
+#: ../clips.rst:575
 msgid "Full-scale peak; check for possible clipping."
 msgstr "পূর্ণ-স্কেল শিখর; সম্ভাব্য ক্লিপিং পরীক্ষা করুন।"
 
-#: ../clips.rst:497
+#: ../clips.rst:576
 msgid "``-6 dBFS``"
 msgstr "``-6 dBFS``"
 
-#: ../clips.rst:497
+#: ../clips.rst:576
 msgid "71%"
 msgstr "৭১%"
 
-#: ../clips.rst:497
+#: ../clips.rst:576
 msgid "Strong transient or loud program audio."
 msgstr "শক্তিশালী ট্রানজিয়েন্ট বা উচ্চ প্রোগ্রাম অডিও।"
 
-#: ../clips.rst:498
+#: ../clips.rst:577
 msgid "``-12 dBFS``"
 msgstr "``-12 dBFS``"
 
-#: ../clips.rst:498
+#: ../clips.rst:577
 msgid "50%"
 msgstr "৫০%"
 
-#: ../clips.rst:498
+#: ../clips.rst:577
 msgid "Healthy speech or other prominent audio."
 msgstr "স্বাস্থ্যকর ভাষণ বা অন্যান্য প্রধান অডিও।"
 
-#: ../clips.rst:499
+#: ../clips.rst:578
 msgid "``-20 dBFS``"
 msgstr "``-20 dBFS``"
 
-#: ../clips.rst:499
+#: ../clips.rst:578
 msgid "32%"
 msgstr "৩২%"
 
-#: ../clips.rst:499
+#: ../clips.rst:578
 msgid "Moderate speech or background program audio."
 msgstr "মধ্যম ভাষণ বা পটভূমির প্রোগ্রাম অডিও।"
 
-#: ../clips.rst:500
+#: ../clips.rst:579
 msgid "``-40 dBFS``"
 msgstr "``-40 dBFS``"
 
-#: ../clips.rst:500
+#: ../clips.rst:579
 msgid "10%"
 msgstr "১০%"
 
-#: ../clips.rst:500
+#: ../clips.rst:579
 msgid "Quiet room tone or microphone noise floor."
 msgstr "নীরব কক্ষের সুর বা মাইক্রোফোনের শব্দ স্তর।"
 
-#: ../clips.rst:501
+#: ../clips.rst:580
 msgid "``-60 dBFS``"
 msgstr "``-60 dBFS``"
 
-#: ../clips.rst:501
+#: ../clips.rst:580
 msgid "3%"
 msgstr "৩%"
 
-#: ../clips.rst:501
+#: ../clips.rst:580
 msgid "Very quiet detail near the center line."
 msgstr "কেন্দ্র রেখার কাছে খুব নীরব বিশদ।"
 
-#: ../clips.rst:504
+#: ../clips.rst:583
 msgid ""
 "OpenShot samples both **peak** and **RMS** envelopes at regular time "
 "intervals. The lighter outer envelope shows brief peaks and transients; the "
@@ -2059,7 +2294,7 @@ msgstr ""
 "কেন্দ্র রেখা নীরব অংশগুলি সনাক্তযোগ্য রাখে তাদের উচ্চ শব্দের চেয়ে বড় "
 "দেখানো ছাড়াই।"
 
-#: ../clips.rst:509
+#: ../clips.rst:588
 msgid ""
 "New waveforms use 200 samples per second by default, providing several "
 "measurements within a typical video frame. Change this density with "
@@ -2079,7 +2314,7 @@ msgstr ""
 "এবং পুনরায় আঁকার খরচ কম রাখে। লাইভ মাইক্রোফোন প্রিভিউ নির্বাচিত ঘনত্ব এবং "
 "সম্পন্ন রেকর্ডিংয়ের মতো একই শিখর/RMS প্রদর্শন ব্যবহার করে।"
 
-#: ../clips.rst:515
+#: ../clips.rst:594
 msgid ""
 "Projects saved by older OpenShot versions can contain independently peak-"
 "normalized waveform data. These waveforms have no format marker, so OpenShot"
@@ -2097,7 +2332,7 @@ msgstr ""
 "হয়, এবং RMS এনভেলপ ছাড়া ডেটা একটি একক দৃঢ় ওয়েভফর্ম থাকে। একটি প্রকল্প "
 "নিরাপদে লিগ্যাসি এবং নতুন ওয়েভফর্ম একসাথে রাখতে পারে।"
 
-#: ../clips.rst:521
+#: ../clips.rst:600
 msgid ""
 "To regenerate cached waveform data using the current method, choose "
 ":guilabel:`Edit → Clear → Waveform Display Data`, then show the waveform "
@@ -2109,7 +2344,7 @@ msgstr ""
 "ওয়েভফর্ম দেখান। এটি শুধুমাত্র ক্যাশ করা প্রদর্শন ডেটাকে প্রভাবিত করে এবং "
 "মিডিয়া ফাইল বা তার অডিও পরিবর্তন করে না।"
 
-#: ../clips.rst:526
+#: ../clips.rst:605
 msgid ""
 "The peak envelope identifies transient level and possible clipping; RMS "
 "summarizes sustained energy but is not a loudness-standard measurement. Use "
@@ -2122,7 +2357,7 @@ msgstr ""
 " জন্য :ref:`playback_ref` দেখুন।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:532
+#: ../clips.rst:611
 msgid ""
 "The :guilabel:`Properties` preset opens the properties panel for a clip, "
 "allowing quick access for adjustments to clip properties, such as location, "
@@ -2133,7 +2368,7 @@ msgstr ""
 "দেখুন :ref:`clip_properties_ref`।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:535
+#: ../clips.rst:614
 msgid ""
 "**Usage Example:** Adjusting clip properties like opacity, volume, or "
 "position."
@@ -2142,7 +2377,7 @@ msgstr ""
 "সামঞ্জস্য করা।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:536
+#: ../clips.rst:615
 msgid ""
 "**Tip:** Apply this preset to streamline adjustments to all clip properties "
 "in a single dock."
@@ -2151,7 +2386,7 @@ msgstr ""
 "প্রয়োগ করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:540
+#: ../clips.rst:619
 msgid ""
 "The :guilabel:`Copy / Paste` preset allows copying and pasting keyframes, "
 "effects, or duplicating an entire clip along with its keyframes. Paste will "
@@ -2166,7 +2401,7 @@ msgstr ""
 "পারবেন।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:544
+#: ../clips.rst:623
 msgid ""
 "**Usage Example:** Duplicating a clip with intricate animations for reuse in"
 " different parts of the project."
@@ -2175,7 +2410,7 @@ msgstr ""
 "বিভিন্ন অংশে পুনরায় ব্যবহার।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:545
+#: ../clips.rst:624
 msgid ""
 "**Tip:** Use this preset to replicate animations or effects across multiple "
 "clips."
@@ -2184,7 +2419,7 @@ msgstr ""
 "ব্যবহার করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:546
+#: ../clips.rst:625
 msgid ""
 "**Tip:** Selecting multiple clips before pasting, sets keyframes and/or "
 "effects for all clips."
@@ -2193,7 +2428,7 @@ msgstr ""
 "এবং/অথবা ইফেক্ট সেট হয়।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:547
+#: ../clips.rst:626
 msgid ""
 "**Tip:** You can copy a single effect, and paste it to multiple selected "
 "clips."
@@ -2202,12 +2437,12 @@ msgstr ""
 "পারেন।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:550
+#: ../clips.rst:629
 msgid "Remove Gaps"
 msgstr "গ্যাপ সরান"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:551
+#: ../clips.rst:630
 msgid ""
 "The :guilabel:`Remove Gap` and :guilabel:`Remove All Gaps` options help you "
 "quickly eliminate gaps between clips on the timeline by rippling (i.e., "
@@ -2220,7 +2455,7 @@ msgstr ""
 "থাকলে সক্রিয় হয়।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:554
+#: ../clips.rst:633
 msgid ""
 "**Remove Gap:** - This option deletes a specific gap between two clips on "
 "the timeline. Right-click on the gap between clips to access the "
@@ -2233,7 +2468,7 @@ msgstr ""
 "সৃষ্ট নির্দিষ্ট গ্যাপ দ্রুত মুছে ফেলতে এই অপশনটি ব্যবহার করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:558
+#: ../clips.rst:637
 msgid ""
 "**Remove All Gaps:** - This option removes all gaps between clips on the "
 "timeline for the entire track. Right-click on the track name to access the "
@@ -2246,7 +2481,7 @@ msgstr ""
 "ক্লিপগুলো ধারাবাহিক, যেমন ফটো স্লাইডশো, যেখানে কোনো গ্যাপ থাকা উচিত নয়।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:564
+#: ../clips.rst:643
 msgid ""
 "The :guilabel:`Remove Clip` option lets you delete a clip from the timeline."
 " Removing clips is an essential part of organizing your project and getting "
@@ -2262,7 +2497,7 @@ msgstr ""
 "রয়েছে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:568
+#: ../clips.rst:647
 msgid ""
 "**How to Remove a Clip:** To delete a clip, simply select it and press "
 ":kbd:`Delete` on your keyboard, or right-click the clip and choose "
@@ -2277,7 +2512,7 @@ msgstr ""
 " একসাথে সরাতে পারেন।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:572
+#: ../clips.rst:651
 msgid ""
 "**Ripple Delete:** If you want to delete a clip and automatically remove the"
 " empty space (gap) it leaves behind, use the **Ripple Delete** feature by "
@@ -2292,7 +2527,7 @@ msgstr ""
 "ধারাবাহিক রাখবে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:577
+#: ../clips.rst:656
 msgid ""
 "**Remove Gap:** After deleting a clip, if you have gaps left in your "
 "timeline that you want to remove, simply right-click in the empty space and "
@@ -2306,7 +2541,7 @@ msgstr ""
 "গ্যাপ বন্ধ করবে এবং আপনার ভিডিওর প্রবাহ বজায় রাখবে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:583
+#: ../clips.rst:662
 msgid ""
 "**Example**: If you have a clip that’s no longer needed, such as an intro "
 "you’ve decided not to use, you can quickly select it and either delete it or"
@@ -2319,7 +2554,7 @@ msgstr ""
 "সবকিছু বামে সরিয়ে গ্যাপ বন্ধ করতে পারেন।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:585
+#: ../clips.rst:664
 msgid ""
 "For more advanced editing options and shortcuts, refer to the "
 ":ref:`clips_cutting_slicing_ref` section."
@@ -2328,12 +2563,12 @@ msgstr ""
 " বিভাগটি দেখুন।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:588
+#: ../clips.rst:667
 msgid "Effects"
 msgstr "ইফেক্টস"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:589
+#: ../clips.rst:668
 msgid ""
 "In addition to the many clip properties which can be animated and adjusted, "
 "you can also drop an effect directly onto a clip from the effects dock. Each"
@@ -2349,12 +2584,12 @@ msgstr ""
 ":ref:`effects_ref`।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:599
+#: ../clips.rst:678
 msgid "Clip Properties"
 msgstr "ক্লিপ বৈশিষ্ট্যসমূহ"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:600
+#: ../clips.rst:679
 msgid ""
 "Below is a list of clip properties which can be edited, and in most cases, "
 "animated over time. To view a clip's properties, right click and choose "
@@ -2378,7 +2613,7 @@ msgstr ""
 "সবার জন্য একটি কীফ্রেম যোগ করতে পারবেন।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:608
+#: ../clips.rst:687
 msgid ""
 "Note: Pay close attention to where the play-head (i.e. red playback line) "
 "is. Key frames are automatically created at the current playback position, "
@@ -2389,7 +2624,7 @@ msgstr ""
 "দ্রুত অ্যানিমেশন তৈরিতে সাহায্য করে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:611
+#: ../clips.rst:690
 msgid ""
 "When animating clip properties, you can fade a clip from opaque to "
 "transparent with ``alpha``, slide a clip around the screen with "
@@ -2408,36 +2643,36 @@ msgstr ""
 "নিশ্চিত করুন যে প্লে-হেড আপনার ক্লিপের শুরুতে (বামে) অবস্থান করছে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:616
+#: ../clips.rst:695
 msgid "See the table below for a full list of clip properties."
 msgstr "ক্লিপ বৈশিষ্ট্যের সম্পূর্ণ তালিকার জন্য নিচের টেবিলটি দেখুন।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:622
+#: ../clips.rst:701
 msgid "Clip Property Name"
 msgstr "ক্লিপ বৈশিষ্ট্যের নাম"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:622
+#: ../clips.rst:701
 msgid "Type"
 msgstr "ধরন"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:624 ../clips.rst:705
+#: ../clips.rst:703 ../clips.rst:784
 msgid "Alpha"
 msgstr "আলফা"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:624 ../clips.rst:625 ../clips.rst:626 ../clips.rst:628
-#: ../clips.rst:636 ../clips.rst:637 ../clips.rst:638 ../clips.rst:639
-#: ../clips.rst:640 ../clips.rst:643 ../clips.rst:645 ../clips.rst:646
-#: ../clips.rst:647 ../clips.rst:648 ../clips.rst:650 ../clips.rst:652
-#: ../clips.rst:654
+#: ../clips.rst:703 ../clips.rst:704 ../clips.rst:705 ../clips.rst:707
+#: ../clips.rst:715 ../clips.rst:716 ../clips.rst:717 ../clips.rst:718
+#: ../clips.rst:719 ../clips.rst:722 ../clips.rst:724 ../clips.rst:725
+#: ../clips.rst:726 ../clips.rst:727 ../clips.rst:729 ../clips.rst:731
+#: ../clips.rst:733
 msgid "Key-Frame"
 msgstr "কী-ফ্রেম"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:624
+#: ../clips.rst:703
 msgid ""
 "Curve representing the alpha for fading the image and adding transparency (1"
 " to 0)"
@@ -2445,24 +2680,24 @@ msgstr ""
 "ছবির ফেডিং এবং স্বচ্ছতা যোগ করার জন্য আলফা প্রতিনিধিত্বকারী কার্ভ (১ থেকে ০)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:625 ../clips.rst:722
+#: ../clips.rst:704 ../clips.rst:801
 msgid "Channel Filter"
 msgstr "চ্যানেল ফিল্টার"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:625
+#: ../clips.rst:704
 msgid ""
 "A number representing an audio channel to filter (clears all other channels)"
 msgstr ""
 "ফিল্টার করার জন্য একটি অডিও চ্যানেলের সংখ্যা (অন্যান্য সব চ্যানেল মুছে ফেলে)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:626 ../clips.rst:730
+#: ../clips.rst:705 ../clips.rst:809
 msgid "Channel Mapping"
 msgstr "চ্যানেল ম্যাপিং"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:626
+#: ../clips.rst:705
 msgid ""
 "A number representing an audio channel to output (only works when filtering "
 "a channel)"
@@ -2471,18 +2706,18 @@ msgstr ""
 "সময় কাজ করে)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:627 ../clips.rst:662
+#: ../clips.rst:706 ../clips.rst:741
 msgid "Composite (Blend Mode)"
 msgstr "কম্পোজিট (ব্লেন্ড মোড)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:627 ../clips.rst:630 ../clips.rst:631 ../clips.rst:633
-#: ../clips.rst:634 ../clips.rst:644 ../clips.rst:653 ../clips.rst:656
+#: ../clips.rst:706 ../clips.rst:709 ../clips.rst:710 ../clips.rst:712
+#: ../clips.rst:713 ../clips.rst:723 ../clips.rst:732 ../clips.rst:735
 msgid "Enum"
 msgstr "এনাম"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:627
+#: ../clips.rst:706
 msgid ""
 "The blend mode used to composite this clip into lower layers. Default is "
 "**Normal**. See :ref:`clip_composite_ref`."
@@ -2490,28 +2725,28 @@ msgstr ""
 "এই ক্লিপকে নিম্ন স্তরে কম্পোজিট করার জন্য ব্যবহৃত ব্লেন্ড মোড। ডিফল্ট হল "
 "**Normal**। দেখুন :ref:`clip_composite_ref`।"
 
-#: ../clips.rst:628 ../clips.rst:713
+#: ../clips.rst:707 ../clips.rst:792
 msgid "Corner Radius"
 msgstr "কোণার ব্যাসার্ধ"
 
-#: ../clips.rst:628
+#: ../clips.rst:707
 msgid ""
 "Curve representing the radius used to round the clip's corners (0 to 0.5)"
 msgstr ""
 "ক্লিপের কোণ গোলাকার করতে ব্যবহৃত ব্যাসার্ধ নির্দেশকারী বক্ররেখা (০ থেকে ০.৫)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:629 ../clips.rst:745
+#: ../clips.rst:708 ../clips.rst:824
 msgid "Duration"
 msgstr "সময়কাল"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:629 ../clips.rst:632 ../clips.rst:642 ../clips.rst:649
+#: ../clips.rst:708 ../clips.rst:711 ../clips.rst:721 ../clips.rst:728
 msgid "Float"
 msgstr "ফ্লোট"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:629
+#: ../clips.rst:708
 msgid ""
 "The length of the clip (in seconds). Read-only property. This is calculated "
 "by: End - Start."
@@ -2520,12 +2755,12 @@ msgstr ""
 " শেষ - শুরু।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:630 ../clips.rst:778
+#: ../clips.rst:709 ../clips.rst:857
 msgid "Enable Audio"
 msgstr "অডিও সক্রিয় করুন"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:630
+#: ../clips.rst:709
 msgid ""
 "An optional override to determine if this clip has audio (-1=undefined, "
 "0=no, 1=yes)"
@@ -2534,12 +2769,12 @@ msgstr ""
 "০=না, ১=হ্যাঁ)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:631 ../clips.rst:786
+#: ../clips.rst:710 ../clips.rst:865
 msgid "Enable Video"
 msgstr "ভিডিও সক্রিয় করুন"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:631
+#: ../clips.rst:710
 msgid ""
 "An optional override to determine if this clip has video (-1=undefined, "
 "0=no, 1=yes)"
@@ -2548,32 +2783,32 @@ msgstr ""
 " ০=না, ১=হ্যাঁ)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:632 ../clips.rst:753
+#: ../clips.rst:711 ../clips.rst:832
 msgid "End"
 msgstr "শেষ"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:632
+#: ../clips.rst:711
 msgid "The end trimming position of the clip (in seconds)"
 msgstr "ক্লিপের শেষ ট্রিমিং অবস্থান (সেকেন্ডে)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:633 ../clips.rst:738
+#: ../clips.rst:712 ../clips.rst:817
 msgid "Frame Number"
 msgstr "ফ্রেম নম্বর"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:633
+#: ../clips.rst:712
 msgid "The format to display the frame number (if any)"
 msgstr "ফ্রেম নম্বর প্রদর্শনের ফরম্যাট (যদি থাকে)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:634 ../clips.rst:761
+#: ../clips.rst:713 ../clips.rst:840
 msgid "Gravity"
 msgstr "গ্র্যাভিটি"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:634
+#: ../clips.rst:713
 msgid ""
 "The gravity of a clip determines where it snaps to its parent (details "
 "below)"
@@ -2582,17 +2817,17 @@ msgstr ""
 "(বিস্তারিত নিচে)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:635 ../clips.rst:794
+#: ../clips.rst:714 ../clips.rst:873
 msgid "ID"
 msgstr "আইডি"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:635 ../clips.rst:641
+#: ../clips.rst:714 ../clips.rst:720
 msgid "String"
 msgstr "স্ট্রিং"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:635
+#: ../clips.rst:714
 msgid ""
 "A randomly generated GUID (globally unique identifier) assigned to each "
 "clip. Read-only property."
@@ -2601,12 +2836,12 @@ msgstr ""
 "আইডেন্টিফায়ার)। শুধুমাত্র-পঠনযোগ্য বৈশিষ্ট্য।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:636
+#: ../clips.rst:715
 msgid "Location X"
 msgstr "অবস্থান এক্স"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:636
+#: ../clips.rst:715
 msgid ""
 "Curve representing the relative X position in percent based on the gravity "
 "(-1 to 1)"
@@ -2615,12 +2850,12 @@ msgstr ""
 "কার্ভ (-১ থেকে ১)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:637
+#: ../clips.rst:716
 msgid "Location Y"
 msgstr "অবস্থান ওয়াই"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:637
+#: ../clips.rst:716
 msgid ""
 "Curve representing the relative Y position in percent based on the gravity "
 "(-1 to 1)"
@@ -2628,23 +2863,23 @@ msgstr ""
 "গ্র্যাভিটির ভিত্তিতে শতকরা হিসাবে আপেক্ষিক ওয়াই অবস্থান প্রতিনিধিত্বকারী "
 "কার্ভ (-১ থেকে ১)"
 
-#: ../clips.rst:638 ../clips.rst:820
+#: ../clips.rst:717 ../clips.rst:899
 msgid "Margin"
 msgstr "মার্জিন"
 
-#: ../clips.rst:638
+#: ../clips.rst:717
 msgid "Curve representing edge spacing for gravity-aligned clips (0 to 0.5)"
 msgstr ""
 "গ্র্যাভিটি-সামঞ্জস্যপূর্ণ ক্লিপের প্রান্তের ফাঁক নির্দেশকারী বক্ররেখা (০ "
 "থেকে ০.৫)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:639
+#: ../clips.rst:718
 msgid "Origin X"
 msgstr "উৎপত্তি এক্স"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:639
+#: ../clips.rst:718
 msgid ""
 "Curve representing the rotation origin point, X position in percent (-1 to "
 "1)"
@@ -2653,12 +2888,12 @@ msgstr ""
 "থেকে ১)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:640
+#: ../clips.rst:719
 msgid "Origin Y"
 msgstr "উৎপত্তি ওয়াই"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:640
+#: ../clips.rst:719
 msgid ""
 "Curve representing the rotation origin point, Y position in percent (-1 to "
 "1)"
@@ -2666,12 +2901,12 @@ msgstr ""
 "রোটেশন উৎস বিন্দু প্রতিনিধিত্বকারী কার্ভ, শতাংশে Y অবস্থান (-1 থেকে 1)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:641
+#: ../clips.rst:720
 msgid "Parent"
 msgstr "প্যারেন্ট"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:641
+#: ../clips.rst:720
 msgid ""
 "The parent object to this clip, which makes many of these keyframe values "
 "initialize to the parent value"
@@ -2679,34 +2914,34 @@ msgstr ""
 "এই ক্লিপের প্যারেন্ট অবজেক্ট, যা অনেক কীফ্রেম মানকে প্যারেন্ট মানে আরম্ভ করে"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:642 ../clips.rst:877
+#: ../clips.rst:721 ../clips.rst:956
 msgid "Position"
 msgstr "অবস্থান"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:642
+#: ../clips.rst:721
 msgid ""
 "The position of the clip on the timeline (in seconds, 0.0 is the beginning "
 "of the timeline)"
 msgstr "টাইমলাইনে ক্লিপের অবস্থান (সেকেন্ডে, 0.0 হলো টাইমলাইনের শুরু)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:643 ../clips.rst:886
+#: ../clips.rst:722 ../clips.rst:965
 msgid "Rotation"
 msgstr "রোটেশন"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:643
+#: ../clips.rst:722
 msgid "Curve representing the rotation (0 to 360)"
 msgstr "রোটেশন প্রতিনিধিত্বকারী কার্ভ (0 থেকে 360)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:644 ../clips.rst:902
+#: ../clips.rst:723 ../clips.rst:981
 msgid "Scale"
 msgstr "স্কেল"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:644
+#: ../clips.rst:723
 msgid ""
 "The scale determines how a clip should be resized to fit its parent (details"
 " below)"
@@ -2715,62 +2950,62 @@ msgstr ""
 "পরিবর্তিত হবে (বিস্তারিত নিচে)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:645
+#: ../clips.rst:724
 msgid "Scale X"
 msgstr "স্কেল এক্স"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:645
+#: ../clips.rst:724
 msgid "Curve representing the horizontal scaling in percent (0 to 1)"
 msgstr "আড়াআড়ি স্কেলিং প্রতিনিধিত্বকারী কার্ভ শতাংশে (0 থেকে 1)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:646
+#: ../clips.rst:725
 msgid "Scale Y"
 msgstr "স্কেল ওয়াই"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:646
+#: ../clips.rst:725
 msgid "Curve representing the vertical scaling in percent (0 to 1)"
 msgstr "উল্লম্ব স্কেলিং প্রতিনিধিত্বকারী কার্ভ শতাংশে (0 থেকে 1)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:647
+#: ../clips.rst:726
 msgid "Shear X"
 msgstr "শিয়ার এক্স"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:647
+#: ../clips.rst:726
 msgid "Curve representing X shear angle in degrees (-45.0=left, 45.0=right)"
 msgstr "ডিগ্রিতে X শিয়ার কোণ প্রতিনিধিত্বকারী কার্ভ (-45.0=বামে, 45.0=ডানে)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:648
+#: ../clips.rst:727
 msgid "Shear Y"
 msgstr "শিয়ার ওয়াই"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:648
+#: ../clips.rst:727
 msgid "Curve representing Y shear angle in degrees (-45.0=down, 45.0=up)"
 msgstr "ডিগ্রিতে Y শিয়ার কোণ প্রতিনিধিত্বকারী কার্ভ (-45.0=নীচে, 45.0=উপরে)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:649 ../clips.rst:936
+#: ../clips.rst:728 ../clips.rst:1015
 msgid "Start"
 msgstr "শুরু"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:649
+#: ../clips.rst:728
 msgid "The start trimming position of the clip (in seconds)"
 msgstr "ক্লিপের শুরু ট্রিমিং অবস্থান (সেকেন্ডে)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:650 ../clips.rst:946
+#: ../clips.rst:729 ../clips.rst:1025
 msgid "Time"
 msgstr "সময়"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:650
+#: ../clips.rst:729
 msgid ""
 "Curve representing the frames over time to play (used for speed and "
 "direction of video)"
@@ -2779,17 +3014,17 @@ msgstr ""
 "নির্ধারণে ব্যবহৃত)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:651 ../clips.rst:802
+#: ../clips.rst:730 ../clips.rst:881
 msgid "Track"
 msgstr "ট্র্যাক"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:651
+#: ../clips.rst:730
 msgid "Int"
 msgstr "ইন্ট"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:651
+#: ../clips.rst:730
 msgid ""
 "The layer which holds the clip (higher tracks are rendered on top of lower "
 "tracks)"
@@ -2797,12 +3032,12 @@ msgstr ""
 "ক্লিপ ধারণকারী স্তর (উচ্চতর ট্র্যাকগুলি নিম্নতর ট্র্যাকের উপরে রেন্ডার হয়)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:652 ../clips.rst:972
+#: ../clips.rst:731 ../clips.rst:1051
 msgid "Volume"
 msgstr "ভলিউম"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:652
+#: ../clips.rst:731
 msgid ""
 "Curve representing the volume for fading audio quieter/louder, mute, or "
 "adjusting levels (0 to 1)"
@@ -2811,12 +3046,12 @@ msgstr ""
 "সমন্বয় (0 থেকে 1)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:653 ../clips.rst:838
+#: ../clips.rst:732 ../clips.rst:917
 msgid "Volume Mixing"
 msgstr "ভলিউম মিক্সিং"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:653
+#: ../clips.rst:732
 msgid ""
 "The volume mixing choices control how volume is adjusted before mixing "
 "(None=don't adjust volume of this clip, Reduce=lower the volume to 80%, "
@@ -2827,30 +3062,30 @@ msgstr ""
 "Average=একযোগে থাকা ক্লিপের সংখ্যার ভিত্তিতে ভলিউম ভাগ করুন, বিস্তারিত নিচে)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:654 ../clips.rst:981
+#: ../clips.rst:733 ../clips.rst:1060
 msgid "Wave Color"
 msgstr "ওয়েভ রঙ"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:654
+#: ../clips.rst:733
 msgid "Curve representing the color of the audio waveform"
 msgstr "অডিও ওয়েভফর্মের রঙ প্রতিনিধিত্বকারী কার্ভ"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:655
+#: ../clips.rst:734
 msgid "Bool"
 msgstr "বুল"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:655
+#: ../clips.rst:734
 msgid "Should a waveform be used instead of the clip's image"
 msgstr "ক্লিপের ছবির পরিবর্তে ওয়েভফর্ম ব্যবহার করা উচিত কিনা"
 
-#: ../clips.rst:656 ../clips.rst:995
+#: ../clips.rst:735 ../clips.rst:1074
 msgid "Waveform Mode"
 msgstr "ওয়েভফর্ম মোড"
 
-#: ../clips.rst:656
+#: ../clips.rst:735
 msgid ""
 "The visualization style used when displaying the clip as an audio waveform"
 msgstr ""
@@ -2858,7 +3093,7 @@ msgstr ""
 "স্টাইল"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:663
+#: ../clips.rst:742
 msgid ""
 "The :guilabel:`Composite (Blend Mode)` property controls **how the pixels of"
 " this clip mix with the clips on lower tracks**. If you are new to this, "
@@ -2871,12 +3106,12 @@ msgstr ""
 "পরিবর্তন করুন, কোনো এফেক্ট যোগ না করেই।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:666
+#: ../clips.rst:745
 msgid "**Beginner tips**"
 msgstr "**শুরু করার টিপস**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:668
+#: ../clips.rst:747
 msgid ""
 "Want to **brighten** light effects, flares, or smoke over a dark scene? Try "
 "**Screen** or **Add**."
@@ -2885,7 +3120,7 @@ msgstr ""
 "করুন **Screen** বা **Add**।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:669
+#: ../clips.rst:748
 msgid ""
 "Want to **darken** or place a texture over footage (paper grain, grids, "
 "shadows)? Try **Multiply** or **Color Burn**."
@@ -2894,7 +3129,7 @@ msgstr ""
 "রাখতে চান? চেষ্টা করুন **Multiply** বা **Color Burn**।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:670
+#: ../clips.rst:749
 msgid ""
 "Want **more contrast** without crushing blacks and whites too much? Try "
 "**Overlay** or **Soft Light**."
@@ -2903,7 +3138,7 @@ msgstr ""
 "চেষ্টা করুন **Overlay** বা **Soft Light**।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:671
+#: ../clips.rst:750
 msgid ""
 "Want a **creative/inverted look** or to line things up? Try **Difference** "
 "or **Exclusion**."
@@ -2912,100 +3147,100 @@ msgstr ""
 "**Difference** বা **Exclusion**।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:673
+#: ../clips.rst:752
 msgid "**Common modes (recommended)**"
 msgstr "**সাধারণ মোড (প্রস্তাবিত)**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:679
+#: ../clips.rst:758
 msgid "Mode"
 msgstr "মোড"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:679
+#: ../clips.rst:758
 msgid "What it does"
 msgstr "এটি কি করে"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:681
+#: ../clips.rst:760
 msgid "Normal"
 msgstr "নরমাল"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:681
+#: ../clips.rst:760
 msgid "Standard alpha compositing. Respects transparency from the clip."
 msgstr "স্ট্যান্ডার্ড আলফা কম্পোজিটিং। ক্লিপের স্বচ্ছতা সম্মান করে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:682
+#: ../clips.rst:761
 msgid "Darken"
 msgstr "ডার্কেন"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:682
+#: ../clips.rst:761
 msgid "Chooses the darker pixel from the two layers, per channel."
 msgstr "প্রতিটি চ্যানেলে দুই স্তর থেকে গাঢ় পিক্সেল নির্বাচন করে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:683
+#: ../clips.rst:762
 msgid "Multiply"
 msgstr "মাল্টিপ্লাই"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:683
+#: ../clips.rst:762
 msgid "Multiplies colors. Darkens and helps textures sit on top of footage."
 msgstr ""
 "রঙ গুণ করে। অন্ধকার করে এবং টেক্সচারকে ফুটেজের উপরে বসাতে সাহায্য করে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:684
+#: ../clips.rst:763
 msgid "Color Burn"
 msgstr "কালার বার্ন"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:684
+#: ../clips.rst:763
 msgid "Pushes shadows darker and boosts contrast; can clip to black."
 msgstr ""
 "ছায়াগুলোকে আরও গাঢ় করে এবং কনট্রাস্ট বাড়ায়; কালোতে ক্লিপ করতে পারে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:685
+#: ../clips.rst:764
 msgid "Lighten"
 msgstr "লাইটেন"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:685
+#: ../clips.rst:764
 msgid "Chooses the lighter pixel from the two layers, per channel."
 msgstr "প্রতিটি চ্যানেলে দুই স্তর থেকে হালকা পিক্সেল নির্বাচন করে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:686
+#: ../clips.rst:765
 msgid "Screen"
 msgstr "স্ক্রিন"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:686
+#: ../clips.rst:765
 msgid "The opposite of Multiply. Brightens; great for light, glow, fire, fog."
 msgstr ""
 "মাল্টিপ্লাইয়ের বিপরীত। উজ্জ্বল করে; আলো, গ্লো, আগুন, কুয়াশার জন্য উপযুক্ত।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:687
+#: ../clips.rst:766
 msgid "Color Dodge"
 msgstr "কালার ডজ"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:687
+#: ../clips.rst:766
 msgid "Brightens highlights strongly; can blow out to white."
 msgstr "হাইলাইটগুলোকে শক্তিশালীভাবে উজ্জ্বল করে; সাদা হয়ে যেতে পারে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:688
+#: ../clips.rst:767
 msgid "Add"
 msgstr "অ্যাড"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:688
+#: ../clips.rst:767
 msgid ""
 "Adds pixel values. Strong brightening; clips at white. Also called *Linear "
 "Dodge (Add)*."
@@ -3014,12 +3249,12 @@ msgstr ""
 " (Add)* নামেও পরিচিত।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:689
+#: ../clips.rst:768
 msgid "Overlay"
 msgstr "ওভারলে"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:689
+#: ../clips.rst:768
 msgid ""
 "Mix of Multiply and Screen using the lower layer to decide. Adds punchy "
 "contrast."
@@ -3028,32 +3263,32 @@ msgstr ""
 "কনট্রাস্ট যোগ করে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:690
+#: ../clips.rst:769
 msgid "Soft Light"
 msgstr "সফট লাইট"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:690
+#: ../clips.rst:769
 msgid "Gentle contrast curve; softer than Overlay."
 msgstr "নরম কনট্রাস্ট কার্ভ; ওভারলেয়ের চেয়ে নরম।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:691
+#: ../clips.rst:770
 msgid "Hard Light"
 msgstr "হার্ড লাইট"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:691
+#: ../clips.rst:770
 msgid "Stronger, edgy contrast using the upper layer to drive the change."
 msgstr "উপরের স্তর ব্যবহার করে শক্তিশালী, ধারালো কনট্রাস্ট তৈরি করে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:692
+#: ../clips.rst:771
 msgid "Difference"
 msgstr "ডিফারেন্স"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:692
+#: ../clips.rst:771
 msgid ""
 "Absolute difference between layers. Creates inverted/psychedelic colors; "
 "useful for alignment."
@@ -3062,22 +3297,22 @@ msgstr ""
 "জন্য উপযোগী।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:693
+#: ../clips.rst:772
 msgid "Exclusion"
 msgstr "এক্সক্লুশন"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:693
+#: ../clips.rst:772
 msgid "Softer version of Difference with less contrast."
 msgstr "ডিফারেন্সের নরম সংস্করণ, কম কনট্রাস্ট সহ।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:696
+#: ../clips.rst:775
 msgid "**Notes**"
 msgstr "**নোটস**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:698
+#: ../clips.rst:777
 msgid ""
 "Blend modes affect **color**, while alpha (the :guilabel:`Alpha` property) "
 "affects **transparency**. You can use both."
@@ -3086,7 +3321,7 @@ msgstr ""
 "**স্বচ্ছতা** প্রভাবিত করে। আপনি উভয়ই ব্যবহার করতে পারেন।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:699
+#: ../clips.rst:778
 msgid ""
 "Some modes can create very bright or very dark results. If needed, lower the"
 " :guilabel:`Alpha` property to soften."
@@ -3095,7 +3330,7 @@ msgstr ""
 "করতে :guilabel:`Alpha` প্রপার্টি কমান।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:700
+#: ../clips.rst:779
 msgid ""
 "The exact look of Multiply/Screen/Overlay family is best when project colors"
 " are in a linear color space."
@@ -3104,7 +3339,7 @@ msgstr ""
 "প্রকল্পের রঙগুলি লিনিয়ার কালার স্পেসে থাকে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:706
+#: ../clips.rst:785
 msgid ""
 "The :guilabel:`Alpha` property is a key-frame curve that represents the "
 "alpha value, determining fading and transparency of the image in the clip. "
@@ -3115,7 +3350,7 @@ msgstr ""
 "অস্বচ্ছ) থেকে ০ (সম্পূর্ণ স্বচ্ছ) পর্যন্ত থাকে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:709
+#: ../clips.rst:788
 msgid ""
 "**Usage Example:** Applying a gradual fade-in or fade-out effect to smoothly"
 " transition clips."
@@ -3124,7 +3359,7 @@ msgstr ""
 "ফেড-ইন বা ফেড-আউট ইফেক্ট প্রয়োগ করা।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:710
+#: ../clips.rst:789
 msgid ""
 "**Tip:** Use keyframes to create complex fading patterns, such as fading in "
 "and then fading out for a ghostly effect."
@@ -3132,7 +3367,7 @@ msgstr ""
 "**টিপ:** জটিল ফেডিং প্যাটার্ন তৈরি করতে কী-ফ্রেম ব্যবহার করুন, যেমন প্রথমে "
 "ফেড-ইন এবং পরে ফেড-আউট করে ভূতুড়ে ইফেক্ট তৈরি করা।"
 
-#: ../clips.rst:714
+#: ../clips.rst:793
 msgid ""
 "The :guilabel:`Corner Radius` property is a key-frame curve that rounds the "
 "visible corners of a clip. The curve ranges from 0 (square corners) to 0.5 "
@@ -3142,7 +3377,7 @@ msgstr ""
 "দৃশ্যমান কোণগুলোকে গোলাকার করে। কার্ভটি 0 (বর্গাকার কোণ) থেকে 0.5 (সর্বোচ্চ "
 "গোলাকারকরণ, ক্লিপের সবচেয়ে ছোট পাশের উপর ভিত্তি করে) পর্যন্ত থাকে।"
 
-#: ../clips.rst:717
+#: ../clips.rst:796
 msgid ""
 "**Usage Example:** Rounding the corners of a picture-in-picture camera "
 "recording without adding a separate mask effect."
@@ -3150,7 +3385,7 @@ msgstr ""
 "**ব্যবহারের উদাহরণ:** আলাদা মাস্ক ইফেক্ট যোগ না করে পিকচার-ইন-পিকচার "
 "ক্যামেরা রেকর্ডিংয়ের কোণগুলোকে গোলাকার করা।"
 
-#: ../clips.rst:718
+#: ../clips.rst:797
 msgid ""
 "**Usage Example:** In :guilabel:`Recording View`, corner webcam clips use "
 "this property for the :guilabel:`Corners` setting."
@@ -3158,7 +3393,7 @@ msgstr ""
 "**ব্যবহারের উদাহরণ:** :guilabel:`Recording View`-এ, কর্নার ওয়েবক্যাম "
 "ক্লিপগুলো :guilabel:`Corners` সেটিংয়ের জন্য এই বৈশিষ্ট্যটি ব্যবহার করে।"
 
-#: ../clips.rst:719
+#: ../clips.rst:798
 msgid ""
 "**Tip:** Use 0 for normal full-frame video, a small value for rounded "
 "rectangles, or 0.5 for a pill or oval-like shape."
@@ -3168,7 +3403,7 @@ msgstr ""
 "ব্যবহার করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:723
+#: ../clips.rst:802
 msgid ""
 "The :guilabel:`Channel Filter` property is a key-frame curve used for audio "
 "manipulation. It specifies a single audio channel to be filtered while "
@@ -3179,7 +3414,7 @@ msgstr ""
 "করার জন্য নির্ধারিত, অন্য সব চ্যানেল মুছে ফেলা হয়।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:726
+#: ../clips.rst:805
 msgid ""
 "**Usage Example:** Isolating and enhancing specific audio elements, like "
 "isolating vocals from a song."
@@ -3188,7 +3423,7 @@ msgstr ""
 "গানের থেকে কণ্ঠ আলাদা করা।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:727
+#: ../clips.rst:806
 msgid ""
 "**Tip:** Combine with the \"Channel Mapping\" property to route the filtered"
 " channel to a specific audio output."
@@ -3197,7 +3432,7 @@ msgstr ""
 "\"Channel Mapping\" প্রপার্টির সাথে মিলিয়ে ব্যবহার করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:731
+#: ../clips.rst:810
 msgid ""
 "The :guilabel:`Channel Mapping` property is a key-frame curve that defines "
 "the output audio channel for the clip. This property works in conjunction "
@@ -3209,7 +3444,7 @@ msgstr ""
 "কাজ করে এবং আউটপুটে কোন চ্যানেল রাখা হবে তা নির্ধারণ করে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:734
+#: ../clips.rst:813
 msgid ""
 "**Usage Example:** Keeping the filtered channel's audio while discarding "
 "others for an unconventional audio mix."
@@ -3218,7 +3453,7 @@ msgstr ""
 "অডিও রাখা এবং অন্যগুলো বাদ দেওয়া।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:735
+#: ../clips.rst:814
 msgid ""
 "**Tip:** Experiment with mapping different channels to create unique audio "
 "effects, like panning sounds between speakers."
@@ -3227,7 +3462,7 @@ msgstr ""
 "করুন, যেমন স্পিকারগুলোর মধ্যে সাউন্ড প্যানিং।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:739
+#: ../clips.rst:818
 msgid ""
 "The :guilabel:`Frame Number` property specifies the format in which the "
 "frame numbers are displayed within the clip, if applicable."
@@ -3236,7 +3471,7 @@ msgstr ""
 "নম্বরগুলি কোন ফরম্যাটে প্রদর্শিত হবে, যদি প্রযোজ্য হয়।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:741
+#: ../clips.rst:820
 msgid ""
 "**Usage Example:** Displaying frame numbers in the top left corner of the "
 "clip, as either absolute frame number or relative to the start of the clip."
@@ -3245,7 +3480,7 @@ msgstr ""
 "হতে পারে সম্পূর্ণ ফ্রেম নম্বর অথবা ক্লিপের শুরু থেকে আপেক্ষিক।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:742
+#: ../clips.rst:821
 msgid ""
 "**Tip:** This can help with identifying precise frame numbers or "
 "troubleshooting a problem."
@@ -3254,7 +3489,7 @@ msgstr ""
 "পারে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:746
+#: ../clips.rst:825
 msgid ""
 "The :guilabel:`Duration` property is a float value indicating the length of "
 "the clip in seconds. This is a Read-only property. This is calculated by: "
@@ -3267,7 +3502,7 @@ msgstr ""
 ":guilabel:`End` ক্লিপ প্রপার্টি সম্পাদনা করতে হবে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:749
+#: ../clips.rst:828
 msgid ""
 "**Usage Example:** Inspect the duration of a clip to ensure it fits a "
 "specific time slot in the project."
@@ -3276,7 +3511,7 @@ msgstr ""
 "নির্দিষ্ট সময়সীমার সাথে মেলে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:750
+#: ../clips.rst:829
 msgid ""
 "**Tip:** Consider using the \"Duration\" property for clips that need to "
 "match specific time intervals, such as dialogue or scenes."
@@ -3285,7 +3520,7 @@ msgstr ""
 " নির্দিষ্ট সময় অন্তরালের সাথে মেলাতে হবে, যেমন সংলাপ বা দৃশ্য।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:754
+#: ../clips.rst:833
 msgid ""
 "The :guilabel:`End` property defines the trimming point at the end of the "
 "clip in seconds, allowing you to control how much of the clip is visible in "
@@ -3298,7 +3533,7 @@ msgstr ""
 "প্রভাব পড়বে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:757
+#: ../clips.rst:836
 msgid ""
 "**Usage Example:** Trimming the end of a clip to align with another clip or "
 "trimming off unwanted sections of the clip."
@@ -3307,7 +3542,7 @@ msgstr ""
 "ট্রিম করা বা অনাকাঙ্ক্ষিত অংশগুলি কেটে ফেলা।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:758
+#: ../clips.rst:837
 msgid ""
 "**Tip:** Combine the \"Start\" and \"End\" properties to precisely control "
 "the visible portion of the clip."
@@ -3316,7 +3551,7 @@ msgstr ""
 " প্রপার্টি একসাথে ব্যবহার করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:762
+#: ../clips.rst:841
 msgid ""
 "The :guilabel:`Gravity` clip property sets the initial display position "
 "coordinate (X,Y) for the clip, after it has been scaled (see "
@@ -3332,7 +3567,7 @@ msgstr ""
 " যা ছবিটিকে স্ক্রিনের কেন্দ্রে প্রদর্শন করে। গ্র্যাভিটি অপশনগুলো হল:"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:767
+#: ../clips.rst:846
 msgid ""
 "**Top Left** – The top and left edges of the clip align with the top and "
 "left edges of the screen"
@@ -3341,7 +3576,7 @@ msgstr ""
 "প্রান্তের সাথে সঙ্গতিপূর্ণ।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:768
+#: ../clips.rst:847
 msgid ""
 "**Top Center** – The top edge of the clip aligns with the top edge of the "
 "screen; the clip is horizontally centered on the screen."
@@ -3350,7 +3585,7 @@ msgstr ""
 "সঙ্গতিপূর্ণ; ক্লিপটি স্ক্রিনে অনুভূমিকভাবে কেন্দ্রীভূত।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:769
+#: ../clips.rst:848
 msgid ""
 "**Top Right** – The top and right edges of the clip align with the top and "
 "right edges of the screen"
@@ -3359,7 +3594,7 @@ msgstr ""
 "প্রান্তের সাথে সঙ্গতিপূর্ণ।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:770
+#: ../clips.rst:849
 msgid ""
 "**Left** – The left edge of the clip aligns with the left edge of the "
 "screen; the clip is vertically centered on the screen."
@@ -3368,7 +3603,7 @@ msgstr ""
 "ক্লিপটি স্ক্রিনে উল্লম্বভাবে কেন্দ্রীভূত।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:771
+#: ../clips.rst:850
 msgid ""
 "**Center** (default) – The clip is centered horizontally and vertically on "
 "the screen."
@@ -3376,7 +3611,7 @@ msgstr ""
 "**Center** (ডিফল্ট) – ক্লিপটি স্ক্রিনে অনুভূমিক এবং উল্লম্বভাবে কেন্দ্রীভূত।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:772
+#: ../clips.rst:851
 msgid ""
 "**Right** – The right edge of the clip aligns with the right edge of the "
 "screen; the clip is vertically centered on the screen."
@@ -3385,7 +3620,7 @@ msgstr ""
 "ক্লিপটি স্ক্রিনে উল্লম্বভাবে কেন্দ্রীভূত।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:773
+#: ../clips.rst:852
 msgid ""
 "**Bottom Left** – The bottom and left edges of the clip align with the "
 "bottom and left edges of the screen"
@@ -3394,7 +3629,7 @@ msgstr ""
 "প্রান্তের সাথে সঙ্গতিপূর্ণ।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:774
+#: ../clips.rst:853
 msgid ""
 "**Bottom Center** – The bottom edge of the clip aligns with the bottom edge "
 "of the screen; the clip is horizontally centered on the screen."
@@ -3403,7 +3638,7 @@ msgstr ""
 "সঙ্গতিপূর্ণ; ক্লিপটি স্ক্রিনে অনুভূমিকভাবে কেন্দ্রীভূত।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:775
+#: ../clips.rst:854
 msgid ""
 "**Bottom Right** – The bottom and right edges of the clip align with the "
 "bottom and right edges of the screen"
@@ -3412,7 +3647,7 @@ msgstr ""
 "প্রান্তের সাথে সঙ্গতিপূর্ণ।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:779
+#: ../clips.rst:858
 msgid ""
 "The :guilabel:`Enable Audio` property is an enumeration that overrides the "
 "default audio setting for the clip. Possible values: -1 (undefined), 0 (no "
@@ -3423,7 +3658,7 @@ msgstr ""
 "সক্রিয়)।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:782
+#: ../clips.rst:861
 msgid ""
 "**Usage Example:** Turning off unwanted audio for a clip, like ambient "
 "noise."
@@ -3432,7 +3667,7 @@ msgstr ""
 " শব্দ।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:783
+#: ../clips.rst:862
 msgid ""
 "**Tip:** Use this property to control audio playback for specific clips, "
 "especially clips which have no useful audio track."
@@ -3441,7 +3676,7 @@ msgstr ""
 "ব্যবহার করুন, বিশেষ করে যেসব ক্লিপে কার্যকর অডিও ট্র্যাক নেই।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:787
+#: ../clips.rst:866
 msgid ""
 "The :guilabel:`Enable Video` property is an enumeration that overrides the "
 "default video setting for the clip. Possible values: -1 (undefined), 0 (no "
@@ -3452,7 +3687,7 @@ msgstr ""
 "সক্রিয়)।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:790
+#: ../clips.rst:869
 msgid ""
 "**Usage Example:** Disabling the video of a clip while retaining its audio "
 "for creating audio-only sequences."
@@ -3461,7 +3696,7 @@ msgstr ""
 " শুধুমাত্র অডিও-ভিত্তিক সিকোয়েন্স তৈরির জন্য।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:791
+#: ../clips.rst:870
 msgid ""
 "**Tip:** This property can be helpful when creating scenes with audio "
 "commentary or voiceovers."
@@ -3470,7 +3705,7 @@ msgstr ""
 "সহায়ক হতে পারে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:795
+#: ../clips.rst:874
 msgid ""
 "The :guilabel:`ID` property holds a randomly generated GUID (Globally Unique"
 " Identifier) assigned to each clip, ensuring its uniqueness. This is a Read-"
@@ -3481,7 +3716,7 @@ msgstr ""
 "তার অনন্যতা নিশ্চিত করে। এটি একটি শুধুমাত্র-পাঠযোগ্য বৈশিষ্ট্য।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:798
+#: ../clips.rst:877
 msgid ""
 "**Usage Example:** Referencing specific clips within custom scripts or "
 "automation tasks."
@@ -3490,7 +3725,7 @@ msgstr ""
 "রেফারেন্স করা।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:799
+#: ../clips.rst:878
 msgid ""
 "**Tip:** While typically managed behind the scenes, understanding clip IDs "
 "can aid in advanced project customization."
@@ -3499,7 +3734,7 @@ msgstr ""
 "প্রকল্প কাস্টমাইজেশনে সাহায্য করতে পারে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:803
+#: ../clips.rst:882
 msgid ""
 "The :guilabel:`Track` property is an integer indicating the layer on which "
 "the clip is placed. Clips on higher tracks are rendered above those on lower"
@@ -3510,7 +3745,7 @@ msgstr ""
 " প্রদর্শিত হয়।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:806
+#: ../clips.rst:885
 msgid ""
 "**Usage Example:** Arranging clips in different layers for creating visual "
 "depth and complexity."
@@ -3519,7 +3754,7 @@ msgstr ""
 "ক্লিপ সাজানো।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:807
+#: ../clips.rst:886
 msgid ""
 "**Tip:** Use higher tracks for elements that need to appear above others, "
 "like text overlays or graphics."
@@ -3528,12 +3763,12 @@ msgstr ""
 "ব্যবহার করুন যা অন্যগুলোর উপরে প্রদর্শিত হবে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:812
+#: ../clips.rst:891
 msgid "Location X and Location Y"
 msgstr "অবস্থান X এবং অবস্থান Y"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:813
+#: ../clips.rst:892
 msgid ""
 "The :guilabel:`Location X` and :guilabel:`Location Y` properties are key-"
 "frame curves that determine the relative position of the clip, expressed in "
@@ -3546,7 +3781,7 @@ msgstr ""
 ":ref:`clip_transform_ref`।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:816
+#: ../clips.rst:895
 msgid ""
 "**Usage Example:** Animating a clip's movement across the screen using key-"
 "frame curves for both X and Y locations."
@@ -3555,7 +3790,7 @@ msgstr ""
 "স্ক্রিন জুড়ে ক্লিপের গতি অ্যানিমেট করা।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:817
+#: ../clips.rst:896
 msgid ""
 "**Tip:** Combine with gravity settings to create dynamic animations that "
 "adhere to consistent alignment rules."
@@ -3563,7 +3798,7 @@ msgstr ""
 "**টিপ:** ধারাবাহিক সজ্জা নিয়ম অনুসরণ করে গতিশীল অ্যানিমেশন তৈরির জন্য "
 "গ্র্যাভিটি সেটিংসের সাথে মিলিয়ে ব্যবহার করুন।"
 
-#: ../clips.rst:821
+#: ../clips.rst:900
 msgid ""
 "The :guilabel:`Margin` property is a key-frame curve that creates an inset "
 "layout area for a clip. The curve is measured as a percentage of the "
@@ -3577,7 +3812,7 @@ msgstr ""
 "প্রকল্পে, 0.05 মার্জিন প্রতিটি পাশে 54-পিক্সেল ইনসেট তৈরি করে এবং ক্লিপ বাকি"
 " আয়তক্ষেত্রের ভিতরে সাজানো হয়।"
 
-#: ../clips.rst:825
+#: ../clips.rst:904
 msgid ""
 "Margin is applied before the clip's scale and gravity are calculated. This "
 "means :guilabel:`Scale` modes such as ``Fit``, ``Crop``, and ``Stretch`` use"
@@ -3591,7 +3826,7 @@ msgstr ""
 ":guilabel:`Gravity` অপশন, যার মধ্যে ``Center`` অন্তর্ভুক্ত, ইনসেট এলাকার "
 "ভিতরে সমাধান করা হয়।"
 
-#: ../clips.rst:829
+#: ../clips.rst:908
 msgid ""
 "**Usage Example:** Keeping a corner webcam clip slightly away from the "
 "screen edge during a screen recording."
@@ -3599,7 +3834,7 @@ msgstr ""
 "**ব্যবহারের উদাহরণ:** স্ক্রিন রেকর্ডিংয়ের সময় কর্নার ওয়েবক্যাম ক্লিপটিকে "
 "স্ক্রিনের ধারের থেকে সামান্য দূরে রাখা।"
 
-#: ../clips.rst:830
+#: ../clips.rst:909
 msgid ""
 "**Usage Example:** Adding a clean border around a full-frame image by using "
 "``Fit`` or ``Stretch`` with a small margin."
@@ -3607,7 +3842,7 @@ msgstr ""
 "**ব্যবহারের উদাহরণ:** ছোট মার্জিন ব্যবহার করে ``Fit`` বা ``Stretch`` দিয়ে "
 "একটি ফুল-ফ্রেম ছবির চারপাশে পরিষ্কার বর্ডার যোগ করা।"
 
-#: ../clips.rst:831
+#: ../clips.rst:910
 msgid ""
 "**Usage Example:** Creating safe-area layouts, split-screen spacing, or "
 "picture-in-picture spacing without adding Crop or Mask effects."
@@ -3615,7 +3850,7 @@ msgstr ""
 "**ব্যবহারের উদাহরণ:** Crop বা Mask ইফেক্ট যোগ না করে সেফ-এলাকা লেআউট, "
 "স্প্লিট-স্ক্রিন স্পেসিং, বা পিকচার-ইন-পিকচার স্পেসিং তৈরি করা।"
 
-#: ../clips.rst:832
+#: ../clips.rst:911
 msgid ""
 "**Usage Example:** In :guilabel:`Recording View`, screen-plus-camera "
 "recordings use this property to inset the corner webcam clip."
@@ -3623,7 +3858,7 @@ msgstr ""
 "**ব্যবহারের উদাহরণ:** :guilabel:`Recording View`-এ, স্ক্রিন-প্লাস-ক্যামেরা "
 "রেকর্ডিংগুলো কর্নার ওয়েবক্যাম ক্লিপ ইনসেট করতে এই বৈশিষ্ট্যটি ব্যবহার করে।"
 
-#: ../clips.rst:833
+#: ../clips.rst:912
 msgid ""
 "**Tip:** Use a small value such as 0.02 to 0.05 for normal edge spacing. "
 "Larger values intentionally shrink the available layout area."
@@ -3632,7 +3867,7 @@ msgstr ""
 " করুন। বড় মানগুলি ইচ্ছাকৃতভাবে উপলব্ধ লেআউট এলাকা সংকুচিত করে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:839
+#: ../clips.rst:918
 msgid ""
 "The :guilabel:`Volume Mixing` property is an enumeration that controls how "
 "volume adjustments are applied before mixing audio. Options: None (no "
@@ -3645,7 +3880,7 @@ msgstr ""
 "অনুযায়ী ভলিউম ভাগ করা)।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:842
+#: ../clips.rst:921
 msgid ""
 "**Usage Example:** Automatically lowering the volume of a clip to allow "
 "background music to stand out more prominently."
@@ -3654,7 +3889,7 @@ msgstr ""
 "স্বয়ংক্রিয়ভাবে একটি ক্লিপের ভলিউম কমানো।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:843
+#: ../clips.rst:922
 msgid ""
 "**Tip:** Experiment with volume mixing options to achieve balanced audio "
 "levels across different clips."
@@ -3663,7 +3898,7 @@ msgstr ""
 " পরীক্ষা-নিরীক্ষা করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:845
+#: ../clips.rst:924
 msgid ""
 "Mixing audio involves adjusting volume levels so that **overlapping clips** "
 "do not become too loud (creating audio distortion and loss of audio "
@@ -3680,7 +3915,7 @@ msgstr ""
 "পদ্ধতিগুলি উপলব্ধ:"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:849
+#: ../clips.rst:928
 msgid ""
 "**None** - Make no adjustments to volume data before mixing audio. "
 "Overlapping clips will combine audio at full volume, with no reduction."
@@ -3689,7 +3924,7 @@ msgstr ""
 "ওভারল্যাপিং ক্লিপগুলি পূর্ণ ভলিউমে অডিও একত্রিত করবে, কোনো হ্রাস ছাড়াই।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:850
+#: ../clips.rst:929
 msgid ""
 "**Average** - Automatically divide the volume of each clip based on the # of"
 " overlapping clips. For example, 2 overlapping clips would each have 50% "
@@ -3700,7 +3935,7 @@ msgstr ""
 " ভলিউম হবে ৫০%, ৩টি ওভারল্যাপিং ক্লিপের প্রতিটির ভলিউম হবে ৩৩% ইত্যাদি..."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:851
+#: ../clips.rst:930
 msgid ""
 "**Reduce** - Automatically reduce overlapping clips volume by 20%, which "
 "reduces the likelihood of becoming too loud, but does not always prevent "
@@ -3714,7 +3949,7 @@ msgstr ""
 "কমানো হয়, তবুও এটি সর্বোচ্চ অনুমোদিত ভলিউম অতিক্রম করতে পারে এবং অডিও "
 "বিকৃতি দেখা দিতে পারে।"
 
-#: ../clips.rst:853
+#: ../clips.rst:932
 msgid ""
 "For quickly adjusting the volume of a clip, you can use the :guilabel:`Audio"
 " → Volume` menu. See :ref:`clip_presets_ref`. For precise control over the "
@@ -3727,12 +3962,12 @@ msgstr ""
 "পারেন। দেখুন :ref:`clip_volume_ref`।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:857
+#: ../clips.rst:936
 msgid "Origin X and Origin Y"
 msgstr "অরিজিন X এবং অরিজিন Y"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:858
+#: ../clips.rst:937
 msgid ""
 "The :guilabel:`Origin X` and :guilabel:`Origin Y` properties are key-frame "
 "curves that define the rotation origin point's position in percentages. The "
@@ -3743,7 +3978,7 @@ msgstr ""
 "পরিসীমা -1 থেকে 1। দেখুন :ref:`clip_transform_ref`।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:861
+#: ../clips.rst:940
 msgid ""
 "**Usage Example:** Rotating a clip around a specific point, such as a "
 "character's pivot joint."
@@ -3752,7 +3987,7 @@ msgstr ""
 "একটি চরিত্রের পিভট জয়েন্ট।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:862
+#: ../clips.rst:941
 msgid ""
 "**Tip:** Set the origin point to achieve controlled and natural-looking "
 "rotations during animations."
@@ -3761,12 +3996,12 @@ msgstr ""
 "অরিজিন পয়েন্ট সেট করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:867
+#: ../clips.rst:946
 msgid "Clip Parent"
 msgstr "ক্লিপ প্যারেন্ট"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:868
+#: ../clips.rst:947
 msgid ""
 "The :guilabel:`Parent` property of a clip sets the initial keyframe values "
 "to the parent object. For example, if many clips all point to the same "
@@ -3783,7 +4018,7 @@ msgstr ""
 "করতে হয়।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:872
+#: ../clips.rst:951
 msgid ""
 "**Usage Example:** Creating complex animations by establishing a parent-"
 "child relationship between clips."
@@ -3792,7 +4027,7 @@ msgstr ""
 "জটিল অ্যানিমেশন তৈরি করা।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:873
+#: ../clips.rst:952
 msgid ""
 "**Tip:** Utilize this property to propagate changes from the parent clip to "
 "child clips for consistent animations."
@@ -3801,7 +4036,7 @@ msgstr ""
 "পরিবর্তন প্রেরণের জন্য এই বৈশিষ্ট্যটি ব্যবহার করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:874
+#: ../clips.rst:953
 msgid ""
 "**Tip:** You can also set the ``parent`` attribute to a ``Tracker`` or "
 "``Object Detector`` tracked object, so the clip follows the location and "
@@ -3813,7 +4048,7 @@ msgstr ""
 ":ref:`effect_parent_ref`।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:878
+#: ../clips.rst:957
 msgid ""
 "The :guilabel:`Position` property determines the clip's position on the "
 "timeline in seconds, with 0.0 indicating the beginning."
@@ -3822,7 +4057,7 @@ msgstr ""
 " করে, যেখানে 0.0 শুরু নির্দেশ করে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:880
+#: ../clips.rst:959
 msgid ""
 "**Usage Example:** Timing a clip's appearance to coincide with specific "
 "events in the project."
@@ -3831,7 +4066,7 @@ msgstr ""
 "সামঞ্জস্য করা।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:881
+#: ../clips.rst:960
 msgid ""
 "**Tip:** Adjust the position to synchronize clips with audio cues or visual "
 "elements."
@@ -3840,7 +4075,7 @@ msgstr ""
 "জন্য অবস্থান সামঞ্জস্য করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:887
+#: ../clips.rst:966
 msgid ""
 "The :guilabel:`Rotation` property is a key-frame curve that controls the "
 "rotation angle of the clip, ranging from -360 to 360 degrees. You can rotate"
@@ -3855,7 +4090,7 @@ msgstr ""
 " অ্যানিমেট করুন। দেখুন :ref:`clip_transform_ref`।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:891
+#: ../clips.rst:970
 msgid ""
 "**Usage Example:** Simulating a spinning effect by animating the rotation "
 "curve."
@@ -3863,7 +4098,7 @@ msgstr ""
 "**ব্যবহারের উদাহরণ:** ঘূর্ণন কার্ভ অ্যানিমেট করে স্পিনিং ইফেক্ট সিমুলেট করা।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:892
+#: ../clips.rst:971
 msgid ""
 "**Tip:** Use this property creatively for effects like rotating text or "
 "emulating camera movement."
@@ -3872,7 +4107,7 @@ msgstr ""
 "বৈশিষ্ট্যটি সৃজনশীলভাবে ব্যবহার করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:893
+#: ../clips.rst:972
 msgid ""
 "**Tip:** In the preview transform tool, hold :kbd:`Ctrl` or :kbd:`Shift` "
 "while rotating to snap to 15-degree increments."
@@ -3881,7 +4116,7 @@ msgstr ""
 ":kbd:`Shift` চেপে ধরুন ১৫-ডিগ্রি ইঙ্ক্রিমেন্টে স্ন্যাপ করার জন্য।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:894
+#: ../clips.rst:973
 msgid ""
 "**Tip:** Experiment with rotating your video at different angles, not just "
 "90 or 180 degrees. Sometimes a slight tilt or a specific angle can add "
@@ -3893,7 +4128,7 @@ msgstr ""
 " যোগ করতে পারে, বিশেষ করে শিল্পকলা বা গল্প বলার জন্য।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:895
+#: ../clips.rst:974
 msgid ""
 "**Tip:** After rotating your video, you might end up with black bars around "
 "the edges. Consider cropping and resizing the video to eliminate these bars "
@@ -3904,7 +4139,7 @@ msgstr ""
 "বজায় থাকে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:896
+#: ../clips.rst:975
 msgid ""
 "**Tip:** If you're dealing with vertical videos that are meant to be watched"
 " on horizontal screens, rotate them by 90 degrees and then scale them up to "
@@ -3916,7 +4151,7 @@ msgstr ""
 "এভাবে, আপনার উল্লম্ব ভিডিও বেশি স্ক্রিন জায়গা দখল করবে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:897
+#: ../clips.rst:976
 msgid ""
 "**Tip:** If the horizon in your video appears slanted due to camera tilt, "
 "use rotation to level it. This is particularly important for landscape shots"
@@ -3927,7 +4162,7 @@ msgstr ""
 "গুরুত্বপূর্ণ যাতে একটি পেশাদার এবং দৃষ্টিনন্দন চেহারা বজায় থাকে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:903
+#: ../clips.rst:982
 msgid ""
 "The :guilabel:`Scale` property is the initial resizing or scaling method "
 "used to display the picture of a clip, which may be further adjusted by the "
@@ -3946,7 +4181,7 @@ msgstr ""
 " কোনো কালো বার ছাড়াই। স্কেল পদ্ধতিগুলি হলো:"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:908
+#: ../clips.rst:987
 msgid ""
 "**Best Fit** (default) – The clip is as large as possible without changing "
 "the aspect ratio. This might result in black bars on certain sides of the "
@@ -3957,7 +4192,7 @@ msgstr ""
 "তাহলে ছবির কিছু পাশে কালো বার দেখা দিতে পারে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:909
+#: ../clips.rst:988
 msgid ""
 "**Crop** – The aspect ratio of the clip is maintained while the clip is "
 "enlarged to fill the entire screen, even if that means some of it will be "
@@ -3971,7 +4206,7 @@ msgstr ""
 "সাথে মেলে না, তাহলে ছবির কিছু অংশ ক্রপ হয়ে যাবে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:910
+#: ../clips.rst:989
 msgid ""
 "**None** – The clip is displayed in its original size. This is not "
 "recommended, since the picture will not scale correctly if you change the "
@@ -3982,7 +4217,7 @@ msgstr ""
 "হবে না।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:911
+#: ../clips.rst:990
 msgid ""
 "**Stretch** – The clip is stretched to fill the entire screen, changing the "
 "aspect ratio if necessary."
@@ -3991,12 +4226,12 @@ msgstr ""
 "প্রয়োজনে অ্যাসপেক্ট রেশিও পরিবর্তন করে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:916
+#: ../clips.rst:995
 msgid "Scale X and Scale Y"
 msgstr "স্কেল এক্স এবং স্কেল ওয়াই"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:917
+#: ../clips.rst:996
 msgid ""
 "The :guilabel:`Scale X` and :guilabel:`Scale Y` properties are key-frame "
 "curves that represent horizontal and vertical scaling in percentages, "
@@ -4011,7 +4246,7 @@ msgstr ""
 " পারফরম্যান্স সমস্যা প্রতিরোধের জন্য।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:921
+#: ../clips.rst:1000
 msgid ""
 "**Usage Example:** Creating a zoom-in effect by animating the Scale X and "
 "Scale Y curves simultaneously."
@@ -4020,7 +4255,7 @@ msgstr ""
 "জুম-ইন ইফেক্ট তৈরি করা।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:922
+#: ../clips.rst:1001
 msgid ""
 "**Tip:** Scale the image larger than the screen, only revealing a portion of"
 " the video. This is a simple way to crop a portion of the video."
@@ -4029,7 +4264,7 @@ msgstr ""
 "ভিডিওর একটি অংশ ক্রপ করার সহজ উপায়।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:923
+#: ../clips.rst:1002
 msgid ""
 "**Tip:** Scale the horizontal and vertical elements separately, to squash "
 "and stretch the image in fun ways."
@@ -4038,7 +4273,7 @@ msgstr ""
 "চেপে বা প্রসারিত করার জন্য।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:924
+#: ../clips.rst:1003
 msgid ""
 "**Tip:** Combine scaling with rotation and location properties for dynamic "
 "transformations."
@@ -4047,12 +4282,12 @@ msgstr ""
 "সাথে মিলিয়ে ব্যবহার করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:927
+#: ../clips.rst:1006
 msgid "Shear X and Shear Y"
 msgstr "শিয়ার এক্স এবং শিয়ার ওয়াই"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:928
+#: ../clips.rst:1007
 msgid ""
 "The :guilabel:`Shear X` and :guilabel:`Shear Y` properties are key-frame "
 "curves that represent X and Y shear angles in degrees, respectively. See "
@@ -4066,7 +4301,7 @@ msgstr ""
 " প্রতিরোধের জন্য।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:932
+#: ../clips.rst:1011
 msgid ""
 "**Usage Example:** Adding a dynamic tilt effect to a clip by animating the "
 "shear angles."
@@ -4075,14 +4310,14 @@ msgstr ""
 "ইফেক্ট যোগ করা।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:933
+#: ../clips.rst:1012
 msgid ""
 "**Tip:** Use shear properties for creating slanted or skewed animations."
 msgstr ""
 "**টিপ:** ঢালু বা বিকৃত অ্যানিমেশন তৈরি করতে শিয়ার বৈশিষ্ট্য ব্যবহার করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:937
+#: ../clips.rst:1016
 msgid ""
 "The :guilabel:`Start` property defines the trimming point at the beginning "
 "of the clip in seconds. Changing this property will impact the "
@@ -4093,7 +4328,7 @@ msgstr ""
 "বৈশিষ্ট্যের উপর প্রভাব পড়বে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:940
+#: ../clips.rst:1019
 msgid ""
 "**Usage Example:** Removing the initial portion of a clip to focus on a "
 "specific scene or moment."
@@ -4102,7 +4337,7 @@ msgstr ""
 "ক্লিপের প্রাথমিক অংশ সরানো।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:941
+#: ../clips.rst:1020
 msgid ""
 "**Tip:** Utilize the \"Start\" property in combination with the \"End\" "
 "property for precise clip trimming."
@@ -4110,7 +4345,7 @@ msgstr ""
 "**টিপ:** সঠিক ক্লিপ ট্রিমিংয়ের জন্য \"Start\" এবং \"End\" বৈশিষ্ট্য একসাথে "
 "ব্যবহার করুন।"
 
-#: ../clips.rst:947
+#: ../clips.rst:1026
 msgid ""
 "The :guilabel:`Time` property is a key-frame curve that represents frames "
 "played over time, affecting the speed and direction of the video. You can "
@@ -4134,7 +4369,7 @@ msgstr ""
 "অন্যান্য সব কী-ফ্রেম স্বয়ংক্রিয়ভাবে স্কেল করে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:954
+#: ../clips.rst:1033
 msgid ""
 "Optionally, you can manually set key-frame values for the :guilabel:`Time` "
 "property. The value represents the `frame number` at the position of the "
@@ -4161,7 +4396,7 @@ msgstr ""
 "ফ্রেম``)।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:962
+#: ../clips.rst:1041
 msgid ""
 "This allows for some very complex scenarios, such as jump cutting inside a "
 "clip, reversing a portion of a clip, slowing down a portion of a clip, "
@@ -4174,7 +4409,7 @@ msgstr ""
 "বিস্তারিত জানতে দেখুন :ref:`animation_ref`।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:966
+#: ../clips.rst:1045
 msgid ""
 "**Usage Example:** Creating a slow-motion or time-lapse effect by modifying "
 "the time curve."
@@ -4183,7 +4418,7 @@ msgstr ""
 "ইফেক্ট তৈরি করা।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:967
+#: ../clips.rst:1046
 msgid ""
 "**Tip:** Adjust the \"Time\" property to control video playback speed for "
 "dramatic visual impact."
@@ -4192,7 +4427,7 @@ msgstr ""
 "করতে \"Time\" প্রপার্টি সামঞ্জস্য করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:973
+#: ../clips.rst:1052
 msgid ""
 "The :guilabel:`Volume` property is a key-frame curve that controls audio "
 "volume or level, ranging from 0 (mute) to 1 (full volume). For automatic "
@@ -4203,7 +4438,7 @@ msgstr ""
 "সমন্বয়ের জন্য দেখুন :ref:`clip_volume_mixing_ref`।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:976
+#: ../clips.rst:1055
 msgid ""
 "**Usage Example:** Gradually fading out background music as dialogue becomes"
 " more prominent, or increasing or lowering the volume of a clip."
@@ -4212,7 +4447,7 @@ msgstr ""
 "মিউজিক ধীরে ধীরে ফেড আউট করা, অথবা একটি ক্লিপের ভলিউম বাড়ানো বা কমানো।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:977
+#: ../clips.rst:1056
 msgid ""
 "**Tip:** Combine multiple volume key-frames for nuanced audio adjustments, "
 "such as ducking the level of the music when dialog is spoken."
@@ -4220,7 +4455,7 @@ msgstr ""
 "**টিপ:** সূক্ষ্ম অডিও সমন্বয়ের জন্য একাধিক ভলিউম কী-ফ্রেম মিলিয়ে ব্যবহার "
 "করুন, যেমন ডায়ালগ বলার সময় মিউজিকের স্তর কমানো।"
 
-#: ../clips.rst:978
+#: ../clips.rst:1057
 msgid ""
 "**Tip:** For **quickly** adjusting the volume of a clip you can use the "
 ":guilabel:`Audio → Volume` menu. See :ref:`clip_presets_ref`."
@@ -4229,7 +4464,7 @@ msgstr ""
 "Volume` মেনু ব্যবহার করতে পারেন। দেখুন :ref:`clip_presets_ref`।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:982
+#: ../clips.rst:1061
 msgid ""
 "The :guilabel:`Wave Color` property is a key-frame curve that represents the"
 " color of the audio waveform visualization."
@@ -4238,7 +4473,7 @@ msgstr ""
 "ভিজ্যুয়ালাইজেশনের রঙ উপস্থাপন করে।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:984
+#: ../clips.rst:1063
 msgid ""
 "**Usage Example:** Matching the waveform color to the project's overall "
 "visual theme."
@@ -4247,7 +4482,7 @@ msgstr ""
 "রঙ মিলানো।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:985
+#: ../clips.rst:1064
 msgid ""
 "**Tip:** Experiment with different colors to enhance the visual appeal of "
 "the waveform or animate the color over time."
@@ -4256,7 +4491,7 @@ msgstr ""
 " অথবা সময়ের সাথে রঙ অ্যানিমেট করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:989
+#: ../clips.rst:1068
 msgid ""
 "The :guilabel:`Waveform` property is a boolean that determines whether a "
 "waveform visualization is used instead of the clip's image."
@@ -4265,7 +4500,7 @@ msgstr ""
 "পরিবর্তে ওয়েভফর্ম ভিজ্যুয়ালাইজেশন ব্যবহার করা হবে কিনা।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:991
+#: ../clips.rst:1070
 msgid ""
 "**Usage Example:** Displaying an audio waveform in place of the video for "
 "visually highlighting audio patterns."
@@ -4274,7 +4509,7 @@ msgstr ""
 "ভিডিওর পরিবর্তে অডিও ওয়েভফর্ম প্রদর্শন।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:992
+#: ../clips.rst:1071
 msgid ""
 "**Tip:** Use waveform visualization for emphasizing music beats or voice "
 "modulations."
@@ -4282,7 +4517,7 @@ msgstr ""
 "**টিপ:** মিউজিক বিট বা ভয়েস মডুলেশন জোর দেওয়ার জন্য ওয়েভফর্ম "
 "ভিজ্যুয়ালাইজেশন ব্যবহার করুন।"
 
-#: ../clips.rst:996
+#: ../clips.rst:1075
 msgid ""
 "The :guilabel:`Waveform Mode` property controls the visualization style used"
 " when :guilabel:`Waveform` is enabled. It uses the same choices as the "
@@ -4296,7 +4531,7 @@ msgstr ""
 "বৈশিষ্ট্যের মতো একই বিকল্প ব্যবহার করে: Waveform, Filled Waveform, Bars, "
 "Radial, Radial Bars, Spectrum, Phase Scope, Particles, এবং VU Meter।"
 
-#: ../clips.rst:1000
+#: ../clips.rst:1079
 msgid ""
 "**Usage Example:** Switching an audio-only clip from a standard waveform to "
 "bars or a spectrum display."
@@ -4304,7 +4539,7 @@ msgstr ""
 "**ব্যবহারের উদাহরণ:** একটি শুধুমাত্র অডিও ক্লিপকে স্ট্যান্ডার্ড ওয়েভফর্ম "
 "থেকে বার বা স্পেকট্রাম ডিসপ্লেতে পরিবর্তন করা।"
 
-#: ../clips.rst:1001
+#: ../clips.rst:1080
 msgid ""
 "**Tip:** Use :guilabel:`Wave Color` with :guilabel:`Waveform Mode` to tune "
 "both the visualization style and color."
@@ -4313,15 +4548,24 @@ msgstr ""
 ":guilabel:`Waveform Mode` এর সাথে :guilabel:`Wave Color` ব্যবহার করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:1004
+#: ../clips.rst:1083
 msgid "More Information"
 msgstr "আরও তথ্য"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:1005
+#: ../clips.rst:1084
 msgid "For more info on key frames and animation, see :ref:`animation_ref`."
 msgstr ""
 "কী-ফ্রেম এবং অ্যানিমেশন সম্পর্কে আরও তথ্যের জন্য দেখুন :ref:`animation_ref`।"
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "The :guilabel:`razor tool` from the **Timeline Toolbar** cuts a clip at the "
+#~ "position where it is clicked. Use :kbd:`SHIFT` to slice and keep the left "
+#~ "side, or :kbd:`CTRL` to keep the right side."
+#~ msgstr ""
+#~ "**Timeline Toolbar** থেকে :guilabel:`razor tool` ক্লিক করা অবস্থানে ক্লিপ "
+#~ "কাটে। বাম পাশ রাখতে :kbd:`SHIFT` এবং ডান পাশ রাখতে :kbd:`CTRL` ব্যবহার করুন।"
 
 # Translated with gpt-4.1-mini
 #~ msgid ""

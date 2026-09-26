@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-09-26 14:26-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -62,21 +62,21 @@ msgstr "환경 설정 창의 일반 탭에서는 OpenShot 전체에 적용되는
 # Translated with gpt-4.1-mini
 #: ../preferences.rst:46 ../preferences.rst:109 ../preferences.rst:132
 #: ../preferences.rst:157 ../preferences.rst:204 ../preferences.rst:234
-#: ../preferences.rst:290 ../preferences.rst:320
+#: ../preferences.rst:290 ../preferences.rst:329
 msgid "Setting"
 msgstr "설정"
 
 # Translated with gpt-4.1-mini
 #: ../preferences.rst:47 ../preferences.rst:50 ../preferences.rst:109
 #: ../preferences.rst:132 ../preferences.rst:134 ../preferences.rst:157
-#: ../preferences.rst:321
+#: ../preferences.rst:330
 msgid "Default"
 msgstr "기본값"
 
 # Translated with gpt-4.1-mini
 #: ../preferences.rst:48 ../preferences.rst:109 ../preferences.rst:132
 #: ../preferences.rst:204 ../preferences.rst:235 ../preferences.rst:290
-#: ../preferences.rst:301 ../preferences.rst:322
+#: ../preferences.rst:310 ../preferences.rst:331
 msgid "Description"
 msgstr "설명"
 
@@ -341,8 +341,8 @@ msgid "Auto-Transition (overlap clips)"
 msgstr "자동 전환 (클립 겹치기)"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:115 ../preferences.rst:159 ../preferences.rst:333
-#: ../preferences.rst:339
+#: ../preferences.rst:115 ../preferences.rst:159 ../preferences.rst:342
+#: ../preferences.rst:348
 msgid "Enabled"
 msgstr "활성화됨"
 
@@ -973,123 +973,152 @@ msgstr "비디오 내보내기"
 msgid "Default folder to choose when exporting a video"
 msgstr "비디오 내보내기 시 기본 선택 폴더"
 
+#: ../preferences.rst:295
+msgid "Unsaved Project Assets Folder"
+msgstr "저장되지 않은 프로젝트 자산 폴더"
+
+#: ../preferences.rst:295
+msgid "Folder for assets created before a project is saved (restart required)"
+msgstr "프로젝트가 저장되기 전에 생성된 자산을 위한 폴더 (재시작 필요)"
+
+#: ../preferences.rst:298
+msgid ""
+"On Linux, the unsaved assets folder defaults to ``~/Videos/.openshot-tmp`` "
+"when ``~/Videos`` exists and the hidden child folder is writable. Otherwise,"
+" OpenShot uses ``~/.openshot_qt``, which is also the default on other "
+"platforms. You can choose a different folder in Preferences. Saving a "
+"project relocates its assets into the project's ``<project>_assets`` folder;"
+" subsequent titles and animations use that folder. These assets can include "
+"media needed by an unsaved project or crash recovery, so do not delete the "
+"folder as ordinary disposable cache data."
+msgstr ""
+"리눅스에서는 ``~/Videos`` 폴더가 존재하고 숨겨진 하위 폴더에 쓰기 권한이 있을 경우, 저장되지 않은 자산 폴더가 기본적으로 "
+"``~/Videos/.openshot-tmp`` 로 설정됩니다. 그렇지 않으면 OpenShot은 다른 플랫폼에서도 기본값인 "
+"``~/.openshot_qt`` 를 사용합니다. 환경 설정에서 다른 폴더를 선택할 수 있습니다. 프로젝트를 저장하면 자산이 프로젝트의 "
+"``<project>_assets`` 폴더로 이동되며, 이후의 타이틀과 애니메이션은 해당 폴더를 사용합니다. 이 자산에는 저장되지 않은 "
+"프로젝트나 충돌 복구에 필요한 미디어가 포함될 수 있으므로, 일반적인 일회성 캐시 데이터처럼 폴더를 삭제하지 마십시오."
+
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:301
+#: ../preferences.rst:310
 msgid "Values"
 msgstr "값"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:303
+#: ../preferences.rst:312
 msgid "**Recent Folder**"
 msgstr "** 최근 폴더**"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:303
+#: ../preferences.rst:312
 msgid ""
 "The last folder used for this same operation. Project folders, Import "
 "folders, and Export folders are tracked separately."
 msgstr "이와 동일한 작업에 마지막으로 사용된 폴더입니다. 프로젝트 폴더, 가져오기 폴더, 내보내기 폴더는 별도로 추적됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:304
+#: ../preferences.rst:313
 msgid "**Project Folder**"
 msgstr "** 프로젝트 폴더**"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:304
+#: ../preferences.rst:313
 msgid ""
 "The current project folder (or the user's home folder, if the project is not"
 " yet saved)"
 msgstr "현재 프로젝트 폴더(프로젝트가 아직 저장되지 않은 경우 사용자의 홈 폴더)"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:310
+#: ../preferences.rst:319
 msgid "Advanced"
 msgstr "고급"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:314
+#: ../preferences.rst:323
 msgid "The Advanced tab includes ComfyUI integration and debugging options."
 msgstr "고급 탭에는 ComfyUI 통합 및 디버깅 옵션이 포함되어 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:323
+#: ../preferences.rst:332
 msgid "Comfy UI URL"
 msgstr "Comfy UI URL"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:324
+#: ../preferences.rst:333
 msgid "``http://127.0.0.1:8188``"
 msgstr "``http://127.0.0.1:8188``"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:325
+#: ../preferences.rst:334
 msgid "URL of your local or remote ComfyUI server"
 msgstr "로컬 또는 원격 ComfyUI 서버의 URL"
 
-# Translated with gpt-4.1-mini
-#: ../preferences.rst:326
-msgid "Debug Mode (Port)"
-msgstr "디버그 모드 (포트)"
+#: ../preferences.rst:335
+msgid "User Interface Debug Logging"
+msgstr "사용자 인터페이스 디버그 로깅"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:327
-msgid "5556"
-msgstr "5556"
-
-# Translated with gpt-4.1-mini
-#: ../preferences.rst:328
-msgid "Port used by debug logging features"
-msgstr "디버그 로깅 기능에 사용되는 포트"
-
-# Translated with gpt-4.1-mini
-#: ../preferences.rst:329
-msgid "Debug Mode (Verbose)"
-msgstr "디버그 모드 (상세)"
-
-# Translated with gpt-4.1-mini
-#: ../preferences.rst:330 ../preferences.rst:336
+#: ../preferences.rst:336 ../preferences.rst:339 ../preferences.rst:345
 #, fuzzy
 msgid "Disabled"
 msgstr "활성화됨"
 
-# Translated with gpt-4.1-mini
-#: ../preferences.rst:331
-msgid "Enable verbose debugging output"
-msgstr "상세 디버깅 출력을 활성화합니다."
+#: ../preferences.rst:337
+msgid ""
+"Record interface and project details in ``openshot-qt.log``. The matching "
+"``--debug-ui`` (or ``--debug``) argument enables these details for one "
+"launch, including terminal output. See :ref:`logging_ref`."
+msgstr ""
+"인터페이스 및 프로젝트 세부 정보를 ``openshot-qt.log`` 에 기록합니다. 대응하는 ``--debug-ui`` (또는 "
+"``--debug``) 인수는 터미널 출력 포함하여 한 번의 실행에 대해 이 세부 정보를 활성화합니다. :ref:`logging_ref`"
+" 를 참조하십시오."
+
+#: ../preferences.rst:338
+msgid "Video & Audio Engine Debug Logging"
+msgstr "비디오 및 오디오 엔진 디버그 로깅"
+
+#: ../preferences.rst:340
+msgid ""
+"Record video and audio processing details in ``libopenshot.log``. The "
+"matching ``--debug-engine`` argument enables these details for one launch, "
+"including terminal output. Logs can grow quickly; turn off when finished. "
+"See :ref:`logging_ref`."
+msgstr ""
+"비디오 및 오디오 처리 세부 정보를 ``libopenshot.log`` 에 기록합니다. 대응하는 ``--debug-engine`` 인수는"
+" 터미널 출력 포함하여 한 번의 실행에 대해 이 세부 정보를 활성화합니다. 로그가 빠르게 커질 수 있으니 완료 후에는 꺼 주십시오. "
+":ref:`logging_ref` 를 참조하십시오."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:332
+#: ../preferences.rst:341
 msgid "Send Anonymous Metrics and Errors"
 msgstr "익명 메트릭 및 오류 전송"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:334
+#: ../preferences.rst:343
 msgid "Send anonymous telemetry and error reports"
 msgstr "익명 원격 측정 및 오류 보고서 전송"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:335
+#: ../preferences.rst:344
 msgid "Show Playback Performance (FPS)"
 msgstr "재생 성능(FPS) 표시"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:337
+#: ../preferences.rst:346
 msgid "Display live FPS in preview playback"
 msgstr "미리보기 재생 중 실시간 FPS 표시"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:338
+#: ../preferences.rst:347
 msgid "Show Export Dialog when Finished"
 msgstr "내보내기 완료 시 대화상자 표시"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:340
+#: ../preferences.rst:349
 msgid "Display the Export Video window when export completes"
 msgstr "내보내기 완료 시 내보내기 비디오 창 표시"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:342
+#: ../preferences.rst:351
 msgid ""
 "The ComfyUI **Check** button updates an inline status icon: green checkmark "
 "for success, red icon for failure. If OpenShot cannot reach this server, AI "
@@ -1101,12 +1130,12 @@ msgstr ""
 ":ref:`ai_ref` 를 참조하세요."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:349
+#: ../preferences.rst:358
 msgid "Reset (Default Values)"
 msgstr "재설정 (기본값)"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:351
+#: ../preferences.rst:360
 msgid ""
 "To reset **all** preferences to their default values, please delete the "
 "``openshot.settings`` file and re-launch OpenShot. The settings file can be "
@@ -1121,7 +1150,7 @@ msgstr ""
 " 다시 실행하면 기본값으로 누락된 ``openshot.settings`` 파일이 생성됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:356
+#: ../preferences.rst:365
 msgid ""
 "Optionally, you can delete the entire ``.openshot_qt/`` folder and re-launch"
 " OpenShot. However, please make a **backup** of any customized folders: "
@@ -1135,7 +1164,7 @@ msgstr ""
 " 복사본이 포함되어 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:361
+#: ../preferences.rst:370
 msgid ""
 "Deleting the ``.openshot_qt/`` folder is the quickest method to restore "
 "OpenShot preferences and settings to their Default values (i.e. also called "
@@ -1149,6 +1178,26 @@ msgstr ""
 "생성합니다. OpenShot의 ** 클린 설치** 에 대한 자세한 내용은 ` 단계별 가이드 "
 "<https://github.com/OpenShot/openshot-qt/wiki/Clean-Installation-of-"
 "OpenShot>`_ 를 참조하세요."
+
+# Translated with gpt-4.1-mini
+#~ msgid "Debug Mode (Port)"
+#~ msgstr "디버그 모드 (포트)"
+
+# Translated with gpt-4.1-mini
+#~ msgid "5556"
+#~ msgstr "5556"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Port used by debug logging features"
+#~ msgstr "디버그 로깅 기능에 사용되는 포트"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Debug Mode (Verbose)"
+#~ msgstr "디버그 모드 (상세)"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Enable verbose debugging output"
+#~ msgstr "상세 디버깅 출력을 활성화합니다."
 
 # Translated with gpt-4.1-mini
 #~ msgid ""

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-09-26 14:26-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -114,8 +114,8 @@ msgid "Name"
 msgstr "نام"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:51 ../clips.rst:76 ../clips.rst:110 ../clips.rst:149
-#: ../clips.rst:622
+#: ../clips.rst:51 ../clips.rst:76 ../clips.rst:189 ../clips.rst:228
+#: ../clips.rst:701
 msgid "Description"
 msgstr "توضیحات"
 
@@ -288,16 +288,17 @@ msgstr ""
 msgid "**Razor Tool**"
 msgstr "**ابزار تیغ**"
 
-# Translated with gpt-4.1-mini
 #: ../clips.rst:88
 msgid ""
 "The :guilabel:`razor tool` from the **Timeline Toolbar** cuts a clip at the "
-"position where it is clicked. Use :kbd:`SHIFT` to slice and keep the left "
-"side, or :kbd:`CTRL` to keep the right side."
+"position where it is clicked. See :ref:`razor_tool_ref` for cut guides and "
+"frame previews. Use :kbd:`SHIFT` to slice and keep the left side, or "
+":kbd:`CTRL` to keep the right side."
 msgstr ""
-"ابزار :guilabel:`razor tool` از **نوار ابزار تایم‌لاین** کلیپ را در موقعیتی "
-"که کلیک می‌شود برش می‌دهد. از :kbd:`SHIFT` برای برش و نگه داشتن سمت چپ، یا "
-":kbd:`CTRL` برای نگه داشتن سمت راست استفاده کنید."
+"ابزار :guilabel:`تیغ` از **نوار ابزار جدول زمانی** کلیپ را در موقعیتی که "
+"کلیک می‌شود برش می‌دهد. برای راهنمای برش و پیش‌نمایش فریم‌ها به "
+":ref:`razor_tool_ref` مراجعه کنید. از :kbd:`SHIFT` برای برش و نگه داشتن سمت "
+"چپ، یا :kbd:`CTRL` برای نگه داشتن سمت راست استفاده کنید."
 
 # Translated with gpt-4.1-mini
 #: ../clips.rst:90
@@ -332,13 +333,250 @@ msgstr ""
 "اگر چندین کلیپ و/یا انتقال انتخاب شده لبه چپ یا لبه راست مشترک داشته باشند، "
 "می‌توانید آن لبه مشترک را یک بار بکشید تا همزمان آنها را برش دهید."
 
+#: ../clips.rst:102
+msgid "Razor Tool"
+msgstr "ابزار تیغ"
+
+#: ../clips.rst:104
+msgid ""
+"Use the **Razor Tool** to preview a cut and split a clip or transition "
+"directly on the timeline. Each click affects only the item under the "
+"pointer."
+msgstr ""
+"از **ابزار تیغ** برای پیش‌نمایش برش و تقسیم مستقیم یک کلیپ یا انتقال روی "
+"جدول زمانی استفاده کنید. هر کلیک فقط روی آیتم زیر نشانگر تأثیر می‌گذارد."
+
+#: ../clips.rst:107
+msgid "Enable :guilabel:`Razor Tool` in the **Timeline Toolbar**."
+msgstr "ابزار :guilabel:`تیغ` را در **نوار ابزار جدول زمانی** فعال کنید."
+
+#: ../clips.rst:108
+msgid ""
+"Move over the clip you want to cut. A vertical dashed guide marks the exact "
+"frame boundary, with a timecode and the action that clicking will perform."
+msgstr ""
+"روی کلیپی که می‌خواهید برش دهید حرکت کنید. یک راهنمای خط‌چین عمودی مرز دقیق "
+"فریم را نشان می‌دهد، همراه با کد زمان و عملی که کلیک انجام خواهد داد."
+
+#: ../clips.rst:110
+msgid ""
+"While playback is paused, **Video Preview** shows the source frame of the "
+"hovered clip, including its time mapping. Higher tracks cannot obscure this "
+"preview. The playhead stays in place, and the guide's timecode is timeline "
+"time."
+msgstr ""
+"وقتی پخش متوقف است، **پیش‌نمایش ویدئو** فریم منبع کلیپ انتخاب‌شده را نشان "
+"می‌دهد، شامل نگاشت زمانی آن. ترک‌های بالاتر نمی‌توانند این پیش‌نمایش را "
+"بپوشانند. سر پخش در جای خود باقی می‌ماند و کد زمان راهنما زمان جدول زمانی "
+"است."
+
+#: ../clips.rst:113
+msgid "Click to split. Razor stays enabled so you can make more cuts."
+msgstr ""
+"برای تقسیم کلیک کنید. ابزار تیغ فعال می‌ماند تا بتوانید برش‌های بیشتری انجام"
+" دهید."
+
+#: ../clips.rst:114
+msgid ""
+"Press :kbd:`Esc`, or toggle the toolbar button again, to return to normal "
+"editing."
+msgstr ""
+"برای بازگشت به ویرایش عادی، :kbd:`Esc` را فشار دهید یا دوباره دکمه نوار "
+"ابزار را تغییر دهید."
+
+#: ../clips.rst:116
+msgid ""
+"Moving away from the clip or leaving Razor mode restores the preview at the "
+"playhead. Hovering during playback does not interrupt playback. Like edge "
+"trimming, Razor previews the individual source rather than the composed "
+"timeline. Hovering a transition previews its mask source."
+msgstr ""
+"دور شدن از کلیپ یا خروج از حالت تیغ، پیش‌نمایش را در سر پخش بازمی‌گرداند. "
+"نگه داشتن نشانگر در حین پخش پخش را قطع نمی‌کند. مانند برش لبه، تیغ پیش‌نمایش"
+" منبع جداگانه را به جای جدول زمانی ترکیب‌شده نشان می‌دهد. نگه داشتن نشانگر "
+"روی یک انتقال، منبع ماسک آن را پیش‌نمایش می‌کند."
+
+#: ../clips.rst:121
+msgid "Razor actions"
+msgstr "عملیات تیغ"
+
+#: ../clips.rst:125
+msgid "Action"
+msgstr "عمل"
+
+#: ../clips.rst:126
+msgid "Result"
+msgstr "نتیجه"
+
+#: ../clips.rst:127
+msgid "Click"
+msgstr "کلیک"
+
+#: ../clips.rst:128
+msgid ""
+"Split at the guide and keep both sides. The previewed frame starts the right"
+" side."
+msgstr ""
+"در راهنما تقسیم کنید و هر دو طرف را نگه دارید. فریم پیش‌نمایش شده شروع سمت "
+"راست است."
+
+#: ../clips.rst:129
+msgid ":kbd:`Shift+Click`"
+msgstr ":kbd:`Shift+Click`"
+
+#: ../clips.rst:130
+msgid ""
+"Keep the left side of the guide. The right side is shaded to show what will "
+"be removed."
+msgstr ""
+"سمت چپ راهنما را نگه دارید. سمت راست سایه‌دار شده تا نشان دهد چه چیزی حذف "
+"خواهد شد."
+
+#: ../clips.rst:131
+msgid ":kbd:`Ctrl+Click`"
+msgstr ":kbd:`Ctrl+Click`"
+
+#: ../clips.rst:132
+msgid ""
+"Keep the right side. The left side is shaded to show what will be removed."
+msgstr ""
+"سمت راست را نگه دارید. سمت چپ سایه‌دار شده تا نشان دهد چه چیزی حذف خواهد شد."
+
+#: ../clips.rst:133
+msgid ":kbd:`Alt+Shift+Click`"
+msgstr ":kbd:`Alt+Shift+Click`"
+
+#: ../clips.rst:134
+msgid ""
+"Keep the left side and close the gap, shifting later items on the same track"
+" left."
+msgstr ""
+"سمت چپ را نگه دارید و فاصله را ببندید، آیتم‌های بعدی در همان ترک را به سمت "
+"چپ منتقل کنید."
+
+#: ../clips.rst:135
+msgid ":kbd:`Alt+Ctrl+Click`"
+msgstr ":kbd:`Alt+Ctrl+Click`"
+
+#: ../clips.rst:136
+msgid ""
+"Keep the right side and close the gap, shifting later items on the same "
+"track left."
+msgstr ""
+"سمت راست را نگه دارید و فاصله را ببندید، آیتم‌های بعدی در همان ترک را به سمت"
+" چپ منتقل کنید."
+
+#: ../clips.rst:137
+msgid ":kbd:`W` / :kbd:`Q` while hovering"
+msgstr ":kbd:`W` / :kbd:`Q` هنگام نگه داشتن نشانگر"
+
+#: ../clips.rst:138
+msgid ""
+"Use the existing ripple-slice shortcuts at the pointer: keep left (:kbd:`W`)"
+" or right (:kbd:`Q`) and close the gap. Customized bindings work too."
+msgstr ""
+"از میانبرهای برش موجی موجود در نشانگر استفاده کنید: نگه داشتن سمت چپ "
+"(:kbd:`W`) یا راست (:kbd:`Q`) و بستن فاصله. تنظیمات سفارشی نیز کار می‌کنند."
+
+#: ../clips.rst:141
+msgid ""
+"Holding :kbd:`Alt` with :kbd:`Shift` or :kbd:`Ctrl` adds **Close gap** to "
+"the hint. The red shading shows the portion being removed. These operations "
+"reuse **Slice Selected (Ripple)**; they move later clips and transitions on "
+"the same track, not on other tracks. Outside Razor hover, the ripple "
+"shortcuts retain their normal selected-item/playhead behavior. A locked or "
+"invalid Razor target does not fall back to cutting a different selected "
+"clip."
+msgstr ""
+"نگه داشتن :kbd:`Alt` همراه با :kbd:`Shift` یا :kbd:`Ctrl` گزینه **بستن "
+"فاصله** را به راهنما اضافه می‌کند. سایه قرمز بخش حذف‌شونده را نشان می‌دهد. "
+"این عملیات از **برش انتخاب‌شده (موجی)** استفاده مجدد می‌کنند؛ کلیپ‌ها و "
+"انتقال‌های بعدی در همان ترک را جابجا می‌کنند، نه در ترک‌های دیگر. خارج از "
+"نگه داشتن نشانگر تیغ، میانبرهای موجی رفتار معمول انتخاب‌شده/سر پخش را حفظ "
+"می‌کنند. هدف تیغ قفل‌شده یا نامعتبر به برش کلیپ انتخاب‌شده دیگر بازنمی‌گردد."
+
+#: ../clips.rst:148
+msgid ""
+"Cuts align to project frames. With **Snapping** enabled, the Razor guide "
+"uses the same snap targets and distance tolerance as other timeline edits: "
+"clip and transition edges, markers, the playhead, and the hovered clip's "
+"keyframe targets. The hovered item's own endpoints are excluded. Preview, "
+"mouse cuts, and ripple shortcuts all use the guide's snapped boundary. "
+"Toggle the timeline's existing **Snapping** button to cut freely between "
+"these targets."
+msgstr ""
+"برش‌ها با فریم‌های پروژه هم‌تراز می‌شوند. با فعال بودن **چسبندگی**، راهنمای "
+"تیغ از همان اهداف چسبندگی و تحمل فاصله مانند سایر ویرایش‌های جدول زمانی "
+"استفاده می‌کند: لبه‌های کلیپ و انتقال، نشانگرها، سر پخش و اهداف کلید فریم "
+"کلیپ انتخاب‌شده. نقاط انتهایی خود آیتم انتخاب‌شده مستثنی هستند. پیش‌نمایش، "
+"برش‌های موس و میانبرهای موجی همه از مرز چسبیده راهنما استفاده می‌کنند. برای "
+"برش آزادانه بین این اهداف، دکمه **چسبندگی** موجود در جدول زمانی را تغییر "
+"دهید."
+
+#: ../clips.rst:155
+msgid ""
+"Without snapping to a target, :kbd:`Shift+Click` includes the frame under "
+"the pointer in the left side, placing the guide at the following frame "
+"boundary. When snapped, the snapped boundary takes priority for all cut "
+"modes."
+msgstr ""
+"بدون چسبیدن به هدف، :kbd:`Shift+Click` فریم زیر نشانگر را در سمت چپ شامل "
+"می‌شود و راهنما را در مرز فریم بعدی قرار می‌دهد. هنگام چسبیدن، مرز چسبیده "
+"برای همه حالت‌های برش اولویت دارد."
+
+#: ../clips.rst:159
+msgid ""
+"Locked tracks, empty space, and boundaries that would leave an empty side do"
+" not show a valid cut guide. Zoom in for finer frame selection, and use "
+"**Undo** to reverse a cut."
+msgstr ""
+"ترک‌های قفل‌شده، فضای خالی و مرزهایی که یک سمت خالی باقی می‌گذارند، راهنمای "
+"برش معتبری نشان نمی‌دهند. برای انتخاب دقیق‌تر فریم بزرگ‌نمایی کنید و از "
+"**بازگشت** برای برگرداندن برش استفاده کنید."
+
+#: ../clips.rst:163
+msgid ""
+"To cut several clips at the playhead instead, use **Slice Selected** or "
+"**Slice All**, described above."
+msgstr ""
+"برای برش چند کلیپ در سر پخش، از **برش انتخاب‌شده** یا **برش همه** که در بالا"
+" توضیح داده شده استفاده کنید."
+
+#: ../clips.rst:167
+msgid "Clip controls while zoomed in"
+msgstr "کنترل‌های کلیپ هنگام بزرگ‌نمایی"
+
+#: ../clips.rst:169
+msgid ""
+"When a clip's start scrolls off screen, its title, effect badges, and menu "
+"stay near the left side of the visible timeline. Click an effect badge to "
+"access that effect, or use the title's dropdown to open the clip menu. The "
+"controls stay within the visible portion of their clip and shorten as space "
+"runs out."
+msgstr ""
+"وقتی شروع یک کلیپ از صفحه خارج می‌شود، عنوان، نشان‌های افکت و منوی آن نزدیک "
+"سمت چپ جدول زمانی قابل مشاهده باقی می‌مانند. برای دسترسی به افکت روی نشان "
+"افکت کلیک کنید، یا از منوی کشویی عنوان برای باز کردن منوی کلیپ استفاده کنید."
+" کنترل‌ها در بخش قابل مشاهده کلیپ باقی می‌مانند و با کمبود فضا کوتاه "
+"می‌شوند."
+
+#: ../clips.rst:174
+msgid ""
+"Only these controls follow the viewport. The clip's outline, thumbnails, "
+"waveform, and trim handles remain at their actual timeline positions. A "
+"small inset separates the pinned controls from the viewport edge."
+msgstr ""
+"فقط این کنترل‌ها دنبال نمای دید حرکت می‌کنند. خطوط کلیپ، تصاویر کوچک، "
+"موج‌نما و دسته‌های برش در موقعیت واقعی جدول زمانی خود باقی می‌مانند. یک "
+"فاصله کوچک کنترل‌های ثابت شده را از لبه نمای دید جدا می‌کند."
+
 # Translated with gpt-4.1-mini
-#: ../clips.rst:100
+#: ../clips.rst:179
 msgid "Selections"
 msgstr "انتخاب‌ها"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:101
+#: ../clips.rst:180
 msgid ""
 "Selecting clips and transitions on the timeline is an essential part of "
 "editing in OpenShot. Multiple selection methods are available to streamline "
@@ -349,22 +587,22 @@ msgstr ""
 "ویرایش مؤثر کلیپ‌ها و ترنزیشن‌ها را ممکن می‌سازد."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:104
+#: ../clips.rst:183
 msgid "Here is a list of all methods for selecting clips in OpenShot:"
 msgstr "در اینجا فهرستی از تمام روش‌های انتخاب کلیپ‌ها در OpenShot آمده است:"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:110
+#: ../clips.rst:189
 msgid "Selection Method"
 msgstr "روش انتخاب"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:112
+#: ../clips.rst:191
 msgid "**Box Selection**"
 msgstr "**انتخاب با کادر**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:112
+#: ../clips.rst:191
 msgid ""
 "Click and drag a selection box around clips or transitions to select "
 "multiple items at once. Hold down :kbd:`Ctrl` to add to your current "
@@ -375,12 +613,12 @@ msgstr ""
 "دارید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:113
+#: ../clips.rst:192
 msgid "**Click Selection**"
 msgstr "**انتخاب با کلیک**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:113
+#: ../clips.rst:192
 msgid ""
 "Click on a clip or transition to select it. This will deselect all other "
 "items unless you hold down :kbd:`Ctrl`."
@@ -389,12 +627,12 @@ msgstr ""
 "انتخاب خارج می‌کند مگر اینکه کلید :kbd:`Ctrl` را نگه دارید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:114
+#: ../clips.rst:193
 msgid "**Add to Selection**"
 msgstr "**افزودن به انتخاب**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:114
+#: ../clips.rst:193
 msgid ""
 "Hold down :kbd:`Ctrl` while clicking to add or remove clips from the current"
 " selection, allowing you to select non-adjacent clips."
@@ -403,12 +641,12 @@ msgstr ""
 "اضافه یا از آن حذف کنید و بتوانید کلیپ‌های غیرمجاور را انتخاب کنید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:115
+#: ../clips.rst:194
 msgid "**Range Selection**"
 msgstr "**انتخاب بازه‌ای**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:115
+#: ../clips.rst:194
 msgid ""
 "Hold down :kbd:`Shift` while clicking to select a range of clips/transitions"
 " from the previous selection to the new selection. This supports ranges that"
@@ -419,12 +657,12 @@ msgstr ""
 "بازه‌هایی است که چندین ترک را در بر می‌گیرد."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:116
+#: ../clips.rst:195
 msgid "**Ripple Selection**"
 msgstr "**انتخاب موجی**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:116
+#: ../clips.rst:195
 msgid ""
 "Hold down :kbd:`Alt` while clicking to ripple select all clips/transitions "
 "from your selection to the end of the track. This always adds to your "
@@ -435,12 +673,12 @@ msgstr ""
 "شما اضافه می‌کند، حتی اگر کلید :kbd:`Ctrl` نگه داشته نشده باشد."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:117
+#: ../clips.rst:196
 msgid "**Clear Selection**"
 msgstr "**پاک کردن انتخاب**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:117
+#: ../clips.rst:196
 msgid ""
 "Click anywhere on the timeline or on a new clip/transition to reset the "
 "current selection, unless :kbd:`Ctrl` is pressed."
@@ -449,12 +687,12 @@ msgstr ""
 "جدید کلیک کنید، مگر اینکه کلید :kbd:`Ctrl` نگه داشته شده باشد."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:118
+#: ../clips.rst:197
 msgid "**Select All**"
 msgstr "**انتخاب همه**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:118
+#: ../clips.rst:197
 msgid ""
 "Press :kbd:`Ctrl+A` to select all clips and transitions on the timeline."
 msgstr ""
@@ -462,12 +700,12 @@ msgstr ""
 "فشار دهید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:119
+#: ../clips.rst:198
 msgid "**Select None**"
 msgstr "**لغو انتخاب همه**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:119
+#: ../clips.rst:198
 msgid ""
 "Press :kbd:`Ctrl+Shift+A` to deselect all clips and transitions on the "
 "timeline."
@@ -476,7 +714,7 @@ msgstr ""
 ":kbd:`Ctrl+Shift+A` را فشار دهید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:122
+#: ../clips.rst:201
 msgid ""
 "Mastering these selection techniques will streamline your editing process, "
 "especially when dealing with complex projects. For more advanced tips on "
@@ -488,12 +726,12 @@ msgstr ""
 ":ref:`clips_cutting_slicing_ref` مراجعه کنید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:128
+#: ../clips.rst:207
 msgid "Context Menu"
 msgstr "منوی زمینه"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:129
+#: ../clips.rst:208
 msgid ""
 "OpenShot has tons of great preset animations and clip properties, such as "
 "fading, sliding, zooming, reversing time, adjusting volume, etc... These "
@@ -509,7 +747,7 @@ msgstr ""
 "تنظیم دستی فریم‌های کلیدی، تنظیم می‌کند. به بخش :ref:`clip_properties_ref` "
 "مراجعه کنید."
 
-#: ../clips.rst:134
+#: ../clips.rst:213
 msgid ""
 "Some presets allow the user to target either the start, end, or entire clip,"
 " and most presets allow the user to reset a specific clip property. For "
@@ -521,34 +759,34 @@ msgstr ""
 "را بازنشانی کند. به عنوان مثال، هنگام استفاده از پیش‌تنظیم‌های "
 ":guilabel:`Audio → Volume`، کاربر گزینه‌های منوی زیر را دارد:"
 
-#: ../clips.rst:138
+#: ../clips.rst:217
 msgid "**Reset Volume** — resets the volume to the original level."
 msgstr "**بازنشانی حجم صدا** — حجم صدا را به سطح اصلی بازنشانی می‌کند."
 
-#: ../clips.rst:139
+#: ../clips.rst:218
 msgid ""
 "**Start of Clip** — the volume change applies at the beginning of the clip."
 msgstr "**شروع کلیپ** — تغییر حجم صدا در ابتدای کلیپ اعمال می‌شود."
 
-#: ../clips.rst:140
+#: ../clips.rst:219
 msgid "**End of Clip** — the volume change applies at the end of the clip."
 msgstr "**پایان کلیپ** — تغییر حجم صدا در انتهای کلیپ اعمال می‌شود."
 
-#: ../clips.rst:141
+#: ../clips.rst:220
 msgid "**Entire Clip** — the volume change applies to the entire clip."
 msgstr "**کل کلیپ** — تغییر حجم صدا به کل کلیپ اعمال می‌شود."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:149
+#: ../clips.rst:228
 msgid "Preset Name"
 msgstr "نام پیش‌تنظیم"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:151 ../clips.rst:539
+#: ../clips.rst:230 ../clips.rst:618
 msgid "Copy / Cut / Paste"
 msgstr "کپی / برش / چسباندن"
 
-#: ../clips.rst:151
+#: ../clips.rst:230
 msgid ""
 "Copy selected clip data, cut selected clips, or paste copied clip data. Copy"
 " supports full clips, effects, and keyframe groups."
@@ -557,11 +795,11 @@ msgstr ""
 "کپی‌شده کلیپ. کپی از کلیپ‌های کامل، افکت‌ها و گروه‌های کلیدفریم پشتیبانی "
 "می‌کند."
 
-#: ../clips.rst:152
+#: ../clips.rst:231
 msgid "Align"
 msgstr "تراز کردن"
 
-#: ../clips.rst:152
+#: ../clips.rst:231
 msgid ""
 "Align the left or right edge of multiple selected clips and transitions "
 "(only shown when multiple clips are selected)."
@@ -570,11 +808,11 @@ msgstr ""
 " انتخاب شده باشد نمایش داده می‌شود)."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:153 ../clips.rst:165
+#: ../clips.rst:232 ../clips.rst:244
 msgid "Fade"
 msgstr "محو شدن"
 
-#: ../clips.rst:153
+#: ../clips.rst:232
 msgid ""
 "Fade the clip in or out — automatically fades video (alpha) and/or audio "
 "(volume) based on what the clip contains."
@@ -582,11 +820,11 @@ msgstr ""
 "کلیپ را محو کنید (ورود یا خروج) — به طور خودکار ویدئو (آلفا) و/یا صدا (حجم) "
 "را بر اساس محتوای کلیپ محو می‌کند."
 
-#: ../clips.rst:154 ../clips.rst:182
+#: ../clips.rst:233 ../clips.rst:261
 msgid "Motion"
 msgstr "حرکت"
 
-#: ../clips.rst:154
+#: ../clips.rst:233
 msgid ""
 "Add animated motion to a clip: slide in/out, bounce, blur, wipe/focus-wipe, "
 "zoom, emphasis effects at the playhead, camera movements, and scrolling "
@@ -597,11 +835,11 @@ msgstr ""
 " فقط برای کلیپ‌های تصویری نمایش داده می‌شود."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:155 ../clips.rst:417
+#: ../clips.rst:234 ../clips.rst:496
 msgid "Transform"
 msgstr "تبدیل"
 
-#: ../clips.rst:155
+#: ../clips.rst:234
 msgid ""
 "Apply geometric presets to a clip: rotate/flip, crop, or snap to a corner "
 "layout. Also provides a **No Transform** reset. Only shown for visual clips."
@@ -610,11 +848,11 @@ msgstr ""
 "طرح گوشه. همچنین بازنشانی **بدون تغییر شکل** را فراهم می‌کند. فقط برای "
 "کلیپ‌های تصویری نمایش داده می‌شود."
 
-#: ../clips.rst:156 ../clips.rst:318
+#: ../clips.rst:235 ../clips.rst:397
 msgid "Look"
 msgstr "ظاهر"
 
-#: ../clips.rst:156
+#: ../clips.rst:235
 msgid ""
 "Apply visual style presets: color grades, film grain, analog tape, sharpen, "
 "blur, shadow, and glow effects. Includes **Adjust Colors** (Color Wheels "
@@ -625,11 +863,11 @@ msgstr ""
 "رنگ) و **تحلیل رنگ‌ها** (محدوده‌های ویدئو). فقط برای کلیپ‌های تصویری نمایش "
 "داده می‌شود."
 
-#: ../clips.rst:157 ../clips.rst:249
+#: ../clips.rst:236 ../clips.rst:328
 msgid "Speed"
 msgstr "سرعت"
 
-#: ../clips.rst:157
+#: ../clips.rst:236
 msgid ""
 "Reverse, repeat, speed up, or slow down video. Includes Freeze and Freeze & "
 "Zoom options."
@@ -637,11 +875,11 @@ msgstr ""
 "ویدئو را معکوس، تکرار، سرعت بخشیدن یا کند کنید. شامل گزینه‌های توقف و توقف و"
 " بزرگ‌نمایی است."
 
-#: ../clips.rst:158 ../clips.rst:365
+#: ../clips.rst:237 ../clips.rst:444
 msgid "Audio"
 msgstr "صدا"
 
-#: ../clips.rst:158
+#: ../clips.rst:237
 msgid ""
 "Control audio properties: adjust volume levels, fade volume in/out, separate"
 " audio channels, show/hide the timeline waveform, or open the Audio Levels "
@@ -652,11 +890,11 @@ msgstr ""
 "صدا."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:159 ../clips.rst:392
+#: ../clips.rst:238 ../clips.rst:471
 msgid "Slice"
 msgstr "برش"
 
-#: ../clips.rst:159
+#: ../clips.rst:238
 msgid ""
 "Cut the clip at the play-head position, with options to keep either side, "
 "both sides, or ripple-delete one side. Only shown when the playhead overlaps"
@@ -667,24 +905,24 @@ msgstr ""
 "قرار داشته باشد."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:160 ../clips.rst:531
+#: ../clips.rst:239 ../clips.rst:610
 msgid "Properties"
 msgstr "ویژگی‌ها"
 
-#: ../clips.rst:160
+#: ../clips.rst:239
 msgid "Show the properties panel for a clip."
 msgstr "نمایش پنل ویژگی‌ها برای یک کلیپ."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:161 ../clips.rst:563
+#: ../clips.rst:240 ../clips.rst:642
 msgid "Remove Clip"
 msgstr "حذف کلیپ"
 
-#: ../clips.rst:161
+#: ../clips.rst:240
 msgid "Remove a clip from the timeline."
 msgstr "حذف یک کلیپ از خط زمانی."
 
-#: ../clips.rst:166
+#: ../clips.rst:245
 msgid ""
 "The :guilabel:`Fade` preset creates a smooth fade-in or fade-out on the "
 "selected clip. It automatically fades **video** (alpha/opacity) and/or "
@@ -698,11 +936,11 @@ msgstr ""
 "را دریافت می‌کند، کلیپ فقط صوتی فقط محو حجم را دریافت می‌کند، و کلیپ تصویری "
 "فقط محو آلفا را دریافت می‌کند."
 
-#: ../clips.rst:170
+#: ../clips.rst:249
 msgid ":guilabel:`No Fade` — removes all fade keyframes."
 msgstr ":guilabel:`بدون محو` — تمام کلیدفریم‌های محو را حذف می‌کند."
 
-#: ../clips.rst:171
+#: ../clips.rst:250
 msgid ""
 ":guilabel:`Fade In` → :guilabel:`Fast` / :guilabel:`Slow` — fades from "
 "transparent/silent at the start of the clip."
@@ -710,7 +948,7 @@ msgstr ""
 ":guilabel:`محو به داخل` → :guilabel:`سریع` / :guilabel:`کند` — از "
 "شفاف/بی‌صدا در ابتدای کلیپ محو می‌شود."
 
-#: ../clips.rst:172
+#: ../clips.rst:251
 msgid ""
 ":guilabel:`Fade Out` → :guilabel:`Fast` / :guilabel:`Slow` — fades to "
 "transparent/silent at the end of the clip."
@@ -718,7 +956,7 @@ msgstr ""
 ":guilabel:`محو به خارج` → :guilabel:`سریع` / :guilabel:`کند` — در انتهای "
 "کلیپ به شفاف/بی‌صدا محو می‌شود."
 
-#: ../clips.rst:173
+#: ../clips.rst:252
 msgid ""
 ":guilabel:`Fade In and Out` → :guilabel:`Fast` / :guilabel:`Slow` — applies "
 "both a fade-in at the start and a fade-out at the end."
@@ -726,7 +964,7 @@ msgstr ""
 ":guilabel:`محو به داخل و خارج` → :guilabel:`سریع` / :guilabel:`کند` — هم محو"
 " به داخل در ابتدا و هم محو به خارج در انتها را اعمال می‌کند."
 
-#: ../clips.rst:175
+#: ../clips.rst:254
 msgid ""
 "Fast fades span approximately 1 second; Slow fades span approximately 3 "
 "seconds. See :ref:`clip_alpha_ref` and :ref:`clip_volume_ref` key-frames."
@@ -736,7 +974,7 @@ msgstr ""
 "ببینید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:178
+#: ../clips.rst:257
 msgid ""
 "**Usage Example:** Applying a fade-out to a video clip to gently conclude a "
 "scene."
@@ -744,7 +982,7 @@ msgstr ""
 "**مثال کاربردی:** اعمال محو شدن به بیرون روی یک کلیپ ویدیویی برای پایان دادن"
 " ملایم به یک صحنه."
 
-#: ../clips.rst:179
+#: ../clips.rst:258
 msgid ""
 "**Tip:** Fade and Volume fade are independent — use :guilabel:`Fade` for a "
 "combined video+audio fade, or use :guilabel:`Audio → Volume` to fade only "
@@ -754,7 +992,7 @@ msgstr ""
 "ویدئو+صدا استفاده کنید، یا از :guilabel:`Audio → Volume` برای محو فقط صدا "
 "استفاده کنید."
 
-#: ../clips.rst:183
+#: ../clips.rst:262
 msgid ""
 "The :guilabel:`Motion` menu adds animated movement to visual clips using "
 "keyframe presets. It is organized into several submenus. See "
@@ -764,15 +1002,15 @@ msgstr ""
 "پیش‌تنظیم‌های کلیدفریم اضافه می‌کند. این منو به چند زیرمنو تقسیم شده است. "
 "کلیدفریم‌های :ref:`clip_location_x_ref` و :ref:`clip_scale_x_ref` را ببینید."
 
-#: ../clips.rst:186
+#: ../clips.rst:265
 msgid ":guilabel:`No Motion` — removes all motion keyframes from the clip."
 msgstr ":guilabel:`بدون حرکت` — تمام کلیدفریم‌های حرکت را از کلیپ حذف می‌کند."
 
-#: ../clips.rst:187
+#: ../clips.rst:266
 msgid ":guilabel:`In` — entrance animations applied at the start of the clip:"
 msgstr ":guilabel:`ورود` — انیمیشن‌های ورود که در ابتدای کلیپ اعمال می‌شوند:"
 
-#: ../clips.rst:189
+#: ../clips.rst:268
 msgid ""
 "**Back In** (From Bottom / Left / Right / Top) — clip overshoots and springs"
 " back into position."
@@ -780,11 +1018,11 @@ msgstr ""
 "**بازگشت به داخل** (از پایین / چپ / راست / بالا) — کلیپ بیش از حد حرکت "
 "می‌کند و به موقعیت بازمی‌گردد."
 
-#: ../clips.rst:190
+#: ../clips.rst:269
 msgid "**Blur In** — clip fades in from a motion blur."
 msgstr "**محو تاری به داخل** — کلیپ از تاری حرکتی محو می‌شود."
 
-#: ../clips.rst:191
+#: ../clips.rst:270
 msgid ""
 "**Bounce In** (Center / From Bottom / Left / Right / Top) — clip bounces as "
 "it enters."
@@ -792,7 +1030,7 @@ msgstr ""
 "**پرش به داخل** (مرکز / از پایین / چپ / راست / بالا) — کلیپ هنگام ورود پرش "
 "می‌کند."
 
-#: ../clips.rst:192
+#: ../clips.rst:271
 msgid ""
 "**Focus Wipe In** (Circle Expand / Circle Shrink / From Bottom / Left / "
 "Right / Top) — clip is revealed by a wipe while sharpening from blur into "
@@ -802,11 +1040,11 @@ msgstr ""
 "راست / بالا) — کلیپ با پاک‌کن نمایان می‌شود در حالی که از تاری به فوکوس تیز "
 "می‌شود."
 
-#: ../clips.rst:193
+#: ../clips.rst:272
 msgid "**Pop In** — clip scales up quickly from nothing."
 msgstr "**نمایش ناگهانی** — کلیپ به سرعت از هیچ به اندازه بزرگ می‌شود."
 
-#: ../clips.rst:194
+#: ../clips.rst:273
 msgid ""
 "**Slide In** (From Bottom / Left / Right / Top) — clip slides onto the "
 "screen."
@@ -814,11 +1052,11 @@ msgstr ""
 "**لغزش به داخل** (از پایین / چپ / راست / بالا) — کلیپ روی صفحه لغزیده وارد "
 "می‌شود."
 
-#: ../clips.rst:195
+#: ../clips.rst:274
 msgid "**Spiral In** — clip rotates in while scaling up."
 msgstr "**مارپیچ به داخل** — کلیپ در حالی که بزرگ می‌شود می‌چرخد."
 
-#: ../clips.rst:196
+#: ../clips.rst:275
 msgid ""
 "**Wipe In** (Circle Expand / Circle Shrink / From Bottom / Left / Right / "
 "Top) — clip is revealed by a wipe."
@@ -826,7 +1064,7 @@ msgstr ""
 "**پاک‌کن به داخل** (گسترش دایره / کوچک شدن دایره / از پایین / چپ / راست / "
 "بالا) — کلیپ با پاک‌کن نمایان می‌شود."
 
-#: ../clips.rst:198
+#: ../clips.rst:277
 msgid ""
 ":guilabel:`Out` — exit animations applied at the end of the clip (mirrors "
 "the In options: Back Out, Blur Out, Bounce Out, Focus Wipe Out, Pop Out, "
@@ -836,7 +1074,7 @@ msgstr ""
 "گزینه‌های ورود: بازگشت به خارج، تاری به خارج، پرش به خارج، پاک‌کن فوکوس به "
 "خارج، نمایش ناگهانی به خارج، لغزش به خارج، مارپیچ به خارج، پاک‌کن به خارج)."
 
-#: ../clips.rst:200
+#: ../clips.rst:279
 msgid ""
 ":guilabel:`Emphasis` — short attention-grabbing animations **inserted at the"
 " current playhead position** (not applied across the whole clip). Useful for"
@@ -849,7 +1087,7 @@ msgstr ""
 "است: **پرش**، **فلاش**، **ضربان قلب**، **ژله‌ای**، **پالس**، **کش لاستیکی**،"
 " **لرزش X**، **لرزش Y**، **تاب خوردن**، **تادا**، **لرزش**."
 
-#: ../clips.rst:202
+#: ../clips.rst:281
 msgid ""
 ":guilabel:`Camera` — simulates camera movement on the clip by animating "
 "scale and position:"
@@ -857,11 +1095,11 @@ msgstr ""
 ":guilabel:`دوربین` — شبیه‌سازی حرکت دوربین روی کلیپ با انیمیشن دادن به مقیاس"
 " و موقعیت:"
 
-#: ../clips.rst:204
+#: ../clips.rst:283
 msgid "**Zoom** → In / Out — a simple push-in or pull-out."
 msgstr "**بزرگ‌نمایی** → داخل / خارج — یک حرکت ساده به سمت داخل یا خارج."
 
-#: ../clips.rst:205
+#: ../clips.rst:284
 msgid ""
 "**Pan** → Auto Direction / Left to Right / Right to Left / Top to Bottom / "
 "Bottom to Top — a lateral camera pan. *Auto Direction* picks the best "
@@ -871,7 +1109,7 @@ msgstr ""
 " به بالا — حرکت جانبی دوربین. *جهت خودکار* بهترین جهت را بر اساس نسبت تصویر "
 "کلیپ انتخاب می‌کند."
 
-#: ../clips.rst:206
+#: ../clips.rst:285
 msgid ""
 "**Zoom & Pan** → In or Out, with directional variants — combines a zoom with"
 " a pan (Ken Burns style). *Auto Direction* picks the best direction based on"
@@ -881,7 +1119,7 @@ msgstr ""
 "بزرگ‌نمایی و حرکت افقی (سبک کن برنز). *جهت خودکار* بهترین جهت را بر اساس "
 "نسبت تصویر کلیپ انتخاب می‌کند."
 
-#: ../clips.rst:208
+#: ../clips.rst:287
 msgid ""
 ":guilabel:`Credits` — scrolling credit animations: **Scroll Up** and "
 "**Scroll Down**."
@@ -889,7 +1127,7 @@ msgstr ""
 ":guilabel:`اعتبارها` — انیمیشن‌های اسکرول اعتبار: **اسکرول به بالا** و "
 "**اسکرول به پایین**."
 
-#: ../clips.rst:210
+#: ../clips.rst:289
 msgid ""
 "**Tip:** Emphasis presets are placed at the current playhead position, so "
 "position the playhead over the moment you want to highlight before applying "
@@ -898,7 +1136,7 @@ msgstr ""
 "**نکته:** پیش‌تنظیم‌های تأکید در موقعیت فعلی سر پخش قرار می‌گیرند، بنابراین "
 "قبل از اعمال آن، سر پخش را روی لحظه‌ای که می‌خواهید برجسته کنید قرار دهید."
 
-#: ../clips.rst:211
+#: ../clips.rst:290
 msgid ""
 "**Tip:** Camera presets use *Auto Direction* by default, which picks the "
 "optimal pan direction for wide or tall media to avoid black bars."
@@ -908,11 +1146,11 @@ msgstr ""
 "از نوارهای سیاه انتخاب می‌کند."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:216
+#: ../clips.rst:295
 msgid "Rotate"
 msgstr "چرخش"
 
-#: ../clips.rst:217
+#: ../clips.rst:296
 msgid ""
 "The :guilabel:`Transform → Rotate` submenu introduces easy rotation and "
 "flipping of clips. It enables orientation adjustment by rotating and "
@@ -923,28 +1161,28 @@ msgstr ""
 "می‌کند. این امکان تنظیم جهت را با چرخش و برگرداندن کلیپ برای تغییرات بصری "
 "خلاقانه فراهم می‌کند. به :ref:`clip_rotation_ref` کلید-فریم مراجعه کنید."
 
-#: ../clips.rst:221
+#: ../clips.rst:300
 msgid ":guilabel:`No Rotation` — removes any rotation keyframes."
 msgstr ":guilabel:`بدون چرخش` — تمام کلید-فریم‌های چرخش را حذف می‌کند."
 
-#: ../clips.rst:222
+#: ../clips.rst:301
 msgid ":guilabel:`Rotate 90 (Right)` — rotates the clip 90 degrees clockwise."
 msgstr ""
 ":guilabel:`چرخش ۹۰ درجه (به راست)` — کلیپ را ۹۰ درجه در جهت عقربه‌های ساعت "
 "می‌چرخاند."
 
-#: ../clips.rst:223
+#: ../clips.rst:302
 msgid ""
 ":guilabel:`Rotate 90 (Left)` — rotates the clip 90 degrees counterclockwise."
 msgstr ""
 ":guilabel:`چرخش ۹۰ درجه (به چپ)` — کلیپ را ۹۰ درجه در جهت خلاف عقربه‌های "
 "ساعت می‌چرخاند."
 
-#: ../clips.rst:224
+#: ../clips.rst:303
 msgid ":guilabel:`Rotate 180 (Flip)` — flips the clip upside down."
 msgstr ":guilabel:`چرخش ۱۸۰ درجه (برگرداندن)` — کلیپ را وارونه می‌کند."
 
-#: ../clips.rst:226
+#: ../clips.rst:305
 msgid ""
 "**Usage Example:** Rotating a photo or video by 90 degrees (a portrait video"
 " to a landscape)."
@@ -952,7 +1190,7 @@ msgstr ""
 "**مثال کاربردی:** چرخش یک عکس یا ویدیو به اندازه ۹۰ درجه (تبدیل ویدیوی پرتره"
 " به منظره)."
 
-#: ../clips.rst:227
+#: ../clips.rst:306
 msgid ""
 "**Usage Example:** If your video is upside down, rotate it by 180 degrees to"
 " correct the orientation."
@@ -961,11 +1199,11 @@ msgstr ""
 "آن اصلاح شود."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:232
+#: ../clips.rst:311
 msgid "Layout"
 msgstr "چیدمان"
 
-#: ../clips.rst:233
+#: ../clips.rst:312
 msgid ""
 "The :guilabel:`Transform → Layout` submenu adjusts the size of a clip and "
 "snaps it to a chosen corner of the screen, useful for picture-in-picture or "
@@ -977,12 +1215,12 @@ msgstr ""
 "است. به :ref:`clip_location_x_ref`، :ref:`clip_scale_x_ref`، "
 ":guilabel:`حاشیه` و :guilabel:`شعاع گوشه` کلید-فریم‌ها مراجعه کنید."
 
-#: ../clips.rst:238
+#: ../clips.rst:317
 msgid ":guilabel:`Reset Layout` — removes any layout keyframes."
 msgstr ""
 ":guilabel:`بازنشانی چیدمان` — تمام کلید-فریم‌های چیدمان را حذف می‌کند."
 
-#: ../clips.rst:239
+#: ../clips.rst:318
 msgid ""
 ":guilabel:`1/4 Size` — positions the clip at 1/4 of the screen in the "
 "Center, Top Left, Top Right, Bottom Left, or Bottom Right corner."
@@ -990,7 +1228,7 @@ msgstr ""
 ":guilabel:`یک چهارم اندازه` — کلیپ را در یک چهارم صفحه در مرکز، بالا چپ، "
 "بالا راست، پایین چپ یا پایین راست قرار می‌دهد."
 
-#: ../clips.rst:240
+#: ../clips.rst:319
 msgid ""
 ":guilabel:`Show All (Maintain Ratio)` — fits the entire clip frame within "
 "the screen while preserving its aspect ratio."
@@ -998,7 +1236,7 @@ msgstr ""
 ":guilabel:`نمایش همه (حفظ نسبت)` — کل قاب کلیپ را در صفحه جا می‌دهد و نسبت "
 "تصویر را حفظ می‌کند."
 
-#: ../clips.rst:241
+#: ../clips.rst:320
 msgid ""
 ":guilabel:`Show All (Distort)` — stretches the entire clip frame to fill the"
 " screen, ignoring aspect ratio."
@@ -1007,7 +1245,7 @@ msgstr ""
 "نسبت تصویر را نادیده می‌گیرد."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:243
+#: ../clips.rst:322
 msgid ""
 "**Usage Example:** Placing a logo in the corner of a video using the layout "
 "preset."
@@ -1015,7 +1253,7 @@ msgstr ""
 "**مثال کاربردی:** قرار دادن لوگو در گوشه ویدیو با استفاده از پیش‌تنظیم "
 "Layout."
 
-#: ../clips.rst:244
+#: ../clips.rst:323
 msgid ""
 "**Tip:** Use :guilabel:`Margin` to create an inset layout area for a clip, "
 "and :guilabel:`Corner Radius` to round picture-in-picture camera clips "
@@ -1026,7 +1264,7 @@ msgstr ""
 "تصویر دوربین بدون افزودن افکت ماسک بهره ببرید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:246
+#: ../clips.rst:325
 msgid ""
 "**Tip:** Combine with animation presets for dynamic transitions involving "
 "resizing and repositioning."
@@ -1034,7 +1272,7 @@ msgstr ""
 "**نکته:** با پیش‌تنظیم‌های انیمیشن ترکیب کنید تا انتقال‌های پویا شامل تغییر "
 "اندازه و جابجایی ایجاد شود."
 
-#: ../clips.rst:250
+#: ../clips.rst:329
 msgid ""
 "The :guilabel:`Speed` menu manipulates clip playback speed, allowing for "
 "reverse playback, time-lapse, slow-motion, freezes, and looping effects. See"
@@ -1044,16 +1282,16 @@ msgstr ""
 "لپس، حرکت آهسته، فریز و حلقه زدن را فراهم می‌آورد. به :ref:`clip_time_ref` "
 "کلید-فریم مراجعه کنید."
 
-#: ../clips.rst:253
+#: ../clips.rst:332
 msgid ":guilabel:`Reset Speed` — restores the clip to normal 1× speed."
 msgstr ""
 ":guilabel:`بازنشانی سرعت` — سرعت کلیپ را به حالت عادی ۱× بازمی‌گرداند."
 
-#: ../clips.rst:254
+#: ../clips.rst:333
 msgid ":guilabel:`Reverse` — plays the clip backwards at normal speed."
 msgstr ":guilabel:`معکوس` — کلیپ را با سرعت عادی به صورت معکوس پخش می‌کند."
 
-#: ../clips.rst:255
+#: ../clips.rst:334
 msgid ""
 ":guilabel:`Speed Up` → Forward / Backward → 2×, 4×, 8×, 16× — speeds up "
 "playback in either direction."
@@ -1061,7 +1299,7 @@ msgstr ""
 ":guilabel:`افزایش سرعت` → جلو / عقب → ۲×، ۴×، ۸×، ۱۶× — سرعت پخش را در هر دو"
 " جهت افزایش می‌دهد."
 
-#: ../clips.rst:256
+#: ../clips.rst:335
 msgid ""
 ":guilabel:`Slow Down` → Forward / Backward → 1/2×, 1/4×, 1/8×, 1/16× — slows"
 " down playback in either direction."
@@ -1069,11 +1307,11 @@ msgstr ""
 ":guilabel:`کاهش سرعت` → جلو / عقب → ۱/۲×، ۱/۴×، ۱/۸×، ۱/۱۶× — سرعت پخش را در"
 " هر دو جهت کاهش می‌دهد."
 
-#: ../clips.rst:257
+#: ../clips.rst:336
 msgid ":guilabel:`Repeat` — see below."
 msgstr ":guilabel:`تکرار` — در ادامه ببینید."
 
-#: ../clips.rst:258
+#: ../clips.rst:337
 msgid ""
 ":guilabel:`Freeze` — freezes on the frame at the current playhead position "
 "for 2, 4, 6, 8, 10, 20, or 30 seconds."
@@ -1081,14 +1319,14 @@ msgstr ""
 ":guilabel:`فریز` — در فریم موقعیت فعلی سر پخش برای ۲، ۴، ۶، ۸، ۱۰، ۲۰ یا ۳۰ "
 "ثانیه ثابت می‌ماند."
 
-#: ../clips.rst:259
+#: ../clips.rst:338
 msgid ""
 ":guilabel:`Freeze && Zoom` — freezes and simultaneously zooms in on that "
 "frozen frame."
 msgstr ""
 ":guilabel:`فریز و بزرگ‌نمایی` — فریم ثابت شده را همزمان بزرگ‌نمایی می‌کند."
 
-#: ../clips.rst:261
+#: ../clips.rst:340
 msgid ""
 "**Slow motion** — :guilabel:`Slow Down → 1/2×` or :guilabel:`1/4×` for "
 "dreamy or dramatic footage."
@@ -1096,7 +1334,7 @@ msgstr ""
 "**حرکت آهسته** — :guilabel:`کاهش سرعت → ۱/۲×` یا :guilabel:`۱/۴×` برای "
 "فیلم‌های رویایی یا دراماتیک."
 
-#: ../clips.rst:262
+#: ../clips.rst:341
 msgid ""
 "**Time-lapse** — :guilabel:`Speed Up → 8×` or :guilabel:`16×` to compress "
 "hours into seconds."
@@ -1104,7 +1342,7 @@ msgstr ""
 "**تایم لپس** — :guilabel:`افزایش سرعت → ۸×` یا :guilabel:`۱۶×` برای "
 "فشرده‌سازی ساعت‌ها به ثانیه‌ها."
 
-#: ../clips.rst:263
+#: ../clips.rst:342
 msgid ""
 "**Speed ramp** — use the :guilabel:`Timing` tool to drag clip edges and "
 "create a natural-feeling speed change; OpenShot scales all keyframes "
@@ -1114,7 +1352,7 @@ msgstr ""
 "کلیپ و ایجاد تغییر سرعت طبیعی استفاده کنید؛ OpenShot به طور خودکار تمام "
 "کلید-فریم‌ها را مقیاس‌بندی می‌کند."
 
-#: ../clips.rst:264
+#: ../clips.rst:343
 msgid ""
 "**Tip:** Combine :guilabel:`Freeze` with :guilabel:`Speed Up` for an impact-"
 "freeze-then-fast-forward effect."
@@ -1123,11 +1361,11 @@ msgstr ""
 "توقف ناگهانی و سپس جلو بردن سریع ایجاد شود."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:269
+#: ../clips.rst:348
 msgid "Repeat"
 msgstr "تکرار"
 
-#: ../clips.rst:270
+#: ../clips.rst:349
 msgid ""
 "Use :guilabel:`Speed → Repeat` to play a clip multiple times, without "
 "building the time curve by hand. OpenShot writes the needed :guilabel:`Time`"
@@ -1138,11 +1376,11 @@ msgstr ""
 "برای شما می‌نویسد (می‌توانید بعداً آنها را ویرایش کنید)."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:273
+#: ../clips.rst:352
 msgid "**Menu path**"
 msgstr "**مسیر منو**"
 
-#: ../clips.rst:275
+#: ../clips.rst:354
 msgid ""
 ":guilabel:`Speed → Repeat → Loop → Forward` – plays left to right, then "
 "starts again from the beginning"
@@ -1150,7 +1388,7 @@ msgstr ""
 ":guilabel:`سرعت → تکرار → حلقه → جلو` – از چپ به راست پخش می‌کند، سپس دوباره"
 " از ابتدا شروع می‌کند"
 
-#: ../clips.rst:276
+#: ../clips.rst:355
 msgid ""
 ":guilabel:`Speed → Repeat → Loop → Reverse` – plays right to left, then "
 "starts again from the end"
@@ -1158,13 +1396,13 @@ msgstr ""
 ":guilabel:`سرعت → تکرار → حلقه → معکوس` – از راست به چپ پخش می‌کند، سپس "
 "دوباره از انتها شروع می‌کند"
 
-#: ../clips.rst:277
+#: ../clips.rst:356
 msgid ""
 ":guilabel:`Speed → Repeat → Ping-Pong → Forward` – forward, then backward, "
 "then forward…"
 msgstr ":guilabel:`سرعت → تکرار → پینگ‌پنگ → جلو` – جلو، سپس عقب، سپس جلو…"
 
-#: ../clips.rst:278
+#: ../clips.rst:357
 msgid ""
 ":guilabel:`Speed → Repeat → Ping-Pong → Reverse` – backward, then forward, "
 "then backward…"
@@ -1173,14 +1411,14 @@ msgstr ""
 "دوباره به عقب…"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:279
+#: ../clips.rst:358
 msgid ":guilabel:`Custom…` – opens a dialog for extra options (see below)"
 msgstr ""
 ":guilabel:`Custom…` – یک پنجره برای گزینه‌های اضافی باز می‌کند (زیر را "
 "ببینید)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:281
+#: ../clips.rst:360
 msgid ""
 "Counts are **finite** (2x, 3x, 4x, 5x, 8x, 10x, or a custom number). "
 "Example: “Forward then Back and stop” = :guilabel:`Ping-Pong → Forward → "
@@ -1191,17 +1429,17 @@ msgstr ""
 "Forward → 2x`."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:284
+#: ../clips.rst:363
 msgid "**What gets repeated**"
 msgstr "**چه چیزی تکرار می‌شود**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:286
+#: ../clips.rst:365
 msgid "Repeat always acts on the **currently trimmed** in/out of the clip."
 msgstr "تکرار همیشه روی بخش **فعلاً برش‌خورده** ورودی/خروجی کلیپ عمل می‌کند."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:287
+#: ../clips.rst:366
 msgid ""
 "The :guilabel:`Time` curve is stamped as a simple shape: - Loop Forward = "
 "rising saw - Loop Reverse = falling saw - Ping-Pong = triangle (direction "
@@ -1212,7 +1450,7 @@ msgstr ""
 " در هر بار عبور تغییر می‌کند)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:291
+#: ../clips.rst:370
 msgid ""
 "To avoid a double frame at the seam, the last frame of each pass is not "
 "duplicated."
@@ -1220,12 +1458,12 @@ msgstr ""
 "برای جلوگیری از دو فریمی شدن در محل اتصال، آخرین فریم هر بار تکرار نمی‌شود."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:293
+#: ../clips.rst:372
 msgid "**Keyframes during Repeat**"
 msgstr "**کلیدفریم‌ها در طول تکرار**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:295
+#: ../clips.rst:374
 msgid ""
 "When you use Repeat, OpenShot will also **repeat other keyframes** found "
 "inside the trimmed section (location, scale, effects, etc.) into each pass "
@@ -1236,34 +1474,34 @@ msgstr ""
 "انیمیشن‌های شما هماهنگ باقی بمانند."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:296
+#: ../clips.rst:375
 msgid "Repeated keyframes keep their relative timing inside each pass."
 msgstr "کلیدفریم‌های تکراری زمان‌بندی نسبی خود را در هر بار حفظ می‌کنند."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:298
+#: ../clips.rst:377
 msgid "**Custom Repeat** (dialog options)"
 msgstr "**تکرار سفارشی** (گزینه‌های پنجره)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:300
+#: ../clips.rst:379
 msgid ":guilabel:`Pattern:` Loop | Ping-Pong"
 msgstr ":guilabel:`Pattern:` حلقه | پینگ‌پنگ"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:301
+#: ../clips.rst:380
 msgid ":guilabel:`Direction:` Forward | Reverse"
 msgstr ":guilabel:`Direction:` جلو | عقب"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:302
+#: ../clips.rst:381
 msgid ""
 ":guilabel:`Passes:` integer (2 or more). This is the number of times it will"
 " play."
 msgstr ":guilabel:`Passes:` عدد صحیح (۲ یا بیشتر). این تعداد دفعات پخش است."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:303
+#: ../clips.rst:382
 msgid ""
 ":guilabel:`Delay:` number + units [frames | ms | sec]. This is an optional "
 "delay between each repeated pass."
@@ -1272,7 +1510,7 @@ msgstr ""
 " بین هر بار تکرار است."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:304
+#: ../clips.rst:383
 msgid ""
 ":guilabel:`Speed Ramp (%):` % speed change per pass (optional). Positive "
 "speeds up each pass; negative slows down each pass."
@@ -1281,11 +1519,11 @@ msgstr ""
 " هر بار را سریع‌تر و مقادیر منفی هر بار را کندتر می‌کند."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:306
+#: ../clips.rst:385
 msgid "**Reset**"
 msgstr "**بازنشانی**"
 
-#: ../clips.rst:308
+#: ../clips.rst:387
 msgid ""
 ":guilabel:`Speed → Reset Speed` completely removes any Time curve (including"
 " Repeat) and restores the clip to its original playback, **without deleting "
@@ -1296,12 +1534,12 @@ msgstr ""
 "غیرزمانی اصلی شما**."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:312
+#: ../clips.rst:391
 msgid "Timing Tool"
 msgstr "ابزار زمان‌بندی"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:313
+#: ../clips.rst:392
 msgid ""
 "Another way to change a clip's speed is with the :guilabel:`Timing` tool on "
 "the timeline toolbar. Enable the clock icon and drag a clip's edges. "
@@ -1315,7 +1553,7 @@ msgstr ""
 " افزایش می‌دهد. تمام کی‌فریم‌های کلیپ و افکت‌های آن مقیاس‌بندی می‌شوند تا "
 "موقعیت نسبی آن‌ها حفظ شود."
 
-#: ../clips.rst:319
+#: ../clips.rst:398
 msgid ""
 "The :guilabel:`Look` menu applies one-click visual style presets to clips. "
 "All presets work by adding or updating effects on the clip — you can inspect"
@@ -1327,7 +1565,7 @@ msgstr ""
 "می‌کنند — شما می‌توانید آن‌ها را در پنل Properties بررسی یا انیمیت کنید. منو"
 " به چهار زیرمنو به‌علاوه دو عمل مستقیم در پایین تقسیم شده است."
 
-#: ../clips.rst:323
+#: ../clips.rst:402
 msgid ""
 ":guilabel:`Reset Look` — removes all Look-managed effects (Color Grade, Film"
 " Grain, Analog Tape, Sharpen, Blur, Shadow, Glow) from the selected clips in"
@@ -1337,7 +1575,7 @@ msgstr ""
 "دانه فیلم، نوار آنالوگ، تیزکردن، تاری، سایه، درخشش) را از کلیپ‌های "
 "انتخاب‌شده در یک مرحله حذف می‌کند."
 
-#: ../clips.rst:326
+#: ../clips.rst:405
 msgid ""
 "**Color** — applies a :guilabel:`Color Grade` effect with one of four quick "
 "presets:"
@@ -1345,7 +1583,7 @@ msgstr ""
 "**رنگ** — افکت :guilabel:`رنگ‌بندی` را با یکی از چهار پیش‌تنظیم سریع اعمال "
 "می‌کند:"
 
-#: ../clips.rst:328
+#: ../clips.rst:407
 msgid ""
 "**Auto Contrast** — boosts contrast by lifting shadows and pulling "
 "highlights."
@@ -1353,24 +1591,24 @@ msgstr ""
 "**کنتراست خودکار** — کنتراست را با روشن کردن سایه‌ها و کاهش برجستگی‌ها "
 "افزایش می‌دهد."
 
-#: ../clips.rst:329
+#: ../clips.rst:408
 msgid "**Lift Shadows** — brightens the dark areas of the image."
 msgstr "**روشن کردن سایه‌ها** — مناطق تاریک تصویر را روشن می‌کند."
 
-#: ../clips.rst:330
+#: ../clips.rst:409
 msgid "**Warm Up** — shifts the color balance toward warm orange/amber tones."
 msgstr ""
 "**گرم کردن** — تعادل رنگ را به سمت تون‌های گرم نارنجی/کهربایی تغییر می‌دهد."
 
-#: ../clips.rst:331
+#: ../clips.rst:410
 msgid "**Boost Color** — increases color saturation."
 msgstr "**افزایش رنگ** — اشباع رنگ را افزایش می‌دهد."
 
-#: ../clips.rst:333
+#: ../clips.rst:412
 msgid "**Film** — cinematic film simulation:"
 msgstr "**فیلم** — شبیه‌سازی فیلم سینمایی:"
 
-#: ../clips.rst:335
+#: ../clips.rst:414
 msgid ""
 ":guilabel:`Film Grain` → **No Film Grain**, then: **35mm Fine**, **35mm "
 "Classic**, **35mm Gritty**, **16mm Classic**, **Super 8**, **High ISO** — "
@@ -1380,7 +1618,7 @@ msgstr ""
 "میلی‌متر کلاسیک**، **35 میلی‌متر زبر**، **16 میلی‌متر کلاسیک**، **سوپر 8**، "
 "**ISO بالا** — دانه‌های عکاسی را با قدرت‌ها و اندازه‌های مختلف اضافه می‌کند."
 
-#: ../clips.rst:337
+#: ../clips.rst:416
 msgid ""
 ":guilabel:`Analog Tape` → **No Analog Tape**, then: **Subtle**, **VHS**, "
 "**Heavy** — adds tape noise and color degradation for a retro video look."
@@ -1388,11 +1626,11 @@ msgstr ""
 ":guilabel:`نوار آنالوگ` → **بدون نوار آنالوگ**، سپس: **ملایم**، **VHS**، "
 "**سنگین** — نویز نوار و کاهش کیفیت رنگ برای ظاهر ویدیوی قدیمی اضافه می‌کند."
 
-#: ../clips.rst:340
+#: ../clips.rst:419
 msgid "**Focus** — sharpness adjustments:"
 msgstr "**تمرکز** — تنظیمات تیزی تصویر:"
 
-#: ../clips.rst:342
+#: ../clips.rst:421
 msgid ""
 ":guilabel:`Sharpen` → **No Sharpen**, then: **Subtle**, **Medium**, "
 "**Strong** — sharpens fine detail."
@@ -1400,7 +1638,7 @@ msgstr ""
 ":guilabel:`تیزکردن` → **بدون تیزکردن**، سپس: **ملایم**، **متوسط**، **قوی** —"
 " جزئیات ریز را تیز می‌کند."
 
-#: ../clips.rst:343
+#: ../clips.rst:422
 msgid ""
 ":guilabel:`Blur` → **No Blur**, then: **Soft Focus**, **Medium**, **Heavy** "
 "— softens the image."
@@ -1408,11 +1646,11 @@ msgstr ""
 ":guilabel:`تاری` → **بدون تاری**، سپس: **تمرکز نرم**، **متوسط**، **سنگین** —"
 " تصویر را نرم می‌کند."
 
-#: ../clips.rst:345
+#: ../clips.rst:424
 msgid "**Lighting** — light and shadow overlays:"
 msgstr "**نورپردازی** — پوشش‌های نور و سایه:"
 
-#: ../clips.rst:347
+#: ../clips.rst:426
 msgid ""
 ":guilabel:`Shadow` → **No Shadow**, then: **Subtle**, **Soft**, **Strong**, "
 "**Long** — casts a drop shadow across the clip."
@@ -1420,7 +1658,7 @@ msgstr ""
 ":guilabel:`سایه` → **بدون سایه**، سپس: **ملایم**، **نرم**، **قوی**، "
 "**طولانی** — سایه‌ای روی کلیپ ایجاد می‌کند."
 
-#: ../clips.rst:349
+#: ../clips.rst:428
 msgid ""
 ":guilabel:`Glow` → **No Glow**, then: **Soft White**, **Warm**, **Neon**, "
 "**Inner Glow** — adds a soft halo or glow effect."
@@ -1428,11 +1666,11 @@ msgstr ""
 ":guilabel:`درخشش` → **بدون درخشش**، سپس: **سفید نرم**، **گرم**، **نئون**، "
 "**درخشش داخلی** — هاله یا اثر درخشش نرم اضافه می‌کند."
 
-#: ../clips.rst:352
+#: ../clips.rst:431
 msgid "At the bottom of the Look menu:"
 msgstr "در پایین منوی ظاهر:"
 
-#: ../clips.rst:354
+#: ../clips.rst:433
 msgid ""
 ":guilabel:`Adjust Colors` — opens the :guilabel:`Color Wheels` dock for full"
 " manual color grading with lift/gamma/gain wheels, curves, and an "
@@ -1442,7 +1680,7 @@ msgstr ""
 " دستی کامل با چرخ‌های lift/gamma/gain، منحنی‌ها و لغزنده ترکیب Amount/Luma "
 "باز می‌کند."
 
-#: ../clips.rst:356
+#: ../clips.rst:435
 msgid ""
 ":guilabel:`Analyze Colors` — opens the :guilabel:`Luma Waveform` and "
 ":guilabel:`Histogram` video scopes on the right side of the window, tabified"
@@ -1452,7 +1690,7 @@ msgstr ""
 ":guilabel:`هیستوگرام` را در سمت راست پنجره باز می‌کند که به صورت تب کنار هم "
 "قرار گرفته‌اند."
 
-#: ../clips.rst:359
+#: ../clips.rst:438
 msgid ""
 "**Tip:** Each Look submenu has a \"No …\" option at the top to remove just "
 "that single effect without affecting the others."
@@ -1460,7 +1698,7 @@ msgstr ""
 "**نکته:** هر زیرمنوی ظاهر گزینه «بدون …» در بالا دارد که فقط آن افکت خاص را "
 "بدون تأثیر بر بقیه حذف می‌کند."
 
-#: ../clips.rst:361
+#: ../clips.rst:440
 msgid ""
 "**Tip:** After applying a Look preset, double-click the effect badge on the "
 "clip (or use Properties) to fine-tune every parameter or animate it over "
@@ -1470,14 +1708,14 @@ msgstr ""
 " از Properties استفاده کنید) تا هر پارامتر را دقیق تنظیم کرده یا در طول زمان"
 " انیمیت کنید."
 
-#: ../clips.rst:366
+#: ../clips.rst:445
 msgid ""
 "The :guilabel:`Audio` menu groups all audio-related clip actions in one "
 "place."
 msgstr ""
 "منوی :guilabel:`صدا` تمام عملیات مرتبط با صدای کلیپ را در یکجا جمع می‌کند."
 
-#: ../clips.rst:368
+#: ../clips.rst:447
 msgid ""
 "**Volume** — controls the clip's audio level. See :ref:`clip_volume_ref` "
 "key-frame."
@@ -1485,7 +1723,7 @@ msgstr ""
 "**صدا** — سطح صدای کلیپ را کنترل می‌کند. کلیدفریم را در "
 ":ref:`clip_volume_ref` ببینید."
 
-#: ../clips.rst:370
+#: ../clips.rst:449
 msgid ""
 ":guilabel:`Reset Volume` — removes all volume keyframes, returning to full "
 "(1×) volume."
@@ -1493,14 +1731,14 @@ msgstr ""
 ":guilabel:`بازنشانی صدا` — تمام کلیدفریم‌های صدا را حذف کرده و به صدای کامل "
 "(1×) بازمی‌گردد."
 
-#: ../clips.rst:371
+#: ../clips.rst:450
 msgid ""
 ":guilabel:`Level` — sets a fixed volume percentage (0 % to 130 %) for the "
 "entire clip."
 msgstr ""
 ":guilabel:`سطح` — درصد صدای ثابت (۰٪ تا ۱۳۰٪) را برای کل کلیپ تنظیم می‌کند."
 
-#: ../clips.rst:372
+#: ../clips.rst:451
 msgid ""
 ":guilabel:`Fade In` → :guilabel:`Fast` / :guilabel:`Slow` — fades volume "
 "from silence at the start of the clip."
@@ -1508,7 +1746,7 @@ msgstr ""
 ":guilabel:`افزایش صدا` → :guilabel:`سریع` / :guilabel:`آهسته` — صدا را از "
 "سکوت در ابتدای کلیپ افزایش می‌دهد."
 
-#: ../clips.rst:373
+#: ../clips.rst:452
 msgid ""
 ":guilabel:`Fade Out` → :guilabel:`Fast` / :guilabel:`Slow` — fades volume to"
 " silence at the end of the clip."
@@ -1516,7 +1754,7 @@ msgstr ""
 ":guilabel:`کاهش صدا` → :guilabel:`سریع` / :guilabel:`آهسته` — صدا را به سکوت"
 " در انتهای کلیپ کاهش می‌دهد."
 
-#: ../clips.rst:374
+#: ../clips.rst:453
 msgid ""
 ":guilabel:`Fade In and Out` → :guilabel:`Fast` / :guilabel:`Slow` — applies "
 "both a volume fade-in and fade-out."
@@ -1524,11 +1762,11 @@ msgstr ""
 ":guilabel:`افزایش و کاهش صدا` → :guilabel:`سریع` / :guilabel:`آهسته` — هم "
 "افزایش و هم کاهش صدا را اعمال می‌کند."
 
-#: ../clips.rst:376
+#: ../clips.rst:455
 msgid "**Separate** — splits the audio track out of a clip:"
 msgstr "**جدا کردن** — ترک صوتی را از کلیپ جدا می‌کند:"
 
-#: ../clips.rst:378
+#: ../clips.rst:457
 msgid ""
 ":guilabel:`Single Clip (all channels)` — creates one detached audio clip on "
 "a layer below the original."
@@ -1536,7 +1774,7 @@ msgstr ""
 ":guilabel:`کلیپ تکی (تمام کانال‌ها)` — یک کلیپ صوتی جدا شده روی لایه‌ای زیر "
 "کلیپ اصلی ایجاد می‌کند."
 
-#: ../clips.rst:379
+#: ../clips.rst:458
 msgid ""
 ":guilabel:`Multiple Clips (each channel)` — creates separate detached audio "
 "clips, one per audio channel, on multiple layers below the original."
@@ -1544,7 +1782,7 @@ msgstr ""
 ":guilabel:`چند کلیپ (هر کانال)` — کلیپ‌های صوتی جداگانه‌ای، یکی برای هر "
 "کانال صوتی، روی لایه‌های مختلف زیر کلیپ اصلی ایجاد می‌کند."
 
-#: ../clips.rst:381
+#: ../clips.rst:460
 msgid ""
 "**Show Waveform / Hide Waveform** — toggles the audio waveform visualization"
 " on the timeline for audio-only clips. Only shown for clips that do not have"
@@ -1554,7 +1792,7 @@ msgstr ""
 " فقط صوتی تغییر می‌دهد. فقط برای کلیپ‌هایی که ترک ویدیو ندارند نمایش داده "
 "می‌شود."
 
-#: ../clips.rst:384
+#: ../clips.rst:463
 msgid ""
 "**Analyze Levels** — opens the :guilabel:`Audio Levels` scope dock. If other"
 " scope docks are already open, OpenShot tabifies :guilabel:`Audio Levels` "
@@ -1564,14 +1802,14 @@ msgstr ""
 "باز باشند، OpenShot آن را به صورت تب با آن‌ها ترکیب می‌کند."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:387
+#: ../clips.rst:466
 msgid ""
 "**Usage Example:** Applying a gradual volume fade-out to transition between "
 "scenes."
 msgstr ""
 "**مثال کاربردی:** اعمال محو شدن تدریجی حجم صدا برای انتقال بین صحنه‌ها."
 
-#: ../clips.rst:388
+#: ../clips.rst:467
 msgid ""
 "**Usage Example:** Extracting background music from a video clip for "
 "independent volume control."
@@ -1579,7 +1817,7 @@ msgstr ""
 "**مثال کاربردی:** استخراج موسیقی پس‌زمینه از کلیپ ویدیویی برای کنترل مستقل "
 "صدا."
 
-#: ../clips.rst:389
+#: ../clips.rst:468
 msgid ""
 "**Tip:** Use :guilabel:`Audio → Volume → Fade In/Out` for audio-only fades. "
 "Use the top-level :guilabel:`Fade` menu for a combined video+audio fade."
@@ -1589,7 +1827,7 @@ msgstr ""
 "استفاده کنید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:393
+#: ../clips.rst:472
 msgid ""
 "The :guilabel:`Slice` tool lets you cut a clip at the position of the play-"
 "head (*the vertical line that shows your current position in the timeline*)."
@@ -1601,7 +1839,7 @@ msgstr ""
 "کلیپ را در همان نقطه‌ای که سر پخش قرار دارد به دو بخش جداگانه تقسیم می‌کند."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:396
+#: ../clips.rst:475
 msgid ""
 "Slicing is a key feature for making precise edits and rearranging sections "
 "of your video. You can slice a clip and choose to keep one side or both, and"
@@ -1614,12 +1852,12 @@ msgstr ""
 "برای پر کردن هر شکافی که برش ایجاد کرده جابجا کنید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:400
+#: ../clips.rst:479
 msgid "**Slicing Options:**"
 msgstr "**گزینه‌های برش:**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:402
+#: ../clips.rst:481
 msgid ""
 "**Keep Both Sides**: This option splits the clip into two parts, keeping "
 "everything on both sides of the play-head. It’s useful when you want to "
@@ -1630,7 +1868,7 @@ msgstr ""
 "تقسیم کنید اما نمی‌خواهید چیزی حذف شود."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:403
+#: ../clips.rst:482
 msgid ""
 "**Keep Left Side**: This option cuts the clip and removes the part to the "
 "right of the play-head, keeping only the part before the play-head. Use this"
@@ -1641,7 +1879,7 @@ msgstr ""
 " کلیپ که بعد از نقطه فعلی قرار دارد استفاده کنید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:404
+#: ../clips.rst:483
 msgid ""
 "**Keep Right Side**: This option cuts the clip and removes the part to the "
 "left of the play-head, keeping only the part after the play-head. It’s handy"
@@ -1652,7 +1890,7 @@ msgstr ""
 "ابتدای کلیپ و نگه داشتن بقیه مفید است."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:405
+#: ../clips.rst:484
 msgid ""
 "**Ripple Slicing**: Ripple slicing not only cuts the clip but also moves any"
 " clips and transitions that follow to close the gap. This way, your timeline"
@@ -1665,12 +1903,12 @@ msgstr ""
 "دستی کلیپ‌های بعدی جلوگیری می‌کند."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:407 ../clips.rst:581
+#: ../clips.rst:486 ../clips.rst:660
 msgid "**Tips for Beginners:**"
 msgstr "**نکات برای مبتدیان:**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:409
+#: ../clips.rst:488
 msgid ""
 "**Example**: If there’s a part of a clip you don’t want (like the end of a "
 "scene), use **Keep Left Side** or **Keep Right Side** to remove it. If you "
@@ -1683,7 +1921,7 @@ msgstr ""
 "دو طرف** استفاده کنید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:410
+#: ../clips.rst:489
 msgid ""
 "**Quick Tip**: Slicing can also be used to break a long clip into smaller "
 "parts, making it easier to manage and edit each section separately."
@@ -1692,7 +1930,7 @@ msgstr ""
 "کوچکتر استفاده شود، که مدیریت و ویرایش هر بخش را جداگانه آسان‌تر می‌کند."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:412
+#: ../clips.rst:491
 msgid ""
 "For a complete guide to slicing and all available keyboard shortcuts, see "
 "the :ref:`clips_cutting_slicing_ref` section."
@@ -1700,7 +1938,7 @@ msgstr ""
 "برای راهنمای کامل برش و تمام کلیدهای میانبر موجود، به بخش "
 ":ref:`clips_cutting_slicing_ref` مراجعه کنید."
 
-#: ../clips.rst:418
+#: ../clips.rst:497
 msgid ""
 "The :guilabel:`Transform` context menu provides geometric preset actions for"
 " visual clips:"
@@ -1708,7 +1946,7 @@ msgstr ""
 "منوی زمینه‌ای :guilabel:`تبدیل` عملیات پیش‌تنظیم هندسی را برای کلیپ‌های "
 "تصویری فراهم می‌کند:"
 
-#: ../clips.rst:420
+#: ../clips.rst:499
 msgid ""
 ":guilabel:`No Transform` — removes all Rotate, Layout, and crop presets from"
 " the selected clips in one step."
@@ -1716,7 +1954,7 @@ msgstr ""
 ":guilabel:`بدون تبدیل` — تمام پیش‌تنظیم‌های چرخش، چیدمان و برش را از "
 "کلیپ‌های انتخاب‌شده در یک مرحله حذف می‌کند."
 
-#: ../clips.rst:421
+#: ../clips.rst:500
 msgid ""
 ":guilabel:`Rotate` — rotate or flip the clip. See the :ref:`Rotate "
 "<clip_presets_rotate_ref>` section above."
@@ -1724,7 +1962,7 @@ msgstr ""
 ":guilabel:`چرخش` — کلیپ را بچرخانید یا برگردانید. بخش :ref:`Rotate "
 "<clip_presets_rotate_ref>` را در بالا ببینید."
 
-#: ../clips.rst:422
+#: ../clips.rst:501
 msgid ""
 ":guilabel:`Crop` — add or remove a crop effect. See the :ref:`Crop "
 "<clip_presets_crop_ref>` section below."
@@ -1732,7 +1970,7 @@ msgstr ""
 ":guilabel:`برش` — افکت برش را اضافه یا حذف کنید. بخش :ref:`Crop "
 "<clip_presets_crop_ref>` را در پایین ببینید."
 
-#: ../clips.rst:423
+#: ../clips.rst:502
 msgid ""
 ":guilabel:`Layout` — resize and snap the clip to a corner or fit position. "
 "See the :ref:`Layout <clip_presets_layout_ref>` section above."
@@ -1741,12 +1979,12 @@ msgstr ""
 "مناسب بچسبانید. بخش :ref:`Layout <clip_presets_layout_ref>` را در بالا "
 "ببینید."
 
-#: ../clips.rst:428
+#: ../clips.rst:507
 msgid "Transform Tool"
 msgstr "ابزار تبدیل"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:429
+#: ../clips.rst:508
 msgid ""
 "The **Transform Tool** lets you quickly adjust a clip directly in the "
 "preview window, instead of changing location, scale, rotation, shear, and "
@@ -1767,24 +2005,24 @@ msgstr ""
 " به همه کلیپ‌های انتخاب شده به طور همزمان اعمال می‌شود."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:438
+#: ../clips.rst:517
 msgid "Dragging the blue squares will adjust the **scale** of the image."
 msgstr "کشیدن مربع‌های آبی، **مقیاس** تصویر را تنظیم می‌کند."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:439
+#: ../clips.rst:518
 msgid "Dragging the center will move the **location** of the image."
 msgstr "کشیدن مرکز، **موقعیت** تصویر را جابجا می‌کند."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:440
+#: ../clips.rst:519
 msgid ""
 "Dragging the mouse on the outside of the blue lines will **rotate** the "
 "image."
 msgstr "کشیدن ماوس در خارج خطوط آبی، تصویر را **می‌چرخاند**."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:441
+#: ../clips.rst:520
 msgid ""
 "Hold :kbd:`Ctrl` or :kbd:`Shift` while rotating to snap to 15-degree "
 "increments."
@@ -1793,13 +2031,13 @@ msgstr ""
 "درجه‌ای بچسبد."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:442
+#: ../clips.rst:521
 msgid ""
 "Dragging along the blue lines will **shear** the image in that direction."
 msgstr "کشیدن در امتداد خطوط آبی، تصویر را در آن جهت **برش** می‌دهد."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:443
+#: ../clips.rst:522
 msgid ""
 "Dragging the circle in the middle will move the **origin point** that "
 "controls the center of **rotation**."
@@ -1808,7 +2046,7 @@ msgstr ""
 "می‌کند."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:445
+#: ../clips.rst:524
 msgid ""
 "Note: Pay close attention to the play-head position (red playback line). Key"
 " frames are automatically created at the current playback position, to help "
@@ -1824,7 +2062,7 @@ msgstr ""
 "ویژگی‌ها تنظیم کنید، به :ref:`clip_properties_ref` مراجعه کنید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:452
+#: ../clips.rst:531
 #, fuzzy
 msgid ""
 "**Usage Example:** Use the transform handles to resize and reposition a clip"
@@ -1834,17 +2072,17 @@ msgstr ""
 "منظور ایجاد افکت تصویر در تصویر."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:453
+#: ../clips.rst:532
 #, fuzzy
 msgid "**Tip:** Use these handles to precisely control a clip's appearance."
 msgstr "**نکته:** از این پیش‌تنظیم برای کنترل دقیق ظاهر کلیپ استفاده کنید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:458
+#: ../clips.rst:537
 msgid "Crop"
 msgstr "برش"
 
-#: ../clips.rst:459
+#: ../clips.rst:538
 msgid ""
 "The :guilabel:`Transform → Crop` submenu adds a crop effect to the selected "
 "clip and displays interactive crop handles in the video preview. The submenu"
@@ -1855,12 +2093,12 @@ msgstr ""
 "می‌دهد:"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:462
+#: ../clips.rst:541
 msgid ":guilabel:`No Crop` – remove any existing crop effect."
 msgstr ":guilabel:`بدون برش` – حذف هر افکت برش موجود."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:463
+#: ../clips.rst:542
 msgid ""
 ":guilabel:`Crop (No Resize)` – trim the clip without scaling the remaining "
 "area."
@@ -1869,7 +2107,7 @@ msgstr ""
 "باقی‌مانده."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:464
+#: ../clips.rst:543
 msgid ""
 ":guilabel:`Crop (Resize)` – trim the clip and scale the cropped region to "
 "fill the frame."
@@ -1878,7 +2116,7 @@ msgstr ""
 "پر کردن قاب."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:466
+#: ../clips.rst:545
 msgid ""
 "Drag the blue handles to adjust the crop boundaries, move the cropped area "
 "around, or move the center handle to reposition the image inside the cropped"
@@ -1889,11 +2127,11 @@ msgstr ""
 "دهید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:470 ../clips.rst:655 ../clips.rst:988
+#: ../clips.rst:549 ../clips.rst:734 ../clips.rst:1067
 msgid "Waveform"
 msgstr "موج صوتی"
 
-#: ../clips.rst:471
+#: ../clips.rst:550
 msgid ""
 "The :guilabel:`Audio → Show Waveform` / :guilabel:`Hide Waveform` action "
 "toggles whether an audio-only clip shows its waveform visualization on the "
@@ -1905,13 +2143,13 @@ msgstr ""
 "بندانگشتی پیش‌فرض نمایش دهد یا خیر. این گزینه فقط برای کلیپ‌هایی که هیچ ترک "
 "ویدئویی ندارند ظاهر می‌شود."
 
-#: ../clips.rst:475
+#: ../clips.rst:554
 msgid ""
 "**Usage Example:** Displaying the audio waveform for precise audio editing "
 "and alignment."
 msgstr "**مثال کاربردی:** نمایش شکل موج صدا برای ویرایش دقیق و تراز کردن صوت."
 
-#: ../clips.rst:476
+#: ../clips.rst:555
 msgid ""
 "**Tip:** Use this to visually spot loud or quiet sections in a music clip "
 "without opening the audio scopes."
@@ -1919,11 +2157,11 @@ msgstr ""
 "**نکته:** از این برای شناسایی بصری بخش‌های بلند یا آرام در کلیپ موسیقی بدون "
 "باز کردن ابزارهای صوتی استفاده کنید."
 
-#: ../clips.rst:478
+#: ../clips.rst:557
 msgid "**How timeline waveforms are scaled**"
 msgstr "**نحوه مقیاس‌بندی شکل موج‌های جدول زمانی**"
 
-#: ../clips.rst:480
+#: ../clips.rst:559
 msgid ""
 "Timeline waveforms are an editing aid: they help you find speech, beats, "
 "silence, and transients, and compare the approximate levels of different "
@@ -1938,7 +2176,7 @@ msgstr ""
 "بزرگ نمی‌کند، بنابراین ضبط آرام به طور قابل مشاهده‌ای آرام‌تر از ضبط بلند "
 "باقی می‌ماند."
 
-#: ../clips.rst:485
+#: ../clips.rst:564
 msgid ""
 "Pure linear amplitude is accurate but makes ordinary speech difficult to "
 "see. OpenShot therefore applies a fixed, gentle square-root display curve. "
@@ -1952,95 +2190,95 @@ msgstr ""
 " همیشه بلندتر از منبع آرام‌تر به نظر می‌رسد. این منحنی فقط رسم را تغییر "
 "می‌دهد؛ صدا ضبط‌شده را تغییر، نرمال‌سازی یا پردازش نمی‌کند."
 
-#: ../clips.rst:490
+#: ../clips.rst:569
 msgid "Approximate waveform height for new clips"
 msgstr "ارتفاع تقریبی شکل موج برای کلیپ‌های جدید"
 
-#: ../clips.rst:494
+#: ../clips.rst:573
 msgid "Peak Level"
 msgstr "سطح قله"
 
-#: ../clips.rst:494
+#: ../clips.rst:573
 msgid "Display Height"
 msgstr "ارتفاع نمایش"
 
-#: ../clips.rst:494
+#: ../clips.rst:573
 msgid "What It Often Looks Like"
 msgstr "شکل معمول آن"
 
-#: ../clips.rst:496
+#: ../clips.rst:575
 msgid "``0 dBFS``"
 msgstr "``0 dBFS``"
 
-#: ../clips.rst:496
+#: ../clips.rst:575
 msgid "100%"
 msgstr "۱۰۰٪"
 
-#: ../clips.rst:496
+#: ../clips.rst:575
 msgid "Full-scale peak; check for possible clipping."
 msgstr "قله تمام مقیاس؛ برای احتمال بریدگی بررسی کنید."
 
-#: ../clips.rst:497
+#: ../clips.rst:576
 msgid "``-6 dBFS``"
 msgstr "``-6 dBFS``"
 
-#: ../clips.rst:497
+#: ../clips.rst:576
 msgid "71%"
 msgstr "۷۱٪"
 
-#: ../clips.rst:497
+#: ../clips.rst:576
 msgid "Strong transient or loud program audio."
 msgstr "گذرای قوی یا صدای بلند برنامه."
 
-#: ../clips.rst:498
+#: ../clips.rst:577
 msgid "``-12 dBFS``"
 msgstr "``-12 dBFS``"
 
-#: ../clips.rst:498
+#: ../clips.rst:577
 msgid "50%"
 msgstr "۵۰٪"
 
-#: ../clips.rst:498
+#: ../clips.rst:577
 msgid "Healthy speech or other prominent audio."
 msgstr "گفتار سالم یا صدای برجسته دیگر."
 
-#: ../clips.rst:499
+#: ../clips.rst:578
 msgid "``-20 dBFS``"
 msgstr "``-20 dBFS``"
 
-#: ../clips.rst:499
+#: ../clips.rst:578
 msgid "32%"
 msgstr "۳۲٪"
 
-#: ../clips.rst:499
+#: ../clips.rst:578
 msgid "Moderate speech or background program audio."
 msgstr "گفتار متوسط یا صدای پس‌زمینه برنامه."
 
-#: ../clips.rst:500
+#: ../clips.rst:579
 msgid "``-40 dBFS``"
 msgstr "``-40 dBFS``"
 
-#: ../clips.rst:500
+#: ../clips.rst:579
 msgid "10%"
 msgstr "۱۰٪"
 
-#: ../clips.rst:500
+#: ../clips.rst:579
 msgid "Quiet room tone or microphone noise floor."
 msgstr "صدای آرام اتاق یا نویز پایه میکروفون."
 
-#: ../clips.rst:501
+#: ../clips.rst:580
 msgid "``-60 dBFS``"
 msgstr "``-60 dBFS``"
 
-#: ../clips.rst:501
+#: ../clips.rst:580
 msgid "3%"
 msgstr "۳٪"
 
-#: ../clips.rst:501
+#: ../clips.rst:580
 msgid "Very quiet detail near the center line."
 msgstr "جزئیات بسیار آرام نزدیک خط مرکزی."
 
-#: ../clips.rst:504
+#: ../clips.rst:583
 msgid ""
 "OpenShot samples both **peak** and **RMS** envelopes at regular time "
 "intervals. The lighter outer envelope shows brief peaks and transients; the "
@@ -2056,7 +2294,7 @@ msgstr ""
 "بخش‌های سکوت را قابل شناسایی نگه می‌دارد بدون اینکه آن‌ها را بلندتر از "
 "واقعیت نشان دهد."
 
-#: ../clips.rst:509
+#: ../clips.rst:588
 msgid ""
 "New waveforms use 200 samples per second by default, providing several "
 "measurements within a typical video frame. Change this density with "
@@ -2076,7 +2314,7 @@ msgstr ""
 " بازنقاشی عادی را کم‌هزینه نگه می‌دارد. پیش‌نمایش‌های زنده میکروفون از چگالی"
 " انتخاب‌شده و همان نمایش قله/RMS مانند ضبط‌های کامل استفاده می‌کنند."
 
-#: ../clips.rst:515
+#: ../clips.rst:594
 msgid ""
 "Projects saved by older OpenShot versions can contain independently peak-"
 "normalized waveform data. These waveforms have no format marker, so OpenShot"
@@ -2095,7 +2333,7 @@ msgstr ""
 "باقی می‌مانند. یک پروژه می‌تواند به طور ایمن شکل موج‌های قدیمی و جدید را با "
 "هم داشته باشد."
 
-#: ../clips.rst:521
+#: ../clips.rst:600
 msgid ""
 "To regenerate cached waveform data using the current method, choose "
 ":guilabel:`Edit → Clear → Waveform Display Data`, then show the waveform "
@@ -2107,7 +2345,7 @@ msgstr ""
 "دوباره شکل موج را نمایش دهید. این فقط داده‌های نمایش کش شده را تحت تأثیر "
 "قرار می‌دهد و فایل رسانه یا صدای آن را تغییر نمی‌دهد."
 
-#: ../clips.rst:526
+#: ../clips.rst:605
 msgid ""
 "The peak envelope identifies transient level and possible clipping; RMS "
 "summarizes sustained energy but is not a loudness-standard measurement. Use "
@@ -2120,7 +2358,7 @@ msgstr ""
 ":ref:`playback_ref` مراجعه کنید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:532
+#: ../clips.rst:611
 msgid ""
 "The :guilabel:`Properties` preset opens the properties panel for a clip, "
 "allowing quick access for adjustments to clip properties, such as location, "
@@ -2131,7 +2369,7 @@ msgstr ""
 "می‌کند... رجوع کنید به :ref:`clip_properties_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:535
+#: ../clips.rst:614
 msgid ""
 "**Usage Example:** Adjusting clip properties like opacity, volume, or "
 "position."
@@ -2139,7 +2377,7 @@ msgstr ""
 "**مثال کاربردی:** تنظیم ویژگی‌های کلیپ مانند شفافیت، حجم صدا یا موقعیت."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:536
+#: ../clips.rst:615
 msgid ""
 "**Tip:** Apply this preset to streamline adjustments to all clip properties "
 "in a single dock."
@@ -2148,7 +2386,7 @@ msgstr ""
 "پنل استفاده کنید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:540
+#: ../clips.rst:619
 msgid ""
 "The :guilabel:`Copy / Paste` preset allows copying and pasting keyframes, "
 "effects, or duplicating an entire clip along with its keyframes. Paste will "
@@ -2162,7 +2400,7 @@ msgstr ""
 "را انتخاب کنید، می‌توانید کلیپ فعلی خود را روی آن‌ها بچسبانید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:544
+#: ../clips.rst:623
 msgid ""
 "**Usage Example:** Duplicating a clip with intricate animations for reuse in"
 " different parts of the project."
@@ -2171,7 +2409,7 @@ msgstr ""
 "بخش‌های مختلف پروژه."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:545
+#: ../clips.rst:624
 msgid ""
 "**Tip:** Use this preset to replicate animations or effects across multiple "
 "clips."
@@ -2180,7 +2418,7 @@ msgstr ""
 "استفاده کنید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:546
+#: ../clips.rst:625
 msgid ""
 "**Tip:** Selecting multiple clips before pasting, sets keyframes and/or "
 "effects for all clips."
@@ -2189,7 +2427,7 @@ msgstr ""
 "همه کلیپ‌ها تنظیم می‌کند."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:547
+#: ../clips.rst:626
 msgid ""
 "**Tip:** You can copy a single effect, and paste it to multiple selected "
 "clips."
@@ -2198,12 +2436,12 @@ msgstr ""
 "بچسبانید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:550
+#: ../clips.rst:629
 msgid "Remove Gaps"
 msgstr "حذف فاصله‌ها"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:551
+#: ../clips.rst:630
 msgid ""
 "The :guilabel:`Remove Gap` and :guilabel:`Remove All Gaps` options help you "
 "quickly eliminate gaps between clips on the timeline by rippling (i.e., "
@@ -2216,7 +2454,7 @@ msgstr ""
 "هستند و فقط زمانی فعال‌اند که فاصله‌ای شناسایی شود."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:554
+#: ../clips.rst:633
 msgid ""
 "**Remove Gap:** - This option deletes a specific gap between two clips on "
 "the timeline. Right-click on the gap between clips to access the "
@@ -2229,7 +2467,7 @@ msgstr ""
 " برش یا استفاده از ابزار تیغ ایجاد شده استفاده کنید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:558
+#: ../clips.rst:637
 msgid ""
 "**Remove All Gaps:** - This option removes all gaps between clips on the "
 "timeline for the entire track. Right-click on the track name to access the "
@@ -2242,7 +2480,7 @@ msgstr ""
 "سر هم هستند، مانند نمایش اسلاید عکس، که در آن فاصله‌ای مطلوب نیست."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:564
+#: ../clips.rst:643
 msgid ""
 "The :guilabel:`Remove Clip` option lets you delete a clip from the timeline."
 " Removing clips is an essential part of organizing your project and getting "
@@ -2257,7 +2495,7 @@ msgstr ""
 " دارید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:568
+#: ../clips.rst:647
 msgid ""
 "**How to Remove a Clip:** To delete a clip, simply select it and press "
 ":kbd:`Delete` on your keyboard, or right-click the clip and choose "
@@ -2272,7 +2510,7 @@ msgstr ""
 "کرده و همه را یکجا حذف کنید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:572
+#: ../clips.rst:651
 msgid ""
 "**Ripple Delete:** If you want to delete a clip and automatically remove the"
 " empty space (gap) it leaves behind, use the **Ripple Delete** feature by "
@@ -2287,7 +2525,7 @@ msgstr ""
 "شما را روان و پیوسته نگه می‌دارد."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:577
+#: ../clips.rst:656
 msgid ""
 "**Remove Gap:** After deleting a clip, if you have gaps left in your "
 "timeline that you want to remove, simply right-click in the empty space and "
@@ -2301,7 +2539,7 @@ msgstr ""
 "سمت چپ جابجا کرده، فاصله را می‌بندد و جریان ویدیو را حفظ می‌کند."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:583
+#: ../clips.rst:662
 msgid ""
 "**Example**: If you have a clip that’s no longer needed, such as an intro "
 "you’ve decided not to use, you can quickly select it and either delete it or"
@@ -2314,7 +2552,7 @@ msgstr ""
 " کنید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:585
+#: ../clips.rst:664
 msgid ""
 "For more advanced editing options and shortcuts, refer to the "
 ":ref:`clips_cutting_slicing_ref` section."
@@ -2323,12 +2561,12 @@ msgstr ""
 ":ref:`clips_cutting_slicing_ref` مراجعه کنید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:588
+#: ../clips.rst:667
 msgid "Effects"
 msgstr "افکت‌ها"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:589
+#: ../clips.rst:668
 msgid ""
 "In addition to the many clip properties which can be animated and adjusted, "
 "you can also drop an effect directly onto a clip from the effects dock. Each"
@@ -2343,12 +2581,12 @@ msgstr ""
 " برای فهرست کامل افکت‌ها، به :ref:`effects_ref` مراجعه کنید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:599
+#: ../clips.rst:678
 msgid "Clip Properties"
 msgstr "ویژگی‌های کلیپ"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:600
+#: ../clips.rst:679
 msgid ""
 "Below is a list of clip properties which can be edited, and in most cases, "
 "animated over time. To view a clip's properties, right click and choose "
@@ -2372,7 +2610,7 @@ msgstr ""
 "برای همه آن‌ها یک کلید فریم وارد کنید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:608
+#: ../clips.rst:687
 msgid ""
 "Note: Pay close attention to where the play-head (i.e. red playback line) "
 "is. Key frames are automatically created at the current playback position, "
@@ -2382,7 +2620,7 @@ msgstr ""
 "خودکار در موقعیت فعلی پخش ایجاد می‌شوند تا به سرعت انیمیشن‌ها ساخته شوند."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:611
+#: ../clips.rst:690
 msgid ""
 "When animating clip properties, you can fade a clip from opaque to "
 "transparent with ``alpha``, slide a clip around the screen with "
@@ -2400,48 +2638,48 @@ msgstr ""
 "در ابتدای کلیپ شما (سمت چپ) قرار دارد هنگام تنظیم مقدار ویژگی."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:616
+#: ../clips.rst:695
 msgid "See the table below for a full list of clip properties."
 msgstr "برای فهرست کامل ویژگی‌های کلیپ، جدول زیر را ببینید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:622
+#: ../clips.rst:701
 msgid "Clip Property Name"
 msgstr "نام ویژگی کلیپ"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:622
+#: ../clips.rst:701
 msgid "Type"
 msgstr "نوع"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:624 ../clips.rst:705
+#: ../clips.rst:703 ../clips.rst:784
 msgid "Alpha"
 msgstr "آلفا"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:624 ../clips.rst:625 ../clips.rst:626 ../clips.rst:628
-#: ../clips.rst:636 ../clips.rst:637 ../clips.rst:638 ../clips.rst:639
-#: ../clips.rst:640 ../clips.rst:643 ../clips.rst:645 ../clips.rst:646
-#: ../clips.rst:647 ../clips.rst:648 ../clips.rst:650 ../clips.rst:652
-#: ../clips.rst:654
+#: ../clips.rst:703 ../clips.rst:704 ../clips.rst:705 ../clips.rst:707
+#: ../clips.rst:715 ../clips.rst:716 ../clips.rst:717 ../clips.rst:718
+#: ../clips.rst:719 ../clips.rst:722 ../clips.rst:724 ../clips.rst:725
+#: ../clips.rst:726 ../clips.rst:727 ../clips.rst:729 ../clips.rst:731
+#: ../clips.rst:733
 msgid "Key-Frame"
 msgstr "کلید فریم"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:624
+#: ../clips.rst:703
 msgid ""
 "Curve representing the alpha for fading the image and adding transparency (1"
 " to 0)"
 msgstr "منحنی نمایانگر آلفا برای محو کردن تصویر و افزودن شفافیت (از ۱ تا ۰)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:625 ../clips.rst:722
+#: ../clips.rst:704 ../clips.rst:801
 msgid "Channel Filter"
 msgstr "فیلتر کانال"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:625
+#: ../clips.rst:704
 msgid ""
 "A number representing an audio channel to filter (clears all other channels)"
 msgstr ""
@@ -2449,12 +2687,12 @@ msgstr ""
 "می‌کند)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:626 ../clips.rst:730
+#: ../clips.rst:705 ../clips.rst:809
 msgid "Channel Mapping"
 msgstr "نگاشت کانال"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:626
+#: ../clips.rst:705
 msgid ""
 "A number representing an audio channel to output (only works when filtering "
 "a channel)"
@@ -2463,18 +2701,18 @@ msgstr ""
 " می‌کند)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:627 ../clips.rst:662
+#: ../clips.rst:706 ../clips.rst:741
 msgid "Composite (Blend Mode)"
 msgstr "ترکیب (حالت ترکیب)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:627 ../clips.rst:630 ../clips.rst:631 ../clips.rst:633
-#: ../clips.rst:634 ../clips.rst:644 ../clips.rst:653 ../clips.rst:656
+#: ../clips.rst:706 ../clips.rst:709 ../clips.rst:710 ../clips.rst:712
+#: ../clips.rst:713 ../clips.rst:723 ../clips.rst:732 ../clips.rst:735
 msgid "Enum"
 msgstr "انتخابی"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:627
+#: ../clips.rst:706
 msgid ""
 "The blend mode used to composite this clip into lower layers. Default is "
 "**Normal**. See :ref:`clip_composite_ref`."
@@ -2482,28 +2720,28 @@ msgstr ""
 "حالت ترکیبی که برای ترکیب این کلیپ با لایه‌های پایین‌تر استفاده می‌شود. "
 "پیش‌فرض **Normal** است. به :ref:`clip_composite_ref` مراجعه کنید."
 
-#: ../clips.rst:628 ../clips.rst:713
+#: ../clips.rst:707 ../clips.rst:792
 msgid "Corner Radius"
 msgstr "شعاع گوشه"
 
-#: ../clips.rst:628
+#: ../clips.rst:707
 msgid ""
 "Curve representing the radius used to round the clip's corners (0 to 0.5)"
 msgstr ""
 "منحنی نمایانگر شعاع استفاده‌شده برای گرد کردن گوشه‌های کلیپ (۰ تا ۰.۵)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:629 ../clips.rst:745
+#: ../clips.rst:708 ../clips.rst:824
 msgid "Duration"
 msgstr "مدت زمان"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:629 ../clips.rst:632 ../clips.rst:642 ../clips.rst:649
+#: ../clips.rst:708 ../clips.rst:711 ../clips.rst:721 ../clips.rst:728
 msgid "Float"
 msgstr "عدد اعشاری"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:629
+#: ../clips.rst:708
 msgid ""
 "The length of the clip (in seconds). Read-only property. This is calculated "
 "by: End - Start."
@@ -2512,12 +2750,12 @@ msgstr ""
 " محاسبه می‌شود."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:630 ../clips.rst:778
+#: ../clips.rst:709 ../clips.rst:857
 msgid "Enable Audio"
 msgstr "فعال‌سازی صدا"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:630
+#: ../clips.rst:709
 msgid ""
 "An optional override to determine if this clip has audio (-1=undefined, "
 "0=no, 1=yes)"
@@ -2526,12 +2764,12 @@ msgstr ""
 "۰=خیر، ۱=بله)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:631 ../clips.rst:786
+#: ../clips.rst:710 ../clips.rst:865
 msgid "Enable Video"
 msgstr "فعال‌سازی ویدئو"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:631
+#: ../clips.rst:710
 msgid ""
 "An optional override to determine if this clip has video (-1=undefined, "
 "0=no, 1=yes)"
@@ -2540,32 +2778,32 @@ msgstr ""
 "۰=خیر، ۱=بله)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:632 ../clips.rst:753
+#: ../clips.rst:711 ../clips.rst:832
 msgid "End"
 msgstr "پایان"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:632
+#: ../clips.rst:711
 msgid "The end trimming position of the clip (in seconds)"
 msgstr "موقعیت برش انتهایی کلیپ (بر حسب ثانیه)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:633 ../clips.rst:738
+#: ../clips.rst:712 ../clips.rst:817
 msgid "Frame Number"
 msgstr "شماره فریم"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:633
+#: ../clips.rst:712
 msgid "The format to display the frame number (if any)"
 msgstr "قالب نمایش شماره فریم (در صورت وجود)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:634 ../clips.rst:761
+#: ../clips.rst:713 ../clips.rst:840
 msgid "Gravity"
 msgstr "گرایش"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:634
+#: ../clips.rst:713
 msgid ""
 "The gravity of a clip determines where it snaps to its parent (details "
 "below)"
@@ -2574,17 +2812,17 @@ msgstr ""
 "در ادامه)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:635 ../clips.rst:794
+#: ../clips.rst:714 ../clips.rst:873
 msgid "ID"
 msgstr "شناسه"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:635 ../clips.rst:641
+#: ../clips.rst:714 ../clips.rst:720
 msgid "String"
 msgstr "رشته"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:635
+#: ../clips.rst:714
 msgid ""
 "A randomly generated GUID (globally unique identifier) assigned to each "
 "clip. Read-only property."
@@ -2593,68 +2831,68 @@ msgstr ""
 "خواندنی."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:636
+#: ../clips.rst:715
 msgid "Location X"
 msgstr "موقعیت X"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:636
+#: ../clips.rst:715
 msgid ""
 "Curve representing the relative X position in percent based on the gravity "
 "(-1 to 1)"
 msgstr "منحنی نمایانگر موقعیت نسبی X به درصد بر اساس گرایش (-۱ تا ۱)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:637
+#: ../clips.rst:716
 msgid "Location Y"
 msgstr "موقعیت Y"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:637
+#: ../clips.rst:716
 msgid ""
 "Curve representing the relative Y position in percent based on the gravity "
 "(-1 to 1)"
 msgstr "منحنی نمایانگر موقعیت نسبی Y به درصد بر اساس گرایش (-۱ تا ۱)"
 
-#: ../clips.rst:638 ../clips.rst:820
+#: ../clips.rst:717 ../clips.rst:899
 msgid "Margin"
 msgstr "حاشیه"
 
-#: ../clips.rst:638
+#: ../clips.rst:717
 msgid "Curve representing edge spacing for gravity-aligned clips (0 to 0.5)"
 msgstr "منحنی نمایانگر فاصله لبه برای کلیپ‌های تراز شده با گرانش (۰ تا ۰.۵)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:639
+#: ../clips.rst:718
 msgid "Origin X"
 msgstr "مبدا X"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:639
+#: ../clips.rst:718
 msgid ""
 "Curve representing the rotation origin point, X position in percent (-1 to "
 "1)"
 msgstr "منحنی نمایانگر نقطه مبدا چرخش، موقعیت X به درصد (-۱ تا ۱)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:640
+#: ../clips.rst:719
 msgid "Origin Y"
 msgstr "مبدا Y"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:640
+#: ../clips.rst:719
 msgid ""
 "Curve representing the rotation origin point, Y position in percent (-1 to "
 "1)"
 msgstr "منحنی نشان‌دهنده نقطه مبدأ چرخش، موقعیت Y به درصد (-1 تا 1)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:641
+#: ../clips.rst:720
 msgid "Parent"
 msgstr "والد"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:641
+#: ../clips.rst:720
 msgid ""
 "The parent object to this clip, which makes many of these keyframe values "
 "initialize to the parent value"
@@ -2663,34 +2901,34 @@ msgstr ""
 "مقداردهی اولیه شوند"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:642 ../clips.rst:877
+#: ../clips.rst:721 ../clips.rst:956
 msgid "Position"
 msgstr "موقعیت"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:642
+#: ../clips.rst:721
 msgid ""
 "The position of the clip on the timeline (in seconds, 0.0 is the beginning "
 "of the timeline)"
 msgstr "موقعیت کلیپ روی جدول زمانی (بر حسب ثانیه، 0.0 ابتدای جدول زمانی است)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:643 ../clips.rst:886
+#: ../clips.rst:722 ../clips.rst:965
 msgid "Rotation"
 msgstr "چرخش"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:643
+#: ../clips.rst:722
 msgid "Curve representing the rotation (0 to 360)"
 msgstr "منحنی نشان‌دهنده چرخش (0 تا 360)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:644 ../clips.rst:902
+#: ../clips.rst:723 ../clips.rst:981
 msgid "Scale"
 msgstr "مقیاس"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:644
+#: ../clips.rst:723
 msgid ""
 "The scale determines how a clip should be resized to fit its parent (details"
 " below)"
@@ -2699,62 +2937,62 @@ msgstr ""
 "دهد (جزئیات در ادامه)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:645
+#: ../clips.rst:724
 msgid "Scale X"
 msgstr "مقیاس X"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:645
+#: ../clips.rst:724
 msgid "Curve representing the horizontal scaling in percent (0 to 1)"
 msgstr "منحنی نشان‌دهنده مقیاس افقی به درصد (0 تا 1)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:646
+#: ../clips.rst:725
 msgid "Scale Y"
 msgstr "مقیاس Y"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:646
+#: ../clips.rst:725
 msgid "Curve representing the vertical scaling in percent (0 to 1)"
 msgstr "منحنی نشان‌دهنده مقیاس عمودی به درصد (0 تا 1)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:647
+#: ../clips.rst:726
 msgid "Shear X"
 msgstr "شیب X"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:647
+#: ../clips.rst:726
 msgid "Curve representing X shear angle in degrees (-45.0=left, 45.0=right)"
 msgstr "منحنی نشان‌دهنده زاویه شیب X بر حسب درجه (-45.0=چپ، 45.0=راست)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:648
+#: ../clips.rst:727
 msgid "Shear Y"
 msgstr "شیب Y"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:648
+#: ../clips.rst:727
 msgid "Curve representing Y shear angle in degrees (-45.0=down, 45.0=up)"
 msgstr "منحنی نشان‌دهنده زاویه شیب Y بر حسب درجه (-45.0=پایین، 45.0=بالا)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:649 ../clips.rst:936
+#: ../clips.rst:728 ../clips.rst:1015
 msgid "Start"
 msgstr "شروع"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:649
+#: ../clips.rst:728
 msgid "The start trimming position of the clip (in seconds)"
 msgstr "موقعیت شروع برش کلیپ (بر حسب ثانیه)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:650 ../clips.rst:946
+#: ../clips.rst:729 ../clips.rst:1025
 msgid "Time"
 msgstr "زمان"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:650
+#: ../clips.rst:729
 msgid ""
 "Curve representing the frames over time to play (used for speed and "
 "direction of video)"
@@ -2763,17 +3001,17 @@ msgstr ""
 " می‌شود)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:651 ../clips.rst:802
+#: ../clips.rst:730 ../clips.rst:881
 msgid "Track"
 msgstr "ردیف"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:651
+#: ../clips.rst:730
 msgid "Int"
 msgstr "عدد صحیح"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:651
+#: ../clips.rst:730
 msgid ""
 "The layer which holds the clip (higher tracks are rendered on top of lower "
 "tracks)"
@@ -2782,12 +3020,12 @@ msgstr ""
 "داده می‌شوند)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:652 ../clips.rst:972
+#: ../clips.rst:731 ../clips.rst:1051
 msgid "Volume"
 msgstr "صدا"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:652
+#: ../clips.rst:731
 msgid ""
 "Curve representing the volume for fading audio quieter/louder, mute, or "
 "adjusting levels (0 to 1)"
@@ -2796,12 +3034,12 @@ msgstr ""
 "سطح‌ها (0 تا 1)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:653 ../clips.rst:838
+#: ../clips.rst:732 ../clips.rst:917
 msgid "Volume Mixing"
 msgstr "میکس صدا"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:653
+#: ../clips.rst:732
 msgid ""
 "The volume mixing choices control how volume is adjusted before mixing "
 "(None=don't adjust volume of this clip, Reduce=lower the volume to 80%, "
@@ -2812,36 +3050,36 @@ msgstr ""
 "را بر اساس تعداد کلیپ‌های همزمان تقسیم کن، جزئیات در ادامه)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:654 ../clips.rst:981
+#: ../clips.rst:733 ../clips.rst:1060
 msgid "Wave Color"
 msgstr "رنگ موج"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:654
+#: ../clips.rst:733
 msgid "Curve representing the color of the audio waveform"
 msgstr "منحنی نشان‌دهنده رنگ موج صوتی"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:655
+#: ../clips.rst:734
 msgid "Bool"
 msgstr "بولی"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:655
+#: ../clips.rst:734
 msgid "Should a waveform be used instead of the clip's image"
 msgstr "آیا باید به جای تصویر کلیپ از موج صوتی استفاده شود"
 
-#: ../clips.rst:656 ../clips.rst:995
+#: ../clips.rst:735 ../clips.rst:1074
 msgid "Waveform Mode"
 msgstr "حالت موج‌نما"
 
-#: ../clips.rst:656
+#: ../clips.rst:735
 msgid ""
 "The visualization style used when displaying the clip as an audio waveform"
 msgstr "سبک نمایش تصویری که هنگام نمایش کلیپ به صورت موج صوتی استفاده می‌شود"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:663
+#: ../clips.rst:742
 msgid ""
 "The :guilabel:`Composite (Blend Mode)` property controls **how the pixels of"
 " this clip mix with the clips on lower tracks**. If you are new to this, "
@@ -2854,12 +3092,12 @@ msgstr ""
 "سریع بدون افزودن افکت داشته باشید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:666
+#: ../clips.rst:745
 msgid "**Beginner tips**"
 msgstr "**نکات مبتدی**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:668
+#: ../clips.rst:747
 msgid ""
 "Want to **brighten** light effects, flares, or smoke over a dark scene? Try "
 "**Screen** or **Add**."
@@ -2868,7 +3106,7 @@ msgstr ""
 "از **Screen** یا **Add** استفاده کنید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:669
+#: ../clips.rst:748
 msgid ""
 "Want to **darken** or place a texture over footage (paper grain, grids, "
 "shadows)? Try **Multiply** or **Color Burn**."
@@ -2877,7 +3115,7 @@ msgstr ""
 "شبکه‌ها، سایه‌ها)؟ از **Multiply** یا **Color Burn** استفاده کنید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:670
+#: ../clips.rst:749
 msgid ""
 "Want **more contrast** without crushing blacks and whites too much? Try "
 "**Overlay** or **Soft Light**."
@@ -2886,7 +3124,7 @@ msgstr ""
 "از **Overlay** یا **Soft Light** استفاده کنید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:671
+#: ../clips.rst:750
 msgid ""
 "Want a **creative/inverted look** or to line things up? Try **Difference** "
 "or **Exclusion**."
@@ -2895,101 +3133,101 @@ msgstr ""
 "**Exclusion** استفاده کنید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:673
+#: ../clips.rst:752
 msgid "**Common modes (recommended)**"
 msgstr "**حالت‌های رایج (توصیه شده)**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:679
+#: ../clips.rst:758
 msgid "Mode"
 msgstr "حالت"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:679
+#: ../clips.rst:758
 msgid "What it does"
 msgstr "عملکرد آن"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:681
+#: ../clips.rst:760
 msgid "Normal"
 msgstr "عادی"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:681
+#: ../clips.rst:760
 msgid "Standard alpha compositing. Respects transparency from the clip."
 msgstr "ترکیب آلفای استاندارد. شفافیت کلیپ را رعایت می‌کند."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:682
+#: ../clips.rst:761
 msgid "Darken"
 msgstr "تیره کردن"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:682
+#: ../clips.rst:761
 msgid "Chooses the darker pixel from the two layers, per channel."
 msgstr "تاریک‌ترین پیکسل را از دو لایه، به ازای هر کانال انتخاب می‌کند."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:683
+#: ../clips.rst:762
 msgid "Multiply"
 msgstr "ضرب"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:683
+#: ../clips.rst:762
 msgid "Multiplies colors. Darkens and helps textures sit on top of footage."
 msgstr ""
 "رنگ‌ها را ضرب می‌کند. تیره‌تر می‌کند و به بافت‌ها کمک می‌کند روی فیلم قرار "
 "بگیرند."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:684
+#: ../clips.rst:763
 msgid "Color Burn"
 msgstr "سوزاندن رنگ"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:684
+#: ../clips.rst:763
 msgid "Pushes shadows darker and boosts contrast; can clip to black."
 msgstr ""
 "سایه‌ها را تیره‌تر می‌کند و کنتراست را افزایش می‌دهد؛ ممکن است به سیاه برش "
 "بخورد."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:685
+#: ../clips.rst:764
 msgid "Lighten"
 msgstr "روشن کردن"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:685
+#: ../clips.rst:764
 msgid "Chooses the lighter pixel from the two layers, per channel."
 msgstr "روشن‌ترین پیکسل را از دو لایه، به ازای هر کانال انتخاب می‌کند."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:686
+#: ../clips.rst:765
 msgid "Screen"
 msgstr "اسکرین"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:686
+#: ../clips.rst:765
 msgid "The opposite of Multiply. Brightens; great for light, glow, fire, fog."
 msgstr "برعکس Multiply است. روشن می‌کند؛ عالی برای نور، درخشش، آتش، مه."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:687
+#: ../clips.rst:766
 msgid "Color Dodge"
 msgstr "رنگ دوژ"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:687
+#: ../clips.rst:766
 msgid "Brightens highlights strongly; can blow out to white."
 msgstr "هایلایت‌ها را به شدت روشن می‌کند؛ ممکن است به سفید برسد."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:688
+#: ../clips.rst:767
 msgid "Add"
 msgstr "جمع"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:688
+#: ../clips.rst:767
 msgid ""
 "Adds pixel values. Strong brightening; clips at white. Also called *Linear "
 "Dodge (Add)*."
@@ -2998,12 +3236,12 @@ msgstr ""
 "*Linear Dodge (Add)* شناخته می‌شود."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:689
+#: ../clips.rst:768
 msgid "Overlay"
 msgstr "اورلی"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:689
+#: ../clips.rst:768
 msgid ""
 "Mix of Multiply and Screen using the lower layer to decide. Adds punchy "
 "contrast."
@@ -3012,32 +3250,32 @@ msgstr ""
 "اضافه می‌کند."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:690
+#: ../clips.rst:769
 msgid "Soft Light"
 msgstr "نور نرم"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:690
+#: ../clips.rst:769
 msgid "Gentle contrast curve; softer than Overlay."
 msgstr "منحنی کنتراست ملایم؛ نرم‌تر از Overlay."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:691
+#: ../clips.rst:770
 msgid "Hard Light"
 msgstr "نور سخت"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:691
+#: ../clips.rst:770
 msgid "Stronger, edgy contrast using the upper layer to drive the change."
 msgstr "کنتراست قوی‌تر و تند با استفاده از لایه بالایی برای هدایت تغییر."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:692
+#: ../clips.rst:771
 msgid "Difference"
 msgstr "تفاوت"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:692
+#: ../clips.rst:771
 msgid ""
 "Absolute difference between layers. Creates inverted/psychedelic colors; "
 "useful for alignment."
@@ -3046,22 +3284,22 @@ msgstr ""
 "مفید است."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:693
+#: ../clips.rst:772
 msgid "Exclusion"
 msgstr "حذف"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:693
+#: ../clips.rst:772
 msgid "Softer version of Difference with less contrast."
 msgstr "نسخه نرم‌تر Difference با کنتراست کمتر."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:696
+#: ../clips.rst:775
 msgid "**Notes**"
 msgstr "**یادداشت‌ها**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:698
+#: ../clips.rst:777
 msgid ""
 "Blend modes affect **color**, while alpha (the :guilabel:`Alpha` property) "
 "affects **transparency**. You can use both."
@@ -3071,7 +3309,7 @@ msgstr ""
 "کنید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:699
+#: ../clips.rst:778
 msgid ""
 "Some modes can create very bright or very dark results. If needed, lower the"
 " :guilabel:`Alpha` property to soften."
@@ -3080,7 +3318,7 @@ msgstr ""
 "نیاز، ویژگی :guilabel:`Alpha` را برای نرم‌تر کردن کاهش دهید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:700
+#: ../clips.rst:779
 msgid ""
 "The exact look of Multiply/Screen/Overlay family is best when project colors"
 " are in a linear color space."
@@ -3089,7 +3327,7 @@ msgstr ""
 "در فضای رنگی خطی باشند."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:706
+#: ../clips.rst:785
 msgid ""
 "The :guilabel:`Alpha` property is a key-frame curve that represents the "
 "alpha value, determining fading and transparency of the image in the clip. "
@@ -3100,7 +3338,7 @@ msgstr ""
 "مات) تا ۰ (کاملاً شفاف) متغیر است."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:709
+#: ../clips.rst:788
 msgid ""
 "**Usage Example:** Applying a gradual fade-in or fade-out effect to smoothly"
 " transition clips."
@@ -3108,7 +3346,7 @@ msgstr ""
 "**مثال کاربردی:** اعمال افکت محو شدن تدریجی برای انتقال نرم بین کلیپ‌ها."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:710
+#: ../clips.rst:789
 msgid ""
 "**Tip:** Use keyframes to create complex fading patterns, such as fading in "
 "and then fading out for a ghostly effect."
@@ -3116,7 +3354,7 @@ msgstr ""
 "**نکته:** از کلید فریم‌ها برای ایجاد الگوهای پیچیده محو شدن استفاده کنید، "
 "مانند محو شدن تدریجی به داخل و سپس محو شدن به بیرون برای ایجاد افکت شبح‌وار."
 
-#: ../clips.rst:714
+#: ../clips.rst:793
 msgid ""
 "The :guilabel:`Corner Radius` property is a key-frame curve that rounds the "
 "visible corners of a clip. The curve ranges from 0 (square corners) to 0.5 "
@@ -3126,7 +3364,7 @@ msgstr ""
 "مشاهده یک کلیپ را گرد می‌کند. این منحنی از ۰ (گوشه‌های مربعی) تا ۰.۵ (حداکثر"
 " گردشدگی، بر اساس کوتاه‌ترین ضلع کلیپ) متغیر است."
 
-#: ../clips.rst:717
+#: ../clips.rst:796
 msgid ""
 "**Usage Example:** Rounding the corners of a picture-in-picture camera "
 "recording without adding a separate mask effect."
@@ -3134,7 +3372,7 @@ msgstr ""
 "**مثال کاربردی:** گرد کردن گوشه‌های ضبط دوربین تصویر در تصویر بدون افزودن "
 "افکت ماسک جداگانه."
 
-#: ../clips.rst:718
+#: ../clips.rst:797
 msgid ""
 "**Usage Example:** In :guilabel:`Recording View`, corner webcam clips use "
 "this property for the :guilabel:`Corners` setting."
@@ -3142,7 +3380,7 @@ msgstr ""
 "**مثال کاربردی:** در :guilabel:`Recording View`، کلیپ‌های وب‌کم گوشه‌ای از "
 "این ویژگی برای تنظیم :guilabel:`Corners` استفاده می‌کنند."
 
-#: ../clips.rst:719
+#: ../clips.rst:798
 msgid ""
 "**Tip:** Use 0 for normal full-frame video, a small value for rounded "
 "rectangles, or 0.5 for a pill or oval-like shape."
@@ -3151,7 +3389,7 @@ msgstr ""
 "مستطیل‌های گرد و ۰.۵ برای شکل کپسولی یا بیضی مانند."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:723
+#: ../clips.rst:802
 msgid ""
 "The :guilabel:`Channel Filter` property is a key-frame curve used for audio "
 "manipulation. It specifies a single audio channel to be filtered while "
@@ -3162,7 +3400,7 @@ msgstr ""
 "را پاک می‌کند."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:726
+#: ../clips.rst:805
 msgid ""
 "**Usage Example:** Isolating and enhancing specific audio elements, like "
 "isolating vocals from a song."
@@ -3171,7 +3409,7 @@ msgstr ""
 "خواننده از یک آهنگ."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:727
+#: ../clips.rst:806
 msgid ""
 "**Tip:** Combine with the \"Channel Mapping\" property to route the filtered"
 " channel to a specific audio output."
@@ -3180,7 +3418,7 @@ msgstr ""
 "شده را به خروجی صوتی خاصی هدایت کنید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:731
+#: ../clips.rst:810
 msgid ""
 "The :guilabel:`Channel Mapping` property is a key-frame curve that defines "
 "the output audio channel for the clip. This property works in conjunction "
@@ -3192,7 +3430,7 @@ msgstr ""
 "و مشخص می‌کند کدام کانال در خروجی حفظ شود."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:734
+#: ../clips.rst:813
 msgid ""
 "**Usage Example:** Keeping the filtered channel's audio while discarding "
 "others for an unconventional audio mix."
@@ -3201,7 +3439,7 @@ msgstr ""
 "میکس صوتی غیرمعمول."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:735
+#: ../clips.rst:814
 msgid ""
 "**Tip:** Experiment with mapping different channels to create unique audio "
 "effects, like panning sounds between speakers."
@@ -3210,7 +3448,7 @@ msgstr ""
 "فردی ایجاد کنید، مانند جابه‌جایی صدا بین بلندگوها."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:739
+#: ../clips.rst:818
 msgid ""
 "The :guilabel:`Frame Number` property specifies the format in which the "
 "frame numbers are displayed within the clip, if applicable."
@@ -3219,7 +3457,7 @@ msgstr ""
 " می‌کند، در صورت وجود."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:741
+#: ../clips.rst:820
 msgid ""
 "**Usage Example:** Displaying frame numbers in the top left corner of the "
 "clip, as either absolute frame number or relative to the start of the clip."
@@ -3228,7 +3466,7 @@ msgstr ""
 "شماره فریم مطلق یا نسبی به شروع کلیپ."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:742
+#: ../clips.rst:821
 msgid ""
 "**Tip:** This can help with identifying precise frame numbers or "
 "troubleshooting a problem."
@@ -3236,7 +3474,7 @@ msgstr ""
 "**نکته:** این می‌تواند در شناسایی شماره فریم دقیق یا رفع اشکال کمک کند."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:746
+#: ../clips.rst:825
 msgid ""
 "The :guilabel:`Duration` property is a float value indicating the length of "
 "the clip in seconds. This is a Read-only property. This is calculated by: "
@@ -3249,7 +3487,7 @@ msgstr ""
 ":guilabel:`End` کلیپ را ویرایش کنید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:749
+#: ../clips.rst:828
 msgid ""
 "**Usage Example:** Inspect the duration of a clip to ensure it fits a "
 "specific time slot in the project."
@@ -3258,7 +3496,7 @@ msgstr ""
 " مشخص در پروژه."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:750
+#: ../clips.rst:829
 msgid ""
 "**Tip:** Consider using the \"Duration\" property for clips that need to "
 "match specific time intervals, such as dialogue or scenes."
@@ -3267,7 +3505,7 @@ msgstr ""
 "دیالوگ‌ها یا صحنه‌ها، از ویژگی «Duration» استفاده کنید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:754
+#: ../clips.rst:833
 msgid ""
 "The :guilabel:`End` property defines the trimming point at the end of the "
 "clip in seconds, allowing you to control how much of the clip is visible in "
@@ -3279,7 +3517,7 @@ msgstr ""
 "تغییر این ویژگی بر ویژگی :guilabel:`Duration` کلیپ تأثیر می‌گذارد."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:757
+#: ../clips.rst:836
 msgid ""
 "**Usage Example:** Trimming the end of a clip to align with another clip or "
 "trimming off unwanted sections of the clip."
@@ -3288,7 +3526,7 @@ msgstr ""
 "بخش‌های ناخواسته کلیپ."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:758
+#: ../clips.rst:837
 msgid ""
 "**Tip:** Combine the \"Start\" and \"End\" properties to precisely control "
 "the visible portion of the clip."
@@ -3297,7 +3535,7 @@ msgstr ""
 " به دقت کنترل کنید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:762
+#: ../clips.rst:841
 msgid ""
 "The :guilabel:`Gravity` clip property sets the initial display position "
 "coordinate (X,Y) for the clip, after it has been scaled (see "
@@ -3313,7 +3551,7 @@ msgstr ""
 "صفحه نمایش می‌دهد. گزینه‌های گراویتی عبارتند از:"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:767
+#: ../clips.rst:846
 msgid ""
 "**Top Left** – The top and left edges of the clip align with the top and "
 "left edges of the screen"
@@ -3322,7 +3560,7 @@ msgstr ""
 "هم‌تراز می‌شوند"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:768
+#: ../clips.rst:847
 msgid ""
 "**Top Center** – The top edge of the clip aligns with the top edge of the "
 "screen; the clip is horizontally centered on the screen."
@@ -3331,7 +3569,7 @@ msgstr ""
 " صورت افقی در مرکز صفحه قرار دارد."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:769
+#: ../clips.rst:848
 msgid ""
 "**Top Right** – The top and right edges of the clip align with the top and "
 "right edges of the screen"
@@ -3340,7 +3578,7 @@ msgstr ""
 "هم‌تراز می‌شوند"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:770
+#: ../clips.rst:849
 msgid ""
 "**Left** – The left edge of the clip aligns with the left edge of the "
 "screen; the clip is vertically centered on the screen."
@@ -3349,7 +3587,7 @@ msgstr ""
 "در مرکز صفحه قرار دارد."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:771
+#: ../clips.rst:850
 msgid ""
 "**Center** (default) – The clip is centered horizontally and vertically on "
 "the screen."
@@ -3357,7 +3595,7 @@ msgstr ""
 "**Center** (پیش‌فرض) – کلیپ به صورت افقی و عمودی در مرکز صفحه قرار دارد."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:772
+#: ../clips.rst:851
 msgid ""
 "**Right** – The right edge of the clip aligns with the right edge of the "
 "screen; the clip is vertically centered on the screen."
@@ -3366,7 +3604,7 @@ msgstr ""
 "عمودی در مرکز صفحه قرار دارد."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:773
+#: ../clips.rst:852
 msgid ""
 "**Bottom Left** – The bottom and left edges of the clip align with the "
 "bottom and left edges of the screen"
@@ -3375,7 +3613,7 @@ msgstr ""
 "هم‌تراز می‌شوند"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:774
+#: ../clips.rst:853
 msgid ""
 "**Bottom Center** – The bottom edge of the clip aligns with the bottom edge "
 "of the screen; the clip is horizontally centered on the screen."
@@ -3384,7 +3622,7 @@ msgstr ""
 " به صورت افقی در مرکز صفحه قرار دارد."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:775
+#: ../clips.rst:854
 msgid ""
 "**Bottom Right** – The bottom and right edges of the clip align with the "
 "bottom and right edges of the screen"
@@ -3393,7 +3631,7 @@ msgstr ""
 "نمایش هم‌تراز می‌شوند"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:779
+#: ../clips.rst:858
 msgid ""
 "The :guilabel:`Enable Audio` property is an enumeration that overrides the "
 "default audio setting for the clip. Possible values: -1 (undefined), 0 (no "
@@ -3403,7 +3641,7 @@ msgstr ""
 "بازنویسی می‌کند. مقادیر ممکن: -۱ (تعریف نشده)، ۰ (بدون صدا)، ۱ (صدا فعال)."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:782
+#: ../clips.rst:861
 msgid ""
 "**Usage Example:** Turning off unwanted audio for a clip, like ambient "
 "noise."
@@ -3411,7 +3649,7 @@ msgstr ""
 "**مثال کاربردی:** خاموش کردن صدای ناخواسته برای یک کلیپ، مانند صدای محیط."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:783
+#: ../clips.rst:862
 msgid ""
 "**Tip:** Use this property to control audio playback for specific clips, "
 "especially clips which have no useful audio track."
@@ -3420,7 +3658,7 @@ msgstr ""
 " که ترک صوتی مفیدی ندارند، استفاده کنید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:787
+#: ../clips.rst:866
 msgid ""
 "The :guilabel:`Enable Video` property is an enumeration that overrides the "
 "default video setting for the clip. Possible values: -1 (undefined), 0 (no "
@@ -3431,7 +3669,7 @@ msgstr ""
 "فعال)."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:790
+#: ../clips.rst:869
 msgid ""
 "**Usage Example:** Disabling the video of a clip while retaining its audio "
 "for creating audio-only sequences."
@@ -3440,7 +3678,7 @@ msgstr ""
 "برای ایجاد توالی‌های فقط صوتی."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:791
+#: ../clips.rst:870
 msgid ""
 "**Tip:** This property can be helpful when creating scenes with audio "
 "commentary or voiceovers."
@@ -3449,7 +3687,7 @@ msgstr ""
 "مفید باشد."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:795
+#: ../clips.rst:874
 msgid ""
 "The :guilabel:`ID` property holds a randomly generated GUID (Globally Unique"
 " Identifier) assigned to each clip, ensuring its uniqueness. This is a Read-"
@@ -3460,7 +3698,7 @@ msgstr ""
 "فقط خواندنی است و توسط OpenShot هنگام ایجاد کلیپ اختصاص داده می‌شود."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:798
+#: ../clips.rst:877
 msgid ""
 "**Usage Example:** Referencing specific clips within custom scripts or "
 "automation tasks."
@@ -3469,7 +3707,7 @@ msgstr ""
 "خودکار."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:799
+#: ../clips.rst:878
 msgid ""
 "**Tip:** While typically managed behind the scenes, understanding clip IDs "
 "can aid in advanced project customization."
@@ -3478,7 +3716,7 @@ msgstr ""
 "می‌تواند در سفارشی‌سازی پیشرفته پروژه کمک کند."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:803
+#: ../clips.rst:882
 msgid ""
 "The :guilabel:`Track` property is an integer indicating the layer on which "
 "the clip is placed. Clips on higher tracks are rendered above those on lower"
@@ -3489,7 +3727,7 @@ msgstr ""
 "نمایش داده می‌شوند."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:806
+#: ../clips.rst:885
 msgid ""
 "**Usage Example:** Arranging clips in different layers for creating visual "
 "depth and complexity."
@@ -3498,7 +3736,7 @@ msgstr ""
 "پیچیدگی بصری."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:807
+#: ../clips.rst:886
 msgid ""
 "**Tip:** Use higher tracks for elements that need to appear above others, "
 "like text overlays or graphics."
@@ -3507,12 +3745,12 @@ msgstr ""
 "مانند پوشش‌های متنی یا گرافیک‌ها، استفاده کنید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:812
+#: ../clips.rst:891
 msgid "Location X and Location Y"
 msgstr "موقعیت X و موقعیت Y"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:813
+#: ../clips.rst:892
 msgid ""
 "The :guilabel:`Location X` and :guilabel:`Location Y` properties are key-"
 "frame curves that determine the relative position of the clip, expressed in "
@@ -3525,7 +3763,7 @@ msgstr ""
 ":ref:`clip_transform_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:816
+#: ../clips.rst:895
 msgid ""
 "**Usage Example:** Animating a clip's movement across the screen using key-"
 "frame curves for both X and Y locations."
@@ -3534,7 +3772,7 @@ msgstr ""
 " کلید فریم برای موقعیت‌های X و Y."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:817
+#: ../clips.rst:896
 msgid ""
 "**Tip:** Combine with gravity settings to create dynamic animations that "
 "adhere to consistent alignment rules."
@@ -3542,7 +3780,7 @@ msgstr ""
 "**نکته:** با تنظیمات گرانش ترکیب کنید تا انیمیشن‌های پویا با قوانین تراز "
 "ثابت ایجاد کنید."
 
-#: ../clips.rst:821
+#: ../clips.rst:900
 msgid ""
 "The :guilabel:`Margin` property is a key-frame curve that creates an inset "
 "layout area for a clip. The curve is measured as a percentage of the "
@@ -3556,7 +3794,7 @@ msgstr ""
 "۱۹۲۰x۱۰۸۰، حاشیه ۰.۰۵ یک تو رفتگی ۵۴ پیکسلی در هر طرف ایجاد می‌کند و کلیپ در"
 " داخل مستطیل باقی‌مانده قرار می‌گیرد."
 
-#: ../clips.rst:825
+#: ../clips.rst:904
 msgid ""
 "Margin is applied before the clip's scale and gravity are calculated. This "
 "means :guilabel:`Scale` modes such as ``Fit``, ``Crop``, and ``Stretch`` use"
@@ -3570,7 +3808,7 @@ msgstr ""
 "تمام گزینه‌های :guilabel:`Gravity`، از جمله ``Center``، در داخل ناحیه تو "
 "رفته حل می‌شوند."
 
-#: ../clips.rst:829
+#: ../clips.rst:908
 msgid ""
 "**Usage Example:** Keeping a corner webcam clip slightly away from the "
 "screen edge during a screen recording."
@@ -3578,7 +3816,7 @@ msgstr ""
 "**مثال کاربردی:** نگه داشتن کلیپ وب‌کم گوشه‌ای کمی دورتر از لبه صفحه در "
 "هنگام ضبط صفحه."
 
-#: ../clips.rst:830
+#: ../clips.rst:909
 msgid ""
 "**Usage Example:** Adding a clean border around a full-frame image by using "
 "``Fit`` or ``Stretch`` with a small margin."
@@ -3586,7 +3824,7 @@ msgstr ""
 "**مثال کاربردی:** افزودن حاشیه‌ای تمیز به دور تصویر تمام‌فریم با استفاده از "
 "``Fit`` یا ``Stretch`` همراه با حاشیه کوچک."
 
-#: ../clips.rst:831
+#: ../clips.rst:910
 msgid ""
 "**Usage Example:** Creating safe-area layouts, split-screen spacing, or "
 "picture-in-picture spacing without adding Crop or Mask effects."
@@ -3594,7 +3832,7 @@ msgstr ""
 "**مثال کاربردی:** ایجاد چیدمان ناحیه امن، فاصله‌بندی صفحه تقسیم شده یا "
 "فاصله‌بندی تصویر در تصویر بدون افزودن افکت‌های Crop یا Mask."
 
-#: ../clips.rst:832
+#: ../clips.rst:911
 msgid ""
 "**Usage Example:** In :guilabel:`Recording View`, screen-plus-camera "
 "recordings use this property to inset the corner webcam clip."
@@ -3602,7 +3840,7 @@ msgstr ""
 "**مثال کاربردی:** در :guilabel:`Recording View`، ضبط‌های صفحه به همراه "
 "دوربین از این ویژگی برای تو رفتگی کلیپ وب‌کم گوشه استفاده می‌کنند."
 
-#: ../clips.rst:833
+#: ../clips.rst:912
 msgid ""
 "**Tip:** Use a small value such as 0.02 to 0.05 for normal edge spacing. "
 "Larger values intentionally shrink the available layout area."
@@ -3611,7 +3849,7 @@ msgstr ""
 "استفاده کنید. مقادیر بزرگ‌تر به طور عمدی ناحیه چیدمان موجود را کوچک می‌کنند."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:839
+#: ../clips.rst:918
 msgid ""
 "The :guilabel:`Volume Mixing` property is an enumeration that controls how "
 "volume adjustments are applied before mixing audio. Options: None (no "
@@ -3623,7 +3861,7 @@ msgstr ""
 " به ۸۰٪)، میانگین (تقسیم حجم بر اساس تعداد کلیپ‌های همزمان)."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:842
+#: ../clips.rst:921
 msgid ""
 "**Usage Example:** Automatically lowering the volume of a clip to allow "
 "background music to stand out more prominently."
@@ -3632,7 +3870,7 @@ msgstr ""
 "پس‌زمینه."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:843
+#: ../clips.rst:922
 msgid ""
 "**Tip:** Experiment with volume mixing options to achieve balanced audio "
 "levels across different clips."
@@ -3641,7 +3879,7 @@ msgstr ""
 "کلیپ‌های مختلف به دست آورید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:845
+#: ../clips.rst:924
 msgid ""
 "Mixing audio involves adjusting volume levels so that **overlapping clips** "
 "do not become too loud (creating audio distortion and loss of audio "
@@ -3657,7 +3895,7 @@ msgstr ""
 "حجم کلیپ‌های همپوشان را کاهش دهد. روش‌های میکس صدا زیر در دسترس هستند:"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:849
+#: ../clips.rst:928
 msgid ""
 "**None** - Make no adjustments to volume data before mixing audio. "
 "Overlapping clips will combine audio at full volume, with no reduction."
@@ -3666,7 +3904,7 @@ msgstr ""
 "کلیپ‌های همپوشان صدا را با حجم کامل ترکیب می‌کنند، بدون کاهش."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:850
+#: ../clips.rst:929
 msgid ""
 "**Average** - Automatically divide the volume of each clip based on the # of"
 " overlapping clips. For example, 2 overlapping clips would each have 50% "
@@ -3677,7 +3915,7 @@ msgstr ""
 "همپوشان هر کدام ۳۳٪ حجم و غیره..."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:851
+#: ../clips.rst:930
 msgid ""
 "**Reduce** - Automatically reduce overlapping clips volume by 20%, which "
 "reduces the likelihood of becoming too loud, but does not always prevent "
@@ -3690,7 +3928,7 @@ msgstr ""
 "برای مثال، اگر ۱۰ کلیپ بلند همپوشان داشته باشید که هر کدام ۲۰٪ کاهش حجم "
 "دارند، ممکن است هنوز از حداکثر حجم مجاز فراتر رفته و اعوجاج صوتی رخ دهد."
 
-#: ../clips.rst:853
+#: ../clips.rst:932
 msgid ""
 "For quickly adjusting the volume of a clip, you can use the :guilabel:`Audio"
 " → Volume` menu. See :ref:`clip_presets_ref`. For precise control over the "
@@ -3703,12 +3941,12 @@ msgstr ""
 "کنید. به :ref:`clip_volume_ref` مراجعه کنید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:857
+#: ../clips.rst:936
 msgid "Origin X and Origin Y"
 msgstr "مبدأ X و مبدأ Y"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:858
+#: ../clips.rst:937
 msgid ""
 "The :guilabel:`Origin X` and :guilabel:`Origin Y` properties are key-frame "
 "curves that define the rotation origin point's position in percentages. The "
@@ -3719,7 +3957,7 @@ msgstr ""
 "منحنی‌ها از -1 تا 1 است. مراجعه کنید به :ref:`clip_transform_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:861
+#: ../clips.rst:940
 msgid ""
 "**Usage Example:** Rotating a clip around a specific point, such as a "
 "character's pivot joint."
@@ -3727,7 +3965,7 @@ msgstr ""
 "**مثال کاربردی:** چرخش یک کلیپ حول یک نقطه خاص، مانند مفصل محور یک شخصیت."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:862
+#: ../clips.rst:941
 msgid ""
 "**Tip:** Set the origin point to achieve controlled and natural-looking "
 "rotations during animations."
@@ -3736,12 +3974,12 @@ msgstr ""
 "انیمیشن‌ها داشته باشید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:867
+#: ../clips.rst:946
 msgid "Clip Parent"
 msgstr "والد کلیپ"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:868
+#: ../clips.rst:947
 msgid ""
 "The :guilabel:`Parent` property of a clip sets the initial keyframe values "
 "to the parent object. For example, if many clips all point to the same "
@@ -3757,7 +3995,7 @@ msgstr ""
 "مفید است، مانند زمانی که چندین کلیپ باید با هم حرکت یا تغییر اندازه دهند."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:872
+#: ../clips.rst:951
 msgid ""
 "**Usage Example:** Creating complex animations by establishing a parent-"
 "child relationship between clips."
@@ -3766,7 +4004,7 @@ msgstr ""
 "کلیپ‌ها."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:873
+#: ../clips.rst:952
 msgid ""
 "**Tip:** Utilize this property to propagate changes from the parent clip to "
 "child clips for consistent animations."
@@ -3775,7 +4013,7 @@ msgstr ""
 "برای انیمیشن‌های هماهنگ استفاده کنید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:874
+#: ../clips.rst:953
 msgid ""
 "**Tip:** You can also set the ``parent`` attribute to a ``Tracker`` or "
 "``Object Detector`` tracked object, so the clip follows the location and "
@@ -3786,7 +4024,7 @@ msgstr ""
 "ردیابی شده را دنبال کند. همچنین مراجعه کنید به :ref:`effect_parent_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:878
+#: ../clips.rst:957
 msgid ""
 "The :guilabel:`Position` property determines the clip's position on the "
 "timeline in seconds, with 0.0 indicating the beginning."
@@ -3795,7 +4033,7 @@ msgstr ""
 "می‌کند، که مقدار ۰.۰ نشان‌دهنده شروع است."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:880
+#: ../clips.rst:959
 msgid ""
 "**Usage Example:** Timing a clip's appearance to coincide with specific "
 "events in the project."
@@ -3804,7 +4042,7 @@ msgstr ""
 "پروژه."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:881
+#: ../clips.rst:960
 msgid ""
 "**Tip:** Adjust the position to synchronize clips with audio cues or visual "
 "elements."
@@ -3813,7 +4051,7 @@ msgstr ""
 "هماهنگ شوند."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:887
+#: ../clips.rst:966
 msgid ""
 "The :guilabel:`Rotation` property is a key-frame curve that controls the "
 "rotation angle of the clip, ranging from -360 to 360 degrees. You can rotate"
@@ -3828,14 +4066,14 @@ msgstr ""
 ":ref:`clip_transform_ref` مراجعه کنید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:891
+#: ../clips.rst:970
 msgid ""
 "**Usage Example:** Simulating a spinning effect by animating the rotation "
 "curve."
 msgstr "**مثال کاربردی:** شبیه‌سازی اثر چرخش با انیمیت کردن منحنی چرخش."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:892
+#: ../clips.rst:971
 msgid ""
 "**Tip:** Use this property creatively for effects like rotating text or "
 "emulating camera movement."
@@ -3844,7 +4082,7 @@ msgstr ""
 "شبیه‌سازی حرکت دوربین استفاده کنید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:893
+#: ../clips.rst:972
 msgid ""
 "**Tip:** In the preview transform tool, hold :kbd:`Ctrl` or :kbd:`Shift` "
 "while rotating to snap to 15-degree increments."
@@ -3853,7 +4091,7 @@ msgstr ""
 ":kbd:`Shift` را نگه دارید تا به گام‌های ۱۵ درجه‌ای بچسبد."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:894
+#: ../clips.rst:973
 msgid ""
 "**Tip:** Experiment with rotating your video at different angles, not just "
 "90 or 180 degrees. Sometimes a slight tilt or a specific angle can add "
@@ -3865,7 +4103,7 @@ msgstr ""
 "شما بدهد، به‌ویژه برای اهداف هنری یا داستان‌گویی."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:895
+#: ../clips.rst:974
 msgid ""
 "**Tip:** After rotating your video, you might end up with black bars around "
 "the edges. Consider cropping and resizing the video to eliminate these bars "
@@ -3876,7 +4114,7 @@ msgstr ""
 "در نظر بگیرید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:896
+#: ../clips.rst:975
 msgid ""
 "**Tip:** If you're dealing with vertical videos that are meant to be watched"
 " on horizontal screens, rotate them by 90 degrees and then scale them up to "
@@ -3888,7 +4126,7 @@ msgstr ""
 "به این ترتیب، ویدیوی عمودی شما فضای بیشتری از صفحه را اشغال خواهد کرد."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:897
+#: ../clips.rst:976
 msgid ""
 "**Tip:** If the horizon in your video appears slanted due to camera tilt, "
 "use rotation to level it. This is particularly important for landscape shots"
@@ -3899,7 +4137,7 @@ msgstr ""
 "اهمیت دارد تا ظاهر حرفه‌ای و خوشایندی حفظ شود."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:903
+#: ../clips.rst:982
 msgid ""
 "The :guilabel:`Scale` property is the initial resizing or scaling method "
 "used to display the picture of a clip, which may be further adjusted by the "
@@ -3918,7 +4156,7 @@ msgstr ""
 "روش‌های مقیاس‌دهی عبارتند از:"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:908
+#: ../clips.rst:987
 msgid ""
 "**Best Fit** (default) – The clip is as large as possible without changing "
 "the aspect ratio. This might result in black bars on certain sides of the "
@@ -3929,7 +4167,7 @@ msgstr ""
 "نوارهای سیاه در برخی طرف‌های تصویر ظاهر شود."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:909
+#: ../clips.rst:988
 msgid ""
 "**Crop** – The aspect ratio of the clip is maintained while the clip is "
 "enlarged to fill the entire screen, even if that means some of it will be "
@@ -3943,7 +4181,7 @@ msgstr ""
 "پروژه مطابقت نداشته باشد، بخشی از تصویر برش داده خواهد شد."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:910
+#: ../clips.rst:989
 msgid ""
 "**None** – The clip is displayed in its original size. This is not "
 "recommended, since the picture will not scale correctly if you change the "
@@ -3954,7 +4192,7 @@ msgstr ""
 " تغییر دهید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:911
+#: ../clips.rst:990
 msgid ""
 "**Stretch** – The clip is stretched to fill the entire screen, changing the "
 "aspect ratio if necessary."
@@ -3963,12 +4201,12 @@ msgstr ""
 "تصویر تغییر می‌کند."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:916
+#: ../clips.rst:995
 msgid "Scale X and Scale Y"
 msgstr "مقیاس X و مقیاس Y"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:917
+#: ../clips.rst:996
 msgid ""
 "The :guilabel:`Scale X` and :guilabel:`Scale Y` properties are key-frame "
 "curves that represent horizontal and vertical scaling in percentages, "
@@ -3983,7 +4221,7 @@ msgstr ""
 " تا از کرش و مشکلات عملکرد جلوگیری شود."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:921
+#: ../clips.rst:1000
 msgid ""
 "**Usage Example:** Creating a zoom-in effect by animating the Scale X and "
 "Scale Y curves simultaneously."
@@ -3992,7 +4230,7 @@ msgstr ""
 " Scale Y."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:922
+#: ../clips.rst:1001
 msgid ""
 "**Tip:** Scale the image larger than the screen, only revealing a portion of"
 " the video. This is a simple way to crop a portion of the video."
@@ -4001,7 +4239,7 @@ msgstr ""
 "نشان دهید. این روش ساده‌ای برای برش بخشی از ویدیو است."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:923
+#: ../clips.rst:1002
 msgid ""
 "**Tip:** Scale the horizontal and vertical elements separately, to squash "
 "and stretch the image in fun ways."
@@ -4010,7 +4248,7 @@ msgstr ""
 "جالب فشرده یا کشیده کنید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:924
+#: ../clips.rst:1003
 msgid ""
 "**Tip:** Combine scaling with rotation and location properties for dynamic "
 "transformations."
@@ -4019,12 +4257,12 @@ msgstr ""
 "پویا ایجاد کنید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:927
+#: ../clips.rst:1006
 msgid "Shear X and Shear Y"
 msgstr "شیب X و شیب Y"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:928
+#: ../clips.rst:1007
 msgid ""
 "The :guilabel:`Shear X` and :guilabel:`Shear Y` properties are key-frame "
 "curves that represent X and Y shear angles in degrees, respectively. See "
@@ -4037,7 +4275,7 @@ msgstr ""
 " نوع فایل و اندازه پروژه محدود می‌کند تا از کرش و مشکلات عملکرد جلوگیری شود."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:932
+#: ../clips.rst:1011
 msgid ""
 "**Usage Example:** Adding a dynamic tilt effect to a clip by animating the "
 "shear angles."
@@ -4045,14 +4283,14 @@ msgstr ""
 "**مثال کاربردی:** افزودن افکت کج شدن پویا به کلیپ با انیمیت زاویه‌های شیب."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:933
+#: ../clips.rst:1012
 msgid ""
 "**Tip:** Use shear properties for creating slanted or skewed animations."
 msgstr ""
 "**نکته:** از ویژگی‌های شیب برای ایجاد انیمیشن‌های مایل یا کج استفاده کنید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:937
+#: ../clips.rst:1016
 msgid ""
 "The :guilabel:`Start` property defines the trimming point at the beginning "
 "of the clip in seconds. Changing this property will impact the "
@@ -4062,7 +4300,7 @@ msgstr ""
 "تغییر این ویژگی بر ویژگی :guilabel:`Duration` کلیپ تأثیر می‌گذارد."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:940
+#: ../clips.rst:1019
 msgid ""
 "**Usage Example:** Removing the initial portion of a clip to focus on a "
 "specific scene or moment."
@@ -4070,7 +4308,7 @@ msgstr ""
 "**مثال کاربردی:** حذف بخش ابتدایی کلیپ برای تمرکز بر صحنه یا لحظه خاص."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:941
+#: ../clips.rst:1020
 msgid ""
 "**Tip:** Utilize the \"Start\" property in combination with the \"End\" "
 "property for precise clip trimming."
@@ -4078,7 +4316,7 @@ msgstr ""
 "**نکته:** از ویژگی «Start» همراه با ویژگی «End» برای برش دقیق کلیپ استفاده "
 "کنید."
 
-#: ../clips.rst:947
+#: ../clips.rst:1026
 msgid ""
 "The :guilabel:`Time` property is a key-frame curve that represents frames "
 "played over time, affecting the speed and direction of the video. You can "
@@ -4102,7 +4340,7 @@ msgstr ""
 "سایر کلید فریم‌ها را به طور خودکار مقیاس‌بندی می‌کند."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:954
+#: ../clips.rst:1033
 msgid ""
 "Optionally, you can manually set key-frame values for the :guilabel:`Time` "
 "property. The value represents the `frame number` at the position of the "
@@ -4128,7 +4366,7 @@ msgstr ""
 " 1128 فریم کل``)."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:962
+#: ../clips.rst:1041
 msgid ""
 "This allows for some very complex scenarios, such as jump cutting inside a "
 "clip, reversing a portion of a clip, slowing down a portion of a clip, "
@@ -4141,7 +4379,7 @@ msgstr ""
 "به :ref:`animation_ref` مراجعه کنید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:966
+#: ../clips.rst:1045
 msgid ""
 "**Usage Example:** Creating a slow-motion or time-lapse effect by modifying "
 "the time curve."
@@ -4149,7 +4387,7 @@ msgstr ""
 "**مثال کاربردی:** ایجاد افکت حرکت آهسته یا تایم لپس با تغییر منحنی زمان."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:967
+#: ../clips.rst:1046
 msgid ""
 "**Tip:** Adjust the \"Time\" property to control video playback speed for "
 "dramatic visual impact."
@@ -4158,7 +4396,7 @@ msgstr ""
 "چشمگیر کنترل کنید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:973
+#: ../clips.rst:1052
 msgid ""
 "The :guilabel:`Volume` property is a key-frame curve that controls audio "
 "volume or level, ranging from 0 (mute) to 1 (full volume). For automatic "
@@ -4169,7 +4407,7 @@ msgstr ""
 ":ref:`clip_volume_mixing_ref` مراجعه کنید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:976
+#: ../clips.rst:1055
 msgid ""
 "**Usage Example:** Gradually fading out background music as dialogue becomes"
 " more prominent, or increasing or lowering the volume of a clip."
@@ -4178,7 +4416,7 @@ msgstr ""
 " افزایش یا کاهش حجم یک کلیپ."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:977
+#: ../clips.rst:1056
 msgid ""
 "**Tip:** Combine multiple volume key-frames for nuanced audio adjustments, "
 "such as ducking the level of the music when dialog is spoken."
@@ -4186,7 +4424,7 @@ msgstr ""
 "**نکته:** چندین کلید-فریم حجم را برای تنظیمات دقیق‌تر صدا ترکیب کنید، مانند "
 "کاهش سطح موسیقی هنگام صحبت دیالوگ."
 
-#: ../clips.rst:978
+#: ../clips.rst:1057
 msgid ""
 "**Tip:** For **quickly** adjusting the volume of a clip you can use the "
 ":guilabel:`Audio → Volume` menu. See :ref:`clip_presets_ref`."
@@ -4196,7 +4434,7 @@ msgstr ""
 "کنید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:982
+#: ../clips.rst:1061
 msgid ""
 "The :guilabel:`Wave Color` property is a key-frame curve that represents the"
 " color of the audio waveform visualization."
@@ -4205,14 +4443,14 @@ msgstr ""
 " نشان می‌دهد."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:984
+#: ../clips.rst:1063
 msgid ""
 "**Usage Example:** Matching the waveform color to the project's overall "
 "visual theme."
 msgstr "**مثال کاربردی:** هماهنگ کردن رنگ موج صوتی با تم بصری کلی پروژه."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:985
+#: ../clips.rst:1064
 msgid ""
 "**Tip:** Experiment with different colors to enhance the visual appeal of "
 "the waveform or animate the color over time."
@@ -4221,7 +4459,7 @@ msgstr ""
 "دهید یا رنگ را در طول زمان متحرک کنید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:989
+#: ../clips.rst:1068
 msgid ""
 "The :guilabel:`Waveform` property is a boolean that determines whether a "
 "waveform visualization is used instead of the clip's image."
@@ -4230,7 +4468,7 @@ msgstr ""
 "صوتی به جای تصویر کلیپ استفاده شود یا خیر."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:991
+#: ../clips.rst:1070
 msgid ""
 "**Usage Example:** Displaying an audio waveform in place of the video for "
 "visually highlighting audio patterns."
@@ -4239,7 +4477,7 @@ msgstr ""
 "صوتی."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:992
+#: ../clips.rst:1071
 msgid ""
 "**Tip:** Use waveform visualization for emphasizing music beats or voice "
 "modulations."
@@ -4247,7 +4485,7 @@ msgstr ""
 "**نکته:** از نمایش موج صوتی برای تأکید بر ضرب‌آهنگ موسیقی یا تغییرات صدا "
 "استفاده کنید."
 
-#: ../clips.rst:996
+#: ../clips.rst:1075
 msgid ""
 "The :guilabel:`Waveform Mode` property controls the visualization style used"
 " when :guilabel:`Waveform` is enabled. It uses the same choices as the "
@@ -4261,7 +4499,7 @@ msgstr ""
 ":guilabel:`Audio Visualization` موجود است: موج‌نما، موج‌نمای پر شده، "
 "میله‌ها، شعاعی، میله‌های شعاعی، طیف، فازسنج، ذرات و VU متر."
 
-#: ../clips.rst:1000
+#: ../clips.rst:1079
 msgid ""
 "**Usage Example:** Switching an audio-only clip from a standard waveform to "
 "bars or a spectrum display."
@@ -4269,7 +4507,7 @@ msgstr ""
 "**مثال کاربردی:** تغییر یک کلیپ فقط صوتی از موج‌نمای استاندارد به نمایش "
 "میله‌ای یا طیف."
 
-#: ../clips.rst:1001
+#: ../clips.rst:1080
 msgid ""
 "**Tip:** Use :guilabel:`Wave Color` with :guilabel:`Waveform Mode` to tune "
 "both the visualization style and color."
@@ -4278,16 +4516,26 @@ msgstr ""
 "تنظیم همزمان سبک نمایش و رنگ استفاده کنید."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:1004
+#: ../clips.rst:1083
 msgid "More Information"
 msgstr "اطلاعات بیشتر"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:1005
+#: ../clips.rst:1084
 msgid "For more info on key frames and animation, see :ref:`animation_ref`."
 msgstr ""
 "برای اطلاعات بیشتر درباره کلید-فریم‌ها و انیمیشن، به :ref:`animation_ref` "
 "مراجعه کنید."
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "The :guilabel:`razor tool` from the **Timeline Toolbar** cuts a clip at the "
+#~ "position where it is clicked. Use :kbd:`SHIFT` to slice and keep the left "
+#~ "side, or :kbd:`CTRL` to keep the right side."
+#~ msgstr ""
+#~ "ابزار :guilabel:`razor tool` از **نوار ابزار تایم‌لاین** کلیپ را در موقعیتی "
+#~ "که کلیک می‌شود برش می‌دهد. از :kbd:`SHIFT` برای برش و نگه داشتن سمت چپ، یا "
+#~ ":kbd:`CTRL` برای نگه داشتن سمت راست استفاده کنید."
 
 # Translated with gpt-4.1-mini
 #~ msgid ""

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-09-26 14:26-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -67,21 +67,21 @@ msgstr ""
 # Translated with gpt-4.1-mini
 #: ../preferences.rst:46 ../preferences.rst:109 ../preferences.rst:132
 #: ../preferences.rst:157 ../preferences.rst:204 ../preferences.rst:234
-#: ../preferences.rst:290 ../preferences.rst:320
+#: ../preferences.rst:290 ../preferences.rst:329
 msgid "Setting"
 msgstr "সেটিং"
 
 # Translated with gpt-4.1-mini
 #: ../preferences.rst:47 ../preferences.rst:50 ../preferences.rst:109
 #: ../preferences.rst:132 ../preferences.rst:134 ../preferences.rst:157
-#: ../preferences.rst:321
+#: ../preferences.rst:330
 msgid "Default"
 msgstr "ডিফল্ট"
 
 # Translated with gpt-4.1-mini
 #: ../preferences.rst:48 ../preferences.rst:109 ../preferences.rst:132
 #: ../preferences.rst:204 ../preferences.rst:235 ../preferences.rst:290
-#: ../preferences.rst:301 ../preferences.rst:322
+#: ../preferences.rst:310 ../preferences.rst:331
 msgid "Description"
 msgstr "বর্ণনা"
 
@@ -364,8 +364,8 @@ msgid "Auto-Transition (overlap clips)"
 msgstr "স্বয়ংক্রিয় ট্রানজিশন (ক্লিপ ওভারল্যাপ)"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:115 ../preferences.rst:159 ../preferences.rst:333
-#: ../preferences.rst:339
+#: ../preferences.rst:115 ../preferences.rst:159 ../preferences.rst:342
+#: ../preferences.rst:348
 msgid "Enabled"
 msgstr "সক্রিয়"
 
@@ -1047,18 +1047,49 @@ msgstr "ভিডিও রপ্তানি"
 msgid "Default folder to choose when exporting a video"
 msgstr "ভিডিও রপ্তানি করার সময় ডিফল্ট ফোল্ডার নির্বাচন"
 
+#: ../preferences.rst:295
+msgid "Unsaved Project Assets Folder"
+msgstr "সংরক্ষিত নয় এমন প্রকল্প সম্পদ ফোল্ডার"
+
+#: ../preferences.rst:295
+msgid "Folder for assets created before a project is saved (restart required)"
+msgstr ""
+"প্রকল্প সংরক্ষণের আগে তৈরি সম্পদগুলির জন্য ফোল্ডার (পুনরায় চালু করা "
+"প্রয়োজন)"
+
+#: ../preferences.rst:298
+msgid ""
+"On Linux, the unsaved assets folder defaults to ``~/Videos/.openshot-tmp`` "
+"when ``~/Videos`` exists and the hidden child folder is writable. Otherwise,"
+" OpenShot uses ``~/.openshot_qt``, which is also the default on other "
+"platforms. You can choose a different folder in Preferences. Saving a "
+"project relocates its assets into the project's ``<project>_assets`` folder;"
+" subsequent titles and animations use that folder. These assets can include "
+"media needed by an unsaved project or crash recovery, so do not delete the "
+"folder as ordinary disposable cache data."
+msgstr ""
+"লিনাক্সে, সংরক্ষিত নয় এমন সম্পদ ফোল্ডারটি ডিফল্টরূপে ``~/Videos`` বিদ্যমান "
+"এবং লুকানো সাবফোল্ডারটি লেখার যোগ্য হলে ``~/Videos/.openshot-tmp`` হয়। "
+"অন্যথায়, OpenShot ``~/.openshot_qt`` ব্যবহার করে, যা অন্যান্য প্ল্যাটফর্মেও"
+" ডিফল্ট। আপনি পছন্দসই ফোল্ডার পরিবর্তন করতে পারেন Preferences-এ। একটি "
+"প্রকল্প সংরক্ষণ করলে তার সম্পদগুলি প্রকল্পের ``<project>_assets`` ফোল্ডারে "
+"স্থানান্তরিত হয়; পরবর্তী শিরোনাম এবং অ্যানিমেশন সেই ফোল্ডার ব্যবহার করে। এই"
+" সম্পদগুলিতে সংরক্ষিত নয় এমন প্রকল্প বা ক্র্যাশ পুনরুদ্ধারের জন্য "
+"প্রয়োজনীয় মিডিয়া থাকতে পারে, তাই ফোল্ডারটি সাধারণ ক্যাশ ডেটা হিসেবে মুছে "
+"ফেলবেন না।"
+
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:301
+#: ../preferences.rst:310
 msgid "Values"
 msgstr "মানসমূহ"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:303
+#: ../preferences.rst:312
 msgid "**Recent Folder**"
 msgstr "**সাম্প্রতিক ফোল্ডার**"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:303
+#: ../preferences.rst:312
 msgid ""
 "The last folder used for this same operation. Project folders, Import "
 "folders, and Export folders are tracked separately."
@@ -1067,12 +1098,12 @@ msgstr ""
 "ফোল্ডার এবং রপ্তানি ফোল্ডার আলাদাভাবে ট্র্যাক করা হয়।"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:304
+#: ../preferences.rst:313
 msgid "**Project Folder**"
 msgstr "**প্রকল্প ফোল্ডার**"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:304
+#: ../preferences.rst:313
 msgid ""
 "The current project folder (or the user's home folder, if the project is not"
 " yet saved)"
@@ -1081,94 +1112,99 @@ msgstr ""
 "সংরক্ষিত না হয়)"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:310
+#: ../preferences.rst:319
 msgid "Advanced"
 msgstr "উন্নত"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:314
+#: ../preferences.rst:323
 msgid "The Advanced tab includes ComfyUI integration and debugging options."
 msgstr ""
 "উন্নত ট্যাবে ComfyUI ইন্টিগ্রেশন এবং ডিবাগিং বিকল্পগুলি অন্তর্ভুক্ত রয়েছে।"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:323
+#: ../preferences.rst:332
 msgid "Comfy UI URL"
 msgstr "Comfy UI URL"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:324
+#: ../preferences.rst:333
 msgid "``http://127.0.0.1:8188``"
 msgstr "``http://127.0.0.1:8188``"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:325
+#: ../preferences.rst:334
 msgid "URL of your local or remote ComfyUI server"
 msgstr "আপনার লোকাল বা রিমোট ComfyUI সার্ভারের URL"
 
-# Translated with gpt-4.1-mini
-#: ../preferences.rst:326
-msgid "Debug Mode (Port)"
-msgstr "ডিবাগ মোড (পোর্ট)"
+#: ../preferences.rst:335
+msgid "User Interface Debug Logging"
+msgstr "ইউজার ইন্টারফেস ডিবাগ লগিং"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:327
-msgid "5556"
-msgstr "৫৫৫৬"
-
-# Translated with gpt-4.1-mini
-#: ../preferences.rst:328
-msgid "Port used by debug logging features"
-msgstr "ডিবাগ লগিং ফিচারগুলির জন্য ব্যবহৃত পোর্ট"
-
-# Translated with gpt-4.1-mini
-#: ../preferences.rst:329
-msgid "Debug Mode (Verbose)"
-msgstr "ডিবাগ মোড (বিস্তারিত)"
-
-# Translated with gpt-4.1-mini
-#: ../preferences.rst:330 ../preferences.rst:336
+#: ../preferences.rst:336 ../preferences.rst:339 ../preferences.rst:345
 #, fuzzy
 msgid "Disabled"
 msgstr "সক্রিয়"
 
-# Translated with gpt-4.1-mini
-#: ../preferences.rst:331
-msgid "Enable verbose debugging output"
-msgstr "বিস্তারিত ডিবাগিং আউটপুট সক্রিয় করুন"
+#: ../preferences.rst:337
+msgid ""
+"Record interface and project details in ``openshot-qt.log``. The matching "
+"``--debug-ui`` (or ``--debug``) argument enables these details for one "
+"launch, including terminal output. See :ref:`logging_ref`."
+msgstr ""
+"ইন্টারফেস এবং প্রকল্পের বিবরণ ``openshot-qt.log``-এ রেকর্ড করুন। মিল থাকা "
+"``--debug-ui`` (অথবা ``--debug``) আর্গুমেন্ট একবারের জন্য এই বিবরণ সক্রিয় "
+"করে, টার্মিনাল আউটপুটসহ। দেখুন :ref:`logging_ref`।"
+
+#: ../preferences.rst:338
+msgid "Video & Audio Engine Debug Logging"
+msgstr "ভিডিও ও অডিও ইঞ্জিন ডিবাগ লগিং"
+
+#: ../preferences.rst:340
+msgid ""
+"Record video and audio processing details in ``libopenshot.log``. The "
+"matching ``--debug-engine`` argument enables these details for one launch, "
+"including terminal output. Logs can grow quickly; turn off when finished. "
+"See :ref:`logging_ref`."
+msgstr ""
+"ভিডিও এবং অডিও প্রক্রিয়াকরণের বিবরণ ``libopenshot.log``-এ রেকর্ড করুন। মিল "
+"থাকা ``--debug-engine`` আর্গুমেন্ট একবারের জন্য এই বিবরণ সক্রিয় করে, "
+"টার্মিনাল আউটপুটসহ। লগ দ্রুত বড় হতে পারে; কাজ শেষ হলে বন্ধ করুন। দেখুন "
+":ref:`logging_ref`।"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:332
+#: ../preferences.rst:341
 msgid "Send Anonymous Metrics and Errors"
 msgstr "অজ্ঞাত পরিমাপ এবং ত্রুটি পাঠান"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:334
+#: ../preferences.rst:343
 msgid "Send anonymous telemetry and error reports"
 msgstr "অজ্ঞাত টেলিমেট্রি এবং ত্রুটি রিপোর্ট পাঠান"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:335
+#: ../preferences.rst:344
 msgid "Show Playback Performance (FPS)"
 msgstr "প্লেব্যাক পারফরম্যান্স (FPS) দেখান"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:337
+#: ../preferences.rst:346
 msgid "Display live FPS in preview playback"
 msgstr "প্রিভিউ প্লেব্যাকের সময় লাইভ FPS প্রদর্শন করুন"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:338
+#: ../preferences.rst:347
 msgid "Show Export Dialog when Finished"
 msgstr "সম্পন্ন হলে Export ডায়ালগ দেখান"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:340
+#: ../preferences.rst:349
 msgid "Display the Export Video window when export completes"
 msgstr "রপ্তানি সম্পন্ন হলে Export Video উইন্ডো প্রদর্শন করুন"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:342
+#: ../preferences.rst:351
 msgid ""
 "The ComfyUI **Check** button updates an inline status icon: green checkmark "
 "for success, red icon for failure. If OpenShot cannot reach this server, AI "
@@ -1181,12 +1217,12 @@ msgstr ""
 " এবং ওয়ার্কফ্লো অপশনের জন্য :ref:`ai_ref` দেখুন।"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:349
+#: ../preferences.rst:358
 msgid "Reset (Default Values)"
 msgstr "রিসেট (ডিফল্ট মান)"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:351
+#: ../preferences.rst:360
 msgid ""
 "To reset **all** preferences to their default values, please delete the "
 "``openshot.settings`` file and re-launch OpenShot. The settings file can be "
@@ -1203,7 +1239,7 @@ msgstr ""
 "করবে।"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:356
+#: ../preferences.rst:365
 msgid ""
 "Optionally, you can delete the entire ``.openshot_qt/`` folder and re-launch"
 " OpenShot. However, please make a **backup** of any customized folders: "
@@ -1219,7 +1255,7 @@ msgstr ""
 "ব্যাকআপ কপি থাকে।"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:361
+#: ../preferences.rst:370
 msgid ""
 "Deleting the ``.openshot_qt/`` folder is the quickest method to restore "
 "OpenShot preferences and settings to their Default values (i.e. also called "
@@ -1235,6 +1271,26 @@ msgstr ""
 " সম্পর্কে আরও তথ্যের জন্য আমাদের `ধাপে ধাপে গাইড "
 "<https://github.com/OpenShot/openshot-qt/wiki/Clean-Installation-of-"
 "OpenShot>`_ দেখুন।"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Debug Mode (Port)"
+#~ msgstr "ডিবাগ মোড (পোর্ট)"
+
+# Translated with gpt-4.1-mini
+#~ msgid "5556"
+#~ msgstr "৫৫৫৬"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Port used by debug logging features"
+#~ msgstr "ডিবাগ লগিং ফিচারগুলির জন্য ব্যবহৃত পোর্ট"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Debug Mode (Verbose)"
+#~ msgstr "ডিবাগ মোড (বিস্তারিত)"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Enable verbose debugging output"
+#~ msgstr "বিস্তারিত ডিবাগিং আউটপুট সক্রিয় করুন"
 
 # Translated with gpt-4.1-mini
 #~ msgid ""

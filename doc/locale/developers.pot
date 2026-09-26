@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 4.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-09-26 14:26-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -72,94 +72,246 @@ msgstr ""
 msgid "In order to actually compile or run OpenShot, we need to install some dependencies on your system. The easiest way to accomplish this is with our `Daily PPA <https://www.openshot.org/ppa/>`_. A PPA is an unofficial Ubuntu repository, which has our software packages available to download and install."
 msgstr ""
 
-#: ../developers.rst:112
+#: ../developers.rst:110
 msgid "OpenShot supports PyQt5, PyQt6, and PySide6. libopenshot must be built against the correct Qt version for the binding you are using (Qt5: PyQt5, Qt6: PyQt6 or PySide6)."
 msgstr ""
 
-#: ../developers.rst:116
+#: ../developers.rst:114
 msgid "For PySide6 (Qt6) bindings, install these packages:"
 msgstr ""
 
-#: ../developers.rst:129
+#: ../developers.rst:127
 msgid "For PyQt6, install these packages:"
 msgstr ""
 
-#: ../developers.rst:139
+#: ../developers.rst:137
 msgid "The PyQt6 runtime must provide ``QtCore``, ``QtGui``, ``QtWidgets``, ``QtSvg``, ``QtStateMachine``, and ``uic``. Some distributions split these modules into separate packages. In particular, Ubuntu 24.04's ``python3-pyqt6`` package does not include ``QtStateMachine``. On that release, use the PySide6 packages above or install the complete PyQt6 wheel in a Python virtual environment:"
 msgstr ""
 
-#: ../developers.rst:151
+#: ../developers.rst:149
 msgid "Verify the selected Qt binding and its required modules before launching OpenShot:"
 msgstr ""
 
-#: ../developers.rst:159
+#: ../developers.rst:157
 msgid "At this point, you should have all 3 OpenShot components source code cloned into local folders, the OpenShot daily PPA installed, and all of the required development and runtime dependencies installed. This is a great start, and we are now ready to start compiling some code!"
 msgstr ""
 
-#: ../developers.rst:164
+#: ../developers.rst:162
 msgid "libopenshot-audio (Build Instructions)"
 msgstr ""
 
-#: ../developers.rst:165
+#: ../developers.rst:163
 msgid "This library is required for audio playback and audio effects. It is based on the JUCE audio framework. Here are the commands to build it:"
 msgstr ""
 
-#: ../developers.rst:178
+#: ../developers.rst:176
 msgid "Essentially, we are switching to the ``libopenshot-audio/build`` folder, then running ``cmake ..`` on the parent folder. This finds dependencies and creates all the needed Makefiles used to compile this library. Then ``make`` uses those Makefiles to compile this library, and ``make install`` installs them in the location we specified. If ``CMAKE_INSTALL_PREFIX`` isn't set, the files will install to ``/usr/local/`` (by default) and ``make install`` will require administrative privileges to run."
 msgstr ""
 
-#: ../developers.rst:186
+#: ../developers.rst:184
 msgid "libopenshot (Build Instructions)"
 msgstr ""
 
-#: ../developers.rst:187
+#: ../developers.rst:185
 msgid "This library is required for video decoding, encoding, animation, and just about everything else. It does all the heavy lifting of video editing and video playback. Here are the commands to build it:"
 msgstr ""
 
-#: ../developers.rst:199
+#: ../developers.rst:197
 msgid "Essentially, we are switching to the ``libopenshot/build`` folder, then running ``cmake ..`` on the parent folder. This finds dependencies and creates all the needed Makefiles used to compile this library. Then ``make`` uses those Makefiles to compile this library. Because we provided the location of our compiled ``libopenshot-audio`` installation, that version of the library will be used instead of the system version (if any)."
 msgstr ""
 
-#: ../developers.rst:206
+#: ../developers.rst:204
 msgid "We don't install our ``libopenshot`` after building, because we don't need to. For testing purposes, we can tell OpenShot to use ``libopenshot`` right from our ``build`` directory."
 msgstr ""
 
-#: ../developers.rst:210
+#: ../developers.rst:208
 msgid "Language Bindings"
 msgstr ""
 
-#: ../developers.rst:211
+#: ../developers.rst:209
 msgid "The ``libopenshot`` API is available in several languages through SWIG bindings.  Python is used by the OpenShot user interface, and we also provide Ruby and Java bindings.  Experimental support for Godot **4.4** is included for developers who wish to integrate video editing features into the Godot game engine.  All of these bindings map to the same C++ codebase so you can edit video from the environment you prefer."
 msgstr ""
 
-#: ../developers.rst:217
+#: ../developers.rst:215
 msgid "openshot-qt (Launch Instructions)"
 msgstr ""
 
-#: ../developers.rst:218
+#: ../developers.rst:216
 msgid "This is our main PyQt Python application. Because it is written in Python, it does not require any compiling to run. To launch OpenShot from the source code with our newly-built ``libopenshot-audio`` and ``libopenshot`` libraries, use the following commands:"
 msgstr ""
 
-#: ../developers.rst:229
+#: ../developers.rst:227
 msgid "This should launch the OpenShot user interface. Any changes you have made to the source code files (``*.py`` Python files, ``*.ui`` PyQt UI files, etc...) will be included. This requires the ``libopenshot-audio`` and ``libopenshot`` libraries, and if anything went wrong with the steps above, OpenShot will likely not launch."
 msgstr ""
 
-#: ../developers.rst:235
+#: ../developers.rst:233
 msgid "If OpenShot launches at this point, congratulations! You now have a working local version of OpenShot, which is running off your local source code. Try making some changes to the source code and re-launch OpenShot... you should now see your changes!"
 msgstr ""
 
+#: ../developers.rst:239
+msgid "Command-Line Options"
+msgstr ""
+
 #: ../developers.rst:241
+msgid "These options work with the installed OpenShot application, including ``openshot-qt.exe`` on Windows. When running from source, use ``python3 src/launch.py`` in place of the application name. Put options before any file paths you want OpenShot to open."
+msgstr ""
+
+#: ../developers.rst:246
+msgid "OpenShot command-line options"
+msgstr ""
+
+#: ../developers.rst:250
+msgid "Option"
+msgstr ""
+
+#: ../developers.rst:251
+msgid "What it does"
+msgstr ""
+
+#: ../developers.rst:252
+msgid "``-h``, ``--help``"
+msgstr ""
+
+#: ../developers.rst:253
+msgid "Show the available options and exit."
+msgstr ""
+
+#: ../developers.rst:254
+msgid "``-V``, ``--version``"
+msgstr ""
+
+#: ../developers.rst:255
+msgid "Print the OpenShot version and exit."
+msgstr ""
+
+#: ../developers.rst:256
+msgid "``-l CODE``, ``--lang CODE``"
+msgstr ""
+
+#: ../developers.rst:257
+msgid "Use the chosen interface language for this launch. The code must be one of those shown by ``--list-languages``."
+msgstr ""
+
+#: ../developers.rst:259
+msgid "``--list-languages``"
+msgstr ""
+
+#: ../developers.rst:260
+msgid "List supported language codes and exit."
+msgstr ""
+
+#: ../developers.rst:261
+msgid "``--path FOLDER``"
+msgstr ""
+
+#: ../developers.rst:262
+msgid "Add a folder to the Python module search path. You can repeat this option to add more than one folder."
+msgstr ""
+
+#: ../developers.rst:264
+msgid "``--feedback-preview``"
+msgstr ""
+
+#: ../developers.rst:265
+msgid "Show the feedback notice on launch without marking the invitation as shown in saved settings."
+msgstr ""
+
+#: ../developers.rst:267
+msgid "``--update-preview``"
+msgstr ""
+
+#: ../developers.rst:268
+msgid "Show the update notice on launch. Both preview options can be used together."
+msgstr ""
+
+#: ../developers.rst:269
+msgid "``--test-models``"
+msgstr ""
+
+#: ../developers.rst:270
+msgid "Enable Qt's data model tester for development (requires Qt 5.11 or later)."
+msgstr ""
+
+#: ../developers.rst:271
+msgid "``-d``, ``--debug``, ``--debug-ui``"
+msgstr ""
+
+#: ../developers.rst:272
+msgid "Add detailed interface messages to its log file and the terminal."
+msgstr ""
+
+#: ../developers.rst:273
+msgid "``--debug-engine``"
+msgstr ""
+
+#: ../developers.rst:274
+msgid "Add detailed video and audio engine messages to its log file and the terminal."
+msgstr ""
+
+#: ../developers.rst:275
+msgid "``--log-level LEVEL``"
+msgstr ""
+
+#: ../developers.rst:276
+msgid "Set the logging level for both parts of OpenShot, in files and the terminal."
+msgstr ""
+
+#: ../developers.rst:277
+msgid "``--log-file-level LEVEL``"
+msgstr ""
+
+#: ../developers.rst:278
+msgid "Set the logging level in both log files."
+msgstr ""
+
+#: ../developers.rst:279
+msgid "``--log-console-level LEVEL``"
+msgstr ""
+
+#: ../developers.rst:280
+msgid "Set the logging level in the terminal for both parts of OpenShot."
+msgstr ""
+
+#: ../developers.rst:281
+msgid "``--debug-file``"
+msgstr ""
+
+#: ../developers.rst:282
+msgid "Add detailed interface messages to its log file only. This older option is accepted but is not shown by ``--help``."
+msgstr ""
+
+#: ../developers.rst:284
+msgid "``--debug-console``"
+msgstr ""
+
+#: ../developers.rst:285
+msgid "Add detailed interface messages to the terminal only. This older option is accepted but is not shown by ``--help``."
+msgstr ""
+
+#: ../developers.rst:287
+msgid "``PROJECT.osp`` or media file paths"
+msgstr ""
+
+#: ../developers.rst:288
+msgid "Open a project when the first file path ends in ``.osp``. Otherwise, start a new project and import the supplied media files."
+msgstr ""
+
+#: ../developers.rst:291
+msgid "For ``LEVEL``, use ``debug``, ``info``, ``warning``, ``error``, ``critical``, or ``off``. See :ref:`logging_ref` for log file locations, examples, and more about choosing logging options."
+msgstr ""
+
+#: ../developers.rst:296
 msgid "GitHub Issues"
 msgstr ""
 
-#: ../developers.rst:242
+#: ../developers.rst:297
 msgid "Now that you have successfully compiled and launched OpenShot Video Editor from source code, be sure to check out our list of bug reports on GitHub: `OpenShot Issues`_. Also, you are encouraged to fill out our quick `contributor form <https://forms.gle/CRqkS5tLMJE1V36V8>`_ and introduce yourself!"
 msgstr ""
 
-#: ../developers.rst:248
+#: ../developers.rst:303
 msgid "Share your Changes"
 msgstr ""
 
-#: ../developers.rst:249
+#: ../developers.rst:304
 msgid "Once you have fixed a bug or added an amazing new feature, be sure to share it with the OpenShot team. Ideally, we can merge this into our main source code branch. The easiest way to share your changes is by creating a fork of our repo, pushing your changes back to GitHub, and creating a `Pull Request`_. A Pull Request lets the OpenShot team know you have changes ready to be merged. Then we can review things, give feedback, and hopefully merge your changes into the main branch."
 msgstr ""

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 4.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-09-26 14:26-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -189,93 +189,97 @@ msgid "The timeline toolbar helps with common navigation and editing actions (sn
 msgstr ""
 
 #: ../timeline.rst:103
+msgid "The :ref:`razor_tool_ref` shows a cut guide and timecode over the target clip. While paused, hovering also previews the cut frame without moving the playhead. Click to cut, or press :kbd:`Esc` to leave Razor mode. The Razor guide respects the existing **Snapping** toggle and uses the same snap targets and tolerance as other timeline edits."
+msgstr ""
+
+#: ../timeline.rst:109
 msgid "Tip: If timeline editing feels crowded, zoom in with the timeline slider to make small clip adjustments easier."
 msgstr ""
 
-#: ../timeline.rst:106
+#: ../timeline.rst:112
 msgid "You can also zoom the timeline with :kbd:`Ctrl+Scroll Wheel`. On the QWidget timeline, hold :kbd:`Ctrl` and drag with the middle mouse button for smooth zooming."
 msgstr ""
 
-#: ../timeline.rst:111
+#: ../timeline.rst:117
 msgid "Tracks, Locking, and Inserting"
 msgstr ""
 
-#: ../timeline.rst:113
+#: ../timeline.rst:119
 msgid "Tracks help organize your edit. A common setup is:"
 msgstr ""
 
-#: ../timeline.rst:115
+#: ../timeline.rst:121
 msgid "Top tracks: titles, overlays, logos, picture-in-picture"
 msgstr ""
 
-#: ../timeline.rst:116
+#: ../timeline.rst:122
 msgid "Middle tracks: main video content"
 msgstr ""
 
-#: ../timeline.rst:117
+#: ../timeline.rst:123
 msgid "Lower tracks: music and sound effects"
 msgstr ""
 
-#: ../timeline.rst:119
+#: ../timeline.rst:125
 msgid "You can lock tracks to protect them from accidental edits and use insert/ripple editing when you need later clips to move automatically."
 msgstr ""
 
-#: ../timeline.rst:122
+#: ../timeline.rst:128
 msgid "For track layout basics, see :ref:`tracks_ref`. For detailed clip editing behavior, see :ref:`clips_cutting_slicing_ref`."
 msgstr ""
 
-#: ../timeline.rst:126
+#: ../timeline.rst:132
 msgid "Keyframes in the Timeline"
 msgstr ""
 
-#: ../timeline.rst:128
+#: ../timeline.rst:134
 msgid "Keyframes let you change values over time, such as position, scale, rotation, opacity, and effect settings."
 msgstr ""
 
-#: ../timeline.rst:131
+#: ../timeline.rst:137
 msgid "In the timeline keyframe panel, each row represents one animated property. You can:"
 msgstr ""
 
-#: ../timeline.rst:133
+#: ../timeline.rst:139
 msgid "Add a keyframe row for a property"
 msgstr ""
 
-#: ../timeline.rst:134
+#: ../timeline.rst:140
 msgid "Insert new keyframes along the row"
 msgstr ""
 
-#: ../timeline.rst:135
+#: ../timeline.rst:141
 msgid "Move keyframes to change timing"
 msgstr ""
 
-#: ../timeline.rst:136
+#: ../timeline.rst:142
 msgid "Change interpolation to control motion style"
 msgstr ""
 
-#: ../timeline.rst:138
+#: ../timeline.rst:144
 msgid "For keyframe concepts and animation examples, see :ref:`animation_ref`."
 msgstr ""
 
-#: ../timeline.rst:141
+#: ../timeline.rst:147
 msgid "Next Steps"
 msgstr ""
 
-#: ../timeline.rst:143
+#: ../timeline.rst:149
 msgid "After you are comfortable with timeline basics, these sections are the best next reads:"
 msgstr ""
 
-#: ../timeline.rst:145
+#: ../timeline.rst:151
 msgid ":ref:`clips_ref` for trimming, slicing, and clip properties"
 msgstr ""
 
-#: ../timeline.rst:146
+#: ../timeline.rst:152
 msgid ":ref:`effects_ref` for video/audio effects"
 msgstr ""
 
-#: ../timeline.rst:147
+#: ../timeline.rst:153
 msgid ":ref:`animation_ref` for keyframe animation workflows"
 msgstr ""
 
-#: ../timeline.rst:148
+#: ../timeline.rst:154
 msgid ":doc:`export` for creating your final video file"
 msgstr ""

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-16 18:08-0500\n"
+"POT-Creation-Date: 2026-09-26 14:26-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,16 +28,17 @@ msgid ""
 "The latest official **stable** version of OpenShot Video Editor for Linux, "
 "Mac, Chrome OS, and Windows can be downloaded from the official download "
 "page at https://www.openshot.org/download/. You can find our latest "
-"**unstable** versions (i.e. daily builds) at https://www.openshot.org/"
-"download#daily (these versions are updated very frequently, and often "
-"contain many improvements not yet released in our stable build)."
+"**unstable** versions (i.e. daily builds) at "
+"https://www.openshot.org/download#daily (these versions are updated very "
+"frequently, and often contain many improvements not yet released in our "
+"stable build)."
 msgstr ""
 "Останню офіційну **стабільну** версію OpenShot Video Editor для Linux, Mac, "
 "Chrome OS та Windows можна завантажити зі сторінки офіційного завантаження "
 "за адресою https://www.openshot.org/download/. Наші останні **нестабільні** "
-"версії (щоденні збірки) доступні за адресою https://www.openshot.org/"
-"download#daily (ці версії оновлюються дуже часто і часто містять багато "
-"покращень, які ще не випущені у стабільній збірці)."
+"версії (щоденні збірки) доступні за адресою "
+"https://www.openshot.org/download#daily (ці версії оновлюються дуже часто і "
+"часто містять багато покращень, які ще не випущені у стабільній збірці)."
 
 # Translated with gpt-4.1-mini
 #: ../installation.rst:32
@@ -47,16 +48,17 @@ msgstr "Чисте встановлення"
 # Translated with gpt-4.1-mini
 #: ../installation.rst:34
 msgid ""
-"If you are upgrading from a previous version of OpenShot or are experiencing "
-"a crash or error message after launching OpenShot, please see :ref:"
-"`preferences_reset_ref` for instructions on clearing the previous ``openshot."
-"settings`` file (for a clean install with **default preferences**)."
+"If you are upgrading from a previous version of OpenShot or are experiencing"
+" a crash or error message after launching OpenShot, please see "
+":ref:`preferences_reset_ref` for instructions on clearing the previous "
+"``openshot.settings`` file (for a clean install with **default "
+"preferences**)."
 msgstr ""
-"Якщо ви оновлюєтеся з попередньої версії OpenShot або стикаєтеся з аварійним "
-"завершенням роботи чи повідомленням про помилку після запуску OpenShot, будь "
-"ласка, дивіться :ref:`preferences_reset_ref` для інструкцій щодо очищення "
-"попереднього файлу ``openshot.settings`` (для чистого встановлення з "
-"**стандартними налаштуваннями**)."
+"Якщо ви оновлюєтеся з попередньої версії OpenShot або стикаєтеся з аварійним"
+" завершенням роботи чи повідомленням про помилку після запуску OpenShot, "
+"будь ласка, дивіться :ref:`preferences_reset_ref` для інструкцій щодо "
+"очищення попереднього файлу ``openshot.settings`` (для чистого встановлення "
+"з **стандартними налаштуваннями**)."
 
 # Translated with gpt-4.1-mini
 #: ../installation.rst:39
@@ -66,15 +68,17 @@ msgstr "Windows (Інсталятор)"
 # Translated with gpt-4.1-mini
 #: ../installation.rst:41
 msgid ""
-"Download the Windows installer from the `official download page <https://www."
-"openshot.org/download/>`_ (the download page contains both 64-bit and 32-bit "
-"versions), double click it, and follow the directions on screen. Once "
-"completed, OpenShot will be installed and available in your Start menu."
+"Download the Windows installer from the `official download page "
+"<https://www.openshot.org/download/>`_ (the download page contains both "
+"64-bit and 32-bit versions), double click it, and follow the directions on "
+"screen. Once completed, OpenShot will be installed and available in your "
+"Start menu."
 msgstr ""
-"Завантажте інсталятор Windows зі `сторінки офіційного завантаження <https://"
-"www.openshot.org/download/>`_ (на сторінці завантаження є версії як для 64-"
-"біт, так і для 32-біт), двічі клацніть його та дотримуйтесь інструкцій на "
-"екрані. Після завершення OpenShot буде встановлено і доступний у меню «Пуск»."
+"Завантажте інсталятор Windows зі `сторінки офіційного завантаження "
+"<https://www.openshot.org/download/>`_ (на сторінці завантаження є версії як"
+" для 64-біт, так і для 32-біт), двічі клацніть його та дотримуйтесь "
+"інструкцій на екрані. Після завершення OpenShot буде встановлено і доступний"
+" у меню «Пуск»."
 
 # Translated with gpt-4.1-mini
 #: ../installation.rst:50
@@ -86,47 +90,59 @@ msgstr "Windows (Портативна версія)"
 msgid ""
 "If you need to install OpenShot on Windows without Administrator "
 "permissions, we also support a portable installation process. Download the "
-"Windows installer from the `official download page <https://www.openshot.org/"
-"download/>`_, open the command prompt, and type the following commands:"
+"Windows installer from the `official download page "
+"<https://www.openshot.org/download/>`_, open the command prompt, and type "
+"the following commands:"
 msgstr ""
-"Якщо вам потрібно встановити OpenShot на Windows без прав адміністратора, ми "
-"також підтримуємо портативний спосіб встановлення. Завантажте інсталятор "
-"Windows зі `сторінки офіційного завантаження <https://www.openshot.org/"
-"download/>`_, відкрийте командний рядок і введіть наступні команди:"
+"Якщо вам потрібно встановити OpenShot на Windows без прав адміністратора, ми"
+" також підтримуємо портативний спосіб встановлення. Завантажте інсталятор "
+"Windows зі `сторінки офіційного завантаження "
+"<https://www.openshot.org/download/>`_, відкрийте командний рядок і введіть "
+"наступні команди:"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:67 ../installation.rst:181
+#: ../installation.rst:67 ../installation.rst:185
 msgid "Mac"
 msgstr "Mac"
 
 # Translated with gpt-4.1-mini
 #: ../installation.rst:69
 msgid ""
-"Download the DMG file from the `official download page <https://www.openshot."
-"org/download/>`_, double click it, and then drag the OpenShot application "
-"icon into your **Applications** shortcut. This is very similar to how most "
-"Mac applications are installed. Now launch OpenShot from `Launchpad` or "
-"`Applications` in Finder."
+"Download the DMG file from the `official download page "
+"<https://www.openshot.org/download/>`_, double click it, and then drag the "
+"OpenShot application icon into your **Applications** shortcut. This is very "
+"similar to how most Mac applications are installed. Now launch OpenShot from"
+" `Launchpad` or `Applications` in Finder."
 msgstr ""
-"Завантажте файл DMG зі `сторінки офіційного завантаження <https://www."
-"openshot.org/download/>`_, двічі клацніть його, а потім перетягніть іконку "
-"програми OpenShot у ярлик **Applications**. Це дуже схоже на спосіб "
-"встановлення більшості програм для Mac. Тепер запустіть OpenShot через "
-"`Launchpad` або `Applications` у Finder."
+"Завантажте файл DMG зі `сторінки офіційного завантаження "
+"<https://www.openshot.org/download/>`_, двічі клацніть його, а потім "
+"перетягніть іконку програми OpenShot у ярлик **Applications**. Це дуже схоже"
+" на спосіб встановлення більшості програм для Mac. Тепер запустіть OpenShot "
+"через `Launchpad` або `Applications` у Finder."
+
+#: ../installation.rst:74
+msgid ""
+"The current Mac download is built for Intel Macs. On an Apple Silicon Mac, "
+"you can run this Intel version using Rosetta. A native Apple Silicon version"
+" is not currently available."
+msgstr ""
+"Поточна версія для Mac створена для Intel Mac. На Apple Silicon Mac ви "
+"можете запускати цю Intel-версію за допомогою Rosetta. Нативна версія для "
+"Apple Silicon наразі недоступна."
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:77
+#: ../installation.rst:81
 msgid "Linux (AppImage)"
 msgstr "Linux (AppImage)"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:79
+#: ../installation.rst:83
 msgid ""
 "Most Linux distributions have a version of OpenShot in their software "
 "repositories, which can be installed using your package manager / software "
 "store. However, these packaged versions are often very outdated (be sure to "
-"check the version number: :guilabel:`Help→About OpenShot`). For this reason, "
-"we recommend installing an AppImage from the `official download page "
+"check the version number: :guilabel:`Help→About OpenShot`). For this reason,"
+" we recommend installing an AppImage from the `official download page "
 "<https://www.openshot.org/download/>`_."
 msgstr ""
 "Більшість дистрибутивів Linux мають версію OpenShot у своїх репозиторіях "
@@ -137,14 +153,14 @@ msgstr ""
 "завантаження <https://www.openshot.org/download/>`_."
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:85
+#: ../installation.rst:89
 msgid ""
 "Once downloaded, right click on the AppImage, choose Properties, and mark "
 "the file as **Executable**. Finally, double click the AppImage to launch "
 "OpenShot. If double clicking does not launch OpenShot, you can also right "
 "click on the AppImage, and choose `Execute` or `Run`. For a detailed guide "
-"on installing our AppImage and creating a launcher for it, see our `AppImage "
-"Installation Guide <https://github.com/OpenShot/openshot-qt/wiki/AppImage-"
+"on installing our AppImage and creating a launcher for it, see our `AppImage"
+" Installation Guide <https://github.com/OpenShot/openshot-qt/wiki/AppImage-"
 "Installation>`_."
 msgstr ""
 "Після завантаження клацніть правою кнопкою миші на AppImage, виберіть "
@@ -156,12 +172,12 @@ msgstr ""
 "<https://github.com/OpenShot/openshot-qt/wiki/AppImage-Installation>`_."
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:94
+#: ../installation.rst:98
 msgid "Unable to Launch AppImage?"
 msgstr "Не вдається запустити AppImage?"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:95
+#: ../installation.rst:99
 msgid ""
 "Please verify that the ``libfuse2`` library is installed, which is required "
 "to mount and read an AppImage. On newer versions of Ubuntu (i.e. 22.04+), "
@@ -174,18 +190,18 @@ msgstr ""
 "встановити її за допомогою наступної команди:"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:104
+#: ../installation.rst:108
 msgid "Install AppImage Launcher"
 msgstr "Встановити AppImage Launcher"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:105
+#: ../installation.rst:109
 msgid ""
 "If you plan on using OpenShot often, you will probably want an integrated "
-"launcher for our AppImage. We recommend using AppImageLauncher, which is the "
-"officially supported way to launch (and manage) AppImage files on your Linux "
-"desktop. If you are on a Debian-based distro (Ubuntu, Mint, etc...), there "
-"is an official AppImageLauncher PPA:"
+"launcher for our AppImage. We recommend using AppImageLauncher, which is the"
+" officially supported way to launch (and manage) AppImage files on your "
+"Linux desktop. If you are on a Debian-based distro (Ubuntu, Mint, etc...), "
+"there is an official AppImageLauncher PPA:"
 msgstr ""
 "Якщо ви плануєте часто користуватися OpenShot, вам, ймовірно, знадобиться "
 "інтегрований запуск для нашого AppImage. Ми рекомендуємо використовувати "
@@ -195,41 +211,41 @@ msgstr ""
 "офіційний PPA для AppImageLauncher:"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:117
+#: ../installation.rst:121
 msgid "Linux (PPA)"
 msgstr "Linux (PPA)"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:119
+#: ../installation.rst:123
 msgid ""
 "For Debian-based Linux distributions (Ubuntu, Mint, etc...), we also have a "
 "PPA (Personal Package Archive), which adds our official OpenShot software "
-"repository to your package manager, making it possible to install our latest "
-"version, without relying on our AppImages."
+"repository to your package manager, making it possible to install our latest"
+" version, without relying on our AppImages."
 msgstr ""
 "Для дистрибутивів Linux на базі Debian (Ubuntu, Mint тощо) ми також маємо "
-"PPA (особистий архів пакетів), який додає наш офіційний репозиторій OpenShot "
-"до вашого менеджера пакетів, що дозволяє встановлювати нашу останню версію "
+"PPA (особистий архів пакетів), який додає наш офіційний репозиторій OpenShot"
+" до вашого менеджера пакетів, що дозволяє встановлювати нашу останню версію "
 "без використання AppImage."
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:124
+#: ../installation.rst:128
 msgid "Stable PPA (Contains only official releases)"
 msgstr "Стабільний PPA (містить лише офіційні релізи)"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:133
+#: ../installation.rst:137
 msgid "Daily PPA (Highly experimental and unstable, for testers)"
 msgstr ""
 "Щоденний PPA (дуже експериментальний і нестабільний, для тестувальників)"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:142
+#: ../installation.rst:146
 msgid "Chrome OS (Chromebook)"
 msgstr "Chrome OS (Chromebook)"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:144
+#: ../installation.rst:148
 msgid ""
 "Chrome OS supports Linux apps, but this feature is off by default. You can "
 "turn it on in *Settings*. Once Linux is enabled, you can install and run "
@@ -237,26 +253,26 @@ msgid ""
 "will download our AppImage and configure your system to run OpenShot "
 "successfully."
 msgstr ""
-"Chrome OS підтримує Linux-додатки, але ця функція за замовчуванням вимкнена. "
-"Ви можете увімкнути її в *Налаштуваннях*. Після увімкнення Linux ви зможете "
-"встановлювати та запускати OpenShot Linux AppImage на будь-якому Chromebook "
-"на базі *x86*. Наведена нижче команда завантажить наш AppImage і налаштує "
+"Chrome OS підтримує Linux-додатки, але ця функція за замовчуванням вимкнена."
+" Ви можете увімкнути її в *Налаштуваннях*. Після увімкнення Linux ви зможете"
+" встановлювати та запускати OpenShot Linux AppImage на будь-якому Chromebook"
+" на базі *x86*. Наведена нижче команда завантажить наш AppImage і налаштує "
 "вашу систему для успішного запуску OpenShot."
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:149
+#: ../installation.rst:153
 msgid "Navigate to *chrome://os-settings/crostini* (Copy/Paste)"
 msgstr "Перейдіть до *chrome://os-settings/crostini* (копіювати/вставити)"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:150
+#: ../installation.rst:154
 msgid "Under \"Linux (Beta)\" select \"Turn On\". Default values are fine."
 msgstr ""
 "У розділі «Linux (Beta)» виберіть «Увімкнути». Значення за замовчуванням "
 "підходять."
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:152
+#: ../installation.rst:156
 msgid ""
 "When the Terminal appears (i.e. black window), Copy/Paste the following "
 "command:"
@@ -264,25 +280,25 @@ msgstr ""
 "Коли з’явиться Терминал (чорне вікно), скопіюйте/вставте наступну команду:"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:152
+#: ../installation.rst:156
 msgid ""
 "``bash <(wget -O - http://openshot.org/files/chromeos/install-stable.sh)``"
 msgstr ""
 "``bash <(wget -O - http://openshot.org/files/chromeos/install-stable.sh)``"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:155
+#: ../installation.rst:159
 msgid "Previous Versions"
 msgstr "Попередні версії"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:157
+#: ../installation.rst:161
 msgid ""
-"To download old versions of OpenShot Video Editor, you can visit https://"
-"github.com/OpenShot/openshot-qt/tags. Click on the version number you need, "
-"and scroll to the bottom, under the release notes. You will find download "
-"links for each operating system. Download the appropriate version for your "
-"computer, and follow the installation instructions above."
+"To download old versions of OpenShot Video Editor, you can visit "
+"https://github.com/OpenShot/openshot-qt/tags. Click on the version number "
+"you need, and scroll to the bottom, under the release notes. You will find "
+"download links for each operating system. Download the appropriate version "
+"for your computer, and follow the installation instructions above."
 msgstr ""
 "Щоб завантажити старі версії OpenShot Video Editor, ви можете відвідати "
 "https://github.com/OpenShot/openshot-qt/tags. Клацніть на потрібний номер "
@@ -292,7 +308,7 @@ msgstr ""
 "інструкцій з встановлення."
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:162
+#: ../installation.rst:166
 msgid ""
 "NOTE: Projects (\\*.osp) made with newer versions of OpenShot Video Editor "
 "might not support older versions."
@@ -301,82 +317,83 @@ msgstr ""
 "Editor, можуть не підтримуватися старішими версіями."
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:165
+#: ../installation.rst:169
 msgid "Uninstall"
 msgstr "Видалити"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:167
+#: ../installation.rst:171
 msgid ""
 "To fully uninstall OpenShot from your system, you must **manually delete** "
-"the ``.openshot_qt`` folder: ``~/.openshot_qt/`` or ``C:\\Users\\USERNAME\\."
-"openshot_qt\\``, which contains all settings and files used by OpenShot. Be "
-"sure to **backup** any recovery files of your existing projects first (\\*."
-"osp files). Please see :ref:`preferences_reset_ref` for instructions on "
-"clearing the previous ``openshot.settings`` file (for a clean install with "
-"**default preferences**)."
+"the ``.openshot_qt`` folder: ``~/.openshot_qt/`` or "
+"``C:\\Users\\USERNAME\\.openshot_qt\\``, which contains all settings and "
+"files used by OpenShot. Be sure to **backup** any recovery files of your "
+"existing projects first (\\*.osp files). Please see "
+":ref:`preferences_reset_ref` for instructions on clearing the previous "
+"``openshot.settings`` file (for a clean install with **default "
+"preferences**)."
 msgstr ""
 "Щоб повністю видалити OpenShot із вашої системи, потрібно **вручну "
-"видалити** папку ``.openshot_qt``: ``~/.openshot_qt/`` або ``C:"
-"\\Users\\USERNAME\\.openshot_qt\\``, яка містить усі налаштування та файли, "
-"що використовуються OpenShot. Обов’язково **створіть резервну копію** будь-"
-"яких файлів відновлення ваших існуючих проєктів (файли \\*.osp). Будь ласка, "
-"дивіться :ref:`preferences_reset_ref` для інструкцій щодо очищення "
+"видалити** папку ``.openshot_qt``: ``~/.openshot_qt/`` або "
+"``C:\\Users\\USERNAME\\.openshot_qt\\``, яка містить усі налаштування та "
+"файли, що використовуються OpenShot. Обов’язково **створіть резервну копію**"
+" будь-яких файлів відновлення ваших існуючих проєктів (файли \\*.osp). Будь "
+"ласка, дивіться :ref:`preferences_reset_ref` для інструкцій щодо очищення "
 "попереднього файлу ``openshot.settings`` (для чистої інсталяції з "
 "**налаштуваннями за замовчуванням**)."
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:174
+#: ../installation.rst:178
 msgid "Windows"
 msgstr "Windows"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:176
+#: ../installation.rst:180
 msgid "Open **Control Panel** from the Start menu"
 msgstr "Відкрийте **Панель керування** через меню Пуск"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:177
+#: ../installation.rst:181
 msgid "Click on **Programs and Features**"
 msgstr "Клацніть на **Програми та компоненти**"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:178
+#: ../installation.rst:182
 msgid "Select OpenShot Video Editor, then click **Uninstall**"
 msgstr "Виберіть OpenShot Video Editor, потім натисніть **Видалити**"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:183
+#: ../installation.rst:187
 msgid "Open **Finder** and go to **Applications**"
 msgstr "Відкрийте **Finder** і перейдіть до **Програми**"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:184
+#: ../installation.rst:188
 msgid "Drag the OpenShot Video Editor icon to the **Trash** in the Dock"
 msgstr "Перетягніть іконку OpenShot Video Editor у **Кошик** на Dock"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:185
+#: ../installation.rst:189
 msgid "Right-click **Trash** and choose **Empty Trash**"
 msgstr "Клацніть правою кнопкою на **Кошик** і виберіть **Очистити кошик**"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:188
+#: ../installation.rst:192
 msgid "Ubuntu (Linux)"
 msgstr "Ubuntu (Linux)"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:190
+#: ../installation.rst:194
 msgid "Open up **Files**"
 msgstr "Відкрийте **Файли**"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:191
+#: ../installation.rst:195
 msgid "Locate the ``*.AppImage`` and delete the file"
 msgstr "Знайдіть файл ``*.AppImage`` і видаліть його"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:192
+#: ../installation.rst:196
 msgid ""
 "OR click Activities, Right-click on OpenShot Video Editor icon, and choose "
 "**Remove AppImage from System**"

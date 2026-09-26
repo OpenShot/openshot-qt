@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-16 18:08-0500\n"
+"POT-Creation-Date: 2026-09-26 14:26-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,16 +28,18 @@ msgid ""
 "The latest official **stable** version of OpenShot Video Editor for Linux, "
 "Mac, Chrome OS, and Windows can be downloaded from the official download "
 "page at https://www.openshot.org/download/. You can find our latest "
-"**unstable** versions (i.e. daily builds) at https://www.openshot.org/"
-"download#daily (these versions are updated very frequently, and often "
-"contain many improvements not yet released in our stable build)."
+"**unstable** versions (i.e. daily builds) at "
+"https://www.openshot.org/download#daily (these versions are updated very "
+"frequently, and often contain many improvements not yet released in our "
+"stable build)."
 msgstr ""
 "Versi resmi **stabil** terbaru dari OpenShot Video Editor untuk Linux, Mac, "
-"Chrome OS, dan Windows dapat diunduh dari halaman unduhan resmi di https://"
-"www.openshot.org/download/. Anda dapat menemukan versi **tidak stabil** "
-"terbaru kami (misalnya build harian) di https://www.openshot.org/"
-"download#daily (versi ini diperbarui sangat sering, dan sering kali berisi "
-"banyak perbaikan yang belum dirilis dalam build stabil kami)."
+"Chrome OS, dan Windows dapat diunduh dari halaman unduhan resmi di "
+"https://www.openshot.org/download/. Anda dapat menemukan versi **tidak "
+"stabil** terbaru kami (misalnya build harian) di "
+"https://www.openshot.org/download#daily (versi ini diperbarui sangat sering,"
+" dan sering kali berisi banyak perbaikan yang belum dirilis dalam build "
+"stabil kami)."
 
 # Translated with gpt-4.1-mini
 #: ../installation.rst:32
@@ -47,15 +49,17 @@ msgstr "Instalasi Bersih"
 # Translated with gpt-4.1-mini
 #: ../installation.rst:34
 msgid ""
-"If you are upgrading from a previous version of OpenShot or are experiencing "
-"a crash or error message after launching OpenShot, please see :ref:"
-"`preferences_reset_ref` for instructions on clearing the previous ``openshot."
-"settings`` file (for a clean install with **default preferences**)."
+"If you are upgrading from a previous version of OpenShot or are experiencing"
+" a crash or error message after launching OpenShot, please see "
+":ref:`preferences_reset_ref` for instructions on clearing the previous "
+"``openshot.settings`` file (for a clean install with **default "
+"preferences**)."
 msgstr ""
 "Jika Anda meningkatkan dari versi OpenShot sebelumnya atau mengalami crash "
-"atau pesan kesalahan setelah meluncurkan OpenShot, silakan lihat :ref:"
-"`preferences_reset_ref` untuk petunjuk menghapus file ``openshot.settings`` "
-"sebelumnya (untuk instalasi bersih dengan **preferensi default**)."
+"atau pesan kesalahan setelah meluncurkan OpenShot, silakan lihat "
+":ref:`preferences_reset_ref` untuk petunjuk menghapus file "
+"``openshot.settings`` sebelumnya (untuk instalasi bersih dengan **preferensi"
+" default**)."
 
 # Translated with gpt-4.1-mini
 #: ../installation.rst:39
@@ -65,15 +69,16 @@ msgstr "Windows (Penginstal)"
 # Translated with gpt-4.1-mini
 #: ../installation.rst:41
 msgid ""
-"Download the Windows installer from the `official download page <https://www."
-"openshot.org/download/>`_ (the download page contains both 64-bit and 32-bit "
-"versions), double click it, and follow the directions on screen. Once "
-"completed, OpenShot will be installed and available in your Start menu."
+"Download the Windows installer from the `official download page "
+"<https://www.openshot.org/download/>`_ (the download page contains both "
+"64-bit and 32-bit versions), double click it, and follow the directions on "
+"screen. Once completed, OpenShot will be installed and available in your "
+"Start menu."
 msgstr ""
-"Unduh penginstal Windows dari `halaman unduhan resmi <https://www.openshot."
-"org/download/>`_ (halaman unduhan berisi versi 64-bit dan 32-bit), klik dua "
-"kali, dan ikuti petunjuk di layar. Setelah selesai, OpenShot akan terpasang "
-"dan tersedia di menu Start Anda."
+"Unduh penginstal Windows dari `halaman unduhan resmi "
+"<https://www.openshot.org/download/>`_ (halaman unduhan berisi versi 64-bit "
+"dan 32-bit), klik dua kali, dan ikuti petunjuk di layar. Setelah selesai, "
+"OpenShot akan terpasang dan tersedia di menu Start Anda."
 
 # Translated with gpt-4.1-mini
 #: ../installation.rst:50
@@ -85,82 +90,93 @@ msgstr "Windows (Portabel)"
 msgid ""
 "If you need to install OpenShot on Windows without Administrator "
 "permissions, we also support a portable installation process. Download the "
-"Windows installer from the `official download page <https://www.openshot.org/"
-"download/>`_, open the command prompt, and type the following commands:"
+"Windows installer from the `official download page "
+"<https://www.openshot.org/download/>`_, open the command prompt, and type "
+"the following commands:"
 msgstr ""
 "Jika Anda perlu menginstal OpenShot di Windows tanpa izin Administrator, "
-"kami juga mendukung proses instalasi portabel. Unduh penginstal Windows dari "
-"`halaman unduhan resmi <https://www.openshot.org/download/>`_, buka command "
-"prompt, dan ketik perintah berikut:"
+"kami juga mendukung proses instalasi portabel. Unduh penginstal Windows dari"
+" `halaman unduhan resmi <https://www.openshot.org/download/>`_, buka command"
+" prompt, dan ketik perintah berikut:"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:67 ../installation.rst:181
+#: ../installation.rst:67 ../installation.rst:185
 msgid "Mac"
 msgstr "Mac"
 
 # Translated with gpt-4.1-mini
 #: ../installation.rst:69
 msgid ""
-"Download the DMG file from the `official download page <https://www.openshot."
-"org/download/>`_, double click it, and then drag the OpenShot application "
-"icon into your **Applications** shortcut. This is very similar to how most "
-"Mac applications are installed. Now launch OpenShot from `Launchpad` or "
-"`Applications` in Finder."
+"Download the DMG file from the `official download page "
+"<https://www.openshot.org/download/>`_, double click it, and then drag the "
+"OpenShot application icon into your **Applications** shortcut. This is very "
+"similar to how most Mac applications are installed. Now launch OpenShot from"
+" `Launchpad` or `Applications` in Finder."
 msgstr ""
-"Unduh file DMG dari `halaman unduhan resmi <https://www.openshot.org/"
-"download/>`_, klik dua kali, lalu seret ikon aplikasi OpenShot ke pintasan "
-"**Applications** Anda. Ini sangat mirip dengan cara kebanyakan aplikasi Mac "
-"diinstal. Sekarang jalankan OpenShot dari `Launchpad` atau `Applications` di "
-"Finder."
+"Unduh file DMG dari `halaman unduhan resmi "
+"<https://www.openshot.org/download/>`_, klik dua kali, lalu seret ikon "
+"aplikasi OpenShot ke pintasan **Applications** Anda. Ini sangat mirip dengan"
+" cara kebanyakan aplikasi Mac diinstal. Sekarang jalankan OpenShot dari "
+"`Launchpad` atau `Applications` di Finder."
+
+#: ../installation.rst:74
+msgid ""
+"The current Mac download is built for Intel Macs. On an Apple Silicon Mac, "
+"you can run this Intel version using Rosetta. A native Apple Silicon version"
+" is not currently available."
+msgstr ""
+"Unduhan Mac saat ini dibuat untuk Mac Intel. Pada Mac Apple Silicon, Anda "
+"dapat menjalankan versi Intel ini menggunakan Rosetta. Versi native Apple "
+"Silicon saat ini belum tersedia."
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:77
+#: ../installation.rst:81
 msgid "Linux (AppImage)"
 msgstr "Linux (AppImage)"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:79
+#: ../installation.rst:83
 msgid ""
 "Most Linux distributions have a version of OpenShot in their software "
 "repositories, which can be installed using your package manager / software "
 "store. However, these packaged versions are often very outdated (be sure to "
-"check the version number: :guilabel:`Help→About OpenShot`). For this reason, "
-"we recommend installing an AppImage from the `official download page "
+"check the version number: :guilabel:`Help→About OpenShot`). For this reason,"
+" we recommend installing an AppImage from the `official download page "
 "<https://www.openshot.org/download/>`_."
 msgstr ""
 "Sebagian besar distribusi Linux memiliki versi OpenShot di repositori "
-"perangkat lunak mereka, yang dapat diinstal menggunakan manajer paket / toko "
-"perangkat lunak Anda. Namun, versi paket ini seringkali sangat usang "
+"perangkat lunak mereka, yang dapat diinstal menggunakan manajer paket / toko"
+" perangkat lunak Anda. Namun, versi paket ini seringkali sangat usang "
 "(pastikan untuk memeriksa nomor versi: :guilabel:`Help→About OpenShot`). "
 "Oleh karena itu, kami menyarankan menginstal AppImage dari `halaman unduhan "
 "resmi <https://www.openshot.org/download/>`_."
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:85
+#: ../installation.rst:89
 msgid ""
 "Once downloaded, right click on the AppImage, choose Properties, and mark "
 "the file as **Executable**. Finally, double click the AppImage to launch "
 "OpenShot. If double clicking does not launch OpenShot, you can also right "
 "click on the AppImage, and choose `Execute` or `Run`. For a detailed guide "
-"on installing our AppImage and creating a launcher for it, see our `AppImage "
-"Installation Guide <https://github.com/OpenShot/openshot-qt/wiki/AppImage-"
+"on installing our AppImage and creating a launcher for it, see our `AppImage"
+" Installation Guide <https://github.com/OpenShot/openshot-qt/wiki/AppImage-"
 "Installation>`_."
 msgstr ""
-"Setelah diunduh, klik kanan pada AppImage, pilih Properties, dan tandai file "
-"sebagai **Executable**. Terakhir, klik dua kali AppImage untuk menjalankan "
+"Setelah diunduh, klik kanan pada AppImage, pilih Properties, dan tandai file"
+" sebagai **Executable**. Terakhir, klik dua kali AppImage untuk menjalankan "
 "OpenShot. Jika klik dua kali tidak menjalankan OpenShot, Anda juga dapat "
 "klik kanan pada AppImage, dan pilih `Execute` atau `Run`. Untuk panduan "
 "rinci tentang menginstal AppImage kami dan membuat peluncur untuknya, lihat "
-"`Panduan Instalasi AppImage <https://github.com/OpenShot/openshot-qt/wiki/"
-"AppImage-Installation>`_."
+"`Panduan Instalasi AppImage <https://github.com/OpenShot/openshot-"
+"qt/wiki/AppImage-Installation>`_."
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:94
+#: ../installation.rst:98
 msgid "Unable to Launch AppImage?"
 msgstr "Tidak Bisa Menjalankan AppImage?"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:95
+#: ../installation.rst:99
 msgid ""
 "Please verify that the ``libfuse2`` library is installed, which is required "
 "to mount and read an AppImage. On newer versions of Ubuntu (i.e. 22.04+), "
@@ -168,42 +184,42 @@ msgid ""
 "following command:"
 msgstr ""
 "Harap pastikan bahwa perpustakaan ``libfuse2`` sudah terpasang, yang "
-"diperlukan untuk memasang dan membaca AppImage. Pada versi Ubuntu yang lebih "
-"baru (misalnya 22.04+), ``libfuse2`` tidak terpasang secara default. Anda "
+"diperlukan untuk memasang dan membaca AppImage. Pada versi Ubuntu yang lebih"
+" baru (misalnya 22.04+), ``libfuse2`` tidak terpasang secara default. Anda "
 "dapat menginstalnya dengan perintah berikut:"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:104
+#: ../installation.rst:108
 msgid "Install AppImage Launcher"
 msgstr "Pasang Peluncur AppImage"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:105
+#: ../installation.rst:109
 msgid ""
 "If you plan on using OpenShot often, you will probably want an integrated "
-"launcher for our AppImage. We recommend using AppImageLauncher, which is the "
-"officially supported way to launch (and manage) AppImage files on your Linux "
-"desktop. If you are on a Debian-based distro (Ubuntu, Mint, etc...), there "
-"is an official AppImageLauncher PPA:"
+"launcher for our AppImage. We recommend using AppImageLauncher, which is the"
+" officially supported way to launch (and manage) AppImage files on your "
+"Linux desktop. If you are on a Debian-based distro (Ubuntu, Mint, etc...), "
+"there is an official AppImageLauncher PPA:"
 msgstr ""
-"Jika Anda berencana menggunakan OpenShot sering, Anda mungkin ingin peluncur "
-"terintegrasi untuk AppImage kami. Kami merekomendasikan menggunakan "
+"Jika Anda berencana menggunakan OpenShot sering, Anda mungkin ingin peluncur"
+" terintegrasi untuk AppImage kami. Kami merekomendasikan menggunakan "
 "AppImageLauncher, yang merupakan cara resmi untuk meluncurkan (dan "
-"mengelola) file AppImage di desktop Linux Anda. Jika Anda menggunakan distro "
-"berbasis Debian (Ubuntu, Mint, dll...), ada PPA resmi AppImageLauncher:"
+"mengelola) file AppImage di desktop Linux Anda. Jika Anda menggunakan distro"
+" berbasis Debian (Ubuntu, Mint, dll...), ada PPA resmi AppImageLauncher:"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:117
+#: ../installation.rst:121
 msgid "Linux (PPA)"
 msgstr "Linux (PPA)"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:119
+#: ../installation.rst:123
 msgid ""
 "For Debian-based Linux distributions (Ubuntu, Mint, etc...), we also have a "
 "PPA (Personal Package Archive), which adds our official OpenShot software "
-"repository to your package manager, making it possible to install our latest "
-"version, without relying on our AppImages."
+"repository to your package manager, making it possible to install our latest"
+" version, without relying on our AppImages."
 msgstr ""
 "Untuk distribusi Linux berbasis Debian (Ubuntu, Mint, dll...), kami juga "
 "memiliki PPA (Personal Package Archive), yang menambahkan repositori "
@@ -211,22 +227,22 @@ msgstr ""
 "untuk menginstal versi terbaru kami tanpa bergantung pada AppImage kami."
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:124
+#: ../installation.rst:128
 msgid "Stable PPA (Contains only official releases)"
 msgstr "PPA Stabil (Hanya berisi rilis resmi)"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:133
+#: ../installation.rst:137
 msgid "Daily PPA (Highly experimental and unstable, for testers)"
 msgstr "PPA Harian (Sangat eksperimental dan tidak stabil, untuk penguji)"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:142
+#: ../installation.rst:146
 msgid "Chrome OS (Chromebook)"
 msgstr "Chrome OS (Chromebook)"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:144
+#: ../installation.rst:148
 msgid ""
 "Chrome OS supports Linux apps, but this feature is off by default. You can "
 "turn it on in *Settings*. Once Linux is enabled, you can install and run "
@@ -241,44 +257,44 @@ msgstr ""
 "dan mengonfigurasi sistem Anda untuk menjalankan OpenShot dengan sukses."
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:149
+#: ../installation.rst:153
 msgid "Navigate to *chrome://os-settings/crostini* (Copy/Paste)"
 msgstr "Buka *chrome://os-settings/crostini* (Salin/Tempel)"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:150
+#: ../installation.rst:154
 msgid "Under \"Linux (Beta)\" select \"Turn On\". Default values are fine."
-msgstr ""
-"Di bawah \"Linux (Beta)\" pilih \"Nyalakan\". Nilai default sudah cukup."
+msgstr "Di bawah \"Linux (Beta)\" pilih \"Nyalakan\". Nilai default sudah cukup."
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:152
+#: ../installation.rst:156
 msgid ""
 "When the Terminal appears (i.e. black window), Copy/Paste the following "
 "command:"
 msgstr ""
-"Saat Terminal muncul (misalnya jendela hitam), Salin/Tempel perintah berikut:"
+"Saat Terminal muncul (misalnya jendela hitam), Salin/Tempel perintah "
+"berikut:"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:152
+#: ../installation.rst:156
 msgid ""
 "``bash <(wget -O - http://openshot.org/files/chromeos/install-stable.sh)``"
 msgstr ""
 "``bash <(wget -O - http://openshot.org/files/chromeos/install-stable.sh)``"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:155
+#: ../installation.rst:159
 msgid "Previous Versions"
 msgstr "Versi Sebelumnya"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:157
+#: ../installation.rst:161
 msgid ""
-"To download old versions of OpenShot Video Editor, you can visit https://"
-"github.com/OpenShot/openshot-qt/tags. Click on the version number you need, "
-"and scroll to the bottom, under the release notes. You will find download "
-"links for each operating system. Download the appropriate version for your "
-"computer, and follow the installation instructions above."
+"To download old versions of OpenShot Video Editor, you can visit "
+"https://github.com/OpenShot/openshot-qt/tags. Click on the version number "
+"you need, and scroll to the bottom, under the release notes. You will find "
+"download links for each operating system. Download the appropriate version "
+"for your computer, and follow the installation instructions above."
 msgstr ""
 "Untuk mengunduh versi lama OpenShot Video Editor, Anda dapat mengunjungi "
 "https://github.com/OpenShot/openshot-qt/tags. Klik nomor versi yang Anda "
@@ -287,7 +303,7 @@ msgstr ""
 "komputer Anda, dan ikuti petunjuk instalasi di atas."
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:162
+#: ../installation.rst:166
 msgid ""
 "NOTE: Projects (\\*.osp) made with newer versions of OpenShot Video Editor "
 "might not support older versions."
@@ -296,81 +312,83 @@ msgstr ""
 "yang lebih baru mungkin tidak didukung oleh versi yang lebih lama."
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:165
+#: ../installation.rst:169
 msgid "Uninstall"
 msgstr "Copot pemasangan"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:167
+#: ../installation.rst:171
 msgid ""
 "To fully uninstall OpenShot from your system, you must **manually delete** "
-"the ``.openshot_qt`` folder: ``~/.openshot_qt/`` or ``C:\\Users\\USERNAME\\."
-"openshot_qt\\``, which contains all settings and files used by OpenShot. Be "
-"sure to **backup** any recovery files of your existing projects first (\\*."
-"osp files). Please see :ref:`preferences_reset_ref` for instructions on "
-"clearing the previous ``openshot.settings`` file (for a clean install with "
-"**default preferences**)."
+"the ``.openshot_qt`` folder: ``~/.openshot_qt/`` or "
+"``C:\\Users\\USERNAME\\.openshot_qt\\``, which contains all settings and "
+"files used by OpenShot. Be sure to **backup** any recovery files of your "
+"existing projects first (\\*.osp files). Please see "
+":ref:`preferences_reset_ref` for instructions on clearing the previous "
+"``openshot.settings`` file (for a clean install with **default "
+"preferences**)."
 msgstr ""
-"Untuk menghapus OpenShot sepenuhnya dari sistem Anda, Anda harus **menghapus "
-"secara manual** folder ``.openshot_qt``: ``~/.openshot_qt/`` atau ``C:"
-"\\Users\\USERNAME\\.openshot_qt\\``, yang berisi semua pengaturan dan file "
-"yang digunakan oleh OpenShot. Pastikan untuk **mencadangkan** file pemulihan "
-"dari proyek Anda yang ada terlebih dahulu (file \\*.osp). Silakan lihat :ref:"
-"`preferences_reset_ref` untuk petunjuk menghapus file ``openshot.settings`` "
-"sebelumnya (untuk instalasi bersih dengan **preferensi default**)."
+"Untuk menghapus OpenShot sepenuhnya dari sistem Anda, Anda harus **menghapus"
+" secara manual** folder ``.openshot_qt``: ``~/.openshot_qt/`` atau "
+"``C:\\Users\\USERNAME\\.openshot_qt\\``, yang berisi semua pengaturan dan "
+"file yang digunakan oleh OpenShot. Pastikan untuk **mencadangkan** file "
+"pemulihan dari proyek Anda yang ada terlebih dahulu (file \\*.osp). Silakan "
+"lihat :ref:`preferences_reset_ref` untuk petunjuk menghapus file "
+"``openshot.settings`` sebelumnya (untuk instalasi bersih dengan **preferensi"
+" default**)."
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:174
+#: ../installation.rst:178
 msgid "Windows"
 msgstr "Windows"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:176
+#: ../installation.rst:180
 msgid "Open **Control Panel** from the Start menu"
 msgstr "Buka **Control Panel** dari menu Start"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:177
+#: ../installation.rst:181
 msgid "Click on **Programs and Features**"
 msgstr "Klik pada **Programs and Features**"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:178
+#: ../installation.rst:182
 msgid "Select OpenShot Video Editor, then click **Uninstall**"
 msgstr "Pilih OpenShot Video Editor, lalu klik **Copot pemasangan**"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:183
+#: ../installation.rst:187
 msgid "Open **Finder** and go to **Applications**"
 msgstr "Buka **Finder** dan pergi ke **Applications**"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:184
+#: ../installation.rst:188
 msgid "Drag the OpenShot Video Editor icon to the **Trash** in the Dock"
 msgstr "Seret ikon OpenShot Video Editor ke **Trash** di Dock"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:185
+#: ../installation.rst:189
 msgid "Right-click **Trash** and choose **Empty Trash**"
 msgstr "Klik kanan pada **Trash** dan pilih **Empty Trash**"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:188
+#: ../installation.rst:192
 msgid "Ubuntu (Linux)"
 msgstr "Ubuntu (Linux)"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:190
+#: ../installation.rst:194
 msgid "Open up **Files**"
 msgstr "Buka **Files**"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:191
+#: ../installation.rst:195
 msgid "Locate the ``*.AppImage`` and delete the file"
 msgstr "Temukan file ``*.AppImage`` dan hapus file tersebut"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:192
+#: ../installation.rst:196
 msgid ""
 "OR click Activities, Right-click on OpenShot Video Editor icon, and choose "
 "**Remove AppImage from System**"
