@@ -25,6 +25,8 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
+import copy
+import json
 import os
 import sys
 import tempfile
@@ -448,199 +450,159 @@ class ProjectDataTests(unittest.TestCase):
         self.assertEqual(tracked["stroke_alpha"]["Points"][0]["co"]["Y"], 0.19999999999999996)
         self.assertEqual(store._data["clips"][1]["parentObjectId"], "obj-1")
 
-    def test_upgrade_migrates_legacy_centered_crop_locations(self):
-        store = make_store()
-        store._data = {
-            "version": {"openshot-qt": "3.5.1", "libopenshot": "0.7.0"},
-            "id": "P1",
-            "width": 1920,
-            "height": 1080,
-            "files": [],
-            "clips": [{
-                "id": "C1",
-                "scale": openshot.SCALE_CROP,
-                "gravity": openshot.GRAVITY_CENTER,
-                "reader": {"width": 1080, "height": 1920},
-                "scale_x": {"Points": [{"co": {"X": 1, "Y": 1.0}}]},
-                "scale_y": {"Points": [{"co": {"X": 1, "Y": 1.0}}]},
-                "location_x": {"Points": [{"co": {"X": 1, "Y": 0.5}}]},
-                "location_y": {"Points": [{"co": {"X": 1, "Y": -0.5}}]},
-                "effects": [],
-            }],
-        }
-
-        ProjectDataStore.upgrade_project_data_structures(store)
-
-        clip = store._data["clips"][0]
-        self.assertAlmostEqual(clip["location_x"]["Points"][0]["co"]["Y"], 0.5)
-        crop_height = 1920 * (1920 / 1080)
-        expected_y = -0.5 * (2 * 1080 / (1080 + crop_height))
-        self.assertAlmostEqual(
-            clip["location_y"]["Points"][0]["co"]["Y"], expected_y
-        )
-
-    def test_upgrade_migrates_crop_locations_for_gravity_and_keyframed_scale(self):
-        store = make_store()
-        store._data = {
-            "version": {"openshot-qt": "3.5.1", "libopenshot": "0.7.0"},
-            "id": "P1",
-            "width": 1920,
-            "height": 1080,
-            "files": [{"id": "F1", "width": 1920, "height": 800}],
-            "clips": [{
-                "id": "C1",
-                "file_id": "F1",
-                "scale": openshot.SCALE_CROP,
-                "gravity": openshot.GRAVITY_TOP_RIGHT,
-                "scale_x": {"Points": [
-                    {"co": {"X": 1, "Y": 1.0}, "interpolation": openshot.LINEAR},
-                    {"co": {"X": 11, "Y": 2.0}, "interpolation": openshot.LINEAR},
-                ]},
-                "scale_y": {"Points": [{"co": {"X": 1, "Y": 1.0}}]},
-                "location_x": {"Points": [
-                    {"co": {"X": 1, "Y": -0.25}},
-                    {"co": {"X": 11, "Y": 0.25}},
-                ]},
-                "location_y": {"Points": [{"co": {"X": 1, "Y": 0.25}}]},
-                "effects": [],
-            }],
-        }
-
-        ProjectDataStore.upgrade_project_data_structures(store)
-
-        clip = store._data["clips"][0]
-        crop_width = 1920 * (1080 / 800)
-        self.assertAlmostEqual(
-            clip["location_x"]["Points"][0]["co"]["Y"], -0.25
-        )
-        self.assertAlmostEqual(
-            clip["location_x"]["Points"][1]["co"]["Y"],
-            0.25 * 1920 / (crop_width * 2.0),
-        )
-        self.assertAlmostEqual(
-            clip["location_y"]["Points"][0]["co"]["Y"], 0.25
-        )
-
-    def test_upgrade_does_not_migrate_new_or_non_crop_locations(self):
-        for libopenshot_version, scale_mode in (
-            ("1.0.0", openshot.SCALE_CROP),
-            ("0.7.0", openshot.SCALE_FIT),
+    def test_upgrade_preserves_location_curves_in_their_original_units(self):
+        # Asynchronous keyframes, nonlinear handles, changing sign, and a trim
+        # must survive exactly. The engine evaluates them at render time.
+        points = {"Points": [
+            {"co": {"X": 1, "Y": -0.25}, "interpolation": openshot.BEZIER,
+             "handle_left": {"X": 0.2, "Y": 0.8},
+             "handle_right": {"X": 0.7, "Y": 0.1}},
+            {"co": {"X": 101, "Y": 0.4}, "interpolation": openshot.LINEAR},
+        ]}
+        for version, library, expected in (
+            ("3.5.1", "0.7.0", "canvas"),
+            ("3.5.2", "0.7.0", "canvas"),
+            ("3.4.0", "0.5.0", "canvas"),
+            ("4.0.0", "1.0.0", "geometry"),
         ):
-            with self.subTest(
-                libopenshot_version=libopenshot_version,
-                scale_mode=scale_mode,
-            ):
-                store = make_store()
-                store._data = {
-                    "version": {
-                        "openshot-qt": (
-                            "4.0.0" if scale_mode == openshot.SCALE_CROP else "3.5.1"
-                        ),
-                        "libopenshot": libopenshot_version,
-                    },
-                    "id": "P1",
-                    "width": 1920,
-                    "height": 1080,
-                    "files": [],
-                    "clips": [{
-                        "id": "C1",
-                        "scale": scale_mode,
-                        "gravity": openshot.GRAVITY_CENTER,
-                        "reader": {"width": 1080, "height": 1920},
-                        "location_x": {
-                            "Points": [{"co": {"X": 1, "Y": 0.5}}]
-                        },
-                        "location_y": {
-                            "Points": [{"co": {"X": 1, "Y": -0.5}}]
-                        },
-                        "effects": [],
-                    }],
-                }
-
-                ProjectDataStore.upgrade_project_data_structures(store)
-
-                clip = store._data["clips"][0]
-                self.assertEqual(
-                    clip["location_x"]["Points"][0]["co"]["Y"], 0.5
-                )
-                self.assertEqual(
-                    clip["location_y"]["Points"][0]["co"]["Y"], -0.5
-                )
-
-    def test_upgrade_migrates_400_fit_location_to_restored_canvas_units(self):
-        store = make_store()
-        fitted_height = 720.0 * 178.0 / 266.0
-        scaled_height = fitted_height / 9.0
-        store._data = {
-            "version": {"openshot-qt": "4.0.0", "libopenshot": "1.0.0"},
-            "id": "P1",
-            "width": 720,
-            "height": 720,
-            "files": [],
-            "clips": [{
-                "id": "C1",
-                "scale": openshot.SCALE_FIT,
-                "gravity": openshot.GRAVITY_CENTER,
-                "reader": {"width": 266, "height": 178},
-                "scale_x": {"Points": [{"co": {"X": 30, "Y": 1.0 / 9.0}}]},
-                "scale_y": {"Points": [{"co": {"X": 30, "Y": 1.0 / 9.0}}]},
-                "location_x": {"Points": [{"co": {"X": 30, "Y": -0.75}}]},
-                "location_y": {"Points": [{"co": {
-                    "X": 30,
-                    "Y": -310.0 / ((720.0 + scaled_height) / 2.0),
-                }}]},
-                "effects": [],
-            }],
-        }
-
-        ProjectDataStore.upgrade_project_data_structures(store)
-
-        clip = store._data["clips"][0]
-        self.assertAlmostEqual(
-            clip["location_x"]["Points"][0]["co"]["Y"], -5.0 / 12.0)
-        self.assertAlmostEqual(
-            clip["location_y"]["Points"][0]["co"]["Y"], -31.0 / 72.0)
-
-    def test_upgrade_migrates_400_non_crop_modes_with_gravity_margin_and_scale(self):
-        expected_locations = {
-            openshot.SCALE_FIT: (0.16, -0.18),
-            openshot.SCALE_STRETCH: (0.18, -0.18),
-            openshot.SCALE_NONE: (0.08, -0.09),
-        }
-        for scale_mode, expected in expected_locations.items():
-            with self.subTest(scale_mode=scale_mode):
-                store = make_store()
-                store._data = {
-                    "version": {"openshot-qt": "4.0.0", "libopenshot": "1.0.0"},
-                    "id": "P1", "width": 200, "height": 100, "files": [],
-                    "clips": [{
-                        "id": "C1", "scale": scale_mode,
+            for mode in (openshot.SCALE_FIT, openshot.SCALE_STRETCH,
+                         openshot.SCALE_NONE, openshot.SCALE_CROP):
+                with self.subTest(version=version, mode=mode):
+                    clip = {
+                        "id": "C1", "scale": mode, "start": 1.5, "end": 5,
                         "gravity": openshot.GRAVITY_TOP_RIGHT,
-                        "reader": {"width": 80, "height": 40},
-                        "margin": {"Points": [{"co": {"X": 10, "Y": 0.1}}]},
-                        "scale_x": {"Points": [{"co": {"X": 10, "Y": 0.5}}]},
-                        "scale_y": {"Points": [{"co": {"X": 10, "Y": 0.75}}]},
-                        "location_x": {"Points": [{"co": {"X": 10, "Y": 0.4}}]},
-                        "location_y": {"Points": [{"co": {"X": 10, "Y": -0.3}}]},
+                        "location_x": copy.deepcopy(points),
+                        "location_y": {"Points": [{"co": {"X": 1, "Y": 0.25}}]},
+                        "scale_x": {"Points": [
+                            {"co": {"X": 1, "Y": 0.5}},
+                            {"co": {"X": 51, "Y": 2.0}}]},
+                        "margin": {"Points": [{"co": {"X": 30, "Y": 0.1}}]},
                         "effects": [],
-                    }],
+                    }
+                    # Missing media dimensions must not prevent migration.
+                    original = copy.deepcopy(clip)
+                    store = make_store()
+                    store._data = {
+                        "version": {"openshot-qt": version, "libopenshot": library},
+                        "id": "P1", "width": 1920, "height": 1080,
+                        "files": [], "clips": [clip],
+                    }
+                    store.upgrade_project_data_structures()
+                    self.assertEqual(clip, dict(original, location_coordinate_system=expected))
+                    store.upgrade_project_data_structures()
+                    self.assertEqual(clip, dict(original, location_coordinate_system=expected))
+                    # Simulate save/reload with the current version stamp.
+                    store._data["version"]["openshot-qt"] = "4.0.1"
+                    saved = json.dumps(store._data)
+                    store._data = json.loads(saved)
+                    store.upgrade_project_data_structures()
+                    self.assertEqual(store._data, json.loads(saved))
+
+    def test_location_migration_preserves_deleted_and_redo_clips_in_history(self):
+        for version, library, expected in (("3.5.1", "0.7.0", "canvas"),
+                                           ("3.5.2", "0.7.0", "canvas"),
+                                           ("4.0.0", "1.0.0", "geometry")):
+            with self.subTest(version=version):
+                clip = {"id": "deleted", "scale": openshot.SCALE_CROP,
+                        "location_x": {"Points": [{"co": {"X": 1, "Y": 0.25}}]}}
+                effect = {"id": "effect", "brightness": 0.5}
+                history = {
+                    "undo": [{"type": "delete", "key": ["clips", {"id": "deleted"}],
+                              "value": {}, "old_values": copy.deepcopy(clip)}],
+                    "redo": [{"type": "insert", "key": ["clips"],
+                              "value": copy.deepcopy(clip), "old_values": {}},
+                             {"type": "update", "key": ["clips", {"id": "C1"}, "effects"],
+                              "value": copy.deepcopy(effect), "old_values": {}},
+                             {"type": "update", "key": ["effects", {"id": "E1"}],
+                              "value": copy.deepcopy(effect), "old_values": {}}],
                 }
+                store = make_store()
+                store._data = {
+                    "version": {"openshot-qt": version, "libopenshot": library},
+                    "id": "P1", "clips": [], "history": history,
+                }
+                store.upgrade_project_data_structures()
+                migrated = dict(clip, location_coordinate_system=expected)
+                self.assertEqual(history["undo"][0]["old_values"], migrated)
+                self.assertEqual(history["redo"][0]["value"], migrated)
+                self.assertEqual(history["undo"][0]["value"], {})
+                self.assertEqual(history["redo"][1]["value"], effect)
+                self.assertEqual(history["redo"][2]["value"], effect)
 
-                ProjectDataStore.upgrade_project_data_structures(store)
-                clip = store._data["clips"][0]
-                x = clip["location_x"]["Points"][0]["co"]["Y"]
-                y = clip["location_y"]["Points"][0]["co"]["Y"]
-                self.assertAlmostEqual(x, expected[0])
-                self.assertAlmostEqual(y, expected[1])
+    def test_location_migration_keeps_explicit_conventions(self):
+        for version, library in (("3.5.1", "0.7.0"), ("3.5.2", "0.7.0"),
+                                 ("4.0.0", "1.0.0")):
+            for coordinates in ("canvas", "geometry"):
+                with self.subTest(version=version, coordinates=coordinates):
+                    store = make_store()
+                    store._data = {
+                        "version": {"openshot-qt": version, "libopenshot": library},
+                        "id": "P1", "clips": [{"location_coordinate_system": coordinates}],
+                    }
+                    original = copy.deepcopy(store._data)
+                    store.upgrade_project_data_structures()
+                    self.assertEqual(store._data, original)
 
-                # Re-running migration must not touch a project once its saved
-                # version advances beyond the affected 4.0.0 release.
-                store._data["version"]["openshot-qt"] = "4.0.1"
-                ProjectDataStore.upgrade_project_data_structures(store)
-                self.assertEqual(
-                    clip["location_x"]["Points"][0]["co"]["Y"], x)
-                self.assertEqual(
-                    clip["location_y"]["Points"][0]["co"]["Y"], y)
+    def test_current_and_development_projects_keep_default_location_behavior(self):
+        for version in ("4.0.1", "4.0.2", "4.1.0", "4.0.0-dev", "3.5.1-dev", "3.5.2-dev"):
+            with self.subTest(version=version):
+                store = make_store()
+                store._data = {
+                    "version": {"openshot-qt": version, "libopenshot": "1.0.1"},
+                    "id": "P1", "clips": [{"scale": openshot.SCALE_CROP}],
+                }
+                original = copy.deepcopy(store._data)
+                store.upgrade_project_data_structures()
+                self.assertEqual(store._data, original)
+
+    def test_mixed_generation_clips_keep_units_through_native_save_and_reopen(self):
+        clips = []
+        for version, library, coordinates in (
+            ("3.5.2", "0.7.0", "canvas"),
+            ("4.0.0", "1.0.0", "geometry"),
+            ("4.0.1", "1.0.1", "auto"),
+        ):
+            for scale in (openshot.SCALE_FIT, openshot.SCALE_CROP,
+                          openshot.SCALE_STRETCH, openshot.SCALE_NONE):
+                native = openshot.Clip()
+                native.scale = scale
+                native.location_x = openshot.Keyframe(-0.4)
+                native.location_x.AddPoint(30, 0.3, openshot.BEZIER)
+                native.location_y = openshot.Keyframe(0.2)
+                clip = json.loads(native.Json())
+                clip["id"] = "%s-%s" % (version, scale)
+                if version != "4.0.1":
+                    del clip["location_coordinate_system"]
+                store = make_store()
+                store._data = {
+                    "id": "P1", "clips": [clip],
+                    "version": {"openshot-qt": version, "libopenshot": library},
+                }
+                store.upgrade_project_data_structures()
+                self.assertEqual(clip["location_coordinate_system"], coordinates)
+                clips.append(clip)
+
+        # A single saved project can contain imported clips from both older
+        # conventions and new clips using auto. Each must retain its own units.
+        for saved_version in ("4.0.1", "4.0.2", "4.1.0"):
+            with self.subTest(saved_version=saved_version):
+                round_tripped = []
+                for clip in clips:
+                    native = openshot.Clip()
+                    native.SetJson(json.dumps(clip))
+                    restored = json.loads(native.Json())
+                    for field in ("location_coordinate_system", "location_x", "location_y",
+                                  "scale", "scale_x", "scale_y"):
+                        self.assertEqual(restored[field], clip[field])
+                    round_tripped.append(restored)
+                original = copy.deepcopy(round_tripped)
+                store._data = json.loads(json.dumps({
+                    "id": "P1", "clips": round_tripped,
+                    "version": {"openshot-qt": saved_version, "libopenshot": "1.0.1"},
+                }))
+                store.upgrade_project_data_structures()
+                clips = store._data["clips"]
+                self.assertEqual(clips, original)
 
     def test_upgrade_does_not_remigrate_development_project(self):
         store = make_store()

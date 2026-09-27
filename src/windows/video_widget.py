@@ -1538,10 +1538,9 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                         layout_height) = self._clip_location_geometry(
                             base_w, base_h, self.transforming_clip, raw_properties, viewport_rect)
 
-                    # Match libopenshot's location contract: Crop uses the
-                    # distance to the offscreen edge, while all other scale
-                    # modes retain canvas-relative coordinates.
-                    if self.transforming_clip.data['scale'] == openshot.SCALE_CROP:
+                    # Match libopenshot, including the coordinate convention
+                    # retained when importing projects from older releases.
+                    if self._uses_geometry_location(self.transforming_clip):
                         current_x_offset = self._location_offset(
                             location_x, anchored_x - layout_x, layout_width, scaled_w)
                         current_y_offset = self._location_offset(
@@ -2415,6 +2414,13 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         return width, height
 
     @staticmethod
+    def _uses_geometry_location(clip):
+        """Match the renderer's per-clip compatibility convention."""
+        coordinates = clip.data.get("location_coordinate_system", "auto")
+        return coordinates == "geometry" or (
+            coordinates != "canvas" and clip.data['scale'] == openshot.SCALE_CROP)
+
+    @staticmethod
     def _location_offset(location, anchored_position, canvas_size, clip_size):
         """Match libopenshot normalized location semantics for one axis."""
         location = float(location)
@@ -2548,7 +2554,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
         location_x = float(raw_properties.get('location_x', {}).get('value', 0.0))
         location_y = float(raw_properties.get('location_y', {}).get('value', 0.0))
-        if clip.data['scale'] == openshot.SCALE_CROP:
+        if self._uses_geometry_location(clip):
             x += self._location_offset(location_x, anchored_x - layout_x, layout_width, scaled_width)
             y += self._location_offset(location_y, anchored_y - layout_y, layout_height, scaled_height)
         else:
