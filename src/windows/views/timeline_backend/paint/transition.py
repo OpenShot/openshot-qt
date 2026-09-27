@@ -29,7 +29,6 @@ from qt_api import QPointF, QRectF, Qt
 from qt_api import (
     QBrush,
     QColor,
-    QFontMetrics,
     QImage,
     QLinearGradient,
     QPainter,
@@ -39,16 +38,16 @@ from qt_api import (
 )
 
 from .base import BasePainter
-from classes.qt_types import font_metrics_horizontal_advance
+from .header import ItemHeaderMixin
 
 
-class TransitionPainter(BasePainter):
+class TransitionPainter(ItemHeaderMixin, BasePainter):
+    header_kind = "transition"
+
     DEFAULT_OPACITY = 0.75
     SELECTED_OPACITY = 0.88
     LOCKED_OPACITY_MULTIPLIER = 0.8
     SELECTED_OVERLAY_ALPHA = 32
-    MENU_PAD_X = 6.0
-    MENU_PAD_Y = 2.0
 
     def update_theme(self):
         self.col = self.w.theme.transition.background
@@ -136,28 +135,7 @@ class TransitionPainter(BasePainter):
                 includes_start=includes_start,
                 includes_end=includes_end,
             )
-            if includes_start:
-                bw = max(float(self.border_width or 0.0), 0.0)
-                title_rect = QRectF(segment_rect)
-                if bw > 0.0:
-                    inset_x = min(bw, max(title_rect.width() / 2.0 - 0.1, 0.0))
-                    inset_y = min(bw, max(title_rect.height() / 2.0 - 0.1, 0.0))
-                    title_rect.adjust(inset_x, inset_y, -inset_x, -inset_y)
-                text_entry = self._draw_transition_title(
-                    painter,
-                    tran,
-                    title_rect,
-                    visible_width=float(title_rect.width()),
-                )
-                if isinstance(text_entry, dict):
-                    self.w._transition_text_rects.append(
-                        {
-                            "rect": QRectF(text_entry.get("rect", QRectF())),
-                            "transition": tran,
-                            "title": str(text_entry.get("title", "") or ""),
-                            "open_menu": bool(text_entry.get("open_menu", False)),
-                        }
-                    )
+            self._draw_item_header(painter, tran, rect, area)
         painter.restore()
 
     def _transition_pixmap(self, full_rect, segment_rect, *, selected=False):
@@ -264,7 +242,7 @@ class TransitionPainter(BasePainter):
         self.transition_cache[key] = result
         return result
 
-    def _transition_title(self, tran):
+    def _header_title(self, tran):
         resolver = getattr(self.w, "_transition_label", None)
         if callable(resolver):
             try:
@@ -274,98 +252,25 @@ class TransitionPainter(BasePainter):
         data = tran.data if isinstance(getattr(tran, "data", None), dict) else {}
         return str(data.get("title", "") or "")
 
-    def transition_menu_geometry(self, rect, tran=None, *, painter=None, visible_width=None):
-        if rect.width() <= 0.0 or rect.height() <= 0.0:
+    def transition_menu_geometry(self, rect, tran=None):
+        """Measure the shared header for menu hit testing before the first paint."""
+        from types import SimpleNamespace
+
+        if rect.isEmpty():
             return QRectF(), QRectF(), None, QRectF(), ""
-
-        title_raw = self._transition_title(tran) if tran is not None else ""
-        metrics = QFontMetrics(painter.font()) if painter is not None else None
-        font_h = float(metrics.height()) if metrics is not None else max(12.0, rect.height() - 4.0)
-
-        pad_x = 6.0
-        pad_y = 2.0
-        icon_gap = 4.0
-        container_h = min(rect.height(), font_h + pad_y * 2.0)
-        icon_size = max(8.0, font_h - 2.0)
-        compact_w = pad_x + icon_size + pad_x
-        compact_lod_w = compact_w
-        visible_clip_w = float(visible_width if visible_width is not None else rect.width())
-        text_width = float(rect.width())
-
-        title_elided = ""
-        text_advance = 0.0
-        if metrics is not None:
-            avail_text_w = int(text_width - pad_x * 2.0 - icon_gap - icon_size)
-            if avail_text_w >= 4:
-                title_elided = metrics.elidedText(title_raw, Qt.ElideRight, avail_text_w)
-                if title_elided:
-                    text_advance = float(font_metrics_horizontal_advance(metrics, title_elided))
-
-        if text_advance > 0:
-            container_w = min(pad_x + text_advance + icon_gap + icon_size + pad_x, text_width)
-            container_w = max(container_h, container_w)
-            mode = "full"
-        elif compact_w <= text_width and compact_lod_w <= visible_clip_w:
-            container_w = compact_w
-            mode = "compact"
-        else:
-            return QRectF(), QRectF(), None, QRectF(), ""
-
-        container_rect = QRectF(rect.x(), rect.y(), container_w, max(1.0, container_h))
-        scaled_arrow = None
-        arrow_rect = QRectF()
-        arrow_pix = self.dropdown_arrow_pix
-        if arrow_pix and not arrow_pix.isNull():
-            scaled_arrow = self.scaled_pixmap(arrow_pix, icon_size, icon_size)
-            if scaled_arrow and not scaled_arrow.isNull():
-                arrow_w, arrow_h = self.logical_size(scaled_arrow)
-                if mode == "full" and text_advance > 0:
-                    arrow_x = container_rect.x() + pad_x + text_advance + icon_gap
-                else:
-                    arrow_x = container_rect.x() + pad_x
-                arrow_y = container_rect.y() + max(0.0, (container_rect.height() - arrow_h) / 2.0)
-                arrow_rect = QRectF(arrow_x, arrow_y, arrow_w, arrow_h)
-
-        return container_rect, QRectF(container_rect), scaled_arrow, arrow_rect, title_elided
-
-    def _draw_transition_title(self, painter, tran, rect, *, visible_width=None):
-        container_rect, _hit_rect, scaled_arrow, arrow_rect, title_elided = self.transition_menu_geometry(
-            rect,
-            tran,
-            painter=painter,
-            visible_width=visible_width,
-        )
-        if container_rect.isNull():
-            return None
-        radius = min(4.0, container_rect.width() / 2.0, container_rect.height() / 2.0)
-        path = QPainterPath()
-        path.addRoundedRect(container_rect, radius, radius)
-        painter.save()
-        painter.setRenderHint(QPainter.Antialiasing, True)
-        painter.fillPath(path, QColor(0, 0, 0, 140))
-        if title_elided:
-            metrics = QFontMetrics(painter.font())
-            font_h = float(metrics.height())
-            pad_x = 6.0
-            pad_y = 2.0
-            icon_size = max(8.0, font_h - 2.0)
-            icon_gap = 4.0
-            text_advance = float(font_metrics_horizontal_advance(metrics, title_elided))
-            flags = Qt.AlignLeft | Qt.AlignVCenter
-            text_draw_rect = QRectF(
-                container_rect.x() + pad_x,
-                container_rect.y() + pad_y,
-                text_advance,
-                font_h,
+        image = QImage(1, 1, QImage.Format_ARGB32_Premultiplied)
+        painter = QPainter(image)
+        try:
+            entry = self._draw_item_text(
+                painter, tran if tran is not None else SimpleNamespace(data={}),
+                rect, rect.left(), rect.right(), visible_width=rect.width(),
             )
-            painter.setPen(QColor(0, 0, 0, 120))
-            painter.drawText(text_draw_rect.translated(1, 1), flags, title_elided)
-            painter.setPen(self.w.theme.transition.font_color)
-            painter.drawText(text_draw_rect, flags, title_elided)
-        if scaled_arrow and not arrow_rect.isNull():
-            painter.drawPixmap(arrow_rect.topLeft(), scaled_arrow)
-        painter.restore()
-        return {"rect": QRectF(container_rect), "title": self._transition_title(tran), "open_menu": True}
+        finally:
+            painter.end()
+        if not entry:
+            return QRectF(), QRectF(), None, QRectF(), ""
+        return (entry["rect"], QRectF(entry["rect"]), entry.get("scaled_arrow"),
+                entry.get("arrow_rect", QRectF()), entry.get("title_elided", ""))
 
     def _stroke_visible_border(
         self,

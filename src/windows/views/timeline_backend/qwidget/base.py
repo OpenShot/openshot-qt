@@ -1055,19 +1055,9 @@ class TimelineWidgetBase(RazorMixin, QWidget):
                     includes_start=includes_start,
                     includes_end=includes_end,
                 )
-                if includes_start:
-                    bw = max(float(self.transition_painter.border_width or 0.0), 0.0)
-                    title_rect = QRectF(rect)
-                    if bw > 0.0:
-                        inset_x = min(bw, max(title_rect.width() / 2.0 - 0.1, 0.0))
-                        inset_y = min(bw, max(title_rect.height() / 2.0 - 0.1, 0.0))
-                        title_rect.adjust(inset_x, inset_y, -inset_x, -inset_y)
-                    self.transition_painter._draw_transition_title(
-                        painter,
-                        model,
-                        title_rect,
-                        visible_width=float(title_rect.width()),
-                    )
+                self.transition_painter._draw_item_header(
+                    painter, model, rect, area, register_hits=False,
+                )
             else:
                 self.clip_painter._draw_clip(
                     painter,
@@ -1076,6 +1066,9 @@ class TimelineWidgetBase(RazorMixin, QWidget):
                     model,
                     self.clip_painter.clip_pen,
                     False,
+                )
+                self.clip_painter._draw_item_header(
+                    painter, model, rect, area, register_hits=False,
                 )
         painter.restore()
 
