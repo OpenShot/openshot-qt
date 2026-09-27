@@ -2632,6 +2632,11 @@ class VideoWidget(QWidget, updates.UpdateInterface):
     def refreshTriggered(self, refresh_project=True):
         """Signal to refresh viewport (i.e. a property might have changed that effects the preview)"""
 
+        # Split Clip and region dialogs own independent preview timelines and
+        # have no project transform selection to rebind.
+        if not getattr(self, "watch_project", True):
+            return
+
         # SWIG references do not keep timeline-owned objects alive. Undo/redo
         # can delete or replace them, so resolve both sides by their Python IDs.
         timeline = self.win.timeline_sync.timeline

@@ -93,7 +93,7 @@ class SnapHelper:
         for label in labels:
             active.pop(label, None)
 
-    def _target_edges_px(self, *, viewport=False):
+    def _target_edges_px(self, *, viewport=False, include_playhead=True):
         self.geometry.ensure()
         pps = float(self.widget.pixels_per_second or 0.0)
         if pps <= 0.0:
@@ -155,14 +155,15 @@ class SnapHelper:
                 )
                 keyframe_targets.append((px, keyframe_tol_px))
 
-        frame = float(getattr(self.widget, "current_frame", 1) or 1.0)
-        playhead_seconds = max(0.0, (max(1.0, frame) - 1.0) / self.widget.fps_float)
-        playhead_x = (
-            self.widget.track_name_width
-            + playhead_seconds * pps
-            - h_offset
-        )
-        generic_targets.add(playhead_x)
+        if include_playhead:
+            frame = float(getattr(self.widget, "current_frame", 1) or 1.0)
+            playhead_seconds = max(0.0, (max(1.0, frame) - 1.0) / self.widget.fps_float)
+            playhead_x = (
+                self.widget.track_name_width
+                + playhead_seconds * pps
+                - h_offset
+            )
+            generic_targets.add(playhead_x)
 
         valid = []
         for value in generic_targets:
@@ -188,19 +189,14 @@ class SnapHelper:
     def keyframe_snap_seconds(self, include_playhead=True):
         """Return generic snap targets converted to seconds for keyframe drags."""
 
-        px_targets = self._target_edges_px(viewport=False)
+        # Exclude the playhead before merging targets: filtering its coordinate
+        # afterwards also discards any clip edge or marker underneath it.
+        px_targets = self._target_edges_px(viewport=False, include_playhead=include_playhead)
         pps = float(self.widget.pixels_per_second or 0.0)
         if pps <= 0.0:
             return []
 
         track_left = float(getattr(self.widget, "track_name_width", 0.0) or 0.0)
-
-        fps = float(getattr(self.widget, "fps_float", 0.0) or 0.0)
-        playhead_px = None
-        if fps > 0.0:
-            frame = float(getattr(self.widget, "current_frame", 1) or 1.0)
-            playhead_seconds = max(0.0, (max(1.0, frame) - 1.0) / fps)
-            playhead_px = track_left + playhead_seconds * pps
 
         targets = []
         seen = set()
@@ -221,10 +217,6 @@ class SnapHelper:
                 continue
             if not math.isfinite(px_value):
                 continue
-
-            if not include_playhead and playhead_px is not None and math.isfinite(playhead_px):
-                if abs(px_value - playhead_px) <= 0.5:
-                    continue
 
             seconds = (px_value - track_left) / pps
             if not math.isfinite(seconds):

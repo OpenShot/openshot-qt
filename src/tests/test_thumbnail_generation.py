@@ -4,6 +4,8 @@
 """
 
 import unittest
+import os
+import tempfile
 from types import SimpleNamespace
 from unittest.mock import patch
 
@@ -59,6 +61,35 @@ class _QueriedFile:
 
 
 class ThumbnailGenerationTests(unittest.TestCase):
+    def test_migration_unreadable_cache_is_optional(self):
+        with tempfile.TemporaryDirectory() as root:
+            with patch.object(thumbnail.os, "listdir", side_effect=PermissionError("denied")):
+                self.assertEqual(thumbnail.MigrateThumbnailLayout(root), 0)
+
+    def test_migration_keeps_failed_files_and_continues(self):
+        for operation in ("mkdir", "move", "remove"):
+            with self.subTest(operation=operation), tempfile.TemporaryDirectory() as root:
+                for name in ("denied-1.png", "ok-2.png"):
+                    with open(os.path.join(root, name), "wb") as stream:
+                        stream.write(b"thumbnail")
+                if operation == "remove":
+                    os.makedirs(os.path.join(root, "denied"))
+                    with open(os.path.join(root, "denied", "1.png"), "wb") as stream:
+                        stream.write(b"existing")
+                owner, name = ((thumbnail.shutil, "move") if operation == "move" else
+                               (thumbnail.os, "makedirs" if operation == "mkdir" else "remove"))
+                original = getattr(owner, name)
+
+                def denied(path, *args, **kwargs):
+                    if os.path.basename(path).startswith("denied"):
+                        raise PermissionError("denied")
+                    return original(path, *args, **kwargs)
+
+                with patch.object(owner, name, side_effect=denied):
+                    self.assertEqual(thumbnail.MigrateThumbnailLayout(root), 1)
+                self.assertTrue(os.path.isfile(os.path.join(root, "denied-1.png")))
+                self.assertTrue(os.path.isfile(os.path.join(root, "ok", "2.png")))
+
     def test_generate_thumbnail_retries_when_first_reader_fails_to_open(self):
         first_reader = _Reader(open_error=RuntimeError("QtImageReader could not open image file."))
         second_reader = _Reader()

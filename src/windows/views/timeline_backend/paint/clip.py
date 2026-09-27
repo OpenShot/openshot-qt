@@ -416,7 +416,7 @@ class ClipPainter(ItemHeaderMixin, BasePainter):
             area.height(),
         )
 
-        clips = list(self.w.geometry.iter_clips())
+        clips = list(self.w.geometry.iter_clips(include_previews=True))
         # Also catch clip moves, track changes, and geometry updates which do
         # not pass through the zoom/scroll handlers.
         visible_state = (
@@ -1884,7 +1884,7 @@ class ClipPainter(ItemHeaderMixin, BasePainter):
             offset = QPointF(segment_rect.x() - shadow_spread, segment_rect.y() - shadow_spread)
             if not preview_drawn:
                 painter.drawPixmap(offset, pix)
-            if icons:
+            if icons and not getattr(clip, "is_recording_preview", False):
                 for entry in icons:
                     rect_local = entry.get("rect") if isinstance(entry, dict) else None
                     effect = entry.get("effect") if isinstance(entry, dict) else None
@@ -1900,7 +1900,7 @@ class ClipPainter(ItemHeaderMixin, BasePainter):
                             "effect_id": entry.get("effect_id"),
                         }
                     )
-            if isinstance(text_entry, dict):
+            if isinstance(text_entry, dict) and not getattr(clip, "is_recording_preview", False):
                 rect_local = text_entry.get("rect")
                 if isinstance(rect_local, QRectF):
                     global_rect = QRectF(rect_local)
@@ -1913,7 +1913,8 @@ class ClipPainter(ItemHeaderMixin, BasePainter):
                             "open_menu": bool(text_entry.get("open_menu", False)),
                         }
                     )
-        elif includes_start and segment_rect.width() <= 8.0:
+        elif (includes_start and segment_rect.width() <= 8.0
+              and not getattr(clip, "is_recording_preview", False)):
             # Keep tiny clips hoverable even when no text is painted.
             bw = float(self.border_width or 0.0)
             self.w._clip_text_rects.append(

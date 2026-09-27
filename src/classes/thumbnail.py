@@ -103,7 +103,14 @@ def MigrateThumbnailLayout(thumbnail_root):
         return 0
 
     migrated = 0
-    for entry in os.listdir(thumbnail_root):
+    try:
+        entries = os.listdir(thumbnail_root)
+    except OSError as ex:
+        # Cached thumbnails are optional; a denied cache must not prevent the
+        # project itself from opening (e.g. macOS protected Downloads folders).
+        log.warning("Unable to read thumbnail cache %s: %s", thumbnail_root, ex)
+        return 0
+    for entry in entries:
         source_path = os.path.join(thumbnail_root, entry)
         if not os.path.isfile(source_path):
             continue
@@ -120,13 +127,17 @@ def MigrateThumbnailLayout(thumbnail_root):
 
         target_dir = os.path.join(thumbnail_root, file_id)
         target_path = os.path.join(target_dir, "{}.png".format(frame))
-        os.makedirs(target_dir, exist_ok=True)
-        if os.path.abspath(source_path) == os.path.abspath(target_path):
+        try:
+            os.makedirs(target_dir, exist_ok=True)
+            if os.path.abspath(source_path) == os.path.abspath(target_path):
+                continue
+            if not os.path.exists(target_path):
+                shutil.move(source_path, target_path)
+            else:
+                os.remove(source_path)
+        except OSError as ex:
+            log.warning("Unable to migrate thumbnail %s: %s", source_path, ex)
             continue
-        if not os.path.exists(target_path):
-            shutil.move(source_path, target_path)
-        else:
-            os.remove(source_path)
         migrated += 1
     return migrated
 

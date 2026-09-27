@@ -65,7 +65,7 @@ class ItemHeaderMixin:
             transparent_container=isinstance(audio, list) and len(audio) > 1,
         )
         painter.restore()
-        if not register_hits:
+        if not register_hits or getattr(item, "is_recording_preview", False):
             return
         for entry in icons:
             entry = dict(entry)

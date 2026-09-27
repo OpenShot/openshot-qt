@@ -516,15 +516,18 @@ class GeometryBase:
     # ------------------------------------------------------------------
     # Iteration helpers
     # ------------------------------------------------------------------
-    def iter_clips(self, reverse=False, *, viewport=True):
-        """Yield (rect, clip, selected) tuples for cached clips."""
-        yield from self._iter_entries(
+    def iter_clips(self, reverse=False, *, viewport=True, include_previews=False):
+        """Yield clips for editing, or include transient clips for painting only."""
+        for rect, clip, selected in self._iter_entries(
             self.clip_entries,
             self._clip_starts,
             self._clip_max_rights,
             reverse,
             viewport=viewport,
-        )
+        ):
+            is_preview = getattr(clip, "is_recording_preview", False)
+            if include_previews or not is_preview:
+                yield rect, clip, False if is_preview else selected
 
     def iter_transitions(self, reverse=False, *, viewport=True):
         """Yield (rect, transition, selected) tuples for cached transitions."""

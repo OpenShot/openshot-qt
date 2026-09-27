@@ -1678,6 +1678,37 @@ class RecordingPreviewTests(unittest.TestCase):
         self.assertEqual(screen_data["reader"]["width"], 1920)
         self.assertEqual(screen_data["reader"]["video_length"], 90)
 
+        # Previews must remain visible, but cannot be selected, dragged,
+        # duplicated, cut, or used as targets for effects and context menus.
+        # All those interactions consume the default geometry iterators.
+        from windows.views.timeline_backend.geometry import Geometry
+        from windows.views.timeline_backend.geometry import clip as geometry_clip
+        from classes.query import Clip
+        widget = types.SimpleNamespace(
+            _recording_preview_clips=helper._recording_preview_clips,
+            track_name_width=100, pixels_per_second=10,
+            ruler_height=20, vertical_factor=50,
+            normalize_track_number=lambda layer: layer,
+        )
+        geometry = Geometry(widget)
+        geometry._current_view_state = lambda: dict(
+            h_offset=0, v_offset=0, view_w=800, view_h=500)
+        saved = Clip()
+        saved.id = "saved"
+        saved.data = dict(position=0, start=0, end=5, layer=2)
+        with patch.object(geometry_clip.Clip, "filter", return_value=[saved]):
+            geometry._populate_clip_rects(
+                {2: 0, 3: 1}, {"spacing": 60},
+                types.SimpleNamespace(selected_clips=["saved", "preview-mic"]),
+            )
+        self.assertEqual([clip.id for _, clip, _ in geometry.iter_clips()], ["saved"])
+        self.assertEqual([clip.id for _, clip, _, _ in geometry.iter_items()], ["saved"])
+        painted = list(geometry.iter_clips(include_previews=True))
+        self.assertEqual({clip.id for _, clip, _ in painted},
+                         {"saved", "preview-mic", "preview-screen"})
+        self.assertTrue(next(selected for _, clip, selected in painted if clip.id == "saved"))
+        self.assertFalse(any(selected for _, clip, selected in painted if clip.id != "saved"))
+
 
 if __name__ == "__main__":
     unittest.main()

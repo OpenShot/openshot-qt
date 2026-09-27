@@ -6,7 +6,7 @@ import json
 import threading
 from unittest.mock import patch
 
-from qt_api import QRect, QSize
+from qt_api import QRect, QSize, QDialog, QObject, Signal
 from qt_api import QApplication
 import openshot
 
@@ -84,6 +84,41 @@ class DummyFraction:
 
 
 class DialogPreviewResizeTests(unittest.TestCase):
+    def test_standalone_preview_ignores_project_refresh(self):
+        # Cutting and SelectRegion replace VideoWidget.win with their dialog,
+        # but the widget still receives the main window's refresh signal.
+        class WindowSignals(QObject):
+            refreshFrameSignal = Signal()
+            PlaySignal = Signal()
+            PauseSignal = Signal()
+            SpeedSignal = Signal()
+            StopSignal = Signal()
+            TransformSignal = Signal(object)
+            KeyFrameTransformSignal = Signal(object)
+            SelectRegionSignal = Signal(object)
+
+        main_window = WindowSignals()
+        listeners = []
+        fake_app = types.SimpleNamespace(
+            _tr=lambda text: text, get_settings=lambda: DummySettings(),
+            updates=types.SimpleNamespace(add_listener=listeners.append), window=main_window,
+        )
+        errors = []
+        with patch("windows.video_widget.get_app", return_value=fake_app):
+            preview = VideoWidget(watch_project=False)
+            dialog = QDialog()
+            preview.win = dialog
+            try:
+                with patch.object(sys, "excepthook", side_effect=lambda *args: errors.append(args)):
+                    main_window.refreshFrameSignal.emit()
+                preview.refreshTriggered(refresh_project=False)
+                self.assertEqual(errors, [])
+                self.assertEqual(preview.transforming_clips, [])
+                self.assertIn(preview, listeners)
+            finally:
+                preview.deleteLater()
+                dialog.deleteLater()
+
     def test_main_preview_aligns_after_dpi_and_aspect_fit(self):
         for ratio in (1.0, 1.25, 1.5, 2.0):
             with self.subTest(ratio=ratio):

@@ -144,7 +144,7 @@ class Cutting(QDialog):
         clip_end = file.data.get("end", file.data.get("duration", 0.0))
 
         # Open video file with Reader
-        log.info(self.file_path)
+        log.debug("Opening Split Clip preview: %s", self.file_path)
 
         # Add Video Widget
         self.videoPreview = VideoWidget(watch_project=False)
@@ -511,7 +511,7 @@ class Cutting(QDialog):
         self.lblVideoTime.setText(self.frame_to_timestamp(frame_number))
 
     def btnPlay_clicked(self, force=None):
-        log.info("btnPlay_clicked")
+        log.debug("btnPlay_clicked")
 
         if force is None and self._preview_autoplay_active:
             # Respect explicit user input (don't keep forcing startup autoplay).
@@ -523,7 +523,7 @@ class Cutting(QDialog):
             self.btnPlay.setChecked(True)
 
         if self.btnPlay.isChecked():
-            log.info('play (icon to pause)')
+            log.debug('play (icon to pause)')
             ui_util.setup_icon(self, self.btnPlay, "actionPlay", "media-playback-pause")
             # In non-loop mode, replay from the beginning when currently at end.
             if not self.loop_playback:
@@ -535,7 +535,7 @@ class Cutting(QDialog):
                     self.SeekSignal.emit(1)
             self.PlaySignal.emit()
         else:
-            log.info('pause (icon to play)')
+            log.debug('pause (icon to play)')
             ui_util.setup_icon(self, self.btnPlay, "actionPlay", "media-playback-start")  # to default
             self.PauseSignal.emit()
 
@@ -602,7 +602,7 @@ class Cutting(QDialog):
 
     def sliderVideo_valueChanged(self, new_frame):
         if self.preview_thread and not self.sliderIgnoreSignal:
-            log.info('sliderVideo_valueChanged')
+            log.debug('sliderVideo_valueChanged')
             # Pause video and update preview immediately
             self.btnPlay_clicked(force="pause")
             self.previewFrameSignal.emit(new_frame)
@@ -611,13 +611,13 @@ class Cutting(QDialog):
 
     def sliderVideo_timeout(self):
         if self.preview_thread and not self.sliderIgnoreSignal:
-            log.info('sliderVideo_timeout')
+            log.debug('sliderVideo_timeout')
             self.btnPlay_clicked(force="pause")
             self.previewFrameSignal.emit(self.sliderVideo.value())
 
     def sliderVideo_released(self):
         if self.preview_thread and not self.sliderIgnoreSignal:
-            log.info('sliderVideo_released')
+            log.debug('sliderVideo_released')
             self.btnPlay_clicked(force="pause")
             self.previewFrameSignal.emit(self.sliderVideo.value())
             self.slider_timer.start()
@@ -657,7 +657,7 @@ class Cutting(QDialog):
         # Send focus back to toolbar
         self.sliderVideo.setFocus()
 
-        log.info('btnStart_clicked, current frame: %s' % self.start_frame)
+        log.debug('btnStart_clicked, current frame: %s', self.start_frame)
 
     def btnEnd_clicked(self):
         """End of clip button was clicked"""
@@ -693,11 +693,11 @@ class Cutting(QDialog):
         # Send focus back to toolbar
         self.sliderVideo.setFocus()
 
-        log.info('btnEnd_clicked, current frame: %s' % self.end_frame)
+        log.debug('btnEnd_clicked, current frame: %s', self.end_frame)
 
     def btnClear_clicked(self):
         """Clear the current clip and reset the form"""
-        log.info('btnClear_clicked')
+        log.debug('btnClear_clicked')
 
         # Reset form
         self.clearForm()
@@ -722,7 +722,7 @@ class Cutting(QDialog):
 
     def btnAddClip_clicked(self):
         """Add the selected clip to the project"""
-        log.info('btnAddClip_clicked')
+        log.debug('btnAddClip_clicked')
 
         # Remove unneeded attributes
         if 'name' in self.file.data:

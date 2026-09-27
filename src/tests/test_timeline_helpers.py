@@ -2516,6 +2516,122 @@ class TimelineHelperTests(unittest.TestCase):
         self.assertEqual([point["co"]["X"] for point in points], [1.0, 31.0, 91.0, 121.0])
         self.assertEqual([point["co"]["Y"] for point in points], [0.0, 1.0, 1.0, 0.0])
 
+    def test_fade_out_keyframe_immediately_snaps_to_neighbor_under_playhead(self):
+        import json
+        from classes.query import Clip
+        from windows.views.timeline_backend.snap import SnapHelper
+
+        clip = Clip()
+        clip.id = "faded"
+        clip.data = {
+            "id": clip.id, "position": 2.0, "start": 1.0, "end": 6.0,
+            "duration": 5.0, "layer": 1,
+            "reader": {"has_video": True, "has_audio": True},
+            "alpha": json.loads(openshot.Keyframe(1.0).Json()),
+            "volume": json.loads(openshot.Keyframe(1.0).Json()),
+        }
+        fade = self.make_time_helper()
+        app = types.SimpleNamespace(
+            project=types.SimpleNamespace(get=lambda key:
+                {"num": 30, "den": 1} if key == "fps" else 20.0),
+            updates=types.SimpleNamespace(transaction_id=None),
+        )
+        with patch.object(self.timeline_module.Clip, "get", return_value=clip), \
+                patch.object(self.timeline_module, "get_app", return_value=app):
+            self.timeline_module.TimelineView.Fade_Triggered(
+                fade, self.timeline_module.MenuFade.OUT_FAST, [clip.id], "End of Clip")
+        self.assertEqual(len(fade.updated), 1)
+
+        class DragHelper(self.qwidget_keyframe_module.KeyframeMixin):
+            # Keep the real marker construction, snap target collection, and
+            # drag movement; only rendering/selection side effects are omitted.
+            def _ensure_keyframe_markers(self):
+                pass
+
+            def _selected_effect_ids(self):
+                return set()
+
+            def _panel_select_points_for_clip_marker(self, marker):
+                pass
+
+            def _fix_cursor(self, cursor):
+                pass
+
+            def _panel_preview_marker(self, *args, **kwargs):
+                pass
+
+            def _seek_to_marker_frame(self, *args, **kwargs):
+                pass
+
+            def update(self):
+                pass
+
+            def _snap_time(self, seconds):
+                return round(seconds * self.fps_float) / self.fps_float
+
+        drag = DragHelper()
+        drag.pixels_per_second = 100.0
+        drag.fps_float = 30.0
+        drag.track_name_width = 100.0
+        drag.current_frame = 151  # Playhead at the other clip's left edge (5s).
+        drag.scrollbar_position = [0.0, 1.0, 1200.0, 1200.0]
+        drag.enable_snapping = True
+        drag._pending_clip_overrides = {}
+        drag._snap_keyframe_seconds = []
+        drag._dragging_panel_keyframes = None
+        drag._press_hit = "keyframe"
+        drag.cursors = {}
+        drag.win = types.SimpleNamespace(selected_clips=[clip.id])
+        drag.keyframe_painter = types.SimpleNamespace(size=10, fill=QColor("red"))
+        clip_rect = QRectF(300, 0, 500, 50)
+        neighbor = types.SimpleNamespace(id="neighbor")
+        geometry = types.SimpleNamespace(
+            ensure=lambda: None, marker_rects=[],
+            iter_clips=lambda **kwargs: [(clip_rect, clip, True),
+                                        (QRectF(600, 60, 300, 50), neighbor, False)],
+            iter_transitions=lambda **kwargs: [],
+        )
+        drag.snap = SnapHelper(drag, geometry)
+        drag._keyframe_markers = drag._build_clip_keyframes(
+            clip_rect, clip, {"h_offset": 0.0, "v_offset": 0.0})
+        drag._press_keyframe = next(marker for marker in drag._keyframe_markers if marker["frame"] == 151)
+        with patch.object(drag.snap, "_project_duration", return_value=20.0):
+            drag._startKeyframeDrag()
+        drag._keyframeMove(types.SimpleNamespace(pos=lambda: QPointF(608, 49)))
+        self.assertEqual(drag._dragging_keyframe["pending_seconds"], 3.0)
+        self.assertEqual(drag._dragging_keyframe["pending_frame"], 121)
+
+    def test_keyframe_snapping_excludes_playhead_without_losing_coincident_targets(self):
+        from windows.views.timeline_backend.snap import SnapHelper
+
+        widget = types.SimpleNamespace(
+            track_name_width=100.0, pixels_per_second=100.0, fps_float=300.0,
+            current_frame=1, scrollbar_position=[0.0, 1.0, 2400.0, 2400.0],
+            _snap_keyframe_seconds=[15.0],
+        )
+        geometry = types.SimpleNamespace(
+            ensure=lambda: None,
+            iter_clips=lambda **kwargs: [(QRectF(300, 0, 500, 50), types.SimpleNamespace(id="C1"), False)],
+            iter_transitions=lambda **kwargs: [(QRectF(1000, 60, 200, 50), types.SimpleNamespace(id="T1"), False)],
+            marker_rects=[{"line_rect": QRectF(1400, 0, 1, 100)}],
+        )
+        snap = SnapHelper(widget, geometry)
+        static_targets = {0.0, 2.0, 7.0, 9.0, 11.0, 13.0, 15.0, 20.0}
+
+        def seconds(entries):
+            return {entry["seconds"] if isinstance(entry, dict) else entry for entry in entries}
+
+        with patch.object(snap, "_project_duration", return_value=20.0):
+            # Test each target, empty space, and a playhead within the former
+            # half-pixel rejection distance of another clip's boundary.
+            for playhead in sorted(static_targets | {17.0, 2.0 + 1.0 / 300.0}):
+                with self.subTest(playhead=playhead):
+                    widget.current_frame = round(playhead * widget.fps_float) + 1
+                    self.assertEqual(seconds(snap.keyframe_snap_seconds(include_playhead=False)), static_targets)
+                    with_playhead = seconds(snap.keyframe_snap_seconds())
+                    self.assertTrue(static_targets.issubset(with_playhead))
+                    self.assertTrue(any(abs(target - playhead) < 1e-9 for target in with_playhead))
+
     def test_finalize_keyframe_drag_refreshes_waveform_for_volume_curve_changes(self):
         helper = self.make_finalize_keyframe_helper()
         original = {
@@ -4259,6 +4375,33 @@ class TimelineHelperTests(unittest.TestCase):
         self.assertIn(255, alphas)
         self.assertTrue(any(120 < alpha < 255 for alpha in alphas))
 
+    def test_recording_preview_paints_without_edit_targets(self):
+        helper = self.make_clip_painter()
+        widget = helper.w
+        widget.resize(640, 120)
+        widget.track_name_width = 100
+        widget.ruler_height = 0
+        widget.scroll_bar_thickness = 10
+        widget._is_track_locked = lambda _layer: False
+        helper._draw_thumbnails = lambda *_args: False
+        helper._draw_waveform = lambda *_args: False
+        clip = types.SimpleNamespace(id="preview-mic", is_recording_preview=True, data={
+            "title": "Recording", "position": 0, "start": 0, "end": 5, "duration": 5,
+        })
+        full = QRectF(110, 10, 300, 70)
+        widget.geometry = types.SimpleNamespace(
+            iter_clips=lambda **kwargs: [(full, clip, False)] if kwargs.get("include_previews") else [])
+        image = QImage(640, 120, QImage.Format_ARGB32)
+        image.fill(0)
+        painter = QPainter(image)
+        try:
+            helper.paint(painter)
+        finally:
+            painter.end()
+        self.assertGreater(image.pixelColor(200, 50).alpha(), 0)
+        self.assertEqual(widget._clip_text_rects, [])
+        self.assertEqual(widget._effect_icon_rects, [])
+
     def test_waveform_clip_keeps_full_height_and_uses_transparent_title(self):
         clip_painter = self.clip_paint_module.ClipPainter.__new__(
             self.clip_paint_module.ClipPainter
@@ -4453,7 +4596,7 @@ class TimelineHelperTests(unittest.TestCase):
                 with self.subTest(kind=kind, left=left):
                     full = QRectF(left, 10, 10000, 70)
                     widget.geometry = types.SimpleNamespace(**{
-                        "iter_" + kind + "s": lambda: [(full, clip, True)]
+                        "iter_" + kind + "s": lambda **kwargs: [(full, clip, True)]
                     })
                     image.fill(0)
                     painter = QPainter(image)
@@ -5022,7 +5165,7 @@ class TimelineHelperTests(unittest.TestCase):
         widget.scroll_bar_thickness = 0
         widget._is_track_locked = lambda _layer: False
         clip = types.SimpleNamespace(id="C1", data={"layer": 1})
-        widget.geometry = types.SimpleNamespace(iter_clips=lambda: [(QRectF(0, 0, 100, 40), clip, False)])
+        widget.geometry = types.SimpleNamespace(iter_clips=lambda **kwargs: [(QRectF(0, 0, 100, 40), clip, False)])
         cfg = {"pps": 600.0, "fps": 30.0, "offset_px": 15.0}
         widget.track_painter = types.SimpleNamespace(_frame_banding_config=lambda: cfg)
         painter._draw_item_header = lambda canvas, *_args: canvas.fillRect(QRectF(0, 0, 10, 10), QColor("red"))
@@ -5805,7 +5948,7 @@ class TimelineHelperTests(unittest.TestCase):
             "end": 100, "duration": 100,
         })
         full = QRectF(-5000, 10, 240000, 70)
-        widget.geometry = types.SimpleNamespace(iter_clips=lambda: [(full, clip, False)])
+        widget.geometry = types.SimpleNamespace(iter_clips=lambda **kwargs: [(full, clip, False)])
         image = QImage(640, 120, QImage.Format_ARGB32)
 
         def paint():

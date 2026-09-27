@@ -6217,6 +6217,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                     reader["height"] = 720
 
             preview_clip = Clip()
+            preview_clip.is_recording_preview = True
             preview_clip.id = preview_id
             try:
                 position = max(0.0, float(preview.get("position") or 0.0))

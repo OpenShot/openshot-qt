@@ -218,6 +218,12 @@ class ProjectDataTests(unittest.TestCase):
         self.assertEqual(loaded_payloads, [store._data])
 
     def test_load_migrates_flat_thumbnails_into_per_file_folders(self):
+        self._check_thumbnail_migration_on_load(unreadable=False)
+
+    def test_load_completes_when_thumbnail_directory_is_unreadable(self):
+        self._check_thumbnail_migration_on_load(unreadable=True)
+
+    def _check_thumbnail_migration_on_load(self, unreadable):
         store = make_store()
         project_data = {
             "clips": [],
@@ -231,7 +237,8 @@ class ProjectDataTests(unittest.TestCase):
 
         clear_waveform_action = DummyAction()
         self.app.window = types.SimpleNamespace(actionClearWaveformData=clear_waveform_action)
-        self.app.updates = types.SimpleNamespace(load=lambda payload: None)
+        loaded = []
+        self.app.updates = types.SimpleNamespace(load=lambda payload: loaded.append(payload))
 
         with tempfile.TemporaryDirectory() as tmpdir:
             project_path = os.path.join(tmpdir, "example.osp")
@@ -263,10 +270,22 @@ class ProjectDataTests(unittest.TestCase):
                 stack.enter_context(patch.object(store, "apply_default_audio_settings", lambda: None))
                 stack.enter_context(patch("classes.project_data.get_assets_path", return_value=assets_path))
                 stack.enter_context(patch("classes.project_data.info.get_default_path", return_value=default_thumb_root))
+                if unreadable:
+                    original_listdir = os.listdir
+
+                    def guarded_listdir(path):
+                        if path == thumbnail_root:
+                            raise PermissionError("protected thumbnail directory")
+                        return original_listdir(path)
+
+                    stack.enter_context(patch("classes.thumbnail.os.listdir", side_effect=guarded_listdir))
                 ProjectDataStore.load(store, project_path, clear_thumbnails=True)
 
-            self.assertFalse(os.path.exists(flat_thumb))
-            self.assertTrue(os.path.exists(os.path.join(thumbnail_root, "F1", "8.png")))
+            self.assertEqual(loaded, [store._data])
+            self.assertEqual(store.current_filepath, project_path)
+            self.assertFalse(store.has_unsaved_changes)
+            self.assertEqual(os.path.exists(flat_thumb), unreadable)
+            self.assertEqual(os.path.exists(os.path.join(thumbnail_root, "F1", "8.png")), not unreadable)
 
     def test_upgrade_project_data_structures_migrates_25_crop_effect(self):
         store = make_store()
