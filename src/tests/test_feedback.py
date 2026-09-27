@@ -440,6 +440,18 @@ class FeedbackTests(unittest.TestCase):
             self.assertFalse(controller.eventFilter(controller.window, event))
             self.assertEqual(controller.last_input, 42)
 
+    def test_input_filter_handles_hide_wheel_touch_and_activation(self):
+        from qt_api import QEvent
+        controller = self.make_controller(Settings())
+        for event_type, expected in ((QEvent.Hide, 0), (QEvent.Wheel, 42),
+                                     (QEvent.TouchBegin, 42), (QEvent.TouchUpdate, 42),
+                                     (QEvent.WindowActivate, 42)):
+            with self.subTest(event_type=event_type):
+                controller.last_input = 0
+                with patch("windows.feedback.time.monotonic", return_value=42):
+                    self.assertFalse(controller.eventFilter(controller.window, QEvent(event_type)))
+                self.assertEqual(controller.last_input, expected)
+
     def test_mouse_move_type_without_mouse_event_does_not_reset_idle_time(self):
         from qt_api import QContextMenuEvent, QEvent, QPoint
 

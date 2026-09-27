@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-09-26 14:26-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -132,7 +132,6 @@ msgstr "4"
 msgid "Key frame Markers"
 msgstr "Các dấu khung chính"
 
-# Translated with gpt-4.1-mini
 #: ../animation.rst:44
 msgid ""
 "Colorful icons line the bottom of the clip for every keyframe "
@@ -141,16 +140,18 @@ msgid ""
 "icons are shown brighter. Filtering the property list also filters these "
 "icons. Click any icon to jump the play-head, load its properties, and select"
 " its clip, effect, or transition. Drag an icon left or right to move the "
-"keyframe and fine‑tune your animation timing."
+"keyframe and fine‑tune your animation timing. The play-head moves to the "
+"keyframe's new position when you finish dragging."
 msgstr ""
-"Các biểu tượng màu sắc nằm ở dưới cùng của clip cho mỗi khung chính "
-"(`circle=Bézier`, `diamond=linear`, `square=constant`). Mỗi biểu tượng tương"
-" ứng với màu của clip, hiệu ứng hoặc chuyển tiếp. Các biểu tượng khung chính"
-" của mục được chọn hiển thị sáng hơn. Lọc danh sách thuộc tính cũng lọc các "
-"biểu tượng này. Nhấp vào bất kỳ biểu tượng nào để di chuyển đầu phát, tải "
-"thuộc tính của nó và chọn clip, hiệu ứng hoặc chuyển tiếp tương ứng. Kéo "
-"biểu tượng sang trái hoặc phải để di chuyển khung chính và điều chỉnh chính "
-"xác thời gian hoạt hình của bạn."
+"Các biểu tượng nhiều màu sắc nằm ở dưới cùng của đoạn clip cho mỗi khung "
+"hình chính (`circle=Bézier`, `diamond=linear`, `square=constant`). Mỗi biểu "
+"tượng tương ứng với màu của đoạn clip, hiệu ứng hoặc chuyển tiếp. Các biểu "
+"tượng khung hình chính của mục được chọn được hiển thị sáng hơn. Lọc danh "
+"sách thuộc tính cũng lọc các biểu tượng này. Nhấp vào bất kỳ biểu tượng nào "
+"để nhảy đến vị trí play-head, tải thuộc tính của nó và chọn đoạn clip, hiệu "
+"ứng hoặc chuyển tiếp tương ứng. Kéo biểu tượng sang trái hoặc phải để di "
+"chuyển khung hình chính và điều chỉnh thời gian hoạt hình của bạn. Play-head"
+" sẽ di chuyển đến vị trí mới của khung hình chính khi bạn kết thúc kéo."
 
 # Translated with gpt-4.1-mini
 #: ../animation.rst:48
@@ -268,19 +269,19 @@ msgid "For a full list of key frames, see :ref:`clip_properties_ref`."
 msgstr ""
 "Để xem danh sách đầy đủ các khung chính, xem :ref:`clip_properties_ref`."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../animation.rst:77
 msgid "Timing"
-msgstr "Thời gian"
+msgstr "Đổi tốc độ"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../animation.rst:78
 msgid ""
 "Changing how fast a clip plays is done with the :guilabel:`Time` property "
 "and the :guilabel:`Timing` tool."
 msgstr ""
 "Thay đổi tốc độ phát của một clip được thực hiện bằng thuộc tính "
-":guilabel:`Time` và công cụ :guilabel:`Timing`."
+":guilabel:`Time` và công cụ :guilabel:`Đổi tốc độ`."
 
 #: ../animation.rst:80
 msgid ""
@@ -291,7 +292,7 @@ msgstr ""
 "chậm, đóng băng, đảo ngược và lặp lại. Xem chi tiết trong "
 ":ref:`clip_time_ref`."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../animation.rst:81
 msgid ""
 "The :guilabel:`Timing` tool lets you drag a clip’s edges to speed it up or "
@@ -299,10 +300,10 @@ msgid ""
 "other keyframes** so your animations stay aligned. Shorter clips play "
 "faster, longer clips play slower. See more: :ref:`clip_time_ref`."
 msgstr ""
-"Công cụ :guilabel:`Timing` cho phép bạn kéo các cạnh của clip để tăng tốc "
-"hoặc giảm tốc. OpenShot thêm các khung chính Thời gian cần thiết và **tỉ lệ "
-"các khung chính khác** để hoạt hình của bạn luôn đồng bộ. Clip ngắn hơn phát"
-" nhanh hơn, clip dài hơn phát chậm hơn. Xem thêm: :ref:`clip_time_ref`."
+"Công cụ :guilabel:`Đổi tốc độ` cho phép bạn kéo các cạnh của clip để tăng "
+"tốc hoặc giảm tốc. OpenShot thêm các khung chính Thời gian cần thiết và **tỉ"
+" lệ các khung chính khác** để hoạt hình của bạn luôn đồng bộ. Clip ngắn hơn "
+"phát nhanh hơn, clip dài hơn phát chậm hơn. Xem thêm: :ref:`clip_time_ref`."
 
 # Translated with gpt-4.1-mini
 #: ../animation.rst:86
@@ -475,6 +476,25 @@ msgid ""
 msgstr ""
 "Điều chỉnh tốc độ khung hình của hoạt hình. Thông thường, các hoạt hình vẽ "
 "tay sử dụng 12 khung hình mỗi giây."
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "Colorful icons line the bottom of the clip for every keyframe "
+#~ "(`circle=Bézier`, `diamond=linear`, `square=constant`). Each icon matches "
+#~ "the color of its clip, effect, or transition. The selected item's keyframe "
+#~ "icons are shown brighter. Filtering the property list also filters these "
+#~ "icons. Click any icon to jump the play-head, load its properties, and select"
+#~ " its clip, effect, or transition. Drag an icon left or right to move the "
+#~ "keyframe and fine‑tune your animation timing."
+#~ msgstr ""
+#~ "Các biểu tượng màu sắc nằm ở dưới cùng của clip cho mỗi khung chính "
+#~ "(`circle=Bézier`, `diamond=linear`, `square=constant`). Mỗi biểu tượng tương"
+#~ " ứng với màu của clip, hiệu ứng hoặc chuyển tiếp. Các biểu tượng khung chính"
+#~ " của mục được chọn hiển thị sáng hơn. Lọc danh sách thuộc tính cũng lọc các "
+#~ "biểu tượng này. Nhấp vào bất kỳ biểu tượng nào để di chuyển đầu phát, tải "
+#~ "thuộc tính của nó và chọn clip, hiệu ứng hoặc chuyển tiếp tương ứng. Kéo "
+#~ "biểu tượng sang trái hoặc phải để di chuyển khung chính và điều chỉnh chính "
+#~ "xác thời gian hoạt hình của bạn."
 
 # Translated with gpt-4.1-mini
 #~ msgid ""

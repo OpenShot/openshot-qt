@@ -36,12 +36,13 @@ msgstr ""
 " il volume del microfono, ritagliare una webcam o modificare separatamente "
 "la cattura dello schermo."
 
+# Main-window terminology review, 2026-09-26.
 #: ../recording.rst:29
 msgid ""
 "Open the dedicated layout with :guilabel:`View → Recording View`, or show "
 "only the dock with :guilabel:`View → Docks → Recording`."
 msgstr ""
-"Apri il layout dedicato con :guilabel:`Visualizza → Vista Registrazione`, "
+"Apri il layout dedicato con :guilabel:`Visualizza → Vista registrazione`, "
 "oppure mostra solo il dock con :guilabel:`Visualizza → Dock → "
 "Registrazione`."
 
@@ -62,9 +63,10 @@ msgstr ""
 "Sposta il cursore della timeline nel punto in cui deve iniziare la "
 "registrazione."
 
+# Main-window terminology review, 2026-09-26.
 #: ../recording.rst:39
 msgid "Open :guilabel:`View → Recording View`."
-msgstr "Apri :guilabel:`Visualizza → Vista Registrazione`."
+msgstr "Apri :guilabel:`Visualizza → Vista registrazione`."
 
 #: ../recording.rst:40
 msgid ""
@@ -127,6 +129,7 @@ msgstr ""
 msgid "Quick Audio Commentary"
 msgstr "Commento Audio Rapido"
 
+# Main-window terminology review, 2026-09-26.
 #: ../recording.rst:53
 msgid ""
 "To begin commentary at an existing clip, right-click the clip and choose "
@@ -143,7 +146,7 @@ msgstr ""
 "prima traccia disponibile e sbloccata sotto il clip. Verifica che "
 ":guilabel:`Microfono` sia abilitato, quindi clicca su :guilabel:`Avvia "
 "Registrazione`. La vista completa :guilabel:`Visualizza → Vista "
-"Registrazione` rimane il punto di accesso generale per sessioni di "
+"registrazione` rimane il punto di accesso generale per sessioni di "
 "registrazione di schermo, webcam, microfono e combinate."
 
 #: ../recording.rst:60

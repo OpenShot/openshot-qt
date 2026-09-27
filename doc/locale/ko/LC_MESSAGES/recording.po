@@ -17,9 +17,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+# Main-window terminology review, 2026-09-26.
 #: ../recording.rst:23
 msgid "Recording"
-msgstr "녹화"
+msgstr "녹음/녹화"
 
 #: ../recording.rst:25
 msgid ""
@@ -33,13 +34,14 @@ msgstr ""
 "녹화 세션에서 결합할 수 있습니다. 각 소스는 독립적인 미디어 파일 및 타임라인 클립으로 유지되어 마이크 볼륨 조절, 웹캠 자르기, 화면"
 " 캡처 편집을 별도로 쉽게 할 수 있습니다."
 
+# Main-window terminology review, 2026-09-26.
 #: ../recording.rst:29
 msgid ""
 "Open the dedicated layout with :guilabel:`View → Recording View`, or show "
 "only the dock with :guilabel:`View → Docks → Recording`."
 msgstr ""
-":guilabel:`View → Recording View` 로 전용 레이아웃을 열거나, :guilabel:`View → Docks → "
-"Recording` 으로 도크만 표시하세요."
+":guilabel:`View → 녹음/녹화 보기` 로 전용 레이아웃을 열거나, :guilabel:`View → Docks → 녹음/녹화`"
+" 으로 도크만 표시하세요."
 
 #: ../recording.rst:-1
 msgid "OpenShot Recording View with the microphone source selected by default"
@@ -54,9 +56,10 @@ msgid ""
 "Move the timeline playhead to the point where the recording should begin."
 msgstr "녹화를 시작할 지점으로 타임라인 재생 헤드를 이동하세요."
 
+# Main-window terminology review, 2026-09-26.
 #: ../recording.rst:39
 msgid "Open :guilabel:`View → Recording View`."
-msgstr ":guilabel:`View → Recording View` 를 여세요."
+msgstr ":guilabel:`View → 녹음/녹화 보기` 를 여세요."
 
 #: ../recording.rst:40
 msgid ""
@@ -108,6 +111,7 @@ msgstr ""
 msgid "Quick Audio Commentary"
 msgstr "빠른 오디오 해설"
 
+# Main-window terminology review, 2026-09-26.
 #: ../recording.rst:53
 msgid ""
 "To begin commentary at an existing clip, right-click the clip and choose "
@@ -121,7 +125,7 @@ msgstr ""
 "기존 클립에서 해설을 시작하려면 클립을 우클릭하고 :guilabel:`Audio → Record` 를 선택하세요. OpenShot은 재생"
 " 헤드를 클립의 첫 프레임으로 이동시키고, 녹화 도크를 열며, 클립 아래의 첫 번째 사용 가능한 잠금 해제된 트랙을 선택합니다. "
 ":guilabel:`Mic` 이 활성화되었는지 확인한 후 :guilabel:`Start Recording` 을 클릭하세요. 전체 "
-":guilabel:`View → Recording View` 는 화면, 웹캠, 마이크, 결합 녹화 세션의 일반 진입점으로 유지됩니다."
+":guilabel:`View → 녹음/녹화 보기` 는 화면, 웹캠, 마이크, 결합 녹화 세션의 일반 진입점으로 유지됩니다."
 
 #: ../recording.rst:60
 msgid "Recording Sources"

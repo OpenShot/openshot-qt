@@ -177,12 +177,13 @@ msgid ""
 msgstr ""
 "आवश्यक मॉडल फ़ाइलें (नीचे सूचीबद्ध) संबंधित मॉडल फ़ोल्डरों में डाउनलोड करें।"
 
+# Main-window terminology review, 2026-09-26.
 #: ../ai.rst:63
 msgid ""
 "Start ComfyUI, then open :guilabel:`Edit->Preferences->Advanced` and set "
 ":guilabel:`ComfyUI URL`."
 msgstr ""
-"ComfyUI प्रारंभ करें, फिर :guilabel:`Edit->Preferences->Advanced` खोलें और "
+"ComfyUI प्रारंभ करें, फिर :guilabel:`Edit->पसंदें->Advanced` खोलें और "
 ":guilabel:`ComfyUI URL` सेट करें।"
 
 # Translated with gpt-4.1-mini
@@ -445,7 +446,7 @@ msgstr ""
 "``PROJECTNAME_Assets`` फ़ोल्डर में कॉपी किए गए कोई भी एसेट्स उस प्रोजेक्ट की"
 " निर्देशिका में बने रहते हैं।"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../ai.rst:134
 msgid ""
 "If ComfyUI is unavailable, OpenShot disables the AI menus. Configure the "
@@ -453,8 +454,8 @@ msgid ""
 ":guilabel:`Check` button to test connectivity."
 msgstr ""
 "यदि ComfyUI अनुपलब्ध है, तो OpenShot AI मेनू को अक्षम कर देता है। सर्वर URL "
-"को :guilabel:`Edit->Preferences->Advanced` में कॉन्फ़िगर करें, फिर "
-"कनेक्टिविटी का परीक्षण करने के लिए :guilabel:`Check` बटन का उपयोग करें।"
+"को :guilabel:`Edit->पसंदें->Advanced` में कॉन्फ़िगर करें, फिर कनेक्टिविटी का"
+" परीक्षण करने के लिए :guilabel:`Check` बटन का उपयोग करें।"
 
 # Translated with gpt-4.1-mini
 #: ../ai.rst:139

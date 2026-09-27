@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-09-26 14:26-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -124,7 +124,6 @@ msgstr "4"
 msgid "Key frame Markers"
 msgstr "關鍵影格標記"
 
-# Translated with gpt-4.1-mini
 #: ../animation.rst:44
 msgid ""
 "Colorful icons line the bottom of the clip for every keyframe "
@@ -133,10 +132,10 @@ msgid ""
 "icons are shown brighter. Filtering the property list also filters these "
 "icons. Click any icon to jump the play-head, load its properties, and select"
 " its clip, effect, or transition. Drag an icon left or right to move the "
-"keyframe and fine‑tune your animation timing."
+"keyframe and fine‑tune your animation timing. The play-head moves to the "
+"keyframe's new position when you finish dragging."
 msgstr ""
-"每個關鍵影格在剪輯底部都有彩色圖示（`circle=貝茲曲線` ，`diamond=線性` ，`square=常數` "
-"）。每個圖示的顏色與其剪輯、效果或轉場相符。所選項目的關鍵影格圖示會顯示較亮。篩選屬性列表也會篩選這些圖示。點擊任一圖示可跳轉播放頭、載入其屬性並選取其剪輯、效果或轉場。拖曳圖示左右可移動關鍵影格並微調動畫時序。"
+"彩色圖示排列在剪輯底部，對應每個關鍵影格（`circle=Bézier`、`diamond=linear`、`square=constant`）。每個圖示的顏色與其剪輯、效果或轉場相符。所選項目的關鍵影格圖示會顯示得較亮。篩選屬性列表也會篩選這些圖示。點擊任一圖示可跳轉播放頭、載入其屬性，並選取其剪輯、效果或轉場。拖曳圖示向左或向右可移動關鍵影格，微調動畫時序。完成拖曳後，播放頭會移動到關鍵影格的新位置。"
 
 # Translated with gpt-4.1-mini
 #: ../animation.rst:48
@@ -236,17 +235,17 @@ msgstr "有關預設動畫的更多資訊，請參閱 :ref:`clip_presets_ref` �
 msgid "For a full list of key frames, see :ref:`clip_properties_ref`."
 msgstr "完整的關鍵影格列表，請參閱 :ref:`clip_properties_ref` 。"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../animation.rst:77
 msgid "Timing"
-msgstr "時序"
+msgstr "變速"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../animation.rst:78
 msgid ""
 "Changing how fast a clip plays is done with the :guilabel:`Time` property "
 "and the :guilabel:`Timing` tool."
-msgstr "調整剪輯播放速度可使用 :guilabel:`時間` 屬性和 :guilabel:` 時序` 工具。"
+msgstr "調整剪輯播放速度可使用 :guilabel:`時間` 屬性和 :guilabel:`變速` 工具。"
 
 #: ../animation.rst:80
 msgid ""
@@ -255,7 +254,7 @@ msgid ""
 msgstr ""
 ":guilabel:`Speed` 選單提供預設值，如正常、快速、慢速、凍結、反向和重複。詳情請參閱 :ref:`clip_time_ref`。"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../animation.rst:81
 msgid ""
 "The :guilabel:`Timing` tool lets you drag a clip’s edges to speed it up or "
@@ -263,7 +262,7 @@ msgid ""
 "other keyframes** so your animations stay aligned. Shorter clips play "
 "faster, longer clips play slower. See more: :ref:`clip_time_ref`."
 msgstr ""
-":guilabel:`時序` 工具讓你拖曳剪輯邊緣以加速或減速。OpenShot 會新增所需的時間關鍵影格並**縮放其他關鍵影格** "
+":guilabel:`變速` 工具讓你拖曳剪輯邊緣以加速或減速。OpenShot 會新增所需的時間關鍵影格並**縮放其他關鍵影格** "
 "，確保動畫保持同步。較短的剪輯播放較快，較長的剪輯播放較慢。詳情請參閱 :ref:`clip_time_ref` 。"
 
 # Translated with gpt-4.1-mini
@@ -411,6 +410,19 @@ msgid ""
 "Adjust the frame rate of the animation. Typically, hand-drawn animations use"
 " 12 frames per second."
 msgstr "調整動畫的影格率。通常手繪動畫使用每秒 12 影格。"
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "Colorful icons line the bottom of the clip for every keyframe "
+#~ "(`circle=Bézier`, `diamond=linear`, `square=constant`). Each icon matches "
+#~ "the color of its clip, effect, or transition. The selected item's keyframe "
+#~ "icons are shown brighter. Filtering the property list also filters these "
+#~ "icons. Click any icon to jump the play-head, load its properties, and select"
+#~ " its clip, effect, or transition. Drag an icon left or right to move the "
+#~ "keyframe and fine‑tune your animation timing."
+#~ msgstr ""
+#~ "每個關鍵影格在剪輯底部都有彩色圖示（`circle=貝茲曲線` ，`diamond=線性` ，`square=常數` "
+#~ "）。每個圖示的顏色與其剪輯、效果或轉場相符。所選項目的關鍵影格圖示會顯示較亮。篩選屬性列表也會篩選這些圖示。點擊任一圖示可跳轉播放頭、載入其屬性並選取其剪輯、效果或轉場。拖曳圖示左右可移動關鍵影格並微調動畫時序。"
 
 # Translated with gpt-4.1-mini
 #~ msgid ""

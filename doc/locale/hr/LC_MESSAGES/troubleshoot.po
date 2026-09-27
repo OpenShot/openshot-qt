@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-16 18:08-0500\n"
+"POT-Creation-Date: 2026-09-26 14:26-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,56 +35,517 @@ msgstr ""
 "pogrešci, postoji mnogo različitih tehnika koje mogu biti korisne za "
 "rješavanje problema."
 
+#: ../troubleshoot.rst:31
+msgid "Using Logs to Troubleshoot a Problem"
+msgstr "Korištenje zapisnika za rješavanje problema"
+
+#: ../troubleshoot.rst:33
+msgid ""
+"A log is a text file that records what OpenShot is doing, along with "
+"warnings and errors. These files can help the support team understand a "
+"problem, even when you do not see an error message on screen."
+msgstr ""
+"Zapisnik je tekstualna datoteka koja bilježi što OpenShot radi, zajedno s "
+"upozorenjima i pogreškama. Ove datoteke mogu pomoći timu za podršku da "
+"razumije problem, čak i kada na zaslonu ne vidite poruku o pogrešci."
+
+#: ../troubleshoot.rst:37
+msgid ""
+"OpenShot keeps two log files in the ``.openshot_qt`` folder inside your home"
+" folder. On Linux and macOS, this location is written as "
+"``~/.openshot_qt/``. The folder may be hidden in your file manager."
+msgstr ""
+"OpenShot čuva dvije zapisničke datoteke u mapi ``.openshot_qt`` unutar vaše "
+"početne mape. Na Linuxu i macOS-u, ta se lokacija zapisuje kao "
+"``~/.openshot_qt/``. Mapa može biti skrivena u vašem upravitelju datoteka."
+
+#: ../troubleshoot.rst:41
+msgid "The two log files"
+msgstr "Dvije zapisničke datoteke"
+
+#: ../troubleshoot.rst:45
+msgid "File"
+msgstr "Datoteka"
+
+#: ../troubleshoot.rst:46
+msgid "What it records"
+msgstr "Što bilježi"
+
+#: ../troubleshoot.rst:47 ../troubleshoot.rst:74
+msgid "``openshot-qt.log``"
+msgstr "``openshot-qt.log``"
+
+#: ../troubleshoot.rst:48
+msgid ""
+"Activity in the editor: starting OpenShot, loading projects, changing "
+"settings, and using the interface. This is usually the best place to start "
+"when investigating a problem."
+msgstr ""
+"Aktivnosti u uređivaču: pokretanje OpenShota, učitavanje projekata, "
+"mijenjanje postavki i korištenje sučelja. Ovo je obično najbolje mjesto za "
+"početak istraživanja problema."
+
+#: ../troubleshoot.rst:51 ../troubleshoot.rst:77
+msgid "``libopenshot.log``"
+msgstr "``libopenshot.log``"
+
+#: ../troubleshoot.rst:52
+msgid ""
+"Activity in OpenShot's video and audio engine, the part that reads media and"
+" builds the pictures and sound used in previews and exported videos. "
+"Detailed engine logging can help investigate playback and export problems."
+msgstr ""
+"Aktivnosti u video i audio motoru OpenShota, dijelu koji čita medije i gradi"
+" slike i zvukove korištene u pregledima i izvezenim videozapisima. Detaljno "
+"zapisivanje motora može pomoći u istraživanju problema reprodukcije i "
+"izvoza."
+
+#: ../troubleshoot.rst:56
+msgid ""
+"These files record different parts of the same application. When reporting a"
+" problem, include both files if available. You do not need to understand "
+"every line yourself."
+msgstr ""
+"Ove datoteke bilježe različite dijelove iste aplikacije. Prilikom "
+"prijavljivanja problema, uključite obje datoteke ako su dostupne. Ne morate "
+"sami razumjeti svaki redak."
+
+#: ../troubleshoot.rst:61
+msgid "Choose which part of OpenShot to log"
+msgstr "Odaberite koji dio OpenShota želite zapisivati"
+
+#: ../troubleshoot.rst:63
+msgid "Open **Edit → Preferences → Advanced** to find these two settings:"
+msgstr ""
+"Otvorite **Uredi → Postavke → Napredno** da biste pronašli ove dvije "
+"postavke:"
+
+#: ../troubleshoot.rst:65
+msgid "Preferences and matching terminal options"
+msgstr "Postavke i odgovarajuće opcije terminala"
+
+#: ../troubleshoot.rst:69
+msgid "Preference"
+msgstr "Postavka"
+
+#: ../troubleshoot.rst:70
+msgid "Matching argument"
+msgstr "Odgovarajući argument"
+
+#: ../troubleshoot.rst:71
+msgid "Log file"
+msgstr "Zapisnička datoteka"
+
+#: ../troubleshoot.rst:72
+msgid "User Interface Debug Logging"
+msgstr "Zapisivanje otklanjanja pogrešaka korisničkog sučelja"
+
+#: ../troubleshoot.rst:73
+msgid "``--debug-ui``"
+msgstr "``--debug-ui``"
+
+#: ../troubleshoot.rst:75
+msgid "Video & Audio Engine Debug Logging"
+msgstr "Zapisivanje otklanjanja pogrešaka video i audio motora"
+
+#: ../troubleshoot.rst:76 ../troubleshoot.rst:142
+msgid "``--debug-engine``"
+msgstr "``--debug-engine``"
+
+#: ../troubleshoot.rst:79
+msgid ""
+"Both preferences are off by default, which keeps the normal summary "
+"messages. Turning one on adds detail to its log file immediately. It does "
+"not change the other log or add messages to the terminal. Preferences stay "
+"enabled between launches until you turn them off."
+msgstr ""
+"Obje postavke su prema zadanim postavkama isključene, što održava normalne "
+"sažetke poruka. Uključivanjem jedne odmah se dodaju detalji u njezinu "
+"zapisničku datoteku. Ne mijenja drugu zapisničku datoteku niti ne dodaje "
+"poruke u terminal. Postavke ostaju uključene između pokretanja dok ih ne "
+"isključite."
+
+#: ../troubleshoot.rst:84
+msgid ""
+"**User Interface Debug Logging** is a good starting point for problems with "
+"startup, project loading, settings, or the interface. **Video & Audio Engine"
+" Debug Logging** adds details about video and audio processing, which can "
+"help investigate playback and export problems. Engine logs can grow very "
+"quickly and may slow OpenShot down. Turn this setting on shortly before "
+"repeating the problem, then turn it off afterward."
+msgstr ""
+"**Zapisivanje otklanjanja pogrešaka korisničkog sučelja** je dobar početak "
+"za probleme s pokretanjem, učitavanjem projekata, postavkama ili sučeljem. "
+"**Zapisivanje otklanjanja pogrešaka video i audio motora** dodaje detalje o "
+"obradi videa i zvuka, što može pomoći u istraživanju problema reprodukcije i"
+" izvoza. Zapisnici motora mogu brzo narasti i usporiti OpenShot. Uključite "
+"ovu postavku neposredno prije ponavljanja problema, a zatim je isključite."
+
+#: ../troubleshoot.rst:91
+msgid ""
+"The engine preference was previously called **Debug Mode (Verbose)**. Its "
+"saved on/off setting carries over to the new name."
+msgstr ""
+"Postavka motora je prethodno nazvana **Debug Mode (Verbose)**. Njena "
+"spremljena postavka uključeno/isključeno prenosi se na novi naziv."
+
+#: ../troubleshoot.rst:95
+msgid "Use a terminal for one launch"
+msgstr "Koristite terminal za jedno pokretanje"
+
+#: ../troubleshoot.rst:97
+msgid ""
+"A terminal is a window where you type commands. The matching arguments "
+"enable the same extra detail as the preferences, and also display it in the "
+"terminal:"
+msgstr ""
+"Terminal je prozor u koji upisujete naredbe. Odgovarajući argumenti "
+"omogućuju iste dodatne detalje kao postavke, a također ih prikazuju u "
+"terminalu:"
+
+#: ../troubleshoot.rst:104
+msgid ""
+"This records interface details for one launch. The familiar ``--debug`` and "
+"shorter ``-d`` options mean exactly the same thing as ``--debug-ui``. For "
+"video and audio engine details, use:"
+msgstr ""
+"Ovo bilježi detalje sučelja za jedno pokretanje. Poznate opcije ``--debug`` "
+"i kraća ``-d`` znače točno isto što i ``--debug-ui``. Za detalje video i "
+"audio motora koristite:"
+
+#: ../troubleshoot.rst:112
+msgid "To collect both types of detail together:"
+msgstr "Za prikupljanje oba tipa detalja zajedno:"
+
+#: ../troubleshoot.rst:118
+msgid ""
+"Repeat the steps that cause the problem, then close OpenShot and collect the"
+" logs. These arguments do not change your saved preferences. Starting "
+"OpenShot normally returns to your usual logging settings."
+msgstr ""
+"Ponovite korake koji uzrokuju problem, zatim zatvorite OpenShot i prikupite "
+"zapisnike. Ovi argumenti ne mijenjaju vaše spremljene postavke. Normalno "
+"pokretanje OpenShota vraća uobičajene postavke zapisivanja."
+
+#: ../troubleshoot.rst:122
+msgid ""
+"``openshot-qt.log`` starts a new file when it reaches about 25 MB and keeps "
+"three older copies. ``libopenshot.log`` keeps growing as messages are added."
+" After saving any logs you need, you can remove old log files while OpenShot"
+" is closed."
+msgstr ""
+"``openshot-qt.log`` započinje novu datoteku kada dosegne oko 25 MB i čuva "
+"tri starije kopije. ``libopenshot.log`` nastavlja rasti kako se dodaju "
+"poruke. Nakon spremanja potrebnih zapisnika, možete ukloniti stare "
+"zapisničke datoteke dok je OpenShot zatvoren."
+
+#: ../troubleshoot.rst:128
+msgid "Other command-line options"
+msgstr "Ostale opcije naredbenog retka"
+
+#: ../troubleshoot.rst:130
+msgid ""
+"Most users only need the two controls above. The following options let you "
+"choose how much detail goes into the files or appears in the terminal. Here,"
+" *console* means the terminal output."
+msgstr ""
+"Većini korisnika potrebne su samo dvije gore navedene kontrole. Sljedeće "
+"opcije omogućuju vam da odaberete koliko detalja ide u datoteke ili se "
+"prikazuje u terminalu. Ovdje *console* znači izlaz u terminal."
+
+#: ../troubleshoot.rst:134
+msgid "Logging options"
+msgstr "Opcije zapisivanja"
+
+#: ../troubleshoot.rst:138
+msgid "Option"
+msgstr "Opcija"
+
+#: ../troubleshoot.rst:139
+msgid "What it does"
+msgstr "Što radi"
+
+#: ../troubleshoot.rst:140
+msgid "``--debug-ui``, ``--debug``, or ``-d``"
+msgstr "``--debug-ui``, ``--debug`` ili ``-d``"
+
+#: ../troubleshoot.rst:141
+msgid "Enables User Interface Debug Logging in its file and the terminal."
+msgstr ""
+"Omogućuje zapisivanje otklanjanja pogrešaka korisničkog sučelja u datoteku i"
+" terminal."
+
+#: ../troubleshoot.rst:143
+msgid ""
+"Enables Video & Audio Engine Debug Logging in its file and the terminal."
+msgstr ""
+"Omogućuje zapisivanje otklanjanja pogrešaka video i audio motora u datoteku "
+"i terminal."
+
+#: ../troubleshoot.rst:144
+msgid "``--debug-file``"
+msgstr "``--debug-file``"
+
+#: ../troubleshoot.rst:145
+msgid ""
+"Adds editor details to ``openshot-qt.log`` without adding terminal detail."
+msgstr ""
+"Dodaje detalje uređivača u ``openshot-qt.log`` bez dodavanja detalja u "
+"terminal."
+
+#: ../troubleshoot.rst:146
+msgid "``--debug-console``"
+msgstr "``--debug-console``"
+
+#: ../troubleshoot.rst:147
+msgid "Adds editor details in the terminal without adding file detail."
+msgstr "Dodaje detalje uređivača u terminal bez dodavanja detalja u datoteku."
+
+#: ../troubleshoot.rst:148
+msgid "``--log-level LEVEL``"
+msgstr "``--log-level LEVEL``"
+
+#: ../troubleshoot.rst:149
+msgid "Sets the detail for both logs and their terminal output."
+msgstr "Postavlja razinu detalja za oba zapisnika i njihov izlaz u terminal."
+
+#: ../troubleshoot.rst:150
+msgid "``--log-file-level LEVEL``"
+msgstr "``--log-file-level LEVEL``"
+
+#: ../troubleshoot.rst:151
+msgid "Sets the detail for both log files, leaving terminal settings alone."
+msgstr ""
+"Postavlja razinu detalja za obje zapisničke datoteke, a postavke terminala "
+"ostavlja nepromijenjenima."
+
+#: ../troubleshoot.rst:152
+msgid "``--log-console-level LEVEL``"
+msgstr "``--log-console-level LEVEL``"
+
+#: ../troubleshoot.rst:153
+msgid ""
+"Sets the detail in the terminal for both the editor and engine, leaving file"
+" settings alone."
+msgstr ""
+"Postavlja detalje u terminalu za uređivač i motor, ostavljajući postavke "
+"datoteke nepromijenjenima."
+
+#: ../troubleshoot.rst:156
+msgid ""
+"Replace ``LEVEL`` with ``debug`` for detailed messages or ``info`` for the "
+"normal summary. ``warning`` shows warnings and errors; ``error`` shows "
+"errors and critical failures; ``critical`` shows only critical failures. "
+"``off`` stops ordinary log messages, but existing crash diagnostics may "
+"still be written. Uppercase names such as ``DEBUG`` work too."
+msgstr ""
+"Zamijenite ``LEVEL`` s ``debug`` za detaljne poruke ili ``info`` za normalni"
+" sažetak. ``warning`` prikazuje upozorenja i pogreške; ``error`` prikazuje "
+"pogreške i kritične kvarove; ``critical`` prikazuje samo kritične kvarove. "
+"``off`` zaustavlja obične zapisnike, ali postojeće dijagnostike pada "
+"programa mogu se i dalje zapisivati. Velika slova poput ``DEBUG`` također "
+"rade."
+
+#: ../troubleshoot.rst:162
+msgid ""
+"For example, to collect detailed messages in **both files** while keeping "
+"the terminal at its usual level:"
+msgstr ""
+"Na primjer, za prikupljanje detaljnih poruka u **obje datoteke** dok "
+"terminal ostaje na uobičajenoj razini:"
+
+#: ../troubleshoot.rst:169
+msgid ""
+"This also enables the large engine log, so use it briefly. The older "
+"``--debug-file`` and ``--debug-console`` options still work even though they"
+" are not listed in ``--help``."
+msgstr ""
+"Ovo također omogućuje veliki zapisnik motora, stoga ga koristite kratko. "
+"Starije opcije ``--debug-file`` i ``--debug-console`` još uvijek rade iako "
+"nisu navedene u ``--help``."
+
+#: ../troubleshoot.rst:174
+msgid "Environment variables"
+msgstr "Varijable okoline"
+
+#: ../troubleshoot.rst:176
+msgid ""
+"An environment variable is a named setting passed to a program when it "
+"starts. These are useful when starting OpenShot from a script or when a "
+"support person asks you to try a particular setting. You do not need to set "
+"them for normal use."
+msgstr ""
+"Varijabla okoline je imenovana postavka koja se prosljeđuje programu "
+"prilikom pokretanja. Korisne su pri pokretanju OpenShota iz skripte ili kada"
+" vas podrška zamoli da isprobate određenu postavku. Nije ih potrebno "
+"postavljati za normalnu upotrebu."
+
+#: ../troubleshoot.rst:180
+msgid "Optional environment settings"
+msgstr "Opcionalne postavke okoline"
+
+#: ../troubleshoot.rst:184
+msgid "Variable"
+msgstr "Varijabla"
+
+#: ../troubleshoot.rst:185
+msgid "What it controls"
+msgstr "Što kontrolira"
+
+#: ../troubleshoot.rst:186
+msgid "``OPENSHOT_LOG_LEVEL``"
+msgstr "``OPENSHOT_LOG_LEVEL``"
+
+#: ../troubleshoot.rst:187
+msgid "Detail in both files and the terminal."
+msgstr "Detalji u obje datoteke i terminalu."
+
+#: ../troubleshoot.rst:188
+msgid "``OPENSHOT_LOG_FILE_LEVEL``"
+msgstr "``OPENSHOT_LOG_FILE_LEVEL``"
+
+#: ../troubleshoot.rst:189
+msgid "Detail in both files only."
+msgstr "Detalji samo u obje datoteke."
+
+#: ../troubleshoot.rst:190
+msgid "``OPENSHOT_LOG_CONSOLE_LEVEL``"
+msgstr "``OPENSHOT_LOG_CONSOLE_LEVEL``"
+
+#: ../troubleshoot.rst:191
+msgid "Detail in the terminal only, for both parts of OpenShot."
+msgstr "Detalji samo u terminalu, za oba dijela OpenShota."
+
+#: ../troubleshoot.rst:192
+msgid "``LIBOPENSHOT_LOG_LEVEL``"
+msgstr "``LIBOPENSHOT_LOG_LEVEL``"
+
+#: ../troubleshoot.rst:193
+msgid "Detail for the video and audio engine, in its file and the terminal."
+msgstr "Detalji za video i audio motor, u njegovoj datoteci i terminalu."
+
+#: ../troubleshoot.rst:194
+msgid "``LIBOPENSHOT_LOG_FILE_LEVEL``"
+msgstr "``LIBOPENSHOT_LOG_FILE_LEVEL``"
+
+#: ../troubleshoot.rst:195
+msgid "Detail in ``libopenshot.log`` only."
+msgstr "Detalji samo u ``libopenshot.log``."
+
+#: ../troubleshoot.rst:196
+msgid "``LIBOPENSHOT_LOG_CONSOLE_LEVEL``"
+msgstr "``LIBOPENSHOT_LOG_CONSOLE_LEVEL``"
+
+#: ../troubleshoot.rst:197
+msgid "Engine detail in the terminal only."
+msgstr "Detalji motora samo u terminalu."
+
+#: ../troubleshoot.rst:199
+msgid ""
+"For example, this Linux/macOS terminal command requests detailed engine "
+"logging in its file for one launch:"
+msgstr ""
+"Na primjer, ova naredba u Linux/macOS terminalu traži detaljno zapisivanje "
+"motora u njegovu datoteku za jedno pokretanje:"
+
+#: ../troubleshoot.rst:206
+msgid ""
+"If settings overlap, command-line options take priority, followed by "
+"environment variables, then Preferences, then the normal defaults. Each "
+"control only affects the output it describes: ``--debug`` does not override "
+"the engine preference. Temporary overrides do not change your saved "
+"preferences. Hover over either checkbox to see whether another setting is "
+"controlling that log file."
+msgstr ""
+"Ako se postavke preklapaju, prioritet imaju opcije naredbenog retka, zatim "
+"varijable okoline, zatim Postavke, a potom uobičajene zadane vrijednosti. "
+"Svaka kontrola utječe samo na izlaz koji opisuje: ``--debug`` ne nadjačava "
+"postavku motora. Privremene promjene ne mijenjaju vaše spremljene postavke. "
+"Zadržite pokazivač iznad bilo kojeg okvira za potvrdu da vidite kontrolira "
+"li druga postavka taj zapisnik."
+
+#: ../troubleshoot.rst:212
+msgid ""
+"Within the environment settings, ``LIBOPENSHOT_`` values take priority over "
+"``OPENSHOT_`` values for the engine. Within either group, a file-only or "
+"console-only level takes priority over the general level. Command-line "
+"options follow the same file/console rule. Conflicting command-line levels "
+"for the same output are rejected; invalid environment levels are reported "
+"and ignored."
+msgstr ""
+"Unutar postavki okoline, vrijednosti ``LIBOPENSHOT_`` imaju prednost nad "
+"``OPENSHOT_`` vrijednostima za motor. Unutar bilo koje grupe, razina samo za"
+" datoteku ili samo za konzolu ima prednost nad općom razinom. Opcije "
+"naredbenog retka slijede isto pravilo datoteke/konzole. Sukobljene razine "
+"naredbenog retka za isti izlaz se odbacuju; nevažeće razine okoline se "
+"prijavljuju i ignoriraju."
+
+#: ../troubleshoot.rst:218
+msgid ""
+"For older scripts, ``LIBOPENSHOT_DEBUG`` still enables detailed engine "
+"messages in the terminal whenever it is present, even if its value is ``0``."
+" The newer level settings take priority over it. ``LIBOPENSHOT_LOG_FILE`` is"
+" intended for programs using the engine separately; OpenShot itself uses the"
+" log folder above. Changing logging settings does not change your error-"
+"reporting preference."
+msgstr ""
+"Za starije skripte, ``LIBOPENSHOT_DEBUG`` i dalje omogućuje detaljne poruke "
+"motora u terminalu kad god je prisutan, čak i ako mu je vrijednost ``0``. "
+"Novije postavke razine imaju prednost nad njim. ``LIBOPENSHOT_LOG_FILE`` je "
+"namijenjen programima koji koriste motor zasebno; sam OpenShot koristi "
+"gornji zapisnički direktorij. Promjena postavki zapisivanja ne mijenja vašu "
+"preferenciju izvještavanja o pogreškama."
+
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:29
+#: ../troubleshoot.rst:225
 msgid "Windows 11 Unresponsive"
 msgstr "Windows 11 ne reagira"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:31
+#: ../troubleshoot.rst:227
 msgid ""
 "If you experience a freeze on Windows 11, this is a known issue with PyQt5 "
 "and Windows 11, related to the accessibility features in Qt. This is "
 "triggered by pressing :kbd:`Ctrl+C` in OpenShot (*only on Windows 11*). "
 "OpenShot will become unresponsive and a memory leak is also present (i.e. "
-"the longer OpenShot is unresponsive, the larger your memory leak will become "
-"until OpenShot finally crashes or the user kills the process)."
+"the longer OpenShot is unresponsive, the larger your memory leak will become"
+" until OpenShot finally crashes or the user kills the process)."
 msgstr ""
 "Ako dođe do zamrzavanja na Windows 11, to je poznati problem s PyQt5 i "
-"Windows 11, vezan uz pristupačne značajke u Qt-u. To se pokreće pritiskom "
-"na :kbd:`Ctrl+C` u OpenShotu (*samo na Windows 11*). OpenShot će prestati "
+"Windows 11, vezan uz pristupačne značajke u Qt-u. To se pokreće pritiskom na"
+" :kbd:`Ctrl+C` u OpenShotu (*samo na Windows 11*). OpenShot će prestati "
 "reagirati, a prisutan je i curenje memorije (što duže OpenShot ne reagira, "
-"to će curenje memorije biti veće dok OpenShot na kraju ne padne ili korisnik "
-"ne prekine proces)."
+"to će curenje memorije biti veće dok OpenShot na kraju ne padne ili korisnik"
+" ne prekine proces)."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:36
+#: ../troubleshoot.rst:232
 msgid ""
 "A simple work-around is to avoid :kbd:`Ctrl+C` on Windows 11, and instead "
 "use the right-click Copy/Paste menus. Another work-around is to remap your "
-"\"Copy\" from :kbd:`Ctrl+C` to something else, for example :kbd:`Alt+C`. You "
-"can change your keyboard mappings in the OpenShot Preferences. See :ref:"
-"`preferences_keyboard_ref`."
+"\"Copy\" from :kbd:`Ctrl+C` to something else, for example :kbd:`Alt+C`. You"
+" can change your keyboard mappings in the OpenShot Preferences. See "
+":ref:`preferences_keyboard_ref`."
 msgstr ""
 "Jednostavno rješenje je izbjegavati :kbd:`Ctrl+C` na Windows 11 i umjesto "
 "toga koristiti izbornike Kopiraj/Zalijepi desnim klikom. Drugo rješenje je "
-"premapirati \"Kopiraj\" s :kbd:`Ctrl+C` na nešto drugo, na primjer :kbd:"
-"`Alt+C`. Mape tipkovnice možete promijeniti u postavkama OpenShota. "
+"premapirati \"Kopiraj\" s :kbd:`Ctrl+C` na nešto drugo, na primjer "
+":kbd:`Alt+C`. Mape tipkovnice možete promijeniti u postavkama OpenShota. "
 "Pogledajte :ref:`preferences_keyboard_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:41
+#: ../troubleshoot.rst:237
 msgid "Windows Debugging with GDB"
 msgstr "Otklanjanje pogrešaka na Windowsu s GDB-om"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:43
+#: ../troubleshoot.rst:239
 msgid ""
 "If you are experiencing a crash or freeze with OpenShot in Windows 10/11, "
-"the following step by step instructions will help you determine the cause of "
-"the crash. These instructions will display a stack trace of OpenShot's "
-"source code, at the location of the crash. This information can be extremely "
-"useful for our development team, and very useful to attach to bug reports "
+"the following step by step instructions will help you determine the cause of"
+" the crash. These instructions will display a stack trace of OpenShot's "
+"source code, at the location of the crash. This information can be extremely"
+" useful for our development team, and very useful to attach to bug reports "
 "(for a quicker resolution)."
 msgstr ""
 "Ako doživljavate pad ili zamrzavanje OpenShota na Windows 10/11, sljedeće "
@@ -94,12 +555,12 @@ msgstr ""
 "izvještaje o pogreškama (za brže rješavanje)."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:49
+#: ../troubleshoot.rst:245
 msgid "Install the Latest Daily Build"
 msgstr "Instalirajte najnoviju dnevnu verziju"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:51
+#: ../troubleshoot.rst:247
 msgid ""
 "Before attaching a debugger, please download the **latest version** of "
 "OpenShot: https://www.openshot.org/download#daily. Install this version of "
@@ -109,67 +570,67 @@ msgid ""
 "Debugging-with-GDB>`_."
 msgstr ""
 "Prije pridruživanja otklanjanju pogrešaka, preuzmite **najnoviju verziju** "
-"OpenShota: https://www.openshot.org/download#daily. Instalirajte ovu verziju "
-"OpenShota na zadanu lokaciju: ``C:\\Program Files\\OpenShot Video "
-"Editor\\``. Za detaljne upute o otklanjanju pogrešaka OpenShota na Windowsu, "
-"pogledajte `ovu wiki stranicu <https://github.com/OpenShot/openshot-qt/wiki/"
-"Windows-Debugging-with-GDB>`_."
+"OpenShota: https://www.openshot.org/download#daily. Instalirajte ovu verziju"
+" OpenShota na zadanu lokaciju: ``C:\\Program Files\\OpenShot Video "
+"Editor\\``. Za detaljne upute o otklanjanju pogrešaka OpenShota na Windowsu,"
+" pogledajte `ovu wiki stranicu <https://github.com/OpenShot/openshot-"
+"qt/wiki/Windows-Debugging-with-GDB>`_."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:56
+#: ../troubleshoot.rst:252
 msgid "Install MSYS2"
 msgstr "Instalirajte MSYS2"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:58
+#: ../troubleshoot.rst:254
 msgid ""
 "The Windows version of OpenShot is compiled using an environment called "
-"MSYS2. In order to attach the GDB debugger to our executable, ``openshot-qt."
-"exe``, you must first install MSYS2. This step is only required once."
+"MSYS2. In order to attach the GDB debugger to our executable, ``openshot-"
+"qt.exe``, you must first install MSYS2. This step is only required once."
 msgstr ""
 "Windows verzija OpenShota je kompajlirana koristeći okruženje zvano MSYS2. "
-"Da biste mogli pridružiti GDB otklanjanje pogrešaka našem izvršnom programu, "
-"``openshot-qt.exe``, prvo morate instalirati MSYS2. Ovaj korak je potreban "
+"Da biste mogli pridružiti GDB otklanjanje pogrešaka našem izvršnom programu,"
+" ``openshot-qt.exe``, prvo morate instalirati MSYS2. Ovaj korak je potreban "
 "samo jednom."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:61
+#: ../troubleshoot.rst:257
 msgid "Download & Install MSYS2: `<http://www.msys2.org/>`_"
 msgstr "Preuzmite i instalirajte MSYS2: `<http://www.msys2.org/>`_"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:62 ../troubleshoot.rst:78
+#: ../troubleshoot.rst:258 ../troubleshoot.rst:274
 msgid ""
-"Run ``MSYS2 MinGW x64`` command prompt (for example: ``C:"
-"\\msys64\\msys2_shell.cmd -mingw64``)"
+"Run ``MSYS2 MinGW x64`` command prompt (for example: "
+"``C:\\msys64\\msys2_shell.cmd -mingw64``)"
 msgstr ""
-"Pokrenite naredbeni redak ``MSYS2 MinGW x64`` (na primjer: ``C:"
-"\\msys64\\msys2_shell.cmd -mingw64``)"
+"Pokrenite naredbeni redak ``MSYS2 MinGW x64`` (na primjer: "
+"``C:\\msys64\\msys2_shell.cmd -mingw64``)"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:63
+#: ../troubleshoot.rst:259
 msgid "Update all packages (*Copy/Paste the following command*):"
 msgstr "Ažurirajte sve pakete (*Kopirajte/Zalijepite sljedeću naredbu*):"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:69
+#: ../troubleshoot.rst:265
 msgid "Install GDB debugger (*Copy/Paste the following command*):"
 msgstr ""
 "Instalirajte GDB otklanjanje pogrešaka (*Kopirajte/Zalijepite sljedeću "
 "naredbu*):"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:76
+#: ../troubleshoot.rst:272
 msgid "Launch OpenShot with GDB Debugger"
 msgstr "Pokrenite OpenShot s GDB otklanjanjem pogrešaka"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:80
+#: ../troubleshoot.rst:276
 msgid "Update the PATH (*Copy/Paste the following commands*):"
 msgstr "Ažurirajte PATH (*Kopirajte/Zalijepite sljedeće naredbe*):"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:87
+#: ../troubleshoot.rst:283
 msgid ""
 "Load OpenShot into the GDB debugger (*Copy/Paste the following commands*):"
 msgstr ""
@@ -177,39 +638,39 @@ msgstr ""
 "sljedeće naredbe*):"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:94
+#: ../troubleshoot.rst:290
 msgid "Launch OpenShot from GDB prompt (*Copy/Paste the following command*):"
 msgstr ""
 "Pokrenite OpenShot iz GDB naredbenog retka (*Kopirajte/Zalijepite sljedeću "
 "naredbu*):"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:101
+#: ../troubleshoot.rst:297
 msgid "Print Debugging Info"
 msgstr "Ispiši informacije za otklanjanje pogrešaka"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:103
+#: ../troubleshoot.rst:299
 msgid ""
 "Once OpenShot has launched successfully with GDB attached, all you need to "
 "do is trigger a crash or freeze in OpenShot. When a crash occurs, switch "
-"back to the MSYS2 MinGW64 terminal and run one of the following commands (by "
-"typing it and pressing ENTER). Usually, the first command to enter is "
+"back to the MSYS2 MinGW64 terminal and run one of the following commands (by"
+" typing it and pressing ENTER). Usually, the first command to enter is "
 "``bt``, which stands for ``backtrace``. More commands are listed below."
 msgstr ""
-"Nakon što se OpenShot uspješno pokrene s pridruženim GDB-om, sve što trebate "
-"učiniti je izazvati pad ili zamrzavanje u OpenShotu. Kad dođe do pada, "
+"Nakon što se OpenShot uspješno pokrene s pridruženim GDB-om, sve što trebate"
+" učiniti je izazvati pad ili zamrzavanje u OpenShotu. Kad dođe do pada, "
 "vratite se u MSYS2 MinGW64 terminal i pokrenite jednu od sljedećih naredbi "
 "(upišite je i pritisnite ENTER). Obično je prva naredba koju treba unijeti "
 "``bt``, što znači ``backtrace``. Više naredbi je navedeno u nastavku."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:117
+#: ../troubleshoot.rst:313
 msgid "High DPI / 4K Monitors"
 msgstr "Visoka DPI / 4K Monitori"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:119
+#: ../troubleshoot.rst:315
 msgid ""
 "OpenShot Video Editor provides robust support for High DPI (Dots Per Inch) "
 "monitors, ensuring that the interface looks sharp and is easily readable on "
@@ -217,36 +678,36 @@ msgid ""
 "4K monitors and other high-resolution displays."
 msgstr ""
 "OpenShot Video Editor pruža snažnu podršku za monitore s visokom DPI "
-"(točkama po inču), osiguravajući da sučelje izgleda oštro i lako čitljivo na "
-"zaslonima s različitim DPI postavkama. Ova podrška je posebno korisna na 4K "
-"monitorima i drugim zaslonima visoke rezolucije."
+"(točkama po inču), osiguravajući da sučelje izgleda oštro i lako čitljivo na"
+" zaslonima s različitim DPI postavkama. Ova podrška je posebno korisna na 4K"
+" monitorima i drugim zaslonima visoke rezolucije."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:125
+#: ../troubleshoot.rst:321
 msgid "Per Monitor DPI Awareness"
 msgstr "Svjesnost o DPI po monitoru"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:127
+#: ../troubleshoot.rst:323
 msgid ""
 "OpenShot is DPI aware on a per-monitor basis, meaning it can adjust its "
-"scaling dynamically depending on the DPI settings of each connected monitor. "
-"This helps provide a consistent experience across different displays."
+"scaling dynamically depending on the DPI settings of each connected monitor."
+" This helps provide a consistent experience across different displays."
 msgstr ""
 "OpenShot prepoznaje DPI za svaki monitor zasebno, što znači da može "
 "dinamički prilagoditi skaliranje ovisno o DPI postavkama svakog povezanog "
 "monitora. To pomaže u pružanju dosljednog iskustva na različitim zaslonima."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:132
+#: ../troubleshoot.rst:328
 msgid "DPI Scaling on Windows"
 msgstr "DPI skaliranje na Windowsu"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:134
+#: ../troubleshoot.rst:330
 msgid ""
-"On Windows, OpenShot rounds the scaling factor to the nearest whole value to "
-"maintain visual integrity. This helps avoid visual artifacts in the UI and "
+"On Windows, OpenShot rounds the scaling factor to the nearest whole value to"
+" maintain visual integrity. This helps avoid visual artifacts in the UI and "
 "keeps interface elements crisp and well-aligned. Due to this rounding, some "
 "scaling options can lead to larger fonts and UI elements than expected."
 msgstr ""
@@ -257,38 +718,38 @@ msgstr ""
 "fontovima i elementima sučelja nego što se očekivalo."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:139
+#: ../troubleshoot.rst:335
 msgid "**125% scaling** rounds to **100%**"
 msgstr "**125% skaliranje** se zaokružuje na **100%**"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:140
+#: ../troubleshoot.rst:336
 msgid "**150% scaling** rounds to **200%**"
 msgstr "**150% skaliranje** se zaokružuje na **200%**"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:143
+#: ../troubleshoot.rst:339
 msgid "Workarounds for Fine-Grained Adjustment"
 msgstr "Zaobilazna rješenja za preciznu prilagodbu"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:145
+#: ../troubleshoot.rst:341
 msgid ""
 "While rounding helps maintain a clean interface, there are workarounds for "
-"users who require more precise control over scaling. These methods are **not "
-"recommended** due to potential visual artifacts:"
+"users who require more precise control over scaling. These methods are **not"
+" recommended** due to potential visual artifacts:"
 msgstr ""
-"Iako zaokruživanje pomaže održati čisto sučelje, postoje zaobilazna rješenja "
-"za korisnike kojima je potrebna preciznija kontrola skaliranja. Ove metode "
+"Iako zaokruživanje pomaže održati čisto sučelje, postoje zaobilazna rješenja"
+" za korisnike kojima je potrebna preciznija kontrola skaliranja. Ove metode "
 "**nisu preporučene** zbog mogućih vizualnih artefakata:"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:149
+#: ../troubleshoot.rst:345
 msgid "**QT_SCALE_FACTOR_ROUNDING_POLICY=PassThrough**"
 msgstr "**QT_SCALE_FACTOR_ROUNDING_POLICY=PassThrough**"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:151
+#: ../troubleshoot.rst:347
 msgid ""
 "Setting this environment variable can disable rounding and allow more "
 "precise scaling."
@@ -297,21 +758,21 @@ msgstr ""
 "omogućiti preciznije skaliranje."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:152
+#: ../troubleshoot.rst:348
 msgid ""
-"**Note:** This may cause visual artifacts, particularly in the timeline, and "
-"is not recommended."
+"**Note:** This may cause visual artifacts, particularly in the timeline, and"
+" is not recommended."
 msgstr ""
 "**Napomena:** Ovo može uzrokovati vizualne artefakte, osobito na vremenskoj "
 "liniji, i nije preporučeno."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:154
+#: ../troubleshoot.rst:350
 msgid "**QT_SCALE_FACTOR=1.25** (or similar value)"
 msgstr "**QT_SCALE_FACTOR=1.25** (ili slična vrijednost)"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:156
+#: ../troubleshoot.rst:352
 msgid ""
 "Manually setting the scale factor can provide finer adjustments to the font "
 "and UI scaling."
@@ -320,7 +781,7 @@ msgstr ""
 "veličine fonta i skaliranja sučelja."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:157
+#: ../troubleshoot.rst:353
 msgid ""
 "This can also be set via Preferences (User Interface Scale), but expect "
 "border/line issues on Windows with fractional scales."
@@ -330,7 +791,7 @@ msgstr ""
 "djelomičnih skaliranja."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:158
+#: ../troubleshoot.rst:354
 msgid ""
 "**Note:** This method can also lead to visual artifacts and make OpenShot "
 "harder to use."
@@ -339,10 +800,10 @@ msgstr ""
 "otežati korištenje OpenShota."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:160
+#: ../troubleshoot.rst:356
 msgid ""
-"For more info on adjusting these environment variables, please visit https://"
-"github.com/OpenShot/openshot-qt/wiki/OpenShot-UI-too-large."
+"For more info on adjusting these environment variables, please visit "
+"https://github.com/OpenShot/openshot-qt/wiki/OpenShot-UI-too-large."
 msgstr ""
 "Za više informacija o podešavanju ovih varijabli okoline, molimo posjetite "
 "https://github.com/OpenShot/openshot-qt/wiki/OpenShot-UI-too-large."

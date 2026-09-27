@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-16 18:08-0500\n"
+"POT-Creation-Date: 2026-09-26 14:26-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,17 +28,18 @@ msgid ""
 "The latest official **stable** version of OpenShot Video Editor for Linux, "
 "Mac, Chrome OS, and Windows can be downloaded from the official download "
 "page at https://www.openshot.org/download/. You can find our latest "
-"**unstable** versions (i.e. daily builds) at https://www.openshot.org/"
-"download#daily (these versions are updated very frequently, and often "
-"contain many improvements not yet released in our stable build)."
+"**unstable** versions (i.e. daily builds) at "
+"https://www.openshot.org/download#daily (these versions are updated very "
+"frequently, and often contain many improvements not yet released in our "
+"stable build)."
 msgstr ""
 "A versão oficial mais recente **estável** do OpenShot Video Editor para "
 "Linux, Mac, Chrome OS e Windows pode ser baixada na página oficial de "
 "download em https://www.openshot.org/download/. Você pode encontrar nossas "
-"versões mais recentes **instáveis** (ou seja, builds diários) em https://www."
-"openshot.org/download#daily (essas versões são atualizadas com muita "
-"frequência e frequentemente contêm muitas melhorias ainda não lançadas em "
-"nossa versão estável)."
+"versões mais recentes **instáveis** (ou seja, builds diários) em "
+"https://www.openshot.org/download#daily (essas versões são atualizadas com "
+"muita frequência e frequentemente contêm muitas melhorias ainda não lançadas"
+" em nossa versão estável)."
 
 # Translated with gpt-4.1-mini
 #: ../installation.rst:32
@@ -48,14 +49,15 @@ msgstr "Instalação Limpa"
 # Translated with gpt-4.1-mini
 #: ../installation.rst:34
 msgid ""
-"If you are upgrading from a previous version of OpenShot or are experiencing "
-"a crash or error message after launching OpenShot, please see :ref:"
-"`preferences_reset_ref` for instructions on clearing the previous ``openshot."
-"settings`` file (for a clean install with **default preferences**)."
+"If you are upgrading from a previous version of OpenShot or are experiencing"
+" a crash or error message after launching OpenShot, please see "
+":ref:`preferences_reset_ref` for instructions on clearing the previous "
+"``openshot.settings`` file (for a clean install with **default "
+"preferences**)."
 msgstr ""
 "Se você está atualizando de uma versão anterior do OpenShot ou está "
-"enfrentando uma falha ou mensagem de erro após iniciar o OpenShot, consulte :"
-"ref:`preferences_reset_ref` para instruções sobre como limpar o arquivo "
+"enfrentando uma falha ou mensagem de erro após iniciar o OpenShot, consulte "
+":ref:`preferences_reset_ref` para instruções sobre como limpar o arquivo "
 "``openshot.settings`` anterior (para uma instalação limpa com as "
 "**preferências padrão**)."
 
@@ -67,15 +69,17 @@ msgstr "Windows (Instalador)"
 # Translated with gpt-4.1-mini
 #: ../installation.rst:41
 msgid ""
-"Download the Windows installer from the `official download page <https://www."
-"openshot.org/download/>`_ (the download page contains both 64-bit and 32-bit "
-"versions), double click it, and follow the directions on screen. Once "
-"completed, OpenShot will be installed and available in your Start menu."
+"Download the Windows installer from the `official download page "
+"<https://www.openshot.org/download/>`_ (the download page contains both "
+"64-bit and 32-bit versions), double click it, and follow the directions on "
+"screen. Once completed, OpenShot will be installed and available in your "
+"Start menu."
 msgstr ""
-"Baixe o instalador do Windows na `página oficial de download <https://www."
-"openshot.org/download/>`_ (a página de download contém versões de 64 bits e "
-"32 bits), clique duas vezes nele e siga as instruções na tela. Após a "
-"conclusão, o OpenShot estará instalado e disponível no seu menu Iniciar."
+"Baixe o instalador do Windows na `página oficial de download "
+"<https://www.openshot.org/download/>`_ (a página de download contém versões "
+"de 64 bits e 32 bits), clique duas vezes nele e siga as instruções na tela. "
+"Após a conclusão, o OpenShot estará instalado e disponível no seu menu "
+"Iniciar."
 
 # Translated with gpt-4.1-mini
 #: ../installation.rst:50
@@ -87,84 +91,96 @@ msgstr "Windows (Portátil)"
 msgid ""
 "If you need to install OpenShot on Windows without Administrator "
 "permissions, we also support a portable installation process. Download the "
-"Windows installer from the `official download page <https://www.openshot.org/"
-"download/>`_, open the command prompt, and type the following commands:"
+"Windows installer from the `official download page "
+"<https://www.openshot.org/download/>`_, open the command prompt, and type "
+"the following commands:"
 msgstr ""
 "Se você precisar instalar o OpenShot no Windows sem permissões de "
-"Administrador, também suportamos um processo de instalação portátil. Baixe o "
-"instalador do Windows na `página oficial de download <https://www.openshot."
-"org/download/>`_, abra o prompt de comando e digite os seguintes comandos:"
+"Administrador, também suportamos um processo de instalação portátil. Baixe o"
+" instalador do Windows na `página oficial de download "
+"<https://www.openshot.org/download/>`_, abra o prompt de comando e digite os"
+" seguintes comandos:"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:67 ../installation.rst:181
+#: ../installation.rst:67 ../installation.rst:185
 msgid "Mac"
 msgstr "Mac"
 
 # Translated with gpt-4.1-mini
 #: ../installation.rst:69
 msgid ""
-"Download the DMG file from the `official download page <https://www.openshot."
-"org/download/>`_, double click it, and then drag the OpenShot application "
-"icon into your **Applications** shortcut. This is very similar to how most "
-"Mac applications are installed. Now launch OpenShot from `Launchpad` or "
-"`Applications` in Finder."
+"Download the DMG file from the `official download page "
+"<https://www.openshot.org/download/>`_, double click it, and then drag the "
+"OpenShot application icon into your **Applications** shortcut. This is very "
+"similar to how most Mac applications are installed. Now launch OpenShot from"
+" `Launchpad` or `Applications` in Finder."
 msgstr ""
-"Baixe o arquivo DMG na `página oficial de download <https://www.openshot.org/"
-"download/>`_, clique duas vezes nele e arraste o ícone do aplicativo "
-"OpenShot para o atalho **Aplicativos**. Isso é muito semelhante a como a "
-"maioria dos aplicativos para Mac são instalados. Agora inicie o OpenShot a "
-"partir do `Launchpad` ou `Aplicativos` no Finder."
+"Baixe o arquivo DMG na `página oficial de download "
+"<https://www.openshot.org/download/>`_, clique duas vezes nele e arraste o "
+"ícone do aplicativo OpenShot para o atalho **Aplicativos**. Isso é muito "
+"semelhante a como a maioria dos aplicativos para Mac são instalados. Agora "
+"inicie o OpenShot a partir do `Launchpad` ou `Aplicativos` no Finder."
+
+#: ../installation.rst:74
+msgid ""
+"The current Mac download is built for Intel Macs. On an Apple Silicon Mac, "
+"you can run this Intel version using Rosetta. A native Apple Silicon version"
+" is not currently available."
+msgstr ""
+"O download atual para Mac é construído para Macs Intel. Em um Mac Apple "
+"Silicon, você pode executar esta versão Intel usando Rosetta. Uma versão "
+"nativa para Apple Silicon não está disponível no momento."
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:77
+#: ../installation.rst:81
 msgid "Linux (AppImage)"
 msgstr "Linux (AppImage)"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:79
+#: ../installation.rst:83
 msgid ""
 "Most Linux distributions have a version of OpenShot in their software "
 "repositories, which can be installed using your package manager / software "
 "store. However, these packaged versions are often very outdated (be sure to "
-"check the version number: :guilabel:`Help→About OpenShot`). For this reason, "
-"we recommend installing an AppImage from the `official download page "
+"check the version number: :guilabel:`Help→About OpenShot`). For this reason,"
+" we recommend installing an AppImage from the `official download page "
 "<https://www.openshot.org/download/>`_."
 msgstr ""
 "A maioria das distribuições Linux possui uma versão do OpenShot em seus "
 "repositórios de software, que pode ser instalada usando seu gerenciador de "
-"pacotes / loja de software. No entanto, essas versões empacotadas geralmente "
-"estão muito desatualizadas (certifique-se de verificar o número da versão: :"
-"guilabel:`Ajuda→Sobre o OpenShot`). Por esse motivo, recomendamos instalar "
-"um AppImage da `página oficial de download <https://www.openshot.org/"
-"download/>`_."
+"pacotes / loja de software. No entanto, essas versões empacotadas geralmente"
+" estão muito desatualizadas (certifique-se de verificar o número da versão: "
+":guilabel:`Ajuda→Sobre o OpenShot`). Por esse motivo, recomendamos instalar "
+"um AppImage da `página oficial de download "
+"<https://www.openshot.org/download/>`_."
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:85
+#: ../installation.rst:89
 msgid ""
 "Once downloaded, right click on the AppImage, choose Properties, and mark "
 "the file as **Executable**. Finally, double click the AppImage to launch "
 "OpenShot. If double clicking does not launch OpenShot, you can also right "
 "click on the AppImage, and choose `Execute` or `Run`. For a detailed guide "
-"on installing our AppImage and creating a launcher for it, see our `AppImage "
-"Installation Guide <https://github.com/OpenShot/openshot-qt/wiki/AppImage-"
+"on installing our AppImage and creating a launcher for it, see our `AppImage"
+" Installation Guide <https://github.com/OpenShot/openshot-qt/wiki/AppImage-"
 "Installation>`_."
 msgstr ""
 "Depois de baixado, clique com o botão direito no AppImage, escolha "
-"Propriedades e marque o arquivo como **Executável**. Finalmente, clique duas "
-"vezes no AppImage para iniciar o OpenShot. Se clicar duas vezes não iniciar "
-"o OpenShot, você também pode clicar com o botão direito no AppImage e "
+"Propriedades e marque o arquivo como **Executável**. Finalmente, clique duas"
+" vezes no AppImage para iniciar o OpenShot. Se clicar duas vezes não iniciar"
+" o OpenShot, você também pode clicar com o botão direito no AppImage e "
 "escolher `Executar` ou `Run`. Para um guia detalhado sobre como instalar "
 "nosso AppImage e criar um lançador para ele, veja nosso `Guia de Instalação "
 "do AppImage <https://github.com/OpenShot/openshot-qt/wiki/AppImage-"
 "Installation>`_."
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:94
+#: ../installation.rst:98
 msgid "Unable to Launch AppImage?"
 msgstr "Não consegue iniciar o AppImage?"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:95
+#: ../installation.rst:99
 msgid ""
 "Please verify that the ``libfuse2`` library is installed, which is required "
 "to mount and read an AppImage. On newer versions of Ubuntu (i.e. 22.04+), "
@@ -172,23 +188,23 @@ msgid ""
 "following command:"
 msgstr ""
 "Por favor, verifique se a biblioteca ``libfuse2`` está instalada, pois é "
-"necessária para montar e ler um AppImage. Em versões mais recentes do Ubuntu "
-"(ou seja, 22.04+), ``libfuse2`` não está instalada por padrão. Você pode "
+"necessária para montar e ler um AppImage. Em versões mais recentes do Ubuntu"
+" (ou seja, 22.04+), ``libfuse2`` não está instalada por padrão. Você pode "
 "instalá-la com o seguinte comando:"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:104
+#: ../installation.rst:108
 msgid "Install AppImage Launcher"
 msgstr "Instalar o Lançador AppImage"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:105
+#: ../installation.rst:109
 msgid ""
 "If you plan on using OpenShot often, you will probably want an integrated "
-"launcher for our AppImage. We recommend using AppImageLauncher, which is the "
-"officially supported way to launch (and manage) AppImage files on your Linux "
-"desktop. If you are on a Debian-based distro (Ubuntu, Mint, etc...), there "
-"is an official AppImageLauncher PPA:"
+"launcher for our AppImage. We recommend using AppImageLauncher, which is the"
+" officially supported way to launch (and manage) AppImage files on your "
+"Linux desktop. If you are on a Debian-based distro (Ubuntu, Mint, etc...), "
+"there is an official AppImageLauncher PPA:"
 msgstr ""
 "Se você pretende usar o OpenShot com frequência, provavelmente desejará um "
 "lançador integrado para nosso AppImage. Recomendamos usar o "
@@ -198,17 +214,17 @@ msgstr ""
 "AppImageLauncher:"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:117
+#: ../installation.rst:121
 msgid "Linux (PPA)"
 msgstr "Linux (PPA)"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:119
+#: ../installation.rst:123
 msgid ""
 "For Debian-based Linux distributions (Ubuntu, Mint, etc...), we also have a "
 "PPA (Personal Package Archive), which adds our official OpenShot software "
-"repository to your package manager, making it possible to install our latest "
-"version, without relying on our AppImages."
+"repository to your package manager, making it possible to install our latest"
+" version, without relying on our AppImages."
 msgstr ""
 "Para distribuições Linux baseadas em Debian (Ubuntu, Mint, etc...), também "
 "temos um PPA (Personal Package Archive), que adiciona nosso repositório "
@@ -217,22 +233,22 @@ msgstr ""
 "AppImages."
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:124
+#: ../installation.rst:128
 msgid "Stable PPA (Contains only official releases)"
 msgstr "PPA Estável (Contém apenas lançamentos oficiais)"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:133
+#: ../installation.rst:137
 msgid "Daily PPA (Highly experimental and unstable, for testers)"
 msgstr "PPA Diário (Altamente experimental e instável, para testadores)"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:142
+#: ../installation.rst:146
 msgid "Chrome OS (Chromebook)"
 msgstr "Chrome OS (Chromebook)"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:144
+#: ../installation.rst:148
 msgid ""
 "Chrome OS supports Linux apps, but this feature is off by default. You can "
 "turn it on in *Settings*. Once Linux is enabled, you can install and run "
@@ -247,17 +263,17 @@ msgstr ""
 "AppImage e configurar seu sistema para executar o OpenShot com sucesso."
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:149
+#: ../installation.rst:153
 msgid "Navigate to *chrome://os-settings/crostini* (Copy/Paste)"
 msgstr "Navegue até *chrome://os-settings/crostini* (Copiar/Colar)"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:150
+#: ../installation.rst:154
 msgid "Under \"Linux (Beta)\" select \"Turn On\". Default values are fine."
 msgstr "Em \"Linux (Beta)\" selecione \"Ativar\". Os valores padrão estão ok."
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:152
+#: ../installation.rst:156
 msgid ""
 "When the Terminal appears (i.e. black window), Copy/Paste the following "
 "command:"
@@ -266,119 +282,120 @@ msgstr ""
 "comando:"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:152
+#: ../installation.rst:156
 msgid ""
 "``bash <(wget -O - http://openshot.org/files/chromeos/install-stable.sh)``"
 msgstr ""
 "``bash <(wget -O - http://openshot.org/files/chromeos/install-stable.sh)``"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:155
+#: ../installation.rst:159
 msgid "Previous Versions"
 msgstr "Versões Anteriores"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:157
+#: ../installation.rst:161
 msgid ""
-"To download old versions of OpenShot Video Editor, you can visit https://"
-"github.com/OpenShot/openshot-qt/tags. Click on the version number you need, "
-"and scroll to the bottom, under the release notes. You will find download "
-"links for each operating system. Download the appropriate version for your "
-"computer, and follow the installation instructions above."
+"To download old versions of OpenShot Video Editor, you can visit "
+"https://github.com/OpenShot/openshot-qt/tags. Click on the version number "
+"you need, and scroll to the bottom, under the release notes. You will find "
+"download links for each operating system. Download the appropriate version "
+"for your computer, and follow the installation instructions above."
 msgstr ""
 "Para baixar versões antigas do OpenShot Video Editor, você pode visitar "
-"https://github.com/OpenShot/openshot-qt/tags. Clique no número da versão que "
-"você precisa e role até o final, abaixo das notas de lançamento. Você "
+"https://github.com/OpenShot/openshot-qt/tags. Clique no número da versão que"
+" você precisa e role até o final, abaixo das notas de lançamento. Você "
 "encontrará links de download para cada sistema operacional. Baixe a versão "
 "apropriada para seu computador e siga as instruções de instalação acima."
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:162
+#: ../installation.rst:166
 msgid ""
 "NOTE: Projects (\\*.osp) made with newer versions of OpenShot Video Editor "
 "might not support older versions."
 msgstr ""
-"NOTA: Projetos (\\*.osp) criados com versões mais recentes do OpenShot Video "
-"Editor podem não ser compatíveis com versões anteriores."
+"NOTA: Projetos (\\*.osp) criados com versões mais recentes do OpenShot Video"
+" Editor podem não ser compatíveis com versões anteriores."
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:165
+#: ../installation.rst:169
 msgid "Uninstall"
 msgstr "Desinstalar"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:167
+#: ../installation.rst:171
 msgid ""
 "To fully uninstall OpenShot from your system, you must **manually delete** "
-"the ``.openshot_qt`` folder: ``~/.openshot_qt/`` or ``C:\\Users\\USERNAME\\."
-"openshot_qt\\``, which contains all settings and files used by OpenShot. Be "
-"sure to **backup** any recovery files of your existing projects first (\\*."
-"osp files). Please see :ref:`preferences_reset_ref` for instructions on "
-"clearing the previous ``openshot.settings`` file (for a clean install with "
-"**default preferences**)."
+"the ``.openshot_qt`` folder: ``~/.openshot_qt/`` or "
+"``C:\\Users\\USERNAME\\.openshot_qt\\``, which contains all settings and "
+"files used by OpenShot. Be sure to **backup** any recovery files of your "
+"existing projects first (\\*.osp files). Please see "
+":ref:`preferences_reset_ref` for instructions on clearing the previous "
+"``openshot.settings`` file (for a clean install with **default "
+"preferences**)."
 msgstr ""
 "Para desinstalar completamente o OpenShot do seu sistema, você deve "
-"**excluir manualmente** a pasta ``.openshot_qt``: ``~/.openshot_qt/`` ou ``C:"
-"\\Users\\USERNAME\\.openshot_qt\\``, que contém todas as configurações e "
-"arquivos usados pelo OpenShot. Certifique-se de **fazer backup** de "
+"**excluir manualmente** a pasta ``.openshot_qt``: ``~/.openshot_qt/`` ou "
+"``C:\\Users\\USERNAME\\.openshot_qt\\``, que contém todas as configurações e"
+" arquivos usados pelo OpenShot. Certifique-se de **fazer backup** de "
 "quaisquer arquivos de recuperação dos seus projetos existentes primeiro "
 "(arquivos \\*.osp). Por favor, consulte :ref:`preferences_reset_ref` para "
 "instruções sobre como limpar o arquivo ``openshot.settings`` anterior (para "
 "uma instalação limpa com as **preferências padrão**)."
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:174
+#: ../installation.rst:178
 msgid "Windows"
 msgstr "Windows"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:176
+#: ../installation.rst:180
 msgid "Open **Control Panel** from the Start menu"
 msgstr "Abra o **Painel de Controle** no menu Iniciar"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:177
+#: ../installation.rst:181
 msgid "Click on **Programs and Features**"
 msgstr "Clique em **Programas e Recursos**"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:178
+#: ../installation.rst:182
 msgid "Select OpenShot Video Editor, then click **Uninstall**"
 msgstr "Selecione o OpenShot Video Editor e clique em **Desinstalar**"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:183
+#: ../installation.rst:187
 msgid "Open **Finder** and go to **Applications**"
 msgstr "Abra o **Finder** e vá para **Aplicativos**"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:184
+#: ../installation.rst:188
 msgid "Drag the OpenShot Video Editor icon to the **Trash** in the Dock"
 msgstr "Arraste o ícone do OpenShot Video Editor para a **Lixeira** no Dock"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:185
+#: ../installation.rst:189
 msgid "Right-click **Trash** and choose **Empty Trash**"
 msgstr ""
 "Clique com o botão direito na **Lixeira** e escolha **Esvaziar Lixeira**"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:188
+#: ../installation.rst:192
 msgid "Ubuntu (Linux)"
 msgstr "Ubuntu (Linux)"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:190
+#: ../installation.rst:194
 msgid "Open up **Files**"
 msgstr "Abra o **Arquivos**"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:191
+#: ../installation.rst:195
 msgid "Locate the ``*.AppImage`` and delete the file"
 msgstr "Localize o arquivo ``*.AppImage`` e exclua-o"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:192
+#: ../installation.rst:196
 msgid ""
 "OR click Activities, Right-click on OpenShot Video Editor icon, and choose "
 "**Remove AppImage from System**"

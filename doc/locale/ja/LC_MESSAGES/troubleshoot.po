@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-16 18:08-0500\n"
+"POT-Creation-Date: 2026-09-26 14:26-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.10.3\n"
 
@@ -30,74 +30,467 @@ msgid ""
 "If you are experiencing an issue with OpenShot, such as a freeze, crash, or "
 "error message, there are many different techniques which can be useful for "
 "troubleshooting the issue."
+msgstr "OpenShotでフリーズ、クラッシュ、エラーメッセージなどの問題が発生している場合、問題解決に役立つさまざまな手法があります。"
+
+#: ../troubleshoot.rst:31
+msgid "Using Logs to Troubleshoot a Problem"
+msgstr "問題のトラブルシューティングにログを使用する"
+
+#: ../troubleshoot.rst:33
+msgid ""
+"A log is a text file that records what OpenShot is doing, along with "
+"warnings and errors. These files can help the support team understand a "
+"problem, even when you do not see an error message on screen."
 msgstr ""
-"OpenShotでフリーズ、クラッシュ、エラーメッセージなどの問題が発生している場"
-"合、問題解決に役立つさまざまな手法があります。"
+"ログは、OpenShotが行っている操作や警告、エラーを記録するテキストファイルです。これらのファイルは、画面にエラーメッセージが表示されなくても、サポートチームが問題を理解するのに役立ちます。"
+
+#: ../troubleshoot.rst:37
+msgid ""
+"OpenShot keeps two log files in the ``.openshot_qt`` folder inside your home"
+" folder. On Linux and macOS, this location is written as "
+"``~/.openshot_qt/``. The folder may be hidden in your file manager."
+msgstr ""
+"OpenShotはホームフォルダ内の``.openshot_qt``フォルダに2つのログファイルを保存します。LinuxやmacOSでは、この場所は``~/.openshot_qt/``と表記されます。このフォルダはファイルマネージャで隠しフォルダになっている場合があります。"
+
+#: ../troubleshoot.rst:41
+msgid "The two log files"
+msgstr "2つのログファイル"
+
+#: ../troubleshoot.rst:45
+msgid "File"
+msgstr "ファイル"
+
+#: ../troubleshoot.rst:46
+msgid "What it records"
+msgstr "記録内容"
+
+#: ../troubleshoot.rst:47 ../troubleshoot.rst:74
+msgid "``openshot-qt.log``"
+msgstr "``openshot-qt.log``"
+
+#: ../troubleshoot.rst:48
+msgid ""
+"Activity in the editor: starting OpenShot, loading projects, changing "
+"settings, and using the interface. This is usually the best place to start "
+"when investigating a problem."
+msgstr ""
+"エディタの動作：OpenShotの起動、プロジェクトの読み込み、設定の変更、インターフェースの使用。問題を調査する際には通常ここから始めるのが最適です。"
+
+#: ../troubleshoot.rst:51 ../troubleshoot.rst:77
+msgid "``libopenshot.log``"
+msgstr "``libopenshot.log``"
+
+#: ../troubleshoot.rst:52
+msgid ""
+"Activity in OpenShot's video and audio engine, the part that reads media and"
+" builds the pictures and sound used in previews and exported videos. "
+"Detailed engine logging can help investigate playback and export problems."
+msgstr ""
+"OpenShotのビデオおよびオーディオエンジンの動作。メディアを読み込み、プレビューや書き出し動画で使用される映像と音声を生成する部分です。詳細なエンジンログは再生や書き出しの問題調査に役立ちます。"
+
+#: ../troubleshoot.rst:56
+msgid ""
+"These files record different parts of the same application. When reporting a"
+" problem, include both files if available. You do not need to understand "
+"every line yourself."
+msgstr ""
+"これらのファイルは同じアプリケーションの異なる部分を記録しています。問題を報告する際は、両方のファイルを可能な限り添付してください。すべての行を自分で理解する必要はありません。"
+
+#: ../troubleshoot.rst:61
+msgid "Choose which part of OpenShot to log"
+msgstr "OpenShotのどの部分をログに記録するか選択する"
+
+#: ../troubleshoot.rst:63
+msgid "Open **Edit → Preferences → Advanced** to find these two settings:"
+msgstr "**編集 → 設定 → 詳細** を開くと、これら2つの設定が見つかります："
+
+#: ../troubleshoot.rst:65
+msgid "Preferences and matching terminal options"
+msgstr "設定と対応するターミナルオプション"
+
+#: ../troubleshoot.rst:69
+msgid "Preference"
+msgstr "設定"
+
+#: ../troubleshoot.rst:70
+msgid "Matching argument"
+msgstr "対応する引数"
+
+#: ../troubleshoot.rst:71
+msgid "Log file"
+msgstr "ログファイル"
+
+#: ../troubleshoot.rst:72
+msgid "User Interface Debug Logging"
+msgstr "ユーザーインターフェースデバッグログ"
+
+#: ../troubleshoot.rst:73
+msgid "``--debug-ui``"
+msgstr "``--debug-ui``"
+
+#: ../troubleshoot.rst:75
+msgid "Video & Audio Engine Debug Logging"
+msgstr "ビデオ＆オーディオエンジンデバッグログ"
+
+#: ../troubleshoot.rst:76 ../troubleshoot.rst:142
+msgid "``--debug-engine``"
+msgstr "``--debug-engine``"
+
+#: ../troubleshoot.rst:79
+msgid ""
+"Both preferences are off by default, which keeps the normal summary "
+"messages. Turning one on adds detail to its log file immediately. It does "
+"not change the other log or add messages to the terminal. Preferences stay "
+"enabled between launches until you turn them off."
+msgstr ""
+"両方の設定はデフォルトでオフになっており、通常の概要メッセージが保持されます。どちらかをオンにすると、そのログファイルに詳細が即座に追加されます。他のログやターミナルのメッセージには影響しません。設定はオフにするまで起動間で有効のままです。"
+
+#: ../troubleshoot.rst:84
+msgid ""
+"**User Interface Debug Logging** is a good starting point for problems with "
+"startup, project loading, settings, or the interface. **Video & Audio Engine"
+" Debug Logging** adds details about video and audio processing, which can "
+"help investigate playback and export problems. Engine logs can grow very "
+"quickly and may slow OpenShot down. Turn this setting on shortly before "
+"repeating the problem, then turn it off afterward."
+msgstr ""
+"**ユーザーインターフェースデバッグログ** "
+"は、起動、プロジェクトの読み込み、設定、インターフェースの問題の調査に適した出発点です。**ビデオ＆オーディオエンジンデバッグログ** "
+"は映像と音声処理の詳細を追加し、再生や書き出しの問題調査に役立ちます。エンジンログは非常に大きくなりやすく、OpenShotの動作を遅くする可能性があります。問題を再現する直前にこの設定をオンにし、終了後にオフにしてください。"
+
+#: ../troubleshoot.rst:91
+msgid ""
+"The engine preference was previously called **Debug Mode (Verbose)**. Its "
+"saved on/off setting carries over to the new name."
+msgstr "エンジンの設定は以前は **デバッグモード（詳細）** と呼ばれていました。保存されたオン/オフの設定は新しい名前に引き継がれます。"
+
+#: ../troubleshoot.rst:95
+msgid "Use a terminal for one launch"
+msgstr "1回の起動でターミナルを使用する"
+
+#: ../troubleshoot.rst:97
+msgid ""
+"A terminal is a window where you type commands. The matching arguments "
+"enable the same extra detail as the preferences, and also display it in the "
+"terminal:"
+msgstr "ターミナルはコマンドを入力するウィンドウです。対応する引数は設定と同じ詳細を有効にし、ターミナルにも表示します："
+
+#: ../troubleshoot.rst:104
+msgid ""
+"This records interface details for one launch. The familiar ``--debug`` and "
+"shorter ``-d`` options mean exactly the same thing as ``--debug-ui``. For "
+"video and audio engine details, use:"
+msgstr ""
+"これは1回の起動のインターフェースの詳細を記録します。よく知られている ``--debug`` と短縮形の ``-d`` は ``--debug-"
+"ui`` と全く同じ意味です。ビデオとオーディオエンジンの詳細には、以下を使用してください："
+
+#: ../troubleshoot.rst:112
+msgid "To collect both types of detail together:"
+msgstr "両方の詳細をまとめて収集するには："
+
+#: ../troubleshoot.rst:118
+msgid ""
+"Repeat the steps that cause the problem, then close OpenShot and collect the"
+" logs. These arguments do not change your saved preferences. Starting "
+"OpenShot normally returns to your usual logging settings."
+msgstr ""
+"問題を引き起こす操作を繰り返し、その後OpenShotを閉じてログを収集してください。これらの引数は保存された設定を変更しません。通常通りOpenShotを起動すると、通常のログ設定に戻ります。"
+
+#: ../troubleshoot.rst:122
+msgid ""
+"``openshot-qt.log`` starts a new file when it reaches about 25 MB and keeps "
+"three older copies. ``libopenshot.log`` keeps growing as messages are added."
+" After saving any logs you need, you can remove old log files while OpenShot"
+" is closed."
+msgstr ""
+"``openshot-qt.log`` "
+"は約25MBに達すると新しいファイルを開始し、古いファイルを3つ保持します。``libopenshot.log`` "
+"はメッセージが追加され続けるためサイズが増え続けます。必要なログを保存した後、OpenShotを閉じている間に古いログファイルを削除できます。"
+
+#: ../troubleshoot.rst:128
+msgid "Other command-line options"
+msgstr "その他のコマンドラインオプション"
+
+#: ../troubleshoot.rst:130
+msgid ""
+"Most users only need the two controls above. The following options let you "
+"choose how much detail goes into the files or appears in the terminal. Here,"
+" *console* means the terminal output."
+msgstr ""
+"ほとんどのユーザーは上記の2つの設定だけで十分です。以下のオプションは、ファイルやターミナルにどれだけ詳細を出力するかを選択できます。ここで、*console*"
+" はターミナル出力を意味します。"
+
+#: ../troubleshoot.rst:134
+msgid "Logging options"
+msgstr "ログオプション"
+
+#: ../troubleshoot.rst:138
+msgid "Option"
+msgstr "オプション"
+
+#: ../troubleshoot.rst:139
+msgid "What it does"
+msgstr "機能"
+
+#: ../troubleshoot.rst:140
+msgid "``--debug-ui``, ``--debug``, or ``-d``"
+msgstr "``--debug-ui``, ``--debug``, または ``-d``"
+
+#: ../troubleshoot.rst:141
+msgid "Enables User Interface Debug Logging in its file and the terminal."
+msgstr "ユーザーインターフェースのデバッグログをファイルとターミナルの両方で有効にします。"
+
+#: ../troubleshoot.rst:143
+msgid ""
+"Enables Video & Audio Engine Debug Logging in its file and the terminal."
+msgstr "ビデオ＆オーディオエンジンのデバッグログをファイルとターミナルの両方で有効にします。"
+
+#: ../troubleshoot.rst:144
+msgid "``--debug-file``"
+msgstr "``--debug-file``"
+
+#: ../troubleshoot.rst:145
+msgid ""
+"Adds editor details to ``openshot-qt.log`` without adding terminal detail."
+msgstr "ターミナルの詳細を追加せずに、``openshot-qt.log`` にエディタの詳細を追加します。"
+
+#: ../troubleshoot.rst:146
+msgid "``--debug-console``"
+msgstr "``--debug-console``"
+
+#: ../troubleshoot.rst:147
+msgid "Adds editor details in the terminal without adding file detail."
+msgstr "ファイルの詳細を追加せずに、ターミナルにエディタの詳細を表示します。"
+
+#: ../troubleshoot.rst:148
+msgid "``--log-level LEVEL``"
+msgstr "``--log-level LEVEL``"
+
+#: ../troubleshoot.rst:149
+msgid "Sets the detail for both logs and their terminal output."
+msgstr "両方のログファイルとターミナル出力の詳細レベルを設定します。"
+
+#: ../troubleshoot.rst:150
+msgid "``--log-file-level LEVEL``"
+msgstr "``--log-file-level LEVEL``"
+
+#: ../troubleshoot.rst:151
+msgid "Sets the detail for both log files, leaving terminal settings alone."
+msgstr "両方のログファイルの詳細レベルを設定し、ターミナルの設定は変更しません。"
+
+#: ../troubleshoot.rst:152
+msgid "``--log-console-level LEVEL``"
+msgstr "``--log-console-level LEVEL``"
+
+#: ../troubleshoot.rst:153
+msgid ""
+"Sets the detail in the terminal for both the editor and engine, leaving file"
+" settings alone."
+msgstr "エディターとエンジンの両方の端末での詳細レベルを設定し、ファイル設定は変更しません。"
+
+#: ../troubleshoot.rst:156
+msgid ""
+"Replace ``LEVEL`` with ``debug`` for detailed messages or ``info`` for the "
+"normal summary. ``warning`` shows warnings and errors; ``error`` shows "
+"errors and critical failures; ``critical`` shows only critical failures. "
+"``off`` stops ordinary log messages, but existing crash diagnostics may "
+"still be written. Uppercase names such as ``DEBUG`` work too."
+msgstr ""
+"詳細なメッセージには ``LEVEL`` を ``debug`` に、通常の概要には ``info`` に置き換えてください。``warning`` "
+"は警告とエラーを表示し、``error`` はエラーと重大な障害を表示します。``critical`` は重大な障害のみを表示します。``off`` "
+"は通常のログメッセージを停止しますが、既存のクラッシュ診断は引き続き書き込まれる場合があります。大文字の ``DEBUG`` なども使用可能です。"
+
+#: ../troubleshoot.rst:162
+msgid ""
+"For example, to collect detailed messages in **both files** while keeping "
+"the terminal at its usual level:"
+msgstr "例えば、端末は通常のレベルのままにして、**両方のファイル**で詳細なメッセージを収集するには："
+
+#: ../troubleshoot.rst:169
+msgid ""
+"This also enables the large engine log, so use it briefly. The older "
+"``--debug-file`` and ``--debug-console`` options still work even though they"
+" are not listed in ``--help``."
+msgstr ""
+"これにより大きなエンジンログも有効になるため、短時間だけ使用してください。古い ``--debug-file`` と ``--debug-"
+"console`` オプションも ``--help`` に表示されなくても引き続き動作します。"
+
+#: ../troubleshoot.rst:174
+msgid "Environment variables"
+msgstr "環境変数"
+
+#: ../troubleshoot.rst:176
+msgid ""
+"An environment variable is a named setting passed to a program when it "
+"starts. These are useful when starting OpenShot from a script or when a "
+"support person asks you to try a particular setting. You do not need to set "
+"them for normal use."
+msgstr ""
+"環境変数とは、プログラム起動時に渡される名前付き設定です。スクリプトからOpenShotを起動する場合や、サポート担当者から特定の設定を試すように指示された場合に便利です。通常の使用では設定する必要はありません。"
+
+#: ../troubleshoot.rst:180
+msgid "Optional environment settings"
+msgstr "オプションの環境設定"
+
+#: ../troubleshoot.rst:184
+msgid "Variable"
+msgstr "変数"
+
+#: ../troubleshoot.rst:185
+msgid "What it controls"
+msgstr "制御内容"
+
+#: ../troubleshoot.rst:186
+msgid "``OPENSHOT_LOG_LEVEL``"
+msgstr "``OPENSHOT_LOG_LEVEL``"
+
+#: ../troubleshoot.rst:187
+msgid "Detail in both files and the terminal."
+msgstr "両方のファイルと端末の詳細。"
+
+#: ../troubleshoot.rst:188
+msgid "``OPENSHOT_LOG_FILE_LEVEL``"
+msgstr "``OPENSHOT_LOG_FILE_LEVEL``"
+
+#: ../troubleshoot.rst:189
+msgid "Detail in both files only."
+msgstr "両方のファイルのみの詳細。"
+
+#: ../troubleshoot.rst:190
+msgid "``OPENSHOT_LOG_CONSOLE_LEVEL``"
+msgstr "``OPENSHOT_LOG_CONSOLE_LEVEL``"
+
+#: ../troubleshoot.rst:191
+msgid "Detail in the terminal only, for both parts of OpenShot."
+msgstr "OpenShotの両方の部分の端末のみの詳細。"
+
+#: ../troubleshoot.rst:192
+msgid "``LIBOPENSHOT_LOG_LEVEL``"
+msgstr "``LIBOPENSHOT_LOG_LEVEL``"
+
+#: ../troubleshoot.rst:193
+msgid "Detail for the video and audio engine, in its file and the terminal."
+msgstr "ビデオおよびオーディオエンジンのファイルと端末の詳細。"
+
+#: ../troubleshoot.rst:194
+msgid "``LIBOPENSHOT_LOG_FILE_LEVEL``"
+msgstr "``LIBOPENSHOT_LOG_FILE_LEVEL``"
+
+#: ../troubleshoot.rst:195
+msgid "Detail in ``libopenshot.log`` only."
+msgstr "``libopenshot.log`` のみの詳細。"
+
+#: ../troubleshoot.rst:196
+msgid "``LIBOPENSHOT_LOG_CONSOLE_LEVEL``"
+msgstr "``LIBOPENSHOT_LOG_CONSOLE_LEVEL``"
+
+#: ../troubleshoot.rst:197
+msgid "Engine detail in the terminal only."
+msgstr "端末のみのエンジン詳細。"
+
+#: ../troubleshoot.rst:199
+msgid ""
+"For example, this Linux/macOS terminal command requests detailed engine "
+"logging in its file for one launch:"
+msgstr "例えば、このLinux/macOSの端末コマンドは、1回の起動でエンジンの詳細なログをファイルに要求します："
+
+#: ../troubleshoot.rst:206
+msgid ""
+"If settings overlap, command-line options take priority, followed by "
+"environment variables, then Preferences, then the normal defaults. Each "
+"control only affects the output it describes: ``--debug`` does not override "
+"the engine preference. Temporary overrides do not change your saved "
+"preferences. Hover over either checkbox to see whether another setting is "
+"controlling that log file."
+msgstr ""
+"設定が重複する場合、コマンドラインオプションが優先され、次に環境変数、次に設定、最後に通常のデフォルトが適用されます。各設定は記述された出力にのみ影響します：``--debug``"
+" "
+"はエンジンの設定を上書きしません。一時的な上書きは保存された設定を変更しません。どちらかのチェックボックスにカーソルを合わせると、他の設定がそのログファイルを制御しているか確認できます。"
+
+#: ../troubleshoot.rst:212
+msgid ""
+"Within the environment settings, ``LIBOPENSHOT_`` values take priority over "
+"``OPENSHOT_`` values for the engine. Within either group, a file-only or "
+"console-only level takes priority over the general level. Command-line "
+"options follow the same file/console rule. Conflicting command-line levels "
+"for the same output are rejected; invalid environment levels are reported "
+"and ignored."
+msgstr ""
+"環境設定内では、エンジンに関して ``LIBOPENSHOT_`` の値が ``OPENSHOT_`` "
+"の値より優先されます。どちらのグループでも、ファイル専用またはコンソール専用のレベルが一般レベルより優先されます。コマンドラインオプションも同じファイル/コンソールのルールに従います。同じ出力に対する矛盾するコマンドラインレベルは拒否され、無効な環境レベルは報告され無視されます。"
+
+#: ../troubleshoot.rst:218
+msgid ""
+"For older scripts, ``LIBOPENSHOT_DEBUG`` still enables detailed engine "
+"messages in the terminal whenever it is present, even if its value is ``0``."
+" The newer level settings take priority over it. ``LIBOPENSHOT_LOG_FILE`` is"
+" intended for programs using the engine separately; OpenShot itself uses the"
+" log folder above. Changing logging settings does not change your error-"
+"reporting preference."
+msgstr ""
+"古いスクリプトでは、``LIBOPENSHOT_DEBUG`` が存在する限り、その値が ``0`` "
+"でも端末で詳細なエンジンメッセージを有効にします。新しいレベル設定がこれより優先されます。``LIBOPENSHOT_LOG_FILE`` "
+"はエンジンを別個に使用するプログラム向けで、OpenShot自体は上記のログフォルダーを使用します。ログ設定の変更はエラー報告の設定を変更しません。"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:29
+#: ../troubleshoot.rst:225
 msgid "Windows 11 Unresponsive"
 msgstr "Windows 11が応答しない"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:31
+#: ../troubleshoot.rst:227
 msgid ""
 "If you experience a freeze on Windows 11, this is a known issue with PyQt5 "
 "and Windows 11, related to the accessibility features in Qt. This is "
 "triggered by pressing :kbd:`Ctrl+C` in OpenShot (*only on Windows 11*). "
 "OpenShot will become unresponsive and a memory leak is also present (i.e. "
-"the longer OpenShot is unresponsive, the larger your memory leak will become "
-"until OpenShot finally crashes or the user kills the process)."
+"the longer OpenShot is unresponsive, the larger your memory leak will become"
+" until OpenShot finally crashes or the user kills the process)."
 msgstr ""
-"Windows 11でフリーズが発生する場合、これはPyQt5とWindows 11の既知の問題で、Qt"
-"のアクセシビリティ機能に関連しています。これはOpenShotで :kbd:`Ctrl+C` を押す"
-"ことで発生します（*Windows 11のみ* ）。OpenShotが応答しなくなり、メモリリーク"
-"も発生します（つまり、OpenShotが応答しない時間が長くなるほどメモリリークが大"
-"きくなり、最終的にOpenShotがクラッシュするか、ユーザーがプロセスを終了させる"
-"まで続きます）。"
+"Windows 11でフリーズが発生する場合、これはPyQt5とWindows "
+"11の既知の問題で、Qtのアクセシビリティ機能に関連しています。これはOpenShotで :kbd:`Ctrl+C` "
+"を押すことで発生します（*Windows 11のみ* "
+"）。OpenShotが応答しなくなり、メモリリークも発生します（つまり、OpenShotが応答しない時間が長くなるほどメモリリークが大きくなり、最終的にOpenShotがクラッシュするか、ユーザーがプロセスを終了させるまで続きます）。"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:36
+#: ../troubleshoot.rst:232
 msgid ""
 "A simple work-around is to avoid :kbd:`Ctrl+C` on Windows 11, and instead "
 "use the right-click Copy/Paste menus. Another work-around is to remap your "
-"\"Copy\" from :kbd:`Ctrl+C` to something else, for example :kbd:`Alt+C`. You "
-"can change your keyboard mappings in the OpenShot Preferences. See :ref:"
-"`preferences_keyboard_ref`."
+"\"Copy\" from :kbd:`Ctrl+C` to something else, for example :kbd:`Alt+C`. You"
+" can change your keyboard mappings in the OpenShot Preferences. See "
+":ref:`preferences_keyboard_ref`."
 msgstr ""
-"簡単な回避策として、Windows 11では :kbd:`Ctrl+C` を避け、代わりに右クリックの"
-"コピー/貼り付けメニューを使用してください。別の回避策として、「コピー」のキー"
-"割り当てを :kbd:`Ctrl+C` から別のキー（例： :kbd:`Alt+C` ）に変更することもで"
-"きます。キーボードの割り当てはOpenShotの設定で変更可能です。詳細は :ref:"
-"`preferences_keyboard_ref` を参照してください。"
+"簡単な回避策として、Windows 11では :kbd:`Ctrl+C` "
+"を避け、代わりに右クリックのコピー/貼り付けメニューを使用してください。別の回避策として、「コピー」のキー割り当てを :kbd:`Ctrl+C` "
+"から別のキー（例： :kbd:`Alt+C` ）に変更することもできます。キーボードの割り当てはOpenShotの設定で変更可能です。詳細は "
+":ref:`preferences_keyboard_ref` を参照してください。"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:41
+#: ../troubleshoot.rst:237
 msgid "Windows Debugging with GDB"
 msgstr "WindowsでのGDBによるデバッグ"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:43
+#: ../troubleshoot.rst:239
 msgid ""
 "If you are experiencing a crash or freeze with OpenShot in Windows 10/11, "
-"the following step by step instructions will help you determine the cause of "
-"the crash. These instructions will display a stack trace of OpenShot's "
-"source code, at the location of the crash. This information can be extremely "
-"useful for our development team, and very useful to attach to bug reports "
+"the following step by step instructions will help you determine the cause of"
+" the crash. These instructions will display a stack trace of OpenShot's "
+"source code, at the location of the crash. This information can be extremely"
+" useful for our development team, and very useful to attach to bug reports "
 "(for a quicker resolution)."
 msgstr ""
-"Windows 10/11でOpenShotがクラッシュまたはフリーズする場合、以下の手順に従うこ"
-"とでクラッシュの原因を特定できます。これらの手順は、クラッシュ箇所のOpenShot"
-"のソースコードのスタックトレースを表示します。この情報は開発チームにとって非"
-"常に有用であり、バグ報告に添付すると迅速な解決に役立ちます。"
+"Windows "
+"10/11でOpenShotがクラッシュまたはフリーズする場合、以下の手順に従うことでクラッシュの原因を特定できます。これらの手順は、クラッシュ箇所のOpenShotのソースコードのスタックトレースを表示します。この情報は開発チームにとって非常に有用であり、バグ報告に添付すると迅速な解決に役立ちます。"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:49
+#: ../troubleshoot.rst:245
 msgid "Install the Latest Daily Build"
 msgstr "最新のデイリービルドをインストールする"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:51
+#: ../troubleshoot.rst:247
 msgid ""
 "Before attaching a debugger, please download the **latest version** of "
 "OpenShot: https://www.openshot.org/download#daily. Install this version of "
@@ -106,235 +499,211 @@ msgid ""
 "please see `this wiki <https://github.com/OpenShot/openshot-qt/wiki/Windows-"
 "Debugging-with-GDB>`_."
 msgstr ""
-"デバッガを接続する前に、OpenShotの**最新バージョン** を https://www.openshot."
-"org/download#daily からダウンロードしてください。このバージョンをデフォルトの"
-"場所 ``C:\\Program Files\\OpenShot Video Editor\\`` にインストールします。"
-"WindowsでのOpenShotのデバッグ手順の詳細は ` こちらのWiki <https://github.com/"
-"OpenShot/openshot-qt/wiki/Windows-Debugging-with-GDB>`_ を参照してください。 "
-"`this wiki <https://github.com/OpenShot/openshot-qt/wiki/Windows-Debugging-"
-"with-GDB>`_"
+"デバッガを接続する前に、OpenShotの**最新バージョン** を https://www.openshot.org/download#daily "
+"からダウンロードしてください。このバージョンをデフォルトの場所 ``C:\\Program Files\\OpenShot Video "
+"Editor\\`` にインストールします。WindowsでのOpenShotのデバッグ手順の詳細は ` こちらのWiki "
+"<https://github.com/OpenShot/openshot-qt/wiki/Windows-Debugging-with-GDB>`_ "
+"を参照してください。 `this wiki <https://github.com/OpenShot/openshot-qt/wiki/Windows-"
+"Debugging-with-GDB>`_"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:56
+#: ../troubleshoot.rst:252
 msgid "Install MSYS2"
 msgstr "MSYS2をインストールする"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:58
+#: ../troubleshoot.rst:254
 msgid ""
 "The Windows version of OpenShot is compiled using an environment called "
-"MSYS2. In order to attach the GDB debugger to our executable, ``openshot-qt."
-"exe``, you must first install MSYS2. This step is only required once."
+"MSYS2. In order to attach the GDB debugger to our executable, ``openshot-"
+"qt.exe``, you must first install MSYS2. This step is only required once."
 msgstr ""
-"Windows版OpenShotはMSYS2という環境を使ってコンパイルされています。GDBデバッガ"
-"を実行ファイル ``openshot-qt.exe`` に接続するには、まずMSYS2をインストールす"
-"る必要があります。この手順は一度だけ行えば十分です。"
+"Windows版OpenShotはMSYS2という環境を使ってコンパイルされています。GDBデバッガを実行ファイル ``openshot-"
+"qt.exe`` に接続するには、まずMSYS2をインストールする必要があります。この手順は一度だけ行えば十分です。"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:61
+#: ../troubleshoot.rst:257
 msgid "Download & Install MSYS2: `<http://www.msys2.org/>`_"
 msgstr "MSYS2をダウンロード＆インストール: `<http://www.msys2.org/>`_"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:62 ../troubleshoot.rst:78
+#: ../troubleshoot.rst:258 ../troubleshoot.rst:274
 msgid ""
-"Run ``MSYS2 MinGW x64`` command prompt (for example: ``C:"
-"\\msys64\\msys2_shell.cmd -mingw64``)"
+"Run ``MSYS2 MinGW x64`` command prompt (for example: "
+"``C:\\msys64\\msys2_shell.cmd -mingw64``)"
 msgstr ""
-"``MSYS2 MinGW x64`` コマンドプロンプトを起動します（例：``C:"
-"\\msys64\\msys2_shell.cmd -mingw64`` ）"
+"``MSYS2 MinGW x64`` コマンドプロンプトを起動します（例：``C:\\msys64\\msys2_shell.cmd "
+"-mingw64`` ）"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:63
+#: ../troubleshoot.rst:259
 msgid "Update all packages (*Copy/Paste the following command*):"
 msgstr "すべてのパッケージを更新する（*以下のコマンドをコピー＆ペースト* ）:"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:69
+#: ../troubleshoot.rst:265
 msgid "Install GDB debugger (*Copy/Paste the following command*):"
 msgstr "GDBデバッガをインストールする（*以下のコマンドをコピー＆ペースト* ）:"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:76
+#: ../troubleshoot.rst:272
 msgid "Launch OpenShot with GDB Debugger"
 msgstr "GDBデバッガでOpenShotを起動する"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:80
+#: ../troubleshoot.rst:276
 msgid "Update the PATH (*Copy/Paste the following commands*):"
 msgstr "PATHを更新する（*以下のコマンドをコピー＆ペースト* ）:"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:87
+#: ../troubleshoot.rst:283
 msgid ""
 "Load OpenShot into the GDB debugger (*Copy/Paste the following commands*):"
-msgstr ""
-"GDBデバッガにOpenShotを読み込む（*以下のコマンドをコピー＆ペースト* ）:"
+msgstr "GDBデバッガにOpenShotを読み込む（*以下のコマンドをコピー＆ペースト* ）:"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:94
+#: ../troubleshoot.rst:290
 msgid "Launch OpenShot from GDB prompt (*Copy/Paste the following command*):"
-msgstr ""
-"GDBプロンプトからOpenShotを起動する（*以下のコマンドをコピー＆ペースト* ）:"
+msgstr "GDBプロンプトからOpenShotを起動する（*以下のコマンドをコピー＆ペースト* ）:"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:101
+#: ../troubleshoot.rst:297
 msgid "Print Debugging Info"
 msgstr "デバッグ情報を表示する"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:103
+#: ../troubleshoot.rst:299
 msgid ""
 "Once OpenShot has launched successfully with GDB attached, all you need to "
 "do is trigger a crash or freeze in OpenShot. When a crash occurs, switch "
-"back to the MSYS2 MinGW64 terminal and run one of the following commands (by "
-"typing it and pressing ENTER). Usually, the first command to enter is "
+"back to the MSYS2 MinGW64 terminal and run one of the following commands (by"
+" typing it and pressing ENTER). Usually, the first command to enter is "
 "``bt``, which stands for ``backtrace``. More commands are listed below."
 msgstr ""
-"GDBを接続してOpenShotが正常に起動したら、OpenShotでクラッシュやフリーズを発生"
-"させてください。クラッシュが発生したら、MSYS2 MinGW64のターミナルに戻り、以下"
-"のコマンドのいずれかを入力してENTERを押します。通常、最初に入力するコマンド"
-"は ``bt`` （バックトレースの意味）です。その他のコマンドも以下に記載されてい"
-"ます。"
+"GDBを接続してOpenShotが正常に起動したら、OpenShotでクラッシュやフリーズを発生させてください。クラッシュが発生したら、MSYS2 "
+"MinGW64のターミナルに戻り、以下のコマンドのいずれかを入力してENTERを押します。通常、最初に入力するコマンドは ``bt`` "
+"（バックトレースの意味）です。その他のコマンドも以下に記載されています。"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:117
+#: ../troubleshoot.rst:313
 msgid "High DPI / 4K Monitors"
 msgstr "高DPI / 4Kモニター"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:119
+#: ../troubleshoot.rst:315
 msgid ""
 "OpenShot Video Editor provides robust support for High DPI (Dots Per Inch) "
 "monitors, ensuring that the interface looks sharp and is easily readable on "
 "displays with various DPI settings. This support is particularly helpful on "
 "4K monitors and other high-resolution displays."
 msgstr ""
-"OpenShot Video Editor は高DPI（ドット毎インチ）モニターを強力にサポートしてお"
-"り、さまざまなDPI設定のディスプレイでもインターフェースが鮮明で読みやすく表示"
-"されます。このサポートは特に4Kモニターやその他の高解像度ディスプレイで役立ち"
-"ます。"
+"OpenShot Video Editor "
+"は高DPI（ドット毎インチ）モニターを強力にサポートしており、さまざまなDPI設定のディスプレイでもインターフェースが鮮明で読みやすく表示されます。このサポートは特に4Kモニターやその他の高解像度ディスプレイで役立ちます。"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:125
+#: ../troubleshoot.rst:321
 msgid "Per Monitor DPI Awareness"
 msgstr "モニターごとのDPI認識"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:127
+#: ../troubleshoot.rst:323
 msgid ""
 "OpenShot is DPI aware on a per-monitor basis, meaning it can adjust its "
-"scaling dynamically depending on the DPI settings of each connected monitor. "
-"This helps provide a consistent experience across different displays."
+"scaling dynamically depending on the DPI settings of each connected monitor."
+" This helps provide a consistent experience across different displays."
 msgstr ""
-"OpenShotはモニターごとにDPIを認識しており、接続されている各モニターのDPI設定"
-"に応じてスケーリングを動的に調整できます。これにより、異なるディスプレイ間で"
-"一貫した操作感が得られます。"
+"OpenShotはモニターごとにDPIを認識しており、接続されている各モニターのDPI設定に応じてスケーリングを動的に調整できます。これにより、異なるディスプレイ間で一貫した操作感が得られます。"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:132
+#: ../troubleshoot.rst:328
 msgid "DPI Scaling on Windows"
 msgstr "WindowsでのDPIスケーリング"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:134
+#: ../troubleshoot.rst:330
 msgid ""
-"On Windows, OpenShot rounds the scaling factor to the nearest whole value to "
-"maintain visual integrity. This helps avoid visual artifacts in the UI and "
+"On Windows, OpenShot rounds the scaling factor to the nearest whole value to"
+" maintain visual integrity. This helps avoid visual artifacts in the UI and "
 "keeps interface elements crisp and well-aligned. Due to this rounding, some "
 "scaling options can lead to larger fonts and UI elements than expected."
 msgstr ""
-"Windowsでは、OpenShotは視覚的な整合性を保つためにスケーリング係数を最も近い整"
-"数値に丸めます。これによりUIの視覚的な乱れを防ぎ、インターフェース要素を鮮明"
-"かつ整然と保ちます。この丸め処理のため、一部のスケーリング設定では予想より大"
-"きなフォントやUI要素になることがあります。"
+"Windowsでは、OpenShotは視覚的な整合性を保つためにスケーリング係数を最も近い整数値に丸めます。これによりUIの視覚的な乱れを防ぎ、インターフェース要素を鮮明かつ整然と保ちます。この丸め処理のため、一部のスケーリング設定では予想より大きなフォントやUI要素になることがあります。"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:139
+#: ../troubleshoot.rst:335
 msgid "**125% scaling** rounds to **100%**"
 msgstr "**125% のスケーリング** は **100%** に丸められます"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:140
+#: ../troubleshoot.rst:336
 msgid "**150% scaling** rounds to **200%**"
 msgstr "**150% のスケーリング** は **200%** に丸められます"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:143
+#: ../troubleshoot.rst:339
 msgid "Workarounds for Fine-Grained Adjustment"
 msgstr "細かい調整のための回避策"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:145
+#: ../troubleshoot.rst:341
 msgid ""
 "While rounding helps maintain a clean interface, there are workarounds for "
-"users who require more precise control over scaling. These methods are **not "
-"recommended** due to potential visual artifacts:"
+"users who require more precise control over scaling. These methods are **not"
+" recommended** due to potential visual artifacts:"
 msgstr ""
-"丸め処理はクリーンなインターフェースを維持するのに役立ちますが、より正確なス"
-"ケーリング制御を必要とするユーザー向けの回避策もあります。これらの方法は視覚"
-"的な乱れが生じる可能性があるため、**推奨されません**："
+"丸め処理はクリーンなインターフェースを維持するのに役立ちますが、より正確なスケーリング制御を必要とするユーザー向けの回避策もあります。これらの方法は視覚的な乱れが生じる可能性があるため、**推奨されません**："
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:149
+#: ../troubleshoot.rst:345
 msgid "**QT_SCALE_FACTOR_ROUNDING_POLICY=PassThrough**"
 msgstr "**QT_SCALE_FACTOR_ROUNDING_POLICY=PassThrough**"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:151
+#: ../troubleshoot.rst:347
 msgid ""
 "Setting this environment variable can disable rounding and allow more "
 "precise scaling."
-msgstr ""
-"この環境変数を設定すると丸め処理が無効になり、より正確なスケーリングが可能に"
-"なります。"
+msgstr "この環境変数を設定すると丸め処理が無効になり、より正確なスケーリングが可能になります。"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:152
+#: ../troubleshoot.rst:348
 msgid ""
-"**Note:** This may cause visual artifacts, particularly in the timeline, and "
-"is not recommended."
-msgstr ""
-"**注意：** これにより特にタイムラインで視覚的な乱れが生じる可能性があり、推奨"
-"されません。"
+"**Note:** This may cause visual artifacts, particularly in the timeline, and"
+" is not recommended."
+msgstr "**注意：** これにより特にタイムラインで視覚的な乱れが生じる可能性があり、推奨されません。"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:154
+#: ../troubleshoot.rst:350
 msgid "**QT_SCALE_FACTOR=1.25** (or similar value)"
 msgstr "**QT_SCALE_FACTOR=1.25** （または類似の値）"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:156
+#: ../troubleshoot.rst:352
 msgid ""
 "Manually setting the scale factor can provide finer adjustments to the font "
 "and UI scaling."
-msgstr ""
-"スケールファクターを手動で設定することで、フォントやUIのスケーリングをより細"
-"かく調整できます。"
+msgstr "スケールファクターを手動で設定することで、フォントやUIのスケーリングをより細かく調整できます。"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:157
+#: ../troubleshoot.rst:353
 msgid ""
 "This can also be set via Preferences (User Interface Scale), but expect "
 "border/line issues on Windows with fractional scales."
 msgstr ""
-"これは設定の「ユーザーインターフェースのスケール」からも設定可能ですが、"
-"Windowsで小数のスケールを使うと境界線やラインの問題が発生することがあります。"
+"これは設定の「ユーザーインターフェースのスケール」からも設定可能ですが、Windowsで小数のスケールを使うと境界線やラインの問題が発生することがあります。"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:158
+#: ../troubleshoot.rst:354
 msgid ""
 "**Note:** This method can also lead to visual artifacts and make OpenShot "
 "harder to use."
-msgstr ""
-"**注意：** この方法も視覚的な乱れを引き起こし、OpenShotの操作が難しくなる可能"
-"性があります。"
+msgstr "**注意：** この方法も視覚的な乱れを引き起こし、OpenShotの操作が難しくなる可能性があります。"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:160
+#: ../troubleshoot.rst:356
 msgid ""
-"For more info on adjusting these environment variables, please visit https://"
-"github.com/OpenShot/openshot-qt/wiki/OpenShot-UI-too-large."
+"For more info on adjusting these environment variables, please visit "
+"https://github.com/OpenShot/openshot-qt/wiki/OpenShot-UI-too-large."
 msgstr ""
-"これらの環境変数の調整に関する詳細は、https://github.com/OpenShot/openshot-"
-"qt/wiki/OpenShot-UI-too-large をご覧ください。"
+"これらの環境変数の調整に関する詳細は、https://github.com/OpenShot/openshot-qt/wiki/OpenShot-UI-"
+"too-large をご覧ください。"

@@ -491,6 +491,7 @@ msgstr ""
 "Enregistre un ou deux canaux d'entrée. Le mono est généralement préférable "
 "pour un seul microphone."
 
+# Main-window terminology review, 2026-09-26.
 #: ../recording.rst:160
 msgid ""
 "Aim for a healthy meter response without clipping. A quiet waveform should "
@@ -506,9 +507,9 @@ msgstr ""
 "plus chaque nouvelle forme d'onde à la hauteur maximale. L'enveloppe de "
 "crête plus claire met en évidence les transitoires tandis que l'enveloppe "
 "RMS solide résume l'énergie soutenue. Leur détail est contrôlé par "
-":guilabel:`Édition → Préférences → Timeline → Échantillons de forme d'onde "
-"(par seconde)`. Voir :ref:`clip_presets_ref` pour l'affichage de la forme "
-"d'onde et les contrôles de volume audio après l'enregistrement."
+":guilabel:`Édition → Préférences → Ligne de temps → Échantillons de forme "
+"d'onde (par seconde)`. Voir :ref:`clip_presets_ref` pour l'affichage de la "
+"forme d'onde et les contrôles de volume audio après l'enregistrement."
 
 #: ../recording.rst:167
 msgid "Screen Recording"

@@ -247,6 +247,7 @@ msgstr ""
 "voorvertoningskader om het beïnvloede gebied te verplaatsen, de handgrepen "
 "te vergroten/verkleinen of een nieuw kader binnen de clip te tekenen."
 
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:89
 msgid ""
 "The same preview rectangle can be used to position Caption text. Select a "
@@ -254,9 +255,9 @@ msgid ""
 " to adjust the Caption margins."
 msgstr ""
 "Datzelfde voorvertoningskader kan worden gebruikt om de positie van "
-"bijschriftekst te bepalen. Selecteer een Bijschrift-effect en verplaats of "
+"ondertiteltekst te bepalen. Selecteer een Ondertitel-effect en verplaats of "
 "wijzig de grootte van het witte kader in de videovoorvertoning om de marges "
-"van de bijschrift aan te passen."
+"van de ondertitel aan te passen."
 
 # Translated with gpt-4.1-mini
 #: ../effects.rst:92
@@ -2599,7 +2600,7 @@ msgstr ""
 "``(float, 0 tot 100)`` De curve om het contrast aan te passen (3 is typisch,"
 " 20 is veel, 100 is max. 0 is ongeldig)"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:675
 msgid ""
 "Add text captions on top of your video. We support both VTT (WebVTT) and "
@@ -2612,16 +2613,16 @@ msgid ""
 "quickly insert captions at the playhead position, or edit all your caption "
 "text in one place."
 msgstr ""
-"Voeg tekstbijschriften toe bovenop je video. We ondersteunen zowel VTT "
-"(WebVTT) als SubRip (SRT) ondertitelbestandsformaten. Deze formaten worden "
-"gebruikt om bijschriften of ondertitels in video's weer te geven. Ze stellen"
-" je in staat om tekstgebaseerde ondertitels aan videocontent toe te voegen, "
-"waardoor het toegankelijker wordt voor een breder publiek, vooral voor doven"
-" of slechthorenden. Het Bijschrift-effect kan zelfs de tekst laten in- en "
+"Voeg ondertitels toe bovenop je video. We ondersteunen zowel VTT (WebVTT) "
+"als SubRip (SRT) ondertitelbestandsformaten. Deze formaten worden gebruikt "
+"om ondertitels in video's weer te geven. Ze stellen je in staat om "
+"tekstgebaseerde ondertitels aan videocontent toe te voegen, waardoor het "
+"toegankelijker wordt voor een breder publiek, vooral voor doven of "
+"slechthorenden. Het Ondertitel-effect kan zelfs de tekst laten in- en "
 "uitfaden en ondersteunt elk lettertype, grootte, kleur en marge. OpenShot "
-"heeft ook een gebruiksvriendelijke Bijschrift-editor, waar je snel "
-"bijschriften kunt invoegen op de positie van de afspeelkop, of al je "
-"bijschrifttekst op één plek kunt bewerken."
+"heeft ook een gebruiksvriendelijke Ondertitel-editor, waar je snel "
+"ondertitels kunt invoegen op de positie van de afspeelkop, of al je "
+"ondertiteltekst op één plek kunt bewerken."
 
 #: ../effects.rst:682
 msgid ""
@@ -2636,6 +2637,7 @@ msgstr ""
 " ondertiteltekst zodat je direct kunt beginnen met typen. Updates van de "
 "ondertiteltekst worden tijdens het typen weergegeven."
 
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:686
 msgid ""
 "To set a caption's end time from the playhead, remove the existing end "
@@ -2644,17 +2646,17 @@ msgid ""
 "timestamp line, and press the plus icon again. OpenShot inserts the current "
 "playhead timestamp as the cue's end time."
 msgstr ""
-"Om de eindtijd van een bijschrift vanaf de afspeelkop in te stellen, "
+"Om de eindtijd van een ondertitel vanaf de afspeelkop in te stellen, "
 "verwijdert u de bestaande eindtijdstempel van de cue-regel, waarbij de "
 "starttijdstempel en pijl blijven staan. Verplaats de afspeelkop naar de "
 "gewenste eindtijd, plaats de tekstcursor op die onvolledige tijdstempelregel"
 " en druk opnieuw op het pluspictogram. OpenShot voegt de huidige afspeelkop-"
 "tijdstempel in als de eindtijd van de cue."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:703
 msgid "``(color)`` Color of caption area background"
-msgstr "``(kleur)`` Kleur van de achtergrond van het bijschriftgebied"
+msgstr "``(kleur)`` Kleur van de achtergrond van het ondertitelgebied"
 
 # Translated with gpt-4.1-mini
 #: ../effects.rst:704 ../effects.rst:1461 ../effects.rst:1683
@@ -2703,16 +2705,16 @@ msgstr "``(lettertype)`` Naam van het lettertype of de lettertypefamilie"
 msgid "caption_text"
 msgstr "bijschrift_tekst"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:708
 msgid "``(caption)`` VTT/Subrip formatted caption text (multi-line)"
 msgstr ""
-"``(bijschrift)`` VTT/Subrip-geformatteerde bijschrifttekst (meerdere regels)"
+"``(ondertitel)`` VTT/Subrip-geformatteerde ondertiteltekst (meerdere regels)"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:709
 msgid "``(color)`` Color of caption text"
-msgstr "``(kleur)`` Kleur van de bijschrifttekst"
+msgstr "``(kleur)`` Kleur van de ondertiteltekst"
 
 #: ../effects.rst:710
 msgid "``(float, 0 to 1)`` Size of bottom margin"
@@ -2723,20 +2725,20 @@ msgstr "``(float, 0 tot 1)`` Grootte van de ondermarge"
 msgid "fade_in"
 msgstr "in_faden"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:711
 msgid "``(float, 0 to 3)`` Fade in per caption (# of seconds)"
-msgstr "``(float, 0 tot 3)`` Infaden per bijschrift (aantal seconden)"
+msgstr "``(float, 0 tot 3)`` Infaden per ondertitel (aantal seconden)"
 
 # Translated with gpt-4.1-mini
 #: ../effects.rst:712
 msgid "fade_out"
 msgstr "uit_faden"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:712
 msgid "``(float, 0 to 3)`` Fade out per caption (# of seconds)"
-msgstr "``(float, 0 tot 3)`` Uitfaden per bijschrift (aantal seconden)"
+msgstr "``(float, 0 tot 3)`` Uitfaden per ondertitel (aantal seconden)"
 
 # Translated with gpt-4.1-mini
 #: ../effects.rst:713 ../effects.rst:1689

@@ -165,13 +165,14 @@ msgid ""
 "Download required model files (listed below) into matching model folders."
 msgstr "필요한 모델 파일(아래 목록)을 해당 모델 폴더에 다운로드하세요."
 
+# Main-window terminology review, 2026-09-26.
 #: ../ai.rst:63
 msgid ""
 "Start ComfyUI, then open :guilabel:`Edit->Preferences->Advanced` and set "
 ":guilabel:`ComfyUI URL`."
 msgstr ""
-"ComfyUI를 시작한 다음 :guilabel:`Edit->Preferences->Advanced` 를 열고 "
-":guilabel:`ComfyUI URL` 을 설정하세요."
+"ComfyUI를 시작한 다음 :guilabel:`Edit->환경설정->Advanced` 를 열고 :guilabel:`ComfyUI "
+"URL` 을 설정하세요."
 
 # Translated with gpt-4.1-mini
 #: ../ai.rst:64
@@ -425,7 +426,7 @@ msgstr ""
 "상태에서 시작할 수 있습니다. 저장된 프로젝트는 영향을 받지 않으며, 이전에 ``PROJECTNAME_Assets`` 폴더에 복사된 "
 "자산은 해당 프로젝트 디렉터리에 그대로 남아 있습니다."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../ai.rst:134
 msgid ""
 "If ComfyUI is unavailable, OpenShot disables the AI menus. Configure the "
@@ -433,8 +434,8 @@ msgid ""
 ":guilabel:`Check` button to test connectivity."
 msgstr ""
 "ComfyUI를 사용할 수 없는 경우 OpenShot은 AI 메뉴를 비활성화합니다. "
-":guilabel:`Edit->Preferences->Advanced`에서 서버 URL을 구성한 다음 :guilabel:`Check` "
-"버튼을 사용하여 연결을 테스트합니다."
+":guilabel:`Edit->환경설정->Advanced`에서 서버 URL을 구성한 다음 :guilabel:`Check` 버튼을 사용하여"
+" 연결을 테스트합니다."
 
 # Translated with gpt-4.1-mini
 #: ../ai.rst:139

@@ -22,7 +22,7 @@ for kind in ('feedback', 'update'):
                                 str, icon_name=kind)
     for name in ('Cosmic Dusk', 'Humanity: Dark', 'Retro'):
         theme = SimpleNamespace(name=name)
-        colors = banner_colors(banner, theme)
+        colors = banner_colors(banner, theme, kind)
         banner.apply_colors(colors, theme)
         pixmap = banner.symbol.pixmap()
         assert not pixmap.isNull(), (kind, name)

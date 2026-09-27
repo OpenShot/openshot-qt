@@ -3993,6 +3993,7 @@ msgstr ""
 "videoları, korku sahneleri, belgesel canlandırmaları veya eski 16mm ya da "
 "Super 8 film gibi hissettirmesi gereken görüntüler için faydalı olabilir."
 
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:1216
 msgid ""
 "You can add Film Grain from the :guilabel:`Effects` tab, or right-click a "
@@ -4002,7 +4003,7 @@ msgid ""
 "Presets only set the properties for you; all controls remain visible and "
 "editable."
 msgstr ""
-"Film Grain efektini :guilabel:`Effects` sekmesinden ekleyebilir veya bir "
+"Film Grain efektini :guilabel:`Efektler` sekmesinden ekleyebilir veya bir "
 "klibe sağ tıklayıp :guilabel:`Look → Film → Film Grain` seçeneğini seçerek "
 "ön ayarlarla başlayabilirsiniz: :guilabel:`35mm Fine`, :guilabel:`35mm "
 "Classic`, :guilabel:`35mm Gritty`, :guilabel:`16mm Classic`, "
@@ -4247,6 +4248,7 @@ msgstr ""
 "uygulanabilir. Efekt, kaynak alfa kanalını kullanır, bu yüzden şeffaf "
 "PNG'ler, metinler, logolar ve maskelenmiş klipler özellikle iyi çalışır."
 
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:1266
 msgid ""
 "You can add Glow from the :guilabel:`Effects` tab, or right-click a clip and"
@@ -4256,8 +4258,8 @@ msgid ""
 "Glow` (glow drawn inside the subject's edges). Presets only set the "
 "properties for you; all controls remain visible and editable."
 msgstr ""
-":guilabel:`Effects` sekmesinden Glow ekleyebilir veya bir klibe sağ tıklayıp"
-" :guilabel:`Look → Lighting → Glow` seçeneğini seçerek ön ayarlarla "
+":guilabel:`Efektler` sekmesinden Glow ekleyebilir veya bir klibe sağ "
+"tıklayıp :guilabel:`Look → Lighting → Glow` seçeneğini seçerek ön ayarlarla "
 "başlayabilirsiniz: :guilabel:`Soft White` (nazik, nötr bir hale), "
 ":guilabel:`Warm` (sıcak kehribar parıltısı), :guilabel:`Neon` (canlı renkli "
 "parıltı) veya :guilabel:`Inner Glow` (nesnenin iç kenarlarında çizilen "
@@ -4475,12 +4477,13 @@ msgstr ""
 msgid "Creating an Object Mask"
 msgstr "Bir Object Mask Oluşturma"
 
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:1343
 msgid ""
 "Drag :guilabel:`Object Mask` from the :guilabel:`Effects` panel onto a video"
 " clip."
 msgstr ""
-":guilabel:`Effects` panelinden :guilabel:`Object Mask` öğesini bir video "
+":guilabel:`Efektler` panelinden :guilabel:`Object Mask` öğesini bir video "
 "klibine sürükleyin."
 
 #: ../effects.rst:1344

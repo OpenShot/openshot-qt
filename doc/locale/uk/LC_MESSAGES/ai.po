@@ -181,13 +181,14 @@ msgstr ""
 "Завантажте необхідні файли моделей (перелічені нижче) у відповідні папки "
 "моделей."
 
+# Main-window terminology review, 2026-09-26.
 #: ../ai.rst:63
 msgid ""
 "Start ComfyUI, then open :guilabel:`Edit->Preferences->Advanced` and set "
 ":guilabel:`ComfyUI URL`."
 msgstr ""
-"Запустіть ComfyUI, потім відкрийте :guilabel:`Edit->Preferences->Advanced` і"
-" встановіть :guilabel:`URL-адресу ComfyUI`."
+"Запустіть ComfyUI, потім відкрийте :guilabel:`Edit->Параметри->Advanced` і "
+"встановіть :guilabel:`URL-адресу ComfyUI`."
 
 # Translated with gpt-4.1-mini
 #: ../ai.rst:64
@@ -450,7 +451,7 @@ msgstr ""
 "скопійовані у папку ``PROJECTNAME_Assets``, залишаються у директорії цього "
 "проєкту."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../ai.rst:134
 msgid ""
 "If ComfyUI is unavailable, OpenShot disables the AI menus. Configure the "
@@ -458,7 +459,7 @@ msgid ""
 ":guilabel:`Check` button to test connectivity."
 msgstr ""
 "Якщо ComfyUI недоступний, OpenShot вимикає меню ШІ. Налаштуйте URL-адресу "
-"сервера в :guilabel:`Edit->Preferences->Advanced`, а потім скористайтеся "
+"сервера в :guilabel:`Edit->Параметри->Advanced`, а потім скористайтеся "
 ":guilabel:`Check` кнопкою для перевірки підключення."
 
 # Translated with gpt-4.1-mini
@@ -1423,10 +1424,10 @@ msgstr ""
 msgid "Add Captions from Speech (``video-whisper-srt``)"
 msgstr "Додати субтитри з мовлення (``video-whisper-srt``)"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../ai.rst:410
 msgid "Why: Transcribe speech into subtitle/caption files."
-msgstr "Чому: Транскрибувати мовлення у файли субтитрів/підписів."
+msgstr "Чому: Транскрибувати мовлення у файли субтитрів."
 
 # Translated with gpt-4.1-mini
 #: ../ai.rst:411

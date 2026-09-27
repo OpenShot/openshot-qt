@@ -17,9 +17,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+# Main-window terminology review, 2026-09-26.
 #: ../recording.rst:23
 msgid "Recording"
-msgstr "録画"
+msgstr "録音・録画"
 
 #: ../recording.rst:25
 msgid ""
@@ -32,12 +33,14 @@ msgstr ""
 "OpenShot "
 "はマイク、デスクトップ、ウェブカメラを現在のプロジェクトに直接録画できます。1つのソースを有効にするか、複数を同期録画セッションで組み合わせることが可能です。各ソースは独立したメディアファイルおよびタイムラインクリップとして保持されるため、マイク音量の調整、ウェブカメラのトリミング、画面キャプチャの編集を個別に行いやすくなっています。"
 
+# Main-window terminology review, 2026-09-26.
 #: ../recording.rst:29
 msgid ""
 "Open the dedicated layout with :guilabel:`View → Recording View`, or show "
 "only the dock with :guilabel:`View → Docks → Recording`."
 msgstr ""
-":guilabel:`表示 → 録画ビュー` で専用レイアウトを開くか、:guilabel:`表示 → ドック → 録画` でドックのみを表示します。"
+":guilabel:`表示 → 録音・録画ビュー` で専用レイアウトを開くか、:guilabel:`表示 → ドック → 録音・録画` "
+"でドックのみを表示します。"
 
 #: ../recording.rst:-1
 msgid "OpenShot Recording View with the microphone source selected by default"
@@ -52,9 +55,10 @@ msgid ""
 "Move the timeline playhead to the point where the recording should begin."
 msgstr "録画を開始したい位置にタイムラインの再生ヘッドを移動します。"
 
+# Main-window terminology review, 2026-09-26.
 #: ../recording.rst:39
 msgid "Open :guilabel:`View → Recording View`."
-msgstr ":guilabel:`表示 → 録画ビュー` を開きます。"
+msgstr ":guilabel:`表示 → 録音・録画ビュー` を開きます。"
 
 #: ../recording.rst:40
 msgid ""
@@ -106,6 +110,7 @@ msgstr ""
 msgid "Quick Audio Commentary"
 msgstr "クイック音声解説"
 
+# Main-window terminology review, 2026-09-26.
 #: ../recording.rst:53
 msgid ""
 "To begin commentary at an existing clip, right-click the clip and choose "
@@ -119,7 +124,7 @@ msgstr ""
 "既存のクリップで解説を始めるには、クリップを右クリックして :guilabel:`音声 → 録音` を選択します。OpenShot "
 "は再生ヘッドをクリップの最初のフレームに移動し、録画ドックを開き、クリップの下の最初の利用可能なロック解除トラックを選択します。:guilabel:`マイク`"
 " が有効になっていることを確認し、:guilabel:`録画開始` "
-"をクリックします。画面、ウェブカメラ、マイク、複合録画セッションの一般的な入口は引き続き :guilabel:`表示 → 録画ビュー` です。"
+"をクリックします。画面、ウェブカメラ、マイク、複合録画セッションの一般的な入口は引き続き :guilabel:`表示 → 録音・録画ビュー` です。"
 
 #: ../recording.rst:60
 msgid "Recording Sources"

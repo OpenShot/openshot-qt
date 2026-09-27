@@ -19,10 +19,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.10.3\n"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:23
 msgid "Effects"
-msgstr "效果"
+msgstr "特效"
 
 # Translated with gpt-4.1-mini
 #: ../effects.rst:25
@@ -3470,6 +3470,7 @@ msgstr ""
 "如果您是胶片颗粒的新手，请从小量开始。少量颗粒可以增加生命力和质感，而不会引人注意。较强的设置适用于复古风格、音乐视频、恐怖场景、纪录片重现或应呈现旧式16毫米或Super"
 " 8胶片感觉的素材。"
 
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:1216
 msgid ""
 "You can add Film Grain from the :guilabel:`Effects` tab, or right-click a "
@@ -3479,7 +3480,7 @@ msgid ""
 "Presets only set the properties for you; all controls remain visible and "
 "editable."
 msgstr ""
-"您可以从 :guilabel:`效果` 标签添加胶片颗粒，或右键点击剪辑选择 :guilabel:`外观 → 胶片 → "
+"您可以从 :guilabel:`特效` 标签添加胶片颗粒，或右键点击剪辑选择 :guilabel:`外观 → 胶片 → "
 "胶片颗粒`，以预设开始：:guilabel:`35mm 细腻`、:guilabel:`35mm 经典`、:guilabel:`35mm "
 "粗糙`、:guilabel:`16mm 经典`、:guilabel:`Super 8` 或 "
 ":guilabel:`高ISO`。预设仅为您设置属性；所有控件仍然可见且可编辑。"
@@ -3672,6 +3673,7 @@ msgstr ""
 "Glow 效果会从剪辑的可见像素创建柔和的光晕。它可以在主体外部渲染经典的外发光，或沿内部边缘渲染内发光。该效果使用源 alpha 通道，因此透明 "
 "PNG、文本、标志和蒙版剪辑效果尤佳。"
 
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:1266
 msgid ""
 "You can add Glow from the :guilabel:`Effects` tab, or right-click a clip and"
@@ -3681,8 +3683,8 @@ msgid ""
 "Glow` (glow drawn inside the subject's edges). Presets only set the "
 "properties for you; all controls remain visible and editable."
 msgstr ""
-"您可以从 :guilabel:`Effects` 选项卡添加 Glow，或右键点击剪辑选择 :guilabel:`Look → Lighting → "
-"Glow` 来使用预设：:guilabel:`Soft "
+"您可以从 :guilabel:`特效` 选项卡添加 Glow，或右键点击剪辑选择 :guilabel:`Look → Lighting → Glow` "
+"来使用预设：:guilabel:`Soft "
 "White`（柔和的中性色光晕）、:guilabel:`Warm`（温暖的琥珀光）、:guilabel:`Neon`（鲜艳的彩色光晕）或 "
 ":guilabel:`Inner Glow`（在主体边缘内绘制的光晕）。预设仅设置属性，所有控件仍可见且可编辑。"
 
@@ -3857,11 +3859,12 @@ msgstr ""
 msgid "Creating an Object Mask"
 msgstr "创建 Object Mask"
 
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:1343
 msgid ""
 "Drag :guilabel:`Object Mask` from the :guilabel:`Effects` panel onto a video"
 " clip."
-msgstr "将 :guilabel:`Object Mask` 从 :guilabel:`Effects` 面板拖放到视频剪辑上。"
+msgstr "将 :guilabel:`Object Mask` 从 :guilabel:`特效` 面板拖放到视频剪辑上。"
 
 #: ../effects.rst:1344
 msgid ""
@@ -4021,11 +4024,12 @@ msgstr ""
 msgid "Creating Object Detections"
 msgstr "创建对象检测"
 
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:1398
 msgid ""
 "Drag :guilabel:`Object Detector` from the :guilabel:`Effects` panel onto a "
 "video clip."
-msgstr "从 :guilabel:`Effects` 面板将 :guilabel:`Object Detector` 拖动到视频剪辑上。"
+msgstr "从 :guilabel:`特效` 面板将 :guilabel:`Object Detector` 拖动到视频剪辑上。"
 
 #: ../effects.rst:1399
 msgid ""
@@ -4574,6 +4578,7 @@ msgstr ""
 "阴影效果从剪辑的可见像素创建柔和的投影。它使用源 alpha "
 "通道，模糊该轮廓，并按距离和角度偏移，然后在上面绘制原始图像。这对于使文本、标志、叠加层和剪切主题与背景更分离非常有用。"
 
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:1553
 msgid ""
 "You can add Shadow from the :guilabel:`Effects` tab, or right-click a clip "
@@ -4583,7 +4588,7 @@ msgid ""
 ":guilabel:`Long` (a distant, elongated shadow). Presets only set the "
 "properties for you; all controls remain visible and editable."
 msgstr ""
-"您可以从 :guilabel:`Effects` 选项卡添加阴影，或右键点击剪辑选择 :guilabel:`Look → Lighting → "
+"您可以从 :guilabel:`特效` 选项卡添加阴影，或右键点击剪辑选择 :guilabel:`Look → Lighting → "
 "Shadow`，以预设开始：:guilabel:`Subtle`（轻微近阴影）、:guilabel:`Soft`（柔和中等阴影）、:guilabel:`Strong`（粗体高不透明阴影）或"
 " :guilabel:`Long`（远距离拉长阴影）。预设仅为您设置属性；所有控件仍然可见且可编辑。"
 

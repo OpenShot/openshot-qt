@@ -2386,14 +2386,14 @@ msgstr ""
 msgid "Titling:"
 msgstr "Титрування:"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../glossary.rst:459
 msgid ""
 "Titling is the process or result of incorporating on-screen text as credits,"
 " captions, or any other alphanumeric communication."
 msgstr ""
 "Титрування — це процес або результат додавання тексту на екран у вигляді "
-"титрів, підписів або іншої алфавітно-цифрової інформації."
+"титрів, субтитрів або іншої алфавітно-цифрової інформації."
 
 # Translated with gpt-4.1-mini
 #: ../glossary.rst:460

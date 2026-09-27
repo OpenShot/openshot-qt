@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-09-26 14:26-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -51,7 +51,7 @@ msgstr "Nimi"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:35 ../main_window.rst:80 ../main_window.rst:103
-#: ../main_window.rst:235 ../main_window.rst:349 ../main_window.rst:378
+#: ../main_window.rst:237 ../main_window.rst:367 ../main_window.rst:396
 msgid "Description"
 msgstr "Kuvaus"
 
@@ -92,7 +92,7 @@ msgid "3"
 msgstr "3"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:39 ../main_window.rst:393
+#: ../main_window.rst:39 ../main_window.rst:411
 msgid "Project Files"
 msgstr "Projektitiedostot"
 
@@ -405,15 +405,16 @@ msgstr "Kumoa tai tee uudelleen viimeisimmät aikajanan muokkauksesi."
 msgid "Snap, Retime, Razor"
 msgstr "Kiinnitys, uudelleenajastus, partaveitsi"
 
-# Translated with gpt-4.1-mini
 #: ../main_window.rst:112
 msgid ""
 "Snapping toggles magnetic alignment. Timing Tool enables retiming by "
-"dragging clip edges. Razor Tool cuts clips at the clicked position."
+"dragging clip edges. The :ref:`razor_tool_ref` previews and cuts at the "
+"guide position; press :kbd:`Esc` to exit."
 msgstr ""
 "Kiinnitys kytkee magneettisen kohdistuksen päälle tai pois. Aikatyökalu "
-"mahdollistaa uudelleenajastuksen vetämällä leikkeen reunoja. "
-"Partaveitsityökalu leikkaa leikkeet napsautetusta kohdasta."
+"mahdollistaa uudelleenaikataulutuksen vetämällä leikkeen reunoja. "
+":ref:`razor_tool_ref` esikatseluttaa ja leikkaa ohjaimen kohdalla; paina "
+":kbd:`Esc` poistuaksesi."
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:114
@@ -429,10 +430,10 @@ msgstr ""
 "Lisää merkki toistopäähän ja siirry edelliseen tai seuraavaan "
 "merkkiin/leikkeen rajaan."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:117 ../main_window.rst:148
 msgid "Center on Playhead"
-msgstr "Keskitä toistopäähän"
+msgstr "Keskitä toistopaikkaan"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:118
@@ -505,7 +506,7 @@ msgid "Shortcut 3"
 msgstr "Pikanäppäin 3"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:142 ../main_window.rst:277
+#: ../main_window.rst:142 ../main_window.rst:294
 msgid "About OpenShot"
 msgstr "Tietoja OpenShotista"
 
@@ -569,7 +570,7 @@ msgstr ":kbd:`Shift+C`"
 msgid ":kbd:`Alt+Up`"
 msgstr ":kbd:`Alt+Ylös`"
 
-#: ../main_window.rst:149 ../main_window.rst:311
+#: ../main_window.rst:149 ../main_window.rst:329
 msgid "Color View"
 msgstr "Värinäkymä"
 
@@ -983,7 +984,7 @@ msgid ":kbd:`Alt+P`"
 msgstr ":kbd:`Alt+P`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:186 ../main_window.rst:221
+#: ../main_window.rst:186 ../main_window.rst:223
 msgid ":kbd:`Double Click`"
 msgstr ":kbd:`Kaksoisnapsauta`"
 
@@ -1018,7 +1019,7 @@ msgid ":kbd:`Alt+Left`"
 msgstr ":kbd:`Alt+Left`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:189 ../main_window.rst:395
+#: ../main_window.rst:189 ../main_window.rst:413
 msgid "Properties"
 msgstr "Ominaisuudet"
 
@@ -1152,233 +1153,249 @@ msgstr "Poista valinta"
 msgid ":kbd:`Ctrl+Shift+A`"
 msgstr ":kbd:`Ctrl+Shift+A`"
 
+#: ../main_window.rst:202
+msgid "Share Feedback..."
+msgstr "Jaa palautetta..."
+
+#: ../main_window.rst:202
+msgid ":kbd:`F8`"
+msgstr ":kbd:`F8`"
+
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:202 ../main_window.rst:304
+#: ../main_window.rst:203 ../main_window.rst:322
 msgid "Simple View"
 msgstr "Yksinkertainen näkymä"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:202
+#: ../main_window.rst:203
 msgid ":kbd:`Alt+Shift+0`"
 msgstr ":kbd:`Alt+Shift+0`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:203
+#: ../main_window.rst:204
 msgid "Slice All: Keep Both Sides"
 msgstr "Leikkaa kaikki: säilytä molemmat puolet"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:203
+#: ../main_window.rst:204
 msgid ":kbd:`Ctrl+Shift+K`"
 msgstr ":kbd:`Ctrl+Shift+K`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:204
+#: ../main_window.rst:205
 msgid "Slice All: Keep Left Side"
 msgstr "Leikkaa kaikki: säilytä vasen puoli"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:204
+#: ../main_window.rst:205
 msgid ":kbd:`Ctrl+Shift+J`"
 msgstr ":kbd:`Ctrl+Shift+J`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:205
+#: ../main_window.rst:206
 msgid "Slice All: Keep Right Side"
 msgstr "Leikkaa kaikki: säilytä oikea puoli"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:205
+#: ../main_window.rst:206
 msgid ":kbd:`Ctrl+Shift+L`"
 msgstr ":kbd:`Ctrl+Shift+L`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:206
+#: ../main_window.rst:207
 msgid "Slice Selected: Keep Both Sides"
 msgstr "Leikkaa valitut: säilytä molemmat puolet"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:206
+#: ../main_window.rst:207
 msgid ":kbd:`Ctrl+K`"
 msgstr ":kbd:`Ctrl+K`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:207
+#: ../main_window.rst:208
 msgid "Slice Selected: Keep Left Side"
 msgstr "Leikkaa valitut: säilytä vasen puoli"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:207
+#: ../main_window.rst:208
 msgid ":kbd:`Ctrl+J`"
 msgstr ":kbd:`Ctrl+J`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:208
+#: ../main_window.rst:209
 msgid "Slice Selected: Keep Right Side"
 msgstr "Leikkaa valitut: säilytä oikea puoli"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:208
+#: ../main_window.rst:209
 msgid ":kbd:`Ctrl+L`"
 msgstr ":kbd:`Ctrl+L`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:209
+#: ../main_window.rst:210
 msgid "Slice Selected: Keep Left (Ripple)"
 msgstr "Leikkaa valitut: säilytä vasen (aaltoliike)"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:209
+#: ../main_window.rst:210
 msgid ":kbd:`W`"
 msgstr ":kbd:`W`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:210
+#: ../main_window.rst:211
 msgid "Slice Selected: Keep Right (Ripple)"
 msgstr "Leikkaa valitut: säilytä oikea (aaltoliike)"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:210
+#: ../main_window.rst:211
 msgid ":kbd:`Q`"
 msgstr ":kbd:`Q`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:211
+#: ../main_window.rst:212
 msgid "Snapping Toggle"
 msgstr "Kiinnitys päälle/pois"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:211
+#: ../main_window.rst:212
 msgid ":kbd:`S`"
 msgstr ":kbd:`S`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:212
+#: ../main_window.rst:213
 msgid "Split File"
 msgstr "Jaa tiedosto"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:212
+#: ../main_window.rst:213
 msgid ":kbd:`Alt+S`"
 msgstr ":kbd:`Alt+S`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:212
+#: ../main_window.rst:213
 msgid ":kbd:`Shift+Double Click`"
 msgstr ":kbd:`Shift+Kaksoisnapsauta`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:213
+#: ../main_window.rst:214
 msgid "Thumbnail View"
 msgstr "Esikatselukuvat"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:213
+#: ../main_window.rst:214
 msgid ":kbd:`Ctrl+Page Down`"
 msgstr ":kbd:`Ctrl+Sivu alas`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:214
+#: ../main_window.rst:215
 msgid "Timing Toggle"
 msgstr "Ajastuksen kytkin"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:214
+#: ../main_window.rst:215
 msgid ":kbd:`T`"
 msgstr ":kbd:`T`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:215 ../main_window.rst:255
+#: ../main_window.rst:216 ../main_window.rst:257
 msgid "Title"
 msgstr "Otsikko"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:215
+#: ../main_window.rst:216
 msgid ":kbd:`Ctrl+T`"
 msgstr ":kbd:`Ctrl+T`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:216
+#: ../main_window.rst:217
 msgid "Translate this Application..."
 msgstr "Käännä tämä sovellus..."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:216
+#: ../main_window.rst:217
 msgid ":kbd:`F6`"
 msgstr ":kbd:`F6`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:217
+#: ../main_window.rst:218
 msgid "Undo"
 msgstr "Kumoa"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:217
+#: ../main_window.rst:218
 msgid ":kbd:`Ctrl+Z`"
 msgstr ":kbd:`Ctrl+Z`"
 
+#: ../main_window.rst:219
+msgid "Update Available"
+msgstr "Päivitys saatavilla"
+
+#: ../main_window.rst:219
+msgid ":kbd:`F9`"
+msgstr ":kbd:`F9`"
+
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:218
+#: ../main_window.rst:220
 msgid "View Toolbar"
 msgstr "Näytä työkalurivi"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:218
+#: ../main_window.rst:220
 msgid ":kbd:`Ctrl+Shift+B`"
 msgstr ":kbd:`Ctrl+Shift+B`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:219
+#: ../main_window.rst:221
 msgid "Zoom In"
 msgstr "Lähennä"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:219
+#: ../main_window.rst:221
 msgid ":kbd:`=`"
 msgstr ":kbd:`=`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:219
+#: ../main_window.rst:221
 msgid ":kbd:`Ctrl+=`"
 msgstr ":kbd:`Ctrl+=`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:220
+#: ../main_window.rst:222
 msgid "Zoom Out"
 msgstr "Loitonna"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:220
+#: ../main_window.rst:222
 msgid ":kbd:`-`"
 msgstr ":kbd:`-`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:220
+#: ../main_window.rst:222
 msgid ":kbd:`Ctrl+-`"
 msgstr ":kbd:`Ctrl+-`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:221
+#: ../main_window.rst:223
 msgid "Zoom to Timeline"
 msgstr "Sovita aikajanalle"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:221
+#: ../main_window.rst:223
 msgid ":kbd:`\\\\`"
 msgstr ":kbd:`\\\\`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:221
+#: ../main_window.rst:223
 msgid ":kbd:`Shift+\\\\`"
 msgstr ":kbd:`Shift+\\\\`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:225
+#: ../main_window.rst:227
 msgid "Menu"
 msgstr "Valikko"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:226
+#: ../main_window.rst:228
 msgid ""
 "The following menu options are available on the main window on OpenShot. "
 "Most of these options can be accessed by the keyboard shortcuts mentioned "
@@ -1391,33 +1408,33 @@ msgstr ""
 "näistä vaihtoehdoista on nimetty uudelleen ja/tai järjestelty uudelleen."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:234
+#: ../main_window.rst:236
 msgid "Menu Name"
 msgstr "Valikon nimi"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:236
+#: ../main_window.rst:238
 msgid "File"
 msgstr "Tiedosto"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:238
+#: ../main_window.rst:240
 msgid ":guilabel:`New Project` Create a blank new project."
 msgstr ":guilabel:`Uusi projekti` Luo tyhjä uusi projekti."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:239
+#: ../main_window.rst:241
 msgid ":guilabel:`Open Project` Open an existing project."
 msgstr ":guilabel:`Avaa projekti` Avaa olemassa oleva projekti."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:240
+#: ../main_window.rst:242
 msgid ":guilabel:`Recent Projects` Access recently opened projects."
 msgstr ""
 ":guilabel:`Viimeaikaiset projektit` Pääsy äskettäin avattuihin projekteihin."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:241
+#: ../main_window.rst:243
 msgid ""
 ":guilabel:`Recovery` Restore a previously saved version of your current "
 "project."
@@ -1426,17 +1443,17 @@ msgstr ""
 "projektistasi."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:242
+#: ../main_window.rst:244
 msgid ":guilabel:`Save Project` Save the current project."
 msgstr ":guilabel:`Tallenna projekti` Tallenna nykyinen projekti."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:243
+#: ../main_window.rst:245
 msgid ":guilabel:`Import Files` Import media files into the project."
 msgstr ":guilabel:`Tuo tiedostoja` Tuo mediatiedostoja projektiin."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:244
+#: ../main_window.rst:246
 msgid ""
 ":guilabel:`Choose Profile` Select a project profile (*i.e. 1080p @ 30fps, "
 "720p @ 24fps, ...*)."
@@ -1445,7 +1462,7 @@ msgstr ""
 " 720p @ 24fps, ...*)."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:245
+#: ../main_window.rst:247
 msgid ""
 ":guilabel:`Save Current Frame` Save the current preview video frame as an "
 "image (sometimes represented with a camera icon)."
@@ -1454,7 +1471,7 @@ msgstr ""
 " kuvana (joskus esitetty kamerakuvakkeella)."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:246
+#: ../main_window.rst:248
 msgid ""
 ":guilabel:`Import Project` Import another project into the current project "
 "(*Adobe and Final Cut Pro formats partially supported*)."
@@ -1463,7 +1480,7 @@ msgstr ""
 "ja Final Cut Pro -formaatit osittain tuettuja*)."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:247
+#: ../main_window.rst:249
 msgid ""
 ":guilabel:`Export Project` Export the current project to a specified format "
 "(*EDL, Adobe, and Final Cut Pro formats partially supported*)."
@@ -1472,27 +1489,27 @@ msgstr ""
 "(*EDL-, Adobe- ja Final Cut Pro -formaatit osittain tuettuja*)."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:248
+#: ../main_window.rst:250
 msgid ":guilabel:`Quit` Exit the application."
 msgstr ":guilabel:`Poistu` Sulje sovellus."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:249
+#: ../main_window.rst:251
 msgid "Edit"
 msgstr "Muokkaa"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:251
+#: ../main_window.rst:253
 msgid ":guilabel:`Undo` Undo the last action."
 msgstr ":guilabel:`Kumoa` Kumoa viimeisin toiminto."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:252
+#: ../main_window.rst:254
 msgid ":guilabel:`Redo` Redo the last undone action."
 msgstr ":guilabel:`Tee uudelleen` Tee uudelleen viimeisin kumottu toiminto."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:253
+#: ../main_window.rst:255
 msgid ""
 ":guilabel:`Clear` Clear the current history or waveform cached data. This "
 "makes the `.osp project` file a much smaller file size."
@@ -1501,13 +1518,13 @@ msgstr ""
 "Tämä pienentää `.osp`-projektitiedoston kokoa merkittävästi."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:254
+#: ../main_window.rst:256
 msgid ""
 ":guilabel:`Preferences` Open the preferences dialog to customize settings."
 msgstr ":guilabel:`Asetukset` Avaa asetukset mukauttaaksesi asetuksia."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:257
+#: ../main_window.rst:259
 msgid ""
 ":guilabel:`Title` Add a SVG vector title to the project. See "
 ":ref:`text_and_titles_ref`."
@@ -1516,7 +1533,7 @@ msgstr ""
 ":ref:`text_and_titles_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:258
+#: ../main_window.rst:260
 msgid ""
 ":guilabel:`Animated Title` Add an animated title to the project. See "
 ":ref:`animated_titles_ref`."
@@ -1525,11 +1542,11 @@ msgstr ""
 ":ref:`animated_titles_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:259
+#: ../main_window.rst:261
 msgid "View"
 msgstr "Näkymä"
 
-#: ../main_window.rst:261
+#: ../main_window.rst:263
 msgid ""
 ":guilabel:`Simple View` and :guilabel:`Color View` switch or reset the main "
 "window layout."
@@ -1537,7 +1554,7 @@ msgstr ""
 ":guilabel:`Yksinkertainen näkymä` ja :guilabel:`Värinäkymä` vaihtavat tai "
 "palauttavat pääikkunan asettelun."
 
-#: ../main_window.rst:262
+#: ../main_window.rst:264
 msgid ""
 ":guilabel:`My Views` Save, load, update, and delete your own named layouts. "
 "See :ref:`my_views_ref`."
@@ -1545,19 +1562,19 @@ msgstr ""
 ":guilabel:`Omat näkymät` Tallenna, lataa, päivitä ja poista omia nimettyjä "
 "asetteluja. Katso :ref:`my_views_ref`."
 
-#: ../main_window.rst:263
+#: ../main_window.rst:265
 msgid ":guilabel:`Docks` Show or hide various dockable panels."
 msgstr ""
 ":guilabel:`Telakat` Näytä tai piilota erilaisia telakoitavia paneeleja."
 
-#: ../main_window.rst:264
+#: ../main_window.rst:266
 msgid ""
 ":guilabel:`Scopes` Show or hide scope docks, or open all scopes at once."
 msgstr ""
 ":guilabel:`Mittarit` Näytä tai piilota mittarit, tai avaa kaikki mittarit "
 "kerralla."
 
-#: ../main_window.rst:265
+#: ../main_window.rst:267
 msgid ""
 ":guilabel:`Window` Show or hide the main window toolbar, or toggle "
 "fullscreen mode."
@@ -1566,44 +1583,58 @@ msgstr ""
 "koko näytön tilaan."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:266
+#: ../main_window.rst:268
 msgid "Help"
 msgstr "Ohje"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:268
+#: ../main_window.rst:270
 msgid ":guilabel:`Contents` Open the user guide online."
 msgstr ":guilabel:`Sisältö` Avaa käyttäjän opas verkossa."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:269
+#: ../main_window.rst:271
 msgid ":guilabel:`Tutorial` Access the built-in tutorial for new users."
 msgstr ""
 ":guilabel:`Opastus` Pääsy sisäänrakennettuun opastukseen uusille "
 "käyttäjille."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:270
+#: ../main_window.rst:272
 msgid ":guilabel:`Report a Bug` Report a bug or issue."
 msgstr ":guilabel:`Ilmoita virheestä` Ilmoita virheestä tai ongelmasta."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:271
+#: ../main_window.rst:273
 msgid ":guilabel:`Ask a Question` Ask a question about the software."
 msgstr ":guilabel:`Kysy kysymys` Kysy kysymys ohjelmistosta."
 
+#: ../main_window.rst:274
+msgid ""
+":guilabel:`Share Feedback` Open a survey about your experience with "
+"OpenShot."
+msgstr ":guilabel:`Jaa palautetta` Avaa kysely OpenShot-kokemuksestasi."
+
+#: ../main_window.rst:275
+msgid ""
+":guilabel:`Update Available` Open the download page when a newer version is "
+"available."
+msgstr ""
+":guilabel:`Päivitys saatavilla` Avaa lataussivu, kun uudempi versio on "
+"saatavilla."
+
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:272
+#: ../main_window.rst:276
 msgid ":guilabel:`Translate` Contribute to translations of the software."
 msgstr ":guilabel:`Käännä` Osallistu ohjelmiston käännöksiin."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:273
+#: ../main_window.rst:277
 msgid ":guilabel:`Donate` Make a donation to support the project."
 msgstr ":guilabel:`Lahjoita` Tee lahjoitus projektin tukemiseksi."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:274
+#: ../main_window.rst:278
 msgid ""
 ":guilabel:`About` View information about the software (version, "
 "contributors, translators, changelog, and supporters)."
@@ -1611,28 +1642,59 @@ msgstr ""
 ":guilabel:`Tietoja` Näytä tietoja ohjelmistosta (versio, tekijät, kääntäjät,"
 " muutokset ja tukijat)."
 
-#: ../main_window.rst:278
+#: ../main_window.rst:281
+msgid "Notifications"
+msgstr "Ilmoitukset"
+
+#: ../main_window.rst:283
+msgid ""
+"OpenShot may show a notice near the top of the window when a newer version "
+"is available. Choose :guilabel:`Upgrade` to open the download page, or close"
+" the notice to hide it for that version. You can still open the download "
+"page from :guilabel:`Help → Update Available` or press :kbd:`F9` when an "
+"update is available."
+msgstr ""
+"OpenShot saattaa näyttää ilmoituksen ikkunan yläosassa, kun uudempi versio "
+"on saatavilla. Valitse :guilabel:`Päivitä` avataksesi lataussivun, tai sulje"
+" ilmoitus piilottaaksesi sen kyseiseltä versiolta. Voit silti avata "
+"lataussivun valitsemalla :guilabel:`Ohje → Päivitys saatavilla` tai "
+"painamalla :kbd:`F9`, kun päivitys on saatavilla."
+
+#: ../main_window.rst:288
+msgid ""
+"After you have spent some time editing, OpenShot may also invite you to "
+"share feedback. The survey is optional. You can open it from the notice or "
+"dismiss the invitation. At any time, choose :guilabel:`Help → Share "
+"Feedback` or press :kbd:`F8` to share your thoughts."
+msgstr ""
+"Kun olet käyttänyt jonkin aikaa muokkaamiseen, OpenShot saattaa myös pyytää "
+"sinua jakamaan palautetta. Kysely on vapaaehtoinen. Voit avata sen "
+"ilmoituksesta tai hylätä kutsun. Milloin tahansa voit valita :guilabel:`Ohje"
+" → Jaa palautetta` tai painaa :kbd:`F8` jakaaksesi ajatuksesi."
+
+#: ../main_window.rst:295
 msgid ""
 "Use :guilabel:`Help→About OpenShot` to check your OpenShot version. Click "
 ":guilabel:`Copy` next to the version number to copy a short version and "
-"system details report, which is the preferred way to share this information "
-"when reporting a bug or asking for help."
+"system details report, including how OpenShot was installed. This is a "
+"useful way to share the information when reporting a bug or asking for help."
 msgstr ""
 "Käytä :guilabel:`Ohje→Tietoja OpenShotista` tarkistaaksesi OpenShot-"
-"versiosi. Klikkaa :guilabel:`Kopioi` versionumeron vieressä kopioidaksesi "
-"lyhyen version ja järjestelmätiedot, mikä on suositeltu tapa jakaa tämä "
-"tieto virheraporttia tehdessä tai apua pyytäessä."
+"versiosi. Napsauta :guilabel:`Kopioi` versionumeron vieressä kopioidaksesi "
+"lyhyen version ja järjestelmätietojen raportin, mukaan lukien miten OpenShot"
+" on asennettu. Tämä on hyödyllinen tapa jakaa tietoja virheraporttia "
+"tehdessä tai apua pyytäessä."
 
-#: ../main_window.rst:283
+#: ../main_window.rst:300
 msgid "Example output:"
 msgstr "Esimerkkituloste:"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:297
+#: ../main_window.rst:315
 msgid "Views"
 msgstr "Näkymät"
 
-#: ../main_window.rst:299
+#: ../main_window.rst:317
 msgid ""
 "The OpenShot main window is composed of multiple **docks**. These **docks** "
 "are arranged and snapped together into a grouping that we call a **View**. "
@@ -1645,7 +1707,7 @@ msgstr ""
 ":guilabel:`Värinäkymän` ja :guilabel:`Omat näkymät` (käyttäjän määrittelemät"
 " asettelut)."
 
-#: ../main_window.rst:305
+#: ../main_window.rst:323
 msgid ""
 "This is the **default** view, and is designed to be easy-to-use, especially "
 "for first-time users. It contains :guilabel:`Project Files` on the top left,"
@@ -1662,7 +1724,7 @@ msgstr ""
 "käyttämällä :guilabel:`Näkymä->Yksinkertainen näkymä` -valikkoa näytön "
 "yläreunassa."
 
-#: ../main_window.rst:312
+#: ../main_window.rst:330
 msgid ""
 "This view is focused on color correction and scopes. It enlarges the video "
 "preview, hides file-management docks, keeps the timeline and properties "
@@ -1676,11 +1738,11 @@ msgstr ""
 "ja järjestää :guilabel:`Luma-aaltomuodon` ja :guilabel:`Histogrammin` "
 "telakat välilehdiksi sen alle."
 
-#: ../main_window.rst:317
+#: ../main_window.rst:335
 msgid "Recording View"
 msgstr "Tallennusnäkymä"
 
-#: ../main_window.rst:318
+#: ../main_window.rst:336
 msgid ""
 "This view is focused on creating new recordings inside OpenShot. It shows "
 ":guilabel:`Project Files`, :guilabel:`Video Preview`, :guilabel:`Timeline`, "
@@ -1696,7 +1758,7 @@ msgstr ""
 "valikosta :guilabel:`Näkymä->Telakat->Ominaisuudet` häiritsemättä "
 "tallennusasettelua."
 
-#: ../main_window.rst:323
+#: ../main_window.rst:341
 msgid ""
 "The :guilabel:`Recording` dock can record microphone audio, screen capture, "
 "webcam video, or combinations of those sources. When screen and webcam are "
@@ -1722,11 +1784,11 @@ msgstr ""
 ":ref:`clip_properties_ref` yksityiskohdista. Katso :ref:`recording_ref` "
 "täydellisestä tallennusprosessista ja kaikista lähdevaihtoehdoista."
 
-#: ../main_window.rst:334
+#: ../main_window.rst:352
 msgid "My Views"
 msgstr "Omat näkymät"
 
-#: ../main_window.rst:335
+#: ../main_window.rst:353
 msgid ""
 "**My Views** lets you save any dock arrangement as a named layout and recall"
 " it instantly. This is ideal for workflows that require switching between "
@@ -1741,7 +1803,7 @@ msgstr ""
 "väriluokitusasettelu — ilman telakoiden manuaalista uudelleensijoittamista "
 "joka kerta."
 
-#: ../main_window.rst:339
+#: ../main_window.rst:357
 msgid ""
 "Each saved view captures the position, size, and visibility of every dock, "
 "as well as the timeline height. Saved views are stored in your project "
@@ -1751,59 +1813,59 @@ msgstr ""
 "näkyvyyden sekä aikajanan korkeuden. Tallennetut näkymät säilyvät "
 "projektiasetuksissasi ja pysyvät käytettävissä istuntojen välillä."
 
-#: ../main_window.rst:342
+#: ../main_window.rst:360
 msgid "**View → My Views** menu options:"
 msgstr "**Näkymä → Omat näkymät** -valikon vaihtoehdot:"
 
-#: ../main_window.rst:348
+#: ../main_window.rst:366
 msgid "Menu Item"
 msgstr "Valikkokohde"
 
-#: ../main_window.rst:350
+#: ../main_window.rst:368
 msgid "List of user-defined views"
 msgstr "Käyttäjän määrittelemien näkymien luettelo"
 
-#: ../main_window.rst:351
+#: ../main_window.rst:369
 msgid ""
 "Click to restore that layout. The currently active view shows a checkmark."
 msgstr ""
 "Klikkaa palauttaaksesi kyseisen asettelun. Tällä hetkellä aktiivisessa "
 "näkymässä on valintamerkki."
 
-#: ../main_window.rst:352
+#: ../main_window.rst:370
 msgid "Update \"*[name]*\""
 msgstr "Päivitä \"*[name]*\""
 
-#: ../main_window.rst:353
+#: ../main_window.rst:371
 msgid "Save your current dock arrangement over the active view, replacing it."
 msgstr ""
 "Tallenna nykyinen telakka-asettelusi aktiivisen näkymän päälle korvaten sen."
 
-#: ../main_window.rst:354
+#: ../main_window.rst:372
 msgid "Delete \"*[name]*\""
 msgstr "Poista \"*[name]*\""
 
-#: ../main_window.rst:355
+#: ../main_window.rst:373
 msgid "Remove the active view (asks for confirmation first)."
 msgstr "Poista aktiivinen näkymä (kysy ensin vahvistus)."
 
-#: ../main_window.rst:356
+#: ../main_window.rst:374
 msgid "Save Current View As..."
 msgstr "Tallenna nykyinen näkymä nimellä..."
 
-#: ../main_window.rst:357
+#: ../main_window.rst:375
 msgid "Name and save your current dock arrangement as a new view."
 msgstr "Nimeä ja tallenna nykyinen telakka-asettelusi uutena näkymänä."
 
-#: ../main_window.rst:359
+#: ../main_window.rst:377
 msgid "**Typical workflow:**"
 msgstr "**Tyypillinen työnkulku:**"
 
-#: ../main_window.rst:361
+#: ../main_window.rst:379
 msgid "Arrange your docks exactly how you like them."
 msgstr "Järjestä telakkasi juuri haluamallasi tavalla."
 
-#: ../main_window.rst:362
+#: ../main_window.rst:380
 msgid ""
 "Open :guilabel:`View → My Views → Save Current View As...` and enter a name "
 "(e.g. *\"Audio Mix\"*)."
@@ -1811,7 +1873,7 @@ msgstr ""
 "Avaa :guilabel:`Näkymä → Omat näkymät → Tallenna nykyinen näkymä nimellä...`"
 " ja anna nimi (esim. *\"Äänimiksaus\"*)."
 
-#: ../main_window.rst:363
+#: ../main_window.rst:381
 msgid ""
 "Later, open :guilabel:`View → My Views` and click the view name to restore "
 "that layout instantly."
@@ -1819,7 +1881,7 @@ msgstr ""
 "Myöhemmin avaa :guilabel:`Näkymä → Omat näkymät` ja klikkaa näkymän nimeä "
 "palauttaaksesi asettelun välittömästi."
 
-#: ../main_window.rst:364
+#: ../main_window.rst:382
 msgid ""
 "If you adjust the layout and want to keep the changes, choose "
 ":guilabel:`Update \"Audio Mix\"` to overwrite it."
@@ -1828,11 +1890,11 @@ msgstr ""
 ":guilabel:`Päivitä \"Äänimiksaus\"` korvataksesi sen."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:367
+#: ../main_window.rst:385
 msgid "Docks"
 msgstr "Telakat"
 
-#: ../main_window.rst:368
+#: ../main_window.rst:386
 msgid ""
 "Each widget on the OpenShot main window is contained in a **dock**. These "
 "docks can be dragged and snapped around the main window, and even grouped "
@@ -1849,17 +1911,17 @@ msgstr ""
 "ryhmitelty :guilabel:`Näytä->Scope`-valikon alle."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:377
+#: ../main_window.rst:395
 msgid "Dock Name"
 msgstr "Telakan nimi"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:379
+#: ../main_window.rst:397
 msgid "Captions"
 msgstr "Tekstitykset"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:380
+#: ../main_window.rst:398
 msgid ""
 "Manage and add captions or subtitles to your video project. Allows you to "
 "create, edit, and manage caption data. See :ref:`caption_effect_ref` effect."
@@ -1869,12 +1931,12 @@ msgstr ""
 ":ref:`caption_effect_ref` -efekti."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:381
+#: ../main_window.rst:399
 msgid "Effects"
 msgstr "Efektit"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:382
+#: ../main_window.rst:400
 msgid ""
 "Browse and apply video and audio effects to your video clips. Includes "
 "filters, color adjustments, and special effects. See :ref:`effects_ref`."
@@ -1882,11 +1944,11 @@ msgstr ""
 "Selaa ja käytä video- ja ääni-efektejä videoleikkeisiisi. Sisältää "
 "suodattimia, värisäätöjä ja erikoisefektejä. Katso :ref:`effects_ref`."
 
-#: ../main_window.rst:383
+#: ../main_window.rst:401
 msgid "Color Wheels"
 msgstr "Väripyörät"
 
-#: ../main_window.rst:384
+#: ../main_window.rst:402
 msgid ""
 "Edit Color Grade wheel controls for global, shadows, midtones, and "
 "highlights from a dedicated right-side dock."
@@ -1895,12 +1957,12 @@ msgstr ""
 "ja korostuksille omasta oikeanpuoleisesta telakasta."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:385
+#: ../main_window.rst:403
 msgid "Emojis"
 msgstr "Emojit"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:386
+#: ../main_window.rst:404
 msgid ""
 "Add emoji graphics to your video project. Choose from a variety of emojis to"
 " enhance your video content."
@@ -1908,33 +1970,33 @@ msgstr ""
 "Lisää emojikuvia videoprojektiisi. Valitse monista emojeista parantaaksesi "
 "videosisältöäsi."
 
-#: ../main_window.rst:387
+#: ../main_window.rst:405
 msgid "Histogram"
 msgstr "Histogrammi"
 
-#: ../main_window.rst:388
+#: ../main_window.rst:406
 msgid ""
 "Analyze the tonal and channel distribution of the current preview frame."
 msgstr "Analysoi nykyisen esikatselukuvan sävy- ja kanavajakaumaa."
 
-#: ../main_window.rst:389
+#: ../main_window.rst:407
 msgid "Luma Waveform"
 msgstr "Luma-aaltomuoto"
 
-#: ../main_window.rst:390
+#: ../main_window.rst:408
 msgid "Analyze brightness distribution across the current preview frame."
 msgstr "Analysoi kirkkauden jakaumaa nykyisessä esikatselukuvassa."
 
-#: ../main_window.rst:391
+#: ../main_window.rst:409
 msgid "Audio Levels"
 msgstr "Äänitasot"
 
-#: ../main_window.rst:392
+#: ../main_window.rst:410
 msgid "Monitor audio level scope data for the current preview frame."
 msgstr "Valvo nykyisen esikatselukuvan äänitason scope-tietoja."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:394
+#: ../main_window.rst:412
 msgid ""
 "View and manage all the media files imported into your project. Organize, "
 "filter, and tag video, audio, and image files. See :ref:`files_ref`."
@@ -1943,7 +2005,7 @@ msgstr ""
 "suodata ja merkitse video-, ääni- ja kuvatiedostoja. Katso :ref:`files_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:396
+#: ../main_window.rst:414
 msgid ""
 "View and edit the properties of a selected effect, transition, or clip. "
 "Adjust settings such as duration, size, position, etc... See "
@@ -1953,11 +2015,11 @@ msgstr ""
 "Säädä asetuksia kuten kesto, koko, sijainti jne. Katso "
 ":ref:`clip_properties_ref`."
 
-#: ../main_window.rst:397
+#: ../main_window.rst:415
 msgid "Recording"
 msgstr "Tallennus"
 
-#: ../main_window.rst:398
+#: ../main_window.rst:416
 msgid ""
 "Record microphone audio, screen video, webcam video, or combined recordings."
 " See :ref:`recording_ref`."
@@ -1966,12 +2028,12 @@ msgstr ""
 "yhdistettyjä tallenteita. Katso :ref:`recording_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:399
+#: ../main_window.rst:417
 msgid "Transitions"
 msgstr "Siirtymät"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:400
+#: ../main_window.rst:418
 msgid ""
 "Browse and apply transitions between video clips. Choose from a variety of "
 "transition wipes to create smooth changes between scenes. See "
@@ -1982,12 +2044,12 @@ msgstr ""
 ":ref:`transitions_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:401
+#: ../main_window.rst:419
 msgid "Video Preview"
 msgstr "Videon esikatselu"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:402
+#: ../main_window.rst:420
 msgid ""
 "Preview the current state of your video project. Allows you to play back and"
 " review your edits in real-time. See :ref:`playback_ref`."
@@ -1995,7 +2057,7 @@ msgstr ""
 "Esikatsele videoprojektisi nykytilaa. Mahdollistaa muokkausten toiston ja "
 "tarkastelun reaaliajassa. Katso :ref:`playback_ref`."
 
-#: ../main_window.rst:404
+#: ../main_window.rst:422
 msgid ""
 "If you have accidentally closed or moved a dock and can no longer find it, "
 "there are a couple easy solutions. First, you can use the "
@@ -2010,6 +2072,26 @@ msgstr ""
 "näkymän oletukseensa. Tai voit käyttää :guilabel:`Näytä->Telakat->...` "
 "-valikkoa näyttääksesi tai piilottaaksesi tiettyjä telakkawidgettejä "
 "pääikkunassa."
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "Snapping toggles magnetic alignment. Timing Tool enables retiming by "
+#~ "dragging clip edges. Razor Tool cuts clips at the clicked position."
+#~ msgstr ""
+#~ "Kiinnitys kytkee magneettisen kohdistuksen päälle tai pois. Aikatyökalu "
+#~ "mahdollistaa uudelleenajastuksen vetämällä leikkeen reunoja. "
+#~ "Partaveitsityökalu leikkaa leikkeet napsautetusta kohdasta."
+
+#~ msgid ""
+#~ "Use :guilabel:`Help→About OpenShot` to check your OpenShot version. Click "
+#~ ":guilabel:`Copy` next to the version number to copy a short version and "
+#~ "system details report, which is the preferred way to share this information "
+#~ "when reporting a bug or asking for help."
+#~ msgstr ""
+#~ "Käytä :guilabel:`Ohje→Tietoja OpenShotista` tarkistaaksesi OpenShot-"
+#~ "versiosi. Klikkaa :guilabel:`Kopioi` versionumeron vieressä kopioidaksesi "
+#~ "lyhyen version ja järjestelmätiedot, mikä on suositeltu tapa jakaa tämä "
+#~ "tieto virheraporttia tehdessä tai apua pyytäessä."
 
 # Translated with gpt-4.1-mini
 #~ msgid ""

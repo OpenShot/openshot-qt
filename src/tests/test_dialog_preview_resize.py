@@ -6,7 +6,7 @@ import json
 import threading
 from unittest.mock import patch
 
-from qt_api import QRect, QSize
+from qt_api import QRect, QSize, QDialog, QObject, Signal
 from qt_api import QApplication
 import openshot
 
@@ -44,6 +44,7 @@ from windows.cutting import Cutting
 from windows.region import SelectRegion
 from windows.preview_thread import PlayerWorker
 from windows.video_widget import VideoWidget
+from classes.timeline import TimelineSync
 
 
 class DummySignal:
@@ -83,6 +84,86 @@ class DummyFraction:
 
 
 class DialogPreviewResizeTests(unittest.TestCase):
+    def test_standalone_preview_ignores_project_refresh(self):
+        # Cutting and SelectRegion replace VideoWidget.win with their dialog,
+        # but the widget still receives the main window's refresh signal.
+        class WindowSignals(QObject):
+            refreshFrameSignal = Signal()
+            PlaySignal = Signal()
+            PauseSignal = Signal()
+            SpeedSignal = Signal()
+            StopSignal = Signal()
+            TransformSignal = Signal(object)
+            KeyFrameTransformSignal = Signal(object)
+            SelectRegionSignal = Signal(object)
+
+        main_window = WindowSignals()
+        listeners = []
+        fake_app = types.SimpleNamespace(
+            _tr=lambda text: text, get_settings=lambda: DummySettings(),
+            updates=types.SimpleNamespace(add_listener=listeners.append), window=main_window,
+        )
+        errors = []
+        with patch("windows.video_widget.get_app", return_value=fake_app):
+            preview = VideoWidget(watch_project=False)
+            dialog = QDialog()
+            preview.win = dialog
+            try:
+                with patch.object(sys, "excepthook", side_effect=lambda *args: errors.append(args)):
+                    main_window.refreshFrameSignal.emit()
+                preview.refreshTriggered(refresh_project=False)
+                self.assertEqual(errors, [])
+                self.assertEqual(preview.transforming_clips, [])
+                self.assertIn(preview, listeners)
+            finally:
+                preview.deleteLater()
+                dialog.deleteLater()
+
+    def test_main_preview_aligns_after_dpi_and_aspect_fit(self):
+        for ratio in (1.0, 1.25, 1.5, 2.0):
+            with self.subTest(ratio=ratio):
+                timeline = openshot.Timeline(1920, 1080, openshot.Fraction(30, 1),
+                                             44100, 2, openshot.LAYOUT_STEREO)
+                clears = []
+                refreshes = []
+                window = types.SimpleNamespace(
+                    initialized=True,
+                    devicePixelRatioF=lambda: ratio,
+                    refreshFrameSignal=types.SimpleNamespace(emit=lambda: refreshes.append(True)),
+                )
+                fake = types.SimpleNamespace(window=window, timeline=timeline)
+                # Exercise the real libopenshot sizing while counting invalidations.
+                class TimelineProxy:
+                    def __getattr__(self, name):
+                        return getattr(timeline, name)
+
+                    def ClearAllCache(self, deep):
+                        clears.append(deep)
+
+                fake.timeline = TimelineProxy()
+                size = QSize(639, 353)
+                TimelineSync.MaxSizeChangedCB(fake, size)
+                self.assertEqual(timeline.preview_width % 4, 0)
+                self.assertEqual(timeline.preview_height % 4, 0)
+                self.assertLessEqual(timeline.preview_width, round(size.width() * ratio))
+                self.assertLessEqual(timeline.preview_height, round(size.height() * ratio))
+                self.assertEqual(clears, [True])
+                self.assertEqual(refreshes, [True])
+                TimelineSync.MaxSizeChangedCB(fake, size)
+                TimelineSync.MaxSizeChangedCB(fake, QSize(0, 0))
+                self.assertEqual(clears, [True])
+                self.assertEqual(refreshes, [True])
+
+    def test_widget_passes_bounds_without_premature_rounding(self):
+        sizes = []
+        fake = types.SimpleNamespace(
+            delayed_size=QSize(639, 353),
+            win=types.SimpleNamespace(MaxSizeChanged=types.SimpleNamespace(emit=sizes.append)),
+        )
+        with patch("windows.video_widget.QApplication.mouseButtons", return_value=0):
+            VideoWidget.delayed_resize_callback(fake)
+        self.assertEqual(sizes, [QSize(639, 353)])
+
     def test_cutting_preview_window_title_prefers_friendly_name(self):
         title = Cutting._preview_window_title(
             types.SimpleNamespace(data={"name": "My Friendly File", "path": os.path.join(TEST_MEDIA_ROOT, "raw-name.mp4")}),

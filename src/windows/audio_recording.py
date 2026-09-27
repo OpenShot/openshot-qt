@@ -845,7 +845,7 @@ class AudioRecordingDockContent(QWidget):
         self.system_audio_combo.addItem(_("On"), True)
         self.system_audio_combo.addItem(_("Off"), False)
         self.system_audio_combo.setCurrentIndex(self.system_audio_combo.findData(True))
-        self.system_audio_combo.setToolTip(_("Record sound playing through the system output in the screen recording."))
+        self.system_audio_combo.setToolTip(_("Record computer audio"))
 
         self.screen_display_edit = QComboBox(self.screen_section)
         self.screen_display_edit.setEditable(False)
@@ -871,7 +871,7 @@ class AudioRecordingDockContent(QWidget):
         self.hide_openshot_combo.addItem(_("Yes"), True)
         self.hide_openshot_combo.addItem(_("No"), False)
         self.hide_openshot_combo.setCurrentIndex(self.hide_openshot_combo.findData(False))
-        self.hide_openshot_combo.setToolTip(_("Temporarily hide OpenShot while selecting or recording a window or region."))
+        self.hide_openshot_combo.setToolTip(_("Hide OpenShot while recording"))
         self.video_fps_combo = QComboBox(self.screen_section)
         for fps in (15, 24, 30, 60):
             self.video_fps_combo.addItem(str(fps), fps)
@@ -982,11 +982,7 @@ class AudioRecordingDockContent(QWidget):
         target_row = QHBoxLayout()
         self.track_combo = QComboBox(self)
         self.track_combo.setSizeAdjustPolicy(QComboBox.AdjustToContents)
-        self.track_combo.setToolTip(_(
-            "Choose the top track for recorded clips.\n"
-            "Additional recording sources use tracks below it.\n"
-            "Select No Track to add recordings to Project Files only."
-        ))
+        self.track_combo.setToolTip(_("Choose the top recording track"))
         target_row.addWidget(self.track_combo, 1)
         self.preview_combo = QComboBox(self)
         self.preview_combo.addItem(_("Off"), "none")
@@ -995,10 +991,7 @@ class AudioRecordingDockContent(QWidget):
         self.preview_combo.addItem(_("Quarter"), "quarter")
         self.preview_combo.setCurrentIndex(self.preview_combo.findData("full"))
         self.preview_combo.setSizeAdjustPolicy(QComboBox.AdjustToContents)
-        self.preview_combo.setToolTip(_(
-            "Play the timeline while recording.\n"
-            "Lower resolutions can improve recording performance."
-        ))
+        self.preview_combo.setToolTip(_("Play timeline while recording"))
         self.preview_label = QLabel(_("Preview:"), self)
         target_row.addWidget(self.preview_label)
         target_row.addWidget(self.preview_combo)

@@ -156,12 +156,6 @@ class QueryTests(unittest.TestCase):
         # Don't keep the full query objects around
         del clips
 
-    @classmethod
-    def tearDownClass(cls):
-        """ Clean up after running all tests in the class. """
-        if getattr(cls, "_owns_app", False) and cls.app:
-            cls.app.quit()
-
     def test_add_clip(self):
 
         # Find number of clips in project

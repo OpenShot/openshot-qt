@@ -25,6 +25,7 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
+import copy
 import os
 import sys
 import unittest
@@ -49,6 +50,7 @@ from windows.color_grade_editor import (  # noqa: E402
     puck_display_color,
     wheel_snapshot,
     wheels_enabled_at_frame,
+    wheels_snapshot,
 )
 from windows.models.properties_model import PropertiesModel  # noqa: E402
 from qt_api import QColor  # noqa: E402
@@ -56,6 +58,38 @@ import openshot  # noqa: E402
 
 
 class ColorGradeEditorTests(unittest.TestCase):
+    def test_normalized_wheels_own_points_and_handles(self):
+        source = default_wheels_data()
+        point = source["global"]["color_keyframes"]["red"]["Points"][0]
+        point["handle_left"] = {"X": 0.25, "Y": 0.75}
+        original = copy.deepcopy(source)
+        result = normalize_wheels_data(source)
+        result_point = result["global"]["color_keyframes"]["red"]["Points"][0]
+        result_point["co"]["Y"] = 42
+        result_point["handle_left"]["X"] = 0.9
+        result["enabled_keyframes"]["Points"].clear()
+        self.assertEqual(source, original)
+
+    def test_keyframe_edit_does_not_mutate_input_handles(self):
+        source = {"Points": [{"co": {"X": 1, "Y": 0.5},
+                              "handle_right": {"X": 0.25, "Y": 0.75}}]}
+        original = copy.deepcopy(source)
+        result = _set_keyframe_value(source, 1, 0.8)
+        result["Points"][0]["handle_right"]["X"] = 0.9
+        self.assertEqual(source, original)
+
+    def test_wheels_snapshot_accepts_legacy_and_animated_data(self):
+        for source in ({}, {"enabled": False, "global": {"color": "#ff8800", "amount": 0.7}},
+                       {"global": {"amount_keyframes": {"Points": [
+                           {"co": {"X": 20, "Y": 1}, "interpolation": openshot.LINEAR},
+                           {"co": {"X": 1, "Y": 0}, "interpolation": openshot.LINEAR}]}}}):
+            original = copy.deepcopy(source)
+            normalized = normalize_wheels_data(source)
+            for frame in (1, 10, 20, 30):
+                self.assertEqual(wheels_snapshot(source, frame), wheels_snapshot(normalized, frame))
+                self.assertEqual(wheels_enabled_at_frame(source, frame), wheels_enabled_at_frame(normalized, frame))
+            self.assertEqual(source, original)
+
     def test_default_curve_data_uses_linear_nodes(self):
         curve = default_curve_data()
         self.assertEqual(len(curve["nodes"]), 2)

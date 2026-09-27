@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-09-26 14:26-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -292,8 +292,24 @@ msgstr ""
 " navegación y edición (ajuste, cambio de tiempo, cuchilla, marcadores, "
 "centrado y zoom)."
 
-# Translated with gpt-4.1-mini
 #: ../timeline.rst:103
+msgid ""
+"The :ref:`razor_tool_ref` shows a cut guide and timecode over the target "
+"clip. While paused, hovering also previews the cut frame without moving the "
+"playhead. Click to cut, or press :kbd:`Esc` to leave Razor mode. The Razor "
+"guide respects the existing **Snapping** toggle and uses the same snap "
+"targets and tolerance as other timeline edits."
+msgstr ""
+"La :ref:`razor_tool_ref` muestra una guía de corte y el código de tiempo "
+"sobre el clip objetivo. Mientras está en pausa, al pasar el cursor también "
+"se previsualiza el fotograma de corte sin mover el cabezal de reproducción. "
+"Haz clic para cortar, o presiona :kbd:`Esc` para salir del modo Razor. La "
+"guía Razor respeta el interruptor **Snapping** existente y utiliza los "
+"mismos objetivos de ajuste y tolerancia que otras ediciones de la línea de "
+"tiempo."
+
+# Translated with gpt-4.1-mini
+#: ../timeline.rst:109
 msgid ""
 "Tip: If timeline editing feels crowded, zoom in with the timeline slider to "
 "make small clip adjustments easier."
@@ -302,7 +318,7 @@ msgstr ""
 " zoom con el deslizador para facilitar ajustes pequeños en los clips."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:106
+#: ../timeline.rst:112
 msgid ""
 "You can also zoom the timeline with :kbd:`Ctrl+Scroll Wheel`. On the QWidget"
 " timeline, hold :kbd:`Ctrl` and drag with the middle mouse button for smooth"
@@ -313,33 +329,33 @@ msgstr ""
 ":kbd:`Ctrl` y arrastra con el botón central del ratón para un zoom suave."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:111
+#: ../timeline.rst:117
 msgid "Tracks, Locking, and Inserting"
 msgstr "Pistas, bloqueo e inserción"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:113
+#: ../timeline.rst:119
 msgid "Tracks help organize your edit. A common setup is:"
 msgstr "Las pistas ayudan a organizar tu edición. Una configuración común es:"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:115
+#: ../timeline.rst:121
 msgid "Top tracks: titles, overlays, logos, picture-in-picture"
 msgstr ""
 "Pistas superiores: títulos, superposiciones, logotipos, imagen en imagen"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:116
+#: ../timeline.rst:122
 msgid "Middle tracks: main video content"
 msgstr "Pistas medias: contenido principal de video"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:117
+#: ../timeline.rst:123
 msgid "Lower tracks: music and sound effects"
 msgstr "Pistas inferiores: música y efectos de sonido"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:119
+#: ../timeline.rst:125
 msgid ""
 "You can lock tracks to protect them from accidental edits and use "
 "insert/ripple editing when you need later clips to move automatically."
@@ -349,7 +365,7 @@ msgstr ""
 "muevan automáticamente."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:122
+#: ../timeline.rst:128
 msgid ""
 "For track layout basics, see :ref:`tracks_ref`. For detailed clip editing "
 "behavior, see :ref:`clips_cutting_slicing_ref`."
@@ -359,12 +375,12 @@ msgstr ""
 ":ref:`clips_cutting_slicing_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:126
+#: ../timeline.rst:132
 msgid "Keyframes in the Timeline"
 msgstr "Fotogramas clave en la línea de tiempo"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:128
+#: ../timeline.rst:134
 msgid ""
 "Keyframes let you change values over time, such as position, scale, "
 "rotation, opacity, and effect settings."
@@ -373,7 +389,7 @@ msgstr ""
 " posición, escala, rotación, opacidad y configuraciones de efectos."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:131
+#: ../timeline.rst:137
 msgid ""
 "In the timeline keyframe panel, each row represents one animated property. "
 "You can:"
@@ -382,27 +398,27 @@ msgstr ""
 "una propiedad animada. Puedes:"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:133
+#: ../timeline.rst:139
 msgid "Add a keyframe row for a property"
 msgstr "Agregar una fila de fotogramas clave para una propiedad"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:134
+#: ../timeline.rst:140
 msgid "Insert new keyframes along the row"
 msgstr "Insertar nuevos fotogramas clave a lo largo de la fila"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:135
+#: ../timeline.rst:141
 msgid "Move keyframes to change timing"
 msgstr "Mover fotogramas clave para cambiar la sincronización"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:136
+#: ../timeline.rst:142
 msgid "Change interpolation to control motion style"
 msgstr "Cambiar la interpolación para controlar el estilo de movimiento"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:138
+#: ../timeline.rst:144
 msgid ""
 "For keyframe concepts and animation examples, see :ref:`animation_ref`."
 msgstr ""
@@ -410,12 +426,12 @@ msgstr ""
 ":ref:`animation_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:141
+#: ../timeline.rst:147
 msgid "Next Steps"
 msgstr "Próximos pasos"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:143
+#: ../timeline.rst:149
 msgid ""
 "After you are comfortable with timeline basics, these sections are the best "
 "next reads:"
@@ -424,23 +440,23 @@ msgstr ""
 "estas secciones son las mejores lecturas siguientes:"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:145
+#: ../timeline.rst:151
 msgid ":ref:`clips_ref` for trimming, slicing, and clip properties"
 msgstr ":ref:`clips_ref` para recorte, corte y propiedades de clips"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:146
+#: ../timeline.rst:152
 msgid ":ref:`effects_ref` for video/audio effects"
 msgstr ":ref:`effects_ref` para efectos de video/audio"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:147
+#: ../timeline.rst:153
 msgid ":ref:`animation_ref` for keyframe animation workflows"
 msgstr ""
 ":ref:`animation_ref` para flujos de trabajo de animación con fotogramas "
 "clave"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:148
+#: ../timeline.rst:154
 msgid ":doc:`export` for creating your final video file"
 msgstr ":doc:`export` para crear tu archivo de video final"

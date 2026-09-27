@@ -1428,10 +1428,10 @@ msgstr ""
 msgid "Add Captions from Speech (``video-whisper-srt``)"
 msgstr "Добавить субтитры из речи (``video-whisper-srt``)"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../ai.rst:410
 msgid "Why: Transcribe speech into subtitle/caption files."
-msgstr "Зачем: Транскрибировать речь в файлы субтитров/подписей."
+msgstr "Зачем: Транскрибировать речь в файлы субтитров."
 
 # Translated with gpt-4.1-mini
 #: ../ai.rst:411

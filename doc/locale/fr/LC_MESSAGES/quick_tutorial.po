@@ -73,10 +73,10 @@ msgstr ""
 "Un **projet** inclut les références à tous les fichiers vidéo et montages "
 "(animations, titres, etc.), sauvegardés dans un seul fichier."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../quick_tutorial.rst:41
 msgid "Timeline"
-msgstr "Timeline"
+msgstr "Ligne de temps"
 
 # Translated with gpt-4.1-mini
 #: ../quick_tutorial.rst:41

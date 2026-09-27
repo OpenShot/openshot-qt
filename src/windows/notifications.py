@@ -26,18 +26,27 @@ def notification_icon(window, name, theme=None):
     return QIcon(os.path.join(info.PATH, "themes", path))
 
 
-def banner_colors(window, theme=None):
-    """Explicit contrast pairs for OpenShot's three themes, with a palette fallback."""
+def banner_colors(window, theme=None, kind="update"):
+    """Theme colors with a distinct, welcoming treatment for feedback."""
     name = getattr(theme, "name", "")
     background = window.palette().color(QPalette.Window)
     if name == "Retro" or (not name and background.lightness() >= 128):
-        return dict(backdrop="#ededed", surface="#ffffff", border="#c4cbd3", text="#805800",
-                    action="#155da6", close="#536579", hover="#e4edf6")
+        if kind == "feedback":
+            return dict(backdrop="#ededed", surface="#eef8f5", border="#a4d4c8",
+                        text="#17665a", action="#155da6", close="#536579", hover="#d9f0e9")
+        return dict(backdrop="#ededed", surface="#eef5fc", border="#b2c9e0", text="#155da6",
+                    action="#155da6", close="#536579", hover="#dcebf9")
     if name == "Cosmic Dusk" or (not name and background.blue() > background.red() + 10):
-        return dict(backdrop="#192332", surface="#141923", border="#303c4d", text="#fabe0a",
-                    action="#91c3ff", close="#91a5bc", hover="#283241")
-    return dict(backdrop="#303030", surface="#252525", border="#505050", text="#f5c451",
-                action="#9bc8ff", close="#b0b8c2", hover="#3d3d3d")
+        if kind == "feedback":
+            return dict(backdrop="#192332", surface="#172d32", border="#386761",
+                        text="#8cdbca", action="#a5d8f8", close="#a9bdc5", hover="#204149")
+        return dict(backdrop="#192332", surface="#17283a", border="#365574", text="#a7d0ff",
+                    action="#a7d0ff", close="#aebdcc", hover="#223d58")
+    if kind == "feedback":
+        return dict(backdrop="#303030", surface="#253632", border="#477669",
+                    text="#9cdec7", action="#afd8ff", close="#b9c6c3", hover="#304b42")
+    return dict(backdrop="#303030", surface="#26323f", border="#48637e", text="#acd3ff",
+                action="#acd3ff", close="#bdc9d5", hover="#34475c")
 
 
 class NotificationBanner(QFrame):
@@ -46,8 +55,11 @@ class NotificationBanner(QFrame):
         _ = translate
         self.setObjectName("notificationBanner")
         self.setAttribute(Qt.WA_StyledBackground, True)
+        self.setAttribute(Qt.WA_Hover, True)
+        self.setCursor(Qt.PointingHandCursor)
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
         self.setAccessibleName(message)
+        self._action = on_action
         self._dismiss = on_dismiss
         self.icon_name = icon_name
         layout = QHBoxLayout(self)
@@ -57,17 +69,21 @@ class NotificationBanner(QFrame):
         self.symbol.setObjectName("notificationSymbol")
         self.symbol.setAlignment(Qt.AlignCenter)
         self.symbol.setFixedSize(20, 20)
+        self.symbol.setAttribute(Qt.WA_TransparentForMouseEvents, True)
         layout.addWidget(self.symbol)
         self.message = QLabel(message, self)
         self.message.setObjectName("notificationMessage")
         self.message.setWordWrap(True)
+        self.message.setAttribute(Qt.WA_TransparentForMouseEvents, True)
         layout.addWidget(self.message, 1)
         self.primary = QPushButton(action_text, self)
         self.primary.setObjectName("notificationAction")
+        self.primary.setCursor(Qt.PointingHandCursor)
         self.primary.clicked.connect(on_action)
         layout.addWidget(self.primary)
         self.close_button = QPushButton("×", self)
         self.close_button.setObjectName("notificationClose")
+        self.close_button.setCursor(Qt.PointingHandCursor)
         self.close_button.setAccessibleName(_("Dismiss notification"))
         self.close_button.setToolTip(_("Dismiss notification"))
         self.close_button.setFixedWidth(28)
@@ -87,6 +103,7 @@ class NotificationBanner(QFrame):
             QFrame#notificationBanner {
                 background: %(surface)s; border: 1px solid %(border)s; border-radius: 6px;
             }
+            QFrame#notificationBanner:hover { background: %(hover)s; }
             QFrame#notificationBanner QLabel {
                 background: transparent; color: %(text)s; border: none; font-weight: 600;
             }
@@ -96,11 +113,24 @@ class NotificationBanner(QFrame):
             }
             QFrame#notificationBanner QPushButton#notificationClose { color: %(close)s; padding: 4px; }
             QFrame#notificationBanner QPushButton:hover,
-            QFrame#notificationBanner QPushButton:focus { background: %(hover)s; }
+            QFrame#notificationBanner QPushButton:focus { background: %(hover)s; text-decoration: underline; }
         """ % colors)
 
     def show_error(self, message):
         self.message.setText(message)
+
+    def mousePressEvent(self, event):
+        if event.button() == Qt.LeftButton:
+            event.accept()
+        else:
+            super().mousePressEvent(event)
+
+    def mouseReleaseEvent(self, event):
+        if event.button() == Qt.LeftButton and self.rect().contains(event.pos()):
+            self._action()
+            event.accept()
+        else:
+            super().mouseReleaseEvent(event)
 
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_Escape:
@@ -174,7 +204,7 @@ class NotificationArea(QObject):
             self.container.setStyleSheet(
                 "QWidget#notificationContainer { background: %s; }" % colors["backdrop"])
         for banner in self.banners.values():
-            banner.apply_colors(colors, theme)
+            banner.apply_colors(banner_colors(self.window, theme, banner.icon_name), theme)
 
     def sync_visibility(self):
         if self.toolbar:

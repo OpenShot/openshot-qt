@@ -65,11 +65,6 @@ class AddToTimelineTests(unittest.TestCase):
         import windows.add_to_timeline as add_to_timeline_module
         cls.add_to_timeline_module = add_to_timeline_module
 
-    @classmethod
-    def tearDownClass(cls):
-        if getattr(cls, "_owns_app", False) and cls.app:
-            cls.app.quit()
-
     def test_select_added_items_uses_timeline_selection_api_and_clears_file_selection(self):
         add_selection_js = Recorder()
         set_focus = Recorder()

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-09-26 14:26-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -261,15 +261,26 @@ msgid ""
 "(snapping, retime, razor, markers, centering, and zoom)."
 msgstr "時間軸工具列協助常用的導航與編輯操作（吸附、重新定時、剃刀、標記、置中與縮放）。"
 
-# Translated with gpt-4.1-mini
 #: ../timeline.rst:103
+msgid ""
+"The :ref:`razor_tool_ref` shows a cut guide and timecode over the target "
+"clip. While paused, hovering also previews the cut frame without moving the "
+"playhead. Click to cut, or press :kbd:`Esc` to leave Razor mode. The Razor "
+"guide respects the existing **Snapping** toggle and uses the same snap "
+"targets and tolerance as other timeline edits."
+msgstr ""
+":ref:`razor_tool_ref` 會在目標剪輯上顯示切割導引和時間碼。暫停時，將滑鼠懸停還會預覽切割畫面而不會移動播放頭。點擊以切割，或按 "
+":kbd:`Esc` 離開 Razor 模式。Razor 導引會遵循現有的 **Snapping** 切換，並使用與其他時間軸編輯相同的吸附目標和容差。"
+
+# Translated with gpt-4.1-mini
+#: ../timeline.rst:109
 msgid ""
 "Tip: If timeline editing feels crowded, zoom in with the timeline slider to "
 "make small clip adjustments easier."
 msgstr "提示：如果時間軸編輯感覺擁擠，請使用時間軸滑桿放大，讓小幅剪輯調整更容易。"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:106
+#: ../timeline.rst:112
 msgid ""
 "You can also zoom the timeline with :kbd:`Ctrl+Scroll Wheel`. On the QWidget"
 " timeline, hold :kbd:`Ctrl` and drag with the middle mouse button for smooth"
@@ -278,39 +289,39 @@ msgstr ""
 "您也可以使用 :kbd:`Ctrl+滾輪` 來縮放時間軸。在 QWidget 時間軸上，按住 :kbd:`Ctrl` 並用中鍵拖曳以進行平滑縮放。"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:111
+#: ../timeline.rst:117
 msgid "Tracks, Locking, and Inserting"
 msgstr "軌道、鎖定與插入"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:113
+#: ../timeline.rst:119
 msgid "Tracks help organize your edit. A common setup is:"
 msgstr "軌道有助於組織您的編輯。常見配置如下："
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:115
+#: ../timeline.rst:121
 msgid "Top tracks: titles, overlays, logos, picture-in-picture"
 msgstr "上方軌道：標題、覆蓋、標誌、畫中畫"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:116
+#: ../timeline.rst:122
 msgid "Middle tracks: main video content"
 msgstr "中間軌道：主要影片內容"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:117
+#: ../timeline.rst:123
 msgid "Lower tracks: music and sound effects"
 msgstr "下方軌道：音樂與音效"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:119
+#: ../timeline.rst:125
 msgid ""
 "You can lock tracks to protect them from accidental edits and use "
 "insert/ripple editing when you need later clips to move automatically."
 msgstr "您可以鎖定軌道以防止意外編輯，並在需要後方剪輯自動移動時使用插入/波紋編輯。"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:122
+#: ../timeline.rst:128
 msgid ""
 "For track layout basics, see :ref:`tracks_ref`. For detailed clip editing "
 "behavior, see :ref:`clips_cutting_slicing_ref`."
@@ -318,78 +329,78 @@ msgstr ""
 "軌道佈局基礎請參閱 :ref:`tracks_ref`。詳細剪輯編輯行為請參閱 :ref:`clips_cutting_slicing_ref`。"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:126
+#: ../timeline.rst:132
 msgid "Keyframes in the Timeline"
 msgstr "時間軸中的關鍵影格"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:128
+#: ../timeline.rst:134
 msgid ""
 "Keyframes let you change values over time, such as position, scale, "
 "rotation, opacity, and effect settings."
 msgstr "關鍵影格讓您隨時間改變數值，如位置、縮放、旋轉、不透明度及效果設定。"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:131
+#: ../timeline.rst:137
 msgid ""
 "In the timeline keyframe panel, each row represents one animated property. "
 "You can:"
 msgstr "在時間軸關鍵影格面板中，每列代表一個動畫屬性。您可以："
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:133
+#: ../timeline.rst:139
 msgid "Add a keyframe row for a property"
 msgstr "為屬性新增關鍵影格列"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:134
+#: ../timeline.rst:140
 msgid "Insert new keyframes along the row"
 msgstr "在該列插入新的關鍵影格"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:135
+#: ../timeline.rst:141
 msgid "Move keyframes to change timing"
 msgstr "移動關鍵影格以改變時間安排"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:136
+#: ../timeline.rst:142
 msgid "Change interpolation to control motion style"
 msgstr "更改插值以控制運動風格"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:138
+#: ../timeline.rst:144
 msgid ""
 "For keyframe concepts and animation examples, see :ref:`animation_ref`."
 msgstr "關於關鍵影格概念與動畫範例，請參閱 :ref:`animation_ref`。"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:141
+#: ../timeline.rst:147
 msgid "Next Steps"
 msgstr "下一步"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:143
+#: ../timeline.rst:149
 msgid ""
 "After you are comfortable with timeline basics, these sections are the best "
 "next reads:"
 msgstr "熟悉時間軸基礎後，以下章節是最佳後續閱讀："
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:145
+#: ../timeline.rst:151
 msgid ":ref:`clips_ref` for trimming, slicing, and clip properties"
 msgstr ":ref:`clips_ref` 介紹修剪、切割及剪輯屬性"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:146
+#: ../timeline.rst:152
 msgid ":ref:`effects_ref` for video/audio effects"
 msgstr ":ref:`effects_ref` 介紹影片/音訊效果"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:147
+#: ../timeline.rst:153
 msgid ":ref:`animation_ref` for keyframe animation workflows"
 msgstr ":ref:`animation_ref` 介紹關鍵影格動畫工作流程"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:148
+#: ../timeline.rst:154
 msgid ":doc:`export` for creating your final video file"
 msgstr ":doc:`export` 用於建立您的最終影片檔案"

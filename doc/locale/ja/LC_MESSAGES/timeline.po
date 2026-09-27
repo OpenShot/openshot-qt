@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-09-26 14:26-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -266,15 +266,28 @@ msgid ""
 "(snapping, retime, razor, markers, centering, and zoom)."
 msgstr "タイムラインツールバーは一般的なナビゲーションと編集操作（スナップ、リタイム、レイザー、マーカー、センタリング、ズーム）を支援します。"
 
-# Translated with gpt-4.1-mini
 #: ../timeline.rst:103
+msgid ""
+"The :ref:`razor_tool_ref` shows a cut guide and timecode over the target "
+"clip. While paused, hovering also previews the cut frame without moving the "
+"playhead. Click to cut, or press :kbd:`Esc` to leave Razor mode. The Razor "
+"guide respects the existing **Snapping** toggle and uses the same snap "
+"targets and tolerance as other timeline edits."
+msgstr ""
+":ref:`razor_tool_ref` "
+"は、対象クリップ上にカットガイドとタイムコードを表示します。再生を一時停止している間にホバーすると、プレイヘッドを動かさずにカットフレームのプレビューも表示されます。クリックしてカットするか、:kbd:`Esc`"
+" キーを押してRazorモードを終了します。Razorガイドは既存の **スナッピング** "
+"トグルを尊重し、他のタイムライン編集と同じスナップターゲットと許容範囲を使用します。"
+
+# Translated with gpt-4.1-mini
+#: ../timeline.rst:109
 msgid ""
 "Tip: If timeline editing feels crowded, zoom in with the timeline slider to "
 "make small clip adjustments easier."
 msgstr "ヒント：タイムライン編集が窮屈に感じたら、タイムラインスライダーでズームインして小さなクリップ調整をしやすくしましょう。"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:106
+#: ../timeline.rst:112
 msgid ""
 "You can also zoom the timeline with :kbd:`Ctrl+Scroll Wheel`. On the QWidget"
 " timeline, hold :kbd:`Ctrl` and drag with the middle mouse button for smooth"
@@ -284,39 +297,39 @@ msgstr ""
 "を押しながら中ボタンをドラッグするとスムーズにズームできます。"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:111
+#: ../timeline.rst:117
 msgid "Tracks, Locking, and Inserting"
 msgstr "トラック、ロック、挿入"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:113
+#: ../timeline.rst:119
 msgid "Tracks help organize your edit. A common setup is:"
 msgstr "トラックは編集の整理に役立ちます。一般的な設定は："
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:115
+#: ../timeline.rst:121
 msgid "Top tracks: titles, overlays, logos, picture-in-picture"
 msgstr "上部トラック：タイトル、オーバーレイ、ロゴ、ピクチャーインピクチャー"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:116
+#: ../timeline.rst:122
 msgid "Middle tracks: main video content"
 msgstr "中間トラック：メインのビデオコンテンツ"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:117
+#: ../timeline.rst:123
 msgid "Lower tracks: music and sound effects"
 msgstr "下部トラック：音楽と効果音"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:119
+#: ../timeline.rst:125
 msgid ""
 "You can lock tracks to protect them from accidental edits and use "
 "insert/ripple editing when you need later clips to move automatically."
 msgstr "トラックをロックして誤編集から保護したり、後のクリップを自動的に移動させたいときに挿入／リップル編集を使えます。"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:122
+#: ../timeline.rst:128
 msgid ""
 "For track layout basics, see :ref:`tracks_ref`. For detailed clip editing "
 "behavior, see :ref:`clips_cutting_slicing_ref`."
@@ -325,78 +338,78 @@ msgstr ""
 ":ref:`clips_cutting_slicing_ref` を参照してください。"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:126
+#: ../timeline.rst:132
 msgid "Keyframes in the Timeline"
 msgstr "タイムラインのキーフレーム"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:128
+#: ../timeline.rst:134
 msgid ""
 "Keyframes let you change values over time, such as position, scale, "
 "rotation, opacity, and effect settings."
 msgstr "キーフレームは位置、スケール、回転、不透明度、エフェクト設定などの値を時間経過で変化させることができます。"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:131
+#: ../timeline.rst:137
 msgid ""
 "In the timeline keyframe panel, each row represents one animated property. "
 "You can:"
 msgstr "タイムラインのキーフレームパネルでは、各行が1つのアニメーションプロパティを表します。以下が可能です："
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:133
+#: ../timeline.rst:139
 msgid "Add a keyframe row for a property"
 msgstr "プロパティのキーフレーム行を追加する"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:134
+#: ../timeline.rst:140
 msgid "Insert new keyframes along the row"
 msgstr "行に沿って新しいキーフレームを挿入する"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:135
+#: ../timeline.rst:141
 msgid "Move keyframes to change timing"
 msgstr "キーフレームを移動してタイミングを変更する"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:136
+#: ../timeline.rst:142
 msgid "Change interpolation to control motion style"
 msgstr "補間を変更して動きのスタイルを制御する"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:138
+#: ../timeline.rst:144
 msgid ""
 "For keyframe concepts and animation examples, see :ref:`animation_ref`."
 msgstr "キーフレームの概念とアニメーション例は :ref:`animation_ref` を参照してください。"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:141
+#: ../timeline.rst:147
 msgid "Next Steps"
 msgstr "次のステップ"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:143
+#: ../timeline.rst:149
 msgid ""
 "After you are comfortable with timeline basics, these sections are the best "
 "next reads:"
 msgstr "タイムラインの基本に慣れたら、次に読むべきセクションは以下です："
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:145
+#: ../timeline.rst:151
 msgid ":ref:`clips_ref` for trimming, slicing, and clip properties"
 msgstr "トリミング、スライス、クリップのプロパティについては :ref:`clips_ref`"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:146
+#: ../timeline.rst:152
 msgid ":ref:`effects_ref` for video/audio effects"
 msgstr "ビデオ／オーディオエフェクトについては :ref:`effects_ref`"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:147
+#: ../timeline.rst:153
 msgid ":ref:`animation_ref` for keyframe animation workflows"
 msgstr "キーフレームアニメーションのワークフローについては :ref:`animation_ref`"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:148
+#: ../timeline.rst:154
 msgid ":doc:`export` for creating your final video file"
 msgstr "最終ビデオファイルを作成するための :doc:`export`"

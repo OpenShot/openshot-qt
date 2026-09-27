@@ -40,7 +40,7 @@ class CosmicTheme(BaseTheme):
         super().__init__(app)
 
         self.style_sheet = """
-QToolTip {
+QToolTip, QLabel#razorHint {
     color: #f4f7ff;
     font-size: 12px;
     font-weight: normal;
@@ -225,9 +225,13 @@ QMenu::indicator {
     height: 12px;
 }
 
-QMenu::item:selected {
+QMenu::item:selected:enabled {
     background-color: #192332;
     color: #ffffff;
+}
+
+QMenu::item:disabled {
+    color: #69788c;
 }
 
 QMenu::separator {
@@ -979,6 +983,7 @@ QMessageBox QPushButton[dialogRole="destructive"] {{
 
     def togglePlayIcon(self, isPlay):
         """ Toggle the play icon from play to pause and back """
+        self._update_play_action_text(isPlay)
         button = self.app.window.videoToolbar.widgetForAction(self.app.window.actionPlay)
         if button:
             icon_name = "tool-media-pause.svg" if isPlay else "tool-media-play.svg"

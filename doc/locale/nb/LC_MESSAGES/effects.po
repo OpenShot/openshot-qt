@@ -237,15 +237,16 @@ msgstr ""
 "forhåndsvisningsrektangelet for å flytte det berørte området, endre "
 "størrelsen på håndtakene eller tegne et nytt rektangel inne i klippet."
 
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:89
 msgid ""
 "The same preview rectangle can be used to position Caption text. Select a "
 "Caption effect, then move or resize the white rectangle in the video preview"
 " to adjust the Caption margins."
 msgstr ""
-"Det samme forhåndsvisningsrektangelet kan brukes til å plassere bildetekst. "
-"Velg en bildeteksteffekt, og flytt eller endre størrelsen på det hvite "
-"rektangelet i videoforhåndsvisningen for å justere bildetekstens marger."
+"Det samme forhåndsvisningsrektangelet kan brukes til å plassere undertekst. "
+"Velg en underteksteffekt, og flytt eller endre størrelsen på det hvite "
+"rektangelet i videoforhåndsvisningen for å justere undertekstens marger."
 
 # Translated with gpt-4.1-mini
 #: ../effects.rst:92
@@ -440,10 +441,10 @@ msgstr "|caption_icon|"
 msgid "Caption Icon"
 msgstr "Tekstboksikon"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:290 ../effects.rst:674
 msgid "Caption"
-msgstr "Tekstboks"
+msgstr "Undertekst"
 
 # Translated with gpt-4.1-mini
 #: ../effects.rst:290
@@ -2587,6 +2588,7 @@ msgstr ""
 "skrive med en gang. Oppdateringer av tekst vises i forhåndsvisning mens du "
 "skriver."
 
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:686
 msgid ""
 "To set a caption's end time from the playhead, remove the existing end "
@@ -2595,7 +2597,7 @@ msgid ""
 "timestamp line, and press the plus icon again. OpenShot inserts the current "
 "playhead timestamp as the cue's end time."
 msgstr ""
-"For å sette en bildeteksts sluttid fra avspillingshodet, fjern den "
+"For å sette en underteksts sluttid fra avspillingshodet, fjern den "
 "eksisterende slutt-tidsstempelet fra cue-linjen, slik at start-tidsstempelet"
 " og pilen blir igjen. Flytt avspillingshodet til ønsket sluttid, plasser "
 "tekstmarkøren på den ufullstendige tidsstemplinjen, og trykk på plussikonet "

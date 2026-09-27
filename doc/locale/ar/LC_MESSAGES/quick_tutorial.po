@@ -70,10 +70,10 @@ msgstr ""
 "يحتوي **المشروع** على مراجع لجميع ملفات الفيديو والتعديلات (الرسوم المتحركة، "
 "العناوين، إلخ...)، محفوظة في ملف واحد."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../quick_tutorial.rst:41
 msgid "Timeline"
-msgstr "الجدول الزمني"
+msgstr "شريط الوقت"
 
 # Translated with gpt-4.1-mini
 #: ../quick_tutorial.rst:41
@@ -113,10 +113,10 @@ msgstr ""
 "جزء **مقتطع** من الفيديو أو الصوت أو كلاهما موضوع على مسار، وفي موقع زمني "
 "محدد. عند إسقاط الملفات على الجدول الزمني، يتم تمثيلها كمقطع."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../quick_tutorial.rst:44
 msgid "Transition"
-msgstr "الانتقال"
+msgstr "انتقال"
 
 # Translated with gpt-4.1-mini
 #: ../quick_tutorial.rst:44

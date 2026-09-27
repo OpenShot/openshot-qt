@@ -246,16 +246,17 @@ msgstr ""
 "d'aperçu pour déplacer la zone affectée, redimensionner ses poignées ou "
 "dessiner un nouveau rectangle à l'intérieur du clip."
 
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:89
 msgid ""
 "The same preview rectangle can be used to position Caption text. Select a "
 "Caption effect, then move or resize the white rectangle in the video preview"
 " to adjust the Caption margins."
 msgstr ""
-"Le même rectangle d'aperçu peut être utilisé pour positionner le texte de la"
-" légende. Sélectionnez un effet de légende, puis déplacez ou redimensionnez "
-"le rectangle blanc dans l'aperçu vidéo pour ajuster les marges de la "
-"légende."
+"Le même rectangle d'aperçu peut être utilisé pour positionner le texte du "
+"sous-titre. Sélectionnez un effet de sous-titre, puis déplacez ou "
+"redimensionnez le rectangle blanc dans l'aperçu vidéo pour ajuster les "
+"marges du sous-titre."
 
 # Translated with gpt-4.1-mini
 #: ../effects.rst:92
@@ -447,20 +448,20 @@ msgstr "Modifiez la luminosité et le contraste de l'image."
 msgid "|caption_icon|"
 msgstr "|caption_icon|"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:133
 msgid "Caption Icon"
-msgstr "Icône Légende"
+msgstr "Icône de sous-titre"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:290 ../effects.rst:674
 msgid "Caption"
-msgstr "Légende"
+msgstr "Sous-titre"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:290
 msgid "Add text captions to any clip."
-msgstr "Ajoutez des légendes textuelles à n'importe quel clip."
+msgstr "Ajoutez des sous-titres à n'importe quel clip."
 
 # Translated with gpt-4.1-mini
 #: ../effects.rst:291
@@ -2652,6 +2653,7 @@ msgstr ""
 "commencer à taper immédiatement. Les mises à jour du texte des sous-titres "
 "sont prévisualisées pendant que vous tapez."
 
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:686
 msgid ""
 "To set a caption's end time from the playhead, remove the existing end "
@@ -2660,7 +2662,7 @@ msgid ""
 "timestamp line, and press the plus icon again. OpenShot inserts the current "
 "playhead timestamp as the cue's end time."
 msgstr ""
-"Pour définir l'heure de fin d'une légende à partir de la tête de lecture, "
+"Pour définir l'heure de fin d'un sous-titre à partir de la tête de lecture, "
 "supprimez le timestamp de fin existant de la ligne de repère, en laissant le"
 " timestamp de début et la flèche. Déplacez la tête de lecture à l'heure de "
 "fin souhaitée, placez le curseur de texte sur cette ligne de timestamp "

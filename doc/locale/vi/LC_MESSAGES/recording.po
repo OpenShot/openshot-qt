@@ -17,9 +17,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+# Main-window terminology review, 2026-09-26.
 #: ../recording.rst:23
 msgid "Recording"
-msgstr "Ghi âm"
+msgstr "Ghi âm và ghi hình"
 
 #: ../recording.rst:25
 msgid ""
@@ -35,13 +36,14 @@ msgstr ""
 " dòng thời gian độc lập, giúp dễ dàng điều chỉnh âm lượng micro, cắt webcam "
 "hoặc chỉnh sửa bản ghi màn hình riêng biệt."
 
+# Main-window terminology review, 2026-09-26.
 #: ../recording.rst:29
 msgid ""
 "Open the dedicated layout with :guilabel:`View → Recording View`, or show "
 "only the dock with :guilabel:`View → Docks → Recording`."
 msgstr ""
 "Mở bố cục chuyên dụng với :guilabel:`Xem → Giao diện Ghi âm`, hoặc chỉ hiển "
-"thị dock với :guilabel:`Xem → Dock → Ghi âm`."
+"thị dock với :guilabel:`Xem → Dock → Ghi âm và ghi hình`."
 
 #: ../recording.rst:-1
 msgid "OpenShot Recording View with the microphone source selected by default"

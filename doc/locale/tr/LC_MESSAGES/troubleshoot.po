@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-16 18:08-0500\n"
+"POT-Creation-Date: 2026-09-26 14:26-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,56 +34,515 @@ msgstr ""
 "OpenShot ile donma, çökme veya hata mesajı gibi bir sorun yaşıyorsanız, "
 "sorunu gidermek için kullanışlı olabilecek birçok farklı teknik vardır."
 
+#: ../troubleshoot.rst:31
+msgid "Using Logs to Troubleshoot a Problem"
+msgstr "Bir Sorunu Gidermek İçin Kayıtları Kullanma"
+
+#: ../troubleshoot.rst:33
+msgid ""
+"A log is a text file that records what OpenShot is doing, along with "
+"warnings and errors. These files can help the support team understand a "
+"problem, even when you do not see an error message on screen."
+msgstr ""
+"Kayıt, OpenShot'un ne yaptığını, uyarılar ve hatalarla birlikte kaydeden bir"
+" metin dosyasıdır. Bu dosyalar, ekranda hata mesajı görmeseniz bile destek "
+"ekibinin bir sorunu anlamasına yardımcı olabilir."
+
+#: ../troubleshoot.rst:37
+msgid ""
+"OpenShot keeps two log files in the ``.openshot_qt`` folder inside your home"
+" folder. On Linux and macOS, this location is written as "
+"``~/.openshot_qt/``. The folder may be hidden in your file manager."
+msgstr ""
+"OpenShot, ev klasörünüzün içindeki ``.openshot_qt`` klasöründe iki kayıt "
+"dosyası tutar. Linux ve macOS'ta bu konum ``~/.openshot_qt/`` olarak "
+"yazılır. Klasör dosya yöneticinizde gizli olabilir."
+
+#: ../troubleshoot.rst:41
+msgid "The two log files"
+msgstr "İki kayıt dosyası"
+
+#: ../troubleshoot.rst:45
+msgid "File"
+msgstr "Dosya"
+
+#: ../troubleshoot.rst:46
+msgid "What it records"
+msgstr "Kaydettiği şey"
+
+#: ../troubleshoot.rst:47 ../troubleshoot.rst:74
+msgid "``openshot-qt.log``"
+msgstr "``openshot-qt.log``"
+
+#: ../troubleshoot.rst:48
+msgid ""
+"Activity in the editor: starting OpenShot, loading projects, changing "
+"settings, and using the interface. This is usually the best place to start "
+"when investigating a problem."
+msgstr ""
+"Editördeki etkinlikler: OpenShot'u başlatma, projeleri yükleme, ayarları "
+"değiştirme ve arayüzü kullanma. Bir sorunu araştırırken genellikle başlamak "
+"için en iyi yerdir."
+
+#: ../troubleshoot.rst:51 ../troubleshoot.rst:77
+msgid "``libopenshot.log``"
+msgstr "``libopenshot.log``"
+
+#: ../troubleshoot.rst:52
+msgid ""
+"Activity in OpenShot's video and audio engine, the part that reads media and"
+" builds the pictures and sound used in previews and exported videos. "
+"Detailed engine logging can help investigate playback and export problems."
+msgstr ""
+"OpenShot'un video ve ses motorundaki etkinlikler; medya okuyan ve "
+"önizlemelerde ve dışa aktarılan videolarda kullanılan görüntü ve sesi "
+"oluşturan kısım. Ayrıntılı motor kaydı, oynatma ve dışa aktarma sorunlarını "
+"araştırmaya yardımcı olabilir."
+
+#: ../troubleshoot.rst:56
+msgid ""
+"These files record different parts of the same application. When reporting a"
+" problem, include both files if available. You do not need to understand "
+"every line yourself."
+msgstr ""
+"Bu dosyalar aynı uygulamanın farklı bölümlerini kaydeder. Bir sorun "
+"bildirirken, her iki dosyayı da mümkünse ekleyin. Her satırı kendiniz "
+"anlamanız gerekmez."
+
+#: ../troubleshoot.rst:61
+msgid "Choose which part of OpenShot to log"
+msgstr "OpenShot'un hangi bölümünü kaydedeceğinizi seçin"
+
+#: ../troubleshoot.rst:63
+msgid "Open **Edit → Preferences → Advanced** to find these two settings:"
+msgstr ""
+"**Düzenle → Tercihler → Gelişmiş** menüsünü açarak bu iki ayarı bulun:"
+
+#: ../troubleshoot.rst:65
+msgid "Preferences and matching terminal options"
+msgstr "Tercihler ve eşleşen terminal seçenekleri"
+
+#: ../troubleshoot.rst:69
+msgid "Preference"
+msgstr "Tercih"
+
+#: ../troubleshoot.rst:70
+msgid "Matching argument"
+msgstr "Eşleşen argüman"
+
+#: ../troubleshoot.rst:71
+msgid "Log file"
+msgstr "Kayıt dosyası"
+
+#: ../troubleshoot.rst:72
+msgid "User Interface Debug Logging"
+msgstr "Kullanıcı Arayüzü Hata Ayıklama Kaydı"
+
+#: ../troubleshoot.rst:73
+msgid "``--debug-ui``"
+msgstr "``--debug-ui``"
+
+#: ../troubleshoot.rst:75
+msgid "Video & Audio Engine Debug Logging"
+msgstr "Video ve Ses Motoru Hata Ayıklama Kaydı"
+
+#: ../troubleshoot.rst:76 ../troubleshoot.rst:142
+msgid "``--debug-engine``"
+msgstr "``--debug-engine``"
+
+#: ../troubleshoot.rst:79
+msgid ""
+"Both preferences are off by default, which keeps the normal summary "
+"messages. Turning one on adds detail to its log file immediately. It does "
+"not change the other log or add messages to the terminal. Preferences stay "
+"enabled between launches until you turn them off."
+msgstr ""
+"Her iki tercih varsayılan olarak kapalıdır, bu da normal özet mesajların "
+"kalmasını sağlar. Birini açmak, hemen ilgili kayıt dosyasına ayrıntı ekler. "
+"Diğer kaydı değiştirmez veya terminale mesaj eklemez. Tercihler, kapatana "
+"kadar oturumlar arasında etkin kalır."
+
+#: ../troubleshoot.rst:84
+msgid ""
+"**User Interface Debug Logging** is a good starting point for problems with "
+"startup, project loading, settings, or the interface. **Video & Audio Engine"
+" Debug Logging** adds details about video and audio processing, which can "
+"help investigate playback and export problems. Engine logs can grow very "
+"quickly and may slow OpenShot down. Turn this setting on shortly before "
+"repeating the problem, then turn it off afterward."
+msgstr ""
+"**Kullanıcı Arayüzü Hata Ayıklama Kaydı**, başlatma, proje yükleme, ayarlar "
+"veya arayüzle ilgili sorunlar için iyi bir başlangıç noktasıdır. **Video ve "
+"Ses Motoru Hata Ayıklama Kaydı**, video ve ses işleme hakkında ayrıntılar "
+"ekler; bu, oynatma ve dışa aktarma sorunlarını araştırmaya yardımcı "
+"olabilir. Motor kayıtları çok hızlı büyüyebilir ve OpenShot'u "
+"yavaşlatabilir. Sorunu tekrarlamadan hemen önce bu ayarı açın, sonra "
+"kapatın."
+
+#: ../troubleshoot.rst:91
+msgid ""
+"The engine preference was previously called **Debug Mode (Verbose)**. Its "
+"saved on/off setting carries over to the new name."
+msgstr ""
+"Motor tercihi önceden **Hata Ayıklama Modu (Ayrıntılı)** olarak "
+"adlandırılıyordu. Kaydedilen açık/kapalı ayar yeni isme aktarılır."
+
+#: ../troubleshoot.rst:95
+msgid "Use a terminal for one launch"
+msgstr "Bir başlatma için terminal kullanın"
+
+#: ../troubleshoot.rst:97
+msgid ""
+"A terminal is a window where you type commands. The matching arguments "
+"enable the same extra detail as the preferences, and also display it in the "
+"terminal:"
+msgstr ""
+"Terminal, komutların yazıldığı bir penceredir. Eşleşen argümanlar, "
+"tercihlerle aynı ekstra ayrıntıyı etkinleştirir ve ayrıca terminalde "
+"gösterir:"
+
+#: ../troubleshoot.rst:104
+msgid ""
+"This records interface details for one launch. The familiar ``--debug`` and "
+"shorter ``-d`` options mean exactly the same thing as ``--debug-ui``. For "
+"video and audio engine details, use:"
+msgstr ""
+"Bu, bir başlatma için arayüz ayrıntılarını kaydeder. Tanıdık ``--debug`` ve "
+"daha kısa ``-d`` seçenekleri ``--debug-ui`` ile tamamen aynıdır. Video ve "
+"ses motoru ayrıntıları için şunu kullanın:"
+
+#: ../troubleshoot.rst:112
+msgid "To collect both types of detail together:"
+msgstr "Her iki tür ayrıntıyı birlikte toplamak için:"
+
+#: ../troubleshoot.rst:118
+msgid ""
+"Repeat the steps that cause the problem, then close OpenShot and collect the"
+" logs. These arguments do not change your saved preferences. Starting "
+"OpenShot normally returns to your usual logging settings."
+msgstr ""
+"Soruna neden olan adımları tekrarlayın, sonra OpenShot'u kapatın ve "
+"kayıtları toplayın. Bu argümanlar kaydedilmiş tercihlerinizi değiştirmez. "
+"OpenShot'u normal şekilde başlatmak, alışık olduğunuz kayıt ayarlarına "
+"döner."
+
+#: ../troubleshoot.rst:122
+msgid ""
+"``openshot-qt.log`` starts a new file when it reaches about 25 MB and keeps "
+"three older copies. ``libopenshot.log`` keeps growing as messages are added."
+" After saving any logs you need, you can remove old log files while OpenShot"
+" is closed."
+msgstr ""
+"``openshot-qt.log`` yaklaşık 25 MB'a ulaştığında yeni bir dosya başlatır ve "
+"üç eski kopyayı tutar. ``libopenshot.log`` mesajlar eklendikçe büyümeye "
+"devam eder. İhtiyacınız olan kayıtları kaydettikten sonra, OpenShot "
+"kapalıyken eski kayıt dosyalarını silebilirsiniz."
+
+#: ../troubleshoot.rst:128
+msgid "Other command-line options"
+msgstr "Diğer komut satırı seçenekleri"
+
+#: ../troubleshoot.rst:130
+msgid ""
+"Most users only need the two controls above. The following options let you "
+"choose how much detail goes into the files or appears in the terminal. Here,"
+" *console* means the terminal output."
+msgstr ""
+"Çoğu kullanıcı sadece yukarıdaki iki kontrolü kullanır. Aşağıdaki "
+"seçenekler, dosyalara veya terminalde ne kadar ayrıntı gireceğini seçmenizi "
+"sağlar. Burada, *console* terminal çıktısını ifade eder."
+
+#: ../troubleshoot.rst:134
+msgid "Logging options"
+msgstr "Kayıt seçenekleri"
+
+#: ../troubleshoot.rst:138
+msgid "Option"
+msgstr "Seçenek"
+
+#: ../troubleshoot.rst:139
+msgid "What it does"
+msgstr "Ne yapar"
+
+#: ../troubleshoot.rst:140
+msgid "``--debug-ui``, ``--debug``, or ``-d``"
+msgstr "``--debug-ui``, ``--debug`` veya ``-d``"
+
+#: ../troubleshoot.rst:141
+msgid "Enables User Interface Debug Logging in its file and the terminal."
+msgstr ""
+"Kullanıcı Arayüzü Hata Ayıklama Kaydını dosyada ve terminalde etkinleştirir."
+
+#: ../troubleshoot.rst:143
+msgid ""
+"Enables Video & Audio Engine Debug Logging in its file and the terminal."
+msgstr ""
+"Video ve Ses Motoru Hata Ayıklama Kaydını dosyada ve terminalde "
+"etkinleştirir."
+
+#: ../troubleshoot.rst:144
+msgid "``--debug-file``"
+msgstr "``--debug-file``"
+
+#: ../troubleshoot.rst:145
+msgid ""
+"Adds editor details to ``openshot-qt.log`` without adding terminal detail."
+msgstr ""
+"Terminal ayrıntısı eklemeden ``openshot-qt.log`` dosyasına editör "
+"ayrıntıları ekler."
+
+#: ../troubleshoot.rst:146
+msgid "``--debug-console``"
+msgstr "``--debug-console``"
+
+#: ../troubleshoot.rst:147
+msgid "Adds editor details in the terminal without adding file detail."
+msgstr "Dosya ayrıntısı eklemeden terminalde editör ayrıntıları gösterir."
+
+#: ../troubleshoot.rst:148
+msgid "``--log-level LEVEL``"
+msgstr "``--log-level LEVEL``"
+
+#: ../troubleshoot.rst:149
+msgid "Sets the detail for both logs and their terminal output."
+msgstr "Her iki kayıt ve terminal çıktısı için ayrıntı seviyesini ayarlar."
+
+#: ../troubleshoot.rst:150
+msgid "``--log-file-level LEVEL``"
+msgstr "``--log-file-level LEVEL``"
+
+#: ../troubleshoot.rst:151
+msgid "Sets the detail for both log files, leaving terminal settings alone."
+msgstr ""
+"Terminal ayarlarını değiştirmeden her iki kayıt dosyası için ayrıntı "
+"seviyesini ayarlar."
+
+#: ../troubleshoot.rst:152
+msgid "``--log-console-level LEVEL``"
+msgstr "``--log-console-level LEVEL``"
+
+#: ../troubleshoot.rst:153
+msgid ""
+"Sets the detail in the terminal for both the editor and engine, leaving file"
+" settings alone."
+msgstr ""
+"Dosya ayarlarını değiştirmeden, hem editör hem de motor için terminaldeki "
+"ayrıntı seviyesini ayarlar."
+
+#: ../troubleshoot.rst:156
+msgid ""
+"Replace ``LEVEL`` with ``debug`` for detailed messages or ``info`` for the "
+"normal summary. ``warning`` shows warnings and errors; ``error`` shows "
+"errors and critical failures; ``critical`` shows only critical failures. "
+"``off`` stops ordinary log messages, but existing crash diagnostics may "
+"still be written. Uppercase names such as ``DEBUG`` work too."
+msgstr ""
+"Ayrıntılı mesajlar için ``LEVEL`` yerine ``debug``, normal özet için "
+"``info`` kullanın. ``warning`` uyarıları ve hataları gösterir; ``error`` "
+"hataları ve kritik hataları gösterir; ``critical`` sadece kritik hataları "
+"gösterir. ``off`` normal günlük mesajlarını durdurur, ancak mevcut çökme "
+"tanıları hala yazılabilir. ``DEBUG`` gibi büyük harfli isimler de "
+"geçerlidir."
+
+#: ../troubleshoot.rst:162
+msgid ""
+"For example, to collect detailed messages in **both files** while keeping "
+"the terminal at its usual level:"
+msgstr ""
+"Örneğin, terminali normal seviyede tutarken **her iki dosyada** ayrıntılı "
+"mesajları toplamak için:"
+
+#: ../troubleshoot.rst:169
+msgid ""
+"This also enables the large engine log, so use it briefly. The older "
+"``--debug-file`` and ``--debug-console`` options still work even though they"
+" are not listed in ``--help``."
+msgstr ""
+"Bu aynı zamanda büyük motor günlüğünü etkinleştirir, bu yüzden kısa süreli "
+"kullanın. Eski ``--debug-file`` ve ``--debug-console`` seçenekleri, "
+"``--help`` içinde listelenmemiş olsalar da hala çalışır."
+
+#: ../troubleshoot.rst:174
+msgid "Environment variables"
+msgstr "Ortam değişkenleri"
+
+#: ../troubleshoot.rst:176
+msgid ""
+"An environment variable is a named setting passed to a program when it "
+"starts. These are useful when starting OpenShot from a script or when a "
+"support person asks you to try a particular setting. You do not need to set "
+"them for normal use."
+msgstr ""
+"Ortam değişkeni, bir program başlatılırken ona geçirilen isimlendirilmiş bir"
+" ayardır. Bunlar, OpenShot'u bir betikten başlatırken veya destek personeli "
+"belirli bir ayarı denemenizi istediğinde faydalıdır. Normal kullanım için "
+"bunları ayarlamanıza gerek yoktur."
+
+#: ../troubleshoot.rst:180
+msgid "Optional environment settings"
+msgstr "İsteğe bağlı ortam ayarları"
+
+#: ../troubleshoot.rst:184
+msgid "Variable"
+msgstr "Değişken"
+
+#: ../troubleshoot.rst:185
+msgid "What it controls"
+msgstr "Ne kontrol eder"
+
+#: ../troubleshoot.rst:186
+msgid "``OPENSHOT_LOG_LEVEL``"
+msgstr "``OPENSHOT_LOG_LEVEL``"
+
+#: ../troubleshoot.rst:187
+msgid "Detail in both files and the terminal."
+msgstr "Hem dosyalarda hem de terminalde ayrıntı."
+
+#: ../troubleshoot.rst:188
+msgid "``OPENSHOT_LOG_FILE_LEVEL``"
+msgstr "``OPENSHOT_LOG_FILE_LEVEL``"
+
+#: ../troubleshoot.rst:189
+msgid "Detail in both files only."
+msgstr "Sadece her iki dosyada ayrıntı."
+
+#: ../troubleshoot.rst:190
+msgid "``OPENSHOT_LOG_CONSOLE_LEVEL``"
+msgstr "``OPENSHOT_LOG_CONSOLE_LEVEL``"
+
+#: ../troubleshoot.rst:191
+msgid "Detail in the terminal only, for both parts of OpenShot."
+msgstr "Sadece terminalde ayrıntı, OpenShot'un her iki parçası için."
+
+#: ../troubleshoot.rst:192
+msgid "``LIBOPENSHOT_LOG_LEVEL``"
+msgstr "``LIBOPENSHOT_LOG_LEVEL``"
+
+#: ../troubleshoot.rst:193
+msgid "Detail for the video and audio engine, in its file and the terminal."
+msgstr "Video ve ses motoru için, dosyasında ve terminalde ayrıntı."
+
+#: ../troubleshoot.rst:194
+msgid "``LIBOPENSHOT_LOG_FILE_LEVEL``"
+msgstr "``LIBOPENSHOT_LOG_FILE_LEVEL``"
+
+#: ../troubleshoot.rst:195
+msgid "Detail in ``libopenshot.log`` only."
+msgstr "Sadece ``libopenshot.log`` dosyasında ayrıntı."
+
+#: ../troubleshoot.rst:196
+msgid "``LIBOPENSHOT_LOG_CONSOLE_LEVEL``"
+msgstr "``LIBOPENSHOT_LOG_CONSOLE_LEVEL``"
+
+#: ../troubleshoot.rst:197
+msgid "Engine detail in the terminal only."
+msgstr "Motor ayrıntısı sadece terminalde."
+
+#: ../troubleshoot.rst:199
+msgid ""
+"For example, this Linux/macOS terminal command requests detailed engine "
+"logging in its file for one launch:"
+msgstr ""
+"Örneğin, bu Linux/macOS terminal komutu, motorun dosyasında ayrıntılı günlük"
+" kaydını tek bir başlatma için ister:"
+
+#: ../troubleshoot.rst:206
+msgid ""
+"If settings overlap, command-line options take priority, followed by "
+"environment variables, then Preferences, then the normal defaults. Each "
+"control only affects the output it describes: ``--debug`` does not override "
+"the engine preference. Temporary overrides do not change your saved "
+"preferences. Hover over either checkbox to see whether another setting is "
+"controlling that log file."
+msgstr ""
+"Ayarlar çakışırsa, öncelik komut satırı seçeneklerindedir, ardından ortam "
+"değişkenleri, sonra Tercihler ve en son normal varsayılanlar gelir. Her "
+"kontrol yalnızca tanımladığı çıktıyı etkiler: ``--debug`` motor tercihini "
+"geçersiz kılmaz. Geçici geçersiz kılmalar kaydedilmiş tercihlerinizi "
+"değiştirmez. Günlük dosyasını başka bir ayarın kontrol edip etmediğini "
+"görmek için herhangi bir onay kutusunun üzerine gelin."
+
+#: ../troubleshoot.rst:212
+msgid ""
+"Within the environment settings, ``LIBOPENSHOT_`` values take priority over "
+"``OPENSHOT_`` values for the engine. Within either group, a file-only or "
+"console-only level takes priority over the general level. Command-line "
+"options follow the same file/console rule. Conflicting command-line levels "
+"for the same output are rejected; invalid environment levels are reported "
+"and ignored."
+msgstr ""
+"Ortam ayarları içinde, motor için ``LIBOPENSHOT_`` değerleri ``OPENSHOT_`` "
+"değerlerine göre önceliklidir. Her iki grupta da, sadece dosya veya sadece "
+"konsol seviyesi genel seviyeye göre önceliklidir. Komut satırı seçenekleri "
+"aynı dosya/konsol kuralını izler. Aynı çıktı için çelişen komut satırı "
+"seviyeleri reddedilir; geçersiz ortam seviyeleri bildirilir ve yok sayılır."
+
+#: ../troubleshoot.rst:218
+msgid ""
+"For older scripts, ``LIBOPENSHOT_DEBUG`` still enables detailed engine "
+"messages in the terminal whenever it is present, even if its value is ``0``."
+" The newer level settings take priority over it. ``LIBOPENSHOT_LOG_FILE`` is"
+" intended for programs using the engine separately; OpenShot itself uses the"
+" log folder above. Changing logging settings does not change your error-"
+"reporting preference."
+msgstr ""
+"Eski betikler için, ``LIBOPENSHOT_DEBUG`` mevcut olduğu sürece, değeri ``0``"
+" olsa bile terminalde ayrıntılı motor mesajlarını etkinleştirir. Yeni seviye"
+" ayarları bunun önceliğine sahiptir. ``LIBOPENSHOT_LOG_FILE``, motoru ayrı "
+"kullanan programlar içindir; OpenShot kendisi yukarıdaki günlük klasörünü "
+"kullanır. Günlük ayarlarını değiştirmek hata raporlama tercihinizi "
+"değiştirmez."
+
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:29
+#: ../troubleshoot.rst:225
 msgid "Windows 11 Unresponsive"
 msgstr "Windows 11 Yanıt Vermiyor"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:31
+#: ../troubleshoot.rst:227
 msgid ""
 "If you experience a freeze on Windows 11, this is a known issue with PyQt5 "
 "and Windows 11, related to the accessibility features in Qt. This is "
 "triggered by pressing :kbd:`Ctrl+C` in OpenShot (*only on Windows 11*). "
 "OpenShot will become unresponsive and a memory leak is also present (i.e. "
-"the longer OpenShot is unresponsive, the larger your memory leak will become "
-"until OpenShot finally crashes or the user kills the process)."
+"the longer OpenShot is unresponsive, the larger your memory leak will become"
+" until OpenShot finally crashes or the user kills the process)."
 msgstr ""
 "Windows 11'de donma yaşarsanız, bu Qt'deki erişilebilirlik özellikleriyle "
-"ilgili PyQt5 ve Windows 11'in bilinen bir sorunudur. Bu, OpenShot'ta :kbd:"
-"`Ctrl+C` tuşlarına basılmasıyla tetiklenir (*sadece Windows 11'de*). "
+"ilgili PyQt5 ve Windows 11'in bilinen bir sorunudur. Bu, OpenShot'ta "
+":kbd:`Ctrl+C` tuşlarına basılmasıyla tetiklenir (*sadece Windows 11'de*). "
 "OpenShot yanıt vermez hale gelir ve bir bellek sızıntısı da oluşur (yani "
 "OpenShot ne kadar uzun yanıt vermezse, bellek sızıntınız o kadar büyür ve "
 "sonunda OpenShot çöker veya kullanıcı işlemi sonlandırır)."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:36
+#: ../troubleshoot.rst:232
 msgid ""
 "A simple work-around is to avoid :kbd:`Ctrl+C` on Windows 11, and instead "
 "use the right-click Copy/Paste menus. Another work-around is to remap your "
-"\"Copy\" from :kbd:`Ctrl+C` to something else, for example :kbd:`Alt+C`. You "
-"can change your keyboard mappings in the OpenShot Preferences. See :ref:"
-"`preferences_keyboard_ref`."
+"\"Copy\" from :kbd:`Ctrl+C` to something else, for example :kbd:`Alt+C`. You"
+" can change your keyboard mappings in the OpenShot Preferences. See "
+":ref:`preferences_keyboard_ref`."
 msgstr ""
 "Basit bir çözüm, Windows 11'de :kbd:`Ctrl+C` kullanmaktan kaçınmak ve bunun "
 "yerine sağ tıklama ile Kopyala/Yapıştır menülerini kullanmaktır. Başka bir "
-"çözüm ise \"Kopyala\" işlevini :kbd:`Ctrl+C`'den başka bir tuşa, örneğin :"
-"kbd:`Alt+C`'ye yeniden atamaktır. Klavye kısayollarınızı OpenShot "
+"çözüm ise \"Kopyala\" işlevini :kbd:`Ctrl+C`'den başka bir tuşa, örneğin "
+":kbd:`Alt+C`'ye yeniden atamaktır. Klavye kısayollarınızı OpenShot "
 "Tercihleri'nden değiştirebilirsiniz. Bkz: :ref:`preferences_keyboard_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:41
+#: ../troubleshoot.rst:237
 msgid "Windows Debugging with GDB"
 msgstr "Windows'ta GDB ile Hata Ayıklama"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:43
+#: ../troubleshoot.rst:239
 msgid ""
 "If you are experiencing a crash or freeze with OpenShot in Windows 10/11, "
-"the following step by step instructions will help you determine the cause of "
-"the crash. These instructions will display a stack trace of OpenShot's "
-"source code, at the location of the crash. This information can be extremely "
-"useful for our development team, and very useful to attach to bug reports "
+"the following step by step instructions will help you determine the cause of"
+" the crash. These instructions will display a stack trace of OpenShot's "
+"source code, at the location of the crash. This information can be extremely"
+" useful for our development team, and very useful to attach to bug reports "
 "(for a quicker resolution)."
 msgstr ""
 "Windows 10/11'de OpenShot ile çökme veya donma yaşıyorsanız, aşağıdaki adım "
@@ -93,12 +552,12 @@ msgstr ""
 "hata raporlarına eklenmesi (daha hızlı çözüm için) çok yararlıdır."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:49
+#: ../troubleshoot.rst:245
 msgid "Install the Latest Daily Build"
 msgstr "En Son Günlük Sürümü Yükleyin"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:51
+#: ../troubleshoot.rst:247
 msgid ""
 "Before attaching a debugger, please download the **latest version** of "
 "OpenShot: https://www.openshot.org/download#daily. Install this version of "
@@ -115,16 +574,16 @@ msgstr ""
 "Debugging-with-GDB>`_'ye bakın."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:56
+#: ../troubleshoot.rst:252
 msgid "Install MSYS2"
 msgstr "MSYS2'yi Yükleyin"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:58
+#: ../troubleshoot.rst:254
 msgid ""
 "The Windows version of OpenShot is compiled using an environment called "
-"MSYS2. In order to attach the GDB debugger to our executable, ``openshot-qt."
-"exe``, you must first install MSYS2. This step is only required once."
+"MSYS2. In order to attach the GDB debugger to our executable, ``openshot-"
+"qt.exe``, you must first install MSYS2. This step is only required once."
 msgstr ""
 "OpenShot'un Windows sürümü, MSYS2 adlı bir ortam kullanılarak derlenmiştir. "
 "GDB hata ayıklayıcısını çalıştırılabilir dosyamıza, ``openshot-qt.exe``'ye "
@@ -132,67 +591,67 @@ msgstr ""
 "gereklidir."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:61
+#: ../troubleshoot.rst:257
 msgid "Download & Install MSYS2: `<http://www.msys2.org/>`_"
 msgstr "MSYS2'yi İndir ve Yükle: `<http://www.msys2.org/>`_"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:62 ../troubleshoot.rst:78
+#: ../troubleshoot.rst:258 ../troubleshoot.rst:274
 msgid ""
-"Run ``MSYS2 MinGW x64`` command prompt (for example: ``C:"
-"\\msys64\\msys2_shell.cmd -mingw64``)"
+"Run ``MSYS2 MinGW x64`` command prompt (for example: "
+"``C:\\msys64\\msys2_shell.cmd -mingw64``)"
 msgstr ""
-"``MSYS2 MinGW x64`` komut istemcisini çalıştırın (örneğin: ``C:"
-"\\msys64\\msys2_shell.cmd -mingw64``)"
+"``MSYS2 MinGW x64`` komut istemcisini çalıştırın (örneğin: "
+"``C:\\msys64\\msys2_shell.cmd -mingw64``)"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:63
+#: ../troubleshoot.rst:259
 msgid "Update all packages (*Copy/Paste the following command*):"
 msgstr "Tüm paketleri güncelleyin (*Aşağıdaki komutu kopyalayıp yapıştırın*):"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:69
+#: ../troubleshoot.rst:265
 msgid "Install GDB debugger (*Copy/Paste the following command*):"
 msgstr ""
 "GDB hata ayıklayıcısını yükleyin (*Aşağıdaki komutu kopyalayıp yapıştırın*):"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:76
+#: ../troubleshoot.rst:272
 msgid "Launch OpenShot with GDB Debugger"
 msgstr "OpenShot'u GDB Hata Ayıklayıcı ile Başlatın"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:80
+#: ../troubleshoot.rst:276
 msgid "Update the PATH (*Copy/Paste the following commands*):"
 msgstr "PATH'i güncelleyin (*Aşağıdaki komutları kopyalayıp yapıştırın*):"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:87
+#: ../troubleshoot.rst:283
 msgid ""
 "Load OpenShot into the GDB debugger (*Copy/Paste the following commands*):"
 msgstr ""
-"OpenShot'u GDB hata ayıklayıcısına yükleyin (*Aşağıdaki komutları kopyalayıp "
-"yapıştırın*):"
+"OpenShot'u GDB hata ayıklayıcısına yükleyin (*Aşağıdaki komutları kopyalayıp"
+" yapıştırın*):"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:94
+#: ../troubleshoot.rst:290
 msgid "Launch OpenShot from GDB prompt (*Copy/Paste the following command*):"
 msgstr ""
 "OpenShot'u GDB istemcisinden başlatın (*Aşağıdaki komutu kopyalayıp "
 "yapıştırın*):"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:101
+#: ../troubleshoot.rst:297
 msgid "Print Debugging Info"
 msgstr "Hata Ayıklama Bilgilerini Yazdır"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:103
+#: ../troubleshoot.rst:299
 msgid ""
 "Once OpenShot has launched successfully with GDB attached, all you need to "
 "do is trigger a crash or freeze in OpenShot. When a crash occurs, switch "
-"back to the MSYS2 MinGW64 terminal and run one of the following commands (by "
-"typing it and pressing ENTER). Usually, the first command to enter is "
+"back to the MSYS2 MinGW64 terminal and run one of the following commands (by"
+" typing it and pressing ENTER). Usually, the first command to enter is "
 "``bt``, which stands for ``backtrace``. More commands are listed below."
 msgstr ""
 "OpenShot GDB ile başarıyla başlatıldıktan sonra yapmanız gereken tek şey "
@@ -203,12 +662,12 @@ msgstr ""
 "listelenmiştir."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:117
+#: ../troubleshoot.rst:313
 msgid "High DPI / 4K Monitors"
 msgstr "Yüksek DPI / 4K Monitörler"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:119
+#: ../troubleshoot.rst:315
 msgid ""
 "OpenShot Video Editor provides robust support for High DPI (Dots Per Inch) "
 "monitors, ensuring that the interface looks sharp and is easily readable on "
@@ -221,73 +680,73 @@ msgstr ""
 "yüksek çözünürlüklü ekranlarda faydalıdır."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:125
+#: ../troubleshoot.rst:321
 msgid "Per Monitor DPI Awareness"
 msgstr "Monitör Başına DPI Farkındalığı"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:127
+#: ../troubleshoot.rst:323
 msgid ""
 "OpenShot is DPI aware on a per-monitor basis, meaning it can adjust its "
-"scaling dynamically depending on the DPI settings of each connected monitor. "
-"This helps provide a consistent experience across different displays."
+"scaling dynamically depending on the DPI settings of each connected monitor."
+" This helps provide a consistent experience across different displays."
 msgstr ""
 "OpenShot, monitör başına DPI farkındalığına sahiptir; yani bağlı her "
 "monitörün DPI ayarlarına göre ölçeklendirmesini dinamik olarak "
 "ayarlayabilir. Bu, farklı ekranlarda tutarlı bir deneyim sağlar."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:132
+#: ../troubleshoot.rst:328
 msgid "DPI Scaling on Windows"
 msgstr "Windows'ta DPI Ölçeklendirmesi"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:134
+#: ../troubleshoot.rst:330
 msgid ""
-"On Windows, OpenShot rounds the scaling factor to the nearest whole value to "
-"maintain visual integrity. This helps avoid visual artifacts in the UI and "
+"On Windows, OpenShot rounds the scaling factor to the nearest whole value to"
+" maintain visual integrity. This helps avoid visual artifacts in the UI and "
 "keeps interface elements crisp and well-aligned. Due to this rounding, some "
 "scaling options can lead to larger fonts and UI elements than expected."
 msgstr ""
 "Windows'ta OpenShot, görsel bütünlüğü korumak için ölçeklendirme faktörünü "
 "en yakın tam sayıya yuvarlar. Bu, kullanıcı arayüzündeki görsel bozulmaları "
-"önlemeye ve arayüz öğelerinin net ve düzgün hizalanmasını sağlamaya yardımcı "
-"olur. Bu yuvarlama nedeniyle, bazı ölçeklendirme seçenekleri beklenenden "
+"önlemeye ve arayüz öğelerinin net ve düzgün hizalanmasını sağlamaya yardımcı"
+" olur. Bu yuvarlama nedeniyle, bazı ölçeklendirme seçenekleri beklenenden "
 "daha büyük yazı tipleri ve arayüz öğelerine yol açabilir."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:139
+#: ../troubleshoot.rst:335
 msgid "**125% scaling** rounds to **100%**"
 msgstr "**%125 ölçeklendirme** **%100** olarak yuvarlanır"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:140
+#: ../troubleshoot.rst:336
 msgid "**150% scaling** rounds to **200%**"
 msgstr "**%150 ölçeklendirme** **%200** olarak yuvarlanır"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:143
+#: ../troubleshoot.rst:339
 msgid "Workarounds for Fine-Grained Adjustment"
 msgstr "İnce Ayar İçin Çözümler"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:145
+#: ../troubleshoot.rst:341
 msgid ""
 "While rounding helps maintain a clean interface, there are workarounds for "
-"users who require more precise control over scaling. These methods are **not "
-"recommended** due to potential visual artifacts:"
+"users who require more precise control over scaling. These methods are **not"
+" recommended** due to potential visual artifacts:"
 msgstr ""
 "Yuvarlama, temiz bir arayüzün korunmasına yardımcı olurken, ölçeklendirme "
 "üzerinde daha hassas kontrol isteyen kullanıcılar için çözümler vardır. Bu "
 "yöntemler, olası görsel bozulmalar nedeniyle **önerilmez**:"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:149
+#: ../troubleshoot.rst:345
 msgid "**QT_SCALE_FACTOR_ROUNDING_POLICY=PassThrough**"
 msgstr "**QT_SCALE_FACTOR_ROUNDING_POLICY=PassThrough**"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:151
+#: ../troubleshoot.rst:347
 msgid ""
 "Setting this environment variable can disable rounding and allow more "
 "precise scaling."
@@ -296,21 +755,21 @@ msgstr ""
 "daha hassas ölçeklendirmeye izin verebilir."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:152
+#: ../troubleshoot.rst:348
 msgid ""
-"**Note:** This may cause visual artifacts, particularly in the timeline, and "
-"is not recommended."
+"**Note:** This may cause visual artifacts, particularly in the timeline, and"
+" is not recommended."
 msgstr ""
 "**Not:** Bu, özellikle zaman çizelgesinde görsel bozulmalara neden olabilir "
 "ve önerilmez."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:154
+#: ../troubleshoot.rst:350
 msgid "**QT_SCALE_FACTOR=1.25** (or similar value)"
 msgstr "**QT_SCALE_FACTOR=1.25** (veya benzer bir değer)"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:156
+#: ../troubleshoot.rst:352
 msgid ""
 "Manually setting the scale factor can provide finer adjustments to the font "
 "and UI scaling."
@@ -319,7 +778,7 @@ msgstr ""
 "ölçeklendirmesinde daha ince ayarlar yapmayı sağlar."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:157
+#: ../troubleshoot.rst:353
 msgid ""
 "This can also be set via Preferences (User Interface Scale), but expect "
 "border/line issues on Windows with fractional scales."
@@ -328,7 +787,7 @@ msgstr ""
 "Windows'ta kesirli ölçeklerde kenar/çizgi sorunları beklenmelidir."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:158
+#: ../troubleshoot.rst:354
 msgid ""
 "**Note:** This method can also lead to visual artifacts and make OpenShot "
 "harder to use."
@@ -337,10 +796,10 @@ msgstr ""
 "kullanımını zorlaştırabilir."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:160
+#: ../troubleshoot.rst:356
 msgid ""
-"For more info on adjusting these environment variables, please visit https://"
-"github.com/OpenShot/openshot-qt/wiki/OpenShot-UI-too-large."
+"For more info on adjusting these environment variables, please visit "
+"https://github.com/OpenShot/openshot-qt/wiki/OpenShot-UI-too-large."
 msgstr ""
 "Bu ortam değişkenlerini ayarlama hakkında daha fazla bilgi için lütfen "
 "https://github.com/OpenShot/openshot-qt/wiki/OpenShot-UI-too-large adresini "

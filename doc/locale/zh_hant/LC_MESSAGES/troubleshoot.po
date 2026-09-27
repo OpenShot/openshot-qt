@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-16 18:08-0500\n"
+"POT-Creation-Date: 2026-09-26 14:26-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: zh_hant\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.10.3\n"
 
@@ -30,70 +30,458 @@ msgid ""
 "If you are experiencing an issue with OpenShot, such as a freeze, crash, or "
 "error message, there are many different techniques which can be useful for "
 "troubleshooting the issue."
+msgstr "如果您在使用 OpenShot 時遇到凍結、當機或錯誤訊息等問題，有許多不同的方法可以協助您排除故障。"
+
+#: ../troubleshoot.rst:31
+msgid "Using Logs to Troubleshoot a Problem"
+msgstr "使用日誌來排解問題"
+
+#: ../troubleshoot.rst:33
+msgid ""
+"A log is a text file that records what OpenShot is doing, along with "
+"warnings and errors. These files can help the support team understand a "
+"problem, even when you do not see an error message on screen."
+msgstr "日誌是一種文字檔，記錄 OpenShot 的操作內容，以及警告和錯誤。這些檔案可以幫助支援團隊了解問題，即使您沒有在螢幕上看到錯誤訊息。"
+
+#: ../troubleshoot.rst:37
+msgid ""
+"OpenShot keeps two log files in the ``.openshot_qt`` folder inside your home"
+" folder. On Linux and macOS, this location is written as "
+"``~/.openshot_qt/``. The folder may be hidden in your file manager."
 msgstr ""
-"如果您在使用 OpenShot 時遇到凍結、當機或錯誤訊息等問題，有許多不同的方法可以"
-"協助您排除故障。"
+"OpenShot 會在您的主目錄內的 ``.openshot_qt`` 資料夾中保留兩個日誌檔。在 Linux 和 macOS 上，此位置表示為 "
+"``~/.openshot_qt/``。該資料夾可能在您的檔案管理器中是隱藏的。"
+
+#: ../troubleshoot.rst:41
+msgid "The two log files"
+msgstr "這兩個日誌檔"
+
+#: ../troubleshoot.rst:45
+msgid "File"
+msgstr "檔案"
+
+#: ../troubleshoot.rst:46
+msgid "What it records"
+msgstr "記錄內容"
+
+#: ../troubleshoot.rst:47 ../troubleshoot.rst:74
+msgid "``openshot-qt.log``"
+msgstr "``openshot-qt.log``"
+
+#: ../troubleshoot.rst:48
+msgid ""
+"Activity in the editor: starting OpenShot, loading projects, changing "
+"settings, and using the interface. This is usually the best place to start "
+"when investigating a problem."
+msgstr "編輯器中的活動：啟動 OpenShot、載入專案、變更設定及使用介面。這通常是調查問題時最好的起點。"
+
+#: ../troubleshoot.rst:51 ../troubleshoot.rst:77
+msgid "``libopenshot.log``"
+msgstr "``libopenshot.log``"
+
+#: ../troubleshoot.rst:52
+msgid ""
+"Activity in OpenShot's video and audio engine, the part that reads media and"
+" builds the pictures and sound used in previews and exported videos. "
+"Detailed engine logging can help investigate playback and export problems."
+msgstr "OpenShot 影片與音訊引擎中的活動，該部分負責讀取媒體並建立用於預覽和匯出影片的影像與聲音。詳細的引擎日誌有助於調查播放和匯出問題。"
+
+#: ../troubleshoot.rst:56
+msgid ""
+"These files record different parts of the same application. When reporting a"
+" problem, include both files if available. You do not need to understand "
+"every line yourself."
+msgstr "這些檔案記錄同一應用程式的不同部分。報告問題時，若有可能請一併提供兩個檔案。您不需要自己理解每一行內容。"
+
+#: ../troubleshoot.rst:61
+msgid "Choose which part of OpenShot to log"
+msgstr "選擇要記錄 OpenShot 的哪個部分"
+
+#: ../troubleshoot.rst:63
+msgid "Open **Edit → Preferences → Advanced** to find these two settings:"
+msgstr "開啟 **編輯 → 偏好設定 → 進階** 以找到這兩個設定："
+
+#: ../troubleshoot.rst:65
+msgid "Preferences and matching terminal options"
+msgstr "偏好設定與相對應的終端機選項"
+
+#: ../troubleshoot.rst:69
+msgid "Preference"
+msgstr "偏好設定"
+
+#: ../troubleshoot.rst:70
+msgid "Matching argument"
+msgstr "相對應參數"
+
+#: ../troubleshoot.rst:71
+msgid "Log file"
+msgstr "日誌檔"
+
+#: ../troubleshoot.rst:72
+msgid "User Interface Debug Logging"
+msgstr "使用者介面除錯日誌"
+
+#: ../troubleshoot.rst:73
+msgid "``--debug-ui``"
+msgstr "``--debug-ui``"
+
+#: ../troubleshoot.rst:75
+msgid "Video & Audio Engine Debug Logging"
+msgstr "影片與音訊引擎除錯日誌"
+
+#: ../troubleshoot.rst:76 ../troubleshoot.rst:142
+msgid "``--debug-engine``"
+msgstr "``--debug-engine``"
+
+#: ../troubleshoot.rst:79
+msgid ""
+"Both preferences are off by default, which keeps the normal summary "
+"messages. Turning one on adds detail to its log file immediately. It does "
+"not change the other log or add messages to the terminal. Preferences stay "
+"enabled between launches until you turn them off."
+msgstr ""
+"這兩個偏好設定預設皆為關閉，保持一般摘要訊息。啟用其中一項會立即在其日誌檔中加入詳細內容，不會改變另一個日誌或在終端機中新增訊息。偏好設定會在啟動間保持啟用狀態，直到您將其關閉。"
+
+#: ../troubleshoot.rst:84
+msgid ""
+"**User Interface Debug Logging** is a good starting point for problems with "
+"startup, project loading, settings, or the interface. **Video & Audio Engine"
+" Debug Logging** adds details about video and audio processing, which can "
+"help investigate playback and export problems. Engine logs can grow very "
+"quickly and may slow OpenShot down. Turn this setting on shortly before "
+"repeating the problem, then turn it off afterward."
+msgstr ""
+"**使用者介面除錯日誌** 是針對啟動、專案載入、設定或介面問題的良好起點。**影片與音訊引擎除錯日誌** "
+"則會加入影片與音訊處理的詳細資訊，有助於調查播放和匯出問題。引擎日誌可能迅速增大並使 OpenShot "
+"變慢。請在重現問題前短暫啟用此設定，之後再將其關閉。"
+
+#: ../troubleshoot.rst:91
+msgid ""
+"The engine preference was previously called **Debug Mode (Verbose)**. Its "
+"saved on/off setting carries over to the new name."
+msgstr "引擎偏好設定先前稱為 **除錯模式（詳細）**。其已儲存的開啟/關閉設定會沿用至新名稱。"
+
+#: ../troubleshoot.rst:95
+msgid "Use a terminal for one launch"
+msgstr "使用終端機執行一次啟動"
+
+#: ../troubleshoot.rst:97
+msgid ""
+"A terminal is a window where you type commands. The matching arguments "
+"enable the same extra detail as the preferences, and also display it in the "
+"terminal:"
+msgstr "終端機是您輸入指令的視窗。相對應的參數會啟用與偏好設定相同的詳細資訊，並在終端機中顯示："
+
+#: ../troubleshoot.rst:104
+msgid ""
+"This records interface details for one launch. The familiar ``--debug`` and "
+"shorter ``-d`` options mean exactly the same thing as ``--debug-ui``. For "
+"video and audio engine details, use:"
+msgstr ""
+"這會記錄一次啟動的介面詳細資訊。熟悉的 ``--debug`` 和較短的 ``-d`` 選項與 ``--debug-ui`` "
+"意義相同。若要記錄影片與音訊引擎詳細資訊，請使用："
+
+#: ../troubleshoot.rst:112
+msgid "To collect both types of detail together:"
+msgstr "要同時收集兩種詳細資訊："
+
+#: ../troubleshoot.rst:118
+msgid ""
+"Repeat the steps that cause the problem, then close OpenShot and collect the"
+" logs. These arguments do not change your saved preferences. Starting "
+"OpenShot normally returns to your usual logging settings."
+msgstr ""
+"重複導致問題的步驟，然後關閉 OpenShot 並收集日誌。這些參數不會更改您已儲存的偏好設定。正常啟動 OpenShot 會回復您平常的日誌設定。"
+
+#: ../troubleshoot.rst:122
+msgid ""
+"``openshot-qt.log`` starts a new file when it reaches about 25 MB and keeps "
+"three older copies. ``libopenshot.log`` keeps growing as messages are added."
+" After saving any logs you need, you can remove old log files while OpenShot"
+" is closed."
+msgstr ""
+"``openshot-qt.log`` 在達到約 25 MB 時會開始新檔，並保留三個舊檔副本。``libopenshot.log`` "
+"則會隨訊息增加持續成長。儲存所需日誌後，您可以在關閉 OpenShot 時刪除舊的日誌檔。"
+
+#: ../troubleshoot.rst:128
+msgid "Other command-line options"
+msgstr "其他命令列選項"
+
+#: ../troubleshoot.rst:130
+msgid ""
+"Most users only need the two controls above. The following options let you "
+"choose how much detail goes into the files or appears in the terminal. Here,"
+" *console* means the terminal output."
+msgstr "大多數使用者只需要上述兩個控制項。以下選項讓您選擇要在檔案或終端機中顯示多少詳細資訊。此處，*console* 指的是終端機輸出。"
+
+#: ../troubleshoot.rst:134
+msgid "Logging options"
+msgstr "日誌選項"
+
+#: ../troubleshoot.rst:138
+msgid "Option"
+msgstr "選項"
+
+#: ../troubleshoot.rst:139
+msgid "What it does"
+msgstr "功能說明"
+
+#: ../troubleshoot.rst:140
+msgid "``--debug-ui``, ``--debug``, or ``-d``"
+msgstr "``--debug-ui``、``--debug`` 或 ``-d``"
+
+#: ../troubleshoot.rst:141
+msgid "Enables User Interface Debug Logging in its file and the terminal."
+msgstr "啟用使用者介面除錯日誌，並在檔案及終端機中記錄。"
+
+#: ../troubleshoot.rst:143
+msgid ""
+"Enables Video & Audio Engine Debug Logging in its file and the terminal."
+msgstr "啟用影片與音訊引擎除錯日誌，並在檔案及終端機中記錄。"
+
+#: ../troubleshoot.rst:144
+msgid "``--debug-file``"
+msgstr "``--debug-file``"
+
+#: ../troubleshoot.rst:145
+msgid ""
+"Adds editor details to ``openshot-qt.log`` without adding terminal detail."
+msgstr "將編輯器詳細資訊加入 ``openshot-qt.log``，但不在終端機中顯示。"
+
+#: ../troubleshoot.rst:146
+msgid "``--debug-console``"
+msgstr "``--debug-console``"
+
+#: ../troubleshoot.rst:147
+msgid "Adds editor details in the terminal without adding file detail."
+msgstr "在終端機中加入編輯器詳細資訊，但不寫入檔案。"
+
+#: ../troubleshoot.rst:148
+msgid "``--log-level LEVEL``"
+msgstr "``--log-level LEVEL``"
+
+#: ../troubleshoot.rst:149
+msgid "Sets the detail for both logs and their terminal output."
+msgstr "設定兩個日誌檔及其終端機輸出的詳細程度。"
+
+#: ../troubleshoot.rst:150
+msgid "``--log-file-level LEVEL``"
+msgstr "``--log-file-level LEVEL``"
+
+#: ../troubleshoot.rst:151
+msgid "Sets the detail for both log files, leaving terminal settings alone."
+msgstr "設定兩個日誌檔的詳細程度，不影響終端機設定。"
+
+#: ../troubleshoot.rst:152
+msgid "``--log-console-level LEVEL``"
+msgstr "``--log-console-level LEVEL``"
+
+#: ../troubleshoot.rst:153
+msgid ""
+"Sets the detail in the terminal for both the editor and engine, leaving file"
+" settings alone."
+msgstr "設定終端機中編輯器和引擎的詳細程度，檔案設定保持不變。"
+
+#: ../troubleshoot.rst:156
+msgid ""
+"Replace ``LEVEL`` with ``debug`` for detailed messages or ``info`` for the "
+"normal summary. ``warning`` shows warnings and errors; ``error`` shows "
+"errors and critical failures; ``critical`` shows only critical failures. "
+"``off`` stops ordinary log messages, but existing crash diagnostics may "
+"still be written. Uppercase names such as ``DEBUG`` work too."
+msgstr ""
+"將 ``LEVEL`` 替換為 ``debug`` 以顯示詳細訊息，或 ``info`` 以顯示一般摘要。``warning`` "
+"顯示警告和錯誤；``error`` 顯示錯誤和嚴重故障；``critical`` 僅顯示嚴重故障。``off`` "
+"停止一般日誌訊息，但現有的崩潰診斷仍可能被寫入。大寫名稱如 ``DEBUG`` 也可使用。"
+
+#: ../troubleshoot.rst:162
+msgid ""
+"For example, to collect detailed messages in **both files** while keeping "
+"the terminal at its usual level:"
+msgstr "例如，要在保持終端機於正常等級的同時，收集**兩個檔案**中的詳細訊息："
+
+#: ../troubleshoot.rst:169
+msgid ""
+"This also enables the large engine log, so use it briefly. The older "
+"``--debug-file`` and ``--debug-console`` options still work even though they"
+" are not listed in ``--help``."
+msgstr ""
+"這也會啟用大型引擎日誌，因此請短暫使用。舊的 ``--debug-file`` 和 ``--debug-console`` 選項仍然有效，儘管它們未列在"
+" ``--help`` 中。"
+
+#: ../troubleshoot.rst:174
+msgid "Environment variables"
+msgstr "環境變數"
+
+#: ../troubleshoot.rst:176
+msgid ""
+"An environment variable is a named setting passed to a program when it "
+"starts. These are useful when starting OpenShot from a script or when a "
+"support person asks you to try a particular setting. You do not need to set "
+"them for normal use."
+msgstr ""
+"環境變數是在程式啟動時傳遞給它的命名設定。當從腳本啟動 OpenShot 或支援人員要求您嘗試特定設定時，這些變數很有用。一般使用時不需要設定它們。"
+
+#: ../troubleshoot.rst:180
+msgid "Optional environment settings"
+msgstr "可選的環境設定"
+
+#: ../troubleshoot.rst:184
+msgid "Variable"
+msgstr "變數"
+
+#: ../troubleshoot.rst:185
+msgid "What it controls"
+msgstr "控制內容"
+
+#: ../troubleshoot.rst:186
+msgid "``OPENSHOT_LOG_LEVEL``"
+msgstr "``OPENSHOT_LOG_LEVEL``"
+
+#: ../troubleshoot.rst:187
+msgid "Detail in both files and the terminal."
+msgstr "檔案和終端機中的詳細程度。"
+
+#: ../troubleshoot.rst:188
+msgid "``OPENSHOT_LOG_FILE_LEVEL``"
+msgstr "``OPENSHOT_LOG_FILE_LEVEL``"
+
+#: ../troubleshoot.rst:189
+msgid "Detail in both files only."
+msgstr "僅檔案中的詳細程度。"
+
+#: ../troubleshoot.rst:190
+msgid "``OPENSHOT_LOG_CONSOLE_LEVEL``"
+msgstr "``OPENSHOT_LOG_CONSOLE_LEVEL``"
+
+#: ../troubleshoot.rst:191
+msgid "Detail in the terminal only, for both parts of OpenShot."
+msgstr "僅終端機中的詳細程度，適用於 OpenShot 兩個部分。"
+
+#: ../troubleshoot.rst:192
+msgid "``LIBOPENSHOT_LOG_LEVEL``"
+msgstr "``LIBOPENSHOT_LOG_LEVEL``"
+
+#: ../troubleshoot.rst:193
+msgid "Detail for the video and audio engine, in its file and the terminal."
+msgstr "影片和音訊引擎的詳細程度，包含其檔案和終端機。"
+
+#: ../troubleshoot.rst:194
+msgid "``LIBOPENSHOT_LOG_FILE_LEVEL``"
+msgstr "``LIBOPENSHOT_LOG_FILE_LEVEL``"
+
+#: ../troubleshoot.rst:195
+msgid "Detail in ``libopenshot.log`` only."
+msgstr "僅 ``libopenshot.log`` 中的詳細程度。"
+
+#: ../troubleshoot.rst:196
+msgid "``LIBOPENSHOT_LOG_CONSOLE_LEVEL``"
+msgstr "``LIBOPENSHOT_LOG_CONSOLE_LEVEL``"
+
+#: ../troubleshoot.rst:197
+msgid "Engine detail in the terminal only."
+msgstr "引擎在終端機中的詳細程度。"
+
+#: ../troubleshoot.rst:199
+msgid ""
+"For example, this Linux/macOS terminal command requests detailed engine "
+"logging in its file for one launch:"
+msgstr "例如，這個 Linux/macOS 終端機指令會在檔案中請求一次啟動的詳細引擎日誌："
+
+#: ../troubleshoot.rst:206
+msgid ""
+"If settings overlap, command-line options take priority, followed by "
+"environment variables, then Preferences, then the normal defaults. Each "
+"control only affects the output it describes: ``--debug`` does not override "
+"the engine preference. Temporary overrides do not change your saved "
+"preferences. Hover over either checkbox to see whether another setting is "
+"controlling that log file."
+msgstr ""
+"若設定重疊，命令列選項優先，其次是環境變數，再來是偏好設定，最後是一般預設。每個控制項只影響其描述的輸出：``--debug`` "
+"不會覆蓋引擎偏好設定。臨時覆蓋不會改變您已儲存的偏好。將滑鼠懸停在任一核取方塊上可查看是否有其他設定控制該日誌檔。"
+
+#: ../troubleshoot.rst:212
+msgid ""
+"Within the environment settings, ``LIBOPENSHOT_`` values take priority over "
+"``OPENSHOT_`` values for the engine. Within either group, a file-only or "
+"console-only level takes priority over the general level. Command-line "
+"options follow the same file/console rule. Conflicting command-line levels "
+"for the same output are rejected; invalid environment levels are reported "
+"and ignored."
+msgstr ""
+"在環境設定中，對於引擎而言，``LIBOPENSHOT_`` 的值優先於 "
+"``OPENSHOT_``。在任一群組中，僅檔案或僅終端機的等級優先於一般等級。命令列選項遵循相同的檔案/終端機規則。相同輸出衝突的命令列等級會被拒絕；無效的環境等級會被報告並忽略。"
+
+#: ../troubleshoot.rst:218
+msgid ""
+"For older scripts, ``LIBOPENSHOT_DEBUG`` still enables detailed engine "
+"messages in the terminal whenever it is present, even if its value is ``0``."
+" The newer level settings take priority over it. ``LIBOPENSHOT_LOG_FILE`` is"
+" intended for programs using the engine separately; OpenShot itself uses the"
+" log folder above. Changing logging settings does not change your error-"
+"reporting preference."
+msgstr ""
+"對於舊腳本，無論值是否為 ``0``，只要存在 "
+"``LIBOPENSHOT_DEBUG``，仍會在終端機啟用詳細引擎訊息。較新的等級設定優先於它。``LIBOPENSHOT_LOG_FILE`` "
+"是為分開使用引擎的程式設計；OpenShot 本身使用上述的日誌資料夾。更改日誌設定不會改變您的錯誤回報偏好。 "
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:29
+#: ../troubleshoot.rst:225
 msgid "Windows 11 Unresponsive"
 msgstr "Windows 11 無回應"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:31
+#: ../troubleshoot.rst:227
 msgid ""
 "If you experience a freeze on Windows 11, this is a known issue with PyQt5 "
 "and Windows 11, related to the accessibility features in Qt. This is "
 "triggered by pressing :kbd:`Ctrl+C` in OpenShot (*only on Windows 11*). "
 "OpenShot will become unresponsive and a memory leak is also present (i.e. "
-"the longer OpenShot is unresponsive, the larger your memory leak will become "
-"until OpenShot finally crashes or the user kills the process)."
+"the longer OpenShot is unresponsive, the larger your memory leak will become"
+" until OpenShot finally crashes or the user kills the process)."
 msgstr ""
-"如果您在 Windows 11 上遇到凍結，這是 PyQt5 與 Windows 11 之間已知的問題，與 "
-"Qt 的輔助功能有關。此問題會在 OpenShot 中按下 :kbd:`Ctrl+C` 時觸發（*僅限 "
-"Windows 11* ）。OpenShot 將變得無回應，且會發生記憶體洩漏（即 OpenShot 無回應"
-"的時間越長，記憶體洩漏越嚴重，直到 OpenShot 最終當機或使用者終止程序）。"
+"如果您在 Windows 11 上遇到凍結，這是 PyQt5 與 Windows 11 之間已知的問題，與 Qt 的輔助功能有關。此問題會在 "
+"OpenShot 中按下 :kbd:`Ctrl+C` 時觸發（*僅限 Windows 11* ）。OpenShot 將變得無回應，且會發生記憶體洩漏（即"
+" OpenShot 無回應的時間越長，記憶體洩漏越嚴重，直到 OpenShot 最終當機或使用者終止程序）。"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:36
+#: ../troubleshoot.rst:232
 msgid ""
 "A simple work-around is to avoid :kbd:`Ctrl+C` on Windows 11, and instead "
 "use the right-click Copy/Paste menus. Another work-around is to remap your "
-"\"Copy\" from :kbd:`Ctrl+C` to something else, for example :kbd:`Alt+C`. You "
-"can change your keyboard mappings in the OpenShot Preferences. See :ref:"
-"`preferences_keyboard_ref`."
+"\"Copy\" from :kbd:`Ctrl+C` to something else, for example :kbd:`Alt+C`. You"
+" can change your keyboard mappings in the OpenShot Preferences. See "
+":ref:`preferences_keyboard_ref`."
 msgstr ""
-"簡單的解決方法是在 Windows 11 上避免使用 :kbd:`Ctrl+C` ，改用滑鼠右鍵的複製/"
-"貼上選單。另一種方法是將「複製」的快捷鍵從 :kbd:`Ctrl+C` 重新映射到其他按鍵，"
-"例如 :kbd:`Alt+C` 。您可以在 OpenShot 偏好設定中更改鍵盤映射。請參閱 :ref:"
-"`preferences_keyboard_ref` 。"
+"簡單的解決方法是在 Windows 11 上避免使用 :kbd:`Ctrl+C` ，改用滑鼠右鍵的複製/貼上選單。另一種方法是將「複製」的快捷鍵從 "
+":kbd:`Ctrl+C` 重新映射到其他按鍵，例如 :kbd:`Alt+C` 。您可以在 OpenShot 偏好設定中更改鍵盤映射。請參閱 "
+":ref:`preferences_keyboard_ref` 。"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:41
+#: ../troubleshoot.rst:237
 msgid "Windows Debugging with GDB"
 msgstr "Windows 上使用 GDB 除錯"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:43
+#: ../troubleshoot.rst:239
 msgid ""
 "If you are experiencing a crash or freeze with OpenShot in Windows 10/11, "
-"the following step by step instructions will help you determine the cause of "
-"the crash. These instructions will display a stack trace of OpenShot's "
-"source code, at the location of the crash. This information can be extremely "
-"useful for our development team, and very useful to attach to bug reports "
+"the following step by step instructions will help you determine the cause of"
+" the crash. These instructions will display a stack trace of OpenShot's "
+"source code, at the location of the crash. This information can be extremely"
+" useful for our development team, and very useful to attach to bug reports "
 "(for a quicker resolution)."
 msgstr ""
-"如果您在 Windows 10/11 上使用 OpenShot 時遇到當機或凍結，以下逐步說明將協助您"
-"找出當機原因。這些指示會顯示 OpenShot 原始碼中當機位置的堆疊追蹤。此資訊對我"
-"們的開發團隊非常有用，也適合附加於錯誤回報中（以加快問題解決速度）。"
+"如果您在 Windows 10/11 上使用 OpenShot 時遇到當機或凍結，以下逐步說明將協助您找出當機原因。這些指示會顯示 OpenShot "
+"原始碼中當機位置的堆疊追蹤。此資訊對我們的開發團隊非常有用，也適合附加於錯誤回報中（以加快問題解決速度）。"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:49
+#: ../troubleshoot.rst:245
 msgid "Install the Latest Daily Build"
 msgstr "安裝最新的每日版本"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:51
+#: ../troubleshoot.rst:247
 msgid ""
 "Before attaching a debugger, please download the **latest version** of "
 "OpenShot: https://www.openshot.org/download#daily. Install this version of "
@@ -102,217 +490,208 @@ msgid ""
 "please see `this wiki <https://github.com/OpenShot/openshot-qt/wiki/Windows-"
 "Debugging-with-GDB>`_."
 msgstr ""
-"在附加除錯器之前，請下載 OpenShot 的**最新版本** ： https://www.openshot.org/"
-"download#daily。將此版本安裝到預設位置：``C:\\Program Files\\OpenShot Video "
-"Editor\\`` 。有關在 Windows 上除錯 OpenShot 的詳細說明，請參閱 ` 此維基 "
-"<https://github.com/OpenShot/openshot-qt/wiki/Windows-Debugging-with-"
-"GDB>`_ 。 `this wiki <https://github.com/OpenShot/openshot-qt/wiki/Windows-"
+"在附加除錯器之前，請下載 OpenShot 的**最新版本** ： "
+"https://www.openshot.org/download#daily。將此版本安裝到預設位置：``C:\\Program "
+"Files\\OpenShot Video Editor\\`` 。有關在 Windows 上除錯 OpenShot 的詳細說明，請參閱 ` 此維基 "
+"<https://github.com/OpenShot/openshot-qt/wiki/Windows-Debugging-with-GDB>`_ "
+"。 `this wiki <https://github.com/OpenShot/openshot-qt/wiki/Windows-"
 "Debugging-with-GDB>`_"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:56
+#: ../troubleshoot.rst:252
 msgid "Install MSYS2"
 msgstr "安裝 MSYS2"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:58
+#: ../troubleshoot.rst:254
 msgid ""
 "The Windows version of OpenShot is compiled using an environment called "
-"MSYS2. In order to attach the GDB debugger to our executable, ``openshot-qt."
-"exe``, you must first install MSYS2. This step is only required once."
+"MSYS2. In order to attach the GDB debugger to our executable, ``openshot-"
+"qt.exe``, you must first install MSYS2. This step is only required once."
 msgstr ""
-"Windows 版本的 OpenShot 是使用名為 MSYS2 的環境編譯。要將 GDB 除錯器附加到執"
-"行檔 ``openshot-qt.exe`` ，您必須先安裝 MSYS2。此步驟只需執行一次。"
+"Windows 版本的 OpenShot 是使用名為 MSYS2 的環境編譯。要將 GDB 除錯器附加到執行檔 ``openshot-qt.exe`` "
+"，您必須先安裝 MSYS2。此步驟只需執行一次。"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:61
+#: ../troubleshoot.rst:257
 msgid "Download & Install MSYS2: `<http://www.msys2.org/>`_"
 msgstr "下載並安裝 MSYS2：`<http://www.msys2.org/>`_"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:62 ../troubleshoot.rst:78
+#: ../troubleshoot.rst:258 ../troubleshoot.rst:274
 msgid ""
-"Run ``MSYS2 MinGW x64`` command prompt (for example: ``C:"
-"\\msys64\\msys2_shell.cmd -mingw64``)"
+"Run ``MSYS2 MinGW x64`` command prompt (for example: "
+"``C:\\msys64\\msys2_shell.cmd -mingw64``)"
 msgstr ""
-"執行 ``MSYS2 MinGW x64`` 命令提示字元（例如：``C:\\msys64\\msys2_shell.cmd -"
-"mingw64`` ）"
+"執行 ``MSYS2 MinGW x64`` 命令提示字元（例如：``C:\\msys64\\msys2_shell.cmd -mingw64`` ）"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:63
+#: ../troubleshoot.rst:259
 msgid "Update all packages (*Copy/Paste the following command*):"
 msgstr "更新所有套件（*複製/貼上以下指令* ）："
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:69
+#: ../troubleshoot.rst:265
 msgid "Install GDB debugger (*Copy/Paste the following command*):"
 msgstr "安裝 GDB 除錯器（*複製/貼上以下指令* ）："
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:76
+#: ../troubleshoot.rst:272
 msgid "Launch OpenShot with GDB Debugger"
 msgstr "使用 GDB 除錯器啟動 OpenShot"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:80
+#: ../troubleshoot.rst:276
 msgid "Update the PATH (*Copy/Paste the following commands*):"
 msgstr "更新 PATH（*複製/貼上以下指令* ）："
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:87
+#: ../troubleshoot.rst:283
 msgid ""
 "Load OpenShot into the GDB debugger (*Copy/Paste the following commands*):"
 msgstr "將 OpenShot 載入 GDB 除錯器（*複製/貼上以下指令* ）："
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:94
+#: ../troubleshoot.rst:290
 msgid "Launch OpenShot from GDB prompt (*Copy/Paste the following command*):"
 msgstr "從 GDB 提示字元啟動 OpenShot（*複製/貼上以下指令* ）："
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:101
+#: ../troubleshoot.rst:297
 msgid "Print Debugging Info"
 msgstr "列印除錯資訊"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:103
+#: ../troubleshoot.rst:299
 msgid ""
 "Once OpenShot has launched successfully with GDB attached, all you need to "
 "do is trigger a crash or freeze in OpenShot. When a crash occurs, switch "
-"back to the MSYS2 MinGW64 terminal and run one of the following commands (by "
-"typing it and pressing ENTER). Usually, the first command to enter is "
+"back to the MSYS2 MinGW64 terminal and run one of the following commands (by"
+" typing it and pressing ENTER). Usually, the first command to enter is "
 "``bt``, which stands for ``backtrace``. More commands are listed below."
 msgstr ""
-"當 OpenShot 成功啟動並附加 GDB 後，您只需在 OpenShot 中觸發當機或凍結。當發生"
-"當機時，切換回 MSYS2 MinGW64 終端機，執行以下其中一個指令（輸入後按 ENTER）。"
-"通常第一個輸入的指令是 ``bt`` ，代表 ``backtrace`` 。更多指令列於下方。"
+"當 OpenShot 成功啟動並附加 GDB 後，您只需在 OpenShot 中觸發當機或凍結。當發生當機時，切換回 MSYS2 MinGW64 "
+"終端機，執行以下其中一個指令（輸入後按 ENTER）。通常第一個輸入的指令是 ``bt`` ，代表 ``backtrace`` 。更多指令列於下方。"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:117
+#: ../troubleshoot.rst:313
 msgid "High DPI / 4K Monitors"
 msgstr "高 DPI / 4K 螢幕"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:119
+#: ../troubleshoot.rst:315
 msgid ""
 "OpenShot Video Editor provides robust support for High DPI (Dots Per Inch) "
 "monitors, ensuring that the interface looks sharp and is easily readable on "
 "displays with various DPI settings. This support is particularly helpful on "
 "4K monitors and other high-resolution displays."
 msgstr ""
-"OpenShot Video Editor 提供對高 DPI（每英吋點數）螢幕的強大支援，確保介面在不"
-"同 DPI 設定的顯示器上清晰銳利且易於閱讀。此支援對 4K 螢幕及其他高解析度顯示器"
-"特別有幫助。"
+"OpenShot Video Editor 提供對高 DPI（每英吋點數）螢幕的強大支援，確保介面在不同 DPI "
+"設定的顯示器上清晰銳利且易於閱讀。此支援對 4K 螢幕及其他高解析度顯示器特別有幫助。"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:125
+#: ../troubleshoot.rst:321
 msgid "Per Monitor DPI Awareness"
 msgstr "每螢幕 DPI 感知"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:127
+#: ../troubleshoot.rst:323
 msgid ""
 "OpenShot is DPI aware on a per-monitor basis, meaning it can adjust its "
-"scaling dynamically depending on the DPI settings of each connected monitor. "
-"This helps provide a consistent experience across different displays."
+"scaling dynamically depending on the DPI settings of each connected monitor."
+" This helps provide a consistent experience across different displays."
 msgstr ""
-"OpenShot 具備每螢幕 DPI 感知能力，能根據每個連接螢幕的 DPI 設定動態調整縮放比"
-"例，有助於在不同顯示器間提供一致的使用體驗。"
+"OpenShot 具備每螢幕 DPI 感知能力，能根據每個連接螢幕的 DPI 設定動態調整縮放比例，有助於在不同顯示器間提供一致的使用體驗。"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:132
+#: ../troubleshoot.rst:328
 msgid "DPI Scaling on Windows"
 msgstr "Windows 上的 DPI 縮放"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:134
+#: ../troubleshoot.rst:330
 msgid ""
-"On Windows, OpenShot rounds the scaling factor to the nearest whole value to "
-"maintain visual integrity. This helps avoid visual artifacts in the UI and "
+"On Windows, OpenShot rounds the scaling factor to the nearest whole value to"
+" maintain visual integrity. This helps avoid visual artifacts in the UI and "
 "keeps interface elements crisp and well-aligned. Due to this rounding, some "
 "scaling options can lead to larger fonts and UI elements than expected."
 msgstr ""
-"在 Windows 上，OpenShot 會將縮放比例四捨五入至最接近的整數，以維持視覺完整"
-"性。這有助於避免介面出現視覺異常，並保持介面元素清晰且排列整齊。由於此四捨五"
-"入，某些縮放選項可能導致字型和介面元素比預期更大。"
+"在 Windows 上，OpenShot "
+"會將縮放比例四捨五入至最接近的整數，以維持視覺完整性。這有助於避免介面出現視覺異常，並保持介面元素清晰且排列整齊。由於此四捨五入，某些縮放選項可能導致字型和介面元素比預期更大。"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:139
+#: ../troubleshoot.rst:335
 msgid "**125% scaling** rounds to **100%**"
 msgstr "**125% 縮放** 會四捨五入為 **100%**"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:140
+#: ../troubleshoot.rst:336
 msgid "**150% scaling** rounds to **200%**"
 msgstr "**150% 縮放** 會四捨五入為 **200%**"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:143
+#: ../troubleshoot.rst:339
 msgid "Workarounds for Fine-Grained Adjustment"
 msgstr "細緻調整的解決方法"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:145
+#: ../troubleshoot.rst:341
 msgid ""
 "While rounding helps maintain a clean interface, there are workarounds for "
-"users who require more precise control over scaling. These methods are **not "
-"recommended** due to potential visual artifacts:"
-msgstr ""
-"雖然四捨五入有助於維持介面整潔，但對於需要更精確縮放控制的使用者，有一些解決"
-"方法。由於可能產生視覺異常，這些方法 **不建議** 使用："
+"users who require more precise control over scaling. These methods are **not"
+" recommended** due to potential visual artifacts:"
+msgstr "雖然四捨五入有助於維持介面整潔，但對於需要更精確縮放控制的使用者，有一些解決方法。由於可能產生視覺異常，這些方法 **不建議** 使用："
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:149
+#: ../troubleshoot.rst:345
 msgid "**QT_SCALE_FACTOR_ROUNDING_POLICY=PassThrough**"
 msgstr "**QT_SCALE_FACTOR_ROUNDING_POLICY=PassThrough**"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:151
+#: ../troubleshoot.rst:347
 msgid ""
 "Setting this environment variable can disable rounding and allow more "
 "precise scaling."
 msgstr "設定此環境變數可停用四捨五入，允許更精確的縮放。"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:152
+#: ../troubleshoot.rst:348
 msgid ""
-"**Note:** This may cause visual artifacts, particularly in the timeline, and "
-"is not recommended."
+"**Note:** This may cause visual artifacts, particularly in the timeline, and"
+" is not recommended."
 msgstr "**注意：** 這可能會導致視覺異常，尤其是在時間軸中，且不建議使用。"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:154
+#: ../troubleshoot.rst:350
 msgid "**QT_SCALE_FACTOR=1.25** (or similar value)"
 msgstr "**QT_SCALE_FACTOR=1.25** （或類似數值）"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:156
+#: ../troubleshoot.rst:352
 msgid ""
 "Manually setting the scale factor can provide finer adjustments to the font "
 "and UI scaling."
 msgstr "手動設定縮放比例可提供字型和介面縮放的更細緻調整。"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:157
+#: ../troubleshoot.rst:353
 msgid ""
 "This can also be set via Preferences (User Interface Scale), but expect "
 "border/line issues on Windows with fractional scales."
-msgstr ""
-"此設定也可透過偏好設定（使用者介面縮放）調整，但在 Windows 上使用小數縮放比例"
-"時，可能會出現邊框或線條問題。"
+msgstr "此設定也可透過偏好設定（使用者介面縮放）調整，但在 Windows 上使用小數縮放比例時，可能會出現邊框或線條問題。"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:158
+#: ../troubleshoot.rst:354
 msgid ""
 "**Note:** This method can also lead to visual artifacts and make OpenShot "
 "harder to use."
 msgstr "**注意：** 此方法也可能導致視覺異常，並使 OpenShot 更難使用。"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:160
+#: ../troubleshoot.rst:356
 msgid ""
-"For more info on adjusting these environment variables, please visit https://"
-"github.com/OpenShot/openshot-qt/wiki/OpenShot-UI-too-large."
+"For more info on adjusting these environment variables, please visit "
+"https://github.com/OpenShot/openshot-qt/wiki/OpenShot-UI-too-large."
 msgstr ""
-"欲了解更多關於調整這些環境變數的資訊，請造訪 https://github.com/OpenShot/"
-"openshot-qt/wiki/OpenShot-UI-too-large。"
+"欲了解更多關於調整這些環境變數的資訊，請造訪 https://github.com/OpenShot/openshot-"
+"qt/wiki/OpenShot-UI-too-large。"

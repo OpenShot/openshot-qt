@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-09-26 14:26-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -285,8 +285,23 @@ msgstr ""
 "टाइमलाइन टूलबार सामान्य नेविगेशन और संपादन क्रियाओं (स्नैपिंग, रीटाइम, "
 "रेज़र, मार्कर, केंद्रित करना, और ज़ूम) में मदद करता है।"
 
-# Translated with gpt-4.1-mini
 #: ../timeline.rst:103
+msgid ""
+"The :ref:`razor_tool_ref` shows a cut guide and timecode over the target "
+"clip. While paused, hovering also previews the cut frame without moving the "
+"playhead. Click to cut, or press :kbd:`Esc` to leave Razor mode. The Razor "
+"guide respects the existing **Snapping** toggle and uses the same snap "
+"targets and tolerance as other timeline edits."
+msgstr ""
+":ref:`razor_tool_ref` लक्ष्य क्लिप पर एक कट गाइड और टाइमकोड दिखाता है। जब "
+"वीडियो रुका होता है, तो होवर करने पर प्लेहेड को हिलाए बिना कट फ्रेम का "
+"पूर्वावलोकन भी होता है। कट करने के लिए क्लिक करें, या रेज़र मोड छोड़ने के "
+"लिए :kbd:`Esc` दबाएं। रेज़र गाइड मौजूदा **Snapping** टॉगल का सम्मान करता है "
+"और अन्य टाइमलाइन संपादनों के समान स्नैप लक्ष्य और सहिष्णुता का उपयोग करता "
+"है।"
+
+# Translated with gpt-4.1-mini
+#: ../timeline.rst:109
 msgid ""
 "Tip: If timeline editing feels crowded, zoom in with the timeline slider to "
 "make small clip adjustments easier."
@@ -295,7 +310,7 @@ msgstr ""
 "बनाने के लिए टाइमलाइन स्लाइडर से ज़ूम इन करें।"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:106
+#: ../timeline.rst:112
 msgid ""
 "You can also zoom the timeline with :kbd:`Ctrl+Scroll Wheel`. On the QWidget"
 " timeline, hold :kbd:`Ctrl` and drag with the middle mouse button for smooth"
@@ -306,33 +321,33 @@ msgstr ""
 "स्मूथ ज़ूमिंग हो सके।"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:111
+#: ../timeline.rst:117
 msgid "Tracks, Locking, and Inserting"
 msgstr "ट्रैक्स, लॉकिंग, और इन्सर्टिंग"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:113
+#: ../timeline.rst:119
 msgid "Tracks help organize your edit. A common setup is:"
 msgstr ""
 "ट्रैक्स आपके संपादन को व्यवस्थित करने में मदद करते हैं। एक सामान्य सेटअप है:"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:115
+#: ../timeline.rst:121
 msgid "Top tracks: titles, overlays, logos, picture-in-picture"
 msgstr "ऊपरी ट्रैक्स: शीर्षक, ओवरले, लोगो, पिक्चर-इन-पिक्चर"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:116
+#: ../timeline.rst:122
 msgid "Middle tracks: main video content"
 msgstr "मध्य ट्रैक्स: मुख्य वीडियो सामग्री"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:117
+#: ../timeline.rst:123
 msgid "Lower tracks: music and sound effects"
 msgstr "निचले ट्रैक्स: संगीत और ध्वनि प्रभाव"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:119
+#: ../timeline.rst:125
 msgid ""
 "You can lock tracks to protect them from accidental edits and use "
 "insert/ripple editing when you need later clips to move automatically."
@@ -342,7 +357,7 @@ msgstr ""
 " इन्सर्ट/रिपल संपादन का उपयोग करें।"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:122
+#: ../timeline.rst:128
 msgid ""
 "For track layout basics, see :ref:`tracks_ref`. For detailed clip editing "
 "behavior, see :ref:`clips_cutting_slicing_ref`."
@@ -351,12 +366,12 @@ msgstr ""
 " संपादन व्यवहार के लिए देखें :ref:`clips_cutting_slicing_ref`।"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:126
+#: ../timeline.rst:132
 msgid "Keyframes in the Timeline"
 msgstr "टाइमलाइन में कीफ्रेम्स"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:128
+#: ../timeline.rst:134
 msgid ""
 "Keyframes let you change values over time, such as position, scale, "
 "rotation, opacity, and effect settings."
@@ -365,7 +380,7 @@ msgstr ""
 "अपारदर्शिता, और प्रभाव सेटिंग्स।"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:131
+#: ../timeline.rst:137
 msgid ""
 "In the timeline keyframe panel, each row represents one animated property. "
 "You can:"
@@ -374,39 +389,39 @@ msgstr ""
 "प्रतिनिधित्व करती है। आप कर सकते हैं:"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:133
+#: ../timeline.rst:139
 msgid "Add a keyframe row for a property"
 msgstr "किसी संपत्ति के लिए कीफ्रेम पंक्ति जोड़ें"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:134
+#: ../timeline.rst:140
 msgid "Insert new keyframes along the row"
 msgstr "पंक्ति के साथ नए कीफ्रेम्स डालें"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:135
+#: ../timeline.rst:141
 msgid "Move keyframes to change timing"
 msgstr "समय बदलने के लिए कीफ्रेम्स को स्थानांतरित करें"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:136
+#: ../timeline.rst:142
 msgid "Change interpolation to control motion style"
 msgstr "गति शैली नियंत्रित करने के लिए इंटरपोलेशन बदलें"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:138
+#: ../timeline.rst:144
 msgid ""
 "For keyframe concepts and animation examples, see :ref:`animation_ref`."
 msgstr ""
 "कीफ्रेम अवधारणाओं और एनिमेशन उदाहरणों के लिए देखें :ref:`animation_ref`।"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:141
+#: ../timeline.rst:147
 msgid "Next Steps"
 msgstr "अगले कदम"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:143
+#: ../timeline.rst:149
 msgid ""
 "After you are comfortable with timeline basics, these sections are the best "
 "next reads:"
@@ -415,21 +430,21 @@ msgstr ""
 "हैं:"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:145
+#: ../timeline.rst:151
 msgid ":ref:`clips_ref` for trimming, slicing, and clip properties"
 msgstr ":ref:`clips_ref` ट्रिमिंग, स्लाइसिंग, और क्लिप गुणों के लिए"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:146
+#: ../timeline.rst:152
 msgid ":ref:`effects_ref` for video/audio effects"
 msgstr ":ref:`effects_ref` वीडियो/ऑडियो प्रभावों के लिए"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:147
+#: ../timeline.rst:153
 msgid ":ref:`animation_ref` for keyframe animation workflows"
 msgstr ":ref:`animation_ref` कीफ्रेम एनिमेशन वर्कफ़्लोज़ के लिए"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:148
+#: ../timeline.rst:154
 msgid ":doc:`export` for creating your final video file"
 msgstr ":doc:`export` आपके अंतिम वीडियो फ़ाइल बनाने के लिए"

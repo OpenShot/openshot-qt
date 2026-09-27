@@ -26,11 +26,13 @@
  """
 
 import os
+import sys
+import tempfile
 from time import strftime
 
-VERSION = "4.0.0"
-MINIMUM_LIBOPENSHOT_VERSION = "1.0.0"
-DATE = "20260725000000"
+VERSION = "4.0.1"
+MINIMUM_LIBOPENSHOT_VERSION = "1.0.1"
+DATE = "20260919000000"
 NAME = "openshot-qt"
 PRODUCT_NAME = "OpenShot Video Editor"
 GPL_VERSION = "3"
@@ -51,6 +53,7 @@ COLORS_PATH = os.path.join(PATH, "colors")
 # User paths
 HOME_PATH = os.path.join(os.path.expanduser("~"))
 USER_PATH = os.path.join(HOME_PATH, ".openshot_qt")
+ASSETS_PATH = USER_PATH
 BACKUP_PATH = os.path.join(USER_PATH)
 RECOVERY_PATH = os.path.join(USER_PATH, "recovery")
 THUMBNAIL_PATH = os.path.join(USER_PATH, "thumbnail")
@@ -81,6 +84,64 @@ _path_defaults = {
     if k.endswith("_PATH")
     and v.startswith(USER_PATH)
 }
+
+# Only project assets follow the unsaved assets preference. Settings, caches,
+# recovery files, templates, and downloaded tools remain in USER_PATH.
+_asset_folders = {
+    "THUMBNAIL_PATH": "thumbnail",
+    "TITLE_PATH": "title",
+    "BLENDER_PATH": "blender",
+    "PROTOBUF_DATA_PATH": "protobuf_data",
+    "CLIPBOARD_PATH": "clipboard",
+    "COMFYUI_OUTPUT_PATH": "comfyui-output",
+    "PROXY_PATH": "optimized",
+}
+
+
+def _check_assets_folder(path):
+    """Create and check a writable directory without touching existing files."""
+    os.makedirs(path, exist_ok=True)
+    with tempfile.TemporaryFile(dir=path):
+        pass
+
+
+def default_assets_path():
+    """Choose the Linux Snap-accessible default, retaining the legacy fallback."""
+    videos = os.path.join(HOME_PATH, "Videos")
+    if sys.platform.startswith("linux") and os.path.isdir(videos):
+        candidate = os.path.join(videos, ".openshot-tmp")
+        try:
+            _check_assets_folder(candidate)
+            return candidate
+        except OSError:
+            pass
+    return USER_PATH
+
+
+def set_assets_path(path):
+    """Retarget active project assets without changing the unsaved defaults."""
+    global ASSETS_PATH
+    ASSETS_PATH = path
+    for name, folder in _asset_folders.items():
+        globals()[name] = os.path.join(path, folder)
+
+
+def configure_asset_defaults(path):
+    """Apply the startup preference, falling back if it cannot be used."""
+    path = os.path.abspath(os.path.expanduser(path or USER_PATH))
+    try:
+        _check_assets_folder(path)
+        for folder in _asset_folders.values():
+            _check_assets_folder(os.path.join(path, folder))
+    except OSError:
+        path = USER_PATH
+        for folder in _asset_folders.values():
+            os.makedirs(os.path.join(path, folder), exist_ok=True)
+    set_assets_path(path)
+    for name in ("ASSETS_PATH", *_asset_folders):
+        _path_defaults[name] = globals()[name]
+    return path
+
 
 try:
     from qt_api import QSize

@@ -25,6 +25,7 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
+import json
 import os
 import sys
 import tempfile
@@ -33,7 +34,7 @@ import unittest
 from unittest.mock import patch
 
 import openshot
-from qt_api import QApplication, QColor, QLabel, QPoint, QPointF, QPushButton, QRect, QRectF, QSize, QStandardItem, QTransform, Qt, QWidget
+from qt_api import QApplication, QColor, QImage, QLabel, QPoint, QPointF, QPushButton, QRect, QRectF, QSize, QStandardItem, QTransform, Qt, QWidget
 
 
 PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
@@ -133,6 +134,60 @@ class VideoWidgetTransformTests(unittest.TestCase):
         self.widget = VideoWidget.__new__(VideoWidget)
         self.viewport = QRect(0, 0, 160, 90)
 
+    def test_live_transform_suspends_cache_until_commit_or_clear(self):
+        for initially_enabled in (True, False):
+            for finish, effect_type in (
+                    (finish, effect_type)
+                    for finish in ("release", "clear", "pause_then_release")
+                    for effect_type in (None, "Crop", "Mask")):
+                with self.subTest(initially_enabled=initially_enabled, finish=finish,
+                                  effect_type=effect_type):
+                    settings = types.SimpleNamespace(ENABLE_PLAYBACK_CACHING=initially_enabled)
+                    playing = [True]
+                    cache_during_save = []
+                    clip = types.SimpleNamespace(
+                        id="clip", data={"id": "clip"},
+                        save=lambda: cache_during_save.append(settings.ENABLE_PLAYBACK_CACHING))
+                    history = []
+                    updates = types.SimpleNamespace(
+                        ignore_history=False, transaction_id=None,
+                        apply_last_action_to_history=lambda original: history.append(
+                            (original, settings.ENABLE_PLAYBACK_CACHING)))
+                    fake_app = types.SimpleNamespace(updates=updates)
+                    widget = types.SimpleNamespace(
+                        zoom=1.0, region_enabled=False, hover_transform_mode="location",
+                        hover_cursor=Qt.ArrowCursor,
+                        transforming_clips=[] if effect_type else [clip],
+                        transforming_clip_objects=[],
+                        transforming_effect=(types.SimpleNamespace(data={"class_name": effect_type})
+                                             if effect_type else None),
+                        setCursor=lambda cursor: None, update=lambda: None,
+                        _is_playing=lambda: playing[0])
+                    widget._restore_transform_playback_cache = types.MethodType(
+                        VideoWidget._restore_transform_playback_cache, widget)
+                    event = types.SimpleNamespace(
+                        accept=lambda: None, button=lambda: Qt.LeftButton,
+                        pos=lambda: QPoint(10, 10))
+                    with patch("windows.video_widget.get_app", return_value=fake_app), \
+                         patch("windows.video_widget.openshot.Settings",
+                               types.SimpleNamespace(Instance=lambda: settings)):
+                        VideoWidget.mousePressEvent(widget, event)
+                        self.assertFalse(settings.ENABLE_PLAYBACK_CACHING)
+                        if finish == "clear":
+                            VideoWidget.clearTransformState(widget)
+                        else:
+                            if finish == "pause_then_release":
+                                playing[0] = False
+                            VideoWidget.mouseReleaseEvent(widget, event)
+                            self.assertEqual(cache_during_save, [] if effect_type else [False])
+                            self.assertEqual(len(history), 1)
+                            self.assertFalse(history[0][1])
+                            self.assertFalse(updates.ignore_history)
+                            self.assertIsNone(updates.transaction_id)
+                        expected = initially_enabled if playing[0] else False
+                        self.assertEqual(settings.ENABLE_PLAYBACK_CACHING, expected)
+                        self.assertIsNone(widget._transform_playback_cache_state)
+
     def rect_for(self, scale_mode, location_x=0.0, location_y=0.0, scale_x=1.0, scale_y=1.0):
         return VideoWidget._clip_display_rect(
             self.widget,
@@ -174,6 +229,96 @@ class VideoWidgetTransformTests(unittest.TestCase):
 
                 self.assertAlmostEqual(moved.x() - anchored.x(), -40.0)
                 self.assertAlmostEqual(moved.y() - anchored.y(), 22.5)
+
+    def test_imported_location_convention_controls_transform_handles(self):
+        for mode in (openshot.SCALE_FIT, openshot.SCALE_STRETCH,
+                     openshot.SCALE_NONE, openshot.SCALE_CROP):
+            for coordinates in ("canvas", "geometry"):
+                for gravity in (openshot.GRAVITY_TOP_LEFT, openshot.GRAVITY_CENTER,
+                                openshot.GRAVITY_BOTTOM_RIGHT):
+                    for value in (-0.25, 0.25):
+                        with self.subTest(mode=mode, coordinates=coordinates,
+                                          gravity=gravity, value=value):
+                            clip = clip_with(mode, gravity)
+                            clip.data["location_coordinate_system"] = coordinates
+                            raw = props(value, value, 0.5, 0.75, 0.1)
+                            geometry = self.widget._clip_location_geometry(
+                                40, 40, clip, raw, self.viewport)
+                            (_, _, width, height, x, y, left, top, cw, ch) = geometry
+                            rect = self.widget._clip_display_rect(
+                                40, 40, clip, raw, self.viewport)
+                            if coordinates == "canvas":
+                                self.assertAlmostEqual(rect.x(), x + value * 160)
+                                self.assertAlmostEqual(rect.y(), y + value * 90)
+                            else:
+                                dx = value * (x - left + width if value < 0 else cw - x + left)
+                                dy = value * (y - top + height if value < 0 else ch - y + top)
+                                self.assertAlmostEqual(rect.x(), x + dx)
+                                self.assertAlmostEqual(rect.y(), y + dy)
+                                # Dragging the handle back to this offset must
+                                # recover the saved location, regardless of mode.
+                                self.assertAlmostEqual(self.widget._location_value_from_offset(
+                                    dx, x - left, cw, width), value)
+                                self.assertAlmostEqual(self.widget._location_value_from_offset(
+                                    dy, y - top, ch, height), value)
+
+    def test_imported_crop_handles_match_native_render(self):
+        # Exercise the real renderer as well as the overlay. A stale installed
+        # engine can ignore the compatibility marker while the overlay uses it.
+        # The square source and small Crop scale reproduce the reported case.
+        from classes.project_data import ProjectDataStore
+        cache = openshot.CacheMemory()
+        source = openshot.Frame(1, 72, 72, "#FF0000", 0, 2)
+        source.AddColor(72, 72, "#FF0000")
+        cache.Add(source)
+        reader = openshot.DummyReader(openshot.Fraction(30, 1), 72, 72, 44100, 2, 10, cache)
+        reader.Open()
+        native = openshot.Clip(reader)
+        native.End(10)
+        native.scale = openshot.SCALE_CROP
+        native.scale_x = openshot.Keyframe(0.2293497771024704)
+        native.scale_y = openshot.Keyframe(0.2293497771024704)
+        native.location_x = openshot.Keyframe(-0.42799835887847265)
+        native.location_x.AddPoint(299, 0.4357430338859558, openshot.BEZIER)
+        native.location_y = openshot.Keyframe(-0.3501702845096588)
+        native.location_y.AddPoint(299, 0.3547476530075073, openshot.BEZIER)
+        store = ProjectDataStore.__new__(ProjectDataStore)
+        store._data = {
+            "id": "P1", "version": {"openshot-qt": "3.5.1", "libopenshot": "0.7.0"},
+            "clips": [json.loads(native.Json())],
+        }
+        store.upgrade_project_data_structures()
+        clip = types.SimpleNamespace(data=store._data["clips"][0])
+        native.SetJson(json.dumps({k: v for k, v in clip.data.items() if k != "reader"}))
+        self.assertEqual(json.loads(native.Json()).get("location_coordinate_system"), "canvas")
+        timeline = openshot.Timeline(1280, 720, openshot.Fraction(30, 1), 44100, 2, openshot.LAYOUT_STEREO)
+        timeline.AddClip(native)
+        timeline.SetMaxSize(552, 312)
+        timeline.Open()
+        try:
+            with tempfile.TemporaryDirectory() as directory:
+                for frame in (1, 150, 299):
+                    with self.subTest(frame=frame):
+                        rendered = timeline.GetFrame(frame)
+                        viewport = QRectF(0, 0, rendered.GetWidth(), rendered.GetHeight())
+                        raw = json.loads(native.PropertiesJSON(frame))
+                        rect = self.widget._clip_display_rect(72, 72, clip, raw, viewport)
+                        transform, _, _ = self.widget._build_clip_transform(
+                            rect.x(), rect.y(), rect.width(), rect.height(), raw)
+                        box = transform.mapRect(QRectF(0, 0, rect.width(), rect.height()))
+                        path = os.path.join(directory, "render.png")
+                        rendered.Save(path, 1.0)
+                        image = QImage(path)
+                        points = [(x, y) for y in range(image.height()) for x in range(image.width())
+                                  if image.pixelColor(x, y).red() > 200]
+                        self.assertTrue(points)
+                        expected = box.intersected(viewport)
+                        self.assertAlmostEqual(min(x for x, y in points), expected.left(), delta=1)
+                        self.assertAlmostEqual(min(y for x, y in points), expected.top(), delta=1)
+                        self.assertAlmostEqual(max(x for x, y in points) + 1, expected.right(), delta=1)
+                        self.assertAlmostEqual(max(y for x, y in points) + 1, expected.bottom(), delta=1)
+        finally:
+            timeline.Close()
 
     def test_fit_handles_match_reported_legacy_project_position(self):
         viewport = QRect(0, 0, 720, 720)

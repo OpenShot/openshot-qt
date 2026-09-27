@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-09-26 14:26-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -125,7 +125,6 @@ msgstr "4"
 msgid "Key frame Markers"
 msgstr "关键帧标记"
 
-# Translated with gpt-4.1-mini
 #: ../animation.rst:44
 msgid ""
 "Colorful icons line the bottom of the clip for every keyframe "
@@ -134,10 +133,10 @@ msgid ""
 "icons are shown brighter. Filtering the property list also filters these "
 "icons. Click any icon to jump the play-head, load its properties, and select"
 " its clip, effect, or transition. Drag an icon left or right to move the "
-"keyframe and fine‑tune your animation timing."
+"keyframe and fine‑tune your animation timing. The play-head moves to the "
+"keyframe's new position when you finish dragging."
 msgstr ""
-"每个关键帧在剪辑底部都有彩色图标（`circle=贝塞尔`, `diamond=线性`, `square=常量` "
-"）。每个图标颜色与其剪辑、效果或转场匹配。选中项的关键帧图标更亮。过滤属性列表时也会过滤这些图标。点击任意图标可跳转播放头，加载其属性，并选中对应的剪辑、效果或转场。拖动图标左右移动关键帧，微调动画时间。"
+"彩色图标排列在剪辑底部，表示每个关键帧（`circle=Bézier`，`diamond=linear`，`square=constant`）。每个图标的颜色与其剪辑、效果或转场的颜色相匹配。所选项目的关键帧图标显示得更亮。筛选属性列表也会筛选这些图标。点击任意图标可跳转播放头，加载其属性，并选择其剪辑、效果或转场。向左或向右拖动图标可移动关键帧，微调动画时序。拖动完成后，播放头会移动到关键帧的新位置。"
 
 # Translated with gpt-4.1-mini
 #: ../animation.rst:48
@@ -237,17 +236,17 @@ msgstr "有关预设动画的更多信息，请参见 :ref:`clip_presets_ref` �
 msgid "For a full list of key frames, see :ref:`clip_properties_ref`."
 msgstr "有关完整的关键帧列表，请参见 :ref:`clip_properties_ref` 。"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../animation.rst:77
 msgid "Timing"
-msgstr "时间控制"
+msgstr "变速"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../animation.rst:78
 msgid ""
 "Changing how fast a clip plays is done with the :guilabel:`Time` property "
 "and the :guilabel:`Timing` tool."
-msgstr "调整剪辑播放速度可通过 :guilabel:`时间` 属性和 :guilabel:` 时间控制` 工具完成。"
+msgstr "调整剪辑播放速度可通过 :guilabel:`时间` 属性和 :guilabel:`变速` 工具完成。"
 
 #: ../animation.rst:80
 msgid ""
@@ -256,7 +255,7 @@ msgid ""
 msgstr ""
 ":guilabel:`Speed` 菜单提供了正常、快速、慢速、冻结、倒放和重复等预设。详情请参见 :ref:`clip_time_ref`。"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../animation.rst:81
 msgid ""
 "The :guilabel:`Timing` tool lets you drag a clip’s edges to speed it up or "
@@ -264,7 +263,7 @@ msgid ""
 "other keyframes** so your animations stay aligned. Shorter clips play "
 "faster, longer clips play slower. See more: :ref:`clip_time_ref`."
 msgstr ""
-":guilabel:`时间控制` 工具允许拖动剪辑边缘以加快或减慢速度。OpenShot 会自动添加所需的时间关键帧，并**缩放其他关键帧** "
+":guilabel:`变速` 工具允许拖动剪辑边缘以加快或减慢速度。OpenShot 会自动添加所需的时间关键帧，并**缩放其他关键帧** "
 "，确保动画保持同步。剪辑越短播放越快，越长播放越慢。详情见 :ref:`clip_time_ref` 。"
 
 # Translated with gpt-4.1-mini
@@ -410,6 +409,19 @@ msgid ""
 "Adjust the frame rate of the animation. Typically, hand-drawn animations use"
 " 12 frames per second."
 msgstr "调整动画的帧率。通常，手绘动画使用每秒 12 帧。 "
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "Colorful icons line the bottom of the clip for every keyframe "
+#~ "(`circle=Bézier`, `diamond=linear`, `square=constant`). Each icon matches "
+#~ "the color of its clip, effect, or transition. The selected item's keyframe "
+#~ "icons are shown brighter. Filtering the property list also filters these "
+#~ "icons. Click any icon to jump the play-head, load its properties, and select"
+#~ " its clip, effect, or transition. Drag an icon left or right to move the "
+#~ "keyframe and fine‑tune your animation timing."
+#~ msgstr ""
+#~ "每个关键帧在剪辑底部都有彩色图标（`circle=贝塞尔`, `diamond=线性`, `square=常量` "
+#~ "）。每个图标颜色与其剪辑、效果或转场匹配。选中项的关键帧图标更亮。过滤属性列表时也会过滤这些图标。点击任意图标可跳转播放头，加载其属性，并选中对应的剪辑、效果或转场。拖动图标左右移动关键帧，微调动画时间。"
 
 # Translated with gpt-4.1-mini
 #~ msgid ""

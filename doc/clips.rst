@@ -85,7 +85,7 @@ Here is a list of all methods for cutting and/or trimming clips in OpenShot:
                                              :kbd:`Ctrl+K` to keep both sides, :kbd:`Ctrl+J` to keep the left side, or :kbd:`Ctrl+L` to keep the right side.
    **Slice Selected (Ripple)**               Slice the selected clip(s) at the play-head position, keeping either the left side (shortcut: :kbd:`W`) or the
                                              right side (shortcut: :kbd:`Q`), while rippling the gap removal across the current track.
-   **Razor Tool**                            The :guilabel:`razor tool` from the **Timeline Toolbar** cuts a clip at the position where it is clicked.
+   **Razor Tool**                            The :guilabel:`razor tool` from the **Timeline Toolbar** cuts a clip at the position where it is clicked. See :ref:`razor_tool_ref` for cut guides and frame previews.
                                              Use :kbd:`SHIFT` to slice and keep the left side, or :kbd:`CTRL` to keep the right side.
    **Split File Dialog**                     Right-click on a file and choose :guilabel:`Split File`. This opens a dialog that allows you to create multiple
                                              clips from a single video file.
@@ -95,6 +95,85 @@ Keep in mind that the above cutting methods also have :ref:`keyboard_shortcut_re
 
 If multiple selected clips and/or transitions share the same left edge or right
 edge, you can drag that shared edge once to trim them together.
+
+.. _razor_tool_ref:
+
+Razor Tool
+----------
+
+Use the **Razor Tool** to preview a cut and split a clip or transition directly
+on the timeline. Each click affects only the item under the pointer.
+
+1. Enable :guilabel:`Razor Tool` in the **Timeline Toolbar**.
+2. Move over the clip you want to cut. A vertical dashed guide marks the exact
+   frame boundary, with a timecode and the action that clicking will perform.
+3. While playback is paused, **Video Preview** shows the source frame of the
+   hovered clip, including its time mapping. Higher tracks cannot obscure this
+   preview. The playhead stays in place, and the guide's timecode is timeline time.
+4. Click to split. Razor stays enabled so you can make more cuts.
+5. Press :kbd:`Esc`, or toggle the toolbar button again, to return to normal editing.
+
+Moving away from the clip or leaving Razor mode restores the preview at the
+playhead. Hovering during playback does not interrupt playback. Like edge
+trimming, Razor previews the individual source rather than the composed timeline.
+Hovering a transition previews its mask source.
+
+.. list-table:: Razor actions
+   :header-rows: 1
+   :widths: 25 75
+
+   * - Action
+     - Result
+   * - Click
+     - Split at the guide and keep both sides. The previewed frame starts the right side.
+   * - :kbd:`Shift+Click`
+     - Keep the left side of the guide. The right side is shaded to show what will be removed.
+   * - :kbd:`Ctrl+Click`
+     - Keep the right side. The left side is shaded to show what will be removed.
+   * - :kbd:`Alt+Shift+Click`
+     - Keep the left side and close the gap, shifting later items on the same track left.
+   * - :kbd:`Alt+Ctrl+Click`
+     - Keep the right side and close the gap, shifting later items on the same track left.
+   * - :kbd:`W` / :kbd:`Q` while hovering
+     - Use the existing ripple-slice shortcuts at the pointer: keep left (:kbd:`W`)
+       or right (:kbd:`Q`) and close the gap. Customized bindings work too.
+
+Holding :kbd:`Alt` with :kbd:`Shift` or :kbd:`Ctrl` adds **Close gap** to the hint.
+The red shading shows the portion being removed. These operations reuse
+**Slice Selected (Ripple)**; they move later clips and transitions on the same
+track, not on other tracks. Outside Razor hover, the ripple shortcuts retain
+their normal selected-item/playhead behavior. A locked or invalid Razor target
+does not fall back to cutting a different selected clip.
+
+Cuts align to project frames. With **Snapping** enabled, the Razor guide uses the
+same snap targets and distance tolerance as other timeline edits: clip and
+transition edges, markers, the playhead, and the hovered clip's keyframe targets.
+The hovered item's own endpoints are excluded. Preview, mouse cuts, and ripple
+shortcuts all use the guide's snapped boundary. Toggle the timeline's existing
+**Snapping** button to cut freely between these targets.
+
+Without snapping to a target, :kbd:`Shift+Click` includes the frame under the
+pointer in the left side, placing the guide at the following frame boundary.
+When snapped, the snapped boundary takes priority for all cut modes.
+
+Locked tracks, empty space, and boundaries that
+would leave an empty side do not show a valid cut guide. Zoom in for finer frame
+selection, and use **Undo** to reverse a cut.
+
+To cut several clips at the playhead instead, use **Slice Selected** or
+**Slice All**, described above.
+
+Clip controls while zoomed in
+-----------------------------
+
+When a clip's start scrolls off screen, its title, effect badges, and menu stay
+near the left side of the visible timeline. Click an effect badge to access that
+effect, or use the title's dropdown to open the clip menu. The controls stay
+within the visible portion of their clip and shorten as space runs out.
+
+Only these controls follow the viewport. The clip's outline, thumbnails,
+waveform, and trim handles remain at their actual timeline positions. A small
+inset separates the pinned controls from the viewport edge.
 
 Selections
 ----------

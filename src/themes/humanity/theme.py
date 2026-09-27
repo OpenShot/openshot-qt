@@ -32,7 +32,7 @@ class HumanityDarkTheme(BaseTheme):
     def __init__(self, app):
         super().__init__(app)
         self.style_sheet = """
-QToolTip {
+QToolTip, QLabel#razorHint {
     color: #ffffff;
     font-size: 12px;
     font-weight: normal;
@@ -209,7 +209,7 @@ class Retro(BaseTheme):
     def __init__(self, app):
         super().__init__(app)
         self.style_sheet = """
-QToolTip {
+QToolTip, QLabel#razorHint {
     color: #20242a;
     font-size: 12px;
     font-weight: normal;

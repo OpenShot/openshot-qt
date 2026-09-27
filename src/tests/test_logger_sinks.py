@@ -7,7 +7,7 @@ import sys
 import tempfile
 import types
 import unittest
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -47,6 +47,32 @@ class LoggerSinkTests(unittest.TestCase):
                 self.assertIn('warning-to-both', content)
                 self.assertIn('debug-to-file', content)
                 self.assertNotIn('debug-to-file', console.getvalue())
+
+                # A launcher can close stderr while the editor keeps running.
+                broken_console = Mock()
+                broken_console.write.side_effect = BrokenPipeError('closed pipe')
+                module.sh.setStream(broken_console)
+                module.set_level_console(logging.DEBUG)
+                module.log.warning('closed-console-still-logged')
+                module.log.warning('second-message-still-logged')
+                self.assertEqual(broken_console.write.call_count, 1)
+                module.fh.flush()
+                content = (Path(directory) / 'openshot-qt.log').read_text()
+                self.assertIn('closed-console-still-logged', content)
+                self.assertIn('second-message-still-logged', content)
+
+                # Redirected stdout/stderr also keeps its file sink after EPIPE.
+                redirected = module.StreamToLogger(broken_console)
+                redirected.logger = logging.LoggerAdapter(module.log, {'source': 'stream'})
+                redirected.write('redirected output\n')
+                redirected.flush()
+                redirected.write('more output\n')
+                redirected.flush()
+                self.assertEqual(broken_console.write.call_count, 2)
+                module.fh.flush()
+                content = (Path(directory) / 'openshot-qt.log').read_text()
+                self.assertIn('redirected output', content)
+                self.assertIn('more output', content)
                 module.set_level_file(100)
                 module.set_level_console(100)
                 self.assertFalse(module.log.isEnabledFor(logging.CRITICAL))

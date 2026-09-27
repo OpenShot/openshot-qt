@@ -34,13 +34,14 @@ msgstr ""
 "می‌ماند که تنظیم حجم میکروفون، برش وب‌کم یا ویرایش ضبط صفحه را به صورت "
 "جداگانه آسان می‌کند."
 
+# Main-window terminology review, 2026-09-26.
 #: ../recording.rst:29
 msgid ""
 "Open the dedicated layout with :guilabel:`View → Recording View`, or show "
 "only the dock with :guilabel:`View → Docks → Recording`."
 msgstr ""
 "طرح‌بندی اختصاصی را با :guilabel:`View → Recording View` باز کنید، یا فقط "
-"داک را با :guilabel:`View → Docks → Recording` نمایش دهید."
+"داک را با :guilabel:`View → Docks → ضبط` نمایش دهید."
 
 #: ../recording.rst:-1
 msgid "OpenShot Recording View with the microphone source selected by default"

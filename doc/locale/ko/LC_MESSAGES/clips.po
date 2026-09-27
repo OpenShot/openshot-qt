@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-09-26 14:26-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -104,8 +104,8 @@ msgid "Name"
 msgstr "이름"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:51 ../clips.rst:76 ../clips.rst:110 ../clips.rst:149
-#: ../clips.rst:622
+#: ../clips.rst:51 ../clips.rst:76 ../clips.rst:189 ../clips.rst:228
+#: ../clips.rst:701
 msgid "Description"
 msgstr "설명"
 
@@ -269,15 +269,16 @@ msgstr ""
 msgid "**Razor Tool**"
 msgstr "** 면도날 도구**"
 
-# Translated with gpt-4.1-mini
 #: ../clips.rst:88
 msgid ""
 "The :guilabel:`razor tool` from the **Timeline Toolbar** cuts a clip at the "
-"position where it is clicked. Use :kbd:`SHIFT` to slice and keep the left "
-"side, or :kbd:`CTRL` to keep the right side."
+"position where it is clicked. See :ref:`razor_tool_ref` for cut guides and "
+"frame previews. Use :kbd:`SHIFT` to slice and keep the left side, or "
+":kbd:`CTRL` to keep the right side."
 msgstr ""
-"** 타임라인 도구 모음** 의 :guilabel:` 면도날 도구` 는 클릭한 위치에서 클립을 자릅니다. :kbd:`SHIFT` 를 "
-"사용하면 왼쪽을 유지하며 자르고, :kbd:`CTRL` 을 사용하면 오른쪽을 유지합니다."
+"**타임라인 도구 모음**의 :guilabel:`레이저 도구`는 클릭한 위치에서 클립을 자릅니다. 자르기 가이드와 프레임 미리보기는 "
+":ref:`razor_tool_ref`를 참조하세요. :kbd:`SHIFT`를 눌러 왼쪽 부분을 유지하거나, :kbd:`CTRL`을 눌러"
+" 오른쪽 부분을 유지할 수 있습니다."
 
 # Translated with gpt-4.1-mini
 #: ../clips.rst:90
@@ -310,13 +311,221 @@ msgstr ""
 "여러 개의 선택된 클립 및/또는 전환이 동일한 왼쪽 가장자리 또는 오른쪽 가장자리를 공유하는 경우, 해당 공유 가장자리를 한 번 "
 "드래그하여 함께 자를 수 있습니다."
 
+#: ../clips.rst:102
+msgid "Razor Tool"
+msgstr "레이저 도구"
+
+#: ../clips.rst:104
+msgid ""
+"Use the **Razor Tool** to preview a cut and split a clip or transition "
+"directly on the timeline. Each click affects only the item under the "
+"pointer."
+msgstr ""
+"**레이저 도구**를 사용하여 자르기를 미리 보고 타임라인에서 클립이나 전환을 직접 분할하세요. 각 클릭은 포인터 아래의 항목에만 영향을"
+" 줍니다."
+
+#: ../clips.rst:107
+msgid "Enable :guilabel:`Razor Tool` in the **Timeline Toolbar**."
+msgstr "**타임라인 도구 모음**에서 :guilabel:`레이저 도구`를 활성화하세요."
+
+#: ../clips.rst:108
+msgid ""
+"Move over the clip you want to cut. A vertical dashed guide marks the exact "
+"frame boundary, with a timecode and the action that clicking will perform."
+msgstr ""
+"자르려는 클립 위로 마우스를 이동하세요. 세로 점선 가이드가 정확한 프레임 경계와 타임코드, 클릭 시 수행할 작업을 표시합니다."
+
+#: ../clips.rst:110
+msgid ""
+"While playback is paused, **Video Preview** shows the source frame of the "
+"hovered clip, including its time mapping. Higher tracks cannot obscure this "
+"preview. The playhead stays in place, and the guide's timecode is timeline "
+"time."
+msgstr ""
+"재생이 일시 중지된 동안, **비디오 미리보기**는 마우스가 올려진 클립의 소스 프레임과 시간 매핑을 보여줍니다. 상위 트랙이 이 "
+"미리보기를 가릴 수 없습니다. 재생 헤드는 제자리에 있고, 가이드의 타임코드는 타임라인 시간입니다."
+
+#: ../clips.rst:113
+msgid "Click to split. Razor stays enabled so you can make more cuts."
+msgstr "클릭하여 분할하세요. 레이저 도구는 활성 상태를 유지하여 더 많은 자르기를 할 수 있습니다."
+
+#: ../clips.rst:114
+msgid ""
+"Press :kbd:`Esc`, or toggle the toolbar button again, to return to normal "
+"editing."
+msgstr "일반 편집으로 돌아가려면 :kbd:`Esc`를 누르거나 도구 모음 버튼을 다시 전환하세요."
+
+#: ../clips.rst:116
+msgid ""
+"Moving away from the clip or leaving Razor mode restores the preview at the "
+"playhead. Hovering during playback does not interrupt playback. Like edge "
+"trimming, Razor previews the individual source rather than the composed "
+"timeline. Hovering a transition previews its mask source."
+msgstr ""
+"클립에서 벗어나거나 레이저 모드를 종료하면 재생 헤드 위치의 미리보기가 복원됩니다. 재생 중 마우스 오버해도 재생이 중단되지 않습니다. "
+"엣지 트리밍과 마찬가지로, 레이저는 합성된 타임라인이 아닌 개별 소스를 미리 봅니다. 전환 위에 마우스를 올리면 마스크 소스를 미리 볼 "
+"수 있습니다."
+
+#: ../clips.rst:121
+msgid "Razor actions"
+msgstr "레이저 동작"
+
+#: ../clips.rst:125
+msgid "Action"
+msgstr "동작"
+
+#: ../clips.rst:126
+msgid "Result"
+msgstr "결과"
+
+#: ../clips.rst:127
+msgid "Click"
+msgstr "클릭"
+
+#: ../clips.rst:128
+msgid ""
+"Split at the guide and keep both sides. The previewed frame starts the right"
+" side."
+msgstr "가이드에서 분할하고 양쪽을 모두 유지합니다. 미리 본 프레임이 오른쪽 부분의 시작입니다."
+
+#: ../clips.rst:129
+msgid ":kbd:`Shift+Click`"
+msgstr ":kbd:`Shift+Click`"
+
+#: ../clips.rst:130
+msgid ""
+"Keep the left side of the guide. The right side is shaded to show what will "
+"be removed."
+msgstr "가이드의 왼쪽 부분을 유지합니다. 오른쪽은 제거될 부분을 표시하기 위해 음영 처리됩니다."
+
+#: ../clips.rst:131
+msgid ":kbd:`Ctrl+Click`"
+msgstr ":kbd:`Ctrl+Click`"
+
+#: ../clips.rst:132
+msgid ""
+"Keep the right side. The left side is shaded to show what will be removed."
+msgstr "오른쪽 부분을 유지합니다. 왼쪽은 제거될 부분을 표시하기 위해 음영 처리됩니다."
+
+#: ../clips.rst:133
+msgid ":kbd:`Alt+Shift+Click`"
+msgstr ":kbd:`Alt+Shift+Click`"
+
+#: ../clips.rst:134
+msgid ""
+"Keep the left side and close the gap, shifting later items on the same track"
+" left."
+msgstr "왼쪽 부분을 유지하고 간격을 닫아 같은 트랙의 이후 항목들을 왼쪽으로 이동시킵니다."
+
+#: ../clips.rst:135
+msgid ":kbd:`Alt+Ctrl+Click`"
+msgstr ":kbd:`Alt+Ctrl+Click`"
+
+#: ../clips.rst:136
+msgid ""
+"Keep the right side and close the gap, shifting later items on the same "
+"track left."
+msgstr "오른쪽 부분을 유지하고 간격을 닫아 같은 트랙의 이후 항목들을 왼쪽으로 이동시킵니다."
+
+#: ../clips.rst:137
+msgid ":kbd:`W` / :kbd:`Q` while hovering"
+msgstr "마우스 오버 중 :kbd:`W` / :kbd:`Q`"
+
+#: ../clips.rst:138
+msgid ""
+"Use the existing ripple-slice shortcuts at the pointer: keep left (:kbd:`W`)"
+" or right (:kbd:`Q`) and close the gap. Customized bindings work too."
+msgstr ""
+"포인터 위치에서 기존의 리플 슬라이스 단축키를 사용하세요: 왼쪽 유지(:kbd:`W`), 오른쪽 유지(:kbd:`Q`) 및 간격 닫기. "
+"사용자 지정 단축키도 작동합니다."
+
+#: ../clips.rst:141
+msgid ""
+"Holding :kbd:`Alt` with :kbd:`Shift` or :kbd:`Ctrl` adds **Close gap** to "
+"the hint. The red shading shows the portion being removed. These operations "
+"reuse **Slice Selected (Ripple)**; they move later clips and transitions on "
+"the same track, not on other tracks. Outside Razor hover, the ripple "
+"shortcuts retain their normal selected-item/playhead behavior. A locked or "
+"invalid Razor target does not fall back to cutting a different selected "
+"clip."
+msgstr ""
+":kbd:`Alt`를 :kbd:`Shift` 또는 :kbd:`Ctrl`과 함께 누르면 힌트에 **간격 닫기**가 추가됩니다. 빨간 음영은"
+" 제거되는 부분을 나타냅니다. 이 작업들은 **선택 항목 슬라이스(리플)**를 재사용하며, 같은 트랙의 이후 클립과 전환만 이동시키고 "
+"다른 트랙은 이동시키지 않습니다. 레이저 호버 외부에서는 리플 단축키가 일반 선택 항목/재생 헤드 동작을 유지합니다. 잠긴 또는 유효하지"
+" 않은 레이저 대상은 다른 선택된 클립 자르기로 대체되지 않습니다."
+
+#: ../clips.rst:148
+msgid ""
+"Cuts align to project frames. With **Snapping** enabled, the Razor guide "
+"uses the same snap targets and distance tolerance as other timeline edits: "
+"clip and transition edges, markers, the playhead, and the hovered clip's "
+"keyframe targets. The hovered item's own endpoints are excluded. Preview, "
+"mouse cuts, and ripple shortcuts all use the guide's snapped boundary. "
+"Toggle the timeline's existing **Snapping** button to cut freely between "
+"these targets."
+msgstr ""
+"컷은 프로젝트 프레임에 맞춰집니다. **스냅**이 활성화되면 레이저 가이드는 클립 및 전환 가장자리, 마커, 재생 헤드, 마우스 오버된 "
+"클립의 키프레임 대상 등 다른 타임라인 편집과 동일한 스냅 대상과 거리 허용치를 사용합니다. 마우스 오버된 항목의 자체 끝점은 "
+"제외됩니다. 미리보기, 마우스 컷, 리플 단축키 모두 가이드의 스냅된 경계를 사용합니다. 타임라인의 기존 **스냅** 버튼을 전환하여 이"
+" 대상들 사이를 자유롭게 자를 수 있습니다."
+
+#: ../clips.rst:155
+msgid ""
+"Without snapping to a target, :kbd:`Shift+Click` includes the frame under "
+"the pointer in the left side, placing the guide at the following frame "
+"boundary. When snapped, the snapped boundary takes priority for all cut "
+"modes."
+msgstr ""
+"대상에 스냅하지 않은 상태에서 :kbd:`Shift+Click`은 포인터 아래 프레임을 왼쪽에 포함시키며, 가이드를 다음 프레임 경계에 "
+"배치합니다. 스냅된 경우, 스냅된 경계가 모든 컷 모드에서 우선합니다."
+
+#: ../clips.rst:159
+msgid ""
+"Locked tracks, empty space, and boundaries that would leave an empty side do"
+" not show a valid cut guide. Zoom in for finer frame selection, and use "
+"**Undo** to reverse a cut."
+msgstr ""
+"잠긴 트랙, 빈 공간, 빈 쪽이 남는 경계는 유효한 컷 가이드를 표시하지 않습니다. 더 세밀한 프레임 선택을 위해 확대하고, 컷을 "
+"되돌리려면 **실행 취소**를 사용하세요."
+
+#: ../clips.rst:163
+msgid ""
+"To cut several clips at the playhead instead, use **Slice Selected** or "
+"**Slice All**, described above."
+msgstr "대신 재생 헤드에서 여러 클립을 자르려면 위에서 설명한 **선택 항목 슬라이스** 또는 **전체 슬라이스**를 사용하세요."
+
+#: ../clips.rst:167
+msgid "Clip controls while zoomed in"
+msgstr "확대 시 클립 컨트롤"
+
+#: ../clips.rst:169
+msgid ""
+"When a clip's start scrolls off screen, its title, effect badges, and menu "
+"stay near the left side of the visible timeline. Click an effect badge to "
+"access that effect, or use the title's dropdown to open the clip menu. The "
+"controls stay within the visible portion of their clip and shorten as space "
+"runs out."
+msgstr ""
+"클립의 시작 부분이 화면 밖으로 스크롤되면 제목, 효과 배지, 메뉴가 보이는 타임라인 왼쪽 근처에 유지됩니다. 효과 배지를 클릭하여 해당"
+" 효과에 접근하거나 제목의 드롭다운을 사용해 클립 메뉴를 열 수 있습니다. 컨트롤은 클립의 보이는 부분 내에 머무르며 공간이 부족해지면 "
+"축소됩니다."
+
+#: ../clips.rst:174
+msgid ""
+"Only these controls follow the viewport. The clip's outline, thumbnails, "
+"waveform, and trim handles remain at their actual timeline positions. A "
+"small inset separates the pinned controls from the viewport edge."
+msgstr ""
+"이 컨트롤만 뷰포트를 따라 이동합니다. 클립의 윤곽선, 썸네일, 파형, 트림 핸들은 실제 타임라인 위치에 그대로 있습니다. 작은 안쪽 "
+"여백이 고정된 컨트롤과 뷰포트 가장자리를 구분합니다."
+
 # Translated with gpt-4.1-mini
-#: ../clips.rst:100
+#: ../clips.rst:179
 msgid "Selections"
 msgstr "선택"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:101
+#: ../clips.rst:180
 msgid ""
 "Selecting clips and transitions on the timeline is an essential part of "
 "editing in OpenShot. Multiple selection methods are available to streamline "
@@ -326,22 +535,22 @@ msgstr ""
 "클립과 전환을 효율적으로 편집할 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:104
+#: ../clips.rst:183
 msgid "Here is a list of all methods for selecting clips in OpenShot:"
 msgstr "OpenShot에서 클립을 선택하는 모든 방법 목록은 다음과 같습니다:"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:110
+#: ../clips.rst:189
 msgid "Selection Method"
 msgstr "선택 방법"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:112
+#: ../clips.rst:191
 msgid "**Box Selection**"
 msgstr "** 박스 선택**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:112
+#: ../clips.rst:191
 msgid ""
 "Click and drag a selection box around clips or transitions to select "
 "multiple items at once. Hold down :kbd:`Ctrl` to add to your current "
@@ -351,24 +560,24 @@ msgstr ""
 " 누르고 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:113
+#: ../clips.rst:192
 msgid "**Click Selection**"
 msgstr "** 클릭 선택**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:113
+#: ../clips.rst:192
 msgid ""
 "Click on a clip or transition to select it. This will deselect all other "
 "items unless you hold down :kbd:`Ctrl`."
 msgstr "클립이나 전환을 클릭하여 선택합니다. :kbd:`Ctrl` 키를 누르지 않으면 다른 모든 항목의 선택이 해제됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:114
+#: ../clips.rst:193
 msgid "**Add to Selection**"
 msgstr "** 선택에 추가**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:114
+#: ../clips.rst:193
 msgid ""
 "Hold down :kbd:`Ctrl` while clicking to add or remove clips from the current"
 " selection, allowing you to select non-adjacent clips."
@@ -377,12 +586,12 @@ msgstr ""
 "있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:115
+#: ../clips.rst:194
 msgid "**Range Selection**"
 msgstr "** 범위 선택**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:115
+#: ../clips.rst:194
 msgid ""
 "Hold down :kbd:`Shift` while clicking to select a range of clips/transitions"
 " from the previous selection to the new selection. This supports ranges that"
@@ -392,12 +601,12 @@ msgstr ""
 " 범위도 지원합니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:116
+#: ../clips.rst:195
 msgid "**Ripple Selection**"
 msgstr "** 리플 선택**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:116
+#: ../clips.rst:195
 msgid ""
 "Hold down :kbd:`Alt` while clicking to ripple select all clips/transitions "
 "from your selection to the end of the track. This always adds to your "
@@ -407,42 +616,42 @@ msgstr ""
 "키를 누르지 않아도 현재 선택에 항상 추가됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:117
+#: ../clips.rst:196
 msgid "**Clear Selection**"
 msgstr "** 선택 해제**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:117
+#: ../clips.rst:196
 msgid ""
 "Click anywhere on the timeline or on a new clip/transition to reset the "
 "current selection, unless :kbd:`Ctrl` is pressed."
 msgstr "타임라인이나 새 클립/전환을 클릭하면 :kbd:`Ctrl` 키를 누르지 않은 경우 현재 선택이 초기화됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:118
+#: ../clips.rst:197
 msgid "**Select All**"
 msgstr "** 모두 선택**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:118
+#: ../clips.rst:197
 msgid ""
 "Press :kbd:`Ctrl+A` to select all clips and transitions on the timeline."
 msgstr "타임라인의 모든 클립과 전환을 선택하려면 :kbd:`Ctrl+A` 를 누르세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:119
+#: ../clips.rst:198
 msgid "**Select None**"
 msgstr "** 선택 해제 모두**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:119
+#: ../clips.rst:198
 msgid ""
 "Press :kbd:`Ctrl+Shift+A` to deselect all clips and transitions on the "
 "timeline."
 msgstr "타임라인의 모든 클립과 전환 선택을 해제하려면 :kbd:`Ctrl+Shift+A` 를 누르세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:122
+#: ../clips.rst:201
 msgid ""
 "Mastering these selection techniques will streamline your editing process, "
 "especially when dealing with complex projects. For more advanced tips on "
@@ -453,12 +662,12 @@ msgstr ""
 ":ref:`clips_cutting_slicing_ref` 섹션을 참조하세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:128
+#: ../clips.rst:207
 msgid "Context Menu"
 msgstr "컨텍스트 메뉴"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:129
+#: ../clips.rst:208
 msgid ""
 "OpenShot has tons of great preset animations and clip properties, such as "
 "fading, sliding, zooming, reversing time, adjusting volume, etc... These "
@@ -471,7 +680,7 @@ msgstr ""
 "오른쪽 버튼으로 클릭하면 컨텍스트 메뉴가 나타나 이 프리셋에 접근할 수 있습니다. 프리셋은 사용자가 키프레임 클립 속성을 수동으로 "
 "설정하지 않아도 하나 이상의 클립 속성을 설정합니다. 자세한 내용은 :ref:`clip_properties_ref` 를 참조하세요."
 
-#: ../clips.rst:134
+#: ../clips.rst:213
 msgid ""
 "Some presets allow the user to target either the start, end, or entire clip,"
 " and most presets allow the user to reset a specific clip property. For "
@@ -482,34 +691,34 @@ msgstr ""
 "있습니다. 예를 들어, :guilabel:`Audio → Volume` 프리셋을 사용할 때 사용자는 다음 메뉴 옵션을 사용할 수 "
 "있습니다:"
 
-#: ../clips.rst:138
+#: ../clips.rst:217
 msgid "**Reset Volume** — resets the volume to the original level."
 msgstr "**볼륨 재설정** — 볼륨을 원래 수준으로 재설정합니다."
 
-#: ../clips.rst:139
+#: ../clips.rst:218
 msgid ""
 "**Start of Clip** — the volume change applies at the beginning of the clip."
 msgstr "**클립 시작** — 볼륨 변경이 클립 시작 부분에 적용됩니다."
 
-#: ../clips.rst:140
+#: ../clips.rst:219
 msgid "**End of Clip** — the volume change applies at the end of the clip."
 msgstr "**클립 끝** — 볼륨 변경이 클립 끝 부분에 적용됩니다."
 
-#: ../clips.rst:141
+#: ../clips.rst:220
 msgid "**Entire Clip** — the volume change applies to the entire clip."
 msgstr "**전체 클립** — 볼륨 변경이 클립 전체에 적용됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:149
+#: ../clips.rst:228
 msgid "Preset Name"
 msgstr "프리셋 이름"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:151 ../clips.rst:539
+#: ../clips.rst:230 ../clips.rst:618
 msgid "Copy / Cut / Paste"
 msgstr "복사 / 잘라내기 / 붙여넣기"
 
-#: ../clips.rst:151
+#: ../clips.rst:230
 msgid ""
 "Copy selected clip data, cut selected clips, or paste copied clip data. Copy"
 " supports full clips, effects, and keyframe groups."
@@ -517,32 +726,32 @@ msgstr ""
 "선택한 클립 데이터를 복사하거나, 선택한 클립을 잘라내거나, 복사한 클립 데이터를 붙여넣습니다. 복사는 전체 클립, 효과 및 키프레임 "
 "그룹을 지원합니다."
 
-#: ../clips.rst:152
+#: ../clips.rst:231
 msgid "Align"
 msgstr "정렬"
 
-#: ../clips.rst:152
+#: ../clips.rst:231
 msgid ""
 "Align the left or right edge of multiple selected clips and transitions "
 "(only shown when multiple clips are selected)."
 msgstr "여러 선택된 클립과 전환의 왼쪽 또는 오른쪽 가장자리를 정렬합니다 (여러 클립이 선택된 경우에만 표시됨)."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:153 ../clips.rst:165
+#: ../clips.rst:232 ../clips.rst:244
 msgid "Fade"
 msgstr "페이드"
 
-#: ../clips.rst:153
+#: ../clips.rst:232
 msgid ""
 "Fade the clip in or out — automatically fades video (alpha) and/or audio "
 "(volume) based on what the clip contains."
 msgstr "클립을 페이드 인 또는 아웃합니다 — 클립 내용에 따라 비디오(알파) 및/또는 오디오(볼륨)를 자동으로 페이드합니다."
 
-#: ../clips.rst:154 ../clips.rst:182
+#: ../clips.rst:233 ../clips.rst:261
 msgid "Motion"
 msgstr "모션"
 
-#: ../clips.rst:154
+#: ../clips.rst:233
 msgid ""
 "Add animated motion to a clip: slide in/out, bounce, blur, wipe/focus-wipe, "
 "zoom, emphasis effects at the playhead, camera movements, and scrolling "
@@ -552,11 +761,11 @@ msgstr ""
 "움직임, 스크롤 크레딧. 시각 클립에만 표시됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:155 ../clips.rst:417
+#: ../clips.rst:234 ../clips.rst:496
 msgid "Transform"
 msgstr "변형"
 
-#: ../clips.rst:155
+#: ../clips.rst:234
 msgid ""
 "Apply geometric presets to a clip: rotate/flip, crop, or snap to a corner "
 "layout. Also provides a **No Transform** reset. Only shown for visual clips."
@@ -564,11 +773,11 @@ msgstr ""
 "클립에 기하학적 프리셋을 적용합니다: 회전/뒤집기, 자르기, 또는 모서리 레이아웃에 맞춤. 또한 **변환 없음** 재설정을 제공합니다. "
 "시각 클립에만 표시됩니다."
 
-#: ../clips.rst:156 ../clips.rst:318
+#: ../clips.rst:235 ../clips.rst:397
 msgid "Look"
 msgstr "룩"
 
-#: ../clips.rst:156
+#: ../clips.rst:235
 msgid ""
 "Apply visual style presets: color grades, film grain, analog tape, sharpen, "
 "blur, shadow, and glow effects. Includes **Adjust Colors** (Color Wheels "
@@ -577,21 +786,21 @@ msgstr ""
 "시각 스타일 프리셋을 적용합니다: 색상 등급, 필름 그레인, 아날로그 테이프, 선명하게, 블러, 그림자, 글로우 효과. **색상 "
 "조정**(컬러 휠 편집기)과 **색상 분석**(비디오 스코프) 포함. 시각 클립에만 표시됩니다."
 
-#: ../clips.rst:157 ../clips.rst:249
+#: ../clips.rst:236 ../clips.rst:328
 msgid "Speed"
 msgstr "속도"
 
-#: ../clips.rst:157
+#: ../clips.rst:236
 msgid ""
 "Reverse, repeat, speed up, or slow down video. Includes Freeze and Freeze & "
 "Zoom options."
 msgstr "비디오를 역재생, 반복, 속도 증가 또는 감소합니다. 프리즈 및 프리즈 & 줌 옵션 포함."
 
-#: ../clips.rst:158 ../clips.rst:365
+#: ../clips.rst:237 ../clips.rst:444
 msgid "Audio"
 msgstr "오디오"
 
-#: ../clips.rst:158
+#: ../clips.rst:237
 msgid ""
 "Control audio properties: adjust volume levels, fade volume in/out, separate"
 " audio channels, show/hide the timeline waveform, or open the Audio Levels "
@@ -601,11 +810,11 @@ msgstr ""
 "스코프 열기."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:159 ../clips.rst:392
+#: ../clips.rst:238 ../clips.rst:471
 msgid "Slice"
 msgstr "자르기"
 
-#: ../clips.rst:159
+#: ../clips.rst:238
 msgid ""
 "Cut the clip at the play-head position, with options to keep either side, "
 "both sides, or ripple-delete one side. Only shown when the playhead overlaps"
@@ -615,24 +824,24 @@ msgstr ""
 "표시됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:160 ../clips.rst:531
+#: ../clips.rst:239 ../clips.rst:610
 msgid "Properties"
 msgstr "속성"
 
-#: ../clips.rst:160
+#: ../clips.rst:239
 msgid "Show the properties panel for a clip."
 msgstr "클립의 속성 패널을 표시합니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:161 ../clips.rst:563
+#: ../clips.rst:240 ../clips.rst:642
 msgid "Remove Clip"
 msgstr "클립 제거"
 
-#: ../clips.rst:161
+#: ../clips.rst:240
 msgid "Remove a clip from the timeline."
 msgstr "타임라인에서 클립을 제거합니다."
 
-#: ../clips.rst:166
+#: ../clips.rst:245
 msgid ""
 "The :guilabel:`Fade` preset creates a smooth fade-in or fade-out on the "
 "selected clip. It automatically fades **video** (alpha/opacity) and/or "
@@ -644,11 +853,11 @@ msgstr ""
 "**비디오**(알파/불투명도) 및/또는 **오디오**(볼륨)를 자동으로 페이드합니다 — 비디오 클립은 둘 다, 오디오 전용 클립은 볼륨 "
 "페이드만, 이미지 클립은 알파 페이드만 적용됩니다."
 
-#: ../clips.rst:170
+#: ../clips.rst:249
 msgid ":guilabel:`No Fade` — removes all fade keyframes."
 msgstr ":guilabel:`페이드 없음` — 모든 페이드 키프레임을 제거합니다."
 
-#: ../clips.rst:171
+#: ../clips.rst:250
 msgid ""
 ":guilabel:`Fade In` → :guilabel:`Fast` / :guilabel:`Slow` — fades from "
 "transparent/silent at the start of the clip."
@@ -656,7 +865,7 @@ msgstr ""
 ":guilabel:`페이드 인` → :guilabel:`빠름` / :guilabel:`느림` — 클립 시작에서 투명/무음 상태에서 페이드"
 " 인합니다."
 
-#: ../clips.rst:172
+#: ../clips.rst:251
 msgid ""
 ":guilabel:`Fade Out` → :guilabel:`Fast` / :guilabel:`Slow` — fades to "
 "transparent/silent at the end of the clip."
@@ -664,7 +873,7 @@ msgstr ""
 ":guilabel:`페이드 아웃` → :guilabel:`빠름` / :guilabel:`느림` — 클립 끝에서 투명/무음 상태로 페이드 "
 "아웃합니다."
 
-#: ../clips.rst:173
+#: ../clips.rst:252
 msgid ""
 ":guilabel:`Fade In and Out` → :guilabel:`Fast` / :guilabel:`Slow` — applies "
 "both a fade-in at the start and a fade-out at the end."
@@ -672,7 +881,7 @@ msgstr ""
 ":guilabel:`페이드 인 및 아웃` → :guilabel:`빠름` / :guilabel:`느림` — 시작 부분에 페이드 인, 끝 "
 "부분에 페이드 아웃을 모두 적용합니다."
 
-#: ../clips.rst:175
+#: ../clips.rst:254
 msgid ""
 "Fast fades span approximately 1 second; Slow fades span approximately 3 "
 "seconds. See :ref:`clip_alpha_ref` and :ref:`clip_volume_ref` key-frames."
@@ -681,13 +890,13 @@ msgstr ""
 ":ref:`clip_volume_ref` 키프레임을 참조하세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:178
+#: ../clips.rst:257
 msgid ""
 "**Usage Example:** Applying a fade-out to a video clip to gently conclude a "
 "scene."
 msgstr "** 사용 예:** 장면을 부드럽게 마무리하기 위해 비디오 클립에 페이드 아웃 효과를 적용합니다."
 
-#: ../clips.rst:179
+#: ../clips.rst:258
 msgid ""
 "**Tip:** Fade and Volume fade are independent — use :guilabel:`Fade` for a "
 "combined video+audio fade, or use :guilabel:`Audio → Volume` to fade only "
@@ -696,7 +905,7 @@ msgstr ""
 "**팁:** 페이드와 볼륨 페이드는 독립적입니다 — 비디오+오디오 페이드를 위해 :guilabel:`Fade`를 사용하거나 오디오만 "
 "페이드하려면 :guilabel:`Audio → Volume`을 사용하세요."
 
-#: ../clips.rst:183
+#: ../clips.rst:262
 msgid ""
 "The :guilabel:`Motion` menu adds animated movement to visual clips using "
 "keyframe presets. It is organized into several submenus. See "
@@ -705,31 +914,31 @@ msgstr ""
 ":guilabel:`Motion` 메뉴는 키프레임 프리셋을 사용하여 시각 클립에 애니메이션 움직임을 추가합니다. 여러 하위 메뉴로 "
 "구성되어 있습니다. :ref:`clip_location_x_ref` 및 :ref:`clip_scale_x_ref` 키프레임을 참조하세요."
 
-#: ../clips.rst:186
+#: ../clips.rst:265
 msgid ":guilabel:`No Motion` — removes all motion keyframes from the clip."
 msgstr ":guilabel:`모션 없음` — 클립에서 모든 모션 키프레임을 제거합니다."
 
-#: ../clips.rst:187
+#: ../clips.rst:266
 msgid ":guilabel:`In` — entrance animations applied at the start of the clip:"
 msgstr ":guilabel:`인` — 클립 시작 부분에 적용되는 입장 애니메이션:"
 
-#: ../clips.rst:189
+#: ../clips.rst:268
 msgid ""
 "**Back In** (From Bottom / Left / Right / Top) — clip overshoots and springs"
 " back into position."
 msgstr "**백 인** (아래 / 왼쪽 / 오른쪽 / 위에서) — 클립이 지나쳤다가 원위치로 튕겨 들어옵니다."
 
-#: ../clips.rst:190
+#: ../clips.rst:269
 msgid "**Blur In** — clip fades in from a motion blur."
 msgstr "**블러 인** — 클립이 모션 블러에서 페이드 인됩니다."
 
-#: ../clips.rst:191
+#: ../clips.rst:270
 msgid ""
 "**Bounce In** (Center / From Bottom / Left / Right / Top) — clip bounces as "
 "it enters."
 msgstr "**바운스 인** (중앙 / 아래 / 왼쪽 / 오른쪽 / 위에서) — 클립이 들어올 때 바운스합니다."
 
-#: ../clips.rst:192
+#: ../clips.rst:271
 msgid ""
 "**Focus Wipe In** (Circle Expand / Circle Shrink / From Bottom / Left / "
 "Right / Top) — clip is revealed by a wipe while sharpening from blur into "
@@ -738,27 +947,27 @@ msgstr ""
 "**포커스 와이프 인** (원 확장 / 원 축소 / 아래 / 왼쪽 / 오른쪽 / 위에서) — 블러에서 포커스로 선명해지면서 와이프로 "
 "클립이 나타납니다."
 
-#: ../clips.rst:193
+#: ../clips.rst:272
 msgid "**Pop In** — clip scales up quickly from nothing."
 msgstr "**팝 인** — 클립이 아무것도 없는 상태에서 빠르게 확대됩니다."
 
-#: ../clips.rst:194
+#: ../clips.rst:273
 msgid ""
 "**Slide In** (From Bottom / Left / Right / Top) — clip slides onto the "
 "screen."
 msgstr "**슬라이드 인** (아래 / 왼쪽 / 오른쪽 / 위에서) — 클립이 화면으로 슬라이드됩니다."
 
-#: ../clips.rst:195
+#: ../clips.rst:274
 msgid "**Spiral In** — clip rotates in while scaling up."
 msgstr "**스파이럴 인** — 클립이 확대되면서 회전합니다."
 
-#: ../clips.rst:196
+#: ../clips.rst:275
 msgid ""
 "**Wipe In** (Circle Expand / Circle Shrink / From Bottom / Left / Right / "
 "Top) — clip is revealed by a wipe."
 msgstr "**와이프 인** (원 확장 / 원 축소 / 아래 / 왼쪽 / 오른쪽 / 위에서) — 와이프로 클립이 나타납니다."
 
-#: ../clips.rst:198
+#: ../clips.rst:277
 msgid ""
 ":guilabel:`Out` — exit animations applied at the end of the clip (mirrors "
 "the In options: Back Out, Blur Out, Bounce Out, Focus Wipe Out, Pop Out, "
@@ -767,7 +976,7 @@ msgstr ""
 ":guilabel:`아웃` — 클립 끝에 적용되는 퇴장 애니메이션 (인 옵션과 대응: 백 아웃, 블러 아웃, 바운스 아웃, 포커스 와이프"
 " 아웃, 팝 아웃, 슬라이드 아웃, 스파이럴 아웃, 와이프 아웃)."
 
-#: ../clips.rst:200
+#: ../clips.rst:279
 msgid ""
 ":guilabel:`Emphasis` — short attention-grabbing animations **inserted at the"
 " current playhead position** (not applied across the whole clip). Useful for"
@@ -779,17 +988,17 @@ msgstr ""
 "중간 하이라이트에 유용: **바운스**, **플래시**, **심장 박동**, **젤로**, **펄스**, **고무 밴드**, **좌우 "
 "흔들기**, **상하 흔들기**, **스윙**, **타다**, **흔들림**."
 
-#: ../clips.rst:202
+#: ../clips.rst:281
 msgid ""
 ":guilabel:`Camera` — simulates camera movement on the clip by animating "
 "scale and position:"
 msgstr ":guilabel:`카메라` — 크기와 위치를 애니메이션하여 클립에서 카메라 움직임을 시뮬레이션합니다:"
 
-#: ../clips.rst:204
+#: ../clips.rst:283
 msgid "**Zoom** → In / Out — a simple push-in or pull-out."
 msgstr "**줌** → 확대 / 축소 — 간단한 밀어넣기 또는 당겨내기."
 
-#: ../clips.rst:205
+#: ../clips.rst:284
 msgid ""
 "**Pan** → Auto Direction / Left to Right / Right to Left / Top to Bottom / "
 "Bottom to Top — a lateral camera pan. *Auto Direction* picks the best "
@@ -798,7 +1007,7 @@ msgstr ""
 "**팬** → 자동 방향 / 왼쪽에서 오른쪽 / 오른쪽에서 왼쪽 / 위에서 아래 / 아래에서 위 — 수평 카메라 팬. *자동 방향*은 "
 "클립의 가로세로 비율에 따라 최적 방향을 선택합니다."
 
-#: ../clips.rst:206
+#: ../clips.rst:285
 msgid ""
 "**Zoom & Pan** → In or Out, with directional variants — combines a zoom with"
 " a pan (Ken Burns style). *Auto Direction* picks the best direction based on"
@@ -807,20 +1016,20 @@ msgstr ""
 "**줌 & 팬** → 확대 또는 축소, 방향 변형 포함 — 줌과 팬을 결합한 효과 (켄 번즈 스타일). *자동 방향*은 클립의 가로세로 "
 "비율에 따라 최적 방향을 선택합니다."
 
-#: ../clips.rst:208
+#: ../clips.rst:287
 msgid ""
 ":guilabel:`Credits` — scrolling credit animations: **Scroll Up** and "
 "**Scroll Down**."
 msgstr ":guilabel:`크레딧` — 스크롤 크레딧 애니메이션: **위로 스크롤**, **아래로 스크롤**."
 
-#: ../clips.rst:210
+#: ../clips.rst:289
 msgid ""
 "**Tip:** Emphasis presets are placed at the current playhead position, so "
 "position the playhead over the moment you want to highlight before applying "
 "one."
 msgstr "**팁:** 강조 프리셋은 현재 재생 헤드 위치에 배치되므로, 적용하기 전에 하이라이트할 순간에 재생 헤드를 위치시키세요."
 
-#: ../clips.rst:211
+#: ../clips.rst:290
 msgid ""
 "**Tip:** Camera presets use *Auto Direction* by default, which picks the "
 "optimal pan direction for wide or tall media to avoid black bars."
@@ -829,11 +1038,11 @@ msgstr ""
 "방향을 선택합니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:216
+#: ../clips.rst:295
 msgid "Rotate"
 msgstr "회전"
 
-#: ../clips.rst:217
+#: ../clips.rst:296
 msgid ""
 "The :guilabel:`Transform → Rotate` submenu introduces easy rotation and "
 "flipping of clips. It enables orientation adjustment by rotating and "
@@ -843,41 +1052,41 @@ msgstr ""
 ":guilabel:`변환 → 회전` 하위 메뉴는 클립의 회전 및 뒤집기를 쉽게 할 수 있게 합니다. 클립을 회전하고 뒤집어 창의적인 "
 "시각적 변형을 위한 방향 조정을 가능하게 합니다. :ref:`clip_rotation_ref` 키프레임을 참조하세요."
 
-#: ../clips.rst:221
+#: ../clips.rst:300
 msgid ":guilabel:`No Rotation` — removes any rotation keyframes."
 msgstr ":guilabel:`회전 없음` — 모든 회전 키프레임을 제거합니다."
 
-#: ../clips.rst:222
+#: ../clips.rst:301
 msgid ":guilabel:`Rotate 90 (Right)` — rotates the clip 90 degrees clockwise."
 msgstr ":guilabel:`90도 회전 (오른쪽)` — 클립을 시계 방향으로 90도 회전합니다."
 
-#: ../clips.rst:223
+#: ../clips.rst:302
 msgid ""
 ":guilabel:`Rotate 90 (Left)` — rotates the clip 90 degrees counterclockwise."
 msgstr ":guilabel:`90도 회전 (왼쪽)` — 클립을 반시계 방향으로 90도 회전합니다."
 
-#: ../clips.rst:224
+#: ../clips.rst:303
 msgid ":guilabel:`Rotate 180 (Flip)` — flips the clip upside down."
 msgstr ":guilabel:`180도 회전 (뒤집기)` — 클립을 완전히 뒤집습니다."
 
-#: ../clips.rst:226
+#: ../clips.rst:305
 msgid ""
 "**Usage Example:** Rotating a photo or video by 90 degrees (a portrait video"
 " to a landscape)."
 msgstr "**사용 예:** 사진이나 비디오를 90도 회전하기 (세로 비디오를 가로로)."
 
-#: ../clips.rst:227
+#: ../clips.rst:306
 msgid ""
 "**Usage Example:** If your video is upside down, rotate it by 180 degrees to"
 " correct the orientation."
 msgstr "**사용 예:** 비디오가 거꾸로 된 경우, 방향을 바로잡기 위해 180도 회전하세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:232
+#: ../clips.rst:311
 msgid "Layout"
 msgstr "레이아웃"
 
-#: ../clips.rst:233
+#: ../clips.rst:312
 msgid ""
 "The :guilabel:`Transform → Layout` submenu adjusts the size of a clip and "
 "snaps it to a chosen corner of the screen, useful for picture-in-picture or "
@@ -888,37 +1097,37 @@ msgstr ""
 "워터마크 효과에 유용합니다. :ref:`clip_location_x_ref`, :ref:`clip_scale_x_ref`, "
 ":guilabel:`여백`, :guilabel:`모서리 반경` 키프레임을 참조하세요."
 
-#: ../clips.rst:238
+#: ../clips.rst:317
 msgid ":guilabel:`Reset Layout` — removes any layout keyframes."
 msgstr ":guilabel:`레이아웃 초기화` — 모든 레이아웃 키프레임을 제거합니다."
 
-#: ../clips.rst:239
+#: ../clips.rst:318
 msgid ""
 ":guilabel:`1/4 Size` — positions the clip at 1/4 of the screen in the "
 "Center, Top Left, Top Right, Bottom Left, or Bottom Right corner."
 msgstr ""
 ":guilabel:`1/4 크기` — 클립을 화면의 1/4 크기로 중앙, 좌상단, 우상단, 좌하단, 우하단 모서리에 배치합니다."
 
-#: ../clips.rst:240
+#: ../clips.rst:319
 msgid ""
 ":guilabel:`Show All (Maintain Ratio)` — fits the entire clip frame within "
 "the screen while preserving its aspect ratio."
 msgstr ":guilabel:`전체 표시 (비율 유지)` — 클립 전체 프레임을 화면에 맞추되 가로세로 비율을 유지합니다."
 
-#: ../clips.rst:241
+#: ../clips.rst:320
 msgid ""
 ":guilabel:`Show All (Distort)` — stretches the entire clip frame to fill the"
 " screen, ignoring aspect ratio."
 msgstr ":guilabel:`전체 표시 (왜곡)` — 가로세로 비율을 무시하고 클립 전체 프레임을 화면에 맞게 늘립니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:243
+#: ../clips.rst:322
 msgid ""
 "**Usage Example:** Placing a logo in the corner of a video using the layout "
 "preset."
 msgstr "** 사용 예:** 레이아웃 프리셋을 사용하여 비디오 모서리에 로고를 배치합니다."
 
-#: ../clips.rst:244
+#: ../clips.rst:323
 msgid ""
 "**Tip:** Use :guilabel:`Margin` to create an inset layout area for a clip, "
 "and :guilabel:`Corner Radius` to round picture-in-picture camera clips "
@@ -928,13 +1137,13 @@ msgstr ""
 "둥글게 하려면 :guilabel:`모서리 반경`을 사용하세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:246
+#: ../clips.rst:325
 msgid ""
 "**Tip:** Combine with animation presets for dynamic transitions involving "
 "resizing and repositioning."
 msgstr "** 팁:** 크기 조절과 위치 변경이 포함된 동적 전환을 위해 애니메이션 프리셋과 결합하세요."
 
-#: ../clips.rst:250
+#: ../clips.rst:329
 msgid ""
 "The :guilabel:`Speed` menu manipulates clip playback speed, allowing for "
 "reverse playback, time-lapse, slow-motion, freezes, and looping effects. See"
@@ -943,22 +1152,22 @@ msgstr ""
 ":guilabel:`속도` 메뉴는 클립 재생 속도를 조절하여 역재생, 타임랩스, 슬로우 모션, 정지, 반복 효과를 가능하게 합니다. "
 ":ref:`clip_time_ref` 키프레임을 참조하세요."
 
-#: ../clips.rst:253
+#: ../clips.rst:332
 msgid ":guilabel:`Reset Speed` — restores the clip to normal 1× speed."
 msgstr ":guilabel:`속도 초기화` — 클립을 정상 1× 속도로 복원합니다."
 
-#: ../clips.rst:254
+#: ../clips.rst:333
 msgid ":guilabel:`Reverse` — plays the clip backwards at normal speed."
 msgstr ":guilabel:`역재생` — 클립을 정상 속도로 역방향 재생합니다."
 
-#: ../clips.rst:255
+#: ../clips.rst:334
 msgid ""
 ":guilabel:`Speed Up` → Forward / Backward → 2×, 4×, 8×, 16× — speeds up "
 "playback in either direction."
 msgstr ""
 ":guilabel:`속도 증가` → 정방향 / 역방향 → 2×, 4×, 8×, 16× — 어느 방향이든 재생 속도를 높입니다."
 
-#: ../clips.rst:256
+#: ../clips.rst:335
 msgid ""
 ":guilabel:`Slow Down` → Forward / Backward → 1/2×, 1/4×, 1/8×, 1/16× — slows"
 " down playback in either direction."
@@ -966,24 +1175,24 @@ msgstr ""
 ":guilabel:`속도 감소` → 정방향 / 역방향 → 1/2×, 1/4×, 1/8×, 1/16× — 어느 방향이든 재생 속도를 "
 "늦춥니다."
 
-#: ../clips.rst:257
+#: ../clips.rst:336
 msgid ":guilabel:`Repeat` — see below."
 msgstr ":guilabel:`반복` — 아래를 참조하세요."
 
-#: ../clips.rst:258
+#: ../clips.rst:337
 msgid ""
 ":guilabel:`Freeze` — freezes on the frame at the current playhead position "
 "for 2, 4, 6, 8, 10, 20, or 30 seconds."
 msgstr ""
 ":guilabel:`정지` — 현재 재생 헤드 위치의 프레임을 2, 4, 6, 8, 10, 20, 또는 30초 동안 정지시킵니다."
 
-#: ../clips.rst:259
+#: ../clips.rst:338
 msgid ""
 ":guilabel:`Freeze && Zoom` — freezes and simultaneously zooms in on that "
 "frozen frame."
 msgstr ":guilabel:`정지 및 줌` — 프레임을 정지시키고 동시에 해당 프레임을 확대합니다."
 
-#: ../clips.rst:261
+#: ../clips.rst:340
 msgid ""
 "**Slow motion** — :guilabel:`Slow Down → 1/2×` or :guilabel:`1/4×` for "
 "dreamy or dramatic footage."
@@ -991,7 +1200,7 @@ msgstr ""
 "**슬로우 모션** — 몽환적이거나 극적인 영상에 :guilabel:`속도 감소 → 1/2×` 또는 :guilabel:`1/4×`를 "
 "사용하세요."
 
-#: ../clips.rst:262
+#: ../clips.rst:341
 msgid ""
 "**Time-lapse** — :guilabel:`Speed Up → 8×` or :guilabel:`16×` to compress "
 "hours into seconds."
@@ -999,7 +1208,7 @@ msgstr ""
 "**타임랩스** — 몇 시간을 몇 초로 압축하려면 :guilabel:`속도 증가 → 8×` 또는 :guilabel:`16×`를 "
 "사용하세요."
 
-#: ../clips.rst:263
+#: ../clips.rst:342
 msgid ""
 "**Speed ramp** — use the :guilabel:`Timing` tool to drag clip edges and "
 "create a natural-feeling speed change; OpenShot scales all keyframes "
@@ -1008,7 +1217,7 @@ msgstr ""
 "**속도 램프** — :guilabel:`타이밍` 도구를 사용해 클립 가장자리를 드래그하여 자연스러운 속도 변화를 만들 수 있으며, "
 "OpenShot이 모든 키프레임을 자동으로 조정합니다."
 
-#: ../clips.rst:264
+#: ../clips.rst:343
 msgid ""
 "**Tip:** Combine :guilabel:`Freeze` with :guilabel:`Speed Up` for an impact-"
 "freeze-then-fast-forward effect."
@@ -1016,11 +1225,11 @@ msgstr ""
 "**팁:** :guilabel:`정지`와 :guilabel:`속도 증가`를 결합하여 임팩트 정지 후 빠른 진행 효과를 만드세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:269
+#: ../clips.rst:348
 msgid "Repeat"
 msgstr "반복"
 
-#: ../clips.rst:270
+#: ../clips.rst:349
 msgid ""
 "Use :guilabel:`Speed → Repeat` to play a clip multiple times, without "
 "building the time curve by hand. OpenShot writes the needed :guilabel:`Time`"
@@ -1030,41 +1239,41 @@ msgstr ""
 " 필요한 :guilabel:`시간` 키프레임을 자동으로 작성합니다 (나중에 편집 가능)."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:273
+#: ../clips.rst:352
 msgid "**Menu path**"
 msgstr "** 메뉴 경로**"
 
-#: ../clips.rst:275
+#: ../clips.rst:354
 msgid ""
 ":guilabel:`Speed → Repeat → Loop → Forward` – plays left to right, then "
 "starts again from the beginning"
 msgstr ":guilabel:`속도 → 반복 → 루프 → 정방향` – 왼쪽에서 오른쪽으로 재생한 후 처음부터 다시 시작합니다."
 
-#: ../clips.rst:276
+#: ../clips.rst:355
 msgid ""
 ":guilabel:`Speed → Repeat → Loop → Reverse` – plays right to left, then "
 "starts again from the end"
 msgstr ":guilabel:`속도 → 반복 → 루프 → 역방향` – 오른쪽에서 왼쪽으로 재생한 후 끝에서 다시 시작합니다."
 
-#: ../clips.rst:277
+#: ../clips.rst:356
 msgid ""
 ":guilabel:`Speed → Repeat → Ping-Pong → Forward` – forward, then backward, "
 "then forward…"
 msgstr ":guilabel:`속도 → 반복 → 핑퐁 → 정방향` – 앞으로, 뒤로, 다시 앞으로…"
 
-#: ../clips.rst:278
+#: ../clips.rst:357
 msgid ""
 ":guilabel:`Speed → Repeat → Ping-Pong → Reverse` – backward, then forward, "
 "then backward…"
 msgstr ":guilabel:`속도 → 반복 → 핑퐁 → 역방향` – 뒤로, 앞으로, 다시 뒤로…"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:279
+#: ../clips.rst:358
 msgid ":guilabel:`Custom…` – opens a dialog for extra options (see below)"
 msgstr ":guilabel:`Custom…` – 추가 옵션을 위한 대화상자를 엽니다 (아래 참조)."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:281
+#: ../clips.rst:360
 msgid ""
 "Counts are **finite** (2x, 3x, 4x, 5x, 8x, 10x, or a custom number). "
 "Example: “Forward then Back and stop” = :guilabel:`Ping-Pong → Forward → "
@@ -1074,17 +1283,17 @@ msgstr ""
 "정지” = :guilabel:`Ping-Pong → Forward → 2x`."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:284
+#: ../clips.rst:363
 msgid "**What gets repeated**"
 msgstr "** 반복되는 내용**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:286
+#: ../clips.rst:365
 msgid "Repeat always acts on the **currently trimmed** in/out of the clip."
 msgstr "반복은 항상 클립의 ** 현재 잘라낸** 시작/끝 부분에 적용됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:287
+#: ../clips.rst:366
 msgid ""
 "The :guilabel:`Time` curve is stamped as a simple shape: - Loop Forward = "
 "rising saw - Loop Reverse = falling saw - Ping-Pong = triangle (direction "
@@ -1094,19 +1303,19 @@ msgstr ""
 "하강 톱니 - Ping-Pong = 삼각형 (재생마다 방향 전환)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:291
+#: ../clips.rst:370
 msgid ""
 "To avoid a double frame at the seam, the last frame of each pass is not "
 "duplicated."
 msgstr "이음새에서 중복 프레임을 방지하기 위해 각 반복의 마지막 프레임은 복제되지 않습니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:293
+#: ../clips.rst:372
 msgid "**Keyframes during Repeat**"
 msgstr "** 반복 중 키프레임**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:295
+#: ../clips.rst:374
 msgid ""
 "When you use Repeat, OpenShot will also **repeat other keyframes** found "
 "inside the trimmed section (location, scale, effects, etc.) into each pass "
@@ -1116,41 +1325,41 @@ msgstr ""
 " 동기화되도록 합니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:296
+#: ../clips.rst:375
 msgid "Repeated keyframes keep their relative timing inside each pass."
 msgstr "반복된 키프레임은 각 반복 내에서 상대적인 타이밍을 유지합니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:298
+#: ../clips.rst:377
 msgid "**Custom Repeat** (dialog options)"
 msgstr "** 사용자 지정 반복** (대화상자 옵션)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:300
+#: ../clips.rst:379
 msgid ":guilabel:`Pattern:` Loop | Ping-Pong"
 msgstr ":guilabel:` 패턴:` 루프 | 핑퐁"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:301
+#: ../clips.rst:380
 msgid ":guilabel:`Direction:` Forward | Reverse"
 msgstr ":guilabel:` 방향:` 앞으로 | 뒤로"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:302
+#: ../clips.rst:381
 msgid ""
 ":guilabel:`Passes:` integer (2 or more). This is the number of times it will"
 " play."
 msgstr ":guilabel:` 반복 횟수:` 정수 (2 이상). 재생할 횟수입니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:303
+#: ../clips.rst:382
 msgid ""
 ":guilabel:`Delay:` number + units [frames | ms | sec]. This is an optional "
 "delay between each repeated pass."
 msgstr ":guilabel:` 지연:` 숫자 + 단위 [프레임 | 밀리초 | 초]. 각 반복 사이의 선택적 지연 시간입니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:304
+#: ../clips.rst:383
 msgid ""
 ":guilabel:`Speed Ramp (%):` % speed change per pass (optional). Positive "
 "speeds up each pass; negative slows down each pass."
@@ -1158,11 +1367,11 @@ msgstr ""
 ":guilabel:` 속도 변화 (%):` 반복마다 속도 변화 비율(선택 사항). 양수는 속도를 높이고, 음수는 속도를 낮춥니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:306
+#: ../clips.rst:385
 msgid "**Reset**"
 msgstr "** 초기화**"
 
-#: ../clips.rst:308
+#: ../clips.rst:387
 msgid ""
 ":guilabel:`Speed → Reset Speed` completely removes any Time curve (including"
 " Repeat) and restores the clip to its original playback, **without deleting "
@@ -1172,12 +1381,12 @@ msgstr ""
 "**원본 비시간 키프레임은 삭제하지 않습니다**."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:312
+#: ../clips.rst:391
 msgid "Timing Tool"
 msgstr "타이밍 도구"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:313
+#: ../clips.rst:392
 msgid ""
 "Another way to change a clip's speed is with the :guilabel:`Timing` tool on "
 "the timeline toolbar. Enable the clock icon and drag a clip's edges. "
@@ -1189,7 +1398,7 @@ msgstr ""
 "활성화하고 클립의 가장자리를 드래그하세요. 클립을 길게 하면 재생 속도가 느려지고, 짧게 하면 속도가 빨라집니다. 클립과 그 효과에 있는"
 " 모든 키프레임은 상대 위치가 유지되도록 비례 조정됩니다."
 
-#: ../clips.rst:319
+#: ../clips.rst:398
 msgid ""
 "The :guilabel:`Look` menu applies one-click visual style presets to clips. "
 "All presets work by adding or updating effects on the clip — you can inspect"
@@ -1200,7 +1409,7 @@ msgstr ""
 "방식으로 작동하며, 속성 도크에서 더 자세히 확인하거나 애니메이션을 적용할 수 있습니다. 메뉴는 네 개의 하위 메뉴와 하단의 두 개 직접"
 " 작업으로 구성되어 있습니다."
 
-#: ../clips.rst:323
+#: ../clips.rst:402
 msgid ""
 ":guilabel:`Reset Look` — removes all Look-managed effects (Color Grade, Film"
 " Grain, Analog Tape, Sharpen, Blur, Shadow, Glow) from the selected clips in"
@@ -1209,35 +1418,35 @@ msgstr ""
 ":guilabel:`룩 재설정` — 선택한 클립에서 룩 관리 효과(컬러 그레이드, 필름 그레인, 아날로그 테이프, 샤픈, 블러, 그림자,"
 " 글로우)를 한 번에 모두 제거합니다."
 
-#: ../clips.rst:326
+#: ../clips.rst:405
 msgid ""
 "**Color** — applies a :guilabel:`Color Grade` effect with one of four quick "
 "presets:"
 msgstr "**색상** — 네 가지 빠른 프리셋 중 하나로 :guilabel:`컬러 그레이드` 효과를 적용합니다:"
 
-#: ../clips.rst:328
+#: ../clips.rst:407
 msgid ""
 "**Auto Contrast** — boosts contrast by lifting shadows and pulling "
 "highlights."
 msgstr "**자동 대비** — 그림자를 밝게 하고 하이라이트를 끌어올려 대비를 높입니다."
 
-#: ../clips.rst:329
+#: ../clips.rst:408
 msgid "**Lift Shadows** — brightens the dark areas of the image."
 msgstr "**그림자 밝게 하기** — 이미지의 어두운 부분을 밝게 합니다."
 
-#: ../clips.rst:330
+#: ../clips.rst:409
 msgid "**Warm Up** — shifts the color balance toward warm orange/amber tones."
 msgstr "**웜업** — 색상 균형을 따뜻한 오렌지/앰버 톤 쪽으로 이동시킵니다."
 
-#: ../clips.rst:331
+#: ../clips.rst:410
 msgid "**Boost Color** — increases color saturation."
 msgstr "**색상 강화** — 색상 채도를 높입니다."
 
-#: ../clips.rst:333
+#: ../clips.rst:412
 msgid "**Film** — cinematic film simulation:"
 msgstr "**필름** — 영화 필름 시뮬레이션:"
 
-#: ../clips.rst:335
+#: ../clips.rst:414
 msgid ""
 ":guilabel:`Film Grain` → **No Film Grain**, then: **35mm Fine**, **35mm "
 "Classic**, **35mm Gritty**, **16mm Classic**, **Super 8**, **High ISO** — "
@@ -1246,7 +1455,7 @@ msgstr ""
 ":guilabel:`필름 그레인` → **필름 그레인 없음**, 다음: **35mm 파인**, **35mm 클래식**, **35mm "
 "거친**, **16mm 클래식**, **슈퍼 8**, **고감도 ISO** — 다양한 강도와 크기의 사진 그레인을 추가합니다."
 
-#: ../clips.rst:337
+#: ../clips.rst:416
 msgid ""
 ":guilabel:`Analog Tape` → **No Analog Tape**, then: **Subtle**, **VHS**, "
 "**Heavy** — adds tape noise and color degradation for a retro video look."
@@ -1254,29 +1463,29 @@ msgstr ""
 ":guilabel:`아날로그 테이프` → **아날로그 테이프 없음**, 다음: **미묘한**, **VHS**, **강한** — 레트로 "
 "비디오 느낌을 위한 테이프 노이즈와 색상 저하를 추가합니다."
 
-#: ../clips.rst:340
+#: ../clips.rst:419
 msgid "**Focus** — sharpness adjustments:"
 msgstr "**초점** — 선명도 조정:"
 
-#: ../clips.rst:342
+#: ../clips.rst:421
 msgid ""
 ":guilabel:`Sharpen` → **No Sharpen**, then: **Subtle**, **Medium**, "
 "**Strong** — sharpens fine detail."
 msgstr ""
 ":guilabel:`샤픈` → **샤픈 없음**, 다음: **미묘한**, **중간**, **강한** — 미세한 디테일을 선명하게 합니다."
 
-#: ../clips.rst:343
+#: ../clips.rst:422
 msgid ""
 ":guilabel:`Blur` → **No Blur**, then: **Soft Focus**, **Medium**, **Heavy** "
 "— softens the image."
 msgstr ""
 ":guilabel:`블러` → **블러 없음**, 다음: **소프트 포커스**, **중간**, **강한** — 이미지를 부드럽게 합니다."
 
-#: ../clips.rst:345
+#: ../clips.rst:424
 msgid "**Lighting** — light and shadow overlays:"
 msgstr "**조명** — 빛과 그림자 오버레이:"
 
-#: ../clips.rst:347
+#: ../clips.rst:426
 msgid ""
 ":guilabel:`Shadow` → **No Shadow**, then: **Subtle**, **Soft**, **Strong**, "
 "**Long** — casts a drop shadow across the clip."
@@ -1284,7 +1493,7 @@ msgstr ""
 ":guilabel:`그림자` → **그림자 없음**, 다음: **미묘한**, **부드러운**, **강한**, **긴** — 클립에 그림자"
 " 효과를 적용합니다."
 
-#: ../clips.rst:349
+#: ../clips.rst:428
 msgid ""
 ":guilabel:`Glow` → **No Glow**, then: **Soft White**, **Warm**, **Neon**, "
 "**Inner Glow** — adds a soft halo or glow effect."
@@ -1292,11 +1501,11 @@ msgstr ""
 ":guilabel:`글로우` → **글로우 없음**, 다음: **부드러운 흰색**, **웜**, **네온**, **내부 글로우** — "
 "부드러운 후광 또는 빛 효과를 추가합니다."
 
-#: ../clips.rst:352
+#: ../clips.rst:431
 msgid "At the bottom of the Look menu:"
 msgstr "룩 메뉴 하단에서:"
 
-#: ../clips.rst:354
+#: ../clips.rst:433
 msgid ""
 ":guilabel:`Adjust Colors` — opens the :guilabel:`Color Wheels` dock for full"
 " manual color grading with lift/gamma/gain wheels, curves, and an "
@@ -1305,7 +1514,7 @@ msgstr ""
 ":guilabel:`색상 조정` — 리프트/감마/게인 휠, 곡선, 양/루마 블렌드 슬라이더를 갖춘 완전 수동 컬러 그레이딩을 위해 "
 ":guilabel:`컬러 휠` 도크를 엽니다."
 
-#: ../clips.rst:356
+#: ../clips.rst:435
 msgid ""
 ":guilabel:`Analyze Colors` — opens the :guilabel:`Luma Waveform` and "
 ":guilabel:`Histogram` video scopes on the right side of the window, tabified"
@@ -1314,13 +1523,13 @@ msgstr ""
 ":guilabel:`색상 분석` — 창 오른쪽에 :guilabel:`루마 웨이브폼`과 :guilabel:`히스토그램` 비디오 스코프를 "
 "탭으로 함께 엽니다."
 
-#: ../clips.rst:359
+#: ../clips.rst:438
 msgid ""
 "**Tip:** Each Look submenu has a \"No …\" option at the top to remove just "
 "that single effect without affecting the others."
 msgstr "**팁:** 각 룩 하위 메뉴 상단에는 해당 단일 효과만 제거하는 \"없음\" 옵션이 있어 다른 효과에 영향을 주지 않습니다."
 
-#: ../clips.rst:361
+#: ../clips.rst:440
 msgid ""
 "**Tip:** After applying a Look preset, double-click the effect badge on the "
 "clip (or use Properties) to fine-tune every parameter or animate it over "
@@ -1329,31 +1538,31 @@ msgstr ""
 "**팁:** 룩 프리셋을 적용한 후 클립의 효과 배지를 더블 클릭하거나 속성을 사용하여 모든 매개변수를 세밀하게 조정하거나 시간에 따라 "
 "애니메이션을 적용할 수 있습니다."
 
-#: ../clips.rst:366
+#: ../clips.rst:445
 msgid ""
 "The :guilabel:`Audio` menu groups all audio-related clip actions in one "
 "place."
 msgstr ":guilabel:`오디오` 메뉴는 오디오 관련 클립 작업을 한 곳에 모아둡니다."
 
-#: ../clips.rst:368
+#: ../clips.rst:447
 msgid ""
 "**Volume** — controls the clip's audio level. See :ref:`clip_volume_ref` "
 "key-frame."
 msgstr "**볼륨** — 클립의 오디오 레벨을 제어합니다. :ref:`clip_volume_ref` 키프레임을 참조하세요."
 
-#: ../clips.rst:370
+#: ../clips.rst:449
 msgid ""
 ":guilabel:`Reset Volume` — removes all volume keyframes, returning to full "
 "(1×) volume."
 msgstr ":guilabel:`볼륨 재설정` — 모든 볼륨 키프레임을 제거하고 전체(1×) 볼륨으로 복원합니다."
 
-#: ../clips.rst:371
+#: ../clips.rst:450
 msgid ""
 ":guilabel:`Level` — sets a fixed volume percentage (0 % to 130 %) for the "
 "entire clip."
 msgstr ":guilabel:`레벨` — 클립 전체에 대해 고정된 볼륨 백분율(0 %에서 130 %)을 설정합니다."
 
-#: ../clips.rst:372
+#: ../clips.rst:451
 msgid ""
 ":guilabel:`Fade In` → :guilabel:`Fast` / :guilabel:`Slow` — fades volume "
 "from silence at the start of the clip."
@@ -1361,7 +1570,7 @@ msgstr ""
 ":guilabel:`페이드 인` → :guilabel:`빠름` / :guilabel:`느림` — 클립 시작 부분에서 무음에서 볼륨을 점차"
 " 증가시킵니다."
 
-#: ../clips.rst:373
+#: ../clips.rst:452
 msgid ""
 ":guilabel:`Fade Out` → :guilabel:`Fast` / :guilabel:`Slow` — fades volume to"
 " silence at the end of the clip."
@@ -1369,7 +1578,7 @@ msgstr ""
 ":guilabel:`페이드 아웃` → :guilabel:`빠름` / :guilabel:`느림` — 클립 끝 부분에서 볼륨을 점차 감소시켜"
 " 무음으로 만듭니다."
 
-#: ../clips.rst:374
+#: ../clips.rst:453
 msgid ""
 ":guilabel:`Fade In and Out` → :guilabel:`Fast` / :guilabel:`Slow` — applies "
 "both a volume fade-in and fade-out."
@@ -1377,24 +1586,24 @@ msgstr ""
 ":guilabel:`페이드 인 및 아웃` → :guilabel:`빠름` / :guilabel:`느림` — 볼륨 페이드 인과 페이드 아웃을"
 " 모두 적용합니다."
 
-#: ../clips.rst:376
+#: ../clips.rst:455
 msgid "**Separate** — splits the audio track out of a clip:"
 msgstr "**분리** — 클립에서 오디오 트랙을 분리합니다:"
 
-#: ../clips.rst:378
+#: ../clips.rst:457
 msgid ""
 ":guilabel:`Single Clip (all channels)` — creates one detached audio clip on "
 "a layer below the original."
 msgstr ":guilabel:`단일 클립 (모든 채널)` — 원본 아래 레이어에 분리된 하나의 오디오 클립을 생성합니다."
 
-#: ../clips.rst:379
+#: ../clips.rst:458
 msgid ""
 ":guilabel:`Multiple Clips (each channel)` — creates separate detached audio "
 "clips, one per audio channel, on multiple layers below the original."
 msgstr ""
 ":guilabel:`다중 클립 (각 채널별)` — 원본 아래 여러 레이어에 각 오디오 채널별로 분리된 오디오 클립을 생성합니다."
 
-#: ../clips.rst:381
+#: ../clips.rst:460
 msgid ""
 "**Show Waveform / Hide Waveform** — toggles the audio waveform visualization"
 " on the timeline for audio-only clips. Only shown for clips that do not have"
@@ -1403,7 +1612,7 @@ msgstr ""
 "**파형 표시 / 파형 숨기기** — 오디오 전용 클립의 타임라인에서 오디오 파형 시각화를 토글합니다. 비디오 트랙이 없는 클립에만 "
 "표시됩니다."
 
-#: ../clips.rst:384
+#: ../clips.rst:463
 msgid ""
 "**Analyze Levels** — opens the :guilabel:`Audio Levels` scope dock. If other"
 " scope docks are already open, OpenShot tabifies :guilabel:`Audio Levels` "
@@ -1413,19 +1622,19 @@ msgstr ""
 ":guilabel:`오디오 레벨`을 탭으로 함께 표시합니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:387
+#: ../clips.rst:466
 msgid ""
 "**Usage Example:** Applying a gradual volume fade-out to transition between "
 "scenes."
 msgstr "** 사용 예:** 장면 전환을 위해 점진적인 볼륨 페이드 아웃 적용."
 
-#: ../clips.rst:388
+#: ../clips.rst:467
 msgid ""
 "**Usage Example:** Extracting background music from a video clip for "
 "independent volume control."
 msgstr "**사용 예:** 독립적인 볼륨 제어를 위해 비디오 클립에서 배경 음악을 추출하는 방법."
 
-#: ../clips.rst:389
+#: ../clips.rst:468
 msgid ""
 "**Tip:** Use :guilabel:`Audio → Volume → Fade In/Out` for audio-only fades. "
 "Use the top-level :guilabel:`Fade` menu for a combined video+audio fade."
@@ -1434,7 +1643,7 @@ msgstr ""
 "페이드는 최상위 :guilabel:`페이드` 메뉴를 사용하세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:393
+#: ../clips.rst:472
 msgid ""
 "The :guilabel:`Slice` tool lets you cut a clip at the position of the play-"
 "head (*the vertical line that shows your current position in the timeline*)."
@@ -1445,7 +1654,7 @@ msgstr ""
 "작업은 재생 헤드가 있는 정확한 지점에서 클립을 두 개의 별도 부분으로 분할합니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:396
+#: ../clips.rst:475
 msgid ""
 "Slicing is a key feature for making precise edits and rearranging sections "
 "of your video. You can slice a clip and choose to keep one side or both, and"
@@ -1456,12 +1665,12 @@ msgstr ""
 "사용하면 같은 트랙의 다른 클립들이 자동으로 이동하여 자르기로 생긴 빈 공간을 채웁니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:400
+#: ../clips.rst:479
 msgid "**Slicing Options:**"
 msgstr "** 자르기 옵션:**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:402
+#: ../clips.rst:481
 msgid ""
 "**Keep Both Sides**: This option splits the clip into two parts, keeping "
 "everything on both sides of the play-head. It’s useful when you want to "
@@ -1471,7 +1680,7 @@ msgstr ""
 "아무것도 제거하고 싶지 않을 때 유용합니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:403
+#: ../clips.rst:482
 msgid ""
 "**Keep Left Side**: This option cuts the clip and removes the part to the "
 "right of the play-head, keeping only the part before the play-head. Use this"
@@ -1481,7 +1690,7 @@ msgstr ""
 "이후의 클립 부분을 제거할 때 사용하세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:404
+#: ../clips.rst:483
 msgid ""
 "**Keep Right Side**: This option cuts the clip and removes the part to the "
 "left of the play-head, keeping only the part after the play-head. It’s handy"
@@ -1491,7 +1700,7 @@ msgstr ""
 "부분을 잘라내고 나머지를 유지할 때 편리합니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:405
+#: ../clips.rst:484
 msgid ""
 "**Ripple Slicing**: Ripple slicing not only cuts the clip but also moves any"
 " clips and transitions that follow to close the gap. This way, your timeline"
@@ -1502,12 +1711,12 @@ msgstr ""
 "자른 후에도 타임라인이 연속적으로 유지되어 이후 클립을 수동으로 조정하는 번거로움을 줄여줍니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:407 ../clips.rst:581
+#: ../clips.rst:486 ../clips.rst:660
 msgid "**Tips for Beginners:**"
 msgstr "** 초보자 팁:**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:409
+#: ../clips.rst:488
 msgid ""
 "**Example**: If there’s a part of a clip you don’t want (like the end of a "
 "scene), use **Keep Left Side** or **Keep Right Side** to remove it. If you "
@@ -1518,7 +1727,7 @@ msgstr ""
 "사용하여 제거하세요. 장면을 여러 작은 구간으로 나누어 재배치하려면 ** 양쪽 모두 유지** 를 사용하세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:410
+#: ../clips.rst:489
 msgid ""
 "**Quick Tip**: Slicing can also be used to break a long clip into smaller "
 "parts, making it easier to manage and edit each section separately."
@@ -1527,7 +1736,7 @@ msgstr ""
 "있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:412
+#: ../clips.rst:491
 msgid ""
 "For a complete guide to slicing and all available keyboard shortcuts, see "
 "the :ref:`clips_cutting_slicing_ref` section."
@@ -1535,19 +1744,19 @@ msgstr ""
 "자르기 및 사용 가능한 모든 키보드 단축키에 대한 완전한 가이드는 :ref:`clips_cutting_slicing_ref` 섹션을 "
 "참조하세요."
 
-#: ../clips.rst:418
+#: ../clips.rst:497
 msgid ""
 "The :guilabel:`Transform` context menu provides geometric preset actions for"
 " visual clips:"
 msgstr ":guilabel:`변환` 컨텍스트 메뉴는 시각 클립을 위한 기하학적 프리셋 작업을 제공합니다:"
 
-#: ../clips.rst:420
+#: ../clips.rst:499
 msgid ""
 ":guilabel:`No Transform` — removes all Rotate, Layout, and crop presets from"
 " the selected clips in one step."
 msgstr ":guilabel:`변환 없음` — 선택한 클립에서 회전, 레이아웃, 크롭 프리셋을 한 번에 모두 제거합니다."
 
-#: ../clips.rst:421
+#: ../clips.rst:500
 msgid ""
 ":guilabel:`Rotate` — rotate or flip the clip. See the :ref:`Rotate "
 "<clip_presets_rotate_ref>` section above."
@@ -1555,7 +1764,7 @@ msgstr ""
 ":guilabel:`회전` — 클립을 회전하거나 뒤집습니다. 위의 :ref:`회전 <clip_presets_rotate_ref>` 섹션을"
 " 참조하세요."
 
-#: ../clips.rst:422
+#: ../clips.rst:501
 msgid ""
 ":guilabel:`Crop` — add or remove a crop effect. See the :ref:`Crop "
 "<clip_presets_crop_ref>` section below."
@@ -1563,7 +1772,7 @@ msgstr ""
 ":guilabel:`자르기` — 자르기 효과를 추가하거나 제거합니다. 아래의 :ref:`자르기 "
 "<clip_presets_crop_ref>` 섹션을 참조하세요."
 
-#: ../clips.rst:423
+#: ../clips.rst:502
 msgid ""
 ":guilabel:`Layout` — resize and snap the clip to a corner or fit position. "
 "See the :ref:`Layout <clip_presets_layout_ref>` section above."
@@ -1571,12 +1780,12 @@ msgstr ""
 ":guilabel:`레이아웃` — 클립 크기를 조정하고 모서리나 맞춤 위치에 스냅합니다. 위의 :ref:`레이아웃 "
 "<clip_presets_layout_ref>` 섹션을 참조하세요."
 
-#: ../clips.rst:428
+#: ../clips.rst:507
 msgid "Transform Tool"
 msgstr "변환 도구"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:429
+#: ../clips.rst:508
 msgid ""
 "The **Transform Tool** lets you quickly adjust a clip directly in the "
 "preview window, instead of changing location, scale, rotation, shear, and "
@@ -1593,44 +1802,44 @@ msgstr ""
 "미리보기에는 전체 선택 영역 주위에 하나의 핸들 세트가 표시되고, 이동, 크기 조정 또는 회전이 선택된 모든 클립에 함께 적용됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:438
+#: ../clips.rst:517
 msgid "Dragging the blue squares will adjust the **scale** of the image."
 msgstr "파란 사각형을 드래그하면 이미지의 ** 크기** 가 조정됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:439
+#: ../clips.rst:518
 msgid "Dragging the center will move the **location** of the image."
 msgstr "중앙을 드래그하면 이미지의 ** 위치** 가 이동합니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:440
+#: ../clips.rst:519
 msgid ""
 "Dragging the mouse on the outside of the blue lines will **rotate** the "
 "image."
 msgstr "파란 선 바깥쪽을 드래그하면 이미지가 ** 회전** 합니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:441
+#: ../clips.rst:520
 msgid ""
 "Hold :kbd:`Ctrl` or :kbd:`Shift` while rotating to snap to 15-degree "
 "increments."
 msgstr "회전할 때 :kbd:`Ctrl` 또는 :kbd:`Shift` 키를 누르고 있으면 15도 단위로 스냅됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:442
+#: ../clips.rst:521
 msgid ""
 "Dragging along the blue lines will **shear** the image in that direction."
 msgstr "파란 선을 따라 드래그하면 이미지가 해당 방향으로 ** 전단** 됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:443
+#: ../clips.rst:522
 msgid ""
 "Dragging the circle in the middle will move the **origin point** that "
 "controls the center of **rotation**."
 msgstr "중앙의 원을 드래그하면 ** 회전** 중심을 제어하는 ** 기준점** 이 이동합니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:445
+#: ../clips.rst:524
 msgid ""
 "Note: Pay close attention to the play-head position (red playback line). Key"
 " frames are automatically created at the current playback position, to help "
@@ -1644,7 +1853,7 @@ msgstr ""
 " 수동으로도 조정할 수 있습니다. 자세한 내용은 :ref:`clip_properties_ref` 를 참조하세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:452
+#: ../clips.rst:531
 #, fuzzy
 msgid ""
 "**Usage Example:** Use the transform handles to resize and reposition a clip"
@@ -1652,17 +1861,17 @@ msgid ""
 msgstr "** 사용 예:** 변형 모드를 사용하여 클립의 크기를 조정하고 위치를 변경해 PIP(화면 속 화면) 효과를 만드는 방법."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:453
+#: ../clips.rst:532
 #, fuzzy
 msgid "**Tip:** Use these handles to precisely control a clip's appearance."
 msgstr "** 팁:** 이 프리셋을 사용하여 클립의 모양을 정확하게 제어하세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:458
+#: ../clips.rst:537
 msgid "Crop"
 msgstr "자르기"
 
-#: ../clips.rst:459
+#: ../clips.rst:538
 msgid ""
 "The :guilabel:`Transform → Crop` submenu adds a crop effect to the selected "
 "clip and displays interactive crop handles in the video preview. The submenu"
@@ -1672,26 +1881,26 @@ msgstr ""
 " 표시합니다. 하위 메뉴는 다음을 제공합니다:"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:462
+#: ../clips.rst:541
 msgid ":guilabel:`No Crop` – remove any existing crop effect."
 msgstr ":guilabel:` 자르기 없음` – 기존의 자르기 효과를 제거합니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:463
+#: ../clips.rst:542
 msgid ""
 ":guilabel:`Crop (No Resize)` – trim the clip without scaling the remaining "
 "area."
 msgstr ":guilabel:` 자르기 (크기 조정 없음)` – 남은 영역의 크기를 조정하지 않고 클립을 자릅니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:464
+#: ../clips.rst:543
 msgid ""
 ":guilabel:`Crop (Resize)` – trim the clip and scale the cropped region to "
 "fill the frame."
 msgstr ":guilabel:` 자르기 (크기 조정)` – 클립을 자르고 자른 영역을 프레임에 맞게 확대합니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:466
+#: ../clips.rst:545
 msgid ""
 "Drag the blue handles to adjust the crop boundaries, move the cropped area "
 "around, or move the center handle to reposition the image inside the cropped"
@@ -1701,11 +1910,11 @@ msgstr ""
 "변경하세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:470 ../clips.rst:655 ../clips.rst:988
+#: ../clips.rst:549 ../clips.rst:734 ../clips.rst:1067
 msgid "Waveform"
 msgstr "파형"
 
-#: ../clips.rst:471
+#: ../clips.rst:550
 msgid ""
 "The :guilabel:`Audio → Show Waveform` / :guilabel:`Hide Waveform` action "
 "toggles whether an audio-only clip shows its waveform visualization on the "
@@ -1715,23 +1924,23 @@ msgstr ""
 ":guilabel:`오디오 → 파형 표시` / :guilabel:`파형 숨기기` 동작은 오디오 전용 클립이 기본 썸네일 대신 타임라인에 "
 "파형 시각화를 표시할지 여부를 전환합니다. 이 옵션은 비디오 트랙이 없는 클립에만 나타납니다."
 
-#: ../clips.rst:475
+#: ../clips.rst:554
 msgid ""
 "**Usage Example:** Displaying the audio waveform for precise audio editing "
 "and alignment."
 msgstr "**사용 예:** 정밀한 오디오 편집 및 정렬을 위해 오디오 파형을 표시합니다."
 
-#: ../clips.rst:476
+#: ../clips.rst:555
 msgid ""
 "**Tip:** Use this to visually spot loud or quiet sections in a music clip "
 "without opening the audio scopes."
 msgstr "**팁:** 오디오 스코프를 열지 않고도 음악 클립에서 크거나 조용한 구간을 시각적으로 확인하는 데 사용하세요."
 
-#: ../clips.rst:478
+#: ../clips.rst:557
 msgid "**How timeline waveforms are scaled**"
 msgstr "**타임라인 파형이 스케일되는 방법**"
 
-#: ../clips.rst:480
+#: ../clips.rst:559
 msgid ""
 "Timeline waveforms are an editing aid: they help you find speech, beats, "
 "silence, and transients, and compare the approximate levels of different "
@@ -1743,7 +1952,7 @@ msgstr ""
 "줍니다. 새 파형 데이터는 소스의 **절대 피크 레벨**을 보존합니다. OpenShot은 모든 조용한 파일을 최고 피크가 클립을 채울 "
 "때까지 확대하지 않으므로 조용한 녹음은 시각적으로도 큰 녹음보다 조용하게 유지됩니다."
 
-#: ../clips.rst:485
+#: ../clips.rst:564
 msgid ""
 "Pure linear amplitude is accurate but makes ordinary speech difficult to "
 "see. OpenShot therefore applies a fixed, gentle square-root display curve. "
@@ -1755,95 +1964,95 @@ msgstr ""
 "적용합니다. 이는 레벨 순서를 유지하면서 유용한 세부 정보를 확장합니다: 더 큰 소스는 항상 더 조용한 소스보다 더 크게 보입니다. 이 "
 "곡선은 그림만 변경하며 녹음된 오디오를 변경, 정규화 또는 처리하지 않습니다."
 
-#: ../clips.rst:490
+#: ../clips.rst:569
 msgid "Approximate waveform height for new clips"
 msgstr "새 클립의 대략적인 파형 높이"
 
-#: ../clips.rst:494
+#: ../clips.rst:573
 msgid "Peak Level"
 msgstr "피크 레벨"
 
-#: ../clips.rst:494
+#: ../clips.rst:573
 msgid "Display Height"
 msgstr "표시 높이"
 
-#: ../clips.rst:494
+#: ../clips.rst:573
 msgid "What It Often Looks Like"
 msgstr "일반적인 모습"
 
-#: ../clips.rst:496
+#: ../clips.rst:575
 msgid "``0 dBFS``"
 msgstr "``0 dBFS``"
 
-#: ../clips.rst:496
+#: ../clips.rst:575
 msgid "100%"
 msgstr "100%"
 
-#: ../clips.rst:496
+#: ../clips.rst:575
 msgid "Full-scale peak; check for possible clipping."
 msgstr "풀 스케일 피크; 클리핑 가능성을 확인하세요."
 
-#: ../clips.rst:497
+#: ../clips.rst:576
 msgid "``-6 dBFS``"
 msgstr "``-6 dBFS``"
 
-#: ../clips.rst:497
+#: ../clips.rst:576
 msgid "71%"
 msgstr "71%"
 
-#: ../clips.rst:497
+#: ../clips.rst:576
 msgid "Strong transient or loud program audio."
 msgstr "강한 과도음 또는 큰 프로그램 오디오."
 
-#: ../clips.rst:498
+#: ../clips.rst:577
 msgid "``-12 dBFS``"
 msgstr "``-12 dBFS``"
 
-#: ../clips.rst:498
+#: ../clips.rst:577
 msgid "50%"
 msgstr "50%"
 
-#: ../clips.rst:498
+#: ../clips.rst:577
 msgid "Healthy speech or other prominent audio."
 msgstr "건강한 말소리 또는 기타 두드러진 오디오."
 
-#: ../clips.rst:499
+#: ../clips.rst:578
 msgid "``-20 dBFS``"
 msgstr "``-20 dBFS``"
 
-#: ../clips.rst:499
+#: ../clips.rst:578
 msgid "32%"
 msgstr "32%"
 
-#: ../clips.rst:499
+#: ../clips.rst:578
 msgid "Moderate speech or background program audio."
 msgstr "보통 수준의 말소리 또는 배경 프로그램 오디오."
 
-#: ../clips.rst:500
+#: ../clips.rst:579
 msgid "``-40 dBFS``"
 msgstr "``-40 dBFS``"
 
-#: ../clips.rst:500
+#: ../clips.rst:579
 msgid "10%"
 msgstr "10%"
 
-#: ../clips.rst:500
+#: ../clips.rst:579
 msgid "Quiet room tone or microphone noise floor."
 msgstr "조용한 방음 또는 마이크 노이즈 플로어."
 
-#: ../clips.rst:501
+#: ../clips.rst:580
 msgid "``-60 dBFS``"
 msgstr "``-60 dBFS``"
 
-#: ../clips.rst:501
+#: ../clips.rst:580
 msgid "3%"
 msgstr "3%"
 
-#: ../clips.rst:501
+#: ../clips.rst:580
 msgid "Very quiet detail near the center line."
 msgstr "중앙선 근처의 매우 조용한 세부 사항."
 
-#: ../clips.rst:504
+#: ../clips.rst:583
 msgid ""
 "OpenShot samples both **peak** and **RMS** envelopes at regular time "
 "intervals. The lighter outer envelope shows brief peaks and transients; the "
@@ -1856,7 +2065,7 @@ msgstr ""
 "과도음을 보여주고, 단단한 내부 엔벨로프는 지속적인 RMS 에너지를 나타냅니다. 두 엔벨로프 모두 클립의 볼륨 및 시간 곡선을 따르며 "
 "동일한 고정 표시 곡선을 사용합니다. 미묘한 중앙선은 무음 구간을 식별 가능하게 유지하면서 실제보다 크게 보이지 않도록 합니다."
 
-#: ../clips.rst:509
+#: ../clips.rst:588
 msgid ""
 "New waveforms use 200 samples per second by default, providing several "
 "measurements within a typical video frame. Change this density with "
@@ -1873,7 +2082,7 @@ msgstr ""
 "파형 캐시는 정상적인 스크롤 및 다시 그리기를 저렴하게 유지합니다. 라이브 마이크 미리보기는 선택한 밀도와 완료된 녹음과 동일한 "
 "피크/RMS 표시를 사용합니다."
 
-#: ../clips.rst:515
+#: ../clips.rst:594
 msgid ""
 "Projects saved by older OpenShot versions can contain independently peak-"
 "normalized waveform data. These waveforms have no format marker, so OpenShot"
@@ -1888,7 +2097,7 @@ msgstr ""
 "없는 이전 파형 데이터는 기본값으로 초당 20 샘플을 사용하며, RMS 엔벨로프가 없는 데이터는 단일 단단한 파형으로 남아 있습니다. "
 "프로젝트는 레거시와 새 파형을 함께 안전하게 포함할 수 있습니다."
 
-#: ../clips.rst:521
+#: ../clips.rst:600
 msgid ""
 "To regenerate cached waveform data using the current method, choose "
 ":guilabel:`Edit → Clear → Waveform Display Data`, then show the waveform "
@@ -1898,7 +2107,7 @@ msgstr ""
 "현재 방법을 사용하여 캐시된 파형 데이터를 재생성하려면 :guilabel:`편집 → 지우기 → 파형 표시 데이터`를 선택한 후 파형을 "
 "다시 표시하세요. 이는 캐시된 표시 데이터에만 영향을 미치며 미디어 파일이나 오디오를 수정하지 않습니다."
 
-#: ../clips.rst:526
+#: ../clips.rst:605
 msgid ""
 "The peak envelope identifies transient level and possible clipping; RMS "
 "summarizes sustained energy but is not a loudness-standard measurement. Use "
@@ -1909,7 +2118,7 @@ msgstr ""
 ":guilabel:`오디오 레벨` 스코프와 귀를 사용하세요. 오디오 문제 해결은 :ref:`playback_ref`를 참조하세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:532
+#: ../clips.rst:611
 msgid ""
 "The :guilabel:`Properties` preset opens the properties panel for a clip, "
 "allowing quick access for adjustments to clip properties, such as location, "
@@ -1919,21 +2128,21 @@ msgstr ""
 "내용은 :ref:`clip_properties_ref` 를 참조하세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:535
+#: ../clips.rst:614
 msgid ""
 "**Usage Example:** Adjusting clip properties like opacity, volume, or "
 "position."
 msgstr "** 사용 예:** 불투명도, 볼륨 또는 위치와 같은 클립 속성을 조정합니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:536
+#: ../clips.rst:615
 msgid ""
 "**Tip:** Apply this preset to streamline adjustments to all clip properties "
 "in a single dock."
 msgstr "** 팁:** 이 프리셋을 적용하여 모든 클립 속성을 하나의 도크에서 간편하게 조정하세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:540
+#: ../clips.rst:619
 msgid ""
 "The :guilabel:`Copy / Paste` preset allows copying and pasting keyframes, "
 "effects, or duplicating an entire clip along with its keyframes. Paste will "
@@ -1946,40 +2155,40 @@ msgstr ""
 "붙여넣을 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:544
+#: ../clips.rst:623
 msgid ""
 "**Usage Example:** Duplicating a clip with intricate animations for reuse in"
 " different parts of the project."
 msgstr "** 사용 예:** 복잡한 애니메이션이 포함된 클립을 복제하여 프로젝트의 다른 부분에서 재사용합니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:545
+#: ../clips.rst:624
 msgid ""
 "**Tip:** Use this preset to replicate animations or effects across multiple "
 "clips."
 msgstr "** 팁:** 여러 클립에 애니메이션이나 효과를 복제하려면 이 프리셋을 사용하세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:546
+#: ../clips.rst:625
 msgid ""
 "**Tip:** Selecting multiple clips before pasting, sets keyframes and/or "
 "effects for all clips."
 msgstr "** 팁:** 붙여넣기 전에 여러 클립을 선택하면 모든 클립에 키프레임 및/또는 효과가 설정됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:547
+#: ../clips.rst:626
 msgid ""
 "**Tip:** You can copy a single effect, and paste it to multiple selected "
 "clips."
 msgstr "** 팁:** 단일 효과를 복사하여 여러 선택한 클립에 붙여넣을 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:550
+#: ../clips.rst:629
 msgid "Remove Gaps"
 msgstr "간격 제거"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:551
+#: ../clips.rst:630
 msgid ""
 "The :guilabel:`Remove Gap` and :guilabel:`Remove All Gaps` options help you "
 "quickly eliminate gaps between clips on the timeline by rippling (i.e., "
@@ -1990,7 +2199,7 @@ msgstr ""
 "이후 클립들을 이동시켜 간격을 메웁니다. 이 옵션들은 컨텍스트 메뉴에서 접근 가능하며 간격이 감지될 때만 사용할 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:554
+#: ../clips.rst:633
 msgid ""
 "**Remove Gap:** - This option deletes a specific gap between two clips on "
 "the timeline. Right-click on the gap between clips to access the "
@@ -2002,7 +2211,7 @@ msgstr ""
 "사용합니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:558
+#: ../clips.rst:637
 msgid ""
 "**Remove All Gaps:** - This option removes all gaps between clips on the "
 "timeline for the entire track. Right-click on the track name to access the "
@@ -2013,7 +2222,7 @@ msgstr ""
 " 모든 간격 제거` 옵션에 접근하세요. - 사용법: 사진 슬라이드쇼처럼 간격이 없어야 하는 연속된 클립이 있는 트랙에 적합합니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:564
+#: ../clips.rst:643
 msgid ""
 "The :guilabel:`Remove Clip` option lets you delete a clip from the timeline."
 " Removing clips is an essential part of organizing your project and getting "
@@ -2026,7 +2235,7 @@ msgstr ""
 " 조정하는 몇 가지 옵션이 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:568
+#: ../clips.rst:647
 msgid ""
 "**How to Remove a Clip:** To delete a clip, simply select it and press "
 ":kbd:`Delete` on your keyboard, or right-click the clip and choose "
@@ -2039,7 +2248,7 @@ msgstr ""
 "제거할 수도 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:572
+#: ../clips.rst:651
 msgid ""
 "**Ripple Delete:** If you want to delete a clip and automatically remove the"
 " empty space (gap) it leaves behind, use the **Ripple Delete** feature by "
@@ -2052,7 +2261,7 @@ msgstr ""
 "유지합니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:577
+#: ../clips.rst:656
 msgid ""
 "**Remove Gap:** After deleting a clip, if you have gaps left in your "
 "timeline that you want to remove, simply right-click in the empty space and "
@@ -2064,7 +2273,7 @@ msgstr ""
 "선택하세요. 이 작업은 모든 클립과 전환을 왼쪽으로 이동시켜 간격을 메우고 영상의 흐름을 유지합니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:583
+#: ../clips.rst:662
 msgid ""
 "**Example**: If you have a clip that’s no longer needed, such as an intro "
 "you’ve decided not to use, you can quickly select it and either delete it or"
@@ -2075,19 +2284,19 @@ msgstr ""
 "사용해 제거하고 모든 것을 왼쪽으로 이동시켜 간격을 메우세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:585
+#: ../clips.rst:664
 msgid ""
 "For more advanced editing options and shortcuts, refer to the "
 ":ref:`clips_cutting_slicing_ref` section."
 msgstr "더 고급 편집 옵션과 단축키는 :ref:`clips_cutting_slicing_ref` 섹션을 참조하세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:588
+#: ../clips.rst:667
 msgid "Effects"
 msgstr "효과"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:589
+#: ../clips.rst:668
 msgid ""
 "In addition to the many clip properties which can be animated and adjusted, "
 "you can also drop an effect directly onto a clip from the effects dock. Each"
@@ -2100,12 +2309,12 @@ msgstr ""
 "목록은 :ref:`effects_ref` 를 참조하세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:599
+#: ../clips.rst:678
 msgid "Clip Properties"
 msgstr "클립 속성"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:600
+#: ../clips.rst:679
 msgid ""
 "Below is a list of clip properties which can be edited, and in most cases, "
 "animated over time. To view a clip's properties, right click and choose "
@@ -2124,7 +2333,7 @@ msgstr ""
 "모든 항목에 키프레임을 삽입할 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:608
+#: ../clips.rst:687
 msgid ""
 "Note: Pay close attention to where the play-head (i.e. red playback line) "
 "is. Key frames are automatically created at the current playback position, "
@@ -2134,7 +2343,7 @@ msgstr ""
 "돕습니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:611
+#: ../clips.rst:690
 msgid ""
 "When animating clip properties, you can fade a clip from opaque to "
 "transparent with ``alpha``, slide a clip around the screen with "
@@ -2150,77 +2359,77 @@ msgstr ""
 "애니메이션 없이 단일 정적 클립 속성을 설정하려면 속성 값을 조정할 때 재생 헤드가 클립 시작 부분(왼쪽)에 위치해 있는지 확인하세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:616
+#: ../clips.rst:695
 msgid "See the table below for a full list of clip properties."
 msgstr "아래 표에서 클립 속성 전체 목록을 확인하세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:622
+#: ../clips.rst:701
 msgid "Clip Property Name"
 msgstr "클립 속성 이름"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:622
+#: ../clips.rst:701
 msgid "Type"
 msgstr "유형"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:624 ../clips.rst:705
+#: ../clips.rst:703 ../clips.rst:784
 msgid "Alpha"
 msgstr "알파"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:624 ../clips.rst:625 ../clips.rst:626 ../clips.rst:628
-#: ../clips.rst:636 ../clips.rst:637 ../clips.rst:638 ../clips.rst:639
-#: ../clips.rst:640 ../clips.rst:643 ../clips.rst:645 ../clips.rst:646
-#: ../clips.rst:647 ../clips.rst:648 ../clips.rst:650 ../clips.rst:652
-#: ../clips.rst:654
+#: ../clips.rst:703 ../clips.rst:704 ../clips.rst:705 ../clips.rst:707
+#: ../clips.rst:715 ../clips.rst:716 ../clips.rst:717 ../clips.rst:718
+#: ../clips.rst:719 ../clips.rst:722 ../clips.rst:724 ../clips.rst:725
+#: ../clips.rst:726 ../clips.rst:727 ../clips.rst:729 ../clips.rst:731
+#: ../clips.rst:733
 msgid "Key-Frame"
 msgstr "키프레임"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:624
+#: ../clips.rst:703
 msgid ""
 "Curve representing the alpha for fading the image and adding transparency (1"
 " to 0)"
 msgstr "이미지를 페이드하고 투명도를 추가하는 알파를 나타내는 곡선 (1에서 0까지)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:625 ../clips.rst:722
+#: ../clips.rst:704 ../clips.rst:801
 msgid "Channel Filter"
 msgstr "채널 필터"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:625
+#: ../clips.rst:704
 msgid ""
 "A number representing an audio channel to filter (clears all other channels)"
 msgstr "필터링할 오디오 채널을 나타내는 숫자 (다른 모든 채널을 제거)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:626 ../clips.rst:730
+#: ../clips.rst:705 ../clips.rst:809
 msgid "Channel Mapping"
 msgstr "채널 매핑"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:626
+#: ../clips.rst:705
 msgid ""
 "A number representing an audio channel to output (only works when filtering "
 "a channel)"
 msgstr "출력할 오디오 채널을 나타내는 숫자 (채널 필터링 시에만 작동)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:627 ../clips.rst:662
+#: ../clips.rst:706 ../clips.rst:741
 msgid "Composite (Blend Mode)"
 msgstr "합성 (블렌드 모드)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:627 ../clips.rst:630 ../clips.rst:631 ../clips.rst:633
-#: ../clips.rst:634 ../clips.rst:644 ../clips.rst:653 ../clips.rst:656
+#: ../clips.rst:706 ../clips.rst:709 ../clips.rst:710 ../clips.rst:712
+#: ../clips.rst:713 ../clips.rst:723 ../clips.rst:732 ../clips.rst:735
 msgid "Enum"
 msgstr "열거형"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:627
+#: ../clips.rst:706
 msgid ""
 "The blend mode used to composite this clip into lower layers. Default is "
 "**Normal**. See :ref:`clip_composite_ref`."
@@ -2228,305 +2437,305 @@ msgstr ""
 "이 클립을 하위 레이어에 합성할 때 사용하는 블렌드 모드입니다. 기본값은 **Normal** 입니다. "
 ":ref:`clip_composite_ref` 를 참조하세요."
 
-#: ../clips.rst:628 ../clips.rst:713
+#: ../clips.rst:707 ../clips.rst:792
 msgid "Corner Radius"
 msgstr "모서리 반경"
 
-#: ../clips.rst:628
+#: ../clips.rst:707
 msgid ""
 "Curve representing the radius used to round the clip's corners (0 to 0.5)"
 msgstr "클립 모서리를 둥글게 하는 데 사용되는 반경을 나타내는 곡선 (0에서 0.5 사이)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:629 ../clips.rst:745
+#: ../clips.rst:708 ../clips.rst:824
 msgid "Duration"
 msgstr "길이"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:629 ../clips.rst:632 ../clips.rst:642 ../clips.rst:649
+#: ../clips.rst:708 ../clips.rst:711 ../clips.rst:721 ../clips.rst:728
 msgid "Float"
 msgstr "실수"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:629
+#: ../clips.rst:708
 msgid ""
 "The length of the clip (in seconds). Read-only property. This is calculated "
 "by: End - Start."
 msgstr "클립의 길이(초 단위)입니다. 읽기 전용 속성입니다. 계산식: 종료 - 시작."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:630 ../clips.rst:778
+#: ../clips.rst:709 ../clips.rst:857
 msgid "Enable Audio"
 msgstr "오디오 활성화"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:630
+#: ../clips.rst:709
 msgid ""
 "An optional override to determine if this clip has audio (-1=undefined, "
 "0=no, 1=yes)"
 msgstr "이 클립에 오디오가 있는지 여부를 결정하는 선택적 재정의 (-1=정의되지 않음, 0=없음, 1=있음)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:631 ../clips.rst:786
+#: ../clips.rst:710 ../clips.rst:865
 msgid "Enable Video"
 msgstr "비디오 활성화"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:631
+#: ../clips.rst:710
 msgid ""
 "An optional override to determine if this clip has video (-1=undefined, "
 "0=no, 1=yes)"
 msgstr "이 클립에 비디오가 있는지 여부를 결정하는 선택적 재정의 (-1=정의되지 않음, 0=없음, 1=있음)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:632 ../clips.rst:753
+#: ../clips.rst:711 ../clips.rst:832
 msgid "End"
 msgstr "종료"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:632
+#: ../clips.rst:711
 msgid "The end trimming position of the clip (in seconds)"
 msgstr "클립의 종료 트리밍 위치(초 단위)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:633 ../clips.rst:738
+#: ../clips.rst:712 ../clips.rst:817
 msgid "Frame Number"
 msgstr "프레임 번호"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:633
+#: ../clips.rst:712
 msgid "The format to display the frame number (if any)"
 msgstr "프레임 번호를 표시하는 형식 (있는 경우)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:634 ../clips.rst:761
+#: ../clips.rst:713 ../clips.rst:840
 msgid "Gravity"
 msgstr "그라비티"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:634
+#: ../clips.rst:713
 msgid ""
 "The gravity of a clip determines where it snaps to its parent (details "
 "below)"
 msgstr "클립의 그라비티는 클립이 부모에 스냅되는 위치를 결정합니다 (아래 참조)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:635 ../clips.rst:794
+#: ../clips.rst:714 ../clips.rst:873
 msgid "ID"
 msgstr "ID"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:635 ../clips.rst:641
+#: ../clips.rst:714 ../clips.rst:720
 msgid "String"
 msgstr "문자열"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:635
+#: ../clips.rst:714
 msgid ""
 "A randomly generated GUID (globally unique identifier) assigned to each "
 "clip. Read-only property."
 msgstr "각 클립에 할당된 무작위 생성 GUID(전역 고유 식별자)입니다. 읽기 전용 속성입니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:636
+#: ../clips.rst:715
 msgid "Location X"
 msgstr "위치 X"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:636
+#: ../clips.rst:715
 msgid ""
 "Curve representing the relative X position in percent based on the gravity "
 "(-1 to 1)"
 msgstr "그라비티를 기준으로 한 상대 X 위치를 백분율로 나타내는 곡선 (-1에서 1까지)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:637
+#: ../clips.rst:716
 msgid "Location Y"
 msgstr "위치 Y"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:637
+#: ../clips.rst:716
 msgid ""
 "Curve representing the relative Y position in percent based on the gravity "
 "(-1 to 1)"
 msgstr "그라비티를 기준으로 한 상대 Y 위치를 백분율로 나타내는 곡선 (-1에서 1까지)"
 
-#: ../clips.rst:638 ../clips.rst:820
+#: ../clips.rst:717 ../clips.rst:899
 msgid "Margin"
 msgstr "여백"
 
-#: ../clips.rst:638
+#: ../clips.rst:717
 msgid "Curve representing edge spacing for gravity-aligned clips (0 to 0.5)"
 msgstr "중력 정렬된 클립의 가장자리 간격을 나타내는 곡선 (0에서 0.5 사이)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:639
+#: ../clips.rst:718
 msgid "Origin X"
 msgstr "원점 X"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:639
+#: ../clips.rst:718
 msgid ""
 "Curve representing the rotation origin point, X position in percent (-1 to "
 "1)"
 msgstr "회전 원점의 X 위치를 백분율로 나타내는 곡선 (-1에서 1까지)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:640
+#: ../clips.rst:719
 msgid "Origin Y"
 msgstr "원점 Y"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:640
+#: ../clips.rst:719
 msgid ""
 "Curve representing the rotation origin point, Y position in percent (-1 to "
 "1)"
 msgstr "회전 기준점의 곡선, Y 위치(백분율, -1에서 1 사이)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:641
+#: ../clips.rst:720
 msgid "Parent"
 msgstr "상위 객체"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:641
+#: ../clips.rst:720
 msgid ""
 "The parent object to this clip, which makes many of these keyframe values "
 "initialize to the parent value"
 msgstr "이 클립의 상위 객체로, 많은 키프레임 값이 상위 값으로 초기화됩니다"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:642 ../clips.rst:877
+#: ../clips.rst:721 ../clips.rst:956
 msgid "Position"
 msgstr "위치"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:642
+#: ../clips.rst:721
 msgid ""
 "The position of the clip on the timeline (in seconds, 0.0 is the beginning "
 "of the timeline)"
 msgstr "타임라인에서 클립의 위치(초 단위, 0.0은 타임라인 시작점)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:643 ../clips.rst:886
+#: ../clips.rst:722 ../clips.rst:965
 msgid "Rotation"
 msgstr "회전"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:643
+#: ../clips.rst:722
 msgid "Curve representing the rotation (0 to 360)"
 msgstr "회전을 나타내는 곡선(0에서 360도)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:644 ../clips.rst:902
+#: ../clips.rst:723 ../clips.rst:981
 msgid "Scale"
 msgstr "크기"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:644
+#: ../clips.rst:723
 msgid ""
 "The scale determines how a clip should be resized to fit its parent (details"
 " below)"
 msgstr "크기는 클립이 상위 객체에 맞게 크기 조정되는 방식을 결정합니다(자세한 내용은 아래 참조)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:645
+#: ../clips.rst:724
 msgid "Scale X"
 msgstr "가로 크기"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:645
+#: ../clips.rst:724
 msgid "Curve representing the horizontal scaling in percent (0 to 1)"
 msgstr "가로 크기 조정을 나타내는 곡선(백분율, 0에서 1 사이)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:646
+#: ../clips.rst:725
 msgid "Scale Y"
 msgstr "세로 크기"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:646
+#: ../clips.rst:725
 msgid "Curve representing the vertical scaling in percent (0 to 1)"
 msgstr "세로 크기 조정을 나타내는 곡선(백분율, 0에서 1 사이)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:647
+#: ../clips.rst:726
 msgid "Shear X"
 msgstr "가로 기울기"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:647
+#: ../clips.rst:726
 msgid "Curve representing X shear angle in degrees (-45.0=left, 45.0=right)"
 msgstr "가로 기울기 각도를 나타내는 곡선(도 단위, -45.0=왼쪽, 45.0=오른쪽)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:648
+#: ../clips.rst:727
 msgid "Shear Y"
 msgstr "세로 기울기"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:648
+#: ../clips.rst:727
 msgid "Curve representing Y shear angle in degrees (-45.0=down, 45.0=up)"
 msgstr "세로 기울기 각도를 나타내는 곡선(도 단위, -45.0=아래, 45.0=위)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:649 ../clips.rst:936
+#: ../clips.rst:728 ../clips.rst:1015
 msgid "Start"
 msgstr "시작"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:649
+#: ../clips.rst:728
 msgid "The start trimming position of the clip (in seconds)"
 msgstr "클립의 시작 트리밍 위치(초 단위)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:650 ../clips.rst:946
+#: ../clips.rst:729 ../clips.rst:1025
 msgid "Time"
 msgstr "시간"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:650
+#: ../clips.rst:729
 msgid ""
 "Curve representing the frames over time to play (used for speed and "
 "direction of video)"
 msgstr "재생할 프레임을 시간에 따라 나타내는 곡선(비디오 속도 및 방향에 사용)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:651 ../clips.rst:802
+#: ../clips.rst:730 ../clips.rst:881
 msgid "Track"
 msgstr "트랙"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:651
+#: ../clips.rst:730
 msgid "Int"
 msgstr "정수"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:651
+#: ../clips.rst:730
 msgid ""
 "The layer which holds the clip (higher tracks are rendered on top of lower "
 "tracks)"
 msgstr "클립을 포함하는 레이어 (높은 트랙이 낮은 트랙 위에 렌더링됨)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:652 ../clips.rst:972
+#: ../clips.rst:731 ../clips.rst:1051
 msgid "Volume"
 msgstr "볼륨"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:652
+#: ../clips.rst:731
 msgid ""
 "Curve representing the volume for fading audio quieter/louder, mute, or "
 "adjusting levels (0 to 1)"
 msgstr "오디오 볼륨을 조절하는 곡선(음소거, 음량 조절, 0에서 1 사이)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:653 ../clips.rst:838
+#: ../clips.rst:732 ../clips.rst:917
 msgid "Volume Mixing"
 msgstr "볼륨 믹싱"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:653
+#: ../clips.rst:732
 msgid ""
 "The volume mixing choices control how volume is adjusted before mixing "
 "(None=don't adjust volume of this clip, Reduce=lower the volume to 80%, "
@@ -2536,36 +2745,36 @@ msgstr ""
 " 낮춤, Average=동시 클립 수에 따라 볼륨을 나눔, 자세한 내용은 아래 참조)"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:654 ../clips.rst:981
+#: ../clips.rst:733 ../clips.rst:1060
 msgid "Wave Color"
 msgstr "파형 색상"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:654
+#: ../clips.rst:733
 msgid "Curve representing the color of the audio waveform"
 msgstr "오디오 파형의 색상을 나타내는 곡선"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:655
+#: ../clips.rst:734
 msgid "Bool"
 msgstr "불리언"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:655
+#: ../clips.rst:734
 msgid "Should a waveform be used instead of the clip's image"
 msgstr "클립 이미지 대신 파형을 사용할지 여부"
 
-#: ../clips.rst:656 ../clips.rst:995
+#: ../clips.rst:735 ../clips.rst:1074
 msgid "Waveform Mode"
 msgstr "파형 모드"
 
-#: ../clips.rst:656
+#: ../clips.rst:735
 msgid ""
 "The visualization style used when displaying the clip as an audio waveform"
 msgstr "클립을 오디오 파형으로 표시할 때 사용되는 시각화 스타일"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:663
+#: ../clips.rst:742
 msgid ""
 "The :guilabel:`Composite (Blend Mode)` property controls **how the pixels of"
 " this clip mix with the clips on lower tracks**. If you are new to this, "
@@ -2576,12 +2785,12 @@ msgstr ""
 "사용한다면 ** 보통(Normal)** 모드부터 시작하세요. 효과를 추가하지 않고 빠른 창의적 변화를 원할 때 모드를 전환하세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:666
+#: ../clips.rst:745
 msgid "**Beginner tips**"
 msgstr "** 초보자 팁**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:668
+#: ../clips.rst:747
 msgid ""
 "Want to **brighten** light effects, flares, or smoke over a dark scene? Try "
 "**Screen** or **Add**."
@@ -2590,7 +2799,7 @@ msgstr ""
 "모드를 사용해 보세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:669
+#: ../clips.rst:748
 msgid ""
 "Want to **darken** or place a texture over footage (paper grain, grids, "
 "shadows)? Try **Multiply** or **Color Burn**."
@@ -2599,7 +2808,7 @@ msgstr ""
 "컬러 번(Color Burn)** 모드를 사용해 보세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:670
+#: ../clips.rst:749
 msgid ""
 "Want **more contrast** without crushing blacks and whites too much? Try "
 "**Overlay** or **Soft Light**."
@@ -2608,7 +2817,7 @@ msgstr ""
 " Light)** 모드를 사용해 보세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:671
+#: ../clips.rst:750
 msgid ""
 "Want a **creative/inverted look** or to line things up? Try **Difference** "
 "or **Exclusion**."
@@ -2617,163 +2826,163 @@ msgstr ""
 "모드를 사용해 보세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:673
+#: ../clips.rst:752
 msgid "**Common modes (recommended)**"
 msgstr "** 일반 모드 (추천)**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:679
+#: ../clips.rst:758
 msgid "Mode"
 msgstr "모드"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:679
+#: ../clips.rst:758
 msgid "What it does"
 msgstr "기능"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:681
+#: ../clips.rst:760
 msgid "Normal"
 msgstr "보통"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:681
+#: ../clips.rst:760
 msgid "Standard alpha compositing. Respects transparency from the clip."
 msgstr "표준 알파 합성. 클립의 투명도를 존중합니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:682
+#: ../clips.rst:761
 msgid "Darken"
 msgstr "어둡게"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:682
+#: ../clips.rst:761
 msgid "Chooses the darker pixel from the two layers, per channel."
 msgstr "두 레이어 중 각 채널별로 더 어두운 픽셀을 선택합니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:683
+#: ../clips.rst:762
 msgid "Multiply"
 msgstr "곱하기"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:683
+#: ../clips.rst:762
 msgid "Multiplies colors. Darkens and helps textures sit on top of footage."
 msgstr "색상을 곱합니다. 어둡게 하며 텍스처가 영상 위에 자연스럽게 놓이도록 합니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:684
+#: ../clips.rst:763
 msgid "Color Burn"
 msgstr "컬러 번"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:684
+#: ../clips.rst:763
 msgid "Pushes shadows darker and boosts contrast; can clip to black."
 msgstr "그림자를 더 어둡게 하고 대비를 높입니다; 검은색으로 클리핑될 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:685
+#: ../clips.rst:764
 msgid "Lighten"
 msgstr "밝게"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:685
+#: ../clips.rst:764
 msgid "Chooses the lighter pixel from the two layers, per channel."
 msgstr "두 레이어 중 각 채널별로 더 밝은 픽셀을 선택합니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:686
+#: ../clips.rst:765
 msgid "Screen"
 msgstr "스크린"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:686
+#: ../clips.rst:765
 msgid "The opposite of Multiply. Brightens; great for light, glow, fire, fog."
 msgstr "곱하기의 반대. 밝게 하며 빛, 광채, 불, 안개에 적합합니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:687
+#: ../clips.rst:766
 msgid "Color Dodge"
 msgstr "컬러 닷지"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:687
+#: ../clips.rst:766
 msgid "Brightens highlights strongly; can blow out to white."
 msgstr "하이라이트를 강하게 밝게 하며, 흰색으로 날아갈 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:688
+#: ../clips.rst:767
 msgid "Add"
 msgstr "더하기"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:688
+#: ../clips.rst:767
 msgid ""
 "Adds pixel values. Strong brightening; clips at white. Also called *Linear "
 "Dodge (Add)*."
 msgstr "픽셀 값을 더합니다. 강한 밝기 증가; 흰색으로 클리핑됩니다. *선형 닷지(더하기)* 라고도 합니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:689
+#: ../clips.rst:768
 msgid "Overlay"
 msgstr "오버레이"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:689
+#: ../clips.rst:768
 msgid ""
 "Mix of Multiply and Screen using the lower layer to decide. Adds punchy "
 "contrast."
 msgstr "아래 레이어를 기준으로 곱하기와 스크린을 혼합합니다. 강한 대비를 추가합니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:690
+#: ../clips.rst:769
 msgid "Soft Light"
 msgstr "소프트 라이트"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:690
+#: ../clips.rst:769
 msgid "Gentle contrast curve; softer than Overlay."
 msgstr "부드러운 대비 곡선; 오버레이보다 부드럽습니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:691
+#: ../clips.rst:770
 msgid "Hard Light"
 msgstr "하드 라이트"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:691
+#: ../clips.rst:770
 msgid "Stronger, edgy contrast using the upper layer to drive the change."
 msgstr "위 레이어를 사용하여 더 강하고 날카로운 대비를 만듭니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:692
+#: ../clips.rst:771
 msgid "Difference"
 msgstr "디퍼런스"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:692
+#: ../clips.rst:771
 msgid ""
 "Absolute difference between layers. Creates inverted/psychedelic colors; "
 "useful for alignment."
 msgstr "레이어 간 절대 차이. 반전되거나 환각적인 색상을 만듭니다; 정렬에 유용합니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:693
+#: ../clips.rst:772
 msgid "Exclusion"
 msgstr "익스클루전"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:693
+#: ../clips.rst:772
 msgid "Softer version of Difference with less contrast."
 msgstr "디퍼런스의 부드러운 버전으로 대비가 적습니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:696
+#: ../clips.rst:775
 msgid "**Notes**"
 msgstr "** 참고**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:698
+#: ../clips.rst:777
 msgid ""
 "Blend modes affect **color**, while alpha (the :guilabel:`Alpha` property) "
 "affects **transparency**. You can use both."
@@ -2782,7 +2991,7 @@ msgstr ""
 "가지를 모두 사용할 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:699
+#: ../clips.rst:778
 msgid ""
 "Some modes can create very bright or very dark results. If needed, lower the"
 " :guilabel:`Alpha` property to soften."
@@ -2790,14 +2999,14 @@ msgstr ""
 "일부 모드는 매우 밝거나 매우 어두운 결과를 만들 수 있습니다. 필요하면 :guilabel:`Alpha` 속성을 낮춰 부드럽게 만드세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:700
+#: ../clips.rst:779
 msgid ""
 "The exact look of Multiply/Screen/Overlay family is best when project colors"
 " are in a linear color space."
 msgstr "곱하기/스크린/오버레이 계열의 정확한 효과는 프로젝트 색상이 선형 색 공간일 때 가장 좋습니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:706
+#: ../clips.rst:785
 msgid ""
 "The :guilabel:`Alpha` property is a key-frame curve that represents the "
 "alpha value, determining fading and transparency of the image in the clip. "
@@ -2807,21 +3016,21 @@ msgstr ""
 " 1(완전 불투명)에서 0(완전 투명)까지 범위를 가집니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:709
+#: ../clips.rst:788
 msgid ""
 "**Usage Example:** Applying a gradual fade-in or fade-out effect to smoothly"
 " transition clips."
 msgstr "** 사용 예:** 클립 간 부드러운 전환을 위해 점진적인 페이드 인 또는 페이드 아웃 효과 적용."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:710
+#: ../clips.rst:789
 msgid ""
 "**Tip:** Use keyframes to create complex fading patterns, such as fading in "
 "and then fading out for a ghostly effect."
 msgstr ""
 "** 팁:** 키프레임을 사용하여 페이드 인 후 페이드 아웃과 같은 복잡한 페이드 패턴을 만들어 유령 같은 효과를 연출하세요."
 
-#: ../clips.rst:714
+#: ../clips.rst:793
 msgid ""
 "The :guilabel:`Corner Radius` property is a key-frame curve that rounds the "
 "visible corners of a clip. The curve ranges from 0 (square corners) to 0.5 "
@@ -2830,27 +3039,28 @@ msgstr ""
 ":guilabel:`모서리 반경` 속성은 클립의 보이는 모서리를 둥글게 만드는 키프레임 곡선입니다. 이 곡선은 0(직각 모서리)에서 "
 "0.5(클립의 가장 짧은 변을 기준으로 최대 둥글기)까지 범위를 가집니다."
 
-#: ../clips.rst:717
+#: ../clips.rst:796
 msgid ""
 "**Usage Example:** Rounding the corners of a picture-in-picture camera "
 "recording without adding a separate mask effect."
 msgstr "**사용 예:** 별도의 마스크 효과를 추가하지 않고 PIP 카메라 녹화의 모서리를 둥글게 처리하기."
 
-#: ../clips.rst:718
+# Main-window terminology review, 2026-09-26.
+#: ../clips.rst:797
 msgid ""
 "**Usage Example:** In :guilabel:`Recording View`, corner webcam clips use "
 "this property for the :guilabel:`Corners` setting."
 msgstr ""
-"**사용 예:** :guilabel:`녹화 보기`에서 코너 웹캠 클립이 :guilabel:`모서리` 설정에 이 속성을 사용합니다."
+"**사용 예:** :guilabel:`녹음/녹화 보기`에서 코너 웹캠 클립이 :guilabel:`모서리` 설정에 이 속성을 사용합니다."
 
-#: ../clips.rst:719
+#: ../clips.rst:798
 msgid ""
 "**Tip:** Use 0 for normal full-frame video, a small value for rounded "
 "rectangles, or 0.5 for a pill or oval-like shape."
 msgstr "**팁:** 일반 전체 프레임 비디오에는 0을, 둥근 사각형에는 작은 값을, 알약 또는 타원형 모양에는 0.5를 사용하세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:723
+#: ../clips.rst:802
 msgid ""
 "The :guilabel:`Channel Filter` property is a key-frame curve used for audio "
 "manipulation. It specifies a single audio channel to be filtered while "
@@ -2860,21 +3070,21 @@ msgstr ""
 " 채널은 모두 제거합니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:726
+#: ../clips.rst:805
 msgid ""
 "**Usage Example:** Isolating and enhancing specific audio elements, like "
 "isolating vocals from a song."
 msgstr "** 사용 예:** 노래에서 보컬만 분리하는 등 특정 오디오 요소를 분리하고 강화하기."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:727
+#: ../clips.rst:806
 msgid ""
 "**Tip:** Combine with the \"Channel Mapping\" property to route the filtered"
 " channel to a specific audio output."
 msgstr "** 팁:** 필터링된 채널을 특정 오디오 출력으로 라우팅하려면 \"Channel Mapping\" 속성과 함께 사용하세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:731
+#: ../clips.rst:810
 msgid ""
 "The :guilabel:`Channel Mapping` property is a key-frame curve that defines "
 "the output audio channel for the clip. This property works in conjunction "
@@ -2885,42 +3095,42 @@ msgstr ""
 "\"Channel Filter\" 속성과 함께 작동하며 출력에 유지할 채널을 지정합니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:734
+#: ../clips.rst:813
 msgid ""
 "**Usage Example:** Keeping the filtered channel's audio while discarding "
 "others for an unconventional audio mix."
 msgstr "** 사용 예:** 필터링된 채널의 오디오만 유지하고 나머지는 제거하여 독특한 오디오 믹스를 만들기."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:735
+#: ../clips.rst:814
 msgid ""
 "**Tip:** Experiment with mapping different channels to create unique audio "
 "effects, like panning sounds between speakers."
 msgstr "** 팁:** 서로 다른 채널 매핑을 시도하여 스피커 간 사운드 패닝과 같은 독특한 오디오 효과를 만들어 보세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:739
+#: ../clips.rst:818
 msgid ""
 "The :guilabel:`Frame Number` property specifies the format in which the "
 "frame numbers are displayed within the clip, if applicable."
 msgstr ":guilabel:`Frame Number` 속성은 해당되는 경우 클립 내에서 프레임 번호가 표시되는 형식을 지정합니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:741
+#: ../clips.rst:820
 msgid ""
 "**Usage Example:** Displaying frame numbers in the top left corner of the "
 "clip, as either absolute frame number or relative to the start of the clip."
 msgstr "** 사용 예:** 클립의 왼쪽 상단에 절대 프레임 번호 또는 클립 시작 기준 상대 프레임 번호를 표시하기."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:742
+#: ../clips.rst:821
 msgid ""
 "**Tip:** This can help with identifying precise frame numbers or "
 "troubleshooting a problem."
 msgstr "** 팁:** 정확한 프레임 번호를 식별하거나 문제 해결에 도움이 됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:746
+#: ../clips.rst:825
 msgid ""
 "The :guilabel:`Duration` property is a float value indicating the length of "
 "the clip in seconds. This is a Read-only property. This is calculated by: "
@@ -2931,21 +3141,21 @@ msgstr ""
 " 계산됩니다. 길이를 변경하려면 :guilabel:`Start` 및/또는 :guilabel:`End` 속성을 편집해야 합니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:749
+#: ../clips.rst:828
 msgid ""
 "**Usage Example:** Inspect the duration of a clip to ensure it fits a "
 "specific time slot in the project."
 msgstr "** 사용 예:** 프로젝트 내 특정 시간 슬롯에 맞는지 클립의 길이를 확인하기."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:750
+#: ../clips.rst:829
 msgid ""
 "**Tip:** Consider using the \"Duration\" property for clips that need to "
 "match specific time intervals, such as dialogue or scenes."
 msgstr "** 팁:** 대화나 장면 등 특정 시간 간격에 맞춰야 하는 클립에 \"Duration\" 속성을 사용하는 것을 고려하세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:754
+#: ../clips.rst:833
 msgid ""
 "The :guilabel:`End` property defines the trimming point at the end of the "
 "clip in seconds, allowing you to control how much of the clip is visible in "
@@ -2956,21 +3166,21 @@ msgstr ""
 " 이 속성을 변경하면 :guilabel:`Duration` 속성에 영향을 미칩니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:757
+#: ../clips.rst:836
 msgid ""
 "**Usage Example:** Trimming the end of a clip to align with another clip or "
 "trimming off unwanted sections of the clip."
 msgstr "** 사용 예:** 다른 클립과 맞추기 위해 클립 끝을 자르거나 불필요한 부분을 제거하기."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:758
+#: ../clips.rst:837
 msgid ""
 "**Tip:** Combine the \"Start\" and \"End\" properties to precisely control "
 "the visible portion of the clip."
 msgstr "** 팁:** \"Start\"와 \"End\" 속성을 함께 사용하여 클립의 보이는 부분을 정확히 제어하세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:762
+#: ../clips.rst:841
 msgid ""
 "The :guilabel:`Gravity` clip property sets the initial display position "
 "coordinate (X,Y) for the clip, after it has been scaled (see "
@@ -2985,70 +3195,70 @@ msgstr ""
 "다음과 같습니다:"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:767
+#: ../clips.rst:846
 msgid ""
 "**Top Left** – The top and left edges of the clip align with the top and "
 "left edges of the screen"
 msgstr "**Top Left** – 클립의 상단과 좌측 가장자리가 화면의 상단과 좌측 가장자리와 정렬됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:768
+#: ../clips.rst:847
 msgid ""
 "**Top Center** – The top edge of the clip aligns with the top edge of the "
 "screen; the clip is horizontally centered on the screen."
 msgstr "**Top Center** – 클립의 상단 가장자리가 화면 상단과 정렬되며, 클립은 화면 가로 중앙에 위치합니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:769
+#: ../clips.rst:848
 msgid ""
 "**Top Right** – The top and right edges of the clip align with the top and "
 "right edges of the screen"
 msgstr "**Top Right** – 클립의 상단과 우측 가장자리가 화면의 상단과 우측 가장자리와 정렬됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:770
+#: ../clips.rst:849
 msgid ""
 "**Left** – The left edge of the clip aligns with the left edge of the "
 "screen; the clip is vertically centered on the screen."
 msgstr "**Left** – 클립의 좌측 가장자리가 화면 좌측과 정렬되며, 클립은 화면 세로 중앙에 위치합니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:771
+#: ../clips.rst:850
 msgid ""
 "**Center** (default) – The clip is centered horizontally and vertically on "
 "the screen."
 msgstr "**Center** (기본값) – 클립이 화면의 가로 및 세로 중앙에 위치합니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:772
+#: ../clips.rst:851
 msgid ""
 "**Right** – The right edge of the clip aligns with the right edge of the "
 "screen; the clip is vertically centered on the screen."
 msgstr "**Right** – 클립의 우측 가장자리가 화면 우측과 정렬되며, 클립은 화면 세로 중앙에 위치합니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:773
+#: ../clips.rst:852
 msgid ""
 "**Bottom Left** – The bottom and left edges of the clip align with the "
 "bottom and left edges of the screen"
 msgstr "**Bottom Left** – 클립의 하단과 좌측 가장자리가 화면의 하단과 좌측 가장자리와 정렬됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:774
+#: ../clips.rst:853
 msgid ""
 "**Bottom Center** – The bottom edge of the clip aligns with the bottom edge "
 "of the screen; the clip is horizontally centered on the screen."
 msgstr "**Bottom Center** – 클립의 하단 가장자리가 화면 하단과 정렬되며, 클립은 화면 가로 중앙에 위치합니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:775
+#: ../clips.rst:854
 msgid ""
 "**Bottom Right** – The bottom and right edges of the clip align with the "
 "bottom and right edges of the screen"
 msgstr "**Bottom Right** – 클립의 하단과 우측 가장자리가 화면의 하단과 우측 가장자리와 정렬됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:779
+#: ../clips.rst:858
 msgid ""
 "The :guilabel:`Enable Audio` property is an enumeration that overrides the "
 "default audio setting for the clip. Possible values: -1 (undefined), 0 (no "
@@ -3058,21 +3268,21 @@ msgstr ""
 "않음), 0 (오디오 없음), 1 (오디오 활성화)."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:782
+#: ../clips.rst:861
 msgid ""
 "**Usage Example:** Turning off unwanted audio for a clip, like ambient "
 "noise."
 msgstr "** 사용 예:** 주변 소음과 같은 원치 않는 오디오를 클립에서 끄기."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:783
+#: ../clips.rst:862
 msgid ""
 "**Tip:** Use this property to control audio playback for specific clips, "
 "especially clips which have no useful audio track."
 msgstr "** 팁:** 유용한 오디오 트랙이 없는 클립 등 특정 클립의 오디오 재생을 제어하려면 이 속성을 사용하세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:787
+#: ../clips.rst:866
 msgid ""
 "The :guilabel:`Enable Video` property is an enumeration that overrides the "
 "default video setting for the clip. Possible values: -1 (undefined), 0 (no "
@@ -3082,21 +3292,21 @@ msgstr ""
 "않음), 0 (비디오 없음), 1 (비디오 활성화)."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:790
+#: ../clips.rst:869
 msgid ""
 "**Usage Example:** Disabling the video of a clip while retaining its audio "
 "for creating audio-only sequences."
 msgstr "** 사용 예:** 오디오 전용 시퀀스를 만들기 위해 클립의 비디오는 비활성화하고 오디오는 유지하는 방법입니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:791
+#: ../clips.rst:870
 msgid ""
 "**Tip:** This property can be helpful when creating scenes with audio "
 "commentary or voiceovers."
 msgstr "** 팁:** 이 속성은 오디오 해설이나 보이스오버가 포함된 장면을 만들 때 유용할 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:795
+#: ../clips.rst:874
 msgid ""
 "The :guilabel:`ID` property holds a randomly generated GUID (Globally Unique"
 " Identifier) assigned to each clip, ensuring its uniqueness. This is a Read-"
@@ -3106,21 +3316,21 @@ msgstr ""
 "속성은 읽기 전용이며, 클립이 생성될 때 OpenShot에서 할당합니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:798
+#: ../clips.rst:877
 msgid ""
 "**Usage Example:** Referencing specific clips within custom scripts or "
 "automation tasks."
 msgstr "** 사용 예:** 사용자 지정 스크립트나 자동화 작업 내에서 특정 클립을 참조하는 방법입니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:799
+#: ../clips.rst:878
 msgid ""
 "**Tip:** While typically managed behind the scenes, understanding clip IDs "
 "can aid in advanced project customization."
 msgstr "** 팁:** 일반적으로 내부적으로 관리되지만, 클립 ID를 이해하면 고급 프로젝트 맞춤화에 도움이 될 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:803
+#: ../clips.rst:882
 msgid ""
 "The :guilabel:`Track` property is an integer indicating the layer on which "
 "the clip is placed. Clips on higher tracks are rendered above those on lower"
@@ -3130,26 +3340,26 @@ msgstr ""
 "렌더링됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:806
+#: ../clips.rst:885
 msgid ""
 "**Usage Example:** Arranging clips in different layers for creating visual "
 "depth and complexity."
 msgstr "** 사용 예:** 시각적 깊이와 복잡성을 만들기 위해 클립을 서로 다른 레이어에 배치하는 방법입니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:807
+#: ../clips.rst:886
 msgid ""
 "**Tip:** Use higher tracks for elements that need to appear above others, "
 "like text overlays or graphics."
 msgstr "** 팁:** 텍스트 오버레이나 그래픽처럼 다른 요소 위에 나타나야 하는 요소에는 더 높은 트랙을 사용하세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:812
+#: ../clips.rst:891
 msgid "Location X and Location Y"
 msgstr "위치 X 및 위치 Y"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:813
+#: ../clips.rst:892
 msgid ""
 "The :guilabel:`Location X` and :guilabel:`Location Y` properties are key-"
 "frame curves that determine the relative position of the clip, expressed in "
@@ -3161,7 +3371,7 @@ msgstr ""
 " 를 참조하세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:816
+#: ../clips.rst:895
 msgid ""
 "**Usage Example:** Animating a clip's movement across the screen using key-"
 "frame curves for both X and Y locations."
@@ -3169,13 +3379,13 @@ msgstr ""
 "** 사용 예:** X 및 Y 위치에 대한 키프레임 곡선을 사용하여 클립이 화면을 가로질러 움직이도록 애니메이션화하는 방법입니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:817
+#: ../clips.rst:896
 msgid ""
 "**Tip:** Combine with gravity settings to create dynamic animations that "
 "adhere to consistent alignment rules."
 msgstr "** 팁:** 중력 설정과 결합하여 일관된 정렬 규칙을 따르는 동적 애니메이션을 만드세요."
 
-#: ../clips.rst:821
+#: ../clips.rst:900
 msgid ""
 "The :guilabel:`Margin` property is a key-frame curve that creates an inset "
 "layout area for a clip. The curve is measured as a percentage of the "
@@ -3187,7 +3397,7 @@ msgstr ""
 "기준으로 백분율로 측정되며 0에서 0.5까지 범위를 가집니다. 예를 들어 1920x1080 프로젝트에서 0.05의 여백은 모든 면에 "
 "54픽셀의 삽입 영역을 만들고, 클립은 나머지 사각형 내부에 배치됩니다."
 
-#: ../clips.rst:825
+#: ../clips.rst:904
 msgid ""
 "Margin is applied before the clip's scale and gravity are calculated. This "
 "means :guilabel:`Scale` modes such as ``Fit``, ``Crop``, and ``Stretch`` use"
@@ -3199,32 +3409,34 @@ msgstr ""
 "``늘리기``는 전체 프로젝트 프레임 대신 더 작은 삽입 영역을 사용합니다. 또한 ``중앙``을 포함한 모든 :guilabel:`중력` "
 "옵션이 삽입 영역 내에서 처리됩니다."
 
-#: ../clips.rst:829
+#: ../clips.rst:908
 msgid ""
 "**Usage Example:** Keeping a corner webcam clip slightly away from the "
 "screen edge during a screen recording."
 msgstr "**사용 예:** 화면 녹화 중 코너 웹캠 클립을 화면 가장자리에서 약간 떨어뜨려 배치하기."
 
-#: ../clips.rst:830
+#: ../clips.rst:909
 msgid ""
 "**Usage Example:** Adding a clean border around a full-frame image by using "
 "``Fit`` or ``Stretch`` with a small margin."
 msgstr ""
 "**사용 예:** 작은 여백과 함께 ``맞춤`` 또는 ``늘리기``를 사용하여 전체 프레임 이미지 주변에 깔끔한 테두리 추가하기."
 
-#: ../clips.rst:831
+#: ../clips.rst:910
 msgid ""
 "**Usage Example:** Creating safe-area layouts, split-screen spacing, or "
 "picture-in-picture spacing without adding Crop or Mask effects."
 msgstr "**사용 예:** 자르기 또는 마스크 효과 없이 안전 영역 레이아웃, 분할 화면 간격 또는 PIP 간격 만들기."
 
-#: ../clips.rst:832
+# Main-window terminology review, 2026-09-26.
+#: ../clips.rst:911
 msgid ""
 "**Usage Example:** In :guilabel:`Recording View`, screen-plus-camera "
 "recordings use this property to inset the corner webcam clip."
-msgstr "**사용 예:** :guilabel:`녹화 보기`에서 화면+카메라 녹화가 이 속성을 사용하여 코너 웹캠 클립을 삽입합니다."
+msgstr ""
+"**사용 예:** :guilabel:`녹음/녹화 보기`에서 화면+카메라 녹화가 이 속성을 사용하여 코너 웹캠 클립을 삽입합니다."
 
-#: ../clips.rst:833
+#: ../clips.rst:912
 msgid ""
 "**Tip:** Use a small value such as 0.02 to 0.05 for normal edge spacing. "
 "Larger values intentionally shrink the available layout area."
@@ -3233,7 +3445,7 @@ msgstr ""
 "영역을 축소합니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:839
+#: ../clips.rst:918
 msgid ""
 "The :guilabel:`Volume Mixing` property is an enumeration that controls how "
 "volume adjustments are applied before mixing audio. Options: None (no "
@@ -3244,21 +3456,21 @@ msgstr ""
 "없음(조정 없음), 감소(볼륨 80%로 낮춤), 평균(동시 클립 수에 따라 볼륨 분할)."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:842
+#: ../clips.rst:921
 msgid ""
 "**Usage Example:** Automatically lowering the volume of a clip to allow "
 "background music to stand out more prominently."
 msgstr "** 사용 예:** 배경 음악이 더 두드러지도록 클립의 볼륨을 자동으로 낮추는 방법입니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:843
+#: ../clips.rst:922
 msgid ""
 "**Tip:** Experiment with volume mixing options to achieve balanced audio "
 "levels across different clips."
 msgstr "** 팁:** 다양한 클립 간에 균형 잡힌 오디오 레벨을 얻기 위해 볼륨 믹싱 옵션을 실험해 보세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:845
+#: ../clips.rst:924
 msgid ""
 "Mixing audio involves adjusting volume levels so that **overlapping clips** "
 "do not become too loud (creating audio distortion and loss of audio "
@@ -3272,7 +3484,7 @@ msgstr ""
 "OpenShot은 겹치는 클립의 볼륨을 줄여야 할 수 있습니다. 다음과 같은 오디오 믹싱 방법이 제공됩니다:"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:849
+#: ../clips.rst:928
 msgid ""
 "**None** - Make no adjustments to volume data before mixing audio. "
 "Overlapping clips will combine audio at full volume, with no reduction."
@@ -3280,7 +3492,7 @@ msgstr ""
 "** 없음** - 오디오 믹싱 전에 볼륨 데이터를 조정하지 않습니다. 겹치는 클립은 볼륨 감소 없이 전체 볼륨으로 오디오가 결합됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:850
+#: ../clips.rst:929
 msgid ""
 "**Average** - Automatically divide the volume of each clip based on the # of"
 " overlapping clips. For example, 2 overlapping clips would each have 50% "
@@ -3290,7 +3502,7 @@ msgstr ""
 "3개의 겹치는 클립은 각각 33% 볼륨을 가집니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:851
+#: ../clips.rst:930
 msgid ""
 "**Reduce** - Automatically reduce overlapping clips volume by 20%, which "
 "reduces the likelihood of becoming too loud, but does not always prevent "
@@ -3302,7 +3514,7 @@ msgstr ""
 "않습니다. 예를 들어, 10개의 큰 볼륨 클립이 겹치고 각각 20% 볼륨이 줄어들어도 최대 허용 볼륨을 초과하여 오디오 왜곡이 발생할 수"
 " 있습니다."
 
-#: ../clips.rst:853
+#: ../clips.rst:932
 msgid ""
 "For quickly adjusting the volume of a clip, you can use the :guilabel:`Audio"
 " → Volume` menu. See :ref:`clip_presets_ref`. For precise control over the "
@@ -3314,12 +3526,12 @@ msgstr ""
 "설정할 수 있습니다. :ref:`clip_volume_ref`를 참조하세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:857
+#: ../clips.rst:936
 msgid "Origin X and Origin Y"
 msgstr "원점 X 및 원점 Y"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:858
+#: ../clips.rst:937
 msgid ""
 "The :guilabel:`Origin X` and :guilabel:`Origin Y` properties are key-frame "
 "curves that define the rotation origin point's position in percentages. The "
@@ -3329,26 +3541,26 @@ msgstr ""
 "곡선입니다. 이 곡선의 범위는 -1에서 1입니다. 자세한 내용은 :ref:`clip_transform_ref` 를 참조하세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:861
+#: ../clips.rst:940
 msgid ""
 "**Usage Example:** Rotating a clip around a specific point, such as a "
 "character's pivot joint."
 msgstr "** 사용 예:** 캐릭터의 회전 관절과 같은 특정 지점을 중심으로 클립을 회전하는 방법입니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:862
+#: ../clips.rst:941
 msgid ""
 "**Tip:** Set the origin point to achieve controlled and natural-looking "
 "rotations during animations."
 msgstr "** 팁:** 애니메이션 중에 제어되고 자연스러운 회전을 위해 원점 위치를 설정하세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:867
+#: ../clips.rst:946
 msgid "Clip Parent"
 msgstr "클립 부모"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:868
+#: ../clips.rst:947
 msgid ""
 "The :guilabel:`Parent` property of a clip sets the initial keyframe values "
 "to the parent object. For example, if many clips all point to the same "
@@ -3362,21 +3574,21 @@ msgstr ""
 "상속받습니다. 이는 여러 클립을 함께 이동하거나 크기 조절해야 할 때 매우 유용할 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:872
+#: ../clips.rst:951
 msgid ""
 "**Usage Example:** Creating complex animations by establishing a parent-"
 "child relationship between clips."
 msgstr "** 사용 예:** 클립 간에 부모-자식 관계를 설정하여 복잡한 애니메이션을 만드는 방법입니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:873
+#: ../clips.rst:952
 msgid ""
 "**Tip:** Utilize this property to propagate changes from the parent clip to "
 "child clips for consistent animations."
 msgstr "** 팁:** 이 속성을 사용하여 부모 클립의 변경 사항을 자식 클립에 전파하여 일관된 애니메이션을 만드세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:874
+#: ../clips.rst:953
 msgid ""
 "**Tip:** You can also set the ``parent`` attribute to a ``Tracker`` or "
 "``Object Detector`` tracked object, so the clip follows the location and "
@@ -3386,7 +3598,7 @@ msgstr ""
 "클립이 추적 객체의 위치와 크기를 따르도록 할 수도 있습니다. 자세한 내용은 :ref:`effect_parent_ref` 를 참조하세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:878
+#: ../clips.rst:957
 msgid ""
 "The :guilabel:`Position` property determines the clip's position on the "
 "timeline in seconds, with 0.0 indicating the beginning."
@@ -3394,21 +3606,21 @@ msgstr ""
 ":guilabel:`Position` 속성은 타임라인에서 클립의 위치를 초 단위로 결정하며, 0.0은 시작 지점을 나타냅니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:880
+#: ../clips.rst:959
 msgid ""
 "**Usage Example:** Timing a clip's appearance to coincide with specific "
 "events in the project."
 msgstr "** 사용 예:** 프로젝트의 특정 이벤트와 일치하도록 클립의 출현 시간을 조정합니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:881
+#: ../clips.rst:960
 msgid ""
 "**Tip:** Adjust the position to synchronize clips with audio cues or visual "
 "elements."
 msgstr "** 팁:** 오디오 신호나 시각적 요소와 클립을 동기화하려면 위치를 조정하세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:887
+#: ../clips.rst:966
 msgid ""
 "The :guilabel:`Rotation` property is a key-frame curve that controls the "
 "rotation angle of the clip, ranging from -360 to 360 degrees. You can rotate"
@@ -3421,21 +3633,21 @@ msgstr ""
 "뒤집거나 회전을 애니메이션화할 수 있습니다. 자세한 내용은 :ref:`clip_transform_ref` 를 참조하세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:891
+#: ../clips.rst:970
 msgid ""
 "**Usage Example:** Simulating a spinning effect by animating the rotation "
 "curve."
 msgstr "** 사용 예:** 회전 곡선을 애니메이션화하여 회전 효과를 시뮬레이션합니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:892
+#: ../clips.rst:971
 msgid ""
 "**Tip:** Use this property creatively for effects like rotating text or "
 "emulating camera movement."
 msgstr "** 팁:** 텍스트 회전이나 카메라 움직임 모방과 같은 효과에 이 속성을 창의적으로 사용하세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:893
+#: ../clips.rst:972
 msgid ""
 "**Tip:** In the preview transform tool, hold :kbd:`Ctrl` or :kbd:`Shift` "
 "while rotating to snap to 15-degree increments."
@@ -3444,7 +3656,7 @@ msgstr ""
 "스냅됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:894
+#: ../clips.rst:973
 msgid ""
 "**Tip:** Experiment with rotating your video at different angles, not just "
 "90 or 180 degrees. Sometimes a slight tilt or a specific angle can add "
@@ -3455,7 +3667,7 @@ msgstr ""
 "스토리텔링 목적에 창의적인 느낌을 더할 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:895
+#: ../clips.rst:974
 msgid ""
 "**Tip:** After rotating your video, you might end up with black bars around "
 "the edges. Consider cropping and resizing the video to eliminate these bars "
@@ -3465,7 +3677,7 @@ msgstr ""
 "비디오를 자르고 크기를 조정하세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:896
+#: ../clips.rst:975
 msgid ""
 "**Tip:** If you're dealing with vertical videos that are meant to be watched"
 " on horizontal screens, rotate them by 90 degrees and then scale them up to "
@@ -3476,7 +3688,7 @@ msgstr ""
 "비디오가 화면 공간을 더 많이 차지합니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:897
+#: ../clips.rst:976
 msgid ""
 "**Tip:** If the horizon in your video appears slanted due to camera tilt, "
 "use rotation to level it. This is particularly important for landscape shots"
@@ -3486,7 +3698,7 @@ msgstr ""
 "시각적으로 보기 좋은 모습을 유지하는 데 특히 중요합니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:903
+#: ../clips.rst:982
 msgid ""
 "The :guilabel:`Scale` property is the initial resizing or scaling method "
 "used to display the picture of a clip, which may be further adjusted by the "
@@ -3503,7 +3715,7 @@ msgstr ""
 "같습니다:"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:908
+#: ../clips.rst:987
 msgid ""
 "**Best Fit** (default) – The clip is as large as possible without changing "
 "the aspect ratio. This might result in black bars on certain sides of the "
@@ -3513,7 +3725,7 @@ msgstr ""
 "않으면 이미지의 일부 측면에 검은 바가 생길 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:909
+#: ../clips.rst:988
 msgid ""
 "**Crop** – The aspect ratio of the clip is maintained while the clip is "
 "enlarged to fill the entire screen, even if that means some of it will be "
@@ -3525,7 +3737,7 @@ msgstr ""
 "검은 바를 방지하지만, 클립의 종횡비가 프로젝트 크기와 일치하지 않으면 일부 이미지가 잘릴 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:910
+#: ../clips.rst:989
 msgid ""
 "**None** – The clip is displayed in its original size. This is not "
 "recommended, since the picture will not scale correctly if you change the "
@@ -3535,19 +3747,19 @@ msgstr ""
 "않으므로 권장하지 않습니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:911
+#: ../clips.rst:990
 msgid ""
 "**Stretch** – The clip is stretched to fill the entire screen, changing the "
 "aspect ratio if necessary."
 msgstr "** 늘리기** – 필요에 따라 종횡비를 변경하여 클립을 전체 화면에 맞게 늘립니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:916
+#: ../clips.rst:995
 msgid "Scale X and Scale Y"
 msgstr "스케일 X 및 스케일 Y"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:917
+#: ../clips.rst:996
 msgid ""
 "The :guilabel:`Scale X` and :guilabel:`Scale Y` properties are key-frame "
 "curves that represent horizontal and vertical scaling in percentages, "
@@ -3560,40 +3772,40 @@ msgstr ""
 "OpenShot은 충돌 및 성능 문제를 방지하기 위해 파일 유형과 프로젝트 크기에 따라 최대 스케일 값을 제한합니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:921
+#: ../clips.rst:1000
 msgid ""
 "**Usage Example:** Creating a zoom-in effect by animating the Scale X and "
 "Scale Y curves simultaneously."
 msgstr "** 사용 예:** 스케일 X 및 스케일 Y 곡선을 동시에 애니메이션화하여 확대 효과를 만듭니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:922
+#: ../clips.rst:1001
 msgid ""
 "**Tip:** Scale the image larger than the screen, only revealing a portion of"
 " the video. This is a simple way to crop a portion of the video."
 msgstr "** 팁:** 이미지를 화면보다 크게 확대하여 비디오의 일부만 표시하세요. 이는 비디오 일부를 자르는 간단한 방법입니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:923
+#: ../clips.rst:1002
 msgid ""
 "**Tip:** Scale the horizontal and vertical elements separately, to squash "
 "and stretch the image in fun ways."
 msgstr "** 팁:** 가로 및 세로 요소를 별도로 확대/축소하여 이미지를 재미있게 눌러 늘리거나 늘려 보세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:924
+#: ../clips.rst:1003
 msgid ""
 "**Tip:** Combine scaling with rotation and location properties for dynamic "
 "transformations."
 msgstr "** 팁:** 동적인 변형을 위해 스케일링을 회전 및 위치 속성과 결합하세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:927
+#: ../clips.rst:1006
 msgid "Shear X and Shear Y"
 msgstr "쉬어 X 및 쉬어 Y"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:928
+#: ../clips.rst:1007
 msgid ""
 "The :guilabel:`Shear X` and :guilabel:`Shear Y` properties are key-frame "
 "curves that represent X and Y shear angles in degrees, respectively. See "
@@ -3605,20 +3817,20 @@ msgstr ""
 " 위해 파일 유형과 프로젝트 크기에 따라 최대 쉬어 값을 제한합니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:932
+#: ../clips.rst:1011
 msgid ""
 "**Usage Example:** Adding a dynamic tilt effect to a clip by animating the "
 "shear angles."
 msgstr "** 사용 예:** 쉬어 각도를 애니메이션화하여 클립에 동적인 기울기 효과를 추가합니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:933
+#: ../clips.rst:1012
 msgid ""
 "**Tip:** Use shear properties for creating slanted or skewed animations."
 msgstr "** 팁:** 기울거나 왜곡된 애니메이션을 만들 때 쉬어 속성을 사용하세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:937
+#: ../clips.rst:1016
 msgid ""
 "The :guilabel:`Start` property defines the trimming point at the beginning "
 "of the clip in seconds. Changing this property will impact the "
@@ -3628,20 +3840,20 @@ msgstr ""
 "길이` 클립 속성에 영향을 미칩니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:940
+#: ../clips.rst:1019
 msgid ""
 "**Usage Example:** Removing the initial portion of a clip to focus on a "
 "specific scene or moment."
 msgstr "** 사용 예:** 특정 장면이나 순간에 집중하기 위해 클립의 초기 부분을 제거합니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:941
+#: ../clips.rst:1020
 msgid ""
 "**Tip:** Utilize the \"Start\" property in combination with the \"End\" "
 "property for precise clip trimming."
 msgstr "** 팁:** 정확한 클립 트리밍을 위해 \"시작\" 속성과 \"끝\" 속성을 함께 사용하세요."
 
-#: ../clips.rst:947
+#: ../clips.rst:1026
 msgid ""
 "The :guilabel:`Time` property is a key-frame curve that represents frames "
 "played over time, affecting the speed and direction of the video. You can "
@@ -3662,7 +3874,7 @@ msgstr ""
 "조정합니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:954
+#: ../clips.rst:1033
 msgid ""
 "Optionally, you can manually set key-frame values for the :guilabel:`Time` "
 "property. The value represents the `frame number` at the position of the "
@@ -3684,7 +3896,7 @@ msgstr ""
 " X 24.0 프로젝트 FPS = 1128 총 프레임``)."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:962
+#: ../clips.rst:1041
 msgid ""
 "This allows for some very complex scenarios, such as jump cutting inside a "
 "clip, reversing a portion of a clip, slowing down a portion of a clip, "
@@ -3695,21 +3907,21 @@ msgstr ""
 "있습니다. 수동 키프레임 애니메이션에 대한 자세한 내용은 :ref:`animation_ref` 를 참조하세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:966
+#: ../clips.rst:1045
 msgid ""
 "**Usage Example:** Creating a slow-motion or time-lapse effect by modifying "
 "the time curve."
 msgstr "** 사용 예:** 시간 곡선을 수정하여 슬로우 모션 또는 타임랩스 효과 만들기."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:967
+#: ../clips.rst:1046
 msgid ""
 "**Tip:** Adjust the \"Time\" property to control video playback speed for "
 "dramatic visual impact."
 msgstr "** 팁:** 비디오 재생 속도를 조절하여 극적인 시각 효과를 위해 \"Time\" 속성을 조정하세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:973
+#: ../clips.rst:1052
 msgid ""
 "The :guilabel:`Volume` property is a key-frame curve that controls audio "
 "volume or level, ranging from 0 (mute) to 1 (full volume). For automatic "
@@ -3719,20 +3931,20 @@ msgstr ""
 " 자동 조정에 대해서는 :ref:`clip_volume_mixing_ref` 를 참조하세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:976
+#: ../clips.rst:1055
 msgid ""
 "**Usage Example:** Gradually fading out background music as dialogue becomes"
 " more prominent, or increasing or lowering the volume of a clip."
 msgstr "** 사용 예:** 대화가 두드러질 때 배경 음악을 점차 페이드 아웃하거나 클립의 볼륨을 올리거나 내리기."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:977
+#: ../clips.rst:1056
 msgid ""
 "**Tip:** Combine multiple volume key-frames for nuanced audio adjustments, "
 "such as ducking the level of the music when dialog is spoken."
 msgstr "** 팁:** 대화가 있을 때 음악 볼륨을 낮추는 등 미묘한 오디오 조정을 위해 여러 볼륨 키프레임을 결합하세요."
 
-#: ../clips.rst:978
+#: ../clips.rst:1057
 msgid ""
 "**Tip:** For **quickly** adjusting the volume of a clip you can use the "
 ":guilabel:`Audio → Volume` menu. See :ref:`clip_presets_ref`."
@@ -3741,48 +3953,48 @@ msgstr ""
 ":ref:`clip_presets_ref`를 참조하세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:982
+#: ../clips.rst:1061
 msgid ""
 "The :guilabel:`Wave Color` property is a key-frame curve that represents the"
 " color of the audio waveform visualization."
 msgstr ":guilabel:`Wave Color` 속성은 오디오 파형 시각화의 색상을 나타내는 키프레임 곡선입니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:984
+#: ../clips.rst:1063
 msgid ""
 "**Usage Example:** Matching the waveform color to the project's overall "
 "visual theme."
 msgstr "** 사용 예:** 파형 색상을 프로젝트의 전체 시각 테마에 맞추기."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:985
+#: ../clips.rst:1064
 msgid ""
 "**Tip:** Experiment with different colors to enhance the visual appeal of "
 "the waveform or animate the color over time."
 msgstr "** 팁:** 파형의 시각적 매력을 높이거나 색상을 시간에 따라 애니메이션화하기 위해 다양한 색상을 실험해 보세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:989
+#: ../clips.rst:1068
 msgid ""
 "The :guilabel:`Waveform` property is a boolean that determines whether a "
 "waveform visualization is used instead of the clip's image."
 msgstr ":guilabel:`Waveform` 속성은 클립 이미지 대신 파형 시각화를 사용할지 여부를 결정하는 불리언 값입니다."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:991
+#: ../clips.rst:1070
 msgid ""
 "**Usage Example:** Displaying an audio waveform in place of the video for "
 "visually highlighting audio patterns."
 msgstr "** 사용 예:** 오디오 패턴을 시각적으로 강조하기 위해 비디오 대신 오디오 파형을 표시하기."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:992
+#: ../clips.rst:1071
 msgid ""
 "**Tip:** Use waveform visualization for emphasizing music beats or voice "
 "modulations."
 msgstr "** 팁:** 음악 비트나 음성 변조를 강조하기 위해 파형 시각화를 사용하세요."
 
-#: ../clips.rst:996
+#: ../clips.rst:1075
 msgid ""
 "The :guilabel:`Waveform Mode` property controls the visualization style used"
 " when :guilabel:`Waveform` is enabled. It uses the same choices as the "
@@ -3794,13 +4006,13 @@ msgstr ""
 ":guilabel:`오디오 시각화` 효과의 :guilabel:`시각화` 속성과 동일한 선택지를 사용합니다: 파형, 채워진 파형, 막대, "
 "방사형, 방사형 막대, 스펙트럼, 위상 스코프, 입자, VU 미터."
 
-#: ../clips.rst:1000
+#: ../clips.rst:1079
 msgid ""
 "**Usage Example:** Switching an audio-only clip from a standard waveform to "
 "bars or a spectrum display."
 msgstr "**사용 예:** 오디오 전용 클립을 표준 파형에서 막대 또는 스펙트럼 표시로 전환하기."
 
-#: ../clips.rst:1001
+#: ../clips.rst:1080
 msgid ""
 "**Tip:** Use :guilabel:`Wave Color` with :guilabel:`Waveform Mode` to tune "
 "both the visualization style and color."
@@ -3808,14 +4020,23 @@ msgstr ""
 "**팁:** :guilabel:`파형 모드`와 함께 :guilabel:`파형 색상`을 사용하여 시각화 스타일과 색상을 모두 조정하세요."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:1004
+#: ../clips.rst:1083
 msgid "More Information"
 msgstr "추가 정보"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:1005
+#: ../clips.rst:1084
 msgid "For more info on key frames and animation, see :ref:`animation_ref`."
 msgstr "키프레임 및 애니메이션에 대한 자세한 내용은 :ref:`animation_ref` 를 참조하세요."
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "The :guilabel:`razor tool` from the **Timeline Toolbar** cuts a clip at the "
+#~ "position where it is clicked. Use :kbd:`SHIFT` to slice and keep the left "
+#~ "side, or :kbd:`CTRL` to keep the right side."
+#~ msgstr ""
+#~ "** 타임라인 도구 모음** 의 :guilabel:` 면도날 도구` 는 클릭한 위치에서 클립을 자릅니다. :kbd:`SHIFT` 를 "
+#~ "사용하면 왼쪽을 유지하며 자르고, :kbd:`CTRL` 을 사용하면 오른쪽을 유지합니다."
 
 # Translated with gpt-4.1-mini
 #~ msgid ""

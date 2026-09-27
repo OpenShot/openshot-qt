@@ -155,6 +155,7 @@ msgstr ""
 msgid "Keep Shooting"
 msgstr "계속 촬영하기"
 
+# Main-window terminology review, 2026-09-26.
 #: ../getting_started.rst:78
 msgid ""
 "Record more video and audio than you think you will need for your project. "
@@ -169,9 +170,9 @@ msgid ""
 msgstr ""
 "프로젝트에 필요할 것보다 더 많은 비디오와 오디오를 녹화하세요. 장면을 강화하거나 분위기를 조성하거나 이야기를 전달하는 비디오를 "
 "포함하세요. 추가 비디오는 프로젝트에서 부드러운 전환에 사용할 수 있습니다. 프로젝트에 음성 해설, 내레이션, 화면 캡처 또는 웹캠 "
-"영상이 필요한 경우 :guilabel:`View->Recording View`를 사용하여 OpenShot의 녹화 도구를 열 수 있습니다."
-" 마이크, 시스템 오디오, 화면 및 웹캠 옵션에 대한 자세한 내용은 :ref:`recording_ref`를 참조하세요. 보다 전문화된 "
-"캡처 작업 흐름의 경우 외부 애플리케이션으로 녹화한 후 완성된 미디어를 OpenShot으로 가져올 수도 있습니다."
+"영상이 필요한 경우 :guilabel:`View->녹음/녹화 보기`를 사용하여 OpenShot의 녹화 도구를 열 수 있습니다. 마이크, "
+"시스템 오디오, 화면 및 웹캠 옵션에 대한 자세한 내용은 :ref:`recording_ref`를 참조하세요. 보다 전문화된 캡처 작업 "
+"흐름의 경우 외부 애플리케이션으로 녹화한 후 완성된 미디어를 OpenShot으로 가져올 수도 있습니다."
 
 # Translated with gpt-4.1-mini
 #: ../getting_started.rst:88

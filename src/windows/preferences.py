@@ -281,17 +281,18 @@ class Preferences(QDialog):
                     widget.setToolTip(param["title"])
                     widget.valueChanged.connect(functools.partial(self.spinner_value_changed, param))
 
-                elif param["type"] == "text" or param["type"] == "browse":
+                elif param["type"] in ("text", "browse", "browse-folder"):
                     # create QLineEdit
                     widget = QLineEdit()
                     widget.setText(_(param["value"]))
                     widget.setObjectName(param["setting"])
                     widget.textChanged.connect(functools.partial(self.text_value_changed, widget, param))
 
-                    if param["type"] == "browse":
+                    if param["type"] in ("browse", "browse-folder"):
                         # Add filesystem browser button
                         extraWidget = QPushButton(_("Browse..."))
-                        extraWidget.clicked.connect(functools.partial(self.selectExecutable, widget, param))
+                        callback = self.selectFolder if param["type"] == "browse-folder" else self.selectExecutable
+                        extraWidget.clicked.connect(functools.partial(callback, widget, param))
                     elif param.get("setting") == "comfy-ui-url":
                         # Add an explicit connectivity check for ComfyUI URL.
                         extraWidget = QPushButton(_("Check"))
@@ -592,6 +593,13 @@ class Preferences(QDialog):
             if widget:
                 widget.setEnabled(enabled)
 
+    def selectFolder(self, widget, param):
+        folder = QFileDialog.getExistingDirectory(
+            self, get_app()._tr("Select assets folder"),
+            self.s.get(param["setting"]) or info.HOME_PATH)
+        if folder:
+            widget.setText(folder)
+
     def selectExecutable(self, widget, param):
         _ = get_app()._tr
 
@@ -674,13 +682,10 @@ class Preferences(QDialog):
         from classes import log_config
         _ = get_app()._tr
         if setting == "debug-ui":
-            description = _("Record interface and project activity in openshot-qt.log. "
-                            "Use --debug-ui (or --debug) for one launch, including terminal output.")
+            description = _("Log interface details")
             component = "python"
         else:
-            description = _("Record video and audio processing in libopenshot.log. "
-                            "Use --debug-engine for one launch, including terminal output. "
-                            "Logs can grow quickly; turn this off when finished.")
+            description = _("Log video and audio details")
             component = "native"
         override = log_config.preference_description(self.s.get(setting), component)
         return description + ("\n" + override if override else "")

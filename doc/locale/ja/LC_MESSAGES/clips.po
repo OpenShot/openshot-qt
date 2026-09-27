@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-09-26 14:26-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -104,8 +104,8 @@ msgid "Name"
 msgstr "名前"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:51 ../clips.rst:76 ../clips.rst:110 ../clips.rst:149
-#: ../clips.rst:622
+#: ../clips.rst:51 ../clips.rst:76 ../clips.rst:189 ../clips.rst:228
+#: ../clips.rst:701
 msgid "Description"
 msgstr "説明"
 
@@ -267,15 +267,16 @@ msgstr ""
 msgid "**Razor Tool**"
 msgstr "**レイザーツール**"
 
-# Translated with gpt-4.1-mini
 #: ../clips.rst:88
 msgid ""
 "The :guilabel:`razor tool` from the **Timeline Toolbar** cuts a clip at the "
-"position where it is clicked. Use :kbd:`SHIFT` to slice and keep the left "
-"side, or :kbd:`CTRL` to keep the right side."
+"position where it is clicked. See :ref:`razor_tool_ref` for cut guides and "
+"frame previews. Use :kbd:`SHIFT` to slice and keep the left side, or "
+":kbd:`CTRL` to keep the right side."
 msgstr ""
-"**タイムラインツールバー** の :guilabel:`レイザーツール` は、クリックした位置でクリップをカットします。:kbd:`SHIFT` "
-"を使うと左側を保持してスライスし、:kbd:`CTRL` を使うと右側を保持します。"
+"**タイムラインツールバー** の :guilabel:`レイザーツール` "
+"は、クリックした位置でクリップをカットします。カットガイドとフレームプレビューについては :ref:`razor_tool_ref` "
+"を参照してください。:kbd:`SHIFT` を使うと左側を残してスライスし、:kbd:`CTRL` を使うと右側を残します。"
 
 # Translated with gpt-4.1-mini
 #: ../clips.rst:90
@@ -306,13 +307,214 @@ msgid ""
 msgstr ""
 "複数の選択されたクリップやトランジションが同じ左端または右端を共有している場合、その共有された端を一度ドラッグして一緒にトリミングできます。"
 
+#: ../clips.rst:102
+msgid "Razor Tool"
+msgstr "レイザーツール"
+
+#: ../clips.rst:104
+msgid ""
+"Use the **Razor Tool** to preview a cut and split a clip or transition "
+"directly on the timeline. Each click affects only the item under the "
+"pointer."
+msgstr ""
+"**レイザーツール** "
+"を使ってカットをプレビューし、タイムライン上でクリップやトランジションを直接分割します。クリックはポインター下のアイテムのみに影響します。"
+
+#: ../clips.rst:107
+msgid "Enable :guilabel:`Razor Tool` in the **Timeline Toolbar**."
+msgstr "**タイムラインツールバー** で :guilabel:`レイザーツール` を有効にします。"
+
+#: ../clips.rst:108
+msgid ""
+"Move over the clip you want to cut. A vertical dashed guide marks the exact "
+"frame boundary, with a timecode and the action that clicking will perform."
+msgstr "カットしたいクリップの上にカーソルを移動します。垂直の破線ガイドが正確なフレーム境界を示し、タイムコードとクリック時の動作が表示されます。"
+
+#: ../clips.rst:110
+msgid ""
+"While playback is paused, **Video Preview** shows the source frame of the "
+"hovered clip, including its time mapping. Higher tracks cannot obscure this "
+"preview. The playhead stays in place, and the guide's timecode is timeline "
+"time."
+msgstr ""
+"再生が一時停止中は、**ビデオプレビュー** "
+"にホバー中のクリップのソースフレーム（タイムマッピングを含む）が表示されます。上位トラックはこのプレビューを隠せません。プレイヘッドは動かず、ガイドのタイムコードはタイムライン時間です。"
+
+#: ../clips.rst:113
+msgid "Click to split. Razor stays enabled so you can make more cuts."
+msgstr "クリックして分割します。レイザーは有効のままなので、さらにカットできます。"
+
+#: ../clips.rst:114
+msgid ""
+"Press :kbd:`Esc`, or toggle the toolbar button again, to return to normal "
+"editing."
+msgstr "通常の編集に戻るには、:kbd:`Esc` を押すか、ツールバーボタンを再度切り替えます。"
+
+#: ../clips.rst:116
+msgid ""
+"Moving away from the clip or leaving Razor mode restores the preview at the "
+"playhead. Hovering during playback does not interrupt playback. Like edge "
+"trimming, Razor previews the individual source rather than the composed "
+"timeline. Hovering a transition previews its mask source."
+msgstr ""
+"クリップから離れるかレイザーモードを終了すると、プレイヘッドのプレビューに戻ります。再生中のホバーは再生を中断しません。エッジトリミングと同様に、レイザーは合成されたタイムラインではなく個別のソースをプレビューします。トランジションにホバーするとマスクソースをプレビューします。"
+
+#: ../clips.rst:121
+msgid "Razor actions"
+msgstr "レイザーの操作"
+
+#: ../clips.rst:125
+msgid "Action"
+msgstr "操作"
+
+#: ../clips.rst:126
+msgid "Result"
+msgstr "結果"
+
+#: ../clips.rst:127
+msgid "Click"
+msgstr "クリック"
+
+#: ../clips.rst:128
+msgid ""
+"Split at the guide and keep both sides. The previewed frame starts the right"
+" side."
+msgstr "ガイドで分割し両側を保持します。プレビューされたフレームが右側の開始点になります。"
+
+#: ../clips.rst:129
+msgid ":kbd:`Shift+Click`"
+msgstr ":kbd:`Shift+Click`"
+
+#: ../clips.rst:130
+msgid ""
+"Keep the left side of the guide. The right side is shaded to show what will "
+"be removed."
+msgstr "ガイドの左側を保持します。右側は削除される部分を示すために陰影が付けられます。"
+
+#: ../clips.rst:131
+msgid ":kbd:`Ctrl+Click`"
+msgstr ":kbd:`Ctrl+Click`"
+
+#: ../clips.rst:132
+msgid ""
+"Keep the right side. The left side is shaded to show what will be removed."
+msgstr "右側を保持します。左側は削除される部分を示すために陰影が付けられます。"
+
+#: ../clips.rst:133
+msgid ":kbd:`Alt+Shift+Click`"
+msgstr ":kbd:`Alt+Shift+Click`"
+
+#: ../clips.rst:134
+msgid ""
+"Keep the left side and close the gap, shifting later items on the same track"
+" left."
+msgstr "左側を保持し、隙間を詰めて同じトラックの後続アイテムを左に移動します。"
+
+#: ../clips.rst:135
+msgid ":kbd:`Alt+Ctrl+Click`"
+msgstr ":kbd:`Alt+Ctrl+Click`"
+
+#: ../clips.rst:136
+msgid ""
+"Keep the right side and close the gap, shifting later items on the same "
+"track left."
+msgstr "右側を保持し、隙間を詰めて同じトラックの後続アイテムを左に移動します。"
+
+#: ../clips.rst:137
+msgid ":kbd:`W` / :kbd:`Q` while hovering"
+msgstr "ホバー中に :kbd:`W` / :kbd:`Q`"
+
+#: ../clips.rst:138
+msgid ""
+"Use the existing ripple-slice shortcuts at the pointer: keep left (:kbd:`W`)"
+" or right (:kbd:`Q`) and close the gap. Customized bindings work too."
+msgstr ""
+"ポインター位置で既存のリップルスライスショートカットを使用します：左を保持 (:kbd:`W`) または右を保持 (:kbd:`Q`) "
+"し、隙間を詰めます。カスタムバインディングも機能します。"
+
+#: ../clips.rst:141
+msgid ""
+"Holding :kbd:`Alt` with :kbd:`Shift` or :kbd:`Ctrl` adds **Close gap** to "
+"the hint. The red shading shows the portion being removed. These operations "
+"reuse **Slice Selected (Ripple)**; they move later clips and transitions on "
+"the same track, not on other tracks. Outside Razor hover, the ripple "
+"shortcuts retain their normal selected-item/playhead behavior. A locked or "
+"invalid Razor target does not fall back to cutting a different selected "
+"clip."
+msgstr ""
+":kbd:`Alt` を :kbd:`Shift` または :kbd:`Ctrl` と同時に押すと、ヒントに **隙間を詰める** "
+"が追加されます。赤い陰影は削除される部分を示します。これらの操作は **選択範囲をスライス（リップル）** "
+"を再利用し、同じトラックの後続クリップやトランジションを移動します。他のトラックは移動しません。レイザーホバー外では、リップルショートカットは通常の選択アイテム/プレイヘッド動作を維持します。ロックまたは無効なレイザーターゲットは、別の選択クリップのカットにフォールバックしません。"
+
+#: ../clips.rst:148
+msgid ""
+"Cuts align to project frames. With **Snapping** enabled, the Razor guide "
+"uses the same snap targets and distance tolerance as other timeline edits: "
+"clip and transition edges, markers, the playhead, and the hovered clip's "
+"keyframe targets. The hovered item's own endpoints are excluded. Preview, "
+"mouse cuts, and ripple shortcuts all use the guide's snapped boundary. "
+"Toggle the timeline's existing **Snapping** button to cut freely between "
+"these targets."
+msgstr ""
+"カットはプロジェクトのフレームに合わせられます。**スナッピング** "
+"が有効な場合、レイザーガイドは他のタイムライン編集と同じスナップターゲットと距離許容範囲を使用します：クリップとトランジションの端、マーカー、プレイヘッド、ホバー中のクリップのキーフレームターゲット。ホバー中のアイテム自身の端点は除外されます。プレビュー、マウスカット、リップルショートカットはすべてガイドのスナップされた境界を使用します。これらのターゲット間を自由にカットするには、タイムラインの既存の"
+" **スナッピング** ボタンを切り替えてください。"
+
+#: ../clips.rst:155
+msgid ""
+"Without snapping to a target, :kbd:`Shift+Click` includes the frame under "
+"the pointer in the left side, placing the guide at the following frame "
+"boundary. When snapped, the snapped boundary takes priority for all cut "
+"modes."
+msgstr ""
+"ターゲットへのスナップがない場合、:kbd:`Shift+Click` "
+"はポインター下のフレームを左側に含め、ガイドを次のフレーム境界に配置します。スナップ時は、スナップされた境界がすべてのカットモードで優先されます。"
+
+#: ../clips.rst:159
+msgid ""
+"Locked tracks, empty space, and boundaries that would leave an empty side do"
+" not show a valid cut guide. Zoom in for finer frame selection, and use "
+"**Undo** to reverse a cut."
+msgstr ""
+"ロックされたトラック、空白、空の側面が残る境界は有効なカットガイドを表示しません。より細かいフレーム選択にはズームインし、カットを元に戻すには "
+"**元に戻す** を使用してください。"
+
+#: ../clips.rst:163
+msgid ""
+"To cut several clips at the playhead instead, use **Slice Selected** or "
+"**Slice All**, described above."
+msgstr ""
+"代わりにプレイヘッドで複数のクリップをカットするには、上記の **選択範囲をスライス** または **すべてをスライス** を使用してください。"
+
+#: ../clips.rst:167
+msgid "Clip controls while zoomed in"
+msgstr "ズームイン時のクリップコントロール"
+
+#: ../clips.rst:169
+msgid ""
+"When a clip's start scrolls off screen, its title, effect badges, and menu "
+"stay near the left side of the visible timeline. Click an effect badge to "
+"access that effect, or use the title's dropdown to open the clip menu. The "
+"controls stay within the visible portion of their clip and shorten as space "
+"runs out."
+msgstr ""
+"クリップの開始部分が画面外にスクロールすると、そのタイトル、エフェクトバッジ、メニューは表示されているタイムラインの左側近くに留まります。エフェクトバッジをクリックするとそのエフェクトにアクセスでき、タイトルのドロップダウンからクリップメニューを開けます。コントロールはクリップの表示部分内に留まり、スペースが不足すると短くなります。"
+
+#: ../clips.rst:174
+msgid ""
+"Only these controls follow the viewport. The clip's outline, thumbnails, "
+"waveform, and trim handles remain at their actual timeline positions. A "
+"small inset separates the pinned controls from the viewport edge."
+msgstr ""
+"これらのコントロールのみがビューポートに追従します。クリップのアウトライン、サムネイル、波形、トリムハンドルは実際のタイムライン位置に留まります。小さなインセットがピン留めされたコントロールとビューポート端を分けます。"
+
 # Translated with gpt-4.1-mini
-#: ../clips.rst:100
+#: ../clips.rst:179
 msgid "Selections"
 msgstr "選択"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:101
+#: ../clips.rst:180
 msgid ""
 "Selecting clips and transitions on the timeline is an essential part of "
 "editing in OpenShot. Multiple selection methods are available to streamline "
@@ -321,22 +523,22 @@ msgstr ""
 "タイムライン上でクリップやトランジションを選択することは、OpenShotでの編集において重要な部分です。複数の選択方法が用意されており、ワークフローを効率化し、クリップやトランジションの編集を効率的に行えます。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:104
+#: ../clips.rst:183
 msgid "Here is a list of all methods for selecting clips in OpenShot:"
 msgstr "OpenShotでクリップを選択するすべての方法の一覧は以下の通りです："
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:110
+#: ../clips.rst:189
 msgid "Selection Method"
 msgstr "選択方法"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:112
+#: ../clips.rst:191
 msgid "**Box Selection**"
 msgstr "**ボックス選択**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:112
+#: ../clips.rst:191
 msgid ""
 "Click and drag a selection box around clips or transitions to select "
 "multiple items at once. Hold down :kbd:`Ctrl` to add to your current "
@@ -346,12 +548,12 @@ msgstr ""
 " を押し続けてください。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:113
+#: ../clips.rst:192
 msgid "**Click Selection**"
 msgstr "**クリック選択**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:113
+#: ../clips.rst:192
 msgid ""
 "Click on a clip or transition to select it. This will deselect all other "
 "items unless you hold down :kbd:`Ctrl`."
@@ -359,24 +561,24 @@ msgstr ""
 "クリップまたはトランジションをクリックして選択します。 :kbd:`Ctrl` を押していない場合、他のすべてのアイテムの選択が解除されます。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:114
+#: ../clips.rst:193
 msgid "**Add to Selection**"
 msgstr "**選択に追加**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:114
+#: ../clips.rst:193
 msgid ""
 "Hold down :kbd:`Ctrl` while clicking to add or remove clips from the current"
 " selection, allowing you to select non-adjacent clips."
 msgstr "クリックしながら :kbd:`Ctrl` を押し続けると、現在の選択にクリップを追加または削除でき、隣接していないクリップも選択可能です。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:115
+#: ../clips.rst:194
 msgid "**Range Selection**"
 msgstr "**範囲選択**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:115
+#: ../clips.rst:194
 msgid ""
 "Hold down :kbd:`Shift` while clicking to select a range of clips/transitions"
 " from the previous selection to the new selection. This supports ranges that"
@@ -386,12 +588,12 @@ msgstr ""
 "を押し続けると、前回の選択から新しい選択までのクリップやトランジションの範囲を選択できます。複数のトラックにまたがる範囲もサポートします。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:116
+#: ../clips.rst:195
 msgid "**Ripple Selection**"
 msgstr "**リップル選択**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:116
+#: ../clips.rst:195
 msgid ""
 "Hold down :kbd:`Alt` while clicking to ripple select all clips/transitions "
 "from your selection to the end of the track. This always adds to your "
@@ -401,12 +603,12 @@ msgstr ""
 ":kbd:`Ctrl` を押していなくても現在の選択に常に追加されます。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:117
+#: ../clips.rst:196
 msgid "**Clear Selection**"
 msgstr "**選択解除**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:117
+#: ../clips.rst:196
 msgid ""
 "Click anywhere on the timeline or on a new clip/transition to reset the "
 "current selection, unless :kbd:`Ctrl` is pressed."
@@ -414,30 +616,30 @@ msgstr ""
 "タイムラインのどこか、または新しいクリップ/トランジションをクリックすると、 :kbd:`Ctrl` を押していない限り現在の選択がリセットされます。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:118
+#: ../clips.rst:197
 msgid "**Select All**"
 msgstr "**すべて選択**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:118
+#: ../clips.rst:197
 msgid ""
 "Press :kbd:`Ctrl+A` to select all clips and transitions on the timeline."
 msgstr "タイムライン上のすべてのクリップとトランジションを選択するには :kbd:`Ctrl+A` を押してください。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:119
+#: ../clips.rst:198
 msgid "**Select None**"
 msgstr "**すべて選択解除**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:119
+#: ../clips.rst:198
 msgid ""
 "Press :kbd:`Ctrl+Shift+A` to deselect all clips and transitions on the "
 "timeline."
 msgstr "タイムライン上のすべてのクリップとトランジションの選択を解除するには :kbd:`Ctrl+Shift+A` を押してください。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:122
+#: ../clips.rst:201
 msgid ""
 "Mastering these selection techniques will streamline your editing process, "
 "especially when dealing with complex projects. For more advanced tips on "
@@ -448,12 +650,12 @@ msgstr ""
 " セクションを参照してください。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:128
+#: ../clips.rst:207
 msgid "Context Menu"
 msgstr "コンテキストメニュー"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:129
+#: ../clips.rst:208
 msgid ""
 "OpenShot has tons of great preset animations and clip properties, such as "
 "fading, sliding, zooming, reversing time, adjusting volume, etc... These "
@@ -466,7 +668,7 @@ msgstr ""
 "にはフェード、スライド、ズーム、時間の逆再生、音量調整など、多数の優れたプリセットアニメーションとクリッププロパティがあります。これらのプリセットはクリップを右クリックしてコンテキストメニューを表示することでアクセスできます。プリセットはユーザーがキーフレームのクリッププロパティを手動で設定することなく、1つ以上のクリッププロパティを設定します。詳細は"
 " :ref:`clip_properties_ref` を参照してください。"
 
-#: ../clips.rst:134
+#: ../clips.rst:213
 msgid ""
 "Some presets allow the user to target either the start, end, or entire clip,"
 " and most presets allow the user to reset a specific clip property. For "
@@ -476,67 +678,67 @@ msgstr ""
 "一部のプリセットでは、クリップの開始、終了、または全体を対象に設定でき、ほとんどのプリセットでは特定のクリッププロパティをリセットできます。例えば、:guilabel:`Audio"
 " → Volume` プリセットを使用する場合、ユーザーは以下のメニューオプションを利用できます:"
 
-#: ../clips.rst:138
+#: ../clips.rst:217
 msgid "**Reset Volume** — resets the volume to the original level."
 msgstr "**音量をリセット** — 音量を元のレベルにリセットします。"
 
-#: ../clips.rst:139
+#: ../clips.rst:218
 msgid ""
 "**Start of Clip** — the volume change applies at the beginning of the clip."
 msgstr "**クリップの開始** — 音量の変更がクリップの開始時に適用されます。"
 
-#: ../clips.rst:140
+#: ../clips.rst:219
 msgid "**End of Clip** — the volume change applies at the end of the clip."
 msgstr "**クリップの終了** — 音量の変更がクリップの終了時に適用されます。"
 
-#: ../clips.rst:141
+#: ../clips.rst:220
 msgid "**Entire Clip** — the volume change applies to the entire clip."
 msgstr "**クリップ全体** — 音量の変更がクリップ全体に適用されます。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:149
+#: ../clips.rst:228
 msgid "Preset Name"
 msgstr "プリセット名"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:151 ../clips.rst:539
+#: ../clips.rst:230 ../clips.rst:618
 msgid "Copy / Cut / Paste"
 msgstr "コピー / カット / ペースト"
 
-#: ../clips.rst:151
+#: ../clips.rst:230
 msgid ""
 "Copy selected clip data, cut selected clips, or paste copied clip data. Copy"
 " supports full clips, effects, and keyframe groups."
 msgstr ""
 "選択したクリップデータをコピー、選択したクリップをカット、またはコピーしたクリップデータを貼り付けます。コピーはフルクリップ、エフェクト、キーフレームグループに対応しています。"
 
-#: ../clips.rst:152
+#: ../clips.rst:231
 msgid "Align"
 msgstr "整列"
 
-#: ../clips.rst:152
+#: ../clips.rst:231
 msgid ""
 "Align the left or right edge of multiple selected clips and transitions "
 "(only shown when multiple clips are selected)."
 msgstr "複数選択したクリップやトランジションの左端または右端を揃えます（複数のクリップが選択されている場合のみ表示されます）。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:153 ../clips.rst:165
+#: ../clips.rst:232 ../clips.rst:244
 msgid "Fade"
 msgstr "フェード"
 
-#: ../clips.rst:153
+#: ../clips.rst:232
 msgid ""
 "Fade the clip in or out — automatically fades video (alpha) and/or audio "
 "(volume) based on what the clip contains."
 msgstr ""
 "クリップをフェードインまたはフェードアウトします — クリップの内容に応じて動画（アルファ）および/または音声（音量）を自動的にフェードします。"
 
-#: ../clips.rst:154 ../clips.rst:182
+#: ../clips.rst:233 ../clips.rst:261
 msgid "Motion"
 msgstr "モーション"
 
-#: ../clips.rst:154
+#: ../clips.rst:233
 msgid ""
 "Add animated motion to a clip: slide in/out, bounce, blur, wipe/focus-wipe, "
 "zoom, emphasis effects at the playhead, camera movements, and scrolling "
@@ -545,11 +747,11 @@ msgstr ""
 "クリップにアニメーションモーションを追加します：スライドイン/アウト、バウンス、ブラー、ワイプ/フォーカスワイプ、ズーム、再生ヘッドでの強調効果、カメラ移動、スクロールクレジット。ビジュアルクリップのみ表示されます。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:155 ../clips.rst:417
+#: ../clips.rst:234 ../clips.rst:496
 msgid "Transform"
 msgstr "変形"
 
-#: ../clips.rst:155
+#: ../clips.rst:234
 msgid ""
 "Apply geometric presets to a clip: rotate/flip, crop, or snap to a corner "
 "layout. Also provides a **No Transform** reset. Only shown for visual clips."
@@ -557,11 +759,11 @@ msgstr ""
 "クリップに幾何学的プリセットを適用します：回転/反転、クロップ、またはコーナーレイアウトへのスナップ。**変形なし** "
 "のリセットも提供します。ビジュアルクリップのみ表示されます。"
 
-#: ../clips.rst:156 ../clips.rst:318
+#: ../clips.rst:235 ../clips.rst:397
 msgid "Look"
 msgstr "ルック"
 
-#: ../clips.rst:156
+#: ../clips.rst:235
 msgid ""
 "Apply visual style presets: color grades, film grain, analog tape, sharpen, "
 "blur, shadow, and glow effects. Includes **Adjust Colors** (Color Wheels "
@@ -569,21 +771,21 @@ msgid ""
 msgstr ""
 "ビジュアルスタイルのプリセットを適用します：カラグレ、フィルムグレイン、アナログテープ、シャープ、ブラー、シャドウ、グロー効果。**色調整**（カラーホイールエディター）と**色分析**（ビデオスコープ）を含みます。ビジュアルクリップのみ表示されます。"
 
-#: ../clips.rst:157 ../clips.rst:249
+#: ../clips.rst:236 ../clips.rst:328
 msgid "Speed"
 msgstr "速度"
 
-#: ../clips.rst:157
+#: ../clips.rst:236
 msgid ""
 "Reverse, repeat, speed up, or slow down video. Includes Freeze and Freeze & "
 "Zoom options."
 msgstr "動画を逆再生、繰り返し、速度アップ、またはスローダウンします。フリーズおよびフリーズ＆ズームオプションを含みます。"
 
-#: ../clips.rst:158 ../clips.rst:365
+#: ../clips.rst:237 ../clips.rst:444
 msgid "Audio"
 msgstr "オーディオ"
 
-#: ../clips.rst:158
+#: ../clips.rst:237
 msgid ""
 "Control audio properties: adjust volume levels, fade volume in/out, separate"
 " audio channels, show/hide the timeline waveform, or open the Audio Levels "
@@ -592,11 +794,11 @@ msgstr ""
 "オーディオプロパティを制御します：音量レベルの調整、音量のフェードイン/アウト、オーディオチャンネルの分離、タイムライン波形の表示/非表示、またはオーディオレベルスコープを開きます。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:159 ../clips.rst:392
+#: ../clips.rst:238 ../clips.rst:471
 msgid "Slice"
 msgstr "スライス"
 
-#: ../clips.rst:159
+#: ../clips.rst:238
 msgid ""
 "Cut the clip at the play-head position, with options to keep either side, "
 "both sides, or ripple-delete one side. Only shown when the playhead overlaps"
@@ -605,24 +807,24 @@ msgstr ""
 "再生ヘッド位置でクリップをカットし、片側、両側を保持、または片側をリップル削除するオプションがあります。再生ヘッドがクリップに重なっている場合のみ表示されます。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:160 ../clips.rst:531
+#: ../clips.rst:239 ../clips.rst:610
 msgid "Properties"
 msgstr "プロパティ"
 
-#: ../clips.rst:160
+#: ../clips.rst:239
 msgid "Show the properties panel for a clip."
 msgstr "クリップのプロパティパネルを表示します。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:161 ../clips.rst:563
+#: ../clips.rst:240 ../clips.rst:642
 msgid "Remove Clip"
 msgstr "クリップを削除"
 
-#: ../clips.rst:161
+#: ../clips.rst:240
 msgid "Remove a clip from the timeline."
 msgstr "タイムラインからクリップを削除します。"
 
-#: ../clips.rst:166
+#: ../clips.rst:245
 msgid ""
 "The :guilabel:`Fade` preset creates a smooth fade-in or fade-out on the "
 "selected clip. It automatically fades **video** (alpha/opacity) and/or "
@@ -634,11 +836,11 @@ msgstr ""
 "プリセットは、選択したクリップに滑らかなフェードインまたはフェードアウトを作成します。クリップの内容に応じて、**動画**（アルファ/不透明度）および/または**音声**（音量）を自動的にフェードします"
 " — 動画クリップは両方、音声のみのクリップは音量フェードのみ、画像クリップはアルファフェードのみ適用されます。"
 
-#: ../clips.rst:170
+#: ../clips.rst:249
 msgid ":guilabel:`No Fade` — removes all fade keyframes."
 msgstr ":guilabel:`フェードなし` — すべてのフェードキーフレームを削除します。"
 
-#: ../clips.rst:171
+#: ../clips.rst:250
 msgid ""
 ":guilabel:`Fade In` → :guilabel:`Fast` / :guilabel:`Slow` — fades from "
 "transparent/silent at the start of the clip."
@@ -646,7 +848,7 @@ msgstr ""
 ":guilabel:`フェードイン` → :guilabel:`速い` / :guilabel:`遅い` — "
 "クリップの開始時に透明/無音からフェードインします。"
 
-#: ../clips.rst:172
+#: ../clips.rst:251
 msgid ""
 ":guilabel:`Fade Out` → :guilabel:`Fast` / :guilabel:`Slow` — fades to "
 "transparent/silent at the end of the clip."
@@ -654,7 +856,7 @@ msgstr ""
 ":guilabel:`フェードアウト` → :guilabel:`速い` / :guilabel:`遅い` — "
 "クリップの終了時に透明/無音へフェードアウトします。"
 
-#: ../clips.rst:173
+#: ../clips.rst:252
 msgid ""
 ":guilabel:`Fade In and Out` → :guilabel:`Fast` / :guilabel:`Slow` — applies "
 "both a fade-in at the start and a fade-out at the end."
@@ -662,7 +864,7 @@ msgstr ""
 ":guilabel:`フェードイン・アウト` → :guilabel:`速い` / :guilabel:`遅い` — "
 "開始時のフェードインと終了時のフェードアウトの両方を適用します。"
 
-#: ../clips.rst:175
+#: ../clips.rst:254
 msgid ""
 "Fast fades span approximately 1 second; Slow fades span approximately 3 "
 "seconds. See :ref:`clip_alpha_ref` and :ref:`clip_volume_ref` key-frames."
@@ -671,13 +873,13 @@ msgstr ""
 ":ref:`clip_volume_ref` のキーフレームを参照してください。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:178
+#: ../clips.rst:257
 msgid ""
 "**Usage Example:** Applying a fade-out to a video clip to gently conclude a "
 "scene."
 msgstr "**使用例:** シーンを穏やかに締めくくるためにビデオクリップにフェードアウトを適用する。"
 
-#: ../clips.rst:179
+#: ../clips.rst:258
 msgid ""
 "**Tip:** Fade and Volume fade are independent — use :guilabel:`Fade` for a "
 "combined video+audio fade, or use :guilabel:`Audio → Volume` to fade only "
@@ -686,7 +888,7 @@ msgstr ""
 "**ヒント:** フェードと音量フェードは独立しています — 動画＋音声のフェードには :guilabel:`Fade` を、音声のみのフェードには "
 ":guilabel:`Audio → Volume` を使用してください。"
 
-#: ../clips.rst:183
+#: ../clips.rst:262
 msgid ""
 "The :guilabel:`Motion` menu adds animated movement to visual clips using "
 "keyframe presets. It is organized into several submenus. See "
@@ -696,31 +898,31 @@ msgstr ""
 "メニューは、キーフレームプリセットを使ってビジュアルクリップにアニメーション移動を追加します。いくつかのサブメニューに分かれています。詳細は "
 ":ref:`clip_location_x_ref` と :ref:`clip_scale_x_ref` のキーフレームを参照してください。"
 
-#: ../clips.rst:186
+#: ../clips.rst:265
 msgid ":guilabel:`No Motion` — removes all motion keyframes from the clip."
 msgstr ":guilabel:`モーションなし` — クリップからすべてのモーションキーフレームを削除します。"
 
-#: ../clips.rst:187
+#: ../clips.rst:266
 msgid ":guilabel:`In` — entrance animations applied at the start of the clip:"
 msgstr ":guilabel:`イン` — クリップの開始時に適用される入場アニメーション:"
 
-#: ../clips.rst:189
+#: ../clips.rst:268
 msgid ""
 "**Back In** (From Bottom / Left / Right / Top) — clip overshoots and springs"
 " back into position."
 msgstr "**バックイン**（下/左/右/上から） — クリップがオーバーシュートして元の位置に戻ります。"
 
-#: ../clips.rst:190
+#: ../clips.rst:269
 msgid "**Blur In** — clip fades in from a motion blur."
 msgstr "**ブラーイン** — クリップがモーションブラーからフェードインします。"
 
-#: ../clips.rst:191
+#: ../clips.rst:270
 msgid ""
 "**Bounce In** (Center / From Bottom / Left / Right / Top) — clip bounces as "
 "it enters."
 msgstr "**バウンスイン**（中央/下/左/右/上から） — クリップが跳ねながら入場します。"
 
-#: ../clips.rst:192
+#: ../clips.rst:271
 msgid ""
 "**Focus Wipe In** (Circle Expand / Circle Shrink / From Bottom / Left / "
 "Right / Top) — clip is revealed by a wipe while sharpening from blur into "
@@ -728,27 +930,27 @@ msgid ""
 msgstr ""
 "**フォーカスワイプイン**（円拡大/円縮小/下/左/右/上から） — ぼかしからフォーカスにシャープ化しながらワイプでクリップが表示されます。"
 
-#: ../clips.rst:193
+#: ../clips.rst:272
 msgid "**Pop In** — clip scales up quickly from nothing."
 msgstr "**ポップイン** — クリップが何もない状態から素早く拡大します。"
 
-#: ../clips.rst:194
+#: ../clips.rst:273
 msgid ""
 "**Slide In** (From Bottom / Left / Right / Top) — clip slides onto the "
 "screen."
 msgstr "**スライドイン**（下/左/右/上から） — クリップが画面にスライドインします。"
 
-#: ../clips.rst:195
+#: ../clips.rst:274
 msgid "**Spiral In** — clip rotates in while scaling up."
 msgstr "**スパイラルイン** — クリップが回転しながら拡大します。"
 
-#: ../clips.rst:196
+#: ../clips.rst:275
 msgid ""
 "**Wipe In** (Circle Expand / Circle Shrink / From Bottom / Left / Right / "
 "Top) — clip is revealed by a wipe."
 msgstr "**ワイプイン**（円拡大/円縮小/下/左/右/上から） — ワイプでクリップが表示されます。"
 
-#: ../clips.rst:198
+#: ../clips.rst:277
 msgid ""
 ":guilabel:`Out` — exit animations applied at the end of the clip (mirrors "
 "the In options: Back Out, Blur Out, Bounce Out, Focus Wipe Out, Pop Out, "
@@ -757,7 +959,7 @@ msgstr ""
 ":guilabel:`アウト` — "
 "クリップの終了時に適用される退場アニメーション（インのオプションを反映：バックアウト、ブラーアウト、バウンスアウト、フォーカスワイプアウト、ポップアウト、スライドアウト、スパイラルアウト、ワイプアウト）。"
 
-#: ../clips.rst:200
+#: ../clips.rst:279
 msgid ""
 ":guilabel:`Emphasis` — short attention-grabbing animations **inserted at the"
 " current playhead position** (not applied across the whole clip). Useful for"
@@ -768,17 +970,17 @@ msgstr ""
 ":guilabel:`強調` — "
 "現在の再生ヘッド位置に**挿入される短い注目を集めるアニメーション**（クリップ全体には適用されません）。クリップの途中のハイライトに便利です：**バウンス**、**フラッシュ**、**ハートビート**、**ジェロ**、**パルス**、**ラバーバンド**、**シェイクX**、**シェイクY**、**スイング**、**タダ**、**ワブル**。"
 
-#: ../clips.rst:202
+#: ../clips.rst:281
 msgid ""
 ":guilabel:`Camera` — simulates camera movement on the clip by animating "
 "scale and position:"
 msgstr ":guilabel:`カメラ` — スケールと位置をアニメーション化してクリップ上のカメラ移動をシミュレートします："
 
-#: ../clips.rst:204
+#: ../clips.rst:283
 msgid "**Zoom** → In / Out — a simple push-in or pull-out."
 msgstr "**ズーム** → イン / アウト — シンプルなズームインまたはズームアウト。"
 
-#: ../clips.rst:205
+#: ../clips.rst:284
 msgid ""
 "**Pan** → Auto Direction / Left to Right / Right to Left / Top to Bottom / "
 "Bottom to Top — a lateral camera pan. *Auto Direction* picks the best "
@@ -787,7 +989,7 @@ msgstr ""
 "**パン** → 自動方向 / 左から右 / 右から左 / 上から下 / 下から上 — 横方向のカメラパン。*自動方向* "
 "はクリップのアスペクト比に基づいて最適な方向を選択します。"
 
-#: ../clips.rst:206
+#: ../clips.rst:285
 msgid ""
 "**Zoom & Pan** → In or Out, with directional variants — combines a zoom with"
 " a pan (Ken Burns style). *Auto Direction* picks the best direction based on"
@@ -796,20 +998,20 @@ msgstr ""
 "**ズーム＆パン** → インまたはアウト、方向のバリエーション付き — ズームとパンを組み合わせたもの（ケン・バーンズスタイル）。*自動方向* "
 "はクリップのアスペクト比に基づいて最適な方向を選択します。"
 
-#: ../clips.rst:208
+#: ../clips.rst:287
 msgid ""
 ":guilabel:`Credits` — scrolling credit animations: **Scroll Up** and "
 "**Scroll Down**."
 msgstr ":guilabel:`クレジット` — スクロールするクレジットアニメーション：**スクロールアップ** と **スクロールダウン**。"
 
-#: ../clips.rst:210
+#: ../clips.rst:289
 msgid ""
 "**Tip:** Emphasis presets are placed at the current playhead position, so "
 "position the playhead over the moment you want to highlight before applying "
 "one."
 msgstr "**ヒント：** 強調プリセットは現在の再生ヘッド位置に配置されるため、適用する前にハイライトしたい瞬間に再生ヘッドを合わせてください。"
 
-#: ../clips.rst:211
+#: ../clips.rst:290
 msgid ""
 "**Tip:** Camera presets use *Auto Direction* by default, which picks the "
 "optimal pan direction for wide or tall media to avoid black bars."
@@ -817,11 +1019,11 @@ msgstr ""
 "**ヒント：** カメラプリセットはデフォルトで*自動方向*を使用し、ワイドまたは縦長のメディアで黒いバーを避けるために最適なパン方向を選択します。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:216
+#: ../clips.rst:295
 msgid "Rotate"
 msgstr "回転"
 
-#: ../clips.rst:217
+#: ../clips.rst:296
 msgid ""
 "The :guilabel:`Transform → Rotate` submenu introduces easy rotation and "
 "flipping of clips. It enables orientation adjustment by rotating and "
@@ -832,41 +1034,41 @@ msgstr ""
 "サブメニューは、クリップの簡単な回転と反転を導入します。クリエイティブな視覚変換のためにクリップを回転および反転して向きを調整できます。詳細は "
 ":ref:`clip_rotation_ref` キーフレームを参照してください。"
 
-#: ../clips.rst:221
+#: ../clips.rst:300
 msgid ":guilabel:`No Rotation` — removes any rotation keyframes."
 msgstr ":guilabel:`回転なし` — すべての回転キーフレームを削除します。"
 
-#: ../clips.rst:222
+#: ../clips.rst:301
 msgid ":guilabel:`Rotate 90 (Right)` — rotates the clip 90 degrees clockwise."
 msgstr ":guilabel:`90度回転（右）` — クリップを時計回りに90度回転させます。"
 
-#: ../clips.rst:223
+#: ../clips.rst:302
 msgid ""
 ":guilabel:`Rotate 90 (Left)` — rotates the clip 90 degrees counterclockwise."
 msgstr ":guilabel:`90度回転（左）` — クリップを反時計回りに90度回転させます。"
 
-#: ../clips.rst:224
+#: ../clips.rst:303
 msgid ":guilabel:`Rotate 180 (Flip)` — flips the clip upside down."
 msgstr ":guilabel:`180度回転（反転）` — クリップを上下逆さまに反転させます。"
 
-#: ../clips.rst:226
+#: ../clips.rst:305
 msgid ""
 "**Usage Example:** Rotating a photo or video by 90 degrees (a portrait video"
 " to a landscape)."
 msgstr "**使用例：** 写真やビデオを90度回転させる（縦長のビデオを横長にする）。"
 
-#: ../clips.rst:227
+#: ../clips.rst:306
 msgid ""
 "**Usage Example:** If your video is upside down, rotate it by 180 degrees to"
 " correct the orientation."
 msgstr "**使用例：** ビデオが逆さまの場合、180度回転させて向きを正します。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:232
+#: ../clips.rst:311
 msgid "Layout"
 msgstr "レイアウト"
 
-#: ../clips.rst:233
+#: ../clips.rst:312
 msgid ""
 "The :guilabel:`Transform → Layout` submenu adjusts the size of a clip and "
 "snaps it to a chosen corner of the screen, useful for picture-in-picture or "
@@ -878,36 +1080,36 @@ msgstr ""
 ":ref:`clip_location_x_ref`、:ref:`clip_scale_x_ref`、:guilabel:`マージン`、および "
 ":guilabel:`コーナー半径` キーフレームを参照してください。"
 
-#: ../clips.rst:238
+#: ../clips.rst:317
 msgid ":guilabel:`Reset Layout` — removes any layout keyframes."
 msgstr ":guilabel:`レイアウトをリセット` — すべてのレイアウトキーフレームを削除します。"
 
-#: ../clips.rst:239
+#: ../clips.rst:318
 msgid ""
 ":guilabel:`1/4 Size` — positions the clip at 1/4 of the screen in the "
 "Center, Top Left, Top Right, Bottom Left, or Bottom Right corner."
 msgstr ":guilabel:`1/4サイズ` — クリップを画面の中央、左上、右上、左下、または右下の1/4の位置に配置します。"
 
-#: ../clips.rst:240
+#: ../clips.rst:319
 msgid ""
 ":guilabel:`Show All (Maintain Ratio)` — fits the entire clip frame within "
 "the screen while preserving its aspect ratio."
 msgstr ":guilabel:`全体表示（比率維持）` — アスペクト比を維持しながらクリップ全体を画面内に収めます。"
 
-#: ../clips.rst:241
+#: ../clips.rst:320
 msgid ""
 ":guilabel:`Show All (Distort)` — stretches the entire clip frame to fill the"
 " screen, ignoring aspect ratio."
 msgstr ":guilabel:`全体表示（歪みあり）` — アスペクト比を無視してクリップ全体を画面いっぱいに引き伸ばします。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:243
+#: ../clips.rst:322
 msgid ""
 "**Usage Example:** Placing a logo in the corner of a video using the layout "
 "preset."
 msgstr "**使用例:** レイアウトプリセットを使ってビデオの隅にロゴを配置する。"
 
-#: ../clips.rst:244
+#: ../clips.rst:323
 msgid ""
 "**Tip:** Use :guilabel:`Margin` to create an inset layout area for a clip, "
 "and :guilabel:`Corner Radius` to round picture-in-picture camera clips "
@@ -917,13 +1119,13 @@ msgstr ""
 "でピクチャーインピクチャーカメラクリップの角を丸くできます。マスク効果を追加せずに済みます。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:246
+#: ../clips.rst:325
 msgid ""
 "**Tip:** Combine with animation presets for dynamic transitions involving "
 "resizing and repositioning."
 msgstr "**ヒント:** サイズ変更や再配置を伴う動的なトランジションのためにアニメーションプリセットと組み合わせて使用してください。"
 
-#: ../clips.rst:250
+#: ../clips.rst:329
 msgid ""
 "The :guilabel:`Speed` menu manipulates clip playback speed, allowing for "
 "reverse playback, time-lapse, slow-motion, freezes, and looping effects. See"
@@ -932,44 +1134,44 @@ msgstr ""
 ":guilabel:`速度` メニューはクリップの再生速度を操作し、逆再生、タイムラプス、スローモーション、フリーズ、ループ効果を可能にします。詳細は "
 ":ref:`clip_time_ref` キーフレームを参照してください。"
 
-#: ../clips.rst:253
+#: ../clips.rst:332
 msgid ":guilabel:`Reset Speed` — restores the clip to normal 1× speed."
 msgstr ":guilabel:`速度をリセット` — クリップを通常の1倍速に戻します。"
 
-#: ../clips.rst:254
+#: ../clips.rst:333
 msgid ":guilabel:`Reverse` — plays the clip backwards at normal speed."
 msgstr ":guilabel:`逆再生` — クリップを通常速度で逆再生します。"
 
-#: ../clips.rst:255
+#: ../clips.rst:334
 msgid ""
 ":guilabel:`Speed Up` → Forward / Backward → 2×, 4×, 8×, 16× — speeds up "
 "playback in either direction."
 msgstr ":guilabel:`速度アップ` → 前方 / 後方 → 2倍、4倍、8倍、16倍 — いずれの方向でも再生速度を上げます。"
 
-#: ../clips.rst:256
+#: ../clips.rst:335
 msgid ""
 ":guilabel:`Slow Down` → Forward / Backward → 1/2×, 1/4×, 1/8×, 1/16× — slows"
 " down playback in either direction."
 msgstr ""
 ":guilabel:`スローダウン` → 前方 / 後方 → 1/2倍、1/4倍、1/8倍、1/16倍 — いずれの方向でも再生速度を遅くします。"
 
-#: ../clips.rst:257
+#: ../clips.rst:336
 msgid ":guilabel:`Repeat` — see below."
 msgstr ":guilabel:`リピート` — 以下を参照してください。"
 
-#: ../clips.rst:258
+#: ../clips.rst:337
 msgid ""
 ":guilabel:`Freeze` — freezes on the frame at the current playhead position "
 "for 2, 4, 6, 8, 10, 20, or 30 seconds."
 msgstr ":guilabel:`フリーズ` — 現在の再生ヘッド位置のフレームで2、4、6、8、10、20、または30秒間停止します。"
 
-#: ../clips.rst:259
+#: ../clips.rst:338
 msgid ""
 ":guilabel:`Freeze && Zoom` — freezes and simultaneously zooms in on that "
 "frozen frame."
 msgstr ":guilabel:`フリーズ＆ズーム` — フレームを停止し、同時にそのフレームをズームインします。"
 
-#: ../clips.rst:261
+#: ../clips.rst:340
 msgid ""
 "**Slow motion** — :guilabel:`Slow Down → 1/2×` or :guilabel:`1/4×` for "
 "dreamy or dramatic footage."
@@ -977,7 +1179,7 @@ msgstr ""
 "**スローモーション** — 夢のようなまたはドラマチックな映像のために :guilabel:`スローダウン → 1/2倍` または "
 ":guilabel:`1/4倍` を使用します。"
 
-#: ../clips.rst:262
+#: ../clips.rst:341
 msgid ""
 "**Time-lapse** — :guilabel:`Speed Up → 8×` or :guilabel:`16×` to compress "
 "hours into seconds."
@@ -985,7 +1187,7 @@ msgstr ""
 "**タイムラプス** — 数時間を数秒に圧縮するために :guilabel:`速度アップ → 8倍` または :guilabel:`16倍` "
 "を使用します。"
 
-#: ../clips.rst:263
+#: ../clips.rst:342
 msgid ""
 "**Speed ramp** — use the :guilabel:`Timing` tool to drag clip edges and "
 "create a natural-feeling speed change; OpenShot scales all keyframes "
@@ -994,7 +1196,7 @@ msgstr ""
 "**スピードランプ** — :guilabel:`タイミング` ツールを使ってクリップの端をドラッグし、自然な速度変化を作成します。OpenShot "
 "はすべてのキーフレームを自動的にスケーリングします。"
 
-#: ../clips.rst:264
+#: ../clips.rst:343
 msgid ""
 "**Tip:** Combine :guilabel:`Freeze` with :guilabel:`Speed Up` for an impact-"
 "freeze-then-fast-forward effect."
@@ -1003,11 +1205,11 @@ msgstr ""
 "を組み合わせて、インパクトのあるフリーズ後に早送りする効果を作成します。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:269
+#: ../clips.rst:348
 msgid "Repeat"
 msgstr "繰り返し"
 
-#: ../clips.rst:270
+#: ../clips.rst:349
 msgid ""
 "Use :guilabel:`Speed → Repeat` to play a clip multiple times, without "
 "building the time curve by hand. OpenShot writes the needed :guilabel:`Time`"
@@ -1017,41 +1219,41 @@ msgstr ""
 ":guilabel:`時間` キーフレームを自動で作成します（後で編集可能です）。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:273
+#: ../clips.rst:352
 msgid "**Menu path**"
 msgstr "**メニューパス**"
 
-#: ../clips.rst:275
+#: ../clips.rst:354
 msgid ""
 ":guilabel:`Speed → Repeat → Loop → Forward` – plays left to right, then "
 "starts again from the beginning"
 msgstr ":guilabel:`速度 → リピート → ループ → 前方` — 左から右へ再生し、終わったら最初から再生を繰り返します。"
 
-#: ../clips.rst:276
+#: ../clips.rst:355
 msgid ""
 ":guilabel:`Speed → Repeat → Loop → Reverse` – plays right to left, then "
 "starts again from the end"
 msgstr ":guilabel:`速度 → リピート → ループ → 逆再生` — 右から左へ再生し、終わったら最後から再生を繰り返します。"
 
-#: ../clips.rst:277
+#: ../clips.rst:356
 msgid ""
 ":guilabel:`Speed → Repeat → Ping-Pong → Forward` – forward, then backward, "
 "then forward…"
 msgstr ":guilabel:`速度 → リピート → ピンポン → 前方` — 前方再生、次に後方再生、また前方再生を繰り返します…"
 
-#: ../clips.rst:278
+#: ../clips.rst:357
 msgid ""
 ":guilabel:`Speed → Repeat → Ping-Pong → Reverse` – backward, then forward, "
 "then backward…"
 msgstr ":guilabel:`速度 → 繰り返し → ピンポン → 逆再生` – 後ろ向き、次に前向き、そしてまた後ろ向き…"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:279
+#: ../clips.rst:358
 msgid ":guilabel:`Custom…` – opens a dialog for extra options (see below)"
 msgstr ":guilabel:`Custom…` – 追加オプションのダイアログを開きます（下記参照）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:281
+#: ../clips.rst:360
 msgid ""
 "Counts are **finite** (2x, 3x, 4x, 5x, 8x, 10x, or a custom number). "
 "Example: “Forward then Back and stop” = :guilabel:`Ping-Pong → Forward → "
@@ -1061,17 +1263,17 @@ msgstr ""
 "Pong → Forward → 2x` 。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:284
+#: ../clips.rst:363
 msgid "**What gets repeated**"
 msgstr "**繰り返されるもの**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:286
+#: ../clips.rst:365
 msgid "Repeat always acts on the **currently trimmed** in/out of the clip."
 msgstr "繰り返しは常にクリップの**現在トリミングされた** 入出点に作用します。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:287
+#: ../clips.rst:366
 msgid ""
 "The :guilabel:`Time` curve is stamped as a simple shape: - Loop Forward = "
 "rising saw - Loop Reverse = falling saw - Ping-Pong = triangle (direction "
@@ -1081,19 +1283,19 @@ msgstr ""
 "ピンポン = 三角波（各パスで方向が反転）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:291
+#: ../clips.rst:370
 msgid ""
 "To avoid a double frame at the seam, the last frame of each pass is not "
 "duplicated."
 msgstr "継ぎ目での二重フレームを避けるため、各パスの最後のフレームは重複しません。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:293
+#: ../clips.rst:372
 msgid "**Keyframes during Repeat**"
 msgstr "**繰り返し中のキーフレーム**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:295
+#: ../clips.rst:374
 msgid ""
 "When you use Repeat, OpenShot will also **repeat other keyframes** found "
 "inside the trimmed section (location, scale, effects, etc.) into each pass "
@@ -1103,52 +1305,52 @@ msgstr ""
 "、アニメーションの同期を保ちます。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:296
+#: ../clips.rst:375
 msgid "Repeated keyframes keep their relative timing inside each pass."
 msgstr "繰り返されたキーフレームは各パス内で相対的なタイミングを保持します。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:298
+#: ../clips.rst:377
 msgid "**Custom Repeat** (dialog options)"
 msgstr "**カスタム繰り返し** （ダイアログオプション）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:300
+#: ../clips.rst:379
 msgid ":guilabel:`Pattern:` Loop | Ping-Pong"
 msgstr ":guilabel:`パターン:` ループ | ピンポン"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:301
+#: ../clips.rst:380
 msgid ":guilabel:`Direction:` Forward | Reverse"
 msgstr ":guilabel:`方向:` 前進 | 逆転"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:302
+#: ../clips.rst:381
 msgid ""
 ":guilabel:`Passes:` integer (2 or more). This is the number of times it will"
 " play."
 msgstr ":guilabel:`パス数:` 整数（2以上）。再生回数です。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:303
+#: ../clips.rst:382
 msgid ""
 ":guilabel:`Delay:` number + units [frames | ms | sec]. This is an optional "
 "delay between each repeated pass."
 msgstr ":guilabel:`遅延:` 数値＋単位 [フレーム | ミリ秒 | 秒]。各繰り返しパス間の任意の遅延です。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:304
+#: ../clips.rst:383
 msgid ""
 ":guilabel:`Speed Ramp (%):` % speed change per pass (optional). Positive "
 "speeds up each pass; negative slows down each pass."
 msgstr ":guilabel:`スピードランプ (%):` 各パスごとの速度変化率（任意）。正の値は速度を上げ、負の値は速度を下げます。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:306
+#: ../clips.rst:385
 msgid "**Reset**"
 msgstr "**リセット**"
 
-#: ../clips.rst:308
+#: ../clips.rst:387
 msgid ""
 ":guilabel:`Speed → Reset Speed` completely removes any Time curve (including"
 " Repeat) and restores the clip to its original playback, **without deleting "
@@ -1158,12 +1360,12 @@ msgstr ""
 "は、Timeカーブ（繰り返しを含む）を完全に削除し、クリップを元の再生状態に戻します。**元のTime以外のキーフレームは削除されません**。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:312
+#: ../clips.rst:391
 msgid "Timing Tool"
 msgstr "タイミングツール"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:313
+#: ../clips.rst:392
 msgid ""
 "Another way to change a clip's speed is with the :guilabel:`Timing` tool on "
 "the timeline toolbar. Enable the clock icon and drag a clip's edges. "
@@ -1174,7 +1376,7 @@ msgstr ""
 "クリップの速度を変更するもう一つの方法は、タイムラインツールバーの :guilabel:`Timing` "
 "ツールを使うことです。時計アイコンを有効にしてクリップの端をドラッグします。クリップを長くすると再生が遅くなり、短くすると再生が速くなります。クリップとそのエフェクトのすべてのキーフレームは相対位置が保たれるようにスケーリングされます。"
 
-#: ../clips.rst:319
+#: ../clips.rst:398
 msgid ""
 "The :guilabel:`Look` menu applies one-click visual style presets to clips. "
 "All presets work by adding or updating effects on the clip — you can inspect"
@@ -1184,7 +1386,7 @@ msgstr ""
 ":guilabel:`ルック` "
 "メニューは、クリップにワンクリックでビジュアルスタイルのプリセットを適用します。すべてのプリセットはクリップにエフェクトを追加または更新することで機能し、プロパティドックでさらに詳細を確認したりアニメーション化したりできます。メニューは4つのサブメニューと下部の2つの直接アクションで構成されています。"
 
-#: ../clips.rst:323
+#: ../clips.rst:402
 msgid ""
 ":guilabel:`Reset Look` — removes all Look-managed effects (Color Grade, Film"
 " Grain, Analog Tape, Sharpen, Blur, Shadow, Glow) from the selected clips in"
@@ -1193,35 +1395,35 @@ msgstr ""
 ":guilabel:`ルックリセット` — "
 "選択したクリップからルック管理のすべてのエフェクト（カラグレ、フィルムグレイン、アナログテープ、シャープ、ぼかし、影、グロー）を一括で削除します。"
 
-#: ../clips.rst:326
+#: ../clips.rst:405
 msgid ""
 "**Color** — applies a :guilabel:`Color Grade` effect with one of four quick "
 "presets:"
 msgstr "**カラー** — 4つのクイックプリセットのいずれかで :guilabel:`カラグレ` エフェクトを適用します:"
 
-#: ../clips.rst:328
+#: ../clips.rst:407
 msgid ""
 "**Auto Contrast** — boosts contrast by lifting shadows and pulling "
 "highlights."
 msgstr "**オートコントラスト** — シャドウを持ち上げ、ハイライトを引き締めてコントラストを強化します。"
 
-#: ../clips.rst:329
+#: ../clips.rst:408
 msgid "**Lift Shadows** — brightens the dark areas of the image."
 msgstr "**シャドウリフト** — 画像の暗い部分を明るくします。"
 
-#: ../clips.rst:330
+#: ../clips.rst:409
 msgid "**Warm Up** — shifts the color balance toward warm orange/amber tones."
 msgstr "**ウォームアップ** — カラーバランスを暖かいオレンジ/アンバー色調にシフトします。"
 
-#: ../clips.rst:331
+#: ../clips.rst:410
 msgid "**Boost Color** — increases color saturation."
 msgstr "**カラー強調** — 色の彩度を上げます。"
 
-#: ../clips.rst:333
+#: ../clips.rst:412
 msgid "**Film** — cinematic film simulation:"
 msgstr "**フィルム** — 映画風フィルムシミュレーション:"
 
-#: ../clips.rst:335
+#: ../clips.rst:414
 msgid ""
 ":guilabel:`Film Grain` → **No Film Grain**, then: **35mm Fine**, **35mm "
 "Classic**, **35mm Gritty**, **16mm Classic**, **Super 8**, **High ISO** — "
@@ -1231,7 +1433,7 @@ msgstr ""
 "クラシック**、**35mm グリッティ**、**16mm クラシック**、**スーパー8**、**ハイISO** — "
 "さまざまな強さとサイズの写真粒子を追加します。"
 
-#: ../clips.rst:337
+#: ../clips.rst:416
 msgid ""
 ":guilabel:`Analog Tape` → **No Analog Tape**, then: **Subtle**, **VHS**, "
 "**Heavy** — adds tape noise and color degradation for a retro video look."
@@ -1239,29 +1441,29 @@ msgstr ""
 ":guilabel:`アナログテープ` → **アナログテープなし**、次に: **控えめ**、**VHS**、**ヘビー** — "
 "レトロなビデオ風のテープノイズと色劣化を追加します。"
 
-#: ../clips.rst:340
+#: ../clips.rst:419
 msgid "**Focus** — sharpness adjustments:"
 msgstr "**フォーカス** — シャープネス調整:"
 
-#: ../clips.rst:342
+#: ../clips.rst:421
 msgid ""
 ":guilabel:`Sharpen` → **No Sharpen**, then: **Subtle**, **Medium**, "
 "**Strong** — sharpens fine detail."
 msgstr ""
 ":guilabel:`シャープ` → **シャープなし**、次に: **控えめ**、**中程度**、**強い** — 細部をシャープにします。"
 
-#: ../clips.rst:343
+#: ../clips.rst:422
 msgid ""
 ":guilabel:`Blur` → **No Blur**, then: **Soft Focus**, **Medium**, **Heavy** "
 "— softens the image."
 msgstr ""
 ":guilabel:`ぼかし` → **ぼかしなし**、次に: **ソフトフォーカス**、**中程度**、**強い** — 画像を柔らかくします。"
 
-#: ../clips.rst:345
+#: ../clips.rst:424
 msgid "**Lighting** — light and shadow overlays:"
 msgstr "**ライティング** — 光と影のオーバーレイ:"
 
-#: ../clips.rst:347
+#: ../clips.rst:426
 msgid ""
 ":guilabel:`Shadow` → **No Shadow**, then: **Subtle**, **Soft**, **Strong**, "
 "**Long** — casts a drop shadow across the clip."
@@ -1269,7 +1471,7 @@ msgstr ""
 ":guilabel:`シャドウ` → **シャドウなし**、次に: **控えめ**、**ソフト**、**強い**、**長い** — "
 "クリップ全体にドロップシャドウをかけます。"
 
-#: ../clips.rst:349
+#: ../clips.rst:428
 msgid ""
 ":guilabel:`Glow` → **No Glow**, then: **Soft White**, **Warm**, **Neon**, "
 "**Inner Glow** — adds a soft halo or glow effect."
@@ -1277,11 +1479,11 @@ msgstr ""
 ":guilabel:`グロー` → **グローなし**、次に: **ソフトホワイト**、**ウォーム**、**ネオン**、**インナーグロー** — "
 "柔らかいハローまたはグロー効果を追加します。"
 
-#: ../clips.rst:352
+#: ../clips.rst:431
 msgid "At the bottom of the Look menu:"
 msgstr "ルックメニューの下部に:"
 
-#: ../clips.rst:354
+#: ../clips.rst:433
 msgid ""
 ":guilabel:`Adjust Colors` — opens the :guilabel:`Color Wheels` dock for full"
 " manual color grading with lift/gamma/gain wheels, curves, and an "
@@ -1290,7 +1492,7 @@ msgstr ""
 ":guilabel:`色調整` — :guilabel:`カラーホイール` "
 "ドックを開き、リフト/ガンマ/ゲインホイール、カーブ、Amount/Lumaブレンドスライダーで完全な手動カラグレを行います。"
 
-#: ../clips.rst:356
+#: ../clips.rst:435
 msgid ""
 ":guilabel:`Analyze Colors` — opens the :guilabel:`Luma Waveform` and "
 ":guilabel:`Histogram` video scopes on the right side of the window, tabified"
@@ -1299,14 +1501,14 @@ msgstr ""
 ":guilabel:`色解析` — ウィンドウ右側に :guilabel:`ルマ波形` と :guilabel:`ヒストグラム` "
 "のビデオスコープをタブでまとめて表示します。"
 
-#: ../clips.rst:359
+#: ../clips.rst:438
 msgid ""
 "**Tip:** Each Look submenu has a \"No …\" option at the top to remove just "
 "that single effect without affecting the others."
 msgstr ""
 "**ヒント:** 各ルックサブメニューの一番上には「なし」オプションがあり、他のエフェクトに影響を与えずにその単一の効果だけを削除できます。"
 
-#: ../clips.rst:361
+#: ../clips.rst:440
 msgid ""
 "**Tip:** After applying a Look preset, double-click the effect badge on the "
 "clip (or use Properties) to fine-tune every parameter or animate it over "
@@ -1315,32 +1517,32 @@ msgstr ""
 "**ヒント:** "
 "ルックプリセットを適用した後、クリップのエフェクトバッジをダブルクリックするかプロパティを使って、すべてのパラメータを微調整したり時間経過でアニメーション化したりできます。"
 
-#: ../clips.rst:366
+#: ../clips.rst:445
 msgid ""
 "The :guilabel:`Audio` menu groups all audio-related clip actions in one "
 "place."
 msgstr ":guilabel:`オーディオ` メニューは、オーディオ関連のクリップ操作を一箇所にまとめています。"
 
-#: ../clips.rst:368
+#: ../clips.rst:447
 msgid ""
 "**Volume** — controls the clip's audio level. See :ref:`clip_volume_ref` "
 "key-frame."
 msgstr ""
 "**ボリューム** — クリップの音量レベルを制御します。詳細は :ref:`clip_volume_ref` キーフレームを参照してください。"
 
-#: ../clips.rst:370
+#: ../clips.rst:449
 msgid ""
 ":guilabel:`Reset Volume` — removes all volume keyframes, returning to full "
 "(1×) volume."
 msgstr ":guilabel:`ボリュームリセット` — すべてのボリュームキーフレームを削除し、フル（1×）ボリュームに戻します。"
 
-#: ../clips.rst:371
+#: ../clips.rst:450
 msgid ""
 ":guilabel:`Level` — sets a fixed volume percentage (0 % to 130 %) for the "
 "entire clip."
 msgstr ":guilabel:`レベル` — クリップ全体の固定ボリュームパーセンテージ（0 %〜130 %）を設定します。"
 
-#: ../clips.rst:372
+#: ../clips.rst:451
 msgid ""
 ":guilabel:`Fade In` → :guilabel:`Fast` / :guilabel:`Slow` — fades volume "
 "from silence at the start of the clip."
@@ -1348,7 +1550,7 @@ msgstr ""
 ":guilabel:`フェードイン` → :guilabel:`速い` / :guilabel:`遅い` — "
 "クリップの開始時に無音から音量をフェードインします。"
 
-#: ../clips.rst:373
+#: ../clips.rst:452
 msgid ""
 ":guilabel:`Fade Out` → :guilabel:`Fast` / :guilabel:`Slow` — fades volume to"
 " silence at the end of the clip."
@@ -1356,7 +1558,7 @@ msgstr ""
 ":guilabel:`フェードアウト` → :guilabel:`速い` / :guilabel:`遅い` — "
 "クリップの終了時に音量を無音にフェードアウトします。"
 
-#: ../clips.rst:374
+#: ../clips.rst:453
 msgid ""
 ":guilabel:`Fade In and Out` → :guilabel:`Fast` / :guilabel:`Slow` — applies "
 "both a volume fade-in and fade-out."
@@ -1364,24 +1566,24 @@ msgstr ""
 ":guilabel:`フェードイン・アウト` → :guilabel:`速い` / :guilabel:`遅い` — "
 "音量のフェードインとフェードアウトの両方を適用します。"
 
-#: ../clips.rst:376
+#: ../clips.rst:455
 msgid "**Separate** — splits the audio track out of a clip:"
 msgstr "**分離** — クリップからオーディオトラックを分離します:"
 
-#: ../clips.rst:378
+#: ../clips.rst:457
 msgid ""
 ":guilabel:`Single Clip (all channels)` — creates one detached audio clip on "
 "a layer below the original."
 msgstr ":guilabel:`単一クリップ（全チャンネル）` — 元の下のレイヤーに1つの分離されたオーディオクリップを作成します。"
 
-#: ../clips.rst:379
+#: ../clips.rst:458
 msgid ""
 ":guilabel:`Multiple Clips (each channel)` — creates separate detached audio "
 "clips, one per audio channel, on multiple layers below the original."
 msgstr ""
 ":guilabel:`複数クリップ（各チャンネル）` — 元の下の複数レイヤーに、各オーディオチャンネルごとに分離されたオーディオクリップを作成します。"
 
-#: ../clips.rst:381
+#: ../clips.rst:460
 msgid ""
 "**Show Waveform / Hide Waveform** — toggles the audio waveform visualization"
 " on the timeline for audio-only clips. Only shown for clips that do not have"
@@ -1389,7 +1591,7 @@ msgid ""
 msgstr ""
 "**波形表示 / 波形非表示** — オーディオのみのクリップのタイムライン上の波形表示を切り替えます。ビデオトラックがないクリップにのみ表示されます。"
 
-#: ../clips.rst:384
+#: ../clips.rst:463
 msgid ""
 "**Analyze Levels** — opens the :guilabel:`Audio Levels` scope dock. If other"
 " scope docks are already open, OpenShot tabifies :guilabel:`Audio Levels` "
@@ -1399,19 +1601,19 @@ msgstr ""
 " :guilabel:`オーディオレベル` をそれらとタブ化します。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:387
+#: ../clips.rst:466
 msgid ""
 "**Usage Example:** Applying a gradual volume fade-out to transition between "
 "scenes."
 msgstr "**使用例:** シーン間の移行のために徐々に音量をフェードアウトさせる。"
 
-#: ../clips.rst:388
+#: ../clips.rst:467
 msgid ""
 "**Usage Example:** Extracting background music from a video clip for "
 "independent volume control."
 msgstr "**使用例:** 動画クリップからバックグラウンドミュージックを抽出し、独立した音量制御を行う。"
 
-#: ../clips.rst:389
+#: ../clips.rst:468
 msgid ""
 "**Tip:** Use :guilabel:`Audio → Volume → Fade In/Out` for audio-only fades. "
 "Use the top-level :guilabel:`Fade` menu for a combined video+audio fade."
@@ -1420,7 +1622,7 @@ msgstr ""
 "を使用してください。動画＋オーディオのフェードにはトップレベルの :guilabel:`フェード` メニューを使用します。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:393
+#: ../clips.rst:472
 msgid ""
 "The :guilabel:`Slice` tool lets you cut a clip at the position of the play-"
 "head (*the vertical line that shows your current position in the timeline*)."
@@ -1431,7 +1633,7 @@ msgstr ""
 "）でクリップをカットできます。これにより、プレイヘッドの正確な位置でクリップが2つの部分に分割されます。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:396
+#: ../clips.rst:475
 msgid ""
 "Slicing is a key feature for making precise edits and rearranging sections "
 "of your video. You can slice a clip and choose to keep one side or both, and"
@@ -1441,12 +1643,12 @@ msgstr ""
 "スライスは正確な編集や動画のセクションの並べ替えに重要な機能です。クリップをスライスして片側または両側を保持することができ、リップルオプションを使うと、カットによってできた隙間を埋めるために同じトラック上の他のクリップを自動的に移動させることができます。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:400
+#: ../clips.rst:479
 msgid "**Slicing Options:**"
 msgstr "**スライスオプション:**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:402
+#: ../clips.rst:481
 msgid ""
 "**Keep Both Sides**: This option splits the clip into two parts, keeping "
 "everything on both sides of the play-head. It’s useful when you want to "
@@ -1456,7 +1658,7 @@ msgstr ""
 "このオプションはクリップを2つに分割し、プレイヘッドの両側のすべてを保持します。クリップをセクションに分けたいが何も削除したくない場合に便利です。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:403
+#: ../clips.rst:482
 msgid ""
 "**Keep Left Side**: This option cuts the clip and removes the part to the "
 "right of the play-head, keeping only the part before the play-head. Use this"
@@ -1466,7 +1668,7 @@ msgstr ""
 "このオプションはクリップをカットし、プレイヘッドの右側の部分を削除して、プレイヘッドの前の部分だけを保持します。現在の位置以降のクリップ部分を取り除くのに使います。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:404
+#: ../clips.rst:483
 msgid ""
 "**Keep Right Side**: This option cuts the clip and removes the part to the "
 "left of the play-head, keeping only the part after the play-head. It’s handy"
@@ -1476,7 +1678,7 @@ msgstr ""
 "このオプションはクリップをカットし、プレイヘッドの左側の部分を削除して、プレイヘッド以降の部分だけを保持します。クリップの先頭部分をトリミングして残りを保持するのに便利です。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:405
+#: ../clips.rst:484
 msgid ""
 "**Ripple Slicing**: Ripple slicing not only cuts the clip but also moves any"
 " clips and transitions that follow to close the gap. This way, your timeline"
@@ -1487,12 +1689,12 @@ msgstr ""
 "リップルスライスはクリップをカットするだけでなく、その後に続くクリップやトランジションを移動して隙間を埋めます。これにより、カット後もタイムラインが連続し、後続のクリップを手動で調整する手間が省けます。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:407 ../clips.rst:581
+#: ../clips.rst:486 ../clips.rst:660
 msgid "**Tips for Beginners:**"
 msgstr "**初心者向けのヒント:**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:409
+#: ../clips.rst:488
 msgid ""
 "**Example**: If there’s a part of a clip you don’t want (like the end of a "
 "scene), use **Keep Left Side** or **Keep Right Side** to remove it. If you "
@@ -1503,14 +1705,14 @@ msgstr ""
 "右側を保持**を使って削除します。シーンを複数の小さなセクションに分割して並べ替えたい場合は、** 両側を保持**を使います。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:410
+#: ../clips.rst:489
 msgid ""
 "**Quick Tip**: Slicing can also be used to break a long clip into smaller "
 "parts, making it easier to manage and edit each section separately."
 msgstr "**クイックヒント**: スライスは長いクリップを小さな部分に分割して、それぞれを別々に管理・編集しやすくするためにも使えます。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:412
+#: ../clips.rst:491
 msgid ""
 "For a complete guide to slicing and all available keyboard shortcuts, see "
 "the :ref:`clips_cutting_slicing_ref` section."
@@ -1518,19 +1720,19 @@ msgstr ""
 "スライスの完全なガイドと利用可能なすべてのキーボードショートカットについては、:ref:`clips_cutting_slicing_ref` "
 "セクションを参照してください。"
 
-#: ../clips.rst:418
+#: ../clips.rst:497
 msgid ""
 "The :guilabel:`Transform` context menu provides geometric preset actions for"
 " visual clips:"
 msgstr ":guilabel:`変形` コンテキストメニューは、ビジュアルクリップ向けの幾何学的プリセットアクションを提供します:"
 
-#: ../clips.rst:420
+#: ../clips.rst:499
 msgid ""
 ":guilabel:`No Transform` — removes all Rotate, Layout, and crop presets from"
 " the selected clips in one step."
 msgstr ":guilabel:`変形なし` — 選択したクリップから回転、レイアウト、クロップのすべてのプリセットを一括で削除します。"
 
-#: ../clips.rst:421
+#: ../clips.rst:500
 msgid ""
 ":guilabel:`Rotate` — rotate or flip the clip. See the :ref:`Rotate "
 "<clip_presets_rotate_ref>` section above."
@@ -1538,7 +1740,7 @@ msgstr ""
 ":guilabel:`回転` — クリップを回転または反転します。詳細は上記の :ref:`Rotate "
 "<clip_presets_rotate_ref>` セクションを参照してください。"
 
-#: ../clips.rst:422
+#: ../clips.rst:501
 msgid ""
 ":guilabel:`Crop` — add or remove a crop effect. See the :ref:`Crop "
 "<clip_presets_crop_ref>` section below."
@@ -1546,7 +1748,7 @@ msgstr ""
 ":guilabel:`トリミング` — トリミング効果を追加または削除します。詳細は下記の :ref:`Crop "
 "<clip_presets_crop_ref>` セクションを参照してください。"
 
-#: ../clips.rst:423
+#: ../clips.rst:502
 msgid ""
 ":guilabel:`Layout` — resize and snap the clip to a corner or fit position. "
 "See the :ref:`Layout <clip_presets_layout_ref>` section above."
@@ -1554,12 +1756,12 @@ msgstr ""
 ":guilabel:`レイアウト` — クリップのサイズを変更し、コーナーやフィット位置にスナップします。詳細は上記の :ref:`Layout "
 "<clip_presets_layout_ref>` セクションを参照してください。"
 
-#: ../clips.rst:428
+#: ../clips.rst:507
 msgid "Transform Tool"
 msgstr "変形ツール"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:429
+#: ../clips.rst:508
 msgid ""
 "The **Transform Tool** lets you quickly adjust a clip directly in the "
 "preview window, instead of changing location, scale, rotation, shear, and "
@@ -1577,44 +1779,44 @@ msgstr ""
 "を使って複数のクリップを同時に選択することもでき、その場合プレビューには選択全体を囲む一組のハンドルが表示され、移動、スケール、回転の操作は選択したすべてのクリップにまとめて適用されます。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:438
+#: ../clips.rst:517
 msgid "Dragging the blue squares will adjust the **scale** of the image."
 msgstr "青い四角をドラッグすると画像の**スケール** を調整できます。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:439
+#: ../clips.rst:518
 msgid "Dragging the center will move the **location** of the image."
 msgstr "中央をドラッグすると画像の**位置** を移動できます。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:440
+#: ../clips.rst:519
 msgid ""
 "Dragging the mouse on the outside of the blue lines will **rotate** the "
 "image."
 msgstr "青い線の外側をドラッグすると画像を**回転** させます。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:441
+#: ../clips.rst:520
 msgid ""
 "Hold :kbd:`Ctrl` or :kbd:`Shift` while rotating to snap to 15-degree "
 "increments."
 msgstr "回転中に :kbd:`Ctrl` または :kbd:`Shift` を押し続けると、15度単位でスナップします。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:442
+#: ../clips.rst:521
 msgid ""
 "Dragging along the blue lines will **shear** the image in that direction."
 msgstr "青い線に沿ってドラッグすると画像をその方向に**シアー** します。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:443
+#: ../clips.rst:522
 msgid ""
 "Dragging the circle in the middle will move the **origin point** that "
 "controls the center of **rotation**."
 msgstr "中央の円をドラッグすると、**回転** の中心を制御する**原点** を移動できます。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:445
+#: ../clips.rst:524
 msgid ""
 "Note: Pay close attention to the play-head position (red playback line). Key"
 " frames are automatically created at the current playback position, to help "
@@ -1630,7 +1832,7 @@ msgstr ""
 " :ref:`clip_properties_ref` を参照してください。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:452
+#: ../clips.rst:531
 #, fuzzy
 msgid ""
 "**Usage Example:** Use the transform handles to resize and reposition a clip"
@@ -1638,17 +1840,17 @@ msgid ""
 msgstr "**使用例:** ピクチャーインピクチャー効果のためにクリップをリサイズおよび再配置するために変形モードを使用する。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:453
+#: ../clips.rst:532
 #, fuzzy
 msgid "**Tip:** Use these handles to precisely control a clip's appearance."
 msgstr "**ヒント:** このプリセットを利用して、クリップの表示を正確に制御します。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:458
+#: ../clips.rst:537
 msgid "Crop"
 msgstr "クロップ"
 
-#: ../clips.rst:459
+#: ../clips.rst:538
 msgid ""
 "The :guilabel:`Transform → Crop` submenu adds a crop effect to the selected "
 "clip and displays interactive crop handles in the video preview. The submenu"
@@ -1658,26 +1860,26 @@ msgstr ""
 "サブメニューは選択したクリップにトリミング効果を追加し、ビデオプレビューにインタラクティブなトリミングハンドルを表示します。サブメニューには以下が含まれます:"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:462
+#: ../clips.rst:541
 msgid ":guilabel:`No Crop` – remove any existing crop effect."
 msgstr ":guilabel:`クロップなし` – 既存のクロップ効果をすべて削除します。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:463
+#: ../clips.rst:542
 msgid ""
 ":guilabel:`Crop (No Resize)` – trim the clip without scaling the remaining "
 "area."
 msgstr ":guilabel:`クロップ（リサイズなし）` – 残りの領域をスケーリングせずにクリップをトリミングします。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:464
+#: ../clips.rst:543
 msgid ""
 ":guilabel:`Crop (Resize)` – trim the clip and scale the cropped region to "
 "fill the frame."
 msgstr ":guilabel:`クロップ（リサイズあり）` – クリップをトリミングし、クロップした領域をフレームに合わせてスケーリングします。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:466
+#: ../clips.rst:545
 msgid ""
 "Drag the blue handles to adjust the crop boundaries, move the cropped area "
 "around, or move the center handle to reposition the image inside the cropped"
@@ -1686,11 +1888,11 @@ msgstr ""
 "青いハンドルをドラッグしてクロップの境界を調整したり、クロップ領域を移動したり、中央のハンドルを動かしてクロップ領域内の画像の位置を変更したりできます。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:470 ../clips.rst:655 ../clips.rst:988
+#: ../clips.rst:549 ../clips.rst:734 ../clips.rst:1067
 msgid "Waveform"
 msgstr "波形"
 
-#: ../clips.rst:471
+#: ../clips.rst:550
 msgid ""
 "The :guilabel:`Audio → Show Waveform` / :guilabel:`Hide Waveform` action "
 "toggles whether an audio-only clip shows its waveform visualization on the "
@@ -1700,23 +1902,23 @@ msgstr ""
 ":guilabel:`オーディオ → 波形を表示` / :guilabel:`波形を非表示` "
 "アクションは、オーディオのみのクリップがタイムライン上でデフォルトのサムネイルの代わりに波形表示をするかどうかを切り替えます。このオプションはビデオトラックを持たないクリップにのみ表示されます。"
 
-#: ../clips.rst:475
+#: ../clips.rst:554
 msgid ""
 "**Usage Example:** Displaying the audio waveform for precise audio editing "
 "and alignment."
 msgstr "**使用例:** 正確なオーディオ編集と整列のためにオーディオ波形を表示する。"
 
-#: ../clips.rst:476
+#: ../clips.rst:555
 msgid ""
 "**Tip:** Use this to visually spot loud or quiet sections in a music clip "
 "without opening the audio scopes."
 msgstr "**ヒント:** オーディオスコープを開かずに音楽クリップの大きな音や静かな部分を視覚的に見つけるために使用します。"
 
-#: ../clips.rst:478
+#: ../clips.rst:557
 msgid "**How timeline waveforms are scaled**"
 msgstr "**タイムライン波形のスケーリング方法**"
 
-#: ../clips.rst:480
+#: ../clips.rst:559
 msgid ""
 "Timeline waveforms are an editing aid: they help you find speech, beats, "
 "silence, and transients, and compare the approximate levels of different "
@@ -1726,7 +1928,7 @@ msgid ""
 msgstr ""
 "タイムラインの波形は編集の補助です：音声、ビート、無音、過渡現象を見つけたり、異なるクリップの大まかなレベルを比較したりするのに役立ちます。新しい波形データはソースの**絶対ピークレベル**を保持します。OpenShotはすべての静かなファイルを最高ピークがクリップを満たすまで拡大しないため、静かな録音は大きな録音よりも目に見えて静かに表示されます。"
 
-#: ../clips.rst:485
+#: ../clips.rst:564
 msgid ""
 "Pure linear amplitude is accurate but makes ordinary speech difficult to "
 "see. OpenShot therefore applies a fixed, gentle square-root display curve. "
@@ -1736,95 +1938,95 @@ msgid ""
 msgstr ""
 "純粋な線形振幅は正確ですが、通常の音声が見えにくくなります。したがってOpenShotは固定の穏やかな平方根表示曲線を適用します。これによりレベルの順序を保ちながら有用な詳細が拡大されます：大きな音源は常に静かな音源よりも高く表示されます。この曲線は描画のみを変更し、録音されたオーディオを変更、正規化、処理することはありません。"
 
-#: ../clips.rst:490
+#: ../clips.rst:569
 msgid "Approximate waveform height for new clips"
 msgstr "新しいクリップの波形の概算高さ"
 
-#: ../clips.rst:494
+#: ../clips.rst:573
 msgid "Peak Level"
 msgstr "ピークレベル"
 
-#: ../clips.rst:494
+#: ../clips.rst:573
 msgid "Display Height"
 msgstr "表示高さ"
 
-#: ../clips.rst:494
+#: ../clips.rst:573
 msgid "What It Often Looks Like"
 msgstr "一般的な見た目"
 
-#: ../clips.rst:496
+#: ../clips.rst:575
 msgid "``0 dBFS``"
 msgstr "``0 dBFS``"
 
-#: ../clips.rst:496
+#: ../clips.rst:575
 msgid "100%"
 msgstr "100%"
 
-#: ../clips.rst:496
+#: ../clips.rst:575
 msgid "Full-scale peak; check for possible clipping."
 msgstr "フルスケールピーク；クリッピングの可能性を確認してください。"
 
-#: ../clips.rst:497
+#: ../clips.rst:576
 msgid "``-6 dBFS``"
 msgstr "``-6 dBFS``"
 
-#: ../clips.rst:497
+#: ../clips.rst:576
 msgid "71%"
 msgstr "71%"
 
-#: ../clips.rst:497
+#: ../clips.rst:576
 msgid "Strong transient or loud program audio."
 msgstr "強い過渡現象または大きなプログラムオーディオ。"
 
-#: ../clips.rst:498
+#: ../clips.rst:577
 msgid "``-12 dBFS``"
 msgstr "``-12 dBFS``"
 
-#: ../clips.rst:498
+#: ../clips.rst:577
 msgid "50%"
 msgstr "50%"
 
-#: ../clips.rst:498
+#: ../clips.rst:577
 msgid "Healthy speech or other prominent audio."
 msgstr "健全な音声またはその他の顕著なオーディオ。"
 
-#: ../clips.rst:499
+#: ../clips.rst:578
 msgid "``-20 dBFS``"
 msgstr "``-20 dBFS``"
 
-#: ../clips.rst:499
+#: ../clips.rst:578
 msgid "32%"
 msgstr "32%"
 
-#: ../clips.rst:499
+#: ../clips.rst:578
 msgid "Moderate speech or background program audio."
 msgstr "中程度の音声または背景プログラムオーディオ。"
 
-#: ../clips.rst:500
+#: ../clips.rst:579
 msgid "``-40 dBFS``"
 msgstr "``-40 dBFS``"
 
-#: ../clips.rst:500
+#: ../clips.rst:579
 msgid "10%"
 msgstr "10%"
 
-#: ../clips.rst:500
+#: ../clips.rst:579
 msgid "Quiet room tone or microphone noise floor."
 msgstr "静かな部屋の音やマイクのノイズフロア。"
 
-#: ../clips.rst:501
+#: ../clips.rst:580
 msgid "``-60 dBFS``"
 msgstr "``-60 dBFS``"
 
-#: ../clips.rst:501
+#: ../clips.rst:580
 msgid "3%"
 msgstr "3%"
 
-#: ../clips.rst:501
+#: ../clips.rst:580
 msgid "Very quiet detail near the center line."
 msgstr "中央線付近の非常に静かな詳細。"
 
-#: ../clips.rst:504
+#: ../clips.rst:583
 msgid ""
 "OpenShot samples both **peak** and **RMS** envelopes at regular time "
 "intervals. The lighter outer envelope shows brief peaks and transients; the "
@@ -1835,7 +2037,7 @@ msgid ""
 msgstr ""
 "OpenShotは定期的な時間間隔で**ピーク**と**RMS**のエンベロープの両方をサンプリングします。薄い外側のエンベロープは短いピークや過渡現象を示し、濃い内側のエンベロープは持続的なRMSエネルギーを示します。両方ともクリップのボリュームと時間の曲線に従い、同じ固定表示曲線を使用します。微妙な中央線は無音部分を識別可能に保ち、実際より大きく見せません。"
 
-#: ../clips.rst:509
+#: ../clips.rst:588
 msgid ""
 "New waveforms use 200 samples per second by default, providing several "
 "measurements within a typical video frame. Change this density with "
@@ -1850,7 +2052,7 @@ msgstr ""
 "設定 → タイムライン → 波形サンプル（1秒あたり）` "
 "で変更できます。値が高いほどズーム時に詳細が増えますが、プロジェクトのデータサイズと解析時間が増加します。ペインターは密なデータを表示可能なタイムラインのピクセルに減らし、レンダリング済み波形キャッシュは通常のスクロールと再描画を低コストに保ちます。ライブマイクプレビューは選択された密度と完成録音と同じピーク/RMS表示を使用します。"
 
-#: ../clips.rst:515
+#: ../clips.rst:594
 msgid ""
 "Projects saved by older OpenShot versions can contain independently peak-"
 "normalized waveform data. These waveforms have no format marker, so OpenShot"
@@ -1862,7 +2064,7 @@ msgid ""
 msgstr ""
 "古いOpenShotバージョンで保存されたプロジェクトは独立してピーク正規化された波形データを含むことがあります。これらの波形にはフォーマットマーカーがなく、OpenShotは意図的に元のレガシースケーリングで表示します。これにより予期せぬ細さになることなく馴染みのある表示を保ちます。保存された密度がない古い波形データは元の1秒あたり20サンプルにデフォルト設定され、RMSエンベロープがないデータは単一のソリッド波形のままです。プロジェクトはレガシー波形と新しい波形を安全に共存させることができます。"
 
-#: ../clips.rst:521
+#: ../clips.rst:600
 msgid ""
 "To regenerate cached waveform data using the current method, choose "
 ":guilabel:`Edit → Clear → Waveform Display Data`, then show the waveform "
@@ -1872,7 +2074,7 @@ msgstr ""
 "現在の方法でキャッシュされた波形データを再生成するには、:guilabel:`編集 → クリア → 波形表示データ` "
 "を選択し、再度波形を表示してください。これはキャッシュされた表示データのみに影響し、メディアファイルやそのオーディオを変更しません。"
 
-#: ../clips.rst:526
+#: ../clips.rst:605
 msgid ""
 "The peak envelope identifies transient level and possible clipping; RMS "
 "summarizes sustained energy but is not a loudness-standard measurement. Use "
@@ -1884,7 +2086,7 @@ msgstr ""
 "を参照してください。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:532
+#: ../clips.rst:611
 msgid ""
 "The :guilabel:`Properties` preset opens the properties panel for a clip, "
 "allowing quick access for adjustments to clip properties, such as location, "
@@ -1895,21 +2097,21 @@ msgstr ""
 ":ref:`clip_properties_ref` を参照してください。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:535
+#: ../clips.rst:614
 msgid ""
 "**Usage Example:** Adjusting clip properties like opacity, volume, or "
 "position."
 msgstr "**使用例:** 不透明度、音量、位置などのクリッププロパティを調整します。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:536
+#: ../clips.rst:615
 msgid ""
 "**Tip:** Apply this preset to streamline adjustments to all clip properties "
 "in a single dock."
 msgstr "**ヒント:** このプリセットを適用して、すべてのクリッププロパティの調整を単一のドックで効率化します。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:540
+#: ../clips.rst:619
 msgid ""
 "The :guilabel:`Copy / Paste` preset allows copying and pasting keyframes, "
 "effects, or duplicating an entire clip along with its keyframes. Paste will "
@@ -1921,40 +2123,40 @@ msgstr ""
 "プリセットはキーフレームやエフェクトのコピー＆ペースト、またはキーフレームを含むクリップ全体の複製を可能にします。ペーストはマウスの位置に新しいクリップを作成します。ペースト前に1つ以上のクリップを選択すると、現在のクリップでそれらのクリップを「上書き」してペーストできます。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:544
+#: ../clips.rst:623
 msgid ""
 "**Usage Example:** Duplicating a clip with intricate animations for reuse in"
 " different parts of the project."
 msgstr "**使用例:** 複雑なアニメーションを含むクリップを複製し、プロジェクトの異なる部分で再利用します。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:545
+#: ../clips.rst:624
 msgid ""
 "**Tip:** Use this preset to replicate animations or effects across multiple "
 "clips."
 msgstr "**ヒント:** このプリセットを使って複数のクリップにアニメーションやエフェクトを複製します。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:546
+#: ../clips.rst:625
 msgid ""
 "**Tip:** Selecting multiple clips before pasting, sets keyframes and/or "
 "effects for all clips."
 msgstr "**ヒント:** ペースト前に複数のクリップを選択すると、すべてのクリップにキーフレームやエフェクトが設定されます。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:547
+#: ../clips.rst:626
 msgid ""
 "**Tip:** You can copy a single effect, and paste it to multiple selected "
 "clips."
 msgstr "**ヒント:** 単一のエフェクトをコピーして、複数の選択したクリップにペーストできます。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:550
+#: ../clips.rst:629
 msgid "Remove Gaps"
 msgstr "ギャップを削除"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:551
+#: ../clips.rst:630
 msgid ""
 "The :guilabel:`Remove Gap` and :guilabel:`Remove All Gaps` options help you "
 "quickly eliminate gaps between clips on the timeline by rippling (i.e., "
@@ -1965,7 +2167,7 @@ msgstr ""
 "オプションは、タイムライン上のクリップ間のギャップをリップル（つまり、後続のクリップをシフト）して素早く解消します。これらのオプションはコンテキストメニューからアクセスでき、ギャップが検出された場合のみ利用可能です。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:554
+#: ../clips.rst:633
 msgid ""
 "**Remove Gap:** - This option deletes a specific gap between two clips on "
 "the timeline. Right-click on the gap between clips to access the "
@@ -1977,7 +2179,7 @@ msgstr ""
 "トリミングやレザー（カミソリ）ツールの使用によって生じた特定のギャップを素早く解消するために使用します。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:558
+#: ../clips.rst:637
 msgid ""
 "**Remove All Gaps:** - This option removes all gaps between clips on the "
 "timeline for the entire track. Right-click on the track name to access the "
@@ -1989,7 +2191,7 @@ msgstr ""
 "写真スライドショーのように連続したクリップがあり、ギャップが不要なトラックに最適です。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:564
+#: ../clips.rst:643
 msgid ""
 "The :guilabel:`Remove Clip` option lets you delete a clip from the timeline."
 " Removing clips is an essential part of organizing your project and getting "
@@ -2001,7 +2203,7 @@ msgstr ""
 "オプションはタイムラインからクリップを削除できます。クリップの削除はプロジェクトの整理や不要な部分の除去に不可欠です。クリップを削除すると周囲のクリップにも影響を与えることがあります。削除後に残るギャップを整理したい場合は、タイムラインを自動調整するいくつかのオプションがあります。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:568
+#: ../clips.rst:647
 msgid ""
 "**How to Remove a Clip:** To delete a clip, simply select it and press "
 ":kbd:`Delete` on your keyboard, or right-click the clip and choose "
@@ -2014,7 +2216,7 @@ msgstr ""
 "キーを押しながら複数のクリップをクリックして一度に選択し、まとめて削除することも可能です。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:572
+#: ../clips.rst:651
 msgid ""
 "**Ripple Delete:** If you want to delete a clip and automatically remove the"
 " empty space (gap) it leaves behind, use the **Ripple Delete** feature by "
@@ -2027,7 +2229,7 @@ msgstr ""
 "機能を使用します。これにより、トラック上の残りのクリップとトランジションが左にシフトされ、ギャップが埋められてタイムラインが滑らかで連続的に保たれます。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:577
+#: ../clips.rst:656
 msgid ""
 "**Remove Gap:** After deleting a clip, if you have gaps left in your "
 "timeline that you want to remove, simply right-click in the empty space and "
@@ -2040,7 +2242,7 @@ msgstr ""
 "を選択します。この操作により、すべてのクリップとトランジションが左にシフトされ、ギャップが閉じて動画の流れが維持されます。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:583
+#: ../clips.rst:662
 msgid ""
 "**Example**: If you have a clip that’s no longer needed, such as an intro "
 "you’ve decided not to use, you can quickly select it and either delete it or"
@@ -2051,7 +2253,7 @@ msgstr ""
 "を使って削除し、すべてを左にシフトしてギャップを埋めることができます。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:585
+#: ../clips.rst:664
 msgid ""
 "For more advanced editing options and shortcuts, refer to the "
 ":ref:`clips_cutting_slicing_ref` section."
@@ -2059,12 +2261,12 @@ msgstr ""
 "より高度な編集オプションやショートカットについては、:ref:`clips_cutting_slicing_ref` セクションを参照してください。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:588
+#: ../clips.rst:667
 msgid "Effects"
 msgstr "エフェクト"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:589
+#: ../clips.rst:668
 msgid ""
 "In addition to the many clip properties which can be animated and adjusted, "
 "you can also drop an effect directly onto a clip from the effects dock. Each"
@@ -2076,12 +2278,12 @@ msgstr ""
 " :ref:`effects_ref` を参照してください。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:599
+#: ../clips.rst:678
 msgid "Clip Properties"
 msgstr "クリッププロパティ"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:600
+#: ../clips.rst:679
 msgid ""
 "Below is a list of clip properties which can be edited, and in most cases, "
 "animated over time. To view a clip's properties, right click and choose "
@@ -2100,7 +2302,7 @@ msgstr ""
 "のようなエントリが表示されます。そのエントリを選択すると、選択したすべてのアイテムをまとめて編集でき、共有するプロパティのみが表示されます。フィールドが空白の場合は、アイテム間で値が異なりますが、それでも変更や全てにキーフレームを挿入できます。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:608
+#: ../clips.rst:687
 msgid ""
 "Note: Pay close attention to where the play-head (i.e. red playback line) "
 "is. Key frames are automatically created at the current playback position, "
@@ -2109,7 +2311,7 @@ msgstr ""
 "注意：プレイヘッド（赤い再生ライン）の位置に注意してください。キーフレームは現在の再生位置で自動的に作成され、アニメーションの迅速な作成を助けます。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:611
+#: ../clips.rst:690
 msgid ""
 "When animating clip properties, you can fade a clip from opaque to "
 "transparent with ``alpha``, slide a clip around the screen with "
@@ -2125,77 +2327,77 @@ msgstr ""
 "で単一の静的なクリッププロパティを設定したい場合は、プロパティ値を調整する際にプレイヘッドがクリップの開始位置（左側）にあることを確認してください。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:616
+#: ../clips.rst:695
 msgid "See the table below for a full list of clip properties."
 msgstr "以下の表にクリッププロパティの全リストがあります。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:622
+#: ../clips.rst:701
 msgid "Clip Property Name"
 msgstr "クリッププロパティ名"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:622
+#: ../clips.rst:701
 msgid "Type"
 msgstr "タイプ"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:624 ../clips.rst:705
+#: ../clips.rst:703 ../clips.rst:784
 msgid "Alpha"
 msgstr "アルファ"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:624 ../clips.rst:625 ../clips.rst:626 ../clips.rst:628
-#: ../clips.rst:636 ../clips.rst:637 ../clips.rst:638 ../clips.rst:639
-#: ../clips.rst:640 ../clips.rst:643 ../clips.rst:645 ../clips.rst:646
-#: ../clips.rst:647 ../clips.rst:648 ../clips.rst:650 ../clips.rst:652
-#: ../clips.rst:654
+#: ../clips.rst:703 ../clips.rst:704 ../clips.rst:705 ../clips.rst:707
+#: ../clips.rst:715 ../clips.rst:716 ../clips.rst:717 ../clips.rst:718
+#: ../clips.rst:719 ../clips.rst:722 ../clips.rst:724 ../clips.rst:725
+#: ../clips.rst:726 ../clips.rst:727 ../clips.rst:729 ../clips.rst:731
+#: ../clips.rst:733
 msgid "Key-Frame"
 msgstr "キーフレーム"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:624
+#: ../clips.rst:703
 msgid ""
 "Curve representing the alpha for fading the image and adding transparency (1"
 " to 0)"
 msgstr "画像のフェードと透明度を表すアルファのカーブ（1から0）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:625 ../clips.rst:722
+#: ../clips.rst:704 ../clips.rst:801
 msgid "Channel Filter"
 msgstr "チャンネルフィルター"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:625
+#: ../clips.rst:704
 msgid ""
 "A number representing an audio channel to filter (clears all other channels)"
 msgstr "フィルターするオーディオチャンネルを表す番号（他のチャンネルはすべてクリアされます）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:626 ../clips.rst:730
+#: ../clips.rst:705 ../clips.rst:809
 msgid "Channel Mapping"
 msgstr "チャンネルマッピング"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:626
+#: ../clips.rst:705
 msgid ""
 "A number representing an audio channel to output (only works when filtering "
 "a channel)"
 msgstr "出力するオーディオチャンネルを表す番号（チャンネルフィルター時のみ有効）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:627 ../clips.rst:662
+#: ../clips.rst:706 ../clips.rst:741
 msgid "Composite (Blend Mode)"
 msgstr "合成（ブレンドモード）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:627 ../clips.rst:630 ../clips.rst:631 ../clips.rst:633
-#: ../clips.rst:634 ../clips.rst:644 ../clips.rst:653 ../clips.rst:656
+#: ../clips.rst:706 ../clips.rst:709 ../clips.rst:710 ../clips.rst:712
+#: ../clips.rst:713 ../clips.rst:723 ../clips.rst:732 ../clips.rst:735
 msgid "Enum"
 msgstr "列挙型"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:627
+#: ../clips.rst:706
 msgid ""
 "The blend mode used to composite this clip into lower layers. Default is "
 "**Normal**. See :ref:`clip_composite_ref`."
@@ -2203,305 +2405,305 @@ msgstr ""
 "このクリップを下位レイヤーに合成するためのブレンドモード。デフォルトは **Normal** です。詳細は "
 ":ref:`clip_composite_ref` を参照してください。"
 
-#: ../clips.rst:628 ../clips.rst:713
+#: ../clips.rst:707 ../clips.rst:792
 msgid "Corner Radius"
 msgstr "角の半径"
 
-#: ../clips.rst:628
+#: ../clips.rst:707
 msgid ""
 "Curve representing the radius used to round the clip's corners (0 to 0.5)"
 msgstr "クリップの角を丸めるために使用される半径を表す曲線（0から0.5）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:629 ../clips.rst:745
+#: ../clips.rst:708 ../clips.rst:824
 msgid "Duration"
 msgstr "長さ"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:629 ../clips.rst:632 ../clips.rst:642 ../clips.rst:649
+#: ../clips.rst:708 ../clips.rst:711 ../clips.rst:721 ../clips.rst:728
 msgid "Float"
 msgstr "浮動小数点"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:629
+#: ../clips.rst:708
 msgid ""
 "The length of the clip (in seconds). Read-only property. This is calculated "
 "by: End - Start."
 msgstr "クリップの長さ（秒単位）。読み取り専用プロパティ。End - Start で計算されます。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:630 ../clips.rst:778
+#: ../clips.rst:709 ../clips.rst:857
 msgid "Enable Audio"
 msgstr "オーディオを有効にする"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:630
+#: ../clips.rst:709
 msgid ""
 "An optional override to determine if this clip has audio (-1=undefined, "
 "0=no, 1=yes)"
 msgstr "このクリップにオーディオがあるかどうかを決定するオプションの上書き（-1=未定義、0=なし、1=あり）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:631 ../clips.rst:786
+#: ../clips.rst:710 ../clips.rst:865
 msgid "Enable Video"
 msgstr "ビデオを有効にする"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:631
+#: ../clips.rst:710
 msgid ""
 "An optional override to determine if this clip has video (-1=undefined, "
 "0=no, 1=yes)"
 msgstr "このクリップにビデオがあるかどうかを決定するオプションの上書き（-1=未定義、0=なし、1=あり）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:632 ../clips.rst:753
+#: ../clips.rst:711 ../clips.rst:832
 msgid "End"
 msgstr "終了"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:632
+#: ../clips.rst:711
 msgid "The end trimming position of the clip (in seconds)"
 msgstr "クリップの終了トリミング位置（秒単位）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:633 ../clips.rst:738
+#: ../clips.rst:712 ../clips.rst:817
 msgid "Frame Number"
 msgstr "フレーム番号"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:633
+#: ../clips.rst:712
 msgid "The format to display the frame number (if any)"
 msgstr "フレーム番号の表示形式（ある場合）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:634 ../clips.rst:761
+#: ../clips.rst:713 ../clips.rst:840
 msgid "Gravity"
 msgstr "グラビティ"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:634
+#: ../clips.rst:713
 msgid ""
 "The gravity of a clip determines where it snaps to its parent (details "
 "below)"
 msgstr "クリップのグラビティは親にスナップする位置を決定します（詳細は下記）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:635 ../clips.rst:794
+#: ../clips.rst:714 ../clips.rst:873
 msgid "ID"
 msgstr "ID"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:635 ../clips.rst:641
+#: ../clips.rst:714 ../clips.rst:720
 msgid "String"
 msgstr "文字列"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:635
+#: ../clips.rst:714
 msgid ""
 "A randomly generated GUID (globally unique identifier) assigned to each "
 "clip. Read-only property."
 msgstr "各クリップに割り当てられたランダム生成のGUID（グローバル一意識別子）。読み取り専用プロパティ。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:636
+#: ../clips.rst:715
 msgid "Location X"
 msgstr "位置 X"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:636
+#: ../clips.rst:715
 msgid ""
 "Curve representing the relative X position in percent based on the gravity "
 "(-1 to 1)"
 msgstr "グラビティに基づく相対的なX位置をパーセントで表すカーブ（-1から1）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:637
+#: ../clips.rst:716
 msgid "Location Y"
 msgstr "位置 Y"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:637
+#: ../clips.rst:716
 msgid ""
 "Curve representing the relative Y position in percent based on the gravity "
 "(-1 to 1)"
 msgstr "グラビティに基づく相対的なY位置をパーセントで表すカーブ（-1から1）"
 
-#: ../clips.rst:638 ../clips.rst:820
+#: ../clips.rst:717 ../clips.rst:899
 msgid "Margin"
 msgstr "マージン"
 
-#: ../clips.rst:638
+#: ../clips.rst:717
 msgid "Curve representing edge spacing for gravity-aligned clips (0 to 0.5)"
 msgstr "重力に合わせて配置されたクリップの端の間隔を表す曲線（0から0.5）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:639
+#: ../clips.rst:718
 msgid "Origin X"
 msgstr "原点 X"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:639
+#: ../clips.rst:718
 msgid ""
 "Curve representing the rotation origin point, X position in percent (-1 to "
 "1)"
 msgstr "回転の原点を表すカーブ、X位置をパーセントで表す（-1から1）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:640
+#: ../clips.rst:719
 msgid "Origin Y"
 msgstr "原点 Y"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:640
+#: ../clips.rst:719
 msgid ""
 "Curve representing the rotation origin point, Y position in percent (-1 to "
 "1)"
 msgstr "回転の原点を表す曲線、Y位置（パーセント、-1から1）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:641
+#: ../clips.rst:720
 msgid "Parent"
 msgstr "親"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:641
+#: ../clips.rst:720
 msgid ""
 "The parent object to this clip, which makes many of these keyframe values "
 "initialize to the parent value"
 msgstr "このクリップの親オブジェクトで、多くのキーフレーム値が親の値で初期化されます"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:642 ../clips.rst:877
+#: ../clips.rst:721 ../clips.rst:956
 msgid "Position"
 msgstr "位置"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:642
+#: ../clips.rst:721
 msgid ""
 "The position of the clip on the timeline (in seconds, 0.0 is the beginning "
 "of the timeline)"
 msgstr "タイムライン上のクリップの位置（秒単位、0.0はタイムラインの開始点）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:643 ../clips.rst:886
+#: ../clips.rst:722 ../clips.rst:965
 msgid "Rotation"
 msgstr "回転"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:643
+#: ../clips.rst:722
 msgid "Curve representing the rotation (0 to 360)"
 msgstr "回転を表す曲線（0から360）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:644 ../clips.rst:902
+#: ../clips.rst:723 ../clips.rst:981
 msgid "Scale"
 msgstr "スケール"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:644
+#: ../clips.rst:723
 msgid ""
 "The scale determines how a clip should be resized to fit its parent (details"
 " below)"
 msgstr "スケールはクリップが親に合わせてどのようにリサイズされるかを決定します（詳細は下記）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:645
+#: ../clips.rst:724
 msgid "Scale X"
 msgstr "スケールX"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:645
+#: ../clips.rst:724
 msgid "Curve representing the horizontal scaling in percent (0 to 1)"
 msgstr "水平方向のスケーリングを表す曲線（パーセント、0から1）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:646
+#: ../clips.rst:725
 msgid "Scale Y"
 msgstr "スケールY"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:646
+#: ../clips.rst:725
 msgid "Curve representing the vertical scaling in percent (0 to 1)"
 msgstr "垂直方向のスケーリングを表す曲線（パーセント、0から1）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:647
+#: ../clips.rst:726
 msgid "Shear X"
 msgstr "シアーX"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:647
+#: ../clips.rst:726
 msgid "Curve representing X shear angle in degrees (-45.0=left, 45.0=right)"
 msgstr "X軸のシアー角度を表す曲線（度単位、-45.0=左、45.0=右）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:648
+#: ../clips.rst:727
 msgid "Shear Y"
 msgstr "シアーY"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:648
+#: ../clips.rst:727
 msgid "Curve representing Y shear angle in degrees (-45.0=down, 45.0=up)"
 msgstr "Y軸のシアー角度を表す曲線（度単位、-45.0=下、45.0=上）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:649 ../clips.rst:936
+#: ../clips.rst:728 ../clips.rst:1015
 msgid "Start"
 msgstr "開始"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:649
+#: ../clips.rst:728
 msgid "The start trimming position of the clip (in seconds)"
 msgstr "クリップの開始トリミング位置（秒単位）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:650 ../clips.rst:946
+#: ../clips.rst:729 ../clips.rst:1025
 msgid "Time"
 msgstr "時間"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:650
+#: ../clips.rst:729
 msgid ""
 "Curve representing the frames over time to play (used for speed and "
 "direction of video)"
 msgstr "再生するフレームを時間軸で表す曲線（動画の速度と方向に使用）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:651 ../clips.rst:802
+#: ../clips.rst:730 ../clips.rst:881
 msgid "Track"
 msgstr "トラック"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:651
+#: ../clips.rst:730
 msgid "Int"
 msgstr "整数"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:651
+#: ../clips.rst:730
 msgid ""
 "The layer which holds the clip (higher tracks are rendered on top of lower "
 "tracks)"
 msgstr "クリップを保持するレイヤー（高いトラックほど下のトラックの上にレンダリングされます）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:652 ../clips.rst:972
+#: ../clips.rst:731 ../clips.rst:1051
 msgid "Volume"
 msgstr "音量"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:652
+#: ../clips.rst:731
 msgid ""
 "Curve representing the volume for fading audio quieter/louder, mute, or "
 "adjusting levels (0 to 1)"
 msgstr "音量をフェードイン・フェードアウト、ミュート、レベル調整するための曲線（0から1）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:653 ../clips.rst:838
+#: ../clips.rst:732 ../clips.rst:917
 msgid "Volume Mixing"
 msgstr "ボリュームミキシング"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:653
+#: ../clips.rst:732
 msgid ""
 "The volume mixing choices control how volume is adjusted before mixing "
 "(None=don't adjust volume of this clip, Reduce=lower the volume to 80%, "
@@ -2510,36 +2712,36 @@ msgstr ""
 "ボリュームミキシングの選択は、ミキシング前の音量調整方法を制御します（None=このクリップの音量を調整しない、Reduce=音量を80%に下げる、Average=同時再生クリップ数に基づいて音量を分割、詳細は下記）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:654 ../clips.rst:981
+#: ../clips.rst:733 ../clips.rst:1060
 msgid "Wave Color"
 msgstr "波形の色"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:654
+#: ../clips.rst:733
 msgid "Curve representing the color of the audio waveform"
 msgstr "オーディオ波形の色を表す曲線"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:655
+#: ../clips.rst:734
 msgid "Bool"
 msgstr "ブール値"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:655
+#: ../clips.rst:734
 msgid "Should a waveform be used instead of the clip's image"
 msgstr "クリップの画像の代わりに波形を使用するかどうか"
 
-#: ../clips.rst:656 ../clips.rst:995
+#: ../clips.rst:735 ../clips.rst:1074
 msgid "Waveform Mode"
 msgstr "波形モード"
 
-#: ../clips.rst:656
+#: ../clips.rst:735
 msgid ""
 "The visualization style used when displaying the clip as an audio waveform"
 msgstr "クリップをオーディオ波形として表示する際に使用される視覚化スタイル"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:663
+#: ../clips.rst:742
 msgid ""
 "The :guilabel:`Composite (Blend Mode)` property controls **how the pixels of"
 " this clip mix with the clips on lower tracks**. If you are new to this, "
@@ -2551,12 +2753,12 @@ msgstr ""
 "から始めてください。エフェクトを追加せずに素早くクリエイティブな変更をしたいときにモードを切り替えます。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:666
+#: ../clips.rst:745
 msgid "**Beginner tips**"
 msgstr "**初心者向けのヒント**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:668
+#: ../clips.rst:747
 msgid ""
 "Want to **brighten** light effects, flares, or smoke over a dark scene? Try "
 "**Screen** or **Add**."
@@ -2564,7 +2766,7 @@ msgstr ""
 "暗いシーンの上にある光のエフェクト、フレア、煙を**明るく** したいですか？**Screen** または **Add** を試してください。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:669
+#: ../clips.rst:748
 msgid ""
 "Want to **darken** or place a texture over footage (paper grain, grids, "
 "shadows)? Try **Multiply** or **Color Burn**."
@@ -2573,7 +2775,7 @@ msgstr ""
 "を試してください。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:670
+#: ../clips.rst:749
 msgid ""
 "Want **more contrast** without crushing blacks and whites too much? Try "
 "**Overlay** or **Soft Light**."
@@ -2581,7 +2783,7 @@ msgstr ""
 "黒と白を潰しすぎずに**コントラストを強く** したいですか？**Overlay** または **Soft Light** を試してください。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:671
+#: ../clips.rst:750
 msgid ""
 "Want a **creative/inverted look** or to line things up? Try **Difference** "
 "or **Exclusion**."
@@ -2589,163 +2791,163 @@ msgstr ""
 "**クリエイティブな反転効果** や整列をしたいですか？**Difference** または **Exclusion** を試してください。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:673
+#: ../clips.rst:752
 msgid "**Common modes (recommended)**"
 msgstr "**一般的なモード（推奨）**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:679
+#: ../clips.rst:758
 msgid "Mode"
 msgstr "モード"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:679
+#: ../clips.rst:758
 msgid "What it does"
 msgstr "機能"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:681
+#: ../clips.rst:760
 msgid "Normal"
 msgstr "ノーマル"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:681
+#: ../clips.rst:760
 msgid "Standard alpha compositing. Respects transparency from the clip."
 msgstr "標準的なアルファ合成。クリップの透明度を尊重します。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:682
+#: ../clips.rst:761
 msgid "Darken"
 msgstr "比較（暗）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:682
+#: ../clips.rst:761
 msgid "Chooses the darker pixel from the two layers, per channel."
 msgstr "2つのレイヤーの各チャンネルで暗い方のピクセルを選択します。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:683
+#: ../clips.rst:762
 msgid "Multiply"
 msgstr "乗算"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:683
+#: ../clips.rst:762
 msgid "Multiplies colors. Darkens and helps textures sit on top of footage."
 msgstr "色を乗算します。映像を暗くし、テクスチャを上に重ねるのに適しています。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:684
+#: ../clips.rst:763
 msgid "Color Burn"
 msgstr "焼き込みカラー"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:684
+#: ../clips.rst:763
 msgid "Pushes shadows darker and boosts contrast; can clip to black."
 msgstr "影をより暗くし、コントラストを強調します。黒にクリップすることがあります。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:685
+#: ../clips.rst:764
 msgid "Lighten"
 msgstr "比較（明）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:685
+#: ../clips.rst:764
 msgid "Chooses the lighter pixel from the two layers, per channel."
 msgstr "2つのレイヤーの各チャンネルで明るい方のピクセルを選択します。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:686
+#: ../clips.rst:765
 msgid "Screen"
 msgstr "スクリーン"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:686
+#: ../clips.rst:765
 msgid "The opposite of Multiply. Brightens; great for light, glow, fire, fog."
 msgstr "乗算の反対。明るくし、光、輝き、火、霧に最適です。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:687
+#: ../clips.rst:766
 msgid "Color Dodge"
 msgstr "覆い焼きカラー"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:687
+#: ../clips.rst:766
 msgid "Brightens highlights strongly; can blow out to white."
 msgstr "ハイライトを強く明るくし、白飛びすることがあります。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:688
+#: ../clips.rst:767
 msgid "Add"
 msgstr "加算"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:688
+#: ../clips.rst:767
 msgid ""
 "Adds pixel values. Strong brightening; clips at white. Also called *Linear "
 "Dodge (Add)*."
 msgstr "ピクセル値を加算します。強い明るさを加え、白でクリップします。*Linear Dodge (Add)* とも呼ばれます。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:689
+#: ../clips.rst:768
 msgid "Overlay"
 msgstr "オーバーレイ"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:689
+#: ../clips.rst:768
 msgid ""
 "Mix of Multiply and Screen using the lower layer to decide. Adds punchy "
 "contrast."
 msgstr "下のレイヤーを基に乗算とスクリーンを混ぜたもの。鮮やかなコントラストを加えます。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:690
+#: ../clips.rst:769
 msgid "Soft Light"
 msgstr "ソフトライト"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:690
+#: ../clips.rst:769
 msgid "Gentle contrast curve; softer than Overlay."
 msgstr "穏やかなコントラスト曲線。オーバーレイより柔らかい効果。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:691
+#: ../clips.rst:770
 msgid "Hard Light"
 msgstr "ハードライト"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:691
+#: ../clips.rst:770
 msgid "Stronger, edgy contrast using the upper layer to drive the change."
 msgstr "上のレイヤーを使って強くエッジの効いたコントラストを作ります。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:692
+#: ../clips.rst:771
 msgid "Difference"
 msgstr "差の絶対値"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:692
+#: ../clips.rst:771
 msgid ""
 "Absolute difference between layers. Creates inverted/psychedelic colors; "
 "useful for alignment."
 msgstr "レイヤー間の絶対差。反転やサイケデリックな色を作り、整列に便利です。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:693
+#: ../clips.rst:772
 msgid "Exclusion"
 msgstr "除外"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:693
+#: ../clips.rst:772
 msgid "Softer version of Difference with less contrast."
 msgstr "差の絶対値のソフトなバージョンで、コントラストが弱いです。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:696
+#: ../clips.rst:775
 msgid "**Notes**"
 msgstr "**注意**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:698
+#: ../clips.rst:777
 msgid ""
 "Blend modes affect **color**, while alpha (the :guilabel:`Alpha` property) "
 "affects **transparency**. You can use both."
@@ -2753,7 +2955,7 @@ msgstr ""
 "ブレンドモードは**色** に影響し、アルファ（:guilabel:`Alpha` プロパティ）は**透明度** に影響します。両方を使用できます。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:699
+#: ../clips.rst:778
 msgid ""
 "Some modes can create very bright or very dark results. If needed, lower the"
 " :guilabel:`Alpha` property to soften."
@@ -2762,14 +2964,14 @@ msgstr ""
 "プロパティを下げて調整してください。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:700
+#: ../clips.rst:779
 msgid ""
 "The exact look of Multiply/Screen/Overlay family is best when project colors"
 " are in a linear color space."
 msgstr "Multiply/Screen/Overlay 系の正確な見た目は、プロジェクトの色がリニアカラースペースの場合に最適です。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:706
+#: ../clips.rst:785
 msgid ""
 "The :guilabel:`Alpha` property is a key-frame curve that represents the "
 "alpha value, determining fading and transparency of the image in the clip. "
@@ -2779,20 +2981,20 @@ msgstr ""
 "1（完全に不透明）から 0（完全に透明）までの範囲です。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:709
+#: ../clips.rst:788
 msgid ""
 "**Usage Example:** Applying a gradual fade-in or fade-out effect to smoothly"
 " transition clips."
 msgstr "**使用例:** クリップ間を滑らかに切り替えるために、徐々にフェードインまたはフェードアウト効果を適用する。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:710
+#: ../clips.rst:789
 msgid ""
 "**Tip:** Use keyframes to create complex fading patterns, such as fading in "
 "and then fading out for a ghostly effect."
 msgstr "**ヒント:** キーフレームを使用して、フェードイン後にフェードアウトするような複雑なフェードパターンを作成し、幽霊のような効果を出す。"
 
-#: ../clips.rst:714
+#: ../clips.rst:793
 msgid ""
 "The :guilabel:`Corner Radius` property is a key-frame curve that rounds the "
 "visible corners of a clip. The curve ranges from 0 (square corners) to 0.5 "
@@ -2801,28 +3003,29 @@ msgstr ""
 ":guilabel:`Corner Radius` "
 "プロパティは、クリップの見える角を丸めるキーフレームカーブです。このカーブは0（角が直角）から0.5（クリップの最短辺に基づく最大の丸み）までの範囲です。"
 
-#: ../clips.rst:717
+#: ../clips.rst:796
 msgid ""
 "**Usage Example:** Rounding the corners of a picture-in-picture camera "
 "recording without adding a separate mask effect."
 msgstr "**使用例:** 別のマスク効果を追加せずに、ピクチャーインピクチャーのカメラ録画の角を丸める。"
 
-#: ../clips.rst:718
+# Main-window terminology review, 2026-09-26.
+#: ../clips.rst:797
 msgid ""
 "**Usage Example:** In :guilabel:`Recording View`, corner webcam clips use "
 "this property for the :guilabel:`Corners` setting."
 msgstr ""
-"**使用例:** :guilabel:`Recording View` では、コーナーのウェブカムクリップがこのプロパティを "
-":guilabel:`Corners` 設定に使用します。"
+"**使用例:** :guilabel:`録音・録画ビュー` では、コーナーのウェブカムクリップがこのプロパティを :guilabel:`Corners`"
+" 設定に使用します。"
 
-#: ../clips.rst:719
+#: ../clips.rst:798
 msgid ""
 "**Tip:** Use 0 for normal full-frame video, a small value for rounded "
 "rectangles, or 0.5 for a pill or oval-like shape."
 msgstr "**ヒント:** 通常のフルフレームビデオには0を、角丸長方形には小さい値を、カプセル型や楕円形には0.5を使用してください。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:723
+#: ../clips.rst:802
 msgid ""
 "The :guilabel:`Channel Filter` property is a key-frame curve used for audio "
 "manipulation. It specifies a single audio channel to be filtered while "
@@ -2832,14 +3035,14 @@ msgstr ""
 "プロパティは、オーディオ操作に使用されるキーフレーム曲線です。これは、他のすべてのチャンネルをクリアしながら、フィルタリングする単一のオーディオチャンネルを指定します。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:726
+#: ../clips.rst:805
 msgid ""
 "**Usage Example:** Isolating and enhancing specific audio elements, like "
 "isolating vocals from a song."
 msgstr "**使用例:** 曲からボーカルを分離するなど、特定のオーディオ要素を分離して強調する。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:727
+#: ../clips.rst:806
 msgid ""
 "**Tip:** Combine with the \"Channel Mapping\" property to route the filtered"
 " channel to a specific audio output."
@@ -2848,7 +3051,7 @@ msgstr ""
 "プロパティと組み合わせて使用する。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:731
+#: ../clips.rst:810
 msgid ""
 "The :guilabel:`Channel Mapping` property is a key-frame curve that defines "
 "the output audio channel for the clip. This property works in conjunction "
@@ -2859,42 +3062,42 @@ msgstr ""
 " \\\"Channel Filter\\\" プロパティと連携して動作し、出力に保持されるチャンネルを指定します。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:734
+#: ../clips.rst:813
 msgid ""
 "**Usage Example:** Keeping the filtered channel's audio while discarding "
 "others for an unconventional audio mix."
 msgstr "**使用例:** フィルタリングされたチャンネルの音声を保持し、他のチャンネルを破棄して独特なオーディオミックスを作成する。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:735
+#: ../clips.rst:814
 msgid ""
 "**Tip:** Experiment with mapping different channels to create unique audio "
 "effects, like panning sounds between speakers."
 msgstr "**ヒント:** 異なるチャンネルのマッピングを試して、スピーカー間で音をパンニングするなどのユニークなオーディオ効果を作成する。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:739
+#: ../clips.rst:818
 msgid ""
 "The :guilabel:`Frame Number` property specifies the format in which the "
 "frame numbers are displayed within the clip, if applicable."
 msgstr ":guilabel:`Frame Number` プロパティは、該当する場合にクリップ内でフレーム番号が表示される形式を指定します。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:741
+#: ../clips.rst:820
 msgid ""
 "**Usage Example:** Displaying frame numbers in the top left corner of the "
 "clip, as either absolute frame number or relative to the start of the clip."
 msgstr "**使用例:** クリップの左上隅に、絶対フレーム番号またはクリップの開始からの相対フレーム番号としてフレーム番号を表示する。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:742
+#: ../clips.rst:821
 msgid ""
 "**Tip:** This can help with identifying precise frame numbers or "
 "troubleshooting a problem."
 msgstr "**ヒント:** 正確なフレーム番号の特定や問題のトラブルシューティングに役立つ。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:746
+#: ../clips.rst:825
 msgid ""
 "The :guilabel:`Duration` property is a float value indicating the length of "
 "the clip in seconds. This is a Read-only property. This is calculated by: "
@@ -2906,21 +3109,21 @@ msgstr ""
 "のクリッププロパティを編集する必要があります。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:749
+#: ../clips.rst:828
 msgid ""
 "**Usage Example:** Inspect the duration of a clip to ensure it fits a "
 "specific time slot in the project."
 msgstr "**使用例:** プロジェクトの特定の時間枠に合うようにクリップの長さを確認する。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:750
+#: ../clips.rst:829
 msgid ""
 "**Tip:** Consider using the \"Duration\" property for clips that need to "
 "match specific time intervals, such as dialogue or scenes."
 msgstr "**ヒント:** セリフやシーンなど、特定の時間間隔に合わせる必要があるクリップには \\\"Duration\\\" プロパティの使用を検討する。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:754
+#: ../clips.rst:833
 msgid ""
 "The :guilabel:`End` property defines the trimming point at the end of the "
 "clip in seconds, allowing you to control how much of the clip is visible in "
@@ -2932,21 +3135,21 @@ msgstr ""
 " プロパティに影響します。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:757
+#: ../clips.rst:836
 msgid ""
 "**Usage Example:** Trimming the end of a clip to align with another clip or "
 "trimming off unwanted sections of the clip."
 msgstr "**使用例:** 他のクリップに合わせてクリップの末尾をトリミングしたり、不要な部分をカットする。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:758
+#: ../clips.rst:837
 msgid ""
 "**Tip:** Combine the \"Start\" and \"End\" properties to precisely control "
 "the visible portion of the clip."
 msgstr "**ヒント:**\\\"Start\\\" と \\\"End\\\" プロパティを組み合わせて、クリップの表示範囲を正確に制御する。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:762
+#: ../clips.rst:841
 msgid ""
 "The :guilabel:`Gravity` clip property sets the initial display position "
 "coordinate (X,Y) for the clip, after it has been scaled (see "
@@ -2961,70 +3164,70 @@ msgstr ""
 "で、画面の中央に画像を表示します。重力オプションは以下の通りです:"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:767
+#: ../clips.rst:846
 msgid ""
 "**Top Left** – The top and left edges of the clip align with the top and "
 "left edges of the screen"
 msgstr "**Top Left**– クリップの上端と左端が画面の上端と左端に揃う"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:768
+#: ../clips.rst:847
 msgid ""
 "**Top Center** – The top edge of the clip aligns with the top edge of the "
 "screen; the clip is horizontally centered on the screen."
 msgstr "**Top Center**– クリップの上端が画面の上端に揃い、クリップは画面上で水平に中央揃えされる。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:769
+#: ../clips.rst:848
 msgid ""
 "**Top Right** – The top and right edges of the clip align with the top and "
 "right edges of the screen"
 msgstr "**Top Right**– クリップの上端と右端が画面の上端と右端に揃う"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:770
+#: ../clips.rst:849
 msgid ""
 "**Left** – The left edge of the clip aligns with the left edge of the "
 "screen; the clip is vertically centered on the screen."
 msgstr "**Left**– クリップの左端が画面の左端に揃い、クリップは画面上で垂直に中央揃えされる。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:771
+#: ../clips.rst:850
 msgid ""
 "**Center** (default) – The clip is centered horizontally and vertically on "
 "the screen."
 msgstr "**Center** （デフォルト）– クリップは画面上で水平および垂直に中央揃えされる。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:772
+#: ../clips.rst:851
 msgid ""
 "**Right** – The right edge of the clip aligns with the right edge of the "
 "screen; the clip is vertically centered on the screen."
 msgstr "**Right**– クリップの右端が画面の右端に揃い、クリップは画面上で垂直に中央揃えされる。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:773
+#: ../clips.rst:852
 msgid ""
 "**Bottom Left** – The bottom and left edges of the clip align with the "
 "bottom and left edges of the screen"
 msgstr "**Bottom Left**– クリップの下端と左端が画面の下端と左端に揃う"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:774
+#: ../clips.rst:853
 msgid ""
 "**Bottom Center** – The bottom edge of the clip aligns with the bottom edge "
 "of the screen; the clip is horizontally centered on the screen."
 msgstr "**Bottom Center**– クリップの下端が画面の下端に揃い、クリップは画面上で水平に中央揃えされる。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:775
+#: ../clips.rst:854
 msgid ""
 "**Bottom Right** – The bottom and right edges of the clip align with the "
 "bottom and right edges of the screen"
 msgstr "**Bottom Right**– クリップの下端と右端が画面の下端と右端に揃う"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:779
+#: ../clips.rst:858
 msgid ""
 "The :guilabel:`Enable Audio` property is an enumeration that overrides the "
 "default audio setting for the clip. Possible values: -1 (undefined), 0 (no "
@@ -3034,21 +3237,21 @@ msgstr ""
 "-1（未定義）、0（オーディオなし）、1（オーディオ有効）です。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:782
+#: ../clips.rst:861
 msgid ""
 "**Usage Example:** Turning off unwanted audio for a clip, like ambient "
 "noise."
 msgstr "**使用例:** 環境音など不要なオーディオをクリップでオフにする。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:783
+#: ../clips.rst:862
 msgid ""
 "**Tip:** Use this property to control audio playback for specific clips, "
 "especially clips which have no useful audio track."
 msgstr "**ヒント:** 有用なオーディオトラックがないクリップなど、特定のクリップのオーディオ再生を制御するためにこのプロパティを使用する。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:787
+#: ../clips.rst:866
 msgid ""
 "The :guilabel:`Enable Video` property is an enumeration that overrides the "
 "default video setting for the clip. Possible values: -1 (undefined), 0 (no "
@@ -3058,21 +3261,21 @@ msgstr ""
 "-1（未定義）、0（ビデオなし）、1（ビデオ有効）です。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:790
+#: ../clips.rst:869
 msgid ""
 "**Usage Example:** Disabling the video of a clip while retaining its audio "
 "for creating audio-only sequences."
 msgstr "**使用例:** クリップの映像を無効にし、音声のみのシーケンスを作成する。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:791
+#: ../clips.rst:870
 msgid ""
 "**Tip:** This property can be helpful when creating scenes with audio "
 "commentary or voiceovers."
 msgstr "**ヒント:** 音声解説やナレーション付きのシーン作成に役立ちます。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:795
+#: ../clips.rst:874
 msgid ""
 "The :guilabel:`ID` property holds a randomly generated GUID (Globally Unique"
 " Identifier) assigned to each clip, ensuring its uniqueness. This is a Read-"
@@ -3082,21 +3285,21 @@ msgstr ""
 "プロパティは、各クリップに割り当てられるランダム生成されたGUID（グローバル一意識別子）を保持し、その一意性を保証します。これは読み取り専用のプロパティで、クリップ作成時にOpenShotによって割り当てられます。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:798
+#: ../clips.rst:877
 msgid ""
 "**Usage Example:** Referencing specific clips within custom scripts or "
 "automation tasks."
 msgstr "**使用例:** カスタムスクリプトや自動化タスク内で特定のクリップを参照する。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:799
+#: ../clips.rst:878
 msgid ""
 "**Tip:** While typically managed behind the scenes, understanding clip IDs "
 "can aid in advanced project customization."
 msgstr "**ヒント:** 通常は内部で管理されますが、クリップIDの理解は高度なプロジェクトカスタマイズに役立ちます。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:803
+#: ../clips.rst:882
 msgid ""
 "The :guilabel:`Track` property is an integer indicating the layer on which "
 "the clip is placed. Clips on higher tracks are rendered above those on lower"
@@ -3106,26 +3309,26 @@ msgstr ""
 "プロパティは、クリップが配置されているレイヤーを示す整数値です。高いトラックのクリップは低いトラックの上にレンダリングされます。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:806
+#: ../clips.rst:885
 msgid ""
 "**Usage Example:** Arranging clips in different layers for creating visual "
 "depth and complexity."
 msgstr "**使用例:** 視覚的な奥行きや複雑さを作るためにクリップを異なるレイヤーに配置する。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:807
+#: ../clips.rst:886
 msgid ""
 "**Tip:** Use higher tracks for elements that need to appear above others, "
 "like text overlays or graphics."
 msgstr "**ヒント:** テキストオーバーレイやグラフィックなど、他の要素の上に表示する必要がある要素には高いトラックを使用してください。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:812
+#: ../clips.rst:891
 msgid "Location X and Location Y"
 msgstr "位置Xと位置Y"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:813
+#: ../clips.rst:892
 msgid ""
 "The :guilabel:`Location X` and :guilabel:`Location Y` properties are key-"
 "frame curves that determine the relative position of the clip, expressed in "
@@ -3137,20 +3340,20 @@ msgstr ""
 "です。詳細は :ref:`clip_transform_ref` を参照してください。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:816
+#: ../clips.rst:895
 msgid ""
 "**Usage Example:** Animating a clip's movement across the screen using key-"
 "frame curves for both X and Y locations."
 msgstr "**使用例:** XおよびY位置のキーフレームカーブを使ってクリップの画面上の移動をアニメーション化する。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:817
+#: ../clips.rst:896
 msgid ""
 "**Tip:** Combine with gravity settings to create dynamic animations that "
 "adhere to consistent alignment rules."
 msgstr "**ヒント:** 重力設定と組み合わせて、一貫した配置ルールに従う動的なアニメーションを作成する。"
 
-#: ../clips.rst:821
+#: ../clips.rst:900
 msgid ""
 "The :guilabel:`Margin` property is a key-frame curve that creates an inset "
 "layout area for a clip. The curve is measured as a percentage of the "
@@ -3161,7 +3364,7 @@ msgstr ""
 ":guilabel:`Margin` "
 "プロパティは、クリップの内側のレイアウト領域を作成するキーフレームカーブです。このカーブはプロジェクトの最短辺の割合で測定され、0から0.5の範囲です。例えば、1920x1080のプロジェクトでは、マージン0.05が各辺に54ピクセルの内側余白を作り、クリップは残りの長方形内に配置されます。"
 
-#: ../clips.rst:825
+#: ../clips.rst:904
 msgid ""
 "Margin is applied before the clip's scale and gravity are calculated. This "
 "means :guilabel:`Scale` modes such as ``Fit``, ``Crop``, and ``Stretch`` use"
@@ -3173,33 +3376,33 @@ msgstr ""
 "``Crop``, ``Stretch`` モードは、プロジェクト全体のフレームではなく小さい内側領域を使用します。また、すべての "
 ":guilabel:`Gravity` オプション（``Center`` を含む）も内側領域内で解決されます。"
 
-#: ../clips.rst:829
+#: ../clips.rst:908
 msgid ""
 "**Usage Example:** Keeping a corner webcam clip slightly away from the "
 "screen edge during a screen recording."
 msgstr "**使用例:** 画面録画中にコーナーのウェブカムクリップを画面端から少し離して配置する。"
 
-#: ../clips.rst:830
+#: ../clips.rst:909
 msgid ""
 "**Usage Example:** Adding a clean border around a full-frame image by using "
 "``Fit`` or ``Stretch`` with a small margin."
 msgstr "**使用例:** 小さなマージンを使い、``Fit`` または ``Stretch`` でフルフレーム画像の周囲にきれいな境界を追加する。"
 
-#: ../clips.rst:831
+#: ../clips.rst:910
 msgid ""
 "**Usage Example:** Creating safe-area layouts, split-screen spacing, or "
 "picture-in-picture spacing without adding Crop or Mask effects."
 msgstr "**使用例:** CropやMask効果を追加せずにセーフエリアレイアウト、分割画面の間隔、ピクチャーインピクチャーの間隔を作成する。"
 
-#: ../clips.rst:832
+# Main-window terminology review, 2026-09-26.
+#: ../clips.rst:911
 msgid ""
 "**Usage Example:** In :guilabel:`Recording View`, screen-plus-camera "
 "recordings use this property to inset the corner webcam clip."
 msgstr ""
-"**使用例:** :guilabel:`Recording View` "
-"では、画面＋カメラ録画がこのプロパティを使ってコーナーのウェブカムクリップを内側に配置する。"
+"**使用例:** :guilabel:`録音・録画ビュー` では、画面＋カメラ録画がこのプロパティを使ってコーナーのウェブカムクリップを内側に配置する。"
 
-#: ../clips.rst:833
+#: ../clips.rst:912
 msgid ""
 "**Tip:** Use a small value such as 0.02 to 0.05 for normal edge spacing. "
 "Larger values intentionally shrink the available layout area."
@@ -3207,7 +3410,7 @@ msgstr ""
 "**ヒント:** 通常の端の間隔には0.02から0.05の小さい値を使用してください。大きい値は意図的に利用可能なレイアウト領域を縮小します。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:839
+#: ../clips.rst:918
 msgid ""
 "The :guilabel:`Volume Mixing` property is an enumeration that controls how "
 "volume adjustments are applied before mixing audio. Options: None (no "
@@ -3218,21 +3421,21 @@ msgstr ""
 "プロパティは、音声ミキシング前の音量調整方法を制御する列挙型です。オプションは、None（調整なし）、Reduce（音量を80%に低減）、Average（同時再生クリップ数に基づいて音量を分割）です。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:842
+#: ../clips.rst:921
 msgid ""
 "**Usage Example:** Automatically lowering the volume of a clip to allow "
 "background music to stand out more prominently."
 msgstr "**使用例:** バックグラウンドミュージックがより際立つようにクリップの音量を自動的に下げる。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:843
+#: ../clips.rst:922
 msgid ""
 "**Tip:** Experiment with volume mixing options to achieve balanced audio "
 "levels across different clips."
 msgstr "**ヒント:** 音量ミキシングのオプションを試して、異なるクリップ間でバランスの取れた音声レベルを実現する。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:845
+#: ../clips.rst:924
 msgid ""
 "Mixing audio involves adjusting volume levels so that **overlapping clips** "
 "do not become too loud (creating audio distortion and loss of audio "
@@ -3245,14 +3448,14 @@ msgstr ""
 "の音量が大きくなりすぎて音声の歪みや明瞭度の低下を引き起こさないように音量レベルを調整することです。特に大きな音のクリップを複数のトラックで組み合わせると、クリッピング（断続的な音声歪み）が発生することがあります。歪みを避けるために、OpenShotは重なったクリップの音量を下げる必要があります。以下の音声ミキシング方法が利用可能です："
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:849
+#: ../clips.rst:928
 msgid ""
 "**None** - Make no adjustments to volume data before mixing audio. "
 "Overlapping clips will combine audio at full volume, with no reduction."
 msgstr "**None**- 音声ミキシング前に音量データを調整しません。重なったクリップは音量を下げずにそのまま合成されます。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:850
+#: ../clips.rst:929
 msgid ""
 "**Average** - Automatically divide the volume of each clip based on the # of"
 " overlapping clips. For example, 2 overlapping clips would each have 50% "
@@ -3262,7 +3465,7 @@ msgstr ""
 "重なったクリップの数に基づいて各クリップの音量を自動的に分割します。例えば、2つの重なったクリップはそれぞれ50%の音量、3つの重なったクリップはそれぞれ33%の音量になります。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:851
+#: ../clips.rst:930
 msgid ""
 "**Reduce** - Automatically reduce overlapping clips volume by 20%, which "
 "reduces the likelihood of becoming too loud, but does not always prevent "
@@ -3273,7 +3476,7 @@ msgstr ""
 "**Reduce**- "
 "重なったクリップの音量を自動的に20%減少させます。これにより音量が大きくなりすぎる可能性は減りますが、必ずしも音声歪みを防ぐわけではありません。例えば、10個の大きな音のクリップが重なっている場合、各クリップの音量を20%減らしても最大許容音量を超え、音声歪みが発生することがあります。"
 
-#: ../clips.rst:853
+#: ../clips.rst:932
 msgid ""
 "For quickly adjusting the volume of a clip, you can use the :guilabel:`Audio"
 " → Volume` menu. See :ref:`clip_presets_ref`. For precise control over the "
@@ -3285,12 +3488,12 @@ msgstr ""
 "Key-frame` を設定できます。詳細は :ref:`clip_volume_ref` を参照してください。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:857
+#: ../clips.rst:936
 msgid "Origin X and Origin Y"
 msgstr "原点Xと原点Y"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:858
+#: ../clips.rst:937
 msgid ""
 "The :guilabel:`Origin X` and :guilabel:`Origin Y` properties are key-frame "
 "curves that define the rotation origin point's position in percentages. The "
@@ -3301,26 +3504,26 @@ msgstr ""
 ":ref:`clip_transform_ref` を参照してください。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:861
+#: ../clips.rst:940
 msgid ""
 "**Usage Example:** Rotating a clip around a specific point, such as a "
 "character's pivot joint."
 msgstr "**使用例:** キャラクターのピボットジョイントなど、特定の点を中心にクリップを回転させる。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:862
+#: ../clips.rst:941
 msgid ""
 "**Tip:** Set the origin point to achieve controlled and natural-looking "
 "rotations during animations."
 msgstr "**ヒント:** アニメーション中に制御された自然な回転を実現するために原点を設定する。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:867
+#: ../clips.rst:946
 msgid "Clip Parent"
 msgstr "クリップの親"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:868
+#: ../clips.rst:947
 msgid ""
 "The :guilabel:`Parent` property of a clip sets the initial keyframe values "
 "to the parent object. For example, if many clips all point to the same "
@@ -3335,21 +3538,21 @@ msgstr ""
 "などのデフォルトプロパティをすべて継承します。これは、多数のクリップを一緒に移動または拡大縮小する必要がある場合に非常に便利です。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:872
+#: ../clips.rst:951
 msgid ""
 "**Usage Example:** Creating complex animations by establishing a parent-"
 "child relationship between clips."
 msgstr "**使用例:** クリップ間に親子関係を設定して複雑なアニメーションを作成する。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:873
+#: ../clips.rst:952
 msgid ""
 "**Tip:** Utilize this property to propagate changes from the parent clip to "
 "child clips for consistent animations."
 msgstr "**ヒント:** 親クリップから子クリップへ変更を伝播させ、一貫したアニメーションを実現するためにこのプロパティを活用する。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:874
+#: ../clips.rst:953
 msgid ""
 "**Tip:** You can also set the ``parent`` attribute to a ``Tracker`` or "
 "``Object Detector`` tracked object, so the clip follows the location and "
@@ -3360,28 +3563,28 @@ msgstr ""
 "を参照してください。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:878
+#: ../clips.rst:957
 msgid ""
 "The :guilabel:`Position` property determines the clip's position on the "
 "timeline in seconds, with 0.0 indicating the beginning."
 msgstr ":guilabel:`Position` プロパティは、タイムライン上のクリップの位置を秒単位で決定し、0.0は開始位置を示します。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:880
+#: ../clips.rst:959
 msgid ""
 "**Usage Example:** Timing a clip's appearance to coincide with specific "
 "events in the project."
 msgstr "**使用例:** プロジェクト内の特定のイベントに合わせてクリップの表示タイミングを調整します。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:881
+#: ../clips.rst:960
 msgid ""
 "**Tip:** Adjust the position to synchronize clips with audio cues or visual "
 "elements."
 msgstr "**ヒント:** クリップを音声キューや視覚要素と同期させるために位置を調整します。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:887
+#: ../clips.rst:966
 msgid ""
 "The :guilabel:`Rotation` property is a key-frame curve that controls the "
 "rotation angle of the clip, ranging from -360 to 360 degrees. You can rotate"
@@ -3394,21 +3597,21 @@ msgstr ""
 " :ref:`clip_transform_ref` を参照してください。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:891
+#: ../clips.rst:970
 msgid ""
 "**Usage Example:** Simulating a spinning effect by animating the rotation "
 "curve."
 msgstr "**使用例:** 回転カーブをアニメーション化して回転効果をシミュレートします。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:892
+#: ../clips.rst:971
 msgid ""
 "**Tip:** Use this property creatively for effects like rotating text or "
 "emulating camera movement."
 msgstr "**ヒント:** テキストの回転やカメラの動きを模倣するなど、創造的な効果にこのプロパティを使用してください。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:893
+#: ../clips.rst:972
 msgid ""
 "**Tip:** In the preview transform tool, hold :kbd:`Ctrl` or :kbd:`Shift` "
 "while rotating to snap to 15-degree increments."
@@ -3417,7 +3620,7 @@ msgstr ""
 "を押し続けると、15度単位でスナップします。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:894
+#: ../clips.rst:973
 msgid ""
 "**Tip:** Experiment with rotating your video at different angles, not just "
 "90 or 180 degrees. Sometimes a slight tilt or a specific angle can add "
@@ -3428,7 +3631,7 @@ msgstr ""
 "90度や180度だけでなく、さまざまな角度でビデオを回転させてみてください。わずかな傾きや特定の角度が、特に芸術的または物語的な目的でビデオに創造的な魅力を加えることがあります。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:895
+#: ../clips.rst:974
 msgid ""
 "**Tip:** After rotating your video, you might end up with black bars around "
 "the edges. Consider cropping and resizing the video to eliminate these bars "
@@ -3438,7 +3641,7 @@ msgstr ""
 "ビデオを回転させた後、端に黒いバーができることがあります。これらのバーを取り除き、きれいで洗練された見た目を保つために、クロップやリサイズを検討してください。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:896
+#: ../clips.rst:975
 msgid ""
 "**Tip:** If you're dealing with vertical videos that are meant to be watched"
 " on horizontal screens, rotate them by 90 degrees and then scale them up to "
@@ -3449,7 +3652,7 @@ msgstr ""
 "横向きの画面で視聴する縦型ビデオの場合は、90度回転させてからフレームいっぱいに拡大してください。こうすることで、縦型ビデオが画面のより多くの領域を占めます。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:897
+#: ../clips.rst:976
 msgid ""
 "**Tip:** If the horizon in your video appears slanted due to camera tilt, "
 "use rotation to level it. This is particularly important for landscape shots"
@@ -3459,7 +3662,7 @@ msgstr ""
 "カメラの傾きで地平線が斜めに見える場合は、回転を使って水平に調整してください。これは特に風景ショットで、プロフェッショナルで視覚的に美しい見た目を保つために重要です。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:903
+#: ../clips.rst:982
 msgid ""
 "The :guilabel:`Scale` property is the initial resizing or scaling method "
 "used to display the picture of a clip, which may be further adjusted by the "
@@ -3474,7 +3677,7 @@ msgstr ""
 "を参照）。プロジェクトのプロファイルと同じアスペクト比のアセットを使用することを推奨します。これにより、多くのリサイズ方法でクリップを画面サイズまで完全にスケールアップでき、端に黒いバーが追加されません。スケール方法は以下の通りです:"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:908
+#: ../clips.rst:987
 msgid ""
 "**Best Fit** (default) – The clip is as large as possible without changing "
 "the aspect ratio. This might result in black bars on certain sides of the "
@@ -3484,7 +3687,7 @@ msgstr ""
 "アスペクト比を変更せずにクリップを可能な限り大きく表示します。アスペクト比がプロジェクトサイズと完全に一致しない場合、画像の一部に黒いバーが表示されることがあります。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:909
+#: ../clips.rst:988
 msgid ""
 "**Crop** – The aspect ratio of the clip is maintained while the clip is "
 "enlarged to fill the entire screen, even if that means some of it will be "
@@ -3496,7 +3699,7 @@ msgstr ""
 "クリップのアスペクト比を維持しつつ、画面全体を埋めるようにクリップを拡大します。これにより画像の周囲の黒いバーは防げますが、クリップのアスペクト比がプロジェクトサイズと一致しない場合、画像の一部が切り取られます。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:910
+#: ../clips.rst:989
 msgid ""
 "**None** – The clip is displayed in its original size. This is not "
 "recommended, since the picture will not scale correctly if you change the "
@@ -3506,19 +3709,19 @@ msgstr ""
 "クリップは元のサイズで表示されます。プロジェクトのプロファイル（またはサイズ）を変更した場合、画像が正しくスケールされないため推奨されません。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:911
+#: ../clips.rst:990
 msgid ""
 "**Stretch** – The clip is stretched to fill the entire screen, changing the "
 "aspect ratio if necessary."
 msgstr "**ストレッチ**– 必要に応じてアスペクト比を変更し、クリップを画面全体に引き伸ばします。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:916
+#: ../clips.rst:995
 msgid "Scale X and Scale Y"
 msgstr "スケール X と スケール Y"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:917
+#: ../clips.rst:996
 msgid ""
 "The :guilabel:`Scale X` and :guilabel:`Scale Y` properties are key-frame "
 "curves that represent horizontal and vertical scaling in percentages, "
@@ -3532,40 +3735,40 @@ msgstr ""
 "を参照してください。OpenShotは、クラッシュやパフォーマンス問題を防ぐために、ファイルタイプとプロジェクトサイズに基づいて最大スケール値を制限します。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:921
+#: ../clips.rst:1000
 msgid ""
 "**Usage Example:** Creating a zoom-in effect by animating the Scale X and "
 "Scale Y curves simultaneously."
 msgstr "**使用例:** スケール X とスケール Y のカーブを同時にアニメーション化してズームイン効果を作成します。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:922
+#: ../clips.rst:1001
 msgid ""
 "**Tip:** Scale the image larger than the screen, only revealing a portion of"
 " the video. This is a simple way to crop a portion of the video."
 msgstr "**ヒント:** 画面より大きく画像をスケールし、ビデオの一部だけを表示します。これはビデオの一部を簡単にクロップする方法です。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:923
+#: ../clips.rst:1002
 msgid ""
 "**Tip:** Scale the horizontal and vertical elements separately, to squash "
 "and stretch the image in fun ways."
 msgstr "**ヒント:** 水平方向と垂直方向の要素を別々にスケールして、画像を面白い方法で潰したり伸ばしたりします。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:924
+#: ../clips.rst:1003
 msgid ""
 "**Tip:** Combine scaling with rotation and location properties for dynamic "
 "transformations."
 msgstr "**ヒント:** スケーリングを回転や位置のプロパティと組み合わせて、動的な変形を作成します。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:927
+#: ../clips.rst:1006
 msgid "Shear X and Shear Y"
 msgstr "シアー X と シアー Y"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:928
+#: ../clips.rst:1007
 msgid ""
 "The :guilabel:`Shear X` and :guilabel:`Shear Y` properties are key-frame "
 "curves that represent X and Y shear angles in degrees, respectively. See "
@@ -3577,20 +3780,20 @@ msgstr ""
 "を参照してください。OpenShotは、クラッシュやパフォーマンス問題を防ぐために、ファイルタイプとプロジェクトサイズに基づいて最大シアー値を制限します。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:932
+#: ../clips.rst:1011
 msgid ""
 "**Usage Example:** Adding a dynamic tilt effect to a clip by animating the "
 "shear angles."
 msgstr "**使用例:** シアー角度をアニメーション化してクリップに動的な傾き効果を追加します。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:933
+#: ../clips.rst:1012
 msgid ""
 "**Tip:** Use shear properties for creating slanted or skewed animations."
 msgstr "**ヒント:** 傾斜や歪んだアニメーションを作成するためにシアーのプロパティを使用してください。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:937
+#: ../clips.rst:1016
 msgid ""
 "The :guilabel:`Start` property defines the trimming point at the beginning "
 "of the clip in seconds. Changing this property will impact the "
@@ -3601,20 +3804,20 @@ msgstr ""
 "プロパティに影響します。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:940
+#: ../clips.rst:1019
 msgid ""
 "**Usage Example:** Removing the initial portion of a clip to focus on a "
 "specific scene or moment."
 msgstr "**使用例:** クリップの最初の部分を削除して、特定のシーンや瞬間に焦点を当てます。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:941
+#: ../clips.rst:1020
 msgid ""
 "**Tip:** Utilize the \"Start\" property in combination with the \"End\" "
 "property for precise clip trimming."
 msgstr "**ヒント:** 正確なクリップのトリミングには、\\\"開始\\\" プロパティと \\\"終了\\\" プロパティを組み合わせて使用してください。"
 
-#: ../clips.rst:947
+#: ../clips.rst:1026
 msgid ""
 "The :guilabel:`Time` property is a key-frame curve that represents frames "
 "played over time, affecting the speed and direction of the video. You can "
@@ -3635,7 +3838,7 @@ msgstr ""
 "ツールバーのボタンを使い、クリップの端をドラッグしてインタラクティブに行うこともできます。OpenShotは必要な時間キーフレームを追加し、他のすべてのキーフレームを自動的にスケーリングします。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:954
+#: ../clips.rst:1033
 msgid ""
 "Optionally, you can manually set key-frame values for the :guilabel:`Time` "
 "property. The value represents the `frame number` at the position of the "
@@ -3656,7 +3859,7 @@ msgstr ""
 " X 24.0 プロジェクトFPS = 1128 総フレーム数`` ）。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:962
+#: ../clips.rst:1041
 msgid ""
 "This allows for some very complex scenarios, such as jump cutting inside a "
 "clip, reversing a portion of a clip, slowing down a portion of a clip, "
@@ -3667,21 +3870,21 @@ msgstr ""
 " :ref:`animation_ref` を参照してください。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:966
+#: ../clips.rst:1045
 msgid ""
 "**Usage Example:** Creating a slow-motion or time-lapse effect by modifying "
 "the time curve."
 msgstr "**使用例:** 時間カーブを変更してスローモーションやタイムラプス効果を作成する。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:967
+#: ../clips.rst:1046
 msgid ""
 "**Tip:** Adjust the \"Time\" property to control video playback speed for "
 "dramatic visual impact."
 msgstr "**ヒント:** 劇的な視覚効果のために、ビデオ再生速度を制御するには「Time」プロパティを調整してください。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:973
+#: ../clips.rst:1052
 msgid ""
 "The :guilabel:`Volume` property is a key-frame curve that controls audio "
 "volume or level, ranging from 0 (mute) to 1 (full volume). For automatic "
@@ -3692,7 +3895,7 @@ msgstr ""
 ":ref:`clip_volume_mixing_ref` を参照してください。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:976
+#: ../clips.rst:1055
 msgid ""
 "**Usage Example:** Gradually fading out background music as dialogue becomes"
 " more prominent, or increasing or lowering the volume of a clip."
@@ -3700,13 +3903,13 @@ msgstr ""
 "**使用例:** ダイアログが目立つようになるにつれてバックグラウンドミュージックを徐々にフェードアウトしたり、クリップの音量を上げたり下げたりする。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:977
+#: ../clips.rst:1056
 msgid ""
 "**Tip:** Combine multiple volume key-frames for nuanced audio adjustments, "
 "such as ducking the level of the music when dialog is spoken."
 msgstr "**ヒント:** 複数の音量キーフレームを組み合わせて、ダイアログが話されるときに音楽のレベルを下げるなど、微妙な音声調整を行う。"
 
-#: ../clips.rst:978
+#: ../clips.rst:1057
 msgid ""
 "**Tip:** For **quickly** adjusting the volume of a clip you can use the "
 ":guilabel:`Audio → Volume` menu. See :ref:`clip_presets_ref`."
@@ -3715,48 +3918,48 @@ msgstr ""
 ":ref:`clip_presets_ref` を参照してください。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:982
+#: ../clips.rst:1061
 msgid ""
 "The :guilabel:`Wave Color` property is a key-frame curve that represents the"
 " color of the audio waveform visualization."
 msgstr ":guilabel:`Wave Color` プロパティは、オーディオ波形の可視化の色を表すキーフレームカーブです。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:984
+#: ../clips.rst:1063
 msgid ""
 "**Usage Example:** Matching the waveform color to the project's overall "
 "visual theme."
 msgstr "**使用例:** 波形の色をプロジェクトの全体的なビジュアルテーマに合わせる。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:985
+#: ../clips.rst:1064
 msgid ""
 "**Tip:** Experiment with different colors to enhance the visual appeal of "
 "the waveform or animate the color over time."
 msgstr "**ヒント:** 波形の視覚的魅力を高めるために異なる色を試したり、色を時間経過でアニメーションさせたりする。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:989
+#: ../clips.rst:1068
 msgid ""
 "The :guilabel:`Waveform` property is a boolean that determines whether a "
 "waveform visualization is used instead of the clip's image."
 msgstr ":guilabel:`Waveform` プロパティはブール値で、クリップの画像の代わりに波形の可視化を使用するかどうかを決定します。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:991
+#: ../clips.rst:1070
 msgid ""
 "**Usage Example:** Displaying an audio waveform in place of the video for "
 "visually highlighting audio patterns."
 msgstr "**使用例:** 音声パターンを視覚的に強調するために、ビデオの代わりにオーディオ波形を表示する。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:992
+#: ../clips.rst:1071
 msgid ""
 "**Tip:** Use waveform visualization for emphasizing music beats or voice "
 "modulations."
 msgstr "**ヒント:** 音楽のビートや声の変調を強調するために波形の可視化を使用する。"
 
-#: ../clips.rst:996
+#: ../clips.rst:1075
 msgid ""
 "The :guilabel:`Waveform Mode` property controls the visualization style used"
 " when :guilabel:`Waveform` is enabled. It uses the same choices as the "
@@ -3769,13 +3972,13 @@ msgstr ""
 ":guilabel:`Visualization` プロパティと同じ選択肢を使用します：Waveform、Filled "
 "Waveform、Bars、Radial、Radial Bars、Spectrum、Phase Scope、Particles、VU Meter。"
 
-#: ../clips.rst:1000
+#: ../clips.rst:1079
 msgid ""
 "**Usage Example:** Switching an audio-only clip from a standard waveform to "
 "bars or a spectrum display."
 msgstr "**使用例:** オーディオのみのクリップを標準の波形表示からバー表示やスペクトラム表示に切り替える。"
 
-#: ../clips.rst:1001
+#: ../clips.rst:1080
 msgid ""
 "**Tip:** Use :guilabel:`Wave Color` with :guilabel:`Waveform Mode` to tune "
 "both the visualization style and color."
@@ -3784,14 +3987,23 @@ msgstr ""
 "を使って、視覚化スタイルと色の両方を調整してください。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:1004
+#: ../clips.rst:1083
 msgid "More Information"
 msgstr "詳細情報"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:1005
+#: ../clips.rst:1084
 msgid "For more info on key frames and animation, see :ref:`animation_ref`."
 msgstr "キーフレームとアニメーションの詳細については :ref:`animation_ref` を参照してください。"
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "The :guilabel:`razor tool` from the **Timeline Toolbar** cuts a clip at the "
+#~ "position where it is clicked. Use :kbd:`SHIFT` to slice and keep the left "
+#~ "side, or :kbd:`CTRL` to keep the right side."
+#~ msgstr ""
+#~ "**タイムラインツールバー** の :guilabel:`レイザーツール` は、クリックした位置でクリップをカットします。:kbd:`SHIFT` "
+#~ "を使うと左側を保持してスライスし、:kbd:`CTRL` を使うと右側を保持します。"
 
 # Translated with gpt-4.1-mini
 #~ msgid ""

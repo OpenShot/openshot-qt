@@ -1063,7 +1063,9 @@ def _patch_enums_for_qt6():
     if QEvent:
         event_type = getattr(QEvent, "Type", None)
         if event_type:
-            for name in ("ShortcutOverride", "Resize", "Paint", "KeyPress", "MouseButtonPress", "MouseButtonRelease", "Close", "Hide", "Show"):
+            for name in ("ShortcutOverride", "Resize", "Paint", "KeyPress", "MouseButtonPress",
+                         "MouseButtonRelease", "MouseMove", "Wheel", "TouchBegin", "TouchUpdate",
+                         "WindowActivate", "DeferredDelete", "Close", "Hide", "Show"):
                 if hasattr(event_type, name) and not hasattr(QEvent, name):
                     try:
                         setattr(QEvent, name, getattr(event_type, name))

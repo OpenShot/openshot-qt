@@ -1,0 +1,1898 @@
+[
+  {
+    "language": "ar",
+    "source": "&File",
+    "current": "& ملف",
+    "proposed": "&ملف",
+    "kind": "correction",
+    "rationale": "Remove the space after the Qt mnemonic marker so it targets a letter."
+  },
+  {
+    "language": "ar",
+    "source": "Add Marker",
+    "current": "إضافة إشارة مرجعية",
+    "proposed": "إضافة علامة",
+    "kind": "consistency",
+    "rationale": "Use the same marker noun as Previous/Next Marker; this adds a timeline marker, not a bookmark."
+  },
+  {
+    "language": "ar",
+    "source": "Center on Playhead",
+    "current": "الضَّبط على المُشير",
+    "proposed": "توسيط على مؤشر التشغيل",
+    "kind": "correction",
+    "rationale": "Express a centering action and identify the playback indicator."
+  },
+  {
+    "language": "ar",
+    "source": "Center the timeline on the Playhead",
+    "current": "تعيين خط الزمان على المُشير",
+    "proposed": "توسيط شريط الوقت على مؤشر التشغيل",
+    "kind": "correction",
+    "rationale": "Describe centering, not assigning; retain the existing Timeline noun."
+  },
+  {
+    "language": "ar",
+    "source": "Pan timeline",
+    "current": "تحريك الجدول الزمني",
+    "proposed": "تحريك شريط الوقت",
+    "kind": "consistency",
+    "rationale": "Use the same timeline term as the dock heading."
+  },
+  {
+    "language": "ar",
+    "source": "Captions",
+    "current": "التعليقات",
+    "proposed": "التسميات التوضيحية",
+    "kind": "correction",
+    "rationale": "Comments is the wrong sense here; match the caption toolbar's terminology."
+  },
+  {
+    "language": "ar",
+    "source": "Insert Caption",
+    "current": "إدراج عنوان",
+    "proposed": "إدراج تسمية توضيحية",
+    "kind": "correction",
+    "rationale": "Inserts a timed caption cue, not a title."
+  },
+  {
+    "language": "ar",
+    "source": "Enter caption text...",
+    "current": "أدخل نص التسمية...",
+    "proposed": "أدخل نص التسمية التوضيحية...",
+    "kind": "consistency",
+    "rationale": "Use the same full caption term as the dock and insertion command."
+  },
+  {
+    "language": "ar",
+    "source": "Recording",
+    "current": "جارٍ التسجيل",
+    "proposed": "التسجيل",
+    "kind": "correction",
+    "rationale": "A dock title must not claim that recording is already in progress."
+  },
+  {
+    "language": "ar",
+    "source": "Transition",
+    "current": "شكل انتقالي",
+    "proposed": "انتقال",
+    "kind": "correction",
+    "rationale": "Match the plural dock heading and hover prefix without adding shape."
+  },
+  {
+    "language": "bn",
+    "source": "Center on Playhead",
+    "current": "প্লেহেডের কেন্দ্রে",
+    "proposed": "প্লেহেডে কেন্দ্র করুন",
+    "kind": "correction",
+    "rationale": "Use an action rather than a location phrase."
+  },
+  {
+    "language": "bn",
+    "source": "Click: center · Drag: zoom",
+    "current": "ক্লিক: কেন্দ্র · ড্র্যাগ: জুম",
+    "proposed": "ক্লিক: কেন্দ্রে আনুন · ড্র্যাগ: জুম করুন",
+    "kind": "correction",
+    "rationale": "Both halves describe actions; center is currently only a noun."
+  },
+  {
+    "language": "bn",
+    "source": "Effect: %s",
+    "current": "এফেক্ট: %s",
+    "proposed": "ইফেক্ট: %s",
+    "kind": "consistency",
+    "rationale": "Match the spelling already used in Effect and Effects."
+  },
+  {
+    "language": "bn",
+    "source": "Property",
+    "current": "সম্পত্তি",
+    "proposed": "বৈশিষ্ট্য",
+    "kind": "correction",
+    "rationale": "This is an editable attribute, not a possession; match Properties."
+  },
+  {
+    "language": "bn",
+    "source": "Thumb",
+    "current": "নমুনা",
+    "proposed": "থাম্বনেইল",
+    "kind": "correction",
+    "rationale": "The column contains thumbnails, not generic samples."
+  },
+  {
+    "language": "bn",
+    "source": "Save Project As...",
+    "current": "প্রকল্প হিসাবে সংরক্ষণ করুন...",
+    "proposed": "প্রকল্প অন্য নামে সংরক্ষণ করুন...",
+    "kind": "correction",
+    "rationale": "Make saving under another name explicit; current wording reads save as a project."
+  },
+  {
+    "language": "zh-hans",
+    "source": "Center the timeline on the Playhead",
+    "current": "时间线放在播放区顶",
+    "proposed": "将时间线居中到播放指针位置",
+    "kind": "correction",
+    "rationale": "The current text says to put the timeline at the top of the playback area."
+  },
+  {
+    "language": "zh-hans",
+    "source": "Enable Timing",
+    "current": "启用计时",
+    "proposed": "启用变速工具",
+    "kind": "correction",
+    "rationale": "Dragging clip edges changes playback speed; it does not enable a timer."
+  },
+  {
+    "language": "zh-hans",
+    "source": "Disable Timing",
+    "current": "禁用定时",
+    "proposed": "禁用变速工具",
+    "kind": "correction",
+    "rationale": "Use the same retiming term as the enabled state, not scheduled operation."
+  },
+  {
+    "language": "zh-hans",
+    "source": "Clip",
+    "current": "剪辑(_C)",
+    "proposed": "剪辑",
+    "kind": "correction",
+    "rationale": "Remove a literal GTK-style underscore mnemonic from the clip fallback label."
+  },
+  {
+    "language": "zh-hans",
+    "source": "Property",
+    "current": "属性(_P)",
+    "proposed": "属性",
+    "kind": "correction",
+    "rationale": "Remove a literal underscore mnemonic from the property column heading."
+  },
+  {
+    "language": "zh-hans",
+    "source": "Effects",
+    "current": "特效(_E)",
+    "proposed": "特效",
+    "kind": "correction",
+    "rationale": "Qt does not interpret the imported (_E) mnemonic syntax."
+  },
+  {
+    "language": "zh-hans",
+    "source": "Donate",
+    "current": "捐赠(_D)",
+    "proposed": "捐赠",
+    "kind": "correction",
+    "rationale": "Remove the literal GTK-style mnemonic suffix."
+  },
+  {
+    "language": "zh-hans",
+    "source": "Effect",
+    "current": "效果",
+    "proposed": "特效",
+    "kind": "consistency",
+    "rationale": "Match the Effects dock heading."
+  },
+  {
+    "language": "zh-hans",
+    "source": "Effect: %s",
+    "current": "效果：%s",
+    "proposed": "特效：%s",
+    "kind": "consistency",
+    "rationale": "Match the Effects dock heading."
+  },
+  {
+    "language": "zh-hans",
+    "source": "Open Project",
+    "current": "打开工程",
+    "proposed": "打开项目",
+    "kind": "consistency",
+    "rationale": "Match New Project and Open Project...; the same action should use the same noun."
+  },
+  {
+    "language": "zh-hans",
+    "source": "Save Project",
+    "current": "保存工程",
+    "proposed": "保存项目",
+    "kind": "consistency",
+    "rationale": "Use the same project term as New Project and Save Project As...."
+  },
+  {
+    "language": "zh-hans",
+    "source": "Project Files",
+    "current": "工程文件",
+    "proposed": "项目文件",
+    "kind": "correction",
+    "rationale": "Keep the project noun consistent across the primary workspace."
+  },
+  {
+    "language": "zh-hans",
+    "source": "Rewind",
+    "current": "倒序",
+    "proposed": "快退",
+    "kind": "correction",
+    "rationale": "This is backward playback, not reversing the ordering of items."
+  },
+  {
+    "language": "zh-hans",
+    "source": "Recording",
+    "current": "录制中",
+    "proposed": "录制",
+    "kind": "correction",
+    "rationale": "The dock supports microphone, screen, and webcam capture. Use a feature name covering audio and video, not an active-recording status or audio-only term."
+  },
+  {
+    "language": "zh-hans",
+    "source": "Transition",
+    "current": "转场特效",
+    "proposed": "转场",
+    "kind": "correction",
+    "rationale": "Use one established editing term across the dock and hover text."
+  },
+  {
+    "language": "zh-hans",
+    "source": "Transitions",
+    "current": "过渡",
+    "proposed": "转场",
+    "kind": "correction",
+    "rationale": "Match Transition: %s, which already uses the video-editing term."
+  },
+  {
+    "language": "zh-hant",
+    "source": "Clip: %s",
+    "current": "剪輯：%s",
+    "proposed": "片段：%s",
+    "kind": "correction",
+    "rationale": "Match the Clip fallback noun rather than switching terminology on hover."
+  },
+  {
+    "language": "zh-hant",
+    "source": "Effect: %s",
+    "current": "效果：%s",
+    "proposed": "特效：%s",
+    "kind": "consistency",
+    "rationale": "Match Effect and the Effects dock heading."
+  },
+  {
+    "language": "zh-hant",
+    "source": "Lock track",
+    "current": "鎖定軌道",
+    "proposed": "鎖定影音軌",
+    "kind": "consistency",
+    "rationale": "Match Add Track and Track %s."
+  },
+  {
+    "language": "zh-hant",
+    "source": "Unlock track",
+    "current": "解鎖軌道",
+    "proposed": "解鎖影音軌",
+    "kind": "consistency",
+    "rationale": "Match Add Track and Track %s."
+  },
+  {
+    "language": "zh-hant",
+    "source": "Enable Timing",
+    "current": "啟用計時",
+    "proposed": "啟用變速工具",
+    "kind": "correction",
+    "rationale": "This changes clip speed instead of running a timer."
+  },
+  {
+    "language": "zh-hant",
+    "source": "Disable Timing",
+    "current": "停用計時",
+    "proposed": "停用變速工具",
+    "kind": "correction",
+    "rationale": "Use the same retiming term as the enabled state."
+  },
+  {
+    "language": "zh-hant",
+    "source": "Recording",
+    "current": "錄製中",
+    "proposed": "錄製",
+    "kind": "correction",
+    "rationale": "The dock supports microphone, screen, and webcam capture. Use a feature name covering audio and video, not an active-recording status or audio-only term."
+  },
+  {
+    "language": "zh-hant",
+    "source": "Title",
+    "current": "標題或字幕",
+    "proposed": "標題",
+    "kind": "correction",
+    "rationale": "The Title menu creates titles; adding or subtitles blurs the separate Captions feature."
+  },
+  {
+    "language": "zh-hant",
+    "source": "Caption Toolbar",
+    "current": "字幕工具欄",
+    "proposed": "字幕工具列",
+    "kind": "consistency",
+    "rationale": "Match the existing Toolbar term 工具列."
+  },
+  {
+    "language": "hr",
+    "source": "Center on Playhead",
+    "current": "Centriraj na crtu trenutačne pozicije ili kadra",
+    "proposed": "Centriraj na pokazivač reprodukcije",
+    "kind": "correction",
+    "rationale": "Replace the long explanatory phrase with a concise playback-position term."
+  },
+  {
+    "language": "hr",
+    "source": "Center the timeline on the Playhead",
+    "current": "Centriraj vremensku crtu na crtu trenutačne pozicije ili kadra",
+    "proposed": "Centriraj vremensku crtu na pokazivač reprodukcije",
+    "kind": "correction",
+    "rationale": "Use the same concise playhead term as the action."
+  },
+  {
+    "language": "hr",
+    "source": "Enable Timing",
+    "current": "Aktiviraj mjerenje vremena",
+    "proposed": "Aktiviraj promjenu brzine",
+    "kind": "correction",
+    "rationale": "The tool retimes clips; it does not measure elapsed time."
+  },
+  {
+    "language": "hr",
+    "source": "Disable Timing",
+    "current": "Deaktiviraj mjerenje vremena",
+    "proposed": "Deaktiviraj promjenu brzine",
+    "kind": "correction",
+    "rationale": "Keep the enabled and disabled retiming states paired."
+  },
+  {
+    "language": "hr",
+    "source": "Lock track",
+    "current": "Zaključaj stazu",
+    "proposed": "Zaključaj traku",
+    "kind": "consistency",
+    "rationale": "Match Add Track and Track %s."
+  },
+  {
+    "language": "hr",
+    "source": "Unlock track",
+    "current": "Otključaj stazu",
+    "proposed": "Otključaj traku",
+    "kind": "consistency",
+    "rationale": "Match Add Track and Track %s."
+  },
+  {
+    "language": "hr",
+    "source": "Insert Caption",
+    "current": "Umetni titl",
+    "proposed": "Umetni podnaslov",
+    "kind": "consistency",
+    "rationale": "Use the same subtitle noun as Captions and its text prompt."
+  },
+  {
+    "language": "hr",
+    "source": "Scopes",
+    "current": "Opsezi",
+    "proposed": "Mjerni instrumenti",
+    "kind": "candidate",
+    "rationale": "Name the measurement instruments rather than ranges; native editor review should settle the preferred short label."
+  },
+  {
+    "language": "nl",
+    "source": "Enable Snapping",
+    "current": "Schuiven inschakelen",
+    "proposed": "Vastklikken inschakelen",
+    "kind": "correction",
+    "rationale": "Snapping aligns clip edges; schuiven means sliding. Kdenlive also calls this vastklikken."
+  },
+  {
+    "language": "nl",
+    "source": "Disable Snapping",
+    "current": "Schuiven uitschakelen",
+    "proposed": "Vastklikken uitschakelen",
+    "kind": "correction",
+    "rationale": "Use the same snapping term in both states."
+  },
+  {
+    "language": "nl",
+    "source": "Click: center · Drag: zoom",
+    "current": "Klik: centrum · Sleep: zoom",
+    "proposed": "Klik: centreren · Sleep: zoomen",
+    "kind": "correction",
+    "rationale": "Use actions rather than the noun centrum."
+  },
+  {
+    "language": "nl",
+    "source": "Pan timeline",
+    "current": "Schuif tijdlijn",
+    "proposed": "Tijdbalk verschuiven",
+    "kind": "consistency",
+    "rationale": "Match the existing Timeline heading and use an infinitive like other commands."
+  },
+  {
+    "language": "nl",
+    "source": "Audio Levels",
+    "current": "Audiovolumes",
+    "proposed": "Audioniveaus",
+    "kind": "correction",
+    "rationale": "Meters show signal levels, not volume-control settings."
+  },
+  {
+    "language": "nl",
+    "source": "Captions",
+    "current": "Bijschriften",
+    "proposed": "Ondertitels",
+    "kind": "correction",
+    "rationale": "The editor handles timed subtitle cues rather than image captions."
+  },
+  {
+    "language": "nl",
+    "source": "Caption Toolbar",
+    "current": "Bijschrift-werkbalk",
+    "proposed": "Ondertitelwerkbalk",
+    "kind": "correction",
+    "rationale": "Use the same timed-subtitle term as the dock."
+  },
+  {
+    "language": "nl",
+    "source": "Insert Caption",
+    "current": "Bijschrift invoegen",
+    "proposed": "Ondertitel invoegen",
+    "kind": "correction",
+    "rationale": "Use the same subtitle term as the dock."
+  },
+  {
+    "language": "nl",
+    "source": "Enter caption text...",
+    "current": "Tekst voor bijschrift invoeren...",
+    "proposed": "Ondertiteltekst invoeren...",
+    "kind": "correction",
+    "rationale": "Use the same subtitle term as the dock."
+  },
+  {
+    "language": "fr",
+    "source": "Captions",
+    "current": "Légendes",
+    "proposed": "Sous-titres",
+    "kind": "correction",
+    "rationale": "This dock edits timed subtitles; légendes suggests image captions."
+  },
+  {
+    "language": "fr",
+    "source": "Caption Toolbar",
+    "current": "Barre d'outils de légende",
+    "proposed": "Barre d’outils des sous-titres",
+    "kind": "correction",
+    "rationale": "Match the timed-subtitle term used for the dock."
+  },
+  {
+    "language": "fr",
+    "source": "Insert Caption",
+    "current": "Insérer une légende",
+    "proposed": "Insérer un sous-titre",
+    "kind": "correction",
+    "rationale": "Inserts a timed subtitle cue, not a picture legend."
+  },
+  {
+    "language": "fr",
+    "source": "Enter caption text...",
+    "current": "Saisir le texte de légende...",
+    "proposed": "Saisir le texte du sous-titre...",
+    "kind": "correction",
+    "rationale": "Match the dock and insertion action."
+  },
+  {
+    "language": "fr",
+    "source": "Contents",
+    "current": "Contenus",
+    "proposed": "Sommaire",
+    "kind": "correction",
+    "rationale": "This opens the help table of contents, not generic content items."
+  },
+  {
+    "language": "fr",
+    "source": "Center the timeline on the Playhead",
+    "current": "Centrer la ligne du temps sur la tête de lecture",
+    "proposed": "Centrer la ligne de temps sur la tête de lecture",
+    "kind": "consistency",
+    "rationale": "Match the existing Timeline heading exactly."
+  },
+  {
+    "language": "fr",
+    "source": "Pan timeline",
+    "current": "Déplacer la timeline",
+    "proposed": "Déplacer la ligne de temps",
+    "kind": "correction",
+    "rationale": "Avoid changing from the localized dock name to English in its tooltip."
+  },
+  {
+    "language": "fi",
+    "source": "Caption Toolbar",
+    "current": "Tekstitys työkalupalkki",
+    "proposed": "Tekstitystyökalupalkki",
+    "kind": "correction",
+    "rationale": "Use a correctly formed Finnish compound for the subtitle toolbar."
+  },
+  {
+    "language": "fi",
+    "source": "Enter caption text...",
+    "current": "Kirjoita otsikkoteksti...",
+    "proposed": "Kirjoita tekstitysteksti...",
+    "kind": "correction",
+    "rationale": "This is subtitle text, not title text."
+  },
+  {
+    "language": "fi",
+    "source": "Center on Playhead",
+    "current": "Keskellä toistopaikkaa",
+    "proposed": "Keskitä toistopaikkaan",
+    "kind": "correction",
+    "rationale": "Use an action instead of in the middle of the playback position."
+  },
+  {
+    "language": "fi",
+    "source": "Effect: %s",
+    "current": "Efekti: %s",
+    "proposed": "Tehoste: %s",
+    "kind": "consistency",
+    "rationale": "Match Effect and Effects."
+  },
+  {
+    "language": "fi",
+    "source": "Color View",
+    "current": "Väri-näkymä",
+    "proposed": "Värinäkymä",
+    "kind": "correction",
+    "rationale": "Use the normal compound without an unnecessary hyphen."
+  },
+  {
+    "language": "fi",
+    "source": "Vectorscope",
+    "current": "Vektoriaaltomuoto",
+    "proposed": "Vektoriskooppi",
+    "kind": "correction",
+    "rationale": "A vectorscope is an instrument, not a vector waveform."
+  },
+  {
+    "language": "fi",
+    "source": "Enable Snapping",
+    "current": "Ota napsauttaminen käyttöön",
+    "proposed": "Ota kohdistus käyttöön",
+    "kind": "candidate",
+    "rationale": "Napsauttaminen means clicking; the tool enables magnetic alignment. Confirm the preferred local snapping term."
+  },
+  {
+    "language": "fi",
+    "source": "Disable Snapping",
+    "current": "Poista napsauttaminen käytöstä",
+    "proposed": "Poista kohdistus käytöstä",
+    "kind": "candidate",
+    "rationale": "Pair with the proposed magnetic-alignment term."
+  },
+  {
+    "language": "de",
+    "source": "Enable Razor",
+    "current": "Radierer aktivieren",
+    "proposed": "Rasierklinge aktivieren",
+    "kind": "correction",
+    "rationale": "Radierer is an eraser; this tool splits clips. Adobe uses Rasierklinge for this tool."
+  },
+  {
+    "language": "de",
+    "source": "Disable Razor",
+    "current": "Radierer deaktivieren",
+    "proposed": "Rasierklinge deaktivieren",
+    "kind": "correction",
+    "rationale": "Use the same cutting-tool term in both states."
+  },
+  {
+    "language": "de",
+    "source": "Captions",
+    "current": "Beschriftungen",
+    "proposed": "Untertitel",
+    "kind": "correction",
+    "rationale": "The dock edits timed subtitle cues, not generic labels."
+  },
+  {
+    "language": "de",
+    "source": "Caption Toolbar",
+    "current": "Beschriftungs-Symbolleiste",
+    "proposed": "Untertitel-Werkzeugleiste",
+    "kind": "consistency",
+    "rationale": "Use the subtitle term and match the existing Toolbar noun."
+  },
+  {
+    "language": "de",
+    "source": "Insert Caption",
+    "current": "Beschriftung einfügen",
+    "proposed": "Untertitel einfügen",
+    "kind": "correction",
+    "rationale": "The action inserts a timed subtitle cue."
+  },
+  {
+    "language": "de",
+    "source": "Enter caption text...",
+    "current": "Beschriftungstext eingeben …",
+    "proposed": "Untertiteltext eingeben …",
+    "kind": "correction",
+    "rationale": "Match the subtitle dock and insertion action."
+  },
+  {
+    "language": "de",
+    "source": "Center the timeline on the Playhead",
+    "current": "Zeitleiste auf Abspiel-Cursor zentrieren",
+    "proposed": "Zeitleiste auf Abspielkopf zentrieren",
+    "kind": "correction",
+    "rationale": "Match Center on Playhead rather than switching to Abspiel-Cursor."
+  },
+  {
+    "language": "de",
+    "source": "Pan timeline",
+    "current": "Timeline verschieben",
+    "proposed": "Zeitleiste verschieben",
+    "kind": "consistency",
+    "rationale": "Match the localized Timeline dock name."
+  },
+  {
+    "language": "de",
+    "source": "Property",
+    "current": "Merkmal",
+    "proposed": "Eigenschaft",
+    "kind": "correction",
+    "rationale": "Use the singular of the existing Properties term."
+  },
+  {
+    "language": "hi",
+    "source": "Clear",
+    "current": "स्पष्ट",
+    "proposed": "साफ़ करें",
+    "kind": "correction",
+    "rationale": "The current word means clear as an adjective, not the clearing command."
+  },
+  {
+    "language": "hi",
+    "source": "Thumb",
+    "current": "अंगूठा",
+    "proposed": "थंबनेल",
+    "kind": "correction",
+    "rationale": "The column contains thumbnail images, not a thumb on a hand."
+  },
+  {
+    "language": "hi",
+    "source": "Property",
+    "current": "संपत्ति",
+    "proposed": "विशेषता",
+    "kind": "correction",
+    "rationale": "Use the singular of Properties; this is an attribute, not owned property."
+  },
+  {
+    "language": "hi",
+    "source": "Value",
+    "current": "मूल्य",
+    "proposed": "मान",
+    "kind": "correction",
+    "rationale": "This column shows an attribute value, not a price."
+  },
+  {
+    "language": "hi",
+    "source": "Open Project",
+    "current": "खुले परियोजना",
+    "proposed": "प्रोजेक्ट खोलें",
+    "kind": "correction",
+    "rationale": "Fix the grammar and use the project term already used by import/export."
+  },
+  {
+    "language": "hi",
+    "source": "Open Project...",
+    "current": "परियोजना खोलें...",
+    "proposed": "प्रोजेक्ट खोलें...",
+    "kind": "consistency",
+    "rationale": "Match the same action's tooltip and the chosen project noun."
+  },
+  {
+    "language": "hi",
+    "source": "New Project",
+    "current": "नई परियोजना",
+    "proposed": "नया प्रोजेक्ट",
+    "kind": "consistency",
+    "rationale": "Use one project noun across the main toolbar."
+  },
+  {
+    "language": "hi",
+    "source": "Save Project",
+    "current": "परियोजना को सुरक्षित करो",
+    "proposed": "प्रोजेक्ट सहेजें",
+    "kind": "correction",
+    "rationale": "Use a concise polite command matching the other toolbar actions."
+  },
+  {
+    "language": "hi",
+    "source": "Save Project As...",
+    "current": "परियोजना को यथाकतिथ सहेजें...",
+    "proposed": "प्रोजेक्ट इस नाम से सहेजें...",
+    "kind": "correction",
+    "rationale": "The current wording does not express Save As correctly."
+  },
+  {
+    "language": "hi",
+    "source": "Recent Projects",
+    "current": "हाल ही के परियोजनाएं",
+    "proposed": "हाल के प्रोजेक्ट",
+    "kind": "correction",
+    "rationale": "Fix agreement and match the project noun used in adjacent commands."
+  },
+  {
+    "language": "hi",
+    "source": "Untitled Project",
+    "current": "अनामांकित परियोजना",
+    "proposed": "बिना शीर्षक वाला प्रोजेक्ट",
+    "kind": "correction",
+    "rationale": "Use a clear untitled-project label consistent with the project commands."
+  },
+  {
+    "language": "hi",
+    "source": "Import Files",
+    "current": "फ़ाइलें आयात करे",
+    "proposed": "फ़ाइलें आयात करें",
+    "kind": "correction",
+    "rationale": "Fix the verb spelling to match Import Files...."
+  },
+  {
+    "language": "hi",
+    "source": "Jump To Start",
+    "current": "शुरू से करे",
+    "proposed": "शुरुआत में जाएँ",
+    "kind": "correction",
+    "rationale": "This seeks to the start; it does not start doing the operation again."
+  },
+  {
+    "language": "hi",
+    "source": "Jump To End",
+    "current": "सीधा अंत में जाये",
+    "proposed": "अंत में जाएँ",
+    "kind": "correction",
+    "rationale": "Use the same concise navigation construction as Jump To Start."
+  },
+  {
+    "language": "hi",
+    "source": "Center on Playhead",
+    "current": "प्लेहेड पर केंद्रित कीजिए",
+    "proposed": "प्लेहेड पर केंद्रित करें",
+    "kind": "correction",
+    "rationale": "Match the verb form used by its longer tooltip."
+  },
+  {
+    "language": "hi",
+    "source": "Quit",
+    "current": "छोड़े",
+    "proposed": "बाहर निकलें",
+    "kind": "correction",
+    "rationale": "Match the Quit menu action."
+  },
+  {
+    "language": "hi",
+    "source": "Preferences",
+    "current": "वरीयता",
+    "proposed": "पसंदें",
+    "kind": "consistency",
+    "rationale": "Match the Preferences menu action rather than using a different singular noun."
+  },
+  {
+    "language": "is",
+    "source": "Clip: %s",
+    "current": "Klippa: %s",
+    "proposed": "Myndbútur: %s",
+    "kind": "consistency",
+    "rationale": "Match the existing Clip noun rather than using a cut/clip verb."
+  },
+  {
+    "language": "is",
+    "source": "Lock track",
+    "current": "Læsa lagi",
+    "proposed": "Læsa spori",
+    "kind": "consistency",
+    "rationale": "Match Add Track and Track %s."
+  },
+  {
+    "language": "is",
+    "source": "Unlock track",
+    "current": "Lykja upp lag",
+    "proposed": "Aflæsa spori",
+    "kind": "correction",
+    "rationale": "Use an actual unlock command and the existing track noun; the current wording is malformed."
+  },
+  {
+    "language": "is",
+    "source": "Transition: %s",
+    "current": "Yfirfærsla: %s",
+    "proposed": "Millifærsla: %s",
+    "kind": "consistency",
+    "rationale": "Match the existing Transition and Transitions terms."
+  },
+  {
+    "language": "is",
+    "source": "Luma Waveform",
+    "current": "Luma bylgjulaga",
+    "proposed": "Luma-bylgjuform",
+    "kind": "correction",
+    "rationale": "Name the waveform rather than using the adjective wavy."
+  },
+  {
+    "language": "is",
+    "source": "My Views",
+    "current": "Sýn mín",
+    "proposed": "Mínar sýnir",
+    "kind": "correction",
+    "rationale": "Use a plural possessive matching multiple saved views."
+  },
+  {
+    "language": "is",
+    "source": "Effects",
+    "current": "Sjónhverfingar",
+    "proposed": "Áhrif",
+    "kind": "candidate",
+    "rationale": "Unify the plural dock heading with Effect and its hover prefix; the current term evokes visual illusions although this dock also contains audio effects."
+  },
+  {
+    "language": "id",
+    "source": "Add Track",
+    "current": "Tambah Alur",
+    "proposed": "Tambah Trek",
+    "kind": "correction",
+    "rationale": "Match Track %s and the track-lock controls."
+  },
+  {
+    "language": "id",
+    "source": "Enable Razor",
+    "current": "Aktifkan Razor",
+    "proposed": "Aktifkan Pisau",
+    "kind": "consistency",
+    "rationale": "Use the same cutting-tool noun as Disable Razor."
+  },
+  {
+    "language": "id",
+    "source": "Enable Timing",
+    "current": "Aktifkan Penjadwalan",
+    "proposed": "Aktifkan Pengaturan Kecepatan",
+    "kind": "correction",
+    "rationale": "This retimes playback; penjadwalan means scheduling."
+  },
+  {
+    "language": "id",
+    "source": "Disable Timing",
+    "current": "Nonaktifkan Penjadwalan",
+    "proposed": "Nonaktifkan Pengaturan Kecepatan",
+    "kind": "correction",
+    "rationale": "Use the same playback-speed term as the enabled state."
+  },
+  {
+    "language": "id",
+    "source": "Center the timeline on the Playhead",
+    "current": "Pusatkan linimasa pada Playhead",
+    "proposed": "Pusatkan Garis Waktu pada Playhead",
+    "kind": "consistency",
+    "rationale": "Match the existing Timeline dock noun."
+  },
+  {
+    "language": "id",
+    "source": "Pan timeline",
+    "current": "Geser timeline",
+    "proposed": "Geser Garis Waktu",
+    "kind": "consistency",
+    "rationale": "Match the existing Timeline heading rather than introducing a third name."
+  },
+  {
+    "language": "id",
+    "source": "Click: center · Drag: zoom",
+    "current": "Klik: pusat · Seret: zoom",
+    "proposed": "Klik: pusatkan · Seret: zoom",
+    "kind": "correction",
+    "rationale": "Use the centering verb rather than the noun center."
+  },
+  {
+    "language": "id",
+    "source": "Rewind",
+    "current": "Putar Ulang",
+    "proposed": "Mundur",
+    "kind": "correction",
+    "rationale": "The control plays backward; putar ulang suggests replaying."
+  },
+  {
+    "language": "id",
+    "source": "Recording",
+    "current": "Merekam",
+    "proposed": "Perekaman",
+    "kind": "correction",
+    "rationale": "A dock title should name recording rather than assert the app is recording."
+  },
+  {
+    "language": "id",
+    "source": "Thumb",
+    "current": "Preview (Thumb)",
+    "proposed": "Gambar Mini",
+    "kind": "correction",
+    "rationale": "Name the thumbnail instead of leaving a mixed English abbreviation."
+  },
+  {
+    "language": "id",
+    "source": "Video Preview",
+    "current": "Video Preview",
+    "proposed": "Pratinjau Video",
+    "kind": "correction",
+    "rationale": "Localize the high-visibility dock heading."
+  },
+  {
+    "language": "id",
+    "source": "Insert Caption",
+    "current": "Sisipkan Keterangan",
+    "proposed": "Sisipkan Kapsi",
+    "kind": "correction",
+    "rationale": "Match the Captions dock and text prompt."
+  },
+  {
+    "language": "id",
+    "source": "Scopes",
+    "current": "Cakupan",
+    "proposed": "Skop",
+    "kind": "candidate",
+    "rationale": "Cakupan means coverage/scope in a general sense; a technical instrument label is clearer, subject to local editor terminology review."
+  },
+  {
+    "language": "it",
+    "source": "Caption Toolbar",
+    "current": "Didascalia barra degli strumenti",
+    "proposed": "Barra degli strumenti dei sottotitoli",
+    "kind": "correction",
+    "rationale": "The current phrase reverses the noun relationship; this toolbar edits timed subtitles."
+  },
+  {
+    "language": "it",
+    "source": "Captions",
+    "current": "Didascalie",
+    "proposed": "Sottotitoli",
+    "kind": "correction",
+    "rationale": "The editor manages timed subtitle cues, not picture captions."
+  },
+  {
+    "language": "it",
+    "source": "Insert Caption",
+    "current": "Inserisci Didascalia",
+    "proposed": "Inserisci sottotitolo",
+    "kind": "correction",
+    "rationale": "Match the subtitle dock."
+  },
+  {
+    "language": "it",
+    "source": "Enter caption text...",
+    "current": "Inserire il testo della didascalia...",
+    "proposed": "Inserisci il testo del sottotitolo...",
+    "kind": "correction",
+    "rationale": "Match the dock and the concise imperative used by the insertion command."
+  },
+  {
+    "language": "it",
+    "source": "Center the timeline on the Playhead",
+    "current": "Centra la timeline sulla testina di riproduzione",
+    "proposed": "Centra la timeline sul cursore di riproduzione",
+    "kind": "consistency",
+    "rationale": "Use the same playhead term as the short action."
+  },
+  {
+    "language": "it",
+    "source": "Clip",
+    "current": "Filmato",
+    "proposed": "Clip",
+    "kind": "correction",
+    "rationale": "Includes audio and still-image clips as well as films; matches the hover prefix."
+  },
+  {
+    "language": "it",
+    "source": "Recording View",
+    "current": "Visualizzazione Registrazione",
+    "proposed": "Vista registrazione",
+    "kind": "correction",
+    "rationale": "Match the View noun used in Simple View and Color View."
+  },
+  {
+    "language": "ja",
+    "source": "Animated Title",
+    "current": "動画タイトル",
+    "proposed": "アニメーションタイトル",
+    "kind": "correction",
+    "rationale": "An animated title is more specific than a video title."
+  },
+  {
+    "language": "ja",
+    "source": "Caption Toolbar",
+    "current": "ツールバーのキャプション",
+    "proposed": "キャプションツールバー",
+    "kind": "correction",
+    "rationale": "Current wording means caption of the toolbar; correct the noun relationship."
+  },
+  {
+    "language": "ja",
+    "source": "Center on Playhead",
+    "current": "再生ヘッドの中央",
+    "proposed": "再生ヘッドを中心に表示",
+    "kind": "correction",
+    "rationale": "Describe centering the view rather than the center of the playhead."
+  },
+  {
+    "language": "ja",
+    "source": "Center the timeline on the Playhead",
+    "current": "再生ヘッドのタイムラインを中央にする",
+    "proposed": "再生ヘッドを中心にタイムラインを表示",
+    "kind": "correction",
+    "rationale": "Correct which object is centered on which position."
+  },
+  {
+    "language": "ja",
+    "source": "Recording",
+    "current": "録画中",
+    "proposed": "録音・録画",
+    "kind": "correction",
+    "rationale": "The dock supports microphone, screen, and webcam capture. Use a feature name covering audio and video, not an active-recording status or audio-only term."
+  },
+  {
+    "language": "ja",
+    "source": "Recording View",
+    "current": "録画ビュー",
+    "proposed": "録音・録画ビュー",
+    "kind": "correction",
+    "rationale": "The dock supports microphone, screen, and webcam capture. Use a feature name covering audio and video, not an active-recording status or audio-only term."
+  },
+  {
+    "language": "ko",
+    "source": "Center on Playhead",
+    "current": "재생 헤드 중앙",
+    "proposed": "재생 헤드를 중심으로 보기",
+    "kind": "correction",
+    "rationale": "Describe centering the view on the playhead rather than naming the center of the playhead."
+  },
+  {
+    "language": "ko",
+    "source": "Recording",
+    "current": "녹화 중",
+    "proposed": "녹음/녹화",
+    "kind": "correction",
+    "rationale": "The dock supports microphone, screen, and webcam capture. Use a feature name covering audio and video, not an active-recording status or audio-only term."
+  },
+  {
+    "language": "ko",
+    "source": "Recording View",
+    "current": "녹화 뷰",
+    "proposed": "녹음/녹화 보기",
+    "kind": "consistency",
+    "rationale": "The dock supports microphone, screen, and webcam capture. Use a feature name covering audio and video, not an active-recording status or audio-only term."
+  },
+  {
+    "language": "ko",
+    "source": "Common",
+    "current": "공통 사항",
+    "proposed": "자주 사용",
+    "kind": "correction",
+    "rationale": "The filter shows commonly used transitions, not shared/common matters."
+  },
+  {
+    "language": "ko",
+    "source": "Simple View",
+    "current": "요약 보기",
+    "proposed": "간단 보기",
+    "kind": "correction",
+    "rationale": "This is a simple workspace layout, not a summary view."
+  },
+  {
+    "language": "ko",
+    "source": "Transition: %s",
+    "current": "전환: %s",
+    "proposed": "전환효과: %s",
+    "kind": "consistency",
+    "rationale": "Match the Transition and Transitions labels."
+  },
+  {
+    "language": "ko",
+    "source": "Preferences",
+    "current": "기본 설정",
+    "proposed": "환경설정",
+    "kind": "consistency",
+    "rationale": "Match the Preferences menu action."
+  },
+  {
+    "language": "nb",
+    "source": "Add Marker",
+    "current": "Legg til markør",
+    "proposed": "Legg til merke",
+    "kind": "consistency",
+    "rationale": "Match Previous/Next Marker so markers are not confused with a moving cursor."
+  },
+  {
+    "language": "nb",
+    "source": "Captions",
+    "current": "Tekster",
+    "proposed": "Undertekster",
+    "kind": "correction",
+    "rationale": "Use a specific timed-subtitle term instead of generic texts."
+  },
+  {
+    "language": "nb",
+    "source": "Caption Toolbar",
+    "current": "Bildetekstverktøylinje",
+    "proposed": "Verktøylinje for undertekster",
+    "kind": "correction",
+    "rationale": "This edits timed subtitles, not picture captions."
+  },
+  {
+    "language": "nb",
+    "source": "Insert Caption",
+    "current": "Sett inn bildetekst",
+    "proposed": "Sett inn undertekst",
+    "kind": "correction",
+    "rationale": "Match the subtitle dock."
+  },
+  {
+    "language": "nb",
+    "source": "Enter caption text...",
+    "current": "Skriv inn bildetekst...",
+    "proposed": "Skriv inn undertekst...",
+    "kind": "correction",
+    "rationale": "Match the subtitle dock."
+  },
+  {
+    "language": "nb",
+    "source": "Recording",
+    "current": "Tar opp",
+    "proposed": "Opptak",
+    "kind": "correction",
+    "rationale": "A dock heading names the feature; tar opp asserts that recording is active."
+  },
+  {
+    "language": "nb",
+    "source": "Video Preview",
+    "current": "Forhåndsvis Video",
+    "proposed": "Videoforhåndsvisning",
+    "kind": "correction",
+    "rationale": "Use a noun for the preview dock rather than an imperative."
+  },
+  {
+    "language": "nb",
+    "source": "Scopes",
+    "current": "Områder",
+    "proposed": "Måleinstrumenter",
+    "kind": "candidate",
+    "rationale": "Områder means areas; these panels are signal-measurement instruments. Confirm preferred local short label."
+  },
+  {
+    "language": "fa",
+    "source": "Center on Playhead",
+    "current": "مرکز روی سر پخش",
+    "proposed": "مرکز کردن روی نشانگر پخش",
+    "kind": "correction",
+    "rationale": "Use the action form and the playback-indicator term already used in its tooltip."
+  },
+  {
+    "language": "fa",
+    "source": "Center the timeline on the Playhead",
+    "current": "مرکز کردن جدول زمانی روی نشانگر پخش",
+    "proposed": "مرکز کردن خط زمان روی نشانگر پخش",
+    "kind": "correction",
+    "rationale": "Match the Timeline dock noun."
+  },
+  {
+    "language": "fa",
+    "source": "Pan timeline",
+    "current": "حرکت دادن جدول زمانی",
+    "proposed": "حرکت دادن خط زمان",
+    "kind": "correction",
+    "rationale": "Match the Timeline dock noun."
+  },
+  {
+    "language": "fa",
+    "source": "Clip",
+    "current": "ویدیو",
+    "proposed": "کلیپ",
+    "kind": "correction",
+    "rationale": "The item can be video, audio, or a still image; match the hover prefix."
+  },
+  {
+    "language": "fa",
+    "source": "Export Project",
+    "current": "صادرات پروژه",
+    "proposed": "برون‌ریزی پروژه",
+    "kind": "correction",
+    "rationale": "The existing phrase uses commercial exports; match Export Video's software-export verb."
+  },
+  {
+    "language": "fa",
+    "source": "Thumb",
+    "current": "بینیه",
+    "proposed": "تصویر بندانگشتی",
+    "kind": "correction",
+    "rationale": "Replace the incorrect word with thumbnail image."
+  },
+  {
+    "language": "fa",
+    "source": "Track %s",
+    "current": "شیار %s",
+    "proposed": "ترک %s",
+    "kind": "consistency",
+    "rationale": "Match Add Track and track locking."
+  },
+  {
+    "language": "fa",
+    "source": "Effect",
+    "current": "افکت",
+    "proposed": "جلوه",
+    "kind": "consistency",
+    "rationale": "Match the existing plural Effects heading."
+  },
+  {
+    "language": "fa",
+    "source": "Effect: %s",
+    "current": "افکت: %s",
+    "proposed": "جلوه: %s",
+    "kind": "consistency",
+    "rationale": "Match the Effects heading."
+  },
+  {
+    "language": "fa",
+    "source": "Transition",
+    "current": "ترنزیشن",
+    "proposed": "گذار",
+    "kind": "consistency",
+    "rationale": "Match the existing plural Transitions heading."
+  },
+  {
+    "language": "fa",
+    "source": "Transition: %s",
+    "current": "ترنزیشن: %s",
+    "proposed": "گذار: %s",
+    "kind": "consistency",
+    "rationale": "Match the Transitions heading."
+  },
+  {
+    "language": "fa",
+    "source": "Recording",
+    "current": "در حال ضبط",
+    "proposed": "ضبط",
+    "kind": "correction",
+    "rationale": "A feature heading should not claim recording is in progress."
+  },
+  {
+    "language": "fa",
+    "source": "Luma Waveform",
+    "current": "موج‌نمای لومای",
+    "proposed": "شکل موج لوما",
+    "kind": "correction",
+    "rationale": "Remove the dangling possessive form and name the luma waveform clearly."
+  },
+  {
+    "language": "fa",
+    "source": "My Views",
+    "current": "نمای من",
+    "proposed": "نماهای من",
+    "kind": "correction",
+    "rationale": "Use plural views, matching the saved-layout menu."
+  },
+  {
+    "language": "fa",
+    "source": "Scopes",
+    "current": "محدوده‌ها",
+    "proposed": "ابزارهای سنجش",
+    "kind": "candidate",
+    "rationale": "The current label means ranges; name the measurement instruments, with native editor confirmation for the final short label."
+  },
+  {
+    "language": "pl",
+    "source": "Captions",
+    "current": "Podpisy",
+    "proposed": "Napisy",
+    "kind": "correction",
+    "rationale": "Use the timed-subtitle term already present in Caption Toolbar."
+  },
+  {
+    "language": "pl",
+    "source": "Insert Caption",
+    "current": "Wstaw podpis",
+    "proposed": "Wstaw napis",
+    "kind": "correction",
+    "rationale": "Match the subtitle toolbar."
+  },
+  {
+    "language": "pl",
+    "source": "Enter caption text...",
+    "current": "Wpisz treść podpisu...",
+    "proposed": "Wpisz tekst napisu...",
+    "kind": "correction",
+    "rationale": "Match the subtitle toolbar."
+  },
+  {
+    "language": "pl",
+    "source": "Export Video",
+    "current": "Eksport nagrań wideo",
+    "proposed": "Eksportuj wideo",
+    "kind": "correction",
+    "rationale": "Use the concise command form used by Export Project."
+  },
+  {
+    "language": "pl",
+    "source": "Import Files",
+    "current": "Import plików",
+    "proposed": "Importuj pliki",
+    "kind": "consistency",
+    "rationale": "Match the same action's menu text without its ellipsis."
+  },
+  {
+    "language": "pl",
+    "source": "Property",
+    "current": "Właściwości",
+    "proposed": "Właściwość",
+    "kind": "correction",
+    "rationale": "Use singular property for the table column, matching the English and paired value column."
+  },
+  {
+    "language": "pl",
+    "source": "Scopes",
+    "current": "Zakresy",
+    "proposed": "Przyrządy pomiarowe",
+    "kind": "candidate",
+    "rationale": "Zakresy means ranges; a measurement-instrument label explains this submenu. Confirm the preferred local editor term."
+  },
+  {
+    "language": "pt",
+    "source": "Center on Playhead",
+    "current": "Centralizar no Indicador de Reprodução",
+    "proposed": "Centrar no cursor de reprodução",
+    "kind": "correction",
+    "rationale": "Use European Portuguese centrar and match the playhead noun in the tooltip."
+  },
+  {
+    "language": "pt",
+    "source": "Center the timeline on the Playhead",
+    "current": "Centralizar a linha do tempo no cursor de reprodução",
+    "proposed": "Centrar a linha cronológica no cursor de reprodução",
+    "kind": "consistency",
+    "rationale": "Match the existing Timeline heading and European Portuguese usage."
+  },
+  {
+    "language": "pt",
+    "source": "Pan timeline",
+    "current": "Mover linha do tempo",
+    "proposed": "Deslocar a linha cronológica",
+    "kind": "consistency",
+    "rationale": "Match the existing Timeline dock heading."
+  },
+  {
+    "language": "pt",
+    "source": "Click: center · Drag: zoom",
+    "current": "Clique: centralizar · Arraste: zoom",
+    "proposed": "Clique: centrar · Arraste: zoom",
+    "kind": "correction",
+    "rationale": "Use centrar consistently with the centering action."
+  },
+  {
+    "language": "pt",
+    "source": "Clip: %s",
+    "current": "Clipe: %s",
+    "proposed": "Clip: %s",
+    "kind": "consistency",
+    "rationale": "Match the existing Clip noun rather than switching regional spelling in the tooltip."
+  },
+  {
+    "language": "pt",
+    "source": "Recording",
+    "current": "Gravando",
+    "proposed": "Gravação",
+    "kind": "correction",
+    "rationale": "A dock title names the feature instead of asserting that recording is in progress."
+  },
+  {
+    "language": "pt",
+    "source": "Open Help Contents",
+    "current": "Abrir Ajuda de Conteúdos",
+    "proposed": "Abrir o índice da ajuda",
+    "kind": "correction",
+    "rationale": "The command opens the help contents; the current word order is unnatural."
+  },
+  {
+    "language": "pt",
+    "source": "Video Preview",
+    "current": "Pré-visualizar vídeo",
+    "proposed": "Pré-visualização de vídeo",
+    "kind": "correction",
+    "rationale": "Use a noun for the dock heading rather than a verb."
+  },
+  {
+    "language": "ro",
+    "source": "Center on Playhead",
+    "current": "Centrat pe Playhead",
+    "proposed": "Centrează pe cursorul de redare",
+    "kind": "correction",
+    "rationale": "Use a command and a localized playback-cursor noun."
+  },
+  {
+    "language": "ro",
+    "source": "Center the timeline on the Playhead",
+    "current": "Centrează cronologia pe Playhead",
+    "proposed": "Centrează cronologia pe cursorul de redare",
+    "kind": "correction",
+    "rationale": "Match the short action's playhead term."
+  },
+  {
+    "language": "ro",
+    "source": "Click: center · Drag: zoom",
+    "current": "Click: centru · Trage: zoom",
+    "proposed": "Clic: centrează · Trage: zoom",
+    "kind": "correction",
+    "rationale": "Use the centering verb rather than the noun center."
+  },
+  {
+    "language": "ro",
+    "source": "Clip",
+    "current": "Decupează",
+    "proposed": "Clip",
+    "kind": "correction",
+    "rationale": "The current text is the cropping/cutting command, not a clip noun."
+  },
+  {
+    "language": "ro",
+    "source": "Export Video",
+    "current": "Exportă clip",
+    "proposed": "Exportă video",
+    "kind": "correction",
+    "rationale": "The command exports the project video, not only an individual clip."
+  },
+  {
+    "language": "ro",
+    "source": "Export Project",
+    "current": "Export Proiect",
+    "proposed": "Exportă proiectul",
+    "kind": "correction",
+    "rationale": "Use a command, matching Import Project."
+  },
+  {
+    "language": "ro",
+    "source": "Import Project",
+    "current": "Import Proiect",
+    "proposed": "Importă proiectul",
+    "kind": "correction",
+    "rationale": "Use a command, matching Export Project."
+  },
+  {
+    "language": "ro",
+    "source": "Open Help Contents",
+    "current": "Deschideți conținutul ajutor",
+    "proposed": "Deschide cuprinsul ajutorului",
+    "kind": "correction",
+    "rationale": "Correct the grammar and express help table of contents."
+  },
+  {
+    "language": "ro",
+    "source": "Save Project As...",
+    "current": "Salveaza proiectul ca...",
+    "proposed": "Salvează proiectul ca...",
+    "kind": "correction",
+    "rationale": "Restore the missing Romanian diacritic."
+  },
+  {
+    "language": "ro",
+    "source": "Thumb",
+    "current": "Miniatura",
+    "proposed": "Miniatură",
+    "kind": "correction",
+    "rationale": "Use the correctly accented noun for a thumbnail."
+  },
+  {
+    "language": "ro",
+    "source": "Scopes",
+    "current": "Scopuri",
+    "proposed": "Instrumente de măsură",
+    "kind": "candidate",
+    "rationale": "Scopuri means purposes/goals; this menu contains signal-measurement instruments. Confirm the preferred short editor label."
+  },
+  {
+    "language": "ru",
+    "source": "Captions",
+    "current": "Подписи",
+    "proposed": "Субтитры",
+    "kind": "correction",
+    "rationale": "Match the timed-subtitle term already used in Caption Toolbar."
+  },
+  {
+    "language": "ru",
+    "source": "Insert Caption",
+    "current": "Вставить подпись",
+    "proposed": "Вставить субтитр",
+    "kind": "correction",
+    "rationale": "Insert a timed subtitle cue rather than a generic label."
+  },
+  {
+    "language": "ru",
+    "source": "Enter caption text...",
+    "current": "Введите текст заголовка ...",
+    "proposed": "Введите текст субтитра...",
+    "kind": "correction",
+    "rationale": "This is subtitle text, not title text."
+  },
+  {
+    "language": "ru",
+    "source": "Center on Playhead",
+    "current": "Центр ползунка",
+    "proposed": "Центрировать по позиции воспроизведения",
+    "kind": "correction",
+    "rationale": "The current noun phrase names the slider center instead of issuing an action."
+  },
+  {
+    "language": "ru",
+    "source": "Center the timeline on the Playhead",
+    "current": "Центр таймлайна на ползунке",
+    "proposed": "Центрировать шкалу времени по позиции воспроизведения",
+    "kind": "correction",
+    "rationale": "Use an action and the same Timeline noun as the dock."
+  },
+  {
+    "language": "ru",
+    "source": "Pan timeline",
+    "current": "Переместить таймлайн",
+    "proposed": "Переместить шкалу времени",
+    "kind": "consistency",
+    "rationale": "Match the localized Timeline dock name."
+  },
+  {
+    "language": "ru",
+    "source": "Click: center · Drag: zoom",
+    "current": "Клик: центр · Перетаскивание: масштаб",
+    "proposed": "Щелчок: центрировать · Перетаскивание: масштабировать",
+    "kind": "correction",
+    "rationale": "Describe both gestures as actions instead of isolated nouns."
+  },
+  {
+    "language": "es",
+    "source": "Center on Playhead",
+    "current": "Centro en la cabeza de reproducción",
+    "proposed": "Centrar en el cabezal de reproducción",
+    "kind": "consistency",
+    "rationale": "Use the command infinitive and the same playhead noun as the longer tooltip."
+  },
+  {
+    "language": "es",
+    "source": "Recording",
+    "current": "Grabando",
+    "proposed": "Grabación",
+    "kind": "correction",
+    "rationale": "The dock title names the feature; grabando incorrectly asserts an active recording."
+  },
+  {
+    "language": "es",
+    "source": "Emojis",
+    "current": "Emoticonos",
+    "proposed": "Emojis",
+    "kind": "correction",
+    "rationale": "Emoji images and emoticons are not the same category; preserve the intended category name."
+  },
+  {
+    "language": "tr",
+    "source": "Captions",
+    "current": "Başlıklar",
+    "proposed": "Altyazılar",
+    "kind": "correction",
+    "rationale": "This is the timed-caption editor, not the separate titles feature."
+  },
+  {
+    "language": "tr",
+    "source": "Caption Toolbar",
+    "current": "Başlık araç çubuğu",
+    "proposed": "Altyazı araç çubuğu",
+    "kind": "correction",
+    "rationale": "Match Insert Caption, which already uses the subtitle term."
+  },
+  {
+    "language": "tr",
+    "source": "Enter caption text...",
+    "current": "Başlık metnini yazın...",
+    "proposed": "Altyazı metnini yazın...",
+    "kind": "correction",
+    "rationale": "Use subtitle text rather than title text."
+  },
+  {
+    "language": "tr",
+    "source": "Center on Playhead",
+    "current": "Oynatma Başlığına Ortala",
+    "proposed": "Oynatma kafasına ortala",
+    "kind": "correction",
+    "rationale": "Match the playhead noun in the longer tooltip; başlık suggests a title/header."
+  },
+  {
+    "language": "tr",
+    "source": "Clip",
+    "current": "Parça",
+    "proposed": "Klip",
+    "kind": "correction",
+    "rationale": "Match the hover prefix and distinguish clips from tracks."
+  },
+  {
+    "language": "tr",
+    "source": "Lock track",
+    "current": "Parçayı kilitle",
+    "proposed": "İzi kilitle",
+    "kind": "consistency",
+    "rationale": "Match Add Track and Track %s."
+  },
+  {
+    "language": "tr",
+    "source": "Unlock track",
+    "current": "Parça kilidini aç",
+    "proposed": "İzin kilidini aç",
+    "kind": "consistency",
+    "rationale": "Match Add Track and Track %s."
+  },
+  {
+    "language": "tr",
+    "source": "Effects",
+    "current": "Etkiler",
+    "proposed": "Efektler",
+    "kind": "consistency",
+    "rationale": "Match Effect and the effect hover prefix with the established editing noun."
+  },
+  {
+    "language": "tr",
+    "source": "Docks",
+    "current": "Yanaşmalar",
+    "proposed": "Paneller",
+    "kind": "correction",
+    "rationale": "Name the dockable panels rather than the act of approaching/docking."
+  },
+  {
+    "language": "vi",
+    "source": "Captions",
+    "current": "Chủ Đề",
+    "proposed": "Phụ đề",
+    "kind": "correction",
+    "rationale": "The current label means topics; this dock edits timed subtitles."
+  },
+  {
+    "language": "vi",
+    "source": "Insert Caption",
+    "current": "Chèn chú thích",
+    "proposed": "Chèn phụ đề",
+    "kind": "correction",
+    "rationale": "Match Caption Toolbar and the caption text prompt."
+  },
+  {
+    "language": "vi",
+    "source": "Lock track",
+    "current": "Khóa đường dẫn",
+    "proposed": "Khóa rãnh",
+    "kind": "consistency",
+    "rationale": "Match Add Track and Track %s; đường dẫn means path."
+  },
+  {
+    "language": "vi",
+    "source": "Unlock track",
+    "current": "Mở khóa đường dẫn",
+    "proposed": "Mở khóa rãnh",
+    "kind": "correction",
+    "rationale": "Match the track noun rather than file-path terminology."
+  },
+  {
+    "language": "vi",
+    "source": "Launch Tutorial",
+    "current": "Khỏi chạy hướng dẫn",
+    "proposed": "Khởi chạy hướng dẫn",
+    "kind": "correction",
+    "rationale": "Fix the typo Khỏi to Khởi."
+  },
+  {
+    "language": "vi",
+    "source": "Thumb",
+    "current": "Thumb",
+    "proposed": "Ảnh thu nhỏ",
+    "kind": "correction",
+    "rationale": "Translate the English abbreviation as thumbnail image."
+  },
+  {
+    "language": "vi",
+    "source": "Jump To Start",
+    "current": "Bắt đầu",
+    "proposed": "Đến đầu",
+    "kind": "correction",
+    "rationale": "This seeks to the start rather than starting playback."
+  },
+  {
+    "language": "vi",
+    "source": "Jump To End",
+    "current": "Kết thúc",
+    "proposed": "Đến cuối",
+    "kind": "correction",
+    "rationale": "This seeks to the end rather than ending an operation."
+  },
+  {
+    "language": "vi",
+    "source": "Recording",
+    "current": "Đang ghi âm",
+    "proposed": "Ghi âm và ghi hình",
+    "kind": "correction",
+    "rationale": "The dock supports microphone, screen, and webcam capture. Use a feature name covering audio and video, not an active-recording status or audio-only term."
+  },
+  {
+    "language": "vi",
+    "source": "Clip: %s",
+    "current": "Đoạn phim: %s",
+    "proposed": "Clip: %s",
+    "kind": "correction",
+    "rationale": "Match the Clip noun and avoid implying all clips are films."
+  },
+  {
+    "language": "vi",
+    "source": "Scopes",
+    "current": "Phạm vi",
+    "proposed": "Công cụ đo",
+    "kind": "candidate",
+    "rationale": "The current term means range/scope in general; name the measurement tools. Confirm preferred local editor wording."
+  },
+  {
+    "language": "vi",
+    "source": "Vectorscope",
+    "current": "Phạm vi vector",
+    "proposed": "Máy đo véc-tơ",
+    "kind": "candidate",
+    "rationale": "The current term means vector range rather than the signal instrument; confirm the local instrument name."
+  },
+  {
+    "language": "uk",
+    "source": "Captions",
+    "current": "Підписи",
+    "proposed": "Субтитри",
+    "kind": "correction",
+    "rationale": "Match the timed-subtitle term already used in Caption Toolbar."
+  },
+  {
+    "language": "uk",
+    "source": "Insert Caption",
+    "current": "Вставити підпис",
+    "proposed": "Вставити субтитр",
+    "kind": "correction",
+    "rationale": "This inserts a timed subtitle cue rather than a generic label."
+  },
+  {
+    "language": "uk",
+    "source": "Enter caption text...",
+    "current": "Введіть текст заголовку...",
+    "proposed": "Введіть текст субтитру...",
+    "kind": "correction",
+    "rationale": "This is subtitle text, not heading/title text."
+  },
+  {
+    "language": "uk",
+    "source": "Transition: %s",
+    "current": "Переход: %s",
+    "proposed": "Перехід: %s",
+    "kind": "correction",
+    "rationale": "Use the Ukrainian noun already present in Transition, not the Russian form."
+  },
+  {
+    "language": "uk",
+    "source": "Pan timeline",
+    "current": "Переміщення часової шкали",
+    "proposed": "Перемістити монтажний стіл",
+    "kind": "consistency",
+    "rationale": "Match the existing Timeline heading and use a command form."
+  },
+  {
+    "language": "uk",
+    "source": "Export Video",
+    "current": "Експортування відео",
+    "proposed": "Експортувати відео",
+    "kind": "correction",
+    "rationale": "Use an action infinitive matching Export Project."
+  },
+  {
+    "language": "uk",
+    "source": "Save Current Frame",
+    "current": "Збереження поточного кадру",
+    "proposed": "Зберегти поточний кадр",
+    "kind": "correction",
+    "rationale": "Use an action infinitive matching Save Project."
+  },
+  {
+    "language": "uk",
+    "source": "Preferences",
+    "current": "Налаштування",
+    "proposed": "Параметри",
+    "kind": "consistency",
+    "rationale": "Match the Preferences menu action."
+  },
+  {
+    "language": "uk",
+    "source": "Scopes",
+    "current": "Діапазони",
+    "proposed": "Вимірювальні прилади",
+    "kind": "candidate",
+    "rationale": "The current term means ranges; this submenu contains measurement instruments. Confirm the preferred editor label."
+  },
+  {
+    "language": "pl",
+    "source": "Enable Timing",
+    "current": "Włącz synchronizację",
+    "proposed": "Włącz zmianę prędkości",
+    "kind": "correction",
+    "rationale": "The tool changes clip speed by dragging its edges; the current wording suggests synchronization or merely turning on time."
+  },
+  {
+    "language": "pl",
+    "source": "Disable Timing",
+    "current": "Wyłącz synchronizację",
+    "proposed": "Wyłącz zmianę prędkości",
+    "kind": "correction",
+    "rationale": "Use the same playback-speed term as the enabled state."
+  },
+  {
+    "language": "ro",
+    "source": "Enable Timing",
+    "current": "Activează sincronizarea",
+    "proposed": "Activează modificarea vitezei",
+    "kind": "correction",
+    "rationale": "The tool changes clip speed by dragging its edges; the current wording suggests synchronization or merely turning on time."
+  },
+  {
+    "language": "ro",
+    "source": "Disable Timing",
+    "current": "Dezactivează sincronizarea",
+    "proposed": "Dezactivează modificarea vitezei",
+    "kind": "correction",
+    "rationale": "Use the same playback-speed term as the enabled state."
+  },
+  {
+    "language": "uk",
+    "source": "Enable Timing",
+    "current": "Увімкнути синхронізацію",
+    "proposed": "Увімкнути зміну швидкості",
+    "kind": "correction",
+    "rationale": "The tool changes clip speed by dragging its edges; the current wording suggests synchronization or merely turning on time."
+  },
+  {
+    "language": "uk",
+    "source": "Disable Timing",
+    "current": "Вимкнути синхронізацію",
+    "proposed": "Вимкнути зміну швидкості",
+    "kind": "correction",
+    "rationale": "Use the same playback-speed term as the enabled state."
+  },
+  {
+    "language": "vi",
+    "source": "Enable Timing",
+    "current": "Bật thời gian",
+    "proposed": "Bật công cụ đổi tốc độ",
+    "kind": "correction",
+    "rationale": "The tool changes clip speed by dragging its edges; the current wording suggests synchronization or merely turning on time."
+  },
+  {
+    "language": "vi",
+    "source": "Disable Timing",
+    "current": "Tắt thời gian",
+    "proposed": "Tắt công cụ đổi tốc độ",
+    "kind": "correction",
+    "rationale": "Use the same playback-speed term as the enabled state."
+  },
+  {
+    "language": "vi",
+    "source": "Recording View",
+    "current": "Chế độ xem ghi âm",
+    "proposed": "Chế độ xem ghi âm và ghi hình",
+    "kind": "correction",
+    "rationale": "The workspace supports microphone, screen, and webcam recording, so its name must cover both audio and video."
+  }
+]

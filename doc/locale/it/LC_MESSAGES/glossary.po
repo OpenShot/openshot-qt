@@ -2432,14 +2432,14 @@ msgstr ""
 msgid "Titling:"
 msgstr "Titoli:"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../glossary.rst:459
 msgid ""
 "Titling is the process or result of incorporating on-screen text as credits,"
 " captions, or any other alphanumeric communication."
 msgstr ""
 "Il titolaggio è il processo o il risultato di incorporare testo sullo "
-"schermo come crediti, didascalie o qualsiasi altra comunicazione "
+"schermo come crediti, sottotitoli o qualsiasi altra comunicazione "
 "alfanumerica."
 
 # Translated with gpt-4.1-mini

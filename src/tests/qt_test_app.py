@@ -6,7 +6,13 @@ from qt_api import QApplication
 
 
 def get_or_create_app(factory):
-    """Return the current Qt app or create one with factory()."""
+    """Return the process-wide Qt app and whether factory() created it.
+
+    The creation flag does not confer ownership of the application's lifetime.
+    Test classes must not call quit() in teardown: later classes reuse this
+    instance, and quitting makes their local QEventLoops exit before timers run.
+    The test process owns application shutdown.
+    """
     app = QApplication.instance()
     if app is not None:
         return app, False

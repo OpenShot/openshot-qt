@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-09-26 14:26-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -140,7 +140,7 @@ msgstr ""
 "của chúng tôi. PPA là kho lưu trữ Ubuntu không chính thức, có các gói phần "
 "mềm của chúng tôi để tải về và cài đặt."
 
-#: ../developers.rst:112
+#: ../developers.rst:110
 msgid ""
 "OpenShot supports PyQt5, PyQt6, and PySide6. libopenshot must be built "
 "against the correct Qt version for the binding you are using (Qt5: PyQt5, "
@@ -150,15 +150,15 @@ msgstr ""
 "trên phiên bản Qt chính xác cho binding mà bạn đang sử dụng (Qt5: PyQt5, "
 "Qt6: PyQt6 hoặc PySide6)."
 
-#: ../developers.rst:116
+#: ../developers.rst:114
 msgid "For PySide6 (Qt6) bindings, install these packages:"
 msgstr "Đối với binding PySide6 (Qt6), hãy cài đặt các gói sau:"
 
-#: ../developers.rst:129
+#: ../developers.rst:127
 msgid "For PyQt6, install these packages:"
 msgstr "Đối với PyQt6, hãy cài đặt các gói sau:"
 
-#: ../developers.rst:139
+#: ../developers.rst:137
 msgid ""
 "The PyQt6 runtime must provide ``QtCore``, ``QtGui``, ``QtWidgets``, "
 "``QtSvg``, ``QtStateMachine``, and ``uic``. Some distributions split these "
@@ -174,7 +174,7 @@ msgstr ""
 "gói PySide6 ở trên hoặc cài đặt đầy đủ PyQt6 wheel trong môi trường ảo "
 "Python:"
 
-#: ../developers.rst:151
+#: ../developers.rst:149
 msgid ""
 "Verify the selected Qt binding and its required modules before launching "
 "OpenShot:"
@@ -183,7 +183,7 @@ msgstr ""
 "OpenShot:"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:159
+#: ../developers.rst:157
 msgid ""
 "At this point, you should have all 3 OpenShot components source code cloned "
 "into local folders, the OpenShot daily PPA installed, and all of the "
@@ -196,12 +196,12 @@ msgstr ""
 "giờ chúng ta sẵn sàng biên dịch mã!"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:164
+#: ../developers.rst:162
 msgid "libopenshot-audio (Build Instructions)"
 msgstr "libopenshot-audio (Hướng dẫn xây dựng)"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:165
+#: ../developers.rst:163
 msgid ""
 "This library is required for audio playback and audio effects. It is based "
 "on the JUCE audio framework. Here are the commands to build it:"
@@ -210,7 +210,7 @@ msgstr ""
 "framework âm thanh JUCE. Dưới đây là các lệnh để xây dựng:"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:178
+#: ../developers.rst:176
 msgid ""
 "Essentially, we are switching to the ``libopenshot-audio/build`` folder, "
 "then running ``cmake ..`` on the parent folder. This finds dependencies and "
@@ -229,12 +229,12 @@ msgstr ""
 "quyền quản trị để chạy."
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:186
+#: ../developers.rst:184
 msgid "libopenshot (Build Instructions)"
 msgstr "libopenshot (Hướng dẫn xây dựng)"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:187
+#: ../developers.rst:185
 msgid ""
 "This library is required for video decoding, encoding, animation, and just "
 "about everything else. It does all the heavy lifting of video editing and "
@@ -245,7 +245,7 @@ msgstr ""
 "Dưới đây là các lệnh để xây dựng:"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:199
+#: ../developers.rst:197
 msgid ""
 "Essentially, we are switching to the ``libopenshot/build`` folder, then "
 "running ``cmake ..`` on the parent folder. This finds dependencies and "
@@ -262,7 +262,7 @@ msgstr ""
 "cho phiên bản hệ thống (nếu có)."
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:206
+#: ../developers.rst:204
 msgid ""
 "We don't install our ``libopenshot`` after building, because we don't need "
 "to. For testing purposes, we can tell OpenShot to use ``libopenshot`` right "
@@ -273,12 +273,12 @@ msgstr ""
 "tiếp từ thư mục ``build``."
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:210
+#: ../developers.rst:208
 msgid "Language Bindings"
 msgstr "Ràng buộc ngôn ngữ"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:211
+#: ../developers.rst:209
 msgid ""
 "The ``libopenshot`` API is available in several languages through SWIG "
 "bindings.  Python is used by the OpenShot user interface, and we also "
@@ -295,12 +295,12 @@ msgstr ""
 "có thể chỉnh sửa video từ môi trường bạn thích."
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:217
+#: ../developers.rst:215
 msgid "openshot-qt (Launch Instructions)"
 msgstr "openshot-qt (Hướng dẫn khởi chạy)"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:218
+#: ../developers.rst:216
 msgid ""
 "This is our main PyQt Python application. Because it is written in Python, "
 "it does not require any compiling to run. To launch OpenShot from the source"
@@ -313,7 +313,7 @@ msgstr ""
 "lệnh sau:"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:229
+#: ../developers.rst:227
 msgid ""
 "This should launch the OpenShot user interface. Any changes you have made to"
 " the source code files (``*.py`` Python files, ``*.ui`` PyQt UI files, "
@@ -328,7 +328,7 @@ msgstr ""
 " các bước trên, OpenShot có thể sẽ không khởi chạy."
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:235
+#: ../developers.rst:233
 msgid ""
 "If OpenShot launches at this point, congratulations! You now have a working "
 "local version of OpenShot, which is running off your local source code. Try "
@@ -340,13 +340,215 @@ msgstr ""
 "Hãy thử thực hiện một số thay đổi trong mã nguồn và khởi chạy lại "
 "OpenShot... bạn sẽ thấy các thay đổi của mình!"
 
-# Translated with gpt-4.1-mini
+#: ../developers.rst:239
+msgid "Command-Line Options"
+msgstr "Tùy chọn Dòng lệnh"
+
 #: ../developers.rst:241
+msgid ""
+"These options work with the installed OpenShot application, including "
+"``openshot-qt.exe`` on Windows. When running from source, use ``python3 "
+"src/launch.py`` in place of the application name. Put options before any "
+"file paths you want OpenShot to open."
+msgstr ""
+"Các tùy chọn này hoạt động với ứng dụng OpenShot đã cài đặt, bao gồm "
+"``openshot-qt.exe`` trên Windows. Khi chạy từ mã nguồn, sử dụng ``python3 "
+"src/launch.py`` thay cho tên ứng dụng. Đặt các tùy chọn trước bất kỳ đường "
+"dẫn tệp nào bạn muốn OpenShot mở."
+
+#: ../developers.rst:246
+msgid "OpenShot command-line options"
+msgstr "Tùy chọn dòng lệnh OpenShot"
+
+#: ../developers.rst:250
+msgid "Option"
+msgstr "Tùy chọn"
+
+#: ../developers.rst:251
+msgid "What it does"
+msgstr "Chức năng"
+
+#: ../developers.rst:252
+msgid "``-h``, ``--help``"
+msgstr "``-h``, ``--help``"
+
+#: ../developers.rst:253
+msgid "Show the available options and exit."
+msgstr "Hiển thị các tùy chọn có sẵn và thoát."
+
+#: ../developers.rst:254
+msgid "``-V``, ``--version``"
+msgstr "``-V``, ``--version``"
+
+#: ../developers.rst:255
+msgid "Print the OpenShot version and exit."
+msgstr "In phiên bản OpenShot và thoát."
+
+#: ../developers.rst:256
+msgid "``-l CODE``, ``--lang CODE``"
+msgstr "``-l CODE``, ``--lang CODE``"
+
+#: ../developers.rst:257
+msgid ""
+"Use the chosen interface language for this launch. The code must be one of "
+"those shown by ``--list-languages``."
+msgstr ""
+"Sử dụng ngôn ngữ giao diện đã chọn cho lần khởi động này. Mã phải là một "
+"trong những mã được hiển thị bởi ``--list-languages``."
+
+#: ../developers.rst:259
+msgid "``--list-languages``"
+msgstr "``--list-languages``"
+
+#: ../developers.rst:260
+msgid "List supported language codes and exit."
+msgstr "Liệt kê các mã ngôn ngữ được hỗ trợ và thoát."
+
+#: ../developers.rst:261
+msgid "``--path FOLDER``"
+msgstr "``--path FOLDER``"
+
+#: ../developers.rst:262
+msgid ""
+"Add a folder to the Python module search path. You can repeat this option to"
+" add more than one folder."
+msgstr ""
+"Thêm một thư mục vào đường dẫn tìm kiếm module Python. Bạn có thể lặp lại "
+"tùy chọn này để thêm nhiều thư mục hơn."
+
+#: ../developers.rst:264
+msgid "``--feedback-preview``"
+msgstr "``--feedback-preview``"
+
+#: ../developers.rst:265
+msgid ""
+"Show the feedback notice on launch without marking the invitation as shown "
+"in saved settings."
+msgstr ""
+"Hiển thị thông báo phản hồi khi khởi động mà không đánh dấu lời mời đã hiển "
+"thị trong cài đặt đã lưu."
+
+#: ../developers.rst:267
+msgid "``--update-preview``"
+msgstr "``--update-preview``"
+
+#: ../developers.rst:268
+msgid ""
+"Show the update notice on launch. Both preview options can be used together."
+msgstr ""
+"Hiển thị thông báo cập nhật khi khởi động. Cả hai tùy chọn xem trước có thể "
+"được sử dụng cùng nhau."
+
+#: ../developers.rst:269
+msgid "``--test-models``"
+msgstr "``--test-models``"
+
+#: ../developers.rst:270
+msgid ""
+"Enable Qt's data model tester for development (requires Qt 5.11 or later)."
+msgstr ""
+"Bật trình kiểm tra mô hình dữ liệu của Qt cho phát triển (yêu cầu Qt 5.11 "
+"trở lên)."
+
+#: ../developers.rst:271
+msgid "``-d``, ``--debug``, ``--debug-ui``"
+msgstr "``-d``, ``--debug``, ``--debug-ui``"
+
+#: ../developers.rst:272
+msgid "Add detailed interface messages to its log file and the terminal."
+msgstr "Thêm các thông điệp giao diện chi tiết vào tệp nhật ký và terminal."
+
+#: ../developers.rst:273
+msgid "``--debug-engine``"
+msgstr "``--debug-engine``"
+
+#: ../developers.rst:274
+msgid ""
+"Add detailed video and audio engine messages to its log file and the "
+"terminal."
+msgstr ""
+"Thêm các thông điệp chi tiết của động cơ video và âm thanh vào tệp nhật ký "
+"và terminal."
+
+#: ../developers.rst:275
+msgid "``--log-level LEVEL``"
+msgstr "``--log-level LEVEL``"
+
+#: ../developers.rst:276
+msgid ""
+"Set the logging level for both parts of OpenShot, in files and the terminal."
+msgstr ""
+"Đặt mức ghi nhật ký cho cả hai phần của OpenShot, trong tệp và terminal."
+
+#: ../developers.rst:277
+msgid "``--log-file-level LEVEL``"
+msgstr "``--log-file-level LEVEL``"
+
+#: ../developers.rst:278
+msgid "Set the logging level in both log files."
+msgstr "Đặt mức ghi nhật ký trong cả hai tệp nhật ký."
+
+#: ../developers.rst:279
+msgid "``--log-console-level LEVEL``"
+msgstr "``--log-console-level LEVEL``"
+
+#: ../developers.rst:280
+msgid "Set the logging level in the terminal for both parts of OpenShot."
+msgstr "Đặt mức ghi nhật ký trong terminal cho cả hai phần của OpenShot."
+
+#: ../developers.rst:281
+msgid "``--debug-file``"
+msgstr "``--debug-file``"
+
+#: ../developers.rst:282
+msgid ""
+"Add detailed interface messages to its log file only. This older option is "
+"accepted but is not shown by ``--help``."
+msgstr ""
+"Chỉ thêm các thông điệp giao diện chi tiết vào tệp nhật ký của nó. Tùy chọn "
+"cũ này được chấp nhận nhưng không được hiển thị bởi ``--help``."
+
+#: ../developers.rst:284
+msgid "``--debug-console``"
+msgstr "``--debug-console``"
+
+#: ../developers.rst:285
+msgid ""
+"Add detailed interface messages to the terminal only. This older option is "
+"accepted but is not shown by ``--help``."
+msgstr ""
+"Chỉ thêm các thông điệp giao diện chi tiết vào terminal. Tùy chọn cũ này "
+"được chấp nhận nhưng không được hiển thị bởi ``--help``."
+
+#: ../developers.rst:287
+msgid "``PROJECT.osp`` or media file paths"
+msgstr "``PROJECT.osp`` hoặc đường dẫn tệp phương tiện"
+
+#: ../developers.rst:288
+msgid ""
+"Open a project when the first file path ends in ``.osp``. Otherwise, start a"
+" new project and import the supplied media files."
+msgstr ""
+"Mở một dự án khi đường dẫn tệp đầu tiên kết thúc bằng ``.osp``. Nếu không, "
+"bắt đầu một dự án mới và nhập các tệp phương tiện được cung cấp."
+
+#: ../developers.rst:291
+msgid ""
+"For ``LEVEL``, use ``debug``, ``info``, ``warning``, ``error``, "
+"``critical``, or ``off``. See :ref:`logging_ref` for log file locations, "
+"examples, and more about choosing logging options."
+msgstr ""
+"Đối với ``LEVEL``, sử dụng ``debug``, ``info``, ``warning``, ``error``, "
+"``critical``, hoặc ``off``. Xem :ref:`logging_ref` để biết vị trí tệp nhật "
+"ký, ví dụ và thêm về cách chọn tùy chọn ghi nhật ký."
+
+# Translated with gpt-4.1-mini
+#: ../developers.rst:296
 msgid "GitHub Issues"
 msgstr "Các Vấn Đề trên GitHub"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:242
+#: ../developers.rst:297
 msgid ""
 "Now that you have successfully compiled and launched OpenShot Video Editor "
 "from source code, be sure to check out our list of bug reports on GitHub: "
@@ -361,12 +563,12 @@ msgstr ""
 "thiệu về bản thân!"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:248
+#: ../developers.rst:303
 msgid "Share your Changes"
 msgstr "Chia sẻ Thay đổi của bạn"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:249
+#: ../developers.rst:304
 msgid ""
 "Once you have fixed a bug or added an amazing new feature, be sure to share "
 "it with the OpenShot team. Ideally, we can merge this into our main source "

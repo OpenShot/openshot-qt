@@ -387,10 +387,11 @@ class SentrySeptemberTests(unittest.TestCase):
             for y in (20, 80):
                 with self.subTest(item_type=item_type, y=y):
                     item = types.SimpleNamespace(id='item')
-                    helper = Mock(enable_razor=True, _press_hit=None)
+                    helper = Mock(enable_razor=True, _press_hit=None, _razor_modifiers=Qt.NoModifier)
                     helper._is_timeline_content_pos.return_value = True
-                    helper.geometry.iter_items.return_value = [(QRectF(10, 10, 200, 100), item, False, item_type)]
-                    helper._seconds_from_x.return_value = 10.0
+                    helper._razor_in_track_area.return_value = True
+                    helper._razor_target_at.return_value = {
+                        'item': item, 'kind': item_type, 'seconds': 10.0}
                     helper._handle_razor_press.side_effect = lambda pos: TimelineWidgetBase._handle_razor_press(helper, pos)
                     helper._clear_pending_clip_menu_click.side_effect = lambda: TimelineWidgetBase._clear_pending_clip_menu_click(helper)
                     helper._clear_pending_transition_menu_click.side_effect = lambda: TimelineWidgetBase._clear_pending_transition_menu_click(helper)
@@ -400,9 +401,10 @@ class SentrySeptemberTests(unittest.TestCase):
                     event = types.SimpleNamespace(pos=lambda: QPointF(50, y), button=lambda: Qt.LeftButton,
                                                   accept=Mock())
                     TimelineWidgetBase.mousePressEvent(helper, event)
+                    helper._razor_target_at.assert_called_once_with(QPointF(50, y))
                     helper.RazorSliceAtCursor.assert_called_once_with(
                         'item' if item_type == 'clip' else '',
-                        'item' if item_type == 'transition' else '', 10.0)
+                        'item' if item_type == 'transition' else '', 10.0, Qt.NoModifier)
                     helper._begin_pending_clip_menu_click.assert_not_called()
                     helper._begin_pending_transition_menu_click.assert_not_called()
                     helper._handle_menu_icon_clicks.assert_not_called()

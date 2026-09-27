@@ -248,16 +248,17 @@ msgstr ""
 "Vorschau-Rechteck, um den betroffenen Bereich zu verschieben, die Griffe zu "
 "skalieren oder ein neues Rechteck innerhalb des Clips zu zeichnen."
 
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:89
 msgid ""
 "The same preview rectangle can be used to position Caption text. Select a "
 "Caption effect, then move or resize the white rectangle in the video preview"
 " to adjust the Caption margins."
 msgstr ""
-"Dasselbe Vorschau-Rechteck kann verwendet werden, um den Text der "
-"Beschriftung zu positionieren. Wählen Sie einen Beschriftungseffekt aus und "
+"Dasselbe Vorschau-Rechteck kann verwendet werden, um den Text des "
+"Untertitels zu positionieren. Wählen Sie einen Untertiteleffekt aus und "
 "verschieben oder skalieren Sie das weiße Rechteck in der Videovorschau, um "
-"die Ränder der Beschriftung anzupassen."
+"die Ränder des Untertitels anzupassen."
 
 # Translated with gpt-4.1-mini
 #: ../effects.rst:92
@@ -449,20 +450,20 @@ msgstr "Helligkeit und Kontrast des Bildes anpassen."
 msgid "|caption_icon|"
 msgstr "|caption_icon|"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:133
 msgid "Caption Icon"
-msgstr "Beschriftungs-Symbol"
+msgstr "Untertitel-Symbol"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:290 ../effects.rst:674
 msgid "Caption"
-msgstr "Beschriftung"
+msgstr "Untertitel"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:290
 msgid "Add text captions to any clip."
-msgstr "Fügen Sie jedem Clip Textbeschriftungen hinzu."
+msgstr "Fügen Sie jedem Clip Untertitel hinzu."
 
 # Translated with gpt-4.1-mini
 #: ../effects.rst:291
@@ -2650,6 +2651,7 @@ msgstr ""
 "Aktualisierungen des Untertiteltexts werden während des Tippens in der "
 "Vorschau angezeigt."
 
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:686
 msgid ""
 "To set a caption's end time from the playhead, remove the existing end "
@@ -2658,8 +2660,8 @@ msgid ""
 "timestamp line, and press the plus icon again. OpenShot inserts the current "
 "playhead timestamp as the cue's end time."
 msgstr ""
-"Um die Endzeit einer Beschriftung vom Abspielkopf aus festzulegen, entfernen"
-" Sie den vorhandenen Endzeitstempel aus der Cue-Zeile, sodass nur der "
+"Um die Endzeit eines Untertitels vom Abspielkopf aus festzulegen, entfernen "
+"Sie den vorhandenen Endzeitstempel aus der Cue-Zeile, sodass nur der "
 "Startzeitstempel und der Pfeil verbleiben. Bewegen Sie den Abspielkopf zur "
 "gewünschten Endzeit, setzen Sie den Textcursor auf diese unvollständige "
 "Zeitstempelzeile und drücken Sie erneut das Plus-Symbol. OpenShot fügt den "

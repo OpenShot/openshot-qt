@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-09-26 14:26-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -68,21 +68,21 @@ msgstr ""
 # Translated with gpt-4.1-mini
 #: ../preferences.rst:46 ../preferences.rst:109 ../preferences.rst:132
 #: ../preferences.rst:157 ../preferences.rst:204 ../preferences.rst:234
-#: ../preferences.rst:290 ../preferences.rst:320
+#: ../preferences.rst:290 ../preferences.rst:329
 msgid "Setting"
 msgstr "Configuración"
 
 # Translated with gpt-4.1-mini
 #: ../preferences.rst:47 ../preferences.rst:50 ../preferences.rst:109
 #: ../preferences.rst:132 ../preferences.rst:134 ../preferences.rst:157
-#: ../preferences.rst:321
+#: ../preferences.rst:330
 msgid "Default"
 msgstr "Predeterminado"
 
 # Translated with gpt-4.1-mini
 #: ../preferences.rst:48 ../preferences.rst:109 ../preferences.rst:132
 #: ../preferences.rst:204 ../preferences.rst:235 ../preferences.rst:290
-#: ../preferences.rst:301 ../preferences.rst:322
+#: ../preferences.rst:310 ../preferences.rst:331
 msgid "Description"
 msgstr "Descripción"
 
@@ -376,8 +376,8 @@ msgid "Auto-Transition (overlap clips)"
 msgstr "Auto-Transición (superponer clips)"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:115 ../preferences.rst:159 ../preferences.rst:333
-#: ../preferences.rst:339
+#: ../preferences.rst:115 ../preferences.rst:159 ../preferences.rst:342
+#: ../preferences.rst:348
 msgid "Enabled"
 msgstr "Habilitado"
 
@@ -1082,18 +1082,49 @@ msgstr "Exportar Video"
 msgid "Default folder to choose when exporting a video"
 msgstr "Carpeta predeterminada para elegir al exportar un video"
 
+#: ../preferences.rst:295
+msgid "Unsaved Project Assets Folder"
+msgstr "Carpeta de activos de proyecto no guardados"
+
+#: ../preferences.rst:295
+msgid "Folder for assets created before a project is saved (restart required)"
+msgstr ""
+"Carpeta para activos creados antes de guardar un proyecto (se requiere "
+"reinicio)"
+
+#: ../preferences.rst:298
+msgid ""
+"On Linux, the unsaved assets folder defaults to ``~/Videos/.openshot-tmp`` "
+"when ``~/Videos`` exists and the hidden child folder is writable. Otherwise,"
+" OpenShot uses ``~/.openshot_qt``, which is also the default on other "
+"platforms. You can choose a different folder in Preferences. Saving a "
+"project relocates its assets into the project's ``<project>_assets`` folder;"
+" subsequent titles and animations use that folder. These assets can include "
+"media needed by an unsaved project or crash recovery, so do not delete the "
+"folder as ordinary disposable cache data."
+msgstr ""
+"En Linux, la carpeta de activos no guardados por defecto es "
+"``~/Videos/.openshot-tmp`` cuando ``~/Videos`` existe y la carpeta oculta "
+"hija es escribible. De lo contrario, OpenShot usa ``~/.openshot_qt``, que "
+"también es el valor predeterminado en otras plataformas. Puedes elegir una "
+"carpeta diferente en Preferencias. Guardar un proyecto traslada sus activos "
+"a la carpeta ``<project>_assets`` del proyecto; los títulos y animaciones "
+"posteriores usan esa carpeta. Estos activos pueden incluir medios necesarios"
+" para un proyecto no guardado o recuperación tras un fallo, por lo que no "
+"elimines la carpeta como si fuera un caché desechable común."
+
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:301
+#: ../preferences.rst:310
 msgid "Values"
 msgstr "Valores"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:303
+#: ../preferences.rst:312
 msgid "**Recent Folder**"
 msgstr "**Carpeta Reciente**"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:303
+#: ../preferences.rst:312
 msgid ""
 "The last folder used for this same operation. Project folders, Import "
 "folders, and Export folders are tracked separately."
@@ -1102,12 +1133,12 @@ msgstr ""
 " importación y exportación se rastrean por separado."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:304
+#: ../preferences.rst:313
 msgid "**Project Folder**"
 msgstr "**Carpeta del Proyecto**"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:304
+#: ../preferences.rst:313
 msgid ""
 "The current project folder (or the user's home folder, if the project is not"
 " yet saved)"
@@ -1116,95 +1147,102 @@ msgstr ""
 "proyecto aún no está guardado)"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:310
+#: ../preferences.rst:319
 msgid "Advanced"
 msgstr "Avanzado"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:314
+#: ../preferences.rst:323
 msgid "The Advanced tab includes ComfyUI integration and debugging options."
 msgstr ""
 "La pestaña Avanzado incluye integración con ComfyUI y opciones de "
 "depuración."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:323
+#: ../preferences.rst:332
 msgid "Comfy UI URL"
 msgstr "URL de Comfy UI"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:324
+#: ../preferences.rst:333
 msgid "``http://127.0.0.1:8188``"
 msgstr "``http://127.0.0.1:8188``"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:325
+#: ../preferences.rst:334
 msgid "URL of your local or remote ComfyUI server"
 msgstr "URL de su servidor ComfyUI local o remoto"
 
-# Translated with gpt-4.1-mini
-#: ../preferences.rst:326
-msgid "Debug Mode (Port)"
-msgstr "Modo de depuración (Puerto)"
+#: ../preferences.rst:335
+msgid "User Interface Debug Logging"
+msgstr "Registro de depuración de la interfaz de usuario"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:327
-msgid "5556"
-msgstr "5556"
-
-# Translated with gpt-4.1-mini
-#: ../preferences.rst:328
-msgid "Port used by debug logging features"
-msgstr "Puerto usado por las funciones de registro de depuración"
-
-# Translated with gpt-4.1-mini
-#: ../preferences.rst:329
-msgid "Debug Mode (Verbose)"
-msgstr "Modo de depuración (Detallado)"
-
-# Translated with gpt-4.1-mini
-#: ../preferences.rst:330 ../preferences.rst:336
+#: ../preferences.rst:336 ../preferences.rst:339 ../preferences.rst:345
 #, fuzzy
 msgid "Disabled"
 msgstr "Habilitado"
 
-# Translated with gpt-4.1-mini
-#: ../preferences.rst:331
-msgid "Enable verbose debugging output"
-msgstr "Habilitar salida detallada de depuración"
+#: ../preferences.rst:337
+msgid ""
+"Record interface and project details in ``openshot-qt.log``. The matching "
+"``--debug-ui`` (or ``--debug``) argument enables these details for one "
+"launch, including terminal output. See :ref:`logging_ref`."
+msgstr ""
+"Registra detalles de la interfaz y del proyecto en ``openshot-qt.log``. El "
+"argumento correspondiente ``--debug-ui`` (o ``--debug``) habilita estos "
+"detalles para un lanzamiento, incluyendo la salida en terminal. Consulta "
+":ref:`logging_ref`."
+
+#: ../preferences.rst:338
+msgid "Video & Audio Engine Debug Logging"
+msgstr "Registro de depuración del motor de video y audio"
+
+#: ../preferences.rst:340
+msgid ""
+"Record video and audio processing details in ``libopenshot.log``. The "
+"matching ``--debug-engine`` argument enables these details for one launch, "
+"including terminal output. Logs can grow quickly; turn off when finished. "
+"See :ref:`logging_ref`."
+msgstr ""
+"Registra detalles del procesamiento de video y audio en ``libopenshot.log``."
+" El argumento correspondiente ``--debug-engine`` habilita estos detalles "
+"para un lanzamiento, incluyendo la salida en terminal. Los registros pueden "
+"crecer rápidamente; desactívalos cuando termines. Consulta "
+":ref:`logging_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:332
+#: ../preferences.rst:341
 msgid "Send Anonymous Metrics and Errors"
 msgstr "Enviar métricas y errores anónimos"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:334
+#: ../preferences.rst:343
 msgid "Send anonymous telemetry and error reports"
 msgstr "Enviar telemetría y reportes de errores anónimos"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:335
+#: ../preferences.rst:344
 msgid "Show Playback Performance (FPS)"
 msgstr "Mostrar rendimiento de reproducción (FPS)"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:337
+#: ../preferences.rst:346
 msgid "Display live FPS in preview playback"
 msgstr "Mostrar FPS en vivo durante la reproducción de vista previa"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:338
+#: ../preferences.rst:347
 msgid "Show Export Dialog when Finished"
 msgstr "Mostrar diálogo de exportación al finalizar"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:340
+#: ../preferences.rst:349
 msgid "Display the Export Video window when export completes"
 msgstr "Mostrar la ventana de Exportar Video cuando la exportación finalice"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:342
+#: ../preferences.rst:351
 msgid ""
 "The ComfyUI **Check** button updates an inline status icon: green checkmark "
 "for success, red icon for failure. If OpenShot cannot reach this server, AI "
@@ -1218,12 +1256,12 @@ msgstr ""
 " de trabajo."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:349
+#: ../preferences.rst:358
 msgid "Reset (Default Values)"
 msgstr "Restablecer (Valores Predeterminados)"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:351
+#: ../preferences.rst:360
 msgid ""
 "To reset **all** preferences to their default values, please delete the "
 "``openshot.settings`` file and re-launch OpenShot. The settings file can be "
@@ -1241,7 +1279,7 @@ msgstr ""
 "valores predeterminados."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:356
+#: ../preferences.rst:365
 msgid ""
 "Optionally, you can delete the entire ``.openshot_qt/`` folder and re-launch"
 " OpenShot. However, please make a **backup** of any customized folders: "
@@ -1257,7 +1295,7 @@ msgstr ""
 "existentes (archivos ``*.osp``)."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:361
+#: ../preferences.rst:370
 msgid ""
 "Deleting the ``.openshot_qt/`` folder is the quickest method to restore "
 "OpenShot preferences and settings to their Default values (i.e. also called "
@@ -1274,6 +1312,26 @@ msgstr ""
 "a paso <https://github.com/OpenShot/openshot-qt/wiki/Clean-Installation-of-"
 "OpenShot>`_ para más información sobre las **instalaciones limpias** de "
 "OpenShot."
+
+# Translated with gpt-4.1-mini
+#~ msgid "Debug Mode (Port)"
+#~ msgstr "Modo de depuración (Puerto)"
+
+# Translated with gpt-4.1-mini
+#~ msgid "5556"
+#~ msgstr "5556"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Port used by debug logging features"
+#~ msgstr "Puerto usado por las funciones de registro de depuración"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Debug Mode (Verbose)"
+#~ msgstr "Modo de depuración (Detallado)"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Enable verbose debugging output"
+#~ msgstr "Habilitar salida detallada de depuración"
 
 # Translated with gpt-4.1-mini
 #~ msgid ""

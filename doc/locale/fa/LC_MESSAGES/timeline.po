@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-09-26 14:26-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -102,10 +102,10 @@ msgstr "کلیپ"
 msgid "A video, audio, or image item placed on a track."
 msgstr "یک آیتم ویدئویی، صوتی یا تصویری که روی یک ردیف قرار گرفته است."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../timeline.rst:50
 msgid "Transition"
-msgstr "انتقال"
+msgstr "گذار"
 
 # Translated with gpt-4.1-mini
 #: ../timeline.rst:50
@@ -285,8 +285,23 @@ msgstr ""
 "نوار ابزار خط زمان به انجام اقدامات رایج ناوبری و ویرایش کمک می‌کند "
 "(چسباندن، تغییر زمان، تیغ، نشانگرها، مرکزدهی و بزرگنمایی)."
 
-# Translated with gpt-4.1-mini
 #: ../timeline.rst:103
+msgid ""
+"The :ref:`razor_tool_ref` shows a cut guide and timecode over the target "
+"clip. While paused, hovering also previews the cut frame without moving the "
+"playhead. Click to cut, or press :kbd:`Esc` to leave Razor mode. The Razor "
+"guide respects the existing **Snapping** toggle and uses the same snap "
+"targets and tolerance as other timeline edits."
+msgstr ""
+"ابزار :ref:`razor_tool_ref` راهنمای برش و کد زمان را روی کلیپ هدف نمایش "
+"می‌دهد. هنگام توقف، نگه داشتن نشانگر ماوس پیش‌نمایش فریم برش را بدون جابجایی"
+" سر پخش نشان می‌دهد. برای برش کلیک کنید یا برای خروج از حالت Razor کلید "
+":kbd:`Esc` را فشار دهید. راهنمای Razor به تنظیم **Snapping** موجود احترام "
+"می‌گذارد و از همان اهداف و تحمل چسبندگی مانند سایر ویرایش‌های تایم‌لاین "
+"استفاده می‌کند."
+
+# Translated with gpt-4.1-mini
+#: ../timeline.rst:109
 msgid ""
 "Tip: If timeline editing feels crowded, zoom in with the timeline slider to "
 "make small clip adjustments easier."
@@ -295,7 +310,7 @@ msgstr ""
 "کنید تا تنظیمات کوچک کلیپ آسان‌تر شود."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:106
+#: ../timeline.rst:112
 msgid ""
 "You can also zoom the timeline with :kbd:`Ctrl+Scroll Wheel`. On the QWidget"
 " timeline, hold :kbd:`Ctrl` and drag with the middle mouse button for smooth"
@@ -306,33 +321,33 @@ msgstr ""
 " ماوس بکشید تا زوم نرم انجام شود."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:111
+#: ../timeline.rst:117
 msgid "Tracks, Locking, and Inserting"
 msgstr "ردیف‌ها، قفل کردن و درج"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:113
+#: ../timeline.rst:119
 msgid "Tracks help organize your edit. A common setup is:"
 msgstr ""
 "ردیف‌ها به سازماندهی ویرایش شما کمک می‌کنند. یک تنظیم رایج به این صورت است:"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:115
+#: ../timeline.rst:121
 msgid "Top tracks: titles, overlays, logos, picture-in-picture"
 msgstr "ردیف‌های بالا: عناوین، پوشش‌ها، لوگوها، تصویر در تصویر"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:116
+#: ../timeline.rst:122
 msgid "Middle tracks: main video content"
 msgstr "ردیف‌های میانی: محتوای اصلی ویدئو"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:117
+#: ../timeline.rst:123
 msgid "Lower tracks: music and sound effects"
 msgstr "ردیف‌های پایین: موسیقی و افکت‌های صوتی"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:119
+#: ../timeline.rst:125
 msgid ""
 "You can lock tracks to protect them from accidental edits and use "
 "insert/ripple editing when you need later clips to move automatically."
@@ -341,7 +356,7 @@ msgstr ""
 "به جابجایی خودکار کلیپ‌های بعدی، از ویرایش درج/موجی استفاده کنید."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:122
+#: ../timeline.rst:128
 msgid ""
 "For track layout basics, see :ref:`tracks_ref`. For detailed clip editing "
 "behavior, see :ref:`clips_cutting_slicing_ref`."
@@ -350,12 +365,12 @@ msgstr ""
 " ویرایش کلیپ، به :ref:`clips_cutting_slicing_ref` مراجعه کنید."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:126
+#: ../timeline.rst:132
 msgid "Keyframes in the Timeline"
 msgstr "کی‌فریم‌ها در خط زمان"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:128
+#: ../timeline.rst:134
 msgid ""
 "Keyframes let you change values over time, such as position, scale, "
 "rotation, opacity, and effect settings."
@@ -364,7 +379,7 @@ msgstr ""
 "موقعیت، مقیاس، چرخش، شفافیت و تنظیمات افکت."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:131
+#: ../timeline.rst:137
 msgid ""
 "In the timeline keyframe panel, each row represents one animated property. "
 "You can:"
@@ -372,39 +387,39 @@ msgstr ""
 "در پنل کی‌فریم خط زمان، هر ردیف نمایانگر یک ویژگی متحرک است. شما می‌توانید:"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:133
+#: ../timeline.rst:139
 msgid "Add a keyframe row for a property"
 msgstr "یک ردیف کی‌فریم برای یک ویژگی اضافه کنید"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:134
+#: ../timeline.rst:140
 msgid "Insert new keyframes along the row"
 msgstr "کی‌فریم‌های جدید را در طول ردیف وارد کنید"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:135
+#: ../timeline.rst:141
 msgid "Move keyframes to change timing"
 msgstr "کی‌فریم‌ها را جابجا کنید تا زمان‌بندی تغییر کند"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:136
+#: ../timeline.rst:142
 msgid "Change interpolation to control motion style"
 msgstr "درون‌یابی را تغییر دهید تا سبک حرکت کنترل شود"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:138
+#: ../timeline.rst:144
 msgid ""
 "For keyframe concepts and animation examples, see :ref:`animation_ref`."
 msgstr ""
 "برای مفاهیم کی‌فریم و مثال‌های انیمیشن، به :ref:`animation_ref` مراجعه کنید."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:141
+#: ../timeline.rst:147
 msgid "Next Steps"
 msgstr "گام‌های بعدی"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:143
+#: ../timeline.rst:149
 msgid ""
 "After you are comfortable with timeline basics, these sections are the best "
 "next reads:"
@@ -413,21 +428,21 @@ msgstr ""
 "هستند:"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:145
+#: ../timeline.rst:151
 msgid ":ref:`clips_ref` for trimming, slicing, and clip properties"
 msgstr ":ref:`clips_ref` برای برش، تقسیم و ویژگی‌های کلیپ"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:146
+#: ../timeline.rst:152
 msgid ":ref:`effects_ref` for video/audio effects"
 msgstr ":ref:`effects_ref` برای افکت‌های ویدئو/صوت"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:147
+#: ../timeline.rst:153
 msgid ":ref:`animation_ref` for keyframe animation workflows"
 msgstr ":ref:`animation_ref` برای جریان‌های کاری انیمیشن کی‌فریم"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:148
+#: ../timeline.rst:154
 msgid ":doc:`export` for creating your final video file"
 msgstr ":doc:`export` برای ایجاد فایل ویدیویی نهایی شما"

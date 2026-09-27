@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-09-26 14:26-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -128,7 +128,7 @@ msgstr ""
 " PPA <https://www.openshot.org/ppa/>`_ "
 "を利用することです。PPAは非公式のUbuntuリポジトリで、当社のソフトウェアパッケージをダウンロードおよびインストールできます。"
 
-#: ../developers.rst:112
+#: ../developers.rst:110
 msgid ""
 "OpenShot supports PyQt5, PyQt6, and PySide6. libopenshot must be built "
 "against the correct Qt version for the binding you are using (Qt5: PyQt5, "
@@ -138,15 +138,15 @@ msgstr ""
 "は、使用しているバインディングに対応した正しい Qt バージョン（Qt5: PyQt5、Qt6: PyQt6 または "
 "PySide6）でビルドする必要があります。"
 
-#: ../developers.rst:116
+#: ../developers.rst:114
 msgid "For PySide6 (Qt6) bindings, install these packages:"
 msgstr "PySide6 (Qt6) バインディングの場合、これらのパッケージをインストールしてください:"
 
-#: ../developers.rst:129
+#: ../developers.rst:127
 msgid "For PyQt6, install these packages:"
 msgstr "PyQt6 の場合、これらのパッケージをインストールしてください:"
 
-#: ../developers.rst:139
+#: ../developers.rst:137
 msgid ""
 "The PyQt6 runtime must provide ``QtCore``, ``QtGui``, ``QtWidgets``, "
 "``QtSvg``, ``QtStateMachine``, and ``uic``. Some distributions split these "
@@ -161,14 +161,14 @@ msgstr ""
 "の ``python3-pyqt6`` パッケージには ``QtStateMachine`` が含まれていません。そのリリースでは、上記の "
 "PySide6 パッケージを使用するか、Python 仮想環境に完全な PyQt6 ホイールをインストールしてください:"
 
-#: ../developers.rst:151
+#: ../developers.rst:149
 msgid ""
 "Verify the selected Qt binding and its required modules before launching "
 "OpenShot:"
 msgstr "OpenShot を起動する前に、選択した Qt バインディングとその必要なモジュールを確認してください:"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:159
+#: ../developers.rst:157
 msgid ""
 "At this point, you should have all 3 OpenShot components source code cloned "
 "into local folders, the OpenShot daily PPA installed, and all of the "
@@ -179,12 +179,12 @@ msgstr ""
 "PPAがインストールされ、必要な開発および実行時依存関係がすべてインストールされているはずです。これは素晴らしいスタートであり、コードのコンパイルを始める準備が整いました！"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:164
+#: ../developers.rst:162
 msgid "libopenshot-audio (Build Instructions)"
 msgstr "libopenshot-audio（ビルド手順）"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:165
+#: ../developers.rst:163
 msgid ""
 "This library is required for audio playback and audio effects. It is based "
 "on the JUCE audio framework. Here are the commands to build it:"
@@ -192,7 +192,7 @@ msgstr ""
 "このライブラリはオーディオ再生とオーディオエフェクトに必要です。JUCEオーディオフレームワークに基づいています。ビルドするためのコマンドは以下の通りです："
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:178
+#: ../developers.rst:176
 msgid ""
 "Essentially, we are switching to the ``libopenshot-audio/build`` folder, "
 "then running ``cmake ..`` on the parent folder. This finds dependencies and "
@@ -210,12 +210,12 @@ msgstr ""
 "の実行には管理者権限が必要です。"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:186
+#: ../developers.rst:184
 msgid "libopenshot (Build Instructions)"
 msgstr "libopenshot（ビルド手順）"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:187
+#: ../developers.rst:185
 msgid ""
 "This library is required for video decoding, encoding, animation, and just "
 "about everything else. It does all the heavy lifting of video editing and "
@@ -224,7 +224,7 @@ msgstr ""
 "このライブラリはビデオのデコード、エンコード、アニメーション、その他ほぼすべてに必要です。ビデオ編集と再生の重い処理をすべて行います。ビルドするためのコマンドは以下の通りです："
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:199
+#: ../developers.rst:197
 msgid ""
 "Essentially, we are switching to the ``libopenshot/build`` folder, then "
 "running ``cmake ..`` on the parent folder. This finds dependencies and "
@@ -239,7 +239,7 @@ msgstr ""
 "の場所を指定しているため、システムのバージョン（存在する場合）ではなくそのバージョンが使用されます。"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:206
+#: ../developers.rst:204
 msgid ""
 "We don't install our ``libopenshot`` after building, because we don't need "
 "to. For testing purposes, we can tell OpenShot to use ``libopenshot`` right "
@@ -249,12 +249,12 @@ msgstr ""
 "ディレクトリから直接``libopenshot`` を使うよう指示できます。"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:210
+#: ../developers.rst:208
 msgid "Language Bindings"
 msgstr "言語バインディング"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:211
+#: ../developers.rst:209
 msgid ""
 "The ``libopenshot`` API is available in several languages through SWIG "
 "bindings.  Python is used by the OpenShot user interface, and we also "
@@ -269,12 +269,12 @@ msgstr ""
 "の実験的サポートも含まれています。これらすべてのバインディングは同じC++コードベースにマッピングされているため、お好みの環境からビデオ編集が可能です。"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:217
+#: ../developers.rst:215
 msgid "openshot-qt (Launch Instructions)"
 msgstr "openshot-qt（起動手順）"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:218
+#: ../developers.rst:216
 msgid ""
 "This is our main PyQt Python application. Because it is written in Python, "
 "it does not require any compiling to run. To launch OpenShot from the source"
@@ -286,7 +286,7 @@ msgstr ""
 " と``libopenshot`` ライブラリを使ってソースコードからOpenShotを起動するには、以下のコマンドを使用してください："
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:229
+#: ../developers.rst:227
 msgid ""
 "This should launch the OpenShot user interface. Any changes you have made to"
 " the source code files (``*.py`` Python files, ``*.ui`` PyQt UI files, "
@@ -299,7 +299,7 @@ msgstr ""
 "ライブラリが必要であり、上記の手順で何か問題があった場合、OpenShotは起動しない可能性があります。"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:235
+#: ../developers.rst:233
 msgid ""
 "If OpenShot launches at this point, congratulations! You now have a working "
 "local version of OpenShot, which is running off your local source code. Try "
@@ -308,13 +308,198 @@ msgid ""
 msgstr ""
 "この時点でOpenShotが起動したら、おめでとうございます！これでローカルのソースコードから動作するOpenShotのローカル版が完成しました。ソースコードにいくつか変更を加えてOpenShotを再起動してみてください…変更が反映されているはずです！"
 
-# Translated with gpt-4.1-mini
+#: ../developers.rst:239
+msgid "Command-Line Options"
+msgstr "コマンドラインオプション"
+
 #: ../developers.rst:241
+msgid ""
+"These options work with the installed OpenShot application, including "
+"``openshot-qt.exe`` on Windows. When running from source, use ``python3 "
+"src/launch.py`` in place of the application name. Put options before any "
+"file paths you want OpenShot to open."
+msgstr ""
+"これらのオプションは、Windows の ``openshot-qt.exe`` を含むインストール済みの OpenShot "
+"アプリケーションで動作します。ソースから実行する場合は、アプリケーション名の代わりに ``python3 src/launch.py`` "
+"を使用してください。オプションは OpenShot に開かせたいファイルパスの前に置いてください。"
+
+#: ../developers.rst:246
+msgid "OpenShot command-line options"
+msgstr "OpenShot コマンドラインオプション"
+
+#: ../developers.rst:250
+msgid "Option"
+msgstr "オプション"
+
+#: ../developers.rst:251
+msgid "What it does"
+msgstr "機能"
+
+#: ../developers.rst:252
+msgid "``-h``, ``--help``"
+msgstr "``-h``, ``--help``"
+
+#: ../developers.rst:253
+msgid "Show the available options and exit."
+msgstr "利用可能なオプションを表示して終了します。"
+
+#: ../developers.rst:254
+msgid "``-V``, ``--version``"
+msgstr "``-V``, ``--version``"
+
+#: ../developers.rst:255
+msgid "Print the OpenShot version and exit."
+msgstr "OpenShot のバージョンを表示して終了します。"
+
+#: ../developers.rst:256
+msgid "``-l CODE``, ``--lang CODE``"
+msgstr "``-l CODE``, ``--lang CODE``"
+
+#: ../developers.rst:257
+msgid ""
+"Use the chosen interface language for this launch. The code must be one of "
+"those shown by ``--list-languages``."
+msgstr ""
+"この起動で選択したインターフェース言語を使用します。コードは ``--list-languages`` で表示されるもののいずれかでなければなりません。"
+
+#: ../developers.rst:259
+msgid "``--list-languages``"
+msgstr "``--list-languages``"
+
+#: ../developers.rst:260
+msgid "List supported language codes and exit."
+msgstr "対応する言語コードを一覧表示して終了します。"
+
+#: ../developers.rst:261
+msgid "``--path FOLDER``"
+msgstr "``--path FOLDER``"
+
+#: ../developers.rst:262
+msgid ""
+"Add a folder to the Python module search path. You can repeat this option to"
+" add more than one folder."
+msgstr "Python モジュール検索パスにフォルダーを追加します。このオプションは複数回指定して複数のフォルダーを追加できます。"
+
+#: ../developers.rst:264
+msgid "``--feedback-preview``"
+msgstr "``--feedback-preview``"
+
+#: ../developers.rst:265
+msgid ""
+"Show the feedback notice on launch without marking the invitation as shown "
+"in saved settings."
+msgstr "起動時にフィードバック通知を表示しますが、保存された設定で招待が表示済みとしてマークしません。"
+
+#: ../developers.rst:267
+msgid "``--update-preview``"
+msgstr "``--update-preview``"
+
+#: ../developers.rst:268
+msgid ""
+"Show the update notice on launch. Both preview options can be used together."
+msgstr "起動時に更新通知を表示します。両方のプレビューオプションは同時に使用できます。"
+
+#: ../developers.rst:269
+msgid "``--test-models``"
+msgstr "``--test-models``"
+
+#: ../developers.rst:270
+msgid ""
+"Enable Qt's data model tester for development (requires Qt 5.11 or later)."
+msgstr "開発用に Qt のデータモデルテスターを有効にします（Qt 5.11 以降が必要）。"
+
+#: ../developers.rst:271
+msgid "``-d``, ``--debug``, ``--debug-ui``"
+msgstr "``-d``, ``--debug``, ``--debug-ui``"
+
+#: ../developers.rst:272
+msgid "Add detailed interface messages to its log file and the terminal."
+msgstr "詳細なインターフェースメッセージをログファイルと端末に追加します。"
+
+#: ../developers.rst:273
+msgid "``--debug-engine``"
+msgstr "``--debug-engine``"
+
+#: ../developers.rst:274
+msgid ""
+"Add detailed video and audio engine messages to its log file and the "
+"terminal."
+msgstr "詳細なビデオおよびオーディオエンジンのメッセージをログファイルと端末に追加します。"
+
+#: ../developers.rst:275
+msgid "``--log-level LEVEL``"
+msgstr "``--log-level LEVEL``"
+
+#: ../developers.rst:276
+msgid ""
+"Set the logging level for both parts of OpenShot, in files and the terminal."
+msgstr "OpenShot の両方の部分のログレベルをファイルと端末で設定します。"
+
+#: ../developers.rst:277
+msgid "``--log-file-level LEVEL``"
+msgstr "``--log-file-level LEVEL``"
+
+#: ../developers.rst:278
+msgid "Set the logging level in both log files."
+msgstr "両方のログファイルのログレベルを設定します。"
+
+#: ../developers.rst:279
+msgid "``--log-console-level LEVEL``"
+msgstr "``--log-console-level LEVEL``"
+
+#: ../developers.rst:280
+msgid "Set the logging level in the terminal for both parts of OpenShot."
+msgstr "OpenShot の両方の部分の端末でのログレベルを設定します。"
+
+#: ../developers.rst:281
+msgid "``--debug-file``"
+msgstr "``--debug-file``"
+
+#: ../developers.rst:282
+msgid ""
+"Add detailed interface messages to its log file only. This older option is "
+"accepted but is not shown by ``--help``."
+msgstr ""
+"詳細なインターフェースメッセージをログファイルのみに追加します。この古いオプションは受け付けられますが、``--help`` には表示されません。"
+
+#: ../developers.rst:284
+msgid "``--debug-console``"
+msgstr "``--debug-console``"
+
+#: ../developers.rst:285
+msgid ""
+"Add detailed interface messages to the terminal only. This older option is "
+"accepted but is not shown by ``--help``."
+msgstr "詳細なインターフェースメッセージを端末のみに追加します。この古いオプションは受け付けられますが、``--help`` には表示されません。"
+
+#: ../developers.rst:287
+msgid "``PROJECT.osp`` or media file paths"
+msgstr "``PROJECT.osp`` またはメディアファイルのパス"
+
+#: ../developers.rst:288
+msgid ""
+"Open a project when the first file path ends in ``.osp``. Otherwise, start a"
+" new project and import the supplied media files."
+msgstr ""
+"最初のファイルパスが ``.osp`` "
+"で終わる場合はプロジェクトを開きます。そうでなければ新しいプロジェクトを開始し、指定されたメディアファイルをインポートします。"
+
+#: ../developers.rst:291
+msgid ""
+"For ``LEVEL``, use ``debug``, ``info``, ``warning``, ``error``, "
+"``critical``, or ``off``. See :ref:`logging_ref` for log file locations, "
+"examples, and more about choosing logging options."
+msgstr ""
+"``LEVEL`` には ``debug``, ``info``, ``warning``, ``error``, ``critical``, または "
+"``off`` を使用します。ログファイルの場所、例、ログオプションの選択については :ref:`logging_ref` を参照してください。"
+
+# Translated with gpt-4.1-mini
+#: ../developers.rst:296
 msgid "GitHub Issues"
 msgstr "GitHubの課題"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:242
+#: ../developers.rst:297
 msgid ""
 "Now that you have successfully compiled and launched OpenShot Video Editor "
 "from source code, be sure to check out our list of bug reports on GitHub: "
@@ -327,12 +512,12 @@ msgstr ""
 "<https://forms.gle/CRqkS5tLMJE1V36V8>`_ にご記入いただき、ご自身を紹介していただくことも推奨します！"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:248
+#: ../developers.rst:303
 msgid "Share your Changes"
 msgstr "変更を共有する"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:249
+#: ../developers.rst:304
 msgid ""
 "Once you have fixed a bug or added an amazing new feature, be sure to share "
 "it with the OpenShot team. Ideally, we can merge this into our main source "

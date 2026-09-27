@@ -53,14 +53,14 @@ msgstr ""
 "редагування, попереднього перегляду та експорту, щоб швидко перемикатися між"
 " поширеними комбінаціями цих налаштувань."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../profiles.rst:29
 msgid ""
 "If you often use the same profile, you can set a default profile: "
 ":guilabel:`Edit→Preferences→Preview`."
 msgstr ""
 "Якщо ви часто використовуєте один і той самий профіль, ви можете встановити "
-"профіль за замовчуванням: :guilabel:`Редагувати→Налаштування→Попередній "
+"профіль за замовчуванням: :guilabel:`Редагувати→Параметри→Попередній "
 "перегляд`."
 
 # Translated with gpt-4.1-mini

@@ -65,6 +65,7 @@ from classes.clip_utils import is_single_image_media
 from classes.qt_types import font_metrics_horizontal_advance
 
 from .base import BasePainter
+from .header import ItemHeaderMixin
 
 
 def _frame_for_seconds(seconds, fps):
@@ -178,7 +179,9 @@ def resolve_source_frame(clip, clip_time_seconds, clip_fps, project_fps=None, fa
     return max(1, mapped_frame or frame)
 
 
-class ClipPainter(BasePainter):
+class ClipPainter(ItemHeaderMixin, BasePainter):
+    header_kind = "clip"
+
     def __init__(self, widget):
         super().__init__(widget)
         self._thumbnail_repaint_timer = QTimer(self.w)
@@ -190,6 +193,7 @@ class ClipPainter(BasePainter):
         self._slot_fallback_cache = {}
         self._trim_request_cooldown = 0.12
         self._retime_preview_cache = {}
+        self._thumbnail_grid = {}
 
     MAX_THUMB_SLOTS = 150
 
@@ -402,6 +406,8 @@ class ClipPainter(BasePainter):
             self.w.width() - self.w.track_name_width - self.w.scroll_bar_thickness,
             self.w.height() - self.w.ruler_height - self.w.scroll_bar_thickness,
         )
+        track_painter = getattr(self.w, "track_painter", None)
+        frame_banding = track_painter and track_painter._frame_banding_config()
         overdraw = self._segment_overdraw(area.width())
         expanded = QRectF(
             area.left() - overdraw,
@@ -410,12 +416,29 @@ class ClipPainter(BasePainter):
             area.height(),
         )
 
+        clips = list(self.w.geometry.iter_clips(include_previews=True))
+        # Also catch clip moves, track changes, and geometry updates which do
+        # not pass through the zoom/scroll handlers.
+        visible_state = (
+            area.getRect(), self.w.pixels_per_second,
+            tuple((rect.getRect(), self._clip_key(clip),
+                   self._clip_trim_start(clip), self._clip_time_bounds(clip))
+                  for rect, clip, _selected in clips if rect.intersects(area)),
+        )
+        previous_state = getattr(self, "_thumbnail_visible_state", None)
+        if previous_state is not None and previous_state != visible_state:
+            reset = getattr(self.w, "_reset_thumbnail_requests", None)
+            if callable(reset):
+                reset()
+        self._thumbnail_visible_state = visible_state
+        self._thumbnail_viewport = area
+
         self.w._effect_icon_rects = []
         self.w._clip_text_rects = []
         painter.save()
         painter.setClipRect(area)
-        for rect, clip, selected in self.w.geometry.iter_clips():
-            if not rect.intersects(expanded):
+        for rect, clip, selected in clips:
+            if not rect.intersects(area):
                 continue
 
             segment_left = max(rect.left(), expanded.left())
@@ -437,8 +460,35 @@ class ClipPainter(BasePainter):
                 painter.save()
                 painter.setOpacity(0.8)
             self._draw_clip(painter, rect, segment_rect, clip, pen, selected)
+            if frame_banding:
+                self._draw_frame_bands(painter, rect, area, frame_banding)
+            self._draw_item_header(painter, clip, rect, area)
             if locked:
                 painter.restore()
+        painter.restore()
+
+    def _draw_frame_bands(self, painter, clip_rect, area, cfg):
+        """Overlay alternating translucent frame bands on clip media."""
+        bw = max(1.0, float(self.border_width or 0.0))
+        visible = clip_rect.adjusted(bw, bw, -bw, -bw).intersected(area)
+        pps = cfg["pps"]
+        fps = cfg["fps"]
+        if visible.isEmpty() or pps <= 0.0 or fps <= 0.0:
+            return
+        offset = cfg["offset_px"]
+        origin = self.w.track_name_width
+        first = int(math.floor((visible.left() - origin + offset) / pps * fps))
+        last = int(math.ceil((visible.right() - origin + offset) / pps * fps))
+        painter.save()
+        painter.setClipRect(visible, Qt.IntersectClip)
+        # Match the track's even-frame highlight with alternating light/dark
+        # overlays. At 12.5% opacity these remain legible on bright or dark media.
+        light = QColor(255, 255, 255, 32)
+        dark = QColor(0, 0, 0, 32)
+        for frame in range(first, min(last + 1, first + 2000)):
+            x = origin + (frame / fps) * pps - offset
+            color = light if frame % 2 == 0 else dark
+            painter.fillRect(QRectF(x, visible.top(), pps / fps, visible.height()), color)
         painter.restore()
 
     @staticmethod
@@ -744,6 +794,15 @@ class ClipPainter(BasePainter):
             "clip_duration": clip_duration_seconds,
         }
 
+        viewport = getattr(self, "_thumbnail_viewport", None)
+        if viewport is not None:
+            segment_info["thumbnail_view_left"] = max(0.0, viewport.left() - segment_rect.left() - self.border_width)
+            segment_info["thumbnail_view_right"] = min(segment_rect.width(), viewport.right() - segment_rect.left() - self.border_width)
+
+        thumb_width = self._thumbnail_slot_width(clip, h - 2.0 * self.border_width)
+        grid_phase = self._thumbnail_grid_phase(clip, thumb_width)
+        segment_info["thumbnail_grid_phase"] = grid_phase
+
         use_cache = not self.w.clip_has_pending_override(clip)
         waveform_token = self.w.clip_waveform_cache_token(clip) if use_cache else None
         key = (
@@ -752,8 +811,12 @@ class ClipPainter(BasePainter):
             h,
             waveform_token,
             round(ratio, 4),
-            round(offset_seconds, 4),
-            round(duration_seconds, 4),
+            offset_seconds,
+            duration_seconds,
+            float(self.w.pixels_per_second),
+            grid_phase,
+            segment_info.get("thumbnail_view_left"),
+            segment_info.get("thumbnail_view_right"),
             includes_start,
             includes_end,
         ) if use_cache else None
@@ -945,34 +1008,14 @@ class ClipPainter(BasePainter):
         painter.save()
         painter.setClipRect(inner)
 
-        right = inner.right() - self.menu_margin
-        text_right = inner.right()
-        icon_entries = []
-        text_entry = None
-        pending_thumbs = False
-
         has_waveform = self._draw_waveform(painter, clip, inner, segment)
-
-        includes_start = segment.get("includes_start", True) if isinstance(segment, dict) else True
-
+        pending_thumbs = False
         if not has_waveform:
             pending_thumbs = self._draw_thumbnails(painter, clip, inner, segment)
 
-        if includes_start:
-            # Title container anchored at top-left; effect badges drawn inside it
-            text_entry = self._draw_clip_text(
-                painter,
-                clip,
-                inner,
-                inner.x(),
-                text_right,
-                visible_width=float(segment.get("segment_width") or inner_rect.width()) if isinstance(segment, dict) else float(inner_rect.width()),
-                icon_entries=icon_entries,
-                transparent_container=has_waveform,
-            )
-
+        # Controls are painted in viewport coordinates, outside the cached media.
         painter.restore()
-        return icon_entries, pending_thumbs, text_entry
+        return [], pending_thumbs, None
 
     def _add_slot_if_valid(self, slots, seen, center_clip_time, half_interval, segment_start,
                            segment_end, trim_start, media_duration, inner_x, top,
@@ -1065,6 +1108,36 @@ class ClipPainter(BasePainter):
         self._resize_allow_left_overflow = False
         self._resize_clip_is_single_image = False
 
+    def _thumbnail_slot_width(self, clip, height):
+        width = self.w.theme.clip.thumb_width
+        if not width:
+            width = round(height * self._clip_aspect_ratio(clip))
+        return float(max(self._min_thumb_slot_width, float(width)))
+
+    def _thumbnail_grid_phase(self, clip, width):
+        """Anchor tiles to clips for slider resizing, or the viewport for wheel zoom.
+
+        Slider handles move the clip edges, so their thumbnail strip must travel
+        with them instead of looking like a stationary background being revealed.
+        Playhead-anchored zoom preserves the viewport phase to avoid tile drift.
+        Sampling always follows each tile's current timeline position.
+        """
+        pps = float(self.w.pixels_per_second or 0.0)
+        start = self._clip_trim_start(clip)
+        position = self._clip_timeline_position(clip)
+        scroll = getattr(self.w, "h_scroll_offset", None)
+        phase = (-start * pps) % width
+        if scroll is None:
+            return phase
+        key = self._clip_key(clip)
+        previous = self._thumbnail_grid.get(key)
+        if previous and previous[3:6] == (position, start, width):
+            old_pps, old_scroll, phase = previous[:3]
+            if pps != old_pps and not getattr(self.w, "_thumbnail_zoom_with_clip", False):
+                phase = (phase + float(scroll) - old_scroll - position * (pps - old_pps)) % width
+        self._thumbnail_grid[key] = (pps, float(scroll), phase, position, start, width)
+        return phase
+
     def _build_thumbnail_slots(self, clip, inner, segment, style, timing):
         """ Build thumbnail slots for a clip. """
         if style == "none":
@@ -1087,10 +1160,7 @@ class ClipPainter(BasePainter):
         # thumb_w must be an integer pixel value so all slot positions share the same
         # fractional offset and round consistently in drawPixmap, preventing per-slot jitter.
         thumb_h = max(self._min_thumb_slot_width, inner.height())
-        if self.w.theme.clip.thumb_width:
-            thumb_w = float(max(self._min_thumb_slot_width, float(self.w.theme.clip.thumb_width)))
-        else:
-            thumb_w = float(max(self._min_thumb_slot_width, round(inner.height() * self._clip_aspect_ratio(clip))))
+        thumb_w = self._thumbnail_slot_width(clip, inner.height())
         top = inner.y()
 
         pixels_per_second = float(self.w.pixels_per_second or 0.0)
@@ -1129,22 +1199,15 @@ class ClipPainter(BasePainter):
         time_points = time_data.get("Points") if isinstance(time_data.get("Points"), list) else []
         has_time_curve = len(time_points) >= 2
 
-        # Slot spacing in time. Keep visual geometry tied to the nominal
-        # thumbnail width in pixels. Frame sampling can still use a quantized
-        # interval, but quantizing the drawn slot positions causes all slots to
-        # jump by a pixel as smooth zoom crosses frame-rounding thresholds.
+        # Use the same exact interval for placement and sampling. Rounding the
+        # interval to frames before multiplying by a slot index accumulates
+        # source-time drift, especially far from media zero at high zoom.
+        # Frame/cache rounding belongs only on the final per-slot sample.
         interval_pixels = max(thumb_w, self._min_thumb_slot_width)
-        geometry_interval_seconds = interval_pixels / pixels_per_second
-        if geometry_interval_seconds <= 0.0:
-            geometry_interval_seconds = 0.01
-        interval_seconds = geometry_interval_seconds
-        if style == "entire":
-            clip_fps = self._clip_media_fps(clip)
-            if clip_fps > 0.0:
-                interval_frames = max(1, int(round(interval_seconds * clip_fps)))
-                interval_seconds = interval_frames / clip_fps
-        half_interval = interval_seconds * 0.5
-        slot_duration_seconds = geometry_interval_seconds
+        interval_seconds = interval_pixels / pixels_per_second
+        if interval_seconds <= 0.0:
+            interval_seconds = 0.01
+        slot_duration_seconds = interval_seconds
 
         includes_start = bool(timing.get("includes_start", True))
         includes_end = bool(timing.get("includes_end", True))
@@ -1159,34 +1222,23 @@ class ClipPainter(BasePainter):
         segment_start_world = clip_pos + segment_start
         segment_end_world = segment_start_world + segment_duration
 
-        view_left = 0.0
-        view_right = visible_width
+        view_left = max(0.0, self._to_float(segment.get("thumbnail_view_left"), 0.0))
+        view_right = min(visible_width, self._to_float(segment.get("thumbnail_view_right"), visible_width))
 
         slots = []
         seen = set()
 
         epsilon = 1e-6
 
-        def add_center_world(center_world, geometry_world=None):
-            """
-            Add a slot whose sampling left edge begins at `center_world` (timeline
-            seconds), if it overlaps the visible segment and lies within clip & media.
-            `geometry_world` can differ for pixel-stable visual placement during
-            smooth zoom while keeping prior frame sampling.
-            """
-            if geometry_world is None:
-                geometry_world = center_world
+        def add_slot_world(slot_world):
+            """Add a slot at a world time, using that time for sampling too."""
 
             # Media time (0 at media start), using the visual slot coverage.
-            slot_start_media_time = geometry_world - anchor_world
+            slot_start_media_time = slot_world - anchor_world
 
             # Clip-local time (0 at clip's left edge), using the visual slot coverage.
-            slot_start_clip_time = geometry_world - clip_pos
+            slot_start_clip_time = slot_world - clip_pos
             slot_end_clip_time = slot_start_clip_time + slot_duration_seconds
-
-            # Clip-local sampling time. This is what _draw_thumbnails uses for
-            # frame selection.
-            sample_start_clip_time = center_world - clip_pos
 
             # Require positive overlap with the visible segment. Boundary-only
             # slots can oscillate in/out during smooth zoom and fight with the
@@ -1215,23 +1267,23 @@ class ClipPainter(BasePainter):
                 return
 
             # Deduplicate by clip-local time to avoid overlapping slots
-            key = round(sample_start_clip_time, 4)
+            key = round(slot_start_clip_time, 4)
             if key in seen:
                 return
             seen.add(key)
 
             rect = QRectF(inner.x() + local_x, top, thumb_w, thumb_h)
             # Store slot start time; _draw_thumbnails samples near the center.
-            slots.append((sample_start_clip_time, rect))
+            slots.append((slot_start_clip_time, rect))
 
         # --- Style handling -----------------------------------------------
 
         if style == "start":
             if includes_start:
-                add_center_world(segment_start_world)
+                add_slot_world(segment_start_world)
         elif style == "start-end":
             if includes_start:
-                add_center_world(segment_start_world)
+                add_slot_world(segment_start_world)
             # If the visible segment cannot fit two full slots, prioritize the
             # start slot to avoid the end slot covering it on very short clips.
             allow_end_slot = True
@@ -1240,26 +1292,17 @@ class ClipPainter(BasePainter):
             if includes_end and allow_end_slot:
                 # Start slot so its right edge aligns with the clip end
                 clip_end_world = clip_pos + max(0.0, clip_duration - slot_duration_seconds)
-                add_center_world(clip_end_world)
+                add_slot_world(clip_end_world)
         else:
-            # Full-grid style ("entire", etc.)
-            # Slot starts should cover any thumbnail overlapping the visible
-            # segment, including partials at either edge.
-            n_min = int(
-                math.floor(
-                    (segment_start_world - slot_duration_seconds - anchor_world) / geometry_interval_seconds
-                )
-            ) - 2
-            n_max = int(
-                math.ceil(
-                    (segment_end_world - anchor_world) / geometry_interval_seconds
-                )
-            ) + 2
-
-            for n in range(n_min, n_max + 1):
-                center_world = anchor_world + n * interval_seconds
-                geometry_world = anchor_world + n * geometry_interval_seconds
-                add_center_world(center_world, geometry_world)
+            # Place tiles in pixel space so a zoom gesture can preserve the
+            # viewport phase without changing the media-time sampling math.
+            phase = segment.get("thumbnail_grid_phase")
+            if phase is None:
+                phase = self._thumbnail_grid_phase(clip, thumb_w)
+            first = int(math.floor((segment_start * pixels_per_second - phase) / thumb_w))
+            last = int(math.ceil((segment_end * pixels_per_second - phase) / thumb_w))
+            for n in range(first, last + 1):
+                add_slot_world(clip_pos + (phase + n * thumb_w) / pixels_per_second)
 
         if not slots:
             return [], interval_seconds
@@ -1399,7 +1442,7 @@ class ClipPainter(BasePainter):
                 if throttle_requests:
                     allow_request = self._can_request_thumbnail(clip_key, throttle_requests)
 
-                # Always queue/load for all slots in the clip (since clip is visible during paint)
+                # Queue/load only slots in the visible clip segment.
                 pix = self._get_thumbnail_pixmap(
                     clip,
                     clip_key,
@@ -1623,228 +1666,6 @@ class ClipPainter(BasePainter):
         painter.setFont(original_font)
         return x
 
-    def _draw_clip_text(
-        self,
-        painter,
-        clip,
-        inner,
-        x,
-        right,
-        visible_width=None,
-        icon_entries=None,
-        transparent_container=False,
-    ):
-        text_width = right - x
-        if text_width <= 0:
-            return None
-        title_raw = str((clip.data.get("title", "") if isinstance(clip.data, dict) else "") or "")
-        if text_width <= 4:
-            return {"rect": QRectF(x, inner.y(), max(1.0, text_width), max(1.0, inner.height())),
-                    "title": title_raw}
-
-        metrics = QFontMetrics(painter.font())
-        font_h = float(metrics.height())
-
-        pad_x = 6.0
-        pad_y = 2.0
-        container_h = font_h + pad_y * 2.0
-        icon_size = max(8.0, font_h - 2.0)
-        icon_gap = 4.0
-
-        # --- Effect badge sizing ---
-        effects = clip.data.get("effects", []) if isinstance(clip.data, dict) else []
-        effects = [e for e in effects if isinstance(e, dict)] if isinstance(effects, list) else []
-
-        badge_font = QFont(painter.font())
-        if badge_font.pointSizeF() > 0:
-            badge_font.setPointSizeF(max(7.0, badge_font.pointSizeF() * 0.8))
-        badge_fm = QFontMetrics(badge_font)
-        badge_h = max(10.0, min(container_h - pad_y * 2.0, font_h))
-
-        raw_badge_infos = []
-        for eff in effects:
-            label = (eff.get("type") or eff.get("effect") or eff.get("name") or eff.get("class_name") or "?")
-            letter = label.strip()[0].upper() if isinstance(label, str) and label.strip() else "?"
-            tw = float(font_metrics_horizontal_advance(badge_fm, letter))
-            bw = max(tw + 6.0, badge_h)
-            raw_badge_infos.append((eff, letter, bw))
-
-        compact_w = pad_x + icon_size + pad_x
-        compact_lod_w = max(compact_w, float(getattr(self, "_min_clip_thumb_width", 0.0) or 0.0))
-        visible_clip_w = float(visible_width if visible_width is not None else inner.width())
-
-        # --- LOD: two phases as clip narrows ---
-        #
-        # Phase 1 (all badges fit + arrow): keep ALL badges, shrink text
-        #   [b1 b2] [full title]  [arrow]
-        #   [b1 b2] [elided...]   [arrow]
-        #   [b1 b2] [T...]        [arrow]
-        #   [b1 b2]               [arrow]   ← text gone, badges still there
-        #
-        # Phase 2 (all badges no longer fit): drop badges from the right, no text
-        #   [b1]                  [arrow]
-        #                         [arrow]   ← compact
-        #                                   ← None (too narrow)
-
-        if raw_badge_infos:
-            all_used_w = (
-                sum(bw for _, _, bw in raw_badge_infos)
-                + self.menu_margin * (len(raw_badge_infos) - 1)
-            )
-        else:
-            all_used_w = 0.0
-
-        # "All badges fit" means all badges + arrow fit with zero text
-        all_badges_fit = (
-            not raw_badge_infos
-            or pad_x + all_used_w + 2.0 * icon_gap + icon_size + pad_x <= text_width
-        )
-
-        badge_infos = []
-        badges_prefix_w = 0.0
-        title_elided = ""
-        text_advance = 0.0
-        container_w = compact_w
-        mode = "compact"
-
-        if all_badges_fit:
-            # Phase 1: keep all badges; text fills whatever space remains
-            badge_infos = list(raw_badge_infos)
-            badges_prefix_w = (all_used_w + icon_gap) if badge_infos else 0.0
-            avail_text_w = int(text_width - pad_x * 2.0 - badges_prefix_w - icon_gap - icon_size)
-            if avail_text_w >= 4:
-                title_elided = metrics.elidedText(title_raw, Qt.ElideRight, avail_text_w)
-                if title_elided:
-                    text_advance = float(font_metrics_horizontal_advance(metrics, title_elided))
-
-            if badge_infos or text_advance > 0:
-                container_w = min(
-                    pad_x + badges_prefix_w + text_advance + icon_gap + icon_size + pad_x,
-                    text_width,
-                )
-                container_w = max(container_h, container_w)
-                mode = "full"
-            elif compact_w <= text_width and compact_lod_w <= visible_clip_w:
-                mode = "compact"
-            else:
-                return None
-
-        else:
-            # Phase 2: drop badges from the right until arrow fits, then compact/none
-            for n in range(len(raw_badge_infos) - 1, 0, -1):
-                used_w = (
-                    sum(bw for _, _, bw in raw_badge_infos[:n])
-                    + self.menu_margin * (n - 1)
-                )
-                if pad_x + used_w + 2.0 * icon_gap + icon_size + pad_x <= text_width:
-                    badge_infos = list(raw_badge_infos[:n])
-                    badges_prefix_w = used_w + icon_gap
-                    break
-
-            if badge_infos:
-                container_w = min(
-                    pad_x + badges_prefix_w + icon_gap + icon_size + pad_x,
-                    text_width,
-                )
-                container_w = max(container_h, container_w)
-                mode = "full"
-            elif compact_w <= text_width and compact_lod_w <= visible_clip_w:
-                mode = "compact"
-            else:
-                return None
-
-        container_x = inner.x()
-        container_y = inner.y()
-        container_rect = QRectF(container_x, container_y, container_w, container_h)
-
-        radius = min(4.0, container_rect.width() / 2.0, container_rect.height() / 2.0)
-        path = QPainterPath()
-        path.addRoundedRect(container_rect, radius, radius)
-        if not transparent_container:
-            painter.save()
-            painter.setRenderHint(QPainter.Antialiasing, True)
-            painter.fillPath(path, QColor(0, 0, 0, 140))
-            painter.restore()
-
-        # Pre-scale the arrow once for both modes
-        arrow_pix = self.dropdown_arrow_pix
-        scaled_arrow = None
-        arrow_w = arrow_h = 0.0
-        if arrow_pix and not arrow_pix.isNull():
-            scaled_arrow = self.scaled_pixmap(arrow_pix, icon_size, icon_size)
-            if scaled_arrow and not scaled_arrow.isNull():
-                arrow_w, arrow_h = self.logical_size(scaled_arrow)
-
-        if mode == "full":
-            # Draw effect badges left of the title text
-            if badge_infos:
-                selected_ids = set()
-                if hasattr(self.w, "_selected_effect_ids"):
-                    selected_ids = self.w._selected_effect_ids()
-                original_font = painter.font()
-                badge_x = container_x + pad_x
-                badge_y = container_y + (container_h - badge_h) / 2.0
-                for eff, letter, bw in badge_infos:
-                    badge_rect = QRectF(badge_x, badge_y, bw, badge_h)
-                    color = self.w._effect_color(eff)
-                    if not isinstance(color, QColor) or not color.isValid():
-                        color = QColor("#4d7bff")
-                    effect_id = eff.get("id")
-                    effect_id_str = str(effect_id) if effect_id is not None else ""
-                    selected = bool(eff.get("selected")) or (effect_id_str and effect_id_str in selected_ids)
-                    fill = QColor(color)
-                    if selected and fill.isValid():
-                        fill = fill.lighter(120)
-                    opacity = 1.0 if selected else 0.7
-                    border = QColor(223, 223, 223) if selected else QColor(0, 0, 0, 200)
-                    badge_pen = QPen(border, 1.0)
-                    badge_pen.setCosmetic(True)
-                    painter.save()
-                    painter.setRenderHint(QPainter.Antialiasing, True)
-                    painter.setOpacity(opacity)
-                    painter.setBrush(fill)
-                    painter.setPen(badge_pen)
-                    badge_radius = min(badge_h / 2.0, 6.0)
-                    painter.drawRoundedRect(badge_rect, badge_radius, badge_radius)
-                    painter.setOpacity(1.0)
-                    painter.setFont(badge_font)
-                    painter.setPen(QColor(255, 255, 255))
-                    painter.drawText(badge_rect, Qt.AlignCenter, letter)
-                    painter.restore()
-                    if icon_entries is not None:
-                        icon_entries.append({
-                            "rect": QRectF(badge_rect),
-                            "effect": eff,
-                            "selected": selected,
-                            "effect_id": effect_id_str,
-                        })
-                    badge_x += bw + self.menu_margin
-                painter.setFont(original_font)
-
-            # Title text after badges
-            flags = Qt.AlignLeft | Qt.AlignVCenter
-            text_start_x = container_x + pad_x + badges_prefix_w
-            text_draw_rect = QRectF(text_start_x, container_y + pad_y, text_advance, font_h)
-            painter.setPen(QColor(0, 0, 0, 120))
-            painter.drawText(text_draw_rect.translated(1, 1), flags, title_elided)
-            painter.setPen(self.w.theme.clip.font_color)
-            painter.drawText(text_draw_rect, flags, title_elided)
-
-            # Arrow after text — only if it clears the container edge by ≥3px
-            if scaled_arrow:
-                arrow_x = text_start_x + text_advance + icon_gap
-                if arrow_x + arrow_w <= container_x + container_w - 3.0:
-                    arrow_y = container_y + (container_h - arrow_h) / 2.0
-                    painter.drawPixmap(QPointF(arrow_x, arrow_y), scaled_arrow)
-        else:
-            # Compact: arrow left-aligned, same position as text would be
-            if scaled_arrow:
-                arrow_x = container_x + pad_x
-                arrow_y = container_y + (container_h - arrow_h) / 2.0
-                painter.drawPixmap(QPointF(arrow_x, arrow_y), scaled_arrow)
-
-        return {"rect": container_rect, "title": title_raw, "open_menu": True}
-
     def _draw_waveform(self, painter, clip, inner, segment=None):
         data = clip.data if isinstance(clip.data, dict) else {}
         ui_data = data.get("ui", {}) if isinstance(data, dict) else {}
@@ -2063,7 +1884,7 @@ class ClipPainter(BasePainter):
             offset = QPointF(segment_rect.x() - shadow_spread, segment_rect.y() - shadow_spread)
             if not preview_drawn:
                 painter.drawPixmap(offset, pix)
-            if icons:
+            if icons and not getattr(clip, "is_recording_preview", False):
                 for entry in icons:
                     rect_local = entry.get("rect") if isinstance(entry, dict) else None
                     effect = entry.get("effect") if isinstance(entry, dict) else None
@@ -2079,7 +1900,7 @@ class ClipPainter(BasePainter):
                             "effect_id": entry.get("effect_id"),
                         }
                     )
-            if isinstance(text_entry, dict):
+            if isinstance(text_entry, dict) and not getattr(clip, "is_recording_preview", False):
                 rect_local = text_entry.get("rect")
                 if isinstance(rect_local, QRectF):
                     global_rect = QRectF(rect_local)
@@ -2092,7 +1913,8 @@ class ClipPainter(BasePainter):
                             "open_menu": bool(text_entry.get("open_menu", False)),
                         }
                     )
-        elif includes_start and segment_rect.width() <= 8.0:
+        elif (includes_start and segment_rect.width() <= 8.0
+              and not getattr(clip, "is_recording_preview", False)):
             # Keep tiny clips hoverable even when no text is painted.
             bw = float(self.border_width or 0.0)
             self.w._clip_text_rects.append(

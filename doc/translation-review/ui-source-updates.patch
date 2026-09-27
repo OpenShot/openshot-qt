@@ -1,0 +1,1495 @@
+--- a/src/language/openshot/ar.po
++++ b/src/language/openshot/ar.po
+@@ -69 +69 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -74 +74 @@
+-msgstr "جارٍ التسجيل"
++msgstr "التسجيل"
+@@ -1961,0 +1962 @@
++# Main-window terminology review, 2026-09-26.
+@@ -1966 +1967 @@
+-msgstr "شكل انتقالي"
++msgstr "انتقال"
+@@ -2838,0 +2840 @@
++# Main-window terminology review, 2026-09-26.
+@@ -2842 +2844 @@
+-msgstr "أدخل نص التسمية..."
++msgstr "أدخل نص التسمية التوضيحية..."
+@@ -4688,0 +4691 @@
++# Main-window terminology review, 2026-09-26.
+@@ -4692 +4695 @@
+-msgstr "التعليقات"
++msgstr "التسميات التوضيحية"
+@@ -6635,0 +6639 @@
++# Main-window terminology review, 2026-09-26.
+@@ -6640 +6644 @@
+-msgstr "إضافة إشارة مرجعية"
++msgstr "إضافة علامة"
+@@ -6658,0 +6663 @@
++# Main-window terminology review, 2026-09-26.
+@@ -6662 +6667 @@
+-msgstr "الضَّبط على المُشير"
++msgstr "توسيط على مؤشر التشغيل"
+@@ -7489,0 +7495 @@
++# Main-window terminology review, 2026-09-26.
+@@ -7492 +7498 @@
+-msgstr "& ملف"
++msgstr "&ملف"
+@@ -7582,0 +7589 @@
++# Main-window terminology review, 2026-09-26.
+@@ -7585 +7592 @@
+-msgstr "تعيين خط الزمان على المُشير"
++msgstr "توسيط شريط الوقت على مؤشر التشغيل"
+@@ -7736 +7743 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -7740 +7747 @@
+-msgstr "إدراج عنوان"
++msgstr "إدراج تسمية توضيحية"
+@@ -7823 +7830 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -7826 +7833 @@
+-msgstr "تحريك الجدول الزمني"
++msgstr "تحريك شريط الوقت"
+@@ -7913,0 +7921,5 @@
++
++#. Play/Pause tooltip bug fix: action shown during playback.
++#: src/themes/base.py:480
++msgid "Pause"
++msgstr "إيقاف مؤقت"
+--- a/src/language/openshot/bn.po
++++ b/src/language/openshot/bn.po
+@@ -2498 +2498 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -2502 +2502 @@
+-msgstr "এফেক্ট: %s"
++msgstr "ইফেক্ট: %s"
+@@ -2608 +2608 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -2612 +2612 @@
+-msgstr "সম্পত্তি"
++msgstr "বৈশিষ্ট্য"
+@@ -2619,0 +2620 @@
++# Main-window terminology review, 2026-09-26.
+@@ -2626 +2627 @@
+-msgstr "নমুনা"
++msgstr "থাম্বনেইল"
+@@ -2871 +2872 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -2877 +2878 @@
+-msgstr "প্রকল্প হিসাবে সংরক্ষণ করুন..."
++msgstr "প্রকল্প অন্য নামে সংরক্ষণ করুন..."
+@@ -7183 +7184 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -7187 +7188 @@
+-msgstr "প্লেহেডের কেন্দ্রে"
++msgstr "প্লেহেডে কেন্দ্র করুন"
+@@ -8451 +8452 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -8454 +8455 @@
+-msgstr "ক্লিক: কেন্দ্র · ড্র্যাগ: জুম"
++msgstr "ক্লিক: কেন্দ্রে আনুন · ড্র্যাগ: জুম করুন"
+@@ -8580,0 +8582,5 @@
++
++#. Play/Pause tooltip bug fix: action shown during playback.
++#: src/themes/base.py:480
++msgid "Pause"
++msgstr "বিরতি"
+--- a/src/language/openshot/zh_CN.po
++++ b/src/language/openshot/zh_CN.po
+@@ -63 +63 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -68 +68 @@
+-msgstr "录制中"
++msgstr "录制"
+@@ -775,0 +776 @@
++# Main-window terminology review, 2026-09-26.
+@@ -779 +780 @@
+-msgstr "过渡"
++msgstr "转场"
+@@ -1007,0 +1009 @@
++# Main-window terminology review, 2026-09-26.
+@@ -1011 +1013 @@
+-msgstr "效果"
++msgstr "特效"
+@@ -1027,0 +1030 @@
++# Main-window terminology review, 2026-09-26.
+@@ -1032 +1035 @@
+-msgstr "剪辑(_C)"
++msgstr "剪辑"
+@@ -1074,0 +1078 @@
++# Main-window terminology review, 2026-09-26.
+@@ -1078 +1082 @@
+-msgstr "特效(_E)"
++msgstr "特效"
+@@ -1912,0 +1917 @@
++# Main-window terminology review, 2026-09-26.
+@@ -1917 +1922 @@
+-msgstr "转场特效"
++msgstr "转场"
+@@ -2236 +2241 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -2240 +2245 @@
+-msgstr "效果：%s"
++msgstr "特效：%s"
+@@ -2333,0 +2339 @@
++# Main-window terminology review, 2026-09-26.
+@@ -2337 +2343 @@
+-msgstr "属性(_P)"
++msgstr "属性"
+@@ -2623 +2629 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -2627,3 +2633,3 @@
+-msgstr "禁用定时"
+-
+-# Translated with gpt-4.1-mini
++msgstr "禁用变速工具"
++
++# Main-window terminology review, 2026-09-26.
+@@ -2635 +2641 @@
+-msgstr "启用计时"
++msgstr "启用变速工具"
+@@ -6478,0 +6485 @@
++# Main-window terminology review, 2026-09-26.
+@@ -6482 +6489 @@
+-msgstr "捐赠(_D)"
++msgstr "捐赠"
+@@ -6534,0 +6542 @@
++# Main-window terminology review, 2026-09-26.
+@@ -6539 +6547 @@
+-msgstr "保存工程"
++msgstr "保存项目"
+@@ -6565,0 +6574 @@
++# Main-window terminology review, 2026-09-26.
+@@ -6570 +6579 @@
+-msgstr "倒序"
++msgstr "快退"
+@@ -7341,0 +7351 @@
++# Main-window terminology review, 2026-09-26.
+@@ -7344 +7354 @@
+-msgstr "工程文件"
++msgstr "项目文件"
+@@ -7354,0 +7365 @@
++# Main-window terminology review, 2026-09-26.
+@@ -7357 +7368 @@
+-msgstr "打开工程"
++msgstr "打开项目"
+@@ -7401,0 +7413 @@
++# Main-window terminology review, 2026-09-26.
+@@ -7404 +7416 @@
+-msgstr "时间线放在播放区顶"
++msgstr "将时间线居中到播放指针位置"
+@@ -7728,0 +7741,5 @@
++
++#. Play/Pause tooltip bug fix: action shown during playback.
++#: src/themes/base.py:480
++msgid "Pause"
++msgstr "暂停"
+--- a/src/language/openshot/zh_TW.po
++++ b/src/language/openshot/zh_TW.po
+@@ -63 +63 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -68 +68 @@
+-msgstr "錄製中"
++msgstr "錄製"
+@@ -206,0 +207 @@
++# Main-window terminology review, 2026-09-26.
+@@ -213 +214 @@
+-msgstr "標題或字幕"
++msgstr "標題"
+@@ -2220 +2221 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -2223,3 +2224,3 @@
+-msgstr "解鎖軌道"
+-
+-# Translated with gpt-4.1-mini
++msgstr "解鎖影音軌"
++
++# Main-window terminology review, 2026-09-26.
+@@ -2228 +2229 @@
+-msgstr "鎖定軌道"
++msgstr "鎖定影音軌"
+@@ -2240 +2241 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -2244 +2245 @@
+-msgstr "效果：%s"
++msgstr "特效：%s"
+@@ -2252 +2253 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -2256 +2257 @@
+-msgstr "剪輯：%s"
++msgstr "片段：%s"
+@@ -2627 +2628 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -2631,3 +2632,3 @@
+-msgstr "停用計時"
+-
+-# Translated with gpt-4.1-mini
++msgstr "停用變速工具"
++
++# Main-window terminology review, 2026-09-26.
+@@ -2639 +2640 @@
+-msgstr "啟用計時"
++msgstr "啟用變速工具"
+@@ -2802,0 +2804 @@
++# Main-window terminology review, 2026-09-26.
+@@ -2805 +2807 @@
+-msgstr "字幕工具欄"
++msgstr "字幕工具列"
+@@ -7714,0 +7717,5 @@
++
++#. Play/Pause tooltip bug fix: action shown during playback.
++#: src/themes/base.py:480
++msgid "Pause"
++msgstr "暫停"
+--- a/src/language/openshot/hr.po
++++ b/src/language/openshot/hr.po
+@@ -2219 +2219 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -2222,3 +2222,3 @@
+-msgstr "Otključaj stazu"
+-
+-# Translated with gpt-4.1-mini
++msgstr "Otključaj traku"
++
++# Main-window terminology review, 2026-09-26.
+@@ -2227 +2227 @@
+-msgstr "Zaključaj stazu"
++msgstr "Zaključaj traku"
+@@ -2628,0 +2629 @@
++# Main-window terminology review, 2026-09-26.
+@@ -2632,2 +2633,3 @@
+-msgstr "Deaktiviraj mjerenje vremena"
+-
++msgstr "Deaktiviraj promjenu brzine"
++
++# Main-window terminology review, 2026-09-26.
+@@ -2639 +2641 @@
+-msgstr "Aktiviraj mjerenje vremena"
++msgstr "Aktiviraj promjenu brzine"
+@@ -6417,0 +6420 @@
++# Main-window terminology review, 2026-09-26.
+@@ -6421 +6424 @@
+-msgstr "Centriraj na crtu trenutačne pozicije ili kadra"
++msgstr "Centriraj na pokazivač reprodukcije"
+@@ -7289,0 +7293 @@
++# Main-window terminology review, 2026-09-26.
+@@ -7292 +7296 @@
+-msgstr "Centriraj vremensku crtu na crtu trenutačne pozicije ili kadra"
++msgstr "Centriraj vremensku crtu na pokazivač reprodukcije"
+@@ -7435 +7439 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -7439 +7443 @@
+-msgstr "Umetni titl"
++msgstr "Umetni podnaslov"
+@@ -7614,0 +7619,5 @@
++
++#. Play/Pause tooltip bug fix: action shown during playback.
++#: src/themes/base.py:480
++msgid "Pause"
++msgstr "Pauza"
+--- a/src/language/openshot/nl.po
++++ b/src/language/openshot/nl.po
+@@ -2670 +2670 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -2676,3 +2676,3 @@
+-msgstr "Schuiven uitschakelen"
+-
+-# Translated with gpt-4.1-mini
++msgstr "Vastklikken uitschakelen"
++
++# Main-window terminology review, 2026-09-26.
+@@ -2682 +2682 @@
+-msgstr "Schuiven inschakelen"
++msgstr "Vastklikken inschakelen"
+@@ -2819,0 +2820 @@
++# Main-window terminology review, 2026-09-26.
+@@ -2822 +2823 @@
+-msgstr "Tekst voor bijschrift invoeren..."
++msgstr "Ondertiteltekst invoeren..."
+@@ -2885,0 +2887 @@
++# Main-window terminology review, 2026-09-26.
+@@ -2888 +2890 @@
+-msgstr "Bijschrift-werkbalk"
++msgstr "Ondertitelwerkbalk"
+@@ -2933 +2935 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -2936 +2938 @@
+-msgstr "Audiovolumes"
++msgstr "Audioniveaus"
+@@ -4695,0 +4698 @@
++# Main-window terminology review, 2026-09-26.
+@@ -4699 +4702 @@
+-msgstr "Bijschriften"
++msgstr "Ondertitels"
+@@ -5465,0 +5469 @@
++# Main-window terminology review, 2026-09-26.
+@@ -5468 +5472 @@
+-msgstr "Bijschrift"
++msgstr "Ondertitel"
+@@ -7727 +7731 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -7731 +7735 @@
+-msgstr "Bijschrift invoegen"
++msgstr "Ondertitel invoegen"
+@@ -7779 +7783 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -7782 +7786 @@
+-msgstr "Klik: centrum · Sleep: zoom"
++msgstr "Klik: centreren · Sleep: zoomen"
+@@ -7814 +7818 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -7817 +7821 @@
+-msgstr "Schuif tijdlijn"
++msgstr "Tijdbalk verschuiven"
+@@ -7908,0 +7913,5 @@
++
++#. Play/Pause tooltip bug fix: action shown during playback.
++#: src/themes/base.py:480
++msgid "Pause"
++msgstr "Pauzeren"
+--- a/src/language/openshot/fr.po
++++ b/src/language/openshot/fr.po
+@@ -2824,0 +2825 @@
++# Main-window terminology review, 2026-09-26.
+@@ -2827 +2828 @@
+-msgstr "Saisir le texte de légende..."
++msgstr "Saisir le texte du sous-titre..."
+@@ -2881,0 +2883 @@
++# Main-window terminology review, 2026-09-26.
+@@ -2884 +2886 @@
+-msgstr "Barre d'outils de légende"
++msgstr "Barre d’outils des sous-titres"
+@@ -4693,0 +4696 @@
++# Main-window terminology review, 2026-09-26.
+@@ -4697 +4700 @@
+-msgstr "Légendes"
++msgstr "Sous-titres"
+@@ -5461,0 +5465 @@
++# Main-window terminology review, 2026-09-26.
+@@ -5464 +5468 @@
+-msgstr "Légende"
++msgstr "Sous-titre"
+@@ -7554,0 +7559 @@
++# Main-window terminology review, 2026-09-26.
+@@ -7557 +7562 @@
+-msgstr "Centrer la ligne du temps sur la tête de lecture"
++msgstr "Centrer la ligne de temps sur la tête de lecture"
+@@ -7595,0 +7601 @@
++# Main-window terminology review, 2026-09-26.
+@@ -7598 +7604 @@
+-msgstr "Contenus"
++msgstr "Sommaire"
+@@ -7704 +7710 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -7708 +7714 @@
+-msgstr "Insérer une légende"
++msgstr "Insérer un sous-titre"
+@@ -7790 +7796 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -7793 +7799 @@
+-msgstr "Déplacer la timeline"
++msgstr "Déplacer la ligne de temps"
+@@ -7885,0 +7892,5 @@
++
++#. Play/Pause tooltip bug fix: action shown during playback.
++#: src/themes/base.py:480
++msgid "Pause"
++msgstr "Pause"
+--- a/src/language/openshot/fi.po
++++ b/src/language/openshot/fi.po
+@@ -2245 +2245 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -2249 +2249 @@
+-msgstr "Efekti: %s"
++msgstr "Tehoste: %s"
+@@ -2751,0 +2752 @@
++# Main-window terminology review, 2026-09-26.
+@@ -2754 +2755 @@
+-msgstr "Kirjoita otsikkoteksti..."
++msgstr "Kirjoita tekstitysteksti..."
+@@ -2808,0 +2810 @@
++# Main-window terminology review, 2026-09-26.
+@@ -2811 +2813 @@
+-msgstr "Tekstitys työkalupalkki"
++msgstr "Tekstitystyökalupalkki"
+@@ -2825 +2827 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -2829 +2831 @@
+-msgstr "Väri-näkymä"
++msgstr "Värinäkymä"
+@@ -2849 +2851 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -2852 +2854 @@
+-msgstr "Vektoriaaltomuoto"
++msgstr "Vektoriskooppi"
+@@ -6544,0 +6547 @@
++# Main-window terminology review, 2026-09-26.
+@@ -6548 +6551 @@
+-msgstr "Keskellä toistopaikkaa"
++msgstr "Keskitä toistopaikkaan"
+@@ -7746,0 +7750,5 @@
++
++#. Play/Pause tooltip bug fix: action shown during playback.
++#: src/themes/base.py:480
++msgid "Pause"
++msgstr "Tauko"
+--- a/src/language/openshot/de.po
++++ b/src/language/openshot/de.po
+@@ -2388,0 +2389 @@
++# Main-window terminology review, 2026-09-26.
+@@ -2392 +2393 @@
+-msgstr "Merkmal"
++msgstr "Eigenschaft"
+@@ -2669,0 +2671 @@
++# Main-window terminology review, 2026-09-26.
+@@ -2673,2 +2675,3 @@
+-msgstr "Radierer deaktivieren"
+-
++msgstr "Rasierklinge deaktivieren"
++
++# Main-window terminology review, 2026-09-26.
+@@ -2680 +2683 @@
+-msgstr "Radierer aktivieren"
++msgstr "Rasierklinge aktivieren"
+@@ -2802,0 +2806 @@
++# Main-window terminology review, 2026-09-26.
+@@ -2805 +2809 @@
+-msgstr "Beschriftungstext eingeben …"
++msgstr "Untertiteltext eingeben …"
+@@ -2859,0 +2864 @@
++# Main-window terminology review, 2026-09-26.
+@@ -2862 +2867 @@
+-msgstr "Beschriftungs-Symbolleiste"
++msgstr "Untertitel-Werkzeugleiste"
+@@ -4671,0 +4677 @@
++# Main-window terminology review, 2026-09-26.
+@@ -4675 +4681 @@
+-msgstr "Beschriftungen"
++msgstr "Untertitel"
+@@ -5437,0 +5444 @@
++# Main-window terminology review, 2026-09-26.
+@@ -5440 +5447 @@
+-msgstr "Beschriftung"
++msgstr "Untertitel"
+@@ -7531,0 +7539 @@
++# Main-window terminology review, 2026-09-26.
+@@ -7534 +7542 @@
+-msgstr "Zeitleiste auf Abspiel-Cursor zentrieren"
++msgstr "Zeitleiste auf Abspielkopf zentrieren"
+@@ -7679 +7687 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -7683 +7691 @@
+-msgstr "Beschriftung einfügen"
++msgstr "Untertitel einfügen"
+@@ -7765 +7773 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -7768 +7776 @@
+-msgstr "Timeline verschieben"
++msgstr "Zeitleiste verschieben"
+@@ -7859,0 +7868,5 @@
++
++#. Play/Pause tooltip bug fix: action shown during playback.
++#: src/themes/base.py:480
++msgid "Pause"
++msgstr "Pause"
+--- a/src/language/openshot/hi.po
++++ b/src/language/openshot/hi.po
+@@ -41,0 +42 @@
++# Main-window terminology review, 2026-09-26.
+@@ -49 +50 @@
+-msgstr "अनामांकित परियोजना"
++msgstr "बिना शीर्षक वाला प्रोजेक्ट"
+@@ -806,0 +808 @@
++# Main-window terminology review, 2026-09-26.
+@@ -810 +812 @@
+-msgstr "स्पष्ट"
++msgstr "साफ़ करें"
+@@ -2446,0 +2449 @@
++# Main-window terminology review, 2026-09-26.
+@@ -2450,2 +2453,3 @@
+-msgstr "संपत्ति"
+-
++msgstr "विशेषता"
++
++# Main-window terminology review, 2026-09-26.
+@@ -2455,2 +2459,3 @@
+-msgstr "मूल्य"
+-
++msgstr "मान"
++
++# Main-window terminology review, 2026-09-26.
+@@ -2463 +2468 @@
+-msgstr "अंगूठा"
++msgstr "थंबनेल"
+@@ -2660,0 +2666 @@
++# Main-window terminology review, 2026-09-26.
+@@ -2665 +2671 @@
+-msgstr "परियोजना खोलें..."
++msgstr "प्रोजेक्ट खोलें..."
+@@ -2674,0 +2681 @@
++# Main-window terminology review, 2026-09-26.
+@@ -2680 +2687 @@
+-msgstr "परियोजना को यथाकतिथ सहेजें..."
++msgstr "प्रोजेक्ट इस नाम से सहेजें..."
+@@ -2871,0 +2879 @@
++# Main-window terminology review, 2026-09-26.
+@@ -2874 +2882 @@
+-msgstr "हाल ही के परियोजनाएं"
++msgstr "हाल के प्रोजेक्ट"
+@@ -6637,0 +6646 @@
++# Main-window terminology review, 2026-09-26.
+@@ -6641 +6650 @@
+-msgstr "वरीयता"
++msgstr "पसंदें"
+@@ -6646,0 +6656 @@
++# Main-window terminology review, 2026-09-26.
+@@ -6650 +6660 @@
+-msgstr "छोड़े"
++msgstr "बाहर निकलें"
+@@ -6711,0 +6722 @@
++# Main-window terminology review, 2026-09-26.
+@@ -6715 +6726 @@
+-msgstr "प्लेहेड पर केंद्रित कीजिए"
++msgstr "प्लेहेड पर केंद्रित करें"
+@@ -6728,0 +6740 @@
++# Main-window terminology review, 2026-09-26.
+@@ -6733 +6745 @@
+-msgstr "नई परियोजना"
++msgstr "नया प्रोजेक्ट"
+@@ -6740,0 +6753 @@
++# Main-window terminology review, 2026-09-26.
+@@ -6745 +6758 @@
+-msgstr "परियोजना को सुरक्षित करो"
++msgstr "प्रोजेक्ट सहेजें"
+@@ -6840,0 +6854 @@
++# Main-window terminology review, 2026-09-26.
+@@ -6845,2 +6859,3 @@
+-msgstr "शुरू से करे"
+-
++msgstr "शुरुआत में जाएँ"
++
++# Main-window terminology review, 2026-09-26.
+@@ -6851 +6866 @@
+-msgstr "सीधा अंत में जाये"
++msgstr "अंत में जाएँ"
+@@ -7562,0 +7578 @@
++# Main-window terminology review, 2026-09-26.
+@@ -7565 +7581 @@
+-msgstr "खुले परियोजना"
++msgstr "प्रोजेक्ट खोलें"
+@@ -7571,0 +7588 @@
++# Main-window terminology review, 2026-09-26.
+@@ -7574 +7591 @@
+-msgstr "फ़ाइलें आयात करे"
++msgstr "फ़ाइलें आयात करें"
+@@ -7945,0 +7963,5 @@
++
++#. Play/Pause tooltip bug fix: action shown during playback.
++#: src/themes/base.py:480
++msgid "Pause"
++msgstr "विराम दें"
+--- a/src/language/openshot/is.po
++++ b/src/language/openshot/is.po
+@@ -2267 +2267 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -2270,3 +2270,3 @@
+-msgstr "Lykja upp lag"
+-
+-# Translated with gpt-4.1-mini
++msgstr "Aflæsa spori"
++
++# Main-window terminology review, 2026-09-26.
+@@ -2275 +2275 @@
+-msgstr "Læsa lagi"
++msgstr "Læsa spori"
+@@ -2293 +2293 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -2297,3 +2297,3 @@
+-msgstr "Yfirfærsla: %s"
+-
+-# Translated with gpt-4.1-mini
++msgstr "Millifærsla: %s"
++
++# Main-window terminology review, 2026-09-26.
+@@ -2303 +2303 @@
+-msgstr "Klippa: %s"
++msgstr "Myndbútur: %s"
+@@ -2726 +2726 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -2729 +2729 @@
+-msgstr "Sýn mín"
++msgstr "Mínar sýnir"
+@@ -2900 +2900 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -2903 +2903 @@
+-msgstr "Luma bylgjulaga"
++msgstr "Luma-bylgjuform"
+@@ -7834,0 +7835,5 @@
++
++#. Play/Pause tooltip bug fix: action shown during playback.
++#: src/themes/base.py:480
++msgid "Pause"
++msgstr "Gera hlé"
+--- a/src/language/openshot/id.po
++++ b/src/language/openshot/id.po
+@@ -63 +63 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -68 +68 @@
+-msgstr "Merekam"
++msgstr "Perekaman"
+@@ -2323,0 +2324 @@
++# Main-window terminology review, 2026-09-26.
+@@ -2327 +2328 @@
+-msgstr "Video Preview"
++msgstr "Pratinjau Video"
+@@ -2394,0 +2396 @@
++# Main-window terminology review, 2026-09-26.
+@@ -2401 +2403 @@
+-msgstr "Preview (Thumb)"
++msgstr "Gambar Mini"
+@@ -2674 +2676 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -2680,3 +2682,3 @@
+-msgstr "Aktifkan Razor"
+-
+-# Translated with gpt-4.1-mini
++msgstr "Aktifkan Pisau"
++
++# Main-window terminology review, 2026-09-26.
+@@ -2686,3 +2688,3 @@
+-msgstr "Nonaktifkan Penjadwalan"
+-
+-# Translated with gpt-4.1-mini
++msgstr "Nonaktifkan Pengaturan Kecepatan"
++
++# Main-window terminology review, 2026-09-26.
+@@ -2694 +2696 @@
+-msgstr "Aktifkan Penjadwalan"
++msgstr "Aktifkan Pengaturan Kecepatan"
+@@ -6701,0 +6704 @@
++# Main-window terminology review, 2026-09-26.
+@@ -6706 +6709 @@
+-msgstr "Putar Ulang"
++msgstr "Mundur"
+@@ -6753,0 +6757 @@
++# Main-window terminology review, 2026-09-26.
+@@ -6758 +6762 @@
+-msgstr "Tambah Alur"
++msgstr "Tambah Trek"
+@@ -7539,0 +7544 @@
++# Main-window terminology review, 2026-09-26.
+@@ -7542 +7547 @@
+-msgstr "Pusatkan linimasa pada Playhead"
++msgstr "Pusatkan Garis Waktu pada Playhead"
+@@ -7688 +7693 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -7692 +7697 @@
+-msgstr "Sisipkan Keterangan"
++msgstr "Sisipkan Kapsi"
+@@ -7740 +7745 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -7743 +7748 @@
+-msgstr "Klik: pusat · Seret: zoom"
++msgstr "Klik: pusatkan · Seret: zoom"
+@@ -7775 +7780 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -7778 +7783 @@
+-msgstr "Geser timeline"
++msgstr "Geser Garis Waktu"
+@@ -7867,0 +7873,5 @@
++
++#. Play/Pause tooltip bug fix: action shown during playback.
++#: src/themes/base.py:480
++msgid "Pause"
++msgstr "Jeda"
+--- a/src/language/openshot/it.po
++++ b/src/language/openshot/it.po
+@@ -1068,0 +1069 @@
++# Main-window terminology review, 2026-09-26.
+@@ -1073 +1074 @@
+-msgstr "Filmato"
++msgstr "Clip"
+@@ -2724 +2725 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -2727 +2728 @@
+-msgstr "Visualizzazione Registrazione"
++msgstr "Vista registrazione"
+@@ -2796,0 +2798 @@
++# Main-window terminology review, 2026-09-26.
+@@ -2799 +2801 @@
+-msgstr "Inserire il testo della didascalia..."
++msgstr "Inserisci il testo del sottotitolo..."
+@@ -2853,0 +2856 @@
++# Main-window terminology review, 2026-09-26.
+@@ -2856 +2859 @@
+-msgstr "Didascalia barra degli strumenti"
++msgstr "Barra degli strumenti dei sottotitoli"
+@@ -4658,0 +4662 @@
++# Main-window terminology review, 2026-09-26.
+@@ -4662 +4666 @@
+-msgstr "Didascalie"
++msgstr "Sottotitoli"
+@@ -5427,0 +5432 @@
++# Main-window terminology review, 2026-09-26.
+@@ -5430 +5435 @@
+-msgstr "Didascalia"
++msgstr "Sottotitolo"
+@@ -7511,0 +7517 @@
++# Main-window terminology review, 2026-09-26.
+@@ -7515 +7521 @@
+-msgstr "Centra la timeline sulla testina di riproduzione"
++msgstr "Centra la timeline sul cursore di riproduzione"
+@@ -7660 +7666 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -7664 +7670 @@
+-msgstr "Inserisci Didascalia"
++msgstr "Inserisci sottotitolo"
+@@ -7841,0 +7848,5 @@
++
++#. Play/Pause tooltip bug fix: action shown during playback.
++#: src/themes/base.py:480
++msgid "Pause"
++msgstr "Pausa"
+--- a/src/language/openshot/ja.po
++++ b/src/language/openshot/ja.po
+@@ -64 +64 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -69 +69 @@
+-msgstr "録画中"
++msgstr "録音・録画"
+@@ -2721 +2721 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -2724 +2724 @@
+-msgstr "録画ビュー"
++msgstr "録音・録画ビュー"
+@@ -2859,0 +2860 @@
++# Main-window terminology review, 2026-09-26.
+@@ -2862 +2863 @@
+-msgstr "ツールバーのキャプション"
++msgstr "キャプションツールバー"
+@@ -6600,0 +6602 @@
++# Main-window terminology review, 2026-09-26.
+@@ -6604,2 +6606,3 @@
+-msgstr "再生ヘッドの中央"
+-
++msgstr "再生ヘッドを中心に表示"
++
++# Main-window terminology review, 2026-09-26.
+@@ -6610 +6613 @@
+-msgstr "動画タイトル"
++msgstr "アニメーションタイトル"
+@@ -7504,0 +7508 @@
++# Main-window terminology review, 2026-09-26.
+@@ -7507 +7511 @@
+-msgstr "再生ヘッドのタイムラインを中央にする"
++msgstr "再生ヘッドを中心にタイムラインを表示"
+@@ -7832,0 +7837,5 @@
++
++#. Play/Pause tooltip bug fix: action shown during playback.
++#: src/themes/base.py:480
++msgid "Pause"
++msgstr "一時停止"
+--- a/src/language/openshot/ko.po
++++ b/src/language/openshot/ko.po
+@@ -64 +64 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -69 +69 @@
+-msgstr "녹화 중"
++msgstr "녹음/녹화"
+@@ -2313 +2313 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -2317 +2317 @@
+-msgstr "전환: %s"
++msgstr "전환효과: %s"
+@@ -2752 +2752 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -2755 +2755 @@
+-msgstr "녹화 뷰"
++msgstr "녹음/녹화 보기"
+@@ -6604,0 +6605 @@
++# Main-window terminology review, 2026-09-26.
+@@ -6608 +6609 @@
+-msgstr "기본 설정"
++msgstr "환경설정"
+@@ -6677,0 +6679 @@
++# Main-window terminology review, 2026-09-26.
+@@ -6681 +6683 @@
+-msgstr "재생 헤드 중앙"
++msgstr "재생 헤드를 중심으로 보기"
+@@ -6873,0 +6876 @@
++# Main-window terminology review, 2026-09-26.
+@@ -6877 +6880 @@
+-msgstr "요약 보기"
++msgstr "간단 보기"
+@@ -7629,0 +7633 @@
++# Main-window terminology review, 2026-09-26.
+@@ -7633 +7637 @@
+-msgstr "공통 사항"
++msgstr "자주 사용"
+@@ -7921,0 +7926,5 @@
++
++#. Play/Pause tooltip bug fix: action shown during playback.
++#: src/themes/base.py:480
++msgid "Pause"
++msgstr "일시 정지"
+--- a/src/language/openshot/nb.po
++++ b/src/language/openshot/nb.po
+@@ -64 +64 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -69 +69 @@
+-msgstr "Tar opp"
++msgstr "Opptak"
+@@ -2329,0 +2330 @@
++# Main-window terminology review, 2026-09-26.
+@@ -2333 +2334 @@
+-msgstr "Forhåndsvis Video"
++msgstr "Videoforhåndsvisning"
+@@ -2818 +2819 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -2821 +2822 @@
+-msgstr "Skriv inn bildetekst..."
++msgstr "Skriv inn undertekst..."
+@@ -2886 +2887 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -2889 +2890 @@
+-msgstr "Bildetekstverktøylinje"
++msgstr "Verktøylinje for undertekster"
+@@ -4715 +4716 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -4719 +4720 @@
+-msgstr "Tekster"
++msgstr "Undertekster"
+@@ -5519 +5520 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -5522 +5523 @@
+-msgstr "Tekst"
++msgstr "Undertekst"
+@@ -6756,0 +6758 @@
++# Main-window terminology review, 2026-09-26.
+@@ -6761 +6763 @@
+-msgstr "Legg til markør"
++msgstr "Legg til merke"
+@@ -7883 +7885 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -7887 +7889 @@
+-msgstr "Sett inn bildetekst"
++msgstr "Sett inn undertekst"
+@@ -8064,0 +8067,5 @@
++
++#. Play/Pause tooltip bug fix: action shown during playback.
++#: src/themes/base.py:480
++msgid "Pause"
++msgstr "Pause"
+--- a/src/language/openshot/fa.po
++++ b/src/language/openshot/fa.po
+@@ -64 +64 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -69 +69 @@
+-msgstr "در حال ضبط"
++msgstr "ضبط"
+@@ -823,0 +824 @@
++# Main-window terminology review, 2026-09-26.
+@@ -836 +837 @@
+-msgstr "شیار %s"
++msgstr "ترک %s"
+@@ -1087 +1088 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -1091 +1092 @@
+-msgstr "افکت"
++msgstr "جلوه"
+@@ -1108,0 +1110 @@
++# Main-window terminology review, 2026-09-26.
+@@ -1113 +1115 @@
+-msgstr "ویدیو"
++msgstr "کلیپ"
+@@ -2025 +2027 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -2030 +2032 @@
+-msgstr "ترنزیشن"
++msgstr "گذار"
+@@ -2370 +2372 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -2374,3 +2376,3 @@
+-msgstr "افکت: %s"
+-
+-# Translated with gpt-4.1-mini
++msgstr "جلوه: %s"
++
++# Main-window terminology review, 2026-09-26.
+@@ -2380 +2382 @@
+-msgstr "ترنزیشن: %s"
++msgstr "گذار: %s"
+@@ -2483 +2485 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -2490 +2492 @@
+-msgstr "بینیه"
++msgstr "تصویر بندانگشتی"
+@@ -2842 +2844 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -2845 +2847 @@
+-msgstr "نمای من"
++msgstr "نماهای من"
+@@ -3023 +3025 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -3026 +3028 @@
+-msgstr "موج‌نمای لومای"
++msgstr "شکل موج لوما"
+@@ -6997 +6999 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -7001 +7003 @@
+-msgstr "مرکز روی سر پخش"
++msgstr "مرکز کردن روی نشانگر پخش"
+@@ -7930 +7932 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -7933 +7935 @@
+-msgstr "صادرات پروژه"
++msgstr "برون‌ریزی پروژه"
+@@ -8035 +8037 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -8038 +8040 @@
+-msgstr "مرکز کردن جدول زمانی روی نشانگر پخش"
++msgstr "مرکز کردن خط زمان روی نشانگر پخش"
+@@ -8300 +8302 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -8303 +8305 @@
+-msgstr "حرکت دادن جدول زمانی"
++msgstr "حرکت دادن خط زمان"
+@@ -8392,0 +8395,5 @@
++
++#. Play/Pause tooltip bug fix: action shown during playback.
++#: src/themes/base.py:480
++msgid "Pause"
++msgstr "مکث"
+--- a/src/language/openshot/pl.po
++++ b/src/language/openshot/pl.po
+@@ -364,0 +365 @@
++# Main-window terminology review, 2026-09-26.
+@@ -372 +373 @@
+-msgstr "Eksport nagrań wideo"
++msgstr "Eksportuj wideo"
+@@ -2338,0 +2340 @@
++# Main-window terminology review, 2026-09-26.
+@@ -2342 +2344 @@
+-msgstr "Właściwości"
++msgstr "Właściwość"
+@@ -2630,0 +2633 @@
++# Main-window terminology review, 2026-09-26.
+@@ -2634,2 +2637,3 @@
+-msgstr "Wyłącz synchronizację"
+-
++msgstr "Wyłącz zmianę prędkości"
++
++# Main-window terminology review, 2026-09-26.
+@@ -2641 +2645 @@
+-msgstr "Włącz synchronizację"
++msgstr "Włącz zmianę prędkości"
+@@ -2747,0 +2752 @@
++# Main-window terminology review, 2026-09-26.
+@@ -2750 +2755 @@
+-msgstr "Wpisz treść podpisu..."
++msgstr "Wpisz tekst napisu..."
+@@ -4585,0 +4591 @@
++# Main-window terminology review, 2026-09-26.
+@@ -4589 +4595 @@
+-msgstr "Podpisy"
++msgstr "Napisy"
+@@ -5308,0 +5315 @@
++# Main-window terminology review, 2026-09-26.
+@@ -5311 +5318 @@
+-msgstr "Podpis"
++msgstr "Napis"
+@@ -7258,0 +7266 @@
++# Main-window terminology review, 2026-09-26.
+@@ -7261 +7269 @@
+-msgstr "Import plików"
++msgstr "Importuj pliki"
+@@ -7443 +7451 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -7447 +7455 @@
+-msgstr "Wstaw podpis"
++msgstr "Wstaw napis"
+@@ -7624,0 +7633,5 @@
++
++#. Play/Pause tooltip bug fix: action shown during playback.
++#: src/themes/base.py:480
++msgid "Pause"
++msgstr "Wstrzymaj"
+--- a/src/language/openshot/pt.po
++++ b/src/language/openshot/pt.po
+@@ -64 +64 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -69 +69 @@
+-msgstr "Gravando"
++msgstr "Gravação"
+@@ -2358 +2358 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -2362 +2362 @@
+-msgstr "Clipe: %s"
++msgstr "Clip: %s"
+@@ -2385,0 +2386 @@
++# Main-window terminology review, 2026-09-26.
+@@ -2389 +2390 @@
+-msgstr "Pré-visualizar vídeo"
++msgstr "Pré-visualização de vídeo"
+@@ -6811,0 +6813 @@
++# Main-window terminology review, 2026-09-26.
+@@ -6816 +6818 @@
+-msgstr "Centralizar no Indicador de Reprodução"
++msgstr "Centrar no cursor de reprodução"
+@@ -7024,0 +7027 @@
++# Main-window terminology review, 2026-09-26.
+@@ -7028 +7031 @@
+-msgstr "Abrir Ajuda de Conteúdos"
++msgstr "Abrir o índice da ajuda"
+@@ -7726 +7729 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -7729 +7732 @@
+-msgstr "Centralizar a linha do tempo no cursor de reprodução"
++msgstr "Centrar a linha cronológica no cursor de reprodução"
+@@ -7932 +7935 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -7935 +7938 @@
+-msgstr "Clique: centralizar · Arraste: zoom"
++msgstr "Clique: centrar · Arraste: zoom"
+@@ -7967 +7970 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -7970 +7973 @@
+-msgstr "Mover linha do tempo"
++msgstr "Deslocar a linha cronológica"
+@@ -8059,0 +8063,5 @@
++
++#. Play/Pause tooltip bug fix: action shown during playback.
++#: src/themes/base.py:480
++msgid "Pause"
++msgstr "Pausa"
+--- a/src/language/openshot/ro.po
++++ b/src/language/openshot/ro.po
+@@ -375,0 +376 @@
++# Main-window terminology review, 2026-09-26.
+@@ -383 +384 @@
+-msgstr "Exportă clip"
++msgstr "Exportă video"
+@@ -1087,0 +1089 @@
++# Main-window terminology review, 2026-09-26.
+@@ -1092 +1094 @@
+-msgstr "Decupează"
++msgstr "Clip"
+@@ -2417,0 +2420 @@
++# Main-window terminology review, 2026-09-26.
+@@ -2424 +2427 @@
+-msgstr "Miniatura"
++msgstr "Miniatură"
+@@ -2641,0 +2645 @@
++# Main-window terminology review, 2026-09-26.
+@@ -2647 +2651 @@
+-msgstr "Salveaza proiectul ca..."
++msgstr "Salvează proiectul ca..."
+@@ -2715 +2719 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -2719,3 +2723,3 @@
+-msgstr "Dezactivează sincronizarea"
+-
+-# Translated with gpt-4.1-mini
++msgstr "Dezactivează modificarea vitezei"
++
++# Main-window terminology review, 2026-09-26.
+@@ -2727 +2731 @@
+-msgstr "Activează sincronizarea"
++msgstr "Activează modificarea vitezei"
+@@ -6754,0 +6759 @@
++# Main-window terminology review, 2026-09-26.
+@@ -6758 +6763 @@
+-msgstr "Centrat pe Playhead"
++msgstr "Centrează pe cursorul de redare"
+@@ -6965,0 +6971 @@
++# Main-window terminology review, 2026-09-26.
+@@ -6969 +6975 @@
+-msgstr "Deschideți conținutul ajutor"
++msgstr "Deschide cuprinsul ajutorului"
+@@ -7577,0 +7584 @@
++# Main-window terminology review, 2026-09-26.
+@@ -7580,2 +7587,3 @@
+-msgstr "Export Proiect"
+-
++msgstr "Exportă proiectul"
++
++# Main-window terminology review, 2026-09-26.
+@@ -7584 +7592 @@
+-msgstr "Import Proiect"
++msgstr "Importă proiectul"
+@@ -7663,0 +7672 @@
++# Main-window terminology review, 2026-09-26.
+@@ -7666 +7675 @@
+-msgstr "Centrează cronologia pe Playhead"
++msgstr "Centrează cronologia pe cursorul de redare"
+@@ -7867 +7876 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -7870 +7879 @@
+-msgstr "Click: centru · Trage: zoom"
++msgstr "Clic: centrează · Trage: zoom"
+@@ -7996,0 +8006,5 @@
++
++#. Play/Pause tooltip bug fix: action shown during playback.
++#: src/themes/base.py:480
++msgid "Pause"
++msgstr "Pauză"
+--- a/src/language/openshot/ru.po
++++ b/src/language/openshot/ru.po
+@@ -2770,0 +2771 @@
++# Main-window terminology review, 2026-09-26.
+@@ -2773 +2774 @@
+-msgstr "Введите текст заголовка ..."
++msgstr "Введите текст субтитра..."
+@@ -4628,0 +4630 @@
++# Main-window terminology review, 2026-09-26.
+@@ -4632 +4634 @@
+-msgstr "Подписи"
++msgstr "Субтитры"
+@@ -5354,0 +5357 @@
++# Main-window terminology review, 2026-09-26.
+@@ -5357 +5360 @@
+-msgstr "Заголовок"
++msgstr "Субтитр"
+@@ -6475,0 +6479 @@
++# Main-window terminology review, 2026-09-26.
+@@ -6479 +6483 @@
+-msgstr "Центр ползунка"
++msgstr "Центрировать по позиции воспроизведения"
+@@ -7349,0 +7354 @@
++# Main-window terminology review, 2026-09-26.
+@@ -7352 +7357 @@
+-msgstr "Центр таймлайна на ползунке"
++msgstr "Центрировать шкалу времени по позиции воспроизведения"
+@@ -7495 +7500 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -7499 +7504 @@
+-msgstr "Вставить подпись"
++msgstr "Вставить субтитр"
+@@ -7546 +7551 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -7549 +7554 @@
+-msgstr "Клик: центр · Перетаскивание: масштаб"
++msgstr "Щелчок: центрировать · Перетаскивание: масштабировать"
+@@ -7581 +7586 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -7584 +7589 @@
+-msgstr "Переместить таймлайн"
++msgstr "Переместить шкалу времени"
+@@ -7672,0 +7678,5 @@
++
++#. Play/Pause tooltip bug fix: action shown during playback.
++#: src/themes/base.py:480
++msgid "Pause"
++msgstr "Пауза"
+--- a/src/language/openshot/es.po
++++ b/src/language/openshot/es.po
+@@ -63 +63 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -68 +68 @@
+-msgstr "Grabando"
++msgstr "Grabación"
+@@ -6658,0 +6659 @@
++# Main-window terminology review, 2026-09-26.
+@@ -6662 +6663 @@
+-msgstr "Centro en la cabeza de reproducción"
++msgstr "Centrar en el cabezal de reproducción"
+@@ -7498,0 +7500 @@
++# Main-window terminology review, 2026-09-26.
+@@ -7501 +7503 @@
+-msgstr "Emoticonos"
++msgstr "Emojis"
+@@ -7886,0 +7889,5 @@
++
++#. Play/Pause tooltip bug fix: action shown during playback.
++#: src/themes/base.py:480
++msgid "Pause"
++msgstr "Pausa"
+--- a/src/language/openshot/tr.po
++++ b/src/language/openshot/tr.po
+@@ -1079,0 +1080 @@
++# Main-window terminology review, 2026-09-26.
+@@ -1084 +1085 @@
+-msgstr "Parça"
++msgstr "Klip"
+@@ -1125,0 +1127 @@
++# Main-window terminology review, 2026-09-26.
+@@ -1129 +1131 @@
+-msgstr "Etkiler"
++msgstr "Efektler"
+@@ -2273 +2275 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -2276,3 +2278,3 @@
+-msgstr "Parça kilidini aç"
+-
+-# Translated with gpt-4.1-mini
++msgstr "İzin kilidini aç"
++
++# Main-window terminology review, 2026-09-26.
+@@ -2281 +2283 @@
+-msgstr "Parçayı kilitle"
++msgstr "İzi kilitle"
+@@ -2744,0 +2747 @@
++# Main-window terminology review, 2026-09-26.
+@@ -2747 +2750 @@
+-msgstr "Yanaşmalar"
++msgstr "Paneller"
+@@ -2812,0 +2816 @@
++# Main-window terminology review, 2026-09-26.
+@@ -2815 +2819 @@
+-msgstr "Başlık metnini yazın..."
++msgstr "Altyazı metnini yazın..."
+@@ -2879,0 +2884 @@
++# Main-window terminology review, 2026-09-26.
+@@ -2882 +2887 @@
+-msgstr "Başlık araç çubuğu"
++msgstr "Altyazı araç çubuğu"
+@@ -4680,0 +4686 @@
++# Main-window terminology review, 2026-09-26.
+@@ -4684 +4690 @@
+-msgstr "Başlıklar"
++msgstr "Altyazılar"
+@@ -5449,0 +5456 @@
++# Main-window terminology review, 2026-09-26.
+@@ -5452 +5459 @@
+-msgstr "Başlık"
++msgstr "Altyazı"
+@@ -6637,0 +6645 @@
++# Main-window terminology review, 2026-09-26.
+@@ -6642 +6650 @@
+-msgstr "Oynatma Başlığına Ortala"
++msgstr "Oynatma kafasına ortala"
+@@ -7867,0 +7876,5 @@
++
++#. Play/Pause tooltip bug fix: action shown during playback.
++#: src/themes/base.py:480
++msgid "Pause"
++msgstr "Duraklat"
+--- a/src/language/openshot/vi.po
++++ b/src/language/openshot/vi.po
+@@ -63 +63 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -68 +68 @@
+-msgstr "Đang ghi âm"
++msgstr "Ghi âm và ghi hình"
+@@ -2251 +2251 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -2254,3 +2254,3 @@
+-msgstr "Mở khóa đường dẫn"
+-
+-# Translated with gpt-4.1-mini
++msgstr "Mở khóa rãnh"
++
++# Main-window terminology review, 2026-09-26.
+@@ -2259 +2259 @@
+-msgstr "Khóa đường dẫn"
++msgstr "Khóa rãnh"
+@@ -2283 +2283 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -2287 +2287 @@
+-msgstr "Đoạn phim: %s"
++msgstr "Clip: %s"
+@@ -2379,0 +2380 @@
++# Main-window terminology review, 2026-09-26.
+@@ -2386 +2387 @@
+-msgstr "Thumb"
++msgstr "Ảnh thu nhỏ"
+@@ -2663 +2664 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -2667,3 +2668,3 @@
+-msgstr "Tắt thời gian"
+-
+-# Translated with gpt-4.1-mini
++msgstr "Tắt công cụ đổi tốc độ"
++
++# Main-window terminology review, 2026-09-26.
+@@ -2675 +2676 @@
+-msgstr "Bật thời gian"
++msgstr "Bật công cụ đổi tốc độ"
+@@ -2711 +2712 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -2714 +2715 @@
+-msgstr "Chế độ xem ghi âm"
++msgstr "Chế độ xem ghi âm và ghi hình"
+@@ -4645,0 +4647 @@
++# Main-window terminology review, 2026-09-26.
+@@ -4649 +4651 @@
+-msgstr "Chủ Đề"
++msgstr "Phụ đề"
+@@ -6733,0 +6736 @@
++# Main-window terminology review, 2026-09-26.
+@@ -6738,2 +6741,3 @@
+-msgstr "Bắt đầu"
+-
++msgstr "Đến đầu"
++
++# Main-window terminology review, 2026-09-26.
+@@ -6744 +6748 @@
+-msgstr "Kết thúc"
++msgstr "Đến cuối"
+@@ -6806,0 +6811 @@
++# Main-window terminology review, 2026-09-26.
+@@ -6810 +6815 @@
+-msgstr "Khỏi chạy hướng dẫn"
++msgstr "Khởi chạy hướng dẫn"
+@@ -7648 +7653 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -7652 +7657 @@
+-msgstr "Chèn chú thích"
++msgstr "Chèn phụ đề"
+@@ -7826,0 +7832,5 @@
++
++#. Play/Pause tooltip bug fix: action shown during playback.
++#: src/themes/base.py:480
++msgid "Pause"
++msgstr "Tạm dừng"
+--- a/src/language/openshot/uk.po
++++ b/src/language/openshot/uk.po
+@@ -370,0 +371 @@
++# Main-window terminology review, 2026-09-26.
+@@ -378 +379 @@
+-msgstr "Експортування відео"
++msgstr "Експортувати відео"
+@@ -2321 +2322 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -2325 +2326 @@
+-msgstr "Переход: %s"
++msgstr "Перехід: %s"
+@@ -2710 +2711 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -2714,3 +2715,3 @@
+-msgstr "Вимкнути синхронізацію"
+-
+-# Translated with gpt-4.1-mini
++msgstr "Вимкнути зміну швидкості"
++
++# Main-window terminology review, 2026-09-26.
+@@ -2722 +2723 @@
+-msgstr "Увімкнути синхронізацію"
++msgstr "Увімкнути зміну швидкості"
+@@ -2829,0 +2831 @@
++# Main-window terminology review, 2026-09-26.
+@@ -2832 +2834 @@
+-msgstr "Введіть текст заголовку..."
++msgstr "Введіть текст субтитру..."
+@@ -4687,0 +4690 @@
++# Main-window terminology review, 2026-09-26.
+@@ -4691 +4694 @@
+-msgstr "Підписи"
++msgstr "Субтитри"
+@@ -5447,0 +5451 @@
++# Main-window terminology review, 2026-09-26.
+@@ -5450 +5454 @@
+-msgstr "Підпис"
++msgstr "Субтитр"
+@@ -6569,0 +6574 @@
++# Main-window terminology review, 2026-09-26.
+@@ -6573 +6578 @@
+-msgstr "Налаштування"
++msgstr "Параметри"
+@@ -6787,0 +6793 @@
++# Main-window terminology review, 2026-09-26.
+@@ -6792 +6798 @@
+-msgstr "Збереження поточного кадру"
++msgstr "Зберегти поточний кадр"
+@@ -7687 +7693 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -7691 +7697 @@
+-msgstr "Вставити підпис"
++msgstr "Вставити субтитр"
+@@ -7773 +7779 @@
+-# Translated with gpt-4.1-mini
++# Main-window terminology review, 2026-09-26.
+@@ -7776 +7782 @@
+-msgstr "Переміщення часової шкали"
++msgstr "Перемістити монтажний стіл"
+@@ -7866,0 +7873,5 @@
++
++#. Play/Pause tooltip bug fix: action shown during playback.
++#: src/themes/base.py:480
++msgid "Pause"
++msgstr "Призупинити"

@@ -481,6 +481,7 @@ msgstr ""
 "Neemt één of twee ingangs-kanalen op. Mono is meestal het beste voor één "
 "microfoon."
 
+# Main-window terminology review, 2026-09-26.
 #: ../recording.rst:160
 msgid ""
 "Aim for a healthy meter response without clipping. A quiet waveform should "
@@ -496,7 +497,7 @@ msgstr ""
 "gegenereerde golfvorm tot volledige hoogte. De lichtere piek-omslag "
 "benadrukt transiënten terwijl de solide RMS-omslag de aanhoudende energie "
 "samenvat. Hun detail wordt geregeld via :guilabel:`Bewerken → Voorkeuren → "
-"Tijdlijn → Golfvormmonsters (per seconde)`. Zie :ref:`clip_presets_ref` voor"
+"Tijdbalk → Golfvormmonsters (per seconde)`. Zie :ref:`clip_presets_ref` voor"
 " golfvormweergave en audiovolume-instellingen na opname."
 
 #: ../recording.rst:167

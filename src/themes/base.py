@@ -474,8 +474,16 @@ QMessageBox QDialogButtonBox#qt_msgbox_buttonbox QPushButton[dialogRole="cancel"
         self.app.installEventFilter(message_box_filter)
         self.app._openshot_message_box_style_filter = message_box_filter
 
+    def _update_play_action_text(self, is_playing):
+        """Describe the action the playback button will perform next."""
+        _ = self.app._tr
+        label = _("Pause") if is_playing else _("Play")
+        self.app.window.actionPlay.setText(label)
+        self.app.window.actionPlay.setToolTip(label)
+
     def togglePlayIcon(self, isPlay):
         """ Toggle the play icon from play to pause and back """
+        self._update_play_action_text(isPlay)
         if not isPlay:
             ui_util.setup_icon(self.app.window, self.app.window.actionPlay, "actionPlay")
         else:

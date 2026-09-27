@@ -6,7 +6,7 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenShot Video Editor (version: 4.0.0)\n"
+"Project-Id-Version: OpenShot Video Editor (version: 4.0.1)\n"
 "Report-Msgid-Bugs-To: Jonathan Thomas <Jonathan.Oomph@gmail.com>\n"
 "POT-Creation-Date: 2026-09-08 18:41:16.520920\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
@@ -3358,15 +3358,6 @@ msgstr ""
 msgid "Off"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/audio_recording.py:848
-msgid "Record sound playing through the system output in the screen recording."
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/windows/audio_recording.py:874
-msgid ""
-"Temporarily hide OpenShot while selecting or recording a window or region."
-msgstr ""
-
 #: /home/jonathan/apps/openshot-qt-git/src/windows/audio_recording.py:888
 msgid "Screen:"
 msgstr ""
@@ -3465,13 +3456,6 @@ msgstr ""
 msgid "Corners:"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/audio_recording.py:986
-msgid ""
-"Choose the top track for recorded clips.\n"
-"Additional recording sources use tracks below it.\n"
-"Select No Track to add recordings to Project Files only."
-msgstr ""
-
 #: /home/jonathan/apps/openshot-qt-git/src/windows/audio_recording.py:993
 msgid "Full"
 msgstr ""
@@ -3482,12 +3466,6 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/audio_recording.py:995
 msgid "Quarter"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/windows/audio_recording.py:999
-msgid ""
-"Play the timeline while recording.\n"
-"Lower resolutions can improve recording performance."
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/audio_recording.py:1002
@@ -5684,14 +5662,6 @@ msgstr ""
 msgid "ComfyUI URL"
 msgstr ""
 
-#: Settings for debug-port
-msgid "Debug Mode (Port)"
-msgstr ""
-
-#: Settings for debug-mode
-msgid "Debug Mode (Verbose)"
-msgstr ""
-
 #: Settings for send_metrics
 msgid "Send Anonymous Metrics and Errors"
 msgstr ""
@@ -6877,3 +6847,83 @@ msgstr ""
 msgid "Titles"
 msgstr ""
 
+#: /home/jonathan/apps/openshot-qt/src/windows/audio_recording.py:985
+msgid "Choose the top recording track"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt/src/windows/views/zoom_slider.py:826
+msgid "Click: center · Drag: zoom"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt/src/windows/views/timeline_backend/qwidget/razor.py:168
+msgid "Close gap"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt/src/windows/audio_recording.py:874
+msgid "Hide OpenShot while recording"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt/src/windows/views/timeline_backend/qwidget/razor.py:166
+msgid "Keep left"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt/src/windows/views/timeline_backend/qwidget/razor.py:166
+msgid "Keep right"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt/src/windows/preferences.py:685
+msgid "Log interface details"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt/src/windows/preferences.py:688
+msgid "Log video and audio details"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt/src/windows/views/zoom_slider.py:825
+msgid "Pan timeline"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt/src/windows/audio_recording.py:994
+msgid "Play timeline while recording"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt/src/windows/audio_recording.py:848
+msgid "Record computer audio"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt/src/windows/preferences.py:598
+msgid "Select assets folder"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt/src/windows/views/timeline_backend/qwidget/razor.py:166
+msgid "Split"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt/src/windows/audio_recording.py:2128
+#: /home/jonathan/apps/openshot-qt/src/windows/audio_recording.py:2148
+msgid "Unable to discover supported webcam recording modes."
+msgstr ""
+
+#: Settings for unsaved-assets-path
+msgid "Unsaved Project Assets Folder"
+msgstr ""
+
+#: Settings for debug-ui
+msgid "User Interface Debug Logging"
+msgstr ""
+
+#: Settings for debug-mode
+msgid "Video & Audio Engine Debug Logging"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt/src/windows/views/zoom_slider.py:823
+msgid "Zoom left edge"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt/src/windows/views/zoom_slider.py:824
+msgid "Zoom right edge"
+msgstr ""
+
+#: src/themes/base.py:480
+msgid "Pause"
+msgstr ""

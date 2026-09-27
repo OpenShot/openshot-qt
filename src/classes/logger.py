@@ -45,7 +45,13 @@ class StreamToLogger(object):
 
     def write(self, text):
         self.logbuf += str(text) or ""
-        self.parent.write(text)
+        if self.parent is not None:
+            try:
+                self.parent.write(text)
+            except BrokenPipeError:
+                # The terminal/launcher went away. Continue collecting output
+                # for the file logger without repeatedly writing to the pipe.
+                self.parent = None
 
     def flush(self):
         if self.logbuf.rstrip():
@@ -61,6 +67,16 @@ class StreamFilter(logging.Filter):
     def filter(self, record):
         source = getattr(record, "source", "")
         return source != "stream"
+
+
+class ConsoleHandler(logging.StreamHandler):
+    """Keep a disconnected console from interfering with file logging."""
+
+    def handleError(self, record):
+        if isinstance(sys.exc_info()[1], BrokenPipeError):
+            self.setLevel(logging.CRITICAL + 1)
+            return
+        super().handleError(record)
 
 # Clamp log messages to a reasonable size to avoid giant lines
 MAX_LOG_MESSAGE_LENGTH = 2048
@@ -119,7 +135,7 @@ else:
 #
 # Create typical stream handler which logs to stderr
 #
-sh = logging.StreamHandler(sys.stderr)
+sh = ConsoleHandler(sys.stderr)
 sh.setLevel(info.LOG_LEVEL_CONSOLE)
 sh.setFormatter(console_formatter)
 

@@ -99,11 +99,6 @@ class JsonDataTests(unittest.TestCase):
         app, cls._owns_app = get_or_create_app(DummyApp)
         cls.app = ensure_app_state(app)
 
-    @classmethod
-    def tearDownClass(cls):
-        if getattr(cls, "_owns_app", False) and cls.app:
-            cls.app.quit()
-
     def test_read_from_file_repairs_windows_drive_corruption(self):
         with tempfile.TemporaryDirectory() as tmpdir:
             project_file = Path(tmpdir) / "broken.osp"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-16 18:08-0500\n"
+"POT-Creation-Date: 2026-09-26 14:26-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,20 +35,477 @@ msgstr ""
 "eða sýni villuskilaboð, eru margar aðferðir sem geta hjálpað við að greina "
 "og leysa vandamálið."
 
+#: ../troubleshoot.rst:31
+msgid "Using Logs to Troubleshoot a Problem"
+msgstr "Að nota skráningar til að greina vandamál"
+
+#: ../troubleshoot.rst:33
+msgid ""
+"A log is a text file that records what OpenShot is doing, along with "
+"warnings and errors. These files can help the support team understand a "
+"problem, even when you do not see an error message on screen."
+msgstr ""
+"Skráning er textaskrá sem skráir hvað OpenShot er að gera, ásamt viðvörunum "
+"og villum. Þessar skrár geta hjálpað stuðningsteyminu að skilja vandamál, "
+"jafnvel þegar þú sérð ekki villuskilaboð á skjánum."
+
+#: ../troubleshoot.rst:37
+msgid ""
+"OpenShot keeps two log files in the ``.openshot_qt`` folder inside your home"
+" folder. On Linux and macOS, this location is written as "
+"``~/.openshot_qt/``. The folder may be hidden in your file manager."
+msgstr ""
+"OpenShot heldur tveimur skráningarskrám í möppunni ``.openshot_qt`` innan "
+"heimamöppu þinnar. Á Linux og macOS er þessi staðsetning skrifuð sem "
+"``~/.openshot_qt/``. Mappan gæti verið falin í skráarstjóranum þínum."
+
+#: ../troubleshoot.rst:41
+msgid "The two log files"
+msgstr "Báðar skráningarskrárnar"
+
+#: ../troubleshoot.rst:45
+msgid "File"
+msgstr "Skrá"
+
+#: ../troubleshoot.rst:46
+msgid "What it records"
+msgstr "Hvað hún skráir"
+
+#: ../troubleshoot.rst:47 ../troubleshoot.rst:74
+msgid "``openshot-qt.log``"
+msgstr "``openshot-qt.log``"
+
+#: ../troubleshoot.rst:48
+msgid ""
+"Activity in the editor: starting OpenShot, loading projects, changing "
+"settings, and using the interface. This is usually the best place to start "
+"when investigating a problem."
+msgstr ""
+"Virkni í ritlinum: að ræsa OpenShot, hlaða verkefnum, breyta stillingum og "
+"nota viðmótið. Þetta er venjulega besti staðurinn til að byrja þegar verið "
+"er að rannsaka vandamál."
+
+#: ../troubleshoot.rst:51 ../troubleshoot.rst:77
+msgid "``libopenshot.log``"
+msgstr "``libopenshot.log``"
+
+#: ../troubleshoot.rst:52
+msgid ""
+"Activity in OpenShot's video and audio engine, the part that reads media and"
+" builds the pictures and sound used in previews and exported videos. "
+"Detailed engine logging can help investigate playback and export problems."
+msgstr ""
+"Virkni í mynd- og hljóðvél OpenShot, hlutanum sem les fjölmiðla og býr til "
+"myndir og hljóð sem notuð eru í forskoðunum og útfluttum myndböndum. Nákvæm "
+"skráning vélarinnar getur hjálpað við að rannsaka vandamál við spilun og "
+"útflutning."
+
+#: ../troubleshoot.rst:56
+msgid ""
+"These files record different parts of the same application. When reporting a"
+" problem, include both files if available. You do not need to understand "
+"every line yourself."
+msgstr ""
+"Þessar skrár skrá ólíka hluta af sama forriti. Þegar þú tilkynnir vandamál, "
+"láttu báðar skrár fylgja með ef þær eru tiltækar. Þú þarft ekki að skilja "
+"hverja línu sjálfur."
+
+#: ../troubleshoot.rst:61
+msgid "Choose which part of OpenShot to log"
+msgstr "Veldu hvaða hluta OpenShot á að skrá"
+
+#: ../troubleshoot.rst:63
+msgid "Open **Edit → Preferences → Advanced** to find these two settings:"
+msgstr ""
+"Opnaðu **Breyta → Stillingar → Ítarlegt** til að finna þessar tvær "
+"stillingar:"
+
+#: ../troubleshoot.rst:65
+msgid "Preferences and matching terminal options"
+msgstr "Stillingar og samsvarandi valkostir í flugstöð"
+
+#: ../troubleshoot.rst:69
+msgid "Preference"
+msgstr "Stilling"
+
+#: ../troubleshoot.rst:70
+msgid "Matching argument"
+msgstr "Samsvarandi rök"
+
+#: ../troubleshoot.rst:71
+msgid "Log file"
+msgstr "Skráningarskrá"
+
+#: ../troubleshoot.rst:72
+msgid "User Interface Debug Logging"
+msgstr "Villuleitarskráning notendaviðmóts"
+
+#: ../troubleshoot.rst:73
+msgid "``--debug-ui``"
+msgstr "``--debug-ui``"
+
+#: ../troubleshoot.rst:75
+msgid "Video & Audio Engine Debug Logging"
+msgstr "Villuleitarskráning mynd- og hljóðvélar"
+
+#: ../troubleshoot.rst:76 ../troubleshoot.rst:142
+msgid "``--debug-engine``"
+msgstr "``--debug-engine``"
+
+#: ../troubleshoot.rst:79
+msgid ""
+"Both preferences are off by default, which keeps the normal summary "
+"messages. Turning one on adds detail to its log file immediately. It does "
+"not change the other log or add messages to the terminal. Preferences stay "
+"enabled between launches until you turn them off."
+msgstr ""
+"Báðar stillingar eru af sjálfu sér, sem heldur venjulegum yfirlits "
+"skilaboðum. Að kveikja á annarri bætir tafarlaust við smáatriðum í "
+"skráningarskrá hennar. Það breytir ekki hinni skráningunni né bætir við "
+"skilaboðum í flugstöðina. Stillingarnar haldast virkar milli keyrslna þar "
+"til þú slærð þær af."
+
+#: ../troubleshoot.rst:84
+msgid ""
+"**User Interface Debug Logging** is a good starting point for problems with "
+"startup, project loading, settings, or the interface. **Video & Audio Engine"
+" Debug Logging** adds details about video and audio processing, which can "
+"help investigate playback and export problems. Engine logs can grow very "
+"quickly and may slow OpenShot down. Turn this setting on shortly before "
+"repeating the problem, then turn it off afterward."
+msgstr ""
+"**Villuleitarskráning notendaviðmóts** er gott byrjunarstig fyrir vandamál "
+"við ræsingu, hleðslu verkefna, stillingar eða viðmót. **Villuleitarskráning "
+"mynd- og hljóðvélar** bætir við smáatriðum um mynd- og hljóðvinnslu, sem "
+"getur hjálpað við að rannsaka vandamál við spilun og útflutning. Skrár "
+"vélarinnar geta stækkað mjög hratt og hægt á OpenShot. Kveiktu á þessari "
+"stillingu stuttu áður en þú endurtekur vandamálið og slökktu svo á henni "
+"eftir á."
+
+#: ../troubleshoot.rst:91
+msgid ""
+"The engine preference was previously called **Debug Mode (Verbose)**. Its "
+"saved on/off setting carries over to the new name."
+msgstr ""
+"Vélastillingin hét áður **Villuleitarhamur (Nákvæmur)**. Vistaða á/af "
+"stillingin flyst yfir á nýja nafnið."
+
+#: ../troubleshoot.rst:95
+msgid "Use a terminal for one launch"
+msgstr "Notaðu flugstöð fyrir eina keyrslu"
+
+#: ../troubleshoot.rst:97
+msgid ""
+"A terminal is a window where you type commands. The matching arguments "
+"enable the same extra detail as the preferences, and also display it in the "
+"terminal:"
+msgstr ""
+"Flugstöð er gluggi þar sem þú slærð inn skipanir. Samsvarandi rök virkja "
+"sömu aukasmáatriði og stillingarnar og sýna þau einnig í flugstöðinni:"
+
+#: ../troubleshoot.rst:104
+msgid ""
+"This records interface details for one launch. The familiar ``--debug`` and "
+"shorter ``-d`` options mean exactly the same thing as ``--debug-ui``. For "
+"video and audio engine details, use:"
+msgstr ""
+"Þetta skráir smáatriði viðmóts fyrir eina keyrslu. Þekktu valkostirnir "
+"``--debug`` og styttri ``-d`` þýða nákvæmlega það sama og ``--debug-ui``. "
+"Fyrir smáatriði mynd- og hljóðvélar, notaðu:"
+
+#: ../troubleshoot.rst:112
+msgid "To collect both types of detail together:"
+msgstr "Til að safna báðum tegundum smáatriða saman:"
+
+#: ../troubleshoot.rst:118
+msgid ""
+"Repeat the steps that cause the problem, then close OpenShot and collect the"
+" logs. These arguments do not change your saved preferences. Starting "
+"OpenShot normally returns to your usual logging settings."
+msgstr ""
+"Endurtaktu skrefin sem valda vandamálinu, lokaðu svo OpenShot og safnaðu "
+"skráningunum. Þessi rök breyta ekki vistaðri stillingu þinni. Að ræsa "
+"OpenShot venjulega fer aftur í venjulegar skráningarstillingar þínar."
+
+#: ../troubleshoot.rst:122
+msgid ""
+"``openshot-qt.log`` starts a new file when it reaches about 25 MB and keeps "
+"three older copies. ``libopenshot.log`` keeps growing as messages are added."
+" After saving any logs you need, you can remove old log files while OpenShot"
+" is closed."
+msgstr ""
+"``openshot-qt.log`` byrjar á nýrri skrá þegar hún nær um 25 MB og heldur "
+"þremur eldri afritum. ``libopenshot.log`` vex stöðugt þegar skilaboð bætast "
+"við. Eftir að hafa vistað nauðsynlegar skráningar geturðu eytt gömlum "
+"skráningarskrám meðan OpenShot er lokað."
+
+#: ../troubleshoot.rst:128
+msgid "Other command-line options"
+msgstr "Aðrir valkostir í skipanalínu"
+
+#: ../troubleshoot.rst:130
+msgid ""
+"Most users only need the two controls above. The following options let you "
+"choose how much detail goes into the files or appears in the terminal. Here,"
+" *console* means the terminal output."
+msgstr ""
+"Flestir notendur þurfa aðeins á tveimur stjórntækjum hér að ofan að halda. "
+"Eftirfarandi valkostir leyfa þér að velja hversu mikið smáatriði fer í "
+"skrárnar eða birtist í flugstöðinni. Hér þýðir *console* flugstöðvarútgang."
+
+#: ../troubleshoot.rst:134
+msgid "Logging options"
+msgstr "Skráningarvalkostir"
+
+#: ../troubleshoot.rst:138
+msgid "Option"
+msgstr "Valmöguleiki"
+
+#: ../troubleshoot.rst:139
+msgid "What it does"
+msgstr "Hvað hann gerir"
+
+#: ../troubleshoot.rst:140
+msgid "``--debug-ui``, ``--debug``, or ``-d``"
+msgstr "``--debug-ui``, ``--debug``, eða ``-d``"
+
+#: ../troubleshoot.rst:141
+msgid "Enables User Interface Debug Logging in its file and the terminal."
+msgstr "Virkjar villuleitarskráningu notendaviðmóts í skrá og flugstöð."
+
+#: ../troubleshoot.rst:143
+msgid ""
+"Enables Video & Audio Engine Debug Logging in its file and the terminal."
+msgstr "Virkjar villuleitarskráningu mynd- og hljóðvélar í skrá og flugstöð."
+
+#: ../troubleshoot.rst:144
+msgid "``--debug-file``"
+msgstr "``--debug-file``"
+
+#: ../troubleshoot.rst:145
+msgid ""
+"Adds editor details to ``openshot-qt.log`` without adding terminal detail."
+msgstr ""
+"Bætir við smáatriðum ritils í ``openshot-qt.log`` án þess að bæta við "
+"smáatriðum í flugstöð."
+
+#: ../troubleshoot.rst:146
+msgid "``--debug-console``"
+msgstr "``--debug-console``"
+
+#: ../troubleshoot.rst:147
+msgid "Adds editor details in the terminal without adding file detail."
+msgstr ""
+"Bætir við smáatriðum ritils í flugstöð án þess að bæta við smáatriðum í "
+"skrá."
+
+#: ../troubleshoot.rst:148
+msgid "``--log-level LEVEL``"
+msgstr "``--log-level LEVEL``"
+
+#: ../troubleshoot.rst:149
+msgid "Sets the detail for both logs and their terminal output."
+msgstr "Stillir smáatriði fyrir báðar skráningar og flugstöðvarútgang þeirra."
+
+#: ../troubleshoot.rst:150
+msgid "``--log-file-level LEVEL``"
+msgstr "``--log-file-level LEVEL``"
+
+#: ../troubleshoot.rst:151
+msgid "Sets the detail for both log files, leaving terminal settings alone."
+msgstr ""
+"Stillir smáatriði fyrir báðar skráningarskrár, án þess að breyta "
+"flugstöðvarstillingum."
+
+#: ../troubleshoot.rst:152
+msgid "``--log-console-level LEVEL``"
+msgstr "``--log-console-level LEVEL``"
+
+#: ../troubleshoot.rst:153
+msgid ""
+"Sets the detail in the terminal for both the editor and engine, leaving file"
+" settings alone."
+msgstr ""
+"Stillir nákvæmni í flugstöðinni fyrir bæði ritstjórann og vélina, án þess að"
+" breyta skráarstillingum."
+
+#: ../troubleshoot.rst:156
+msgid ""
+"Replace ``LEVEL`` with ``debug`` for detailed messages or ``info`` for the "
+"normal summary. ``warning`` shows warnings and errors; ``error`` shows "
+"errors and critical failures; ``critical`` shows only critical failures. "
+"``off`` stops ordinary log messages, but existing crash diagnostics may "
+"still be written. Uppercase names such as ``DEBUG`` work too."
+msgstr ""
+"Skiptu út ``LEVEL`` með ``debug`` fyrir nákvæmar skilaboð eða ``info`` fyrir"
+" venjulegt yfirlit. ``warning`` sýnir viðvaranir og villur; ``error`` sýnir "
+"villur og alvarlegar bilanir; ``critical`` sýnir aðeins alvarlegar bilanir. "
+"``off`` stöðvar venjuleg skráarskilaboð, en núverandi bilanagreiningar geta "
+"enn verið skrifaðar. Stórar bókstafir eins og ``DEBUG`` virka líka."
+
+#: ../troubleshoot.rst:162
+msgid ""
+"For example, to collect detailed messages in **both files** while keeping "
+"the terminal at its usual level:"
+msgstr ""
+"Til dæmis, til að safna nákvæmum skilaboðum í **báðum skrám** á meðan "
+"flugstöðin er á venjulegu stigi:"
+
+#: ../troubleshoot.rst:169
+msgid ""
+"This also enables the large engine log, so use it briefly. The older "
+"``--debug-file`` and ``--debug-console`` options still work even though they"
+" are not listed in ``--help``."
+msgstr ""
+"Þetta virkjar einnig stóran vélarskrá, svo notaðu það stutt. Eldri "
+"valkostirnir ``--debug-file`` og ``--debug-console`` virka enn þótt þeir séu"
+" ekki skráðir í ``--help``."
+
+#: ../troubleshoot.rst:174
+msgid "Environment variables"
+msgstr "Umhverfisbreytur"
+
+#: ../troubleshoot.rst:176
+msgid ""
+"An environment variable is a named setting passed to a program when it "
+"starts. These are useful when starting OpenShot from a script or when a "
+"support person asks you to try a particular setting. You do not need to set "
+"them for normal use."
+msgstr ""
+"Umhverfisbreyta er nafngreind stilling sem er send forriti þegar það byrjar."
+" Þær eru gagnlegar þegar OpenShot er ræst úr skriftu eða þegar "
+"stuðningsaðili biður þig um að prófa ákveðna stillingu. Þú þarft ekki að "
+"stilla þær fyrir venjulega notkun."
+
+#: ../troubleshoot.rst:180
+msgid "Optional environment settings"
+msgstr "Valfrjálsar umhverfisstillingar"
+
+#: ../troubleshoot.rst:184
+msgid "Variable"
+msgstr "Breytan"
+
+#: ../troubleshoot.rst:185
+msgid "What it controls"
+msgstr "Hvað hún stjórnar"
+
+#: ../troubleshoot.rst:186
+msgid "``OPENSHOT_LOG_LEVEL``"
+msgstr "``OPENSHOT_LOG_LEVEL``"
+
+#: ../troubleshoot.rst:187
+msgid "Detail in both files and the terminal."
+msgstr "Nákvæmni í báðum skrám og flugstöðinni."
+
+#: ../troubleshoot.rst:188
+msgid "``OPENSHOT_LOG_FILE_LEVEL``"
+msgstr "``OPENSHOT_LOG_FILE_LEVEL``"
+
+#: ../troubleshoot.rst:189
+msgid "Detail in both files only."
+msgstr "Nákvæmni aðeins í báðum skrám."
+
+#: ../troubleshoot.rst:190
+msgid "``OPENSHOT_LOG_CONSOLE_LEVEL``"
+msgstr "``OPENSHOT_LOG_CONSOLE_LEVEL``"
+
+#: ../troubleshoot.rst:191
+msgid "Detail in the terminal only, for both parts of OpenShot."
+msgstr "Nákvæmni aðeins í flugstöðinni, fyrir báða hluta OpenShot."
+
+#: ../troubleshoot.rst:192
+msgid "``LIBOPENSHOT_LOG_LEVEL``"
+msgstr "``LIBOPENSHOT_LOG_LEVEL``"
+
+#: ../troubleshoot.rst:193
+msgid "Detail for the video and audio engine, in its file and the terminal."
+msgstr "Nákvæmni fyrir mynd- og hljóðvélina, í skránni sinni og flugstöðinni."
+
+#: ../troubleshoot.rst:194
+msgid "``LIBOPENSHOT_LOG_FILE_LEVEL``"
+msgstr "``LIBOPENSHOT_LOG_FILE_LEVEL``"
+
+#: ../troubleshoot.rst:195
+msgid "Detail in ``libopenshot.log`` only."
+msgstr "Nákvæmni aðeins í ``libopenshot.log``."
+
+#: ../troubleshoot.rst:196
+msgid "``LIBOPENSHOT_LOG_CONSOLE_LEVEL``"
+msgstr "``LIBOPENSHOT_LOG_CONSOLE_LEVEL``"
+
+#: ../troubleshoot.rst:197
+msgid "Engine detail in the terminal only."
+msgstr "Nákvæmni vélarinnar aðeins í flugstöðinni."
+
+#: ../troubleshoot.rst:199
+msgid ""
+"For example, this Linux/macOS terminal command requests detailed engine "
+"logging in its file for one launch:"
+msgstr ""
+"Til dæmis, þessi Linux/macOS flugstöðvarskipun biður um nákvæma "
+"vélarskráningu í skránni sinni fyrir eina keyrslu:"
+
+#: ../troubleshoot.rst:206
+msgid ""
+"If settings overlap, command-line options take priority, followed by "
+"environment variables, then Preferences, then the normal defaults. Each "
+"control only affects the output it describes: ``--debug`` does not override "
+"the engine preference. Temporary overrides do not change your saved "
+"preferences. Hover over either checkbox to see whether another setting is "
+"controlling that log file."
+msgstr ""
+"Ef stillingar skarast, hafa skipanalínuvalkostir forgang, síðan "
+"umhverfisbreytur, svo Valkostir, og að lokum venjulegar sjálfgefnar "
+"stillingar. Hver stjórn hefur áhrif aðeins á þann úttak sem hún lýsir: "
+"``--debug`` yfirskrifar ekki vélavalkostinn. Bráðabirgðastillingar breyta "
+"ekki vistaðri stillingu þinni. Færðu bendilinn yfir hvaða gátreit sem er til"
+" að sjá hvort önnur stilling stjórnar þeirri skrá."
+
+#: ../troubleshoot.rst:212
+msgid ""
+"Within the environment settings, ``LIBOPENSHOT_`` values take priority over "
+"``OPENSHOT_`` values for the engine. Within either group, a file-only or "
+"console-only level takes priority over the general level. Command-line "
+"options follow the same file/console rule. Conflicting command-line levels "
+"for the same output are rejected; invalid environment levels are reported "
+"and ignored."
+msgstr ""
+"Innan umhverfisstillinga hafa ``LIBOPENSHOT_`` gildi forgang fram yfir "
+"``OPENSHOT_`` gildi fyrir vélina. Innan hvors hóps fyrir sig hefur skrá-eða "
+"flugstöðvarstig forgang fram yfir almennt stig. Skipanalínuvalkostir fylgja "
+"sömu reglu um skrá/flugstöð. Árekstrarstig á skipanalínu fyrir sama úttak "
+"eru hafnað; ógild umhverfisstig eru tilkynnt og hunsuð."
+
+#: ../troubleshoot.rst:218
+msgid ""
+"For older scripts, ``LIBOPENSHOT_DEBUG`` still enables detailed engine "
+"messages in the terminal whenever it is present, even if its value is ``0``."
+" The newer level settings take priority over it. ``LIBOPENSHOT_LOG_FILE`` is"
+" intended for programs using the engine separately; OpenShot itself uses the"
+" log folder above. Changing logging settings does not change your error-"
+"reporting preference."
+msgstr ""
+"Fyrir eldri skriftur virkjar ``LIBOPENSHOT_DEBUG`` enn nákvæm skilaboð "
+"vélarinnar í flugstöðinni þegar það er til staðar, jafnvel þótt gildið sé "
+"``0``. Nýju stigastillingarnar hafa forgang yfir það. "
+"``LIBOPENSHOT_LOG_FILE`` er ætlað fyrir forrit sem nota vélina sér; OpenShot"
+" sjálft notar loggmöppuna hér að ofan. Breyting á skráningarstillingum "
+"breytir ekki valinu þínu um villuskýrslu."
+
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:29
+#: ../troubleshoot.rst:225
 msgid "Windows 11 Unresponsive"
 msgstr "Windows 11 svarar ekki"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:31
+#: ../troubleshoot.rst:227
 msgid ""
 "If you experience a freeze on Windows 11, this is a known issue with PyQt5 "
 "and Windows 11, related to the accessibility features in Qt. This is "
 "triggered by pressing :kbd:`Ctrl+C` in OpenShot (*only on Windows 11*). "
 "OpenShot will become unresponsive and a memory leak is also present (i.e. "
-"the longer OpenShot is unresponsive, the larger your memory leak will become "
-"until OpenShot finally crashes or the user kills the process)."
+"the longer OpenShot is unresponsive, the larger your memory leak will become"
+" until OpenShot finally crashes or the user kills the process)."
 msgstr ""
 "Ef OpenShot frýs á Windows 11, er þetta þekkt vandamál tengt PyQt5 og "
 "aðgengisstillingum í Qt. Þetta gerist þegar ýtt er á :kbd:`Ctrl+C` í "
@@ -57,33 +514,33 @@ msgstr ""
 "minni lekinn þar til forritið hrynur eða notandi lokar því)."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:36
+#: ../troubleshoot.rst:232
 msgid ""
 "A simple work-around is to avoid :kbd:`Ctrl+C` on Windows 11, and instead "
 "use the right-click Copy/Paste menus. Another work-around is to remap your "
-"\"Copy\" from :kbd:`Ctrl+C` to something else, for example :kbd:`Alt+C`. You "
-"can change your keyboard mappings in the OpenShot Preferences. See :ref:"
-"`preferences_keyboard_ref`."
+"\"Copy\" from :kbd:`Ctrl+C` to something else, for example :kbd:`Alt+C`. You"
+" can change your keyboard mappings in the OpenShot Preferences. See "
+":ref:`preferences_keyboard_ref`."
 msgstr ""
-"Ein einföld lausn er að forðast :kbd:`Ctrl+C` á Windows 11 og nota í staðinn "
-"hægri-smelltu afritunar/innsetningarvalmyndirnar. Önnur lausn er að "
-"endurúthluta \"Afrita\" frá :kbd:`Ctrl+C` í eitthvað annað, til dæmis :kbd:"
-"`Alt+C`. Þú getur breytt lyklaborðsstillingum í OpenShot valkostunum. Sjá :"
-"ref:`preferences_keyboard_ref`."
+"Ein einföld lausn er að forðast :kbd:`Ctrl+C` á Windows 11 og nota í staðinn"
+" hægri-smelltu afritunar/innsetningarvalmyndirnar. Önnur lausn er að "
+"endurúthluta \"Afrita\" frá :kbd:`Ctrl+C` í eitthvað annað, til dæmis "
+":kbd:`Alt+C`. Þú getur breytt lyklaborðsstillingum í OpenShot valkostunum. "
+"Sjá :ref:`preferences_keyboard_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:41
+#: ../troubleshoot.rst:237
 msgid "Windows Debugging with GDB"
 msgstr "Villuleit á Windows með GDB"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:43
+#: ../troubleshoot.rst:239
 msgid ""
 "If you are experiencing a crash or freeze with OpenShot in Windows 10/11, "
-"the following step by step instructions will help you determine the cause of "
-"the crash. These instructions will display a stack trace of OpenShot's "
-"source code, at the location of the crash. This information can be extremely "
-"useful for our development team, and very useful to attach to bug reports "
+"the following step by step instructions will help you determine the cause of"
+" the crash. These instructions will display a stack trace of OpenShot's "
+"source code, at the location of the crash. This information can be extremely"
+" useful for our development team, and very useful to attach to bug reports "
 "(for a quicker resolution)."
 msgstr ""
 "Ef OpenShot hrynur eða frýs á Windows 10/11, munu eftirfarandi skref hjálpa "
@@ -93,12 +550,12 @@ msgstr ""
 "lausn)."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:49
+#: ../troubleshoot.rst:245
 msgid "Install the Latest Daily Build"
 msgstr "Settu upp nýjustu daglegu útgáfuna"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:51
+#: ../troubleshoot.rst:247
 msgid ""
 "Before attaching a debugger, please download the **latest version** of "
 "OpenShot: https://www.openshot.org/download#daily. Install this version of "
@@ -107,65 +564,66 @@ msgid ""
 "please see `this wiki <https://github.com/OpenShot/openshot-qt/wiki/Windows-"
 "Debugging-with-GDB>`_."
 msgstr ""
-"Áður en þú tengir villuleitarforrit, vinsamlegast sæktu **nýjustu útgáfuna** "
-"af OpenShot: https://www.openshot.org/download#daily. Settu upp þessa útgáfu "
-"á sjálfgefna staðsetningu: ``C:\\Program Files\\OpenShot Video Editor\\``. "
-"Fyrir nákvæmar leiðbeiningar um villuleit á Windows, sjáðu `þessa wiki "
-"<https://github.com/OpenShot/openshot-qt/wiki/Windows-Debugging-with-GDB>`_."
+"Áður en þú tengir villuleitarforrit, vinsamlegast sæktu **nýjustu útgáfuna**"
+" af OpenShot: https://www.openshot.org/download#daily. Settu upp þessa "
+"útgáfu á sjálfgefna staðsetningu: ``C:\\Program Files\\OpenShot Video "
+"Editor\\``. Fyrir nákvæmar leiðbeiningar um villuleit á Windows, sjáðu "
+"`þessa wiki <https://github.com/OpenShot/openshot-qt/wiki/Windows-Debugging-"
+"with-GDB>`_."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:56
+#: ../troubleshoot.rst:252
 msgid "Install MSYS2"
 msgstr "Settu upp MSYS2"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:58
+#: ../troubleshoot.rst:254
 msgid ""
 "The Windows version of OpenShot is compiled using an environment called "
-"MSYS2. In order to attach the GDB debugger to our executable, ``openshot-qt."
-"exe``, you must first install MSYS2. This step is only required once."
+"MSYS2. In order to attach the GDB debugger to our executable, ``openshot-"
+"qt.exe``, you must first install MSYS2. This step is only required once."
 msgstr ""
 "Windows útgáfa OpenShot er þýdd með umhverfi sem kallast MSYS2. Til að "
-"tengja GDB villuleitarforritið við keyrsluskrána ``openshot-qt.exe``, verður "
-"þú fyrst að setja upp MSYS2. Þessi aðgerð þarf aðeins að gera einu sinni."
+"tengja GDB villuleitarforritið við keyrsluskrána ``openshot-qt.exe``, verður"
+" þú fyrst að setja upp MSYS2. Þessi aðgerð þarf aðeins að gera einu sinni."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:61
+#: ../troubleshoot.rst:257
 msgid "Download & Install MSYS2: `<http://www.msys2.org/>`_"
 msgstr "Sæktu og settu upp MSYS2: `<http://www.msys2.org/>`_"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:62 ../troubleshoot.rst:78
+#: ../troubleshoot.rst:258 ../troubleshoot.rst:274
 msgid ""
-"Run ``MSYS2 MinGW x64`` command prompt (for example: ``C:"
-"\\msys64\\msys2_shell.cmd -mingw64``)"
+"Run ``MSYS2 MinGW x64`` command prompt (for example: "
+"``C:\\msys64\\msys2_shell.cmd -mingw64``)"
 msgstr ""
-"Keyrðu skipanalínu ``MSYS2 MinGW x64`` (til dæmis: ``C:\\msys64\\msys2_shell."
-"cmd -mingw64``)"
+"Keyrðu skipanalínu ``MSYS2 MinGW x64`` (til dæmis: "
+"``C:\\msys64\\msys2_shell.cmd -mingw64``)"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:63
+#: ../troubleshoot.rst:259
 msgid "Update all packages (*Copy/Paste the following command*):"
 msgstr "Uppfærðu öll pakkana (*Afritaðu og límdu eftirfarandi skipun*):"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:69
+#: ../troubleshoot.rst:265
 msgid "Install GDB debugger (*Copy/Paste the following command*):"
 msgstr ""
 "Settu upp GDB villuleitarforritið (*Afritaðu og límdu eftirfarandi skipun*):"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:76
+#: ../troubleshoot.rst:272
 msgid "Launch OpenShot with GDB Debugger"
 msgstr "Ræstu OpenShot með GDB villuleitarforriti"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:80
+#: ../troubleshoot.rst:276
 msgid "Update the PATH (*Copy/Paste the following commands*):"
 msgstr "Uppfærðu PATH (*Afritaðu og límdu eftirfarandi skipanir*):"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:87
+#: ../troubleshoot.rst:283
 msgid ""
 "Load OpenShot into the GDB debugger (*Copy/Paste the following commands*):"
 msgstr ""
@@ -173,60 +631,60 @@ msgstr ""
 "eftirfarandi skipanir*):"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:94
+#: ../troubleshoot.rst:290
 msgid "Launch OpenShot from GDB prompt (*Copy/Paste the following command*):"
 msgstr ""
 "Ræstu OpenShot úr GDB skipanalínu (*Afritaðu og límdu eftirfarandi skipun*):"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:101
+#: ../troubleshoot.rst:297
 msgid "Print Debugging Info"
 msgstr "Prenta villuleitarupplýsingar"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:103
+#: ../troubleshoot.rst:299
 msgid ""
 "Once OpenShot has launched successfully with GDB attached, all you need to "
 "do is trigger a crash or freeze in OpenShot. When a crash occurs, switch "
-"back to the MSYS2 MinGW64 terminal and run one of the following commands (by "
-"typing it and pressing ENTER). Usually, the first command to enter is "
+"back to the MSYS2 MinGW64 terminal and run one of the following commands (by"
+" typing it and pressing ENTER). Usually, the first command to enter is "
 "``bt``, which stands for ``backtrace``. More commands are listed below."
 msgstr ""
 "Þegar OpenShot hefur ræst með GDB tengt, þarftu bara að valda hruni eða "
 "frystingu í OpenShot. Þegar hrunið á sér stað, skaltu fara aftur í MSYS2 "
-"MinGW64 gluggann og keyra eina af eftirfarandi skipunum (sláðu inn og ýttu á "
-"ENTER). Venjulega er fyrsta skipunin ``bt``, sem stendur fyrir "
+"MinGW64 gluggann og keyra eina af eftirfarandi skipunum (sláðu inn og ýttu á"
+" ENTER). Venjulega er fyrsta skipunin ``bt``, sem stendur fyrir "
 "``backtrace``. Fleiri skipanir eru taldar upp hér að neðan."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:117
+#: ../troubleshoot.rst:313
 msgid "High DPI / 4K Monitors"
 msgstr "Háupxásar þéttleiki punkta / 4K skjáir"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:119
+#: ../troubleshoot.rst:315
 msgid ""
 "OpenShot Video Editor provides robust support for High DPI (Dots Per Inch) "
 "monitors, ensuring that the interface looks sharp and is easily readable on "
 "displays with various DPI settings. This support is particularly helpful on "
 "4K monitors and other high-resolution displays."
 msgstr ""
-"OpenShot Video Editor býður upp á traustan stuðning fyrir háupplausnar (DPI) "
-"skjái, sem tryggir að viðmótið sé skýrt og auðvelt að lesa á skjám með "
+"OpenShot Video Editor býður upp á traustan stuðning fyrir háupplausnar (DPI)"
+" skjái, sem tryggir að viðmótið sé skýrt og auðvelt að lesa á skjám með "
 "mismunandi DPI-stillingum. Þessi stuðningur er sérstaklega gagnlegur á 4K "
 "skjám og öðrum skjám með háa upplausn."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:125
+#: ../troubleshoot.rst:321
 msgid "Per Monitor DPI Awareness"
 msgstr "DPI meðvitund fyrir hvern skjá"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:127
+#: ../troubleshoot.rst:323
 msgid ""
 "OpenShot is DPI aware on a per-monitor basis, meaning it can adjust its "
-"scaling dynamically depending on the DPI settings of each connected monitor. "
-"This helps provide a consistent experience across different displays."
+"scaling dynamically depending on the DPI settings of each connected monitor."
+" This helps provide a consistent experience across different displays."
 msgstr ""
 "OpenShot er meðvitaður um DPI fyrir hvern skjá fyrir sig, sem þýðir að hann "
 "getur stillt stærðarmælikvarða sína sjálfkrafa eftir DPI-stillingum hvers "
@@ -234,57 +692,57 @@ msgstr ""
 "skjám."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:132
+#: ../troubleshoot.rst:328
 msgid "DPI Scaling on Windows"
 msgstr "DPI-stærðarmælikvarði á Windows"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:134
+#: ../troubleshoot.rst:330
 msgid ""
-"On Windows, OpenShot rounds the scaling factor to the nearest whole value to "
-"maintain visual integrity. This helps avoid visual artifacts in the UI and "
+"On Windows, OpenShot rounds the scaling factor to the nearest whole value to"
+" maintain visual integrity. This helps avoid visual artifacts in the UI and "
 "keeps interface elements crisp and well-aligned. Due to this rounding, some "
 "scaling options can lead to larger fonts and UI elements than expected."
 msgstr ""
 "Á Windows styttir OpenShot stærðarmælikvarðann í næsta heiltölu til að "
-"viðhalda sjónrænu heilindum. Þetta hjálpar til við að forðast sjónræna galla "
-"í viðmótinu og heldur viðmótsþáttum skörpum og vel raðað. Vegna þessarar "
+"viðhalda sjónrænu heilindum. Þetta hjálpar til við að forðast sjónræna galla"
+" í viðmótinu og heldur viðmótsþáttum skörpum og vel raðað. Vegna þessarar "
 "styttingar geta sumar stærðarmælikvarða valdið stærri leturgerðum og "
 "viðmótsþáttum en búist var við."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:139
+#: ../troubleshoot.rst:335
 msgid "**125% scaling** rounds to **100%**"
 msgstr "**125% stærðarmælikvarði** styttist í **100%**"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:140
+#: ../troubleshoot.rst:336
 msgid "**150% scaling** rounds to **200%**"
 msgstr "**150% stærðarmælikvarði** styttist í **200%**"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:143
+#: ../troubleshoot.rst:339
 msgid "Workarounds for Fine-Grained Adjustment"
 msgstr "Leiðir til að fínstilla nákvæmni"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:145
+#: ../troubleshoot.rst:341
 msgid ""
 "While rounding helps maintain a clean interface, there are workarounds for "
-"users who require more precise control over scaling. These methods are **not "
-"recommended** due to potential visual artifacts:"
+"users who require more precise control over scaling. These methods are **not"
+" recommended** due to potential visual artifacts:"
 msgstr ""
 "Þó að stytting hjálpi til við að viðhalda hreinu viðmóti, eru til leiðir "
 "fyrir notendur sem þurfa nákvæmari stjórn á stærðarmælikvarða. Þessar "
 "aðferðir eru **ekki mælt með** vegna mögulegra sjónrænna galla:"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:149
+#: ../troubleshoot.rst:345
 msgid "**QT_SCALE_FACTOR_ROUNDING_POLICY=PassThrough**"
 msgstr "**QT_SCALE_FACTOR_ROUNDING_POLICY=PassThrough**"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:151
+#: ../troubleshoot.rst:347
 msgid ""
 "Setting this environment variable can disable rounding and allow more "
 "precise scaling."
@@ -293,21 +751,21 @@ msgstr ""
 "stærðarmælikvarða."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:152
+#: ../troubleshoot.rst:348
 msgid ""
-"**Note:** This may cause visual artifacts, particularly in the timeline, and "
-"is not recommended."
+"**Note:** This may cause visual artifacts, particularly in the timeline, and"
+" is not recommended."
 msgstr ""
-"**Athugið:** Þetta getur valdið sjónrænum göllum, sérstaklega í tímalínunni, "
-"og er ekki mælt með."
+"**Athugið:** Þetta getur valdið sjónrænum göllum, sérstaklega í tímalínunni,"
+" og er ekki mælt með."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:154
+#: ../troubleshoot.rst:350
 msgid "**QT_SCALE_FACTOR=1.25** (or similar value)"
 msgstr "**QT_SCALE_FACTOR=1.25** (eða svipað gildi)"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:156
+#: ../troubleshoot.rst:352
 msgid ""
 "Manually setting the scale factor can provide finer adjustments to the font "
 "and UI scaling."
@@ -316,7 +774,7 @@ msgstr ""
 "leturgerð og viðmótsstærð."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:157
+#: ../troubleshoot.rst:353
 msgid ""
 "This can also be set via Preferences (User Interface Scale), but expect "
 "border/line issues on Windows with fractional scales."
@@ -325,7 +783,7 @@ msgstr ""
 "vandamálum með ramma/línur á Windows við brotakennda stærðarmælikvarða."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:158
+#: ../troubleshoot.rst:354
 msgid ""
 "**Note:** This method can also lead to visual artifacts and make OpenShot "
 "harder to use."
@@ -334,10 +792,11 @@ msgstr ""
 "OpenShot erfiðara í notkun."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:160
+#: ../troubleshoot.rst:356
 msgid ""
-"For more info on adjusting these environment variables, please visit https://"
-"github.com/OpenShot/openshot-qt/wiki/OpenShot-UI-too-large."
+"For more info on adjusting these environment variables, please visit "
+"https://github.com/OpenShot/openshot-qt/wiki/OpenShot-UI-too-large."
 msgstr ""
-"Fyrir frekari upplýsingar um að stilla þessar umhverfisbreytur, vinsamlegast "
-"heimsækið https://github.com/OpenShot/openshot-qt/wiki/OpenShot-UI-too-large."
+"Fyrir frekari upplýsingar um að stilla þessar umhverfisbreytur, vinsamlegast"
+" heimsækið https://github.com/OpenShot/openshot-qt/wiki/OpenShot-UI-too-"
+"large."

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-09-26 14:26-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -103,8 +103,8 @@ msgid "Name"
 msgstr "名稱"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:51 ../clips.rst:76 ../clips.rst:110 ../clips.rst:149
-#: ../clips.rst:622
+#: ../clips.rst:51 ../clips.rst:76 ../clips.rst:189 ../clips.rst:228
+#: ../clips.rst:701
 msgid "Description"
 msgstr "描述"
 
@@ -263,15 +263,15 @@ msgstr "在播放頭位置切割選取的剪輯，保留左側（快捷鍵：:kb
 msgid "**Razor Tool**"
 msgstr "**剃刀工具**"
 
-# Translated with gpt-4.1-mini
 #: ../clips.rst:88
 msgid ""
 "The :guilabel:`razor tool` from the **Timeline Toolbar** cuts a clip at the "
-"position where it is clicked. Use :kbd:`SHIFT` to slice and keep the left "
-"side, or :kbd:`CTRL` to keep the right side."
+"position where it is clicked. See :ref:`razor_tool_ref` for cut guides and "
+"frame previews. Use :kbd:`SHIFT` to slice and keep the left side, or "
+":kbd:`CTRL` to keep the right side."
 msgstr ""
-"在**時間軸工具列** 中的 :guilabel:`剃刀工具` ，可在點擊位置切割剪輯。使用 :kbd:`SHIFT` 切割並保留左側，或 "
-":kbd:`CTRL` 保留右側。"
+"來自 **時間軸工具列** 的 :guilabel:`剃刀工具` 可在點擊位置切割剪輯。請參閱 :ref:`razor_tool_ref` "
+"了解切割指引和影格預覽。使用 :kbd:`SHIFT` 可切割並保留左側，或使用 :kbd:`CTRL` 保留右側。"
 
 # Translated with gpt-4.1-mini
 #: ../clips.rst:90
@@ -299,13 +299,203 @@ msgid ""
 "right edge, you can drag that shared edge once to trim them together."
 msgstr "如果多個選取的片段和/或轉場共享相同的左邊緣或右邊緣，您可以拖動該共享邊緣一次來一起修剪它們。"
 
+#: ../clips.rst:102
+msgid "Razor Tool"
+msgstr "剃刀工具"
+
+#: ../clips.rst:104
+msgid ""
+"Use the **Razor Tool** to preview a cut and split a clip or transition "
+"directly on the timeline. Each click affects only the item under the "
+"pointer."
+msgstr "使用 **剃刀工具** 可預覽切割並直接在時間軸上分割剪輯或轉場。每次點擊僅影響指標下的項目。"
+
+#: ../clips.rst:107
+msgid "Enable :guilabel:`Razor Tool` in the **Timeline Toolbar**."
+msgstr "在 **時間軸工具列** 啟用 :guilabel:`剃刀工具`。"
+
+#: ../clips.rst:108
+msgid ""
+"Move over the clip you want to cut. A vertical dashed guide marks the exact "
+"frame boundary, with a timecode and the action that clicking will perform."
+msgstr "移動到想要切割的剪輯上方。垂直虛線指引標示精確的影格邊界，並顯示時間碼及點擊後將執行的動作。"
+
+#: ../clips.rst:110
+msgid ""
+"While playback is paused, **Video Preview** shows the source frame of the "
+"hovered clip, including its time mapping. Higher tracks cannot obscure this "
+"preview. The playhead stays in place, and the guide's timecode is timeline "
+"time."
+msgstr "播放暫停時，**影片預覽** 顯示滑鼠懸停剪輯的原始影格及其時間映射。較高軌道不會遮蔽此預覽。播放頭保持不動，指引的時間碼為時間軸時間。"
+
+#: ../clips.rst:113
+msgid "Click to split. Razor stays enabled so you can make more cuts."
+msgstr "點擊以分割。剃刀工具保持啟用，方便進行更多切割。"
+
+#: ../clips.rst:114
+msgid ""
+"Press :kbd:`Esc`, or toggle the toolbar button again, to return to normal "
+"editing."
+msgstr "按 :kbd:`Esc`，或再次切換工具列按鈕，以回到一般編輯模式。"
+
+#: ../clips.rst:116
+msgid ""
+"Moving away from the clip or leaving Razor mode restores the preview at the "
+"playhead. Hovering during playback does not interrupt playback. Like edge "
+"trimming, Razor previews the individual source rather than the composed "
+"timeline. Hovering a transition previews its mask source."
+msgstr ""
+"離開剪輯或退出剃刀模式會恢復播放頭處的預覽。播放時懸停不會中斷播放。與邊緣修剪類似，剃刀預覽的是個別來源而非合成後的時間軸。懸停轉場則預覽其遮罩來源。"
+
+#: ../clips.rst:121
+msgid "Razor actions"
+msgstr "剃刀操作"
+
+#: ../clips.rst:125
+msgid "Action"
+msgstr "動作"
+
+#: ../clips.rst:126
+msgid "Result"
+msgstr "結果"
+
+#: ../clips.rst:127
+msgid "Click"
+msgstr "點擊"
+
+#: ../clips.rst:128
+msgid ""
+"Split at the guide and keep both sides. The previewed frame starts the right"
+" side."
+msgstr "在指引處切割並保留雙方。預覽的影格為右側起點。"
+
+#: ../clips.rst:129
+msgid ":kbd:`Shift+Click`"
+msgstr ":kbd:`Shift+Click`"
+
+#: ../clips.rst:130
+msgid ""
+"Keep the left side of the guide. The right side is shaded to show what will "
+"be removed."
+msgstr "保留指引左側。右側以陰影顯示將被移除的部分。"
+
+#: ../clips.rst:131
+msgid ":kbd:`Ctrl+Click`"
+msgstr ":kbd:`Ctrl+Click`"
+
+#: ../clips.rst:132
+msgid ""
+"Keep the right side. The left side is shaded to show what will be removed."
+msgstr "保留右側。左側以陰影顯示將被移除的部分。"
+
+#: ../clips.rst:133
+msgid ":kbd:`Alt+Shift+Click`"
+msgstr ":kbd:`Alt+Shift+Click`"
+
+#: ../clips.rst:134
+msgid ""
+"Keep the left side and close the gap, shifting later items on the same track"
+" left."
+msgstr "保留左側並關閉空隙，將同軌後續項目向左移動。"
+
+#: ../clips.rst:135
+msgid ":kbd:`Alt+Ctrl+Click`"
+msgstr ":kbd:`Alt+Ctrl+Click`"
+
+#: ../clips.rst:136
+msgid ""
+"Keep the right side and close the gap, shifting later items on the same "
+"track left."
+msgstr "保留右側並關閉空隙，將同軌後續項目向左移動。"
+
+#: ../clips.rst:137
+msgid ":kbd:`W` / :kbd:`Q` while hovering"
+msgstr "懸停時按 :kbd:`W` / :kbd:`Q`"
+
+#: ../clips.rst:138
+msgid ""
+"Use the existing ripple-slice shortcuts at the pointer: keep left (:kbd:`W`)"
+" or right (:kbd:`Q`) and close the gap. Customized bindings work too."
+msgstr "使用指標處現有的波紋切割快捷鍵：保留左側 (:kbd:`W`) 或右側 (:kbd:`Q`) 並關閉空隙。自訂快捷鍵亦適用。"
+
+#: ../clips.rst:141
+msgid ""
+"Holding :kbd:`Alt` with :kbd:`Shift` or :kbd:`Ctrl` adds **Close gap** to "
+"the hint. The red shading shows the portion being removed. These operations "
+"reuse **Slice Selected (Ripple)**; they move later clips and transitions on "
+"the same track, not on other tracks. Outside Razor hover, the ripple "
+"shortcuts retain their normal selected-item/playhead behavior. A locked or "
+"invalid Razor target does not fall back to cutting a different selected "
+"clip."
+msgstr ""
+"按住 :kbd:`Alt` 並搭配 :kbd:`Shift` 或 :kbd:`Ctrl`，提示中會新增 "
+"**關閉空隙**。紅色陰影顯示將被移除的部分。這些操作重用 "
+"**切割選取項目（波紋）**；它們只會移動同軌後續的剪輯和轉場，不會影響其他軌道。剃刀懸停外，波紋快捷鍵保持正常的選取項目/播放頭行為。鎖定或無效的剃刀目標不會改為切割其他選取剪輯。"
+
+#: ../clips.rst:148
+msgid ""
+"Cuts align to project frames. With **Snapping** enabled, the Razor guide "
+"uses the same snap targets and distance tolerance as other timeline edits: "
+"clip and transition edges, markers, the playhead, and the hovered clip's "
+"keyframe targets. The hovered item's own endpoints are excluded. Preview, "
+"mouse cuts, and ripple shortcuts all use the guide's snapped boundary. "
+"Toggle the timeline's existing **Snapping** button to cut freely between "
+"these targets."
+msgstr ""
+"切割會對齊專案影格。啟用 **吸附** "
+"時，剃刀指引使用與其他時間軸編輯相同的吸附目標和距離容差：剪輯與轉場邊緣、標記、播放頭及懸停剪輯的關鍵影格目標。排除懸停項目的自身端點。預覽、滑鼠切割和波紋快捷鍵皆使用指引的吸附邊界。切換時間軸的"
+" **吸附** 按鈕可自由切割於這些目標之間。"
+
+#: ../clips.rst:155
+msgid ""
+"Without snapping to a target, :kbd:`Shift+Click` includes the frame under "
+"the pointer in the left side, placing the guide at the following frame "
+"boundary. When snapped, the snapped boundary takes priority for all cut "
+"modes."
+msgstr ""
+"未吸附目標時，:kbd:`Shift+Click` 會將指標下的影格包含在左側，並將指引置於下一影格邊界。吸附時，吸附邊界優先於所有切割模式。"
+
+#: ../clips.rst:159
+msgid ""
+"Locked tracks, empty space, and boundaries that would leave an empty side do"
+" not show a valid cut guide. Zoom in for finer frame selection, and use "
+"**Undo** to reverse a cut."
+msgstr "鎖定軌道、空白區域及會造成空側的邊界不會顯示有效切割指引。放大以更精細選擇影格，並使用 **復原** 來撤銷切割。"
+
+#: ../clips.rst:163
+msgid ""
+"To cut several clips at the playhead instead, use **Slice Selected** or "
+"**Slice All**, described above."
+msgstr "若要在播放頭處切割多個剪輯，請使用上述的 **切割選取項目** 或 **全部切割**。"
+
+#: ../clips.rst:167
+msgid "Clip controls while zoomed in"
+msgstr "放大時的剪輯控制"
+
+#: ../clips.rst:169
+msgid ""
+"When a clip's start scrolls off screen, its title, effect badges, and menu "
+"stay near the left side of the visible timeline. Click an effect badge to "
+"access that effect, or use the title's dropdown to open the clip menu. The "
+"controls stay within the visible portion of their clip and shorten as space "
+"runs out."
+msgstr ""
+"當剪輯起點捲出畫面外時，其標題、效果徽章和選單會停留在可見時間軸的左側附近。點擊效果徽章可進入該效果，或使用標題的下拉選單開啟剪輯選單。控制項保持在剪輯可見範圍內，空間不足時會縮短。"
+
+#: ../clips.rst:174
+msgid ""
+"Only these controls follow the viewport. The clip's outline, thumbnails, "
+"waveform, and trim handles remain at their actual timeline positions. A "
+"small inset separates the pinned controls from the viewport edge."
+msgstr "只有這些控制項會跟隨視窗。剪輯的輪廓、縮圖、波形和修剪把手保持在實際時間軸位置。小的內縮區域將固定控制項與視窗邊緣分開。"
+
 # Translated with gpt-4.1-mini
-#: ../clips.rst:100
+#: ../clips.rst:179
 msgid "Selections"
 msgstr "選取"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:101
+#: ../clips.rst:180
 msgid ""
 "Selecting clips and transitions on the timeline is an essential part of "
 "editing in OpenShot. Multiple selection methods are available to streamline "
@@ -313,22 +503,22 @@ msgid ""
 msgstr "在時間軸上選取剪輯和轉場是 OpenShot 編輯的重要部分。提供多種選取方法以簡化工作流程，提升剪輯與轉場的編輯效率。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:104
+#: ../clips.rst:183
 msgid "Here is a list of all methods for selecting clips in OpenShot:"
 msgstr "以下是 OpenShot 中所有選取剪輯的方法清單："
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:110
+#: ../clips.rst:189
 msgid "Selection Method"
 msgstr "選取方法"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:112
+#: ../clips.rst:191
 msgid "**Box Selection**"
 msgstr "**框選**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:112
+#: ../clips.rst:191
 msgid ""
 "Click and drag a selection box around clips or transitions to select "
 "multiple items at once. Hold down :kbd:`Ctrl` to add to your current "
@@ -336,36 +526,36 @@ msgid ""
 msgstr "點擊並拖曳選取框以選取多個剪輯或轉場。按住 :kbd:`Ctrl` 可將項目加入目前選取。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:113
+#: ../clips.rst:192
 msgid "**Click Selection**"
 msgstr "**點擊選取**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:113
+#: ../clips.rst:192
 msgid ""
 "Click on a clip or transition to select it. This will deselect all other "
 "items unless you hold down :kbd:`Ctrl`."
 msgstr "點擊剪輯或轉場以選取。除非按住 :kbd:`Ctrl` ，否則會取消選取其他項目。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:114
+#: ../clips.rst:193
 msgid "**Add to Selection**"
 msgstr "**加入選取**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:114
+#: ../clips.rst:193
 msgid ""
 "Hold down :kbd:`Ctrl` while clicking to add or remove clips from the current"
 " selection, allowing you to select non-adjacent clips."
 msgstr "按住 :kbd:`Ctrl` 點擊以加入或移除剪輯，允許選取非連續的剪輯。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:115
+#: ../clips.rst:194
 msgid "**Range Selection**"
 msgstr "**範圍選取**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:115
+#: ../clips.rst:194
 msgid ""
 "Hold down :kbd:`Shift` while clicking to select a range of clips/transitions"
 " from the previous selection to the new selection. This supports ranges that"
@@ -373,12 +563,12 @@ msgid ""
 msgstr "按住 :kbd:`Shift` 點擊以選取從先前選取到新選取的剪輯/轉場範圍，支援跨多軌範圍。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:116
+#: ../clips.rst:195
 msgid "**Ripple Selection**"
 msgstr "**波紋選取**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:116
+#: ../clips.rst:195
 msgid ""
 "Hold down :kbd:`Alt` while clicking to ripple select all clips/transitions "
 "from your selection to the end of the track. This always adds to your "
@@ -386,42 +576,42 @@ msgid ""
 msgstr "按住 :kbd:`Alt` 點擊以波紋選取從目前選取到軌道末端的所有剪輯/轉場，無論是否按住 :kbd:`Ctrl` 都會加入選取。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:117
+#: ../clips.rst:196
 msgid "**Clear Selection**"
 msgstr "**清除選取**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:117
+#: ../clips.rst:196
 msgid ""
 "Click anywhere on the timeline or on a new clip/transition to reset the "
 "current selection, unless :kbd:`Ctrl` is pressed."
 msgstr "點擊時間軸任意處或新剪輯/轉場以重設目前選取，除非按住 :kbd:`Ctrl` 。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:118
+#: ../clips.rst:197
 msgid "**Select All**"
 msgstr "**全選**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:118
+#: ../clips.rst:197
 msgid ""
 "Press :kbd:`Ctrl+A` to select all clips and transitions on the timeline."
 msgstr "按 :kbd:`Ctrl+A` 選取時間軸上的所有剪輯和轉場。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:119
+#: ../clips.rst:198
 msgid "**Select None**"
 msgstr "**全不選**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:119
+#: ../clips.rst:198
 msgid ""
 "Press :kbd:`Ctrl+Shift+A` to deselect all clips and transitions on the "
 "timeline."
 msgstr "按 :kbd:`Ctrl+Shift+A` 取消選取時間軸上的所有剪輯和轉場。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:122
+#: ../clips.rst:201
 msgid ""
 "Mastering these selection techniques will streamline your editing process, "
 "especially when dealing with complex projects. For more advanced tips on "
@@ -432,12 +622,12 @@ msgstr ""
 ":ref:`clips_cutting_slicing_ref` 節。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:128
+#: ../clips.rst:207
 msgid "Context Menu"
 msgstr "快顯選單"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:129
+#: ../clips.rst:208
 msgid ""
 "OpenShot has tons of great preset animations and clip properties, such as "
 "fading, sliding, zooming, reversing time, adjusting volume, etc... These "
@@ -450,7 +640,7 @@ msgstr ""
 "提供大量優秀的預設動畫和剪輯屬性，如淡入淡出、滑動、縮放、時間反轉、調整音量等。可透過右鍵點擊剪輯開啟快顯選單存取這些預設。預設會自動設定一個或多個剪輯屬性，無需手動設定關鍵影格。詳見"
 " :ref:`clip_properties_ref` 。"
 
-#: ../clips.rst:134
+#: ../clips.rst:213
 msgid ""
 "Some presets allow the user to target either the start, end, or entire clip,"
 " and most presets allow the user to reset a specific clip property. For "
@@ -460,65 +650,65 @@ msgstr ""
 "某些預設允許使用者針對剪輯的開始、結束或整個剪輯進行設定，大多數預設也允許使用者重設特定的剪輯屬性。例如，使用 :guilabel:`Audio → "
 "Volume` 預設時，使用者會有以下選單選項："
 
-#: ../clips.rst:138
+#: ../clips.rst:217
 msgid "**Reset Volume** — resets the volume to the original level."
 msgstr "**重設音量** — 將音量重設為原始水平。"
 
-#: ../clips.rst:139
+#: ../clips.rst:218
 msgid ""
 "**Start of Clip** — the volume change applies at the beginning of the clip."
 msgstr "**剪輯開始** — 音量變化應用於剪輯的開始。"
 
-#: ../clips.rst:140
+#: ../clips.rst:219
 msgid "**End of Clip** — the volume change applies at the end of the clip."
 msgstr "**剪輯結束** — 音量變化應用於剪輯的結束。"
 
-#: ../clips.rst:141
+#: ../clips.rst:220
 msgid "**Entire Clip** — the volume change applies to the entire clip."
 msgstr "**整個剪輯** — 音量變化應用於整個剪輯。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:149
+#: ../clips.rst:228
 msgid "Preset Name"
 msgstr "預設名稱"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:151 ../clips.rst:539
+#: ../clips.rst:230 ../clips.rst:618
 msgid "Copy / Cut / Paste"
 msgstr "複製 / 剪下 / 貼上"
 
-#: ../clips.rst:151
+#: ../clips.rst:230
 msgid ""
 "Copy selected clip data, cut selected clips, or paste copied clip data. Copy"
 " supports full clips, effects, and keyframe groups."
 msgstr "複製選取的剪輯資料、剪下選取的剪輯，或貼上複製的剪輯資料。複製支援完整剪輯、效果及關鍵影格群組。"
 
-#: ../clips.rst:152
+#: ../clips.rst:231
 msgid "Align"
 msgstr "對齊"
 
-#: ../clips.rst:152
+#: ../clips.rst:231
 msgid ""
 "Align the left or right edge of multiple selected clips and transitions "
 "(only shown when multiple clips are selected)."
 msgstr "對齊多個選取剪輯及轉場的左邊或右邊緣（僅在選取多個剪輯時顯示）。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:153 ../clips.rst:165
+#: ../clips.rst:232 ../clips.rst:244
 msgid "Fade"
 msgstr "淡入淡出"
 
-#: ../clips.rst:153
+#: ../clips.rst:232
 msgid ""
 "Fade the clip in or out — automatically fades video (alpha) and/or audio "
 "(volume) based on what the clip contains."
 msgstr "淡入或淡出剪輯 — 根據剪輯內容自動淡化影片（透明度）和／或音訊（音量）。"
 
-#: ../clips.rst:154 ../clips.rst:182
+#: ../clips.rst:233 ../clips.rst:261
 msgid "Motion"
 msgstr "動態"
 
-#: ../clips.rst:154
+#: ../clips.rst:233
 msgid ""
 "Add animated motion to a clip: slide in/out, bounce, blur, wipe/focus-wipe, "
 "zoom, emphasis effects at the playhead, camera movements, and scrolling "
@@ -526,21 +716,21 @@ msgid ""
 msgstr "為剪輯新增動畫動作：滑入／滑出、彈跳、模糊、擦拭／聚焦擦拭、縮放、播放頭強調效果、攝影機移動及滾動字幕。僅顯示於視覺剪輯。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:155 ../clips.rst:417
+#: ../clips.rst:234 ../clips.rst:496
 msgid "Transform"
 msgstr "變形"
 
-#: ../clips.rst:155
+#: ../clips.rst:234
 msgid ""
 "Apply geometric presets to a clip: rotate/flip, crop, or snap to a corner "
 "layout. Also provides a **No Transform** reset. Only shown for visual clips."
 msgstr "套用幾何預設至剪輯：旋轉／翻轉、裁切，或吸附至角落佈局。也提供 **無變形** 重設。僅顯示於視覺剪輯。"
 
-#: ../clips.rst:156 ../clips.rst:318
+#: ../clips.rst:235 ../clips.rst:397
 msgid "Look"
 msgstr "外觀"
 
-#: ../clips.rst:156
+#: ../clips.rst:235
 msgid ""
 "Apply visual style presets: color grades, film grain, analog tape, sharpen, "
 "blur, shadow, and glow effects. Includes **Adjust Colors** (Color Wheels "
@@ -549,21 +739,21 @@ msgstr ""
 "套用視覺風格預設：色彩分級、膠片顆粒、類比磁帶、銳化、模糊、陰影及發光效果。包含 **調整顏色**（色輪編輯器）及 "
 "**分析顏色**（影片波形）。僅顯示於視覺剪輯。"
 
-#: ../clips.rst:157 ../clips.rst:249
+#: ../clips.rst:236 ../clips.rst:328
 msgid "Speed"
 msgstr "速度"
 
-#: ../clips.rst:157
+#: ../clips.rst:236
 msgid ""
 "Reverse, repeat, speed up, or slow down video. Includes Freeze and Freeze & "
 "Zoom options."
 msgstr "倒轉、重複、加速或減慢影片。包含凍結及凍結並縮放選項。"
 
-#: ../clips.rst:158 ../clips.rst:365
+#: ../clips.rst:237 ../clips.rst:444
 msgid "Audio"
 msgstr "音訊"
 
-#: ../clips.rst:158
+#: ../clips.rst:237
 msgid ""
 "Control audio properties: adjust volume levels, fade volume in/out, separate"
 " audio channels, show/hide the timeline waveform, or open the Audio Levels "
@@ -571,11 +761,11 @@ msgid ""
 msgstr "控制音訊屬性：調整音量、淡入／淡出音量、分離音訊頻道、顯示／隱藏時間軸波形，或開啟音量表。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:159 ../clips.rst:392
+#: ../clips.rst:238 ../clips.rst:471
 msgid "Slice"
 msgstr "切割"
 
-#: ../clips.rst:159
+#: ../clips.rst:238
 msgid ""
 "Cut the clip at the play-head position, with options to keep either side, "
 "both sides, or ripple-delete one side. Only shown when the playhead overlaps"
@@ -583,24 +773,24 @@ msgid ""
 msgstr "在播放頭位置剪切剪輯，並可選擇保留任一側、雙側或波紋刪除一側。僅在播放頭重疊剪輯時顯示。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:160 ../clips.rst:531
+#: ../clips.rst:239 ../clips.rst:610
 msgid "Properties"
 msgstr "屬性"
 
-#: ../clips.rst:160
+#: ../clips.rst:239
 msgid "Show the properties panel for a clip."
 msgstr "顯示剪輯的屬性面板。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:161 ../clips.rst:563
+#: ../clips.rst:240 ../clips.rst:642
 msgid "Remove Clip"
 msgstr "移除剪輯"
 
-#: ../clips.rst:161
+#: ../clips.rst:240
 msgid "Remove a clip from the timeline."
 msgstr "從時間軸移除剪輯。"
 
-#: ../clips.rst:166
+#: ../clips.rst:245
 msgid ""
 "The :guilabel:`Fade` preset creates a smooth fade-in or fade-out on the "
 "selected clip. It automatically fades **video** (alpha/opacity) and/or "
@@ -611,29 +801,29 @@ msgstr ""
 ":guilabel:`Fade` 預設會在選取的剪輯上建立平滑的淡入或淡出。它會根據剪輯內容自動淡化 **影片**（透明度）和／或 "
 "**音訊**（音量）— 影片剪輯會同時淡化，純音訊剪輯只淡化音量，圖片剪輯只淡化透明度。"
 
-#: ../clips.rst:170
+#: ../clips.rst:249
 msgid ":guilabel:`No Fade` — removes all fade keyframes."
 msgstr ":guilabel:`無淡化` — 移除所有淡化關鍵影格。"
 
-#: ../clips.rst:171
+#: ../clips.rst:250
 msgid ""
 ":guilabel:`Fade In` → :guilabel:`Fast` / :guilabel:`Slow` — fades from "
 "transparent/silent at the start of the clip."
 msgstr ":guilabel:`淡入` → :guilabel:`快速` / :guilabel:`緩慢` — 在剪輯開始時從透明／靜音淡入。"
 
-#: ../clips.rst:172
+#: ../clips.rst:251
 msgid ""
 ":guilabel:`Fade Out` → :guilabel:`Fast` / :guilabel:`Slow` — fades to "
 "transparent/silent at the end of the clip."
 msgstr ":guilabel:`淡出` → :guilabel:`快速` / :guilabel:`緩慢` — 在剪輯結束時淡出至透明／靜音。"
 
-#: ../clips.rst:173
+#: ../clips.rst:252
 msgid ""
 ":guilabel:`Fade In and Out` → :guilabel:`Fast` / :guilabel:`Slow` — applies "
 "both a fade-in at the start and a fade-out at the end."
 msgstr ":guilabel:`淡入淡出` → :guilabel:`快速` / :guilabel:`緩慢` — 同時在開始時淡入及結束時淡出。"
 
-#: ../clips.rst:175
+#: ../clips.rst:254
 msgid ""
 "Fast fades span approximately 1 second; Slow fades span approximately 3 "
 "seconds. See :ref:`clip_alpha_ref` and :ref:`clip_volume_ref` key-frames."
@@ -642,13 +832,13 @@ msgstr ""
 "關鍵影格。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:178
+#: ../clips.rst:257
 msgid ""
 "**Usage Example:** Applying a fade-out to a video clip to gently conclude a "
 "scene."
 msgstr "**使用範例：** 對影片剪輯套用淡出效果，以柔和地結束場景。"
 
-#: ../clips.rst:179
+#: ../clips.rst:258
 msgid ""
 "**Tip:** Fade and Volume fade are independent — use :guilabel:`Fade` for a "
 "combined video+audio fade, or use :guilabel:`Audio → Volume` to fade only "
@@ -657,7 +847,7 @@ msgstr ""
 "**提示：** 淡化與音量淡化是獨立的 — 使用 :guilabel:`Fade` 可同時淡化影片與音訊，或使用 :guilabel:`Audio → "
 "Volume` 僅淡化音訊。"
 
-#: ../clips.rst:183
+#: ../clips.rst:262
 msgid ""
 "The :guilabel:`Motion` menu adds animated movement to visual clips using "
 "keyframe presets. It is organized into several submenus. See "
@@ -666,58 +856,58 @@ msgstr ""
 ":guilabel:`Motion` 選單使用關鍵影格預設為視覺剪輯新增動畫動作。它分為多個子選單。請參閱 "
 ":ref:`clip_location_x_ref` 及 :ref:`clip_scale_x_ref` 關鍵影格。"
 
-#: ../clips.rst:186
+#: ../clips.rst:265
 msgid ":guilabel:`No Motion` — removes all motion keyframes from the clip."
 msgstr ":guilabel:`無動態` — 移除剪輯的所有動態關鍵影格。"
 
-#: ../clips.rst:187
+#: ../clips.rst:266
 msgid ":guilabel:`In` — entrance animations applied at the start of the clip:"
 msgstr ":guilabel:`進入` — 在剪輯開始時套用的進場動畫："
 
-#: ../clips.rst:189
+#: ../clips.rst:268
 msgid ""
 "**Back In** (From Bottom / Left / Right / Top) — clip overshoots and springs"
 " back into position."
 msgstr "**回彈進入**（從下方／左方／右方／上方）— 剪輯超出後彈回原位。"
 
-#: ../clips.rst:190
+#: ../clips.rst:269
 msgid "**Blur In** — clip fades in from a motion blur."
 msgstr "**模糊進入** — 剪輯從動態模糊中淡入。"
 
-#: ../clips.rst:191
+#: ../clips.rst:270
 msgid ""
 "**Bounce In** (Center / From Bottom / Left / Right / Top) — clip bounces as "
 "it enters."
 msgstr "**彈跳進入**（中心／從下方／左方／右方／上方）— 剪輯進入時彈跳。"
 
-#: ../clips.rst:192
+#: ../clips.rst:271
 msgid ""
 "**Focus Wipe In** (Circle Expand / Circle Shrink / From Bottom / Left / "
 "Right / Top) — clip is revealed by a wipe while sharpening from blur into "
 "focus."
 msgstr "**聚焦擦拭進入**（圓形擴展／圓形縮小／從下方／左方／右方／上方）— 剪輯透過擦拭顯現，同時由模糊銳化至聚焦。"
 
-#: ../clips.rst:193
+#: ../clips.rst:272
 msgid "**Pop In** — clip scales up quickly from nothing."
 msgstr "**彈跳放大進入** — 剪輯快速從無到有放大。"
 
-#: ../clips.rst:194
+#: ../clips.rst:273
 msgid ""
 "**Slide In** (From Bottom / Left / Right / Top) — clip slides onto the "
 "screen."
 msgstr "**滑入**（從下方／左方／右方／上方）— 剪輯滑入畫面。"
 
-#: ../clips.rst:195
+#: ../clips.rst:274
 msgid "**Spiral In** — clip rotates in while scaling up."
 msgstr "**螺旋進入** — 剪輯旋轉同時放大進入。"
 
-#: ../clips.rst:196
+#: ../clips.rst:275
 msgid ""
 "**Wipe In** (Circle Expand / Circle Shrink / From Bottom / Left / Right / "
 "Top) — clip is revealed by a wipe."
 msgstr "**擦拭進入**（圓形擴展／圓形縮小／從下方／左方／右方／上方）— 剪輯透過擦拭顯現。"
 
-#: ../clips.rst:198
+#: ../clips.rst:277
 msgid ""
 ":guilabel:`Out` — exit animations applied at the end of the clip (mirrors "
 "the In options: Back Out, Blur Out, Bounce Out, Focus Wipe Out, Pop Out, "
@@ -726,7 +916,7 @@ msgstr ""
 ":guilabel:`退出` — "
 "在剪輯結束時套用的退場動畫（對應進入選項：回彈退出、模糊退出、彈跳退出、聚焦擦拭退出、彈跳縮小退出、滑出、螺旋退出、擦拭退出）。"
 
-#: ../clips.rst:200
+#: ../clips.rst:279
 msgid ""
 ":guilabel:`Emphasis` — short attention-grabbing animations **inserted at the"
 " current playhead position** (not applied across the whole clip). Useful for"
@@ -737,17 +927,17 @@ msgstr ""
 ":guilabel:`強調` — "
 "在當前播放頭位置**插入的短暫吸引注意力動畫**（不會套用於整個剪輯）。適用於剪輯中段的重點突出：**彈跳**、**閃爍**、**心跳**、**果凍**、**脈動**、**橡皮筋**、**水平震動**、**垂直震動**、**擺動**、**嗒嗒聲**、**搖晃**。"
 
-#: ../clips.rst:202
+#: ../clips.rst:281
 msgid ""
 ":guilabel:`Camera` — simulates camera movement on the clip by animating "
 "scale and position:"
 msgstr ":guilabel:`攝影機` — 透過動畫化縮放和位置模擬剪輯中的攝影機移動："
 
-#: ../clips.rst:204
+#: ../clips.rst:283
 msgid "**Zoom** → In / Out — a simple push-in or pull-out."
 msgstr "**縮放** → 放大 / 縮小 — 簡單的推進或拉遠。"
 
-#: ../clips.rst:205
+#: ../clips.rst:284
 msgid ""
 "**Pan** → Auto Direction / Left to Right / Right to Left / Top to Bottom / "
 "Bottom to Top — a lateral camera pan. *Auto Direction* picks the best "
@@ -755,7 +945,7 @@ msgid ""
 msgstr ""
 "**平移** → 自動方向 / 左至右 / 右至左 / 上至下 / 下至上 — 橫向攝影機平移。*自動方向* 根據剪輯的寬高比選擇最佳方向。"
 
-#: ../clips.rst:206
+#: ../clips.rst:285
 msgid ""
 "**Zoom & Pan** → In or Out, with directional variants — combines a zoom with"
 " a pan (Ken Burns style). *Auto Direction* picks the best direction based on"
@@ -763,31 +953,31 @@ msgid ""
 msgstr ""
 "**縮放與平移** → 放大或縮小，帶有方向變體 — 結合縮放和平移（Ken Burns 風格）。*自動方向* 根據剪輯的寬高比選擇最佳方向。"
 
-#: ../clips.rst:208
+#: ../clips.rst:287
 msgid ""
 ":guilabel:`Credits` — scrolling credit animations: **Scroll Up** and "
 "**Scroll Down**."
 msgstr ":guilabel:`片尾字幕` — 滾動字幕動畫：**向上滾動** 和 **向下滾動**。"
 
-#: ../clips.rst:210
+#: ../clips.rst:289
 msgid ""
 "**Tip:** Emphasis presets are placed at the current playhead position, so "
 "position the playhead over the moment you want to highlight before applying "
 "one."
 msgstr "**提示：** 強調預設會放置在當前播放頭位置，因此在套用前，請將播放頭定位於您想要突顯的時刻。"
 
-#: ../clips.rst:211
+#: ../clips.rst:290
 msgid ""
 "**Tip:** Camera presets use *Auto Direction* by default, which picks the "
 "optimal pan direction for wide or tall media to avoid black bars."
 msgstr "**提示：** 攝影機預設預設使用*自動方向*，可為寬螢幕或高螢幕媒體選擇最佳平移方向，以避免黑邊。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:216
+#: ../clips.rst:295
 msgid "Rotate"
 msgstr "旋轉"
 
-#: ../clips.rst:217
+#: ../clips.rst:296
 msgid ""
 "The :guilabel:`Transform → Rotate` submenu introduces easy rotation and "
 "flipping of clips. It enables orientation adjustment by rotating and "
@@ -797,41 +987,41 @@ msgstr ""
 ":guilabel:`變形 → 旋轉` 子選單提供簡易的剪輯旋轉與翻轉功能。可透過旋轉和翻轉剪輯來調整方向，實現創意視覺變化。請參閱 "
 ":ref:`clip_rotation_ref` 關鍵影格。"
 
-#: ../clips.rst:221
+#: ../clips.rst:300
 msgid ":guilabel:`No Rotation` — removes any rotation keyframes."
 msgstr ":guilabel:`無旋轉` — 移除所有旋轉關鍵影格。"
 
-#: ../clips.rst:222
+#: ../clips.rst:301
 msgid ":guilabel:`Rotate 90 (Right)` — rotates the clip 90 degrees clockwise."
 msgstr ":guilabel:`旋轉 90 度（右）` — 將剪輯順時針旋轉 90 度。"
 
-#: ../clips.rst:223
+#: ../clips.rst:302
 msgid ""
 ":guilabel:`Rotate 90 (Left)` — rotates the clip 90 degrees counterclockwise."
 msgstr ":guilabel:`旋轉 90 度（左）` — 將剪輯逆時針旋轉 90 度。"
 
-#: ../clips.rst:224
+#: ../clips.rst:303
 msgid ":guilabel:`Rotate 180 (Flip)` — flips the clip upside down."
 msgstr ":guilabel:`旋轉 180 度（翻轉）` — 將剪輯上下顛倒翻轉。"
 
-#: ../clips.rst:226
+#: ../clips.rst:305
 msgid ""
 "**Usage Example:** Rotating a photo or video by 90 degrees (a portrait video"
 " to a landscape)."
 msgstr "**使用範例：** 將照片或影片旋轉 90 度（將直向影片轉為橫向）。"
 
-#: ../clips.rst:227
+#: ../clips.rst:306
 msgid ""
 "**Usage Example:** If your video is upside down, rotate it by 180 degrees to"
 " correct the orientation."
 msgstr "**使用範例：** 如果您的影片是顛倒的，請旋轉 180 度以校正方向。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:232
+#: ../clips.rst:311
 msgid "Layout"
 msgstr "佈局"
 
-#: ../clips.rst:233
+#: ../clips.rst:312
 msgid ""
 "The :guilabel:`Transform → Layout` submenu adjusts the size of a clip and "
 "snaps it to a chosen corner of the screen, useful for picture-in-picture or "
@@ -842,36 +1032,36 @@ msgstr ""
 ":ref:`clip_location_x_ref`、:ref:`clip_scale_x_ref`、:guilabel:`邊距` 及 "
 ":guilabel:`圓角半徑` 關鍵影格。"
 
-#: ../clips.rst:238
+#: ../clips.rst:317
 msgid ":guilabel:`Reset Layout` — removes any layout keyframes."
 msgstr ":guilabel:`重設佈局` — 移除所有佈局關鍵影格。"
 
-#: ../clips.rst:239
+#: ../clips.rst:318
 msgid ""
 ":guilabel:`1/4 Size` — positions the clip at 1/4 of the screen in the "
 "Center, Top Left, Top Right, Bottom Left, or Bottom Right corner."
 msgstr ":guilabel:`1/4 大小` — 將剪輯定位於螢幕中央、左上、右上、左下或右下的四分之一大小位置。"
 
-#: ../clips.rst:240
+#: ../clips.rst:319
 msgid ""
 ":guilabel:`Show All (Maintain Ratio)` — fits the entire clip frame within "
 "the screen while preserving its aspect ratio."
 msgstr ":guilabel:`全部顯示（維持比例）` — 將整個剪輯畫面適合於螢幕內，並保持其寬高比。"
 
-#: ../clips.rst:241
+#: ../clips.rst:320
 msgid ""
 ":guilabel:`Show All (Distort)` — stretches the entire clip frame to fill the"
 " screen, ignoring aspect ratio."
 msgstr ":guilabel:`全部顯示（扭曲）` — 將整個剪輯畫面拉伸填滿螢幕，忽略寬高比。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:243
+#: ../clips.rst:322
 msgid ""
 "**Usage Example:** Placing a logo in the corner of a video using the layout "
 "preset."
 msgstr "**使用範例：** 使用版面配置預設將標誌放置在影片角落。"
 
-#: ../clips.rst:244
+#: ../clips.rst:323
 msgid ""
 "**Tip:** Use :guilabel:`Margin` to create an inset layout area for a clip, "
 "and :guilabel:`Corner Radius` to round picture-in-picture camera clips "
@@ -881,13 +1071,13 @@ msgstr ""
 "來為畫中畫攝影機剪輯加圓角，無需添加遮罩效果。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:246
+#: ../clips.rst:325
 msgid ""
 "**Tip:** Combine with animation presets for dynamic transitions involving "
 "resizing and repositioning."
 msgstr "**提示：** 結合動畫預設以實現包含調整大小和重新定位的動態轉場。"
 
-#: ../clips.rst:250
+#: ../clips.rst:329
 msgid ""
 "The :guilabel:`Speed` menu manipulates clip playback speed, allowing for "
 "reverse playback, time-lapse, slow-motion, freezes, and looping effects. See"
@@ -896,74 +1086,74 @@ msgstr ""
 ":guilabel:`速度` 選單可調整剪輯播放速度，支援倒放、縮時、慢動作、凍結及循環效果。請參閱 :ref:`clip_time_ref` "
 "關鍵影格。"
 
-#: ../clips.rst:253
+#: ../clips.rst:332
 msgid ":guilabel:`Reset Speed` — restores the clip to normal 1× speed."
 msgstr ":guilabel:`重設速度` — 將剪輯恢復至正常 1× 速度。"
 
-#: ../clips.rst:254
+#: ../clips.rst:333
 msgid ":guilabel:`Reverse` — plays the clip backwards at normal speed."
 msgstr ":guilabel:`倒放` — 以正常速度倒放剪輯。"
 
-#: ../clips.rst:255
+#: ../clips.rst:334
 msgid ""
 ":guilabel:`Speed Up` → Forward / Backward → 2×, 4×, 8×, 16× — speeds up "
 "playback in either direction."
 msgstr ":guilabel:`加速` → 正向 / 反向 → 2×、4×、8×、16× — 以任一方向加快播放速度。"
 
-#: ../clips.rst:256
+#: ../clips.rst:335
 msgid ""
 ":guilabel:`Slow Down` → Forward / Backward → 1/2×, 1/4×, 1/8×, 1/16× — slows"
 " down playback in either direction."
 msgstr ":guilabel:`減速` → 正向 / 反向 → 1/2×、1/4×、1/8×、1/16× — 以任一方向減慢播放速度。"
 
-#: ../clips.rst:257
+#: ../clips.rst:336
 msgid ":guilabel:`Repeat` — see below."
 msgstr ":guilabel:`重複播放` — 請見下方說明。"
 
-#: ../clips.rst:258
+#: ../clips.rst:337
 msgid ""
 ":guilabel:`Freeze` — freezes on the frame at the current playhead position "
 "for 2, 4, 6, 8, 10, 20, or 30 seconds."
 msgstr ":guilabel:`凍結` — 在當前播放頭位置的畫面凍結，持續 2、4、6、8、10、20 或 30 秒。"
 
-#: ../clips.rst:259
+#: ../clips.rst:338
 msgid ""
 ":guilabel:`Freeze && Zoom` — freezes and simultaneously zooms in on that "
 "frozen frame."
 msgstr ":guilabel:`凍結並縮放` — 凍結畫面並同時放大該凍結畫面。"
 
-#: ../clips.rst:261
+#: ../clips.rst:340
 msgid ""
 "**Slow motion** — :guilabel:`Slow Down → 1/2×` or :guilabel:`1/4×` for "
 "dreamy or dramatic footage."
 msgstr "**慢動作** — 使用 :guilabel:`減速 → 1/2×` 或 :guilabel:`1/4×`，營造夢幻或戲劇效果。"
 
-#: ../clips.rst:262
+#: ../clips.rst:341
 msgid ""
 "**Time-lapse** — :guilabel:`Speed Up → 8×` or :guilabel:`16×` to compress "
 "hours into seconds."
 msgstr "**縮時攝影** — 使用 :guilabel:`加速 → 8×` 或 :guilabel:`16×`，將數小時壓縮成數秒。"
 
-#: ../clips.rst:263
+# Main-window terminology review, 2026-09-26.
+#: ../clips.rst:342
 msgid ""
 "**Speed ramp** — use the :guilabel:`Timing` tool to drag clip edges and "
 "create a natural-feeling speed change; OpenShot scales all keyframes "
 "automatically."
-msgstr ""
-"**速度變化** — 使用 :guilabel:`時間軸` 工具拖曳剪輯邊緣，創造自然的速度變化；OpenShot 會自動調整所有關鍵影格。"
+msgstr "**速度變化** — 使用 :guilabel:`變速` 工具拖曳剪輯邊緣，創造自然的速度變化；OpenShot 會自動調整所有關鍵影格。"
 
-#: ../clips.rst:264
+#: ../clips.rst:343
 msgid ""
 "**Tip:** Combine :guilabel:`Freeze` with :guilabel:`Speed Up` for an impact-"
 "freeze-then-fast-forward effect."
 msgstr "**提示：** 將 :guilabel:`凍結` 與 :guilabel:`加速` 結合，創造先凍結再快轉的衝擊效果。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:269
+#: ../clips.rst:348
 msgid "Repeat"
 msgstr "重複"
 
-#: ../clips.rst:270
+#: ../clips.rst:349
 msgid ""
 "Use :guilabel:`Speed → Repeat` to play a clip multiple times, without "
 "building the time curve by hand. OpenShot writes the needed :guilabel:`Time`"
@@ -973,41 +1163,41 @@ msgstr ""
 ":guilabel:`時間` 關鍵影格（您可稍後編輯）。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:273
+#: ../clips.rst:352
 msgid "**Menu path**"
 msgstr "**選單路徑**"
 
-#: ../clips.rst:275
+#: ../clips.rst:354
 msgid ""
 ":guilabel:`Speed → Repeat → Loop → Forward` – plays left to right, then "
 "starts again from the beginning"
 msgstr ":guilabel:`速度 → 重複播放 → 迴圈 → 正向` — 從左至右播放，然後從頭開始重播"
 
-#: ../clips.rst:276
+#: ../clips.rst:355
 msgid ""
 ":guilabel:`Speed → Repeat → Loop → Reverse` – plays right to left, then "
 "starts again from the end"
 msgstr ":guilabel:`速度 → 重複播放 → 迴圈 → 反向` — 從右至左播放，然後從尾端開始重播"
 
-#: ../clips.rst:277
+#: ../clips.rst:356
 msgid ""
 ":guilabel:`Speed → Repeat → Ping-Pong → Forward` – forward, then backward, "
 "then forward…"
 msgstr ":guilabel:`速度 → 重複播放 → 乒乓` — 正向播放，接著反向播放，再正向播放…"
 
-#: ../clips.rst:278
+#: ../clips.rst:357
 msgid ""
 ":guilabel:`Speed → Repeat → Ping-Pong → Reverse` – backward, then forward, "
 "then backward…"
 msgstr ":guilabel:`速度 → 重複 → 乒乓 → 反轉` – 先向後，然後向前，再向後…"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:279
+#: ../clips.rst:358
 msgid ":guilabel:`Custom…` – opens a dialog for extra options (see below)"
 msgstr ":guilabel:`Custom…` – 開啟額外選項對話框（見下方）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:281
+#: ../clips.rst:360
 msgid ""
 "Counts are **finite** (2x, 3x, 4x, 5x, 8x, 10x, or a custom number). "
 "Example: “Forward then Back and stop” = :guilabel:`Ping-Pong → Forward → "
@@ -1017,17 +1207,17 @@ msgstr ""
 "Pong → Forward → 2x` 。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:284
+#: ../clips.rst:363
 msgid "**What gets repeated**"
 msgstr "**重複的內容**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:286
+#: ../clips.rst:365
 msgid "Repeat always acts on the **currently trimmed** in/out of the clip."
 msgstr "重複總是作用於剪輯中**目前修剪過的** 進入/退出點。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:287
+#: ../clips.rst:366
 msgid ""
 "The :guilabel:`Time` curve is stamped as a simple shape: - Loop Forward = "
 "rising saw - Loop Reverse = falling saw - Ping-Pong = triangle (direction "
@@ -1037,19 +1227,19 @@ msgstr ""
 "Ping-Pong = 三角形（每次通過方向翻轉）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:291
+#: ../clips.rst:370
 msgid ""
 "To avoid a double frame at the seam, the last frame of each pass is not "
 "duplicated."
 msgstr "為避免接縫處出現重複影格，每次播放的最後一幀不會重複。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:293
+#: ../clips.rst:372
 msgid "**Keyframes during Repeat**"
 msgstr "**重複期間的關鍵影格**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:295
+#: ../clips.rst:374
 msgid ""
 "When you use Repeat, OpenShot will also **repeat other keyframes** found "
 "inside the trimmed section (location, scale, effects, etc.) into each pass "
@@ -1057,52 +1247,52 @@ msgid ""
 msgstr "使用重複時，OpenShot 也會將修剪區段內的其他關鍵影格（位置、縮放、效果等）**重複** 到每次播放中，確保動畫同步。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:296
+#: ../clips.rst:375
 msgid "Repeated keyframes keep their relative timing inside each pass."
 msgstr "重複的關鍵影格在每次播放中保持相對時間。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:298
+#: ../clips.rst:377
 msgid "**Custom Repeat** (dialog options)"
 msgstr "**自訂重複** （對話框選項）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:300
+#: ../clips.rst:379
 msgid ":guilabel:`Pattern:` Loop | Ping-Pong"
 msgstr ":guilabel:`Pattern:` 迴圈 | 乒乓"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:301
+#: ../clips.rst:380
 msgid ":guilabel:`Direction:` Forward | Reverse"
 msgstr ":guilabel:`Direction:` 正向 | 反向"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:302
+#: ../clips.rst:381
 msgid ""
 ":guilabel:`Passes:` integer (2 or more). This is the number of times it will"
 " play."
 msgstr ":guilabel:`Passes:` 整數（2 或以上）。這是播放次數。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:303
+#: ../clips.rst:382
 msgid ""
 ":guilabel:`Delay:` number + units [frames | ms | sec]. This is an optional "
 "delay between each repeated pass."
 msgstr ":guilabel:`Delay:` 數字 + 單位 [影格 | 毫秒 | 秒]。這是每次重複播放間的可選延遲。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:304
+#: ../clips.rst:383
 msgid ""
 ":guilabel:`Speed Ramp (%):` % speed change per pass (optional). Positive "
 "speeds up each pass; negative slows down each pass."
 msgstr ":guilabel:`Speed Ramp (%):` 每次播放的速度變化百分比（可選）。正值加速，負值減速。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:306
+#: ../clips.rst:385
 msgid "**Reset**"
 msgstr "**重設**"
 
-#: ../clips.rst:308
+#: ../clips.rst:387
 msgid ""
 ":guilabel:`Speed → Reset Speed` completely removes any Time curve (including"
 " Repeat) and restores the clip to its original playback, **without deleting "
@@ -1110,13 +1300,13 @@ msgid ""
 msgstr ""
 ":guilabel:`速度 → 重設速度` 完全移除任何時間曲線（包括重複），並將剪輯恢復到原始播放狀態，**不會刪除您原本的非時間關鍵幀**。"
 
-# Translated with gpt-4.1-mini
-#: ../clips.rst:312
+# Main-window terminology review, 2026-09-26.
+#: ../clips.rst:391
 msgid "Timing Tool"
-msgstr "時間工具"
+msgstr "變速工具"
 
-# Translated with gpt-4.1-mini
-#: ../clips.rst:313
+# Main-window terminology review, 2026-09-26.
+#: ../clips.rst:392
 msgid ""
 "Another way to change a clip's speed is with the :guilabel:`Timing` tool on "
 "the timeline toolbar. Enable the clock icon and drag a clip's edges. "
@@ -1124,10 +1314,10 @@ msgid ""
 "All keyframes on the clip and its effects are scaled so their relative "
 "positions remain intact."
 msgstr ""
-"改變剪輯速度的另一種方法是使用時間軸工具列上的 :guilabel:`Timing` "
+"改變剪輯速度的另一種方法是使用時間軸工具列上的 :guilabel:`變速` "
 "工具。啟用時鐘圖示後，拖曳剪輯的邊緣。延長剪輯會減慢播放速度，縮短則會加快剪輯速度。剪輯及其效果上的所有關鍵影格都會按比例調整，以保持相對位置不變。"
 
-#: ../clips.rst:319
+#: ../clips.rst:398
 msgid ""
 "The :guilabel:`Look` menu applies one-click visual style presets to clips. "
 "All presets work by adding or updating effects on the clip — you can inspect"
@@ -1137,42 +1327,42 @@ msgstr ""
 ":guilabel:`外觀` 選單為剪輯套用一鍵視覺風格預設。所有預設都是透過新增或更新剪輯上的效果來實現 — "
 "您可以在屬性面板中進一步檢視或動畫化它們。選單分為四個子選單，底部還有兩個直接操作。"
 
-#: ../clips.rst:323
+#: ../clips.rst:402
 msgid ""
 ":guilabel:`Reset Look` — removes all Look-managed effects (Color Grade, Film"
 " Grain, Analog Tape, Sharpen, Blur, Shadow, Glow) from the selected clips in"
 " a single step."
 msgstr ":guilabel:`重設外觀` — 一次移除所選剪輯中所有由外觀管理的效果（色彩分級、膠片顆粒、類比磁帶、銳化、模糊、陰影、光暈）。"
 
-#: ../clips.rst:326
+#: ../clips.rst:405
 msgid ""
 "**Color** — applies a :guilabel:`Color Grade` effect with one of four quick "
 "presets:"
 msgstr "**色彩** — 套用 :guilabel:`色彩分級` 效果，並提供四種快速預設："
 
-#: ../clips.rst:328
+#: ../clips.rst:407
 msgid ""
 "**Auto Contrast** — boosts contrast by lifting shadows and pulling "
 "highlights."
 msgstr "**自動對比** — 透過提升陰影和拉高高光來增強對比。"
 
-#: ../clips.rst:329
+#: ../clips.rst:408
 msgid "**Lift Shadows** — brightens the dark areas of the image."
 msgstr "**提亮陰影** — 使影像的暗部變亮。"
 
-#: ../clips.rst:330
+#: ../clips.rst:409
 msgid "**Warm Up** — shifts the color balance toward warm orange/amber tones."
 msgstr "**暖色調** — 將色彩平衡偏向溫暖的橙色/琥珀色調。"
 
-#: ../clips.rst:331
+#: ../clips.rst:410
 msgid "**Boost Color** — increases color saturation."
 msgstr "**增強色彩** — 提升色彩飽和度。"
 
-#: ../clips.rst:333
+#: ../clips.rst:412
 msgid "**Film** — cinematic film simulation:"
 msgstr "**膠片** — 電影膠片模擬："
 
-#: ../clips.rst:335
+#: ../clips.rst:414
 msgid ""
 ":guilabel:`Film Grain` → **No Film Grain**, then: **35mm Fine**, **35mm "
 "Classic**, **35mm Gritty**, **16mm Classic**, **Super 8**, **High ISO** — "
@@ -1181,7 +1371,7 @@ msgstr ""
 ":guilabel:`膠片顆粒` → **無膠片顆粒**，接著有：**35mm 細膩**、**35mm 經典**、**35mm 粗糙**、**16mm "
 "經典**、**Super 8**、**高 ISO** — 以不同強度和大小添加攝影顆粒。"
 
-#: ../clips.rst:337
+#: ../clips.rst:416
 msgid ""
 ":guilabel:`Analog Tape` → **No Analog Tape**, then: **Subtle**, **VHS**, "
 "**Heavy** — adds tape noise and color degradation for a retro video look."
@@ -1189,44 +1379,44 @@ msgstr ""
 ":guilabel:`類比磁帶` → **無類比磁帶**，接著有：**細微**、**VHS**、**重度** — "
 "添加磁帶噪音和色彩退化，營造復古影片風格。"
 
-#: ../clips.rst:340
+#: ../clips.rst:419
 msgid "**Focus** — sharpness adjustments:"
 msgstr "**焦點** — 銳利度調整："
 
-#: ../clips.rst:342
+#: ../clips.rst:421
 msgid ""
 ":guilabel:`Sharpen` → **No Sharpen**, then: **Subtle**, **Medium**, "
 "**Strong** — sharpens fine detail."
 msgstr ":guilabel:`銳化` → **無銳化**，接著有：**細微**、**中等**、**強烈** — 銳化細節。"
 
-#: ../clips.rst:343
+#: ../clips.rst:422
 msgid ""
 ":guilabel:`Blur` → **No Blur**, then: **Soft Focus**, **Medium**, **Heavy** "
 "— softens the image."
 msgstr ":guilabel:`模糊` → **無模糊**，接著有：**柔焦**、**中等**、**重度** — 使影像柔和。"
 
-#: ../clips.rst:345
+#: ../clips.rst:424
 msgid "**Lighting** — light and shadow overlays:"
 msgstr "**光影** — 光與影的覆蓋效果："
 
-#: ../clips.rst:347
+#: ../clips.rst:426
 msgid ""
 ":guilabel:`Shadow` → **No Shadow**, then: **Subtle**, **Soft**, **Strong**, "
 "**Long** — casts a drop shadow across the clip."
 msgstr ":guilabel:`陰影` → **無陰影**，接著有：**細微**、**柔和**、**強烈**、**延長** — 在剪輯上投射陰影。"
 
-#: ../clips.rst:349
+#: ../clips.rst:428
 msgid ""
 ":guilabel:`Glow` → **No Glow**, then: **Soft White**, **Warm**, **Neon**, "
 "**Inner Glow** — adds a soft halo or glow effect."
 msgstr ""
 ":guilabel:`光暈` → **無光暈**，接著有：**柔和白光**、**暖色**、**霓虹**、**內部光暈** — 添加柔和的光環或光暈效果。"
 
-#: ../clips.rst:352
+#: ../clips.rst:431
 msgid "At the bottom of the Look menu:"
 msgstr "在外觀選單底部："
 
-#: ../clips.rst:354
+#: ../clips.rst:433
 msgid ""
 ":guilabel:`Adjust Colors` — opens the :guilabel:`Color Wheels` dock for full"
 " manual color grading with lift/gamma/gain wheels, curves, and an "
@@ -1235,7 +1425,7 @@ msgstr ""
 ":guilabel:`調整色彩` — 開啟 :guilabel:`色彩輪` "
 "面板，提供完整手動色彩分級功能，包括提升/伽瑪/增益輪、曲線及數量/亮度混合滑桿。"
 
-#: ../clips.rst:356
+#: ../clips.rst:435
 msgid ""
 ":guilabel:`Analyze Colors` — opens the :guilabel:`Luma Waveform` and "
 ":guilabel:`Histogram` video scopes on the right side of the window, tabified"
@@ -1244,85 +1434,85 @@ msgstr ""
 ":guilabel:`分析色彩` — 在視窗右側開啟 :guilabel:`亮度波形` 和 :guilabel:`直方圖` "
 "影像監視器，並以分頁方式顯示。"
 
-#: ../clips.rst:359
+#: ../clips.rst:438
 msgid ""
 "**Tip:** Each Look submenu has a \"No …\" option at the top to remove just "
 "that single effect without affecting the others."
 msgstr "**提示：** 每個外觀子選單頂端都有「無…」選項，可僅移除該單一效果而不影響其他效果。"
 
-#: ../clips.rst:361
+#: ../clips.rst:440
 msgid ""
 "**Tip:** After applying a Look preset, double-click the effect badge on the "
 "clip (or use Properties) to fine-tune every parameter or animate it over "
 "time."
 msgstr "**提示：** 套用外觀預設後，雙擊剪輯上的效果標籤（或使用屬性）即可微調每個參數或隨時間動畫化。"
 
-#: ../clips.rst:366
+#: ../clips.rst:445
 msgid ""
 "The :guilabel:`Audio` menu groups all audio-related clip actions in one "
 "place."
 msgstr ":guilabel:`音訊` 選單將所有與音訊相關的剪輯操作集中於一處。"
 
-#: ../clips.rst:368
+#: ../clips.rst:447
 msgid ""
 "**Volume** — controls the clip's audio level. See :ref:`clip_volume_ref` "
 "key-frame."
 msgstr "**音量** — 控制剪輯的音訊音量。請參見 :ref:`clip_volume_ref` 關鍵幀。"
 
-#: ../clips.rst:370
+#: ../clips.rst:449
 msgid ""
 ":guilabel:`Reset Volume` — removes all volume keyframes, returning to full "
 "(1×) volume."
 msgstr ":guilabel:`重設音量` — 移除所有音量關鍵幀，恢復至全音量（1×）。"
 
-#: ../clips.rst:371
+#: ../clips.rst:450
 msgid ""
 ":guilabel:`Level` — sets a fixed volume percentage (0 % to 130 %) for the "
 "entire clip."
 msgstr ":guilabel:`音量等級` — 為整個剪輯設定固定音量百分比（0 % 至 130 %）。"
 
-#: ../clips.rst:372
+#: ../clips.rst:451
 msgid ""
 ":guilabel:`Fade In` → :guilabel:`Fast` / :guilabel:`Slow` — fades volume "
 "from silence at the start of the clip."
 msgstr ":guilabel:`淡入` → :guilabel:`快速` / :guilabel:`緩慢` — 在剪輯開始時從靜音淡入音量。"
 
-#: ../clips.rst:373
+#: ../clips.rst:452
 msgid ""
 ":guilabel:`Fade Out` → :guilabel:`Fast` / :guilabel:`Slow` — fades volume to"
 " silence at the end of the clip."
 msgstr ":guilabel:`淡出` → :guilabel:`快速` / :guilabel:`緩慢` — 在剪輯結束時將音量淡出至靜音。"
 
-#: ../clips.rst:374
+#: ../clips.rst:453
 msgid ""
 ":guilabel:`Fade In and Out` → :guilabel:`Fast` / :guilabel:`Slow` — applies "
 "both a volume fade-in and fade-out."
 msgstr ":guilabel:`淡入淡出` → :guilabel:`快速` / :guilabel:`緩慢` — 同時套用音量淡入與淡出。"
 
-#: ../clips.rst:376
+#: ../clips.rst:455
 msgid "**Separate** — splits the audio track out of a clip:"
 msgstr "**分離** — 將音訊軌道從剪輯中分離出來："
 
-#: ../clips.rst:378
+#: ../clips.rst:457
 msgid ""
 ":guilabel:`Single Clip (all channels)` — creates one detached audio clip on "
 "a layer below the original."
 msgstr ":guilabel:`單一剪輯（所有聲道）` — 在原始剪輯下方的圖層建立一個分離的音訊剪輯。"
 
-#: ../clips.rst:379
+#: ../clips.rst:458
 msgid ""
 ":guilabel:`Multiple Clips (each channel)` — creates separate detached audio "
 "clips, one per audio channel, on multiple layers below the original."
 msgstr ":guilabel:`多個剪輯（每個聲道）` — 在原始剪輯下方的多個圖層中，為每個音訊聲道建立獨立的分離音訊剪輯。"
 
-#: ../clips.rst:381
+#: ../clips.rst:460
 msgid ""
 "**Show Waveform / Hide Waveform** — toggles the audio waveform visualization"
 " on the timeline for audio-only clips. Only shown for clips that do not have"
 " a video track."
 msgstr "**顯示波形 / 隱藏波形** — 切換音訊剪輯在時間軸上的波形顯示。僅對無影片軌的剪輯顯示此選項。"
 
-#: ../clips.rst:384
+#: ../clips.rst:463
 msgid ""
 "**Analyze Levels** — opens the :guilabel:`Audio Levels` scope dock. If other"
 " scope docks are already open, OpenShot tabifies :guilabel:`Audio Levels` "
@@ -1332,19 +1522,19 @@ msgstr ""
 ":guilabel:`音量監視器` 與它們分頁顯示。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:387
+#: ../clips.rst:466
 msgid ""
 "**Usage Example:** Applying a gradual volume fade-out to transition between "
 "scenes."
 msgstr "**使用範例：** 應用漸進式音量淡出以在場景間過渡。"
 
-#: ../clips.rst:388
+#: ../clips.rst:467
 msgid ""
 "**Usage Example:** Extracting background music from a video clip for "
 "independent volume control."
 msgstr "**使用範例：** 從影片剪輯中提取背景音樂以獨立控制音量。"
 
-#: ../clips.rst:389
+#: ../clips.rst:468
 msgid ""
 "**Tip:** Use :guilabel:`Audio → Volume → Fade In/Out` for audio-only fades. "
 "Use the top-level :guilabel:`Fade` menu for a combined video+audio fade."
@@ -1353,7 +1543,7 @@ msgstr ""
 "選單來進行影片與音訊的組合淡入淡出。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:393
+#: ../clips.rst:472
 msgid ""
 "The :guilabel:`Slice` tool lets you cut a clip at the position of the play-"
 "head (*the vertical line that shows your current position in the timeline*)."
@@ -1364,7 +1554,7 @@ msgstr ""
 "）切割剪輯。這會在播放頭所在的精確點將剪輯分割成兩個獨立部分。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:396
+#: ../clips.rst:475
 msgid ""
 "Slicing is a key feature for making precise edits and rearranging sections "
 "of your video. You can slice a clip and choose to keep one side or both, and"
@@ -1374,12 +1564,12 @@ msgstr ""
 "切割是進行精確編輯和重新排列影片片段的關鍵功能。你可以切割剪輯並選擇保留一側或雙側，啟用波紋選項時，會自動移動同軌道上的其他剪輯以填補切割造成的空隙。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:400
+#: ../clips.rst:479
 msgid "**Slicing Options:**"
 msgstr "**切割選項：**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:402
+#: ../clips.rst:481
 msgid ""
 "**Keep Both Sides**: This option splits the clip into two parts, keeping "
 "everything on both sides of the play-head. It’s useful when you want to "
@@ -1387,7 +1577,7 @@ msgid ""
 msgstr "**保留雙側** ：此選項將剪輯分割成兩部分，保留播放頭兩側的所有內容。當你想將剪輯分成多段但不想刪除任何部分時很有用。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:403
+#: ../clips.rst:482
 msgid ""
 "**Keep Left Side**: This option cuts the clip and removes the part to the "
 "right of the play-head, keeping only the part before the play-head. Use this"
@@ -1395,7 +1585,7 @@ msgid ""
 msgstr "**保留左側** ：此選項切割剪輯並移除播放頭右側的部分，只保留播放頭之前的部分。用於刪除當前點之後的剪輯部分。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:404
+#: ../clips.rst:483
 msgid ""
 "**Keep Right Side**: This option cuts the clip and removes the part to the "
 "left of the play-head, keeping only the part after the play-head. It’s handy"
@@ -1403,7 +1593,7 @@ msgid ""
 msgstr "**保留右側** ：此選項切割剪輯並移除播放頭左側的部分，只保留播放頭之後的部分。適合修剪剪輯開頭並保留其餘部分。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:405
+#: ../clips.rst:484
 msgid ""
 "**Ripple Slicing**: Ripple slicing not only cuts the clip but also moves any"
 " clips and transitions that follow to close the gap. This way, your timeline"
@@ -1413,12 +1603,12 @@ msgstr ""
 "**波紋切割** ：波紋切割不僅切割剪輯，還會移動後續的剪輯和轉場以填補空隙。這樣時間軸保持連續，切割後不會有空白區，省去手動調整後續剪輯的麻煩。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:407 ../clips.rst:581
+#: ../clips.rst:486 ../clips.rst:660
 msgid "**Tips for Beginners:**"
 msgstr "**新手提示：**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:409
+#: ../clips.rst:488
 msgid ""
 "**Example**: If there’s a part of a clip you don’t want (like the end of a "
 "scene), use **Keep Left Side** or **Keep Right Side** to remove it. If you "
@@ -1429,46 +1619,46 @@ msgstr ""
 "來移除。若想將場景分割成多個較小段落以便重新排列，使用 **保留雙側** 。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:410
+#: ../clips.rst:489
 msgid ""
 "**Quick Tip**: Slicing can also be used to break a long clip into smaller "
 "parts, making it easier to manage and edit each section separately."
 msgstr "**快速提示** ：切割也可用來將長剪輯分成較小部分，方便分別管理和編輯每個段落。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:412
+#: ../clips.rst:491
 msgid ""
 "For a complete guide to slicing and all available keyboard shortcuts, see "
 "the :ref:`clips_cutting_slicing_ref` section."
 msgstr "有關切割的完整指南及所有可用快捷鍵，請參閱 :ref:`clips_cutting_slicing_ref` 章節。"
 
-#: ../clips.rst:418
+#: ../clips.rst:497
 msgid ""
 "The :guilabel:`Transform` context menu provides geometric preset actions for"
 " visual clips:"
 msgstr ":guilabel:`變形` 右鍵選單提供視覺剪輯的幾何預設操作："
 
-#: ../clips.rst:420
+#: ../clips.rst:499
 msgid ""
 ":guilabel:`No Transform` — removes all Rotate, Layout, and crop presets from"
 " the selected clips in one step."
 msgstr ":guilabel:`無變形` — 一次移除所選剪輯的所有旋轉、佈局及裁剪預設。"
 
-#: ../clips.rst:421
+#: ../clips.rst:500
 msgid ""
 ":guilabel:`Rotate` — rotate or flip the clip. See the :ref:`Rotate "
 "<clip_presets_rotate_ref>` section above."
 msgstr ""
 ":guilabel:`旋轉` — 旋轉或翻轉剪輯。請參閱上方的 :ref:`Rotate <clip_presets_rotate_ref>` 章節。"
 
-#: ../clips.rst:422
+#: ../clips.rst:501
 msgid ""
 ":guilabel:`Crop` — add or remove a crop effect. See the :ref:`Crop "
 "<clip_presets_crop_ref>` section below."
 msgstr ""
 ":guilabel:`裁剪` — 新增或移除裁剪效果。請參閱下方的 :ref:`Crop <clip_presets_crop_ref>` 章節。"
 
-#: ../clips.rst:423
+#: ../clips.rst:502
 msgid ""
 ":guilabel:`Layout` — resize and snap the clip to a corner or fit position. "
 "See the :ref:`Layout <clip_presets_layout_ref>` section above."
@@ -1476,12 +1666,12 @@ msgstr ""
 ":guilabel:`佈局` — 調整剪輯大小並吸附至角落或適合位置。請參閱上方的 :ref:`Layout "
 "<clip_presets_layout_ref>` 章節。"
 
-#: ../clips.rst:428
+#: ../clips.rst:507
 msgid "Transform Tool"
 msgstr "變形工具"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:429
+#: ../clips.rst:508
 msgid ""
 "The **Transform Tool** lets you quickly adjust a clip directly in the "
 "preview window, instead of changing location, scale, rotation, shear, and "
@@ -1498,44 +1688,44 @@ msgstr ""
 ":kbd:`Shift`；在這種情況下，預覽會在整個選取範圍周圍顯示一組控制點，任何移動、縮放或旋轉都會同時應用到所有選取的剪輯。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:438
+#: ../clips.rst:517
 msgid "Dragging the blue squares will adjust the **scale** of the image."
 msgstr "拖曳藍色方塊可調整影像的 **縮放** 。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:439
+#: ../clips.rst:518
 msgid "Dragging the center will move the **location** of the image."
 msgstr "拖曳中心點可移動影像的 **位置** 。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:440
+#: ../clips.rst:519
 msgid ""
 "Dragging the mouse on the outside of the blue lines will **rotate** the "
 "image."
 msgstr "在藍色線條外側拖曳滑鼠可 **旋轉** 影像。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:441
+#: ../clips.rst:520
 msgid ""
 "Hold :kbd:`Ctrl` or :kbd:`Shift` while rotating to snap to 15-degree "
 "increments."
 msgstr "旋轉時按住 :kbd:`Ctrl` 或 :kbd:`Shift` 可吸附至 15 度增量。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:442
+#: ../clips.rst:521
 msgid ""
 "Dragging along the blue lines will **shear** the image in that direction."
 msgstr "沿著藍色線條拖曳可使影像在該方向 **剪切** 。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:443
+#: ../clips.rst:522
 msgid ""
 "Dragging the circle in the middle will move the **origin point** that "
 "controls the center of **rotation**."
 msgstr "拖曳中間的圓圈可移動控制 **旋轉** 中心的 **原點** 。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:445
+#: ../clips.rst:524
 msgid ""
 "Note: Pay close attention to the play-head position (red playback line). Key"
 " frames are automatically created at the current playback position, to help "
@@ -1548,7 +1738,7 @@ msgstr ""
 "的變形，請確保播放頭位於剪輯之前（左側）。你也可以在屬性編輯器中手動調整這些剪輯屬性，詳見 :ref:`clip_properties_ref` 。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:452
+#: ../clips.rst:531
 #, fuzzy
 msgid ""
 "**Usage Example:** Use the transform handles to resize and reposition a clip"
@@ -1556,17 +1746,17 @@ msgid ""
 msgstr "**使用範例：** 使用變形模式調整剪輯大小和位置，以達成畫中畫效果。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:453
+#: ../clips.rst:532
 #, fuzzy
 msgid "**Tip:** Use these handles to precisely control a clip's appearance."
 msgstr "**提示：** 使用此預設精確控制剪輯的外觀。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:458
+#: ../clips.rst:537
 msgid "Crop"
 msgstr "裁剪"
 
-#: ../clips.rst:459
+#: ../clips.rst:538
 msgid ""
 "The :guilabel:`Transform → Crop` submenu adds a crop effect to the selected "
 "clip and displays interactive crop handles in the video preview. The submenu"
@@ -1574,26 +1764,26 @@ msgid ""
 msgstr ":guilabel:`變形 → 裁剪` 子選單會在所選剪輯上新增裁剪效果，並在影片預覽中顯示可互動的裁剪控制點。子選單提供："
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:462
+#: ../clips.rst:541
 msgid ":guilabel:`No Crop` – remove any existing crop effect."
 msgstr ":guilabel:`無裁剪` – 移除任何現有的裁剪效果。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:463
+#: ../clips.rst:542
 msgid ""
 ":guilabel:`Crop (No Resize)` – trim the clip without scaling the remaining "
 "area."
 msgstr ":guilabel:`裁剪（不調整大小）` – 裁剪剪輯但不縮放剩餘區域。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:464
+#: ../clips.rst:543
 msgid ""
 ":guilabel:`Crop (Resize)` – trim the clip and scale the cropped region to "
 "fill the frame."
 msgstr ":guilabel:`裁剪（調整大小）` – 裁剪剪輯並縮放裁剪區域以填滿畫面。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:466
+#: ../clips.rst:545
 msgid ""
 "Drag the blue handles to adjust the crop boundaries, move the cropped area "
 "around, or move the center handle to reposition the image inside the cropped"
@@ -1601,11 +1791,11 @@ msgid ""
 msgstr "拖曳藍色控制點以調整裁剪邊界，移動裁剪區域，或拖動中央控制點重新定位裁剪區域內的影像。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:470 ../clips.rst:655 ../clips.rst:988
+#: ../clips.rst:549 ../clips.rst:734 ../clips.rst:1067
 msgid "Waveform"
 msgstr "波形"
 
-#: ../clips.rst:471
+#: ../clips.rst:550
 msgid ""
 "The :guilabel:`Audio → Show Waveform` / :guilabel:`Hide Waveform` action "
 "toggles whether an audio-only clip shows its waveform visualization on the "
@@ -1615,23 +1805,23 @@ msgstr ""
 ":guilabel:`音訊 → 顯示波形` / :guilabel:`隱藏波形` "
 "動作可切換純音訊剪輯是否在時間軸上顯示波形視覺化，而非預設縮圖。此選項僅在無影片軌的剪輯中出現。"
 
-#: ../clips.rst:475
+#: ../clips.rst:554
 msgid ""
 "**Usage Example:** Displaying the audio waveform for precise audio editing "
 "and alignment."
 msgstr "**使用範例：** 顯示音訊波形以進行精確的音訊編輯與對齊。"
 
-#: ../clips.rst:476
+#: ../clips.rst:555
 msgid ""
 "**Tip:** Use this to visually spot loud or quiet sections in a music clip "
 "without opening the audio scopes."
 msgstr "**提示：** 使用此功能可在不開啟音訊示波器的情況下，視覺化辨識音樂剪輯中的大聲或安靜段落。"
 
-#: ../clips.rst:478
+#: ../clips.rst:557
 msgid "**How timeline waveforms are scaled**"
 msgstr "**時間軸波形的縮放方式**"
 
-#: ../clips.rst:480
+#: ../clips.rst:559
 msgid ""
 "Timeline waveforms are an editing aid: they help you find speech, beats, "
 "silence, and transients, and compare the approximate levels of different "
@@ -1642,7 +1832,7 @@ msgstr ""
 "時間軸波形是編輯輔助工具：它們幫助您找到語音、節拍、靜音和瞬態，並比較不同剪輯的大致音量。新的波形資料保留來源的**絕對峰值**。OpenShot "
 "不會將每個安靜檔案放大到最高峰值填滿剪輯，因此安靜錄音仍明顯比大聲錄音安靜。"
 
-#: ../clips.rst:485
+#: ../clips.rst:564
 msgid ""
 "Pure linear amplitude is accurate but makes ordinary speech difficult to "
 "see. OpenShot therefore applies a fixed, gentle square-root display curve. "
@@ -1653,95 +1843,95 @@ msgstr ""
 "純線性振幅雖準確，但使一般語音難以辨識。因此 OpenShot "
 "採用固定且柔和的平方根顯示曲線。此曲線擴展有用細節，同時保留音量順序：較大聲的來源總是看起來比較安靜的來源高。曲線僅改變繪製方式；不會改變、正規化或處理錄製的音訊。"
 
-#: ../clips.rst:490
+#: ../clips.rst:569
 msgid "Approximate waveform height for new clips"
 msgstr "新剪輯的波形近似高度"
 
-#: ../clips.rst:494
+#: ../clips.rst:573
 msgid "Peak Level"
 msgstr "峰值等級"
 
-#: ../clips.rst:494
+#: ../clips.rst:573
 msgid "Display Height"
 msgstr "顯示高度"
 
-#: ../clips.rst:494
+#: ../clips.rst:573
 msgid "What It Often Looks Like"
 msgstr "常見外觀"
 
-#: ../clips.rst:496
+#: ../clips.rst:575
 msgid "``0 dBFS``"
 msgstr "``0 dBFS``"
 
-#: ../clips.rst:496
+#: ../clips.rst:575
 msgid "100%"
 msgstr "100%"
 
-#: ../clips.rst:496
+#: ../clips.rst:575
 msgid "Full-scale peak; check for possible clipping."
 msgstr "滿刻度峰值；請檢查可能的削波。"
 
-#: ../clips.rst:497
+#: ../clips.rst:576
 msgid "``-6 dBFS``"
 msgstr "``-6 dBFS``"
 
-#: ../clips.rst:497
+#: ../clips.rst:576
 msgid "71%"
 msgstr "71%"
 
-#: ../clips.rst:497
+#: ../clips.rst:576
 msgid "Strong transient or loud program audio."
 msgstr "強烈瞬態或大聲節目音訊。"
 
-#: ../clips.rst:498
+#: ../clips.rst:577
 msgid "``-12 dBFS``"
 msgstr "``-12 dBFS``"
 
-#: ../clips.rst:498
+#: ../clips.rst:577
 msgid "50%"
 msgstr "50%"
 
-#: ../clips.rst:498
+#: ../clips.rst:577
 msgid "Healthy speech or other prominent audio."
 msgstr "正常語音或其他明顯音訊。"
 
-#: ../clips.rst:499
+#: ../clips.rst:578
 msgid "``-20 dBFS``"
 msgstr "``-20 dBFS``"
 
-#: ../clips.rst:499
+#: ../clips.rst:578
 msgid "32%"
 msgstr "32%"
 
-#: ../clips.rst:499
+#: ../clips.rst:578
 msgid "Moderate speech or background program audio."
 msgstr "中等語音或背景節目音訊。"
 
-#: ../clips.rst:500
+#: ../clips.rst:579
 msgid "``-40 dBFS``"
 msgstr "``-40 dBFS``"
 
-#: ../clips.rst:500
+#: ../clips.rst:579
 msgid "10%"
 msgstr "10%"
 
-#: ../clips.rst:500
+#: ../clips.rst:579
 msgid "Quiet room tone or microphone noise floor."
 msgstr "安靜的室內音或麥克風噪音底噪。"
 
-#: ../clips.rst:501
+#: ../clips.rst:580
 msgid "``-60 dBFS``"
 msgstr "``-60 dBFS``"
 
-#: ../clips.rst:501
+#: ../clips.rst:580
 msgid "3%"
 msgstr "3%"
 
-#: ../clips.rst:501
+#: ../clips.rst:580
 msgid "Very quiet detail near the center line."
 msgstr "接近中心線的非常安靜細節。"
 
-#: ../clips.rst:504
+#: ../clips.rst:583
 msgid ""
 "OpenShot samples both **peak** and **RMS** envelopes at regular time "
 "intervals. The lighter outer envelope shows brief peaks and transients; the "
@@ -1753,7 +1943,7 @@ msgstr ""
 "OpenShot 會在固定時間間隔取樣**峰值**與**RMS**包絡線。較淺的外層包絡線顯示短暫峰值與瞬態；實心內層包絡線顯示持續的 RMS "
 "能量。兩者皆遵循剪輯的音量與時間曲線，並使用相同的固定顯示曲線。細微的中心線讓靜音段落可辨識，且不會讓它們看起來比實際更大聲。"
 
-#: ../clips.rst:509
+#: ../clips.rst:588
 msgid ""
 "New waveforms use 200 samples per second by default, providing several "
 "measurements within a typical video frame. Change this density with "
@@ -1768,7 +1958,7 @@ msgstr ""
 "變更此密度。較高數值在放大時顯示更多細節，但會增加專案資料大小與分析時間。繪製器會將密集資料縮減至可見的時間軸像素，其渲染波形快取保持正常捲動與重繪的低成本。即時麥克風預覽使用所選密度及與完成錄音相同的峰值/RMS"
 " 顯示。"
 
-#: ../clips.rst:515
+#: ../clips.rst:594
 msgid ""
 "Projects saved by older OpenShot versions can contain independently peak-"
 "normalized waveform data. These waveforms have no format marker, so OpenShot"
@@ -1782,7 +1972,7 @@ msgstr ""
 "故意以原始舊版縮放顯示它們。它們保持熟悉的外觀，而不會意外變細。沒有儲存密度的舊波形資料預設為原始每秒 20 個取樣，且沒有 RMS "
 "包絡線的資料仍為單一實心波形。專案可安全同時包含舊版與新版波形。"
 
-#: ../clips.rst:521
+#: ../clips.rst:600
 msgid ""
 "To regenerate cached waveform data using the current method, choose "
 ":guilabel:`Edit → Clear → Waveform Display Data`, then show the waveform "
@@ -1792,7 +1982,7 @@ msgstr ""
 "要使用目前方法重新產生快取的波形資料，請選擇 :guilabel:`編輯 → 清除 → "
 "波形顯示資料`，然後再次顯示波形。此操作僅影響快取的顯示資料，不會修改媒體檔案或其音訊。"
 
-#: ../clips.rst:526
+#: ../clips.rst:605
 msgid ""
 "The peak envelope identifies transient level and possible clipping; RMS "
 "summarizes sustained energy but is not a loudness-standard measurement. Use "
@@ -1803,7 +1993,7 @@ msgstr ""
 "示波器與您的聽覺。音訊故障排除請參閱 :ref:`playback_ref`。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:532
+#: ../clips.rst:611
 msgid ""
 "The :guilabel:`Properties` preset opens the properties panel for a clip, "
 "allowing quick access for adjustments to clip properties, such as location, "
@@ -1813,21 +2003,21 @@ msgstr ""
 ":ref:`clip_properties_ref` 。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:535
+#: ../clips.rst:614
 msgid ""
 "**Usage Example:** Adjusting clip properties like opacity, volume, or "
 "position."
 msgstr "**使用範例：** 調整剪輯屬性，如不透明度、音量或位置。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:536
+#: ../clips.rst:615
 msgid ""
 "**Tip:** Apply this preset to streamline adjustments to all clip properties "
 "in a single dock."
 msgstr "**提示：** 使用此預設可在單一面板中簡化所有剪輯屬性的調整。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:540
+#: ../clips.rst:619
 msgid ""
 "The :guilabel:`Copy / Paste` preset allows copying and pasting keyframes, "
 "effects, or duplicating an entire clip along with its keyframes. Paste will "
@@ -1839,40 +2029,40 @@ msgstr ""
 "預設允許複製與貼上關鍵影格、效果，或複製整個剪輯及其關鍵影格。貼上時會在滑鼠位置建立新剪輯。若在貼上前選取一個或多個剪輯，可用目前剪輯「覆蓋」那些剪輯。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:544
+#: ../clips.rst:623
 msgid ""
 "**Usage Example:** Duplicating a clip with intricate animations for reuse in"
 " different parts of the project."
 msgstr "**使用範例：** 複製具有複雜動畫的剪輯，以便在專案不同部分重複使用。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:545
+#: ../clips.rst:624
 msgid ""
 "**Tip:** Use this preset to replicate animations or effects across multiple "
 "clips."
 msgstr "**提示：** 使用此預設可在多個剪輯間複製動畫或效果。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:546
+#: ../clips.rst:625
 msgid ""
 "**Tip:** Selecting multiple clips before pasting, sets keyframes and/or "
 "effects for all clips."
 msgstr "**提示：** 在貼上前選取多個剪輯，可將關鍵影格和／或效果套用至所有剪輯。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:547
+#: ../clips.rst:626
 msgid ""
 "**Tip:** You can copy a single effect, and paste it to multiple selected "
 "clips."
 msgstr "**提示：** 你可以複製單一效果，並貼上到多個選取的剪輯。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:550
+#: ../clips.rst:629
 msgid "Remove Gaps"
 msgstr "移除空隙"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:551
+#: ../clips.rst:630
 msgid ""
 "The :guilabel:`Remove Gap` and :guilabel:`Remove All Gaps` options help you "
 "quickly eliminate gaps between clips on the timeline by rippling (i.e., "
@@ -1883,7 +2073,7 @@ msgstr ""
 "選項可快速消除時間軸上剪輯間的空隙，透過波紋移動（即移動）後續剪輯以填補空隙。這些選項可從右鍵選單存取，且僅在偵測到空隙時可用。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:554
+#: ../clips.rst:633
 msgid ""
 "**Remove Gap:** - This option deletes a specific gap between two clips on "
 "the timeline. Right-click on the gap between clips to access the "
@@ -1894,7 +2084,7 @@ msgstr ""
 "用法：使用此選項可快速消除由修剪或剃刀工具造成的特定空隙。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:558
+#: ../clips.rst:637
 msgid ""
 "**Remove All Gaps:** - This option removes all gaps between clips on the "
 "timeline for the entire track. Right-click on the track name to access the "
@@ -1905,7 +2095,7 @@ msgstr ""
 "用法：適用於包含連續剪輯的軌道，如不希望有空隙的照片幻燈片。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:564
+#: ../clips.rst:643
 msgid ""
 "The :guilabel:`Remove Clip` option lets you delete a clip from the timeline."
 " Removing clips is an essential part of organizing your project and getting "
@@ -1917,7 +2107,7 @@ msgstr ""
 "選項可讓你從時間軸刪除剪輯。移除剪輯是整理專案和剔除不需要片段的重要步驟。移除剪輯也會影響周圍的剪輯。若想清理刪除剪輯後留下的空隙，有幾種選項可自動調整時間軸。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:568
+#: ../clips.rst:647
 msgid ""
 "**How to Remove a Clip:** To delete a clip, simply select it and press "
 ":kbd:`Delete` on your keyboard, or right-click the clip and choose "
@@ -1929,7 +2119,7 @@ msgstr ""
 "移除剪輯` 。你也可以按住 :kbd:`Ctrl` 鍵點擊其他剪輯來一次選取多個剪輯，然後一次移除它們。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:572
+#: ../clips.rst:651
 msgid ""
 "**Ripple Delete:** If you want to delete a clip and automatically remove the"
 " empty space (gap) it leaves behind, use the **Ripple Delete** feature by "
@@ -1941,7 +2131,7 @@ msgstr ""
 "。此操作會將軌道上所有剩餘的剪輯和轉場向左移動，填補空隙，保持時間軸流暢連續。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:577
+#: ../clips.rst:656
 msgid ""
 "**Remove Gap:** After deleting a clip, if you have gaps left in your "
 "timeline that you want to remove, simply right-click in the empty space and "
@@ -1953,7 +2143,7 @@ msgstr ""
 "。此操作會將所有剪輯和轉場向左移動，關閉空隙並維持影片流暢。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:583
+#: ../clips.rst:662
 msgid ""
 "**Example**: If you have a clip that’s no longer needed, such as an intro "
 "you’ve decided not to use, you can quickly select it and either delete it or"
@@ -1964,19 +2154,19 @@ msgstr ""
 "將其移除並將後續內容向左移動以關閉空隙。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:585
+#: ../clips.rst:664
 msgid ""
 "For more advanced editing options and shortcuts, refer to the "
 ":ref:`clips_cutting_slicing_ref` section."
 msgstr "欲了解更進階的編輯選項與快捷鍵，請參考 :ref:`clips_cutting_slicing_ref` 節。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:588
+#: ../clips.rst:667
 msgid "Effects"
 msgstr "效果"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:589
+#: ../clips.rst:668
 msgid ""
 "In addition to the many clip properties which can be animated and adjusted, "
 "you can also drop an effect directly onto a clip from the effects dock. Each"
@@ -1988,12 +2178,12 @@ msgstr ""
 " :ref:`effects_ref` 。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:599
+#: ../clips.rst:678
 msgid "Clip Properties"
 msgstr "剪輯屬性"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:600
+#: ../clips.rst:679
 msgid ""
 "Below is a list of clip properties which can be edited, and in most cases, "
 "animated over time. To view a clip's properties, right click and choose "
@@ -2011,7 +2201,7 @@ msgstr ""
 "的條目。選擇該條目可一起編輯所有選取項目，僅顯示它們共有的屬性。如果欄位為空白，表示各項目值不同，但您仍可更改或為所有項目插入關鍵影格。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:608
+#: ../clips.rst:687
 msgid ""
 "Note: Pay close attention to where the play-head (i.e. red playback line) "
 "is. Key frames are automatically created at the current playback position, "
@@ -2019,7 +2209,7 @@ msgid ""
 msgstr "注意：請密切留意播放頭（即紅色播放線）的位置。關鍵影格會自動在當前播放位置建立，以便快速製作動畫。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:611
+#: ../clips.rst:690
 msgid ""
 "When animating clip properties, you can fade a clip from opaque to "
 "transparent with ``alpha``, slide a clip around the screen with "
@@ -2034,381 +2224,381 @@ msgstr ""
 "調整剪輯音量大小，還有更多功能。如果您想設定單一靜態剪輯屬性且**不需動畫** ，請確保播放頭位於剪輯起始（左側）位置時調整屬性值。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:616
+#: ../clips.rst:695
 msgid "See the table below for a full list of clip properties."
 msgstr "請參閱下表以獲得完整的剪輯屬性列表。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:622
+#: ../clips.rst:701
 msgid "Clip Property Name"
 msgstr "剪輯屬性名稱"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:622
+#: ../clips.rst:701
 msgid "Type"
 msgstr "類型"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:624 ../clips.rst:705
+#: ../clips.rst:703 ../clips.rst:784
 msgid "Alpha"
 msgstr "透明度"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:624 ../clips.rst:625 ../clips.rst:626 ../clips.rst:628
-#: ../clips.rst:636 ../clips.rst:637 ../clips.rst:638 ../clips.rst:639
-#: ../clips.rst:640 ../clips.rst:643 ../clips.rst:645 ../clips.rst:646
-#: ../clips.rst:647 ../clips.rst:648 ../clips.rst:650 ../clips.rst:652
-#: ../clips.rst:654
+#: ../clips.rst:703 ../clips.rst:704 ../clips.rst:705 ../clips.rst:707
+#: ../clips.rst:715 ../clips.rst:716 ../clips.rst:717 ../clips.rst:718
+#: ../clips.rst:719 ../clips.rst:722 ../clips.rst:724 ../clips.rst:725
+#: ../clips.rst:726 ../clips.rst:727 ../clips.rst:729 ../clips.rst:731
+#: ../clips.rst:733
 msgid "Key-Frame"
 msgstr "關鍵影格"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:624
+#: ../clips.rst:703
 msgid ""
 "Curve representing the alpha for fading the image and adding transparency (1"
 " to 0)"
 msgstr "表示透明度的曲線，用於淡出影像並增加透明度（1 到 0）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:625 ../clips.rst:722
+#: ../clips.rst:704 ../clips.rst:801
 msgid "Channel Filter"
 msgstr "頻道過濾器"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:625
+#: ../clips.rst:704
 msgid ""
 "A number representing an audio channel to filter (clears all other channels)"
 msgstr "表示要過濾的音訊頻道編號（會清除其他所有頻道）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:626 ../clips.rst:730
+#: ../clips.rst:705 ../clips.rst:809
 msgid "Channel Mapping"
 msgstr "頻道映射"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:626
+#: ../clips.rst:705
 msgid ""
 "A number representing an audio channel to output (only works when filtering "
 "a channel)"
 msgstr "表示輸出的音訊頻道編號（僅在過濾頻道時有效）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:627 ../clips.rst:662
+#: ../clips.rst:706 ../clips.rst:741
 msgid "Composite (Blend Mode)"
 msgstr "合成（混合模式）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:627 ../clips.rst:630 ../clips.rst:631 ../clips.rst:633
-#: ../clips.rst:634 ../clips.rst:644 ../clips.rst:653 ../clips.rst:656
+#: ../clips.rst:706 ../clips.rst:709 ../clips.rst:710 ../clips.rst:712
+#: ../clips.rst:713 ../clips.rst:723 ../clips.rst:732 ../clips.rst:735
 msgid "Enum"
 msgstr "列舉"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:627
+#: ../clips.rst:706
 msgid ""
 "The blend mode used to composite this clip into lower layers. Default is "
 "**Normal**. See :ref:`clip_composite_ref`."
 msgstr "用於將此剪輯合成到底層的混合模式。預設為 **Normal** 。詳見 :ref:`clip_composite_ref` 。"
 
-#: ../clips.rst:628 ../clips.rst:713
+#: ../clips.rst:707 ../clips.rst:792
 msgid "Corner Radius"
 msgstr "圓角半徑"
 
-#: ../clips.rst:628
+#: ../clips.rst:707
 msgid ""
 "Curve representing the radius used to round the clip's corners (0 to 0.5)"
 msgstr "表示用於剪輯圓角半徑的曲線（0 到 0.5）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:629 ../clips.rst:745
+#: ../clips.rst:708 ../clips.rst:824
 msgid "Duration"
 msgstr "持續時間"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:629 ../clips.rst:632 ../clips.rst:642 ../clips.rst:649
+#: ../clips.rst:708 ../clips.rst:711 ../clips.rst:721 ../clips.rst:728
 msgid "Float"
 msgstr "浮點數"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:629
+#: ../clips.rst:708
 msgid ""
 "The length of the clip (in seconds). Read-only property. This is calculated "
 "by: End - Start."
 msgstr "剪輯長度（秒）。唯讀屬性。計算方式為：結束時間 - 開始時間。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:630 ../clips.rst:778
+#: ../clips.rst:709 ../clips.rst:857
 msgid "Enable Audio"
 msgstr "啟用音訊"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:630
+#: ../clips.rst:709
 msgid ""
 "An optional override to determine if this clip has audio (-1=undefined, "
 "0=no, 1=yes)"
 msgstr "可選的覆寫設定，用以判斷此剪輯是否有音訊（-1=未定義，0=無，1=有）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:631 ../clips.rst:786
+#: ../clips.rst:710 ../clips.rst:865
 msgid "Enable Video"
 msgstr "啟用視訊"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:631
+#: ../clips.rst:710
 msgid ""
 "An optional override to determine if this clip has video (-1=undefined, "
 "0=no, 1=yes)"
 msgstr "可選的覆寫設定，用以判斷此剪輯是否有視訊（-1=未定義，0=無，1=有）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:632 ../clips.rst:753
+#: ../clips.rst:711 ../clips.rst:832
 msgid "End"
 msgstr "結束"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:632
+#: ../clips.rst:711
 msgid "The end trimming position of the clip (in seconds)"
 msgstr "剪輯的結束修剪位置（秒）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:633 ../clips.rst:738
+#: ../clips.rst:712 ../clips.rst:817
 msgid "Frame Number"
 msgstr "影格編號"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:633
+#: ../clips.rst:712
 msgid "The format to display the frame number (if any)"
 msgstr "顯示影格編號的格式（如果有）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:634 ../clips.rst:761
+#: ../clips.rst:713 ../clips.rst:840
 msgid "Gravity"
 msgstr "錨點"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:634
+#: ../clips.rst:713
 msgid ""
 "The gravity of a clip determines where it snaps to its parent (details "
 "below)"
 msgstr "剪輯的錨點決定其相對於父層的位置（詳情如下）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:635 ../clips.rst:794
+#: ../clips.rst:714 ../clips.rst:873
 msgid "ID"
 msgstr "識別碼"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:635 ../clips.rst:641
+#: ../clips.rst:714 ../clips.rst:720
 msgid "String"
 msgstr "字串"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:635
+#: ../clips.rst:714
 msgid ""
 "A randomly generated GUID (globally unique identifier) assigned to each "
 "clip. Read-only property."
 msgstr "隨機產生的 GUID（全球唯一識別碼），分配給每個剪輯。唯讀屬性。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:636
+#: ../clips.rst:715
 msgid "Location X"
 msgstr "位置 X"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:636
+#: ../clips.rst:715
 msgid ""
 "Curve representing the relative X position in percent based on the gravity "
 "(-1 to 1)"
 msgstr "表示相對 X 位置的曲線，基於錨點的百分比（-1 到 1）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:637
+#: ../clips.rst:716
 msgid "Location Y"
 msgstr "位置 Y"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:637
+#: ../clips.rst:716
 msgid ""
 "Curve representing the relative Y position in percent based on the gravity "
 "(-1 to 1)"
 msgstr "表示相對 Y 位置的曲線，基於錨點的百分比（-1 到 1）"
 
-#: ../clips.rst:638 ../clips.rst:820
+#: ../clips.rst:717 ../clips.rst:899
 msgid "Margin"
 msgstr "邊距"
 
-#: ../clips.rst:638
+#: ../clips.rst:717
 msgid "Curve representing edge spacing for gravity-aligned clips (0 to 0.5)"
 msgstr "表示重力對齊剪輯邊緣間距的曲線（0 到 0.5）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:639
+#: ../clips.rst:718
 msgid "Origin X"
 msgstr "原點 X"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:639
+#: ../clips.rst:718
 msgid ""
 "Curve representing the rotation origin point, X position in percent (-1 to "
 "1)"
 msgstr "表示旋轉原點的曲線，X 位置百分比（-1 到 1）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:640
+#: ../clips.rst:719
 msgid "Origin Y"
 msgstr "原點 Y"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:640
+#: ../clips.rst:719
 msgid ""
 "Curve representing the rotation origin point, Y position in percent (-1 to "
 "1)"
 msgstr "表示旋轉原點的曲線，Y 位置以百分比表示（-1 到 1）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:641
+#: ../clips.rst:720
 msgid "Parent"
 msgstr "父物件"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:641
+#: ../clips.rst:720
 msgid ""
 "The parent object to this clip, which makes many of these keyframe values "
 "initialize to the parent value"
 msgstr "此剪輯的父物件，使許多關鍵影格值初始化為父物件的值"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:642 ../clips.rst:877
+#: ../clips.rst:721 ../clips.rst:956
 msgid "Position"
 msgstr "位置"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:642
+#: ../clips.rst:721
 msgid ""
 "The position of the clip on the timeline (in seconds, 0.0 is the beginning "
 "of the timeline)"
 msgstr "剪輯在時間軸上的位置（以秒為單位，0.0 是時間軸的開始）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:643 ../clips.rst:886
+#: ../clips.rst:722 ../clips.rst:965
 msgid "Rotation"
 msgstr "旋轉"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:643
+#: ../clips.rst:722
 msgid "Curve representing the rotation (0 to 360)"
 msgstr "表示旋轉角度的曲線（0 到 360）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:644 ../clips.rst:902
+#: ../clips.rst:723 ../clips.rst:981
 msgid "Scale"
 msgstr "縮放"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:644
+#: ../clips.rst:723
 msgid ""
 "The scale determines how a clip should be resized to fit its parent (details"
 " below)"
 msgstr "縮放決定剪輯如何調整大小以適應其父物件（詳情如下）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:645
+#: ../clips.rst:724
 msgid "Scale X"
 msgstr "X 軸縮放"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:645
+#: ../clips.rst:724
 msgid "Curve representing the horizontal scaling in percent (0 to 1)"
 msgstr "表示水平縮放百分比的曲線（0 到 1）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:646
+#: ../clips.rst:725
 msgid "Scale Y"
 msgstr "Y 軸縮放"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:646
+#: ../clips.rst:725
 msgid "Curve representing the vertical scaling in percent (0 to 1)"
 msgstr "表示垂直縮放百分比的曲線（0 到 1）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:647
+#: ../clips.rst:726
 msgid "Shear X"
 msgstr "X 軸剪切"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:647
+#: ../clips.rst:726
 msgid "Curve representing X shear angle in degrees (-45.0=left, 45.0=right)"
 msgstr "表示 X 軸剪切角度的曲線（度數，-45.0=左，45.0=右）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:648
+#: ../clips.rst:727
 msgid "Shear Y"
 msgstr "Y 軸剪切"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:648
+#: ../clips.rst:727
 msgid "Curve representing Y shear angle in degrees (-45.0=down, 45.0=up)"
 msgstr "表示 Y 軸剪切角度的曲線（度數，-45.0=下，45.0=上）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:649 ../clips.rst:936
+#: ../clips.rst:728 ../clips.rst:1015
 msgid "Start"
 msgstr "開始"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:649
+#: ../clips.rst:728
 msgid "The start trimming position of the clip (in seconds)"
 msgstr "剪輯的開始修剪位置（以秒為單位）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:650 ../clips.rst:946
+#: ../clips.rst:729 ../clips.rst:1025
 msgid "Time"
 msgstr "時間"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:650
+#: ../clips.rst:729
 msgid ""
 "Curve representing the frames over time to play (used for speed and "
 "direction of video)"
 msgstr "表示播放時間內影格的曲線（用於影片速度和方向）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:651 ../clips.rst:802
+#: ../clips.rst:730 ../clips.rst:881
 msgid "Track"
 msgstr "軌道"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:651
+#: ../clips.rst:730
 msgid "Int"
 msgstr "整數"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:651
+#: ../clips.rst:730
 msgid ""
 "The layer which holds the clip (higher tracks are rendered on top of lower "
 "tracks)"
 msgstr "承載剪輯的圖層（較高軌道會渲染在較低軌道之上）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:652 ../clips.rst:972
+#: ../clips.rst:731 ../clips.rst:1051
 msgid "Volume"
 msgstr "音量"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:652
+#: ../clips.rst:731
 msgid ""
 "Curve representing the volume for fading audio quieter/louder, mute, or "
 "adjusting levels (0 to 1)"
 msgstr "表示音量的曲線，用於淡入淡出、靜音或調整音量等級（0 到 1）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:653 ../clips.rst:838
+#: ../clips.rst:732 ../clips.rst:917
 msgid "Volume Mixing"
 msgstr "音量混合"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:653
+#: ../clips.rst:732
 msgid ""
 "The volume mixing choices control how volume is adjusted before mixing "
 "(None=don't adjust volume of this clip, Reduce=lower the volume to 80%, "
@@ -2418,36 +2608,36 @@ msgstr ""
 "80%，Average=根據同時播放的剪輯數量分配音量，詳情如下）"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:654 ../clips.rst:981
+#: ../clips.rst:733 ../clips.rst:1060
 msgid "Wave Color"
 msgstr "波形顏色"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:654
+#: ../clips.rst:733
 msgid "Curve representing the color of the audio waveform"
 msgstr "表示音訊波形顏色的曲線"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:655
+#: ../clips.rst:734
 msgid "Bool"
 msgstr "布林值"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:655
+#: ../clips.rst:734
 msgid "Should a waveform be used instead of the clip's image"
 msgstr "是否使用波形取代剪輯的影像"
 
-#: ../clips.rst:656 ../clips.rst:995
+#: ../clips.rst:735 ../clips.rst:1074
 msgid "Waveform Mode"
 msgstr "波形模式"
 
-#: ../clips.rst:656
+#: ../clips.rst:735
 msgid ""
 "The visualization style used when displaying the clip as an audio waveform"
 msgstr "用於顯示剪輯為音訊波形時的視覺化樣式"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:663
+#: ../clips.rst:742
 msgid ""
 "The :guilabel:`Composite (Blend Mode)` property controls **how the pixels of"
 " this clip mix with the clips on lower tracks**. If you are new to this, "
@@ -2458,217 +2648,217 @@ msgstr ""
 "模式開始。當您想快速創意變化而不添加效果時，切換模式即可。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:666
+#: ../clips.rst:745
 msgid "**Beginner tips**"
 msgstr "**新手提示**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:668
+#: ../clips.rst:747
 msgid ""
 "Want to **brighten** light effects, flares, or smoke over a dark scene? Try "
 "**Screen** or **Add**."
 msgstr "想要在暗場景中 **提亮** 光效、耀斑或煙霧？試試 **濾色** 或 **相加** 。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:669
+#: ../clips.rst:748
 msgid ""
 "Want to **darken** or place a texture over footage (paper grain, grids, "
 "shadows)? Try **Multiply** or **Color Burn**."
 msgstr "想要 **加深** 或在影片上放置紋理（紙張顆粒、格線、陰影）？試試 **正片疊底** 或 **顏色加深** 。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:670
+#: ../clips.rst:749
 msgid ""
 "Want **more contrast** without crushing blacks and whites too much? Try "
 "**Overlay** or **Soft Light**."
 msgstr "想要 **更多對比** ，但不過度壓縮黑白？試試 **疊加** 或 **柔光** 。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:671
+#: ../clips.rst:750
 msgid ""
 "Want a **creative/inverted look** or to line things up? Try **Difference** "
 "or **Exclusion**."
 msgstr "想要 **創意/反轉效果** 或對齊元素？試試 **差值** 或 **排除** 。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:673
+#: ../clips.rst:752
 msgid "**Common modes (recommended)**"
 msgstr "**常用模式（推薦）**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:679
+#: ../clips.rst:758
 msgid "Mode"
 msgstr "模式"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:679
+#: ../clips.rst:758
 msgid "What it does"
 msgstr "功能說明"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:681
+#: ../clips.rst:760
 msgid "Normal"
 msgstr "普通"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:681
+#: ../clips.rst:760
 msgid "Standard alpha compositing. Respects transparency from the clip."
 msgstr "標準的 alpha 合成。尊重剪輯的透明度。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:682
+#: ../clips.rst:761
 msgid "Darken"
 msgstr "變暗"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:682
+#: ../clips.rst:761
 msgid "Chooses the darker pixel from the two layers, per channel."
 msgstr "從兩層中選擇較暗的像素，逐通道處理。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:683
+#: ../clips.rst:762
 msgid "Multiply"
 msgstr "正片疊底"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:683
+#: ../clips.rst:762
 msgid "Multiplies colors. Darkens and helps textures sit on top of footage."
 msgstr "顏色相乘。加深影像，幫助紋理置於影片之上。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:684
+#: ../clips.rst:763
 msgid "Color Burn"
 msgstr "顏色加深"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:684
+#: ../clips.rst:763
 msgid "Pushes shadows darker and boosts contrast; can clip to black."
 msgstr "加深陰影並提升對比；可能會裁切為純黑。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:685
+#: ../clips.rst:764
 msgid "Lighten"
 msgstr "變亮"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:685
+#: ../clips.rst:764
 msgid "Chooses the lighter pixel from the two layers, per channel."
 msgstr "從兩層中選擇較亮的像素，逐通道處理。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:686
+#: ../clips.rst:765
 msgid "Screen"
 msgstr "濾色"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:686
+#: ../clips.rst:765
 msgid "The opposite of Multiply. Brightens; great for light, glow, fire, fog."
 msgstr "正片疊底的相反。提亮；適合光、光暈、火焰、霧氣。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:687
+#: ../clips.rst:766
 msgid "Color Dodge"
 msgstr "顏色減淡"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:687
+#: ../clips.rst:766
 msgid "Brightens highlights strongly; can blow out to white."
 msgstr "強烈提亮高光；可能會爆白。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:688
+#: ../clips.rst:767
 msgid "Add"
 msgstr "相加"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:688
+#: ../clips.rst:767
 msgid ""
 "Adds pixel values. Strong brightening; clips at white. Also called *Linear "
 "Dodge (Add)*."
 msgstr "像素值相加。強烈提亮；裁切於純白。亦稱為 *線性減淡（相加）* 。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:689
+#: ../clips.rst:768
 msgid "Overlay"
 msgstr "疊加"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:689
+#: ../clips.rst:768
 msgid ""
 "Mix of Multiply and Screen using the lower layer to decide. Adds punchy "
 "contrast."
 msgstr "結合正片疊底與濾色，以下層決定。增加鮮明對比。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:690
+#: ../clips.rst:769
 msgid "Soft Light"
 msgstr "柔光"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:690
+#: ../clips.rst:769
 msgid "Gentle contrast curve; softer than Overlay."
 msgstr "柔和的對比曲線；比疊加更柔和。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:691
+#: ../clips.rst:770
 msgid "Hard Light"
 msgstr "強光"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:691
+#: ../clips.rst:770
 msgid "Stronger, edgy contrast using the upper layer to drive the change."
 msgstr "使用上層驅動變化，產生更強烈、銳利的對比。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:692
+#: ../clips.rst:771
 msgid "Difference"
 msgstr "差值"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:692
+#: ../clips.rst:771
 msgid ""
 "Absolute difference between layers. Creates inverted/psychedelic colors; "
 "useful for alignment."
 msgstr "層間的絕對差值。產生反轉／迷幻色彩；對齊時有用。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:693
+#: ../clips.rst:772
 msgid "Exclusion"
 msgstr "排除"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:693
+#: ../clips.rst:772
 msgid "Softer version of Difference with less contrast."
 msgstr "差值的柔和版本，對比度較低。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:696
+#: ../clips.rst:775
 msgid "**Notes**"
 msgstr "**注意事項**"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:698
+#: ../clips.rst:777
 msgid ""
 "Blend modes affect **color**, while alpha (the :guilabel:`Alpha` property) "
 "affects **transparency**. You can use both."
 msgstr "混合模式影響 **顏色** ，而 alpha（:guilabel:`Alpha` 屬性）影響 **透明度** 。兩者皆可使用。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:699
+#: ../clips.rst:778
 msgid ""
 "Some modes can create very bright or very dark results. If needed, lower the"
 " :guilabel:`Alpha` property to soften."
 msgstr "某些模式可能產生非常明亮或非常暗的結果。如有需要，降低 :guilabel:`Alpha` 屬性以柔化效果。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:700
+#: ../clips.rst:779
 msgid ""
 "The exact look of Multiply/Screen/Overlay family is best when project colors"
 " are in a linear color space."
 msgstr "當專案色彩處於線性色彩空間時，正片疊底／濾色／疊加系列的效果最佳。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:706
+#: ../clips.rst:785
 msgid ""
 "The :guilabel:`Alpha` property is a key-frame curve that represents the "
 "alpha value, determining fading and transparency of the image in the clip. "
@@ -2678,20 +2868,20 @@ msgstr ""
 "0（完全透明）。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:709
+#: ../clips.rst:788
 msgid ""
 "**Usage Example:** Applying a gradual fade-in or fade-out effect to smoothly"
 " transition clips."
 msgstr "**使用範例：** 應用漸進的淡入或淡出效果，以平滑過渡剪輯。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:710
+#: ../clips.rst:789
 msgid ""
 "**Tip:** Use keyframes to create complex fading patterns, such as fading in "
 "and then fading out for a ghostly effect."
 msgstr "**提示：** 使用關鍵影格來創建複雜的淡化模式，例如先淡入再淡出，營造幽靈般的效果。"
 
-#: ../clips.rst:714
+#: ../clips.rst:793
 msgid ""
 "The :guilabel:`Corner Radius` property is a key-frame curve that rounds the "
 "visible corners of a clip. The curve ranges from 0 (square corners) to 0.5 "
@@ -2700,13 +2890,13 @@ msgstr ""
 ":guilabel:`Corner Radius` 屬性是一條關鍵影格曲線，用於圓角剪輯的可見角落。曲線範圍從 0（方形角）到 "
 "0.5（最大圓角，基於剪輯最短邊長）。"
 
-#: ../clips.rst:717
+#: ../clips.rst:796
 msgid ""
 "**Usage Example:** Rounding the corners of a picture-in-picture camera "
 "recording without adding a separate mask effect."
 msgstr "**使用範例：** 在畫中畫攝影機錄影中圓角，而不需添加額外的遮罩效果。"
 
-#: ../clips.rst:718
+#: ../clips.rst:797
 msgid ""
 "**Usage Example:** In :guilabel:`Recording View`, corner webcam clips use "
 "this property for the :guilabel:`Corners` setting."
@@ -2714,14 +2904,14 @@ msgstr ""
 "**使用範例：** 在 :guilabel:`Recording View` 中，角落的網路攝影機剪輯使用此屬性作為 "
 ":guilabel:`Corners` 設定。"
 
-#: ../clips.rst:719
+#: ../clips.rst:798
 msgid ""
 "**Tip:** Use 0 for normal full-frame video, a small value for rounded "
 "rectangles, or 0.5 for a pill or oval-like shape."
 msgstr "**提示：** 正常全畫面影片使用 0，圓角矩形使用小數值，膠囊或橢圓形狀使用 0.5。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:723
+#: ../clips.rst:802
 msgid ""
 "The :guilabel:`Channel Filter` property is a key-frame curve used for audio "
 "manipulation. It specifies a single audio channel to be filtered while "
@@ -2730,21 +2920,21 @@ msgstr ""
 ":guilabel:`Channel Filter` 屬性是一條用於音訊操作的關鍵影格曲線。它指定要過濾的單一音訊通道，並清除所有其他通道。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:726
+#: ../clips.rst:805
 msgid ""
 "**Usage Example:** Isolating and enhancing specific audio elements, like "
 "isolating vocals from a song."
 msgstr "**使用範例：** 分離並強化特定音訊元素，例如從歌曲中分離人聲。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:727
+#: ../clips.rst:806
 msgid ""
 "**Tip:** Combine with the \"Channel Mapping\" property to route the filtered"
 " channel to a specific audio output."
 msgstr "**提示：** 結合「Channel Mapping」屬性，將過濾後的通道導向特定音訊輸出。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:731
+#: ../clips.rst:810
 msgid ""
 "The :guilabel:`Channel Mapping` property is a key-frame curve that defines "
 "the output audio channel for the clip. This property works in conjunction "
@@ -2755,42 +2945,42 @@ msgstr ""
 "Filter」屬性配合使用，指定輸出中保留的通道。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:734
+#: ../clips.rst:813
 msgid ""
 "**Usage Example:** Keeping the filtered channel's audio while discarding "
 "others for an unconventional audio mix."
 msgstr "**使用範例：** 保留過濾通道的音訊，同時丟棄其他通道，以創造非傳統的音訊混音。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:735
+#: ../clips.rst:814
 msgid ""
 "**Tip:** Experiment with mapping different channels to create unique audio "
 "effects, like panning sounds between speakers."
 msgstr "**提示：** 嘗試映射不同通道，創造獨特的音效，例如在喇叭間平移聲音。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:739
+#: ../clips.rst:818
 msgid ""
 "The :guilabel:`Frame Number` property specifies the format in which the "
 "frame numbers are displayed within the clip, if applicable."
 msgstr ":guilabel:`Frame Number` 屬性指定剪輯中顯示影格號碼的格式（如適用）。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:741
+#: ../clips.rst:820
 msgid ""
 "**Usage Example:** Displaying frame numbers in the top left corner of the "
 "clip, as either absolute frame number or relative to the start of the clip."
 msgstr "**使用範例：** 在剪輯左上角顯示影格號碼，可為絕對影格號或相對於剪輯起點的號碼。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:742
+#: ../clips.rst:821
 msgid ""
 "**Tip:** This can help with identifying precise frame numbers or "
 "troubleshooting a problem."
 msgstr "**提示：** 這有助於識別精確的影格號碼或排除問題。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:746
+#: ../clips.rst:825
 msgid ""
 "The :guilabel:`Duration` property is a float value indicating the length of "
 "the clip in seconds. This is a Read-only property. This is calculated by: "
@@ -2801,21 +2991,21 @@ msgstr ""
 "Start」計算得出。若要修改長度，必須編輯 :guilabel:`Start` 和/或 :guilabel:`End` 剪輯屬性。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:749
+#: ../clips.rst:828
 msgid ""
 "**Usage Example:** Inspect the duration of a clip to ensure it fits a "
 "specific time slot in the project."
 msgstr "**使用範例：** 檢查剪輯長度，確保其符合專案中的特定時間段。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:750
+#: ../clips.rst:829
 msgid ""
 "**Tip:** Consider using the \"Duration\" property for clips that need to "
 "match specific time intervals, such as dialogue or scenes."
 msgstr "**提示：** 對於需要符合特定時間區間的剪輯（如對話或場景），可考慮使用「Duration」屬性。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:754
+#: ../clips.rst:833
 msgid ""
 "The :guilabel:`End` property defines the trimming point at the end of the "
 "clip in seconds, allowing you to control how much of the clip is visible in "
@@ -2826,21 +3016,21 @@ msgstr ""
 " 屬性。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:757
+#: ../clips.rst:836
 msgid ""
 "**Usage Example:** Trimming the end of a clip to align with another clip or "
 "trimming off unwanted sections of the clip."
 msgstr "**使用範例：** 修剪剪輯結尾以與其他剪輯對齊，或剪除不需要的部分。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:758
+#: ../clips.rst:837
 msgid ""
 "**Tip:** Combine the \"Start\" and \"End\" properties to precisely control "
 "the visible portion of the clip."
 msgstr "**提示：** 結合「Start」和「End」屬性，精確控制剪輯的可見部分。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:762
+#: ../clips.rst:841
 msgid ""
 "The :guilabel:`Gravity` clip property sets the initial display position "
 "coordinate (X,Y) for the clip, after it has been scaled (see "
@@ -2854,70 +3044,70 @@ msgstr ""
 "``Center`` ，即畫面顯示於螢幕正中央。Gravity 選項包括："
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:767
+#: ../clips.rst:846
 msgid ""
 "**Top Left** – The top and left edges of the clip align with the top and "
 "left edges of the screen"
 msgstr "**左上**– 剪輯的上邊和左邊與螢幕的上邊和左邊對齊"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:768
+#: ../clips.rst:847
 msgid ""
 "**Top Center** – The top edge of the clip aligns with the top edge of the "
 "screen; the clip is horizontally centered on the screen."
 msgstr "**上中**– 剪輯的上邊與螢幕上邊對齊；剪輯在螢幕上水平置中。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:769
+#: ../clips.rst:848
 msgid ""
 "**Top Right** – The top and right edges of the clip align with the top and "
 "right edges of the screen"
 msgstr "**右上**– 剪輯的上邊和右邊與螢幕的上邊和右邊對齊"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:770
+#: ../clips.rst:849
 msgid ""
 "**Left** – The left edge of the clip aligns with the left edge of the "
 "screen; the clip is vertically centered on the screen."
 msgstr "**左中**– 剪輯的左邊與螢幕左邊對齊；剪輯在螢幕上垂直置中。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:771
+#: ../clips.rst:850
 msgid ""
 "**Center** (default) – The clip is centered horizontally and vertically on "
 "the screen."
 msgstr "**中間** （預設）– 剪輯在螢幕上水平及垂直置中。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:772
+#: ../clips.rst:851
 msgid ""
 "**Right** – The right edge of the clip aligns with the right edge of the "
 "screen; the clip is vertically centered on the screen."
 msgstr "**右中**– 剪輯的右邊與螢幕右邊對齊；剪輯在螢幕上垂直置中。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:773
+#: ../clips.rst:852
 msgid ""
 "**Bottom Left** – The bottom and left edges of the clip align with the "
 "bottom and left edges of the screen"
 msgstr "**左下**– 剪輯的下邊和左邊與螢幕的下邊和左邊對齊"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:774
+#: ../clips.rst:853
 msgid ""
 "**Bottom Center** – The bottom edge of the clip aligns with the bottom edge "
 "of the screen; the clip is horizontally centered on the screen."
 msgstr "**下中**– 剪輯的下邊與螢幕下邊對齊；剪輯在螢幕上水平置中。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:775
+#: ../clips.rst:854
 msgid ""
 "**Bottom Right** – The bottom and right edges of the clip align with the "
 "bottom and right edges of the screen"
 msgstr "**右下**– 剪輯的下邊和右邊與螢幕的下邊和右邊對齊"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:779
+#: ../clips.rst:858
 msgid ""
 "The :guilabel:`Enable Audio` property is an enumeration that overrides the "
 "default audio setting for the clip. Possible values: -1 (undefined), 0 (no "
@@ -2926,21 +3116,21 @@ msgstr ""
 ":guilabel:`Enable Audio` 屬性為列舉值，用以覆寫剪輯的預設音訊設定。可能值：-1（未定義）、0（無音訊）、1（啟用音訊）。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:782
+#: ../clips.rst:861
 msgid ""
 "**Usage Example:** Turning off unwanted audio for a clip, like ambient "
 "noise."
 msgstr "**使用範例：** 關閉剪輯中不需要的音訊，例如環境噪音。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:783
+#: ../clips.rst:862
 msgid ""
 "**Tip:** Use this property to control audio playback for specific clips, "
 "especially clips which have no useful audio track."
 msgstr "**提示：** 使用此屬性控制特定剪輯的音訊播放，特別是沒有有用音軌的剪輯。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:787
+#: ../clips.rst:866
 msgid ""
 "The :guilabel:`Enable Video` property is an enumeration that overrides the "
 "default video setting for the clip. Possible values: -1 (undefined), 0 (no "
@@ -2949,21 +3139,21 @@ msgstr ""
 ":guilabel:`Enable Video` 屬性為列舉值，用以覆寫剪輯的預設視訊設定。可能值：-1（未定義）、0（無視訊）、1（啟用視訊）。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:790
+#: ../clips.rst:869
 msgid ""
 "**Usage Example:** Disabling the video of a clip while retaining its audio "
 "for creating audio-only sequences."
 msgstr "**使用範例：** 禁用剪輯的影片畫面，同時保留其音訊，以製作僅有音訊的序列。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:791
+#: ../clips.rst:870
 msgid ""
 "**Tip:** This property can be helpful when creating scenes with audio "
 "commentary or voiceovers."
 msgstr "**提示：** 在製作帶有語音解說或旁白的場景時，此屬性非常有用。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:795
+#: ../clips.rst:874
 msgid ""
 "The :guilabel:`ID` property holds a randomly generated GUID (Globally Unique"
 " Identifier) assigned to each clip, ensuring its uniqueness. This is a Read-"
@@ -2973,21 +3163,21 @@ msgstr ""
 "在建立剪輯時指派。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:798
+#: ../clips.rst:877
 msgid ""
 "**Usage Example:** Referencing specific clips within custom scripts or "
 "automation tasks."
 msgstr "**使用範例：** 在自訂腳本或自動化任務中引用特定剪輯。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:799
+#: ../clips.rst:878
 msgid ""
 "**Tip:** While typically managed behind the scenes, understanding clip IDs "
 "can aid in advanced project customization."
 msgstr "**提示：** 雖然通常在幕後管理，了解剪輯 ID 有助於進階專案自訂。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:803
+#: ../clips.rst:882
 msgid ""
 "The :guilabel:`Track` property is an integer indicating the layer on which "
 "the clip is placed. Clips on higher tracks are rendered above those on lower"
@@ -2995,26 +3185,26 @@ msgid ""
 msgstr ":guilabel:`Track` 屬性為整數，表示剪輯所在的圖層。位於較高軌道的剪輯會渲染在較低軌道的剪輯之上。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:806
+#: ../clips.rst:885
 msgid ""
 "**Usage Example:** Arranging clips in different layers for creating visual "
 "depth and complexity."
 msgstr "**使用範例：** 將剪輯排列在不同圖層，以創造視覺深度與複雜度。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:807
+#: ../clips.rst:886
 msgid ""
 "**Tip:** Use higher tracks for elements that need to appear above others, "
 "like text overlays or graphics."
 msgstr "**提示：** 對於需要顯示在其他元素之上的項目，如文字覆蓋或圖形，請使用較高的軌道。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:812
+#: ../clips.rst:891
 msgid "Location X and Location Y"
 msgstr "位置 X 與位置 Y"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:813
+#: ../clips.rst:892
 msgid ""
 "The :guilabel:`Location X` and :guilabel:`Location Y` properties are key-"
 "frame curves that determine the relative position of the clip, expressed in "
@@ -3026,20 +3216,20 @@ msgstr ""
 "。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:816
+#: ../clips.rst:895
 msgid ""
 "**Usage Example:** Animating a clip's movement across the screen using key-"
 "frame curves for both X and Y locations."
 msgstr "**使用範例：** 使用 X 與 Y 位置的關鍵影格曲線，製作剪輯在畫面上的移動動畫。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:817
+#: ../clips.rst:896
 msgid ""
 "**Tip:** Combine with gravity settings to create dynamic animations that "
 "adhere to consistent alignment rules."
 msgstr "**提示：** 結合重力設定，創造符合一致對齊規則的動態動畫。"
 
-#: ../clips.rst:821
+#: ../clips.rst:900
 msgid ""
 "The :guilabel:`Margin` property is a key-frame curve that creates an inset "
 "layout area for a clip. The curve is measured as a percentage of the "
@@ -3050,7 +3240,7 @@ msgstr ""
 ":guilabel:`Margin` 屬性是一條關鍵影格曲線，用於為剪輯建立內縮的佈局區域。曲線以專案最短邊的百分比計算，範圍從 0 到 "
 "0.5。例如，在 1920x1080 專案中，0.05 的邊距會在每邊產生 54 像素的內縮，剪輯則佈局於剩餘的矩形內。"
 
-#: ../clips.rst:825
+#: ../clips.rst:904
 msgid ""
 "Margin is applied before the clip's scale and gravity are calculated. This "
 "means :guilabel:`Scale` modes such as ``Fit``, ``Crop``, and ``Stretch`` use"
@@ -3061,38 +3251,38 @@ msgstr ""
 "邊距會在計算剪輯的縮放和重力之前套用。這表示 :guilabel:`Scale` 模式如 ``Fit``、``Crop`` 和 ``Stretch`` "
 "會使用較小的內縮區域，而非整個專案畫面。這也表示所有 :guilabel:`Gravity` 選項，包括 ``Center``，都會在內縮區域內解決。"
 
-#: ../clips.rst:829
+#: ../clips.rst:908
 msgid ""
 "**Usage Example:** Keeping a corner webcam clip slightly away from the "
 "screen edge during a screen recording."
 msgstr "**使用範例：** 在螢幕錄影時，讓角落的網路攝影機剪輯稍微遠離螢幕邊緣。"
 
-#: ../clips.rst:830
+#: ../clips.rst:909
 msgid ""
 "**Usage Example:** Adding a clean border around a full-frame image by using "
 "``Fit`` or ``Stretch`` with a small margin."
 msgstr "**使用範例：** 使用 ``Fit`` 或 ``Stretch`` 並搭配小邊距，為全畫面影像添加乾淨的邊框。"
 
-#: ../clips.rst:831
+#: ../clips.rst:910
 msgid ""
 "**Usage Example:** Creating safe-area layouts, split-screen spacing, or "
 "picture-in-picture spacing without adding Crop or Mask effects."
 msgstr "**使用範例：** 建立安全區域佈局、分割畫面間距或畫中畫間距，而不需添加裁剪或遮罩效果。"
 
-#: ../clips.rst:832
+#: ../clips.rst:911
 msgid ""
 "**Usage Example:** In :guilabel:`Recording View`, screen-plus-camera "
 "recordings use this property to inset the corner webcam clip."
 msgstr "**使用範例：** 在 :guilabel:`Recording View` 中，螢幕加攝影機錄影使用此屬性將角落的網路攝影機剪輯內縮。"
 
-#: ../clips.rst:833
+#: ../clips.rst:912
 msgid ""
 "**Tip:** Use a small value such as 0.02 to 0.05 for normal edge spacing. "
 "Larger values intentionally shrink the available layout area."
 msgstr "**提示：** 正常邊緣間距使用 0.02 到 0.05 的小數值。較大的值會刻意縮小可用的佈局區域。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:839
+#: ../clips.rst:918
 msgid ""
 "The :guilabel:`Volume Mixing` property is an enumeration that controls how "
 "volume adjustments are applied before mixing audio. Options: None (no "
@@ -3103,21 +3293,21 @@ msgstr ""
 "80%）、Average（根據同時播放的剪輯數量平均分配音量）。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:842
+#: ../clips.rst:921
 msgid ""
 "**Usage Example:** Automatically lowering the volume of a clip to allow "
 "background music to stand out more prominently."
 msgstr "**使用範例：** 自動降低剪輯音量，使背景音樂更突出。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:843
+#: ../clips.rst:922
 msgid ""
 "**Tip:** Experiment with volume mixing options to achieve balanced audio "
 "levels across different clips."
 msgstr "**提示：** 嘗試不同的音量混合選項，以達成剪輯間的音量平衡。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:845
+#: ../clips.rst:924
 msgid ""
 "Mixing audio involves adjusting volume levels so that **overlapping clips** "
 "do not become too loud (creating audio distortion and loss of audio "
@@ -3131,14 +3321,14 @@ msgstr ""
 "可能需要降低重疊剪輯的音量。可用的音訊混合方法如下："
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:849
+#: ../clips.rst:928
 msgid ""
 "**None** - Make no adjustments to volume data before mixing audio. "
 "Overlapping clips will combine audio at full volume, with no reduction."
 msgstr "**None**- 混音前不調整音量資料。重疊剪輯將以全音量合併音訊，無任何降低。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:850
+#: ../clips.rst:929
 msgid ""
 "**Average** - Automatically divide the volume of each clip based on the # of"
 " overlapping clips. For example, 2 overlapping clips would each have 50% "
@@ -3148,7 +3338,7 @@ msgstr ""
 "音量，依此類推..."
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:851
+#: ../clips.rst:930
 msgid ""
 "**Reduce** - Automatically reduce overlapping clips volume by 20%, which "
 "reduces the likelihood of becoming too loud, but does not always prevent "
@@ -3159,7 +3349,7 @@ msgstr ""
 "**Reduce**- 自動將重疊剪輯音量降低 20%，減少音量過大機率，但不一定能完全避免音訊失真。例如，若有 10 個大聲剪輯重疊，即使各自降低 "
 "20% 音量，仍可能超過最大允許音量並產生失真。"
 
-#: ../clips.rst:853
+#: ../clips.rst:932
 msgid ""
 "For quickly adjusting the volume of a clip, you can use the :guilabel:`Audio"
 " → Volume` menu. See :ref:`clip_presets_ref`. For precise control over the "
@@ -3171,12 +3361,12 @@ msgstr ""
 ":ref:`clip_volume_ref`。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:857
+#: ../clips.rst:936
 msgid "Origin X and Origin Y"
 msgstr "原點 X 與原點 Y"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:858
+#: ../clips.rst:937
 msgid ""
 "The :guilabel:`Origin X` and :guilabel:`Origin Y` properties are key-frame "
 "curves that define the rotation origin point's position in percentages. The "
@@ -3186,26 +3376,26 @@ msgstr ""
 "到 1。參見 :ref:`clip_transform_ref` 。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:861
+#: ../clips.rst:940
 msgid ""
 "**Usage Example:** Rotating a clip around a specific point, such as a "
 "character's pivot joint."
 msgstr "**使用範例：** 以特定點（如角色的樞軸關節）為中心旋轉剪輯。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:862
+#: ../clips.rst:941
 msgid ""
 "**Tip:** Set the origin point to achieve controlled and natural-looking "
 "rotations during animations."
 msgstr "**提示：** 設定原點以達成動畫中受控且自然的旋轉效果。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:867
+#: ../clips.rst:946
 msgid "Clip Parent"
 msgstr "剪輯父項"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:868
+#: ../clips.rst:947
 msgid ""
 "The :guilabel:`Parent` property of a clip sets the initial keyframe values "
 "to the parent object. For example, if many clips all point to the same "
@@ -3219,21 +3409,21 @@ msgstr ""
 "等。這在需要多個剪輯一起移動或縮放時非常有用。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:872
+#: ../clips.rst:951
 msgid ""
 "**Usage Example:** Creating complex animations by establishing a parent-"
 "child relationship between clips."
 msgstr "**使用範例：** 透過建立剪輯間的父子關係，製作複雜動畫。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:873
+#: ../clips.rst:952
 msgid ""
 "**Tip:** Utilize this property to propagate changes from the parent clip to "
 "child clips for consistent animations."
 msgstr "**提示：** 利用此屬性將父剪輯的變更傳遞給子剪輯，以保持動畫一致性。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:874
+#: ../clips.rst:953
 msgid ""
 "**Tip:** You can also set the ``parent`` attribute to a ``Tracker`` or "
 "``Object Detector`` tracked object, so the clip follows the location and "
@@ -3243,28 +3433,28 @@ msgstr ""
 "追蹤的物件，使剪輯跟隨該物件的位置與縮放。另見 :ref:`effect_parent_ref` 。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:878
+#: ../clips.rst:957
 msgid ""
 "The :guilabel:`Position` property determines the clip's position on the "
 "timeline in seconds, with 0.0 indicating the beginning."
 msgstr ":guilabel:`Position` 屬性決定剪輯在時間軸上的位置（以秒為單位），0.0 表示起點。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:880
+#: ../clips.rst:959
 msgid ""
 "**Usage Example:** Timing a clip's appearance to coincide with specific "
 "events in the project."
 msgstr "**使用範例：** 將剪輯的出現時間與專案中的特定事件同步。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:881
+#: ../clips.rst:960
 msgid ""
 "**Tip:** Adjust the position to synchronize clips with audio cues or visual "
 "elements."
 msgstr "**提示：** 調整位置以使剪輯與音訊提示或視覺元素同步。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:887
+#: ../clips.rst:966
 msgid ""
 "The :guilabel:`Rotation` property is a key-frame curve that controls the "
 "rotation angle of the clip, ranging from -360 to 360 degrees. You can rotate"
@@ -3277,28 +3467,28 @@ msgstr ""
 ":ref:`clip_transform_ref` 。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:891
+#: ../clips.rst:970
 msgid ""
 "**Usage Example:** Simulating a spinning effect by animating the rotation "
 "curve."
 msgstr "**使用範例：** 透過動畫化旋轉曲線模擬旋轉效果。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:892
+#: ../clips.rst:971
 msgid ""
 "**Tip:** Use this property creatively for effects like rotating text or "
 "emulating camera movement."
 msgstr "**提示：** 創意使用此屬性來製作旋轉文字或模擬攝影機移動等效果。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:893
+#: ../clips.rst:972
 msgid ""
 "**Tip:** In the preview transform tool, hold :kbd:`Ctrl` or :kbd:`Shift` "
 "while rotating to snap to 15-degree increments."
 msgstr "**提示：** 在預覽變形工具中，旋轉時按住 :kbd:`Ctrl` 或 :kbd:`Shift` 可吸附至 15 度增量。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:894
+#: ../clips.rst:973
 msgid ""
 "**Tip:** Experiment with rotating your video at different angles, not just "
 "90 or 180 degrees. Sometimes a slight tilt or a specific angle can add "
@@ -3308,7 +3498,7 @@ msgstr ""
 "**提示：** 嘗試將影片旋轉不同角度，而不僅限於 90 或 180 度。有時輕微傾斜或特定角度能為影片增添創意風格，特別適合藝術或敘事用途。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:895
+#: ../clips.rst:974
 msgid ""
 "**Tip:** After rotating your video, you might end up with black bars around "
 "the edges. Consider cropping and resizing the video to eliminate these bars "
@@ -3316,7 +3506,7 @@ msgid ""
 msgstr "**提示：** 旋轉影片後，邊緣可能會出現黑邊。建議裁剪並調整影片大小以消除黑邊，保持畫面整潔且專業。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:896
+#: ../clips.rst:975
 msgid ""
 "**Tip:** If you're dealing with vertical videos that are meant to be watched"
 " on horizontal screens, rotate them by 90 degrees and then scale them up to "
@@ -3325,7 +3515,7 @@ msgid ""
 msgstr "**提示：** 若處理垂直影片並在橫向螢幕觀看，請將影片旋轉 90 度，然後放大以填滿畫面。如此一來，垂直影片將佔據更多螢幕空間。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:897
+#: ../clips.rst:976
 msgid ""
 "**Tip:** If the horizon in your video appears slanted due to camera tilt, "
 "use rotation to level it. This is particularly important for landscape shots"
@@ -3333,7 +3523,7 @@ msgid ""
 msgstr "**提示：** 若影片中的地平線因攝影機傾斜而斜歪，請使用旋轉來校正。這對於風景鏡頭尤為重要，以維持專業且悅目的視覺效果。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:903
+#: ../clips.rst:982
 msgid ""
 "The :guilabel:`Scale` property is the initial resizing or scaling method "
 "used to display the picture of a clip, which may be further adjusted by the "
@@ -3348,7 +3538,7 @@ msgstr ""
 "）。建議使用與專案設定相同長寬比的素材，這樣多數縮放方法可將剪輯完整放大至螢幕大小，且不會在邊緣產生黑邊。縮放方法包括："
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:908
+#: ../clips.rst:987
 msgid ""
 "**Best Fit** (default) – The clip is as large as possible without changing "
 "the aspect ratio. This might result in black bars on certain sides of the "
@@ -3356,7 +3546,7 @@ msgid ""
 msgstr "**最佳適應** （預設）– 剪輯在不改變長寬比的情況下盡可能放大。如果長寬比與專案大小不完全相符，畫面某些邊緣可能會出現黑邊。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:909
+#: ../clips.rst:988
 msgid ""
 "**Crop** – The aspect ratio of the clip is maintained while the clip is "
 "enlarged to fill the entire screen, even if that means some of it will be "
@@ -3368,7 +3558,7 @@ msgstr ""
 "保持剪輯的長寬比，同時放大剪輯以填滿整個螢幕，即使部分畫面會被裁剪。這可避免畫面周圍出現黑邊，但若剪輯長寬比與專案大小不符，部分畫面會被裁剪掉。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:910
+#: ../clips.rst:989
 msgid ""
 "**None** – The clip is displayed in its original size. This is not "
 "recommended, since the picture will not scale correctly if you change the "
@@ -3376,19 +3566,19 @@ msgid ""
 msgstr "**無**– 剪輯以原始大小顯示。不建議使用，因為若更改專案設定（或專案大小），畫面將無法正確縮放。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:911
+#: ../clips.rst:990
 msgid ""
 "**Stretch** – The clip is stretched to fill the entire screen, changing the "
 "aspect ratio if necessary."
 msgstr "**拉伸**– 剪輯被拉伸以填滿整個螢幕，必要時會改變長寬比。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:916
+#: ../clips.rst:995
 msgid "Scale X and Scale Y"
 msgstr "水平縮放與垂直縮放"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:917
+#: ../clips.rst:996
 msgid ""
 "The :guilabel:`Scale X` and :guilabel:`Scale Y` properties are key-frame "
 "curves that represent horizontal and vertical scaling in percentages, "
@@ -3400,40 +3590,40 @@ msgstr ""
 "1。參見 :ref:`clip_transform_ref` 。OpenShot 根據檔案類型和專案大小限制最大縮放值，以防止崩潰和效能問題。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:921
+#: ../clips.rst:1000
 msgid ""
 "**Usage Example:** Creating a zoom-in effect by animating the Scale X and "
 "Scale Y curves simultaneously."
 msgstr "**使用範例：** 同時動畫化水平縮放與垂直縮放曲線，製作放大效果。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:922
+#: ../clips.rst:1001
 msgid ""
 "**Tip:** Scale the image larger than the screen, only revealing a portion of"
 " the video. This is a simple way to crop a portion of the video."
 msgstr "**提示：** 將影像縮放大於螢幕，只顯示影片的一部分。這是裁剪影片部分區域的簡單方法。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:923
+#: ../clips.rst:1002
 msgid ""
 "**Tip:** Scale the horizontal and vertical elements separately, to squash "
 "and stretch the image in fun ways."
 msgstr "**提示：** 分別縮放水平和垂直元素，以有趣的方式壓縮和拉伸影像。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:924
+#: ../clips.rst:1003
 msgid ""
 "**Tip:** Combine scaling with rotation and location properties for dynamic "
 "transformations."
 msgstr "**提示：** 將縮放與旋轉及位置屬性結合，創造動態變形效果。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:927
+#: ../clips.rst:1006
 msgid "Shear X and Shear Y"
 msgstr "水平剪切與垂直剪切"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:928
+#: ../clips.rst:1007
 msgid ""
 "The :guilabel:`Shear X` and :guilabel:`Shear Y` properties are key-frame "
 "curves that represent X and Y shear angles in degrees, respectively. See "
@@ -3444,20 +3634,20 @@ msgstr ""
 ":ref:`clip_transform_ref` 。OpenShot 根據檔案類型和專案大小限制最大剪切值，以防止崩潰和效能問題。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:932
+#: ../clips.rst:1011
 msgid ""
 "**Usage Example:** Adding a dynamic tilt effect to a clip by animating the "
 "shear angles."
 msgstr "**使用範例：** 透過動畫化剪切角度，為剪輯添加動態傾斜效果。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:933
+#: ../clips.rst:1012
 msgid ""
 "**Tip:** Use shear properties for creating slanted or skewed animations."
 msgstr "**提示：** 使用剪切屬性來製作傾斜或扭曲的動畫效果。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:937
+#: ../clips.rst:1016
 msgid ""
 "The :guilabel:`Start` property defines the trimming point at the beginning "
 "of the clip in seconds. Changing this property will impact the "
@@ -3465,20 +3655,21 @@ msgid ""
 msgstr ":guilabel:`開始` 屬性定義剪輯起始的修剪點（以秒為單位）。更改此屬性會影響 :guilabel:` 持續時間` 剪輯屬性。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:940
+#: ../clips.rst:1019
 msgid ""
 "**Usage Example:** Removing the initial portion of a clip to focus on a "
 "specific scene or moment."
 msgstr "**使用範例：** 移除剪輯的起始部分，以聚焦特定場景或時刻。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:941
+#: ../clips.rst:1020
 msgid ""
 "**Tip:** Utilize the \"Start\" property in combination with the \"End\" "
 "property for precise clip trimming."
 msgstr "**提示：** 結合使用「開始」和「結束」屬性，以精確修剪剪輯。"
 
-#: ../clips.rst:947
+# Main-window terminology review, 2026-09-26.
+#: ../clips.rst:1026
 msgid ""
 "The :guilabel:`Time` property is a key-frame curve that represents frames "
 "played over time, affecting the speed and direction of the video. You can "
@@ -3494,11 +3685,11 @@ msgstr ""
 ":guilabel:`Time` 屬性是一條關鍵影格曲線，代表隨時間播放的影格，影響影片的速度與方向。您可以透過右鍵點擊剪輯並選擇 "
 ":guilabel:`Speed` "
 "選單，使用可用的預設值（正常、快速、慢速、凍結、凍結並縮放、前進、後退）。此選單中有許多預設可用於反轉、加速和減速影片剪輯，詳見 "
-":ref:`clip_presets_ref`。也可以透過拖曳剪輯邊緣，使用 :guilabel:`Timing` "
-"工具列按鈕進行互動式調整；OpenShot 會自動新增必要的時間關鍵影格並縮放其他所有關鍵影格。"
+":ref:`clip_presets_ref`。也可以透過拖曳剪輯邊緣，使用 :guilabel:`變速` 工具列按鈕進行互動式調整；OpenShot "
+"會自動新增必要的時間關鍵影格並縮放其他所有關鍵影格。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:954
+#: ../clips.rst:1033
 msgid ""
 "Optionally, you can manually set key-frame values for the :guilabel:`Time` "
 "property. The value represents the `frame number` at the position of the "
@@ -3519,7 +3710,7 @@ msgstr ""
 "FPS（例如：``47.0秒剪輯長度 X 24.0 專案FPS = 1128 總影格數`` ）。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:962
+#: ../clips.rst:1041
 msgid ""
 "This allows for some very complex scenarios, such as jump cutting inside a "
 "clip, reversing a portion of a clip, slowing down a portion of a clip, "
@@ -3530,21 +3721,21 @@ msgstr ""
 ":ref:`animation_ref` 了解手動關鍵影格動畫。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:966
+#: ../clips.rst:1045
 msgid ""
 "**Usage Example:** Creating a slow-motion or time-lapse effect by modifying "
 "the time curve."
 msgstr "**使用範例：** 透過修改時間曲線來製作慢動作或縮時效果。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:967
+#: ../clips.rst:1046
 msgid ""
 "**Tip:** Adjust the \"Time\" property to control video playback speed for "
 "dramatic visual impact."
 msgstr "**提示：** 調整「時間」屬性以控制影片播放速度，營造戲劇化的視覺效果。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:973
+#: ../clips.rst:1052
 msgid ""
 "The :guilabel:`Volume` property is a key-frame curve that controls audio "
 "volume or level, ranging from 0 (mute) to 1 (full volume). For automatic "
@@ -3554,20 +3745,20 @@ msgstr ""
 ":ref:`clip_volume_mixing_ref` 。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:976
+#: ../clips.rst:1055
 msgid ""
 "**Usage Example:** Gradually fading out background music as dialogue becomes"
 " more prominent, or increasing or lowering the volume of a clip."
 msgstr "**使用範例：** 隨著對話變得更突出，逐漸淡出背景音樂，或調高或調低剪輯的音量。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:977
+#: ../clips.rst:1056
 msgid ""
 "**Tip:** Combine multiple volume key-frames for nuanced audio adjustments, "
 "such as ducking the level of the music when dialog is spoken."
 msgstr "**提示：** 結合多個音量關鍵影格以進行細膩的音訊調整，例如在對話時降低音樂音量。"
 
-#: ../clips.rst:978
+#: ../clips.rst:1057
 msgid ""
 "**Tip:** For **quickly** adjusting the volume of a clip you can use the "
 ":guilabel:`Audio → Volume` menu. See :ref:`clip_presets_ref`."
@@ -3576,48 +3767,48 @@ msgstr ""
 ":ref:`clip_presets_ref`。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:982
+#: ../clips.rst:1061
 msgid ""
 "The :guilabel:`Wave Color` property is a key-frame curve that represents the"
 " color of the audio waveform visualization."
 msgstr ":guilabel:`波形顏色` 屬性是一條關鍵影格曲線，代表音訊波形視覺化的顏色。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:984
+#: ../clips.rst:1063
 msgid ""
 "**Usage Example:** Matching the waveform color to the project's overall "
 "visual theme."
 msgstr "**使用範例：** 將波形顏色與專案整體視覺主題相匹配。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:985
+#: ../clips.rst:1064
 msgid ""
 "**Tip:** Experiment with different colors to enhance the visual appeal of "
 "the waveform or animate the color over time."
 msgstr "**提示：** 嘗試不同顏色以增強波形的視覺吸引力，或隨時間動畫化顏色。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:989
+#: ../clips.rst:1068
 msgid ""
 "The :guilabel:`Waveform` property is a boolean that determines whether a "
 "waveform visualization is used instead of the clip's image."
 msgstr ":guilabel:`波形` 屬性為布林值，決定是否使用波形視覺化取代剪輯的影像。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:991
+#: ../clips.rst:1070
 msgid ""
 "**Usage Example:** Displaying an audio waveform in place of the video for "
 "visually highlighting audio patterns."
 msgstr "**使用範例：** 以音訊波形取代影片，視覺化強調音訊模式。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:992
+#: ../clips.rst:1071
 msgid ""
 "**Tip:** Use waveform visualization for emphasizing music beats or voice "
 "modulations."
 msgstr "**提示：** 使用波形視覺化來強調音樂節拍或語音調變。"
 
-#: ../clips.rst:996
+#: ../clips.rst:1075
 msgid ""
 "The :guilabel:`Waveform Mode` property controls the visualization style used"
 " when :guilabel:`Waveform` is enabled. It uses the same choices as the "
@@ -3629,13 +3820,13 @@ msgstr ""
 ":guilabel:`Audio Visualization` 效果中的 :guilabel:`Visualization` "
 "屬性相同的選項：波形、填充波形、條形、放射狀、放射狀條形、頻譜、相位示波器、粒子和 VU 計。"
 
-#: ../clips.rst:1000
+#: ../clips.rst:1079
 msgid ""
 "**Usage Example:** Switching an audio-only clip from a standard waveform to "
 "bars or a spectrum display."
 msgstr "**使用範例：** 將純音訊剪輯從標準波形切換為條形或頻譜顯示。"
 
-#: ../clips.rst:1001
+#: ../clips.rst:1080
 msgid ""
 "**Tip:** Use :guilabel:`Wave Color` with :guilabel:`Waveform Mode` to tune "
 "both the visualization style and color."
@@ -3643,14 +3834,23 @@ msgstr ""
 "**提示：** 搭配 :guilabel:`Waveform Mode` 使用 :guilabel:`Wave Color`，可調整視覺化樣式與顏色。"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:1004
+#: ../clips.rst:1083
 msgid "More Information"
 msgstr "更多資訊"
 
 # Translated with gpt-4.1-mini
-#: ../clips.rst:1005
+#: ../clips.rst:1084
 msgid "For more info on key frames and animation, see :ref:`animation_ref`."
 msgstr "有關關鍵影格和動畫的更多資訊，請參閱 :ref:`animation_ref` 。"
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "The :guilabel:`razor tool` from the **Timeline Toolbar** cuts a clip at the "
+#~ "position where it is clicked. Use :kbd:`SHIFT` to slice and keep the left "
+#~ "side, or :kbd:`CTRL` to keep the right side."
+#~ msgstr ""
+#~ "在**時間軸工具列** 中的 :guilabel:`剃刀工具` ，可在點擊位置切割剪輯。使用 :kbd:`SHIFT` 切割並保留左側，或 "
+#~ ":kbd:`CTRL` 保留右側。"
 
 # Translated with gpt-4.1-mini
 #~ msgid ""

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-09-26 14:26-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -68,21 +68,21 @@ msgstr ""
 # Translated with gpt-4.1-mini
 #: ../preferences.rst:46 ../preferences.rst:109 ../preferences.rst:132
 #: ../preferences.rst:157 ../preferences.rst:204 ../preferences.rst:234
-#: ../preferences.rst:290 ../preferences.rst:320
+#: ../preferences.rst:290 ../preferences.rst:329
 msgid "Setting"
 msgstr "Postavka"
 
 # Translated with gpt-4.1-mini
 #: ../preferences.rst:47 ../preferences.rst:50 ../preferences.rst:109
 #: ../preferences.rst:132 ../preferences.rst:134 ../preferences.rst:157
-#: ../preferences.rst:321
+#: ../preferences.rst:330
 msgid "Default"
 msgstr "Zadano"
 
 # Translated with gpt-4.1-mini
 #: ../preferences.rst:48 ../preferences.rst:109 ../preferences.rst:132
 #: ../preferences.rst:204 ../preferences.rst:235 ../preferences.rst:290
-#: ../preferences.rst:301 ../preferences.rst:322
+#: ../preferences.rst:310 ../preferences.rst:331
 msgid "Description"
 msgstr "Opis"
 
@@ -366,8 +366,8 @@ msgid "Auto-Transition (overlap clips)"
 msgstr "Automatski Prijelaz (preklapanje isječaka)"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:115 ../preferences.rst:159 ../preferences.rst:333
-#: ../preferences.rst:339
+#: ../preferences.rst:115 ../preferences.rst:159 ../preferences.rst:342
+#: ../preferences.rst:348
 msgid "Enabled"
 msgstr "Omogućeno"
 
@@ -1060,18 +1060,49 @@ msgstr "Izvoz videa"
 msgid "Default folder to choose when exporting a video"
 msgstr "Zadana mapa za odabir prilikom izvoza videa"
 
+#: ../preferences.rst:295
+msgid "Unsaved Project Assets Folder"
+msgstr "Mapa za nespremljene resurse projekta"
+
+#: ../preferences.rst:295
+msgid "Folder for assets created before a project is saved (restart required)"
+msgstr ""
+"Mapa za resurse stvorene prije spremanja projekta (potreban je ponovni "
+"početak)"
+
+#: ../preferences.rst:298
+msgid ""
+"On Linux, the unsaved assets folder defaults to ``~/Videos/.openshot-tmp`` "
+"when ``~/Videos`` exists and the hidden child folder is writable. Otherwise,"
+" OpenShot uses ``~/.openshot_qt``, which is also the default on other "
+"platforms. You can choose a different folder in Preferences. Saving a "
+"project relocates its assets into the project's ``<project>_assets`` folder;"
+" subsequent titles and animations use that folder. These assets can include "
+"media needed by an unsaved project or crash recovery, so do not delete the "
+"folder as ordinary disposable cache data."
+msgstr ""
+"Na Linuxu, mapa za nespremljene resurse prema zadanim postavkama je "
+"``~/Videos/.openshot-tmp`` ako ``~/Videos`` postoji i skrivena podmapa je "
+"dostupna za pisanje. Inače, OpenShot koristi ``~/.openshot_qt``, što je "
+"također zadano na drugim platformama. Možete odabrati drugu mapu u "
+"Postavkama. Spremanje projekta premješta njegove resurse u mapu projekta "
+"``<project>_assets``; naknadni naslovi i animacije koriste tu mapu. Ti "
+"resursi mogu uključivati medije potrebne za nespremljeni projekt ili "
+"oporavak od pada, stoga nemojte brisati tu mapu kao obične privremene "
+"podatke."
+
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:301
+#: ../preferences.rst:310
 msgid "Values"
 msgstr "Vrijednosti"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:303
+#: ../preferences.rst:312
 msgid "**Recent Folder**"
 msgstr "**Nedavna mapa**"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:303
+#: ../preferences.rst:312
 msgid ""
 "The last folder used for this same operation. Project folders, Import "
 "folders, and Export folders are tracked separately."
@@ -1080,12 +1111,12 @@ msgstr ""
 "prate se zasebno."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:304
+#: ../preferences.rst:313
 msgid "**Project Folder**"
 msgstr "**Mapa projekta**"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:304
+#: ../preferences.rst:313
 msgid ""
 "The current project folder (or the user's home folder, if the project is not"
 " yet saved)"
@@ -1094,95 +1125,100 @@ msgstr ""
 "spremljen)"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:310
+#: ../preferences.rst:319
 msgid "Advanced"
 msgstr "Napredno"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:314
+#: ../preferences.rst:323
 msgid "The Advanced tab includes ComfyUI integration and debugging options."
 msgstr ""
 "Kartica Napredno uključuje integraciju ComfyUI i opcije za otklanjanje "
 "pogrešaka."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:323
+#: ../preferences.rst:332
 msgid "Comfy UI URL"
 msgstr "URL Comfy UI-ja"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:324
+#: ../preferences.rst:333
 msgid "``http://127.0.0.1:8188``"
 msgstr "``http://127.0.0.1:8188``"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:325
+#: ../preferences.rst:334
 msgid "URL of your local or remote ComfyUI server"
 msgstr "URL vašeg lokalnog ili udaljenog ComfyUI poslužitelja"
 
-# Translated with gpt-4.1-mini
-#: ../preferences.rst:326
-msgid "Debug Mode (Port)"
-msgstr "Način Otklanjanja Pogrešaka (Port)"
+#: ../preferences.rst:335
+msgid "User Interface Debug Logging"
+msgstr "Dnevnik otklanjanja pogrešaka korisničkog sučelja"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:327
-msgid "5556"
-msgstr "5556"
-
-# Translated with gpt-4.1-mini
-#: ../preferences.rst:328
-msgid "Port used by debug logging features"
-msgstr "Port koji koriste značajke zapisivanja otklanjanja pogrešaka"
-
-# Translated with gpt-4.1-mini
-#: ../preferences.rst:329
-msgid "Debug Mode (Verbose)"
-msgstr "Način Otklanjanja Pogrešaka (Detaljno)"
-
-# Translated with gpt-4.1-mini
-#: ../preferences.rst:330 ../preferences.rst:336
+#: ../preferences.rst:336 ../preferences.rst:339 ../preferences.rst:345
 #, fuzzy
 msgid "Disabled"
 msgstr "Omogućeno"
 
-# Translated with gpt-4.1-mini
-#: ../preferences.rst:331
-msgid "Enable verbose debugging output"
-msgstr "Omogući detaljni ispis otklanjanja pogrešaka"
+#: ../preferences.rst:337
+msgid ""
+"Record interface and project details in ``openshot-qt.log``. The matching "
+"``--debug-ui`` (or ``--debug``) argument enables these details for one "
+"launch, including terminal output. See :ref:`logging_ref`."
+msgstr ""
+"Zabilježite detalje sučelja i projekta u ``openshot-qt.log``. Odgovarajući "
+"argument ``--debug-ui`` (ili ``--debug``) omogućuje ove detalje za jedno "
+"pokretanje, uključujući izlaz u terminal. Pogledajte :ref:`logging_ref`."
+
+#: ../preferences.rst:338
+msgid "Video & Audio Engine Debug Logging"
+msgstr "Dnevnik otklanjanja pogrešaka video i audio motora"
+
+#: ../preferences.rst:340
+msgid ""
+"Record video and audio processing details in ``libopenshot.log``. The "
+"matching ``--debug-engine`` argument enables these details for one launch, "
+"including terminal output. Logs can grow quickly; turn off when finished. "
+"See :ref:`logging_ref`."
+msgstr ""
+"Zabilježite detalje obrade video i audio zapisa u ``libopenshot.log``. "
+"Odgovarajući argument ``--debug-engine`` omogućuje ove detalje za jedno "
+"pokretanje, uključujući izlaz u terminal. Dnevnici mogu brzo rasti; "
+"isključite ih kad završite. Pogledajte :ref:`logging_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:332
+#: ../preferences.rst:341
 msgid "Send Anonymous Metrics and Errors"
 msgstr "Pošalji anonimne metrike i pogreške"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:334
+#: ../preferences.rst:343
 msgid "Send anonymous telemetry and error reports"
 msgstr "Pošalji anonimne telemetrijske podatke i izvještaje o pogreškama"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:335
+#: ../preferences.rst:344
 msgid "Show Playback Performance (FPS)"
 msgstr "Prikaži performanse reprodukcije (FPS)"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:337
+#: ../preferences.rst:346
 msgid "Display live FPS in preview playback"
 msgstr "Prikaži uživo FPS tijekom reprodukcije pregleda"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:338
+#: ../preferences.rst:347
 msgid "Show Export Dialog when Finished"
 msgstr "Prikaži dijalog izvoza po završetku"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:340
+#: ../preferences.rst:349
 msgid "Display the Export Video window when export completes"
 msgstr "Prikaži prozor Izvoz Videom kada izvoz završi"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:342
+#: ../preferences.rst:351
 msgid ""
 "The ComfyUI **Check** button updates an inline status icon: green checkmark "
 "for success, red icon for failure. If OpenShot cannot reach this server, AI "
@@ -1195,12 +1231,12 @@ msgstr ""
 ":ref:`ai_ref` za detalje postavljanja, zahtjeve i opcije tijeka rada."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:349
+#: ../preferences.rst:358
 msgid "Reset (Default Values)"
 msgstr "Resetiraj (zadane vrijednosti)"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:351
+#: ../preferences.rst:360
 msgid ""
 "To reset **all** preferences to their default values, please delete the "
 "``openshot.settings`` file and re-launch OpenShot. The settings file can be "
@@ -1217,7 +1253,7 @@ msgstr ""
 "``openshot.settings`` sa zadanim vrijednostima."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:356
+#: ../preferences.rst:365
 msgid ""
 "Optionally, you can delete the entire ``.openshot_qt/`` folder and re-launch"
 " OpenShot. However, please make a **backup** of any customized folders: "
@@ -1233,7 +1269,7 @@ msgstr ""
 " datoteke)."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:361
+#: ../preferences.rst:370
 msgid ""
 "Deleting the ``.openshot_qt/`` folder is the quickest method to restore "
 "OpenShot preferences and settings to their Default values (i.e. also called "
@@ -1249,6 +1285,26 @@ msgstr ""
 "`korak-po-korak vodič <https://github.com/OpenShot/openshot-qt/wiki/Clean-"
 "Installation-of-OpenShot>`_ za više informacija o **čistim instalacijama** "
 "OpenShota."
+
+# Translated with gpt-4.1-mini
+#~ msgid "Debug Mode (Port)"
+#~ msgstr "Način Otklanjanja Pogrešaka (Port)"
+
+# Translated with gpt-4.1-mini
+#~ msgid "5556"
+#~ msgstr "5556"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Port used by debug logging features"
+#~ msgstr "Port koji koriste značajke zapisivanja otklanjanja pogrešaka"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Debug Mode (Verbose)"
+#~ msgstr "Način Otklanjanja Pogrešaka (Detaljno)"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Enable verbose debugging output"
+#~ msgstr "Omogući detaljni ispis otklanjanja pogrešaka"
 
 # Translated with gpt-4.1-mini
 #~ msgid ""

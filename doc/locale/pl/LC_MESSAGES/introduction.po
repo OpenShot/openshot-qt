@@ -250,10 +250,10 @@ msgstr ""
 "*Dodatkowe przepływy pracy można dodać za pomocą niestandardowych szablonów "
 "ComfyUI*"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../introduction.rst:64
 msgid "**Credits & captions** (scrolling, animated)"
-msgstr "**Napisy końcowe i podpisy** (przewijane, animowane)"
+msgstr "**Napisy końcowe i napisy** (przewijane, animowane)"
 
 # Translated with gpt-4.1-mini
 #: ../introduction.rst:65

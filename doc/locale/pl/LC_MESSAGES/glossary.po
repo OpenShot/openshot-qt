@@ -2398,14 +2398,14 @@ msgstr ""
 msgid "Titling:"
 msgstr "Tworzenie napisów:"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../glossary.rst:459
 msgid ""
 "Titling is the process or result of incorporating on-screen text as credits,"
 " captions, or any other alphanumeric communication."
 msgstr ""
 "Tworzenie napisów to proces lub efekt włączania tekstu na ekranie jako "
-"napisów końcowych, podpisów lub innej komunikacji alfanumerycznej."
+"napisów końcowych, napisów lub innej komunikacji alfanumerycznej."
 
 # Translated with gpt-4.1-mini
 #: ../glossary.rst:460

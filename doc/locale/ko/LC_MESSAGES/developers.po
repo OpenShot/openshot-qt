@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-09-26 14:26-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -131,7 +131,7 @@ msgstr ""
 " PPA <https://www.openshot.org/ppa/>`_ 를 사용하는 것입니다. PPA는 비공식 Ubuntu 저장소로, "
 "소프트웨어 패키지를 다운로드하고 설치할 수 있습니다."
 
-#: ../developers.rst:112
+#: ../developers.rst:110
 msgid ""
 "OpenShot supports PyQt5, PyQt6, and PySide6. libopenshot must be built "
 "against the correct Qt version for the binding you are using (Qt5: PyQt5, "
@@ -140,15 +140,15 @@ msgstr ""
 "OpenShot 은 PyQt5, PyQt6, PySide6 를 지원합니다. libopenshot 은 사용 중인 바인딩에 맞는 올바른 Qt"
 " 버전(Qt5: PyQt5, Qt6: PyQt6 또는 PySide6)으로 빌드되어야 합니다."
 
-#: ../developers.rst:116
+#: ../developers.rst:114
 msgid "For PySide6 (Qt6) bindings, install these packages:"
 msgstr "PySide6 (Qt6) 바인딩을 위해 다음 패키지를 설치하세요:"
 
-#: ../developers.rst:129
+#: ../developers.rst:127
 msgid "For PyQt6, install these packages:"
 msgstr "PyQt6 를 위해 다음 패키지를 설치하세요:"
 
-#: ../developers.rst:139
+#: ../developers.rst:137
 msgid ""
 "The PyQt6 runtime must provide ``QtCore``, ``QtGui``, ``QtWidgets``, "
 "``QtSvg``, ``QtStateMachine``, and ``uic``. Some distributions split these "
@@ -162,14 +162,14 @@ msgstr ""
 "특히, Ubuntu 24.04 의 ``python3-pyqt6`` 패키지는 ``QtStateMachine`` 을 포함하지 않습니다. 해당"
 " 버전에서는 위의 PySide6 패키지를 사용하거나 Python 가상 환경에 완전한 PyQt6 휠을 설치하세요:"
 
-#: ../developers.rst:151
+#: ../developers.rst:149
 msgid ""
 "Verify the selected Qt binding and its required modules before launching "
 "OpenShot:"
 msgstr "OpenShot 을 실행하기 전에 선택한 Qt 바인딩과 필요한 모듈을 확인하세요:"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:159
+#: ../developers.rst:157
 msgid ""
 "At this point, you should have all 3 OpenShot components source code cloned "
 "into local folders, the OpenShot daily PPA installed, and all of the "
@@ -180,12 +180,12 @@ msgstr ""
 "모든 개발 및 런타임 종속성을 설치했어야 합니다. 훌륭한 시작이며 이제 코드를 컴파일할 준비가 되었습니다!"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:164
+#: ../developers.rst:162
 msgid "libopenshot-audio (Build Instructions)"
 msgstr "libopenshot-audio (빌드 지침)"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:165
+#: ../developers.rst:163
 msgid ""
 "This library is required for audio playback and audio effects. It is based "
 "on the JUCE audio framework. Here are the commands to build it:"
@@ -193,7 +193,7 @@ msgstr ""
 "이 라이브러리는 오디오 재생 및 오디오 효과에 필요합니다. JUCE 오디오 프레임워크를 기반으로 합니다. 빌드 명령은 다음과 같습니다:"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:178
+#: ../developers.rst:176
 msgid ""
 "Essentially, we are switching to the ``libopenshot-audio/build`` folder, "
 "then running ``cmake ..`` on the parent folder. This finds dependencies and "
@@ -210,12 +210,12 @@ msgstr ""
 "install`` 실행 시 관리자 권한이 필요합니다."
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:186
+#: ../developers.rst:184
 msgid "libopenshot (Build Instructions)"
 msgstr "libopenshot (빌드 지침)"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:187
+#: ../developers.rst:185
 msgid ""
 "This library is required for video decoding, encoding, animation, and just "
 "about everything else. It does all the heavy lifting of video editing and "
@@ -225,7 +225,7 @@ msgstr ""
 " 명령은 다음과 같습니다:"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:199
+#: ../developers.rst:197
 msgid ""
 "Essentially, we are switching to the ``libopenshot/build`` folder, then "
 "running ``cmake ..`` on the parent folder. This finds dependencies and "
@@ -240,7 +240,7 @@ msgstr ""
 "버전 대신 해당 버전이 사용됩니다(있는 경우)."
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:206
+#: ../developers.rst:204
 msgid ""
 "We don't install our ``libopenshot`` after building, because we don't need "
 "to. For testing purposes, we can tell OpenShot to use ``libopenshot`` right "
@@ -250,12 +250,12 @@ msgstr ""
 "``build`` 디렉터리에서 직접 ``libopenshot`` 을 사용하도록 지시할 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:210
+#: ../developers.rst:208
 msgid "Language Bindings"
 msgstr "언어 바인딩"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:211
+#: ../developers.rst:209
 msgid ""
 "The ``libopenshot`` API is available in several languages through SWIG "
 "bindings.  Python is used by the OpenShot user interface, and we also "
@@ -270,12 +270,12 @@ msgstr ""
 "편집할 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:217
+#: ../developers.rst:215
 msgid "openshot-qt (Launch Instructions)"
 msgstr "openshot-qt (실행 지침)"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:218
+#: ../developers.rst:216
 msgid ""
 "This is our main PyQt Python application. Because it is written in Python, "
 "it does not require any compiling to run. To launch OpenShot from the source"
@@ -287,7 +287,7 @@ msgstr ""
 "실행하려면 다음 명령을 사용하세요:"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:229
+#: ../developers.rst:227
 msgid ""
 "This should launch the OpenShot user interface. Any changes you have made to"
 " the source code files (``*.py`` Python files, ``*.ui`` PyQt UI files, "
@@ -300,7 +300,7 @@ msgstr ""
 "``libopenshot`` 라이브러리가 필요하며, 위 단계에서 문제가 발생했다면 OpenShot이 실행되지 않을 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:235
+#: ../developers.rst:233
 msgid ""
 "If OpenShot launches at this point, congratulations! You now have a working "
 "local version of OpenShot, which is running off your local source code. Try "
@@ -311,13 +311,197 @@ msgstr ""
 "갖게 되었습니다. 소스 코드를 약간 수정한 후 OpenShot을 다시 실행해 보세요... 변경 사항이 반영된 것을 확인할 수 있을 "
 "것입니다!"
 
-# Translated with gpt-4.1-mini
+#: ../developers.rst:239
+msgid "Command-Line Options"
+msgstr "명령줄 옵션"
+
 #: ../developers.rst:241
+msgid ""
+"These options work with the installed OpenShot application, including "
+"``openshot-qt.exe`` on Windows. When running from source, use ``python3 "
+"src/launch.py`` in place of the application name. Put options before any "
+"file paths you want OpenShot to open."
+msgstr ""
+"이 옵션들은 Windows의 ``openshot-qt.exe``를 포함하여 설치된 OpenShot 애플리케이션에서 작동합니다. 소스에서 "
+"실행할 때는 애플리케이션 이름 대신 ``python3 src/launch.py``를 사용하세요. 옵션은 OpenShot이 열기를 원하는 "
+"파일 경로 앞에 배치하세요."
+
+#: ../developers.rst:246
+msgid "OpenShot command-line options"
+msgstr "OpenShot 명령줄 옵션"
+
+#: ../developers.rst:250
+msgid "Option"
+msgstr "옵션"
+
+#: ../developers.rst:251
+msgid "What it does"
+msgstr "기능"
+
+#: ../developers.rst:252
+msgid "``-h``, ``--help``"
+msgstr "``-h``, ``--help``"
+
+#: ../developers.rst:253
+msgid "Show the available options and exit."
+msgstr "사용 가능한 옵션을 표시하고 종료합니다."
+
+#: ../developers.rst:254
+msgid "``-V``, ``--version``"
+msgstr "``-V``, ``--version``"
+
+#: ../developers.rst:255
+msgid "Print the OpenShot version and exit."
+msgstr "OpenShot 버전을 출력하고 종료합니다."
+
+#: ../developers.rst:256
+msgid "``-l CODE``, ``--lang CODE``"
+msgstr "``-l CODE``, ``--lang CODE``"
+
+#: ../developers.rst:257
+msgid ""
+"Use the chosen interface language for this launch. The code must be one of "
+"those shown by ``--list-languages``."
+msgstr ""
+"이 실행에 선택한 인터페이스 언어를 사용합니다. 코드는 ``--list-languages``에서 표시된 것 중 하나여야 합니다."
+
+#: ../developers.rst:259
+msgid "``--list-languages``"
+msgstr "``--list-languages``"
+
+#: ../developers.rst:260
+msgid "List supported language codes and exit."
+msgstr "지원하는 언어 코드를 나열하고 종료합니다."
+
+#: ../developers.rst:261
+msgid "``--path FOLDER``"
+msgstr "``--path FOLDER``"
+
+#: ../developers.rst:262
+msgid ""
+"Add a folder to the Python module search path. You can repeat this option to"
+" add more than one folder."
+msgstr "Python 모듈 검색 경로에 폴더를 추가합니다. 이 옵션을 반복하여 여러 폴더를 추가할 수 있습니다."
+
+#: ../developers.rst:264
+msgid "``--feedback-preview``"
+msgstr "``--feedback-preview``"
+
+#: ../developers.rst:265
+msgid ""
+"Show the feedback notice on launch without marking the invitation as shown "
+"in saved settings."
+msgstr "저장된 설정에서 초대 표시를 하지 않고 실행 시 피드백 알림을 표시합니다."
+
+#: ../developers.rst:267
+msgid "``--update-preview``"
+msgstr "``--update-preview``"
+
+#: ../developers.rst:268
+msgid ""
+"Show the update notice on launch. Both preview options can be used together."
+msgstr "실행 시 업데이트 알림을 표시합니다. 두 가지 미리보기 옵션을 함께 사용할 수 있습니다."
+
+#: ../developers.rst:269
+msgid "``--test-models``"
+msgstr "``--test-models``"
+
+#: ../developers.rst:270
+msgid ""
+"Enable Qt's data model tester for development (requires Qt 5.11 or later)."
+msgstr "개발을 위해 Qt의 데이터 모델 테스터를 활성화합니다 (Qt 5.11 이상 필요)."
+
+#: ../developers.rst:271
+msgid "``-d``, ``--debug``, ``--debug-ui``"
+msgstr "``-d``, ``--debug``, ``--debug-ui``"
+
+#: ../developers.rst:272
+msgid "Add detailed interface messages to its log file and the terminal."
+msgstr "상세한 인터페이스 메시지를 로그 파일과 터미널에 추가합니다."
+
+#: ../developers.rst:273
+msgid "``--debug-engine``"
+msgstr "``--debug-engine``"
+
+#: ../developers.rst:274
+msgid ""
+"Add detailed video and audio engine messages to its log file and the "
+"terminal."
+msgstr "상세한 비디오 및 오디오 엔진 메시지를 로그 파일과 터미널에 추가합니다."
+
+#: ../developers.rst:275
+msgid "``--log-level LEVEL``"
+msgstr "``--log-level LEVEL``"
+
+#: ../developers.rst:276
+msgid ""
+"Set the logging level for both parts of OpenShot, in files and the terminal."
+msgstr "OpenShot의 두 부분에 대해 파일과 터미널에서 로깅 레벨을 설정합니다."
+
+#: ../developers.rst:277
+msgid "``--log-file-level LEVEL``"
+msgstr "``--log-file-level LEVEL``"
+
+#: ../developers.rst:278
+msgid "Set the logging level in both log files."
+msgstr "두 로그 파일에서 로깅 레벨을 설정합니다."
+
+#: ../developers.rst:279
+msgid "``--log-console-level LEVEL``"
+msgstr "``--log-console-level LEVEL``"
+
+#: ../developers.rst:280
+msgid "Set the logging level in the terminal for both parts of OpenShot."
+msgstr "OpenShot의 두 부분에 대해 터미널에서 로깅 레벨을 설정합니다."
+
+#: ../developers.rst:281
+msgid "``--debug-file``"
+msgstr "``--debug-file``"
+
+#: ../developers.rst:282
+msgid ""
+"Add detailed interface messages to its log file only. This older option is "
+"accepted but is not shown by ``--help``."
+msgstr "상세한 인터페이스 메시지를 로그 파일에만 추가합니다. 이 오래된 옵션은 허용되지만 ``--help``에는 표시되지 않습니다."
+
+#: ../developers.rst:284
+msgid "``--debug-console``"
+msgstr "``--debug-console``"
+
+#: ../developers.rst:285
+msgid ""
+"Add detailed interface messages to the terminal only. This older option is "
+"accepted but is not shown by ``--help``."
+msgstr "상세한 인터페이스 메시지를 터미널에만 추가합니다. 이 오래된 옵션은 허용되지만 ``--help``에는 표시되지 않습니다."
+
+#: ../developers.rst:287
+msgid "``PROJECT.osp`` or media file paths"
+msgstr "``PROJECT.osp`` 또는 미디어 파일 경로"
+
+#: ../developers.rst:288
+msgid ""
+"Open a project when the first file path ends in ``.osp``. Otherwise, start a"
+" new project and import the supplied media files."
+msgstr ""
+"첫 번째 파일 경로가 ``.osp``로 끝나면 프로젝트를 엽니다. 그렇지 않으면 새 프로젝트를 시작하고 제공된 미디어 파일을 가져옵니다."
+
+#: ../developers.rst:291
+msgid ""
+"For ``LEVEL``, use ``debug``, ``info``, ``warning``, ``error``, "
+"``critical``, or ``off``. See :ref:`logging_ref` for log file locations, "
+"examples, and more about choosing logging options."
+msgstr ""
+"``LEVEL``에는 ``debug``, ``info``, ``warning``, ``error``, ``critical``, 또는 "
+"``off``를 사용하세요. 로그 파일 위치, 예제 및 로깅 옵션 선택에 대한 자세한 내용은 :ref:`logging_ref`를 "
+"참조하세요."
+
+# Translated with gpt-4.1-mini
+#: ../developers.rst:296
 msgid "GitHub Issues"
 msgstr "GitHub 이슈"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:242
+#: ../developers.rst:297
 msgid ""
 "Now that you have successfully compiled and launched OpenShot Video Editor "
 "from source code, be sure to check out our list of bug reports on GitHub: "
@@ -330,12 +514,12 @@ msgstr ""
 "<https://forms.gle/CRqkS5tLMJE1V36V8>`_ 을 작성하여 자신을 소개해 주시기 바랍니다!"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:248
+#: ../developers.rst:303
 msgid "Share your Changes"
 msgstr "변경 사항 공유하기"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:249
+#: ../developers.rst:304
 msgid ""
 "Once you have fixed a bug or added an amazing new feature, be sure to share "
 "it with the OpenShot team. Ideally, we can merge this into our main source "

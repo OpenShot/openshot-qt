@@ -1,0 +1,31 @@
+{
+  "source": "Pause",
+  "translations": {
+    "ar": "إيقاف مؤقت",
+    "bn": "বিরতি",
+    "zh_CN": "暂停",
+    "zh_TW": "暫停",
+    "hr": "Pauza",
+    "nl": "Pauzeren",
+    "fr": "Pause",
+    "fi": "Tauko",
+    "de": "Pause",
+    "hi": "विराम दें",
+    "is": "Gera hlé",
+    "id": "Jeda",
+    "it": "Pausa",
+    "ja": "一時停止",
+    "ko": "일시 정지",
+    "nb": "Pause",
+    "fa": "مکث",
+    "pl": "Wstrzymaj",
+    "pt": "Pausa",
+    "ro": "Pauză",
+    "ru": "Пауза",
+    "es": "Pausa",
+    "tr": "Duraklat",
+    "vi": "Tạm dừng",
+    "uk": "Призупинити"
+  },
+  "verification": "Each compiled catalog adds only Pause; all existing translations unchanged."
+}

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-09-26 14:26-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -50,7 +50,7 @@ msgstr "이름"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:35 ../main_window.rst:80 ../main_window.rst:103
-#: ../main_window.rst:235 ../main_window.rst:349 ../main_window.rst:378
+#: ../main_window.rst:237 ../main_window.rst:367 ../main_window.rst:396
 msgid "Description"
 msgstr "설명"
 
@@ -90,7 +90,7 @@ msgid "3"
 msgstr "3"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:39 ../main_window.rst:393
+#: ../main_window.rst:39 ../main_window.rst:411
 msgid "Project Files"
 msgstr "프로젝트 파일"
 
@@ -376,14 +376,14 @@ msgstr "최근 타임라인 편집을 실행 취소하거나 다시 실행합니
 msgid "Snap, Retime, Razor"
 msgstr "스냅, 리타임, 레이저"
 
-# Translated with gpt-4.1-mini
 #: ../main_window.rst:112
 msgid ""
 "Snapping toggles magnetic alignment. Timing Tool enables retiming by "
-"dragging clip edges. Razor Tool cuts clips at the clicked position."
+"dragging clip edges. The :ref:`razor_tool_ref` previews and cuts at the "
+"guide position; press :kbd:`Esc` to exit."
 msgstr ""
-"스냅은 자석 정렬을 전환합니다. 타이밍 도구는 클립 가장자리를 드래그하여 리타임을 가능하게 합니다. 레이저 도구는 클릭한 위치에서 클립을"
-" 자릅니다."
+"스내핑은 자석 정렬을 전환합니다. 타이밍 도구는 클립 가장자리를 드래그하여 재타이밍을 가능하게 합니다. "
+":ref:`razor_tool_ref` 는 가이드 위치에서 미리보기 및 자르기를 수행합니다; 종료하려면 :kbd:`Esc` 를 누르세요."
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:114
@@ -397,10 +397,10 @@ msgid ""
 "boundaries."
 msgstr "플레이헤드에 마커를 추가하고 이전 또는 다음 마커/클립 경계로 이동합니다."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:117 ../main_window.rst:148
 msgid "Center on Playhead"
-msgstr "재생 헤드 중심으로"
+msgstr "재생 헤드를 중심으로 보기"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:118
@@ -434,7 +434,7 @@ msgstr "잠금 및 키프레임 패널 표시와 같은 트랙별 컨트롤입�
 msgid "Keyboard Shortcuts"
 msgstr "키보드 단축키"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:130
 msgid ""
 "Here is a list of the default keyboard shortcuts supported by OpenShot. You "
@@ -445,7 +445,7 @@ msgid ""
 msgstr ""
 "다음은 OpenShot에서 지원하는 기본 키보드 단축키 목록입니다. OpenShot 메뉴 바에서 :guilabel:` 편집→환경설정` 을"
 " 선택하여 환경설정 창에서 단축키를 설정할 수 있습니다. (macOS에서는 :guilabel:`OpenShot Video "
-"Editor→Preferences` 를 선택하세요.) 몇 가지 단축키를 익히면 많은 시간을 절약할 수 있습니다!"
+"Editor→환경설정` 를 선택하세요.) 몇 가지 단축키를 익히면 많은 시간을 절약할 수 있습니다!"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:140
@@ -468,7 +468,7 @@ msgid "Shortcut 3"
 msgstr "단축키 3"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:142 ../main_window.rst:277
+#: ../main_window.rst:142 ../main_window.rst:294
 msgid "About OpenShot"
 msgstr "OpenShot 정보"
 
@@ -532,7 +532,7 @@ msgstr "Shift+C"
 msgid ":kbd:`Alt+Up`"
 msgstr "Alt+위쪽 화살표"
 
-#: ../main_window.rst:149 ../main_window.rst:311
+#: ../main_window.rst:149 ../main_window.rst:329
 msgid "Color View"
 msgstr "컬러 뷰"
 
@@ -946,7 +946,7 @@ msgid ":kbd:`Alt+P`"
 msgstr ":kbd:`Alt+P`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:186 ../main_window.rst:221
+#: ../main_window.rst:186 ../main_window.rst:223
 msgid ":kbd:`Double Click`"
 msgstr ":kbd:` 더블 클릭`"
 
@@ -981,7 +981,7 @@ msgid ":kbd:`Alt+Left`"
 msgstr ":kbd:`Alt+Left`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:189 ../main_window.rst:395
+#: ../main_window.rst:189 ../main_window.rst:413
 msgid "Properties"
 msgstr "속성"
 
@@ -1115,233 +1115,249 @@ msgstr "선택 해제"
 msgid ":kbd:`Ctrl+Shift+A`"
 msgstr ":kbd:`Ctrl+Shift+A`"
 
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:202 ../main_window.rst:304
+#: ../main_window.rst:202
+msgid "Share Feedback..."
+msgstr "피드백 공유..."
+
+#: ../main_window.rst:202
+msgid ":kbd:`F8`"
+msgstr ":kbd:`F8`"
+
+# Main-window terminology review, 2026-09-26.
+#: ../main_window.rst:203 ../main_window.rst:322
 msgid "Simple View"
-msgstr "간단한 보기"
+msgstr "간단 보기"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:202
+#: ../main_window.rst:203
 msgid ":kbd:`Alt+Shift+0`"
 msgstr ":kbd:`Alt+Shift+0`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:203
+#: ../main_window.rst:204
 msgid "Slice All: Keep Both Sides"
 msgstr "전체 자르기: 양쪽 유지"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:203
+#: ../main_window.rst:204
 msgid ":kbd:`Ctrl+Shift+K`"
 msgstr ":kbd:`Ctrl+Shift+K`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:204
+#: ../main_window.rst:205
 msgid "Slice All: Keep Left Side"
 msgstr "전체 자르기: 왼쪽 유지"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:204
+#: ../main_window.rst:205
 msgid ":kbd:`Ctrl+Shift+J`"
 msgstr ":kbd:`Ctrl+Shift+J`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:205
+#: ../main_window.rst:206
 msgid "Slice All: Keep Right Side"
 msgstr "전체 자르기: 오른쪽 유지"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:205
+#: ../main_window.rst:206
 msgid ":kbd:`Ctrl+Shift+L`"
 msgstr ":kbd:`Ctrl+Shift+L`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:206
+#: ../main_window.rst:207
 msgid "Slice Selected: Keep Both Sides"
 msgstr "선택 자르기: 양쪽 유지"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:206
+#: ../main_window.rst:207
 msgid ":kbd:`Ctrl+K`"
 msgstr ":kbd:`Ctrl+K`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:207
+#: ../main_window.rst:208
 msgid "Slice Selected: Keep Left Side"
 msgstr "선택 자르기: 왼쪽 유지"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:207
+#: ../main_window.rst:208
 msgid ":kbd:`Ctrl+J`"
 msgstr ":kbd:`Ctrl+J`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:208
+#: ../main_window.rst:209
 msgid "Slice Selected: Keep Right Side"
 msgstr "선택 자르기: 오른쪽 유지"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:208
+#: ../main_window.rst:209
 msgid ":kbd:`Ctrl+L`"
 msgstr ":kbd:`Ctrl+L`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:209
+#: ../main_window.rst:210
 msgid "Slice Selected: Keep Left (Ripple)"
 msgstr "선택 자르기: 왼쪽 유지 (리플)"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:209
+#: ../main_window.rst:210
 msgid ":kbd:`W`"
 msgstr ":kbd:`W`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:210
+#: ../main_window.rst:211
 msgid "Slice Selected: Keep Right (Ripple)"
 msgstr "선택 자르기: 오른쪽 유지 (리플)"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:210
+#: ../main_window.rst:211
 msgid ":kbd:`Q`"
 msgstr ":kbd:`Q`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:211
+#: ../main_window.rst:212
 msgid "Snapping Toggle"
 msgstr "스냅 토글"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:211
+#: ../main_window.rst:212
 msgid ":kbd:`S`"
 msgstr ":kbd:`S`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:212
+#: ../main_window.rst:213
 msgid "Split File"
 msgstr "파일 분할"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:212
+#: ../main_window.rst:213
 msgid ":kbd:`Alt+S`"
 msgstr ":kbd:`Alt+S`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:212
+#: ../main_window.rst:213
 msgid ":kbd:`Shift+Double Click`"
 msgstr ":kbd:`Shift+더블 클릭`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:213
+#: ../main_window.rst:214
 msgid "Thumbnail View"
 msgstr "썸네일 보기"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:213
+#: ../main_window.rst:214
 msgid ":kbd:`Ctrl+Page Down`"
 msgstr ":kbd:`Ctrl+Page Down`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:214
+#: ../main_window.rst:215
 msgid "Timing Toggle"
 msgstr "타이밍 전환"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:214
+#: ../main_window.rst:215
 msgid ":kbd:`T`"
 msgstr ":kbd:`T`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:215 ../main_window.rst:255
+#: ../main_window.rst:216 ../main_window.rst:257
 msgid "Title"
 msgstr "제목"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:215
+#: ../main_window.rst:216
 msgid ":kbd:`Ctrl+T`"
 msgstr ":kbd:`Ctrl+T`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:216
+#: ../main_window.rst:217
 msgid "Translate this Application..."
 msgstr "이 응용 프로그램 번역하기..."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:216
+#: ../main_window.rst:217
 msgid ":kbd:`F6`"
 msgstr ":kbd:`F6`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:217
+#: ../main_window.rst:218
 msgid "Undo"
 msgstr "실행 취소"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:217
+#: ../main_window.rst:218
 msgid ":kbd:`Ctrl+Z`"
 msgstr ":kbd:`Ctrl+Z`"
 
+#: ../main_window.rst:219
+msgid "Update Available"
+msgstr "업데이트 가능"
+
+#: ../main_window.rst:219
+msgid ":kbd:`F9`"
+msgstr ":kbd:`F9`"
+
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:218
+#: ../main_window.rst:220
 msgid "View Toolbar"
 msgstr "도구 모음 보기"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:218
+#: ../main_window.rst:220
 msgid ":kbd:`Ctrl+Shift+B`"
 msgstr ":kbd:`Ctrl+Shift+B`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:219
+#: ../main_window.rst:221
 msgid "Zoom In"
 msgstr "확대"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:219
+#: ../main_window.rst:221
 msgid ":kbd:`=`"
 msgstr ":kbd:`=`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:219
+#: ../main_window.rst:221
 msgid ":kbd:`Ctrl+=`"
 msgstr ":kbd:`Ctrl+=`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:220
+#: ../main_window.rst:222
 msgid "Zoom Out"
 msgstr "축소"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:220
+#: ../main_window.rst:222
 msgid ":kbd:`-`"
 msgstr ":kbd:`-`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:220
+#: ../main_window.rst:222
 msgid ":kbd:`Ctrl+-`"
 msgstr ":kbd:`Ctrl+-`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:221
+#: ../main_window.rst:223
 msgid "Zoom to Timeline"
 msgstr "타임라인에 맞게 확대"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:221
+#: ../main_window.rst:223
 msgid ":kbd:`\\\\`"
 msgstr ":kbd:`\\\\`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:221
+#: ../main_window.rst:223
 msgid ":kbd:`Shift+\\\\`"
 msgstr ":kbd:`Shift+\\\\`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:225
+#: ../main_window.rst:227
 msgid "Menu"
 msgstr "메뉴"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:226
+#: ../main_window.rst:228
 msgid ""
 "The following menu options are available on the main window on OpenShot. "
 "Most of these options can be accessed by the keyboard shortcuts mentioned "
@@ -1352,49 +1368,49 @@ msgstr ""
 "일부 운영 체제(예: macOS)에서는 몇몇 옵션이 이름이 변경되거나 재배치될 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:234
+#: ../main_window.rst:236
 msgid "Menu Name"
 msgstr "메뉴 이름"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:236
+#: ../main_window.rst:238
 msgid "File"
 msgstr "파일"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:238
+#: ../main_window.rst:240
 msgid ":guilabel:`New Project` Create a blank new project."
 msgstr ":guilabel:` 새 프로젝트` 빈 새 프로젝트를 만듭니다."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:239
+#: ../main_window.rst:241
 msgid ":guilabel:`Open Project` Open an existing project."
 msgstr ":guilabel:` 프로젝트 열기` 기존 프로젝트를 엽니다."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:240
+#: ../main_window.rst:242
 msgid ":guilabel:`Recent Projects` Access recently opened projects."
 msgstr ":guilabel:` 최근 프로젝트` 최근에 연 프로젝트에 접근합니다."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:241
+#: ../main_window.rst:243
 msgid ""
 ":guilabel:`Recovery` Restore a previously saved version of your current "
 "project."
 msgstr ":guilabel:` 복구` 현재 프로젝트의 이전 저장 버전을 복원합니다."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:242
+#: ../main_window.rst:244
 msgid ":guilabel:`Save Project` Save the current project."
 msgstr ":guilabel:` 프로젝트 저장` 현재 프로젝트를 저장합니다."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:243
+#: ../main_window.rst:245
 msgid ":guilabel:`Import Files` Import media files into the project."
 msgstr ":guilabel:` 파일 가져오기` 미디어 파일을 프로젝트로 가져옵니다."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:244
+#: ../main_window.rst:246
 msgid ""
 ":guilabel:`Choose Profile` Select a project profile (*i.e. 1080p @ 30fps, "
 "720p @ 24fps, ...*)."
@@ -1402,7 +1418,7 @@ msgstr ""
 ":guilabel:` 프로필 선택` 프로젝트 프로필을 선택합니다 (*예: 1080p @ 30fps, 720p @ 24fps 등*)."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:245
+#: ../main_window.rst:247
 msgid ""
 ":guilabel:`Save Current Frame` Save the current preview video frame as an "
 "image (sometimes represented with a camera icon)."
@@ -1410,7 +1426,7 @@ msgstr ""
 ":guilabel:` 현재 프레임 저장` 현재 미리보기 비디오 프레임을 이미지로 저장합니다 (종종 카메라 아이콘으로 표시됨)."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:246
+#: ../main_window.rst:248
 msgid ""
 ":guilabel:`Import Project` Import another project into the current project "
 "(*Adobe and Final Cut Pro formats partially supported*)."
@@ -1419,7 +1435,7 @@ msgstr ""
 " 지원*)."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:247
+#: ../main_window.rst:249
 msgid ""
 ":guilabel:`Export Project` Export the current project to a specified format "
 "(*EDL, Adobe, and Final Cut Pro formats partially supported*)."
@@ -1428,27 +1444,27 @@ msgstr ""
 "형식 일부 지원*)."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:248
+#: ../main_window.rst:250
 msgid ":guilabel:`Quit` Exit the application."
 msgstr ":guilabel:` 종료` 응용 프로그램을 종료합니다."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:249
+#: ../main_window.rst:251
 msgid "Edit"
 msgstr "편집"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:251
+#: ../main_window.rst:253
 msgid ":guilabel:`Undo` Undo the last action."
 msgstr ":guilabel:` 실행 취소` 마지막 작업을 실행 취소합니다."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:252
+#: ../main_window.rst:254
 msgid ":guilabel:`Redo` Redo the last undone action."
 msgstr ":guilabel:` 다시 실행` 마지막에 실행 취소한 작업을 다시 실행합니다."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:253
+#: ../main_window.rst:255
 msgid ""
 ":guilabel:`Clear` Clear the current history or waveform cached data. This "
 "makes the `.osp project` file a much smaller file size."
@@ -1456,14 +1472,14 @@ msgstr ""
 ":guilabel:` 지우기` 현재 기록 또는 파형 캐시 데이터를 지웁니다. 이로 인해 `.osp 프로젝트` 파일 크기가 훨씬 "
 "작아집니다."
 
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:254
+# Main-window terminology review, 2026-09-26.
+#: ../main_window.rst:256
 msgid ""
 ":guilabel:`Preferences` Open the preferences dialog to customize settings."
-msgstr ":guilabel:` 환경 설정` 설정을 사용자 지정하기 위한 환경 설정 대화 상자를 엽니다."
+msgstr ":guilabel:`환경설정` 설정을 사용자 지정하기 위한 환경 설정 대화 상자를 엽니다."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:257
+#: ../main_window.rst:259
 msgid ""
 ":guilabel:`Title` Add a SVG vector title to the project. See "
 ":ref:`text_and_titles_ref`."
@@ -1471,7 +1487,7 @@ msgstr ""
 ":guilabel:` 제목` 프로젝트에 SVG 벡터 제목을 추가합니다. :ref:`text_and_titles_ref` 를 참조하세요."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:258
+#: ../main_window.rst:260
 msgid ""
 ":guilabel:`Animated Title` Add an animated title to the project. See "
 ":ref:`animated_titles_ref`."
@@ -1480,18 +1496,18 @@ msgstr ""
 "참조하세요."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:259
+#: ../main_window.rst:261
 msgid "View"
 msgstr "보기"
 
-#: ../main_window.rst:261
+# Main-window terminology review, 2026-09-26.
+#: ../main_window.rst:263
 msgid ""
 ":guilabel:`Simple View` and :guilabel:`Color View` switch or reset the main "
 "window layout."
-msgstr ""
-":guilabel:`Simple View` 와 :guilabel:`Color View` 는 메인 창 레이아웃을 전환하거나 재설정합니다."
+msgstr ":guilabel:`간단 보기` 와 :guilabel:`Color View` 는 메인 창 레이아웃을 전환하거나 재설정합니다."
 
-#: ../main_window.rst:262
+#: ../main_window.rst:264
 msgid ""
 ":guilabel:`My Views` Save, load, update, and delete your own named layouts. "
 "See :ref:`my_views_ref`."
@@ -1499,84 +1515,123 @@ msgstr ""
 ":guilabel:`My Views` 는 사용자가 지정한 레이아웃을 저장, 불러오기, 업데이트 및 삭제할 수 있습니다. 자세한 내용은 "
 ":ref:`my_views_ref` 를 참조하세요."
 
-#: ../main_window.rst:263
+#: ../main_window.rst:265
 msgid ":guilabel:`Docks` Show or hide various dockable panels."
 msgstr ":guilabel:`Docks` 는 다양한 도킹 가능한 패널을 표시하거나 숨깁니다."
 
-#: ../main_window.rst:264
+#: ../main_window.rst:266
 msgid ""
 ":guilabel:`Scopes` Show or hide scope docks, or open all scopes at once."
 msgstr ":guilabel:`Scopes` 는 스코프 도크를 표시하거나 숨기거나, 모든 스코프를 한 번에 엽니다."
 
-#: ../main_window.rst:265
+#: ../main_window.rst:267
 msgid ""
 ":guilabel:`Window` Show or hide the main window toolbar, or toggle "
 "fullscreen mode."
 msgstr ":guilabel:`Window` 는 메인 창 도구 모음을 표시하거나 숨기거나 전체 화면 모드를 전환합니다."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:266
+#: ../main_window.rst:268
 msgid "Help"
 msgstr "도움말"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:268
+#: ../main_window.rst:270
 msgid ":guilabel:`Contents` Open the user guide online."
 msgstr ":guilabel:` 목차` 온라인 사용자 가이드를 엽니다."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:269
+#: ../main_window.rst:271
 msgid ":guilabel:`Tutorial` Access the built-in tutorial for new users."
 msgstr ":guilabel:` 튜토리얼` 신규 사용자를 위한 내장 튜토리얼에 접근합니다."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:270
+#: ../main_window.rst:272
 msgid ":guilabel:`Report a Bug` Report a bug or issue."
 msgstr ":guilabel:` 버그 신고` 버그나 문제를 신고합니다."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:271
+#: ../main_window.rst:273
 msgid ":guilabel:`Ask a Question` Ask a question about the software."
 msgstr ":guilabel:` 질문하기` 소프트웨어에 관한 질문을 합니다."
 
+#: ../main_window.rst:274
+msgid ""
+":guilabel:`Share Feedback` Open a survey about your experience with "
+"OpenShot."
+msgstr ":guilabel:`피드백 공유` OpenShot 사용 경험에 대한 설문조사를 엽니다."
+
+#: ../main_window.rst:275
+msgid ""
+":guilabel:`Update Available` Open the download page when a newer version is "
+"available."
+msgstr ":guilabel:`업데이트 가능` 새 버전이 있을 때 다운로드 페이지를 엽니다."
+
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:272
+#: ../main_window.rst:276
 msgid ":guilabel:`Translate` Contribute to translations of the software."
 msgstr ":guilabel:` 번역` 소프트웨어 번역에 기여합니다."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:273
+#: ../main_window.rst:277
 msgid ":guilabel:`Donate` Make a donation to support the project."
 msgstr ":guilabel:` 기부` 프로젝트 지원을 위한 기부를 합니다."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:274
+#: ../main_window.rst:278
 msgid ""
 ":guilabel:`About` View information about the software (version, "
 "contributors, translators, changelog, and supporters)."
 msgstr ":guilabel:` 정보` 소프트웨어 정보(버전, 기여자, 번역가, 변경 로그, 후원자)를 봅니다."
 
-#: ../main_window.rst:278
+#: ../main_window.rst:281
+msgid "Notifications"
+msgstr "알림"
+
+#: ../main_window.rst:283
+msgid ""
+"OpenShot may show a notice near the top of the window when a newer version "
+"is available. Choose :guilabel:`Upgrade` to open the download page, or close"
+" the notice to hide it for that version. You can still open the download "
+"page from :guilabel:`Help → Update Available` or press :kbd:`F9` when an "
+"update is available."
+msgstr ""
+"새 버전이 있을 때 OpenShot은 창 상단 근처에 알림을 표시할 수 있습니다. 다운로드 페이지를 열려면 "
+":guilabel:`업그레이드` 를 선택하거나, 해당 버전에 대한 알림을 숨기려면 닫으세요. 업데이트가 있을 때 "
+":guilabel:`도움말 → 업데이트 가능` 에서도 다운로드 페이지를 열거나 :kbd:`F9` 를 누를 수 있습니다."
+
+#: ../main_window.rst:288
+msgid ""
+"After you have spent some time editing, OpenShot may also invite you to "
+"share feedback. The survey is optional. You can open it from the notice or "
+"dismiss the invitation. At any time, choose :guilabel:`Help → Share "
+"Feedback` or press :kbd:`F8` to share your thoughts."
+msgstr ""
+"일정 시간 편집한 후 OpenShot이 피드백 공유를 요청할 수 있습니다. 설문조사는 선택 사항입니다. 알림에서 열거나 초대를 거절할 수"
+" 있습니다. 언제든지 :guilabel:`도움말 → 피드백 공유` 를 선택하거나 :kbd:`F8` 을 눌러 의견을 공유하세요."
+
+#: ../main_window.rst:295
 msgid ""
 "Use :guilabel:`Help→About OpenShot` to check your OpenShot version. Click "
 ":guilabel:`Copy` next to the version number to copy a short version and "
-"system details report, which is the preferred way to share this information "
-"when reporting a bug or asking for help."
+"system details report, including how OpenShot was installed. This is a "
+"useful way to share the information when reporting a bug or asking for help."
 msgstr ""
-":guilabel:`Help→About OpenShot` 을 사용하여 OpenShot 버전을 확인하세요. 버전 번호 옆의 "
-":guilabel:`Copy` 를 클릭하면 간단한 버전 및 시스템 정보 보고서를 복사할 수 있으며, 버그 신고나 도움 요청 시 이 정보를"
-" 공유하는 것이 권장됩니다."
+":guilabel:`도움말→OpenShot 정보` 를 사용하여 OpenShot 버전을 확인하세요. 버전 번호 옆의 "
+":guilabel:`복사` 를 클릭하면 OpenShot 설치 방법을 포함한 간단한 버전 및 시스템 정보 보고서를 복사할 수 있습니다. "
+"버그를 보고하거나 도움을 요청할 때 유용한 정보 공유 방법입니다."
 
-#: ../main_window.rst:283
+#: ../main_window.rst:300
 msgid "Example output:"
 msgstr "예시 출력:"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:297
+#: ../main_window.rst:315
 msgid "Views"
 msgstr "보기"
 
-#: ../main_window.rst:299
+# Main-window terminology review, 2026-09-26.
+#: ../main_window.rst:317
 msgid ""
 "The OpenShot main window is composed of multiple **docks**. These **docks** "
 "are arranged and snapped together into a grouping that we call a **View**. "
@@ -1584,10 +1639,11 @@ msgid ""
 ":guilabel:`My Views` (user-defined layouts)."
 msgstr ""
 "OpenShot 메인 창은 여러 개의 **도크**로 구성되어 있습니다. 이 **도크**들은 함께 배열되고 스냅되어 **뷰(View)** "
-"라는 그룹으로 구성됩니다. OpenShot에는 :guilabel:`Simple View`, :guilabel:`Color View`, "
-"그리고 :guilabel:`My Views` (사용자 정의 레이아웃)가 포함되어 있습니다."
+"라는 그룹으로 구성됩니다. OpenShot에는 :guilabel:`간단 보기`, :guilabel:`Color View`, 그리고 "
+":guilabel:`My Views` (사용자 정의 레이아웃)가 포함되어 있습니다."
 
-#: ../main_window.rst:305
+# Main-window terminology review, 2026-09-26.
+#: ../main_window.rst:323
 msgid ""
 "This is the **default** view, and is designed to be easy-to-use, especially "
 "for first-time users. It contains :guilabel:`Project Files` on the top left,"
@@ -1599,9 +1655,9 @@ msgstr ""
 "이것은 **기본** 뷰이며, 특히 처음 사용하는 사용자를 위해 사용하기 쉽게 설계되었습니다. 왼쪽 상단에 "
 ":guilabel:`Project Files`, 오른쪽 상단에 :guilabel:`Preview Window`, 하단에 "
 ":guilabel:`Timeline` 이 포함되어 있습니다. 도크를 실수로 닫거나 이동했을 경우, 화면 상단의 "
-":guilabel:`View->Simple View` 메뉴를 사용하여 모든 도크를 기본 위치로 빠르게 재설정할 수 있습니다."
+":guilabel:`View->간단 보기` 메뉴를 사용하여 모든 도크를 기본 위치로 빠르게 재설정할 수 있습니다."
 
-#: ../main_window.rst:312
+#: ../main_window.rst:330
 msgid ""
 "This view is focused on color correction and scopes. It enlarges the video "
 "preview, hides file-management docks, keeps the timeline and properties "
@@ -1613,11 +1669,13 @@ msgstr ""
 "유지합니다. :guilabel:`Color Wheels` 도크를 오른쪽에 배치하고, 그 아래에 :guilabel:`Luma "
 "Waveform` 과 :guilabel:`Histogram` 도크를 탭으로 묶습니다."
 
-#: ../main_window.rst:317
+# Main-window terminology review, 2026-09-26.
+#: ../main_window.rst:335
 msgid "Recording View"
-msgstr "녹화 뷰"
+msgstr "녹음/녹화 보기"
 
-#: ../main_window.rst:318
+# Main-window terminology review, 2026-09-26.
+#: ../main_window.rst:336
 msgid ""
 "This view is focused on creating new recordings inside OpenShot. It shows "
 ":guilabel:`Project Files`, :guilabel:`Video Preview`, :guilabel:`Timeline`, "
@@ -1626,11 +1684,12 @@ msgid ""
 ":guilabel:`View->Docks->Properties` without disrupting the recording layout."
 msgstr ""
 "이 뷰는 OpenShot 내에서 새 녹화를 만드는 데 중점을 둡니다. :guilabel:`Project Files`, "
-":guilabel:`Video Preview`, :guilabel:`Timeline`, 그리고 :guilabel:`Recording` "
-"도크를 표시합니다. :guilabel:`Properties` 도크는 :guilabel:`Project Files` 와 탭으로 그룹화되어 "
-"있어, 녹화 레이아웃을 방해하지 않고 :guilabel:`View->Docks->Properties` 에서 표시할 수 있습니다."
+":guilabel:`Video Preview`, :guilabel:`Timeline`, 그리고 :guilabel:`녹음/녹화` 도크를 "
+"표시합니다. :guilabel:`Properties` 도크는 :guilabel:`Project Files` 와 탭으로 그룹화되어 있어, "
+"녹화 레이아웃을 방해하지 않고 :guilabel:`View->Docks->Properties` 에서 표시할 수 있습니다."
 
-#: ../main_window.rst:323
+# Main-window terminology review, 2026-09-26.
+#: ../main_window.rst:341
 msgid ""
 "The :guilabel:`Recording` dock can record microphone audio, screen capture, "
 "webcam video, or combinations of those sources. When screen and webcam are "
@@ -1644,19 +1703,19 @@ msgid ""
 "details. See :ref:`recording_ref` for the complete recording workflow and "
 "all source options."
 msgstr ""
-":guilabel:`Recording` 도크는 마이크 오디오, 화면 캡처, 웹캠 비디오 또는 이들 소스의 조합을 녹화할 수 있습니다. "
-"화면과 웹캠을 함께 녹화할 때, OpenShot은 웹캠을 코너의 PIP(그림 속 그림) 클립으로 배치할 수 있습니다. 이 코너 카메라 "
-"클립은 타임라인에 추가된 후 일반 클립 속성을 사용합니다: :guilabel:`Gravity` 는 코너를 선택하고, "
+":guilabel:`녹음/녹화` 도크는 마이크 오디오, 화면 캡처, 웹캠 비디오 또는 이들 소스의 조합을 녹화할 수 있습니다. 화면과 "
+"웹캠을 함께 녹화할 때, OpenShot은 웹캠을 코너의 PIP(그림 속 그림) 클립으로 배치할 수 있습니다. 이 코너 카메라 클립은 "
+"타임라인에 추가된 후 일반 클립 속성을 사용합니다: :guilabel:`Gravity` 는 코너를 선택하고, "
 ":guilabel:`Scale X` 와 :guilabel:`Scale Y` 는 코너 크기를 설정하며, :guilabel:`Margin` "
 "은 카메라를 화면 가장자리에서 떨어뜨리는 삽입 레이아웃 영역을 만들고, :guilabel:`Corner Radius` 는 별도의 마스크 "
 "효과 없이 카메라 클립을 둥글게 만듭니다. 자세한 내용은 :ref:`clip_properties_ref` 를 참조하세요. 전체 녹화 "
 "워크플로우와 모든 소스 옵션은 :ref:`recording_ref` 를 참조하세요."
 
-#: ../main_window.rst:334
+#: ../main_window.rst:352
 msgid "My Views"
 msgstr "내 뷰"
 
-#: ../main_window.rst:335
+#: ../main_window.rst:353
 msgid ""
 "**My Views** lets you save any dock arrangement as a named layout and recall"
 " it instantly. This is ideal for workflows that require switching between "
@@ -1668,7 +1727,7 @@ msgstr ""
 " 전환이 필요한 워크플로우에 이상적입니다 — 예를 들어, 상세한 오디오 믹스 레이아웃과 집중된 색상 보정 레이아웃을 매번 도크를 수동으로"
 " 재배치하지 않고 전환할 수 있습니다."
 
-#: ../main_window.rst:339
+#: ../main_window.rst:357
 msgid ""
 "Each saved view captures the position, size, and visibility of every dock, "
 "as well as the timeline height. Saved views are stored in your project "
@@ -1677,56 +1736,56 @@ msgstr ""
 "저장된 각 뷰는 모든 도크의 위치, 크기, 가시성뿐만 아니라 타임라인 높이도 저장합니다. 저장된 뷰는 프로젝트 설정에 저장되며 세션 간에"
 " 유지됩니다."
 
-#: ../main_window.rst:342
+#: ../main_window.rst:360
 msgid "**View → My Views** menu options:"
 msgstr "**View → My Views** 메뉴 옵션:"
 
-#: ../main_window.rst:348
+#: ../main_window.rst:366
 msgid "Menu Item"
 msgstr "메뉴 항목"
 
-#: ../main_window.rst:350
+#: ../main_window.rst:368
 msgid "List of user-defined views"
 msgstr "사용자 정의 뷰 목록"
 
-#: ../main_window.rst:351
+#: ../main_window.rst:369
 msgid ""
 "Click to restore that layout. The currently active view shows a checkmark."
 msgstr "클릭하여 해당 레이아웃을 복원합니다. 현재 활성화된 뷰에는 체크 표시가 있습니다."
 
-#: ../main_window.rst:352
+#: ../main_window.rst:370
 msgid "Update \"*[name]*\""
 msgstr "\"*[name]*\" 업데이트"
 
-#: ../main_window.rst:353
+#: ../main_window.rst:371
 msgid "Save your current dock arrangement over the active view, replacing it."
 msgstr "현재 도크 배열을 활성 뷰에 저장하여 덮어씁니다."
 
-#: ../main_window.rst:354
+#: ../main_window.rst:372
 msgid "Delete \"*[name]*\""
 msgstr "\"*[name]*\" 삭제"
 
-#: ../main_window.rst:355
+#: ../main_window.rst:373
 msgid "Remove the active view (asks for confirmation first)."
 msgstr "활성 뷰를 제거합니다 (먼저 확인을 요청합니다)."
 
-#: ../main_window.rst:356
+#: ../main_window.rst:374
 msgid "Save Current View As..."
 msgstr "현재 뷰를 다른 이름으로 저장..."
 
-#: ../main_window.rst:357
+#: ../main_window.rst:375
 msgid "Name and save your current dock arrangement as a new view."
 msgstr "현재 도크 배열에 이름을 지정하고 새 뷰로 저장합니다."
 
-#: ../main_window.rst:359
+#: ../main_window.rst:377
 msgid "**Typical workflow:**"
 msgstr "**일반적인 작업 흐름:**"
 
-#: ../main_window.rst:361
+#: ../main_window.rst:379
 msgid "Arrange your docks exactly how you like them."
 msgstr "도크를 원하는 대로 정확히 배치하세요."
 
-#: ../main_window.rst:362
+#: ../main_window.rst:380
 msgid ""
 "Open :guilabel:`View → My Views → Save Current View As...` and enter a name "
 "(e.g. *\"Audio Mix\"*)."
@@ -1734,24 +1793,24 @@ msgstr ""
 ":guilabel:`View → My Views → Save Current View As...` 를 열고 이름을 입력하세요 (예: "
 "*\"Audio Mix\"*)."
 
-#: ../main_window.rst:363
+#: ../main_window.rst:381
 msgid ""
 "Later, open :guilabel:`View → My Views` and click the view name to restore "
 "that layout instantly."
 msgstr "나중에 :guilabel:`View → My Views` 를 열고 뷰 이름을 클릭하여 해당 레이아웃을 즉시 복원하세요."
 
-#: ../main_window.rst:364
+#: ../main_window.rst:382
 msgid ""
 "If you adjust the layout and want to keep the changes, choose "
 ":guilabel:`Update \"Audio Mix\"` to overwrite it."
 msgstr "레이아웃을 조정하고 변경 사항을 유지하려면 :guilabel:`Update \"Audio Mix\"` 를 선택하여 덮어쓰세요."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:367
+#: ../main_window.rst:385
 msgid "Docks"
 msgstr "도크"
 
-#: ../main_window.rst:368
+#: ../main_window.rst:386
 msgid ""
 "Each widget on the OpenShot main window is contained in a **dock**. These "
 "docks can be dragged and snapped around the main window, and even grouped "
@@ -1766,17 +1825,17 @@ msgstr ""
 ":guilabel:`View->Scopes` 아래에 그룹화되어 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:377
+#: ../main_window.rst:395
 msgid "Dock Name"
 msgstr "도크 이름"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:379
+#: ../main_window.rst:397
 msgid "Captions"
 msgstr "자막"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:380
+#: ../main_window.rst:398
 msgid ""
 "Manage and add captions or subtitles to your video project. Allows you to "
 "create, edit, and manage caption data. See :ref:`caption_effect_ref` effect."
@@ -1785,12 +1844,12 @@ msgstr ""
 ":ref:`caption_effect_ref` 효과를 참조하세요."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:381
+#: ../main_window.rst:399
 msgid "Effects"
 msgstr "효과"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:382
+#: ../main_window.rst:400
 msgid ""
 "Browse and apply video and audio effects to your video clips. Includes "
 "filters, color adjustments, and special effects. See :ref:`effects_ref`."
@@ -1798,55 +1857,55 @@ msgstr ""
 "비디오 클립에 비디오 및 오디오 효과를 찾아보고 적용합니다. 필터, 색상 조정 및 특수 효과가 포함되어 있습니다. "
 ":ref:`effects_ref` 를 참조하세요."
 
-#: ../main_window.rst:383
+#: ../main_window.rst:401
 msgid "Color Wheels"
 msgstr "컬러 휠"
 
-#: ../main_window.rst:384
+#: ../main_window.rst:402
 msgid ""
 "Edit Color Grade wheel controls for global, shadows, midtones, and "
 "highlights from a dedicated right-side dock."
 msgstr "전용 오른쪽 도크에서 글로벌, 그림자, 중간 톤, 하이라이트에 대한 컬러 그레이드 휠 컨트롤을 편집합니다."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:385
+#: ../main_window.rst:403
 msgid "Emojis"
 msgstr "이모지"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:386
+#: ../main_window.rst:404
 msgid ""
 "Add emoji graphics to your video project. Choose from a variety of emojis to"
 " enhance your video content."
 msgstr "비디오 프로젝트에 이모지 그래픽을 추가합니다. 다양한 이모지 중에서 선택하여 비디오 콘텐츠를 향상시킬 수 있습니다."
 
-#: ../main_window.rst:387
+#: ../main_window.rst:405
 msgid "Histogram"
 msgstr "히스토그램"
 
-#: ../main_window.rst:388
+#: ../main_window.rst:406
 msgid ""
 "Analyze the tonal and channel distribution of the current preview frame."
 msgstr "현재 미리보기 프레임의 톤 및 채널 분포를 분석합니다."
 
-#: ../main_window.rst:389
+#: ../main_window.rst:407
 msgid "Luma Waveform"
 msgstr "루마 웨이브폼"
 
-#: ../main_window.rst:390
+#: ../main_window.rst:408
 msgid "Analyze brightness distribution across the current preview frame."
 msgstr "현재 미리보기 프레임 전체의 밝기 분포를 분석합니다."
 
-#: ../main_window.rst:391
+#: ../main_window.rst:409
 msgid "Audio Levels"
 msgstr "오디오 레벨"
 
-#: ../main_window.rst:392
+#: ../main_window.rst:410
 msgid "Monitor audio level scope data for the current preview frame."
 msgstr "현재 미리보기 프레임의 오디오 레벨 스코프 데이터를 모니터링합니다."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:394
+#: ../main_window.rst:412
 msgid ""
 "View and manage all the media files imported into your project. Organize, "
 "filter, and tag video, audio, and image files. See :ref:`files_ref`."
@@ -1855,7 +1914,7 @@ msgstr ""
 ":ref:`files_ref` 를 참조하세요."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:396
+#: ../main_window.rst:414
 msgid ""
 "View and edit the properties of a selected effect, transition, or clip. "
 "Adjust settings such as duration, size, position, etc... See "
@@ -1864,11 +1923,12 @@ msgstr ""
 "선택한 효과, 전환 또는 클립의 속성을 보고 편집합니다. 지속 시간, 크기, 위치 등의 설정을 조정할 수 있습니다. "
 ":ref:`clip_properties_ref` 를 참조하세요."
 
-#: ../main_window.rst:397
+# Main-window terminology review, 2026-09-26.
+#: ../main_window.rst:415
 msgid "Recording"
-msgstr "녹화"
+msgstr "녹음/녹화"
 
-#: ../main_window.rst:398
+#: ../main_window.rst:416
 msgid ""
 "Record microphone audio, screen video, webcam video, or combined recordings."
 " See :ref:`recording_ref`."
@@ -1877,12 +1937,12 @@ msgstr ""
 "참조하세요."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:399
+#: ../main_window.rst:417
 msgid "Transitions"
 msgstr "전환"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:400
+#: ../main_window.rst:418
 msgid ""
 "Browse and apply transitions between video clips. Choose from a variety of "
 "transition wipes to create smooth changes between scenes. See "
@@ -1892,12 +1952,12 @@ msgstr ""
 ":ref:`transitions_ref` 를 참조하세요."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:401
+#: ../main_window.rst:419
 msgid "Video Preview"
 msgstr "비디오 미리보기"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:402
+#: ../main_window.rst:420
 msgid ""
 "Preview the current state of your video project. Allows you to play back and"
 " review your edits in real-time. See :ref:`playback_ref`."
@@ -1905,7 +1965,8 @@ msgstr ""
 "비디오 프로젝트의 현재 상태를 미리 봅니다. 실시간으로 편집 내용을 재생하고 검토할 수 있습니다. :ref:`playback_ref` 를"
 " 참조하세요."
 
-#: ../main_window.rst:404
+# Main-window terminology review, 2026-09-26.
+#: ../main_window.rst:422
 msgid ""
 "If you have accidentally closed or moved a dock and can no longer find it, "
 "there are a couple easy solutions. First, you can use the "
@@ -1915,8 +1976,26 @@ msgid ""
 "the main window."
 msgstr ""
 "실수로 도크를 닫거나 이동하여 더 이상 찾을 수 없는 경우, 몇 가지 간단한 해결책이 있습니다. 먼저 화면 상단의 "
-":guilabel:`View->Simple View` 메뉴 옵션을 사용하여 보기를 기본값으로 복원할 수 있습니다. 또는 "
+":guilabel:`View->간단 보기` 메뉴 옵션을 사용하여 보기를 기본값으로 복원할 수 있습니다. 또는 "
 ":guilabel:`View->Docks->...` 메뉴를 사용하여 메인 창에서 특정 도크 위젯을 표시하거나 숨길 수 있습니다."
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "Snapping toggles magnetic alignment. Timing Tool enables retiming by "
+#~ "dragging clip edges. Razor Tool cuts clips at the clicked position."
+#~ msgstr ""
+#~ "스냅은 자석 정렬을 전환합니다. 타이밍 도구는 클립 가장자리를 드래그하여 리타임을 가능하게 합니다. 레이저 도구는 클릭한 위치에서 클립을"
+#~ " 자릅니다."
+
+#~ msgid ""
+#~ "Use :guilabel:`Help→About OpenShot` to check your OpenShot version. Click "
+#~ ":guilabel:`Copy` next to the version number to copy a short version and "
+#~ "system details report, which is the preferred way to share this information "
+#~ "when reporting a bug or asking for help."
+#~ msgstr ""
+#~ ":guilabel:`Help→About OpenShot` 을 사용하여 OpenShot 버전을 확인하세요. 버전 번호 옆의 "
+#~ ":guilabel:`Copy` 를 클릭하면 간단한 버전 및 시스템 정보 보고서를 복사할 수 있으며, 버그 신고나 도움 요청 시 이 정보를"
+#~ " 공유하는 것이 권장됩니다."
 
 # Translated with gpt-4.1-mini
 #~ msgid ""
