@@ -199,10 +199,9 @@ class NotificationTests(unittest.TestCase):
         window.show()
         self.app.processEvents()
         self.assertEqual(banner.cursor().shape(), Qt.PointingHandCursor)
-        self.assertTrue(banner.message.testAttribute(Qt.WA_TransparentForMouseEvents))
-        self.assertIn("QFrame#notificationBanner:hover", banner.styleSheet())
         for child in (banner.message, banner.symbol):
-            self.assertIs(QApplication.widgetAt(child.mapToGlobal(child.rect().center())), banner)
+            self.assertTrue(child.testAttribute(Qt.WA_TransparentForMouseEvents))
+        self.assertIn("QFrame#notificationBanner:hover", banner.styleSheet())
         for point in (banner.rect().center(), banner.message.geometry().center(),
                       banner.symbol.geometry().center()):
             QTest.mouseClick(banner, Qt.LeftButton, pos=point)
@@ -212,3 +211,18 @@ class NotificationTests(unittest.TestCase):
         dismiss.assert_called_once()
         self.assertEqual(action.call_count, 4)
         window.close()
+
+    def test_banner_children_hit_test_to_banner(self):
+        # The minimal platform has no window-system hit testing. Keep the
+        # click/dismiss behavior covered there by the separate test above.
+        if QApplication.platformName() == "minimal":
+            self.skipTest("Qt minimal does not support global widget hit testing")
+        window = self.make_window()
+        self.addCleanup(window.close)
+        banner = NotificationBanner(window, "Your feedback matters", "Share feedback",
+                                    Mock(), Mock(), str, icon_name="feedback")
+        notification_area(window).add("feedback", banner)
+        window.show()
+        self.app.processEvents()
+        for child in (banner.message, banner.symbol):
+            self.assertIs(QApplication.widgetAt(child.mapToGlobal(child.rect().center())), banner)
