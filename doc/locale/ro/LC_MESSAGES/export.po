@@ -39,7 +39,7 @@ msgstr ""
 "web (cum ar fi YouTube, Vimeo, Facebook) și creează un fișier video formatat"
 " ``MP4 (h.264 + AAC)``. Vezi :ref:`profiles_mp4_h264_ref`."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../export.rst:28
 msgid ""
 "Click on the :guilabel:`Export Video` icon at the top of the screen (or use "
@@ -48,11 +48,11 @@ msgid ""
 "You can also create your own custom export profiles, see "
 ":ref:`profiles_ref`."
 msgstr ""
-"Apasă pe pictograma :guilabel:`Export Video` din partea de sus a ecranului "
-"(sau folosește meniul :guilabel:`File→Export Video`). Valorile implicite "
-"funcționează bine, așa că doar apasă butonul :guilabel:`Export Video` pentru"
-" a genera noul videoclip. Poți, de asemenea, să creezi propriile profiluri "
-"de export personalizate, vezi :ref:`profiles_ref`."
+"Apasă pe pictograma :guilabel:`Exportă video` din partea de sus a ecranului "
+"(sau folosește meniul :guilabel:`File→Exportă video`). Valorile implicite "
+"funcționează bine, așa că doar apasă butonul :guilabel:`Exportă video` "
+"pentru a genera noul videoclip. Poți, de asemenea, să creezi propriile "
+"profiluri de export personalizate, vezi :ref:`profiles_ref`."
 
 # Translated with gpt-4.1-mini
 #: ../export.rst:33

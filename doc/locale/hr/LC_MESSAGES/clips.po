@@ -1372,13 +1372,14 @@ msgstr ""
 "**Ubrzani prikaz** — :guilabel:`Ubrzaj → 8×` ili :guilabel:`16×` za "
 "sažimanje sati u sekunde."
 
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:342
 msgid ""
 "**Speed ramp** — use the :guilabel:`Timing` tool to drag clip edges and "
 "create a natural-feeling speed change; OpenShot scales all keyframes "
 "automatically."
 msgstr ""
-"**Promjena brzine** — koristite alat :guilabel:`Vremensko podešavanje` za "
+"**Promjena brzine** — koristite alat :guilabel:`Promjena brzine` za "
 "povlačenje rubova isječka i stvaranje prirodnog osjećaja promjene brzine; "
 "OpenShot automatski skalira sve ključne kadrove."
 
@@ -1572,12 +1573,12 @@ msgstr ""
 "reprodukciju, **bez brisanja vaših izvornim ključnih okvira koji nisu vezani"
 " uz vrijeme**."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:391
 msgid "Timing Tool"
-msgstr "Alat za vremensko podešavanje"
+msgstr "Alat za promjenu brzine"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:392
 msgid ""
 "Another way to change a clip's speed is with the :guilabel:`Timing` tool on "
@@ -1586,11 +1587,11 @@ msgid ""
 "All keyframes on the clip and its effects are scaled so their relative "
 "positions remain intact."
 msgstr ""
-"Drugi način za promjenu brzine isječka je pomoću alata :guilabel:`Timing` na"
-" alatnoj traci vremenske linije. Omogućite ikonu sata i povucite rubove "
-"isječka. Produženje isječka usporava reprodukciju, dok njegovo skraćivanje "
-"ubrzava isječak. Sve ključne slike na isječku i njegovim efektima skaliraju "
-"se tako da njihovi relativni položaji ostanu netaknuti."
+"Drugi način za promjenu brzine isječka je pomoću alata :guilabel:`Promjena "
+"brzine` na alatnoj traci vremenske linije. Omogućite ikonu sata i povucite "
+"rubove isječka. Produženje isječka usporava reprodukciju, dok njegovo "
+"skraćivanje ubrzava isječak. Sve ključne slike na isječku i njegovim "
+"efektima skaliraju se tako da njihovi relativni položaji ostanu netaknuti."
 
 #: ../clips.rst:398
 msgid ""
@@ -4418,6 +4419,7 @@ msgstr ""
 "**Savjet:** Koristite svojstvo \"Start\" u kombinaciji sa svojstvom \"End\" "
 "za precizno rezanje isječka."
 
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:1026
 msgid ""
 "The :guilabel:`Time` property is a key-frame curve that represents frames "
@@ -4438,9 +4440,9 @@ msgstr ""
 "isječak i odabirom izbornika :guilabel:`Speed`. Mnogi predlošci dostupni su "
 "u ovom izborniku za obrtanje, ubrzavanje i usporavanje video isječka, "
 "pogledajte :ref:`clip_presets_ref`. Iste prilagodbe mogu se napraviti "
-"interaktivno pomoću gumba :guilabel:`Timing` na alatnoj traci povlačenjem "
-"rubova isječka; OpenShot automatski dodaje potrebne vremenske ključne okvire"
-" i skalira sve ostale ključne okvire."
+"interaktivno pomoću gumba :guilabel:`Promjena brzine` na alatnoj traci "
+"povlačenjem rubova isječka; OpenShot automatski dodaje potrebne vremenske "
+"ključne okvire i skalira sve ostale ključne okvire."
 
 # Translated with gpt-4.1-mini
 #: ../clips.rst:1033

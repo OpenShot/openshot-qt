@@ -1367,15 +1367,16 @@ msgstr ""
 "**Poklatkowe** — :guilabel:`Przyspiesz → 8×` lub :guilabel:`16×`, aby "
 "skompresować godziny do sekund."
 
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:342
 msgid ""
 "**Speed ramp** — use the :guilabel:`Timing` tool to drag clip edges and "
 "create a natural-feeling speed change; OpenShot scales all keyframes "
 "automatically."
 msgstr ""
-"**Zmiana prędkości** — użyj narzędzia :guilabel:`Timing`, aby przeciągać "
-"krawędzie klipu i tworzyć naturalne zmiany prędkości; OpenShot automatycznie"
-" skaluje wszystkie klatki kluczowe."
+"**Zmiana prędkości** — użyj narzędzia :guilabel:`Zmiana prędkości`, aby "
+"przeciągać krawędzie klipu i tworzyć naturalne zmiany prędkości; OpenShot "
+"automatycznie skaluje wszystkie klatki kluczowe."
 
 #: ../clips.rst:343
 msgid ""
@@ -1566,12 +1567,12 @@ msgstr ""
 "czasu (w tym Powtórzenia) i przywraca klip do oryginalnego odtwarzania, "
 "**nie usuwając oryginalnych kluczowych klatek niezwiązanych z czasem**."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:391
 msgid "Timing Tool"
-msgstr "Narzędzie Czasu"
+msgstr "Narzędzie zmiany prędkości"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:392
 msgid ""
 "Another way to change a clip's speed is with the :guilabel:`Timing` tool on "
@@ -1581,8 +1582,8 @@ msgid ""
 "positions remain intact."
 msgstr ""
 "Innym sposobem na zmianę prędkości klipu jest użycie narzędzia "
-":guilabel:`Timing` na pasku narzędzi osi czasu. Włącz ikonę zegara i "
-"przeciągnij krawędzie klipu. Wydłużenie klipu spowalnia odtwarzanie, a "
+":guilabel:`Zmiana prędkości` na pasku narzędzi osi czasu. Włącz ikonę zegara"
+" i przeciągnij krawędzie klipu. Wydłużenie klipu spowalnia odtwarzanie, a "
 "skrócenie przyspiesza klip. Wszystkie klatki kluczowe na klipie i jego "
 "efektach są skalowane, aby ich względne pozycje pozostały nienaruszone."
 
@@ -4421,6 +4422,7 @@ msgstr ""
 "**Wskazówka:** Wykorzystaj właściwość „Start” w połączeniu z właściwością "
 "„End” do precyzyjnego przycinania klipu."
 
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:1026
 msgid ""
 "The :guilabel:`Time` property is a key-frame curve that represents frames "
@@ -4441,9 +4443,9 @@ msgstr ""
 " na klip i wybierając menu :guilabel:`Prędkość`. W tym menu dostępnych jest "
 "wiele presetów do odwracania, przyspieszania i zwalniania klipu wideo, "
 "zobacz :ref:`clip_presets_ref`. Te same ustawienia można wykonać "
-"interaktywnie za pomocą przycisku paska narzędzi :guilabel:`Czas`, "
-"przeciągając krawędzie klipu; OpenShot automatycznie dodaje niezbędne "
-"kluczowe klatki czasu i skaluje wszystkie inne kluczowe klatki."
+"interaktywnie za pomocą przycisku paska narzędzi :guilabel:`Zmiana "
+"prędkości`, przeciągając krawędzie klipu; OpenShot automatycznie dodaje "
+"niezbędne kluczowe klatki czasu i skaluje wszystkie inne kluczowe klatki."
 
 # Translated with gpt-4.1-mini
 #: ../clips.rst:1033

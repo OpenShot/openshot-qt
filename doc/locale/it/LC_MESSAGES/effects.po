@@ -246,6 +246,7 @@ msgstr ""
 "anteprima per spostare l'area interessata, ridimensionare le maniglie o "
 "disegnare un nuovo rettangolo all'interno della clip."
 
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:89
 msgid ""
 "The same preview rectangle can be used to position Caption text. Select a "
@@ -253,9 +254,9 @@ msgid ""
 " to adjust the Caption margins."
 msgstr ""
 "Lo stesso rettangolo di anteprima può essere usato per posizionare il testo "
-"della didascalia. Seleziona un effetto Caption, quindi sposta o ridimensiona"
-" il rettangolo bianco nell'anteprima video per regolare i margini della "
-"didascalia."
+"del sottotitolo. Seleziona un effetto Caption, quindi sposta o ridimensiona "
+"il rettangolo bianco nell'anteprima video per regolare i margini del "
+"sottotitolo."
 
 # Translated with gpt-4.1-mini
 #: ../effects.rst:92
@@ -446,20 +447,20 @@ msgstr "Modifica la luminosità e il contrasto del fotogramma."
 msgid "|caption_icon|"
 msgstr "|caption_icon|"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:133
 msgid "Caption Icon"
-msgstr "Icona Didascalia"
+msgstr "Icona Sottotitolo"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:290 ../effects.rst:674
 msgid "Caption"
-msgstr "Didascalia"
+msgstr "Sottotitolo"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:290
 msgid "Add text captions to any clip."
-msgstr "Aggiungi didascalie di testo a qualsiasi clip."
+msgstr "Aggiungi sottotitoli di testo a qualsiasi clip."
 
 # Translated with gpt-4.1-mini
 #: ../effects.rst:291
@@ -1918,13 +1919,14 @@ msgstr ""
 "**Clip per podcast e voiceover**: Mostra una forma d'onda o un VU meter "
 "mentre un oratore parla, specialmente per media solo audio."
 
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:504
 msgid ""
 "**Lyric and karaoke videos**: Combine captions or titles with reactive audio"
 " visuals behind or around the text."
 msgstr ""
-"**Video con testi e karaoke**: Combina didascalie o titoli con visual audio "
-"reattivi dietro o intorno al testo."
+"**Video con testi e karaoke**: Combina sottotitoli o titoli con visual audio"
+" reattivi dietro o intorno al testo."
 
 #: ../effects.rst:505
 msgid ""
@@ -2604,7 +2606,7 @@ msgstr ""
 "``(float, da 0 a 100)`` La curva per regolare il contrasto (3 è tipico, 20 è"
 " molto, 100 è il massimo. 0 non è valido)"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:675
 msgid ""
 "Add text captions on top of your video. We support both VTT (WebVTT) and "
@@ -2617,17 +2619,18 @@ msgid ""
 "quickly insert captions at the playhead position, or edit all your caption "
 "text in one place."
 msgstr ""
-"Aggiungi didascalie di testo sopra il tuo video. Supportiamo entrambi i "
+"Aggiungi sottotitoli di testo sopra il tuo video. Supportiamo entrambi i "
 "formati di file sottotitoli VTT (WebVTT) e SubRip (SRT). Questi formati sono"
-" usati per visualizzare didascalie o sottotitoli nei video. Permettono di "
-"aggiungere sottotitoli basati su testo al contenuto video, rendendolo più "
-"accessibile a un pubblico più ampio, specialmente per chi è sordo o ha "
-"problemi di udito. L'effetto Didascalia può anche animare il testo con "
-"dissolvenza in entrata/uscita, e supporta qualsiasi font, dimensione, colore"
-" e margine. OpenShot ha inoltre un editor di didascalie facile da usare, "
-"dove puoi inserire rapidamente didascalie alla posizione del cursore di "
-"riproduzione o modificare tutto il testo delle didascalie in un unico posto."
+" usati per visualizzare sottotitoli nei video. Permettono di aggiungere "
+"sottotitoli basati su testo al contenuto video, rendendolo più accessibile a"
+" un pubblico più ampio, specialmente per chi è sordo o ha problemi di udito."
+" L'effetto Sottotitolo può anche animare il testo con dissolvenza in "
+"entrata/uscita, e supporta qualsiasi font, dimensione, colore e margine. "
+"OpenShot ha inoltre un editor di sottotitoli facile da usare, dove puoi "
+"inserire rapidamente sottotitoli alla posizione del cursore di riproduzione "
+"o modificare tutto il testo deli sottotitoli in un unico posto."
 
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:682
 msgid ""
 "The Caption editor's insert button (the plus icon) creates a complete "
@@ -2635,13 +2638,14 @@ msgid ""
 "duration when possible, and selects the placeholder caption text so you can "
 "start typing immediately. Caption text updates are previewed while you type."
 msgstr ""
-"Il pulsante di inserimento dell'editor di didascalie (l'icona più) crea un "
-"segnale di didascalia completo nella posizione corrente del cursore di "
+"Il pulsante di inserimento dell'editor di sottotitoli (l'icona più) crea un "
+"segnale di sottotitolo completo nella posizione corrente del cursore di "
 "riproduzione, usando una durata predefinita di tre secondi quando possibile,"
-" e seleziona il testo segnaposto della didascalia così puoi iniziare a "
-"digitare immediatamente. Gli aggiornamenti del testo della didascalia sono "
+" e seleziona il testo segnaposto del sottotitolo così puoi iniziare a "
+"digitare immediatamente. Gli aggiornamenti del testo del sottotitolo sono "
 "visualizzati in anteprima mentre digiti."
 
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:686
 msgid ""
 "To set a caption's end time from the playhead, remove the existing end "
@@ -2650,17 +2654,17 @@ msgid ""
 "timestamp line, and press the plus icon again. OpenShot inserts the current "
 "playhead timestamp as the cue's end time."
 msgstr ""
-"Per impostare l'ora di fine di una didascalia dal cursore di riproduzione, "
+"Per impostare l'ora di fine di un sottotitolo dal cursore di riproduzione, "
 "rimuovere il timestamp di fine esistente dalla linea del cue, lasciando il "
 "timestamp di inizio e la freccia. Spostare il cursore di riproduzione "
 "all'ora di fine desiderata, posizionare il cursore di testo su quella linea "
 "di timestamp incompleta e premere di nuovo l'icona più. OpenShot inserirà il"
 " timestamp corrente del cursore come ora di fine del cue."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:703
 msgid "``(color)`` Color of caption area background"
-msgstr "``(colore)`` Colore dello sfondo dell'area didascalia"
+msgstr "``(colore)`` Colore dello sfondo dell'area sottotitolo"
 
 # Translated with gpt-4.1-mini
 #: ../effects.rst:704 ../effects.rst:1461 ../effects.rst:1683
@@ -2709,15 +2713,16 @@ msgstr "``(font)`` Nome del font o della famiglia di font"
 msgid "caption_text"
 msgstr "testo_didascalia"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:708
 msgid "``(caption)`` VTT/Subrip formatted caption text (multi-line)"
-msgstr "``(didascalia)`` Testo didascalia formattato VTT/Subrip (multi-linea)"
+msgstr ""
+"``(sottotitolo)`` Testo sottotitolo formattato VTT/Subrip (multi-linea)"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:709
 msgid "``(color)`` Color of caption text"
-msgstr "``(colore)`` Colore del testo della didascalia"
+msgstr "``(colore)`` Colore del testo del sottotitolo"
 
 #: ../effects.rst:710
 msgid "``(float, 0 to 1)`` Size of bottom margin"
@@ -2728,11 +2733,11 @@ msgstr "``(float, 0 a 1)`` Dimensione del margine inferiore"
 msgid "fade_in"
 msgstr "dissolvenza_in_entrata"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:711
 msgid "``(float, 0 to 3)`` Fade in per caption (# of seconds)"
 msgstr ""
-"``(float, da 0 a 3)`` Dissolvenza in entrata per didascalia (numero di "
+"``(float, da 0 a 3)`` Dissolvenza in entrata per sottotitolo (numero di "
 "secondi)"
 
 # Translated with gpt-4.1-mini
@@ -2740,11 +2745,11 @@ msgstr ""
 msgid "fade_out"
 msgstr "dissolvenza_in_uscita"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:712
 msgid "``(float, 0 to 3)`` Fade out per caption (# of seconds)"
 msgstr ""
-"``(float, da 0 a 3)`` Dissolvenza in uscita per didascalia (numero di "
+"``(float, da 0 a 3)`` Dissolvenza in uscita per sottotitolo (numero di "
 "secondi)"
 
 # Translated with gpt-4.1-mini

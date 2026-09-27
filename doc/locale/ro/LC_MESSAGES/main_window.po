@@ -432,10 +432,10 @@ msgstr ""
 "Adaugă un marcator la capul de redare și sari la marcatorul anterior sau "
 "următor/limitele clipului."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:117 ../main_window.rst:148
 msgid "Center on Playhead"
-msgstr "Centrează pe Capul de Redare"
+msgstr "Centrează pe cursorul de redare"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:118
@@ -918,10 +918,10 @@ msgstr "Deplasează la dreapta (5 cadre)"
 msgid ":kbd:`Shift+Ctrl+Right`"
 msgstr ":kbd:`Shift+Ctrl+Right`"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:181
 msgid "Open Help Contents"
-msgstr "Deschide conținutul ajutorului"
+msgstr "Deschide cuprinsul ajutorului"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:181
@@ -1291,10 +1291,10 @@ msgstr "Vizualizare miniaturi"
 msgid ":kbd:`Ctrl+Page Down`"
 msgstr ":kbd:`Ctrl+Page Down`"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:215
 msgid "Timing Toggle"
-msgstr "Comutare Timp"
+msgstr "Comută modificarea vitezei"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:215
@@ -1474,22 +1474,22 @@ msgstr ""
 ":guilabel:`Salvează Cadru Curent` Salvează cadrul video curent din "
 "previzualizare ca imagine (uneori reprezentat cu o pictogramă de cameră)."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:248
 msgid ""
 ":guilabel:`Import Project` Import another project into the current project "
 "(*Adobe and Final Cut Pro formats partially supported*)."
 msgstr ""
-":guilabel:`Importă Proiect` Importă un alt proiect în proiectul curent "
+":guilabel:`Importă proiectul` Importă un alt proiect în proiectul curent "
 "(*formatele Adobe și Final Cut Pro sunt parțial suportate*)."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:249
 msgid ""
 ":guilabel:`Export Project` Export the current project to a specified format "
 "(*EDL, Adobe, and Final Cut Pro formats partially supported*)."
 msgstr ""
-":guilabel:`Exportă Proiect` Exportă proiectul curent într-un format "
+":guilabel:`Exportă proiectul` Exportă proiectul curent într-un format "
 "specificat (*formatele EDL, Adobe și Final Cut Pro sunt parțial suportate*)."
 
 # Translated with gpt-4.1-mini

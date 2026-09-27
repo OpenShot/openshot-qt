@@ -52,14 +52,14 @@ msgstr ""
 "का संग्रह है। प्रोफ़ाइल्स का उपयोग संपादन, पूर्वावलोकन, और निर्यात के दौरान "
 "इन सेटिंग्स के सामान्य संयोजनों के बीच जल्दी स्विच करने के लिए किया जाता है।"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../profiles.rst:29
 msgid ""
 "If you often use the same profile, you can set a default profile: "
 ":guilabel:`Edit→Preferences→Preview`."
 msgstr ""
 "यदि आप अक्सर एक ही प्रोफ़ाइल का उपयोग करते हैं, तो आप एक डिफ़ॉल्ट प्रोफ़ाइल "
-"सेट कर सकते हैं: :guilabel:`संपादित करें→प्राथमिकताएँ→पूर्वावलोकन`।"
+"सेट कर सकते हैं: :guilabel:`संपादित करें→पसंदें→पूर्वावलोकन`।"
 
 # Translated with gpt-4.1-mini
 #: ../profiles.rst:33

@@ -3512,13 +3512,14 @@ msgstr ""
 "**Esempio d'uso:** Arrotondare gli angoli di una registrazione camera "
 "picture-in-picture senza aggiungere un effetto maschera separato."
 
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:797
 msgid ""
 "**Usage Example:** In :guilabel:`Recording View`, corner webcam clips use "
 "this property for the :guilabel:`Corners` setting."
 msgstr ""
-"**Esempio d'uso:** In :guilabel:`Recording View`, le clip webcam agli angoli"
-" usano questa proprietà per l'impostazione :guilabel:`Corners`."
+"**Esempio d'uso:** In :guilabel:`Vista registrazione`, le clip webcam agli "
+"angoli usano questa proprietà per l'impostazione :guilabel:`Corners`."
 
 #: ../clips.rst:798
 msgid ""
@@ -3984,13 +3985,15 @@ msgstr ""
 "**Esempio d'uso:** Creare layout di area sicura, spaziatura split-screen o "
 "picture-in-picture senza aggiungere effetti Crop o Mask."
 
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:911
 msgid ""
 "**Usage Example:** In :guilabel:`Recording View`, screen-plus-camera "
 "recordings use this property to inset the corner webcam clip."
 msgstr ""
-"**Esempio d'uso:** In :guilabel:`Recording View`, le registrazioni schermo "
-"più camera usano questa proprietà per inserire la clip webcam angolare."
+"**Esempio d'uso:** In :guilabel:`Vista registrazione`, le registrazioni "
+"schermo più camera usano questa proprietà per inserire la clip webcam "
+"angolare."
 
 #: ../clips.rst:912
 msgid ""

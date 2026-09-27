@@ -406,6 +406,7 @@ msgstr "Poništi ili ponovi svoje najnovije izmjene na vremenskoj liniji."
 msgid "Snap, Retime, Razor"
 msgstr "Poravnanje, Promjena vremena, Žilet"
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:112
 msgid ""
 "Snapping toggles magnetic alignment. Timing Tool enables retiming by "
@@ -413,8 +414,8 @@ msgid ""
 "guide position; press :kbd:`Esc` to exit."
 msgstr ""
 "Poravnanje na magnet uključuje se isključivanjem/uključivanjem. Alat za "
-"vremensko podešavanje omogućuje promjenu trajanja povlačenjem rubova "
-"isječka. :ref:`razor_tool_ref` prikazuje pregled i reže na poziciji vodiča; "
+"promjenu brzine omogućuje promjenu trajanja povlačenjem rubova isječka. "
+":ref:`razor_tool_ref` prikazuje pregled i reže na poziciji vodiča; "
 "pritisnite :kbd:`Esc` za izlaz."
 
 # Translated with gpt-4.1-mini
@@ -1289,10 +1290,10 @@ msgstr "Prikaz sličica"
 msgid ":kbd:`Ctrl+Page Down`"
 msgstr ":kbd:`Ctrl+Page Down`"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:215
 msgid "Timing Toggle"
-msgstr "Prekidač vremena"
+msgstr "Uključi/isključi promjenu brzine"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:215

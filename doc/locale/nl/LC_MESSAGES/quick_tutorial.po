@@ -71,10 +71,10 @@ msgstr ""
 "Een **project** bevat verwijzingen naar alle videobestanden en bewerkingen "
 "(animaties, titels, enzovoort), opgeslagen in één bestand."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../quick_tutorial.rst:41
 msgid "Timeline"
-msgstr "Tijdlijn"
+msgstr "Tijdbalk"
 
 # Translated with gpt-4.1-mini
 #: ../quick_tutorial.rst:41

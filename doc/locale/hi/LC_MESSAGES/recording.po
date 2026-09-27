@@ -477,6 +477,7 @@ msgstr ""
 "एक या दो इनपुट चैनल रिकॉर्ड करता है। एक माइक्रोफोन के लिए मोनो आमतौर पर सबसे"
 " अच्छा होता है।"
 
+# Main-window terminology review, 2026-09-26.
 #: ../recording.rst:160
 msgid ""
 "Aim for a healthy meter response without clipping. A quiet waveform should "
@@ -491,9 +492,9 @@ msgstr ""
 "दृश्य रूप से शांत रहना चाहिए; OpenShot अब हर नए उत्पन्न वेवफ़ॉर्म को पूर्ण "
 "ऊंचाई पर सामान्यीकृत नहीं करता। हल्का पीक एनवेलप ट्रांज़िएंट्स को उजागर करता"
 " है जबकि ठोस RMS एनवेलप स्थायी ऊर्जा को सारांशित करता है। उनका विवरण "
-":guilabel:`Edit → Preferences → Timeline → Waveform Samples (per second)` "
-"द्वारा नियंत्रित होता है। रिकॉर्डिंग के बाद वेवफ़ॉर्म प्रदर्शन और ऑडियो "
-"वॉल्यूम नियंत्रण के लिए :ref:`clip_presets_ref` देखें।"
+":guilabel:`Edit → पसंदें → Timeline → Waveform Samples (per second)` द्वारा "
+"नियंत्रित होता है। रिकॉर्डिंग के बाद वेवफ़ॉर्म प्रदर्शन और ऑडियो वॉल्यूम "
+"नियंत्रण के लिए :ref:`clip_presets_ref` देखें।"
 
 #: ../recording.rst:167
 msgid "Screen Recording"

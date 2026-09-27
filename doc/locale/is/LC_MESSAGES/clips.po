@@ -1700,13 +1700,14 @@ msgstr ""
 "handvirka litastillingu með lyftu/gamma/aukningu hjólum, kúrfum og "
 "blöndunarrúllu fyrir magn/luma."
 
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:435
 msgid ""
 ":guilabel:`Analyze Colors` — opens the :guilabel:`Luma Waveform` and "
 ":guilabel:`Histogram` video scopes on the right side of the window, tabified"
 " together."
 msgstr ""
-":guilabel:`Greina liti` — opnar :guilabel:`Luma bylgjulaga` og "
+":guilabel:`Greina liti` — opnar :guilabel:`Luma-bylgjuform` og "
 ":guilabel:`Dreifirit` myndmæla á hægri hlið gluggans, flipað saman."
 
 #: ../clips.rst:438

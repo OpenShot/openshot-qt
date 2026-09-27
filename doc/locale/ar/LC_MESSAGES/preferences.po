@@ -288,10 +288,10 @@ msgstr ""
 "للتراجع عن التغييرات والعودة إلى الإعدادات الافتراضية لتلك الفئة المحددة دون"
 " التأثير على إعداداتك العامة."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../preferences.rst:99
 msgid "Timeline"
-msgstr "الجدول الزمني"
+msgstr "شريط الوقت"
 
 #: ../preferences.rst:103
 msgid ""
@@ -576,7 +576,7 @@ msgstr ""
 "``~/.openshot_qt/recovery/`` أو "
 "``C:\\Users\\USERNAME\\.openshot_qt\\recovery``."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../preferences.rst:172
 msgid ""
 "To recover a corrupt or broken ``*.osp`` project file, use the "
@@ -591,7 +591,7 @@ msgid ""
 "restore it."
 msgstr ""
 "لاسترداد ملف مشروع ``*.osp`` تالف أو مكسور، استخدم قائمة "
-":guilabel:`File->Recovery` في النافذة الرئيسية بعد فتح مشروعك. إذا كانت "
+":guilabel:`ملف->Recovery` في النافذة الرئيسية بعد فتح مشروعك. إذا كانت "
 "متوفرة، يتم سرد قائمة بإصدارات المشروع المطابقة من مجلد الاسترداد بترتيب "
 "زمني (الأحدث في الأعلى). سيقوم هذا تلقائيًا بإعادة تسمية ملف مشروعك الحالي "
 "إلى ``{project-name}-{time}-backup.osp``، واستبداله بملف مشروع الاسترداد. "

@@ -192,10 +192,10 @@ msgstr ""
 msgid "8"
 msgstr "8"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:44
 msgid "Timeline"
-msgstr "Tijdlijn"
+msgstr "Tijdbalk"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:44
@@ -1258,10 +1258,10 @@ msgstr "Geselecteerd snijden: rechts behouden (rimpeling)"
 msgid ":kbd:`Q`"
 msgstr ":kbd:`Q`"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:212
 msgid "Snapping Toggle"
-msgstr "Magnetisch vastzetten wisselen"
+msgstr "Vastklikken in-/uitschakelen"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:212
@@ -1717,6 +1717,7 @@ msgstr ""
 " OpenShot bevat :guilabel:`Eenvoudige weergave`, :guilabel:`Kleurweergave` "
 "en :guilabel:`Mijn weergaven` (door gebruikers gedefinieerde indelingen)."
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:323
 msgid ""
 "This is the **default** view, and is designed to be easy-to-use, especially "
@@ -1729,7 +1730,7 @@ msgstr ""
 "Dit is de **standaard** weergave en is ontworpen om gemakkelijk te gebruiken"
 " te zijn, vooral voor nieuwe gebruikers. Het bevat "
 ":guilabel:`Projectbestanden` linksboven, :guilabel:`Voorbeeldvenster` "
-"rechtsboven en :guilabel:`Tijdlijn` onderaan. Als u per ongeluk een dock "
+"rechtsboven en :guilabel:`Tijdbalk` onderaan. Als u per ongeluk een dock "
 "sluit of verplaatst, kunt u snel alle docks terugzetten naar hun "
 "standaardlocatie via het menu :guilabel:`Weergave->Eenvoudige weergave` "
 "bovenaan het scherm."
@@ -1752,6 +1753,7 @@ msgstr ""
 msgid "Recording View"
 msgstr "Opnameweergave"
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:336
 msgid ""
 "This view is focused on creating new recordings inside OpenShot. It shows "
@@ -1762,7 +1764,7 @@ msgid ""
 msgstr ""
 "Deze weergave is gericht op het maken van nieuwe opnames binnen OpenShot. "
 "Het toont :guilabel:`Projectbestanden`, :guilabel:`Videovoorvertoning`, "
-":guilabel:`Tijdlijn` en het :guilabel:`Opname`-dock. Het "
+":guilabel:`Tijdbalk` en het :guilabel:`Opname`-dock. Het "
 ":guilabel:`Eigenschappen`-dock is gegroepeerd met "
 ":guilabel:`Projectbestanden` als een tabblad, zodat u het kunt tonen via "
 ":guilabel:`Weergave->Docks->Eigenschappen` zonder de opname-indeling te "
@@ -1930,15 +1932,15 @@ msgstr "Docknaam"
 msgid "Captions"
 msgstr "Ondertitels"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:398
 msgid ""
 "Manage and add captions or subtitles to your video project. Allows you to "
 "create, edit, and manage caption data. See :ref:`caption_effect_ref` effect."
 msgstr ""
-"Beheer en voeg ondertitels of bijschriften toe aan uw videoproject. Hiermee "
-"kunt u bijschriftgegevens maken, bewerken en beheren. Zie "
-":ref:`caption_effect_ref` effect."
+"Beheer en voeg ondertitels toe aan uw videoproject. Hiermee kunt u "
+"ondertitelgegevens maken, bewerken en beheren. Zie :ref:`caption_effect_ref`"
+" effect."
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:399
@@ -1997,9 +1999,10 @@ msgstr "Luma-golfvorm"
 msgid "Analyze brightness distribution across the current preview frame."
 msgstr "Analyseer de helderheidsverdeling over het huidige voorbeeldframe."
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:409
 msgid "Audio Levels"
-msgstr "Audiovolumes"
+msgstr "Audioniveaus"
 
 #: ../main_window.rst:410
 msgid "Monitor audio level scope data for the current preview frame."

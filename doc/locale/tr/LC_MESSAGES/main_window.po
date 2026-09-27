@@ -429,10 +429,10 @@ msgstr ""
 "Oynatma kafasında işaretçi ekleyin ve önceki veya sonraki işaretçi/klip "
 "sınırlarına atlayın."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:117 ../main_window.rst:148
 msgid "Center on Playhead"
-msgstr "Oynatma Kafasına Ortala"
+msgstr "Oynatma kafasına ortala"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:118
@@ -1889,10 +1889,10 @@ msgstr ""
 "Düzeni değiştirdiyseniz ve değişiklikleri korumak istiyorsanız, üzerine "
 "yazmak için :guilabel:`\"Ses Karışımı\" öğesini Güncelle` seçeneğini seçin."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:385
 msgid "Docks"
-msgstr "Dock'lar"
+msgstr "Paneller"
 
 #: ../main_window.rst:386
 msgid ""
@@ -1920,13 +1920,13 @@ msgstr "Dock Adı"
 msgid "Captions"
 msgstr "Altyazılar"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:398
 msgid ""
 "Manage and add captions or subtitles to your video project. Allows you to "
 "create, edit, and manage caption data. See :ref:`caption_effect_ref` effect."
 msgstr ""
-"Video projenize altyazı veya başlık ekleyin ve yönetin. Altyazı verilerini "
+"Video projenize altyazı ekleyin ve yönetin. Altyazı verilerini "
 "oluşturmanıza, düzenlemenize ve yönetmenize olanak tanır. Bkz. "
 ":ref:`caption_effect_ref` efekti."
 
@@ -2059,6 +2059,7 @@ msgstr ""
 " olarak oynatmanıza ve gözden geçirmenize olanak tanır. Bkz. "
 ":ref:`playback_ref`."
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:422
 msgid ""
 "If you have accidentally closed or moved a dock and can no longer find it, "
@@ -2072,7 +2073,7 @@ msgstr ""
 "bulamıyorsanız, birkaç kolay çözüm vardır. Öncelikle, ekranın üstündeki "
 ":guilabel:`View->Simple View` menü seçeneğini kullanarak görünümü "
 "varsayılana döndürebilirsiniz. Ya da ana pencerede belirli dock "
-"widget'larını göstermek veya gizlemek için :guilabel:`View->Docks->...` "
+"widget'larını göstermek veya gizlemek için :guilabel:`View->Paneller->...` "
 "menüsünü kullanabilirsiniz."
 
 # Translated with gpt-4.1-mini

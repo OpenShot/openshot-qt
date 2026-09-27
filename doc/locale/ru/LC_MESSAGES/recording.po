@@ -476,6 +476,7 @@ msgstr ""
 "Записывает один или два входных канала. Моно обычно лучше для одного "
 "микрофона."
 
+# Main-window terminology review, 2026-09-26.
 #: ../recording.rst:160
 msgid ""
 "Aim for a healthy meter response without clipping. A quiet waveform should "
@@ -490,7 +491,7 @@ msgstr ""
 "должна оставаться визуально тихой; OpenShot больше не нормализует каждую "
 "новую волну до полной высоты. Светлая пиковая огибающая выделяет переходные "
 "процессы, а сплошная RMS-огибающая отражает устойчивую энергию. Их "
-"детализация регулируется в :guilabel:`Edit → Preferences → Timeline → "
+"детализация регулируется в :guilabel:`Edit → Preferences → Шкала времени → "
 "Waveform Samples (per second)`. См. :ref:`clip_presets_ref` для управления "
 "отображением волны и громкостью после записи."
 

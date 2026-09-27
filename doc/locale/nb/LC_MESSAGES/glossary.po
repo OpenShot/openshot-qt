@@ -2385,14 +2385,14 @@ msgstr ""
 msgid "Titling:"
 msgstr "Teksting:"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../glossary.rst:459
 msgid ""
 "Titling is the process or result of incorporating on-screen text as credits,"
 " captions, or any other alphanumeric communication."
 msgstr ""
 "Teksting er prosessen eller resultatet av å inkludere tekst på skjermen som "
-"kreditter, bildetekster eller annen alfanumerisk kommunikasjon."
+"kreditter, undertekster eller annen alfanumerisk kommunikasjon."
 
 # Translated with gpt-4.1-mini
 #: ../glossary.rst:460

@@ -397,10 +397,10 @@ msgid ""
 "boundaries."
 msgstr "플레이헤드에 마커를 추가하고 이전 또는 다음 마커/클립 경계로 이동합니다."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:117 ../main_window.rst:148
 msgid "Center on Playhead"
-msgstr "재생 헤드 중심으로"
+msgstr "재생 헤드를 중심으로 보기"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:118
@@ -434,7 +434,7 @@ msgstr "잠금 및 키프레임 패널 표시와 같은 트랙별 컨트롤입�
 msgid "Keyboard Shortcuts"
 msgstr "키보드 단축키"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:130
 msgid ""
 "Here is a list of the default keyboard shortcuts supported by OpenShot. You "
@@ -445,7 +445,7 @@ msgid ""
 msgstr ""
 "다음은 OpenShot에서 지원하는 기본 키보드 단축키 목록입니다. OpenShot 메뉴 바에서 :guilabel:` 편집→환경설정` 을"
 " 선택하여 환경설정 창에서 단축키를 설정할 수 있습니다. (macOS에서는 :guilabel:`OpenShot Video "
-"Editor→Preferences` 를 선택하세요.) 몇 가지 단축키를 익히면 많은 시간을 절약할 수 있습니다!"
+"Editor→환경설정` 를 선택하세요.) 몇 가지 단축키를 익히면 많은 시간을 절약할 수 있습니다!"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:140
@@ -1123,10 +1123,10 @@ msgstr "피드백 공유..."
 msgid ":kbd:`F8`"
 msgstr ":kbd:`F8`"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:203 ../main_window.rst:322
 msgid "Simple View"
-msgstr "간단한 보기"
+msgstr "간단 보기"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:203
@@ -1472,11 +1472,11 @@ msgstr ""
 ":guilabel:` 지우기` 현재 기록 또는 파형 캐시 데이터를 지웁니다. 이로 인해 `.osp 프로젝트` 파일 크기가 훨씬 "
 "작아집니다."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:256
 msgid ""
 ":guilabel:`Preferences` Open the preferences dialog to customize settings."
-msgstr ":guilabel:` 환경 설정` 설정을 사용자 지정하기 위한 환경 설정 대화 상자를 엽니다."
+msgstr ":guilabel:`환경설정` 설정을 사용자 지정하기 위한 환경 설정 대화 상자를 엽니다."
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:259
@@ -1500,12 +1500,12 @@ msgstr ""
 msgid "View"
 msgstr "보기"
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:263
 msgid ""
 ":guilabel:`Simple View` and :guilabel:`Color View` switch or reset the main "
 "window layout."
-msgstr ""
-":guilabel:`Simple View` 와 :guilabel:`Color View` 는 메인 창 레이아웃을 전환하거나 재설정합니다."
+msgstr ":guilabel:`간단 보기` 와 :guilabel:`Color View` 는 메인 창 레이아웃을 전환하거나 재설정합니다."
 
 #: ../main_window.rst:264
 msgid ""
@@ -1630,6 +1630,7 @@ msgstr "예시 출력:"
 msgid "Views"
 msgstr "보기"
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:317
 msgid ""
 "The OpenShot main window is composed of multiple **docks**. These **docks** "
@@ -1638,9 +1639,10 @@ msgid ""
 ":guilabel:`My Views` (user-defined layouts)."
 msgstr ""
 "OpenShot 메인 창은 여러 개의 **도크**로 구성되어 있습니다. 이 **도크**들은 함께 배열되고 스냅되어 **뷰(View)** "
-"라는 그룹으로 구성됩니다. OpenShot에는 :guilabel:`Simple View`, :guilabel:`Color View`, "
-"그리고 :guilabel:`My Views` (사용자 정의 레이아웃)가 포함되어 있습니다."
+"라는 그룹으로 구성됩니다. OpenShot에는 :guilabel:`간단 보기`, :guilabel:`Color View`, 그리고 "
+":guilabel:`My Views` (사용자 정의 레이아웃)가 포함되어 있습니다."
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:323
 msgid ""
 "This is the **default** view, and is designed to be easy-to-use, especially "
@@ -1653,7 +1655,7 @@ msgstr ""
 "이것은 **기본** 뷰이며, 특히 처음 사용하는 사용자를 위해 사용하기 쉽게 설계되었습니다. 왼쪽 상단에 "
 ":guilabel:`Project Files`, 오른쪽 상단에 :guilabel:`Preview Window`, 하단에 "
 ":guilabel:`Timeline` 이 포함되어 있습니다. 도크를 실수로 닫거나 이동했을 경우, 화면 상단의 "
-":guilabel:`View->Simple View` 메뉴를 사용하여 모든 도크를 기본 위치로 빠르게 재설정할 수 있습니다."
+":guilabel:`View->간단 보기` 메뉴를 사용하여 모든 도크를 기본 위치로 빠르게 재설정할 수 있습니다."
 
 #: ../main_window.rst:330
 msgid ""
@@ -1667,10 +1669,12 @@ msgstr ""
 "유지합니다. :guilabel:`Color Wheels` 도크를 오른쪽에 배치하고, 그 아래에 :guilabel:`Luma "
 "Waveform` 과 :guilabel:`Histogram` 도크를 탭으로 묶습니다."
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:335
 msgid "Recording View"
-msgstr "녹화 뷰"
+msgstr "녹음/녹화 보기"
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:336
 msgid ""
 "This view is focused on creating new recordings inside OpenShot. It shows "
@@ -1680,10 +1684,11 @@ msgid ""
 ":guilabel:`View->Docks->Properties` without disrupting the recording layout."
 msgstr ""
 "이 뷰는 OpenShot 내에서 새 녹화를 만드는 데 중점을 둡니다. :guilabel:`Project Files`, "
-":guilabel:`Video Preview`, :guilabel:`Timeline`, 그리고 :guilabel:`Recording` "
-"도크를 표시합니다. :guilabel:`Properties` 도크는 :guilabel:`Project Files` 와 탭으로 그룹화되어 "
-"있어, 녹화 레이아웃을 방해하지 않고 :guilabel:`View->Docks->Properties` 에서 표시할 수 있습니다."
+":guilabel:`Video Preview`, :guilabel:`Timeline`, 그리고 :guilabel:`녹음/녹화` 도크를 "
+"표시합니다. :guilabel:`Properties` 도크는 :guilabel:`Project Files` 와 탭으로 그룹화되어 있어, "
+"녹화 레이아웃을 방해하지 않고 :guilabel:`View->Docks->Properties` 에서 표시할 수 있습니다."
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:341
 msgid ""
 "The :guilabel:`Recording` dock can record microphone audio, screen capture, "
@@ -1698,9 +1703,9 @@ msgid ""
 "details. See :ref:`recording_ref` for the complete recording workflow and "
 "all source options."
 msgstr ""
-":guilabel:`Recording` 도크는 마이크 오디오, 화면 캡처, 웹캠 비디오 또는 이들 소스의 조합을 녹화할 수 있습니다. "
-"화면과 웹캠을 함께 녹화할 때, OpenShot은 웹캠을 코너의 PIP(그림 속 그림) 클립으로 배치할 수 있습니다. 이 코너 카메라 "
-"클립은 타임라인에 추가된 후 일반 클립 속성을 사용합니다: :guilabel:`Gravity` 는 코너를 선택하고, "
+":guilabel:`녹음/녹화` 도크는 마이크 오디오, 화면 캡처, 웹캠 비디오 또는 이들 소스의 조합을 녹화할 수 있습니다. 화면과 "
+"웹캠을 함께 녹화할 때, OpenShot은 웹캠을 코너의 PIP(그림 속 그림) 클립으로 배치할 수 있습니다. 이 코너 카메라 클립은 "
+"타임라인에 추가된 후 일반 클립 속성을 사용합니다: :guilabel:`Gravity` 는 코너를 선택하고, "
 ":guilabel:`Scale X` 와 :guilabel:`Scale Y` 는 코너 크기를 설정하며, :guilabel:`Margin` "
 "은 카메라를 화면 가장자리에서 떨어뜨리는 삽입 레이아웃 영역을 만들고, :guilabel:`Corner Radius` 는 별도의 마스크 "
 "효과 없이 카메라 클립을 둥글게 만듭니다. 자세한 내용은 :ref:`clip_properties_ref` 를 참조하세요. 전체 녹화 "
@@ -1918,9 +1923,10 @@ msgstr ""
 "선택한 효과, 전환 또는 클립의 속성을 보고 편집합니다. 지속 시간, 크기, 위치 등의 설정을 조정할 수 있습니다. "
 ":ref:`clip_properties_ref` 를 참조하세요."
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:415
 msgid "Recording"
-msgstr "녹화"
+msgstr "녹음/녹화"
 
 #: ../main_window.rst:416
 msgid ""
@@ -1959,6 +1965,7 @@ msgstr ""
 "비디오 프로젝트의 현재 상태를 미리 봅니다. 실시간으로 편집 내용을 재생하고 검토할 수 있습니다. :ref:`playback_ref` 를"
 " 참조하세요."
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:422
 msgid ""
 "If you have accidentally closed or moved a dock and can no longer find it, "
@@ -1969,7 +1976,7 @@ msgid ""
 "the main window."
 msgstr ""
 "실수로 도크를 닫거나 이동하여 더 이상 찾을 수 없는 경우, 몇 가지 간단한 해결책이 있습니다. 먼저 화면 상단의 "
-":guilabel:`View->Simple View` 메뉴 옵션을 사용하여 보기를 기본값으로 복원할 수 있습니다. 또는 "
+":guilabel:`View->간단 보기` 메뉴 옵션을 사용하여 보기를 기본값으로 복원할 수 있습니다. 또는 "
 ":guilabel:`View->Docks->...` 메뉴를 사용하여 메인 창에서 특정 도크 위젯을 표시하거나 숨길 수 있습니다."
 
 # Translated with gpt-4.1-mini

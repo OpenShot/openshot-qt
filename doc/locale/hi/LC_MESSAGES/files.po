@@ -102,23 +102,24 @@ msgstr "अपने फ़ाइल प्रबंधक (फ़ाइल ए�
 msgid "Context menu (`File Menu`_)"
 msgstr "संदर्भ मेनू (`फ़ाइल मेनू`_)"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../files.rst:51
 msgid ""
 "Right click anywhere in the **Project Files** panel and choose :guilabel:"
 "`Import Files`."
 msgstr ""
-"**प्रोजेक्ट फ़ाइलें** पैनल में कहीं भी राइट क्लिक करें और :guilabel:`Import Files` चुनें।"
+"**प्रोजेक्ट फ़ाइलें** पैनल में कहीं भी राइट क्लिक करें और :guilabel:`फ़ाइलें"
+" आयात करें` चुनें।"
 
 # Translated with gpt-4.1-mini
 #: ../files.rst:52
 msgid "Main Menu"
 msgstr "मुख्य मेनू"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../files.rst:52
 msgid "In the main menu choose: :guilabel:`File\\→Import Files`."
-msgstr "मुख्य मेनू में चुनें: :guilabel:`File\\→Import Files`।"
+msgstr "मुख्य मेनू में चुनें: :guilabel:`File\\→फ़ाइलें आयात करें`।"
 
 # Translated with gpt-4.1-mini
 #: ../files.rst:53

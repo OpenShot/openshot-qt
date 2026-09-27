@@ -185,10 +185,10 @@ msgstr ""
 msgid "8"
 msgstr "8"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:44
 msgid "Timeline"
-msgstr "الجدول الزمني"
+msgstr "شريط الوقت"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:44
@@ -421,10 +421,10 @@ msgstr ""
 "أضف علامة عند رأس التشغيل وانتقل إلى العلامة أو حدود المقطع السابقة أو "
 "التالية."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:117 ../main_window.rst:148
 msgid "Center on Playhead"
-msgstr "تمركز على رأس التشغيل"
+msgstr "توسيط على مؤشر التشغيل"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:118
@@ -1685,6 +1685,7 @@ msgstr ""
 "البسيط`، :guilabel:`عرض الألوان`، و :guilabel:`عروضي` (تخطيطات معرفة من "
 "المستخدم)."
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:323
 msgid ""
 "This is the **default** view, and is designed to be easy-to-use, especially "
@@ -1696,7 +1697,7 @@ msgid ""
 msgstr ""
 "هذا هو العرض **الافتراضي**، وهو مصمم ليكون سهل الاستخدام، خاصة للمستخدمين "
 "الجدد. يحتوي على :guilabel:`ملفات المشروع` في الأعلى يسار، و "
-":guilabel:`نافذة المعاينة` في الأعلى يمين، و :guilabel:`الجدول الزمني` في "
+":guilabel:`نافذة المعاينة` في الأعلى يمين، و :guilabel:`شريط الوقت` في "
 "الأسفل. إذا أغلقت أو حركت لوحة عن طريق الخطأ، يمكنك إعادة تعيين جميع الألواح"
 " إلى موقعها الافتراضي بسرعة باستخدام قائمة :guilabel:`عرض->العرض البسيط` في "
 "أعلى الشاشة."
@@ -1718,6 +1719,7 @@ msgstr ""
 msgid "Recording View"
 msgstr "عرض التسجيل"
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:336
 msgid ""
 "This view is focused on creating new recordings inside OpenShot. It shows "
@@ -1727,7 +1729,7 @@ msgid ""
 ":guilabel:`View->Docks->Properties` without disrupting the recording layout."
 msgstr ""
 "يركز هذا العرض على إنشاء تسجيلات جديدة داخل OpenShot. يعرض :guilabel:`ملفات "
-"المشروع`، :guilabel:`معاينة الفيديو`، :guilabel:`الجدول الزمني`، ولوحة "
+"المشروع`، :guilabel:`معاينة الفيديو`، :guilabel:`شريط الوقت`، ولوحة "
 ":guilabel:`التسجيل`. يتم تجميع لوحة :guilabel:`الخصائص` مع :guilabel:`ملفات "
 "المشروع` في تبويب، بحيث يمكنك عرضها من :guilabel:`عرض->ألواح->الخصائص` دون "
 "تعطيل تخطيط التسجيل."
@@ -1880,10 +1882,10 @@ msgstr ""
 msgid "Dock Name"
 msgstr "اسم لوحة العرض"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:397
 msgid "Captions"
-msgstr "الترجمات"
+msgstr "التسميات التوضيحية"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:398

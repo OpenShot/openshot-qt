@@ -191,10 +191,10 @@ msgstr ""
 msgid "8"
 msgstr "8"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:44
 msgid "Timeline"
-msgstr "Linha do Tempo"
+msgstr "Linha cronológica"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:44
@@ -433,10 +433,10 @@ msgstr ""
 "Adicione um marcador na posição do cursor de reprodução e salte para o "
 "marcador ou limite de clipe anterior ou próximo."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:117 ../main_window.rst:148
 msgid "Center on Playhead"
-msgstr "Centralizar no Cursor"
+msgstr "Centrar no cursor de reprodução"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:118
@@ -919,10 +919,10 @@ msgstr "Mover para a direita (5 Quadros)"
 msgid ":kbd:`Shift+Ctrl+Right`"
 msgstr ":kbd:`Shift+Ctrl+Direita`"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:181
 msgid "Open Help Contents"
-msgstr "Abrir Conteúdo de Ajuda"
+msgstr "Abrir o índice da ajuda"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:181
@@ -1718,6 +1718,7 @@ msgstr ""
 ":guilabel:`Visualização de Cor` e :guilabel:`Minhas Visualizações` (layouts "
 "definidos pelo usuário)."
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:323
 msgid ""
 "This is the **default** view, and is designed to be easy-to-use, especially "
@@ -1730,8 +1731,8 @@ msgstr ""
 "Esta é a visualização **padrão**, projetada para ser fácil de usar, "
 "especialmente para usuários iniciantes. Contém :guilabel:`Arquivos do "
 "Projeto` no canto superior esquerdo, :guilabel:`Janela de Pré-visualização` "
-"no canto superior direito e :guilabel:`Linha do Tempo` na parte inferior. Se"
-" você fechar ou mover um dock acidentalmente, pode rapidamente redefinir "
+"no canto superior direito e :guilabel:`Linha cronológica` na parte inferior."
+" Se você fechar ou mover um dock acidentalmente, pode rapidamente redefinir "
 "todos os docks para sua localização padrão usando o menu "
 ":guilabel:`Visualizar->Visualização Simples` no topo da tela."
 
@@ -1753,6 +1754,7 @@ msgstr ""
 msgid "Recording View"
 msgstr "Visualização de Gravação"
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:336
 msgid ""
 "This view is focused on creating new recordings inside OpenShot. It shows "
@@ -1763,7 +1765,7 @@ msgid ""
 msgstr ""
 "Esta visualização é focada na criação de novas gravações dentro do OpenShot."
 " Ela mostra :guilabel:`Arquivos do Projeto`, :guilabel:`Pré-visualização de "
-"Vídeo`, :guilabel:`Linha do Tempo` e o dock :guilabel:`Gravação`. O dock "
+"vídeo`, :guilabel:`Linha cronológica` e o dock :guilabel:`Gravação`. O dock "
 ":guilabel:`Propriedades` está agrupado com :guilabel:`Arquivos do Projeto` "
 "em uma aba, para que você possa exibi-lo a partir de "
 ":guilabel:`Visualizar->Docks->Propriedades` sem interromper o layout de "
@@ -2059,10 +2061,10 @@ msgstr ""
 "variedade de transições para criar mudanças suaves entre cenas. Veja "
 ":ref:`transitions_ref`."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:419
 msgid "Video Preview"
-msgstr "Pré-visualização de Vídeo"
+msgstr "Pré-visualização de vídeo"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:420

@@ -19,12 +19,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.10.3\n"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../preferences.rst:23
 msgid "Preferences"
-msgstr "환경 설정"
+msgstr "환경설정"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../preferences.rst:25
 msgid ""
 "The Preferences window contains many important settings and configuration "
@@ -32,8 +32,8 @@ msgid ""
 ":guilabel:`Edit→Preferences`. Many settings will require OpenShot to be "
 "restarted after your changes are applied."
 msgstr ""
-"환경 설정 창에는 OpenShot의 중요한 설정 및 구성 옵션이 많이 포함되어 있습니다. 상단 메뉴의 :guilabel:` 편집→환경 "
-"설정` 에서 찾을 수 있습니다. 많은 설정은 변경 사항 적용 후 OpenShot을 재시작해야 합니다."
+"환경 설정 창에는 OpenShot의 중요한 설정 및 구성 옵션이 많이 포함되어 있습니다. 상단 메뉴의 :guilabel:` "
+"편집→환경설정` 에서 찾을 수 있습니다. 많은 설정은 변경 사항 적용 후 OpenShot을 재시작해야 합니다."
 
 # Translated with gpt-4.1-mini
 #: ../preferences.rst:29

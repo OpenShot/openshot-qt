@@ -190,10 +190,10 @@ msgstr ""
 msgid "8"
 msgstr "8"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:44
 msgid "Timeline"
-msgstr "Таймлайн"
+msgstr "Шкала времени"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:44
@@ -433,10 +433,10 @@ msgstr ""
 "Добавьте маркер на позицию воспроизведения и перейдите к предыдущему или "
 "следующему маркеру/границам клипа."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:117 ../main_window.rst:148
 msgid "Center on Playhead"
-msgstr "Центрировать на проигрывателе"
+msgstr "Центрировать по позиции воспроизведения"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:118
@@ -1713,6 +1713,7 @@ msgstr ""
 "OpenShot включает :guilabel:`Простой режим`, :guilabel:`Цветовой режим` и "
 ":guilabel:`Мои виды` (пользовательские макеты)."
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:323
 msgid ""
 "This is the **default** view, and is designed to be easy-to-use, especially "
@@ -1724,7 +1725,7 @@ msgid ""
 msgstr ""
 "Это **стандартный** вид, разработанный для удобства, особенно для новых "
 "пользователей. Он содержит :guilabel:`Файлы проекта` в верхнем левом углу, "
-":guilabel:`Окно предпросмотра` в верхнем правом и :guilabel:`Таймлайн` "
+":guilabel:`Окно предпросмотра` в верхнем правом и :guilabel:`Шкала времени` "
 "внизу. Если вы случайно закроете или переместите панель, вы можете быстро "
 "сбросить все панели в их стандартное положение через меню "
 ":guilabel:`Вид->Простой режим` в верхней части экрана."
@@ -1747,6 +1748,7 @@ msgstr ""
 msgid "Recording View"
 msgstr "Режим записи"
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:336
 msgid ""
 "This view is focused on creating new recordings inside OpenShot. It shows "
@@ -1757,7 +1759,7 @@ msgid ""
 msgstr ""
 "Этот вид ориентирован на создание новых записей внутри OpenShot. Он "
 "показывает :guilabel:`Файлы проекта`, :guilabel:`Предпросмотр видео`, "
-":guilabel:`Таймлайн` и панель :guilabel:`Запись`. Панель "
+":guilabel:`Шкала времени` и панель :guilabel:`Запись`. Панель "
 ":guilabel:`Свойства` сгруппирована с :guilabel:`Файлами проекта` во вкладке,"
 " поэтому вы можете показать её через :guilabel:`Вид->Панели->Свойства`, не "
 "нарушая макет записи."

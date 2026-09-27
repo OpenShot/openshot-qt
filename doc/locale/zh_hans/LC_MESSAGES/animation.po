@@ -236,17 +236,17 @@ msgstr "有关预设动画的更多信息，请参见 :ref:`clip_presets_ref` �
 msgid "For a full list of key frames, see :ref:`clip_properties_ref`."
 msgstr "有关完整的关键帧列表，请参见 :ref:`clip_properties_ref` 。"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../animation.rst:77
 msgid "Timing"
-msgstr "时间控制"
+msgstr "变速"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../animation.rst:78
 msgid ""
 "Changing how fast a clip plays is done with the :guilabel:`Time` property "
 "and the :guilabel:`Timing` tool."
-msgstr "调整剪辑播放速度可通过 :guilabel:`时间` 属性和 :guilabel:` 时间控制` 工具完成。"
+msgstr "调整剪辑播放速度可通过 :guilabel:`时间` 属性和 :guilabel:`变速` 工具完成。"
 
 #: ../animation.rst:80
 msgid ""
@@ -255,7 +255,7 @@ msgid ""
 msgstr ""
 ":guilabel:`Speed` 菜单提供了正常、快速、慢速、冻结、倒放和重复等预设。详情请参见 :ref:`clip_time_ref`。"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../animation.rst:81
 msgid ""
 "The :guilabel:`Timing` tool lets you drag a clip’s edges to speed it up or "
@@ -263,7 +263,7 @@ msgid ""
 "other keyframes** so your animations stay aligned. Shorter clips play "
 "faster, longer clips play slower. See more: :ref:`clip_time_ref`."
 msgstr ""
-":guilabel:`时间控制` 工具允许拖动剪辑边缘以加快或减慢速度。OpenShot 会自动添加所需的时间关键帧，并**缩放其他关键帧** "
+":guilabel:`变速` 工具允许拖动剪辑边缘以加快或减慢速度。OpenShot 会自动添加所需的时间关键帧，并**缩放其他关键帧** "
 "，确保动画保持同步。剪辑越短播放越快，越长播放越慢。详情见 :ref:`clip_time_ref` 。"
 
 # Translated with gpt-4.1-mini

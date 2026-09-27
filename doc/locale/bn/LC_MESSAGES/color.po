@@ -750,9 +750,10 @@ msgstr ""
 "যখন Color Grade ইফেক্ট নির্বাচিত হয়, তখন এই নিয়ন্ত্রণগুলি "
 ":guilabel:`Properties` প্যানেলে প্রদর্শিত হয়:"
 
+# Main-window terminology review, 2026-09-26.
 #: ../color.rst:299
 msgid "Property"
-msgstr "সম্পত্তি"
+msgstr "বৈশিষ্ট্য"
 
 #: ../color.rst:299
 msgid "What It Does"

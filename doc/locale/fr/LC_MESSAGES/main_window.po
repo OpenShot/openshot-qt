@@ -192,10 +192,10 @@ msgstr ""
 msgid "8"
 msgstr "8"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:44
 msgid "Timeline"
-msgstr "Timeline"
+msgstr "Ligne de temps"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:44
@@ -1603,10 +1603,10 @@ msgstr ""
 msgid "Help"
 msgstr "Aide"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:270
 msgid ":guilabel:`Contents` Open the user guide online."
-msgstr ":guilabel:`Contenu` Ouvre le guide de l'utilisateur en ligne."
+msgstr ":guilabel:`Sommaire` Ouvre le guide de l'utilisateur en ligne."
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:271
@@ -1726,6 +1726,7 @@ msgstr ""
 "appelons une **Vue**. OpenShot inclut :guilabel:`Vue Simple`, :guilabel:`Vue"
 " Couleur` et :guilabel:`Mes Vues` (dispositions définies par l'utilisateur)."
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:323
 msgid ""
 "This is the **default** view, and is designed to be easy-to-use, especially "
@@ -1738,10 +1739,10 @@ msgstr ""
 "C'est la vue **par défaut**, conçue pour être facile à utiliser, surtout "
 "pour les nouveaux utilisateurs. Elle contient :guilabel:`Fichiers de projet`"
 " en haut à gauche, :guilabel:`Fenêtre de prévisualisation` en haut à droite,"
-" et :guilabel:`Timeline` en bas. Si vous fermez ou déplacez accidentellement"
-" un dock, vous pouvez rapidement réinitialiser tous les docks à leur "
-"emplacement par défaut en utilisant le menu :guilabel:`Vue->Vue Simple` en "
-"haut de l'écran."
+" et :guilabel:`Ligne de temps` en bas. Si vous fermez ou déplacez "
+"accidentellement un dock, vous pouvez rapidement réinitialiser tous les "
+"docks à leur emplacement par défaut en utilisant le menu :guilabel:`Vue->Vue"
+" Simple` en haut de l'écran."
 
 #: ../main_window.rst:330
 msgid ""
@@ -1761,6 +1762,7 @@ msgstr ""
 msgid "Recording View"
 msgstr "Vue Enregistrement"
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:336
 msgid ""
 "This view is focused on creating new recordings inside OpenShot. It shows "
@@ -1771,7 +1773,7 @@ msgid ""
 msgstr ""
 "Cette vue est centrée sur la création de nouveaux enregistrements dans "
 "OpenShot. Elle affiche :guilabel:`Fichiers de projet`, "
-":guilabel:`Prévisualisation vidéo`, :guilabel:`Timeline` et le dock "
+":guilabel:`Prévisualisation vidéo`, :guilabel:`Ligne de temps` et le dock "
 ":guilabel:`Enregistrement`. Le dock :guilabel:`Propriétés` est regroupé avec"
 " :guilabel:`Fichiers de projet` sous forme d'onglet, vous pouvez donc "
 "l'afficher via :guilabel:`Vue->Docks->Propriétés` sans perturber la "
@@ -1944,14 +1946,14 @@ msgstr "Nom du dock"
 msgid "Captions"
 msgstr "Sous-titres"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:398
 msgid ""
 "Manage and add captions or subtitles to your video project. Allows you to "
 "create, edit, and manage caption data. See :ref:`caption_effect_ref` effect."
 msgstr ""
-"Gérez et ajoutez des sous-titres ou légendes à votre projet vidéo. Permet de"
-" créer, modifier et gérer les données de sous-titres. Voir l’effet "
+"Gérez et ajoutez des sous-titres à votre projet vidéo. Permet de créer, "
+"modifier et gérer les données de sous-titres. Voir l’effet "
 ":ref:`caption_effect_ref`."
 
 # Translated with gpt-4.1-mini

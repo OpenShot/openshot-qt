@@ -19,12 +19,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.10.3\n"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../preferences.rst:23
 msgid "Preferences"
-msgstr "Налаштування"
+msgstr "Параметри"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../preferences.rst:25
 msgid ""
 "The Preferences window contains many important settings and configuration "
@@ -34,8 +34,8 @@ msgid ""
 msgstr ""
 "Вікно налаштувань містить багато важливих параметрів і опцій конфігурації "
 "для OpenShot. Їх можна знайти у верхньому меню під "
-":guilabel:`Редагувати→Налаштування`. Для застосування багатьох змін потрібно"
-" перезапустити OpenShot."
+":guilabel:`Редагувати→Параметри`. Для застосування багатьох змін потрібно "
+"перезапустити OpenShot."
 
 # Translated with gpt-4.1-mini
 #: ../preferences.rst:29
@@ -297,10 +297,10 @@ msgstr ""
 " Це простий спосіб скасувати зміни і повернутися до налаштувань за "
 "замовчуванням для цієї категорії, не впливаючи на загальні налаштування."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../preferences.rst:99
 msgid "Timeline"
-msgstr "Хронологія"
+msgstr "Монтажний стіл"
 
 #: ../preferences.rst:103
 msgid ""

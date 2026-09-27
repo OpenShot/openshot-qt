@@ -170,6 +170,7 @@ msgstr ""
 msgid "Keep Shooting"
 msgstr "Tiếp Tục Quay"
 
+# Main-window terminology review, 2026-09-26.
 #: ../getting_started.rst:78
 msgid ""
 "Record more video and audio than you think you will need for your project. "
@@ -186,11 +187,11 @@ msgstr ""
 "gồm video làm tăng cường cảnh, tạo không khí hoặc kể một câu chuyện. Bạn có "
 "thể sử dụng video thừa để chuyển cảnh mượt mà trong dự án của mình. Nếu dự "
 "án của bạn yêu cầu lồng tiếng, thuyết minh, quay màn hình hoặc video webcam,"
-" bạn có thể sử dụng :guilabel:`View->Recording View` để mở công cụ ghi âm "
-"của OpenShot. Để biết thêm chi tiết, bao gồm các tùy chọn micro, âm thanh hệ"
-" thống, màn hình và webcam, xem :ref:`recording_ref`. Đối với các quy trình "
-"ghi hình chuyên biệt hơn, bạn vẫn có thể ghi bằng ứng dụng bên ngoài và nhập"
-" phương tiện đã hoàn thành vào OpenShot."
+" bạn có thể sử dụng :guilabel:`View->Chế độ xem ghi âm và ghi hình` để mở "
+"công cụ ghi âm của OpenShot. Để biết thêm chi tiết, bao gồm các tùy chọn "
+"micro, âm thanh hệ thống, màn hình và webcam, xem :ref:`recording_ref`. Đối "
+"với các quy trình ghi hình chuyên biệt hơn, bạn vẫn có thể ghi bằng ứng dụng"
+" bên ngoài và nhập phương tiện đã hoàn thành vào OpenShot."
 
 # Translated with gpt-4.1-mini
 #: ../getting_started.rst:88

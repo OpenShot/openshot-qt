@@ -983,6 +983,7 @@ QMessageBox QPushButton[dialogRole="destructive"] {{
 
     def togglePlayIcon(self, isPlay):
         """ Toggle the play icon from play to pause and back """
+        self._update_play_action_text(isPlay)
         button = self.app.window.videoToolbar.widgetForAction(self.app.window.actionPlay)
         if button:
             icon_name = "tool-media-pause.svg" if isPlay else "tool-media-play.svg"

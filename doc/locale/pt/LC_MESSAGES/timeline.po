@@ -19,10 +19,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.10.3\n"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../timeline.rst:23
 msgid "Timeline"
-msgstr "Linha do Tempo"
+msgstr "Linha cronológica"
 
 # Translated with gpt-4.1-mini
 #: ../timeline.rst:25

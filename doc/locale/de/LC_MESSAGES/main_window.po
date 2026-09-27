@@ -131,7 +131,7 @@ msgstr "5"
 msgid "Timeline Toolbar"
 msgstr "Timeline-Symbolleiste"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:41
 msgid ""
 "This toolbar contains buttons used for snapping, inserting markers, slicing "
@@ -139,7 +139,7 @@ msgid ""
 "See :ref:`timeline_toolbar_ref`."
 msgstr ""
 "Diese Symbolleiste enthält Schaltflächen zum Einrasten, Einfügen von "
-"Markern, Schneiden mit dem Rasiermesser, Springen zwischen Markern und "
+"Markern, Schneiden mit der Rasierklinge, Springen zwischen Markern und "
 "Zentrieren der Timeline auf dem Abspielkopf. Siehe "
 ":ref:`timeline_toolbar_ref`."
 
@@ -195,10 +195,10 @@ msgstr ""
 msgid "8"
 msgstr "8"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:44
 msgid "Timeline"
-msgstr "Timeline"
+msgstr "Zeitleiste"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:44
@@ -1050,10 +1050,10 @@ msgstr "Beenden"
 msgid ":kbd:`Ctrl+Q`"
 msgstr ":kbd:`Strg+Q`"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:191
 msgid "Razor Toggle"
-msgstr "Rasiermesser umschalten"
+msgstr "Rasierklinge umschalten"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:191

@@ -187,10 +187,10 @@ msgstr ""
 msgid "8"
 msgstr "۸"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:44
 msgid "Timeline"
-msgstr "جدول زمانی"
+msgstr "خط زمان"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:44
@@ -427,10 +427,10 @@ msgid ""
 msgstr ""
 "یک نشانگر در محل پخش اضافه کنید و به نشانگر یا مرز کلیپ قبلی یا بعدی بروید."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:117 ../main_window.rst:148
 msgid "Center on Playhead"
-msgstr "مرکز روی سر پخش"
+msgstr "مرکز کردن روی نشانگر پخش"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:118
@@ -1472,13 +1472,13 @@ msgstr ""
 ":guilabel:`وارد کردن پروژه` وارد کردن پروژه‌ای دیگر به پروژه جاری (فرمت‌های "
 "Adobe و Final Cut Pro تا حدی پشتیبانی می‌شوند)."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:249
 msgid ""
 ":guilabel:`Export Project` Export the current project to a specified format "
 "(*EDL, Adobe, and Final Cut Pro formats partially supported*)."
 msgstr ""
-":guilabel:`صادرات پروژه` صادر کردن پروژه جاری به فرمت مشخص شده (فرمت‌های "
+":guilabel:`برون‌ریزی پروژه` صادر کردن پروژه جاری به فرمت مشخص شده (فرمت‌های "
 "EDL، Adobe و Final Cut Pro تا حدی پشتیبانی می‌شوند)."
 
 # Translated with gpt-4.1-mini
@@ -1547,12 +1547,13 @@ msgstr ""
 ":guilabel:`نمای ساده` و :guilabel:`نمای رنگ` طرح‌بندی پنجره اصلی را تغییر یا"
 " بازنشانی می‌کنند."
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:264
 msgid ""
 ":guilabel:`My Views` Save, load, update, and delete your own named layouts. "
 "See :ref:`my_views_ref`."
 msgstr ""
-":guilabel:`نمای من` طرح‌بندی‌های نام‌گذاری شده خود را ذخیره، بارگذاری، "
+":guilabel:`نماهای من` طرح‌بندی‌های نام‌گذاری شده خود را ذخیره، بارگذاری، "
 "به‌روزرسانی و حذف کنید. به :ref:`my_views_ref` مراجعه کنید."
 
 #: ../main_window.rst:265
@@ -1686,6 +1687,7 @@ msgstr "خروجی نمونه:"
 msgid "Views"
 msgstr "نماها"
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:317
 msgid ""
 "The OpenShot main window is composed of multiple **docks**. These **docks** "
@@ -1695,7 +1697,7 @@ msgid ""
 msgstr ""
 "پنجره اصلی OpenShot از چندین **پنل** تشکیل شده است. این **پنل‌ها** به "
 "گونه‌ای مرتب و چسبیده شده‌اند که ما آن را یک **نمای** می‌نامیم. OpenShot "
-"شامل :guilabel:`نمای ساده`، :guilabel:`نمای رنگ` و :guilabel:`نمای من` "
+"شامل :guilabel:`نمای ساده`، :guilabel:`نمای رنگ` و :guilabel:`نماهای من` "
 "(طرح‌بندی‌های تعریف‌شده توسط کاربر) است."
 
 #: ../main_window.rst:323
@@ -1714,6 +1716,7 @@ msgstr ""
 "از منوی :guilabel:`نمای→نمای ساده` در بالای صفحه، همه پنل‌ها را سریع به مکان"
 " پیش‌فرض بازنشانی کنید."
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:330
 msgid ""
 "This view is focused on color correction and scopes. It enlarges the video "
@@ -1725,8 +1728,8 @@ msgstr ""
 "این نما بر تصحیح رنگ و محدوده‌ها تمرکز دارد. پیش‌نمایش ویدیو را بزرگ می‌کند،"
 " پنل‌های مدیریت فایل را پنهان می‌کند، خط زمان و ویژگی‌ها را قابل مشاهده نگه "
 "می‌دارد، پنل :guilabel:`چرخ‌های رنگ` را در سمت راست قرار می‌دهد و پنل‌های "
-":guilabel:`موج‌نمای لومینانس` و :guilabel:`هیستوگرام` را به صورت تب کنار هم "
-"در زیر آن قرار می‌دهد."
+":guilabel:`شکل موج لوما` و :guilabel:`هیستوگرام` را به صورت تب کنار هم در "
+"زیر آن قرار می‌دهد."
 
 #: ../main_window.rst:335
 msgid "Recording View"
@@ -1771,9 +1774,10 @@ msgstr ""
 "می‌کند. برای جزئیات به :ref:`clip_properties_ref` مراجعه کنید. برای روند "
 "کامل ضبط و همه گزینه‌های منبع به :ref:`recording_ref` مراجعه کنید."
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:352
 msgid "My Views"
-msgstr "نمای من"
+msgstr "نماهای من"
 
 #: ../main_window.rst:353
 msgid ""
@@ -1850,21 +1854,23 @@ msgstr "**روند کاری معمول:**"
 msgid "Arrange your docks exactly how you like them."
 msgstr "پنل‌های خود را دقیقاً همان‌طور که می‌خواهید مرتب کنید."
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:380
 msgid ""
 "Open :guilabel:`View → My Views → Save Current View As...` and enter a name "
 "(e.g. *\"Audio Mix\"*)."
 msgstr ""
-"منوی :guilabel:`نمای → نمای من → ذخیره نمای فعلی به عنوان...` را باز کنید و "
-"یک نام وارد کنید (مثلاً *«میکس صدا»*)."
+"منوی :guilabel:`نمای → نماهای من → ذخیره نمای فعلی به عنوان...` را باز کنید "
+"و یک نام وارد کنید (مثلاً *«میکس صدا»*)."
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:381
 msgid ""
 "Later, open :guilabel:`View → My Views` and click the view name to restore "
 "that layout instantly."
 msgstr ""
-"بعداً، منوی :guilabel:`نمای → نمای من` را باز کنید و روی نام نما کلیک کنید "
-"تا آن طرح‌بندی فوراً بازیابی شود."
+"بعداً، منوی :guilabel:`نمای → نماهای من` را باز کنید و روی نام نما کلیک کنید"
+" تا آن طرح‌بندی فوراً بازیابی شود."
 
 #: ../main_window.rst:382
 msgid ""
@@ -1964,9 +1970,10 @@ msgid ""
 "Analyze the tonal and channel distribution of the current preview frame."
 msgstr "توزیع تونال و کانال فریم پیش‌نمایش فعلی را تحلیل کنید."
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:407
 msgid "Luma Waveform"
-msgstr "موج‌نمای لومای"
+msgstr "شکل موج لوما"
 
 #: ../main_window.rst:408
 msgid "Analyze brightness distribution across the current preview frame."

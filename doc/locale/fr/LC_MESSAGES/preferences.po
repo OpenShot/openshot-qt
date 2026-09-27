@@ -304,10 +304,10 @@ msgstr ""
 "modifications et de revenir aux paramètres par défaut pour cette catégorie "
 "spécifique sans affecter votre configuration globale."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../preferences.rst:99
 msgid "Timeline"
-msgstr "Chronologie"
+msgstr "Ligne de temps"
 
 #: ../preferences.rst:103
 msgid ""

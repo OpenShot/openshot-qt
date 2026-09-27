@@ -269,19 +269,19 @@ msgid "For a full list of key frames, see :ref:`clip_properties_ref`."
 msgstr ""
 "Để xem danh sách đầy đủ các khung chính, xem :ref:`clip_properties_ref`."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../animation.rst:77
 msgid "Timing"
-msgstr "Thời gian"
+msgstr "Đổi tốc độ"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../animation.rst:78
 msgid ""
 "Changing how fast a clip plays is done with the :guilabel:`Time` property "
 "and the :guilabel:`Timing` tool."
 msgstr ""
 "Thay đổi tốc độ phát của một clip được thực hiện bằng thuộc tính "
-":guilabel:`Time` và công cụ :guilabel:`Timing`."
+":guilabel:`Time` và công cụ :guilabel:`Đổi tốc độ`."
 
 #: ../animation.rst:80
 msgid ""
@@ -292,7 +292,7 @@ msgstr ""
 "chậm, đóng băng, đảo ngược và lặp lại. Xem chi tiết trong "
 ":ref:`clip_time_ref`."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../animation.rst:81
 msgid ""
 "The :guilabel:`Timing` tool lets you drag a clip’s edges to speed it up or "
@@ -300,10 +300,10 @@ msgid ""
 "other keyframes** so your animations stay aligned. Shorter clips play "
 "faster, longer clips play slower. See more: :ref:`clip_time_ref`."
 msgstr ""
-"Công cụ :guilabel:`Timing` cho phép bạn kéo các cạnh của clip để tăng tốc "
-"hoặc giảm tốc. OpenShot thêm các khung chính Thời gian cần thiết và **tỉ lệ "
-"các khung chính khác** để hoạt hình của bạn luôn đồng bộ. Clip ngắn hơn phát"
-" nhanh hơn, clip dài hơn phát chậm hơn. Xem thêm: :ref:`clip_time_ref`."
+"Công cụ :guilabel:`Đổi tốc độ` cho phép bạn kéo các cạnh của clip để tăng "
+"tốc hoặc giảm tốc. OpenShot thêm các khung chính Thời gian cần thiết và **tỉ"
+" lệ các khung chính khác** để hoạt hình của bạn luôn đồng bộ. Clip ngắn hơn "
+"phát nhanh hơn, clip dài hơn phát chậm hơn. Xem thêm: :ref:`clip_time_ref`."
 
 # Translated with gpt-4.1-mini
 #: ../animation.rst:86

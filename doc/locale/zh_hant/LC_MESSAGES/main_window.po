@@ -366,13 +366,14 @@ msgstr "復原或重做您最近的時間軸編輯。"
 msgid "Snap, Retime, Razor"
 msgstr "吸附、重新定時、剃刀"
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:112
 msgid ""
 "Snapping toggles magnetic alignment. Timing Tool enables retiming by "
 "dragging clip edges. The :ref:`razor_tool_ref` previews and cuts at the "
 "guide position; press :kbd:`Esc` to exit."
 msgstr ""
-"吸附功能可切換磁性對齊。時間工具可透過拖曳剪輯邊緣來重新定時。:ref:`razor_tool_ref` 可在導引位置預覽並剪切；按 "
+"吸附功能可切換磁性對齊。變速工具可透過拖曳剪輯邊緣來重新定時。:ref:`razor_tool_ref` 可在導引位置預覽並剪切；按 "
 ":kbd:`Esc` 退出。"
 
 # Translated with gpt-4.1-mini
@@ -1237,10 +1238,10 @@ msgstr "縮圖檢視"
 msgid ":kbd:`Ctrl+Page Down`"
 msgstr ":kbd:`Ctrl+Page Down`"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:215
 msgid "Timing Toggle"
-msgstr "切換時間"
+msgstr "切換變速工具"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:215

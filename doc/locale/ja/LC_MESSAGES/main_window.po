@@ -393,10 +393,10 @@ msgid ""
 "boundaries."
 msgstr "プレイヘッドにマーカーを追加し、前または次のマーカーやクリップの境界にジャンプします。"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:117 ../main_window.rst:148
 msgid "Center on Playhead"
-msgstr "再生ヘッドを中心に"
+msgstr "再生ヘッドを中心に表示"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:118
@@ -1665,10 +1665,12 @@ msgstr ""
 " :guilabel:`Color Wheels` ドックを配置し、その下に :guilabel:`Luma Waveform` と "
 ":guilabel:`Histogram` ドックをタブ化します。"
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:335
 msgid "Recording View"
-msgstr "録画ビュー"
+msgstr "録音・録画ビュー"
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:336
 msgid ""
 "This view is focused on creating new recordings inside OpenShot. It shows "
@@ -1678,11 +1680,11 @@ msgid ""
 ":guilabel:`View->Docks->Properties` without disrupting the recording layout."
 msgstr ""
 "このビューは OpenShot 内で新しい録画を作成することに焦点を当てています。:guilabel:`Project "
-"Files`、:guilabel:`Video Preview`、:guilabel:`Timeline`、および "
-":guilabel:`Recording` ドックを表示します。:guilabel:`Properties` ドックは "
-":guilabel:`Project Files` とタブでグループ化されているため、録画レイアウトを崩さずに "
-":guilabel:`View->Docks->Properties` から表示できます。"
+"Files`、:guilabel:`Video Preview`、:guilabel:`Timeline`、および :guilabel:`録音・録画` "
+"ドックを表示します。:guilabel:`Properties` ドックは :guilabel:`Project Files` "
+"とタブでグループ化されているため、録画レイアウトを崩さずに :guilabel:`View->Docks->Properties` から表示できます。"
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:341
 msgid ""
 "The :guilabel:`Recording` dock can record microphone audio, screen capture, "
@@ -1697,7 +1699,7 @@ msgid ""
 "details. See :ref:`recording_ref` for the complete recording workflow and "
 "all source options."
 msgstr ""
-":guilabel:`Recording` "
+":guilabel:`録音・録画` "
 "ドックはマイク音声、画面キャプチャ、ウェブカメラ映像、またはそれらの組み合わせを録画できます。画面とウェブカメラを同時に録画すると、OpenShot "
 "はウェブカメラ映像をコーナーのピクチャーインピクチャークリップとして配置できます。これらのコーナーカメラクリップはタイムラインに追加後、通常のクリッププロパティを使用します。:guilabel:`Gravity`"
 " でコーナーを選択し、:guilabel:`Scale X` と :guilabel:`Scale Y` "
@@ -1917,9 +1919,10 @@ msgstr ""
 "選択したエフェクト、トランジション、またはクリップのプロパティを表示・編集します。再生時間、サイズ、位置などの設定を調整できます。詳細は "
 ":ref:`clip_properties_ref` を参照してください。"
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:415
 msgid "Recording"
-msgstr "録画"
+msgstr "録音・録画"
 
 #: ../main_window.rst:416
 msgid ""

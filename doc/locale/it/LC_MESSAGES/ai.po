@@ -1426,24 +1426,24 @@ msgstr ""
 "Dettagli: utilizza ``comfyui/video-segment-scenes-transnet.json`` con "
 "TransNetV2."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../ai.rst:408
 msgid "Add Captions from Speech (``video-whisper-srt``)"
-msgstr "Aggiungi didascalie dal parlato (``video-whisper-srt``)"
+msgstr "Aggiungi sottotitoli dal parlato (``video-whisper-srt``)"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../ai.rst:410
 msgid "Why: Transcribe speech into subtitle/caption files."
-msgstr "Perché: Trascrivere il parlato in file di sottotitoli/didascalie."
+msgstr "Perché: Trascrivere il parlato in file di sottotitoli."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../ai.rst:411
 msgid ""
 "How: Choose :guilabel:`Enhance with AI` on a video, select captions, then "
 "generate."
 msgstr ""
-"Come: Seleziona :guilabel:`Migliora con AI` su un video, scegli le "
-"didascalie, quindi genera."
+"Come: Seleziona :guilabel:`Migliora con AI` su un video, scegli i "
+"sottotitoli, quindi genera."
 
 # Translated with gpt-4.1-mini
 #: ../ai.rst:412
@@ -1622,10 +1622,10 @@ msgstr ":guilabel:`Migliora con AI` -> :guilabel:`Migliora Movimento`"
 msgid ":guilabel:`Enhance with AI` -> :guilabel:`Split into Scenes`"
 msgstr ":guilabel:`Migliora con AI` -> :guilabel:`Dividi in Scene`"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../ai.rst:471
 msgid ":guilabel:`Enhance with AI` -> :guilabel:`Add Captions`"
-msgstr ":guilabel:`Migliora con AI` -> :guilabel:`Aggiungi Didascalie`"
+msgstr ":guilabel:`Migliora con AI` -> :guilabel:`Aggiungi Sottotitoli`"
 
 # Translated with gpt-4.1-mini
 #: ../ai.rst:474

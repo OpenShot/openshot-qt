@@ -267,19 +267,19 @@ msgstr ""
 msgid "For a full list of key frames, see :ref:`clip_properties_ref`."
 msgstr "Untuk daftar lengkap key frame, lihat :ref:`clip_properties_ref`."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../animation.rst:77
 msgid "Timing"
-msgstr "Pengaturan Waktu"
+msgstr "Pengaturan Kecepatan"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../animation.rst:78
 msgid ""
 "Changing how fast a clip plays is done with the :guilabel:`Time` property "
 "and the :guilabel:`Timing` tool."
 msgstr ""
 "Mengubah kecepatan pemutaran klip dilakukan dengan properti :guilabel:`Time`"
-" dan alat :guilabel:`Timing`."
+" dan alat :guilabel:`Pengaturan Kecepatan`."
 
 #: ../animation.rst:80
 msgid ""
@@ -289,7 +289,7 @@ msgstr ""
 "Menu :guilabel:`Speed` menawarkan preset seperti normal, cepat, lambat, "
 "beku, balik, dan ulang. Lihat detail di :ref:`clip_time_ref`."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../animation.rst:81
 msgid ""
 "The :guilabel:`Timing` tool lets you drag a clip’s edges to speed it up or "
@@ -297,11 +297,11 @@ msgid ""
 "other keyframes** so your animations stay aligned. Shorter clips play "
 "faster, longer clips play slower. See more: :ref:`clip_time_ref`."
 msgstr ""
-"Alat :guilabel:`Timing` memungkinkan Anda menyeret tepi klip untuk "
-"mempercepat atau memperlambatnya. OpenShot menambahkan keyframe Time yang "
-"diperlukan dan **mengatur skala keyframe lain** sehingga animasi Anda tetap "
-"selaras. Klip yang lebih pendek diputar lebih cepat, klip yang lebih panjang"
-" diputar lebih lambat. Lihat lebih lanjut: :ref:`clip_time_ref`."
+"Alat :guilabel:`Pengaturan Kecepatan` memungkinkan Anda menyeret tepi klip "
+"untuk mempercepat atau memperlambatnya. OpenShot menambahkan keyframe Time "
+"yang diperlukan dan **mengatur skala keyframe lain** sehingga animasi Anda "
+"tetap selaras. Klip yang lebih pendek diputar lebih cepat, klip yang lebih "
+"panjang diputar lebih lambat. Lihat lebih lanjut: :ref:`clip_time_ref`."
 
 # Translated with gpt-4.1-mini
 #: ../animation.rst:86

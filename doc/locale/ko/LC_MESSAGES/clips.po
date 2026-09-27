@@ -3045,12 +3045,13 @@ msgid ""
 "recording without adding a separate mask effect."
 msgstr "**사용 예:** 별도의 마스크 효과를 추가하지 않고 PIP 카메라 녹화의 모서리를 둥글게 처리하기."
 
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:797
 msgid ""
 "**Usage Example:** In :guilabel:`Recording View`, corner webcam clips use "
 "this property for the :guilabel:`Corners` setting."
 msgstr ""
-"**사용 예:** :guilabel:`녹화 보기`에서 코너 웹캠 클립이 :guilabel:`모서리` 설정에 이 속성을 사용합니다."
+"**사용 예:** :guilabel:`녹음/녹화 보기`에서 코너 웹캠 클립이 :guilabel:`모서리` 설정에 이 속성을 사용합니다."
 
 #: ../clips.rst:798
 msgid ""
@@ -3427,11 +3428,13 @@ msgid ""
 "picture-in-picture spacing without adding Crop or Mask effects."
 msgstr "**사용 예:** 자르기 또는 마스크 효과 없이 안전 영역 레이아웃, 분할 화면 간격 또는 PIP 간격 만들기."
 
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:911
 msgid ""
 "**Usage Example:** In :guilabel:`Recording View`, screen-plus-camera "
 "recordings use this property to inset the corner webcam clip."
-msgstr "**사용 예:** :guilabel:`녹화 보기`에서 화면+카메라 녹화가 이 속성을 사용하여 코너 웹캠 클립을 삽입합니다."
+msgstr ""
+"**사용 예:** :guilabel:`녹음/녹화 보기`에서 화면+카메라 녹화가 이 속성을 사용하여 코너 웹캠 클립을 삽입합니다."
 
 #: ../clips.rst:912
 msgid ""

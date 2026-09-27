@@ -238,15 +238,16 @@ msgstr ""
 "chuyển khu vực bị ảnh hưởng, thay đổi kích thước các tay cầm, hoặc vẽ một "
 "hình chữ nhật mới bên trong đoạn clip."
 
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:89
 msgid ""
 "The same preview rectangle can be used to position Caption text. Select a "
 "Caption effect, then move or resize the white rectangle in the video preview"
 " to adjust the Caption margins."
 msgstr ""
-"Cùng một hình chữ nhật xem trước có thể được dùng để định vị văn bản Chú "
-"Thích. Chọn hiệu ứng Chú Thích, sau đó di chuyển hoặc thay đổi kích thước "
-"hình chữ nhật trắng trong xem trước video để điều chỉnh lề Chú Thích."
+"Cùng một hình chữ nhật xem trước có thể được dùng để định vị văn bản Phụ đề."
+" Chọn hiệu ứng Phụ đề, sau đó di chuyển hoặc thay đổi kích thước hình chữ "
+"nhật trắng trong xem trước video để điều chỉnh lề Phụ đề."
 
 # Translated with gpt-4.1-mini
 #: ../effects.rst:92
@@ -435,20 +436,20 @@ msgstr "Chỉnh sửa độ sáng và tương phản của khung hình."
 msgid "|caption_icon|"
 msgstr "|caption_icon|"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:133
 msgid "Caption Icon"
-msgstr "Biểu tượng Chú thích"
+msgstr "Biểu tượng Phụ đề"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:290 ../effects.rst:674
 msgid "Caption"
-msgstr "Chú thích"
+msgstr "Phụ đề"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:290
 msgid "Add text captions to any clip."
-msgstr "Thêm chú thích văn bản vào bất kỳ đoạn clip nào."
+msgstr "Thêm phụ đề văn bản vào bất kỳ đoạn clip nào."
 
 # Translated with gpt-4.1-mini
 #: ../effects.rst:291
@@ -2547,7 +2548,7 @@ msgstr ""
 "``(float, 0 đến 100)`` Đường cong để điều chỉnh tương phản (3 là điển hình, "
 "20 là nhiều, 100 là tối đa. 0 không hợp lệ)"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:675
 msgid ""
 "Add text captions on top of your video. We support both VTT (WebVTT) and "
@@ -2562,14 +2563,15 @@ msgid ""
 msgstr ""
 "Thêm phụ đề văn bản lên trên video của bạn. Chúng tôi hỗ trợ cả định dạng "
 "phụ đề VTT (WebVTT) và SubRip (SRT). Các định dạng này dùng để hiển thị phụ "
-"đề hoặc chú thích trong video. Chúng cho phép bạn thêm phụ đề dạng văn bản "
-"vào nội dung video, giúp video dễ tiếp cận hơn với khán giả rộng hơn, đặc "
-"biệt là người khiếm thính hoặc khó nghe. Hiệu ứng Caption còn có thể tạo "
-"hiệu ứng văn bản mờ dần vào/ra, và hỗ trợ bất kỳ phông chữ, kích thước, màu "
-"sắc và lề nào. OpenShot cũng có trình chỉnh sửa Caption dễ sử dụng, nơi bạn "
-"có thể nhanh chóng chèn phụ đề tại vị trí playhead hoặc chỉnh sửa toàn bộ "
-"văn bản phụ đề trong một nơi."
+"đề trong video. Chúng cho phép bạn thêm phụ đề dạng văn bản vào nội dung "
+"video, giúp video dễ tiếp cận hơn với khán giả rộng hơn, đặc biệt là người "
+"khiếm thính hoặc khó nghe. Hiệu ứng Caption còn có thể tạo hiệu ứng văn bản "
+"mờ dần vào/ra, và hỗ trợ bất kỳ phông chữ, kích thước, màu sắc và lề nào. "
+"OpenShot cũng có trình chỉnh sửa Caption dễ sử dụng, nơi bạn có thể nhanh "
+"chóng chèn phụ đề tại vị trí playhead hoặc chỉnh sửa toàn bộ văn bản phụ đề "
+"trong một nơi."
 
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:682
 msgid ""
 "The Caption editor's insert button (the plus icon) creates a complete "
@@ -2577,11 +2579,12 @@ msgid ""
 "duration when possible, and selects the placeholder caption text so you can "
 "start typing immediately. Caption text updates are previewed while you type."
 msgstr ""
-"Nút chèn của trình chỉnh sửa Chú thích (biểu tượng dấu cộng) tạo một đoạn "
-"chú thích hoàn chỉnh tại vị trí playhead hiện tại, sử dụng thời lượng mặc "
-"định ba giây khi có thể, và chọn văn bản chú thích giữ chỗ để bạn có thể bắt"
-" đầu gõ ngay. Cập nhật văn bản chú thích được xem trước trong khi bạn gõ."
+"Nút chèn của trình chỉnh sửa Phụ đề (biểu tượng dấu cộng) tạo một đoạn phụ "
+"đề hoàn chỉnh tại vị trí playhead hiện tại, sử dụng thời lượng mặc định ba "
+"giây khi có thể, và chọn văn bản phụ đề giữ chỗ để bạn có thể bắt đầu gõ "
+"ngay. Cập nhật văn bản phụ đề được xem trước trong khi bạn gõ."
 
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:686
 msgid ""
 "To set a caption's end time from the playhead, remove the existing end "
@@ -2590,12 +2593,12 @@ msgid ""
 "timestamp line, and press the plus icon again. OpenShot inserts the current "
 "playhead timestamp as the cue's end time."
 msgstr ""
-"Để đặt thời gian kết thúc của chú thích từ vị trí playhead, hãy xóa dấu thời"
-" gian kết thúc hiện có trên dòng cue, chỉ để lại dấu thời gian bắt đầu và "
-"mũi tên. Di chuyển playhead đến thời gian kết thúc mong muốn, đặt con trỏ "
-"văn bản trên dòng dấu thời gian chưa hoàn chỉnh đó, và nhấn lại biểu tượng "
-"cộng. OpenShot sẽ chèn dấu thời gian hiện tại của playhead làm thời gian kết"
-" thúc của cue."
+"Để đặt thời gian kết thúc của phụ đề từ vị trí playhead, hãy xóa dấu thời "
+"gian kết thúc hiện có trên dòng cue, chỉ để lại dấu thời gian bắt đầu và mũi"
+" tên. Di chuyển playhead đến thời gian kết thúc mong muốn, đặt con trỏ văn "
+"bản trên dòng dấu thời gian chưa hoàn chỉnh đó, và nhấn lại biểu tượng cộng."
+" OpenShot sẽ chèn dấu thời gian hiện tại của playhead làm thời gian kết thúc"
+" của cue."
 
 # Translated with gpt-4.1-mini
 #: ../effects.rst:703

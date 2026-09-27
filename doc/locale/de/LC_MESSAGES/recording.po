@@ -490,6 +490,7 @@ msgstr ""
 "Nimmt einen oder zwei Eingangskanäle auf. Mono ist normalerweise am besten "
 "für ein Mikrofon."
 
+# Main-window terminology review, 2026-09-26.
 #: ../recording.rst:160
 msgid ""
 "Aim for a healthy meter response without clipping. A quiet waveform should "
@@ -505,7 +506,7 @@ msgstr ""
 "jede neu erzeugte Wellenform auf volle Höhe. Die hellere Spitzenhüllkurve "
 "hebt Transienten hervor, während die feste RMS-Hüllkurve die anhaltende "
 "Energie zusammenfasst. Deren Details werden über :guilabel:`Bearbeiten → "
-"Einstellungen → Timeline → Wellenform-Samples (pro Sekunde)` gesteuert. "
+"Einstellungen → Zeitleiste → Wellenform-Samples (pro Sekunde)` gesteuert. "
 "Siehe :ref:`clip_presets_ref` für Wellenformanzeige und "
 "Audiolautstärkeregelung nach der Aufnahme."
 

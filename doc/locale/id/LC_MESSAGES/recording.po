@@ -16,9 +16,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+# Main-window terminology review, 2026-09-26.
 #: ../recording.rst:23
 msgid "Recording"
-msgstr "Merekam"
+msgstr "Perekaman"
 
 #: ../recording.rst:25
 msgid ""
@@ -34,13 +35,14 @@ msgstr ""
 " klip timeline yang independen, sehingga mudah untuk menyesuaikan volume "
 "mikrofon, memotong webcam, atau mengedit tangkapan layar secara terpisah."
 
+# Main-window terminology review, 2026-09-26.
 #: ../recording.rst:29
 msgid ""
 "Open the dedicated layout with :guilabel:`View → Recording View`, or show "
 "only the dock with :guilabel:`View → Docks → Recording`."
 msgstr ""
 "Buka tata letak khusus dengan :guilabel:`View → Recording View`, atau "
-"tampilkan hanya dock dengan :guilabel:`View → Docks → Recording`."
+"tampilkan hanya dock dengan :guilabel:`View → Docks → Perekaman`."
 
 #: ../recording.rst:-1
 msgid "OpenShot Recording View with the microphone source selected by default"
@@ -476,6 +478,7 @@ msgstr ""
 "Merekam satu atau dua saluran input. Mono biasanya terbaik untuk satu "
 "mikrofon."
 
+# Main-window terminology review, 2026-09-26.
 #: ../recording.rst:160
 msgid ""
 "Aim for a healthy meter response without clipping. A quiet waveform should "
@@ -490,9 +493,9 @@ msgstr ""
 " tetap terlihat tenang; OpenShot tidak lagi menormalkan setiap gelombang "
 "baru ke tinggi penuh. Amplop puncak yang lebih terang menyoroti transien "
 "sementara amplop RMS padat merangkum energi yang berkelanjutan. Detailnya "
-"dikontrol oleh :guilabel:`Edit → Preferences → Timeline → Waveform Samples "
-"(per second)`. Lihat :ref:`clip_presets_ref` untuk tampilan gelombang dan "
-"kontrol volume audio setelah perekaman."
+"dikontrol oleh :guilabel:`Edit → Preferences → Garis Waktu → Waveform "
+"Samples (per second)`. Lihat :ref:`clip_presets_ref` untuk tampilan "
+"gelombang dan kontrol volume audio setelah perekaman."
 
 #: ../recording.rst:167
 msgid "Screen Recording"

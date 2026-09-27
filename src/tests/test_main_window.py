@@ -239,14 +239,15 @@ class MainWindowTests(unittest.TestCase):
 
         button = types.SimpleNamespace(setIcon=MagicMock())
         icon_size = object()
-        action_play = object()
+        action_play = MagicMock()
         toolbar = types.SimpleNamespace(
             widgetForAction=lambda action: button if action is action_play else None,
             iconSize=lambda: icon_size,
         )
         theme = CosmicTheme.__new__(CosmicTheme)
         theme.app = types.SimpleNamespace(
-            window=types.SimpleNamespace(videoToolbar=toolbar, actionPlay=action_play)
+            window=types.SimpleNamespace(videoToolbar=toolbar, actionPlay=action_play),
+            _tr=lambda text: text,
         )
         theme.create_svg_icon = MagicMock(side_effect=["pause-icon", "play-icon"])
 
@@ -255,12 +256,16 @@ class MainWindowTests(unittest.TestCase):
         self.assertEqual(os.path.basename(pause_path), "tool-media-pause.svg")
         self.assertIs(pause_size, icon_size)
         button.setIcon.assert_called_with("pause-icon")
+        action_play.setText.assert_called_with("Pause")
+        action_play.setToolTip.assert_called_with("Pause")
 
         theme.togglePlayIcon(False)
         play_path, play_size = theme.create_svg_icon.call_args[0]
         self.assertEqual(os.path.basename(play_path), "tool-media-play.svg")
         self.assertIs(play_size, icon_size)
         button.setIcon.assert_called_with("play-icon")
+        action_play.setText.assert_called_with("Play")
+        action_play.setToolTip.assert_called_with("Play")
 
     def setUp(self):
         ensure_app_state(self.app)

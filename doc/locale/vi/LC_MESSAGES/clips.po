@@ -1357,15 +1357,16 @@ msgstr ""
 "**Tua nhanh thời gian** — :guilabel:`Tăng tốc → 8×` hoặc :guilabel:`16×` để "
 "nén hàng giờ thành vài giây."
 
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:342
 msgid ""
 "**Speed ramp** — use the :guilabel:`Timing` tool to drag clip edges and "
 "create a natural-feeling speed change; OpenShot scales all keyframes "
 "automatically."
 msgstr ""
-"**Tăng giảm tốc độ** — sử dụng công cụ :guilabel:`Thời gian` để kéo các cạnh"
-" clip và tạo thay đổi tốc độ tự nhiên; OpenShot tự động điều chỉnh tất cả "
-"các khung khóa."
+"**Tăng giảm tốc độ** — sử dụng công cụ :guilabel:`Đổi tốc độ` để kéo các "
+"cạnh clip và tạo thay đổi tốc độ tự nhiên; OpenShot tự động điều chỉnh tất "
+"cả các khung khóa."
 
 #: ../clips.rst:343
 msgid ""
@@ -1550,12 +1551,12 @@ msgstr ""
 "gian (bao gồm Lặp lại) và khôi phục clip về phát lại gốc, **không xóa các "
 "keyframe không thuộc Thời gian ban đầu của bạn**."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:391
 msgid "Timing Tool"
-msgstr "Công cụ Thời gian"
+msgstr "Công cụ đổi tốc độ"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:392
 msgid ""
 "Another way to change a clip's speed is with the :guilabel:`Timing` tool on "
@@ -1564,11 +1565,11 @@ msgid ""
 "All keyframes on the clip and its effects are scaled so their relative "
 "positions remain intact."
 msgstr ""
-"Một cách khác để thay đổi tốc độ của clip là sử dụng công cụ "
-":guilabel:`Timing` trên thanh công cụ timeline. Bật biểu tượng đồng hồ và "
-"kéo các cạnh của clip. Kéo dài clip sẽ làm chậm phát lại, trong khi rút ngắn"
-" clip sẽ làm tăng tốc clip. Tất cả các keyframe trên clip và hiệu ứng của nó"
-" được điều chỉnh tỉ lệ để vị trí tương đối vẫn giữ nguyên."
+"Một cách khác để thay đổi tốc độ của clip là sử dụng công cụ :guilabel:`Đổi "
+"tốc độ` trên thanh công cụ timeline. Bật biểu tượng đồng hồ và kéo các cạnh "
+"của clip. Kéo dài clip sẽ làm chậm phát lại, trong khi rút ngắn clip sẽ làm "
+"tăng tốc clip. Tất cả các keyframe trên clip và hiệu ứng của nó được điều "
+"chỉnh tỉ lệ để vị trí tương đối vẫn giữ nguyên."
 
 #: ../clips.rst:398
 msgid ""
@@ -3407,13 +3408,14 @@ msgstr ""
 "**Ví dụ sử dụng:** Làm tròn các góc của bản ghi camera hình ảnh-trong-hình "
 "ảnh mà không cần thêm hiệu ứng mặt nạ riêng biệt."
 
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:797
 msgid ""
 "**Usage Example:** In :guilabel:`Recording View`, corner webcam clips use "
 "this property for the :guilabel:`Corners` setting."
 msgstr ""
-"**Ví dụ sử dụng:** Trong :guilabel:`Recording View`, các clip webcam góc sử "
-"dụng thuộc tính này cho cài đặt :guilabel:`Corners`."
+"**Ví dụ sử dụng:** Trong :guilabel:`Chế độ xem ghi âm và ghi hình`, các clip"
+" webcam góc sử dụng thuộc tính này cho cài đặt :guilabel:`Corners`."
 
 #: ../clips.rst:798
 msgid ""
@@ -3872,13 +3874,14 @@ msgstr ""
 "khoảng cách hình ảnh-trong-hình ảnh mà không cần thêm hiệu ứng Crop hoặc "
 "Mask."
 
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:911
 msgid ""
 "**Usage Example:** In :guilabel:`Recording View`, screen-plus-camera "
 "recordings use this property to inset the corner webcam clip."
 msgstr ""
-"**Ví dụ sử dụng:** Trong :guilabel:`Recording View`, các bản ghi màn hình-"
-"cộng-camera sử dụng thuộc tính này để lùi clip webcam góc."
+"**Ví dụ sử dụng:** Trong :guilabel:`Chế độ xem ghi âm và ghi hình`, các bản "
+"ghi màn hình-cộng-camera sử dụng thuộc tính này để lùi clip webcam góc."
 
 #: ../clips.rst:912
 msgid ""
@@ -4367,6 +4370,7 @@ msgstr ""
 "**Mẹo:** Sử dụng thuộc tính \"Start\" kết hợp với thuộc tính \"End\" để cắt "
 "clip chính xác."
 
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:1026
 msgid ""
 "The :guilabel:`Time` property is a key-frame curve that represents frames "
@@ -4387,9 +4391,9 @@ msgstr ""
 "vào clip và chọn menu :guilabel:`Speed`. Nhiều cài đặt sẵn có trong menu này"
 " để đảo ngược, tăng tốc và làm chậm clip video, xem :ref:`clip_presets_ref`."
 " Các điều chỉnh tương tự có thể được thực hiện tương tác với nút thanh công "
-"cụ :guilabel:`Timing` bằng cách kéo các cạnh của clip; OpenShot sẽ thêm các "
-"khung khóa thời gian cần thiết và tự động điều chỉnh tỷ lệ các khung khóa "
-"khác."
+"cụ :guilabel:`Đổi tốc độ` bằng cách kéo các cạnh của clip; OpenShot sẽ thêm "
+"các khung khóa thời gian cần thiết và tự động điều chỉnh tỷ lệ các khung "
+"khóa khác."
 
 # Translated with gpt-4.1-mini
 #: ../clips.rst:1033

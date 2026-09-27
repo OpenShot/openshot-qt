@@ -19,12 +19,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.10.3\n"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../preferences.rst:23
 msgid "Preferences"
-msgstr "प्राथमिकताएँ"
+msgstr "पसंदें"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../preferences.rst:25
 msgid ""
 "The Preferences window contains many important settings and configuration "
@@ -34,8 +34,8 @@ msgid ""
 msgstr ""
 "प्राथमिकताएँ विंडो में OpenShot के लिए कई महत्वपूर्ण सेटिंग्स और "
 "कॉन्फ़िगरेशन विकल्प होते हैं। इन्हें शीर्ष मेनू में "
-":guilabel:`संपादित→प्राथमिकताएँ` के अंतर्गत पाया जा सकता है। कई सेटिंग्स में"
-" आपके परिवर्तनों के लागू होने के बाद OpenShot को पुनः आरंभ करना आवश्यक होगा।"
+":guilabel:`संपादित→पसंदें` के अंतर्गत पाया जा सकता है। कई सेटिंग्स में आपके "
+"परिवर्तनों के लागू होने के बाद OpenShot को पुनः आरंभ करना आवश्यक होगा।"
 
 # Translated with gpt-4.1-mini
 #: ../preferences.rst:29

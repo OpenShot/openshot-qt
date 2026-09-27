@@ -188,10 +188,10 @@ msgstr ""
 msgid "8"
 msgstr "8"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:44
 msgid "Timeline"
-msgstr "Часова шкала"
+msgstr "Монтажний стіл"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:44
@@ -404,15 +404,16 @@ msgstr "Скасуйте або повторіть останні зміни н�
 msgid "Snap, Retime, Razor"
 msgstr "Прив’язка, Зміна часу, Лезо"
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:112
 msgid ""
 "Snapping toggles magnetic alignment. Timing Tool enables retiming by "
 "dragging clip edges. The :ref:`razor_tool_ref` previews and cuts at the "
 "guide position; press :kbd:`Esc` to exit."
 msgstr ""
-"Прив’язка вмикає магнітне вирівнювання. Інструмент часу дозволяє змінювати "
-"час, перетягуючи краї кліпу. :ref:`razor_tool_ref` попередньо переглядає та "
-"ріже в позиції направляючої; натисніть :kbd:`Esc`, щоб вийти."
+"Прив’язка вмикає магнітне вирівнювання. Інструмент зміни швидкості дозволяє "
+"змінювати час, перетягуючи краї кліпу. :ref:`razor_tool_ref` попередньо "
+"переглядає та ріже в позиції направляючої; натисніть :kbd:`Esc`, щоб вийти."
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:114
@@ -471,7 +472,7 @@ msgstr ""
 msgid "Keyboard Shortcuts"
 msgstr "Клавіатурні скорочення"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:130
 msgid ""
 "Here is a list of the default keyboard shortcuts supported by OpenShot. You "
@@ -482,9 +483,9 @@ msgid ""
 msgstr ""
 "Ось список стандартних клавіатурних скорочень, підтримуваних OpenShot. Ви "
 "можете налаштувати ці скорочення у вікні Налаштувань, яке відкривається "
-"вибором :guilabel:`Редагувати→Налаштування` у меню OpenShot. (На macOS "
-"виберіть :guilabel:`OpenShot Video Editor→Preferences`.) Вивчення кількох із"
-" цих скорочень може заощадити вам багато часу!"
+"вибором :guilabel:`Редагувати→Параметри` у меню OpenShot. (На macOS виберіть"
+" :guilabel:`OpenShot Video Editor→Параметри`.) Вивчення кількох із цих "
+"скорочень може заощадити вам багато часу!"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:140
@@ -964,10 +965,10 @@ msgstr ":kbd:`Up`"
 msgid ":kbd:`Down`"
 msgstr ":kbd:`Down`"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:185
 msgid "Preferences"
-msgstr "Налаштування"
+msgstr "Параметри"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:185
@@ -1287,10 +1288,10 @@ msgstr "Перегляд ескізів"
 msgid ":kbd:`Ctrl+Page Down`"
 msgstr ":kbd:`Ctrl+Page Down`"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:215
 msgid "Timing Toggle"
-msgstr "Перемикання часу"
+msgstr "Перемикання зміни швидкості"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:215
@@ -1516,12 +1517,12 @@ msgstr ""
 ":guilabel:`Очистити` Очистити поточну історію або кешовані дані форми хвилі."
 " Це значно зменшує розмір файлу проекту `.osp`."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:256
 msgid ""
 ":guilabel:`Preferences` Open the preferences dialog to customize settings."
 msgstr ""
-":guilabel:`Налаштування` Відкрити діалог налаштувань для персоналізації "
+":guilabel:`Параметри` Відкрити діалог налаштувань для персоналізації "
 "параметрів."
 
 # Translated with gpt-4.1-mini
@@ -1710,6 +1711,7 @@ msgstr ""
 "OpenShot включає :guilabel:`Простий вигляд`, :guilabel:`Колірний вигляд` та "
 ":guilabel:`Мої вигляди` (користувацькі макети)."
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:323
 msgid ""
 "This is the **default** view, and is designed to be easy-to-use, especially "
@@ -1722,9 +1724,9 @@ msgstr ""
 "Це **стандартний** вигляд, розроблений для зручності, особливо для новачків."
 " Він містить :guilabel:`Файли проекту` у верхньому лівому куті, "
 ":guilabel:`Вікно попереднього перегляду` у верхньому правому куті та "
-":guilabel:`Таймлайн` унизу. Якщо ви випадково закриєте або перемістите док, "
-"ви можете швидко скинути всі доки до їх стандартного розташування через меню"
-" :guilabel:`Вигляд->Простий вигляд` у верхній частині екрана."
+":guilabel:`Монтажний стіл` унизу. Якщо ви випадково закриєте або перемістите"
+" док, ви можете швидко скинути всі доки до їх стандартного розташування "
+"через меню :guilabel:`Вигляд->Простий вигляд` у верхній частині екрана."
 
 #: ../main_window.rst:330
 msgid ""
@@ -1744,6 +1746,7 @@ msgstr ""
 msgid "Recording View"
 msgstr "Вигляд запису"
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:336
 msgid ""
 "This view is focused on creating new recordings inside OpenShot. It shows "
@@ -1754,10 +1757,10 @@ msgid ""
 msgstr ""
 "Цей вигляд орієнтований на створення нових записів у OpenShot. Він показує "
 ":guilabel:`Файли проекту`, :guilabel:`Попередній перегляд відео`, "
-":guilabel:`Таймлайн` та док :guilabel:`Запис`. Док :guilabel:`Властивості` "
-"згрупований з :guilabel:`Файлами проекту` у вкладку, тому ви можете показати"
-" його через :guilabel:`Вигляд->Панелі->Властивості`, не порушуючи макет "
-"запису."
+":guilabel:`Монтажний стіл` та док :guilabel:`Запис`. Док "
+":guilabel:`Властивості` згрупований з :guilabel:`Файлами проекту` у вкладку,"
+" тому ви можете показати його через :guilabel:`Вигляд->Панелі->Властивості`,"
+" не порушуючи макет запису."
 
 #: ../main_window.rst:341
 msgid ""

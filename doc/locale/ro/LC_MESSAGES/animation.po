@@ -275,19 +275,19 @@ msgstr ""
 "Pentru o listă completă a cadrelor cheie, consultați "
 ":ref:`clip_properties_ref`."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../animation.rst:77
 msgid "Timing"
-msgstr "Temporizare"
+msgstr "Modificarea vitezei"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../animation.rst:78
 msgid ""
 "Changing how fast a clip plays is done with the :guilabel:`Time` property "
 "and the :guilabel:`Timing` tool."
 msgstr ""
 "Modificarea vitezei de redare a unui clip se face cu proprietatea "
-":guilabel:`Time` și cu instrumentul :guilabel:`Timing`."
+":guilabel:`Time` și cu instrumentul :guilabel:`Modificarea vitezei`."
 
 #: ../animation.rst:80
 msgid ""
@@ -297,7 +297,7 @@ msgstr ""
 "Meniul :guilabel:`Speed` oferă presetări precum normal, rapid, lent, "
 "înghețare, invers și repetare. Vezi detalii în :ref:`clip_time_ref`."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../animation.rst:81
 msgid ""
 "The :guilabel:`Timing` tool lets you drag a clip’s edges to speed it up or "
@@ -305,11 +305,11 @@ msgid ""
 "other keyframes** so your animations stay aligned. Shorter clips play "
 "faster, longer clips play slower. See more: :ref:`clip_time_ref`."
 msgstr ""
-"Instrumentul :guilabel:`Timing` vă permite să trageți marginile unui clip "
-"pentru a-l accelera sau încetini. OpenShot adaugă cadrele cheie de timp "
-"necesare și **scalează celelalte cadre cheie** astfel încât animațiile să "
-"rămână sincronizate. Clipurile mai scurte se redau mai rapid, cele mai lungi"
-" mai lent. Vezi mai mult: :ref:`clip_time_ref`."
+"Instrumentul :guilabel:`Modificarea vitezei` vă permite să trageți marginile"
+" unui clip pentru a-l accelera sau încetini. OpenShot adaugă cadrele cheie "
+"de timp necesare și **scalează celelalte cadre cheie** astfel încât "
+"animațiile să rămână sincronizate. Clipurile mai scurte se redau mai rapid, "
+"cele mai lungi mai lent. Vezi mai mult: :ref:`clip_time_ref`."
 
 # Translated with gpt-4.1-mini
 #: ../animation.rst:86

@@ -690,14 +690,14 @@ msgstr ""
 "Files** パネル内の任意のSVGファイルを右クリックして、**Edit Title** または**Duplicate Title** "
 "を選択することもできます。"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../titles.rst:172
 msgid ""
 "Note: These SVG templates are only used by the :guilabel:`Title Editor` "
 "dialog, and not :guilabel:`Animated Title` dialog."
 msgstr ""
-"注意：これらのSVGテンプレートは:guilabel:`Title Editor` ダイアログでのみ使用され、:guilabel:`Animated "
-"Title` ダイアログでは使用されません。"
+"注意：これらのSVGテンプレートは:guilabel:`Title Editor` "
+"ダイアログでのみ使用され、:guilabel:`アニメーションタイトル` ダイアログでは使用されません。"
 
 # Translated with gpt-4.1-mini
 #: ../titles.rst:177
@@ -1033,7 +1033,7 @@ msgstr ""
 msgid "Installing Blender"
 msgstr "Blenderのインストール"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../titles.rst:272
 msgid ""
 "The :guilabel:`Animated Title` feature in OpenShot requires the latest "
@@ -1043,7 +1043,7 @@ msgid ""
 " The minimum supported version of Blender is 5.0+. Older versions of Blender"
 " are not compatible with OpenShot Video Editor."
 msgstr ""
-"OpenShotの :guilabel:`Animated Title` 機能には、最新バージョンのBlender "
+"OpenShotの :guilabel:`アニメーションタイトル` 機能には、最新バージョンのBlender "
 "(https://www.blender.org/download/) のインストールと、OpenShotの**設定** "
 "でBlender実行ファイルへの正しいパスの更新が必要です。設定の :ref:`preferences_general_ref` "
 "タブを参照してください。注意：Blenderの最低サポートバージョンは5.0以上です。古いバージョンのBlenderはOpenShot Video "

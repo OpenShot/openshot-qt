@@ -2404,6 +2404,7 @@ msgstr ""
 " courbe d’affichage fixe. Une ligne centrale subtile permet d’identifier les"
 " passages silencieux sans les rendre plus forts qu’ils ne le sont."
 
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:588
 msgid ""
 "New waveforms use 200 samples per second by default, providing several "
@@ -2417,8 +2418,8 @@ msgid ""
 msgstr ""
 "Par défaut, les nouvelles formes d’onde utilisent 200 échantillons par "
 "seconde, fournissant plusieurs mesures dans une image vidéo typique. "
-"Modifiez cette densité via :guilabel:`Édition → Préférences → Timeline → "
-"Échantillons de forme d’onde (par seconde)`. Des valeurs plus élevées "
+"Modifiez cette densité via :guilabel:`Édition → Préférences → Ligne de temps"
+" → Échantillons de forme d’onde (par seconde)`. Des valeurs plus élevées "
 "montrent plus de détails en zoom mais augmentent la taille des données du "
 "projet et le temps d’analyse. Le moteur de rendu réduit les données denses "
 "aux pixels visibles de la timeline, et son cache de forme d’onde rend le "

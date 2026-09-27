@@ -461,6 +461,7 @@ msgid ""
 "Records one or two input channels. Mono is usually best for one microphone."
 msgstr "يسجل قناة أو قناتين إدخال. الأحادي عادةً الأفضل لميكروفون واحد."
 
+# Main-window terminology review, 2026-09-26.
 #: ../recording.rst:160
 msgid ""
 "Aim for a healthy meter response without clipping. A quiet waveform should "
@@ -474,8 +475,8 @@ msgstr ""
 "استهدف استجابة مقياس صحية دون تشويش. يجب أن يبقى الشكل الموجي الهادئ هادئًا "
 "بصريًا؛ لم يعد OpenShot يعيد تطبيع كل شكل موجي جديد إلى الارتفاع الكامل. "
 "يبرز الغلاف الذروي الأخف اللحظات العابرة بينما يلخص غلاف RMS الصلب الطاقة "
-"المستمرة. يتم التحكم في تفاصيلها عبر :guilabel:`تحرير → التفضيلات → الجدول "
-"الزمني → عينات الشكل الموجي (لكل ثانية)`. راجع :ref:`clip_presets_ref` لعرض "
+"المستمرة. يتم التحكم في تفاصيلها عبر :guilabel:`تحرير → التفضيلات → شريط "
+"الوقت → عينات الشكل الموجي (لكل ثانية)`. راجع :ref:`clip_presets_ref` لعرض "
 "الشكل الموجي وضوابط مستوى الصوت بعد التسجيل."
 
 #: ../recording.rst:167

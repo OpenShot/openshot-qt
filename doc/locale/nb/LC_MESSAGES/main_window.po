@@ -514,10 +514,10 @@ msgstr "Om OpenShot"
 msgid ":kbd:`Ctrl+H`"
 msgstr ":kbd:`Ctrl+H`"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:143
 msgid "Add Marker"
-msgstr "Legg til markør"
+msgstr "Legg til merke"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:143
@@ -1914,10 +1914,10 @@ msgstr ""
 msgid "Dock Name"
 msgstr "Dock-navn"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:397
 msgid "Captions"
-msgstr "Teksting"
+msgstr "Undertekster"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:398

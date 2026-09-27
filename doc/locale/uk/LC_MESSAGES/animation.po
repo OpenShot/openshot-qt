@@ -275,19 +275,19 @@ msgstr ""
 msgid "For a full list of key frames, see :ref:`clip_properties_ref`."
 msgstr "Повний список ключових кадрів див. :ref:`clip_properties_ref`."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../animation.rst:77
 msgid "Timing"
-msgstr "Часування"
+msgstr "Зміна швидкості"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../animation.rst:78
 msgid ""
 "Changing how fast a clip plays is done with the :guilabel:`Time` property "
 "and the :guilabel:`Timing` tool."
 msgstr ""
 "Зміна швидкості відтворення кліпу здійснюється за допомогою властивості "
-":guilabel:`Time` та інструменту :guilabel:`Timing`."
+":guilabel:`Time` та інструменту :guilabel:`Зміна швидкості`."
 
 #: ../animation.rst:80
 msgid ""
@@ -298,7 +298,7 @@ msgstr ""
 "повільна, заморожування, зворотна та повторення. Деталі див. у "
 ":ref:`clip_time_ref`."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../animation.rst:81
 msgid ""
 "The :guilabel:`Timing` tool lets you drag a clip’s edges to speed it up or "
@@ -306,9 +306,9 @@ msgid ""
 "other keyframes** so your animations stay aligned. Shorter clips play "
 "faster, longer clips play slower. See more: :ref:`clip_time_ref`."
 msgstr ""
-"Інструмент :guilabel:`Timing` дозволяє перетягувати краї кліпу, щоб "
-"прискорити або уповільнити його. OpenShot додає необхідні ключові кадри часу"
-" та **масштабує інші ключові кадри**, щоб анімації залишалися "
+"Інструмент :guilabel:`Зміна швидкості` дозволяє перетягувати краї кліпу, щоб"
+" прискорити або уповільнити його. OpenShot додає необхідні ключові кадри "
+"часу та **масштабує інші ключові кадри**, щоб анімації залишалися "
 "синхронізованими. Коротші кліпи відтворюються швидше, довші — повільніше. "
 "Детальніше: :ref:`clip_time_ref`."
 

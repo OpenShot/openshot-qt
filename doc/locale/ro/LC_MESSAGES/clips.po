@@ -1387,15 +1387,16 @@ msgstr ""
 "**Time-lapse** — :guilabel:`Accelerează → 8×` sau :guilabel:`16×` pentru a "
 "comprima ore în secunde."
 
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:342
 msgid ""
 "**Speed ramp** — use the :guilabel:`Timing` tool to drag clip edges and "
 "create a natural-feeling speed change; OpenShot scales all keyframes "
 "automatically."
 msgstr ""
-"**Rampă de viteză** — folosește instrumentul :guilabel:`Temporizare` pentru "
-"a trage marginile clipului și a crea o schimbare naturală a vitezei; "
-"OpenShot scalează automat toate cadrele cheie."
+"**Rampă de viteză** — folosește instrumentul :guilabel:`Modificarea vitezei`"
+" pentru a trage marginile clipului și a crea o schimbare naturală a vitezei;"
+" OpenShot scalează automat toate cadrele cheie."
 
 #: ../clips.rst:343
 msgid ""
@@ -1588,12 +1589,12 @@ msgstr ""
 "(inclusiv Repetare) și restaurează clipul la redarea sa originală, **fără a "
 "șterge cadrele cheie originale non-Timp**."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:391
 msgid "Timing Tool"
-msgstr "Instrument de temporizare"
+msgstr "Instrument de modificare a vitezei"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:392
 msgid ""
 "Another way to change a clip's speed is with the :guilabel:`Timing` tool on "
@@ -1603,11 +1604,11 @@ msgid ""
 "positions remain intact."
 msgstr ""
 "O altă metodă de a schimba viteza unui clip este cu instrumentul "
-":guilabel:`Timing` din bara de instrumente a timeline-ului. Activează "
-"pictograma ceas și trage marginile clipului. Alungirea clipului încetinește "
-"redarea, în timp ce scurtarea o accelerează. Toate cadrele cheie ale "
-"clipului și efectelor sale sunt scalate astfel încât pozițiile relative să "
-"rămână intacte."
+":guilabel:`Modificarea vitezei` din bara de instrumente a timeline-ului. "
+"Activează pictograma ceas și trage marginile clipului. Alungirea clipului "
+"încetinește redarea, în timp ce scurtarea o accelerează. Toate cadrele cheie"
+" ale clipului și efectelor sale sunt scalate astfel încât pozițiile relative"
+" să rămână intacte."
 
 #: ../clips.rst:398
 msgid ""
@@ -4477,6 +4478,7 @@ msgstr ""
 "**Sfat:** Utilizați proprietatea „Start” împreună cu proprietatea „End” "
 "pentru o tăiere precisă a clipului."
 
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:1026
 msgid ""
 "The :guilabel:`Time` property is a key-frame curve that represents frames "
@@ -4497,9 +4499,9 @@ msgstr ""
 "alegând meniul :guilabel:`Speed`. Multe presetări sunt disponibile în acest "
 "meniu pentru inversarea, accelerarea și încetinirea unui clip video, vezi "
 ":ref:`clip_presets_ref`. Aceleași ajustări pot fi făcute interactiv cu "
-"butonul de pe bara de instrumente :guilabel:`Timing` prin tragerea "
-"marginilor unui clip; OpenShot adaugă automat cadrele-cheie de timp necesare"
-" și scalează toate celelalte cadre-cheie."
+"butonul de pe bara de instrumente :guilabel:`Modificarea vitezei` prin "
+"tragerea marginilor unui clip; OpenShot adaugă automat cadrele-cheie de timp"
+" necesare și scalează toate celelalte cadre-cheie."
 
 # Translated with gpt-4.1-mini
 #: ../clips.rst:1033

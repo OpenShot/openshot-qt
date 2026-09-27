@@ -297,10 +297,10 @@ msgstr ""
 "Padrões**. É uma maneira simples de desfazer mudanças e voltar às "
 "configurações padrão daquela categoria sem afetar sua configuração geral."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../preferences.rst:99
 msgid "Timeline"
-msgstr "Linha do Tempo"
+msgstr "Linha cronológica"
 
 #: ../preferences.rst:103
 msgid ""

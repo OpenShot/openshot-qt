@@ -120,10 +120,10 @@ msgstr "Ondoorzichtigheid"
 msgid "Opacity keyframes are supported"
 msgstr "Ondoorzichtigheid-keyframes worden ondersteund"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../import_export.rst:43 ../import_export.rst:128
 msgid "Audio Levels"
-msgstr "Audiovolumes"
+msgstr "Audioniveaus"
 
 # Translated with gpt-4.1-mini
 #: ../import_export.rst:43 ../import_export.rst:128

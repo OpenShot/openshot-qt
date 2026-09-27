@@ -755,9 +755,10 @@ msgstr ""
 "जब Color Grade प्रभाव चुना जाता है, तो ये नियंत्रण :guilabel:`Properties` "
 "पैनल में दिखाई देते हैं:"
 
+# Main-window terminology review, 2026-09-26.
 #: ../color.rst:299
 msgid "Property"
-msgstr "गुण"
+msgstr "विशेषता"
 
 #: ../color.rst:299
 msgid "What It Does"

@@ -273,19 +273,19 @@ msgid "For a full list of key frames, see :ref:`clip_properties_ref`."
 msgstr ""
 "Za potpuni popis ključnih okvira, pogledajte :ref:`clip_properties_ref`."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../animation.rst:77
 msgid "Timing"
-msgstr "Vremensko Podešavanje"
+msgstr "Promjena brzine"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../animation.rst:78
 msgid ""
 "Changing how fast a clip plays is done with the :guilabel:`Time` property "
 "and the :guilabel:`Timing` tool."
 msgstr ""
 "Promjena brzine reprodukcije isječka vrši se svojstvom :guilabel:`Time` i "
-"alatom :guilabel:`Timing`."
+"alatom :guilabel:`Promjena brzine`."
 
 #: ../animation.rst:80
 msgid ""
@@ -296,7 +296,7 @@ msgstr ""
 " brzo, sporo, zamrzni, obrni i ponovi. Pogledajte detalje u "
 ":ref:`clip_time_ref`."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../animation.rst:81
 msgid ""
 "The :guilabel:`Timing` tool lets you drag a clip’s edges to speed it up or "
@@ -304,7 +304,7 @@ msgid ""
 "other keyframes** so your animations stay aligned. Shorter clips play "
 "faster, longer clips play slower. See more: :ref:`clip_time_ref`."
 msgstr ""
-"Alat :guilabel:`Timing` omogućuje vam povlačenje rubova isječka za "
+"Alat :guilabel:`Promjena brzine` omogućuje vam povlačenje rubova isječka za "
 "ubrzavanje ili usporavanje. OpenShot dodaje potrebne ključne okvire vremena "
 "i **skalira vaše ostale ključne okvire** kako bi vaše animacije ostale "
 "usklađene. Kraći isječci se reproduciraju brže, duži sporije. Više "

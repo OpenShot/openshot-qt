@@ -1555,13 +1555,14 @@ msgstr ""
 ":guilabel:`Simple View` og :guilabel:`Color View` skipta um eða endurstilla "
 "aðalgluggauppsetningu."
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:264
 msgid ""
 ":guilabel:`My Views` Save, load, update, and delete your own named layouts. "
 "See :ref:`my_views_ref`."
 msgstr ""
-":guilabel:`My Views` Vista, hlaða, uppfæra og eyða þínum eigin nafngreindu "
-"uppsetningum. Sjá :ref:`my_views_ref`."
+":guilabel:`Mínar sýnir` Vista, hlaða, uppfæra og eyða þínum eigin "
+"nafngreindu uppsetningum. Sjá :ref:`my_views_ref`."
 
 #: ../main_window.rst:265
 msgid ":guilabel:`Docks` Show or hide various dockable panels."
@@ -1692,6 +1693,7 @@ msgstr "Dæmi um úttak:"
 msgid "Views"
 msgstr "Útsýni"
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:317
 msgid ""
 "The OpenShot main window is composed of multiple **docks**. These **docks** "
@@ -1701,7 +1703,7 @@ msgid ""
 msgstr ""
 "Aðalgluggi OpenShot samanstendur af mörgum **festum**. Þessar **festur** eru"
 " raðaðar og festar saman í hóp sem við köllum **Sýn**. OpenShot inniheldur "
-":guilabel:`Simple View`, :guilabel:`Color View` og :guilabel:`My Views` "
+":guilabel:`Simple View`, :guilabel:`Color View` og :guilabel:`Mínar sýnir` "
 "(notendaskilgreindar uppsetningar)."
 
 #: ../main_window.rst:323
@@ -1720,6 +1722,7 @@ msgstr ""
 "fljótt endurstilla allar festur aftur á sjálfgefna staðsetningu með því að "
 "nota :guilabel:`View->Simple View` valmyndina efst á skjánum."
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:330
 msgid ""
 "This view is focused on color correction and scopes. It enlarges the video "
@@ -1731,8 +1734,8 @@ msgstr ""
 "Þessi sýn einbeitir sér að litaleiðréttingu og sviðum. Hún stækkar forskoðun"
 " myndbands, felur skráarstjórnunarfestur, heldur tímalínu og eiginleikum "
 "sýnilegum, setur :guilabel:`Color Wheels` festuna hægra megin og raðar "
-":guilabel:`Luma Waveform` og :guilabel:`Histogram` festunum saman í flipum "
-"fyrir neðan hana."
+":guilabel:`Luma-bylgjuform` og :guilabel:`Histogram` festunum saman í flipum"
+" fyrir neðan hana."
 
 #: ../main_window.rst:335
 msgid "Recording View"
@@ -1860,21 +1863,23 @@ msgstr "**Dæmigerð vinnuflæði:**"
 msgid "Arrange your docks exactly how you like them."
 msgstr "Raðaðu festunum nákvæmlega eins og þér líkar."
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:380
 msgid ""
 "Open :guilabel:`View → My Views → Save Current View As...` and enter a name "
 "(e.g. *\"Audio Mix\"*)."
 msgstr ""
-"Opnaðu :guilabel:`View → My Views → Save Current View As...` og sláðu inn "
-"nafn (t.d. *„Audio Mix“*)."
+"Opnaðu :guilabel:`View → Mínar sýnir → Save Current View As...` og sláðu inn"
+" nafn (t.d. *„Audio Mix“*)."
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:381
 msgid ""
 "Later, open :guilabel:`View → My Views` and click the view name to restore "
 "that layout instantly."
 msgstr ""
-"Síðar, opnaðu :guilabel:`View → My Views` og smelltu á nafn sýnarinnar til "
-"að endurheimta þá uppsetningu strax."
+"Síðar, opnaðu :guilabel:`View → Mínar sýnir` og smelltu á nafn sýnarinnar "
+"til að endurheimta þá uppsetningu strax."
 
 #: ../main_window.rst:382
 msgid ""
@@ -1974,9 +1979,10 @@ msgid ""
 "Analyze the tonal and channel distribution of the current preview frame."
 msgstr "Greindu tón- og rásadreifingu núverandi forskoðunarramma."
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:407
 msgid "Luma Waveform"
-msgstr "Luma bylgjulína"
+msgstr "Luma-bylgjuform"
 
 #: ../main_window.rst:408
 msgid "Analyze brightness distribution across the current preview frame."

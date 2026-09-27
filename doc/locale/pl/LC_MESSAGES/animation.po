@@ -276,19 +276,19 @@ msgid "For a full list of key frames, see :ref:`clip_properties_ref`."
 msgstr ""
 "Pełną listę kluczowych klatek znajdziesz w :ref:`clip_properties_ref`."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../animation.rst:77
 msgid "Timing"
-msgstr "Czas"
+msgstr "Zmiana prędkości"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../animation.rst:78
 msgid ""
 "Changing how fast a clip plays is done with the :guilabel:`Time` property "
 "and the :guilabel:`Timing` tool."
 msgstr ""
 "Zmiana prędkości odtwarzania klipu odbywa się za pomocą właściwości "
-":guilabel:`Czas` i narzędzia :guilabel:`Czas`."
+":guilabel:`Czas` i narzędzia :guilabel:`Zmiana prędkości`."
 
 #: ../animation.rst:80
 msgid ""
@@ -299,7 +299,7 @@ msgstr ""
 "szybka, wolna, zatrzymanie, odwrócenie i powtarzanie. Szczegóły w "
 ":ref:`clip_time_ref`."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../animation.rst:81
 msgid ""
 "The :guilabel:`Timing` tool lets you drag a clip’s edges to speed it up or "
@@ -307,8 +307,8 @@ msgid ""
 "other keyframes** so your animations stay aligned. Shorter clips play "
 "faster, longer clips play slower. See more: :ref:`clip_time_ref`."
 msgstr ""
-"Narzędzie :guilabel:`Czas` pozwala przeciągać krawędzie klipu, aby "
-"przyspieszyć lub zwolnić jego odtwarzanie. OpenShot dodaje potrzebne "
+"Narzędzie :guilabel:`Zmiana prędkości` pozwala przeciągać krawędzie klipu, "
+"aby przyspieszyć lub zwolnić jego odtwarzanie. OpenShot dodaje potrzebne "
 "kluczowe klatki czasu i **skaluję pozostałe kluczowe klatki**, aby animacje "
 "pozostały zsynchronizowane. Krótsze klipy odtwarzają się szybciej, dłuższe "
 "wolniej. Więcej informacji: :ref:`clip_time_ref`."

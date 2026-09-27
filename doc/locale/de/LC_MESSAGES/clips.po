@@ -304,6 +304,7 @@ msgstr ""
 msgid "**Razor Tool**"
 msgstr "**Rasierklingen-Werkzeug**"
 
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:88
 msgid ""
 "The :guilabel:`razor tool` from the **Timeline Toolbar** cuts a clip at the "
@@ -311,7 +312,7 @@ msgid ""
 "frame previews. Use :kbd:`SHIFT` to slice and keep the left side, or "
 ":kbd:`CTRL` to keep the right side."
 msgstr ""
-"Das :guilabel:`Rasiermesser-Werkzeug` aus der **Timeline-Werkzeugleiste** "
+"Das :guilabel:`Rasierklingen-Werkzeug` aus der **Timeline-Werkzeugleiste** "
 "schneidet einen Clip an der Stelle, an der es angeklickt wird. Siehe "
 ":ref:`razor_tool_ref` für Schnittführungen und Frame-Vorschauen. Verwenden "
 "Sie :kbd:`SHIFT`, um zu schneiden und die linke Seite zu behalten, oder "
@@ -351,24 +352,27 @@ msgstr ""
 " Kante haben, können Sie diese gemeinsame Kante einmal ziehen, um sie "
 "zusammen zu trimmen."
 
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:102
 msgid "Razor Tool"
-msgstr "Rasiermesser-Werkzeug"
+msgstr "Rasierklingen-Werkzeug"
 
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:104
 msgid ""
 "Use the **Razor Tool** to preview a cut and split a clip or transition "
 "directly on the timeline. Each click affects only the item under the "
 "pointer."
 msgstr ""
-"Verwenden Sie das **Rasiermesser-Werkzeug**, um einen Schnitt vorzuschauen "
+"Verwenden Sie das **Rasierklingen-Werkzeug**, um einen Schnitt vorzuschauen "
 "und einen Clip oder Übergang direkt in der Timeline zu teilen. Jeder Klick "
 "betrifft nur das Element unter dem Zeiger."
 
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:107
 msgid "Enable :guilabel:`Razor Tool` in the **Timeline Toolbar**."
 msgstr ""
-"Aktivieren Sie das :guilabel:`Rasiermesser-Werkzeug` in der **Timeline-"
+"Aktivieren Sie das :guilabel:`Rasierklingen-Werkzeug` in der **Timeline-"
 "Werkzeugleiste**."
 
 #: ../clips.rst:108
@@ -393,10 +397,11 @@ msgstr ""
 "an Ort und Stelle, und der Timecode der Führung entspricht der Timeline-"
 "Zeit."
 
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:113
 msgid "Click to split. Razor stays enabled so you can make more cuts."
 msgstr ""
-"Klicken zum Teilen. Das Rasiermesser bleibt aktiviert, damit Sie weitere "
+"Klicken zum Teilen. Die Rasierklinge bleibt aktiviert, damit Sie weitere "
 "Schnitte machen können."
 
 #: ../clips.rst:114
@@ -407,6 +412,7 @@ msgstr ""
 "Drücken Sie :kbd:`Esc` oder schalten Sie die Schaltfläche in der "
 "Werkzeugleiste erneut um, um zur normalen Bearbeitung zurückzukehren."
 
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:116
 msgid ""
 "Moving away from the clip or leaving Razor mode restores the preview at the "
@@ -414,15 +420,16 @@ msgid ""
 "trimming, Razor previews the individual source rather than the composed "
 "timeline. Hovering a transition previews its mask source."
 msgstr ""
-"Das Entfernen vom Clip oder Verlassen des Rasiermesser-Modus stellt die "
+"Das Entfernen vom Clip oder Verlassen des Rasierklingen-Modus stellt die "
 "Vorschau am Abspielkopf wieder her. Das Überfahren während der Wiedergabe "
-"unterbricht die Wiedergabe nicht. Wie beim Kantenzuschneiden zeigt das "
-"Rasiermesser die einzelne Quelle und nicht die zusammengesetzte Timeline an."
+"unterbricht die Wiedergabe nicht. Wie beim Kantenzuschneiden zeigt die "
+"Rasierklinge die einzelne Quelle und nicht die zusammengesetzte Timeline an."
 " Das Überfahren eines Übergangs zeigt dessen Maskenquelle an."
 
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:121
 msgid "Razor actions"
-msgstr "Rasiermesser-Aktionen"
+msgstr "Rasierklingen-Aktionen"
 
 #: ../clips.rst:125
 msgid "Action"
@@ -504,6 +511,7 @@ msgstr ""
 "links behalten (:kbd:`W`) oder rechts (:kbd:`Q`) und die Lücke schließen. "
 "Angepasste Belegungen funktionieren ebenfalls."
 
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:141
 msgid ""
 "Holding :kbd:`Alt` with :kbd:`Shift` or :kbd:`Ctrl` adds **Close gap** to "
@@ -518,12 +526,13 @@ msgstr ""
 "dem Hinweis **Lücke schließen** hinzu. Die rote Schattierung zeigt den zu "
 "entfernenden Bereich. Diese Operationen verwenden **Auswahl schneiden "
 "(Ripple)** erneut; sie verschieben spätere Clips und Übergänge auf derselben"
-" Spur, nicht auf anderen Spuren. Außerhalb des Rasiermesser-Überfahrens "
+" Spur, nicht auf anderen Spuren. Außerhalb des Rasierklingen-Überfahrens "
 "behalten die Ripple-Tastenkombinationen ihr normales Verhalten für "
 "ausgewählte Elemente/Abspielkopf bei. Ein gesperrtes oder ungültiges "
-"Rasiermesser-Ziel fällt nicht auf das Schneiden eines anderen ausgewählten "
+"Rasierklingen-Ziel fällt nicht auf das Schneiden eines anderen ausgewählten "
 "Clips zurück."
 
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:148
 msgid ""
 "Cuts align to project frames. With **Snapping** enabled, the Razor guide "
@@ -535,7 +544,7 @@ msgid ""
 "these targets."
 msgstr ""
 "Schnitte richten sich nach Projekt-Frames aus. Mit aktiviertem **Einrasten**"
-" verwendet die Rasiermesser-Führung dieselben Einrastziele und "
+" verwendet die Rasierklingen-Führung dieselben Einrastziele und "
 "Abstandstoleranzen wie andere Timeline-Bearbeitungen: Clip- und "
 "Übergangskanten, Marker, Abspielkopf und die Keyframe-Ziele des überfahrenen"
 " Clips. Die eigenen Endpunkte des überfahrenen Elements sind ausgeschlossen."
@@ -2568,7 +2577,7 @@ msgstr ""
 "Lücke zu schließen. Diese Optionen sind über das Kontextmenü zugänglich und "
 "nur verfügbar, wenn Lücken erkannt werden."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:633
 msgid ""
 "**Remove Gap:** - This option deletes a specific gap between two clips on "
@@ -2580,8 +2589,8 @@ msgstr ""
 "zwei Clips in der Timeline. Klicken Sie mit der rechten Maustaste auf die "
 "Lücke zwischen den Clips, um die Option :guilabel:`Lücke entfernen` "
 "aufzurufen. - Verwendung: Verwenden Sie diese Option, um eine bestimmte "
-"Lücke, die durch Zuschneiden oder das Rasiermesser-Werkzeug entstanden ist, "
-"schnell zu beseitigen."
+"Lücke, die durch Zuschneiden oder das Rasierklingen-Werkzeug entstanden ist,"
+" schnell zu beseitigen."
 
 # Translated with gpt-4.1-mini
 #: ../clips.rst:637

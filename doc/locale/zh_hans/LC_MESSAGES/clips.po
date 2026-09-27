@@ -1130,12 +1130,13 @@ msgid ""
 "hours into seconds."
 msgstr "**延时摄影** — 使用 :guilabel:`加速 → 8×` 或 :guilabel:`16×` 将数小时压缩为数秒。"
 
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:342
 msgid ""
 "**Speed ramp** — use the :guilabel:`Timing` tool to drag clip edges and "
 "create a natural-feeling speed change; OpenShot scales all keyframes "
 "automatically."
-msgstr "**速度渐变** — 使用 :guilabel:`时间` 工具拖动剪辑边缘，创建自然的速度变化；OpenShot 会自动缩放所有关键帧。"
+msgstr "**速度渐变** — 使用 :guilabel:`变速` 工具拖动剪辑边缘，创建自然的速度变化；OpenShot 会自动缩放所有关键帧。"
 
 #: ../clips.rst:343
 msgid ""
@@ -1295,12 +1296,12 @@ msgid ""
 msgstr ""
 ":guilabel:`速度 → 重置速度` 完全移除任何时间曲线（包括重复），并将剪辑恢复到其原始播放状态，**不会删除您原有的非时间关键帧**。"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:391
 msgid "Timing Tool"
-msgstr "时间工具"
+msgstr "变速工具"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:392
 msgid ""
 "Another way to change a clip's speed is with the :guilabel:`Timing` tool on "
@@ -1309,7 +1310,7 @@ msgid ""
 "All keyframes on the clip and its effects are scaled so their relative "
 "positions remain intact."
 msgstr ""
-"更改剪辑速度的另一种方法是使用时间轴工具栏上的 :guilabel:`Timing` "
+"更改剪辑速度的另一种方法是使用时间轴工具栏上的 :guilabel:`变速` "
 "工具。启用时钟图标并拖动剪辑的边缘。延长剪辑会减慢播放速度，缩短剪辑会加快播放速度。剪辑及其效果上的所有关键帧都会按比例缩放，以保持它们的相对位置不变。"
 
 #: ../clips.rst:398
@@ -2151,10 +2152,10 @@ msgid ""
 ":ref:`clips_cutting_slicing_ref` section."
 msgstr "有关更高级的编辑选项和快捷键，请参阅 :ref:`clips_cutting_slicing_ref` 部分。"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:667
 msgid "Effects"
-msgstr "效果"
+msgstr "特效"
 
 # Translated with gpt-4.1-mini
 #: ../clips.rst:668
@@ -3652,6 +3653,7 @@ msgid ""
 "property for precise clip trimming."
 msgstr "**提示：** 结合使用“开始”和“结束”属性，实现精确的剪辑修剪。"
 
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:1026
 msgid ""
 "The :guilabel:`Time` property is a key-frame curve that represents frames "
@@ -3668,7 +3670,7 @@ msgstr ""
 ":guilabel:`时间` 属性是一个关键帧曲线，表示随时间播放的帧数，影响视频的速度和方向。您可以通过右键点击剪辑并选择 "
 ":guilabel:`速度` "
 "菜单，使用可用的预设（正常、快速、慢速、冻结、冻结并缩放、前进、后退）之一。该菜单中有许多预设用于反转、加速和减速视频剪辑，参见 "
-":ref:`clip_presets_ref`。也可以通过拖动剪辑边缘，使用 :guilabel:`时间` 工具栏按钮进行交互式调整；OpenShot "
+":ref:`clip_presets_ref`。也可以通过拖动剪辑边缘，使用 :guilabel:`变速` 工具栏按钮进行交互式调整；OpenShot "
 "会自动添加必要的时间关键帧并缩放所有其他关键帧。"
 
 # Translated with gpt-4.1-mini

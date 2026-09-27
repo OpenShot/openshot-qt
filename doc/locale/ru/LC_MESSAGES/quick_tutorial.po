@@ -71,10 +71,10 @@ msgstr ""
 "**Проект** включает ссылки на все видеофайлы и правки (анимации, титры и т. "
 "д.), сохранённые в одном файле."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../quick_tutorial.rst:41
 msgid "Timeline"
-msgstr "Таймлайн"
+msgstr "Шкала времени"
 
 # Translated with gpt-4.1-mini
 #: ../quick_tutorial.rst:41

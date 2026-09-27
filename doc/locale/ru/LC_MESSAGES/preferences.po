@@ -297,10 +297,10 @@ msgstr ""
 " умолчанию**. Это простой способ отменить изменения и вернуть настройки по "
 "умолчанию для этой категории, не затрагивая общие настройки."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../preferences.rst:99
 msgid "Timeline"
-msgstr "Лента времени"
+msgstr "Шкала времени"
 
 #: ../preferences.rst:103
 msgid ""

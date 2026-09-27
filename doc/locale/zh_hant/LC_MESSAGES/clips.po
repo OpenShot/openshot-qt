@@ -1134,13 +1134,13 @@ msgid ""
 "hours into seconds."
 msgstr "**縮時攝影** — 使用 :guilabel:`加速 → 8×` 或 :guilabel:`16×`，將數小時壓縮成數秒。"
 
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:342
 msgid ""
 "**Speed ramp** — use the :guilabel:`Timing` tool to drag clip edges and "
 "create a natural-feeling speed change; OpenShot scales all keyframes "
 "automatically."
-msgstr ""
-"**速度變化** — 使用 :guilabel:`時間軸` 工具拖曳剪輯邊緣，創造自然的速度變化；OpenShot 會自動調整所有關鍵影格。"
+msgstr "**速度變化** — 使用 :guilabel:`變速` 工具拖曳剪輯邊緣，創造自然的速度變化；OpenShot 會自動調整所有關鍵影格。"
 
 #: ../clips.rst:343
 msgid ""
@@ -1300,12 +1300,12 @@ msgid ""
 msgstr ""
 ":guilabel:`速度 → 重設速度` 完全移除任何時間曲線（包括重複），並將剪輯恢復到原始播放狀態，**不會刪除您原本的非時間關鍵幀**。"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:391
 msgid "Timing Tool"
-msgstr "時間工具"
+msgstr "變速工具"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:392
 msgid ""
 "Another way to change a clip's speed is with the :guilabel:`Timing` tool on "
@@ -1314,7 +1314,7 @@ msgid ""
 "All keyframes on the clip and its effects are scaled so their relative "
 "positions remain intact."
 msgstr ""
-"改變剪輯速度的另一種方法是使用時間軸工具列上的 :guilabel:`Timing` "
+"改變剪輯速度的另一種方法是使用時間軸工具列上的 :guilabel:`變速` "
 "工具。啟用時鐘圖示後，拖曳剪輯的邊緣。延長剪輯會減慢播放速度，縮短則會加快剪輯速度。剪輯及其效果上的所有關鍵影格都會按比例調整，以保持相對位置不變。"
 
 #: ../clips.rst:398
@@ -3668,6 +3668,7 @@ msgid ""
 "property for precise clip trimming."
 msgstr "**提示：** 結合使用「開始」和「結束」屬性，以精確修剪剪輯。"
 
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:1026
 msgid ""
 "The :guilabel:`Time` property is a key-frame curve that represents frames "
@@ -3684,8 +3685,8 @@ msgstr ""
 ":guilabel:`Time` 屬性是一條關鍵影格曲線，代表隨時間播放的影格，影響影片的速度與方向。您可以透過右鍵點擊剪輯並選擇 "
 ":guilabel:`Speed` "
 "選單，使用可用的預設值（正常、快速、慢速、凍結、凍結並縮放、前進、後退）。此選單中有許多預設可用於反轉、加速和減速影片剪輯，詳見 "
-":ref:`clip_presets_ref`。也可以透過拖曳剪輯邊緣，使用 :guilabel:`Timing` "
-"工具列按鈕進行互動式調整；OpenShot 會自動新增必要的時間關鍵影格並縮放其他所有關鍵影格。"
+":ref:`clip_presets_ref`。也可以透過拖曳剪輯邊緣，使用 :guilabel:`變速` 工具列按鈕進行互動式調整；OpenShot "
+"會自動新增必要的時間關鍵影格並縮放其他所有關鍵影格。"
 
 # Translated with gpt-4.1-mini
 #: ../clips.rst:1033

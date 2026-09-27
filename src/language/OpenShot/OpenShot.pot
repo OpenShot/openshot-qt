@@ -6923,3 +6923,7 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt/src/windows/views/zoom_slider.py:824
 msgid "Zoom right edge"
 msgstr ""
+
+#: src/themes/base.py:480
+msgid "Pause"
+msgstr ""

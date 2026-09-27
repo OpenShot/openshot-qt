@@ -239,15 +239,16 @@ msgstr ""
 "obszar poddany działaniu efektu, zmienić rozmiar jego uchwytów lub narysować"
 " nowy prostokąt wewnątrz klipu."
 
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:89
 msgid ""
 "The same preview rectangle can be used to position Caption text. Select a "
 "Caption effect, then move or resize the white rectangle in the video preview"
 " to adjust the Caption margins."
 msgstr ""
-"Ten sam prostokąt podglądu można użyć do pozycjonowania tekstu podpisu. "
-"Wybierz efekt podpisu, a następnie przesuń lub zmień rozmiar białego "
-"prostokąta w podglądzie wideo, aby dostosować marginesy podpisu."
+"Ten sam prostokąt podglądu można użyć do pozycjonowania tekstu napisu. "
+"Wybierz efekt napisu, a następnie przesuń lub zmień rozmiar białego "
+"prostokąta w podglądzie wideo, aby dostosować marginesy napisu."
 
 # Translated with gpt-4.1-mini
 #: ../effects.rst:92
@@ -435,20 +436,20 @@ msgstr "Zmodyfikuj jasność i kontrast klatki."
 msgid "|caption_icon|"
 msgstr "|caption_icon|"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:133
 msgid "Caption Icon"
-msgstr "Ikona podpisu"
+msgstr "Ikona napisu"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:290 ../effects.rst:674
 msgid "Caption"
-msgstr "Podpis"
+msgstr "Napis"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:290
 msgid "Add text captions to any clip."
-msgstr "Dodaj tekstowe podpisy do dowolnego klipu."
+msgstr "Dodaj tekstowe napisy do dowolnego klipu."
 
 # Translated with gpt-4.1-mini
 #: ../effects.rst:291
@@ -2600,6 +2601,7 @@ msgstr ""
 "abyś mógł od razu zacząć pisać. Aktualizacje tekstu napisu są podglądane "
 "podczas pisania."
 
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:686
 msgid ""
 "To set a caption's end time from the playhead, remove the existing end "
@@ -2608,7 +2610,7 @@ msgid ""
 "timestamp line, and press the plus icon again. OpenShot inserts the current "
 "playhead timestamp as the cue's end time."
 msgstr ""
-"Aby ustawić czas zakończenia podpisu z pozycji wskaźnika odtwarzania, usuń "
+"Aby ustawić czas zakończenia napisu z pozycji wskaźnika odtwarzania, usuń "
 "istniejący znacznik końcowy z linii wskazania, pozostawiając znacznik "
 "początkowy i strzałkę. Przesuń wskaźnik odtwarzania do żądanego czasu "
 "zakończenia, umieść kursor tekstowy na tej niekompletnej linii znacznika i "

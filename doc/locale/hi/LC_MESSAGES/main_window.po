@@ -470,7 +470,7 @@ msgstr "प्रति-ट्रैक नियंत्रण जैसे �
 msgid "Keyboard Shortcuts"
 msgstr "कीबोर्ड शॉर्टकट"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:130
 msgid ""
 "Here is a list of the default keyboard shortcuts supported by OpenShot. You "
@@ -481,9 +481,9 @@ msgid ""
 msgstr ""
 "यहाँ OpenShot द्वारा समर्थित डिफ़ॉल्ट कीबोर्ड शॉर्टकट की सूची है। आप इन "
 "शॉर्टकट्स को प्रेफरेंस विंडो में कॉन्फ़िगर कर सकते हैं, जिसे OpenShot मेनू "
-"बार से :guilabel:`Edit→Preferences` चुनकर खोला जाता है। (macOS पर, "
-":guilabel:`OpenShot Video Editor→Preferences` चुनें।) कुछ शॉर्टकट सीखने से "
-"आपका काफी समय बच सकता है!"
+"बार से :guilabel:`Edit→पसंदें` चुनकर खोला जाता है। (macOS पर, "
+":guilabel:`OpenShot Video Editor→पसंदें` चुनें।) कुछ शॉर्टकट सीखने से आपका "
+"काफी समय बच सकता है!"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:140
@@ -803,20 +803,20 @@ msgstr "हमारे समुदाय से जुड़ें..."
 msgid ":kbd:`F5`"
 msgstr ":kbd:`F5`"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:171
 msgid "Jump To End"
-msgstr "अंत में जाएं"
+msgstr "अंत में जाएँ"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:171
 msgid ":kbd:`End`"
 msgstr ":kbd:`End`"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:172
 msgid "Jump To Start"
-msgstr "शुरुआत में जाएं"
+msgstr "शुरुआत में जाएँ"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:172
@@ -963,10 +963,10 @@ msgstr ":kbd:`Up`"
 msgid ":kbd:`Down`"
 msgstr ":kbd:`Down`"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:185
 msgid "Preferences"
-msgstr "पसंद"
+msgstr "पसंदें"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:185
@@ -1108,10 +1108,10 @@ msgstr "प्रोजेक्ट सहेजें"
 msgid ":kbd:`Ctrl+S`"
 msgstr ":kbd:`Ctrl+S`"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:198
 msgid "Save Project As..."
-msgstr "प्रोजेक्ट को इस नाम से सहेजें..."
+msgstr "प्रोजेक्ट इस नाम से सहेजें..."
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:198
@@ -1417,21 +1417,21 @@ msgstr "मेनू नाम"
 msgid "File"
 msgstr "फ़ाइल"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:240
 msgid ":guilabel:`New Project` Create a blank new project."
-msgstr ":guilabel:`New Project` एक नया खाली प्रोजेक्ट बनाएं।"
+msgstr ":guilabel:`नया प्रोजेक्ट` एक नया खाली प्रोजेक्ट बनाएं।"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:241
 msgid ":guilabel:`Open Project` Open an existing project."
-msgstr ":guilabel:`Open Project` एक मौजूदा प्रोजेक्ट खोलें।"
+msgstr ":guilabel:`प्रोजेक्ट खोलें` एक मौजूदा प्रोजेक्ट खोलें।"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:242
 msgid ":guilabel:`Recent Projects` Access recently opened projects."
 msgstr ""
-":guilabel:`Recent Projects` हाल ही में खोले गए प्रोजेक्ट्स तक पहुँचें।"
+":guilabel:`हाल के प्रोजेक्ट` हाल ही में खोले गए प्रोजेक्ट्स तक पहुँचें।"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:243
@@ -1442,15 +1442,16 @@ msgstr ""
 ":guilabel:`Recovery` अपने वर्तमान प्रोजेक्ट का पहले से सहेजा गया संस्करण "
 "पुनर्स्थापित करें।"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:244
 msgid ":guilabel:`Save Project` Save the current project."
-msgstr ":guilabel:`Save Project` वर्तमान प्रोजेक्ट सहेजें।"
+msgstr ":guilabel:`प्रोजेक्ट सहेजें` वर्तमान प्रोजेक्ट सहेजें।"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:245
 msgid ":guilabel:`Import Files` Import media files into the project."
-msgstr ":guilabel:`Import Files` मीडिया फ़ाइलों को प्रोजेक्ट में आयात करें।"
+msgstr ""
+":guilabel:`फ़ाइलें आयात करें` मीडिया फ़ाइलों को प्रोजेक्ट में आयात करें।"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:246
@@ -1489,10 +1490,10 @@ msgstr ""
 "निर्यात करें (*EDL, Adobe, और Final Cut Pro फॉर्मेट आंशिक रूप से समर्थित "
 "हैं*)."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:250
 msgid ":guilabel:`Quit` Exit the application."
-msgstr ":guilabel:`Quit` एप्लिकेशन से बाहर निकलें।"
+msgstr ":guilabel:`बाहर निकलें` एप्लिकेशन से बाहर निकलें।"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:251
@@ -1509,22 +1510,21 @@ msgstr ":guilabel:`Undo` अंतिम क्रिया पूर्वव�
 msgid ":guilabel:`Redo` Redo the last undone action."
 msgstr ":guilabel:`Redo` अंतिम पूर्ववत की गई क्रिया को पुनः करें।"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:255
 msgid ""
 ":guilabel:`Clear` Clear the current history or waveform cached data. This "
 "makes the `.osp project` file a much smaller file size."
 msgstr ""
-":guilabel:`Clear` वर्तमान इतिहास या वेवफ़ॉर्म कैश्ड डेटा साफ़ करें। इससे "
-"`.osp प्रोजेक्ट` फ़ाइल का आकार काफी छोटा हो जाता है।"
+":guilabel:`साफ़ करें` वर्तमान इतिहास या वेवफ़ॉर्म कैश्ड डेटा साफ़ करें। इससे"
+" `.osp प्रोजेक्ट` फ़ाइल का आकार काफी छोटा हो जाता है।"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:256
 msgid ""
 ":guilabel:`Preferences` Open the preferences dialog to customize settings."
 msgstr ""
-":guilabel:`Preferences` सेटिंग्स को अनुकूलित करने के लिए प्रेफरेंस डायलॉग "
-"खोलें।"
+":guilabel:`पसंदें` सेटिंग्स को अनुकूलित करने के लिए प्रेफरेंस डायलॉग खोलें।"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:259

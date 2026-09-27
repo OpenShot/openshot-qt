@@ -366,13 +366,14 @@ msgstr "撤销或重做您最近的时间线编辑。"
 msgid "Snap, Retime, Razor"
 msgstr "吸附、重定时、剃刀"
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:112
 msgid ""
 "Snapping toggles magnetic alignment. Timing Tool enables retiming by "
 "dragging clip edges. The :ref:`razor_tool_ref` previews and cuts at the "
 "guide position; press :kbd:`Esc` to exit."
 msgstr ""
-"捕捉切换磁性对齐。时间工具通过拖动剪辑边缘实现重新定时。:ref:`razor_tool_ref` 在参考线位置预览并剪切；按 :kbd:`Esc` "
+"捕捉切换磁性对齐。变速工具通过拖动剪辑边缘实现重新定时。:ref:`razor_tool_ref` 在参考线位置预览并剪切；按 :kbd:`Esc` "
 "退出。"
 
 # Translated with gpt-4.1-mini
@@ -1029,10 +1030,10 @@ msgstr "报告错误..."
 msgid ":kbd:`F3`"
 msgstr ":kbd:`F3`"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:194
 msgid "Rewind"
-msgstr "倒带"
+msgstr "快退"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:194
@@ -1237,10 +1238,10 @@ msgstr "缩略图视图"
 msgid ":kbd:`Ctrl+Page Down`"
 msgstr ":kbd:`Ctrl+向下翻页`"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:215
 msgid "Timing Toggle"
-msgstr "时间切换"
+msgstr "切换变速工具"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:215
@@ -1800,10 +1801,10 @@ msgid ""
 "create, edit, and manage caption data. See :ref:`caption_effect_ref` effect."
 msgstr "管理并添加字幕或字幕到您的视频项目。允许您创建、编辑和管理字幕数据。参见 :ref:`caption_effect_ref` 效果。"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:399
 msgid "Effects"
-msgstr "效果"
+msgstr "特效"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:400

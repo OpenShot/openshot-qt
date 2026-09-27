@@ -314,7 +314,7 @@ msgstr ""
 "playerelor media (cum ar fi VLC) sau site-urilor web (cum ar fi YouTube, "
 "Vimeo, …)."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../quick_tutorial.rst:120
 msgid ""
 "Click on the Export Video icon at the top of the screen (or use the :"
@@ -322,8 +322,8 @@ msgid ""
 "just click the :guilabel:`Export Video` button to render your new video."
 msgstr ""
 "Faceți clic pe pictograma Exportă Video din partea de sus a ecranului (sau "
-"folosiți meniul :guilabel:`Fișier→Exportă Video`). Valorile implicite sunt "
-"potrivite, așa că doar faceți clic pe butonul :guilabel:`Exportă Video` "
+"folosiți meniul :guilabel:`Fișier→Exportă video`). Valorile implicite sunt "
+"potrivite, așa că doar faceți clic pe butonul :guilabel:`Exportă video` "
 "pentru a reda noul videoclip."
 
 # Translated with gpt-4.1-mini

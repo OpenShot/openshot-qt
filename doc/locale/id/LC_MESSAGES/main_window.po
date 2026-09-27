@@ -190,10 +190,10 @@ msgstr ""
 msgid "8"
 msgstr "8"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:44
 msgid "Timeline"
-msgstr "Timeline"
+msgstr "Garis Waktu"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:44
@@ -379,10 +379,10 @@ msgstr ""
 msgid "Control Group"
 msgstr "Grup Kontrol"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:105 ../main_window.rst:144
 msgid "Add Track"
-msgstr "Tambah Track"
+msgstr "Tambah Trek"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:106
@@ -408,16 +408,17 @@ msgstr "Batalkan atau ulangi pengeditan timeline terbaru Anda."
 msgid "Snap, Retime, Razor"
 msgstr "Snap, Ubah Waktu, Pisau"
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:112
 msgid ""
 "Snapping toggles magnetic alignment. Timing Tool enables retiming by "
 "dragging clip edges. The :ref:`razor_tool_ref` previews and cuts at the "
 "guide position; press :kbd:`Esc` to exit."
 msgstr ""
-"Penjepitan mengaktifkan penjajaran magnetik. Alat Waktu memungkinkan "
-"pengaturan ulang waktu dengan menyeret tepi klip. :ref:`razor_tool_ref` "
-"menampilkan pratinjau dan memotong pada posisi panduan; tekan :kbd:`Esc` "
-"untuk keluar."
+"Penjepitan mengaktifkan penjajaran magnetik. Alat Pengaturan Kecepatan "
+"memungkinkan pengaturan ulang waktu dengan menyeret tepi klip. "
+":ref:`razor_tool_ref` menampilkan pratinjau dan memotong pada posisi "
+"panduan; tekan :kbd:`Esc` untuk keluar."
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:114
@@ -1289,10 +1290,10 @@ msgstr "Tampilan Thumbnail"
 msgid ":kbd:`Ctrl+Page Down`"
 msgstr ":kbd:`Ctrl+Page Down`"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:215
 msgid "Timing Toggle"
-msgstr "Alihkan Waktu"
+msgstr "Aktifkan/Nonaktifkan Pengaturan Kecepatan"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:215
@@ -1713,6 +1714,7 @@ msgstr ""
 "OpenShot mencakup :guilabel:`Simple View`, :guilabel:`Color View`, dan "
 ":guilabel:`My Views` (tata letak yang ditentukan pengguna)."
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:323
 msgid ""
 "This is the **default** view, and is designed to be easy-to-use, especially "
@@ -1724,9 +1726,9 @@ msgid ""
 msgstr ""
 "Ini adalah tampilan **default**, dan dirancang agar mudah digunakan, "
 "terutama untuk pengguna baru. Ini berisi :guilabel:`Project Files` di kiri "
-"atas, :guilabel:`Preview Window` di kanan atas, dan :guilabel:`Timeline` di "
-"bagian bawah. Jika Anda tidak sengaja menutup atau memindahkan dock, Anda "
-"dapat dengan cepat mengatur ulang semua dock ke lokasi default menggunakan "
+"atas, :guilabel:`Preview Window` di kanan atas, dan :guilabel:`Garis Waktu` "
+"di bagian bawah. Jika Anda tidak sengaja menutup atau memindahkan dock, Anda"
+" dapat dengan cepat mengatur ulang semua dock ke lokasi default menggunakan "
 "menu :guilabel:`View->Simple View` di bagian atas layar."
 
 #: ../main_window.rst:330
@@ -1747,6 +1749,7 @@ msgstr ""
 msgid "Recording View"
 msgstr "Tampilan Perekaman"
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:336
 msgid ""
 "This view is focused on creating new recordings inside OpenShot. It shows "
@@ -1756,12 +1759,13 @@ msgid ""
 ":guilabel:`View->Docks->Properties` without disrupting the recording layout."
 msgstr ""
 "Tampilan ini berfokus pada pembuatan rekaman baru di dalam OpenShot. Ini "
-"menampilkan :guilabel:`Project Files`, :guilabel:`Video Preview`, "
-":guilabel:`Timeline`, dan dock :guilabel:`Recording`. Dock "
+"menampilkan :guilabel:`Project Files`, :guilabel:`Pratinjau Video`, "
+":guilabel:`Garis Waktu`, dan dock :guilabel:`Perekaman`. Dock "
 ":guilabel:`Properties` digabungkan dengan :guilabel:`Project Files` sebagai "
 "tab, sehingga Anda dapat menampilkannya dari "
 ":guilabel:`View->Docks->Properties` tanpa mengganggu tata letak perekaman."
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:341
 msgid ""
 "The :guilabel:`Recording` dock can record microphone audio, screen capture, "
@@ -1776,7 +1780,7 @@ msgid ""
 "details. See :ref:`recording_ref` for the complete recording workflow and "
 "all source options."
 msgstr ""
-"Dock :guilabel:`Recording` dapat merekam audio mikrofon, tangkapan layar, "
+"Dock :guilabel:`Perekaman` dapat merekam audio mikrofon, tangkapan layar, "
 "video webcam, atau kombinasi dari sumber-sumber tersebut. Ketika layar dan "
 "webcam direkam bersama, OpenShot dapat menempatkan webcam sebagai klip "
 "picture-in-picture di sudut. Klip kamera sudut tersebut menggunakan properti"

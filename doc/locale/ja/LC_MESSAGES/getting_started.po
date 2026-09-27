@@ -148,6 +148,7 @@ msgstr ""
 msgid "Keep Shooting"
 msgstr "撮影を続ける"
 
+# Main-window terminology review, 2026-09-26.
 #: ../getting_started.rst:78
 msgid ""
 "Record more video and audio than you think you will need for your project. "
@@ -160,8 +161,8 @@ msgid ""
 "workflows, you can still record with an external application and import the "
 "finished media into OpenShot."
 msgstr ""
-"プロジェクトに必要だと思うよりも多くのビデオとオーディオを録画してください。シーンを強調したり、ムードを設定したり、物語を伝えたりするビデオを含めてください。余分なビデオはプロジェクトのスムーズなトランジションに使用できます。プロジェクトにボイスオーバー、ナレーション、画面キャプチャ、またはウェブカメラ映像が必要な場合は、:guilabel:`View->Recording"
-" View` "
+"プロジェクトに必要だと思うよりも多くのビデオとオーディオを録画してください。シーンを強調したり、ムードを設定したり、物語を伝えたりするビデオを含めてください。余分なビデオはプロジェクトのスムーズなトランジションに使用できます。プロジェクトにボイスオーバー、ナレーション、画面キャプチャ、またはウェブカメラ映像が必要な場合は、:guilabel:`View->録音・録画ビュー`"
+" "
 "を使ってOpenShotの録画ツールを開くことができます。マイク、システムオーディオ、画面、ウェブカメラのオプションを含む詳細については、:ref:`recording_ref`"
 " "
 "を参照してください。より専門的なキャプチャワークフローの場合は、外部アプリケーションで録画し、完成したメディアをOpenShotにインポートすることも可能です。"

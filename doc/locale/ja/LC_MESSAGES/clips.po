@@ -3009,13 +3009,14 @@ msgid ""
 "recording without adding a separate mask effect."
 msgstr "**使用例:** 別のマスク効果を追加せずに、ピクチャーインピクチャーのカメラ録画の角を丸める。"
 
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:797
 msgid ""
 "**Usage Example:** In :guilabel:`Recording View`, corner webcam clips use "
 "this property for the :guilabel:`Corners` setting."
 msgstr ""
-"**使用例:** :guilabel:`Recording View` では、コーナーのウェブカムクリップがこのプロパティを "
-":guilabel:`Corners` 設定に使用します。"
+"**使用例:** :guilabel:`録音・録画ビュー` では、コーナーのウェブカムクリップがこのプロパティを :guilabel:`Corners`"
+" 設定に使用します。"
 
 #: ../clips.rst:798
 msgid ""
@@ -3393,13 +3394,13 @@ msgid ""
 "picture-in-picture spacing without adding Crop or Mask effects."
 msgstr "**使用例:** CropやMask効果を追加せずにセーフエリアレイアウト、分割画面の間隔、ピクチャーインピクチャーの間隔を作成する。"
 
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:911
 msgid ""
 "**Usage Example:** In :guilabel:`Recording View`, screen-plus-camera "
 "recordings use this property to inset the corner webcam clip."
 msgstr ""
-"**使用例:** :guilabel:`Recording View` "
-"では、画面＋カメラ録画がこのプロパティを使ってコーナーのウェブカムクリップを内側に配置する。"
+"**使用例:** :guilabel:`録音・録画ビュー` では、画面＋カメラ録画がこのプロパティを使ってコーナーのウェブカムクリップを内側に配置する。"
 
 #: ../clips.rst:912
 msgid ""

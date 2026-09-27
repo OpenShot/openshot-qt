@@ -408,15 +408,17 @@ msgstr "Cofnij lub ponów ostatnie zmiany na osi czasu."
 msgid "Snap, Retime, Razor"
 msgstr "Przyciąganie, Zmiana czasu, Brzytwa"
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:112
 msgid ""
 "Snapping toggles magnetic alignment. Timing Tool enables retiming by "
 "dragging clip edges. The :ref:`razor_tool_ref` previews and cuts at the "
 "guide position; press :kbd:`Esc` to exit."
 msgstr ""
-"Przyciąganie przełącza magnetyczne wyrównanie. Narzędzie Czasu umożliwia "
-"zmianę czasu przez przeciąganie krawędzi klipu. :ref:`razor_tool_ref` "
-"podgląda i tnie w pozycji prowadnicy; naciśnij :kbd:`Esc`, aby wyjść."
+"Przyciąganie przełącza magnetyczne wyrównanie. Narzędzie zmiany prędkości "
+"umożliwia zmianę czasu przez przeciąganie krawędzi klipu. "
+":ref:`razor_tool_ref` podgląda i tnie w pozycji prowadnicy; naciśnij "
+":kbd:`Esc`, aby wyjść."
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:114
@@ -1291,10 +1293,10 @@ msgstr "Widok miniatur"
 msgid ":kbd:`Ctrl+Page Down`"
 msgstr ":kbd:`Ctrl+Page Down`"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:215
 msgid "Timing Toggle"
-msgstr "Przełączanie czasu"
+msgstr "Przełącz zmianę prędkości"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:215

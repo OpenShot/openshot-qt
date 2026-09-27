@@ -1750,9 +1750,10 @@ msgstr ""
 "Wheels` a destra, e raggruppa a schede i dock :guilabel:`Luma Waveform` e "
 ":guilabel:`Histogram` insieme sotto di esso."
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:335
 msgid "Recording View"
-msgstr "Vista Registrazione"
+msgstr "Vista registrazione"
 
 #: ../main_window.rst:336
 msgid ""
@@ -1935,14 +1936,14 @@ msgstr "Nome del dock"
 msgid "Captions"
 msgstr "Sottotitoli"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:398
 msgid ""
 "Manage and add captions or subtitles to your video project. Allows you to "
 "create, edit, and manage caption data. See :ref:`caption_effect_ref` effect."
 msgstr ""
-"Gestisci e aggiungi didascalie o sottotitoli al tuo progetto video. Permette"
-" di creare, modificare e gestire i dati delle didascalie. Vedi l'effetto "
+"Gestisci e aggiungi sottotitoli al tuo progetto video. Permette di creare, "
+"modificare e gestire i dati deli sottotitoli. Vedi l'effetto "
 ":ref:`caption_effect_ref`."
 
 # Translated with gpt-4.1-mini

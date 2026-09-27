@@ -405,13 +405,14 @@ msgstr "Hoàn tác hoặc làm lại các chỉnh sửa dòng thời gian gần 
 msgid "Snap, Retime, Razor"
 msgstr "Bắt điểm, Thay đổi thời gian, Dao cạo"
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:112
 msgid ""
 "Snapping toggles magnetic alignment. Timing Tool enables retiming by "
 "dragging clip edges. The :ref:`razor_tool_ref` previews and cuts at the "
 "guide position; press :kbd:`Esc` to exit."
 msgstr ""
-"Chế độ bắt điểm bật/tắt căn chỉnh từ tính. Công cụ Thời gian cho phép điều "
+"Chế độ bắt điểm bật/tắt căn chỉnh từ tính. Công cụ đổi tốc độ cho phép điều "
 "chỉnh thời gian bằng cách kéo các cạnh clip. :ref:`razor_tool_ref` xem trước"
 " và cắt tại vị trí hướng dẫn; nhấn :kbd:`Esc` để thoát."
 
@@ -801,30 +802,30 @@ msgstr "Tham gia Cộng đồng của chúng tôi..."
 msgid ":kbd:`F5`"
 msgstr ":kbd:`F5`"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:171
 msgid "Jump To End"
-msgstr "Chuyển đến Cuối"
+msgstr "Đến cuối"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:171
 msgid ":kbd:`End`"
 msgstr ":kbd:`End`"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:172
 msgid "Jump To Start"
-msgstr "Chuyển đến Đầu"
+msgstr "Đến đầu"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:172
 msgid ":kbd:`Home`"
 msgstr ":kbd:`Home`"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:173
 msgid "Launch Tutorial"
-msgstr "Bắt đầu Hướng dẫn"
+msgstr "Khởi chạy hướng dẫn"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:173
@@ -1284,10 +1285,10 @@ msgstr "Chế độ xem Thu nhỏ"
 msgid ":kbd:`Ctrl+Page Down`"
 msgstr ":kbd:`Ctrl+Page Down`"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:215
 msgid "Timing Toggle"
-msgstr "Chuyển đổi Thời gian"
+msgstr "Bật/tắt công cụ đổi tốc độ"
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:215
@@ -1728,10 +1729,12 @@ msgstr ""
 "hiển thị, đặt dock :guilabel:`Bánh Xe Màu` bên phải, và gom dock "
 ":guilabel:`Luma Waveform` và :guilabel:`Histogram` thành các tab bên dưới."
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:335
 msgid "Recording View"
-msgstr "Chế Độ Ghi Hình"
+msgstr "Chế độ xem ghi âm và ghi hình"
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:336
 msgid ""
 "This view is focused on creating new recordings inside OpenShot. It shows "
@@ -1742,10 +1745,12 @@ msgid ""
 msgstr ""
 "Chế độ này tập trung vào việc tạo các bản ghi mới trong OpenShot. Nó hiển "
 "thị :guilabel:`Tệp Dự Án`, :guilabel:`Xem Trước Video`, :guilabel:`Dòng Thời"
-" Gian`, và dock :guilabel:`Ghi Hình`. Dock :guilabel:`Thuộc Tính` được nhóm "
-"cùng với :guilabel:`Tệp Dự Án` dưới dạng tab, vì vậy bạn có thể hiển thị nó "
-"từ :guilabel:`Xem->Dock->Thuộc Tính` mà không làm gián đoạn bố cục ghi hình."
+" Gian`, và dock :guilabel:`Ghi âm và ghi hình`. Dock :guilabel:`Thuộc Tính` "
+"được nhóm cùng với :guilabel:`Tệp Dự Án` dưới dạng tab, vì vậy bạn có thể "
+"hiển thị nó từ :guilabel:`Xem->Dock->Thuộc Tính` mà không làm gián đoạn bố "
+"cục ghi hình."
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:341
 msgid ""
 "The :guilabel:`Recording` dock can record microphone audio, screen capture, "
@@ -1760,14 +1765,14 @@ msgid ""
 "details. See :ref:`recording_ref` for the complete recording workflow and "
 "all source options."
 msgstr ""
-"Dock :guilabel:`Ghi Hình` có thể ghi âm từ micro, quay màn hình, video "
-"webcam, hoặc kết hợp các nguồn đó. Khi ghi màn hình và webcam cùng lúc, "
-"OpenShot có thể đặt webcam dưới dạng clip hình trong hình ở góc. Các clip "
-"camera góc này sử dụng các thuộc tính clip bình thường sau khi được thêm vào"
-" dòng thời gian: :guilabel:`Trọng Lực` chọn góc, :guilabel:`Tỉ Lệ X` và "
-":guilabel:`Tỉ Lệ Y` đặt kích thước góc, :guilabel:`Lề` tạo vùng bố cục lùi "
-"vào giữ camera cách mép màn hình, và :guilabel:`Bán Kính Góc` làm tròn clip "
-"camera mà không cần thêm hiệu ứng Mặt Nạ riêng. Xem "
+"Dock :guilabel:`Ghi âm và ghi hình` có thể ghi âm từ micro, quay màn hình, "
+"video webcam, hoặc kết hợp các nguồn đó. Khi ghi màn hình và webcam cùng "
+"lúc, OpenShot có thể đặt webcam dưới dạng clip hình trong hình ở góc. Các "
+"clip camera góc này sử dụng các thuộc tính clip bình thường sau khi được "
+"thêm vào dòng thời gian: :guilabel:`Trọng Lực` chọn góc, :guilabel:`Tỉ Lệ X`"
+" và :guilabel:`Tỉ Lệ Y` đặt kích thước góc, :guilabel:`Lề` tạo vùng bố cục "
+"lùi vào giữ camera cách mép màn hình, và :guilabel:`Bán Kính Góc` làm tròn "
+"clip camera mà không cần thêm hiệu ứng Mặt Nạ riêng. Xem "
 ":ref:`clip_properties_ref` để biết chi tiết. Xem :ref:`recording_ref` để "
 "biết quy trình ghi hình đầy đủ và tất cả tùy chọn nguồn."
 
@@ -1905,15 +1910,14 @@ msgstr "Tên Dock"
 msgid "Captions"
 msgstr "Phụ đề"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:398
 msgid ""
 "Manage and add captions or subtitles to your video project. Allows you to "
 "create, edit, and manage caption data. See :ref:`caption_effect_ref` effect."
 msgstr ""
-"Quản lý và thêm phụ đề hoặc chú thích vào dự án video của bạn. Cho phép bạn "
-"tạo, chỉnh sửa và quản lý dữ liệu phụ đề. Xem hiệu ứng "
-":ref:`caption_effect_ref`."
+"Quản lý và thêm phụ đề vào dự án video của bạn. Cho phép bạn tạo, chỉnh sửa "
+"và quản lý dữ liệu phụ đề. Xem hiệu ứng :ref:`caption_effect_ref`."
 
 # Translated with gpt-4.1-mini
 #: ../main_window.rst:399
@@ -2001,9 +2005,10 @@ msgstr ""
 "Điều chỉnh các thiết lập như thời lượng, kích thước, vị trí, v.v... Xem "
 ":ref:`clip_properties_ref`."
 
+# Main-window terminology review, 2026-09-26.
 #: ../main_window.rst:415
 msgid "Recording"
-msgstr "Ghi Âm"
+msgstr "Ghi âm và ghi hình"
 
 #: ../main_window.rst:416
 msgid ""

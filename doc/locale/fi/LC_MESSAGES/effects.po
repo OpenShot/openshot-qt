@@ -2879,6 +2879,7 @@ msgstr ""
 "chroma', 'LCH hue', 'CIE Distance', 'Cb,Cr vector'])`` Käytettävä "
 "avausmenetelmä tai algoritmi."
 
+# Main-window terminology review, 2026-09-26.
 #: ../effects.rst:754
 msgid ""
 "The Color Grade effect combines primary correction, tonal wheels, RGB "
@@ -2893,7 +2894,7 @@ msgstr ""
 "(valkotasapaino, valotus, kontrasti) ja **värimäärittelyyn** (tyylitellyn "
 "ilmeen luomiseen). Napsauta klippiä hiiren oikealla ja käytä :guilabel:`Look"
 " → Color` -esiasetuksia soveltaaksesi sitä välittömästi, tai vaihda "
-":guilabel:`View → Color View` -näkymään omistettua värimäärittelytyötilaa "
+":guilabel:`View → Värinäkymä` -näkymään omistettua värimäärittelytyötilaa "
 "varten."
 
 #: ../effects.rst:761

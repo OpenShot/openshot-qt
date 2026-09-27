@@ -1359,15 +1359,16 @@ msgstr ""
 "**Time-lapse** — :guilabel:`Percepat → 8×` atau :guilabel:`16×` untuk "
 "memadatkan jam menjadi detik."
 
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:342
 msgid ""
 "**Speed ramp** — use the :guilabel:`Timing` tool to drag clip edges and "
 "create a natural-feeling speed change; OpenShot scales all keyframes "
 "automatically."
 msgstr ""
-"**Perubahan kecepatan bertahap** — gunakan alat :guilabel:`Timing` untuk "
-"menyeret tepi klip dan membuat perubahan kecepatan yang terasa alami; "
-"OpenShot secara otomatis mengatur skala semua keyframe."
+"**Perubahan kecepatan bertahap** — gunakan alat :guilabel:`Pengaturan "
+"Kecepatan` untuk menyeret tepi klip dan membuat perubahan kecepatan yang "
+"terasa alami; OpenShot secara otomatis mengatur skala semua keyframe."
 
 #: ../clips.rst:343
 msgid ""
@@ -1557,12 +1558,12 @@ msgstr ""
 "Waktu apa pun (termasuk Ulang) dan mengembalikan klip ke pemutaran aslinya, "
 "**tanpa menghapus keyframe non-Waktu asli Anda**."
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:391
 msgid "Timing Tool"
-msgstr "Alat Pengatur Waktu"
+msgstr "Alat Pengaturan Kecepatan"
 
-# Translated with gpt-4.1-mini
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:392
 msgid ""
 "Another way to change a clip's speed is with the :guilabel:`Timing` tool on "
@@ -1572,10 +1573,10 @@ msgid ""
 "positions remain intact."
 msgstr ""
 "Cara lain untuk mengubah kecepatan klip adalah dengan alat "
-":guilabel:`Timing` pada toolbar timeline. Aktifkan ikon jam dan seret tepi "
-"klip. Memperpanjang klip memperlambat pemutaran, sementara mempersingkatnya "
-"mempercepat klip. Semua keyframe pada klip dan efeknya diskalakan sehingga "
-"posisi relatifnya tetap utuh."
+":guilabel:`Pengaturan Kecepatan` pada toolbar timeline. Aktifkan ikon jam "
+"dan seret tepi klip. Memperpanjang klip memperlambat pemutaran, sementara "
+"mempersingkatnya mempercepat klip. Semua keyframe pada klip dan efeknya "
+"diskalakan sehingga posisi relatifnya tetap utuh."
 
 #: ../clips.rst:398
 msgid ""
@@ -2336,6 +2337,7 @@ msgstr ""
 "tampilan tetap yang sama. Garis tengah halus menjaga bagian sunyi tetap "
 "dapat dikenali tanpa membuatnya terlihat lebih keras dari sebenarnya."
 
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:588
 msgid ""
 "New waveforms use 200 samples per second by default, providing several "
@@ -2349,7 +2351,7 @@ msgid ""
 msgstr ""
 "Gelombang baru menggunakan 200 sampel per detik secara default, menyediakan "
 "beberapa pengukuran dalam satu frame video tipikal. Ubah kepadatan ini "
-"dengan :guilabel:`Edit → Preferensi → Timeline → Sampel Gelombang (per "
+"dengan :guilabel:`Edit → Preferensi → Garis Waktu → Sampel Gelombang (per "
 "detik)`. Nilai yang lebih tinggi menunjukkan lebih banyak detail saat "
 "diperbesar tetapi meningkatkan ukuran data proyek dan waktu analisis. "
 "Pelukis mengurangi data padat menjadi piksel timeline yang terlihat, dan "
@@ -4411,6 +4413,7 @@ msgstr ""
 "**Tips:** Gunakan properti \"Mulai\" bersama dengan properti \"Akhir\" untuk"
 " pemotongan klip yang tepat."
 
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:1026
 msgid ""
 "The :guilabel:`Time` property is a key-frame curve that represents frames "
@@ -4431,9 +4434,9 @@ msgstr ""
 " :guilabel:`Speed`. Banyak preset tersedia di menu ini untuk membalik, "
 "mempercepat, dan memperlambat klip video, lihat :ref:`clip_presets_ref`. "
 "Penyesuaian yang sama dapat dilakukan secara interaktif dengan tombol "
-"toolbar :guilabel:`Timing` dengan menyeret tepi klip; OpenShot menambahkan "
-"keyframe waktu yang diperlukan dan menskalakan semua keyframe lainnya secara"
-" otomatis."
+"toolbar :guilabel:`Pengaturan Kecepatan` dengan menyeret tepi klip; OpenShot"
+" menambahkan keyframe waktu yang diperlukan dan menskalakan semua keyframe "
+"lainnya secara otomatis."
 
 # Translated with gpt-4.1-mini
 #: ../clips.rst:1033

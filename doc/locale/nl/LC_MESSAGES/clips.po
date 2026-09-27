@@ -1845,14 +1845,15 @@ msgstr ""
 "in de tijdlijn aan of uit voor audio-only clips. Wordt alleen getoond voor "
 "clips zonder videotrack."
 
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:463
 msgid ""
 "**Analyze Levels** — opens the :guilabel:`Audio Levels` scope dock. If other"
 " scope docks are already open, OpenShot tabifies :guilabel:`Audio Levels` "
 "with them."
 msgstr ""
-"**Niveaus Analyseren** — opent het :guilabel:`Audiovolumes` scopepaneel. Als"
-" andere scopepanelen al open zijn, voegt OpenShot :guilabel:`Audiovolumes` "
+"**Niveaus Analyseren** — opent het :guilabel:`Audioniveaus` scopepaneel. Als"
+" andere scopepanelen al open zijn, voegt OpenShot :guilabel:`Audioniveaus` "
 "toe als tabblad erbij."
 
 # Translated with gpt-4.1-mini
@@ -2369,6 +2370,7 @@ msgstr ""
 "vaste weergavecurve. Een subtiele middellijn houdt stille passages "
 "herkenbaar zonder ze luider te laten lijken dan ze zijn."
 
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:588
 msgid ""
 "New waveforms use 200 samples per second by default, providing several "
@@ -2382,7 +2384,7 @@ msgid ""
 msgstr ""
 "Nieuwe golfvormen gebruiken standaard 200 samples per seconde, wat meerdere "
 "metingen binnen een typisch videoframe biedt. Pas deze dichtheid aan via "
-":guilabel:`Bewerken → Voorkeuren → Tijdlijn → Golfvormsamples (per "
+":guilabel:`Bewerken → Voorkeuren → Tijdbalk → Golfvormsamples (per "
 "seconde)`. Hogere waarden tonen meer detail bij inzoomen maar vergroten de "
 "projectgegevens en analysetijd. De tekenaar reduceert dichte data tot de "
 "zichtbare tijdlijnpixels, en de cache van gerenderde golfvormen houdt "
@@ -2421,6 +2423,7 @@ msgstr ""
 "daarna de golfvorm opnieuw. Dit beïnvloedt alleen gecachte weergavegegevens "
 "en wijzigt het mediabestand of de audio niet."
 
+# Main-window terminology review, 2026-09-26.
 #: ../clips.rst:605
 msgid ""
 "The peak envelope identifies transient level and possible clipping; RMS "
@@ -2430,7 +2433,7 @@ msgid ""
 msgstr ""
 "De piekenvelop identificeert transiëntniveau en mogelijke clipping; RMS vat "
 "aanhoudende energie samen maar is geen luidheidsstandaardmeting. Gebruik de "
-":guilabel:`Audio Levels` scope en je oren bij het mixen. Zie "
+":guilabel:`Audioniveaus` scope en je oren bij het mixen. Zie "
 ":ref:`playback_ref` voor audioproblemen."
 
 # Translated with gpt-4.1-mini
