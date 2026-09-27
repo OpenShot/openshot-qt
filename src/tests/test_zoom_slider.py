@@ -33,9 +33,9 @@ class ZoomSliderTests(unittest.TestCase):
     def setUp(self):
         self.window = Mock()
         self.window.actionSnappingTool.isChecked.return_value = False
-        project = SimpleNamespace(get=lambda key: {
+        project = {
             "duration": 100.0, "fps": {"num": 25, "den": 1}, "tick_pixels": 100.0,
-        }.get(key))
+        }
         app = SimpleNamespace(_tr=lambda text: text, window=self.window, updates=Mock(), project=project)
         self.patch = patch('windows.views.zoom_slider.get_app', return_value=app)
         self.patch.start()

@@ -47,7 +47,7 @@ class LivePropertyUpdateTests(unittest.TestCase):
         return model, view, effect, app, item, value
 
     def test_wheel_preview_stays_live_without_reloading_model(self):
-        model, view, effect, app, item, value = self.make_editor()
+        model, view, effect, app, _item, value = self.make_editor()
         value["global"]["amount_keyframes"]["Points"][0]["co"]["Y"] = 0.8
         with patch.object(properties_model, "get_app", return_value=app), \
              patch.object(properties_tableview, "get_app", return_value=app), \

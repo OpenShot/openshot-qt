@@ -931,7 +931,7 @@ class PropertiesModel(updates.UpdateInterface):
         _walk(updated)
         return updated, changed
 
-    def value_updated(self, item, interpolation=-1, value=None, interpolation_details=[], refresh_model=True):
+    def value_updated(self, item, interpolation=-1, value=None, interpolation_details=None, refresh_model=True):
         """ Table cell change event - also handles context menu to update interpolation value """
 
         if self.ignore_update_signal:

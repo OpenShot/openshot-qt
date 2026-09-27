@@ -2,7 +2,8 @@
 """Extract the deliberately bounded main-window translation review surface.
 
 Run from any directory; requires the same Qt binding as OpenShot, but no GUI or
-libopenshot. XML/AST parsing preserves multiline strings, punctuation and context.
+libopenshot. Requires defusedxml for safe XML parsing. XML/AST parsing preserves
+multiline strings, punctuation and context.
 The explicit dynamic-string allowlist prevents dialog/context-menu scope creep.
 """
 import argparse
@@ -13,7 +14,7 @@ import json
 from pathlib import Path
 import re
 import sys
-import xml.etree.ElementTree as ET
+from defusedxml import ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'src'))
@@ -112,7 +113,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output-dir', type=Path, default=ROOT / 'doc/translation-review')
     args = parser.parse_args()
-    app = QCoreApplication.instance() or QCoreApplication([])
+    # Keep a strong reference for the lifetime of the translation extraction.
+    _app = QCoreApplication.instance() or QCoreApplication([])
     labels = extract()
     rows = []
     catalogs = {}

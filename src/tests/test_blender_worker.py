@@ -1,7 +1,7 @@
 """Exercise Blender worker failures and cancellation with real child processes."""
 import os
 from pathlib import Path
-import subprocess
+import subprocess  # nosec B404 - Controlled child-process fixtures and timeout assertions.
 import sys
 import tempfile
 import time
