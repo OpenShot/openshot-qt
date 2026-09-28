@@ -3,13 +3,13 @@
 import threading
 import types
 import unittest
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 import openshot
 from qt_api import QApplication, QColor, QEvent, QEventLoop, QImage, QKeyEvent, QPainter, QPointF, QRectF, Qt, QTimer, QToolTip, QWidget
 from classes.app import get_app
 from tests.qt_test_app import get_or_create_app, ensure_app_state
-from windows.preview_thread import PlayerWorker
+from windows.preview_thread import PlayerWorker, PreviewParent
 from windows.views.timeline_backend.qwidget.razor import RazorMixin
 from windows.views.timeline_backend.qwidget.base import TimelineWidgetBase
 from windows.views.timeline_backend.snap import SnapHelper
@@ -208,16 +208,12 @@ class RazorTests(unittest.TestCase):
                 reader_changes = []
                 worker.player.Reader = reader_changes.append
 
-                def load(path, stretch, seek=True):
-                    worker.reader_mode = "clip"
-                    worker.clip_path = path
-
-                worker.LoadFilePreview = load
                 published = []
                 worker.position_changed.connect(published.append)
                 worker.position_changed.connect(lambda frame: setattr(widget, "current_frame", frame))
 
                 def seek(frame, preroll):
+                    self.assertFalse(preroll, "Arrow stepping must use cache-preserving scrub seeks")
                     widget._razor_user_seek(frame, preroll)
                     worker.queue_seek(frame, preroll)
 
@@ -248,10 +244,10 @@ class RazorTests(unittest.TestCase):
                         # Timer ticks and key releases must not restart hover.
                         widget._refresh_razor_hover(Qt.NoModifier)
                         self.assertEqual(published[-1], 61 + direction * (index + 1))
-                        self.assertIsNone(worker._razor_restore_frame)
+                        self.assertIsNone(worker._source_preview_restore_frame)
 
                 widget._clear_razor_hover()
-                self.assertEqual(reader_changes, [worker.timeline])
+                self.assertEqual(reader_changes, [])
                 self.assertEqual(len(widget.previews), 1)
                 self.assertEqual(widget.seeks, [])
 
@@ -600,7 +596,13 @@ class RazorTests(unittest.TestCase):
         worker._last_queued_seek_request = None
         worker._last_applied_seek_request = None
         worker._last_applied_seek_time = 0.0
-        worker._razor_restore_frame = None
+        worker._source_preview_restore_frame = None
+        worker._source_preview_request = None
+        worker._preview_image_request = None
+        worker._source_preview_reader = None
+        worker._source_preview_clip = None
+        worker._source_preview_reader_key = None
+        worker._source_preview_image = lambda *args: QImage(2, 2, QImage.Format_RGBA8888)
         worker.clip_path = None
         worker.current_frame = 61
         return worker
@@ -617,6 +619,7 @@ class RazorTests(unittest.TestCase):
         worker._apply_seek(*worker._take_pending_seek())
         worker._publish_position()
         self.assertEqual(published, [61])
+        self.assertEqual(worker.calls, [], "Restoring hover must not invalidate the player cache")
 
     def test_frame_steps_ignore_source_position_through_hover_lifecycle(self):
         worker = self.make_worker()
@@ -642,7 +645,7 @@ class RazorTests(unittest.TestCase):
             worker.queue_seek(target, True)
         self.assertEqual(worker._take_pending_seek(), (61, True))
 
-    def test_source_hover_restores_timeline_reader_before_seek_or_play(self):
+    def test_source_hover_keeps_timeline_reader_and_position_before_seek_or_play(self):
         for play in (False, True):
             worker = self.make_worker()
             worker.timeline = object()
@@ -650,35 +653,97 @@ class RazorTests(unittest.TestCase):
             reader_changes = []
             worker.player.Reader = reader_changes.append
 
-            def load(path, stretch, seek=True):
-                self.assertFalse(seek, "Source loading must not enqueue an extra frame-1 seek")
-                worker.reader_mode = "clip"
-                worker.clip_path = path
-                worker.preview_stretch = stretch
-
-            worker.LoadFilePreview = load
             worker.queue_razor_preview(241, 61, "/media/lower.mp4", False)
             worker._apply_seek(*worker._take_pending_seek())
-            self.assertEqual(worker.position, 241)
-            self.assertEqual(worker.clip_path, "/media/lower.mp4")
+            self.assertEqual(worker.position, 61)
+            self.assertIsNone(worker.clip_path)
+            self.assertEqual(worker.calls, [])
             self.assertIsNone(worker._take_pending_seek())
             if play:
                 worker.Play()
             else:
                 worker.queue_seek(61, False)
                 worker._apply_seek(*worker._take_pending_seek())
-            self.assertEqual(reader_changes, [worker.timeline])
+            self.assertEqual(reader_changes, [])
             self.assertEqual(worker.position, 61)
             self.assertEqual(worker.reader_mode, "timeline")
             self.assertIsNone(worker.clip_path)
-            self.assertIsNone(worker._razor_restore_frame)
+            self.assertIsNone(worker._source_preview_restore_frame)
 
     def test_play_discards_pending_source_hover(self):
         worker = self.make_worker()
         worker.queue_razor_preview(241, 61, "/media/lower.mp4", False)
         worker.Play()
         self.assertEqual(worker.position, 61)
-        self.assertIsNone(worker._razor_restore_frame)
+        self.assertIsNone(worker._source_preview_restore_frame)
+
+    def test_hover_arrow_cycles_reuse_isolated_reader(self):
+        worker = self.make_worker()
+        worker.timeline = object()
+        worker.player.Reader = MagicMock()
+        worker._source_preview_image = types.MethodType(PlayerWorker._source_preview_image, worker)
+        project = dict(fps={"num": 30, "den": 1}, width=32, height=16,
+                       sample_rate=48000, channels=2, channel_layout=3)
+        decoded = types.SimpleNamespace(GetPixelsBytes=lambda: bytes([255, 0, 0, 255]) * 32 * 16,
+                                        GetWidth=lambda: 32, GetHeight=lambda: 16,
+                                        GetBytesPerLine=lambda: 128)
+        reader = MagicMock()
+        reader.GetFrame.return_value = decoded
+        with patch.object(get_app(), "project", project, create=True), \
+                patch.object(get_app(), "window", types.SimpleNamespace(), create=True), \
+                patch("windows.preview_thread.openshot.Timeline", return_value=reader) as factory, \
+                patch("windows.preview_thread.openshot.Clip") as clip:
+            images = []
+            worker.source_preview_ready.connect(lambda request, image: images.append(image))
+            for index in range(100):
+                worker.queue_razor_preview(241 + index, 61, "/media/clip.mp4")
+                worker._apply_seek(*worker._take_pending_seek())
+                worker.queue_seek(61 + index % 2, True)
+                worker._apply_seek(*worker._take_pending_seek())
+            factory.assert_called_once()
+            clip.assert_called_once_with("/media/clip.mp4")
+            reader.Open.assert_called_once()
+            reader.Close.assert_not_called()
+            worker.player.Reader.assert_not_called()
+            self.assertEqual(len(worker.calls), 100)  # Only navigation seeks.
+            self.assertEqual(len(images), 100)
+            self.assertEqual(images[-1].pixelColor(0, 0), QColor("red"))
+            worker._close_source_preview_reader()
+            reader.Close.assert_called_once()
+            clip.return_value.Close.assert_called_once()
+            self.assertEqual(images[-1].pixelColor(0, 0), QColor("red"))
+
+    def test_queued_hover_image_is_discarded_after_navigation_or_new_hover(self):
+        worker = self.make_worker()
+        presented = []
+        worker.videoPreview = types.SimpleNamespace(present=presented.append)
+        parent = types.SimpleNamespace(worker=worker)
+        image = QImage(2, 2, QImage.Format_RGBA8888)
+        worker.queue_razor_preview(241, 61, "/media/clip.mp4")
+        request = worker._take_pending_seek()
+        PreviewParent.present_source_preview(parent, request, image)
+        self.assertEqual(presented, [image])
+        worker.queue_razor_preview(242, 61, "/media/clip.mp4")
+        PreviewParent.present_source_preview(parent, request, image)
+        self.assertEqual(len(presented), 1)
+        request = worker._take_pending_seek()
+        worker.queue_seek(62, True)
+        PreviewParent.present_source_preview(parent, request, image)
+        self.assertEqual(len(presented), 1)
+
+    def test_trim_completion_does_not_reassign_timeline_reader(self):
+        worker = self.make_worker()
+        worker.timeline = object()
+        worker.reader_mode = "timeline"
+        worker.player.Reader = MagicMock()
+        worker.queue_source_preview(241, 61, "/media/clip.mp4")
+        worker._apply_seek(*worker._take_pending_seek())
+        worker.LoadTimelineAndSeek(91)
+        self.assertIsNone(worker._source_preview_request)
+        worker._apply_seek(*worker._take_pending_seek())
+        worker.player.Reader.assert_not_called()
+        self.assertEqual(worker.position, 91)
+        self.assertIsNone(worker._source_preview_restore_frame)
 
     def test_worker_play_restores_pending_and_applied_hover(self):
         for applied in (False, True):
@@ -688,7 +753,7 @@ class RazorTests(unittest.TestCase):
                 worker._apply_seek(*worker._take_pending_seek())
             worker.Play()
             self.assertEqual(worker.position, 61)
-            self.assertIsNone(worker._razor_restore_frame)
+            self.assertIsNone(worker._source_preview_restore_frame)
             self.assertFalse(worker.queue_razor_preview(100, 61))
 
     def test_worker_manual_seek_wins_and_same_frame_restore_is_not_deduplicated(self):
@@ -717,7 +782,7 @@ class RazorTests(unittest.TestCase):
         worker.mode = openshot.PLAYBACK_PLAY
         worker._apply_seek(*request)
         self.assertEqual(worker.calls, [])
-        self.assertIsNone(worker._razor_restore_frame)
+        self.assertIsNone(worker._source_preview_restore_frame)
 
     def test_transition_is_targeted_without_cutting_underlying_clip(self):
         widget = RazorWidget()

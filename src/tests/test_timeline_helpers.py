@@ -2936,6 +2936,24 @@ class TimelineHelperTests(unittest.TestCase):
         self.assertEqual(mapping, [241])
         self.assertEqual(requests, [(480, 61, "/media/hidden-lower.mp4", False)])
 
+    def test_trim_previews_use_shared_source_queue_without_player_reader_switch(self):
+        requests = []
+        window = types.SimpleNamespace(
+            SpeedSignal=types.SimpleNamespace(emit=lambda speed: None),
+            preview_thread=types.SimpleNamespace(
+                queue_source_preview=lambda *args: requests.append(args)),
+        )
+        helper = types.SimpleNamespace(
+            window=window, current_frame=61,
+            _clip_preview_source=lambda clip_id, frame: ("/media/clip.mp4", 480),
+            _transition_mask_reader=lambda data: {"path": "/media/mask.svg"},
+        )
+        self.timeline_module.TimelineView.PreviewClipFrame(helper, "C1", 241)
+        with patch.object(self.timeline_module.Transition, "get", return_value=types.SimpleNamespace(data={})), \
+                patch.object(self.timeline_module, "absolute_media_path", side_effect=lambda path: path):
+            self.timeline_module.TimelineView.PreviewTransitionFrame(helper, "T1", 25)
+        self.assertEqual(requests, [(480, 61, "/media/clip.mp4"), (25, 61, "/media/mask.svg", True)])
+
     def test_qwidget_cursor_keeps_hand_cursor_for_items_when_razor_disabled(self):
         helper = self.make_qwidget_cursor_helper()
         helper.geometry.items = [(QRectF(0.0, 0.0, 100.0, 20.0), object(), False, "clip")]

@@ -2331,9 +2331,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Seek to previous frame
         get_app().window.PauseSignal.emit()
         get_app().window.SpeedSignal.emit(0)
-        # Use explicit navigation so razor hover is cancelled before the
-        # worker restores the timeline reader and applies the frame step.
-        get_app().window.SeekSignal.emit(frame_num, True)
+        # Explicit navigation cancels razor hover before applying the step.
+        get_app().window.SeekSignal.emit(frame_num, False)
 
         # Notify properties dialog
         get_app().window.propertyTableView.select_frame(frame_num)
@@ -2347,8 +2346,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Seek to next frame
         get_app().window.PauseSignal.emit()
         get_app().window.SpeedSignal.emit(0)
-        # Use the same latest-wins seek queue as other timeline navigation.
-        get_app().window.SeekSignal.emit(frame_num, True)
+        # Frame stepping is a scrub, not an edit requiring cache invalidation.
+        get_app().window.SeekSignal.emit(frame_num, False)
 
         # Notify properties dialog
         get_app().window.propertyTableView.select_frame(frame_num)

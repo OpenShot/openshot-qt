@@ -31,7 +31,7 @@ import math
 import json
 import traceback
 
-from qt_api import QObject, QThread, QTimer, pyqtSlot, pyqtSignal, QCoreApplication
+from qt_api import QObject, QThread, QTimer, pyqtSlot, pyqtSignal, QCoreApplication, QImage
 from qt_api import QMessageBox
 from qt_api import unwrapinstance, wrapinstance, _is_android_runtime
 import openshot  # Python module for libopenshot (required video editing module installed separately)
@@ -95,6 +95,15 @@ class PreviewParent(QObject, UpdateInterface):
         """Queue latest seek request for worker loop (non-blocking)."""
         self.worker.queue_seek(frame, start_preroll)
 
+    @pyqtSlot(object, object)
+    def present_source_preview(self, request, image):
+        # Delivery is queued to the GUI thread. Navigation or newer hover may
+        # have superseded this decode while it was running.
+        playing = (self.worker.player.Mode() == openshot.PLAYBACK_PLAY
+                   and self.worker.player.Speed() != 0)
+        if self.worker._preview_image_request == request and not playing:
+            self.worker.videoPreview.present(image)
+
     # Signal when the playback mode changes in the preview player (i.e PLAY, PAUSE, STOP)
     def onModeChanged(self, current_mode):
         try:
@@ -156,6 +165,7 @@ class PreviewParent(QObject, UpdateInterface):
 
         # Hook up signals to Background Worker
         self.worker.position_changed.connect(self.onPositionChanged)
+        self.worker.source_preview_ready.connect(self.present_source_preview)
         self.worker.mode_changed.connect(self.onModeChanged)
         if hasattr(self.parent, "_preview_ready"):
             self.worker.ready.connect(self.parent._preview_ready)
@@ -198,6 +208,7 @@ class PlayerWorker(QObject):
     ready = pyqtSignal()
     finished = pyqtSignal()
     scope_ready = pyqtSignal(int, dict, dict)
+    source_preview_ready = pyqtSignal(object, object)
 
     @pyqtSlot(object, object)
     def Init(self, parent, timeline, videoPreview):
@@ -218,7 +229,12 @@ class PlayerWorker(QObject):
         self.preview_stretch = False
         self._seek_lock = threading.Lock()
         self._pending_seek = None
-        self._razor_restore_frame = None
+        self._source_preview_restore_frame = None
+        self._source_preview_request = None
+        self._preview_image_request = None
+        self._source_preview_reader = None
+        self._source_preview_clip = None
+        self._source_preview_reader_key = None
         self._last_queued_seek_request = None
         self._last_applied_seek_request = None
         self._last_applied_seek_time = 0.0
@@ -330,6 +346,7 @@ class PlayerWorker(QObject):
             time.sleep(0.005)
             QCoreApplication.processEvents()
 
+        self._close_source_preview_reader()
         self.finished.emit()
         log.debug('exiting playback thread')
 
@@ -367,8 +384,10 @@ class PlayerWorker(QObject):
         if self.player.Mode() == openshot.PLAYBACK_PLAY and self.player.Speed() != 0.0:
             return
 
-        # Hover preview must not turn a passive refresh into a committed seek.
-        if getattr(self, "_razor_restore_frame", None) is not None:
+        # Temporary source preview must not turn a passive refresh into a
+        # committed seek, including while its decode is still queued.
+        if (getattr(self, "_source_preview_request", None) is not None
+                or getattr(self, "_source_preview_restore_frame", None) is not None):
             return
 
         # Always load back in the timeline reader
@@ -534,6 +553,9 @@ class PlayerWorker(QObject):
     @pyqtSlot(str, bool)
     def LoadFilePreview(self, path=None, stretch=False, seek=True):
         """Load a media file into the video player with optional stretch scaling."""
+        self._source_preview_request = None
+        self._preview_image_request = None
+        self._source_preview_restore_frame = None
         # Check to see if this path is already loaded
         if path == self.clip_path:
             if self.reader_mode == "clip" and self.preview_stretch == bool(stretch):
@@ -637,8 +659,7 @@ class PlayerWorker(QObject):
             previous_reader = self.previous_clip_readers.pop(0)
             previous_reader.Close()
 
-        # Razor source loading and seeking are one worker operation; do not
-        # enqueue an extra frame-1 seek which could overwrite a newer request.
+        # Callers can load a reader without enqueueing an additional seek.
         if seek:
             if not path:
                 QTimer.singleShot(0, lambda: self.Seek(seek_position))
@@ -650,13 +671,15 @@ class PlayerWorker(QObject):
 
         # Start playback
         if self.parent.initialized:
+            self._source_preview_request = None
             pending = self._take_pending_seek()
-            restore_frame = getattr(self, "_razor_restore_frame", None)
+            restore_frame = getattr(self, "_source_preview_restore_frame", None)
             if pending is not None and len(pending) > 2:
-                pending = (pending[2], True)
+                pending = (pending[2], False)
             elif pending is None and restore_frame is not None:
-                pending = (restore_frame, True)
+                pending = (restore_frame, False)
             if pending is not None:
+                self._preview_image_request = pending
                 self._apply_seek(*pending)
             self.player.Play()
 
@@ -684,8 +707,8 @@ class PlayerWorker(QObject):
                 return pending[0] if len(pending) == 2 else pending[2]
         if timeline_frame is not None:
             return max(1, int(timeline_frame))
-        if self._razor_restore_frame is not None:
-            return self._razor_restore_frame
+        if self._source_preview_restore_frame is not None:
+            return self._source_preview_restore_frame
         return max(1, int(self.player.Position()))
 
     def queue_seek(self, number, start_preroll=True):
@@ -698,6 +721,8 @@ class PlayerWorker(QObject):
         now = time.monotonic()
 
         with self._seek_lock:
+            self._source_preview_request = None
+            self._preview_image_request = seek_request
             # A restore must replace an outstanding hover even if the same
             # frame was just displayed before the pointer entered the clip.
             if (
@@ -722,15 +747,19 @@ class PlayerWorker(QObject):
             return seek_request
 
     def _publish_position(self):
-        """Keep renderer position internal while a razor preview is active."""
+        """Keep the playhead stable while a temporary source preview is active."""
         if self.current_frame != self.player.Position():
             self.current_frame = self.player.Position()
-            if not self.clip_path and self._razor_restore_frame is None:
+            if not self.clip_path and self._source_preview_restore_frame is None:
                 self.position_changed.emit(self.current_frame)
                 QCoreApplication.processEvents()
 
     def queue_razor_preview(self, frame, restore_frame, source_path="", stretch=False):
-        """Queue a silent source hover seek without publishing playhead changes."""
+        """Compatibility entry point for razor hover."""
+        return self.queue_source_preview(frame, restore_frame, source_path, stretch)
+
+    def queue_source_preview(self, frame, restore_frame, source_path="", stretch=False):
+        """Queue the latest trim/hover image without changing playback readers."""
         if not self.parent.initialized:
             return
         if self.player.Mode() == openshot.PLAYBACK_PLAY and self.player.Speed() != 0:
@@ -742,27 +771,105 @@ class PlayerWorker(QObject):
             # A real user seek takes priority over a hover request.
             if self._pending_seek is not None and len(self._pending_seek) == 2:
                 return
+            if self._source_preview_request == request:
+                return True
             self._pending_seek = request
             self._last_queued_seek_request = request
+            self._source_preview_request = request
+            self._preview_image_request = request
         return True
 
-    def _apply_seek(self, frame, start_preroll, razor_restore_frame=None, source_path="", stretch=False):
-        if razor_restore_frame is not None:
+    def _close_source_preview_reader(self):
+        """Release the source reader on its decoding thread, never in QtPlayer."""
+        if self._source_preview_reader is not None:
+            self._source_preview_reader.Close()
+            self._source_preview_reader = None
+        if self._source_preview_clip is not None:
+            self._source_preview_clip.Close()
+            self._source_preview_clip = None
+        self._source_preview_reader_key = None
+
+    def _source_preview_image(self, frame, source_path, stretch):
+        """Decode trim/hover independently of playback and its cache threads."""
+        reader = self.timeline
+        if source_path:
+            project = get_app().project
+            fps = project.get("fps")
+            sync = getattr(get_app().window, "timeline_sync", None)
+            timeline = getattr(sync, "timeline", None)
+            size = (int(getattr(timeline, "preview_width", 0)),
+                    int(getattr(timeline, "preview_height", 0)))
+            profile = tuple(int(project.get(key)) for key in (
+                "width", "height", "sample_rate", "channels", "channel_layout"))
+            key = (source_path, bool(stretch), fps["num"], fps["den"], profile, size)
+            if key != self._source_preview_reader_key:
+                self._close_source_preview_reader()
+                width, height, sample_rate, channels, layout = profile
+                reader = openshot.Timeline(width, height, openshot.Fraction(fps["num"], fps["den"]),
+                                           sample_rate, channels, layout)
+                self._source_preview_reader = reader
+                self._source_preview_clip = openshot.Clip(source_path)
+                if stretch:
+                    self._source_preview_clip.scale = openshot.SCALE_STRETCH
+                    self._source_preview_clip.gravity = openshot.GRAVITY_CENTER
+                reader.AddClip(self._source_preview_clip)
+                if all(size):
+                    reader.SetMaxSize(*size)
+                reader.Open()
+                self._source_preview_reader_key = key
+            reader = self._source_preview_reader
+        decoded = reader.GetFrame(frame)
+        # Copy the pixels: the native frame/cache can be released before the
+        # GUI receives this image, and no native reader crosses that boundary.
+        return QImage(decoded.GetPixelsBytes(), decoded.GetWidth(), decoded.GetHeight(),
+                      decoded.GetBytesPerLine(), QImage.Format_RGBA8888_Premultiplied).copy()
+
+    def _apply_seek(self, frame, start_preroll, preview_restore_frame=None, source_path="", stretch=False):
+        if preview_restore_frame is not None:
             if self.player.Mode() == openshot.PLAYBACK_PLAY and self.player.Speed() != 0:
                 return
+            request = (frame, False, preview_restore_frame)
             if source_path:
-                self.LoadFilePreview(source_path, stretch, seek=False)
-                self.original_position = razor_restore_frame
-        # Leaving source hover (including Play or a manual seek) must restore
-        # the timeline reader before interpreting the frame as timeline time.
-        if not source_path and (razor_restore_frame is not None or getattr(self, "_razor_restore_frame", None) is not None):
+                request += (source_path, bool(stretch))
+            if self._source_preview_request != request:
+                return
+            self._source_preview_restore_frame = preview_restore_frame
+            self._last_applied_seek_request = request
+            try:
+                image = self._source_preview_image(frame, source_path, stretch)
+                self.source_preview_ready.emit(request, image)
+            except Exception:
+                log.warning("Failed to render source preview for %s", source_path, exc_info=True)
+            return
+        # If hover began while another preview mode owned the player, explicit
+        # navigation still needs to return to the project timeline.
+        if self._source_preview_restore_frame is not None:
             if getattr(self, "reader_mode", "timeline") != "timeline":
                 self.player.Reader(self.timeline)
                 self.reader_mode = "timeline"
                 self.clip_reader = None
                 self.clip_path = None
                 self.preview_stretch = False
-        self._razor_restore_frame = razor_restore_frame
+        restore_image = (
+            self._source_preview_restore_frame is not None
+            and not start_preroll
+            and frame == self.player.Position()
+            and getattr(self, "reader_mode", "timeline") == "timeline"
+        )
+        self._source_preview_restore_frame = None
+        if restore_image:
+            # Hover never moved the player. Restore the cached timeline image
+            # without a same-frame Seek, which invalidates its cached frame.
+            request = (frame, bool(start_preroll))
+            try:
+                image = self._source_preview_image(frame, "", False)
+                self.source_preview_ready.emit(request, image)
+            except Exception:
+                log.warning("Failed to restore timeline preview", exc_info=True)
+            self._last_applied_seek_request = request
+            self._last_applied_seek_time = time.monotonic()
+            self.current_frame = None
+            return
         try:
             self.player.Seek(frame, start_preroll)
         except TypeError:
@@ -770,8 +877,6 @@ class PlayerWorker(QObject):
             # only Seek(frame).
             self.player.Seek(frame)
         self._last_applied_seek_request = (int(max(1, frame)), bool(start_preroll))
-        if razor_restore_frame is not None:
-            self._last_applied_seek_request += (razor_restore_frame,)
         self._last_applied_seek_time = time.monotonic()
         # Force the main loop to publish a fresh position_changed event after
         # each seek so timeline playheads stay in sync with queued seeks.
@@ -787,7 +892,7 @@ class PlayerWorker(QObject):
     def LoadTimelineAndSeek(self, frame):
         frame = max(1, int(frame))
         self.original_position = frame
-        if self.timeline:
+        if self.timeline and self.reader_mode != "timeline":
             self.player.Reader(self.timeline)
             self.reader_mode = "timeline"
             self.clip_reader = None
