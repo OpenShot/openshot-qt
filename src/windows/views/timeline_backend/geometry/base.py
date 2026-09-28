@@ -430,6 +430,17 @@ class GeometryBase:
     def hit(self, pos: QPointF):
         """Return a string describing what lies under *pos*."""
         self.ensure()
+        # Scrollbars are painted over items, whose full rectangles may extend
+        # outside the viewport. Give the handles priority over those items.
+        if self.widget.scroll_bar_rect.contains(pos):
+            return "h-scroll"
+        if getattr(self.widget, "v_scroll_bar_rect", QRectF()).contains(pos):
+            return "v-scroll"
+        if (
+            pos.x() >= self.widget.width() - self.widget.scroll_bar_thickness
+            or pos.y() >= self.widget.height() - self.widget.scroll_bar_thickness
+        ):
+            return "background"
         if (
             pos.x() >= self.widget.track_name_width
             and pos.y() >= self.widget.ruler_height
@@ -452,10 +463,6 @@ class GeometryBase:
             )
             if combined.contains(pos):
                 return "panel"
-        if self.widget.scroll_bar_rect.contains(pos):
-            return "h-scroll"
-        if getattr(self.widget, "v_scroll_bar_rect", QRectF()).contains(pos):
-            return "v-scroll"
         timeline_handle = self.timeline_handle_rect()
         if timeline_handle.contains(pos):
             return "timeline-handle"

@@ -1078,6 +1078,9 @@ class TimelineHelperTests(unittest.TestCase):
                 self.geometry = GeometryStub()
                 self.ruler_height = 0.0
                 self._press_marker = None
+                self.width = lambda: 900
+                self.height = lambda: 250
+                self.scroll_bar_thickness = 10
                 self._press_keyframe = None
                 self._active_keyframe_marker = None
                 self._press_keyframe_clear = True
@@ -1277,6 +1280,9 @@ class TimelineHelperTests(unittest.TestCase):
                 self._fixed_cursor = None
                 self.enable_razor = False
                 self.ruler_height = 0.0
+                self.width = lambda: 900
+                self.height = lambda: 250
+                self.scroll_bar_thickness = 10
                 self.geometry = GeometryStub()
                 self.playhead_painter = types.SimpleNamespace(icon_pix=None)
                 self.cursors = {
@@ -3956,6 +3962,60 @@ class TimelineHelperTests(unittest.TestCase):
         self.assertEqual(helper._press_hit, "ruler")
         self.assertIsNone(helper._resizing_item)
         self.assertEqual(helper._resize_items, [])
+
+    def test_scrollbar_handles_win_over_obscured_items_and_keyframes(self):
+        base = self.qwidget_base_module.TimelineWidgetBase
+        for kind in ("clip", "transition"):
+            for pos, expected in ((QPointF(400, 245), "h-scroll"),
+                                  (QPointF(895, 100), "v-scroll")):
+                with self.subTest(kind=kind, scrollbar=expected):
+                    helper, event_cls = self.make_qwidget_assign_press_helper([object()])
+                    helper.track_name_width = 100
+                    helper.ruler_height = 30
+                    helper.scroll_bar_rect = QRectF(100, 240, 500, 10)
+                    helper.v_scroll_bar_rect = QRectF(890, 30, 10, 150)
+                    helper.scrollbar_position = [0.0, 0.5, 1580.0, 790.0]
+                    helper.v_scrollbar_position = [0.0, 0.5, 420.0, 210.0]
+                    helper.scroll_bar_dragging = False
+                    helper.v_scroll_bar_dragging = False
+                    # The hidden item edge and a padded keyframe both overlap
+                    # the scrollbar. Neither may claim this press.
+                    helper.geometry.items = [
+                        (QRectF(pos.x(), pos.y() - 20, 100, 80), object(), True, kind)
+                    ]
+                    helper._get_keyframe_at = lambda pos: self.fail("Hidden keyframe hit")
+                    helper.geometry.widget = helper
+                    helper.geometry.ensure = lambda: None
+                    helper.geometry.iter_tracks = lambda: []
+                    helper._hitTest = lambda pos: self.geometry_base_module.GeometryBase.hit(
+                        helper.geometry, pos)
+
+                    self.assertEqual(helper._hitTest(pos), expected)
+                    base._assign_press_target(helper, event_cls(pos.x(), pos.y()))
+                    self.assertEqual(helper._press_hit, expected)
+                    self.assertIsNone(helper._resizing_item)
+                    self.assertEqual(helper._resize_items, [])
+                    self.assertTrue(base._start_scroll_drag_if_needed(helper, pos))
+                    self.assertEqual(helper.scroll_bar_dragging, expected == "h-scroll")
+                    self.assertEqual(helper.v_scroll_bar_dragging, expected == "v-scroll")
+
+    def test_scrollbar_tracks_and_corner_do_not_hit_hidden_clips(self):
+        helper, _ = self.make_qwidget_assign_press_helper()
+        helper.track_name_width = 100
+        helper.ruler_height = 30
+        helper.scroll_bar_rect = QRectF(100, 240, 200, 10)
+        helper.v_scroll_bar_rect = QRectF(890, 30, 10, 80)
+        helper.geometry.widget = helper
+        helper.geometry.ensure = lambda: None
+        helper.geometry.items = [(QRectF(100, 30, 900, 250), object(), True, "clip")]
+        for pos in (QPointF(500, 245), QPointF(895, 200), QPointF(895, 245)):
+            with self.subTest(pos=pos):
+                self.assertFalse(helper._is_timeline_content_pos(pos))
+                self.assertEqual(
+                    self.geometry_base_module.GeometryBase.hit(helper.geometry, pos), "background")
+        self.assertTrue(helper._is_timeline_content_pos(QPointF(500, 100)))
+        self.assertEqual(self.geometry_base_module.GeometryBase.hit(
+            helper.geometry, QPointF(500, 100)), "clip")
 
     def test_qwidget_pending_clip_menu_release_opens_without_drag_threshold(self):
         helper = self.make_qwidget_pending_clip_menu_helper()
