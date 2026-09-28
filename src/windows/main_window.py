@@ -2324,8 +2324,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     def handleSeekPreviousFrame(self):
         """Handle previous-frame keypress"""
-        player = get_app().window.preview_thread.player
-        frame_num = player.Position() - 1
+        window = get_app().window
+        frame_num = max(1, window.preview_thread.frame_step_position(
+            getattr(window.timeline, "current_frame", None)) - 1)
 
         # Seek to previous frame
         get_app().window.PauseSignal.emit()
@@ -2339,8 +2340,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     def handleSeekNextFrame(self):
         """Handle next-frame keypress"""
-        player = get_app().window.preview_thread.player
-        frame_num = player.Position() + 1
+        window = get_app().window
+        frame_num = window.preview_thread.frame_step_position(
+            getattr(window.timeline, "current_frame", None)) + 1
 
         # Seek to next frame
         get_app().window.PauseSignal.emit()

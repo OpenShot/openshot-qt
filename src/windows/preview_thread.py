@@ -674,6 +674,20 @@ class PlayerWorker(QObject):
         if getattr(self, "player", None):
             self.player.Stop()
 
+    def frame_step_position(self, timeline_frame=None):
+        """Resolve keyboard navigation in timeline space, even during hover."""
+        with self._seek_lock:
+            pending = self._pending_seek
+            if pending is not None:
+                # Repeated keys build on the latest queued navigation, while
+                # source previews carry the original timeline frame separately.
+                return pending[0] if len(pending) == 2 else pending[2]
+        if timeline_frame is not None:
+            return max(1, int(timeline_frame))
+        if self._razor_restore_frame is not None:
+            return self._razor_restore_frame
+        return max(1, int(self.player.Position()))
+
     def queue_seek(self, number, start_preroll=True):
         """Queue latest seek request (latest-wins, thread-safe)."""
         if not self.parent.initialized:

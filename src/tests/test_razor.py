@@ -215,6 +215,7 @@ class RazorTests(unittest.TestCase):
                 worker.LoadFilePreview = load
                 published = []
                 worker.position_changed.connect(published.append)
+                worker.position_changed.connect(lambda frame: setattr(widget, "current_frame", frame))
 
                 def seek(frame, preroll):
                     widget._razor_user_seek(frame, preroll)
@@ -222,6 +223,7 @@ class RazorTests(unittest.TestCase):
 
                 window = types.SimpleNamespace(
                     preview_thread=worker,
+                    timeline=widget,
                     PauseSignal=types.SimpleNamespace(emit=lambda: None),
                     SpeedSignal=types.SimpleNamespace(emit=lambda speed: None),
                     SeekSignal=types.SimpleNamespace(emit=seek),
@@ -245,7 +247,7 @@ class RazorTests(unittest.TestCase):
                         worker._publish_position()
                         # Timer ticks and key releases must not restart hover.
                         widget._refresh_razor_hover(Qt.NoModifier)
-                        self.assertEqual(published[-1], 241 + direction * (index + 1))
+                        self.assertEqual(published[-1], 61 + direction * (index + 1))
                         self.assertIsNone(worker._razor_restore_frame)
 
                 widget._clear_razor_hover()
@@ -615,6 +617,30 @@ class RazorTests(unittest.TestCase):
         worker._apply_seek(*worker._take_pending_seek())
         worker._publish_position()
         self.assertEqual(published, [61])
+
+    def test_frame_steps_ignore_source_position_through_hover_lifecycle(self):
+        worker = self.make_worker()
+        # A zoomed viewport around timeline frame 61 cannot show source frame
+        # 50001. Cover queued, in-flight, and already rendered hover previews.
+        worker.queue_razor_preview(50001, 61)
+        self.assertEqual(worker.frame_step_position(61), 61)
+        request = worker._take_pending_seek()
+        worker.position = 50001
+        self.assertEqual(worker.frame_step_position(61), 61)
+        worker._apply_seek(*request)
+        worker._publish_position()
+        self.assertEqual(worker.frame_step_position(61), 61)
+        self.assertEqual(worker.frame_step_position(), 61)
+
+        # Key repeat must accumulate even when no rendering happens between
+        # presses. Reversing direction returns to the original timeline frame.
+        expected = 61
+        for delta in [1] * 10 + [-1] * 10:
+            expected += delta
+            target = worker.frame_step_position(61) + delta
+            self.assertEqual(target, expected)
+            worker.queue_seek(target, True)
+        self.assertEqual(worker._take_pending_seek(), (61, True))
 
     def test_source_hover_restores_timeline_reader_before_seek_or_play(self):
         for play in (False, True):
