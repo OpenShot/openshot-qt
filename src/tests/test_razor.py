@@ -195,6 +195,64 @@ class RazorTests(unittest.TestCase):
         self.assertEqual(widget.seeks, [(61, False)])
         widget.close()
 
+    def test_arrow_steps_cancel_source_hover_and_keep_publishing_playhead(self):
+        from windows.main_window import MainWindow
+
+        for direction in (-1, 1):
+            with self.subTest(direction=direction):
+                widget = RazorWidget()
+                self.addCleanup(widget.close)
+                worker = self.make_worker()
+                worker.timeline = object()
+                worker.reader_mode = "timeline"
+                reader_changes = []
+                worker.player.Reader = reader_changes.append
+
+                def load(path, stretch, seek=True):
+                    worker.reader_mode = "clip"
+                    worker.clip_path = path
+
+                worker.LoadFilePreview = load
+                published = []
+                worker.position_changed.connect(published.append)
+
+                def seek(frame, preroll):
+                    widget._razor_user_seek(frame, preroll)
+                    worker.queue_seek(frame, preroll)
+
+                window = types.SimpleNamespace(
+                    preview_thread=worker,
+                    PauseSignal=types.SimpleNamespace(emit=lambda: None),
+                    SpeedSignal=types.SimpleNamespace(emit=lambda speed: None),
+                    SeekSignal=types.SimpleNamespace(emit=seek),
+                    previewFrameSignal=types.SimpleNamespace(emit=worker.previewFrame),
+                    propertyTableView=types.SimpleNamespace(select_frame=lambda frame: None),
+                )
+                widget._razor_pos = QPointF(400, 80)
+                widget._refresh_razor_hover(Qt.NoModifier)
+                worker.queue_razor_preview(241, 61, "/media/clip.mp4")
+                worker._apply_seek(*worker._take_pending_seek())
+                worker._publish_position()
+                self.assertEqual(published, [])
+
+                step = (MainWindow.handleSeekNextFrame if direction > 0
+                        else MainWindow.handleSeekPreviousFrame)
+                with patch.object(get_app(), "window", window, create=True):
+                    for index in range(30):
+                        step(window)
+                        self.assertIsNone(widget._razor_target)
+                        worker._apply_seek(*worker._take_pending_seek())
+                        worker._publish_position()
+                        # Timer ticks and key releases must not restart hover.
+                        widget._refresh_razor_hover(Qt.NoModifier)
+                        self.assertEqual(published[-1], 241 + direction * (index + 1))
+                        self.assertIsNone(worker._razor_restore_frame)
+
+                widget._clear_razor_hover()
+                self.assertEqual(reader_changes, [worker.timeline])
+                self.assertEqual(len(widget.previews), 1)
+                self.assertEqual(widget.seeks, [])
+
     def test_razor_leaves_track_controls_and_scrollbars_available(self):
         widget = RazorWidget()
         for pos in (QPointF(50, 80), QPointF(895, 80), QPointF(400, 245)):
