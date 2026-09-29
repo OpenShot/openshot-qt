@@ -5237,13 +5237,10 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             return
         preview_path, frame_number = source
 
-        # Load the clip into the Player (ignored if this has already happened)
-        self.window.LoadFileSignal.emit(preview_path)
         self.window.SpeedSignal.emit(0)
-
-        # Use scrub seeks while trimming, as with a paused playhead drag.
-        # Preroll/prefetch would compete with the next trim preview request.
-        self.window.SeekSignal.emit(frame_number, False)
+        self.window.preview_thread.queue_source_preview(
+            frame_number, getattr(self, "current_frame", None) or
+            self.window.preview_thread.frame_step_position(), preview_path)
 
     def PreviewRazorFrame(self, item_id, frame_number, restore_frame, kind="clip"):
         """Preview a hovered source without moving the timeline playhead."""
@@ -5279,13 +5276,12 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
         frame_number = max(int(frame_number or 1), 1)
 
-        # Load the mask source into the Player using stretch scaling so masks
-        # match transition rendering instead of preserving source aspect ratio.
-        self.window.LoadFilePreviewSignal.emit(preview_path, True)
         self.window.SpeedSignal.emit(0)
-
-        # Match clip trimming: defer preroll until returning to the timeline.
-        self.window.SeekSignal.emit(frame_number, False)
+        # Share the isolated source reader with clip trimming and razor hover.
+        # Stretch masks to match transition rendering.
+        self.window.preview_thread.queue_source_preview(
+            frame_number, getattr(self, "current_frame", None) or
+            self.window.preview_thread.frame_step_position(), preview_path, True)
 
     @pyqtSlot(int)
     def SeekToKeyframe(self, frame_number):

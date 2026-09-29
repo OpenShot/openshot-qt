@@ -2522,8 +2522,11 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         return self.geometry.hit(pos)
 
     def _is_timeline_content_pos(self, pos):
-        """Return whether *pos* is below the fixed ruler overlay."""
-        return pos.y() > self.ruler_height
+        """Exclude the fixed ruler and scrollbar strips from content hits."""
+        return (
+            0 <= pos.x() < self.width() - self.scroll_bar_thickness
+            and self.ruler_height < pos.y() < self.height() - self.scroll_bar_thickness
+        )
 
 
 

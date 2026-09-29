@@ -2324,26 +2324,30 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     def handleSeekPreviousFrame(self):
         """Handle previous-frame keypress"""
-        player = get_app().window.preview_thread.player
-        frame_num = player.Position() - 1
+        window = get_app().window
+        frame_num = max(1, window.preview_thread.frame_step_position(
+            getattr(window.timeline, "current_frame", None)) - 1)
 
         # Seek to previous frame
         get_app().window.PauseSignal.emit()
         get_app().window.SpeedSignal.emit(0)
-        get_app().window.previewFrameSignal.emit(frame_num)
+        # Explicit navigation cancels razor hover before applying the step.
+        get_app().window.SeekSignal.emit(frame_num, False)
 
         # Notify properties dialog
         get_app().window.propertyTableView.select_frame(frame_num)
 
     def handleSeekNextFrame(self):
         """Handle next-frame keypress"""
-        player = get_app().window.preview_thread.player
-        frame_num = player.Position() + 1
+        window = get_app().window
+        frame_num = window.preview_thread.frame_step_position(
+            getattr(window.timeline, "current_frame", None)) + 1
 
         # Seek to next frame
         get_app().window.PauseSignal.emit()
         get_app().window.SpeedSignal.emit(0)
-        get_app().window.previewFrameSignal.emit(frame_num)
+        # Frame stepping is a scrub, not an edit requiring cache invalidation.
+        get_app().window.SeekSignal.emit(frame_num, False)
 
         # Notify properties dialog
         get_app().window.propertyTableView.select_frame(frame_num)
