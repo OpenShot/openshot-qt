@@ -83,6 +83,15 @@ scale = max(0.5, min(3.0, scale))
 if scale != 1.0:
     os.environ["QT_SCALE_FACTOR"] = str(scale)
 
+# Make sibling modules importable when launched via the installed entry point.
+# This must happen before importing qt_api as well as the other local modules.
+try:
+    from classes import info
+except ImportError:
+    import openshot_qt
+    sys.path.append(openshot_qt.OPENSHOT_PATH)
+    from classes import info
+
 from qt_api import QtCore, QtWidgets
 
 Qt = QtCore.Qt
@@ -105,13 +114,6 @@ try:
     QApplication.setAttribute(Qt.AA_UseHighDpiPixmaps)
 except AttributeError:
     pass  # Quietly fail for older Qt5 versions
-
-try:
-    from classes import info
-except ImportError:
-    import openshot_qt
-    sys.path.append(openshot_qt.OPENSHOT_PATH)
-    from classes import info
 
 # Global holder for QApplication instance
 app = None
