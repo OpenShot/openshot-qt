@@ -186,14 +186,15 @@ LOG_LEVEL_CONSOLE = 'INFO'
 # 1.0 = all errors reporting to Sentry
 #    ERROR: Exceptions sent to Sentry
 #    TRANS: Transactions sent to Sentry
-#    STABLE: If this version matches the current version (reported on openshot.org)
-#    UNSTABLE: If this version does not match the current version (reported on openshot.org)
+#    STABLE: If both version and build commit match the current published release
+#    UNSTABLE: Older versions, different builds, or unconfirmed releases
 #    STABLE_VERSION: This is the current stable release reported by openshot.org
 ERROR_REPORT_RATE_STABLE = 0.0
 ERROR_REPORT_RATE_UNSTABLE = 0.0
 TRANS_REPORT_RATE_STABLE = 0.0
 TRANS_REPORT_RATE_UNSTABLE = 0.0
 ERROR_REPORT_STABLE_VERSION = None
+ERROR_REPORT_IS_RELEASE = False
 
 # Languages
 CMDLINE_LANGUAGE = None
