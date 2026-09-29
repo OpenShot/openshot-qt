@@ -5,7 +5,7 @@ from pathlib import Path
 import sys
 import types
 import unittest
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 import xml.etree.ElementTree as ET
 
 # CI discovers this file with src/tests as the import root, not src.
@@ -62,6 +62,30 @@ class AboutTests(unittest.TestCase):
         self.dialog.close()
         self.dialog.deleteLater()
         self.app.processEvents()
+
+    def test_release_label_uses_shared_commit_check(self):
+        from classes import release_details
+
+        build = {"openshot-qt": {"CI_COMMIT_SHA": "release-sha"},
+                 "build_name": "OpenShot-v4.0.1-release-candidate-123",
+                 "date": "2026-09-28 12:00"}
+        for release, official in (({"sha": "release-sha"}, True),
+                                  ({"sha": "different"}, False),
+                                  ({}, False), (None, False)):
+            with self.subTest(release=release), \
+                    patch.object(release_details, "get_build_details", return_value=build), \
+                    patch.object(release_details, "get_release_details", return_value=release):
+                result = Mock()
+                self.dialog.releaseFound.connect(result)
+                try:
+                    self.dialog.get_release_from_http()
+                    result.assert_called_once()
+                    text = result.call_args.args[0]
+                    self.assertEqual(" | Official" in text, official)
+                    self.assertEqual("release-candidate" in text, not official)
+                    self.assertIn("2026-09-28", text)
+                finally:
+                    self.dialog.releaseFound.disconnect(result)
 
     def test_timer_lifecycle(self):
         dialog = self.dialog

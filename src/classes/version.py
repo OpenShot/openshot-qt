@@ -27,7 +27,7 @@
 
 import threading
 from classes.app import get_app
-from classes import http_client, info
+from classes import http_client, info, release_details
 from classes.logger import log
 
 
@@ -40,6 +40,7 @@ def get_version_from_http():
     """Get the current version # from openshot.org"""
 
     url = "https://www.openshot.org/version/json/"
+    info.ERROR_REPORT_IS_RELEASE = False
 
     try:
         version_info = http_client.get_json(
@@ -56,6 +57,13 @@ def get_version_from_http():
         info.ERROR_REPORT_RATE_UNSTABLE = version_info.get("error_rate_unstable")
         info.TRANS_REPORT_RATE_STABLE = version_info.get("trans_rate_stable")
         info.TRANS_REPORT_RATE_UNSTABLE = version_info.get("trans_rate_unstable")
+
+        # Use the same commit check as About, even when daily and release
+        # builds share a version. Complete this before initializing Sentry.
+        info.ERROR_REPORT_IS_RELEASE = release_details.is_release_build(
+            release_details.get_build_details(),
+            release_details.get_release_details(info.VERSION),
+        )
 
         # Emit signal for the UI
         get_app().window.FoundVersionSignal.emit(openshot_version)

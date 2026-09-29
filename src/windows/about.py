@@ -40,7 +40,7 @@ from qt_api import QDialog, QLabel
 from qt_api import QColor, QLinearGradient, QPainter, QPointF, QRadialGradient, QRectF, QSvgRenderer
 from qt_api import QElapsedTimer, QEvent, QPixmap, QRegion
 
-from classes import http_client, info, release_details, ui_util
+from classes import info, release_details, ui_util
 from classes.logger import log
 from classes.app import get_app
 from classes.metrics import track_metric_screen
@@ -653,26 +653,8 @@ class About(QDialog):
 
     def get_release_from_http(self):
         """Get the current version # from openshot.org"""
-        url = release_details.release_details_url(info.VERSION)
-
         try:
-            release_metadata = None
-            if url:
-                try:
-                    release_metadata = http_client.get_json(
-                        http_client.urls_with_http_fallback(url),
-                        "OpenShot release details",
-                        headers={"user-agent": "openshot-qt-%s" % info.VERSION},
-                    )
-                    log.info("Found current release: %s" % release_metadata)
-                except Exception as ex:
-                    # Release metadata only enriches the locally-installed version
-                    # information. A missing release (for example, a development
-                    # build whose version number looks final) or a network failure
-                    # must not prevent the About dialog from displaying its version.
-                    log.warning("OpenShot release details unavailable: %s", ex)
-            else:
-                log.info("Skipping OpenShot release details lookup for non-release version: %s", info.VERSION)
+            release_metadata = release_details.get_release_details(info.VERSION)
 
             # get translations
             self.app = get_app()
@@ -680,48 +662,46 @@ class About(QDialog):
 
             # Look for frozen version info
             frozen_version_label = ""
-            version_path = os.path.join(info.PATH, "settings", "version.json")
-            if os.path.exists(version_path):
-                with open(version_path, "r", encoding="UTF-8") as f:
-                    version_info = json.loads(f.read())
-                    if version_info:
-                        frozen_git_SHA = version_info.get("openshot-qt", {}).get("CI_COMMIT_SHA", "")
-                        build_name = version_info.get('build_name') or ""
-                        string_release_date = _("Release Date")
-                        string_release_notes = _("Release Notes")
-                        string_official = _("Official")
-                        version_date = version_info.get("date")
+            version_info = release_details.get_build_details()
+            if version_info:
+                qt_metadata = version_info.get("openshot-qt")
+                frozen_git_SHA = qt_metadata.get("CI_COMMIT_SHA", "") if isinstance(qt_metadata, dict) else ""
+                build_name = version_info.get('build_name') or ""
+                string_release_date = _("Release Date")
+                string_release_notes = _("Release Notes")
+                string_official = _("Official")
+                version_date = version_info.get("date")
 
-                        formatted_date = ""
-                        if version_date:
-                            try:
-                                date_obj = datetime.datetime.strptime(version_date, "%Y-%m-%d %H:%M")
-                                formatted_date = date_obj.strftime("%Y-%m-%d")
-                            except Exception:
-                                log.warning("Failed to parse release date: %s", version_date, exc_info=1)
+                formatted_date = ""
+                if version_date:
+                    try:
+                        date_obj = datetime.datetime.strptime(version_date, "%Y-%m-%d %H:%M")
+                        formatted_date = date_obj.strftime("%Y-%m-%d")
+                    except Exception:
+                        log.warning("Failed to parse release date: %s", version_date, exc_info=1)
 
-                        if release_metadata and frozen_git_SHA == release_metadata.get("sha", ""):
-                            # Remove -release-candidate... from build name
-                            log.warning(
-                                "Official release detected with SHA (%s) for v%s" %
-                                (release_metadata.get("sha", ""), info.VERSION))
-                            build_name = build_name.replace("-candidate", "")
-                            frozen_version_label = f'{build_name} | {string_official}'
-                            if formatted_date:
-                                frozen_version_label += f'<br/>{string_release_date}: {formatted_date}'
-                            release_notes = release_metadata.get("notes")
-                            if string_release_notes and release_notes:
-                                frozen_version_label += (
-                                    f' | <a href="{release_notes}" '
-                                    f'style="text-decoration:none;color: #91C3FF;">{string_release_notes}</a>')
-                        else:
-                            # Display current build name - unedited
-                            if release_metadata:
-                                log.warning("Build SHA (%s) does not match an official release SHA (%s) for v%s" %
-                                            (frozen_git_SHA, release_metadata.get("sha", ""), info.VERSION))
-                            frozen_version_label = build_name or ""
-                            if formatted_date:
-                                frozen_version_label += f"<br/>{string_release_date}: {formatted_date}"
+                if release_details.is_release_build(version_info, release_metadata):
+                    # Remove -release-candidate... from build name
+                    log.warning(
+                        "Official release detected with SHA (%s) for v%s" %
+                        (release_metadata.get("sha", ""), info.VERSION))
+                    build_name = build_name.replace("-candidate", "")
+                    frozen_version_label = f'{build_name} | {string_official}'
+                    if formatted_date:
+                        frozen_version_label += f'<br/>{string_release_date}: {formatted_date}'
+                    release_notes = release_metadata.get("notes")
+                    if string_release_notes and release_notes:
+                        frozen_version_label += (
+                            f' | <a href="{release_notes}" '
+                            f'style="text-decoration:none;color: #91C3FF;">{string_release_notes}</a>')
+                else:
+                    # Display current build name - unedited
+                    if release_metadata:
+                        log.warning("Build SHA (%s) does not match an official release SHA (%s) for v%s" %
+                                    (frozen_git_SHA, release_metadata.get("sha", ""), info.VERSION))
+                    frozen_version_label = build_name or ""
+                    if formatted_date:
+                        frozen_version_label += f"<br/>{string_release_date}: {formatted_date}"
 
             # Init some variables
             openshot_qt_version = _("Version: %s") % info.VERSION
