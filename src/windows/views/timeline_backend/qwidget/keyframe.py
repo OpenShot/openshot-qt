@@ -42,12 +42,22 @@ from ..colors import effect_color_qcolor
 from windows.views.menu import StyledContextMenu, populate_keyframe_context_menu
 
 
-def keyframe_hit_at(pos, candidates):
-    """Prefer icon hits, then the nearest icon within three logical pixels.
+def keyframe_pointer_offset(widget, anchor_x):
+    """Keep the grabbed frame under the same part of the pointer during a drag."""
+    event = getattr(widget, "_last_event", None)
+    if event is None:
+        return 0.0
+    pos = event.position() if hasattr(event, "position") else event.pos()
+    return pos.x() - anchor_x
+
+
+def keyframe_hit_at(pos, candidates, padding=3.0, top_padding=None):
+    """Prefer icon hits, then the nearest icon within the padded target.
 
     Candidates are (rect, marker) pairs in their normal hit-test order.
     Keep hover, click, and drag targets identical without enlarging the artwork.
     """
+    top_padding = padding if top_padding is None else top_padding
     nearest = None
     nearest_distance = float("inf")
     for rect, marker in candidates:
@@ -55,7 +65,7 @@ def keyframe_hit_at(pos, candidates):
             continue
         if rect.contains(pos):
             return marker
-        if rect.adjusted(-3, -3, 3, 3).contains(pos):
+        if rect.adjusted(-padding, -top_padding, padding, padding).contains(pos):
             delta = rect.center() - pos
             distance = delta.x() ** 2 + delta.y() ** 2
             if distance < nearest_distance:
@@ -943,6 +953,11 @@ class KeyframeMixin:
         return keyframe_hit_at(
             pos,
             ((marker.get("rect"), marker) for marker in reversed(self._keyframe_markers)),
+            # Icons straddle the clip's bottom border. Give their inside half
+            # extra reach so the clip body does not take over as soon as the
+            # pointer approaches from above.
+            padding=5.0,
+            top_padding=8.0,
         )
 
     def _clamp_keyframe_seconds(self, seconds, clip_start, clip_end):
@@ -1936,6 +1951,11 @@ class KeyframeMixin:
         }
         if not self._dragging_keyframe["data_paths"] and marker.get("data_path"):
             self._dragging_keyframe["data_paths"] = (marker.get("data_path"),)
+        # Use the frame's timeline position, even when its painted icon is inset
+        # at a clip boundary. The padded hitbox must not change the drag origin.
+        anchor_x = (marker.get("clip_rect", QRectF()).left()
+                    + float(marker.get("display_seconds") or 0.0) * self.pixels_per_second)
+        self._dragging_keyframe["pointer_offset_x"] = keyframe_pointer_offset(self, anchor_x)
         self._dragging_keyframe["snap_targets"] = tuple(self._compute_keyframe_snap_targets(marker))
         self._fix_cursor(self.cursors.get("resize_x", Qt.SizeHorCursor))
         self._keyframes_dirty = True
@@ -1954,7 +1974,8 @@ class KeyframeMixin:
         if clip_rect.isNull() or clip_end <= clip_start or self.pixels_per_second <= 0:
             return
 
-        x = event.pos().x()
+        pos = event.position() if hasattr(event, "position") else event.pos()
+        x = pos.x() - drag.get("pointer_offset_x", 0.0)
         x = max(clip_rect.left(), min(x, clip_rect.right()))
         local_px = x - clip_rect.left()
         seconds = clip_start + local_px / self.pixels_per_second

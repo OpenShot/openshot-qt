@@ -1125,7 +1125,7 @@ class TimelineHelperTests(unittest.TestCase):
             def _hitTest(self, pos):
                 return "ruler" if pos.y() <= self.ruler_height else "clip"
 
-            def _item_resize_edge_at(self, rect, pos, edge=5):
+            def _item_resize_edge_at(self, rect, pos, edge=16):
                 return qwidget_base_module.TimelineWidgetBase._item_resize_edge_at(
                     self, rect, pos, edge=edge
                 )
@@ -1333,7 +1333,7 @@ class TimelineHelperTests(unittest.TestCase):
             def _track_menu_rect(self, rect):
                 return QRectF()
 
-            def _item_resize_edge_at(self, rect, pos, edge=5):
+            def _item_resize_edge_at(self, rect, pos, edge=16):
                 return qwidget_base_module.TimelineWidgetBase._item_resize_edge_at(
                     self, rect, pos, edge=edge
                 )
@@ -2707,6 +2707,70 @@ class TimelineHelperTests(unittest.TestCase):
 
         self.assertEqual(helper.updated, [])
 
+    def test_keyframe_drag_preserves_padded_grab_offset(self):
+        for kind in ("clip", "transition"):
+            for offset in (-10.0, 0.0, 10.0):
+                for modern_event in (False, True):
+                    with self.subTest(kind=kind, offset=offset, modern_event=modern_event):
+                        helper = self.make_qwidget_keyframe_drag_helper()
+                        # A trimmed item, away from the timeline origin.
+                        marker = dict(helper._dragging_keyframe["marker"],
+                                      type=kind, frame=73, display_seconds=1.0,
+                                      clip_start=2.0, clip_end=12.0,
+                                      clip_rect=QRectF(100, 0, 240, 12))
+                        helper._press_hit = "keyframe"
+                        helper._press_keyframe = marker
+                        helper.cursors = {}
+                        helper._fix_cursor = lambda *_args: None
+                        helper._panel_select_points_for_clip_marker = lambda *_args: None
+                        helper._compute_keyframe_snap_targets = lambda *_args: []
+                        event_key = "position" if modern_event else "pos"
+                        helper._last_event = types.SimpleNamespace(**{
+                            event_key: lambda: QPointF(124 + offset, 0)})
+                        mixin = self.qwidget_keyframe_module.KeyframeMixin
+                        mixin._startKeyframeDrag(helper)
+                        for movement in (0, 1, -1, 12):
+                            event = types.SimpleNamespace(**{
+                                event_key: lambda: QPointF(124 + offset + movement, 0)})
+                            mixin._keyframeMove(helper, event)
+                            self.assertEqual(helper._dragging_keyframe["pending_frame"], 73 + movement)
+                            self.assertAlmostEqual(helper._dragging_keyframe["pending_seconds"],
+                                                   1.0 + movement / 24.0)
+
+    def test_panel_keyframe_drag_preserves_group_grab_offset(self):
+        for offset in (-8.0, 0.0, 8.0):
+            with self.subTest(offset=offset):
+                helper = self.make_qwidget_panel_keyframe_drag_helper()
+                points = [{"frame": 25, "seconds": 1.0}, {"frame": 49, "seconds": 2.0}]
+                prop = {"key": "alpha", "points": points}
+                context = {"position": 0.0, "clip_start": 0.0}
+                helper._panel_selected_keyframes = {1: {"alpha": {25, 49}}}
+                helper.normalize_track_number = lambda track: track
+                helper._panel_lane_padding = lambda: 0
+                helper._panel_property_context = lambda *_args: context
+                helper._panel_context_signature = lambda *_args: "clip:C1"
+                helper._panel_selection_frames = lambda selector: selector
+                helper._panel_selection_context = lambda *_args: None
+                helper._iter_panel_lanes = lambda: []
+                helper._panel_resolve_owner = lambda *_args, **_kwargs: {}
+                helper._panel_compute_snap_targets = lambda *_args: []
+                helper._panel_seconds_to_x = lambda seconds: 100 + seconds * 24
+                helper._panel_x_to_seconds = lambda x: (x - 100) / 24
+                helper.cursors = {}
+                helper._fix_cursor = lambda *_args: None
+                helper._last_event = types.SimpleNamespace(pos=lambda: QPointF(148 + offset, 0))
+                mixin = self.qwidget_keyframe_panel_module.KeyframePanelMixin
+                # Grab the second selected point; all points retain their spacing.
+                mixin._start_panel_keyframe_drag(helper, {
+                    "point": points[1], "property": prop, "track": 1,
+                    "context": context, "lane_rect": QRectF(100, 0, 240, 20)})
+                for movement in (0, 1, -1, 12):
+                    mixin._panel_keyframe_move(helper, types.SimpleNamespace(
+                        pos=lambda: QPointF(148 + offset + movement, 0)))
+                    entries = helper._dragging_panel_keyframes["entries"]
+                    self.assertEqual([entry["pending_frame"] for entry in entries],
+                                     [25 + movement, 49 + movement])
+
     def test_qwidget_keyframe_move_keeps_drag_preview_local_until_release(self):
         helper = self.make_qwidget_keyframe_drag_helper()
         event = types.SimpleNamespace(pos=lambda: QPointF(120.0, 0.0))
@@ -2954,11 +3018,566 @@ class TimelineHelperTests(unittest.TestCase):
             self.timeline_module.TimelineView.PreviewTransitionFrame(helper, "T1", 25)
         self.assertEqual(requests, [(480, 61, "/media/clip.mp4"), (25, 61, "/media/mask.svg", True)])
 
+    def make_hover_helper(self):
+        from windows.views.timeline_backend.paint.hover import HoverFeedback
+        helper = self.make_qwidget_cursor_helper()
+        helper.update = MagicMock()
+        helper.track_name_width = 100
+        helper.ruler_height = 20
+        helper.hover_feedback = HoverFeedback(helper)
+        helper._updateCursor = lambda pos: self.qwidget_base_module.TimelineWidgetBase._updateCursor(helper, pos)
+        return helper
+
+    def test_hover_menu_targets_and_repaint_only_on_change(self):
+        for kind in ("clip", "transition", "track"):
+            with self.subTest(kind=kind):
+                helper = self.make_hover_helper()
+                rect = QRectF(120, 30, 80, 20)
+                if kind == "track":
+                    rect = QRectF(5, 30, 80, 20)
+                    helper.geometry.iter_tracks = lambda: [(rect, object(), rect)]
+                    helper._track_menu_rect = lambda *args: rect
+                else:
+                    setattr(helper, "_%s_text_rects" % kind,
+                            [{"rect": rect, "open_menu": True}])
+                helper._updateCursor(rect.center())
+                self.assertEqual(helper.hover_feedback.target, ("menu", rect, kind))
+                helper._updateCursor(rect.center() + QPointF(1, 0))
+                helper.update.assert_called_once()
+                helper._updateCursor(QPointF(800, 200))
+                self.assertIsNone(helper.hover_feedback.target)
+                self.assertEqual(helper.update.call_count, 2)
+
+    def test_hover_edges_respect_resize_eligibility_and_keyframe_priority(self):
+        for timing in (False, True):
+            for edge, x in (("left", 120), ("right", 220)):
+                with self.subTest(timing=timing, edge=edge):
+                    helper = self.make_hover_helper()
+                    helper.enable_timing = timing
+                    item = object()
+                    helper.geometry.items = [(QRectF(120, 30, 100, 60), item, False, "clip")]
+                    helper._resize_targets_for_item = lambda *args: [item]
+                    helper._updateCursor(QPointF(x, 60))
+                    target = helper.hover_feedback.target
+                    self.assertEqual(target[0], "edge-" + edge)
+                    self.assertEqual(target[1], QRectF(120, 30, 100, 60))
+                    self.assertEqual(target[1].left() if edge == "left" else target[1].right(), x)
+                    helper._resize_targets_for_item = lambda *args: []
+                    helper._updateCursor(QPointF(x, 60))
+                    self.assertIsNone(helper.hover_feedback.target)
+                    marker = {"rect": QRectF(x - 5, 55, 10, 10)}
+                    helper._get_keyframe_at = lambda pos: marker
+                    helper._updateCursor(QPointF(x, 60))
+                    self.assertEqual(helper.hover_feedback.target[0], "keyframe")
+
+    def test_hover_suppressed_by_other_controls_ruler_and_drag(self):
+        for obstruction in ("effect", "toolbar", "ruler", "drag", "razor"):
+            with self.subTest(obstruction=obstruction):
+                helper = self.make_hover_helper()
+                rect = QRectF(120, 30, 80, 20)
+                helper._clip_text_rects = [{"rect": rect, "open_menu": True}]
+                helper._updateCursor(rect.center())
+                self.assertIsNotNone(helper.hover_feedback.target)
+                if obstruction == "effect":
+                    helper._effect_icon_at = lambda pos: {"rect": rect}
+                elif obstruction == "toolbar":
+                    helper._track_toolbar_button_at = lambda pos: {"rect": rect}
+                elif obstruction == "ruler":
+                    helper.ruler_height = 100
+                elif obstruction == "drag":
+                    helper._fixed_cursor = Qt.SizeHorCursor
+                else:
+                    helper.enable_razor = True
+                    helper._razor_in_track_area = lambda pos: True
+                    helper._razor_target_at = lambda pos: None
+                helper._updateCursor(rect.center())
+                self.assertIsNone(helper.hover_feedback.target)
+
+    def test_menu_hover_survives_press_release_and_popup(self):
+        from qt_api import QMenu, QTimer
+        from windows.views.timeline_backend.paint.hover import show_menu_with_hover
+        for kind in ("clip", "transition", "track"):
+            with self.subTest(kind=kind):
+                helper = self.make_hover_helper()
+                rect = QRectF(120, 30, 80, 20)
+                feedback = helper.hover_feedback
+                feedback.begin(rect.center())
+                feedback.set_target("menu", rect, kind)
+                feedback.commit()
+                target = feedback.target
+                helper.mapFromGlobal = lambda pos: rect.center().toPoint()
+                helper.rect = lambda: QRectF(0, 0, 900, 250)
+                if kind != "track":
+                    setattr(helper, "_%s_text_rects" % kind, [{"rect": rect, "open_menu": True}])
+                    setattr(helper, "_pending_%s_menu_target" % kind, {"rect": rect})
+                    self.qwidget_base_module.TimelineWidgetBase._fix_cursor(helper, Qt.ClosedHandCursor)
+                    helper._updateCursor(rect.center())
+                    self.assertEqual(feedback.target, target)
+                    self.qwidget_base_module.TimelineWidgetBase._release_cursor(helper)
+                    setattr(helper, "_pending_%s_menu_target" % kind, None)
+                else:
+                    helper.geometry.iter_tracks = lambda: [(rect, object(), rect)]
+                    helper._track_menu_rect = lambda *args: rect
+                menu = QMenu()
+                menu.addAction("Test")
+                observed = []
+
+                def during_popup():
+                    feedback.leave()
+                    helper._updateCursor(QPointF(800, 200))
+                    observed.append(feedback.target)
+                    menu.close()
+
+                def open_menu():
+                    QTimer.singleShot(0, during_popup)
+                    (getattr(menu, "exec", None) or menu.exec_)(QCursor.pos())
+
+                show_menu_with_hover(helper, open_menu)
+                self.assertEqual(observed, [target])
+                self.assertEqual(feedback.target, target)
+                self.assertFalse(feedback.menu_open)
+                helper.update.assert_called_once()  # No off/on repaints during the click.
+
+    def test_menu_hover_clears_when_press_becomes_drag(self):
+        helper = self.make_hover_helper()
+        rect = QRectF(120, 30, 80, 20)
+        helper._clip_text_rects = [{"rect": rect, "open_menu": True}]
+        helper._updateCursor(rect.center())
+        helper._pending_clip_menu_target = {"rect": rect}
+        self.qwidget_base_module.TimelineWidgetBase._fix_cursor(helper, Qt.ClosedHandCursor)
+        helper._pending_clip_menu_dragged = True
+        helper._updateCursor(rect.center() + QPointF(20, 0))
+        self.assertIsNone(helper.hover_feedback.target)
+
+    def test_menu_hover_clears_outside_widget_even_if_menu_raises(self):
+        from windows.views.timeline_backend.paint.hover import show_menu_with_hover
+        helper = self.make_hover_helper()
+        helper.hover_feedback.set_target("menu", QRectF(120, 30, 80, 20))
+        helper.hover_feedback.commit()
+        helper.mapFromGlobal = lambda pos: QPointF(-10, -10).toPoint()
+        helper.rect = lambda: QRectF(0, 0, 900, 250)
+        with self.assertRaises(RuntimeError):
+            show_menu_with_hover(helper, MagicMock(side_effect=RuntimeError("test")))
+        self.assertFalse(helper.hover_feedback.menu_open)
+        self.assertIsNone(helper.hover_feedback.target)
+
+    def test_resize_hover_wins_over_full_width_title_on_both_inside_edges(self):
+        for kind in ("clip", "transition"):
+            for edge, x in (("left", 123), ("right", 217)):
+                for selected in (False, True):
+                    with self.subTest(kind=kind, edge=edge, selected=selected):
+                        helper = self.make_hover_helper()
+                        rect = QRectF(120, 30, 100, 60)
+                        item = object()
+                        helper.geometry.items = [(rect, item, selected, kind)]
+                        helper._resize_targets_for_item = lambda *args: [item]
+                        setattr(helper, "_%s_text_rects" % kind,
+                                [{"rect": QRectF(122, 32, 96, 20), "open_menu": True}])
+                        helper._updateCursor(QPointF(x, 40))
+                        self.assertEqual(helper.hover_feedback.target, ("edge-" + edge, rect, kind))
+                        self.assertIs(helper.cursor_value, helper.cursors["resize_x"])
+                        hit = self.qwidget_base_module._resize_hit_at(helper, QPointF(x, 40))
+                        self.assertIs(hit[1], item)
+                        self.assertEqual(hit[2], edge)
+                        helper._updateCursor(QPointF(170, 40))
+                        self.assertEqual(helper.hover_feedback.target[0], "menu")
+
+    def test_adjacent_clip_trim_hover_and_press_agree_on_owner(self):
+        rects = (QRectF(120, 30, 100, 60), QRectF(220, 30, 100, 60))
+        items = [object(), object()]
+        for x, owner, edge in ((211, 0, "right"), (218, 0, "right"), (222, 1, "left"), (229, 1, "left")):
+            with self.subTest(x=x):
+                helper = self.make_hover_helper()
+                helper.geometry.items = [(r, item, False, "clip") for r, item in zip(rects, items)]
+                helper._resize_targets_for_item = lambda item, edge: [item]
+                helper._updateCursor(QPointF(x, 60))
+                self.assertEqual(helper.hover_feedback.target, ("edge-" + edge, rects[owner], "clip"))
+                # Press routing uses the same edge test, so the highlighted clip
+                # must also be the first eligible resize target.
+                eligible = [(item, helper._item_resize_edge_at(r, QPointF(x, 60)))
+                            for r, item, _, _ in helper.geometry.iter_items(reverse=True)]
+                self.assertEqual(next((item, side) for item, side in eligible if side), (items[owner], edge))
+
+    def test_selected_butted_clips_allow_both_inside_edges(self):
+        Helper = self.make_qwidget_resize_target_helper()
+        left = types.SimpleNamespace(id="L", data={"position": 0, "start": 0, "end": 10})
+        right = types.SimpleNamespace(id="R", data={"position": 10, "start": 0, "end": 10})
+        helper = Helper([(QRectF(), left, True, "clip"), (QRectF(), right, True, "clip")])
+        for timing in (False, True):
+            helper.enable_timing = timing
+            self.assertEqual(helper._resize_targets_for_item(left, "right"), [left])
+            self.assertEqual(helper._resize_targets_for_item(right, "left"), [right])
+
+    def test_resize_grab_offset_prevents_first_move_jump(self):
+        for kind in ("clip", "transition"):
+            for timing in (False, True):
+                for edge in ("left", "right"):
+                    for offset in (-15.0, -8.0, 8.0, 15.0):
+                        helper = self.make_qwidget_clip_helper()
+                        helper.enable_timing = timing
+                        helper._resize_edge = edge
+                        rect = QRectF(240, 30, 240, 60)
+                        edge_x = rect.left() if edge == "left" else rect.right()
+                        helper._last_event = types.SimpleNamespace(pos=lambda: QPointF(edge_x + offset, 60))
+                        helper._capture_resize_pointer(rect)
+                        context = {"rect": rect, "world_rect": rect,
+                                   "initial": {"start": 2.0, "end": 12.0, "position": 10.0, "duration": 10.0},
+                                   "max_duration": 40.0, "static_mask": False}
+                        compute = helper._compute_clip_resize if kind == "clip" else helper._compute_transition_resize
+                        for movement in (0.0, 1.0, -1.0, 8.0):
+                            with self.subTest(kind=kind, timing=timing, edge=edge, offset=offset, movement=movement):
+                                helper._last_event = types.SimpleNamespace(pos=lambda: QPointF(edge_x + offset + movement, 60))
+                                result, start, end, position = compute(object(), context)
+                                self.assertAlmostEqual(result.left() if edge == "left" else result.right(), edge_x + movement)
+                                self.assertAlmostEqual(start if edge == "left" else end,
+                                                       (2.0 if edge == "left" else 12.0) + movement / 24.0)
+                                # Group members receive an already resolved shared
+                                # edge; the pointer offset must not be applied twice.
+                                target = (edge_x + movement) / 24.0
+                                shared, _, _, _ = compute(object(), context, target_edge_seconds=target)
+                                self.assertEqual(result, shared)
+
+    def test_resize_snapping_receives_motion_without_grab_offset(self):
+        for kind in ("clip", "transition"):
+            helper = self.make_qwidget_clip_helper()
+            helper.enable_snapping = True
+            helper._resize_edge = "right"
+            rect = QRectF(240, 30, 240, 60)
+            helper._last_event = types.SimpleNamespace(pos=lambda: QPointF(465, 60))
+            helper._capture_resize_pointer(rect)
+            helper._last_event = types.SimpleNamespace(pos=lambda: QPointF(466, 60))
+            helper._snap_trim_delta = MagicMock(side_effect=lambda delta, **kwargs: delta)
+            helper.snap = types.SimpleNamespace(snap_edge=MagicMock(side_effect=lambda edge, delta: delta))
+            context = {"rect": rect, "world_rect": rect,
+                       "initial": {"start": 2.0, "end": 12.0, "position": 10.0, "duration": 10.0},
+                       "max_duration": 40.0, "static_mask": False}
+            compute = helper._compute_clip_resize if kind == "clip" else helper._compute_transition_resize
+            result, _, _, _ = compute(object(), context)
+            self.assertAlmostEqual(result.right(), 481.0)
+            snap = helper._snap_trim_delta if kind == "clip" else helper.snap.snap_edge
+            args = snap.call_args[0]
+            self.assertAlmostEqual(args[0] if kind == "clip" else args[1], 1.0 / 24.0)
+
+    def test_keyframe_panel_overlay_preserves_expanded_track_border(self):
+        from qt_api import QBrush
+        from windows.views.timeline_backend.paint.keyframepanel import KeyframePanelPainter
+        for theme_class in (self.humanity_theme_module.HumanityDarkTimelineTheme,
+                            self.humanity_theme_module.RetroTimelineTheme,
+                            self.cosmic_theme_module.CosmicDuskTimelineTheme):
+            for panel_height in (0, 40, 100):
+                with self.subTest(theme=theme_class.__name__, panel_height=panel_height):
+                    theme = theme_class()
+                    track = types.SimpleNamespace(data={"number": 1})
+                    name_rect = QRectF(0, 20, 140, 50 + panel_height)
+                    panel_rect = QRectF(140, 70, 160, panel_height)
+                    widget = types.SimpleNamespace(
+                        theme=theme, ruler_height=20, track_name_width=140, scroll_bar_thickness=0,
+                        width=lambda: 300, height=lambda: 200,
+                        geometry=types.SimpleNamespace(iter_tracks=lambda: [(QRectF(), track, name_rect)],
+                                                       panel_rect=lambda number: panel_rect),
+                        normalize_track_number=lambda number: number,
+                        is_keyframe_panel_visible=lambda number: panel_height > 0,
+                        get_track_panel_properties=lambda number: [{"display_name": "Opacity"}],
+                        get_track_panel_context=lambda number: {},
+                        _track_toggle_rect=lambda *args: QRectF())
+                    panel = KeyframePanelPainter.__new__(KeyframePanelPainter)
+                    panel.w = widget
+                    panel.panel_brush = QBrush(theme.track.name_background)
+                    panel._paint_property_row = MagicMock()
+                    image = QImage(300, 200, QImage.Format_ARGB32_Premultiplied)
+                    image.fill(Qt.transparent)
+                    painter = QPainter(image)
+                    # TrackPainter paints the header through the panel before
+                    # this overlay; its border must remain intact afterward.
+                    painter.fillRect(name_rect, theme.track.name_background)
+                    width = max(1, int(theme.track.name_border_width))
+                    painter.fillRect(QRectF(0, 20, width, 50 + panel_height), theme.track.name_border_color)
+                    panel.paint(painter, mode="overlay")
+                    painter.end()
+                    for y in range(20, 70 + panel_height):
+                        self.assertEqual(image.pixelColor(0, y), theme.track.name_border_color)
+                    self.assertEqual(image.pixelColor(0, 70 + panel_height).alpha(), 0)
+                    self.assertEqual(panel._paint_property_row.called, panel_height > 0)
+
+    def test_edge_fade_uses_current_stroke_color_and_fades_inward(self):
+        from qt_api import QPen
+        for kind in ("clip", "transition"):
+            for selected in (False, True):
+                for color_name in ("red", "blue", "green"):
+                    helper = self.make_hover_helper()
+                    helper.theme = self.cosmic_theme_module.CosmicDuskTimelineTheme()
+                    rect = QRectF(130, 30, 100, 60)
+                    helper.geometry.items = [(rect, object(), selected, kind)]
+                    color = QColor(color_name)
+                    pen_name = "sel_pen" if selected else ("clip_pen" if kind == "clip" else "pen")
+                    setattr(helper, kind + "_painter", types.SimpleNamespace(**{pen_name: QPen(color)}))
+                    feedback = helper.hover_feedback
+                    self.assertEqual(feedback.edge_stroke_color(rect, kind), color)
+                    feedback.set_target("edge-left", rect, kind)
+                    feedback.commit()
+                    image = QImage(300, 120, QImage.Format_ARGB32_Premultiplied)
+                    image.fill(Qt.transparent)
+                    painter = QPainter(image)
+                    feedback.paint(painter)
+                    painter.end()
+                    near = image.pixelColor(134, 60)
+                    far = image.pixelColor(142, 60)
+                    self.assertGreater(near.alpha(), far.alpha())
+                    self.assertGreater(far.alpha(), 0)
+                    for channel in ("red", "green", "blue"):
+                        self.assertLessEqual(abs(getattr(near, channel)() - getattr(color, channel)()), 3)
+
+    def test_active_trim_grip_matches_hover_and_tracks_resized_geometry(self):
+        helper = self.make_hover_helper()
+        helper.theme = self.cosmic_theme_module.CosmicDuskTimelineTheme()
+        item = object()
+        feedback = helper.hover_feedback
+        for kind in ("clip", "transition"):
+            for edge in ("left", "right"):
+                for x in (140, 160):
+                    rect = QRectF(x, 30, 100, 60)
+                    helper.geometry.items = [(rect, item, True, kind)]
+                    feedback.position = None
+                    feedback.target = ("edge-" + edge, rect, kind)
+                    helper._fixed_cursor = None
+                    helper._resizing_item = None
+                    renders = []
+                    for active in (False, True):
+                        if active:
+                            helper._fixed_cursor = Qt.SizeHorCursor
+                            helper._resizing_item = item
+                            helper._resize_edge = edge
+                            feedback.clear()
+                        image = QImage(900, 250, QImage.Format_ARGB32_Premultiplied)
+                        image.fill(Qt.transparent)
+                        painter = QPainter(image)
+                        feedback.paint(painter)
+                        painter.end()
+                        renders.append(image)
+                    self.assertEqual(renders[0], renders[1])
+        helper._resizing_item = None
+        self.assertIsNone(feedback.active_resize_target())
+
+    def test_resize_hitbox_extends_inside_and_into_empty_space(self):
+        for timing in (False, True):
+            helper = self.make_hover_helper()
+            helper.enable_timing = timing
+            rect = QRectF(120, 30, 100, 60)
+            item = object()
+            helper.geometry.items = [(rect, item, False, "clip")]
+            helper._resize_targets_for_item = lambda *args: [item]
+            for x, edge in ((110, "left"), (135, "left"), (205, "right"), (230, "right")):
+                with self.subTest(timing=timing, x=x):
+                    helper._updateCursor(QPointF(x, 60))
+                    self.assertEqual(helper.hover_feedback.target, ("edge-" + edge, rect, "clip"))
+            for x in (109, 137, 203, 231):
+                self.assertIsNone(helper._item_resize_edge_at(rect, QPointF(x, 60)))
+
+    def test_resize_hitbox_preserves_narrow_clip_move_target(self):
+        helper = self.make_hover_helper()
+        rect = QRectF(120, 30, 12, 60)
+        helper.geometry.items = [(rect, object(), False, "clip")]
+        self.assertIsNone(helper._item_resize_edge_at(rect, rect.center()))
+        self.assertEqual(helper._item_resize_edge_at(rect, QPointF(123, 60)), "left")
+        self.assertEqual(helper._item_resize_edge_at(rect, QPointF(129, 60)), "right")
+        self.assertEqual(helper._item_resize_edge_at(rect, QPointF(110, 60)), "left")
+
+    def test_resize_hitbox_prefers_nearest_edge_in_small_gap(self):
+        helper = self.make_hover_helper()
+        rects = (QRectF(120, 30, 100, 60), QRectF(232, 30, 100, 60))
+        helper.geometry.items = [(r, object(), False, "clip") for r in rects]
+        for x, expected in ((224, ("right", None)), (228, (None, "left"))):
+            self.assertEqual(tuple(helper._item_resize_edge_at(r, QPointF(x, 60)) for r in rects), expected)
+
+    def test_trim_grips_shorten_corners_and_stay_within_clip_height(self):
+        from windows.views.timeline_backend.paint.hover import HoverFeedback
+        for radius in (0, 8):
+            for width in (2, 100):
+                rect = QRectF(120, 30, width, 60)
+                for left in (False, True):
+                    with self.subTest(radius=radius, width=width, left=left):
+                        path = HoverFeedback.edge_path(rect, radius, left)
+                        bounds = path.boundingRect()
+                        self.assertGreaterEqual(bounds.top(), rect.top())
+                        self.assertLessEqual(bounds.bottom(), rect.bottom())
+                        if left:
+                            self.assertGreaterEqual(bounds.left(), rect.left())
+                            self.assertGreaterEqual(path.elementAt(0).x, bounds.left())
+                            self.assertLessEqual(bounds.right(), rect.left() + 4)
+                            self.assertLessEqual(bounds.right(), rect.center().x())
+                        else:
+                            self.assertLessEqual(bounds.right(), rect.right())
+                            self.assertLessEqual(path.elementAt(0).x, bounds.right())
+                            self.assertGreaterEqual(bounds.left(), rect.right() - 4)
+                            self.assertGreaterEqual(bounds.left(), rect.center().x())
+                        self.assertEqual(any(path.elementAt(i).isCurveTo() for i in range(path.elementCount())), bool(radius and width > 3))
+
+    def test_resize_feedback_never_paints_outside_clip(self):
+        for theme_class in (self.humanity_theme_module.HumanityDarkTimelineTheme,
+                            self.humanity_theme_module.RetroTimelineTheme,
+                            self.cosmic_theme_module.CosmicDuskTimelineTheme):
+            for ratio in (1, 2):
+                for width in (2, 60):
+                    for edge in ("left", "right"):
+                        with self.subTest(theme=theme_class.__name__, ratio=ratio, width=width, edge=edge):
+                            helper = self.make_hover_helper()
+                            helper.theme = theme_class()
+                            rect = QRectF(130, 30, width, 60)
+                            helper.hover_feedback.set_target("edge-" + edge, rect)
+                            helper.hover_feedback.commit()
+                            image = QImage(220 * ratio, 110 * ratio, QImage.Format_ARGB32_Premultiplied)
+                            image.setDevicePixelRatio(ratio)
+                            image.fill(Qt.transparent)
+                            painter = QPainter(image)
+                            helper.hover_feedback.paint(painter)
+                            painter.end()
+                            visible = False
+                            for y in range(27 * ratio, 93 * ratio):
+                                for x in range(127 * ratio, (133 + width) * ratio):
+                                    alpha = image.pixelColor(x, y).alpha()
+                                    inside = 130 * ratio <= x < (130 + width) * ratio and 30 * ratio <= y < 90 * ratio
+                                    if not inside:
+                                        self.assertEqual(alpha, 0)
+                                    elif alpha:
+                                        visible = True
+                            self.assertTrue(visible)
+
+    def test_top_track_trim_grip_is_not_cut_off_by_ruler(self):
+        # Compare the real clipped overlay with an unclipped rendering. A grip
+        # on a clip flush with the ruler must have exactly the same pixels.
+        for theme_class in (self.humanity_theme_module.HumanityDarkTimelineTheme,
+                            self.humanity_theme_module.RetroTimelineTheme,
+                            self.cosmic_theme_module.CosmicDuskTimelineTheme):
+            for ratio in (1, 2):
+                for edge in ("left", "right"):
+                    with self.subTest(theme=theme_class.__name__, ratio=ratio, edge=edge):
+                        helper = self.make_hover_helper()
+                        helper.theme = theme_class()
+                        helper.ruler_height = 30
+                        rect = QRectF(140, 30, 100, 60)
+                        feedback = helper.hover_feedback
+                        feedback.set_target("edge-" + edge, rect)
+                        feedback.commit()
+                        renders = []
+                        for clipped in (False, True):
+                            image = QImage(900 * ratio, 250 * ratio, QImage.Format_ARGB32_Premultiplied)
+                            image.setDevicePixelRatio(ratio)
+                            image.fill(Qt.transparent)
+                            painter = QPainter(image)
+                            painter.setRenderHint(QPainter.Antialiasing, True)
+                            if clipped:
+                                feedback.paint(painter)
+                            else:
+                                feedback._paint_edge(painter, rect, helper.theme.clip, edge == "left")
+                            painter.end()
+                            renders.append(image)
+                        self.assertEqual(renders[0], renders[1])
+
+    def test_keyframe_hover_shades_glyph_without_changing_shape(self):
+        from qt_api import QBrush, QPen
+        from windows.views.timeline_backend.paint.keyframe import KeyframePainter
+        from windows.views.timeline_backend.paint.keyframepanel import KeyframePanelPainter
+        for style in ("clip", "transition", "track"):
+            for interpolation in ("bezier", "linear", "constant"):
+                for selected in (False, True):
+                    with self.subTest(style=style, interpolation=interpolation, selected=selected):
+                        helper = self.make_hover_helper()
+                        helper.theme = self.cosmic_theme_module.CosmicDuskTimelineTheme()
+                        rect = QRectF(140, 40, 10, 10)
+                        helper._keyframe_markers = [{"rect": rect, "type": style,
+                            "interpolation": interpolation, "selected": selected}]
+                        glyph = KeyframePainter(helper)
+                        panel = KeyframePanelPainter.__new__(KeyframePanelPainter)
+                        panel.w = helper
+                        panel.marker_size = 10
+                        panel.marker_brush = QBrush(glyph.fill)
+                        panel.marker_pen_selected = QPen(glyph.pen)
+                        panel.marker_pen_unselected = QPen(Qt.NoPen)
+                        renders = []
+                        for hovered in (False, True):
+                            if hovered:
+                                helper.hover_feedback.set_target("keyframe", rect, style)
+                                helper.hover_feedback.commit()
+                            image = QImage(200, 100, QImage.Format_ARGB32_Premultiplied)
+                            image.fill(Qt.transparent)
+                            painter = QPainter(image)
+                            painter.setRenderHint(QPainter.Antialiasing, True)
+                            if style == "track":
+                                panel._draw_marker(painter, 145, 45, interpolation, selected)
+                            else:
+                                glyph.paint(painter)
+                            helper.hover_feedback.paint(painter)
+                            painter.end()
+                            renders.append(image)
+                        # Hover changes the shade, never the shape or footprint.
+                        self.assertNotEqual(renders[0].pixelColor(145, 45), renders[1].pixelColor(145, 45))
+                        for y in range(35, 56):
+                            for x in range(135, 156):
+                                self.assertEqual(renders[0].pixelColor(x, y).alpha(),
+                                                 renders[1].pixelColor(x, y).alpha())
+                        self.assertEqual(renders[1].pixelColor(137, 37).alpha(), 0)
+
+    def test_hover_panel_keyframes_and_clear(self):
+        helper = self.make_hover_helper()
+        rect = QRectF(150, 55, 10, 10)
+        helper._panel_marker_at = lambda pos: {"marker_rect": rect}
+        helper._updateCursor(rect.center())
+        self.assertEqual(helper.hover_feedback.target, ("keyframe", rect, "track"))
+        helper.hover_feedback.clear()
+        self.assertIsNone(helper.hover_feedback.target)
+        self.assertIsNone(helper.hover_feedback.position)
+
+    def test_hover_paint_all_themes_and_pixel_ratios(self):
+        themes = (self.humanity_theme_module.HumanityDarkTimelineTheme,
+                  self.humanity_theme_module.RetroTimelineTheme,
+                  self.cosmic_theme_module.CosmicDuskTimelineTheme)
+        for theme_class in themes:
+            for ratio in (1, 2):
+                for kind, style in (("menu", "clip"), ("menu", "transition"),
+                                    ("menu", "track"), ("edge-left", "clip"),
+                                    ("edge-right", "clip"), ("edge-left", "transition")):
+                    with self.subTest(theme=theme_class.__name__, ratio=ratio, kind=kind, style=style):
+                        helper = self.make_hover_helper()
+                        helper.theme = theme_class()
+                        feedback = helper.hover_feedback
+                        track_menu = style == "track" and kind == "menu"
+                        x = 10 if track_menu else 120
+                        rect = QRectF(x, 15, 60 if kind == "menu" else 8, 50)
+                        feedback.set_target(kind, rect, style)
+                        feedback.commit()
+                        image = QImage(900 * ratio, 250 * ratio, QImage.Format_ARGB32_Premultiplied)
+                        image.setDevicePixelRatio(ratio)
+                        image.fill(Qt.transparent)
+                        painter = QPainter(image)
+                        feedback.paint(painter)
+                        painter.end()
+                        # Feedback stays below the ruler and outside scrollbars.
+                        self.assertEqual(image.pixelColor(int(x * ratio), 16 * ratio).alpha(), 0)
+                        self.assertEqual(image.pixelColor(895 * ratio, 40 * ratio).alpha(), 0)
+                        painted = any(image.pixelColor(px * ratio, py * ratio).alpha()
+                                      for px in range(int(x - 4), int(x + rect.width() + 4))
+                                      for py in range(20, 70))
+                        self.assertTrue(painted)
+
+    def test_hover_paint_rechecks_stationary_pointer_after_item_removed(self):
+        helper = self.make_hover_helper()
+        helper.theme = self.humanity_theme_module.HumanityDarkTimelineTheme()
+        rect = QRectF(120, 30, 80, 20)
+        helper._clip_text_rects = [{"rect": rect, "open_menu": True}]
+        helper._updateCursor(rect.center())
+        helper._clip_text_rects = []
+        image = QImage(900, 250, QImage.Format_ARGB32_Premultiplied)
+        image.fill(Qt.transparent)
+        painter = QPainter(image)
+        helper.hover_feedback.paint(painter)
+        painter.end()
+        self.assertIsNone(helper.hover_feedback.target)
+
     def test_qwidget_cursor_keeps_hand_cursor_for_items_when_razor_disabled(self):
         helper = self.make_qwidget_cursor_helper()
         helper.geometry.items = [(QRectF(0.0, 0.0, 100.0, 20.0), object(), False, "clip")]
 
-        self.qwidget_base_module.TimelineWidgetBase._updateCursor(helper, QPointF(10.0, 10.0))
+        self.qwidget_base_module.TimelineWidgetBase._updateCursor(helper, QPointF(50.0, 10.0))
 
         self.assertIs(helper.cursor_value, helper.cursors["hand"])
         self.assertFalse(helper.unset_cursor_called)
@@ -2995,6 +3614,34 @@ class TimelineHelperTests(unittest.TestCase):
                         helper, QPointF(x, 23)
                     )
                     self.assertIs(helper.cursor_value, helper.cursors["resize_x"])
+
+    def test_clip_keyframe_hit_reaches_inside_clip_for_hover_and_press(self):
+        for x in (120, 170, 220):
+            for y in (77, 81, 88, 93):
+                with self.subTest(x=x, y=y):
+                    marker = {"rect": QRectF(x - 5, 85, 10, 10), "type": "clip"}
+                    hover = self.make_hover_helper()
+                    press, event_cls = self.make_qwidget_assign_press_helper(resize_items=[object()])
+                    for helper in (hover, press):
+                        helper.geometry.items = [(QRectF(120, 30, 100, 60), object(), True, "clip")]
+                        helper._keyframe_markers = [marker]
+                        helper._ensure_keyframe_markers = lambda: None
+                        helper._get_keyframe_at = lambda pos, helper=helper: (
+                            self.qwidget_keyframe_module.KeyframeMixin._get_keyframe_at(helper, pos))
+                    hover._updateCursor(QPointF(x, y))
+                    self.assertEqual(hover.hover_feedback.target, ("keyframe", marker["rect"], "clip"))
+                    press._select_marker_owner = MagicMock()
+                    self.qwidget_base_module.TimelineWidgetBase._assign_press_target(press, event_cls(x, y))
+                    self.assertEqual(press._press_hit, "keyframe")
+                    self.assertIs(press._press_keyframe, marker)
+                    self.assertIsNone(hover._get_keyframe_at(QPointF(x, 76)))
+
+    def test_enlarged_keyframe_targets_keep_nearest_and_exact_priority(self):
+        hit = self.qwidget_keyframe_module.keyframe_hit_at
+        candidates = [(QRectF(140, 85, 10, 10), "first"), (QRectF(152, 85, 10, 10), "second")]
+        self.assertEqual(hit(QPointF(145, 78), candidates, padding=5, top_padding=8), "first")
+        self.assertEqual(hit(QPointF(156, 78), candidates, padding=5, top_padding=8), "second")
+        self.assertEqual(hit(QPointF(153, 89), candidates, padding=5, top_padding=8), "second")
 
     def test_keyframe_hit_padding_preserves_exact_and_nearest_targets(self):
         hit = self.qwidget_keyframe_module.keyframe_hit_at
@@ -3910,7 +4557,7 @@ class TimelineHelperTests(unittest.TestCase):
 
         self.assertEqual([item.id for item in targets], ["T1", "C1"])
 
-    def test_qwidget_resize_targets_reject_interior_edge_in_multi_selection(self):
+    def test_qwidget_resize_targets_allow_grabbed_interior_edge_in_multi_selection(self):
         Helper = self.make_qwidget_resize_target_helper()
         left = types.SimpleNamespace(id="L", data={"position": 1.0, "start": 0.0, "end": 3.0})
         middle = types.SimpleNamespace(id="M", data={"position": 3.0, "start": 0.0, "end": 2.0})
@@ -3925,7 +4572,7 @@ class TimelineHelperTests(unittest.TestCase):
             helper, middle, "left"
         )
 
-        self.assertEqual(targets, [])
+        self.assertEqual(targets, [middle])
 
     def test_qwidget_assign_press_target_falls_back_to_drag_for_invalid_multi_edge(self):
         helper, event_cls = self.make_qwidget_assign_press_helper(resize_items=[])
