@@ -92,9 +92,10 @@
 	</param>
 	
 	<param name="end_frame" type="spinner" title="End Frame" description="">
-		<min>160</min>
-		<max>160</max>
-		<default>160</default>
+		<!-- Last particles expire at frame 200; allow the complete title to hold. -->
+		<min>210</min>
+		<max>210</max>
+		<default>210</default>
 	</param>
 	
 	<!-- SPEED -->
