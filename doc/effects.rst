@@ -31,7 +31,9 @@ represented by a small colored icon and the first letter of the effect name. Not
 (i.e. red playback line) is. Key frames are automatically created at the current playback position,
 to help create animations quickly.
 
-To view an effect's properties, right-click on the effect icon, revealing the context menu, and choose :guilabel:`Properties`.
+Click an effect icon to select it without opening the Properties dock. If the dock is already open,
+it updates to the selected effect. To open it, double-click the effect icon, or right-click the icon
+and choose :guilabel:`Properties`.
 The property editor will appear, where you can edit these properties. Properties appear alphabetically in the dock,
 with filter options available at the top. Hold :kbd:`Ctrl` and click multiple
 effect icons to select them all, the Properties dock will show an entry such as

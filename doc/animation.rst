@@ -41,7 +41,7 @@ Overview
    1   Blue Property       When the play-head is on an interpolated value, the property appears blue
    2   Value Slider        Click and drag your mouse to adjust the value (this automatically creates a key frame if needed)
    3   Play-head           Position the play-head over a clip where you need a key frame
-   4   Key frame Markers   Colorful icons line the bottom of the clip for every keyframe (`circle=Bézier`, `diamond=linear`, `square=constant`). Each icon matches the color of its clip, effect, or transition. The selected item's keyframe icons are shown brighter. Filtering the property list also filters these icons. Click any icon to jump the play-head, load its properties, and select its clip, effect, or transition. Drag an icon left or right to move the keyframe and fine‑tune your animation timing. The play-head moves to the keyframe's new position when you finish dragging.
+   4   Key frame Markers   Colorful icons line the bottom of the clip for every keyframe (`circle=Bézier`, `diamond=linear`, `square=constant`). Each icon matches the color of its clip, effect, or transition. The selected item's keyframe icons are shown brighter. Filtering the property list also filters these icons. Click any icon to jump the play-head and select its clip, effect, or transition without opening the Properties dock. Double-click the icon, or right-click and choose :guilabel:`Properties`, to open the dock. Drag an icon left or right to move the keyframe and fine‑tune your animation timing. The play-head moves to the keyframe's new position when you finish dragging.
    ==  ==================  ============
 
 Key Frames
