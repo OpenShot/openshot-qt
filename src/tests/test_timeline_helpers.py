@@ -2707,6 +2707,43 @@ class TimelineHelperTests(unittest.TestCase):
 
         self.assertEqual(helper.updated, [])
 
+    def test_keyframe_seek_preserves_properties_visibility(self):
+        window = types.SimpleNamespace(SeekSignal=MagicMock(), actionProperties=MagicMock())
+        helper = types.SimpleNamespace(window=window)
+        self.timeline_module.TimelineView.SeekToKeyframe(helper, 73)
+        window.SeekSignal.emit.assert_called_once_with(73, True)
+        window.actionProperties.trigger.assert_not_called()
+
+    def test_timeline_selection_does_not_open_properties(self):
+        for kind in ("clip", "transition", "effect"):
+            with self.subTest(kind=kind):
+                window = types.SimpleNamespace(SelectionAdded=MagicMock(), actionProperties=MagicMock())
+                self.timeline_module.TimelineView.addSelection(
+                    types.SimpleNamespace(window=window), "item1", kind, True)
+                window.SelectionAdded.emit.assert_called_once_with("item1", kind, True)
+                window.actionProperties.trigger.assert_not_called()
+
+    def test_double_click_opens_properties_on_padded_icon_hits(self):
+        for target in ("clip-keyframe", "panel-keyframe", "effect", "clip"):
+            with self.subTest(target=target):
+                pos = QPointF(50, 50)
+                helper = types.SimpleNamespace(
+                    enable_razor=False,
+                    geometry=types.SimpleNamespace(
+                        ensure=lambda: None,
+                        iter_items=lambda **_kwargs: [(QRectF(40, 40, 20, 20), None, False, "clip")]
+                        if target == "clip" else []),
+                    _is_timeline_content_pos=lambda _pos: True,
+                    _get_keyframe_at=lambda _pos: {"frame": 25} if target == "clip-keyframe" else None,
+                    _panel_marker_at=lambda _pos: {"point": {"frame": 25}} if target == "panel-keyframe" else None,
+                    _effect_icon_at=lambda _pos: {"effect_id": "E1"} if target == "effect" else None,
+                    win=types.SimpleNamespace(actionProperties=MagicMock()))
+                event = types.SimpleNamespace(button=lambda: Qt.LeftButton, pos=lambda: pos,
+                                              position=lambda: pos, accept=MagicMock())
+                self.qwidget_base_module.TimelineWidgetBase.mouseDoubleClickEvent(helper, event)
+                helper.win.actionProperties.trigger.assert_called_once_with()
+                event.accept.assert_called_once_with()
+
     def test_keyframe_drag_preserves_padded_grab_offset(self):
         for kind in ("clip", "transition"):
             for offset in (-10.0, 0.0, 10.0):

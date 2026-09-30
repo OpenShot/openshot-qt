@@ -5290,9 +5290,6 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         # Seek to frame
         self.window.SeekSignal.emit(frame_number, True)
 
-        # Display properties (if not visible)
-        self.window.actionProperties.trigger()
-
     @pyqtSlot(int, bool)
     def PlayheadMoved(self, position_frames, start_preroll=True):
         # Load the timeline into the Player (ignored if this has already happened)
@@ -5368,9 +5365,6 @@ class TimelineView(updates.UpdateInterface, ViewClass):
     def addSelection(self, item_id, item_type, clear_existing=False):
         """ Add the selected item to the current selection """
         self.window.SelectionAdded.emit(item_id, item_type, clear_existing)
-        if item_id and item_type == "effect":
-            # Display properties for effect (if not visible)
-            self.window.actionProperties.trigger()
 
     def addRippleSelection(self, item_id, item_type):
         if ViewClass == TimelineWidget:

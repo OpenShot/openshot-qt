@@ -3168,6 +3168,12 @@ class TimelineWidgetBase(RazorMixin, QWidget):
             if not self._is_timeline_content_pos(pos):
                 super().mouseDoubleClickEvent(event)
                 return
+            # Keyframe and effect hitboxes can extend beyond the clip body.
+            if (self._get_keyframe_at(pos) or self._panel_marker_at(pos)
+                    or self._effect_icon_at(pos)):
+                self.win.actionProperties.trigger()
+                event.accept()
+                return
             for rect, item, _selected, _type in self.geometry.iter_items(reverse=True):
                 if rect.contains(pos):
                     self.win.actionProperties.trigger()
