@@ -120,7 +120,7 @@ class AssetLocationTests(unittest.TestCase):
                 info.set_assets_path(str(root))
                 dialogs = []
                 for _ in range(2):
-                    dialog = types.SimpleNamespace(finished=Mock())
+                    dialog = types.SimpleNamespace(finished=Mock(), svg_watcher=Mock())
                     dialog._remove_temp_title = types.MethodType(TitleEditor._remove_temp_title, dialog)
                     TitleEditor.create_temp_title(dialog, str(template))
                     self.assertEqual(Path(dialog.filename).parent, root / 'title')

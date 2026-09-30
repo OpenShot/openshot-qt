@@ -31,16 +31,14 @@ import re
 import shutil
 import sys
 import functools
-import subprocess
 import tempfile
 import threading
-import time
 
 # TODO: Is there a defusedxml substitute for getDOMImplementation?
 # Is one even necessary, or is it safe to use xml.dom.minidom for that?
 from xml.dom import minidom
 
-from qt_api import Qt, pyqtSlot, QTimer, pyqtSignal, QRect, QPoint, QSize, QEvent
+from qt_api import Qt, pyqtSlot, QTimer, pyqtSignal, QRect, QPoint, QSize, QEvent, QProcess, QProcessEnvironment
 from qt_api import get_font_dialog_selection
 from qt_api import QFontDatabase, QColor, QIcon, QFont, QFontInfo, QPixmap, QPainter
 from qt_api import (
@@ -54,6 +52,9 @@ import openshot
 from classes import info, ui_util, tabstops
 from classes.logger import log
 from classes.app import get_app
+from classes.distribution import is_snap
+from classes.svg_watcher import SvgWatcher
+from classes.portal_file_dialog import open_file_with_application
 from classes.feedback import record_feedback_action
 from classes.metrics import track_metric_screen
 from windows.color_picker import ColorPicker, draw_checkerboard
@@ -104,6 +105,10 @@ class TitleEditor(QDialog):
         self.update_timer.setInterval(50)
         self.update_timer.setSingleShot(True)
         self.update_timer.timeout.connect(self.save_and_reload)
+        self.preview_timer = QTimer(self)
+        self.preview_timer.setSingleShot(True)
+        self.preview_timer.setInterval(50)
+        self.preview_timer.timeout.connect(self.display_svg)
 
         self.app = get_app()
         self.project = self.app.project
@@ -111,6 +116,12 @@ class TitleEditor(QDialog):
         self.duplicate = duplicate
         self.filename = None
         self.env = dict(os.environ)
+        self.svg_watcher = SvgWatcher(self)
+        self.svg_watcher.changed.connect(self._external_svg_changed)
+        self.finished.connect(self.svg_watcher.stop)
+        self.finished.connect(self.update_timer.stop)
+        self.finished.connect(self.preview_timer.stop)
+        self.editor_process = None
 
         # Load UI from designer
         ui_util.load_ui(self, self.ui_path)
@@ -206,7 +217,8 @@ class TitleEditor(QDialog):
     def eventFilter(self, obj, event):
         if obj is self.lblPreviewLabel and event.type() == QEvent.Resize:
             # Update preview image when label is resized
-            self.update_timer.start(50)
+            if self.filename:
+                self.preview_timer.start()
         return super(TitleEditor, self).eventFilter(obj, event)
 
     def get_font(self, requested_font_name):
@@ -326,6 +338,7 @@ class TitleEditor(QDialog):
             fd, self._temp_title = tempfile.mkstemp(prefix="openshot-", suffix=".svg", dir=info.TITLE_PATH)
             os.close(fd)
             self.finished.connect(self._remove_temp_title)
+        self.svg_watcher.stop()
         self.filename = self._temp_title
         # Copy template to temp file (NOT preserving attributes)
         shutil.copyfile(template_path, self.filename)
@@ -384,7 +397,7 @@ class TitleEditor(QDialog):
         if not self.qfont:
             self.qfont = QFont(self.get_font(self.default_font_family))
 
-    def load_svg_template(self, filename_field=None):
+    def load_svg_template(self, filename_field=None, document=None):
         """ Load an SVG title and init all textboxes and controls """
 
         log.debug("Loading SVG file %s as title template", self.filename)
@@ -395,7 +408,7 @@ class TitleEditor(QDialog):
         layout = self.settingsContainer.layout()
 
         # Parse the svg object
-        self.xmldoc = minidom.parse(self.filename)
+        self.xmldoc = document if document is not None else minidom.parse(self.filename)
         # get the text elements
         self.tspan_nodes = self.xmldoc.getElementsByTagName('tspan')
 
@@ -460,6 +473,8 @@ class TitleEditor(QDialog):
                 if not os.path.exists(possible_path):
                     self.txtFileName.setText(curname)
                     break
+        if self.edit_file_path and not self.duplicate:
+            self.txtFileName.setEnabled(False)
         self.txtFileName.setFixedHeight(28)
         layout.addRow(label, self.txtFileName)
 
@@ -473,7 +488,7 @@ class TitleEditor(QDialog):
                 continue
             text = node.childNodes[0].data
             # Translate SVG placeholder text (if translation exists)
-            translated_text = svg_translations.get(text, text)
+            translated_text = svg_translations.get(text, text) if document is None else text
             title_text.append(translated_text)
             # Update the SVG node with translated text
             if translated_text != text:
@@ -493,11 +508,11 @@ class TitleEditor(QDialog):
             widget.textChanged.connect(functools.partial(self.txtLine_changed, widget))
             layout.addRow(label, widget)
 
-        # Apply font attributes to SVG: TEXT and TSPAN nodes
-        self.set_font_attributes()
-
-        # Write SVG temp file
-        self.writeToFile(self.xmldoc)
+        if document is None:
+            # Apply template defaults only on initial load. External saves must
+            # retain the editor's fonts, styles, and text without another write.
+            self.set_font_attributes()
+            self.writeToFile(self.xmldoc)
 
         # Add Font button
         label = QLabel(_("Font:"))
@@ -591,9 +606,10 @@ class TitleEditor(QDialog):
         if not self.filename.endswith("svg"):
             self.filename = self.filename + ".svg"
         try:
-            file = open(os.fsencode(self.filename), "wb")  # wb needed for windows support
-            file.write(bytes(xmldoc.toxml(), 'UTF-8'))
-            file.close()
+            contents = bytes(xmldoc.toxml(), 'UTF-8')
+            with open(self.filename, "wb") as stream:
+                stream.write(contents)
+            self.svg_watcher.remember(contents)
         except IOError as inst:
             log.error("Error writing SVG title: {}".format(inst))
             return False
@@ -837,6 +853,9 @@ class TitleEditor(QDialog):
         log.debug("Set text node style, fill:%s opacity:%s", color, alpha)
 
     def accept(self):
+        # Pick up a save even if the watcher has not reached its next interval.
+        if self.svg_watcher.path:
+            self.svg_watcher.check(force=True)
         app = get_app()
         _ = app._tr
 
@@ -879,50 +898,69 @@ class TitleEditor(QDialog):
         # Close window
         super().accept()
 
-    def btnAdvanced_clicked(self):
-        """Use an external editor to edit the image"""
+    def _external_svg_changed(self, document):
+        """Reload external saves without writing the previous DOM over them."""
+        self.update_timer.stop()
+        self.load_svg_template(filename_field=self.txtFileName.text(), document=document)
+        self.display_svg()
+
+    def _editor_failed_to_start(self, error):
+        if error == QProcess.ProcessError.FailedToStart:
+            process = self.sender()
+            log.warning("Unable to launch SVG editor: %s", process.errorString())
+            process.deleteLater()
+            if process is self.editor_process:
+                self.editor_process = None
+            self._editor_error()
+
+    def _editor_error(self):
         _ = self.app._tr
-        s = get_app().get_settings()
-        prog = s.get("title_editor").strip()
-        filename_text = self.txtFileName.text().strip()
+        if not self.isVisible():
+            return
+        message = _(
+            "Couldn't open the app chooser. Please try again."
+        ) if is_snap() else _(
+            "Couldn't open the editor. Check its path in Preferences."
+        )
+        QMessageBox.warning(self, _("Title Editor"), message)
 
-        # Define the title and both platform-specific messages
-        error_title = _("Error launching editor")
-        error_msg_linux = _(
-            "The editor did not launch: <b>{cmd}</b><br><br>"
-            "If you used Snap or Flatpak, try installing the editor with your package manager."
-        ).format(cmd=prog)
-        error_msg_other = _(
-            "The editor did not launch: <b>{cmd}</b><br><br>"
-            "Please check that the editor is installed and working."
-        ).format(cmd=prog)
+    def _editor_finished(self, exit_code, exit_status):
+        if self.sender() is self.editor_process:
+            self.editor_process = None
+        if exit_code != 0 or exit_status == QProcess.ExitStatus.CrashExit:
+            log.warning("SVG editor exited with code %s (%s)", exit_code, exit_status)
+            self._editor_error()
 
-        # Pick the message for this platform
-        error_msg = error_msg_linux if sys.platform.startswith("linux") else error_msg_other
-
-        try:
-            log.info("Advanced title editor command: %s", str([prog, self.filename]))
-            start_time = time.time()
-            p = subprocess.Popen(
-                [prog, self.filename],
-                env=self.env,
-                cwd=info.HOME_PATH,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.STDOUT
-            )
-            p.communicate()
-            elapsed = time.time() - start_time
-
-            # Show error if the editor exited too quickly
-            if elapsed < 4:
-                QMessageBox.warning(self, error_title, error_msg)
-            else:
-                self.load_svg_template(filename_field=filename_text)
-                self.display_svg()
-
-        except FileNotFoundError as ex:
-            log.info("Failed to launch advanced title editor: %s", ex)
-            QMessageBox.warning(self, error_title, error_msg)
-        except Exception as ex:
-            log.error("Failed to launch advanced title editor: %s", ex)
-            QMessageBox.warning(self, error_title, error_msg)
+    def btnAdvanced_clicked(self):
+        """Launch without blocking; saved SVG contents drive preview updates."""
+        if not self.filename or not self.isVisible():
+            return
+        # Flush pending title edits before handing the file to the editor.
+        if self.is_thread_busy:
+            QTimer.singleShot(50, self.btnAdvanced_clicked)
+            return
+        self.update_timer.stop()
+        if not self.writeToFile(self.xmldoc):
+            return
+        self.svg_watcher.watch(self.filename)
+        if is_snap():
+            log.info("Choosing an SVG editor through the desktop portal: %s", self.filename)
+            if open_file_with_application(self, self.filename) is None:
+                self._editor_error()
+            return
+        prog = self.app.get_settings().get("title_editor").strip()
+        log.info("Advanced title editor command: %s", [prog, self.filename])
+        # The application owns the process so closing this dialog does not kill Inkscape.
+        process = QProcess(self.app)
+        environment = QProcessEnvironment()
+        for key, value in self.env.items():
+            environment.insert(key, value)
+        process.setProcessEnvironment(environment)
+        process.setWorkingDirectory(info.HOME_PATH)
+        process.setStandardOutputFile(QProcess.nullDevice())
+        process.setStandardErrorFile(QProcess.nullDevice())
+        process.errorOccurred.connect(self._editor_failed_to_start)
+        process.finished.connect(self._editor_finished)
+        process.finished.connect(process.deleteLater)
+        self.editor_process = process
+        process.start(prog, [self.filename])

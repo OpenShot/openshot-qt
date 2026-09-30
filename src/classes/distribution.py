@@ -82,3 +82,12 @@ def distribution_label():
     data = get_distribution_info()
     return "{} | Official distribution: {}".format(
         data["package_type"], "yes" if data["official"] else "no")
+
+
+def is_snap():
+    """Whether this process is running in a Snap package."""
+    return bool(os.environ.get("SNAP"))
+
+
+def blender_unavailable_message(_):
+    return _("Not available in Snap")

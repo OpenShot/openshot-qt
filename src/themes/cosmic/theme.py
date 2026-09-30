@@ -401,6 +401,24 @@ QPushButton:focus {
     background-color: #283241;
 }
 
+QDialog#animatedTitle QPushButton:disabled,
+QDialog#animatedTitle QPushButton#acceptButton:disabled {
+    background-color: #202938;
+    color: #657386;
+}
+
+QDialog#animatedTitle QPushButton#cancelButton {
+    background-color: #283241;
+}
+
+QDialog#animatedTitle QPushButton#cancelButton:enabled:hover {
+    background-color: #35465c;
+}
+
+QDialog#animatedTitle QPushButton#cancelButton:enabled:pressed {
+    background-color: #40536c;
+}
+
 QWidget#settingsContainer {
     background-color: #141923;
 }

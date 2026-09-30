@@ -31,13 +31,15 @@ import uuid
 
 from qt_api import Qt
 from qt_api import (
-    QApplication, QDialog, QDialogButtonBox, QPushButton
+    QApplication, QDialog, QDialogButtonBox, QPushButton, QLabel, QSizePolicy, QAbstractItemView
 )
 
 from classes import info, ui_util, metrics, tabstops
 from classes.app import get_app
+from classes.distribution import is_snap, blender_unavailable_message
 from classes.logger import log
 from windows.views.blender_listview import BlenderListView
+from windows.notifications import banner_colors
 
 
 class AnimatedTitle(QDialog):
@@ -52,11 +54,27 @@ class AnimatedTitle(QDialog):
         # Load UI from designer & init
         ui_util.load_ui(self, self.ui_path)
         ui_util.init_ui(self)
+        self.setObjectName("animatedTitle")
 
         metrics.track_metric_screen("animated-title-screen")
 
         app = get_app()
         _ = app._tr
+        self.blender_unavailable = is_snap()
+
+        # Keep setup problems in the dialog, above the disabled editor.
+        self.blenderNotice = QLabel(self)
+        self.blenderNotice.setObjectName("blenderNotice")
+        self.blenderNotice.setTextFormat(Qt.PlainText)
+        self.blenderNotice.setWordWrap(False)
+        self.blenderNotice.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Maximum)
+        colors = banner_colors(self)
+        self.blenderNotice.setStyleSheet(
+            "QLabel#blenderNotice { background: %(surface)s; color: %(text)s; "
+            "border: 1px solid %(border)s; border-radius: 4px; padding: 10px; }" % colors)
+        self.gridLayout.addWidget(self.blenderNotice, 0, 0)
+        self.gridLayout.setRowStretch(1, 1)
+        self.blenderNotice.hide()
 
         # Add render controls
         self.btnRender = QPushButton(_('Render'))
@@ -92,6 +110,32 @@ class AnimatedTitle(QDialog):
         self.clear_effect_controls()
 
         self._apply_tab_order()
+        if self.blender_unavailable:
+            self.show_blender_error(blender_unavailable_message(_))
+
+    def show_blender_error(self, message):
+        """Leave templates visible and Cancel available when Blender cannot run."""
+        self.blender_unavailable = True
+        self.blenderView.preview_timer.stop()
+        self.blenderNotice.setText(" ".join(message.split()))
+        self.blenderNotice.show()
+        # Disable the contents, not the scrollable views around them.
+        self.blenderView.clearSelection()
+        self.blenderView.selectionModel().clearCurrentIndex()
+        self.blenderView.setSelectionMode(QAbstractItemView.NoSelection)
+        self.blenderView.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        model = self.blenderView.blender_model.model
+        for row in range(model.rowCount()):
+            for column in range(model.columnCount()):
+                item = model.item(row, column)
+                if item is not None:
+                    item.setFlags(item.flags() & ~(Qt.ItemIsEnabled | Qt.ItemIsSelectable))
+        self.settingsContainer.setEnabled(False)
+        self.sliderPreview.setEnabled(False)
+        self.btnRefresh.setEnabled(False)
+        self.btnRender.setEnabled(False)
+        self.statusContainer.hide()
+        self.btnCancel.setFocus()
 
     def _apply_tab_order(self):
         """Apply explicit tab order for animated title dialog."""
@@ -126,6 +170,8 @@ class AnimatedTitle(QDialog):
 
     def accept(self):
         """ Start rendering animation, but don't close window """
+        if self.blender_unavailable:
+            return
         # Render
         self.blenderView.Render()
 

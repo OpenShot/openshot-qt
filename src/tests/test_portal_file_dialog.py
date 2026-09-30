@@ -78,7 +78,7 @@ class PortalReleaseTests(unittest.TestCase):
                 self.assertIsNone(portal._portal_release(123))
 
 
-@unittest.skipUnless(HAS_DBUS_NEXT, "dbus-next is only required for Linux AppImage portals")
+@unittest.skipUnless(HAS_DBUS_NEXT, "requires dbus-next")
 class PortalOptionsTests(unittest.TestCase):
     def test_paths_and_filters_have_portal_types(self):
         options = portal._options("/media/vidéo files", "Projects (*.osp);;Video (*.mp4 *.mov)",
@@ -130,7 +130,7 @@ class PortalBusTests(unittest.TestCase):
         cls.daemon.communicate(timeout=5)
 
     def request(self, version=4, status=0, uris=None, failure=None, save=False, folder=False,
-                multiple=False, delayed=False, daemon_release=(1, 14, 3)):
+                multiple=False, delayed=False, daemon_release=(1, 14, 3), open_file=None):
         from dbus_next import Message, MessageType, Variant
         from dbus_next.aio import MessageBus
 
@@ -139,7 +139,7 @@ class PortalBusTests(unittest.TestCase):
         self.opened_requests = 0
 
         async def scenario():
-            service = await MessageBus().connect()
+            service = await MessageBus(negotiate_unix_fd=True).connect()
             await service.request_name(portal.SERVICE)
 
             def handle(message):
@@ -155,6 +155,14 @@ class PortalBusTests(unittest.TestCase):
                 if message.member not in ("OpenFile", "SaveFile"):
                     return
                 captured.append(message)
+                if message.interface == portal.OPEN_URI:
+                    import fcntl
+                    descriptor = message.unix_fds[message.body[1]]
+                    try:
+                        self.received_contents = os.read(descriptor, 4096)
+                        self.received_access = fcntl.fcntl(descriptor, fcntl.F_GETFL) & os.O_ACCMODE
+                    finally:
+                        os.close(descriptor)
                 if failure == "method_error":
                     return Message.new_error(message, "org.freedesktop.portal.Error.Failed", "test failure")
                 path = (portal.DESKTOP + "/request/" + message.sender[1:].replace(".", "_")
@@ -164,7 +172,7 @@ class PortalBusTests(unittest.TestCase):
                 elif failure == "cancel":
                     asyncio.get_event_loop().call_soon(client.cancel)
                 else:
-                    result = {} if failure == "missing_uris" else {
+                    result = {} if failure == "missing_uris" or open_file is not None else {
                         "uris": Variant("as", uris if uris is not None else ["file:///media/vid%C3%A9o%20one.mp4"])}
                     # Intentionally send Response before the method reply. This
                     # catches the lost-signal race that can hang native dialogs.
@@ -182,7 +190,10 @@ class PortalBusTests(unittest.TestCase):
                 def on_opened():
                     self.opened_requests += 1
 
-                client = asyncio.ensure_future(portal._request("x11:123", "Choose", options, save, on_opened))
+                if open_file is not None:
+                    options = {"ask": Variant("b", True), "writable": Variant("b", True)}
+                client = asyncio.ensure_future(portal._request(
+                    "x11:123", "Choose", options, save, on_opened, open_file=open_file))
                 return await asyncio.wait_for(client, 2)
             finally:
                 await portal._close_bus(service)
@@ -198,6 +209,48 @@ class PortalBusTests(unittest.TestCase):
                 loop.close()
                 asyncio.set_event_loop(None)
         return result, captured
+
+    def test_open_with_passes_a_writable_svg_descriptor_and_asks_for_an_application(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = os.path.join(directory, 'title ü with spaces.svg')
+            with open(path, 'wb') as stream:
+                stream.write(b'<svg/>')
+            for version in (3, 4, 5):
+                with self.subTest(version=version):
+                    result, calls = self.request(version=version, open_file=path)
+                    self.assertIs(result, True)
+                    self.assertEqual(calls[0].interface, portal.OPEN_URI)
+                    self.assertEqual(calls[0].signature, 'sha{sv}')
+                    self.assertEqual(calls[0].body[:2], ['x11:123', 0])
+                    self.assertTrue(calls[0].body[2]['ask'].value)
+                    self.assertTrue(calls[0].body[2]['writable'].value)
+                    self.assertEqual(self.received_contents, b'<svg/>')
+                    self.assertEqual(self.received_access, os.O_RDWR)
+
+    def test_open_with_cancel_failure_and_cleanup(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = os.path.join(directory, 'title.svg')
+            with open(path, 'wb') as stream:
+                stream.write(b'<svg/>')
+            before = len(os.listdir('/proc/self/fd'))
+            for status, expected in ((0, True), (1, False), (2, None)):
+                self.assertIs(self.request(open_file=path, status=status)[0], expected)
+            for failure in ('owner_lost', 'method_error', 'cancel'):
+                with self.subTest(failure=failure):
+                    if failure == 'owner_lost':
+                        self.assertIsNone(self.request(open_file=path, failure=failure)[0])
+                    else:
+                        exception = RuntimeError if failure == 'method_error' else asyncio.CancelledError
+                        with self.assertRaises(exception):
+                            self.request(open_file=path, failure=failure)
+                        self.assertEqual(self.closed_requests, 1)
+            self.assertEqual(len(os.listdir('/proc/self/fd')), before)
+
+    def test_open_with_does_not_use_old_portal_which_cannot_force_a_chooser(self):
+        for version in (1, 2):
+            result, calls = self.request(version=version, open_file='/unused.svg')
+            self.assertIsNone(result)
+            self.assertEqual(calls, [])
 
     def test_modern_portal_receives_starting_folder_and_filter(self):
         result, calls = self.request()
@@ -312,6 +365,24 @@ class PortalQtLoopTests(unittest.TestCase):
             with self.subTest(result=result), patch.object(portal, "_options", return_value={}), \
                     patch.object(portal, "_request", side_effect=request):
                 self.assertEqual(portal.show_dialog(parent, "Open", "/tmp"), result)
+                self.assertTrue(parent.isEnabled())
+            parent.deleteLater()
+
+    @unittest.skipUnless(HAS_DBUS_NEXT, "requires dbus-next")
+    def test_open_with_wrapper_requests_editing_and_preserves_response_status(self):
+        for result in (True, False, None):
+            async def request(parent_id, caption, options, on_opened, open_file):
+                self.assertEqual(open_file, '/tmp/title.svg')
+                self.assertEqual(options['ask'].signature, 'b')
+                self.assertTrue(options['ask'].value)
+                self.assertTrue(options['writable'].value)
+                on_opened()
+                self.assertFalse(parent.isEnabled())
+                return result
+
+            parent = qt_api.QtWidgets.QWidget()
+            with self.subTest(result=result), patch.object(portal, '_request', side_effect=request):
+                self.assertIs(portal.open_file_with_application(parent, '/tmp/title.svg'), result)
                 self.assertTrue(parent.isEnabled())
             parent.deleteLater()
 

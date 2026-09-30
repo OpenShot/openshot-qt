@@ -2,7 +2,8 @@
 
 FileChooser v4 advertises OpenFile.current_folder. xdg-desktop-portal 1.18
 already supports it while reporting v3. None means fallback; [] means cancelled.
-The optional dbus-next dependency is bundled in Linux AppImages.
+The dbus-next dependency is bundled in Linux AppImages and is also required
+for the Snap title editor's Open With chooser.
 """
 
 import asyncio
@@ -19,6 +20,7 @@ logger = logging.getLogger(__name__)
 SERVICE = "org.freedesktop.portal.Desktop"
 DESKTOP = "/org/freedesktop/portal/desktop"
 CHOOSER = "org.freedesktop.portal.FileChooser"
+OPEN_URI = "org.freedesktop.portal.OpenURI"
 REQUEST = "org.freedesktop.portal.Request"
 CALL_TIMEOUT = 3.0
 
@@ -92,21 +94,21 @@ def _options(directory, file_filter, multiple, folder, save_name):
     return options
 
 
-async def _request(parent_id, caption, options, save=False, on_opened=None):
+async def _request(parent_id, caption, options, save=False, on_opened=None, open_file=None):
     """Run one request on a private connection, subscribing before opening it."""
     from dbus_next import Message, MessageType, Variant
     from dbus_next.aio import MessageBus
 
-    bus = MessageBus()
+    bus = MessageBus(negotiate_unix_fd=True) if open_file is not None else MessageBus()
     handle = None
     owner = SERVICE
     finished = False
     disconnected = None
 
-    async def call(destination, path, interface, member, signature="", body=None):
+    async def call(destination, path, interface, member, signature="", body=None, unix_fds=None):
         reply = await asyncio.wait_for(bus.call(Message(
             destination=destination, path=path, interface=interface,
-            member=member, signature=signature, body=body or [],
+            member=member, signature=signature, body=body or [], unix_fds=unix_fds or [],
         )), CALL_TIMEOUT)
         if reply.message_type == MessageType.ERROR:
             raise RuntimeError("%s: %s" % (reply.error_name, reply.body))
@@ -114,18 +116,20 @@ async def _request(parent_id, caption, options, save=False, on_opened=None):
 
     try:
         await asyncio.wait_for(bus.connect(), CALL_TIMEOUT)
+        interface = OPEN_URI if open_file is not None else CHOOSER
         reply = await call(SERVICE, DESKTOP, "org.freedesktop.DBus.Properties",
-                           "Get", "ss", [CHOOSER, "version"])
+                           "Get", "ss", [interface, "version"])
         version = reply.body[0]
         owner = reply.sender
-        supported = version.signature == "u" and version.value >= 4
-        if version.signature == "u" and version.value == 3:
+        minimum_version = 3 if open_file is not None else 4
+        supported = version.signature == "u" and version.value >= minimum_version
+        if open_file is None and version.signature == "u" and version.value == 3:
             pid = await call("org.freedesktop.DBus", "/org/freedesktop/DBus",
                              "org.freedesktop.DBus", "GetConnectionUnixProcessID", "s", [owner])
             release = _portal_release(pid.body[0])
             supported = release is not None and release >= (1, 18, 0)
             logger.info("File portal interface 3, running daemon release: %s", release)
-        logger.info("File portal interface %s: starting-folder support %s", version.value, supported)
+        logger.info("Portal %s version %s: required options supported %s", interface, version.value, supported)
         if not supported:
             return None
         token = "openshot_" + uuid.uuid4().hex
@@ -156,8 +160,15 @@ async def _request(parent_id, caption, options, save=False, on_opened=None):
             await call("org.freedesktop.DBus", "/org/freedesktop/DBus",
                        "org.freedesktop.DBus", "AddMatch", "s", [rule])
 
-        reply = await call(owner, DESKTOP, CHOOSER, "SaveFile" if save else "OpenFile",
-                           "ssa{sv}", [parent_id, caption, options])
+        if open_file is not None:
+            # Pass a writable descriptor, not a sandbox-specific filename. Ask
+            # explicitly so a default image viewer never bypasses the chooser.
+            with open(open_file, "r+b") as stream:
+                reply = await call(owner, DESKTOP, OPEN_URI, "OpenFile", "sha{sv}",
+                                   [parent_id, 0, options], unix_fds=[stream.fileno()])
+        else:
+            reply = await call(owner, DESKTOP, CHOOSER, "SaveFile" if save else "OpenFile",
+                               "ssa{sv}", [parent_id, caption, options])
         if reply.body != [handle]:
             # Modern portals must use handle_token. Close an unexpected handle
             # rather than waiting forever on a path we did not subscribe to.
@@ -174,9 +185,11 @@ async def _request(parent_id, caption, options, save=False, on_opened=None):
         status, results = result
         finished = True
         if status == 1:
-            return []
+            return False if open_file is not None else []
         if status != 0:
             return None
+        if open_file is not None:
+            return True
         uris = results.get("uris")
         if uris is None or uris.signature != "as" or not uris.value:
             return None
@@ -202,6 +215,24 @@ async def _request(parent_id, caption, options, save=False, on_opened=None):
 def show_dialog(parent, caption, directory, file_filter="", multiple=False,
                 folder=False, save_name=None):
     """Keep the desktop wrappers synchronous while servicing Qt and D-Bus."""
+    def request(parent_id, on_opened):
+        options = _options(directory, file_filter, multiple, folder, save_name)
+        return _request(parent_id, caption, options, save_name is not None, on_opened)
+    return _run_request(parent, request)
+
+
+def open_file_with_application(parent, filename):
+    """Choose an application for editing; True=opened, False=cancel, None=error."""
+    def request(parent_id, on_opened):
+        from dbus_next import Variant
+        options = {"ask": Variant("b", True), "writable": Variant("b", True)}
+        return _request(parent_id, "", options, on_opened=on_opened, open_file=filename)
+    result = _run_request(parent, request)
+    return None if result is None else bool(result)
+
+
+def _run_request(parent, request):
+    """Service a portal request while keeping Qt responsive."""
     loop = asyncio.new_event_loop()
     timer = QtCore.QTimer()
     qt_loop = QtCore.QEventLoop()
@@ -213,17 +244,14 @@ def show_dialog(parent, caption, directory, file_filter="", multiple=False,
         parent_id = ""
         if window is not None and QtWidgets.QApplication.platformName() == "xcb":
             parent_id = "x11:%x" % int(window.winId())
-        options = _options(directory, file_filter, multiple, folder, save_name)
-
         def on_opened():
             nonlocal window_disabled
-            # Probing an older or unavailable portal must not gray out the
-            # application before its ordinary Qt dialog opens.
+            # Only disable the parent after the portal accepts the request.
             if window is not None and window.isEnabled():
                 window.setEnabled(False)
                 window_disabled = True
 
-        task = loop.create_task(_request(parent_id, caption, options, save_name is not None, on_opened))
+        task = loop.create_task(request(parent_id, on_opened))
 
         def advance():
             loop.call_soon(loop.stop)
@@ -242,7 +270,7 @@ def show_dialog(parent, caption, directory, file_filter="", multiple=False,
         # is cancellation, never a reason to open another dialog.
         return task.result() if task.done() else []
     except Exception as exc:
-        logger.warning("Native file portal unavailable; using Qt dialog: %s", exc)
+        logger.warning("Native desktop portal unavailable: %s", exc)
         return None
     finally:
         timer.stop()

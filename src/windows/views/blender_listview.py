@@ -46,7 +46,7 @@ from qt_api import (
     Qt, QObject, pyqtSlot, pyqtSignal, QThread, QTimer, QSize,
 )
 from qt_api import (
-    QApplication, QListView, QMessageBox,
+    QApplication, QListView,
     QComboBox, QDoubleSpinBox, QLabel, QPushButton, QLineEdit, QPlainTextEdit,
 )
 from qt_api import QColor, QImage, QPixmap, QIcon
@@ -68,6 +68,8 @@ class BlenderListView(QListView):
     start_render = pyqtSignal(str, str, int)
 
     def currentChanged(self, selected, deselected):
+        if self.win.blender_unavailable:
+            return
         # Get selected item
         self.selected = selected
         self.deselected = deselected
@@ -293,14 +295,15 @@ class BlenderListView(QListView):
     @pyqtSlot()
     def end_processing(self):
         """ Enable all controls on interface """
-        self.win.btnRefresh.setEnabled(True)
-        self.win.sliderPreview.setEnabled(True)
-        self.win.btnRender.setEnabled(True)
+        available = not self.win.blender_unavailable
+        self.win.btnRefresh.setEnabled(available)
+        self.win.sliderPreview.setEnabled(available)
+        self.win.btnRender.setEnabled(available)
         self.win.statusContainer.hide()
 
         # Restore normal cursor and keyboard focus
         get_app().window.WaitCursorSignal.emit(False)
-        if self.focus_owner:
+        if available and self.focus_owner:
             self.focus_owner.setFocus()
 
     def init_slider_values(self):
@@ -474,6 +477,8 @@ class BlenderListView(QListView):
 
     def focusInEvent(self, event):
         super().focusInEvent(event)
+        if self.win.blender_unavailable:
+            return
         # Select first item when user tabs into the listview.
         if not self.selectionModel().hasSelection() and self.model().rowCount() > 0:
             first = self.model().index(0, 0)
@@ -531,34 +536,17 @@ class BlenderListView(QListView):
         self.error_with_blender(None, error)
 
     def error_with_blender(self, version=None, worker_message=None):
-        """ Show a friendly error message regarding the blender executable or version. """
+        """Keep a short explanation in the dialog; technical details stay in the log."""
         _ = self.app._tr
-        s = self.app.get_settings()
-
-        error_message = ""
         if version:
-            error_message = _("Version Detected: {}").format(version)
             log.info("Blender version detected: {}".format(version))
-
-        if worker_message:
-            error_message = _("Error Output:\n{}").format(worker_message)
+            message = _("Blender {} or newer is required. Please update Blender.").format(info.BLENDER_MIN_VERSION)
+        elif worker_message:
             log.error("Blender error: {}".format(worker_message))
-
-        QMessageBox.critical(self, error_message,
-            _("""
-Blender, the free open source 3D content creation suite, is required for this action. (http://www.blender.org)
-
-Please check the preferences in OpenShot and be sure the Blender executable is correct.
-This setting should be the path of the 'blender' executable on your computer.
-Also, please be sure that it is pointing to Blender version {} or greater.
-
-Blender Path: {}
-{}""").format(info.BLENDER_MIN_VERSION,
-              s.get("blender_command"),
-              error_message))
-
-        # Close the blender interface
-        self.win.close()
+            message = _("Blender couldn't create this title. Check Blender in Preferences.")
+        else:
+            message = _("Blender isn't available. Check its path in Preferences.")
+        self.win.show_blender_error(message)
 
     def inject_params(self, source_path, out_path, frame=None):
         # determine if this is 'preview' mode?
@@ -651,6 +639,8 @@ Blender Path: {}
         """ Render an images sequence of the current template using Blender 2.62+ and the
         Blender Python API. """
 
+        if self.win.blender_unavailable:
+            return
         self.Cancel()
         self.processing_mode(restore_focus=frame is None)
 
