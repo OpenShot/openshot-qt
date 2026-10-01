@@ -98,6 +98,7 @@ class LivePropertyUpdateTests(unittest.TestCase):
         widget.ignore_updates = False
         widget.clip_rects = ["existing"]
         widget.clip_rects_selected = []
+        widget.clip_rects_highlighted = []
         widget.marker_rects = []
         widget.snap_clip_starts = [2.0, 5.0]
         widget.snap_clip_ends = [2.0, 5.0]

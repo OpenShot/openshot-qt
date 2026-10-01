@@ -209,6 +209,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         # Clear previous rects
         self.clip_rects.clear()
         self.clip_rects_selected.clear()
+        self.clip_rects_highlighted.clear()
         self.marker_rects.clear()
         self.snap_clip_starts.clear()
         self.snap_clip_ends.clear()
@@ -249,6 +250,11 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
                 else:
                     # un-selected clip
                     self.clip_rects.append(clip_rect)
+                # Highlighted is independent of selected/unselected -- a clip can be
+                # both selected (red outline) and highlighted (gold fill) at once.
+                highlighted_file_id = getattr(get_app().window, "highlighted_file_id", None)
+                if highlighted_file_id and str(clip.data.get('file_id') or '') == highlighted_file_id:
+                    self.clip_rects_highlighted.append(clip_rect)
 
             for clip in Transition.filter():
                 # Calculate clip geometry (and cache it)
@@ -353,6 +359,14 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
             # Keep project content out of the control gutters.
             painter.save()
             painter.setClipPath(overview_path)
+
+            # Fill highlighted clips first, so the selected/unselected outline (drawn
+            # next) remains visible on top -- a clip can be both highlighted and
+            # selected at once, and the red selection outline always takes priority.
+            highlight_color = QColor("#FFD700")
+            for clip_rect in self.clip_rects_highlighted:
+                painter.fillRect(clip_rect, highlight_color)
+
             # Loop through each clip
             painter.setPen(clip_pen)
             for clip_rect in self.clip_rects:
@@ -839,6 +853,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         self.scroll_bar_dragging = False
         self.clip_rects = []
         self.clip_rects_selected = []
+        self.clip_rects_highlighted = []
         self.marker_rects = []
         self.snap_clip_starts = []
         self.snap_clip_ends = []
@@ -879,6 +894,10 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
 
         # Connect Selection signals
         self.win.SelectionChanged.connect(self.handle_selection)
+
+        # Rebuild clip rects (including the highlighted bucket) when the Project
+        # Files highlight target changes
+        self.win.HighlightedFileChanged.connect(self.handle_selection)
 
         # Show Property timer
         # Timer to use a delay before sending MaxSizeChanged signals (so we don't spam libopenshot)

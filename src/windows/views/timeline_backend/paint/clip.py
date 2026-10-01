@@ -462,10 +462,40 @@ class ClipPainter(ItemHeaderMixin, BasePainter):
             self._draw_clip(painter, rect, segment_rect, clip, pen, selected)
             if frame_banding:
                 self._draw_frame_bands(painter, rect, area, frame_banding)
+            if self._clip_is_highlighted(clip):
+                self._draw_highlight_bar(painter, segment_rect)
             self._draw_item_header(painter, clip, rect, area)
             if locked:
                 painter.restore()
         painter.restore()
+
+    def _clip_is_highlighted(self, clip):
+        """True if `clip` is a usage of the Project Files entry currently highlighted
+        (via a single-file selection in the Project Files panel)."""
+        highlighted_file_id = getattr(getattr(self.w, "win", None), "highlighted_file_id", None)
+        if not highlighted_file_id:
+            return False
+        data = clip.data if isinstance(clip.data, dict) else {}
+        return str(data.get("file_id") or "") == highlighted_file_id
+
+    def _draw_highlight_bar(self, painter, segment_rect):
+        """Draw a gold bar along the bottom edge of `segment_rect`, independent of
+        and on top of the clip's normal selected/unselected border -- drawn directly
+        on the live painter rather than baked into the cached clip pixmap, so it
+        never needs cache invalidation when the highlight target changes."""
+        color = self.w.theme.clip_highlight
+        if not color.isValid():
+            return
+        bar_height = min(segment_rect.height(), max(1.0, float(self.w.theme.clip_highlight_bar_height or 0.0)))
+        if bar_height <= 0.0:
+            return
+        bar_rect = QRectF(
+            segment_rect.left(),
+            segment_rect.bottom() - bar_height,
+            segment_rect.width(),
+            bar_height,
+        )
+        painter.fillRect(bar_rect, color)
 
     def _draw_frame_bands(self, painter, clip_rect, area, cfg):
         """Overlay alternating translucent frame bands on clip media."""

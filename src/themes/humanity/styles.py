@@ -27,6 +27,7 @@ class HumanityDarkTimelineTheme(TimelineTheme):
         self.playhead_color         = QColor("#FF0024")
         self.playhead_width         = 2.0
         self.clip_selected          = QColor("#FF0000")
+        self.clip_highlight         = QColor("#FFD700")
         self.selection              = QColor(42, 130, 218, 102)
         self.selection_border       = QColor(42, 130, 218, 102)
         self.selection_border_width = 1.0

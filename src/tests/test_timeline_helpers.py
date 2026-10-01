@@ -1558,6 +1558,8 @@ class TimelineHelperTests(unittest.TestCase):
         class Theme:
             clip = ThemeClip()
             clip_selected = QColor("red")
+            clip_highlight = QColor("#FFD700")
+            clip_highlight_bar_height = 4.0
             menu_icon = None
             menu_size = 0
             menu_margin = 0
@@ -7409,3 +7411,49 @@ class TimelineHelperTests(unittest.TestCase):
         self.assertEqual(clip.data["effects"], [{"class_name": "Brightness", "id": "B-1"}])
         self.assertEqual(len(helper.updates), 1)
         self.assertEqual(len(history), 1)
+
+    def test_clip_is_highlighted_matches_file_id(self):
+        painter = self.make_clip_painter()
+        painter.w.win = types.SimpleNamespace(highlighted_file_id="F1")
+        clip = types.SimpleNamespace(id="C1", data={"file_id": "F1"})
+        self.assertTrue(painter._clip_is_highlighted(clip))
+
+    def test_clip_is_highlighted_false_for_different_file_id(self):
+        painter = self.make_clip_painter()
+        painter.w.win = types.SimpleNamespace(highlighted_file_id="F1")
+        clip = types.SimpleNamespace(id="C1", data={"file_id": "F2"})
+        self.assertFalse(painter._clip_is_highlighted(clip))
+
+    def test_clip_is_highlighted_false_when_nothing_highlighted(self):
+        painter = self.make_clip_painter()
+        painter.w.win = types.SimpleNamespace(highlighted_file_id=None)
+        clip = types.SimpleNamespace(id="C1", data={"file_id": "F1"})
+        self.assertFalse(painter._clip_is_highlighted(clip))
+
+    def test_clip_is_highlighted_false_when_widget_has_no_win(self):
+        # Regression test: a bare test/stub widget with no `.win` attribute must
+        # not raise -- it simply means nothing is highlighted.
+        painter = self.make_clip_painter()
+        self.assertFalse(hasattr(painter.w, "win"))
+        clip = types.SimpleNamespace(id="C1", data={"file_id": "F1"})
+        self.assertFalse(painter._clip_is_highlighted(clip))
+
+    def test_draw_highlight_bar_fills_bottom_strip_with_theme_color(self):
+        painter = self.make_clip_painter()
+        rect = QRectF(10.0, 20.0, 100.0, 50.0)
+        mock_painter = MagicMock()
+        painter._draw_highlight_bar(mock_painter, rect)
+        mock_painter.fillRect.assert_called_once()
+        (bar_rect, color), _kwargs = mock_painter.fillRect.call_args
+        self.assertEqual(color, QColor("#FFD700"))
+        self.assertAlmostEqual(bar_rect.left(), 10.0)
+        self.assertAlmostEqual(bar_rect.width(), 100.0)
+        self.assertAlmostEqual(bar_rect.height(), 4.0)
+        self.assertAlmostEqual(bar_rect.bottom(), rect.bottom())
+
+    def test_draw_highlight_bar_noop_when_theme_color_invalid(self):
+        painter = self.make_clip_painter()
+        painter.w.theme.clip_highlight = QColor()
+        mock_painter = MagicMock()
+        painter._draw_highlight_bar(mock_painter, QRectF(0.0, 0.0, 50.0, 40.0))
+        mock_painter.fillRect.assert_not_called()

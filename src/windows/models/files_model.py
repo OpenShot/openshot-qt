@@ -788,6 +788,21 @@ class FilesModel(QObject, updates.UpdateInterface):
                 f.data["tags"] = tags_value
                 f.save()
 
+    def _update_timeline_highlight_from_selection(self, *_args):
+        """Highlight the single selected Project Files entry's usages throughout the
+        timeline and zoom slider; clear the highlight when zero or multiple files are
+        selected. Connected to the TreeView's selection model -- the two selection
+        models are kept in sync (see _sync_tree_to_list_selection/_sync_list_to_tree_selection),
+        so this fires regardless of which view (tree or list) the user interacted with.
+        """
+        rows = self.selection_model.selectedRows(5)
+        file_id = None
+        if len(rows) == 1:
+            candidate = str(rows[0].data(Qt.DisplayRole) or "").strip()
+            if candidate and not self._is_generation_placeholder(candidate):
+                file_id = candidate
+        get_app().window.set_highlighted_file(file_id)
+
     def _sync_tree_to_list_selection(self, selected, deselected):
         """Sync selection from TreeView (proxy_model) to ListView (list_proxy_model)"""
         if self._syncing_selection:
@@ -875,6 +890,7 @@ class FilesModel(QObject, updates.UpdateInterface):
         self._syncing_selection = False
         self.selection_model.selectionChanged.connect(self._sync_tree_to_list_selection)
         self.list_selection_model.selectionChanged.connect(self._sync_list_to_tree_selection)
+        self.selection_model.selectionChanged.connect(self._update_timeline_highlight_from_selection)
 
         # Connect signal
         app.window.FileUpdated.connect(self.update_file_thumbnail)
