@@ -48,8 +48,13 @@ jobs:
     - uses: actions/setup-python@v5
       with:
         python-version: '3.11'
+    - name: Install Linux Qt runtime dependencies
+      if: runner.os == 'Linux'
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libegl1
     - name: Install Qt
-      run: python -m pip install ${{ matrix.qt }}
+      run: python -m pip install ${{ matrix.qt }} defusedxml
     - name: Test native SVG file watching and preference toggles
       env:
         PYTHONPATH: src

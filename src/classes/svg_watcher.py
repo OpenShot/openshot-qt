@@ -1,6 +1,7 @@
 """Watch a title's contents, including saves which replace the file atomically."""
-from xml.dom import minidom
 from xml.parsers.expat import ExpatError
+
+from defusedxml import DefusedXmlException, minidom
 
 from qt_api import QObject, QTimer, Signal
 
@@ -56,7 +57,7 @@ class SvgWatcher(QObject):
             return
         try:
             document = minidom.parseString(contents)
-        except (ExpatError, LookupError, ValueError):
+        except (DefusedXmlException, ExpatError, LookupError, ValueError):
             return
         if document.documentElement.localName != 'svg':
             return
