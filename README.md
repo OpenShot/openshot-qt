@@ -95,6 +95,7 @@ dependencies in order to run OpenShot successfully:
 
 *  Python 3.0+ (http://www.python.org)
 *  PyQt / PySide binding for Qt5 or Qt6 (https://www.riverbankcomputing.com/software/pyqt/ and https://pyside.org/)
+*  defusedxml for safe SVG title parsing (`python3 -m pip install defusedxml`)
 *  libopenshot: OpenShot Library (https://github.com/OpenShot/libopenshot)
 *  libopenshot-audio: OpenShot Audio Library (https://github.com/OpenShot/libopenshot-audio)
 *  FFmpeg or Libav (http://www.ffmpeg.org/ or http://libav.org/)

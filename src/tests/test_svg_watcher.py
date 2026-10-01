@@ -70,6 +70,25 @@ class SvgWatcherTests(unittest.TestCase):
         self.settle()
         self.changed.assert_called_once()
 
+    def test_entity_declarations_preserve_last_good_document_and_recover(self):
+        original = self.watcher.contents
+        documents = (
+            '<!DOCTYPE svg [<!ENTITY content "expanded">]><svg><text>&content;</text></svg>',
+            '<!DOCTYPE svg [<!ENTITY content SYSTEM "file:///missing.svg">]>'
+            '<svg><text>&content;</text></svg>',
+        )
+        for contents in documents:
+            with self.subTest(contents=contents):
+                self.path.write_text(contents)
+                self.settle()
+                self.watcher.check(force=True)
+                self.changed.assert_not_called()
+                self.assertEqual(self.watcher.contents, original)
+        self.path.write_text('<svg><text>recovered</text></svg>')
+        self.settle()
+        self.changed.assert_called_once()
+        self.assertIn('recovered', self.changed.call_args.args[0].toxml())
+
     def test_watcher_switch_and_stop(self):
         other = self.path.with_name('other.svg')
         other.write_text('<svg/>')

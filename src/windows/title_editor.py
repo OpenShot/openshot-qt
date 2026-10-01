@@ -34,9 +34,9 @@ import functools
 import tempfile
 import threading
 
-# TODO: Is there a defusedxml substitute for getDOMImplementation?
-# Is one even necessary, or is it safe to use xml.dom.minidom for that?
-from xml.dom import minidom
+from xml.dom import getDOMImplementation
+
+from defusedxml import minidom
 
 from qt_api import Qt, pyqtSlot, QTimer, pyqtSignal, QRect, QPoint, QSize, QEvent, QProcess, QProcessEnvironment
 from qt_api import get_font_dialog_selection
@@ -165,7 +165,7 @@ class TitleEditor(QDialog):
         # Initialize variables
         self.is_thread_busy = False
         self.template_name = ""
-        imp = minidom.getDOMImplementation()
+        imp = getDOMImplementation("minidom")
         self.xmldoc = imp.createDocument(None, "any", None)
 
         self.bg_color_code = QColor(Qt.black)

@@ -7,9 +7,9 @@ import time
 from types import SimpleNamespace
 import unittest
 from unittest.mock import Mock, patch
-from xml.dom import minidom
+from defusedxml import minidom
 
-from qt_api import QApplication, QDialog, QEventLoop, QProcess, QTimer, QLineEdit
+from qt_api import QApplication, QDialog, QEventLoop, QTimer, QLineEdit
 from tests.qt_test_app import get_or_create_app, ensure_app_state
 from classes.svg_watcher import SvgWatcher
 from tests.test_project_data import DummySettings
