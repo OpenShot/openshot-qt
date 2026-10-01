@@ -141,6 +141,11 @@ In the timeline keyframe panel, each row represents one animated property. You c
 - Move keyframes to change timing
 - Change interpolation to control motion style
 
+Single-click a keyframe on a clip or in the keyframe panel to select it and move
+the playhead to its frame. This leaves the Properties dock open or closed as you
+have arranged it. Double-click the keyframe, or right-click it and choose
+:guilabel:`Properties`, to open the dock.
+
 For keyframe concepts and animation examples, see :ref:`animation_ref`.
 
 Next Steps

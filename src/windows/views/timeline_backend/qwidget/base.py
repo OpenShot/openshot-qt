@@ -59,6 +59,7 @@ from ..paint import (
     ScrollbarPainter,
     KeyframePainter,
 )
+from ..paint.hover import HoverFeedback, show_menu_with_hover
 from ..snap import SnapHelper
 from ..theme import DEFAULT_THEME, TimelineTheme
 from ..state import TimelineStateMachine
@@ -134,6 +135,20 @@ class _ConditionalTransition(QtCore.QSignalTransition):
 
     def eventTest(self, event):
         return super().eventTest(event) and self._condition()
+
+
+def _resize_hit_at(widget, pos):
+    """Resolve the visible edge once, with identical hover and press priority."""
+    for rect, item, _selected, kind in widget.geometry.iter_items(reverse=True):
+        edge = widget._item_resize_edge_at(rect, pos)
+        if edge:
+            targets = widget._resize_targets_for_item(item, edge)
+            if targets:
+                return rect, item, edge, kind, targets
+            return None
+        if rect.contains(pos):
+            return None
+    return None
 
 
 class TimelineWidgetBase(RazorMixin, QWidget):
@@ -290,6 +305,7 @@ class TimelineWidgetBase(RazorMixin, QWidget):
 
         # Track toolbar interaction state
         self._toolbar_hover_key = None
+        self.hover_feedback = HoverFeedback(self)
         self._toolbar_pressed_key = None
         self._toolbar_pressed_inside = False
 
@@ -743,6 +759,8 @@ class TimelineWidgetBase(RazorMixin, QWidget):
 
     def _fix_cursor(self, cursor):
         self._fixed_cursor = cursor
+        if not self.hover_feedback.holding_menu_press():
+            self.hover_feedback.clear()
         self.setCursor(cursor)
 
     def _release_cursor(self):
@@ -1000,6 +1018,7 @@ class TimelineWidgetBase(RazorMixin, QWidget):
             self.keyframe_painter.paint(painter)
             self.track_painter.paint_names(painter)
             self.keyframe_panel_painter.paint(painter, mode="overlay")
+            self.hover_feedback.paint(painter)
             self.selection_painter.paint(painter)
             self.ruler_painter.paint(painter)
             self.playback_cache_painter.paint(painter)
@@ -2753,7 +2772,7 @@ class TimelineWidgetBase(RazorMixin, QWidget):
 
         if hasattr(self.win, "timeline"):
             self._select_timeline_item(clip.id, "clip", True)
-            self.win.timeline.ShowClipMenu(clip.id)
+            show_menu_with_hover(self, self.win.timeline.ShowClipMenu, clip.id)
             return True
         return False
 
@@ -2771,7 +2790,7 @@ class TimelineWidgetBase(RazorMixin, QWidget):
 
         if hasattr(self.win, "timeline"):
             self._select_timeline_item(tran.id, "transition", True)
-            self.win.timeline.ShowTransitionMenu(tran.id)
+            show_menu_with_hover(self, self.win.timeline.ShowTransitionMenu, tran.id)
             return True
         return False
 
@@ -3012,110 +3031,132 @@ class TimelineWidgetBase(RazorMixin, QWidget):
 
 
     def _updateCursor(self, pos):
-        if self._fixed_cursor is not None:
-            self.setCursor(self._fixed_cursor)
+        hover = getattr(self, "hover_feedback", None)
+        if hover and hover.menu_open:
             return
-
-        pos = QPointF(pos)
-        self.geometry.ensure()
-
-        if (
-            getattr(self, "playhead_time_editor", None)
-            and self._playhead_time_panel_rect().contains(pos)
-        ):
-            self.setCursor(Qt.IBeamCursor)
-            return
-
-        # Playhead icon
-        handle_rect = self._playhead_handle_rect()
-        if (self.playhead_painter.icon_pix and not handle_rect.isNull() and handle_rect.contains(pos)):
-            self.setCursor(self.cursors["hand"])
-            return
-
-        # Items can extend behind the fixed ruler after vertical scrolling.
-        # Preserve ruler marker interaction, but do not let obscured timeline
-        # content claim the cursor.
-        if not self._is_timeline_content_pos(pos):
-            marker_entry = self._marker_at(pos)
-            if marker_entry and isinstance(marker_entry, dict):
-                self.setCursor(Qt.PointingHandCursor)
-            else:
-                self.unsetCursor()
-            return
-
-        if self.enable_razor and self._razor_in_track_area(pos):
-            target = self._razor_target_at(pos)
-            self.setCursor(self.cursors.get("razor", Qt.CrossCursor) if target else Qt.ForbiddenCursor)
-            return
-
-        icon_entry = self._effect_icon_at(pos)
-        if icon_entry:
-            self.setCursor(Qt.PointingHandCursor)
-            return
-
-        toolbar_button = self._track_toolbar_button_at(pos)
-        if toolbar_button:
-            self.setCursor(Qt.PointingHandCursor)
-            return
-
-        # Transition title container (dropdown click target)
-        for entry in reversed(getattr(self, "_transition_text_rects", [])):
-            rect = entry.get("rect") if isinstance(entry, dict) else None
-            if isinstance(rect, QRectF) and rect.contains(pos):
-                self.setCursor(Qt.PointingHandCursor)
+        if hover:
+            hover.begin(pos)
+        try:
+            if self._fixed_cursor is not None:
+                if hover and hover.holding_menu_press() and hover.target[1].contains(QPointF(pos)):
+                    hover.pending = hover.target
+                self.setCursor(self._fixed_cursor)
                 return
 
-        marker_entry = self._marker_at(pos)
-        if marker_entry and isinstance(marker_entry, dict):
-            self.setCursor(Qt.PointingHandCursor)
-            return
+            pos = QPointF(pos)
+            self.geometry.ensure()
 
-        marker = self._get_keyframe_at(pos)
-        if marker:
-            self.setCursor(self.cursors.get("resize_x", Qt.SizeHorCursor))
-            return
-
-        panel_marker = self._panel_marker_at(pos)
-        if panel_marker:
-            self.setCursor(self.cursors.get("resize_x", Qt.SizeHorCursor))
-            return
-
-        # Clip title container (dropdown click target)
-        for entry in reversed(getattr(self, "_clip_text_rects", [])):
-            if isinstance(entry, dict) and entry.get("open_menu"):
-                rect = entry.get("rect")
-                if isinstance(rect, QRectF) and rect.contains(pos):
-                    self.setCursor(Qt.PointingHandCursor)
-                    return
-
-        # Clip/transition edges and drags (transitions prioritized)
-        edge = 5
-        for rect, _item, _selected, _type in self.geometry.iter_items(reverse=True):
-            resize_edge = self._item_resize_edge_at(rect, pos, edge=edge)
-            if resize_edge:
-                resize_items = self._resize_targets_for_item(_item, resize_edge)
-                if resize_items:
-                    self.setCursor(self.cursors["resize_x"])
-                else:
-                    self.setCursor(self.cursors["hand"])
+            if (
+                getattr(self, "playhead_time_editor", None)
+                and self._playhead_time_panel_rect().contains(pos)
+            ):
+                self.setCursor(Qt.IBeamCursor)
                 return
-            if rect.contains(pos):
+
+            # Playhead icon
+            handle_rect = self._playhead_handle_rect()
+            if (self.playhead_painter.icon_pix and not handle_rect.isNull() and handle_rect.contains(pos)):
                 self.setCursor(self.cursors["hand"])
                 return
 
-        # Track title container (dropdown click target)
-        for _track_rect, track, name_rect in self.geometry.iter_tracks():
-            mrect = self._track_menu_rect(name_rect, track)
-            if mrect.contains(pos):
+            # Items can extend behind the fixed ruler after vertical scrolling.
+            # Preserve ruler marker interaction, but do not let obscured timeline
+            # content claim the cursor.
+            if not self._is_timeline_content_pos(pos):
+                marker_entry = self._marker_at(pos)
+                if marker_entry and isinstance(marker_entry, dict):
+                    self.setCursor(Qt.PointingHandCursor)
+                else:
+                    self.unsetCursor()
+                return
+
+            if self.enable_razor and self._razor_in_track_area(pos):
+                target = self._razor_target_at(pos)
+                self.setCursor(self.cursors.get("razor", Qt.CrossCursor) if target else Qt.ForbiddenCursor)
+                return
+
+            icon_entry = self._effect_icon_at(pos)
+            if icon_entry:
                 self.setCursor(Qt.PointingHandCursor)
                 return
 
-        timeline_handle = self.geometry.timeline_handle_rect()
-        if timeline_handle.contains(pos):
-            self.setCursor(self.cursors.get("resize_x", Qt.SizeHorCursor))
-            return
+            toolbar_button = self._track_toolbar_button_at(pos)
+            if toolbar_button:
+                self.setCursor(Qt.PointingHandCursor)
+                return
 
-        self.unsetCursor()
+            marker_entry = self._marker_at(pos)
+            if marker_entry and isinstance(marker_entry, dict):
+                self.setCursor(Qt.PointingHandCursor)
+                return
+
+            marker = self._get_keyframe_at(pos)
+            if marker:
+                if hover:
+                    hover.set_target("keyframe", marker.get("rect"),
+                                     "transition" if marker.get("type") == "transition" else "clip")
+                self.setCursor(self.cursors.get("resize_x", Qt.SizeHorCursor))
+                return
+
+            panel_marker = self._panel_marker_at(pos)
+            if panel_marker:
+                if hover:
+                    hover.set_target("keyframe", panel_marker.get("marker_rect"), "track")
+                self.setCursor(self.cursors.get("resize_x", Qt.SizeHorCursor))
+                return
+
+            # Resize lanes must win over titles which can fill short clips.
+            resize_hit = _resize_hit_at(self, pos)
+            if resize_hit:
+                rect, _item, edge, kind, _targets = resize_hit
+                if hover:
+                    hover.set_target("edge-" + edge, rect, kind)
+                self.setCursor(self.cursors["resize_x"])
+                return
+
+            # Transition title container (dropdown click target)
+            for entry in reversed(getattr(self, "_transition_text_rects", [])):
+                rect = entry.get("rect") if isinstance(entry, dict) else None
+                if isinstance(rect, QRectF) and rect.contains(pos):
+                    if hover:
+                        hover.set_target("menu", rect, "transition")
+                    self.setCursor(Qt.PointingHandCursor)
+                    return
+
+            # Clip title container (dropdown click target)
+            for entry in reversed(getattr(self, "_clip_text_rects", [])):
+                if isinstance(entry, dict) and entry.get("open_menu"):
+                    rect = entry.get("rect")
+                    if isinstance(rect, QRectF) and rect.contains(pos):
+                        if hover:
+                            hover.set_target("menu", rect)
+                        self.setCursor(Qt.PointingHandCursor)
+                        return
+
+            # Clip/transition edges and drags (transitions prioritized)
+            for rect, _item, _selected, _type in self.geometry.iter_items(reverse=True):
+                if rect.contains(pos):
+                    self.setCursor(self.cursors["hand"])
+                    return
+
+            # Track title container (dropdown click target)
+            for _track_rect, track, name_rect in self.geometry.iter_tracks():
+                mrect = self._track_menu_rect(name_rect, track)
+                if mrect.contains(pos):
+                    if hover:
+                        hover.set_target("menu", mrect, "track")
+                    self.setCursor(Qt.PointingHandCursor)
+                    return
+
+            timeline_handle = self.geometry.timeline_handle_rect()
+            if timeline_handle.contains(pos):
+                self.setCursor(self.cursors.get("resize_x", Qt.SizeHorCursor))
+                return
+
+            self.unsetCursor()
+        finally:
+            if hover:
+                hover.commit()
 
     def mouseDoubleClickEvent(self, event):
         if self.enable_razor and event.button() == Qt.LeftButton:
@@ -3126,6 +3167,12 @@ class TimelineWidgetBase(RazorMixin, QWidget):
             pos = _event_posf(event)
             if not self._is_timeline_content_pos(pos):
                 super().mouseDoubleClickEvent(event)
+                return
+            # Keyframe and effect hitboxes can extend beyond the clip body.
+            if (self._get_keyframe_at(pos) or self._panel_marker_at(pos)
+                    or self._effect_icon_at(pos)):
+                self.win.actionProperties.trigger()
+                event.accept()
                 return
             for rect, item, _selected, _type in self.geometry.iter_items(reverse=True):
                 if rect.contains(pos):
@@ -3189,6 +3236,9 @@ class TimelineWidgetBase(RazorMixin, QWidget):
                 event.accept()
                 return
 
+        resize_hit = _resize_hit_at(self, pos) if content_pos else None
+        keyframe_hit = self._get_keyframe_at(pos) if content_pos else None
+
         if event.button() == Qt.LeftButton:
             if self._playhead_time_panel_rect().contains(pos):
                 if self._start_playhead_time_edit():
@@ -3203,12 +3253,14 @@ class TimelineWidgetBase(RazorMixin, QWidget):
                 self.update()
                 event.accept()
                 return
-            if content_pos:
+            if content_pos and not resize_hit and not keyframe_hit:
                 self._begin_pending_transition_menu_click(pos)
                 self._begin_pending_clip_menu_click(pos)
 
         if (
             content_pos
+            and not resize_hit
+            and not keyframe_hit
             and not getattr(self, "_pending_clip_menu_target", None)
             and not getattr(self, "_pending_transition_menu_target", None)
             and self._handle_menu_icon_clicks(pos)
@@ -3232,6 +3284,7 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         self.events.pressed.emit(event)
 
     def leaveEvent(self, event):
+        self.hover_feedback.leave()
         self._clear_razor_hover()
         if self._ctrl_zooming:
             self._finish_ctrl_mouse_zoom()
@@ -3265,7 +3318,7 @@ class TimelineWidgetBase(RazorMixin, QWidget):
                 clip = entry.get("clip")
                 if clip and hasattr(self.win, "timeline"):
                     self._select_timeline_item(clip.id, "clip", True)
-                    self.win.timeline.ShowClipMenu(clip.id)
+                    show_menu_with_hover(self, self.win.timeline.ShowClipMenu, clip.id)
                     return True
         return False
 
@@ -3274,7 +3327,7 @@ class TimelineWidgetBase(RazorMixin, QWidget):
             rect = entry.get("rect") if isinstance(entry, dict) else None
             track = entry.get("track") if isinstance(entry, dict) else None
             if isinstance(rect, QRectF) and rect.contains(pos) and track and hasattr(self.win, "timeline"):
-                self.win.timeline.ShowTrackMenu(track.id)
+                show_menu_with_hover(self, self.win.timeline.ShowTrackMenu, track.id)
                 return True
         return False
 
@@ -3283,7 +3336,7 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         for rect, clip, _selected in self.geometry.iter_clips(reverse=True):
             if self._clip_menu_rect(rect).contains(pos) and hasattr(self.win, "timeline"):
                 self._select_timeline_item(clip.id, "clip", True)
-                self.win.timeline.ShowClipMenu(clip.id)
+                show_menu_with_hover(self, self.win.timeline.ShowClipMenu, clip.id)
                 return True
         return False
 
@@ -3390,33 +3443,20 @@ class TimelineWidgetBase(RazorMixin, QWidget):
             self._press_effect_icon = icon_entry
             return
         self._press_effect_icon = None
-        edge = 5
-        for rect, item, _selected, _type in self.geometry.iter_items(reverse=True):
-            resize_edge = self._item_resize_edge_at(rect, pos, edge=edge)
-            if resize_edge == "left":
-                resize_items = self._resize_targets_for_item(item, "left")
-                if resize_items:
-                    self._press_hit = "clip-edge"
-                    self._resizing_item = item
-                    self._resize_items = list(resize_items)
-                    self._resize_edge = "left"
-                    return
-                break
-            if resize_edge == "right":
-                resize_items = self._resize_targets_for_item(item, "right")
-                if resize_items:
-                    self._press_hit = "clip-edge"
-                    self._resizing_item = item
-                    self._resize_items = list(resize_items)
-                    self._resize_edge = "right"
-                    return
-                break
+        resize_hit = _resize_hit_at(self, pos)
+        if resize_hit:
+            _rect, item, edge, _kind, targets = resize_hit
+            self._press_hit = "clip-edge"
+            self._resizing_item = item
+            self._resize_items = list(targets)
+            self._resize_edge = edge
+            return
         self._resizing_item = None
         self._resize_items = []
         self._resize_edge = None
         self._press_hit = self._hitTest(pos)
 
-    def _item_resize_edge_at(self, rect, pos, edge=5):
+    def _item_resize_edge_at(self, rect, pos, edge=16):
         """Return the clip/transition edge under *pos* without requiring interior hits."""
         if not isinstance(rect, QRectF) or rect.isNull():
             return None
@@ -3426,8 +3466,22 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         left_distance = abs(pos.x() - rect.left())
         right_distance = abs(pos.x() - rect.right())
         nearest = min(left_distance, right_distance)
-        if nearest > edge:
+        # Leave a useful move target in the centre of narrow clips.
+        tolerance = min(float(edge), rect.width() / 3) if rect.contains(pos) else min(float(edge), 10.0)
+        if nearest > tolerance:
             return None
+        # At a shared cut, the side under the pointer owns the trim. Keep the
+        # exterior tolerance in empty space, but do not steal a neighbour's edge.
+        if not rect.contains(pos):
+            for other_rect, _item, _selected, _kind in self.geometry.iter_items(reverse=True):
+                if other_rect == rect or not other_rect.top() <= pos.y() <= other_rect.bottom():
+                    continue
+                if other_rect.contains(pos):
+                    return None
+                # In a small gap, prefer the nearer edge regardless of paint order.
+                other_distance = min(abs(pos.x() - other_rect.left()), abs(pos.x() - other_rect.right()))
+                if other_distance < nearest:
+                    return None
         return "left" if left_distance <= right_distance else "right"
 
     def _panel_track_at_pos(self, pos):
@@ -3947,7 +4001,7 @@ class TimelineWidgetBase(RazorMixin, QWidget):
                 # Preserve multi-selection on right-click when target is already selected.
                 if not _selected:
                     self._select_timeline_item(tran.id, "transition", True)
-                self.win.timeline.ShowTransitionMenu(tran.id)
+                show_menu_with_hover(self, self.win.timeline.ShowTransitionMenu, tran.id)
                 return True
 
         # Clip context menu
@@ -3956,13 +4010,13 @@ class TimelineWidgetBase(RazorMixin, QWidget):
                 # Preserve multi-selection on right-click when target is already selected.
                 if not _selected:
                     self._select_timeline_item(clip.id, "clip", True)
-                self.win.timeline.ShowClipMenu(clip.id)
+                show_menu_with_hover(self, self.win.timeline.ShowClipMenu, clip.id)
                 return True
 
         # Track context menu
         for track_rect, track, name_rect in self.geometry.iter_tracks():
             if name_rect.contains(pos) and hasattr(self.win, "timeline"):
-                self.win.timeline.ShowTrackMenu(track.id)
+                show_menu_with_hover(self, self.win.timeline.ShowTrackMenu, track.id)
                 return True
             if track_rect.contains(pos) and hasattr(self.win, "timeline"):
                 seconds = 0.0

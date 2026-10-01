@@ -32,7 +32,7 @@ from qt_api import QPointF, QRectF, Qt, QTimer
 from classes.app import get_app
 from classes.logger import log
 from classes.query import Clip, Transition, Effect
-from .keyframe import keyframe_hit_at
+from .keyframe import keyframe_hit_at, keyframe_pointer_offset
 
 
 class KeyframePanelMixin:
@@ -1502,6 +1502,11 @@ class KeyframePanelMixin:
             "anchor": anchor_entry,
         }
 
+        anchor_seconds = anchor_entry.get("original_seconds")
+        drag_info["pointer_offset_x"] = (
+            keyframe_pointer_offset(self, self._panel_seconds_to_x(anchor_seconds))
+            if anchor_seconds is not None else 0.0
+        )
         self._dragging_panel_keyframes = drag_info
         info_copy = dict(info)
         info_copy["dragged"] = False
@@ -1522,7 +1527,8 @@ class KeyframePanelMixin:
             lane_rect = drag.get("render_rect", QRectF())
         if lane_rect.isNull():
             return
-        x_pos = event.pos().x()
+        pos = event.position() if hasattr(event, "position") else event.pos()
+        x_pos = pos.x() - drag.get("pointer_offset_x", 0.0)
         x_pos = max(lane_rect.left(), min(lane_rect.right(), x_pos))
         seconds = self._panel_x_to_seconds(x_pos)
         range_start = drag.get("range_start")
