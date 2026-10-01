@@ -34,7 +34,7 @@ import unittest
 from unittest.mock import patch
 
 import openshot
-from qt_api import QApplication, QColor, QImage, QLabel, QPoint, QPointF, QPushButton, QRect, QRectF, QSize, QStandardItem, QTransform, Qt, QWidget
+from qt_api import QApplication, QColor, QImage, QLabel, QPainter, QPoint, QPointF, QPushButton, QRect, QRectF, QSize, QStandardItem, QTransform, Qt, QWidget
 
 
 PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
@@ -133,6 +133,41 @@ class VideoWidgetTransformTests(unittest.TestCase):
     def setUp(self):
         self.widget = VideoWidget.__new__(VideoWidget)
         self.viewport = QRect(0, 0, 160, 90)
+
+    def test_outline_stays_visible_at_widget_edges_at_fractional_scales(self):
+        for ratio in (1.0, 1.25, 1.5, 1.75, 2.0):
+            for width, height in ((160, 90), (161, 91), (203, 115)):
+                with self.subTest(ratio=ratio, size=(width, height)):
+                    image = QImage(round(width * ratio), round(height * ratio),
+                                   QImage.Format_ARGB32_Premultiplied)
+                    image.setDevicePixelRatio(ratio)
+                    image.fill(Qt.black)
+                    painter = QPainter(image)
+                    painter.setRenderHint(QPainter.Antialiasing)
+                    handler = types.SimpleNamespace(cs=14, handle_opacity=1.0)
+                    VideoWidget.drawTransformHandler(
+                        handler, painter, 1, 1, width, height, .5, .5,
+                        skip_origin=True)
+                    painter.end()
+                    # Sample away from handles: the full stroke must remain
+                    # visible inside the top and left edges, at every DPR.
+                    self.assertGreater(image.pixelColor(image.width() // 4, 0).blue(), 200)
+                    self.assertGreater(image.pixelColor(0, image.height() // 4).blue(), 200)
+                    self.assertEqual(handler.clipBounds, QRectF(0, 0, width, height))
+
+    def test_offscreen_outline_does_not_create_a_false_viewport_edge(self):
+        image = QImage(160, 90, QImage.Format_ARGB32_Premultiplied)
+        image.fill(Qt.black)
+        painter = QPainter(image)
+        painter.setRenderHint(QPainter.Antialiasing)
+        painter.translate(-20, -20)
+        handler = types.SimpleNamespace(cs=14, handle_opacity=1.0)
+        VideoWidget.drawTransformHandler(
+            handler, painter, 1, 1, 200, 130, .5, .5, skip_origin=True)
+        painter.end()
+        self.assertEqual(image.pixelColor(40, 0), QColor(Qt.black))
+        self.assertEqual(image.pixelColor(0, 30), QColor(Qt.black))
+        self.assertEqual(handler.clipBounds, QRectF(0, 0, 200, 130))
 
     def test_live_transform_suspends_cache_until_commit_or_clear(self):
         for initially_enabled in (True, False):
