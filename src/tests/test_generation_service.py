@@ -671,7 +671,7 @@ class GenerationServiceTests(unittest.TestCase):
     def test_bridge_clips_with_ai_shows_message_when_no_qualifying_template(self):
         service = GenerationService.__new__(GenerationService)
         service.win = types.SimpleNamespace()
-        service.templates_for_context = lambda: [{"id": "txt2img-basic", "template": {}}]
+        service.templates_for_context = lambda source_file=None: [{"id": "txt2img-basic", "template": {}}]
 
         with patch("classes.generation_service.QMessageBox") as mock_box:
             service.bridge_clips_with_ai(
@@ -679,11 +679,34 @@ class GenerationServiceTests(unittest.TestCase):
             )
         mock_box.information.assert_called_once()
 
+    def test_bridge_clips_with_ai_queries_templates_with_video_context(self):
+        # Regression test: templates_for_context(source_file=None) only returns
+        # "create"-category templates, which silently excludes "enhance"-category
+        # bridge templates regardless of their extra_inputs. A video-media-type
+        # stand-in must be passed so "enhance" templates are considered too.
+        service = GenerationService.__new__(GenerationService)
+        service.win = types.SimpleNamespace()
+        calls = []
+
+        def fake_templates_for_context(source_file=None):
+            calls.append(source_file)
+            return []
+
+        service.templates_for_context = fake_templates_for_context
+
+        with patch("classes.generation_service.QMessageBox"):
+            service.bridge_clips_with_ai(
+                types.SimpleNamespace(data={}), types.SimpleNamespace(data={}),
+            )
+
+        self.assertEqual(len(calls), 1)
+        self.assertEqual(calls[0].data.get("media_type"), "video")
+
     def test_bridge_clips_with_ai_warns_when_render_fails(self):
         service = GenerationService.__new__(GenerationService)
         service.win = types.SimpleNamespace()
         bridge_template = {"id": "video-bridge", "template": {"extra_inputs": [{"key": "clip_b", "type": "video"}]}}
-        service.templates_for_context = lambda: [bridge_template]
+        service.templates_for_context = lambda source_file=None: [bridge_template]
 
         with patch("classes.generation_service.render_clip_to_file", return_value=False), \
              patch("classes.generation_service.tempfile.mkdtemp", return_value="/tmp/bridge"), \
@@ -699,7 +722,7 @@ class GenerationServiceTests(unittest.TestCase):
             files_model=types.SimpleNamespace(add_files=lambda *a, **k: None),
         )
         bridge_template = {"id": "video-bridge", "template": {"extra_inputs": [{"key": "clip_b", "type": "video"}]}}
-        service.templates_for_context = lambda: [bridge_template]
+        service.templates_for_context = lambda source_file=None: [bridge_template]
 
         with patch("classes.generation_service.render_clip_to_file", return_value=True), \
              patch("classes.generation_service.tempfile.mkdtemp", return_value="/tmp/bridge"), \
@@ -716,7 +739,7 @@ class GenerationServiceTests(unittest.TestCase):
             files_model=types.SimpleNamespace(add_files=lambda *a, **k: None),
         )
         bridge_template = {"id": "video-bridge", "template": {"extra_inputs": [{"key": "clip_b", "type": "video"}]}}
-        service.templates_for_context = lambda: [bridge_template]
+        service.templates_for_context = lambda source_file=None: [bridge_template]
         service._default_generation_name = lambda file_obj: "bridge_gen1"
 
         file_a = types.SimpleNamespace(id="FA", data={"path": "/tmp/bridge/clip_a.mp4"})
@@ -764,7 +787,7 @@ class GenerationServiceTests(unittest.TestCase):
             files_model=types.SimpleNamespace(add_files=lambda *a, **k: None),
         )
         bridge_template = {"id": "video-bridge", "template": {"extra_inputs": [{"key": "clip_b", "type": "video"}]}}
-        service.templates_for_context = lambda: [bridge_template]
+        service.templates_for_context = lambda source_file=None: [bridge_template]
         service._default_generation_name = lambda file_obj: "bridge_gen1"
 
         file_a = types.SimpleNamespace(id="FA", data={"path": "/tmp/bridge/clip_a.mp4"})
@@ -795,7 +818,7 @@ class GenerationServiceTests(unittest.TestCase):
             files_model=types.SimpleNamespace(add_files=lambda *a, **k: None),
         )
         bridge_template = {"id": "video-bridge", "template": {"extra_inputs": [{"key": "clip_b", "type": "video"}]}}
-        service.templates_for_context = lambda: [bridge_template]
+        service.templates_for_context = lambda source_file=None: [bridge_template]
         service._default_generation_name = lambda file_obj: "bridge_gen1"
 
         file_a = types.SimpleNamespace(id="FA", data={"path": "/tmp/bridge/clip_a.mp4"})

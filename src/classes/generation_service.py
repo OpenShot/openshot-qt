@@ -30,6 +30,7 @@ import re
 import tempfile
 import json
 import random
+import types
 import uuid
 from time import time
 from urllib.parse import unquote
@@ -1301,8 +1302,15 @@ class GenerationService(QObject):
         is inserted onto the timeline exactly between Clip A and Clip B (see
         _insert_generated_clip_on_timeline, triggered via the job's
         insert_on_timeline metadata once generation completes)."""
+        # A bridge template is an "enhance" (not "create") template, since it acts
+        # on an existing video source -- templates_for_context() only returns
+        # "enhance"-category templates when given a source_file whose media_type
+        # it can match against. Clip A/B haven't been rendered/imported as Files
+        # yet at this point, so a minimal video-media-type stand-in is enough to
+        # get the right category filtering without a real File object.
+        video_context = types.SimpleNamespace(data={"media_type": "video"})
         candidate_templates = [
-            entry for entry in self.templates_for_context()
+            entry for entry in self.templates_for_context(source_file=video_context)
             if self._qualifies_as_bridge_template(entry)
         ]
         if not candidate_templates:
