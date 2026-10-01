@@ -55,6 +55,7 @@ import inspect
 import glob
 import os
 import sys
+import platform
 import fnmatch
 import json
 import subprocess
@@ -633,11 +634,15 @@ elif sys.platform == "linux":
             src_files.append((filename, os.path.join(os.path.relpath(filename, start=openshot_copy_path))))
 
 elif sys.platform == "darwin":
+    # Homebrew installs to /opt/homebrew on Apple Silicon (arm64), and /usr/local on Intel
+    brew_prefix = "/opt/homebrew" if platform.machine() == "arm64" else "/usr/local"
+    log.info("Homebrew prefix for %s: %s" % (platform.machine(), brew_prefix))
+
     # Copy Mac specific files that cx_Freeze misses
-   # Add libresvg (if found)
-    resvg_path = "/usr/local/lib/librsvg-2.dylib"
+    # Add libresvg (if found)
+    resvg_path = os.path.join(brew_prefix, "lib", "librsvg-2.dylib")
     if os.path.exists(resvg_path):
-        external_so_files.append((resvg_path, resvg_path.replace("/usr/local/lib/", "")))
+        external_so_files.append((resvg_path, os.path.basename(resvg_path)))
 
     opencv_root = os.getenv("OPENCV_ROOT")
     if opencv_root:
@@ -662,7 +667,7 @@ elif sys.platform == "darwin":
 
     # Manually add BABL extensions (used in ChromaKey effect) - these are loaded at runtime,
     # and thus cx_freeze is not able to detect them
-    babl_ext_path = "/usr/local/lib/babl-0.1"
+    babl_ext_path = os.path.join(brew_prefix, "lib", "babl-0.1")
     for filename in find_files(babl_ext_path, ["*.dylib"]):
         src_files.append((filename, os.path.join("lib", "babl-ext", os.path.relpath(filename, start=babl_ext_path))))
 
@@ -684,9 +689,9 @@ elif sys.platform == "darwin":
 
     # Exclude gif library which crashes on Mac
     build_exe_options["bin_excludes"] = ["/System/Library/Frameworks/ImageIO.framework/Versions/A/Resources/libGIF.dylib",
-                                         "/usr/local/opt/giflib/lib/libgif.dylib",
-                                         "/usr/local/opt/tesseract/lib/libtesseract.4.dylib",
-                                         "/usr/local/opt/leptonica/lib/liblept.5.dylib"]
+                                         os.path.join(brew_prefix, "opt/giflib/lib/libgif.dylib"),
+                                         os.path.join(brew_prefix, "opt/tesseract/lib/libtesseract.4.dylib"),
+                                         os.path.join(brew_prefix, "opt/leptonica/lib/liblept.5.dylib")]
 
 # Dependencies are automatically detected, but it might need fine tuning.
 build_exe_options["packages"] = python_packages
