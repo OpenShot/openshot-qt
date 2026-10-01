@@ -4285,6 +4285,91 @@ class TimelineHelperTests(unittest.TestCase):
         self.assertEqual(painter._frames_per_tick(110.0, 30.0), 15)
         self.assertEqual(painter._frames_per_tick(70.0, 30.0), 30)
 
+    def test_playhead_label_shows_timecode_by_default(self):
+        painter = object.__new__(self.ruler_paint_module.RulerPainter)
+        painter.w = types.SimpleNamespace(current_frame=25, show_frame_numbers=False)
+        app = types.SimpleNamespace(project=types.SimpleNamespace(get=lambda key: {"num": 24, "den": 1}))
+        with patch.object(self.ruler_paint_module, "get_app", return_value=app):
+            self.assertEqual(painter._current_playhead_label(), "00:00:01,00")
+
+    def test_playhead_label_shows_frame_number_when_toggled(self):
+        painter = object.__new__(self.ruler_paint_module.RulerPainter)
+        painter.w = types.SimpleNamespace(current_frame=25, show_frame_numbers=True)
+        self.assertEqual(painter._current_playhead_label(), "25")
+
+    def test_playhead_label_frame_mode_does_not_need_get_app(self):
+        # Frame mode is pure arithmetic on current_frame -- it must not touch
+        # get_app()/project fps at all.
+        painter = object.__new__(self.ruler_paint_module.RulerPainter)
+        painter.w = types.SimpleNamespace(current_frame=1, show_frame_numbers=True)
+        with patch.object(self.ruler_paint_module, "get_app", side_effect=AssertionError("should not be called")):
+            self.assertEqual(painter._current_playhead_label(), "1")
+
+    def test_toggle_show_frame_numbers_flips_state_and_repaints(self):
+        timeline_module = importlib.import_module("windows.views.timeline")
+        helper = types.SimpleNamespace(show_frame_numbers=False, update=lambda: None)
+        updates = []
+        helper.update = lambda: updates.append(True)
+        timeline_module.TimelineView._toggle_show_frame_numbers(helper, True)
+        self.assertTrue(helper.show_frame_numbers)
+        self.assertEqual(updates, [True])
+        timeline_module.TimelineView._toggle_show_frame_numbers(helper, False)
+        self.assertFalse(helper.show_frame_numbers)
+
+    def test_clip_frame_range_text_computes_inclusive_frame_bounds(self):
+        helper = types.SimpleNamespace(fps_float=24.0)
+        clip = types.SimpleNamespace(data={"position": 1.0, "start": 0.0, "end": 2.0})
+        result = self.qwidget_base_module.TimelineWidgetBase._clip_frame_range_text(helper, clip)
+        # position=1.0s -> frame 25 (1-based); duration=2.0s -> ends at position+duration=3.0s -> frame 72
+        self.assertEqual(result, "25–72")
+
+    def test_clip_frame_range_text_empty_when_no_fps(self):
+        helper = types.SimpleNamespace(fps_float=0.0)
+        clip = types.SimpleNamespace(data={"position": 1.0, "start": 0.0, "end": 2.0})
+        self.assertEqual(
+            self.qwidget_base_module.TimelineWidgetBase._clip_frame_range_text(helper, clip), ""
+        )
+
+    def test_clip_frame_range_text_empty_for_missing_clip_data(self):
+        helper = types.SimpleNamespace(fps_float=24.0)
+        self.assertEqual(
+            self.qwidget_base_module.TimelineWidgetBase._clip_frame_range_text(helper, None), ""
+        )
+
+    def test_hover_tooltip_appends_frame_range_for_clips(self):
+        module = self.qwidget_base_module
+        clip = types.SimpleNamespace(id="C1", data={
+            "title": "My Clip", "position": 0.0, "start": 0.0, "end": 1.0,
+        })
+        helper = types.SimpleNamespace(
+            fps_float=24.0,
+            _is_timeline_content_pos=lambda pos: True,
+            _track_toolbar_button_at=lambda pos: None,
+            _effect_icon_at=lambda pos: None,
+            _transition_at=lambda pos: None,
+            _clip_text_at=lambda pos: {"title": "My Clip", "clip": clip},
+        )
+        helper._clip_frame_range_text = lambda clip_obj: module.TimelineWidgetBase._clip_frame_range_text(helper, clip_obj)
+        result = module.TimelineWidgetBase._hover_tooltip_for_pos(helper, QPointF(0, 0))
+        self.assertEqual(result, "Clip: My Clip (frames 1–24)")
+
+    def test_hover_tooltip_omits_frame_range_when_fps_unavailable(self):
+        module = self.qwidget_base_module
+        clip = types.SimpleNamespace(id="C1", data={
+            "title": "My Clip", "position": 0.0, "start": 0.0, "end": 1.0,
+        })
+        helper = types.SimpleNamespace(
+            fps_float=0.0,
+            _is_timeline_content_pos=lambda pos: True,
+            _track_toolbar_button_at=lambda pos: None,
+            _effect_icon_at=lambda pos: None,
+            _transition_at=lambda pos: None,
+            _clip_text_at=lambda pos: {"title": "My Clip", "clip": clip},
+        )
+        helper._clip_frame_range_text = lambda clip_obj: module.TimelineWidgetBase._clip_frame_range_text(helper, clip_obj)
+        result = module.TimelineWidgetBase._hover_tooltip_for_pos(helper, QPointF(0, 0))
+        self.assertEqual(result, "Clip: My Clip")
+
     def test_qwidget_new_item_snap_uses_timeline_space_when_scrolled(self):
         recorded = {}
         helper = types.SimpleNamespace()
