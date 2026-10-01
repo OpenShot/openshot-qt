@@ -71,6 +71,7 @@ class TrackTheme(BasicTheme):
 
     def __init__(self, **kwargs):
         super().__init__()
+        self.menu_icon: Optional[QPixmap] = None
         self.name_background: QColor = QColor()
         self.name_width: int = 0
         self.gap: int = 0
@@ -81,6 +82,8 @@ class TrackTheme(BasicTheme):
         self.name_border_top_width: int = 0
         self.name_border_bottom_color: QColor = QColor()
         self.name_border_bottom_width: int = 0
+        self.name_border_right_color: QColor = QColor()
+        self.name_border_right_width: int = 0
         self.name_radius_tl: int = 0
         self.name_radius_bl: int = 0
         self.name_top_overlay: QColor = QColor()
@@ -109,6 +112,7 @@ class TimelineTheme:
         self.ruler: BasicTheme = BasicTheme()
         self.ruler_name_background: QColor = QColor()
         self.ruler_name_background2: QColor = QColor()
+        self.label_font_scale: float = 1.0
         self.ruler_time_font_size: int = 0
         self.menu_icon: Optional[QPixmap] = None
         self.menu_size: int = 0

@@ -28,7 +28,7 @@
 import math
 
 from qt_api import QPointF, QRectF, Qt
-from qt_api import QBrush, QColor, QPainter, QPainterPath, QPen
+from qt_api import QBrush, QColor, QFont, QPainter, QPainterPath, QPen
 
 from classes.app import get_app
 from classes.logger import log
@@ -371,6 +371,13 @@ class KeyframePanelPainter(BasePainter):
 
         painter.save()
         painter.setClipRect(area)
+        font = QFont(painter.font())
+        scale = self.w.theme.label_font_scale
+        if font.pixelSize() > 0:
+            font.setPixelSize(max(1, round(font.pixelSize() * scale)))
+        elif font.pointSizeF() > 0:
+            font.setPointSizeF(font.pointSizeF() * scale)
+        painter.setFont(font)
 
         timeline_area = QRectF(
             self.w.track_name_width,

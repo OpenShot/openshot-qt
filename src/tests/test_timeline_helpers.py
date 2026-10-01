@@ -3364,6 +3364,39 @@ class TimelineHelperTests(unittest.TestCase):
         self.assertEqual(image.pixelColor(30, 16).name(), "#ff0000")
         self.assertEqual(image.pixelColor(30, 19).name(), "#00ff00")
 
+    def test_retro_ruler_cache_seam_at_fractional_ui_scales(self):
+        theme = self.humanity_theme_module.RetroTimelineTheme()
+        project = {"duration": 300, "fps": {"num": 30, "den": 1}}
+        app = types.SimpleNamespace(project=types.SimpleNamespace(get=project.get))
+        widget = types.SimpleNamespace(
+            theme=theme, track_name_width=140, ruler_height=39,
+            track_margin_top=8, scroll_bar_thickness=6,
+            pixels_per_second=10, current_frame=1, h_scroll_offset=0,
+            width=lambda: 500, height=lambda: 100,
+            _playback_cache_ranges=[],
+        )
+        with patch.object(self.ruler_paint_module, "get_app", return_value=app):
+            for scale in (1.0, 1.25, 1.5, 1.75, 2.0):
+                for offset in (0.0, 1 / 3, 2 / 3):
+                    with self.subTest(scale=scale, offset=offset):
+                        image = QImage(1000, 200, QImage.Format_ARGB32)
+                        image.fill(theme.background)
+                        painter = QPainter(image)
+                        try:
+                            painter.scale(scale, scale)
+                            painter.translate(0, offset)
+                            painter.setRenderHint(QPainter.Antialiasing, True)
+                            self.ruler_paint_module.RulerPainter(widget).paint(painter)
+                            self.cache_paint_module.PlaybackCachePainter(widget).paint(painter)
+                            self.assertTrue(painter.testRenderHint(QPainter.Antialiasing))
+                        finally:
+                            painter.end()
+                        seam = int((widget.ruler_height + offset) * scale)
+                        for x in (125, 293):  # time panel and ruler, away from ticks
+                            for y in range(seam - 1, seam + 2):
+                                pixel = image.pixelColor(round(x * scale), y)
+                                self.assertLessEqual(pixel.red(), theme.ruler.background2.red() + 1)
+
     def test_qwidget_ctrl_mouse_zoom_starts_on_ctrl_middle_press(self):
         helper, _event_cls, _wheel_event_cls = self.make_qwidget_ctrl_zoom_helper()
         pos = QPointF(20.0, 120.0)
