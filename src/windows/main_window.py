@@ -2814,6 +2814,23 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             trans.data["position"] -= total_gap
             trans.save()
 
+    def ripple_insert_gap(self, ripple_start, layer, total_gap):
+        """Open a gap of `total_gap` seconds starting at `ripple_start` on the given
+        layer, by shifting later in time. Mirrors ripple_delete_gap, but shifts
+        forward and -- unlike delete -- includes an item sitting exactly at
+        ripple_start (not just items strictly after it): that item must also move
+        to make room for whatever gets inserted at ripple_start."""
+        clips = [clip for clip in Clip.filter(layer=layer) if clip.data.get("position", 0.0) >= ripple_start]
+        transitions = [tran for tran in Transition.filter(layer=layer) if tran.data.get("position", 0.0) >= ripple_start]
+
+        for clip in clips:
+            clip.data["position"] += total_gap
+            clip.save()
+
+        for trans in transitions:
+            trans.data["position"] += total_gap
+            trans.save()
+
     def actionRippleSelect(self):
         """Selects ALL clips or transitions to the right of the current selected item"""
         for clip_id in self.selected_clips:

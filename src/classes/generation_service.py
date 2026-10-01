@@ -30,6 +30,7 @@ import re
 import tempfile
 import json
 import random
+import uuid
 from time import time
 from urllib.parse import unquote
 from fractions import Fraction
@@ -44,7 +45,8 @@ from classes.app import get_app
 from classes.comfy_client import ComfyClient
 from classes.comfy_templates import ComfyTemplateRegistry
 from classes.logger import log
-from classes.query import File
+from classes.clip_render import render_clip_to_file
+from classes.query import File, Clip
 from windows.generate import GenerateMediaDialog
 
 
@@ -1244,6 +1246,7 @@ class GenerationService(QObject):
             "display_name": display_name,
             "workflow_label": workflow_label,
             "bindings": bindings,
+            "insert_on_timeline": payload.get("insert_on_timeline"),
         }
         job_id = self.win.generation_queue.enqueue(
             payload_name,
@@ -1255,6 +1258,109 @@ class GenerationService(QObject):
         if not job_id:
             return False, "Only one active generation is allowed per source file."
         return True, ""
+
+    @staticmethod
+    def _video_extra_input_keys(template_entry):
+        """Ordered list of "video"-type extra_inputs keys declared by
+        `template_entry` (an entry from templates_for_context())."""
+        extra_inputs = (template_entry.get("template") or {}).get("extra_inputs", [])
+        return [
+            entry.get("key") for entry in extra_inputs
+            if isinstance(entry, dict) and entry.get("type") == "video" and entry.get("key")
+        ]
+
+    @classmethod
+    def _qualifies_as_bridge_template(cls, template_entry):
+        """True if `template_entry` declares at least one "video"-type
+        extra_inputs entry -- the shape a two-clip AI bridge needs. Clip A
+        occupies the dialog's normal source_file slot (not an extra_inputs
+        entry); Clip B needs a declared video extra_inputs slot to go into."""
+        return len(cls._video_extra_input_keys(template_entry)) >= 1
+
+    def _preselect_bridge_second_video_input(self, dialog, file_id):
+        """Pre-select `file_id` as the first declared "video"-type extra_inputs
+        combo on `dialog` (a GenerateMediaDialog) -- the slot Clip B fills, since
+        Clip A already occupies the dialog's own source_file. No-op if the
+        current template isn't a qualifying bridge template."""
+        video_keys = self._video_extra_input_keys({"template": dialog._current_template()})
+        if not video_keys:
+            return
+        widget_entry = dialog._extra_input_widgets.get(video_keys[0])
+        if not widget_entry:
+            return
+        widget, _entry = widget_entry
+        index = widget.findData(file_id)
+        if index >= 0:
+            widget.setCurrentIndex(index)
+
+    def bridge_clips_with_ai(self, clip_a, clip_b):
+        """Render two contiguous timeline clips' own trimmed content to temp
+        files, import them as Project Files, then open the AI generation dialog
+        restricted to templates declaring a "video"-type extra_inputs entry, with
+        Clip B pre-selected as that input. On successful generation, the result
+        is inserted onto the timeline exactly between Clip A and Clip B (see
+        _insert_generated_clip_on_timeline, triggered via the job's
+        insert_on_timeline metadata once generation completes)."""
+        candidate_templates = [
+            entry for entry in self.templates_for_context()
+            if self._qualifies_as_bridge_template(entry)
+        ]
+        if not candidate_templates:
+            QMessageBox.information(
+                self.win,
+                "No Bridge Template Available",
+                "No installed ComfyUI template declares a video input beyond the "
+                "source clip, so there's nothing to bridge these two clips with.",
+            )
+            return
+
+        temp_dir = tempfile.mkdtemp(prefix="openshot_bridge_")
+        path_a = os.path.join(temp_dir, "clip_a.mp4")
+        path_b = os.path.join(temp_dir, "clip_b.mp4")
+        if not render_clip_to_file(clip_a, path_a) or not render_clip_to_file(clip_b, path_b):
+            QMessageBox.warning(
+                self.win, "Bridge Clips Failed",
+                "Could not render one or both clips for the AI bridge.",
+            )
+            return
+
+        self.win.files_model.add_files(
+            [path_a, path_b], quiet=True, prevent_image_seq=True, prevent_recent_folder=True,
+        )
+        file_a = File.get(path=path_a)
+        file_b = File.get(path=path_b)
+        if not file_a or not file_b:
+            QMessageBox.warning(
+                self.win, "Bridge Clips Failed",
+                "Could not import the rendered clips into Project Files.",
+            )
+            return
+
+        preselected_template_id = candidate_templates[0]["id"] if len(candidate_templates) == 1 else None
+
+        win = GenerateMediaDialog(
+            source_file=file_a,
+            templates=candidate_templates,
+            preselected_template_id=preselected_template_id,
+            dialog_title="Bridge Clips With AI",
+            parent=self.win,
+            default_name=self._default_generation_name(file_a),
+        )
+        self._preselect_bridge_second_video_input(win, file_b.id)
+        win.template_combo.currentIndexChanged.connect(
+            lambda _index: self._preselect_bridge_second_video_input(win, file_b.id)
+        )
+
+        if win.exec_() != QDialog.Accepted:
+            return
+        payload = win.get_payload()
+        payload["insert_on_timeline"] = {
+            "position": float(clip_b.data.get("position", 0.0)),
+            "layer": clip_b.data.get("layer"),
+        }
+        ok, error_text = self._enqueue_generation_for_file(file_a, payload)
+        if not ok:
+            QMessageBox.warning(self.win, "Generation Failed", error_text)
 
     def action_generate_trigger(self, checked=True, source_file=None, template_id=None, open_dialog=True):
         selected_files = self._selected_generation_targets(source_file=source_file)
@@ -1334,7 +1440,12 @@ class GenerationService(QObject):
             caption_saved = bool(result.get("caption_saved", False))
             scenes_labeled = int(result.get("scenes_labeled", 0))
             scene_splits_created = int(result.get("scene_splits_created", 0))
-            if imported > 0 and caption_saved:
+            inserted_on_timeline = bool(result.get("inserted_on_timeline", False))
+            if inserted_on_timeline:
+                self.win.statusBar.showMessage(
+                    "Generation completed and inserted onto the timeline", 5000,
+                )
+            elif imported > 0 and caption_saved:
                 self.win.statusBar.showMessage(
                     "Generation completed, imported {} file(s), and saved file caption data".format(imported),
                     5000,
@@ -1367,6 +1478,50 @@ class GenerationService(QObject):
             error_text = ComfyClient.summarize_error_text(job.get("error") or "ComfyUI generation failed.")
             self.win.statusBar.showMessage("Generation failed", 5000)
             QMessageBox.warning(self.win, "Generation Failed", error_text)
+
+    def _insert_generated_clip_on_timeline(self, file_obj, position, layer):
+        """Insert `file_obj` as a new timeline Clip at `position` on `layer`,
+        opening a gap first (ripple_insert_gap) so later same-layer items are
+        pushed later in time rather than overlapped. Mirrors the clip-creation
+        pattern used by windows/add_to_timeline.py's AddToTimeline.accept().
+        Returns True on success, False if `file_obj` has no usable duration/path.
+        """
+        if layer is None:
+            return False
+        file_path = file_obj.absolute_path() if hasattr(file_obj, "absolute_path") else file_obj.data.get("path", "")
+        duration = float(file_obj.data.get("duration", 0.0) or 0.0)
+        if duration <= 0.0 or not file_path:
+            return False
+
+        tid = str(uuid.uuid4())
+        get_app().updates.transaction_id = get_app().updates.transaction_id or tid
+        try:
+            self.win.ripple_insert_gap(position, layer, duration)
+
+            c = openshot.Clip(file_path)
+            new_clip = json.loads(c.Json())
+            new_clip["position"] = position
+            new_clip["layer"] = layer
+            new_clip["file_id"] = file_obj.id
+            new_clip["title"] = file_obj.data.get("name", os.path.basename(file_path))
+            new_clip["reader"] = file_obj.data
+            new_clip["start"] = 0.0
+            new_clip["end"] = duration
+            new_clip["duration"] = duration
+
+            clip = Clip()
+            clip.data = new_clip
+            clip.save()
+        finally:
+            get_app().updates.transaction_id = None
+
+        extend_timeline = getattr(getattr(self.win, "timeline", None), "_extend_timeline_to_fit_items", None)
+        if callable(extend_timeline):
+            try:
+                extend_timeline()
+            except Exception:
+                log.warning("Failed to extend timeline after inserting generated clip", exc_info=1)
+        return True
 
     def _import_generation_outputs(self, job):
         outputs = list(job.get("outputs", []) or [])
@@ -1501,8 +1656,26 @@ class GenerationService(QObject):
                 imported_file.save()
                 self.win.FileUpdated.emit(imported_file.id)
 
+        inserted_on_timeline = False
+        insert_spec = request.get("insert_on_timeline")
+        if isinstance(insert_spec, dict) and saved_paths:
+            video_exts = {".mp4", ".mov", ".mkv", ".webm", ".avi", ".m4v"}
+            for saved_path in saved_paths:
+                if os.path.splitext(saved_path)[1].lower() not in video_exts:
+                    continue
+                candidate_file = File.get(path=saved_path)
+                if not candidate_file:
+                    continue
+                inserted_on_timeline = self._insert_generated_clip_on_timeline(
+                    candidate_file,
+                    float(insert_spec.get("position", 0.0)),
+                    insert_spec.get("layer"),
+                )
+                if inserted_on_timeline:
+                    break
+
         if not saved_paths and scene_splits_created <= 0:
-            return {"imported": 0, "caption_saved": False, "scene_splits_created": 0}
+            return {"imported": 0, "caption_saved": False, "scene_splits_created": 0, "inserted_on_timeline": False}
 
         caption_saved = False
         scenes_labeled = 0
@@ -1521,6 +1694,7 @@ class GenerationService(QObject):
             "imported": len(saved_paths),
             "caption_saved": caption_saved,
             "scenes_labeled": scenes_labeled,
+            "inserted_on_timeline": inserted_on_timeline,
             "scene_splits_created": scene_splits_created,
         }
 
