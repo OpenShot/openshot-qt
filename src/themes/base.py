@@ -405,6 +405,9 @@ QMessageBox QDialogButtonBox#qt_msgbox_buttonbox QPushButton[dialogRole="cancel"
 
         # Set dock widget content margins to 0
         self.set_dock_margins()
+        # Let the ruler and tracks meet the dock edges in every theme, while
+        # retaining a little breathing room above the timeline toolbar.
+        self.set_dock_margins([0, 0, 0, 0], [0, 10, 0, 0], "dockTimelineContents")
 
         # Move tabs to bottom (all dock areas, since restoreState() does not persist tab positions)
         for area in (Qt.TopDockWidgetArea, Qt.BottomDockWidgetArea,

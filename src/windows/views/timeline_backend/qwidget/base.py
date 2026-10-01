@@ -1019,6 +1019,7 @@ class TimelineWidgetBase(RazorMixin, QWidget):
             self.track_painter.paint_names(painter)
             self.keyframe_panel_painter.paint(painter, mode="overlay")
             self.hover_feedback.paint(painter)
+            self.track_painter.paint_divider(painter)
             self.selection_painter.paint(painter)
             self.ruler_painter.paint(painter)
             self.playback_cache_painter.paint(painter)

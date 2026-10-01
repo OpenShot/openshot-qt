@@ -59,7 +59,8 @@ class TrackPainter(BasePainter):
         self.name_top_overlay2 = QColor(self.w.theme.track.name_top_overlay2)
         self.menu_pix = None
         from windows.views.timeline_backend.theme import _icon as _theme_icon
-        arrow = _theme_icon("themes/cosmic/images/dropdown-arrow.svg")
+        arrow = (getattr(self.w.theme.track, "menu_icon", None)
+                 or _theme_icon("themes/cosmic/images/dropdown-arrow.svg"))
         self.dropdown_arrow_pix = arrow if (arrow and not arrow.isNull()) else None
         self.menu_margin = self.w.theme.menu_margin
         self.toggle_off_pix = None
@@ -256,10 +257,11 @@ class TrackPainter(BasePainter):
             painter.drawLine(vis.bottomLeft(), vis.bottomRight())
             painter.drawLine(vis.topRight(), vis.bottomRight())
 
-        painter.fillRect(
-            self.w.resize_handle_rect.intersected(area),
-            self.w.theme.track.border_color,
-        )
+        if not self.w.theme.track.name_border_right_width:
+            painter.fillRect(
+                self.w.resize_handle_rect.intersected(area),
+                self.w.theme.track.border_color,
+            )
         timeline_handle = self.w.geometry.timeline_handle_rect()
         if timeline_handle and not timeline_handle.isNull():
             handle_rect = timeline_handle.intersected(area)
@@ -272,6 +274,21 @@ class TrackPainter(BasePainter):
                     accent.setAlpha(180)
                     painter.fillRect(inner, accent)
         painter.restore()
+
+    def paint_divider(self, painter: QPainter):
+        """Keep the name-column edge visible above expanded keyframe panels."""
+        theme = self.w.theme.track
+        width = theme.name_border_right_width
+        if width <= 0 or not theme.name_border_right_color.isValid():
+            return
+        top = self.w.ruler_height + self.w.track_margin_top
+        rect = QRectF(
+            self.w.track_name_width - width,
+            top,
+            width,
+            max(0.0, self.w.height() - self.w.scroll_bar_thickness - top),
+        )
+        painter.fillRect(rect, theme.name_border_right_color)
 
     def _frame_banding_config(self):
         pps = float(getattr(self.w, "pixels_per_second", 0.0) or 0.0)
@@ -366,10 +383,11 @@ class TrackPainter(BasePainter):
         self.w._track_title_rects = []
         original_font = painter.font()
         track_font = QFont(original_font)
+        scale = getattr(self.w.theme, "label_font_scale", 1.0)
         if track_font.pixelSize() > 0:
-            track_font.setPixelSize(track_font.pixelSize() + 1)
+            track_font.setPixelSize(max(1, round((track_font.pixelSize() + 1) * scale)))
         elif track_font.pointSizeF() > 0:
-            track_font.setPointSizeF(track_font.pointSizeF() + 1.0)
+            track_font.setPointSizeF((track_font.pointSizeF() + 1.0) * scale)
         painter.setFont(track_font)
         for _track_rect, track, name_rect in self.w.geometry.iter_tracks():
             locked = bool((track.data if isinstance(track.data, dict) else {}).get("lock"))

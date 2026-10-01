@@ -96,6 +96,8 @@ class RulerPainter(BasePainter):
         left_rect = QRectF(0, 0, self.w.track_name_width, self.w.ruler_height)
         if left_rect.width() <= 0 or left_rect.height() <= 0:
             return left_rect
+        painter.save()
+        painter.setRenderHint(QPainter.Antialiasing, False)
         if self.name_bg2 != self.name_bg:
             grad = QLinearGradient(QPointF(left_rect.topLeft()), QPointF(left_rect.bottomLeft()))
             grad.setColorAt(0, self.name_bg)
@@ -103,6 +105,7 @@ class RulerPainter(BasePainter):
             painter.fillRect(left_rect, QBrush(grad))
         else:
             painter.fillRect(left_rect, self.name_bg)
+        painter.restore()
 
         if label is None:
             label = self._current_playhead_label()
@@ -159,6 +162,8 @@ class RulerPainter(BasePainter):
         width = max(1, self.w.width() - self.w.track_name_width)
 
         rect = QRectF(self.w.track_name_width, 0, width, self.w.ruler_height)
+        painter.save()
+        painter.setRenderHint(QPainter.Antialiasing, False)
         if self.bg2.isValid() and self.bg != self.bg2:
             grad = QLinearGradient(QPointF(rect.topLeft()), QPointF(rect.bottomLeft()))
             grad.setColorAt(0, self.bg)
@@ -166,6 +171,7 @@ class RulerPainter(BasePainter):
             painter.fillRect(rect, QBrush(grad))
         elif self.bg.isValid():
             painter.fillRect(rect, self.bg)
+        painter.restore()
         play_lbl = self._current_playhead_label()
         self._last_playhead_label = play_lbl
         self._draw_time_panel(painter, play_lbl)

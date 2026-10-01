@@ -449,13 +449,25 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         pen.setCosmetic(True)
         painter.setPen(pen)
 
-        # Draw outline + handles
+        # Keep the outline inside the clip's true bounds. A centered cosmetic
+        # stroke loses half its width when the clip meets the widget edge,
+        # making the top/side border fade or vanish at fractional scales.
+        # Clipping a double-width stroke preserves the geometry used for hit
+        # testing, including rotated, sheared, and partially offscreen clips.
+        painter.save()
+        painter.setClipRect(self.clipBounds, Qt.IntersectClip)
+        outline_pen = QPen(pen)
+        outline_pen.setWidthF(pen.widthF() * 2.0)
+        painter.setPen(outline_pen)
+        painter.drawRect(self.clipBounds)
+        painter.restore()
+
+        # Handles stay centered on the true clip edges.
         painter.drawRects([
             self.topLeftHandle, self.topRightHandle,
             self.bottomLeftHandle, self.bottomRightHandle,
             self.topHandle, self.bottomHandle,
             self.leftHandle, self.rightHandle,
-            self.clipBounds,
         ])
 
         # Origin glyph (hidden in crop mode; crop draws its own)
