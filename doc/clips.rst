@@ -93,8 +93,14 @@ Here is a list of all methods for cutting and/or trimming clips in OpenShot:
 
 Keep in mind that the above cutting methods also have :ref:`keyboard_shortcut_ref`, to save even more time.
 
-If multiple selected clips and/or transitions share the same left edge or right
-edge, you can drag that shared edge once to trim them together.
+If multiple selected clips and/or transitions share the selection's leftmost or
+rightmost edge, you can drag that shared edge once to trim them together. Dragging
+an interior edge between selected clips trims only the clip whose edge you grab.
+
+On the QWidget timeline, grab just inside an edge when two clips touch. Where
+there is empty space, you can also grab just outside the edge. The resize cursor
+and highlighted edge identify the clip you will trim. These same hit areas work
+with the :guilabel:`Timing` tool.
 
 .. _razor_tool_ref:
 
@@ -167,7 +173,7 @@ Clip controls while zoomed in
 -----------------------------
 
 When a clip's start scrolls off screen, its title, effect badges, and menu stay
-near the left side of the visible timeline. Click an effect badge to access that
+near the left side of the visible timeline. Click an effect badge to select that
 effect, or use the title's dropdown to open the clip menu. The controls stay
 within the visible portion of their clip and shorten as space runs out.
 
@@ -666,8 +672,10 @@ For more advanced editing options and shortcuts, refer to the :ref:`clips_cuttin
 Effects
 -------
 In addition to the many clip properties which can be animated and adjusted, you can also drop an effect directly onto
-a clip from the effects dock. Each effect is represented by a small colored letter icon. Clicking the effect icon 
-will populate the properties of that effect, and allow you to edit (and animate) them. 
+a clip from the effects dock. Each effect is represented by a small colored letter icon. Click the icon to
+select the effect and update its properties if the Properties dock is already open. To open the dock,
+double-click the icon, or right-click it and choose :guilabel:`Properties`. You can then edit and animate
+the effect's properties.
 For the full list of effects, see :ref:`effects_ref`.
 
 .. image:: images/clip-effects.jpg

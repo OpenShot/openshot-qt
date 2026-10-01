@@ -79,8 +79,8 @@ class ClipInteractionMixin:
         """
         Resolve which selected items should respond to an edge resize.
 
-        For multi-selection, only shared outer edges are resizable. Interior
-        edges fall back to normal drag behavior.
+        Shared outer edges resize together. An interior edge resizes only the
+        grabbed item, preserving the rest of the selection.
         """
         if edge not in ("left", "right") or item is None:
             return []
@@ -110,7 +110,7 @@ class ClipInteractionMixin:
         outer_edge = min(edge_values) if edge == "left" else max(edge_values)
         tolerance = self._resize_edge_tolerance()
         if abs(candidate_edge - outer_edge) > tolerance:
-            return []
+            return [item]
 
         return [
             candidate
@@ -1163,6 +1163,15 @@ class ClipInteractionMixin:
         if timeline:
             timeline.resizeTimeline(snapped)
 
+    def _capture_resize_pointer(self, rect):
+        """Preserve where the edge was grabbed within its generous hit area."""
+        event = getattr(self, "_last_event", None)
+        self._resize_pointer_offset_x = 0.0
+        if event is not None:
+            x = event.position().x() if hasattr(event, "position") else event.pos().x()
+            edge_x = rect.left() if self._resize_edge == "left" else rect.right()
+            self._resize_pointer_offset_x = x - edge_x
+
     def _startItemResize(self):
         item = self._resizing_item
         if not item:
@@ -1211,6 +1220,7 @@ class ClipInteractionMixin:
 
         self._resize_initial_world_rect = QRectF(primary_context["world_rect"])
         self._resize_initial_rect = QRectF(primary_context["rect"])
+        self._capture_resize_pointer(self._resize_initial_rect)
         self._resize_initial = dict(primary_context["initial"])
         self._resize_clip_max_duration = primary_context.get("max_duration")
         self._resize_clip_is_single_image = bool(primary_context.get("clip_is_single_image"))
@@ -1339,12 +1349,15 @@ class ClipInteractionMixin:
         width = max(end - start, min_len)
         pos = initial["position"]
         static_mask = bool(context.get("static_mask"))
+        if target_edge_seconds is None:
+            pointer_x = event.position().x() if hasattr(event, "position") else event.pos().x()
+            pointer_x -= getattr(self, "_resize_pointer_offset_x", 0.0)
 
         if self._resize_edge == "left":
             if target_edge_seconds is not None:
                 delta_sec = target_edge_seconds - pos
             else:
-                delta_sec = ((event.position().x() if hasattr(event, "position") else event.pos().x()) - rect.left()) / pps
+                delta_sec = (pointer_x - rect.left()) / pps
             if target_edge_seconds is None and self.enable_snapping:
                 delta_sec = self.snap.snap_edge(pos, delta_sec)
             max_delta = width - min_len
@@ -1364,7 +1377,7 @@ class ClipInteractionMixin:
             if target_edge_seconds is not None:
                 delta_sec = target_edge_seconds - (pos + width)
             else:
-                delta_sec = ((event.position().x() if hasattr(event, "position") else event.pos().x()) - rect.right()) / pps
+                delta_sec = (pointer_x - rect.right()) / pps
             if target_edge_seconds is None and self.enable_snapping:
                 delta_sec = self.snap.snap_edge(pos + width, delta_sec)
             min_delta = -(width - min_len)
@@ -1411,7 +1424,8 @@ class ClipInteractionMixin:
 
         cursor_sec = target_edge_seconds
         if cursor_sec is None:
-            cursor_sec = self._seconds_from_x(event.position().x() if hasattr(event, "position") else event.pos().x())
+            pointer_x = event.position().x() if hasattr(event, "position") else event.pos().x()
+            cursor_sec = self._seconds_from_x(pointer_x - getattr(self, "_resize_pointer_offset_x", 0.0))
         clip_span = max(end - start, min_len)
 
         if self._resize_edge == "left":

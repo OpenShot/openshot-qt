@@ -75,6 +75,10 @@ class KeyframePainter(BasePainter):
             color = marker.get("color")
             if not isinstance(color, QColor) or not color.isValid():
                 color = self.fill
+            feedback = getattr(self.w, "hover_feedback", None)
+            if feedback:
+                style = "transition" if marker.get("type") == "transition" else "clip"
+                color = feedback.keyframe_fill(color, rect, style)
             painter.setBrush(color)
             interpolation = marker.get("interpolation", "bezier")
             if interpolation == "linear":
