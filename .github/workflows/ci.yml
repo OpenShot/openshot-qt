@@ -42,7 +42,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-24.04, windows-latest, macos-latest]
-        qt: [PyQt5, PyQt6]
+        qt: [PyQt5, PyQt6, PySide6]
     steps:
     - uses: actions/checkout@v7
     - uses: actions/setup-python@v5
@@ -55,9 +55,9 @@ jobs:
         sudo apt-get install -y libegl1
     - name: Install Qt
       run: python -m pip install ${{ matrix.qt }} defusedxml
-    - name: Test native SVG file watching and preference toggles
+    - name: Test native SVG file watching and shared toggles
       env:
         PYTHONPATH: src
         QT_QPA_PLATFORM: offscreen
         OPENSHOT_QT_API: ${{ matrix.qt }}
-      run: python -m unittest tests.test_svg_watcher tests.test_preference_switch -v
+      run: python -m unittest tests.test_svg_watcher tests.test_preference_switch tests.test_toggle_switch -v

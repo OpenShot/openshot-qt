@@ -373,7 +373,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QCheckBox" name="checkStartFirstClip">
+              <widget class="ToggleSwitch" name="checkStartFirstClip">
                <property name="text">
                 <string>Start at First Clip</string>
                </property>
@@ -413,7 +413,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QCheckBox" name="checkEndLastClip">
+              <widget class="ToggleSwitch" name="checkEndLastClip">
                <property name="text">
                 <string>End at Last Clip</string>
                </property>
@@ -1151,6 +1151,13 @@
   <tabstop>cboChannelLayout</tabstop>
   <tabstop>txtAudioBitrate</tabstop>
  </tabstops>
+ <customwidgets>
+  <customwidget>
+   <class>ToggleSwitch</class>
+   <extends>QCheckBox</extends>
+   <header>windows.toggle_switch</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="../../../images/openshot.qrc"/>
  </resources>

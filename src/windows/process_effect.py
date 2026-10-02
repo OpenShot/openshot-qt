@@ -38,7 +38,7 @@ from qt_api import Qt, pyqtSignal, QCoreApplication, QTimer, QSize
 from qt_api import QPainter
 from qt_api import (
     QPushButton, QDialog, QLabel, QDoubleSpinBox, QSpinBox, QLineEdit,
-    QCheckBox, QComboBox, QDialogButtonBox, QSizePolicy, QMessageBox,
+    QComboBox, QDialogButtonBox, QSizePolicy, QMessageBox,
     QFileDialog, QProgressDialog, QApplication, QWidget, QHBoxLayout,
 )
 import openshot  # Python module for libopenshot (required video editing module installed separately)
@@ -46,6 +46,7 @@ import openshot  # Python module for libopenshot (required video editing module 
 from classes import info
 from classes import http_client
 from classes import ui_util
+from windows.toggle_switch import ToggleSwitch
 from classes.app import get_app
 from classes.logger import log
 from classes.metrics import *
@@ -398,8 +399,9 @@ class ProcessEffect(QDialog):
                 }
 
             elif param["type"] == "bool":
-                # create spinner
-                widget = QCheckBox()
+                widget = ToggleSwitch()
+                widget.setAccessibleName(_(param["title"]))
+                label.setBuddy(widget)
                 if param["value"] == True:
                     widget.setCheckState(Qt.Checked)
                     self.context[param["setting"]] = True

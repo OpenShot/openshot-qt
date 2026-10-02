@@ -47,7 +47,7 @@ from classes.distribution import is_snap
 from classes.language import get_all_languages
 from classes.logger import log
 from classes.metrics import track_metric_screen
-from windows.preference_switch import PreferenceSwitch
+from windows.toggle_switch import ToggleSwitch
 
 import openshot
 
@@ -309,7 +309,7 @@ class Preferences(QDialog):
                         )
 
                 elif param["type"] == "bool":
-                    widget = PreferenceSwitch()
+                    widget = ToggleSwitch()
                     widget.setAccessibleName(_(param["title"]))
                     label.setBuddy(widget)
                     if param["value"] is True:

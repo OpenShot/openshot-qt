@@ -49,7 +49,7 @@
          <item row="5" column="0">
           <layout class="QHBoxLayout" name="horizontalLayout_8">
            <item>
-            <widget class="QCheckBox" name="chkLoop">
+            <widget class="ToggleSwitch" name="chkLoop">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -537,6 +537,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ToggleSwitch</class>
+   <extends>QCheckBox</extends>
+   <header>windows.toggle_switch</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>
