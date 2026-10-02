@@ -72,7 +72,9 @@ class TrackPainter(BasePainter):
                 return None
             width = float(pixmap.width())
             height = float(pixmap.height())
-            if toggle_size > 0.0:
+            if self.w.theme.compact_track_headers:
+                width = height = self.w.theme.track_control_size
+            elif toggle_size > 0.0:
                 target = max(toggle_size, width, height)
                 width = height = target
             return self.scaled_pixmap(pixmap, width, height)
@@ -139,6 +141,10 @@ class TrackPainter(BasePainter):
         if name_rect.isNull() or name_rect.width() <= 0.0 or name_rect.height() <= 0.0:
             return QRectF(), None, QRectF(), ""
 
+        compact = getattr(self.w.theme, "compact_track_headers", False)
+        if compact:
+            name_rect = QRectF(name_rect)
+            name_rect.setHeight(min(name_rect.height(), self.w.theme.track.height))
         metrics = QFontMetrics(painter.font()) if painter is not None else None
         font_h = float(metrics.height()) if metrics is not None else max(12.0, name_rect.height() - 4.0)
         pad_x = 6.0
@@ -148,6 +154,11 @@ class TrackPainter(BasePainter):
         border_top = float(self.name_border_top_width or 0.0)
         border_bottom = float(self.name_border_bottom_width or 0.0)
         available_w = max(0.0, name_rect.width() - border_left)
+        if compact and track is not None:
+            buttons = self.w._track_toolbar_buttons(track, name_rect)
+            if buttons:
+                available_w = max(0.0, min(b["rect"].left() for b in buttons)
+                                  - name_rect.x() - border_left - 2.0)
         available_h = max(1.0, name_rect.height() - border_top - border_bottom)
         container_h = min(available_h, font_h + pad_y * 2.0)
         icon_size = max(8.0, font_h - 2.0)
@@ -169,7 +180,8 @@ class TrackPainter(BasePainter):
         container_w = max(container_h, container_w)
         container_rect = QRectF(
             name_rect.x() + border_left,
-            name_rect.y() + border_top,
+            (name_rect.y() + (name_rect.height() - container_h) / 2.0
+             if compact else name_rect.y() + border_top),
             container_w,
             max(1.0, container_h),
         )
@@ -388,6 +400,15 @@ class TrackPainter(BasePainter):
             track_font.setPixelSize(max(1, round((track_font.pixelSize() + 1) * scale)))
         elif track_font.pointSizeF() > 0:
             track_font.setPointSizeF((track_font.pointSizeF() + 1.0) * scale)
+        if getattr(self.w.theme, "compact_track_headers", False):
+            max_height = max(8.0, self.w.theme.track.height - 6.0)
+            font_height = QFontMetrics(track_font).height()
+            if font_height > max_height:
+                factor = max_height / font_height
+                if track_font.pixelSize() > 0:
+                    track_font.setPixelSize(max(1, int(track_font.pixelSize() * factor)))
+                else:
+                    track_font.setPointSizeF(max(1.0, track_font.pointSizeF() * factor))
         painter.setFont(track_font)
         for _track_rect, track, name_rect in self.w.geometry.iter_tracks():
             locked = bool((track.data if isinstance(track.data, dict) else {}).get("lock"))
@@ -523,7 +544,7 @@ class TrackPainter(BasePainter):
                     {
                         "rect": QRectF(title_rect),
                         "track": track,
-                        "title": str(title_elided or self.w._track_display_label(track) or ""),
+                        "title": str(self.w._track_display_label(track) or ""),
                         "open_menu": True,
                     }
                 )

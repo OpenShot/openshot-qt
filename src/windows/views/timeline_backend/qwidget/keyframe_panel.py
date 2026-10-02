@@ -603,10 +603,10 @@ class KeyframePanelMixin:
             if not properties:
                 continue
             track_context = self.get_track_panel_context(track_num)
-            toggle_rect = self._track_toggle_rect(track, name_rect)
-            indent = 0.0
-            if not toggle_rect.isNull():
-                indent = max(0.0, toggle_rect.x() - name_rect.x())
+            # Property labels keep their left inset when compact headers move
+            # the track toolbar to the right.
+            indent = (self.theme.track.name_border_width + 6.0
+                      + self.theme.keyframe_panel_label_indent)
             y = panel_rect.y() + padding
             for prop in properties:
                 context = self._panel_property_context(prop, track_context)

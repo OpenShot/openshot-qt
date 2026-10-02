@@ -315,6 +315,8 @@ class TimelineWidgetBase(RazorMixin, QWidget):
 
         # Theme settings
         self.theme = DEFAULT_THEME
+        self._base_theme = DEFAULT_THEME
+        self.track_size = self._normalize_track_size(get_app().get_settings().get("timeline-track-size"))
 
         # Thumbnail helpers
         self.thumbnail_style = self._load_thumbnail_style()
@@ -445,6 +447,22 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         self._middle_pan_anchor = QPointF()
         self._middle_pan_scroll_start = [0.0, 0.0, 0.0, 0.0]
         self._middle_pan_vscroll_start = [0.0, 0.0, 0.0, 0.0]
+
+    @staticmethod
+    def _normalize_track_size(size):
+        return size if size in ("minimal", "compact", "default", "relaxed") else "default"
+
+    def set_track_size(self, size):
+        """Apply a theme-defined track size without changing project data."""
+        size = self._normalize_track_size(size)
+        if size == self.track_size:
+            return
+        self.track_size = size
+        self.apply_theme(self._base_theme)
+        self._reset_thumbnail_requests()
+        self._track_title_rects = []
+        self._toolbar_hover_key = None
+        self.updateGeometry()
 
     def _normalize_thumbnail_style(self, style):
         """Normalize and validate thumbnail style values."""
@@ -877,11 +895,16 @@ class TimelineWidgetBase(RazorMixin, QWidget):
             self._theme_changed()
             return
 
+        self._base_theme = theme
+        theme = theme.with_track_size(getattr(self, "track_size", "default"))
         self.theme = theme
 
         old = (self.track_height, self.track_name_width, self.ruler_height,
                self.track_gap, self.track_margin_top)
 
+        self.keyframe_panel_row_height = theme.keyframe_panel_row_height
+        self.keyframe_panel_row_spacing = theme.keyframe_panel_row_spacing
+        self.keyframe_panel_padding = theme.keyframe_panel_padding
         self.track_height         = theme.track.height
         self.track_name_width     = theme.track.name_width
         self.track_gap            = theme.track.gap
@@ -2856,6 +2879,10 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         button = self._track_toolbar_button_at(pos)
         if button:
             return self._track_button_tooltip(button)
+
+        for entry in getattr(self, "_track_title_rects", []):
+            if entry["rect"].contains(pos):
+                return self._track_display_label(entry["track"])
 
         icon_entry = self._effect_icon_at(pos)
         if isinstance(icon_entry, dict):

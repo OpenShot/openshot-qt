@@ -129,6 +129,21 @@
     "setting": "emoji_group_filter"
   },
   {
+    "value": "default",
+    "title": "Track Size",
+    "type": "dropdown",
+    "restart": false,
+    "category": "Timeline",
+    "setting": "timeline-track-size",
+    "translate_values": true,
+    "values": [
+      {"value": "minimal", "name": "Minimal"},
+      {"value": "compact", "name": "Compact"},
+      {"value": "default", "name": "Default"},
+      {"value": "relaxed", "name": "Relaxed"}
+    ]
+  },
+  {
     "value": "entire",
     "title": "Thumbnail Style",
     "type": "dropdown",

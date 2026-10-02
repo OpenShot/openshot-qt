@@ -79,11 +79,10 @@ class PlayheadPainter(BasePainter):
         if line_top > top:
             top = line_top
 
-        self.w.geometry.ensure()
-        bottom = self.w.height()
-        tracks = list(self.w.geometry.iter_tracks())
-        if tracks:
-            bottom = tracks[-1][0].bottom()
+        # The playhead belongs to the viewport, including empty space below
+        # short tracks. Stop above the horizontal scrollbar in every layout.
+        viewport_bottom = max(0.0, self.w.height() - self.w.scroll_bar_thickness)
+        bottom = max(top, viewport_bottom)
 
         timeline_left = self.w.track_name_width
         timeline_width = (
@@ -108,17 +107,18 @@ class PlayheadPainter(BasePainter):
             icon_visible = icon_rect.intersected(
                 QRectF(
                     timeline_left,
-                    icon_rect.y(),
+                    0.0,
                     max(0.0, timeline_width),
-                    icon_rect.height(),
+                    viewport_bottom,
                 )
             )
             if not icon_visible.isNull():
-                # Adjust source rect when partially clipped by the track labels.
+                # The icon includes a shaft; clip it at viewport edges too.
                 dx = icon_visible.x() - icon_rect.x()
+                dy = icon_visible.y() - icon_rect.y()
                 source_rect = QRectF(
                     max(0.0, dx),
-                    0.0,
+                    max(0.0, dy),
                     icon_visible.width(),
                     icon_visible.height(),
                 )

@@ -1,6 +1,8 @@
 """Timeline theme data structures."""
 
 import os
+from copy import copy
+
 from typing import Optional
 
 from qt_api import QColor, QPixmap, QByteArray
@@ -51,6 +53,8 @@ class BasicTheme:
         self.background: QColor = QColor()
         self.background2: QColor = QColor()
         self.border_color: QColor = QColor()
+        # Optional clip fill for the full thumbnail strip; invalid means inherit.
+        self.full_thumbnail_background: QColor = QColor()
         self.border_radius: int = 0
         self.border_width: float = 0
         self.font_color: QColor = QColor()
@@ -112,6 +116,9 @@ class TimelineTheme:
         self.ruler: BasicTheme = BasicTheme()
         self.ruler_name_background: QColor = QColor()
         self.ruler_name_background2: QColor = QColor()
+        self.track_size_presets = {}
+        self.compact_track_headers = False
+        self.track_control_size = 16
         self.label_font_scale: float = 1.0
         self.ruler_time_font_size: int = 0
         self.menu_icon: Optional[QPixmap] = None
@@ -132,6 +139,10 @@ class TimelineTheme:
         self.track_unlocked_disabled_icon: Optional[QPixmap] = None
         self.track_unlocked_enabled_icon: Optional[QPixmap] = None
         self.keyframe_panel_add_icon: Optional[QPixmap] = None
+        self.keyframe_panel_row_height: float = 24.0
+        self.keyframe_panel_row_spacing: float = 4.0
+        self.keyframe_panel_padding: float = 6.0
+        self.keyframe_panel_label_indent: float = 6.0
         self.keyframe_panel_property_bg: QColor = QColor()
         self.keyframe_panel_row_border_color: QColor = QColor()
         self.keyframe_panel_row_border_width: float = 1.0
@@ -162,6 +173,30 @@ class TimelineTheme:
         self.keyframe_inactive_opacity: float = 0.5
         self.keyframe_size: int = 10
         _apply_overrides(self, kwargs)
+
+    def with_track_size(self, size):
+        """Return an independent sized theme; Default preserves every original value."""
+        sized = copy(self)
+        sized.track = copy(self.track)
+        sized.clip = copy(self.clip)
+        sized.transition = copy(self.transition)
+        preset = self.track_size_presets.get(size)
+        if preset is None:
+            return sized
+        height, gap = preset
+        sized.track.height = height
+        sized.track.gap = gap
+        # The cache strip is painted after clips; reserve its full height above
+        # the first track even when inter-track gaps are smaller.
+        sized.track.margin_top = max(gap, self.playback_cache_height)
+        sized.clip.height = height
+        sized.transition.height = height
+        sized.compact_track_headers = size in ("minimal", "compact")
+        sized.track_control_size = 14 if size == "minimal" else 16
+        sized.keyframe_panel_row_height = {"minimal": 18.0, "compact": 22.0, "relaxed": 28.0}[size]
+        sized.keyframe_panel_row_spacing = gap
+        sized.keyframe_panel_padding = gap
+        return sized
 
 
 DEFAULT_THEME = TimelineTheme()
