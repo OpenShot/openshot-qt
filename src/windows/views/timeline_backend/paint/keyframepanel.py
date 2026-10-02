@@ -28,7 +28,7 @@
 import math
 
 from qt_api import QPointF, QRectF, Qt
-from qt_api import QBrush, QColor, QPainter, QPainterPath, QPen
+from qt_api import QBrush, QColor, QFont, QPainter, QPainterPath, QPen
 
 from classes.app import get_app
 from classes.logger import log
@@ -203,7 +203,11 @@ class KeyframePanelPainter(BasePainter):
         size = self.marker_size
         half = size / 2.0
         rect = QRectF(x - half, y - half, size, size)
-        painter.setBrush(self.marker_brush)
+        brush = self.marker_brush
+        feedback = getattr(self.w, "hover_feedback", None)
+        if feedback:
+            brush = QBrush(feedback.keyframe_fill(brush.color(), rect, "track"))
+        painter.setBrush(brush)
         painter.setPen(self.marker_pen_selected if selected else self.marker_pen_unselected)
         mode = self._normalize_interpolation(interpolation)
         if mode == "linear":
@@ -371,6 +375,13 @@ class KeyframePanelPainter(BasePainter):
 
         painter.save()
         painter.setClipRect(area)
+        font = QFont(painter.font())
+        scale = self.w.theme.label_font_scale
+        if font.pixelSize() > 0:
+            font.setPixelSize(max(1, round(font.pixelSize() * scale)))
+        elif font.pointSizeF() > 0:
+            font.setPointSizeF(font.pointSizeF() * scale)
+        painter.setFont(font)
 
         timeline_area = QRectF(
             self.w.track_name_width,
@@ -404,7 +415,10 @@ class KeyframePanelPainter(BasePainter):
             context = self.w.get_track_panel_context(track_num)
             y = panel_rect.y() + padding
             label_panel = QRectF(name_rect.x(), panel_rect.y(), name_rect.width(), panel_rect.height())
-            if draw_labels and self.panel_brush.style() != Qt.NoBrush and self.panel_brush.color().isValid():
+            # In overlay mode the track-name painter already filled the entire
+            # expanded header. Filling it again hides its left and bottom borders.
+            if (draw_labels and mode != "overlay"
+                    and self.panel_brush.style() != Qt.NoBrush and self.panel_brush.color().isValid()):
                 painter.fillRect(label_panel, self.panel_brush)
             if draw_timeline and self.panel_brush.style() != Qt.NoBrush and self.panel_brush.color().isValid():
                 panel_fill = panel_rect.intersected(timeline_area)

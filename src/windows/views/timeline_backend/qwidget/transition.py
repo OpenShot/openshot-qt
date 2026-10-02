@@ -28,6 +28,9 @@
 from qt_api import QRectF
 
 
+from ..paint.hover import show_menu_with_hover
+
+
 class TransitionInteractionMixin:
     def _transition_menu_rect(self, rect, tran=None):
         for entry in reversed(getattr(self, "_transition_text_rects", [])):
@@ -46,6 +49,6 @@ class TransitionInteractionMixin:
         for rect, tran, _selected in self.geometry.iter_transitions(reverse=True):
             if self._transition_menu_rect(rect, tran).contains(pos) and hasattr(self.win, "timeline"):
                 self._select_timeline_item(tran.id, "transition", True)
-                self.win.timeline.ShowTransitionMenu(tran.id)
+                show_menu_with_hover(self, self.win.timeline.ShowTransitionMenu, tran.id)
                 return True
         return False

@@ -16,6 +16,18 @@ class CosmicDuskTimelineTheme(HumanityDarkTimelineTheme):
     def __init__(self):
         super().__init__()
 
+        # Preserve Cosmic Dusk's established sizing and edge treatments.
+        self.label_font_scale = 1.0
+        self.clip.border_width = 2.0
+        self.clip.shadow_color = QColor("#000000")
+        self.clip.shadow_blur = 10
+        self.track.font_color = QColor("#FFFFFF")
+        self.track.name_border_right_color = QColor()
+        self.track.name_border_right_width = 0
+        self.transition.border_radius = 8
+        self.ruler.border_color = QColor("#ACACAC")
+        self.ruler.font_color = QColor("#999999")
+
         # ── Timeline ──────────────────────────────────────────────────────
         self.background             = QColor("#141923")
         self.background2            = QColor()

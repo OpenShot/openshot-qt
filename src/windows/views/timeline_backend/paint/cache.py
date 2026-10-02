@@ -112,6 +112,9 @@ class PlaybackCachePainter(BasePainter):
         offset_px = float(getattr(self.w, "h_scroll_offset", 0.0) or 0.0)
 
         painter.save()
+        # Adjacent ruler/cache fills must meet on device pixels. Antialiasing
+        # exposes the light timeline background at fractional UI scales.
+        painter.setRenderHint(QPainter.Antialiasing, False)
         painter.setPen(Qt.NoPen)
         time_bg = self._time_panel_bottom_color()
         if time_bg.isValid():
