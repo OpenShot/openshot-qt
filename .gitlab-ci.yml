@@ -31,7 +31,7 @@ linux:
     - build/build-server.log
     - build/freeze-linux.log
   script:
-    - python3 -m pip install --user dbus-next==0.2.3
+    - python3 -m pip install --user dbus-next==0.2.3 defusedxml
     - "curl -O -J -L --header PRIVATE-TOKEN:$ACCESS_TOKEN http://gitlab.openshot.org/OpenShot/libopenshot/-/jobs/artifacts/$CI_COMMIT_REF_NAME/download?job=linux-builder"
     - if [ ! -f artifacts.zip ]; then
     -    "curl -O -J -L --header PRIVATE-TOKEN:$ACCESS_TOKEN http://gitlab.openshot.org/OpenShot/libopenshot/-/jobs/artifacts/develop/download?job=linux-builder"
@@ -72,6 +72,7 @@ mac:
     - build/build-server.log
     - build/freeze-mac.log
   script:
+    - python3 -m pip install --user defusedxml
     - "curl -O -J -L --header PRIVATE-TOKEN:$ACCESS_TOKEN http://gitlab.openshot.org/OpenShot/libopenshot/-/jobs/artifacts/$CI_COMMIT_REF_NAME/download?job=mac-builder"
     - if [ ! -f artifacts.zip ]; then
     -    "curl -O -J -L --header PRIVATE-TOKEN:$ACCESS_TOKEN http://gitlab.openshot.org/OpenShot/libopenshot/-/jobs/artifacts/develop/download?job=mac-builder"
@@ -133,6 +134,7 @@ win-x64:
     - $NewPath = $NewPath + "C:\msys64\mingw64\lib\python" + $PY_ABI + "\;C:\msys64\mingw64\lib\python" + $PY_ABI + "\site-packages\;C:\msys64\mingw64\lib\python" + $PY_ABI + "\site-packages\PyQt5;";
     - $env:Path = $NewPath + $originalPath
     - $env:PYTHONPATH = "$CI_PROJECT_DIR\build\install-x64\python;C:\msys64\mingw64\lib\python" + $PY_ABI + "\site-packages\PyQt5;"
+    - python3 -m pip install --user defusedxml
     - $VERSION=(python3 src/launch.py -V)
     - New-Item -path "build/install-x64/share/" -Name "$CI_PROJECT_NAME.env" -Value "CI_PROJECT_NAME:$CI_PROJECT_NAME`nCI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME`nCI_COMMIT_SHA:$CI_COMMIT_SHA`nCI_JOB_ID:$CI_JOB_ID`nCI_PIPELINE_ID:$env:CI_PIPELINE_ID`nVERSION:$VERSION" -ItemType file -force
     - $PREV_GIT_LABEL=(git describe --tags --abbrev=0 '@^')
@@ -178,6 +180,7 @@ win-x86:
     - $NewPath = $NewPath + "C:\msys64\mingw32\lib\python" + $PY_ABI + "\;C:\msys64\mingw32\lib\python" + $PY_ABI + "\site-packages\;C:\msys64\mingw32\lib\python" + $PY_ABI+ "\site-packages\PyQt5;";
     - $env:Path = $NewPath + $originalPath
     - $env:PYTHONPATH = "$CI_PROJECT_DIR\build\install-x86\python;C:\msys64\mingw32\lib\python" + $PY_ABI + "\site-packages\PyQt5;"
+    - python3 -m pip install --user defusedxml
     - $VERSION=(python3 src/launch.py -V)
     - New-Item -path "build/install-x86/share/" -Name "$CI_PROJECT_NAME.env" -Value "CI_PROJECT_NAME:$CI_PROJECT_NAME`nCI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME`nCI_COMMIT_SHA:$CI_COMMIT_SHA`nCI_JOB_ID:$CI_JOB_ID`nCI_PIPELINE_ID:$env:CI_PIPELINE_ID`nVERSION:$VERSION" -ItemType file -force
     - $PREV_GIT_LABEL=(git describe --tags --abbrev=0 '@^')

@@ -1,6 +1,6 @@
 """
  @file
- @brief Setup script to install OpenShot (on Linux and without any dependencies such as libopenshot)
+ @brief Setup script to install OpenShot (on Linux, excluding native dependencies such as libopenshot)
  @author Jonathan Thomas <jonathan@openshot.org>
 
  @section LICENSE
@@ -106,6 +106,7 @@ package_data["openshot_qt"] = src_files
 # -------------------------------------
 dist = setup(
     packages=[('openshot_qt')],
+    install_requires=["defusedxml"],
     package_data=package_data,
     data_files=os_files,
     include_package_data=True,

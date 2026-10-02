@@ -36,16 +36,18 @@ from qt_api import (
     QWidget, QDialog, QMessageBox, QFileDialog, QDialogButtonBox,
     QVBoxLayout, QHBoxLayout, QSizePolicy,
     QScrollArea, QLabel, QLineEdit, QPushButton,
-    QDoubleSpinBox, QComboBox, QCheckBox, QSpinBox, QStyle,
+    QDoubleSpinBox, QComboBox, QSpinBox, QStyle,
 )
 from qt_api import QKeySequence, QIcon
 
 from classes import info, ui_util, tabstops
 from classes import openshot_rc  # noqa
 from classes.app import get_app
+from classes.distribution import is_snap
 from classes.language import get_all_languages
 from classes.logger import log
 from classes.metrics import track_metric_screen
+from windows.preference_switch import PreferenceSwitch
 
 import openshot
 
@@ -250,7 +252,13 @@ class Preferences(QDialog):
                 label.setText(_(param["title"]))
                 label.setToolTip(_(param["title"]))
 
-                if param["type"] == "spinner":
+                if is_snap() and param.get("setting") in ("blender_command", "title_editor"):
+                    message = (_("Not available in Snap") if param["setting"] == "blender_command"
+                               else _("No path needed in Snap"))
+                    widget = QLabel(message)
+                    widget.setEnabled(False)
+
+                elif param["type"] == "spinner":
                     # create QDoubleSpinBox
                     widget = QDoubleSpinBox()
                     widget.setMinimum(float(param["min"]))
@@ -260,7 +268,7 @@ class Preferences(QDialog):
                     widget.setToolTip(param["title"])
                     widget.valueChanged.connect(functools.partial(self.spinner_value_changed, param))
 
-                if param["type"] == "spinner-int":
+                elif param["type"] == "spinner-int":
                     # create QDoubleSpinBox
                     widget = QSpinBox()
                     min_value = int(param["min"])
@@ -301,9 +309,9 @@ class Preferences(QDialog):
                         )
 
                 elif param["type"] == "bool":
-                    # create spinner
-                    widget = QCheckBox()
-                    widget.setMinimumHeight(24)
+                    widget = PreferenceSwitch()
+                    widget.setAccessibleName(_(param["title"]))
+                    label.setBuddy(widget)
                     if param["value"] is True:
                         widget.setCheckState(Qt.Checked)
                     else:
@@ -488,6 +496,8 @@ class Preferences(QDialog):
                 if (widget and label and filterFound):
                     # Add minimum size
                     label.setMinimumWidth(180)
+                    # Match combo-box rows, including text-only values.
+                    label.setMinimumHeight(28)
                     label.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
                     widget.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
 

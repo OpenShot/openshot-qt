@@ -49,6 +49,7 @@ class FeedbackCommandTests(unittest.TestCase):
         for saved, editing, expected in ((True, False, 1), (False, False, 0), (True, True, 0)):
             with self.subTest(saved=saved, editing=editing):
                 dialog = TitleEditor.__new__(TitleEditor)
+                dialog.svg_watcher = SimpleNamespace(path=None)
                 QDialog.__init__(dialog)
                 self.addCleanup(dialog.deleteLater)
                 dialog.edit_file_path = "existing.svg" if editing else None
@@ -66,7 +67,8 @@ class FeedbackCommandTests(unittest.TestCase):
     def test_title_write_failure_reports_failure(self):
         from windows.title_editor import TitleEditor
         with patch("builtins.open", side_effect=OSError("disk full")):
-            self.assertFalse(TitleEditor.writeToFile(SimpleNamespace(filename="title.svg"), Mock()))
+            self.assertFalse(TitleEditor.writeToFile(
+                SimpleNamespace(filename="title.svg"), Mock(toxml=lambda: '<svg/>')))
 
     def test_animated_title_excludes_previews_cancelled_and_failed_renders(self):
         from windows.views.blender_listview import BlenderListView
