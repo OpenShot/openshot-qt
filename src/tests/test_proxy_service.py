@@ -28,6 +28,7 @@
 import json
 import os
 import sys
+import tempfile
 import types
 import unittest
 from unittest.mock import Mock, patch
@@ -37,7 +38,7 @@ PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 if PATH not in sys.path:
     sys.path.append(PATH)
 
-from qt_api import QObject
+from qt_api import QObject, QUrl
 from qt_api import QApplication
 
 from classes.project_data import ProjectDataStore
@@ -544,7 +545,8 @@ class ProxyServiceTests(unittest.TestCase):
          saved = []
 
          with patch.object(self.service, "_proxy_root", return_value="/project_assets/optimized"), \
-              patch("classes.proxy_service.QFileDialog.getExistingDirectory", return_value="/optimized") as choose_dir, \
+              patch("classes.proxy_service.os.path.isdir", return_value=True), \
+              patch("classes.proxy_service.get_existing_directory", return_value="/optimized") as choose_dir, \
               patch.object(self.service, "_index_existing_optimized_files", return_value={
                   "basename": {"source-a.mp4": ["/optimized/F1.mp4"]},
                   "stem": {"f1": ["/optimized/F1.mp4"]},
@@ -574,7 +576,8 @@ class ProxyServiceTests(unittest.TestCase):
              return {"id": file_id, "path": path}
 
          with patch.object(self.service, "_proxy_root", return_value="/project_assets/optimized"), \
-              patch("classes.proxy_service.QFileDialog.getExistingDirectory", return_value="/optimized"), \
+              patch("classes.proxy_service.os.path.isdir", return_value=True), \
+              patch("classes.proxy_service.get_existing_directory", return_value="/optimized"), \
               patch.object(self.service, "_index_existing_optimized_files", return_value={
                   "basename": {"source-a.mp4": ["/optimized/F1.mp4"], "source-b.mp4": ["/optimized/F2.mp4"]},
                   "stem": {"source-a": ["/optimized/F1.mp4"], "source-b": ["/optimized/F2.mp4"]},
@@ -589,6 +592,43 @@ class ProxyServiceTests(unittest.TestCase):
 
          self.assertEqual(saved, [("F2", {"id": "F2", "path": "/optimized/F2.mp4"})])
          self.assertEqual(self.win.status_messages[-1][0], "Optimize Preview: linked 1 item(s), missing 0, invalid 1")
+
+     def test_use_existing_for_files_requests_portal_folder_and_links_proxy(self):
+         file_obj = types.SimpleNamespace(id="F1", data={"path": "/media/source.mp4"})
+         with tempfile.TemporaryDirectory() as folder:
+             proxy_path = os.path.join(folder, "source_proxy.mp4")
+             with open(proxy_path, "wb"):
+                 pass
+             reader = {"id": "F1", "path": proxy_path}
+             with patch.object(self.service, "_proxy_root", return_value=folder), \
+                  patch("qt_api._portal_file_dialog", return_value=[QUrl.fromLocalFile(folder)]) as portal, \
+                  patch("qt_api.QtWidgets.QFileDialog.getExistingDirectory") as native, \
+                  patch.object(self.service, "_reader_json_for_path", return_value=reader), \
+                  patch.object(self.service, "_save_proxy_reader") as save, \
+                  patch.object(self.service, "apply_runtime_updates_for_files"), \
+                  patch.object(self.service, "_emit_job_change"):
+                 self.service.use_existing_for_files([file_obj])
+             portal.assert_called_once_with(
+                 self.win, "Choose optimized preview folder", folder, folder=True)
+             native.assert_not_called()
+             save.assert_called_once_with("F1", reader, apply_runtime=False, emit_job_change=False)
+
+     def test_use_existing_for_files_rejects_file_missing_folder_and_cancel(self):
+         file_obj = types.SimpleNamespace(id="F1", data={"path": "/media/source.mp4"})
+         with tempfile.TemporaryDirectory() as folder:
+             file_path = os.path.join(folder, "source_proxy.mp4")
+             with open(file_path, "wb"):
+                 pass
+             for selected in (file_path, os.path.join(folder, "missing"), ""):
+                 with self.subTest(selected=selected), \
+                      patch("qt_api._portal_file_dialog", return_value=[QUrl.fromLocalFile(selected)] if selected else []), \
+                      patch.object(self.service, "_index_existing_optimized_files") as index, \
+                      patch.object(self.service, "_save_proxy_reader") as save, \
+                      patch.object(self.service, "apply_runtime_updates_for_files") as apply:
+                     self.service.use_existing_for_files([file_obj])
+                 index.assert_not_called()
+                 save.assert_not_called()
+                 apply.assert_not_called()
 
      def test_match_existing_optimized_path_prefers_same_name_different_extension(self):
          file_obj = types.SimpleNamespace(id="F1", data={"id": "F1", "path": "/media/clip001.mov"})
