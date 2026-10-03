@@ -56,6 +56,10 @@ jobs:
         sudo apt-get install -y libegl1
     - name: Install Qt
       run: python -m pip install ${{ matrix.qt }} defusedxml
+    - name: Configure Windows fonts for offscreen Qt tests
+      if: runner.os == 'Windows'
+      shell: pwsh
+      run: Add-Content -Path $env:GITHUB_ENV -Value "QT_QPA_FONTDIR=$env:WINDIR/Fonts"
     - name: Test native SVG file watching and shared toggles
       env:
         PYTHONPATH: src
