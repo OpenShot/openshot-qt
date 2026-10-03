@@ -27,6 +27,7 @@
 
 import copy
 import importlib
+import json
 import math
 import os
 import sys
@@ -108,6 +109,283 @@ class TimelineHelperTests(unittest.TestCase):
         cls.waveform_module = importlib.import_module("classes.waveform")
         cls.humanity_theme_module = importlib.import_module("themes.humanity.styles")
         cls.cosmic_theme_module = importlib.import_module("themes.cosmic.styles")
+
+    def test_dense_top_clip_border_is_not_overpainted_by_cache_lane(self):
+        for theme_class in (self.humanity_theme_module.HumanityDarkTimelineTheme,
+                            self.humanity_theme_module.RetroTimelineTheme,
+                            self.cosmic_theme_module.CosmicDuskTimelineTheme):
+            for size in ("minimal", "compact"):
+                for scale in (1.0, 1.25, 1.5, 2.0, 2.5):
+                    with self.subTest(theme=theme_class.__name__, size=size, scale=scale):
+                        helper = self.make_clip_painter()
+                        self.addCleanup(helper.w.deleteLater)
+                        widget = helper.w
+                        widget.theme = theme_class().with_track_size(size)
+                        widget.track_margin_top = widget.theme.track.margin_top
+                        widget.ruler_height = 30
+                        widget.track_name_width = 40
+                        widget.scroll_bar_thickness = 6
+                        widget.h_scroll_offset = 0
+                        widget._playback_cache_ranges = [(0, 100)]
+                        widget.resize(300, 160)
+                        helper.update_theme()
+                        rect = QRectF(60, widget.ruler_height + widget.track_margin_top,
+                                      120, widget.theme.track.height)
+                        image = QImage(int(300 * scale), int(160 * scale), QImage.Format_ARGB32)
+                        image.fill(Qt.transparent)
+                        painter = QPainter(image)
+                        painter.scale(scale, scale)
+                        helper._stroke_visible_border(painter, rect, helper.clip_pen)
+                        # Compare the whole clip footprint before and after the cache overlay.
+                        bounds = (int(rect.x() * scale), math.ceil(rect.y() * scale),
+                                  int(rect.width() * scale), int(rect.height() * scale))
+                        before = image.copy(*bounds)
+                        self.cache_paint_module.PlaybackCachePainter(widget).paint(painter)
+                        painter.end()
+                        self.assertEqual(image.copy(*bounds), before)
+
+    def test_playhead_spans_viewport_but_does_not_cover_horizontal_scrollbar(self):
+        from windows.views.timeline_backend.paint.playhead import PlayheadPainter
+        for theme_class in (self.humanity_theme_module.HumanityDarkTimelineTheme,
+                            self.humanity_theme_module.RetroTimelineTheme,
+                            self.cosmic_theme_module.CosmicDuskTimelineTheme):
+            for track_bottom, viewport_height in ((None, 160), (70, 160), (500, 160),
+                                                  (None, 320), (70, 320), (500, 320)):
+                for scale in (1, 2):
+                    with self.subTest(theme=theme_class.__name__, track_bottom=track_bottom, height=viewport_height, scale=scale):
+                        theme = theme_class().with_track_size("minimal")
+                        tracks = [(QRectF(40, 35, 200, track_bottom - 35), None, None)] if track_bottom else []
+                        widget = types.SimpleNamespace(
+                            theme=theme, fps_float=10, current_frame=21, pixels_per_second=10,
+                            track_name_width=40, ruler_height=30, track_margin_top=theme.track.margin_top,
+                            scroll_bar_thickness=6, width=lambda: 300, height=lambda: viewport_height,
+                            geometry=types.SimpleNamespace(ensure=lambda: None, iter_tracks=lambda: tracks),
+                        )
+                        image = QImage(300 * scale, viewport_height * scale, QImage.Format_ARGB32)
+                        image.fill(Qt.transparent)
+                        painter = QPainter(image)
+                        painter.scale(scale, scale)
+                        PlayheadPainter(widget).paint(painter)
+                        painter.end()
+                        self.assertEqual(image.pixelColor(60 * scale, (viewport_height - 7) * scale), theme.playhead_color)
+                        self.assertEqual(image.pixelColor(60 * scale, (viewport_height - 6) * scale).alpha(), 0)
+                        self.assertEqual(image.pixelColor(60 * scale, (viewport_height - 1) * scale).alpha(), 0)
+
+    def test_minimal_clip_and_transition_headers_stay_inside_short_rows(self):
+        from qt_api import QFont
+        original_font = self.app.font()
+        self.addCleanup(self.app.setFont, original_font)
+        for theme_class in (self.humanity_theme_module.HumanityDarkTimelineTheme,
+                            self.humanity_theme_module.RetroTimelineTheme,
+                            self.cosmic_theme_module.CosmicDuskTimelineTheme):
+            for font_size in (12, 24):
+                self.app.setFont(QFont("Sans", font_size))
+                for kind in ("clip", "transition"):
+                    with self.subTest(theme=theme_class.__name__, font_size=font_size, kind=kind):
+                        helper = self.make_item_header_painter(kind)
+                        self.addCleanup(helper.w.deleteLater)
+                        helper.w.theme = theme_class().with_track_size("minimal")
+                        helper.update_theme()
+                        helper.w._clip_text_rects = []
+                        helper.w._transition_text_rects = []
+                        helper.w._effect_icon_rects = []
+                        helper.w._transition_label = lambda item: "A long transition title"
+                        item = types.SimpleNamespace(id="item", data={"title": "A long clip title", "effects": []})
+                        rect = QRectF(0, 0, 180, helper.w.theme.track.height)
+                        image = QImage(180, int(rect.height()), QImage.Format_ARGB32)
+                        image.fill(Qt.transparent)
+                        painter = QPainter(image)
+                        try:
+                            helper._draw_item_header(painter, item, rect, rect)
+                        finally:
+                            painter.end()
+                        entries = getattr(helper.w, "_" + kind + "_text_rects")
+                        self.assertEqual(len(entries), 1)
+                        self.assertTrue(rect.contains(entries[0]["rect"]))
+
+    def test_track_size_preference_defaults_and_applies_without_restart(self):
+        from windows.preferences import Preferences
+        from qt_api import QComboBox
+        with open(os.path.join(info.PATH, "settings", "_default.settings")) as settings_file:
+            params = json.load(settings_file)
+        param = next(p for p in params if p.get("setting") == "timeline-track-size")
+        self.assertEqual(param["value"], "default")
+        self.assertFalse(param["restart"])
+        combo = QComboBox()
+        self.addCleanup(combo.deleteLater)
+        for option in param["values"]:
+            combo.addItem(option["name"], option["value"])
+        settings = DummySettings()
+        dialog = types.SimpleNamespace(s=settings, check_for_restart=MagicMock())
+        dialog._apply_timeline_track_size = types.MethodType(Preferences._apply_timeline_track_size, dialog)
+        timeline = types.SimpleNamespace(set_track_size=MagicMock())
+        app = types.SimpleNamespace(window=types.SimpleNamespace(timeline=timeline))
+        with patch("windows.preferences.get_app", return_value=app):
+            for index, expected in enumerate(("minimal", "compact", "default", "relaxed")):
+                Preferences.dropdown_index_changed(dialog, combo, param, index)
+                self.assertEqual(settings.get("timeline-track-size"), expected)
+                timeline.set_track_size.assert_called_with(expected)
+
+    def test_track_sizes_preserve_defaults_and_do_not_mutate_theme(self):
+        for theme_class, heights in (
+            (self.humanity_theme_module.HumanityDarkTimelineTheme, (28, 40, 72)),
+            (self.humanity_theme_module.RetroTimelineTheme, (28, 40, 72)),
+            (self.cosmic_theme_module.CosmicDuskTimelineTheme, (24, 36, 64)),
+        ):
+            theme = theme_class()
+            original = {name: vars(getattr(theme, name)).copy() for name in ("track", "clip", "transition")}
+            for size, height, gap in zip(("minimal", "compact", "relaxed"), heights, (2, 4, 8)):
+                with self.subTest(theme=theme_class.__name__, size=size):
+                    sized = theme.with_track_size(size)
+                    self.assertEqual((sized.track.height, sized.track.gap, sized.track.margin_top),
+                                     (height, gap, max(gap, theme.playback_cache_height)))
+                    self.assertEqual(sized.clip.height, height)
+                    self.assertEqual(sized.transition.height, height)
+                    self.assertIsNot(sized.track, theme.track)
+            for size in ("default", "unknown", None):
+                default = theme.with_track_size(size)
+                for name, values in original.items():
+                    self.assertEqual(vars(getattr(default, name)), values)
+                    self.assertEqual(vars(getattr(theme, name)), values)
+                self.assertFalse(default.compact_track_headers)
+
+    def test_track_size_live_switch_and_theme_change_restore_original_geometry(self):
+        base = self.qwidget_base_module.TimelineWidgetBase
+        helper = types.SimpleNamespace(
+            track_size="default", track_height=0, track_name_width=0, ruler_height=0,
+            track_gap=0, track_margin_top=0, changed=MagicMock(), _theme_changed=MagicMock(),
+            _reset_thumbnail_requests=MagicMock(), updateGeometry=MagicMock(),
+            _normalize_track_size=base._normalize_track_size,
+        )
+        helper.apply_theme = types.MethodType(base.apply_theme, helper)
+        cosmic = self.cosmic_theme_module.CosmicDuskTimelineTheme()
+        humanity = self.humanity_theme_module.HumanityDarkTimelineTheme()
+        helper.apply_theme(cosmic)
+        base.set_track_size(helper, "minimal")
+        self.assertEqual((helper.track_height, helper.track_gap), (24, 2))
+        helper.apply_theme(humanity)
+        self.assertEqual((helper.track_height, helper.track_gap), (28, 2))
+        base.set_track_size(helper, "relaxed")
+        self.assertEqual((helper.track_height, helper.track_gap), (72, 8))
+        base.set_track_size(helper, "default")
+        self.assertEqual((helper.track_height, helper.track_gap, helper.track_margin_top),
+                         (humanity.track.height, humanity.track.gap, humanity.track.gap))
+        self.assertEqual(helper.theme.clip.height, humanity.clip.height)
+        self.assertEqual(helper.theme.transition.height, humanity.transition.height)
+        self.assertEqual(base._normalize_track_size(None), "default")
+        self.assertEqual(base._normalize_track_size("bad-setting"), "default")
+        self.assertEqual(helper._reset_thumbnail_requests.call_count, 3)
+        self.assertEqual(helper.updateGeometry.call_count, 3)
+
+    def test_keyframe_panel_density_follows_live_track_size(self):
+        from windows.views.timeline_backend.qwidget.keyframe_panel import KeyframePanelMixin
+        base = self.qwidget_base_module.TimelineWidgetBase
+        for theme_class in (self.humanity_theme_module.HumanityDarkTimelineTheme,
+                            self.humanity_theme_module.RetroTimelineTheme,
+                            self.cosmic_theme_module.CosmicDuskTimelineTheme):
+            helper = types.SimpleNamespace(
+                track_height=0, track_name_width=0, ruler_height=0,
+                track_gap=0, track_margin_top=0, changed=MagicMock(), _theme_changed=MagicMock())
+            theme = theme_class()
+            for size, row, gap, padding, total in (
+                ("minimal", 18, 2, 2, 82), ("compact", 22, 4, 4, 108),
+                ("relaxed", 28, 8, 8, 152), ("default", 24, 4, 6, 120),
+            ):
+                with self.subTest(theme=theme_class.__name__, size=size):
+                    helper.track_size = size
+                    base.apply_theme(helper, theme)
+                    self.assertEqual((helper.keyframe_panel_row_height, helper.keyframe_panel_row_spacing,
+                                      helper.keyframe_panel_padding), (row, gap, padding))
+                    self.assertEqual(KeyframePanelMixin._panel_height_for_properties(helper, 4), total)
+                    self.assertEqual(KeyframePanelMixin._panel_height_for_properties(helper, 0), 0)
+            self.assertEqual(theme.keyframe_panel_row_height, 24)
+
+
+    def test_compact_track_headers_keep_titles_and_controls_in_separate_hit_targets(self):
+        from windows.views.timeline_backend.paint.track import TrackPainter
+        from windows.views.timeline_backend.qwidget.track import TrackInteractionMixin
+        from qt_api import QFont
+
+        class Widget(TrackInteractionMixin, QWidget):
+            normalize_track_number = staticmethod(float)
+            _track_display_label = staticmethod(lambda track: track.data["label"])
+
+        for theme_class in (self.humanity_theme_module.HumanityDarkTimelineTheme,
+                            self.humanity_theme_module.RetroTimelineTheme,
+                            self.cosmic_theme_module.CosmicDuskTimelineTheme):
+            for size in ("minimal", "compact"):
+                for font_size in (12, 24):
+                    with self.subTest(theme=theme_class.__name__, size=size, font_size=font_size):
+                        widget = Widget()
+                        self.addCleanup(widget.deleteLater)
+                        widget.theme = theme_class().with_track_size(size)
+                        widget.track_name_width = widget.theme.track.name_width
+                        widget.ruler_height = widget.scroll_bar_thickness = 0
+                        widget.vertical_factor = widget.theme.track.height
+                        widget._track_panel_enabled = {1: True}
+                        widget.resize(widget.track_name_width, 200)
+                        widget.track_painter = TrackPainter(widget)
+                        track = types.SimpleNamespace(id="track", data={
+                            "number": 1, "label": "Dialogue — a very long translated track name", "lock": True})
+                        # Expanded keyframe panels must not move the header controls down.
+                        name_rect = QRectF(0, 0, widget.track_name_width, widget.vertical_factor + 100)
+                        widget.geometry = types.SimpleNamespace(
+                            ensure=lambda: None, iter_tracks=lambda: [(QRectF(), track, name_rect)])
+                        image = QImage(widget.width(), widget.height(), QImage.Format_ARGB32)
+                        image.fill(Qt.transparent)
+                        painter = QPainter(image)
+                        painter.setFont(QFont("Sans", font_size))
+                        widget.track_painter.paint_names(painter)
+                        painter.end()
+                        title = widget._track_title_rects[0]
+                        buttons = widget._track_toolbar_buttons(track, name_rect)
+                        self.assertEqual([b["key"] for b in buttons], ["lock-toggle", "keyframe-panel"])
+                        row = QRectF(0, 0, widget.track_name_width, widget.vertical_factor)
+                        self.assertTrue(row.contains(title["rect"]))
+                        self.assertEqual(title["title"], track.data["label"])
+                        for button in buttons:
+                            self.assertTrue(row.contains(button["rect"]))
+                            self.assertGreaterEqual(button["rect"].height(), 20)
+                            self.assertFalse(title["rect"].intersects(button["rect"]))
+                            hit = widget._track_toolbar_button_at(button["rect"].center())
+                            self.assertEqual(hit["key"], button["key"])
+                        self.assertFalse(buttons[0]["rect"].intersects(buttons[1]["rect"]))
+                        self.assertTrue(widget._track_menu_rect(name_rect, track).contains(title["rect"].center()))
+                        # Adjacent icons have four logical pixels between them,
+                        # while their hit targets retain the full row height.
+                        self.assertAlmostEqual(buttons[0]["margin_x"] + buttons[1]["margin_x"], 4.0)
+                        self.assertAlmostEqual(buttons[0]["rect"].right(), buttons[1]["rect"].left())
+
+                        from qt_api import QBrush
+                        from windows.views.timeline_backend.paint.keyframepanel import KeyframePanelPainter
+                        from windows.views.timeline_backend.qwidget.keyframe_panel import KeyframePanelMixin
+                        panel_rect = QRectF(widget.track_name_width, widget.vertical_factor, 200, 100)
+                        widget.geometry.panel_rect = lambda number: panel_rect
+                        widget.is_keyframe_panel_visible = lambda number: True
+                        widget.get_track_panel_properties = lambda number: [{"display_name": "Location X", "placeholder": True}]
+                        widget.get_track_panel_context = lambda number: {}
+                        widget.keyframe_panel_padding = widget.theme.keyframe_panel_padding
+                        widget.keyframe_panel_row_height = widget.theme.keyframe_panel_row_height
+                        widget.keyframe_panel_row_spacing = widget.theme.keyframe_panel_row_spacing
+                        widget._panel_lane_padding = types.MethodType(KeyframePanelMixin._panel_lane_padding, widget)
+                        widget._panel_layout_constants = types.MethodType(KeyframePanelMixin._panel_layout_constants, widget)
+                        widget._panel_property_context = lambda prop, context: context
+                        panel = KeyframePanelPainter.__new__(KeyframePanelPainter)
+                        panel.w = widget
+                        panel.panel_brush = QBrush(widget.theme.track.name_background)
+                        panel._paint_property_row = MagicMock()
+                        painter = QPainter(image)
+                        panel.paint(painter, mode="overlay")
+                        painter.end()
+                        painted_indent = panel._paint_property_row.call_args.args[6]
+                        lane = next(KeyframePanelMixin._iter_panel_lanes(widget))
+                        self.assertEqual(lane["indent"], painted_indent)
+                        painted_label_rect = panel._paint_property_row.call_args.args[1]
+                        self.assertEqual(lane["label_rect"], painted_label_rect)
+                        self.assertEqual(lane["label_rect"].height(), widget.theme.keyframe_panel_row_height)
+                        self.assertEqual(painted_indent, widget.theme.track.name_border_width + 12)
+                        self.assertGreater(lane["label_rect"].width() - painted_indent, 100)
+
 
     def test_locked_item_context_menus(self):
         timeline_module = self.timeline_module
@@ -1586,6 +1864,49 @@ class TimelineHelperTests(unittest.TestCase):
         widget = Widget()
         painter = clip_paint_module.ClipPainter(widget)
         return painter
+
+    def test_thumbnail_style_switch_refreshes_retro_colors_and_cached_clips(self):
+        base = self.qwidget_base_module.TimelineWidgetBase
+        for theme_class in (self.humanity_theme_module.RetroTimelineTheme,
+                            self.humanity_theme_module.HumanityDarkTimelineTheme,
+                            self.cosmic_theme_module.CosmicDuskTimelineTheme):
+            helper = self.make_clip_painter()
+            widget = helper.w
+            self.addCleanup(widget.deleteLater)
+            theme = theme_class()
+            widget.theme = theme
+            widget.clip_painter = helper
+            widget._normalize_thumbnail_style = types.MethodType(base._normalize_thumbnail_style, widget)
+            widget._reset_thumbnail_requests = lambda: None
+            helper.update_theme()
+            selected_color = helper.sel_pen.color()
+            for style in ("start", "entire", "start-end", "none", "entire"):
+                with self.subTest(theme=theme_class.__name__, style=style):
+                    helper.clip_cache["old-style"] = object()
+                    helper._retime_preview_cache["old-style"] = object()
+                    base.set_thumbnail_style(widget, style)
+                    self.assertEqual(helper.clip_cache, {})
+                    self.assertEqual(helper._retime_preview_cache, {})
+                    image = QImage(80, 40, QImage.Format_ARGB32)
+                    image.fill(0)
+                    painter = QPainter(image)
+                    helper._fill_clip_background(painter, QRectF(0, 0, 80, 40))
+                    painter.end()
+                    if theme_class is self.humanity_theme_module.RetroTimelineTheme:
+                        background = "#30343B" if style == "entire" else "#F0DEA6"
+                        border = "#D0A13A"
+                        self.assertEqual(image.pixelColor(40, 20), QColor(background))
+                        self.assertEqual(helper.clip_pen.color(), QColor(border))
+                    else:
+                        self.assertEqual(helper.clip_pen.color(), theme.clip.border_color)
+                        # Other themes retain the same fill across thumbnail modes.
+                        if style == "start":
+                            original_fill = image.pixelColor(40, 20)
+                        self.assertEqual(image.pixelColor(40, 20), original_fill)
+                    self.assertEqual(helper.sel_pen.color(), selected_color)
+            # Applying a theme again must honor the current thumbnail mode too.
+            helper.update_theme()
+            self.assertEqual(helper.clip_pen.color(), theme.clip.border_color)
 
     def make_item_header_painter(self, kind):
         helper = self.make_clip_painter()
@@ -3821,14 +4142,15 @@ class TimelineHelperTests(unittest.TestCase):
         self.assertEqual(len(helper.transition_entries), 1)
         self.assertTrue(helper.transition_entries[0].selected)
 
-    def test_transition_themes_use_two_pixel_border_width(self):
+    def test_clip_and_transition_themes_use_two_pixel_border_width(self):
         humanity = self.humanity_theme_module.HumanityDarkTimelineTheme()
         retro = self.humanity_theme_module.RetroTimelineTheme()
         cosmic = self.cosmic_theme_module.CosmicDuskTimelineTheme()
 
-        self.assertEqual(humanity.transition.border_width, 2.0)
-        self.assertEqual(retro.transition.border_width, 2.0)
-        self.assertEqual(cosmic.transition.border_width, 2.0)
+        for theme in (humanity, retro, cosmic):
+            with self.subTest(theme=type(theme).__name__):
+                self.assertEqual(theme.clip.border_width, 2.0)
+                self.assertEqual(theme.transition.border_width, 2.0)
 
     def test_transition_selected_state_stays_translucent_but_brighter(self):
         painter_cls = self.transition_paint_module.TransitionPainter

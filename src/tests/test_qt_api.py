@@ -21,6 +21,22 @@ class QtApiTests(unittest.TestCase):
                 event_type = getattr(qt_api.QEvent, name)
                 self.assertEqual(qt_api.QEvent(event_type).type(), event_type)
 
+    def test_shared_toggle_imports_and_enums_are_available(self):
+        for name in ("QCheckBox", "QColor", "QPainter", "QPalette", "QPen", "QPointF",
+                     "QRectF", "QSize", "Property"):
+            with self.subTest(name=name, binding=qt_api.QT_API):
+                self.assertIsNotNone(getattr(qt_api, name))
+        for name in ("StrongFocus", "PointingHandCursor", "NoBrush", "NoPen", "PartiallyChecked"):
+            with self.subTest(name=name, binding=qt_api.QT_API):
+                self.assertIsNotNone(getattr(qt_api.Qt, name))
+        self.assertIsNotNone(qt_api.QPainter.Antialiasing)
+        for name in ("Active", "Highlight", "WindowText"):
+            self.assertIsNotNone(getattr(qt_api.QPalette, name))
+
+    def test_toggle_text_flags_are_available_on_all_bindings(self):
+        flags = qt_api.Qt.AlignLeft | qt_api.Qt.AlignVCenter | qt_api.Qt.TextShowMnemonic
+        self.assertNotEqual(int(getattr(flags, "value", flags)), 0)
+
     def test_common_qt_types_are_eagerly_exported(self):
         """Python 3.6 cannot use the module-level __getattr__ fallback."""
         for name in ("QCoreApplication", "QPointF", "QRectF", "Qt"):

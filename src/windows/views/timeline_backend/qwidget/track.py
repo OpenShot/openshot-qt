@@ -97,6 +97,26 @@ class TrackInteractionMixin:
         if not specs:
             return []
 
+        if getattr(self.theme, "compact_track_headers", False):
+            # One row: title/menu on the left, lock and keyframe controls on the right.
+            row_height = min(name_rect.height(), self.theme.track.height)
+            hit_size = min(22.0, max(0.0, row_height - 2.0))
+            hit_width = min(hit_size, float(self.theme.track_control_size) + 4.0)
+            left = name_rect.right() - 2.0 - len(specs) * hit_width
+            for spec in specs:
+                pix_info = spec["pixmaps"]
+                if spec["key"] == "lock-toggle":
+                    pix_info = pix_info.get("locked") or pix_info.get("unlocked") or {}
+                pix = pix_info.get("enabled") or pix_info.get("disabled")
+                width, height = painter.logical_size(pix)
+                spec["rect"] = QRectF(left, name_rect.y() + (row_height - hit_size) / 2.0,
+                                      hit_width, hit_size)
+                spec["margin_x"] = max(0.0, (hit_width - width) / 2.0)
+                spec["margin_y"] = max(0.0, (hit_size - height) / 2.0)
+                buttons.append(spec)
+                left += hit_width
+            return buttons
+
         left_limit = name_rect.x() + border + menu_margin
         min_left = name_rect.x() + border + menu_margin
         left_limit = max(min_left, left_limit - TRACK_TOOLBAR_LEFT_SHIFT)

@@ -33,8 +33,9 @@ from qt_api import (
 )
 from qt_api import (
     QAction, QLabel, QWidget, QVBoxLayout, QHBoxLayout,
-    QPushButton, QToolButton, QCheckBox,
+    QPushButton, QToolButton,
 )
+from windows.toggle_switch import ToggleSwitch
 from classes.logger import log
 from classes.app import get_app
 from classes.metrics import track_metric_screen
@@ -182,7 +183,7 @@ class TutorialDialog(QWidget):
             s = get_app().get_settings()
 
             # create spinner
-            checkbox_metrics = QCheckBox()
+            checkbox_metrics = ToggleSwitch()
             checkbox_metrics.setObjectName("checkboxMetrics")
             checkbox_metrics.setText(_("Yes, I would like to improve OpenShot!"))
             if s.get("send_metrics"):

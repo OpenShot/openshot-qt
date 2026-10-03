@@ -128,6 +128,13 @@ editing when you need later clips to move automatically.
 For track layout basics, see :ref:`tracks_ref`. For detailed clip editing behavior,
 see :ref:`clips_cutting_slicing_ref`.
 
+.. tip::
+   For projects with many layers, choose **Minimal** or **Compact** under
+   **Preferences → Timeline → Track Size** to see more tracks with less scrolling.
+   Choose **Relaxed** for more vertical room, or **Default** to restore the theme's
+   original height. Keyframe panel spacing adjusts too. See
+   :ref:`preferences_track_size_ref` for details.
+
 Keyframes in the Timeline
 -------------------------
 

@@ -1309,6 +1309,10 @@ def _patch_enums_for_qt6():
                 except Exception:
                     pass
 
+    text_flag = getattr(QtCore.Qt, "TextFlag", None)
+    if text_flag and not hasattr(QtCore.Qt, "TextShowMnemonic"):
+        QtCore.Qt.TextShowMnemonic = text_flag.TextShowMnemonic
+
     alignment_flag = getattr(QtCore.Qt, "AlignmentFlag", None)
     if alignment_flag:
         for name in (
@@ -2615,6 +2619,9 @@ def load_ui(path: str, baseinstance=None):
         setattr(baseinstance, "_qt_ui_loader", loader)
     else:
         loader = QtUiTools.QUiLoader()
+    # QUiLoader does not import Python custom widgets from Designer headers.
+    from windows.toggle_switch import ToggleSwitch
+    loader.registerCustomWidget(ToggleSwitch)
     ui_file = QtCore.QFile(path)
     if not ui_file.open(QtCore.QFile.ReadOnly):
         raise IOError(f"Cannot open UI file: {path}")
@@ -2735,7 +2742,7 @@ def __getattr__(name):
         if name == "QSignalTransition":
             return QSignalTransition
         return QState if name == "QState" else QStateMachine
-    if name == "QAbstractItemModelTester":
+    if name in ("QAbstractItemModelTester", "QTest"):
         try:
             if QT_API == "pyqt6":
                 import PyQt6.QtTest as QtTest  # type: ignore
@@ -2745,8 +2752,8 @@ def __getattr__(name):
                 import PyQt5.QtTest as QtTest  # type: ignore
             else:
                 QtTest = None
-            if QtTest is not None and hasattr(QtTest, "QAbstractItemModelTester"):
-                return QtTest.QAbstractItemModelTester
+            if QtTest is not None and hasattr(QtTest, name):
+                return getattr(QtTest, name)
         except Exception:
             pass
     for module in _MODULES:

@@ -1,15 +1,10 @@
 """Preferences toggles retain native checkbox input and signals."""
-import importlib
 import unittest
 from unittest.mock import Mock
 
-from qt_api import QApplication, QCheckBox, QColor, QPoint, Qt, QT_API
+from qt_api import QApplication, QCheckBox, QColor, QPoint, Qt, QTest
 from tests.qt_test_app import get_or_create_app
 from windows.preference_switch import PreferenceSwitch
-
-binding = {'pyqt5': 'PyQt5', 'pyqt6': 'PyQt6', 'pyside6': 'PySide6'}[QT_API]
-QTest = importlib.import_module(binding + '.QtTest').QTest
-
 
 class PreferenceSwitchTests(unittest.TestCase):
     @classmethod

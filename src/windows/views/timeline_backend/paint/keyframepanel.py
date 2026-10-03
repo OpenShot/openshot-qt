@@ -382,6 +382,11 @@ class KeyframePanelPainter(BasePainter):
         elif font.pointSizeF() > 0:
             font.setPointSizeF(font.pointSizeF() * scale)
         painter.setFont(font)
+        if self.w.theme.compact_track_headers:
+            row_height = float(getattr(self.w, "keyframe_panel_row_height", 24.0))
+            if painter.fontMetrics().height() > row_height - 4.0:
+                font.setPixelSize(max(1, int(row_height - 4.0)))
+                painter.setFont(font)
 
         timeline_area = QRectF(
             self.w.track_name_width,
@@ -427,10 +432,10 @@ class KeyframePanelPainter(BasePainter):
                     painter.setClipRect(timeline_area)
                     painter.fillRect(panel_fill, self.panel_brush)
                     painter.restore()
-            toggle_rect = self.w._track_toggle_rect(track, name_rect)
-            indent = 0.0
-            if not toggle_rect.isNull():
-                indent = max(0.0, toggle_rect.x() - label_panel.x())
+            # Property labels keep their left inset when compact headers move
+            # the track toolbar to the right.
+            indent = (self.w.theme.track.name_border_width + 6.0
+                      + self.w.theme.keyframe_panel_label_indent)
             for prop in properties:
                 if row_height <= 0.0:
                     break

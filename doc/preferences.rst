@@ -108,12 +108,44 @@ The Timeline tab controls default timeline behavior and clip/transition insertio
    ===================================  ==================  ===========
    Setting                              Default             Description
    ===================================  ==================  ===========
+   Track Size                           Default             Theme-specific track sizing: Minimal, Compact, Default, or Relaxed
    Thumbnail Style                      Entire Clip         Thumbnail density for the timeline
    Image Length (seconds)               10.00               Default duration for still images added to the timeline
    Transition Length (seconds)          10.00               Default duration for newly added transitions
    Waveform Samples (per second)        200                 Detail stored for new peak/RMS timeline waveforms (20–400)
    Auto-Transition (overlap clips)      Enabled             Automatically create transitions when clips overlap
    ===================================  ==================  ===========
+
+.. _preferences_track_size_ref:
+
+Track Size
+""""""""""
+
+Choose **Preferences → Timeline → Track Size** to control how many tracks fit
+vertically in the timeline:
+
+- **Minimal:** Fit the most tracks on screen, useful for large projects with many
+  video, audio, and overlay layers.
+- **Compact:** Show more tracks while leaving a little more room for clip content
+  and track controls than Minimal.
+- **Default:** Use the theme's original track height, matching the layout before
+  changing this preference.
+- **Relaxed:** Give clips, thumbnails, and controls more vertical room when working
+  with fewer tracks.
+
+Sizes are theme-specific; Cosmic Dusk offers the shortest Minimal tracks. Track
+gaps, clip and transition heights, and keyframe panel rows adapt with the selected
+size. Minimal and Compact place track controls beside the track name.
+
+Changes take effect immediately without restarting OpenShot. This is an application
+preference: it changes the timeline display, not your project's clips or exported
+video. Select **Default** at any time to restore the current theme's original sizing.
+
+.. tip::
+   Try Minimal or Compact to compare layers with less vertical scrolling. Use
+   Relaxed when you want larger thumbnails. Track Size changes vertical space;
+   timeline zoom changes how much time is visible horizontally. **Thumbnail Style**
+   separately controls how thumbnails are distributed along each clip.
 
 .. _preferences_preview_ref:
 

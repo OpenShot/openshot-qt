@@ -47,7 +47,7 @@ from classes.distribution import is_snap
 from classes.language import get_all_languages
 from classes.logger import log
 from classes.metrics import track_metric_screen
-from windows.preference_switch import PreferenceSwitch
+from windows.toggle_switch import ToggleSwitch
 
 import openshot
 
@@ -309,7 +309,7 @@ class Preferences(QDialog):
                         )
 
                 elif param["type"] == "bool":
-                    widget = PreferenceSwitch()
+                    widget = ToggleSwitch()
                     widget.setAccessibleName(_(param["title"]))
                     label.setBuddy(widget)
                     if param["value"] is True:
@@ -648,6 +648,12 @@ class Preferences(QDialog):
         if "restart" in param and param["restart"]:
             self.requires_restart = True
 
+    def _apply_timeline_track_size(self):
+        """Resize timeline tracks immediately when the preference changes."""
+        timeline_widget = getattr(get_app().window, "timeline", None)
+        if hasattr(timeline_widget, "set_track_size"):
+            timeline_widget.set_track_size(self.s.get("timeline-track-size"))
+
     def _apply_timeline_thumbnail_style(self):
         """Push the current thumbnail preference to the QWidget timeline."""
         timeline_widget = getattr(get_app().window, "timeline", None)
@@ -923,6 +929,8 @@ class Preferences(QDialog):
 
         if param["setting"] == "timeline-thumbnail-style":
             self._apply_timeline_thumbnail_style()
+        if param["setting"] == "timeline-track-size":
+            self._apply_timeline_track_size()
 
         # Check for restart
         self.check_for_restart(param)

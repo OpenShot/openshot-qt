@@ -971,6 +971,11 @@ class ClipPainter(ItemHeaderMixin, BasePainter):
 
         bg = self.w.theme.clip.background
         bg2 = self.w.theme.clip.background2
+        if getattr(self.w, "thumbnail_style", "entire") == "entire":
+            override = getattr(self.w.theme.clip, "full_thumbnail_background", QColor())
+            if override.isValid():
+                bg = override
+                bg2 = QColor()
         if bg2.isValid() and bg2 != bg:
             grad = QLinearGradient(QPointF(inner_rect.topLeft()), QPointF(inner_rect.bottomLeft()))
             grad.setColorAt(0, bg)

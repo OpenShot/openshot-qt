@@ -188,4 +188,3 @@ class HoverFeedback:
             gradient.setColorAt(stop, color)
         painter.setPen(QPen(QBrush(gradient), 3.0, Qt.SolidLine, Qt.RoundCap, Qt.RoundJoin))
         painter.drawPath(path)
-

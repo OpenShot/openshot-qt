@@ -21,6 +21,10 @@ class HumanityDarkTimelineTheme(TimelineTheme):
     def __init__(self):
         super().__init__()
 
+        self.track_size_presets = {
+            "minimal": (28, 2), "compact": (40, 4), "relaxed": (72, 8),
+        }
+
         # Keep labels proportional to the application font and user UI scale.
         self.label_font_scale = 0.9
 
@@ -64,7 +68,7 @@ class HumanityDarkTimelineTheme(TimelineTheme):
         self.clip.top_overlay2  = QColor()
         self.clip.border_color  = QColor("#4B92AD")
         self.clip.border_radius = 5
-        self.clip.border_width  = 1.5
+        self.clip.border_width  = 2.0
         self.clip.font_color    = QColor("#FFFFFF")
         self.clip.font_size     = 9
         self.clip.height        = 58
@@ -84,7 +88,7 @@ class HumanityDarkTimelineTheme(TimelineTheme):
         self.track.name_background          = QColor("#191B1D")
         self.track.name_width               = 140
         self.track.name_border_color        = QColor("#4B92AD")
-        self.track.name_border_width        = 1
+        self.track.name_border_width        = 4
         self.track.name_border_top_color    = QColor("#3B3F42")
         self.track.name_border_top_width    = 1
         self.track.name_border_bottom_color = QColor("#3B3F42")
@@ -171,7 +175,7 @@ class RetroTimelineTheme(HumanityDarkTimelineTheme):
         self.clip.top_overlay   = QColor()      # gradient overlay disabled
         self.clip.top_overlay2  = QColor()
         self.clip.border_color  = QColor("#D0A13A")
-        self.clip.border_width  = 2.5
+        self.clip.full_thumbnail_background = QColor("#30343B")
         self.clip.border_radius = 5
         self.clip.font_color    = QColor("#FFFFFF")
 

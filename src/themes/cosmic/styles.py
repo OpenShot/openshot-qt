@@ -16,9 +16,12 @@ class CosmicDuskTimelineTheme(HumanityDarkTimelineTheme):
     def __init__(self):
         super().__init__()
 
+        self.track_size_presets = {
+            "minimal": (24, 2), "compact": (36, 4), "relaxed": (64, 8),
+        }
+
         # Preserve Cosmic Dusk's established sizing and edge treatments.
         self.label_font_scale = 1.0
-        self.clip.border_width = 2.0
         self.clip.shadow_color = QColor("#000000")
         self.clip.shadow_blur = 10
         self.track.font_color = QColor("#FFFFFF")

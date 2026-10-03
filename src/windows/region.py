@@ -34,11 +34,12 @@ from qt_api import QIcon, QPainter, QColor, QPen, QBrush, QKeySequence, QImage
 from qt_api import (
     QDialog, QSlider, QStyleOptionSlider, QStyle, QShortcut, QSizePolicy,
     QPushButton, QHBoxLayout, QLabel, QMessageBox, QDialogButtonBox,
-    QButtonGroup, QToolButton, QCheckBox, QApplication,
+    QButtonGroup, QToolButton, QApplication,
 )
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
 from classes import info, ui_util, time_parts, qt_types, updates
+from windows.toggle_switch import ToggleSwitch
 from classes.app import get_app
 from classes.clip_utils import is_single_image_media
 from classes.logger import log
@@ -666,7 +667,7 @@ class SelectRegion(QDialog):
         self.annotation_toolbar.addSpacing(8)
         self.annotation_toolbar.addWidget(self.btnClearAnnotation)
 
-        self.chkMaskPreview = QCheckBox(_("Preview Mask"))
+        self.chkMaskPreview = ToggleSwitch(_("Preview Mask"))
         self.chkMaskPreview.setToolTip(_("Preview the current seed-frame mask using the selected EfficientSAM model."))
         self.chkMaskPreview.setChecked(True)
         if not self._mask_preview_supported():

@@ -64,6 +64,15 @@ class ItemHeaderMixin:
             font.setPixelSize(max(1, round(font.pixelSize() * scale)))
         elif font.pointSizeF() > 0:
             font.setPointSizeF(font.pointSizeF() * scale)
+        if getattr(getattr(self.w, "theme", None), "compact_track_headers", False):
+            max_height = max(8.0, inner.height() - 4.0)
+            font_height = QFontMetrics(font).height()
+            if font_height > max_height:
+                factor = max_height / font_height
+                if font.pixelSize() > 0:
+                    font.setPixelSize(max(1, int(font.pixelSize() * factor)))
+                else:
+                    font.setPointSizeF(max(1.0, font.pointSizeF() * factor))
         painter.setFont(font)
         text = self._draw_item_text(
             painter, item, header, header.left(), header.right(),
