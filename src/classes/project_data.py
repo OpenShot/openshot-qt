@@ -351,6 +351,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         else:
             # Fall back to OpenShot defaults, if user defaults didn't load
             self._data = self.read_from_file(self.default_project_filepath)
+            self.apply_default_track_count()
 
         self.current_filepath = None
         self.has_unsaved_changes = False
@@ -378,6 +379,22 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
         # Set default project ID
         self._data["id"] = self.generate_id()
+
+    def apply_default_track_count(self):
+        """Adjust bundled blank-project tracks, leaving user templates untouched."""
+        try:
+            count = int(get_app().get_settings().get("default-track-count"))
+        except (TypeError, ValueError, OverflowError):
+            count = 5
+        count = max(1, min(count, 100))
+
+        template = self._data["layers"][0]
+        tracks = []
+        for index in range(1, count + 1):
+            track = copy.deepcopy(template)
+            track.update(id="L%s" % index, number=index * 1000000)
+            tracks.append(track)
+        self._data["layers"] = tracks
 
     def get_profile(self, profile_desc=None, profile_key=None):
         """Attempt to find a specific profile"""

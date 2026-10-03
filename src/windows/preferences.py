@@ -1066,6 +1066,8 @@ class Preferences(QDialog):
                 self._apply_cache_settings()
             elif category == "Cache":
                 self._apply_cache_settings()
+            elif category == "Timeline":
+                self._apply_timeline_track_size()
 
             # Re-apply thumbnail style to the QWidget timeline if it changed
             self._apply_timeline_thumbnail_style()
