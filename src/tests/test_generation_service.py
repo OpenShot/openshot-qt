@@ -1,8 +1,9 @@
+import copy
 import os
 import sys
 import types
 import unittest
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 
 PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
@@ -15,6 +16,7 @@ generate_module = types.ModuleType("windows.generate")
 generate_module.GenerateMediaDialog = type("GenerateMediaDialog", (), {})
 sys.modules.setdefault("windows.generate", generate_module)
 
+from qt_api import QDialog
 from classes.generation_service import GenerationService
 
 
@@ -199,6 +201,648 @@ class GenerationServiceTests(unittest.TestCase):
             queued_payload_names,
             ["generation_gen1", "generation_gen2", "generation_gen3"],
         )
+
+    def test_prepare_template_workflow_resolves_named_extra_input_placeholders(self):
+        workflow_fixture = {
+            "1": {"class_type": "LoadVideo", "inputs": {"video": "__openshot_input__"}},
+            "2": {"class_type": "SomeCustomLoader", "inputs": {"video_path": "__openshot_input:end_clip__"}},
+            "3": {"class_type": "AnotherLoader", "inputs": {"src": "{{openshot_input:end_clip}}"}},
+            "4": {"class_type": "ThirdLoader", "inputs": {"path": "$openshot_input:end_clip"}},
+        }
+        service = GenerationService.__new__(GenerationService)
+        service.template_registry = types.SimpleNamespace(
+            get_workflow_copy=lambda template_id: copy.deepcopy(workflow_fixture),
+        )
+
+        workflow, bindings = service._prepare_template_workflow(
+            template={"id": "t1", "path": ""},
+            payload_name="test_gen",
+            prompt_text="",
+            source_file=None,
+            source_path="/media/source.mp4",
+            extra_input_paths={"end_clip": "/media/end_clip.mp4"},
+        )
+
+        self.assertEqual(workflow["1"]["inputs"]["video"], "/media/source.mp4")
+        self.assertEqual(workflow["2"]["inputs"]["video_path"], "/media/end_clip.mp4")
+        self.assertEqual(workflow["3"]["inputs"]["src"], "/media/end_clip.mp4")
+        self.assertEqual(workflow["4"]["inputs"]["path"], "/media/end_clip.mp4")
+
+        binding_paths = {(node_id, key): path for node_id, key, path in bindings}
+        self.assertEqual(binding_paths.get(("1", "video")), "/media/source.mp4")
+        self.assertEqual(binding_paths.get(("2", "video_path")), "/media/end_clip.mp4")
+        self.assertEqual(binding_paths.get(("3", "src")), "/media/end_clip.mp4")
+        self.assertEqual(binding_paths.get(("4", "path")), "/media/end_clip.mp4")
+
+    def test_prepare_template_workflow_keeps_legacy_reference_image_placeholder_working(self):
+        workflow_fixture = {
+            "1": {"class_type": "LegacyRef", "inputs": {"image": "__openshot_reference_image__"}},
+        }
+        service = GenerationService.__new__(GenerationService)
+        service.template_registry = types.SimpleNamespace(
+            get_workflow_copy=lambda template_id: copy.deepcopy(workflow_fixture),
+        )
+
+        workflow, bindings = service._prepare_template_workflow(
+            template={"id": "t1", "path": ""},
+            payload_name="test_gen",
+            prompt_text="",
+            source_file=None,
+            source_path="",
+            reference_image_path="/media/ref.png",
+        )
+
+        self.assertEqual(workflow["1"]["inputs"]["image"], "/media/ref.png")
+        self.assertIn(("1", "image", "/media/ref.png"), bindings)
+
+    def test_prepare_template_workflow_text_substitution_is_never_a_binding_even_on_shared_node(self):
+        # Same node receiving both a media-backed and a text-backed extra input --
+        # only the media one should appear in bindings.
+        workflow_fixture = {
+            "1": {
+                "class_type": "MultiInputNode",
+                "inputs": {
+                    "video_path": "__openshot_input:end_clip__",
+                    "note": "__openshot_input:scene_note__",
+                },
+            },
+        }
+        service = GenerationService.__new__(GenerationService)
+        service.template_registry = types.SimpleNamespace(
+            get_workflow_copy=lambda template_id: copy.deepcopy(workflow_fixture),
+        )
+
+        workflow, bindings = service._prepare_template_workflow(
+            template={"id": "t1", "path": ""},
+            payload_name="test_gen",
+            prompt_text="",
+            source_file=None,
+            source_path="",
+            extra_input_paths={"end_clip": "/media/end_clip.mp4"},
+            extra_input_texts={"scene_note": "a quiet transition"},
+        )
+
+        self.assertEqual(workflow["1"]["inputs"]["video_path"], "/media/end_clip.mp4")
+        self.assertEqual(workflow["1"]["inputs"]["note"], "a quiet transition")
+        binding_keys = {(node_id, key) for node_id, key, _path in bindings}
+        self.assertIn(("1", "video_path"), binding_keys)
+        self.assertNotIn(("1", "note"), binding_keys)
+
+    def test_prepare_template_workflow_unknown_extra_input_key_is_left_untouched_and_logged(self):
+        workflow_fixture = {
+            "1": {"class_type": "Mystery", "inputs": {"thing": "__openshot_input:nonexistent_key__"}},
+        }
+        service = GenerationService.__new__(GenerationService)
+        service.template_registry = types.SimpleNamespace(
+            get_workflow_copy=lambda template_id: copy.deepcopy(workflow_fixture),
+        )
+
+        with patch("classes.generation_service.log.warning") as mock_warning:
+            workflow, bindings = service._prepare_template_workflow(
+                template={"id": "t1", "path": ""},
+                payload_name="test_gen",
+                prompt_text="",
+                source_file=None,
+                source_path="",
+            )
+
+        self.assertEqual(workflow["1"]["inputs"]["thing"], "__openshot_input:nonexistent_key__")
+        self.assertEqual(bindings, [])
+        mock_warning.assert_called_once()
+        self.assertIn("nonexistent_key", mock_warning.call_args.args[1])
+
+    def test_prepare_template_workflow_resolves_embedded_named_text_placeholder(self):
+        workflow_fixture = {
+            "1": {
+                "class_type": "StringConstantMultiline",
+                "inputs": {"string": "subject is __openshot_input:subject_description__, in frame."},
+            },
+        }
+        service = GenerationService.__new__(GenerationService)
+        service.template_registry = types.SimpleNamespace(
+            get_workflow_copy=lambda template_id: copy.deepcopy(workflow_fixture),
+        )
+
+        workflow, bindings = service._prepare_template_workflow(
+            template={"id": "t1", "path": ""},
+            payload_name="test_gen",
+            prompt_text="",
+            source_file=None,
+            source_path="",
+            extra_input_texts={"subject_description": "a man in a blue jacket"},
+        )
+
+        self.assertEqual(
+            workflow["1"]["inputs"]["string"],
+            "subject is a man in a blue jacket, in frame.",
+        )
+        self.assertEqual(bindings, [])
+
+    def test_prepare_template_workflow_embedded_file_type_key_is_left_unresolved_and_logged(self):
+        workflow_fixture = {
+            "1": {
+                "class_type": "StringConstantMultiline",
+                "inputs": {"string": "uses __openshot_input:end_clip__ embedded."},
+            },
+        }
+        service = GenerationService.__new__(GenerationService)
+        service.template_registry = types.SimpleNamespace(
+            get_workflow_copy=lambda template_id: copy.deepcopy(workflow_fixture),
+        )
+
+        with patch("classes.generation_service.log.warning") as mock_warning:
+            workflow, bindings = service._prepare_template_workflow(
+                template={"id": "t1", "path": ""},
+                payload_name="test_gen",
+                prompt_text="",
+                source_file=None,
+                source_path="",
+                extra_input_paths={"end_clip": "/media/end_clip.mp4"},
+            )
+
+        self.assertEqual(workflow["1"]["inputs"]["string"], "uses __openshot_input:end_clip__ embedded.")
+        self.assertEqual(bindings, [])
+        mock_warning.assert_called_once()
+        self.assertIn("end_clip", mock_warning.call_args.args[1])
+
+    def test_prepare_template_workflow_embedded_unknown_key_is_left_unresolved_and_logged(self):
+        workflow_fixture = {
+            "1": {
+                "class_type": "StringConstantMultiline",
+                "inputs": {"string": "uses __openshot_input:nonexistent_key__ embedded."},
+            },
+        }
+        service = GenerationService.__new__(GenerationService)
+        service.template_registry = types.SimpleNamespace(
+            get_workflow_copy=lambda template_id: copy.deepcopy(workflow_fixture),
+        )
+
+        with patch("classes.generation_service.log.warning") as mock_warning:
+            workflow, bindings = service._prepare_template_workflow(
+                template={"id": "t1", "path": ""},
+                payload_name="test_gen",
+                prompt_text="",
+                source_file=None,
+                source_path="",
+            )
+
+        self.assertEqual(
+            workflow["1"]["inputs"]["string"], "uses __openshot_input:nonexistent_key__ embedded.",
+        )
+        self.assertEqual(bindings, [])
+        mock_warning.assert_called_once()
+        self.assertIn("nonexistent_key", mock_warning.call_args.args[1])
+
+    def test_prepare_template_workflow_replaces_openshot_prompt_placeholder_in_string_field(self):
+        # Regression test: StringConstantMultiline (and similar nodes) use a
+        # "string" input key, not "text"/"prompt"/"tags" -- the placeholder
+        # substitution must check that key too, or a user's typed prompt
+        # never reaches the workflow sent to ComfyUI.
+        workflow_fixture = {
+            "1": {
+                "class_type": "StringConstantMultiline",
+                "inputs": {"string": "__openshot_prompt__", "strip_newlines": False},
+            },
+        }
+        service = GenerationService.__new__(GenerationService)
+        service.template_registry = types.SimpleNamespace(
+            get_workflow_copy=lambda template_id: copy.deepcopy(workflow_fixture),
+        )
+
+        workflow, bindings = service._prepare_template_workflow(
+            template={"id": "t1", "path": ""},
+            payload_name="test_gen",
+            prompt_text="S1 is the hero, V1 continues the action.",
+            source_file=None,
+            source_path="",
+        )
+
+        self.assertEqual(
+            workflow["1"]["inputs"]["string"],
+            "S1 is the hero, V1 continues the action.",
+        )
+        self.assertEqual(bindings, [])
+
+    def test_prepare_template_workflow_leaves_unrelated_string_field_untouched(self):
+        # A "string" field that never contains the placeholder literal (e.g. a
+        # template's own fixed default prompt) must not be altered just
+        # because prompt_text was also supplied elsewhere in the workflow.
+        workflow_fixture = {
+            "1": {
+                "class_type": "StringConstantMultiline",
+                "inputs": {"string": "a fixed template prompt with no placeholder"},
+            },
+        }
+        service = GenerationService.__new__(GenerationService)
+        service.template_registry = types.SimpleNamespace(
+            get_workflow_copy=lambda template_id: copy.deepcopy(workflow_fixture),
+        )
+
+        workflow, bindings = service._prepare_template_workflow(
+            template={"id": "t1", "path": ""},
+            payload_name="test_gen",
+            prompt_text="the user's custom prompt",
+            source_file=None,
+            source_path="",
+        )
+
+        self.assertEqual(
+            workflow["1"]["inputs"]["string"],
+            "a fixed template prompt with no placeholder",
+        )
+
+    def test_enqueue_generation_for_file_missing_required_media_input_returns_clear_error(self):
+        service = GenerationService.__new__(GenerationService)
+        service.template_registry = types.SimpleNamespace(
+            get_template=lambda template_id: {
+                "id": "bridge-clips",
+                "path": "",
+                "extra_inputs": [
+                    {"key": "end_clip", "type": "video", "label": "End clip", "required": True},
+                ],
+            },
+        )
+        service._next_generation_name = lambda name: "test_gen"
+
+        ok, error = service._enqueue_generation_for_file(
+            None,
+            {"name": "test", "template_id": "bridge-clips", "input_file_ids": {}, "input_text_values": {}},
+        )
+
+        self.assertFalse(ok)
+        self.assertIn("End clip", error)
+
+    def test_enqueue_generation_for_file_missing_required_text_input_returns_clear_error(self):
+        service = GenerationService.__new__(GenerationService)
+        service.template_registry = types.SimpleNamespace(
+            get_template=lambda template_id: {
+                "id": "bridge-clips",
+                "path": "",
+                "extra_inputs": [
+                    {"key": "scene_note", "type": "text", "label": "Scene detail", "required": True},
+                ],
+            },
+        )
+        service._next_generation_name = lambda name: "test_gen"
+
+        ok, error = service._enqueue_generation_for_file(
+            None,
+            {"name": "test", "template_id": "bridge-clips", "input_file_ids": {}, "input_text_values": {}},
+        )
+
+        self.assertFalse(ok)
+        self.assertIn("Scene detail", error)
+
+    def test_insert_generated_clip_on_timeline_opens_gap_and_saves_new_clip(self):
+        service = GenerationService.__new__(GenerationService)
+        saved_clips = []
+
+        class FakeProjectClip:
+            def __init__(self):
+                self.data = None
+
+            def save(self):
+                saved_clips.append(self.data)
+
+        ripple_calls = []
+        service.win = types.SimpleNamespace(
+            ripple_insert_gap=lambda position, layer, gap: ripple_calls.append((position, layer, gap)),
+            timeline=None,
+        )
+        file_obj = types.SimpleNamespace(
+            id="F1",
+            data={"path": "/media/result.mp4", "duration": 5.0, "name": "result"},
+        )
+        fake_reader = types.SimpleNamespace(Json=lambda: '{"id": "c1"}')
+        updates = types.SimpleNamespace(transaction_id=None)
+
+        with patch("classes.generation_service.openshot.Clip", return_value=fake_reader), \
+             patch("classes.generation_service.Clip", FakeProjectClip), \
+             patch("classes.generation_service.get_app", return_value=types.SimpleNamespace(updates=updates)):
+            result = service._insert_generated_clip_on_timeline(file_obj, 12.0, 2)
+
+        self.assertTrue(result)
+        self.assertEqual(ripple_calls, [(12.0, 2, 5.0)])
+        self.assertEqual(len(saved_clips), 1)
+        new_clip = saved_clips[0]
+        self.assertEqual(new_clip["position"], 12.0)
+        self.assertEqual(new_clip["layer"], 2)
+        self.assertEqual(new_clip["file_id"], "F1")
+        self.assertEqual(new_clip["duration"], 5.0)
+        self.assertEqual(new_clip["start"], 0.0)
+        self.assertEqual(new_clip["end"], 5.0)
+        self.assertIsNone(updates.transaction_id)
+
+    def test_insert_generated_clip_on_timeline_false_when_no_layer(self):
+        service = GenerationService.__new__(GenerationService)
+        file_obj = types.SimpleNamespace(data={"path": "/media/result.mp4", "duration": 5.0})
+        self.assertFalse(service._insert_generated_clip_on_timeline(file_obj, 12.0, None))
+
+    def test_insert_generated_clip_on_timeline_false_when_no_duration(self):
+        service = GenerationService.__new__(GenerationService)
+        file_obj = types.SimpleNamespace(data={"path": "/media/result.mp4", "duration": 0.0})
+        self.assertFalse(service._insert_generated_clip_on_timeline(file_obj, 12.0, 1))
+
+    def test_insert_generated_clip_on_timeline_false_when_no_path(self):
+        service = GenerationService.__new__(GenerationService)
+        file_obj = types.SimpleNamespace(data={"path": "", "duration": 5.0})
+        self.assertFalse(service._insert_generated_clip_on_timeline(file_obj, 12.0, 1))
+
+    def test_import_generation_outputs_inserts_on_timeline_when_requested(self):
+        service = GenerationService.__new__(GenerationService)
+        service.win = types.SimpleNamespace(
+            files_model=types.SimpleNamespace(add_files=lambda *a, **k: None),
+            FileUpdated=types.SimpleNamespace(emit=lambda *a, **k: None),
+        )
+        service._next_available_path = lambda path: path
+        service._output_local_name = staticmethod(lambda base, index, total, ext: "result.mp4")
+        service.comfy_ui_url = lambda: "http://localhost:8188"
+
+        result_file = types.SimpleNamespace(
+            id="F2", data={"path": "/out/result.mp4", "duration": 5.0, "name": "result"},
+            save=lambda: None,
+        )
+        insert_calls = []
+        service._insert_generated_clip_on_timeline = lambda file_obj, position, layer: (
+            insert_calls.append((file_obj, position, layer)) or True
+        )
+
+        job = {
+            "outputs": [{"filename": "result.mp4"}],
+            "request": {"insert_on_timeline": {"position": 10.0, "layer": 3}},
+            "name": "bridge_result",
+        }
+
+        fake_client = types.SimpleNamespace(download_output_file=lambda ref, path: None)
+
+        with patch("classes.generation_service.ComfyClient", return_value=fake_client), \
+             patch("classes.generation_service.File.get", return_value=result_file), \
+             patch("classes.generation_service.info.COMFYUI_OUTPUT_PATH", "/out"), \
+             patch("classes.generation_service.os.makedirs", lambda *a, **k: None):
+            result = service._import_generation_outputs(job)
+
+        self.assertTrue(result["inserted_on_timeline"])
+        self.assertEqual(insert_calls, [(result_file, 10.0, 3)])
+
+    def test_import_generation_outputs_skips_insertion_when_not_requested(self):
+        service = GenerationService.__new__(GenerationService)
+        service.win = types.SimpleNamespace(
+            files_model=types.SimpleNamespace(add_files=lambda *a, **k: None),
+            FileUpdated=types.SimpleNamespace(emit=lambda *a, **k: None),
+        )
+        service._next_available_path = lambda path: path
+        service._output_local_name = staticmethod(lambda base, index, total, ext: "result.mp4")
+        service.comfy_ui_url = lambda: "http://localhost:8188"
+
+        result_file = types.SimpleNamespace(
+            id="F2", data={"path": "/out/result.mp4", "duration": 5.0, "name": "result"},
+            save=lambda: None,
+        )
+        service._insert_generated_clip_on_timeline = lambda *a, **k: self.fail(
+            "should not be called when insert_on_timeline is absent"
+        )
+
+        job = {
+            "outputs": [{"filename": "result.mp4"}],
+            "request": {},
+            "name": "bridge_result",
+        }
+
+        fake_client = types.SimpleNamespace(download_output_file=lambda ref, path: None)
+
+        with patch("classes.generation_service.ComfyClient", return_value=fake_client), \
+             patch("classes.generation_service.File.get", return_value=result_file), \
+             patch("classes.generation_service.info.COMFYUI_OUTPUT_PATH", "/out"), \
+             patch("classes.generation_service.os.makedirs", lambda *a, **k: None):
+            result = service._import_generation_outputs(job)
+
+        self.assertFalse(result["inserted_on_timeline"])
+
+    # ---- two-clip AI bridge ----
+
+    def test_video_extra_input_keys_returns_ordered_video_keys(self):
+        entry = {
+            "template": {
+                "extra_inputs": [
+                    {"key": "scene_note", "type": "text"},
+                    {"key": "clip_b", "type": "video"},
+                    {"key": "ref_image", "type": "image"},
+                    {"key": "clip_c", "type": "video"},
+                ],
+            },
+        }
+        self.assertEqual(
+            GenerationService._video_extra_input_keys(entry),
+            ["clip_b", "clip_c"],
+        )
+
+    def test_video_extra_input_keys_empty_when_no_extra_inputs(self):
+        self.assertEqual(GenerationService._video_extra_input_keys({"template": {}}), [])
+
+    def test_qualifies_as_bridge_template_true_with_one_video_input(self):
+        entry = {"template": {"extra_inputs": [{"key": "clip_b", "type": "video"}]}}
+        self.assertTrue(GenerationService._qualifies_as_bridge_template(entry))
+
+    def test_qualifies_as_bridge_template_false_with_no_video_input(self):
+        entry = {"template": {"extra_inputs": [{"key": "note", "type": "text"}]}}
+        self.assertFalse(GenerationService._qualifies_as_bridge_template(entry))
+
+    def test_preselect_bridge_second_video_input_sets_combo(self):
+        service = GenerationService.__new__(GenerationService)
+        combo = MagicMock()
+        combo.findData.return_value = 2
+        dialog = types.SimpleNamespace(
+            _current_template=lambda: {"extra_inputs": [{"key": "clip_b", "type": "video"}]},
+            _extra_input_widgets={"clip_b": (combo, {"type": "video"})},
+        )
+        service._preselect_bridge_second_video_input(dialog, "F-clip-b")
+        combo.findData.assert_called_once_with("F-clip-b")
+        combo.setCurrentIndex.assert_called_once_with(2)
+
+    def test_preselect_bridge_second_video_input_noop_when_template_has_no_video_input(self):
+        service = GenerationService.__new__(GenerationService)
+        dialog = types.SimpleNamespace(
+            _current_template=lambda: {"extra_inputs": []},
+            _extra_input_widgets={},
+        )
+        # Should not raise even with nothing to preselect.
+        service._preselect_bridge_second_video_input(dialog, "F-clip-b")
+
+    def test_bridge_clips_with_ai_shows_message_when_no_qualifying_template(self):
+        service = GenerationService.__new__(GenerationService)
+        service.win = types.SimpleNamespace()
+        service.templates_for_context = lambda source_file=None: [{"id": "txt2img-basic", "template": {}}]
+
+        with patch("classes.generation_service.QMessageBox") as mock_box:
+            service.bridge_clips_with_ai(
+                types.SimpleNamespace(data={}), types.SimpleNamespace(data={}),
+            )
+        mock_box.information.assert_called_once()
+
+    def test_bridge_clips_with_ai_queries_templates_with_video_context(self):
+        # Regression test: templates_for_context(source_file=None) only returns
+        # "create"-category templates, which silently excludes "enhance"-category
+        # bridge templates regardless of their extra_inputs. A video-media-type
+        # stand-in must be passed so "enhance" templates are considered too.
+        service = GenerationService.__new__(GenerationService)
+        service.win = types.SimpleNamespace()
+        calls = []
+
+        def fake_templates_for_context(source_file=None):
+            calls.append(source_file)
+            return []
+
+        service.templates_for_context = fake_templates_for_context
+
+        with patch("classes.generation_service.QMessageBox"):
+            service.bridge_clips_with_ai(
+                types.SimpleNamespace(data={}), types.SimpleNamespace(data={}),
+            )
+
+        self.assertEqual(len(calls), 1)
+        self.assertEqual(calls[0].data.get("media_type"), "video")
+
+    def test_bridge_clips_with_ai_warns_when_render_fails(self):
+        service = GenerationService.__new__(GenerationService)
+        service.win = types.SimpleNamespace()
+        bridge_template = {"id": "video-bridge", "template": {"extra_inputs": [{"key": "clip_b", "type": "video"}]}}
+        service.templates_for_context = lambda source_file=None: [bridge_template]
+
+        with patch("classes.generation_service.render_clip_to_file", return_value=False), \
+             patch("classes.generation_service.tempfile.mkdtemp", return_value="/tmp/bridge"), \
+             patch("classes.generation_service.QMessageBox") as mock_box:
+            service.bridge_clips_with_ai(
+                types.SimpleNamespace(data={}), types.SimpleNamespace(data={}),
+            )
+        mock_box.warning.assert_called_once()
+
+    def test_bridge_clips_with_ai_warns_when_files_do_not_import(self):
+        service = GenerationService.__new__(GenerationService)
+        service.win = types.SimpleNamespace(
+            files_model=types.SimpleNamespace(add_files=lambda *a, **k: None),
+        )
+        bridge_template = {"id": "video-bridge", "template": {"extra_inputs": [{"key": "clip_b", "type": "video"}]}}
+        service.templates_for_context = lambda source_file=None: [bridge_template]
+
+        with patch("classes.generation_service.render_clip_to_file", return_value=True), \
+             patch("classes.generation_service.tempfile.mkdtemp", return_value="/tmp/bridge"), \
+             patch("classes.generation_service.File.get", return_value=None), \
+             patch("classes.generation_service.QMessageBox") as mock_box:
+            service.bridge_clips_with_ai(
+                types.SimpleNamespace(data={}), types.SimpleNamespace(data={}),
+            )
+        mock_box.warning.assert_called_once()
+
+    def test_bridge_clips_with_ai_happy_path_enqueues_with_insert_metadata(self):
+        service = GenerationService.__new__(GenerationService)
+        service.win = types.SimpleNamespace(
+            files_model=types.SimpleNamespace(add_files=lambda *a, **k: None),
+        )
+        bridge_template = {"id": "video-bridge", "template": {"extra_inputs": [{"key": "clip_b", "type": "video"}]}}
+        service.templates_for_context = lambda source_file=None: [bridge_template]
+        service._default_generation_name = lambda file_obj: "bridge_gen1"
+
+        file_a = types.SimpleNamespace(id="FA", data={"path": "/tmp/bridge/clip_a.mp4"})
+        file_b = types.SimpleNamespace(id="FB", data={"path": "/tmp/bridge/clip_b.mp4"})
+        files_by_path = {file_a.data["path"]: file_a, file_b.data["path"]: file_b}
+
+        dialog_instance = MagicMock()
+        dialog_instance.exec_.return_value = QDialog.Accepted
+        dialog_instance.get_payload.return_value = {"name": "bridge_gen1", "template_id": "video-bridge"}
+        dialog_cls = MagicMock(return_value=dialog_instance)
+
+        enqueue_calls = []
+        service._enqueue_generation_for_file = lambda source_file, payload: (
+            enqueue_calls.append((source_file, payload)) or (True, "")
+        )
+
+        clip_a = types.SimpleNamespace(data={"position": 0.0, "layer": 1})
+        clip_b = types.SimpleNamespace(data={"position": 5.0, "layer": 1})
+
+        with patch("classes.generation_service.render_clip_to_file", return_value=True), \
+             patch("classes.generation_service.tempfile.mkdtemp", return_value="/tmp/bridge"), \
+             patch("classes.generation_service.File.get", side_effect=lambda path: files_by_path.get(path)), \
+             patch("classes.generation_service.GenerateMediaDialog", dialog_cls), \
+             patch.object(service, "_preselect_bridge_second_video_input") as preselect_mock:
+            service.bridge_clips_with_ai(clip_a, clip_b)
+
+        dialog_cls.assert_called_once()
+        _args, kwargs = dialog_cls.call_args
+        self.assertEqual(kwargs["source_file"], file_a)
+        self.assertEqual(kwargs["templates"], [bridge_template])
+        self.assertEqual(kwargs["preselected_template_id"], "video-bridge")
+
+        preselect_mock.assert_called_once_with(dialog_instance, "FB")
+        self.assertEqual(len(enqueue_calls), 1)
+        enqueued_source, enqueued_payload = enqueue_calls[0]
+        self.assertEqual(enqueued_source, file_a)
+        self.assertEqual(
+            enqueued_payload["insert_on_timeline"],
+            {"position": 5.0, "layer": 1},
+        )
+
+    def test_bridge_clips_with_ai_does_not_enqueue_when_dialog_canceled(self):
+        service = GenerationService.__new__(GenerationService)
+        service.win = types.SimpleNamespace(
+            files_model=types.SimpleNamespace(add_files=lambda *a, **k: None),
+        )
+        bridge_template = {"id": "video-bridge", "template": {"extra_inputs": [{"key": "clip_b", "type": "video"}]}}
+        service.templates_for_context = lambda source_file=None: [bridge_template]
+        service._default_generation_name = lambda file_obj: "bridge_gen1"
+
+        file_a = types.SimpleNamespace(id="FA", data={"path": "/tmp/bridge/clip_a.mp4"})
+        file_b = types.SimpleNamespace(id="FB", data={"path": "/tmp/bridge/clip_b.mp4"})
+        files_by_path = {file_a.data["path"]: file_a, file_b.data["path"]: file_b}
+
+        dialog_instance = MagicMock()
+        dialog_instance.exec_.return_value = QDialog.Rejected
+        dialog_cls = MagicMock(return_value=dialog_instance)
+
+        service._enqueue_generation_for_file = lambda *a, **k: self.fail("should not enqueue when canceled")
+
+        clip_a = types.SimpleNamespace(data={"position": 0.0, "layer": 1})
+        clip_b = types.SimpleNamespace(data={"position": 5.0, "layer": 1})
+
+        with patch("classes.generation_service.render_clip_to_file", return_value=True), \
+             patch("classes.generation_service.tempfile.mkdtemp", return_value="/tmp/bridge"), \
+             patch("classes.generation_service.File.get", side_effect=lambda path: files_by_path.get(path)), \
+             patch("classes.generation_service.GenerateMediaDialog", dialog_cls), \
+             patch.object(service, "_preselect_bridge_second_video_input"):
+            service.bridge_clips_with_ai(clip_a, clip_b)
+
+        dialog_instance.get_payload.assert_not_called()
+
+    def test_bridge_clips_with_ai_template_combo_change_rewires_preselect(self):
+        service = GenerationService.__new__(GenerationService)
+        service.win = types.SimpleNamespace(
+            files_model=types.SimpleNamespace(add_files=lambda *a, **k: None),
+        )
+        bridge_template = {"id": "video-bridge", "template": {"extra_inputs": [{"key": "clip_b", "type": "video"}]}}
+        service.templates_for_context = lambda source_file=None: [bridge_template]
+        service._default_generation_name = lambda file_obj: "bridge_gen1"
+
+        file_a = types.SimpleNamespace(id="FA", data={"path": "/tmp/bridge/clip_a.mp4"})
+        file_b = types.SimpleNamespace(id="FB", data={"path": "/tmp/bridge/clip_b.mp4"})
+        files_by_path = {file_a.data["path"]: file_a, file_b.data["path"]: file_b}
+
+        dialog_instance = MagicMock()
+        dialog_instance.exec_.return_value = QDialog.Rejected
+        dialog_cls = MagicMock(return_value=dialog_instance)
+        service._enqueue_generation_for_file = lambda *a, **k: (True, "")
+
+        clip_a = types.SimpleNamespace(data={"position": 0.0, "layer": 1})
+        clip_b = types.SimpleNamespace(data={"position": 5.0, "layer": 1})
+
+        with patch("classes.generation_service.render_clip_to_file", return_value=True), \
+             patch("classes.generation_service.tempfile.mkdtemp", return_value="/tmp/bridge"), \
+             patch("classes.generation_service.File.get", side_effect=lambda path: files_by_path.get(path)), \
+             patch("classes.generation_service.GenerateMediaDialog", dialog_cls):
+            service.bridge_clips_with_ai(clip_a, clip_b)
+
+        # The template combo's change signal must be wired to re-run the
+        # preselect, so picking a different qualifying template still fills
+        # Clip B in rather than leaving it to the user to notice and redo.
+        dialog_instance.template_combo.currentIndexChanged.connect.assert_called_once()
 
 
 if __name__ == "__main__":
