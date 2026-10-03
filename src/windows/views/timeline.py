@@ -41,6 +41,7 @@ from qt_api import pyqtSlot, Qt, QCoreApplication, QTimer, pyqtSignal, QPointF
 from qt_api import modifiers_has
 from qt_api import QCursor, QKeySequence, QIcon
 from qt_api import QDialog
+from qt_api import QUrl
 
 from classes import info, updates
 from classes.app import get_app
@@ -1678,6 +1679,15 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
         menu.addSeparator()
 
+        # Save the selected clip(s)/transition(s)' timeline range as a new Project
+        # Files clip -- pre-fills the real Export dialog's frame range from the
+        # selection, so the user still reviews/adjusts format and location before
+        # exporting, then the result is imported back automatically.
+        Save_Selection = menu.addAction(_("Save Selection as New Clip..."))
+        Save_Selection.triggered.connect(partial(self.SaveSelectionAsClip_Triggered, clip_ids, tran_ids))
+
+        menu.addSeparator()
+
         # Alignment Menu (if multiple selections)
         if len(clip_ids) > 1:
             Alignment_Menu = StyledContextMenu(title=_("Align"), parent=self)
@@ -2275,6 +2285,56 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         # Show context menu
         self.context_menu_cursor_position = QCursor.pos()
         return menu.show_at(self.context_menu_cursor_position)
+
+    def _selection_frame_range(self, clip_ids, tran_ids):
+        """Return (start_frame, end_frame), 1-based and inclusive, spanning every
+        clip/transition id in `clip_ids`/`tran_ids`, or None if none resolve to a
+        valid item. Used to pre-fill the Export dialog's frame range from a
+        timeline selection, so the user doesn't have to count frames by hand."""
+        fps = get_app().project.get("fps")
+        fps_float = float(fps.get("num", 24)) / float(fps.get("den", 1) or 1)
+        if fps_float <= 0:
+            return None
+
+        items = [Clip.get(id=clip_id) for clip_id in (clip_ids or [])]
+        items += [Transition.get(id=tran_id) for tran_id in (tran_ids or [])]
+        data_list = [item.data for item in items if item and isinstance(item.data, dict)]
+        if not data_list:
+            return None
+
+        start_seconds = min(float(data.get("position", 0.0)) for data in data_list)
+        end_seconds = max(
+            float(data.get("position", 0.0))
+            + max(0.0, float(data.get("end", 0.0)) - float(data.get("start", 0.0)))
+            for data in data_list
+        )
+        start_frame = max(1, round(start_seconds * fps_float) + 1)
+        end_frame = max(start_frame, round(end_seconds * fps_float))
+        return start_frame, end_frame
+
+    def SaveSelectionAsClip_Triggered(self, clip_ids, tran_ids):
+        """Open the Export dialog pre-filled with the frame range spanning the
+        given selection, then import the resulting file back into Project Files
+        once the export finishes."""
+        frame_range = self._selection_frame_range(clip_ids, tran_ids)
+        if not frame_range:
+            return
+        start_frame, end_frame = frame_range
+
+        from windows.export import Export
+        export_window = Export(self.window)
+        export_window.txtStartFrame.setValue(start_frame)
+        export_window.txtEndFrame.setValue(end_frame)
+        export_window.ExportEnded.connect(self._import_exported_selection)
+        export_window.exec_()
+
+    def _import_exported_selection(self, file_path):
+        """Add a freshly-exported "Save Selection as New Clip" file to Project Files."""
+        if not file_path:
+            return
+        app = get_app()
+        app.window.files_model.process_urls([QUrl.fromLocalFile(file_path)])
+        app.window.refreshFilesSignal.emit()
 
     def Show_Waveform_Triggered(self, clip_ids, transaction_id=None):
         """Show a waveform for all selected clips"""

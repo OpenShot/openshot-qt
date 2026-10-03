@@ -7764,3 +7764,106 @@ class TimelineHelperTests(unittest.TestCase):
         self.assertEqual(clip.data["effects"], [{"class_name": "Brightness", "id": "B-1"}])
         self.assertEqual(len(helper.updates), 1)
         self.assertEqual(len(history), 1)
+
+    def test_selection_frame_range_spans_multiple_clips(self):
+        timeline_module = self.timeline_module
+        clip_a = types.SimpleNamespace(data={"position": 0.0, "start": 0.0, "end": 1.0})
+        clip_b = types.SimpleNamespace(data={"position": 2.0, "start": 0.0, "end": 1.0})
+        project = types.SimpleNamespace(get=lambda key: {"num": 24, "den": 1})
+        helper = types.SimpleNamespace()
+
+        with ExitStack() as stack:
+            stack.enter_context(patch.object(self.app, "project", project, create=True))
+            stack.enter_context(patch.object(
+                timeline_module.Clip, "get",
+                side_effect=lambda id: {"A": clip_a, "B": clip_b}.get(id),
+            ))
+            stack.enter_context(patch.object(timeline_module.Transition, "get", return_value=None))
+            result = timeline_module.TimelineView._selection_frame_range(helper, ["A", "B"], [])
+
+        # clip_a: position=0.0 -> frame 1; clip_b ends at position+duration=3.0s -> frame 72
+        self.assertEqual(result, (1, 72))
+
+    def test_selection_frame_range_includes_transitions(self):
+        timeline_module = self.timeline_module
+        clip = types.SimpleNamespace(data={"position": 0.0, "start": 0.0, "end": 1.0})
+        tran = types.SimpleNamespace(data={"position": 5.0, "start": 0.0, "end": 1.0})
+        project = types.SimpleNamespace(get=lambda key: {"num": 24, "den": 1})
+        helper = types.SimpleNamespace()
+
+        with ExitStack() as stack:
+            stack.enter_context(patch.object(self.app, "project", project, create=True))
+            stack.enter_context(patch.object(timeline_module.Clip, "get", return_value=clip))
+            stack.enter_context(patch.object(timeline_module.Transition, "get", return_value=tran))
+            result = timeline_module.TimelineView._selection_frame_range(helper, ["C1"], ["T1"])
+
+        self.assertEqual(result, (1, 144))
+
+    def test_selection_frame_range_ignores_unresolved_ids(self):
+        timeline_module = self.timeline_module
+        project = types.SimpleNamespace(get=lambda key: {"num": 24, "den": 1})
+        helper = types.SimpleNamespace()
+
+        with ExitStack() as stack:
+            stack.enter_context(patch.object(self.app, "project", project, create=True))
+            stack.enter_context(patch.object(timeline_module.Clip, "get", return_value=None))
+            stack.enter_context(patch.object(timeline_module.Transition, "get", return_value=None))
+            result = timeline_module.TimelineView._selection_frame_range(helper, ["missing"], [])
+
+        self.assertIsNone(result)
+
+    def test_selection_frame_range_none_for_empty_selection(self):
+        timeline_module = self.timeline_module
+        project = types.SimpleNamespace(get=lambda key: {"num": 24, "den": 1})
+        helper = types.SimpleNamespace()
+        with patch.object(self.app, "project", project, create=True):
+            result = timeline_module.TimelineView._selection_frame_range(helper, [], [])
+        self.assertIsNone(result)
+
+    def test_save_selection_as_clip_opens_export_prefilled_with_frame_range(self):
+        timeline_module = self.timeline_module
+        helper = types.SimpleNamespace(
+            window=object(),
+            _selection_frame_range=lambda clip_ids, tran_ids: (10, 50),
+            _import_exported_selection=lambda file_path: None,
+        )
+        mock_export = MagicMock()
+        with patch.object(timeline_module, "get_app", return_value=types.SimpleNamespace()), \
+             patch("windows.export.Export", return_value=mock_export) as export_cls:
+            timeline_module.TimelineView.SaveSelectionAsClip_Triggered(helper, ["A"], [])
+
+        export_cls.assert_called_once_with(helper.window)
+        mock_export.txtStartFrame.setValue.assert_called_once_with(10)
+        mock_export.txtEndFrame.setValue.assert_called_once_with(50)
+        mock_export.ExportEnded.connect.assert_called_once_with(helper._import_exported_selection)
+        mock_export.exec_.assert_called_once()
+
+    def test_save_selection_as_clip_noop_when_nothing_resolves(self):
+        timeline_module = self.timeline_module
+        helper = types.SimpleNamespace(_selection_frame_range=lambda clip_ids, tran_ids: None)
+        with patch("windows.export.Export") as export_cls:
+            timeline_module.TimelineView.SaveSelectionAsClip_Triggered(helper, [], [])
+        export_cls.assert_not_called()
+
+    def test_import_exported_selection_adds_file_and_refreshes(self):
+        timeline_module = self.timeline_module
+        files_model = types.SimpleNamespace(process_urls=MagicMock())
+        window = types.SimpleNamespace(files_model=files_model, refreshFilesSignal=MagicMock())
+        fake_app = types.SimpleNamespace(window=window)
+        helper = types.SimpleNamespace()
+
+        with patch.object(timeline_module, "get_app", return_value=fake_app):
+            timeline_module.TimelineView._import_exported_selection(helper, "/tmp/out.mp4")
+
+        files_model.process_urls.assert_called_once()
+        urls = files_model.process_urls.call_args[0][0]
+        self.assertEqual(len(urls), 1)
+        self.assertEqual(urls[0].toLocalFile(), "/tmp/out.mp4")
+        window.refreshFilesSignal.emit.assert_called_once()
+
+    def test_import_exported_selection_noop_for_empty_path(self):
+        timeline_module = self.timeline_module
+        helper = types.SimpleNamespace()
+        with patch.object(timeline_module, "get_app") as get_app_mock:
+            timeline_module.TimelineView._import_exported_selection(helper, "")
+        get_app_mock.assert_not_called()
