@@ -102,19 +102,26 @@ class ToggleSwitchTests(unittest.TestCase):
 
     def test_label_is_painted_with_theme_text_color(self):
         toggle = self.toggle('Preview Mask')
-        palette = toggle.palette()
-        palette.setColor(QPalette.WindowText, QColor('#ff0000'))
-        toggle.setPalette(palette)
+        # Larger glyphs have solid interior pixels even with Windows font
+        # antialiasing; keep the color assertion independent of tiny glyph edges.
+        font = toggle.font()
+        font.setPointSize(24)
+        toggle.setFont(font)
+        toggle.resize(toggle.sizeHint())
         for stylesheet in ('', 'QCheckBox#checkboxMetrics { color: #ff0000; }'):
-            toggle.setObjectName('checkboxMetrics')
-            if stylesheet:
-                toggle.setPalette(self.app.palette())
-            toggle.setStyleSheet(stylesheet)
-            image = toggle.grab().toImage()
-            scale = image.devicePixelRatio()
-            self.assertTrue(any(
-                image.pixelColor(x, y).red() > 200 and image.pixelColor(x, y).green() < 80
-                for x in range(round(50 * scale), image.width()) for y in range(image.height())))
+            with self.subTest(stylesheet=stylesheet):
+                toggle.setObjectName('checkboxMetrics')
+                palette = self.app.palette()
+                if not stylesheet:
+                    palette.setColor(QPalette.WindowText, QColor('#ff0000'))
+                toggle.setPalette(palette)
+                toggle.setStyleSheet(stylesheet)
+                self.app.processEvents()
+                image = toggle.grab().toImage()
+                scale = image.devicePixelRatio()
+                self.assertTrue(any(
+                    image.pixelColor(x, y).red() > 200 and image.pixelColor(x, y).green() < 80
+                    for x in range(round(50 * scale), image.width()) for y in range(image.height())))
 
     def test_designer_dialogs_use_toggles_and_keep_defaults(self):
         # Match the resource module alias installed by the application at startup.

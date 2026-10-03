@@ -37,6 +37,7 @@ jobs:
         python3 -m unittest discover --quiet
 
   portable-title-controls:
+    name: Qt widget compatibility (${{ matrix.os }}, ${{ matrix.qt }})
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -60,4 +61,4 @@ jobs:
         PYTHONPATH: src
         QT_QPA_PLATFORM: offscreen
         OPENSHOT_QT_API: ${{ matrix.qt }}
-      run: python -m unittest tests.test_svg_watcher tests.test_preference_switch tests.test_toggle_switch -v
+      run: python -m unittest tests.test_qt_api tests.test_svg_watcher tests.test_preference_switch tests.test_toggle_switch -v

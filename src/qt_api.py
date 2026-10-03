@@ -1309,6 +1309,10 @@ def _patch_enums_for_qt6():
                 except Exception:
                     pass
 
+    text_flag = getattr(QtCore.Qt, "TextFlag", None)
+    if text_flag and not hasattr(QtCore.Qt, "TextShowMnemonic"):
+        QtCore.Qt.TextShowMnemonic = text_flag.TextShowMnemonic
+
     alignment_flag = getattr(QtCore.Qt, "AlignmentFlag", None)
     if alignment_flag:
         for name in (
