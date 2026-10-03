@@ -81,9 +81,12 @@ class ToggleSwitch(QCheckBox):
         label_rect = self.rect().adjusted(0 if rtl else 50, 0, -50 if rtl else 0, 0)
         alignment = Qt.AlignRight if rtl else Qt.AlignLeft
         flags = alignment | Qt.AlignVCenter | Qt.TextShowMnemonic
-        self.style().drawItemText(
-            painter, label_rect, int(getattr(flags, "value", flags)),
-            self.palette(), self.isEnabled(), self.text(), QPalette.WindowText)
+        # This custom control follows the theme palette on every platform,
+        # including native styles which override drawItemText colors.
+        palette = self.palette()
+        group = palette.currentColorGroup() if self.isEnabled() else QPalette.Disabled
+        painter.setPen(palette.color(group, QPalette.WindowText))
+        painter.drawText(label_rect, int(getattr(flags, "value", flags)), self.text())
         painter.end()
 
     def enterEvent(self, event):

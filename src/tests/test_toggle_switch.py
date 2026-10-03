@@ -49,15 +49,15 @@ class ToggleSwitchTests(unittest.TestCase):
         toggle.resize(toggle.sizeHint().width() + 100, toggle.sizeHint().height())
         changed = Mock()
         toggle.toggled.connect(changed)
-        for direction in (Qt.LeftToRight, Qt.RightToLeft):
+        for direction in (Qt.LayoutDirection.LeftToRight, Qt.LayoutDirection.RightToLeft):
             toggle.setLayoutDirection(direction)
             toggle.setChecked(False)
             changed.reset_mock()
-            label_x = 65 if direction == Qt.LeftToRight else toggle.width() - 65
+            label_x = 65 if direction == Qt.LayoutDirection.LeftToRight else toggle.width() - 65
             QTest.mouseClick(toggle, Qt.LeftButton, pos=QPoint(label_x, toggle.height() // 2))
             self.assertTrue(toggle.isChecked())
             changed.assert_called_once_with(True)
-            empty_x = toggle.width() - 10 if direction == Qt.LeftToRight else 10
+            empty_x = toggle.width() - 10 if direction == Qt.LayoutDirection.LeftToRight else 10
             QTest.mouseClick(toggle, Qt.LeftButton, pos=QPoint(empty_x, toggle.height() // 2))
             self.assertTrue(toggle.isChecked())
             toggle.setEnabled(False)
@@ -87,7 +87,7 @@ class ToggleSwitchTests(unittest.TestCase):
         toggle.clearFocus()
         toggle.setStyleSheet('ToggleSwitch { qproperty-uncheckedColor: #a03050; qproperty-thumbColor: #fff080; }')
         self.app.processEvents()
-        toggle.setAttribute(Qt.WA_UnderMouse, False)
+        toggle.setAttribute(Qt.WidgetAttribute.WA_UnderMouse, False)
         self.assertEqual(self.pixel(toggle, 26, 14), QColor('#a03050'))
         self.assertEqual(self.pixel(toggle, 12, 14), QColor('#fff080'))
         toggle.setChecked(True)
