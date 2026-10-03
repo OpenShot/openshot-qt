@@ -418,6 +418,10 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         # Connect Selection signals
         self.win.SelectionChanged.connect(self.handle_selection)
 
+        # Repaint when the Project Files highlight target changes (the highlight bar
+        # is drawn live every paint, not cached, so a plain repaint suffices).
+        self.win.HighlightedFileChanged.connect(self.update)
+
         # Show Property timer
         # Timer to use a delay before sending MaxSizeChanged signals (so we don't spam libopenshot)
         self.delayed_size = None

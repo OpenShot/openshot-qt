@@ -104,6 +104,8 @@ class TimelineTheme:
         self.playhead_color: QColor = QColor("#FFF")
         self.playhead_width: float = 0.0
         self.clip_selected: QColor = QColor("#FFF")
+        self.clip_highlight: QColor = QColor()
+        self.clip_highlight_bar_height: float = 4.0
         self.selection: QColor = QColor(255, 255, 255, 80)
         self.selection_border: QColor = QColor()
         self.selection_border_width: float = 0.0
