@@ -48,6 +48,7 @@
   <url type="help">https://www.openshot.org/user-guide/</url>
   <url type="homepage">https://www.openshot.org/</url>
   <url type="bugtracker">https://www.openshot.org/issues/new/</url>
+  <url type="vcs-browser">https://github.com/OpenShot/openshot-qt/</url>
   <screenshots>
     <screenshot type="default">
       <image height="637" width="975">https://www.openshot.org/static/img/gallery/ui-example.jpg</image>
