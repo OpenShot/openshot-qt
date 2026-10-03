@@ -119,7 +119,7 @@ The Timeline tab controls default timeline behavior and clip/transition insertio
 .. _preferences_track_size_ref:
 
 Track Size
-^^^^^^^^^^
+""""""""""
 
 Choose **Preferences → Timeline → Track Size** to control how many tracks fit
 vertically in the timeline:
