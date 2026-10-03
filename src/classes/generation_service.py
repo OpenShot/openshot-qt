@@ -198,12 +198,15 @@ class GenerationService(QObject):
     def can_open_generate_dialog(self):
         return len(self.win.selected_file_ids()) <= 1
 
-    def _prepare_generation_source_path(self, source_file, template_id):
-        if not source_file:
-            return ""
+    def _convert_to_supported_img2img_path(self, source_path, template_id, media_type):
+        """Convert `source_path` to a temp PNG if `template_id` is one of the
+        img2img-style templates that requires a supported still-image format and
+        `source_path` isn't already one. Returns `source_path` unchanged otherwise.
 
-        source_path = source_file.data.get("path", "")
-        media_type = source_file.data.get("media_type")
+        Extracted as its own helper so it can be applied to any image-typed input
+        (the primary source file, or an image-typed extra_inputs value), not just
+        the primary source path.
+        """
         if template_id not in ("img2img-basic", "upscale-realesrgan-x4", "img2video-wan") or media_type != "image":
             return source_path
 
@@ -224,6 +227,14 @@ class GenerationService(QObject):
             except OSError:
                 pass
             raise
+
+    def _prepare_generation_source_path(self, source_file, template_id):
+        if not source_file:
+            return ""
+
+        source_path = source_file.data.get("path", "")
+        media_type = source_file.data.get("media_type")
+        return self._convert_to_supported_img2img_path(source_path, template_id, media_type)
 
     @staticmethod
     def _split_generation_suffix(name):
@@ -504,6 +515,8 @@ class GenerationService(QObject):
         source_file,
         source_path,
         reference_image_path="",
+        extra_input_paths=None,
+        extra_input_texts=None,
         coordinates_positive_text="",
         coordinates_negative_text="",
         rectangles_positive_text="",
@@ -520,6 +533,13 @@ class GenerationService(QObject):
         workflow = self.template_registry.get_workflow_copy(template.get("id"))
         if not workflow:
             raise ValueError("Template workflow not found.")
+
+        extra_input_paths = dict(extra_input_paths or {})
+        extra_input_texts = dict(extra_input_texts or {})
+        reference_image_path = str(reference_image_path or "").strip()
+        if reference_image_path and "reference_image" not in extra_input_paths:
+            extra_input_paths["reference_image"] = reference_image_path
+        bindings = []
 
         template_dir = ""
         template_path = str((template or {}).get("path") or "").strip()
@@ -608,6 +628,57 @@ class GenerationService(QObject):
                 "{{openshot_reference_image}}",
                 "$openshot_reference_image",
             )
+
+        _named_input_patterns = (
+            re.compile(r"^__openshot_input:([a-z0-9_]+)__$", re.IGNORECASE),
+            re.compile(r"^\{\{openshot_input:([a-z0-9_]+)\}\}$", re.IGNORECASE),
+            re.compile(r"^\$openshot_input:([a-z0-9_]+)$", re.IGNORECASE),
+        )
+
+        def _named_input_placeholder_key(text_value):
+            text_value = str(text_value or "").strip()
+            for pattern in _named_input_patterns:
+                match = pattern.match(text_value)
+                if match:
+                    return match.group(1).lower()
+            return None
+
+        # Unanchored counterparts of _named_input_patterns, for a named placeholder
+        # embedded inside a larger string (e.g. a fixed prompt template with a
+        # __openshot_input:<key>__ token spliced into the middle of it) rather than
+        # being a node input's entire value. Only text-type extra_inputs can be
+        # embedded this way -- a file path substituted mid-string would not make
+        # sense to whatever node consumes that field, and Phase 4's upload-fix
+        # bindings assume a resolved path replaces a field's whole value.
+        _embedded_named_input_patterns = (
+            re.compile(r"__openshot_input:([a-z0-9_]+)__", re.IGNORECASE),
+            re.compile(r"\{\{openshot_input:([a-z0-9_]+)\}\}", re.IGNORECASE),
+            re.compile(r"\$openshot_input:([a-z0-9_]+)", re.IGNORECASE),
+        )
+
+        def _substitute_embedded_named_text(text_value, node_id, class_type):
+            def _replacement(match):
+                key = match.group(1).lower()
+                if key in extra_input_texts:
+                    return extra_input_texts[key]
+                if key in extra_input_paths:
+                    log.warning(
+                        "ComfyUI template embeds extra_inputs key '%s' inside a larger "
+                        "string on node %s (%s) -- embedded substitution only supports "
+                        "text inputs; left unresolved.",
+                        key, node_id, class_type,
+                    )
+                else:
+                    log.warning(
+                        "ComfyUI template references unknown extra_inputs key '%s' on "
+                        "node %s (%s) -- left unresolved.",
+                        key, node_id, class_type,
+                    )
+                return match.group(0)
+
+            for pattern in _embedded_named_input_patterns:
+                text_value = pattern.sub(_replacement, text_value)
+            return text_value
 
         def _is_prompt_placeholder_value(text_value):
             text_value = str(text_value or "").strip().lower()
@@ -747,12 +818,42 @@ class GenerationService(QObject):
 
             # Resolve generic OpenShot source placeholders in any string input
             # (custom nodes may use keys like `video_path` instead of `video`/`file`).
-            if source_path or reference_image_path:
-                for input_key, input_value in list(inputs.items()):
-                    if isinstance(input_value, str) and source_path and _is_placeholder_value(input_value):
-                        inputs[input_key] = source_path
-                    elif isinstance(input_value, str) and reference_image_path and _is_reference_image_placeholder_value(input_value):
-                        inputs[input_key] = reference_image_path
+            # Always scanned, even when nothing was provided to substitute -- an
+            # unresolved __openshot_input:<key>__ placeholder (e.g. a typo'd key, or
+            # a key the template forgot to declare in extra_inputs) must still be
+            # caught and logged rather than silently skipped.
+            reference_image_value = extra_input_paths.get("reference_image", "")
+            for input_key, input_value in list(inputs.items()):
+                if not isinstance(input_value, str):
+                    continue
+                if source_path and _is_placeholder_value(input_value):
+                    inputs[input_key] = source_path
+                    bindings.append((node_id, input_key, source_path))
+                elif reference_image_value and _is_reference_image_placeholder_value(input_value):
+                    inputs[input_key] = reference_image_value
+                    bindings.append((node_id, input_key, reference_image_value))
+                else:
+                    named_key = _named_input_placeholder_key(input_value)
+                    if named_key is None:
+                        substituted = _substitute_embedded_named_text(input_value, node_id, class_type)
+                        if substituted != input_value:
+                            inputs[input_key] = substituted
+                        continue
+                    if named_key in extra_input_paths:
+                        resolved_path = extra_input_paths[named_key]
+                        inputs[input_key] = resolved_path
+                        bindings.append((node_id, input_key, resolved_path))
+                    elif named_key in extra_input_texts:
+                        # Text substitutions are never recorded as bindings --
+                        # Phase 4's upload fix would try to upload_input_file()
+                        # a plain string, which is not a local file path.
+                        inputs[input_key] = extra_input_texts[named_key]
+                    else:
+                        log.warning(
+                            "ComfyUI template references unknown extra_inputs key "
+                            "'%s' on node %s (%s) -- left unresolved.",
+                            named_key, node_id, class_type,
+                        )
 
             if "filename_prefix" in inputs:
                 prefix_value = str(inputs.get("filename_prefix", "")).strip()
@@ -771,7 +872,14 @@ class GenerationService(QObject):
                 prompt_value = inputs.get("prompt", None)
                 tags_value = inputs.get("tags", None)
                 lyrics_value = inputs.get("lyrics", None)
+                string_value = inputs.get("string", None)
 
+                if isinstance(string_value, str):
+                    replaced_string = _replace_prompt_placeholders(string_value)
+                    if replaced_string != string_value:
+                        inputs["string"] = replaced_string
+                        applied_prompt = True
+                        string_value = replaced_string
                 if isinstance(text_value, str):
                     replaced_text = _replace_prompt_placeholders(text_value)
                     if replaced_text != text_value:
@@ -985,7 +1093,7 @@ class GenerationService(QObject):
 
         self._apply_dynamic_sam2_meta_batch(workflow, source_file=source_file, template_id=template_id)
 
-        return workflow
+        return workflow, bindings
 
     def _save_nodes_for_workflow(self, workflow, template_id=None):
         template_id = str(template_id or "").strip().lower()
@@ -1054,20 +1162,62 @@ class GenerationService(QObject):
         except Exception as ex:
             return False, "OpenShot could not convert this image into PNG for ComfyUI.\n\n{}".format(ex)
 
-        reference_image_path = ""
-        reference_image_file_id = str(payload.get("reference_image_file_id") or "").strip()
-        if reference_image_file_id:
-            reference_image_file = File.get(id=reference_image_file_id)
-            if reference_image_file and isinstance(reference_image_file.data, dict):
-                reference_image_path = str(reference_image_file.data.get("path", "") or "").strip()
+        input_file_ids = dict(payload.get("input_file_ids") or {})
+        if "reference_image" not in input_file_ids:
+            # Back-compat: a caller still using the pre-extra_inputs payload shape.
+            legacy_reference_id = str(payload.get("reference_image_file_id") or "").strip()
+            if legacy_reference_id:
+                input_file_ids["reference_image"] = legacy_reference_id
+        input_text_values = dict(payload.get("input_text_values") or {})
+
+        declared_inputs = {entry.get("key"): entry for entry in template_meta.get("extra_inputs", [])}
+        extra_input_paths = {}
+        extra_input_texts = {}
+        for key, entry in declared_inputs.items():
+            if entry.get("type") in ("text", "choice"):
+                value = str(input_text_values.get(key, "") or "").strip()
+                if not value and entry.get("required", True):
+                    return False, "Enter a value for \"{}\".".format(entry.get("label", key))
+                if value:
+                    extra_input_texts[key] = value
+                continue
+
+            file_id = str(input_file_ids.get(key, "") or "").strip()
+            if not file_id:
+                if entry.get("required", True):
+                    return False, "Choose a {} for \"{}\" from Project Files.".format(
+                        entry.get("type", "file"), entry.get("label", key),
+                    )
+                continue
+            input_file = File.get(id=file_id)
+            if not input_file or not isinstance(input_file.data, dict):
+                if entry.get("required", True):
+                    return False, "The file chosen for \"{}\" could not be found.".format(entry.get("label", key))
+                continue
+            file_path = str(input_file.data.get("path", "") or "").strip()
+            if not file_path:
+                if entry.get("required", True):
+                    return False, "The file chosen for \"{}\" has no path.".format(entry.get("label", key))
+                continue
+            try:
+                file_path = self._convert_to_supported_img2img_path(
+                    file_path, payload.get("template_id"), entry.get("type"),
+                )
+            except Exception as ex:
+                return False, "OpenShot could not convert \"{}\" for ComfyUI.\n\n{}".format(
+                    entry.get("label", key), ex,
+                )
+            extra_input_paths[key] = file_path
+
         try:
-            workflow = self._prepare_template_workflow(
+            workflow, bindings = self._prepare_template_workflow(
                 template_meta,
                 payload_name=payload_name,
                 prompt_text=payload.get("prompt"),
                 source_file=source_file,
                 source_path=source_path,
-                reference_image_path=reference_image_path,
+                extra_input_paths=extra_input_paths,
+                extra_input_texts=extra_input_texts,
                 coordinates_positive_text=payload.get("coordinates_positive"),
                 coordinates_negative_text=payload.get("coordinates_negative"),
                 rectangles_positive_text=payload.get("rectangles_positive"),
@@ -1093,6 +1243,7 @@ class GenerationService(QObject):
             "template_id": str(payload.get("template_id") or ""),
             "display_name": display_name,
             "workflow_label": workflow_label,
+            "bindings": bindings,
         }
         job_id = self.win.generation_queue.enqueue(
             payload_name,

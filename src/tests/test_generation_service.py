@@ -1,3 +1,4 @@
+import copy
 import os
 import sys
 import types
@@ -199,6 +200,297 @@ class GenerationServiceTests(unittest.TestCase):
             queued_payload_names,
             ["generation_gen1", "generation_gen2", "generation_gen3"],
         )
+
+    def test_prepare_template_workflow_resolves_named_extra_input_placeholders(self):
+        workflow_fixture = {
+            "1": {"class_type": "LoadVideo", "inputs": {"video": "__openshot_input__"}},
+            "2": {"class_type": "SomeCustomLoader", "inputs": {"video_path": "__openshot_input:end_clip__"}},
+            "3": {"class_type": "AnotherLoader", "inputs": {"src": "{{openshot_input:end_clip}}"}},
+            "4": {"class_type": "ThirdLoader", "inputs": {"path": "$openshot_input:end_clip"}},
+        }
+        service = GenerationService.__new__(GenerationService)
+        service.template_registry = types.SimpleNamespace(
+            get_workflow_copy=lambda template_id: copy.deepcopy(workflow_fixture),
+        )
+
+        workflow, bindings = service._prepare_template_workflow(
+            template={"id": "t1", "path": ""},
+            payload_name="test_gen",
+            prompt_text="",
+            source_file=None,
+            source_path="/media/source.mp4",
+            extra_input_paths={"end_clip": "/media/end_clip.mp4"},
+        )
+
+        self.assertEqual(workflow["1"]["inputs"]["video"], "/media/source.mp4")
+        self.assertEqual(workflow["2"]["inputs"]["video_path"], "/media/end_clip.mp4")
+        self.assertEqual(workflow["3"]["inputs"]["src"], "/media/end_clip.mp4")
+        self.assertEqual(workflow["4"]["inputs"]["path"], "/media/end_clip.mp4")
+
+        binding_paths = {(node_id, key): path for node_id, key, path in bindings}
+        self.assertEqual(binding_paths.get(("1", "video")), "/media/source.mp4")
+        self.assertEqual(binding_paths.get(("2", "video_path")), "/media/end_clip.mp4")
+        self.assertEqual(binding_paths.get(("3", "src")), "/media/end_clip.mp4")
+        self.assertEqual(binding_paths.get(("4", "path")), "/media/end_clip.mp4")
+
+    def test_prepare_template_workflow_keeps_legacy_reference_image_placeholder_working(self):
+        workflow_fixture = {
+            "1": {"class_type": "LegacyRef", "inputs": {"image": "__openshot_reference_image__"}},
+        }
+        service = GenerationService.__new__(GenerationService)
+        service.template_registry = types.SimpleNamespace(
+            get_workflow_copy=lambda template_id: copy.deepcopy(workflow_fixture),
+        )
+
+        workflow, bindings = service._prepare_template_workflow(
+            template={"id": "t1", "path": ""},
+            payload_name="test_gen",
+            prompt_text="",
+            source_file=None,
+            source_path="",
+            reference_image_path="/media/ref.png",
+        )
+
+        self.assertEqual(workflow["1"]["inputs"]["image"], "/media/ref.png")
+        self.assertIn(("1", "image", "/media/ref.png"), bindings)
+
+    def test_prepare_template_workflow_text_substitution_is_never_a_binding_even_on_shared_node(self):
+        # Same node receiving both a media-backed and a text-backed extra input --
+        # only the media one should appear in bindings.
+        workflow_fixture = {
+            "1": {
+                "class_type": "MultiInputNode",
+                "inputs": {
+                    "video_path": "__openshot_input:end_clip__",
+                    "note": "__openshot_input:scene_note__",
+                },
+            },
+        }
+        service = GenerationService.__new__(GenerationService)
+        service.template_registry = types.SimpleNamespace(
+            get_workflow_copy=lambda template_id: copy.deepcopy(workflow_fixture),
+        )
+
+        workflow, bindings = service._prepare_template_workflow(
+            template={"id": "t1", "path": ""},
+            payload_name="test_gen",
+            prompt_text="",
+            source_file=None,
+            source_path="",
+            extra_input_paths={"end_clip": "/media/end_clip.mp4"},
+            extra_input_texts={"scene_note": "a quiet transition"},
+        )
+
+        self.assertEqual(workflow["1"]["inputs"]["video_path"], "/media/end_clip.mp4")
+        self.assertEqual(workflow["1"]["inputs"]["note"], "a quiet transition")
+        binding_keys = {(node_id, key) for node_id, key, _path in bindings}
+        self.assertIn(("1", "video_path"), binding_keys)
+        self.assertNotIn(("1", "note"), binding_keys)
+
+    def test_prepare_template_workflow_unknown_extra_input_key_is_left_untouched_and_logged(self):
+        workflow_fixture = {
+            "1": {"class_type": "Mystery", "inputs": {"thing": "__openshot_input:nonexistent_key__"}},
+        }
+        service = GenerationService.__new__(GenerationService)
+        service.template_registry = types.SimpleNamespace(
+            get_workflow_copy=lambda template_id: copy.deepcopy(workflow_fixture),
+        )
+
+        with patch("classes.generation_service.log.warning") as mock_warning:
+            workflow, bindings = service._prepare_template_workflow(
+                template={"id": "t1", "path": ""},
+                payload_name="test_gen",
+                prompt_text="",
+                source_file=None,
+                source_path="",
+            )
+
+        self.assertEqual(workflow["1"]["inputs"]["thing"], "__openshot_input:nonexistent_key__")
+        self.assertEqual(bindings, [])
+        mock_warning.assert_called_once()
+        self.assertIn("nonexistent_key", mock_warning.call_args.args[1])
+
+    def test_prepare_template_workflow_resolves_embedded_named_text_placeholder(self):
+        workflow_fixture = {
+            "1": {
+                "class_type": "StringConstantMultiline",
+                "inputs": {"string": "subject is __openshot_input:subject_description__, in frame."},
+            },
+        }
+        service = GenerationService.__new__(GenerationService)
+        service.template_registry = types.SimpleNamespace(
+            get_workflow_copy=lambda template_id: copy.deepcopy(workflow_fixture),
+        )
+
+        workflow, bindings = service._prepare_template_workflow(
+            template={"id": "t1", "path": ""},
+            payload_name="test_gen",
+            prompt_text="",
+            source_file=None,
+            source_path="",
+            extra_input_texts={"subject_description": "a man in a blue jacket"},
+        )
+
+        self.assertEqual(
+            workflow["1"]["inputs"]["string"],
+            "subject is a man in a blue jacket, in frame.",
+        )
+        self.assertEqual(bindings, [])
+
+    def test_prepare_template_workflow_embedded_file_type_key_is_left_unresolved_and_logged(self):
+        workflow_fixture = {
+            "1": {
+                "class_type": "StringConstantMultiline",
+                "inputs": {"string": "uses __openshot_input:end_clip__ embedded."},
+            },
+        }
+        service = GenerationService.__new__(GenerationService)
+        service.template_registry = types.SimpleNamespace(
+            get_workflow_copy=lambda template_id: copy.deepcopy(workflow_fixture),
+        )
+
+        with patch("classes.generation_service.log.warning") as mock_warning:
+            workflow, bindings = service._prepare_template_workflow(
+                template={"id": "t1", "path": ""},
+                payload_name="test_gen",
+                prompt_text="",
+                source_file=None,
+                source_path="",
+                extra_input_paths={"end_clip": "/media/end_clip.mp4"},
+            )
+
+        self.assertEqual(workflow["1"]["inputs"]["string"], "uses __openshot_input:end_clip__ embedded.")
+        self.assertEqual(bindings, [])
+        mock_warning.assert_called_once()
+        self.assertIn("end_clip", mock_warning.call_args.args[1])
+
+    def test_prepare_template_workflow_embedded_unknown_key_is_left_unresolved_and_logged(self):
+        workflow_fixture = {
+            "1": {
+                "class_type": "StringConstantMultiline",
+                "inputs": {"string": "uses __openshot_input:nonexistent_key__ embedded."},
+            },
+        }
+        service = GenerationService.__new__(GenerationService)
+        service.template_registry = types.SimpleNamespace(
+            get_workflow_copy=lambda template_id: copy.deepcopy(workflow_fixture),
+        )
+
+        with patch("classes.generation_service.log.warning") as mock_warning:
+            workflow, bindings = service._prepare_template_workflow(
+                template={"id": "t1", "path": ""},
+                payload_name="test_gen",
+                prompt_text="",
+                source_file=None,
+                source_path="",
+            )
+
+        self.assertEqual(
+            workflow["1"]["inputs"]["string"], "uses __openshot_input:nonexistent_key__ embedded.",
+        )
+        self.assertEqual(bindings, [])
+        mock_warning.assert_called_once()
+        self.assertIn("nonexistent_key", mock_warning.call_args.args[1])
+
+    def test_prepare_template_workflow_replaces_openshot_prompt_placeholder_in_string_field(self):
+        # Regression test: StringConstantMultiline (and similar nodes) use a
+        # "string" input key, not "text"/"prompt"/"tags" -- the placeholder
+        # substitution must check that key too, or a user's typed prompt
+        # never reaches the workflow sent to ComfyUI.
+        workflow_fixture = {
+            "1": {
+                "class_type": "StringConstantMultiline",
+                "inputs": {"string": "__openshot_prompt__", "strip_newlines": False},
+            },
+        }
+        service = GenerationService.__new__(GenerationService)
+        service.template_registry = types.SimpleNamespace(
+            get_workflow_copy=lambda template_id: copy.deepcopy(workflow_fixture),
+        )
+
+        workflow, bindings = service._prepare_template_workflow(
+            template={"id": "t1", "path": ""},
+            payload_name="test_gen",
+            prompt_text="S1 is the hero, V1 continues the action.",
+            source_file=None,
+            source_path="",
+        )
+
+        self.assertEqual(
+            workflow["1"]["inputs"]["string"],
+            "S1 is the hero, V1 continues the action.",
+        )
+        self.assertEqual(bindings, [])
+
+    def test_prepare_template_workflow_leaves_unrelated_string_field_untouched(self):
+        # A "string" field that never contains the placeholder literal (e.g. a
+        # template's own fixed default prompt) must not be altered just
+        # because prompt_text was also supplied elsewhere in the workflow.
+        workflow_fixture = {
+            "1": {
+                "class_type": "StringConstantMultiline",
+                "inputs": {"string": "a fixed template prompt with no placeholder"},
+            },
+        }
+        service = GenerationService.__new__(GenerationService)
+        service.template_registry = types.SimpleNamespace(
+            get_workflow_copy=lambda template_id: copy.deepcopy(workflow_fixture),
+        )
+
+        workflow, bindings = service._prepare_template_workflow(
+            template={"id": "t1", "path": ""},
+            payload_name="test_gen",
+            prompt_text="the user's custom prompt",
+            source_file=None,
+            source_path="",
+        )
+
+        self.assertEqual(
+            workflow["1"]["inputs"]["string"],
+            "a fixed template prompt with no placeholder",
+        )
+
+    def test_enqueue_generation_for_file_missing_required_media_input_returns_clear_error(self):
+        service = GenerationService.__new__(GenerationService)
+        service.template_registry = types.SimpleNamespace(
+            get_template=lambda template_id: {
+                "id": "bridge-clips",
+                "path": "",
+                "extra_inputs": [
+                    {"key": "end_clip", "type": "video", "label": "End clip", "required": True},
+                ],
+            },
+        )
+        service._next_generation_name = lambda name: "test_gen"
+
+        ok, error = service._enqueue_generation_for_file(
+            None,
+            {"name": "test", "template_id": "bridge-clips", "input_file_ids": {}, "input_text_values": {}},
+        )
+
+        self.assertFalse(ok)
+        self.assertIn("End clip", error)
+
+    def test_enqueue_generation_for_file_missing_required_text_input_returns_clear_error(self):
+        service = GenerationService.__new__(GenerationService)
+        service.template_registry = types.SimpleNamespace(
+            get_template=lambda template_id: {
+                "id": "bridge-clips",
+                "path": "",
+                "extra_inputs": [
+                    {"key": "scene_note", "type": "text", "label": "Scene detail", "required": True},
+                ],
+            },
+        )
+        service._next_generation_name = lambda name: "test_gen"
+
+        ok, error = service._enqueue_generation_for_file(
+            None,
+            {"name": "test", "template_id": "bridge-clips", "input_file_ids": {}, "input_text_values": {}},
+        )
+
+        self.assertFalse(ok)
+        self.assertIn("Scene detail", error)
 
 
 if __name__ == "__main__":
