@@ -119,9 +119,15 @@ class ToggleSwitchTests(unittest.TestCase):
                 self.app.processEvents()
                 image = toggle.grab().toImage()
                 scale = image.devicePixelRatio()
-                self.assertTrue(any(
-                    image.pixelColor(x, y).red() > 200 and image.pixelColor(x, y).green() < 80
-                    for x in range(round(50 * scale), image.width()) for y in range(image.height())))
+                from collections import Counter
+                pixels = Counter(image.pixelColor(x, y).name()
+                                 for x in range(round(50 * scale), image.width())
+                                 for y in range(image.height()))
+                self.assertTrue(any(QColor(color).red() > 200 and QColor(color).green() < 80
+                                    for color in pixels),
+                                (toggle.size(), toggle.font().toString(),
+                                 toggle.palette().color(QPalette.WindowText).name(),
+                                 scale, pixels.most_common(10)))
 
     def test_designer_dialogs_use_toggles_and_keep_defaults(self):
         # Match the resource module alias installed by the application at startup.
