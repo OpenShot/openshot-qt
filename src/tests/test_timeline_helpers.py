@@ -226,6 +226,40 @@ class TimelineHelperTests(unittest.TestCase):
                 self.assertEqual(settings.get("timeline-track-size"), expected)
                 timeline.set_track_size.assert_called_with(expected)
 
+    def test_restore_timeline_defaults_applies_track_size(self):
+        from windows.preferences import Preferences
+        from qt_api import QMessageBox
+
+        settings = DummySettings()
+        settings.set("timeline-track-size", "minimal")
+        settings.restore = MagicMock(side_effect=lambda **kwargs: settings.set("timeline-track-size", "default"))
+        settings.get_all_settings = MagicMock(return_value=[])
+        tabs = MagicMock()
+        tabs.currentIndex.return_value = 2
+        tabs.widget.return_value.objectName.return_value = "Timeline"
+        dialog = types.SimpleNamespace(
+            s=settings, tabCategories=tabs, Populate=MagicMock(),
+            _apply_timeline_thumbnail_style=MagicMock(), check_shortcut_validity=MagicMock(),
+        )
+        dialog._apply_timeline_track_size = types.MethodType(Preferences._apply_timeline_track_size, dialog)
+        timeline = types.SimpleNamespace(set_track_size=MagicMock())
+        app = types.SimpleNamespace(
+            _tr=lambda text: text,
+            window=types.SimpleNamespace(timeline=timeline, initShortcuts=MagicMock()),
+        )
+        with patch("windows.preferences.get_app", return_value=app), \
+                patch("windows.preferences.QMessageBox.question", return_value=QMessageBox.No) as question:
+            Preferences.confirm_restore_defaults(dialog)
+            settings.restore.assert_not_called()
+            timeline.set_track_size.assert_not_called()
+
+            question.return_value = QMessageBox.Yes
+            Preferences.confirm_restore_defaults(dialog)
+
+        settings.restore.assert_called_once_with(category_filter="Timeline")
+        timeline.set_track_size.assert_called_once_with("default")
+        tabs.setCurrentIndex.assert_called_once_with(2)
+
     def test_track_sizes_preserve_defaults_and_do_not_mutate_theme(self):
         for theme_class, heights in (
             (self.humanity_theme_module.HumanityDarkTimelineTheme, (28, 40, 72)),
