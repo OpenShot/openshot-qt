@@ -7,7 +7,8 @@
   "template_id": "image-blend-multi-input-demo",
   "extra_inputs": [
     { "key": "overlay_image", "type": "image", "label": "Overlay image", "required": true },
-    { "key": "style_prompt", "type": "text", "label": "Restyle prompt", "required": true }
+    { "key": "blend_prompt", "type": "text", "label": "Restyle prompt", "required": true },
+    { "key": "negative_prompt", "type": "text", "label": "Negative prompt", "required": false, "default": "blurry, low quality, watermark, text, logo" }
   ],
   "workflow": {
     "1": {
@@ -25,68 +26,76 @@
       }
     },
     "3": {
-      "class_type": "ImageBlend",
+      "class_type": "CLIPLoader",
       "inputs": {
-        "image1": ["1", 0],
-        "image2": ["2", 0],
-        "blend_factor": 0.5,
-        "blend_mode": "normal"
+        "clip_name": "qwen3vl_8b_int8_convrot.safetensors",
+        "type": "qwen_image",
+        "device": "default"
       }
     },
     "4": {
-      "class_type": "CheckpointLoaderSimple",
+      "class_type": "UNETLoader",
       "inputs": {
-        "ckpt_name": "sd_xl_base_1.0.safetensors"
+        "unet_name": "qwen_image_2.1_int8_convrot.safetensors",
+        "weight_dtype": "default"
       }
     },
     "5": {
-      "class_type": "CLIPTextEncode",
+      "class_type": "VAELoader",
       "inputs": {
-        "clip": ["4", 1],
-        "text": "__openshot_input:style_prompt__"
+        "vae_name": "qwen_image_2.1_vae_bf16.safetensors"
       }
     },
     "6": {
-      "class_type": "CLIPTextEncode",
+      "class_type": "TextEncodeQwenImage21",
       "inputs": {
-        "clip": ["4", 1],
-        "text": "blurry, low quality, watermark, text, logo"
+        "clip": ["3", 0],
+        "images.image_1": ["1", 0],
+        "images.image_2": ["2", 0],
+        "vae": ["5", 0],
+        "prompt": "__openshot_input:blend_prompt__",
+        "negative_prompt": "__openshot_input:negative_prompt__",
+        "resolution": 0
       }
     },
     "7": {
-      "class_type": "VAEEncode",
+      "class_type": "QwenImage21Cache",
       "inputs": {
-        "pixels": ["3", 0],
-        "vae": ["4", 2]
+        "model": ["4", 0],
+        "device": "auto",
+        "dtype": "default"
       }
     },
     "8": {
       "class_type": "KSampler",
       "inputs": {
-        "model": ["4", 0],
-        "positive": ["5", 0],
-        "negative": ["6", 0],
-        "latent_image": ["7", 0],
+        "model": ["7", 0],
+        "positive": ["6", 0],
+        "negative": ["6", 1],
+        "latent_image": ["6", 2],
         "seed": 1293041938,
-        "steps": 20,
-        "cfg": 6.0,
-        "sampler_name": "dpmpp_2m_sde",
-        "scheduler": "karras",
-        "denoise": 0.5
+        "steps": 25,
+        "cfg": 1.0,
+        "sampler_name": "euler",
+        "scheduler": "simple",
+        "denoise": 1.0
       }
     },
     "9": {
       "class_type": "VAEDecode",
       "inputs": {
         "samples": ["8", 0],
-        "vae": ["4", 2]
+        "vae": ["5", 0]
       }
     },
     "10": {
       "class_type": "SaveImage",
       "inputs": {
+        "images": ["9", 0],
         "filename_prefix": "openshot_gen",
-        "images": ["9", 0]
+        "format": "png",
+        "format.bit_depth": "8-bit",
+        "format.input_color_space": "sRGB"
       }
     }
   }

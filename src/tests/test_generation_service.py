@@ -233,6 +233,28 @@ class GenerationServiceTests(unittest.TestCase):
         self.assertEqual(binding_paths.get(("3", "src")), "/media/end_clip.mp4")
         self.assertEqual(binding_paths.get(("4", "path")), "/media/end_clip.mp4")
 
+    def test_prepare_template_workflow_keeps_primary_and_overlay_images_distinct(self):
+        workflow_fixture = {
+            "1": {"class_type": "LoadImage", "inputs": {"image": "__openshot_input__", "upload": "image"}},
+            "2": {"class_type": "LoadImage", "inputs": {"image": "__openshot_input:overlay_image__", "upload": "image"}},
+        }
+        service = GenerationService.__new__(GenerationService)
+        service.template_registry = types.SimpleNamespace(
+            get_workflow_copy=lambda template_id: copy.deepcopy(workflow_fixture),
+        )
+
+        workflow, _bindings = service._prepare_template_workflow(
+            template={"id": "image-blend-multi-input-demo", "path": ""},
+            payload_name="test_gen",
+            prompt_text="",
+            source_file=None,
+            source_path="/media/primary.png",
+            extra_input_paths={"overlay_image": "/media/overlay.png"},
+        )
+
+        self.assertEqual(workflow["1"]["inputs"]["image"], "/media/primary.png")
+        self.assertEqual(workflow["2"]["inputs"]["image"], "/media/overlay.png")
+
     def test_prepare_template_workflow_keeps_legacy_reference_image_placeholder_working(self):
         workflow_fixture = {
             "1": {"class_type": "LegacyRef", "inputs": {"image": "__openshot_reference_image__"}},
@@ -286,6 +308,32 @@ class GenerationServiceTests(unittest.TestCase):
         binding_keys = {(node_id, key) for node_id, key, _path in bindings}
         self.assertIn(("1", "video_path"), binding_keys)
         self.assertNotIn(("1", "note"), binding_keys)
+
+    def test_prepare_template_workflow_named_prompt_is_not_overwritten_by_generic_prompt(self):
+        workflow_fixture = {
+            "1": {
+                "class_type": "CLIPTextEncode",
+                "inputs": {
+                    "clip": ["2", 1],
+                    "text": "__openshot_input:style_prompt__",
+                },
+            },
+        }
+        service = GenerationService.__new__(GenerationService)
+        service.template_registry = types.SimpleNamespace(
+            get_workflow_copy=lambda template_id: copy.deepcopy(workflow_fixture),
+        )
+
+        workflow, _bindings = service._prepare_template_workflow(
+            template={"id": "image-blend-multi-input-demo", "path": ""},
+            payload_name="test_gen",
+            prompt_text="generic prompt that must not replace the style prompt",
+            source_file=None,
+            source_path="",
+            extra_input_texts={"style_prompt": "keep this named blend prompt"},
+        )
+
+        self.assertEqual(workflow["1"]["inputs"]["text"], "keep this named blend prompt")
 
     def test_prepare_template_workflow_unknown_extra_input_key_is_left_untouched_and_logged(self):
         workflow_fixture = {

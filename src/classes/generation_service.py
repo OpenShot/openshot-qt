@@ -815,6 +815,7 @@ class GenerationService(QObject):
                 continue
 
             class_flat = class_type.lower().strip()
+            named_text_input_applied = False
 
             # Resolve generic OpenShot source placeholders in any string input
             # (custom nodes may use keys like `video_path` instead of `video`/`file`).
@@ -848,6 +849,7 @@ class GenerationService(QObject):
                         # Phase 4's upload fix would try to upload_input_file()
                         # a plain string, which is not a local file path.
                         inputs[input_key] = extra_input_texts[named_key]
+                        named_text_input_applied = True
                     else:
                         log.warning(
                             "ComfyUI template references unknown extra_inputs key "
@@ -867,7 +869,7 @@ class GenerationService(QObject):
             if "seed" in inputs and not isinstance(inputs.get("seed", None), (list, dict)):
                 inputs["seed"] = _next_random_seed(inputs.get("seed"))
 
-            if prompt_text:
+            if prompt_text and not named_text_input_applied:
                 text_value = inputs.get("text", None)
                 prompt_value = inputs.get("prompt", None)
                 tags_value = inputs.get("tags", None)

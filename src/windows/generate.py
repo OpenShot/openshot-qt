@@ -34,10 +34,11 @@ from qt_api import QIcon, QPixmap, QColor
 from qt_api import (
     QDialog, QVBoxLayout, QHBoxLayout, QFormLayout, QLabel, QLineEdit,
     QComboBox, QTextEdit, QTabWidget, QWidget, QPushButton, QMessageBox,
-    QDoubleSpinBox, QSpinBox
+    QDoubleSpinBox, QSpinBox, QFileDialog
 )
 
 from classes import info
+from classes.app import get_app
 from classes.logger import log
 from classes.thumbnail import GetThumbPath
 from classes.query import File
@@ -254,6 +255,20 @@ class GenerateMediaDialog(QDialog):
                 widget.setIconSize(QSize(96, 96))
                 widget.addItem("Choose {}...".format(label.lower()), "")
                 self._populate_media_combo(widget, entry_type)
+                chooser = QPushButton("Choose...")
+                chooser.clicked.connect(
+                    lambda _checked, combo=widget, entry_label=label, media_type=entry_type:
+                    self._choose_media_from_project_files(combo, entry_label, media_type)
+                )
+                picker = QWidget(self)
+                picker_layout = QHBoxLayout(picker)
+                picker_layout.setContentsMargins(0, 0, 0, 0)
+                picker_layout.setSpacing(6)
+                picker_layout.addWidget(widget, 1)
+                picker_layout.addWidget(chooser)
+                self._extra_input_form.addRow(label, picker)
+                self._extra_input_widgets[key] = (widget, entry)
+                continue
             self._extra_input_form.addRow(label, widget)
             self._extra_input_widgets[key] = (widget, entry)
 
@@ -432,9 +447,13 @@ class GenerateMediaDialog(QDialog):
             if entry.get("type") in ("text", "choice"):
                 message = "Enter a value for \"{}\".".format(entry.get("label", entry["key"]))
             else:
-                message = "Choose a {} for \"{}\" from Project Files.".format(
-                    entry.get("type", "file"), entry.get("label", entry["key"]),
+                self.tabs.setCurrentWidget(self.page_reference)
+                self._choose_media_from_project_files(
+                    widget,
+                    entry.get("label", entry["key"]),
+                    entry.get("type", "file"),
                 )
+                return
             QMessageBox.warning(self, "Missing Input", message)
             self.tabs.setCurrentWidget(self.page_reference)
             widget.setFocus(Qt.TabFocusReason)
@@ -465,6 +484,21 @@ class GenerateMediaDialog(QDialog):
     def _is_highlight_template(self):
         template_id = str(self.template_combo.currentData() or "").strip().lower()
         return template_id in ("video-highlight-anything-sam2", "image-highlight-anything-sam2")
+
+    def _template_uses_generic_prompt(self):
+        """Return whether the workflow consumes the dialog's generic Prompt field."""
+        prompt_tokens = ("__openshot_prompt__", "{{openshot_prompt}}", "$openshot_prompt")
+
+        def contains_prompt(value):
+            if isinstance(value, str):
+                return any(token in value for token in prompt_tokens)
+            if isinstance(value, dict):
+                return any(contains_prompt(item) for item in value.values())
+            if isinstance(value, list):
+                return any(contains_prompt(item) for item in value)
+            return False
+
+        return contains_prompt(self._current_template().get("workflow", {}))
 
     def _current_template(self):
         template_id = str(self.template_combo.currentData() or "").strip()
@@ -502,7 +536,10 @@ class GenerateMediaDialog(QDialog):
         if default_prompt and not self.prompt_edit.toPlainText().strip():
             self.prompt_edit.setPlainText(default_prompt)
         self._set_tab_visible(self.reference_tab_index, bool(extra_inputs))
-        self._set_tab_visible(self.prompt_tab_index, is_track_template)
+        self._set_tab_visible(
+            self.prompt_tab_index,
+            is_track_template or self._template_uses_generic_prompt(),
+        )
         self._set_tab_visible(self.points_tab_index, is_track_template)
         self._set_tab_visible(self.highlight_tab_index, is_track_template and is_highlight_template)
         self.pick_points_button.setEnabled(bool(self.source_file) and is_track_template)
@@ -511,10 +548,16 @@ class GenerateMediaDialog(QDialog):
             self.pick_points_button.setText("Select objects for tracking")
             self.tabs.setCurrentWidget(self.page_points)
         else:
-            self._set_tab_visible(self.prompt_tab_index, True)
+            self._set_tab_visible(
+                self.prompt_tab_index,
+                self._template_uses_generic_prompt(),
+            )
             self._set_tab_visible(self.points_tab_index, False)
             self._set_tab_visible(self.highlight_tab_index, False)
-            self.tabs.setCurrentWidget(self.page_prompt)
+            if extra_inputs and not self._template_uses_generic_prompt():
+                self.tabs.setCurrentWidget(self.page_reference)
+            else:
+                self.tabs.setCurrentWidget(self.page_prompt)
 
     def _populate_media_combo(self, combo, media_type):
         """Populate `combo` with every Project Files entry matching `media_type`
@@ -553,6 +596,42 @@ class GenerateMediaDialog(QDialog):
             index = combo.findData(current_id)
             if index >= 0:
                 combo.setCurrentIndex(index)
+
+    def _choose_media_from_project_files(self, combo, label, media_type):
+        """Import a media file through the native chooser and select its Project Files ID."""
+        media_type = str(media_type or "").strip().lower()
+        filters = {
+            "image": "Images (*.png *.jpg *.jpeg *.webp *.bmp *.tif *.tiff)",
+            "video": "Videos (*.mp4 *.mov *.avi *.mkv *.webm)",
+            "audio": "Audio (*.wav *.mp3 *.flac *.ogg *.m4a)",
+        }
+        path, _selected_filter = QFileDialog.getOpenFileName(
+            self,
+            "Choose {}".format(label),
+            "",
+            filters.get(media_type, "Media files (*)"),
+        )
+        if not path:
+            return
+
+        try:
+            get_app().window.files_model.add_files(path, prevent_image_seq=True)
+        except Exception as ex:
+            log.warning("Unable to import selected generation input: %s", ex)
+            QMessageBox.warning(self, "Import Failed", "Could not add the selected file to Project Files.")
+            return
+
+        file_obj = File.get(path=path)
+        file_id = str(file_obj.id or "") if file_obj else ""
+        if not file_id:
+            QMessageBox.warning(self, "Import Failed", "The selected file was not added to Project Files.")
+            return
+        index = combo.findData(file_id)
+        if index < 0:
+            combo.addItem(os.path.basename(path), file_id)
+            index = combo.findData(file_id)
+        if index >= 0:
+            combo.setCurrentIndex(index)
 
     def _choose_tracking_clicked(self):
         if not self.source_file:
