@@ -1,5 +1,6 @@
 """Exercise semantic typography through the real Properties dock and history."""
 import copy
+import importlib
 import os
 import sys
 import tempfile
@@ -10,7 +11,8 @@ original_expanduser = os.path.expanduser
 os.path.expanduser = lambda path: root if path == "~" else original_expanduser(path)
 from classes.app import OpenShotApp
 from classes.query import Clip
-from qt_api import QColor, QFont, QTimer
+from qt_api import QColor, QFont, QTimer, QT_API
+QTest = importlib.import_module({"pyqt5": "PyQt5", "pyqt6": "PyQt6", "pyside6": "PySide6"}[QT_API] + ".QtTest").QTest
 
 app = OpenShotApp([], mode="unittest")
 app.settings.set("tutorial_enabled", False)
@@ -94,6 +96,22 @@ def verify():
         from types import SimpleNamespace
         with patch("windows.models.properties_model.get_app", return_value=SimpleNamespace(project={"layers": [layer]})):
             assert all(prop["readonly"] for prop in model._direct_text_properties(locked_data).values())
+        # Reopening an existing selected text must populate Properties immediately,
+        # including after Undo; deferred timeline selection cannot leave it blank.
+        controller = window.direct_text
+        controller.begin(clip.id)
+        assert model.model.rowCount() > 0, "Properties blank when editing selected text"
+        assert item("direct_text.font_size") and item("scale_x")
+        controller.editor.insertPlainText(" edited")
+        controller.finish()
+        window.actionUndo_trigger()
+        controller.begin(clip.id)
+        assert model.model.rowCount() > 0, "Properties blank when reopening after Undo"
+        assert item("direct_text.font_size") and item("location_x")
+        QTest.qWait(250)
+        assert model.model.rowCount() > 0, "Queued selection cleared text Properties"
+        assert item("direct_text.font_size") and item("location_x")
+        controller.cancel()
         passed = True
         print("TEXT_PROPERTIES_PASSED", flush=True)
     except Exception:
