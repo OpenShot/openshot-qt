@@ -41,8 +41,9 @@ Edit text directly in the preview
    clip is added immediately at the playhead, above overlapping media. The
    first block is centered; its selected text is ready to replace by typing.
 2. Type in the selected rectangle. Press :kbd:`Enter` for another line. Use
-   the **Properties** dock to change **Font**, **Font Size**, **Text Color**,
-   **Background**, **Alignment**, and **Wrap Width**. Long text grows downward.
+   the **Properties** dock to change **Font**, **Font Size**, **Font Bold**,
+   **Font Italic**, **Text Color**, **Text Background**, **Text Alignment**,
+   and **Text Wrap Width**. Long text grows downward.
 3. Drag a corner handle to scale the block, or drag its border to move it.
    These gestures leave caret editing and use the normal preview transforms.
    Press :kbd:`Escape` or :kbd:`Ctrl+Enter` to leave caret editing; drag inside
@@ -60,7 +61,7 @@ Edit text directly in the preview
 Direct text uses a single style for the whole multiline block. Its font size
 and wrapping are stored in project pixels, so changing the project profile
 preserves the layout. Resizing the block with transform handles scales the
-text; **Wrap Width** changes the layout. Installed fonts are used when editing,
+text; **Text Wrap Width** changes the layout. Installed fonts are used when editing,
 with Qt font fallback for unavailable fonts. Existing rendered text keeps its
 appearance when a project is opened on another computer. Move the project
 ``.osp`` file together with its ``_assets`` folder to keep these images.

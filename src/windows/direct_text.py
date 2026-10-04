@@ -255,13 +255,22 @@ class DirectTextController(QObject):
         if self._closed or self.clip_id != self.reveal_clip_id or not Clip.get(id=self.clip_id):
             return
         timeline = self.window.timeline
-        end_layout = getattr(timeline, "end_properties_layout_change", None)
-        if end_layout:
-            end_layout()
-        timeline.centerOnPlayhead()
+        begin_layout = getattr(timeline, "begin_properties_layout_change", None)
+        if begin_layout:
+            from qt_api import QPoint
+            left = getattr(timeline, "track_name_width", 0)
+            target_x = timeline.mapToGlobal(QPoint(round((left + timeline.width()) / 2), 0)).x()
+            position = Clip.get(id=self.clip_id).data["position"]
+            begin_layout((position, target_x))
+        else:
+            timeline.centerOnPlayhead()
         if hasattr(timeline, "v_scrollbar_position"):
+            timeline.geometry.ensure()
             ratio = timeline.v_scrollbar_position[1] - timeline.v_scrollbar_position[0]
-            timeline.v_scrollbar_position[:2] = [0.0, ratio]
+            content_height = timeline.v_scrollbar_position[2] or timeline.height()
+            clip_rect = timeline.geometry.calc_item_rect(Clip.get(id=self.clip_id))
+            top = max(0.0, min((clip_rect.top() - timeline.ruler_height) / max(1, content_height), 1.0 - ratio))
+            timeline.v_scrollbar_position[:2] = [top, top + ratio]
             timeline.geometry.mark_dirty()
             timeline.update()
 

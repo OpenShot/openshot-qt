@@ -58,6 +58,32 @@ def verify():
         assert controller.background_ready
         assert not controller.background_image.isNull()
         assert controller.background_image.pixelColor(20, 20).name() == "#16395d", controller.background_image.pixelColor(20, 20).name()
+        # Dock resizing must leave the actual selected timeline clip visible.
+        timeline_widget = window.timeline
+        if hasattr(timeline_widget, "geometry"):
+            deadline = time.monotonic() + 5
+            while time.monotonic() < deadline:
+                QTest.qWait(10)
+                timeline_widget.geometry.ensure()
+                visible_rects = [(rect, selected) for rect, item, selected in timeline_widget.geometry.iter_clips()
+                                 if item.id == created.id and rect.right() > timeline_widget.track_name_width
+                                 and rect.left() < timeline_widget.width() and rect.bottom() > timeline_widget.ruler_height
+                                 and rect.top() < timeline_widget.height()]
+                if visible_rects and visible_rects[0][1] and not timeline_widget.delayed_resize_timer.isActive():
+                    break
+            else:
+                raise AssertionError("New Text timeline clip is outside the visible viewport")
+            QTest.qWait(500)
+            timeline_widget.geometry.ensure()
+            assert any(item.id == created.id and selected and rect.right() > timeline_widget.track_name_width
+                       and rect.left() < timeline_widget.width() and rect.top() < timeline_widget.height()
+                       for rect, item, selected in timeline_widget.geometry.iter_clips())
+            painter = timeline_widget.clip_painter
+            thumbnail = painter.thumb_cache.get((painter._clip_key(created), ("direct-text", created.data["reader"]["path"])))
+            assert thumbnail is not None and not thumbnail.isNull(), "Visible Text clip has no painted thumbnail"
+            thumb_image = thumbnail.toImage()
+            assert any(thumb_image.pixelColor(x, y).alpha() > 0 for y in range(thumb_image.height())
+                       for x in range(thumb_image.width())), "Text thumbnail contains no glyph pixels"
         # Nonempty native glyphs are composited above real overlapping media.
         native_frame = window.timeline_sync.timeline.GetFrame(1)
         native_image = QImage(native_frame.GetPixelsBytes(), native_frame.GetWidth(), native_frame.GetHeight(), native_frame.GetWidth() * 4, QImage.Format_RGBA8888).copy()
