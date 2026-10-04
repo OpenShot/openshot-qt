@@ -197,6 +197,8 @@ class Clip(QueryObject):
 
     def title(self):
         """ Get the translated display title of this item """
+        if self.data.get("direct_text"):
+            return self.data.get("title") or "Text"
         path = self.data.get("reader", {}).get("path")
         file_id = self.data.get("file_id") or self.data.get("reader", {}).get("id")
         if file_id:

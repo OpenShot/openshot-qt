@@ -125,6 +125,9 @@ class DirectTextController(QObject):
         self.original = None
         self._gui_ready = False
         self._closed = False
+        self.reveal_timer = QTimer(self)
+        self.reveal_timer.setSingleShot(True)
+        self.reveal_timer.timeout.connect(self.reveal_created_clip)
         self.forwarded_drag = False
         get_app().updates.add_listener(self)
 
@@ -245,6 +248,22 @@ class DirectTextController(QObject):
         self.window.dockProperties.show()
         self.begin(data["id"])
         self.editor.selectAll()
+        self.reveal_clip_id = data["id"]
+        self.reveal_timer.start(0)
+
+    def reveal_created_clip(self):
+        if self._closed or self.clip_id != self.reveal_clip_id or not Clip.get(id=self.clip_id):
+            return
+        timeline = self.window.timeline
+        end_layout = getattr(timeline, "end_properties_layout_change", None)
+        if end_layout:
+            end_layout()
+        timeline.centerOnPlayhead()
+        if hasattr(timeline, "v_scrollbar_position"):
+            ratio = timeline.v_scrollbar_position[1] - timeline.v_scrollbar_position[0]
+            timeline.v_scrollbar_position[:2] = [0.0, ratio]
+            timeline.geometry.mark_dirty()
+            timeline.update()
 
     def begin(self, clip_id, draft=None):
         self._ensure_gui()
@@ -271,6 +290,10 @@ class DirectTextController(QObject):
         self.anchor_offsets = {"location_x": 0.0, "location_y": 0.0}
         self.window.timeline.AddSelectionJS(clip_id, "clip", True)
         self.window.TransformSignal.emit([clip_id])
+        table = self.window.propertyTableView
+        table.select_item([{"id": clip_id, "type": "clip"}])
+        table.clip_properties_model.update_timer.stop()
+        table.clip_properties_model.update_item_timeout()
         self.layout_document()
         self.capture_background()
         self.view.show()
@@ -286,7 +309,7 @@ class DirectTextController(QObject):
         palette.setColor(QPalette.Text, QColor(self.draft["color"]))
         palette.setColor(QPalette.Base, QColor(self.draft["background"]))
         self.editor.setPalette(palette)
-        self.editor.setStyleSheet("QTextEdit { background: %s; color: %s; padding: 0; border: 1px solid #66aaff; }" % (self.draft["background"], self.draft["color"]))
+        self.editor.setStyleSheet("QTextEdit { background: %s; color: %s; padding: 0; border: none; }" % (self.draft["background"], self.draft["color"]))
         self.draft["height"] = max(self.draft["height"], int(self.editor.document().size().height() + 1))
         self.editor.setFixedSize(self.draft["width"], self.draft["height"])
         self.editor.blockSignals(False)
@@ -524,6 +547,7 @@ class DirectTextController(QObject):
         if self._closed:
             return
         self._closed = True
+        self.reveal_timer.stop()
         self.finish()
         self.cancel()
         app = get_app()
@@ -551,6 +575,7 @@ class DirectTextController(QObject):
         self.snapshot_pool.waitForDone()
 
     def cancel(self):
+        self.reveal_timer.stop()
         if not self._gui_ready:
             return
         self.generation += 1

@@ -16,6 +16,9 @@ def verify():
     global passed
     try:
         window=app.window
+        window.raise_()
+        window.activateWindow()
+        QTest.qWaitForWindowActive(window, 5000)
         controller=window.direct_text
         # A real background reader must survive runtime FrameMapper cloning.
         from qt_api import QImage, QColor
@@ -131,10 +134,16 @@ def verify():
         transformed.data['scale_x']['Points'][0]['co']['Y']=0.8
         transformed.data['scale_y']['Points'][0]['co']['Y']=0.8
         transformed.save()
-        window.preview_thread.current_frame=1
+        fps = app.project.get("fps")
+        target_frame = round(transformed.data["position"] * fps["num"] / fps["den"]) + 1
+        window.SeekSignal.emit(target_frame, True)
+        deadline = time.monotonic() + 5
+        while window.preview_thread.current_frame != target_frame and time.monotonic() < deadline:
+            QTest.qWait(10)
+        assert window.preview_thread.current_frame == target_frame
         from qt_api import QPointF,QInputMethodEvent,QCoreApplication,QEvent,QMouseEvent
         mapped=controller.geometry(transformed.data).map(QPointF(30,30))
-        assert controller.hit(mapped)==clip.id
+        assert controller.hit(mapped)==clip.id, (controller.hit(mapped), clip.id, window._current_timeline_seconds(), transformed.data["position"])
         controller.begin(clip.id)
         input_event=QInputMethodEvent()
         input_event.setCommitString('漢字')
