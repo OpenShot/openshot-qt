@@ -1527,6 +1527,20 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                 file_id = clip.get("file_id") or (clip.get("reader") or {}).get("id")
                 clip_id = clip["id"]
 
+                # Text rasters belong to the clip, without a shared File record.
+                # The title folder was copied above, including immutable history images.
+                if clip.get("direct_text"):
+                    path = (clip.get("reader") or {}).get("path", "")
+                    relative = self._path_relative_to_root(path, info.TITLE_PATH)
+                    if relative is not None:
+                        target = os.path.join(target_title_path, relative)
+                        if os.path.exists(target):
+                            clip["reader"]["path"] = target
+                            clip["image"] = target
+                            # Relocation bypasses updates; discard stale query paths.
+                            from classes.query import QueryObject
+                            QueryObject._cache_version = None
+
                 # For now, store thumbnail path for backwards compatibility
                 if file_id:
                     clip["image"] = os.path.join(target_thumb_path, f"{file_id}.png")
