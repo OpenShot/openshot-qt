@@ -2387,7 +2387,8 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         clips = Clip.filter(id=clip_id)
         for clip in clips:
             # Force thumbnail image to be refreshed (for a particular frame #)
-            GetThumbPath(clip.data.get("file_id"), thumbnail_frame, clear_cache=True)
+            if not isinstance(clip.data.get("direct_text"), dict):
+                GetThumbPath(clip.data.get("file_id"), thumbnail_frame, clear_cache=True)
 
             if ViewClass == TimelineWidget:
                 if hasattr(self, "clip_painter"):

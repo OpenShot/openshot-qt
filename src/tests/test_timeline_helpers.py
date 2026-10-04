@@ -6684,6 +6684,64 @@ class TimelineHelperTests(unittest.TestCase):
                                 (frame - 1) / (fps_num / fps_den), expected_time, delta=0.26
                             )
 
+    def test_direct_text_thumbnails_paint_clip_owned_png_and_follow_history(self):
+        from classes.direct_text import default_text, render_text
+
+        with tempfile.TemporaryDirectory() as folder:
+            painter = self.make_clip_painter()
+            self.addCleanup(painter.w.deleteLater)
+            requests = []
+            painter.w.thumbnail_manager = types.SimpleNamespace(
+                request_thumbnail=lambda *args: requests.append(args)
+            )
+            style = default_text(320, 180)
+            style.update(text="Hello", font_size=32, width=160, height=64)
+            white_path = render_text(style, folder)
+            style["color"] = "#ff0000"
+            red_path = render_text(style, folder)
+            clip = types.SimpleNamespace(id="TEXT", data={
+                "direct_text": style, "position": 0.0, "start": 0.0,
+                "end": 5.0, "duration": 5.0,
+                "reader": {"path": white_path, "width": 160, "height": 64},
+            })
+            inner = QRectF(0, 0, 120, 48)
+
+            def render(path):
+                clip.data["reader"]["path"] = path
+                image = QImage(120, 48, QImage.Format_ARGB32)
+                image.fill(QColor("black"))
+                canvas = QPainter(image)
+                try:
+                    self.assertFalse(painter._draw_thumbnails(canvas, clip, inner, None))
+                finally:
+                    canvas.end()
+                return image
+
+            first = render(white_path)
+            self.assertGreater(sum(first.pixelColor(x, y).green() > 20
+                                   for x in range(120) for y in range(48)), 100)
+            edited = render(red_path)
+            self.assertGreater(sum(edited.pixelColor(x, y).red() > 20
+                                   for x in range(120) for y in range(48)), 100)
+            self.assertEqual(sum(edited.pixelColor(x, y).green()
+                                 for x in range(120) for y in range(48)), 0)
+            self.assertEqual(render(white_path), first)  # undo
+            self.assertEqual(render(red_path), edited)  # redo
+
+            # A saved project resolves clip-owned assets without a File object.
+            from classes.assets import get_assets_path
+            from qt_api import QApplication
+            project_file = os.path.join(folder, "saved.osp")
+            title_folder = os.path.join(get_assets_path(project_file), "title")
+            saved_path = render_text(style, title_folder)
+            token = "@assets/title/" + os.path.basename(saved_path)
+            with patch.object(QApplication.instance(), "project",
+                              types.SimpleNamespace(current_filepath=project_file), create=True):
+                self.assertEqual(render(token), edited)
+            self.assertEqual(requests, [])
+            painter.invalidate_clip_thumbnails(clip.id)
+            self.assertEqual(painter.thumb_cache, {})
+
     def test_thumbnail_strip_renders_correct_cached_frames_during_repeated_zoom(self):
         # Encode source frame numbers in solid-color PNGs so we can verify the
         # actual painted pixels through the normal request, load, and cache path.

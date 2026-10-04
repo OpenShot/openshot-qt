@@ -63,6 +63,7 @@ from classes.waveform import (
 )
 from classes import info
 from classes.clip_utils import is_single_image_media
+from classes.path_utils import absolute_media_path
 from classes.qt_types import font_metrics_horizontal_advance
 
 from .base import BasePainter
@@ -556,6 +557,15 @@ class ClipPainter(ItemHeaderMixin, BasePainter):
         file_id = data.get("file_id")
         return str(file_id) if file_id else None
 
+    def _direct_text_thumbnail_path(self, clip):
+        """Resolve the clip-owned text raster, which has no project File ID."""
+        data = clip.data if isinstance(clip.data, dict) else {}
+        if not isinstance(data.get("direct_text"), dict):
+            return None
+        reader = data.get("reader") if isinstance(data.get("reader"), dict) else {}
+        path = reader.get("path") or data.get("image")
+        return absolute_media_path(path) if path else None
+
     def _clip_is_audio_only(self, clip):
         data = clip.data if isinstance(clip.data, dict) else {}
         reader = data.get("reader") if isinstance(data.get("reader"), dict) else {}
@@ -821,6 +831,7 @@ class ClipPainter(ItemHeaderMixin, BasePainter):
             segment_info.get("thumbnail_view_right"),
             includes_start,
             includes_end,
+            self._direct_text_thumbnail_path(clip),
         ) if use_cache else None
         if use_cache and key in self.clip_cache:
             cached = self.clip_cache[key]
@@ -1322,13 +1333,28 @@ class ClipPainter(ItemHeaderMixin, BasePainter):
             return False
         clip_key = self._clip_key(clip)
         file_id = self._clip_file_id(clip)
-        if not (clip_key and file_id):
+        text_path = self._direct_text_thumbnail_path(clip)
+        if not clip_key or not (file_id or text_path):
             return False
 
         _, clip_duration = self._clip_time_bounds(clip)
         timing = self._segment_timing(segment, clip_duration)
         slots, interval_seconds = self._build_thumbnail_slots(clip, inner, segment, style, timing)
         if not slots:
+            return False
+
+        if text_path:
+            # Text rasters are immutable. Include their resolved path so edits,
+            # undo/redo, duplicates and Save As always select the right image.
+            key = (clip_key, ("direct-text", text_path))
+            pix = self.thumb_cache.get(key)
+            if pix is None or pix.isNull():
+                pix = QPixmap(text_path)
+                if pix.isNull():
+                    return False
+                self.thumb_cache[key] = pix
+            for _, rect in slots:
+                self._paint_thumbnail_pixmap(painter, pix, rect, inner)
             return False
 
         clip_fps = self._clip_media_fps(clip)
