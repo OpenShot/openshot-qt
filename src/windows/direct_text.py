@@ -353,6 +353,9 @@ class DirectTextController(QObject):
         clip_id = data.get("id")
         self.cancel()
         if clip_id:
+            # Keep timeline selection and its delayed transform notification in
+            # agreement with the text just edited, including preview double-click.
+            self.window.timeline.AddSelectionJS(clip_id, "clip", True)
             self.window.TransformSignal.emit([clip_id])
 
     def capture_background(self):

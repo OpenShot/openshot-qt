@@ -92,13 +92,50 @@ def verify():
         QCoreApplication.sendEvent(controller.editor,input_event)
         assert controller.editor.toPlainText().endswith('漢字')
         controller.finish()
+        assert window.selected_clips == [clip.id], window.selected_clips
         # Drive the real preview transform handlers with Qt mouse events.
         before_drag = Clip.get(id=clip.id).data['location_x']['Points'][0]['co']['Y']
         window.TransformSignal.emit([clip.id])
-        QTest.qWait(30)
-        point = controller.geometry(Clip.get(id=clip.id).data).map(QPointF(40, 40)).toPoint()
+        preview = window.videoPreview
+        deadline = time.monotonic() + 5
+        readiness = None
+        while time.monotonic() < deadline:
+            QTest.qWait(10)
+            selected = preview.transforming_clip
+            if (not selected or selected.id != clip.id
+                    or len(preview.transforming_clips) != 1
+                    or preview.transform is None or preview.clipBounds is None
+                    or preview.delayed_resize_timer.isActive()):
+                continue
+            fps = app.project.get("fps")
+            frame_number = preview._get_clip_frame_number(selected, fps["num"] / fps["den"])
+            rect, properties = preview._clip_rect(
+                selected, preview.transforming_clip_object,
+                preview.centeredViewport(preview.width(), preview.height()), frame_number)
+            expected = preview._build_clip_transform(
+                rect.x(), rect.y(), rect.width(), rect.height(), properties)[0]
+            local_points = (QPointF(0, 0), QPointF(rect.width(), rect.height()))
+            readiness = [abs(expected.map(p).x() - preview.transform.map(p).x())
+                         + abs(expected.map(p).y() - preview.transform.map(p).y())
+                         for p in local_points]
+            if (max(readiness) < 0.5
+                    and abs(preview.clipBounds.width() - rect.width()) < 0.5
+                    and abs(preview.clipBounds.height() - rect.height()) < 0.5):
+                break
+        else:
+            raise AssertionError("Transform overlay did not match selected clip: %r" % readiness)
+        assert preview.transforming_clip.id == clip.id
+        assert preview.transforming_clip_object.Id() == clip.id
+        # Target the painted block's interior, away from corner/shear/origin handles.
+        # Hiding the text toolbar changes the viewport; its old source-space
+        # target is not a reliable pointer position until layout and paint settle.
+        local_point = QPointF(preview.clipBounds.width() * 0.25,
+                             preview.clipBounds.height() * 0.35)
+        point = preview.transform.map(local_point).toPoint()
         QCoreApplication.sendEvent(window.videoPreview, QMouseEvent(QEvent.MouseMove, QPointF(point), Qt.NoButton, Qt.NoButton, Qt.NoModifier))
+        assert preview.hover_transform_mode == "location", preview.hover_transform_mode
         QTest.mousePress(window.videoPreview, Qt.LeftButton, pos=point)
+        assert preview.mouse_pressed and preview.transform_mode == "location"
         QCoreApplication.sendEvent(window.videoPreview, QMouseEvent(QEvent.MouseMove, QPointF(point + QPoint(30, 15)), Qt.NoButton, Qt.LeftButton, Qt.NoModifier))
         QTest.mouseRelease(window.videoPreview, Qt.LeftButton, pos=point + QPoint(30, 15))
         assert Clip.get(id=clip.id).data['location_x']['Points'][0]['co']['Y'] != before_drag
@@ -143,6 +180,18 @@ def verify():
         controller.cancel()
         QTest.qWait(100)
         assert not controller.view.isVisible()
+        # Canceling an unsaved draft or deleting its source never selects/recreates it.
+        selected_before = list(window.selected_clips)
+        ids_before = [item.id for item in Clip.filter()]
+        controller.create(window.videoPreview.rect().center())
+        controller.cancel()
+        assert window.selected_clips == selected_before
+        assert [item.id for item in Clip.filter()] == ids_before
+        controller.begin(clip.id)
+        Clip.get(id=clip.id).delete()
+        assert controller.draft is None
+        controller.finish()
+        assert Clip.get(id=clip.id) is None
         print('TEXT_WORKFLOW_PASSED',flush=True)
         controller.snapshot_pool.waitForDone(10000)
         passed=True
