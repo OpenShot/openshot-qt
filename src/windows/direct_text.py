@@ -100,6 +100,7 @@ class DirectTextController(QObject):
         self.draft = None
         self.original = None
         self._gui_ready = False
+        self._closed = False
         get_app().updates.add_listener(self)
 
     def _ensure_gui(self):
@@ -363,12 +364,19 @@ class DirectTextController(QObject):
         data = json.loads(timeline.Json())
         app_clips = {clip.id: clip.data for clip in Clip.filter()}
         for clip in data.get("clips", []):
+            # Native JSON includes runtime FrameMappers, which Clip.SetJson
+            # deliberately cannot load. The new timeline installs fresh mappers.
+            reader = clip.get("reader", {})
+            while reader.get("type") == "FrameMapper":
+                reader = reader.get("reader", {})
+            clip["reader"] = reader
             current = app_clips.get(clip.get("id"), {})
             if current.get("direct_text"):
                 clip["reader"] = copy.deepcopy(current["reader"])
         data["clips"] = [c for c in data.get("clips", []) if c.get("id") != self.clip_id]
         import threading
         self.generation += 1
+        self.background_ready = False
         self.snapshot_cancel = threading.Event()
         viewport = self.preview.centeredViewport(self.preview.width(), self.preview.height())
         self.background_image = self.preview.current_image.copy() if self.preview.current_image else QImage(1, 1, QImage.Format_RGBA8888)
@@ -389,6 +397,7 @@ class DirectTextController(QObject):
             log.warning("Text preview background failed: %s", error)
             self.window.statusBar.showMessage(get_app()._tr("Unable to load text editing background"))
         elif image is not None:
+            self.background_ready = True
             self.background_image = image
             self.update_geometry()
 
@@ -441,6 +450,9 @@ class DirectTextController(QObject):
             self.cancel()
 
     def shutdown(self):
+        if self._closed:
+            return
+        self._closed = True
         self.finish()
         self.cancel()
         app = get_app()

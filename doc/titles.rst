@@ -32,6 +32,46 @@ change the text, font, size, color, and background color. You can also launch an
 further customizations (if needed). Once the title is added to your project, drag and drop the title on a
 Track above a video clip. The transparent background will allow the video below to appear behind the text.
 
+.. _direct_text_ref:
+
+Edit text directly in the preview
+---------------------------------
+
+1. In the **Video Preview** toolbar, click the **Tt — Add Text** button. Click
+   the preview where you want the center of your text block. Text is added at
+   the playhead on the selected clip's unlocked track, or the highest unlocked
+   track if no clip is selected.
+2. Type in the preview. The caret and selection show that you are in text
+   editing mode. Press :kbd:`Enter` for another line. Use the **Font**,
+   **Font Size**, **Alignment**, **Text Color**, **Wrap Width**, and
+   **Transparent** / **Dark Background** controls above the preview. Long text
+   grows downward; **Wrap Width** controls where lines wrap.
+3. Click **Done**, press :kbd:`Escape`, or press :kbd:`Ctrl+Enter` to commit
+   your text. The preview now shows transform handles. Drag inside the block
+   to move it, drag a corner to resize it, or use the rotation handle to rotate
+   it. These operations change the whole block. A block with no existing
+   animation stays static when you move it later in the clip.
+4. Drag either edge of the text clip on the timeline to change its duration.
+   Double-click the text block in the preview to edit its text again, or
+   right-click its timeline clip and choose **Edit Text**. A locked track
+   prevents editing. During text editing, clipboard and undo shortcuts apply
+   to the text; after **Done**, project **Undo** restores the previous edit.
+5. Copy and paste the timeline clip to make an independent text clip. Save
+   your project and export normally. Saving, exporting or starting playback
+   commits an open text edit automatically.
+
+Direct text uses a single style for the whole multiline block. Its font size
+and wrapping are stored in project pixels, so changing the project profile
+preserves the layout. Resizing the block with transform handles scales the
+text; **Wrap Width** changes the layout. Installed fonts are used when editing,
+with Qt font fallback for unavailable fonts. Existing rendered text keeps its
+appearance when a project is opened on another computer. Move the project
+``.osp`` file together with its ``_assets`` folder to keep these images.
+
+The SVG **Title** editor and SRT **Caption** workflows remain available for
+using templates and timed subtitles.
+
+
 Overview
 --------
 
