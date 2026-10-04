@@ -15,9 +15,9 @@ from qt_api import QColor, QFont, QImage, QPainter, QTextDocument, QTextOption, 
 
 
 def default_text(width, height):
-    return dict(version=1, text="", font_family="Sans Serif", font_size=max(12, round(height / 15)),
-                color="#ffffff", background="#00000000", alignment="left",
-                width=max(64, round(width / 2)), height=max(64, round(height / 3)))
+    return dict(version=1, text="Text", font_family="Sans Serif", font_bold=False, font_italic=False, font_size=max(12, round(height / 15)),
+                color="#ffffff", background="#00000000", alignment="center",
+                width=max(64, round(width / 2)), height=max(64, round(height / 8)))
 
 
 def text_document(style, document=None):
@@ -25,6 +25,8 @@ def text_document(style, document=None):
     document = document or QTextDocument()
     font = QFont(style["font_family"])
     font.setPixelSize(int(style["font_size"]))
+    font.setBold(bool(style.get("font_bold", False)))
+    font.setItalic(bool(style.get("font_italic", False)))
     document.setDefaultFont(font)
     document.setDocumentMargin(12)
     option = QTextOption()

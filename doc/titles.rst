@@ -37,28 +37,25 @@ Track above a video clip. The transparent background will allow the video below 
 Edit text directly in the preview
 ---------------------------------
 
-1. In the **Video Preview** toolbar, click the **Tt — Add Text** button. Click
-   the preview where you want the center of your text block. Text is added at
-   the playhead on the selected clip's unlocked track, or the highest unlocked
-   track if no clip is selected.
-2. Type in the preview. The caret and selection show that you are in text
-   editing mode. Press :kbd:`Enter` for another line. Use the **Font**,
-   **Font Size**, **Alignment**, **Text Color**, **Wrap Width**, and
-   **Transparent** / **Dark Background** controls above the preview. Long text
-   grows downward; **Wrap Width** controls where lines wrap.
-3. Click **Done**, press :kbd:`Escape`, or press :kbd:`Ctrl+Enter` to commit
-   your text. The preview now shows transform handles. Drag inside the block
-   to move it, drag a corner to resize it, or use the rotation handle to rotate
-   it. These operations change the whole block. A block with no existing
-   animation stays static when you move it later in the clip.
-4. Drag either edge of the text clip on the timeline to change its duration.
-   Double-click the text block in the preview to edit its text again, or
-   right-click its timeline clip and choose **Edit Text**. A locked track
-   prevents editing. During text editing, clipboard and undo shortcuts apply
-   to the text; after **Done**, project **Undo** restores the previous edit.
-5. Copy and paste the timeline clip to make an independent text clip. Save
-   your project and export normally. Saving, exporting or starting playback
-   commits an open text edit automatically.
+1. Click **Tt — Add Text** in the **Video Preview** toolbar. A visible **Text**
+   clip is added immediately at the playhead, above overlapping media. The
+   first block is centered; its selected text is ready to replace by typing.
+2. Type in the selected rectangle. Press :kbd:`Enter` for another line. Use
+   the **Properties** dock to change **Font**, **Font Size**, **Text Color**,
+   **Background**, **Alignment**, and **Wrap Width**. Long text grows downward.
+3. Drag a corner handle to scale the block, or drag its border to move it.
+   These gestures leave caret editing and use the normal preview transforms.
+   Press :kbd:`Escape` or :kbd:`Ctrl+Enter` to leave caret editing; drag inside
+   the block to move it, or outside it to rotate. A block with no animation
+   remains static when transformed later in the clip.
+4. Double-click the preview text or choose **Edit Text** on its timeline
+   context menu to return to caret editing. Drag timeline edges to adjust
+   duration. Text undo works while typing; project **Undo** restores committed
+   edits. A locked track prevents editing.
+5. Move the playhead and click **Tt** again to create another **Text** block
+   using the previous block's style, position, scale and rotation. Each clip
+   has independent content. Copy/paste, save and export work normally;
+   saving, exporting or playing commits open caret edits automatically.
 
 Direct text uses a single style for the whole multiline block. Its font size
 and wrapping are stored in project pixels, so changing the project profile

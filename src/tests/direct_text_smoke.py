@@ -33,19 +33,71 @@ def verify():
         assert button is not None and button.isVisible() and not window.actionDirectText.icon().isNull()
         t=time.perf_counter()
         QTest.mouseClick(button,Qt.LeftButton)
-        QTest.mouseClick(window.videoPreview,Qt.LeftButton,pos=window.videoPreview.rect().center())
         print('entry ms',1000*(time.perf_counter()-t),flush=True)
         assert controller.draft is not None
+        created = Clip.get(id=controller.clip_id)
+        assert created is not None and created.data["direct_text"]["text"] == "Text"
+        assert window.selected_clips == [created.id]
+        assert controller.editor.hasFocus() and controller.editor.textCursor().selectedText() == "Text"
+        assert not hasattr(controller, "toolbar")
+        raster = QImage(created.data["reader"]["path"])
+        glyphs = [QPoint(x, y) for y in range(raster.height()) for x in range(raster.width())
+                  if raster.pixelColor(x, y).alpha() > 0]
+        assert len(glyphs) > 100, len(glyphs)
+        assert abs(sum(p.x() for p in glyphs) / len(glyphs) - raster.width() / 2) < raster.width() / 8
+        screenshot_dir = os.environ.get("OPENSHOT_TEXT_SCREENSHOT_DIR")
+        if screenshot_dir:
+            os.makedirs(screenshot_dir, exist_ok=True)
+            window.grab().save(os.path.join(screenshot_dir, "text-created.png"))
         deadline = time.monotonic() + 5
         while not controller.background_ready and time.monotonic() < deadline:
             QTest.qWait(10)
         assert controller.background_ready
         assert not controller.background_image.isNull()
         assert controller.background_image.pixelColor(20, 20).name() == "#16395d", controller.background_image.pixelColor(20, 20).name()
+        # Nonempty native glyphs are composited above real overlapping media.
+        native_frame = window.timeline_sync.timeline.GetFrame(1)
+        native_image = QImage(native_frame.GetPixelsBytes(), native_frame.GetWidth(), native_frame.GetHeight(), native_frame.GetWidth() * 4, QImage.Format_RGBA8888).copy()
+        assert any(native_image.pixelColor(x, y).red() > 220 for y in range(native_image.height()) for x in range(native_image.width())), "No native white text pixels over background"
+        original_size = created.data["direct_text"]["font_size"]
+        assert controller.apply_property(created.id, "direct_text.font_size", original_size + 5)
+        assert controller.draft["font_size"] == original_size + 5 and controller.view.isVisible()
+        app.updates.undo()
+        assert controller.draft["font_size"] == original_size
+        controller.finish()
+        assert Clip.get(id=created.id).data["direct_text"]["font_size"] == original_size
+        # Corner and border presses originate on the live caret overlay.
+        from qt_api import QPointF, QCoreApplication, QEvent, QMouseEvent
+        preview = window.videoPreview
+        controller.begin(created.id)
+        QTest.qWait(80)
+        before_scale = Clip.get(id=created.id).data["scale_x"]["Points"][0]["co"]["Y"]
+        corner = preview.transform.map(preview.bottomRightHandle.center()).toPoint()
+        QTest.mousePress(controller.view.viewport(), Qt.LeftButton, pos=corner)
+        assert controller.draft is None and preview.mouse_pressed
+        assert preview.transform_mode == "scale_bottom_right", preview.transform_mode
+        QCoreApplication.sendEvent(preview, QMouseEvent(QEvent.MouseMove, QPointF(corner + QPoint(25, 15)), Qt.NoButton, Qt.LeftButton, Qt.NoModifier))
+        QTest.mouseRelease(preview, Qt.LeftButton, pos=corner + QPoint(25, 15))
+        assert not preview.mouse_pressed and not app.updates.ignore_history and not controller.forwarded_drag
+        assert Clip.get(id=created.id).data["scale_x"]["Points"][0]["co"]["Y"] != before_scale
+        controller.begin(created.id)
+        QTest.qWait(80)
+        before_move = Clip.get(id=created.id).data["location_x"]["Points"][0]["co"]["Y"]
+        border = preview.transform.map(QPointF(preview.clipBounds.width() * .25, 0)).toPoint()
+        QTest.mousePress(controller.view.viewport(), Qt.LeftButton, pos=border)
+        assert controller.draft is None and preview.transform_mode == "location", preview.transform_mode
+        QCoreApplication.sendEvent(preview, QMouseEvent(QEvent.MouseMove, QPointF(border + QPoint(20, 10)), Qt.NoButton, Qt.LeftButton, Qt.NoModifier))
+        QTest.mouseRelease(preview, Qt.LeftButton, pos=border + QPoint(20, 10))
+        assert not preview.mouse_pressed and not app.updates.ignore_history and not controller.forwarded_drag
+        assert Clip.get(id=created.id).data["location_x"]["Points"][0]["co"]["Y"] != before_move
+        controller.begin(created.id)
+        controller.editor.selectAll()
         QTest.keyClicks(controller.editor,'Hello')
         QTest.keyClick(controller.editor,Qt.Key_Return)
         controller.editor.insertPlainText('العربية café 🎉')
         assert 'Hello\n' in controller.editor.toPlainText()
+        if screenshot_dir:
+            window.grab().save(os.path.join(screenshot_dir, 'text-typing.png'))
         QTest.keyClick(controller.editor,Qt.Key_Escape)
         clips=[item for item in Clip.filter() if item.data.get("direct_text")]
         assert len(clips)==1,len(clips)
@@ -71,10 +123,7 @@ def verify():
         duplicate=duplicates[0]
         controller.begin(duplicate.id)
         controller.editor.insertPlainText(' independent')
-        from qt_api import QPushButton
-        done = next(widget for widget in controller.toolbar.findChildren(QPushButton) if widget.text() == "Done")
-        assert done.isVisible()
-        QTest.mouseClick(done, Qt.LeftButton)
+        QTest.keyClick(controller.editor, Qt.Key_Escape)
         assert not Clip.get(id=clip.id).data['direct_text']['text'].endswith(' independent')
         # Native transform hit mapping at rotation and scaled preview.
         transformed=Clip.get(id=clip.id)
@@ -180,13 +229,26 @@ def verify():
         controller.cancel()
         QTest.qWait(100)
         assert not controller.view.isVisible()
-        # Canceling an unsaved draft or deleting its source never selects/recreates it.
-        selected_before = list(window.selected_clips)
-        ids_before = [item.id for item in Clip.filter()]
-        controller.create(window.videoPreview.rect().center())
+        # New playhead reuses actual last text style and evaluated static geometry.
+        controller.begin(clip.id)
+        assert controller.apply_property(clip.id, "font_bold", True)
+        controller.finish()
+        previous = copy.deepcopy(Clip.get(id=clip.id).data)
+        window.SeekSignal.emit(900, True)
+        QTest.qWait(80)
+        QTest.mouseClick(button, Qt.LeftButton)
+        new_id = controller.clip_id
+        new_data = Clip.get(id=new_id).data
+        assert new_data["direct_text"]["text"] == "Text"
+        assert controller.editor.textCursor().selectedText() == "Text" and controller.editor.hasFocus()
+        assert new_data["position"] != previous["position"]
+        for key in ("font_family", "font_size", "font_bold", "font_italic", "color", "background", "alignment", "width"):
+            assert new_data["direct_text"].get(key, False) == previous["direct_text"].get(key, False), key
+        for key in ("location_x", "location_y", "scale_x", "scale_y", "rotation"):
+            assert len(new_data[key]["Points"]) == 1
+            assert new_data[key]["Points"][0]["co"]["Y"] == previous[key]["Points"][0]["co"]["Y"], key
         controller.cancel()
-        assert window.selected_clips == selected_before
-        assert [item.id for item in Clip.filter()] == ids_before
+        assert Clip.get(id=new_id) is not None
         controller.begin(clip.id)
         Clip.get(id=clip.id).delete()
         assert controller.draft is None

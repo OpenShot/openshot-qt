@@ -5735,7 +5735,7 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         self.actionDirectText = QAction(_("Tt — Add Text"), self)
         self.actionDirectText.setObjectName("actionDirectText")
         self.actionDirectText.setIcon(QIcon(os.path.join(info.PATH, "images", "tool-text.svg")))
-        self.actionDirectText.setToolTip(_("Click the preview to add editable text"))
+        self.actionDirectText.setToolTip(_("Add editable text at the playhead"))
         self.actionDirectText.triggered.connect(self.direct_text.arm)
         self.videoToolbar.addAction(self.actionDirectText)
 
