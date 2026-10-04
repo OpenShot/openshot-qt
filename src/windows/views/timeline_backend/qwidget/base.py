@@ -1996,7 +1996,7 @@ class TimelineWidgetBase(RazorMixin, QWidget):
             self._properties_layout_timer = QTimer(self)
             self._properties_layout_timer.setSingleShot(True)
             self._properties_layout_timer.setInterval(250)
-            self._properties_layout_timer.timeout.connect(self.end_properties_layout_change)
+            self._properties_layout_timer.timeout.connect(self._finish_properties_layout_change)
         self._properties_layout_timer.start()
         QTimer.singleShot(0, self._restore_properties_layout_anchor)
 
@@ -2005,6 +2005,12 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         timer = getattr(self, "_properties_layout_timer", None)
         if timer:
             timer.stop()
+
+    def _finish_properties_layout_change(self):
+        # An ancestor dock can move globally without moving this widget inside
+        # its parent. Resolve that final screen position before releasing it.
+        self._restore_properties_layout_anchor()
+        self.end_properties_layout_change()
 
     def _restore_properties_layout_anchor(self):
         anchor = getattr(self, "_properties_layout_anchor", None)
