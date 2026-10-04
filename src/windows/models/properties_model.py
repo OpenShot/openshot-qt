@@ -70,6 +70,59 @@ class ClipStandardItemModel(QStandardItemModel):
 
 
 class PropertiesModel(updates.UpdateInterface):
+    def _direct_text_properties(self, clip_data):
+        """Expose semantic typography alongside the native clip properties."""
+        style = clip_data.get("direct_text")
+        if not isinstance(style, dict):
+            return {}
+        app = get_app()
+        locked = any(layer.get("number") == clip_data.get("layer") and layer.get("lock", False)
+                     for layer in app.project.get("layers"))
+        properties = {}
+        definitions = (
+            ("text", "Text", "string", 0, 0),
+            ("font_family", "Font", "font", 0, 0),
+            ("font_bold", "Font Bold", "bool", 0, 1),
+            ("font_italic", "Font Italic", "bool", 0, 1),
+            ("font_size", "Font Size", "int", 8, 1000),
+            ("color", "Text Color", "color", 0, 255),
+            ("background", "Text Background", "color", 0, 255),
+            ("alignment", "Text Alignment", "string", 0, 0),
+            ("width", "Text Wrap Width", "int", 64, 8192),
+        )
+        for key, name, kind, minimum, maximum in definitions:
+            value = style.get(key, False if kind == "bool" else None)
+            prop = dict(name=name, type=kind, value=value, memo=str(value or ""),
+                        min=minimum, max=maximum, readonly=locked, keyframe=False,
+                        points=0, interpolation=openshot.CONSTANT, closest_point_x=1,
+                        previous_point_x=1, choices=[])
+            if kind == "bool":
+                prop["choices"] = [dict(name=label, value=choice, selected=value == choice)
+                                   for choice, label in ((False, "False"), (True, "True"))]
+            if key == "alignment":
+                prop["choices"] = [dict(name=label, value=align, selected=value == align)
+                                   for align, label in (("left", "Left"), ("center", "Center"), ("right", "Right"))]
+            if kind == "color":
+                color = QColor(value)
+                for channel in ("red", "green", "blue", "alpha"):
+                    prop[channel] = {"value": getattr(color, channel)()}
+            properties["direct_text." + key] = prop
+        return properties
+
+    def _update_direct_text_property(self, item, value, key=None):
+        """Route text edits through the controller's immutable raster/history path."""
+        property_key, metadata = self.model.item(item.row(), 0).data()
+        if metadata.get("readonly"):
+            return
+        controller = getattr(get_app().window, "direct_text", None)
+        if controller is None:
+            return
+        # Snapshot IDs before an update can refresh or rebuild the model.
+        selected = list(item.data() or [])
+        for item_id, item_type in selected:
+            if item_type == "clip":
+                controller.apply_property(item_id, key or property_key, value)
+
     def _insert_colorgrade_keyframe(self, data, property_type, frame_number):
         from windows.color_grade_editor import (
             _set_color_value,
@@ -545,6 +598,8 @@ class PropertiesModel(updates.UpdateInterface):
         # Determine what was changed
         property = self.model.item(item.row(), 0).data()
         property_type = property[1]["type"]
+        if property[0].startswith("direct_text."):
+            return
         closest_point_x = property[1]["closest_point_x"]
         property_type = property[1]["type"]
         property_key = property[0]
@@ -714,6 +769,9 @@ class PropertiesModel(updates.UpdateInterface):
         # Determine what was changed
         property = self.model.item(item.row(), 0).data()
         property_type = property[1]["type"]
+        if property[0].startswith("direct_text."):
+            self._update_direct_text_property(item, new_color.name(QColor.HexArgb))
+            return
         closest_point_x = property[1]["closest_point_x"]
         previous_point_x = property[1]["previous_point_x"]
         property_key = property[0]
@@ -957,6 +1015,16 @@ class PropertiesModel(updates.UpdateInterface):
 
         # Determine what was changed
         property = self.model.item(item.row(), 0).data()
+        if property[0].startswith("direct_text."):
+            if value is None:
+                if property[1]["type"] == "int":
+                    value, valid = QLocale().system().toInt(item.text())
+                    if not valid:
+                        return
+                else:
+                    value = item.text()
+            self._update_direct_text_property(item, value)
+            return
         closest_point_x = property[1]["closest_point_x"]
         previous_point_x = property[1]["previous_point_x"]
         property_type = property[1]["type"]
@@ -1652,6 +1720,10 @@ class PropertiesModel(updates.UpdateInterface):
                 all_raw_properties = []
                 for obj, _item_type in self.selected:
                     props = json.loads(obj.PropertiesJSON(self.frame_number))
+                    if _item_type == "clip":
+                        clip = Clip.get(id=obj.Id())
+                        if clip:
+                            props.update(self._direct_text_properties(clip.data))
                     all_raw_properties.append(props)
 
                 # Use first item's properties as baseline

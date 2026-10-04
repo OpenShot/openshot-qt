@@ -1296,6 +1296,40 @@ class PropertiesTableView(QTableView):
             if not self.mouse_pressed:
                 self.finalize_transaction()
 
+    def _choose_property_font(self, cur_property):
+        """Persist all supported font settings as one Properties undo action."""
+        current_font = QFont(cur_property[1].get("memo", "sans"))
+        semantic = cur_property[0].startswith("direct_text.")
+        selected = list(self.selected_item.data() or [])
+        if semantic:
+            for item_id, item_type in selected:
+                clip = Clip.get(id=item_id) if item_type == "clip" else None
+                if clip:
+                    style = clip.data.get("direct_text", {})
+                    current_font.setPixelSize(int(style.get("font_size", 48)))
+                    current_font.setBold(style.get("font_bold", False))
+                    current_font.setItalic(style.get("font_italic", False))
+                    break
+        font, ok = get_font_dialog_selection(current_font, self.win, get_app()._tr("Change Font"))
+        if not ok or not font:
+            return
+        self.start_transaction(self.selected_item)
+        self.update_in_progress = True
+        try:
+            fontinfo = QFontInfo(font)
+            if semantic:
+                controller = get_app().window.direct_text
+                for item_id, item_type in selected:
+                    if item_type == "clip":
+                        for key, value in (("font_family", fontinfo.family()),
+                                           ("font_size", fontinfo.pixelSize()),
+                                           ("font_bold", font.bold()), ("font_italic", font.italic())):
+                            controller.apply_property(item_id, "direct_text." + key, value)
+            else:
+                self.clip_properties_model.value_updated(self.selected_item, value=fontinfo.family())
+        finally:
+            self.finalize_transaction()
+
     def doubleClickedCB(self, model_index):
         """Double click handler for the property table"""
 
@@ -1335,25 +1369,7 @@ class PropertiesTableView(QTableView):
                 return
 
             elif property_type == "font":
-                # Get font from user
-                current_font_name = cur_property[1].get("memo", "sans")
-                current_font = QFont(current_font_name)
-                font, ok = get_font_dialog_selection(current_font, self.win, _("Change Font"))
-
-                # Update font
-                if ok and font:
-                    fontinfo = QFontInfo(font)
-                    # TODO: pass font details to value_updated so we can set multiple values
-                    font_details = { "font_family": fontinfo.family(),
-                                     "font_style": fontinfo.styleName(),
-                                     "font_weight": fontinfo.weight(),
-                                     "font_size_pixel": fontinfo.pixelSize() }
-                    if not self.clip_properties_model.ignore_update_signal:
-                        self.start_transaction(self.selected_item)
-                    self.update_in_progress = True
-                    self.clip_properties_model.value_updated(self.selected_item, value=fontinfo.family())
-                    if not self.mouse_pressed:
-                        self.finalize_transaction()
+                self._choose_property_font(cur_property)
 
             elif property_type == "colorgrade_curve":
                 self._open_curve_editor(cur_property, model_index)
@@ -1819,15 +1835,9 @@ class PropertiesTableView(QTableView):
                     display_count -= 1
 
             elif self.property_type == "font":
-                # Get font from user
-                current_font_name = cur_property[1].get("memo", "sans")
-                current_font = QFont(current_font_name)
-                font, ok = get_font_dialog_selection(current_font, self.win, _("Change Font"))
-
-                # Update font
-                if ok and font:
-                    fontinfo = QFontInfo(font)
-                    self.clip_properties_model.value_updated(self.selected_item, value=fontinfo.family())
+                self._choose_property_font(cur_property)
+                if cur_property[0].startswith("direct_text."):
+                    return
 
             # Add menu options for keyframes
             menu = StyledContextMenu(parent=self)
