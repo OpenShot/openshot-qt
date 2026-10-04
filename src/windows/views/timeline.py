@@ -1578,6 +1578,8 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         if not clip:
             # Not a valid clip id
             return
+        capture_anchor = getattr(self, "capture_properties_layout_anchor", None)
+        properties_anchor = capture_anchor(QCursor.pos()) if capture_anchor else None
 
         track = Track.get(number=clip.data.get("layer"))
         locked = bool(track and track.data.get("lock", False))
@@ -2262,7 +2264,8 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
         # Properties
         menu.addSeparator()
-        menu.addAction(self.window.actionProperties)
+        add_bound_action(menu, self.window, "actionProperties", _("Properties"),
+                         callback=lambda: self.window.actionProperties_trigger(timeline_anchor=properties_anchor))
 
         # Use a menu-owned action so this lock state cannot disable the shared
         # Remove Clip action in other menus or shortcuts.
