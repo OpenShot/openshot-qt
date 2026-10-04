@@ -4237,7 +4237,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                     right_clip.save()
 
                 # Save changes for the left or right slice
-                self.update_clip_data(clip.data, only_basic_props=True, ignore_reader=True)
+                self.update_clip_data(clip.data, only_basic_props=True, ignore_reader=True, ignore_refresh=True)
 
             # Redraw audio waveforms
             self.redraw_audio_timer.start()
@@ -4308,7 +4308,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                     right_tran.save()
 
                 # Save changes for the left or right slice
-                self.update_transition_data(trans.data, only_basic_props=False)
+                self.update_transition_data(trans.data, only_basic_props=False, ignore_refresh=True)
         finally:
             get_app().updates.transaction_id = None
 

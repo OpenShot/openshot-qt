@@ -286,7 +286,11 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
 
         # After processing each key, we've found object and parent, return former value/s on update
-        ret = json.loads(json.dumps(obj))
+        # An insertion is reversed by deleting the inserted ID. Sibling items
+        # are not part of that action and need no undo snapshot (waveforms can
+        # make this list many megabytes). Updates/deletes still retain the full
+        # previous value, including readers, effects, and keyframes.
+        ret = {} if add and isinstance(parent, list) else json.loads(json.dumps(obj))
 
         # Apply the correct action to the found item
         if remove:
