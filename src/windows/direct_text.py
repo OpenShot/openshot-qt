@@ -96,12 +96,20 @@ class DirectTextController(QObject):
         self.armed = False
         self.generation = 0
         self.snapshot_cancel = None
-        self.snapshot_pool = QThreadPool(self)
-        self.snapshot_pool.setMaxThreadCount(1)
-        get_app().focusChanged.connect(self.focus_changed)
         self.clip_id = None
         self.draft = None
         self.original = None
+        self._gui_ready = False
+        get_app().updates.add_listener(self)
+
+    def _ensure_gui(self):
+        if self._gui_ready:
+            return
+        self._gui_ready = True
+        window, preview = self.window, self.preview
+        self.snapshot_pool = QThreadPool(self)
+        self.snapshot_pool.setMaxThreadCount(1)
+        get_app().focusChanged.connect(self.focus_changed)
         self.view = QGraphicsView(preview)
         self.scene = QGraphicsScene(self.view)
         self.view.setScene(self.scene)
@@ -122,7 +130,6 @@ class DirectTextController(QObject):
         preview.installEventFilter(self)
         self.view_port = self.view.viewport()
         self.view_port.installEventFilter(self)
-        get_app().updates.add_listener(self)
         self.editor.textChanged.connect(self.grow_document)
         window.PlaySignal.connect(self.finish)
         window.SeekSignal.connect(self.finish)
@@ -176,6 +183,7 @@ class DirectTextController(QObject):
             self.change_style()
 
     def arm(self):
+        self._ensure_gui()
         self.finish()
         self.armed = True
         self.window.PauseSignal.emit()
@@ -203,6 +211,7 @@ class DirectTextController(QObject):
         self.begin(None, data)
 
     def begin(self, clip_id, draft=None):
+        self._ensure_gui()
         self.finish()
         clip = Clip.get(id=clip_id) if clip_id else None
         self.edit_frame = self.window.preview_thread.current_frame or 1
@@ -273,17 +282,24 @@ class DirectTextController(QObject):
         project = get_app().project
         native = openshot.Clip()
         native.SetJson(json.dumps(data))
-        native.Open()
+        try:
+            native.Open()
+            return self._native_geometry(data, native)
+        finally:
+            native.Close()
+
+    def _native_geometry(self, data, native):
+        project = get_app().project
         fps = project.get("fps")
         frame = self.preview._get_clip_frame_number(type("ClipData", (), {"data": data})(), float(fps["num"]) / fps["den"])
         props = json.loads(native.PropertiesJSON(frame))
+        self.geometry_props = props
         viewport = self.preview.centeredViewport(self.preview.width(), self.preview.height())
         clip = type("ClipData", (), {"data": data})()
         style = data["direct_text"]
         rect = self.preview._clip_display_rect(style["width"], style["height"], clip, props, viewport)
         transform = self.preview._build_clip_transform(rect.x(), rect.y(), rect.width(), rect.height(), props)[0]
         transform.scale(rect.width() / style["width"], rect.height() / style["height"])
-        native.Close()
         return transform
 
     def update_geometry(self):
@@ -294,7 +310,7 @@ class DirectTextController(QObject):
         data = copy.deepcopy(self.original)
         data["direct_text"] = self.draft
         self.proxy.setTransform(self.geometry(data))
-        self.proxy.setOpacity(data.get("alpha", {}).get("Points", [{"co": {"Y": 1.0}}])[0]["co"]["Y"])
+        self.proxy.setOpacity(self.geometry_props.get("alpha", {}).get("value", 1.0))
         viewport = self.preview.centeredViewport(self.preview.width(), self.preview.height())
         image = self.background_image.scaled(viewport.size(), Qt.IgnoreAspectRatio, Qt.SmoothTransformation)
         self.backdrop.setPixmap(QPixmap.fromImage(image))
@@ -429,6 +445,8 @@ class DirectTextController(QObject):
         self.cancel()
         app = get_app()
         app.updates.disconnect_listener(self)
+        if not self._gui_ready:
+            return
         app.focusChanged.disconnect(self.focus_changed)
         self.window.PlaySignal.disconnect(self.finish)
         self.window.SeekSignal.disconnect(self.finish)
@@ -447,6 +465,8 @@ class DirectTextController(QObject):
         self.snapshot_pool.waitForDone()
 
     def cancel(self):
+        if not self._gui_ready:
+            return
         self.generation += 1
         if self.snapshot_cancel is not None:
             self.snapshot_cancel.set()
