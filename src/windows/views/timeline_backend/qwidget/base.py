@@ -2123,6 +2123,8 @@ class TimelineWidgetBase(RazorMixin, QWidget):
 
     # Capture wheel event to alter zoom/scale of widget
     def wheelEvent(self, event):
+        if getattr(self, "_properties_layout_anchor", None) is not None:
+            self.end_properties_layout_change()
         if event.modifiers() & Qt.ControlModifier:
             delta = event.pixelDelta().y() if not event.pixelDelta().isNull() else event.angleDelta().y()
             if delta:
@@ -2519,10 +2521,14 @@ class TimelineWidgetBase(RazorMixin, QWidget):
 
     def zoomIn(self):
         """Zoom into timeline"""
+        if getattr(self, "_properties_layout_anchor", None) is not None:
+            self.end_properties_layout_change()
         self._apply_zoom_steps(1.0, emit=True)
 
     def zoomOut(self):
         """Zoom out of timeline"""
+        if getattr(self, "_properties_layout_anchor", None) is not None:
+            self.end_properties_layout_change()
         self._apply_zoom_steps(-1.0, emit=True)
 
     def update_scrollbars(self, new_positions):
@@ -3274,6 +3280,8 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         super().mouseDoubleClickEvent(event)
 
     def mousePressEvent(self, event):
+        if getattr(self, "_properties_layout_anchor", None) is not None:
+            self.end_properties_layout_change()
         if self.enable_razor and not (
             event.button() == Qt.LeftButton and self._razor_in_track_area(_event_posf(event))
         ):

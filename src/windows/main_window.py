@@ -4998,6 +4998,13 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Check if event type is a shortcut override (keyboard shortcut triggered)
         if event.type() == QEvent.ShortcutOverride:
             focused_widget = self.focusWidget()
+            timeline = getattr(self, "timeline", None)
+            if (focused_widget is timeline or
+                    (timeline and focused_widget and callable(getattr(timeline, "isAncestorOf", None))
+                     and timeline.isAncestorOf(focused_widget))):
+                release_anchor = getattr(timeline, "end_properties_layout_change", None)
+                if release_anchor:
+                    release_anchor()
             if self._blocks_timeline_shortcuts(focused_widget):
                 for action_name in ignored_actions:
                     try:

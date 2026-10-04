@@ -98,6 +98,18 @@ def verify():
         assert timeline.h_scroll_offset == 0.0, timeline.h_scroll_offset
         assert timeline.scrollbar_position[0] == 0.0
         assert Clip.get(id=clip.id).data == original
+
+        # Explicit timeline input takes control before the settling timer fires.
+        timeline.begin_properties_layout_change((60.0, before.x()))
+        QTest.mouseClick(timeline, Qt.LeftButton,
+                         pos=QPoint(timeline.track_name_width + 10, timeline.ruler_height // 2))
+        assert timeline._properties_layout_anchor is None
+        timeline.begin_properties_layout_change((60.0, before.x()))
+        timeline.zoomIn()
+        assert timeline._properties_layout_anchor is None
+        user_scroll = timeline.h_scroll_offset
+        QTest.qWait(600)
+        assert abs(timeline.h_scroll_offset - user_scroll) <= 1, (user_scroll, timeline.h_scroll_offset)
         passed = True
         print("PROPERTIES_ANCHOR_PASSED", flush=True)
     except Exception:

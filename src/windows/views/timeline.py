@@ -5416,10 +5416,14 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
     @pyqtSlot()
     def zoomIn(self):
+        if getattr(self, "_properties_layout_anchor", None) is not None:
+            self.end_properties_layout_change()
         get_app().window.sliderZoomWidget.zoomIn()
 
     @pyqtSlot()
     def zoomOut(self):
+        if getattr(self, "_properties_layout_anchor", None) is not None:
+            self.end_properties_layout_change()
         get_app().window.sliderZoomWidget.zoomOut()
 
     def update_scroll(self, newScroll):
