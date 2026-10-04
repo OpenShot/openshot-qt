@@ -1,0 +1,68 @@
+{
+  "environment": {
+    "python": "3.8.10 (default, Mar 18 2025, 20:04:55) \n[GCC 9.4.0]",
+    "platform": "Linux-5.15.0-139-generic-x86_64-with-glibc2.29",
+    "libopenshot": "1.0.1",
+    "binding": "/usr/local/lib/python3.8/dist-packages/openshot.py",
+    "qt": "5.12.8",
+    "pyqt": "5.14.1"
+  },
+  "scenarios": {
+    "overlapping_av/split": {
+      "first_ms": 2.489245031028986,
+      "median_ms": 2.2722738794982433,
+      "p95_ms": 2.489245031028986,
+      "max_ms": 3.4055509604513645,
+      "preview_requests": 1
+    },
+    "overlapping_av/trim": {
+      "first_ms": 0.7659513503313065,
+      "median_ms": 0.7593780755996704,
+      "p95_ms": 0.8182898163795471,
+      "max_ms": 0.8247918449342251,
+      "preview_requests": 1
+    },
+    "long_waveforms/split": {
+      "first_ms": 52.49764630571008,
+      "median_ms": 51.49757210165262,
+      "p95_ms": 52.49764630571008,
+      "max_ms": 65.00925309956074,
+      "preview_requests": 1
+    },
+    "long_waveforms/trim": {
+      "first_ms": 19.296569749712944,
+      "median_ms": 19.434509798884392,
+      "p95_ms": 19.805022049695253,
+      "max_ms": 20.13314375653863,
+      "preview_requests": 1
+    },
+    "many_short_clips/split": {
+      "first_ms": 2.5341599248349667,
+      "median_ms": 2.4092039093375206,
+      "p95_ms": 2.550902310758829,
+      "max_ms": 2.7061649598181248,
+      "preview_requests": 1
+    },
+    "many_short_clips/trim": {
+      "first_ms": 0.8925609290599823,
+      "median_ms": 0.9076790884137154,
+      "p95_ms": 0.9636660106480122,
+      "max_ms": 1.045280136168003,
+      "preview_requests": 1
+    },
+    "edit_undo_dispatch/split": {
+      "first_ms": 9.692527819424868,
+      "median_ms": 7.024845108389854,
+      "p95_ms": 9.692527819424868,
+      "max_ms": 56.41066376119852,
+      "preview_requests": 3
+    },
+    "edit_undo_dispatch/trim": {
+      "first_ms": 2.5980700738728046,
+      "median_ms": 2.569817006587982,
+      "p95_ms": 2.6040421798825264,
+      "max_ms": 2.6229089125990868,
+      "preview_requests": 3
+    }
+  }
+}

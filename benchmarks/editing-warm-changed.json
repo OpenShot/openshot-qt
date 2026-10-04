@@ -1,0 +1,69 @@
+{
+  "environment": {
+    "python": "3.8.10 (default, Mar 18 2025, 20:04:55) \n[GCC 9.4.0]",
+    "platform": "Linux-5.15.0-139-generic-x86_64-with-glibc2.29",
+    "libopenshot": "1.0.1",
+    "binding": "/usr/local/lib/python3.8/dist-packages/openshot.py",
+    "qt": "5.12.8",
+    "pyqt": "5.14.1",
+    "warm_query": true
+  },
+  "scenarios": {
+    "overlapping_av/split": {
+      "first_ms": 2.1968060173094273,
+      "median_ms": 2.018874743953347,
+      "p95_ms": 3.216284327208996,
+      "max_ms": 3.216284327208996,
+      "preview_requests": 1
+    },
+    "overlapping_av/trim": {
+      "first_ms": 0.5095237866044044,
+      "median_ms": 0.5209152586758137,
+      "p95_ms": 0.5641477182507515,
+      "max_ms": 0.5641477182507515,
+      "preview_requests": 1
+    },
+    "long_waveforms/split": {
+      "first_ms": 43.22804789990187,
+      "median_ms": 43.146939016878605,
+      "p95_ms": 43.733103666454554,
+      "max_ms": 43.733103666454554,
+      "preview_requests": 1
+    },
+    "long_waveforms/trim": {
+      "first_ms": 12.4628571793437,
+      "median_ms": 12.049074051901698,
+      "p95_ms": 12.560041155666113,
+      "max_ms": 12.560041155666113,
+      "preview_requests": 1
+    },
+    "many_short_clips/split": {
+      "first_ms": 2.192168030887842,
+      "median_ms": 2.1829851903021336,
+      "p95_ms": 4.581176210194826,
+      "max_ms": 4.581176210194826,
+      "preview_requests": 1
+    },
+    "many_short_clips/trim": {
+      "first_ms": 0.6242906674742699,
+      "median_ms": 0.6491029635071754,
+      "p95_ms": 0.6941836327314377,
+      "max_ms": 0.6941836327314377,
+      "preview_requests": 1
+    },
+    "edit_undo_dispatch/split": {
+      "first_ms": 6.871548015624285,
+      "median_ms": 6.840684916824102,
+      "p95_ms": 68.45465023070574,
+      "max_ms": 68.45465023070574,
+      "preview_requests": 3
+    },
+    "edit_undo_dispatch/trim": {
+      "first_ms": 2.208107151091099,
+      "median_ms": 2.179121831431985,
+      "p95_ms": 2.239867113530636,
+      "max_ms": 2.239867113530636,
+      "preview_requests": 3
+    }
+  }
+}
