@@ -6742,6 +6742,34 @@ class TimelineHelperTests(unittest.TestCase):
             painter.invalidate_clip_thumbnails(clip.id)
             self.assertEqual(painter.thumb_cache, {})
 
+    def test_short_centered_text_clip_has_readable_thumbnail(self):
+        from classes.direct_text import default_text, render_text
+
+        with tempfile.TemporaryDirectory() as folder:
+            painter = self.make_clip_painter(pixels_per_second=6.6)
+            self.addCleanup(painter.w.deleteLater)
+            style = default_text(1280, 720)
+            style.update(text="Text", alignment="center", width=640, height=90, font_size=48)
+            path = render_text(style, folder)
+            clip = types.SimpleNamespace(id="SHORTTEXT", data={
+                "direct_text": style, "position": 0.0, "start": 0.0,
+                "end": 10.0, "duration": 10.0,
+                "reader": {"path": path, "width": 640, "height": 90},
+            })
+            image = QImage(66, 48, QImage.Format_ARGB32)
+            image.fill(QColor("black"))
+            canvas = QPainter(image)
+            try:
+                self.assertFalse(painter._draw_thumbnails(canvas, clip, QRectF(0, 0, 66, 48), None))
+            finally:
+                canvas.end()
+            pixels = [(x, y) for x in range(66) for y in range(48)
+                      if image.pixelColor(x, y).green() > 20]
+            self.assertGreater(len(pixels), 100)
+            self.assertGreater(max(x for x, y in pixels) - min(x for x, y in pixels), 40)
+            self.assertLessEqual(max(x for x, y in pixels), 63)
+            self.assertGreaterEqual(min(x for x, y in pixels), 2)
+
     def test_thumbnail_strip_renders_correct_cached_frames_during_repeated_zoom(self):
         # Encode source frame numbers in solid-color PNGs so we can verify the
         # actual painted pixels through the normal request, load, and cache path.

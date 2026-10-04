@@ -37,6 +37,7 @@ from qt_api import (
     QPainterPath,
     QPen,
     QPixmap,
+    QRegion,
     QRadialGradient,
 )
 from qt_api import QGraphicsBlurEffect, QGraphicsPixmapItem, QGraphicsScene
@@ -1352,9 +1353,28 @@ class ClipPainter(ItemHeaderMixin, BasePainter):
                 pix = QPixmap(text_path)
                 if pix.isNull():
                     return False
+                # A centered title can have large transparent margins. Crop
+                # them once so short clips still have a readable thumbnail.
+                mask = pix.mask()
+                if not mask.isNull():
+                    bounds = QRegion(mask).boundingRect()
+                    if not bounds.isEmpty():
+                        pix = pix.copy(bounds.adjusted(-4, -4, 4, 4).intersected(pix.rect()))
                 self.thumb_cache[key] = pix
             for _, rect in slots:
-                self._paint_thumbnail_pixmap(painter, pix, rect, inner)
+                visible = rect.intersected(inner)
+                if visible.isEmpty():
+                    continue
+                # Text must fit inside the actual visible clip segment, even
+                # when its source aspect ratio creates a much wider slot.
+                target = visible.adjusted(2, 2, -2, -2)
+                if target.isEmpty():
+                    continue
+                scaled = self.scaled_pixmap(pix, target.width(), target.height(), fill=False)
+                if scaled and not scaled.isNull():
+                    width, height = self.logical_size(scaled)
+                    painter.drawPixmap(QPointF(target.center().x() - width / 2,
+                                               target.center().y() - height / 2), scaled)
             return False
 
         clip_fps = self._clip_media_fps(clip)
