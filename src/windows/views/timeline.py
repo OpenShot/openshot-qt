@@ -1593,6 +1593,13 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         # Create blank context menu
         menu = StyledContextMenu(parent=self)
 
+        text_clip = Clip.get(id=clip_id) if clip_id else None
+        if text_clip and text_clip.data.get("direct_text"):
+            edit_text = menu.addAction(_("Edit Text"))
+            text_track = Track.get(number=text_clip.data["layer"])
+            edit_text.setEnabled(not (text_track and text_track.data.get("lock", False)))
+            edit_text.triggered.connect(partial(self.window.direct_text.begin, clip_id))
+
         # Copy Menu
         if len(tran_ids) + len(clip_ids) > 1:
             # Show Copy All menu (clips and transitions are selected)

@@ -459,6 +459,9 @@ QMessageBox QDialogButtonBox#qt_msgbox_buttonbox QPushButton[dialogRole="cancel"
             {"action": self.app.window.actionJumpEnd, "style": Qt.ToolButtonIconOnly},
             {"expand": True}
         ]
+        if hasattr(self.app.window, "actionDirectText"):
+            toolbar_buttons.insert(0, {"action": self.app.window.actionDirectText,
+                                       "icon": "images/tool-text.svg", "style": Qt.ToolButtonIconOnly})
         self.set_toolbar_buttons(self.app.window.videoToolbar, icon_size=24, settings=toolbar_buttons)
 
         # Init icons from theme name

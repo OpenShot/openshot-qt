@@ -948,9 +948,23 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         """ Connect signals to renderer """
         renderer.present.connect(self.present)
 
+    def mouseDoubleClickEvent(self, event):
+        text = getattr(getattr(self, "win", None), "direct_text", None)
+        if text and event.button() == Qt.LeftButton:
+            clip_id = text.hit(event.pos())
+            if clip_id:
+                text.begin(clip_id)
+                event.accept()
+                return
+        super().mouseDoubleClickEvent(event)
+
     def mousePressEvent(self, event):
         """Capture mouse press event on video preview window"""
         event.accept()
+        text = getattr(getattr(self, "win", None), "direct_text", None)
+        if text and text.armed and event.button() == Qt.LeftButton:
+            text.create(event.pos())
+            return
         if event.button() == Qt.MiddleButton or (
                 event.button() == Qt.LeftButton and getattr(self, "preview_pan_enabled", False)):
             self.mouse_pressed = True
@@ -2155,6 +2169,8 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         points = c.data.get(property_key, {}).get("Points", [])
         auto_keyframes = auto_keyframes_enabled(get_app().window)
         frame_number = edit_frame(points, frame_number, auto_keyframes)
+        if c.data.get("direct_text") and len(points) <= 1:
+            frame_number = 1
         for point in points:
             co = point.get("co", {})
 

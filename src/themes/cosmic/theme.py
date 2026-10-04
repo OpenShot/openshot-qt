@@ -1047,6 +1047,9 @@ QMessageBox QPushButton[dialogRole="destructive"] {{
             {"action": self.app.window.actionJumpEnd, "icon": "themes/cosmic/images/tool-media-skip-forward.svg", "style": Qt.ToolButtonIconOnly},
             {"expand": True}
         ]
+        if hasattr(self.app.window, "actionDirectText"):
+            toolbar_buttons.insert(0, {"action": self.app.window.actionDirectText,
+                                       "icon": "images/tool-text.svg", "style": Qt.ToolButtonIconOnly})
         self.set_toolbar_buttons(self.app.window.videoToolbar, icon_size=32, settings=toolbar_buttons)
 
         from .styles import CosmicDuskTimelineTheme
