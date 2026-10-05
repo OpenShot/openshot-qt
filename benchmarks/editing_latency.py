@@ -42,7 +42,8 @@ for name, count, samples in [("overlapping_av", 8, 1000),
                 if args.warm_query:
                     from classes.query import Clip
                     Clip.get(id="C0")
-                profiler.enable() if args.profile else None
+                if args.profile:
+                    profiler.enable()
                 start = time.perf_counter()
                 getattr(fixture, operation)()
                 # Same serialization invoked by native/UI update listeners.
@@ -52,7 +53,8 @@ for name, count, samples in [("overlapping_av", 8, 1000),
                     fixture.updates.undo()
                     fixture.updates.redo()
                 timings.append((time.perf_counter() - start) * 1000)
-                profiler.disable() if args.profile else None
+                if args.profile:
+                    profiler.disable()
                 refreshes.append(fixture.refreshes)
             finally:
                 fixture.close()

@@ -6,7 +6,9 @@ Requires ffmpeg and the same openshot binding used by the application.
 import copy
 import json
 import os
-import subprocess
+import shutil
+# Generate local fixtures using the installed ffmpeg.
+import subprocess  # nosec B404
 import sys
 
 import openshot
@@ -15,14 +17,18 @@ output = os.path.abspath(sys.argv[1])
 os.makedirs(output, exist_ok=True)
 video = os.path.join(output, "test-pattern.mp4")
 audio = os.path.join(output, "sine.mp3")
+ffmpeg = shutil.which("ffmpeg")
+if ffmpeg is None:
+    raise SystemExit("ffmpeg is required to generate editing fixtures")
+# Fixed ffmpeg arguments and absolute output paths; no shell interpolation.
 # A long GOP makes nonsequential seeks more expensive, without external content.
-subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "lavfi", "-i",
+subprocess.run([ffmpeg, "-v", "error", "-y", "-f", "lavfi", "-i",
                 "testsrc2=size=1280x720:rate=24", "-f", "lavfi", "-i",
                 "sine=frequency=440:sample_rate=48000", "-t", "30", "-c:v",
-                "libx264", "-preset", "ultrafast", "-g", "240", "-c:a", "aac", video], check=True)
-subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "lavfi", "-i",
+                "libx264", "-preset", "ultrafast", "-g", "240", "-c:a", "aac", video], check=True, shell=False)  # nosec B603
+subprocess.run([ffmpeg, "-v", "error", "-y", "-f", "lavfi", "-i",
                 "sine=frequency=660:sample_rate=48000", "-t", "30", "-c:a",
-                "libmp3lame", audio], check=True)
+                "libmp3lame", audio], check=True, shell=False)  # nosec B603
 root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 with open(os.path.join(root, "src", "settings", "_default.project")) as stream:
     template = json.load(stream)

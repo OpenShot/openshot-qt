@@ -6,6 +6,7 @@ import json
 import openshot
 import tempfile
 import traceback
+import unittest
 
 root = tempfile.mkdtemp(prefix="openshot-properties-anchor-")
 original_expanduser = os.path.expanduser
@@ -22,6 +23,7 @@ app = OpenShotApp([], mode="unittest")
 app.settings.set("tutorial_enabled", False)
 app.settings.set("send_metrics", False)
 passed = False
+checks = unittest.TestCase()
 
 
 def verify():
@@ -43,7 +45,7 @@ def verify():
         image = QImage(640, 360, QImage.Format_RGBA8888)
         image.fill(Qt.white)
         image_path = os.path.join(root, "anchor.png")
-        assert image.save(image_path)
+        checks.assertTrue(image.save(image_path), 'image.save(image_path)')
         native_clip = openshot.Clip(image_path)
         clip.data = json.loads(native_clip.Json())
         clip.data.update(position=60.0, start=0.0, end=10.0, duration=10.0,
@@ -67,12 +69,12 @@ def verify():
         initial_zoom = timeline.pixels_per_second
         QCursor.setPos(before)
         app.clipboard().setText("Properties anchor fixture")
-        assert not window.dockProperties.isVisible()
+        checks.assertTrue(not window.dockProperties.isVisible(), 'not window.dockProperties.isVisible()')
         triggered = []
 
         def choose_properties():
             menu = QApplication.activePopupWidget()
-            assert menu is not None, "Clip context menu did not open"
+            checks.assertTrue(menu is not None, "Clip context menu did not open")
             action = next(a for a in menu.actions() if a.text() == window.actionProperties.text())
             # Moving into the menu must not replace the original edge anchor.
             QCursor.setPos(menu.mapToGlobal(menu.actionGeometry(action).center()))
@@ -82,11 +84,11 @@ def verify():
         QTimer.singleShot(100, choose_properties)
         timeline.ShowClipMenu(clip.id)
         QTest.qWait(600)
-        assert triggered and window.dockProperties.isVisible()
-        assert timeline.mapToGlobal(QPoint(0, 0)).x() > initial_origin + 100, "Fixture did not shift timeline"
-        assert abs(edge().x() - before.x()) <= 1, (before.x(), edge().x())
-        assert timeline.pixels_per_second == initial_zoom
-        assert Clip.get(id=clip.id).data == original
+        checks.assertTrue(triggered and window.dockProperties.isVisible(), 'triggered and window.dockProperties.isVisible()')
+        checks.assertTrue(timeline.mapToGlobal(QPoint(0, 0)).x() > initial_origin + 100, "Fixture did not shift timeline")
+        checks.assertTrue(abs(edge().x() - before.x()) <= 1, (before.x(), edge().x()))
+        checks.assertTrue(timeline.pixels_per_second == initial_zoom, 'timeline.pixels_per_second == initial_zoom')
+        checks.assertTrue(Clip.get(id=clip.id).data == original, 'Clip.get(id=clip.id).data == original')
 
         # Hide uses the playhead fallback. Repeated dock layout passes must keep
         # the same screen anchor after the delayed scrollbar normalization.
@@ -98,29 +100,29 @@ def verify():
         QTest.qWait(20)
         window.resize(1440, 900)
         QTest.qWait(600)
-        assert abs(edge().x() - playhead_x) <= 1, (playhead_x, edge().x())
-        assert timeline.pixels_per_second == initial_zoom
+        checks.assertTrue(abs(edge().x() - playhead_x) <= 1, (playhead_x, edge().x()))
+        checks.assertTrue(timeline.pixels_per_second == initial_zoom, 'timeline.pixels_per_second == initial_zoom')
 
         # A keyboard open at time zero can only clamp to the new left edge.
         timeline.current_frame = 1
         timeline.set_scroll_left(0.0)
         window.actionProperties.trigger()
         QTest.qWait(600)
-        assert timeline.h_scroll_offset == 0.0, timeline.h_scroll_offset
-        assert timeline.scrollbar_position[0] == 0.0
-        assert Clip.get(id=clip.id).data == original
+        checks.assertTrue(timeline.h_scroll_offset == 0.0, timeline.h_scroll_offset)
+        checks.assertTrue(timeline.scrollbar_position[0] == 0.0, 'timeline.scrollbar_position[0] == 0.0')
+        checks.assertTrue(Clip.get(id=clip.id).data == original, 'Clip.get(id=clip.id).data == original')
 
         # Explicit timeline input takes control before the settling timer fires.
         timeline.begin_properties_layout_change((60.0, before.x()))
         QTest.mouseClick(timeline, Qt.LeftButton,
                          pos=QPoint(timeline.track_name_width + 10, timeline.ruler_height // 2))
-        assert timeline._properties_layout_anchor is None
+        checks.assertTrue(timeline._properties_layout_anchor is None, 'timeline._properties_layout_anchor is None')
         timeline.begin_properties_layout_change((60.0, before.x()))
         timeline.zoomIn()
-        assert timeline._properties_layout_anchor is None
+        checks.assertTrue(timeline._properties_layout_anchor is None, 'timeline._properties_layout_anchor is None')
         user_scroll = timeline.h_scroll_offset
         QTest.qWait(600)
-        assert abs(timeline.h_scroll_offset - user_scroll) <= 1, (user_scroll, timeline.h_scroll_offset)
+        checks.assertTrue(abs(timeline.h_scroll_offset - user_scroll) <= 1, (user_scroll, timeline.h_scroll_offset))
         passed = True
         print("PROPERTIES_ANCHOR_PASSED", flush=True)
     except Exception:
@@ -129,7 +131,7 @@ def verify():
         app.quit()
 
 
-assert app.gui()
+checks.assertTrue(app.gui(), 'app.gui()')
 QTimer.singleShot(4000, verify)
 app.exec_()
 raise SystemExit(0 if passed else 1)
