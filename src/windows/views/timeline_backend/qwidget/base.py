@@ -1992,6 +1992,7 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         """Hold the anchor through Qt's immediate and deferred dock layout passes."""
         if anchor is not None or getattr(self, "_properties_layout_anchor", None) is None:
             self._properties_layout_anchor = anchor or self.capture_properties_layout_anchor()
+            self._properties_layout_scroll_offset = self.h_scroll_offset
         if not hasattr(self, "_properties_layout_timer"):
             self._properties_layout_timer = QTimer(self)
             self._properties_layout_timer.setSingleShot(True)
@@ -2018,12 +2019,17 @@ class TimelineWidgetBase(RazorMixin, QWidget):
             return
         seconds, global_x = anchor
         origin_x = self.mapToGlobal(QPointF(0, 0).toPoint()).x()
-        local_x = max(float(self.track_name_width), min(global_x - origin_x,
-                                                       self.width() - self.scroll_bar_thickness))
+        local_x = global_x - origin_x
         timeline_w = float(self.scrollbar_position[2] or 0.0)
         if timeline_w <= 0.0:
             return
-        offset = seconds * self.pixels_per_second - (local_x - self.track_name_width)
+        if self.track_name_width <= local_x <= self.width() - self.scroll_bar_thickness:
+            offset = seconds * self.pixels_per_second - (local_x - self.track_name_width)
+        else:
+            # The dock covered the anchor's old screen position. Keep the
+            # previous visible range instead of hiding a clip's beginning by
+            # forcing the clicked point against the new viewport edge.
+            offset = self._properties_layout_scroll_offset
         self.set_scroll_left(offset / timeline_w)
         self._update_scrollbar_handles()
         self.win.TimelineScrolled.emit(list(self.scrollbar_position))

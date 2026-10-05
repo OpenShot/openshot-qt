@@ -123,6 +123,31 @@ def verify():
         user_scroll = timeline.h_scroll_offset
         QTest.qWait(600)
         checks.assertTrue(abs(timeline.h_scroll_offset - user_scroll) <= 1, (user_scroll, timeline.h_scroll_offset))
+
+        # Opening Properties from inside a clip at zero cannot preserve the
+        # cursor's screen position when the dock covers it. Keep the start visible.
+        window.dockProperties.hide()
+        QTest.qWait(600)
+        timeline.end_properties_layout_change()
+        clip = Clip.get(id=clip.id)
+        clip.data["position"] = 0.0
+        clip.save()
+        timeline.current_frame = 1
+        timeline.set_scroll_left(0.0)
+        QTest.qWait(500)
+        original = copy.deepcopy(Clip.get(id=clip.id).data)
+        click_pos = edge() + QPoint(30, 0)
+        QCursor.setPos(click_pos)
+        triggered.clear()
+        QTimer.singleShot(100, choose_properties)
+        timeline.ShowClipMenu(clip.id)
+        QTest.qWait(600)
+        checks.assertTrue(triggered and window.dockProperties.isVisible())
+        viewport_left = timeline.mapToGlobal(QPoint(timeline.track_name_width, 0)).x()
+        checks.assertLess(click_pos.x(), viewport_left, "Fixture must cover the old cursor position")
+        checks.assertEqual(timeline.h_scroll_offset, 0.0)
+        checks.assertLessEqual(abs(edge().x() - viewport_left), 1)
+        checks.assertEqual(Clip.get(id=clip.id).data, original)
         passed = True
         print("PROPERTIES_ANCHOR_PASSED", flush=True)
     except Exception:
