@@ -165,6 +165,7 @@ from classes.waveform import (
     get_audio_data,
 )
 from classes.path_utils import absolute_media_path
+from classes.proxy_service import dialog_preview_reader_data
 from .timeline_backend.enums import (
     MenuFade, MenuRotate, MenuLayout, MenuAlign, MenuAnimate, MenuVolume,
     MenuTime, MenuCopy, MenuSlice, MenuSplitAudio
@@ -5200,7 +5201,11 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         if file_id:
             file_obj = File.get(id=file_id)
             if file_obj:
-                preview_path = file_obj.absolute_path()
+                # Source previews bypass the runtime timeline's proxy rewrite.
+                # Resolve optimized media explicitly, with the same missing-file
+                # fallback used by the other source-preview dialogs.
+                preview_reader = dialog_preview_reader_data(file_obj)
+                preview_path = preview_reader.get("path") or file_obj.absolute_path()
 
         if not preview_path:
             preview_path = absolute_media_path(reader.get("path"))
