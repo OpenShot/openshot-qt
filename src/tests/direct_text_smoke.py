@@ -4,6 +4,9 @@ root=tempfile.mkdtemp(prefix='openshot-text-smoke-')
 original_expanduser=os.path.expanduser
 os.path.expanduser=lambda path: root if path=='~' else original_expanduser(path)
 from classes.app import OpenShotApp
+from classes import version
+# UI workflow checks must not depend on the external update service.
+version.get_current_Version = lambda: None
 from qt_api import QTimer,Qt,QPoint,QT_API,QThreadPool
 from classes.query import Clip
 app=OpenShotApp([],mode='unittest')

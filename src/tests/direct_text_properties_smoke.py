@@ -10,6 +10,9 @@ root = tempfile.mkdtemp(prefix="openshot-text-properties-")
 original_expanduser = os.path.expanduser
 os.path.expanduser = lambda path: root if path == "~" else original_expanduser(path)
 from classes.app import OpenShotApp
+from classes import version
+# UI workflow checks must not depend on the external update service.
+version.get_current_Version = lambda: None
 from classes.query import Clip
 from qt_api import QColor, QFont, QTimer, QT_API
 QTest = importlib.import_module({"pyqt5": "PyQt5", "pyqt6": "PyQt6", "pyside6": "PySide6"}[QT_API] + ".QtTest").QTest
