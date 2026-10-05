@@ -2,6 +2,8 @@
 import copy
 import importlib
 import os
+import json
+import openshot
 import tempfile
 import traceback
 
@@ -9,9 +11,11 @@ root = tempfile.mkdtemp(prefix="openshot-properties-anchor-")
 original_expanduser = os.path.expanduser
 os.path.expanduser = lambda path: root if path == "~" else original_expanduser(path)
 from classes.app import OpenShotApp
+from classes import version
+# UI workflow checks must not depend on the external update service.
+version.get_current_Version = lambda: None
 from classes.query import Clip
-from classes.direct_text import default_text, new_text_clip
-from qt_api import QApplication, QCursor, QPoint, QTimer, Qt, QT_API
+from qt_api import QApplication, QCursor, QImage, QPoint, QTimer, Qt, QT_API
 
 QTest = importlib.import_module({"pyqt5": "PyQt5", "pyqt6": "PyQt6", "pyside6": "PySide6"}[QT_API] + ".QtTest").QTest
 app = OpenShotApp([], mode="unittest")
@@ -35,8 +39,15 @@ def verify():
         QTest.qWait(500)
         timeline = window.timeline
         clip = Clip()
-        clip.data = new_text_clip(default_text(640, 360), root, 60.0,
-                                  app.project.get("layers")[-1]["number"], 10.0)
+        # Exercise ordinary media: dock anchoring must work without text support.
+        image = QImage(640, 360, QImage.Format_RGBA8888)
+        image.fill(Qt.white)
+        image_path = os.path.join(root, "anchor.png")
+        assert image.save(image_path)
+        native_clip = openshot.Clip(image_path)
+        clip.data = json.loads(native_clip.Json())
+        clip.data.update(position=60.0, start=0.0, end=10.0, duration=10.0,
+                         layer=app.project.get("layers")[-1]["number"])
         clip.save()
         window.selected_items = [{"id": clip.id, "type": "clip"}]
         timeline.zoom_factor = 10.0
