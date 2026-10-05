@@ -1,4 +1,6 @@
 {
+  "_copyright": "Copyright (c) 2026 OpenShot Studios, LLC",
+  "_license": "SPDX-License-Identifier: GPL-3.0-or-later",
   "environment": {
     "python": "3.8.10 (default, Mar 18 2025, 20:04:55) \n[GCC 9.4.0]",
     "platform": "Linux-5.15.0-139-generic-x86_64-with-glibc2.29",
