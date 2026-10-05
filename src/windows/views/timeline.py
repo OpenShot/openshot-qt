@@ -5037,6 +5037,14 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         menu.addAction(self.window.actionAddTrackAbove)
         menu.addAction(self.window.actionAddTrackBelow)
         menu.addAction(self.window.actionRenameTrack)
+        insertion_action = menu.addAction(_('Set as Insertion Track'))
+        insertion_action.setCheckable(True)
+        insertion_action.setChecked(
+            getattr(self.window, "active_insertion_track_id", None) == layer_id
+        )
+        insertion_action.triggered.connect(
+            lambda: self.window.set_active_insertion_track(layer_id)
+        )
         if found_gap:
             # Add 'Remove Gap' Menu
             log.info(f"Found gap at {first_gap_start}")

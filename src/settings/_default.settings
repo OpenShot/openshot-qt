@@ -907,6 +907,14 @@
   },
   {
     "category": "Keyboard",
+    "title": "Insert at Playhead (Ripple)",
+    "restart": false,
+    "setting": "actionInsertSelectedFiles",
+    "value": "V",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
     "title": "Animated Title",
     "restart": false,
     "setting": "actionAnimatedTitle",
