@@ -233,7 +233,7 @@ def main():
     app.setApplicationVersion(info.VERSION)
     try:
         # Qt 5.7+ only
-        app.setDesktopFile("org.openshot.OpenShot")
+        app.setDesktopFileName("org.openshot.OpenShot")
     except AttributeError:
         pass
 
