@@ -165,6 +165,7 @@ from classes.waveform import (
     get_audio_data,
 )
 from classes.path_utils import absolute_media_path
+from classes.proxy_service import dialog_preview_reader_data
 from .timeline_backend.enums import (
     MenuFade, MenuRotate, MenuLayout, MenuAlign, MenuAnimate, MenuVolume,
     MenuTime, MenuCopy, MenuSlice, MenuSplitAudio
@@ -1578,6 +1579,8 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         if not clip:
             # Not a valid clip id
             return
+        capture_anchor = getattr(self, "capture_properties_layout_anchor", None)
+        properties_anchor = capture_anchor(QCursor.pos()) if capture_anchor else None
 
         track = Track.get(number=clip.data.get("layer"))
         locked = bool(track and track.data.get("lock", False))
@@ -2262,7 +2265,8 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
         # Properties
         menu.addSeparator()
-        menu.addAction(self.window.actionProperties)
+        add_bound_action(menu, self.window, "actionProperties", _("Properties"),
+                         callback=lambda: self.window.actionProperties_trigger(timeline_anchor=properties_anchor))
 
         # Use a menu-owned action so this lock state cannot disable the shared
         # Remove Clip action in other menus or shortcuts.
@@ -4237,7 +4241,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                     right_clip.save()
 
                 # Save changes for the left or right slice
-                self.update_clip_data(clip.data, only_basic_props=True, ignore_reader=True)
+                self.update_clip_data(clip.data, only_basic_props=True, ignore_reader=True, ignore_refresh=True)
 
             # Redraw audio waveforms
             self.redraw_audio_timer.start()
@@ -4308,7 +4312,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                     right_tran.save()
 
                 # Save changes for the left or right slice
-                self.update_transition_data(trans.data, only_basic_props=False)
+                self.update_transition_data(trans.data, only_basic_props=False, ignore_refresh=True)
         finally:
             get_app().updates.transaction_id = None
 
@@ -5197,7 +5201,11 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         if file_id:
             file_obj = File.get(id=file_id)
             if file_obj:
-                preview_path = file_obj.absolute_path()
+                # Source previews bypass the runtime timeline's proxy rewrite.
+                # Resolve optimized media explicitly, with the same missing-file
+                # fallback used by the other source-preview dialogs.
+                preview_reader = dialog_preview_reader_data(file_obj)
+                preview_path = preview_reader.get("path") or file_obj.absolute_path()
 
         if not preview_path:
             preview_path = absolute_media_path(reader.get("path"))
@@ -5413,10 +5421,14 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
     @pyqtSlot()
     def zoomIn(self):
+        if getattr(self, "_properties_layout_anchor", None) is not None:
+            self.end_properties_layout_change()
         get_app().window.sliderZoomWidget.zoomIn()
 
     @pyqtSlot()
     def zoomOut(self):
+        if getattr(self, "_properties_layout_anchor", None) is not None:
+            self.end_properties_layout_change()
         get_app().window.sliderZoomWidget.zoomOut()
 
     def update_scroll(self, newScroll):

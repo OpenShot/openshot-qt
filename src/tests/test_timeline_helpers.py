@@ -3392,6 +3392,51 @@ class TimelineHelperTests(unittest.TestCase):
         self.assertEqual(mapping, [241])
         self.assertEqual(requests, [(480, 61, "/media/hidden-lower.mp4", False)])
 
+    def test_trim_and_razor_prefer_available_optimized_media_without_changing_timing(self):
+        with tempfile.TemporaryDirectory() as root:
+            original_path = os.path.join(root, "original.mp4")
+            optimized_path = os.path.join(root, "optimized.mp4")
+            with open(optimized_path, "wb") as stream:
+                stream.write(b"path-selection fixture")
+            clip = types.SimpleNamespace(data={
+                "file_id": "F1", "reader": {"path": original_path}, "start": 2.0})
+            file = types.SimpleNamespace(id="F1", data={"path": original_path},
+                                         absolute_path=lambda: original_path)
+            original_clip = copy.deepcopy(clip.data)
+            razor_requests, trim_requests = [], []
+            curve = types.SimpleNamespace(GetCount=lambda: 2, GetValue=lambda frame: 480.0)
+            window = types.SimpleNamespace(
+                timeline_sync=types.SimpleNamespace(timeline=types.SimpleNamespace(
+                    GetClip=lambda clip_id: types.SimpleNamespace(time=curve))),
+                SpeedSignal=types.SimpleNamespace(emit=lambda speed: None),
+                preview_thread=types.SimpleNamespace(
+                    queue_razor_preview=lambda *args: razor_requests.append(args) or True,
+                    queue_source_preview=lambda *args: trim_requests.append(args)),
+            )
+            helper = types.SimpleNamespace(window=window, current_frame=61)
+            helper._clip_preview_source = types.MethodType(
+                self.timeline_module.TimelineView._clip_preview_source, helper)
+            cases = (
+                ({"path": optimized_path}, optimized_path),
+                ({"path": optimized_path, "missing": True}, original_path),
+                ({"path": os.path.join(root, "removed.mp4")}, original_path),
+                (None, original_path),
+                ({"path": optimized_path}, optimized_path),
+            )
+            with patch.object(self.timeline_module.Clip, "get", return_value=clip), \
+                    patch.object(self.timeline_module.File, "get", return_value=file):
+                for proxy, expected in cases:
+                    with self.subTest(proxy=proxy):
+                        file.data["proxy_reader"] = proxy
+                        before = copy.deepcopy(file.data)
+                        self.assertTrue(self.timeline_module.TimelineView.PreviewRazorFrame(
+                            helper, "C1", 241, 61))
+                        self.timeline_module.TimelineView.PreviewClipFrame(helper, "C1", 241)
+                        self.assertEqual(razor_requests[-1], (480, 61, expected, False))
+                        self.assertEqual(trim_requests[-1], (480, 61, expected))
+                        self.assertEqual(file.data, before)
+                        self.assertEqual(clip.data, original_clip)
+
     def test_trim_previews_use_shared_source_queue_without_player_reader_switch(self):
         requests = []
         window = types.SimpleNamespace(

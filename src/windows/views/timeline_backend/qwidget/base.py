@@ -1971,6 +1971,74 @@ class TimelineWidgetBase(RazorMixin, QWidget):
 
 
 
+    def capture_properties_layout_anchor(self, global_pos=None):
+        """Remember a timeline time at its screen X before a dock changes layout."""
+        pps = float(getattr(self, "pixels_per_second", 0.0) or 0.0)
+        if pps <= 0.0:
+            return None
+        origin_x = self.mapToGlobal(QPointF(0, 0).toPoint()).x()
+        if global_pos is not None:
+            local_x = float(global_pos.x() - origin_x)
+            seconds = max(0.0, (local_x - self.track_name_width + self.h_scroll_offset) / pps)
+            global_x = float(global_pos.x())
+        else:
+            seconds = max(0.0, (self.current_frame - 1) / float(self.fps_float or 24.0))
+            local_x = self.track_name_width + seconds * pps - self.h_scroll_offset
+            local_x = max(float(self.track_name_width), min(local_x, self.width() - self.scroll_bar_thickness))
+            global_x = origin_x + local_x
+        return seconds, global_x
+
+    def begin_properties_layout_change(self, anchor=None):
+        """Hold the anchor through Qt's immediate and deferred dock layout passes."""
+        if anchor is not None or getattr(self, "_properties_layout_anchor", None) is None:
+            self._properties_layout_anchor = anchor or self.capture_properties_layout_anchor()
+            self._properties_layout_scroll_offset = self.h_scroll_offset
+        if not hasattr(self, "_properties_layout_timer"):
+            self._properties_layout_timer = QTimer(self)
+            self._properties_layout_timer.setSingleShot(True)
+            self._properties_layout_timer.setInterval(250)
+            self._properties_layout_timer.timeout.connect(self._finish_properties_layout_change)
+        self._properties_layout_timer.start()
+        QTimer.singleShot(0, self._restore_properties_layout_anchor)
+
+    def end_properties_layout_change(self):
+        self._properties_layout_anchor = None
+        timer = getattr(self, "_properties_layout_timer", None)
+        if timer:
+            timer.stop()
+
+    def _finish_properties_layout_change(self):
+        # An ancestor dock can move globally without moving this widget inside
+        # its parent. Resolve that final screen position before releasing it.
+        self._restore_properties_layout_anchor()
+        self.end_properties_layout_change()
+
+    def _restore_properties_layout_anchor(self):
+        anchor = getattr(self, "_properties_layout_anchor", None)
+        if anchor is None:
+            return
+        seconds, global_x = anchor
+        origin_x = self.mapToGlobal(QPointF(0, 0).toPoint()).x()
+        local_x = global_x - origin_x
+        timeline_w = float(self.scrollbar_position[2] or 0.0)
+        if timeline_w <= 0.0:
+            return
+        if self.track_name_width <= local_x <= self.width() - self.scroll_bar_thickness:
+            offset = seconds * self.pixels_per_second - (local_x - self.track_name_width)
+        else:
+            # The dock covered the anchor's old screen position. Keep the
+            # previous visible range instead of hiding a clip's beginning by
+            # forcing the clicked point against the new viewport edge.
+            offset = self._properties_layout_scroll_offset
+        self.set_scroll_left(offset / timeline_w)
+        self._update_scrollbar_handles()
+        self.win.TimelineScrolled.emit(list(self.scrollbar_position))
+        self._properties_layout_timer.start()
+
+    def moveEvent(self, event):
+        super().moveEvent(event)
+        self._restore_properties_layout_anchor()
+
     def resizeEvent(self, event):
         """Widget resize event"""
         event.accept()
@@ -1992,6 +2060,7 @@ class TimelineWidgetBase(RazorMixin, QWidget):
             view_h=view_h,
             timeline_w=timeline_w,
         )
+        self._restore_properties_layout_anchor()
         self.updateGeometry()
         self._schedule_viewport_thumbnail_reset()
         self.update()
@@ -2052,6 +2121,7 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         )
         self.geometry.mark_dirty()
         self.geometry.ensure()
+        self._restore_properties_layout_anchor()
         self.updateGeometry()
         self._schedule_viewport_thumbnail_reset()
         self.update()
@@ -2059,6 +2129,8 @@ class TimelineWidgetBase(RazorMixin, QWidget):
 
     # Capture wheel event to alter zoom/scale of widget
     def wheelEvent(self, event):
+        if getattr(self, "_properties_layout_anchor", None) is not None:
+            self.end_properties_layout_change()
         if event.modifiers() & Qt.ControlModifier:
             delta = event.pixelDelta().y() if not event.pixelDelta().isNull() else event.angleDelta().y()
             if delta:
@@ -2455,10 +2527,14 @@ class TimelineWidgetBase(RazorMixin, QWidget):
 
     def zoomIn(self):
         """Zoom into timeline"""
+        if getattr(self, "_properties_layout_anchor", None) is not None:
+            self.end_properties_layout_change()
         self._apply_zoom_steps(1.0, emit=True)
 
     def zoomOut(self):
         """Zoom out of timeline"""
+        if getattr(self, "_properties_layout_anchor", None) is not None:
+            self.end_properties_layout_change()
         self._apply_zoom_steps(-1.0, emit=True)
 
     def update_scrollbars(self, new_positions):
@@ -3210,6 +3286,8 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         super().mouseDoubleClickEvent(event)
 
     def mousePressEvent(self, event):
+        if getattr(self, "_properties_layout_anchor", None) is not None:
+            self.end_properties_layout_change()
         if self.enable_razor and not (
             event.button() == Qt.LeftButton and self._razor_in_track_area(_event_posf(event))
         ):

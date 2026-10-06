@@ -121,7 +121,8 @@ assert passed
                 "-f", "lavfi", "-i", "anullsrc=r=48000:cl=stereo",
                 "-t", "2", "-c:v", "mpeg4", "-c:a", "aac", "-y", media,
             ], check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=30)
-            env = dict(os.environ, PYTHONPATH=str(Path(__file__).resolve().parents[1]),
+            # Preserve explicitly selected engine bindings alongside LD_LIBRARY_PATH.
+            env = dict(os.environ, PYTHONPATH=os.pathsep.join(filter(None, (str(Path(__file__).resolve().parents[1]), os.environ.get("PYTHONPATH")))),
                        QT_QPA_PLATFORM="offscreen", QT_QUICK_BACKEND="software",
                        FEEDBACK_TEST_MEDIA=media)
             # Execute only the literal test script above, using this Python interpreter.
