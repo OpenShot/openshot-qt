@@ -35,6 +35,9 @@ class TrackGeometryMixin:
 
     def _build_layer_index(self):
         self.track_list = list(reversed(sorted(Track.filter())))
+        visible = getattr(self.widget, "visible_track_numbers", None)
+        if visible is not None:
+            self.track_list = [t for t in self.track_list if t.data.get("number") in visible]
         layers = {}
         for idx, layer in enumerate(self.track_list):
             layers[layer.data.get("number")] = idx

@@ -106,7 +106,7 @@ python_packages = ["os",
                    ]
 
 # Modules to include
-python_modules = ["idna.idnadata",
+python_modules = ["{}.QtNetwork".format(QT_BINDING_PACKAGE),"idna.idnadata",
                   "sentry_sdk.integrations.stdlib",
                   "sentry_sdk.integrations.excepthook",
                   "sentry_sdk.integrations.dedupe",
@@ -725,6 +725,11 @@ exes = [Executable("openshot_qt/launch.py",
                    shortcutDir="ProgramMenuFolder",
                    targetName=exe_name,
                    copyright=info.COPYRIGHT)]
+
+# Agent CLI needs a console entry point, including in GUI-only Windows bundles.
+exes.append(Executable("openshot_qt/cli.py", base=None,
+                       targetName="openshot-cli.exe" if sys.platform == "win32" else "openshot-cli",
+                       copyright=info.COPYRIGHT))
 
 try:
     # Include extra launcher configuration, if defined

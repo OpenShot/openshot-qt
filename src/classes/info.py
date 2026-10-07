@@ -266,6 +266,7 @@ SETUP = {
 
     # Automatic launch script creation
     "entry_points": {
+        "console_scripts": ["openshot-cli = openshot_qt.cli:main"],
         "gui_scripts": [
             "openshot-qt = openshot_qt.launch:main"
         ]

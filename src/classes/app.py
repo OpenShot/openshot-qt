@@ -227,7 +227,7 @@ class OpenShotApp(QApplication):
         if callable(restore_state):
             QTimer.singleShot(100, restore_state)
 
-    def gui(self):
+    def gui(self, preserve_session=False):
         """
         Initialize GUI and main window.
         :return: bool: True if the GUI has no errors, False if we fail to initialize the GUI
@@ -282,8 +282,8 @@ class OpenShotApp(QApplication):
             self.window.close()
             return False
 
-        # Clear undo/redo history
-        self.window.updateStatusChanged(False, False)
+        # Reflect existing history when attaching a GUI to a CLI session.
+        self.updates.update_watchers()
 
         # Connect our exit signals
         self.aboutToQuit.connect(self.cleanup)
@@ -291,9 +291,21 @@ class OpenShotApp(QApplication):
         # Show the main window using the state restored from saveGeometry().
         self._show_main_window(self.window)
 
+        # Publish a local automation session after the editor is initialized.
+        # Failure to start automation must not prevent ordinary GUI editing.
+        try:
+            from classes.agent.host import SessionServer
+            if not getattr(self, 'agent_server', None):
+                self.agent_server = SessionServer(self)
+        except Exception:
+            log.exception("Unable to start local agent session")
+
         # On Android, prompt for All Files Access once the window is visible so
         # the permission is in place before the user first taps Import Files.
         QTimer.singleShot(500, request_android_storage_permission_if_needed)
+
+        if preserve_session:
+            return True
 
         args = self.args
         if len(args) < 2:

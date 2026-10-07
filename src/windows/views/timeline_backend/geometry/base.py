@@ -364,12 +364,12 @@ class GeometryBase:
         self._current_view_state()
 
     def _rebuild(self):
-        win = get_app().window
+        win = None if getattr(self.widget, "snapshot_mode", False) else get_app().window
 
         self._reset_cache()
         layers = self._build_layer_index()
 
-        if not hasattr(win, "timeline"):
+        if not getattr(self.widget, "snapshot_mode", False) and not hasattr(win, "timeline"):
             self.dirty = False
             return
 

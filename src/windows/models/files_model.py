@@ -275,7 +275,7 @@ class FilesModel(QObject, updates.UpdateInterface):
             elif action.type == "delete" and action.key[0].lower() == "files" and len(action.key) == 2:
                 # Delete a top-level file row only when the file object itself was deleted.
                 self.update_model(clear=False, delete_file_id=action.key[1].get('id', ''))
-            elif action.type in ("update", "delete") and action.key[0].lower() == "files":
+            elif action.type in ("update", "delete") and action.key[0].lower() == "files" and len(action.key) >= 2:
                 # Update a single file (if found)
                 self.update_model(clear=False, update_file_id=action.key[1].get('id', ''))
             else:

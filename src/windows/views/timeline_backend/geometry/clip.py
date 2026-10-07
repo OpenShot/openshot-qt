@@ -43,7 +43,8 @@ class ClipGeometryMixin:
             str(item_id)
             for item_id in (getattr(win, "selected_clips", []) or [])
         }
-        clips = list(Clip.filter())
+        snapshot_clips = getattr(w, "_snapshot_clips", None)
+        clips = list(snapshot_clips if snapshot_clips is not None else Clip.filter())
         clips.extend(getattr(w, "_recording_preview_clips", []) or [])
         for clip in clips:
             clip_data = clip.data if isinstance(clip.data, dict) else {}
