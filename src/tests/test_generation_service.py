@@ -844,6 +844,220 @@ class GenerationServiceTests(unittest.TestCase):
         # Clip B in rather than leaving it to the user to notice and redo.
         dialog_instance.template_combo.currentIndexChanged.connect.assert_called_once()
 
+    # ---- two-clip AI bridge: temporary render cleanup and naming ----
+
+    def _bridge_cleanup_fixture(self):
+        import tempfile
+        temp_dir = tempfile.mkdtemp(prefix="openshot_bridge_test_")
+        self.addCleanup(lambda: __import__("shutil").rmtree(temp_dir, ignore_errors=True))
+        path_a = os.path.join(temp_dir, "clip_a.mp4")
+        path_b = os.path.join(temp_dir, "clip_b.mp4")
+        for path in (path_a, path_b):
+            open(path, "w").close()
+        files = {
+            path_a: MagicMock(id="FA", data={"path": path_a}),
+            path_b: MagicMock(id="FB", data={"path": path_b}),
+        }
+        return temp_dir, path_a, path_b, files
+
+    def test_remove_bridge_temp_files_removes_project_entries_and_disk_files(self):
+        service = GenerationService.__new__(GenerationService)
+        temp_dir, path_a, path_b, files = self._bridge_cleanup_fixture()
+
+        with patch("classes.generation_service.File.get", side_effect=lambda path: files.get(path)), \
+             patch("classes.generation_service.Clip.filter", return_value=[]):
+            service._remove_bridge_temp_files({"dir": temp_dir, "paths": [path_a, path_b]})
+
+        files[path_a].delete.assert_called_once()
+        files[path_b].delete.assert_called_once()
+        self.assertFalse(os.path.exists(path_a))
+        self.assertFalse(os.path.exists(path_b))
+        self.assertFalse(os.path.exists(temp_dir))
+
+    def test_remove_bridge_temp_files_keeps_a_render_a_timeline_clip_uses(self):
+        service = GenerationService.__new__(GenerationService)
+        temp_dir, path_a, path_b, files = self._bridge_cleanup_fixture()
+
+        with patch("classes.generation_service.File.get", side_effect=lambda path: files.get(path)), \
+             patch("classes.generation_service.Clip.filter",
+                   side_effect=lambda file_id: [object()] if file_id == "FA" else []):
+            service._remove_bridge_temp_files({"dir": temp_dir, "paths": [path_a, path_b]})
+
+        files[path_a].delete.assert_not_called()
+        self.assertTrue(os.path.exists(path_a))
+        files[path_b].delete.assert_called_once()
+        self.assertFalse(os.path.exists(path_b))
+        self.assertTrue(os.path.isdir(temp_dir))
+
+    def test_remove_bridge_temp_files_ignores_paths_outside_the_bridge_dir(self):
+        import tempfile
+        service = GenerationService.__new__(GenerationService)
+        temp_dir, path_a, _path_b, files = self._bridge_cleanup_fixture()
+        other_dir = tempfile.mkdtemp(prefix="openshot_bridge_other_")
+        self.addCleanup(lambda: __import__("shutil").rmtree(other_dir, ignore_errors=True))
+        outside = os.path.join(other_dir, "precious.mp4")
+        open(outside, "w").close()
+        files[outside] = MagicMock(id="FX", data={"path": outside})
+
+        with patch("classes.generation_service.File.get", side_effect=lambda path: files.get(path)), \
+             patch("classes.generation_service.Clip.filter", return_value=[]):
+            service._remove_bridge_temp_files({"dir": temp_dir, "paths": [outside, path_a]})
+
+        files[outside].delete.assert_not_called()
+        self.assertTrue(os.path.exists(outside))
+        self.assertFalse(os.path.exists(path_a))
+
+    def test_remove_bridge_temp_files_is_a_noop_without_cleanup_info(self):
+        service = GenerationService.__new__(GenerationService)
+        service._remove_bridge_temp_files(None)
+        service._remove_bridge_temp_files({})
+        service._remove_bridge_temp_files({"paths": ["/etc/hosts"]})
+
+    def test_job_finished_removes_bridge_temp_files_for_every_outcome(self):
+        for status in ("completed", "failed", "canceled"):
+            with self.subTest(status=status):
+                service = GenerationService.__new__(GenerationService)
+                cleanup = {"dir": "/tmp/x", "paths": ["/tmp/x/clip_a.mp4"]}
+                job = {"request": {"bridge_cleanup": cleanup}}
+                service.win = types.SimpleNamespace(
+                    generation_queue=types.SimpleNamespace(get_job=lambda job_id, job=job: job),
+                )
+                service._handle_generation_job_finished = MagicMock()
+                service._remove_bridge_temp_files = MagicMock()
+
+                service.on_generation_job_finished("J1", status)
+
+                service._handle_generation_job_finished.assert_called_once_with("J1", status)
+                service._remove_bridge_temp_files.assert_called_once_with(cleanup)
+
+    def test_job_finished_removes_bridge_temp_files_even_if_handling_raises(self):
+        service = GenerationService.__new__(GenerationService)
+        cleanup = {"dir": "/tmp/x", "paths": []}
+        job = {"request": {"bridge_cleanup": cleanup}}
+        service.win = types.SimpleNamespace(
+            generation_queue=types.SimpleNamespace(get_job=lambda job_id: job),
+        )
+        service._handle_generation_job_finished = MagicMock(side_effect=RuntimeError("boom"))
+        service._remove_bridge_temp_files = MagicMock()
+
+        with self.assertRaises(RuntimeError):
+            service.on_generation_job_finished("J1", "completed")
+
+        service._remove_bridge_temp_files.assert_called_once_with(cleanup)
+
+    def test_bridge_default_name_uses_both_source_clip_names(self):
+        service = GenerationService.__new__(GenerationService)
+        service._next_generation_name = lambda name: name
+        clip_a = types.SimpleNamespace(data={"reader": {"path": "/media/Beach Walk_gen2.mp4"}})
+        clip_b = types.SimpleNamespace(data={"reader": {"path": "/media/sunset.mov"}})
+        self.assertEqual(
+            service._bridge_default_name(clip_a, clip_b, None), "Beach Walk_to_sunset_bridge",
+        )
+
+    def test_bridge_default_name_collapses_two_copies_of_the_same_clip(self):
+        service = GenerationService.__new__(GenerationService)
+        service._next_generation_name = lambda name: name
+        clip = types.SimpleNamespace(data={"reader": {"path": "/media/loop.mp4"}})
+        self.assertEqual(service._bridge_default_name(clip, clip, None), "loop_bridge")
+
+    def test_bridge_default_name_falls_back_when_clip_names_are_unknown(self):
+        service = GenerationService.__new__(GenerationService)
+        service._default_generation_name = lambda file_obj: "fallback_gen1"
+        clip = types.SimpleNamespace(data={})
+        self.assertEqual(service._bridge_default_name(clip, clip, object()), "fallback_gen1")
+
+    def test_bridge_clips_with_ai_passes_cleanup_and_name_flag_with_the_payload(self):
+        service = GenerationService.__new__(GenerationService)
+        service.win = types.SimpleNamespace(
+            files_model=types.SimpleNamespace(add_files=lambda *a, **k: None),
+        )
+        bridge_template = {"id": "video-bridge", "template": {"extra_inputs": [{"key": "clip_b", "type": "video"}]}}
+        service.templates_for_context = lambda source_file=None: [bridge_template]
+        service._default_generation_name = lambda file_obj: "bridge_gen1"
+        file_a = types.SimpleNamespace(id="FA", data={"path": "/tmp/bridge/clip_a.mp4"})
+        file_b = types.SimpleNamespace(id="FB", data={"path": "/tmp/bridge/clip_b.mp4"})
+        files_by_path = {file_a.data["path"]: file_a, file_b.data["path"]: file_b}
+        dialog_instance = MagicMock()
+        dialog_instance.exec_.return_value = QDialog.Accepted
+        dialog_instance.get_payload.return_value = {"name": "my_bridge", "template_id": "video-bridge"}
+        enqueue_calls = []
+        service._enqueue_generation_for_file = lambda source_file, payload: (
+            enqueue_calls.append(payload) or (True, "")
+        )
+        service._remove_bridge_temp_files = MagicMock()
+
+        with patch("classes.generation_service.render_clip_to_file", return_value=True), \
+             patch("classes.generation_service.tempfile.mkdtemp", return_value="/tmp/bridge"), \
+             patch("classes.generation_service.File.get", side_effect=lambda path: files_by_path.get(path)), \
+             patch("classes.generation_service.GenerateMediaDialog", MagicMock(return_value=dialog_instance)), \
+             patch.object(service, "_preselect_bridge_second_video_input"):
+            service.bridge_clips_with_ai(
+                types.SimpleNamespace(data={"position": 0.0, "layer": 1}),
+                types.SimpleNamespace(data={"position": 5.0, "layer": 1}),
+            )
+
+        self.assertTrue(enqueue_calls[0]["display_name_from_payload"])
+        self.assertEqual(
+            enqueue_calls[0]["bridge_cleanup"],
+            {"dir": "/tmp/bridge", "paths": ["/tmp/bridge/clip_a.mp4", "/tmp/bridge/clip_b.mp4"]},
+        )
+        service._remove_bridge_temp_files.assert_not_called()
+
+    def test_bridge_clips_with_ai_removes_renders_when_dialog_canceled(self):
+        service = GenerationService.__new__(GenerationService)
+        service.win = types.SimpleNamespace(
+            files_model=types.SimpleNamespace(add_files=lambda *a, **k: None),
+        )
+        bridge_template = {"id": "video-bridge", "template": {"extra_inputs": [{"key": "clip_b", "type": "video"}]}}
+        service.templates_for_context = lambda source_file=None: [bridge_template]
+        service._default_generation_name = lambda file_obj: "bridge_gen1"
+        file_a = types.SimpleNamespace(id="FA", data={"path": "/tmp/bridge/clip_a.mp4"})
+        file_b = types.SimpleNamespace(id="FB", data={"path": "/tmp/bridge/clip_b.mp4"})
+        files_by_path = {file_a.data["path"]: file_a, file_b.data["path"]: file_b}
+        dialog_instance = MagicMock()
+        dialog_instance.exec_.return_value = QDialog.Rejected
+        service._remove_bridge_temp_files = MagicMock()
+
+        with patch("classes.generation_service.render_clip_to_file", return_value=True), \
+             patch("classes.generation_service.tempfile.mkdtemp", return_value="/tmp/bridge"), \
+             patch("classes.generation_service.File.get", side_effect=lambda path: files_by_path.get(path)), \
+             patch("classes.generation_service.GenerateMediaDialog", MagicMock(return_value=dialog_instance)), \
+             patch.object(service, "_preselect_bridge_second_video_input"):
+            service.bridge_clips_with_ai(
+                types.SimpleNamespace(data={}), types.SimpleNamespace(data={}),
+            )
+
+        service._remove_bridge_temp_files.assert_called_once()
+
+    def test_bridge_clips_with_ai_removes_renders_when_enqueue_fails(self):
+        service = GenerationService.__new__(GenerationService)
+        service.win = types.SimpleNamespace(
+            files_model=types.SimpleNamespace(add_files=lambda *a, **k: None),
+        )
+        bridge_template = {"id": "video-bridge", "template": {"extra_inputs": [{"key": "clip_b", "type": "video"}]}}
+        service.templates_for_context = lambda source_file=None: [bridge_template]
+        service._default_generation_name = lambda file_obj: "bridge_gen1"
+        file_a = types.SimpleNamespace(id="FA", data={"path": "/tmp/bridge/clip_a.mp4"})
+        file_b = types.SimpleNamespace(id="FB", data={"path": "/tmp/bridge/clip_b.mp4"})
+        files_by_path = {file_a.data["path"]: file_a, file_b.data["path"]: file_b}
+        dialog_instance = MagicMock()
+        dialog_instance.exec_.return_value = QDialog.Accepted
+        dialog_instance.get_payload.return_value = {"name": "x", "template_id": "video-bridge"}
+        service._enqueue_generation_for_file = lambda *a, **k: (False, "nope")
+        service._remove_bridge_temp_files = MagicMock()
+
+        with patch("classes.generation_service.render_clip_to_file", return_value=True), \
+             patch("classes.generation_service.tempfile.mkdtemp", return_value="/tmp/bridge"), \
+             patch("classes.generation_service.File.get", side_effect=lambda path: files_by_path.get(path)), \
+             patch("classes.generation_service.GenerateMediaDialog", MagicMock(return_value=dialog_instance)), \
+             patch("classes.generation_service.QMessageBox"), \
+             patch.object(service, "_preselect_bridge_second_video_input"):
+            service.bridge_clips_with_ai(
+                types.SimpleNamespace(data={}), types.SimpleNamespace(data={}),
+            )
+
+        service._remove_bridge_temp_files.assert_called_once()
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -1154,11 +1154,13 @@ class GenerationService(QObject):
             return False, "The selected AI template was not found."
         _payload_name_root, payload_name_number = self._split_generation_suffix(payload_name)
         workflow_label = self._workflow_display_label(template_meta)
-        if source_file:
+        if source_file and not payload.get("display_name_from_payload"):
             display_root_name = self._source_display_root_name(source_file)
             display_number = int(payload_name_number or self._next_generation_number(display_root_name))
             display_name = self._format_generation_name(display_root_name, display_number)
         else:
+            # No source (or a source that is only a temporary stand-in, as in the two-clip bridge):
+            # name the result after what the user typed, not after the source file.
             display_name = payload_name
         try:
             source_path = self._prepare_generation_source_path(source_file, payload.get("template_id"))
@@ -1248,6 +1250,7 @@ class GenerationService(QObject):
             "workflow_label": workflow_label,
             "bindings": bindings,
             "insert_on_timeline": payload.get("insert_on_timeline"),
+            "bridge_cleanup": payload.get("bridge_cleanup"),
         }
         job_id = self.win.generation_queue.enqueue(
             payload_name,
@@ -1325,7 +1328,11 @@ class GenerationService(QObject):
         temp_dir = tempfile.mkdtemp(prefix="openshot_bridge_")
         path_a = os.path.join(temp_dir, "clip_a.mp4")
         path_b = os.path.join(temp_dir, "clip_b.mp4")
+        # The renders only exist to feed this one generation; they are removed again once it is
+        # over (or never starts), so they don't pile up in Project Files and on disk.
+        cleanup = {"dir": temp_dir, "paths": [path_a, path_b]}
         if not render_clip_to_file(clip_a, path_a) or not render_clip_to_file(clip_b, path_b):
+            self._remove_bridge_temp_files(cleanup)
             QMessageBox.warning(
                 self.win, "Bridge Clips Failed",
                 "Could not render one or both clips for the AI bridge.",
@@ -1338,6 +1345,7 @@ class GenerationService(QObject):
         file_a = File.get(path=path_a)
         file_b = File.get(path=path_b)
         if not file_a or not file_b:
+            self._remove_bridge_temp_files(cleanup)
             QMessageBox.warning(
                 self.win, "Bridge Clips Failed",
                 "Could not import the rendered clips into Project Files.",
@@ -1352,7 +1360,7 @@ class GenerationService(QObject):
             preselected_template_id=preselected_template_id,
             dialog_title="Bridge Clips With AI",
             parent=self.win,
-            default_name=self._default_generation_name(file_a),
+            default_name=self._bridge_default_name(clip_a, clip_b, file_a),
         )
         self._preselect_bridge_second_video_input(win, file_b.id)
         win.template_combo.currentIndexChanged.connect(
@@ -1360,15 +1368,63 @@ class GenerationService(QObject):
         )
 
         if win.exec_() != QDialog.Accepted:
+            self._remove_bridge_temp_files(cleanup)
             return
         payload = win.get_payload()
         payload["insert_on_timeline"] = {
             "position": float(clip_b.data.get("position", 0.0)),
             "layer": clip_b.data.get("layer"),
         }
+        payload["display_name_from_payload"] = True
+        payload["bridge_cleanup"] = cleanup
         ok, error_text = self._enqueue_generation_for_file(file_a, payload)
         if not ok:
+            self._remove_bridge_temp_files(cleanup)
             QMessageBox.warning(self.win, "Generation Failed", error_text)
+
+    def _bridge_default_name(self, clip_a, clip_b, fallback_file):
+        """Name a bridge after the two clips it joins ("<A>_to_<B>_bridge"), not after the
+        temporary render of Clip A that stands in as the dialog's source file."""
+        def source_root(clip):
+            data = getattr(clip, "data", None)
+            reader = data.get("reader") if isinstance(data, dict) else None
+            path = reader.get("path") if isinstance(reader, dict) else ""
+            stem = os.path.splitext(os.path.basename(str(path or "")))[0]
+            return self._generation_root_name(stem) if stem else ""
+
+        root_a, root_b = source_root(clip_a), source_root(clip_b)
+        if not root_a or not root_b:
+            return self._default_generation_name(fallback_file)
+        name = "{}_bridge".format(root_a) if root_a == root_b else "{}_to_{}_bridge".format(root_a, root_b)
+        return self._next_generation_name(name)
+
+    def _remove_bridge_temp_files(self, cleanup):
+        """Remove the temporary Clip A/B renders from Project Files and disk. Only touches the
+        exact paths recorded in `cleanup`, and leaves any that a timeline clip is using."""
+        if not isinstance(cleanup, dict):
+            return
+        temp_dir = str(cleanup.get("dir") or "")
+        if not temp_dir:
+            return
+        for path in cleanup.get("paths") or []:
+            path = str(path or "")
+            if os.path.dirname(path) != temp_dir:
+                continue
+            try:
+                file_obj = File.get(path=path)
+                if file_obj and Clip.filter(file_id=file_obj.id):
+                    log.info("Keeping bridge render %s: a timeline clip is using it", path)
+                    continue
+                if file_obj:
+                    file_obj.delete()
+                if os.path.isfile(path):
+                    os.remove(path)
+            except Exception as ex:
+                log.warning("Could not remove bridge render %s: %s", path, ex)
+        try:
+            os.rmdir(temp_dir)
+        except OSError:
+            pass  # not empty (a render is still in use) or already gone
 
     def action_generate_trigger(self, checked=True, source_file=None, template_id=None, open_dialog=True):
         selected_files = self._selected_generation_targets(source_file=source_file)
@@ -1438,6 +1494,15 @@ class GenerationService(QObject):
             self.win.statusBar.showMessage("Queued {} generation jobs".format(queued_count), 3000)
 
     def on_generation_job_finished(self, job_id, status):
+        queue = getattr(self.win, "generation_queue", None)
+        job = queue.get_job(job_id) if queue else None
+        try:
+            self._handle_generation_job_finished(job_id, status)
+        finally:
+            if job:
+                self._remove_bridge_temp_files((job.get("request") or {}).get("bridge_cleanup"))
+
+    def _handle_generation_job_finished(self, job_id, status):
         job = self.win.generation_queue.get_job(job_id) if getattr(self.win, "generation_queue", None) else None
         if not job:
             return
