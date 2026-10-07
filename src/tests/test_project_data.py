@@ -711,6 +711,132 @@ class ProjectDataTests(unittest.TestCase):
         self.assertEqual(clip["location_x"]["Points"][0]["co"]["Y"], 0.5)
         self.assertEqual(clip["location_y"]["Points"][0]["co"]["Y"], -0.5)
 
+    def test_orphaned_clips_recover_from_embedded_readers(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = os.path.join(directory, "overlay.png")
+            with open(path, "wb") as image:
+                image.write(b"png")
+            store = make_store()
+            store._data = {
+                "files": [{"id": "existing", "path": path}],
+                "clips": [
+                    {"id": "C1", "file_id": "orphan", "reader": {
+                        "id": "orphan", "path": path, "type": "QtImageReader",
+                        "has_single_image": True}, "start": 0, "end": .04},
+                    {"id": "C2", "file_id": "missing", "reader": {
+                        "id": "missing", "path": path + ".png", "type": "QtImageReader",
+                        "has_single_image": True}, "start": 0, "end": .04},
+                ], "effects": [],
+            }
+            with open(path + ".png", "wb") as image:
+                image.write(b"png")
+            with patch("classes.project_data.find_missing_file") as prompt:
+                store.check_if_paths_are_valid()
+                prompt.assert_not_called()
+            self.assertEqual(len(store._data["clips"]), 2)
+            self.assertEqual(len(store._data["files"]), 2)
+            self.assertEqual(store._data["clips"][0]["file_id"], "existing")
+            self.assertEqual(store._data["clips"][0]["reader"]["id"], "existing")
+            restored = store._data["files"][1]
+            self.assertEqual(restored["id"], "missing")
+            self.assertEqual(restored["media_type"], "image")
+            self.assertIsNot(restored, store._data["clips"][1]["reader"])
+            original = copy.deepcopy(store._data)
+            store._data = json.loads(json.dumps(store._data))
+            store.check_if_paths_are_valid()
+            self.assertEqual(store._data, original)
+
+    def test_issue_6177_generated_projects_load_visible_clips(self):
+        import runpy
+        from pathlib import Path
+        from classes import info
+        with tempfile.TemporaryDirectory() as directory, ExitStack() as stack:
+            stack.enter_context(patch.object(info, "USER_DEFAULT_PROJECT", os.path.join(directory, "default.osp")))
+            stack.enter_context(patch("sys.argv", ["generate_issue_6177_projects.py", directory]))
+            generator = Path(PATH).parent / "benchmarks" / "generate_issue_6177_projects.py"
+            runpy.run_path(str(generator), run_name="__main__")
+            self.app.window = types.SimpleNamespace(actionClearWaveformData=DummyAction())
+            self.app.updates = types.SimpleNamespace(load=lambda payload: None)
+            for filename in Path(directory).glob("*.osp"):
+                with self.subTest(project=filename.name):
+                    store = ProjectDataStore()
+                    with patch.object(store, "add_to_recent_files"):
+                        store.load(str(filename), clear_thumbnails=False)
+                    self.assertEqual(len(store._data["files"]), 5)
+                    self.assertEqual(len(store._data["clips"]), 5)
+                    layers = {layer["number"] for layer in store._data["layers"]}
+                    fps = store._data["fps"]
+                    timeline = openshot.Timeline(1280, 720, openshot.Fraction(fps["num"], fps["den"]),
+                                                 44100, 2, openshot.LAYOUT_STEREO)
+                    timeline.Open()
+                    native_clips = []
+                    for clip in store._data["clips"]:
+                        self.assertIn(clip["layer"], layers)
+                        self.assertEqual(clip["alpha"]["Points"][0]["co"]["Y"], 1)
+                        self.assertGreaterEqual(100 * clip["duration"] / store._data["scale"], 20)
+                        native = openshot.Clip()
+                        native.SetJson(json.dumps(clip))
+                        timeline.AddClip(native)
+                        native_clips.append(native)
+                    self.assertEqual(bytes(timeline.GetFrame(1).GetPixelsBytes())[:4], bytes((255, 0, 0, 255)))
+                    self.assertEqual(bytes(timeline.GetFrame(timeline.GetMaxFrame()).GetPixelsBytes())[:4],
+                                     bytes((0, 0, 255, 255)))
+                    timeline.Close()
+
+    def test_orphaned_png_survives_native_save_and_load(self):
+        from classes import info
+        from qt_api import QImage, QColor
+        with tempfile.TemporaryDirectory() as directory, ExitStack() as stack:
+            for name in ("ASSETS_PATH", "THUMBNAIL_PATH", "TITLE_PATH", "BLENDER_PATH",
+                         "PROTOBUF_DATA_PATH", "CLIPBOARD_PATH", "COMFYUI_OUTPUT_PATH", "PROXY_PATH"):
+                stack.enter_context(patch.object(info, name, os.path.join(directory, name)))
+            stack.enter_context(patch.object(info, "USER_DEFAULT_PROJECT", os.path.join(directory, "default.osp")))
+            path = os.path.join(directory, "overlay.png")
+            image = QImage(16, 16, QImage.Format_RGBA8888)
+            image.fill(QColor("red"))
+            self.assertTrue(image.save(path))
+            native = openshot.Clip(path)
+            native.End(.04)
+            clip = json.loads(native.Json())
+            clip.update(id="C1", file_id="orphan", layer=5000000)
+            clip["reader"]["id"] = "orphan"
+            store = ProjectDataStore()
+            store.apply_profile(store.get_profile(profile_desc="HD 720p 25 fps"))
+            store._data["clips"] = [clip]
+            store._data["files"] = []
+            self.app.window = types.SimpleNamespace(actionClearWaveformData=DummyAction())
+            self.app.updates = types.SimpleNamespace(load=lambda payload: None)
+            stack.enter_context(patch.object(store, "add_to_recent_files"))
+            for backup in (True, False):
+                with self.subTest(backup=backup):
+                    filename = os.path.join(directory, "saved.osp")
+                    store.save(filename, backup_only=backup)
+                    store.load(filename, clear_thumbnails=False)
+                    self.assertEqual(len(store._data["clips"]), 1)
+                    self.assertEqual(len(store._data["files"]), 1)
+                    restored = store._data["clips"][0]
+                    self.assertEqual(restored["reader"]["path"], path)
+                    self.assertEqual(restored["file_id"], store._data["files"][0]["id"])
+                    self.assertAlmostEqual(restored["end"], .04)
+                    native.SetJson(json.dumps(restored))
+                    self.assertAlmostEqual(native.Duration(), .04)
+
+    def test_orphan_recovery_respects_missing_media_skip(self):
+        store = make_store()
+        store._data = {"files": [], "clips": [
+            {"id": "C1", "file_id": "orphan", "reader": {
+                "id": "orphan", "path": "/missing/overlay.png", "type": "QtImageReader"}},
+            {"id": "C2", "file_id": "orphan", "reader": {
+                "id": "orphan", "path": "/missing/overlay.png", "type": "QtImageReader"}},
+        ], "effects": []}
+        self.app.window = types.SimpleNamespace()
+        with patch("classes.project_data.os.path.exists", return_value=False), \
+                patch("classes.project_data.find_missing_file", return_value=("", False, True)) as prompt:
+            store.check_if_paths_are_valid()
+        self.assertEqual(prompt.call_count, 1)
+        self.assertEqual(store._data["files"], [])
+        self.assertEqual(store._data["clips"], [])
+
     def test_check_if_paths_are_valid_updates_missing_file_and_syncs_clip_reader(self):
         store = make_store()
         old_path = "/missing/file.mp4"

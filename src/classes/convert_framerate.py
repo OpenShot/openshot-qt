@@ -26,64 +26,50 @@
  """
 
 
-def remove_gaps(clips, new_profile):
-    project_fps_num = new_profile.info.fps.num
-    project_fps_den = new_profile.info.fps.den
-    FRAME_DURATION = project_fps_den / project_fps_num  # Duration of one frame
-
-    # Define a tolerance in frames (e.g., 1 to 3 frames)
-    max_gap_tolerance = 3 * FRAME_DURATION
-    min_gap_tolerance = 1 / 10000  # Tiny tolerance for floating-point drift
-
-    def snap_to_new_fps_grid(time_in_seconds):
-        # Snap the time to the nearest frame boundary based on the FPS grid
-        return round(time_in_seconds / FRAME_DURATION) * FRAME_DURATION
-
-    # Sort clips by position to ensure we handle them in order
-    clips.sort(key=lambda x: x['position'])
-
-    # Iterate over the clips and adjust tiny gaps (by modifying the "end" attribute)
-    for i in range(1, len(clips)):
-        current_clip = clips[i]
-        previous_clip = clips[i - 1]
-        if 'start' not in current_clip or 'start' not in previous_clip:
-            continue
-        if 'end' not in current_clip or 'end' not in previous_clip:
-            continue
-
-        # Calculate the right edge of the previous clip
-        previous_clip_right_edge = snap_to_new_fps_grid(previous_clip['position'] + (previous_clip['end'] - previous_clip['start']))
-
-        # Calculate the gap between the current clip's position and the end of the previous clip
-        gap = current_clip['position'] - previous_clip_right_edge
-
-        # Fix tiny gaps or overlaps within the tolerance range (1-3 frames) by adjusting the "end" of the previous clip
-        if min_gap_tolerance < abs(gap) < max_gap_tolerance:
-            # Adjust the "end" of the previous clip to fill the gap
-            previous_clip['end'] += gap  # Extend the end trim by the gap size
-
-        # Ensure that the adjusted "end" is snapped to the grid
-        previous_clip['end'] = snap_to_new_fps_grid(previous_clip['end'])
-
-    return clips
-
 def change_profile(clips, new_profile):
-    """Adjust all clip-like objects to use project FPS precision, adjusting 'end' trim
-    (if needed) to close any tiny (1 to 3 frame) gaps."""
-    project_fps_num = new_profile.info.fps.num
-    project_fps_den = new_profile.info.fps.den
+    """Snap timing to the new grid while preserving nonempty clips and joins.
 
-    def snap_to_new_fps_grid(time_in_seconds):
-        frame_time = project_fps_den / project_fps_num
-        return round(time_in_seconds / frame_time) * frame_time
+    Only repair boundaries which touched before conversion, on the same layer
+    and between the same kind of object. Intentional gaps/overlaps are edits,
+    not rounding errors. A run of one-frame clips may need to grow when the
+    new FPS is lower: never erase a clip to keep the original total duration.
+    """
+    frame_time = new_profile.info.fps.den / new_profile.info.fps.num
+    groups = {}
+    for clip in clips:
+        if 'start' in clip and 'end' in clip:
+            key = (clip.get('layer'), clip.get('type'))
+            groups.setdefault(key, []).append(clip)
+
+    joins = []
+    for group in groups.values():
+        ordered = sorted(group, key=lambda clip: clip['position'])
+        for previous, current in zip(ordered, ordered[1:]):
+            right = previous['position'] + previous['end'] - previous['start']
+            if abs(current['position'] - right) < 1e-7:
+                joins.append((previous, current))
+
+    def snap(seconds):
+        return round(seconds / frame_time) * frame_time
 
     for clip in clips:
-        # Update position, start, and end to the new profile's FPS grid
-        clip['position'] = snap_to_new_fps_grid(clip['position'])
+        nonempty = clip.get('end', 0) > clip.get('start', 0)
+        clip['position'] = snap(clip['position'])
         if 'start' in clip:
-            clip['start'] = snap_to_new_fps_grid(clip['start'])
+            clip['start'] = snap(clip['start'])
         if 'end' in clip:
-            clip['end'] = snap_to_new_fps_grid(clip['end'])
+            clip['end'] = snap(clip['end'])
+            if nonempty and 'start' in clip:
+                clip['end'] = max(clip['end'], clip['start'] + frame_time)
 
-    # After snapping to the new grid, remove gaps by adjusting the "end" attribute
-    return remove_gaps(clips, new_profile)
+    for previous, current in joins:
+        duration = snap(current['position'] - previous['position'])
+        if duration >= frame_time - 1e-7:
+            previous['end'] = snap(previous['start'] + duration)
+        else:
+            current['position'] = snap(previous['position'] + previous['end'] - previous['start'])
+
+    for clip in clips:
+        if 'start' in clip and 'end' in clip:
+            clip['duration'] = clip['end'] - clip['start']
+    return clips
