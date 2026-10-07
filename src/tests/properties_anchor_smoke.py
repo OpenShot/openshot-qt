@@ -179,6 +179,8 @@ def verify():
     except Exception:
         traceback.print_exc()
     finally:
+        # Qt6 quit() closes windows first; skip the unsaved-changes prompt.
+        app.project.has_unsaved_changes = False
         app.quit()
 
 

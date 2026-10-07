@@ -13,8 +13,10 @@ class NotificationStartupTests(unittest.TestCase):
         script = r'''
 from types import SimpleNamespace
 from qt_api import QApplication, Qt, QColor
-QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
-QApplication.setAttribute(Qt.AA_UseHighDpiPixmaps)
+# Qt6 is always high-DPI and newer bindings drop these attributes.
+for name in ('AA_EnableHighDpiScaling', 'AA_UseHighDpiPixmaps'):
+    if hasattr(Qt, name):
+        QApplication.setAttribute(getattr(Qt, name))
 app = QApplication([])
 from windows.notifications import NotificationBanner, banner_colors, notification_icon
 for kind in ('feedback', 'update'):
