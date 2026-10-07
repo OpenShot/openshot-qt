@@ -1035,6 +1035,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         import openshot
 
         log.info("Saving project file: %s", file_path)
+        self._restore_clip_file_references()
 
         # Move all temp files (i.e. Blender Animations, Titles, Thumbnails, Protobuf files) to the project folder
         if not backup_only:
@@ -1535,12 +1536,53 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         s.set("recent_projects", recent_projects)
         s.save()
 
+    def _restore_clip_file_references(self):
+        """Recover orphaned media references before saving or validating paths.
+
+        Clips contain a full reader even when their Project Files entry is
+        absent. Reuse a matching file, or restore that entry from the reader,
+        so path validation can locate missing media instead of deleting a
+        playable clip just because its file ID is unknown.
+        """
+        files = self._data.setdefault("files", [])
+        by_id = {file.get("id"): file for file in files}
+        by_path = {comparable_local_path(file.get("path")): file for file in files
+                   if file.get("path")}
+        for clip in self._data.get("clips", []):
+            reader = clip.get("reader")
+            if not isinstance(reader, dict):
+                continue
+            file_id = clip.get("file_id") or reader.get("id")
+            path = reader.get("path")
+            if not file_id or file_id in by_id or not path:
+                continue
+            file = by_path.get(comparable_local_path(path))
+            if file is None:
+                file = copy.deepcopy(reader)
+                file["id"] = file_id
+                if not file.get("media_type"):
+                    file["media_type"] = get_media_type(dict(
+                        file, has_video=file.get("has_video", True),
+                        has_audio=file.get("has_audio", False)))
+                file["image"] = clip.get("image") or os.path.join(
+                    info.THUMBNAIL_PATH, "%s.png" % file_id)
+                files.append(file)
+                by_id[file_id] = file
+                by_path[comparable_local_path(path)] = file
+                log.warning("Restored missing project file %s from clip %s", file_id, clip.get("id"))
+            clip["file_id"] = file["id"]
+            reader["id"] = file["id"]
+            if file.get("image"):
+                clip["image"] = file["image"]
+
     def check_if_paths_are_valid(self):
         """Check if all paths are valid, and prompt to update them if needed"""
         app = get_app()
         settings = app.get_settings()
         # Get translation method
         _ = app._tr
+
+        self._restore_clip_file_references()
 
         log.info("checking project files...")
         prompt_state = {"cancelled": False, "missing_path_decisions": {}}
