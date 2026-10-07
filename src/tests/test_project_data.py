@@ -46,6 +46,7 @@ from qt_api import QApplication
 from classes.project_data import ProjectDataStore
 from classes.updates import UpdateManager
 from tests.qt_test_app import ensure_app_state as ensure_qt_app_state, get_or_create_app
+from tests.source_tree import source_path
 
 
 class DummySettings:
@@ -753,7 +754,7 @@ class ProjectDataTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory, ExitStack() as stack:
             stack.enter_context(patch.object(info, "USER_DEFAULT_PROJECT", os.path.join(directory, "default.osp")))
             stack.enter_context(patch("sys.argv", ["generate_issue_6177_projects.py", directory]))
-            generator = Path(PATH).parent / "benchmarks" / "generate_issue_6177_projects.py"
+            generator = source_path("benchmarks/generate_issue_6177_projects.py")
             runpy.run_path(str(generator), run_name="__main__")
             self.app.window = types.SimpleNamespace(actionClearWaveformData=DummyAction())
             self.app.updates = types.SimpleNamespace(load=lambda payload: None)
