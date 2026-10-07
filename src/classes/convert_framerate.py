@@ -31,8 +31,9 @@ def change_profile(clips, new_profile):
 
     Only repair boundaries which touched before conversion, on the same layer
     and between the same kind of object. Intentional gaps/overlaps are edits,
-    not rounding errors. A run of one-frame clips may need to grow when the
-    new FPS is lower: never erase a clip to keep the original total duration.
+    not rounding errors. Keep rounded trims intact and move joined clips to
+    the preceding edge. A run of one-frame clips can grow or shrink with the
+    new FPS; preserving its old length would stretch or erase individual clips.
     """
     frame_time = new_profile.info.fps.den / new_profile.info.fps.num
     groups = {}
@@ -63,11 +64,7 @@ def change_profile(clips, new_profile):
                 clip['end'] = max(clip['end'], clip['start'] + frame_time)
 
     for previous, current in joins:
-        duration = snap(current['position'] - previous['position'])
-        if duration >= frame_time - 1e-7:
-            previous['end'] = snap(previous['start'] + duration)
-        else:
-            current['position'] = snap(previous['position'] + previous['end'] - previous['start'])
+        current['position'] = snap(previous['position'] + previous['end'] - previous['start'])
 
     for clip in clips:
         if 'start' in clip and 'end' in clip:

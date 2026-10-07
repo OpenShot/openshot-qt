@@ -22,8 +22,10 @@ conversion to 25 fps rounded two positions to the same time, reducing a clip's
 duration to zero. It also left the stored duration stale. Conversion now keeps
 positive clips at least one frame long, updates duration, and preserves only
 originally touching boundaries within a track and object type. Intentional
-gaps and overlaps are not treated as rounding errors. At a lower frame rate,
-a sequence of one-frame clips can become longer to retain every clip.
+gaps and overlaps are not treated as rounding errors. Joined clips move to the
+preceding clip's new end instead of stretching a clip to fill a rounding gap.
+A sequence of one-frame clips becomes longer at a lower frame rate and shorter
+at a higher frame rate, keeping every clip one frame long.
 
 Finally, TimelineSync.GetLastFrame subtracted one from libopenshot's already
 1-based last playable frame number. Five-frame projects therefore stopped on
@@ -52,6 +54,8 @@ modified checkout:
 * ``five-frames-30.osp``: switch to HD 720p 25 fps. All five clips should remain
   nonempty and adjacent. Save, close, and reopen; all five should remain.
   Repeat the opposite profile change using ``five-frames-25.osp``.
+  In particular, converting 25 to 30 fps should give all five clips a duration
+  of approximately .033 seconds; clip 3 must not become .067 seconds.
 * ``gapped-frames-25.osp``: the last one-frame clip is at 40 seconds. Seek/play
   through the end, then Remove All Gaps on Track 5 and repeat. Clip 5 should
   display in both cases.
@@ -85,8 +89,9 @@ Run from the repository root with libopenshot and Qt available::
 New regression tests failed against the original code. They cover one-frame
 profile changes, trimmed short clips, intentional gaps/overlaps, separate
 tracks/effects, normal and backup save/load, orphan relinking/reconstruction,
-and missing-media skip decisions. Native rendering verifies that frame four
-is red and the final seekable frame is blue at both 25 and 30 fps. Preview
+and missing-media skip decisions. Native rendering verifies all five frame colors and the final blue frame at
+both 25 and 30 fps, including conversion in both directions and native clip
+serialization. Repeated conversion checks that every clip stays one frame. Preview
 callback coverage checks stopping at frame five and looping to frame one.
 
 The downloaded broken project was also passed through the repaired validator:

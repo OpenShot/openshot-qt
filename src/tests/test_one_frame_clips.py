@@ -30,11 +30,20 @@ class OneFrameClipTests(unittest.TestCase):
                 items = clips(source)
                 change_profile(items, profile(target))
                 for i, item in enumerate(items):
-                    self.assertGreaterEqual(round((item['end'] - item['start']) * target), 1)
+                    self.assertEqual(round((item['end'] - item['start']) * target), 1)
                     self.assertAlmostEqual(item['duration'], item['end'] - item['start'])
                     if i:
                         previous = items[i - 1]
                         self.assertAlmostEqual(item['position'], previous['position'] + previous['duration'])
+
+    def test_repeated_profile_changes_do_not_stretch_middle_clip(self):
+        items = clips(25)
+        for target in (30, 25, 30, 25):
+            change_profile(items, profile(target))
+            for index, item in enumerate(items):
+                self.assertAlmostEqual(item['duration'], 1 / target)
+                self.assertAlmostEqual(item['end'], 1 / target)
+                self.assertAlmostEqual(item['position'], index / target)
 
     def test_profile_change_does_not_close_intentional_overlaps_or_gaps(self):
         items = clips(25)
@@ -79,24 +88,34 @@ class OneFrameClipTests(unittest.TestCase):
         temp = tempfile.TemporaryDirectory()
         self.addCleanup(temp.cleanup)
         image = QImage(16, 16, QImage.Format_RGBA8888)
-        for fps in (25, 30):
+        colors = ("red", "green", "orange", "purple", "blue")
+        for source, fps in ((25, 25), (30, 30), (25, 30), (30, 25)):
+            items = clips(source)
+            change_profile(items, profile(fps))
             timeline = openshot.Timeline(16, 16, openshot.Fraction(fps, 1), 44100, 2, openshot.LAYOUT_STEREO)
             native_clips = []
             timeline.Open()
-            for item in clips(fps):
-                image.fill(QColor("blue" if item["id"] == "4" else "red"))
+            for item in items:
+                image.fill(QColor(colors[int(item["id"])]))
                 path = os.path.join(temp.name, "frame%s.png" % item["id"])
                 self.assertTrue(image.save(path))
                 clip = openshot.Clip(path)
                 clip.Position(item['position'])
                 clip.Start(item['start'])
                 clip.End(item['end'])
+                # Exercise native serialization after conversion as well.
+                restored = openshot.Clip()
+                restored.SetJson(clip.Json())
+                clip = restored
                 timeline.AddClip(clip)
                 native_clips.append(clip)
             sync = SimpleNamespace(timeline=timeline)
             self.assertEqual(timeline.GetMaxFrame(), 5)
             self.assertEqual(TimelineSync.GetLastFrame(sync), 5)
-            self.assertEqual(bytes(timeline.GetFrame(4).GetPixelsBytes())[:4], bytes((255, 0, 0, 255)))
+            for frame, color in enumerate(colors, 1):
+                with self.subTest(source=source, target=fps, frame=frame):
+                    self.assertEqual(bytes(timeline.GetFrame(frame).GetPixelsBytes())[:4],
+                                     bytes(QColor(color).getRgb()))
             self.assertEqual(bytes(timeline.GetFrame(TimelineSync.GetLastFrame(sync)).GetPixelsBytes())[:4],
                              bytes((0, 0, 255, 255)))
             timeline.Close()
