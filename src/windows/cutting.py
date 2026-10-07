@@ -767,7 +767,7 @@ class Cutting(QDialog):
     def _finalize_preview_shutdown(self):
         if getattr(self, "videoPreview", None):
             get_app().updates.disconnect_listener(self.videoPreview)
-            self.videoPreview.deleteLater()
+            # Widget is a child of this dialog; it is deleted with the dialog.
             self.videoPreview = None
 
         if getattr(self, "r", None):
@@ -782,6 +782,8 @@ class Cutting(QDialog):
             except Exception:
                 pass
 
+        self.r = None
+        self.clip = None
         self.preview_parent = None
         self.preview_thread = None
 
@@ -791,6 +793,7 @@ class Cutting(QDialog):
         if self._close_after_shutdown:
             self._close_after_shutdown = False
             super().reject()
+            self.deleteLater()
 
     def _shutdown_preview(self, close_dialog=False):
         # Stop playback and preview worker safely (used by ESC/reject and close).
