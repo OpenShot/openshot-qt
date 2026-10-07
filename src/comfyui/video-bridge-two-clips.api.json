@@ -216,13 +216,15 @@
     },
     "clipA_ref_skip_frames": {
       "inputs": {
-        "expression": "max(a * d / b - 192, 0)",
+        "expression": "max(a * d / b - (c - 1) * e - 1, 0)",
         "values.a": ["clipA_video_info", 1],
         "values.b": ["clipA_video_info", 0],
-        "values.d": ["3957", 0]
+        "values.c": ["ref_frame_cap", 1],
+        "values.d": ["3957", 0],
+        "values.e": ["ref_subsample_n", 0]
       },
       "class_type": "ComfyMathExpression",
-      "_meta": { "title": "Clip A Ref Skip (192-frame span, subsampled 2x -> 96 frames, video only)" }
+      "_meta": { "title": "Clip A Ref Skip (start so the LAST loaded frame is clip A's final frame; video only)" }
     },
     "clipA_ref_audio_skip_frames": {
       "inputs": {
@@ -255,11 +257,12 @@
     },
     "ref_frame_cap": {
       "inputs": {
-        "expression": "192 / a",
-        "values.a": ["ref_subsample_n", 0]
+        "expression": "floor(min(192 / a, b)) - ((floor(min(192 / a, b)) - 5) % 17)",
+        "values.a": ["ref_subsample_n", 0],
+        "values.b": ["3920", 0]
       },
       "class_type": "ComfyMathExpression",
-      "_meta": { "title": "Reference Video Frame Count (192 / subsample rate)" }
+      "_meta": { "title": "Reference Video Frame Count (min(192 / subsample rate, output length), rounded down to H3's 17k+5 clip length so nothing is trimmed from the end)" }
     },
     "clipA_ref_load": {
       "inputs": {
