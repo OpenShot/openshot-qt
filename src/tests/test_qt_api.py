@@ -44,6 +44,19 @@ class QtApiTests(unittest.TestCase):
                 self.assertIn(name, vars(qt_api))
                 self.assertIsNotNone(vars(qt_api)[name])
 
+    def test_event_type_aliases_are_available_on_all_bindings(self):
+        """Every unscoped QEvent alias used in the codebase must resolve.
+
+        PyQt6 only exposes scoped enums (QEvent.Type.X); a missing alias
+        raises AttributeError inside eventFilter, which PyQt6 treats as fatal.
+        """
+        for name in ("ShortcutOverride", "Resize", "Paint", "KeyPress", "KeyRelease",
+                     "MouseButtonPress", "MouseButtonRelease", "MouseMove", "Wheel",
+                     "TouchBegin", "TouchUpdate", "WindowActivate", "WindowStateChange",
+                     "DeferredDelete", "Close", "Hide", "Show", "Move"):
+            with self.subTest(name=name, binding=qt_api.QT_API):
+                event_type = getattr(qt_api.QEvent, name)
+                self.assertEqual(qt_api.QEvent(event_type).type(), event_type)
 
 if __name__ == "__main__":
     unittest.main()
