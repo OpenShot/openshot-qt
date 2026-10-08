@@ -88,13 +88,12 @@ except ImportError:
     sys.path.append(openshot_qt.OPENSHOT_PATH)
     from classes import info
 
-from qt_api import QtCore, QtWidgets
-from classes.ui_scale import minimum_ui_scale
+from qt_api import QtCore, QtWidgets, minimum_ui_scale
 
 # Qt reads this when QApplication is created. Older Qt painters cannot shrink
 # below a device pixel ratio of one, even though window geometry can do so.
 requested_scale = scale
-scale = max(minimum_ui_scale(QtCore.qVersion()), min(3.0, scale))
+scale = max(minimum_ui_scale(), min(3.0, scale))
 if scale != requested_scale:
     logger.warning("UI scale %s is unsupported by Qt %s; using %s",
                    requested_scale, QtCore.qVersion(), scale)

@@ -31,7 +31,7 @@ import operator
 import functools
 import platform
 
-from qt_api import Qt, QSize, QDir, QtCore
+from qt_api import Qt, QSize, QDir, minimum_ui_scale
 from qt_api import (
     QWidget, QDialog, QMessageBox, QFileDialog, QDialogButtonBox,
     QVBoxLayout, QHBoxLayout, QSizePolicy,
@@ -47,7 +47,6 @@ from classes.distribution import is_snap
 from classes.language import get_all_languages
 from classes.logger import log
 from classes.metrics import track_metric_screen
-from classes.ui_scale import minimum_ui_scale
 from windows.toggle_switch import ToggleSwitch
 
 import openshot
@@ -382,7 +381,7 @@ class Preferences(QDialog):
                             })
 
                     if param["setting"] == "ui-scale":
-                        minimum_scale = minimum_ui_scale(QtCore.qVersion())
+                        minimum_scale = minimum_ui_scale()
                         value_list = [item for item in value_list
                                       if float(item["value"]) >= minimum_scale]
                         current_scale = max(minimum_scale, min(3.0, float(param["value"])))
