@@ -46,7 +46,7 @@ if PATH not in sys.path:
 
 from qt_api import QByteArray, QCoreApplication, QEvent, QKeySequence, Qt
 from qt_api import QContextMenuEvent, QMouseEvent, QPoint, QPointF, QTabBar
-from qt_api import QApplication, QDockWidget, QMainWindow, QMenu, QStandardItem, QStandardItemModel
+from qt_api import QApplication, QDialog, QDockWidget, QMainWindow, QMenu, QStandardItem, QStandardItemModel
 
 from classes import qt_types
 from classes.project_data import ProjectDataStore
@@ -796,7 +796,7 @@ class MainWindowTests(unittest.TestCase):
             ignore=lambda: event_calls.append("ignore"),
         )
 
-        with patch.object(
+        with patch.object(self.main_window_module.MainWindow, "_shutdown") as shutdown, patch.object(
             self.main_window_module.QMessageBox,
             "question",
             return_value=self.main_window_module.QMessageBox.Cancel,
@@ -807,6 +807,52 @@ class MainWindowTests(unittest.TestCase):
         self.assertEqual(tutorial_calls, ["reshow"])
         self.assertEqual(event_calls, ["ignore"])
         self.assertFalse(fake_window.shutting_down)
+        shutdown.assert_not_called()
+
+    def test_preview_reuses_same_file_but_allows_other_files_and_reopening(self):
+        class Preview(QDialog):
+            def __init__(self, file, preview=False):
+                super().__init__()
+                self.file = file
+                self.is_preview_mode = preview
+                self._shutdown_in_progress = False
+                self.raise_ = MagicMock()
+                self.activateWindow = MagicMock()
+                created.append(self)
+
+        created = []
+        selected = types.SimpleNamespace(id="first")
+        fake_window = types.SimpleNamespace(
+            files_model=types.SimpleNamespace(current_file=lambda: selected),
+        )
+        open_preview = self.main_window_module.MainWindow.actionPreview_File_trigger
+        try:
+            with patch("windows.cutting.Cutting", Preview):
+                open_preview(fake_window)
+                first = created[0]
+                first.showMinimized()
+                # Model lookups can return a fresh object for the same file.
+                selected = types.SimpleNamespace(id="first")
+                open_preview(fake_window)
+                self.assertEqual(len(created), 1)
+                self.assertFalse(first.isMinimized())
+                self.assertEqual(first.raise_.call_count, 2)
+                self.assertEqual(first.activateWindow.call_count, 2)
+
+                selected = types.SimpleNamespace(id="second")
+                open_preview(fake_window)
+                self.assertEqual(len(created), 2)
+                self.assertTrue(first.isVisible())
+
+                first.close()
+                selected = types.SimpleNamespace(id="first")
+                open_preview(fake_window)
+                self.assertEqual(len(created), 3)
+                self.assertTrue(created[-1].isVisible())
+        finally:
+            for window in created:
+                window.close()
+                window.deleteLater()
 
     def test_close_event_yes_saves_and_continues_shutdown(self):
         calls = []
@@ -835,7 +881,25 @@ class MainWindowTests(unittest.TestCase):
             ignore=lambda: event_calls.append("ignore"),
         )
 
+        from windows.cutting import Cutting
+        previews = []
+        for visible in (True, False):
+            preview = Cutting.__new__(Cutting)
+            QDialog.__init__(preview)
+            preview._shutdown_in_progress = not visible
+            preview._shutdown_preview = MagicMock(side_effect=lambda **kwargs: calls.append("preview"))
+            preview.setVisible(visible)
+            previews.append(preview)
+            self.addCleanup(preview.deleteLater)
+        auxiliary = QDialog()
+        auxiliary.show()
+        self.addCleanup(auxiliary.deleteLater)
+
         with ExitStack() as stack:
+            stack.enter_context(patch.object(
+                self.main_window_module.QApplication, "topLevelWidgets",
+                return_value=[fake_window, *previews, auxiliary],
+            ))
             stack.enter_context(
                 patch.object(
                     self.main_window_module.QMessageBox,
@@ -861,6 +925,12 @@ class MainWindowTests(unittest.TestCase):
         self.assertIn("destroy_lock", calls)
         self.assertEqual(tracker, [False])
         self.assertTrue(fake_window.shutting_down)
+        for preview in previews:
+            preview._shutdown_preview.assert_called_once_with(close_dialog=True, wait_for_thread=True)
+            self.assertFalse(preview.isVisible())
+        self.assertFalse(auxiliary.isVisible())
+        self.assertLess(calls.index("settings"), calls.index("preview"))
+        self.assertLess(calls.index("preview"), calls.index("destroy_lock"))
 
     def test_clear_optimized_files_cancel_does_nothing(self):
         proxy_calls = []

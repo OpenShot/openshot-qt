@@ -222,6 +222,20 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Save settings
         self.save_settings()
 
+        # Close auxiliary windows while the project and playback resources they
+        # use are still available. Hidden cutting dialogs may still be stopping.
+        from windows.cutting import Cutting
+        from qt_api import isdeleted
+        for window in QApplication.topLevelWidgets():
+            if window is self or isdeleted(window):
+                continue
+            if isinstance(window, Cutting):
+                if window.isVisible() or window._shutdown_in_progress:
+                    window.hide()
+                    window._shutdown_preview(close_dialog=True, wait_for_thread=True)
+            elif window.isVisible():
+                window.close()
+
         # Track end of session
         track_metric_session(False)
 
@@ -1262,9 +1276,21 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # show dialog
         from windows.cutting import Cutting
+        for win in QApplication.topLevelWidgets():
+            if (isinstance(win, Cutting) and win.is_preview_mode
+                    and win.isVisible() and not win._shutdown_in_progress
+                    and win.file.id == f.id):
+                if win.isMinimized():
+                    win.setWindowState(win.windowState() & ~Qt.WindowMinimized)
+                win.raise_()
+                win.activateWindow()
+                return
+
         win = Cutting(f, preview=True)
         win.setObjectName("cutting")
         win.show()
+        win.raise_()
+        win.activateWindow()
 
     def movePlayhead(self, position_frames):
         """Update playhead position"""
