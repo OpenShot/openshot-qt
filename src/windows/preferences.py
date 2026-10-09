@@ -31,7 +31,7 @@ import operator
 import functools
 import platform
 
-from qt_api import Qt, QSize, QDir
+from qt_api import Qt, QSize, QDir, minimum_ui_scale
 from qt_api import (
     QWidget, QDialog, QMessageBox, QFileDialog, QDialogButtonBox,
     QVBoxLayout, QHBoxLayout, QSizePolicy,
@@ -381,7 +381,10 @@ class Preferences(QDialog):
                             })
 
                     if param["setting"] == "ui-scale":
-                        current_scale = float(param["value"])
+                        minimum_scale = minimum_ui_scale()
+                        value_list = [item for item in value_list
+                                      if float(item["value"]) >= minimum_scale]
+                        current_scale = max(minimum_scale, min(3.0, float(param["value"])))
                         has_current_value = any(
                             abs(float(item.get("value", 0.0)) - current_scale) < 0.001
                             for item in value_list
@@ -485,7 +488,7 @@ class Preferences(QDialog):
                         # select dropdown (if default)
                         if (
                             param["setting"] == "ui-scale"
-                            and abs(float(v) - float(param["value"])) < 0.001
+                            and abs(float(v) - current_scale) < 0.001
                         ) or v == param["value"]:
                             widget.setCurrentIndex(box_index)
                         box_index = box_index + 1
