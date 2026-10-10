@@ -1,0 +1,102 @@
+{
+  "name": "Blend + Restyle (Multi-Input Demo)",
+  "menu_category": "enhance",
+  "menu_order": 99,
+  "action_icon": "ai-action-restyle.svg",
+  "output_type": "image",
+  "template_id": "image-blend-multi-input-demo",
+  "extra_inputs": [
+    { "key": "overlay_image", "type": "image", "label": "Overlay image", "required": true },
+    { "key": "blend_prompt", "type": "text", "label": "Restyle prompt", "required": true },
+    { "key": "negative_prompt", "type": "text", "label": "Negative prompt", "required": false, "default": "blurry, low quality, watermark, text, logo" }
+  ],
+  "workflow": {
+    "1": {
+      "class_type": "LoadImage",
+      "inputs": {
+        "image": "__openshot_input__",
+        "upload": "image"
+      }
+    },
+    "2": {
+      "class_type": "LoadImage",
+      "inputs": {
+        "image": "__openshot_input:overlay_image__",
+        "upload": "image"
+      }
+    },
+    "3": {
+      "class_type": "CLIPLoader",
+      "inputs": {
+        "clip_name": "qwen3vl_8b_int8_convrot.safetensors",
+        "type": "qwen_image",
+        "device": "default"
+      }
+    },
+    "4": {
+      "class_type": "UNETLoader",
+      "inputs": {
+        "unet_name": "qwen_image_2.1_int8_convrot.safetensors",
+        "weight_dtype": "default"
+      }
+    },
+    "5": {
+      "class_type": "VAELoader",
+      "inputs": {
+        "vae_name": "qwen_image_2.1_vae_bf16.safetensors"
+      }
+    },
+    "6": {
+      "class_type": "TextEncodeQwenImage21",
+      "inputs": {
+        "clip": ["3", 0],
+        "images.image_1": ["1", 0],
+        "images.image_2": ["2", 0],
+        "vae": ["5", 0],
+        "prompt": "__openshot_input:blend_prompt__",
+        "negative_prompt": "__openshot_input:negative_prompt__",
+        "resolution": 0
+      }
+    },
+    "7": {
+      "class_type": "QwenImage21Cache",
+      "inputs": {
+        "model": ["4", 0],
+        "device": "auto",
+        "dtype": "default"
+      }
+    },
+    "8": {
+      "class_type": "KSampler",
+      "inputs": {
+        "model": ["7", 0],
+        "positive": ["6", 0],
+        "negative": ["6", 1],
+        "latent_image": ["6", 2],
+        "seed": 1293041938,
+        "steps": 25,
+        "cfg": 1.0,
+        "sampler_name": "euler",
+        "scheduler": "simple",
+        "denoise": 1.0
+      }
+    },
+    "9": {
+      "class_type": "VAEDecode",
+      "inputs": {
+        "samples": ["8", 0],
+        "vae": ["5", 0]
+      }
+    },
+    "10": {
+      "class_type": "SaveImage",
+      "inputs": {
+        "images": ["9", 0],
+        "filename_prefix": "openshot_gen",
+        "format": "png",
+        "format.bit_depth": "8-bit",
+        "format.input_color_space": "sRGB"
+      }
+    }
+  }
+}
