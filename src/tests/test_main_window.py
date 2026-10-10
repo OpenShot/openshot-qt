@@ -1708,3 +1708,36 @@ class MainWindowTests(unittest.TestCase):
         self.assertEqual(transitions[0].data["position"], 8.0)
         self.assertEqual(transitions[1].data["position"], 9.5)
         self.assertEqual(saved, ["clip-after", "tran-after"])
+
+    def test_ripple_insert_gap_also_shifts_the_item_exactly_at_ripple_start(self):
+        # Unlike ripple_delete_gap, an item sitting exactly at ripple_start must
+        # also move -- it's what's being pushed aside to make room for an insert.
+        saved = []
+        clips = [
+            types.SimpleNamespace(data={"position": 4.0}, save=lambda: saved.append("clip-before")),
+            types.SimpleNamespace(data={"position": 8.0}, save=lambda: saved.append("clip-at-start")),
+            types.SimpleNamespace(data={"position": 9.0}, save=lambda: saved.append("clip-after")),
+        ]
+        transitions = [
+            types.SimpleNamespace(data={"position": 6.0}, save=lambda: saved.append("tran-before")),
+            types.SimpleNamespace(data={"position": 8.0}, save=lambda: saved.append("tran-at-start")),
+        ]
+
+        with ExitStack() as stack:
+            stack.enter_context(patch.object(self.main_window_module.Clip, "filter", return_value=clips))
+            stack.enter_context(
+                patch.object(self.main_window_module.Transition, "filter", return_value=transitions)
+            )
+            self.main_window_module.MainWindow.ripple_insert_gap(
+                types.SimpleNamespace(),
+                ripple_start=8.0,
+                layer=1,
+                total_gap=2.5,
+            )
+
+        self.assertEqual(clips[0].data["position"], 4.0)
+        self.assertEqual(clips[1].data["position"], 10.5)
+        self.assertEqual(clips[2].data["position"], 11.5)
+        self.assertEqual(transitions[0].data["position"], 6.0)
+        self.assertEqual(transitions[1].data["position"], 10.5)
+        self.assertEqual(saved, ["clip-at-start", "clip-after", "tran-at-start"])
