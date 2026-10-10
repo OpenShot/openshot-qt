@@ -120,6 +120,46 @@ class LivePropertyUpdateTests(unittest.TestCase):
                 for field, result in zip(("start", "end", "duration"), expected):
                     self.assertAlmostEqual(saved[field], result)
 
+    def test_transition_properties_trim_fits_fade_and_preserves_custom_keyframes(self):
+        for kind in ("default", "custom", "animated_mask"):
+            for key, value, bounds in (("end", 5., (1, 126)), ("end", 15., (1, 376)),
+                                       ("start", 2., (51, 251))):
+                with self.subTest(kind=kind, property=key, value=value):
+                    model = properties_model.PropertiesModel.__new__(properties_model.PropertiesModel)
+                    model.ignore_update_signal = False
+                    model.frame_number = 1
+                    model.model = QStandardItemModel()
+                    label, item = QStandardItem(key), QStandardItem(str(value))
+                    label.setData((key, {"type": "float", "closest_point_x": 1,
+                                        "previous_point_x": 1, "object_id": None}))
+                    item.setData([("transition", "transition")])
+                    model.model.appendRow([label, item])
+                    model.parent = Mock()
+                    model.parent.currentIndex.return_value.row.return_value = -1
+                    points = [{"co": {"X": 1, "Y": 1.}, "interpolation": 0},
+                              {"co": {"X": 251, "Y": -1.}, "interpolation": 0}]
+                    if kind == "custom":
+                        points.insert(1, {"co": {"X": 101, "Y": .5}, "interpolation": 1})
+                    saved = dict(start=0., end=10., duration=10., position=0.,
+                                 reader={"has_single_image": kind != "animated_mask"},
+                                 brightness={"Points": points}, contrast={"Points": [{"co": {"X": 1, "Y": 3.}}]})
+                    original = copy.deepcopy(saved)
+                    transition = types.SimpleNamespace(id="transition", data=copy.deepcopy(saved))
+                    transition.save = lambda: saved.update(copy.deepcopy(transition.data))
+                    app = types.SimpleNamespace(_tr=lambda text: text, project={"fps": {"num": 25, "den": 1}},
+                                                window=types.SimpleNamespace(refreshFrameSignal=Mock()))
+                    with patch.object(properties_model, "get_app", return_value=app), \
+                            patch.object(properties_model.Transition, "get", return_value=transition):
+                        model.value_updated(item, value=value)
+                    self.assertEqual(saved[key], value)
+                    self.assertEqual(saved["duration"], saved["end"] - saved["start"])
+                    expected = original["brightness"]
+                    if kind == "default":
+                        for point, frame in zip(expected["Points"], bounds):
+                            point["co"]["X"] = frame
+                    self.assertEqual(saved["brightness"], expected)
+                    self.assertEqual(saved["contrast"], original["contrast"])
+
     def test_overview_skips_effects_but_refreshes_clip_geometry(self):
         widget = QWidget()
         widget.ignore_updates = False
