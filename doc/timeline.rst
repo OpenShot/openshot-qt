@@ -98,7 +98,10 @@ Timeline Toolbar and Zoom
 -------------------------
 
 The timeline toolbar helps with common navigation and editing actions (snapping,
-retime, razor, markers, centering, and zoom).
+auto keyframes, retime, razor, markers, centering, and zoom).
+
+Use the diamond button to turn :ref:`auto_keyframes_ref` on or off. Leave it on to build animations as
+you edit, or turn it off to adjust existing values without adding keyframes.
 
 The :ref:`razor_tool_ref` shows a cut guide and timecode over the target clip.
 While paused, hovering also previews the cut frame without moving the playhead.

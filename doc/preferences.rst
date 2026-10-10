@@ -113,8 +113,14 @@ The Timeline tab controls default timeline behavior and clip/transition insertio
    Image Length (seconds)               10.00               Default duration for still images added to the timeline
    Transition Length (seconds)          10.00               Default duration for newly added transitions
    Waveform Samples (per second)        200                 Detail stored for new peak/RMS timeline waveforms (20–400)
+   Auto Keyframes on Startup            Enabled             Start OpenShot with automatic keyframing enabled
    Auto-Transition (overlap clips)      Enabled             Automatically create transitions when clips overlap
    ===================================  ==================  ===========
+
+**Auto Keyframes on Startup** chooses whether your edits automatically create keyframes when
+OpenShot opens. Turn it off if you prefer to place keyframes yourself. The change takes effect
+next time you open OpenShot. You can still use the timeline's Auto Keyframes button to switch
+modes while editing without changing your startup preference.
 
 .. _preferences_track_size_ref:
 

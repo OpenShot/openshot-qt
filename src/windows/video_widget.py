@@ -45,6 +45,7 @@ import openshot  # Python module for libopenshot (required video editing module 
 from classes import updates
 from classes import openshot_rc  # noqa
 from classes.logger import log
+from classes.keyframe_editing import auto_keyframes_enabled, edit_frame
 from classes.app import get_app
 from classes.query import Clip, Effect
 
@@ -2148,16 +2149,17 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             log.warning("%s: Added missing '%s' to property data", clip_id, property_key)
 
         points = c.data.get(property_key, {}).get("Points", [])
+        auto_keyframes = auto_keyframes_enabled(get_app().window)
+        frame_number = edit_frame(points, frame_number, auto_keyframes)
         for point in points:
             co = point.get("co", {})
 
             if co.get("X") == frame_number:
                 found_point = True
                 clip_updated = True
-                point.update({
-                    "co": {"X": frame_number, "Y": float(new_value)},
-                    "interpolation": openshot.BEZIER,
-                })
+                point["co"]["Y"] = float(new_value)
+                if auto_keyframes:
+                    point["interpolation"] = openshot.BEZIER
 
         if not found_point and new_value is not None:
             clip_updated = True
@@ -2271,6 +2273,8 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             if not isinstance(props[property_key], dict) or "Points" not in props[property_key]:
                 props[property_key] = {"Points": []}
             points_list = props[property_key].setdefault("Points", [])
+            auto_keyframes = auto_keyframes_enabled(get_app().window)
+            target_frame = edit_frame(points_list, frame_number, auto_keyframes)
 
             if property_key in {'left', 'top', 'right', 'bottom'} and new_value is not None:
                 new_value = min(max(float(new_value), 0.0), 1.0)
@@ -2278,17 +2282,16 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             for point in points_list:
                 co = point.get("co", {})
 
-                if co.get("X") == frame_number:
+                if co.get("X") == target_frame:
                     found_point = True
-                    point.update({
-                        "co": {"X": frame_number, "Y": float(new_value)},
-                        "interpolation": openshot.BEZIER,
-                    })
+                    point["co"]["Y"] = float(new_value)
+                    if auto_keyframes:
+                        point["interpolation"] = openshot.BEZIER
 
             if not found_point and new_value is not None:
                 log.debug("Creating new point at X=%s", frame_number)
                 points_list.append({
-                    'co': {'X': frame_number, 'Y': float(new_value)},
+                    'co': {'X': target_frame, 'Y': float(new_value)},
                     'interpolation': openshot.BEZIER
                     })
 

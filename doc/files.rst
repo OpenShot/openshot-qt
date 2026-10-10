@@ -168,10 +168,19 @@ suffixes such as ``_final`` or ``_reviewcopy``, because OpenShot does not treat 
 
 Split File
 ----------
-If you need to cut a large video file into many smaller files before editing, the **Split File** dialog is built exactly for this
-purpose. Right click on a file, and choose :guilabel:`Split File`. Use this dialog to quickly separate a large file into
-many smaller segments. For each segment, you can select the starting and ending frame, and a title. Each segment appears
-as a new file in the Project Files dialog.
+Use **Split File** to choose the parts of a longer recording you want to work with. Right click a file
+in **Project Files** and choose :guilabel:`Split File`. Select the start and end of a segment, give it an
+optional name, and click :guilabel:`Create`. Repeat to prepare as many segments as you need.
+
+Each segment appears in Project Files and can be added to the timeline like any other file. The segments
+all use the original media on disk, so you can prepare them without making extra copies of the recording.
+
+When you add a segment to the timeline, OpenShot gives its properties starting keyframes at the segment's
+beginning. For example, with :ref:`auto_keyframes_ref` on, you can move to the end and change the rotation
+to make it turn over the length of that segment. The animation starts from the part you chose to use.
+
+If you have already animated a timeline clip, slicing it preserves that animation through the cut.
+Split File is useful for choosing your segments before you begin that work.
 
 .. image:: images/file-split-dialog.jpg
 
@@ -184,7 +193,7 @@ as a new file in the Project Files dialog.
    1   Start of File       Choose the starting frame of your file by clicking this button
    2   End of File         Choose the ending frame of your file by clicking this button
    3   Name of File        Enter an optional name
-   4   Create Button       Create the file (which resets this dialog, so you can repeat these steps for each segment)
+   4   Create Button       Add the segment to Project Files and reset the dialog to prepare another segment
    ==  ==================  ============
 
 Please refer to the section :ref:`clips_cutting_slicing_ref` for more ways to cut and slice clips directly in the timeline.
@@ -249,7 +258,12 @@ This will launch the file properties dialog, which displays information about yo
 Remove from Project
 -------------------
 
-This will remove a file from the project. It will not delete the underlying physical file though, so removing a file from the project merely makes it unavailable for this video project.
+Removing an entry from **Project Files** does not delete the source media from disk.
+
+You can import the file again whenever you need it. For example, after preparing several
+:ref:`Split File segments <split_clip_ref>` and removing the original from Project Files, you might want
+to use a different part of the recording. Import it again to work with the whole recording; your existing
+segments stay as they are. If the original is already in Project Files, importing it again selects it.
 
 .. _project_assets_folder_ref:
 

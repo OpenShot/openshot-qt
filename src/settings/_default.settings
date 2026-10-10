@@ -640,6 +640,14 @@
   },
   {
     "value": true,
+    "title": "Auto Keyframes on Startup",
+    "type": "bool",
+    "restart": false,
+    "category": "Timeline",
+    "setting": "auto-keyframes-on-startup"
+  },
+  {
+    "value": true,
     "title": "Auto-Transition (overlap clips)",
     "type": "bool",
     "restart": false,
