@@ -792,12 +792,12 @@ class Cutting(QDialog):
             self._close_after_shutdown = False
             super().reject()
 
-    def _shutdown_preview(self, close_dialog=False):
+    def _shutdown_preview(self, close_dialog=False, wait_for_thread=False):
         # Stop playback and preview worker safely (used by ESC/reject and close).
         if close_dialog:
             self._close_after_shutdown = True
 
-        if self._shutdown_in_progress:
+        if self._shutdown_in_progress and not wait_for_thread:
             return
         self._shutdown_in_progress = True
 
@@ -815,12 +815,13 @@ class Cutting(QDialog):
                     background.finished.disconnect(self._on_preview_stopped)
                 except Exception:
                     pass
-                background.finished.connect(self._on_preview_stopped)
-                try:
-                    self.preview_parent.Stop(wait_for_thread=False)
-                    return
-                except Exception:
-                    pass
+                if not wait_for_thread:
+                    background.finished.connect(self._on_preview_stopped)
+                    try:
+                        self.preview_parent.Stop(wait_for_thread=False)
+                        return
+                    except Exception:
+                        pass
 
             try:
                 self.preview_parent.Stop(wait_for_thread=True)
