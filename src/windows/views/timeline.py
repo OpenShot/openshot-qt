@@ -1405,10 +1405,19 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         intersecting_trans = Transition.filter(intersect=position)
 
         menu = StyledContextMenu(parent=self)
+
+        # Always available, regardless of whether anything intersects the playhead.
+        Frame_Numbers = menu.addAction(_("Show Frame Numbers"))
+        Frame_Numbers.setCheckable(True)
+        Frame_Numbers.setChecked(bool(self.show_frame_numbers))
+        Frame_Numbers.toggled.connect(self._toggle_show_frame_numbers)
+
         if intersecting_clips or intersecting_trans:
             # Get list of clip ids
             clip_ids = [c.id for c in intersecting_clips]
             trans_ids = [t.id for t in intersecting_trans]
+
+            menu.addSeparator()
 
             # Add split clip menu
             Slice_Menu = StyledContextMenu(title=_("Slice All"), parent=self)
@@ -1431,9 +1440,13 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             Cache_Menu.addAction(self.window.actionClearAllCache)
             menu.addMenu(Cache_Menu)
 
-            # Show context menu
-            self.context_menu_cursor_position = QCursor.pos()
-            return menu.show_at(self.context_menu_cursor_position)
+        # Show context menu
+        self.context_menu_cursor_position = QCursor.pos()
+        return menu.show_at(self.context_menu_cursor_position)
+
+    def _toggle_show_frame_numbers(self, checked):
+        self.show_frame_numbers = bool(checked)
+        self.update()
 
     @pyqtSlot(str)
     def ShowEffectMenu(self, effect_id=None):

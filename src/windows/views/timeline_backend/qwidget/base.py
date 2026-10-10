@@ -191,6 +191,7 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         self.clip_rects_selected = []
         self.marker_rects = []
         self.current_frame = 0
+        self.show_frame_numbers = False  # Playhead/time panel: frame number vs HH:MM:SS,FF
         self.is_auto_center = True
         self.min_distance = 0.02
         self.track_rects = []
@@ -2978,13 +2979,35 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         if not isinstance(entry, dict):
             return ""
         title = str(entry.get("title", "") or "").strip()
+        clip_obj = entry.get("clip")
         if not title:
-            clip_obj = entry.get("clip")
             if clip_obj and isinstance(getattr(clip_obj, "data", None), dict):
                 title = str(clip_obj.data.get("title", "") or "").strip()
         if not title:
             title = _("Clip")
+        frame_range = self._clip_frame_range_text(clip_obj)
+        if frame_range:
+            return _("Clip: %s (frames %s)") % (title, frame_range)
         return _("Clip: %s") % title
+
+    def _clip_frame_range_text(self, clip_obj):
+        """Return "<start>-<end>" frame numbers (1-based, inclusive) for `clip_obj`'s
+        position on the timeline, or "" if unavailable. Helps a user quickly find the
+        exact frame range to use when exporting just a subset of the timeline."""
+        data = getattr(clip_obj, "data", None) if clip_obj else None
+        if not isinstance(data, dict):
+            return ""
+        fps_float = float(getattr(self, "fps_float", 0.0) or 0.0)
+        if fps_float <= 0.0:
+            return ""
+        try:
+            position = float(data.get("position", 0.0))
+            duration = max(0.0, float(data.get("end", 0.0)) - float(data.get("start", 0.0)))
+        except (TypeError, ValueError):
+            return ""
+        start_frame = max(1, round(position * fps_float) + 1)
+        end_frame = max(start_frame, round((position + duration) * fps_float))
+        return "%d–%d" % (start_frame, end_frame)
 
     def _update_hover_tooltip(self, pos):
         self._set_hover_tooltip(self._hover_tooltip_for_pos(pos))

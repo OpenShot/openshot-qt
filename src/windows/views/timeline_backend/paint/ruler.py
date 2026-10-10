@@ -77,14 +77,15 @@ class RulerPainter(BasePainter):
         self._last_playhead_label = ""
 
     def _current_playhead_label(self):
+        current_frame = max(1, self.w.current_frame)
+        if getattr(self.w, "show_frame_numbers", False):
+            return str(current_frame)
         proj = get_app().project
         fps_info = proj.get("fps")
         fps_float = float(fps_info.get("num", 24)) / float(fps_info.get("den", 1) or 1)
         frame_seconds = 0.0
         if fps_float:
-            frame_seconds = max(
-                0.0, (max(1, self.w.current_frame) - 1) / fps_float
-            )
+            frame_seconds = max(0.0, (current_frame - 1) / fps_float)
         tt = secondsToTime(
             frame_seconds,
             fps_info["num"],
