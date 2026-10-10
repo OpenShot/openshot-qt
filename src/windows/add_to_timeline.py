@@ -41,6 +41,7 @@ from classes.query import Clip, Transition
 from classes.app import get_app
 from classes.metrics import track_metric_screen
 from classes.clip_utils import apply_file_caption_to_clip
+from classes.keyframe_editing import initialize_split_clip_keyframes
 from windows.views.add_to_timeline_treeview import TimelineTreeView
 
 import openshot
@@ -413,6 +414,8 @@ class AddToTimeline(QDialog):
                 tran = Transition()
                 tran.data = transitions_data
                 tran.save()
+
+            initialize_split_clip_keyframes(new_clip, fps_float)
 
             # Save Clip
             clip.data = new_clip

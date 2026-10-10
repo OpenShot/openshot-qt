@@ -2101,6 +2101,15 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Temporarily for debugging
         log.info("Tracks after: {}".format([{x['number']: x['id']} for x in reversed(tracks)]))
 
+    def actionAutoKeyframes_trigger(self, checked=True):
+        _ = get_app()._tr
+        text = (_("Disable Auto Keyframes") if self.actionAutoKeyframes.isChecked()
+                else _("Enable Auto Keyframes"))
+        self.actionAutoKeyframes.setText(text)
+        self.actionAutoKeyframes.setToolTip(text)
+        # Refresh editing targets without changing the project or its history.
+        self.propertyTableView.clip_properties_model.update_model()
+
     def actionSnappingTool_trigger(self, checked=True):
         log.info("actionSnappingTool_trigger")
         _ = get_app()._tr

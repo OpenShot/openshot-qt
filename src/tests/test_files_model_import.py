@@ -30,7 +30,7 @@ import os
 import sys
 import types
 import unittest
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 
 PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
@@ -66,6 +66,42 @@ class FilesModelImportTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.files_model_module = importlib.import_module("windows.models.files_model")
+
+    def test_reimport_full_source_with_surviving_split_ranges(self):
+        """Ranges must neither block source import nor become its duplicate target."""
+        module = self.files_model_module
+        entries = [types.SimpleNamespace(id=str(i), data={
+            "path": "/tmp/file1.mp4", "start": i * 10., "end": (i + 1) * 10.})
+            for i in range(10)]
+        original_ranges = [dict(entry.data) for entry in entries]
+
+        class FileStore:
+            @staticmethod
+            def filter(**kwargs):
+                return entries
+
+            def save(self):
+                self.id = "original"
+                entries.append(self)
+
+        app = types.SimpleNamespace(_tr=lambda s: s, get_settings=Mock(), processEvents=Mock(),
+                                    window=types.SimpleNamespace(statusBar=Mock(), filesView=Mock()))
+        model = types.SimpleNamespace(selection_model=Mock(), proxy_model=Mock())
+        model.proxy_model.get_file_index.return_value.isValid.return_value = False
+        metadata = {"path": "/tmp/file1.mp4", "duration": 100., "has_video": True,
+                    "has_audio": True, "type": "FFmpegReader"}
+        with patch.object(module, "File", FileStore), \
+                patch.object(module, "get_app", return_value=app), \
+                patch.object(module, "inspect_media", return_value=(metadata, 100.)) as inspect:
+            for path in ("/tmp/file1.mp4", "/tmp/./file1.mp4"):
+                module.FilesModel.add_files(model, [path], quiet=True,
+                                            prevent_image_seq=True, prevent_recent_folder=True)
+            inspect.assert_called_once()
+        self.assertEqual(len(entries), 11)
+        self.assertEqual([entry.data for entry in entries[:10]], original_ranges)
+        self.assertNotIn("start", entries[-1].data)
+        self.assertNotIn("end", entries[-1].data)
+        self.assertEqual(model.proxy_model.get_file_index.call_args_list[-1].args, ("original",))
 
     def test_inspect_media_retries_with_inspect_reader_true_after_open_failure(self):
         first_reader = ReaderStub(open_error=RuntimeError("QtImageReader could not open image file."))

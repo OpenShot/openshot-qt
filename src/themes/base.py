@@ -436,6 +436,7 @@ QMessageBox QDialogButtonBox#qt_msgbox_buttonbox QPushButton[dialogRole="cancel"
             {"action": self.app.window.actionAddTrack, "style": Qt.ToolButtonIconOnly},
             {"divide": True},
             {"action": self.app.window.actionSnappingTool, "style": Qt.ToolButtonIconOnly, "icon": ":/icons/Humanity/actions/custom/snap.svg"},
+            {"action": self.app.window.actionAutoKeyframes, "style": Qt.ToolButtonIconOnly, "icon": "themes/humanity/images/tool-auto-keyframes.svg"},
             {"action": self.app.window.actionTimingTool, "style": Qt.ToolButtonIconOnly, "icon": ":/icons/Humanity/actions/custom/timing.svg"},
             {"action": self.app.window.actionRazorTool, "style": Qt.ToolButtonIconOnly, "icon": ":/icons/Humanity/actions/16/edit-cut.svg"},
             {"divide": True},
