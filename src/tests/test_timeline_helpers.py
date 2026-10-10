@@ -44,7 +44,7 @@ PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 if PATH not in sys.path:
     sys.path.append(PATH)
 
-from qt_api import QCoreApplication, QPointF, QRectF, Qt
+from qt_api import QCoreApplication, QPointF, QRect, QRectF, Qt
 from qt_api import QColor, QCursor, QImage, QPainter
 from qt_api import QAction, QApplication, QWidget
 from classes import info
@@ -3543,7 +3543,7 @@ class TimelineHelperTests(unittest.TestCase):
                 feedback.commit()
                 target = feedback.target
                 helper.mapFromGlobal = lambda pos: rect.center().toPoint()
-                helper.rect = lambda: QRectF(0, 0, 900, 250)
+                helper.rect = lambda: QRect(0, 0, 900, 250)
                 if kind != "track":
                     setattr(helper, "_%s_text_rects" % kind, [{"rect": rect, "open_menu": True}])
                     setattr(helper, "_pending_%s_menu_target" % kind, {"rect": rect})
@@ -3592,7 +3592,7 @@ class TimelineHelperTests(unittest.TestCase):
         helper.hover_feedback.set_target("menu", QRectF(120, 30, 80, 20))
         helper.hover_feedback.commit()
         helper.mapFromGlobal = lambda pos: QPointF(-10, -10).toPoint()
-        helper.rect = lambda: QRectF(0, 0, 900, 250)
+        helper.rect = lambda: QRect(0, 0, 900, 250)
         with self.assertRaises(RuntimeError):
             show_menu_with_hover(helper, MagicMock(side_effect=RuntimeError("test")))
         self.assertFalse(helper.hover_feedback.menu_open)

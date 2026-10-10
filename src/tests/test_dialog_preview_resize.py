@@ -6,7 +6,7 @@ import json
 import threading
 from unittest.mock import MagicMock, patch
 
-from qt_api import QRect, QSize, QDialog, QObject, Signal
+from qt_api import QRect, QSize, QDialog, QObject, Qt, Signal
 from qt_api import QApplication
 import openshot
 
@@ -200,7 +200,7 @@ class DialogPreviewResizeTests(unittest.TestCase):
             delayed_size=QSize(639, 353),
             win=types.SimpleNamespace(MaxSizeChanged=types.SimpleNamespace(emit=sizes.append)),
         )
-        with patch("windows.video_widget.QApplication.mouseButtons", return_value=0):
+        with patch("windows.video_widget.QApplication.mouseButtons", return_value=Qt.NoButton):
             VideoWidget.delayed_resize_callback(fake)
         self.assertEqual(sizes, [QSize(639, 353)])
 
