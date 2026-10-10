@@ -175,6 +175,7 @@ from .timeline_backend.colors import effect_color_hex
 from .menu import StyledContextMenu, add_bound_action
 from classes.clip_utils import (
     clamp_timing_to_media,
+    fit_transition_keyframes,
     apply_file_caption_to_clip,
     is_single_image_media,
 )
@@ -1032,29 +1033,6 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
         return transition_size
 
-    def _scale_keyframes(self, keyframe, factor):
-        """Scale the X values of keyframe points"""
-        for point in keyframe.get("Points", []):
-            if "co" in point and "X" in point["co"] and point["co"]["X"] != 1:
-                point["co"]["X"] = round((point["co"]["X"] - 1) * factor) + 1
-
-    def _anchor_transition_endpoint_keyframes(self, transition_data, total_frames):
-        """Keep static transition endpoint keyframes anchored to the clip edges."""
-        if total_frames <= 0 or not isinstance(transition_data, dict):
-            return
-        last_frame = int(total_frames) + 1
-        for prop in ("brightness", "contrast"):
-            keyframe = transition_data.get(prop)
-            points = keyframe.get("Points") if isinstance(keyframe, dict) else None
-            if not isinstance(points, list) or len(points) < 2:
-                continue
-            first = points[0].get("co") if isinstance(points[0], dict) else None
-            last = points[-1].get("co") if isinstance(points[-1], dict) else None
-            if isinstance(first, dict):
-                first["X"] = 1
-            if isinstance(last, dict):
-                last["X"] = last_frame
-
     def _transition_mask_reader(self, transition_data, fallback_data=None):
         """Return reader metadata for a transition payload."""
         if isinstance(transition_data, dict):
@@ -1333,11 +1311,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         fps = get_app().project.get("fps")
         fps_float = float(fps["num"]) / float(fps["den"])
 
-        # Preserve and scale existing keyframes when only basic props are updated
-        old_duration = old_data.get("end", 0.0) - old_data.get("start", 0.0)
-        new_duration = existing_item.data.get("end", 0.0) - existing_item.data.get("start", 0.0)
-        old_frames = round(old_duration * fps_float) if old_duration > 0 else 0
-        new_frames = round(new_duration * fps_float) if new_duration > 0 else 0
+        # Preserve existing animation when moving or trimming transitions.
         uses_static_mask = self._transition_uses_static_mask(existing_item.data, old_data)
 
         if old_data and only_basic_props:
@@ -1346,13 +1320,9 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             if "contrast" in old_data:
                 existing_item.data["contrast"] = old_data["contrast"]
 
-            if uses_static_mask and old_frames and new_frames and old_frames != new_frames:
-                scale = new_frames / old_frames
-                for prop in ("brightness", "contrast"):
-                    if prop in existing_item.data:
-                        self._scale_keyframes(existing_item.data[prop], scale)
-            if uses_static_mask and new_frames:
-                self._anchor_transition_endpoint_keyframes(existing_item.data, new_frames)
+            if any(existing_item.data.get(key) != old_data.get(key) for key in ("start", "end")):
+                fit_transition_keyframes(existing_item.data, fps_float, old_data)
+                existing_item.data["duration"] = existing_item.data["end"] - existing_item.data["start"]
         elif old_data and self._transition_reader_changed(existing_item.data, old_data):
             self._set_transition_mask_defaults(existing_item.data, old_data)
 

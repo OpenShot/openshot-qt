@@ -38,7 +38,9 @@ from qt_api import (
 from classes.waveform import get_audio_data
 from classes import info, updates
 from classes import openshot_rc  # noqa
-from classes.clip_utils import clamp_timing_to_media, clip_time_bounds, is_single_image_media
+from classes.clip_utils import (
+    clamp_timing_to_media, clip_time_bounds, is_single_image_media, fit_transition_keyframes,
+)
 from classes.query import Clip, Transition, Effect, File
 from classes.logger import log
 from classes.app import get_app
@@ -638,9 +640,13 @@ class PropertiesModel(updates.UpdateInterface):
                                     'co': {'X': self.frame_number, 'Y': default_value},
                                     'interpolation': 1})
 
-                # Enforce clip timing constraints
+                # Enforce clip timing constraints and fit simple transition fades.
+                transition_props = []
                 if property_key in ("time", "start", "end", "duration"):
                     clamp_timing_to_media(clip_data, c)
+                    if item_type == "transition" and not object_id and property_key != "time":
+                        fps = get_app().project.get("fps")
+                        transition_props = fit_transition_keyframes(clip_data, fps["num"] / fps["den"])
 
                 # Determine if waveforms are impacted by this change
                 has_waveform = False
@@ -659,6 +665,8 @@ class PropertiesModel(updates.UpdateInterface):
                 elif not object_id:
                     if property_key == "time":
                         clip_data = {k: clip_data.get(k) for k in ("time", "end", "duration", "start")}
+                    elif property_key in ("start", "end", "duration"):
+                        clip_data = {k: clip_data.get(k) for k in ["start", "end", "duration"] + transition_props}
                     else:
                         clip_data = {property_key: clip_data.get(property_key)}
                 else:
@@ -1242,9 +1250,13 @@ class PropertiesModel(updates.UpdateInterface):
                         except Exception:
                             log.warn('Invalid Reader value passed to property: %s', value, exc_info=1)
 
-                # Enforce clip timing constraints
+                # Enforce clip timing constraints and fit simple transition fades.
+                transition_props = []
                 if property_key in ("time", "start", "end", "duration"):
                     clamp_timing_to_media(clip_data, c)
+                    if item_type == "transition" and not object_id and property_key != "time":
+                        fps = get_app().project.get("fps")
+                        transition_props = fit_transition_keyframes(clip_data, fps["num"] / fps["den"])
 
                 # Determine if waveforms are impacted by this change
                 has_waveform = False
@@ -1260,6 +1272,10 @@ class PropertiesModel(updates.UpdateInterface):
                 elif not object_id:
                     if property_key == "time":
                         clip_data = {k: clip_data.get(k) for k in ("time", "end", "duration", "start")}
+                    elif property_key in ("start", "end", "duration"):
+                        # Clamping a trim can change all three timing fields.
+                        # Keep the saved duration consistent with the new bounds.
+                        clip_data = {k: clip_data.get(k) for k in ["start", "end", "duration"] + transition_props}
                     else:
                         clip_data = {property_key: clip_data.get(property_key)}
                 else:
