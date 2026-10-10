@@ -1260,6 +1260,10 @@ class PropertiesModel(updates.UpdateInterface):
                 elif not object_id:
                     if property_key == "time":
                         clip_data = {k: clip_data.get(k) for k in ("time", "end", "duration", "start")}
+                    elif property_key in ("start", "end", "duration"):
+                        # Clamping a trim can change all three timing fields.
+                        # Keep the saved duration consistent with the new bounds.
+                        clip_data = {k: clip_data.get(k) for k in ("start", "end", "duration")}
                     else:
                         clip_data = {property_key: clip_data.get(property_key)}
                 else:

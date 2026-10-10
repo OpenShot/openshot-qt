@@ -93,6 +93,33 @@ class LivePropertyUpdateTests(unittest.TestCase):
             model.changed(UpdateAction("update", ["effects"], effect.data))
         self.assertEqual(model.update_model.call_count, 2)
 
+    def test_trim_updates_save_consistent_start_end_and_duration(self):
+        for key, value, expected in (("end", .08, (0., .08, .08)),
+                                     ("start", .04, (.04, .12, .08))):
+            with self.subTest(property=key):
+                model = properties_model.PropertiesModel.__new__(properties_model.PropertiesModel)
+                model.ignore_update_signal = False
+                model.frame_number = 1
+                model.model = QStandardItemModel()
+                label, item = QStandardItem(key), QStandardItem(str(value))
+                label.setData((key, {"type": "float", "closest_point_x": 1,
+                                    "previous_point_x": 1, "object_id": None}))
+                item.setData([("clip", "clip")])
+                model.model.appendRow([label, item])
+                model.parent = Mock()
+                model.parent.currentIndex.return_value.row.return_value = -1
+                saved = dict(start=0., end=.12, duration=.12, position=0.,
+                             reader={"has_single_image": True})
+                clip = types.SimpleNamespace(id="clip", data=copy.deepcopy(saved))
+                clip.save = lambda: saved.update(copy.deepcopy(clip.data))
+                app = types.SimpleNamespace(_tr=lambda text: text, project={"fps": {"num": 25, "den": 1}},
+                                            window=types.SimpleNamespace(refreshFrameSignal=Mock()))
+                with patch.object(properties_model, "get_app", return_value=app), \
+                        patch.object(properties_model.Clip, "get", return_value=clip):
+                    model.value_updated(item, value=value)
+                for field, result in zip(("start", "end", "duration"), expected):
+                    self.assertAlmostEqual(saved[field], result)
+
     def test_overview_skips_effects_but_refreshes_clip_geometry(self):
         widget = QWidget()
         widget.ignore_updates = False
