@@ -42,7 +42,7 @@ import threading
 
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 from qt_api import (
-    Qt, pyqtSignal, pyqtSlot, QCoreApplication, QTimer, QDateTime,
+    Qt, pyqtSignal, pyqtSlot, QCoreApplication, QTimer, QDateTime, QPointF,
     QFileInfo, QEvent, QUrl, QLocale
 )
 from qt_api import QIcon, QCursor, QKeySequence, QTextCursor, QMouseEvent
@@ -1064,6 +1064,96 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             log.info('confirmed')
         else:
             log.info('canceled')
+
+    def actionInsertSelectedFiles(self):
+        """Insert selected Project Files at the playhead and ripple the track."""
+        files = self.selected_files()
+        if not files:
+            return
+
+        track_number = self.active_insertion_track_number()
+        position = self._current_timeline_seconds()
+        containing_clip = next(
+            (
+                clip for clip in Clip.filter(layer=track_number)
+                if float(clip.data.get("position", 0.0)) <= position
+                < float(clip.data.get("position", 0.0))
+                + float(clip.data.get("end", 0.0))
+                - float(clip.data.get("start", 0.0))
+            ),
+            None,
+        )
+        if containing_clip:
+            clip_data = containing_clip.data
+            position = float(clip_data.get("position", 0.0)) + (
+                float(clip_data.get("end", 0.0))
+                - float(clip_data.get("start", 0.0))
+            )
+
+        inserted_ids = []
+        get_app().updates.transaction_id = str(uuid.uuid4())
+        get_app().window.IgnoreUpdates.emit(True, True)
+        try:
+            for file in files:
+                clip = self.timeline.addClip(
+                    file.id,
+                    QPointF(position, 0.0),
+                    track_number,
+                    ignore_refresh=True,
+                    call_manual_move=False,
+                )
+                if not clip:
+                    continue
+
+                duration = float(clip.get("duration", 0.0))
+                if duration <= 0.0:
+                    continue
+
+                self.ripple_insert_gap(position, track_number, duration)
+                inserted_clip = Clip.get(id=clip["id"])
+                inserted_clip.data["position"] = position
+                inserted_clip.save()
+                inserted_ids.append(clip["id"])
+                position += duration
+        finally:
+            get_app().window.IgnoreUpdates.emit(False, True)
+            get_app().updates.transaction_id = None
+
+        extend_timeline = getattr(self.timeline, "_extend_timeline_to_fit_items", None)
+        if callable(extend_timeline):
+            extend_timeline()
+
+        if inserted_ids:
+            fps = get_app().project.get("fps")
+            fps_float = float(fps["num"]) / float(fps["den"])
+            self.SeekSignal.emit(round(position * fps_float) + 1, True)
+
+        for index, clip_id in enumerate(inserted_ids):
+            self.addSelection(clip_id, "clip", clear_existing=index == 0)
+        self.files_model.selection_model.clearSelection()
+        self.files_model.list_selection_model.clearSelection()
+        self.refreshFrameSignal.emit()
+
+    def set_active_insertion_track(self, track_id):
+        """Set the track used by the ripple-insert shortcut."""
+        self.active_insertion_track_id = track_id
+        timeline = getattr(self, "timeline", None)
+        if timeline:
+            timeline.update()
+
+    def active_insertion_track_number(self):
+        """Return the active insertion track number, defaulting to the top track."""
+        active_id = getattr(self, "active_insertion_track_id", None)
+        active_track = Track.get(id=active_id) if active_id else None
+        if active_track:
+            return int(active_track.data["number"])
+
+        layers = get_app().project.get("layers") or []
+        top_layer = max(layers, key=lambda layer: int(layer.get("number", 0)), default=None)
+        if not top_layer:
+            return 0
+        self.active_insertion_track_id = top_layer.get("id")
+        return int(top_layer.get("number", 0))
 
     def actionExportVideo_trigger(self, checked=True):
         # show window

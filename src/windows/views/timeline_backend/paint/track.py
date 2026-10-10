@@ -236,6 +236,12 @@ class TrackPainter(BasePainter):
         painter.save()
         painter.setClipRect(area)
         banding_cfg = self._frame_banding_config()
+        active_track_id = getattr(self.w.window, "active_insertion_track_id", None)
+        if active_track_id is None:
+            resolver = getattr(self.w.window, "active_insertion_track_number", None)
+            if callable(resolver):
+                resolver()
+                active_track_id = getattr(self.w.window, "active_insertion_track_id", None)
         for track_rect, track, _name_rect in self.w.geometry.iter_tracks():
             vis = track_rect.intersected(area)
             if vis.isNull():
@@ -268,6 +274,16 @@ class TrackPainter(BasePainter):
             painter.drawLine(vis.topLeft(), vis.topRight())
             painter.drawLine(vis.bottomLeft(), vis.bottomRight())
             painter.drawLine(vis.topRight(), vis.bottomRight())
+            if track.id == active_track_id and not _name_rect.isNull():
+                painter.save()
+                painter.setClipping(False)
+                painter.setClipRect(QRectF(0, 0, self.w.track_name_width, self.w.height()))
+                indicator_pen = QPen(QColor("#FFD700"))
+                indicator_pen.setWidth(3)
+                indicator_pen.setCosmetic(True)
+                painter.setPen(indicator_pen)
+                painter.drawLine(_name_rect.bottomLeft(), _name_rect.bottomRight())
+                painter.restore()
 
         if not self.w.theme.track.name_border_right_width:
             painter.fillRect(
