@@ -109,11 +109,11 @@ The Timeline tab controls default timeline behavior and clip/transition insertio
    Setting                              Default             Description
    ===================================  ==================  ===========
    Track Size                           Default             Theme-specific track sizing: Minimal, Compact, Default, or Relaxed
-   Auto Keyframes on Startup            Enabled             Start OpenShot with automatic keyframing enabled
    Thumbnail Style                      Entire Clip         Thumbnail density for the timeline
    Image Length (seconds)               10.00               Default duration for still images added to the timeline
    Transition Length (seconds)          10.00               Default duration for newly added transitions
    Waveform Samples (per second)        200                 Detail stored for new peak/RMS timeline waveforms (20–400)
+   Auto Keyframes on Startup            Enabled             Start OpenShot with automatic keyframing enabled
    Auto-Transition (overlap clips)      Enabled             Automatically create transitions when clips overlap
    ===================================  ==================  ===========
 
