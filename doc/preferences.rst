@@ -117,6 +117,11 @@ The Timeline tab controls default timeline behavior and clip/transition insertio
    Auto-Transition (overlap clips)      Enabled             Automatically create transitions when clips overlap
    ===================================  ==================  ===========
 
+**Auto Keyframes on Startup** chooses whether your edits automatically create keyframes when
+OpenShot opens. Turn it off if you prefer to place keyframes yourself. The change takes effect
+next time you open OpenShot. You can still use the timeline's Auto Keyframes button to switch
+modes while editing without changing your startup preference.
+
 .. _preferences_track_size_ref:
 
 Track Size
