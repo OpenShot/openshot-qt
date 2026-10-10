@@ -108,15 +108,15 @@ class MessageBoxStyleFilter(QObject):
             button.setSizePolicy(size_policy)
 
             standard_button = message_box.standardButton(button)
+            # buttonRole() returns QMessageBox.ButtonRole; Qt6 bindings never
+            # treat it as equal to QDialogButtonBox.ButtonRole members.
             role = message_box.buttonRole(button)
+            roles = QMessageBox.ButtonRole
             if standard_button == QMessageBox.Cancel:
                 style_role = "cancel"
-            elif role in (
-                    QDialogButtonBox.AcceptRole,
-                    QDialogButtonBox.YesRole,
-                    QDialogButtonBox.ApplyRole):
+            elif role in (roles.AcceptRole, roles.YesRole, roles.ApplyRole):
                 style_role = "primary"
-            elif role == QDialogButtonBox.DestructiveRole:
+            elif role == roles.DestructiveRole:
                 style_role = "destructive"
             else:
                 style_role = "secondary"
