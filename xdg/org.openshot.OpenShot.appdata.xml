@@ -50,10 +50,28 @@
   <url type="bugtracker">https://www.openshot.org/issues/new/</url>
   <screenshots>
     <screenshot type="default">
-      <image height="637" width="975">https://www.openshot.org/static/img/gallery/ui-example.jpg</image>
+      <caption>Adjust visual effects and animate their properties over time.</caption>
+      <image>https://cdn.openshot.org/images/gallery/effects-lens-flare-full.webp</image>
     </screenshot>
     <screenshot>
-      <image height="555" width="780">https://www.openshot.org/static/img/gallery/title-editor.jpg</image>
+      <caption>Customize title templates and arrange them with audio on the timeline.</caption>
+      <image>https://cdn.openshot.org/images/gallery/title-templates-full.webp</image>
+    </screenshot>
+    <screenshot>
+      <caption>Capture your microphone, screen, and webcam directly inside OpenShot.</caption>
+      <image>https://cdn.openshot.org/images/gallery/recording-view-full.webp</image>
+    </screenshot>
+    <screenshot>
+      <caption>Fine-tune multiple animated properties while previewing every transformation.</caption>
+      <image>https://cdn.openshot.org/images/gallery/keyframe-editing-v2-full.webp</image>
+    </screenshot>
+    <screenshot>
+      <caption>Mark a region, inspect the generated mask, and preview it against the source video.</caption>
+      <image>https://cdn.openshot.org/images/gallery/mask-effect-and-preview-full.webp</image>
+    </screenshot>
+    <screenshot>
+      <caption>Shape highlights and midtones with color wheels and live video scopes.</caption>
+      <image>https://cdn.openshot.org/images/gallery/color-view-full.webp</image>
     </screenshot>
   </screenshots>
   <content_rating type="oars-1.0">
