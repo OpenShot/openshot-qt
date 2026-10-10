@@ -165,6 +165,7 @@ from classes.waveform import (
     get_audio_data,
 )
 from classes.path_utils import absolute_media_path
+from classes.keyframe_editing import initialize_split_clip_keyframes
 from classes.proxy_service import dialog_preview_reader_data
 from .timeline_backend.enums import (
     MenuFade, MenuRotate, MenuLayout, MenuAlign, MenuAnimate, MenuVolume,
@@ -5736,6 +5737,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
         new_clip["duration"] = duration_sec
         new_clip["end"] = end_sec
+        initialize_split_clip_keyframes(new_clip, fps_float)
 
         # Use the passed position and track directly
         new_clip["position"] = position.x()

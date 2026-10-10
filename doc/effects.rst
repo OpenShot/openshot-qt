@@ -27,9 +27,7 @@ and can generally enhance your video projects. Each effect has its own set of pr
 over time, for example varying the :guilabel:`Brightness & Contrast` of a clip over time.
 
 Effects can be added to any clip by dragging and dropping them from the Effects tab onto a clip. Each effect is
-represented by a small colored icon and the first letter of the effect name. Note: Pay close attention to where the play-head
-(i.e. red playback line) is. Key frames are automatically created at the current playback position,
-to help create animations quickly.
+represented by a small colored icon and the first letter of the effect name.
 
 Click an effect icon to select it without opening the Properties dock. If the dock is already open,
 it updates to the selected effect. To open it, double-click the effect icon, or right-click the icon
@@ -91,10 +89,10 @@ area, resize its handles, or draw a new rectangle inside the clip.
 The same preview rectangle can be used to position Caption text. Select a Caption effect, then move or resize the
 white rectangle in the video preview to adjust the Caption margins.
 
-Effect properties are integral to the :ref:`animation_ref` system. When you modify an effect property, a
-keyframe is generated at the current playhead position. For a property to span the entire clip,
-position the playhead at or before the clip's start before making adjustments. A convenient way to
-identify a clip's start is by utilizing the 'next/previous marker' feature on the Timeline toolbar.
+You can animate an effect just like a clip. For example, leave :ref:`auto_keyframes_ref` on and change
+brightness at different moments to gradually brighten a scene. Turn it off while choosing a steady
+brightness for a property you have not animated yet. If an animation already exists, edits with Auto
+Keyframes off change the keyframe at or before the playhead.
 
 .. image:: images/clip-effects.jpg
 
@@ -331,9 +329,9 @@ the name and short description of each effect.
 Effect Properties
 -----------------
 Below is a list of **common** effect properties, shared by all effects in OpenShot. To view an effect's properties,
-right click and choose :guilabel:`Properties`. The property editor will appear, where you can change these properties. Note: Pay
-close attention to where the play-head (i.e. red playback line) is. Key frames are automatically created at the current playback
-position, to help quickly create animations.
+right click and choose :guilabel:`Properties`. The property editor will appear, where you can change these properties.
+To make an effect change during playback, adjust its values at different moments with :ref:`auto_keyframes_ref`
+on. That section also explains how to adjust existing animations or place keyframes yourself.
 
 See the table below for a list of common effect properties. Only the **common properties** that all effects share are listed here.
 Each effect also has many **unique properties**, which are specific to each effect, see :ref:`effect_video_effects_ref` for

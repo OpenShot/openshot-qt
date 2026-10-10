@@ -44,6 +44,7 @@ from qt_api import QAbstractItemView
 from classes import updates
 from classes import info
 from classes.image_types import get_media_type
+from classes.path_utils import media_paths_equal
 from classes.query import File
 from classes.logger import log
 from classes.app import get_app
@@ -430,8 +431,11 @@ class FilesModel(QObject, updates.UpdateInterface):
         for count, filepath in enumerate(files):
             (dir_path, filename) = os.path.split(filepath)
 
-            # Check for this path in our existing project data
-            new_file = File.get(path=filepath)
+            # Split File entries share the path but represent explicit ranges.
+            # Only the full source entry should suppress a normal reimport.
+            new_file = next((file for file in File.filter()
+                             if "start" not in file.data and "end" not in file.data
+                             and media_paths_equal(file.data.get("path"), filepath)), None)
 
             # If this file is already found, exit
             if new_file:
