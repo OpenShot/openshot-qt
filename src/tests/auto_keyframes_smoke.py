@@ -25,12 +25,26 @@ app.settings.set("tutorial_enabled", False)
 app.settings.set("send_metrics", False)
 checks = unittest.TestCase()
 passed = False
+startup_enabled = os.environ.get("OPENSHOT_TEST_AUTO_KEYFRAMES_STARTUP", "on") == "on"
+if not startup_enabled:
+    app.settings.set("auto-keyframes-on-startup", False)
+    app.settings.save()
+    app.settings.load()
 
 
 def verify():
     global passed
     try:
         window = app.window
+        checks.assertEqual(window.actionAutoKeyframes.isChecked(), startup_enabled)
+        checks.assertEqual(window.actionAutoKeyframes.toolTip(), app._tr(
+            "Disable Auto Keyframes" if startup_enabled else "Enable Auto Keyframes"))
+        window.actionAutoKeyframes.trigger()
+        checks.assertEqual(window.actionAutoKeyframes.isChecked(), not startup_enabled)
+        checks.assertEqual(app.settings.get("auto-keyframes-on-startup"), startup_enabled)
+        # Continue the editing workflow with recording off in either startup mode.
+        if window.actionAutoKeyframes.isChecked():
+            window.actionAutoKeyframes.trigger()
         image = QImage(640, 360, QImage.Format_RGBA8888)
         image.fill(Qt.white)
         path = os.path.join(root, "source.png")
@@ -47,7 +61,6 @@ def verify():
         layer = app.project.get("layers")[-1]["number"]
 
         # Drag/drop creation adds a boundary anchor, independent of recording mode.
-        window.actionAutoKeyframes.trigger()
         added = window.timeline.addClip(source.id, QPointF(1., 0), layer, call_manual_move=False)
         clip = Clip.get(id=added["id"])
         checks.assertEqual([p["co"]["X"] for p in clip.data["rotation"]["Points"]], [1, start_frame])

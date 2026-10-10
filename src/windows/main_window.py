@@ -5583,6 +5583,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.saved_video_dock_width = None
         self._restored_saved_window = False
         self.load_settings()
+        self.actionAutoKeyframes.setChecked(s.get("auto-keyframes-on-startup"))
+        self.actionAutoKeyframes_trigger()
 
         # Setup Cache settings
         self.cache_object = None

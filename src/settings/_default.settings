@@ -144,6 +144,14 @@
     ]
   },
   {
+    "value": true,
+    "title": "Auto Keyframes on Startup",
+    "type": "bool",
+    "restart": false,
+    "category": "Timeline",
+    "setting": "auto-keyframes-on-startup"
+  },
+  {
     "value": 5,
     "title": "Default Number of Tracks",
     "type": "spinner-int",

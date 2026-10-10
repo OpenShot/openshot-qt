@@ -87,6 +87,10 @@ Auto Keyframes helps you animate as you edit. Leave it on to record changes at t
 resize, or adjust a clip. You can turn it on or off with the diamond button on the timeline toolbar.
 The same setting applies to edits in the Properties dock and to the transform handles in the preview.
 
+Auto Keyframes starts enabled. If you prefer to place keyframes yourself, turn off
+**Auto Keyframes on Startup** in **Preferences → Timeline**. OpenShot will start with it off
+next time, and you can still switch it on whenever you need it.
+
 Turn Auto Keyframes off when you want to adjust existing values without adding more keyframes.
 For example, if you have not animated a clip's size, you can resize it while viewing any part of the clip
 and keep that size throughout playback.

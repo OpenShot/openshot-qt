@@ -179,9 +179,12 @@ class AutoKeyframeWorkflowTests(unittest.TestCase):
         env = dict(os.environ, QT_QPA_PLATFORM="offscreen", QT_QUICK_BACKEND="software",
                    PYTHONPATH=os.pathsep.join(filter(None, (
                        str(source), os.environ.get("PYTHONPATH", ""), str(source.parent)))))
-        result = subprocess.run(
-            [sys.executable, str(Path(__file__).with_name("auto_keyframes_smoke.py"))],
-            env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-            universal_newlines=True, timeout=90)
-        self.assertEqual(result.returncode, 0, result.stdout[-12000:])
-        self.assertIn("AUTO_KEYFRAMES_WORKFLOW_PASSED", result.stdout)
+        for mode in ("on", "off"):
+            with self.subTest(startup=mode):
+                env["OPENSHOT_TEST_AUTO_KEYFRAMES_STARTUP"] = mode
+                result = subprocess.run(
+                    [sys.executable, str(Path(__file__).with_name("auto_keyframes_smoke.py"))],
+                    env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                    universal_newlines=True, timeout=90)
+                self.assertEqual(result.returncode, 0, result.stdout[-12000:])
+                self.assertIn("AUTO_KEYFRAMES_WORKFLOW_PASSED", result.stdout)
