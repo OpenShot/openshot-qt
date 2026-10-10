@@ -146,6 +146,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     SelectionAdded = pyqtSignal(str, str, bool)  # Signal to add a selection
     SelectionRemoved = pyqtSignal(str, str)      # Signal to remove a selection
     SelectionChanged = pyqtSignal()      # Signal after selections have been changed (added/removed)
+    HighlightedFileChanged = pyqtSignal()  # Signal after the Project Files highlight target changes
     SetKeyframeFilter = pyqtSignal(str)     # Signal to only show keyframes for the selected property
     IgnoreUpdates = pyqtSignal(bool, bool)     # Signal to let widgets know to ignore updates (i.e. batch updates)
     WaitCursorSignal = pyqtSignal(bool)
@@ -3895,6 +3896,16 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.show_property_timer.start()
         self.selection_timer.start()
 
+    def set_highlighted_file(self, file_id):
+        """Set (or clear, with None) the Project Files entry whose usages should be
+        highlighted throughout the timeline and zoom/overview slider. No-ops if the
+        requested file_id is already the current highlight target."""
+        file_id = str(file_id).strip() if file_id else None
+        if file_id == self.highlighted_file_id:
+            return
+        self.highlighted_file_id = file_id
+        self.HighlightedFileChanged.emit()
+
     def emit_selection_signal(self):
         """Emit a signal for selection changed. Callback for selection timer."""
         if not self.selected_items:
@@ -5397,6 +5408,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Load UI from designer
         self.selected_items = []
+        self.highlighted_file_id = None
         ui_util.load_ui(self, self.ui_path)
         self.actionFullscreen.setText(_("Fullscreen"))
         self.actionColor_Grade_View.setText(_("Color View"))

@@ -1708,3 +1708,38 @@ class MainWindowTests(unittest.TestCase):
         self.assertEqual(transitions[0].data["position"], 8.0)
         self.assertEqual(transitions[1].data["position"], 9.5)
         self.assertEqual(saved, ["clip-after", "tran-after"])
+
+    def test_set_highlighted_file_sets_value_and_emits_once(self):
+        fake_self = types.SimpleNamespace(
+            highlighted_file_id=None,
+            HighlightedFileChanged=MagicMock(),
+        )
+        self.main_window_module.MainWindow.set_highlighted_file(fake_self, "file-1")
+        self.assertEqual(fake_self.highlighted_file_id, "file-1")
+        fake_self.HighlightedFileChanged.emit.assert_called_once()
+
+    def test_set_highlighted_file_is_noop_when_unchanged(self):
+        fake_self = types.SimpleNamespace(
+            highlighted_file_id="file-1",
+            HighlightedFileChanged=MagicMock(),
+        )
+        self.main_window_module.MainWindow.set_highlighted_file(fake_self, "file-1")
+        self.assertEqual(fake_self.highlighted_file_id, "file-1")
+        fake_self.HighlightedFileChanged.emit.assert_not_called()
+
+    def test_set_highlighted_file_normalizes_falsy_values_to_none(self):
+        fake_self = types.SimpleNamespace(
+            highlighted_file_id="file-1",
+            HighlightedFileChanged=MagicMock(),
+        )
+        self.main_window_module.MainWindow.set_highlighted_file(fake_self, "")
+        self.assertIsNone(fake_self.highlighted_file_id)
+        fake_self.HighlightedFileChanged.emit.assert_called_once()
+
+    def test_set_highlighted_file_strips_whitespace(self):
+        fake_self = types.SimpleNamespace(
+            highlighted_file_id=None,
+            HighlightedFileChanged=MagicMock(),
+        )
+        self.main_window_module.MainWindow.set_highlighted_file(fake_self, "  file-2  ")
+        self.assertEqual(fake_self.highlighted_file_id, "file-2")
