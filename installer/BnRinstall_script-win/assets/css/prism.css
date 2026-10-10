@@ -1,0 +1,71 @@
+/* PrismJS 1.30.0
+https://prismjs.com/download#themes=prism-dark&languages=markup+css+clike+javascript+bash+plsql+python+sql */
+code[class*=language-],pre[class*=language-]{color:#fff;background:0 0;text-shadow:0 -.1em .2em #000;font-family:Consolas,Monaco,'Andale Mono','Ubuntu Mono',monospace;font-size:1em;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}@media print{code[class*=language-],pre[class*=language-]{text-shadow:none}}:not(pre)>code[class*=language-],pre[class*=language-]{background:#4c3f33}pre[class*=language-]{padding:1em;margin:.5em 0;overflow:auto;border:.3em solid #7a6651;border-radius:.5em;box-shadow:1px 1px .5em #000 inset}:not(pre)>code[class*=language-]{padding:.15em .2em .05em;border-radius:.3em;border:.13em solid #7a6651;box-shadow:1px 1px .3em -.1em #000 inset;white-space:normal}.token.cdata,.token.comment,.token.doctype,.token.prolog{color:#997f66}.token.punctuation{opacity:.7}.token.namespace{opacity:.7}.token.boolean,.token.constant,.token.number,.token.property,.token.symbol,.token.tag{color:#d1939e}.token.attr-name,.token.builtin,.token.char,.token.inserted,.token.selector,.token.string{color:#bce051}.language-css .token.string,.style .token.string,.token.entity,.token.operator,.token.url,.token.variable{color:#f4b73d}.token.atrule,.token.attr-value,.token.keyword{color:#d1939e}.token.important,.token.regex{color:#e90}.token.bold,.token.important{font-weight:700}.token.italic{font-style:italic}.token.entity{cursor:help}.token.deleted{color:red}
+
+
+/* OpenShot BnR overrides for line numbers + toolbar + Windows 7 PowerShell shell blocks */
+pre[class*=language-]{
+  position:relative;
+  margin:0;
+  padding:1.15em 1.2em 1.15em 4.75em;
+  border-radius:0 0 18px 18px;
+  border-top:none;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.04);
+}
+pre.line-numbers{padding-left:4.75em}
+pre.line-numbers > code{position:relative;z-index:2;white-space:pre;word-break:normal;word-wrap:normal}
+.line-numbers-rows{
+  position:absolute;pointer-events:none;top:0;left:0;width:3.8em;
+  border-right:1px solid rgba(255,255,255,.12);padding:1.15em 0 1.15em;
+  background:linear-gradient(180deg, rgba(0,0,0,.18), rgba(255,255,255,.02));
+  user-select:none;
+}
+.line-numbers-rows > span{display:block;counter-increment:linenumber}
+.line-numbers-rows > span:before{
+  content:counter(linenumber);
+  display:block;padding-right:.9em;text-align:right;
+  color:rgba(255,255,255,.42);
+}
+pre.language-bash,
+pre.language-shell,
+pre.language-powershell{
+  background:linear-gradient(180deg,#063a82 0%, #032b65 4%, #012456 100%) !important;
+  border-color:#587aa1 !important;
+}
+pre.language-bash .line-numbers-rows,
+pre.language-shell .line-numbers-rows,
+pre.language-powershell .line-numbers-rows{
+  background:linear-gradient(180deg,#052d66,#011d45);
+  border-right-color:rgba(255,255,255,.18);
+}
+pre.language-bash .line-numbers-rows > span:before,
+pre.language-shell .line-numbers-rows > span:before,
+pre.language-powershell .line-numbers-rows > span:before{
+  color:rgba(255,255,255,.58);
+}
+pre.language-python{
+  background:linear-gradient(180deg,#171d22,#101418 100%) !important;
+  border-color:#26495a !important;
+}
+pre.language-python .token.comment{color:#9db0bd}
+pre.language-python .token.keyword{color:#7fd8ff}
+pre.language-python .token.builtin{color:#c2ff8a}
+pre.language-python .token.string{color:#ffd289}
+pre.language-python .token.number{color:#ffb2c3}
+pre.language-bash .token.comment{color:#d2dde8}
+pre.language-bash .token.keyword{color:#9ce8ff}
+pre.language-bash .token.string{color:#fff3b0}
+pre.language-bash .token.number{color:#ffe0b0}
+pre.language-bash .token.operator{color:#ffffff}
+pre.language-bash .token.builtin{color:#c8f5ff}
+code[class*=language-]::selection, pre[class*=language-]::selection, code[class*=language-] *::selection, pre[class*=language-] *::selection{
+  background:rgba(255,255,255,.14);
+}
+@media print{
+  body{background:#fff!important;color:#111!important}
+  .sidebar,.filters,.footer,.toolbar button{display:none!important}
+  .layout{display:block}
+  .main{padding:0}
+  .card,.hero,pre[class*=language-]{box-shadow:none!important}
+  pre[class*=language-]{border:1px solid #999!important}
+}
