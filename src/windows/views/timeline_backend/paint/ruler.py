@@ -100,11 +100,11 @@ class RulerPainter(BasePainter):
         painter.setRenderHint(QPainter.Antialiasing, False)
         if self.name_bg2 != self.name_bg:
             grad = QLinearGradient(QPointF(left_rect.topLeft()), QPointF(left_rect.bottomLeft()))
-            grad.setColorAt(0, self.name_bg)
-            grad.setColorAt(1, self.name_bg2)
+            grad.setColorAt(0, self.focus_background(self.name_bg))
+            grad.setColorAt(1, self.focus_background(self.name_bg2))
             painter.fillRect(left_rect, QBrush(grad))
         else:
-            painter.fillRect(left_rect, self.name_bg)
+            painter.fillRect(left_rect, self.focus_background(self.name_bg))
         painter.restore()
 
         if label is None:
@@ -166,11 +166,11 @@ class RulerPainter(BasePainter):
         painter.setRenderHint(QPainter.Antialiasing, False)
         if self.bg2.isValid() and self.bg != self.bg2:
             grad = QLinearGradient(QPointF(rect.topLeft()), QPointF(rect.bottomLeft()))
-            grad.setColorAt(0, self.bg)
-            grad.setColorAt(1, self.bg2)
+            grad.setColorAt(0, self.focus_background(self.bg))
+            grad.setColorAt(1, self.focus_background(self.bg2))
             painter.fillRect(rect, QBrush(grad))
         elif self.bg.isValid():
-            painter.fillRect(rect, self.bg)
+            painter.fillRect(rect, self.focus_background(self.bg))
         painter.restore()
         play_lbl = self._current_playhead_label()
         self._last_playhead_label = play_lbl

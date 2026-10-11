@@ -4455,6 +4455,7 @@ class TimelineHelperTests(unittest.TestCase):
         app = types.SimpleNamespace(project=types.SimpleNamespace(get=project.get))
         widget = types.SimpleNamespace(
             theme=theme, track_name_width=140, ruler_height=39,
+            hasFocus=lambda: False,
             track_margin_top=8, scroll_bar_thickness=6,
             pixels_per_second=10, current_frame=1, h_scroll_offset=0,
             width=lambda: 500, height=lambda: 100,

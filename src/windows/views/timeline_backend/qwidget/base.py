@@ -159,6 +159,7 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         self.new_item = None
         self.item_type = None
         self.setAcceptDrops(True)
+        self.setFocusPolicy(Qt.StrongFocus)
 
         # Translate object
         _ = get_app()._tr
@@ -2651,6 +2652,8 @@ class TimelineWidgetBase(RazorMixin, QWidget):
 
 
     def _select_timeline_item(self, item_id, item_type, clear_existing):
+        self._keyboard_playhead_cycle = None
+        self._keyboard_edge = None
         if item_id is None or not item_type:
             return
         item_id_str = str(item_id)
@@ -3286,6 +3289,15 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         super().mouseDoubleClickEvent(event)
 
     def mousePressEvent(self, event):
+        self._keyboard_end_trim_preview()
+        self._keyboard_playhead_cycle = None
+        self._keyboard_edge = None
+        self.setFocus(Qt.MouseFocusReason)
+        self.geometry.ensure()
+        for rect, track, _name in self.geometry.iter_tracks():
+            if rect.top() <= event.pos().y() <= rect.bottom():
+                self._keyboard_layer = track.data["number"]
+                break
         if getattr(self, "_properties_layout_anchor", None) is not None:
             self.end_properties_layout_change()
         if self.enable_razor and not (

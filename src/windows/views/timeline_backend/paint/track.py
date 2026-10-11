@@ -412,11 +412,15 @@ class TrackPainter(BasePainter):
         painter.setFont(track_font)
         for _track_rect, track, name_rect in self.w.geometry.iter_tracks():
             locked = bool((track.data if isinstance(track.data, dict) else {}).get("lock"))
-            name_bg = QColor(self.w.theme.track.name_background)
+            name_bg = self.focus_background(self.w.theme.track.name_background)
             name_border_top = QColor(self.name_border_top_color)
             name_border_bottom = QColor(self.name_border_bottom_color)
             name_border = QColor(self.name_border_color)
             text_color = QColor(self.w.theme.track.font_color)
+            if not self.w.hasFocus():
+                # Fade text toward its header background in both light and dark
+                # themes. The background's three-level dim is too subtle here.
+                text_color.setAlphaF(text_color.alphaF() * 0.75)
             if locked:
                 name_bg = self.dimmed_color(name_bg)
                 name_border_top = self.dimmed_color(name_border_top)

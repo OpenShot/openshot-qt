@@ -32,6 +32,7 @@ later moments on the right.
 If you are just getting started, read :ref:`quick_tutorial_ref` first, then come
 back here for more detail.
 For a labeled breakdown of toolbar controls, see :ref:`timeline_toolbar_ref`.
+To select, move, and trim clips and transitions with the keyboard, see :ref:`timeline_keyboard_ref`.
 
 Timeline Basics
 ---------------

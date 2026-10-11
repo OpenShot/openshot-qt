@@ -3867,6 +3867,13 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         nudge_duration = float(action) / fps_float  # Nudge duration in seconds
         log.debug(f"Nudging by {nudge_duration} seconds")
 
+        selected = [obj for ids, model in ((clip_ids, Clip), (tran_ids, Transition))
+                    for item_id in ids if (obj := model.get(id=item_id))]
+        if not selected:
+            return
+        nudge_duration = max(nudge_duration, -min(obj.data['position'] for obj in selected))
+        transaction_id = str(uuid.uuid4())
+
         # Nudge all selected clips
         for clip_id in clip_ids:
             clip = Clip.get(id=clip_id)
@@ -3876,7 +3883,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             # Apply the nudge and ensure the position doesn't go below 0
             new_position = max(clip.data['position'] + nudge_duration, 0.0)
             clip.data['position'] = new_position
-            self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
+            self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True, transaction_id=transaction_id)
 
         # Nudge all selected transitions
         for tran_id in tran_ids:
@@ -3887,7 +3894,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             # Apply the nudge and ensure the position doesn't go below 0
             new_position = max(tran.data['position'] + nudge_duration, 0.0)
             tran.data['position'] = new_position
-            self.update_transition_data(tran.data, only_basic_props=False)
+            self.update_transition_data(tran.data, only_basic_props=False, transaction_id=transaction_id)
 
     def Align_Triggered(self, action, clip_ids, tran_ids):
         """Callback for alignment context menus"""

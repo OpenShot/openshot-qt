@@ -249,11 +249,11 @@ QToolBar#toolBar {
 QToolBar#toolBar QToolButton {
     background-color: #283241;
     color: #91C3FF;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 8px;
-    padding-right: 8px;
-    border: none;
+    padding-top: 9px;
+    padding-bottom: 9px;
+    padding-left: 7px;
+    padding-right: 7px;
+    border: 1px solid transparent;
 }
 
 QToolBar#toolBar QToolButton:hover {
@@ -283,7 +283,8 @@ QToolBar#effectsToolbar QToolButton {
     background-color: #141923;
     color: #91C3FF;
     border-radius: 3px;
-    padding: 3px 6px;
+    padding: 2px 5px;
+    border: 1px solid transparent;
 }
 
 QToolBar#filesToolbar QToolButton:hover,
@@ -301,6 +302,7 @@ QToolBar#effectsToolbar QToolButton:checked {
 QToolBar#filesToolbar QToolButton:focus,
 QToolBar#transitionsToolbar QToolButton:focus,
 QToolBar#effectsToolbar QToolButton:focus {
+    border: 1px solid #5aa2e6;
     background-color: #1d2737;
 }
 
@@ -315,12 +317,12 @@ QToolBar#timelineToolbar {
 QToolBar#timelineToolbar QToolButton {
     color: #91C3FF;
     background-color: #141923;
-    padding: 8px;
+    padding: 7px;
     margin-bottom: 4px;
     margin-right: 5px;
     margin-left: 5px;
     border-radius: 4px;
-    border: none;
+    border: 1px solid transparent;
 }
 
 QToolBar#timelineToolbar QToolButton:hover {
@@ -333,15 +335,18 @@ QToolBar#timelineToolbar QToolButton:checked {
 }
 
 QToolBar#toolBar QToolButton:focus {
+    border: 1px solid #5aa2e6;
     background-color: #2f3848;
 }
 
 QToolBar#timelineToolbar QToolButton:focus:!checked {
-    background-color: #2a3444;
+    border: 1px solid #5aa2e6;
+    background-color: #141923;
 }
 
 QToolBar#timelineToolbar QToolButton:checked:focus {
-    background-color: #314055;
+    border: 1px solid #5aa2e6;
+    background-color: #283241;
 }
 
 QToolBar#timelineToolbar QToolButton:pressed {
@@ -362,7 +367,12 @@ QToolBar#toolBar QToolButton:hover {
     background-color: #323C50;
 }
 
+QToolBar#videoToolbar QToolButton {
+    border: 1px solid transparent;
+}
+
 QToolBar#videoToolbar QToolButton:focus {
+    border: 1px solid #5aa2e6;
     background-color: #1d2737;
 }
 
@@ -447,11 +457,34 @@ QPushButton#dock-float-button {
     height: 16px;
 }
 
+QPushButton#dock-close-button,
+QPushButton#dock-float-button {
+    border: 1px solid transparent;
+    background: transparent;
+}
+
+QPushButton#dock-close-button:hover,
+QPushButton#dock-float-button:hover,
+QPushButton#dock-close-button:pressed,
+QPushButton#dock-float-button:pressed,
+QPushButton#dock-close-button:focus,
+QPushButton#dock-float-button:focus {
+    background: transparent;
+}
+
+QPushButton#dock-close-button:focus,
+QPushButton#dock-float-button:focus {
+    border: 1px solid #5aa2e6;
+    outline: none;
+}
+
 QLabel#dock-title-label {
     color: #91C3FF;
     font-weight: 500;
     min-height: 20px;
-    padding: 10px 16px 8px 16px;
+    padding: 9px 0px 0px 0px;
+    margin: 0px 16px 8px 16px;
+    border-bottom: 1px solid transparent;
 }
 
 QLabel#dock-title-handle {
@@ -470,6 +503,19 @@ QDockWidget {
 
 QDockWidget QWidget {
     border: none;
+}
+
+QLabel#dock-title-label[focusWithin="true"] {
+    border-bottom: 1px solid #5aa2e6;
+}
+
+QTabBar[dockFocusTabs="true"]::tab {
+    border-bottom: 1px solid transparent;
+}
+
+QTabBar[dockFocusTabs="true"]::tab:focus,
+QTabBar[dockFocusTabs="true"][focusWithin="true"]::tab:selected {
+    border-bottom: 1px solid #5aa2e6;
 }
 
 QDockWidget QWidget#dockFilesContents, QWidget#dockTransitionsContents, QWidget#dockEmojisContents, QWidget#dockEffectsContents, QWidget#dockCaptionContents, QWidget#dockVideoContents, QWidget#dockPropertiesContents {
@@ -681,10 +727,10 @@ QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
     background: transparent;
 }
 
-QComboBox {
+QComboBox, QDockWidget QComboBox {
     background-color: #121212;
     color: #FFFFFF;
-    border: 1.2px solid transparent;
+    border: 1px solid transparent;
     border-radius: 4px;
     padding: 6px;
     padding-left: 8px;
@@ -692,8 +738,9 @@ QComboBox {
     combobox-popup: 0;
 }
 
-QComboBox:focus {
-    border-color: #53a0ed;
+QComboBox:focus, QDockWidget QComboBox:focus {
+    border: 1px solid #5aa2e6;
+    outline: none;
 }
 
 QComboBox::drop-down {
@@ -956,7 +1003,7 @@ QMessageBox QPushButton[dialogRole="destructive"] {{
             {"expand": True},
             {"action": self.app.window.actionSave, "icon": "themes/cosmic/images/tool-save-project.svg", "style": Qt.ToolButtonTextBesideIcon},
             {"action": self.app.window.actionExportVideo, "icon": "themes/cosmic/images/tool-export.svg",
-             "style": Qt.ToolButtonTextBesideIcon, "stylesheet": "QToolButton { background-color: #0078FF; color: #FFFFFF; border: none; } QToolButton:hover { background-color: #0a82ff; } QToolButton:focus { background-color: #0a82ff; } QToolButton:pressed { background-color: #3d9bff; }"},
+             "style": Qt.ToolButtonTextBesideIcon, "stylesheet": "QToolButton { background-color: #0078FF; color: #FFFFFF; border: 1px solid transparent; } QToolButton:hover { background-color: #0a82ff; } QToolButton:focus { background-color: #0a82ff; border: 1px solid #5aa2e6; } QToolButton:pressed { background-color: #3d9bff; }"},
         ]
         self.set_toolbar_buttons(self.app.window.toolBar, icon_size=20, settings=toolbar_buttons)
 
@@ -969,10 +1016,10 @@ QMessageBox QPushButton[dialogRole="destructive"] {{
             {"action": self.app.window.actionAddTrack, "icon": "themes/cosmic/images/tool-add-track.svg", "style": Qt.ToolButtonTextBesideIcon, "stylesheet": "QToolButton { margin-left: 15px; }"},
             {"action": self.app.window.actionUndo, "icon": "themes/cosmic/images/tool-undo.svg", "style": Qt.ToolButtonIconOnly, "stylesheet": "QToolButton { margin-right: 0px; border-bottom-right-radius: 0px; border-top-right-radius: 0px; }"},
             {"action": self.app.window.actionRedo, "icon": "themes/cosmic/images/tool-redo.svg", "style": Qt.ToolButtonIconOnly, "stylesheet": "QToolButton { margin-left: 0px; border-bottom-left-radius: 0px; border-top-left-radius: 0px; }"},
-            {"action": self.app.window.actionSnappingTool, "icon": "themes/cosmic/images/tool-snapping.svg", "style": Qt.ToolButtonIconOnly, "stylesheet": "QToolButton { margin-right: 0px; border-bottom-right-radius: 0px; border-top-right-radius: 0px; } QToolButton:focus { border: 1px solid #5aa2e6; background-color: #141923; } QToolButton:checked:focus { border: 1px solid #5aa2e6; background-color: #283241; }"},
-            {"action": self.app.window.actionAutoKeyframes, "icon": "themes/cosmic/images/tool-auto-keyframes.svg", "style": Qt.ToolButtonIconOnly, "stylesheet": "QToolButton { margin-left: 0px; margin-right: 0px; border-bottom-left-radius: 0px; border-top-left-radius: 0px; border-bottom-right-radius: 0px; border-top-right-radius: 0px; } QToolButton:focus { border: 1px solid #5aa2e6; background-color: #141923; } QToolButton:checked:focus { border: 1px solid #5aa2e6; background-color: #283241; }"},
-            {"action": self.app.window.actionTimingTool, "icon": "themes/cosmic/images/tool-timing.svg", "style": Qt.ToolButtonIconOnly, "stylesheet": "QToolButton { margin-left: 0px; margin-right: 0px; border-bottom-left-radius: 0px; border-top-left-radius: 0px; border-bottom-right-radius: 0px; border-top-right-radius: 0px; } QToolButton:focus { border: 1px solid #5aa2e6; background-color: #141923; } QToolButton:checked:focus { border: 1px solid #5aa2e6; background-color: #283241; }"},
-            {"action": self.app.window.actionRazorTool, "icon": "themes/cosmic/images/tool-razor.svg", "style": Qt.ToolButtonIconOnly, "stylesheet": "QToolButton { margin-left: 0px; border-bottom-left-radius: 0px; border-top-left-radius: 0px; } QToolButton:focus { border: 1px solid #5aa2e6; background-color: #141923; } QToolButton:checked:focus { border: 1px solid #5aa2e6; background-color: #283241; }"},
+            {"action": self.app.window.actionSnappingTool, "icon": "themes/cosmic/images/tool-snapping.svg", "style": Qt.ToolButtonIconOnly, "stylesheet": "QToolButton { margin-right: 0px; border-bottom-right-radius: 0px; border-top-right-radius: 0px; }"},
+            {"action": self.app.window.actionAutoKeyframes, "icon": "themes/cosmic/images/tool-auto-keyframes.svg", "style": Qt.ToolButtonIconOnly, "stylesheet": "QToolButton { margin-left: 0px; margin-right: 0px; border-bottom-left-radius: 0px; border-top-left-radius: 0px; border-bottom-right-radius: 0px; border-top-right-radius: 0px; }"},
+            {"action": self.app.window.actionTimingTool, "icon": "themes/cosmic/images/tool-timing.svg", "style": Qt.ToolButtonIconOnly, "stylesheet": "QToolButton { margin-left: 0px; margin-right: 0px; border-bottom-left-radius: 0px; border-top-left-radius: 0px; border-bottom-right-radius: 0px; border-top-right-radius: 0px; }"},
+            {"action": self.app.window.actionRazorTool, "icon": "themes/cosmic/images/tool-razor.svg", "style": Qt.ToolButtonIconOnly, "stylesheet": "QToolButton { margin-left: 0px; border-bottom-left-radius: 0px; border-top-left-radius: 0px; }"},
             {"action": self.app.window.actionAddMarker, "icon": "themes/cosmic/images/tool-add-marker.svg", "style": Qt.ToolButtonTextBesideIcon, "stylesheet": "QToolButton { margin-right: 0px; border-bottom-right-radius: 0px; border-top-right-radius: 0px; }"},
             {"action": self.app.window.actionPreviousMarker, "icon": "themes/cosmic/images/tool-prev-marker.svg", "style": Qt.ToolButtonIconOnly, "stylesheet": "QToolButton { margin-left: 0px; border-bottom-left-radius: 0px; border-top-left-radius: 0px; margin-right: 0px; border-bottom-right-radius: 0px; border-top-right-radius: 0px; }"},
             {"action": self.app.window.actionNextMarker, "icon": "themes/cosmic/images/tool-next-marker.svg", "style": Qt.ToolButtonIconOnly, "stylesheet": "QToolButton { margin-left: 0px; border-bottom-left-radius: 0px; border-top-left-radius: 0px; }"},

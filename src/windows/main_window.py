@@ -2162,9 +2162,17 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         fps_float = float(fps["num"]) / float(fps["den"])
 
         # Calculate position in seconds
-        position = (player.Position() - 1) / fps_float
+        frame = max(0, player.Position() - 1)
+        position = frame / fps_float
 
-        # Look for existing Marker
+        # Compare timeline frames rather than floating-point seconds, including
+        # markers saved before a project frame-rate change. Repeated presses
+        # should neither stack markers nor create redundant undo entries.
+        if any(round(marker.data["position"] * fps_float) == frame
+               for marker in Marker.filter()):
+            self.timeline.setFocus(Qt.OtherFocusReason)
+            return
+
         marker = Marker()
         marker.data = {
             "position": position,
@@ -2461,7 +2469,11 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                     # If it's a method, create QShortcuts for each key sequence
                     for key_seq_obj in key_sequences:
                         if key_seq_obj not in used_shortcuts:  # Avoid assigning duplicate shortcuts
-                            qshortcut = QShortcut(key_seq_obj, self, activated=obj, context=Qt.WindowShortcut)
+                            timeline_only = (base_method_name.startswith("timeline") or
+                                             base_method_name.startswith("nudge"))
+                            shortcut_parent = self.timeline if timeline_only else self
+                            shortcut_context = Qt.WidgetShortcut if timeline_only else Qt.WindowShortcut
+                            qshortcut = QShortcut(key_seq_obj, shortcut_parent, activated=obj, context=shortcut_context)
                             self.shortcuts.append(qshortcut)  # Keep reference to avoid garbage collection
                             used_shortcuts.add(key_seq_obj)  # Track the shortcut as used
                         else:
@@ -4980,21 +4992,85 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         return True
 
+    def _timeline_keyboard(self, method, *args):
+        timeline = self.timeline
+        if timeline.hasFocus():
+            callback = getattr(timeline, method, None)
+            if callback:
+                callback(*args)
+
+    def focusTimeline(self):
+        self.dockTimeline.show()
+        self.dockTimeline.raise_()
+        self.timeline.setFocus(Qt.ShortcutFocusReason)
+
+    def playbackStop(self):
+        self.PauseSignal.emit()
+        self.SpeedSignal.emit(0)
+
+    def timelineSelectPrevious(self):
+        self._timeline_keyboard("keyboard_select", "left")
+
+    def timelineSelectNext(self):
+        self._timeline_keyboard("keyboard_select", "right")
+
+    def timelineSelectAbove(self):
+        self._timeline_keyboard("keyboard_select", "up")
+
+    def timelineSelectBelow(self):
+        self._timeline_keyboard("keyboard_select", "down")
+
+    def timelineSelectAtPlayhead(self):
+        self._timeline_keyboard("keyboard_select", "playhead")
+
+    def timelineExtendAtPlayhead(self):
+        self._timeline_keyboard("keyboard_select", "playhead", True)
+
+    def timelineExtendPrevious(self):
+        self._timeline_keyboard("keyboard_select", "left", True)
+
+    def timelineExtendNext(self):
+        self._timeline_keyboard("keyboard_select", "right", True)
+
+    def timelinePreviousFiveFrames(self):
+        self._timeline_keyboard('keyboard_step_frames', -5)
+
+    def timelineNextFiveFrames(self):
+        self._timeline_keyboard('keyboard_step_frames', 5)
+
+    def timelinePreviousEdit(self):
+        self._timeline_keyboard('keyboard_edit_point', -1)
+
+    def timelineNextEdit(self):
+        self._timeline_keyboard('keyboard_edit_point', 1)
+
+    def timelineMoveUp(self):
+        self._timeline_keyboard('keyboard_move_track', -1)
+
+    def timelineMoveDown(self):
+        self._timeline_keyboard('keyboard_move_track', 1)
+
+    def timelineSelectLeftEdge(self):
+        self._timeline_keyboard('keyboard_select_edge', 'left')
+
+    def timelineSelectRightEdge(self):
+        self._timeline_keyboard('keyboard_select_edge', 'right')
+
     def nudgeLeft(self):
         """Nudge the selected clips to the left"""
-        self.timeline.Nudge_Triggered(-1, self.selected_clips, self.selected_transitions)
+        self._timeline_keyboard("keyboard_nudge", -1)
 
     def nudgeLeftBig(self):
-        """Nudge the selected clip/transition to the left (5 pixels)"""
-        self.timeline.Nudge_Triggered(-5, self.selected_clips, self.selected_transitions)
+        """Nudge the selected clip/transition to the left (5 frames)"""
+        self._timeline_keyboard("keyboard_nudge", -5)
 
     def nudgeRight(self):
         """Nudge the selected clips to the right"""
-        self.timeline.Nudge_Triggered(1, self.selected_clips, self.selected_transitions)
+        self._timeline_keyboard("keyboard_nudge", 1)
 
     def nudgeRightBig(self):
-        """Nudge the selected clip/transition to the right (5 pixels)"""
-        self.timeline.Nudge_Triggered(5, self.selected_clips, self.selected_transitions)
+        """Nudge the selected clip/transition to the right (5 frames)"""
+        self._timeline_keyboard("keyboard_nudge", 5)
 
     def eventFilter(self, obj, event):
         """Filter out specific QActions/QShortcuts when certain docks have focus."""
@@ -5017,6 +5093,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             "seekPreviousFrame",
             "seekNextFrame",
             "playToggle",
+            "playbackStop",
             "actionRewind",
             "actionFastForward",
             "actionRazorTool",
@@ -5256,6 +5333,13 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                     HiddenTitleBar(
                         dock_widget, dock_widget.windowTitle(),
                         show_buttons=show_titlebar_buttons))
+
+        # Refresh focus styling after title bars or tab groups are rebuilt.
+        if not hasattr(self, '_dock_focus_controller'):
+            from classes.dock_focus import DockFocusController
+            self._dock_focus_controller = DockFocusController(self)
+        self._dock_focus_controller.refresh()
+        tabstops.apply_auto_tab_order_later(self)
 
         # Set tab drawBase property
         self.set_tab_drawbase()

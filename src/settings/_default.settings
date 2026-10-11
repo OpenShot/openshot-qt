@@ -902,7 +902,7 @@
     "title": "Center on Playhead",
     "restart": false,
     "setting": "actionCenterOnPlayhead",
-    "value": "Shift+C|Alt+Up",
+    "value": "Shift+C",
     "type": "text"
   },
   {
@@ -1078,7 +1078,7 @@
     "title": "Previous Frame",
     "restart": false,
     "setting": "seekPreviousFrame",
-    "value": "Left | ,",
+    "value": "Left",
     "type": "text"
   },
   {
@@ -1086,7 +1086,7 @@
     "title": "Next Frame",
     "restart": false,
     "setting": "seekNextFrame",
-    "value": "Right | .",
+    "value": "Right",
     "type": "text"
   },
   {
@@ -1110,7 +1110,7 @@
     "title": "Play/Pause Toggle",
     "restart": false,
     "setting": "playToggle",
-    "value": "Space | Up | Down | K",
+    "value": "Space",
     "type": "text"
   },
   {
@@ -1310,7 +1310,7 @@
     "title": "Nudge left (1 Frame)",
     "restart": false,
     "setting": "nudgeLeft",
-    "value": "Ctrl+Left",
+    "value": ",",
     "type": "text"
   },
   {
@@ -1318,7 +1318,7 @@
     "title": "Nudge left (5 Frames)",
     "restart": false,
     "setting": "nudgeLeftBig",
-    "value": "Shift+Ctrl+Left",
+    "value": "Shift+,",
     "type": "text"
   },
   {
@@ -1326,7 +1326,7 @@
     "title": "Nudge right (1 Frame)",
     "restart": false,
     "setting": "nudgeRight",
-    "value": "Ctrl+Right",
+    "value": ".",
     "type": "text"
   },
   {
@@ -1334,7 +1334,7 @@
     "title": "Nudge right (5 Frames)",
     "restart": false,
     "setting": "nudgeRightBig",
-    "value": "Shift+Ctrl+Right",
+    "value": "Shift+.",
     "type": "text"
   },
   {
@@ -1457,9 +1457,6 @@
     "value": "Q",
     "type": "text"
   },
-
-
-
   {
     "category": "Location",
     "title": "Unsaved Project Assets Folder",
@@ -1602,5 +1599,157 @@
     "value": "100",
     "type": "hidden",
     "restart": false
+  },
+  {
+    "category": "Keyboard",
+    "title": "Select Previous Item",
+    "restart": false,
+    "setting": "timelineSelectPrevious",
+    "value": "Ctrl+Left",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Select Next Item",
+    "restart": false,
+    "setting": "timelineSelectNext",
+    "value": "Ctrl+Right",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Select Item Above",
+    "restart": false,
+    "setting": "timelineSelectAbove",
+    "value": "Ctrl+Up",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Select Item Below",
+    "restart": false,
+    "setting": "timelineSelectBelow",
+    "value": "Ctrl+Down",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Extend Selection to Previous Item",
+    "restart": false,
+    "setting": "timelineExtendPrevious",
+    "value": "Ctrl+Shift+Left",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Extend Selection to Next Item",
+    "restart": false,
+    "setting": "timelineExtendNext",
+    "value": "Ctrl+Shift+Right",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Select Item at Playhead",
+    "restart": false,
+    "setting": "timelineSelectAtPlayhead",
+    "value": "D",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Extend Selection at Playhead",
+    "restart": false,
+    "setting": "timelineExtendAtPlayhead",
+    "value": "Ctrl+Shift+D",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Previous Edit Point",
+    "restart": false,
+    "setting": "timelinePreviousEdit",
+    "value": "Up",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Next Edit Point",
+    "restart": false,
+    "setting": "timelineNextEdit",
+    "value": "Down",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Move Selection Up One Track",
+    "restart": false,
+    "setting": "timelineMoveUp",
+    "value": "Alt+Up",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Move Selection Down One Track",
+    "restart": false,
+    "setting": "timelineMoveDown",
+    "value": "Alt+Down",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Select Left Item Edge",
+    "restart": false,
+    "setting": "timelineSelectLeftEdge",
+    "value": "[",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Select Right Item Edge",
+    "restart": false,
+    "setting": "timelineSelectRightEdge",
+    "value": "]",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Focus Timeline",
+    "restart": false,
+    "setting": "focusTimeline",
+    "value": "Shift+3",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Stop Playback",
+    "restart": false,
+    "setting": "playbackStop",
+    "value": "K",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Previous Five Frames",
+    "restart": false,
+    "setting": "timelinePreviousFiveFrames",
+    "value": "Shift+Left",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Next Five Frames",
+    "restart": false,
+    "setting": "timelineNextFiveFrames",
+    "value": "Shift+Right",
+    "type": "text"
+  },
+  {
+    "category": "General",
+    "title": "Timeline keyboard version",
+    "restart": false,
+    "setting": "timeline-keyboard-version",
+    "value": 1,
+    "type": "hidden"
   }
 ]
