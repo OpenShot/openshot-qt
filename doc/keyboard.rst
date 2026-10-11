@@ -202,6 +202,12 @@ These shortcuts move the selected clips and transitions when no trim edge is sel
 Track moves keep the selection's timing and can use empty tracks. A locked track
 or the edge of the track list blocks the whole track move.
 
+Hold a comma/period shortcut to move continuously. OpenShot previews the movement
+while the key repeats, then saves the final positions when you release it. One
+Undo reverses the entire hold, including all selected items. Separate key taps
+remain separate undo steps. Leaving the timeline or starting another keyboard
+command also finishes the current movement.
+
 Trimming clips and transitions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Select a clip or transition, choose its left or right edge, then adjust that edge.
@@ -228,6 +234,8 @@ frame for the left edge or the last included frame for the right edge, updating
 after each trim without moving the playhead. For transitions, the preview shows
 the transition mask. Trims respect the available source
 media and do not ripple other clips.
+
+Holding a trim shortcut also groups its repeated adjustments into one undo step.
 
 After leaving trim mode, comma/period move whole clips and transitions again.
 

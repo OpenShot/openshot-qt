@@ -1,8 +1,9 @@
 """Keyboard selection, navigation, and editing for the timeline canvas."""
 
+import copy
 import uuid
 
-from qt_api import Qt
+from qt_api import Qt, QEvent
 from classes.query import Clip, Transition
 
 
@@ -229,6 +230,9 @@ class KeyboardMixin:
             self.update()
 
     def keyboard_nudge(self, frames):
+        if getattr(self, '_keyboard_nudge_key', None) is not None:
+            self._keyboard_preview_nudge(frames)
+            return
         self.geometry.ensure()
         items = self._keyboard_selected_items()
         if not items or any(self._is_track_locked(c.data['layer']) for c in items):
@@ -258,6 +262,114 @@ class KeyboardMixin:
         item = clip or items[0]
         model = Clip if isinstance(item, Clip) else Transition
         self._keyboard_reveal(model.get(id=item.id) or item)
+
+    def _keyboard_preview_nudge(self, frames):
+        """Preview key repeats locally, like a mouse drag; save on release."""
+        gesture = getattr(self, '_keyboard_nudge_gesture', None)
+        if gesture is None:
+            self.geometry.ensure()
+            selected = self._keyboard_selected_items()
+            if not selected or any(self._is_track_locked(c.data['layer']) for c in selected):
+                return
+            edge = getattr(self, '_keyboard_edge', None)
+            target = next((c for c in selected if edge and str(c.id) == edge[0]), None)
+            items = []
+            for original in ([target] if target else selected):
+                item = copy.copy(original)
+                item.data = dict(original.data)
+                items.append(item)
+            gesture = dict(items=items, initial=[dict(item.data) for item in items],
+                           edge=edge if target else None, transaction=str(uuid.uuid4()))
+            if target:
+                timing = self.enable_timing
+                try:
+                    self.enable_timing = False
+                    gesture['context'] = self._build_resize_context(target)
+                finally:
+                    self.enable_timing = timing
+            self._keyboard_nudge_gesture = gesture
+
+        items = gesture['items']
+        if gesture['edge']:
+            item = items[0]
+            edge = gesture['edge'][1]
+            previous_edge, timing = self._resize_edge, self.enable_timing
+            try:
+                self._resize_edge, self.enable_timing = edge, False
+                target = self._resize_edge_value(item, edge) + frames / self.fps_float
+                compute = self._compute_clip_resize if isinstance(item, Clip) else self._compute_transition_resize
+                _rect, start, end, position = compute(item, gesture['context'], target)
+                start, end, position = self._normalize_resize_commit_bounds(start, end, position)
+                item.data.update(start=start, end=end, position=position, duration=end-start)
+                self._apply_resize_preview_override(item, gesture['context'], start, end, position)
+            finally:
+                self._resize_edge, self.enable_timing = previous_edge, timing
+            self._keyboard_preview_edge(item, edge)
+        else:
+            minimum = -min(data['position'] for data in gesture['initial'])
+            gesture['frames'] = max(gesture.get('frames', 0) + frames, minimum * self.fps_float)
+            delta = max(gesture['frames'] / self.fps_float, minimum)
+            for item, initial in zip(items, gesture['initial']):
+                item.data['position'] = initial['position'] + delta
+                overrides = (self._pending_clip_overrides if isinstance(item, Clip)
+                             else self._pending_transition_overrides)
+                overrides.setdefault(item.id, {})['position'] = item.data['position']
+        self._keyframes_dirty = True
+        self._keyboard_reveal(items[0])
+
+    def _keyboard_finish_nudge(self):
+        gesture = getattr(self, '_keyboard_nudge_gesture', None)
+        self._keyboard_nudge_gesture = None
+        self._keyboard_nudge_key = None
+        if gesture is None:
+            return
+        changed = []
+        for item, original in zip(gesture['items'], gesture['initial']):
+            if all(item.data[key] == original[key] for key in ('position', 'start', 'end')):
+                continue
+            model = Clip if isinstance(item, Clip) else Transition
+            current = model.get(id=item.id)
+            if current is not None:
+                changed.append((item, current))
+        timing = self.enable_timing
+        try:
+            self.enable_timing = False
+            for index, (item, current) in enumerate(changed):
+                ignore_refresh = index < len(changed) - 1
+                if gesture['edge']:
+                    commit = self._commit_resized_clip if isinstance(item, Clip) else self._commit_resized_transition
+                    commit(item, item.data['start'], item.data['end'], item.data['position'],
+                           gesture['context'], gesture['transaction'], ignore_refresh)
+                else:
+                    update = self.update_clip_data if isinstance(item, Clip) else self.update_transition_data
+                    data = dict(current.data, position=item.data['position'])
+                    update(data, only_basic_props=True, ignore_refresh=ignore_refresh,
+                           transaction_id=gesture['transaction'])
+        finally:
+            self.enable_timing = timing
+            for item in gesture['items']:
+                overrides = (self._pending_clip_overrides if isinstance(item, Clip)
+                             else self._pending_transition_overrides)
+                overrides.pop(item.id, None)
+            self.geometry.mark_dirty()
+            self._keyframes_dirty = True
+            self.update()
+
+    def event(self, event):
+        # Shortcut presses are consumed by QShortcut before keyPressEvent.
+        # ShortcutOverride still reaches the canvas, including for custom keys.
+        if event.type() == QEvent.ShortcutOverride:
+            key = getattr(self, '_keyboard_nudge_key', None)
+            if key != event.key() or not event.isAutoRepeat():
+                self._keyboard_finish_nudge()
+            self._keyboard_nudge_key = event.key()
+        elif event.type() == QEvent.KeyRelease and not event.isAutoRepeat():
+            if event.key() == getattr(self, '_keyboard_nudge_key', None):
+                self._keyboard_finish_nudge()
+        elif event.type() in (QEvent.FocusOut, QEvent.WindowDeactivate, QEvent.Hide,
+                              QEvent.MouseButtonPress):
+            self._keyboard_finish_nudge()
+        return super().event(event)
 
     def _keyboard_reveal(self, item):
         self.geometry.mark_dirty()

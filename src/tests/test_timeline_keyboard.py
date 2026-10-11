@@ -652,3 +652,173 @@ class KeyboardFocusTests(unittest.TestCase):
         self.assertIs(first.nextInFocusChain(), third)
         tabstops.apply_explicit_tab_order([first, second], include_hidden=True)
         self.assertIs(first.nextInFocusChain(), second)
+
+
+class HeldNudgeTests(unittest.TestCase):
+    """Real Qt shortcut/release events with preview state and undo history."""
+
+    def setUp(self):
+        import copy
+        import importlib
+        from qt_api import (QT_API, QWidget, QMainWindow, Qt, QShortcut, QKeySequence)
+        from classes import updates
+        from tests.qt_test_app import get_or_create_app
+        from tests.test_main_window import DummyApp, ensure_app_state
+        self.app, _ = get_or_create_app(DummyApp)
+        ensure_app_state(self.app)
+        binding = {'pyqt5': 'PyQt5', 'pyqt6': 'PyQt6', 'pyside6': 'PySide6'}[QT_API]
+        self.QTest = importlib.import_module(binding + '.QtTest').QTest
+        self.window = QMainWindow()
+        self.updates = updates.UpdateManager()
+        patcher = patch.object(updates, 'get_app', return_value=SimpleNamespace(window=Mock()))
+        patcher.start()
+        self.addCleanup(patcher.stop)
+        self.items = [clip('a', 2, 1), clip('b', 2, 3)]
+        transition = Transition()
+        transition.id = 't'
+        transition.data = dict(id='t', layer=2, position=2, start=0, end=1, duration=1)
+        self.items.append(transition)
+
+        class TestCanvas(Canvas, QWidget):
+            def __init__(canvas):
+                QWidget.__init__(canvas)
+                Canvas.__init__(canvas, self.items)
+                canvas.setFocusPolicy(Qt.StrongFocus)
+                canvas.enable_timing = False
+                canvas._pending_clip_overrides = {}
+                canvas._pending_transition_overrides = {}
+                canvas.win.selected_clips = ['a', 'b']
+                canvas.win.selected_transitions = ['t']
+
+            def commit(canvas, data, **kwargs):
+                canvas.writes.append((dict(data), kwargs))
+                kind = 'transitions' if data['id'] == 't' else 'clips'
+                self.updates.transaction_id = kwargs['transaction_id']
+                try:
+                    self.updates.update([kind, {'id': data['id']}], dict(data))
+                finally:
+                    self.updates.transaction_id = None
+
+        def apply(action):
+            item = next(item for item in self.items if item.id == action.key[1]['id'])
+            action.set_old_values(dict(item.data))
+            item.data.update(action.values)
+        self.updates.add_listener(SimpleNamespace(changed=apply))
+        for model in (Clip, Transition):
+            def lookup(id, model=model):
+                item = next((item for item in self.items if isinstance(item, model) and item.id == id), None)
+                return copy.deepcopy(item)
+            patcher = patch.object(model, 'get', side_effect=lookup)
+            patcher.start()
+            self.addCleanup(patcher.stop)
+        self.canvas = TestCanvas()
+        self.window.setCentralWidget(self.canvas)
+        self.shortcuts = []
+        for sequence, frames in ((',', -1), ('.', 1), ('Shift+,', -5), ('Shift+.', 5), ('Ctrl+Left', -1)):
+            self.shortcuts.append(QShortcut(QKeySequence(sequence), self.canvas,
+                                            activated=lambda frames=frames: self.canvas.keyboard_nudge(frames),
+                                            context=Qt.WidgetShortcut))
+        self.shortcuts.append(QShortcut(QKeySequence('Ctrl+Z'), self.window, activated=self.updates.undo))
+        self.addCleanup(self.window.close)
+        self.window.show()
+        self.window.activateWindow()
+        self.canvas.setFocus()
+        self.QTest.qWait(10)
+
+    def repeat(self, key, modifiers, count):
+        from qt_api import QApplication, QEvent, QKeyEvent
+        for _ in range(count):
+            # X11 auto-repeat includes synthetic releases. They must not commit.
+            QApplication.sendEvent(self.canvas, QKeyEvent(QEvent.KeyRelease, key, modifiers, '', True))
+            QApplication.sendEvent(self.canvas, QKeyEvent(QEvent.KeyPress, key, modifiers, '', True))
+
+    def test_hold_previews_without_writes_and_commits_one_group_for_undo_redo(self):
+        from qt_api import Qt
+        w = self.canvas
+        self.QTest.keyPress(w, Qt.Key_Period, Qt.ShiftModifier)
+        self.repeat(Qt.Key_Period, Qt.ShiftModifier, 59)
+        self.assertEqual(w.writes, [])
+        self.assertEqual([item.data['position'] for item in self.items], [1, 3, 2])
+        self.assertAlmostEqual(w._pending_clip_overrides['a']['position'], 11)
+        self.assertAlmostEqual(w._pending_transition_overrides['t']['position'], 12)
+        self.QTest.keyRelease(w, Qt.Key_Period, Qt.ShiftModifier)
+        self.assertEqual(len(w.writes), 3)
+        self.assertEqual([opts['ignore_refresh'] for _, opts in w.writes], [True, True, False])
+        self.assertTrue(all(opts['only_basic_props'] for _, opts in w.writes))
+        self.assertEqual(len({action.transaction for action in self.updates.actionHistory}), 1)
+        self.assertEqual(w._pending_clip_overrides, {})
+        self.assertEqual(w._pending_transition_overrides, {})
+        self.updates.undo()
+        self.assertEqual([item.data['position'] for item in self.items], [1, 3, 2])
+        self.updates.redo()
+        for item, position in zip(self.items, (11, 13, 12)):
+            self.assertAlmostEqual(item.data['position'], position)
+
+    def test_separate_taps_are_separate_transactions_and_custom_keys_work(self):
+        from qt_api import Qt
+        for key, modifiers in ((Qt.Key_Comma, Qt.NoModifier), (Qt.Key_Left, Qt.ControlModifier)):
+            self.QTest.keyClick(self.canvas, key, modifiers)
+        self.assertEqual(len(self.updates.actionHistory), 6)
+        self.assertEqual(len({action.transaction for action in self.updates.actionHistory}), 2)
+        self.updates.undo()
+        self.assertAlmostEqual(self.items[0].data['position'], 1 - 1/30)
+
+    def test_hold_clamps_group_at_zero_without_redundant_history(self):
+        from qt_api import Qt
+        self.QTest.keyPress(self.canvas, Qt.Key_Comma, Qt.ShiftModifier)
+        self.repeat(Qt.Key_Comma, Qt.ShiftModifier, 50)
+        self.QTest.keyRelease(self.canvas, Qt.Key_Comma, Qt.ShiftModifier)
+        self.assertEqual([item.data['position'] for item in self.items], [0, 2, 1])
+        self.assertEqual(len(self.updates.actionHistory), 3)
+        self.QTest.keyPress(self.canvas, Qt.Key_Comma)
+        self.repeat(Qt.Key_Comma, Qt.NoModifier, 10)
+        self.QTest.keyRelease(self.canvas, Qt.Key_Comma)
+        self.assertEqual(len(self.updates.actionHistory), 3)
+
+    def test_focus_loss_and_undo_shortcut_finish_the_pending_gesture(self):
+        from qt_api import Qt, QEvent, QApplication
+        self.QTest.keyPress(self.canvas, Qt.Key_Period)
+        QApplication.sendEvent(self.canvas, QEvent(QEvent.FocusOut))
+        self.assertEqual(len(self.updates.actionHistory), 3)
+        self.QTest.keyRelease(self.canvas, Qt.Key_Period)
+        self.assertEqual(len(self.updates.actionHistory), 3)
+        self.QTest.keyPress(self.canvas, Qt.Key_Period)
+        self.repeat(Qt.Key_Period, Qt.NoModifier, 10)
+        self.QTest.keyClick(self.canvas, Qt.Key_Z, Qt.ControlModifier)
+        self.assertEqual(len(self.updates.actionHistory), 3)
+        self.assertAlmostEqual(self.items[0].data['position'], 1 + 1/30)
+
+    def test_held_edge_trim_uses_source_limits_and_one_final_commit(self):
+        from qt_api import Qt, QRectF
+        from windows.views.timeline_backend.qwidget.clip import ClipInteractionMixin
+        w = self.canvas
+        w._keyboard_edge = ('a', 'right')
+        w.enable_timing = True
+        w._resize_edge = None
+        w._last_event = None
+        w.pixels_per_second = 100
+        w.track_name_width = 50
+        w._snap_time = lambda t: round(t * w.fps_float) / w.fps_float
+        w._keyboard_preview_edge = Mock()
+        for name in ('_compute_clip_resize', '_commit_resized_clip',
+                     '_normalize_resize_commit_bounds', '_resize_edge_value',
+                     '_apply_resize_preview_override'):
+            setattr(w, name, getattr(ClipInteractionMixin, name).__get__(w))
+        def context(item):
+            self.assertFalse(w.enable_timing)
+            return dict(initial=dict(item.data), rect=QRectF(150, 50, 100, 70), max_duration=2)
+        w._build_resize_context = context
+        self.QTest.keyPress(w, Qt.Key_Period, Qt.ShiftModifier)
+        self.repeat(Qt.Key_Period, Qt.ShiftModifier, 30)
+        self.assertEqual(w.writes, [])
+        self.assertEqual(self.items[0].data['end'], 1)
+        self.assertEqual(w._pending_clip_overrides['a']['end'], 2)
+        self.QTest.keyRelease(w, Qt.Key_Period, Qt.ShiftModifier)
+        self.assertEqual(len(w.writes), 1)
+        self.assertEqual(self.items[0].data['end'], 2)
+        self.assertTrue(w.enable_timing)
+        self.assertIsNone(w._resize_edge)
+        self.updates.undo()
+        self.assertEqual(self.items[0].data['end'], 1)
+        self.updates.redo()
+        self.assertEqual(self.items[0].data['end'], 2)
