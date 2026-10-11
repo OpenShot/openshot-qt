@@ -59,6 +59,7 @@ from qt_api import (
 
 from classes import exceptions, info, qt_types, sentry, ui_util, updates, tabstops
 from classes.app import get_app
+from classes.asset_keyboard import AssetKeyboardMixin
 from classes.feedback import record_feedback_action
 from classes.exporters.edl import export_edl
 from classes.exporters.final_cut_pro import export_xml
@@ -100,7 +101,7 @@ from windows.views.transitions_treeview import TransitionsTreeView
 from windows.views.tutorial import TutorialManager
 
 
-class MainWindow(updates.UpdateWatcher, QMainWindow):
+class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
     """ This class contains the logic for the main window widget """
 
     # Path to ui file

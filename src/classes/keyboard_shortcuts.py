@@ -25,15 +25,19 @@ def migrate_timeline_shortcuts(defaults, user):
     Ctrl+Alt+Shift shortcut, so both commands remain reachable.
     """
     saved = {item['setting']: item for item in user if 'setting' in item}
-    if saved.get('timeline-keyboard-version', {}).get('value', 0) >= 1:
+    version = saved.get('timeline-keyboard-version', {}).get('value', 0)
+    if version >= 3:
         return user
     keyboard = {item['setting']: item for item in defaults if item.get('category') == 'Keyboard'}
-    changed = set(LEGACY_TIMELINE_SHORTCUTS) | {k for k in keyboard if k not in saved}
+    previous_defaults = LEGACY_TIMELINE_SHORTCUTS if version < 1 else {}
+    if version == 2:
+        previous_defaults = {'focusEffects': 'Shift+7', 'focusTransitions': 'Shift+8'}
+    changed = set(previous_defaults) | {k for k in keyboard if k not in saved}
     custom = set()
     for name, item in saved.items():
         if name not in keyboard:
             continue
-        baseline = LEGACY_TIMELINE_SHORTCUTS.get(name, keyboard[name]['value'])
+        baseline = previous_defaults.get(name, keyboard[name]['value'])
         if _keys(item.get('value', '')) != _keys(baseline):
             custom.add(name)
     occupied = set()
@@ -57,5 +61,5 @@ def migrate_timeline_shortcuts(defaults, user):
                 keys.append(key)
                 occupied.update(_keys(key))
         saved[name] = dict(item, value=' | '.join(keys))
-    saved['timeline-keyboard-version'] = {'setting': 'timeline-keyboard-version', 'value': 1}
+    saved['timeline-keyboard-version'] = {'setting': 'timeline-keyboard-version', 'value': 3}
     return list(saved.values())

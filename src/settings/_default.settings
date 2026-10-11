@@ -1745,11 +1745,51 @@
     "type": "text"
   },
   {
+    "category": "Keyboard",
+    "title": "Focus Project Files",
+    "restart": false,
+    "setting": "focusProjectFiles",
+    "value": "Shift+1",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Focus Effects",
+    "restart": false,
+    "setting": "focusEffects",
+    "value": "Shift+8",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Focus Transitions",
+    "restart": false,
+    "setting": "focusTransitions",
+    "value": "Shift+7",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Focus Emojis",
+    "restart": false,
+    "setting": "focusEmojis",
+    "value": "Shift+9",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Add or Apply Selected Asset",
+    "restart": false,
+    "setting": "addSelectedAsset",
+    "value": "Ctrl+Return | Ctrl+Enter",
+    "type": "text"
+  },
+  {
     "category": "General",
     "title": "Timeline keyboard version",
     "restart": false,
     "setting": "timeline-keyboard-version",
-    "value": 1,
+    "value": 3,
     "type": "hidden"
   }
 ]

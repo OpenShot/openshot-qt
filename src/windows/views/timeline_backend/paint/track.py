@@ -411,6 +411,10 @@ class TrackPainter(BasePainter):
                     track_font.setPointSizeF(max(1.0, track_font.pointSizeF() * factor))
         painter.setFont(track_font)
         for _track_rect, track, name_rect in self.w.geometry.iter_tracks():
+            target_font = QFont(track_font)
+            if track.data['number'] == getattr(self.w, '_asset_target_layer', None):
+                target_font.setBold(True)
+            painter.setFont(target_font)
             locked = bool((track.data if isinstance(track.data, dict) else {}).get("lock"))
             name_bg = self.focus_background(self.w.theme.track.name_background)
             name_border_top = QColor(self.name_border_top_color)

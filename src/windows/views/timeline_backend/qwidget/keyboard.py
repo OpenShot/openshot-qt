@@ -283,6 +283,7 @@ class KeyboardMixin:
 
     def focusInEvent(self, event):
         super().focusInEvent(event)
+        self._asset_target_layer = None
         self.update()
 
     def focusOutEvent(self, event):

@@ -142,6 +142,8 @@ or Enter on a focused tab title to select its dock and enter the first control.
      - :kbd:`Shift+3`
    * - Previous / next frame
      - :kbd:`Left` / :kbd:`Right`
+   * - Focus Project Files / add selected assets at the playhead
+     - :kbd:`Shift+1`, then :kbd:`Ctrl+Enter`
    * - Select previous / next clip or transition
      - :kbd:`Ctrl+Left` / :kbd:`Ctrl+Right`
    * - Nudge selection one frame

@@ -28,8 +28,16 @@ Moving between panels
 
    * - Action
      - Shortcut
+   * - Focus Project Files
+     - :kbd:`Shift+1`
    * - Focus the timeline
      - :kbd:`Shift+3`
+   * - Focus Transitions
+     - :kbd:`Shift+7`
+   * - Focus Effects
+     - :kbd:`Shift+8`
+   * - Focus Emojis
+     - :kbd:`Shift+9`
    * - Move to the next / previous control
      - :kbd:`Tab` / :kbd:`Shift+Tab`
    * - Focus the next / previous dock tab title without selecting it
@@ -56,6 +64,53 @@ The timeline's ruler and track headers, including their labels, dim when
 unfocused. The clip area stays the same. In Cosmic Dusk, a blue underline marks
 the focused dock's title text or active tab, and buttons show a blue focus
 border. The untitled timeline dock has no underline.
+
+Adding and applying assets
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+The panel shortcuts above open the dock and focus its asset list directly.
+Use the arrow keys to choose an asset, then :kbd:`Ctrl+Enter` to add or apply it.
+Your existing browser selection is preserved; if nothing is selected, focusing
+the browser selects its current item or the first available item.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 25 25 50
+
+   * - Panel / action
+     - Shortcut
+     - Result
+   * - Project Files: add selected files
+     - :kbd:`Ctrl+Enter`
+     - Place files sequentially at the playhead, in browser order, on the target track.
+   * - Effects: apply selected effects
+     - :kbd:`Ctrl+Enter`
+     - Apply to the selected timeline clips. Browsing effects keeps that clip selection.
+   * - Transitions: add selected transitions
+     - :kbd:`Ctrl+Enter`
+     - Place at the playhead on the target track, using the default transition length.
+   * - Emojis: add selected emoji
+     - :kbd:`Ctrl+Enter`
+     - Place at the playhead on the target track, using the default image length.
+   * - Open the Add to Timeline dialog for selected files
+     - :kbd:`Ctrl+Alt+A`
+     - Choose placement and other options before adding the files.
+
+The target is the selected timeline item's track, or the remembered track if
+nothing is selected. With neither available, OpenShot uses the highest unlocked
+track. The target track label appears **bold** while browsing assets. To change
+it, select an item on the desired track or clear the timeline selection and click
+the desired track before returning to the browser. A locked target blocks the
+operation; effects also require selected clips on unlocked tracks.
+
+Adding at the playhead uses normal OpenShot placement: it does not make room by
+shifting later clips or overwrite their content. As with dragging a single clip,
+an overlap can create an automatic transition. The playhead stays in place and
+focus stays in the browser, so you can continue choosing assets. Press
+:kbd:`Shift+3` to edit the newly added timeline items.
+
+For example: :kbd:`Shift+1` → arrow keys → :kbd:`Ctrl+Enter` → :kbd:`Shift+3`.
+The add/apply shortcut works in the asset list, not while typing in a filter or
+renaming an item.
 
 Moving the playhead
 ~~~~~~~~~~~~~~~~~~~
@@ -215,6 +270,21 @@ Similar shortcuts can also behave differently on stacked or connected clips.
      - Up / Down
      - Up / Down
      - Up / Down
+   * - Focus media browser / project assets
+     - Shift+1
+     - Shift+1 (Project panel)
+     - Not listed here
+     - Cmd+1 (Browser)
+   * - Focus timeline
+     - Shift+3
+     - Shift+3
+     - Not listed here
+     - Cmd+2
+   * - Add source media at the playhead
+     - Ctrl+Enter (place on target track)
+     - Comma (insert); period (overwrite)
+     - F9 (insert); F10 (overwrite)
+     - W (insert); D (overwrite); Q (connect)
    * - Select previous / next clip
      - Ctrl+Left / Right
      - Ctrl+Up / Down
@@ -317,6 +387,9 @@ may differ. On macOS, Command is used for shortcuts shown with Ctrl.
    * - Add Marker
      - :kbd:`M`
      -
+   * - Add or Apply Selected Asset
+     - :kbd:`Ctrl+Enter`
+     -
    * - Add to Timeline
      - :kbd:`Ctrl+Alt+A`
      -
@@ -395,8 +468,20 @@ may differ. On macOS, Command is used for shortcuts shown with Ctrl.
    * - File Properties
      - :kbd:`Alt+I`
      -
+   * - Focus Effects
+     - :kbd:`Shift+8`
+     -
+   * - Focus Emojis
+     - :kbd:`Shift+9`
+     -
+   * - Focus Project Files
+     - :kbd:`Shift+1`
+     -
    * - Focus Timeline
      - :kbd:`Shift+3`
+     -
+   * - Focus Transitions
+     - :kbd:`Shift+7`
      -
    * - Fullscreen
      - :kbd:`F11`
