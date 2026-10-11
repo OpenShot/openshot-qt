@@ -59,6 +59,16 @@ class DockTabStops(QObject):
         self.bar = bar
         self.window = window
         self.buttons = []
+        # QMainWindow owns the C++ tab bar, but does not retain its Python
+        # wrapper. The bar/stops/buttons reference cycle alone can be collected,
+        # leaving Qt-owned buttons in the focus chain without their Python key
+        # and paint handlers. Root the wrappers in the window until Qt deletes
+        # the bar, including while dock groups are being rebuilt.
+        if not hasattr(window, '_dock_tab_stops_by_bar'):
+            window._dock_tab_stops_by_bar = {}
+        registry = window._dock_tab_stops_by_bar
+        registry[bar] = self
+        bar.destroyed.connect(lambda: registry.pop(bar, None))
         bar.installEventFilter(self)
         self.sync()
 

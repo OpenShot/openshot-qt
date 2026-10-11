@@ -316,6 +316,43 @@ class DockFocusTests(unittest.TestCase):
             QTest.keyClick(self.app.focusWidget(), Qt.Key_Tab)
             self.assertTrue(children[target][1].hasFocus())
 
+    def test_tab_stops_survive_garbage_collection_without_orphan_controls(self):
+        import gc
+        import weakref
+        from classes.dock_tabs import DockTabButton, DockTabStops
+        from qt_api import QCoreApplication, QEvent, isdeleted
+        window = QMainWindow()
+        self.addCleanup(lambda: None if isdeleted(window) else window.deleteLater())
+        first, second = [QDockWidget(name, window) for name in ('Files', 'Emojis')]
+        for dock in (first, second):
+            dock.setWidget(QLineEdit())
+            window.addDockWidget(Qt.LeftDockWidgetArea, dock)
+        window.tabifyDockWidget(first, second)
+        # Match startup: create the stops before showing the main window.
+        bar = tabstops._dock_tab_bar(window, first, [second])
+        bar._dock_tab_stops = DockTabStops(bar, window)
+        reference = weakref.ref(bar)
+        del bar
+        # Qt owns its internal tab bar. Do not keep a test-local reference to
+        # its Python wrapper: ordinary application GC must preserve our stops.
+        for _ in range(5):
+            gc.collect()
+            self.assertIsNotNone(reference())
+            tabstops.apply_auto_tab_order(window)
+            self.app.processEvents()
+        window.show()
+        self.app.processEvents()
+        bar = tabstops._dock_tab_bar(window, first, [second])
+        focusable = [child for child in bar.findChildren(QWidget)
+                     if child.isVisibleTo(window) and child.focusPolicy() & Qt.TabFocus]
+        self.assertEqual(len(focusable), bar.count())
+        self.assertTrue(all(isinstance(child, DockTabButton) for child in focusable))
+        # Destroying the Qt owner must release the registry, too.
+        registry = window._dock_tab_stops_by_bar
+        window.deleteLater()
+        QCoreApplication.sendPostedEvents(window, QEvent.DeferredDelete)
+        self.assertEqual(registry, {})
+
     def test_tabbed_docks_use_tab_indicator_and_clear_when_focus_leaves(self):
         first, second = self.docks
         self.window.tabifyDockWidget(first, second)
