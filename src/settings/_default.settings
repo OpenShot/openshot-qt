@@ -1350,7 +1350,7 @@
     "title": "Preview File",
     "restart": false,
     "setting": "actionPreview_File",
-    "value": "Alt+P",
+    "value": "Shift+2 | Alt+P",
     "type": "text"
   },
   {
@@ -1789,7 +1789,7 @@
     "title": "Timeline keyboard version",
     "restart": false,
     "setting": "timeline-keyboard-version",
-    "value": 3,
+    "value": 4,
     "type": "hidden"
   }
 ]

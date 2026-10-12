@@ -497,6 +497,26 @@ class KeyboardMigrationTests(unittest.TestCase):
         self.assertEqual(result['timelineSelectPrevious'], 'Ctrl+Alt+Shift+Left')
         self.assertEqual(result['nudgeLeft'], ',')
 
+    def test_preview_shortcut_migration_preserves_custom_bindings(self):
+        for version in (0, 1, 2, 3):
+            saved = [{'setting': 'timeline-keyboard-version', 'value': version},
+                     {'setting': 'actionPreview_File', 'value': 'Alt+P'}]
+            result = migrate_timeline_shortcuts(self.defaults, saved)
+            values = {item['setting']: item['value'] for item in result}
+            self.assertEqual(values['actionPreview_File'], 'Shift+2 | Alt+P')
+            self.assertEqual(values['timeline-keyboard-version'], 4)
+            self.assertEqual(migrate_timeline_shortcuts(self.defaults, result), result)
+        for binding in ('Ctrl+Alt+P', ''):
+            saved[-1]['value'] = binding
+            values = {item['setting']: item['value'] for item in migrate_timeline_shortcuts(self.defaults, saved)}
+            self.assertEqual(values['actionPreview_File'], binding)
+        saved[-1]['value'] = 'Alt+P'
+        saved.append({'setting': 'actionSave', 'value': 'Shift+2'})
+        values = {item['setting']: item['value'] for item in migrate_timeline_shortcuts(self.defaults, saved)}
+        self.assertEqual(values['actionSave'], 'Shift+2')
+        self.assertNotIn('Shift+2', values['actionPreview_File'].split(' | '))
+        self.assertIn('Alt+P', values['actionPreview_File'].split(' | '))
+
     def test_default_bindings_are_unique(self):
         from qt_api import QKeySequence
         seen = {}

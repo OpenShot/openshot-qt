@@ -49,6 +49,9 @@ def _text_width(metrics, text):
 
 
 class RulerPainter(BasePainter):
+    def _fps_info(self):
+        return getattr(self.w, 'ruler_fps', None) or get_app().project.get('fps')
+
     def update_theme(self):
         self.bg = self.w.theme.ruler.background
         self.bg2 = self.w.theme.ruler.background2
@@ -77,8 +80,7 @@ class RulerPainter(BasePainter):
         self._last_playhead_label = ""
 
     def _current_playhead_label(self):
-        proj = get_app().project
-        fps_info = proj.get("fps")
+        fps_info = self._fps_info()
         fps_float = float(fps_info.get("num", 24)) / float(fps_info.get("den", 1) or 1)
         frame_seconds = 0.0
         if fps_float:
@@ -143,7 +145,7 @@ class RulerPainter(BasePainter):
         if pps <= 0 or fps <= 0:
             return 1
 
-        min_spacing = 44.0
+        min_spacing = getattr(getattr(self, "w", None), "ruler_min_tick_spacing", 44.0)
         for frames in self._nice_frame_intervals(fps):
             if (frames / fps) * pps >= min_spacing:
                 return frames
@@ -154,9 +156,10 @@ class RulerPainter(BasePainter):
         return frames
 
     def paint(self, painter: QPainter):
-        proj = get_app().project
-        duration = proj.get("duration")
-        fps_info = proj.get("fps")
+        duration = getattr(self.w, 'ruler_duration', None)
+        if duration is None:
+            duration = get_app().project.get('duration')
+        fps_info = self._fps_info()
         fps_float = float(fps_info.get("num", 24)) / float(fps_info.get("den", 1) or 1)
         pps = self.w.pixels_per_second
         width = max(1, self.w.width() - self.w.track_name_width)
@@ -231,8 +234,19 @@ class RulerPainter(BasePainter):
                         tick_metrics.height(),
                     )
                     align = Qt.AlignCenter | Qt.AlignTop
+                if getattr(self.w, 'ruler_compact_labels', False):
+                    lbl = '%02d:%02d' % (int(t) // 60, int(t) % 60)
+                    if fpt < round(fps_float):
+                        lbl += '.%02d' % int(tt['frame'])
+                    text_w = _text_width(tick_metrics, lbl)
+                    text_rect.setWidth(text_w)
+                    text_rect.moveLeft(x+2 if frame == 0 else x-text_w/2)
+                    if t < duration and rect.right() - x < text_w+16:
+                        lbl = ''  # Leave room for the source ruler's endpoint label.
                 painter.setPen(self.text_pen)
                 painter.setFont(self.tick_font)
+                if getattr(self.w, 'ruler_bound_labels', False):
+                    text_rect.moveLeft(max(rect.left()+2, min(rect.right()-text_w-2, text_rect.left())))
                 painter.drawText(text_rect, align, lbl)
                 painter.setPen(self.tick_pen)
             frame += fpt

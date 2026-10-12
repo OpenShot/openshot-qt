@@ -231,7 +231,7 @@ class AssetKeyboardTests(unittest.TestCase):
         self.assertEqual(values['actionAbout'], 'Shift+1')
         self.assertNotEqual(values['focusProjectFiles'], 'Shift+1')
         self.assertEqual(values['focusEffects'], 'Shift+8')
-        self.assertEqual(values['timeline-keyboard-version'], 3)
+        self.assertEqual(values['timeline-keyboard-version'], 4)
         self.assertEqual(migrate_timeline_shortcuts(defaults, migrated), migrated)
 
     def test_initial_asset_defaults_migrate_to_requested_panel_order(self):

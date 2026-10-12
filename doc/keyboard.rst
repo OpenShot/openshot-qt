@@ -30,6 +30,8 @@ Moving between panels
      - Shortcut
    * - Focus Project Files
      - :kbd:`Shift+1`
+   * - Preview the selected file or timeline clip's source
+     - :kbd:`Shift+2` or :kbd:`Alt+P`
    * - Focus the timeline
      - :kbd:`Shift+3`
    * - Focus Transitions
@@ -64,6 +66,35 @@ The timeline's ruler and track headers, including their labels, dim when
 unfocused. The clip area stays the same. In Cosmic Dusk, a blue underline marks
 the focused dock's title text or active tab, and buttons show a blue focus
 border. The untitled timeline dock has no underline.
+
+Previewing a source
+~~~~~~~~~~~~~~~~~~~
+Press :kbd:`Shift+2` or :kbd:`Alt+P` with focus in Project Files to preview the
+selected file. With focus on the timeline, the same command previews the active
+selected clip's source, paused at its source in-point. With multiple items
+selected, the active selection anchor determines the source. Transitions and
+clips without an available project file do not open a source preview.
+
+An existing preview for the same file or the same timeline clip is reused.
+Different timeline clips have separate range-editing targets, even if they use
+the same source. When neither the file list nor the timeline has focus, the
+command does nothing.
+
+In Preview File, click or drag the source ruler to scrub. Preview Clip and Split
+File also provide range editing: drag the Start/End grips, move the selected
+filmstrip range, draw a new range outside it, or edit
+their timecodes, or press :kbd:`I` / :kbd:`O` to set a marker at the playhead.
+End is the last included frame. :guilabel:`Loop` repeats the marked range.
+The preview uses your configured timeline playback and range-editing shortcuts:
+:kbd:`,` / :kbd:`.` move the range one frame (:kbd:`Shift` moves five).
+:kbd:`[` selects Start for trimming, :kbd:`]` selects End; comma and period then
+trim that edge. :kbd:`Esc` leaves trim mode before closing the dialog.
+:kbd:`Left` / :kbd:`Right` scrub frames without changing the range.
+:kbd:`Space` toggles playback, :kbd:`J` / :kbd:`L` change playback speed and
+:kbd:`K` pauses. These shortcuts leave text entry alone in Name and timecodes.
+
+Scrubbing and moving markers do not edit the project until you click the
+dialog's Create, Update, or Update Clip button. See :ref:`split_clip_ref`.
 
 Adding and applying assets
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -360,7 +391,7 @@ view, double-click the thumbnail column for the file actions below.
      - Keyboard alternative
    * - Preview a file in Project Files
      - Double-click the file
-     - :kbd:`Alt+P`
+     - :kbd:`Shift+2` or :kbd:`Alt+P`
    * - Open file properties in Project Files
      - :kbd:`Ctrl` + double-click the file
      - :kbd:`Alt+I`
@@ -561,7 +592,7 @@ may differ. On macOS, Command is used for shortcuts shown with Ctrl.
      - :kbd:`Ctrl+P`
      -
    * - Preview File
-     - :kbd:`Alt+P`
+     - :kbd:`Shift+2` or :kbd:`Alt+P`
      -
    * - Previous Edit Point
      - :kbd:`Up`

@@ -1258,17 +1258,34 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
             # Pause playback
             self.PauseSignal.emit()
 
-    def actionPreview_File_trigger(self, checked=True):
-        """ Preview the selected media file """
+    def actionPreview_File_trigger(self, checked=True, clip_id=None):
+        """Preview the source selected in the focused browser or timeline."""
         log.info('actionPreview_File_trigger')
 
-        # Prefer current file, but fall back to selected real files when a generation
-        # placeholder row has focus.
-        f = self.files_model.current_file()
-        if not f:
-            selected_files = self.files_model.selected_files()
-            if selected_files:
-                f = selected_files[0]
+        focus = self.focusWidget()
+        source_position = None
+        source_clip_id = None
+        f = None
+        if clip_id is not None:
+            clip = Clip.get(id=clip_id)
+            if clip:
+                f = File.get(id=clip.data.get('file_id'))
+                source_position = float(clip.data.get('start', 0.0))
+                source_clip_id = clip.id
+        elif focus is self.filesView:
+            # A generation placeholder can be current alongside selected files.
+            f = self.files_model.current_file()
+            if not f:
+                selected_files = self.files_model.selected_files()
+                if selected_files:
+                    f = selected_files[0]
+        elif focus is self.timeline:
+            clip = self.timeline._keyboard_anchor(self.timeline._keyboard_items())
+            if isinstance(clip, Clip):
+                file_id = clip.data.get('file_id')
+                f = File.get(id=file_id) if file_id else None
+                source_position = float(clip.data.get('start', 0.0))
+                source_clip_id = clip.id
 
         # Bail out if no file selected
         if not f:
@@ -1280,15 +1297,19 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         for win in QApplication.topLevelWidgets():
             if (isinstance(win, Cutting) and win.is_preview_mode
                     and win.isVisible() and not win._shutdown_in_progress
-                    and win.file.id == f.id):
+                    and win.file.id == f.id
+                    and getattr(win, 'range_clip_id', None) == source_clip_id):
                 if win.isMinimized():
                     win.setWindowState(win.windowState() & ~Qt.WindowMinimized)
+                if source_position is not None:
+                    win.preview_source_at(source_position)
                 win.raise_()
                 win.activateWindow()
                 return
 
-        win = Cutting(f, preview=True)
-        win.setObjectName("cutting")
+        win = Cutting(f, preview=True, clip_id=source_clip_id)
+        if source_position is not None:
+            win.preview_source_at(source_position)
         win.show()
         win.raise_()
         win.activateWindow()
@@ -2623,7 +2644,6 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         # show dialog
         from windows.cutting import Cutting
         win = Cutting(f)
-        win.setObjectName("cutting")
         # Run the dialog event loop - blocking interaction on this window during that time
         result = win.exec_()
         if result == QDialog.Accepted:

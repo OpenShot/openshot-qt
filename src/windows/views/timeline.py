@@ -744,6 +744,11 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 TimelineWidget.changed(self, None)
             return
 
+        if action.key and action.key[0] == 'files':
+            if action.type == 'update' and len(action.key) >= 2:
+                self.invalidate_file_thumbnails(action.key[1].get('id'))
+            return
+
         if ViewClass == TimelineWidget and self._pending_trim_refresh:
             pending = self._pending_trim_refresh
             item_id = pending.get("id")
@@ -2269,6 +2274,10 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         add_bound_action(menu, self.window, "actionProperties", _("Properties"),
                          callback=lambda: self.window.actionProperties_trigger(timeline_anchor=properties_anchor))
 
+        if clip.data.get('file_id'):
+            add_bound_action(menu, self.window, "actionPreview_File", _("Preview Clip"),
+                             callback=lambda: self.window.actionPreview_File_trigger(clip_id=clip.id))
+
         # Use a menu-owned action so this lock state cannot disable the shared
         # Remove Clip action in other menus or shortcuts.
         menu.addSeparator()
@@ -2375,6 +2384,20 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
         # Clear transaction id
         get_app().updates.transaction_id = None
+
+    def invalidate_file_thumbnails(self, file_id):
+        """Refresh dependent clip artwork without changing saved clip ranges."""
+        if not file_id:
+            return
+        clips = Clip.filter(file_id=file_id)
+        if ViewClass == TimelineWidget:
+            for clip in clips:
+                self.clip_painter.invalidate_clip_thumbnails(clip.id)
+            if clips:
+                self.update()
+        else:
+            for clip in clips:
+                self.run_js(JS_SCOPE_SELECTOR + '.updateThumbnail(' + json.dumps(clip.id) + ');')
 
     def Thumbnail_Updated(self, clip_id, thumbnail_frame=1):
         """Callback when thumbnail needs to be updated"""

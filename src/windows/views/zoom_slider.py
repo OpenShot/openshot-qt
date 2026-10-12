@@ -50,6 +50,9 @@ from classes.query import Clip, Track, Transition, Marker
 from classes.logger import log
 
 
+from windows.views.range_interaction import range_hit_target
+
+
 class ZoomSlider(QWidget, updates.UpdateInterface):
     """ A QWidget used to zoom and pan around a Timeline"""
 
@@ -92,20 +95,9 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         margin = min(4.0, self.height() / 5.0)
         hit_top = margin
         hit_height = max(0.0, self.height() - 2 * margin)
-        left_hit = QRectF(self.left_handle_rect.left() - 4, hit_top,
-                          20.0, hit_height).contains(pos)
-        right_hit = QRectF(self.right_handle_rect.left() - 4, hit_top,
-                           20.0, hit_height).contains(pos)
-        if left_hit and right_hit:
-            # Split overlapping grips by proximity; neither edge masks the other.
-            return "left" if pos.x() <= self.scroll_bar_rect.center().x() else "right"
-        if left_hit:
-            return "left"
-        if right_hit:
-            return "right"
-        if self.move_handle_rect.contains(pos):
-            return "move"
-        return "create"
+        return range_hit_target(pos, self.scroll_bar_rect, self.left_handle_rect,
+                                self.right_handle_rect, self.move_handle_rect,
+                                hit_top, hit_height)
 
     def _playhead_seconds(self):
         fps = get_app().project.get("fps")
