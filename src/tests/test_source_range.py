@@ -520,8 +520,17 @@ class SourceRangeTests(unittest.TestCase):
             self.assertEqual(d.end_frame-d.start_frame+1, 60)
             target = d.btnAddClip if mode == 'clip' else d.txtName
             target.setFocus()
+            if mode == 'create':
+                d.txtName.setText('First split')
             QTest.keyClick(target, Qt.Key_Return)
-            d.reject.assert_called_once_with()
+            if mode == 'create':
+                d.reject.assert_not_called()
+                self.assertTrue(d.isVisible())
+                self.assertTrue(d.txtName.hasFocus())
+                self.assertEqual(d.txtName.text(), '')
+                self.assertEqual(self.data['files'][-1]['name'], 'First split')
+            else:
+                d.reject.assert_called_once_with()
             saved = self.data['clips'][0] if mode == 'clip' else self.data['files'][-1 if mode == 'create' else 0]
             self.assertAlmostEqual(saved['end']-saved['start'], 2)
             d.hide()

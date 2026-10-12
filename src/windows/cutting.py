@@ -660,7 +660,7 @@ class Cutting(SourceRangeMixin, QDialog):
         self._reset_source_range()
 
     def accept_source_changes(self):
-        """Commit the focused editor, then save and close for keyboard acceptance."""
+        """Commit and save, keeping Split File open for creating more ranges."""
         from windows.source_range import SourceTimecodeEdit
         focused = self.focusWidget()
         if isinstance(focused, SourceTimecodeEdit) and not focused.commit():
@@ -670,7 +670,7 @@ class Cutting(SourceRangeMixin, QDialog):
             return
         if self.range_mode != 'create' and not self.range_dirty:
             self.reject()
-        elif self._save_source_range():
+        elif self._save_source_range() and self.range_mode in ('clip', 'file'):
             self.reject()
 
     def btnAddClip_clicked(self):

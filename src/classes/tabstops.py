@@ -485,6 +485,16 @@ def apply_auto_tab_order(root, include_hidden=False, include_disabled=False, row
         except (AttributeError, RuntimeError):
             pass  # Widget may not support dynamic attributes or may be deleted
 
+    # Keep the main toolbar's startup focus immediately before New Project,
+    # including after dock/layout changes rebuild the keyboard order.
+    toolbar = getattr(root, "toolBar", None)
+    action = getattr(root, "actionNew", None)
+    if toolbar is not None and action is not None:
+        button = toolbar.widgetForAction(action)
+        if button in ordered_widgets:
+            toolbar.setFocusPolicy(Qt.ClickFocus)
+            ordered_widgets.insert(ordered_widgets.index(button), toolbar)
+
     for first, second in zip(ordered_widgets, ordered_widgets[1:]):
         safe_set_tab_order(first, second)
 

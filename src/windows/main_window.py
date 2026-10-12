@@ -989,6 +989,10 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
                 self._raise_project_files_dock_if_open()
                 self.files_model.process_urls(qurl_list)
                 self.refreshFilesSignal.emit()
+                # Selection alone does not move keyboard focus out of the
+                # widget which opened the import dialog.
+                if self.filesView.isVisible():
+                    self.filesView.setFocus(Qt.OtherFocusReason)
             finally:
                 app.restoreOverrideCursor()
 
@@ -5903,7 +5907,11 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         if getattr(self, "toolBar", None):
             button = self.toolBar.widgetForAction(getattr(self, "actionNew", None))
         if button:
-            button.setFocus(Qt.TabFocusReason)
+            # Park startup focus before New Project without highlighting a button.
+            # ClickFocus allows ordering it without adding a normal Tab stop.
+            self.toolBar.setFocusPolicy(Qt.ClickFocus)
+            QWidget.setTabOrder(self.toolBar, button)
+            self.toolBar.setFocus(Qt.OtherFocusReason)
 
     def _install_focus_debugger(self):
         if not os.environ.get("OPENSHOT_DEBUG_FOCUS"):
