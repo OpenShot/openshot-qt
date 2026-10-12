@@ -3890,8 +3890,9 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         nudge_duration = float(action) / fps_float  # Nudge duration in seconds
         log.debug(f"Nudging by {nudge_duration} seconds")
 
-        selected = [obj for ids, model in ((clip_ids, Clip), (tran_ids, Transition))
-                    for item_id in ids if (obj := model.get(id=item_id))]
+        items = (model.get(id=item_id) for ids, model in ((clip_ids, Clip), (tran_ids, Transition))
+                 for item_id in ids)
+        selected = [obj for obj in items if obj]
         if not selected:
             return
         nudge_duration = max(nudge_duration, -min(obj.data['position'] for obj in selected))

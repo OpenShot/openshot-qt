@@ -91,7 +91,8 @@ class AssetKeyboardMixin:
             return
         timeline = self.timeline
         if kind == 'effects':
-            clips = [clip for identity in self.selected_clips if (clip := Clip.get(id=identity))]
+            selected = (Clip.get(id=identity) for identity in self.selected_clips)
+            clips = [clip for clip in selected if clip]
             if not clips:
                 self._asset_message(view, get_app()._tr('Select a timeline clip before applying an effect.'))
                 return

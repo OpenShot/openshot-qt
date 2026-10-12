@@ -165,8 +165,9 @@ class KeyboardMixin:
             self.win.SeekSignal.emit(int(target), True)
 
     def _keyboard_selected_items(self):
-        return ([c for i in self.win.selected_clips if (c := Clip.get(id=i))] +
-                [t for i in self.win.selected_transitions if (t := Transition.get(id=i))])
+        clips = (Clip.get(id=i) for i in self.win.selected_clips)
+        transitions = (Transition.get(id=i) for i in self.win.selected_transitions)
+        return [clip for clip in clips if clip] + [trans for trans in transitions if trans]
 
     def keyboard_move_track(self, direction):
         self.geometry.ensure()
