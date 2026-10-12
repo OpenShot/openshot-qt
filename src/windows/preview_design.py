@@ -195,13 +195,21 @@ def build_preview_design(dialog):
     d.btnAddClip.setIcon(preview_icon('tool-preview-apply'))
     d.btnAddClip.setIconSize(QSize(24, 24))
     d.btnAddClip.setMinimumWidth(155)
+    action_colors = dict(colors)
+    manager = getattr(get_app(), 'theme_manager', None)
+    theme = manager.get_current_theme() if manager else None
+    if getattr(theme, 'name', '') in ('Retro', 'Humanity: Dark'):
+        # These themes can have a neutral system highlight color. Give the
+        # primary range action the same explicit blue treatment as Cosmic Dusk.
+        action_colors.update(accent='#007bff', accent_hover='#1892ff',
+                             on_accent='#ffffff', grip='#e2f4ff')
     d.btnAddClip.setStyleSheet(
         'QPushButton { background: %(accent)s; color: %(on_accent)s;'
         ' border: 1px solid %(accent)s; border-radius: 7px; padding: 10px 20px; }'
         'QPushButton:hover { background: %(accent_hover)s; }'
         'QPushButton:disabled { background: %(panel)s; color: %(muted)s; border-color: %(border)s; }'
-        'QPushButton:focus { border: 2px solid %(grip)s; }' % colors)
-    d.btnAddClip.setIcon(preview_icon('tool-preview-apply', colors['on_accent']))
+        'QPushButton:focus { border: 2px solid %(grip)s; }' % action_colors)
+    d.btnAddClip.setIcon(preview_icon('tool-preview-apply', action_colors['on_accent']))
     d.btnAddClip.setAutoDefault(False)
     d.btnClear.setAutoDefault(False)
     action_height = max(d.btnClear.sizeHint().height(), d.btnAddClip.sizeHint().height())

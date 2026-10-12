@@ -4200,11 +4200,25 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             playhead_position = float(round((playhead_position * fps_num) / fps_den) * fps_den) / fps_num
             if action == MenuSlice.KEEP_LEFT: playhead_position += fps_den / fps_num
 
+            # Context menus can pass selected items outside the cut. Snapshot
+            # eligible items before ripple moves later items into the cut position.
+            def crosses_cut(item):
+                if item is None:
+                    return False
+                position = float(item.data["position"])
+                duration = float(item.data["end"]) - float(item.data["start"])
+                return position < playhead_position < position + duration
+
+            clips = [Clip.get(id=item_id) for item_id in clip_ids]
+            transitions = [Transition.get(id=item_id) for item_id in trans_ids]
+            clips = [item for item in clips if crosses_cut(item)]
+            transitions = [item for item in transitions if crosses_cut(item)]
+
             # Loop through each clip (using the list of ids)
-            for clip_id in clip_ids:
+            for clip in clips:
 
                 # Get existing clip object
-                clip = Clip.get(id=clip_id)
+                clip_id = clip.id
                 if not clip or clip.data.get("layer") in locked_layers:
                     continue
 
@@ -4278,8 +4292,8 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             self.redraw_audio_timer.start()
 
             # Handle transitions (similar to clips)
-            for trans_id in trans_ids:
-                trans = Transition.get(id=trans_id)
+            for trans in transitions:
+                trans_id = trans.id
                 if not trans or trans.data.get("layer") in locked_layers:
                     continue
 

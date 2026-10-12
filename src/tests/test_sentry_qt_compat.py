@@ -77,6 +77,32 @@ class SentryQtCompatibilityTests(unittest.TestCase):
         self.assertTrue(tabstops._is_focusable(widget, root, True, True))
         self.delete_widget(root)
 
+    def test_toolbar_action_keeps_tab_position_when_enabled_after_layout(self):
+        from qt_api import QMainWindow, QToolBar
+        root = QMainWindow()
+        toolbar = QToolBar(root)
+        root.addToolBar(toolbar)
+        actions = [toolbar.addAction(name) for name in ('New', 'Open', 'Save', 'Undo')]
+        buttons = [toolbar.widgetForAction(action) for action in actions]
+        root.show()
+        root.activateWindow()
+        self.app.processEvents()
+        tabstops.apply_auto_tab_order(root)
+        actions[2].setEnabled(False)
+        tabstops.apply_auto_tab_order(root)
+        buttons[1].setFocus()
+        root.focusNextChild()
+        self.assertIs(self.app.focusWidget(), buttons[3])
+        actions[2].setEnabled(True)
+        buttons[1].setFocus()
+        root.focusNextChild()
+        self.assertIs(self.app.focusWidget(), buttons[2])
+        root.focusNextChild()
+        self.assertIs(self.app.focusWidget(), buttons[3])
+        root.focusPreviousChild()
+        self.assertIs(self.app.focusWidget(), buttons[2])
+        self.delete_widget(root)
+
     def test_cursor_normalizes_integer_and_floating_points(self):
         update = load_method("windows/views/timeline_backend/qwidget/base.py", "_updateCursor")
         for point in (QPoint(4, 5), QPointF(4.25, 5.75)):

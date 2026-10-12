@@ -474,7 +474,9 @@ def apply_auto_tab_order(root, include_hidden=False, include_disabled=False, row
         if _is_focusable(menubar, root, include_hidden, include_disabled):
             ordered_widgets.append(menubar)
     ordered_widgets.extend(
-        [w for w in toolbar_widgets if _is_focusable(w, root, include_hidden, include_disabled)]
+        # Preserve action order when Save/Undo/etc. become enabled later.
+        # Qt automatically skips disabled buttons during keyboard traversal.
+        [w for w in toolbar_widgets if _is_focusable(w, root, include_hidden, True)]
     )
     for group in dock_groups:
         ordered_widgets.extend(group)

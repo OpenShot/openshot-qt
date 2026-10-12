@@ -49,7 +49,7 @@ def preview_colors():
     field = QColor(*[round(a*.8+b*.2) for a, b in zip(
         (base.red(), base.green(), base.blue()),
         (field_base.red(), field_base.green(), field_base.blue()))])
-    return dict(window=base.name(), window_end=base.name(),
+    colors = dict(window=base.name(), window_end=base.name(),
                 panel=base.name(), panel_end=base.name(), field=field.name(),
                 border=border.name(), text=text.name(), muted=text.name(),
                 button=palette.button().color().name(), button_end=palette.button().color().name(),
@@ -57,6 +57,10 @@ def preview_colors():
                 accent_hover=palette.highlight().color().lighter(115).name(),
                 on_accent='#ffffff' if palette.highlight().color().lightness() < 160 else '#111111',
                 grip=text.name())
+    if getattr(theme, 'name', '') == 'Retro':
+        colors.update(range_grip='#d8eaff', range_grip_detail='#007bff',
+                      range_grip_active='#007bff', range_grip_active_detail='#ffffff')
+    return colors
 
 
 def preview_toggle_icon(name, active_when_checked=True):

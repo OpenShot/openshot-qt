@@ -161,10 +161,15 @@ class SourceRuler(QSlider):
                     painter.drawText(rect, Qt.AlignCenter, text)
             painter.setRenderHint(QPainter.Antialiasing)
             for edge, grip in zip(('in', 'out'), self._grip_rects()):
+                colors = self.preview_colors
+                active = edge == self.active_edge
+                fill = colors.get('range_grip_active', colors['accent']) if active else colors.get('range_grip', colors['grip'])
+                detail = (colors.get('range_grip_active_detail', self.palette().highlightedText().color().name())
+                          if active else colors.get('range_grip_detail', colors['accent']))
                 painter.setPen(Qt.NoPen)
-                painter.setBrush(QColor(self.preview_colors['accent']) if edge == self.active_edge else QColor(self.preview_colors['grip']))
+                painter.setBrush(QColor(fill))
                 painter.drawRoundedRect(grip, 6, 6)
-                painter.setPen(QPen(self.palette().highlightedText().color() if edge == self.active_edge else QColor(self.preview_colors['accent']), 2))
+                painter.setPen(QPen(QColor(detail), 2))
                 for offset in (-2, 2):
                     gx = grip.center().x()+offset
                     painter.drawLine(QPointF(gx, grip.top()+9), QPointF(gx, grip.bottom()-9))
