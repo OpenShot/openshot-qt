@@ -8,6 +8,7 @@ import uuid
 from qt_api import Qt, QLabel, QTimer, QDialogButtonBox, QSizePolicy, QPixmap, QUrl, QT_API
 from classes.app import get_app
 from classes.query import Clip, File
+from classes.thumbnail import FindCachedThumbnail
 from windows.views.source_ruler import SourceRuler
 from windows.views.timeline_backend.qwidget.timecode import TimecodeLineEdit
 
@@ -229,7 +230,25 @@ class SourceRangeMixin:
         self._refresh_range_labels()
 
     def _refresh_range_thumbnails(self):
-        """Fetch exact source frames asynchronously through the thumbnail server."""
+        """Load cached filmstrip samples first; request only missing thumbnails."""
+        frames = list(dict.fromkeys(1 + round(i * (self.video_length - 1) / 11) for i in range(12)))
+        self.sliderVideo.filmstrip_frames = frames
+        fps_data = self.range_source_data.get('fps') or {}
+        fps = float(fps_data.get('num') or 0) / float(fps_data.get('den') or 1)
+        for frame in frames:
+            if frame in self._range_thumb_frames or frame in self._range_thumb_replies:
+                continue
+            path = FindCachedThumbnail(self.range_file_id, frame, fps)
+            if path:
+                pixmap = QPixmap(path)
+                if not pixmap.isNull():
+                    self.sliderVideo.filmstrip_images[frame] = pixmap
+                    self._range_thumb_frames[frame] = True
+        self.sliderVideo.update()
+        missing = [frame for frame in frames
+                   if frame not in self._range_thumb_frames and frame not in self._range_thumb_replies]
+        if not missing:
+            return
         server = getattr(get_app().window, 'http_server_thread', None)
         if not server:
             return
@@ -240,11 +259,7 @@ class SourceRangeMixin:
         host, port = server.server_address
         # A small, fixed sample set keeps requests bounded and survives resizing.
         # Use the same cached source thumbnails as Project Files and the timeline.
-        frames = [1 + round(i * (self.video_length - 1) / 11) for i in range(12)]
-        self.sliderVideo.filmstrip_frames = frames
-        for frame in frames:
-            if frame in self._range_thumb_frames or frame in self._range_thumb_replies:
-                continue
+        for frame in missing:
             if len(self._range_thumb_replies) >= 2:
                 break
             self._range_thumb_frames[frame] = True

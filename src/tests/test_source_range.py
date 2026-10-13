@@ -1,6 +1,7 @@
 """Source ruler interaction, explicit range commits, and preview loop bounds."""
 import copy
 import os
+import tempfile
 import types
 import unittest
 from unittest.mock import Mock, patch
@@ -611,6 +612,47 @@ class SourceRangeTests(unittest.TestCase):
         self.assertEqual(network.get.call_count, 12)
         d._stop_range_thumbnails()
         self.assertFalse(d._range_thumb_timer.isActive())
+
+    def test_reopened_filmstrips_load_shared_disk_cache_without_network(self):
+        from qt_api import QPixmap
+        from classes import thumbnail
+        frames = [1 + round(i * 299 / 11) for i in range(12)]
+        self.data['files'][0]['fps'] = {'num': 30, 'den': 1}
+        with tempfile.TemporaryDirectory() as root, patch.object(thumbnail.info, 'THUMBNAIL_PATH', root):
+            os.makedirs(os.path.join(root, 'source'))
+            image = QPixmap(96, 54)
+            image.fill(Qt.red)
+            for frame in frames:
+                # Timeline prewarming uses coarse source-frame samples.
+                cached_frame = thumbnail.RoundFrameToThumbnailGrid(frame, 30)
+                self.assertTrue(image.save(thumbnail.ThumbnailPathForFrame('source', cached_frame)))
+            for _ in range(3):
+                d = self.dialog()
+                d._refresh_range_thumbnails()
+                self.assertEqual(set(d.sliderVideo.filmstrip_images), set(frames))
+                self.assertIsNone(d._range_thumb_network)
+                self.assertFalse(d._range_thumb_replies)
+                d._stop_range_thumbnails()
+
+    def test_filmstrip_loads_later_cached_samples_while_first_requests_are_pending(self):
+        from qt_api import QPixmap
+        from classes import thumbnail
+        with tempfile.TemporaryDirectory() as root, patch.object(thumbnail.info, 'THUMBNAIL_PATH', root):
+            os.makedirs(os.path.join(root, 'source'))
+            image = QPixmap(96, 54)
+            image.fill(Qt.red)
+            path = thumbnail.ThumbnailPathForFrame('source', 300)
+            self.assertTrue(image.save(path))
+            d = self.dialog()
+            self.window.http_server_thread = types.SimpleNamespace(server_address=('127.0.0.1', 1234))
+            d._range_thumb_network = Mock()
+            d._range_thumb_module = types.SimpleNamespace(QNetworkRequest=lambda url: url)
+            d._refresh_range_thumbnails()
+            self.assertIn(300, d.sliderVideo.filmstrip_images)
+            self.assertEqual(d._range_thumb_network.get.call_count, 2)
+            d._stop_range_thumbnails()
+            os.utime(path, (1, 1))
+            self.assertEqual(thumbnail.FindCachedThumbnail('source', 300), '')
 
     def test_start_end_badges_remain_separate_targets_for_one_frame_range(self):
         d = self.dialog()

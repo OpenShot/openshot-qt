@@ -37,6 +37,11 @@ def build_preview_design(dialog):
             border: 1px solid %(border)s; border-radius: 8px;
         }
         QFrame#timeField { background: transparent; border: none; }
+        QFrame#rangeTimeField {
+            background: %(field)s; border: 1px solid %(border)s; border-radius: 7px;
+        }
+        QFrame#rangeTimeField QLineEdit { background: transparent; }
+        QFrame#rangeTimeField QLineEdit:!focus { border: 1px solid transparent; }
         QDialog#sourcePreviewDialog QPushButton { padding: 10px 20px; }
         QSlider#previewVolume::groove:horizontal { height: 6px; border-radius: 3px; background: %(border)s; }
         QSlider#previewVolume::sub-page:horizontal { background: %(accent)s; border-radius: 3px; }
@@ -122,7 +127,7 @@ def build_preview_design(dialog):
         label.show()
         label.setStyleSheet('')
         column.addWidget(label)
-        field = panel(d.widgetControls, 'timeField')
+        field = panel(d.widgetControls, 'rangeTimeField')
         field_row = QHBoxLayout(field)
         field_row.setContentsMargins(6, 3, 5, 3)
         field_row.setSpacing(6)
@@ -155,7 +160,7 @@ def build_preview_design(dialog):
                                      d.sliderVideo.move_edge(edge, (d.start_frame if edge == 'in' else d.end_frame)+direction))
                 steps.addWidget(step)
             field_row.addLayout(steps)
-        field.setFixedHeight(34)
+        field.setFixedHeight(38)
         column.addWidget(field)
         groups.append(column)
     if d.range_mode in ('create', 'file'):
@@ -167,11 +172,12 @@ def build_preview_design(dialog):
         column.addWidget(d.label)
         field = panel(d.widgetControls, 'timeField')
         row = QHBoxLayout(field)
-        row.setContentsMargins(9, 3, 9, 3)
+        row.setContentsMargins(0, 0, 0, 0)
         d.txtName.setPlaceholderText(_('Optional'))
         d.txtName.setMinimumWidth(70)
+        d.txtName.setFixedHeight(38)
         row.addWidget(d.txtName)
-        field.setFixedHeight(34)
+        field.setFixedHeight(38)
         column.addWidget(field)
         groups.append(column)
     else:

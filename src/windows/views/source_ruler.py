@@ -1,12 +1,13 @@
 """Source-range slider using the timeline's ruler painter and theme."""
 
 from qt_api import (Qt, QSlider, QPainter, QColor, QPen, QPointF,
-                    QRectF, QPolygonF, QEvent, pyqtSignal, QFont, QFontMetrics)
+                    QRectF, QEvent, pyqtSignal, QFont, QFontMetrics)
 from classes.app import get_app
 from windows.views.range_interaction import range_hit_target
 from windows.preview_icons import START_COLOR, END_COLOR, preview_colors
 from windows.views.timeline_backend.theme import DEFAULT_THEME
 from windows.views.timeline_backend.paint.ruler import RulerPainter
+from windows.views.timeline_backend.paint.playhead import PlayheadPainter
 
 
 class SourceRuler(QSlider):
@@ -65,6 +66,7 @@ class SourceRuler(QSlider):
         self.setFixedHeight(self.ruler_height + self.filmstrip_height + 4)
         self.preview_colors = preview_colors()
         self.painter = RulerPainter(self)
+        self.playhead_painter = PlayheadPainter(self)
         if self.reference_design:
             self.painter.bg = QColor(self.preview_colors['field'])
             self.painter.bg2 = self.painter.bg
@@ -174,13 +176,8 @@ class SourceRuler(QSlider):
                     gx = grip.center().x()+offset
                     painter.drawLine(QPointF(gx, grip.top()+9), QPointF(gx, grip.bottom()-9))
         x = self._x(self.value()-1)
-        color = QColor(self.preview_colors['accent']) if self.reference_design else self.theme.playhead_color
-        if not color.isValid():
-            color = QColor(self.preview_colors['text'])
-        painter.setPen(QPen(color, 1))
-        painter.drawLine(QPointF(x, self.ruler_height-10), QPointF(x, self.height()))
-        painter.setBrush(color)
-        painter.drawPolygon(QPolygonF([QPointF(x-7, self.ruler_height-15), QPointF(x+7, self.ruler_height-15), QPointF(x, self.ruler_height-3)]))
+        self.playhead_painter.paint_at(
+            painter, x, 0, self.width(), self.height(), self.ruler_height)
 
     def _visible_filmstrip_frames(self, width):
         # Reuse the bounded source samples, displaying fewer at narrow widths
