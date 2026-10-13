@@ -1777,8 +1777,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             # Get and Save the frame
             # (return is void, so we cannot check for success/fail here
             # - must use file modification timestamp)
+            # Use default lossless PNG compression (-1); quality=100 disables PNG compression.
             openshot.Timeline.GetFrame(
-                self.timeline_sync.timeline, self.preview_thread.current_frame).Save(framePath, 1.0)
+                self.timeline_sync.timeline, self.preview_thread.current_frame).Save(framePath, 1.0, "PNG", -1)
 
             # Show message to user
             if os.path.exists(framePath) and (QFileInfo(framePath).lastModified() > framePathTime):
