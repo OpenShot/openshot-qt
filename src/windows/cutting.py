@@ -30,8 +30,7 @@ import json
 
 from qt_api import pyqtSignal, QTimer, QSize
 from qt_api import Qt, QEvent
-from qt_api import QIcon
-from qt_api import QDialog, QMessageBox, QSizePolicy, QSlider, QToolButton, QLineEdit
+from qt_api import QDialog, QSizePolicy, QSlider, QToolButton, QLineEdit
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
 from classes import info, ui_util, time_parts
@@ -43,6 +42,7 @@ from classes.proxy_service import dialog_preview_reader_data
 from windows.preview_thread import PreviewParent
 from windows.video_widget import VideoWidget
 from windows.source_range import SourceRangeMixin
+from windows.views.source_ruler import SourceRuler
 
 
 class Cutting(SourceRangeMixin, QDialog):
@@ -226,9 +226,20 @@ class Cutting(SourceRangeMixin, QDialog):
 
     def _source_control_icon(self, control):
         """Use the same transport artwork as the main preview."""
-        from windows.preview_icons import preview_icon, preview_colors
-        colors = preview_colors()
-        return preview_icon('tool-media-%s' % control, colors['on_accent'] if control in ('play', 'pause') else colors['text'])
+        from qt_api import QIcon
+        app = get_app()
+        manager = getattr(app, 'theme_manager', None)
+        theme = manager.get_current_theme() if manager else None
+        if getattr(theme, 'name', '') == 'Cosmic Dusk':
+            toolbar = getattr(app.window, 'videoToolbar', None)
+            size = toolbar.iconSize() if toolbar else QSize(32, 32)
+            path = os.path.join(info.PATH, 'themes', 'cosmic', 'images',
+                                'tool-media-%s.svg' % control)
+            return theme.create_svg_icon(path, size)
+        icon_name = {'play': 'media-playback-start', 'pause': 'media-playback-pause',
+                     'skip-back': 'media-skip-backward',
+                     'skip-forward': 'media-skip-forward'}[control]
+        return ui_util.get_icon(icon_name) or QIcon()
 
     def _on_repeat_toggled(self, checked):
         self.loop_playback = bool(checked)
@@ -457,7 +468,9 @@ class Cutting(SourceRangeMixin, QDialog):
             QTimer.singleShot(0, lambda: self.btnPlay_clicked(force="play"))
 
     def eventFilter(self, obj, event):
-        if event.type() == QEvent.MouseButtonPress and type(obj) is QSlider:
+        if (event.type() == QEvent.MouseButtonPress
+                and isinstance(obj, QSlider) and not isinstance(obj, SourceRuler)):
+            # SourceRuler handles its own scrubbing and range dragging.
             # Handle QSlider click, jump to cursor position
             if event.button() == Qt.LeftButton:
                 min_val = obj.minimum()

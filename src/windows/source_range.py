@@ -113,6 +113,7 @@ class SourceRangeMixin:
             (self.startFields if edge == 'in' else self.endFields).insertWidget(0, edit)
         old_duration = self.range_duration
         self.range_duration = SourceTimecodeEdit(self)
+        self.range_duration.setFrame(True)
         self.range_duration.setObjectName('sourceRangeDuration')
         self.range_duration.set_context(self.fps_num, self.fps_den, 1)
         self.range_duration.setAccessibleName(_('Duration'))
@@ -315,7 +316,6 @@ class SourceRangeMixin:
         else:
             self.lblInstructions.setText(_('Source: %s') % name)
             detail = _('Mark a range to create a new Project Files entry. The source file is unchanged.')
-        dirty = _('Range changes not applied. ') if self.range_dirty else ''
         self.range_status.setText(error)
         self.range_status.setVisible(bool(self.range_status.text()))
         self.btnAddClip.setToolTip(detail)

@@ -260,7 +260,8 @@ QToolBar#toolBar QToolButton:hover {
     background-color: #323C50;
 }
 
-QToolBar QToolButton:hover {
+QToolBar QToolButton:hover,
+QDialog#sourcePreviewDialog QToolButton:hover {
     background-color: #192332;
 }
 
@@ -367,32 +368,38 @@ QToolBar#toolBar QToolButton:hover {
     background-color: #323C50;
 }
 
-QToolBar#videoToolbar QToolButton {
+QToolBar#videoToolbar QToolButton,
+QDialog#sourcePreviewDialog QToolButton {
     border: 1px solid transparent;
 }
 
-QToolBar#videoToolbar QToolButton:focus {
+QToolBar#videoToolbar QToolButton:focus,
+QDialog#sourcePreviewDialog QToolButton:focus {
     border: 1px solid #5aa2e6;
     background-color: #1d2737;
 }
 
-QToolBar#videoToolbar QToolButton:pressed {
+QToolBar#videoToolbar QToolButton:pressed,
+QDialog#sourcePreviewDialog QToolButton:pressed {
     background-color: #2a374a;
 }
 
-QPushButton#acceptButton {
+QPushButton#acceptButton,
+QDialog#sourcePreviewDialog QPushButton[dialogRole="primary"]:enabled {
     padding: 8px 16px 8px 12px;
     border-radius: 4px;
     background-color: #0078FF;
     color: #FFFFFF;
 }
 
-QPushButton#acceptButton:hover {
+QPushButton#acceptButton:hover,
+QDialog#sourcePreviewDialog QPushButton[dialogRole="primary"]:enabled:hover {
     background-color: #006EE6;
 }
 
 QPushButton#acceptButton:focus,
-QPushButton#acceptButton:default {
+QPushButton#acceptButton:default,
+QDialog#sourcePreviewDialog QPushButton[dialogRole="primary"]:enabled:focus {
     background-color: #1a86ff;
 }
 
@@ -884,7 +891,8 @@ QWidget#cutting QPushButton#btnAddClip {
     color: #FFFFFF;
 }
 
-QWidget#cutting QPushButton#btnAddClip:disabled {
+QWidget#cutting QPushButton#btnAddClip:disabled,
+QDialog#sourcePreviewDialog QPushButton[dialogRole="primary"]:disabled {
     background-color: #283241;
     color: #666666;
 }

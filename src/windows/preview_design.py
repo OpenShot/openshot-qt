@@ -1,5 +1,5 @@
 """Shared presentation for source preview, clip preview, and split-file editing."""
-from qt_api import (Qt, QFrame, QVBoxLayout, QHBoxLayout, QLabel, QToolButton,
+from qt_api import (Qt, QFrame, QVBoxLayout, QHBoxLayout, QToolButton,
                     QSize, QSizePolicy, QDialogButtonBox, QIcon,
                     QGridLayout, QWidget, QObject, QEvent, QTimer, QSlider, QApplication)
 from classes.app import get_app
@@ -36,19 +36,8 @@ def build_preview_design(dialog):
             background: qlineargradient(x1:0,y1:0,x2:1,y2:1,stop:0 %(panel)s,stop:1 %(panel_end)s);
             border: 1px solid %(border)s; border-radius: 8px;
         }
-        QFrame#timeField { background: %(field)s; border: 1px solid %(border)s; border-radius: 7px; }
-        QDialog#sourcePreviewDialog QLineEdit { background: transparent; color: %(text)s; border: none; padding: 0; }
-        QDialog#sourcePreviewDialog QLineEdit:focus { border-bottom: 1px solid %(accent)s; }
-        QDialog#sourcePreviewDialog QPushButton {
-            color: %(text)s; background: qlineargradient(x1:0,y1:0,x2:1,y2:1,stop:0 %(button)s,stop:1 %(button_end)s);
-            border: 1px solid %(border)s; border-radius: 7px; padding: 9px 17px;
-        }
-        QDialog#sourcePreviewDialog QPushButton:hover { background: %(hover)s; }
-        QDialog#sourcePreviewDialog QPushButton:focus { border: 1px solid %(accent)s; }
-        QDialog#sourcePreviewDialog QPushButton:disabled { color: %(muted)s; background: %(panel)s; }
-        QDialog#sourcePreviewDialog QToolButton { background: transparent; border: none; padding: 0; color: %(text)s; }
-        QDialog#sourcePreviewDialog QToolButton:hover { background: %(hover)s; border-radius: 5px; }
-        QDialog#sourcePreviewDialog QToolButton:focus { border: 1px solid %(accent)s; border-radius: 5px; }
+        QFrame#timeField { background: transparent; border: none; }
+        QDialog#sourcePreviewDialog QPushButton { padding: 10px 20px; }
         QSlider#previewVolume::groove:horizontal { height: 6px; border-radius: 3px; background: %(border)s; }
         QSlider#previewVolume::sub-page:horizontal { background: %(accent)s; border-radius: 3px; }
         QSlider#previewVolume::handle:horizontal { width: 16px; margin: -5px 0; border-radius: 8px; background: %(grip)s; border: none; }
@@ -140,7 +129,7 @@ def build_preview_design(dialog):
         if button is None:
             field_row.addWidget(d.range_duration)
             field_row.addStretch()
-            d.range_duration.setStyleSheet('padding: 0;')
+            d.range_duration.setFixedWidth(d.range_duration.fontMetrics().horizontalAdvance('00:00:00.00') + 24)
         else:
             button.setText('')
             button.setToolButtonStyle(Qt.ToolButtonIconOnly)
@@ -149,8 +138,7 @@ def build_preview_design(dialog):
             button.setFixedSize(23, 25)
             field_row.addWidget(button)
             edit = d.range_edits[edge]
-            edit.setStyleSheet('padding: 0; border: none;')
-            edit.setFixedWidth(edit.fontMetrics().horizontalAdvance('00:00:00.00')+8)
+            edit.setFixedWidth(edit.fontMetrics().horizontalAdvance('00:00:00.00')+24)
             field_row.addWidget(edit)
             field_row.addStretch()
             steps = QVBoxLayout()
@@ -195,21 +183,10 @@ def build_preview_design(dialog):
     d.btnAddClip.setIcon(preview_icon('tool-preview-apply'))
     d.btnAddClip.setIconSize(QSize(24, 24))
     d.btnAddClip.setMinimumWidth(155)
-    action_colors = dict(colors)
-    manager = getattr(get_app(), 'theme_manager', None)
-    theme = manager.get_current_theme() if manager else None
-    if getattr(theme, 'name', '') in ('Retro', 'Humanity: Dark'):
-        # These themes can have a neutral system highlight color. Give the
-        # primary range action the same explicit blue treatment as Cosmic Dusk.
-        action_colors.update(accent='#007bff', accent_hover='#1892ff',
-                             on_accent='#ffffff', grip='#e2f4ff')
-    d.btnAddClip.setStyleSheet(
-        'QPushButton { background: %(accent)s; color: %(on_accent)s;'
-        ' border: 1px solid %(accent)s; border-radius: 7px; padding: 10px 20px; }'
-        'QPushButton:hover { background: %(accent_hover)s; }'
-        'QPushButton:disabled { background: %(panel)s; color: %(muted)s; border-color: %(border)s; }'
-        'QPushButton:focus { border: 2px solid %(grip)s; }' % action_colors)
-    d.btnAddClip.setIcon(preview_icon('tool-preview-apply', action_colors['on_accent']))
+    d.btnAddClip.setProperty('dialogRole', 'primary')
+    d.btnAddClip.style().unpolish(d.btnAddClip)
+    d.btnAddClip.style().polish(d.btnAddClip)
+    d.btnAddClip.setIcon(preview_icon('tool-preview-apply', '#ffffff'))
     d.btnAddClip.setAutoDefault(False)
     d.btnClear.setAutoDefault(False)
     action_height = max(d.btnClear.sizeHint().height(), d.btnAddClip.sizeHint().height())
@@ -312,20 +289,19 @@ def fit_source_window(dialog):
 
 
 def style_transport_button(button, play=False):
-    """Flat, consistent transport targets using the active theme's colors."""
+    """Keep generous transport targets while the theme draws their states."""
     button.setAutoRaise(True)
     button.setToolButtonStyle(Qt.ToolButtonIconOnly)
     button.setIconSize(QSize(28, 28) if play else QSize(24, 24))
-    button.setFixedSize(46, 46) if play else button.setFixedSize(38, 38)
+    size = 46 if play else 38
+    button.setFixedSize(size, size)
+    button.setStyleSheet('')
     if play:
-        colors = preview_colors()
-        button.setStyleSheet(
-            'QToolButton { background: %(accent)s; border: none; border-radius: 23px; }'
-            'QToolButton:hover { background: %(accent_hover)s; }'
-            'QToolButton:focus { border: 2px solid %(grip)s; }' % colors)
-        return
-    button.setStyleSheet(
-        'QToolButton { background: transparent; border: 1px solid transparent;'
-        ' border-radius: 5px; padding: 0; }'
-        'QToolButton:hover { background: palette(alternate-base); }'
-        'QToolButton:focus { border: 1px solid palette(highlight); }')
+        window = getattr(get_app(), 'window', None)
+        toolbar = getattr(window, 'videoToolbar', None)
+        action = getattr(window, 'actionPlay', None)
+        main_button = toolbar.widgetForAction(action) if toolbar and action else None
+        if main_button is not None:
+            button.setIconSize(main_button.iconSize())
+            button.setToolButtonStyle(main_button.toolButtonStyle())
+            button.setAutoRaise(main_button.autoRaise())

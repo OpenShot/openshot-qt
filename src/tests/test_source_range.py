@@ -5,12 +5,11 @@ import types
 import unittest
 from unittest.mock import Mock, patch
 
-from qt_api import QDialog, Qt, QKeyEvent, QEvent, QApplication, QPoint
+from qt_api import QDialog, Qt, QEvent, QApplication, QPoint
 from classes import info, ui_util
 from classes.query import File, Clip
 from classes.updates import UpdateManager
 from windows.source_range import SourceRangeMixin
-from windows.views.source_ruler import SourceRuler
 from windows.preview_thread import PreviewParent
 from tests.qt_test_app import get_or_create_app
 from tests.test_main_window import DummyApp, ensure_app_state
@@ -46,12 +45,12 @@ class SourceRangeTests(unittest.TestCase):
         self.window = types.SimpleNamespace(timeline=types.SimpleNamespace(_is_track_locked=Mock(return_value=False)),
                                             IgnoreUpdates=Mock(), verifySelections=Mock(), removeSelection=Mock(), show_property_timer=Mock(), selection_timer=Mock())
         self.app = types.SimpleNamespace(_tr=lambda text: text, updates=self.updates, window=self.window, processEvents=Mock())
-        def lookup(model, id):
-            row = next((row for row in self.data[model.object_name] if row['id'] == id), None)
+        def lookup(model, item_id):
+            row = next((row for row in self.data[model.object_name] if row['id'] == item_id), None)
             if row is None:
                 return None
             obj = model()
-            obj.id, obj.key, obj.type = id, [model.object_name, {'id': id}], 'update'
+            obj.id, obj.key, obj.type = item_id, [model.object_name, {'id': item_id}], 'update'
             obj.data = copy.deepcopy(row)
             return obj
         self.lookup = lookup
@@ -176,7 +175,7 @@ class SourceRangeTests(unittest.TestCase):
 
     def test_scrubbing_preserves_range_and_reset_clears_pending_changes(self):
         import importlib
-        from qt_api import QT_API, QMouseEvent, QPointF
+        from qt_api import QT_API
         binding = {'pyqt5': 'PyQt5', 'pyqt6': 'PyQt6', 'pyside6': 'PySide6'}[QT_API]
         QTest = importlib.import_module(binding + '.QtTest').QTest
         d = self.dialog()
@@ -317,7 +316,7 @@ class SourceRangeTests(unittest.TestCase):
 
     def test_preview_keyboard_moves_trims_scrubs_and_leaves_name_typing_alone(self):
         import importlib
-        from qt_api import QT_API, QKeySequence
+        from qt_api import QT_API
         from windows.preview_keyboard import PreviewKeyboard
         binding = {'pyqt5': 'PyQt5', 'pyqt6': 'PyQt6', 'pyside6': 'PySide6'}[QT_API]
         QTest = importlib.import_module(binding + '.QtTest').QTest
@@ -325,7 +324,7 @@ class SourceRangeTests(unittest.TestCase):
         d.preview_thread = types.SimpleNamespace(player=types.SimpleNamespace(Speed=lambda: 1))
         d.SpeedSignal = Mock()
         with patch('windows.preview_keyboard.get_app', return_value=self.app):
-            keys = PreviewKeyboard(d)
+            d.preview_keyboard = PreviewKeyboard(d)
         d.show()
         d.activateWindow()
         d.sliderVideo.setFocus()
@@ -507,7 +506,7 @@ class SourceRangeTests(unittest.TestCase):
             d.accept_source_changes = types.MethodType(Cutting.accept_source_changes, d)
             d.reject = Mock()
             with patch('windows.preview_keyboard.get_app', return_value=self.app):
-                keys = PreviewKeyboard(d)
+                d.preview_keyboard = PreviewKeyboard(d)
             d.show()
             d.activateWindow()
             d.range_duration.setFocus()

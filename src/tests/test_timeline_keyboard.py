@@ -534,7 +534,7 @@ class KeyboardMigrationTests(unittest.TestCase):
 class KeyboardFocusTests(unittest.TestCase):
     def test_timeline_shortcuts_do_not_capture_text_editing_or_tab(self):
         import importlib
-        from qt_api import QApplication, QMainWindow, QWidget, QLineEdit, QVBoxLayout, Qt, QKeySequence, QT_API
+        from qt_api import QMainWindow, QWidget, QLineEdit, QVBoxLayout, Qt, QKeySequence, QT_API
         from tests.qt_test_app import get_or_create_app
         from tests.test_main_window import DummyApp, ensure_app_state
         binding = {'pyqt5': 'PyQt5', 'pyqt6': 'PyQt6', 'pyside6': 'PySide6'}[QT_API]
@@ -699,25 +699,28 @@ class HeldNudgeTests(unittest.TestCase):
         transition.data = dict(id='t', layer=2, position=2, start=0, end=1, duration=1)
         self.items.append(transition)
 
-        class TestCanvas(Canvas, QWidget):
-            def __init__(canvas):
-                QWidget.__init__(canvas)
-                Canvas.__init__(canvas, self.items)
-                canvas.setFocusPolicy(Qt.StrongFocus)
-                canvas.enable_timing = False
-                canvas._pending_clip_overrides = {}
-                canvas._pending_transition_overrides = {}
-                canvas.win.selected_clips = ['a', 'b']
-                canvas.win.selected_transitions = ['t']
+        items = self.items
+        update_manager = self.updates
 
-            def commit(canvas, data, **kwargs):
-                canvas.writes.append((dict(data), kwargs))
+        class TestCanvas(Canvas, QWidget):
+            def __init__(self):
+                QWidget.__init__(self)
+                Canvas.__init__(self, items)
+                self.setFocusPolicy(Qt.StrongFocus)
+                self.enable_timing = False
+                self._pending_clip_overrides = {}
+                self._pending_transition_overrides = {}
+                self.win.selected_clips = ['a', 'b']
+                self.win.selected_transitions = ['t']
+
+            def commit(self, data, **kwargs):
+                self.writes.append((dict(data), kwargs))
                 kind = 'transitions' if data['id'] == 't' else 'clips'
-                self.updates.transaction_id = kwargs['transaction_id']
+                update_manager.transaction_id = kwargs['transaction_id']
                 try:
-                    self.updates.update([kind, {'id': data['id']}], dict(data))
+                    update_manager.update([kind, {'id': data['id']}], dict(data))
                 finally:
-                    self.updates.transaction_id = None
+                    update_manager.transaction_id = None
 
         def apply(action):
             item = next(item for item in self.items if item.id == action.key[1]['id'])
@@ -725,8 +728,9 @@ class HeldNudgeTests(unittest.TestCase):
             item.data.update(action.values)
         self.updates.add_listener(SimpleNamespace(changed=apply))
         for model in (Clip, Transition):
-            def lookup(id, model=model):
-                item = next((item for item in self.items if isinstance(item, model) and item.id == id), None)
+            def lookup(model=model, **kwargs):
+                item_id = kwargs['id']
+                item = next((item for item in self.items if isinstance(item, model) and item.id == item_id), None)
                 return copy.deepcopy(item)
             patcher = patch.object(model, 'get', side_effect=lookup)
             patcher.start()
