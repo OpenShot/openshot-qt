@@ -1261,8 +1261,7 @@ class KeyframeMixin:
                 return False
             if index < 0 or index >= len(parent):
                 return False
-            parent.pop(index)
-            return True
+            return self._remove_keyframes_by_paths(data, [path_tuple])
         if kind == "dict":
             if not isinstance(parent, dict) or key not in parent:
                 return False
@@ -1301,10 +1300,17 @@ class KeyframeMixin:
                 elif kind == "dict":
                     dict_keys.append(key)
             if isinstance(parent, list) and list_indexes:
+                # A curve needs a base point so later edits can animate from it.
+                # Retain its original starting value if the whole curve is removed.
+                base_point = None
+                if parent and parent_path and parent_path[-1] == ("dict", "Points"):
+                    base_point = min(parent, key=lambda point: point["co"]["X"])
                 for index in sorted(set(list_indexes), reverse=True):
                     if 0 <= index < len(parent):
                         parent.pop(index)
                         changed = True
+                if not parent and base_point is not None:
+                    parent.append(base_point)
             if isinstance(parent, dict) and dict_keys:
                 for key in set(dict_keys):
                     if key in parent:
@@ -1333,6 +1339,8 @@ class KeyframeMixin:
                         continue
                     kept.append(point)
                 if changed and len(kept) != len(points):
+                    if not kept:
+                        kept.append(min(points, key=lambda point: point["co"]["X"]))
                     points[:] = kept
             for channel in ("red", "green", "blue"):
                 channel_obj = obj.get(channel)

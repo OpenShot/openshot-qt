@@ -103,6 +103,40 @@ class AutoKeyframeTests(unittest.TestCase):
         self.assertEqual(self.saved["rotation"]["Points"][-1]["co"], {"X": 76, "Y": 65})
         self.assertEqual(self.saved["rotation"]["Points"][1]["co"]["Y"], 20)
 
+    def test_panel_delete_all_then_properties_edit_animates(self):
+        from windows.views.timeline_backend.qwidget.keyframe import KeyframeMixin
+
+        self.action.isChecked.return_value = True
+        self.app.project.update(width=1920, height=1080)
+        for key, base in (("location_x", 0), ("rotation", 0), ("shear_x", 0), ("scale_x", 1)):
+            with self.subTest(property=key):
+                self.saved = {key: curve((1, base), (76, 2))}
+                clip = types.SimpleNamespace(id="clip", data=copy.deepcopy(self.saved))
+                helper = KeyframeMixin()
+                helper.win = types.SimpleNamespace(timeline=types.SimpleNamespace(
+                    update_clip_data=lambda data, **kwargs: self.saved.update(copy.deepcopy(data))))
+                helper._panel_selected_keyframes = {5: {key: {1, 76}}}
+                helper._panel_selected_keyframe_targets = lambda: [{
+                    "owner_type": "clip", "object_id": "clip", "clip": clip,
+                    "paths": [(("dict", key), ("dict", "Points"), ("list", i)) for i in range(2)]}]
+                helper._keyframe_delete_target_label = Mock(return_value="clip")
+                helper._clear_panel_selection = Mock()
+                helper._update_track_panel_properties = Mock()
+                helper.geometry = types.SimpleNamespace(mark_dirty=Mock())
+                helper.update = Mock()
+                self.assertTrue(helper.delete_selected_keyframes())
+                self.assertEqual(clip.data[key], curve((1, base), (76, 2)))
+                self.assertEqual(self.saved[key], curve((1, base)))
+
+                model, item = self.editor(76, key=key)
+                model.value_updated(item, value=4)
+                native = openshot.Keyframe()
+                native.SetJson(json.dumps(self.saved[key]))
+                self.assertEqual(native.GetValue(1), base)
+                self.assertEqual(native.GetValue(76), 4)
+                self.assertGreater(native.GetValue(38), base)
+                self.assertLess(native.GetValue(38), 4)
+
     def test_enabled_mode_still_creates_at_playhead(self):
         self.action.isChecked.return_value = True
         model, item = self.editor(76)
