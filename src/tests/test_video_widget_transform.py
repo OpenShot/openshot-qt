@@ -169,6 +169,22 @@ class VideoWidgetTransformTests(unittest.TestCase):
         self.assertEqual(image.pixelColor(0, 30), QColor(Qt.black))
         self.assertEqual(handler.clipBounds, QRectF(0, 0, 200, 130))
 
+    def test_pan_drag_does_not_enter_clip_transform_at_any_zoom(self):
+        from windows.video_widget import VideoWidget
+        for zoom in (0.5, 1.0, 2.0):
+            for button, preview in ((Qt.MiddleButton, False), (Qt.LeftButton, True)):
+                widget = types.SimpleNamespace(
+                    zoom=zoom, preview_pan_enabled=preview,
+                    setCursor=lambda cursor: None, _is_playing=lambda: True)
+                event = types.SimpleNamespace(
+                    accept=lambda: None, button=lambda: button, pos=lambda: QPoint(20, 20))
+                VideoWidget.mousePressEvent(widget, event)
+                self.assertTrue(widget.middle_pan_active)
+                self.assertFalse(hasattr(widget, 'transform_mode'))
+                VideoWidget.mouseReleaseEvent(widget, event)
+                self.assertFalse(widget.middle_pan_active)
+                self.assertFalse(widget.mouse_pressed)
+
     def test_live_transform_suspends_cache_until_commit_or_clear(self):
         for initially_enabled in (True, False):
             for finish, effect_type in (

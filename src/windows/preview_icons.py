@@ -63,13 +63,13 @@ def preview_colors():
     return colors
 
 
-def preview_toggle_icon(name, active_when_checked=True):
+def preview_toggle_icon(name, active_when_checked=True, checked_name=None):
     """Indicate toggle state through icon color, without button decorations."""
     colors = preview_colors()
     icon = QIcon()
     off, on = (colors['text'], colors['accent']) if active_when_checked else (colors['accent'], colors['text'])
     for state, color in ((QIcon.Off, off), (QIcon.On, on)):
-        pixmap = preview_icon(name, color).pixmap(64, 64)
+        pixmap = preview_icon(checked_name if state == QIcon.On and checked_name else name, color).pixmap(64, 64)
         for mode in (QIcon.Normal, QIcon.Active):
             icon.addPixmap(pixmap, mode, state)
     return icon

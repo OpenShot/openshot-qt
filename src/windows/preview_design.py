@@ -77,7 +77,8 @@ def build_preview_design(dialog):
     for button in (d.btnRangeStart, d.btnRangeEnd):
         style_transport_button(button)
     d.volume_button = QToolButton(d)
-    d.volume_button.setIcon(preview_toggle_icon('tool-preview-volume', active_when_checked=False))
+    d.volume_button.setIcon(preview_toggle_icon('tool-preview-volume', active_when_checked=False,
+                                                         checked_name='tool-preview-muted'))
     style_transport_button(d.volume_button)
     d.volume_button.setCheckable(True)
     d.volume_button.setToolTip(_('Mute preview audio'))

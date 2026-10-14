@@ -123,6 +123,25 @@ class SourceRangeTests(unittest.TestCase):
         self.updates.undo()
         self.assertEqual(self.data, self.saved)
 
+    def test_generated_range_title_follows_updates_and_custom_title_is_preserved(self):
+        d = self.dialog()
+        self.data['files'][0]['name'] = d._default_range_name(61, 150)
+        d._reset_source_range()
+        self.assertEqual(d.txtName.text(), '')
+        d.sliderVideo.move_edge('out', 180)
+        d._save_source_range()
+        self.assertEqual(self.data['files'][0]['name'], d._default_range_name(61, 180))
+        d._reset_source_range()
+        d.sliderVideo.move_edge('out', 210)
+        d._save_source_range()
+        self.assertEqual(self.data['files'][0]['name'], d._default_range_name(61, 210))
+        d.txtName.setText('Interview excerpt')
+        d._save_source_range()
+        d._reset_source_range()
+        d.sliderVideo.move_edge('out', 240)
+        d._save_source_range()
+        self.assertEqual(self.data['files'][0]['name'], 'Interview excerpt')
+
     def test_create_preserves_original_file_and_creates_marked_range(self):
         self.data['files'][0].update(start=0, end=10, is_split_file=False)
         self.saved = copy.deepcopy(self.data)

@@ -195,7 +195,10 @@ class SourceRangeMixin:
         self._range_baseline = self._range_signature(target)
         self.range_dirty = False
         self.txtName.blockSignals(True)
-        self.txtName.setText(data.get('name', '') if self.range_mode == 'file' else '')
+        name = data.get('name', '') if self.range_mode == 'file' else ''
+        if name == self._default_range_name(first, last):
+            name = ''
+        self.txtName.setText(name)
         self.txtName.blockSignals(False)
         self._refresh_range_labels()
         self._check_range_target()
@@ -338,6 +341,11 @@ class SourceRangeMixin:
                                     + '\n' + _('Drag handles to trim, drag the selected filmstrip to move the range, or drag outside it to draw a new range. Click to seek; drag the ruler to scrub.'))
         self.btnAddClip.setEnabled(not error and (self.range_mode == 'create' or self.range_dirty))
 
+    def _default_range_name(self, first, last):
+        base = os.path.splitext(os.path.basename(self.file_path))[0]
+        return '%s (%s to %s)' % (base, self.range_edits['in'].format_frame(first),
+                                 self.range_edits['out'].format_frame(last))
+
     def _save_source_range(self):
         if self.range_mode == 'preview':
             return
@@ -361,14 +369,9 @@ class SourceRangeMixin:
                     target = File()
                     target.data = copy.deepcopy(self.range_source_data)
                     target.data.pop('id', None)
-                    name = self.txtName.text().strip()
-                    if not name:
-                        base = os.path.splitext(os.path.basename(self.file_path))[0]
-                        name = '%s (%s to %s)' % (base, self.range_edits['in'].format_frame(self.start_frame),
-                                                 self.range_edits['out'].format_frame(self.end_frame))
-                    target.data['name'] = name
-                if self.range_mode == 'file' and ('name' in target.data or self.txtName.text().strip()):
-                    target.data['name'] = self.txtName.text().strip()
+                name = self.txtName.text().strip()
+                if self.range_mode == 'create' or 'name' in target.data or name:
+                    target.data['name'] = name or self._default_range_name(self.start_frame, self.end_frame)
                 target.data.update(start=start, end=end)
                 target.data['is_split_file'] = True
                 target.save()

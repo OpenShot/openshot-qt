@@ -140,6 +140,8 @@ class Cutting(SourceRangeMixin, QDialog):
 
         # Add Video Widget
         self.videoPreview = VideoWidget(watch_project=False)
+        self.videoPreview.preview_pan_enabled = True
+        self.videoPreview.setToolTip(_("Scroll to zoom. Drag to pan."))
         # This player shows the source, not the main timeline's transform tools.
         main = get_app().window
         main.TransformSignal.disconnect(self.videoPreview.transformTriggered)
