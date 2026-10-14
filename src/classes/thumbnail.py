@@ -295,6 +295,22 @@ def ThumbnailCacheIsStale(thumb_path):
         return True
 
 
+def FindCachedThumbnail(file_id, frame, fps=0.0):
+    """Find a current source thumbnail without requesting or decoding a frame."""
+    frames = [int(frame)]
+    rounded = RoundFrameToThumbnailGrid(frame, fps)
+    if rounded != frame:
+        frames.append(rounded)
+    for cached_frame in frames:
+        legacy_name = ("%s.png" % file_id if cached_frame == 1
+                       else "%s-%s.png" % (file_id, cached_frame))
+        for path in (ThumbnailPathForFrame(file_id, cached_frame),
+                     os.path.join(info.THUMBNAIL_PATH, legacy_name)):
+            if os.path.isfile(path) and not ThumbnailCacheIsStale(path):
+                return path
+    return ""
+
+
 class httpThumbnailServer(ThreadingMixIn, HTTPServer):
     """ This class allows to handle requests in separated threads.
         No further content needed, don't touch this. """

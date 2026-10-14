@@ -4408,6 +4408,7 @@ class TimelineHelperTests(unittest.TestCase):
         app = types.SimpleNamespace(project=types.SimpleNamespace(get=project.get))
         widget = types.SimpleNamespace(
             theme=theme, track_name_width=140, ruler_height=39,
+            hasFocus=lambda: False,
             track_margin_top=8, scroll_bar_thickness=6,
             pixels_per_second=10, current_frame=1, h_scroll_offset=0,
             width=lambda: 500, height=lambda: 100,
@@ -5141,6 +5142,46 @@ class TimelineHelperTests(unittest.TestCase):
         self.assertFalse(opened)
         self.assertEqual(helper.selected, [])
         self.assertEqual(helper.menu_calls, [])
+
+    def test_ripple_slice_only_cuts_items_crossing_playhead(self):
+        for model_name in ('Clip', 'Transition'):
+            for reverse in (False, True):
+                with self.subTest(model=model_name, reverse=reverse):
+                    helper = self.make_slice_helper()
+                    items = {
+                        name: types.SimpleNamespace(
+                            id=name, data=dict(id=name, position=position, layer=1,
+                                               start=0.0, end=5.0, duration=5.0),
+                            save=lambda: None)
+                        for name, position in (('left', 0.0), ('right', 5.0))
+                    }
+                    updated = []
+                    helper.update_clip_data = lambda data, **kwargs: updated.append(copy.deepcopy(data))
+                    helper.update_transition_data = helper.update_clip_data
+                    helper.ripple_delete_gap = lambda *args: self.timeline_module.TimelineView.ripple_delete_gap(helper, *args)
+                    app = types.SimpleNamespace(
+                        project=types.SimpleNamespace(get=lambda key: {
+                            'fps': {'num': 24, 'den': 1}, 'layers': []}[key]),
+                        updates=types.SimpleNamespace(transaction_id=None),
+                        window=types.SimpleNamespace(IgnoreUpdates=types.SimpleNamespace(emit=lambda *args: None)))
+                    ids = list(items)
+                    if reverse:
+                        ids.reverse()
+                    with ExitStack() as stack:
+                        stack.enter_context(patch.object(self.timeline_module, 'get_app', return_value=app))
+                        for name in ('Clip', 'Transition'):
+                            model = getattr(self.timeline_module, name)
+                            stack.enter_context(patch.object(model, 'get', side_effect=lambda id: items[id]))
+                            stack.enter_context(patch.object(model, 'filter', return_value=list(items.values()) if name == model_name else []))
+                        self.timeline_module.TimelineView.Slice_Triggered(
+                            helper, self.timeline_module.MenuSlice.KEEP_LEFT,
+                            ids if model_name == 'Clip' else [],
+                            ids if model_name == 'Transition' else [], 3.0, True)
+                    self.assertEqual([data['id'] for data in updated], ['left'])
+                    self.assertAlmostEqual(updated[0]['end'], 3.0 + 1/24)
+                    self.assertAlmostEqual(items['right'].data['position'], 3.0 + 1/24)
+                    self.assertEqual(items['right'].data['duration'], 5.0)
+                    self.assertEqual(items['right'].data['end'], 5.0)
 
     def test_slice_triggered_keep_both_splits_transition_and_updates_duration(self):
         helper = self.make_slice_helper()

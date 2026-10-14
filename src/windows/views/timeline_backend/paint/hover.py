@@ -75,6 +75,18 @@ class HoverFeedback:
                 return ("edge-" + edge, QRectF(rect), kind)
         return None
 
+    def keyboard_resize_target(self):
+        edge = getattr(self.w, '_keyboard_edge', None)
+        if not edge or not self.w.hasFocus():
+            return None
+        selected_ids = {str(i) for i in self.w.win.selected_clips + self.w.win.selected_transitions}
+        if edge[0] not in selected_ids:
+            return None
+        for rect, item, _selected, kind in self.w.geometry.iter_items(reverse=True):
+            if kind in ('clip', 'transition') and str(item.id) == edge[0]:
+                return ('edge-' + edge[1], QRectF(rect), kind)
+        return None
+
     def edge_stroke_color(self, rect, style):
         """Use the same pen as the item painter, including selection styling."""
         theme = getattr(self.w.theme, style)
@@ -100,7 +112,7 @@ class HoverFeedback:
         # zooming, changing themes, or removing an item under a stationary mouse.
         if self.position is not None and not self.menu_open:
             self.w._updateCursor(self.position)
-        target = self.active_resize_target() or self.target
+        target = self.active_resize_target() or self.keyboard_resize_target() or self.target
         if target is None:
             return
         kind, rect, style = target

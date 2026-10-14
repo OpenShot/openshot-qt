@@ -95,6 +95,8 @@ class PlayheadMixin:
         """Callback when position is changed"""
         if self.dragging_playhead:
             return
+        if self.current_frame != currentFrame:
+            self._keyboard_playhead_cycle = None
         self.current_frame = currentFrame
 
         # Schedule repaint

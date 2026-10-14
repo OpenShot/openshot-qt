@@ -33,6 +33,8 @@ from classes.app import get_app
 class HiddenTitleBar(QWidget):
     def __init__(self, dock_widget, title_text="", show_buttons=True):
         super().__init__()
+        self.setObjectName("dock-titlebar")
+        self.setAttribute(Qt.WA_StyledBackground, True)
         self.dock_widget = dock_widget
         self.show_buttons = show_buttons
         self._tr = None
@@ -45,6 +47,7 @@ class HiddenTitleBar(QWidget):
 
         # Add a QLabel for the title (optional, based on title_text)
         self.title_label = QLabel(title_text)
+        self.title_label.setIndent(0)
         self.title_label.setFocusPolicy(Qt.NoFocus)
         self.title_label.installEventFilter(self)
         if title_text:
@@ -68,8 +71,8 @@ class HiddenTitleBar(QWidget):
             # Add close and undock buttons
             self.close_button = QPushButton()
             self.undock_button = QPushButton()
-            self.close_button.setFocusPolicy(Qt.NoFocus)
-            self.undock_button.setFocusPolicy(Qt.NoFocus)
+            self.close_button.setFocusPolicy(Qt.StrongFocus)
+            self.undock_button.setFocusPolicy(Qt.StrongFocus)
 
             # Set object names for styling via stylesheets
             self.close_button.setObjectName("dock-close-button")

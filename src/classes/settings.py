@@ -35,6 +35,7 @@ from classes import info
 from classes.app import get_app
 from classes.logger import log
 from classes.json_data import JsonDataStore
+from classes.keyboard_shortcuts import migrate_timeline_shortcuts
 import openshot
 
 
@@ -143,7 +144,8 @@ class SettingStore(JsonDataStore):
             try:
                 user_settings = self.read_from_file(file_path)
                 # Merge sources, excluding user settings not found in default
-                self._data = self.merge_settings(default_settings, user_settings)
+                self._data = self.merge_settings(
+                    default_settings, migrate_timeline_shortcuts(default_settings, user_settings))
             except Exception as ex:
                 log.error("Error loading settings file: %s", ex)
                 if self.app:

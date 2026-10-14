@@ -61,6 +61,17 @@ class PlayheadPainter(BasePainter):
             + frame_seconds * self.w.pixels_per_second
             - offset_px
         )
+        self.paint_at(
+            painter, x, self.w.track_name_width,
+            self.w.width() - self.w.scroll_bar_thickness,
+            self.w.height() - self.w.scroll_bar_thickness,
+            self.w.ruler_height,
+            float(getattr(self.w, "track_margin_top", 0.0) or 0.0),
+        )
+
+    def paint_at(self, painter, x, left, right, viewport_bottom, ruler_height,
+                 margin_top=0.0):
+        """Draw the themed indicator within a timeline or source-preview viewport."""
         painter.setRenderHint(QPainter.Antialiasing, False)
         ix = int(round(x))
 
@@ -71,23 +82,20 @@ class PlayheadPainter(BasePainter):
             icon_bottom = icon_top + icon_h
         else:
             icon_top = self.icon_offset_y
-            icon_bottom = self.w.ruler_height
+            icon_bottom = ruler_height
 
-        margin_top = float(getattr(self.w, "track_margin_top", 0.0) or 0.0)
-        line_top = float(self.w.ruler_height + margin_top)
-        top = float(icon_bottom if self.icon_pix else self.w.ruler_height)
+        line_top = float(ruler_height + margin_top)
+        top = float(icon_bottom if self.icon_pix else ruler_height)
         if line_top > top:
             top = line_top
 
         # The playhead belongs to the viewport, including empty space below
         # short tracks. Stop above the horizontal scrollbar in every layout.
-        viewport_bottom = max(0.0, self.w.height() - self.w.scroll_bar_thickness)
+        viewport_bottom = max(0.0, viewport_bottom)
         bottom = max(top, viewport_bottom)
 
-        timeline_left = self.w.track_name_width
-        timeline_width = (
-            self.w.width() - self.w.track_name_width - self.w.scroll_bar_thickness
-        )
+        timeline_left = left
+        timeline_width = right - left
         visible = QRectF(
             timeline_left,
             top,

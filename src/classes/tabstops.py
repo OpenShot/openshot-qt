@@ -46,7 +46,9 @@ def _find_dock_tab_bars(root):
     active_tabs = {}  # dock_title -> is_active
 
     for tab_bar in root.findChildren(QTabBar):
-        if tab_bar.count() < 2:
+        if hasattr(tab_bar, '_dock_tab_stops'):
+            tab_bar.setFocusPolicy(Qt.NoFocus)
+        elif tab_bar.count() < 2:
             continue
         tabs = [tab_bar.tabText(i) for i in range(tab_bar.count())]
         # Check if this tab bar contains dock titles
@@ -118,7 +120,9 @@ def safe_set_tab_order(first, second):
     if first is None or second is None:
         return
     try:
-        if first.window() is not second.window():
+        # Some views store their main window in a `window` attribute, which
+        # shadows QWidget.window(). Call the Qt method explicitly.
+        if QWidget.window(first) is not QWidget.window(second):
             return
     except RuntimeError:
         return
@@ -319,11 +323,18 @@ def _process_dock_tab_bar(root, dock, titlebar_widgets, seen_tab_bars, excluded_
     if tab_bar is None or tab_bar in seen_tab_bars:
         return
     seen_tab_bars.add(tab_bar)
-    # Include dock tab bar in tab order so users can switch tabs with arrow keys
-    if tab_bar.focusPolicy() == Qt.NoFocus:
-        tab_bar.setFocusPolicy(Qt.StrongFocus)
-    titlebar_widgets.insert(0, tab_bar)
+    if not tab_bar.property('_openshot_tab_order_connected'):
+        tab_bar.setProperty('_openshot_tab_order_connected', True)
+        # Inactive docks have NoFocus policies. Restore the newly active dock
+        # and rebuild its tab sequence after Qt finishes switching the page.
+        tab_bar.currentChanged.connect(lambda _index: apply_auto_tab_order_later(root))
+    from classes.dock_tabs import DockTabStops
+    if not hasattr(tab_bar, '_dock_tab_stops'):
+        tab_bar._dock_tab_stops = DockTabStops(tab_bar, root)
+    tab_bar._dock_tab_stops.sync()
+    titlebar_widgets[:0] = tab_bar._dock_tab_stops.buttons
     excluded_widgets.add(tab_bar)
+    excluded_widgets.update(tab_bar._dock_tab_stops.buttons)
 
 
 def _collect_dock_content_widgets(dock, content, root, toolbar_widgets,
@@ -437,7 +448,7 @@ def _collect_dock_groups(root, include_hidden, include_disabled):
 
 def apply_auto_tab_order(root, include_hidden=False, include_disabled=False, row_tolerance=8):
     """Apply top-to-bottom, left-to-right tab order on a widget tree."""
-    if root is None:
+    if root is None or isdeleted(root):
         return
 
     _prepare_focusable_containers(root)
@@ -463,7 +474,9 @@ def apply_auto_tab_order(root, include_hidden=False, include_disabled=False, row
         if _is_focusable(menubar, root, include_hidden, include_disabled):
             ordered_widgets.append(menubar)
     ordered_widgets.extend(
-        [w for w in toolbar_widgets if _is_focusable(w, root, include_hidden, include_disabled)]
+        # Preserve action order when Save/Undo/etc. become enabled later.
+        # Qt automatically skips disabled buttons during keyboard traversal.
+        [w for w in toolbar_widgets if _is_focusable(w, root, include_hidden, True)]
     )
     for group in dock_groups:
         ordered_widgets.extend(group)
@@ -473,6 +486,16 @@ def apply_auto_tab_order(root, include_hidden=False, include_disabled=False, row
             widget._tab_order_key = (index, 0, 0, 0)
         except (AttributeError, RuntimeError):
             pass  # Widget may not support dynamic attributes or may be deleted
+
+    # Keep the main toolbar's startup focus immediately before New Project,
+    # including after dock/layout changes rebuild the keyboard order.
+    toolbar = getattr(root, "toolBar", None)
+    action = getattr(root, "actionNew", None)
+    if toolbar is not None and action is not None:
+        button = toolbar.widgetForAction(action)
+        if button in ordered_widgets:
+            toolbar.setFocusPolicy(Qt.ClickFocus)
+            ordered_widgets.insert(ordered_widgets.index(button), toolbar)
 
     for first, second in zip(ordered_widgets, ordered_widgets[1:]):
         safe_set_tab_order(first, second)
@@ -523,7 +546,7 @@ def apply_explicit_tab_order(
     for widget in widgets:
         if widget is None or widget in seen or isdeleted(widget):
             continue
-        target_root = root or widget.window()
+        target_root = root or QWidget.window(widget)
         if _is_focusable(widget, target_root, include_hidden, include_disabled):
             ordered.append(widget)
             seen.add(widget)

@@ -59,6 +59,7 @@ from qt_api import (
 
 from classes import exceptions, info, qt_types, sentry, ui_util, updates, tabstops
 from classes.app import get_app
+from classes.asset_keyboard import AssetKeyboardMixin
 from classes.feedback import record_feedback_action
 from classes.exporters.edl import export_edl
 from classes.exporters.final_cut_pro import export_xml
@@ -100,7 +101,7 @@ from windows.views.transitions_treeview import TransitionsTreeView
 from windows.views.tutorial import TutorialManager
 
 
-class MainWindow(updates.UpdateWatcher, QMainWindow):
+class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
     """ This class contains the logic for the main window widget """
 
     # Path to ui file
@@ -988,6 +989,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 self._raise_project_files_dock_if_open()
                 self.files_model.process_urls(qurl_list)
                 self.refreshFilesSignal.emit()
+                # Selection alone does not move keyboard focus out of the
+                # widget which opened the import dialog.
+                if self.filesView.isVisible():
+                    self.filesView.setFocus(Qt.OtherFocusReason)
             finally:
                 app.restoreOverrideCursor()
 
@@ -1257,17 +1262,34 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             # Pause playback
             self.PauseSignal.emit()
 
-    def actionPreview_File_trigger(self, checked=True):
-        """ Preview the selected media file """
+    def actionPreview_File_trigger(self, checked=True, clip_id=None):
+        """Preview the source selected in the focused browser or timeline."""
         log.info('actionPreview_File_trigger')
 
-        # Prefer current file, but fall back to selected real files when a generation
-        # placeholder row has focus.
-        f = self.files_model.current_file()
-        if not f:
-            selected_files = self.files_model.selected_files()
-            if selected_files:
-                f = selected_files[0]
+        focus = self.focusWidget()
+        source_position = None
+        source_clip_id = None
+        f = None
+        if clip_id is not None:
+            clip = Clip.get(id=clip_id)
+            if clip:
+                f = File.get(id=clip.data.get('file_id'))
+                source_position = float(clip.data.get('start', 0.0))
+                source_clip_id = clip.id
+        elif focus is self.filesView:
+            # A generation placeholder can be current alongside selected files.
+            f = self.files_model.current_file()
+            if not f:
+                selected_files = self.files_model.selected_files()
+                if selected_files:
+                    f = selected_files[0]
+        elif focus is self.timeline:
+            clip = self.timeline._keyboard_anchor(self.timeline._keyboard_items())
+            if isinstance(clip, Clip):
+                file_id = clip.data.get('file_id')
+                f = File.get(id=file_id) if file_id else None
+                source_position = float(clip.data.get('start', 0.0))
+                source_clip_id = clip.id
 
         # Bail out if no file selected
         if not f:
@@ -1279,15 +1301,19 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         for win in QApplication.topLevelWidgets():
             if (isinstance(win, Cutting) and win.is_preview_mode
                     and win.isVisible() and not win._shutdown_in_progress
-                    and win.file.id == f.id):
+                    and win.file.id == f.id
+                    and getattr(win, 'range_clip_id', None) == source_clip_id):
                 if win.isMinimized():
                     win.setWindowState(win.windowState() & ~Qt.WindowMinimized)
+                if source_position is not None:
+                    win.preview_source_at(source_position)
                 win.raise_()
                 win.activateWindow()
                 return
 
-        win = Cutting(f, preview=True)
-        win.setObjectName("cutting")
+        win = Cutting(f, preview=True, clip_id=source_clip_id)
+        if source_position is not None:
+            win.preview_source_at(source_position)
         win.show()
         win.raise_()
         win.activateWindow()
@@ -2162,9 +2188,17 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         fps_float = float(fps["num"]) / float(fps["den"])
 
         # Calculate position in seconds
-        position = (player.Position() - 1) / fps_float
+        frame = max(0, player.Position() - 1)
+        position = frame / fps_float
 
-        # Look for existing Marker
+        # Compare timeline frames rather than floating-point seconds, including
+        # markers saved before a project frame-rate change. Repeated presses
+        # should neither stack markers nor create redundant undo entries.
+        if any(round(marker.data["position"] * fps_float) == frame
+               for marker in Marker.filter()):
+            self.timeline.setFocus(Qt.OtherFocusReason)
+            return
+
         marker = Marker()
         marker.data = {
             "position": position,
@@ -2461,7 +2495,11 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                     # If it's a method, create QShortcuts for each key sequence
                     for key_seq_obj in key_sequences:
                         if key_seq_obj not in used_shortcuts:  # Avoid assigning duplicate shortcuts
-                            qshortcut = QShortcut(key_seq_obj, self, activated=obj, context=Qt.WindowShortcut)
+                            timeline_only = (base_method_name.startswith("timeline") or
+                                             base_method_name.startswith("nudge"))
+                            shortcut_parent = self.timeline if timeline_only else self
+                            shortcut_context = Qt.WidgetShortcut if timeline_only else Qt.WindowShortcut
+                            qshortcut = QShortcut(key_seq_obj, shortcut_parent, activated=obj, context=shortcut_context)
                             self.shortcuts.append(qshortcut)  # Keep reference to avoid garbage collection
                             used_shortcuts.add(key_seq_obj)  # Track the shortcut as used
                         else:
@@ -2610,7 +2648,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # show dialog
         from windows.cutting import Cutting
         win = Cutting(f)
-        win.setObjectName("cutting")
         # Run the dialog event loop - blocking interaction on this window during that time
         result = win.exec_()
         if result == QDialog.Accepted:
@@ -4980,21 +5017,85 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         return True
 
+    def _timeline_keyboard(self, method, *args):
+        timeline = self.timeline
+        if timeline.hasFocus():
+            callback = getattr(timeline, method, None)
+            if callback:
+                callback(*args)
+
+    def focusTimeline(self):
+        self.dockTimeline.show()
+        self.dockTimeline.raise_()
+        self.timeline.setFocus(Qt.ShortcutFocusReason)
+
+    def playbackStop(self):
+        self.PauseSignal.emit()
+        self.SpeedSignal.emit(0)
+
+    def timelineSelectPrevious(self):
+        self._timeline_keyboard("keyboard_select", "left")
+
+    def timelineSelectNext(self):
+        self._timeline_keyboard("keyboard_select", "right")
+
+    def timelineSelectAbove(self):
+        self._timeline_keyboard("keyboard_select", "up")
+
+    def timelineSelectBelow(self):
+        self._timeline_keyboard("keyboard_select", "down")
+
+    def timelineSelectAtPlayhead(self):
+        self._timeline_keyboard("keyboard_select", "playhead")
+
+    def timelineExtendAtPlayhead(self):
+        self._timeline_keyboard("keyboard_select", "playhead", True)
+
+    def timelineExtendPrevious(self):
+        self._timeline_keyboard("keyboard_select", "left", True)
+
+    def timelineExtendNext(self):
+        self._timeline_keyboard("keyboard_select", "right", True)
+
+    def timelinePreviousFiveFrames(self):
+        self._timeline_keyboard('keyboard_step_frames', -5)
+
+    def timelineNextFiveFrames(self):
+        self._timeline_keyboard('keyboard_step_frames', 5)
+
+    def timelinePreviousEdit(self):
+        self._timeline_keyboard('keyboard_edit_point', -1)
+
+    def timelineNextEdit(self):
+        self._timeline_keyboard('keyboard_edit_point', 1)
+
+    def timelineMoveUp(self):
+        self._timeline_keyboard('keyboard_move_track', -1)
+
+    def timelineMoveDown(self):
+        self._timeline_keyboard('keyboard_move_track', 1)
+
+    def timelineSelectLeftEdge(self):
+        self._timeline_keyboard('keyboard_select_edge', 'left')
+
+    def timelineSelectRightEdge(self):
+        self._timeline_keyboard('keyboard_select_edge', 'right')
+
     def nudgeLeft(self):
         """Nudge the selected clips to the left"""
-        self.timeline.Nudge_Triggered(-1, self.selected_clips, self.selected_transitions)
+        self._timeline_keyboard("keyboard_nudge", -1)
 
     def nudgeLeftBig(self):
-        """Nudge the selected clip/transition to the left (5 pixels)"""
-        self.timeline.Nudge_Triggered(-5, self.selected_clips, self.selected_transitions)
+        """Nudge the selected clip/transition to the left (5 frames)"""
+        self._timeline_keyboard("keyboard_nudge", -5)
 
     def nudgeRight(self):
         """Nudge the selected clips to the right"""
-        self.timeline.Nudge_Triggered(1, self.selected_clips, self.selected_transitions)
+        self._timeline_keyboard("keyboard_nudge", 1)
 
     def nudgeRightBig(self):
-        """Nudge the selected clip/transition to the right (5 pixels)"""
-        self.timeline.Nudge_Triggered(5, self.selected_clips, self.selected_transitions)
+        """Nudge the selected clip/transition to the right (5 frames)"""
+        self._timeline_keyboard("keyboard_nudge", 5)
 
     def eventFilter(self, obj, event):
         """Filter out specific QActions/QShortcuts when certain docks have focus."""
@@ -5017,6 +5118,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             "seekPreviousFrame",
             "seekNextFrame",
             "playToggle",
+            "playbackStop",
             "actionRewind",
             "actionFastForward",
             "actionRazorTool",
@@ -5256,6 +5358,13 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                     HiddenTitleBar(
                         dock_widget, dock_widget.windowTitle(),
                         show_buttons=show_titlebar_buttons))
+
+        # Refresh focus styling after title bars or tab groups are rebuilt.
+        if not hasattr(self, '_dock_focus_controller'):
+            from classes.dock_focus import DockFocusController
+            self._dock_focus_controller = DockFocusController(self)
+        self._dock_focus_controller.refresh()
+        tabstops.apply_auto_tab_order_later(self)
 
         # Set tab drawBase property
         self.set_tab_drawbase()
@@ -5798,7 +5907,11 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         if getattr(self, "toolBar", None):
             button = self.toolBar.widgetForAction(getattr(self, "actionNew", None))
         if button:
-            button.setFocus(Qt.TabFocusReason)
+            # Park startup focus before New Project without highlighting a button.
+            # ClickFocus allows ordering it without adding a normal Tab stop.
+            self.toolBar.setFocusPolicy(Qt.ClickFocus)
+            QWidget.setTabOrder(self.toolBar, button)
+            self.toolBar.setFocus(Qt.OtherFocusReason)
 
     def _install_focus_debugger(self):
         if not os.environ.get("OPENSHOT_DEBUG_FOCUS"):

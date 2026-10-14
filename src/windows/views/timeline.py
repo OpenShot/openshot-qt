@@ -745,6 +745,11 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 TimelineWidget.changed(self, None)
             return
 
+        if action.key and action.key[0] == 'files':
+            if action.type == 'update' and len(action.key) >= 2:
+                self.invalidate_file_thumbnails(action.key[1].get('id'))
+            return
+
         if ViewClass == TimelineWidget and self._pending_trim_refresh:
             pending = self._pending_trim_refresh
             item_id = pending.get("id")
@@ -2239,6 +2244,10 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         add_bound_action(menu, self.window, "actionProperties", _("Properties"),
                          callback=lambda: self.window.actionProperties_trigger(timeline_anchor=properties_anchor))
 
+        if clip.data.get('file_id'):
+            add_bound_action(menu, self.window, "actionPreview_File", _("Preview Clip"),
+                             callback=lambda: self.window.actionPreview_File_trigger(clip_id=clip.id))
+
         # Use a menu-owned action so this lock state cannot disable the shared
         # Remove Clip action in other menus or shortcuts.
         menu.addSeparator()
@@ -2345,6 +2354,20 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
         # Clear transaction id
         get_app().updates.transaction_id = None
+
+    def invalidate_file_thumbnails(self, file_id):
+        """Refresh dependent clip artwork without changing saved clip ranges."""
+        if not file_id:
+            return
+        clips = Clip.filter(file_id=file_id)
+        if ViewClass == TimelineWidget:
+            for clip in clips:
+                self.clip_painter.invalidate_clip_thumbnails(clip.id)
+            if clips:
+                self.update()
+        else:
+            for clip in clips:
+                self.run_js(JS_SCOPE_SELECTOR + '.updateThumbnail(' + json.dumps(clip.id) + ');')
 
     def Thumbnail_Updated(self, clip_id, thumbnail_frame=1):
         """Callback when thumbnail needs to be updated"""
@@ -3837,6 +3860,14 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         nudge_duration = float(action) / fps_float  # Nudge duration in seconds
         log.debug(f"Nudging by {nudge_duration} seconds")
 
+        items = (model.get(id=item_id) for ids, model in ((clip_ids, Clip), (tran_ids, Transition))
+                 for item_id in ids)
+        selected = [obj for obj in items if obj]
+        if not selected:
+            return
+        nudge_duration = max(nudge_duration, -min(obj.data['position'] for obj in selected))
+        transaction_id = str(uuid.uuid4())
+
         # Nudge all selected clips
         for clip_id in clip_ids:
             clip = Clip.get(id=clip_id)
@@ -3846,7 +3877,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             # Apply the nudge and ensure the position doesn't go below 0
             new_position = max(clip.data['position'] + nudge_duration, 0.0)
             clip.data['position'] = new_position
-            self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
+            self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True, transaction_id=transaction_id)
 
         # Nudge all selected transitions
         for tran_id in tran_ids:
@@ -3857,7 +3888,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             # Apply the nudge and ensure the position doesn't go below 0
             new_position = max(tran.data['position'] + nudge_duration, 0.0)
             tran.data['position'] = new_position
-            self.update_transition_data(tran.data, only_basic_props=False)
+            self.update_transition_data(tran.data, only_basic_props=False, transaction_id=transaction_id)
 
     def Align_Triggered(self, action, clip_ids, tran_ids):
         """Callback for alignment context menus"""
@@ -4140,11 +4171,25 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             playhead_position = float(round((playhead_position * fps_num) / fps_den) * fps_den) / fps_num
             if action == MenuSlice.KEEP_LEFT: playhead_position += fps_den / fps_num
 
+            # Context menus can pass selected items outside the cut. Snapshot
+            # eligible items before ripple moves later items into the cut position.
+            def crosses_cut(item):
+                if item is None:
+                    return False
+                position = float(item.data["position"])
+                duration = float(item.data["end"]) - float(item.data["start"])
+                return position < playhead_position < position + duration
+
+            clips = [Clip.get(id=item_id) for item_id in clip_ids]
+            transitions = [Transition.get(id=item_id) for item_id in trans_ids]
+            clips = [item for item in clips if crosses_cut(item)]
+            transitions = [item for item in transitions if crosses_cut(item)]
+
             # Loop through each clip (using the list of ids)
-            for clip_id in clip_ids:
+            for clip in clips:
 
                 # Get existing clip object
-                clip = Clip.get(id=clip_id)
+                clip_id = clip.id
                 if not clip or clip.data.get("layer") in locked_layers:
                     continue
 
@@ -4218,8 +4263,8 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             self.redraw_audio_timer.start()
 
             # Handle transitions (similar to clips)
-            for trans_id in trans_ids:
-                trans = Transition.get(id=trans_id)
+            for trans in transitions:
+                trans_id = trans.id
                 if not trans or trans.data.get("layer") in locked_layers:
                     continue
 

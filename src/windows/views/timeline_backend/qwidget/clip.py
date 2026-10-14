@@ -279,6 +279,19 @@ class ClipInteractionMixin:
         )
         return True
 
+    def _commit_resized_transition(self, transition, start, end, position, context,
+                                   transaction_id, ignore_refresh):
+        """Share transition timing and mask updates between mouse and keyboard trims."""
+        data = json.loads(json.dumps(transition.data))
+        start, end, position = self._normalize_resize_commit_bounds(start, end, position)
+        data.update(position=position, start=start, end=end,
+                    duration=self._snap_time(end - start),
+                    _auto_direction=bool(context.get("static_mask")))
+        self.update_transition_data(data, only_basic_props=True,
+                                    ignore_refresh=ignore_refresh, transaction_id=transaction_id)
+        transition.data = data
+        return True
+
     def _active_resize_items(self):
         """Return the items currently participating in an edge resize gesture."""
         if getattr(self, "_press_hit", "") != "clip-edge":
@@ -1563,21 +1576,8 @@ class ClipInteractionMixin:
                         waveform_clips.append(candidate.id)
                 else:
                     context = resize_initial_map.get(candidate.id, {})
-                    static_mask = bool(context.get("static_mask"))
-                    transition_data = json.loads(json.dumps(candidate.data))
-                    start, end, position = self._normalize_resize_commit_bounds(start, end, position)
-                    transition_data["position"] = position
-                    transition_data["start"] = start
-                    transition_data["end"] = end
-                    transition_data["duration"] = self._snap_time(transition_data["end"] - transition_data["start"])
-                    transition_data["_auto_direction"] = static_mask
-                    self.update_transition_data(
-                        transition_data,
-                        only_basic_props=True,
-                        ignore_refresh=ignore_refresh,
-                        transaction_id=transaction_id,
-                    )
-                    candidate.data = transition_data
+                    self._commit_resized_transition(
+                        candidate, start, end, position, context, transaction_id, ignore_refresh)
 
                 if isinstance(candidate, (Clip, Transition)) and hasattr(self, "RefreshTrimmedTimelineItem"):
                     self.RefreshTrimmedTimelineItem(json.dumps(candidate.data), resize_edge)

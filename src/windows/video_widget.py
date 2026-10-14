@@ -948,7 +948,8 @@ class VideoWidget(QWidget, updates.UpdateInterface):
     def mousePressEvent(self, event):
         """Capture mouse press event on video preview window"""
         event.accept()
-        if event.button() == Qt.MiddleButton and self.zoom > 1.0:
+        if event.button() == Qt.MiddleButton or (
+                event.button() == Qt.LeftButton and getattr(self, "preview_pan_enabled", False)):
             self.mouse_pressed = True
             self.mouse_dragging = False
             self.mouse_position = event.pos()
@@ -1079,7 +1080,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
     def mouseReleaseEvent(self, event):
         event.accept()
         """Capture mouse release event on video preview window"""
-        if event.button() == Qt.MiddleButton and getattr(self, "middle_pan_active", False):
+        if getattr(self, "middle_pan_active", False):
             self.mouse_pressed = False
             self.mouse_dragging = False
             self.middle_pan_active = False
@@ -2805,8 +2806,8 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         aspectRatio = self.aspect_ratio.ToFloat() * self.pixel_ratio.ToFloat()
         viewport_size = QSizeF(aspectRatio, 1).scaled(window_size, Qt.KeepAspectRatio) * zoom
         return (
-            max(0.0, (viewport_size.width() - window_size.width()) * 0.5),
-            max(0.0, (viewport_size.height() - window_size.height()) * 0.5),
+            abs(viewport_size.width() - window_size.width()) * 0.5,
+            abs(viewport_size.height() - window_size.height()) * 0.5,
         )
 
     def _clamp_pan(self, pan_x=None, pan_y=None, width=None, height=None, zoom=None):
@@ -3101,6 +3102,8 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         self.regionTopLeftHandle = None
         self.regionBottomRightHandle = None
         self.curr_frame_size = None # Frame size
+        self.preview_pan_enabled = False
+        self.setToolTip(get_app()._tr("Scroll to zoom. Drag with the middle mouse button to pan."))
         self.zoom = 1.0  # Zoom of widget (does not affect video, only workspace)
         self.pan_x = 0.0
         self.pan_y = 0.0

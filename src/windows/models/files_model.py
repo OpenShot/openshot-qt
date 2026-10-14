@@ -278,7 +278,10 @@ class FilesModel(QObject, updates.UpdateInterface):
                 self.update_model(clear=False, delete_file_id=action.key[1].get('id', ''))
             elif action.type in ("update", "delete") and action.key[0].lower() == "files":
                 # Update a single file (if found)
-                self.update_model(clear=False, update_file_id=action.key[1].get('id', ''))
+                file_id = action.key[1].get('id', '')
+                self.update_model(clear=False, update_file_id=file_id)
+                # Refresh the displayed frame/name for saved range edits, including undo/redo.
+                self.update_file_thumbnail(file_id)
             else:
                 # Clear existing items. For full project loads, batch updates for faster UI rebuild.
                 self.update_model(clear=True, progressive_ui=False)
@@ -692,6 +695,8 @@ class FilesModel(QObject, updates.UpdateInterface):
     def update_file_thumbnail(self, file_id):
         """Update/re-generate the thumbnail of a specific file"""
         file = File.get(id=file_id)
+        if not file:
+            return
         path, filename = os.path.split(file.data["path"])
         name = file.data.get("name", filename)
 

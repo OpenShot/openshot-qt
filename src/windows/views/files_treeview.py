@@ -288,7 +288,13 @@ class FilesTreeView(NameColumnKeyboardSearchMixin, QTreeView):
             elif modifiers_has(get_app().keyboardModifiers(), Qt.ControlModifier):
                 get_app().window.actionFile_Properties.trigger()
             else:
-                get_app().window.actionPreview_File.trigger()
+                file = get_app().window.files_model.current_file()
+                if file and (file.data.get('is_split_file') or float(file.data.get('start', 0) or 0) > 0
+                             or float(file.data.get('end', file.data.get('duration', 0)) or 0)
+                                < float(file.data.get('duration', 0) or 0) - 1e-6):
+                    get_app().window.actionSplitFile.trigger()
+                else:
+                    get_app().window.actionPreview_File.trigger()
         else:
             super(FilesTreeView, self).mouseDoubleClickEvent(event)
 
