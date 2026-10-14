@@ -220,6 +220,10 @@ class GeometryBase:
         view_w = w.width() - w.track_name_width - w.scroll_bar_thickness
         view_h = w.height() - w.ruler_height - w.scroll_bar_thickness
         timeline_w = max(view_w, duration * w.pixels_per_second)
+        # Fit-to-view arithmetic can overshoot by a fraction of a pixel.
+        # Normalize before deriving scroll ranges and right-edge anchoring.
+        if timeline_w - view_w <= 1e-6:
+            timeline_w = view_w
         self._update_vertical_factor(layers, view_h)
         track_gap = float(getattr(w, "track_gap", 0.0) or 0.0)
         top_margin = float(getattr(w, "track_margin_top", 0.0) or 0.0)
@@ -304,6 +308,9 @@ class GeometryBase:
             timeline_w = max(baseline, view_w)
         else:
             timeline_w = max(float(timeline_w or 0.0), view_w)
+
+        if timeline_w - view_w <= 1e-6:
+            timeline_w = view_w
 
         ctx["view_w"] = view_w
         ctx["view_h"] = view_h

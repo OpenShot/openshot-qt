@@ -140,7 +140,9 @@ class HoverFeedback:
         pen.setCosmetic(True)
         painter.setPen(pen)
         painter.setBrush(fill)
-        if kind in ("edge-left", "edge-right"):
+        if kind == "timeline-margin":
+            painter.fillRect(rect, QColor(255, 255, 255, 24))
+        elif kind in ("edge-left", "edge-right"):
             self._paint_edge(painter, rect, theme, kind == "edge-left", self.edge_stroke_color(rect, style))
         else:
             painter.drawRoundedRect(rect.adjusted(0.5, 0.5, -0.5, -0.5), 3, 3)

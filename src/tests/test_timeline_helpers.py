@@ -110,6 +110,180 @@ class TimelineHelperTests(unittest.TestCase):
         cls.humanity_theme_module = importlib.import_module("themes.humanity.styles")
         cls.cosmic_theme_module = importlib.import_module("themes.cosmic.styles")
 
+    def test_project_resize_uses_pointer_delta_despite_scroll_changes(self):
+        mixin = self.qwidget_clip_module.ClipInteractionMixin
+        helper = types.SimpleNamespace(
+            cursors={}, fps_float=30.0, pixels_per_second=10.0, zoom_factor=10.0,
+            _emit_zoom_signals=MagicMock(), scrollbar_position=[0, 1, 1000, 1000],
+            _project_resize_timer=MagicMock(),
+            _last_event=types.SimpleNamespace(position=lambda: QPointF(900, 0)),
+            _current_project_duration=lambda: 100.0,
+            _furthest_timeline_edge=lambda: 20.0,
+            _is_view_right_aligned=lambda: True,
+            _fix_cursor=lambda cursor: None, _release_cursor=lambda: None,
+            _snap_time=lambda value: round(value * 30) / 30,
+        )
+        helper._set_project_duration_override = lambda value: setattr(
+            helper, "_project_duration_override", value
+        )
+        resize = MagicMock()
+        helper.win = types.SimpleNamespace(timeline=types.SimpleNamespace(resizeTimeline=resize))
+        mixin._startProjectResize(helper)
+        self.assertTrue(helper._thumbnail_zoom_with_clip)
+        for x, expected in ((890, 99.0), (880, 98.0), (880, 98.0), (900, 100.0), (0, 20.0)):
+            helper._last_event = types.SimpleNamespace(position=lambda x=x: QPointF(x, 0))
+            helper.h_scroll_offset = 500.0 + x
+            mixin._projectResizeMove(helper)
+            self.assertAlmostEqual(helper._project_duration_override, expected)
+        mixin._finishProjectResize(helper)
+        resize.assert_called_once_with(20.0)
+        self.assertIsNone(helper._project_duration_override)
+
+    def test_project_resize_keeps_fitted_view_and_overview_synchronized(self):
+        from windows.views.timeline_backend.geometry import Geometry
+
+        base = self.qwidget_base_module.TimelineWidgetBase
+        slider = types.SimpleNamespace(setZoomFactor=MagicMock(),
+                                       update_scrollbars=MagicMock(), changed=MagicMock())
+        widget = types.SimpleNamespace(
+            _project_duration_override=None, _project_resize_initial_zoom=10.0,
+            _project_resize_keep_right=True, zoom_factor=10.0,
+            pixels_per_second=10.0, track_name_width=140, ruler_height=40,
+            scroll_bar_thickness=12, _project_handle_width=10.0,
+            _resize_handle_width=6.0, track_height=48.0, vertical_factor=48.0,
+            track_gap=8.0, track_margin_top=8.0,
+            normalize_track_number=lambda value: value,
+            get_track_panel_height=lambda value: 30.0,
+            width=lambda: 1152, height=lambda: 500,
+            scrollbar_position=[0.0, 1.0, 1000.0, 1000.0],
+            v_scrollbar_position=[0.0, 1.0, 0.0, 0.0],
+            win=types.SimpleNamespace(sliderZoomWidget=slider), update=MagicMock(),
+        )
+        widget._current_project_duration = lambda: base._current_project_duration(widget)
+        widget._clamp_zoom_factor = lambda value: base._clamp_zoom_factor(widget, value)
+        geometry = Geometry(widget)
+        widget.geometry = geometry
+        geometry.track_list = [types.SimpleNamespace(data={"number": 1})]
+        def rebuild():
+            ctx = geometry._calculate_view_context({1: 0})
+            geometry._populate_track_rects({1: 0}, ctx)
+        geometry.ensure = rebuild
+        painter = self.make_clip_painter()
+        painter.w = widget
+        widget.clip_has_pending_override = lambda clip: False
+        widget._thumbnail_zoom_with_clip = True
+        clip = types.SimpleNamespace(id="resize-thumbnail", data={
+            "position": 30.0, "start": 5.0, "end": 15.0})
+        thumbnail_phase = None
+        project = {"tick_pixels": 100.0, "duration": 100.0}
+        app = types.SimpleNamespace(project=project)
+        with patch.object(self.qwidget_base_module, "get_app", return_value=app), \
+                patch.object(self.geometry_base_module, "get_app", return_value=app):
+            for duration in [frame / 30.0 for frame in range(3000, 2400, -1)] + [110.0, 80.0]:
+                base._set_project_duration_override(widget, duration)
+                phase = painter._thumbnail_grid_phase(clip, 48.0)
+                if thumbnail_phase is None:
+                    thumbnail_phase = phase
+                self.assertAlmostEqual(phase, thumbnail_phase)
+                self.assertAlmostEqual(geometry.timeline_handle_rect().right(), 1140.0)
+                self.assertAlmostEqual(next(geometry.iter_tracks())[0].right(), 1140.0)
+                self.assertAlmostEqual(widget.zoom_factor, min(10.0, duration / 10.0))
+                self.assertEqual(widget.scroll_bar_rect.isNull(), duration <= 100.0)
+                self.assertAlmostEqual(widget.scrollbar_position[1], 1.0)
+                slider.setZoomFactor.assert_called_with(widget.zoom_factor, emit=False)
+                slider.update_scrollbars.assert_called_with(list(widget.scrollbar_position))
+            previous = list(widget.scrollbar_position)
+            project["duration"] = 80.0
+            base._set_project_duration_override(widget, None)
+            self.assertEqual(widget.scrollbar_position, previous)
+            self.assertAlmostEqual(widget.zoom_factor, 8.0)
+
+    def test_project_resize_edge_hold_continues_and_stops_without_jumping(self):
+        mixin = self.qwidget_clip_module.ClipInteractionMixin
+        for screen_right in (999, 799):
+            with self.subTest(screen_right=screen_right):
+                right = min(988, screen_right)
+                helper = types.SimpleNamespace(
+                    _project_duration_override=100.0,
+                    _project_resize_initial_duration=100.0,
+                    _project_resize_min_duration=20.0,
+                    _project_resize_start_x=right - 10,
+                    _project_resize_pixels_per_second=10.0,
+                    _project_resize_extra_seconds=0.0,
+                    _project_resize_edge_since=None,
+                    _project_resize_tick_time=0.0,
+                    _project_resize_timer=MagicMock(),
+                    _project_resize_keep_right=False,
+                    _snap_time=lambda value: round(value * 30) / 30,
+                    width=lambda: 1000, scroll_bar_thickness=12,
+                    mapFromGlobal=lambda point: point,
+                )
+                helper._set_project_duration_override = lambda value: setattr(
+                    helper, "_project_duration_override", value
+                )
+                helper._projectResizeMove = lambda x: mixin._projectResizeMove(helper, x)
+                screen = types.SimpleNamespace(geometry=lambda: QRectF(0, 0, screen_right, 600))
+                with patch.object(self.qwidget_clip_module, "QApplication") as app, \
+                        patch.object(self.qwidget_clip_module, "QCursor") as cursor, \
+                        patch.object(self.qwidget_clip_module.time, "monotonic") as clock:
+                    app.mouseButtons.return_value = Qt.LeftButton
+                    app.screenAt.return_value = screen
+                    cursor.pos.return_value = QPointF(right, 200)
+                    clock.return_value = 0.1
+                    mixin._projectResizeEdgeTick(helper)
+                    self.assertEqual(helper._project_duration_override, 100.0)
+                    clock.return_value = 0.5
+                    mixin._projectResizeEdgeTick(helper)
+                    self.assertAlmostEqual(helper._project_duration_override, 103.4)
+                    clock.return_value = 0.6
+                    mixin._projectResizeEdgeTick(helper)
+                    self.assertAlmostEqual(helper._project_duration_override, 105.8)
+                    self.assertTrue(helper._project_resize_keep_right)
+                    # Both positions remain in the edge zone, but neither is
+                    # to the right of the original press position.
+                    for x, now in ((right - 10, 0.62), (right - 11, 0.64)):
+                        cursor.pos.return_value = QPointF(x, 200)
+                        clock.return_value = now
+                        mixin._projectResizeEdgeTick(helper)
+                        self.assertIsNone(helper._project_resize_edge_since)
+                        self.assertAlmostEqual(helper._project_resize_extra_seconds, 4.8)
+                    # Re-entering on the right must wait through a fresh dwell.
+                    cursor.pos.return_value = QPointF(right, 200)
+                    clock.return_value = 0.66
+                    mixin._projectResizeEdgeTick(helper)
+                    self.assertEqual(helper._project_resize_edge_since, 0.66)
+                    self.assertAlmostEqual(helper._project_resize_extra_seconds, 4.8)
+                    cursor.pos.return_value = QPointF(right - 50, 200)
+                    clock.return_value = 0.7
+                    mixin._projectResizeEdgeTick(helper)
+                    self.assertIsNone(helper._project_resize_edge_since)
+                    self.assertAlmostEqual(helper._project_resize_extra_seconds, 4.8)
+                    helper._projectResizeMove(right - 50)
+                    self.assertAlmostEqual(helper._project_duration_override, 100.8)
+                    app.mouseButtons.return_value = Qt.NoButton
+                    clock.return_value = 0.8
+                    mixin._projectResizeEdgeTick(helper)
+                    helper._project_resize_timer.stop.assert_called_once()
+
+    def test_project_duration_only_grows_when_content_exceeds_chosen_end(self):
+        for current, furthest, expected in (
+            (60.0, 40.0, None), (40.0, 40.0, None),
+            (400.0, 395.0, None), (40.0, 40.1, 50.1),
+        ):
+            with self.subTest(current=current, furthest=furthest):
+                resize = MagicMock()
+                helper = types.SimpleNamespace(
+                    win=types.SimpleNamespace(timeline=types.SimpleNamespace(resizeTimeline=resize)),
+                    _furthest_timeline_edge=lambda: furthest,
+                )
+                app = types.SimpleNamespace(project={"duration": current})
+                with patch.object(self.qwidget_base_module, "get_app", return_value=app):
+                    self.qwidget_base_module.TimelineWidgetBase._update_project_duration(helper)
+                if expected is None:
+                    resize.assert_not_called()
+                else:
+                    resize.assert_called_once_with(expected)
+
     def test_dense_top_clip_border_is_not_overpainted_by_cache_lane(self):
         for theme_class in (self.humanity_theme_module.HumanityDarkTimelineTheme,
                             self.humanity_theme_module.RetroTimelineTheme,
@@ -3031,6 +3205,38 @@ class TimelineHelperTests(unittest.TestCase):
                 window.SelectionAdded.emit.assert_called_once_with("item1", kind, True)
                 window.actionProperties.trigger.assert_not_called()
 
+    def test_double_click_timeline_margin_fits_last_content_edge(self):
+        mixin = self.qwidget_clip_module.ClipInteractionMixin
+        for edge in (20.0, 50.0, 0.0):
+            with self.subTest(edge=edge):
+                helper = types.SimpleNamespace(
+                    enable_razor=False, cursors={}, fps_float=30.0,
+                    pixels_per_second=10.0, zoom_factor=10.0,
+                    _project_resize_timer=MagicMock(),
+                    _current_project_duration=lambda: 100.0,
+                    _furthest_timeline_edge=lambda: edge,
+                    _is_view_right_aligned=lambda: True,
+                    _fix_cursor=MagicMock(), _release_cursor=MagicMock(),
+                    _snap_time=lambda value: round(value * 30) / 30,
+                    _is_timeline_content_pos=lambda pos: True,
+                    _emit_zoom_signals=MagicMock(),
+                    scrollbar_position=[0, 1, 1000, 1000],
+                    geometry=types.SimpleNamespace(ensure=lambda: None,
+                        timeline_handle_rect=lambda: QRectF(990, 40, 10, 400)),
+                    win=types.SimpleNamespace(timeline=types.SimpleNamespace(resizeTimeline=MagicMock())),
+                )
+                helper._set_project_duration_override = lambda value: setattr(
+                    helper, "_project_duration_override", value)
+                helper._startProjectResize = lambda: mixin._startProjectResize(helper)
+                helper._finishProjectResize = lambda: mixin._finishProjectResize(helper)
+                event = types.SimpleNamespace(button=lambda: Qt.LeftButton,
+                    position=lambda: QPointF(995, 100), accept=MagicMock())
+                self.qwidget_base_module.TimelineWidgetBase.mouseDoubleClickEvent(helper, event)
+                helper.win.timeline.resizeTimeline.assert_called_once_with(max(edge, 1 / 30))
+                self.assertIsNone(helper._project_duration_override)
+                helper._project_resize_timer.stop.assert_called_once()
+                event.accept.assert_called_once()
+
     def test_double_click_opens_properties_on_padded_icon_hits(self):
         for target in ("clip-keyframe", "panel-keyframe", "effect", "clip"):
             with self.subTest(target=target):
@@ -3039,6 +3245,7 @@ class TimelineHelperTests(unittest.TestCase):
                     enable_razor=False,
                     geometry=types.SimpleNamespace(
                         ensure=lambda: None,
+                        timeline_handle_rect=lambda: QRectF(),
                         iter_items=lambda **_kwargs: [(QRectF(40, 40, 20, 20), None, False, "clip")]
                         if target == "clip" else []),
                     _is_timeline_content_pos=lambda _pos: True,

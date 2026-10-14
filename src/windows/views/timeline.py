@@ -831,11 +831,11 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             duration = max(0.0, end - start)
             furthest = max(furthest, position + duration)
 
-        min_length = 300.0
-        padding = 10.0
-        desired = max(min_length, furthest + padding)
         current = float(get_app().project.get("duration") or 0.0)
-        if desired > current + 1e-3:
+        # Respect a manually shortened timeline, including one ending exactly at
+        # the last clip. Add working room only when content exceeds its boundary.
+        if furthest > current + 1e-3:
+            desired = furthest + 10.0
             self.resizeTimeline(desired)
 
     def delete_invalid_timeline_item(self, item):
