@@ -71,6 +71,27 @@ class KeyframePanelLookupTests(unittest.TestCase):
 
 
 class ColorGradeKeyframeActionsTests(unittest.TestCase):
+    def test_deleting_entire_nested_curves_keeps_their_base_values(self):
+        from windows.views.timeline_backend.qwidget.keyframe import KeyframeMixin
+
+        helper = KeyframeMixin()
+        data = {"effects": [{"color": {
+            channel: {"Points": [{"co": {"X": 51, "Y": value}, "interpolation": 1},
+                                  {"co": {"X": 76, "Y": 200}, "interpolation": 1}]}
+            for channel, value in (("red", 10), ("green", 20), ("blue", 30))}}]}
+        paths = [(("dict", "effects"), ("list", 0), ("dict", "color"),
+                  ("dict", channel), ("dict", "Points"), ("list", index))
+                 for channel in ("red", "green", "blue") for index in (0, 1)]
+        self.assertTrue(helper._remove_keyframes_by_paths(data, paths))
+        for channel, value in (("red", 10), ("green", 20), ("blue", 30)):
+            self.assertEqual(data["effects"][0]["color"][channel]["Points"],
+                             [{"co": {"X": 51, "Y": value}, "interpolation": 1}])
+        # Marker deletion and single-path deletion must also leave a usable base.
+        helper._remove_keyframes_in_object(data, 51)
+        helper._remove_keyframe_at_path(data, paths[0])
+        self.assertEqual(data["effects"][0]["color"]["red"]["Points"][0]["co"],
+                         {"X": 51, "Y": 10})
+
     def test_grouped_wheel_and_curve_icons_target_only_their_points(self):
         from copy import deepcopy
         from unittest.mock import Mock

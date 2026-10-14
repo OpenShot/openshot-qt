@@ -7869,7 +7869,9 @@ class TimelineHelperTests(unittest.TestCase):
         self.assertEqual(clip.data, original)
 
         self.assertEqual(len(helper.clip_updates), 1)
-        self.assertEqual(helper.clip_updates[0]["volume"]["Points"], [])
+        # Removing the last point retains the base value for subsequent animation.
+        self.assertEqual(helper.clip_updates[0]["volume"]["Points"],
+                         original["volume"]["Points"])
         self.assertIsNone(helper._active_keyframe_marker)
         self.assertEqual(helper.cleanup_calls, 1)
         self.assertTrue(helper._keyframes_dirty)
