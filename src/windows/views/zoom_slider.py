@@ -119,7 +119,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         if not action or not action.isChecked() or modifiers_has(modifiers, Qt.AltModifier):
             self._snap_target = None
             return left, right
-        duration = float(get_app().project.get("duration") or 0.0)
+        duration = float(self._timeline_duration() or 0.0)
         if duration <= 0:
             self._snap_target = None
             return left, right
@@ -222,7 +222,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         # TODO: Fix commented out logic
         if hasattr(get_app().window, "timeline"):  # and self.scrollbar_position[2] != 0.0:
             # Get max width of timeline
-            project_duration = get_app().project.get("duration")
+            project_duration = self._timeline_duration()
             track = self._track_rect()
             pixels_per_second = track.width() / project_duration
 
@@ -342,7 +342,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         # Wait for timeline object and valid scrollbar positions
         if get_app().window.timeline:
             # Get max width of timeline
-            project_duration = get_app().project.get("duration")
+            project_duration = self._timeline_duration()
             track = self._track_rect()
             pixels_per_second = track.width() / project_duration
             self._update_handle_geometry()
@@ -637,7 +637,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
     def get_scroll_width(self):
         """Calculate the width of the scrollbar handle (i.e. selection width)"""
         # Get max width of timeline
-        project_duration = get_app().project.get("duration")
+        project_duration = self._timeline_duration()
 
         # Calculate scroll bar / selection width
         timeline_pixels_per_second = 100.0 / get_app().project.get("scale")
@@ -650,7 +650,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
     def delayed_resize_callback(self):
         """Callback for resize event timer (to delay the resize event, and prevent lots of similar resize events)"""
         # Get max width of timeline
-        project_duration = get_app().project.get("duration")
+        project_duration = self._timeline_duration()
         normalized_scroll_width = self.scrollbar_position[1] - self.scrollbar_position[0]
         scroll_width_seconds = normalized_scroll_width * project_duration
         tick_pixels = 100
@@ -773,8 +773,23 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         self.changed(None)
         self.update()
 
+    def _timeline_duration(self):
+        """Use the live resize preview so overview and timeline share a scale."""
+        timeline = getattr(self.win, "timeline", None)
+        preview = getattr(timeline, "_project_duration_override", None)
+        if isinstance(preview, (int, float)):
+            return preview
+        return get_app().project.get("duration")
+
     def timeline_resized(self):
-        # Force recalculation of clips and repaint
+        # The QWidget timeline preserves zoom and publishes its updated visible
+        # range. Recomputing zoom from a full-width selection would fit again
+        # after shrinking the duration, making the resized edge jump on release.
+        timeline = getattr(self.win, "timeline", None)
+        if timeline and hasattr(timeline, "_apply_external_zoom"):
+            self.delayed_resize_timer.stop()
+            self.update()
+            return
         self.update()
         self.delayed_resize_timer.start()
 

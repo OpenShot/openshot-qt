@@ -260,6 +260,9 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         self._project_resize_initial_duration = 0.0
         self._project_resize_min_duration = 0.0
         self._project_resize_keep_right = False
+        self._project_resize_timer = QTimer(self)
+        self._project_resize_timer.setInterval(16)
+        self._project_resize_timer.timeout.connect(self._projectResizeEdgeTick)
 
         # Drag/selection helpers
         self.selection_rect = QRectF()
@@ -679,7 +682,22 @@ class TimelineWidgetBase(RazorMixin, QWidget):
                 self._project_duration_override = max(0.0, float(duration))
             except (TypeError, ValueError):
                 self._project_duration_override = None
+        if self._project_duration_override is not None:
+            # Keep the end at the viewport edge. Once scrolling reaches time
+            # zero, adjust zoom continuously instead of detaching the handle.
+            view_w = self.width() - self.track_name_width - self.scroll_bar_thickness
+            tick_pixels = float(get_app().project.get("tick_pixels") or 100.0)
+            initial_zoom = self._project_resize_initial_zoom
+            if view_w > 0 and self._project_resize_keep_right:
+                fit_zoom = self._project_duration_override * tick_pixels / view_w
+                self.zoom_factor = self._clamp_zoom_factor(min(initial_zoom, fit_zoom))
         self.geometry.mark_dirty()
+        self.geometry.ensure()
+        slider = getattr(self.win, "sliderZoomWidget", None)
+        if slider:
+            slider.setZoomFactor(self.zoom_factor, emit=False)
+            slider.update_scrollbars(list(self.scrollbar_position))
+            slider.changed(None)
         self.update()
 
     def _content_height_hint(self):
@@ -2316,7 +2334,7 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         width_norm = max(0.0, min(self.scrollbar_position[1] - self.scrollbar_position[0], 1.0))
         if (
             view_w > 0.0
-            and timeline_w > view_w
+            and timeline_w > view_w + 1e-6
             and width_norm > 0.0
             and width_norm < 1.0
         ):
@@ -2739,11 +2757,11 @@ class TimelineWidgetBase(RazorMixin, QWidget):
             return
 
         furthest = self._furthest_timeline_edge()
-        min_length = 300.0
-        padding = 10.0
-        desired = max(min_length, furthest + padding)
         current = float(get_app().project.get("duration") or 0.0)
-        if desired > current + 1e-3:
+        # Respect a manually shortened timeline, including one ending exactly at
+        # the last clip. Add working room only when content exceeds its boundary.
+        if furthest > current + 1e-3:
+            desired = furthest + 10.0
             timeline.resizeTimeline(desired)
 
     def _clip_menu_rect(self, rect):
@@ -3254,6 +3272,8 @@ class TimelineWidgetBase(RazorMixin, QWidget):
 
             timeline_handle = self.geometry.timeline_handle_rect()
             if timeline_handle.contains(pos):
+                if hover:
+                    hover.set_target("timeline-margin", timeline_handle, "track")
                 self.setCursor(self.cursors.get("resize_x", Qt.SizeHorCursor))
                 return
 
@@ -3271,6 +3291,13 @@ class TimelineWidgetBase(RazorMixin, QWidget):
             pos = _event_posf(event)
             if not self._is_timeline_content_pos(pos):
                 super().mouseDoubleClickEvent(event)
+                return
+            if self.geometry.timeline_handle_rect().contains(pos):
+                self._last_event = event
+                self._startProjectResize()
+                self._set_project_duration_override(self._project_resize_min_duration)
+                self._finishProjectResize()
+                event.accept()
                 return
             # Keyframe and effect hitboxes can extend beyond the clip body.
             if (self._get_keyframe_at(pos) or self._panel_marker_at(pos)

@@ -29,7 +29,7 @@ import json
 import time
 import uuid
 from qt_api import Qt, QRectF, QPointF
-from qt_api import QApplication
+from qt_api import QApplication, QCursor
 from classes.app import get_app
 from classes.feedback import record_feedback_changes
 from classes.clip_utils import is_single_image_media
@@ -1124,20 +1124,81 @@ class ClipInteractionMixin:
             pass
 
     def _startProjectResize(self):
+        # Duration resizing can also change zoom; keep thumbnail tiles attached
+        # to their clips, including the deferred paint after releasing the mouse.
+        self._thumbnail_zoom_with_clip = True
         self._fix_cursor(self.cursors.get("resize_x", Qt.SizeHorCursor))
         self._project_resize_initial_duration = self._current_project_duration()
+        event = self._last_event
+        self._project_resize_start_x = (
+            event.position().x() if hasattr(event, "position") else event.pos().x()
+        )
+        self._project_resize_initial_zoom = self.zoom_factor
+        self._project_resize_pixels_per_second = self.pixels_per_second
+        self._project_resize_extra_seconds = 0.0
+        self._project_resize_edge_since = None
+        self._project_resize_tick_time = time.monotonic()
         min_duration = self._furthest_timeline_edge()
         if self.fps_float > 0:
             min_duration = max(min_duration, 1.0 / self.fps_float)
         self._project_resize_min_duration = max(0.0, min_duration)
         self._project_resize_keep_right = self._is_view_right_aligned()
         self._set_project_duration_override(self._project_resize_initial_duration)
+        self._project_resize_timer.start()
 
-    def _projectResizeMove(self):
-        event = self._last_event
-        if not event:
+    def _projectResizeEdgeTick(self):
+        """Continue a held resize at the viewport or physical screen edge."""
+        if self._project_duration_override is None:
+            self._project_resize_timer.stop()
             return
-        new_duration = self._seconds_from_x(event.position().x() if hasattr(event, "position") else event.pos().x())
+        now = time.monotonic()
+        elapsed = min(0.1, max(0.0, now - self._project_resize_tick_time))
+        self._project_resize_tick_time = now
+        if not (QApplication.mouseButtons() & Qt.LeftButton):
+            self._project_resize_timer.stop()
+            return
+        global_pos = QCursor.pos()
+        pointer_x = self.mapFromGlobal(global_pos).x()
+        # Holding near the edge must not turn a stationary or leftward drag
+        # into expansion. Returning to the starting point also resets the dwell.
+        if pointer_x <= self._project_resize_start_x:
+            self._project_resize_edge_since = None
+            return
+        right = self.width() - self.scroll_bar_thickness
+        screen = QApplication.screenAt(global_pos)
+        if screen is not None:
+            screen_right = self.mapFromGlobal(screen.geometry().topRight()).x()
+            right = min(right, screen_right)
+        edge_zone = 24.0
+        penetration = max(0.0, min(1.0, (pointer_x - (right - edge_zone)) / edge_zone))
+        if penetration <= 0.0:
+            self._project_resize_edge_since = None
+            return
+        if self._project_resize_edge_since is None:
+            self._project_resize_edge_since = now
+        if now - self._project_resize_edge_since < 0.35:
+            return
+        pps = self._project_resize_pixels_per_second
+        if pps <= 0.0:
+            return
+        self._project_resize_extra_seconds += 240.0 * penetration * elapsed / pps
+        self._project_resize_keep_right = True
+        self._projectResizeMove(pointer_x)
+
+    def _projectResizeMove(self, pointer_x=None):
+        if pointer_x is None:
+            event = self._last_event
+            if not event:
+                return
+            pointer_x = event.position().x() if hasattr(event, "position") else event.pos().x()
+        # Geometry can scroll as the duration changes. Measure from the original
+        # pointer position so those scroll changes cannot feed back into resizing.
+        pps = self._project_resize_pixels_per_second
+        if pps <= 0.0:
+            return
+        new_duration = self._project_resize_initial_duration + (
+            pointer_x - self._project_resize_start_x
+        ) / pps + self._project_resize_extra_seconds
         new_duration = max(self._project_resize_min_duration, new_duration)
         snapped = self._snap_time(new_duration)
         if snapped < self._project_resize_min_duration:
@@ -1147,6 +1208,7 @@ class ClipInteractionMixin:
             self._set_project_duration_override(snapped)
 
     def _finishProjectResize(self):
+        self._project_resize_timer.stop()
         final_duration = getattr(self, "_project_duration_override", None)
         if final_duration is None:
             final_duration = self._project_resize_initial_duration
@@ -1154,14 +1216,13 @@ class ClipInteractionMixin:
         snapped = self._snap_time(final_duration)
         if snapped < self._project_resize_min_duration:
             snapped = self._project_resize_min_duration
+        timeline = getattr(self.win, "timeline", None)
+        if timeline and abs(snapped - self._project_resize_initial_duration) > 1e-3:
+            timeline.resizeTimeline(snapped)
         self._set_project_duration_override(None)
         self._project_resize_keep_right = False
         self._release_cursor()
-        if abs(snapped - self._project_resize_initial_duration) <= 1e-3:
-            return
-        timeline = getattr(self.win, "timeline", None)
-        if timeline:
-            timeline.resizeTimeline(snapped)
+        self._emit_zoom_signals(list(self.scrollbar_position))
 
     def _capture_resize_pointer(self, rect):
         """Preserve where the edge was grabbed within its generous hit area."""
