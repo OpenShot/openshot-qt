@@ -104,10 +104,25 @@ class TrackPainter(BasePainter):
             getattr(self.w.theme, "track_keyframe_panel_enabled_icon", None)
             or self.w.theme.keyframe_toggle_on_icon
         )
+        keyframe_hide_disabled = _scaled_toggle(
+            getattr(self.w.theme, "track_keyframe_panel_hide_disabled_icon", None)
+        ) or keyframe_disabled
+        keyframe_hide_enabled = _scaled_toggle(
+            getattr(self.w.theme, "track_keyframe_panel_hide_enabled_icon", None)
+        ) or keyframe_enabled
         if keyframe_disabled or keyframe_enabled:
             toolbar["keyframe-panel"] = {
+                # Default pixmaps also provide the toolbar button dimensions.
                 "disabled": keyframe_disabled,
                 "enabled": keyframe_enabled or keyframe_disabled,
+                "show": {
+                    "disabled": keyframe_disabled,
+                    "enabled": keyframe_enabled or keyframe_disabled,
+                },
+                "hide": {
+                    "disabled": keyframe_hide_disabled,
+                    "enabled": keyframe_hide_enabled or keyframe_hide_disabled,
+                },
             }
             if not self.toggle_off_pix:
                 self.toggle_off_pix = keyframe_disabled
