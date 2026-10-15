@@ -235,11 +235,20 @@ You now have a working local version of OpenShot, which is running off your loca
 Try making some changes to the source code and re-launch OpenShot...
 you should now see your changes!
 
-Command-Line Options
---------------------
+.. _launch_options_ref:
 
-These options work with the installed OpenShot application, including
-``openshot-qt.exe`` on Windows. When running from source, use
+Command-Line Launch Options
+---------------------------
+
+For editing, animation, batch changes, and exports from a terminal or script,
+see :ref:`cli_ref`. Start with ``openshot-qt --cli intro`` (or
+``python3 src/launch.py --cli intro`` from source). Put ``--cli`` first, followed
+by the editing command and its options.
+
+The launch options below work with the installed OpenShot application, including
+``openshot-qt-cmd.exe`` on Windows for visible terminal output. For Windows CLI
+usage, follow the console-executable guidance in :ref:`cli_ref`. When running
+from source, use
 ``python3 src/launch.py`` in place of the application name. Put options before
 any file paths you want OpenShot to open.
 
@@ -249,8 +258,10 @@ any file paths you want OpenShot to open.
 
    * - Option
      - What it does
+   * - ``--cli``
+     - Enter the :ref:`cli_ref`. Use ``--cli help`` for editing commands.
    * - ``-h``, ``--help``
-     - Show the available options and exit.
+     - Show application launch options and exit. Use ``--cli help`` for editing commands.
    * - ``-V``, ``--version``
      - Print the OpenShot version and exit.
    * - ``-l CODE``, ``--lang CODE``

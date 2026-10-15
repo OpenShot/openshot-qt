@@ -55,7 +55,6 @@ Table of Contents:
    ai
    troubleshoot
    agent_cli
-   agent_cli_acceptance
    developers
    contributing
    learn_more

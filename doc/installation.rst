@@ -117,6 +117,10 @@ AppImageLauncher PPA:
     sudo apt update
     sudo apt install appimagelauncher
 
+For command-line editing and automation, see :ref:`cli_ref`. If AppImageLauncher
+shows integration dialogs when using ``--cli``, follow the environment-variable
+instructions in :ref:`cli_appimage_ref`.
+
 Linux (PPA)
 ^^^^^^^^^^^
 
