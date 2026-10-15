@@ -55,6 +55,15 @@ if os.name == "nt":
     if _existing_qt_dll_dirs:
         os.environ["PATH"] = os.pathsep.join(_existing_qt_dll_dirs + [os.environ.get("PATH", "")])
 
+# Dispatch automation before Qt/native imports or GUI argument handling. This
+# also runs when launch is loaded through the installed GUI entry point.
+if sys.argv[1:2] == ["--cli"]:
+    if __package__:
+        from .cli import main as cli_main
+    else:
+        from cli import main as cli_main
+    sys.exit(cli_main(sys.argv[2:]))
+
 try:
     # This needs to be imported before the Qt binding
     # To prevent some issues on AppImage build: wrapping/forcing older glibc versions
@@ -90,6 +99,9 @@ def main():
     # Configure argument handling for commandline launches
     parser = argparse.ArgumentParser(description='OpenShot version ' + info.SETUP['version'])
     parser.add_argument(
+        '--cli', action='store_true',
+        help='Run automation commands instead of the editor. Must be the first argument: --cli help or --cli --help.')
+    parser.add_argument(
         '-l', '--lang', action='store',
         help='language code for interface (overrides '
              'preferences and system environment)')
@@ -119,6 +131,8 @@ def main():
         'remain', nargs=argparse.REMAINDER, help=argparse.SUPPRESS)
 
     args, extra_args = parser.parse_known_args()
+    if args.cli:
+        parser.error('--cli must be the first argument. Start with: openshot-qt --cli help')
     info.FEEDBACK_PREVIEW = args.feedback_preview
     info.UPDATE_PREVIEW = args.update_preview
 

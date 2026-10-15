@@ -1,9 +1,32 @@
-"""Validate untrusted command data before it enters OpenShot's update listeners.
+"""
+ @file
+ @brief Validate untrusted command data before it enters OpenShot's update listeners.
 
 Native property min/max values often describe GUI slider ranges, not legal engine
 ranges (e.g. scale > 1 and volume > 1 are valid). Enforce enums and structural
 contracts, plus explicitly known semantic bounds; expose other ranges as metadata.
-"""
+
+ @section LICENSE
+
+ Copyright (c) 2008-2026 OpenShot Studios, LLC
+ (http://www.openshotstudios.com). This file is part of
+ OpenShot Video Editor (http://www.openshot.org), an open-source project
+ dedicated to delivering high quality video editing and animation solutions
+ to the world.
+
+ OpenShot Video Editor is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ OpenShot Video Editor is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
+ """
 import difflib
 import json
 import math
@@ -84,8 +107,8 @@ def arguments(method, params):
             continue
         value = params[key]
         path = 'params.' + key
-        if key in ('values', 'commands', 'config'):
-            expected = list if key == 'commands' else dict
+        if key in ('values', 'commands', 'config', 'selection', 'points', 'handles'):
+            expected = list if key in ('commands', 'points') else dict
             if not isinstance(value, expected):
                 fail(path, 'a JSON object' if expected is dict else 'a JSON array', value)
         elif isinstance(action, argparse._StoreTrueAction):
@@ -172,7 +195,13 @@ def structure(value, template, path, metadata=None, property_name=''):
         for key in template:
             if key not in value:
                 fail(path + '.' + key, 'a required nested field (nested objects replace, not merge)', '<missing>')
-            structure(value[key], template[key], path + '.' + key, property_name=property_name)
+            # Native effects may contain empty default curves (e.g. color alpha).
+            # Preserve untouched siblings; validate every field actually changed.
+            unchanged = (value[key] == template[key] and
+                         json.dumps(value[key], sort_keys=True, allow_nan=False) ==
+                         json.dumps(template[key], sort_keys=True, allow_nan=False))
+            if not unchanged:
+                structure(value[key], template[key], path + '.' + key, property_name=property_name)
     elif isinstance(template, bool):
         if not isinstance(value, bool):
             fail(path, 'a JSON boolean', value)

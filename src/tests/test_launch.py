@@ -50,7 +50,8 @@ assert QtWidgets.QApplication.instance() is None
             (package / "classes").mkdir(parents=True)
             # Stage the real modules needed by --version, using setup.py's layout.
             for name in ("__init__.py", "launch.py", "qt_api.py",
-                         "classes/__init__.py", "classes/info.py", "classes/log_config.py"):
+                         "classes/__init__.py", "classes/info.py", "classes/log_config.py",
+                         "classes/qt_bootstrap.py"):
                 shutil.copy2(str(source / name), str(package / name))
 
             home = root / "home"
@@ -73,6 +74,19 @@ assert QtWidgets.QApplication.instance() is None
             )
             self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
             self.assertRegex(result.stdout.strip().splitlines()[-1], r"^\d+\.\d+\.\d+\S*$")
+
+    def test_gui_help_advertises_cli_and_rejects_misplaced_prefix(self):
+        launcher = Path(__file__).resolve().parents[1] / 'launch.py'
+        env = dict(os.environ, QT_QPA_PLATFORM='offscreen')
+        result = subprocess.run([sys.executable, str(launcher), '--help'], env=env,
+                                capture_output=True, text=True, timeout=20)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn('--cli', result.stdout)
+        self.assertIn('--cli help', result.stdout)
+        result = subprocess.run([sys.executable, str(launcher), '--version', '--cli'], env=env,
+                                capture_output=True, text=True, timeout=20)
+        self.assertEqual(result.returncode, 2)
+        self.assertIn('--cli must be the first argument', result.stderr)
 
     def test_installed_entry_point(self):
         self.check_launch(installed=True)

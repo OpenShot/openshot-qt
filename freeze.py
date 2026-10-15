@@ -355,7 +355,7 @@ write_build_metadata(version_path, version_info)
 
 if sys.platform == "win32":
     # Define alternate terminal-based executable
-    extra_exe = {"base": None, "name": exe_name + "-cli.exe"}
+    extra_exe = {"base": None, "name": exe_name + "-cmd.exe"}
 
     # Standard graphical Win32 launcher
     base = "Win32GUI"

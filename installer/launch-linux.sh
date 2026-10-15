@@ -19,5 +19,7 @@ fi
 # https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=918727
 export OPENSSL_CONF="/dev/null"
 
+# The shared executable dispatches a leading --cli before importing Qt.
+# Forward every argument verbatim; normal desktop launches still open the GUI.
 # Launch application
 exec "${HERE}"/openshot-qt "$@"

@@ -936,7 +936,7 @@ def main():
 
             # Create AppRun file
             app_run_path = os.path.join(app_dir_path, "AppRun")
-            shutil.copyfile("/home/ubuntu/apps/AppImageKit/AppRun", app_run_path)
+            shutil.copyfile(os.path.join(PATH, "installer", "AppRun"), app_run_path)
 
             # Add execute bit to file mode for AppRun and scripts
             st = os.stat(app_run_path)

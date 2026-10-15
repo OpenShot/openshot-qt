@@ -485,6 +485,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             candidate = self.read_from_file(file_path, path_mode="absolute")
             def check_paths(value):
                 if isinstance(value, dict):
+                    self._drop_obsolete_effect_resource(value)
                     for key, child in value.items():
                         if key in ("path", "resource", "protobuf_data_path", "lut_path") and isinstance(child, str) and child and "%" not in child:
                             if not os.path.exists(child):
@@ -505,7 +506,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
             try:
                 # Attempt to load v2.X project file
-                project_data = self.read_from_file(file_path, path_mode="absolute")
+                project_data = (self.read_from_file(file_path, path_mode="absolute")
+                                if interactive else candidate)
 
                 # Fix history (if broken)
                 if not project_data.get("history"):

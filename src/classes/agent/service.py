@@ -1,4 +1,28 @@
-"""Editing commands backed by existing Query objects and UpdateManager."""
+"""
+ @file
+ @brief Editing commands backed by existing Query objects and UpdateManager.
+
+ @section LICENSE
+
+ Copyright (c) 2008-2026 OpenShot Studios, LLC
+ (http://www.openshotstudios.com). This file is part of
+ OpenShot Video Editor (http://www.openshot.org), an open-source project
+ dedicated to delivering high quality video editing and animation solutions
+ to the world.
+
+ OpenShot Video Editor is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ OpenShot Video Editor is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
+ """
 import copy
 import json
 import math
@@ -14,7 +38,9 @@ from .protocol import CommandError
 OBJECTS = {'file': File, 'clip': Clip, 'transition': Transition, 'effect': Effect}
 MUTATIONS = {k + '.' + op for k in OBJECTS for op in ('add', 'set', 'remove')} | {'file.import'}
 MUTATIONS -= {'file.add', 'file.set'}
-MUTATIONS |= {k + '.keyframe.set' for k in ('clip', 'transition', 'effect')}
+MUTATIONS |= {k + '.keyframe.' + op for k in ('clip', 'transition', 'effect')
+              for op in ('set', 'remove', 'clear', 'transform', 'copy', 'paste')}
+MUTATIONS.add('clip.adjust')
 MUTATIONS |= {'clip.fade', 'clip.split', 'project.profile', 'project.profile.set'}
 
 
@@ -57,7 +83,9 @@ class EditingService:
                 'can_redo': bool(self.app.updates.redoHistory)}
 
     def execute(self, method, params, operation_id=None):
-        tracked = isinstance(method, str) and (method in MUTATIONS or method.startswith('effects.') and method.split('.')[-1] in ('add', 'set', 'remove') or method in ('edit.apply', 'project.save', 'project.open', 'history.undo', 'history.redo', 'export.start', 'export.cancel'))
+        from .batch import method_name
+        method = method_name(method)
+        tracked = isinstance(method, str) and (method in MUTATIONS or method in ('edit.apply', 'edit.bulk', 'project.save', 'project.open', 'history.undo', 'history.redo', 'export.start', 'export.cancel'))
         if not tracked:
             return self._execute(method, params)
         operation_id = operation_id or uuid.uuid4().hex
@@ -90,36 +118,53 @@ class EditingService:
         method = method_name(method)
         from .validation import arguments
         arguments(method, params)
-        if method == 'edit.apply':
-            commands = params.get('commands')
-            if not isinstance(commands, list) or not 1 <= len(commands) <= 256:
-                raise CommandError('invalid_argument', 'Provide 1..256 commands.')
-            from .batch import validate_entries, method_name
-            validate_entries(commands, MUTATIONS)
-            commands = [dict(entry, method=method_name(entry['method'])) for entry in commands]
+        batch = method in ('edit.apply', 'edit.bulk')
+        selection = None
+        if batch:
             expected = params.get('expect_revision')
             if expected is not None and expected != self.app.updates.data_version:
                 raise CommandError('revision_conflict', 'Project changed; inspect and rebuild the batch.', self.status())
+            commands = params.get('commands')
+            if method == 'edit.bulk':
+                from .selection import select, expand
+                selection = select(self, params['selection'])
+                commands = expand(self, selection, commands, MUTATIONS)
+            if not isinstance(commands, list) or not 1 <= len(commands) <= 256:
+                raise CommandError('invalid_argument', 'Provide 1..256 commands.')
+            from .batch import validate_entries
+            validate_entries(commands, MUTATIONS)
+            commands = [dict(entry, method=method_name(entry['method'])) for entry in commands]
+            # Preserve the existing detached preflight for both explicit batches
+            # and expanded per-clip templates. No GUI/engine listeners see edits.
+            self.preflight(commands)
+            if params.get('dry_run'):
+                return {'revision': self.app.updates.data_version,
+                        'data': {'dry_run': True, 'command_count': len(commands),
+                                 'selected_ids': selection['ids'] if selection else None}}
         else:
             commands = [{'method': method, 'params': params}]
-        # Preflight against a detached project and private UpdateManager. No GUI or
-        # engine listeners receive data until every operation passes validation.
-        if method == 'edit.apply':
-            self.preflight(commands)
         old_transaction = self.app.updates.transaction_id
         transaction = uuid.uuid4().hex
-        self.app.updates.transaction_id = transaction
         results = []
         named = {}
         from .batch import resolve
+        window = self.app.window
+        revision = self.app.updates.data_version
+        project = self.app.project
+        was_ignoring = bool(getattr(window, 'ignore_updates', False)) if window else False
         try:
+            if batch and window:
+                window.IgnoreUpdates.emit(True, True)
+                if self.app.project is not project or self.app.updates.data_version != revision:
+                    raise CommandError('revision_conflict', 'Project changed while entering batch mode; inspect and rebuild the batch.')
+            self.app.updates.transaction_id = transaction
             for entry in commands:
-                resolved = resolve(entry['params'], named) if method == 'edit.apply' else entry['params']
+                resolved = resolve(entry['params'], named) if batch else entry['params']
                 arguments(entry['method'], resolved)
                 result = self.dispatch(entry['method'], resolved)
                 if 'as' in entry:
                     named[entry['as']] = result
-                if entry['method'].split('.')[0] in OBJECTS and entry['method'] in MUTATIONS and isinstance(result, dict) and 'id' in result:
+                if entry['method'].split('.')[0] in OBJECTS and entry['method'] in MUTATIONS and isinstance(result, dict) and 'id' in result and '.keyframe.' not in entry['method']:
                     result = self.summary(entry['method'].split('.')[0], result)
                 results.append(dict(result, ref=entry['as']) if 'as' in entry and isinstance(result, dict) else result)
         except Exception as exc:
@@ -131,10 +176,14 @@ class EditingService:
             raise CommandError('command_failed', str(exc), details)
         finally:
             self.app.updates.transaction_id = old_transaction
-            if self.app.window and (method in MUTATIONS or method == 'edit.apply'):
-                self.app.window.refreshFrameSignal.emit()
+            if batch and window:
+                window.IgnoreUpdates.emit(was_ignoring, True)
+            if window and method in MUTATIONS:
+                window.refreshFrameSignal.emit()
         response = {'revision': self.app.updates.data_version, 'transaction_id': transaction,
-                    'data': results if method == 'edit.apply' else results[0]}
+                    'data': results if batch else results[0]}
+        if selection is not None:
+            response['selected_ids'] = selection['ids']
         if named:
             response['refs'] = {name: {'id': value['id']} if isinstance(value, dict) and 'id' in value else value
                                 for name, value in named.items()}
@@ -199,6 +248,17 @@ class EditingService:
         return value
 
     def dispatch(self, method, p):
+        if method == 'edit.select':
+            from .selection import select
+            return select(self, p['selection'])
+        if method == 'clip.adjust':
+            from .selection import adjust
+            return adjust(self, p)
+        if '.keyframe.' in method:
+            from .keyframes import command
+            kind, _, operation = method.split('.')
+            return command(self, kind, operation, p)
+
         if method == 'operation.list':
             return [{k: v for k, v in row.items() if k not in ('result', 'error')} for row in reversed(list(self.operations.values()))]
         if method == 'operation.get':
@@ -324,24 +384,6 @@ class EditingService:
                     result.append(item)
                 return result
             return [{k: o.data[k] for k in keys if k in o.data} for o in objects]
-        if operation == 'keyframe.set':
-            obj = self.obj(kind, p['id'])
-            name = p['property']
-            if not isinstance(obj.data.get(name), dict) or 'Points' not in obj.data[name]:
-                raise CommandError('invalid_property', 'Property does not support keyframes; use properties.')
-            frame = p['frame']
-            if not isinstance(frame, int) or frame < 1:
-                raise CommandError('invalid_frame', 'Keyframe coordinate must be an integer >= 1.')
-            value = p['value']
-            if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value):
-                raise CommandError('invalid_argument', 'Keyframe value must be a finite number.')
-            curve = openshot.Keyframe()
-            curve.SetJson(json.dumps(obj.data[name]))
-            modes = {'linear': openshot.LINEAR, 'bezier': openshot.BEZIER, 'constant': openshot.CONSTANT}
-            if p.get('interpolation', 'linear') not in modes:
-                raise CommandError('invalid_argument', 'Interpolation must be linear, bezier, or constant.')
-            curve.AddPoint(frame, value, modes[p.get('interpolation', 'linear')])
-            return self.dispatch(kind + '.set', {'id': obj.id, 'values': {name: json.loads(curve.Json())}})
         if operation in ('get', 'remove', 'set', 'properties'):
             obj = self.obj(kind, p['id'])
             if operation == 'get':

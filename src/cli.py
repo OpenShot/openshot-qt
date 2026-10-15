@@ -1,5 +1,29 @@
 #!/usr/bin/env python3
-"""Agent-first command-line entry point. Help does not import Qt or libopenshot."""
+"""
+ @file
+ @brief Agent-first command-line entry point. Help does not import Qt or libopenshot.
+
+ @section LICENSE
+
+ Copyright (c) 2008-2026 OpenShot Studios, LLC
+ (http://www.openshotstudios.com). This file is part of
+ OpenShot Video Editor (http://www.openshot.org), an open-source project
+ dedicated to delivering high quality video editing and animation solutions
+ to the world.
+
+ OpenShot Video Editor is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ OpenShot Video Editor is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
+ """
 import argparse
 import json
 import math
@@ -13,104 +37,72 @@ import uuid
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from classes.agent.protocol import CommandError, cli_command, parse_json, records, session_dir
 
-AGENT_GUIDE = """OpenShot automation quick start (protocol 1)
+ROOT_HELP = """Workflow:
+  session list / session start    Connect to an editor or start a headless session.
+  project get / timeline overview Inspect layers, clips, timing, and returned IDs.
+  file import / clip add          Add footage; use actual file IDs and layer numbers.
+  clip / effects / transition     Edit properties and animate keyframes.
+  edit select / edit bulk         Preview and apply changes across many clips.
+  project save / export start     Save the project or render an output.
 
-1. Discover: openshot-cli session list
-2. Start a persistent headless editor: openshot-cli session start
-3. Inspect: openshot-cli --session ID timeline view (text; no media decoding)
-4. Import: openshot-cli --session ID file import /absolute/path/video.mp4
-   Match its profile: profile match --file FILE_ID
-   Set project: project profile set --from-file FILE_ID
-   Inspect current profile: project profile get
-   Browse profiles: profile list --search "720p"
-   No exact match? Inspect alternatives or explicitly use --create-custom.
-5. Place: openshot-cli --session ID clip add FILE_ID --layer 1000000 --position 0
-   Use project get to discover real layer numbers; never guess IDs.
-6. Inspect: openshot-cli --session ID timeline thumbnail --frame 1 --output /tmp/frame.png
-7. Save: openshot-cli --session ID project save /absolute/path/edit.osp
+Use help at any level: clip help, clip keyframe help, clip keyframe set help.
+Global --session and --timeout go before the command. Sessions persist between
+calls. Results are JSON (timeline view defaults to text); errors go to stderr.
+After a timeout, inspect operation list/get before retrying a mutation.
+"""
 
-Discover effects before adding them: effects list gives short descriptions;
-effects audiovisualization help gives purpose, usage, examples and properties.
-Use effects audiovisualization help --property background for one setting.
-effects instances shows attached instances; effects list shows the catalog.
+GROUP_HELP = {
+    'session': """Start with session list to discover running editors, or session start
+--project /path/edit.osp to open a persistent headless session.
+Use --session ID before commands when multiple sessions exist.
+session show opens the same session's editor. Save before session stop.""",
+    'clip': """Workflow: file import, clip add, then inspect with clip get/properties.
+Use project get for real layer numbers and returned IDs for all objects.
+position is timeline seconds; start/end are source seconds, with end exclusive.
+clip split ID --at 6.5 cuts at timeline time and preserves both halves' animation.
+clip set replaces supplied properties; a scalar replaces animation with a constant.
+clip adjust adds/multiplies existing values and curves.
+Use clip keyframe help for animation; edit bulk help for changes across clips.""",
+    'effects': """Discover with effects list, then effects TYPE help for settings and examples.
+effects add attaches an effect; effects instances lists attached effects and IDs.
+Inspect with effects properties/get before editing. A scalar in effects set
+replaces animation with a constant. Use effects keyframe help for animation,
+including nested color properties; edit bulk help for applying effects to clips.""",
+    'transition': """Inspect transition list/get/properties before editing.
+A scalar in transition set replaces animation with a constant.
+Use transition keyframe help for the shared animation workflow.""",
+    'edit': """Workflow: preview with edit select, validate with edit bulk --dry-run,
+then apply with --expect-revision using the revision returned by selection.
+Bulk templates inherit each selected clip's id (clip_id for effects.add).
+Named references stay local to each selected clip.
 
-Every group and operation supports help and --help (e.g. clip add help). Help and this guide work without a session.
-Mutations return compact summaries and an inspect command; get returns full native JSON.
-Results are JSON except timeline view defaults to text; use --format json for scripts.
-Errors are JSON on stderr (exit 1).
-Argument errors exit 2. Global --session and --timeout go BEFORE the command group.
-A session stays alive between calls. With multiple sessions, --session is required.
-GUI edits use the same Query/UpdateManager/undo history as mouse edits.
+edit apply groups different ordered edits into one undo step.
+Use --json @commands.json; entries contain method, params, and optional as:
+[{"method":"file.import","as":"media","params":{"path":"/path/video.mp4"}},
+ {"method":"clip.add","params":{"file_id":{"$ref":"media.id"},"layer":1000000}}]
+Substitute a real layer from project get. References name earlier results only.
+Batches preflight before editing; runtime failures can leave partial changes.
+Limit: 256 expanded commands. history undo/redo shares the editor's history.
+Save/open/export stay outside edit batches.""",
+}
 
-Time contract:
-  position = timeline seconds; start/end = source seconds; end is exclusive.
-  Frames are 1-based: frame 1 is time zero. File frames use source FPS;
-  timeline frames and keyframe coordinates use project FPS. No SMPTE parser yet.
-  Property updates accept native OpenShot JSON (including keyframe Points).
-  A scalar replaces a keyframed property with a constant: clip set ID --json
-  '{"volume":0}' mutes a clip; '{"volume":0.4}' sets gain; '{"has_video":0}' hides
-  video (including album art in music). clip add --audio-only is useful for music.
-  clip keyframe set ID --property volume --frame 1 --value 0 edits one point.
-  Clip keyframe frames are SOURCE coordinates at PROJECT FPS, not timeline time:
-  a clip trimmed at 10s in a 30fps project starts at keyframe frame 301.
-  To fade it in over 1s, set volume 0 at frame 301 and volume 1 at frame 331.
-  Use get and properties to discover fields. set merges supplied top-level fields;
-  nested objects are replaced, so provide a complete keyframe curve.
-  clip fade ID --in 0.5 --out 0.5 builds an alpha fade using the clip's trim.
-  Use --property volume --value 0.25 for music fades with a 0.25 peak gain.
+KEYFRAME_HELP = """Workflow: list ID to discover curves, then list ID --property NAME to inspect
+points. The same operations work for clips, effects, and transitions, including
+nested properties such as color.red.
 
-Each mutating command is one undo group. edit apply accepts an ordered JSON list
-of {"method":"clip.set","params":{"id":"...","values":{"position":2}}}.
-Name results with "as":"media", then reference an earlier result using
-{"$ref":"media.id"}. Example (JSON array for edit apply --json):
-[{"method":"file.import","as":"media","params":{"path":"/tmp/video.mp4"}},
- {"method":"clip.add","as":"shot","params":{"file_id":{"$ref":"media.id"},"layer":1000000,"end":5}},
- {"method":"clip.fade","params":{"id":{"$ref":"shot.id"},"fade_in":0.5,"fade_out":0.5}}]
-Names last only for this batch. Results include refs with the real generated IDs.
-Batch mutations follow command paths: effects.add, effects.set, clip.fade, etc.
-project.profile.set accepts an ID, from_file, or values (custom profile JSON).
-It uses existing FPS/keyframe conversion, with grouped undo/redo. save/open/export and
-inspection commands stay outside batches (they are not undoable edits).
-The older singular effect.add/effect.set spelling is also accepted.
-Use clip split ID --at 6.5 to cut at timeline seconds (nearest project frame),
-keeping both halves and their animation. Returns left/right IDs; batches can
-name the result and use {"$ref":"cut.right.id"} in subsequent edits.
-Batches preflight all commands before edits. Invalid input applies nothing.
-A runtime failure can still leave a partial undo group; completed operations are reported.
-Use --expect-revision with edit apply to detect edits since your last inspection.
-Do not retry mutations blindly after timeouts. Query the session first.
+Prefer --space clip --unit seconds for time relative to the visible clip start,
+or --space timeline to align animations across clips. Attached effects use their
+parent clip's timing. Native coordinates include source trim; frames are 1-based
+at project FPS, seconds start at zero.
 
-thumbnail produces one exact frame. strip samples a bounded time range and returns
-an image plus tile coordinates/timecodes. timeline view defaults to fast text;
---detail summary|clips|full changes detail; --format json returns structured context.
---format image --output PATH renders the actual QWidget timeline;
---pixels-per-second controls zoom, --start/--end control the viewport.
-timeline overview --start 5 --end 12 returns compact IDs, ordered clips, source
-and timeline timing, gaps/overlaps and stream state without image bytes.
-timeline view --mode waveforms shows audio envelopes in the actual widget;
---mode thumbnails forces thumbnails; auto uses existing cached waveforms.
-Limits: 4096 pixels per dimension, 8,388,608 pixels total, 64 strip samples.
-Requests beyond limits fail; nothing is silently resized. PNG output paths must
-not already exist. Inspections are synchronous; use small ranges in the GUI.
+Example: fade volume over a clip's first visible second:
+  clip keyframe set ID --property volume --space clip --unit seconds --at 0 --value 0
+  clip keyframe set ID --property volume --space clip --unit seconds --at 1 --value 1
 
-Export starts a background job from a project snapshot. Use export start PATH --wait
-or export status JOB_ID --wait. --wait-timeout bounds waiting (default 600s);
-a wait timeout leaves the job running and returns its ID for safe status checks.
-Export discovery: export preset list; export preset get ID; export capabilities.
-Validate without rendering: export validate /tmp/out.mp4 --preset PRESET_ID --profile project
-Export uses the current profile by default. --profile ID or --from-file FILE_ID
-selects an export-only profile without changing the .osp. Frame ranges use EXPORT FPS.
-Advanced --json accepts native encoder options; use export capabilities for fields.
-Video/audio, video-only, audio-only and image_sequence modes are supported.
-Hardware encoder names/devices are explicit; there is no silent software fallback.
-export list finds job IDs/output paths. operation list/get retain recent mutation
-results/errors in this session; timeout errors include an operation ID. These are
-bounded records, not a crash journal or automatic retry mechanism.
-session start creates no editor window; --show opens one immediately.
-session show opens or raises the same session's editor, preserving IDs and history.
-Desktop sessions support showing later; displayless/offscreen sessions cannot show a UI.
-Save before session stop;
-stop refuses unsaved changes unless --discard is explicit. No remote transport.
+set changes one point; interpolation controls the segment INTO that point.
+transform shifts/scales ranges. copy/paste require --mode merge or replace.
+clear replaces animation with a constant. Bezier handles are normalized native
+handles, not frame offsets. Each operation's help explains its exact arguments.
 """
 
 
@@ -159,18 +151,14 @@ class CommandParser(argparse.ArgumentParser):
 def build_parser():
     parser = CommandParser(prog='openshot-cli', description=(
         'Control a running OpenShot editor or persistent headless session. '
-        'JSON results; stable object IDs; edits share OpenShot undo/redo.'), epilog=(
-        'Start here: session list (running editors), session start (headless), agent '
-        '(workflow and time conventions). Every command and subcommand accepts help or --help. '
-        'Global options precede the command.'))
+        'JSON results; stable object IDs; edits share OpenShot undo/redo.'),
+        epilog=ROOT_HELP, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument('--session', default=os.environ.get('OPENSHOT_SESSION'), help='Target session ID (or OPENSHOT_SESSION); auto-select only when exactly one is live.')
     parser.add_argument('--timeout', type=number, default=30, help='Response timeout in seconds (default: 30); a timeout does not cancel an edit.')
     groups = parser.add_subparsers(dest='group')
-    guide = groups.add_parser('agent', help='Read the agent workflow, time/JSON conventions, limits, and examples.', description=AGENT_GUIDE, formatter_class=argparse.RawDescriptionHelpFormatter)
-    guide.set_defaults(local='agent')
-
     def group(name, description, aliases=()):
-        p = groups.add_parser(name, aliases=list(aliases), help=description, description=description)
+        p = groups.add_parser(name, aliases=list(aliases), help=description, description=description,
+                              epilog=GROUP_HELP.get(name), formatter_class=argparse.RawDescriptionHelpFormatter)
         p.set_defaults(help_parser=p)
         return p.add_subparsers(dest='operation')
 
@@ -239,18 +227,14 @@ def build_parser():
             p = command(s, 'properties', 'Return libopenshot property metadata and evaluated values at a 1-based frame.', kind + '.properties')
             p.add_argument('id', help='Object ID.')
             p.add_argument('--frame', type=int, default=1, help='Native clip/effect keyframe coordinate, 1-based.')
-            kp = command(s, 'keyframe', 'Edit individual keyframe points without replacing the curve.')
-            ks = kp.add_subparsers(dest='keyframe_operation')
-            p = command(ks, 'set', 'Add/replace a point. Clip coordinates use source seconds * project FPS + 1; trimmed clips do not start at frame 1. Interpolation belongs to this destination point.', kind + '.keyframe.set')
-            p.add_argument('id', help='Object ID.')
-            p.add_argument('--property', required=True, help='Keyframed property from get/properties, e.g. volume or alpha.')
-            p.add_argument('--frame', required=True, type=int, help='1-based native keyframe coordinate at project FPS.')
-            p.add_argument('--value', required=True, type=float, help='Numeric property value; use properties for range/units.')
-            p.add_argument('--interpolation', choices=['linear', 'bezier', 'constant'], default='linear', help='Interpolation to this point.')
+            add_keyframes(s, kind, command)
         if kind == 'file':
             p = command(s, 'import', 'Import one media file using libopenshot reader detection (undoable).', 'file.import')
             p.add_argument('path', help='Local media path; image sequences are not auto-detected.')
         elif kind == 'clip':
+            p = command(s, 'adjust', 'Apply relative add/multiply adjustments to numeric properties or all values in a curve. One undo step.', 'clip.adjust')
+            p.add_argument('id', help='Clip ID.')
+            p.add_argument('--json', dest='values', required=True, help='Object such as {"position":{"add":2},"volume":{"multiply":0.5}}. Multiply first, then add; preserves curve timing and handles.')
             p = command(s, 'split', 'Split a clip at timeline seconds, snapped to the nearest project frame. Keeps both halves, source animation and effects; left keeps its ID, right receives new IDs. One undo group.', 'clip.split')
             p.add_argument('id', help='Clip ID from timeline overview or clip list.')
             p.add_argument('--at', required=True, type=number, help='Timeline seconds at the start of the right half, strictly inside the clip. Response reports actual snapped time and both IDs.')
@@ -311,8 +295,16 @@ def build_parser():
     p.add_argument('--offset', type=int, default=0, help='Text/JSON item pagination offset.')
     s = group('edit', 'Preflight ordered mutations, then apply as one undo group; supports project.profile and file/clip/transition/effects edits.')
     p = command(s, 'apply', 'Validate every command on a detached project before editing. Invalid input applies nothing. Runtime failures report completed operations; undo reverts the group.', 'edit.apply')
-    p.add_argument('--json', required=True, dest='commands', help='JSON array, @file.json, or - for stdin. Entry: {"method":"file.import","as":"media","params":{"path":"/tmp/video.mp4"}}. Later params can use {"$ref":"media.id"}. Optional unique as names; earlier results only. One undo group, max 256 commands. Run agent for a complete example.')
+    p.add_argument('--json', required=True, dest='commands', help='JSON array, @file.json, or - for stdin. Entry: {"method":"file.import","as":"media","params":{"path":"/tmp/video.mp4"}}. Later params can use {"$ref":"media.id"}. Optional unique as names; earlier results only. One undo group, max 256 commands. See edit help for a complete example.')
     p.add_argument('--expect-revision', type=int, help='Reject before editing if the project revision changed.')
+    p.add_argument('--dry-run', action='store_true', help='Preflight only; return command count and revision without changing project/history. Generated IDs are not reserved.')
+    p = command(s, 'select', 'Preview a deterministic clip selection without editing. Filters combine with AND; time range is half-open overlap.', 'edit.select')
+    p.add_argument('--json', dest='selection', required=True, help='Selector object: ids (array), layer, start/end seconds, file_id, effect (class or alias), or {"all":true}. Empty selectors are rejected.')
+    p = command(s, 'bulk', 'Expand per-clip templates into the existing edit.apply transaction. Preflight all targets; one undo group, max 256 expanded commands.', 'edit.bulk')
+    p.add_argument('--select', dest='selection', required=True, help='Selector JSON, @file.json, or -. Preview with edit select first; use expect-revision when applying.')
+    p.add_argument('--json', dest='commands', required=True, help='Command array. Clip commands inherit id; effects.add inherits clip_id. Named references are local to each clip. Other effect edits must reference an earlier named effect. Explicit target IDs are rejected.')
+    p.add_argument('--expect-revision', type=int, help='Reject if the selection/project has changed since preview.')
+    p.add_argument('--dry-run', action='store_true', help='Validate the expanded batch without editing; return selected IDs and command count.')
     s = group('export', 'Inspect presets, validate settings, and export snapshots using the installed engine.')
     p = command(s, 'preset', 'Browse existing OpenShot XML export presets; hardware availability depends on the installed engine and machine.')
     ps = p.add_subparsers(dest='preset_operation')
@@ -356,6 +348,51 @@ def build_parser():
                     annotate_json_help(child)
     annotate_json_help(parser)
     return parser
+
+
+def add_keyframes(subs, kind, command):
+    parent = command(subs, 'keyframe', 'Inspect and edit curves, including nested properties such as color.red. Uses the existing undo transaction.')
+    parent.epilog = KEYFRAME_HELP
+    parent.formatter_class = CommandRawFormatter
+    children = parent.add_subparsers(dest='keyframe_operation')
+    descriptions = {
+        'list': 'Discover curve property paths, or return points for --property in explicit coordinates. Optional inclusive range.',
+        'set': 'Add/update one point; interpolation belongs to the destination point. Existing handles are preserved unless supplied.',
+        'remove': 'Remove points in an inclusive range or at one coordinate. Removing the last point retains its value as a constant at native frame 1.',
+        'clear': 'Replace animation with a constant. Use value, or evaluate at the supplied coordinate (default native frame 1).',
+        'transform': 'Move/scale an inclusive point range around its first point or an explicit pivot. Reject collisions; leave other points untouched.',
+        'copy': 'Copy a source curve range to this object/property, anchored at at. Source uses the same space/unit; handles and interpolation are retained.',
+        'paste': 'Paste point JSON from keyframe list (points array), using the chosen space/unit. Explicit merge or replace required.',
+    }
+    for op, description in descriptions.items():
+        p = command(children, op, description, kind + '.keyframe.' + op)
+        p.add_argument('id', help='Target object ID.')
+        p.add_argument('--property', required=op != 'list', help='Keyframe property path, e.g. volume or color.red. Omit for list to discover all editable curves.')
+        p.add_argument('--space', choices=['native', 'clip', 'timeline'], default='native', help='native = source-trim keyframe coordinates; clip = visible clip start; timeline = project start. Attached effects use parent clip timing.')
+        p.add_argument('--unit', choices=['frames', 'seconds'], default='frames', help='Frames are 1-based at project FPS; seconds start at zero and snap to nearest frame. Hidden points may have nonpositive clip/timeline coordinates.')
+        if op in ('set', 'remove', 'clear', 'copy'):
+            p.add_argument('--at', type=float, help='Coordinate in space/unit; required for set/copy unless legacy frame is supplied for set.')
+        if op == 'set':
+            p.add_argument('--frame', type=int, help='Legacy 1-based native frame; cannot combine with at or non-native coordinates.')
+        if op in ('set', 'clear'):
+            p.add_argument('--value', type=float, required=op == 'set', help='Numeric value; clear defaults to evaluating the original curve.')
+        if op == 'set':
+            p.add_argument('--interpolation', choices=['linear', 'bezier', 'constant'], default='linear', help='Interpolation to this point.')
+            p.add_argument('--handles', help='JSON object with handle_left/handle_right {X,Y} and/or handle_type (0..2); native normalized handles, not frame coordinates.')
+        if op in ('list', 'remove', 'transform', 'copy'):
+            p.add_argument('--start', type=float, help='Inclusive range start, in space/unit; copy uses source coordinates.')
+            p.add_argument('--end', type=float, help='Inclusive range end, in space/unit; copy uses source coordinates.')
+        if op == 'transform':
+            p.add_argument('--offset', type=float, default=0, help='Signed time shift in unit, applied after scaling.')
+            p.add_argument('--scale', type=float, default=1, help='Positive time scale factor; collisions after frame snapping are rejected.')
+            p.add_argument('--pivot', type=float, help='Scale origin in space/unit; default first selected point.')
+        if op == 'copy':
+            p.add_argument('--source-id', required=True, help='Source object ID of the same kind.')
+            p.add_argument('--source-property', help='Source property path; defaults to target property.')
+        if op == 'paste':
+            p.add_argument('--json', dest='points', required=True, help='Array of point objects from keyframe list, @file.json, or -. co.X uses space/unit.')
+        if op in ('copy', 'paste'):
+            p.add_argument('--mode', choices=['merge', 'replace'], required=True, help='merge replaces points at matching frames; replace replaces the entire target curve.')
 
 
 def add_profile_selection(parser, positional=False):
@@ -420,7 +457,12 @@ def normalize_help(argv):
 
 
 def main(argv=None):
+    from classes.cli_console import ensure_standard_streams
+    ensure_standard_streams()
     argv = list(sys.argv[1:] if argv is None else argv)
+    # The dedicated console alias also accepts the common executable prefix.
+    if argv[:1] == ['--cli']:
+        argv.pop(0)
     if len(argv) == 2 and argv[0] == '--_export-worker':
         from classes.agent.export_worker import main as export_worker
         return export_worker(argv[1])
@@ -435,9 +477,6 @@ def main(argv=None):
         return 0
     try:
         local = getattr(args, 'local', None)
-        if local == 'agent':
-            print(AGENT_GUIDE)
-            return 0
         if local == 'serve':
             import openshot  # Load the native engine before Qt, as in GUI startup.
             from classes.qt_bootstrap import configure_qt
@@ -466,7 +505,7 @@ def main(argv=None):
             else:
                 params = {k: v for k, v in vars(args).items() if k not in (
                     'group', 'operation', 'keyframe_operation', 'profile_operation', 'preset_operation', 'method', 'session', 'timeout', 'help_parser', 'local') and v is not None}
-                for key in ('values', 'commands', 'config'):
+                for key in ('values', 'commands', 'config', 'selection', 'points', 'handles'):
                     if key in params:
                         params[key] = read_json(params[key])
                 for key in ('path', 'mask', 'output'):

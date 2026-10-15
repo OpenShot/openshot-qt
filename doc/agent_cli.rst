@@ -3,13 +3,57 @@
 Agent CLI
 =========
 
-``openshot-cli`` controls a running editor or a persistent headless session.
-Changes use the existing Query objects and UpdateManager, including GUI updates
-and undo/redo. From a source checkout, use ``python3 src/cli.py`` in the same
-Python/native-library environment used to run OpenShot. Python installations
-provide the ``openshot-cli`` console entry point; the freezing configuration also
-includes a console executable. Windows and macOS packaged execution still need
-platform acceptance testing.
+The common packaged entry point is **the installed OpenShot executable followed
+by** ``--cli``. Dispatch happens before GUI/Qt initialization. Start with the
+command overview and workflow::
+
+   # Linux AppImage
+   ./OpenShot.AppImage --cli help
+   ./OpenShot.AppImage --cli --help
+   ./OpenShot.AppImage --cli session start
+
+   # Windows PowerShell, from the OpenShot installation directory
+   & .\openshot-qt.exe --cli help
+   & .\openshot-qt-cmd.exe --cli session list
+
+   # macOS (adjust if installed elsewhere)
+   "/Applications/OpenShot Video Editor.app/Contents/MacOS/openshot-qt" --cli help
+
+Bare ``--cli``, ``--cli help``, and ``--cli --help`` show the same overview.
+Help becomes more specific as you navigate commands::
+
+   openshot-cli clip help
+   openshot-cli clip keyframe help
+   openshot-cli clip keyframe set help
+   openshot-cli edit help
+
+Group help includes editing workflows and examples; operation help describes
+arguments and behavior. All of these help commands work without a session.
+
+Windows ``openshot-qt-cmd.exe`` is the console companion, replacing the old
+``openshot-qt-cli.exe`` debug-launcher name. Both accept ``--cli``; without it,
+both launch the editor. The console companion is useful for interactive shells
+that do not wait for GUI-subsystem executables. The main executable restores
+missing standard streams for CLI use while retaining redirected pipes/files.
+Neither command assumes the installation directory has been added to PATH.
+
+The direct ``openshot-cli`` alias (``openshot-cli.exe`` on Windows) remains
+available, including through Python/package console entry points. Throughout
+this guide, replace ``openshot-cli`` with your installed executable plus ``--cli``
+when using the common entry point. From source, use ``python3 src/launch.py --cli``
+or ``python3 src/cli.py`` in the same Python/native-library environment as OpenShot.
+
+The CLI controls a running editor or a persistent headless session. Changes use
+the existing Query objects and UpdateManager, including GUI updates and undo/redo.
+Windows/macOS frozen artifacts still require platform acceptance testing.
+
+AppImage commands retain the caller's working directory, including relative
+media paths and ``@batch.json`` files. Background sessions and export workers
+relaunch the backing AppImage so their lifetime does not depend on the client's
+mount. Keep the AppImage file available while using the session. Extracted bundles
+also support ``./squashfs-root/AppRun --cli ...``; they use local executables and
+must remain on disk for the session's lifetime. Normal double-click launches
+continue to open the editor.
 
 Help has one consistent pattern::
 
@@ -144,11 +188,123 @@ and both summaries; a named batch result supports ``{"$ref":"cut.right.id"}``.
 Splits reject endpoints and locked tracks. Undo restores the original clip in
 one transaction.
 
-All commands preflight against a detached project before any live updates.
+All commands in edit batches preflight against a detached project before any live updates.
 Invalid input leaves the live project and revision unchanged. Valid batches form
 one undo group. Unexpected runtime failures can still produce partial changes;
 errors report completed operations. A timeout does not imply cancellation, so
 inspect state before retrying mutations.
+
+Precise keyframe editing
+------------------------
+
+``clip``, ``transition``, and ``effects`` support ``keyframe list``, ``set``,
+``remove``, ``clear``, ``transform``, ``copy``, and ``paste``. Property paths can
+address nested curves, such as ``color.red`` on a Chroma Key effect. Editing a
+nested curve preserves sibling channels. Run ``keyframe list ID`` without a
+property to discover curve paths and point counts. Discovery and point listings
+include trim/position timing context; point listings also report native frame
+coordinates. ``get`` and ``properties`` expose the complete native object and
+property metadata. Errors identify invalid fields, suggest close property names,
+and explain coordinate corrections.
+
+Choose coordinates explicitly with ``--space native|clip|timeline`` and
+``--unit frames|seconds``. All frames use project FPS and are 1-based; seconds
+start at zero and snap to the nearest frame. Native is the existing engine
+keyframe coordinate (including source trim). Clip coordinates start at the
+visible clip in-point; timeline coordinates start at project time zero. Attached
+effects use their parent clip's timing. These coordinates address animation time,
+not the media frames selected by a time-remapping curve.
+
+For a clip positioned at 5 seconds, trimmed at 2 seconds, in a 30 fps project,
+clip frame 1, timeline frame 151, and native frame 61 address the same point.
+Position and trim snap independently to the project frame grid. Listing an entire
+curve can include hidden points with nonpositive clip/timeline coordinates.
+Legacy ``--frame`` still means a native frame and cannot combine with ``--at``.
+
+Examples::
+
+   openshot-cli clip keyframe set CLIP --property location_x --space clip --unit seconds --at 0 --value -1
+   openshot-cli clip keyframe set CLIP --property location_x --space clip --unit seconds --at 1 --value 0 --interpolation bezier --handles '{"handle_left":{"X":0.2,"Y":0.9}}'
+   openshot-cli effects keyframe set EFFECT --property color.red --space clip --at 31 --value 200
+   openshot-cli clip keyframe list CLIP --property location_x --space clip --unit seconds
+   openshot-cli clip keyframe transform CLIP --property location_x --space clip --start 1 --end 31 --scale 2 --offset 15
+   openshot-cli clip keyframe copy TARGET --property location_x --source-id SOURCE --space clip --start 1 --end 31 --at 1 --mode merge
+   openshot-cli clip keyframe remove CLIP --property location_x --space clip --at 31
+   openshot-cli clip keyframe clear CLIP --property location_x --value 0
+
+Keyframe ranges are **inclusive**, unlike clip-selection time ranges. List emits
+``points`` whose ``co.X`` values use the requested coordinate space/unit. Pass that
+array to ``keyframe paste --json @points.json`` with the same space/unit, choosing
+``--mode merge`` (replace matching frames, retain others) or ``--mode replace``
+(replace the entire curve). ``copy`` accepts a source of the same object kind,
+an optional ``--source-property``, and anchors the first selected source point at
+``--at`` on the target. Other curves and source objects remain unchanged.
+
+``transform`` applies a positive time scale around the first selected point, or
+``--pivot``, followed by a signed ``--offset`` in the chosen unit. Frame snapping
+that creates duplicate coordinates is rejected, including collisions with points
+outside the selected range. Native coordinates must remain at least 1. Native
+normalized Bézier handles and interpolation travel with each point; handles are
+not absolute frame coordinates. ``set --handles`` changes only supplied handles.
+Interpolation belongs to the destination point.
+
+``clear`` retains a constant base point at native frame 1: specify ``--value`` or
+sample the existing curve with ``--at`` (default native frame 1). Removing the last
+point also retains a constant base, so subsequent keyframe additions remain valid.
+
+Selecting and editing many clips
+--------------------------------
+
+The existing ``edit apply`` engine remains the transaction and validation engine.
+It now accepts ``--dry-run`` to validate without publishing edits. ``edit bulk``
+expands a small per-clip command template into that same engine; it does not use
+a separate editing or undo implementation.
+
+First preview a selection::
+
+   openshot-cli edit select --json '{"layer":1000000,"start":5,"end":20,"effect":"Saturation"}'
+
+Selectors support ``ids`` (unique clip ID array), ``layer``, ``start``/``end``
+(timeline seconds), ``file_id``, and ``effect`` (class name or alias). Filters
+combine with AND. Time ranges select clips overlapping ``[start, end)``; they do
+not trim those clips. Results are ordered by position, layer, then ID, and include
+IDs, summaries, lock state, and the current revision. Unknown IDs are errors.
+An empty selector is rejected; use ``{"all":true}`` explicitly for every clip.
+Selections are bounded to 256 clips and are never silently truncated.
+
+For example, save this array as ``templates.json``::
+
+   [
+     {"method":"clip.adjust","params":{"values":{"position":{"add":2},"volume":{"multiply":0.5}}}},
+     {"method":"effects.add","as":"look","params":{"type":"Saturation"}},
+     {"method":"effects.keyframe.set","params":{"id":{"$ref":"look.id"},"property":"saturation","space":"clip","at":1,"value":0}},
+     {"method":"effects.keyframe.set","params":{"id":{"$ref":"look.id"},"property":"saturation","space":"clip","at":31,"value":1.2}}
+   ]
+
+Validate it, then apply against the revision returned by selection::
+
+   openshot-cli edit bulk --select '{"ids":["CLIP_A","CLIP_B"]}' --json @templates.json --dry-run
+   openshot-cli edit bulk --select '{"ids":["CLIP_A","CLIP_B"]}' --json @templates.json --expect-revision 42
+
+Existing-clip commands inherit ``id``; ``effects.add`` inherits ``clip_id``.
+Omit these target parameters in templates. Effect edits must reference an earlier
+named result. Names are local to each selected clip, so ``look.id`` refers to a
+different effect for each clip. To change existing effect instances by explicit
+ID, continue using ``edit apply``. The selected ID set is fixed before expansion;
+changes to position or effects do not change the remaining targets.
+
+``clip set`` applies absolute properties; ``clip adjust`` applies ``multiply``
+then ``add`` to a numeric property or every value in a curve, preserving point
+timing, interpolation, and normalized handles. It validates resulting values,
+including nonnegative positions and volume. Structural fields remain protected.
+
+Bulk operations reject empty selections, locked target tracks, and more than 256
+expanded commands. Every expanded operation passes detached preflight before any
+live edit. Dry runs do not reserve generated IDs. Use ``--expect-revision`` to
+reject stale selections. Successful batches are one undo step, including after
+save/reopen. GUI refreshes are batched. Unexpected runtime/listener errors can
+still leave a partial transaction; the error reports completed operations and
+undo reverts that group, as with ``edit apply``.
 
 Profiles
 --------
