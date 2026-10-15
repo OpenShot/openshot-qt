@@ -20,6 +20,8 @@ command overview and workflow::
    "/Applications/OpenShot Video Editor.app/Contents/MacOS/openshot-qt" --cli help
 
 Bare ``--cli``, ``--cli help``, and ``--cli --help`` show the same overview.
+Use ``--cli intro`` for a short orientation to sessions, timing, animation,
+bulk editing, and saving. It works without an active session.
 Help becomes more specific as you navigate commands::
 
    openshot-cli clip help

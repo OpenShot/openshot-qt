@@ -39,22 +39,70 @@ from classes.agent.protocol import CommandError, cli_command, parse_json, record
 
 ROOT_HELP = """Start: session list (connect) or session start (new).
 Workflow: inspect -> edit -> project save / export start.
-More help: COMMAND help, e.g. clip keyframe help.
+Getting oriented: intro. Command details: COMMAND help.
+"""
+
+INTRO = """OpenShot: from footage to finished edit
+
+Work in a persistent session
+  Connect to an open editor or start a headless session.
+  Each call works on the same live project. CLI and GUI edits
+  share undo history. Choose --session ID when several are open.
+
+Inspect before editing
+  Read the project's layers, clips, and timing first. Use returned
+  IDs rather than guessing. Importing media adds a source file;
+  placing a clip adds an instance of it to the timeline.
+  Choose the project profile before building animations.
+
+Keep the two clocks straight
+  Position is timeline time; start/end trim the source footage.
+  Times are seconds and end is exclusive. Keyframe frames are
+  1-based at project FPS, while seconds start at zero.
+  For animation, --space clip --unit seconds starts at the visible
+  clip's beginning. Use --space timeline to align several clips.
+  Native keyframe coordinates include the source trim.
+
+Build effects and animation
+  Discover an effect's properties before applying it. Clips,
+  effects, and transitions share the same keyframe operations,
+  including nested color properties.
+  Edit individual points to preserve the rest of a curve.
+  A scalar property update replaces animation with a constant.
+  Interpolation controls the segment leading INTO a point.
+  Shift or scale ranges, or copy curves with explicit merge/replace.
+  For a one-second fade, place value 0 at clip time 0 and value 1
+  at clip time 1. Attached effects use their parent clip's timing.
+
+Make many changes together
+  Preview a selection, dry-run the edits, then apply using the
+  returned revision to detect intervening changes.
+  Bulk templates repeat edits for each clip; named references can
+  connect a newly added effect to its subsequent keyframe edits.
+  A batch is one undo step. Invalid input fails preflight; runtime
+  failures can leave partial changes. Inspect before retrying.
+
+Check the result and keep your work
+  Inspect timing and preview frames as you go. Save the project
+  to keep an editable .osp; export renders a separate media file.
+  Sessions persist until closed. Save before stopping one.
+  A timeout does not cancel work: check operation or export status
+  before resubmitting. Most results are JSON; errors go to stderr.
 """
 
 COMMAND_SUMMARIES = {
-    'session': 'Connect or start an editor',
-    'project': 'Open, inspect, and save',
-    'profile': 'Find video profiles',
-    'operation': 'Check recent edit outcomes',
-    'history': 'Undo and redo',
-    'file': 'Import and inspect media',
-    'clip': 'Edit clips and keyframes',
-    'transition': 'Edit transitions',
-    'effects': 'Discover and edit effects',
-    'timeline': 'Inspect and preview',
-    'edit': 'Batch and bulk changes',
-    'export': 'Render video or audio',
+    'session': 'Find editors or start a headless editing session',
+    'project': 'Open, inspect, save, and set project settings',
+    'profile': 'Find video profiles or match source footage',
+    'operation': 'Inspect recent edit results and errors',
+    'history': 'Undo or redo edits, including batches',
+    'file': 'Import media and inspect source files',
+    'clip': 'Add, trim, split, and animate timeline clips',
+    'transition': 'Create and animate transitions between clips',
+    'effects': 'Discover, apply, and animate audio/video effects',
+    'timeline': 'Inspect clips and timing; preview frames or timeline',
+    'edit': 'Validate and apply batches or changes to many clips',
+    'export': 'Choose presets, validate, and render video or audio',
 }
 
 GROUP_HELP = {
@@ -176,6 +224,11 @@ def build_parser():
     parser.add_argument('--timeout', metavar='SEC', type=number, default=30,
                         help='Wait limit (default: 30s); work continues.')
     groups = parser.add_subparsers(dest='group')
+    intro = groups.add_parser(
+        'intro', help='Learn the editing workflow and key concepts',
+        description=INTRO, formatter_class=argparse.RawDescriptionHelpFormatter)
+    intro.set_defaults(local='intro')
+
     def group(name, description, aliases=()):
         p = groups.add_parser(name, aliases=list(aliases), help=COMMAND_SUMMARIES[name], description=description,
                               epilog=GROUP_HELP.get(name), formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -497,6 +550,9 @@ def main(argv=None):
         return 0
     try:
         local = getattr(args, 'local', None)
+        if local == 'intro':
+            print(INTRO)
+            return 0
         if local == 'serve':
             import openshot  # Load the native engine before Qt, as in GUI startup.
             from classes.qt_bootstrap import configure_qt

@@ -60,6 +60,12 @@ class CommonEntryTests(unittest.TestCase):
                 self.assertEqual(result.returncode, 0, result.stderr)
                 self.assertIn('keyframe', result.stdout)
                 self.assertIn('transform', result.stdout)
+                result = subprocess.run(command + ['--cli', 'intro'], cwd=directory,
+                                        env=env, capture_output=True, text=True, timeout=20)
+                self.assertEqual(result.returncode, 0, result.stderr)
+                self.assertIn('Keep the two clocks straight', result.stdout)
+                self.assertNotIn('commands:', result.stdout)
+                self.assertLessEqual(max(map(len, result.stdout.splitlines())), 68)
                 result = subprocess.run(command + ['--cli', 'not-a-command'], cwd=directory,
                                         env=env, capture_output=True, text=True, timeout=20)
                 self.assertEqual(result.returncode, 2, result.stderr)
