@@ -45,7 +45,7 @@ class CommonEntryTests(unittest.TestCase):
                 package = root / 'openshot_qt'
                 (package / 'classes' / 'agent').mkdir(parents=True)
                 for name in ('__init__.py', 'launch.py', 'cli.py', 'classes/__init__.py',
-                             'classes/cli_console.py', 'classes/agent/__init__.py', 'classes/agent/protocol.py'):
+                             'classes/cli_console.py', 'classes/easing.py', 'classes/agent/__init__.py', 'classes/agent/protocol.py'):
                     shutil.copy2(source / name, package / name)
                 # Missing native/Qt dependencies must not matter to --cli help.
                 for name in ('openshot.py', 'qt_api.py'):
@@ -66,6 +66,10 @@ class CommonEntryTests(unittest.TestCase):
                 self.assertIn('Keep the two clocks straight', result.stdout)
                 self.assertNotIn('commands:', result.stdout)
                 self.assertLessEqual(max(map(len, result.stdout.splitlines())), 68)
+                result = subprocess.run(command + ['--cli', 'effects', 'keyframe', 'presets'],
+                                        cwd=directory, env=env, capture_output=True, text=True, timeout=20)
+                self.assertEqual(result.returncode, 0, result.stderr)
+                self.assertIn('ease-in-out', {row['id'] for row in json.loads(result.stdout)['result']})
                 result = subprocess.run(command + ['--cli', 'not-a-command'], cwd=directory,
                                         env=env, capture_output=True, text=True, timeout=20)
                 self.assertEqual(result.returncode, 2, result.stderr)

@@ -234,6 +234,62 @@ Examples::
    openshot-cli clip keyframe remove CLIP --property location_x --space clip --at 31
    openshot-cli clip keyframe clear CLIP --property location_x --value 0
 
+Interpolation, easing, and preview
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Interpolation describes the segment **into the destination point**.
+Linear gives a steady rate between points. Constant holds the preceding
+value until the destination, then jumps. Native default Bezier handles
+ease at both ends of each segment. Adding an intermediate point can therefore
+introduce an unintended slowdown; for one eased move, start with two endpoints.
+Normally leave handles alone and choose a named preset for a specific style.
+
+Discover the same 28 presets used by the editor's easing menus, without a
+session. The CLI and GUI import one shared table::
+
+   openshot-cli clip keyframe presets
+
+Apply a preset to the incoming segment by setting its destination::
+
+   openshot-cli clip keyframe set CLIP --property scale_x --space clip --unit seconds --at 0 --value 1
+   openshot-cli clip keyframe set CLIP --property scale_x --space clip --unit seconds --at 4 --value 1.2 --easing ease-in-out
+
+The easing option implies Bezier. It sets the previous point's outgoing handle
+and the destination's incoming handle together, preserving other handles and
+point values. An earlier point must exist. Do not combine it with custom
+handles or a different interpolation. Presets work in batches and bulk templates.
+The GUI preset **ease** ("Ease (Default)") differs from the native handles used
+by plain Bezier interpolation. Back presets can overshoot endpoint values.
+
+Inspect motion **before rendering**, using the native curve evaluator::
+
+   openshot-cli clip keyframe preview CLIP --property scale_x --space clip --unit seconds --start 0 --end 4
+   openshot-cli clip keyframe preview CLIP --property scale_x --space clip --unit seconds --at 2
+
+Preview is read-only and works identically for effects and transitions.
+It returns values and signed incoming_rate / outgoing_rate in property units
+per second, calculated from immediately adjacent frames. These are finite
+differences, not analytic derivatives. At native frame 1 the incoming rate is
+null. Adjacent-frame rates can inspect outside the requested range.
+Near-zero rates around an interior point reveal a pause; differing rates reveal
+a speed change. Constant interpolation reveals a jump at the destination.
+
+Without a range, preview spans the curve's first and last points. Ranges are
+inclusive, with 17 evenly spaced samples by default (--count: 2–256).
+Keyframes and their immediate neighbors inside the range are also included,
+so a sparse sample count will not hide a keyframe stall. The maximum is 1024
+samples; larger requests require a narrower range. --at samples one frame.
+Preview reports requested-space coordinates and actual native frames;
+seconds snap to project frames as they do for editing.
+
+For advanced custom handles, both X and Y are normalized to the segment:
+X is a fraction of its frame span; Y is a fraction of its value change.
+The first control comes from the previous point's handle_right, the second
+from the destination's handle_left. Native defaults are right=(0.5, 0),
+left=(0.5, 1), with flat endpoint tangents. Changing handle_type alone does not
+recalculate a continuous tangent through surrounding points. Existing handles
+are preserved when moving a point.
+
 Keyframe ranges are **inclusive**, unlike clip-selection time ranges. List emits
 ``points`` whose ``co.X`` values use the requested coordinate space/unit. Pass that
 array to ``keyframe paste --json @points.json`` with the same space/unit, choosing

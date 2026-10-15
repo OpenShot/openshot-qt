@@ -31,6 +31,8 @@ import math
 
 import openshot
 
+from classes.easing import easing_presets
+
 from .protocol import CommandError
 from .validation import numeric, unknown
 
@@ -140,6 +142,52 @@ def store(service, kind, obj, path, points):
     return {'id': obj.id, 'property': path, 'point_count': len(points)}
 
 
+def preview(curve, coords, params):
+    """Sample the native evaluator, including keyframes and their neighbors."""
+    points = curve['Points']
+    if not points:
+        fail('Cannot preview an empty curve.', hint='Set a point first.')
+    count = params.get('count', 17)
+    numeric(count, 'params.count', integer=True, minimum=2, maximum=256)
+    if 'at' in params:
+        if 'start' in params or 'end' in params:
+            fail('preview accepts at or start/end, not both.', 'params.at')
+        start = end = coords.native(params['at'])
+    else:
+        start = coords.native(params['start']) if 'start' in params else points[0]['co']['X']
+        end = coords.native(params['end']) if 'end' in params else points[-1]['co']['X']
+    if start < 1 or end < start:
+        fail('Preview range must start at native frame 1 or later and end at or after start.',
+             hint='Use --space clip --unit seconds --start 0 for the visible clip start.')
+    frames = {coords.round(start + (end - start) * i / (count - 1)) for i in range(count)}
+    for point in points:
+        frame = int(point['co']['X'])
+        if start <= frame <= end:
+            frames.update(f for f in (frame - 1, frame, frame + 1) if start <= f <= end)
+    if len(frames) > 1024:
+        fail('Preview exceeds 1024 samples after including keyframe neighbors.',
+             hint='Narrow start/end to inspect a smaller range.')
+    native = openshot.Keyframe()
+    native.SetJson(json.dumps(curve))
+    samples = []
+    keyframes = {p['co']['X'] for p in points}
+    for frame in sorted(frames):
+        value = native.GetValue(frame)
+        samples.append({
+            'at': coords.external(frame), 'native_frame': frame,
+            'value': value, 'is_keyframe': frame in keyframes,
+            'incoming_rate': (value - native.GetValue(frame - 1)) * coords.fps if frame > 1 else None,
+            'outgoing_rate': (native.GetValue(frame + 1) - value) * coords.fps,
+        })
+    return {
+        'space': coords.space, 'unit': coords.unit, 'coordinates': coords.context,
+        'rate_unit': 'property units per second',
+        'rate_definition': 'One-frame differences immediately before/after each sample; not analytic derivatives.',
+        'sample_count': len(samples), 'samples': samples,
+        'sampling': 'Evenly spaced frames plus keyframes and their immediate neighbors within the inclusive range.',
+    }
+
+
 def command(service, kind, operation, params):
     obj = service.obj(kind, params['id'])
     coords = Coordinates(service, kind, obj, params)
@@ -151,6 +199,9 @@ def command(service, kind, operation, params):
                 'fps': service.app.project.get('fps'), 'coordinates': coords.context}
     curve = property_curve(obj, path)
     points = curve['Points']
+    if operation == 'preview':
+        result = preview(curve, coords, params)
+        return dict(result, id=obj.id, property=path, fps=service.app.project.get('fps'))
     if operation == 'list':
         result = selected(points, coords, params)
         native_frames = [p['co']['X'] for p in result]
@@ -180,6 +231,21 @@ def command(service, kind, operation, params):
         point['co'] = {'X': frame, 'Y': params['value']}
         point['interpolation'] = int({'linear': openshot.LINEAR, 'bezier': openshot.BEZIER,
                                       'constant': openshot.CONSTANT}[params.get('interpolation', 'linear')])
+        easing = params.get('easing')
+        if easing:
+            if 'handles' in params or params.get('interpolation', 'bezier') != 'bezier':
+                fail('easing implies bezier and cannot be combined with handles or another interpolation.',
+                     'params.easing', 'Omit interpolation and handles when choosing a named preset.')
+            previous = [p for p in points if p['co']['X'] < frame]
+            if not previous:
+                fail('An easing preset needs an earlier point to define the incoming segment.',
+                     'params.easing', 'Set the starting point first; apply easing to the destination point.')
+            previous = max(previous, key=lambda p: p['co']['X'])
+            control = next(control for name, control, _ in easing_presets() if name == easing)
+            x1, y1, x2, y2 = control
+            previous['handle_right'] = {'X': x1, 'Y': y1}
+            point['handle_left'] = {'X': x2, 'Y': y2}
+            point['interpolation'] = int(openshot.BEZIER)
         handles = params.get('handles', {})
         for key in handles:
             if key not in ('handle_left', 'handle_right', 'handle_type'):

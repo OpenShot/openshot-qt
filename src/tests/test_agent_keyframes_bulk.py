@@ -136,6 +136,130 @@ class KeyframeBulkTests(unittest.TestCase):
         self.assertEqual(self.native().GetValue(30), 0)
         self.assertAlmostEqual(self.native().GetValue(31), .8)
 
+    def test_preview_exposes_midpoint_pause_without_changing_history(self):
+        self.key('clear', value=0)
+        self.key('set', frame=31, value=.5, interpolation='bezier')
+        self.key('set', frame=61, value=1, interpolation='bezier')
+        before = self.state()
+        result = self.key('preview', start=1, end=61, count=4)
+        self.assertEqual(self.state(), before)
+        samples = {row['native_frame']: row for row in result['samples']}
+        self.assertTrue({30, 31, 32}.issubset(samples))
+        middle = samples[31]
+        peak = max(abs(row['outgoing_rate']) for row in samples.values())
+        self.assertLess(middle['incoming_rate'], peak * .1)
+        self.assertLess(middle['outgoing_rate'], peak * .1)
+        self.assertEqual(result['rate_unit'], 'property units per second')
+        self.key('set', frame=31, value=.5, interpolation='linear')
+        self.key('set', frame=61, value=1, interpolation='linear')
+        middle = self.key('preview', at=31)['samples'][0]
+        self.assertAlmostEqual(middle['incoming_rate'], .5)
+        self.assertAlmostEqual(middle['outgoing_rate'], .5)
+
+    def test_preview_constant_jump_and_invalid_ranges(self):
+        self.key('clear', value=0)
+        self.key('set', frame=31, value=1, interpolation='constant')
+        jump = self.key('preview', at=31)['samples'][0]
+        self.assertEqual(jump['incoming_rate'], 30)
+        self.assertEqual(jump['outgoing_rate'], 0)
+        before = self.state()
+        for params in ({'at': 1, 'end': 2}, {'start': 0}, {'start': 3, 'end': 2},
+                       {'count': 1}, {'count': 257}):
+            with self.subTest(params=params), self.assertRaises(CommandError):
+                self.key('preview', **params)
+        self.assertEqual(self.state(), before)
+
+    def test_preview_coordinates_for_clip_nested_effect_and_transition(self):
+        effect = self.call('effect.add', clip_id=self.clip['id'], type='ChromaKey')
+        transition = self.call('transition.add', mask=self.path, layer=self.layer, position=5, duration=2)
+        for kind, obj, prop in [('clip', self.clip, 'volume'), ('effects', effect, 'color.red'),
+                                ('transition', transition, 'brightness')]:
+            self.call(kind + '.keyframe.set', id=obj['id'], property=prop,
+                      space='clip', unit='seconds', at=0, value=0)
+            self.call(kind + '.keyframe.set', id=obj['id'], property=prop,
+                      space='clip', unit='seconds', at=1, value=1)
+            before = self.state()
+            result = self.call(kind + '.keyframe.preview', id=obj['id'], property=prop,
+                               space='timeline', unit='seconds', at=5.5)
+            row = result['samples'][0]
+            self.assertEqual(row['at'], 5.5)
+            self.assertAlmostEqual(row['value'], .5)
+            self.assertAlmostEqual(row['incoming_rate'], 1)
+            self.assertEqual(self.state(), before)
+
+    def test_named_easing_shapes_incoming_segment_and_preserves_neighbors(self):
+        from classes.easing import easing_presets
+        self.key('clear', value=0)
+        self.key('set', frame=31, value=.5)
+        self.key('set', frame=61, value=1)
+        before = self.key('list')['points']
+        for name, control, _ in easing_presets():
+            with self.subTest(preset=name):
+                self.key('set', frame=31, value=.5, easing=name)
+                points = self.key('list')['points']
+                self.assertEqual(points[0]['handle_right'], {'X': control[0], 'Y': control[1]})
+                self.assertEqual(points[1]['handle_left'], {'X': control[2], 'Y': control[3]})
+                self.assertEqual(points[1]['handle_right'], before[1]['handle_right'])
+                self.assertEqual(points[2], before[2])
+                samples = self.key('preview', start=1, end=31)
+                self.assertEqual(samples['samples'][0]['value'], 0)
+                self.assertEqual(samples['samples'][-1]['value'], .5)
+        self.key('set', frame=31, value=.5, easing='ease-in')
+        self.assertLess(self.key('preview', at=16)['samples'][0]['value'], .25)
+        self.key('set', frame=31, value=.5, easing='ease-out')
+        self.assertGreater(self.key('preview', at=16)['samples'][0]['value'], .25)
+        self.call('history.undo')
+        self.assertLess(self.key('preview', at=16)['samples'][0]['value'], .25)
+
+    def test_preview_fractional_fps_and_sample_limit(self):
+        self.app.project._data['fps'] = {'num': 24000, 'den': 1001}
+        self.key('clear', value=0)
+        self.key('set', frame=25, value=1)
+        result = self.key('preview', at=13)
+        self.assertEqual(result['fps'], {'num': 24000, 'den': 1001})
+        self.assertAlmostEqual(result['samples'][0]['outgoing_rate'], 1000 / 1001)
+        points = [{'co': {'X': 1 + i * 4, 'Y': i / 400}, 'interpolation': 1}
+                  for i in range(400)]
+        self.key('paste', points=points, mode='replace')
+        before = self.state()
+        with self.assertRaisesRegex(CommandError, '1024'):
+            self.key('preview')
+        self.assertEqual(self.state(), before)
+        self.assertLessEqual(self.key('preview', start=1, end=40)['sample_count'], 1024)
+
+    def test_shared_gui_preset_labels_and_controls_are_unchanged(self):
+        from classes.easing import keyframe_bezier_presets
+        from windows.views import menu
+        from windows.views.timeline_backend.qwidget import keyframe
+        app = SimpleNamespace(_tr=lambda text: 'translated:' + text)
+        expected = keyframe_bezier_presets(app._tr)
+        self.assertEqual(len(expected), 28)
+        self.assertEqual(expected[0], (.25, .1, .25, 1., 'translated:Ease (Default)'))
+        with patch.object(menu, 'get_app', return_value=app):
+            self.assertEqual(menu.keyframe_bezier_presets(), expected)
+        with patch.object(keyframe, 'get_app', return_value=app):
+            self.assertEqual(keyframe.KeyframeMixin._keyframe_bezier_presets(None), expected)
+
+    def test_easing_validation_and_batch_preflight_are_atomic(self):
+        self.key('clear', value=0)
+        before = self.state()
+        for params in ({'frame': 1, 'easing': 'ease'},
+                       {'frame': 31, 'easing': 'ease', 'interpolation': 'linear'},
+                       {'frame': 31, 'easing': 'ease', 'handles': {}},
+                       {'frame': 31, 'easing': 'ease-typo'}):
+            with self.subTest(params=params), self.assertRaises(CommandError):
+                self.key('set', value=1, **params)
+            self.assertEqual(self.state(), before)
+        commands = [{'method': 'clip.keyframe.set',
+                     'params': {'id': self.clip['id'], 'property': 'volume',
+                                'frame': 31, 'value': 1, 'easing': 'ease-out'}}]
+        self.call('edit.apply', commands=commands, dry_run=True)
+        self.assertEqual(self.state(), before)
+        self.call('edit.apply', commands=commands)
+        self.assertGreater(self.key('preview', at=16)['samples'][0]['value'], .5)
+        self.call('history.undo')
+        self.assertEqual(self.key('list')['points'][0]['co']['Y'], 0)
+
     def test_remove_last_point_and_clear_keep_editable_base(self):
         self.key('clear', value=.4)
         self.key('remove', at=1)

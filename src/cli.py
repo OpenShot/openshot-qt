@@ -35,6 +35,7 @@ import time
 import uuid
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from classes.easing import easing_presets
 from classes.agent.protocol import CommandError, cli_command, parse_json, records, session_dir
 
 ROOT_HELP = """Start: session list (connect) or session start (new).
@@ -70,6 +71,12 @@ Build effects and animation
   Edit individual points to preserve the rest of a curve.
   A scalar property update replaces animation with a constant.
   Interpolation controls the segment leading INTO a point.
+  Linear keeps a steady rate; constant holds then jumps.
+  Default Bezier eases at each point, including middle points.
+  Choose a named --easing preset when a specific style is needed.
+  Normally leave handles alone. For one eased move, use endpoints
+  only; extra Bezier points can introduce unintended stops.
+  Use keyframe preview to inspect values and rates before rendering.
   Shift or scale ranges, or copy curves with explicit merge/replace.
   For a one-second fade, place value 0 at clip time 0 and value 1
   at clip time 1. Attached effects use their parent clip's timing.
@@ -154,7 +161,33 @@ Example: fade volume over a clip's first visible second:
   clip keyframe set ID --property volume --space clip --unit seconds --at 0 --value 0
   clip keyframe set ID --property volume --space clip --unit seconds --at 1 --value 1
 
-set changes one point; interpolation controls the segment INTO that point.
+Interpolation belongs to the destination point (the segment INTO it):
+  linear: constant rate between points.
+  constant: hold the previous value, then jump at this point.
+  bezier: default/automatic handles ease out of the previous point and
+          into this one. An intermediate point adds another ease/stop.
+Use keyframe presets to discover the editor's named easing styles.
+On set, --easing ease-in-out shapes the incoming segment automatically.
+Normally omit --handles. For one eased move, use two endpoints, not an
+extra midpoint. For steady movement through points, choose linear.
+
+For a specific custom curve, handles are normalized to each segment:
+  previous.handle_right = first control; destination.handle_left = second.
+  X = fraction of segment duration; Y = fraction of value change.
+  Defaults: right=(0.5, 0), left=(0.5, 1), giving flat endpoint tangents.
+  Moving a point preserves existing handles; handle_type alone does not
+  calculate a continuous tangent through its neighbors.
+
+preview evaluates the actual native curve, without rendering video.
+Use --at to inspect one coordinate, or --start/--end for a range.
+Output includes keyframes and their neighbors, values, and signed rates
+in property units/second. Near-zero rates at a middle point reveal a
+pause; unequal incoming/outgoing rates reveal a change in speed.
+Rates are one-frame differences, not analytic derivatives.
+Example: clip keyframe preview ID --property scale_x
+         --space clip --unit seconds --start 0 --end 4
+
+set changes one point without replacing the rest of the curve.
 transform shifts/scales ranges. copy/paste require --mode merge or replace.
 clear replaces animation with a constant. Bezier handles are normalized native
 handles, not frame offsets. Each operation's help explains its exact arguments.
@@ -428,8 +461,11 @@ def add_keyframes(subs, kind, command):
     parent.epilog = KEYFRAME_HELP
     parent.formatter_class = CommandRawFormatter
     children = parent.add_subparsers(dest='keyframe_operation')
+    presets = command(children, 'presets', 'List the same named easing presets as the editor. No session required.')
+    presets.set_defaults(local='easing-presets')
     descriptions = {
         'list': 'Discover curve property paths, or return points for --property in explicit coordinates. Optional inclusive range.',
+        'preview': 'Read-only native curve samples and incoming/outgoing rates. Reveals easing, pauses, holds, and jumps without rendering media.',
         'set': 'Add/update one point; interpolation belongs to the destination point. Existing handles are preserved unless supplied.',
         'remove': 'Remove points in an inclusive range or at one coordinate. Removing the last point retains its value as a constant at native frame 1.',
         'clear': 'Replace animation with a constant. Use value, or evaluate at the supplied coordinate (default native frame 1).',
@@ -443,18 +479,21 @@ def add_keyframes(subs, kind, command):
         p.add_argument('--property', required=op != 'list', help='Keyframe property path, e.g. volume or color.red. Omit for list to discover all editable curves.')
         p.add_argument('--space', choices=['native', 'clip', 'timeline'], default='native', help='native = source-trim keyframe coordinates; clip = visible clip start; timeline = project start. Attached effects use parent clip timing.')
         p.add_argument('--unit', choices=['frames', 'seconds'], default='frames', help='Frames are 1-based at project FPS; seconds start at zero and snap to nearest frame. Hidden points may have nonpositive clip/timeline coordinates.')
-        if op in ('set', 'remove', 'clear', 'copy'):
+        if op in ('set', 'remove', 'clear', 'copy', 'preview'):
             p.add_argument('--at', type=float, help='Coordinate in space/unit; required for set/copy unless legacy frame is supplied for set.')
         if op == 'set':
             p.add_argument('--frame', type=int, help='Legacy 1-based native frame; cannot combine with at or non-native coordinates.')
         if op in ('set', 'clear'):
             p.add_argument('--value', type=float, required=op == 'set', help='Numeric value; clear defaults to evaluating the original curve.')
         if op == 'set':
-            p.add_argument('--interpolation', choices=['linear', 'bezier', 'constant'], default='linear', help='Interpolation to this point.')
-            p.add_argument('--handles', help='JSON object with handle_left/handle_right {X,Y} and/or handle_type (0..2); native normalized handles, not frame coordinates.')
-        if op in ('list', 'remove', 'transform', 'copy'):
+            p.add_argument('--interpolation', choices=['linear', 'bezier', 'constant'], help='Default: linear. Incoming segment: linear = steady rate; bezier = eased by default; constant = hold previous value then jump. Default Bezier handles ease at every point, including intermediate ones.')
+            p.add_argument('--easing', choices=[name for name, _, _ in easing_presets()], help='Apply a GUI easing preset to the incoming segment. Sets previous outgoing and destination incoming handles together; requires an earlier point. Implies bezier; cannot combine with handles or a different interpolation.')
+            p.add_argument('--handles', help='Advanced override, normally omit. JSON handle_left/handle_right {X,Y}, handle_type (0..2). Normalized to the adjacent segment, not frame offsets. Existing handles are preserved; see keyframe help for semantics.')
+        if op in ('list', 'remove', 'transform', 'copy', 'preview'):
             p.add_argument('--start', type=float, help='Inclusive range start, in space/unit; copy uses source coordinates.')
             p.add_argument('--end', type=float, help='Inclusive range end, in space/unit; copy uses source coordinates.')
+        if op == 'preview':
+            p.add_argument('--count', type=int, default=17, help='Base evenly spaced samples, 2..256. Also includes keyframes and adjacent frames; at most 1024 total. Defaults to full curve range; at samples one frame. Rates use adjacent frames even outside the requested range.')
         if op == 'transform':
             p.add_argument('--offset', type=float, default=0, help='Signed time shift in unit, applied after scaling.')
             p.add_argument('--scale', type=float, default=1, help='Positive time scale factor; collisions after frame snapping are rejected.')
@@ -550,6 +589,11 @@ def main(argv=None):
         return 0
     try:
         local = getattr(args, 'local', None)
+        if local == 'easing-presets':
+            result = [{'id': name, 'label': label, 'control_points': list(control)}
+                      for name, control, label in easing_presets()]
+            print(json.dumps({'ok': True, 'result': result}))
+            return 0
         if local == 'intro':
             print(INTRO)
             return 0

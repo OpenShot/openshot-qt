@@ -25,6 +25,8 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
+from classes.easing import keyframe_bezier_presets as shared_bezier_presets
+
 import logging
 import re
 import functools
@@ -157,37 +159,7 @@ def add_bound_action(menu, owner, action_name, fallback_text, callback=None, ena
 
 
 def keyframe_bezier_presets():
-    _ = get_app()._tr
-    return [
-        (0.250, 0.100, 0.250, 1.000, _("Ease (Default)")),
-        (0.420, 0.000, 1.000, 1.000, _("Ease In")),
-        (0.000, 0.000, 0.580, 1.000, _("Ease Out")),
-        (0.420, 0.000, 0.580, 1.000, _("Ease In/Out")),
-        (0.550, 0.085, 0.680, 0.530, _("Ease In (Quad)")),
-        (0.550, 0.055, 0.675, 0.190, _("Ease In (Cubic)")),
-        (0.895, 0.030, 0.685, 0.220, _("Ease In (Quart)")),
-        (0.755, 0.050, 0.855, 0.060, _("Ease In (Quint)")),
-        (0.470, 0.000, 0.745, 0.715, _("Ease In (Sine)")),
-        (0.950, 0.050, 0.795, 0.035, _("Ease In (Expo)")),
-        (0.600, 0.040, 0.980, 0.335, _("Ease In (Circ)")),
-        (0.600, -0.280, 0.735, 0.045, _("Ease In (Back)")),
-        (0.250, 0.460, 0.450, 0.940, _("Ease Out (Quad)")),
-        (0.215, 0.610, 0.355, 1.000, _("Ease Out (Cubic)")),
-        (0.165, 0.840, 0.440, 1.000, _("Ease Out (Quart)")),
-        (0.230, 1.000, 0.320, 1.000, _("Ease Out (Quint)")),
-        (0.390, 0.575, 0.565, 1.000, _("Ease Out (Sine)")),
-        (0.190, 1.000, 0.220, 1.000, _("Ease Out (Expo)")),
-        (0.075, 0.820, 0.165, 1.000, _("Ease Out (Circ)")),
-        (0.175, 0.885, 0.320, 1.275, _("Ease Out (Back)")),
-        (0.455, 0.030, 0.515, 0.955, _("Ease In/Out (Quad)")),
-        (0.645, 0.045, 0.355, 1.000, _("Ease In/Out (Cubic)")),
-        (0.770, 0.000, 0.175, 1.000, _("Ease In/Out (Quart)")),
-        (0.860, 0.000, 0.070, 1.000, _("Ease In/Out (Quint)")),
-        (0.445, 0.050, 0.550, 0.950, _("Ease In/Out (Sine)")),
-        (1.000, 0.000, 0.000, 1.000, _("Ease In/Out (Expo)")),
-        (0.785, 0.135, 0.150, 0.860, _("Ease In/Out (Circ)")),
-        (0.680, -0.550, 0.265, 1.550, _("Ease In/Out (Back)")),
-    ]
+    return shared_bezier_presets(get_app()._tr)
 
 
 def populate_keyframe_context_menu(
