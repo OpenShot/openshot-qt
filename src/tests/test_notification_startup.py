@@ -44,10 +44,11 @@ for kind in ('feedback', 'update'):
                         assert abs(getattr(pixel, channel)() - getattr(expected, channel)()) <= 2
         assert visible > 0, (kind, name)
 '''
+        # Preserve explicitly selected engine bindings alongside LD_LIBRARY_PATH.
         source = str(Path(__file__).resolve().parents[1])
         for scale in ('1', '1.5', '2'):
             with self.subTest(scale=scale):
-                env = dict(os.environ, PYTHONPATH=source, QT_QPA_PLATFORM='offscreen',
+                env = dict(os.environ, PYTHONPATH=os.pathsep.join(filter(None, (source, os.environ.get("PYTHONPATH")))), QT_QPA_PLATFORM='offscreen',
                            QT_SCALE_FACTOR=scale)
                 result = subprocess.run([sys.executable, '-c', script], env=env,
                                         stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
@@ -139,7 +140,7 @@ app.exec_()
 assert passed, "Notification startup checks failed"
 '''
         source = str(Path(__file__).resolve().parents[1])
-        env = dict(os.environ, PYTHONPATH=source, QT_QPA_PLATFORM="offscreen",
+        env = dict(os.environ, PYTHONPATH=os.pathsep.join(filter(None, (source, os.environ.get("PYTHONPATH")))), QT_QPA_PLATFORM="offscreen",
                    QT_QUICK_BACKEND="software")
         result = subprocess.run([sys.executable, "-c", script], env=env,
                                 stdout=subprocess.PIPE, stderr=subprocess.STDOUT,

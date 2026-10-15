@@ -70,16 +70,22 @@ class PreviewParent(QObject, UpdateInterface):
         # Check if we are at the end of the timeline
         if self.worker.player.Mode() == openshot.PLAYBACK_PLAY:
             loop_preview = bool(getattr(self.parent, "loop_playback", False))
+            first_frame = 1
+            bounds = getattr(self.parent, 'playback_range', None)
+            if loop_preview and callable(bounds):
+                first_frame, last_frame = bounds()
+                first_frame = max(1, min(timeline_last_frame, int(first_frame)))
+                timeline_last_frame = max(first_frame, min(timeline_last_frame, int(last_frame)))
             if self.worker.player.Speed() > 0.0 and current_frame >= timeline_last_frame:
                 if loop_preview:
                     # Loop preview playback back to the beginning.
-                    self.worker.Seek(1)
+                    self.worker.Seek(first_frame)
                 else:
                     # Yes, pause the video
                     self.parent.PauseSignal.emit()
                     # If the player got past the end of the project, go back.
                     self.worker.Seek(timeline_last_frame)
-            if self.worker.player.Speed() < 0.0 and current_frame <= 1:
+            if self.worker.player.Speed() < 0.0 and current_frame <= first_frame:
                 if loop_preview:
                     # Loop rewind to the end frame.
                     self.worker.Seek(timeline_last_frame)
@@ -183,6 +189,8 @@ class PreviewParent(QObject, UpdateInterface):
             self.parent.LoadFilePreviewSignal.connect(self.worker.LoadFilePreview)
         self.parent.PlaySignal.connect(self.worker.Play)
         self.parent.PauseSignal.connect(self.worker.Pause)
+        if hasattr(self.parent, 'VolumeSignal'):
+            self.parent.VolumeSignal.connect(self.worker.SetVolume)
         self.parent.SeekSignal.connect(self.QueueSeek)
         self.parent.LoadTimelineAndSeekSignal.connect(self.worker.LoadTimelineAndSeek)
         self.parent.SpeedSignal.connect(self.worker.Speed)
@@ -682,6 +690,21 @@ class PlayerWorker(QObject):
                 self._preview_image_request = pending
                 self._apply_seek(*pending)
             self.player.Play()
+
+    @pyqtSlot(float)
+    def SetVolume(self, volume):
+        # QtPlayer.Volume stores a value but does not apply it to audio output.
+        # Apply gain only to the private source-preview clip, never project data.
+        clip = getattr(self.parent, 'clip', None)
+        if clip is not None and hasattr(self.parent, 'range_mode'):
+            volume = max(0.0, min(1.0, volume))
+            if abs(clip.volume.GetValue(1) - volume) < 1e-6:
+                return
+            clip.volume = openshot.Keyframe(volume)
+            # Discard only processed output. Keep decoded source/mapper frames
+            # warm: clearing readers here forces expensive seeks and decoding.
+            clip.GetCache().Clear()
+            self.timeline.GetCache().Clear()
 
     def Pause(self):
         """ Pause the video player """

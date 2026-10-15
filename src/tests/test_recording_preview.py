@@ -199,9 +199,11 @@ class RecordingPreviewTests(unittest.TestCase):
         content_class = helper.AudioRecordingDockContent
         with patch.object(content_class, "_sync_source_availability"), \
                 patch.object(content_class, "_webcam_layout_changed"), \
-                patch.object(content_class, "_sync_backend_state"):
+                patch.object(content_class, "_sync_backend_state"), \
+                patch.object(self.app, "updates", create=True) as updates:
             dock = content_class(types.SimpleNamespace())
         try:
+            updates.add_listener.assert_called_once_with(dock)
             self.assertFalse(dock.mic_card.isChecked())
             self.assertFalse(dock.mic_section.property("active"))
             self.assertFalse(dock.mic_section.advanced_button.isEnabled())
@@ -269,6 +271,63 @@ class RecordingPreviewTests(unittest.TestCase):
         )
         dock._ensure_monitoring.assert_called_once_with()
         dock._restart_webcam_preview.assert_called_once_with()
+
+    def test_recording_tracks_follow_project_changes(self):
+        helper = self.audio_recording_module
+        from classes.updates import UpdateAction
+
+        layers = [{"number": number * 1000000} for number in range(1, 6)]
+        app = types.SimpleNamespace(_tr=lambda text: text, project={"layers": layers})
+        dock = types.SimpleNamespace(track_combo=helper.QComboBox(), _context_track=None)
+        for name in ("refresh_tracks", "_track_labels", "changed", "set_recording_context"):
+            setattr(dock, name, types.MethodType(getattr(helper.AudioRecordingDockContent, name), dock))
+
+        def track_numbers():
+            return [dock.track_combo.itemData(index) for index in range(1, dock.track_combo.count())]
+
+        with patch.object(helper, "get_app", return_value=app), patch.object(
+                helper.Track, "filter", side_effect=lambda: [types.SimpleNamespace(data=layer) for layer in layers]):
+            dock.refresh_tracks()
+            self.assertEqual(track_numbers(), [5000000, 4000000, 3000000, 2000000, 1000000])
+            self.assertEqual(dock.track_combo.currentData(), 5000000)
+
+            for number in (5000000, 4000000):
+                layers.pop()
+                dock.changed(UpdateAction("delete", ["layers", {"number": number}]))
+            self.assertEqual(track_numbers(), [3000000, 2000000, 1000000])
+            self.assertEqual(dock.track_combo.currentData(), 3000000)
+
+            layers.append({"number": 4000000})
+            dock.changed(UpdateAction("insert", ["layers"], layers[-1]))
+            self.assertEqual(track_numbers(), [4000000, 3000000, 2000000, 1000000])
+            self.assertEqual(dock.track_combo.currentData(), 3000000)
+
+            dock.set_recording_context(track_number=2000000)
+            self.assertEqual(dock.track_combo.currentData(), 2000000)
+            dock.track_combo.setCurrentIndex(dock.track_combo.findData(1000000))
+            layers[0]["label"] = "Voiceover"
+            dock.changed(UpdateAction("update", ["layers", {"number": 1000000}, "label"], "Voiceover"))
+            self.assertEqual(dock.track_combo.currentText(), "Voiceover")
+            self.assertEqual(dock.track_combo.currentData(), 1000000)
+
+            dock.track_combo.setCurrentIndex(0)
+            dock.changed(UpdateAction("insert", ["layers"]))
+            self.assertEqual(dock.track_combo.currentData(), helper.NO_RECORDING_TRACK)
+
+            layers.clear()
+            dock.changed(UpdateAction("load"))
+            self.assertEqual(dock.track_combo.count(), 1)
+            self.assertEqual(dock.track_combo.currentData(), helper.NO_RECORDING_TRACK)
+
+    def test_recording_tracks_ignore_unrelated_updates(self):
+        helper = self.audio_recording_module
+        from classes.updates import UpdateAction
+
+        dock = types.SimpleNamespace(refresh_tracks=MagicMock())
+        for action in (None, UpdateAction("update"), UpdateAction("insert", ["clips"]),
+                       UpdateAction("update", ["duration"])):
+            helper.AudioRecordingDockContent.changed(dock, action)
+        dock.refresh_tracks.assert_not_called()
 
     def test_recording_source_discovery_runs_only_for_requested_source(self):
         helper = self.audio_recording_module

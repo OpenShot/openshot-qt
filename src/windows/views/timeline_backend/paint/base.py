@@ -39,6 +39,19 @@ class BasePainter:
     def update_theme(self):
         pass
 
+    def focus_background(self, color):
+        """Keep focused headers at theme brightness; gently dim inactive ones."""
+        color = QColor(color)
+        if color.isValid():
+            offset = 0 if self.w.hasFocus() else -3
+            color.setRgb(
+                max(0, min(255, color.red() + offset)),
+                max(0, min(255, color.green() + offset)),
+                max(0, min(255, color.blue() + offset)),
+                color.alpha(),
+            )
+        return color
+
     def scaled_pixmap(self, pixmap, width, height, fill=False):
         """Return *pixmap* scaled to the requested logical size.
 

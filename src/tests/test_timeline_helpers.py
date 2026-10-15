@@ -110,6 +110,180 @@ class TimelineHelperTests(unittest.TestCase):
         cls.humanity_theme_module = importlib.import_module("themes.humanity.styles")
         cls.cosmic_theme_module = importlib.import_module("themes.cosmic.styles")
 
+    def test_project_resize_uses_pointer_delta_despite_scroll_changes(self):
+        mixin = self.qwidget_clip_module.ClipInteractionMixin
+        helper = types.SimpleNamespace(
+            cursors={}, fps_float=30.0, pixels_per_second=10.0, zoom_factor=10.0,
+            _emit_zoom_signals=MagicMock(), scrollbar_position=[0, 1, 1000, 1000],
+            _project_resize_timer=MagicMock(),
+            _last_event=types.SimpleNamespace(position=lambda: QPointF(900, 0)),
+            _current_project_duration=lambda: 100.0,
+            _furthest_timeline_edge=lambda: 20.0,
+            _is_view_right_aligned=lambda: True,
+            _fix_cursor=lambda cursor: None, _release_cursor=lambda: None,
+            _snap_time=lambda value: round(value * 30) / 30,
+        )
+        helper._set_project_duration_override = lambda value: setattr(
+            helper, "_project_duration_override", value
+        )
+        resize = MagicMock()
+        helper.win = types.SimpleNamespace(timeline=types.SimpleNamespace(resizeTimeline=resize))
+        mixin._startProjectResize(helper)
+        self.assertTrue(helper._thumbnail_zoom_with_clip)
+        for x, expected in ((890, 99.0), (880, 98.0), (880, 98.0), (900, 100.0), (0, 20.0)):
+            helper._last_event = types.SimpleNamespace(position=lambda x=x: QPointF(x, 0))
+            helper.h_scroll_offset = 500.0 + x
+            mixin._projectResizeMove(helper)
+            self.assertAlmostEqual(helper._project_duration_override, expected)
+        mixin._finishProjectResize(helper)
+        resize.assert_called_once_with(20.0)
+        self.assertIsNone(helper._project_duration_override)
+
+    def test_project_resize_keeps_fitted_view_and_overview_synchronized(self):
+        from windows.views.timeline_backend.geometry import Geometry
+
+        base = self.qwidget_base_module.TimelineWidgetBase
+        slider = types.SimpleNamespace(setZoomFactor=MagicMock(),
+                                       update_scrollbars=MagicMock(), changed=MagicMock())
+        widget = types.SimpleNamespace(
+            _project_duration_override=None, _project_resize_initial_zoom=10.0,
+            _project_resize_keep_right=True, zoom_factor=10.0,
+            pixels_per_second=10.0, track_name_width=140, ruler_height=40,
+            scroll_bar_thickness=12, _project_handle_width=10.0,
+            _resize_handle_width=6.0, track_height=48.0, vertical_factor=48.0,
+            track_gap=8.0, track_margin_top=8.0,
+            normalize_track_number=lambda value: value,
+            get_track_panel_height=lambda value: 30.0,
+            width=lambda: 1152, height=lambda: 500,
+            scrollbar_position=[0.0, 1.0, 1000.0, 1000.0],
+            v_scrollbar_position=[0.0, 1.0, 0.0, 0.0],
+            win=types.SimpleNamespace(sliderZoomWidget=slider), update=MagicMock(),
+        )
+        widget._current_project_duration = lambda: base._current_project_duration(widget)
+        widget._clamp_zoom_factor = lambda value: base._clamp_zoom_factor(widget, value)
+        geometry = Geometry(widget)
+        widget.geometry = geometry
+        geometry.track_list = [types.SimpleNamespace(data={"number": 1})]
+        def rebuild():
+            ctx = geometry._calculate_view_context({1: 0})
+            geometry._populate_track_rects({1: 0}, ctx)
+        geometry.ensure = rebuild
+        painter = self.make_clip_painter()
+        painter.w = widget
+        widget.clip_has_pending_override = lambda clip: False
+        widget._thumbnail_zoom_with_clip = True
+        clip = types.SimpleNamespace(id="resize-thumbnail", data={
+            "position": 30.0, "start": 5.0, "end": 15.0})
+        thumbnail_phase = None
+        project = {"tick_pixels": 100.0, "duration": 100.0}
+        app = types.SimpleNamespace(project=project)
+        with patch.object(self.qwidget_base_module, "get_app", return_value=app), \
+                patch.object(self.geometry_base_module, "get_app", return_value=app):
+            for duration in [frame / 30.0 for frame in range(3000, 2400, -1)] + [110.0, 80.0]:
+                base._set_project_duration_override(widget, duration)
+                phase = painter._thumbnail_grid_phase(clip, 48.0)
+                if thumbnail_phase is None:
+                    thumbnail_phase = phase
+                self.assertAlmostEqual(phase, thumbnail_phase)
+                self.assertAlmostEqual(geometry.timeline_handle_rect().right(), 1140.0)
+                self.assertAlmostEqual(next(geometry.iter_tracks())[0].right(), 1140.0)
+                self.assertAlmostEqual(widget.zoom_factor, min(10.0, duration / 10.0))
+                self.assertEqual(widget.scroll_bar_rect.isNull(), duration <= 100.0)
+                self.assertAlmostEqual(widget.scrollbar_position[1], 1.0)
+                slider.setZoomFactor.assert_called_with(widget.zoom_factor, emit=False)
+                slider.update_scrollbars.assert_called_with(list(widget.scrollbar_position))
+            previous = list(widget.scrollbar_position)
+            project["duration"] = 80.0
+            base._set_project_duration_override(widget, None)
+            self.assertEqual(widget.scrollbar_position, previous)
+            self.assertAlmostEqual(widget.zoom_factor, 8.0)
+
+    def test_project_resize_edge_hold_continues_and_stops_without_jumping(self):
+        mixin = self.qwidget_clip_module.ClipInteractionMixin
+        for screen_right in (999, 799):
+            with self.subTest(screen_right=screen_right):
+                right = min(988, screen_right)
+                helper = types.SimpleNamespace(
+                    _project_duration_override=100.0,
+                    _project_resize_initial_duration=100.0,
+                    _project_resize_min_duration=20.0,
+                    _project_resize_start_x=right - 10,
+                    _project_resize_pixels_per_second=10.0,
+                    _project_resize_extra_seconds=0.0,
+                    _project_resize_edge_since=None,
+                    _project_resize_tick_time=0.0,
+                    _project_resize_timer=MagicMock(),
+                    _project_resize_keep_right=False,
+                    _snap_time=lambda value: round(value * 30) / 30,
+                    width=lambda: 1000, scroll_bar_thickness=12,
+                    mapFromGlobal=lambda point: point,
+                )
+                helper._set_project_duration_override = lambda value: setattr(
+                    helper, "_project_duration_override", value
+                )
+                helper._projectResizeMove = lambda x: mixin._projectResizeMove(helper, x)
+                screen = types.SimpleNamespace(geometry=lambda: QRectF(0, 0, screen_right, 600))
+                with patch.object(self.qwidget_clip_module, "QApplication") as app, \
+                        patch.object(self.qwidget_clip_module, "QCursor") as cursor, \
+                        patch.object(self.qwidget_clip_module.time, "monotonic") as clock:
+                    app.mouseButtons.return_value = Qt.LeftButton
+                    app.screenAt.return_value = screen
+                    cursor.pos.return_value = QPointF(right, 200)
+                    clock.return_value = 0.1
+                    mixin._projectResizeEdgeTick(helper)
+                    self.assertEqual(helper._project_duration_override, 100.0)
+                    clock.return_value = 0.5
+                    mixin._projectResizeEdgeTick(helper)
+                    self.assertAlmostEqual(helper._project_duration_override, 103.4)
+                    clock.return_value = 0.6
+                    mixin._projectResizeEdgeTick(helper)
+                    self.assertAlmostEqual(helper._project_duration_override, 105.8)
+                    self.assertTrue(helper._project_resize_keep_right)
+                    # Both positions remain in the edge zone, but neither is
+                    # to the right of the original press position.
+                    for x, now in ((right - 10, 0.62), (right - 11, 0.64)):
+                        cursor.pos.return_value = QPointF(x, 200)
+                        clock.return_value = now
+                        mixin._projectResizeEdgeTick(helper)
+                        self.assertIsNone(helper._project_resize_edge_since)
+                        self.assertAlmostEqual(helper._project_resize_extra_seconds, 4.8)
+                    # Re-entering on the right must wait through a fresh dwell.
+                    cursor.pos.return_value = QPointF(right, 200)
+                    clock.return_value = 0.66
+                    mixin._projectResizeEdgeTick(helper)
+                    self.assertEqual(helper._project_resize_edge_since, 0.66)
+                    self.assertAlmostEqual(helper._project_resize_extra_seconds, 4.8)
+                    cursor.pos.return_value = QPointF(right - 50, 200)
+                    clock.return_value = 0.7
+                    mixin._projectResizeEdgeTick(helper)
+                    self.assertIsNone(helper._project_resize_edge_since)
+                    self.assertAlmostEqual(helper._project_resize_extra_seconds, 4.8)
+                    helper._projectResizeMove(right - 50)
+                    self.assertAlmostEqual(helper._project_duration_override, 100.8)
+                    app.mouseButtons.return_value = Qt.NoButton
+                    clock.return_value = 0.8
+                    mixin._projectResizeEdgeTick(helper)
+                    helper._project_resize_timer.stop.assert_called_once()
+
+    def test_project_duration_only_grows_when_content_exceeds_chosen_end(self):
+        for current, furthest, expected in (
+            (60.0, 40.0, None), (40.0, 40.0, None),
+            (400.0, 395.0, None), (40.0, 40.1, 50.1),
+        ):
+            with self.subTest(current=current, furthest=furthest):
+                resize = MagicMock()
+                helper = types.SimpleNamespace(
+                    win=types.SimpleNamespace(timeline=types.SimpleNamespace(resizeTimeline=resize)),
+                    _furthest_timeline_edge=lambda: furthest,
+                )
+                app = types.SimpleNamespace(project={"duration": current})
+                with patch.object(self.qwidget_base_module, "get_app", return_value=app):
+                    self.qwidget_base_module.TimelineWidgetBase._update_project_duration(helper)
+                if expected is None:
+                    resize.assert_not_called()
+                else:
+                    resize.assert_called_once_with(expected)
+
     def test_dense_top_clip_border_is_not_overpainted_by_cache_lane(self):
         for theme_class in (self.humanity_theme_module.HumanityDarkTimelineTheme,
                             self.humanity_theme_module.RetroTimelineTheme,
@@ -225,6 +399,40 @@ class TimelineHelperTests(unittest.TestCase):
                 Preferences.dropdown_index_changed(dialog, combo, param, index)
                 self.assertEqual(settings.get("timeline-track-size"), expected)
                 timeline.set_track_size.assert_called_with(expected)
+
+    def test_restore_timeline_defaults_applies_track_size(self):
+        from windows.preferences import Preferences
+        from qt_api import QMessageBox
+
+        settings = DummySettings()
+        settings.set("timeline-track-size", "minimal")
+        settings.restore = MagicMock(side_effect=lambda **kwargs: settings.set("timeline-track-size", "default"))
+        settings.get_all_settings = MagicMock(return_value=[])
+        tabs = MagicMock()
+        tabs.currentIndex.return_value = 2
+        tabs.widget.return_value.objectName.return_value = "Timeline"
+        dialog = types.SimpleNamespace(
+            s=settings, tabCategories=tabs, Populate=MagicMock(),
+            _apply_timeline_thumbnail_style=MagicMock(), check_shortcut_validity=MagicMock(),
+        )
+        dialog._apply_timeline_track_size = types.MethodType(Preferences._apply_timeline_track_size, dialog)
+        timeline = types.SimpleNamespace(set_track_size=MagicMock())
+        app = types.SimpleNamespace(
+            _tr=lambda text: text,
+            window=types.SimpleNamespace(timeline=timeline, initShortcuts=MagicMock()),
+        )
+        with patch("windows.preferences.get_app", return_value=app), \
+                patch("windows.preferences.QMessageBox.question", return_value=QMessageBox.No) as question:
+            Preferences.confirm_restore_defaults(dialog)
+            settings.restore.assert_not_called()
+            timeline.set_track_size.assert_not_called()
+
+            question.return_value = QMessageBox.Yes
+            Preferences.confirm_restore_defaults(dialog)
+
+        settings.restore.assert_called_once_with(category_filter="Timeline")
+        timeline.set_track_size.assert_called_once_with("default")
+        tabs.setCurrentIndex.assert_called_once_with(2)
 
     def test_track_sizes_preserve_defaults_and_do_not_mutate_theme(self):
         for theme_class, heights in (
@@ -2063,100 +2271,53 @@ class TimelineHelperTests(unittest.TestCase):
             )
         )
 
-    def test_anchor_transition_endpoint_keyframes_keeps_first_and_last_frames_aligned(self):
-        helper = self.make_helper()
-        transition_data = {
-            "brightness": {
-                "Points": [
-                    {"co": {"X": 2, "Y": 1.0}},
-                    {"co": {"X": 5, "Y": -1.0}},
-                ]
-            },
-            "contrast": {
-                "Points": [
-                    {"co": {"X": 3, "Y": 3.0}},
-                    {"co": {"X": 6, "Y": 3.0}},
-                ]
-            },
-        }
-
-        self.timeline_module.TimelineView._anchor_transition_endpoint_keyframes(
-            helper,
-            transition_data,
-            4,
-        )
-
-        self.assertEqual(transition_data["brightness"]["Points"][0]["co"]["X"], 1)
-        self.assertEqual(transition_data["brightness"]["Points"][-1]["co"]["X"], 5)
-        self.assertEqual(transition_data["contrast"]["Points"][0]["co"]["X"], 1)
-        self.assertEqual(transition_data["contrast"]["Points"][-1]["co"]["X"], 5)
-
-    def test_update_transition_data_reanchors_static_transition_endpoints_without_frame_count_change(self):
+    def test_transition_trim_fits_simple_fades_and_preserves_custom_animation(self):
         helper = types.SimpleNamespace(
-            _transition_uses_static_mask=lambda transition_data, fallback_data=None: self.timeline_module.TimelineView._transition_uses_static_mask(
-                helper, transition_data, fallback_data
-            ),
-            _transition_mask_reader=lambda transition_data, fallback_data=None: self.timeline_module.TimelineView._transition_mask_reader(
-                helper, transition_data, fallback_data
-            ),
-            _transition_reader_changed=lambda transition_data, fallback_data=None: self.timeline_module.TimelineView._transition_reader_changed(
-                helper, transition_data, fallback_data
-            ),
-            _scale_keyframes=lambda keyframe, factor: self.timeline_module.TimelineView._scale_keyframes(
-                helper, keyframe, factor
-            ),
-            _anchor_transition_endpoint_keyframes=lambda transition_data, total_frames: self.timeline_module.TimelineView._anchor_transition_endpoint_keyframes(
-                helper, transition_data, total_frames
-            ),
-            _auto_orient_transition_keyframes=lambda transition_data: None,
-            delete_invalid_timeline_item=lambda _item: False,
-            window=types.SimpleNamespace(
-                IgnoreUpdates=types.SimpleNamespace(emit=lambda *_args, **_kwargs: None)
-            ),
+            _transition_uses_static_mask=lambda data, fallback=None: fallback["reader"]["has_single_image"],
+            delete_invalid_timeline_item=lambda item: False,
+            window=types.SimpleNamespace(IgnoreUpdates=types.SimpleNamespace(emit=lambda *args: None)),
             show_wait_spinner=False,
         )
-        old_data = {
-            "id": "T1",
-            "layer": 1,
-            "position": 10.0,
-            "start": 0.0,
-            "end": 2.0,
-            "reader": {"has_single_image": True},
-            "brightness": {
-                "Points": [
-                    {"co": {"X": 1, "Y": 1.0}},
-                    {"co": {"X": 62, "Y": -1.0}},
-                ]
-            },
-            "contrast": {"Points": [{"co": {"X": 1, "Y": 3.0}}, {"co": {"X": 62, "Y": 3.0}}]},
-        }
-        saved = []
-        existing_transition = types.SimpleNamespace(
-            id="T1",
-            data=copy.deepcopy(old_data),
-            save=lambda: saved.append(copy.deepcopy(existing_transition.data)),
-        )
-        transition_json = {
-            "id": "T1",
-            "layer": 1,
-            "position": 10.0,
-            "start": 0.0,
-            "end": (61.0 / 30.0),
-            "reader": {"has_single_image": True},
-        }
-
-        with ExitStack() as stack:
-            stack.enter_context(patch.object(self.timeline_module.Transition, "get", return_value=existing_transition))
-            stack.enter_context(patch.object(self.timeline_module, "get_app", return_value=types.SimpleNamespace(
-                project=types.SimpleNamespace(get=lambda key: {"fps": {"num": 30, "den": 1}}[key]),
-                updates=types.SimpleNamespace(transaction_id=None),
-            )))
-            self.timeline_module.TimelineView.update_transition_data(helper, transition_json, only_basic_props=True)
-
-        self.assertTrue(saved)
-        saved_data = saved[-1]
-        self.assertEqual(saved_data["brightness"]["Points"][0]["co"]["X"], 1)
-        self.assertEqual(saved_data["brightness"]["Points"][-1]["co"]["X"], 62)
+        for kind in ("default", "reversed", "custom_brightness", "custom_contrast", "animated_mask"):
+            for start, end in ((0., 5.), (0., 15.), (2., 10.)):
+                with self.subTest(kind=kind, start=start, end=end):
+                    brightness = openshot.Keyframe()
+                    direction = -1 if kind == "reversed" else 1
+                    brightness.AddPoint(1, direction, openshot.BEZIER)
+                    brightness.AddPoint(301, -direction, openshot.BEZIER)
+                    contrast = openshot.Keyframe(3.0)
+                    if kind == "custom_brightness":
+                        brightness.AddPoint(100, 0.5, openshot.LINEAR)
+                    if kind == "custom_contrast":
+                        contrast.AddPoint(100, 2.0, openshot.LINEAR)
+                        contrast.AddPoint(301, 5.0, openshot.LINEAR)
+                    old_data = dict(id="T1", start=0., end=10., duration=10., position=0.,
+                                    reader={"has_single_image": kind != "animated_mask"},
+                                    brightness=json.loads(brightness.Json()), contrast=json.loads(contrast.Json()))
+                    existing = types.SimpleNamespace(data=copy.deepcopy(old_data), save=unittest.mock.Mock())
+                    updated = copy.deepcopy(old_data)
+                    updated.update(start=start, end=end)
+                    updated.pop("reader")  # Basic timing updates can omit the reader.
+                    with patch.object(self.timeline_module.Transition, "get", return_value=existing), \
+                            patch.object(self.timeline_module, "get_app", return_value=types.SimpleNamespace(
+                                project={"fps": {"num": 30, "den": 1}})):
+                        self.timeline_module.TimelineView.update_transition_data(helper, updated)
+                    existing.save.assert_called_once()
+                    self.assertEqual(existing.data["duration"], end - start)
+                    if kind.startswith("custom") or kind == "animated_mask":
+                        for prop in ("brightness", "contrast"):
+                            self.assertEqual(existing.data[prop], old_data[prop])
+                    else:
+                        result = openshot.Keyframe()
+                        result.SetJson(json.dumps(existing.data["brightness"]))
+                        self.assertEqual(result.GetValue(round(start * 30) + 1), direction)
+                        self.assertAlmostEqual(result.GetValue(round((start + end) * 15) + 1), 0., places=2)
+                        self.assertEqual(result.GetValue(round(end * 30) + 1), -direction)
+                        self.assertEqual(existing.data["contrast"], old_data["contrast"])
+                        expected = copy.deepcopy(old_data["brightness"])
+                        expected["Points"][0]["co"]["X"] = round(start * 30) + 1
+                        expected["Points"][-1]["co"]["X"] = round(end * 30) + 1
+                        self.assertEqual(existing.data["brightness"], expected)
 
     def test_motion_wipe_mask_uses_high_static_contrast(self):
         helper = self.make_motion_helper()
@@ -3044,6 +3205,38 @@ class TimelineHelperTests(unittest.TestCase):
                 window.SelectionAdded.emit.assert_called_once_with("item1", kind, True)
                 window.actionProperties.trigger.assert_not_called()
 
+    def test_double_click_timeline_margin_fits_last_content_edge(self):
+        mixin = self.qwidget_clip_module.ClipInteractionMixin
+        for edge in (20.0, 50.0, 0.0):
+            with self.subTest(edge=edge):
+                helper = types.SimpleNamespace(
+                    enable_razor=False, cursors={}, fps_float=30.0,
+                    pixels_per_second=10.0, zoom_factor=10.0,
+                    _project_resize_timer=MagicMock(),
+                    _current_project_duration=lambda: 100.0,
+                    _furthest_timeline_edge=lambda: edge,
+                    _is_view_right_aligned=lambda: True,
+                    _fix_cursor=MagicMock(), _release_cursor=MagicMock(),
+                    _snap_time=lambda value: round(value * 30) / 30,
+                    _is_timeline_content_pos=lambda pos: True,
+                    _emit_zoom_signals=MagicMock(),
+                    scrollbar_position=[0, 1, 1000, 1000],
+                    geometry=types.SimpleNamespace(ensure=lambda: None,
+                        timeline_handle_rect=lambda: QRectF(990, 40, 10, 400)),
+                    win=types.SimpleNamespace(timeline=types.SimpleNamespace(resizeTimeline=MagicMock())),
+                )
+                helper._set_project_duration_override = lambda value: setattr(
+                    helper, "_project_duration_override", value)
+                helper._startProjectResize = lambda: mixin._startProjectResize(helper)
+                helper._finishProjectResize = lambda: mixin._finishProjectResize(helper)
+                event = types.SimpleNamespace(button=lambda: Qt.LeftButton,
+                    position=lambda: QPointF(995, 100), accept=MagicMock())
+                self.qwidget_base_module.TimelineWidgetBase.mouseDoubleClickEvent(helper, event)
+                helper.win.timeline.resizeTimeline.assert_called_once_with(max(edge, 1 / 30))
+                self.assertIsNone(helper._project_duration_override)
+                helper._project_resize_timer.stop.assert_called_once()
+                event.accept.assert_called_once()
+
     def test_double_click_opens_properties_on_padded_icon_hits(self):
         for target in ("clip-keyframe", "panel-keyframe", "effect", "clip"):
             with self.subTest(target=target):
@@ -3052,6 +3245,7 @@ class TimelineHelperTests(unittest.TestCase):
                     enable_razor=False,
                     geometry=types.SimpleNamespace(
                         ensure=lambda: None,
+                        timeline_handle_rect=lambda: QRectF(),
                         iter_items=lambda **_kwargs: [(QRectF(40, 40, 20, 20), None, False, "clip")]
                         if target == "clip" else []),
                     _is_timeline_content_pos=lambda _pos: True,
@@ -3357,6 +3551,51 @@ class TimelineHelperTests(unittest.TestCase):
         self.assertTrue(accepted)
         self.assertEqual(mapping, [241])
         self.assertEqual(requests, [(480, 61, "/media/hidden-lower.mp4", False)])
+
+    def test_trim_and_razor_prefer_available_optimized_media_without_changing_timing(self):
+        with tempfile.TemporaryDirectory() as root:
+            original_path = os.path.join(root, "original.mp4")
+            optimized_path = os.path.join(root, "optimized.mp4")
+            with open(optimized_path, "wb") as stream:
+                stream.write(b"path-selection fixture")
+            clip = types.SimpleNamespace(data={
+                "file_id": "F1", "reader": {"path": original_path}, "start": 2.0})
+            file = types.SimpleNamespace(id="F1", data={"path": original_path},
+                                         absolute_path=lambda: original_path)
+            original_clip = copy.deepcopy(clip.data)
+            razor_requests, trim_requests = [], []
+            curve = types.SimpleNamespace(GetCount=lambda: 2, GetValue=lambda frame: 480.0)
+            window = types.SimpleNamespace(
+                timeline_sync=types.SimpleNamespace(timeline=types.SimpleNamespace(
+                    GetClip=lambda clip_id: types.SimpleNamespace(time=curve))),
+                SpeedSignal=types.SimpleNamespace(emit=lambda speed: None),
+                preview_thread=types.SimpleNamespace(
+                    queue_razor_preview=lambda *args: razor_requests.append(args) or True,
+                    queue_source_preview=lambda *args: trim_requests.append(args)),
+            )
+            helper = types.SimpleNamespace(window=window, current_frame=61)
+            helper._clip_preview_source = types.MethodType(
+                self.timeline_module.TimelineView._clip_preview_source, helper)
+            cases = (
+                ({"path": optimized_path}, optimized_path),
+                ({"path": optimized_path, "missing": True}, original_path),
+                ({"path": os.path.join(root, "removed.mp4")}, original_path),
+                (None, original_path),
+                ({"path": optimized_path}, optimized_path),
+            )
+            with patch.object(self.timeline_module.Clip, "get", return_value=clip), \
+                    patch.object(self.timeline_module.File, "get", return_value=file):
+                for proxy, expected in cases:
+                    with self.subTest(proxy=proxy):
+                        file.data["proxy_reader"] = proxy
+                        before = copy.deepcopy(file.data)
+                        self.assertTrue(self.timeline_module.TimelineView.PreviewRazorFrame(
+                            helper, "C1", 241, 61))
+                        self.timeline_module.TimelineView.PreviewClipFrame(helper, "C1", 241)
+                        self.assertEqual(razor_requests[-1], (480, 61, expected, False))
+                        self.assertEqual(trim_requests[-1], (480, 61, expected))
+                        self.assertEqual(file.data, before)
+                        self.assertEqual(clip.data, original_clip)
 
     def test_trim_previews_use_shared_source_queue_without_player_reader_switch(self):
         requests = []
@@ -4376,6 +4615,7 @@ class TimelineHelperTests(unittest.TestCase):
         app = types.SimpleNamespace(project=types.SimpleNamespace(get=project.get))
         widget = types.SimpleNamespace(
             theme=theme, track_name_width=140, ruler_height=39,
+            hasFocus=lambda: False,
             track_margin_top=8, scroll_bar_thickness=6,
             pixels_per_second=10, current_frame=1, h_scroll_offset=0,
             width=lambda: 500, height=lambda: 100,
@@ -5109,6 +5349,46 @@ class TimelineHelperTests(unittest.TestCase):
         self.assertFalse(opened)
         self.assertEqual(helper.selected, [])
         self.assertEqual(helper.menu_calls, [])
+
+    def test_ripple_slice_only_cuts_items_crossing_playhead(self):
+        for model_name in ('Clip', 'Transition'):
+            for reverse in (False, True):
+                with self.subTest(model=model_name, reverse=reverse):
+                    helper = self.make_slice_helper()
+                    items = {
+                        name: types.SimpleNamespace(
+                            id=name, data=dict(id=name, position=position, layer=1,
+                                               start=0.0, end=5.0, duration=5.0),
+                            save=lambda: None)
+                        for name, position in (('left', 0.0), ('right', 5.0))
+                    }
+                    updated = []
+                    helper.update_clip_data = lambda data, **kwargs: updated.append(copy.deepcopy(data))
+                    helper.update_transition_data = helper.update_clip_data
+                    helper.ripple_delete_gap = lambda *args: self.timeline_module.TimelineView.ripple_delete_gap(helper, *args)
+                    app = types.SimpleNamespace(
+                        project=types.SimpleNamespace(get=lambda key: {
+                            'fps': {'num': 24, 'den': 1}, 'layers': []}[key]),
+                        updates=types.SimpleNamespace(transaction_id=None),
+                        window=types.SimpleNamespace(IgnoreUpdates=types.SimpleNamespace(emit=lambda *args: None)))
+                    ids = list(items)
+                    if reverse:
+                        ids.reverse()
+                    with ExitStack() as stack:
+                        stack.enter_context(patch.object(self.timeline_module, 'get_app', return_value=app))
+                        for name in ('Clip', 'Transition'):
+                            model = getattr(self.timeline_module, name)
+                            stack.enter_context(patch.object(model, 'get', side_effect=lambda id: items[id]))
+                            stack.enter_context(patch.object(model, 'filter', return_value=list(items.values()) if name == model_name else []))
+                        self.timeline_module.TimelineView.Slice_Triggered(
+                            helper, self.timeline_module.MenuSlice.KEEP_LEFT,
+                            ids if model_name == 'Clip' else [],
+                            ids if model_name == 'Transition' else [], 3.0, True)
+                    self.assertEqual([data['id'] for data in updated], ['left'])
+                    self.assertAlmostEqual(updated[0]['end'], 3.0 + 1/24)
+                    self.assertAlmostEqual(items['right'].data['position'], 3.0 + 1/24)
+                    self.assertEqual(items['right'].data['duration'], 5.0)
+                    self.assertEqual(items['right'].data['end'], 5.0)
 
     def test_slice_triggered_keep_both_splits_transition_and_updates_duration(self):
         helper = self.make_slice_helper()
@@ -7589,7 +7869,9 @@ class TimelineHelperTests(unittest.TestCase):
         self.assertEqual(clip.data, original)
 
         self.assertEqual(len(helper.clip_updates), 1)
-        self.assertEqual(helper.clip_updates[0]["volume"]["Points"], [])
+        # Removing the last point retains the base value for subsequent animation.
+        self.assertEqual(helper.clip_updates[0]["volume"]["Points"],
+                         original["volume"]["Points"])
         self.assertIsNone(helper._active_keyframe_marker)
         self.assertEqual(helper.cleanup_calls, 1)
         self.assertTrue(helper._keyframes_dirty)

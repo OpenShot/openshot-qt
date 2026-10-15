@@ -4,7 +4,7 @@ import types
 import unittest
 import json
 import threading
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 from qt_api import QRect, QSize, QDialog, QObject, Signal
 from qt_api import QApplication
@@ -84,6 +84,46 @@ class DummyFraction:
 
 
 class DialogPreviewResizeTests(unittest.TestCase):
+    def test_application_exit_waits_for_preview_before_finalizing(self):
+        for already_stopping in (False, True):
+            with self.subTest(already_stopping=already_stopping):
+                calls = []
+                background = MagicMock()
+                background.isRunning.return_value = True
+                parent = MagicMock(background=background)
+                parent.Stop.side_effect = lambda **kwargs: calls.append(("stop", kwargs))
+                window = types.SimpleNamespace(
+                    _shutdown_in_progress=already_stopping,
+                    _close_after_shutdown=False,
+                    preview_thread=object(),
+                    preview_parent=parent,
+                    PauseSignal=DummySignal(),
+                    StopSignal=DummySignal(),
+                    _on_preview_stopped=lambda: calls.append(("finalize", {})),
+                )
+                Cutting._shutdown_preview(window, close_dialog=True, wait_for_thread=True)
+                self.assertEqual(calls, [("stop", {"wait_for_thread": True}), ("finalize", {})])
+                self.assertTrue(window._close_after_shutdown)
+                background.finished.disconnect.assert_called_once()
+                background.finished.connect.assert_not_called()
+
+    def test_normal_preview_close_remains_asynchronous(self):
+        background = MagicMock()
+        background.isRunning.return_value = True
+        parent = MagicMock(background=background)
+        window = types.SimpleNamespace(
+            _shutdown_in_progress=False,
+            _close_after_shutdown=False,
+            preview_thread=object(),
+            preview_parent=parent,
+            PauseSignal=DummySignal(),
+            StopSignal=DummySignal(),
+            _on_preview_stopped=MagicMock(),
+        )
+        Cutting._shutdown_preview(window, close_dialog=True)
+        parent.Stop.assert_called_once_with(wait_for_thread=False)
+        window._on_preview_stopped.assert_not_called()
+
     def test_standalone_preview_ignores_project_refresh(self):
         # Cutting and SelectRegion replace VideoWidget.win with their dialog,
         # but the widget still receives the main window's refresh signal.
@@ -314,6 +354,48 @@ class DialogPreviewResizeTests(unittest.TestCase):
         Cutting._preview_ready(fake)
 
         self.assertEqual(seek_calls, [(1, False)])
+
+    def test_timeline_source_preview_pauses_seeks_and_survives_worker_startup(self):
+        from qt_api import QSlider
+        slider = QSlider()
+        slider.setRange(1, 240)
+        fake = types.SimpleNamespace(
+            is_preview_mode=True, initialized=True, previous_start=2.0, fps=24,
+            video_length=240, sliderVideo=slider, sliderIgnoreSignal=False,
+            _preview_autoplay_active=True, btnPlay_clicked=MagicMock(),
+            preview_thread=types.SimpleNamespace(Seek=MagicMock()), SeekSignal=DummySignal())
+        fake._preview_ready = lambda: Cutting._preview_ready(fake)
+        for seconds, expected in ((3.5, 37), (0, 1), (100, 240)):
+            Cutting.preview_source_at(fake, seconds)
+            self.assertFalse(fake._preview_autoplay_active)
+            self.assertEqual(slider.value(), expected)
+            fake.btnPlay_clicked.assert_called_with(force='pause')
+            fake.preview_thread.Seek.assert_called_with(expected, False)
+            # A queued ready signal must not reset the requested frame to 1
+            # or restart autoplay after a timeline preview request.
+            with patch('windows.cutting.QTimer.singleShot') as timer:
+                Cutting._preview_ready(fake)
+            timer.assert_not_called()
+            fake.preview_thread.Seek.assert_called_with(expected, False)
+        self.assertFalse(fake.sliderIgnoreSignal)
+
+    def test_source_play_cancels_pending_scrub_and_starts_inside_loop_range(self):
+        from qt_api import QTimer
+        timer = QTimer()
+        timer.setSingleShot(True)
+        timer.start(100)
+        fake = types.SimpleNamespace(
+            _preview_autoplay_active=False, btnPlay=MagicMock(), slider_timer=timer,
+            _source_control_icon=MagicMock(),
+            loop_playback=True, playback_range=lambda: (31, 36),
+            sliderVideo=MagicMock(), SeekSignal=MagicMock(), PlaySignal=MagicMock())
+        fake.btnPlay.isChecked.return_value = True
+        fake.sliderVideo.value.return_value = 80
+        Cutting.btnPlay_clicked(fake, force='play')
+        self.assertFalse(timer.isActive())
+        fake.SeekSignal.emit.assert_called_once_with(31)
+        fake.PlaySignal.emit.assert_called_once()
+        fake.sliderVideo.setFocus.assert_not_called()
 
     def test_player_worker_play_honors_pending_seek_preroll_flag(self):
         applied = []

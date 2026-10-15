@@ -128,6 +128,8 @@ class TimelineTheme:
         self.keyframe_toggle_on_icon: Optional[QPixmap] = None
         self.track_keyframe_panel_disabled_icon: Optional[QPixmap] = None
         self.track_keyframe_panel_enabled_icon: Optional[QPixmap] = None
+        self.track_keyframe_panel_hide_disabled_icon: Optional[QPixmap] = None
+        self.track_keyframe_panel_hide_enabled_icon: Optional[QPixmap] = None
         self.track_add_above_disabled_icon: Optional[QPixmap] = None
         self.track_add_above_enabled_icon: Optional[QPixmap] = None
         self.track_add_below_disabled_icon: Optional[QPixmap] = None

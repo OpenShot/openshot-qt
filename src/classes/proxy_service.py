@@ -34,7 +34,7 @@ import uuid
 from concurrent.futures import ThreadPoolExecutor
 
 from qt_api import QObject, pyqtSignal, pyqtSlot
-from qt_api import QFileDialog
+from qt_api import get_existing_directory
 
 import openshot
 
@@ -212,12 +212,17 @@ class ProxyService(QObject):
          if not start_dir:
              start_dir = info.HOME_PATH
          translator = getattr(self.win, "_tr", None) or getattr(get_app(), "_tr", lambda text: text)
-         selected_folder = QFileDialog.getExistingDirectory(
+         selected_folder = get_existing_directory(
              self.win,
              translator("Choose optimized preview folder"),
              start_dir,
          )
          if not selected_folder:
+             return
+         # A faulty native picker can return a file despite requesting a folder.
+         # Do not replace existing proxy links with missing paths in that case.
+         if not os.path.isdir(selected_folder):
+             log.warning("Optimize Preview: selected folder is not a directory: %s", selected_folder)
              return
 
          matched = 0

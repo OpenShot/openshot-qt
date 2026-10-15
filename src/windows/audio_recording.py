@@ -1041,6 +1041,7 @@ class AudioRecordingDockContent(QWidget):
         self._sync_source_sections()
         self._webcam_layout_changed()
         self._sync_backend_state()
+        get_app().updates.add_listener(self)
 
     def _backend_available(self):
         audio_available = all(hasattr(openshot, name) for name in (
@@ -1712,9 +1713,14 @@ class AudioRecordingDockContent(QWidget):
             log.warning("No supported webcam modes discovered for %s", device)
         return modes
 
-    def refresh_tracks(self):
+    def changed(self, action):
+        """Keep recording destinations synchronized with project tracks."""
+        if action and (action.type == "load" or (action.key and action.key[0] == "layers")):
+            self.refresh_tracks()
+
+    def refresh_tracks(self, preferred_track=None):
         _ = get_app()._tr
-        selected = self._context_track or self.track_combo.currentData()
+        selected = preferred_track if preferred_track is not None else self.track_combo.currentData()
         self.track_combo.blockSignals(True)
         self.track_combo.clear()
         self.track_combo.addItem(_("No Track"), NO_RECORDING_TRACK)
@@ -1739,7 +1745,7 @@ class AudioRecordingDockContent(QWidget):
     def set_recording_context(self, start_time=None, track_number=None):
         self._context_start = start_time
         self._context_track = track_number
-        self.refresh_tracks()
+        self.refresh_tracks(preferred_track=track_number)
 
     def _track_labels(self):
         _ = get_app()._tr

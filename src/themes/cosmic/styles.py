@@ -86,6 +86,8 @@ class CosmicDuskTimelineTheme(HumanityDarkTimelineTheme):
         self.playhead_icon                      = _icon(_c + "playhead.svg")
         self.track_keyframe_panel_disabled_icon = _icon(_c + "track-keyframe-panel-show-disabled.svg")
         self.track_keyframe_panel_enabled_icon  = _icon(_c + "track-keyframe-panel-show-enabled.svg")
+        self.track_keyframe_panel_hide_disabled_icon = _icon(_c + "track-keyframe-panel-hide-disabled.svg")
+        self.track_keyframe_panel_hide_enabled_icon = _icon(_c + "track-keyframe-panel-hide-enabled.svg")
         self.keyframe_panel_add_icon            = _icon(_c + "keyframe-panel-add.svg")
         self.track_add_above_disabled_icon      = _icon(_c + "track-add-above-disabled.svg")
         self.track_add_above_enabled_icon       = _icon(_c + "track-add-above-enabled.svg")

@@ -35,10 +35,13 @@ from qt_api import (
     QPixmap, QColor,
     )
 
+from classes.keyframe_editing import auto_keyframes_enabled, edit_frame, retarget_keyframe_changes
 from classes.waveform import get_audio_data
 from classes import info, updates
 from classes import openshot_rc  # noqa
-from classes.clip_utils import clamp_timing_to_media, clip_time_bounds, is_single_image_media
+from classes.clip_utils import (
+    clamp_timing_to_media, clip_time_bounds, is_single_image_media, fit_transition_keyframes,
+)
 from classes.query import Clip, Transition, Effect, File
 from classes.logger import log
 from classes.app import get_app
@@ -231,11 +234,13 @@ class PropertiesModel(updates.UpdateInterface):
                 int(property_data["blue"]["value"]),
                 int(property_data.get("alpha", {}).get("value", property_data.get("max", 255.0))),
             )
-            self.color_update(item, current_color)
+            self.color_update(item, current_color, force_insert=True)
             return
 
-        value = QLocale().system().toDouble(item.text())[0]
-        self.value_updated(item, value=value)
+        # Explicit insertion captures the evaluated value at the playhead,
+        # even when the dock is editing a preceding keyframe.
+        value = property[1]["value"]
+        self.value_updated(item, value=value, force_insert=True)
 
     def _resolve_reader_source_path(self, value):
         """Resolve a reader property value to a filesystem path when possible."""
@@ -638,9 +643,13 @@ class PropertiesModel(updates.UpdateInterface):
                                     'co': {'X': self.frame_number, 'Y': default_value},
                                     'interpolation': 1})
 
-                # Enforce clip timing constraints
+                # Enforce clip timing constraints and fit simple transition fades.
+                transition_props = []
                 if property_key in ("time", "start", "end", "duration"):
                     clamp_timing_to_media(clip_data, c)
+                    if item_type == "transition" and not object_id and property_key != "time":
+                        fps = get_app().project.get("fps")
+                        transition_props = fit_transition_keyframes(clip_data, fps["num"] / fps["den"])
 
                 # Determine if waveforms are impacted by this change
                 has_waveform = False
@@ -659,6 +668,8 @@ class PropertiesModel(updates.UpdateInterface):
                 elif not object_id:
                     if property_key == "time":
                         clip_data = {k: clip_data.get(k) for k in ("time", "end", "duration", "start")}
+                    elif property_key in ("start", "end", "duration"):
+                        clip_data = {k: clip_data.get(k) for k in ["start", "end", "duration"] + transition_props}
                     else:
                         clip_data = {property_key: clip_data.get(property_key)}
                 else:
@@ -697,7 +708,7 @@ class PropertiesModel(updates.UpdateInterface):
                 if current_row >= 0:
                     self.parent.setCurrentIndex(self.model.index(current_row, 0))
 
-    def color_update(self, item, new_color, interpolation=-1, interpolation_details=[]):
+    def color_update(self, item, new_color, interpolation=-1, interpolation_details=[], force_insert=False):
         """Insert/Update a color keyframe for the selected row"""
 
         # Determine what was changed
@@ -761,11 +772,15 @@ class PropertiesModel(updates.UpdateInterface):
                                 log.debug(f"Creating new color component: {color}")
                                 clip_data[property_key][color] = {"Points": []}
 
+                            target_frame = edit_frame(
+                                clip_data[property_key][color].get("Points", []), self.frame_number,
+                                force_insert or auto_keyframes_enabled(get_app().window))
+
                             # Loop through points, find a matching points on this frame
                             found_point = False
                             for point in clip_data[property_key][color].get("Points", []):
                                 log.debug("looping points: co.X = %s" % point["co"]["X"])
-                                if interpolation == -1 and point["co"]["X"] == self.frame_number:
+                                if interpolation == -1 and point["co"]["X"] == target_frame:
                                     # Found point, Update value
                                     found_point = True
                                     clip_updated = True
@@ -813,7 +828,7 @@ class PropertiesModel(updates.UpdateInterface):
                                 clip_updated = True
                                 log.debug("Created new point at X=%d", self.frame_number)
                                 clip_data[property_key][color].setdefault("Points", []).append({
-                                    'co': {'X': self.frame_number, 'Y': new_value},
+                                    'co': {'X': target_frame, 'Y': new_value},
                                     'interpolation': 1,
                                     })
 
@@ -931,7 +946,7 @@ class PropertiesModel(updates.UpdateInterface):
         _walk(updated)
         return updated, changed
 
-    def value_updated(self, item, interpolation=-1, value=None, interpolation_details=None, refresh_model=True):
+    def value_updated(self, item, interpolation=-1, value=None, interpolation_details=None, refresh_model=True, force_insert=False):
         """ Table cell change event - also handles context menu to update interpolation value """
 
         if self.ignore_update_signal:
@@ -1063,12 +1078,16 @@ class PropertiesModel(updates.UpdateInterface):
                             # Apply the calculated max_multiple to value
                             value = max(min(value, max_multiple), -max_multiple)
 
+                        target_frame = edit_frame(
+                            clip_data[property_key].get("Points", []), self.frame_number,
+                            force_insert or auto_keyframes_enabled(get_app().window))
+
                         # Loop through points, find a matching points on this frame
                         found_point = False
                         point_to_delete = None
                         for point in clip_data[property_key].get('Points', []):
                             log.debug("looping points: co.X = %s" % point["co"]["X"])
-                            if interpolation == -1 and point["co"]["X"] == self.frame_number:
+                            if interpolation == -1 and point["co"]["X"] == target_frame:
                                 # Found point, Update value
                                 found_point = True
                                 clip_updated = True
@@ -1127,7 +1146,7 @@ class PropertiesModel(updates.UpdateInterface):
                             clip_updated = True
                             log.debug("Created new point at X=%d", self.frame_number)
                             clip_data[property_key].setdefault('Points', []).append({
-                                'co': {'X': self.frame_number, 'Y': int(value) if property_key == "time" else value},
+                                'co': {'X': target_frame, 'Y': int(value) if property_key == "time" else value},
                                 'interpolation': openshot.CONSTANT if choice_keyframes_use_constant else openshot.LINEAR})
 
                 if not clip_updated:
@@ -1178,6 +1197,9 @@ class PropertiesModel(updates.UpdateInterface):
                             log.warn('Invalid Font/Caption value passed to property', exc_info=1)
 
                     elif property_type in ["colorgrade_curve", "colorgrade_wheels"]:
+                        if not force_insert and not auto_keyframes_enabled(get_app().window):
+                            value = json.loads(value) if isinstance(value, str) else json.loads(json.dumps(value))
+                            retarget_keyframe_changes(clip_data[property_key], value, self.frame_number)
                         clip_updated = True
                         try:
                             if isinstance(value, str):
@@ -1242,9 +1264,13 @@ class PropertiesModel(updates.UpdateInterface):
                         except Exception:
                             log.warn('Invalid Reader value passed to property: %s', value, exc_info=1)
 
-                # Enforce clip timing constraints
+                # Enforce clip timing constraints and fit simple transition fades.
+                transition_props = []
                 if property_key in ("time", "start", "end", "duration"):
                     clamp_timing_to_media(clip_data, c)
+                    if item_type == "transition" and not object_id and property_key != "time":
+                        fps = get_app().project.get("fps")
+                        transition_props = fit_transition_keyframes(clip_data, fps["num"] / fps["den"])
 
                 # Determine if waveforms are impacted by this change
                 has_waveform = False
@@ -1260,6 +1286,10 @@ class PropertiesModel(updates.UpdateInterface):
                 elif not object_id:
                     if property_key == "time":
                         clip_data = {k: clip_data.get(k) for k in ("time", "end", "duration", "start")}
+                    elif property_key in ("start", "end", "duration"):
+                        # Clamping a trim can change all three timing fields.
+                        # Keep the saved duration consistent with the new bounds.
+                        clip_data = {k: clip_data.get(k) for k in ["start", "end", "duration"] + transition_props}
                     else:
                         clip_data = {property_key: clip_data.get(property_key)}
                 else:
@@ -1313,6 +1343,18 @@ class PropertiesModel(updates.UpdateInterface):
         keyframe = property[1]["keyframe"]
         points = property[1]["points"]
         interpolation = property[1]["interpolation"]
+        edit_tooltip = ""
+        if not readonly and not auto_keyframes_enabled(app.window):
+            data = getattr(self, "_edit_source_data", {}) or {}
+            if object_id:
+                data, _parent = self._tracked_object_clip_data(data, object_id)
+            curve = data.get(name, {}) if isinstance(data, dict) else {}
+            if isinstance(curve, dict) and curve.get("Points"):
+                target = edit_frame(curve["Points"], self.frame_number, False)
+                point = next(p for p in curve["Points"] if p["co"]["X"] == target)
+                edit_tooltip = _("Editing keyframe at frame %s") % int(target)
+                if type in ("float", "int") and not property[1]["choices"]:
+                    value = point["co"]["Y"]
 
         # Colorgrade types store nested keyframe structures libopenshot doesn't parse,
         # so compute keyframe/points from the actual nested data.
@@ -1572,6 +1614,9 @@ class PropertiesModel(updates.UpdateInterface):
                 # Keep the editor enabled and synchronized on property refreshes.
                 get_app().window.CaptionTextLoaded.emit(memo, row)
 
+        for cell in row:
+            cell.setToolTip(edit_tooltip)
+
         # Keep track of items in a dictionary (for quick look up)
         self.items[name] = {"row": row, "property": property}
 
@@ -1598,6 +1643,10 @@ class PropertiesModel(updates.UpdateInterface):
                 # TODO: Determine why c is occasional = None
                 if not c:
                     return
+
+                self._edit_source_data = None
+                if len(self.selected) == 1 and not auto_keyframes_enabled(app.window):
+                    self._edit_source_data = json.loads(c.Json())
 
                 # Build list of raw properties for all selected items
                 all_raw_properties = []

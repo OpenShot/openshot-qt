@@ -102,7 +102,8 @@ class TrackInteractionMixin:
             row_height = min(name_rect.height(), self.theme.track.height)
             hit_size = min(22.0, max(0.0, row_height - 2.0))
             hit_width = min(hit_size, float(self.theme.track_control_size) + 4.0)
-            left = name_rect.right() - 2.0 - len(specs) * hit_width
+            right_margin = 6.0
+            left = name_rect.right() - right_margin - len(specs) * hit_width
             for spec in specs:
                 pix_info = spec["pixmaps"]
                 if spec["key"] == "lock-toggle":
@@ -238,6 +239,7 @@ class TrackInteractionMixin:
         if key == "keyframe-panel":
             track_num = button.get("track_num")
             enabled = bool(self._track_panel_enabled.get(track_num, False))
+            pixmaps = pixmaps.get("hide" if enabled else "show") or pixmaps
             state = "enabled" if enabled else "disabled"
             if hovered or pressed:
                 state = "enabled"

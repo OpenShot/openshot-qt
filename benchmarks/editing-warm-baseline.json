@@ -1,0 +1,71 @@
+{
+  "_copyright": "Copyright (c) 2026 OpenShot Studios, LLC",
+  "_license": "SPDX-License-Identifier: GPL-3.0-or-later",
+  "environment": {
+    "python": "3.8.10 (default, Mar 18 2025, 20:04:55) \n[GCC 9.4.0]",
+    "platform": "Linux-5.15.0-139-generic-x86_64-with-glibc2.29",
+    "libopenshot": "1.0.1",
+    "binding": "/usr/local/lib/python3.8/dist-packages/openshot.py",
+    "qt": "5.12.8",
+    "pyqt": "5.14.1",
+    "warm_query": true
+  },
+  "scenarios": {
+    "overlapping_av/split": {
+      "first_ms": 7.669871672987938,
+      "median_ms": 7.335979724302888,
+      "p95_ms": 7.724385242909193,
+      "max_ms": 7.724385242909193,
+      "preview_requests": 2
+    },
+    "overlapping_av/trim": {
+      "first_ms": 0.7344400510191917,
+      "median_ms": 0.7059604395180941,
+      "p95_ms": 0.7344400510191917,
+      "max_ms": 0.7344400510191917,
+      "preview_requests": 1
+    },
+    "long_waveforms/split": {
+      "first_ms": 666.7745453305542,
+      "median_ms": 662.4780669808388,
+      "p95_ms": 678.4596433863044,
+      "max_ms": 678.4596433863044,
+      "preview_requests": 2
+    },
+    "long_waveforms/trim": {
+      "first_ms": 16.5940229780972,
+      "median_ms": 17.366991378366947,
+      "p95_ms": 19.20092571526766,
+      "max_ms": 19.20092571526766,
+      "preview_requests": 1
+    },
+    "many_short_clips/split": {
+      "first_ms": 321.9045577570796,
+      "median_ms": 325.2606790047139,
+      "p95_ms": 337.5009912997484,
+      "max_ms": 337.5009912997484,
+      "preview_requests": 2
+    },
+    "many_short_clips/trim": {
+      "first_ms": 0.8816379122436047,
+      "median_ms": 0.8631481323391199,
+      "p95_ms": 0.9536538273096085,
+      "max_ms": 0.9536538273096085,
+      "preview_requests": 1
+    },
+    "edit_undo_dispatch/split": {
+      "first_ms": 52.25628800690174,
+      "median_ms": 55.39911868982017,
+      "p95_ms": 55.91944884508848,
+      "max_ms": 55.91944884508848,
+      "preview_requests": 4
+    },
+    "edit_undo_dispatch/trim": {
+      "first_ms": 2.4508358910679817,
+      "median_ms": 2.465283265337348,
+      "p95_ms": 3.298579715192318,
+      "max_ms": 3.298579715192318,
+      "preview_requests": 3
+    }
+  }
+}

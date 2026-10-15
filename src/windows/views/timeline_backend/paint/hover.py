@@ -75,6 +75,18 @@ class HoverFeedback:
                 return ("edge-" + edge, QRectF(rect), kind)
         return None
 
+    def keyboard_resize_target(self):
+        edge = getattr(self.w, '_keyboard_edge', None)
+        if not edge or not self.w.hasFocus():
+            return None
+        selected_ids = {str(i) for i in self.w.win.selected_clips + self.w.win.selected_transitions}
+        if edge[0] not in selected_ids:
+            return None
+        for rect, item, _selected, kind in self.w.geometry.iter_items(reverse=True):
+            if kind in ('clip', 'transition') and str(item.id) == edge[0]:
+                return ('edge-' + edge[1], QRectF(rect), kind)
+        return None
+
     def edge_stroke_color(self, rect, style):
         """Use the same pen as the item painter, including selection styling."""
         theme = getattr(self.w.theme, style)
@@ -100,7 +112,7 @@ class HoverFeedback:
         # zooming, changing themes, or removing an item under a stationary mouse.
         if self.position is not None and not self.menu_open:
             self.w._updateCursor(self.position)
-        target = self.active_resize_target() or self.target
+        target = self.active_resize_target() or self.keyboard_resize_target() or self.target
         if target is None:
             return
         kind, rect, style = target
@@ -128,7 +140,9 @@ class HoverFeedback:
         pen.setCosmetic(True)
         painter.setPen(pen)
         painter.setBrush(fill)
-        if kind in ("edge-left", "edge-right"):
+        if kind == "timeline-margin":
+            painter.fillRect(rect, QColor(255, 255, 255, 24))
+        elif kind in ("edge-left", "edge-right"):
             self._paint_edge(painter, rect, theme, kind == "edge-left", self.edge_stroke_color(rect, style))
         else:
             painter.drawRoundedRect(rect.adjusted(0.5, 0.5, -0.5, -0.5), 3, 3)

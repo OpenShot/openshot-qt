@@ -91,9 +91,10 @@ up in the list of transitions.
 Transition Properties
 ---------------------
 Below is a list of transition properties which can be edited, and in most cases, animated over time. To view a transition's properties,
-right click and choose :guilabel:`Properties`. The property editor will appear, where you can change these properties. NOTE: Pay
-close attention to where the play-head (i.e. red playback line) is. Key frames are automatically created at the current playback
-position, to help create animations.
+right click and choose :guilabel:`Properties`. The property editor will appear, where you can change these properties.
+Move the playhead to a keyframe to adjust that part of the transition. If you want to add a change between
+existing keyframes, leave :ref:`auto_keyframes_ref` on and edit at the new position. With it off, editing
+between keyframes adjusts the earlier one instead.
 
 NOTE: Transitions do not affect audio, so if you are intending to fade in/out the
 audio volume of a clip, you must adjust the ``volume`` clip property. See :ref:`clip_properties_ref`.

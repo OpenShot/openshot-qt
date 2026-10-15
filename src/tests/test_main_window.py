@@ -46,7 +46,7 @@ if PATH not in sys.path:
 
 from qt_api import QByteArray, QCoreApplication, QEvent, QKeySequence, Qt
 from qt_api import QContextMenuEvent, QMouseEvent, QPoint, QPointF, QTabBar
-from qt_api import QApplication, QDockWidget, QMainWindow, QMenu, QStandardItem, QStandardItemModel
+from qt_api import QApplication, QDialog, QDockWidget, QMainWindow, QMenu, QStandardItem, QStandardItemModel
 
 from classes import qt_types
 from classes.project_data import ProjectDataStore
@@ -796,7 +796,7 @@ class MainWindowTests(unittest.TestCase):
             ignore=lambda: event_calls.append("ignore"),
         )
 
-        with patch.object(
+        with patch.object(self.main_window_module.MainWindow, "_shutdown") as shutdown, patch.object(
             self.main_window_module.QMessageBox,
             "question",
             return_value=self.main_window_module.QMessageBox.Cancel,
@@ -807,6 +807,129 @@ class MainWindowTests(unittest.TestCase):
         self.assertEqual(tutorial_calls, ["reshow"])
         self.assertEqual(event_calls, ["ignore"])
         self.assertFalse(fake_window.shutting_down)
+        shutdown.assert_not_called()
+
+    def test_preview_reuses_same_file_but_allows_other_files_and_reopening(self):
+        class Preview(QDialog):
+            def __init__(self, file, preview=False, clip_id=None):
+                super().__init__()
+                self.file = file
+                self.range_clip_id = clip_id
+                self.is_preview_mode = preview
+                self._shutdown_in_progress = False
+                self.raise_ = MagicMock()
+                self.activateWindow = MagicMock()
+                created.append(self)
+
+        created = []
+        selected = types.SimpleNamespace(id="first")
+        files_view = object()
+        fake_window = types.SimpleNamespace(
+            files_model=types.SimpleNamespace(current_file=lambda: selected),
+            filesView=files_view, focusWidget=lambda: files_view,
+        )
+        open_preview = self.main_window_module.MainWindow.actionPreview_File_trigger
+        try:
+            with patch("windows.cutting.Cutting", Preview):
+                open_preview(fake_window)
+                first = created[0]
+                first.showMinimized()
+                # Model lookups can return a fresh object for the same file.
+                selected = types.SimpleNamespace(id="first")
+                open_preview(fake_window)
+                self.assertEqual(len(created), 1)
+                self.assertFalse(first.isMinimized())
+                self.assertEqual(first.raise_.call_count, 2)
+                self.assertEqual(first.activateWindow.call_count, 2)
+
+                selected = types.SimpleNamespace(id="second")
+                open_preview(fake_window)
+                self.assertEqual(len(created), 2)
+                self.assertTrue(first.isVisible())
+
+                first.close()
+                selected = types.SimpleNamespace(id="first")
+                open_preview(fake_window)
+                self.assertEqual(len(created), 3)
+                self.assertTrue(created[-1].isVisible())
+        finally:
+            for window in created:
+                window.close()
+                window.deleteLater()
+
+    def test_preview_uses_focused_timeline_anchor_and_repositions_existing_source(self):
+        from classes.query import Clip, Transition
+        from windows.views.timeline_backend.qwidget.keyboard import KeyboardMixin
+        created = []
+
+        class Preview(QDialog):
+            def __init__(self, file, preview=False, clip_id=None):
+                super().__init__()
+                self.file = file
+                self.range_clip_id = clip_id
+                self.is_preview_mode = preview
+                self._shutdown_in_progress = False
+                self.preview_source_at = MagicMock()
+                created.append(self)
+
+        clips = [Clip(), Clip()]
+        for index, clip in enumerate(clips):
+            clip.id = str(index)
+            clip.data = dict(id=clip.id, file_id='source', start=index + 2.5)
+        timeline = types.SimpleNamespace(
+            _keyboard_item_id='1', _keyboard_items=lambda: clips,
+            win=types.SimpleNamespace(selected_clips=['0', '1'], selected_transitions=[]))
+        timeline._keyboard_anchor = types.MethodType(KeyboardMixin._keyboard_anchor, timeline)
+        focused = timeline
+        window = types.SimpleNamespace(filesView=object(), timeline=timeline,
+                                       files_model=MagicMock(), focusWidget=lambda: focused)
+        source = types.SimpleNamespace(id='source')
+        open_preview = self.main_window_module.MainWindow.actionPreview_File_trigger
+        try:
+            with patch('windows.cutting.Cutting', Preview), patch.object(
+                    self.main_window_module.File, 'get', return_value=source) as lookup:
+                open_preview(window)
+                self.assertEqual(len(created), 1)
+                self.assertIs(created[0].file, source)
+                created[0].preview_source_at.assert_called_once_with(3.5)
+                lookup.assert_called_once_with(id='source')
+                window.files_model.current_file.assert_not_called()
+
+                timeline._keyboard_item_id = '0'
+                open_preview(window)
+                self.assertEqual(len(created), 2)
+                created[1].preview_source_at.assert_called_with(2.5)
+
+                # Context menus must use the clicked clip even when focus is elsewhere.
+                focused = object()
+                with patch.object(self.main_window_module.Clip, 'get', return_value=clips[0]):
+                    open_preview(window, clip_id='0')
+                self.assertEqual(len(created), 2)
+                created[1].preview_source_at.assert_called_with(2.5)
+
+                # Another panel, a missing source, no selection, or an active
+                # transition must never fall back to the stale browser selection.
+                focused = object()
+                open_preview(window)
+                focused = timeline
+                lookup.return_value = None
+                open_preview(window)
+                timeline.win.selected_clips = []
+                open_preview(window)
+                transition = Transition()
+                transition.id = 'transition'
+                transition.data = dict(id=transition.id)
+                clips.append(transition)
+                timeline._keyboard_item_id = transition.id
+                timeline.win.selected_transitions = [transition.id]
+                open_preview(window)
+                self.assertEqual(len(created), 2)
+                self.assertEqual(created[0].preview_source_at.call_count, 1)
+                window.files_model.current_file.assert_not_called()
+        finally:
+            for dialog in created:
+                dialog.close()
+                dialog.deleteLater()
 
     def test_close_event_yes_saves_and_continues_shutdown(self):
         calls = []
@@ -835,7 +958,25 @@ class MainWindowTests(unittest.TestCase):
             ignore=lambda: event_calls.append("ignore"),
         )
 
+        from windows.cutting import Cutting
+        previews = []
+        for visible in (True, False):
+            preview = Cutting.__new__(Cutting)
+            QDialog.__init__(preview)
+            preview._shutdown_in_progress = not visible
+            preview._shutdown_preview = MagicMock(side_effect=lambda **kwargs: calls.append("preview"))
+            preview.setVisible(visible)
+            previews.append(preview)
+            self.addCleanup(preview.deleteLater)
+        auxiliary = QDialog()
+        auxiliary.show()
+        self.addCleanup(auxiliary.deleteLater)
+
         with ExitStack() as stack:
+            stack.enter_context(patch.object(
+                self.main_window_module.QApplication, "topLevelWidgets",
+                return_value=[fake_window, *previews, auxiliary],
+            ))
             stack.enter_context(
                 patch.object(
                     self.main_window_module.QMessageBox,
@@ -861,6 +1002,12 @@ class MainWindowTests(unittest.TestCase):
         self.assertIn("destroy_lock", calls)
         self.assertEqual(tracker, [False])
         self.assertTrue(fake_window.shutting_down)
+        for preview in previews:
+            preview._shutdown_preview.assert_called_once_with(close_dialog=True, wait_for_thread=True)
+            self.assertFalse(preview.isVisible())
+        self.assertFalse(auxiliary.isVisible())
+        self.assertLess(calls.index("settings"), calls.index("preview"))
+        self.assertLess(calls.index("preview"), calls.index("destroy_lock"))
 
     def test_clear_optimized_files_cancel_does_nothing(self):
         proxy_calls = []

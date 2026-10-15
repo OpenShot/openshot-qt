@@ -137,6 +137,8 @@ class HumanityDarkTimelineTheme(TimelineTheme):
 
         self.track_keyframe_panel_disabled_icon = _icon(_h + "humanity-dark-track-keyframe-panel-show-disabled.svg")
         self.track_keyframe_panel_enabled_icon  = _icon(_h + "humanity-dark-track-keyframe-panel-show-enabled.svg")
+        self.track_keyframe_panel_hide_disabled_icon = _icon(_h + "humanity-dark-track-keyframe-panel-hide-disabled.svg")
+        self.track_keyframe_panel_hide_enabled_icon = _icon(_h + "humanity-dark-track-keyframe-panel-hide-enabled.svg")
         self.keyframe_panel_add_icon            = _icon(_h + "humanity-dark-keyframe-panel-add.svg")
         self.track_add_above_disabled_icon      = _icon(_h + "track-add-above-disabled.svg")
         self.track_add_above_enabled_icon       = _icon(_h + "track-add-above-enabled.svg")
@@ -209,6 +211,8 @@ class RetroTimelineTheme(HumanityDarkTimelineTheme):
 
         self.track_keyframe_panel_disabled_icon = _icon(_h + "retro-track-keyframe-panel-show-disabled.svg")
         self.track_keyframe_panel_enabled_icon  = _icon(_h + "retro-track-keyframe-panel-show-enabled.svg")
+        self.track_keyframe_panel_hide_disabled_icon = _icon(_h + "retro-track-keyframe-panel-hide-disabled.svg")
+        self.track_keyframe_panel_hide_enabled_icon = _icon(_h + "retro-track-keyframe-panel-hide-enabled.svg")
         self.keyframe_panel_add_icon            = _icon(_h + "keyframe-panel-add.svg")
         self.track_locked_disabled_icon         = _icon(_h + "retro-track-locked-disabled.svg")
         self.track_locked_enabled_icon          = _icon(_h + "retro-track-locked-enabled.svg")

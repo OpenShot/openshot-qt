@@ -57,6 +57,21 @@ class ZoomSliderTests(unittest.TestCase):
         self.slider.mouseMoveEvent(MouseEvent(*end))
         self.slider.mouseReleaseEvent(MouseEvent(*end))
 
+    def test_overview_uses_live_duration_until_resize_commits(self):
+        self.window.timeline = SimpleNamespace(_project_duration_override=70.0)
+        self.assertEqual(self.slider._timeline_duration(), 70.0)
+        self.window.timeline._project_duration_override = None
+        self.assertEqual(self.slider._timeline_duration(), 100.0)
+
+    def test_timeline_resize_preserves_backend_zoom_when_full_timeline_is_visible(self):
+        self.window.timeline = SimpleNamespace(_apply_external_zoom=Mock())
+        self.slider.scrollbar_position = [0.0, 1.0, 1000.0, 1000.0]
+        self.slider.delayed_resize_timer.start()
+        self.slider.timeline_resized()
+        self.assertFalse(self.slider.delayed_resize_timer.isActive())
+        self.slider.delayed_resize_callback.assert_not_called()
+        self.window.timeline._apply_external_zoom.assert_not_called()
+
     def test_thin_selection_moves_from_top_and_bottom_even_when_pointer_leaves(self):
         for y in (1, 19):
             with self.subTest(y=y):

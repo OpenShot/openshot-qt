@@ -25,6 +25,7 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
+from .keyboard import KeyboardMixin
 from .base import TimelineWidgetBase, TimelineEvents, _ConditionalTransition
 from .clip import ClipInteractionMixin
 from .effect import EffectInteractionMixin
@@ -36,6 +37,7 @@ from .transition import TransitionInteractionMixin
 
 
 class TimelineWidget(
+    KeyboardMixin,
     ClipInteractionMixin,
     TransitionInteractionMixin,
     EffectInteractionMixin,

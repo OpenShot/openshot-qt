@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" ?>
 <ui version="4.0">
  <class>Dialog</class>
  <widget class="QDialog" name="Dialog">
@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>584</width>
-    <height>434</height>
+    <width>940</width>
+    <height>640</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,175 +15,240 @@
   </property>
   <property name="windowIcon">
    <iconset resource="../../../images/openshot.qrc">
-    <normaloff>:/openshot.svg</normaloff>:/openshot.svg</iconset>
+    <normaloff>:/openshot.svg</normaloff>
+   </iconset>
   </property>
   <property name="autoFillBackground">
    <bool>false</bool>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
-   <item row="4" column="0">
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::NoButton</set>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>10</number>
+   </property>
+   <item>
+    <widget class="QLabel" name="lblInstructions">
+     <property name="text">
+      <string/>
      </property>
     </widget>
    </item>
-   <item row="3" column="0">
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <layout class="QGridLayout" name="transportGrid" columnstretch="1,0,1">
+     <item row="0" column="0">
+      <layout class="QHBoxLayout" name="timeLayout">
        <item>
-        <widget class="QLabel" name="lblInstructions">
+        <widget class="QLabel" name="lblVideoTime">
          <property name="text">
-          <string>Choose the &lt;b&gt;start&lt;/b&gt; and &lt;b&gt;end&lt;/b&gt; of each file</string>
+          <string>00:00:00:00</string>
          </property>
         </widget>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_3">
-         <item>
-          <widget class="QPushButton" name="btnPlay">
-           <property name="text">
-            <string/>
-           </property>
-           <property name="icon">
-            <iconset theme="media-playback-start"/>
-           </property>
-           <property name="checkable">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QSlider" name="sliderVideo">
-           <property name="tracking">
-            <bool>true</bool>
-           </property>
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="lblVideoTime">
-           <property name="text">
-            <string>00:00:00:1</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
+        <widget class="QLabel" name="lblSourceDuration">
+         <property name="text">
+          <string>/ 00:00:00:00</string>
+         </property>
+        </widget>
        </item>
        <item>
-        <widget class="QWidget" name="widgetControls" native="true">
-         <layout class="QHBoxLayout" name="horizontalLayout_2">
-          <item>
-           <widget class="QPushButton" name="btnStart">
-            <property name="minimumSize">
-             <size>
-              <width>160</width>
-              <height>90</height>
-             </size>
-            </property>
-            <property name="toolTip">
-             <string>Set the start</string>
-            </property>
-            <property name="text">
-             <string>Start</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="btnEnd">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>160</width>
-              <height>90</height>
-             </size>
-            </property>
-            <property name="toolTip">
-             <string>Set the end</string>
-            </property>
-            <property name="text">
-             <string>End</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <layout class="QVBoxLayout" name="verticalLayout_2">
-            <item>
-             <widget class="QLabel" name="label">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="text">
-               <string>Name:</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLineEdit" name="txtName">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-              <property name="placeholderText">
-               <string>Optional</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_5">
-              <item>
-               <widget class="QPushButton" name="btnClear">
-                <property name="enabled">
-                 <bool>false</bool>
-                </property>
-                <property name="text">
-                 <string>Clear</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="btnAddClip">
-                <property name="enabled">
-                 <bool>false</bool>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">font-weight: bold</string>
-                </property>
-                <property name="text">
-                 <string>Create</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-           </layout>
-          </item>
-         </layout>
+        <spacer name="timeSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </item>
+     <item row="0" column="1">
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <widget class="QToolButton" name="btnRangeStart">
+         <property name="toolTip">
+          <string>Go to Start</string>
+         </property>
+         <property name="autoRaise">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QToolButton" name="btnPlay">
+         <property name="icon">
+          <iconset theme="media-playback-start"/>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="autoRaise">
+          <bool>true</bool>
+         </property>
+         <property name="toolTip">
+          <string>Play / Pause</string>
+         </property>
+         <property name="autoRaise">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QToolButton" name="btnRangeEnd">
+         <property name="toolTip">
+          <string>Go to End</string>
+         </property>
+         <property name="autoRaise">
+          <bool>true</bool>
+         </property>
         </widget>
        </item>
       </layout>
+     </item>
+     <item row="0" column="2">
+      <layout class="QHBoxLayout" name="loopLayout">
+       <item>
+        <spacer name="loopSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QSlider" name="sliderVideo">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QFrame" name="widgetControls">
+     <layout class="QHBoxLayout" name="rangeControlsLayout">
+      <property name="spacing">
+       <number>14</number>
+      </property>
+      <item>
+       <layout class="QVBoxLayout" name="startColumn">
+        <item>
+         <widget class="QLabel" name="startLabel">
+          <property name="text">
+           <string>Start</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="startFields">
+          <item>
+           <widget class="QToolButton" name="btnStart">
+            <property name="text">
+             <string>In</string>
+            </property>
+            <property name="autoRaise">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="endColumn">
+        <item>
+         <widget class="QLabel" name="endLabel">
+          <property name="text">
+           <string>End</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="endFields">
+          <item>
+           <widget class="QToolButton" name="btnEnd">
+            <property name="text">
+             <string>Out</string>
+            </property>
+            <property name="autoRaise">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="durationColumn">
+        <item>
+         <widget class="QLabel" name="durationTitle">
+          <property name="text">
+           <string>Duration</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="range_duration">
+          <property name="text">
+           <string>00:00:00:00</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <spacer name="spacer117">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnClear">
+        <property name="text">
+         <string>Reset Range</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnAddClip">
+        <property name="text">
+         <string>Create Split File</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="footerLayout">
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Name:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="txtName">
+       <property name="placeholderText">
+        <string>Split name (optional)</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="spacer139">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QDialogButtonBox" name="buttonBox">
+       <property name="standardButtons">
+        <set>QDialogButtonBox::Close</set>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>

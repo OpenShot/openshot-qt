@@ -84,23 +84,27 @@ class UpdateAction:
     def json(self, is_array=False, only_value=False):
         """ Get the JSON string representing this UpdateAction """
 
+        # Serialize the payload once. Only a top-level history removal needs a
+        # shallow copy; never mutate values retained for undo/redo.
         # Build the dictionary to be serialized
         if only_value:
-            data_dict = json.loads(json.dumps(self.values))
+            data_dict = self.values
         else:
             data_dict = {"type": self.type,
                          "key": self.key,
-                         "value": json.loads(json.dumps(self.values)),
-                         "old_values": json.loads(json.dumps(self.old_values)),
+                         "value": self.values,
+                         "old_values": self.old_values,
                          "transaction": self.transaction}
 
             # Always remove 'history' key (if found). This prevents nested "history"
             # attributes when a project dict is loaded.
             try:
                 if isinstance(data_dict.get("value"), dict) and "history" in data_dict.get("value"):
-                    data_dict.get("value").pop("history", None)
+                    data_dict["value"] = dict(data_dict["value"])
+                    data_dict["value"].pop("history", None)
                 if isinstance(data_dict.get("old_values"), dict) and "history" in data_dict.get("old_values"):
-                    data_dict.get("old_values").pop("history", None)
+                    data_dict["old_values"] = dict(data_dict["old_values"])
+                    data_dict["old_values"].pop("history", None)
             except Exception as ex:
                 log.warning('Failed to clear history attribute from undo/redo data. {}'.format(ex))
 

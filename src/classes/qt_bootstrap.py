@@ -21,11 +21,17 @@ def configure_qt():
                         break
     except Exception as exc:
         logger.warning("Failed to read UI scale from %s: %s", settings_path, exc, exc_info=True)
-    scale = max(0.5, min(3.0, scale))
-    if scale != 1.0:
-        os.environ["QT_SCALE_FACTOR"] = str(scale)
+    from qt_api import QtCore, QtWidgets, minimum_ui_scale
 
-    from qt_api import QtCore, QtWidgets
+    # Qt reads this when QApplication is created. Older Qt painters cannot shrink
+    # below a device pixel ratio of one, even though window geometry can do so.
+    requested_scale = scale
+    scale = max(minimum_ui_scale(), min(3.0, scale))
+    if scale != requested_scale:
+        logger.warning("UI scale %s is unsupported by Qt %s; using %s",
+                       requested_scale, QtCore.qVersion(), scale)
+    if scale != 1.0 or scale != requested_scale:
+        os.environ["QT_SCALE_FACTOR"] = str(scale)
 
     Qt = QtCore.Qt
     QApplication = QtWidgets.QApplication

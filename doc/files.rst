@@ -112,14 +112,62 @@ file menu.
 
 Preview File
 ------------
-The :guilabel:`Preview File` action opens the Preview dialog for the
-selected file from :guilabel:`Project Files`. Simply double check a file to open this dialog.
+The :guilabel:`Preview File` action opens the Preview dialog for the selected file
+from :guilabel:`Project Files`. Double-click a file, or press :kbd:`Shift+2` or
+:kbd:`Alt+P` while the file list has focus. With the timeline focused, the same
+shortcut previews the active selected clip's source, paused at its Start point.
+The clip context menu also provides :guilabel:`Preview Clip` beside Properties.
+Double-clicking a saved split reopens its range editor instead of read-only preview.
 
-- Playback starts automatically.
-- Loop is enabled by default.
+- Ordinary source files start playing automatically; saved ranges open paused.
+- :guilabel:`Loop` repeats playback and is enabled by default in Preview.
+- Click the speaker to mute preview audio without changing the project.
+- Adjust volume with the slider; the change applies after releasing it.
+- Use Fit Window to size the video area to the source aspect ratio. Black bars
+  already encoded in the source remain visible.
+- Seeking during playback keeps playback running. Dragging to resize, move,
+  or draw a range pauses playback so its boundary frames can be inspected.
 - Press :kbd:`Space` to toggle play/pause.
 - Use the mouse scroll wheel to zoom in/out.
 - A :guilabel:`Reset Zoom` button appears when zoom is not 100%, and resets to 100%.
+
+Preview File shows playback and scrubbing controls only. Preview Clip and Split
+File add range editing below the shared preview. The source ruler and filmstrip
+show the full recording, with the selected range highlighted. Drag either grip to adjust the range and
+move the playhead with it. Drag on the ruler above the filmstrip to scrub without
+changing the range.
+Edit the Start and End timecodes for precise boundaries, or click the adjacent
+clock button to use the current playhead position (:kbd:`I` / :kbd:`O`).
+End is the last included frame; a one-frame range is valid. Duration shows the
+length of the selected range and can be edited to move End while keeping Start
+fixed. Duration is limited to at least one frame and at most the remaining source
+length. The buttons beside Play jump to Start and End.
+
+When editing a timeline clip, :guilabel:`Update Clip` updates only that clip.
+Its position stays fixed and its duration changes; neighboring clips do not move.
+Locked or retimed clips can be previewed, but range application is disabled.
+:guilabel:`Reset` reloads the saved range. Each update is one undo step.
+
+Split File provides Start, End, Duration, and an optional Name beside
+:guilabel:`Create`. Each click creates one Project Files entry and
+leaves the window open to create another. Pressing :kbd:`Enter` in Name or
+outside the time fields saves and closes the editor. In Start, End, or Duration,
+Enter commits the value and keeps the editor open. Tab moves
+through Start, End, Duration, and Name; Shift+Tab reverses the order. Each
+creation is one undo step.
+Opening an existing split lets you update its range and name without changing
+existing timeline clips. :guilabel:`Update` saves the split and closes its editor,
+refreshing the file and dependent clip thumbnails. :guilabel:`Update Clip` saves
+and closes clip preview.
+Use the window close control or :kbd:`Esc` to close without applying changes.
+
+Drag a filmstrip handle to trim, drag inside the selection to move it, or drag
+outside it to draw a new range. Click to seek, or drag on the ruler to scrub
+without changing the range.
+
+If a modified range changes elsewhere in the project, discard its local changes
+and reload it before saving. The dialog remains attached to its original source
+or timeline clip when the main-window selection changes.
 
 Optimize
 --------
@@ -168,24 +216,24 @@ suffixes such as ``_final`` or ``_reviewcopy``, because OpenShot does not treat 
 
 Split File
 ----------
-If you need to cut a large video file into many smaller files before editing, the **Split File** dialog is built exactly for this
-purpose. Right click on a file, and choose :guilabel:`Split File`. Use this dialog to quickly separate a large file into
-many smaller segments. For each segment, you can select the starting and ending frame, and a title. Each segment appears
-as a new file in the Project Files dialog.
+Use **Split File** to choose the parts of a longer recording you want to work with. Right click a file
+in **Project Files** and choose :guilabel:`Split File`. Select the start and end of a segment, give it an
+optional name, and click :guilabel:`Create`. Adjust the markers and repeat
+to prepare as many segments as you need.
 
-.. image:: images/file-split-dialog.jpg
+Each segment appears in Project Files and can be added to the timeline like any other file. The segments
+all use the original media on disk, so you can prepare them without making extra copies of the recording.
 
-.. table::
-   :widths: 5 20 80
+When you add a segment to the timeline, OpenShot gives its properties starting keyframes at the segment's
+beginning. For example, with :ref:`auto_keyframes_ref` on, you can move to the end and change the rotation
+to make it turn over the length of that segment. The animation starts from the part you chose to use.
 
-   ==  ==================  ============
-   #   Name                Description
-   ==  ==================  ============
-   1   Start of File       Choose the starting frame of your file by clicking this button
-   2   End of File         Choose the ending frame of your file by clicking this button
-   3   Name of File        Enter an optional name
-   4   Create Button       Create the file (which resets this dialog, so you can repeat these steps for each segment)
-   ==  ==================  ============
+If you have already animated a timeline clip, slicing it preserves that animation through the cut.
+Split File is useful for choosing your segments before you begin that work.
+
+Preview an existing split-file entry to adjust its saved IN/OUT range. The ruler
+includes the surrounding footage, allowing you to extend the range again without
+reimporting the source.
 
 Please refer to the section :ref:`clips_cutting_slicing_ref` for more ways to cut and slice clips directly in the timeline.
 
@@ -249,7 +297,12 @@ This will launch the file properties dialog, which displays information about yo
 Remove from Project
 -------------------
 
-This will remove a file from the project. It will not delete the underlying physical file though, so removing a file from the project merely makes it unavailable for this video project.
+Removing an entry from **Project Files** does not delete the source media from disk.
+
+You can import the file again whenever you need it. For example, after preparing several
+:ref:`Split File segments <split_clip_ref>` and removing the original from Project Files, you might want
+to use a different part of the recording. Import it again to work with the whole recording; your existing
+segments stay as they are. If the original is already in Project Files, importing it again selects it.
 
 .. _project_assets_folder_ref:
 

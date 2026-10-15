@@ -843,6 +843,12 @@
     <string>Disable Snapping</string>
    </property>
   </action>
+  <action name="actionAutoKeyframes">
+   <property name="checkable"><bool>true</bool></property>
+   <property name="checked"><bool>true</bool></property>
+   <property name="text"><string>Disable Auto Keyframes</string></property>
+   <property name="toolTip"><string>Disable Auto Keyframes</string></property>
+  </action>
   <action name="actionAddMarker">
    <property name="icon">
     <iconset resource="../../../images/openshot.qrc">

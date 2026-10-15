@@ -2707,6 +2707,16 @@ def ensure_binding():
     return QT_API
 
 
+def minimum_ui_scale():
+    """Return a safe UI scale minimum for the active Qt runtime.
+
+    Before Qt 6.7, QPainter clamps device pixel ratios below one. A smaller
+    global scale can therefore clip widgets when moving to a 100% display.
+    """
+    version = tuple(int(part) for part in QtCore.qVersion().split(".")[:2])
+    return 0.5 if version >= (6, 7) else 1.0
+
+
 def __getattr__(name):
     """Lazy attribute forwarding so `from qt_api import QIcon` works."""
     global QSignalTransition, QState, QStateMachine
@@ -2788,6 +2798,7 @@ __all__ = [
     "PYQT_VERSION_STR",
     "BINDING_VERSION_STR",
     "ensure_binding",
+    "minimum_ui_scale",
     "load_ui",
     "unwrapinstance",
     "wrapinstance",

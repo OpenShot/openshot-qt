@@ -286,7 +286,11 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
 
         # After processing each key, we've found object and parent, return former value/s on update
-        ret = json.loads(json.dumps(obj))
+        # An insertion is reversed by deleting the inserted ID. Sibling items
+        # are not part of that action and need no undo snapshot (waveforms can
+        # make this list many megabytes). Updates/deletes still retain the full
+        # previous value, including readers, effects, and keyframes.
+        ret = {} if add and isinstance(parent, list) else json.loads(json.dumps(obj))
 
         # Apply the correct action to the found item
         if remove:
@@ -351,6 +355,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         else:
             # Fall back to OpenShot defaults, if user defaults didn't load
             self._data = self.read_from_file(self.default_project_filepath)
+            self.apply_default_track_count()
 
         self.current_filepath = None
         self.has_unsaved_changes = False
@@ -378,6 +383,22 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
         # Set default project ID
         self._data["id"] = self.generate_id()
+
+    def apply_default_track_count(self):
+        """Adjust bundled blank-project tracks, leaving user templates untouched."""
+        try:
+            count = int(get_app().get_settings().get("default-track-count"))
+        except (TypeError, ValueError, OverflowError):
+            count = 5
+        count = max(1, min(count, 100))
+
+        template = self._data["layers"][0]
+        tracks = []
+        for index in range(1, count + 1):
+            track = copy.deepcopy(template)
+            track.update(id="L%s" % index, number=index * 1000000)
+            tracks.append(track)
+        self._data["layers"] = tracks
 
     def get_profile(self, profile_desc=None, profile_key=None):
         """Attempt to find a specific profile"""
@@ -1041,6 +1062,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         import openshot
 
         log.info("Saving project file: %s", file_path)
+        self._restore_clip_file_references()
 
         # Move all temp files (i.e. Blender Animations, Titles, Thumbnails, Protobuf files) to the project folder
         if not backup_only:
@@ -1541,12 +1563,53 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         s.set("recent_projects", recent_projects)
         s.save()
 
+    def _restore_clip_file_references(self):
+        """Recover orphaned media references before saving or validating paths.
+
+        Clips contain a full reader even when their Project Files entry is
+        absent. Reuse a matching file, or restore that entry from the reader,
+        so path validation can locate missing media instead of deleting a
+        playable clip just because its file ID is unknown.
+        """
+        files = self._data.setdefault("files", [])
+        by_id = {file.get("id"): file for file in files}
+        by_path = {comparable_local_path(file.get("path")): file for file in files
+                   if file.get("path")}
+        for clip in self._data.get("clips", []):
+            reader = clip.get("reader")
+            if not isinstance(reader, dict):
+                continue
+            file_id = clip.get("file_id") or reader.get("id")
+            path = reader.get("path")
+            if not file_id or file_id in by_id or not path:
+                continue
+            file = by_path.get(comparable_local_path(path))
+            if file is None:
+                file = copy.deepcopy(reader)
+                file["id"] = file_id
+                if not file.get("media_type"):
+                    file["media_type"] = get_media_type(dict(
+                        file, has_video=file.get("has_video", True),
+                        has_audio=file.get("has_audio", False)))
+                file["image"] = clip.get("image") or os.path.join(
+                    info.THUMBNAIL_PATH, "%s.png" % file_id)
+                files.append(file)
+                by_id[file_id] = file
+                by_path[comparable_local_path(path)] = file
+                log.warning("Restored missing project file %s from clip %s", file_id, clip.get("id"))
+            clip["file_id"] = file["id"]
+            reader["id"] = file["id"]
+            if file.get("image"):
+                clip["image"] = file["image"]
+
     def check_if_paths_are_valid(self):
         """Check if all paths are valid, and prompt to update them if needed"""
         app = get_app()
         settings = app.get_settings()
         # Get translation method
         _ = app._tr
+
+        self._restore_clip_file_references()
 
         log.info("checking project files...")
         prompt_state = {"cancelled": False, "missing_path_decisions": {}}

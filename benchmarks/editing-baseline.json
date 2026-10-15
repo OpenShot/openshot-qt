@@ -1,0 +1,70 @@
+{
+  "_copyright": "Copyright (c) 2026 OpenShot Studios, LLC",
+  "_license": "SPDX-License-Identifier: GPL-3.0-or-later",
+  "environment": {
+    "python": "3.8.10 (default, Mar 18 2025, 20:04:55) \n[GCC 9.4.0]",
+    "platform": "Linux-5.15.0-139-generic-x86_64-with-glibc2.29",
+    "libopenshot": "1.0.1",
+    "binding": "/usr/local/lib/python3.8/dist-packages/openshot.py",
+    "qt": "5.12.8",
+    "pyqt": "5.14.1"
+  },
+  "scenarios": {
+    "overlapping_av/split": {
+      "first_ms": 7.381378207355738,
+      "median_ms": 7.358042988926172,
+      "p95_ms": 7.835556752979755,
+      "max_ms": 7.860755082219839,
+      "preview_requests": 2
+    },
+    "overlapping_av/trim": {
+      "first_ms": 0.9944038465619087,
+      "median_ms": 0.9693070314824581,
+      "p95_ms": 1.045851968228817,
+      "max_ms": 1.0607102885842323,
+      "preview_requests": 1
+    },
+    "long_waveforms/split": {
+      "first_ms": 694.4649880751967,
+      "median_ms": 693.429971113801,
+      "p95_ms": 702.4025679565966,
+      "max_ms": 717.9644890129566,
+      "preview_requests": 2
+    },
+    "long_waveforms/trim": {
+      "first_ms": 25.19769500941038,
+      "median_ms": 26.559585705399513,
+      "p95_ms": 34.46501074358821,
+      "max_ms": 337.2327610850334,
+      "preview_requests": 1
+    },
+    "many_short_clips/split": {
+      "first_ms": 346.84474021196365,
+      "median_ms": 353.3905250951648,
+      "p95_ms": 450.1758674159646,
+      "max_ms": 460.3504012338817,
+      "preview_requests": 2
+    },
+    "many_short_clips/trim": {
+      "first_ms": 1.1504590511322021,
+      "median_ms": 1.1590761132538319,
+      "p95_ms": 1.2770593166351318,
+      "max_ms": 1.3502072542905807,
+      "preview_requests": 1
+    },
+    "edit_undo_dispatch/split": {
+      "first_ms": 59.6605371683836,
+      "median_ms": 56.69000931084156,
+      "p95_ms": 60.26812829077244,
+      "max_ms": 87.09177328273654,
+      "preview_requests": 4
+    },
+    "edit_undo_dispatch/trim": {
+      "first_ms": 2.8142500668764114,
+      "median_ms": 2.783933188766241,
+      "p95_ms": 2.915783319622278,
+      "max_ms": 3.7870733067393303,
+      "preview_requests": 3
+    }
+  }
+}

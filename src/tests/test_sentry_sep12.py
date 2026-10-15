@@ -388,6 +388,7 @@ class SentrySeptemberTests(unittest.TestCase):
                 with self.subTest(item_type=item_type, y=y):
                     item = types.SimpleNamespace(id='item')
                     helper = Mock(enable_razor=True, _press_hit=None, _razor_modifiers=Qt.NoModifier)
+                    helper.geometry.iter_tracks.return_value = []
                     helper._is_timeline_content_pos.return_value = True
                     helper._razor_in_track_area.return_value = True
                     helper._razor_target_at.return_value = {

@@ -395,6 +395,33 @@ def is_single_image_media(source: Any) -> bool:
     return _is_single_image(source)
 
 
+def fit_transition_keyframes(transition_data, fps, fallback_data=None):
+    """Fit simple static-mask fades to their bounds; preserve custom animations.
+
+    Return the properties updated so callers can include them in a partial save.
+    """
+    readers = (transition_data, fallback_data or {})
+    reader = next((data[key] for data in readers for key in ("mask_reader", "reader")
+                   if isinstance(data.get(key), dict)), {})
+    if not reader.get("has_single_image", is_single_image_media(reader)):
+        return []
+    curves = {prop: transition_data.get(prop, {}).get("Points", [])
+              for prop in ("brightness", "contrast")}
+    if any(len(points) > 2 for points in curves.values()):
+        return []
+    first = round(transition_data.get("start", 0.0) * fps) + 1
+    last = round(transition_data.get("end", 0.0) * fps) + 1
+    if last <= first:
+        return []
+    updated = []
+    for prop, points in curves.items():
+        if len(points) == 2:
+            points[0]["co"]["X"] = first
+            points[-1]["co"]["X"] = last
+            updated.append(prop)
+    return updated
+
+
 def _clip_has_single_image(reader: Any, clip_data: Any, existing_clip: Any) -> bool:
     """Return True if any metadata indicates a single-image clip."""
     if _is_single_image(reader):

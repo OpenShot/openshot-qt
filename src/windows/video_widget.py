@@ -45,6 +45,7 @@ import openshot  # Python module for libopenshot (required video editing module 
 from classes import updates
 from classes import openshot_rc  # noqa
 from classes.logger import log
+from classes.keyframe_editing import auto_keyframes_enabled, edit_frame
 from classes.app import get_app
 from classes.query import Clip, Effect
 
@@ -947,7 +948,8 @@ class VideoWidget(QWidget, updates.UpdateInterface):
     def mousePressEvent(self, event):
         """Capture mouse press event on video preview window"""
         event.accept()
-        if event.button() == Qt.MiddleButton and self.zoom > 1.0:
+        if event.button() == Qt.MiddleButton or (
+                event.button() == Qt.LeftButton and getattr(self, "preview_pan_enabled", False)):
             self.mouse_pressed = True
             self.mouse_dragging = False
             self.mouse_position = event.pos()
@@ -1078,7 +1080,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
     def mouseReleaseEvent(self, event):
         event.accept()
         """Capture mouse release event on video preview window"""
-        if event.button() == Qt.MiddleButton and getattr(self, "middle_pan_active", False):
+        if getattr(self, "middle_pan_active", False):
             self.mouse_pressed = False
             self.mouse_dragging = False
             self.middle_pan_active = False
@@ -2148,16 +2150,17 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             log.warning("%s: Added missing '%s' to property data", clip_id, property_key)
 
         points = c.data.get(property_key, {}).get("Points", [])
+        auto_keyframes = auto_keyframes_enabled(get_app().window)
+        frame_number = edit_frame(points, frame_number, auto_keyframes)
         for point in points:
             co = point.get("co", {})
 
             if co.get("X") == frame_number:
                 found_point = True
                 clip_updated = True
-                point.update({
-                    "co": {"X": frame_number, "Y": float(new_value)},
-                    "interpolation": openshot.BEZIER,
-                })
+                point["co"]["Y"] = float(new_value)
+                if auto_keyframes:
+                    point["interpolation"] = openshot.BEZIER
 
         if not found_point and new_value is not None:
             clip_updated = True
@@ -2271,6 +2274,8 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             if not isinstance(props[property_key], dict) or "Points" not in props[property_key]:
                 props[property_key] = {"Points": []}
             points_list = props[property_key].setdefault("Points", [])
+            auto_keyframes = auto_keyframes_enabled(get_app().window)
+            target_frame = edit_frame(points_list, frame_number, auto_keyframes)
 
             if property_key in {'left', 'top', 'right', 'bottom'} and new_value is not None:
                 new_value = min(max(float(new_value), 0.0), 1.0)
@@ -2278,17 +2283,16 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             for point in points_list:
                 co = point.get("co", {})
 
-                if co.get("X") == frame_number:
+                if co.get("X") == target_frame:
                     found_point = True
-                    point.update({
-                        "co": {"X": frame_number, "Y": float(new_value)},
-                        "interpolation": openshot.BEZIER,
-                    })
+                    point["co"]["Y"] = float(new_value)
+                    if auto_keyframes:
+                        point["interpolation"] = openshot.BEZIER
 
             if not found_point and new_value is not None:
                 log.debug("Creating new point at X=%s", frame_number)
                 points_list.append({
-                    'co': {'X': frame_number, 'Y': float(new_value)},
+                    'co': {'X': target_frame, 'Y': float(new_value)},
                     'interpolation': openshot.BEZIER
                     })
 
@@ -2802,8 +2806,8 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         aspectRatio = self.aspect_ratio.ToFloat() * self.pixel_ratio.ToFloat()
         viewport_size = QSizeF(aspectRatio, 1).scaled(window_size, Qt.KeepAspectRatio) * zoom
         return (
-            max(0.0, (viewport_size.width() - window_size.width()) * 0.5),
-            max(0.0, (viewport_size.height() - window_size.height()) * 0.5),
+            abs(viewport_size.width() - window_size.width()) * 0.5,
+            abs(viewport_size.height() - window_size.height()) * 0.5,
         )
 
     def _clamp_pan(self, pan_x=None, pan_y=None, width=None, height=None, zoom=None):
@@ -3098,6 +3102,8 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         self.regionTopLeftHandle = None
         self.regionBottomRightHandle = None
         self.curr_frame_size = None # Frame size
+        self.preview_pan_enabled = False
+        self.setToolTip(get_app()._tr("Scroll to zoom. Drag with the middle mouse button to pan."))
         self.zoom = 1.0  # Zoom of widget (does not affect video, only workspace)
         self.pan_x = 0.0
         self.pan_y = 0.0

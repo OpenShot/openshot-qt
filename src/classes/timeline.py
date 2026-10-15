@@ -198,4 +198,5 @@ class TimelineSync(UpdateInterface):
             max_frame = max(1, int(self.timeline.GetMaxFrame()))
         except Exception:
             return 1
-        return max(1, max_frame - 1)
+        # GetMaxFrame is already the last playable 1-based frame number.
+        return max_frame
