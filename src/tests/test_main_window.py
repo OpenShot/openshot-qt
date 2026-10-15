@@ -1166,7 +1166,7 @@ class MainWindowTests(unittest.TestCase):
         history_calls = []
         self.app.project = types.SimpleNamespace(
             needs_save=lambda: False,
-            load=lambda path, clear_thumbnails: load_calls.append((path, clear_thumbnails)),
+            load=lambda path, clear_thumbnails, interactive=True: load_calls.append((path, clear_thumbnails, interactive)),
         )
         self.app.updates = types.SimpleNamespace(load_history=history_calls.append)
         self.app.window = fake_window
@@ -1200,7 +1200,7 @@ class MainWindowTests(unittest.TestCase):
                         clear_thumbnails=True,
                     )
 
-                self.assertEqual(load_calls, [(project_path, True)])
+                self.assertEqual(load_calls, [(project_path, True, True)])
                 self.assertEqual(history_calls, [self.app.project])
                 self.assertEqual(clear_temp, [True])
                 self.assertEqual(refresh_files.calls, [()])

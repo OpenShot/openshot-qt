@@ -63,8 +63,17 @@ class HelpTests(unittest.TestCase):
         self.assertEqual(build_parser().parse_args(['effects', 'instances']).method, 'effect.list')
 
     def test_help_does_not_import_native_dependencies(self):
-        script = "import cli,sys; cli.main(['--help']); assert 'openshot' not in sys.modules; assert 'qt_api' not in sys.modules"
-        result = subprocess.run([sys.executable, '-c', script], capture_output=True)
+        from tests.agent_test_support import subprocess_environment
+        script = """import cli, sys
+try:
+    cli.main(['--help'])
+except SystemExit as exc:
+    assert exc.code == 0
+assert 'openshot' not in sys.modules
+assert 'qt_api' not in sys.modules
+"""
+        result = subprocess.run([sys.executable, '-c', script], capture_output=True,
+                                env=subprocess_environment())
         self.assertEqual(result.returncode, 0, result.stderr)
 
     def test_fragmented_and_multiple_messages(self):

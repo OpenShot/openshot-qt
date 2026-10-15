@@ -40,7 +40,8 @@ class KeyframeTransportTests(unittest.TestCase):
         cli = root / 'launch.py'
         with tempfile.TemporaryDirectory(prefix='openshot-cli-test-') as temporary:
             directory = Path(temporary)
-            env = dict(os.environ, QT_QPA_PLATFORM='offscreen', OPENSHOT_SESSION_DIR=str(directory / 'sessions'))
+            from tests.agent_test_support import subprocess_environment
+            env = subprocess_environment(QT_QPA_PLATFORM='offscreen', OPENSHOT_SESSION_DIR=str(directory / 'sessions'))
             env.pop('OPENSHOT_SESSION', None)
             session_id = uuid.uuid4().hex
             with (directory / 'server.log').open('w') as log:

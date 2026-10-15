@@ -23,6 +23,9 @@
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
+import os
+from pathlib import Path
+import sys
 from unittest.mock import patch
 
 
@@ -30,7 +33,23 @@ def isolate_preferences(test):
     settings = test.app.get_settings()
     original = settings.get
     defaults = {"default-profile": "HD 720p 30 fps", "default-samplerate": 48000,
-                "default-channellayout": "LAYOUT_STEREO", "history-limit": 100}
-    override = patch.object(settings, "get", side_effect=lambda key: defaults[key] if key in defaults else original(key))
-    override.start()
-    test.addCleanup(override.stop)
+                "default-channellayout": "LAYOUT_STEREO", "history-limit": 100,
+                "recent_projects": []}
+    overrides = (
+        patch.object(settings, "get", side_effect=lambda key: defaults[key] if key in defaults else original(key)),
+        patch.object(settings, "set", side_effect=defaults.__setitem__),
+        patch.object(settings, "save", return_value=None, create=True),
+    )
+    for override in overrides:
+        override.start()
+        test.addCleanup(override.stop)
+
+
+def subprocess_environment(**overrides):
+    """Carry source and build-tree native import paths into child interpreters."""
+    env = dict(os.environ, **overrides)
+    paths = [str(Path(__file__).resolve().parents[1])]
+    paths.extend(str(Path(path).resolve()) for path in sys.path)
+    paths.extend(str(Path(path).resolve()) for path in env.get("PYTHONPATH", "").split(os.pathsep) if path)
+    env["PYTHONPATH"] = os.pathsep.join(dict.fromkeys(paths))
+    return env
