@@ -29,7 +29,7 @@ import json
 import math
 import os
 from pathlib import Path
-import subprocess
+import subprocess  # nosec B404 - Launch controlled local processes without a shell.
 import sys
 import time
 import uuid
@@ -598,7 +598,7 @@ def main(argv=None):
             print(INTRO)
             return 0
         if local == 'serve':
-            import openshot  # Load the native engine before Qt, as in GUI startup.
+            import openshot  # pylint: disable=unused-import  # Native initialization must precede Qt.
             from classes.qt_bootstrap import configure_qt
             configure_qt()
             from classes.agent.host import serve
@@ -609,13 +609,13 @@ def main(argv=None):
             from classes.agent.client import discover, request, select
             if getattr(args, 'method', '') in ('effect.types', 'effect.describe') and not args.session:
                 os.environ.setdefault('QT_QPA_PLATFORM', 'offscreen')
-                import openshot  # Native engine before Qt, matching the GUI bootstrap.
+                import openshot  # pylint: disable=unused-import  # Native initialization must precede Qt.
                 from qt_api import QApplication
-                app = QApplication.instance() or QApplication([])
+                _app = QApplication.instance() or QApplication([])  # Keep Qt alive during discovery.
                 from classes.agent.catalog import effect_types, describe_effect
                 result = effect_types() if args.method == 'effect.types' else describe_effect(args.type, args.property)
             elif getattr(args, 'method', '') in ('profile.list', 'profile.get', 'export.preset.list', 'export.preset.get', 'export.capabilities') and not args.session:
-                import openshot
+                import openshot  # pylint: disable=unused-import  # Initialize native profile/export support.
                 from classes.agent.profiles import command as profile_command
                 from classes.agent.exporting import catalogue
                 params = {key: value for key, value in vars(args).items() if key in ('id', 'search', 'limit', 'offset') and value is not None}
@@ -663,7 +663,7 @@ def start_session(project, show=False):
         command += ['--project', str(Path(project).expanduser().resolve())]
     options = {'start_new_session': True} if os.name != 'nt' else {'creationflags': subprocess.CREATE_NEW_PROCESS_GROUP}
     with log_path.open('wb') as output:
-        process = subprocess.Popen(command, stdin=subprocess.DEVNULL, stdout=output, stderr=output, **options)
+        process = subprocess.Popen(command, stdin=subprocess.DEVNULL, stdout=output, stderr=output, **options)  # nosec B603 - Known OpenShot executable and argument array; no shell.
     from classes.agent.client import request
     deadline = time.monotonic() + 30
     while time.monotonic() < deadline:

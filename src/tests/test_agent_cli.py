@@ -26,9 +26,8 @@
 import contextlib
 import io
 import json
-import os
 from pathlib import Path
-import subprocess
+import subprocess  # nosec B404 - Launch controlled local processes without a shell.
 import sys
 import tempfile
 import unittest
@@ -72,7 +71,7 @@ except SystemExit as exc:
 assert 'openshot' not in sys.modules
 assert 'qt_api' not in sys.modules
 """
-        result = subprocess.run([sys.executable, '-c', script], capture_output=True,
+        result = subprocess.run([sys.executable, '-c', script], capture_output=True,  # nosec B603 - Fixed test executable and argument array; no shell.
                                 env=subprocess_environment())
         self.assertEqual(result.returncode, 0, result.stderr)
 
@@ -285,7 +284,7 @@ class EditingTests(unittest.TestCase):
         self.assertEqual(self.call('project.get')['fps'], {'num': 30, 'den': 1})
         self.call('history.redo')
         self.assertEqual(self.call('project.get')['fps'], {'num': 24, 'den': 1})
-        clip = self.add_clip()
+        self.add_clip()
         output = str(Path(self.temp.name)/'frame.png')
         result = self.call('timeline.thumbnail', frame=1, width=160, height=90, output=output)
         self.assertEqual(result['tiles'][0]['seconds'], 0)

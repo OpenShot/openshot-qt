@@ -24,9 +24,8 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 import json
-import os
 from pathlib import Path
-import subprocess
+import subprocess  # nosec B404 - Launch controlled local processes without a shell.
 import sys
 import tempfile
 import time
@@ -45,7 +44,7 @@ class KeyframeTransportTests(unittest.TestCase):
             env.pop('OPENSHOT_SESSION', None)
             session_id = uuid.uuid4().hex
             with (directory / 'server.log').open('w') as log:
-                process = subprocess.Popen([sys.executable, str(cli), '--cli', 'session', 'serve', '--session-id', session_id],
+                process = subprocess.Popen([sys.executable, str(cli), '--cli', 'session', 'serve', '--session-id', session_id],  # nosec B603 - Fixed test executable and argument array; no shell.
                                            env=env, stdin=subprocess.DEVNULL, stdout=log, stderr=log)
                 try:
                     deadline = time.monotonic() + 20
@@ -55,7 +54,7 @@ class KeyframeTransportTests(unittest.TestCase):
                     self.assertTrue(record.exists(), (directory / 'server.log').read_text())
 
                     def run(*args, ok=True):
-                        result = subprocess.run([sys.executable, str(cli), '--cli', '--session', session_id, *args],
+                        result = subprocess.run([sys.executable, str(cli), '--cli', '--session', session_id, *args],  # nosec B603 - Fixed test executable and argument array; no shell.
                                                 env=env, capture_output=True, text=True, timeout=20)
                         self.assertEqual(result.returncode, 0 if ok else 1, result.stderr)
                         payload = json.loads(result.stdout if ok else result.stderr)

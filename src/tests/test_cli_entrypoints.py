@@ -27,7 +27,7 @@ import json
 import os
 from pathlib import Path
 import shutil
-import subprocess
+import subprocess  # nosec B404 - Launch controlled local processes without a shell.
 import sys
 import tempfile
 import unittest
@@ -55,22 +55,22 @@ class CommonEntryTests(unittest.TestCase):
                     command = [sys.executable, '-c', 'from openshot_qt.launch import main; main()']
                 else:
                     command = [sys.executable, str(package / 'launch.py')]
-                result = subprocess.run(command + ['--cli', 'clip', 'keyframe', 'help'], cwd=directory,
+                result = subprocess.run(command + ['--cli', 'clip', 'keyframe', 'help'], cwd=directory,  # nosec B603 - Fixed test executable and argument array; no shell.
                                         env=env, capture_output=True, text=True, timeout=20)
                 self.assertEqual(result.returncode, 0, result.stderr)
                 self.assertIn('keyframe', result.stdout)
                 self.assertIn('transform', result.stdout)
-                result = subprocess.run(command + ['--cli', 'intro'], cwd=directory,
+                result = subprocess.run(command + ['--cli', 'intro'], cwd=directory,  # nosec B603 - Fixed test executable and argument array; no shell.
                                         env=env, capture_output=True, text=True, timeout=20)
                 self.assertEqual(result.returncode, 0, result.stderr)
                 self.assertIn('Keep the two clocks straight', result.stdout)
                 self.assertNotIn('commands:', result.stdout)
                 self.assertLessEqual(max(map(len, result.stdout.splitlines())), 68)
-                result = subprocess.run(command + ['--cli', 'effects', 'keyframe', 'presets'],
+                result = subprocess.run(command + ['--cli', 'effects', 'keyframe', 'presets'],  # nosec B603 - Fixed test executable and argument array; no shell.
                                         cwd=directory, env=env, capture_output=True, text=True, timeout=20)
                 self.assertEqual(result.returncode, 0, result.stderr)
                 self.assertIn('ease-in-out', {row['id'] for row in json.loads(result.stdout)['result']})
-                result = subprocess.run(command + ['--cli', 'not-a-command'], cwd=directory,
+                result = subprocess.run(command + ['--cli', 'not-a-command'], cwd=directory,  # nosec B603 - Fixed test executable and argument array; no shell.
                                         env=env, capture_output=True, text=True, timeout=20)
                 self.assertEqual(result.returncode, 2, result.stderr)
                 self.assertIn('invalid choice', result.stderr)
@@ -79,7 +79,7 @@ class CommonEntryTests(unittest.TestCase):
         cli = Path(__file__).resolve().parents[1] / 'cli.py'
         outputs = []
         for args in ([], ['help'], ['--help'], ['--cli'], ['--cli', 'help'], ['--cli', '--help']):
-            result = subprocess.run([sys.executable, str(cli), *args], capture_output=True,
+            result = subprocess.run([sys.executable, str(cli), *args], capture_output=True,  # nosec B603 - Fixed test executable and argument array; no shell.
                                     text=True, timeout=20)
             self.assertEqual(result.returncode, 0, result.stderr)
             outputs.append(result.stdout)
@@ -101,7 +101,7 @@ print('stderr:ready', file=sys.stderr)
         interpreter = Path(sys.executable).with_name('pythonw.exe')
         if not interpreter.is_file():
             interpreter = Path(sys.executable)
-        result = subprocess.run([str(interpreter), '-c', script], input='input text\n',
+        result = subprocess.run([str(interpreter), '-c', script], input='input text\n',  # nosec B603 - Fixed test executable and argument array; no shell.
                                 capture_output=True, text=True, timeout=20,
                                 env=dict(os.environ, PYTHONPATH=str(Path(__file__).resolve().parents[1])))
         self.assertEqual(result.returncode, 0, result.stderr)
@@ -144,7 +144,7 @@ if '--error' in sys.argv:
         self.env.pop('XDG_DATA_DIRS', None)
 
     def run_bundle(self, *args, **kwargs):
-        return subprocess.run([str(self.bundle / 'AppRun'), *args], cwd=self.work,
+        return subprocess.run([str(self.bundle / 'AppRun'), *args], cwd=self.work,  # nosec B603 - Fixed test executable and argument array; no shell.
                               env=self.env, capture_output=True, text=True, timeout=20, **kwargs)
 
     def test_gui_and_cli_keep_arguments_paths_and_environment(self):
@@ -180,7 +180,7 @@ if '--error' in sys.argv:
         image.write_text('#!/bin/sh\nexit 0\n')
         image.chmod(0o755)
         with patch('sys.frozen', True, create=True), patch('sys.executable', str(self.bin / 'openshot-qt')), patch.dict(os.environ, {'APPIMAGE': str(image), 'APPDIR': str(self.bundle)}):
-            for args in [('session', 'serve'), ('--_export-worker', '/tmp/job with spaces')]:
+            for args in [('session', 'serve'), ('--_export-worker', str(self.root / 'job with spaces'))]:
                 self.assertEqual(cli_command(*args), [str(image), '--cli', *args])
             image.unlink()
             with self.assertRaises(CommandError) as error:

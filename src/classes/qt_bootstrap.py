@@ -63,7 +63,7 @@ def configure_qt():
     try:
         # This must be done before creating QApplication
         QApplication.setAttribute(Qt.AA_ShareOpenGLContexts)
-        from OpenGL import GL  # noqa
+        from OpenGL import GL  # pylint: disable=unused-import  # noqa: F401 - Initialize OpenGL before Qt.
     except (ImportError, AttributeError):
         pass
 

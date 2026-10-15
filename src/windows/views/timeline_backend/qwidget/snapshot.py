@@ -188,7 +188,7 @@ class SnapshotThumbnails:
         try:
             # Per-source sequential frame order reduces decoder seeks. Multiple
             # clips using a source/frame share one cached pixmap.
-            for index, ((clip_id, frame), (file_id, generation)) in enumerate(sorted(self.requests.items(), key=lambda item: (str(item[1][0]), item[0][1]))):
+            for index, ((clip_id, frame), (file_id, _generation)) in enumerate(sorted(self.requests.items(), key=lambda item: (str(item[1][0]), item[0][1]))):
                 file = files.get(file_id)
                 path = str(Path(directory) / '{}.png'.format(index))
                 pixmap = QPixmap()
@@ -316,7 +316,7 @@ def render_timeline_snapshot(output, *, start, end, width=1280, height=None,
         if not image.save(output, 'PNG'):
             raise OSError('Cannot save timeline PNG: ' + output)
         items = []
-        for rect, obj, selected, kind in widget.geometry.iter_items():
+        for rect, obj, _selected, kind in widget.geometry.iter_items():
             items.append({'id': obj.id, 'kind': kind, 'x': rect.x(), 'y': rect.y(),
                           'width': rect.width(), 'height': rect.height(),
                           'file_id': obj.data.get('file_id'), 'layer': obj.data.get('layer'),

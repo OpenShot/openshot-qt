@@ -28,13 +28,12 @@ import json
 import math
 import os
 from pathlib import Path
-import subprocess
-import sys
+import subprocess  # nosec B404 - Launch controlled local processes without a shell.
 import tempfile
 import uuid
 
 import openshot
-from qt_api import QImage, QPainter, QColor, QFont
+from qt_api import QImage, QPainter, QColor
 from .protocol import CommandError, MAX_SAMPLES, cli_command, dimensions, session_dir
 from .service import existing, finite, output_path
 
@@ -171,7 +170,7 @@ def timeline_view(service, p, output):
                                         track_label_width=p.get('track_label_width', 220),
                                         validate_size=dimensions, max_thumbnails=MAX_SAMPLES)
     except ValueError as exc:
-        raise CommandError('image_limit', str(exc))
+        raise CommandError('image_limit', str(exc)) from exc
 
 
 def export_command(service, operation, p):
@@ -200,7 +199,7 @@ def export_command(service, operation, p):
             os.close(fd)
         try:
             with (directory/'worker.log').open('wb') as log:
-                process = subprocess.Popen(cli_command('--_export-worker', str(directory)), stdin=subprocess.DEVNULL, stdout=log, stderr=log)
+                process = subprocess.Popen(cli_command('--_export-worker', str(directory)), stdin=subprocess.DEVNULL, stdout=log, stderr=log)  # nosec B603 - Known OpenShot executable and argument array; no shell.
         except Exception:
             remove_export_output(output)
             raise

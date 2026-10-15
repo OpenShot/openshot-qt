@@ -31,7 +31,7 @@ from .protocol import CommandError, decode, encode, network, records
 
 def request(record, method, params=None, timeout=30):
     from qt_api import QCoreApplication
-    app = QCoreApplication.instance() or QCoreApplication([])
+    _app = QCoreApplication.instance() or QCoreApplication([])  # Keep Qt alive through the request.
     sock = network().QLocalSocket()
     deadline = time.monotonic() + timeout
     remaining = lambda: max(1, int((deadline - time.monotonic()) * 1000))

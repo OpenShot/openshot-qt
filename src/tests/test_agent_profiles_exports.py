@@ -24,7 +24,6 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 import copy
-import json
 from pathlib import Path
 import tempfile
 import unittest
@@ -64,6 +63,25 @@ class ProfileExportTests(unittest.TestCase):
 
     def clip(self):
         return self.call('clip.add', file_id=self.file['id'], layer=self.layer, position=.013, start=.012, end=2.117)
+
+    def test_preset_discovery_skips_unsafe_xml_and_keeps_standard_doctype(self):
+        from classes.agent import exporting
+        builtin = Path(self.temp.name) / 'builtin'
+        user = Path(self.temp.name) / 'user'
+        builtin.mkdir()
+        user.mkdir()
+        (builtin / 'valid.xml').write_text(
+            '<!DOCTYPE openshot-export-option>'
+            '<openshot-export-option><title>Valid preset</title></openshot-export-option>')
+        (user / 'entity.xml').write_text(
+            '<!DOCTYPE openshot-export-option [<!ENTITY title "Expanded entity">]>'
+            '<openshot-export-option><title>&title;</title></openshot-export-option>')
+        (user / 'broken.xml').write_text('<not-valid')
+        with patch.object(exporting.info, 'EXPORT_PRESETS_PATH', str(builtin)), \
+             patch.object(exporting.info, 'USER_PRESETS_PATH', str(user)):
+            rows = exporting.presets()
+        self.assertEqual([(row['id'], row['title']) for row in rows],
+                         [('builtin:valid', 'Valid preset')])
 
     def test_profile_retimes_populated_project_and_undo_is_exact(self):
         clip = self.clip()

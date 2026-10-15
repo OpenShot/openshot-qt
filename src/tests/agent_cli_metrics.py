@@ -31,7 +31,7 @@ Summarize with: python3 agent_cli_metrics.py --summarize DIRECTORY
 import json
 import os
 from pathlib import Path
-import subprocess
+import subprocess  # nosec B404 - Launch controlled local processes without a shell.
 import sys
 import time
 
@@ -60,7 +60,7 @@ def main():
     directory.mkdir(parents=True, exist_ok=True)
     command = json.loads(os.environ.get('OPENSHOT_CLI_COMMAND', 'null')) or [sys.executable, str(Path(__file__).resolve().parents[1] / 'cli.py')]
     started, monotonic = time.time(), time.monotonic()
-    result = subprocess.run(command + sys.argv[1:], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    result = subprocess.run(command + sys.argv[1:], stdout=subprocess.PIPE, stderr=subprocess.PIPE)  # nosec B603 - Fixed test executable and argument array; no shell.
     record = {'args': sys.argv[1:], 'started': started,
               'elapsed_seconds': time.monotonic() - monotonic, 'exit_code': result.returncode,
               'stdout_bytes': len(result.stdout), 'stderr_bytes': len(result.stderr)}

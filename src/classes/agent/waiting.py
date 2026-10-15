@@ -54,4 +54,4 @@ def wait_for_export(record, result, request, request_timeout, wait_timeout):
                 result = request(record, 'export.status', {'job_id': job['job_id']}, min(request_timeout, remaining))
             except CommandError as exc:
                 raise CommandError(exc.code, str(exc) + ' Resume with export status {} --wait; do not start another export.'.format(job['job_id']),
-                                   dict(job, cause=exc.details, wait={'seconds': round(time.monotonic()-started, 3), 'status_requests': polls}))
+                                   dict(job, cause=exc.details, wait={'seconds': round(time.monotonic()-started, 3), 'status_requests': polls})) from exc

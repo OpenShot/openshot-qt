@@ -67,7 +67,7 @@ if sys.argv[1:2] == ["--cli"]:
 try:
     # This needs to be imported before the Qt binding
     # To prevent some issues on AppImage build: wrapping/forcing older glibc versions
-    import openshot
+    import openshot  # pylint: disable=unused-import  # Native initialization must precede Qt.
 except ImportError:
     pass
 
@@ -149,7 +149,7 @@ def main():
     if args.list_languages:
         from classes.language import get_all_languages
         print("Supported Languages:")
-        for code, lang, country in get_all_languages():
+        for code, lang, _country in get_all_languages():
             print("  {:>12}  {}".format(code, lang))
         sys.exit()
 

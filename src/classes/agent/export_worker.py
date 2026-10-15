@@ -37,7 +37,7 @@ from classes.agent.render import make_timeline
 
 
 def main(directory):
-    app = QApplication([])
+    _app = QApplication([])  # Keep Qt alive throughout rendering.
     directory = Path(directory)
     spec = json.loads((directory/'spec.json').read_text())
     status = json.loads((directory/'status.json').read_text())

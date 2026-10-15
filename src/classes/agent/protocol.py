@@ -60,7 +60,7 @@ def parse_json(text):
         return json.loads(text, object_pairs_hook=pairs, parse_constant=constant)
     except json.JSONDecodeError as exc:
         raise CommandError('invalid_json', 'JSON syntax error at line {}, column {}: {}. Use double-quoted keys/strings and no trailing commas.'.format(exc.lineno, exc.colno, exc.msg),
-                           {'line': exc.lineno, 'column': exc.colno})
+                           {'line': exc.lineno, 'column': exc.colno}) from exc
 
 
 def encode(value):

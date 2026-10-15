@@ -48,8 +48,8 @@ class TimelineContextTests(unittest.TestCase):
         data['clips'] = [self.clip('b', 5, 2, 6), self.clip('a', 0, 10, 16), self.clip('c', 12, 0, 2)]
         data['effects'] = []
 
-    def clip(self, id, position, start, end):
-        return {'id': id, 'layer': 1000000, 'position': position, 'start': start, 'end': end,
+    def clip(self, clip_id, position, start, end):
+        return {'id': clip_id, 'layer': 1000000, 'position': position, 'start': start, 'end': end,
                 'reader': {'fps': {'num': 30, 'den': 1}, 'has_audio': True, 'has_video': True},
                 'volume': {'Points': [{'co': {'X': 1, 'Y': 0.5}}]}, 'effects': []}
 

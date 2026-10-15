@@ -28,7 +28,8 @@ import json
 import math
 from pathlib import Path
 import re
-import xml.etree.ElementTree as ET
+from defusedxml import ElementTree as ET
+from defusedxml.common import DefusedXmlException
 
 import openshot
 from classes import info
@@ -73,7 +74,7 @@ def presets(search=None):
                 row['codecs_available'] = all(openshot.FFmpegWriter.IsValidCodec(row[key]) for key in ('video_codec', 'audio_codec') if row[key])
                 if not search or search.casefold() in json.dumps(row).casefold():
                     rows.append(row)
-            except (ET.ParseError, ValueError, OSError):
+            except (ET.ParseError, DefusedXmlException, ValueError, OSError):
                 continue
     return rows
 

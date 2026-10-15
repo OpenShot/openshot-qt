@@ -102,7 +102,7 @@ class EditingService:
             detail = dict(detail or {}) if isinstance(detail, (dict, type(None))) else {'cause': detail}
             detail['operation_id'] = operation_id
             record.update(state='failed', error={'code': getattr(exc, 'code', 'command_failed'), 'message': str(exc), 'details': detail})
-            raise CommandError(record['error']['code'], str(exc), detail)
+            raise CommandError(record['error']['code'], str(exc), detail) from exc
         finally:
             record.update(revision_after=self.app.updates.data_version, finished=time.time())
             if len(json.dumps(record)) > 262144:
@@ -172,8 +172,8 @@ class EditingService:
                        'completed': len(results), 'results': results}
             if isinstance(exc, CommandError):
                 details['cause'] = exc.details
-                raise CommandError(exc.code, str(exc), details)
-            raise CommandError('command_failed', str(exc), details)
+                raise CommandError(exc.code, str(exc), details) from exc
+            raise CommandError('command_failed', str(exc), details) from exc
         finally:
             self.app.updates.transaction_id = old_transaction
             if batch and window:
@@ -218,7 +218,7 @@ class EditingService:
                     raise CommandError(getattr(exc, 'code', 'validation_error'),
                                        'Batch command {} ({}): {} No edits were applied.'.format(index, entry['method'], exc),
                                        {'path': path, 'command_index': index, 'completed': 0,
-                                        'revision': updates.data_version, 'cause': detail})
+                                        'revision': updates.data_version, 'cause': detail}) from exc
         finally:
             self.app.project, self.app.updates = project, updates
             QueryObject._cache_version = None

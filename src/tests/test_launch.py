@@ -36,7 +36,7 @@ assert QtWidgets.QApplication.instance() is None
                            PYTHONPATH=str(source), QT_QPA_PLATFORM="offscreen",
                            QT_SCALE_FACTOR="0.75", TEST_QT_VERSION=version,
                            TEST_EXPECTED_SCALE=str(expected))
-                result = subprocess.run(
+                result = subprocess.run(  # nosec B603 - Fixed test executable and argument array; no shell.
                     [sys.executable, "-c", script], env=env,
                     stdout=subprocess.PIPE, stderr=subprocess.PIPE,
                     universal_newlines=True, timeout=30)
@@ -78,12 +78,12 @@ assert QtWidgets.QApplication.instance() is None
     def test_gui_help_advertises_cli_and_rejects_misplaced_prefix(self):
         launcher = Path(__file__).resolve().parents[1] / 'launch.py'
         env = dict(os.environ, QT_QPA_PLATFORM='offscreen')
-        result = subprocess.run([sys.executable, str(launcher), '--help'], env=env,
+        result = subprocess.run([sys.executable, str(launcher), '--help'], env=env,  # nosec B603 - Fixed test executable and argument array; no shell.
                                 capture_output=True, text=True, timeout=20)
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn('--cli', result.stdout)
         self.assertIn('--cli help', result.stdout)
-        result = subprocess.run([sys.executable, str(launcher), '--version', '--cli'], env=env,
+        result = subprocess.run([sys.executable, str(launcher), '--version', '--cli'], env=env,  # nosec B603 - Fixed test executable and argument array; no shell.
                                 capture_output=True, text=True, timeout=20)
         self.assertEqual(result.returncode, 2)
         self.assertIn('--cli must be the first argument', result.stderr)
