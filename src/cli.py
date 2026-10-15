@@ -37,25 +37,32 @@ import uuid
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from classes.agent.protocol import CommandError, cli_command, parse_json, records, session_dir
 
-ROOT_HELP = """Workflow:
-  session list / session start    Connect to an editor or start a headless session.
-  project get / timeline overview Inspect layers, clips, timing, and returned IDs.
-  file import / clip add          Add footage; use actual file IDs and layer numbers.
-  clip / effects / transition     Edit properties and animate keyframes.
-  edit select / edit bulk         Preview and apply changes across many clips.
-  project save / export start     Save the project or render an output.
-
-Use help at any level: clip help, clip keyframe help, clip keyframe set help.
-Global --session and --timeout go before the command. Sessions persist between
-calls. Results are JSON (timeline view defaults to text); errors go to stderr.
-After a timeout, inspect operation list/get before retrying a mutation.
+ROOT_HELP = """Start: session list (connect) or session start (new).
+Workflow: inspect -> edit -> project save / export start.
+More help: COMMAND help, e.g. clip keyframe help.
 """
+
+COMMAND_SUMMARIES = {
+    'session': 'Connect or start an editor',
+    'project': 'Open, inspect, and save',
+    'profile': 'Find video profiles',
+    'operation': 'Check recent edit outcomes',
+    'history': 'Undo and redo',
+    'file': 'Import and inspect media',
+    'clip': 'Edit clips and keyframes',
+    'transition': 'Edit transitions',
+    'effects': 'Discover and edit effects',
+    'timeline': 'Inspect and preview',
+    'edit': 'Batch and bulk changes',
+    'export': 'Render video or audio',
+}
 
 GROUP_HELP = {
     'session': """Start with session list to discover running editors, or session start
 --project /path/edit.osp to open a persistent headless session.
 Use --session ID before commands when multiple sessions exist.
-session show opens the same session's editor. Save before session stop.""",
+session show opens the same session's editor. Save before session stop.
+After a timeout, check operation list/get before retrying a mutation.""",
     'clip': """Workflow: file import, clip add, then inspect with clip get/properties.
 Use project get for real layer numbers and returned IDs for all objects.
 position is timeline seconds; start/end are source seconds, with end exclusive.
@@ -132,6 +139,11 @@ class CommandRawFormatter(CommandHelpMixin, argparse.RawDescriptionHelpFormatter
     pass
 
 
+class RootHelpFormatter(CommandRawFormatter):
+    def __init__(self, prog):
+        super().__init__(prog, width=72, max_help_position=18)
+
+
 class CommandParser(argparse.ArgumentParser):
     def __init__(self, *args, **kwargs):
         formatter = kwargs.get('formatter_class', argparse.HelpFormatter)
@@ -149,15 +161,23 @@ class CommandParser(argparse.ArgumentParser):
 
 
 def build_parser():
-    parser = CommandParser(prog='openshot-cli', description=(
-        'Control a running OpenShot editor or persistent headless session. '
-        'JSON results; stable object IDs; edits share OpenShot undo/redo.'),
-        epilog=ROOT_HELP, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument('--session', default=os.environ.get('OPENSHOT_SESSION'), help='Target session ID (or OPENSHOT_SESSION); auto-select only when exactly one is live.')
-    parser.add_argument('--timeout', type=number, default=30, help='Response timeout in seconds (default: 30); a timeout does not cancel an edit.')
+    parser = CommandParser(
+        prog='openshot-cli', usage='%(prog)s [OPTIONS] COMMAND',
+        description=(
+            '  []  []  []  []  []  []  []  []\n'
+            '  ----------------------------\n'
+            '     OpenShot Video Editor\n'
+            '  Lights. Camera. Command line.\n'
+            '  ----------------------------\n'
+            '  []  []  []  []  []  []  []  []'),
+        epilog=ROOT_HELP, formatter_class=RootHelpFormatter)
+    parser.add_argument('--session', metavar='ID', default=os.environ.get('OPENSHOT_SESSION'),
+                        help='Target session (before COMMAND).')
+    parser.add_argument('--timeout', metavar='SEC', type=number, default=30,
+                        help='Wait limit (default: 30s); work continues.')
     groups = parser.add_subparsers(dest='group')
     def group(name, description, aliases=()):
-        p = groups.add_parser(name, aliases=list(aliases), help=description, description=description,
+        p = groups.add_parser(name, aliases=list(aliases), help=COMMAND_SUMMARIES[name], description=description,
                               epilog=GROUP_HELP.get(name), formatter_class=argparse.RawDescriptionHelpFormatter)
         p.set_defaults(help_parser=p)
         return p.add_subparsers(dest='operation')
