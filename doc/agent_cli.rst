@@ -24,14 +24,6 @@ Use your installed OpenShot executable followed by ``--cli``. Start with
 ``help`` for the command overview. These commands do not need an active session.
 The examples below require an OpenShot build that includes command-line editing.
 
-.. important::
-
-   Editing commands need a selected session. Starting a session returns a
-   ``session_id``. Set **OPENSHOT_SESSION once in your terminal** to use it for
-   subsequent commands; starting a session does not set this variable for you.
-   Follow :ref:`cli_session_selection_ref` before running project, timeline,
-   editing, or export commands.
-
 .. _cli_appimage_ref:
 
 Linux AppImage
