@@ -26,6 +26,10 @@ echo "Replacing Info.plist"
 cp installer/Info.plist "$OS_PATH"
 sed -e "s/VERSION/$VERSION/g" "$OS_PATH/Info.plist" > "$OS_PATH/Info.plist_version"
 mv  "$OS_PATH/Info.plist_version" "$OS_PATH/Info.plist"
+if [ "$(uname -m)" = "arm64" ]; then
+    echo "Setting minimum macOS version to 11.0 (first Apple Silicon release)"
+    plutil -replace LSMinimumSystemVersion -string "11.0" "$OS_PATH/Info.plist"
+fi
 
 echo "Symlink Non-Code Files to Resources"
 mv "$OS_PATH/MacOS/lib/blender" "$OS_PATH/Resources/blender"; ln -s "../../Resources/blender" "$OS_PATH/MacOS/lib/blender";
