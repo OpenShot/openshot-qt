@@ -510,7 +510,10 @@ elif sys.platform == "linux":
     # Get a list of all openshot.so dependencies (scan these libraries for their dependencies)
     qt_mod_files = []
     from importlib import import_module
-    for submod in ['Qt', 'QtSvg', 'QtWidgets', 'QtCore', 'QtGui', 'QtDBus']:
+    # QtNetwork is imported dynamically by the CLI session transport. Scan its
+    # native dependencies too, or the AppImage can mix host QtNetwork with its
+    # bundled QtCore and fail on hosts with a different Qt version.
+    for submod in ['Qt', 'QtSvg', 'QtWidgets', 'QtCore', 'QtGui', 'QtDBus', 'QtNetwork']:
         mod_name = "{}.{}".format(QT_BINDING_PACKAGE, submod)
         mod = import_module(mod_name)
         qt_mod_files.append(inspect.getfile(mod))
