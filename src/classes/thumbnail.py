@@ -35,6 +35,7 @@ from datetime import datetime
 from requests import get
 from threading import Thread
 from classes import info
+from classes.auto_optimize import MEASUREMENT_VERSION, machine_id, source_fingerprint
 from classes.query import File
 from classes.logger import log
 from classes.app import get_app
@@ -248,7 +249,10 @@ def GenerateThumbnail(file_path, thumb_path, thumbnail_frame, width, height, mas
                 reader.SetMaxDecodeSize(decode_width, decode_height)
             reader.Open()
 
-            reader.GetFrame(source_frame).Thumbnail(
+            started = time.perf_counter()
+            frame = reader.GetFrame(source_frame)
+            elapsed_ms = (time.perf_counter() - started) * 1000.0
+            frame.Thumbnail(
                 thumb_path,
                 thumb_width,
                 thumb_height,
@@ -261,7 +265,8 @@ def GenerateThumbnail(file_path, thumb_path, thumbnail_frame, width, height, mas
                 0.0,
                 openshot.SCALE_CROP,
             )
-            return True
+            return {"frame_ms": elapsed_ms, "frame": source_frame,
+                    "decode_size": [decode_width, decode_height]}
         finally:
             if reader:
                 try:
@@ -272,8 +277,7 @@ def GenerateThumbnail(file_path, thumb_path, thumbnail_frame, width, height, mas
 
     for inspect_reader in (False, True):
         try:
-            if _render_with_reader(file_path, thumbnail_frame, inspect_reader):
-                return
+            return _render_with_reader(file_path, thumbnail_frame, inspect_reader)
         except RuntimeError:
             # retry once with eager inspection if lightweight reader did not work
             continue
@@ -408,6 +412,9 @@ class httpThumbnailHandler(BaseHTTPRequestHandler):
         only_path = url_output.group('only_path')
         no_cache = url_output.group('no_cache')
 
+        controller = getattr(getattr(get_app(), "window", None), "auto_optimize", None)
+        epoch = controller.epoch if controller is not None else None
+
         try:
             # Look up file data
             file = File.get(id=file_id)
@@ -451,7 +458,8 @@ class httpThumbnailHandler(BaseHTTPRequestHandler):
             # Generate thumbnail (since we can't find it)
             thumb_width = info.LIST_ICON_SIZE.width()
             thumb_height = info.LIST_ICON_SIZE.height()
-            GenerateThumbnail(
+            fingerprint = source_fingerprint(file_path) if file_frame == 1 else None
+            measurement = GenerateThumbnail(
                 file_path,
                 thumb_path,
                 file_frame,
@@ -459,6 +467,13 @@ class httpThumbnailHandler(BaseHTTPRequestHandler):
                 thumb_height,
                 mask_path,
                 "")
+            # Only newly decoded first frames of source videos are performance samples.
+            # Cached PNGs and placeholder images never supply a measurement.
+            if (controller is not None and file_frame == 1 and isinstance(measurement, dict)
+                    and fingerprint is not None and file.data.get("media_type") == "video"
+                    and file.data.get("type") == "FFmpegReader"):
+                measurement.update(version=MEASUREMENT_VERSION, machine=machine_id(), source=fingerprint)
+                controller.thumbnail_measured.emit(epoch, file_id, measurement)
 
         # Send message back to client
         if os.path.exists(thumb_path):

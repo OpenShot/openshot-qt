@@ -258,11 +258,21 @@ class FilesModel(QObject, updates.UpdateInterface):
             return tooltip
 
         state = proxy_service.get_proxy_state(file)
-        if state == "ready":
-            return "{} {}".format(tooltip, app._tr("(Optimized)"))
-        if state == "missing":
-            return "{} {}".format(tooltip, app._tr("(Optimized)"))
-        return tooltip
+        _ = app._tr
+        if state == "queued":
+            status = _("Queued for optimization")
+        elif state == "running":
+            job = proxy_service.get_active_job_for_file(file.id) or {}
+            status = _("Optimizing for smoother playback — {}%").format(job.get("progress", 0))
+        elif state == "canceling":
+            status = _("Canceling optimization")
+        elif state == "ready":
+            status = _("Optimized for smoother playback")
+        elif state == "missing":
+            status = _("Optimized preview missing")
+        else:
+            return tooltip
+        return "{}\n{}".format(tooltip, status)
 
     # This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface)
     def changed(self, action):

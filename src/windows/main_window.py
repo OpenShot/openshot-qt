@@ -211,6 +211,12 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         # Log the exit routine
         log.info('---------------- Shutting down -----------------')
 
+        # Stop encoders before any event processing or Qt resource cleanup.
+        if getattr(self, "auto_optimize", None):
+            self.auto_optimize.shutdown()
+        if getattr(self, "proxy_service", None):
+            self.proxy_service.shutdown()
+
         # Flush and close UI trace recorder, if enabled
         if getattr(self, "ui_trace_recorder", None):
             self.ui_trace_recorder.close()
@@ -270,8 +276,6 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         if getattr(self, "generation_service", None):
             self.generation_service.shutdown()
             self.generation_service.cleanup_temp_files()
-        if getattr(self, "proxy_service", None):
-            self.proxy_service.shutdown()
 
         # Process any queued events
         QCoreApplication.processEvents()
@@ -1138,6 +1142,7 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         # Save settings
         s = get_app().get_settings()
         s.save()
+        self.auto_optimize.refresh()
 
     def actionFilesShowAll_trigger(self, checked=True):
         self.refreshFilesSignal.emit()
@@ -5534,6 +5539,8 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         self.generation_queue.job_finished.connect(self._on_generation_job_finished)
         self._init_generation_actions()
         self._init_proxy_actions()
+        from windows.auto_optimize import AutoOptimizeController
+        self.auto_optimize = AutoOptimizeController(self)
         self.refresh_comfy_availability_async()
 
         # Add window as watcher to receive undo/redo status updates

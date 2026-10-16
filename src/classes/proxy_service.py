@@ -116,15 +116,35 @@ class ProxyService(QObject):
          self.win = win
          self._executor = None
          self._jobs = {}
+         self._shutting_down = False
          self._lock = threading.RLock()
          self._ensure_executor()
          self.proxy_generated.connect(self._on_proxy_generated)
 
      def shutdown(self):
-         if getattr(self, "_executor", None):
-             self._shutdown_executor(self._executor)
+         """Cancel all work and release native readers/writers before Qt teardown."""
+         with self._lock:
+             if self._shutting_down:
+                 return
+             self._shutting_down = True
+             futures = []
+             for job in self._jobs.values():
+                 job["cancel_requested"] = True
+                 if job.get("status") in self.ACTIVE_STATES:
+                     job["status"] = "canceling"
+                 if job.get("future") is not None:
+                     futures.append(job["future"])
+         # Explicitly cancel queued futures, including on Python 3.8, where
+         # Executor.shutdown() does not support cancel_futures.
+         for future in futures:
+             future.cancel()
+         self._shutdown_executor(self._executor, wait=True)
+         with self._lock:
+             self._jobs.clear()
 
      def create_for_files(self, files):
+         if self._shutting_down:
+             return
          files = [f for f in (files or []) if getattr(f, "id", None)]
          if not files:
              return
@@ -175,6 +195,7 @@ class ProxyService(QObject):
              with self._lock:
                  self._jobs[file_id] = {
                      "id": file_id,
+                     "project_id": get_app().project.get("id"),
                      "status": "queued",
                      "progress": 0,
                      "cancel_requested": False,
@@ -627,6 +648,8 @@ class ProxyService(QObject):
          return info.PROXY_PATH
 
      def _emit_proxy_result(self, file_id, future):
+         if self._shutting_down:
+             return
          error_text = ""
          proxy_reader = {}
          try:
@@ -638,11 +661,19 @@ class ProxyService(QObject):
          except Exception as ex:
              error_text = str(ex)
              log.warning("Optimized Preview generation failed for %s: %s", file_id, error_text, exc_info=1)
-         self.proxy_generated.emit(str(file_id or ""), proxy_reader, error_text)
+         if not self._shutting_down:
+             self.proxy_generated.emit(str(file_id or ""), proxy_reader, error_text)
 
      @pyqtSlot(str, object, str)
      def _on_proxy_generated(self, file_id, proxy_reader, error_text):
+         if self._shutting_down:
+             return
          file_id = str(file_id or "")
+         with self._lock:
+             owner = self._jobs.get(file_id, {}).get("project_id")
+         if owner is not None and owner != get_app().project.get("id"):
+             self._finalize_job(file_id, "canceled")
+             return
          if error_text == "__canceled__":
              self._finalize_job(file_id, "canceled")
              return
@@ -679,6 +710,7 @@ class ProxyService(QObject):
                  pass
 
      def _build_proxy_reader(self, file_id, file_data):
+         self._raise_if_canceled(file_id)
          source_path = absolute_media_path(file_data.get("path"))
          if not source_path or not os.path.exists(source_path):
              raise RuntimeError("source file not found")
@@ -688,12 +720,14 @@ class ProxyService(QObject):
          self._mark_running(file_id)
          output_path = self._reserved_or_computed_proxy_output_path(file_id, file_data)
          try:
+             self._raise_if_canceled(file_id)
              max_width, max_height = self._max_optimize_bounds()
              optimize_timeline = self._create_optimize_timeline(max_width, max_height)
              clip = openshot.Clip(source_path)
              clip.ParentTimeline(optimize_timeline)
              clip.Open()
              try:
+                 self._raise_if_canceled(file_id)
                  reader = clip.Reader()
                  self._configure_optimize_caches(clip, reader)
                  source_reader = json.loads(reader.Json())
@@ -747,7 +781,9 @@ class ProxyService(QObject):
                      for frame_number in range(1, max_frame + 1):
                          self._raise_if_canceled(file_id)
                          frame = reader.GetFrame(frame_number)
+                         self._raise_if_canceled(file_id)
                          writer.WriteFrame(frame)
+                         self._raise_if_canceled(file_id)
                          while prewarm_index < len(prewarm_frames) and prewarm_frames[prewarm_index] < frame_number:
                              prewarm_index += 1
                          if prewarm_index < len(prewarm_frames) and prewarm_frames[prewarm_index] == frame_number:
@@ -763,6 +799,9 @@ class ProxyService(QObject):
              finally:
                  clip.Close()
                  clip.ParentTimeline(None)
+             self._raise_if_canceled(file_id)
+             result = self._reader_json_for_path(output_path, file_id)
+             self._raise_if_canceled(file_id)
          except Exception:
              try:
                  if os.path.exists(output_path):
@@ -771,7 +810,7 @@ class ProxyService(QObject):
                  pass
              raise
 
-         return self._reader_json_for_path(output_path, file_id)
+         return result
 
      def _proxy_lookup_from_payload(self, payload):
          if isinstance(payload, dict):
@@ -1172,6 +1211,8 @@ class ProxyService(QObject):
          return timeline
 
      def _ensure_executor(self):
+         if self._shutting_down:
+             return
          worker_count = self._optimize_worker_count()
          current_executor = getattr(self, "_executor", None)
          current_count = getattr(current_executor, "_max_workers", None)
@@ -1189,13 +1230,13 @@ class ProxyService(QObject):
              self._shutdown_executor(old_executor)
 
      @staticmethod
-     def _shutdown_executor(executor):
+     def _shutdown_executor(executor, wait=False):
          if not executor:
              return
          try:
-             executor.shutdown(wait=False, cancel_futures=True)
+             executor.shutdown(wait=wait, cancel_futures=True)
          except TypeError:
-             executor.shutdown(wait=False)
+             executor.shutdown(wait=wait)
 
      def _optimize_worker_count(self):
          value = self._setting_value("optimize-preview-jobs", 1)
@@ -1258,13 +1299,15 @@ class ProxyService(QObject):
      def _raise_if_canceled(self, file_id):
          with self._lock:
              job = self._jobs.get(str(file_id or ""))
-             if job and job.get("cancel_requested"):
+             if self._shutting_down or (job and job.get("cancel_requested")):
                  raise _ProxyJobCanceled()
 
      def _finalize_job(self, file_id, status):
          file_id = str(file_id or "")
          with self._lock:
              job = self._jobs.pop(file_id, None)
+         if self._shutting_down:
+             return
          if status == "completed":
              self.job_finished.emit(file_id, status)
          elif job is not None:
@@ -1272,6 +1315,8 @@ class ProxyService(QObject):
          self._emit_job_change(file_id)
 
      def _emit_job_change(self, file_id):
+         if self._shutting_down:
+             return
          file_id = str(file_id or "")
          if not file_id:
              return
