@@ -186,9 +186,14 @@ a new session for each command.
 Selecting a session
 ~~~~~~~~~~~~~~~~~~~
 
-**Select your session once with OPENSHOT_SESSION**, then run commands without
-repeating its ID. Replace ``SESSION_ID`` below with the ``session_id`` returned
-by ``session start`` or ``session list``.
+.. tip::
+
+   **Set OPENSHOT_SESSION once, then run commands normally.** Your terminal
+   remembers the selected session, so you do not need to pass ``--session``
+   with every command. Use the PowerShell or Bash example below.
+
+Replace ``SESSION_ID`` below with the ``session_id`` returned by
+``session start`` or ``session list``.
 
 Windows PowerShell::
 
