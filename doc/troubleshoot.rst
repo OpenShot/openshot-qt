@@ -124,12 +124,14 @@ three older copies. ``libopenshot.log`` keeps growing as messages are added.
 After saving any logs you need, you can remove old log files while OpenShot
 is closed.
 
-Other command-line options
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Other logging options
+^^^^^^^^^^^^^^^^^^^^^
 
 Most users only need the two controls above. The following options let you
 choose how much detail goes into the files or appears in the terminal.
-Here, *console* means the terminal output.
+Here, *console* means the terminal output. For the complete list of application
+launch options, see :ref:`launch_options_ref`. To edit projects or automate
+exports from the terminal, see :ref:`cli_ref`.
 
 .. list-table:: Logging options
    :header-rows: 1

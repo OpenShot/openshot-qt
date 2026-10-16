@@ -1183,66 +1183,12 @@ class Export(QDialog):
         try:
             w = openshot.FFmpegWriter(export_file_path)
 
-            # Set video options
-            if export_type in [_("Video & Audio"), _("Video Only"), _("Image Sequence")]:
-                w.SetVideoOptions(True,
-                                  video_settings.get("vcodec"),
-                                  openshot.Fraction(video_settings.get("fps").get("num"),
-                                                    video_settings.get("fps").get("den")),
-                                  video_settings.get("width"),
-                                  video_settings.get("height"),
-                                  openshot.Fraction(video_settings.get("pixel_ratio").get("num"),
-                                                    video_settings.get("pixel_ratio").get("den")),
-                                  video_settings.get("interlace"),
-                                  video_settings.get("topfirst"),
-                                  video_settings.get("video_bitrate"))
-
-            # Set audio options
-            if export_type in [_("Video & Audio"), _("Audio Only")]:
-                w.SetAudioOptions(True,
-                                  audio_settings.get("acodec"),
-                                  audio_settings.get("sample_rate"),
-                                  audio_settings.get("channels"),
-                                  audio_settings.get("channel_layout"),
-                                  audio_settings.get("audio_bitrate"))
-
-            # Prepare the streams
-            w.PrepareStreams()
-
-            # Set spherical/360° metadata if needed
-            if video_settings.get("spherical"):
-                yaw = 0.0
-                pitch = 0.0
-                roll = 0.0
-                w.AddSphericalMetadata("equirectangular", yaw, pitch, roll)
-
-            # These extra options should be set in an extra method
-            # No feedback is given to the user
-            # TODO: Tell user if option is not available
-            if export_type in [_("Audio Only")]:
-                # Muxing options for mp4/mov
-                w.SetOption(openshot.AUDIO_STREAM, "muxing_preset", "mp4_faststart")
-            else:
-                # Muxing options for mp4/mov
-                w.SetOption(openshot.VIDEO_STREAM, "muxing_preset", "mp4_faststart")
-                # Set the quality in case crf, cqp or qp was selected
-                if "crf" in self.txtVideoBitRate.text():
-                    w.SetOption(openshot.VIDEO_STREAM, "crf", str(int(video_settings.get("video_bitrate"))) )
-                elif "cqp" in self.txtVideoBitRate.text():
-                    w.SetOption(openshot.VIDEO_STREAM, "cqp", str(int(video_settings.get("video_bitrate"))) )
-                elif "qp" in self.txtVideoBitRate.text():
-                    w.SetOption(openshot.VIDEO_STREAM, "qp", str(int(video_settings.get("video_bitrate"))) )
-
-                # Improve compression efficiency for software codecs by using
-                # a longer GOP and allowing B-frames.
-                # Keep this limited to software encoders to avoid hardware-
-                # specific capability mismatches.
-                vcodec = (video_settings.get("vcodec") or "").lower()
-                if vcodec in {"libx264", "libx265", "libvpx-vp9"}:
-                    w.SetOption(openshot.VIDEO_STREAM, "g", "48")
-                    w.SetOption(openshot.VIDEO_STREAM, "allow_b_frames", "1")
-                    w.SetOption(openshot.VIDEO_STREAM, "max_b_frames", "3")
-
+            from classes.export_settings import configure_writer
+            mode = {_("Video & Audio"): "video_audio", _("Video Only"): "video",
+                    _("Audio Only"): "audio", _("Image Sequence"): "image_sequence"}[export_type]
+            quality_mode = next((name for name in ("crf", "cqp", "qp")
+                                 if name in self.txtVideoBitRate.text()), None)
+            configure_writer(w, video_settings, audio_settings, mode, quality_mode)
 
             # Open the writer
             w.Open()

@@ -1,0 +1,517 @@
+{
+  "source": "doc/effects.rst",
+  "license": "GPL-3.0-or-later",
+  "effects": {
+    "duration": {
+      "description": "The Duration property is a float value indicating the length of the effect in seconds. This is a Read-only property.\nThis is calculated by: End - Start. To modify duration, you must edit the Start and/or End effect properties.\n\n*NOTE: Most effects in OpenShot default the effect duration to the clip duration, and hide this property from the editor.*",
+      "properties": {}
+    },
+    "end": {
+      "description": "The End property defines the trimming point at the end of the effect in seconds, allowing you to control how much\nof the effect is visible in the timeline. Changing this property will impact the Duration effect property.\n\n*NOTE: Most effects in OpenShot default this property to match the clip, and hide this property from the editor.*\n\nID\n\"\"\nThe ID property holds a randomly generated GUID (Globally Unique Identifier) assigned to each effect,\nensuring its uniqueness. This is a Read-only property, and assigned by OpenShot when an effect is created.",
+      "properties": {}
+    },
+    "maskproperties": {
+      "description": "The Mask: Source, Mask Mode, Mask: Time Mode, Mask: Loop, and\nMask: Invert properties limit where an effect is applied. The mask source can be a static image, image\nsequence, video, Tracker, or Object Detector. Light areas of the mask usually apply more of\nthe effect, while dark areas apply less; use Mask: Invert when you need the opposite result. Tracker and\nObject Detector sources use their bounding boxes as the masked region, which is useful for limiting effects such as\nblur, pixelation, color correction, or sharpening to a specific subject.",
+      "properties": {}
+    },
+    "track": {
+      "description": "The Track property is an integer indicating the layer on which the effect is placed. Effects on higher tracks are rendered\nabove those on lower tracks.\n\n*NOTE: Most effects in OpenShot default this property to match the clip, and hide this property from the editor.*\n\n.. _effect_parent_ref:\n\nEffect Parent\n-------------\nThe Parent property of an effect sets the initial keyframe values to a parent effect. For example, if many effects all point to the\nsame parent effect, they will inherit all their initial properties, such as font size, font color, and background color for a Caption effect.\nIn the example of many Caption effects using the same Parent effect, it is an efficient way to manage a large number of these effects.\n\nNOTE: The parent property for effects should be linked to the same type of parent effect, otherwise their default initial values\nwill not match. Also see clip_parent_ref.",
+      "properties": {}
+    },
+    "position": {
+      "description": "The Position property determines the effect's position on the timeline in seconds, with 0.0 indicating the beginning.\n\n*NOTE: Most effects in OpenShot default this property to match the clip, and hide this property from the editor.*",
+      "properties": {}
+    },
+    "start": {
+      "description": "The Start property defines the trimming point at the beginning of the effect in seconds.\nChanging this property will impact the Duration effect property.\n\n*NOTE: Most effects in OpenShot default this property to match the clip, and hide this property from the editor.*\n\nSequencing\n----------\n\nEffects are normally applied before the Clip processes keyframes. This allows the effect to process the raw image of\nthe clip, before the clip applies properties such as scaling, rotation, location, etc... Normally, this is the preferred\nsequence of events, and this is the default behavior of effects in OpenShot. However, you can optionally override this\nbehavior with the Apply Before Clip Keyframes property.\n\nIf you set the Apply Before Clip Keyframes property to No, the effect will be sequenced after the clip scales, rotates,\nand applies keyframes to the image. This can be useful on certain effects, such as the Mask effect, when you want\nto animate a clip first and then apply a static mask to the clip.\n\n.. _effect_video_effects_ref:\n\nVideo Effects\n-------------\n\nEffects are generally divided into two categories: video and audio effects. Video effects modify the image and pixel\ndata of a clip. Below is a list of video effects, and their properties. Often it is best to experiment with an effect,\nentering different values into the properties, and observing the results.",
+      "properties": {}
+    },
+    "analogtape": {
+      "description": "The Analog Tape effect emulates consumer tape playback: horizontal line wobble (\"tracking\"), chroma bleed, luma softness, grainy snow, a bottom tracking stripe, and short static bursts.\nAll controls are key-framable and the noise is deterministic (seeded from the effect\u2019s ID with an optional offset), so renders are repeatable.",
+      "properties": {}
+    },
+    "alphamaskwipetransition": {
+      "description": "The Alpha Mask / Wipe Transition effect leverages a grayscale mask to create a dynamic transition between two images\nor video clips. In this effect, the light areas of the mask reveal the new image, while the dark areas conceal it,\nallowing for creative and custom transitions that go beyond standard fade or wipe techniques. This effect only\naffects the image, and not the audio track.",
+      "properties": {
+        "brightness": "(float, -1 to 1) This curve controls the motion across the wipe",
+        "contrast": "(float, 0 to 20) This curve controls the hardness and softness of the wipe edge",
+        "reader": "(reader) This reader can use any image or video as input for your grayscale wipe",
+        "replace_image": "(bool, choices: ['Yes', 'No']) Replace the clips image with the current grayscale wipe image, useful for troubleshooting"
+      }
+    },
+    "audiovisualization": {
+      "description": "The Audio Visualization effect turns sound into animated visuals, making it easy to create music visualizers,\naudio spectrum analyzers, waveform animations, podcast videos, lyric videos, DJ visuals, and social media clips\nthat react to music, voice, beats, and other audio. It draws from the clip's audio samples and can render waveforms,\nfilled waveforms, audio bars, radial visualizers, frequency spectrum displays, phase scopes, particles, VU meters,\nand radial bars.\n\nBecause this is a video effect, the visualization can be composited directly over the source image, placed on a\ntransparent background, or drawn over a solid, faded, or gradient background. This makes it useful for YouTube music\nvideos, podcast audiograms, voiceover clips, album preview videos, karaoke-style videos,\nand quick promotional clips where the audio needs a strong visual presence.\n\nCommon uses include:\n\n- Music visualizer videos: Add moving waveforms, spectrum bars, radial bars, or particles to a song, remix, or beat.\n- Podcast and voiceover clips: Show a waveform or VU meter while a speaker talks, especially for audio-only media.\n- Lyric and karaoke videos: Combine captions or titles with reactive audio visuals behind or around the text.\n- Social media audiograms: Create short clips for YouTube Shorts, TikTok, Instagram Reels, and other platforms.\n- DJ, concert, and livestream visuals: Use neon, radial, particle, or spectrum styles for energetic background motion.\n- Technical audio displays: Use spectrum, phase scope, or VU meter modes to show frequency content, stereo movement, or loudness.",
+      "properties": {
+        "visualization_type": "(int, choices: ['Waveform', 'Filled Waveform', 'Bars', 'Radial', 'Radial Bars', 'Spectrum', 'Phase Scope', 'Particles', 'VU Meter'])",
+        "style": "(int, choices: ['Clean', 'Soft', 'Neon', 'Minimal', 'Retro'])",
+        "color": "(color) Seed color for the visualization",
+        "intensity": "(float, 0 to 10) Overall audio response and visual strength",
+        "smoothing": "(float, 0 to 1) Smooths the audio response between sampled points",
+        "detail": "(float, 0 to 1) Controls visual density, such as bars, points, or particles",
+        "glow": "(float, 0 to 1) Adds soft glow around the visualization",
+        "color_spread": "(float, 0 to 1) Controls color variation around the seed color or rainbow mode",
+        "color_mode": "(int, choices: ['Seed', 'Rainbow'])",
+        "channel_layout": "(int, choices: ['Auto', 'Combined', 'Split', 'Overlay'])",
+        "frequency_low": "(float, 0 to 1) Normalized frequency floor: 0 = 20 Hz, 1 = 20 kHz",
+        "frequency_high": "(float, 0 to 1) Normalized frequency ceiling: 0 = 20 Hz, 1 = 20 kHz",
+        "background": "(int, choices: ['Transparent', 'Solid', 'Fade', 'Gradient', 'Source'])"
+      }
+    },
+    "beatsync": {
+      "description": "The Beat Sync effect turns audio energy into a flashing full-frame color layer. A simple example is a black\nframe that flashes toward white on each drum hit. By placing that flashing clip above your video and changing its\nComposite (Blend Mode), you can make the video underneath pulse, brighten, darken, or color-shift with\nthe beat.\n\nThis effect is a little different from most video effects: it does not directly brighten the clip underneath it.\nInstead, it creates a new flashing image from the audio clip it is applied to. You preview that flashing image first,\nthen use the clip's composite mode to blend it with another clip on a lower track.\n\n.. note::\n\n   Beat Sync needs access to audio samples. If the clip's Enable Audio property is set manually, use\n   Auto or Yes. If you want Beat Sync to react to an audio clip but you do not want to\n   hear that clip, set the clip's Volume keyframe to 0.0. The effect can still use the silent audio\n   data to generate the flashing colors.\n\nBasic Workflow\n\n1. Place an audio clip on the Timeline.\n2. Drag the Beat Sync effect from the Effects panel onto that audio clip.\n3. Preview the clip by itself first. You should see a flashing color layer, usually black flashing toward white.\n4. Open the effect Properties.\n5. Adjust Low Color and High Color. For example, black to white creates a brightness flash,\n   white to black creates a darkening flash, and red to green creates a color pulse.\n6. Adjust Response Curve to control how easily the flash appears:\n\n   - Lift the middle of the curve to make smaller sounds flash more strongly.\n   - Lower the middle of the curve to make only stronger beats flash.\n   - Create a steeper curve for a sharper strobe-like response.\n\n7. If the effect is reacting to the wrong part of the sound, adjust Low Frequency and\n   High Frequency. For example, a bass-only flash should use a lower frequency range.\n8. When the flashing layer feels right, select the Beat Sync clip and change its\n   Composite (Blend Mode) property. Try modes such as\n   Screen, Overlay, Multiply, or Color Dodge, depending on the look\n   you want.\n9. Place the video you want to affect on the track below the Beat Sync clip.\n10. Preview the composited result and fine-tune the colors, curve, intensity, threshold, or composite mode.\n\nCommon Uses\n\n- Music video flashes: Flash white or bright colors on snare hits, kicks, or strong beats.\n- Bass pulses: Use a low frequency range so the image reacts mostly to bass drums or bass lines.\n- Silent driver track: Use a muted audio clip only as the control signal for the visual flash.\n- Color rhythm effects: Blend between two custom colors, such as blue to yellow or red to green.\n\nProperties",
+      "properties": {
+        "low_color": "(color) Color generated when the audio response is low. The default is black.",
+        "high_color": "(color) Color generated when the audio response is high. The default is white.",
+        "intensity": "(float, 0 to 10) Audio gain before response shaping. Higher values make quieter audio produce stronger flashes.",
+        "threshold": "(float, 0 to 1) Audio level that must be exceeded before the effect responds. Raise this to ignore quieter sounds.",
+        "attack_ms": "(float, 1 to 500) How quickly the flash rises after a beat or loud sound.",
+        "decay_ms": "(float, 1 to 2000) How slowly the flash fades back after the audio energy drops.",
+        "frequency_low": "(float, 0 to 1) Normalized frequency floor: 0 = 20 Hz, 1 = 20 kHz.",
+        "frequency_high": "(float, 0 to 1) Normalized frequency ceiling: 0 = 20 Hz, 1 = 20 kHz.",
+        "invert": "(int, choices: ['No', 'Yes']) Reverses the audio response, so quiet moments use the high color and loud moments use the low color.",
+        "response_curve": "(rich curve editor) Maps detected audio energy to the blend between Low Color and High Color."
+      }
+    },
+    "bars": {
+      "description": "The Bars effect adds colored bars around your video frame, which can be used for aesthetic purposes, to frame\nthe video within a certain aspect ratio, or to simulate the appearance of viewing content on a different display\ndevice. This effect is particularly useful for creating a cinematic or broadcast look.",
+      "properties": {
+        "bottom": "(float, 0 to 0.5) The curve to adjust the bottom bar size",
+        "color": "(color) The curve to adjust the color of bars",
+        "left": "(float, 0 to 0.5) The curve to adjust the left bar size",
+        "right": "(float, 0 to 0.5) The curve to adjust the right bar size",
+        "top": "(float, 0 to 0.5) The curve to adjust the top bar size"
+      }
+    },
+    "blur": {
+      "description": "The Blur effect softens the image, reducing detail and texture. This can be used to create a sense of depth,\ndraw attention to specific parts of the frame, or simply to apply a stylistic choice for aesthetic purposes.\nThe intensity of the blur can be adjusted to achieve the desired level of softness. Use the left, right,\ntop, and bottom margin properties to limit the blur to a rectangular area, such as a corner, logo, or\nstatic part of the screen.",
+      "properties": {
+        "bottom": "(float, 0 to 1) The curve to adjust the bottom margin size",
+        "horizontal_radius": "(float, 0 to 100) Horizontal blur radius keyframe. The size of the horizontal blur operation in pixels.",
+        "iterations": "(float, 0 to 100) Iterations keyframe. The # of blur iterations per pixel. 3 iterations = Gaussian.",
+        "left": "(float, 0 to 1) The curve to adjust the left margin size",
+        "right": "(float, 0 to 1) The curve to adjust the right margin size",
+        "sigma": "(float, 0 to 100) Sigma keyframe. The amount of spread in the blur operation. Should be larger than radius.",
+        "top": "(float, 0 to 1) The curve to adjust the top margin size",
+        "vertical_radius": "(float, 0 to 100) Vertical blur radius keyframe. The size of the vertical blur operation in pixels."
+      }
+    },
+    "brightnesscontrast": {
+      "description": "The Brightness & Contrast effect allows for the adjustment of the overall lightness or darkness of the image\n(brightness) and the difference between the darkest and lightest parts of the image (contrast). This effect can be\nused to correct poorly lit videos or to create dramatic lighting effects for artistic purposes.",
+      "properties": {
+        "brightness": "(float, -1 to 1) The curve to adjust the brightness",
+        "contrast": "(float, 0 to 100) The curve to adjust the contrast (3 is typical, 20 is a lot, 100 is max. 0 is invalid)"
+      }
+    },
+    "caption": {
+      "description": "Add text captions on top of your video. We support both VTT (WebVTT) and SubRip (SRT) subtitle file formats. These\nformats are used to display captions or subtitles in videos. They allow you to add text-based subtitles to video content,\nmaking it more accessible to a wider audience, especially for those who are deaf or hard of hearing. The Caption\neffect can even animate the text fading in/out, and supports any font, size, color, and margin. OpenShot also has an\neasy-to-use Caption editor, where you can quickly insert captions at the playhead position, or edit all your caption\ntext in one place.\n\nThe Caption editor's insert button (the plus icon) creates a complete caption cue at the current playhead position,\nusing a three-second default duration when possible, and selects the placeholder caption text so you can start typing\nimmediately. Caption text updates are previewed while you type.\n\nTo set a caption's end time from the playhead, remove the existing end timestamp from the cue line, leaving the start\ntimestamp and arrow. Move the playhead to the desired end time, place the text cursor on that incomplete timestamp line,\nand press the plus icon again. OpenShot inserts the current playhead timestamp as the cue's end time.\n\n.. code-block:: console\n\n   :caption: Show a caption, starting at 5 seconds and ending at 10 seconds.\n\n   00:00:05.000 --> 00:00:10.000\n   Hello, welcome to our video!",
+      "properties": {
+        "background": "(color) Color of caption area background",
+        "background_alpha": "(float, 0 to 1) Background color alpha",
+        "background_corner": "(float, 0 to 60) Background corner radius",
+        "background_padding": "(float, 0 to 60) Background padding",
+        "caption_font": "(font) Font name or family name",
+        "caption_text": "(caption) VTT/Subrip formatted caption text (multi-line)",
+        "color": "(color) Color of caption text",
+        "bottom": "(float, 0 to 1) Size of bottom margin",
+        "fade_in": "(float, 0 to 3) Fade in per caption (# of seconds)",
+        "fade_out": "(float, 0 to 3) Fade out per caption (# of seconds)",
+        "font_alpha": "(float, 0 to 1) Font color alpha",
+        "font_size": "(float, 0 to 200) Font size in points",
+        "left": "(float, 0 to 0.5) Size of left margin",
+        "line_spacing": "(float, 0 to 5) Distance between lines (1.0 default)",
+        "right": "(float, 0 to 0.5) Size of right margin",
+        "stroke": "(color) Color of text border / stroke",
+        "stroke_width": "(float, 0 to 10) Width of text border / stroke",
+        "top": "(float, 0 to 1) Size of top margin"
+      }
+    },
+    "chromakeygreenscreen": {
+      "description": "The Chroma Key (Greenscreen) effect replaces a specific color (or chroma) in the video (commonly green or blue)\nwith transparency, allowing for the compositing of the video over a different background. This effect is widely used\nin film and television production for creating visual effects and placing subjects in settings that would be otherwise\nimpossible or impractical to shoot in.\n\nGreen Screen Workflow\n\n1. Place your background clip on a lower track and your green-screen footage on the track directly above it.\n2. Drag and drop the Chroma Key (Greenscreen) effect from the Effects panel onto your green-screen clip.\n3. Double-click the color button in the Properties panel to open the color picker, then select the green or blue background color.\n4. Raise the threshold slider until the background turns fully transparent.\n5. Fine-tune halo to remove any residual color fringe around the subject edges.",
+      "properties": {
+        "color": "(color) The color to match",
+        "threshold": "(float, 0 to 125) The threshold (or fuzz factor) for matching similar colors. The larger the value the more colors that will be matched.",
+        "halo": "(float, 0 to 125) The additional threshold for halo elimination.",
+        "keymethod": "(int, choices: ['Basic keying', 'HSV/HSL hue', 'HSV saturation', 'HSL saturation', 'HSV value', 'HSL luminance', 'LCH luminosity', 'LCH chroma', 'LCH hue', 'CIE Distance', 'Cb,Cr vector']) The keying method or algorithm to use."
+      }
+    },
+    "colorgrade": {
+      "description": "The Color Grade effect combines primary correction, tonal wheels, RGB curves, and LUT support into one\nfully animated effect. Use it for color correction (white balance, exposure, contrast) and\ncolor grading (building a stylized look). Right-click a clip and use Look \u2192 Color presets to\napply it instantly, or switch to View \u2192 Color View for a dedicated grading workspace.\n\n.. seealso::\n\n   color \u2014 full workflow guide covering the Color Wheels dock, Curve Editor, video scopes,\n   color presets, skin tone matching, and step-by-step grading examples.\n\nProperties",
+      "properties": {
+        "temperature": "(float, -1 to 1) White-balance style warm/cool adjustment. Positive values warm the image; negative values cool it.",
+        "tint": "(float, -1 to 1) Green/magenta balance adjustment for fine white-balance correction.",
+        "exposure": "(float, -2 to 2) Overall brightness adjustment in stops.",
+        "contrast": "(float, -1 to 1) Expand or compress tonal separation around the midtones.",
+        "highlights": "(float, -1 to 1) Recover or brighten bright tonal regions.",
+        "shadows": "(float, -1 to 1) Lift or deepen dark tonal regions.",
+        "saturation": "(float, 0 to 4) Global color intensity multiplier.",
+        "vibrance": "(float, -1 to 1) Adaptive colorfulness adjustment that affects lower-saturation pixels more strongly.",
+        "mix": "(float, 0 to 1) Blend between the original frame and the fully graded result.",
+        "wheels": "(rich wheels editor) Opens the Color Wheels dock for animated Global, Shadows, Midtones, and Highlights color and luma adjustments. Includes a preview thumbnail and Edit / Reset context menu.",
+        "curve_all": "(rich curve editor) Opens the all-channels Curve Editor popup for overall tonal shaping. Includes a preview thumbnail and Edit / Reset context menu.",
+        "curve_red": "(rich curve editor) Opens the red channel Curve Editor popup for animated red-channel shaping.",
+        "curve_green": "(rich curve editor) Opens the green channel Curve Editor popup for animated green-channel shaping.",
+        "curve_blue": "(rich curve editor) Opens the blue channel Curve Editor popup for animated blue-channel shaping.",
+        "lut_path": "(string) Filesystem path to the `.cube` LUT file applied after the correction and curve stages.",
+        "lut_intensity": "(float, 0 to 1) Blend amount for the selected LUT."
+      }
+    },
+    "colormaplookup": {
+      "description": "The Color Map effect applies a 3D LUT (Lookup Table) to your footage, instantly transforming its\ncolors to achieve a consistent look or mood. A 3D LUT is simply a table that remaps every input hue to a new output\npalette. With separate keyframe curves for red, green, and blue channels, you can precisely control, and even\nanimate, how much each channel is influenced by the LUT, making it easy to fine-tune or blend your grade over time.\n\nLUT files (`.cube` format) can be downloaded from many online resources, including free packs on\nphotography blogs or marketplaces, such as https://freshluts.com/. OpenShot includes a selection of popular LUTs\ndesigned for Rec 709 gamma out of the box.",
+      "properties": {
+        "lut_path": "(string) Filesystem path to the `.cube` LUT file.",
+        "intensity": "(float, 0.0 to 1.0) % Blending overall intensity (0.0 = no LUT, 1.0 = full LUT).",
+        "intensity_r": "(float, 0.0 to 1.0) % Blending the LUT\u2019s red channel (0.0 = no LUT, 1.0 = full LUT).",
+        "intensity_g": "(float, 0.0 to 1.0) % Blending the LUT\u2019s green channel (0.0 = no LUT, 1.0 = full LUT).",
+        "intensity_b": "(float, 0.0 to 1.0) % Blending the LUT\u2019s blue channel (0.0 = no LUT, 1.0 = full LUT)."
+      }
+    },
+    "colorsaturation": {
+      "description": "The Color Saturation effect adjusts the intensity and vibrancy of colors within the video. Increasing saturation\ncan make colors more vivid and eye-catching, while decreasing it can create a more subdued, almost\nblack-and-white appearance.",
+      "properties": {
+        "saturation": "(float, 0 to 4) The curve to adjust the overall saturation of the frame's image (0.0 = greyscale, 1.0 = normal, 2.0 = double saturation)"
+      }
+    },
+    "colorshift": {
+      "description": "Shift the colors of an image up, down, left, and right (with infinite wrapping).\n\nEach pixel has 4 color channels:\n\n- Red, Green, Blue, and Alpha (i.e. transparency)\n- Each channel value is between 0 and 255\n\nThe Color Shift effect simply \"moves\" or \"translates\" a specific color channel on the X or Y axis. *Not all video and\nimage formats support an alpha channel, and in those cases, you will not see any changes when adjusting the color\nshift of the alpha channel.*",
+      "properties": {
+        "alpha_x": "(float, -1 to 1) Shift the Alpha X coordinates (left or right)",
+        "alpha_y": "(float, -1 to 1) Shift the Alpha Y coordinates (up or down)",
+        "blue_x": "(float, -1 to 1) Shift the Blue X coordinates (left or right)",
+        "blue_y": "(float, -1 to 1) Shift the Blue Y coordinates (up or down)",
+        "green_x": "(float, -1 to 1) Shift the Green X coordinates (left or right)",
+        "green_y": "(float, -1 to 1) Shift the Green Y coordinates (up or down)",
+        "red_x": "(float, -1 to 1) Shift the Red X coordinates (left or right)",
+        "red_y": "(float, -1 to 1) Shift the Red Y coordinates (up or down)"
+      }
+    },
+    "crop": {
+      "description": "The Crop effect removes unwanted outer areas from the video frame, allowing you to focus on a particular part of the\nshot, change the aspect ratio, or remove distracting elements from the edges of the frame. This effect is the\nprimary method for cropping a Clip in OpenShot. The left, right, top, and bottom key-frames can\neven be animated, for a moving and resizing cropped area. You can leave the cropped area blank, or you can\ndynamically resize the cropped area to fill the screen.\n\nYou can quickly add this effect by right-clicking a clip and choosing\nCrop. When active, blue crop handles appear in the video preview so\nyou can adjust the crop visually.",
+      "properties": {
+        "bottom": "(float, 0 to 1) Size of bottom bar",
+        "left": "(float, 0 to 1) Size of left bar",
+        "right": "(float, 0 to 1) Size of right bar",
+        "top": "(float, 0 to 1) Size of top bar",
+        "resize": "(bool, choices: ['Yes', 'No']) Replace the frame image with the cropped area (allows automatic scaling of the cropped image)"
+      }
+    },
+    "deinterlace": {
+      "description": "The Deinterlace effect is used to remove interlacing artifacts from video footage, which are commonly seen as\nhorizontal lines across moving objects. This effect is essential for converting interlaced video (such as from\nolder video cameras or broadcast sources) into a progressive format suitable for modern displays.",
+      "properties": {}
+    },
+    "denoiseimage": {
+      "description": "The Denoise Image effect reduces visible video noise, grain, and color speckles. It is useful for low-light\ncamera footage, noisy webcam clips, high-ISO photos, old video, compressed footage, and rendered images that have\nunwanted speckling.\n\nFor a quick start, drag Denoise Image onto a clip and preview the result. The default settings are designed to\nclean up common noise while keeping faces, text, edges, and fine details recognizable. If the image still looks too\nnoisy, raise Strength. If the image starts to look too smooth, raise Detail.\n\nSimple controls\n\n- Strength controls how much denoising is applied.\n- Detail protects edges and texture. Higher values keep more detail; lower values remove more speckles.\n- Color Noise targets red, green, and blue color speckles, which are common in dark video.\n\nMost users can start with those three controls. The next controls are helpful when you want cleaner video without\ncreating ghosting or smearing:\n\n- Temporal blends a small amount of information from the previous frame during normal playback. This can\n  reduce dancing noise from frame to frame.\n- Motion Safety protects moving objects. Higher values are more cautious and reduce the chance of ghosting.\n- Response Curve changes denoise strength by brightness. By default, shadows are cleaned more strongly,\n  midtones are balanced, and highlights are affected more lightly.\n\nHow it works\n\nDenoise Image combines spatial denoising and conservative temporal denoising. Spatial denoising looks at the\ncurrent frame and smooths small noisy variations while trying to preserve important edges. Temporal denoising compares\nneighboring frames and only blends when the image appears stable enough. When OpenShot detects a seek, scrub, frame\njump, or still image, temporal history is reset automatically, so the effect falls back to the current frame only.\n\nThe effect also treats brightness and color differently. Dark areas usually contain more camera sensor noise, so the\ndefault response curve applies stronger cleanup in shadows. Bright areas usually need less denoising. Color speckles\nare reduced more aggressively than luma detail, which helps remove low-light chroma noise without turning the whole\nimage into a blur.\n\nUsage tips\n\n- For mild camera noise, use the default settings or raise Strength slightly.\n- For very noisy dark footage, raise Strength and Color Noise, then lower Detail\n  only as much as needed.\n- For faces, text, hair, leaves, or detailed textures, keep Detail higher to avoid a smeared look.\n- For moving subjects, keep Motion Safety high and avoid pushing Temporal too far.\n- For still images or photos, Temporal has no useful history, so focus on Strength,\n  Detail, Color Noise, and Response Curve.",
+      "properties": {
+        "strength": "(float, 0 to 1) Overall denoise amount. Higher values remove more grain and speckles.",
+        "detail": "(float, 0 to 1) Edge and texture protection. Higher values preserve more fine detail; lower values smooth more noise.",
+        "temporal": "(float, 0 to 1) Previous-frame blending amount for stable sequential video frames.",
+        "motion_safety": "(float, 0 to 1) Motion protection. Higher values reduce temporal blending where movement is detected.",
+        "color_noise": "(float, 0 to 1) Extra cleanup for red, green, and blue color speckles.",
+        "response_curve": "(curve) Brightness-based denoise response. Use it to denoise shadows, midtones, and highlights differently."
+      }
+    },
+    "displacementmap": {
+      "description": "The Displacement Map effect uses a grayscale image or video to warp the current frame in the horizontal and vertical\ndirections. This effect is also commonly called a distortion map, warp map, displace effect, or\ndisplacement effect. It is useful for heat haze, water ripples, refractive glass, mirage effects, animated\ndistortion overlays, shockwave looks, and other stylized screen warps.\n\nThe map source is sampled for every pixel. Mid-gray is neutral and causes no movement. Darker and lighter\nareas shift pixels in opposite directions. A still image creates a fixed distortion pattern, while a video or animated\nmap creates moving distortion over time. Transparent parts of the map smoothly fade back toward neutral displacement.\n\nUsage Notes\n\n- Use a grayscale image or grayscale video for the most predictable results.\n- Use Map: Source to pick an imported file, image sequence, video clip, or even a transition image as the map.\n- Strength multiplies both the horizontal and vertical displacement.\n- Horizontal controls left/right warping as a percentage of the frame width.\n- Vertical controls up/down warping as a percentage of the frame height.\n- Brightness and Contrast reshape the map before displacement, which can make the warp subtler or more dramatic.\n- Map: Invert flips the direction driven by light and dark areas.\n- Replace Image is a debug preview that shows the processed map instead of the warped frame.",
+      "properties": {
+        "map_reader": "(reader) Map: Source. Select the grayscale image, animation, video, or transition file used as the displacement source",
+        "invert": "(int, choices: ['Yes', 'No']) Map: Invert. Reverse the displacement direction driven by dark and light areas",
+        "strength": "(float, 0 to 3) Overall multiplier for the displacement effect",
+        "horizontal": "(float, -1 to 1) Horizontal displacement amount, as a percentage of the frame width",
+        "vertical": "(float, -1 to 1) Vertical displacement amount, as a percentage of the frame height",
+        "brightness": "(float, -1 to 1) Brightness adjustment applied to the displacement map before warping",
+        "contrast": "(float, 0 to 20) Contrast adjustment applied to the displacement map before warping",
+        "replace_image": "(int, choices: ['Yes', 'No']) Replace the output image with the processed map, useful for previewing or debugging the distortion map"
+      }
+    },
+    "filmgrain": {
+      "description": "The Film Grain effect adds a gentle moving texture to your video, similar to the tiny speckles you see in\nreal film photography. This can make very clean digital footage feel warmer, more natural, or more cinematic.\nIt can also help blend mixed footage together, especially when one clip looks too sharp or too smooth compared\nto the rest of your project.\n\nIf you are new to film grain, start small. A little grain can add life and texture without calling attention to\nitself. Stronger settings can be useful for vintage looks, music videos, horror scenes, documentary recreations,\nor footage that should feel like older 16mm or Super 8 film.\n\nYou can add Film Grain from the Effects tab, or right-click a clip and choose\nLook \u2192 Film \u2192 Film Grain to start with a preset: 35mm Fine,\n35mm Classic, 35mm Gritty, 16mm Classic, Super 8, or\nHigh ISO. Presets only set the properties for you; all controls remain visible and editable.\n\nSimple starting points:\n\n- Clean cinematic texture: try 35mm Fine, then lower amount if it feels too visible.\n- Classic film look: try 35mm Classic for a balanced grain pattern.\n- Punchy, gritty film look: try 35mm Gritty for heavier, more visible grain.\n- Older home-movie style: try Super 8, which uses larger, more active grain.\n- Low-light camera noise style: try High ISO, then adjust color_amount to control how colorful the grain feels.\n\nThe grain is deterministic, which means the same settings render the same grain pattern each time. Change\nseed when you want a different repeatable grain pattern on a clip.",
+      "properties": {
+        "amount": "(float, 0 to 1) Overall grain intensity. Lower values are subtle; higher values are more visible and gritty.",
+        "size": "(float, 0 to 1) Grain scale. Lower values create fine grain; higher values create larger, coarser grain.",
+        "softness": "(float, 0 to 1) Softens the grain texture. Lower values look crisp; higher values look smoother and more organic.",
+        "clump": "(float, 0 to 1) Controls how even or clustered the grain appears. Higher values create more irregular groups of grain.",
+        "shadows": "(float, 0 to 1) Grain strength in dark areas of the image.",
+        "midtones": "(float, 0 to 1) Grain strength in middle brightness areas, such as skin tones and everyday objects.",
+        "highlights": "(float, 0 to 1) Grain strength in bright areas, such as skies, windows, and lights.",
+        "color_amount": "(float, 0 to 1) How much the grain affects color. Lower values are mostly luma grain; higher values add more chroma grain.",
+        "color_variation": "(float, 0 to 1) How independently the red, green, and blue grain changes. Higher values feel more colorful and random.",
+        "evolution": "(float, 0 to 1) How much the grain renews over time. Higher values make the texture change more from frame to frame.",
+        "coherence": "(float, 0 to 1) How stable and smooth the grain remains between frames. Higher values feel calmer and less jumpy.",
+        "seed": "(int, 0 to 1000000) Selects the exact repeatable grain pattern. Change this to get a different look without changing intensity."
+      }
+    },
+    "glow": {
+      "description": "The Glow effect creates a soft halo from the clip's visible pixels. It can render either outside the subject\nfor a classic outer glow, or along the inside edges for an inner glow. The effect uses the source alpha channel,\nso transparent PNGs, text, logos, and masked clips work especially well.\n\nYou can add Glow from the Effects tab, or right-click a clip and choose\nLook \u2192 Lighting \u2192 Glow to start with a preset: Soft White (a gentle neutral\nhalo), Warm (a warm amber glow), Neon (a vivid colored glow), or\nInner Glow (glow drawn inside the subject's edges). Presets only set the properties for\nyou; all controls remain visible and editable.",
+      "properties": {
+        "mode": "(int, choices: ['Outer', 'Inner']) Choose whether the glow appears outside the visible pixels (Outer) or just inside their edges (Inner).",
+        "opacity": "(float, 0 to 1) Overall glow strength and transparency.",
+        "blur_radius": "(float, 0 to 100) Blur radius in pixels used to soften the glow. Larger values create a wider, softer halo.",
+        "spread": "(float, 0 to 1) Expands and strengthens the source alpha before blurring for a denser, more filled-in glow.",
+        "color": "(color) Tint color of the glow, including alpha. Use the alpha channel to control the glow's maximum opacity independently of the opacity property."
+      }
+    },
+    "hue": {
+      "description": "The Hue effect adjusts the overall color balance of the video, changing the hues without affecting the brightness or\nsaturation. This can be used for color correction or to apply dramatic color effects that transform the mood of\nthe footage.",
+      "properties": {
+        "hue": "(float, 0 to 1) The curve to adjust the percentage of hue shift"
+      }
+    },
+    "lensflare": {
+      "description": "The Lens Flare effect simulates bright light hitting your camera lens, creating glowing halos, colored rings and\ngentle glares over your footage. Reflections are automatically placed along a line from the light source toward the\ncenter of the frame. You can animate any property with keyframes to follow your action or match your scene.",
+      "properties": {
+        "brightness": "(float, 0 to 1) Overall glow strength and transparency. Higher values make brighter, more opaque flares.",
+        "size": "(float, 0.1 to 3) Scale of the entire flare effect. Larger values enlarge halos, rings and glows.",
+        "spread": "(float, 0 to 1) How far secondary reflections travel. 0 keeps them close to the source, 1 pushes them all the way toward the opposite edge.",
+        "tint_color": "(color) Shifts the flare colors to match your scene. Use the RGBA sliders to pick hue and transparency."
+      }
+    },
+    "negative": {
+      "description": "The Negative effect inverts the colors of the video, producing an image that resembles a photographic negative.\nThis can be used for artistic effects, to create a surreal or otherworldly look, or to highlight specific elements\nwithin the frame.",
+      "properties": {}
+    },
+    "objectmask": {
+      "description": "The Object Mask effect creates a detailed, animated mask around a subject that you identify. Instead of drawing a\nrectangular tracking box, you mark the subject with points or rectangles and OpenShot follows its visible outline\nthrough the clip. Use it to highlight a person or product, create a colored cutout or outline, or provide the\nMask: Source for another effect such as Blur, Pixelate, or Color Grade.\n\nObject Mask runs locally in OpenShot and does not require a ComfyUI server. OpenShot uses an\n`EfficientSAM model <https://github.com/OpenShot/openshot-onnx/tree/main/efficient-sam>`_ to turn your prompts into a\nmask on selected frames, then uses\n`Cutie models <https://github.com/OpenShot/openshot-onnx/tree/main/cutie>`_ to propagate that mask through the video.\nThese OpenCV-friendly model packages are maintained in the\n`OpenShot ONNX repository <https://github.com/OpenShot/openshot-onnx>`_. The model files are downloaded the first time\nyou use the effect and are stored for later use.\n\nCreating an Object Mask\n\n1. Drag Object Mask from the Effects panel onto a video clip.\n2. In the initialization dialog, choose a Quality level and download the Object Mask model files if they\n   are not installed. Higher quality generally takes more processing time and memory.\n3. Leave Processing Device set to CPU for maximum compatibility, or select an available GPU\n   option. GPU (Auto) falls back to CPU when a supported GPU backend is unavailable.\n4. Click Select Points. On a frame where the subject is clearly visible, add at least one positive point\n   or rectangle on the subject. Add negative points or rectangles over nearby background or unwanted objects when\n   they help separate the subject.\n5. Enable the mask preview to check the selected area. Add prompts on other frames if the subject changes greatly,\n   becomes hidden, or the initial selection is ambiguous.\n6. Click Process Effect. Processing analyzes the clip and creates the animated mask data used by the\n   effect. Cancel the job if you need to revise the prompts or settings.\n\nAfter processing, select the Object Mask effect to change its fill and outline. To apply another effect only inside\nthe detected subject, add that effect to the same clip and select Object Mask under its Mask: Source\nproperty. Use Mask: Invert on the other effect when you want to modify the background instead.\n\nObject Mask and Advanced AI\n\nObject Mask is the quickest built-in workflow when you need a reusable mask inside an OpenShot project. The similar\nComfyUI Mask..., Blur..., and Highlight... workflows generate new media files\nthrough a separately installed ComfyUI server and provide more customizable AI pipelines. See\nai_tracking_ref for those Advanced AI workflows.\n\nProperties",
+      "properties": {
+        "draw_mask": "(int, choices: ['Yes', 'No']) Show or hide the colored mask overlay.",
+        "mask_color": "(color) Color drawn over the selected subject.",
+        "mask_alpha": "(float, 0 to 1) Opacity of the colored mask overlay.",
+        "stroke_color": "(color) Color of the outline around the selected subject.",
+        "stroke_alpha": "(float, 0 to 1) Opacity of the subject outline.",
+        "stroke_width": "(int, 0 to 50) Width of the subject outline in pixels. Use 0 to hide it.",
+        "protobuf_data_path": "(string) Internal path to the processed mask data. Normally managed by OpenShot."
+      }
+    },
+    "objectdetector": {
+      "description": "The Object Detector effect automatically finds and follows known classes of objects throughout a video. Depending\non the selected YOLO model, these can include people, vehicles, animals, and many common objects. OpenShot stores each\ndetection as a tracked object, allowing you to display boxes and labels, customize individual detections, parent\nanother clip to a detected object, or use detections as the Mask: Source for another effect.\n\nUnlike Object Mask, Object Detector does not require you to mark a particular subject first. It scans the clip for\nall object classes known by the selected model. Use Object Detector when you want automatic discovery or several\ntracked objects; use Object Mask when you need a precise subject silhouette selected with your own prompts.\n\nCreating Object Detections\n\n1. Drag Object Detector from the Effects panel onto a video clip.\n2. Choose a YOLO Version and download its model and class-name files if needed. Nano models are normally\n   the fastest starting point; larger models can improve detection at the cost of processing time and memory.\n3. Leave Processing Device set to CPU for maximum compatibility, or select an available GPU\n   option. GPU (Auto) falls back to CPU when necessary.\n4. Click Process Effect. OpenShot analyzes the clip and creates the tracked-object data. Processing can\n   take time for long or high-resolution clips and can be canceled.\n5. Select the processed effect and adjust its Properties. Use Class Filter and\n   Confidence Threshold to reduce the visible results, then select an individual object to customize its\n   box, label, mask, or styling.\n\nClass Filters & Confidence\n\nEnter one or more comma-separated names in Class Filter, such as person, car, to display only those\nclasses. Class names depend on the selected model and its class-name file. Leave the field empty to display all\ndetected classes. Raise Confidence Threshold to hide uncertain detections and reduce false positives;\nlower it when the model is missing a partially hidden or difficult subject.\n\nObject Detector can also produce segmentation masks when the selected YOLO model supports them. Those masks can be\ndisplayed on the clip or used by another effect. Models that only output bounding boxes still work as rectangular\nmask sources.\n\nHow Parenting Works\n\nOnce you have tracked objects, you can \"parent\" other clips_ref to them. This means that the second clip,\nwhich could be a graphic, text, or another video layer, will now follow the tracked object as if it's attached to it.\nIf the tracked object moves to the left, the child clip moves to the left. If the tracked object grows in size\n(gets closer to the camera), the child clip also scales up. For parented clips to appear correctly, they must be\non a Track higher than the tracked objects, and set the appropriate clip_scale_ref property.\n\nSee clip_parent_ref.\n\nProperties",
+      "properties": {
+        "class_filter": "(string) Comma-separated object classes to display (for example, person, car). Leave empty for all classes.",
+        "confidence_threshold": "(float, 0 to 1) Minimum confidence value to display the detected objects",
+        "display_box_text": "(int, choices: ['Yes', 'No']) Draw class name and ID of ALL tracked objects",
+        "display_boxes": "(int, choices: ['Yes', 'No']) Draw bounding box around ALL tracked objects (a quick way to hide all tracked objects)",
+        "selected_object_index": "(int, 0 to 200) Index of the tracked object that is `selected` to modify its properties",
+        "draw_box": "(int, choices: ['Yes', 'No']) Whether to draw the box around the selected tracked object",
+        "draw_mask": "(int, choices: ['Yes', 'No']) Whether to draw the segmentation mask for the selected object, when available",
+        "draw_text": "(int, choices: ['Yes', 'No']) Whether to draw the class name and ID for the selected object",
+        "box_id": "(string) Internal ID of a tracked object box for identification purposes",
+        "x1": "(float, 0 to 1) Top left X coordinate of a tracked object box, normalized to the video frame width",
+        "y1": "(float, 0 to 1) Top left Y coordinate of a tracked object box, normalized to the video frame height",
+        "x2": "(float, 0 to 1) Bottom right X coordinate of a tracked object box, normalized to the video frame width",
+        "y2": "(float, 0 to 1) Bottom right Y coordinate of a tracked object box, normalized to the video frame height",
+        "delta_x": "(float, -1.0 to 1) Horizontal movement delta of the tracked object box from its previous position",
+        "delta_y": "(float, -1.0 to 1) Vertical movement delta of the tracked object box from its previous position",
+        "scale_x": "(float, 0 to 1) Scaling factor in the X direction for the tracked object box, relative to its original size",
+        "scale_y": "(float, 0 to 1) Scaling factor in the Y direction for the tracked object box, relative to its original size",
+        "rotation": "(float, 0 to 360) Rotation angle of the tracked object box, in degrees",
+        "visible": "(bool) Is the tracked object box visible in the current frame. Read-only property.",
+        "stroke": "(color) Color of the stroke (border) around the tracked object box",
+        "stroke_width": "(int, 1 to 10) Width of the stroke (border) around the tracked object box",
+        "stroke_alpha": "(float, 0 to 1) Opacity of the stroke (border) around the tracked object box",
+        "background_alpha": "(float, 0 to 1) Opacity of the background fill inside the tracked object box",
+        "background_corner": "(int, 0 to 150) Radius of the corners for the background fill inside the tracked object box",
+        "background": "(color) Color of the background fill inside the tracked object box",
+        "mask_color": "(color) Color of the selected object's segmentation mask, when available",
+        "mask_alpha": "(float, 0 to 1) Opacity of the selected object's segmentation mask"
+      }
+    },
+    "outline": {
+      "description": "The Outline effect adds a customizable border around images or text within a video frame. It works by extracting the\nimage\u2019s alpha channel, blurring it to generate a smooth outline mask, and then combining this mask with a solid\ncolor layer. Users can adjust the outline\u2019s width as well as its color components (red, green, blue) and\ntransparency (alpha), allowing for a wide range of visual styles. This effect is ideal for emphasizing text,\ncreating visual separation, and adding an artistic flair to your videos.",
+      "properties": {
+        "width": "(float, 0 to 100)   The width of the outline in pixels.",
+        "red": "(float, 0 to 255)   The red color component of the outline.",
+        "green": "(float, 0 to 255)   The green color component of the outline.",
+        "blue": "(float, 0 to 255)   The blue color component of the outline.",
+        "alpha": "(float, 0 to 255)   The transparency (alpha) value for the outline."
+      }
+    },
+    "pixelate": {
+      "description": "The Pixelate effect increases or decreases the size of the pixels in the video, creating a mosaic-like appearance.\nThis can be used to obscure details (such as faces or license plates for privacy reasons), or as a stylistic effect\nto evoke a retro, digital, or abstract aesthetic.",
+      "properties": {
+        "bottom": "(float, 0 to 1) The curve to adjust the bottom margin size",
+        "left": "(float, 0 to 1) The curve to adjust the left margin size",
+        "pixelization": "(float, 0 to 0.99) The curve to adjust the amount of pixelization",
+        "right": "(float, 0 to 1) The curve to adjust the right margin size",
+        "top": "(float, 0 to 1) The curve to adjust the top margin size"
+      }
+    },
+    "sharpen": {
+      "description": "The Sharpen effect enhances perceived detail by first blurring the frame slightly and then adding a scaled\ndifference (the *un-sharp mask*) back on top. This boosts edge contrast, making textures and outlines appear\ncrisper without changing overall brightness.\n\nModes\n\n* Unsharp \u2013 Classic un-sharp mask: the edge detail is added back to the *original* frame.\n  Produces the familiar punchy sharpen seen in photo editors.\n\n* HighPass \u2013 High-pass blend: the edge detail is added to the *blurred* frame, then the result replaces\n  the original.  Gives a softer, more \u201ccontrasty\u201d look and can rescue highlights that would otherwise clip.\n\nChannels\n\n* All \u2013 Apply the edge mask to the full RGB signal (strongest effect \u2013 colour and brightness sharpened).\n* Luma \u2013 Apply only to luma (brightness).  Colours stay untouched, so chroma noise is not amplified.\n* Chroma \u2013 Apply only to the chroma (colour difference) channels.  Useful for gently reviving colour\n  edges without changing perceived brightness.\n\nProperties",
+      "properties": {
+        "amount": "(float, 0 to 40) Strength multiplier / up to 100% edge boost",
+        "radius": "(float, 0 to 10) Blur radius in pixels at 720p (auto-scaled to clip size)",
+        "threshold": "(float, 0 to 1) Minimum luma difference that will be sharpened",
+        "mode": "(int, choices: ['Unsharp', 'HighPass']) Math style of the sharpening mask",
+        "channel": "(int, choices: ['All', 'Luma', 'Chroma']) Which colour channels receive sharpening"
+      }
+    },
+    "shadow": {
+      "description": "The Shadow effect creates a soft drop shadow from the clip's visible pixels. It uses the source alpha channel,\nblurs that silhouette, and offsets it by a distance and angle before drawing the original image on top. This is\nuseful for giving text, logos, overlays, and cut-out subjects more separation from the background.\n\nYou can add Shadow from the Effects tab, or right-click a clip and choose\nLook \u2192 Lighting \u2192 Shadow to start with a preset: Subtle (a light near shadow),\nSoft (a diffused medium shadow), Strong (a bold, high-opacity shadow), or\nLong (a distant, elongated shadow). Presets only set the properties for you; all controls\nremain visible and editable.",
+      "properties": {
+        "opacity": "(float, 0 to 1) Overall shadow strength and transparency.",
+        "blur_radius": "(float, 0 to 100) Blur radius in pixels used to soften the shadow edges. Higher values produce softer, more diffused shadows.",
+        "spread": "(float, 0 to 1) Expands and strengthens the source alpha before blurring for a fuller, heavier shadow shape.",
+        "distance": "(float, -500 to 500) Offset distance of the shadow in pixels. Negative values move the shadow in the opposite direction.",
+        "angle": "(float, -360 to 360) Direction of the shadow offset in degrees. 0\u00b0 is right, 90\u00b0 is down, 180\u00b0 is left, 270\u00b0 is up.",
+        "color": "(color) Shadow tint color, including alpha. The default is semi-transparent black."
+      }
+    },
+    "shift": {
+      "description": "The Shift effect moves the entire image in different directions (up, down, left, and right with infinite wrapping),\ncreating a sense of motion or disorientation. This can be used for transitions, to simulate camera movement, or to\nadd dynamic motion to static shots.",
+      "properties": {}
+    },
+    "sphericalprojection": {
+      "description": "The Spherical Projection effect flattens 360\u00b0 or fisheye footage into a normal rectangular view, or generates fisheye output.\nSteer a virtual camera with yaw, pitch, and roll. Control the output view with FOV. Choose the input type (equirect or one of the fisheye models),\npick a projection mode for the output, and select a sampling mode that balances quality and speed. This is ideal for keyframed\n\u201cvirtual camera\u201d moves inside 360\u00b0 clips and for converting circular fisheye shots.",
+      "properties": {
+        "yaw": "(float, -180 to 180)",
+        "pitch": "(float, -180 to 180)",
+        "roll": "(float, -180 to 180)",
+        "fov": "(float, 0 to 179)",
+        "in_fov": "(float, 1 to 360)",
+        "projection_mode": "(int)",
+        "input_model": "(int)",
+        "invert": "(int)",
+        "interpolation": "(int)"
+      }
+    },
+    "stabilizer": {
+      "description": "The Stabilizer effect reduces unwanted shake and jitter in handheld or unstable video footage, resulting in smoother,\nmore professional-looking shots. This is particularly useful for action scenes, handheld shots, or any footage where\na tripod was not used.",
+      "properties": {
+        "zoom": "(float, 0 to 2) Percentage to zoom into the clip, to crop off the shaking and uneven edges"
+      }
+    },
+    "timer": {
+      "description": "The Timer effect renders a styled time overlay on top of a clip. It can count up, count down, display a wall-clock\nstyle timer, show timecode, or show frame numbers. Use it for sports clips, tutorials, races, countdowns, progress\ntimers, timecode burn-ins, or any clip that needs an on-screen timer.\n\nBy default, Timer uses Source Time, so speed changes and time keyframes on the parent clip also affect\nthe timer. For example, if a clip is slowed down, the timer slows down with it. Switch to Clip Time when\nyou want the timer to follow the clip's timeline position instead.\n\nUse Font Name, Font Size, text color, stroke, and background controls to style the timer.\nUse Gravity to choose the starting position, then adjust X Offset (%) and\nY Offset (%) to fine-tune the placement.\n\n- Mode controls what kind of timer is displayed.\n- Countdown Duration controls count-down length. Set it to 0 to count down from the clip's duration.\n- Start Time offsets count-up, clock, timecode, frame, and count-down values.\n- Gravity places the timer in one of nine positions on the frame.\n- X Offset (%) and Y Offset (%) move the timer by a percentage of the frame size.\n- Font, color, stroke, background, and opacity controls can be keyframed for animated timer styles.",
+      "properties": {
+        "background": "(color) Background box color behind the timer text.",
+        "background_alpha": "(float, 0 to 1) Background opacity.",
+        "background_corner": "(float, 0 to 100) Background corner radius.",
+        "background_padding": "(float, 0 to 100) Padding around the timer text.",
+        "clamp": "(int, choices: ['Yes', 'No']) Clamp duration-style timer output at zero.",
+        "color": "(color) Timer text color.",
+        "end_time": "(float, 0 to 86400) Countdown duration in seconds. Use 0 to count down from the clip duration.",
+        "font_alpha": "(float, 0 to 1) Timer text and stroke opacity.",
+        "font_name": "(font) Font name or family name.",
+        "font_size": "(float, 1 to 300) Timer font size.",
+        "format": "(int, choices: ['MM:SS', 'HH:MM:SS', 'HH:MM:SS.mmm', 'Timecode', 'Frames']) Timer display format.",
+        "gravity": "(int, choices: ['Top Left', 'Top Center', 'Top Right', 'Left', 'Center', 'Right', 'Bottom Left', 'Bottom Center', 'Bottom Right']) Position of the timer on the frame.",
+        "mode": "(int, choices: ['Count Up', 'Count Down', 'Clock', 'Timecode', 'Frame Number']) Timer mode.",
+        "prefix": "(string) Text shown before the timer value.",
+        "show_background": "(int, choices: ['Yes', 'No']) Show or hide the background box.",
+        "start_time": "(float, -86400 to 86400) Starting offset in seconds.",
+        "stroke": "(color) Timer text border / stroke color.",
+        "stroke_width": "(float, 0 to 20) Width of the timer text border / stroke.",
+        "suffix": "(string) Text shown after the timer value.",
+        "time_source": "(int, choices: ['Clip Time', 'Source Time']) Choose whether the timer follows clip time or the clip's source-time keyframe curve.",
+        "x_offset": "(float, -100 to 100) Horizontal offset as a percentage of frame width.",
+        "y_offset": "(float, -100 to 100) Vertical offset as a percentage of frame height."
+      }
+    },
+    "tracker": {
+      "description": "The Tracker effect allows for the tracking of a specific object or area within the video frame across multiple frames.\nThis can be used for motion tracking, adding effects or annotations that follow the movement of objects, or for\nstabilizing footage based on a tracked point. When tracking an object, be sure to select the entire object, which is\nvisible at the start of a clip, and choose one of the following Tracking Type algorithms. The tracking algorithm\nthen follows this object from frame to frame, recording its position, scale, and sometimes rotation.\n\nThe tracked box can also be used as a live mask source for any other effect. For example, add a\nTracker effect, draw a box around a face or license plate, add a Blur or\nPixelate effect to the same clip, and set that effect's Mask: Source to the tracker. The blur\nor pixelation is then limited to the tracked box and updates in the video preview as you adjust it.\n\nTracker boxes are not limited to moving video. You can add a Tracker effect to a static photo, use its box as the\nMask: Source for another effect, and keyframe the box position or size if the masked region should move\nover time. Select the Tracker effect, then use the video preview transform handles to move or resize the box; OpenShot\nupdates the box properties such as x1, y1, x2, and y2 so the masked effect follows the adjusted region.\n\nTracking Type\n\n- KCF: (default) A blend of Boosting and MIL strategies, employing correlation filters on overlapping areas from 'bags' to accurately track and predict object movement. It offers higher speed and accuracy and can stop tracking when the object is lost but struggles to resume tracking after losing the object.\n- MIL: Improves upon Boosting by considering multiple potential positives ('bags') around the definite positive object, increasing robustness to noise and maintaining good accuracy. However, it shares the Boosting Tracker's drawbacks of low speed and difficulty in stopping tracking when the object is lost.\n- BOOSTING: Utilizes the online AdaBoost algorithm to enhance the classification of tracked objects by focusing on incorrectly classified ones. It requires setting the initial frame and treats nearby objects as background, adjusting to new frames based on maximum score areas. It's known for accurate tracking but suffers from low speed, noise sensitivity, and difficulty stopping tracking upon object loss.\n- TLD: Decomposes tracking into tracking, learning, and detection phases, allowing for adaptation and correction over time. While it can handle object scaling and occlusions reasonably well, it may behave unpredictably, with instability in tracking and detection.\n- MEDIANFLOW: Based on the Lucas-Kanade method, it analyzes forward and backward movement to estimate trajectory errors for real-time position prediction. It's fast and accurate under certain conditions but can lose track of fast-moving objects.\n- MOSSE: Utilizes adaptive correlations in Fourier space to maintain robustness against lighting, scale, and pose changes. It boasts very high tracking speeds and is better at continuing tracking after loss, but it may persist in tracking an absent object.\n- CSRT: Employs spatial reliability maps to adjust filter support, enhancing the ability to track non-rectangular objects and perform well even with object overlaps. However, it is slower and may not operate reliably when the object is lost.\n\nHow Parenting Works\n\nOnce you have a tracked object, you can \"parent\" other clips_ref to it. This means that the second clip,\nwhich could be a graphic, text, or another video layer, will now follow the tracked object as if it's attached to it.\nIf the tracked object moves to the left, the child clip moves to the left. If the tracked object grows in size\n(gets closer to the camera), the child clip also scales up. For parented clips to appear correctly, they must be\non a Track higher than the tracked objects, and set the appropriate clip_scale_ref property.\n\nSee clip_parent_ref.\n\nProperties",
+      "properties": {
+        "draw_box": "(int, choices: ['Yes', 'No']) Whether to draw the box around the tracked object",
+        "box_id": "(string) Internal ID of a tracked object box for identification purposes",
+        "x1": "(float, 0 to 1) Top left X coordinate of a tracked object box, normalized to the video frame width",
+        "y1": "(float, 0 to 1) Top left Y coordinate of a tracked object box, normalized to the video frame height",
+        "x2": "(float, 0 to 1) Bottom right X coordinate of a tracked object box, normalized to the video frame width",
+        "y2": "(float, 0 to 1) Bottom right Y coordinate of a tracked object box, normalized to the video frame height",
+        "delta_x": "(float, -1.0 to 1) Horizontal movement delta of the tracked object box from its previous position",
+        "delta_y": "(float, -1.0 to 1) Vertical movement delta of the tracked object box from its previous position",
+        "scale_x": "(float, 0 to 1) Scaling factor in the X direction for the tracked object box, relative to its original size",
+        "scale_y": "(float, 0 to 1) Scaling factor in the Y direction for the tracked object box, relative to its original size",
+        "rotation": "(float, 0 to 360) Rotation angle of the tracked object box, in degrees",
+        "visible": "(bool) Is the tracked object box visible in the current frame. Read-only property.",
+        "stroke": "(color) Color of the stroke (border) around the tracked object box",
+        "stroke_width": "(int, 1 to 10) Width of the stroke (border) around the tracked object box",
+        "stroke_alpha": "(float, 0 to 1) Opacity of the stroke (border) around the tracked object box",
+        "background_alpha": "(float, 0 to 1) Opacity of the background fill inside the tracked object box",
+        "background_corner": "(int, 0 to 150) Radius of the corners for the background fill inside the tracked object box",
+        "background": "(color) Color of the background fill inside the tracked object box"
+      }
+    },
+    "wave": {
+      "description": "The Wave effect distorts the image into a wave-like pattern, simulating effects like heat haze, water reflections,\nor other forms of distortion. The speed, amplitude, and direction of the waves can be adjusted.",
+      "properties": {
+        "amplitude": "(float, 0 to 5) The height of the wave",
+        "multiplier": "(float, 0 to 10) Amount to multiply the wave (make it bigger)",
+        "shift_x": "(float, 0 to 1000) Amount to shift X-axis",
+        "speed_y": "(float, 0 to 300) Speed of the wave on the Y-axis",
+        "wavelength": "(float, 0 to 3) The length of the wave"
+      }
+    },
+    "compressor": {
+      "description": "The Compressor effect in audio processing reduces the dynamic range of the audio signal, making loud sounds\nquieter and quiet sounds louder. This creates a more consistent volume level, useful for balancing the loudness\nof different audio sources or for achieving a particular sound characteristic in music production.",
+      "properties": {
+        "attack": "(float, 0.1 to 100)",
+        "bypass": "(bool)",
+        "makeup_gain": "(float, -12 to 12)",
+        "ratio": "(float, 1 to 100)",
+        "release": "(float, 10 to 1000)",
+        "threshold": "(float, -60 to 0)"
+      }
+    },
+    "delay": {
+      "description": "The Delay effect adds an echo to the audio signal, repeating the sound after a short delay. This can create a sense\nof space and depth in the audio, and is commonly used for creative effects in music, sound design, and audio\npost-production.",
+      "properties": {
+        "delay_time": "(float, 0 to 5)"
+      }
+    },
+    "distortion": {
+      "description": "The Distortion effect intentionally clips the audio signal, adding harmonic and non-harmonic overtones. This can\ncreate a gritty, aggressive sound characteristic of many electric guitar tones and is used for both musical and\nsound design purposes.",
+      "properties": {
+        "distortion_type": "(int, choices: ['Hard Clipping', 'Soft Clipping', 'Exponential', 'Full Wave Rectifier', 'Half Wave Rectifier'])",
+        "input_gain": "(int, -24 to 24)",
+        "output_gain": "(int, -24 to 24)",
+        "tone": "(int, -24 to 24)"
+      }
+    },
+    "echo": {
+      "description": "The Echo effect, similar to delay, repeats the audio signal at intervals, but with a focus on creating a distinct\nrepetition of sound that mimics natural echoes. This can be used to simulate acoustic environments or for creative\nsound effects.",
+      "properties": {
+        "echo_time": "(float, 0 to 5)",
+        "feedback": "(float, 0 to 1)",
+        "mix": "(float, 0 to 1)"
+      }
+    },
+    "expander": {
+      "description": "The Expander effect increases the dynamic range of audio, making quiet sounds quieter and leaving loud sounds\nunaffected. This is the opposite of compression and is used to reduce background noise or increase the dynamic\nimpact of audio.",
+      "properties": {
+        "attack": "(float, 0.1 to 100)",
+        "bypass": "(bool)",
+        "makeup_gain": "(float, -12 to 12)",
+        "ratio": "(float, 1 to 100)",
+        "release": "(float, 10 to 1000)",
+        "threshold": "(float, -60 to 0)"
+      }
+    },
+    "noise": {
+      "description": "The Noise effect adds random, equal-intensity signals across the frequency spectrum to the audio, simulating the sound\nof white noise. This can be used for sound masking, as a component in sound design, or for testing and calibration\npurposes.",
+      "properties": {
+        "level": "(int, 0 to 100)"
+      }
+    },
+    "parametriceq": {
+      "description": "The Parametric EQ (Equalizer) effect allows for precise adjustments to the volume level of specific frequency ranges\nin the audio signal. This can be used for corrective measures, such as removing unwanted tones, or creatively, to\nshape the tonal balance of the audio.",
+      "properties": {
+        "filter_type": "(int, choices: ['Low Pass', 'High Pass', 'Low Shelf', 'High Shelf', 'Band Pass', 'Band Stop', 'Peaking Notch'])",
+        "frequency": "(int, 20 to 20000)",
+        "gain": "(int, -24 to 24)",
+        "q_factor": "(float, 0 to 20)"
+      }
+    },
+    "robotization": {
+      "description": "The Robotization effect transforms the audio to sound mechanical or robotic, by applying a combination of pitch\nmodulation and synthesis techniques. This effect is widely used for character voices in media, creative music\nproduction, and sound design.",
+      "properties": {
+        "fft_size": "(int, choices: ['128', '256', '512', '1024', '2048'])",
+        "hop_size": "(int, choices: ['1/2', '1/4', '1/8'])",
+        "window_type": "(int, choices: ['Rectangular', 'Bart Lett', 'Hann', 'Hamming'])"
+      }
+    },
+    "whisperization": {
+      "description": "The Whisperization effect transforms the audio to mimic a whispering voice, often by filtering out certain\nfrequencies and adding noise. This can be used for artistic effects in music, sound design for film and video, or\nin audio storytelling to convey secrecy or intimacy.",
+      "properties": {
+        "fft_size": "(int, choices: ['128', '256', '512', '1024', '2048'])",
+        "hop_size": "(int, choices: ['1/2', '1/4', '1/8'])",
+        "window_type": "(int, choices: ['Rectangular', 'Bart Lett', 'Hann', 'Hamming'])"
+      }
+    }
+  }
+}

@@ -444,6 +444,14 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                     # This exception occurs when there's a problem parsing the Profile file - display a message and continue
                     log.error("Failed to parse file '%s' as a profile: %s" % (profile_path, e))
 
+        # Portable custom profiles travel with the project, not a machine-local
+        # profile file. Installed/legacy profiles retain their existing lookup.
+        embedded = self._data.get("profile_settings") or {}
+        if not profile and embedded.get("description") == profile_desc:
+            custom = openshot.Profile()
+            custom.SetJson(json.dumps(embedded))
+            profile = self.apply_profile(custom)
+
         # Upgrade a legacy profile (if needed). Sometimes legacy profiles do match a new profile description, so
         # only upgrade if we have not already found a profile matching the description
         if not profile and legacy_profile_match:
@@ -456,6 +464,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         log.info("Setting profile to %s" % profile.info.description)
 
         # Update default profile
+        self._data["profile_settings"] = json.loads(profile.Json())
         self._data["profile"] = profile.info.description
         self._data["width"] = profile.info.width
         self._data["height"] = profile.info.height
@@ -468,9 +477,26 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
         return profile
 
-    def load(self, file_path, clear_thumbnails=True):
+    def load(self, file_path, clear_thumbnails=True, interactive=True):
         """ Load project from file """
 
+        if file_path and not interactive:
+            # Validate paths before replacing the active project; agents must never
+            # open a modal missing-file dialog or silently drop missing media.
+            candidate = self.read_from_file(file_path, path_mode="absolute")
+            def check_paths(value):
+                if isinstance(value, dict):
+                    self._drop_obsolete_effect_resource(value)
+                    for key, child in value.items():
+                        if key in ("path", "resource", "protobuf_data_path", "lut_path") and isinstance(child, str) and child and "%" not in child:
+                            if not os.path.exists(child):
+                                raise FileNotFoundError("Missing project asset: " + child)
+                        elif key != "history":
+                            check_paths(child)
+                elif isinstance(value, list):
+                    for child in value:
+                        check_paths(child)
+            check_paths(candidate)
         self.new()
 
         if file_path:
@@ -481,18 +507,20 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
             try:
                 # Attempt to load v2.X project file
-                project_data = self.read_from_file(file_path, path_mode="absolute")
+                project_data = (self.read_from_file(file_path, path_mode="absolute")
+                                if interactive else candidate)
 
                 # Fix history (if broken)
                 if not project_data.get("history"):
                     project_data["history"] = {"undo": [], "redo": []}
 
                 # If project has waveforms, enable removing waveforms
-                get_app().window.actionClearWaveformData.setEnabled(False)
-                for file in project_data["files"]:
-                    if file.get("ui",{}).get("audio_data", []):
-                        get_app().window.actionClearWaveformData.setEnabled(True)
-                        break
+                if get_app().window:
+                    get_app().window.actionClearWaveformData.setEnabled(False)
+                    for file in project_data["files"]:
+                        if file.get("ui",{}).get("audio_data", []):
+                            get_app().window.actionClearWaveformData.setEnabled(True)
+                            break
 
             except Exception:
                 try:
@@ -536,7 +564,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             self.has_unsaved_changes = False
 
             # Check if paths are all valid
-            self.check_if_paths_are_valid()
+            if interactive:
+                self.check_if_paths_are_valid()
 
             # Clear old thumbnails
             openshot_thumbnails = info.get_default_path("THUMBNAIL_PATH")
@@ -1800,7 +1829,14 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             if len(action.key) == 1 and action.key[0] in ["fps"]:
                 # FPS changed (apply profile)
                 profile_key = self._data.get("profile")
-                profile = self.get_profile(profile_key)
+                if updates._is_processing_history:
+                    # Undo reverses FPS before the profile-name action. Looking
+                    # up the still-new name here would overwrite the restored
+                    # FPS and make undo silently retain the new frame rate.
+                    profile = openshot.Profile()
+                    profile.SetJson(json.dumps(dict(self._data, description=profile_key)))
+                else:
+                    profile = self.get_profile(profile_key)
                 if profile:
                     # Get current FPS (prior to changing)
                     new_fps = self._data.get("fps")

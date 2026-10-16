@@ -912,6 +912,12 @@ def main():
             shutil.copytree(os.path.join(PATH, "build", exe_dir),
                             os.path.join(app_dir_path, "usr", "bin"))
 
+            # Session IPC needs the native QtNetwork library as well as its
+            # Python binding. Do not silently fall back to an incompatible host Qt.
+            for qt_library in ("libQt5Core.so.5", "libQt5Network.so.5"):
+                if not os.path.isfile(os.path.join(app_dir_path, "usr", "bin", qt_library)):
+                    raise RuntimeError("AppImage is missing required Qt library: %s" % qt_library)
+
             # Prefer the desktop's native file picker through XDG portals.
             install_linux_portal_theme(app_dir_path)
 
@@ -936,7 +942,7 @@ def main():
 
             # Create AppRun file
             app_run_path = os.path.join(app_dir_path, "AppRun")
-            shutil.copyfile("/home/ubuntu/apps/AppImageKit/AppRun", app_run_path)
+            shutil.copyfile(os.path.join(PATH, "installer", "AppRun"), app_run_path)
 
             # Add execute bit to file mode for AppRun and scripts
             st = os.stat(app_run_path)

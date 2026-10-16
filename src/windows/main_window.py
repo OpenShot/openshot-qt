@@ -690,7 +690,7 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
                 except Exception as e:
                     log.error(f"Failed to delete file {file_path}: {e}")
 
-    def open_project(self, file_path, clear_thumbnails=True):
+    def open_project(self, file_path, clear_thumbnails=True, interactive=True):
         """ Open a project from a file path, and refresh the screen """
 
         app = get_app()
@@ -710,6 +710,8 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         # Android document URIs do not expose a filename extension.
         if not is_content_uri(file_path) and not re.search(
                 r"\.osp(?:\.bak(?:\.[0-9]+)?)?\Z", os.path.basename(file_path), re.IGNORECASE):
+            if not interactive:
+                raise ValueError("Expected an OpenShot .osp project file")
             QMessageBox.warning(
                 self,
                 _("Invalid Project File"),
@@ -730,7 +732,7 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         QCoreApplication.processEvents()
 
         # Do we have unsaved changes?
-        if app.project.needs_save():
+        if interactive and app.project.needs_save():
             ret = QMessageBox.question(
                 self,
                 _("Unsaved Changes"),
@@ -760,7 +762,7 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
                     self.clear_temporary_files()
 
                 # Load project file
-                app.project.load(file_path, clear_thumbnails)
+                app.project.load(file_path, clear_thumbnails, interactive=interactive)
 
                 # Set Window title
                 self.SetWindowTitle()
@@ -797,8 +799,11 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
 
         except Exception as ex:
             log.error("Couldn't open project %s.", file_path, exc_info=1)
+            if not interactive:
+                raise
             QMessageBox.warning(self, _("Error Opening Project"), str(ex))
         finally:
+            app.restoreOverrideCursor()
             self._project_loading = previous_project_loading
             if not loaded_project:
                 lib_settings.ENABLE_PLAYBACK_CACHING = previous_playback_caching
@@ -806,8 +811,6 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
                 self._pending_project_open_refresh = False
                 QTimer.singleShot(0, lambda: self.refreshFrameSignal.emit())
 
-        # Restore normal cursor
-        app.restoreOverrideCursor()
 
     def clear_temporary_files(self):
         """Clear all user thumbnails"""
@@ -4612,7 +4615,6 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         self.files_model = FilesModel(generation_queue=self.generation_queue, proxy_service=self.proxy_service)
         self.filesTreeView = FilesTreeView(self.files_model)
         self.filesListView = FilesListView(self.files_model)
-        self.files_model.update_model()
         self.tabFiles.insertWidget(-1, self.filesTreeView)
         self.tabFiles.insertWidget(-1, self.filesListView)
         if s.get("file_view") == "details":
@@ -4623,6 +4625,7 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
             self.filesTreeView.hide()
         # Show our currently-enabled project files view
         self.filesView.show()
+        self.files_model.update_model()
         self.filesView.setFocus()
         if self.filesView == self.filesTreeView:
             self.filesTreeView.refresh_view()

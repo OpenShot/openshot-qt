@@ -1,0 +1,19 @@
+#!/bin/sh
+# Copyright (c) 2026 OpenShot Studios, LLC. GPL-3.0-or-later.
+
+# Resolve this launcher's own bundle, not APPDIR inherited from a parent session.
+# Keep the caller's working directory so relative CLI media/JSON/output paths work.
+openshot_appdir=$(dirname "$(realpath "$0")")
+# An extracted AppDir may be launched from an unrelated AppImage process.
+# Only a matching runtime-provided APPDIR identifies this image's backing file.
+if [ "${APPDIR:-}" != "$openshot_appdir" ]; then
+    unset APPIMAGE
+fi
+export APPDIR="$openshot_appdir"
+export PATH="$openshot_appdir/usr/bin:$openshot_appdir/usr/sbin:$openshot_appdir/usr/games:$PATH"
+export XDG_DATA_DIRS="$openshot_appdir/usr/share:${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"
+if [ -d "$openshot_appdir/usr/share/glib-2.0/schemas" ]; then
+    export GSETTINGS_SCHEMA_DIR="$openshot_appdir/usr/share/glib-2.0/schemas"
+fi
+
+exec "$openshot_appdir/usr/bin/openshot-qt-launch" "$@"

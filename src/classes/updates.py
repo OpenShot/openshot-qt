@@ -195,21 +195,20 @@ class UpdateManager:
         # Loop through each updateAction object and serialize
         # Ignore any load actions or history update actions
         history_length_int = int(history_length)
-        if history_length_int == 0:
+        if history_length_int <= 0:
             self.update_untracked(["history"], {"redo": [], "undo": []})
             return
-        for action in self.redoHistory[-history_length_int:]:
-            if action.type != "load" and action.key[0] != "history":
-                actionDict = json.loads(action.json(), strict=False)
-                redo_list.append(actionDict)
-            else:
-                log.info("Saving redo history, skipped key: %s" % str(action.key))
-        for action in self.actionHistory[-history_length_int:]:
-            if action.type != "load" and action.key[0] != "history":
-                actionDict = json.loads(action.json(), strict=False)
-                undo_list.append(actionDict)
-            else:
-                log.info("Saving undo history, skipped key: %s" % str(action.key))
+        def complete_transactions(history):
+            eligible = [action for action in history
+                        if action.type != "load" and action.key and action.key[0] != "history"]
+            # The preference is a soft action budget: never serialize a partial
+            # transaction, including non-contiguous records with the same ID.
+            selected = {action.transaction for action in eligible[-max(0, history_length_int):]}
+            return [json.loads(action.json(), strict=False) for action in eligible
+                    if action.transaction in selected]
+
+        redo_list = complete_transactions(self.redoHistory)
+        undo_list = complete_transactions(self.actionHistory)
 
         # Set history data in project
         self.update_untracked(["history"], {"redo": redo_list, "undo": undo_list})
@@ -315,7 +314,7 @@ class UpdateManager:
             last_transactions = [self.actionHistory[i] for i in reversed(transaction_indexes)]
             remove_selection = any(a.type == "insert" for a in last_transactions)
 
-            if remove_selection:
+            if remove_selection and get_app().window:
                 # Remove selections for any items about to be deleted
                 for action in last_transactions:
                     if action.type == "insert":
@@ -345,13 +344,15 @@ class UpdateManager:
 
                 # Ignore updates to UI on all actions except last one
                 ignore_refresh = (index != len(last_transactions) - 1)
-                get_app().window.IgnoreUpdates.emit(ignore_refresh, True)
+                if get_app().window:
+                    get_app().window.IgnoreUpdates.emit(ignore_refresh, True)
 
                 # Perform next undo action
                 self.dispatch_action(reverse)
 
                 # Verify selections are still valid objects
-                get_app().window.verifySelections()
+                if get_app().window:
+                    get_app().window.verifySelections()
         finally:
             self._is_processing_history = False
 
@@ -393,7 +394,8 @@ class UpdateManager:
 
                 # Ignore updates to UI on all actions except last one
                 ignore_refresh = (index != len(last_transactions) - 1)
-                get_app().window.IgnoreUpdates.emit(ignore_refresh, True)
+                if get_app().window:
+                    get_app().window.IgnoreUpdates.emit(ignore_refresh, True)
 
                 # Perform next redo action
                 self.dispatch_action(next_action)

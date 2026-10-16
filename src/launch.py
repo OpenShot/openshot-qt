@@ -43,8 +43,6 @@ Welcome to the OpenShot Video Editor 2.0 Qt documentation. OpenShot was develope
 import sys
 import os
 import argparse
-import json
-import logging
 
 # Ensure Qt plugin DLL dependencies are found on Windows packaged builds.
 if os.name == "nt":
@@ -57,28 +55,22 @@ if os.name == "nt":
     if _existing_qt_dll_dirs:
         os.environ["PATH"] = os.pathsep.join(_existing_qt_dll_dirs + [os.environ.get("PATH", "")])
 
+# Dispatch automation before Qt/native imports or GUI argument handling. This
+# also runs when launch is loaded through the installed GUI entry point.
+if sys.argv[1:2] == ["--cli"]:
+    if __package__:
+        from .cli import main as cli_main
+    else:
+        from cli import main as cli_main
+    sys.exit(cli_main(sys.argv[2:]))
+
 try:
     # This needs to be imported before the Qt binding
     # To prevent some issues on AppImage build: wrapping/forcing older glibc versions
-    import openshot
+    import openshot  # pylint: disable=unused-import  # Native initialization must precede Qt.
 except ImportError:
     pass
 
-# Load user-configured UI scale before importing the Qt binding
-scale = 1.0
-logger = logging.getLogger(__name__)
-
-settings_path = os.path.join(os.path.expanduser("~/.openshot_qt"), "openshot.settings")
-
-try:
-    if os.path.exists(settings_path):
-        with open(settings_path, "r", encoding="utf-8") as fh:
-            for item in json.load(fh):
-                if item.get("setting") == "ui-scale":
-                    scale = float(item.get("value", scale))
-                    break
-except Exception as exc:
-    logger.warning("Failed to read UI scale from %s: %s", settings_path, exc, exc_info=True)
 # Make sibling modules importable when launched via the installed entry point.
 # This must happen before importing qt_api as well as the other local modules.
 try:
@@ -88,38 +80,12 @@ except ImportError:
     sys.path.append(openshot_qt.OPENSHOT_PATH)
     from classes import info
 
-from qt_api import QtCore, QtWidgets, minimum_ui_scale
-
-# Qt reads this when QApplication is created. Older Qt painters cannot shrink
-# below a device pixel ratio of one, even though window geometry can do so.
-requested_scale = scale
-scale = max(minimum_ui_scale(), min(3.0, scale))
-if scale != requested_scale:
-    logger.warning("UI scale %s is unsupported by Qt %s; using %s",
-                   requested_scale, QtCore.qVersion(), scale)
-if scale != 1.0 or scale != requested_scale:
-    os.environ["QT_SCALE_FACTOR"] = str(scale)
+from classes.qt_bootstrap import configure_qt
+configure_qt()
+from qt_api import QtCore, QtWidgets
 
 Qt = QtCore.Qt
 QApplication = QtWidgets.QApplication
-
-try:
-    # This must be done before creating QApplication
-    QApplication.setAttribute(Qt.AA_ShareOpenGLContexts)
-    from OpenGL import GL  # noqa
-except (ImportError, AttributeError):
-    pass
-
-try:
-    # PassThrough lets Qt use the exact QT_SCALE_FACTOR value (e.g. 1.5) without rounding
-    # to the nearest integer (e.g. 2.0).
-    os.environ['QT_SCALE_FACTOR_ROUNDING_POLICY'] = "PassThrough"
-
-    # Enable High-DPI resolutions
-    QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
-    QApplication.setAttribute(Qt.AA_UseHighDpiPixmaps)
-except AttributeError:
-    pass  # Quietly fail for older Qt5 versions
 
 # Global holder for QApplication instance
 app = None
@@ -132,6 +98,9 @@ def main():
 
     # Configure argument handling for commandline launches
     parser = argparse.ArgumentParser(description='OpenShot version ' + info.SETUP['version'])
+    parser.add_argument(
+        '--cli', action='store_true',
+        help='Run automation commands instead of the editor. Must be the first argument: --cli help or --cli --help.')
     parser.add_argument(
         '-l', '--lang', action='store',
         help='language code for interface (overrides '
@@ -162,6 +131,8 @@ def main():
         'remain', nargs=argparse.REMAINDER, help=argparse.SUPPRESS)
 
     args, extra_args = parser.parse_known_args()
+    if args.cli:
+        parser.error('--cli must be the first argument. Start with: openshot-qt --cli help')
     info.FEEDBACK_PREVIEW = args.feedback_preview
     info.UPDATE_PREVIEW = args.update_preview
 
@@ -178,7 +149,7 @@ def main():
     if args.list_languages:
         from classes.language import get_all_languages
         print("Supported Languages:")
-        for code, lang, country in get_all_languages():
+        for code, lang, _country in get_all_languages():
             print("  {:>12}  {}".format(code, lang))
         sys.exit()
 

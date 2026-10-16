@@ -54,6 +54,7 @@ Table of Contents:
    playback
    ai
    troubleshoot
+   agent_cli
    developers
    contributing
    learn_more

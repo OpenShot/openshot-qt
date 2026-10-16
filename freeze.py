@@ -106,7 +106,7 @@ python_packages = ["os",
                    ]
 
 # Modules to include
-python_modules = ["idna.idnadata",
+python_modules = ["{}.QtNetwork".format(QT_BINDING_PACKAGE),"idna.idnadata",
                   "sentry_sdk.integrations.stdlib",
                   "sentry_sdk.integrations.excepthook",
                   "sentry_sdk.integrations.dedupe",
@@ -355,7 +355,7 @@ write_build_metadata(version_path, version_info)
 
 if sys.platform == "win32":
     # Define alternate terminal-based executable
-    extra_exe = {"base": None, "name": exe_name + "-cli.exe"}
+    extra_exe = {"base": None, "name": exe_name + "-cmd.exe"}
 
     # Standard graphical Win32 launcher
     base = "Win32GUI"
@@ -510,7 +510,10 @@ elif sys.platform == "linux":
     # Get a list of all openshot.so dependencies (scan these libraries for their dependencies)
     qt_mod_files = []
     from importlib import import_module
-    for submod in ['Qt', 'QtSvg', 'QtWidgets', 'QtCore', 'QtGui', 'QtDBus']:
+    # QtNetwork is imported dynamically by the CLI session transport. Scan its
+    # native dependencies too, or the AppImage can mix host QtNetwork with its
+    # bundled QtCore and fail on hosts with a different Qt version.
+    for submod in ['Qt', 'QtSvg', 'QtWidgets', 'QtCore', 'QtGui', 'QtDBus', 'QtNetwork']:
         mod_name = "{}.{}".format(QT_BINDING_PACKAGE, submod)
         mod = import_module(mod_name)
         qt_mod_files.append(inspect.getfile(mod))
@@ -725,6 +728,11 @@ exes = [Executable("openshot_qt/launch.py",
                    shortcutDir="ProgramMenuFolder",
                    targetName=exe_name,
                    copyright=info.COPYRIGHT)]
+
+# Agent CLI needs a console entry point, including in GUI-only Windows bundles.
+exes.append(Executable("openshot_qt/cli.py", base=None,
+                       targetName="openshot-cli.exe" if sys.platform == "win32" else "openshot-cli",
+                       copyright=info.COPYRIGHT))
 
 try:
     # Include extra launcher configuration, if defined

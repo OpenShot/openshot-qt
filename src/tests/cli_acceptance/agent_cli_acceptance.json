@@ -1,0 +1,1384 @@
+{
+  "baseline": {
+    "calls": 48,
+    "errors": 0,
+    "help_calls": 15,
+    "wall_seconds": 72.582,
+    "cli_seconds_sum": 9.728,
+    "response_bytes": 34007,
+    "wait_status_requests": 0,
+    "slowest_calls": [
+      {
+        "args": [
+          "timeline",
+          "view",
+          "--start",
+          "5",
+          "--end",
+          "12",
+          "--output",
+          "ARTIFACTS/baseline/zoom.png"
+        ],
+        "seconds": 1.897
+      },
+      {
+        "args": [
+          "timeline",
+          "view",
+          "--start",
+          "0",
+          "--end",
+          "20",
+          "--output",
+          "ARTIFACTS/baseline/timeline.png"
+        ],
+        "seconds": 1.693
+      },
+      {
+        "args": [
+          "file",
+          "strip",
+          "KSOJIODJE3",
+          "--start",
+          "10",
+          "--end",
+          "37",
+          "--count",
+          "8",
+          "--output",
+          "ARTIFACTS/baseline/source.png"
+        ],
+        "seconds": 1.113
+      },
+      {
+        "args": [
+          "session",
+          "start"
+        ],
+        "seconds": 1.017
+      },
+      {
+        "args": [
+          "timeline",
+          "thumbnail",
+          "--frame",
+          "145",
+          "--output",
+          "ARTIFACTS/baseline/frame.png"
+        ],
+        "seconds": 0.266
+      }
+    ],
+    "png_bytes": 1635174,
+    "inspection_calls": [
+      {
+        "args": [
+          "file",
+          "strip",
+          "help"
+        ],
+        "seconds": 0.04736757278442383,
+        "image_bytes": null,
+        "thumbnails": null,
+        "waveforms": null
+      },
+      {
+        "args": [
+          "timeline",
+          "view",
+          "help"
+        ],
+        "seconds": 0.05355095863342285,
+        "image_bytes": null,
+        "thumbnails": null,
+        "waveforms": null
+      },
+      {
+        "args": [
+          "file",
+          "strip",
+          "KSOJIODJE3",
+          "--start",
+          "10",
+          "--end",
+          "37",
+          "--count",
+          "8",
+          "--output",
+          "ARTIFACTS/baseline/source.png"
+        ],
+        "seconds": 1.1129724979400635,
+        "image_bytes": null,
+        "thumbnails": null,
+        "waveforms": null
+      },
+      {
+        "args": [
+          "timeline",
+          "thumbnail",
+          "help"
+        ],
+        "seconds": 0.05359077453613281,
+        "image_bytes": null,
+        "thumbnails": null,
+        "waveforms": null
+      },
+      {
+        "args": [
+          "timeline",
+          "view",
+          "--start",
+          "0",
+          "--end",
+          "20",
+          "--output",
+          "ARTIFACTS/baseline/timeline.png"
+        ],
+        "seconds": 1.693108320236206,
+        "image_bytes": null,
+        "thumbnails": null,
+        "waveforms": null
+      },
+      {
+        "args": [
+          "timeline",
+          "view",
+          "--start",
+          "5",
+          "--end",
+          "12",
+          "--output",
+          "ARTIFACTS/baseline/zoom.png"
+        ],
+        "seconds": 1.8965342044830322,
+        "image_bytes": null,
+        "thumbnails": null,
+        "waveforms": null
+      },
+      {
+        "args": [
+          "timeline",
+          "thumbnail",
+          "--frame",
+          "145",
+          "--output",
+          "ARTIFACTS/baseline/frame.png"
+        ],
+        "seconds": 0.2664148807525635,
+        "image_bytes": null,
+        "thumbnails": null,
+        "waveforms": null
+      }
+    ],
+    "expected_error_calls": 0,
+    "unexpected_error_calls": 0,
+    "notes": "Original workflow; no waveform/overview/split/cache checks; asynchronous export polled manually."
+  },
+  "round1": {
+    "calls": 30,
+    "errors": 2,
+    "help_calls": 12,
+    "wall_seconds": 88.811,
+    "cli_seconds_sum": 15.076,
+    "response_bytes": 39820,
+    "wait_status_requests": 12,
+    "slowest_calls": [
+      {
+        "args": [
+          "export",
+          "start",
+          "ARTIFACTS/round1/reel.mp4",
+          "--wait"
+        ],
+        "seconds": 6.16
+      },
+      {
+        "args": [
+          "timeline",
+          "view",
+          "--start",
+          "5",
+          "--end",
+          "12",
+          "--output",
+          "ARTIFACTS/round1/zoom.png"
+        ],
+        "seconds": 1.823
+      },
+      {
+        "args": [
+          "timeline",
+          "view",
+          "--output",
+          "ARTIFACTS/round1/timeline.png"
+        ],
+        "seconds": 1.625
+      },
+      {
+        "args": [
+          "file",
+          "strip",
+          "7BY0L1O6JZ",
+          "--start",
+          "10",
+          "--end",
+          "37",
+          "--output",
+          "ARTIFACTS/round1/source.png"
+        ],
+        "seconds": 1.122
+      },
+      {
+        "args": [
+          "timeline",
+          "view",
+          "--mode",
+          "waveforms",
+          "--output",
+          "ARTIFACTS/round1/waveform.png"
+        ],
+        "seconds": 1.044
+      }
+    ],
+    "png_bytes": 1693197,
+    "inspection_calls": [
+      {
+        "args": [
+          "timeline",
+          "view",
+          "--help"
+        ],
+        "seconds": 0.05692720413208008,
+        "image_bytes": null,
+        "thumbnails": null,
+        "waveforms": null
+      },
+      {
+        "args": [
+          "file",
+          "strip",
+          "--help"
+        ],
+        "seconds": 0.04822039604187012,
+        "image_bytes": null,
+        "thumbnails": null,
+        "waveforms": null
+      },
+      {
+        "args": [
+          "file",
+          "strip",
+          "7BY0L1O6JZ",
+          "--start",
+          "10",
+          "--end",
+          "37",
+          "--output",
+          "ARTIFACTS/round1/source.png"
+        ],
+        "seconds": 1.1218206882476807,
+        "image_bytes": null,
+        "thumbnails": null,
+        "waveforms": null
+      },
+      {
+        "args": [
+          "timeline",
+          "view",
+          "--output",
+          "ARTIFACTS/round1/timeline.png"
+        ],
+        "seconds": 1.6250314712524414,
+        "image_bytes": null,
+        "thumbnails": null,
+        "waveforms": null
+      },
+      {
+        "args": [
+          "timeline",
+          "view",
+          "--start",
+          "5",
+          "--end",
+          "12",
+          "--output",
+          "ARTIFACTS/round1/zoom.png"
+        ],
+        "seconds": 1.8231372833251953,
+        "image_bytes": null,
+        "thumbnails": null,
+        "waveforms": null
+      },
+      {
+        "args": [
+          "timeline",
+          "thumbnail",
+          "--frame",
+          "145",
+          "--output",
+          "ARTIFACTS/round1/frame6.png"
+        ],
+        "seconds": 0.27635765075683594,
+        "image_bytes": null,
+        "thumbnails": null,
+        "waveforms": null
+      },
+      {
+        "args": [
+          "timeline",
+          "view",
+          "--mode",
+          "waveforms",
+          "--output",
+          "ARTIFACTS/round1/waveform.png"
+        ],
+        "seconds": 1.043694257736206,
+        "image_bytes": null,
+        "thumbnails": null,
+        "waveforms": null
+      },
+      {
+        "args": [
+          "timeline",
+          "overview"
+        ],
+        "seconds": 0.09846282005310059,
+        "image_bytes": null,
+        "thumbnails": null,
+        "waveforms": null
+      }
+    ],
+    "expected_error_calls": 0,
+    "unexpected_error_calls": 2,
+    "notes": "Added waveform/overview; batch namespace discovery failure plus missing local JSON file."
+  },
+  "round2": {
+    "calls": 35,
+    "errors": 2,
+    "help_calls": 16,
+    "wall_seconds": 99.504,
+    "cli_seconds_sum": 15.461,
+    "response_bytes": 51081,
+    "wait_status_requests": 12,
+    "slowest_calls": [
+      {
+        "args": [
+          "--session",
+          "379f4410ccd44303bbeb69fe4b017d1b",
+          "export",
+          "start",
+          "ARTIFACTS/round2/reel.mp4",
+          "--wait",
+          "--wait-timeout",
+          "60"
+        ],
+        "seconds": 6.146
+      },
+      {
+        "args": [
+          "--session",
+          "379f4410ccd44303bbeb69fe4b017d1b",
+          "timeline",
+          "view",
+          "--start",
+          "5",
+          "--end",
+          "12",
+          "--output",
+          "ARTIFACTS/round2/zoom.png"
+        ],
+        "seconds": 1.788
+      },
+      {
+        "args": [
+          "--session",
+          "379f4410ccd44303bbeb69fe4b017d1b",
+          "timeline",
+          "view",
+          "--start",
+          "0",
+          "--end",
+          "20",
+          "--output",
+          "ARTIFACTS/round2/timeline.png"
+        ],
+        "seconds": 1.619
+      },
+      {
+        "args": [
+          "--session",
+          "379f4410ccd44303bbeb69fe4b017d1b",
+          "file",
+          "strip",
+          "DQ56YGS2ZH",
+          "--start",
+          "10",
+          "--end",
+          "37",
+          "--count",
+          "8",
+          "--output",
+          "ARTIFACTS/round2/source-strip.png"
+        ],
+        "seconds": 1.169
+      },
+      {
+        "args": [
+          "--session",
+          "379f4410ccd44303bbeb69fe4b017d1b",
+          "timeline",
+          "view",
+          "--start",
+          "0",
+          "--end",
+          "20",
+          "--mode",
+          "waveforms",
+          "--output",
+          "ARTIFACTS/round2/waveforms.png"
+        ],
+        "seconds": 1.07
+      }
+    ],
+    "png_bytes": 1693197,
+    "inspection_calls": [
+      {
+        "args": [
+          "timeline",
+          "view",
+          "--help"
+        ],
+        "seconds": 0.06392502784729004,
+        "image_bytes": null,
+        "thumbnails": null,
+        "waveforms": null
+      },
+      {
+        "args": [
+          "file",
+          "strip",
+          "--help"
+        ],
+        "seconds": 0.0586550235748291,
+        "image_bytes": null,
+        "thumbnails": null,
+        "waveforms": null
+      },
+      {
+        "args": [
+          "timeline",
+          "thumbnail",
+          "--help"
+        ],
+        "seconds": 0.051334381103515625,
+        "image_bytes": null,
+        "thumbnails": null,
+        "waveforms": null
+      },
+      {
+        "args": [
+          "--session",
+          "379f4410ccd44303bbeb69fe4b017d1b",
+          "file",
+          "strip",
+          "DQ56YGS2ZH",
+          "--start",
+          "10",
+          "--end",
+          "37",
+          "--count",
+          "8",
+          "--output",
+          "ARTIFACTS/round2/source-strip.png"
+        ],
+        "seconds": 1.1685459613800049,
+        "image_bytes": 509853,
+        "thumbnails": null,
+        "waveforms": null
+      },
+      {
+        "args": [
+          "--session",
+          "379f4410ccd44303bbeb69fe4b017d1b",
+          "timeline",
+          "view",
+          "--start",
+          "0",
+          "--end",
+          "20",
+          "--output",
+          "ARTIFACTS/round2/timeline.png"
+        ],
+        "seconds": 1.618530035018921,
+        "image_bytes": 100805,
+        "thumbnails": null,
+        "waveforms": {
+          "generated_sources": 0,
+          "cache_hits": 0,
+          "clips": 0,
+          "decoded_source_seconds": 0,
+          "generated_samples": 0,
+          "samples_per_second": 200,
+          "semantics": "Source peak/RMS envelope with clip volume and time curves; before audio effects and mixing.",
+          "elapsed_seconds": 0.001693
+        }
+      },
+      {
+        "args": [
+          "--session",
+          "379f4410ccd44303bbeb69fe4b017d1b",
+          "timeline",
+          "view",
+          "--start",
+          "5",
+          "--end",
+          "12",
+          "--output",
+          "ARTIFACTS/round2/zoom.png"
+        ],
+        "seconds": 1.7878162860870361,
+        "image_bytes": 100958,
+        "thumbnails": null,
+        "waveforms": {
+          "generated_sources": 0,
+          "cache_hits": 0,
+          "clips": 0,
+          "decoded_source_seconds": 0,
+          "generated_samples": 0,
+          "samples_per_second": 200,
+          "semantics": "Source peak/RMS envelope with clip volume and time curves; before audio effects and mixing.",
+          "elapsed_seconds": 0.001582
+        }
+      },
+      {
+        "args": [
+          "--session",
+          "379f4410ccd44303bbeb69fe4b017d1b",
+          "timeline",
+          "thumbnail",
+          "--frame",
+          "145",
+          "--output",
+          "ARTIFACTS/round2/frame6.png"
+        ],
+        "seconds": 0.2608351707458496,
+        "image_bytes": 923528,
+        "thumbnails": null,
+        "waveforms": null
+      },
+      {
+        "args": [
+          "--session",
+          "379f4410ccd44303bbeb69fe4b017d1b",
+          "timeline",
+          "view",
+          "--start",
+          "0",
+          "--end",
+          "20",
+          "--mode",
+          "waveforms",
+          "--output",
+          "ARTIFACTS/round2/waveforms.png"
+        ],
+        "seconds": 1.070314645767212,
+        "image_bytes": 58053,
+        "thumbnails": null,
+        "waveforms": {
+          "generated_sources": 2,
+          "cache_hits": 1,
+          "clips": 3,
+          "decoded_source_seconds": 233.78548049926758,
+          "generated_samples": 57200,
+          "samples_per_second": 200,
+          "semantics": "Source peak/RMS envelope with clip volume and time curves; before audio effects and mixing.",
+          "elapsed_seconds": 0.884423
+        }
+      },
+      {
+        "args": [
+          "--session",
+          "379f4410ccd44303bbeb69fe4b017d1b",
+          "timeline",
+          "overview"
+        ],
+        "seconds": 0.0988318920135498,
+        "image_bytes": null,
+        "thumbnails": null,
+        "waveforms": null
+      },
+      {
+        "args": [
+          "--session",
+          "379f4410ccd44303bbeb69fe4b017d1b",
+          "timeline",
+          "overview",
+          "--start",
+          "3",
+          "--end",
+          "10"
+        ],
+        "seconds": 0.09167814254760742,
+        "image_bytes": null,
+        "thumbnails": null,
+        "waveforms": null
+      },
+      {
+        "args": [
+          "--session",
+          "379f4410ccd44303bbeb69fe4b017d1b",
+          "timeline",
+          "overview"
+        ],
+        "seconds": 0.08056497573852539,
+        "image_bytes": null,
+        "thumbnails": null,
+        "waveforms": null
+      }
+    ],
+    "expected_error_calls": 0,
+    "unexpected_error_calls": 2,
+    "notes": "Added split/undo; profile-in-batch discovery failure plus missing local JSON file."
+  },
+  "round3": {
+    "calls": 35,
+    "errors": 0,
+    "help_calls": 15,
+    "wall_seconds": 75.655,
+    "cli_seconds_sum": 14.56,
+    "response_bytes": 52541,
+    "wait_status_requests": 12,
+    "slowest_calls": [
+      {
+        "args": [
+          "--session",
+          "a99d6eb0809e4787b85f04062f6f93c9",
+          "export",
+          "start",
+          "ARTIFACTS/round3/reel.mp4",
+          "--wait"
+        ],
+        "seconds": 6.158
+      },
+      {
+        "args": [
+          "--session",
+          "a99d6eb0809e4787b85f04062f6f93c9",
+          "timeline",
+          "view",
+          "--start",
+          "0",
+          "--end",
+          "20",
+          "--mode",
+          "thumbnails",
+          "--output",
+          "ARTIFACTS/round3/full.png"
+        ],
+        "seconds": 1.524
+      },
+      {
+        "args": [
+          "--session",
+          "a99d6eb0809e4787b85f04062f6f93c9",
+          "file",
+          "strip",
+          "YFIDJXFO2O",
+          "--start",
+          "10",
+          "--end",
+          "37",
+          "--count",
+          "8",
+          "--output",
+          "ARTIFACTS/round3/source.png"
+        ],
+        "seconds": 1.177
+      },
+      {
+        "args": [
+          "session",
+          "start"
+        ],
+        "seconds": 1.024
+      },
+      {
+        "args": [
+          "--session",
+          "a99d6eb0809e4787b85f04062f6f93c9",
+          "timeline",
+          "view",
+          "--start",
+          "0",
+          "--end",
+          "20",
+          "--mode",
+          "waveforms",
+          "--output",
+          "ARTIFACTS/round3/wave.png"
+        ],
+        "seconds": 1.011
+      }
+    ],
+    "png_bytes": 1852177,
+    "inspection_calls": [
+      {
+        "args": [
+          "file",
+          "strip",
+          "--help"
+        ],
+        "seconds": 0.04964184761047363,
+        "image_bytes": null,
+        "thumbnails": null,
+        "waveforms": null
+      },
+      {
+        "args": [
+          "timeline",
+          "view",
+          "--help"
+        ],
+        "seconds": 0.04980635643005371,
+        "image_bytes": null,
+        "thumbnails": null,
+        "waveforms": null
+      },
+      {
+        "args": [
+          "timeline",
+          "thumbnail",
+          "--help"
+        ],
+        "seconds": 0.051815032958984375,
+        "image_bytes": null,
+        "thumbnails": null,
+        "waveforms": null
+      },
+      {
+        "args": [
+          "--session",
+          "a99d6eb0809e4787b85f04062f6f93c9",
+          "file",
+          "strip",
+          "YFIDJXFO2O",
+          "--start",
+          "10",
+          "--end",
+          "37",
+          "--count",
+          "8",
+          "--output",
+          "ARTIFACTS/round3/source.png"
+        ],
+        "seconds": 1.1768786907196045,
+        "image_bytes": 509853,
+        "thumbnails": null,
+        "waveforms": null
+      },
+      {
+        "args": [
+          "--session",
+          "a99d6eb0809e4787b85f04062f6f93c9",
+          "timeline",
+          "view",
+          "--start",
+          "0",
+          "--end",
+          "20",
+          "--mode",
+          "thumbnails",
+          "--output",
+          "ARTIFACTS/round3/full.png"
+        ],
+        "seconds": 1.5241186618804932,
+        "image_bytes": 100835,
+        "thumbnails": {
+          "requested": 13,
+          "generated": 13,
+          "cache_hits": 0,
+          "reader_opens": 4,
+          "elapsed_seconds": 1.367479
+        },
+        "waveforms": {
+          "generated_sources": 0,
+          "cache_hits": 0,
+          "clips": 0,
+          "decoded_source_seconds": 0,
+          "generated_samples": 0,
+          "samples_per_second": 200,
+          "semantics": "Source peak/RMS envelope with clip volume and time curves; before audio effects and mixing.",
+          "elapsed_seconds": 0.001744
+        }
+      },
+      {
+        "args": [
+          "--session",
+          "a99d6eb0809e4787b85f04062f6f93c9",
+          "timeline",
+          "view",
+          "--start",
+          "5",
+          "--end",
+          "12",
+          "--mode",
+          "thumbnails",
+          "--output",
+          "ARTIFACTS/round3/zoom.png"
+        ],
+        "seconds": 0.8090314865112305,
+        "image_bytes": 100958,
+        "thumbnails": {
+          "requested": 12,
+          "generated": 8,
+          "cache_hits": 4,
+          "reader_opens": 1,
+          "elapsed_seconds": 0.679096
+        },
+        "waveforms": {
+          "generated_sources": 0,
+          "cache_hits": 0,
+          "clips": 0,
+          "decoded_source_seconds": 0,
+          "generated_samples": 0,
+          "samples_per_second": 200,
+          "semantics": "Source peak/RMS envelope with clip volume and time curves; before audio effects and mixing.",
+          "elapsed_seconds": 0.001967
+        }
+      },
+      {
+        "args": [
+          "--session",
+          "a99d6eb0809e4787b85f04062f6f93c9",
+          "timeline",
+          "thumbnail",
+          "--frame",
+          "145",
+          "--output",
+          "ARTIFACTS/round3/frame6.png"
+        ],
+        "seconds": 0.2785618305206299,
+        "image_bytes": 923528,
+        "thumbnails": null,
+        "waveforms": null
+      },
+      {
+        "args": [
+          "--session",
+          "a99d6eb0809e4787b85f04062f6f93c9",
+          "timeline",
+          "view",
+          "--start",
+          "0",
+          "--end",
+          "20",
+          "--mode",
+          "waveforms",
+          "--output",
+          "ARTIFACTS/round3/wave.png"
+        ],
+        "seconds": 1.0112242698669434,
+        "image_bytes": 58084,
+        "thumbnails": {
+          "requested": 2,
+          "generated": 0,
+          "cache_hits": 2,
+          "reader_opens": 0,
+          "elapsed_seconds": 0.000154
+        },
+        "waveforms": {
+          "generated_sources": 2,
+          "cache_hits": 1,
+          "clips": 3,
+          "decoded_source_seconds": 233.78548049926758,
+          "generated_samples": 57200,
+          "samples_per_second": 200,
+          "semantics": "Source peak/RMS envelope with clip volume and time curves; before audio effects and mixing.",
+          "elapsed_seconds": 0.860371
+        }
+      },
+      {
+        "args": [
+          "--session",
+          "a99d6eb0809e4787b85f04062f6f93c9",
+          "timeline",
+          "overview"
+        ],
+        "seconds": 0.09085369110107422,
+        "image_bytes": null,
+        "thumbnails": null,
+        "waveforms": null
+      },
+      {
+        "args": [
+          "--session",
+          "a99d6eb0809e4787b85f04062f6f93c9",
+          "timeline",
+          "view",
+          "--start",
+          "0",
+          "--end",
+          "20",
+          "--mode",
+          "thumbnails",
+          "--output",
+          "ARTIFACTS/round3/full-repeat.png"
+        ],
+        "seconds": 0.1378171443939209,
+        "image_bytes": 100835,
+        "thumbnails": {
+          "requested": 13,
+          "generated": 0,
+          "cache_hits": 13,
+          "reader_opens": 0,
+          "elapsed_seconds": 0.000312
+        },
+        "waveforms": {
+          "generated_sources": 0,
+          "cache_hits": 0,
+          "clips": 0,
+          "decoded_source_seconds": 0,
+          "generated_samples": 0,
+          "samples_per_second": 200,
+          "semantics": "Source peak/RMS envelope with clip volume and time curves; before audio effects and mixing.",
+          "elapsed_seconds": 0.001532
+        }
+      },
+      {
+        "args": [
+          "--session",
+          "a99d6eb0809e4787b85f04062f6f93c9",
+          "timeline",
+          "view",
+          "--start",
+          "0",
+          "--end",
+          "20",
+          "--mode",
+          "waveforms",
+          "--output",
+          "ARTIFACTS/round3/wave-repeat.png"
+        ],
+        "seconds": 0.2078092098236084,
+        "image_bytes": 58084,
+        "thumbnails": {
+          "requested": 2,
+          "generated": 0,
+          "cache_hits": 2,
+          "reader_opens": 0,
+          "elapsed_seconds": 0.000112
+        },
+        "waveforms": {
+          "generated_sources": 0,
+          "cache_hits": 3,
+          "clips": 3,
+          "decoded_source_seconds": 0,
+          "generated_samples": 57200,
+          "samples_per_second": 200,
+          "semantics": "Source peak/RMS envelope with clip volume and time curves; before audio effects and mixing.",
+          "elapsed_seconds": 0.059818
+        }
+      },
+      {
+        "args": [
+          "--session",
+          "a99d6eb0809e4787b85f04062f6f93c9",
+          "timeline",
+          "overview",
+          "--start",
+          "5",
+          "--end",
+          "12"
+        ],
+        "seconds": 0.09620928764343262,
+        "image_bytes": null,
+        "thumbnails": null,
+        "waveforms": null
+      }
+    ],
+    "expected_error_calls": 0,
+    "unexpected_error_calls": 0,
+    "notes": "Added repeated views and split undo/redo; no errors."
+  },
+  "round4": {
+    "calls": 33,
+    "errors": 1,
+    "help_calls": 11,
+    "wall_seconds": 72.447,
+    "cli_seconds_sum": 14.595,
+    "response_bytes": 63175,
+    "wait_status_requests": 12,
+    "slowest_calls": [
+      {
+        "args": [
+          "--session",
+          "bfefc9861e4f40189adaee0b4a7c212c",
+          "export",
+          "start",
+          "ARTIFACTS/round4/reel.mp4",
+          "--wait"
+        ],
+        "seconds": 6.148
+      },
+      {
+        "args": [
+          "--session",
+          "bfefc9861e4f40189adaee0b4a7c212c",
+          "timeline",
+          "view",
+          "--start",
+          "0",
+          "--end",
+          "20",
+          "--mode",
+          "thumbnails",
+          "--output",
+          "ARTIFACTS/round4/full.png"
+        ],
+        "seconds": 1.494
+      },
+      {
+        "args": [
+          "--session",
+          "bfefc9861e4f40189adaee0b4a7c212c",
+          "file",
+          "strip",
+          "0VIF66VQDU",
+          "--start",
+          "10",
+          "--end",
+          "37",
+          "--output",
+          "ARTIFACTS/round4/source.png"
+        ],
+        "seconds": 1.203
+      },
+      {
+        "args": [
+          "--session",
+          "bfefc9861e4f40189adaee0b4a7c212c",
+          "timeline",
+          "view",
+          "--start",
+          "0",
+          "--end",
+          "20",
+          "--mode",
+          "waveforms",
+          "--output",
+          "ARTIFACTS/round4/wave.png"
+        ],
+        "seconds": 1.022
+      },
+      {
+        "args": [
+          "session",
+          "start"
+        ],
+        "seconds": 1.02
+      }
+    ],
+    "png_bytes": 1170053,
+    "inspection_calls": [
+      {
+        "args": [
+          "file",
+          "strip",
+          "help"
+        ],
+        "seconds": 0.05812954902648926,
+        "image_bytes": null,
+        "thumbnails": null,
+        "waveforms": null
+      },
+      {
+        "args": [
+          "timeline",
+          "view",
+          "help"
+        ],
+        "seconds": 0.05419516563415527,
+        "image_bytes": null,
+        "thumbnails": null,
+        "waveforms": null
+      },
+      {
+        "args": [
+          "timeline",
+          "thumbnail",
+          "help"
+        ],
+        "seconds": 0.05850529670715332,
+        "image_bytes": null,
+        "thumbnails": null,
+        "waveforms": null
+      },
+      {
+        "args": [
+          "--session",
+          "bfefc9861e4f40189adaee0b4a7c212c",
+          "file",
+          "strip",
+          "0VIF66VQDU",
+          "--start",
+          "10",
+          "--end",
+          "37",
+          "--output",
+          "ARTIFACTS/round4/source.png"
+        ],
+        "seconds": 1.2025294303894043,
+        "image_bytes": 509853,
+        "thumbnails": null,
+        "waveforms": null
+      },
+      {
+        "args": [
+          "--session",
+          "bfefc9861e4f40189adaee0b4a7c212c",
+          "timeline",
+          "view",
+          "--start",
+          "0",
+          "--end",
+          "20",
+          "--mode",
+          "thumbnails",
+          "--output",
+          "ARTIFACTS/round4/full.png"
+        ],
+        "seconds": 1.4942493438720703,
+        "image_bytes": 100805,
+        "thumbnails": {
+          "requested": 13,
+          "generated": 13,
+          "cache_hits": 0,
+          "reader_opens": 4,
+          "elapsed_seconds": 1.327237
+        },
+        "waveforms": {
+          "generated_sources": 0,
+          "cache_hits": 0,
+          "clips": 0,
+          "decoded_source_seconds": 0,
+          "mapped_samples": 0,
+          "extracted_samples": 0,
+          "extraction_samples_per_second": 200,
+          "semantics": "Source peak/RMS envelope with clip volume and time curves; before audio effects and mixing.",
+          "elapsed_seconds": 0.001703
+        }
+      },
+      {
+        "args": [
+          "--session",
+          "bfefc9861e4f40189adaee0b4a7c212c",
+          "timeline",
+          "view",
+          "--start",
+          "5",
+          "--end",
+          "12",
+          "--mode",
+          "thumbnails",
+          "--output",
+          "ARTIFACTS/round4/zoom.png"
+        ],
+        "seconds": 0.7968227863311768,
+        "image_bytes": 100958,
+        "thumbnails": {
+          "requested": 12,
+          "generated": 8,
+          "cache_hits": 4,
+          "reader_opens": 1,
+          "elapsed_seconds": 0.658473
+        },
+        "waveforms": {
+          "generated_sources": 0,
+          "cache_hits": 0,
+          "clips": 0,
+          "decoded_source_seconds": 0,
+          "mapped_samples": 0,
+          "extracted_samples": 0,
+          "extraction_samples_per_second": 200,
+          "semantics": "Source peak/RMS envelope with clip volume and time curves; before audio effects and mixing.",
+          "elapsed_seconds": 0.00296
+        }
+      },
+      {
+        "args": [
+          "--session",
+          "bfefc9861e4f40189adaee0b4a7c212c",
+          "timeline",
+          "thumbnail",
+          "--frame",
+          "145",
+          "--output",
+          "ARTIFACTS/round4/frame6.png"
+        ],
+        "seconds": 0.2890019416809082,
+        "image_bytes": 241526,
+        "thumbnails": null,
+        "waveforms": null
+      },
+      {
+        "args": [
+          "--session",
+          "bfefc9861e4f40189adaee0b4a7c212c",
+          "timeline",
+          "view",
+          "--start",
+          "0",
+          "--end",
+          "20",
+          "--mode",
+          "waveforms",
+          "--output",
+          "ARTIFACTS/round4/wave.png"
+        ],
+        "seconds": 1.0217869281768799,
+        "image_bytes": 58053,
+        "thumbnails": {
+          "requested": 2,
+          "generated": 0,
+          "cache_hits": 2,
+          "reader_opens": 0,
+          "elapsed_seconds": 0.000149
+        },
+        "waveforms": {
+          "generated_sources": 2,
+          "cache_hits": 1,
+          "clips": 3,
+          "decoded_source_seconds": 233.78548049926758,
+          "mapped_samples": 57200,
+          "extracted_samples": 46758,
+          "extraction_samples_per_second": 200,
+          "semantics": "Source peak/RMS envelope with clip volume and time curves; before audio effects and mixing.",
+          "elapsed_seconds": 0.878065
+        }
+      },
+      {
+        "args": [
+          "--session",
+          "bfefc9861e4f40189adaee0b4a7c212c",
+          "timeline",
+          "overview"
+        ],
+        "seconds": 0.08632755279541016,
+        "image_bytes": null,
+        "thumbnails": null,
+        "waveforms": null
+      },
+      {
+        "args": [
+          "--session",
+          "bfefc9861e4f40189adaee0b4a7c212c",
+          "timeline",
+          "view",
+          "--start",
+          "0",
+          "--end",
+          "20",
+          "--mode",
+          "thumbnails",
+          "--output",
+          "ARTIFACTS/round4/full2.png"
+        ],
+        "seconds": 0.14592623710632324,
+        "image_bytes": 100805,
+        "thumbnails": {
+          "requested": 13,
+          "generated": 0,
+          "cache_hits": 13,
+          "reader_opens": 0,
+          "elapsed_seconds": 0.000336
+        },
+        "waveforms": {
+          "generated_sources": 0,
+          "cache_hits": 0,
+          "clips": 0,
+          "decoded_source_seconds": 0,
+          "mapped_samples": 0,
+          "extracted_samples": 0,
+          "extraction_samples_per_second": 200,
+          "semantics": "Source peak/RMS envelope with clip volume and time curves; before audio effects and mixing.",
+          "elapsed_seconds": 0.00184
+        }
+      },
+      {
+        "args": [
+          "--session",
+          "bfefc9861e4f40189adaee0b4a7c212c",
+          "timeline",
+          "view",
+          "--start",
+          "0",
+          "--end",
+          "20",
+          "--mode",
+          "waveforms",
+          "--output",
+          "ARTIFACTS/round4/wave2.png"
+        ],
+        "seconds": 0.21306872367858887,
+        "image_bytes": 58053,
+        "thumbnails": {
+          "requested": 2,
+          "generated": 0,
+          "cache_hits": 2,
+          "reader_opens": 0,
+          "elapsed_seconds": 0.000129
+        },
+        "waveforms": {
+          "generated_sources": 0,
+          "cache_hits": 3,
+          "clips": 3,
+          "decoded_source_seconds": 0,
+          "mapped_samples": 57200,
+          "extracted_samples": 0,
+          "extraction_samples_per_second": 200,
+          "semantics": "Source peak/RMS envelope with clip volume and time curves; before audio effects and mixing.",
+          "elapsed_seconds": 0.063066
+        }
+      },
+      {
+        "args": [
+          "--session",
+          "bfefc9861e4f40189adaee0b4a7c212c",
+          "timeline",
+          "overview"
+        ],
+        "seconds": 0.09206151962280273,
+        "image_bytes": null,
+        "thumbnails": null,
+        "waveforms": null
+      },
+      {
+        "args": [
+          "--session",
+          "bfefc9861e4f40189adaee0b4a7c212c",
+          "timeline",
+          "overview"
+        ],
+        "seconds": 0.08658695220947266,
+        "image_bytes": null,
+        "thumbnails": null,
+        "waveforms": null
+      },
+      {
+        "args": [
+          "--session",
+          "bfefc9861e4f40189adaee0b4a7c212c",
+          "timeline",
+          "overview"
+        ],
+        "seconds": 0.08925795555114746,
+        "image_bytes": null,
+        "thumbnails": null,
+        "waveforms": null
+      }
+    ],
+    "expected_error_calls": 1,
+    "unexpected_error_calls": 0,
+    "notes": "Same extended checks plus deliberate invalid-reference atomicity test; no unexpected errors."
+  }
+}

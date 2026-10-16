@@ -152,8 +152,12 @@ def _resize_hit_at(widget, pos):
 
 
 class TimelineWidgetBase(RazorMixin, QWidget):
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, *, snapshot=False):
         super().__init__(parent)
+        # Read-only offscreen instances reuse the actual painters without wiring
+        # editing signals, subscribing to project updates, or starting workers.
+        self.snapshot_mode = snapshot
+        self.win = None if snapshot else get_app().window
 
         # Enable drag and drop
         self.new_item = None
@@ -328,7 +332,7 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         self._suspend_thumbnail_requests = False
         self._drag_preview_thumbnail_suspended = False
         self._drag_preview_prev_thumb_suspend = False
-        self.thumbnail_manager = TimelineThumbnailManager(self)
+        self.thumbnail_manager = None if snapshot else TimelineThumbnailManager(self)
 
         # Helpers for geometry, snapping and painting
         self.geometry = Geometry(self)
@@ -345,10 +349,11 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         self.keyframe_panel_painter = KeyframePanelPainter(self)
         self.selection_painter = SelectionPainter(self)
         self.scrollbar_painter = ScrollbarPainter(self)
-        self.thumbnail_manager.thumbnail_ready.connect(
-            self._handle_thumbnail_ready,
-            type=Qt.QueuedConnection,
-        )
+        if self.thumbnail_manager:
+            self.thumbnail_manager.thumbnail_ready.connect(
+                self._handle_thumbnail_ready,
+                type=Qt.QueuedConnection,
+            )
 
         # In-place editor for the painted playhead time in the ruler header.
         self.playhead_time_editor = TimecodeLineEdit(self)
@@ -401,26 +406,28 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         super().setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 
         # Add self as listener to project data updates (used to update the timeline)
-        get_app().updates.add_listener(self)
+        if not snapshot:
+            get_app().updates.add_listener(self)
 
         # Set mouse tracking
         self.setMouseTracking(True)
 
-        # Get a reference to the window object
-        self.win = get_app().window
-        self.win.SeekSignal.connect(self._razor_user_seek)
-        self.win.PlaySignal.connect(self._razor_user_seek)
-        self.win.ThemeChangedSignal.connect(self.apply_theme)
+        if not snapshot:
+            # Get a reference to the window object
+            self.win = get_app().window
+            self.win.SeekSignal.connect(self._razor_user_seek)
+            self.win.PlaySignal.connect(self._razor_user_seek)
+            self.win.ThemeChangedSignal.connect(self.apply_theme)
 
-        # Connect zoom functionality
-        self.win.TimelineScrolled.connect(self.update_scrollbars)
-        self.win.TimelineScroll.connect(self.set_scroll_left)
-        self.win.TimelineZoom.connect(self._apply_external_zoom)
+            # Connect zoom functionality
+            self.win.TimelineScrolled.connect(self.update_scrollbars)
+            self.win.TimelineScroll.connect(self.set_scroll_left)
+            self.win.TimelineZoom.connect(self._apply_external_zoom)
 
-        self.win.TimelineResize.connect(self.delayed_resize_callback)
+            self.win.TimelineResize.connect(self.delayed_resize_callback)
 
-        # Connect Selection signals
-        self.win.SelectionChanged.connect(self.handle_selection)
+            # Connect Selection signals
+            self.win.SelectionChanged.connect(self.handle_selection)
 
         # Show Property timer
         # Timer to use a delay before sending MaxSizeChanged signals (so we don't spam libopenshot)
@@ -437,7 +444,8 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         self.events = TimelineEvents(self)
         self._last_event = None
         self._press_hit = None
-        self._buildStateMachine()
+        if not snapshot:
+            self._buildStateMachine()
 
         # Effect icon hit targets (populated by the clip painter)
         self._effect_icon_rects = []
@@ -1033,7 +1041,7 @@ class TimelineWidgetBase(RazorMixin, QWidget):
                 True,
             )
 
-            if not get_app().window.timeline:
+            if not getattr(self, "snapshot_mode", False) and not getattr(get_app().window, "timeline", None):
                 return
 
             # Skip panel property rebuild during an active keyframe drag
