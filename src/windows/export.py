@@ -1451,6 +1451,19 @@ class Export(QDialog):
             log.info("No saved settings found.")
             return
 
+        # Missing export plugins can leave projects with empty selections and
+        # invalid codec/dimension settings. Keep the initialized defaults.
+        required_selections = {
+            "cboSimpleTarget", "cboSimpleVideoProfile", "cboSimpleQuality"
+        }
+        if any(
+            setting.get("name") in required_selections
+            and setting.get("value") == -1
+            for setting in settings
+        ):
+            log.warning("Ignoring saved export settings with empty selections.")
+            return
+
         # Iterate over the list of settings and apply them in order
         for setting in settings:
             widget = self.findChild(QWidget, setting['name'])
