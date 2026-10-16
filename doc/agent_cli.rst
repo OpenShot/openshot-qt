@@ -24,6 +24,13 @@ Use your installed OpenShot executable followed by ``--cli``. Start with
 ``help`` for the command overview. These commands do not need an active session.
 The examples below require an OpenShot build that includes command-line editing.
 
+.. important::
+
+   Editing commands need a selected session. Starting a session returns a
+   ``session_id``; it does **not** select that session for later commands.
+   Follow :ref:`cli_session_selection_ref` before running project, timeline,
+   editing, or export commands.
+
 .. _cli_appimage_ref:
 
 Linux AppImage
@@ -156,15 +163,71 @@ The sections below explain these workflows and their timing conventions.
 Sessions and outputs
 --------------------
 
-You can connect to a running editor or start a headless session without opening
-the editor window::
+Starting or finding a session
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Start one headless session (without an editor window)::
+
+   openshot-cli session start
+
+To open an existing project at startup, add ``--project "/path/project.osp"``.
+The successful JSON response contains ``result.session_id``. Copy that value.
+If OpenShot is already running, or you have forgotten the ID, find available
+sessions with::
 
    openshot-cli session list
-   openshot-cli session start
-   openshot-cli session start --show
-   openshot-cli --session SESSION_ID session show
-   openshot-cli --session SESSION_ID project get
-   openshot-cli --session SESSION_ID project profile get
+
+Choose the session for the project you intend to edit. You do not need to start
+a new session for each command.
+
+.. _cli_session_selection_ref:
+
+Selecting a session
+~~~~~~~~~~~~~~~~~~~
+
+Use the returned ID in subsequent commands. Replace ``SESSION_ID`` below with
+the actual value, without angle brackets. Put ``--session`` **after** ``--cli``
+and **before** the command group.
+
+Windows PowerShell::
+
+   & .\openshot-qt-cmd.exe --cli --session SESSION_ID timeline view
+   & .\openshot-qt-cmd.exe --cli --session SESSION_ID export start "C:\path\test.mp4" --wait
+
+Linux AppImage::
+
+   ./OpenShot.AppImage --cli --session SESSION_ID timeline view
+   ./OpenShot.AppImage --cli --session SESSION_ID export start "/path/test.mp4" --wait
+
+For repeated commands, you can select the session once in your current terminal
+using ``OPENSHOT_SESSION`` instead of passing ``--session`` every time.
+
+Windows PowerShell::
+
+   $env:OPENSHOT_SESSION = "SESSION_ID"
+   & .\openshot-qt-cmd.exe --cli timeline view
+
+Linux or macOS shell::
+
+   export OPENSHOT_SESSION="SESSION_ID"
+   ./OpenShot.AppImage --cli timeline view
+
+On macOS or Snap, substitute your installation's command from Getting started.
+**Examples below that omit --session assume OPENSHOT_SESSION is set.** An
+explicit ``--session`` overrides the environment variable. Update the ID when
+switching projects in different sessions or starting a replacement session.
+
+Automatic selection only works when exactly one reachable session exists.
+If you see ``session_required``, run ``session list`` and explicitly select the
+intended session. If it is no longer listed, start it again and use the new ID.
+Help, ``intro``, and session discovery do not require a selected session.
+
+Showing and stopping a session
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To show the selected session in the editor::
+
+   openshot-cli session show
 
 On a desktop, ``session show`` creates the editor in the same process and keeps
 the live project, IDs, history, export jobs, and connection. Repeated calls raise
@@ -174,12 +237,13 @@ cannot later show a desktop window. For those sessions, save and open the projec
 in a new desktop session. Once shown, close the session
 through the editor window.
 
-Global options (``--session``, ``--timeout``) go before the command. Set
-``OPENSHOT_SESSION`` to select a session for repeated calls. With no explicit
-selection, exactly one reachable session is required. ``session serve`` stays
-in the foreground for supervisors; ``session start`` returns after a background
+Global options (``--session``, ``--timeout``) go before the command.
+``session serve`` stays in the foreground for supervisors; ``session start`` returns after a background
 host registers. ``session stop`` refuses unsaved changes and active exports.
 Use ``--discard`` only to intentionally discard unsaved edits.
+
+Command output
+~~~~~~~~~~~~~~
 
 Results are JSON on stdout, except the default text timeline view. Errors are JSON on stderr with exit status 1;
 argument-parser errors exit 2. Mutations return compact summaries with an
