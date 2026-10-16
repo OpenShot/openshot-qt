@@ -111,9 +111,8 @@ def print_min_versions(PATH):
 if __name__ == "__main__":
     # Run these methods manually for testing.
     # Usage: python3 fix_qt5_rpath.py [BUILD_PATH]
-    # With no argument, the most recent cx_Freeze build directory under
-    # <repo>/build/exe.macosx-* is used, which works on any architecture
-    # (arm64 or x86_64) and any Python / macOS SDK version.
+    # With no argument, use the sole cx_Freeze build directory. Require an
+    # explicit path when multiple architectures or Python builds coexist.
     import sys
     import glob
 
@@ -121,14 +120,22 @@ if __name__ == "__main__":
         PATH = sys.argv[1]
     else:
         repo_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        candidates = sorted(glob.glob(os.path.join(repo_root, "build", "exe.macosx-*")))
+        candidates = sorted(path for path in
+                            glob.glob(os.path.join(repo_root, "build", "exe.macosx-*"))
+                            if os.path.isdir(path))
         if not candidates:
             sys.exit(
                 "Usage: python3 fix_qt5_rpath.py [BUILD_PATH]\n"
                 "No cx_Freeze build directory found under %s/build/exe.macosx-*"
                 % repo_root
             )
-        PATH = candidates[-1]
+        if len(candidates) > 1:
+            sys.exit("Multiple build directories found; pass BUILD_PATH explicitly:\n%s"
+                     % "\n".join(candidates))
+        PATH = candidates[0]
+
+    if not os.path.isdir(PATH):
+        sys.exit("Build directory does not exist: %s" % PATH)
 
     print("Running fix_rpath and print_min_versions against: %s" % PATH)
     fix_rpath(PATH)
