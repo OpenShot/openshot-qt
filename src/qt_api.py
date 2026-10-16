@@ -2378,7 +2378,9 @@ def _patch_enums_for_qt6():
             cls = getattr(QtCore, name, None)
             if cls and hasattr(cls, "exec") and not hasattr(cls, "exec_"):
                 try:
-                    setattr(cls, "exec_", _exec_wrapper)
+                    # Application exec() is static; preserve class and instance calls.
+                    alias = staticmethod(cls.exec) if name == "QCoreApplication" else _exec_wrapper
+                    setattr(cls, "exec_", alias)
                 except Exception:
                     pass
 
