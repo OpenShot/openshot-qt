@@ -90,6 +90,17 @@ class SourceRangeTests(unittest.TestCase):
         self.addCleanup(dialog.close)
         return dialog
 
+    def test_preview_autoplay_survives_source_range_setup(self):
+        for trimmed in (False, True):
+            self.data['files'][0].update(
+                start=2.0 if trimmed else 0.0,
+                end=5.0 if trimmed else 10.0, is_split_file=trimmed)
+            for clip_id in (None, 'clip'):
+                for preview in (False, True):
+                    with self.subTest(trimmed=trimmed, clip_id=clip_id, preview=preview):
+                        dialog = self.dialog(clip_id=clip_id, preview=preview)
+                        self.assertEqual(dialog._preview_autoplay_active, preview)
+
     def test_timeline_markers_preview_then_apply_only_target_with_undo_redo(self):
         d = self.dialog('clip')
         self.assertEqual((d.start_frame, d.end_frame), (61, 150))

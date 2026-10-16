@@ -2239,14 +2239,15 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 if action != copy_action and not action.isSeparator():
                     action.setEnabled(False)
 
-        # Properties
+        # Source preview and Properties remain available on locked tracks.
         menu.addSeparator()
+        if clip.data.get('file_id'):
+            preview_action = add_bound_action(
+                menu, self.window, "actionPreview_File", _("Preview Clip"),
+                callback=lambda: self.window.actionPreview_File_trigger(clip_id=clip.id))
+            preview_action.setText(_("Preview Clip"))
         add_bound_action(menu, self.window, "actionProperties", _("Properties"),
                          callback=lambda: self.window.actionProperties_trigger(timeline_anchor=properties_anchor))
-
-        if clip.data.get('file_id'):
-            add_bound_action(menu, self.window, "actionPreview_File", _("Preview Clip"),
-                             callback=lambda: self.window.actionPreview_File_trigger(clip_id=clip.id))
 
         # Use a menu-owned action so this lock state cannot disable the shared
         # Remove Clip action in other menus or shortcuts.

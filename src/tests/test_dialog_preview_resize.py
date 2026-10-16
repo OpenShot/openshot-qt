@@ -355,7 +355,17 @@ class DialogPreviewResizeTests(unittest.TestCase):
 
         self.assertEqual(seek_calls, [(1, False)])
 
-    def test_timeline_source_preview_pauses_seeks_and_survives_worker_startup(self):
+    def test_preview_autoplay_does_not_restart_a_closing_dialog(self):
+        fake = types.SimpleNamespace(
+            is_preview_mode=True, _preview_autoplay_active=True,
+            _shutdown_in_progress=True, initialized=False,
+            btnPlay_clicked=MagicMock())
+        with patch('windows.cutting.QTimer.singleShot') as timer:
+            Cutting._start_preview_autoplay(fake)
+        timer.assert_not_called()
+        fake.btnPlay_clicked.assert_not_called()
+
+    def test_timeline_source_preview_autoplays_from_in_point_after_worker_startup(self):
         from qt_api import QSlider
         slider = QSlider()
         slider.setRange(1, 240)
@@ -365,17 +375,20 @@ class DialogPreviewResizeTests(unittest.TestCase):
             _preview_autoplay_active=True, btnPlay_clicked=MagicMock(),
             preview_thread=types.SimpleNamespace(Seek=MagicMock()), SeekSignal=DummySignal())
         fake._preview_ready = lambda: Cutting._preview_ready(fake)
+        fake._start_preview_autoplay = MagicMock()
         for seconds, expected in ((3.5, 37), (0, 1), (100, 240)):
-            Cutting.preview_source_at(fake, seconds)
-            self.assertFalse(fake._preview_autoplay_active)
+            with patch('windows.cutting.QTimer.singleShot') as timer:
+                Cutting.preview_source_at(fake, seconds)
+            self.assertTrue(fake._preview_autoplay_active)
+            self.assertEqual(fake._preview_autoplay_attempts, 0)
+            timer.assert_called_once_with(0, fake._start_preview_autoplay)
             self.assertEqual(slider.value(), expected)
             fake.btnPlay_clicked.assert_called_with(force='pause')
             fake.preview_thread.Seek.assert_called_with(expected, False)
-            # A queued ready signal must not reset the requested frame to 1
-            # or restart autoplay after a timeline preview request.
+            # A queued ready signal must retain the requested frame and autoplay.
             with patch('windows.cutting.QTimer.singleShot') as timer:
                 Cutting._preview_ready(fake)
-            timer.assert_not_called()
+            timer.assert_called_once_with(0, fake._start_preview_autoplay)
             fake.preview_thread.Seek.assert_called_with(expected, False)
         self.assertFalse(fake.sliderIgnoreSignal)
 

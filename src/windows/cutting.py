@@ -569,7 +569,8 @@ class Cutting(SourceRangeMixin, QDialog):
             self.sliderVideo.setFocus()
 
     def _start_preview_autoplay(self):
-        if not self._preview_autoplay_active or not self.is_preview_mode:
+        if (not self._preview_autoplay_active or not self.is_preview_mode
+                or getattr(self, '_shutdown_in_progress', False)):
             return
         if not getattr(self, "initialized", False):
             QTimer.singleShot(120, lambda: Cutting._start_preview_autoplay(self))
@@ -597,7 +598,7 @@ class Cutting(SourceRangeMixin, QDialog):
         QTimer.singleShot(120, lambda: Cutting._start_preview_autoplay(self))
 
     def preview_source_at(self, seconds):
-        """Show a source in-point paused, without modifying the file or clip."""
+        """Play from a source in-point without modifying the file or clip."""
         if not self.is_preview_mode or not getattr(self, 'initialized', False):
             return
         self._preview_autoplay_active = False
@@ -609,6 +610,8 @@ class Cutting(SourceRangeMixin, QDialog):
         self.sliderVideo.setValue(self._preview_initial_frame)
         self.sliderIgnoreSignal = False
         self.sliderVideo.setFocus(Qt.OtherFocusReason)
+        self._preview_autoplay_active = True
+        self._preview_autoplay_attempts = 0
         self._preview_ready()
 
     def _preview_ready(self):

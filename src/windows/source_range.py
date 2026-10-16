@@ -152,8 +152,9 @@ class SourceRangeMixin:
         self.sliderVideo.rangeEdited.connect(self._source_range_edited)
         self._reset_source_range()
         self.txtName.textChanged.connect(lambda: self._source_range_edited(self.start_frame, self.end_frame))
-        if self.range_mode != 'create' or trimmed_file:
-            self._preview_autoplay_active = False
+        # Preview File/Clip should play even when showing an editable source range.
+        # Split File uses the same controls but starts paused.
+        self._preview_autoplay_active = bool(self.is_preview_mode)
         self._preview_initial_frame = self.start_frame
         self._range_timer = QTimer(self)
         self._range_timer.setInterval(350)
