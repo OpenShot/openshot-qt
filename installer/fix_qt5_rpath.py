@@ -40,7 +40,7 @@ def has_arm64_code(file_path):
 
 def adhoc_sign(file_path):
     """Replace the code signature of a binary with an ad-hoc signature"""
-    result = subprocess.run(["codesign", "--force", "--sign", "-", file_path],
+    result = subprocess.run(["codesign", "--force", "--sign", "-", file_path],  # nosec B603 - Fixed command and argument list; no shell.
                             stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     if result.returncode != 0:
         raise RuntimeError("Failed to ad-hoc sign %s: %s" % (
