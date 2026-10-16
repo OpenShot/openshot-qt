@@ -400,9 +400,31 @@
     "type": "spinner"
   },
   {
+    "title": "Auto-Optimize",
+    "category": "Optimize",
+    "setting": "auto-optimize",
+    "type": "dropdown",
+    "value": "ask",
+    "values": [
+      {"value": "ask", "name": "Ask"},
+      {"value": "always", "name": "Always"},
+      {"value": "never", "name": "Never"}
+    ]
+  },
+  {
+    "title": "Auto-Optimize Threshold",
+    "category": "Optimize",
+    "setting": "auto-optimize-threshold",
+    "type": "spinner-int",
+    "min": 1,
+    "max": 10000,
+    "value": 200,
+    "step": 10
+  },
+  {
     "max": 8,
     "title": "Concurrent Optimize Jobs",
-    "category": "Preview",
+    "category": "Optimize",
     "min": 1,
     "setting": "optimize-preview-jobs",
     "value": 2,
@@ -410,7 +432,7 @@
   },
   {
     "title": "Optimized Preview Resolution",
-    "category": "Preview",
+    "category": "Optimize",
     "setting": "optimize-preview-max-size",
     "type": "dropdown",
     "value": "1280x720",
@@ -436,7 +458,7 @@
   {
     "max": 12,
     "title": "Thumbnail Preload Rate / second",
-    "category": "Preview",
+    "category": "Optimize",
     "min": 1,
     "setting": "optimize-preview-thumbnails",
     "value": 4,
@@ -1383,6 +1405,14 @@
     "restart": false,
     "setting": "actionClearWaveformData",
     "value": "Ctrl+Shift+W",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Auto-Optimize",
+    "restart": false,
+    "setting": "actionAutoOptimize",
+    "value": "Ctrl+Alt+O",
     "type": "text"
   },
   {

@@ -129,6 +129,14 @@ class ProxyServiceTests(unittest.TestCase):
          self.service.shutdown()
          ensure_app_state(self.app)
 
+     def test_completed_job_from_previous_project_cannot_link_into_current_project(self):
+         self.service._jobs["F1"] = {"id": "F1", "project_id": "previous-project", "status": "running"}
+         with patch.object(self.service, "_save_proxy_reader") as save, \
+              patch.object(self.service, "_finalize_job") as finalize:
+             self.service._on_proxy_generated("F1", {"path": "/old/optimized.mp4"}, "")
+         save.assert_not_called()
+         finalize.assert_called_once_with("F1", "canceled")
+
      def test_dialog_preview_reader_data_prefers_valid_proxy_reader(self):
          file_obj = types.SimpleNamespace(
              id="F1",
@@ -814,6 +822,84 @@ class ProxyServiceTests(unittest.TestCase):
          fresh_file.save.assert_called_once_with()
          self.assertNotIn("proxy_reader", fresh_file.data)
          self.assertEqual(delete_calls, [["files", {"id": "F1"}, "proxy_reader"]])
+
+     def test_shutdown_stops_running_encoder_cancels_queue_and_removes_partial_output(self):
+         import threading
+         from concurrent.futures import ThreadPoolExecutor
+         from pathlib import Path
+         from classes.proxy_service import _ProxyJobCanceled
+
+         self.service._executor.shutdown(wait=True)
+         self.service._executor = ThreadPoolExecutor(max_workers=1)
+         entered = threading.Event()
+         release = threading.Event()
+         reader = Mock()
+         reader.Json.return_value = json.dumps({
+             "width": 1920, "height": 1080, "fps": {"num": 30, "den": 1},
+             "pixel_ratio": {"num": 1, "den": 1}, "video_length": 5, "has_audio": False})
+         def get_frame(number):
+             entered.set()
+             if not release.wait(3):
+                 raise RuntimeError("Test decoder was not released")
+             return "frame"
+         reader.GetFrame.side_effect = get_frame
+         clip = Mock()
+         clip.Reader.return_value = reader
+         writer = Mock()
+         outputs = []
+         def create_writer(path):
+             outputs.append(path)
+             writer.Open.side_effect = lambda: Path(path).write_bytes(b"partial video")
+             return writer
+         with tempfile.TemporaryDirectory() as root:
+             source = str(Path(root) / "source.mp4")
+             Path(source).write_bytes(b"original")
+             files = [types.SimpleNamespace(id=file_id, data={
+                 "id": file_id, "path": source, "media_type": "video"}) for file_id in ("F1", "F2")]
+             try:
+                 with patch.object(self.service, "_optimize_worker_count", return_value=1), \
+                      patch.object(self.service, "_proxy_root", return_value=root), \
+                      patch.object(self.service, "_create_optimize_timeline", return_value=Mock()), \
+                      patch.object(self.service, "_thumbnail_prewarm_frames", return_value=[]), \
+                      patch("classes.proxy_service.openshot.Clip", return_value=clip), \
+                      patch("classes.proxy_service.openshot.FFmpegWriter", side_effect=create_writer), \
+                      patch.object(self.service, "_reader_json_for_path") as inspect_output, \
+                      patch.object(self.service, "_save_proxy_reader") as save:
+                     self.service.create_for_files(files)
+                     self.assertTrue(entered.wait(3))
+                     running = self.service._jobs["F1"]["future"]
+                     queued = self.service._jobs["F2"]["future"]
+                     # Queued cancellation releases the simulated native decoder call.
+                     queued.add_done_callback(lambda future: release.set())
+                     self.service.shutdown()
+                     self.assertTrue(queued.cancelled())
+                     self.assertTrue(running.done())
+                     self.assertIsInstance(running.exception(), _ProxyJobCanceled)
+                     self.assertFalse(any(thread.is_alive() for thread in self.service._executor._threads))
+                     writer.WriteFrame.assert_not_called()
+                     writer.Close.assert_called_once()
+                     clip.Close.assert_called_once()
+                     inspect_output.assert_not_called()
+                     save.assert_not_called()
+                     self.assertEqual(len(outputs), 1)
+                     self.assertFalse(Path(outputs[0]).exists())
+                     self.assertEqual(Path(source).read_bytes(), b"original")
+                     self.assertFalse(self.service._jobs)
+                     # Closing twice and late UI requests cannot restart the executor.
+                     self.service.shutdown()
+                     self.service.create_for_files(files)
+                     self.assertFalse(self.service._jobs)
+             finally:
+                 release.set()
+                 self.service.shutdown()
+
+     def test_shutdown_ignores_result_already_queued_for_ui_delivery(self):
+         self.service.shutdown()
+         with patch.object(self.service, "_save_proxy_reader") as save, \
+              patch.object(self.service, "_show_status") as status:
+             self.service._on_proxy_generated("F1", {"path": "/optimized/complete.mp4"}, "")
+         save.assert_not_called()
+         status.assert_not_called()
 
      def test_cancel_job_finalizes_queued_future(self):
          future = Mock()

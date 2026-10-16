@@ -169,12 +169,97 @@ If a modified range changes elsewhere in the project, discard its local changes
 and reload it before saving. The dialog remains attached to its original source
 or timeline clip when the main-window selection changes.
 
+.. _optimize_ref:
+
 Optimize
 --------
 Optimized preview files are lower-resolution copies of your source video files (sometimes referred to as proxy files),
 used to improve editing responsiveness without changing the original media. They are especially helpful with large
 formats such as 4K, high frame rate, or high bitrate footage.
 
+Automatic optimization
+^^^^^^^^^^^^^^^^^^^^^^
+When OpenShot creates a video's first thumbnail, it records how long the first frame
+takes to produce. This uses work already needed to display the video in Project Files;
+there is no separate decoding test. Videos whose thumbnail frame takes longer than the
+:guilabel:`Auto-Optimize Threshold` may benefit from smaller preview copies.
+
+With the default :guilabel:`Ask` preference, a banner appears when OpenShot finds a
+qualifying video in a project that does not yet have a saved choice:
+
+    **Optimize videos for smoother playback?** Originals and export quality stay unchanged.
+
+Click :guilabel:`Optimize Automatically` to enable automatic optimization for the current
+project. The banner disappears immediately, and qualifying videos are added to the
+optimization queue. Videos you import later also join the queue when they qualify,
+even if another video is already being optimized. You are not asked again for each file.
+
+You can continue editing while optimization runs. There is no progress banner; progress
+appears on the files in Project Files instead.
+
+Click :guilabel:`Not Now` or close the banner to decline. OpenShot remembers your choice
+when you save the project, so reopening it or importing more videos does not repeat the
+suggestion. To change your choice, check or uncheck :menuselection:`File --> Auto-Optimize`
+or press :kbd:`Ctrl+Alt+O` (:kbd:`Command+Alt+O` on macOS). Customize this shortcut in
+:menuselection:`Edit --> Preferences --> Keyboard`.
+Turning it off stops new automatic work; jobs already started can be canceled through
+the file's :guilabel:`Optimize` submenu. Existing optimized copies remain available.
+
+In :menuselection:`Edit --> Preferences`, open the :guilabel:`Optimize` tab (see
+:ref:`preferences_optimize_ref`):
+
+* :guilabel:`Auto-Optimize`: :guilabel:`Ask` shows the banner and is the default.
+  :guilabel:`Always` optimizes qualifying videos without a banner. :guilabel:`Never`
+  disables suggestions and automatic processing. These defaults apply to projects
+  without a saved choice; a project's own setting takes precedence.
+* :guilabel:`Auto-Optimize Threshold`: defaults to **200 ms**. Lower values include
+  more videos; higher values include fewer. This measures producing the first
+  thumbnail frame, not opening the file, saving the thumbnail, or waiting in a queue.
+* :guilabel:`Optimized Preview Resolution` and :guilabel:`Concurrent Optimize Jobs`
+  control the preview copies and how many videos can be processed at once.
+
+Thumbnail timing is saved with each file in the project. OpenShot reuses a valid timing
+when you reopen the project on the same computer. A changed source file or a different
+computer needs a new measurement. Older projects with cached thumbnails are measured
+when their first thumbnails next need generating; OpenShot does not decode extra frames
+just to obtain a timing. You can always optimize videos manually, even without a timing.
+
+The threshold is a guide, not a guarantee of playback performance. Other applications
+can affect timing, and effects or overlapping clips can slow playback independently of
+the source video. Optimized copies use additional disk space in the project's assets
+folder; original files and export quality stay unchanged. Canceled or failed automatic
+jobs are not automatically retried during the current project session.
+
+Closing OpenShot cancels queued and running optimization jobs. Active jobs finish their
+current processing step before closing, and unfinished preview files are removed.
+
+Optimization status
+^^^^^^^^^^^^^^^^^^^
+Hover over a file in Project Files to see its filename followed by a brief status:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 45 55
+
+   * - Tooltip status
+     - Meaning
+   * - Queued for optimization
+     - Waiting for an available optimization job slot.
+   * - Optimizing for smoother playback — 35%
+     - Creating a preview copy. The percentage shows progress.
+   * - Optimized for smoother playback
+     - The preview copy is ready to use.
+   * - Canceling optimization
+     - Stopping the current job and cleaning up the unfinished copy.
+   * - Optimized preview missing
+     - The linked preview copy cannot be found. Recreate it with Optimize Video or link an existing copy.
+
+To stop a queued or running job, right-click the file and choose
+:menuselection:`Optimize --> Cancel`. Canceling a job does not turn off
+:menuselection:`File --> Auto-Optimize` for later imports.
+
+Manual optimization
+^^^^^^^^^^^^^^^^^^^
 For video files, the file context menu includes an :guilabel:`Optimize` submenu. This feature creates or links
 smaller preview copies of your source clips, which can improve playback and scrubbing on slower systems or with
 high-resolution footage. Optimizing also pre-loads thumbnails to further improve the editing smoothness when

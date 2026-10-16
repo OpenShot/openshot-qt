@@ -70,7 +70,7 @@ class Preferences(QDialog):
         ui_util.init_ui(self)
 
         # Define the custom category order
-        self.custom_order = ["General", "Timeline", "Preview", "Autosave", "Cache", "Performance", "Keyboard", "Location", "Advanced"]
+        self.custom_order = ["General", "Timeline", "Preview", "Optimize", "Autosave", "Cache", "Performance", "Keyboard", "Location", "Advanced"]
 
         # Get settings
         self.s = get_app().get_settings()
@@ -287,6 +287,12 @@ class Preferences(QDialog):
                     widget.setValue(current_value)
                     widget.setSingleStep(param.get("step", 1))
                     widget.setToolTip(param["title"])
+                    if param["setting"] == "auto-optimize-threshold":
+                        widget.setObjectName("auto-optimize-threshold")
+                        widget.setSuffix(_(" ms"))
+                        tooltip = _("Suggest or automatically optimize videos whose first thumbnail frame takes longer than this to generate. Lower values include more videos.")
+                        widget.setToolTip(tooltip)
+                        label.setToolTip(tooltip)
                     widget.valueChanged.connect(functools.partial(self.spinner_value_changed, param))
 
                 elif param["type"] in ("text", "browse", "browse-folder"):
