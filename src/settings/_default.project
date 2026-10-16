@@ -1,5 +1,6 @@
 {
   "id": "T0",
+  "auto_optimize": null,
   "fps": {
     "num": 24,
     "den": 1

@@ -441,6 +441,9 @@ may differ. On macOS, Command is used for shortcuts shown with Ctrl.
    * - Ask a Question...
      - :kbd:`F4`
      -
+   * - Auto-Optimize
+     - :kbd:`Ctrl+Alt+O`
+     -
    * - Center on Playhead
      - :kbd:`Shift+C`
      -

@@ -74,7 +74,7 @@ class TimelineSync(UpdateInterface):
         """ This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface) """
 
         # Ignore changes that don't affect libopenshot
-        if action and len(action.key) >= 1 and action.key[0].lower() in ["files", "history", "markers", "layers", "scale", "profile", "export_settings"]:
+        if action and len(action.key) >= 1 and action.key[0].lower() in ["auto_optimize", "files", "history", "markers", "layers", "scale", "profile", "export_settings"]:
             return
 
         # Enter edit mode for property updates — disable caching until the user seeks or plays.

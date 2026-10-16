@@ -120,3 +120,15 @@ your issue, here are some additional troubleshooting steps you can take.
    OS Updates          Update your operating system and any pending security updates. Some audio issues, especially
                        audio device specific issues, can be resolved with an operating system update.
    ==================  ============
+
+Smoother playback with optimized videos
+---------------------------------------
+If your source videos are difficult to play smoothly, enable
+:menuselection:`File --> Auto-Optimize`. OpenShot identifies videos on your
+computer using their recorded thumbnail timings, and creates smaller preview copies
+for videos above the threshold in :menuselection:`Edit --> Preferences --> Optimize`. This
+setting belongs to the current project and is saved with it. You can keep editing
+while copies are created; exporting still uses your original files.
+
+See :ref:`optimize_ref` for the banner, progress indicators, and manual optimization
+options, or :ref:`preferences_optimize_ref` to adjust the threshold and default behavior.

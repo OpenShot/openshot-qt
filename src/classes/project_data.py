@@ -357,6 +357,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             self._data = self.read_from_file(self.default_project_filepath)
             self.apply_default_track_count()
 
+        self._data.setdefault("auto_optimize", None)
         self.current_filepath = None
         self.has_unsaved_changes = False
 

@@ -130,7 +130,8 @@ class ThumbnailGenerationTests(unittest.TestCase):
         with patch.object(thumbnail.openshot.Clip, "CreateReader", side_effect=create_reader), \
              patch.object(thumbnail.os.path, "exists", side_effect=lambda path: True), \
              patch.object(thumbnail.shutil, "copyfile") as copyfile_patch:
-            thumbnail.GenerateThumbnail("missing.webp", "/tmp/thumb.png", 7, 20, 20, None, None)
+            result = thumbnail.GenerateThumbnail("missing.webp", "/tmp/thumb.png", 7, 20, 20, None, None)
+            self.assertIsNone(result)
 
         self.assertEqual(created[0:2], [("missing.webp", False), ("missing.webp", True)])
         self.assertEqual(created[2], (thumbnail.os.path.join(thumbnail.info.IMAGES_PATH, "NotFound.svg"), False))
@@ -179,6 +180,64 @@ class ThumbnailGenerationTests(unittest.TestCase):
             handler.do_GET()
 
         self.assertEqual(generate_thumbnail.call_count, 1)
+
+    def test_timing_excludes_opening_and_thumbnail_writing(self):
+        reader = _Reader()
+        clock = [0.0]
+        def open_reader():
+            clock[0] += 5.0
+        def get_frame(number):
+            self.assertEqual(number, 1)
+            clock[0] += .25
+            return reader._frame
+        def write_thumbnail(*args):
+            clock[0] += 7.0
+        reader.Open = open_reader
+        reader.GetFrame = get_frame
+        reader._frame.Thumbnail = write_thumbnail
+        with tempfile.TemporaryDirectory() as root, \
+             patch.object(thumbnail.openshot.Clip, "CreateReader", return_value=reader), \
+             patch.object(thumbnail, "GetThumbDeviceScale", return_value=1.0), \
+             patch.object(thumbnail.time, "perf_counter", side_effect=lambda: clock[0]):
+            result = thumbnail.GenerateThumbnail("source.mp4", os.path.join(root, "thumb.png"),
+                                                 1, 100, 65, None, None)
+        self.assertEqual(result, {"frame_ms": 250.0, "frame": 1, "decode_size": [300, 195]})
+        self.assertEqual(reader.close_calls, 1)
+
+    def test_http_records_only_new_first_frame_source_video_measurements(self):
+        for cached, frame, media_type, result, expected in (
+                (False, 1, "video", {"frame_ms": 300, "frame": 1}, True),
+                (True, 1, "video", {"frame_ms": 300, "frame": 1}, False),
+                (False, 25, "video", {"frame_ms": 300, "frame": 25}, False),
+                (False, 1, "image", {"frame_ms": 300, "frame": 1}, False),
+                (False, 1, "video", None, False)):
+            with self.subTest(cached=cached, frame=frame, media_type=media_type, result=result):
+                file = _QueriedFile()
+                file.data.update(media_type=media_type, type="FFmpegReader")
+                controller = SimpleNamespace(epoch=7, thumbnail_measured=unittest.mock.Mock())
+                app = SimpleNamespace(window=SimpleNamespace(auto_optimize=controller))
+                handler = thumbnail.httpThumbnailHandler.__new__(thumbnail.httpThumbnailHandler)
+                handler.path = "/thumbnails/file-id/%s/path/" % frame
+                handler.wfile = unittest.mock.Mock()
+                for method in ("send_response_only", "send_header", "end_headers", "send_error"):
+                    setattr(handler, method, unittest.mock.Mock())
+                with patch.object(thumbnail, "get_app", return_value=app), \
+                     patch.object(thumbnail.File, "get", return_value=file), \
+                     patch.object(thumbnail, "GenerateThumbnail", return_value=result) as generate, \
+                     patch.object(thumbnail, "source_fingerprint", return_value={"size": 100, "mtime_ns": 1}), \
+                     patch.object(thumbnail, "ThumbnailCacheIsStale", return_value=False), \
+                     patch.object(thumbnail.os.path, "exists", return_value=cached):
+                    handler.do_GET()
+                if expected:
+                    controller.thumbnail_measured.emit.assert_called_once()
+                    epoch, file_id, sample = controller.thumbnail_measured.emit.call_args.args
+                    self.assertEqual((epoch, file_id), (7, "file-id"))
+                    self.assertEqual(sample["frame_ms"], 300)
+                    self.assertEqual(sample["source"], {"size": 100, "mtime_ns": 1})
+                else:
+                    controller.thumbnail_measured.emit.assert_not_called()
+                if cached:
+                    generate.assert_not_called()
 
 
 if __name__ == "__main__":

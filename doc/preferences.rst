@@ -161,7 +161,7 @@ Preview
 .. image:: images/preferences-2-preview.jpg
 
 The Preview tab of the Preferences window controls real-time preview audio behavior,
-including device selection, sample rate, channels, buffering, playback volume, and optimized preview behavior.
+including device selection, sample rate, channels, buffering, and playback volume.
 
 .. table::
    :widths: 30 15 60
@@ -174,10 +174,63 @@ including device selection, sample rate, channels, buffering, playback volume, a
    Default Audio Channels            Stereo (2 Channel)  Default preview channel layout
    Playback Audio Buffer Size        512                 Audio samples buffered before playback begins (128 to 4096)
    Volume                            75                  Preview playback volume percentage
-   Concurrent Optimize Jobs          2                   Number of video files OpenShot can optimize at the same time
-   Optimized Preview Resolution      1280x720            Maximum resolution used when creating optimized preview files
-   Thumbnail Preload Rate / second   4                   How many thumbnail preview frames per second are pre-generated while optimizing video
    ================================  ==================  ===========
+
+.. _preferences_optimize_ref:
+
+Optimize
+--------
+
+The Optimize tab controls automatic suggestions and the smaller preview copies used
+for smoother editing. Original files and export quality stay unchanged.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 30 15 55
+
+   * - Setting
+     - Default
+     - Description
+   * - Auto-Optimize
+     - Ask
+     - Choose Ask, Always, or Never as the default for projects without a saved Auto-Optimize choice.
+   * - Auto-Optimize Threshold
+     - 200 ms
+     - Videos qualify when their first thumbnail frame takes longer than this to generate. Lower values include more videos; higher values include fewer.
+   * - Concurrent Optimize Jobs
+     - 2
+     - Number of videos OpenShot can optimize at the same time.
+   * - Optimized Preview Resolution
+     - 1280x720
+     - Maximum resolution used for optimized preview copies.
+   * - Thumbnail Preload Rate / second
+     - 4
+     - Number of thumbnail preview frames per second pre-generated while optimizing a video.
+
+The :guilabel:`Auto-Optimize` choices work as follows:
+
+* :guilabel:`Ask`: show a banner when qualifying videos are found. Accepting enables
+  automatic optimization for that project; dismissing remembers your decision.
+* :guilabel:`Always`: automatically optimize qualifying videos without a banner.
+* :guilabel:`Never`: do not show the banner or start automatic optimization.
+
+These are defaults, not overrides of saved project choices. For example, selecting
+:guilabel:`Never` here does not turn off a project where you already enabled
+:menuselection:`File --> Auto-Optimize`. Use that menu item to change the current
+project's setting. Manual optimization remains available with every preference.
+
+The threshold is measured in milliseconds (**ms**). With the default **200 ms**, a
+video with a recorded time of 350 ms qualifies, while one with a time of 50 ms does not.
+Changing the threshold re-evaluates existing timings without decoding videos again;
+it does not cancel jobs already queued or running.
+
+The timing comes from normal thumbnail generation. Older projects without saved
+timings are checked in the background, one small thumbnail at a time, when
+Auto-Optimize is set to Ask or Always (or enabled from the File menu).
+It excludes opening the file, writing the thumbnail image, and waiting in a queue.
+It is saved with the project's file information and reused on the same computer while
+the source file is unchanged. See :ref:`optimize_ref` for the banner, status indicators,
+and manual optimization options.
 
 Autosave
 --------
