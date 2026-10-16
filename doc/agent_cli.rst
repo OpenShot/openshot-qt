@@ -27,7 +27,8 @@ The examples below require an OpenShot build that includes command-line editing.
 .. important::
 
    Editing commands need a selected session. Starting a session returns a
-   ``session_id``; it does **not** select that session for later commands.
+   ``session_id``. Set **OPENSHOT_SESSION once in your terminal** to use it for
+   subsequent commands; starting a session does not set this variable for you.
    Follow :ref:`cli_session_selection_ref` before running project, timeline,
    editing, or export commands.
 
@@ -185,37 +186,37 @@ a new session for each command.
 Selecting a session
 ~~~~~~~~~~~~~~~~~~~
 
-Use the returned ID in subsequent commands. Replace ``SESSION_ID`` below with
-the actual value, without angle brackets. Put ``--session`` **after** ``--cli``
-and **before** the command group.
-
-Windows PowerShell::
-
-   & .\openshot-qt-cmd.exe --cli --session SESSION_ID timeline view
-   & .\openshot-qt-cmd.exe --cli --session SESSION_ID export start "C:\path\test.mp4" --wait
-
-Linux AppImage::
-
-   ./OpenShot.AppImage --cli --session SESSION_ID timeline view
-   ./OpenShot.AppImage --cli --session SESSION_ID export start "/path/test.mp4" --wait
-
-For repeated commands, you can select the session once in your current terminal
-using ``OPENSHOT_SESSION`` instead of passing ``--session`` every time.
+**Select your session once with OPENSHOT_SESSION**, then run commands without
+repeating its ID. Replace ``SESSION_ID`` below with the ``session_id`` returned
+by ``session start`` or ``session list``.
 
 Windows PowerShell::
 
    $env:OPENSHOT_SESSION = "SESSION_ID"
    & .\openshot-qt-cmd.exe --cli timeline view
+   & .\openshot-qt-cmd.exe --cli export start "C:\path\test.mp4" --wait
 
-Linux or macOS shell::
+Linux Bash::
 
    export OPENSHOT_SESSION="SESSION_ID"
    ./OpenShot.AppImage --cli timeline view
+   ./OpenShot.AppImage --cli export start "/path/test.mp4" --wait
 
-On macOS or Snap, substitute your installation's command from Getting started.
-**Examples below that omit --session assume OPENSHOT_SESSION is set.** An
-explicit ``--session`` overrides the environment variable. Update the ID when
-switching projects in different sessions or starting a replacement session.
+On macOS, use the same ``export`` syntax. For macOS or Snap commands, substitute
+your installation's executable from Getting started. The selection lasts for
+this terminal and commands launched from it. Set it again in a new terminal,
+or update it when switching to a different session.
+
+**The remaining editing and export examples assume OPENSHOT_SESSION is set.**
+The next subsection shows how to capture the ID automatically for scripts.
+
+To target a different session for just one command, use ``--session``. It
+overrides ``OPENSHOT_SESSION`` without changing your terminal's selection::
+
+   openshot-cli --session OTHER_SESSION_ID project get
+
+With a packaged executable, put this override after ``--cli`` and before the
+command group: ``--cli --session OTHER_SESSION_ID project get``.
 
 Automatic selection only works when exactly one reachable session exists.
 If you see ``session_required``, run ``session list`` and explicitly select the
@@ -309,11 +310,11 @@ Start a session with an existing project::
    openshot-cli session start --project "/home/me/Videos/My Project.osp"
 
 Add ``--show`` to open its editor window too. To use an editor that is already
-running, find it with ``session list``. Use the returned session ID when opening
-or inspecting a project::
+running, find it with ``session list``. Set ``OPENSHOT_SESSION`` to its returned session ID, then open
+or inspect a project::
 
-   openshot-cli --session SESSION_ID project open "/home/me/Videos/My Project.osp"
-   openshot-cli --session SESSION_ID project get
+   openshot-cli project open "/home/me/Videos/My Project.osp"
+   openshot-cli project get
 
 Replace the example path with your own, and quote paths containing spaces.
 ``project open`` replaces the selected session's current project. It refuses to
@@ -329,11 +330,11 @@ Saving a project or a copy
 
 Save to a new file, or create a separate version before making more changes::
 
-   openshot-cli --session SESSION_ID project save "/home/me/Videos/My Project v2.osp"
+   openshot-cli project save "/home/me/Videos/My Project v2.osp"
 
 To update an existing file, explicitly allow replacement::
 
-   openshot-cli --session SESSION_ID project save "/home/me/Videos/My Project v2.osp" --overwrite
+   openshot-cli project save "/home/me/Videos/My Project v2.osp" --overwrite
 
 Always supply the destination path. Saving an ``.osp`` does not package all your
 source footage into that file; keep the referenced media available when moving
@@ -347,7 +348,7 @@ settings or choosing a different output profile for each render. Export jobs can
 run in the background or wait for completion before your script continues.
 To render an MP4 using the project's resolution and frame rate::
 
-   openshot-cli --session SESSION_ID export start "/home/me/Videos/video.mp4" --wait
+   openshot-cli export start "/home/me/Videos/video.mp4" --wait
 
 By default, OpenShot uses H.264 video and AAC audio. Replace the example path
 with your destination, using an existing folder and a new filename. Existing
@@ -363,10 +364,10 @@ Checking export progress
 Leave off ``--wait`` to start an export in the background. The response includes
 a job ID you can use to check its progress::
 
-   openshot-cli --session SESSION_ID export start "/home/me/Videos/video.mp4"
-   openshot-cli --session SESSION_ID export status JOB_ID
-   openshot-cli --session SESSION_ID export status JOB_ID --wait
-   openshot-cli --session SESSION_ID export list
+   openshot-cli export start "/home/me/Videos/video.mp4"
+   openshot-cli export status JOB_ID
+   openshot-cli export status JOB_ID --wait
+   openshot-cli export list
 
 Replace ``JOB_ID`` with the returned ID. If waiting times out, the export keeps
 running; check the same job instead of starting another export. To stop a job,
@@ -395,9 +396,9 @@ Find the available profiles and inspect their settings::
 For example, export landscape versions at 720p and 1080p, then a square version
 at 1080 by 1080. These profiles all use 30 fps::
 
-   openshot-cli --session SESSION_ID export start "/home/me/Videos/video-720p.mp4" --profile builtin:01280x0720p0030_16-09 --wait
-   openshot-cli --session SESSION_ID export start "/home/me/Videos/video-1080p.mp4" --profile builtin:01920x1080p0030_16-09 --wait
-   openshot-cli --session SESSION_ID export start "/home/me/Videos/video-square.mp4" --profile builtin:01080x1080p0030_01-01 --wait
+   openshot-cli export start "/home/me/Videos/video-720p.mp4" --profile builtin:01280x0720p0030_16-09 --wait
+   openshot-cli export start "/home/me/Videos/video-1080p.mp4" --profile builtin:01920x1080p0030_16-09 --wait
+   openshot-cli export start "/home/me/Videos/video-square.mp4" --profile builtin:01080x1080p0030_01-01 --wait
 
 Use a different output filename for each version. Keep edits unchanged between
 jobs when you want matching versions. Changing aspect ratio can change framing:
