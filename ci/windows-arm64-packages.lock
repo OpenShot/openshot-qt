@@ -1,0 +1,45 @@
+# Windows Arm64 MSYS2 CLANGARM64 package/provenance lock
+# SPDX-FileCopyrightText: 2026 OpenShot Studios, LLC
+# SPDX-License-Identifier: LGPL-3.0-or-later
+#
+# Contract identity: windows-arm64-clangarm64-v1
+# Target: Windows 11 Arm64, PE/COFF Machine=ARM64 (0xAA64)
+# Environment: MSYS2 CLANGARM64 at C:\msys64\clangarm64, aarch64-w64-mingw32
+#
+# This file pins the exact MSYS2 CLANGARM64 package set/versions required to
+# build libopenshot-audio (and, transitively, libopenshot and openshot-qt) for
+# the native Windows Arm64 lane. It is consumed unchanged by PR A, PR B, and
+# PR C so that all three producer artifacts share one dependency snapshot.
+#
+# Populate the sha256 column from the signed MSYS2 CLANGARM64 repo database
+# (repo.db.sig) once release infrastructure publishes the mirrored/pinned
+# snapshot required by design-spec.md G1. Until that snapshot exists, this
+# lock records the exact package/version identity only; the sha256 column is
+# intentionally left as UNVERIFIED-NO-SIGNED-SNAPSHOT so no producer job can
+# silently claim checksum verification that has not actually happened.
+#
+# name=version-release,sha256
+mingw-w64-clang-aarch64-clang=22.1.8-2,UNVERIFIED-NO-SIGNED-SNAPSHOT
+mingw-w64-clang-aarch64-libc++=22.1.8-1,UNVERIFIED-NO-SIGNED-SNAPSHOT
+mingw-w64-clang-aarch64-compiler-rt=22.1.8-2,UNVERIFIED-NO-SIGNED-SNAPSHOT
+mingw-w64-clang-aarch64-llvm-openmp=22.1.8-1,UNVERIFIED-NO-SIGNED-SNAPSHOT
+mingw-w64-clang-aarch64-libwinpthread=14.0.0.r302.gd7f3c5201-1,UNVERIFIED-NO-SIGNED-SNAPSHOT
+mingw-w64-clang-aarch64-cmake=4.4.2-2,UNVERIFIED-NO-SIGNED-SNAPSHOT
+mingw-w64-clang-aarch64-ninja=1.13.2-1,UNVERIFIED-NO-SIGNED-SNAPSHOT
+mingw-w64-clang-aarch64-swig=4.5.0-1,UNVERIFIED-NO-SIGNED-SNAPSHOT
+mingw-w64-clang-aarch64-python=3.14.7-1,UNVERIFIED-NO-SIGNED-SNAPSHOT
+mingw-w64-clang-aarch64-python-pyqt6=6.11.0-1,UNVERIFIED-NO-SIGNED-SNAPSHOT
+mingw-w64-clang-aarch64-python-pyqt6-sip=13.12.0-1,UNVERIFIED-NO-SIGNED-SNAPSHOT
+mingw-w64-clang-aarch64-qt6-base=6.11.2-2,UNVERIFIED-NO-SIGNED-SNAPSHOT
+mingw-w64-clang-aarch64-qt6-svg=6.11.2-1,UNVERIFIED-NO-SIGNED-SNAPSHOT
+mingw-w64-clang-aarch64-qt6-multimedia=6.11.2-1,UNVERIFIED-NO-SIGNED-SNAPSHOT
+mingw-w64-clang-aarch64-qt6-imageformats=6.11.2-1,UNVERIFIED-NO-SIGNED-SNAPSHOT
+mingw-w64-clang-aarch64-ffmpeg=9.0.1-3,UNVERIFIED-NO-SIGNED-SNAPSHOT
+mingw-w64-clang-aarch64-opencv=5.0.0-3,UNVERIFIED-NO-SIGNED-SNAPSHOT
+mingw-w64-clang-aarch64-protobuf=35.1-2,UNVERIFIED-NO-SIGNED-SNAPSHOT
+mingw-w64-clang-aarch64-zeromq=4.3.5-5,UNVERIFIED-NO-SIGNED-SNAPSHOT
+mingw-w64-clang-aarch64-cppzmq=4.11.0-1,UNVERIFIED-NO-SIGNED-SNAPSHOT
+mingw-w64-clang-aarch64-babl=0.1.128-1,UNVERIFIED-NO-SIGNED-SNAPSHOT
+mingw-w64-clang-aarch64-imagemagick=7.1.2.30-1,UNVERIFIED-NO-SIGNED-SNAPSHOT
+mingw-w64-clang-aarch64-jsoncpp=1.9.8-1,UNVERIFIED-NO-SIGNED-SNAPSHOT
+mingw-w64-clang-aarch64-zlib=1.3.2-2,UNVERIFIED-NO-SIGNED-SNAPSHOT
