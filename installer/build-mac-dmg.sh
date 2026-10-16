@@ -28,7 +28,7 @@ sed -e "s/VERSION/$VERSION/g" "$OS_PATH/Info.plist" > "$OS_PATH/Info.plist_versi
 mv  "$OS_PATH/Info.plist_version" "$OS_PATH/Info.plist"
 if [ "$(uname -m)" = "arm64" ]; then
     echo "Setting minimum macOS version to 11.0 (first Apple Silicon release)"
-    plutil -replace LSMinimumSystemVersion -string "11.0" "$OS_PATH/Info.plist"
+    plutil -replace LSMinimumSystemVersion -string "11.0" "$OS_PATH/Info.plist" || exit 1
 fi
 
 echo "Symlink Non-Code Files to Resources"

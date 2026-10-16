@@ -43,7 +43,8 @@ def adhoc_sign(file_path):
     result = subprocess.run(["codesign", "--force", "--sign", "-", file_path],
                             stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     if result.returncode != 0:
-        print("ERROR: Failed to ad-hoc sign %s: %s" % (file_path, result.stdout.decode("utf-8").strip()))
+        raise RuntimeError("Failed to ad-hoc sign %s: %s" % (
+            file_path, result.stdout.decode("utf-8", errors="replace").strip()))
 
 
 def fix_rpath(PATH):
@@ -102,7 +103,7 @@ def print_min_versions(PATH):
     REGEX_SDK_MATCH2 = re.compile(r'LC_BUILD_VERSION.*?minos\s+(\S+)\s+sdk\s+(\S+)', re.DOTALL)
 
     # Oldest supported macOS: 10.15 on Intel, and 11.0 on Apple Silicon (the first arm64 release)
-    min_supported_version = (11, 0) if platform.machine() == "arm64" else (10, 15)
+    min_supported_version = (11, 0, 0) if platform.machine() == "arm64" else (10, 15, 0)
 
     VERSIONS = {}
 
@@ -138,7 +139,9 @@ def print_min_versions(PATH):
                else:
                    VERSIONS[min_version] = [file_path]
 
-               if tuple(int(part) for part in re.findall(r"\d+", min_version)) > min_supported_version:
+               version_parts = tuple(int(part) for part in re.findall(r"\d+", min_version))
+               normalized_version = version_parts + (0,) * max(0, 3 - len(version_parts))
+               if normalized_version > min_supported_version:
                    print("ERROR!!!! Minimum OS X version not met for %s" % file_path)
 
     print("\nSummary of Minimum Mac SDKs for Dependencies:")
