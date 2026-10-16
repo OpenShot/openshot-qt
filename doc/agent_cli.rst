@@ -222,6 +222,44 @@ If you see ``session_required``, run ``session list`` and explicitly select the
 intended session. If it is no longer listed, start it again and use the new ID.
 Help, ``intro``, and session discovery do not require a selected session.
 
+Capturing the session ID automatically
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Scripts can read ``result.session_id`` directly from the JSON returned by
+``session start`` and set ``OPENSHOT_SESSION`` for subsequent commands. There is
+no need to copy the ID manually or read a log file. Check that startup succeeded
+before using the returned ID.
+
+Windows PowerShell (set the executable path for your installation)::
+
+   $openshot = "C:\Program Files\OpenShot Video Editor\openshot-qt-cmd.exe"
+   $reply = & $openshot --cli session start
+   if ($LASTEXITCODE -ne 0) { throw "OpenShot session startup failed" }
+   $session = $reply | ConvertFrom-Json
+   if (-not $session.ok -or -not $session.result.session_id) {
+       throw "OpenShot did not return a session ID"
+   }
+   $env:OPENSHOT_SESSION = $session.result.session_id
+   & $openshot --cli timeline view
+
+Linux Bash (requires ``jq`` to read JSON)::
+
+   openshot="/full/path/to/OpenShot.AppImage"
+   export APPIMAGELAUNCHER_DISABLE=1
+   if reply=$("$openshot" --cli session start) &&
+      session_id=$(printf '%s' "$reply" | jq -er 'select(.ok == true) | .result.session_id | strings | select(length > 0)'); then
+       export OPENSHOT_SESSION="$session_id"
+       "$openshot" --cli timeline view
+   else
+       echo "OpenShot session startup failed" >&2
+   fi
+
+The environment variable selects a session for commands launched from this
+terminal; it does not change a system-wide setting. Starting a session does not
+set the variable automatically. After stopping the session, clear the selection
+with ``Remove-Item Env:OPENSHOT_SESSION`` in PowerShell or
+``unset OPENSHOT_SESSION`` in Bash.
+
 Showing and stopping a session
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -367,6 +405,72 @@ review each output, especially titles and animated subjects.
 For a separately composed square or portrait version, save a project copy, change
 its project profile, and adjust the clips before exporting. See Profiles and
 the export settings below for custom profiles and encoding options.
+
+Batch exporting multiple projects
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Reuse one headless session to render several saved projects in sequence. Open a
+project, export it with ``--wait``, then open the next project. The examples below
+use each project's own resolution and frame rate and create MP4 files beside the
+``.osp`` files. Add ``--profile PROFILE_ID`` to the export command to use one
+output profile for every project.
+
+First run the matching automatic session-ID example above successfully, in the
+same terminal. It defines ``openshot`` and selects the new session. Replace the
+project paths below with your own. Use distinct output names that do not already
+exist; the examples check all destinations before starting the batch.
+
+Windows PowerShell::
+
+   $projects = @(
+       "C:\VideoProjects\First.osp",
+       "C:\VideoProjects\Second.osp"
+   )
+   foreach ($project in $projects) {
+       if (-not (Test-Path -LiteralPath $project -PathType Leaf)) {
+           throw "Project not found: $project"
+       }
+       $output = [System.IO.Path]::ChangeExtension($project, ".mp4")
+       if (Test-Path -LiteralPath $output) { throw "Output already exists: $output" }
+   }
+   foreach ($project in $projects) {
+       $output = [System.IO.Path]::ChangeExtension($project, ".mp4")
+       & $openshot --cli project open $project
+       if ($LASTEXITCODE -ne 0) { throw "Could not open: $project" }
+       & $openshot --cli export start $output --wait --wait-timeout 86400
+       if ($LASTEXITCODE -ne 0) { throw "Export needs attention: $output" }
+   }
+   & $openshot --cli session stop
+   if ($LASTEXITCODE -ne 0) { throw "Could not stop the session" }
+   Remove-Item Env:OPENSHOT_SESSION
+
+Linux Bash (the parentheses keep error handling local to the batch)::
+
+   (
+       set -e
+       : "${OPENSHOT_SESSION:?Run the session startup example first}"
+       projects=(
+           "/home/me/VideoProjects/First.osp"
+           "/home/me/VideoProjects/Second.osp"
+       )
+       for project in "${projects[@]}"; do
+           test -f "$project" || { echo "Project not found: $project" >&2; exit 1; }
+           output="${project%.osp}.mp4"
+           test ! -e "$output" || { echo "Output already exists: $output" >&2; exit 1; }
+       done
+       for project in "${projects[@]}"; do
+           "$openshot" --cli project open "$project"
+           "$openshot" --cli export start "${project%.osp}.mp4" --wait --wait-timeout 86400
+       done
+       "$openshot" --cli session stop
+   ) && unset OPENSHOT_SESSION
+
+Both recipes stop the batch on a command failure and leave the session available
+for inspection. The wait limit here is 24 hours per export. A wait timeout leaves
+the render running: use ``export list`` and ``export status JOB_ID --wait`` before
+retrying. Completed videos remain on disk; remove completed projects from the
+batch before resuming. After resolving a failure, stop the session and clear its
+environment variable when you are finished.
 
 Choosing presets and encoding settings
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
