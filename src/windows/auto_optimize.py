@@ -1,10 +1,17 @@
 """Project-scoped automatic optimization and its one-time suggestion."""
 
+import os
+import tempfile
+from concurrent.futures import ThreadPoolExecutor
+
 import openshot
 from qt_api import QAction, QObject, QPushButton, QTimer, Qt, pyqtSignal, pyqtSlot
 
 from classes.app import get_app
-from classes.auto_optimize import source_fingerprint, threshold_ms, valid_measurement
+from classes.auto_optimize import (MEASUREMENT_VERSION, machine_id, source_fingerprint,
+                                   threshold_ms, valid_measurement)
+from classes import info
+from classes.thumbnail import GenerateThumbnail
 from classes.logger import log
 from classes.path_utils import absolute_media_path
 from classes.query import File
@@ -22,6 +29,9 @@ class AutoOptimizeController(QObject):
         self.area = notification_area(window)
         self.epoch = 0
         self.attempted = set()
+        self.measured = set()
+        self.measurement_future = None
+        self.measurement_executor = None
         self.stopped = False
         self.timer = QTimer(self)
         self.timer.setSingleShot(True)
@@ -53,6 +63,7 @@ class AutoOptimizeController(QObject):
                 self.window.proxy_service.cancel_job(file_id)
             self.epoch += 1
             self.attempted.clear()
+            self.measured.clear()
             self.area.remove("auto-optimize")
         if action.type == "load" or (action.key and action.key[0] in ("files", "auto_optimize")):
             self.action.setChecked(self.mode() == "always")
@@ -110,6 +121,7 @@ class AutoOptimizeController(QObject):
         used = {clip.get("file_id") for clip in (self.app.project.get("clips") or [])}
         files.sort(key=lambda file: file.id not in used)
         qualifying = []
+        missing = []
         for file in files:
             if file.id in self.attempted or service.get_active_job_for_file(file.id):
                 continue
@@ -119,8 +131,11 @@ class AutoOptimizeController(QObject):
                 continue
             measurement = file.data.get("thumbnail_performance")
             fingerprint = source_fingerprint(absolute_media_path(file.data.get("path")))
-            if valid_measurement(measurement, fingerprint) and measurement["frame_ms"] > threshold:
-                qualifying.append(file)
+            if valid_measurement(measurement, fingerprint):
+                if measurement["frame_ms"] > threshold:
+                    qualifying.append(file)
+            elif fingerprint is not None and file.id not in self.measured:
+                missing.append((file.id, absolute_media_path(file.data.get("path")), fingerprint))
         if qualifying:
             if mode == "always":
                 self.area.remove("auto-optimize")
@@ -135,6 +150,34 @@ class AutoOptimizeController(QObject):
                 self._offer()
         else:
             self.area.remove("auto-optimize")
+
+        # Schedule only one small thumbnail at a time. Stop looking once Ask has
+        # an answer to offer; accepting resumes checks for the remaining files.
+        if missing and not (mode == "ask" and qualifying):
+            if self.measurement_future is None or self.measurement_future.done():
+                file_id, path, fingerprint = missing[0]
+                self.measured.add(file_id)
+                if self.measurement_executor is None:
+                    self.measurement_executor = ThreadPoolExecutor(
+                        max_workers=1, thread_name_prefix="thumbnail-timing")
+                self.measurement_future = self.measurement_executor.submit(
+                    self._measure_thumbnail, self.epoch, file_id, path, fingerprint)
+            self.timer.start(1500)
+
+    def _measure_thumbnail(self, epoch, file_id, path, fingerprint):
+        # Use a temporary thumbnail so switching projects cannot write into the
+        # next project's cache. This uses the normal thumbnail decoder and size.
+        try:
+            with tempfile.TemporaryDirectory(prefix="openshot-thumbnail-timing-") as root:
+                sample = GenerateThumbnail(
+                    path, os.path.join(root, "thumbnail.png"), 1,
+                    info.LIST_ICON_SIZE.width(), info.LIST_ICON_SIZE.height(),
+                    os.path.join(info.IMAGES_PATH, "mask.png"), "")
+            if isinstance(sample, dict) and not self.stopped:
+                sample.update(version=MEASUREMENT_VERSION, machine=machine_id(), source=fingerprint)
+                self.thumbnail_measured.emit(epoch, file_id, sample)
+        except Exception:
+            log.warning("Unable to measure thumbnail for %s", path, exc_info=True)
 
     def _offer(self):
         _ = self.app._tr
@@ -153,3 +196,5 @@ class AutoOptimizeController(QObject):
     def shutdown(self):
         self.stopped = True
         self.timer.stop()
+        if self.measurement_executor is not None:
+            self.measurement_executor.shutdown(wait=True)

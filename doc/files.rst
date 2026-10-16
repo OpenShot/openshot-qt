@@ -220,9 +220,13 @@ In :menuselection:`Edit --> Preferences`, open the :guilabel:`Optimize` tab (see
 
 Thumbnail timing is saved with each file in the project. OpenShot reuses a valid timing
 when you reopen the project on the same computer. A changed source file or a different
-computer needs a new measurement. Older projects with cached thumbnails are measured
-when their first thumbnails next need generating; OpenShot does not decode extra frames
-just to obtain a timing. You can always optimize videos manually, even without a timing.
+computer needs a new measurement. When opening older projects, OpenShot refreshes missing
+timings in the background, one small thumbnail at a time, checking videos used on the
+timeline first. New checks pause during playback. Slow videos trigger the same banner;
+accepting it also checks and queues the remaining videos. Enabling
+:guilabel:`File → Auto-Optimize` starts these checks too. Choosing :guilabel:`Never`
+or dismissing the banner stops further checks for that project. Save the project to
+keep its timings for next time. You can always optimize videos manually.
 
 The threshold is a guide, not a guarantee of playback performance. Other applications
 can affect timing, and effects or overlapping clips can slow playback independently of

@@ -70,6 +70,10 @@ class ControllerTests(unittest.TestCase):
         self.service.get_active_job_for_file.return_value = None
         self.service.has_proxy_reader.return_value = False
         self.service.has_missing_proxy.return_value = False
+        self.executor_patch = patch("windows.auto_optimize.ThreadPoolExecutor")
+        self.executor = self.executor_patch.start().return_value
+        self.executor.submit.return_value.done.return_value = False
+        self.addCleanup(self.executor_patch.stop)
         self.controller = AutoOptimizeController(self.window)
         self.controller.timer.stop()
         self.temp = tempfile.TemporaryDirectory()
@@ -248,14 +252,87 @@ class ControllerTests(unittest.TestCase):
         self.evaluate()
         self.service.create_for_files.assert_called_once()
 
-    def test_old_project_without_timings_does_not_offer_or_decode(self):
+    def test_old_project_measures_then_offers_and_queues_remaining_videos(self):
         self.add_video(checked=False)
+        self.add_video(id="V2", checked=False)
         self.controller.changed(UpdateAction("load"))
-        with patch("openshot.FFmpegReader") as reader:
-            self.evaluate()
-        reader.assert_not_called()
+        self.evaluate()
+        self.executor.submit.assert_called_once()
         self.assertFalse(self.controller.area.banners)
-        self.service.create_for_files.assert_not_called()
+        self.controller._record_thumbnail(self.controller.epoch, "V1", measurement(self.path))
+        self.executor.submit.return_value.done.return_value = True
+        self.evaluate()
+        self.assertIn("auto-optimize", self.controller.area.banners)
+        self.executor.submit.assert_called_once()
+        self.controller.choose(True)
+        self.evaluate()
+        self.assertEqual(self.executor.submit.call_count, 2)
+        self.assertEqual(self.service.create_for_files.call_args[0][0][0].id, "V1")
+        self.controller._record_thumbnail(self.controller.epoch, "V2", measurement(self.path))
+        self.evaluate()
+        self.assertEqual(self.service.create_for_files.call_args[0][0][0].id, "V2")
+        self.assertFalse(self.controller.area.banners)
+
+    def test_missing_timings_are_serial_and_timeline_first(self):
+        self.add_video(checked=False)
+        self.add_video(id="V2", checked=False)
+        self.app.project._data["clips"] = [{"file_id": "V2"}]
+        self.evaluate()
+        self.assertEqual(self.executor.submit.call_args[0][2], "V2")
+        self.evaluate()
+        self.executor.submit.assert_called_once()
+
+    def test_never_does_not_refresh_missing_timings(self):
+        self.add_video(checked=False)
+        self.controller.choose(False)
+        self.evaluate()
+        self.executor.submit.assert_not_called()
+
+    def test_thumbnail_refresh_uses_normal_small_thumbnail_and_records_result(self):
+        self.add_video(checked=False)
+        sample = {"frame_ms": 350, "frame": 1, "decode_size": [300, 195]}
+        with patch("windows.auto_optimize.GenerateThumbnail", return_value=sample) as generate:
+            self.controller._measure_thumbnail(
+                self.controller.epoch, "V1", self.path, source_fingerprint(self.path))
+        self.app.processEvents()
+        self.assertEqual(generate.call_args[0][2:5], (1, 100, 65))
+        self.assertFalse(os.path.exists(generate.call_args[0][1]))
+        self.assertEqual(File.get(id="V1").data["thumbnail_performance"]["frame_ms"], 350)
+        self.evaluate()
+        self.assertIn("auto-optimize", self.controller.area.banners)
+
+    def test_failed_refresh_is_not_repeated_on_every_evaluation(self):
+        self.add_video(checked=False)
+        self.evaluate()
+        self.executor.submit.return_value.done.return_value = True
+        self.evaluate()
+        self.executor.submit.assert_called_once()
+
+    def test_playback_defers_missing_timing_check(self):
+        import openshot
+        self.add_video(checked=False)
+        self.window.preview_thread = SimpleNamespace(player=Mock())
+        self.window.preview_thread.player.Mode.return_value = openshot.PLAYBACK_PLAY
+        self.evaluate()
+        self.executor.submit.assert_not_called()
+        self.window.preview_thread = None
+        self.evaluate()
+        self.executor.submit.assert_called_once()
+
+    def test_background_result_returns_to_ui_and_enables_suggestion(self):
+        from concurrent.futures import ThreadPoolExecutor
+        self.add_video(checked=False)
+        with patch("windows.auto_optimize.ThreadPoolExecutor", ThreadPoolExecutor), \
+             patch("windows.auto_optimize.GenerateThumbnail",
+                   return_value={"frame_ms": 350, "frame": 1, "decode_size": [300, 195]}):
+            self.evaluate()
+            self.controller.measurement_future.result(timeout=5)
+        self.assertNotIn("thumbnail_performance", File.get(id="V1").data)
+        self.app.processEvents()
+        self.evaluate()
+        self.assertIn("auto-optimize", self.controller.area.banners)
+        self.controller.shutdown()
+        self.assertFalse(any(t.is_alive() for t in self.controller.measurement_executor._threads))
 
     def test_valid_saved_timings_are_reused_on_project_open(self):
         self.add_video()

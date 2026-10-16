@@ -224,7 +224,9 @@ video with a recorded time of 350 ms qualifies, while one with a time of 50 ms d
 Changing the threshold re-evaluates existing timings without decoding videos again;
 it does not cancel jobs already queued or running.
 
-The timing comes from normal thumbnail generation, without a separate decoding test.
+The timing comes from normal thumbnail generation. Older projects without saved
+timings are checked in the background, one small thumbnail at a time, when
+Auto-Optimize is set to Ask or Always (or enabled from the File menu).
 It excludes opening the file, writing the thumbnail image, and waiting in a queue.
 It is saved with the project's file information and reused on the same computer while
 the source file is unchanged. See :ref:`optimize_ref` for the banner, status indicators,

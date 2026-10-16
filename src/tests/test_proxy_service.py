@@ -854,8 +854,11 @@ class ProxyServiceTests(unittest.TestCase):
          with tempfile.TemporaryDirectory() as root:
              source = str(Path(root) / "source.mp4")
              Path(source).write_bytes(b"original")
+             second_source = str(Path(root) / "second.mp4")
+             Path(second_source).write_bytes(b"second original")
              files = [types.SimpleNamespace(id=file_id, data={
-                 "id": file_id, "path": source, "media_type": "video"}) for file_id in ("F1", "F2")]
+                 "id": file_id, "path": path, "media_type": "video"})
+                 for file_id, path in (("F1", source), ("F2", second_source))]
              try:
                  with patch.object(self.service, "_optimize_worker_count", return_value=1), \
                       patch.object(self.service, "_proxy_root", return_value=root), \
