@@ -31,7 +31,10 @@ linux:
     - build/build-server.log
     - build/freeze-linux.log
   script:
-    - python3 -m pip install --user dbus-next==0.2.3 defusedxml
+    # Keep job dependencies out of the runner's shared Python user directory.
+    - export OPENSHOT_CI_PYTHON_DIR="$(mktemp -d "$CI_PROJECT_DIR/.ci-python.XXXXXX")"
+    - python3 -m pip install --target "$OPENSHOT_CI_PYTHON_DIR" dbus-next==0.2.3 defusedxml
+    - export PYTHONPATH="$OPENSHOT_CI_PYTHON_DIR${PYTHONPATH:+:$PYTHONPATH}"
     - "curl -O -J -L --header PRIVATE-TOKEN:$ACCESS_TOKEN http://gitlab.openshot.org/OpenShot/libopenshot/-/jobs/artifacts/$CI_COMMIT_REF_NAME/download?job=linux-builder"
     - if [ ! -f artifacts.zip ]; then
     -    "curl -O -J -L --header PRIVATE-TOKEN:$ACCESS_TOKEN http://gitlab.openshot.org/OpenShot/libopenshot/-/jobs/artifacts/develop/download?job=linux-builder"
