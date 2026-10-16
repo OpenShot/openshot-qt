@@ -56,11 +56,43 @@ from classes.logger import log
 from classes.app import get_app
 from classes.feedback import record_feedback_action
 from classes.metrics import track_metric_screen, track_metric_error
-from classes.query import File
+from classes.query import File, Clip
 
 import json
 
 MAX_FPS_SPINBOX_VALUE = 2147483647
+
+
+def _find_file_by_normalized_path(export_file_path):
+    """Find an existing Project Files entry whose path resolves to the same real
+    file as `export_file_path`, tolerating path-representation differences
+    (symlinks, trailing separators, relative vs. absolute, case on
+    case-insensitive filesystems, etc.) that a plain string comparison would
+    miss -- e.g. a file re-imported via a differently-mounted path pointing at
+    the same underlying file."""
+    try:
+        target = os.path.normcase(os.path.realpath(export_file_path))
+    except OSError:
+        target = os.path.normcase(export_file_path)
+    for existing in File.filter():
+        existing_path = existing.data.get("path", "") if isinstance(existing.data, dict) else ""
+        if not existing_path:
+            continue
+        try:
+            existing_target = os.path.normcase(os.path.realpath(existing_path))
+        except OSError:
+            existing_target = os.path.normcase(existing_path)
+        if existing_target == target:
+            return existing
+    return None
+
+
+def _file_is_on_timeline(file_id):
+    """True if any timeline clip currently references `file_id`."""
+    return any(
+        isinstance(clip.data, dict) and clip.data.get("file_id") == file_id
+        for clip in Clip.filter()
+    )
 
 
 class Export(QDialog):
@@ -1080,11 +1112,19 @@ class Export(QDialog):
             export_file_path = os.path.join(self.txtExportFolder.text().strip() or default_folder, file_name_with_ext)
             log.info("Invalid export path detected, changing to: %s" % export_file_path)
 
-        file = File.get(path=export_file_path)
+        file = File.get(path=export_file_path) or _find_file_by_normalized_path(export_file_path)
         if file:
+            if _file_is_on_timeline(file.id):
+                warning_text = _(
+                    "%s is an input file, and is currently used by a clip on your "
+                    "timeline.\nOverwriting it will replace that clip's media.\n"
+                    "Please choose a different name."
+                ) % file_name_with_ext
+            else:
+                warning_text = _("%s is an input file.\nPlease choose a different name.") % file_name_with_ext
             ret = QMessageBox.question(self,
                 _("Export Video"),
-                _("%s is an input file.\nPlease choose a different name.") % file_name_with_ext,
+                warning_text,
                 QMessageBox.Ok)
             self.enableControls()
             self.exporting = False
