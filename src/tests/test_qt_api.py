@@ -17,9 +17,10 @@ class QtApiTests(unittest.TestCase):
     def test_application_exec_alias_supports_class_and_instance_calls(self):
         # Isolate application lifetime from the rest of the widget test suite.
         script = """
-from qt_api import QApplication, QCoreApplication, QEventLoop, QTimer
+from qt_api import QApplication, QCoreApplication, QEventLoop, QTimer, QtGui
 app = QApplication([])
-for run in (QCoreApplication.exec_, QApplication.exec_, app.exec_):
+for run in (QCoreApplication.exec_, QtGui.QGuiApplication.exec_,
+            QApplication.exec_, app.exec_):
     QTimer.singleShot(0, lambda: app.exit(0))
     assert run() == 0
 loop = QEventLoop()

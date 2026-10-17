@@ -2374,15 +2374,24 @@ def _patch_enums_for_qt6():
             except Exception:
                 pass
     if QtCore:
-        for name in ("QEventLoop", "QCoreApplication"):
-            cls = getattr(QtCore, name, None)
-            if cls and hasattr(cls, "exec") and not hasattr(cls, "exec_"):
-                try:
-                    # Application exec() is static; preserve class and instance calls.
-                    alias = staticmethod(cls.exec) if name == "QCoreApplication" else _exec_wrapper
-                    setattr(cls, "exec_", alias)
-                except Exception:
-                    pass
+        cls = getattr(QtCore, "QEventLoop", None)
+        if cls and hasattr(cls, "exec") and not hasattr(cls, "exec_"):
+            try:
+                setattr(cls, "exec_", _exec_wrapper)
+            except Exception:
+                pass
+
+    # PySide6 retains instance-only exec_ aliases on application classes.
+    # Replace those too, so both class and instance calls use static exec().
+    for module, name in ((QtCore, "QCoreApplication"),
+                         (QtGui, "QGuiApplication"),
+                         (QtWidgets, "QApplication")):
+        cls = getattr(module, name, None)
+        if cls and hasattr(cls, "exec"):
+            try:
+                setattr(cls, "exec_", staticmethod(cls.exec))
+            except Exception:
+                pass
 
     if not hasattr(QtCore, "QSignalTransition"):
         try:
