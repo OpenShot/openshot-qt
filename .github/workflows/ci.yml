@@ -6,8 +6,6 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-22.04, ubuntu-24.04]
-    env:
-      ARM64_INTEGRATION: ${{ github.head_ref == 'arm64-support' || github.ref_name == 'arm64-support' || github.base_ref == 'arm64-support' }}
     defaults:
       run:
         shell: bash
@@ -15,49 +13,59 @@ jobs:
     - name: Check out code
       uses: actions/checkout@v7
 
-    - name: Check out integration audio
-      if: env.ARM64_INTEGRATION == 'true'
+    - name: Select dependency branches
+      id: dependencies
+      env:
+        SOURCE_BRANCH: ${{ github.head_ref || github.ref_name }}
+      run: |
+        for repository in libopenshot-audio libopenshot; do
+          ref=develop
+          if git ls-remote --exit-code --heads "https://github.com/OpenShot/$repository.git" "refs/heads/$SOURCE_BRANCH" > /dev/null; then
+            ref="$SOURCE_BRANCH"
+          else
+            status=$?
+            # Exit 2 means the branch is absent; connection errors must fail.
+            if [ "$status" -ne 2 ]; then
+              exit "$status"
+            fi
+          fi
+          echo "$repository=$ref" >> "$GITHUB_OUTPUT"
+          echo "$repository: using $ref" >> "$GITHUB_STEP_SUMMARY"
+        done
+
+    - name: Check out audio dependency
       uses: actions/checkout@v7
       with:
         repository: OpenShot/libopenshot-audio
-        ref: arm64-support
-        path: integration/audio
+        ref: ${{ steps.dependencies.outputs['libopenshot-audio'] }}
+        path: dependencies/audio
 
-    - name: Check out integration library
-      if: env.ARM64_INTEGRATION == 'true'
+    - name: Check out library dependency
       uses: actions/checkout@v7
       with:
         repository: OpenShot/libopenshot
-        ref: arm64-support
-        path: integration/libopenshot
+        ref: ${{ steps.dependencies.outputs.libopenshot }}
+        path: dependencies/libopenshot
 
-    - name: Install packaged OpenShot dependencies
-      if: env.ARM64_INTEGRATION != 'true'
-      run: |
-        sudo add-apt-repository ppa:openshot.developers/libopenshot-daily
-        sudo apt update
-        sudo apt install libopenshot-audio-dev libopenshot-dev python3-openshot
-
-    - name: Build integration libraries
-      if: env.ARM64_INTEGRATION == 'true'
+    - name: Build OpenShot dependencies
       run: |
         sudo apt update
         sudo apt install -y cmake swig python3-dev libasound2-dev \
           qtbase5-dev libqt5svg5-dev libavcodec-dev libavdevice-dev \
           libavformat-dev libavutil-dev libswscale-dev libswresample-dev \
           libbabl-dev libopencv-dev libprotobuf-dev protobuf-compiler libjsoncpp-dev
-        prefix="$RUNNER_TEMP/openshot-integration"
-        cmake -S integration/audio -B integration/audio/build \
+        prefix="$RUNNER_TEMP/openshot-dependencies"
+        cmake -S dependencies/audio -B dependencies/audio/build \
           -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$prefix"
-        cmake --build integration/audio/build --parallel 2
-        cmake --install integration/audio/build
-        cmake -S integration/libopenshot -B integration/libopenshot/build \
+        cmake --build dependencies/audio/build --parallel 2
+        cmake --install dependencies/audio/build
+        cmake -S dependencies/libopenshot -B dependencies/libopenshot/build \
           -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$prefix" \
           -DCMAKE_PREFIX_PATH="$prefix" -DPYTHON_MODULE_PATH=python \
           -DPYTHON_EXECUTABLE=/usr/bin/python3 -DBUILD_TESTING=OFF \
           -DENABLE_LIB_DOCS=OFF -DUSE_QT6=OFF
-        cmake --build integration/libopenshot/build --parallel 2
-        cmake --install integration/libopenshot/build
+        cmake --build dependencies/libopenshot/build --parallel 2
+        cmake --install dependencies/libopenshot/build
         echo "PYTHONPATH=$prefix/python" >> "$GITHUB_ENV"
         echo "LD_LIBRARY_PATH=$prefix/lib" >> "$GITHUB_ENV"
 
@@ -77,8 +85,8 @@ jobs:
       env:
         QT_QPA_PLATFORM: offscreen
       run: |
-        python3 setup.py build --build-base build/ppa-tests
-        cd build/ppa-tests/lib
+        python3 setup.py build --build-base build/package-tests
+        cd build/package-tests/lib
         python3 -m unittest discover --quiet
 
   portable-title-controls:
