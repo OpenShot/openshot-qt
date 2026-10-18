@@ -355,6 +355,17 @@ class DialogPreviewResizeTests(unittest.TestCase):
 
         self.assertEqual(seek_calls, [(1, False)])
 
+    def test_split_file_autoplay_starts_when_ready(self):
+        fake = types.SimpleNamespace(
+            is_preview_mode=False, _preview_autoplay_active=True,
+            initialized=True, preview_thread=object(),
+            _preview_autoplay_attempts=0, btnPlay_clicked=MagicMock())
+        with patch('windows.cutting.QTimer.singleShot') as timer:
+            Cutting._start_preview_autoplay(fake)
+        fake.btnPlay_clicked.assert_called_once_with(force='play')
+        self.assertEqual(fake._preview_autoplay_attempts, 1)
+        timer.assert_called_once()
+
     def test_preview_autoplay_does_not_restart_a_closing_dialog(self):
         fake = types.SimpleNamespace(
             is_preview_mode=True, _preview_autoplay_active=True,

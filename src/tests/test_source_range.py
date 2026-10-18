@@ -99,7 +99,7 @@ class SourceRangeTests(unittest.TestCase):
                 for preview in (False, True):
                     with self.subTest(trimmed=trimmed, clip_id=clip_id, preview=preview):
                         dialog = self.dialog(clip_id=clip_id, preview=preview)
-                        self.assertEqual(dialog._preview_autoplay_active, preview)
+                        self.assertTrue(dialog._preview_autoplay_active)
 
     def mock_reject(self, dialog):
         # Qt's native closeEvent calls this void method during dialog cleanup.
@@ -727,6 +727,46 @@ class SourceRangeTests(unittest.TestCase):
         clip = self.dialog('clip')
         self.assertTrue(clip.buttonBox.isHidden())
         self.assertFalse(clip.widgetControls.isHidden())
+
+    def test_preview_volume_click_jumps_to_position(self):
+        import importlib
+        from qt_api import QT_API
+        from windows.preview_design import PreviewVolumeSlider
+        binding = {'pyqt5': 'PyQt5', 'pyqt6': 'PyQt6', 'pyside6': 'PySide6'}[QT_API]
+        QTest = importlib.import_module(binding + '.QtTest').QTest
+        slider = PreviewVolumeSlider(Qt.Horizontal)
+        self.addCleanup(slider.close)
+        slider.setRange(0, 100)
+        slider.setTracking(False)
+        slider.resize(200, 24)
+        slider.show()
+        self.qt_app.processEvents()
+        for x, expected in ((50, 25), (150, 75), (0, 0), (199, 100)):
+            QTest.mouseClick(slider, Qt.LeftButton, pos=QPoint(x, 12))
+            self.assertAlmostEqual(slider.value(), expected, delta=5)
+        slider.setLayoutDirection(Qt.RightToLeft)
+        QTest.mouseClick(slider, Qt.LeftButton, pos=QPoint(50, 12))
+        self.assertAlmostEqual(slider.value(), 75, delta=5)
+
+    def test_preview_volume_is_saved_without_undo_history(self):
+        from classes.project_data import ProjectDataStore
+        from windows.preview_design import _save_preview_volume, _saved_preview_volume
+        project = ProjectDataStore()
+        project._data = {'settings': {'other_setting': True}}
+        updates = UpdateManager()
+        app = types.SimpleNamespace(project=project, updates=updates)
+        updates.add_listener(project)
+        dialog = types.SimpleNamespace(_volume_timer=Mock())
+        with patch('windows.preview_design.get_app', return_value=app), \
+                patch('classes.project_data.get_app', return_value=app):
+            self.assertEqual(_saved_preview_volume(), 100)
+            _save_preview_volume(dialog, 35)
+            self.assertEqual(_saved_preview_volume(), 35)
+            self.assertTrue(project.has_unsaved_changes)
+            self.assertTrue(project.get('settings')['other_setting'])
+            self.assertEqual(len(updates.actionHistory), 0)
+            _save_preview_volume(dialog, 0)
+            self.assertEqual(_saved_preview_volume(), 0)
 
     def test_preview_volume_uses_player_without_editing_source(self):
         from windows.preview_thread import PlayerWorker

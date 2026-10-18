@@ -79,7 +79,7 @@ class Cutting(SourceRangeMixin, QDialog):
         _ = get_app()._tr
         self.range_clip_id = clip_id
         self.is_preview_mode = preview
-        self._preview_autoplay_active = preview
+        self._preview_autoplay_active = True
         self._preview_autoplay_attempts = 0
         self._preview_initial_frame = 1
         self._shutdown_in_progress = False
@@ -569,7 +569,7 @@ class Cutting(SourceRangeMixin, QDialog):
             self.sliderVideo.setFocus()
 
     def _start_preview_autoplay(self):
-        if (not self._preview_autoplay_active or not self.is_preview_mode
+        if (not self._preview_autoplay_active
                 or getattr(self, '_shutdown_in_progress', False)):
             return
         if not getattr(self, "initialized", False):
