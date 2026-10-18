@@ -101,6 +101,26 @@ class SourceRangeTests(unittest.TestCase):
                         dialog = self.dialog(clip_id=clip_id, preview=preview)
                         self.assertEqual(dialog._preview_autoplay_active, preview)
 
+    def mock_reject(self, dialog):
+        # Qt's native closeEvent calls this void method during dialog cleanup.
+        patcher = patch.object(dialog, 'reject', return_value=None)
+        reject = patcher.start()
+        self.addCleanup(patcher.stop)  # Restore reject before dialog.close().
+        return reject
+
+    def test_reject_mock_returns_none_and_is_restored_before_dialog_cleanup(self):
+        d = self.dialog()
+        original_reject = d.reject
+        reject = self.mock_reject(d)
+        self.assertIsNone(d.reject())
+        reject.assert_called_once_with()
+        d.show()
+        self.qt_app.processEvents()
+        self.assertTrue(d.isVisible())
+        self.doCleanups()
+        self.assertEqual(d.reject, original_reject)
+        self.assertFalse(d.isVisible())
+
     def test_timeline_markers_preview_then_apply_only_target_with_undo_redo(self):
         d = self.dialog('clip')
         self.assertEqual((d.start_frame, d.end_frame), (61, 150))
@@ -303,7 +323,7 @@ class SourceRangeTests(unittest.TestCase):
         from windows.cutting import Cutting
         self.data['files'][0].update(start=0, end=10, is_split_file=False)
         d = self.dialog()
-        d.reject = Mock()
+        self.mock_reject(d)
         d.txtName.setText('Opening')
         self.assertEqual(d.btnAddClip.text(), 'Create')
         Cutting.btnAddClip_clicked(d)
@@ -313,7 +333,7 @@ class SourceRangeTests(unittest.TestCase):
         self.assertFalse(hasattr(d, 'range_table'))
         self.assertTrue(d.buttonBox.isHidden())
         clip = self.dialog('clip')
-        clip.reject = Mock()
+        self.mock_reject(clip)
         self.assertEqual(clip.btnAddClip.text(), 'Update Clip')
         clip.sliderVideo.move_edge('out', 180)
         self.window.timeline._is_track_locked.return_value = True
@@ -477,7 +497,7 @@ class SourceRangeTests(unittest.TestCase):
         self.updates.add_listener(types.SimpleNamespace(changed=lambda action: TimelineView.changed(timeline, action)))
         d = self.dialog()
         self.assertEqual(d.btnAddClip.text(), 'Update')
-        d.reject = Mock()
+        self.mock_reject(d)
         d.sliderVideo.move_edge('in', 31)
         Cutting.btnAddClip_clicked(d)
         d.reject.assert_called_once_with()
@@ -535,7 +555,7 @@ class SourceRangeTests(unittest.TestCase):
                 self.data['files'][0].update(start=0, end=10, is_split_file=False)
             d = self.dialog('clip' if mode == 'clip' else None)
             d.accept_source_changes = types.MethodType(Cutting.accept_source_changes, d)
-            d.reject = Mock()
+            self.mock_reject(d)
             with patch('windows.preview_keyboard.get_app', return_value=self.app):
                 d.preview_keyboard = PreviewKeyboard(d)
             d.show()
@@ -568,7 +588,7 @@ class SourceRangeTests(unittest.TestCase):
     def test_keyboard_accept_keeps_invalid_or_blocked_changes_open(self):
         from windows.cutting import Cutting
         d = self.dialog('clip')
-        d.reject = Mock()
+        self.mock_reject(d)
         d.show()
         d.range_duration.setFocus()
         self.qt_app.processEvents()
