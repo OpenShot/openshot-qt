@@ -31,6 +31,7 @@ from collections import OrderedDict
 from pathlib import Path
 import tempfile
 
+from classes.waveform_cache import samples as waveform_samples
 from qt_api import QImage, QPixmap
 from classes.app import get_app
 from classes.query import File, Clip, Transition
@@ -80,10 +81,11 @@ def snapshot_clips(mode, start, end, fps):
         stat = path.stat()
         key = (str(path), stat.st_mtime_ns, stat.st_size, rate, channel)
         file_ui = file.data.get("ui", {})
-        if channel == -1 and isinstance(file_ui.get("audio_data"), list) and len(file_ui["audio_data"]) > 1:
+        cached_peaks = waveform_samples(file_ui.get("audio_data"))
+        if channel == -1 and len(cached_peaks) > 1:
             from classes.waveform import waveform_sample_rate, waveform_data_format
-            peaks = file_ui["audio_data"]
-            rms = file_ui.get("audio_data_rms", [])
+            peaks = cached_peaks
+            rms = waveform_samples(file_ui.get("audio_data_rms"))
             rate = waveform_sample_rate(file_ui)
             data_format = waveform_data_format(file_ui)
             metrics["cache_hits"] += 1

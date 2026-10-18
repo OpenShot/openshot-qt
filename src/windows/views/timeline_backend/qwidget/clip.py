@@ -34,6 +34,7 @@ from classes.app import get_app
 from classes.feedback import record_feedback_changes
 from classes.clip_utils import is_single_image_media
 from classes.query import Clip, Transition
+from classes.waveform_cache import sample_count, is_reference
 from classes.waveform import waveform_sample_rate
 from windows.views.retime import retime_clip
 
@@ -404,10 +405,10 @@ class ClipInteractionMixin:
         ui_data = data.get("ui", {}) if isinstance(data, dict) else {}
         samples_per_second = waveform_sample_rate(ui_data)
         audio_data = ui_data.get("audio_data") if isinstance(ui_data, dict) else None
-        sample_count = len(audio_data) if isinstance(audio_data, list) else 0
+        count = sample_count(audio_data)
         media_duration = 0.0
-        if sample_count:
-            media_duration = float(sample_count) / float(samples_per_second)
+        if count:
+            media_duration = float(count) / float(samples_per_second)
 
         if media_duration <= 0.0:
             media_duration = max(initial_end, pending_end, end, start, 0.0)
@@ -453,12 +454,12 @@ class ClipInteractionMixin:
         data = clip.data if isinstance(clip.data, dict) else {}
         ui_data = data.get("ui", {}) if isinstance(data, dict) else {}
         audio_data = ui_data.get("audio_data") if isinstance(ui_data, dict) else None
-        if isinstance(audio_data, list):
+        if isinstance(audio_data, list) or is_reference(audio_data):
             rms_data = ui_data.get("audio_data_rms")
             return (
-                len(audio_data),
-                len(rms_data) if isinstance(rms_data, list) else 0,
-                ui_data.get("waveform_token"),
+                sample_count(audio_data),
+                sample_count(rms_data),
+                audio_data.get("waveform_cache") if is_reference(audio_data) else ui_data.get("waveform_token"),
                 ui_data.get("audio_data_format"),
                 ui_data.get("audio_data_rate"),
             )

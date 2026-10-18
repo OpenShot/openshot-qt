@@ -71,6 +71,18 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         # Load default project data on creation
         self.new()
 
+    def read_from_file(self, file_path, path_mode="ignore"):
+        from classes.waveform_cache import externalize, transfer
+        data = super().read_from_file(file_path, path_mode)
+        transfer(data, os.path.join(get_assets_path(file_path, create_paths=False), "waveforms"), importing=True)
+        return externalize(data)
+
+    def write_to_file(self, file_path, data, path_mode="ignore", previous_path=None):
+        from classes.waveform_cache import externalize, transfer
+        externalize(data)
+        transfer(data, os.path.join(get_assets_path(file_path, create_paths=False), "waveforms"))
+        return super().write_to_file(file_path, data, path_mode, previous_path)
+
     def needs_save(self):
         """Returns if project data has unsaved changes"""
         return self.has_unsaved_changes

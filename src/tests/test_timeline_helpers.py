@@ -5685,8 +5685,10 @@ class TimelineHelperTests(unittest.TestCase):
         self.assertTrue(captured)
         self.assertEqual(captured[-1][0], "C1")
         self.assertEqual(captured[-1][2], "wf-time-1")
-        self.assertEqual(captured[-1][1]["ui"]["audio_data"], [0.5, 0.5, 0.5, 0.5])
-        self.assertEqual(captured[-1][1]["ui"]["audio_data_rms"], [0.2, 0.2, 0.2, 0.2])
+        from classes.waveform_cache import samples
+        self.assertEqual(list(samples(captured[-1][1]["ui"]["audio_data"])), [0.5] * 4)
+        for value in samples(captured[-1][1]["ui"]["audio_data_rms"]):
+            self.assertAlmostEqual(value, 0.2)
         self.assertEqual(captured[-1][1]["ui"]["audio_data_rate"], 20)
         self.assertEqual(
             captured[-1][1]["ui"]["audio_data_format"],
@@ -6090,8 +6092,12 @@ class TimelineHelperTests(unittest.TestCase):
             -1, self.waveform_module.SAMPLES_PER_SECOND, False
         )
         completed = [payload for _, payload, _ in emitted if payload["ui"].get("audio_data")]
-        self.assertEqual(completed[0]["ui"]["audio_data"], [0.05, 0.1])
-        self.assertEqual(completed[0]["ui"]["audio_data_rms"], [0.02, 0.04])
+        from classes.waveform_cache import samples
+        for key, expected in (("audio_data", [0.05, 0.1]), ("audio_data_rms", [0.02, 0.04])):
+            actual = samples(completed[0]["ui"][key])
+            self.assertEqual(len(actual), len(expected))
+            for value, reference in zip(actual, expected):
+                self.assertAlmostEqual(value, reference)
         self.assertEqual(completed[0]["ui"]["audio_data_rate"], 200)
         self.assertEqual(
             completed[0]["ui"]["audio_data_format"],

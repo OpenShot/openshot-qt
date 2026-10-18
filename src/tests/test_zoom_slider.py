@@ -57,6 +57,23 @@ class ZoomSliderTests(unittest.TestCase):
         self.slider.mouseMoveEvent(MouseEvent(*end))
         self.slider.mouseReleaseEvent(MouseEvent(*end))
 
+    def test_long_project_zoom_limit_allows_full_overview(self):
+        from windows.views.timeline_backend.qwidget.base import TimelineWidgetBase
+        backend = SimpleNamespace(
+            scrollbar_position=[0.4, 0.6, 10000.0, 1000.0],
+            _current_project_duration=lambda: 7200.0,
+        )
+        with patch('windows.views.timeline_backend.qwidget.base.get_app',
+                   return_value=SimpleNamespace(project={"tick_pixels": 100.0})):
+            clamp = lambda factor: TimelineWidgetBase._clamp_zoom_factor(backend, factor)
+            self.assertEqual(clamp(720.0), 720.0)
+            self.assertEqual(clamp(1000.0), 720.0)
+            self.assertEqual(clamp(0.001), 0.05)
+            backend._current_project_duration = lambda: 100.0
+            self.assertEqual(clamp(1000.0), 200.0)
+            backend.scrollbar_position[3] = 0.0
+            self.assertEqual(clamp(1000.0), 200.0)
+
     def test_overview_uses_live_duration_until_resize_commits(self):
         self.window.timeline = SimpleNamespace(_project_duration_override=70.0)
         self.assertEqual(self.slider._timeline_duration(), 70.0)
