@@ -63,6 +63,17 @@ import json
 MAX_FPS_SPINBOX_VALUE = 2147483647
 
 
+def format_export_filename(filename, format_ext, default_filename="Untitled Project"):
+    """Ensure the exported filename has the correct format extension appended."""
+    file_ext = str(format_ext or "").strip().lstrip(".")
+    file_name = str(filename or "").strip() or default_filename
+    if file_ext:
+        dot_ext = f".{file_ext}"
+        if not file_name.lower().endswith(dot_ext.lower()):
+            file_name = f"{file_name}{dot_ext}"
+    return file_name
+
+
 class Export(QDialog):
     """ Export Dialog """
 
@@ -1054,11 +1065,11 @@ class Export(QDialog):
         if export_type == _("Image Sequence"):
             file_name_with_ext = "%s%s" % (self.txtFileName.text().strip() or default_filename, self.txtImageFormat.text().strip())
         else:
-            file_ext = self.txtVideoFormat.text().strip()
-            file_name_with_ext = self.txtFileName.text().strip() or default_filename
-            # Append extension, if not already present
-            if not file_name_with_ext.endswith(file_ext):
-                file_name_with_ext = '{}.{}'.format(file_name_with_ext, file_ext)
+            file_name_with_ext = format_export_filename(
+                self.txtFileName.text(),
+                self.txtVideoFormat.text(),
+                default_filename=default_filename,
+            )
 
         # Remove trailing whitespace, unless such a folder exists.
         folder_path = self.txtExportFolder.text().lstrip()
@@ -1076,7 +1087,11 @@ class Export(QDialog):
             open(os.path.join(tempfile.gettempdir(), file_name_with_ext), 'w')
         except OSError:
             # Invalid path detected, so use default file name instead
-            file_name_with_ext = "%s.%s" % (default_filename, self.txtVideoFormat.text().strip())
+            file_name_with_ext = format_export_filename(
+                default_filename,
+                self.txtVideoFormat.text(),
+                default_filename=default_filename,
+            )
             export_file_path = os.path.join(self.txtExportFolder.text().strip() or default_folder, file_name_with_ext)
             log.info("Invalid export path detected, changing to: %s" % export_file_path)
 
