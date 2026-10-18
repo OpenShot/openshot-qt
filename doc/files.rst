@@ -110,19 +110,22 @@ file menu.
    * - Duplicate Title
      - Make a copy, and then edit the copied title SVG file (shown when an SVG title is selected)
 
+.. _source_preview_ref:
+
 Preview File
 ------------
 The :guilabel:`Preview File` action opens the Preview dialog for the selected file
 from :guilabel:`Project Files`. Double-click a file, or press :kbd:`Shift+2` or
 :kbd:`Alt+P` while the file list has focus. With the timeline focused, the same
-shortcut previews the active selected clip's source, paused at its Start point.
-The clip context menu also provides :guilabel:`Preview Clip` beside Properties.
+shortcut plays the selected clip from its Start point. You can also right-click
+a timeline clip and choose :guilabel:`Preview Clip`.
 Double-clicking a saved split reopens its range editor instead of read-only preview.
 
-- Ordinary source files start playing automatically; saved ranges open paused.
+- Playback starts automatically when you open a preview or Split File.
 - :guilabel:`Loop` repeats playback and is enabled by default in Preview.
 - Click the speaker to mute preview audio without changing the project.
-- Adjust volume with the slider; the change applies after releasing it.
+- Click or drag the volume slider to adjust preview audio without affecting your
+  exported video. Save the project to remember this volume for all its previews.
 - Use Fit Window to size the video area to the source aspect ratio. Black bars
   already encoded in the source remain visible.
 - Seeking during playback keeps playback running. Dragging to resize, move,
@@ -130,6 +133,12 @@ Double-clicking a saved split reopens its range editor instead of read-only prev
 - Press :kbd:`Space` to toggle play/pause.
 - Use the mouse scroll wheel to zoom in/out.
 - A :guilabel:`Reset Zoom` button appears when zoom is not 100%, and resets to 100%.
+
+Resize or maximize the window to suit your workspace. Preview and Split File
+remember your window size when you save the project.
+
+The colored bar beneath the ruler shows sections already loaded for playback.
+If playback is choppy, try a smaller window or :ref:`optimize the file <optimize_ref>`.
 
 Preview File shows playback and scrubbing controls only. Preview Clip and Split
 File add range editing below the shared preview. The source ruler and filmstrip

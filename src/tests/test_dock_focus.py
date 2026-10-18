@@ -316,6 +316,29 @@ class DockFocusTests(unittest.TestCase):
             QTest.keyClick(self.app.focusWidget(), Qt.Key_Tab)
             self.assertTrue(children[target][1].hasFocus())
 
+    def test_focused_dock_tab_keeps_label_on_opaque_background(self):
+        from qt_api import QStyleFactory
+        from classes.ui_util import make_dark_palette
+        # Exercise native Fusion painting, not a stylesheet-defined tab shape.
+        self.window.setStyleSheet("")
+        self.window.setStyle(QStyleFactory.create("Fusion"))
+        self.window.setPalette(make_dark_palette(self.window.palette()))
+        first, second = self.docks
+        self.window.tabifyDockWidget(first, second)
+        self.app.processEvents()
+        tabstops.apply_auto_tab_order(self.window)
+        bar = tabstops._dock_tab_bar(self.window, first, [second])
+        for button in bar._dock_tab_stops.buttons:
+            self.focus(self.outside)
+            before = bar.grab().toImage().copy(button.geometry())
+            self.focus(button)
+            image = bar.grab().toImage().copy(button.geometry())
+            self.assertNotEqual(image, before, "Focused tab needs a visible indicator")
+            light_pixels = sum(
+                image.pixelColor(x, y).lightness() > 180
+                for x in range(image.width()) for y in range(image.height()))
+            self.assertGreater(light_pixels, 10, button.accessibleName())
+
     def test_tab_stops_survive_garbage_collection_without_orphan_controls(self):
         import gc
         import weakref

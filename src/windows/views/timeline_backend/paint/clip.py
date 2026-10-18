@@ -53,7 +53,7 @@ import openshot
 from classes.app import get_app
 from classes.keyframe_scaler import KeyframeScaler
 from classes.logger import log
-from classes.thumbnail import RoundFrameToThumbnailGrid
+from classes.thumbnail import RoundFrameToThumbnailGrid, ThumbnailCacheId
 from classes.time_parts import secondsToTime
 from classes.waveform import (
     WAVEFORM_RMS_KEY,
@@ -594,6 +594,7 @@ class ClipPainter(ItemHeaderMixin, BasePainter):
         return start, max(0.0, end - start)
 
     def _existing_thumb_path(self, file_id, frame, fps=0.0):
+        file_id = ThumbnailCacheId(file_id)
         subdir = os.path.join(info.THUMBNAIL_PATH, file_id)
         candidates = [
             os.path.join(subdir, f"{frame}.png"),

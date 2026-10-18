@@ -1677,6 +1677,8 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
                 and files_dock
                 and self.dockWidgetArea(files_dock) != Qt.NoDockWidgetArea):
             if props_dock not in self.tabifiedDockWidgets(files_dock):
+                # Qt6 ignores tabifyDockWidget() for a dock that is still hidden.
+                props_dock.show()
                 self.tabifyDockWidget(files_dock, props_dock)
             self.setTabPosition(self.dockWidgetArea(files_dock), QTabWidget.North)
 

@@ -1063,14 +1063,37 @@ def _patch_enums_for_qt6():
     if QEvent:
         event_type = getattr(QEvent, "Type", None)
         if event_type:
-            for name in ("ShortcutOverride", "Resize", "Paint", "KeyPress", "MouseButtonPress",
-                         "MouseButtonRelease", "MouseMove", "Wheel", "TouchBegin", "TouchUpdate",
-                         "WindowActivate", "DeferredDelete", "Close", "Hide", "Show"):
+            for name in ("ShortcutOverride", "Resize", "Paint", "KeyPress", "KeyRelease",
+                         "MouseButtonPress", "MouseButtonRelease", "MouseMove", "Wheel",
+                         "TouchBegin", "TouchUpdate", "WindowActivate", "WindowStateChange",
+                         "DeferredDelete", "Close", "Hide", "Show", "Move"):
                 if hasattr(event_type, name) and not hasattr(QEvent, name):
                     try:
                         setattr(QEvent, name, getattr(event_type, name))
                     except Exception:
                         pass
+
+    # Promote whole scoped enums onto their owner class. Use __members__ rather
+    # than iteration so zero and combined flags (NoEditTriggers, ReadWrite) are kept.
+    for owner, enum_name in (
+            (getattr(QtCore, "Qt", None), "WidgetAttribute"),
+            (getattr(QtCore, "Qt", None), "ToolBarArea"),
+            (getattr(QtCore, "QIODevice", None), "OpenModeFlag"),
+            (getattr(QtGui, "QContextMenuEvent", None), "Reason"),
+            (getattr(QtWidgets, "QAbstractItemView", None), "EditTrigger"),
+            (getattr(QtWidgets, "QFormLayout", None), "ItemRole"),
+            (getattr(QtWidgets, "QStyle", None), "ControlElement")):
+        scoped = getattr(owner, enum_name, None)
+        members = getattr(scoped, "__members__", None)
+        if not members:
+            continue
+        for name, val in members.items():
+            if not hasattr(owner, name):
+                try:
+                    setattr(owner, name, val)
+                except Exception:
+                    pass
+
     QEventLoop = getattr(QtCore, "QEventLoop", None)
     if QEventLoop and not hasattr(QEventLoop, "ExcludeUserInputEvents"):
         process_flag = getattr(QEventLoop, "ProcessEventsFlag", None)
@@ -2348,6 +2371,25 @@ def _patch_enums_for_qt6():
         if cls and hasattr(cls, "exec") and not hasattr(cls, "exec_"):
             try:
                 setattr(cls, "exec_", _exec_wrapper)
+            except Exception:
+                pass
+    if QtCore:
+        cls = getattr(QtCore, "QEventLoop", None)
+        if cls and hasattr(cls, "exec") and not hasattr(cls, "exec_"):
+            try:
+                setattr(cls, "exec_", _exec_wrapper)
+            except Exception:
+                pass
+
+    # PySide6 retains instance-only exec_ aliases on application classes.
+    # Replace those too, so both class and instance calls use static exec().
+    for module, name in ((QtCore, "QCoreApplication"),
+                         (QtGui, "QGuiApplication"),
+                         (QtWidgets, "QApplication")):
+        cls = getattr(module, name, None)
+        if cls and hasattr(cls, "exec"):
+            try:
+                setattr(cls, "exec_", staticmethod(cls.exec))
             except Exception:
                 pass
 

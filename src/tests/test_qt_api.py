@@ -1,6 +1,7 @@
 """Tests for the centralized Qt binding loader."""
 
 import os
+import subprocess
 import sys
 import unittest
 
@@ -13,6 +14,28 @@ import qt_api
 
 
 class QtApiTests(unittest.TestCase):
+    def test_application_exec_alias_supports_class_and_instance_calls(self):
+        # Isolate application lifetime from the rest of the widget test suite.
+        script = """
+from qt_api import QApplication, QCoreApplication, QEventLoop, QTimer, QtGui
+app = QApplication([])
+for run in (QCoreApplication.exec_, QtGui.QGuiApplication.exec_,
+            QApplication.exec_, app.exec_):
+    QTimer.singleShot(0, lambda: app.exit(0))
+    assert run() == 0
+loop = QEventLoop()
+QTimer.singleShot(0, loop.quit)
+assert loop.exec_() == 0
+"""
+        env = os.environ.copy()
+        env["OPENSHOT_QT_API"] = qt_api.QT_API
+        env["QT_QPA_PLATFORM"] = "offscreen"
+        env["PYTHONPATH"] = PATH + os.pathsep + env.get("PYTHONPATH", "")
+        result = subprocess.run(
+            [sys.executable, "-c", script], env=env, capture_output=True,
+            text=True, timeout=20)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
     def test_feedback_event_types_are_available_on_all_bindings(self):
         for name in ("KeyPress", "MouseButtonPress", "MouseButtonRelease",
                      "MouseMove", "Wheel", "TouchBegin", "TouchUpdate",
@@ -44,6 +67,19 @@ class QtApiTests(unittest.TestCase):
                 self.assertIn(name, vars(qt_api))
                 self.assertIsNotNone(vars(qt_api)[name])
 
+    def test_event_type_aliases_are_available_on_all_bindings(self):
+        """Every unscoped QEvent alias used in the codebase must resolve.
+
+        PyQt6 only exposes scoped enums (QEvent.Type.X); a missing alias
+        raises AttributeError inside eventFilter, which PyQt6 treats as fatal.
+        """
+        for name in ("ShortcutOverride", "Resize", "Paint", "KeyPress", "KeyRelease",
+                     "MouseButtonPress", "MouseButtonRelease", "MouseMove", "Wheel",
+                     "TouchBegin", "TouchUpdate", "WindowActivate", "WindowStateChange",
+                     "DeferredDelete", "Close", "Hide", "Show", "Move"):
+            with self.subTest(name=name, binding=qt_api.QT_API):
+                event_type = getattr(qt_api.QEvent, name)
+                self.assertEqual(qt_api.QEvent(event_type).type(), event_type)
 
 if __name__ == "__main__":
     unittest.main()

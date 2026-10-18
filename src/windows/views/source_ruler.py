@@ -6,6 +6,7 @@ from classes.app import get_app
 from windows.views.range_interaction import range_hit_target
 from windows.preview_icons import START_COLOR, END_COLOR, preview_colors
 from windows.views.timeline_backend.theme import DEFAULT_THEME
+from windows.views.timeline_backend.paint.cache import PlaybackCachePainter
 from windows.views.timeline_backend.paint.ruler import RulerPainter
 from windows.views.timeline_backend.paint.playhead import PlayheadPainter
 
@@ -29,8 +30,10 @@ class SourceRuler(QSlider):
         self.in_frame = self.out_frame = 1
         self.track_name_width = 10
         self.h_scroll_offset = 0
+        self.scroll_bar_thickness = 10
         self.filmstrip_frames = []
         self.filmstrip_images = {}
+        self.playback_cache_ranges = []
         self._scrubbing = False
         self.setMouseTracking(True)
         self._refresh_theme()
@@ -61,12 +64,16 @@ class SourceRuler(QSlider):
     def _refresh_theme(self):
         timeline = getattr(getattr(get_app(), 'window', None), 'timeline', None)
         self.theme = getattr(timeline, 'theme', DEFAULT_THEME)
-        self.ruler_height = max(30, self.fontMetrics().height() + 12)
+        self.playhead_painter = PlayheadPainter(self)
+        # The themed playhead image includes a long shaft, so its full image
+        # height must never determine the ruler's layout height.
+        self.ruler_height = max(40, self.fontMetrics().height() + 12)
         self.filmstrip_height = 46
-        self.setFixedHeight(self.ruler_height + self.filmstrip_height + 4)
+        self.cache_painter = PlaybackCachePainter(self)
+        self.filmstrip_top = self.ruler_height + self.cache_painter.cache_height
+        self.setFixedHeight(int(self.filmstrip_top + self.filmstrip_height + 4))
         self.preview_colors = preview_colors()
         self.painter = RulerPainter(self)
-        self.playhead_painter = PlayheadPainter(self)
         if self.reference_design:
             self.painter.bg = QColor(self.preview_colors['field'])
             self.painter.bg2 = self.painter.bg
@@ -121,7 +128,12 @@ class SourceRuler(QSlider):
             painter.setFont(self.painter.tick_font)
             painter.setPen(QColor(self.preview_colors['text']))
             painter.drawText(rect.adjusted(0, 0, -2, 0), Qt.AlignRight | Qt.AlignTop, end)
-        strip = QRectF(10, self.ruler_height, max(1, self.width()-20), self.filmstrip_height)
+        # Use the timeline's painter, including theme colors and cache lane height.
+        fps = self.ruler_fps['num'] / self.ruler_fps['den']
+        self._playback_cache_ranges = [
+            ((first - 1) / fps, last / fps)
+            for first, last in self.playback_cache_ranges if last >= first]
+        strip = QRectF(10, self.filmstrip_top, max(1, self.width()-20), self.filmstrip_height)
         painter.fillRect(strip, self.palette().base())
         frames = self._visible_filmstrip_frames(strip.width())
         painter.setRenderHint(QPainter.SmoothPixmapTransform, True)
@@ -176,6 +188,7 @@ class SourceRuler(QSlider):
                     gx = grip.center().x()+offset
                     painter.drawLine(QPointF(gx, grip.top()+9), QPointF(gx, grip.bottom()-9))
         x = self._x(self.value()-1)
+        self.cache_painter.paint(painter)
         self.playhead_painter.paint_at(
             painter, x, 0, self.width(), self.height(), self.ruler_height)
 
@@ -193,7 +206,7 @@ class SourceRuler(QSlider):
         for x, text in ((first, get_app()._tr('Start')), (last, get_app()._tr('End'))):
             width = self.fontMetrics().horizontalAdvance(text) + 12
             left = max(0, min(self.width()-width, x-width/2))
-            labels.append([QRectF(left, self.ruler_height+2, width, label_height), text])
+            labels.append([QRectF(left, self.filmstrip_top+2, width, label_height), text])
         if labels[0][0].right() > labels[1][0].left():
             labels[0][0].moveLeft(max(0, min(first-labels[0][0].width(),
                                           self.width()-sum(item[0].width() for item in labels))))
@@ -203,23 +216,23 @@ class SourceRuler(QSlider):
     def _grip_rects(self):
         first, last = self._x(self.in_frame-1), self._x(self.out_frame)
         positions = (first-8, last-8)
-        return tuple(QRectF(x, self.ruler_height+5, 16, self.filmstrip_height-10)
+        return tuple(QRectF(x, self.filmstrip_top+5, 16, self.filmstrip_height-10)
                      for x in positions)
 
     def _hit_target(self, pos):
-        if not self.range_enabled or pos.y() < self.ruler_height:
+        if not self.range_enabled or pos.y() < self.filmstrip_top:
             return 'seek'
         first, last = self._x(self.in_frame-1), self._x(self.out_frame)
-        selection = QRectF(first, self.ruler_height, last-first, self.filmstrip_height)
+        selection = QRectF(first, self.filmstrip_top, last-first, self.filmstrip_height)
         left, right = self._grip_rects()
         return range_hit_target(pos, selection, left, right,
                                 selection.adjusted(-8, 0, 8, 0),
-                                self.ruler_height+4, self.filmstrip_height-8,
+                                self.filmstrip_top+4, self.filmstrip_height-8,
                                 midpoint=(left.center().x()+right.center().x())/2)
 
     def edge_at(self, x, y=None):
         if y is None:
-            y = self.ruler_height + self.filmstrip_height / 2
+            y = self.filmstrip_top + self.filmstrip_height / 2
         if self.range_enabled and not self.reference_design:
             for edge, (rect, _text) in zip(('in', 'out'), self._edge_labels()):
                 if rect.contains(QPointF(x, y)):
