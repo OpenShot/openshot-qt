@@ -32,12 +32,14 @@ import socket
 import time
 import shutil
 from datetime import datetime
+from fractions import Fraction
 from requests import get
 from threading import Thread
 from classes import info
 from classes.auto_optimize import MEASUREMENT_VERSION, machine_id, source_fingerprint
 from classes.query import File
 from classes.logger import log
+from classes.path_utils import absolute_media_path
 from classes.app import get_app
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from socketserver import ThreadingMixIn
@@ -227,7 +229,30 @@ def GetThumbPath(file_id, thumbnail_frame, clear_cache=False, attempts=1):
     return ''
 
 
-def GenerateThumbnail(file_path, thumb_path, thumbnail_frame, width, height, mask, overlay):
+def ThumbnailProxySource(file_data, frame_number):
+    """Resolve an available optimized reader and map the source frame by timestamp."""
+    proxy = file_data.get("proxy_reader")
+    if not isinstance(proxy, dict) or proxy.get("missing"):
+        return None
+    path = absolute_media_path(proxy.get("path"))
+    if not path or not os.path.isfile(path):
+        return None
+
+    proxy_frame = frame_number
+    try:
+        source_fps = file_data["fps"]
+        proxy_fps = proxy["fps"]
+        source_rate = Fraction(int(source_fps["num"]), int(source_fps["den"]))
+        proxy_rate = Fraction(int(proxy_fps["num"]), int(proxy_fps["den"]))
+        if source_rate > 0 and proxy_rate > 0:
+            proxy_frame = max(1, round((frame_number - 1) * proxy_rate / source_rate) + 1)
+    except (KeyError, TypeError, ValueError, ZeroDivisionError):
+        pass
+    return path, proxy_frame
+
+
+def GenerateThumbnail(file_path, thumb_path, thumbnail_frame, width, height, mask, overlay,
+                      proxy_source=None):
     """Create thumbnail image."""
     try:
         scale = GetThumbDeviceScale()
@@ -281,12 +306,19 @@ def GenerateThumbnail(file_path, thumb_path, thumbnail_frame, width, height, mas
                     pass
         # Return False only when an exception is handled in caller.
 
-    for inspect_reader in (False, True):
-        try:
-            return _render_with_reader(file_path, thumbnail_frame, inspect_reader)
-        except RuntimeError:
-            # retry once with eager inspection if lightweight reader did not work
-            continue
+    sources = [(file_path, thumbnail_frame)]
+    if proxy_source:
+        sources.insert(0, proxy_source)
+    for source_path, source_frame in sources:
+        for inspect_reader in (False, True):
+            try:
+                measurement = _render_with_reader(source_path, source_frame, inspect_reader)
+                if proxy_source and source_path == proxy_source[0]:
+                    measurement["is_proxy"] = True
+                return measurement
+            except RuntimeError:
+                # Retry with eager inspection, then fall back to the original source.
+                continue
 
     # Any failure opening the reader (i.e. file missing or corrupt) use placeholder thumbnail
     not_found_path = os.path.join(info.IMAGES_PATH, "NotFound.svg")
@@ -460,10 +492,12 @@ class httpThumbnailHandler(BaseHTTPRequestHandler):
                 thumb_width,
                 thumb_height,
                 mask_path,
-                "")
+                "",
+                proxy_source=ThumbnailProxySource(file.data, file_frame))
             # Only newly decoded first frames of source videos are performance samples.
             # Cached PNGs and placeholder images never supply a measurement.
             if (controller is not None and file_frame == 1 and isinstance(measurement, dict)
+                    and not measurement.get("is_proxy")
                     and fingerprint is not None and file.data.get("media_type") == "video"
                     and file.data.get("type") == "FFmpegReader"):
                 measurement.update(version=MEASUREMENT_VERSION, machine=machine_id(), source=fingerprint)
