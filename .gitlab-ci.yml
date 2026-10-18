@@ -40,6 +40,7 @@ linux:
     -    "curl -O -J -L --header PRIVATE-TOKEN:$ACCESS_TOKEN http://gitlab.openshot.org/OpenShot/libopenshot/-/jobs/artifacts/develop/download?job=linux-builder"
     - fi
     - unzip artifacts.zip
+    - "if [ \"$CI_COMMIT_REF_NAME\" = \"arm64-support\" ]; then grep -qx \"CI_COMMIT_REF_NAME:arm64-support\" build/install-x64/share/libopenshot.env || exit 1; fi"
     - cp -r "$CI_PROJECT_DIR/build/install-x64/python/." "$CI_PROJECT_DIR"
     - export LD_LIBRARY_PATH=$OPENCV_ROOT/lib:$CI_PROJECT_DIR/build/install-x64/lib:$LD_LIBRARY_PATH
     - ldd "$CI_PROJECT_DIR/build/install-x64/lib/libopenshot.so" | tee "$CI_PROJECT_DIR/build/install-x64/share/libopenshot-linux-deps.log"
@@ -81,6 +82,7 @@ mac:
     -    "curl -O -J -L --header PRIVATE-TOKEN:$ACCESS_TOKEN http://gitlab.openshot.org/OpenShot/libopenshot/-/jobs/artifacts/develop/download?job=mac-builder"
     - fi
     - unzip artifacts.zip
+    - "if [ \"$CI_COMMIT_REF_NAME\" = \"arm64-support\" ]; then grep -qx \"CI_COMMIT_REF_NAME:arm64-support\" build/install-x64/share/libopenshot.env || exit 1; fi"
     - echo "Update extracted dependencies using install_name_tool (for Mac only)"
     - libraries=$( find ./build/install-x64 -type f \( -name *.dylib -or -name *.so \) | sed 's/\.\/*//' )
     - for f in $libraries; do
@@ -126,6 +128,7 @@ win-x64:
     - try { Invoke-WebRequest -Uri "http://gitlab.openshot.org/OpenShot/libopenshot/-/jobs/artifacts/$CI_COMMIT_REF_NAME/download?job=windows-builder-x64" -Headers @{"PRIVATE-TOKEN"="$ACCESS_TOKEN"} -OutFile "artifacts.zip" } catch { $_.Exception.Response.StatusCode.Value__ }
     - if (-not (Test-Path "artifacts.zip")) { Invoke-WebRequest -Uri "http://gitlab.openshot.org/OpenShot/libopenshot/-/jobs/artifacts/develop/download?job=windows-builder-x64" -Headers @{"PRIVATE-TOKEN"="$ACCESS_TOKEN"} -OutFile "artifacts.zip" }
     - Expand-Archive -Path artifacts.zip -DestinationPath .
+    - "if ($CI_COMMIT_REF_NAME -eq \"arm64-support\" -and -not (Select-String -Path \"build/install-x64/share/libopenshot.env\" -Pattern \"^CI_COMMIT_REF_NAME:arm64-support$\" -Quiet)) { throw \"Matching arm64-support library artifacts are required\" }"
     - Copy-Item "$CI_PROJECT_DIR/build/install-x64/python/*" -Destination "$CI_PROJECT_DIR"
     - $env:MSYSTEM = "MINGW64"
     - $env:OPENCV_ROOT = "C:\msys64\mingw64\opencv-4.13.0"
@@ -172,6 +175,7 @@ win-x86:
     - try { Invoke-WebRequest -Uri "http://gitlab.openshot.org/OpenShot/libopenshot/-/jobs/artifacts/$CI_COMMIT_REF_NAME/download?job=windows-builder-x86" -Headers @{"PRIVATE-TOKEN"="$ACCESS_TOKEN"} -OutFile "artifacts.zip" } catch { $_.Exception.Response.StatusCode.Value__ }
     - if (-not (Test-Path "artifacts.zip")) { Invoke-WebRequest -Uri "http://gitlab.openshot.org/OpenShot/libopenshot/-/jobs/artifacts/develop/download?job=windows-builder-x86" -Headers @{"PRIVATE-TOKEN"="$ACCESS_TOKEN"} -OutFile "artifacts.zip" }
     - Expand-Archive -Path artifacts.zip -DestinationPath .
+    - "if ($CI_COMMIT_REF_NAME -eq \"arm64-support\" -and -not (Select-String -Path \"build/install-x86/share/libopenshot.env\" -Pattern \"^CI_COMMIT_REF_NAME:arm64-support$\" -Quiet)) { throw \"Matching arm64-support library artifacts are required\" }"
     - Copy-Item "$CI_PROJECT_DIR/build/install-x86/python/*" -Destination "$CI_PROJECT_DIR"
     - $env:MSYSTEM = "MINGW32"
     - $env:OPENCV_ROOT = "C:\msys64\mingw32\opencv-4.13.0"
