@@ -187,22 +187,31 @@ class Cutting(SourceRangeMixin, QDialog):
         self.actionPlay.triggered.connect(self.actionPlay_Triggered)
         self.btnPlay.clicked.connect(self.btnPlay_clicked)
         self.sliderVideo.valueChanged.connect(self.sliderVideo_valueChanged)
-        self.sliderVideo.sliderReleased.connect(self.sliderVideo_released)
         self.btnStart.clicked.connect(self.btnStart_clicked)
         self.btnEnd.clicked.connect(self.btnEnd_clicked)
         self.btnClear.clicked.connect(self.btnClear_clicked)
         self.btnAddClip.clicked.connect(self.btnAddClip_clicked)
         self.sliderVideo.installEventFilter(self)
-        # Timer to ensure final preview update
-        self.slider_timer = QTimer(self)
-        self.slider_timer.setInterval(100)
-        self.slider_timer.setSingleShot(True)
-        self.slider_timer.timeout.connect(self.sliderVideo_timeout)
         self.videoPreview.delayed_resize_timer.timeout.connect(self._apply_dynamic_preview_max_size)
         self.initialized = True
+        self.preview_cache_timer = QTimer(self)
+        self.preview_cache_timer.setInterval(250)
+        self.preview_cache_timer.timeout.connect(self._update_preview_cache)
+        self.preview_cache_timer.start()
         from windows.preview_keyboard import PreviewKeyboard
         self.preview_keyboard = PreviewKeyboard(self)
         self.sliderVideo.setFocus(Qt.OtherFocusReason)
+
+    def _update_preview_cache(self):
+        if getattr(self, '_shutdown_in_progress', False) or not getattr(self, 'r', None):
+            return
+        ranges = json.loads(self.r.GetCache().Json()).get('ranges', [])
+        cached_ranges = [
+            (max(1, int(item['start'])), min(self.video_length, int(item['end'])))
+            for item in ranges]
+        if cached_ranges != self.sliderVideo.playback_cache_ranges:
+            self.sliderVideo.playback_cache_ranges = cached_ranges
+            self.sliderVideo.update()
 
     def _build_preview_repeat_button(self):
         _ = get_app()._tr
@@ -324,7 +333,7 @@ class Cutting(SourceRangeMixin, QDialog):
             reader_kind = "proxy_reader"
         else:
             reader_kind = "source_reader"
-        log.debug(
+        log.info(
             "Preview dialog opening with %s path=%s size=%sx%s",
             reader_kind,
             self.file_path,
@@ -332,7 +341,9 @@ class Cutting(SourceRangeMixin, QDialog):
             int(reader_data.get("height", 0) or 0),
         )
 
-        self.clip = openshot.Clip(self.file_path)
+        # Reader JSON already contains the metadata. Avoid probing a path
+        # reader only to discard it immediately in SetJson().
+        self.clip = openshot.Clip(self.file_path) if is_single_image else openshot.Clip()
         if not is_single_image:
             self.clip.SetJson(json.dumps({
                 "reader_orientation_mode": "reader",
@@ -437,7 +448,9 @@ class Cutting(SourceRangeMixin, QDialog):
                 pass
 
     def _apply_dynamic_preview_max_size(self):
-        if not getattr(self, "initialized", False) or not getattr(self, "r", None):
+        if (getattr(self, "_shutdown_in_progress", False)
+                or not getattr(self, "initialized", False) or not getattr(self, "r", None)
+                or getattr(self, "videoPreview", None) is None):
             return
 
         new_size = self._target_preview_max_size()
@@ -541,9 +554,6 @@ class Cutting(SourceRangeMixin, QDialog):
             self.btnPlay.setChecked(True)
 
         if self.btnPlay.isChecked():
-            # A just-finished scrub can still have its final seek queued. Do not
-            # let that timer pause playback after the user presses Play.
-            self.slider_timer.stop()
             log.debug('play (icon to pause)')
             self.btnPlay.setIcon(self._source_control_icon("pause"))
             if self.loop_playback:
@@ -647,21 +657,11 @@ class Cutting(SourceRangeMixin, QDialog):
     def sliderVideo_valueChanged(self, new_frame):
         if self.preview_thread and not self.sliderIgnoreSignal:
             log.debug('sliderVideo_valueChanged')
+            # Queue each changed position once. Release/timer repeats of a
+            # paused same-frame seek are treated as edit invalidations by the
+            # player and discard otherwise reusable playback cache.
             # Seeking preserves the current playback mode.
             self.previewFrameSignal.emit(new_frame)
-            # Start timer to ensure preview updates after dragging stops
-            self.slider_timer.start()
-
-    def sliderVideo_timeout(self):
-        if self.preview_thread and not self.sliderIgnoreSignal:
-            log.debug('sliderVideo_timeout')
-            self.previewFrameSignal.emit(self.sliderVideo.value())
-
-    def sliderVideo_released(self):
-        if self.preview_thread and not self.sliderIgnoreSignal:
-            log.debug('sliderVideo_released')
-            self.previewFrameSignal.emit(self.sliderVideo.value())
-            self.slider_timer.start()
 
     def btnStart_clicked(self):
         self.btnPlay_clicked(force="pause")
@@ -696,6 +696,8 @@ class Cutting(SourceRangeMixin, QDialog):
             self.reject()
 
     def _finalize_preview_shutdown(self):
+        if hasattr(self, "preview_cache_timer"):
+            self.preview_cache_timer.stop()
         if getattr(self, "videoPreview", None):
             get_app().updates.disconnect_listener(self.videoPreview)
             self.videoPreview.deleteLater()

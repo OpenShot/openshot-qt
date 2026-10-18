@@ -92,9 +92,15 @@ def RoundFrameToThumbnailGrid(frame_number, fps, target_fps=THUMBNAIL_PREWARM_FP
     return max(1, int(round((frame_number - 1) / float(step))) * step + 1)
 
 
+def ThumbnailCacheId(file_id):
+    """Resolve a cache folder directly, without requiring its original entry."""
+    file = File.get(id=file_id)
+    return str((file.data.get("thumbnail_cache_id") if file else None) or file_id)
+
+
 def ThumbnailPathForFrame(file_id, thumbnail_frame):
     """Return the canonical thumbnail path for a file/frame pair."""
-    return os.path.join(info.THUMBNAIL_PATH, str(file_id), "{}.png".format(int(thumbnail_frame or 1)))
+    return os.path.join(info.THUMBNAIL_PATH, ThumbnailCacheId(file_id), "{}.png".format(int(thumbnail_frame or 1)))
 
 
 def MigrateThumbnailLayout(thumbnail_root):
@@ -301,13 +307,14 @@ def ThumbnailCacheIsStale(thumb_path):
 
 def FindCachedThumbnail(file_id, frame, fps=0.0):
     """Find a current source thumbnail without requesting or decoding a frame."""
+    cache_id = ThumbnailCacheId(file_id)
     frames = [int(frame)]
     rounded = RoundFrameToThumbnailGrid(frame, fps)
     if rounded != frame:
         frames.append(rounded)
     for cached_frame in frames:
-        legacy_name = ("%s.png" % file_id if cached_frame == 1
-                       else "%s-%s.png" % (file_id, cached_frame))
+        legacy_name = ("%s.png" % cache_id if cached_frame == 1
+                       else "%s-%s.png" % (cache_id, cached_frame))
         for path in (ThumbnailPathForFrame(file_id, cached_frame),
                      os.path.join(info.THUMBNAIL_PATH, legacy_name)):
             if os.path.isfile(path) and not ThumbnailCacheIsStale(path):
@@ -434,25 +441,12 @@ class httpThumbnailHandler(BaseHTTPRequestHandler):
             self.send_header('Content-type', 'text/html; charset=utf-8')
         self.end_headers()
 
-        # Locate thumbnail
-        thumb_path = ThumbnailPathForFrame(file_id, file_frame)
-        if not os.path.exists(thumb_path) and file_frame == 1:
-            # Try ID with no frame # (for backwards compatibility)
-            thumb_path = os.path.join(info.THUMBNAIL_PATH, "%s.png" % file_id)
-        if not os.path.exists(thumb_path) and file_frame != 1:
-            # Try with ID and frame # in filename (for backwards compatibility)
-            thumb_path = os.path.join(info.THUMBNAIL_PATH, "%s-%s.png" % (file_id, file_frame))
-
-        if not os.path.exists(thumb_path) and not no_cache:
-            fps_data = file.data.get("fps", {}) if isinstance(getattr(file, "data", None), dict) else {}
-            fps_num = float(fps_data.get("num", 0.0) or 0.0)
-            fps_den = float(fps_data.get("den", 1.0) or 1.0)
-            fps = (fps_num / fps_den) if fps_num > 0.0 and fps_den > 0.0 else 0.0
-            rounded_frame = RoundFrameToThumbnailGrid(file_frame, fps)
-            if rounded_frame != file_frame:
-                rounded_thumb_path = ThumbnailPathForFrame(file_id, rounded_frame)
-                if os.path.exists(rounded_thumb_path) and not ThumbnailCacheIsStale(rounded_thumb_path):
-                    thumb_path = rounded_thumb_path
+        # All entries sharing source media read/write the same cache folder.
+        fps_data = file.data.get("fps") or {}
+        fps = float(fps_data.get("num") or 0) / float(fps_data.get("den") or 1)
+        thumb_path = "" if no_cache else FindCachedThumbnail(file_id, file_frame, fps)
+        if not thumb_path:
+            thumb_path = ThumbnailPathForFrame(file_id, file_frame)
 
         if not os.path.exists(thumb_path) or no_cache or ThumbnailCacheIsStale(thumb_path):
             # Generate thumbnail (since we can't find it)

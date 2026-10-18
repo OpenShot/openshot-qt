@@ -137,6 +137,14 @@ class ProxyServiceTests(unittest.TestCase):
          save.assert_not_called()
          finalize.assert_called_once_with("F1", "canceled")
 
+     def test_proxy_availability_resolves_project_asset_path(self):
+         file_obj = types.SimpleNamespace(data={"proxy_reader": {"path": "@assets/optimized/source.mp4"}})
+         with tempfile.NamedTemporaryFile() as proxy, \
+                 patch("classes.proxy_service.absolute_media_path", return_value=proxy.name):
+             self.assertFalse(self.service.has_missing_proxy(file_obj))
+         file_obj.data["proxy_reader"]["missing"] = True
+         self.assertTrue(self.service.has_missing_proxy(file_obj))
+
      def test_dialog_preview_reader_data_prefers_valid_proxy_reader(self):
          file_obj = types.SimpleNamespace(
              id="F1",

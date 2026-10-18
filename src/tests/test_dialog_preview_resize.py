@@ -296,6 +296,7 @@ class DialogPreviewResizeTests(unittest.TestCase):
         )
         fake = types.SimpleNamespace(
             initialized=True,
+            videoPreview=object(),
             r=timeline,
             _target_preview_max_size=lambda: QSize(640, 360),
             _select_reader_data_for_size=lambda size: {"path": "/source.mp4"},
@@ -324,6 +325,7 @@ class DialogPreviewResizeTests(unittest.TestCase):
         )
         fake = types.SimpleNamespace(
             initialized=True,
+            videoPreview=object(),
             r=timeline,
             preview_thread=types.SimpleNamespace(player=player),
             _target_preview_max_size=lambda: QSize(640, 360),
@@ -366,6 +368,12 @@ class DialogPreviewResizeTests(unittest.TestCase):
         self.assertEqual(fake._preview_autoplay_attempts, 1)
         timer.assert_called_once()
 
+    def test_preview_resize_ignores_destroyed_video_widget(self):
+        fake = types.SimpleNamespace(initialized=True, r=object(), videoPreview=None,
+                                     _target_preview_max_size=MagicMock())
+        Cutting._apply_dynamic_preview_max_size(fake)
+        fake._target_preview_max_size.assert_not_called()
+
     def test_preview_autoplay_does_not_restart_a_closing_dialog(self):
         fake = types.SimpleNamespace(
             is_preview_mode=True, _preview_autoplay_active=True,
@@ -403,20 +411,15 @@ class DialogPreviewResizeTests(unittest.TestCase):
             fake.preview_thread.Seek.assert_called_with(expected, False)
         self.assertFalse(fake.sliderIgnoreSignal)
 
-    def test_source_play_cancels_pending_scrub_and_starts_inside_loop_range(self):
-        from qt_api import QTimer
-        timer = QTimer()
-        timer.setSingleShot(True)
-        timer.start(100)
+    def test_source_play_starts_inside_loop_range(self):
         fake = types.SimpleNamespace(
-            _preview_autoplay_active=False, btnPlay=MagicMock(), slider_timer=timer,
+            _preview_autoplay_active=False, btnPlay=MagicMock(),
             _source_control_icon=MagicMock(),
             loop_playback=True, playback_range=lambda: (31, 36),
             sliderVideo=MagicMock(), SeekSignal=MagicMock(), PlaySignal=MagicMock())
         fake.btnPlay.isChecked.return_value = True
         fake.sliderVideo.value.return_value = 80
         Cutting.btnPlay_clicked(fake, force='play')
-        self.assertFalse(timer.isActive())
         fake.SeekSignal.emit.assert_called_once_with(31)
         fake.PlaySignal.emit.assert_called_once()
         fake.sliderVideo.setFocus.assert_not_called()
@@ -556,7 +559,7 @@ class DialogPreviewResizeTests(unittest.TestCase):
             info = FakeClipReaderInfo()
 
         class FakeClip:
-            def __init__(self, path):
+            def __init__(self, path=None):
                 self.path = path
                 self.reader = FakeClipReader()
                 self.display = None
@@ -597,12 +600,13 @@ class DialogPreviewResizeTests(unittest.TestCase):
         }.get(key, 0)))
 
         with patch("windows.cutting.openshot.Timeline", FakeTimeline), \
-             patch("windows.cutting.openshot.Clip", FakeClip), \
+             patch("windows.cutting.openshot.Clip", side_effect=FakeClip) as create_clip, \
              patch("windows.cutting.openshot.Fraction", DummyFraction), \
              patch("windows.cutting.openshot.FRAME_DISPLAY_CLIP", 7), \
              patch("windows.cutting.get_app", return_value=fake_app):
             Cutting._build_preview_timeline(fake, {"path": "/source.mp4"}, QSize(640, 360))
 
+        create_clip.assert_called_once_with()
         self.assertEqual(timeline_args[0][0:2], (3840, 2160))
         self.assertEqual(timeline_args[0][3:6], (44100, 2, 3))
         self.assertEqual(timeline_setmax, [(640, 360)])
@@ -637,7 +641,7 @@ class DialogPreviewResizeTests(unittest.TestCase):
             info = FakeClipReaderInfo()
 
         class FakeClip:
-            def __init__(self, path):
+            def __init__(self, path=None):
                 self.path = path
                 self.reader = FakeClipReader()
                 self.display = None

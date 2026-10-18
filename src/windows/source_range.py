@@ -5,7 +5,7 @@ import copy
 import os
 import uuid
 
-from qt_api import Qt, QLabel, QTimer, QDialogButtonBox, QSizePolicy, QPixmap, QUrl, QT_API
+from qt_api import Qt, QLabel, QTimer, QDialogButtonBox, QSizePolicy, QPixmap, QUrl, QT_API, QApplication
 from classes.app import get_app
 from classes.query import Clip, File
 from classes.thumbnail import FindCachedThumbnail
@@ -358,6 +358,9 @@ class SourceRangeMixin:
         self._range_applying = True
         previous_transaction = app.updates.transaction_id
         transaction = str(uuid.uuid4())
+        busy_cursor = self.range_mode == 'create'
+        if busy_cursor:
+            QApplication.setOverrideCursor(Qt.WaitCursor)
         try:
             if self.range_mode == 'clip':
                 data = dict(target.data, start=start, end=end, duration=end-start)
@@ -366,9 +369,12 @@ class SourceRangeMixin:
             else:
                 app.updates.transaction_id = transaction
                 if self.range_mode == 'create':
+                    source_data = copy.deepcopy(target.data)
                     target = File()
-                    target.data = copy.deepcopy(self.range_source_data)
+                    target.data = source_data
                     target.data.pop('id', None)
+                    target.data['thumbnail_cache_id'] = (
+                        target.data.get('thumbnail_cache_id') or self.range_file_id)
                 name = self.txtName.text().strip()
                 if self.range_mode == 'create' or 'name' in target.data or name:
                     target.data['name'] = name or self._default_range_name(self.start_frame, self.end_frame)
@@ -378,6 +384,8 @@ class SourceRangeMixin:
             self.range_dirty = False
             self._range_baseline = self._range_signature(self._range_target())
         finally:
+            if busy_cursor:
+                QApplication.restoreOverrideCursor()
             app.updates.transaction_id = previous_transaction
             self._range_applying = False
         self._check_range_target()

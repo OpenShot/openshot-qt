@@ -61,6 +61,29 @@ class _QueriedFile:
 
 
 class ThumbnailGenerationTests(unittest.TestCase):
+    def test_splits_share_cached_frames_without_original_entry(self):
+        from windows.views.timeline_backend.paint.clip import ClipPainter
+        records = {
+            'split-a': SimpleNamespace(data={'thumbnail_cache_id': 'original'}),
+            'split-b': SimpleNamespace(data={'thumbnail_cache_id': 'original'}),
+            'old-split': SimpleNamespace(data={}),
+        }
+        with tempfile.TemporaryDirectory() as root, \
+                patch.object(thumbnail.info, 'THUMBNAIL_PATH', root), \
+                patch.object(thumbnail.File, 'get', side_effect=lambda id: records.get(id)):
+            path = thumbnail.ThumbnailPathForFrame('split-a', 25)
+            os.makedirs(os.path.dirname(path))
+            with open(path, 'wb') as stream:
+                stream.write(b'cached frame')
+            for file_id in ('split-a', 'split-b'):
+                self.assertEqual(thumbnail.FindCachedThumbnail(file_id, 26, 24), path)
+                self.assertEqual(ClipPainter._existing_thumb_path(None, file_id, 26, 24), path)
+                self.assertEqual(thumbnail.ThumbnailPathForFrame(file_id, 25), path)
+            self.assertEqual(os.listdir(root), ['original'])
+            self.assertEqual(thumbnail.ThumbnailPathForFrame('old-split', 25),
+                             os.path.join(root, 'old-split', '25.png'))
+            self.assertEqual(thumbnail.FindCachedThumbnail('old-split', 25), '')
+
     def test_migration_unreadable_cache_is_optional(self):
         with tempfile.TemporaryDirectory() as root:
             with patch.object(thumbnail.os, "listdir", side_effect=PermissionError("denied")):
