@@ -559,6 +559,8 @@ interactive crop handles in the video preview. The submenu offers:
 Drag the blue handles to adjust the crop boundaries, move the cropped area around, or move the center handle to
 reposition the image inside the cropped area.
 
+.. _timeline_waveform_display_ref:
+
 Waveform
 """"""""
 The :guilabel:`Audio → Show Waveform` / :guilabel:`Hide Waveform` action toggles whether an audio-only clip
@@ -601,7 +603,7 @@ them look louder than they are.
 
 New waveforms use 200 samples per second by default, providing several measurements within a typical video frame.
 Change this density with :guilabel:`Edit → Preferences → Timeline → Waveform Samples (per second)`. Higher values show
-more detail when zoomed in but increase project data size and analysis time. The painter reduces dense data to the
+more detail when zoomed in but increase waveform cache size and analysis time. The painter reduces dense data to the
 visible timeline pixels, and its rendered-waveform cache keeps normal scrolling and repainting inexpensive. Live
 microphone previews use the selected density and the same peak/RMS display as completed recordings.
 
@@ -610,6 +612,19 @@ have no format marker, so OpenShot deliberately displays them with the original 
 instead of becoming unexpectedly thin. Older waveform data without a stored density defaults to its original 20
 samples per second, and data without an RMS envelope remains a single solid waveform. A project may safely contain
 legacy and new waveforms together.
+
+**Where waveform data is stored**
+
+Timeline waveforms are saved as compressed ``.wfc`` files in the ``waveforms``
+subfolder of your project's ``_assets`` folder. The ``.osp`` file holds small
+references instead of the waveform measurements themselves. Keep the assets
+folder with your project when moving or backing it up.
+
+Older projects with embedded waveform data are converted automatically when
+opened. Saving writes the smaller project file and its waveform assets; the
+conversion does not change the original audio or the waveform's display scale.
+See :ref:`large_waveform_projects_ref` if an older project is unusually large or
+slow to open.
 
 To regenerate cached waveform data using the current method, choose :guilabel:`Edit → Clear → Waveform Display Data`,
 then show the waveform again. This affects only cached display data and does not modify the media file or its audio.

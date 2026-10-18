@@ -273,22 +273,33 @@ class ZoomSliderTests(unittest.TestCase):
             self.slider.mouseReleaseEvent(MouseEvent(end, 10))
             self.assertIsNone(self.slider._snap_target)
 
-    def test_snap_prefers_playhead_and_uses_timeline_frame_numbering(self):
+    def test_snap_ignores_playhead_and_uses_content_boundary(self):
         self.enable_snapping()
         self.slider.current_frame = 1251  # 50 seconds at 25 fps (frame 1 is zero)
         self.slider.snap_clip_starts = [49.0]
         self.slider.snap_clip_ends = [49.0]
-        self.assertEqual(self.slider._snap_resize(0.2, 0.49, False), (0.2, 0.5))
+        self.assertEqual(self.slider._snap_resize(0.2, 0.49, False), (0.2, 0.49))
         self.assertEqual(self.slider._playhead_seconds(), 50.0)
 
     def test_snap_holds_target_until_pointer_leaves_release_radius(self):
         self.enable_snapping()
         self.slider.snap_clip_starts = [50.0, 51.0]
-        self.slider.snap_clip_ends = [50.0, 51.0]
+        self.slider.snap_clip_ends = [49.0, 50.0]
         self.assertEqual(self.slider._snap_resize(0.2, 0.49, False), (0.2, 0.5))
         self.assertEqual(self.slider._snap_resize(0.2, 0.515, False), (0.2, 0.5))
         self.assertEqual(self.slider._snap_resize(0.2, 0.55, False), (0.2, 0.55))
         self.assertIsNone(self.slider._snap_target)
+
+    def test_dense_content_snaps_only_to_first_start_and_last_end(self):
+        self.enable_snapping()
+        self.slider.snap_clip_starts = list(range(10, 81))
+        self.slider.snap_clip_ends = list(range(20, 91))
+        self.slider.current_frame = 1251
+        self.assertEqual(self.slider._snap_resize(0.499, 0.95, True), (0.499, 0.95))
+        self.assertEqual(self.slider._snap_resize(0.05, 0.501, False), (0.05, 0.501))
+        self.assertEqual(self.slider._snap_resize(0.099, 0.95, True), (0.1, 0.95))
+        self.slider._snap_target = None
+        self.assertEqual(self.slider._snap_resize(0.05, 0.899, False), (0.05, 0.9))
 
     def test_alt_and_snapping_toggle_release_target(self):
         self.enable_snapping()

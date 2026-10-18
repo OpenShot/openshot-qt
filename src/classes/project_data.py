@@ -72,12 +72,14 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         self.new()
 
     def read_from_file(self, file_path, path_mode="ignore"):
+        """Import waveform assets and migrate legacy arrays before project copies."""
         from classes.waveform_cache import externalize, transfer
         data = super().read_from_file(file_path, path_mode)
         transfer(data, os.path.join(get_assets_path(file_path, create_paths=False), "waveforms"), importing=True)
         return externalize(data)
 
     def write_to_file(self, file_path, data, path_mode="ignore", previous_path=None):
+        """Save waveform assets before writing references into project JSON."""
         from classes.waveform_cache import externalize, transfer
         externalize(data)
         transfer(data, os.path.join(get_assets_path(file_path, create_paths=False), "waveforms"))

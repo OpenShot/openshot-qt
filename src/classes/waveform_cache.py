@@ -31,7 +31,7 @@ def is_reference(value):
     return (isinstance(value, dict)
             and isinstance(value.get(_REF), str)
             and re.fullmatch(r"[0-9a-f]{64}", value[_REF]) is not None
-            and isinstance(value.get("count"), int)
+            and type(value.get("count")) is int
             and 0 < value["count"] <= 100_000_000)
 
 
@@ -47,9 +47,13 @@ def _remember(key, data):
         old = _buffers.pop(key, None)
         if old is not None:
             _buffer_bytes -= len(old) * 4
+        # Large individual envelopes may be used by the caller, but must not
+        # permanently bypass the retained-buffer budget.
+        if len(data) * 4 > _MAX_MEMORY:
+            return data
         _buffers[key] = data
         _buffer_bytes += len(data) * 4
-        while _buffer_bytes > _MAX_MEMORY and len(_buffers) > 1:
+        while _buffer_bytes > _MAX_MEMORY:
             _, old = _buffers.popitem(last=False)
             _buffer_bytes -= len(old) * 4
     return data

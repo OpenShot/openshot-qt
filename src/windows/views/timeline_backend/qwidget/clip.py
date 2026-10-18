@@ -459,6 +459,7 @@ class ClipInteractionMixin:
             return (
                 sample_count(audio_data),
                 sample_count(rms_data),
+                rms_data.get("waveform_cache") if is_reference(rms_data) else None,
                 audio_data.get("waveform_cache") if is_reference(audio_data) else ui_data.get("waveform_token"),
                 ui_data.get("audio_data_format"),
                 ui_data.get("audio_data_rate"),
@@ -1225,7 +1226,9 @@ class ClipInteractionMixin:
         self._project_resize_timer.stop()
         final_duration = getattr(self, "_project_duration_override", None)
         if final_duration is None:
-            final_duration = self._project_resize_initial_duration
+            # Both the state exit callback and its signal can finalize a drag.
+            # Once committed, never restore the original duration on a second call.
+            return
         final_duration = max(self._project_resize_min_duration, float(final_duration or 0.0))
         snapped = self._snap_time(final_duration)
         if snapped < self._project_resize_min_duration:

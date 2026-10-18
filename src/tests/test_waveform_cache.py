@@ -19,6 +19,7 @@ class WaveformCacheTests(unittest.TestCase):
         self.mock.start()
         self.addCleanup(self.mock.stop)
         self.clear_memory()
+        self.addCleanup(self.clear_memory)
 
     def clear_memory(self):
         cache._buffers.clear()
@@ -80,6 +81,15 @@ class WaveformCacheTests(unittest.TestCase):
             cache.store_samples([.5] * 4)
             self.assertNotIn(first['waveform_cache'], cache._buffers)
             self.assertEqual(list(cache.samples(first)), [.25] * 4)
+            self.assertLessEqual(cache._buffer_bytes, 16)
+
+    def test_oversized_envelope_does_not_bypass_memory_budget(self):
+        with patch.object(cache, '_MAX_MEMORY', 16):
+            small = cache.store_samples([.25] * 4)
+            large = cache.store_samples([.5] * 8)
+            self.assertNotIn(large['waveform_cache'], cache._buffers)
+            self.assertIn(small['waveform_cache'], cache._buffers)
+            self.assertEqual(list(cache.samples(large)), [.5] * 8)
             self.assertLessEqual(cache._buffer_bytes, 16)
 
     def test_hidden_and_pending_waveforms_remain_distinct(self):
