@@ -71,7 +71,7 @@ Previewing a source
 ~~~~~~~~~~~~~~~~~~~
 Press :kbd:`Shift+2` or :kbd:`Alt+P` with focus in Project Files to preview the
 selected file. With focus on the timeline, the same command previews the active
-selected clip's source, paused at its source in-point. With multiple items
+selected clip from its Start point. With multiple items
 selected, the active selection anchor determines the source. Transitions and
 clips without an available project file do not open a source preview.
 
