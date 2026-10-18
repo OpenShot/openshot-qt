@@ -42,6 +42,57 @@ def _save_preview_volume(dialog, value):
     dialog._volume_timer.start()
 
 
+class PreviewWindowState(QObject):
+    """Remember source-dialog size and maximization in the current project."""
+    def __init__(self, dialog):
+        super().__init__(dialog)
+        self.dialog = dialog
+        self.timer = QTimer(self)
+        self.timer.setSingleShot(True)
+        self.timer.setInterval(250)
+        self.timer.timeout.connect(self.save)
+        settings = get_app().project.get('settings') or {}
+        state = settings.get('preview_window') or {}
+        if isinstance(state, dict):
+            try:
+                width, height = int(state['width']), int(state['height'])
+                if width > 0 and height > 0:
+                    handle = dialog.windowHandle()
+                    screen = handle.screen() if handle else QApplication.primaryScreen()
+                    if screen:
+                        available = screen.availableGeometry()
+                        width = min(width, available.width())
+                        height = min(height, available.height())
+                    dialog.resize(width, height)
+                    if state.get('maximized') is True:
+                        dialog.setWindowState(dialog.windowState() | Qt.WindowMaximized)
+            except (KeyError, TypeError, ValueError, OverflowError):
+                pass
+        dialog.installEventFilter(self)
+
+    def save(self):
+        self.timer.stop()
+        dialog = self.dialog
+        if dialog.isMinimized():
+            return
+        size = dialog.normalGeometry().size() if dialog.isMaximized() else dialog.size()
+        if size.width() <= 0 or size.height() <= 0:
+            return
+        state = dict(width=size.width(), height=size.height(), maximized=dialog.isMaximized())
+        app = get_app()
+        settings = dict(app.project.get('settings') or {})
+        if settings.get('preview_window') != state:
+            settings['preview_window'] = state
+            app.updates.update_untracked(['settings'], settings)
+
+    def eventFilter(self, watched, event):
+        if event.type() in (QEvent.Resize, QEvent.WindowStateChange) and watched.isVisible():
+            self.timer.start()
+        elif event.type() == QEvent.Hide:
+            self.save()
+        return False
+
+
 def panel(parent, name):
     result = QFrame(parent)
     result.setObjectName(name)
@@ -255,7 +306,8 @@ def build_preview_design(dialog):
     d.footerLayout.setSpacing(12)
     d.buttonBox.hide()
     d.verticalLayout.removeItem(d.footerLayout)
-    d.resize(940, 640)
+    d.resize(650, 400)
+    d._preview_window_state = PreviewWindowState(d)
 
 
 def _set_muted(dialog, muted):
