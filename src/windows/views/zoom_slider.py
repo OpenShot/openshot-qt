@@ -105,7 +105,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         return max(0.0, (self.current_frame - 1) / rate) if rate > 0 else 0.0
 
     def _snap_resize(self, left, right, is_left):
-        """Snap only the dragged resize edge to matching clip edges or the playhead."""
+        """Snap the dragged edge only to the outer boundary of clip content."""
         action = getattr(self.win, "actionSnappingTool", None)
         modifiers = QCoreApplication.instance().keyboardModifiers()
         if not action or not action.isChecked() or modifiers_has(modifiers, Qt.AltModifier):
@@ -149,20 +149,16 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
                 if result is not None:
                     return result
         self._snap_target = None
-        playhead = self._playhead_seconds() / duration
-        targets = []
-        edge = left if is_left else right
         positions = self.snap_clip_starts if is_left else self.snap_clip_ends
-        for target, priority in [(playhead, 0)] + [(seconds / duration, 1) for seconds in positions]:
-            distance = abs(target - edge) * width
-            if distance <= acquire_radius:
-                targets.append((priority, distance, target, is_left))
-        targets.sort()
-        for _priority, _distance, target, snap_left in targets:
-            result = candidate(target, snap_left)
+        if not positions:
+            return left, right
+        target = (min(positions) if is_left else max(positions)) / duration
+        edge = left if is_left else right
+        if abs(target - edge) * width <= acquire_radius:
+            result = candidate(target, is_left)
             if result is not None:
                 self._snap_target = target
-                self._snap_is_left = snap_left
+                self._snap_is_left = is_left
                 return result
         return left, right
 

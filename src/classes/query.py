@@ -30,6 +30,7 @@ import os
 
 import openshot
 
+from classes.waveform_cache import externalize
 from classes import info
 from classes.app import get_app
 from classes.path_utils import absolute_media_path, media_paths_equal
@@ -53,6 +54,8 @@ class QueryObject:
 
     def save(self, OBJECT_TYPE):
         """ Save the object back to the project data store """
+
+        externalize(self.data)
 
         # Insert or Update this data into the project data store
         if not self.id and self.type == "insert":

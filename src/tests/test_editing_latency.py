@@ -61,6 +61,8 @@ class EditingFixture:
             "fps": {"num": 30000, "den": 1001}, "layers": [],
             "effects": [], "history": {},
         }
+        from classes.waveform_cache import externalize
+        externalize(self.project._data)
         self.project.has_unsaved_changes = False
         self.updates = UpdateManager()
         self.updates.add_listener(self.project)

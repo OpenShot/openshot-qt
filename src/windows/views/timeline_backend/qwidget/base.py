@@ -2416,7 +2416,15 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         get_app().window.TimelineScrolled.emit(slider_positions)
 
     def _clamp_zoom_factor(self, zoom_factor):
-        return max(0.05, min(zoom_factor, 200.0))
+        # Long projects must still fit in the viewport. A fixed ceiling leaves
+        # the overview selection stranded in the middle after zoom-to-fit.
+        maximum = 200.0
+        view_width = float(self.scrollbar_position[3] or 0.0)
+        if view_width > 0.0:
+            duration = float(self._current_project_duration() or 0.0)
+            tick_pixels = float(get_app().project.get("tick_pixels") or 100.0)
+            maximum = max(maximum, duration * tick_pixels / view_width)
+        return max(0.05, min(zoom_factor, maximum))
 
     def _capture_playhead_zoom_anchor(self):
         """Preserve the playhead's current viewport X pixel for the next zoom."""

@@ -55,6 +55,7 @@ from classes.keyframe_scaler import KeyframeScaler
 from classes.logger import log
 from classes.thumbnail import RoundFrameToThumbnailGrid, ThumbnailCacheId
 from classes.time_parts import secondsToTime
+from classes.waveform_cache import samples as waveform_samples, is_reference
 from classes.waveform import (
     WAVEFORM_RMS_KEY,
     waveform_data_format,
@@ -1675,8 +1676,18 @@ class ClipPainter(ItemHeaderMixin, BasePainter):
     def _draw_waveform(self, painter, clip, inner, segment=None):
         data = clip.data if isinstance(clip.data, dict) else {}
         ui_data = data.get("ui", {}) if isinstance(data, dict) else {}
-        audio_data = ui_data.get("audio_data") if isinstance(ui_data, dict) else None
-        if not (isinstance(audio_data, list) and len(audio_data) > 1):
+        audio_ref = ui_data.get("audio_data") if isinstance(ui_data, dict) else None
+        audio_data = waveform_samples(audio_ref)
+        if is_reference(audio_ref) and not audio_data:
+            # Missing sidecars (e.g. a project copied without assets) are rebuilt
+            # asynchronously, once per reference for this painter.
+            pending = getattr(self, "_missing_waveforms", set())
+            token = (clip.id, audio_ref["waveform_cache"])
+            if token not in pending and hasattr(self.w, "Show_Waveform_Triggered"):
+                pending.add(token)
+                self._missing_waveforms = pending
+                QTimer.singleShot(0, lambda: self.w.Show_Waveform_Triggered([clip.id]))
+        if len(audio_data) <= 1:
             return False
 
         width = int(inner.width())
@@ -1685,8 +1696,8 @@ class ClipPainter(ItemHeaderMixin, BasePainter):
             return False
 
         samples = len(audio_data)
-        rms_data = ui_data.get(WAVEFORM_RMS_KEY)
-        has_rms = isinstance(rms_data, list) and len(rms_data) == samples
+        rms_data = waveform_samples(ui_data.get(WAVEFORM_RMS_KEY))
+        has_rms = len(rms_data) == samples
         audio_data_format = waveform_data_format(ui_data)
         display = self.w.clip_waveform_window(clip)
         scale_waveform = display.get("scale", False)

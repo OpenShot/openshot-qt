@@ -157,6 +157,7 @@ from classes.logger import log
 from classes.query import File, Clip, Transition, Track, Effect
 from classes.clipboard import ClipboardManager
 from classes.thumbnail import GetThumbPath
+from classes.waveform_cache import sample_count, is_reference
 from classes.waveform import (
     ABSOLUTE_WAVEFORM_FORMAT,
     WAVEFORM_FORMAT_KEY,
@@ -433,7 +434,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         """Check if an update payload already contains waveform samples"""
         if isinstance(value, dict):
             audio_data = value.get("audio_data")
-            if isinstance(audio_data, list) and len(audio_data) > 0:
+            if sample_count(audio_data) > 0:
                 return True
             ui_value = value.get("ui")
             if ui_value and self._payload_contains_waveform(ui_value):
@@ -454,7 +455,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         if not clip or not isinstance(getattr(clip, "data", None), dict):
             return False
         audio_data = clip.data.get("ui", {}).get("audio_data")
-        return isinstance(audio_data, list) and len(audio_data) > 0
+        return sample_count(audio_data) > 0
 
     def _clip_volume_curve_changed(self, original_data, current_data):
         """Return True when a clip's volume keyframe payload changed."""
@@ -734,7 +735,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             if not clip:
                 continue
             audio_data = clip.data.get("ui", {}).get("audio_data")
-            if isinstance(audio_data, list) and len(audio_data) > 0:
+            if sample_count(audio_data) > 0:
                 return True
         return False
 
@@ -2312,9 +2313,9 @@ class TimelineView(updates.UpdateInterface, ViewClass):
     def clipAudioDataReady_Triggered(self, clip_id, ui_data, tid):
         # When audio data has been calculated, add it to a clip
         audio_samples = ui_data.get("ui", {}).get("audio_data") if isinstance(ui_data, dict) else []
-        sample_count = len(audio_samples) if isinstance(audio_samples, list) else 0
+        count = sample_count(audio_samples)
         log.info(
-            "Waveform data ready for clip %s (samples: %s)", clip_id, sample_count
+            "Waveform data ready for clip %s (samples: %s)", clip_id, count
         )
 
         # Transaction id to group all deletes together
@@ -2327,7 +2328,9 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             incoming_ui = ui_data.get("ui") if isinstance(ui_data, dict) else None
             incoming_audio = incoming_ui.get("audio_data") if isinstance(incoming_ui, dict) else None
             preserve_existing_waveform = (
-                incoming_audio is None and isinstance(existing_ui.get("audio_data"), list)
+                incoming_audio is None
+                and (isinstance(existing_ui.get("audio_data"), list)
+                     or is_reference(existing_ui.get("audio_data")))
             )
 
             # Preserve the current waveform preview while fresh waveform samples
@@ -2345,7 +2348,9 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 if not isinstance(clip_ui, dict):
                     clip_ui = {}
                     ui_data["ui"] = clip_ui
-                if not preserve_existing_waveform and isinstance(clip_ui.get("audio_data"), list):
+                if not preserve_existing_waveform and (
+                        isinstance(clip_ui.get("audio_data"), list)
+                        or is_reference(clip_ui.get("audio_data"))):
                     clip_ui["waveform_token"] = str(tid or self.get_uuid())
             clip.data = ui_data
             clip.save()

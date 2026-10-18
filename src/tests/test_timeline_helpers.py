@@ -130,7 +130,7 @@ class TimelineHelperTests(unittest.TestCase):
         helper.win = types.SimpleNamespace(timeline=types.SimpleNamespace(resizeTimeline=resize))
         mixin._startProjectResize(helper)
         self.assertTrue(helper._thumbnail_zoom_with_clip)
-        for x, expected in ((890, 99.0), (880, 98.0), (880, 98.0), (900, 100.0), (0, 20.0)):
+        for x, expected in ((890, 99.0), (880, 98.0), (880, 98.0), (900, 100.0), (-100, 20.0)):
             helper._last_event = types.SimpleNamespace(position=lambda x=x: QPointF(x, 0))
             helper.h_scroll_offset = 500.0 + x
             mixin._projectResizeMove(helper)
@@ -138,6 +138,10 @@ class TimelineHelperTests(unittest.TestCase):
         mixin._finishProjectResize(helper)
         resize.assert_called_once_with(20.0)
         self.assertIsNone(helper._project_duration_override)
+        # ResizeState.onExit and its exited signal both call the finalizer.
+        # Releasing outside the viewport must not restore the initial duration.
+        mixin._finishProjectResize(helper)
+        resize.assert_called_once_with(20.0)
 
     def test_project_resize_keeps_fitted_view_and_overview_synchronized(self):
         from windows.views.timeline_backend.geometry import Geometry
@@ -2770,7 +2774,17 @@ class TimelineHelperTests(unittest.TestCase):
 
         token = helper.clip_waveform_cache_token(clip)
 
-        self.assertEqual(token, (3, 0, "wf-2", "absolute_peak_v2", None))
+        self.assertEqual(token, (3, 0, None, "wf-2", "absolute_peak_v2", None))
+
+    def test_clip_waveform_cache_token_changes_when_only_rms_changes(self):
+        helper = self.make_qwidget_clip_helper()
+        clip = types.SimpleNamespace(data={"ui": {
+            "audio_data": {"waveform_cache": "a" * 64, "count": 3},
+            "audio_data_rms": {"waveform_cache": "b" * 64, "count": 3},
+        }})
+        before = helper.clip_waveform_cache_token(clip)
+        clip.data["ui"]["audio_data_rms"]["waveform_cache"] = "c" * 64
+        self.assertNotEqual(before, helper.clip_waveform_cache_token(clip))
 
     def test_find_missing_transition_details_ignores_tiny_overlap(self):
         clip_data = {"id": "B", "layer": 1, "position": 4.7, "start": 0.0, "end": 6.0}
@@ -5685,8 +5699,10 @@ class TimelineHelperTests(unittest.TestCase):
         self.assertTrue(captured)
         self.assertEqual(captured[-1][0], "C1")
         self.assertEqual(captured[-1][2], "wf-time-1")
-        self.assertEqual(captured[-1][1]["ui"]["audio_data"], [0.5, 0.5, 0.5, 0.5])
-        self.assertEqual(captured[-1][1]["ui"]["audio_data_rms"], [0.2, 0.2, 0.2, 0.2])
+        from classes.waveform_cache import samples
+        self.assertEqual(list(samples(captured[-1][1]["ui"]["audio_data"])), [0.5] * 4)
+        for value in samples(captured[-1][1]["ui"]["audio_data_rms"]):
+            self.assertAlmostEqual(value, 0.2)
         self.assertEqual(captured[-1][1]["ui"]["audio_data_rate"], 20)
         self.assertEqual(
             captured[-1][1]["ui"]["audio_data_format"],
@@ -6090,8 +6106,12 @@ class TimelineHelperTests(unittest.TestCase):
             -1, self.waveform_module.SAMPLES_PER_SECOND, False
         )
         completed = [payload for _, payload, _ in emitted if payload["ui"].get("audio_data")]
-        self.assertEqual(completed[0]["ui"]["audio_data"], [0.05, 0.1])
-        self.assertEqual(completed[0]["ui"]["audio_data_rms"], [0.02, 0.04])
+        from classes.waveform_cache import samples
+        for key, expected in (("audio_data", [0.05, 0.1]), ("audio_data_rms", [0.02, 0.04])):
+            actual = samples(completed[0]["ui"][key])
+            self.assertEqual(len(actual), len(expected))
+            for value, reference in zip(actual, expected):
+                self.assertAlmostEqual(value, reference)
         self.assertEqual(completed[0]["ui"]["audio_data_rate"], 200)
         self.assertEqual(
             completed[0]["ui"]["audio_data_format"],
