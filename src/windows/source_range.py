@@ -316,6 +316,11 @@ class SourceRangeMixin:
                 return
         self._range_error = error
         name = self.range_source_data.get('name') or os.path.basename(self.range_source_data.get('path', ''))
+        from windows.preview_design import source_preview_title
+        title_name = name
+        if self.range_mode == 'clip' and target:
+            title_name = target.data.get('title') or name
+        self.setWindowTitle(source_preview_title(self.range_mode, title_name, _))
         if self.range_mode == 'clip':
             title = (target.data.get('title') if target else None) or name
             if target:
@@ -326,7 +331,6 @@ class SourceRangeMixin:
                     title += ' — ' + timeline._track_display_label(track)
                 title += _(' at %.3f s') % float(target.data.get('position', 0))
             self.lblInstructions.setText(_('Timeline clip: %s') % title)
-            self.setWindowTitle(_('Preview'))
             detail = _('Only this clip changes. Its timeline position stays fixed; neighboring clips do not move.')
         elif self.range_mode == 'file':
             self.lblInstructions.setText(_('Split file: %s') % name)

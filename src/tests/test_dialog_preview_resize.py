@@ -204,21 +204,22 @@ class DialogPreviewResizeTests(unittest.TestCase):
             VideoWidget.delayed_resize_callback(fake)
         self.assertEqual(sizes, [QSize(639, 353)])
 
-    def test_cutting_preview_window_title_prefers_friendly_name(self):
-        title = Cutting._preview_window_title(
-            types.SimpleNamespace(data={"name": "My Friendly File", "path": os.path.join(TEST_MEDIA_ROOT, "raw-name.mp4")}),
-            lambda text: text,
-        )
+    def test_source_preview_titles(self):
+        from windows.preview_design import source_preview_title
+        for mode, label in [('preview', 'Preview File'), ('create', 'Split File'),
+                            ('file', 'Preview Split File'), ('clip', 'Preview Clip')]:
+            self.assertEqual(source_preview_title(mode, '', str), label)
+            for name in ('Interview.mp4', 'Opening shot', '00:12–00:18'):
+                self.assertEqual(source_preview_title(mode, name, str), label + ': ' + name)
+        name = 'Conference-recording-' + 'x' * 100 + '-camera-02.mp4'
+        title = source_preview_title('preview', name, str)
+        self.assertTrue(title.startswith('Preview File: Conference-recording-'))
+        self.assertTrue(title.endswith('-camera-02.mp4'))
+        self.assertEqual(len(title.split(': ', 1)[1]), 56)
 
-        self.assertEqual(title, "Preview: My Friendly File")
-
-    def test_cutting_preview_window_title_falls_back_to_plain_preview(self):
-        title = Cutting._preview_window_title(
-            types.SimpleNamespace(data={"name": "", "path": ""}),
-            lambda text: text,
-        )
-
-        self.assertEqual(title, "Preview")
+    def test_playback_does_not_replace_source_dialog_title(self):
+        fake = types.SimpleNamespace(win=types.SimpleNamespace(range_mode='clip'))
+        VideoWidget.update_title(fake)
 
     def test_cutting_select_reader_data_uses_proxy_when_target_fits(self):
         proxy = {"path": "/proxy.mp4", "width": 1280, "height": 720}

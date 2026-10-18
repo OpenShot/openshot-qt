@@ -42,6 +42,20 @@ def _save_preview_volume(dialog, value):
     dialog._volume_timer.start()
 
 
+def source_preview_title(mode, name, _):
+    """Keep the mode visible and long source names recognizable."""
+    title = {
+        'preview': _('Preview File'),
+        'create': _('Split File'),
+        'file': _('Preview Split File'),
+        'clip': _('Preview Clip'),
+    }[mode]
+    name = ' '.join(str(name or '').split())
+    if len(name) > 56:
+        name = name[:35] + '…' + name[-20:]
+    return '{}: {}'.format(title, name) if name else title
+
+
 class PreviewWindowState(QObject):
     """Remember source-dialog size and maximization in the current project."""
     def __init__(self, dialog):
@@ -110,7 +124,7 @@ def build_preview_design(dialog):
     d = dialog
     _ = get_app()._tr
     d.setObjectName('sourcePreviewDialog')
-    d.setWindowTitle(_('Preview'))
+    d.setWindowTitle(source_preview_title(d.range_mode, '', _))
     colors = preview_colors()
     d.setStyleSheet("""
         QDialog#sourcePreviewDialog {

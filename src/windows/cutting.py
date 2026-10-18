@@ -63,18 +63,6 @@ class Cutting(SourceRangeMixin, QDialog):
     SpeedSignal = pyqtSignal(float)
     StopSignal = pyqtSignal()
 
-    @staticmethod
-    def _preview_window_title(file_obj, translate):
-        _ = translate
-        if not file_obj or not hasattr(file_obj, "data") or not isinstance(file_obj.data, dict):
-            return _("Preview")
-        friendly_name = str(file_obj.data.get("name") or "").strip()
-        if not friendly_name:
-            friendly_name = os.path.basename(str(file_obj.data.get("path") or "").strip())
-        if friendly_name:
-            return _("Preview: %s") % friendly_name
-        return _("Preview")
-
     def __init__(self, file=None, preview=False, clip_id=None):
         _ = get_app()._tr
         self.range_clip_id = clip_id
@@ -130,7 +118,6 @@ class Cutting(SourceRangeMixin, QDialog):
         if preview:
             self.lblInstructions.setVisible(False)
             self.widgetControls.setVisible(False)
-            self.setWindowTitle(self._preview_window_title(file, _))
 
         # The ruler always shows the full source. Saved trims become markers.
         self.previous_start = 0.0

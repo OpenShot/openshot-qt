@@ -495,6 +495,9 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
     def update_title(self):
         """Update the widget title"""
+        # Source dialogs own their mode and file titles.
+        if getattr(self.win, 'range_mode', None) is not None:
+            return
         # Translate object
         _ = get_app()._tr
         rect = self.centeredViewport(self.width(), self.height())
