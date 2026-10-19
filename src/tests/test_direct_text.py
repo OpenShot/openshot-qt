@@ -14,6 +14,15 @@ from classes.direct_text import default_text, apply_text, new_text_clip, render_
 import openshot
 
 
+def smoke_python_path():
+    """Import path for smoke scripts: src, plus wherever this process found
+    openshot (CI copies it into the working directory, which a script's
+    subprocess does not search)."""
+    paths = [str(Path(__file__).resolve().parents[1]), os.path.dirname(os.path.abspath(openshot.__file__)),
+             os.environ.get("PYTHONPATH", "")]
+    return os.pathsep.join(filter(None, paths))
+
+
 class DirectTextTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -105,7 +114,7 @@ class DirectTextTests(unittest.TestCase):
         self.assertLessEqual(abs(middle.blue() - 128), 3)
 
     def test_full_app_text_workflow(self):
-        env = dict(os.environ, PYTHONPATH=os.pathsep.join(filter(None, (str(Path(__file__).resolve().parents[1]), os.environ.get("PYTHONPATH", "")))),
+        env = dict(os.environ, PYTHONPATH=smoke_python_path(),
                    QT_QPA_PLATFORM="offscreen", QT_QUICK_BACKEND="software")
         result = subprocess.run([sys.executable, str(Path(__file__).with_name("direct_text_smoke.py"))],
                                 env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
