@@ -54,9 +54,9 @@ from classes import ui_util
 from classes import openshot_rc  # noqa
 from classes.logger import log
 from classes.app import get_app
-from classes.feedback import record_feedback_action
 from classes.metrics import track_metric_screen, track_metric_error
 from classes.query import File
+from windows.confetti import celebrate_export
 
 import json
 
@@ -1180,6 +1180,7 @@ class Export(QDialog):
         self.cache_thread.StartThread()
 
         # Create FFmpegWriter
+        export_succeeded = False
         try:
             w = openshot.FFmpegWriter(export_file_path)
 
@@ -1259,8 +1260,7 @@ class Export(QDialog):
 
             # Close writer
             w.Close()
-            if self.exporting and max_frame == end_frame_export:
-                record_feedback_action("export")
+            export_succeeded = self.exporting and max_frame == end_frame_export
 
             # Emit final exported frame (with elapsed time)
             seconds_run = round((end_time_export - start_time_export))
@@ -1329,6 +1329,9 @@ class Export(QDialog):
         get_app().window.timeline_sync.timeline.SetCache(self.old_cache_object)
         get_app().window.cache_object = self.old_cache_object
 
+        if export_succeeded:
+            self.celebrate_export()
+
         # Handle end of export (for non-canceled exports)
         if self.s.get("show_finished_window") and self.exporting:
             # Hide cancel and export buttons
@@ -1349,6 +1352,18 @@ class Export(QDialog):
         else:
             # Accept dialog
             super(Export, self).accept()
+
+    def celebrate_export(self):
+        """Confetti over the finished dialog, then a feedback banner waiting behind it."""
+        window = get_app().window
+        parent = self if self.s.get("show_finished_window") else window
+        celebrate_export(self.s, parent)
+        controller = getattr(window, "feedback_controller", None)
+        if controller:
+            try:
+                controller.record_export()
+            except Exception:
+                log.warning("Unable to show feedback invitation", exc_info=True)
 
     def save_settings(self):
         if self.restoring_defaults:

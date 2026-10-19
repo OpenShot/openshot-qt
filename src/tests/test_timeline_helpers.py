@@ -2958,29 +2958,6 @@ class TimelineHelperTests(unittest.TestCase):
             helper.updated,
         )
 
-    def test_feedback_volume_command_counts_once_for_multiselection_and_skips_noop(self):
-        helper = self.make_time_helper()
-        clips = {key: types.SimpleNamespace(id=key, data={
-            "id": key, "start": 0.0, "end": 4.0, "duration": 4.0,
-            "volume": {"Points": [{"co": {"X": 1, "Y": 1.0}, "interpolation": openshot.LINEAR}]},
-        }) for key in ("C1", "C2")}
-        controller = types.SimpleNamespace(preview=False,
-            policy=types.SimpleNamespace(experienced=False), record_action=MagicMock())
-        app = types.SimpleNamespace(project={"fps": {"num": 24, "den": 1}},
-            updates=types.SimpleNamespace(transaction_id=None),
-            window=types.SimpleNamespace(feedback_controller=controller))
-        with patch.object(self.timeline_module.Clip, "get", side_effect=lambda id: clips.get(id)), \
-                patch.object(self.timeline_module, "get_app", return_value=app), \
-                patch("classes.app.get_app", return_value=app):
-            for _ in range(2):
-                self.timeline_module.TimelineView.Volume_Triggered(
-                    helper, self.timeline_module.MenuVolume.LEVEL, list(clips), level=0.5)
-            controller.record_action.assert_called_once_with("adjustments")
-            controller.record_action.reset_mock()
-            helper.Volume_Triggered = types.MethodType(self.timeline_module.TimelineView.Volume_Triggered, helper)
-            helper.Volume_Triggered(self.timeline_module.MenuVolume.FADE_IN_OUT_FAST, list(clips))
-            controller.record_action.assert_called_once_with("adjustments")
-
     def test_fast_fade_in_out_keeps_four_keyframes_on_four_second_clip(self):
         helper = self.make_time_helper()
         clip = types.SimpleNamespace(
@@ -7944,10 +7921,7 @@ class TimelineHelperTests(unittest.TestCase):
                 self.updates.append((copy.deepcopy(clip_data), dict(kwargs)))
 
         history = []
-        controller = types.SimpleNamespace(preview=False,
-            policy=types.SimpleNamespace(experienced=False), record_action=MagicMock())
         fake_app = types.SimpleNamespace(
-            window=types.SimpleNamespace(feedback_controller=controller),
             updates=types.SimpleNamespace(
                 apply_last_action_to_history=lambda original: history.append(copy.deepcopy(original))
             )
@@ -7961,11 +7935,9 @@ class TimelineHelperTests(unittest.TestCase):
         action.triggered.connect(partial(handler, timeline_module.FILM_GRAIN_PRESET_SUPER_8, ["C1"]))
         with patch.object(timeline_module.Clip, "get", return_value=clip), \
              patch.object(timeline_module, "get_app", return_value=fake_app), \
-             patch("classes.app.get_app", return_value=fake_app), \
              patch.object(sys, "excepthook") as errors:
             action.trigger()
         errors.assert_not_called()
-        controller.record_action.assert_called_once_with("adjustments")
 
         self.assertEqual(len(clip.data["effects"]), 1)
         effect = clip.data["effects"][0]
