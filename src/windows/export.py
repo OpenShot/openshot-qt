@@ -45,7 +45,7 @@ from xml.parsers.expat import ExpatError
 from qt_api import Qt, QCoreApplication, QTimer, QSize, QPoint, pyqtSignal, pyqtSlot
 from qt_api import (
     QMessageBox, QDialog, QDialogButtonBox, QPushButton, QWidget, QLineEdit, QComboBox, QSpinBox, QCheckBox,
-    get_existing_directory,
+    QStackedWidget, get_existing_directory,
 )
 from qt_api import QIcon
 from functools import partial
@@ -57,6 +57,7 @@ from classes.app import get_app
 from classes.metrics import track_metric_screen, track_metric_error
 from classes.query import File
 from windows.confetti import celebrate_export
+from windows.export_complete import ExportCompletePanel, export_details
 
 import json
 
@@ -105,6 +106,13 @@ class Export(QDialog):
         self.buttonBox.addButton(self.cancel_button, QDialogButtonBox.RejectRole)
         self.close_button.setVisible(False)
         self.exporting = False
+
+        # After a successful export, a summary replaces the settings tabs
+        self.export_complete = ExportCompletePanel(_, self)
+        self.exportStack = QStackedWidget(self)
+        self.layout().replaceWidget(self.exportTabs, self.exportStack)
+        self.exportStack.addWidget(self.exportTabs)
+        self.exportStack.addWidget(self.export_complete)
         self.vbr = {}
         self.abr = {}
 
@@ -1329,9 +1337,6 @@ class Export(QDialog):
         get_app().window.timeline_sync.timeline.SetCache(self.old_cache_object)
         get_app().window.cache_object = self.old_cache_object
 
-        if export_succeeded:
-            self.celebrate_export()
-
         # Handle end of export (for non-canceled exports)
         if self.s.get("show_finished_window") and self.exporting:
             # Hide cancel and export buttons
@@ -1347,11 +1352,31 @@ class Export(QDialog):
             p.setColor(QPalette.Highlight, Qt.green)
             self.progressExportVideo.setPalette(p)
 
+            if export_succeeded:
+                self.show_export_complete(export_file_path, mode)
+
             # Raise the window
             self.show()
+            if export_succeeded:
+                self.celebrate_export()
         else:
+            if export_succeeded:
+                self.celebrate_export()
             # Accept dialog
             super(Export, self).accept()
+
+    def show_export_complete(self, path, mode):
+        """Swap the settings for a summary of the exported file."""
+        _ = get_app()._tr
+        kind = {"video_audio": "video", "video": "video"}.get(mode, mode)
+        try:
+            self.export_complete.show_result(path, kind, export_details(self, path, kind, _))
+        except Exception:
+            log.warning("Unable to summarize export", exc_info=True)
+            return
+        self.exportStack.setCurrentWidget(self.export_complete)
+        self.restore_defaults_button.setVisible(False)
+        self.export_complete.focus_primary()
 
     def celebrate_export(self):
         """Confetti over the finished dialog, then a feedback banner waiting behind it."""

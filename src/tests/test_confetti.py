@@ -153,11 +153,15 @@ class ConfettiTests(unittest.TestCase):
                             patch("windows.export.QMessageBox"), \
                             patch("windows.export.open", Mock()), \
                             patch.object(Export, "show"), \
+                            patch.object(Export, "show_export_complete") as summary, \
                             patch("windows.export.celebrate_export") as celebrate:
                         dialog.accept()
                     succeeded = outcome == "success"
                     self.assertEqual(celebrate.call_count, int(succeeded))
                     self.assertEqual(controller.record_export.call_count, int(succeeded))
+                    self.assertEqual(summary.call_count, int(succeeded and finished_window))
+                    if summary.called:
+                        self.assertEqual(summary.call_args[0][1], "video")
                     if succeeded:
                         expected_parent = dialog if finished_window else window
                         self.assertIs(celebrate.call_args[0][1], expected_parent)

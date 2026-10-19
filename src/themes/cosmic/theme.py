@@ -385,7 +385,8 @@ QDialog#sourcePreviewDialog QToolButton:pressed {
 }
 
 QPushButton#acceptButton,
-QDialog#sourcePreviewDialog QPushButton[dialogRole="primary"]:enabled {
+QDialog#sourcePreviewDialog QPushButton[dialogRole="primary"]:enabled,
+QWidget#exportComplete QPushButton[dialogRole="primary"]:enabled {
     padding: 8px 16px 8px 12px;
     border-radius: 4px;
     background-color: #0078FF;
@@ -393,13 +394,15 @@ QDialog#sourcePreviewDialog QPushButton[dialogRole="primary"]:enabled {
 }
 
 QPushButton#acceptButton:hover,
-QDialog#sourcePreviewDialog QPushButton[dialogRole="primary"]:enabled:hover {
+QDialog#sourcePreviewDialog QPushButton[dialogRole="primary"]:enabled:hover,
+QWidget#exportComplete QPushButton[dialogRole="primary"]:enabled:hover {
     background-color: #006EE6;
 }
 
 QPushButton#acceptButton:focus,
 QPushButton#acceptButton:default,
-QDialog#sourcePreviewDialog QPushButton[dialogRole="primary"]:enabled:focus {
+QDialog#sourcePreviewDialog QPushButton[dialogRole="primary"]:enabled:focus,
+QWidget#exportComplete QPushButton[dialogRole="primary"]:enabled:focus {
     background-color: #1a86ff;
 }
 
