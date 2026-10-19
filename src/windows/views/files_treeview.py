@@ -237,8 +237,12 @@ class FilesTreeView(NameColumnKeyboardSearchMixin, QTreeView):
                 return
             if file.data.get("type") == "QtTextReader":
                 # Same icons as Edit Title / Duplicate, which follow the theme.
-                edit = menu.addAction(self.win.actionEditTitle.icon(), _("Edit Text…"))
-                edit.triggered.connect(lambda checked=False, fid=file.id: self.win.direct_text.edit_file(fid))
+                # With several texts selected, the dialog edits their shared style.
+                text_ids = [file.id] + [f.id for f in self.win.selected_files()
+                                        if f and f.id != file.id and f.data.get("type") == "QtTextReader"]
+                edit = menu.addAction(self.win.actionEditTitle.icon(),
+                                      _("Edit Text…") if len(text_ids) == 1 else _("Edit Style…"))
+                edit.triggered.connect(lambda checked=False, ids=text_ids: self.win.direct_text.edit_file(ids))
                 duplicate = menu.addAction(self.win.actionDuplicate.icon(), _("Duplicate"))
                 duplicate.triggered.connect(lambda checked=False, fid=file.id: self.win.direct_text.duplicate_file(fid))
                 menu.addSeparator()

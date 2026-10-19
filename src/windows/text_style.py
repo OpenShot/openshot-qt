@@ -218,12 +218,12 @@ class TextStyleToolbar(QFrame):
 
 class TextStyleDialog(QDialog):
     """Changes stay local until Apply; closing the dialog discards them."""
-    def __init__(self, style, parent, duplicate=False):
+    def __init__(self, style, parent, duplicate=False, count=1):
         super().__init__(parent)
         self.setObjectName("textStyleDialog")
         self.window = self
         self.draft = copy.deepcopy(style)
-        self.setWindowTitle(get_app()._tr("Edit Text"))
+        self.setWindowTitle(get_app()._tr("Edit Text") if count < 2 else get_app()._tr("Edit Style"))
         self.setMinimumWidth(560)
         layout = QVBoxLayout(self)
         layout.setContentsMargins(16, 16, 16, 16)
@@ -238,11 +238,17 @@ class TextStyleDialog(QDialog):
         layout.addWidget(self.preview)
 
         layout.addSpacing(4)
-        layout.addWidget(self._heading(get_app()._tr("Text")))
+        if count > 1:
+            heading = get_app()._tr("Text (first of %d selected)") % count
+        else:
+            heading = get_app()._tr("Text")
+        layout.addWidget(self._heading(heading))
         self.editor = QPlainTextEdit()
         self.editor.setPlaceholderText(get_app()._tr("Type your text"))
         self.editor.setFixedHeight(self.editor.fontMetrics().lineSpacing() * 3 + 20)
         self.editor.setPlainText(self.draft.get("text", ""))
+        # Several texts share one style edit; each keeps its own words.
+        self.editor.setEnabled(count < 2)
         layout.addWidget(self.editor)
         self.toolbar = TextStyleToolbar(self, self)
         self.toolbar.more.hide()
@@ -280,9 +286,13 @@ class TextStyleDialog(QDialog):
 
         layout.addSpacing(8)
         footer = QHBoxLayout()
-        note = ("Apply adds this copy to Project Files." if duplicate
-                else "Changes apply to every clip that uses this text.")
-        footer.addWidget(self._muted(get_app()._tr(note)), 1)
+        if count > 1:
+            note = get_app()._tr("Style changes apply to all %d selected texts.") % count
+        elif duplicate:
+            note = get_app()._tr("Apply adds this copy to Project Files.")
+        else:
+            note = get_app()._tr("Changes apply to every clip that uses this text.")
+        footer.addWidget(self._muted(note), 1)
         cancel = QPushButton(get_app()._tr("Cancel"))
         cancel.setProperty("dialogRole", "cancel")
         cancel.clicked.connect(self.reject)
@@ -291,6 +301,7 @@ class TextStyleDialog(QDialog):
         apply.setProperty("dialogRole", "primary")
         apply.setDefault(True)
         apply.clicked.connect(self.accept)
+        apply.setToolTip(get_app()._tr("Apply (Ctrl+Enter)"))
         footer.addWidget(cancel)
         footer.addWidget(apply)
         layout.addLayout(footer)
@@ -300,8 +311,25 @@ class TextStyleDialog(QDialog):
         self.preview_timer.timeout.connect(self.render_preview)
         self.editor.textChanged.connect(lambda: self.preview_timer.start(100))
         self.preview_timer.start(0)
-        self.editor.setFocus()
-        self.editor.selectAll()
+        self.editor.installEventFilter(self)
+        if count < 2:
+            self.editor.setFocus()
+            self.editor.selectAll()
+        else:
+            apply.setFocus()
+
+    def eventFilter(self, watched, event):
+        # Enter types a new line in the editor; Ctrl+Enter applies (ahead of
+        # any main window shortcut bound to the same keys).
+        if (watched is self.editor and event.type() in (QEvent.ShortcutOverride, QEvent.KeyPress)
+                and event.key() in (Qt.Key_Return, Qt.Key_Enter)
+                and event.modifiers() & Qt.ControlModifier):
+            if event.type() == QEvent.ShortcutOverride:
+                event.accept()
+            else:
+                self.accept()
+            return True
+        return super().eventFilter(watched, event)
 
     def _heading(self, text):
         label = QLabel(text)

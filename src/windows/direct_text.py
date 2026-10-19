@@ -561,22 +561,40 @@ class DirectTextController(QObject):
         return self.edit_file(file_id, duplicate=True)
 
     def edit_file(self, file_id, duplicate=False):
+        """Edit one text file, or the shared style of several (file_id may be a list)."""
         from windows.text_style import TextStyleDialog
-        asset = File.get(id=file_id)
-        if not asset or asset.data.get("type") != "QtTextReader":
+        file_ids = [file_id] if isinstance(file_id, str) else list(file_id)
+        assets = [asset for asset in (File.get(id=fid) for fid in file_ids)
+                  if asset and asset.data.get("type") == "QtTextReader"]
+        if not assets:
             return
-        dialog = TextStyleDialog(asset.data["direct_text"], self.window, duplicate=duplicate)
+        asset = assets[0]
+        if duplicate:
+            assets = [asset]
+        original = asset.data["direct_text"]
+        dialog = TextStyleDialog(original, self.window, duplicate=duplicate, count=len(assets))
         if dialog.exec_():
             style = dialog.style()
             updates = get_app().updates
             previous = updates.transaction_id
             updates.transaction_id = previous or get_app().project.generate_id()
             try:
-                result = save_text_asset(style, None if duplicate else file_id)
-                if duplicate and style["text"] == asset.data["direct_text"]["text"]:
-                    # Unchanged text would otherwise share the original's name.
-                    result.data["name"] = asset.data["name"] + " " + get_app()._tr("(copy)")
-                    result.save()
+                if len(assets) > 1:
+                    # Only what was changed applies; other differences between
+                    # the texts (and their words) are kept.
+                    changed = {key: value for key, value in style.items()
+                               if key != "text" and value != original.get(key)}
+                    for each in assets:
+                        merged = copy.deepcopy(each.data["direct_text"])
+                        merged.update(copy.deepcopy(changed))
+                        result = save_text_asset(merged, each.id)
+                    result = assets
+                else:
+                    result = save_text_asset(style, None if duplicate else asset.id)
+                    if duplicate and style["text"] == original["text"]:
+                        # Unchanged text would otherwise share the original's name.
+                        result.data["name"] = asset.data["name"] + " " + get_app()._tr("(copy)")
+                        result.save()
             finally:
                 updates.transaction_id = previous
             self.window.refreshFrameSignal.emit()
@@ -723,6 +741,10 @@ class DirectTextController(QObject):
     def cancel(self, *args, return_focus=False):
         self.reveal_timer.stop()
         if not self._gui_ready:
+            return
+        if self.draft is None and not self.view.isVisible() and not return_focus:
+            # Seek/Play also land here; outside edit mode the preview's
+            # normal transform selection must be left alone.
             return
         self.generation += 1
         if self.snapshot_cancel is not None:

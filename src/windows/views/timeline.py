@@ -2239,7 +2239,13 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             Edit_Text = Text_Menu.addAction(_("Edit Text"))
             Edit_Text.triggered.connect(partial(self.window.direct_text.begin, clip_id))
             Edit_Style = Text_Menu.addAction(_("Edit Style…"))
-            Edit_Style.triggered.connect(partial(self.window.direct_text.edit_file, clip.data.get("file_id")))
+            # With several text clips selected, edit their shared style.
+            style_ids = [clip.data.get("file_id")]
+            for selected in (Clip.get(id=selected_id) for selected_id in clip_ids):
+                file_id = selected.data.get("file_id") if selected else None
+                if file_id and selected.data.get("direct_text") and file_id not in style_ids:
+                    style_ids.append(file_id)
+            Edit_Style.triggered.connect(partial(self.window.direct_text.edit_file, style_ids))
             menu.addMenu(Text_Menu)
 
         # Keep Copy and Properties available on locked tracks. Disabling the

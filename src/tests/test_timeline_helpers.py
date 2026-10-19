@@ -6795,33 +6795,44 @@ class TimelineHelperTests(unittest.TestCase):
                 self.assertFalse(paint()[0])
                 painter.shutdown_text_thumbnails()
 
-    def test_short_centered_text_clip_has_readable_thumbnail(self):
-        from classes.direct_text import default_text, render_text
+    def test_text_clip_thumbnails_tile_like_media_thumbnails(self):
+        from classes.direct_text import default_text
+        from classes import info
 
         with tempfile.TemporaryDirectory() as folder:
-            painter = self.make_clip_painter(pixels_per_second=6.6)
+            painter = self.make_clip_painter(pixels_per_second=24.0)
             self.addCleanup(painter.w.deleteLater)
+            # Use the source aspect ratio, as clips without a theme width do.
+            painter.w.theme.clip.thumb_width = 0
             style = default_text(1280, 720)
-            style.update(text="Text", alignment="center", width=640, height=90, font_size=48)
-            path = render_text(style, folder)
-            clip = types.SimpleNamespace(id="SHORTTEXT", data={
-                "direct_text": style, "position": 0.0, "start": 0.0,
-                "end": 10.0, "duration": 10.0,
-                "reader": {"path": path, "width": 640, "height": 90},
+            # A wide text box must not widen the slots: the thumbnail image
+            # has the media thumbnail shape, so tiles would leave gaps.
+            style.update(text="Text", width=1280, height=180)
+            clip = types.SimpleNamespace(id="TILES", data={
+                "direct_text": style, "position": 0.0, "start": 0.0, "end": 20.0, "duration": 20.0,
+                "file_id": "F1", "reader": {"type": "QtTextReader", "width": 1280, "height": 180},
             })
-            image = QImage(66, 48, QImage.Format_ARGB32)
-            image.fill(QColor("black"))
-            canvas = QPainter(image)
-            try:
-                self.assertFalse(painter._draw_thumbnails(canvas, clip, QRectF(0, 0, 66, 48), None))
-            finally:
-                canvas.end()
-            pixels = [(x, y) for x in range(66) for y in range(48)
-                      if image.pixelColor(x, y).green() > 20]
-            self.assertGreater(len(pixels), 100)
-            self.assertGreater(max(x for x, y in pixels) - min(x for x, y in pixels), 40)
-            self.assertLessEqual(max(x for x, y in pixels), 63)
-            self.assertGreaterEqual(min(x for x, y in pixels), 2)
+            inner = QRectF(0, 0, 400, 48)
+
+            def paint():
+                image = QImage(400, 48, QImage.Format_ARGB32)
+                image.fill(QColor("magenta"))
+                canvas = QPainter(image)
+                try:
+                    pending = painter._draw_thumbnails(canvas, clip, inner, None)
+                finally:
+                    canvas.end()
+                return pending, image
+
+            with patch.object(info, "THUMBNAIL_PATH", folder):
+                paint()
+                painter._text_thumb_pool.waitForDone()
+                QApplication.processEvents()
+                pending, image = paint()
+                painter.shutdown_text_thumbnails()
+            self.assertFalse(pending)
+            gaps = [x for x in range(400) if image.pixelColor(x, 24) == QColor("magenta")]
+            self.assertEqual(gaps, [], "Text thumbnails tile across the clip like media thumbnails")
 
     def test_thumbnail_strip_renders_correct_cached_frames_during_repeated_zoom(self):
         # Encode source frame numbers in solid-color PNGs so we can verify the

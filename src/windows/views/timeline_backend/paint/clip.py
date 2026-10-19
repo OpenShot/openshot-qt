@@ -37,7 +37,6 @@ from qt_api import (
     QPainterPath,
     QPen,
     QPixmap,
-    QRegion,
     QRadialGradient,
 )
 from qt_api import QGraphicsBlurEffect, QGraphicsPixmapItem, QGraphicsScene
@@ -806,6 +805,10 @@ class ClipPainter(ItemHeaderMixin, BasePainter):
         """Return the source aspect ratio of a clip, falling back to 16:9."""
         data = clip.data if isinstance(clip.data, dict) else {}
         reader = data.get("reader") if isinstance(data.get("reader"), dict) else {}
+        if reader.get("type") == "QtTextReader" and isinstance(data.get("direct_text"), dict):
+            # Text thumbnails are drawn at the media thumbnail size, not the
+            # text box size, so tile them at that aspect ratio.
+            return info.LIST_ICON_SIZE.width() / info.LIST_ICON_SIZE.height()
         w = self._to_float(reader.get("width"))
         h = self._to_float(reader.get("height"))
         if w > 0 and h > 0:
@@ -1433,28 +1436,9 @@ class ClipPainter(ItemHeaderMixin, BasePainter):
                     if not self._thumbnail_repaint_timer.isActive():
                         self._thumbnail_repaint_timer.start(0)
                     return True
-                # A centered title can have large transparent margins. Crop
-                # them once so short clips still have a readable thumbnail.
-                mask = pix.mask()
-                if not mask.isNull():
-                    bounds = QRegion(mask).boundingRect()
-                    if not bounds.isEmpty():
-                        pix = pix.copy(bounds.adjusted(-4, -4, 4, 4).intersected(pix.rect()))
                 self.thumb_cache[key] = pix
             for _, rect in slots:
-                visible = rect.intersected(inner)
-                if visible.isEmpty():
-                    continue
-                # Text must fit inside the actual visible clip segment, even
-                # when its source aspect ratio creates a much wider slot.
-                target = visible.adjusted(2, 2, -2, -2)
-                if target.isEmpty():
-                    continue
-                scaled = self.scaled_pixmap(pix, target.width(), target.height(), fill=False)
-                if scaled and not scaled.isNull():
-                    width, height = self.logical_size(scaled)
-                    painter.drawPixmap(QPointF(target.center().x() - width / 2,
-                                               target.center().y() - height / 2), scaled)
+                self._paint_thumbnail_pixmap(painter, pix, rect, inner)
             return False
 
         clip_fps = self._clip_media_fps(clip)

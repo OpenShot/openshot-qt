@@ -15,7 +15,7 @@ from classes.app import OpenShotApp
 from classes import info, version
 version.get_current_Version = lambda: None
 from classes.query import Clip, File
-from qt_api import QTimer, Qt, QPoint, QPointF, QT_API, QImage, QTextCursor
+from qt_api import QTimer, Qt, QPoint, QPointF, QT_API, QImage, QTextCursor, QDialog
 QTest = importlib.import_module({"pyqt5": "PyQt5", "pyqt6": "PyQt6", "pyside6": "PySide6"}[QT_API] + ".QtTest").QTest
 app = OpenShotApp([], mode="unittest")
 app.settings.set("tutorial_enabled", False)
@@ -55,6 +55,21 @@ def verify():
         assert bar.geometry().bottom() == window.videoPreview.height() - 9, "Bar moves below text it would cover"
         controller.update_geometry()
         assert app.focusWidget() is controller.view, "Real key events must reach the text view"
+        # Edit mode never paints transform handles under the text box.
+        from unittest.mock import patch
+        with patch.object(type(window.videoPreview), "drawTransformHandler") as handles:
+            window.videoPreview.repaint()
+        assert handles.call_count == 0, "Transform handles painted beneath the text editor"
+        # The preview's zoom/pan hint never covers the editor or handles.
+        from qt_api import QHelpEvent, QEvent
+
+        def tooltip_shown(widget):
+            event = QHelpEvent(QEvent.ToolTip, QPoint(5, 5), widget.mapToGlobal(QPoint(5, 5)))
+            with patch("windows.video_widget.QToolTip.hideText") as hidden:
+                app.sendEvent(widget, event)
+            return not hidden.called
+        assert not tooltip_shown(window.videoPreview), "Preview tooltip covers the text editor"
+        assert not tooltip_shown(controller.view.viewport()), "Preview tooltip covers the text editor"
         if os.environ.get("OPENSHOT_TEXT_SCREENSHOT_DIR"):
             QTest.qWait(300)
             window.grab().save(os.path.join(os.environ["OPENSHOT_TEXT_SCREENSHOT_DIR"], "easy-text-draft.png"))
@@ -115,6 +130,20 @@ def verify():
         assert File.get(id=asset_id).data["text"] == "Hello\nworld again"
         assert created_id in window.selected_clips
         assert window.videoPreview.transforming_clip and window.videoPreview.transforming_clip.id == created_id
+        # Like any clip, the selection survives the playhead leaving and returning.
+        with patch.object(type(window.videoPreview), "drawTransformHandler") as handles:
+            window.videoPreview.repaint()
+        assert handles.call_count == 1, "Transform mode shows handles after editing"
+        fps = app.project.get("fps")
+        for frame in (round(30 * fps["num"] / fps["den"]), 1):
+            window.SeekSignal.emit(frame, True)
+            QTest.qWait(100)
+            assert window.videoPreview.transforming_clip and window.videoPreview.transforming_clip.id == created_id, \
+                "Seeking cleared the text clip's transform selection"
+        with patch.object(type(window.videoPreview), "drawTransformHandler") as handles:
+            window.videoPreview.repaint()
+        assert handles.call_count == 1, "Seeking cleared the text clip's transform handles"
+        assert not tooltip_shown(window.videoPreview), "Preview tooltip covers transform handles"
         app.updates.undo()
         assert File.get(id=asset_id).data["text"] == "Hello\nworld"
 
@@ -294,6 +323,9 @@ def verify():
             dialog.toolbar.alignment.button(0).click()
             assert dialog.style()["alignment"] == "left" and not dialog.toolbar.more.isVisible()
             dialog.editor.insertPlainText("Independent")
+            QTest.keyClick(dialog.editor, Qt.Key_Return, Qt.ControlModifier)
+            assert dialog.result() == QDialog.Accepted, "Ctrl+Enter applies the dialog"
+            assert dialog.editor.toPlainText() == "Independent"
             return 1
         with patch.object(TextStyleDialog, "exec_", new=type_copy):
             duplicate = controller.duplicate_file(asset_id)
@@ -319,6 +351,75 @@ def verify():
             controller.edit_file(duplicate.id)
         assert File.get(id=duplicate.id).data["text"] == "Edited copy"
         assert len(File.filter()) == files_before + 1
+
+        # Several selected texts: Edit Style changes only what was changed,
+        # on all of them, and keeps each text's own words in one undo step.
+        from qt_api import QItemSelectionModel
+        selection = window.files_model.selection_model
+        selection.clearSelection()
+        for fid in (asset_id, duplicate.id):
+            r = next(r for r in range(model.rowCount()) if model.data(model.index(r, 5)) == fid)
+            selection.select(model.index(r, 0), QItemSelectionModel.Select | QItemSelectionModel.Rows)
+        menus.clear()
+        with patch.object(StyledContextMenu, "show_at", autospec=True, side_effect=lambda menu, *a: menus.append(menu)):
+            view.contextMenuEvent(QContextMenuEvent(QContextMenuEvent.Mouse, point, view.mapToGlobal(point)))
+        actions = {a.text(): a for a in menus[-1].actions()}
+        assert "Edit Style…" in actions and "Edit Text…" not in actions, list(actions)
+        kept = {fid: File.get(id=fid).data["direct_text"]["alignment"] for fid in (asset_id, duplicate.id)}
+        assert kept[asset_id] != kept[duplicate.id], "Differing styles must survive a shared edit"
+
+        def restyle(dialog):
+            assert not dialog.editor.isEnabled() and dialog.editor.toPlainText() == "Shared title"
+            assert dialog.windowTitle() == "Edit Style"
+            dialog.toolbar.size.setValue(77)
+            return 1
+        with patch.object(TextStyleDialog, "exec_", new=restyle):
+            actions["Edit Style…"].trigger()
+        for fid, words in ((asset_id, "Shared title"), (duplicate.id, "Edited copy")):
+            data = File.get(id=fid).data
+            assert data["direct_text"]["font_size"] == 77, data["direct_text"]
+            assert data["text"] == words and data["direct_text"]["alignment"] == kept[fid]
+        app.updates.undo()
+        assert File.get(id=duplicate.id).data["direct_text"]["font_size"] != 77
+        assert File.get(id=asset_id).data["direct_text"]["font_size"] != 77
+        app.updates.redo()
+        selection.clearSelection()
+
+        # The same on the timeline: Text > Edit Style on several selected text
+        # clips styles all of their sources and keeps the selection.
+        controller.arm()
+        QTest.qWait(300)
+        QTest.keyClicks(controller.editor, "Second")
+        QTest.keyClick(controller.editor, Qt.Key_Return)
+        QTest.qWait(300)
+        second_id = controller.last_clip_id
+        pair = (created_id, second_id)
+        for i, cid in enumerate(pair):
+            window.timeline.AddSelectionJS(cid, "clip", i == 0)
+        QTest.qWait(100)
+        timeline = window.timeline
+        target = next(r for r, c, _ in timeline.geometry.iter_clips(viewport=False) if c.id == created_id).center().toPoint()
+
+        def recolor(dialog):
+            assert not dialog.editor.isEnabled() and dialog.windowTitle() == "Edit Style"
+            dialog.style_changed("color", "#ff00ff00")
+            return 1
+
+        def choose_edit_style(menu, pos):
+            text_menu = next(a.menu() for a in menu.actions() if a.text().replace("&", "") == "Text")
+            next(a for a in text_menu.actions() if a.text() == "Edit Style…").trigger()
+        with patch.object(TextStyleDialog, "exec_", new=recolor), \
+                patch.object(StyledContextMenu, "show_at", new=choose_edit_style):
+            QTest.mousePress(timeline, Qt.RightButton, Qt.NoModifier, target)
+            QTest.mouseRelease(timeline, Qt.RightButton, Qt.NoModifier, target)
+        QTest.qWait(200)
+        assert [Clip.get(id=cid).data["direct_text"]["color"] for cid in pair] == ["#ff00ff00"] * 2, \
+            "Edit Style on the timeline styles every selected text clip"
+        assert set(pair) <= set(window.selected_clips), "Edit Style kept only one clip selected"
+        assert all(selected for _, c, selected in timeline.geometry.iter_clips(viewport=False) if c.id in pair)
+        app.updates.undo()
+        assert Clip.get(id=second_id).data["direct_text"]["color"] != "#ff00ff00"
+        window.timeline.ClearAllSelections() if hasattr(window.timeline, "ClearAllSelections") else None
 
         # Native Clip JSON reload and frame generation need no text file.
         import openshot

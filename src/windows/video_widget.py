@@ -38,7 +38,7 @@ from qt_api import modifiers_has
 from qt_api import (
     QTransform, QPainter, QIcon, QColor, QPen, QBrush, QCursor, QImage, QRegion
 )
-from qt_api import QSizePolicy, QWidget, QPushButton
+from qt_api import QSizePolicy, QWidget, QPushButton, QToolTip, QEvent
 
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
@@ -730,8 +730,10 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                     union_rect = clip_rect
                     first_props = clip_props
 
-            # Draw handler(s)
-            if union_rect and first_props and not self.region_enabled:
+            # Draw handler(s); text edit mode shows its own text box instead.
+            text = getattr(getattr(self, "win", None), "direct_text", None)
+            text_editing = bool(text and text.draft is not None)
+            if union_rect and first_props and not self.region_enabled and not text_editing:
                 x = union_rect.x()
                 y = union_rect.y()
                 sw = union_rect.width()
@@ -1367,6 +1369,18 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             self.transform_mode = self.hover_transform_mode
         if not self.transform_mode or self.transform_mode == self.hover_transform_mode:
             self.setCursor(cursor)
+
+    def event(self, event):
+        # The zoom/pan hint is for an idle preview. Never cover handles, a
+        # region or the text editor (whose tooltip events bubble up here).
+        if event.type() == QEvent.ToolTip:
+            text = getattr(getattr(self, "win", None), "direct_text", None)
+            if (self.transforming_clip or self.region_enabled or self.mouse_dragging
+                    or (text and text.draft is not None)):
+                QToolTip.hideText()
+                event.ignore()
+                return True
+        return super().event(event)
 
     def mouseMoveEvent(self, event):
         """Capture mouse events on video preview window """
