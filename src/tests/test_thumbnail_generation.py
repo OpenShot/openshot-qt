@@ -84,6 +84,69 @@ class ThumbnailGenerationTests(unittest.TestCase):
                              os.path.join(root, 'old-split', '25.png'))
             self.assertEqual(thumbnail.FindCachedThumbnail('old-split', 25), '')
 
+    def test_proxy_source_maps_frame_rate_and_ignores_missing_media(self):
+        with tempfile.TemporaryDirectory() as root:
+            path = os.path.join(root, "proxy.mp4")
+            with open(path, "wb"):
+                pass
+            data = {"fps": {"num": 24, "den": 1}, "proxy_reader": {
+                "path": path, "fps": {"num": 30, "den": 1}}}
+            self.assertEqual(thumbnail.ThumbnailProxySource(data, 49), (path, 61))
+            self.assertEqual(thumbnail.ThumbnailProxySource(data, 1), (path, 1))
+            data["proxy_reader"]["missing"] = True
+            self.assertIsNone(thumbnail.ThumbnailProxySource(data, 49))
+            data["proxy_reader"].pop("missing")
+            os.remove(path)
+            self.assertIsNone(thumbnail.ThumbnailProxySource(data, 49))
+
+    def test_proxy_decode_failure_falls_back_to_original_before_placeholder(self):
+        readers = [_Reader(open_error=RuntimeError("bad proxy")),
+                   _Reader(open_error=RuntimeError("bad proxy")), _Reader()]
+        with tempfile.TemporaryDirectory() as root, \
+             patch.object(thumbnail.openshot.Clip, "CreateReader", side_effect=readers) as create:
+            result = thumbnail.GenerateThumbnail(
+                "source.mp4", os.path.join(root, "thumb.png"), 49, 100, 65, "", "",
+                proxy_source=("proxy.mp4", 61))
+        self.assertEqual([call.args for call in create.call_args_list], [
+            ("proxy.mp4", False), ("proxy.mp4", True), ("source.mp4", False)])
+        self.assertEqual(readers[-1].max_frames, [49])
+        self.assertFalse(result.get("is_proxy"))
+        self.assertTrue(all(reader.close_calls == 1 for reader in readers))
+
+    def test_http_cache_miss_uses_proxy_without_recording_source_timing(self):
+        for cached, frame in ((False, 1), (False, 49), (True, 1)):
+            with self.subTest(cached=cached, frame=frame), tempfile.TemporaryDirectory() as root:
+                proxy_path = os.path.join(root, "proxy.mp4")
+                with open(proxy_path, "wb"):
+                    pass
+                file = _QueriedFile()
+                file.data.update(media_type="video", type="FFmpegReader",
+                                 fps={"num": 24, "den": 1}, proxy_reader={
+                                     "path": proxy_path, "fps": {"num": 30, "den": 1}})
+                controller = SimpleNamespace(epoch=7, thumbnail_measured=unittest.mock.Mock())
+                app = SimpleNamespace(window=SimpleNamespace(auto_optimize=controller))
+                handler = thumbnail.httpThumbnailHandler.__new__(thumbnail.httpThumbnailHandler)
+                handler.path = "/thumbnails/file-id/%s/path/" % frame
+                handler.wfile = unittest.mock.Mock()
+                for method in ("send_response_only", "send_header", "end_headers", "send_error"):
+                    setattr(handler, method, unittest.mock.Mock())
+                reader = _Reader()
+                with patch.object(thumbnail, "get_app", return_value=app), \
+                     patch.object(thumbnail.File, "get", return_value=file), \
+                     patch.object(thumbnail.info, "THUMBNAIL_PATH", root), \
+                     patch.object(thumbnail, "ThumbnailCacheIsStale", return_value=False), \
+                     patch.object(thumbnail.os.path, "exists", side_effect=lambda path: path == root or cached), \
+                     patch.object(thumbnail.openshot.Clip, "CreateReader", return_value=reader) as create, \
+                     patch.object(thumbnail.time, "sleep"):
+                    handler.do_GET()
+                controller.thumbnail_measured.emit.assert_not_called()
+                if cached:
+                    create.assert_not_called()
+                else:
+                    create.assert_called_once_with(proxy_path, False)
+                    self.assertEqual(reader.max_frames, [1 if frame == 1 else 61])
+                    self.assertEqual(len(reader._frame.calls), 1)
+
     def test_migration_unreadable_cache_is_optional(self):
         with tempfile.TemporaryDirectory() as root:
             with patch.object(thumbnail.os, "listdir", side_effect=PermissionError("denied")):
