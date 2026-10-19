@@ -10,7 +10,7 @@ from windows.preview_design import PreviewWindowState
 
 class PreviewWindowStateTests(unittest.TestCase):
     def setUp(self):
-        self.qt_app, _ = get_or_create_app(QApplication)
+        self.qt_app, _ = get_or_create_app(lambda: QApplication([]))
         self.project = {'settings': {'preview_volume': 42}}
         self.updates = Mock()
         self.updates.update_untracked.side_effect = lambda key, value: self.project.update({key[0]: value})

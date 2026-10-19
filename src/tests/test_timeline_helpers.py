@@ -7063,6 +7063,8 @@ class TimelineHelperTests(unittest.TestCase):
 
         with ExitStack() as stack:
             stack.enter_context(patch.object(info, "THUMBNAIL_PATH", thumbnail_root))
+            # Keep the cache id independent of whichever project an earlier test loaded.
+            stack.enter_context(patch.object(self.clip_paint_module, "ThumbnailCacheId", side_effect=str))
             stack.enter_context(
                 patch.object(
                     self.clip_paint_module.os.path,
