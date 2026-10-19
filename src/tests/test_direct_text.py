@@ -72,6 +72,38 @@ class DirectTextTests(unittest.TestCase):
         reader.Close()
         self.assertEqual(expected.convertToFormat(QImage.Format_RGBA8888_Premultiplied), actual)
 
+    def test_text_readers_follow_project_frame_rate(self):
+        from classes.direct_text import reader_data, set_text_keyframe, sync_text_fps
+        style = default_text(320, 180)
+        style.update(text="", background="#ffff0000", width=160, height=90)
+        reader = reader_data(style, {"num": 60000, "den": 1001})
+        self.assertEqual(reader["fps"], {"num": 60000, "den": 1001})
+        self.assertEqual(reader["video_timebase"], {"num": 1001, "den": 60000})
+
+        # Background fades red -> blue across project frames 1..61 at 60 fps.
+        clip = new_text_clip(style, None, 0, 1, 4)
+        clip.update(id="TEXT", scale=openshot.SCALE_STRETCH)
+        clip = set_text_keyframe(clip, "background", "#ffff0000", 1, True)
+        clip = set_text_keyframe(clip, "background", "#ff0000ff", 61, True)
+        timeline = openshot.Timeline(160, 90, openshot.Fraction(60, 1), 44100, 2, openshot.LAYOUT_STEREO)
+        project = json.loads(timeline.Json())
+        project.update(fps={"num": 60, "den": 1}, files=[dict(reader, id="F1")], clips=[clip])
+        clip["file_id"] = "F1"
+        sync_text_fps(project)
+        self.assertEqual(project["files"][0]["fps"], {"num": 60, "den": 1})
+        self.assertEqual(clip["reader"]["fps"], {"num": 60, "den": 1})
+        timeline.SetJson(json.dumps(project))
+        timeline.Open()
+        try:
+            frame = timeline.GetFrame(31)
+            image = QImage(frame.GetPixelsBytes(), frame.GetWidth(), frame.GetHeight(),
+                           frame.GetWidth() * 4, QImage.Format_RGBA8888_Premultiplied).copy()
+        finally:
+            timeline.Close()
+        middle = image.pixelColor(80, 45)
+        self.assertLessEqual(abs(middle.red() - 128), 3)
+        self.assertLessEqual(abs(middle.blue() - 128), 3)
+
     def test_full_app_text_workflow(self):
         env = dict(os.environ, PYTHONPATH=os.pathsep.join(filter(None, (str(Path(__file__).resolve().parents[1]), os.environ.get("PYTHONPATH", "")))),
                    QT_QPA_PLATFORM="offscreen", QT_QUICK_BACKEND="software")

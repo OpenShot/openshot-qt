@@ -489,6 +489,10 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         # Convert all position, start, and end trims to profile FPS precision (if any)
         change_profile(self._data["clips"] + self._data["effects"] + self._data["markers"], profile)
 
+        # Text style curves are keyed to project frames (and were rescaled with them)
+        from classes.direct_text import sync_text_fps
+        sync_text_fps(self._data)
+
         return profile
 
     def load(self, file_path, clear_thumbnails=True, interactive=True):
@@ -1759,14 +1763,14 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
         # Generated text sources are defined by JSON, never by filesystem paths.
         # Upgrade earlier experimental clip-owned text and synchronize instances.
-        from classes.direct_text import reader_data, initialize_text_curves
+        from classes.direct_text import reader_data, initialize_text_curves, sync_text_fps
         text_assets = {f["id"]: f for f in self._data["files"] if f.get("type") == "QtTextReader"}
         for clip in self._data["clips"]:
             if not clip.get("direct_text"):
                 continue
             asset = text_assets.get(clip.get("file_id"))
             if asset is None:
-                asset = reader_data(clip["direct_text"])
+                asset = reader_data(clip["direct_text"], self._data.get("fps"))
                 asset.update(id=self.generate_id(), name=clip.get("title") or "Text")
                 self._data["files"].append(asset)
                 text_assets[asset["id"]] = asset
@@ -1774,6 +1778,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             clip["reader"] = copy.deepcopy(asset)
             clip["direct_text"] = copy.deepcopy(asset["direct_text"])
             initialize_text_curves(clip)
+        sync_text_fps(self._data)
 
         # Loop through each files in natural-sorted filename order
         files_sorted = sorted(
@@ -1901,6 +1906,12 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
                         # Rescale keyframes to match new FPS
                         self.rescale_keyframes(fps_factor)
+
+                        # Text readers follow the project frame rate, like their curves
+                        from classes.direct_text import sync_text_fps
+                        from classes.query import QueryObject
+                        sync_text_fps(self._data)
+                        QueryObject._cache_version = None
 
                     # Update size of audio-only files
                     for file in self._data.get("files", []):

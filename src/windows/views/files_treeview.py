@@ -236,9 +236,10 @@ class FilesTreeView(NameColumnKeyboardSearchMixin, QTreeView):
                 menu.popup(event.globalPos())
                 return
             if file.data.get("type") == "QtTextReader":
-                edit = menu.addAction(_("Edit Text…"))
+                # Same icons as Edit Title / Duplicate, which follow the theme.
+                edit = menu.addAction(self.win.actionEditTitle.icon(), _("Edit Text…"))
                 edit.triggered.connect(lambda checked=False, fid=file.id: self.win.direct_text.edit_file(fid))
-                duplicate = menu.addAction(_("Duplicate"))
+                duplicate = menu.addAction(self.win.actionDuplicate.icon(), _("Duplicate"))
                 duplicate.triggered.connect(lambda checked=False, fid=file.id: self.win.direct_text.duplicate_file(fid))
                 menu.addSeparator()
                 add_bound_action(menu, self.win, "actionAdd_to_Timeline", _("Add to Timeline"), "actionAdd_to_Timeline_trigger")

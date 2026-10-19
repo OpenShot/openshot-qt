@@ -208,6 +208,9 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         self.shutting_down = True
         if getattr(self, "direct_text", None):
             self.direct_text.shutdown()
+        clip_painter = getattr(getattr(self, "timeline", None), "clip_painter", None)
+        if clip_painter is not None and hasattr(clip_painter, "shutdown_text_thumbnails"):
+            clip_painter.shutdown_text_thumbnails()
         if getattr(self, "feedback_controller", None):
             self.feedback_controller.shutdown()
 

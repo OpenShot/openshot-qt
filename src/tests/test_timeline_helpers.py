@@ -6742,6 +6742,59 @@ class TimelineHelperTests(unittest.TestCase):
             painter.invalidate_clip_thumbnails(clip.id)
             self.assertEqual(painter.thumb_cache, {})
 
+    def test_text_source_thumbnails_render_off_the_gui_thread(self):
+        from classes.direct_text import default_text
+        from qt_api import QApplication
+
+        with tempfile.TemporaryDirectory() as folder:
+            painter = self.make_clip_painter()
+            self.addCleanup(painter.w.deleteLater)
+            painter.w.thumbnail_manager = types.SimpleNamespace(request_thumbnail=lambda *args: None)
+            style = default_text(320, 180)
+            style.update(text="Async", font_size=32, width=160, height=64)
+            clip = types.SimpleNamespace(id="ASYNC", data={
+                "direct_text": style, "position": 0.0, "start": 0.0, "end": 5.0, "duration": 5.0,
+                "file_id": "F1", "reader": {"type": "QtTextReader", "width": 160, "height": 64},
+            })
+            inner = QRectF(0, 0, 120, 48)
+
+            def paint():
+                image = QImage(120, 48, QImage.Format_ARGB32)
+                image.fill(QColor("black"))
+                canvas = QPainter(image)
+                try:
+                    pending = painter._draw_thumbnails(canvas, clip, inner, None)
+                finally:
+                    canvas.end()
+                lit = sum(image.pixelColor(x, y).lightness() > 128 for x in range(120) for y in range(48))
+                return pending, lit
+
+            def finish_workers():
+                painter._text_thumb_pool.waitForDone()
+                QApplication.processEvents()  # deliver the queued finished signal
+
+            with patch.object(info, "THUMBNAIL_PATH", folder):
+                # First paint never renders on the GUI thread: pending, nothing drawn.
+                self.assertEqual(paint(), (True, 0))
+                self.assertEqual(len(painter._text_thumb_jobs), 1)
+                self.assertEqual(paint()[0], True)  # no duplicate job while rendering
+                finish_workers()
+                self.assertEqual(painter._text_thumb_jobs, set())
+                pending, lit = paint()
+                self.assertFalse(pending)
+                self.assertGreater(lit, 20)
+
+                # Cleared thumbnails are rendered again rather than staying blank.
+                path = next(iter(painter._text_thumb_ready))
+                os.remove(path)
+                painter.thumb_cache.clear()
+                self.assertEqual(paint(), (True, 0))
+                self.assertEqual(paint(), (True, 0))
+                finish_workers()
+                self.assertTrue(os.path.exists(path))
+                self.assertFalse(paint()[0])
+                painter.shutdown_text_thumbnails()
+
     def test_short_centered_text_clip_has_readable_thumbnail(self):
         from classes.direct_text import default_text, render_text
 
@@ -7172,6 +7225,9 @@ class TimelineHelperTests(unittest.TestCase):
 
         with ExitStack() as stack:
             stack.enter_context(patch.object(info, "THUMBNAIL_PATH", thumbnail_root))
+            # No File record: the cache folder falls back to the file id.
+            import classes.thumbnail as thumbnail_module
+            stack.enter_context(patch.object(thumbnail_module.File, "get", return_value=None))
             stack.enter_context(
                 patch.object(
                     self.clip_paint_module.os.path,

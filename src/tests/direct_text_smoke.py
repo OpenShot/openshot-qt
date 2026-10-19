@@ -15,7 +15,7 @@ from classes.app import OpenShotApp
 from classes import info, version
 version.get_current_Version = lambda: None
 from classes.query import Clip, File
-from qt_api import QTimer, Qt, QPointF, QT_API, QImage
+from qt_api import QTimer, Qt, QPoint, QPointF, QT_API, QImage, QTextCursor
 QTest = importlib.import_module({"pyqt5": "PyQt5", "pyqt6": "PyQt6", "pyside6": "PySide6"}[QT_API] + ".QtTest").QTest
 app = OpenShotApp([], mode="unittest")
 app.settings.set("tutorial_enabled", False)
@@ -41,8 +41,19 @@ def verify():
         history_count = len(app.updates.actionHistory)
         initial_layers = copy.deepcopy(app.project.get("layers"))
         window.timeline.setFocus()
+        preview_size = window.videoPreview.size()
         window.actionText.trigger()
         assert controller.draft is not None and controller.editor.hasFocus()
+        # The formatting bar floats over the preview instead of resizing it.
+        bar = controller.toolbar
+        assert bar.isVisible() and bar.parentWidget() is window.videoPreview
+        assert window.videoPreview.size() == preview_size
+        text_rect = controller.proxy.sceneBoundingRect().toAlignedRect()
+        assert not bar.geometry().intersects(text_rect)
+        assert window.videoPreview.rect().contains(bar.geometry())
+        bar.place(bar.geometry())
+        assert bar.geometry().bottom() == window.videoPreview.height() - 9, "Bar moves below text it would cover"
+        controller.update_geometry()
         assert app.focusWidget() is controller.view, "Real key events must reach the text view"
         if os.environ.get("OPENSHOT_TEXT_SCREENSHOT_DIR"):
             QTest.qWait(300)
@@ -84,6 +95,50 @@ def verify():
         assert Clip.get(id=created_id) is None and File.get(id=asset_id) is None
         app.updates.redo()
         assert Clip.get(id=created_id) and File.get(id=asset_id)
+
+        # Double-clicking the text edits it; clicking outside keeps the typing
+        # and returns to transform mode without the formatting bar.
+        clip_data = Clip.get(id=created_id).data
+        style = clip_data["direct_text"]
+        center = controller.geometry(clip_data).map(QPointF(style["width"] / 2, style["height"] / 2)).toPoint()
+        QTest.mouseDClick(window.videoPreview, Qt.LeftButton, Qt.NoModifier, center)
+        assert controller.clip_id == created_id and controller.toolbar.isVisible()
+        assert controller.editor.textCursor().selectedText() == "Hello\u2029world", "Double-click selects all text"
+        controller.editor.moveCursor(QTextCursor.End)
+        QTest.keyClicks(controller.editor, " again")
+        inside = controller.view.mapFromScene(controller.proxy.sceneBoundingRect().center())
+        QTest.mouseClick(controller.view.viewport(), Qt.LeftButton, Qt.NoModifier, inside)
+        assert controller.draft is not None, "Clicks inside the text keep editing"
+        outside = QPoint(5, window.videoPreview.height() - 5)
+        QTest.mouseClick(controller.view.viewport(), Qt.LeftButton, Qt.NoModifier, outside)
+        assert controller.draft is None and not controller.toolbar.isVisible()
+        assert File.get(id=asset_id).data["text"] == "Hello\nworld again"
+        assert created_id in window.selected_clips
+        assert window.videoPreview.transforming_clip and window.videoPreview.transforming_clip.id == created_id
+        app.updates.undo()
+        assert File.get(id=asset_id).data["text"] == "Hello\nworld"
+
+        # The clip menu has one Text submenu near the bottom, under Slice.
+        from unittest.mock import patch
+        app.clipboard().setText("")  # offscreen platforms start without clipboard data
+        with patch("windows.views.timeline.StyledContextMenu.show_at", lambda menu, pos: menu):
+            menu = window.timeline.ShowClipMenu(created_id)
+        titles = [a.text().replace("&", "") for a in menu.actions()]
+        assert "Edit Text" not in titles and titles.count("Text") == 1
+        text_index = titles.index("Text")
+        assert titles.index("Speed") < text_index < titles.index("Properties")
+        if "Slice" in titles:
+            assert text_index == titles.index("Slice") + 1
+        text_menu = menu.actions()[text_index].menu()
+        assert [a.text() for a in text_menu.actions()] == ["Edit Text", "Edit Style…"]
+        text_menu.actions()[0].trigger()
+        assert controller.clip_id == created_id and controller.toolbar.isVisible()
+        assert controller.editor.textCursor().selectedText() == "Hello\u2029world", "Edit Text selects all text"
+        assert app.focusWidget() is controller.view, "Edit Text is ready to type"
+        controller.cancel(return_focus=True)
+        with patch("windows.text_style.TextStyleDialog.exec_", return_value=0) as style_dialog:
+            text_menu.actions()[1].trigger()
+        assert style_dialog.call_count == 1
 
         # Next Marker stops on the last clip's final frame; Tt continues after it
         # on the same track instead of stacking a new track over that frame.
@@ -205,17 +260,65 @@ def verify():
         os.remove(source)
         assert os.path.exists(window.files_model._thumbnail_source_for_file(File.get(id=asset_id))[0])
 
-        # Standalone editor edits a source without needing any timeline use.
-        controller.duplicate_file(asset_id)
-        duplicate = next(f for f in File.filter() if f.id != asset_id)
-        from windows.text_style import TextStyleDialog
-        dialog = TextStyleDialog(duplicate.data["direct_text"], window)
-        dialog.editor.setPlainText("Independent")
+        # Project Files offers Edit Text / Duplicate with the Edit Title icons.
         from unittest.mock import patch
-        with patch("windows.text_style.TextStyleDialog", return_value=dialog), patch.object(dialog, "exec_", return_value=1):
-            controller.edit_file(duplicate.id)
+        from qt_api import QContextMenuEvent
+        from windows.views.menu import StyledContextMenu
+        from windows.text_style import TextStyleDialog
+        view, model = window.filesView, window.filesView.model()
+        row = next(r for r in range(model.rowCount()) if model.data(model.index(r, 5)) == asset_id)
+        point = view.visualRect(model.index(row, 0)).center()
+        menus = []
+        with patch.object(StyledContextMenu, "show_at", autospec=True, side_effect=lambda menu, *a: menus.append(menu)):
+            view.contextMenuEvent(QContextMenuEvent(QContextMenuEvent.Mouse, point, view.mapToGlobal(point)))
+        actions = {a.text(): a for a in menus[-1].actions()}
+        assert not actions["Edit Text…"].icon().isNull() and not actions["Duplicate"].icon().isNull()
+        assert actions["Duplicate"].icon().cacheKey() == window.actionDuplicate.icon().cacheKey()
+
+        # Duplicate opens Edit Text on a copy, ready to type; Cancel adds nothing.
+        files_before = len(File.filter())
+        with patch.object(TextStyleDialog, "exec_", return_value=0):
+            actions["Duplicate"].trigger()
+        assert len(File.filter()) == files_before
+
+        def type_copy(dialog):
+            assert dialog.editor.textCursor().selectedText() == "Shared title", "Duplicate is ready to type"
+            assert dialog.editor.hasFocus() or not dialog.isVisible()
+            # On HiDPI screens the preview is drawn at device pixels, not stretched.
+            with patch.object(dialog.preview, "devicePixelRatioF", return_value=2.0):
+                dialog.render_preview()
+            pixmap = dialog.preview.pixmap()
+            shown = pixmap.width() / pixmap.devicePixelRatio()
+            assert pixmap.devicePixelRatio() == 2.0 and pixmap.width() > 1.9 * shown
+            assert shown <= dialog.preview.width() - 24
+            dialog.toolbar.alignment.button(0).click()
+            assert dialog.style()["alignment"] == "left" and not dialog.toolbar.more.isVisible()
+            dialog.editor.insertPlainText("Independent")
+            return 1
+        with patch.object(TextStyleDialog, "exec_", new=type_copy):
+            duplicate = controller.duplicate_file(asset_id)
+        assert duplicate.id != asset_id and len(File.filter()) == files_before + 1
         assert File.get(id=duplicate.id).data["text"] == "Independent"
+        assert File.get(id=duplicate.id).data["name"] == "Independent"
+        assert File.get(id=duplicate.id).data["direct_text"]["alignment"] == "left"
         assert File.get(id=asset_id).data["text"] == "Shared title"
+        app.updates.undo()
+        assert File.get(id=duplicate.id) is None, "Duplicating is one undo step"
+        app.updates.redo()
+        # Unchanged text keeps a distinguishable name.
+        with patch.object(TextStyleDialog, "exec_", return_value=1):
+            same = controller.duplicate_file(asset_id)
+        assert same.data["text"] == "Shared title" and same.data["name"].endswith("(copy)")
+        app.updates.undo()
+
+        # Edit Text changes the source in place.
+        def edit(dialog):
+            dialog.editor.setPlainText("Edited copy")
+            return 1
+        with patch.object(TextStyleDialog, "exec_", new=edit):
+            controller.edit_file(duplicate.id)
+        assert File.get(id=duplicate.id).data["text"] == "Edited copy"
+        assert len(File.filter()) == files_before + 1
 
         # Native Clip JSON reload and frame generation need no text file.
         import openshot
@@ -239,6 +342,17 @@ def verify():
         decoded.Open()
         assert decoded.GetFrame(1).GetPixelsBytes() == frame.GetPixelsBytes()
         decoded.Close()
+        # A project frame rate change re-keys text readers to the new frames; Undo restores them.
+        import openshot as native
+        original_fps = copy.deepcopy(app.project.get("fps"))
+        window.actionProfile_trigger(native.Profile(os.path.join(info.PROFILES_PATH, "01280x0720p0060_16-09")))
+        assert app.project.get("fps") == {"num": 60, "den": 1}
+        assert File.get(id=asset_id).data["fps"] == {"num": 60, "den": 1}
+        assert all(c.data["reader"]["fps"] == {"num": 60, "den": 1} for c in Clip.filter(file_id=asset_id))
+        app.updates.undo()
+        assert app.project.get("fps") == original_fps
+        assert File.get(id=asset_id).data["fps"] == original_fps
+        assert all(c.data["reader"]["fps"] == original_fps for c in Clip.filter(file_id=asset_id))
         project_path = os.path.join(root, "text.osp")
         app.project.save(project_path)
         with open(project_path) as stream:

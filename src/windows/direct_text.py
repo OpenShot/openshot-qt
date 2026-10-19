@@ -64,6 +64,17 @@ class TextPreviewView(QGraphicsView):
         super().__init__(owner.preview)
         self.owner = owner
 
+    def mousePressEvent(self, event):
+        owner = self.owner
+        if owner is not None and owner.draft is not None:
+            point = owner.proxy.mapFromScene(self.mapToScene(event.pos()))
+            if not owner.proxy.contains(point):
+                # Clicking away keeps the text and returns to transform mode.
+                event.accept()
+                owner.finish(commit=True)
+                return
+        super().mousePressEvent(event)
+
     def drawForeground(self, painter, rect):
         owner = self.owner
         if owner is None or owner.draft is None:
@@ -169,8 +180,8 @@ class DirectTextController(QObject):
         self.view_port = self.view.viewport()
         self.editor.textChanged.connect(self.grow_document)
         from windows.text_style import TextStyleToolbar
-        self.toolbar = TextStyleToolbar(self)
-        window.tabVideo.insertWidget(0, self.toolbar)
+        # Floats over the preview so showing it never resizes the video.
+        self.toolbar = TextStyleToolbar(self, preview)
         self.toolbar.hide()
         window.PlaySignal.connect(self.cancel)
         window.SeekSignal.connect(self.cancel)
@@ -289,7 +300,6 @@ class DirectTextController(QObject):
         if self.clip_id != data["id"]:
             return
         self.created_clip_id, self.create_transaction = data["id"], transaction
-        self.editor.selectAll()
         self.reveal_clip_id = data["id"]
         self.reveal_timer.start(0)
 
@@ -360,14 +370,15 @@ class DirectTextController(QObject):
             table.clip_properties_model.update_timer.stop()
             table.clip_properties_model.update_item_timeout()
         self.toolbar.set_style(self.draft)
-        self.toolbar.show()
         self.layout_document()
         self.capture_background()
         self.view.show()
         self.view.raise_()
+        self.toolbar.show()
         self.update_geometry()
         self.focus_editor()
-        self.editor.moveCursor(QTextCursor.End)
+        # Every way into typing selects the text, so typing replaces it.
+        self.editor.selectAll()
 
     def focus_editor(self):
         """Keys reach a proxied editor only while its view has application focus."""
@@ -433,6 +444,7 @@ class DirectTextController(QObject):
         self.backdrop.setPixmap(QPixmap.fromImage(image))
         self.backdrop.setPos(viewport.x(), viewport.y())
         self.view.viewport().update()
+        self.toolbar.place(self.proxy.sceneBoundingRect().toAlignedRect())
 
     def hit(self, point):
         position = self.window._current_timeline_seconds()
@@ -545,29 +557,30 @@ class DirectTextController(QObject):
         self.update_geometry()
 
     def duplicate_file(self, file_id):
-        asset = File.get(id=file_id)
-        if asset and asset.data.get("type") == "QtTextReader":
-            duplicate = File()
-            duplicate.data = copy.deepcopy(asset.data)
-            duplicate.data.pop("id", None)
-            duplicate.data["name"] += " " + get_app()._tr("(copy)")
-            duplicate.save()
+        """Open Edit Text on a copy; Apply adds it to Project Files, Cancel adds nothing."""
+        return self.edit_file(file_id, duplicate=True)
 
-    def edit_file(self, file_id):
+    def edit_file(self, file_id, duplicate=False):
         from windows.text_style import TextStyleDialog
         asset = File.get(id=file_id)
         if not asset or asset.data.get("type") != "QtTextReader":
             return
-        dialog = TextStyleDialog(asset.data["direct_text"], self.window)
+        dialog = TextStyleDialog(asset.data["direct_text"], self.window, duplicate=duplicate)
         if dialog.exec_():
+            style = dialog.style()
             updates = get_app().updates
             previous = updates.transaction_id
             updates.transaction_id = previous or get_app().project.generate_id()
             try:
-                save_text_asset(dialog.style(), file_id)
+                result = save_text_asset(style, None if duplicate else file_id)
+                if duplicate and style["text"] == asset.data["direct_text"]["text"]:
+                    # Unchanged text would otherwise share the original's name.
+                    result.data["name"] = asset.data["name"] + " " + get_app()._tr("(copy)")
+                    result.save()
             finally:
                 updates.transaction_id = previous
             self.window.refreshFrameSignal.emit()
+            return result
 
     def more_style(self):
         if self.draft is None:

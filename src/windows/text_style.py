@@ -4,61 +4,162 @@ import json
 import os
 import openshot
 
-from qt_api import (Qt, QEvent, QWidget, QHBoxLayout, QVBoxLayout, QFormLayout, QFontComboBox,
-                    QSpinBox, QToolButton, QIcon, QSize, QComboBox, QPushButton, QColor,
-                    QDialog, QDialogButtonBox, QTextEdit, QPalette, QLabel, QTimer, QImage, QPixmap, QSizePolicy)
+from qt_api import (Qt, QEvent, QWidget, QFrame, QHBoxLayout, QVBoxLayout, QGridLayout, QFontComboBox,
+                    QSpinBox, QAbstractSpinBox, QToolButton, QButtonGroup, QIcon, QSize, QRectF, QColor,
+                    QDialog, QPushButton, QPlainTextEdit, QLabel, QTimer, QImage, QPixmap, QPainter,
+                    QPainterPath, QByteArray, QSvgRenderer, QSizePolicy, pyqtProperty)
 from classes.app import get_app
 from classes import info
 from windows.color_picker import ColorPicker
 from classes.direct_text import text_document, reader_data
 
+ALIGNMENTS = ("left", "center", "right")
+# Icon artwork is drawn in this color and recolored to match the theme.
+ICON_PLACEHOLDER = "#9dccff"
 
-class TextStyleToolbar(QWidget):
-    def __init__(self, owner):
-        super().__init__(owner.window)
+
+def themed_icon(name, color, size=18):
+    with open(os.path.join(info.IMAGES_PATH, name + ".svg"), encoding="utf-8") as svg:
+        markup = svg.read().replace(ICON_PLACEHOLDER, QColor(color).name())
+    ratio = get_app().devicePixelRatio()
+    pixmap = QPixmap(int(size * ratio), int(size * ratio))
+    pixmap.fill(Qt.transparent)
+    painter = QPainter(pixmap)
+    QSvgRenderer(QByteArray(markup.encode("utf-8"))).render(painter)
+    painter.end()
+    pixmap.setDevicePixelRatio(ratio)
+    return QIcon(pixmap)
+
+
+def swatch_icon(color, outline, size=QSize(18, 18)):
+    """A rounded color chip; transparency shows over a checkerboard."""
+    ratio = get_app().devicePixelRatio()
+    pixmap = QPixmap(int(size.width() * ratio), int(size.height() * ratio))
+    pixmap.setDevicePixelRatio(ratio)
+    pixmap.fill(Qt.transparent)
+    painter = QPainter(pixmap)
+    painter.setRenderHint(QPainter.Antialiasing)
+    path = QPainterPath()
+    path.addRoundedRect(QRectF(0.5, 0.5, size.width() - 1, size.height() - 1), 4, 4)
+    painter.setClipPath(path)
+    color = QColor(color)
+    if color.alpha() < 255:
+        cell = 5
+        for row in range(0, size.height(), cell):
+            for col in range(0, size.width(), cell):
+                shade = "#ffffff" if (row // cell + col // cell) % 2 else "#b4b4b4"
+                painter.fillRect(col, row, cell, cell, QColor(shade))
+    painter.fillPath(path, color)
+    painter.setClipping(False)
+    painter.setPen(QColor(outline))
+    painter.drawPath(path)
+    painter.end()
+    return QIcon(pixmap)
+
+
+class TextStyleToolbar(QFrame):
+    """Compact text formatting bar, floated over the video preview or embedded in a dialog."""
+
+    def __init__(self, owner, parent=None):
+        super().__init__(parent or owner.window)
         self.owner = owner
-        self.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
+        self.setObjectName("textStyleBar")
+        self.setSizePolicy(QSizePolicy.Maximum, QSizePolicy.Fixed)
         self.setToolTip(get_app()._tr("Enter to apply text, Shift+Enter for a new line, Escape to cancel"))
         self.loading = False
+        self._icon_color = QColor()
+        self._color_value = "#ffffff"
         layout = QHBoxLayout(self)
-        layout.setContentsMargins(0, 0, 0, 0)
+        layout.setContentsMargins(6, 4, 6, 4)
+        layout.setSpacing(2)
         self.font = QFontComboBox()
-        self.font.setMaximumWidth(140)
+        self.font.setFixedWidth(150)
         self.font.setToolTip(get_app()._tr("Font"))
         self.size = QSpinBox()
         self.size.setRange(8, 1000)
+        self.size.setButtonSymbols(QAbstractSpinBox.NoButtons)
+        self.size.setAlignment(Qt.AlignCenter)
+        self.size.setFixedWidth(52)
         self.size.setToolTip(get_app()._tr("Font size"))
-        self.bold = QToolButton()
-        self.bold.setCheckable(True)
-        self.bold.setIcon(QIcon(os.path.join(info.IMAGES_PATH, "text-bold.svg")))
-        self.bold.setToolTip(get_app()._tr("Bold"))
-        self.italic = QToolButton()
-        self.italic.setCheckable(True)
-        self.italic.setIcon(QIcon(os.path.join(info.IMAGES_PATH, "text-italic.svg")))
-        self.italic.setToolTip(get_app()._tr("Italic"))
-        self.color = QToolButton()
-        self.color.setToolTip(get_app()._tr("Text color"))
-        self.color.setIconSize(QSize(32, 20))
-        self.alignment = QComboBox()
-        self.alignment.addItems([get_app()._tr(s) for s in ("Left", "Center", "Right")])
-        self.more = QPushButton(get_app()._tr("More…"))
-        for control in (self.font, self.size, self.bold, self.italic, self.color, self.alignment, self.more):
-            layout.addWidget(control)
-            control.installEventFilter(self)
-            if hasattr(control, "lineEdit") and control.lineEdit() is not None:
-                control.lineEdit().installEventFilter(self)
+        self.bold = self._button(get_app()._tr("Bold"), checkable=True)
+        self.italic = self._button(get_app()._tr("Italic"), checkable=True)
+        self.color = self._button(get_app()._tr("Text color"))
+        self.alignment = QButtonGroup(self)
+        self.alignment.setExclusive(True)
+        align_buttons = []
+        for index, label in enumerate(("Align left", "Align center", "Align right")):
+            button = self._button(get_app()._tr(label), checkable=True)
+            self.alignment.addButton(button, index)
+            align_buttons.append(button)
+        self.more = self._button(get_app()._tr("More text options…"))
+        groups = ((self.font, self.size), (self.bold, self.italic, self.color), align_buttons, (self.more,))
+        for number, group in enumerate(groups):
+            if number:
+                self.divider = self._divider()
+                layout.addWidget(self.divider)
+            for control in group:
+                layout.addWidget(control)
+        for control in (self.font, self.size, self.font.lineEdit(), self.size.lineEdit()):
+            if control is not None:
+                control.installEventFilter(self)
         self.font.currentFontChanged.connect(lambda f: self.change("font_family", f.family()))
         self.size.valueChanged.connect(lambda v: self.change("font_size", v))
         self.bold.toggled.connect(lambda v: self.change("font_bold", v))
         self.italic.toggled.connect(lambda v: self.change("font_italic", v))
-        self.alignment.currentIndexChanged.connect(lambda i: self.change("alignment", ("left", "center", "right")[i]))
+        self.alignment.buttonToggled.connect(self._alignment_toggled)
         self.color.clicked.connect(self.pick_color)
         self.more.clicked.connect(owner.more_style)
+        self.refresh_icons()
+
+    def _button(self, tooltip, checkable=False):
+        button = QToolButton()
+        button.setToolTip(tooltip)
+        button.setCheckable(checkable)
+        button.setAutoRaise(True)
+        button.setIconSize(QSize(18, 18))
+        # Formatting clicks keep the caret in the text being edited.
+        button.setFocusPolicy(Qt.NoFocus)
+        return button
+
+    def _divider(self):
+        line = QFrame()
+        line.setObjectName("textStyleDivider")
+        line.setFrameShape(QFrame.VLine)
+        line.setFixedSize(1, 18)
+        holder = QWidget()
+        spacing = QHBoxLayout(holder)
+        spacing.setContentsMargins(4, 0, 4, 0)
+        spacing.addWidget(line)
+        return holder
+
+    def getIconColor(self):
+        return self._icon_color
+
+    def setIconColor(self, color):
+        # Themes set this from their stylesheet with qproperty-iconColor.
+        self._icon_color = QColor(color)
+        self.refresh_icons()
+
+    iconColor = pyqtProperty(QColor, getIconColor, setIconColor)
+
+    def refresh_icons(self):
+        color = self._icon_color if self._icon_color.isValid() else self.palette().windowText().color()
+        self.bold.setIcon(themed_icon("text-bold", color))
+        self.italic.setIcon(themed_icon("text-italic", color))
+        for button, name in zip(self.alignment.buttons(), ALIGNMENTS):
+            button.setIcon(themed_icon("text-align-" + name, color))
+        self.more.setIcon(themed_icon("text-more", color))
+        self.update_swatch(self._color_value)
+
+    def changeEvent(self, event):
+        if event.type() in (QEvent.PaletteChange, QEvent.StyleChange):
+            self.refresh_icons()
+        super().changeEvent(event)
 
     def eventFilter(self, watched, event):
         if (hasattr(self.owner, "finish") and event.type() in (QEvent.ShortcutOverride, QEvent.KeyPress)
                 and event.key() in (Qt.Key_Return, Qt.Key_Enter, Qt.Key_Escape)
-                and not self.font.view().isVisible() and not self.alignment.view().isVisible()):
+                and not self.font.view().isVisible()):
             if event.type() == QEvent.ShortcutOverride:
                 event.accept()
             elif event.key() == Qt.Key_Escape:
@@ -73,10 +174,13 @@ class TextStyleToolbar(QWidget):
         if not self.loading:
             self.owner.style_changed(key, value)
 
+    def _alignment_toggled(self, button, checked):
+        if checked:
+            self.change("alignment", ALIGNMENTS[self.alignment.id(button)])
+
     def update_swatch(self, value):
-        swatch = QPixmap(32, 20)
-        swatch.fill(QColor(value))
-        self.color.setIcon(QIcon(swatch))
+        self._color_value = value
+        self.color.setIcon(swatch_icon(value, self.palette().mid().color()))
 
     def pick_color(self):
         if self.owner.draft is None:
@@ -96,75 +200,145 @@ class TextStyleToolbar(QWidget):
             self.size.setValue(style["font_size"])
             self.bold.setChecked(style.get("font_bold", False))
             self.italic.setChecked(style.get("font_italic", False))
-            self.alignment.setCurrentIndex(("left", "center", "right").index(style["alignment"]))
+            self.alignment.button(ALIGNMENTS.index(style["alignment"])).setChecked(True)
         finally:
             self.loading = False
+
+    def place(self, avoid=None, margin=8):
+        """Float over the top of the parent, or the bottom when that would cover the text."""
+        parent = self.parentWidget()
+        self.adjustSize()
+        x = max(margin, (parent.width() - self.width()) // 2)
+        rect = self.rect().translated(x, margin)
+        if avoid is not None and rect.intersects(avoid):
+            rect.moveBottom(parent.height() - margin - 1)
+        self.move(rect.topLeft())
+        self.raise_()
 
 
 class TextStyleDialog(QDialog):
     """Changes stay local until Apply; closing the dialog discards them."""
-    def __init__(self, style, parent):
+    def __init__(self, style, parent, duplicate=False):
         super().__init__(parent)
+        self.setObjectName("textStyleDialog")
         self.window = self
         self.draft = copy.deepcopy(style)
         self.setWindowTitle(get_app()._tr("Edit Text"))
-        self.resize(760, 560)
+        self.setMinimumWidth(560)
         layout = QVBoxLayout(self)
-        self.toolbar = TextStyleToolbar(self)
-        self.toolbar.more.hide()
-        self.toolbar.set_style(self.draft)
-        layout.addWidget(self.toolbar)
-        self.editor = QTextEdit()
-        self.editor.setAcceptRichText(False)
-        self.editor.setStyleSheet("QTextEdit { background: #202020; }")
-        layout.addWidget(self.editor)
+        layout.setContentsMargins(16, 16, 16, 16)
+        layout.setSpacing(10)
+
         self.preview = QLabel()
-        self.preview.setFixedHeight(130)
+        self.preview.setObjectName("textStylePreview")
+        self.preview.setMinimumHeight(150)
         self.preview.setAlignment(Qt.AlignCenter)
-        self.preview.setStyleSheet("background: #000000;")
+        self.preview.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Fixed)
+        self.preview.setStyleSheet("QLabel#textStylePreview { background-color: #000000; border-radius: 6px; }")
         layout.addWidget(self.preview)
+
+        layout.addSpacing(4)
+        layout.addWidget(self._heading(get_app()._tr("Text")))
+        self.editor = QPlainTextEdit()
+        self.editor.setPlaceholderText(get_app()._tr("Type your text"))
+        self.editor.setFixedHeight(self.editor.fontMetrics().lineSpacing() * 3 + 20)
+        self.editor.setPlainText(self.draft.get("text", ""))
+        layout.addWidget(self.editor)
+        self.toolbar = TextStyleToolbar(self, self)
+        self.toolbar.more.hide()
+        self.toolbar.divider.hide()
+        self.toolbar.layout().setContentsMargins(0, 0, 0, 0)
+        self.toolbar.set_style(self.draft)
+        layout.addWidget(self.toolbar, 0, Qt.AlignLeft)
+
+        layout.addSpacing(4)
+        layout.addWidget(self._heading(get_app()._tr("Box")))
+        grid = QGridLayout()
+        grid.setHorizontalSpacing(10)
+        grid.setVerticalSpacing(8)
+        grid.setColumnMinimumWidth(2, 12)
+        grid.setColumnStretch(5, 1)
+        self.swatches = {}
+        rows = (("background", "Background", "padding", "Padding", 0, 200),
+                ("stroke_color", "Text outline", "stroke_width", "Width", 0, 30),
+                ("border_color", "Border", "border_width", "Width", 0, 30))
+        for row, (color_key, color_label, number_key, number_label, minimum, maximum) in enumerate(rows):
+            grid.addWidget(QLabel(get_app()._tr(color_label)), row, 0)
+            swatch = QToolButton()
+            swatch.setToolTip(get_app()._tr("Choose color"))
+            swatch.setAutoRaise(True)
+            swatch.setIconSize(QSize(28, 18))
+            swatch.clicked.connect(lambda checked=False, k=color_key: self.pick_color(k))
+            self.swatches[color_key] = swatch
+            grid.addWidget(swatch, row, 1)
+            grid.addWidget(self._muted(get_app()._tr(number_label)), row, 3)
+            grid.addWidget(self._spin(number_key, minimum, maximum), row, 4)
+        grid.addWidget(QLabel(get_app()._tr("Box width")), len(rows), 0)
+        grid.addWidget(self._spin("width", 64, 8192), len(rows), 1, 1, 4, Qt.AlignLeft)
+        layout.addLayout(grid)
+        self.update_swatches()
+
+        layout.addSpacing(8)
+        footer = QHBoxLayout()
+        note = ("Apply adds this copy to Project Files." if duplicate
+                else "Changes apply to every clip that uses this text.")
+        footer.addWidget(self._muted(get_app()._tr(note)), 1)
+        cancel = QPushButton(get_app()._tr("Cancel"))
+        cancel.setProperty("dialogRole", "cancel")
+        cancel.clicked.connect(self.reject)
+        apply = QPushButton(get_app()._tr("Apply"))
+        apply.setObjectName("acceptButton")
+        apply.setProperty("dialogRole", "primary")
+        apply.setDefault(True)
+        apply.clicked.connect(self.accept)
+        footer.addWidget(cancel)
+        footer.addWidget(apply)
+        layout.addLayout(footer)
+
         self.preview_timer = QTimer(self)
         self.preview_timer.setSingleShot(True)
         self.preview_timer.timeout.connect(self.render_preview)
         self.editor.textChanged.connect(lambda: self.preview_timer.start(100))
-        form = QFormLayout()
-        layout.addLayout(form)
-        for key, label in (("background", "Background fill"), ("stroke_color", "Text outline color"),
-                           ("border_color", "Border color")):
-            button = QPushButton(get_app()._tr("Choose…"))
-            button.clicked.connect(lambda checked=False, k=key: self.pick_color(k))
-            form.addRow(get_app()._tr(label), button)
-        for key, label, maximum in (("padding", "Padding", 200), ("stroke_width", "Text outline width", 30),
-                                    ("border_width", "Border width", 30), ("width", "Text box width", 8192)):
-            spin = QSpinBox()
-            spin.setRange(64 if key == "width" else 0, maximum)
-            spin.setValue(int(self.draft.get(key, 0)))
-            spin.valueChanged.connect(lambda value, k=key: self.style_changed(k, value))
-            form.addRow(get_app()._tr(label), spin)
-        layout.addWidget(QLabel(get_app()._tr("Text changes apply to every clip using this Project Files item.")))
-        buttons = QDialogButtonBox(QDialogButtonBox.Apply | QDialogButtonBox.Cancel)
-        buttons.button(QDialogButtonBox.Apply).clicked.connect(self.accept)
-        buttons.rejected.connect(self.reject)
-        layout.addWidget(buttons)
-        self.refresh()
+        self.preview_timer.start(0)
+        self.editor.setFocus()
+        self.editor.selectAll()
+
+    def _heading(self, text):
+        label = QLabel(text)
+        label.setObjectName("recordingSectionTitle")
+        return label
+
+    def _muted(self, text):
+        label = QLabel(text)
+        label.setWordWrap(True)
+        palette = label.palette()
+        text_color, window = palette.windowText().color(), palette.window().color()
+        muted = QColor(*(round(a * 0.7 + b * 0.3) for a, b in zip(text_color.getRgb()[:3], window.getRgb()[:3])))
+        label.setStyleSheet("color: %s;" % muted.name())
+        return label
+
+    def _spin(self, key, minimum, maximum):
+        spin = QSpinBox()
+        spin.setRange(minimum, maximum)
+        spin.setSuffix(" px")
+        spin.setFixedWidth(96)
+        spin.setValue(int(self.draft.get(key, 0)))
+        spin.valueChanged.connect(lambda value, k=key: self.style_changed(k, value))
+        return spin
+
+    def update_swatches(self):
+        for key, swatch in self.swatches.items():
+            swatch.setIcon(swatch_icon(self.draft.get(key, "#00000000"), self.palette().mid().color(), QSize(28, 18)))
 
     def style(self):
         result = copy.deepcopy(self.draft)
         result["text"] = self.editor.toPlainText()
         return result
 
-    def refresh(self):
-        text_document(self.draft, self.editor.document())
-        palette = self.editor.palette()
-        palette.setColor(QPalette.Text, QColor(self.draft["color"]))
-        self.editor.setPalette(palette)
-
     def style_changed(self, key, value):
-        self.draft["text"] = self.editor.toPlainText()
         self.draft[key] = value
-        cursor = self.editor.textCursor()
-        self.refresh()
-        self.editor.setTextCursor(cursor)
+        self.update_swatches()
+        self.preview_timer.start(100)
 
     def pick_color(self, key):
         self.color_picker = ColorPicker(QColor(self.draft.get(key, "#ffffff")), parent=self,
@@ -174,8 +348,21 @@ class TextStyleDialog(QDialog):
     def render_preview(self):
         style = self.style()
         style["height"] = max(style["height"], int(text_document(style).size().height() + 1))
+        # Draw at the exact device pixels shown, using the native reader's
+        # preview raster scale so layout matches the video, then display sharp.
+        ratio = self.preview.devicePixelRatioF()
+        bounds = self.preview.size() - QSize(24, 24)
+        fit = min(1.0, bounds.width() / style["width"], bounds.height() / style["height"])
+        scale = max(fit * ratio, 0.01)
         reader = openshot.QtTextReader()
-        reader.SetJson(json.dumps(reader_data(style)))
+        reader.SetJson(json.dumps(reader_data(style, {"num": 30, "den": 1})))
+        timeline = openshot.Timeline(style["width"], style["height"], openshot.Fraction(30, 1),
+                                     44100, 2, openshot.LAYOUT_STEREO)
+        clip = openshot.Clip(reader)
+        clip.scale = openshot.SCALE_NONE
+        clip.ParentTimeline(timeline)
+        timeline.preview_width = max(1, round(style["width"] * scale))
+        timeline.preview_height = max(1, round(style["height"] * scale))
         reader.Open()
         try:
             frame = reader.GetFrame(1)
@@ -183,7 +370,14 @@ class TextStyleDialog(QDialog):
                            frame.GetWidth() * 4, QImage.Format_RGBA8888_Premultiplied).copy()
         finally:
             reader.Close()
-        self.preview.setPixmap(QPixmap.fromImage(image).scaled(self.preview.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation))
+            # The clip points at the reader and timeline; release it first.
+            del clip
+        image.setDevicePixelRatio(ratio)
+        self.preview.setPixmap(QPixmap.fromImage(image))
+
+    def resizeEvent(self, event):
+        super().resizeEvent(event)
+        self.preview_timer.start(50)
 
     def more_style(self):
         pass

@@ -188,6 +188,45 @@ QMessageBox QPushButton[dialogRole="destructive"] {
     background-color: #b83b48;
     border: 1px solid #d04a58;
 }
+
+QFrame#textStyleBar {
+    background-color: rgba(41, 41, 41, 238);
+    border: 1px solid #50555c;
+    border-radius: 8px;
+    qproperty-iconColor: #e6e6e6;
+}
+QDialog#textStyleDialog QFrame#textStyleBar {
+    background-color: transparent;
+    border: none;
+}
+QFrame#textStyleBar QToolButton {
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    padding: 3px;
+}
+QFrame#textStyleBar QToolButton:hover {
+    background-color: #3a3a3a;
+}
+QFrame#textStyleBar QToolButton:checked {
+    background-color: #3a526f;
+    border: 1px solid #2f8cff;
+}
+QFrame#textStyleDivider {
+    background-color: #50555c;
+    border: none;
+}
+QDialog#textStyleDialog QPushButton[dialogRole="primary"] {
+    border-radius: 6px;
+    color: #ffffff;
+    background-color: #287dcc;
+    border: 1px solid #348de0;
+    padding: 5px 18px;
+}
+QDialog#textStyleDialog QPushButton[dialogRole="primary"]:hover,
+QDialog#textStyleDialog QPushButton[dialogRole="primary"]:focus {
+    background-color: #348de0;
+}
         """
 
     def apply_theme(self):
@@ -372,6 +411,44 @@ QMessageBox QPushButton[dialogRole="destructive"] {
 
 QComboBox {
     combobox-popup: 0;
+}
+QFrame#textStyleBar {
+    background-color: rgba(247, 247, 247, 242);
+    border: 1px solid #a9adb3;
+    border-radius: 8px;
+    qproperty-iconColor: #30343a;
+}
+QDialog#textStyleDialog QFrame#textStyleBar {
+    background-color: transparent;
+    border: none;
+}
+QFrame#textStyleBar QToolButton {
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    padding: 3px;
+}
+QFrame#textStyleBar QToolButton:hover {
+    background-color: #e3e6ea;
+}
+QFrame#textStyleBar QToolButton:checked {
+    background-color: #d7e8fb;
+    border: 1px solid #287dcc;
+}
+QFrame#textStyleDivider {
+    background-color: #a9adb3;
+    border: none;
+}
+QDialog#textStyleDialog QPushButton[dialogRole="primary"] {
+    border-radius: 6px;
+    color: #ffffff;
+    background-color: #287dcc;
+    border: 1px solid #176fba;
+    padding: 5px 18px;
+}
+QDialog#textStyleDialog QPushButton[dialogRole="primary"]:hover,
+QDialog#textStyleDialog QPushButton[dialogRole="primary"]:focus {
+    background-color: #176fba;
 }
         """
 

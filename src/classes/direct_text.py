@@ -43,7 +43,44 @@ def text_document(style, document=None):
     return document
 
 
-def reader_data(style):
+def project_fps():
+    """The open project's frame rate, or 30 fps without a project."""
+    try:
+        from classes.app import get_app
+        fps = get_app().project.get("fps")
+    except Exception:
+        fps = None
+    if isinstance(fps, dict) and fps.get("num", 0) > 0 and fps.get("den", 0) > 0:
+        return {"num": int(fps["num"]), "den": int(fps["den"])}
+    return {"num": 30, "den": 1}
+
+
+def stamp_reader_fps(reader, fps):
+    """Key a text reader's style curves to project frames.
+
+    Curves use project frame numbers. A reader at the project frame rate passes
+    through the timeline's FrameMapper unchanged, so curves evaluate on time.
+    """
+    reader["fps"] = {"num": int(fps["num"]), "den": int(fps["den"])}
+    reader["video_timebase"] = {"num": int(fps["den"]), "den": int(fps["num"])}
+    reader["video_length"] = round(float(reader.get("duration") or 3600.0) * fps["num"] / fps["den"])
+    return reader
+
+
+def sync_text_fps(project_data):
+    """Stamp every text source and clip reader in raw project data with its fps."""
+    fps = project_data.get("fps")
+    if not (isinstance(fps, dict) and fps.get("num", 0) > 0 and fps.get("den", 0) > 0):
+        return
+    for file in project_data.get("files", []):
+        if file.get("type") == "QtTextReader":
+            stamp_reader_fps(file, fps)
+    for clip in project_data.get("clips", []):
+        if clip.get("direct_text") and isinstance(clip.get("reader"), dict):
+            stamp_reader_fps(clip["reader"], fps)
+
+
+def reader_data(style, fps=None):
     """Native text reader JSON, including normal media metadata for Project Files."""
     font = QFont(style["font_family"])
     font.setPixelSize(int(style["font_size"]))
@@ -57,27 +94,44 @@ def reader_data(style):
                          "right": openshot.GRAVITY_TOP_RIGHT}[style["alignment"]])
     for key in ("padding", "stroke_width", "stroke_color", "border_width", "border_color"):
         data[key] = style.get(key, default_text(1920, 1080)[key])
+    data["fps"] = dict(fps or project_fps())
+    # Reader info is complete after SetJson; opening would render needlessly.
     reader.SetJson(json.dumps(data))
-    reader.Open()
-    try:
-        result = json.loads(reader.Json())
-    finally:
-        reader.Close()
+    result = json.loads(reader.Json())
     result.update(data)
     # Empty path is deliberate: this generated source has no backing file.
     result.update(path="", media_type="image", direct_text=copy.deepcopy(style))
     return result
 
 
-def render_text(style, root, black_background=False):
-    """Generate a content-addressed, disposable image using the native renderer."""
+def text_thumbnail_scale():
+    """Device scale for text thumbnails; reads the window, so GUI thread only."""
+    from classes.thumbnail import GetThumbDeviceScale
+    return GetThumbDeviceScale()
+
+
+def text_image_path(style, root, black_background=False, device_scale=1.0):
+    """Content-addressed path of a text image, without rendering it."""
+    key = [style, black_background, float(device_scale) if black_background else 1.0, "thumbnail-v3"]
+    digest = hashlib.sha256(json.dumps(key, sort_keys=True, ensure_ascii=False).encode("utf-8")).hexdigest()
+    return os.path.join(root, "text-%s.png" % digest)
+
+
+def render_text(style, root, black_background=False, device_scale=None):
+    """Generate a content-addressed, disposable image using the native renderer.
+
+    Safe on a worker thread when device_scale is passed in (see text_thumbnail_scale).
+    """
     cache_style = copy.deepcopy(style)
-    digest = hashlib.sha256(json.dumps([cache_style, black_background, "thumbnail-v3"], sort_keys=True, ensure_ascii=False).encode("utf-8")).hexdigest()
+    if black_background and device_scale is None:
+        device_scale = text_thumbnail_scale()
+    path = text_image_path(cache_style, root, black_background, device_scale or 1.0)
     os.makedirs(root, exist_ok=True)
-    path = os.path.join(root, "text-%s.png" % digest)
     if not os.path.exists(path):
         reader = openshot.QtTextReader()
-        reader.SetJson(json.dumps(reader_data(cache_style)))
+        # Only frame 1 is drawn, so the frame rate is irrelevant (and avoids
+        # reading the project from a worker thread).
+        reader.SetJson(json.dumps(reader_data(cache_style, {"num": 30, "den": 1})))
         reader.Open()
         try:
             frame = reader.GetFrame(1)
@@ -95,9 +149,8 @@ def render_text(style, root, black_background=False):
             # QListView's uniform item sizing otherwise uses the short text icon
             # to reduce the decoration height of every Project Files entry.
             from classes import info
-            from classes.thumbnail import GetThumbDeviceScale
             from qt_api import QSize
-            scale = GetThumbDeviceScale()
+            scale = device_scale
             size = QSize(round(info.LIST_ICON_SIZE.width() * scale),
                          round(info.LIST_ICON_SIZE.height() * scale))
             thumbnail = QImage(size, QImage.Format_ARGB32_Premultiplied)
@@ -203,6 +256,7 @@ def sync_text_reader(data):
                                 for key in data.get("text_style_overrides", [])
                                 if key in TEXT_ANIMATED and "text_" + key in data}
     reader["has_single_image"] = not bool(reader["text_animation"])
+    stamp_reader_fps(reader, project_fps())
     data["reader"] = reader
     return data
 
