@@ -340,6 +340,11 @@ class VideoWidget(QWidget, updates.UpdateInterface):
     def clearTransformState(self):
         """Clear all transform-related state to avoid using invalid clip/effect objects"""
         self._restore_transform_playback_cache()
+        self.mouse_pressed = False
+        self.mouse_dragging = False
+        self.middle_pan_active = False
+        if QWidget.mouseGrabber() is self:
+            self.releaseMouse()
         self.transforming_clip = None
         self.transforming_clips.clear()
         self.transforming_clip_objects.clear()
@@ -950,6 +955,9 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
     def mouseDoubleClickEvent(self, event):
         text = getattr(getattr(self, "win", None), "direct_text", None)
+        if text and text.draft is not None:
+            event.accept()
+            return
         if text and event.button() == Qt.LeftButton:
             clip_id = text.hit(event.pos())
             if clip_id:
@@ -962,6 +970,8 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         """Capture mouse press event on video preview window"""
         event.accept()
         text = getattr(getattr(self, "win", None), "direct_text", None)
+        if text and text.draft is not None:
+            return
         if text and text.armed and event.button() == Qt.LeftButton:
             text.create(event.pos())
             return
@@ -1360,8 +1370,21 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
     def mouseMoveEvent(self, event):
         """Capture mouse events on video preview window """
+        text = getattr(getattr(self, "win", None), "direct_text", None)
+        if text and text.draft is not None:
+            event.accept()
+            return
         self.mutex.lock()
         event.accept()
+
+        # A double-click can move focus to an editor before the matching release.
+        # Mouse tracking alone must never continue a transform gesture.
+        if not event.buttons() & (Qt.LeftButton | Qt.MiddleButton):
+            self.mouse_pressed = False
+            self.mouse_dragging = False
+            self.middle_pan_active = False
+            self.transform_mode = None
+            self.rotation_drag_value = None
 
         if self.mouse_pressed:
             self.mouse_dragging = True
@@ -2169,8 +2192,6 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         points = c.data.get(property_key, {}).get("Points", [])
         auto_keyframes = auto_keyframes_enabled(get_app().window)
         frame_number = edit_frame(points, frame_number, auto_keyframes)
-        if c.data.get("direct_text") and len(points) <= 1:
-            frame_number = 1
         for point in points:
             co = point.get("co", {})
 

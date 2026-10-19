@@ -235,7 +235,17 @@ class FilesTreeView(NameColumnKeyboardSearchMixin, QTreeView):
             if not file:
                 menu.popup(event.globalPos())
                 return
-            if file and file.data.get("path").endswith(".svg"):
+            if file.data.get("type") == "QtTextReader":
+                edit = menu.addAction(_("Edit Text…"))
+                edit.triggered.connect(lambda checked=False, fid=file.id: self.win.direct_text.edit_file(fid))
+                duplicate = menu.addAction(_("Duplicate"))
+                duplicate.triggered.connect(lambda checked=False, fid=file.id: self.win.direct_text.duplicate_file(fid))
+                menu.addSeparator()
+                add_bound_action(menu, self.win, "actionAdd_to_Timeline", _("Add to Timeline"), "actionAdd_to_Timeline_trigger")
+                add_bound_action(menu, self.win, "actionRemove_from_Project", _("Remove from Project"), "actionRemove_from_Project_trigger")
+                menu.show_at(event)
+                return
+            if file and file.data.get("path", "").endswith(".svg"):
                 add_bound_action(menu, self.win, "actionEditTitle", _("Edit Title"), "actionEditTitle_trigger")
                 add_bound_action(menu, self.win, "actionDuplicate", _("Duplicate"), "actionDuplicate_trigger")
                 menu.addSeparator()
@@ -282,6 +292,11 @@ class FilesTreeView(NameColumnKeyboardSearchMixin, QTreeView):
         # Get the index of the item at the click position
         index = self.indexAt(event.pos())
         if index.column() == 0:
+            file_id = index.sibling(index.row(), 5).data(Qt.DisplayRole)
+            file = File.get(id=file_id)
+            if file and file.data.get("type") == "QtTextReader":
+                get_app().window.direct_text.edit_file(file.id)
+                return
             # If column 0 (thumbnail) is double-clicked, trigger the custom actions
             if modifiers_has(get_app().keyboardModifiers(), Qt.ShiftModifier):
                 get_app().window.actionSplitFile.trigger()

@@ -26,6 +26,7 @@
  """
 
 import os
+import copy
 from collections import OrderedDict
 from operator import itemgetter
 
@@ -85,8 +86,6 @@ class PropertiesModel(updates.UpdateInterface):
             ("font_bold", "Font Bold", "bool", 0, 1),
             ("font_italic", "Font Italic", "bool", 0, 1),
             ("font_size", "Font Size", "int", 8, 1000),
-            ("color", "Text Color", "color", 0, 255),
-            ("background", "Text Background", "color", 0, 255),
             ("alignment", "Text Alignment", "string", 0, 0),
             ("width", "Text Wrap Width", "int", 64, 8192),
         )
@@ -107,10 +106,15 @@ class PropertiesModel(updates.UpdateInterface):
                 for channel in ("red", "green", "blue", "alpha"):
                     prop[channel] = {"value": getattr(color, channel)()}
             properties["direct_text." + key] = prop
+        from classes.direct_text import text_animation_properties
+        animated = text_animation_properties(clip_data, self.frame_number)
+        for prop in animated.values():
+            prop["readonly"] = locked
+        properties.update(animated)
         return properties
 
     def _update_direct_text_property(self, item, value, key=None):
-        """Route text edits through the controller's immutable raster/history path."""
+        """Route text edits through the shared asset transaction."""
         property_key, metadata = self.model.item(item.row(), 0).data()
         if metadata.get("readonly"):
             return
@@ -643,9 +647,18 @@ class PropertiesModel(updates.UpdateInterface):
                 # Determine type of keyframe (normal or color)
                 keyframe_list = []
                 if property_type == "color":
-                    keyframe_list = [clip_data[property_key]["red"], clip_data[property_key]["blue"], clip_data[property_key]["green"]]
+                    keyframe_list = [clip_data[property_key][channel] for channel in ("red", "blue", "green", "alpha")
+                                     if channel in clip_data[property_key]]
                 else:
                     keyframe_list = [clip_data[property_key]]
+
+                text_default = None
+                if property_key.startswith("text_") and clip_data.get("direct_text"):
+                    from classes.direct_text import TEXT_ANIMATED, initialize_text_curves
+                    if property_key[5:] in TEXT_ANIMATED:
+                        defaults = copy.deepcopy(clip_data)
+                        defaults["text_style_overrides"] = []
+                        text_default = initialize_text_curves(defaults)[property_key]
 
                 # Loop through each keyframe (red, blue, and green)
                 for keyframe_index, keyframe in enumerate(keyframe_list):
@@ -675,7 +688,12 @@ class PropertiesModel(updates.UpdateInterface):
                         # Check for 0 keyframes (and use sane defaults instead of the 0.0 default value)
                         default_value = None
                         if not keyframe["Points"]:
-                            if property_key in ["alpha", "scale_x", "scale_y", "time", "volume"]:
+                            if text_default is not None:
+                                default_curve = text_default
+                                if property_type == "color":
+                                    default_curve = text_default[("red", "blue", "green", "alpha")[keyframe_index]]
+                                default_value = default_curve["Points"][0]["co"]["Y"]
+                            elif property_key in ["alpha", "scale_x", "scale_y", "time", "volume"]:
                                 default_value = 1.0
                             elif property_key in ["origin_x", "origin_y"]:
                                 default_value = 0.5
@@ -1715,6 +1733,10 @@ class PropertiesModel(updates.UpdateInterface):
                 self._edit_source_data = None
                 if len(self.selected) == 1 and not auto_keyframes_enabled(app.window):
                     self._edit_source_data = json.loads(c.Json())
+                    if self.selected[0][1] == "clip":
+                        source_clip = Clip.get(id=c.Id())
+                        if source_clip and source_clip.data.get("direct_text"):
+                            self._edit_source_data.update(source_clip.data)
 
                 # Build list of raw properties for all selected items
                 all_raw_properties = []

@@ -1065,6 +1065,14 @@
   },
   {
     "category": "Keyboard",
+    "title": "Add Text",
+    "restart": false,
+    "setting": "actionText",
+    "value": "Shift+T",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
     "title": "Undo",
     "restart": false,
     "setting": "actionUndo",

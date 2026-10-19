@@ -564,6 +564,9 @@ class ClipPainter(ItemHeaderMixin, BasePainter):
         if not isinstance(data.get("direct_text"), dict):
             return None
         reader = data.get("reader") if isinstance(data.get("reader"), dict) else {}
+        if reader.get("type") == "QtTextReader":
+            from classes.direct_text import render_text
+            return render_text(data["direct_text"], info.THUMBNAIL_PATH, black_background=True)
         path = reader.get("path") or data.get("image")
         return absolute_media_path(path) if path else None
 

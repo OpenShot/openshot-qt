@@ -1,305 +1,266 @@
-import os,tempfile,time,traceback,sys,importlib,copy,json
-from unittest.mock import patch
-root=tempfile.mkdtemp(prefix='openshot-text-smoke-')
-original_expanduser=os.path.expanduser
-os.path.expanduser=lambda path: root if path=='~' else original_expanduser(path)
+"""Real application checks for immediate text, shared assets, keyboard focus and persistence."""
+import copy
+import importlib
+import json
+import os
+import shutil
+import sys
+import tempfile
+import traceback
+
+root = tempfile.mkdtemp(prefix="openshot-easy-text-")
+original_expanduser = os.path.expanduser
+os.path.expanduser = lambda path: root if path == "~" else original_expanduser(path)
 from classes.app import OpenShotApp
-from classes import version
-# UI workflow checks must not depend on the external update service.
+from classes import info, version
 version.get_current_Version = lambda: None
-from qt_api import QTimer,Qt,QPoint,QT_API,QThreadPool
-from classes.query import Clip
-app=OpenShotApp([],mode='unittest')
-app.settings.set('tutorial_enabled',False)
-app.settings.set('send_metrics',False)
-QTest=importlib.import_module({'pyqt5':'PyQt5','pyqt6':'PyQt6','pyside6':'PySide6'}[QT_API]+'.QtTest').QTest
-passed=False
+from classes.query import Clip, File
+from qt_api import QTimer, Qt, QPointF, QT_API, QImage
+QTest = importlib.import_module({"pyqt5": "PyQt5", "pyqt6": "PyQt6", "pyside6": "PySide6"}[QT_API] + ".QtTest").QTest
+app = OpenShotApp([], mode="unittest")
+app.settings.set("tutorial_enabled", False)
+app.settings.set("send_metrics", False)
+passed = False
+
 
 def verify():
     global passed
     try:
-        window=app.window
-        window.raise_()
+        window = app.window
         window.activateWindow()
-        QTest.qWaitForWindowActive(window, 5000)
-        controller=window.direct_text
-        # A real background reader must survive runtime FrameMapper cloning.
-        from qt_api import QImage, QColor
-        import openshot
-        background = QImage(160, 90, QImage.Format_RGBA8888)
-        background.fill(QColor("#16395d"))
-        background.save(root + "/background.png")
-        native_background = openshot.Clip(root + "/background.png")
-        background_clip = Clip()
-        background_clip.data = json.loads(native_background.Json())
-        background_clip.data.update(start=0.0, end=20.0, duration=20.0, position=0.0,
-                                    layer=app.project.get("layers")[0]["number"])
-        background_clip.save()
-        button=window.videoToolbar.widgetForAction(window.actionDirectText)
-        assert button is not None and button.isVisible() and not window.actionDirectText.icon().isNull()
-        t=time.perf_counter()
-        QTest.mouseClick(button,Qt.LeftButton)
-        print('entry ms',1000*(time.perf_counter()-t),flush=True)
-        assert controller.draft is not None
-        created = Clip.get(id=controller.clip_id)
-        assert created is not None and created.data["direct_text"]["text"] == "Text"
-        assert window.selected_clips == [created.id]
-        assert controller.editor.hasFocus() and controller.editor.textCursor().selectedText() == "Text"
-        assert not hasattr(controller, "toolbar")
-        raster = QImage(created.data["reader"]["path"])
-        glyphs = [QPoint(x, y) for y in range(raster.height()) for x in range(raster.width())
-                  if raster.pixelColor(x, y).alpha() > 0]
-        assert len(glyphs) > 100, len(glyphs)
-        assert abs(sum(p.x() for p in glyphs) / len(glyphs) - raster.width() / 2) < raster.width() / 8
-        screenshot_dir = os.environ.get("OPENSHOT_TEXT_SCREENSHOT_DIR")
-        if screenshot_dir:
-            os.makedirs(screenshot_dir, exist_ok=True)
-            window.grab().save(os.path.join(screenshot_dir, "text-created.png"))
-        deadline = time.monotonic() + 5
-        while not controller.background_ready and time.monotonic() < deadline:
-            QTest.qWait(10)
-        assert controller.background_ready
-        assert not controller.background_image.isNull()
-        assert controller.background_image.pixelColor(20, 20).name() == "#16395d", controller.background_image.pixelColor(20, 20).name()
-        # Dock resizing must leave the actual selected timeline clip visible.
-        timeline_widget = window.timeline
-        if hasattr(timeline_widget, "geometry"):
-            deadline = time.monotonic() + 5
-            while time.monotonic() < deadline:
-                QTest.qWait(10)
-                timeline_widget.geometry.ensure()
-                visible_rects = [(rect, selected) for rect, item, selected in timeline_widget.geometry.iter_clips()
-                                 if item.id == created.id and rect.right() > timeline_widget.track_name_width
-                                 and rect.left() < timeline_widget.width() and rect.bottom() > timeline_widget.ruler_height
-                                 and rect.top() < timeline_widget.height()]
-                if visible_rects and visible_rects[0][1] and not timeline_widget.delayed_resize_timer.isActive():
-                    break
-            else:
-                raise AssertionError("New Text timeline clip is outside the visible viewport")
-            QTest.qWait(500)
-            timeline_widget.geometry.ensure()
-            assert any(item.id == created.id and selected and rect.right() > timeline_widget.track_name_width
-                       and rect.left() < timeline_widget.width() and rect.top() < timeline_widget.height()
-                       for rect, item, selected in timeline_widget.geometry.iter_clips())
-            painter = timeline_widget.clip_painter
-            thumbnail = painter.thumb_cache.get((painter._clip_key(created), ("direct-text", created.data["reader"]["path"])))
-            assert thumbnail is not None and not thumbnail.isNull(), "Visible Text clip has no painted thumbnail"
-            thumb_image = thumbnail.toImage()
-            assert any(thumb_image.pixelColor(x, y).alpha() > 0 for y in range(thumb_image.height())
-                       for x in range(thumb_image.width())), "Text thumbnail contains no glyph pixels"
-        # Nonempty native glyphs are composited above real overlapping media.
-        native_frame = window.timeline_sync.timeline.GetFrame(1)
-        native_image = QImage(native_frame.GetPixelsBytes(), native_frame.GetWidth(), native_frame.GetHeight(), native_frame.GetWidth() * 4, QImage.Format_RGBA8888).copy()
-        assert any(native_image.pixelColor(x, y).red() > 220 for y in range(native_image.height()) for x in range(native_image.width())), "No native white text pixels over background"
-        original_size = created.data["direct_text"]["font_size"]
-        assert controller.apply_property(created.id, "direct_text.font_size", original_size + 5)
-        assert controller.draft["font_size"] == original_size + 5 and controller.view.isVisible()
-        app.updates.undo()
-        assert controller.draft["font_size"] == original_size
-        controller.finish()
-        assert Clip.get(id=created.id).data["direct_text"]["font_size"] == original_size
-        # Corner and border presses originate on the live caret overlay.
-        from qt_api import QPointF, QCoreApplication, QEvent, QMouseEvent
-        preview = window.videoPreview
-        controller.begin(created.id)
-        QTest.qWait(80)
-        before_scale = Clip.get(id=created.id).data["scale_x"]["Points"][0]["co"]["Y"]
-        corner = preview.transform.map(preview.bottomRightHandle.center()).toPoint()
-        QTest.mousePress(controller.view.viewport(), Qt.LeftButton, pos=corner)
-        assert controller.draft is None and preview.mouse_pressed
-        assert preview.transform_mode == "scale_bottom_right", preview.transform_mode
-        QCoreApplication.sendEvent(preview, QMouseEvent(QEvent.MouseMove, QPointF(corner + QPoint(25, 15)), Qt.NoButton, Qt.LeftButton, Qt.NoModifier))
-        QTest.mouseRelease(preview, Qt.LeftButton, pos=corner + QPoint(25, 15))
-        assert not preview.mouse_pressed and not app.updates.ignore_history and not controller.forwarded_drag
-        assert Clip.get(id=created.id).data["scale_x"]["Points"][0]["co"]["Y"] != before_scale
-        controller.begin(created.id)
-        QTest.qWait(80)
-        before_move = Clip.get(id=created.id).data["location_x"]["Points"][0]["co"]["Y"]
-        border = preview.transform.map(QPointF(preview.clipBounds.width() * .25, 0)).toPoint()
-        QTest.mousePress(controller.view.viewport(), Qt.LeftButton, pos=border)
-        assert controller.draft is None and preview.transform_mode == "location", preview.transform_mode
-        QCoreApplication.sendEvent(preview, QMouseEvent(QEvent.MouseMove, QPointF(border + QPoint(20, 10)), Qt.NoButton, Qt.LeftButton, Qt.NoModifier))
-        QTest.mouseRelease(preview, Qt.LeftButton, pos=border + QPoint(20, 10))
-        assert not preview.mouse_pressed and not app.updates.ignore_history and not controller.forwarded_drag
-        assert Clip.get(id=created.id).data["location_x"]["Points"][0]["co"]["Y"] != before_move
-        controller.begin(created.id)
-        controller.editor.selectAll()
-        QTest.keyClicks(controller.editor,'Hello')
-        QTest.keyClick(controller.editor,Qt.Key_Return)
-        controller.editor.insertPlainText('العربية café 🎉')
-        assert 'Hello\n' in controller.editor.toPlainText()
-        if screenshot_dir:
-            window.grab().save(os.path.join(screenshot_dir, 'text-typing.png'))
-        QTest.keyClick(controller.editor,Qt.Key_Escape)
-        clips=[item for item in Clip.filter() if item.data.get("direct_text")]
-        assert len(clips)==1,len(clips)
-        clip=clips[0]
-        assert clip.data['direct_text']['text']=='Hello\nالعربية café 🎉',clip.data
-        print('created',clip.id,clip.data['reader']['path'],flush=True)
-        old=copy.deepcopy(clip.data)
-        controller.begin(clip.id)
-        QTest.qWait(150)
-        QTest.keyClicks(controller.editor,' edited')
-        controller.finish()
-        assert Clip.get(id=clip.id).data['direct_text']['text'].endswith(' edited')
-        app.updates.undo()
-        assert Clip.get(id=clip.id).data['direct_text']==old['direct_text']
-        app.updates.redo()
-        assert Clip.get(id=clip.id).data['direct_text']['text'].endswith(' edited')
-        # Copy/paste duplicates semantic data, then editing changes only one raster.
-        window.selected_items=[{'id':clip.id,'type':'clip'}]
-        window.copyAll()
-        window.pasteAll()
-        duplicates=[x for x in Clip.filter() if x.id!=clip.id and x.data.get("direct_text")]
-        assert len(duplicates)==1
-        duplicate=duplicates[0]
-        controller.begin(duplicate.id)
-        controller.editor.insertPlainText(' independent')
+        QTest.qWait(100)
+        if not window.isActiveWindow() and hasattr(app, "setActiveWindow"):
+            # Headless X servers have no window manager to grant activation.
+            app.setActiveWindow(window)
+        controller = window.direct_text
+        button = window.timelineToolbar.widgetForAction(window.actionDirectText)
+        assert button is not None and window.videoToolbar.widgetForAction(window.actionDirectText) is None
+        assert window.actionText in window.menuTitle.actions()
+        assert window.timelineToolbar.widgetForAction(window.actionAddMarker).toolButtonStyle() == Qt.ToolButtonIconOnly
+        initial_clips, initial_files = len(Clip.filter()), len(File.filter())
+        history_count = len(app.updates.actionHistory)
+        initial_layers = copy.deepcopy(app.project.get("layers"))
+        window.timeline.setFocus()
+        window.actionText.trigger()
+        assert controller.draft is not None and controller.editor.hasFocus()
+        assert app.focusWidget() is controller.view, "Real key events must reach the text view"
+        if os.environ.get("OPENSHOT_TEXT_SCREENSHOT_DIR"):
+            QTest.qWait(300)
+            window.grab().save(os.path.join(os.environ["OPENSHOT_TEXT_SCREENSHOT_DIR"], "easy-text-draft.png"))
+        # Tt adds a real, selected clip and asset at once, with text selected.
+        assert len(Clip.filter()) == initial_clips + 1 and len(File.filter()) == initial_files + 1
+        assert controller.clip_id in window.selected_clips
+        assert controller.editor.textCursor().selectedText() == "Text"
+        QTest.keyClicks(controller.editor, "Discard me")
         QTest.keyClick(controller.editor, Qt.Key_Escape)
-        assert not Clip.get(id=clip.id).data['direct_text']['text'].endswith(' independent')
-        # Native transform hit mapping at rotation and scaled preview.
-        transformed=Clip.get(id=clip.id)
-        transformed.data['rotation']['Points'][0]['co']['Y']=25
-        transformed.data['scale_x']['Points'][0]['co']['Y']=0.8
-        transformed.data['scale_y']['Points'][0]['co']['Y']=0.8
-        transformed.save()
-        fps = app.project.get("fps")
-        target_frame = round(transformed.data["position"] * fps["num"] / fps["den"]) + 1
-        window.SeekSignal.emit(target_frame, True)
-        deadline = time.monotonic() + 5
-        while window.preview_thread.current_frame != target_frame and time.monotonic() < deadline:
-            QTest.qWait(10)
-        assert window.preview_thread.current_frame == target_frame
-        from qt_api import QPointF,QInputMethodEvent,QCoreApplication,QEvent,QMouseEvent
-        mapped=controller.geometry(transformed.data).map(QPointF(30,30))
-        assert controller.hit(mapped)==clip.id, (controller.hit(mapped), clip.id, window._current_timeline_seconds(), transformed.data["position"])
-        controller.begin(clip.id)
-        input_event=QInputMethodEvent()
-        input_event.setCommitString('漢字')
-        QCoreApplication.sendEvent(controller.editor,input_event)
-        assert controller.editor.toPlainText().endswith('漢字')
-        controller.finish()
-        assert window.selected_clips == [clip.id], window.selected_clips
-        # Drive the real preview transform handlers with Qt mouse events.
-        before_drag = Clip.get(id=clip.id).data['location_x']['Points'][0]['co']['Y']
-        window.TransformSignal.emit([clip.id])
+        assert controller.draft is None and window.timeline.hasFocus()
+        assert len(Clip.filter()) == initial_clips and len(File.filter()) == initial_files
+        assert len(app.updates.actionHistory) == history_count and not app.updates.redoHistory
+        assert app.project.get("layers") == initial_layers
+
+        QTest.mouseClick(button, Qt.LeftButton)
+        assert app.focusWidget() is controller.view, "Clicking Tt must not leave focus on the button"
+        QTest.keyClicks(controller.editor, "Hello")
+        QTest.keyClick(controller.editor, Qt.Key_Return, Qt.ShiftModifier)
+        QTest.keyClicks(controller.editor, "world")
+        assert controller.draft is not None
+        controller.toolbar.size.setValue(72)
+        window.timeline.setFocus()
+        QTest.qWait(50)
+        assert File.filter()[-1].data["text"] == "Text", "Focus loss committed typing"
+        controller.editor.setFocus()
+        QTest.keyClick(controller.editor, Qt.Key_Return)
+        assert controller.draft is None and window.timeline.hasFocus()
+        assert len(Clip.filter()) == initial_clips + 1 and len(File.filter()) == initial_files + 1
+        first = Clip.filter()[-1]
+        asset = File.get(id=first.data["file_id"])
+        assert asset.data["type"] == "QtTextReader" and not asset.data["path"]
+        assert asset.data["text"] == "Hello\nworld"
+        assert first.data["direct_text"]["font_size"] == 72
+        assert first.data["reader"]["type"] == "QtTextReader"
+        created_id, asset_id = first.id, asset.id
+        # Creation and typing are one undo step.
+        app.updates.undo()
+        assert Clip.get(id=created_id) is None and File.get(id=asset_id) is None
+        app.updates.redo()
+        assert Clip.get(id=created_id) and File.get(id=asset_id)
+
+        # Next Marker stops on the last clip's final frame; Tt continues after it
+        # on the same track instead of stacking a new track over that frame.
+        assert window.actionText.shortcut().toString() == "Shift+T"
+        first = Clip.get(id=created_id)
+        first_end = first.data["position"] + first.data["end"] - first.data["start"]
+        window.SeekSignal.emit(window.timeline_sync.GetLastFrame(), True)
+        QTest.qWait(100)
+        window.timeline.setFocus()
+        QTest.keyClick(window.timeline, Qt.Key_T, Qt.ShiftModifier)
+        following = Clip.get(id=controller.clip_id)
+        assert following and following.id != created_id
+        assert following.data["layer"] == first.data["layer"]
+        assert abs(following.data["position"] - first_end) < 1e-6
+        QTest.keyClick(controller.editor, Qt.Key_Escape)
+        assert Clip.get(id=following.id) is None and window.timeline.hasFocus()
+        window.SeekSignal.emit(1, True)
+        QTest.qWait(100)
+
+        # Text above the highest occupied track adds a track; Escape removes it.
+        layers_before = copy.deepcopy(app.project.get("layers"))
+        QTest.mouseClick(button, Qt.LeftButton)
+        assert len(app.project.get("layers")) == len(layers_before) + 1
+        controller.toolbar.size.setFocus()
+        QTest.keyClick(controller.toolbar.size, Qt.Key_Escape)
+        assert controller.draft is None and window.timeline.hasFocus()
+        assert app.project.get("layers") == layers_before
+        QTest.mouseClick(button, Qt.LeftButton)
+        QTest.keyClicks(controller.editor, "Another title")
+        controller.toolbar.size.setFocus()
+        QTest.keyClick(controller.toolbar.size, Qt.Key_Return)
+        assert len(app.project.get("layers")) == len(layers_before) + 1
+        app.updates.undo()
+        assert app.project.get("layers") == layers_before
+        assert len(File.filter()) == initial_files + 1
+
+        # The same addClip path used by a Project Files drag creates an instance.
+        window.timeline.addClip(asset_id, QPointF(12.0, 0), first.data["layer"], call_manual_move=False)
+        instances = Clip.filter(file_id=asset_id)
+        assert len(instances) == 2
+        second = next(c for c in instances if c.id != created_id)
+        original_transforms = {c.id: {k: copy.deepcopy(c.data[k]) for k in ("position", "scale_x", "rotation")}
+                               for c in instances}
+        window.timeline.AddSelectionJS(created_id, "clip", True)
+        window.timeline.setFocus()
+        QTest.qWait(100)
+        assert controller.draft is None and window.timeline.hasFocus()
+        QTest.keyClick(window.timeline, Qt.Key_Right, Qt.ControlModifier)
+        assert controller.draft is None and window.timeline.hasFocus()
+        window.timeline.AddSelectionJS(created_id, "clip", True)
+        QTest.keyClick(window.timeline, Qt.Key_Return)
+        assert controller.draft is not None and controller.editor.hasFocus()
+        controller.editor.selectAll()
+        QTest.keyClicks(controller.editor, "Shared title")
+        QTest.keyClick(controller.editor, Qt.Key_Return)
+        assert File.get(id=asset_id).data["text"] == "Shared title"
+        for clip in Clip.filter(file_id=asset_id):
+            assert clip.data["direct_text"]["text"] == "Shared title"
+            assert clip.data["reader"]["text"] == "Shared title"
+            assert all(clip.data[k] == v for k, v in original_transforms[clip.id].items())
+        engine_clip = next(c for c in json.loads(window.timeline_sync.timeline.Json())["clips"] if c["id"] == created_id)
+        engine_reader = engine_clip["reader"]
+        while engine_reader.get("type") == "FrameMapper":
+            engine_reader = engine_reader["reader"]
+        assert engine_reader["text"] == "Shared title"
+        app.updates.undo()
+        assert File.get(id=asset_id).data["text"] == "Hello\nworld"
+        assert all(c.data["reader"]["text"] == "Hello\nworld" for c in Clip.filter(file_id=asset_id))
+        app.updates.redo()
+        controller.begin(created_id)
+        controller.editor.selectAll()
+        QTest.keyClicks(controller.editor, "Cancel changes")
+        QTest.keyClick(controller.editor, Qt.Key_Escape)
+        assert File.get(id=asset_id).data["text"] == "Shared title"
+        assert len(Clip.filter(file_id=asset_id)) == 2 and window.timeline.hasFocus()
+
+        # Entering typing after a double-click must end any preview drag.
+        from qt_api import QCoreApplication, QMouseEvent, QEvent
+        window.SeekSignal.emit(1, True)
+        QTest.qWait(100)
+        before_rotation = copy.deepcopy(Clip.get(id=created_id).data["rotation"])
         preview = window.videoPreview
-        deadline = time.monotonic() + 5
-        readiness = None
-        while time.monotonic() < deadline:
-            QTest.qWait(10)
-            selected = preview.transforming_clip
-            if (not selected or selected.id != clip.id
-                    or len(preview.transforming_clips) != 1
-                    or preview.transform is None or preview.clipBounds is None
-                    or preview.delayed_resize_timer.isActive()):
-                continue
-            fps = app.project.get("fps")
-            frame_number = preview._get_clip_frame_number(selected, fps["num"] / fps["den"])
-            rect, properties = preview._clip_rect(
-                selected, preview.transforming_clip_object,
-                preview.centeredViewport(preview.width(), preview.height()), frame_number)
-            expected = preview._build_clip_transform(
-                rect.x(), rect.y(), rect.width(), rect.height(), properties)[0]
-            local_points = (QPointF(0, 0), QPointF(rect.width(), rect.height()))
-            readiness = [abs(expected.map(p).x() - preview.transform.map(p).x())
-                         + abs(expected.map(p).y() - preview.transform.map(p).y())
-                         for p in local_points]
-            if (max(readiness) < 0.5
-                    and abs(preview.clipBounds.width() - rect.width()) < 0.5
-                    and abs(preview.clipBounds.height() - rect.height()) < 0.5):
-                break
-        else:
-            raise AssertionError("Transform overlay did not match selected clip: %r" % readiness)
-        assert preview.transforming_clip.id == clip.id
-        assert preview.transforming_clip_object.Id() == clip.id
-        # Target the painted block's interior, away from corner/shear/origin handles.
-        # Hiding the text toolbar changes the viewport; its old source-space
-        # target is not a reliable pointer position until layout and paint settle.
-        local_point = QPointF(preview.clipBounds.width() * 0.25,
-                             preview.clipBounds.height() * 0.35)
-        point = preview.transform.map(local_point).toPoint()
-        QCoreApplication.sendEvent(window.videoPreview, QMouseEvent(QEvent.MouseMove, QPointF(point), Qt.NoButton, Qt.NoButton, Qt.NoModifier))
-        assert preview.hover_transform_mode == "location", preview.hover_transform_mode
-        QTest.mousePress(window.videoPreview, Qt.LeftButton, pos=point)
-        assert preview.mouse_pressed and preview.transform_mode == "location"
-        QCoreApplication.sendEvent(window.videoPreview, QMouseEvent(QEvent.MouseMove, QPointF(point + QPoint(30, 15)), Qt.NoButton, Qt.LeftButton, Qt.NoModifier))
-        QTest.mouseRelease(window.videoPreview, Qt.LeftButton, pos=point + QPoint(30, 15))
-        assert Clip.get(id=clip.id).data['location_x']['Points'][0]['co']['Y'] != before_drag
-        # Ordinary dragging after the playhead moved updates the initial static point.
-        window.videoPreview.updateClipProperty(clip.id,60,'location_x',0.1)
-        assert len(Clip.get(id=clip.id).data['location_x']['Points'])==1
-        app.project.save(root+'/project.osp')
-        assert os.path.exists(Clip.get(id=clip.id).data['reader']['path'])
-        app.project.save(root+'/copy.osp')
-        assert os.path.exists(Clip.get(id=clip.id).data['reader']['path'])
-        app.project.load(root+'/copy.osp')
-        assert Clip.get(id=clip.id).data['direct_text']['text'].endswith('漢字')
-        print('saved/reopened',flush=True)
-        # Export one real lossless frame and compare decoded pixels to native rendering.
+        preview.mouse_pressed = True
+        preview.mouse_dragging = True
+        preview.transform_mode = "rotation"
+        preview.rotation_drag_value = 386
+        point = controller.geometry(Clip.get(id=created_id).data).map(QPointF(100, 20)).toPoint()
+        QTest.mouseDClick(preview, Qt.LeftButton, pos=point)
+        assert controller.draft is not None and not preview.mouse_pressed
+        QCoreApplication.sendEvent(preview, QMouseEvent(QEvent.MouseMove, QPointF(point),
+                                  Qt.NoButton, Qt.NoButton, Qt.NoModifier))
+        QTest.keyClick(controller.editor, Qt.Key_Return)
+        for offset in (20, 70, 130):
+            QCoreApplication.sendEvent(preview, QMouseEvent(QEvent.MouseMove, QPointF(point) + QPointF(offset, 30),
+                                      Qt.NoButton, Qt.NoButton, Qt.NoModifier))
+        assert Clip.get(id=created_id).data["rotation"] == before_rotation
+        assert not preview.mouse_pressed and not preview.mouse_dragging
+
+        # Cached Project Files and timeline previews are text on opaque black.
+        source, name, _ = window.files_model._thumbnail_source_for_file(File.get(id=asset_id))
+        image = QImage(source)
+        assert not image.isNull() and image.pixelColor(image.width() // 2, 0).name() == "#000000"
+        assert image.pixelColor(image.width() // 2, 0).alpha() == 255
+        # Rounded corners match the mask used for ordinary media thumbnails.
+        assert image.pixelColor(0, 0).alpha() == 0
+        expected_ratio = info.LIST_ICON_SIZE.width() / info.LIST_ICON_SIZE.height()
+        assert abs(image.width() / image.height() - expected_ratio) < 0.02
+        assert not controller.toolbar.bold.icon().isNull() and not controller.toolbar.italic.icon().isNull()
+        assert not controller.toolbar.color.text()
+        from unittest.mock import patch
+        from windows.color_picker import ColorPicker
+        controller.begin(created_id)
+        with patch("windows.text_style.ColorPicker", wraps=ColorPicker) as picker:
+            controller.toolbar.pick_color()
+            assert picker.call_count == 1
+            controller.toolbar.color_picker.reject()
+        controller.cancel(return_focus=True)
+        assert window.timeline.clip_painter._direct_text_thumbnail_path(Clip.get(id=created_id))
+        os.remove(source)
+        assert os.path.exists(window.files_model._thumbnail_source_for_file(File.get(id=asset_id))[0])
+
+        # Standalone editor edits a source without needing any timeline use.
+        controller.duplicate_file(asset_id)
+        duplicate = next(f for f in File.filter() if f.id != asset_id)
+        from windows.text_style import TextStyleDialog
+        dialog = TextStyleDialog(duplicate.data["direct_text"], window)
+        dialog.editor.setPlainText("Independent")
+        from unittest.mock import patch
+        with patch("windows.text_style.TextStyleDialog", return_value=dialog), patch.object(dialog, "exec_", return_value=1):
+            controller.edit_file(duplicate.id)
+        assert File.get(id=duplicate.id).data["text"] == "Independent"
+        assert File.get(id=asset_id).data["text"] == "Shared title"
+
+        # Native Clip JSON reload and frame generation need no text file.
         import openshot
-        timeline=window.timeline_sync.timeline
-        timeline.SetMaxSize(app.project.get('width'),app.project.get('height'))
-        frame=timeline.GetFrame(1)
-        writer=openshot.FFmpegWriter(root+'/text.mov')
-        writer.SetVideoOptions(True,'png',openshot.Fraction(30,1),frame.GetWidth(),frame.GetHeight(),openshot.Fraction(1,1),False,False,2000000)
+        data = copy.deepcopy(Clip.get(id=created_id).data)
+        native = openshot.Clip()
+        native.SetJson(json.dumps(data))
+        native.Open()
+        frame = native.GetFrame(1)
+        assert frame.GetWidth() > 0 and native.Reader().Name() == "QtTextReader"
+        native.Close()
+        # Export a real lossless video frame from the native timeline.
+        frame = window.timeline_sync.timeline.GetFrame(1)
+        export_path = os.path.join(root, "text.mov")
+        writer = openshot.FFmpegWriter(export_path)
+        writer.SetVideoOptions(True, "png", openshot.Fraction(30, 1), frame.GetWidth(), frame.GetHeight(),
+                               openshot.Fraction(1, 1), False, False, 2000000)
         writer.Open()
         writer.WriteFrame(frame)
         writer.Close()
-        reader=openshot.FFmpegReader(root+'/text.mov')
-        reader.Open()
-        decoded=reader.GetFrame(1)
-        expected=frame.GetPixelsBytes()
-        actual=decoded.GetPixelsBytes()
-        assert expected==actual, 'Lossless export pixels differ'
-        reader.Close()
-        # External export action commits drafts before constructing its dialog.
-        controller.begin(clip.id)
-        controller.editor.insertPlainText(' export')
-        with patch('windows.export.Export') as dialog:
-            window.actionExportVideo_trigger()
-        assert controller.draft is None and Clip.get(id=clip.id).data['direct_text']['text'].endswith(' export')
-        # Failed/obsolete snapshots do not change persisted alpha or reopen an editor.
-        alpha=copy.deepcopy(Clip.get(id=clip.id).data["alpha"])
-        controller.begin(clip.id)
-        controller.snapshot_ready(None,controller.generation,"intentional test failure")
-        assert Clip.get(id=clip.id).data["alpha"]==alpha
-        controller.cancel()
-        QTest.qWait(100)
-        assert not controller.view.isVisible()
-        # New playhead reuses actual last text style and evaluated static geometry.
-        controller.begin(clip.id)
-        assert controller.apply_property(clip.id, "font_bold", True)
-        controller.finish()
-        previous = copy.deepcopy(Clip.get(id=clip.id).data)
-        window.SeekSignal.emit(900, True)
-        QTest.qWait(80)
-        QTest.mouseClick(button, Qt.LeftButton)
-        new_id = controller.clip_id
-        new_data = Clip.get(id=new_id).data
-        assert new_data["direct_text"]["text"] == "Text"
-        assert controller.editor.textCursor().selectedText() == "Text" and controller.editor.hasFocus()
-        assert new_data["position"] != previous["position"]
-        for key in ("font_family", "font_size", "font_bold", "font_italic", "color", "background", "alignment", "width"):
-            assert new_data["direct_text"].get(key, False) == previous["direct_text"].get(key, False), key
-        for key in ("location_x", "location_y", "scale_x", "scale_y", "rotation"):
-            assert len(new_data[key]["Points"]) == 1
-            assert new_data[key]["Points"][0]["co"]["Y"] == previous[key]["Points"][0]["co"]["Y"], key
-        controller.cancel()
-        assert Clip.get(id=new_id) is not None
-        controller.begin(clip.id)
-        Clip.get(id=clip.id).delete()
+        decoded = openshot.FFmpegReader(export_path)
+        decoded.Open()
+        assert decoded.GetFrame(1).GetPixelsBytes() == frame.GetPixelsBytes()
+        decoded.Close()
+        project_path = os.path.join(root, "text.osp")
+        app.project.save(project_path)
+        with open(project_path) as stream:
+            saved = json.load(stream)
+        assert all(not f.get("path") for f in saved["files"] if f.get("type") == "QtTextReader")
+        shutil.rmtree(os.path.splitext(project_path)[0] + "_assets", ignore_errors=True)
+        app.project.load(project_path, interactive=False)
+        assert File.get(id=asset_id).data["text"] == "Shared title"
+        assert len(Clip.filter(file_id=asset_id)) == 2
         assert controller.draft is None
-        controller.finish()
-        assert Clip.get(id=clip.id) is None
-        print('TEXT_WORKFLOW_PASSED',flush=True)
-        controller.snapshot_pool.waitForDone(10000)
-        passed=True
+        if os.environ.get("OPENSHOT_TEXT_SCREENSHOT_DIR"):
+            QTest.qWait(300)
+            window.grab().save(os.path.join(os.environ["OPENSHOT_TEXT_SCREENSHOT_DIR"], "easy-text-committed.png"))
+        passed = True
+        print("TEXT_WORKFLOW_PASSED", flush=True)
     except Exception:
         traceback.print_exc()
     finally:
         app.quit()
+
+
 assert app.gui()
-QTimer.singleShot(4000,verify)
+QTimer.singleShot(2500, verify)
 app.exec_()
-assert passed
+sys.exit(0 if passed else 1)

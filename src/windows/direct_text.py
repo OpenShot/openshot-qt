@@ -4,13 +4,13 @@ import json
 
 from qt_api import (
     Qt, QEvent, QGraphicsScene, QGraphicsView, QTextEdit, QFrame, QPalette,
-    QColor,
+    QColor, QAbstractButton,
     QTextCursor, QRectF, QPointF, QObject, QTimer, QImage, QPixmap, QRunnable, QThreadPool, pyqtSignal,
 )
 from classes.app import get_app
 from classes import info
-from classes.query import Clip, Track
-from classes.direct_text import default_text, apply_text, new_text_clip, text_document
+from classes.query import Clip, Track, File
+from classes.direct_text import default_text, apply_text, new_text_clip, text_document, save_text_asset, TEXT_ANIMATED, evaluated_text_style, set_text_keyframe
 
 
 class SnapshotSignals(QObject):
@@ -43,7 +43,7 @@ class SnapshotTask(QRunnable):
             native.Open()
             frame = native.GetFrame(self.frame)
             image = QImage(frame.GetPixelsBytes(), frame.GetWidth(), frame.GetHeight(),
-                           frame.GetWidth() * 4, QImage.Format_RGBA8888).copy()
+                           frame.GetWidth() * 4, QImage.Format_RGBA8888_Premultiplied).copy()
             if not self.canceled.is_set():
                 self.signals.ready.emit(image, self.generation, "")
         except Exception as exc:
@@ -68,17 +68,25 @@ class TextPreviewView(QGraphicsView):
         owner = self.owner
         if owner is None or owner.draft is None:
             return
-        preview = owner.preview
-        if not preview.transforming_clip or preview.transforming_clip.id != owner.clip_id:
-            return
-        transform, unpacked, origin = owner.handler_geometry
-        sx, sy, _, _, _, ox, oy = unpacked
-        preview.transform = transform
-        preview.originHandle = origin
         painter.save()
-        painter.setTransform(transform)
-        preview.drawTransformHandler(painter, sx, sy, owner.handler_rect.width(),
-                                     owner.handler_rect.height(), ox, oy, skip_origin=True)
+        painter.setTransform(owner.proxy.sceneTransform())
+        from qt_api import QPen
+        painter.setBrush(Qt.NoBrush)
+        border = float(owner.draft.get("border_width", 0))
+        if border:
+            painter.setPen(QPen(QColor(owner.draft.get("border_color", "#ffffff")), border))
+            painter.drawRect(QRectF(border / 2, border / 2,
+                                   owner.draft["width"] - border, owner.draft["height"] - border))
+        painter.restore()
+        # Typing and clip transforms are separate modes. Show the text box,
+        # without presenting resize/rotation handles that are inactive here.
+        painter.save()
+        painter.setTransform(owner.proxy.sceneTransform())
+        pen = QPen(QColor("#66baff"), 1, Qt.DashLine)
+        pen.setCosmetic(True)
+        painter.setPen(pen)
+        painter.setBrush(Qt.NoBrush)
+        painter.drawRect(QRectF(0, 0, owner.draft["width"], owner.draft["height"]))
         painter.restore()
 
 
@@ -96,7 +104,7 @@ class TextEditor(QTextEdit):
     def event(self, event):
         if event.type() == QEvent.ShortcutOverride:
             # Native text selection, clipboard and undo belong to this editor.
-            # File actions can leave editing and commit before serialization.
+            # File actions remain available without committing the draft.
             file_keys = (Qt.Key_S, Qt.Key_O, Qt.Key_N, Qt.Key_Q, Qt.Key_E)
             if not (event.key() in file_keys and event.modifiers() & Qt.ControlModifier):
                 event.accept()
@@ -104,9 +112,12 @@ class TextEditor(QTextEdit):
         return super().event(event)
 
     def keyPressEvent(self, event):
-        if event.key() == Qt.Key_Escape or (
-                event.key() in (Qt.Key_Return, Qt.Key_Enter) and event.modifiers() & Qt.ControlModifier):
-            self.owner.finish()
+        if event.key() == Qt.Key_Escape:
+            self.owner.discard()
+            event.accept()
+            return
+        if event.key() in (Qt.Key_Return, Qt.Key_Enter) and not event.modifiers() & Qt.ShiftModifier:
+            self.owner.finish(commit=True)
             event.accept()
             return
         super().keyPressEvent(event)
@@ -128,7 +139,10 @@ class DirectTextController(QObject):
         self.reveal_timer = QTimer(self)
         self.reveal_timer.setSingleShot(True)
         self.reveal_timer.timeout.connect(self.reveal_created_clip)
-        self.forwarded_drag = False
+        self.committing = False
+        # Tt commits a real clip at once; the typing commit joins that undo step.
+        self.created_clip_id = self.create_transaction = None
+        self.return_widget = None
         get_app().updates.add_listener(self)
 
     def _ensure_gui(self):
@@ -138,7 +152,6 @@ class DirectTextController(QObject):
         window, preview = self.window, self.preview
         self.snapshot_pool = QThreadPool(self)
         self.snapshot_pool.setMaxThreadCount(1)
-        get_app().focusChanged.connect(self.focus_changed)
         self.view = TextPreviewView(self)
         self.scene = QGraphicsScene(self.view)
         self.view.setScene(self.scene)
@@ -153,16 +166,24 @@ class DirectTextController(QObject):
         self.proxy = self.scene.addWidget(self.editor)
         self.view.hide()
         preview.installEventFilter(self)
-        window.installEventFilter(self)
         self.view_port = self.view.viewport()
-        self.view_port.installEventFilter(self)
         self.editor.textChanged.connect(self.grow_document)
-        window.PlaySignal.connect(self.finish)
-        window.SeekSignal.connect(self.finish)
+        from windows.text_style import TextStyleToolbar
+        self.toolbar = TextStyleToolbar(self)
+        window.tabVideo.insertWidget(0, self.toolbar)
+        self.toolbar.hide()
+        window.PlaySignal.connect(self.cancel)
+        window.SeekSignal.connect(self.cancel)
 
     def arm(self):
-        """Tt creates a real selected clip immediately, ready for replacement."""
-        self.finish()
+        """Create a selected text clip at the playhead, ready for typing."""
+        import openshot
+        if "document_layout" not in json.loads(openshot.QtTextReader().Json()):
+            from qt_api import QMessageBox
+            QMessageBox.information(self.window, get_app()._tr("Add Text"),
+                                    get_app()._tr("Text editing requires an updated libopenshot library."))
+            return
+        self.cancel()
         self.window.PauseSignal.emit()
         self.create()
 
@@ -189,19 +210,21 @@ class DirectTextController(QObject):
         if self.clip_id == clip_id and self.draft:
             style["text"] = self.editor.toPlainText()
         style[key] = value
-        data = apply_text(clip.data, style, info.TITLE_PATH)
-        self.window.timeline.update_clip_data(data, only_basic_props=False)
-        painter = getattr(self.window.timeline, "clip_painter", None)
-        if painter:
-            painter.invalidate_clip_thumbnails(clip_id)
-        self.window.refreshFrameSignal.emit()
-        if self.clip_id == clip_id and self.draft:
+        if self.clip_id == clip_id and self.draft is not None:
+            self.draft = style
             cursor = self.editor.textCursor()
-            self.draft = data["direct_text"]
-            self.original = copy.deepcopy(data)
             self.layout_document()
             self.editor.setTextCursor(cursor)
             self.update_geometry()
+        else:
+            updates = get_app().updates
+            previous = updates.transaction_id
+            updates.transaction_id = previous or get_app().project.generate_id()
+            try:
+                save_text_asset(style, clip.data.get("file_id"))
+            finally:
+                updates.transaction_id = previous
+            self.window.refreshFrameSignal.emit()
         return True
 
     def create(self, point=None):
@@ -214,6 +237,12 @@ class DirectTextController(QObject):
             return
         position = self.window._current_timeline_seconds()
         duration = get_app().get_settings().get("default-image-length") or 10.0
+        # Next Marker cannot seek past the timeline end, so it stops on the
+        # final frame of the last clip. Start after that clip, not over it.
+        fps = project.get("fps")
+        frame_seconds = float(fps["den"]) / fps["num"]
+        ends = [c.data["position"] + c.data["end"] - c.data["start"] for c in Clip.filter()]
+        position = max([end for end in ends if position < end <= position + frame_seconds + 1e-6], default=position)
         visible = [c for c in Clip.filter() if c.data["position"] < position + duration
                    and c.data["position"] + c.data["end"] - c.data["start"] > position]
         top_media = max((c.data["layer"] for c in visible), default=-1)
@@ -223,15 +252,11 @@ class DirectTextController(QObject):
         elif not visible:
             layer = max(t.data["number"] for t in tracks)
         else:
-            track = Track()
             layer = max(t.data["number"] for t in Track.filter()) + 1000000
-            track.data = {"number": layer, "y": 0, "label": "", "lock": False}
-            track.save()
         previous = Clip.get(id=getattr(self, "last_clip_id", None))
         style = copy.deepcopy(previous.data["direct_text"]) if previous and previous.data.get("direct_text") else default_text(project.get("width"), project.get("height"))
         style["text"] = "Text"
-        data = new_text_clip(style, info.TITLE_PATH, self.window._current_timeline_seconds(), layer,
-                             get_app().get_settings().get("default-image-length") or 10.0)
+        data = new_text_clip(style, info.TITLE_PATH, position, layer, duration)
         data["id"] = project.generate_id()
         if previous:
             self.geometry(previous.data)
@@ -242,17 +267,34 @@ class DirectTextController(QObject):
             for name, value in (("location_x", (point.x() - viewport.center().x()) / viewport.width()),
                                 ("location_y", (point.y() - viewport.center().y()) / viewport.height())):
                 data[name]["Points"][0]["co"]["Y"] = value
-        self.window.timeline.update_clip_data(data, only_basic_props=False)
-        self.window.timeline.AddSelectionJS(data["id"], "clip", True)
+        updates = get_app().updates
+        previous_transaction = updates.transaction_id
+        transaction = updates.transaction_id = previous_transaction or project.generate_id()
+        self.committing = True
+        try:
+            asset = save_text_asset(data["direct_text"])
+            data["file_id"] = asset.id
+            data["reader"] = copy.deepcopy(asset.data)
+            if not Track.get(number=layer):
+                track = Track()
+                track.data = {"number": layer, "y": 0, "label": "", "lock": False}
+                track.save()
+            self.window.timeline.update_clip_data(data, only_basic_props=False, ignore_reader=False)
+        finally:
+            self.committing = False
+            updates.transaction_id = previous_transaction
+        self.last_clip_id = data["id"]
         self.window.refreshFrameSignal.emit()
-        self.window.dockProperties.show()
         self.begin(data["id"])
+        if self.clip_id != data["id"]:
+            return
+        self.created_clip_id, self.create_transaction = data["id"], transaction
         self.editor.selectAll()
         self.reveal_clip_id = data["id"]
         self.reveal_timer.start(0)
 
     def reveal_created_clip(self):
-        if self._closed or self.clip_id != self.reveal_clip_id or not Clip.get(id=self.clip_id):
+        if self._closed or not Clip.get(id=self.reveal_clip_id):
             return
         timeline = self.window.timeline
         begin_layout = getattr(timeline, "begin_properties_layout_change", None)
@@ -260,23 +302,34 @@ class DirectTextController(QObject):
             from qt_api import QPoint
             left = getattr(timeline, "track_name_width", 0)
             target_x = timeline.mapToGlobal(QPoint(round((left + timeline.width()) / 2), 0)).x()
-            position = Clip.get(id=self.clip_id).data["position"]
+            position = Clip.get(id=self.reveal_clip_id).data["position"]
             begin_layout((position, target_x))
         else:
             timeline.centerOnPlayhead()
         if hasattr(timeline, "v_scrollbar_position"):
-            timeline.geometry.ensure()
-            ratio = timeline.v_scrollbar_position[1] - timeline.v_scrollbar_position[0]
-            content_height = timeline.v_scrollbar_position[2] or timeline.height()
-            clip_rect = timeline.geometry.calc_item_rect(Clip.get(id=self.clip_id))
-            top = max(0.0, min((clip_rect.top() - timeline.ruler_height) / max(1, content_height), 1.0 - ratio))
-            timeline.v_scrollbar_position[:2] = [top, top + ratio]
+            # Scroll only as far as needed; an already visible track stays put.
             timeline.geometry.mark_dirty()
+            timeline.geometry.ensure()
+            rect = timeline.geometry.calc_item_rect(Clip.get(id=self.reveal_clip_id), viewport=True)
+            top = timeline.ruler_height + 4
+            bottom = timeline.height() - timeline.scroll_bar_thickness - 4
+            delta = rect.top() - top if rect.top() < top else max(0, rect.bottom() - bottom)
+            total = timeline.v_scrollbar_position[2]
+            if delta and total:
+                span = timeline.v_scrollbar_position[1] - timeline.v_scrollbar_position[0]
+                start = max(0.0, min(1.0 - span, timeline.v_scrollbar_position[0] + delta / total))
+                timeline.v_scrollbar_position[:2] = [start, start + span]
+                timeline.geometry.mark_dirty()
             timeline.update()
 
     def begin(self, clip_id, draft=None):
         self._ensure_gui()
-        self.finish()
+        focus = get_app().focusWidget()
+        # A clicked Tt button is not where the user was working.
+        if focus is not None and focus is not self.editor:
+            self.return_widget = None if isinstance(focus, QAbstractButton) else focus
+        self.cancel()
+        self.preview.clearTransformState()
         clip = Clip.get(id=clip_id) if clip_id else None
         self.edit_frame = self.window.preview_thread.current_frame or 1
         if clip:
@@ -294,22 +347,33 @@ class DirectTextController(QObject):
         if not data or not data.get("direct_text"):
             return
         self.clip_id = clip_id
-        self.draft = data["direct_text"]
+        fps = get_app().project.get("fps")
+        self.style_frame = self.preview._get_clip_frame_number(clip, float(fps["num"]) / fps["den"]) if clip else 1
+        self.draft = evaluated_text_style(data, self.style_frame)
+        self.original_style = copy.deepcopy(self.draft)
         self.original = data
-        self.anchor_offsets = {"location_x": 0.0, "location_y": 0.0}
-        self.window.timeline.AddSelectionJS(clip_id, "clip", True)
-        self.window.TransformSignal.emit([clip_id])
-        table = self.window.propertyTableView
-        table.select_item([{"id": clip_id, "type": "clip"}])
-        table.clip_properties_model.update_timer.stop()
-        table.clip_properties_model.update_item_timeout()
+        if clip_id:
+            self.window.timeline.AddSelectionJS(clip_id, "clip", True)
+            self.window.TransformSignal.emit([clip_id])
+            table = self.window.propertyTableView
+            table.select_item([{"id": clip_id, "type": "clip"}])
+            table.clip_properties_model.update_timer.stop()
+            table.clip_properties_model.update_item_timeout()
+        self.toolbar.set_style(self.draft)
+        self.toolbar.show()
         self.layout_document()
         self.capture_background()
         self.view.show()
         self.view.raise_()
         self.update_geometry()
-        self.editor.setFocus(Qt.OtherFocusReason)
+        self.focus_editor()
         self.editor.moveCursor(QTextCursor.End)
+
+    def focus_editor(self):
+        """Keys reach a proxied editor only while its view has application focus."""
+        self.editor.setFocus(Qt.OtherFocusReason)
+        self.view.activateWindow()
+        self.view.setFocus(Qt.OtherFocusReason)
 
     def layout_document(self):
         self.editor.blockSignals(True)
@@ -381,36 +445,143 @@ class DirectTextController(QObject):
                     return clip.id
         return None
 
-    def finish(self, *args):
+    def finish(self, *args, commit=False):
         if self.draft is None:
+            return
+        if not commit:
             return
         if self.editor.hasFocus():
             get_app().inputMethod().commit()
+        style = copy.deepcopy(self.draft)
+        style["text"] = self.editor.toPlainText()
+        clip = Clip.get(id=self.clip_id) if self.clip_id else None
+        if clip and clip.id == self.created_clip_id and not style["text"].strip():
+            self.discard()
+            return
+        if (not self.clip_id and not style["text"].strip()) or (clip and style == self.original_style):
+            self.cancel(return_focus=True)
+            return
+        if self.clip_id and not clip:
+            self.cancel(return_focus=True)
+            return
+        updates = get_app().updates
+        previous = updates.transaction_id
+        updates.transaction_id = previous or self._creation_transaction() or get_app().project.generate_id()
+        self.committing = True
+        try:
+            shared_style = copy.deepcopy(style)
+            if clip:
+                for key in TEXT_ANIMATED:
+                    shared_style[key] = clip.data["direct_text"].get(key, default_text(1920, 1080)[key])
+            asset = File.get(id=clip.data.get("file_id")) if clip else None
+            if not asset or shared_style != asset.data["direct_text"]:
+                asset = save_text_asset(shared_style, asset.id if asset else None)
+            if clip is None:
+                data = apply_text(self.original, style)
+                data["file_id"] = asset.id
+                data["reader"] = copy.deepcopy(asset.data)
+                if not Track.get(number=data["layer"]):
+                    track = Track()
+                    track.data = {"number": data["layer"], "y": 0, "label": "", "lock": False}
+                    track.save()
+                self.window.timeline.update_clip_data(data, only_basic_props=False, ignore_reader=False)
+                clip_id = data["id"]
+            else:
+                from classes.keyframe_editing import auto_keyframes_enabled
+                data = Clip.get(id=clip.id).data
+                changed_style = False
+                for key in TEXT_ANIMATED:
+                    if style.get(key) != self.original_style.get(key):
+                        data = set_text_keyframe(data, key, style[key], self.style_frame,
+                                                 auto_keyframes_enabled(self.window))
+                        changed_style = True
+                if changed_style:
+                    self.window.timeline.update_clip_data(data, only_basic_props=False, ignore_reader=False)
+                clip_id = clip.id
+            self.last_clip_id = clip_id
+        finally:
+            self.committing = False
+            updates.transaction_id = previous
+        self.cancel(return_focus=True)
+        self.window.timeline.AddSelectionJS(clip_id, "clip", True)
+        self.window.TransformSignal.emit([clip_id])
+        self.window.refreshFrameSignal.emit()
+        self.reveal_clip_id = clip_id
+        self.reveal_timer.start(0)
+
+    def _creation_transaction(self):
+        """The just-created clip's undo step, while it is still the newest one."""
+        history = get_app().updates.actionHistory
+        if (self.clip_id and self.clip_id == self.created_clip_id and history
+                and history[-1].transaction == self.create_transaction):
+            return self.create_transaction
+        return None
+
+    def discard(self):
+        """Escape: abandon typing; a clip Tt just created is removed without history."""
+        transaction = self._creation_transaction()
+        target = self.return_widget
+        self.cancel(return_focus=True)
+        if not transaction:
+            return
+        updates = get_app().updates
+        updates.undo()
+        # Nothing was added from the user's point of view, so nothing to redo.
+        updates.redoHistory = [a for a in updates.redoHistory if a.transaction != transaction]
+        updates.update_watchers()
+        self.window.refreshFrameSignal.emit()
+        # Undo processes events and removes the selection, which drops focus.
+        self.return_widget = target
+        self.restore_focus()
+
+    def style_changed(self, key, value):
+        if self.draft is None:
+            return
         self.draft["text"] = self.editor.toPlainText()
-        data = self.original
-        if self.clip_id:
-            clip = Clip.get(id=self.clip_id)
-            # A deleted clip/project replacement must never be resurrected.
-            if not clip:
-                self.cancel()
-                return
-            data = clip.data
-        if not self.clip_id or self.draft != data["direct_text"]:
-            data = copy.deepcopy(data)
-            for key, offset in self.anchor_offsets.items():
-                if self.clip_id and offset and len(data[key]["Points"]) == 1:
-                    data[key]["Points"][0]["co"]["Y"] += offset
-            data = apply_text(data, self.draft, info.TITLE_PATH)
-            self.window.timeline.update_clip_data(data, only_basic_props=False)
+        self.draft[key] = value
+        cursor = self.editor.textCursor()
+        self.layout_document()
+        self.editor.setTextCursor(cursor)
+        self.update_geometry()
+
+    def duplicate_file(self, file_id):
+        asset = File.get(id=file_id)
+        if asset and asset.data.get("type") == "QtTextReader":
+            duplicate = File()
+            duplicate.data = copy.deepcopy(asset.data)
+            duplicate.data.pop("id", None)
+            duplicate.data["name"] += " " + get_app()._tr("(copy)")
+            duplicate.save()
+
+    def edit_file(self, file_id):
+        from windows.text_style import TextStyleDialog
+        asset = File.get(id=file_id)
+        if not asset or asset.data.get("type") != "QtTextReader":
+            return
+        dialog = TextStyleDialog(asset.data["direct_text"], self.window)
+        if dialog.exec_():
+            updates = get_app().updates
+            previous = updates.transaction_id
+            updates.transaction_id = previous or get_app().project.generate_id()
+            try:
+                save_text_asset(dialog.style(), file_id)
+            finally:
+                updates.transaction_id = previous
             self.window.refreshFrameSignal.emit()
-        clip_id = data.get("id")
-        self.last_clip_id = clip_id
-        self.cancel()
-        if clip_id:
-            # Keep timeline selection and its delayed transform notification in
-            # agreement with the text just edited, including preview double-click.
-            self.window.timeline.AddSelectionJS(clip_id, "clip", True)
-            self.window.TransformSignal.emit([clip_id])
+
+    def more_style(self):
+        if self.draft is None:
+            return
+        from windows.text_style import TextStyleDialog
+        style = copy.deepcopy(self.draft)
+        style["text"] = self.editor.toPlainText()
+        dialog = TextStyleDialog(style, self.window)
+        if dialog.exec_():
+            self.draft = dialog.style()
+            self.layout_document()
+            self.toolbar.set_style(self.draft)
+            self.update_geometry()
+        self.focus_editor()
 
     def capture_background(self):
         """One isolated frame; never alter preview alpha, readers or persisted data."""
@@ -473,70 +644,18 @@ class DirectTextController(QObject):
                 if len(points) == 1:
                     offset = delta / max(dimension, 1)
                     points[0]["co"]["Y"] += offset
-                    self.anchor_offsets[key] += offset
             self.editor.setFixedHeight(height)
             self.update_geometry()
 
-    def focus_changed(self, old, new):
-        if self.draft is None or new is None:
-            return
-        if (new is self.editor or self.editor.isAncestorOf(new)
-                or new is self.view or self.view.isAncestorOf(new)
-                or new is self.window.dockProperties or self.window.dockProperties.isAncestorOf(new)):
-            return
-        # A color dialog temporarily owns focus while retaining this edit.
-        if get_app().activeModalWidget() is not None:
-            return
-        self.finish()
-
     def eventFilter(self, watched, event):
-        if watched is self.preview and event.type() == QEvent.MouseButtonRelease and self.forwarded_drag:
-            self.forwarded_drag = False
-            self.preview.releaseMouse()
-        if watched is self.window and event.type() == QEvent.WindowDeactivate:
-            self.end_forwarded_drag()
         if watched is self.preview and event.type() == QEvent.Resize:
             QTimer.singleShot(0, self.update_geometry)
-        if watched is self.view_port and event.type() == QEvent.MouseButtonPress and event.button() == Qt.LeftButton:
-            point = self.view.mapToScene(event.pos())
-            local = self.proxy.mapFromScene(point)
-            # Corners and the rectangle edge switch straight into native drag.
-            # Interior clicks retain normal QTextEdit caret/selection behavior.
-            from math import hypot
-            transform = self.proxy.sceneTransform()
-            origin = transform.map(QPointF(0, 0))
-            unit_x, unit_y = transform.map(QPointF(1, 0)), transform.map(QPointF(0, 1))
-            mx = 8 / max(0.001, hypot(unit_x.x() - origin.x(), unit_x.y() - origin.y()))
-            my = 8 / max(0.001, hypot(unit_y.x() - origin.x(), unit_y.y() - origin.y()))
-            inner = QRectF(0, 0, self.draft["width"], self.draft["height"]).adjusted(mx, my, -mx, -my) if self.draft else QRectF()
-            if self.draft is not None and not inner.contains(local):
-                self.finish()
-                # TransformSignal clears native hit geometry. Repaint now before
-                # forwarding this physical press, rather than waiting a frame.
-                self.preview.repaint()
-                from qt_api import QCoreApplication, QMouseEvent
-                QCoreApplication.sendEvent(self.preview, QMouseEvent(QEvent.MouseMove, point, Qt.NoButton, Qt.NoButton, event.modifiers()))
-                if self.preview.hover_transform_mode and self.preview.hover_transform_mode.startswith("shear_"):
-                    self.preview.hover_transform_mode = "location"
-                QCoreApplication.sendEvent(self.preview, QMouseEvent(QEvent.MouseButtonPress, point, event.button(), event.buttons(), event.modifiers()))
-                self.forwarded_drag = True
-                self.preview.grabMouse()
-                return True
         return False
 
-    def end_forwarded_drag(self):
-        if not self.forwarded_drag:
-            return
-        from qt_api import QCoreApplication, QMouseEvent
-        QCoreApplication.sendEvent(self.preview, QMouseEvent(QEvent.MouseButtonRelease,
-                                  QPointF(self.preview.mouse_position), Qt.LeftButton,
-                                  Qt.NoButton, Qt.NoModifier))
-        self.forwarded_drag = False
-        self.preview.releaseMouse()
-
     def changed(self, action):
+        if self.committing:
+            return
         if action.type == "load":
-            self.end_forwarded_drag()
             self.cancel()
             self.armed = False
         elif self.clip_id:
@@ -549,6 +668,16 @@ class DirectTextController(QObject):
                     self.draft = copy.deepcopy(clip.data["direct_text"])
                     self.layout_document()
                     self.editor.setTextCursor(cursor)
+                if clip.data.get("text_style_overrides") or self.original.get("text_style_overrides"):
+                    evaluated = evaluated_text_style(clip.data, self.style_frame)
+                    cursor = self.editor.textCursor()
+                    self.draft["text"] = self.editor.toPlainText()
+                    for key in TEXT_ANIMATED:
+                        if clip.data.get("text_" + key) != self.original.get("text_" + key):
+                            self.draft[key] = evaluated[key]
+                            self.original_style[key] = evaluated[key]
+                    self.layout_document()
+                    self.editor.setTextCursor(cursor)
                 self.original = copy.deepcopy(clip.data)
                 self.update_geometry()
 
@@ -557,19 +686,14 @@ class DirectTextController(QObject):
             return
         self._closed = True
         self.reveal_timer.stop()
-        self.finish()
         self.cancel()
         app = get_app()
         app.updates.disconnect_listener(self)
         if not self._gui_ready:
             return
-        app.focusChanged.disconnect(self.focus_changed)
-        self.window.PlaySignal.disconnect(self.finish)
-        self.window.SeekSignal.disconnect(self.finish)
-        self.end_forwarded_drag()
+        self.window.PlaySignal.disconnect(self.cancel)
+        self.window.SeekSignal.disconnect(self.cancel)
         self.preview.removeEventFilter(self)
-        self.window.removeEventFilter(self)
-        self.view_port.removeEventFilter(self)
         self.drain_snapshots()
         # Break the proxy/editor Python cycle before Qt destroys its children.
         self.editor.owner = None
@@ -583,12 +707,29 @@ class DirectTextController(QObject):
         self.snapshot_pool.clear()
         self.snapshot_pool.waitForDone()
 
-    def cancel(self):
+    def cancel(self, *args, return_focus=False):
         self.reveal_timer.stop()
         if not self._gui_ready:
             return
         self.generation += 1
         if self.snapshot_cancel is not None:
             self.snapshot_cancel.set()
+        previous_clip = self.clip_id
         self.draft = self.original = self.clip_id = None
+        self.created_clip_id = self.create_transaction = None
+        self.preview.clearTransformState()
         self.view.hide()
+        self.toolbar.hide()
+        if return_focus:
+            if previous_clip and Clip.get(id=previous_clip):
+                self.window.TransformSignal.emit([previous_clip])
+            self.restore_focus()
+
+    def restore_focus(self):
+        target, self.return_widget = self.return_widget, None
+        try:
+            usable = target is not None and target.isVisible() and target.isEnabled()
+        except RuntimeError:
+            # The widget focused before editing has since been destroyed.
+            usable = False
+        (target if usable else self.window.timeline).setFocus(Qt.OtherFocusReason)

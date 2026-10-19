@@ -156,8 +156,6 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
 
     # Save window settings on close
     def closeEvent(self, event):
-        if hasattr(self, "direct_text"):
-            self.direct_text.finish()
 
         app = get_app()
         save_geometry = getattr(self, "saveGeometry", None)
@@ -393,8 +391,6 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
                 sleep(0.25)
 
     def actionNew_trigger(self):
-        if hasattr(self, "direct_text"):
-            self.direct_text.finish()
 
 
         app = get_app()
@@ -599,8 +595,6 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
 
     def save_project(self, file_path):
         """ Save a project to a file path, and refresh the screen """
-        if hasattr(self, "direct_text"):
-            self.direct_text.finish()
         with self.lock:
             app = get_app()
             _ = app._tr  # Get translation function
@@ -702,8 +696,6 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
 
     def open_project(self, file_path, clear_thumbnails=True, interactive=True):
         """ Open a project from a file path, and refresh the screen """
-        if hasattr(self, "direct_text"):
-            self.direct_text.finish()
 
         app = get_app()
         settings = app.get_settings()
@@ -854,8 +846,6 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
 
 
     def actionOpen_trigger(self):
-        if hasattr(self, "direct_text"):
-            self.direct_text.finish()
 
         app = get_app()
         _ = app._tr
@@ -899,8 +889,6 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
             _show_open_dialog()
 
     def actionSave_trigger(self):
-        if hasattr(self, "direct_text"):
-            self.direct_text.finish()
 
         app = get_app()
         s = app.get_settings()
@@ -976,8 +964,6 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         self.last_auto_save_data_version = current_data_version
 
     def actionSaveAs_trigger(self):
-        if hasattr(self, "direct_text"):
-            self.direct_text.finish()
 
         app = get_app()
         s = app.get_settings()
@@ -1099,8 +1085,6 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
             log.info('canceled')
 
     def actionExportVideo_trigger(self, checked=True):
-        if hasattr(self, "direct_text"):
-            self.direct_text.finish()
 
         # show window
         from windows.export import Export
@@ -1129,8 +1113,6 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         import_xml()
 
     def actionUndo_trigger(self, checked=True):
-        if hasattr(self, "direct_text"):
-            self.direct_text.finish()
 
         log.info('actionUndo_trigger')
         get_app().updates.undo()
@@ -1139,8 +1121,6 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         self.refreshFrameSignal.emit()
 
     def actionRedo_trigger(self, checked=True):
-        if hasattr(self, "direct_text"):
-            self.direct_text.finish()
 
         log.info('actionRedo_trigger')
         get_app().updates.redo()
@@ -1287,8 +1267,6 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
 
     def actionPlay_trigger(self):
         """Toggle play/pause on video preview"""
-        if hasattr(self, "direct_text"):
-            self.direct_text.finish()
         player = self.preview_thread.player
         is_actively_playing = (
             player.Mode() == openshot.PLAYBACK_PLAY and
@@ -5735,9 +5713,14 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         self.actionDirectText = QAction(_("Tt — Add Text"), self)
         self.actionDirectText.setObjectName("actionDirectText")
         self.actionDirectText.setIcon(QIcon(os.path.join(info.PATH, "images", "tool-text.svg")))
-        self.actionDirectText.setToolTip(_("Add editable text at the playhead"))
+        self.actionDirectText.setToolTip(_("Add text at the playhead (Shift+T): Enter to apply, Shift+Enter for a new line, Escape to cancel"))
         self.actionDirectText.triggered.connect(self.direct_text.arm)
-        self.videoToolbar.addAction(self.actionDirectText)
+        self.timelineToolbar.addAction(self.actionDirectText)
+        self.actionText = QAction(_("Text"), self)
+        self.actionText.setObjectName("actionText")
+        self.actionText.setIcon(self.actionDirectText.icon())
+        self.actionText.triggered.connect(self.direct_text.arm)
+        self.menuTitle.insertAction(self.menuTitle.actions()[0], self.actionText)
 
         # Load window state and geometry
         self.saved_state = None

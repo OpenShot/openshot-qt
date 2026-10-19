@@ -37,34 +37,45 @@ Track above a video clip. The transparent background will allow the video below 
 Edit text directly in the preview
 ---------------------------------
 
-1. Click **Tt — Add Text** in the **Video Preview** toolbar. A visible **Text**
-   clip is added immediately at the playhead, above overlapping media. The
-   first block is centered; its selected text is ready to replace by typing.
-2. Type in the selected rectangle. Press :kbd:`Enter` for another line. Use
-   the **Properties** dock to change **Font**, **Font Size**, **Font Bold**,
-   **Font Italic**, **Text Color**, **Text Background**, **Text Alignment**,
-   and **Text Wrap Width**. Long text grows downward.
-3. Drag a corner handle to scale the block, or drag its border to move it.
-   These gestures leave caret editing and use the normal preview transforms.
-   Press :kbd:`Escape` or :kbd:`Ctrl+Enter` to leave caret editing; drag inside
-   the block to move it, or outside it to rotate. A block with no animation
-   remains static when transformed later in the clip.
-4. Double-click the preview text or choose **Edit Text** on its timeline
-   context menu to return to caret editing. Drag timeline edges to adjust
-   duration. Text undo works while typing; project **Undo** restores committed
-   edits. A locked track prevents editing.
-5. Move the playhead and click **Tt** again to create another **Text** block
-   using the previous block's style, position, scale and rotation. Each clip
-   has independent content. Copy/paste, save and export work normally;
-   saving, exporting or playing commits open caret edits automatically.
+1. Click **Tt — Add Text** in the **Timeline** toolbar, or choose **Title → Text**. A draft appears
+   immediately, with its placeholder selected and ready to replace by typing.
+   Nothing is added to Project Files or the timeline yet.
+2. Type your text. Press :kbd:`Shift+Enter` for a line break. Use the contextual
+   toolbar for font, size, bold, italic, color, and alignment. **More…** opens
+   additional controls for background fill, padding, text outline, and border.
+3. Press :kbd:`Enter` to create the text asset and its timeline clip together.
+   Press :kbd:`Escape` to discard the draft. Both return keyboard focus to the
+   timeline. Clicking elsewhere does not commit a draft.
+4. Selecting a text clip keeps keyboard focus on the timeline, including when
+   navigating with :kbd:`Ctrl+Arrow`. Press :kbd:`Enter`, double-click the text
+   in the preview, or choose **Edit Text** on the timeline context menu to type.
+   :kbd:`Space` retains its playback behavior outside text editing.
+5. While editing existing text, :kbd:`Enter` applies the changes and
+   :kbd:`Escape` reverts that editing session. Outside typing mode, use the
+   normal transform handles to position, scale, and rotate the selected clip.
 
-Direct text uses a single style for the whole multiline block. Its font size
-and wrapping are stored in project pixels, so changing the project profile
-preserves the layout. Resizing the block with transform handles scales the
-text; **Text Wrap Width** changes the layout. Installed fonts are used when editing,
-with Qt font fallback for unavailable fonts. Existing rendered text keeps its
-appearance when a project is opened on another computer. Move the project
-``.osp`` file together with its ``_assets`` folder to keep these images.
+Text appears in **Project Files** with a rendered thumbnail on black. Drag it
+onto the timeline like an image. Right-click **Edit Text…** (or double-click its
+thumbnail) to edit an asset without placing it on the timeline. **Duplicate**
+creates an independent text asset.
+
+Text, fonts, layout, and default styling belong to the shared Project Files asset.
+Editing these updates all clips using it. Text color, background fill, outline and
+border colors, and outline and border widths can be animated independently on each
+timeline clip through **Properties**. Color changes while editing a timeline clip
+also respect **Auto Keyframes** at the playhead. Editing an asset from Project Files
+changes its defaults, preserving existing clip overrides. Timing, effects, scaling,
+and rotation belong to each timeline clip. Use clip scaling to animate text size.
+Creation and shared text changes can each be undone as one project action.
+
+Text is stored in project JSON and rendered by ``QtTextReader``. It needs no source
+image file; thumbnails are disposable caches. Installed fonts are used with Qt
+fallback when a font is unavailable, so installing the same fonts on another
+computer is necessary to preserve the exact appearance. Font sizes and wrapping
+use project pixels. Direct text uses one style for the whole multiline block.
+Save and export include only committed text. Starting playback, seeking, or
+changing projects discards an unfinished editing session; press :kbd:`Enter`
+first to keep it.
 
 The SVG **Title** editor and SRT **Caption** workflows remain available for
 using templates and timed subtitles.

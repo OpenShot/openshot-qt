@@ -5709,10 +5709,12 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         snap_to_grid = lambda t: round(t * fps_float) / fps_float
 
         # Create a new Clip object with the file path
-        c = openshot.Clip(file_path)
-
-        # Convert the clip object to JSON and fill missing attributes
-        new_clip = json.loads(c.Json())
+        if file.data.get("type") == "QtTextReader":
+            from classes.direct_text import new_text_clip
+            new_clip = new_text_clip(file.data["direct_text"], None, 0, track, 10)
+        else:
+            c = openshot.Clip(file_path)
+            new_clip = json.loads(c.Json())
         new_clip["file_id"] = file.id
         new_clip["title"] = file.data.get("name", filename)
         new_clip["reader"] = file.data

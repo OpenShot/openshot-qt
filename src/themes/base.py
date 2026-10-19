@@ -440,6 +440,7 @@ QMessageBox QDialogButtonBox#qt_msgbox_buttonbox QPushButton[dialogRole="cancel"
             {"action": self.app.window.actionTimingTool, "style": Qt.ToolButtonIconOnly, "icon": ":/icons/Humanity/actions/custom/timing.svg"},
             {"action": self.app.window.actionRazorTool, "style": Qt.ToolButtonIconOnly, "icon": ":/icons/Humanity/actions/16/edit-cut.svg"},
             {"divide": True},
+            {"action": self.app.window.actionDirectText, "icon": "images/tool-text.svg", "style": Qt.ToolButtonIconOnly},
             {"action": self.app.window.actionAddMarker, "style": Qt.ToolButtonIconOnly, "icon": ":/icons/actions/add_marker.svg"},
             {"action": self.app.window.actionPreviousMarker, "style": Qt.ToolButtonIconOnly},
             {"action": self.app.window.actionNextMarker, "style": Qt.ToolButtonIconOnly},
@@ -459,9 +460,6 @@ QMessageBox QDialogButtonBox#qt_msgbox_buttonbox QPushButton[dialogRole="cancel"
             {"action": self.app.window.actionJumpEnd, "style": Qt.ToolButtonIconOnly},
             {"expand": True}
         ]
-        if hasattr(self.app.window, "actionDirectText"):
-            toolbar_buttons.insert(0, {"action": self.app.window.actionDirectText,
-                                       "icon": "images/tool-text.svg", "style": Qt.ToolButtonIconOnly})
         self.set_toolbar_buttons(self.app.window.videoToolbar, icon_size=24, settings=toolbar_buttons)
 
         # Init icons from theme name

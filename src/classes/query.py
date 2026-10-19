@@ -181,6 +181,29 @@ class Clip(QueryObject):
 
     def save(self):
         """ Save the object back to the project data store """
+        if self.data and ("direct_text" in self.data or any(key.startswith("text_") for key in self.data)):
+            from classes.direct_text import TEXT_ANIMATED, initialize_text_curves
+            # Query objects share a mutable query cache; compare with the actual
+            # project record so edits made in Properties are detected reliably.
+            old = get_app().project.get(["clips", {"id": self.id}]) if self.id else None
+            if self.data.get("direct_text") or (old and old.get("direct_text")):
+                asset_update = self.data.pop("_text_asset_update", False)
+                merged = copy.deepcopy(old or {})
+                merged.update(copy.deepcopy(self.data))
+                overrides = set(merged.get("text_style_overrides", []))
+                if old and not asset_update:
+                    for key in TEXT_ANIMATED:
+                        prop = "text_" + key
+                        if prop in self.data and self.data[prop] != old.get(prop):
+                            overrides.add(key)
+                merged["text_style_overrides"] = sorted(overrides)
+                initialize_text_curves(merged)
+                self.data["text_style_overrides"] = merged["text_style_overrides"]
+                self.data["reader"] = merged["reader"]
+                for key in TEXT_ANIMATED:
+                    prop = "text_" + key
+                    if prop in self.data or not old or prop not in old:
+                        self.data[prop] = merged[prop]
         super().save(Clip)
 
     def delete(self):

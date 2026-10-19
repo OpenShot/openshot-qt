@@ -26,12 +26,14 @@ passed = False
 def verify():
     global passed
     try:
-        from classes.direct_text import default_text, new_text_clip
+        from classes.direct_text import default_text, new_text_clip, save_text_asset, evaluated_text_style
         window = app.window
         style = default_text(app.project.get("width"), app.project.get("height"))
         style["text"] = "Visible text"
         clip = Clip()
         clip.data = new_text_clip(style, root, 0.0, app.project.get("layers")[-1]["number"], 4.0)
+        asset = save_text_asset(style)
+        clip.data["file_id"] = asset.id
         clip.save()
         app.processEvents()
         model = window.propertyTableView.clip_properties_model
@@ -46,7 +48,7 @@ def verify():
 
         keys = {model.model.item(row, 0).data()[0] for row in range(model.model.rowCount())}
         assert {"alpha", "location_x", "location_y", "scale_x", "scale_y", "rotation"} <= keys, keys
-        for key in ("font_family", "font_bold", "font_italic", "font_size", "color", "background", "alignment", "width", "text"):
+        for key in ("font_family", "font_bold", "font_italic", "font_size", "alignment", "width", "text"):
             label = model.model.item(item("direct_text." + key).row(), 0).data()[1]
             assert label["points"] == 0 and not label["readonly"], label
 
@@ -56,12 +58,12 @@ def verify():
                            ("alignment", "center"), ("width", 500), ("text", "Typography\nsecond line")):
             model.value_updated(item("direct_text." + key), value=value)
             assert Clip.get(id=clip.id).data["direct_text"][key] == value
-        model.color_update(item("direct_text.color"), QColor("#ffdd2200"))
-        model.color_update(item("direct_text.background"), QColor("#80445566"))
+        model.color_update(item("text_color"), QColor("#ffdd2200"))
+        model.color_update(item("text_background"), QColor("#80445566"))
         after = copy.deepcopy(Clip.get(id=clip.id).data)
-        assert QColor(after["direct_text"]["color"]) == QColor("#ffdd2200")
-        assert QColor(after["direct_text"]["background"]) == QColor("#80445566")
-        assert initial["reader"]["path"] != after["reader"]["path"]
+        assert QColor(evaluated_text_style(after, 1)["color"]) == QColor("#ffdd2200")
+        assert QColor(evaluated_text_style(after, 1)["background"]) == QColor("#80445566")
+        assert initial["reader"]["font"] != after["reader"]["font"]
         for key in ("alpha", "location_x", "location_y", "scale_x", "scale_y", "rotation", "position", "start", "end"):
             assert initial[key] == after[key], key
         app.updates.undo()
@@ -69,6 +71,23 @@ def verify():
         app.updates.redo()
         assert Clip.get(id=clip.id).data["direct_text"] == after["direct_text"]
         assert model.model.item(item("direct_text.font_size").row(), 1).text() == "81"
+        # Explicit color keys use normal per-clip curves and survive shared edits.
+        model.frame_number = 31
+        model.color_update(item("text_color"), QColor("#0000ff"), force_insert=True)
+        animated = Clip.get(id=clip.id).data
+        assert len(animated["text_color"]["red"]["Points"]) == 2
+        assert QColor(evaluated_text_style(animated, 31)["color"]) == QColor("#0000ff")
+        assert animated["reader"]["text_animation"]["color"] == animated["text_color"]
+        from classes.query import File
+        assert File.get(id=asset.id).data["direct_text"]["color"] == style["color"]
+        app.updates.undo()
+        model.frame_number = 1
+        model.remove_keyframe(item("text_color"))
+        reset = Clip.get(id=clip.id).data
+        assert QColor(evaluated_text_style(reset, 1)["color"]) == QColor(style["color"])
+        assert all(reset["text_color"][channel]["Points"] for channel in ("red", "green", "blue", "alpha"))
+        app.updates.undo()
+        assert Clip.get(id=clip.id).data["text_color"] == after["text_color"]
         # Both font entry points use this helper: persist family, size and face,
         # and undo the complete accepted dialog as a single action.
         from unittest.mock import patch
@@ -83,7 +102,7 @@ def verify():
         selected_font = Clip.get(id=clip.id).data["direct_text"]
         assert selected_font["font_size"] == 93 and not selected_font["font_bold"] and not selected_font["font_italic"]
         assert selected_font["font_family"] == "DejaVu Serif"
-        assert Clip.get(id=clip.id).data["reader"]["path"] != after["reader"]["path"]
+        assert Clip.get(id=clip.id).data["reader"]["font"] != after["reader"]["font"]
         app.updates.undo()
         assert Clip.get(id=clip.id).data["direct_text"] == after["direct_text"]
         # Empty text is a legitimate property edit (no stale visible glyphs).
@@ -106,7 +125,7 @@ def verify():
         assert model.model.rowCount() > 0, "Properties blank when editing selected text"
         assert item("direct_text.font_size") and item("scale_x")
         controller.editor.insertPlainText(" edited")
-        controller.finish()
+        controller.finish(commit=True)
         window.actionUndo_trigger()
         controller.begin(clip.id)
         assert model.model.rowCount() > 0, "Properties blank when reopening after Undo"
@@ -115,6 +134,23 @@ def verify():
         assert model.model.rowCount() > 0, "Queued selection cleared text Properties"
         assert item("direct_text.font_size") and item("location_x")
         controller.cancel()
+        # Animated colors persist in project JSON without changing sibling clips.
+        sibling = Clip()
+        sibling.data = new_text_clip(File.get(id=asset.id).data["direct_text"], root, 5.0,
+                                     after["layer"], 4.0)
+        sibling.data["file_id"] = asset.id
+        sibling.save()
+        model.frame_number = 31
+        model.color_update(item("text_color"), QColor("#800000ff"), force_insert=True)
+        animated = copy.deepcopy(Clip.get(id=clip.id).data)
+        project_path = os.path.join(root, "animated-text.osp")
+        app.project.save(project_path)
+        app.project.load(project_path, interactive=False)
+        restored = Clip.get(id=clip.id).data
+        assert restored["text_color"] == animated["text_color"]
+        assert restored["reader"]["text_animation"] == animated["reader"]["text_animation"]
+        assert QColor(evaluated_text_style(restored, 31)["color"]) == QColor("#800000ff")
+        assert QColor(evaluated_text_style(Clip.get(id=sibling.id).data, 31)["color"]) == QColor(style["color"])
         passed = True
         print("TEXT_PROPERTIES_PASSED", flush=True)
     except Exception:

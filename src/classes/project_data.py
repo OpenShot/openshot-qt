@@ -1405,6 +1405,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
             # Copy any necessary assets for File records
             for file in self._data["files"]:
+                if file.get("type") == "QtTextReader":
+                    continue
                 path = file["path"]
                 file_id = file["id"]
 
@@ -1755,12 +1757,32 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
             return True
 
+        # Generated text sources are defined by JSON, never by filesystem paths.
+        # Upgrade earlier experimental clip-owned text and synchronize instances.
+        from classes.direct_text import reader_data, initialize_text_curves
+        text_assets = {f["id"]: f for f in self._data["files"] if f.get("type") == "QtTextReader"}
+        for clip in self._data["clips"]:
+            if not clip.get("direct_text"):
+                continue
+            asset = text_assets.get(clip.get("file_id"))
+            if asset is None:
+                asset = reader_data(clip["direct_text"])
+                asset.update(id=self.generate_id(), name=clip.get("title") or "Text")
+                self._data["files"].append(asset)
+                text_assets[asset["id"]] = asset
+            clip["file_id"] = asset["id"]
+            clip["reader"] = copy.deepcopy(asset)
+            clip["direct_text"] = copy.deepcopy(asset["direct_text"])
+            initialize_text_curves(clip)
+
         # Loop through each files in natural-sorted filename order
         files_sorted = sorted(
             self._data["files"],
             key=lambda f: os.path.basename(f.get("path", "")).lower()
         )
         for file in files_sorted:
+            if file.get("type") == "QtTextReader":
+                continue
             path = file["path"]
             parent_path, file_name_with_ext = os.path.split(path)
 
