@@ -168,6 +168,86 @@ class Capabilities:
         return [name for name in candidates if self.format(name).get("found")]
 
 
+# Longest encoder menu before it's split into groups
+MENU_LIMIT = 20
+
+
+def encoder_menu(encoders, media_type, tr=lambda text: text):
+    """Split a long list of encoders into short groups that are quick to skim.
+
+    encoders: dicts like Capabilities.encoder() returns. Returns a list of nodes, where each node
+    is an encoder dict or a (title, [nodes]) group: categories (i.e. Hardware Accelerated), then
+    families of related encoders (i.e. PCM), then alphabetical ranges when still too long.
+    """
+    _ = tr
+    encoders = sorted(encoders, key=lambda encoder: encoder.get("name", ""))
+    if len(encoders) <= MENU_LIMIT:
+        return encoders
+    if media_type == "video":
+        categories = [
+            (_("Hardware Accelerated"), lambda e: e.get("hardware")),
+            (_("Delivery"), lambda e: e.get("lossy") and not e.get("intra_only")),
+            (_("Editing (Intra-frame)"), lambda e: e.get("lossy")),
+            (_("Lossless"), lambda e: e.get("lossless")),
+        ]
+    else:
+        categories = [(_("Lossy"), lambda e: e.get("lossy")),
+                      (_("Lossless & Uncompressed"), lambda e: e.get("lossless"))]
+    categories.append((_("Other"), lambda e: True))
+
+    groups = []
+    remaining = encoders
+    for title, belongs in categories:
+        members = [encoder for encoder in remaining if belongs(encoder)]
+        remaining = [encoder for encoder in remaining if not belongs(encoder)]
+        if members:
+            groups.append(("%s (%d)" % (title, len(members)), _menu_ranges(_encoder_families(members))))
+    return groups[0][1] if len(groups) == 1 else groups
+
+
+def _menu_label(node):
+    return node[0] if isinstance(node, tuple) else node.get("name", "")
+
+
+def _encoder_families(encoders):
+    """Group related encoders: the same codec (i.e. h264), or else the same prefix (i.e. pcm_)."""
+    codecs = {}
+    for encoder in encoders:
+        codecs[encoder.get("codec")] = codecs.get(encoder.get("codec"), 0) + 1
+    families = {}
+    for encoder in encoders:
+        name = encoder.get("name", "")
+        codec = encoder.get("codec")
+        family = codec if codec and codecs[codec] >= 3 else (name.split("_")[0] if "_" in name else None)
+        families.setdefault(family, []).append(encoder)
+    nodes = []
+    for family, members in families.items():
+        if family and len(members) >= 3:
+            nodes.append(("%s (%d)" % (family.upper(), len(members)), members))
+        else:
+            nodes.extend(members)
+    return sorted(nodes, key=lambda node: _menu_label(node).lower())
+
+
+def _menu_ranges(nodes):
+    """Split a long menu into alphabetical ranges (i.e. "A – F")."""
+    if len(nodes) <= MENU_LIMIT:
+        return nodes
+    count = -(-len(nodes) // MENU_LIMIT)
+    size = -(-len(nodes) // count)
+    ranges = []
+    for start in range(0, len(nodes), size):
+        part = nodes[start:start + size]
+        first, last = _menu_label(part[0]), _menu_label(part[-1])
+        if first[:1].upper() != last[:1].upper():
+            title = "%s – %s" % (first[:1].upper(), last[:1].upper())
+        else:
+            # Many names share a first letter (i.e. lib*), so show them whole
+            title = "%s – %s" % (first, last)
+        ranges.append((title, part))
+    return ranges
+
+
 def _closest(value, choices):
     return min(choices, key=lambda choice: (abs(choice - value), -choice))
 

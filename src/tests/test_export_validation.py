@@ -217,6 +217,35 @@ class ExportValidationTests(unittest.TestCase):
         self.assertIsNone(self.validator.engine_issue(settings(), {"checked": True, "ok": True}))
         self.assertIsNone(self.validator.engine_issue(settings(), dict(failed, checked=False)))
 
+    def test_long_encoder_menus_split_into_short_groups(self):
+        from classes.export_validation import MENU_LIMIT, encoder_menu
+        encoders = [{"name": "h264_hw%d" % index, "codec": "h264", "hardware": True, "lossy": True}
+                    for index in range(4)]
+        encoders += [{"name": letter * 3, "codec": letter, "lossy": True} for letter in "abcdefghijklmnopqrstuvwxy"]
+        encoders += [{"name": "prores%d" % index, "codec": "prores", "lossy": True, "intra_only": True}
+                     for index in range(3)]
+        encoders += [{"name": "ffv%d" % index, "codec": "ffv%d" % index, "lossless": True} for index in range(2)]
+        menu = encoder_menu(encoders, "video")
+        titles = [node[0] for node in menu]
+        self.assertEqual(titles, ["Hardware Accelerated (4)", "Delivery (25)", "Editing (Intra-frame) (3)",
+                                  "Lossless (2)"])
+        # Shared codecs form a family; a long category splits into alphabetical ranges
+        self.assertEqual(menu[0][1][0][0], "H264 (4)")
+        self.assertEqual([title for title, _ in menu[1][1]], ["A – M", "N – Y"])
+        self.assertTrue(all(len(part) <= MENU_LIMIT for _, part in menu[1][1]))
+        self.assertEqual(menu[2][1][0][0], "PRORES (3)")
+        # Ranges within one letter name their first and last entries
+        same = [{"name": "lib%02d" % index, "codec": "c%d" % index, "lossy": True} for index in range(30)]
+        self.assertEqual([title for title, _ in encoder_menu(same, "video")], ["lib00 – lib14", "lib15 – lib29"])
+
+        # Name prefixes group families too (i.e. pcm_*), and short lists stay flat
+        audio = [{"name": "pcm_%02d" % index, "codec": "pcm_%02d" % index, "lossless": True} for index in range(25)]
+        audio += [{"name": "aac", "codec": "aac", "lossy": True}]
+        menu = encoder_menu(audio, "audio")
+        self.assertEqual([node[0] for node in menu], ["Lossy (1)", "Lossless & Uncompressed (25)"])
+        self.assertEqual(menu[1][1][0][0], "PCM (25)")
+        self.assertEqual(encoder_menu(audio[-3:], "audio"), sorted(audio[-3:], key=lambda e: e["name"]))
+
     def test_older_libopenshot_only_checks_what_it_can(self):
         validator = ExportValidator(Capabilities(OldWriter))
         found = {issue.field for issue in validator.validate(settings(vformat="webm", sample_rate=44000))}
@@ -449,6 +478,40 @@ class ExportDialogValidationTests(unittest.TestCase):
             count = len(calls)
             self.assertFalse(validation.confirm_with_engine())
             self.assertEqual(len(calls), count + 1)
+
+    def test_icons_are_sharp_on_high_dpi_screens(self):
+        from qt_api import QSize
+        from windows.export_validation_ui import chevron_icon, issue_icon
+        from qt_api import QColor
+        for icon, size in ((issue_icon(export_validation.ERROR), 14), (chevron_icon(QColor("white")), 16)):
+            sizes = icon.availableSizes()
+            self.assertIn(QSize(size, size), sizes)
+            self.assertIn(QSize(size * 2, size * 2), sizes)
+            self.assertIn(QSize(size * 3, size * 3), sizes)
+
+    def test_problem_menu_wraps_long_messages_and_applies_fixes(self):
+        from windows.export_validation_ui import MESSAGE_WIDTH, IssueMenuItem
+        dialog, validation = self.dialog()
+        dialog.txtAudioCodec.setText("libfdk_aac")
+        dialog.txtAudioBitrate.setText("128")
+        validation.validate()
+        menu = validation.issue_menu()
+        items = [action.defaultWidget() for action in menu.actions() if hasattr(action, "defaultWidget")
+                 and isinstance(action.defaultWidget(), IssueMenuItem)]
+        self.assertEqual(len(items), 2)
+        for item in items:
+            self.assertTrue(item.message.wordWrap())
+            self.assertLessEqual(item.message.width(), MESSAGE_WIDTH)
+            self.assertTrue(item.fix.text().startswith("Use "))
+        self.assertTrue(dialog.txtAudioCodec.toolTip().startswith("<qt>"))
+        items[0].clicked.emit()
+        self.assertEqual(len(validation.errors), 1)
+
+    def test_cover_image_formats_only_offer_image_codecs(self):
+        dialog, validation = self.dialog()
+        dialog.txtVideoFormat.setText("mp3")
+        choices, more = validation.choices("vcodec")
+        self.assertEqual([value for _label, value in choices + more], ["png"])
 
 if __name__ == "__main__":
     unittest.main()

@@ -24,7 +24,8 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-from functools import partial
+from functools import lru_cache, partial
+import html
 import json
 import os
 import tempfile
@@ -32,9 +33,10 @@ import threading
 
 import openshot
 from qt_api import (
-    QColor, QComboBox, QIcon, QLineEdit, QMenu, QObject, QPainter, QPen, QPixmap, QPoint, QPointF, QSpinBox,
-    QTimer, QToolButton, Qt, pyqtSignal,
+    QColor, QComboBox, QHBoxLayout, QIcon, QLabel, QLineEdit, QMenu, QObject, QPen, QPoint, QPointF, QPolygonF,
+    QRectF, QSize, QSpinBox, QTimer, QToolButton, QVBoxLayout, QWidget, QWidgetAction, Qt, pyqtSignal, QEvent,
 )
+from classes.ui_util import painted_icon
 from classes.app import get_app
 from classes.logger import log
 from classes import export_validation
@@ -89,34 +91,109 @@ def _enum(owner, name, scope):
     return value if value is not None else getattr(getattr(owner, scope), name)
 
 
+# Problem messages wrap at this width (in the status menu and tooltips)
+MESSAGE_WIDTH = 360
+
+
+def rich_text(lines):
+    """Tooltip text Qt wraps at a comfortable width, instead of one long line."""
+    return "<qt>%s</qt>" % "<br>".join(html.escape(line) for line in lines)
+
+
+@lru_cache(maxsize=None)
 def issue_icon(severity, size=14):
     """A small round badge (red for errors, amber for warnings)."""
-    pixmap = QPixmap(size, size)
-    pixmap.fill(Qt.transparent)
-    painter = QPainter(pixmap)
-    painter.setRenderHint(QPainter.Antialiasing)
-    painter.setPen(Qt.NoPen)
-    painter.setBrush(QColor(ERROR_COLOR if severity == ERROR else WARNING_COLOR))
-    painter.drawEllipse(1, 1, size - 2, size - 2)
-    painter.setPen(QPen(QColor("#ffffff"), 1.6))
-    middle = size / 2.0
-    painter.drawLine(QPointF(middle, size * 0.27), QPointF(middle, size * 0.58))
-    painter.drawPoint(QPointF(middle, size * 0.74))
-    painter.end()
-    return QIcon(pixmap)
+    def paint(painter):
+        painter.setPen(Qt.NoPen)
+        painter.setBrush(QColor(ERROR_COLOR if severity == ERROR else WARNING_COLOR))
+        painter.drawEllipse(QRectF(1, 1, size - 2, size - 2))
+        pen = QPen(QColor("#ffffff"), 1.6)
+        pen.setCapStyle(Qt.RoundCap)
+        painter.setPen(pen)
+        middle = size / 2.0
+        painter.drawLine(QPointF(middle, size * 0.27), QPointF(middle, size * 0.56))
+        painter.drawPoint(QPointF(middle, size * 0.74))
+    return painted_icon(size, size, paint)
 
 
 def chevron_icon(color, size=16):
     """A small down chevron, for the choice menus."""
-    pixmap = QPixmap(size, size)
-    pixmap.fill(Qt.transparent)
-    painter = QPainter(pixmap)
-    painter.setRenderHint(QPainter.Antialiasing)
-    painter.setPen(QPen(color, 1.3))
-    painter.drawLine(QPointF(size * 0.3, size * 0.4), QPointF(size * 0.5, size * 0.6))
-    painter.drawLine(QPointF(size * 0.5, size * 0.6), QPointF(size * 0.7, size * 0.4))
-    painter.end()
-    return QIcon(pixmap)
+    def paint(painter):
+        pen = QPen(color, 1.3)
+        pen.setCapStyle(Qt.RoundCap)
+        pen.setJoinStyle(Qt.RoundJoin)
+        painter.setPen(pen)
+        painter.drawPolyline(QPolygonF([QPointF(size * 0.3, size * 0.4), QPointF(size * 0.5, size * 0.6),
+                                        QPointF(size * 0.7, size * 0.4)]))
+    return painted_icon(size, size, paint)
+
+
+class IssueMenuItem(QWidget):
+    """One problem in the status menu: badge, wrapped message, and its fix, clickable as a row."""
+    clicked = pyqtSignal()
+
+    def __init__(self, icon, message, fix_text="", parent=None):
+        super().__init__(parent)
+        self.setObjectName("exportIssueItem")
+        self.setAttribute(Qt.WA_Hover, True)
+        self.setAttribute(Qt.WA_StyledBackground, True)
+        self.setFocusPolicy(Qt.StrongFocus)
+        self.setCursor(Qt.PointingHandCursor)
+        self.setStyleSheet("""
+            QWidget#exportIssueItem { border-radius: 4px; }
+            QWidget#exportIssueItem:hover, QWidget#exportIssueItem:focus { background: palette(highlight); }
+            QWidget#exportIssueItem:hover QLabel, QWidget#exportIssueItem:focus QLabel {
+                color: palette(highlighted-text); }
+        """)
+        layout = QHBoxLayout(self)
+        layout.setContentsMargins(10, 6, 12, 6)
+        layout.setSpacing(8)
+        badge = QLabel(self)
+        badge.setPixmap(icon.pixmap(QSize(14, 14)))
+        badge.setFixedSize(14, 14)
+        layout.addWidget(badge, 0, Qt.AlignTop)
+        text = QVBoxLayout()
+        text.setSpacing(2)
+        self.message = QLabel(message, self)
+        self.message.setWordWrap(True)
+        self.message.setTextFormat(Qt.PlainText)
+        text.addWidget(self.message)
+        self.fix = None
+        if fix_text:
+            self.fix = QLabel(fix_text, self)
+            self.fix.setTextFormat(Qt.PlainText)
+            font = self.fix.font()
+            font.setBold(True)
+            self.fix.setFont(font)
+            text.addWidget(self.fix)
+        layout.addLayout(text)
+        layout.addStretch(1)
+        self.fit_message()
+
+    def fit_message(self):
+        """Size the message for its wrapped lines (menus don't size wrapped labels themselves)."""
+        # Measure with the theme's font, which is only applied once polished
+        self.ensurePolished()
+        self.message.ensurePolished()
+        natural = self.message.fontMetrics().boundingRect(self.message.text()).width() + 8
+        width = min(natural, MESSAGE_WIDTH)
+        self.message.setFixedSize(width, self.message.heightForWidth(width))
+        self.adjustSize()
+
+    def changeEvent(self, event):
+        super().changeEvent(event)
+        if event.type() in (QEvent.FontChange, QEvent.StyleChange) and hasattr(self, "message"):
+            self.fit_message()
+
+    def mouseReleaseEvent(self, event):
+        if self.rect().contains(event.pos()):
+            self.clicked.emit()
+
+    def keyPressEvent(self, event):
+        if event.key() in (Qt.Key_Return, Qt.Key_Enter, Qt.Key_Space):
+            self.clicked.emit()
+        else:
+            super().keyPressEvent(event)
 
 
 class ExportValidationUI(QObject):
@@ -404,7 +481,7 @@ class ExportValidationUI(QObject):
                 lines.append(issue.message)
                 if issue.fix_label:
                     lines.append(_("Suggested: %s") % issue.fix_label)
-            widget.setToolTip("\n".join(lines))
+            widget.setToolTip(rich_text(lines) if field_issues else "\n".join(lines))
 
         # Badge each toolbox section, and the tab holding them
         toolbox = self.dialog.toolBox
@@ -434,7 +511,7 @@ class ExportValidationUI(QObject):
             text, severity = "", ""
         self.status_button.setText(text)
         self.status_button.setIcon(issue_icon(severity) if severity else QIcon())
-        self.status_button.setToolTip("\n".join(issue.message for issue in self.issues))
+        self.status_button.setToolTip(rich_text(issue.message for issue in self.issues))
         self.status_button.setProperty("exportIssue", severity)
         self.status_button.style().unpolish(self.status_button)
         self.status_button.style().polish(self.status_button)
@@ -507,6 +584,14 @@ class ExportValidationUI(QObject):
             self.reveal(self.errors[0].field)
 
     def show_issue_menu(self):
+        menu = self.issue_menu()
+        # Open above the button, which sits at the bottom of the dialog
+        position = self.status_button.mapToGlobal(QPoint(0, 0))
+        position.setY(position.y() - menu.sizeHint().height())
+        menu.exec_(position)
+
+    def issue_menu(self):
+        """The status button's menu: each problem, wrapped, with its fix (and Fix All)."""
         _ = self._
         menu = QMenu(self.dialog)
         fixable = [issue for issue in self.errors if issue.fix is not None]
@@ -514,16 +599,20 @@ class ExportValidationUI(QObject):
             menu.addAction(_("Fix All")).triggered.connect(self.fix_all)
             menu.addSeparator()
         for issue in self.issues:
-            action = menu.addAction(issue_icon(issue.severity), issue.message)
+            fix_text = _("Use %s") % issue.fix_label if issue.fix is not None else ""
+            item = IssueMenuItem(issue_icon(issue.severity), issue.message, fix_text, menu)
+            action = QWidgetAction(menu)
+            action.setDefaultWidget(item)
+            menu.addAction(action)
+            # triggered(bool) passes "checked", which isn't for these slots
             if issue.fix is not None:
-                action.setText(_("%(problem)s → Use %(fix)s") % {"problem": issue.message, "fix": issue.fix_label})
-                action.triggered.connect(partial(self.apply_fix, issue))
+                action.triggered.connect(lambda _checked=False, issue=issue: self.apply_fix(issue))
             else:
-                action.triggered.connect(partial(self.reveal, issue.field))
-        # Open above the button, which sits at the bottom of the dialog
-        position = self.status_button.mapToGlobal(QPoint(0, 0))
-        position.setY(position.y() - menu.sizeHint().height())
-        menu.exec_(position)
+                action.triggered.connect(lambda _checked=False, field=issue.field: self.reveal(field))
+            # Rows are widgets, so trigger and close the menu ourselves
+            item.clicked.connect(action.trigger)
+            item.clicked.connect(menu.close)
+        return menu
 
     # ----- Choices -----
 
@@ -536,16 +625,30 @@ class ExportValidationUI(QObject):
         return "%s (%s)" % (long_name, name) if long_name else name
 
     def _encoder_choices(self, media_type, vformat):
+        """(top choices, More menu nodes) for an encoder field."""
         caps = self.validator.caps
         if caps.available:
             encoders = caps.encoders(media_type, vformat)
         else:
             encoders = [{"name": name} for name in PREFERRED_ENCODERS[media_type] if caps.encoder(name).get("found")]
+        if media_type == "video" and self.validator.is_cover_image_format(vformat):
+            # Only a cover image fits (i.e. mp3)
+            encoders = [encoder for encoder in encoders if encoder["name"] in export_validation.COVER_IMAGE_CODECS]
         names = [encoder["name"] for encoder in encoders]
         top = [encoders[names.index(name)] for name in PREFERRED_ENCODERS[media_type] if name in names]
-        rest = sorted((encoder for encoder in encoders if encoder not in top), key=lambda e: e["name"])
-        return ([(self._encoder_label(e), e["name"]) for e in top],
-                [(self._encoder_label(e), e["name"]) for e in rest])
+        rest = [dict(caps.encoder(encoder["name"]), **encoder) for encoder in encoders if encoder not in top]
+        more = export_validation.encoder_menu(rest, media_type, self._)
+        return [(self._encoder_label(e), e["name"]) for e in top], self._menu_choices(more)
+
+    def _menu_choices(self, nodes):
+        """Turn encoder_menu() nodes into (label, value) choices and (title, [choices]) groups."""
+        choices = []
+        for node in nodes:
+            if isinstance(node, tuple):
+                choices.append((node[0], self._menu_choices(node[1])))
+            else:
+                choices.append((self._encoder_label(node), node["name"]))
+        return choices
 
     def choices(self, field):
         """Return (choices, more_choices) as lists of (label, value)."""
@@ -577,6 +680,11 @@ class ExportValidationUI(QObject):
         return [], []
 
     def show_choices(self, field, *_args):
+        widget = self.fields[field]
+        self.choices_menu(field).exec_(widget.mapToGlobal(widget.rect().bottomLeft()))
+
+    def choices_menu(self, field):
+        """The choice menu for a field: compatible options first, the rest grouped under More."""
         _ = self._
         widget = self.fields[field]
         choices, more = self.choices(field)
@@ -586,11 +694,18 @@ class ExportValidationUI(QObject):
             self._add_choice(menu, field, label, value, current)
         if more:
             submenu = menu.addMenu(_("More")) if choices else menu
-            for label, value in more:
-                self._add_choice(submenu, field, label, value, current)
+            self._add_choices(submenu, field, more, current)
         if menu.isEmpty():
             menu.addAction(_("No compatible options found")).setEnabled(False)
-        menu.exec_(widget.mapToGlobal(widget.rect().bottomLeft()))
+        return menu
+
+    def _add_choices(self, menu, field, choices, current):
+        """Add (label, value) choices, and (title, [choices]) groups as submenus."""
+        for label, value in choices:
+            if isinstance(value, list):
+                self._add_choices(menu.addMenu(label), field, value, current)
+            else:
+                self._add_choice(menu, field, label, value, current)
 
     def _add_choice(self, menu, field, label, value, current):
         action = menu.addAction(label)
