@@ -208,7 +208,6 @@ def verify():
         window.timeline.addClip(asset_id, QPointF(12.0, 0), first.data["layer"], call_manual_move=False)
         instances = Clip.filter(file_id=asset_id)
         assert len(instances) == 2
-        second = next(c for c in instances if c.id != created_id)
         original_transforms = {c.id: {k: copy.deepcopy(c.data[k]) for k in ("position", "scale_x", "rotation")}
                                for c in instances}
         window.timeline.AddSelectionJS(created_id, "clip", True)
@@ -245,7 +244,7 @@ def verify():
         assert len(Clip.filter(file_id=asset_id)) == 2 and window.timeline.hasFocus()
 
         # Entering typing after a double-click must end any preview drag.
-        from qt_api import QCoreApplication, QMouseEvent, QEvent
+        from qt_api import QCoreApplication, QMouseEvent
         window.SeekSignal.emit(1, True)
         QTest.qWait(100)
         before_rotation = copy.deepcopy(Clip.get(id=created_id).data["rotation"])
@@ -267,7 +266,7 @@ def verify():
         assert not preview.mouse_pressed and not preview.mouse_dragging
 
         # Cached Project Files and timeline previews are text on opaque black.
-        source, name, _ = window.files_model._thumbnail_source_for_file(File.get(id=asset_id))
+        source, _, _ = window.files_model._thumbnail_source_for_file(File.get(id=asset_id))
         image = QImage(source)
         assert not image.isNull() and image.pixelColor(image.width() // 2, 0).name() == "#000000"
         assert image.pixelColor(image.width() // 2, 0).alpha() == 255
@@ -419,7 +418,7 @@ def verify():
         assert all(selected for _, c, selected in timeline.geometry.iter_clips(viewport=False) if c.id in pair)
         app.updates.undo()
         assert Clip.get(id=second_id).data["direct_text"]["color"] != "#ff00ff00"
-        window.timeline.ClearAllSelections() if hasattr(window.timeline, "ClearAllSelections") else None
+        window.timeline.ClearAllSelections()
 
         # Native Clip JSON reload and frame generation need no text file.
         import openshot

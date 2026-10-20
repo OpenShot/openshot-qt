@@ -181,7 +181,8 @@ class Clip(QueryObject):
 
     def save(self):
         """ Save the object back to the project data store """
-        if self.data and ("direct_text" in self.data or any(key.startswith("text_") for key in self.data)):
+        if isinstance(self.data, dict) and ("direct_text" in self.data
+                                            or any(key.startswith("text_") for key in self.data)):
             from classes.direct_text import TEXT_ANIMATED, initialize_text_curves
             # Query objects share a mutable query cache; compare with the actual
             # project record so edits made in Properties are detected reliably.

@@ -406,7 +406,6 @@ class KeyboardMixin:
 
     def keyPressEvent(self, event):
         if event.key() in (Qt.Key_Return, Qt.Key_Enter) and event.modifiers() == Qt.NoModifier:
-            from classes.query import Clip
             selected = getattr(self.window, "selected_clips", [])
             clip = Clip.get(id=selected[0]) if len(selected) == 1 else None
             if clip and clip.data.get("direct_text"):

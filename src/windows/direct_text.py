@@ -5,7 +5,7 @@ import json
 from qt_api import (
     Qt, QEvent, QGraphicsScene, QGraphicsView, QTextEdit, QFrame, QPalette,
     QColor, QAbstractButton,
-    QTextCursor, QRectF, QPointF, QObject, QTimer, QImage, QPixmap, QRunnable, QThreadPool, pyqtSignal,
+    QRectF, QPointF, QObject, QTimer, QImage, QPixmap, QRunnable, QThreadPool, pyqtSignal,
 )
 from classes.app import get_app
 from classes import info
@@ -53,9 +53,10 @@ class SnapshotTask(QRunnable):
             if native is not None:
                 try:
                     native.Close()
-                except Exception:
+                except Exception as exc:
                     # Reader destruction must not unwind across QRunnable.run.
-                    pass
+                    from classes.logger import log
+                    log.debug("Unable to close text background reader: %s", exc)
 
 
 class TextPreviewView(QGraphicsView):
@@ -400,7 +401,6 @@ class DirectTextController(QObject):
 
     def geometry(self, data):
         import openshot
-        project = get_app().project
         native = openshot.Clip()
         native.SetJson(json.dumps(data))
         try:
@@ -616,7 +616,6 @@ class DirectTextController(QObject):
 
     def capture_background(self):
         """One isolated frame; never alter preview alpha, readers or persisted data."""
-        import openshot
         # Use the native preview JSON to retain mapper/proxy configuration.
         # Every reader belongs exclusively to this temporary timeline.
         timeline = self.window.timeline_sync.timeline
