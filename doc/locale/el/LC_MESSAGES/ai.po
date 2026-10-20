@@ -1,0 +1,1482 @@
+# Translated with AI assistance (Claude) and reviewed; UI labels follow the official OpenShot Greek UI catalog.
+# Greek translation of the OpenShot Video Editor documentation.
+# Copyright (C) OpenShot Studios, LLC
+# This file is distributed under the same license as the OpenShot Video Editor package.
+# Ioannis-Stylianos Lafazanis <jslafazanis@gmail.com>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenShot Video Editor 4.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-27 00:00+0000\n"
+"PO-Revision-Date: 2026-10-20 15:50+0300\n"
+"Last-Translator: Ioannis-Stylianos Lafazanis <jslafazanis@gmail.com>\n"
+"Language-Team: Greek <el@li.org>\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../ai.rst:23
+msgid "Advanced AI: ComfyUI"
+msgstr "Προηγμένη τεχνητή νοημοσύνη (AI): ComfyUI"
+
+#: ../ai.rst:25
+msgid ""
+"OpenShot can connect to a local `ComfyUI "
+"<https://github.com/comfyanonymous/ComfyUI>`_ server and run AI workflows "
+"from the Project Files and Timeline context menus. This page explains what "
+"these tools are, what hardware they require, and where the built-in workflow"
+" templates live."
+msgstr ""
+"Το OpenShot μπορεί να συνδεθεί με έναν τοπικό διακομιστή `ComfyUI "
+"<https://github.com/comfyanonymous/ComfyUI>`_ και να εκτελέσει ροές εργασίας"
+" AI από τα μενού περιβάλλοντος των Αρχείων Έργου (Project Files) και του "
+"Χρονολογίου (Timeline). Η σελίδα αυτή εξηγεί τι είναι αυτά τα εργαλεία, τι "
+"υλικό απαιτούν και πού βρίσκονται τα ενσωματωμένα πρότυπα ροών εργασίας."
+
+#: ../ai.rst:30
+msgid ""
+"AI features in OpenShot are **experimental** and require a **high-end "
+"workstation**."
+msgstr ""
+"Οι λειτουργίες AI στο OpenShot είναι **πειραματικές** και απαιτούν **σταθμό "
+"εργασίας υψηλών προδιαγραφών**."
+
+#: ../ai.rst:32
+msgid ""
+"These tools are **not recommended** for laptops, mid-range desktops, or "
+"budget systems."
+msgstr ""
+"Τα εργαλεία αυτά **δεν συνιστώνται** για φορητούς υπολογιστές, επιτραπέζιους"
+" μεσαίων προδιαγραφών ή συστήματα περιορισμένου προϋπολογισμού."
+
+#: ../ai.rst:33
+msgid ""
+"You must run a local `ComfyUI <https://github.com/comfyanonymous/ComfyUI>`_ "
+"server."
+msgstr ""
+"Πρέπει να εκτελείτε έναν τοπικό διακομιστή `ComfyUI "
+"<https://github.com/comfyanonymous/ComfyUI>`_."
+
+#: ../ai.rst:34
+msgid ""
+"You should expect model downloads, setup work, and workflow troubleshooting."
+msgstr ""
+"Θα πρέπει να περιμένετε λήψεις μοντέλων, εργασίες εγκατάστασης και επίλυση "
+"προβλημάτων στις ροές εργασίας."
+
+#: ../ai.rst:37
+msgid "Minimum Recommended Hardware"
+msgstr "Ελάχιστες συνιστώμενες προδιαγραφές υλικού"
+
+#: ../ai.rst:43
+msgid "Component"
+msgstr "Στοιχείο"
+
+#: ../ai.rst:43
+msgid "Recommendation"
+msgstr "Σύσταση"
+
+#: ../ai.rst:45
+msgid "GPU"
+msgstr ""
+
+#: ../ai.rst:45
+msgid "NVIDIA 5070 12GB or better (16-24GB VRAM strongly preferred)"
+msgstr "NVIDIA 5070 12GB ή ανώτερη (συνιστάται ιδιαίτερα VRAM 16-24GB)"
+
+#: ../ai.rst:46
+msgid "CPU"
+msgstr ""
+
+#: ../ai.rst:46
+msgid "Ryzen 9 5900-class CPU (or equivalent high-clock multi-core)"
+msgstr ""
+"Επεξεργαστής κλάσης Ryzen 9 5900 (ή αντίστοιχος πολυπύρηνος υψηλής "
+"συχνότητας)"
+
+#: ../ai.rst:47
+msgid "System memory"
+msgstr "Μνήμη συστήματος"
+
+#: ../ai.rst:47
+msgid "64GB RAM or more"
+msgstr "64GB RAM ή περισσότερα"
+
+#: ../ai.rst:48
+msgid "Storage"
+msgstr "Αποθηκευτικός χώρος"
+
+#: ../ai.rst:48
+msgid "200GB free space for models, cache, and generated outputs"
+msgstr ""
+"200GB ελεύθερος χώρος για μοντέλα, προσωρινή μνήμη (cache) και παραγόμενα "
+"αρχεία"
+
+#: ../ai.rst:49
+msgid "Experience"
+msgstr "Εμπειρία"
+
+#: ../ai.rst:49
+msgid "Comfortable with ComfyUI graphs, models, and node dependencies"
+msgstr ""
+"Άνεση με τα γραφήματα (graphs), τα μοντέλα και τις εξαρτήσεις κόμβων του "
+"ComfyUI"
+
+#: ../ai.rst:52
+msgid ""
+"If your system is below these levels, jobs will stall, fail, and produce "
+"unstable results. If your GPU has 8GB or less of VRAM, you will run out of "
+"memory running these models."
+msgstr ""
+"Αν το σύστημά σας υπολείπεται αυτών των επιπέδων, οι εργασίες θα "
+"καθυστερούν, θα αποτυγχάνουν και θα δίνουν ασταθή αποτελέσματα. Αν η GPU σας"
+" διαθέτει 8GB VRAM ή λιγότερα, η μνήμη θα εξαντλείται κατά την εκτέλεση "
+"αυτών των μοντέλων."
+
+#: ../ai.rst:56
+msgid "Installation and Setup"
+msgstr "Εγκατάσταση και ρύθμιση"
+
+#: ../ai.rst:58
+msgid "Use this quick setup path before trying any AI workflow in OpenShot:"
+msgstr ""
+"Ακολουθήστε αυτή τη γρήγορη διαδρομή ρύθμισης πριν δοκιμάσετε οποιαδήποτε "
+"ροή εργασίας AI στο OpenShot:"
+
+#: ../ai.rst:60
+msgid "Install ComfyUI and confirm it starts correctly."
+msgstr "Εγκαταστήστε το ComfyUI και βεβαιωθείτε ότι ξεκινά σωστά."
+
+#: ../ai.rst:61
+msgid "Install required custom nodes (listed below)."
+msgstr ""
+"Εγκαταστήστε τους απαιτούμενους προσαρμοσμένους κόμβους (custom nodes) (που "
+"αναφέρονται παρακάτω)."
+
+#: ../ai.rst:62
+msgid ""
+"Download required model files (listed below) into matching model folders."
+msgstr ""
+"Κατεβάστε τα απαιτούμενα αρχεία μοντέλων (που αναφέρονται παρακάτω) στους "
+"αντίστοιχους φακέλους μοντέλων."
+
+#: ../ai.rst:63
+msgid ""
+"Start ComfyUI, then open :guilabel:`Edit->Preferences->Advanced` and set "
+":guilabel:`ComfyUI URL`."
+msgstr ""
+"Ξεκινήστε το ComfyUI και στη συνέχεια ανοίξτε "
+":guilabel:`Επεξεργασία->Προτιμήσεις->Προχωρημένο` "
+"(Edit->Preferences->Advanced) και ορίστε τη :guilabel:`Διεύθυνση URL του "
+"ComfyUI` (ComfyUI URL)."
+
+#: ../ai.rst:64
+msgid "Click :guilabel:`Check` to confirm OpenShot can reach the server."
+msgstr ""
+"Κάντε κλικ στο :guilabel:`Έλεγχος` (Check) για να επιβεβαιώσετε ότι το "
+"OpenShot μπορεί να φτάσει στον διακομιστή."
+
+#: ../ai.rst:66
+msgid ""
+"For a full step-by-step server setup guide, see the OpenShot wiki: `ComfyUI:"
+" Advanced AI Setup Guide <https://github.com/OpenShot/openshot-"
+"qt/wiki/ComfyUI:-Advanced-AI-Setup-Guide>`_."
+msgstr ""
+"Για έναν πλήρη οδηγό ρύθμισης του διακομιστή βήμα προς βήμα, δείτε το wiki "
+"του OpenShot: `ComfyUI: Advanced AI Setup Guide "
+"<https://github.com/OpenShot/openshot-qt/wiki/ComfyUI:-Advanced-AI-Setup-"
+"Guide>`_."
+
+#: ../ai.rst:69
+msgid ""
+"For full ComfyUI installation details, see the official repository: `ComfyUI"
+" on GitHub <https://github.com/comfyanonymous/ComfyUI>`_."
+msgstr ""
+"Για πλήρεις λεπτομέρειες εγκατάστασης του ComfyUI, δείτε το επίσημο "
+"αποθετήριο: `ComfyUI on GitHub "
+"<https://github.com/comfyanonymous/ComfyUI>`_."
+
+#: ../ai.rst:73
+msgid "Required Custom Nodes"
+msgstr "Απαιτούμενοι προσαρμοσμένοι κόμβοι"
+
+#: ../ai.rst:75
+msgid ""
+"`comfyui_controlnet_aux "
+"<https://github.com/Fannovel16/comfyui_controlnet_aux>`_"
+msgstr ""
+
+#: ../ai.rst:76
+msgid ""
+"`ComfyUI-Frame-Interpolation <https://github.com/Fannovel16/ComfyUI-Frame-"
+"Interpolation>`_"
+msgstr ""
+
+#: ../ai.rst:77
+msgid ""
+"`ComfyUI-VideoHelperSuite <https://github.com/Kosinkadink/ComfyUI-"
+"VideoHelperSuite>`_"
+msgstr ""
+
+#: ../ai.rst:78
+msgid ""
+"`ComfyUI-Video-Segmentation <https://github.com/miaoshouai/ComfyUI-Video-"
+"Segmentation>`_"
+msgstr ""
+
+#: ../ai.rst:79
+msgid "`ComfyUI-Whisper <https://github.com/yuvraj108c/ComfyUI-Whisper>`_"
+msgstr ""
+
+#: ../ai.rst:80
+msgid "`OpenShot-ComfyUI <https://github.com/OpenShot/OpenShot-ComfyUI>`_"
+msgstr ""
+
+#: ../ai.rst:83
+msgid "Required Models / Files"
+msgstr "Απαιτούμενα μοντέλα / αρχεία"
+
+#: ../ai.rst:85
+msgid "``ComfyUI/models/diffusion_models/wan2.1_vace_1.3B_fp16.safetensors``"
+msgstr ""
+
+#: ../ai.rst:86
+msgid ""
+"``ComfyUI/custom_nodes/ComfyUI-Frame-Interpolation/ckpts/rife/rife47.pth``"
+msgstr ""
+
+#: ../ai.rst:87
+msgid "``ComfyUI/models/checkpoints/sd_xl_base_1.0.safetensors``"
+msgstr ""
+
+#: ../ai.rst:88
+msgid "``ComfyUI/models/checkpoints/sd_xl_refiner_1.0.safetensors``"
+msgstr ""
+
+#: ../ai.rst:89
+msgid "``ComfyUI/models/checkpoints/stable-audio-open-1.0.safetensors``"
+msgstr ""
+
+#: ../ai.rst:90
+msgid "``ComfyUI/models/clip_vision/clip_vision_g.safetensors``"
+msgstr ""
+
+#: ../ai.rst:91
+msgid "``ComfyUI/models/diffusion_models/wan2.2_ti2v_5B_fp16.safetensors``"
+msgstr ""
+
+#: ../ai.rst:92
+msgid "``ComfyUI/models/grounding-dino/groundingdino_swint_ogc.pth``"
+msgstr ""
+
+#: ../ai.rst:93
+msgid "``ComfyUI/models/sam2/sam2.1_hiera_base_plus.pt``"
+msgstr ""
+
+#: ../ai.rst:94
+msgid "``ComfyUI/models/sam2/sam2.1_hiera_small-fp16.safetensors``"
+msgstr ""
+
+#: ../ai.rst:95
+msgid "``ComfyUI/models/sam2/sam2.1_hiera_small.pt``"
+msgstr ""
+
+#: ../ai.rst:96
+msgid "``ComfyUI/models/sam2/sam2.1_hiera_tiny-fp16.safetensors``"
+msgstr ""
+
+#: ../ai.rst:97
+msgid "``ComfyUI/models/sam2/sam2.1_hiera_tiny.pt``"
+msgstr ""
+
+#: ../ai.rst:98
+msgid "``ComfyUI/models/sam2/sam2_hiera_small.pt``"
+msgstr ""
+
+#: ../ai.rst:99
+msgid "``ComfyUI/models/stt/whisper/large-v3.pt``"
+msgstr ""
+
+#: ../ai.rst:100
+msgid "``ComfyUI/models/stt/whisper/medium.pt``"
+msgstr ""
+
+#: ../ai.rst:101
+msgid "``ComfyUI/models/text_encoders/t5-base.safetensors``"
+msgstr ""
+
+#: ../ai.rst:102
+msgid ""
+"``ComfyUI/models/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors``"
+msgstr ""
+
+#: ../ai.rst:103
+msgid "``ComfyUI/models/TTS/Ace-Step1.5/acestep-v15-turbo/silence_latent.pt``"
+msgstr ""
+
+#: ../ai.rst:104
+msgid "``ComfyUI/models/upscale_models/RealESRGAN_x4plus.safetensors``"
+msgstr ""
+
+#: ../ai.rst:105
+msgid "``ComfyUI/models/vae/wan_2.1_vae.safetensors``"
+msgstr ""
+
+#: ../ai.rst:106
+msgid "``ComfyUI/models/vae/wan2.2_vae.safetensors``"
+msgstr ""
+
+#: ../ai.rst:107
+msgid ""
+"``ComfyUI/models/VLM/transnetv2-pytorch-weights/transnetv2-pytorch-"
+"weights.pth``"
+msgstr ""
+
+#: ../ai.rst:110
+msgid "What Users See in OpenShot"
+msgstr "Τι βλέπουν οι χρήστες στο OpenShot"
+
+#: ../ai.rst:112
+msgid "When ComfyUI is available, OpenShot shows AI tools in context menus:"
+msgstr ""
+"Όταν το ComfyUI είναι διαθέσιμο, το OpenShot εμφανίζει εργαλεία AI στα μενού"
+" περιβάλλοντος:"
+
+#: ../ai.rst:114
+msgid ":guilabel:`Create with AI` for creating new assets"
+msgstr ""
+":guilabel:`Δημιουργία με AI` (Create with AI) για τη δημιουργία νέων "
+"στοιχείων"
+
+#: ../ai.rst:118
+msgid ":guilabel:`Enhance with AI (images)` for processing image assets"
+msgstr ""
+":guilabel:`Βελτίωση με AI (εικόνες)` (Enhance with AI (images)) για την "
+"επεξεργασία στοιχείων εικόνας"
+
+#: ../ai.rst:122
+msgid ":guilabel:`Enhance with AI (videos)` for processing video assets"
+msgstr ""
+":guilabel:`Βελτίωση με AI (βίντεο)` (Enhance with AI (videos)) για την "
+"επεξεργασία στοιχείων βίντεο"
+
+#: ../ai.rst:126
+msgid ""
+"Generated files are added to :guilabel:`Project Files` with progress text "
+"and queue badges. Outputs are saved under ``.openshot_qt/comfyui-output/``."
+msgstr ""
+"Τα παραγόμενα αρχεία προστίθενται στα :guilabel:`Αρχεία Έργου` (Project "
+"Files) με κείμενο προόδου και σήματα ουράς. Τα αποτελέσματα αποθηκεύονται "
+"στο ``.openshot_qt/comfyui-output/``."
+
+#: ../ai.rst:129
+msgid ""
+"Starting a **new project** or opening an **existing project** clears the "
+"temporary ``.openshot_qt`` AI working folders so you begin with a clean "
+"slate. Your saved projects are not affected, and any assets previously "
+"copied into a ``PROJECTNAME_Assets`` folder remain in that project's "
+"directory."
+msgstr ""
+"Η έναρξη ενός **νέου έργου** ή το άνοιγμα ενός **υπάρχοντος έργου** "
+"καθαρίζει τους προσωρινούς φακέλους εργασίας AI του ``.openshot_qt``, ώστε "
+"να ξεκινάτε από μια καθαρή αρχή. Τα αποθηκευμένα έργα σας δεν επηρεάζονται "
+"και τυχόν στοιχεία που είχαν αντιγραφεί παλαιότερα σε φάκελο "
+"``PROJECTNAME_Assets`` παραμένουν στον φάκελο του συγκεκριμένου έργου."
+
+#: ../ai.rst:134
+msgid ""
+"If ComfyUI is unavailable, OpenShot disables the AI menus. Configure the "
+"server URL in :guilabel:`Edit->Preferences->Advanced`, then use the "
+":guilabel:`Check` button to test connectivity."
+msgstr ""
+"Αν το ComfyUI δεν είναι διαθέσιμο, το OpenShot απενεργοποιεί τα μενού AI. "
+"Ορίστε τη διεύθυνση URL του διακομιστή στο "
+":guilabel:`Επεξεργασία->Προτιμήσεις->Προχωρημένο` "
+"(Edit->Preferences->Advanced) και στη συνέχεια χρησιμοποιήστε το κουμπί "
+":guilabel:`Έλεγχος` (Check) για να δοκιμάσετε τη συνδεσιμότητα."
+
+#: ../ai.rst:139
+msgid "Workflow Templates"
+msgstr "Πρότυπα ροών εργασίας"
+
+#: ../ai.rst:141
+msgid ""
+"OpenShot reads built-in templates from ``comfyui/``. It also loads custom "
+"user templates from ``~/.openshot_qt/comfyui/``."
+msgstr ""
+"Το OpenShot διαβάζει τα ενσωματωμένα πρότυπα από το ``comfyui/``. Φορτώνει "
+"επίσης προσαρμοσμένα πρότυπα χρήστη από το ``~/.openshot_qt/comfyui/``."
+
+#: ../ai.rst:144
+msgid "To add your own workflow:"
+msgstr "Για να προσθέσετε τη δική σας ροή εργασίας:"
+
+#: ../ai.rst:146
+msgid "In ComfyUI, open the workflow tab you want to use."
+msgstr ""
+"Στο ComfyUI, ανοίξτε την καρτέλα ροής εργασίας που θέλετε να "
+"χρησιμοποιήσετε."
+
+#: ../ai.rst:147
+msgid ""
+"Choose :guilabel:`Export (API)` to save the workflow as a ``*.json`` file."
+msgstr ""
+"Επιλέξτε :guilabel:`Εξαγωγή (API)` (Export (API)) για να αποθηκεύσετε τη ροή"
+" εργασίας ως αρχείο ``*.json``."
+
+#: ../ai.rst:148
+msgid "Copy that JSON file into ``~/.openshot_qt/comfyui/``."
+msgstr "Αντιγράψτε αυτό το αρχείο JSON στο ``~/.openshot_qt/comfyui/``."
+
+#: ../ai.rst:149
+msgid "Restart OpenShot, or reopen the project if needed."
+msgstr "Επανεκκινήστε το OpenShot ή, αν χρειάζεται, ανοίξτε ξανά το έργο."
+
+#: ../ai.rst:151
+msgid ""
+"OpenShot will automatically load the workflow and show it in the appropriate"
+" AI menu. When you trigger it from OpenShot, the selected source file is "
+"passed into the workflow, and the output from the workflow's final output "
+"node is imported back into :guilabel:`Project Files`."
+msgstr ""
+"Το OpenShot θα φορτώσει αυτόματα τη ροή εργασίας και θα την εμφανίσει στο "
+"κατάλληλο μενού AI. Όταν την ενεργοποιείτε από το OpenShot, το επιλεγμένο "
+"αρχείο προέλευσης περνά στη ροή εργασίας και το αποτέλεσμα του τελικού "
+"κόμβου εξόδου της ροής εισάγεται πίσω στα :guilabel:`Αρχεία Έργου` (Project "
+"Files)."
+
+#: ../ai.rst:156
+msgid ""
+"OpenShot also writes a ``.openshot_qt/comfyui/debug.json`` payload for "
+"advanced users who want to inspect the exact request sent to ComfyUI."
+msgstr ""
+"Το OpenShot γράφει επίσης ένα αρχείο ``.openshot_qt/comfyui/debug.json`` για"
+" προχωρημένους χρήστες που θέλουν να επιθεωρήσουν το ακριβές αίτημα που "
+"στάλθηκε στο ComfyUI."
+
+#: ../ai.rst:160
+msgid "AI Action Dialog"
+msgstr "Παράθυρο διαλόγου ενέργειας AI"
+
+#: ../ai.rst:162
+msgid ""
+"Both :guilabel:`Create with AI` and :guilabel:`Enhance with AI` open the "
+"same generation dialog."
+msgstr ""
+"Τόσο το :guilabel:`Δημιουργία με AI` (Create with AI) όσο και το "
+":guilabel:`Βελτίωση με AI` (Enhance with AI) ανοίγουν το ίδιο παράθυρο "
+"διαλόγου παραγωγής."
+
+#: ../ai.rst:167
+msgid "Why this dialog matters:"
+msgstr "Γιατί έχει σημασία αυτό το παράθυρο διαλόγου:"
+
+#: ../ai.rst:169
+msgid "It keeps all AI inputs in one place."
+msgstr "Συγκεντρώνει όλες τις εισόδους AI σε ένα σημείο."
+
+#: ../ai.rst:170
+msgid "It validates required fields before queuing the job."
+msgstr "Ελέγχει τα απαιτούμενα πεδία πριν μπει η εργασία στην ουρά."
+
+#: ../ai.rst:171
+msgid "It lets you set up tracking prompts before expensive runs."
+msgstr ""
+"Σας επιτρέπει να ορίσετε προτροπές παρακολούθησης πριν από δαπανηρές "
+"εκτελέσεις."
+
+#: ../ai.rst:173
+msgid "What you can do in the dialog:"
+msgstr "Τι μπορείτε να κάνετε στο παράθυρο διαλόγου:"
+
+#: ../ai.rst:175
+msgid "Choose the workflow/action."
+msgstr "Επιλέξτε τη ροή εργασίας/ενέργεια."
+
+#: ../ai.rst:176
+msgid "Enter the prompt text."
+msgstr "Εισαγάγετε το κείμενο της προτροπής (prompt)."
+
+#: ../ai.rst:177
+msgid "Preview the selected source file (for enhance workflows)."
+msgstr ""
+"Κάντε προεπισκόπηση του επιλεγμένου αρχείου προέλευσης (για ροές βελτίωσης)."
+
+#: ../ai.rst:178
+msgid "Set the output name for generated media."
+msgstr "Ορίστε το όνομα εξόδου για τα παραγόμενα πολυμέσα."
+
+#: ../ai.rst:179
+msgid ""
+"Pick a reference image in the :guilabel:`Reference` tab for workflows that "
+"require one."
+msgstr ""
+"Επιλέξτε μια εικόνα αναφοράς στην καρτέλα :guilabel:`Αναφορά` (Reference) "
+"για ροές εργασίας που απαιτούν μία."
+
+#: ../ai.rst:180
+msgid "Provide tracking points/rectangles for tracking workflows."
+msgstr ""
+"Δώστε σημεία/ορθογώνια παρακολούθησης για ροές εργασίας παρακολούθησης."
+
+#: ../ai.rst:181
+msgid ""
+"Start the job with :guilabel:`Generate` or close with :guilabel:`Cancel`."
+msgstr ""
+"Ξεκινήστε την εργασία με το :guilabel:`Παραγωγή` (Generate) ή κλείστε με το "
+":guilabel:`Ακύρωση` (Cancel)."
+
+#: ../ai.rst:186
+msgid "Tracking (Mask, Blur, Highlight)"
+msgstr "Παρακολούθηση (μάσκα, θόλωμα, επισήμανση)"
+
+#: ../ai.rst:188
+msgid ""
+"Tracking workflows (:guilabel:`Blur...`, :guilabel:`Highlight...`, "
+":guilabel:`Mask...`) use a region screen where you mark what to include and "
+"what to ignore."
+msgstr ""
+"Οι ροές εργασίας παρακολούθησης (:guilabel:`Θόλωμα...` (Blur...), "
+":guilabel:`Επισήμανση...` (Highlight...), :guilabel:`Μάσκα...` (Mask...)) "
+"χρησιμοποιούν μια οθόνη περιοχής, όπου σημειώνετε τι θα συμπεριληφθεί και τι"
+" θα αγνοηθεί."
+
+#: ../ai.rst:195
+msgid "Why this matters"
+msgstr "Γιατί έχει σημασία"
+
+#: ../ai.rst:197
+msgid ""
+"Tracking helps your effect stay attached to a moving subject over time. For "
+"example, you can blur a face, highlight a player, or generate a clean mask "
+"that follows the same object across many frames."
+msgstr ""
+"Η παρακολούθηση βοηθά το εφέ σας να παραμένει προσκολλημένο σε ένα κινούμενο"
+" θέμα με την πάροδο του χρόνου. Για παράδειγμα, μπορείτε να θολώσετε ένα "
+"πρόσωπο, να επισημάνετε έναν παίκτη ή να δημιουργήσετε μια καθαρή μάσκα που "
+"ακολουθεί το ίδιο αντικείμενο σε πολλά καρέ."
+
+#: ../ai.rst:202
+msgid "Tracking Icons"
+msgstr "Εικονίδια παρακολούθησης"
+
+#: ../ai.rst:208
+msgid "Icon / Marker"
+msgstr "Εικονίδιο / Δείκτης"
+
+#: ../ai.rst:209
+msgid "Meaning"
+msgstr "Σημασία"
+
+#: ../ai.rst:210
+msgid "Blue dot"
+msgstr "Μπλε τελεία"
+
+#: ../ai.rst:211
+msgid "Positive tracking coordinate (foreground/subject seed point)."
+msgstr ""
+"Θετική συντεταγμένη παρακολούθησης (σημείο-σπόρος [seed] για το προσκήνιο/το"
+" θέμα)."
+
+#: ../ai.rst:212
+msgid "Red dot"
+msgstr "Κόκκινη τελεία"
+
+#: ../ai.rst:213
+msgid "Negative tracking coordinate (background/exclusion seed point)."
+msgstr ""
+"Αρνητική συντεταγμένη παρακολούθησης (σημείο-σπόρος [seed] για το "
+"παρασκήνιο/τον αποκλεισμό)."
+
+#: ../ai.rst:214
+msgid "Blue rectangle"
+msgstr "Μπλε ορθογώνιο"
+
+#: ../ai.rst:215
+msgid "Positive region seed (broad subject hint)."
+msgstr "Θετική περιοχή-σπόρος (ευρεία υπόδειξη του θέματος)."
+
+#: ../ai.rst:216
+msgid "Red rectangle"
+msgstr "Κόκκινο ορθογώνιο"
+
+#: ../ai.rst:217
+msgid "Negative region seed (broad exclusion hint)."
+msgstr "Αρνητική περιοχή-σπόρος (ευρεία υπόδειξη αποκλεισμού)."
+
+#: ../ai.rst:218
+msgid "Delete icon"
+msgstr "Εικονίδιο διαγραφής"
+
+#: ../ai.rst:219
+msgid "Clear all current tracking seeds (points/rectangles) and start over."
+msgstr ""
+"Καθαρίζει όλους τους τρέχοντες σπόρους (seeds) παρακολούθησης "
+"(σημεία/ορθογώνια) και ξεκινά από την αρχή."
+
+#: ../ai.rst:222
+msgid "How Tracking Works"
+msgstr "Πώς λειτουργεί η παρακολούθηση"
+
+#: ../ai.rst:224
+msgid ""
+"OpenShot sends your positive and negative markers as seed coordinates to the"
+" tracking model, which builds a mask for the subject and then follows it "
+"over time. Better seeds usually produce cleaner masks and less drift. This "
+"workflow uses `SAM2 (Segment Anything Model 2) "
+"<https://github.com/facebookresearch/sam2>`_."
+msgstr ""
+"Το OpenShot στέλνει τους θετικούς και τους αρνητικούς δείκτες σας ως "
+"συντεταγμένες-σπόρους (seed coordinates) στο μοντέλο παρακολούθησης, το "
+"οποίο δημιουργεί μια μάσκα για το θέμα και στη συνέχεια το ακολουθεί με την "
+"πάροδο του χρόνου. Καλύτεροι σπόροι συνήθως δίνουν πιο καθαρές μάσκες και "
+"μικρότερη απόκλιση (drift). Η ροή αυτή χρησιμοποιεί το `SAM2 (Segment "
+"Anything Model 2) <https://github.com/facebookresearch/sam2>`_."
+
+#: ../ai.rst:230
+msgid "How to use it"
+msgstr "Πώς να το χρησιμοποιήσετε"
+
+#: ../ai.rst:232
+msgid "Pick a frame where the subject is clearly visible."
+msgstr "Επιλέξτε ένα καρέ όπου το θέμα φαίνεται καθαρά."
+
+#: ../ai.rst:233
+msgid "Start with one blue dot on the subject."
+msgstr "Ξεκινήστε με μία μπλε τελεία πάνω στο θέμα."
+
+#: ../ai.rst:234
+msgid "Add red dots on nearby background only if needed."
+msgstr "Προσθέστε κόκκινες τελείες στο κοντινό παρασκήνιο μόνο αν χρειάζεται."
+
+#: ../ai.rst:235
+msgid "Add rectangles when you need faster broad selection."
+msgstr "Προσθέστε ορθογώνια όταν χρειάζεστε ταχύτερη, ευρεία επιλογή."
+
+#: ../ai.rst:236
+msgid "Repeat on additional frames when motion/shape changes."
+msgstr "Επαναλάβετε σε επιπλέον καρέ όταν αλλάζει η κίνηση/το σχήμα."
+
+#: ../ai.rst:238
+msgid "Adjusting over time (frame slider):"
+msgstr "Προσαρμογή με την πάροδο του χρόνου (ρυθμιστικό καρέ):"
+
+#: ../ai.rst:240
+msgid "Move the frame slider to different moments in the clip."
+msgstr "Μετακινήστε το ρυθμιστικό καρέ σε διαφορετικές στιγμές του κλιπ."
+
+#: ../ai.rst:241
+msgid ""
+"Add or adjust dots/rectangles on frames where tracking starts to drift."
+msgstr ""
+"Προσθέστε ή προσαρμόστε τελείες/ορθογώνια στα καρέ όπου η παρακολούθηση "
+"αρχίζει να αποκλίνει."
+
+#: ../ai.rst:242
+msgid ""
+"Use additional seed points only where needed, especially on occlusions, fast"
+" motion, or major shape changes."
+msgstr ""
+"Χρησιμοποιήστε επιπλέον σημεία-σπόρους (seed points) μόνο όπου χρειάζεται, "
+"ιδίως σε επικαλύψεις (occlusions), γρήγορη κίνηση ή μεγάλες αλλαγές "
+"σχήματος."
+
+#: ../ai.rst:244
+msgid "**Mask Preview Output (from this tracking process):**"
+msgstr ""
+"**Έξοδος προεπισκόπησης μάσκας (από αυτή τη διαδικασία παρακολούθησης):**"
+
+#: ../ai.rst:249
+msgid "Best Practices"
+msgstr "Βέλτιστες πρακτικές"
+
+#: ../ai.rst:251
+msgid "Use a short test clip first."
+msgstr "Χρησιμοποιήστε πρώτα ένα σύντομο δοκιμαστικό κλιπ."
+
+#: ../ai.rst:252
+msgid "Start simple: a single blue dot is often enough."
+msgstr "Ξεκινήστε απλά: συχνά αρκεί μία μπλε τελεία."
+
+#: ../ai.rst:253
+msgid "Add more points only where tracking fails."
+msgstr "Προσθέστε περισσότερα σημεία μόνο όπου αποτυγχάνει η παρακολούθηση."
+
+#: ../ai.rst:254
+msgid ""
+"If needed, add a more nuanced set of positive/negative points and "
+"rectangles."
+msgstr ""
+"Αν χρειαστεί, προσθέστε ένα πιο λεπτομερές σύνολο θετικών/αρνητικών σημείων "
+"και ορθογωνίων."
+
+#: ../ai.rst:255
+msgid "Keep positive and negative points separated clearly."
+msgstr "Κρατήστε τα θετικά και τα αρνητικά σημεία καθαρά διαχωρισμένα."
+
+#: ../ai.rst:256
+msgid ""
+"If tracking becomes messy, use the Delete icon and restart with cleaner "
+"seeds."
+msgstr ""
+"Αν η παρακολούθηση γίνει ακατάστατη, χρησιμοποιήστε το εικονίδιο διαγραφής "
+"και ξεκινήστε ξανά με πιο καθαρούς σπόρους."
+
+#: ../ai.rst:259
+msgid "Job Queue, Progress, and Cancel"
+msgstr "Ουρά εργασιών, πρόοδος και ακύρωση"
+
+#: ../ai.rst:261
+msgid ""
+"After you click :guilabel:`Generate`, the request is queued and runs in "
+"OpenShot's AI job queue."
+msgstr ""
+"Αφού κάνετε κλικ στο :guilabel:`Παραγωγή` (Generate), το αίτημα μπαίνει στην"
+" ουρά και εκτελείται στην ουρά εργασιών AI του OpenShot."
+
+#: ../ai.rst:264
+msgid ""
+"Progress is shown in :guilabel:`Project Files` (badges and status text)."
+msgstr ""
+"Η πρόοδος εμφανίζεται στα :guilabel:`Αρχεία Έργου` (Project Files) (σήματα "
+"και κείμενο κατάστασης)."
+
+#: ../ai.rst:265
+msgid "Completed outputs are imported back into :guilabel:`Project Files`."
+msgstr ""
+"Τα ολοκληρωμένα αποτελέσματα εισάγονται πίσω στα :guilabel:`Αρχεία Έργου` "
+"(Project Files)."
+
+#: ../ai.rst:266
+msgid ""
+"Active jobs can be canceled by right-clicking the generated project file "
+"with the progress bar and choosing :guilabel:`Cancel Job`."
+msgstr ""
+"Οι ενεργές εργασίες μπορούν να ακυρωθούν κάνοντας δεξί κλικ στο παραγόμενο "
+"αρχείο έργου που φέρει τη γραμμή προόδου και επιλέγοντας :guilabel:`Ακύρωση "
+"εργασίας` (Cancel Job)."
+
+#: ../ai.rst:267
+msgid "Outputs are written under ``.openshot_qt/comfyui-output/``."
+msgstr "Τα αποτελέσματα γράφονται στο ``.openshot_qt/comfyui-output/``."
+
+#: ../ai.rst:270
+msgid "Built-in JSON Workflows"
+msgstr "Ενσωματωμένες ροές εργασίας JSON"
+
+#: ../ai.rst:272
+msgid ""
+"The sections below map directly to built-in JSON templates in ``comfyui/``. "
+"Each subsection describes why you might use it, how to run it, and key "
+"details."
+msgstr ""
+"Οι ενότητες που ακολουθούν αντιστοιχούν άμεσα στα ενσωματωμένα πρότυπα JSON "
+"στο ``comfyui/``. Κάθε υποενότητα περιγράφει γιατί μπορεί να το "
+"χρησιμοποιήσετε, πώς να το εκτελέσετε και βασικές λεπτομέρειες."
+
+#: ../ai.rst:276
+msgid "Create with AI"
+msgstr "Δημιουργία με AI (Create with AI)"
+
+#: ../ai.rst:279
+msgid "Image... (``txt2img-basic``)"
+msgstr "Εικόνα... (``txt2img-basic``)"
+
+#: ../ai.rst:281
+msgid "Why: Generate still images from a text prompt."
+msgstr "Γιατί: Παραγωγή ακίνητων εικόνων από μια προτροπή κειμένου."
+
+#: ../ai.rst:282
+msgid ""
+"How: Choose :guilabel:`Create with AI` -> :guilabel:`Image...`, enter a "
+"prompt, then generate."
+msgstr ""
+"Πώς: Επιλέξτε :guilabel:`Δημιουργία με AI` (Create with AI) -> "
+":guilabel:`Εικόνα...` (Image...), εισαγάγετε μια προτροπή (prompt) και στη "
+"συνέχεια ξεκινήστε την παραγωγή."
+
+#: ../ai.rst:283
+msgid ""
+"Details: Uses ``comfyui/txt2img-basic.json`` with "
+"``sd_xl_base_1.0.safetensors``."
+msgstr ""
+"Λεπτομέρειες: Χρησιμοποιεί το ``comfyui/txt2img-basic.json`` με το "
+"``sd_xl_base_1.0.safetensors``."
+
+#: ../ai.rst:286
+msgid "Video... (``txt2video-svd``)"
+msgstr "Βίντεο... (``txt2video-svd``)"
+
+#: ../ai.rst:288
+msgid "Why: Generate short video clips from text."
+msgstr "Γιατί: Παραγωγή σύντομων κλιπ βίντεο από κείμενο."
+
+#: ../ai.rst:289
+msgid ""
+"How: Choose :guilabel:`Create with AI` -> :guilabel:`Video...`, enter a "
+"prompt, then generate."
+msgstr ""
+"Πώς: Επιλέξτε :guilabel:`Δημιουργία με AI` (Create with AI) -> "
+":guilabel:`Βίντεο...` (Video...), εισαγάγετε μια προτροπή και στη συνέχεια "
+"ξεκινήστε την παραγωγή."
+
+#: ../ai.rst:290
+msgid ""
+"Details: Uses ``comfyui/txt2video-svd.json`` with WAN video generation "
+"models."
+msgstr ""
+"Λεπτομέρειες: Χρησιμοποιεί το ``comfyui/txt2video-svd.json`` με μοντέλα "
+"παραγωγής βίντεο WAN."
+
+#: ../ai.rst:293
+msgid "Sound... (``txt2audio-stable-open``)"
+msgstr "Ήχος... (``txt2audio-stable-open``)"
+
+#: ../ai.rst:295
+msgid "Why: Generate non-musical audio from text prompts."
+msgstr "Γιατί: Παραγωγή μη μουσικού ήχου από προτροπές κειμένου."
+
+#: ../ai.rst:296
+msgid ""
+"How: Choose :guilabel:`Create with AI` -> :guilabel:`Sound...`, enter a "
+"prompt, then generate."
+msgstr ""
+"Πώς: Επιλέξτε :guilabel:`Δημιουργία με AI` (Create with AI) -> "
+":guilabel:`Ήχος...` (Sound...), εισαγάγετε μια προτροπή και στη συνέχεια "
+"ξεκινήστε την παραγωγή."
+
+#: ../ai.rst:297
+msgid ""
+"Details: Uses ``comfyui/txt2audio-stable-open.json`` with Stable Audio Open "
+"models."
+msgstr ""
+"Λεπτομέρειες: Χρησιμοποιεί το ``comfyui/txt2audio-stable-open.json`` με "
+"μοντέλα Stable Audio Open."
+
+#: ../ai.rst:300
+msgid "Music... (``txt2music-ace-step``)"
+msgstr "Μουσική... (``txt2music-ace-step``)"
+
+#: ../ai.rst:302
+msgid "Why: Generate music from style/tags (and optional lyrics)."
+msgstr "Γιατί: Παραγωγή μουσικής από στυλ/ετικέτες (και προαιρετικά στίχους)."
+
+#: ../ai.rst:303
+msgid ""
+"How: Choose :guilabel:`Create with AI` -> :guilabel:`Music...`, enter prompt"
+" text, then generate."
+msgstr ""
+"Πώς: Επιλέξτε :guilabel:`Δημιουργία με AI` (Create with AI) -> "
+":guilabel:`Μουσική...` (Music...), εισαγάγετε το κείμενο της προτροπής και "
+"στη συνέχεια ξεκινήστε την παραγωγή."
+
+#: ../ai.rst:304
+msgid ""
+"Details: Uses ``comfyui/txt2music-ace-step.json`` with an Ace-Step 1.5 "
+"checkpoint."
+msgstr ""
+"Λεπτομέρειες: Χρησιμοποιεί το ``comfyui/txt2music-ace-step.json`` με ένα "
+"checkpoint Ace-Step 1.5."
+
+#: ../ai.rst:307
+msgid "Enhance with AI"
+msgstr "Βελτίωση με AI (Enhance with AI)"
+
+#: ../ai.rst:310
+msgid "Noise -> Reduce (``audio-noise-reduce``)"
+msgstr "Θόρυβος -> Μείωση (``audio-noise-reduce``)"
+
+#: ../ai.rst:312
+msgid ""
+"Why: Lightly reduce steady background noise while keeping more of the "
+"original ambience."
+msgstr ""
+"Γιατί: Ελαφριά μείωση του σταθερού θορύβου υποβάθρου, διατηρώντας "
+"περισσότερο από το αρχικό περιβάλλον του ήχου."
+
+#: ../ai.rst:313
+msgid ""
+"How: Choose :guilabel:`Enhance with AI` -> :guilabel:`Noise` -> "
+":guilabel:`Reduce` on an audio file, then generate."
+msgstr ""
+"Πώς: Επιλέξτε :guilabel:`Βελτίωση με AI` (Enhance with AI) -> "
+":guilabel:`Θόρυβος` (Noise) -> :guilabel:`Μείωση` (Reduce) σε ένα αρχείο "
+"ήχου και στη συνέχεια ξεκινήστε την παραγωγή."
+
+#: ../ai.rst:314
+msgid ""
+"Details: Uses ``comfyui/audio-noise-reduce.json`` with "
+"``OpenShotDeepFilterNetDenoiseAudio``."
+msgstr ""
+"Λεπτομέρειες: Χρησιμοποιεί το ``comfyui/audio-noise-reduce.json`` με το "
+"``OpenShotDeepFilterNetDenoiseAudio``."
+
+#: ../ai.rst:317
+msgid "Noise -> Remove (``audio-noise-remove``)"
+msgstr "Θόρυβος -> Αφαίρεση (``audio-noise-remove``)"
+
+#: ../ai.rst:319
+msgid "Why: Aggressively remove background noise from noisy recordings."
+msgstr ""
+"Γιατί: Επιθετική αφαίρεση του θορύβου υποβάθρου από θορυβώδεις ηχογραφήσεις."
+
+#: ../ai.rst:320
+msgid ""
+"How: Choose :guilabel:`Enhance with AI` -> :guilabel:`Noise` -> "
+":guilabel:`Remove` on an audio file, then generate."
+msgstr ""
+"Πώς: Επιλέξτε :guilabel:`Βελτίωση με AI` (Enhance with AI) -> "
+":guilabel:`Θόρυβος` (Noise) -> :guilabel:`Αφαίρεση` (Remove) σε ένα αρχείο "
+"ήχου και στη συνέχεια ξεκινήστε την παραγωγή."
+
+#: ../ai.rst:321
+msgid ""
+"Details: Uses ``comfyui/audio-noise-remove.json`` with "
+"``OpenShotDeepFilterNetDenoiseAudio``."
+msgstr ""
+"Λεπτομέρειες: Χρησιμοποιεί το ``comfyui/audio-noise-remove.json`` με το "
+"``OpenShotDeepFilterNetDenoiseAudio``."
+
+#: ../ai.rst:324
+msgid "Clarity -> Speech (``audio-clarity-speech``)"
+msgstr "Καθαρότητα -> Ομιλία (``audio-clarity-speech``)"
+
+#: ../ai.rst:326
+msgid ""
+"Why: Improve clarity for speech recordings that sound dull, noisy, "
+"bandwidth-limited, or low fidelity."
+msgstr ""
+"Γιατί: Βελτίωση της καθαρότητας σε ηχογραφήσεις ομιλίας που ακούγονται "
+"θαμπές, θορυβώδεις, με περιορισμένο εύρος ζώνης ή χαμηλής πιστότητας."
+
+#: ../ai.rst:327
+msgid ""
+"How: Choose :guilabel:`Enhance with AI` -> :guilabel:`Clarity` -> "
+":guilabel:`Speech` on an audio file, then generate."
+msgstr ""
+"Πώς: Επιλέξτε :guilabel:`Βελτίωση με AI` (Enhance with AI) -> "
+":guilabel:`Καθαρότητα` (Clarity) -> :guilabel:`Ομιλία` (Speech) σε ένα "
+"αρχείο ήχου και στη συνέχεια ξεκινήστε την παραγωγή."
+
+#: ../ai.rst:328
+msgid ""
+"Details: Uses ``comfyui/audio-clarity-speech.json`` with "
+"``OpenShotLavaSRSpeechClarity``."
+msgstr ""
+"Λεπτομέρειες: Χρησιμοποιεί το ``comfyui/audio-clarity-speech.json`` με το "
+"``OpenShotLavaSRSpeechClarity``."
+
+#: ../ai.rst:331
+msgid "Change Image Style... (``img2img-basic``)"
+msgstr "Αλλαγή στυλ εικόνας... (``img2img-basic``)"
+
+#: ../ai.rst:333
+msgid "Why: Restyle an existing image while keeping the source composition."
+msgstr ""
+"Γιατί: Αλλαγή του στυλ μιας υπάρχουσας εικόνας, διατηρώντας τη σύνθεση της "
+"πηγής."
+
+#: ../ai.rst:334
+msgid ""
+"How: Choose :guilabel:`Enhance with AI` on an image, enter a style prompt, "
+"then generate."
+msgstr ""
+"Πώς: Επιλέξτε :guilabel:`Βελτίωση με AI` (Enhance with AI) σε μια εικόνα, "
+"εισαγάγετε μια προτροπή στυλ και στη συνέχεια ξεκινήστε την παραγωγή."
+
+#: ../ai.rst:335
+msgid ""
+"Details: Uses ``comfyui/img2img-basic.json`` with "
+"``sd_xl_base_1.0.safetensors``."
+msgstr ""
+"Λεπτομέρειες: Χρησιμοποιεί το ``comfyui/img2img-basic.json`` με το "
+"``sd_xl_base_1.0.safetensors``."
+
+#: ../ai.rst:338
+msgid "Depth (``image-extract-depth``)"
+msgstr "Βάθος (``image-extract-depth``)"
+
+#: ../ai.rst:340
+msgid "Why: Export a grayscale depth-map image from a source image."
+msgstr ""
+"Γιατί: Εξαγωγή εικόνας χάρτη βάθους σε κλίμακα του γκρι από μια εικόνα "
+"προέλευσης."
+
+#: ../ai.rst:341
+msgid ""
+"How: Choose :guilabel:`Enhance with AI` -> :guilabel:`Extract` -> "
+":guilabel:`Depth` on an image, then generate."
+msgstr ""
+"Πώς: Επιλέξτε :guilabel:`Βελτίωση με AI` (Enhance with AI) -> "
+":guilabel:`Εξαγωγή` (Extract) -> :guilabel:`Βάθος` (Depth) σε μια εικόνα και"
+" στη συνέχεια ξεκινήστε την παραγωγή."
+
+#: ../ai.rst:342
+msgid ""
+"Details: Uses ``comfyui/image-extract-depth.json`` with "
+"``DepthAnythingV2Preprocessor``."
+msgstr ""
+"Λεπτομέρειες: Χρησιμοποιεί το ``comfyui/image-extract-depth.json`` με το "
+"``DepthAnythingV2Preprocessor``."
+
+#: ../ai.rst:345
+msgid "Lines (``image-extract-lines``)"
+msgstr "Γραμμές (``image-extract-lines``)"
+
+#: ../ai.rst:347
+msgid "Why: Export a line-map image from a source image."
+msgstr "Γιατί: Εξαγωγή εικόνας χάρτη γραμμών από μια εικόνα προέλευσης."
+
+#: ../ai.rst:348
+msgid ""
+"How: Choose :guilabel:`Enhance with AI` -> :guilabel:`Extract` -> "
+":guilabel:`Lines` on an image, then generate."
+msgstr ""
+"Πώς: Επιλέξτε :guilabel:`Βελτίωση με AI` (Enhance with AI) -> "
+":guilabel:`Εξαγωγή` (Extract) -> :guilabel:`Γραμμές` (Lines) σε μια εικόνα "
+"και στη συνέχεια ξεκινήστε την παραγωγή."
+
+#: ../ai.rst:349
+msgid ""
+"Details: Uses ``comfyui/image-extract-lines.json`` with "
+"``LineArtPreprocessor``."
+msgstr ""
+"Λεπτομέρειες: Χρησιμοποιεί το ``comfyui/image-extract-lines.json`` με το "
+"``LineArtPreprocessor``."
+
+#: ../ai.rst:352
+msgid "Image to Video... (``img2video-wan``)"
+msgstr "Εικόνα σε βίντεο... (``img2video-wan``)"
+
+#: ../ai.rst:354
+msgid "Why: Turn a still image into a generated video shot."
+msgstr "Γιατί: Μετατροπή μιας ακίνητης εικόνας σε παραγόμενη λήψη βίντεο."
+
+#: ../ai.rst:355
+msgid ""
+"How: Choose :guilabel:`Enhance with AI` on an image, provide prompt "
+"guidance, then generate."
+msgstr ""
+"Πώς: Επιλέξτε :guilabel:`Βελτίωση με AI` (Enhance with AI) σε μια εικόνα, "
+"δώστε οδηγίες προτροπής και στη συνέχεια ξεκινήστε την παραγωγή."
+
+#: ../ai.rst:356
+msgid ""
+"Details: Uses ``comfyui/img2video-wan.json`` with WAN 2.2 image-to-video "
+"models."
+msgstr ""
+"Λεπτομέρειες: Χρησιμοποιεί το ``comfyui/img2video-wan.json`` με μοντέλα WAN "
+"2.2 εικόνας σε βίντεο."
+
+#: ../ai.rst:359
+msgid "Change Video Style... (``video2video-basic``)"
+msgstr "Αλλαγή στυλ βίντεο... (``video2video-basic``)"
+
+#: ../ai.rst:361
+msgid "Why: Apply a new visual style to a source video."
+msgstr "Γιατί: Εφαρμογή ενός νέου οπτικού στυλ σε ένα βίντεο προέλευσης."
+
+#: ../ai.rst:362
+msgid ""
+"How: Choose :guilabel:`Enhance with AI` on a video, enter a style prompt, "
+"pick a reference image in the :guilabel:`Reference` tab, then generate."
+msgstr ""
+"Πώς: Επιλέξτε :guilabel:`Βελτίωση με AI` (Enhance with AI) σε ένα βίντεο, "
+"εισαγάγετε μια προτροπή στυλ, επιλέξτε μια εικόνα αναφοράς στην καρτέλα "
+":guilabel:`Αναφορά` (Reference) και στη συνέχεια ξεκινήστε την παραγωγή."
+
+#: ../ai.rst:363
+msgid ""
+"Details: Uses ``comfyui/video2video-basic.json`` with WAN VACE video-to-"
+"video nodes, a required reference image, blended "
+"``DepthAnythingV2Preprocessor`` depth plus Canny edge control, and the "
+"``wan2.1_vace_1.3B_fp16.safetensors``, ``wan_2.1_vae.safetensors``, and "
+"``umt5_xxl_fp8_e4m3fn_scaled.safetensors`` models."
+msgstr ""
+"Λεπτομέρειες: Χρησιμοποιεί το ``comfyui/video2video-basic.json`` με κόμβους "
+"WAN VACE βίντεο σε βίντεο, μια απαιτούμενη εικόνα αναφοράς, μικτό έλεγχο "
+"βάθους ``DepthAnythingV2Preprocessor`` και ακμών Canny, καθώς και τα μοντέλα"
+" ``wan2.1_vace_1.3B_fp16.safetensors``, ``wan_2.1_vae.safetensors`` και "
+"``umt5_xxl_fp8_e4m3fn_scaled.safetensors``."
+
+#: ../ai.rst:366
+msgid "Depth (``video-extract-depth``)"
+msgstr "Βάθος (``video-extract-depth``)"
+
+#: ../ai.rst:368
+msgid "Why: Export a grayscale depth-map version of a source video."
+msgstr ""
+"Γιατί: Εξαγωγή έκδοσης χάρτη βάθους σε κλίμακα του γκρι ενός βίντεο "
+"προέλευσης."
+
+#: ../ai.rst:369
+msgid ""
+"How: Choose :guilabel:`Enhance with AI` -> :guilabel:`Extract` -> "
+":guilabel:`Depth` on a video, then generate."
+msgstr ""
+"Πώς: Επιλέξτε :guilabel:`Βελτίωση με AI` (Enhance with AI) -> "
+":guilabel:`Εξαγωγή` (Extract) -> :guilabel:`Βάθος` (Depth) σε ένα βίντεο και"
+" στη συνέχεια ξεκινήστε την παραγωγή."
+
+#: ../ai.rst:370
+msgid ""
+"Details: Uses ``comfyui/video-extract-depth.json`` with "
+"``DepthAnythingV2Preprocessor`` and preserves the source frame rate."
+msgstr ""
+"Λεπτομέρειες: Χρησιμοποιεί το ``comfyui/video-extract-depth.json`` με το "
+"``DepthAnythingV2Preprocessor`` και διατηρεί τον ρυθμό καρέ της πηγής."
+
+#: ../ai.rst:373
+msgid "Lines (``video-extract-lines``)"
+msgstr "Γραμμές (``video-extract-lines``)"
+
+#: ../ai.rst:375
+msgid "Why: Export a line-map version of a source video."
+msgstr "Γιατί: Εξαγωγή έκδοσης χάρτη γραμμών ενός βίντεο προέλευσης."
+
+#: ../ai.rst:376
+msgid ""
+"How: Choose :guilabel:`Enhance with AI` -> :guilabel:`Extract` -> "
+":guilabel:`Lines` on a video, then generate."
+msgstr ""
+"Πώς: Επιλέξτε :guilabel:`Βελτίωση με AI` (Enhance with AI) -> "
+":guilabel:`Εξαγωγή` (Extract) -> :guilabel:`Γραμμές` (Lines) σε ένα βίντεο "
+"και στη συνέχεια ξεκινήστε την παραγωγή."
+
+#: ../ai.rst:377
+msgid ""
+"Details: Uses ``comfyui/video-extract-lines.json`` with "
+"``LineArtPreprocessor`` and preserves the source frame rate."
+msgstr ""
+"Λεπτομέρειες: Χρησιμοποιεί το ``comfyui/video-extract-lines.json`` με το "
+"``LineArtPreprocessor`` και διατηρεί τον ρυθμό καρέ της πηγής."
+
+#: ../ai.rst:380
+msgid "Increase Resolution (image) (``upscale-realesrgan-x4``)"
+msgstr "Αύξηση ανάλυσης (εικόνα) (``upscale-realesrgan-x4``)"
+
+#: ../ai.rst:382
+msgid "Why: Upscale low-resolution images."
+msgstr "Γιατί: Αναβάθμιση ανάλυσης (upscaling) εικόνων χαμηλής ανάλυσης."
+
+#: ../ai.rst:383
+msgid ""
+"How: Choose :guilabel:`Enhance with AI` on an image, select increase "
+"resolution, then generate."
+msgstr ""
+"Πώς: Επιλέξτε :guilabel:`Βελτίωση με AI` (Enhance with AI) σε μια εικόνα, "
+"επιλέξτε την αύξηση ανάλυσης και στη συνέχεια ξεκινήστε την παραγωγή."
+
+#: ../ai.rst:384
+msgid ""
+"Details: Uses ``comfyui/upscale-realesrgan-x4.json`` with "
+"``RealESRGAN_x4plus.safetensors``."
+msgstr ""
+"Λεπτομέρειες: Χρησιμοποιεί το ``comfyui/upscale-realesrgan-x4.json`` με το "
+"``RealESRGAN_x4plus.safetensors``."
+
+#: ../ai.rst:387
+msgid "Increase Resolution (video) (``video-upscale-gan``)"
+msgstr "Αύξηση ανάλυσης (βίντεο) (``video-upscale-gan``)"
+
+#: ../ai.rst:389
+msgid "Why: Upscale video frames for higher apparent detail."
+msgstr ""
+"Γιατί: Αναβάθμιση ανάλυσης (upscaling) των καρέ του βίντεο για μεγαλύτερη "
+"φαινομενική λεπτομέρεια."
+
+#: ../ai.rst:390
+msgid ""
+"How: Choose :guilabel:`Enhance with AI` on a video, select increase "
+"resolution, then generate."
+msgstr ""
+"Πώς: Επιλέξτε :guilabel:`Βελτίωση με AI` (Enhance with AI) σε ένα βίντεο, "
+"επιλέξτε την αύξηση ανάλυσης και στη συνέχεια ξεκινήστε την παραγωγή."
+
+#: ../ai.rst:391
+msgid ""
+"Details: Uses ``comfyui/video-upscale-gan.json`` with "
+"``RealESRGAN_x4plus.safetensors``."
+msgstr ""
+"Λεπτομέρειες: Χρησιμοποιεί το ``comfyui/video-upscale-gan.json`` με το "
+"``RealESRGAN_x4plus.safetensors``."
+
+#: ../ai.rst:394
+msgid "Smooth Motion (2x Frame Rate) (``video-frame-interpolation-rife2x``)"
+msgstr ""
+"Ομαλή κίνηση (διπλάσιος ρυθμός καρέ) (``video-frame-interpolation-rife2x``)"
+
+#: ../ai.rst:396
+msgid "Why: Increase frame rate for smoother perceived motion."
+msgstr "Γιατί: Αύξηση του ρυθμού καρέ για πιο ομαλή αντιληπτή κίνηση."
+
+#: ../ai.rst:397
+msgid ""
+"How: Choose :guilabel:`Enhance with AI` on a video, select smooth motion, "
+"then generate."
+msgstr ""
+"Πώς: Επιλέξτε :guilabel:`Βελτίωση με AI` (Enhance with AI) σε ένα βίντεο, "
+"επιλέξτε την ομαλή κίνηση και στη συνέχεια ξεκινήστε την παραγωγή."
+
+#: ../ai.rst:398
+msgid ""
+"Details: Uses ``comfyui/video-frame-interpolation-rife2x.json`` with "
+"``rife47.pth``."
+msgstr ""
+"Λεπτομέρειες: Χρησιμοποιεί το ``comfyui/video-frame-interpolation-"
+"rife2x.json`` με το ``rife47.pth``."
+
+#: ../ai.rst:401
+msgid "Split into Scenes (``video-segment-scenes-transnet``)"
+msgstr "Διαίρεση σε σκηνές (``video-segment-scenes-transnet``)"
+
+#: ../ai.rst:403
+msgid ""
+"Why: Automatically detect scene changes and split long clips into segments."
+msgstr ""
+"Γιατί: Αυτόματος εντοπισμός αλλαγών σκηνής και διαχωρισμός μεγάλων κλιπ σε "
+"τμήματα."
+
+#: ../ai.rst:404
+msgid ""
+"How: Choose :guilabel:`Enhance with AI` on a video, select scene splitting, "
+"then generate."
+msgstr ""
+"Πώς: Επιλέξτε :guilabel:`Βελτίωση με AI` (Enhance with AI) σε ένα βίντεο, "
+"επιλέξτε τη διαίρεση σε σκηνές και στη συνέχεια ξεκινήστε την παραγωγή."
+
+#: ../ai.rst:405
+msgid ""
+"Details: Uses ``comfyui/video-segment-scenes-transnet.json`` with "
+"TransNetV2."
+msgstr ""
+"Λεπτομέρειες: Χρησιμοποιεί το ``comfyui/video-segment-scenes-transnet.json``"
+" με το TransNetV2."
+
+#: ../ai.rst:408
+msgid "Add Captions from Speech (``video-whisper-srt``)"
+msgstr "Προσθήκη λεζάντων από ομιλία (``video-whisper-srt``)"
+
+#: ../ai.rst:410
+msgid "Why: Transcribe speech into subtitle/caption files."
+msgstr "Γιατί: Μεταγραφή της ομιλίας σε αρχεία υποτίτλων/λεζάντων."
+
+#: ../ai.rst:411
+msgid ""
+"How: Choose :guilabel:`Enhance with AI` on a video, select captions, then "
+"generate."
+msgstr ""
+"Πώς: Επιλέξτε :guilabel:`Βελτίωση με AI` (Enhance with AI) σε ένα βίντεο, "
+"επιλέξτε τις λεζάντες και στη συνέχεια ξεκινήστε την παραγωγή."
+
+#: ../ai.rst:412
+msgid ""
+"Details: Uses ``comfyui/video-whisper-srt.json`` and creates SRT output."
+msgstr ""
+"Λεπτομέρειες: Χρησιμοποιεί το ``comfyui/video-whisper-srt.json`` και "
+"δημιουργεί έξοδο SRT."
+
+#: ../ai.rst:415
+msgid "Tracking Workflows (SAM2)"
+msgstr "Ροές εργασίας παρακολούθησης (SAM2)"
+
+#: ../ai.rst:417
+msgid ""
+"These workflows use the same region/tracking input flow and are grouped in "
+"the tracking context menu."
+msgstr ""
+"Οι ροές αυτές χρησιμοποιούν την ίδια διαδικασία εισόδου "
+"περιοχής/παρακολούθησης και ομαδοποιούνται στο μενού περιβάλλοντος "
+"παρακολούθησης."
+
+#: ../ai.rst:421
+msgid "Blur... (image) (``image-blur-anything-sam2``)"
+msgstr "Θόλωμα... (εικόνα) (``image-blur-anything-sam2``)"
+
+#: ../ai.rst:423
+msgid "Why: Blur selected subject areas in a still image."
+msgstr "Γιατί: Θόλωμα επιλεγμένων περιοχών θέματος σε μια ακίνητη εικόνα."
+
+#: ../ai.rst:424 ../ai.rst:431 ../ai.rst:438
+msgid "How: Select points/rectangles for the subject, then generate."
+msgstr ""
+"Πώς: Επιλέξτε σημεία/ορθογώνια για το θέμα και στη συνέχεια ξεκινήστε την "
+"παραγωγή."
+
+#: ../ai.rst:425
+msgid ""
+"Details: Uses ``comfyui/image-blur-anything-sam2.json`` with SAM2 image "
+"segmentation."
+msgstr ""
+"Λεπτομέρειες: Χρησιμοποιεί το ``comfyui/image-blur-anything-sam2.json`` με "
+"τμηματοποίηση εικόνας SAM2."
+
+#: ../ai.rst:428
+msgid "Highlight... (image) (``image-highlight-anything-sam2``)"
+msgstr "Επισήμανση... (εικόνα) (``image-highlight-anything-sam2``)"
+
+#: ../ai.rst:430
+msgid "Why: Emphasize selected subject areas in a still image."
+msgstr "Γιατί: Τονισμός επιλεγμένων περιοχών θέματος σε μια ακίνητη εικόνα."
+
+#: ../ai.rst:432
+msgid ""
+"Details: Uses ``comfyui/image-highlight-anything-sam2.json`` with SAM2 image"
+" segmentation."
+msgstr ""
+"Λεπτομέρειες: Χρησιμοποιεί το ``comfyui/image-highlight-anything-sam2.json``"
+" με τμηματοποίηση εικόνας SAM2."
+
+#: ../ai.rst:435
+msgid "Mask... (image) (``image-mask-anything-sam2``)"
+msgstr "Μάσκα... (εικόνα) (``image-mask-anything-sam2``)"
+
+#: ../ai.rst:437
+msgid "Why: Generate an image mask for selected subject areas."
+msgstr "Γιατί: Δημιουργία μάσκας εικόνας για επιλεγμένες περιοχές θέματος."
+
+#: ../ai.rst:439
+msgid ""
+"Details: Uses ``comfyui/image-mask-anything-sam2.json`` with SAM2 image "
+"segmentation."
+msgstr ""
+"Λεπτομέρειες: Χρησιμοποιεί το ``comfyui/image-mask-anything-sam2.json`` με "
+"τμηματοποίηση εικόνας SAM2."
+
+#: ../ai.rst:442
+msgid "Blur... (video) (``video-blur-anything-sam2``)"
+msgstr "Θόλωμα... (βίντεο) (``video-blur-anything-sam2``)"
+
+#: ../ai.rst:444
+msgid "Why: Track and blur a moving subject in video."
+msgstr "Γιατί: Παρακολούθηση και θόλωμα ενός κινούμενου θέματος σε βίντεο."
+
+#: ../ai.rst:445 ../ai.rst:452 ../ai.rst:459
+msgid "How: Mark subject/background in the region screen, then generate."
+msgstr ""
+"Πώς: Σημειώστε το θέμα/το παρασκήνιο στην οθόνη περιοχής και στη συνέχεια "
+"ξεκινήστε την παραγωγή."
+
+#: ../ai.rst:446
+msgid ""
+"Details: Uses ``comfyui/video-blur-anything-sam2.json`` with SAM2 video "
+"tracking."
+msgstr ""
+"Λεπτομέρειες: Χρησιμοποιεί το ``comfyui/video-blur-anything-sam2.json`` με "
+"παρακολούθηση βίντεο SAM2."
+
+#: ../ai.rst:449
+msgid "Highlight... (video) (``video-highlight-anything-sam2``)"
+msgstr "Επισήμανση... (βίντεο) (``video-highlight-anything-sam2``)"
+
+#: ../ai.rst:451
+msgid "Why: Track and highlight a moving subject in video."
+msgstr ""
+"Γιατί: Παρακολούθηση και επισήμανση ενός κινούμενου θέματος σε βίντεο."
+
+#: ../ai.rst:453
+msgid ""
+"Details: Uses ``comfyui/video-highlight-anything-sam2.json`` with SAM2 video"
+" tracking."
+msgstr ""
+"Λεπτομέρειες: Χρησιμοποιεί το ``comfyui/video-highlight-anything-sam2.json``"
+" με παρακολούθηση βίντεο SAM2."
+
+#: ../ai.rst:456
+msgid "Mask... (video) (``video-mask-anything-sam2``)"
+msgstr "Μάσκα... (βίντεο) (``video-mask-anything-sam2``)"
+
+#: ../ai.rst:458
+msgid "Why: Generate an animated mask that follows a moving subject."
+msgstr ""
+"Γιατί: Δημιουργία μιας κινούμενης μάσκας που ακολουθεί ένα κινούμενο θέμα."
+
+#: ../ai.rst:460
+msgid ""
+"Details: Uses ``comfyui/video-mask-anything-sam2.json`` with SAM2 video "
+"tracking."
+msgstr ""
+"Λεπτομέρειες: Χρησιμοποιεί το ``comfyui/video-mask-anything-sam2.json`` με "
+"παρακολούθηση βίντεο SAM2."
+
+#: ../ai.rst:463
+msgid "Starting Points for New Users"
+msgstr "Σημεία εκκίνησης για νέους χρήστες"
+
+#: ../ai.rst:465
+msgid "If you are new to these tools, start with:"
+msgstr "Αν είστε νέος χρήστης αυτών των εργαλείων, ξεκινήστε με:"
+
+#: ../ai.rst:467
+msgid ":guilabel:`Create with AI` -> :guilabel:`Image`"
+msgstr ""
+":guilabel:`Δημιουργία με AI` (Create with AI) -> :guilabel:`Εικόνα` (Image)"
+
+#: ../ai.rst:468
+msgid ":guilabel:`Enhance with AI` -> :guilabel:`Increase Resolution`"
+msgstr ""
+":guilabel:`Βελτίωση με AI` (Enhance with AI) -> :guilabel:`Αύξηση ανάλυσης` "
+"(Increase Resolution)"
+
+#: ../ai.rst:469
+msgid ":guilabel:`Enhance with AI` -> :guilabel:`Smooth Motion`"
+msgstr ""
+":guilabel:`Βελτίωση με AI` (Enhance with AI) -> :guilabel:`Ομαλή κίνηση` "
+"(Smooth Motion)"
+
+#: ../ai.rst:470
+msgid ":guilabel:`Enhance with AI` -> :guilabel:`Split into Scenes`"
+msgstr ""
+":guilabel:`Βελτίωση με AI` (Enhance with AI) -> :guilabel:`Διαίρεση σε "
+"σκηνές` (Split into Scenes)"
+
+#: ../ai.rst:471
+msgid ":guilabel:`Enhance with AI` -> :guilabel:`Add Captions`"
+msgstr ""
+":guilabel:`Βελτίωση με AI` (Enhance with AI) -> :guilabel:`Προσθήκη "
+"λεζάντων` (Add Captions)"
+
+#: ../ai.rst:474
+msgid "Troubleshooting"
+msgstr "Αντιμετώπιση προβλημάτων"
+
+#: ../ai.rst:476
+msgid "If AI menus do not appear or jobs fail immediately:"
+msgstr "Αν τα μενού AI δεν εμφανίζονται ή οι εργασίες αποτυγχάνουν αμέσως:"
+
+#: ../ai.rst:478
+msgid "Verify ComfyUI is running and reachable at the configured URL."
+msgstr ""
+"Βεβαιωθείτε ότι το ComfyUI εκτελείται και είναι προσβάσιμο στη ρυθμισμένη "
+"διεύθυνση URL."
+
+#: ../ai.rst:479
+msgid "Confirm required models exist in your ComfyUI environment."
+msgstr ""
+"Βεβαιωθείτε ότι τα απαιτούμενα μοντέλα υπάρχουν στο περιβάλλον ComfyUI σας."
+
+#: ../ai.rst:480
+msgid ""
+"Confirm custom node packages are installed for the workflow you selected."
+msgstr ""
+"Βεβαιωθείτε ότι τα πακέτα προσαρμοσμένων κόμβων είναι εγκατεστημένα για τη "
+"ροή εργασίας που επιλέξατε."
+
+#: ../ai.rst:481
+msgid "Reduce batch/chunk sizes for long clips."
+msgstr "Μειώστε τα μεγέθη παρτίδας/τμημάτων (batch/chunk) για μεγάλα κλιπ."
+
+#: ../ai.rst:482
+msgid "Re-test with a short clip or still image first."
+msgstr "Δοκιμάστε ξανά πρώτα με ένα σύντομο κλιπ ή μια ακίνητη εικόνα."
+
+#: ../ai.rst:484
+msgid ""
+"For general performance and cache tuning, see :ref:`preferences_ref` and "
+":ref:`playback_ref`."
+msgstr ""
+"Για γενικό συντονισμό των επιδόσεων και της προσωρινής μνήμης (cache), δείτε"
+" τα :ref:`preferences_ref` και :ref:`playback_ref`."

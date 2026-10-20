@@ -1,0 +1,430 @@
+# Translated with AI assistance (Claude) and reviewed; UI labels follow the official OpenShot Greek UI catalog.
+# Greek translation of the OpenShot Video Editor documentation.
+# Copyright (C) OpenShot Studios, LLC
+# This file is distributed under the same license as the OpenShot Video Editor package.
+# Ioannis-Stylianos Lafazanis <jslafazanis@gmail.com>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenShot Video Editor 4.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-27 00:00+0000\n"
+"PO-Revision-Date: 2026-10-20 15:50+0300\n"
+"Last-Translator: Ioannis-Stylianos Lafazanis <jslafazanis@gmail.com>\n"
+"Language-Team: Greek <el@li.org>\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../playback.rst:23
+msgid "Playback"
+msgstr "Αναπαραγωγή"
+
+#: ../playback.rst:24
+msgid ""
+"The preview window is where video & audio playback takes place in OpenShot "
+"Video Editor. The preview window utilizes real-time video rendering, "
+"caching, re-sampling, and image scaling. This is the primary area for "
+"watching back (and listening to) your edits, giving you the feedback needed "
+"to make adjustments. It is also one of the most costly operations to your "
+"CPU, and requires a modern computer and some reasonable assumptions and "
+"factors (listed below)."
+msgstr ""
+"Το παράθυρο προεπισκόπησης είναι το σημείο όπου πραγματοποιείται η "
+"αναπαραγωγή βίντεο και ήχου στο OpenShot Video Editor. Το παράθυρο "
+"προεπισκόπησης αξιοποιεί απόδοση βίντεο σε πραγματικό χρόνο, προσωρινή "
+"αποθήκευση (caching), αναδειγματοληψία και κλιμάκωση εικόνας. Είναι η βασική"
+" περιοχή για την παρακολούθηση (και την ακρόαση) των επεξεργασιών σας, "
+"προσφέροντας την ανατροφοδότηση που χρειάζεστε για να κάνετε προσαρμογές. "
+"Είναι επίσης μία από τις πιο δαπανηρές λειτουργίες για τη CPU σας και "
+"απαιτεί έναν σύγχρονο υπολογιστή, καθώς και ορισμένες λογικές παραδοχές και "
+"παράγοντες (που αναφέρονται παρακάτω)."
+
+#: ../playback.rst:30
+msgid "Real-Time Preview"
+msgstr "Προεπισκόπηση σε πραγματικό χρόνο"
+
+#: ../playback.rst:31
+msgid ""
+"Many factors affect how smoothly the **real-time video preview** can "
+"playback on your computer. This requires a fast, modern multi-threaded CPU, "
+"lots of RAM (memory), and a modern GPU. We have listed many of the important"
+" factors below."
+msgstr ""
+"Πολλοί παράγοντες επηρεάζουν το πόσο ομαλά μπορεί να αναπαραχθεί η "
+"**προεπισκόπηση βίντεο σε πραγματικό χρόνο** στον υπολογιστή σας. Αυτό "
+"απαιτεί γρήγορη, σύγχρονη CPU πολλαπλών νημάτων, πολλή μνήμη RAM και "
+"σύγχρονη GPU. Παρακάτω αναφέρονται πολλοί από τους σημαντικούς παράγοντες."
+
+#: ../playback.rst:38
+msgid "Factor"
+msgstr "Παράγοντας"
+
+#: ../playback.rst:38 ../playback.rst:97
+msgid "Description"
+msgstr "Περιγραφή"
+
+#: ../playback.rst:40
+msgid "CPU"
+msgstr ""
+
+#: ../playback.rst:40
+msgid ""
+"If your CPU is too slow or has too few cores, you will likely experience a "
+"slow, choppy preview. We recommend installing OpenShot on fairly modern "
+"computer. See :ref:`min_system_req_ref` for more details on the hardware "
+"requirements for OpenShot Video Editor."
+msgstr ""
+"Αν η CPU σας είναι πολύ αργή ή έχει πολύ λίγους πυρήνες, πιθανότατα θα "
+"παρατηρήσετε αργή, κομματιασμένη προεπισκόπηση. Συνιστούμε να εγκαταστήσετε "
+"το OpenShot σε αρκετά σύγχρονο υπολογιστή. Βλ. :ref:`min_system_req_ref` για"
+" περισσότερες λεπτομέρειες σχετικά με τις απαιτήσεις υλικού του OpenShot "
+"Video Editor."
+
+#: ../playback.rst:43
+msgid "Memory"
+msgstr "Μνήμη"
+
+#: ../playback.rst:43
+msgid ""
+"If your available RAM memory is too limited, you will likely see huge drops "
+"in real-time performance, and your entire system will lag. We recommend "
+"installing additional RAM in your computer, if possible. See "
+":ref:`min_system_req_ref`."
+msgstr ""
+"Αν η διαθέσιμη μνήμη RAM είναι πολύ περιορισμένη, πιθανότατα θα δείτε "
+"μεγάλες πτώσεις στις επιδόσεις σε πραγματικό χρόνο και ολόκληρο το σύστημά "
+"σας θα καθυστερεί. Συνιστούμε να εγκαταστήσετε επιπλέον μνήμη RAM στον "
+"υπολογιστή σας, αν είναι δυνατό. Βλ. :ref:`min_system_req_ref`."
+
+#: ../playback.rst:46
+msgid "Cache"
+msgstr "Προσωρινή μνήμη (Cache)"
+
+#: ../playback.rst:46
+msgid ""
+"Your cache settings in the OpenShot Preferences are very important for "
+"determining how many frames to processes in advance. A value too low or too "
+"high can cause lag during the real-time video preview. The cache is also "
+"related to the available RAM. The higher the cache values, the more RAM and "
+"CPU is needed. We recommend experimenting with the Cache Preferences in "
+"OpenShot if you are experiencing issues with smooth playback. This same "
+"caching system also prepares frames ahead of time during export, speeding up"
+" the final render. See :ref:`preferences_cache_ref`."
+msgstr ""
+"Οι ρυθμίσεις της προσωρινής μνήμης (cache) στις Προτιμήσεις του OpenShot "
+"είναι πολύ σημαντικές για τον καθορισμό του πόσα καρέ θα επεξεργάζονται εκ "
+"των προτέρων. Μια πολύ χαμηλή ή πολύ υψηλή τιμή μπορεί να προκαλέσει "
+"καθυστέρηση κατά την προεπισκόπηση βίντεο σε πραγματικό χρόνο. Η προσωρινή "
+"μνήμη σχετίζεται επίσης με τη διαθέσιμη μνήμη RAM. Όσο υψηλότερες είναι οι "
+"τιμές της προσωρινής μνήμης, τόσο περισσότερη RAM και CPU χρειάζονται. "
+"Συνιστούμε να πειραματιστείτε με τις Προτιμήσεις προσωρινής μνήμης στο "
+"OpenShot αν αντιμετωπίζετε προβλήματα με την ομαλή αναπαραγωγή. Αυτό το ίδιο"
+" σύστημα προσωρινής αποθήκευσης προετοιμάζει επίσης καρέ εκ των προτέρων "
+"κατά την εξαγωγή, επιταχύνοντας την τελική απόδοση (render). Βλ. "
+":ref:`preferences_cache_ref`."
+
+#: ../playback.rst:52
+msgid "Preview Size"
+msgstr "Μέγεθος προεπισκόπησης"
+
+#: ../playback.rst:52
+msgid ""
+"The height x width of your preview dock (widget) is very important for "
+"smooth real-time previews. The larger the window size, the more pixels must "
+"be rendered per frame, and the more CPU and RAM are required. It is "
+"recommended to keep reducing the preview window size until you achieve "
+"smooth video playback. On a slower computer, the preview window size might "
+"need to be very small for real-time previews (i.e. 320 x 240)."
+msgstr ""
+"Το ύψος x πλάτος του πάνελ προεπισκόπησης (widget) είναι πολύ σημαντικό για "
+"ομαλές προεπισκοπήσεις σε πραγματικό χρόνο. Όσο μεγαλύτερο είναι το μέγεθος "
+"του παραθύρου, τόσο περισσότερα pixel πρέπει να αποδοθούν ανά καρέ και τόσο "
+"περισσότερη CPU και RAM απαιτούνται. Συνιστάται να συνεχίσετε να μειώνετε το"
+" μέγεθος του παραθύρου προεπισκόπησης μέχρι να επιτύχετε ομαλή αναπαραγωγή "
+"βίντεο. Σε έναν πιο αργό υπολογιστή, το μέγεθος του παραθύρου προεπισκόπησης"
+" ίσως χρειάζεται να είναι πολύ μικρό για προεπισκοπήσεις σε πραγματικό χρόνο"
+" (π.χ. 320 x 240)."
+
+#: ../playback.rst:57
+msgid "Profile"
+msgstr "Προφίλ"
+
+#: ../playback.rst:57
+msgid ""
+"Your project profile determines which size (width x height) and frame rate "
+"(FPS) are used during both playback and exporting. For example, if you are "
+"using a FHD 1920x1080 sized profile, you can also choose a smaller profile "
+"with the same aspect ratio (``16x9`` in this example), to improve the "
+"preview speed on slower computers. See :ref:`profiles_ref` for more "
+"information on available profiles."
+msgstr ""
+"Το προφίλ του έργου σας καθορίζει ποιο μέγεθος (πλάτος x ύψος) και ποιος "
+"ρυθμός καρέ (FPS) χρησιμοποιούνται τόσο κατά την αναπαραγωγή όσο και κατά "
+"την εξαγωγή. Για παράδειγμα, αν χρησιμοποιείτε προφίλ μεγέθους FHD "
+"1920x1080, μπορείτε επίσης να επιλέξετε ένα μικρότερο προφίλ με την ίδια "
+"αναλογία διαστάσεων (``16x9`` σε αυτό το παράδειγμα), για να βελτιώσετε την "
+"ταχύτητα προεπισκόπησης σε πιο αργούς υπολογιστές. Βλ. :ref:`profiles_ref` "
+"για περισσότερες πληροφορίες σχετικά με τα διαθέσιμα προφίλ."
+
+#: ../playback.rst:61
+msgid "FPS (Frame Rate)"
+msgstr "Ρυθμός καρέ (FPS)"
+
+#: ../playback.rst:61
+msgid ""
+"The FPS of your project is also very important, and a large factor for "
+"smooth video playback. For example, a 60 FPS video must render twice the "
+"number of frames, compared to a 30 FPS video. If you are experiencing slow "
+"downs in real-time performance, it can be helpful to reduce your project's "
+"FPS to a lower value, such as 30 or 24."
+msgstr ""
+"Ο ρυθμός καρέ (FPS) του έργου σας είναι επίσης πολύ σημαντικός και αποτελεί "
+"μεγάλο παράγοντα για την ομαλή αναπαραγωγή βίντεο. Για παράδειγμα, ένα "
+"βίντεο 60 FPS πρέπει να αποδώσει διπλάσιο αριθμό καρέ σε σύγκριση με ένα "
+"βίντεο 30 FPS. Αν αντιμετωπίζετε επιβράδυνση στις επιδόσεις σε πραγματικό "
+"χρόνο, μπορεί να βοηθήσει η μείωση των FPS του έργου σας σε χαμηλότερη τιμή,"
+" όπως 30 ή 24."
+
+#: ../playback.rst:65
+msgid "Matching Rates"
+msgstr "Αντιστοίχιση ρυθμών"
+
+#: ../playback.rst:65
+msgid ""
+"It is very important to match your source assets FPS and Sample Rate with "
+"your Project FPS and Project sample rate. If either rate does not match "
+"exactly, it requires lots of additional CPU and RAM for OpenShot to "
+"normalize the mismatching rates. This can lead to audio pops, mis-"
+"alignments, duplicate frames, and extra lag in the real-time video preview. "
+"You can right-click a file and choose :guilabel:`File Properties`, to "
+"inspect the source asset rates, and ensure they match your Project settings "
+"(shown at the top of OpenShot). See :ref:`file_properties_ref`."
+msgstr ""
+"Είναι πολύ σημαντικό να αντιστοιχίσετε τα FPS και τον ρυθμό δειγματοληψίας "
+"(Sample Rate) των αρχείων-πηγών σας με τα FPS και τον ρυθμό δειγματοληψίας "
+"του έργου. Αν κάποιος από τους ρυθμούς δεν ταιριάζει ακριβώς, το OpenShot "
+"χρειάζεται πολλή επιπλέον CPU και RAM για να κανονικοποιήσει τους μη "
+"ταιριαστούς ρυθμούς. Αυτό μπορεί να οδηγήσει σε κρότους στον ήχο, "
+"ασυγχρονισμούς, διπλά καρέ και επιπλέον καθυστέρηση στην προεπισκόπηση "
+"βίντεο σε πραγματικό χρόνο. Μπορείτε να κάνετε δεξί κλικ σε ένα αρχείο και "
+"να επιλέξετε :guilabel:`Ιδιότητες Αρχείου` (File Properties), για να "
+"ελέγξετε τους ρυθμούς του αρχείου-πηγής και να βεβαιωθείτε ότι ταιριάζουν με"
+" τις ρυθμίσεις του έργου σας (που εμφανίζονται στο πάνω μέρος του OpenShot)."
+" Βλ. :ref:`file_properties_ref`."
+
+#: ../playback.rst:71
+msgid "Source Assets"
+msgstr "Αρχεία-πηγές"
+
+#: ../playback.rst:71
+msgid ""
+"For example, if you are editing 4K 60 FPS source assets, this is likely "
+"going to put a strain on your system. A common solution is using another "
+"tool (such as FFmpeg) to create a copy (or proxy) of all your source assets,"
+" at a lower resolution (and maybe even a lower FPS). It is recommended to "
+"keep these proxy video files in their own folder, separate from the original"
+" video files. Once you have completed your video editing with the proxy "
+"files, simply copy/paste your `*.osp` project file back into the original "
+"folder, and export the higher quality, original files."
+msgstr ""
+"Για παράδειγμα, αν επεξεργάζεστε αρχεία-πηγές 4K 60 FPS, αυτό πιθανότατα θα "
+"επιβαρύνει το σύστημά σας. Μια συνηθισμένη λύση είναι να χρησιμοποιήσετε ένα"
+" άλλο εργαλείο (όπως το FFmpeg) για να δημιουργήσετε ένα αντίγραφο (ή proxy)"
+" όλων των αρχείων-πηγών σας, σε χαμηλότερη ανάλυση (και ίσως ακόμη και σε "
+"χαμηλότερα FPS). Συνιστάται να κρατάτε αυτά τα αρχεία βίντεο proxy στον δικό"
+" τους φάκελο, χωριστά από τα αρχικά αρχεία βίντεο. Όταν ολοκληρώσετε την "
+"επεξεργασία βίντεο με τα αρχεία proxy, απλώς αντιγράψτε και επικολλήστε το "
+"αρχείο έργου `*.osp` πίσω στον αρχικό φάκελο και εξαγάγετε τα αρχικά αρχεία "
+"υψηλότερης ποιότητας."
+
+#: ../playback.rst:77 ../playback.rst:101
+msgid "Audio Device"
+msgstr "Συσκευή ήχου"
+
+#: ../playback.rst:77
+msgid ""
+"If you are still having issues with audio lag or sync, please verify you are"
+" using the correct :guilabel:`Playback Audio Device` for playback (in the "
+"OpenShot Preferences). See :ref:`preferences_preview_ref`. Verify your "
+"default audio device (on your operating system) is using the same sample "
+"rate and all *Audio Enhancements* are disabled. On certain operating systems"
+" (such as Windows), mismatching sample rates or audio enhancements can cause"
+" severe audio / video sync problems. Lastly, try adjusting the "
+":guilabel:`Playback Audio Buffer Size` (lower values will playback audio "
+"with less delay, higher values will playback audio with a larger delay). "
+"OpenShot defaults to a buffer size of 512, which is reasonable for most "
+"systems, however on some systems you might need to lower (or raise) this "
+"value for smooth and lag-free audio playback. Be sure to restart OpenShot "
+"after changing the audio playback settings."
+msgstr ""
+"Αν εξακολουθείτε να αντιμετωπίζετε προβλήματα καθυστέρησης ή συγχρονισμού "
+"ήχου, βεβαιωθείτε ότι χρησιμοποιείτε τη σωστή :guilabel:`Συσκευή "
+"αναπαραγωγής ήχου` (Playback Audio Device) για την αναπαραγωγή (στις "
+"Προτιμήσεις του OpenShot). Βλ. :ref:`preferences_preview_ref`. Βεβαιωθείτε "
+"ότι η προεπιλεγμένη συσκευή ήχου (στο λειτουργικό σας σύστημα) χρησιμοποιεί "
+"τον ίδιο ρυθμό δειγματοληψίας και ότι όλες οι *Βελτιώσεις ήχου* (Audio "
+"Enhancements) είναι απενεργοποιημένες. Σε ορισμένα λειτουργικά συστήματα "
+"(όπως τα Windows), οι μη ταιριαστοί ρυθμοί δειγματοληψίας ή οι βελτιώσεις "
+"ήχου μπορούν να προκαλέσουν σοβαρά προβλήματα συγχρονισμού ήχου / βίντεο. "
+"Τέλος, δοκιμάστε να προσαρμόσετε το :guilabel:`Μέγεθος ενδιάμεσης μνήμης "
+"ήχου αναπαραγωγής` (Playback Audio Buffer Size) (οι χαμηλότερες τιμές "
+"αναπαράγουν τον ήχο με λιγότερη καθυστέρηση, οι υψηλότερες τιμές αναπαράγουν"
+" τον ήχο με μεγαλύτερη καθυστέρηση). Το OpenShot έχει ως προεπιλογή μέγεθος "
+"ενδιάμεσης μνήμης 512, κάτι λογικό για τα περισσότερα συστήματα, ωστόσο σε "
+"ορισμένα συστήματα μπορεί να χρειαστεί να μειώσετε (ή να αυξήσετε) αυτή την "
+"τιμή για ομαλή αναπαραγωγή ήχου χωρίς καθυστερήσεις. Φροντίστε να "
+"επανεκκινήσετε το OpenShot μετά την αλλαγή των ρυθμίσεων αναπαραγωγής ήχου."
+
+#: ../playback.rst:89
+msgid "Audio Troubleshooting"
+msgstr "Αντιμετώπιση προβλημάτων ήχου"
+
+#: ../playback.rst:90
+msgid ""
+"If you are still experiencing audio related issues, and the above real-time "
+"playback factors did not resolve your issue, here are some additional "
+"troubleshooting steps you can take."
+msgstr ""
+"Αν εξακολουθείτε να αντιμετωπίζετε προβλήματα σχετικά με τον ήχο και οι "
+"παραπάνω παράγοντες αναπαραγωγής σε πραγματικό χρόνο δεν έλυσαν το πρόβλημά "
+"σας, ακολουθούν επιπλέον βήματα αντιμετώπισης προβλημάτων που μπορείτε να "
+"κάνετε."
+
+#: ../playback.rst:97
+msgid "Step"
+msgstr "Βήμα"
+
+#: ../playback.rst:99
+msgid "Latest Daily Build"
+msgstr "Τελευταία ημερήσια έκδοση (Daily Build)"
+
+#: ../playback.rst:99
+msgid ""
+"Verify you are running the latest daily build of OpenShot: "
+"https://www.openshot.org/download#daily"
+msgstr ""
+"Βεβαιωθείτε ότι εκτελείτε την τελευταία ημερήσια έκδοση (daily build) του "
+"OpenShot: https://www.openshot.org/download#daily"
+
+#: ../playback.rst:100
+msgid "Clean Install"
+msgstr "Καθαρή εγκατάσταση"
+
+#: ../playback.rst:100
+msgid "See :ref:`preferences_reset_ref` for a clean install"
+msgstr "Βλ. :ref:`preferences_reset_ref` για καθαρή εγκατάσταση"
+
+#: ../playback.rst:101
+msgid ""
+"Check that the Playback Audio Device is set correctly for your sound output "
+"under Preferences in the Preview tab. Restart OpenShot after changing the "
+"settings. You can also try a different audio device (USB, audio over HDMI "
+"from the video card, headphones, etc.) to rule out other audio issues. "
+"Disable `automatic sound suppression` for voice calls during microphone "
+"activity, and disable `Audio Enhancements` under the advanced settings tab "
+"of your audio device (not all audio devices have these settings). See "
+":ref:`preferences_preview_ref`."
+msgstr ""
+"Ελέγξτε ότι η Συσκευή αναπαραγωγής ήχου (Playback Audio Device) έχει "
+"ρυθμιστεί σωστά για την έξοδο ήχου σας, στις Προτιμήσεις, στην καρτέλα "
+"Προεπισκόπηση (Preview). Επανεκκινήστε το OpenShot μετά την αλλαγή των "
+"ρυθμίσεων. Μπορείτε επίσης να δοκιμάσετε μια διαφορετική συσκευή ήχου (USB, "
+"ήχος μέσω HDMI από την κάρτα γραφικών, ακουστικά κ.λπ.) για να αποκλείσετε "
+"άλλα προβλήματα ήχου. Απενεργοποιήστε την `αυτόματη καταστολή ήχου` "
+"(automatic sound suppression) για φωνητικές κλήσεις κατά τη δραστηριότητα "
+"του μικροφώνου και απενεργοποιήστε τις `Βελτιώσεις ήχου` (Audio "
+"Enhancements) στην καρτέλα προχωρημένων ρυθμίσεων της συσκευής ήχου σας (δεν"
+" έχουν όλες οι συσκευές ήχου αυτές τις ρυθμίσεις). Βλ. "
+":ref:`preferences_preview_ref`."
+
+#: ../playback.rst:107
+msgid "Audio Buffer Size"
+msgstr "Μέγεθος ενδιάμεσης μνήμης ήχου (Audio Buffer Size)"
+
+#: ../playback.rst:107
+msgid ""
+"The audio buffer size is the amount of audio samples which must first be "
+"buffered in OpenShot before audio playback can begin. If this value is too "
+"low, you might experience audio break-up / crackle / popping. If this value "
+"is too high, you might experience delays or lag before audio playback "
+"begins. OpenShot defaults this value to 512, which is a reasonable default "
+"for most systems, which should provide smooth audio playback with minimal "
+"noticeable lag or delay. However, on some systems this value might need to "
+"be adjusted up or down, for in-sync and lag-free audio playback. The range "
+"is 128 to 4096."
+msgstr ""
+"Το μέγεθος της ενδιάμεσης μνήμης ήχου είναι ο αριθμός των δειγμάτων ήχου που"
+" πρέπει πρώτα να τοποθετηθούν στην ενδιάμεση μνήμη του OpenShot προτού "
+"ξεκινήσει η αναπαραγωγή του ήχου. Αν αυτή η τιμή είναι πολύ χαμηλή, μπορεί "
+"να παρατηρήσετε διακοπές / τριξίματα / κρότους στον ήχο. Αν αυτή η τιμή "
+"είναι πολύ υψηλή, μπορεί να παρατηρήσετε καθυστερήσεις πριν ξεκινήσει η "
+"αναπαραγωγή του ήχου. Το OpenShot ορίζει ως προεπιλογή την τιμή 512, η οποία"
+" είναι λογική για τα περισσότερα συστήματα και θα πρέπει να προσφέρει ομαλή "
+"αναπαραγωγή ήχου με ελάχιστα αντιληπτή καθυστέρηση. Ωστόσο, σε ορισμένα "
+"συστήματα αυτή η τιμή μπορεί να χρειαστεί να αυξηθεί ή να μειωθεί, για "
+"αναπαραγωγή ήχου συγχρονισμένη και χωρίς καθυστερήσεις. Το εύρος είναι από "
+"128 έως 4096."
+
+#: ../playback.rst:113
+msgid "Sample Rate"
+msgstr "Ρυθμός δειγματοληψίας (Sample Rate)"
+
+#: ../playback.rst:113
+msgid ""
+"Ensure that the `Default Audio Sample Rate` and `Default Audio Channels` on "
+"the Preview tab of the Preferences window match your hardware. You can also "
+"check these settings in the operating system control panel (i.e. Windows "
+"Sound Control Panel). See :ref:`preferences_preview_ref`."
+msgstr ""
+"Βεβαιωθείτε ότι το `Προκαθορισμένος Ρυθμός Δειγματοληψίας Ήχου` (Default "
+"Audio Sample Rate) και τα `Προκαθορισμένα Κανάλια Ήχου` (Default Audio "
+"Channels) στην καρτέλα Προεπισκόπηση (Preview) του παραθύρου Προτιμήσεων "
+"ταιριάζουν με το υλικό σας. Μπορείτε επίσης να ελέγξετε αυτές τις ρυθμίσεις "
+"στον πίνακα ελέγχου του λειτουργικού συστήματος (π.χ. στον Πίνακα ελέγχου "
+"ήχου των Windows). Βλ. :ref:`preferences_preview_ref`."
+
+#: ../playback.rst:116
+msgid "Volume"
+msgstr "Ένταση"
+
+#: ../playback.rst:116
+msgid ""
+"Ensure that the volume does not exceed 100% on overlapping clips (such as an"
+" audio track combined with a video track). Lower the volume on individual "
+"clips if needed. See :ref:`clip_volume_mixing_ref`."
+msgstr ""
+"Βεβαιωθείτε ότι η ένταση δεν υπερβαίνει το 100% σε επικαλυπτόμενα κλιπ (όπως"
+" ένας διάδρομος ήχου σε συνδυασμό με έναν διάδρομο βίντεο). Μειώστε την "
+"ένταση σε μεμονωμένα κλιπ αν χρειάζεται. Βλ. :ref:`clip_volume_mixing_ref`."
+
+#: ../playback.rst:118
+msgid "Headphones"
+msgstr "Ακουστικά"
+
+#: ../playback.rst:118
+msgid ""
+"If you're using headphones, plug them in before starting OpenShot. Launching"
+" OpenShot with no speakers, headphones, or valid audio playback device can "
+"cause OpenShot to freeze during playback."
+msgstr ""
+"Αν χρησιμοποιείτε ακουστικά, συνδέστε τα πριν ξεκινήσετε το OpenShot. Η "
+"εκκίνηση του OpenShot χωρίς ηχεία, ακουστικά ή έγκυρη συσκευή αναπαραγωγής "
+"ήχου μπορεί να προκαλέσει πάγωμα του OpenShot κατά την αναπαραγωγή."
+
+#: ../playback.rst:120
+msgid "OS Updates"
+msgstr "Ενημερώσεις λειτουργικού συστήματος"
+
+#: ../playback.rst:120
+msgid ""
+"Update your operating system and any pending security updates. Some audio "
+"issues, especially audio device specific issues, can be resolved with an "
+"operating system update."
+msgstr ""
+"Ενημερώστε το λειτουργικό σας σύστημα και εγκαταστήστε τυχόν εκκρεμείς "
+"ενημερώσεις ασφαλείας. Ορισμένα προβλήματα ήχου, ιδίως αυτά που αφορούν "
+"συγκεκριμένες συσκευές ήχου, μπορούν να επιλυθούν με ενημέρωση του "
+"λειτουργικού συστήματος."

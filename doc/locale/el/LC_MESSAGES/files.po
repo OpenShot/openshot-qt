@@ -1,0 +1,930 @@
+# Translated with AI assistance (Claude) and reviewed; UI labels follow the official OpenShot Greek UI catalog.
+# Greek translation of the OpenShot Video Editor documentation.
+# Copyright (C) OpenShot Studios, LLC
+# This file is distributed under the same license as the OpenShot Video Editor package.
+# Ioannis-Stylianos Lafazanis <jslafazanis@gmail.com>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenShot Video Editor 4.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-27 00:00+0000\n"
+"PO-Revision-Date: 2026-10-20 15:50+0300\n"
+"Last-Translator: Ioannis-Stylianos Lafazanis <jslafazanis@gmail.com>\n"
+"Language-Team: Greek <el@li.org>\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../files.rst:23
+msgid "Files"
+msgstr "Αρχεία"
+
+#: ../files.rst:25
+msgid ""
+"To create a video, we need to make media files available to our project by "
+"importing files into OpenShot. Most media file types are recognized, such as"
+" videos, images, and audio files. Files can be viewed and managed in the "
+"**Project Files** panel."
+msgstr ""
+"Για να δημιουργήσουμε ένα βίντεο, πρέπει να κάνουμε διαθέσιμα στο έργο μας "
+"αρχεία πολυμέσων, εισάγοντάς τα στο OpenShot. Αναγνωρίζονται οι περισσότεροι"
+" τύποι αρχείων πολυμέσων, όπως βίντεο, εικόνες και αρχεία ήχου. Τα αρχεία "
+"μπορούν να προβληθούν και να διαχειριστούν στο πάνελ **Αρχεία Έργου** "
+"(Project Files)."
+
+#: ../files.rst:29
+msgid ""
+"Note that imported files are not copied anywhere, they remain in the "
+"physical location they were before and are simply being made available to "
+"your video project. So, they must not be deleted, renamed, or moved after "
+"adding them to your project. The \"Show All\", \"Video\", \"Audio\", "
+"\"Image\" filters above the files allows you to only see the file types you "
+"are interested in. You can also toggle the view between :guilabel:`details` "
+"and :guilabel:`thumbnails` view of your files."
+msgstr ""
+"Σημειώστε ότι τα εισαγόμενα αρχεία δεν αντιγράφονται πουθενά· παραμένουν στη"
+" φυσική τους θέση και απλώς γίνονται διαθέσιμα στο έργο βίντεο. Επομένως, "
+"δεν πρέπει να διαγραφούν, να μετονομαστούν ή να μετακινηθούν αφού τα "
+"προσθέσετε στο έργο σας. Τα φίλτρα «Εμφάνιση Όλων» (Show All), «Βίντεο» "
+"(Video), «Ήχος» (Audio), «Εικόνα» (Image) πάνω από τα αρχεία σάς επιτρέπουν "
+"να βλέπετε μόνο τους τύπους αρχείων που σας ενδιαφέρουν. Μπορείτε επίσης να "
+"εναλλάσσετε την προβολή των αρχείων σας ανάμεσα σε προβολή "
+":guilabel:`λεπτομερειών` (details) και :guilabel:`μικρογραφιών` "
+"(thumbnails)."
+
+#: ../files.rst:39
+msgid "Import Files"
+msgstr "Εισαγωγή αρχείων"
+
+#: ../files.rst:40
+msgid ""
+"There are many different ways to import media files into an OpenShot "
+"project. When a file is imported successfully, it will be automatically "
+"selected and scrolled into view (in the **Project Files** panel). Also, if "
+"the **Project Files** panel is not currently visible, OpenShot will "
+"automatically display the panel."
+msgstr ""
+"Υπάρχουν πολλοί διαφορετικοί τρόποι για να εισαγάγετε αρχεία πολυμέσων σε "
+"ένα έργο OpenShot. Όταν ένα αρχείο εισαχθεί με επιτυχία, επιλέγεται αυτόματα"
+" και κυλά στην ορατή περιοχή (στο πάνελ **Αρχεία Έργου** (Project Files)). "
+"Επίσης, αν το πάνελ **Αρχεία Έργου** (Project Files) δεν είναι ορατό εκείνη "
+"τη στιγμή, το OpenShot θα το εμφανίσει αυτόματα."
+
+#: ../files.rst:48
+msgid "Import File Method"
+msgstr "Μέθοδος εισαγωγής αρχείου"
+
+#: ../files.rst:48 ../files.rst:85 ../files.rst:142 ../files.rst:182
+#: ../files.rst:216 ../files.rst:240
+msgid "Description"
+msgstr "Περιγραφή"
+
+#: ../files.rst:50
+msgid "Drag and Drop"
+msgstr "Μεταφορά και απόθεση"
+
+#: ../files.rst:50
+msgid ""
+"Drag and drop the files from your file manager (file explorer, finder, "
+"etc...)."
+msgstr ""
+"Μεταφέρετε και αποθέστε τα αρχεία από τη διαχείριση αρχείων σας (εξερεύνηση "
+"αρχείων, Finder κ.λπ.)."
+
+#: ../files.rst:51
+msgid "Context menu (`File Menu`_)"
+msgstr "Μενού περιβάλλοντος (`File Menu`_)"
+
+#: ../files.rst:51
+msgid ""
+"Right click anywhere in the **Project Files** panel and choose "
+":guilabel:`Import Files`."
+msgstr ""
+"Κάντε δεξί κλικ οπουδήποτε στο πάνελ **Αρχεία Έργου** (Project Files) και "
+"επιλέξτε :guilabel:`Εισαγωγή Αρχείων` (Import Files)."
+
+#: ../files.rst:52
+msgid "Main Menu"
+msgstr "Κύριο μενού"
+
+#: ../files.rst:52
+msgid "In the main menu choose: :guilabel:`File\\→Import Files`."
+msgstr ""
+"Στο κύριο μενού επιλέξτε: :guilabel:`Αρχείο\\→Εισαγωγή Αρχείων` "
+"(File\\→Import Files)."
+
+#: ../files.rst:53
+msgid "Toolbar button"
+msgstr "Κουμπί γραμμής εργαλείων"
+
+#: ../files.rst:53
+msgid "Click the :guilabel:`+` toolbar button in the main toolbar."
+msgstr "Κάντε κλικ στο κουμπί :guilabel:`+` της κύριας γραμμής εργαλείων."
+
+#: ../files.rst:54
+msgid "Keyboard shortcut"
+msgstr "Συντόμευση πληκτρολογίου"
+
+#: ../files.rst:54
+msgid "Press :kbd:`Ctrl-F` (:kbd:`Cmd-F` on Mac)."
+msgstr "Πατήστε :kbd:`Ctrl-F` (:kbd:`Cmd-F` σε Mac)."
+
+#: ../files.rst:55 ../files.rst:63
+msgid "Paste from Clipboard"
+msgstr "Επικόλληση από το πρόχειρο"
+
+#: ../files.rst:55
+msgid ""
+"Press :kbd:`Ctrl-V` (:kbd:`Cmd-V` on Mac) to paste copied files from your "
+"clipboard. See :ref:`paste_from_clipboard_ref`."
+msgstr ""
+"Πατήστε :kbd:`Ctrl-V` (:kbd:`Cmd-V` σε Mac) για να επικολλήσετε αντιγραμμένα"
+" αρχεία από το πρόχειρο. Δείτε το :ref:`paste_from_clipboard_ref`."
+
+#: ../files.rst:64
+msgid ""
+"You can paste files and clipboard media straight into OpenShot. If you "
+"copied one or more files in your file manager, switch to OpenShot and press "
+":kbd:`Ctrl-V` in the **Project Files** panel to add them, just like "
+"importing."
+msgstr ""
+"Μπορείτε να επικολλήσετε αρχεία και πολυμέσα από το πρόχειρο απευθείας στο "
+"OpenShot. Αν έχετε αντιγράψει ένα ή περισσότερα αρχεία στη διαχείριση "
+"αρχείων σας, μεταβείτε στο OpenShot και πατήστε :kbd:`Ctrl-V` στο πάνελ "
+"**Αρχεία Έργου** (Project Files) για να τα προσθέσετε, ακριβώς όπως στην "
+"εισαγωγή."
+
+#: ../files.rst:67
+msgid ""
+"If you copied media **data** (for example, **Copy Image** in a web browser, "
+"a pasted frame from another app, or other image/audio/video clipboard data),"
+" press :kbd:`Ctrl-V` in OpenShot to create a file for that clipboard "
+"content. OpenShot saves a copy in a temporary folder: "
+"``.openshot_qt/clipboard/``. The new file is then added to your project and "
+"appears in **Project Files**."
+msgstr ""
+"Αν έχετε αντιγράψει **δεδομένα** πολυμέσων (για παράδειγμα **Αντιγραφή "
+"εικόνας** (Copy Image) σε ένα πρόγραμμα περιήγησης, ένα καρέ που "
+"επικολλήθηκε από άλλη εφαρμογή ή άλλα δεδομένα εικόνας/ήχου/βίντεο στο "
+"πρόχειρο), πατήστε :kbd:`Ctrl-V` στο OpenShot για να δημιουργηθεί ένα αρχείο"
+" για το συγκεκριμένο περιεχόμενο του πρόχειρου. Το OpenShot αποθηκεύει ένα "
+"αντίγραφο σε έναν προσωρινό φάκελο: ``.openshot_qt/clipboard/``. Το νέο "
+"αρχείο προστίθεται στη συνέχεια στο έργο σας και εμφανίζεται στα **Αρχεία "
+"Έργου** (Project Files)."
+
+#: ../files.rst:74
+msgid "File Menu"
+msgstr "Μενού αρχείου"
+
+#: ../files.rst:75
+msgid ""
+"To view the file menu, right click on a file (in the **Project Files** "
+"panel). Here are the actions you can use from the file menu."
+msgstr ""
+"Για να δείτε το μενού αρχείου, κάντε δεξί κλικ σε ένα αρχείο (στο πάνελ "
+"**Αρχεία Έργου** (Project Files)). Ακολουθούν οι ενέργειες που μπορείτε να "
+"χρησιμοποιήσετε από το μενού αρχείου."
+
+#: ../files.rst:84
+msgid "File Context Option"
+msgstr "Επιλογή μενού περιβάλλοντος αρχείου"
+
+#: ../files.rst:86
+msgid "Import Files..."
+msgstr "Εισαγωγή Αρχείων... (Import Files...)"
+
+#: ../files.rst:87
+msgid "Import files into your project"
+msgstr "Εισαγωγή αρχείων στο έργο σας"
+
+#: ../files.rst:88
+msgid "Create with AI / Enhance with AI (Optional)"
+msgstr ""
+"Δημιουργία με AI / Βελτίωση με AI (προαιρετικό) (Create with AI / Enhance "
+"with AI (Optional))"
+
+#: ../files.rst:89
+msgid ""
+"AI menu actions for generating or enhancing media files. These options are "
+"shown only when AI is enabled and the selected file type supports the "
+"workflow. See :ref:`ai_ref`."
+msgstr ""
+"Ενέργειες μενού AI για τη δημιουργία ή τη βελτίωση αρχείων πολυμέσων. Αυτές "
+"οι επιλογές εμφανίζονται μόνο όταν το AI είναι ενεργοποιημένο και ο "
+"επιλεγμένος τύπος αρχείου υποστηρίζει τη συγκεκριμένη ροή εργασίας. Δείτε το"
+" :ref:`ai_ref`."
+
+#: ../files.rst:90
+msgid "Details View"
+msgstr "Προβολή Λεπτομερειών (Details View)"
+
+#: ../files.rst:91
+msgid "Switch the Project Files panel to details view"
+msgstr ""
+"Εναλλαγή του πάνελ Αρχεία Έργου (Project Files) σε προβολή λεπτομερειών"
+
+#: ../files.rst:92 ../files.rst:114
+msgid "Preview File"
+msgstr "Προεπισκόπηση Αρχείου (Preview File)"
+
+#: ../files.rst:93
+msgid "Preview a media file"
+msgstr "Προεπισκόπηση ενός αρχείου πολυμέσων"
+
+#: ../files.rst:94 ../files.rst:170
+msgid "Split File"
+msgstr "Διαχωρισμός Αρχείου (Split File)"
+
+#: ../files.rst:95
+msgid ""
+"Split a file into many smaller files. The new trimmed files appear in the "
+"Project Files list."
+msgstr ""
+"Διαχωρισμός ενός αρχείου σε πολλά μικρότερα αρχεία. Τα νέα περικομμένα "
+"αρχεία εμφανίζονται στη λίστα Αρχεία Έργου (Project Files)."
+
+#: ../files.rst:96 ../files.rst:193
+msgid "Export Files"
+msgstr "Εξαγωγή Αρχείων (Export Files)"
+
+#: ../files.rst:97
+msgid "Export selected files (and split segments) to a destination folder"
+msgstr ""
+"Εξαγωγή των επιλεγμένων αρχείων (και των τμημάτων διαχωρισμού) σε φάκελο "
+"προορισμού"
+
+#: ../files.rst:98 ../files.rst:205
+msgid "Add to Timeline"
+msgstr "Προσθήκη στο Χρονολόγιο (Add to Timeline)"
+
+#: ../files.rst:99
+msgid ""
+"Add many files to the timeline in one step, including transitions or "
+"alternating tracks."
+msgstr ""
+"Προσθήκη πολλών αρχείων στο χρονολόγιο με ένα βήμα, συμπεριλαμβανομένων "
+"μεταβάσεων ή εναλλασσόμενων διαδρόμων."
+
+#: ../files.rst:100
+msgid "Choose Profile"
+msgstr "Επιλογή Προφίλ (Choose Profile)"
+
+#: ../files.rst:101
+msgid ""
+"Change the current project profile to match the selected file. If the file's"
+" profile does not match a known profile, it will give you the option to "
+"create a custom profile."
+msgstr ""
+"Αλλαγή του τρέχοντος προφίλ έργου ώστε να ταιριάζει με το επιλεγμένο αρχείο."
+" Αν το προφίλ του αρχείου δεν αντιστοιχεί σε κάποιο γνωστό προφίλ, θα σας "
+"δοθεί η δυνατότητα να δημιουργήσετε ένα προσαρμοσμένο προφίλ."
+
+#: ../files.rst:102 ../files.rst:242
+msgid "File Properties"
+msgstr "Ιδιότητες Αρχείου (File Properties)"
+
+#: ../files.rst:103
+msgid "View the properties of a file, such as frame rate, size, etc..."
+msgstr ""
+"Προβολή των ιδιοτήτων ενός αρχείου, όπως ο ρυθμός καρέ, το μέγεθος κ.λπ."
+
+#: ../files.rst:104 ../files.rst:125
+msgid "Optimize"
+msgstr "Βελτιστοποίηση (Optimize)"
+
+#: ../files.rst:105
+msgid ""
+"Create, link, unlink, or delete optimized preview files for the selected "
+"video files."
+msgstr ""
+"Δημιουργία, σύνδεση, αποσύνδεση ή διαγραφή βελτιστοποιημένων αρχείων "
+"προεπισκόπησης για τα επιλεγμένα αρχεία βίντεο."
+
+#: ../files.rst:106 ../files.rst:250
+msgid "Remove from Project"
+msgstr "Αφαίρεση από το Έργο (Remove from Project)"
+
+#: ../files.rst:107
+msgid "Remove a file from the project"
+msgstr "Αφαίρεση ενός αρχείου από το έργο"
+
+#: ../files.rst:108
+msgid "Edit Title"
+msgstr "Επεξεργασία Τίτλου (Edit Title)"
+
+#: ../files.rst:109
+msgid "Edit an existing title SVG file (shown when an SVG title is selected)"
+msgstr ""
+"Επεξεργασία ενός υπάρχοντος αρχείου SVG τίτλου (εμφανίζεται όταν είναι "
+"επιλεγμένος ένας τίτλος SVG)"
+
+#: ../files.rst:110
+msgid "Duplicate Title"
+msgstr "Διπλότυπο Τίτλου (Duplicate Title)"
+
+#: ../files.rst:111
+msgid ""
+"Make a copy, and then edit the copied title SVG file (shown when an SVG "
+"title is selected)"
+msgstr ""
+"Δημιουργία αντιγράφου και στη συνέχεια επεξεργασία του αντιγραμμένου αρχείου"
+" SVG τίτλου (εμφανίζεται όταν είναι επιλεγμένος ένας τίτλος SVG)"
+
+#: ../files.rst:115
+msgid ""
+"The :guilabel:`Preview File` action opens the Preview dialog for the "
+"selected file from :guilabel:`Project Files`. Simply double check a file to "
+"open this dialog."
+msgstr ""
+"Η ενέργεια :guilabel:`Προεπισκόπηση Αρχείου` (Preview File) ανοίγει το "
+"παράθυρο διαλόγου Προεπισκόπησης για το επιλεγμένο αρχείο από τα "
+":guilabel:`Αρχεία Έργου` (Project Files). Απλώς κάντε διπλό κλικ σε ένα "
+"αρχείο για να ανοίξει αυτό το παράθυρο."
+
+#: ../files.rst:118
+msgid "Playback starts automatically."
+msgstr "Η αναπαραγωγή ξεκινά αυτόματα."
+
+#: ../files.rst:119
+msgid "Loop is enabled by default."
+msgstr "Η επανάληψη (Loop) είναι ενεργοποιημένη από προεπιλογή."
+
+#: ../files.rst:120
+msgid "Press :kbd:`Space` to toggle play/pause."
+msgstr "Πατήστε :kbd:`Space` για εναλλαγή μεταξύ αναπαραγωγής και παύσης."
+
+#: ../files.rst:121
+msgid "Use the mouse scroll wheel to zoom in/out."
+msgstr ""
+"Χρησιμοποιήστε τον τροχό κύλισης του ποντικιού για μεγέθυνση/σμίκρυνση."
+
+#: ../files.rst:122
+msgid ""
+"A :guilabel:`Reset Zoom` button appears when zoom is not 100%, and resets to"
+" 100%."
+msgstr ""
+"Ένα κουμπί :guilabel:`Επαναφορά Μεγέθυνσης` (Reset Zoom) εμφανίζεται όταν η "
+"μεγέθυνση δεν είναι 100% και την επαναφέρει στο 100%."
+
+#: ../files.rst:126
+msgid ""
+"Optimized preview files are lower-resolution copies of your source video "
+"files (sometimes referred to as proxy files), used to improve editing "
+"responsiveness without changing the original media. They are especially "
+"helpful with large formats such as 4K, high frame rate, or high bitrate "
+"footage."
+msgstr ""
+"Τα βελτιστοποιημένα αρχεία προεπισκόπησης είναι αντίγραφα χαμηλότερης "
+"ανάλυσης των αρχείων βίντεο πηγής (που μερικές φορές αναφέρονται ως αρχεία "
+"proxy), τα οποία χρησιμοποιούνται για τη βελτίωση της ανταπόκρισης κατά την "
+"επεξεργασία, χωρίς να αλλοιώνονται τα αρχικά πολυμέσα. Είναι ιδιαίτερα "
+"χρήσιμα με μεγάλες μορφές, όπως 4K, υλικό με υψηλό ρυθμό καρέ ή υψηλό ρυθμό "
+"bit (bitrate)."
+
+#: ../files.rst:130
+msgid ""
+"For video files, the file context menu includes an :guilabel:`Optimize` "
+"submenu. This feature creates or links smaller preview copies of your source"
+" clips, which can improve playback and scrubbing on slower systems or with "
+"high-resolution footage. Optimizing also pre-loads thumbnails to further "
+"improve the editing smoothness when zooming into the timeline."
+msgstr ""
+"Για τα αρχεία βίντεο, το μενού περιβάλλοντος του αρχείου περιλαμβάνει ένα "
+"υπομενού :guilabel:`Βελτιστοποίηση` (Optimize). Αυτή η λειτουργία δημιουργεί"
+" ή συνδέει μικρότερα αντίγραφα προεπισκόπησης των κλιπ πηγής, τα οποία "
+"μπορούν να βελτιώσουν την αναπαραγωγή και την ολίσθηση (scrubbing) σε πιο "
+"αργά συστήματα ή με υλικό υψηλής ανάλυσης. Η βελτιστοποίηση φορτώνει επίσης "
+"εκ των προτέρων τις μικρογραφίες, ώστε να βελτιώνεται περαιτέρω η ομαλότητα "
+"της επεξεργασίας κατά τη μεγέθυνση στο χρονολόγιο."
+
+#: ../files.rst:135
+msgid "The :guilabel:`Optimize` submenu contains these actions:"
+msgstr ""
+"Το υπομενού :guilabel:`Βελτιστοποίηση` (Optimize) περιέχει τις εξής "
+"ενέργειες:"
+
+#: ../files.rst:141
+msgid "Action"
+msgstr "Ενέργεια"
+
+#: ../files.rst:143
+msgid "Optimize Video"
+msgstr "Βελτιστοποίηση Βίντεο (Optimize Video)"
+
+#: ../files.rst:144
+msgid ""
+"Create an optimized preview file for each selected video file. OpenShot "
+"stores these files in the project's ``optimized`` assets folder."
+msgstr ""
+"Δημιουργία ενός βελτιστοποιημένου αρχείου προεπισκόπησης για κάθε επιλεγμένο"
+" αρχείο βίντεο. Το OpenShot αποθηκεύει αυτά τα αρχεία στον φάκελο στοιχείων "
+"``optimized`` του έργου."
+
+#: ../files.rst:145
+msgid "Link to Existing..."
+msgstr "Σύνδεση με υπάρχον... (Link to Existing...)"
+
+#: ../files.rst:146
+msgid ""
+"Choose a folder containing already-created optimized files and link the best"
+" matching files to the selected source clips. This supports common proxy "
+"naming styles, known proxy suffixes, file ID suffixes, and extension "
+"changes."
+msgstr ""
+"Επιλογή ενός φακέλου που περιέχει ήδη δημιουργημένα βελτιστοποιημένα αρχεία "
+"και σύνδεση των πιο κατάλληλων αρχείων με τα επιλεγμένα κλιπ πηγής. "
+"Υποστηρίζονται συνηθισμένα στυλ ονοματοδοσίας proxy, γνωστές καταλήξεις "
+"proxy, καταλήξεις αναγνωριστικού αρχείου (file ID) και αλλαγές επέκτασης."
+
+#: ../files.rst:147
+msgid "Unlink"
+msgstr "Αποσύνδεση (Unlink)"
+
+#: ../files.rst:148
+msgid ""
+"Remove the optimized preview link from the selected file without deleting "
+"the optimized file from disk."
+msgstr ""
+"Αφαίρεση του συνδέσμου βελτιστοποιημένης προεπισκόπησης από το επιλεγμένο "
+"αρχείο, χωρίς διαγραφή του βελτιστοποιημένου αρχείου από το δίσκο."
+
+#: ../files.rst:149
+msgid "Delete & Unlink"
+msgstr "Διαγραφή και αποσύνδεση (Delete & Unlink)"
+
+#: ../files.rst:150
+msgid ""
+"Delete the linked optimized file from disk, then remove the link from the "
+"selected file."
+msgstr ""
+"Διαγραφή του συνδεδεμένου βελτιστοποιημένου αρχείου από το δίσκο και στη "
+"συνέχεια αφαίρεση του συνδέσμου από το επιλεγμένο αρχείο."
+
+#: ../files.rst:152
+msgid ""
+"When optimization is in progress, the submenu changes to a single "
+":guilabel:`Cancel` action for the selected file(s). Optimized preview files "
+"are used only for editing and preview playback. Your final export still uses"
+" the original source files."
+msgstr ""
+"Όταν βρίσκεται σε εξέλιξη βελτιστοποίηση, το υπομενού αλλάζει σε μία μόνο "
+"ενέργεια :guilabel:`Ακύρωση` (Cancel) για τα επιλεγμένα αρχεία. Τα "
+"βελτιστοποιημένα αρχεία προεπισκόπησης χρησιμοποιούνται μόνο για την "
+"επεξεργασία και την αναπαραγωγή προεπισκόπησης. Η τελική εξαγωγή "
+"χρησιμοποιεί και πάλι τα αρχικά αρχεία πηγής."
+
+#: ../files.rst:155
+msgid ""
+"When you use :guilabel:`Link to Existing...`, OpenShot tries to match each "
+"selected source clip to an existing optimized file in a safe order. It first"
+" looks for the same base filename with a different video extension, then for"
+" common proxy-style names such as ``_proxy``, ``_preview``, ``_optimized``, "
+"``_lowres``, resolution tags such as ``_720p`` or ``_1080p``, and "
+"camera/editor-style variants such as ``_p``. It also supports names that add"
+" the OpenShot file ID after a known proxy suffix, such as "
+"``clip001_proxy_F1.mp4``, and it can still match files named only by file "
+"ID, such as ``F1.mp4``."
+msgstr ""
+"Όταν χρησιμοποιείτε το :guilabel:`Σύνδεση με υπάρχον...` (Link to "
+"Existing...), το OpenShot προσπαθεί να αντιστοιχίσει κάθε επιλεγμένο κλιπ "
+"πηγής με ένα υπάρχον βελτιστοποιημένο αρχείο, ακολουθώντας μια ασφαλή σειρά."
+" Αναζητά πρώτα το ίδιο βασικό όνομα αρχείου με διαφορετική επέκταση βίντεο, "
+"έπειτα συνηθισμένα ονόματα τύπου proxy όπως ``_proxy``, ``_preview``, "
+"``_optimized``, ``_lowres``, ετικέτες ανάλυσης όπως ``_720p`` ή ``_1080p``, "
+"και παραλλαγές τύπου κάμερας/προγράμματος επεξεργασίας όπως ``_p``. "
+"Υποστηρίζει επίσης ονόματα που προσθέτουν το αναγνωριστικό αρχείου (file ID)"
+" του OpenShot μετά από μια γνωστή κατάληξη proxy, όπως "
+"``clip001_proxy_F1.mp4``, και μπορεί ακόμη να αντιστοιχίσει αρχεία που "
+"ονομάζονται μόνο με το αναγνωριστικό αρχείου, όπως ``F1.mp4``."
+
+#: ../files.rst:162
+msgid ""
+"Best practice when bringing your own optimized files is to keep the same "
+"base filename as the source clip and add a clear proxy-style suffix, for "
+"example ``clip001_proxy.mp4`` or ``clip001_proxy.mov``. If you need to avoid"
+" filename collisions, append the OpenShot file ID after the proxy suffix, "
+"for example ``clip001_proxy_F1.mp4``. Avoid unrelated suffixes such as "
+"``_final`` or ``_reviewcopy``, because OpenShot does not treat those as safe"
+" proxy naming patterns."
+msgstr ""
+"Η βέλτιστη πρακτική όταν φέρνετε τα δικά σας βελτιστοποιημένα αρχεία είναι "
+"να κρατάτε το ίδιο βασικό όνομα αρχείου με το κλιπ πηγής και να προσθέτετε "
+"μια σαφή κατάληξη τύπου proxy, για παράδειγμα ``clip001_proxy.mp4`` ή "
+"``clip001_proxy.mov``. Αν χρειάζεται να αποφύγετε συγκρούσεις ονομάτων "
+"αρχείων, προσθέστε το αναγνωριστικό αρχείου του OpenShot μετά την κατάληξη "
+"proxy, για παράδειγμα ``clip001_proxy_F1.mp4``. Αποφύγετε άσχετες καταλήξεις"
+" όπως ``_final`` ή ``_reviewcopy``, επειδή το OpenShot δεν τις αντιμετωπίζει"
+" ως ασφαλή πρότυπα ονοματοδοσίας proxy."
+
+#: ../files.rst:171
+msgid ""
+"If you need to cut a large video file into many smaller files before "
+"editing, the **Split File** dialog is built exactly for this purpose. Right "
+"click on a file, and choose :guilabel:`Split File`. Use this dialog to "
+"quickly separate a large file into many smaller segments. For each segment, "
+"you can select the starting and ending frame, and a title. Each segment "
+"appears as a new file in the Project Files dialog."
+msgstr ""
+"Αν χρειάζεται να κόψετε ένα μεγάλο αρχείο βίντεο σε πολλά μικρότερα αρχεία "
+"πριν από την επεξεργασία, το παράθυρο διαλόγου **Διαχωρισμός Αρχείου** "
+"(Split File) έχει δημιουργηθεί ακριβώς γι’ αυτόν τον σκοπό. Κάντε δεξί κλικ "
+"σε ένα αρχείο και επιλέξτε :guilabel:`Διαχωρισμός Αρχείου` (Split File). "
+"Χρησιμοποιήστε αυτό το παράθυρο διαλόγου για να χωρίσετε γρήγορα ένα μεγάλο "
+"αρχείο σε πολλά μικρότερα τμήματα. Για κάθε τμήμα μπορείτε να επιλέξετε το "
+"καρέ έναρξης και το καρέ λήξης, καθώς και έναν τίτλο. Κάθε τμήμα εμφανίζεται"
+" ως νέο αρχείο στο παράθυρο Αρχεία Έργου (Project Files)."
+
+#: ../files.rst:182 ../files.rst:216 ../files.rst:240
+msgid "#"
+msgstr ""
+
+#: ../files.rst:182 ../files.rst:216 ../files.rst:240
+msgid "Name"
+msgstr "Όνομα"
+
+#: ../files.rst:184 ../files.rst:218 ../files.rst:242
+msgid "1"
+msgstr ""
+
+#: ../files.rst:184
+msgid "Start of File"
+msgstr "Έναρξη αρχείου (Start of File)"
+
+#: ../files.rst:184
+msgid "Choose the starting frame of your file by clicking this button"
+msgstr ""
+"Επιλέξτε το καρέ έναρξης του αρχείου σας κάνοντας κλικ σε αυτό το κουμπί"
+
+#: ../files.rst:185 ../files.rst:219 ../files.rst:243
+msgid "2"
+msgstr ""
+
+#: ../files.rst:185
+msgid "End of File"
+msgstr "Λήξη αρχείου (End of File)"
+
+#: ../files.rst:185
+msgid "Choose the ending frame of your file by clicking this button"
+msgstr ""
+"Επιλέξτε το καρέ λήξης του αρχείου σας κάνοντας κλικ σε αυτό το κουμπί"
+
+#: ../files.rst:186 ../files.rst:220
+msgid "3"
+msgstr ""
+
+#: ../files.rst:186
+msgid "Name of File"
+msgstr "Όνομα αρχείου (Name of File)"
+
+#: ../files.rst:186
+msgid "Enter an optional name"
+msgstr "Εισαγάγετε ένα προαιρετικό όνομα"
+
+#: ../files.rst:187 ../files.rst:221
+msgid "4"
+msgstr ""
+
+#: ../files.rst:187
+msgid "Create Button"
+msgstr "Κουμπί δημιουργίας (Create Button)"
+
+#: ../files.rst:187
+msgid ""
+"Create the file (which resets this dialog, so you can repeat these steps for"
+" each segment)"
+msgstr ""
+"Δημιουργία του αρχείου (κάτι που επαναφέρει αυτό το παράθυρο διαλόγου, ώστε "
+"να μπορείτε να επαναλάβετε αυτά τα βήματα για κάθε τμήμα)"
+
+#: ../files.rst:190
+msgid ""
+"Please refer to the section :ref:`clips_cutting_slicing_ref` for more ways "
+"to cut and slice clips directly in the timeline."
+msgstr ""
+"Ανατρέξτε στην ενότητα :ref:`clips_cutting_slicing_ref` για περισσότερους "
+"τρόπους κοπής και τεμαχισμού κλιπ απευθείας στο χρονολόγιο."
+
+#: ../files.rst:194
+msgid ""
+"If you want your split file segments available outside of your OpenShot "
+"project, or want to copy all your video assets to one place, you can do this"
+" with the **Export Files** dialog. Simply :kbd:`Ctrl+Click` to select all "
+"the files you like, then :kbd:`Right Click` and choose :guilabel:`Export "
+"Files`. In the dialog that appears, choose a destination folder, and click "
+":guilabel:`Export`."
+msgstr ""
+"Αν θέλετε τα τμήματα του διαχωρισμένου αρχείου σας να είναι διαθέσιμα εκτός "
+"του έργου OpenShot, ή αν θέλετε να αντιγράψετε όλο το υλικό βίντεο σε ένα "
+"σημείο, μπορείτε να το κάνετε με το παράθυρο διαλόγου **Εξαγωγή Αρχείων** "
+"(Export Files). Απλώς πατήστε :kbd:`Ctrl+Click` για να επιλέξετε όλα τα "
+"αρχεία που θέλετε, έπειτα :kbd:`Right Click` και επιλέξτε :guilabel:`Εξαγωγή"
+" Αρχείων` (Export Files). Στο παράθυρο που εμφανίζεται, επιλέξτε έναν φάκελο"
+" προορισμού και κάντε κλικ στο :guilabel:`Εξαγωγή` (Export)."
+
+#: ../files.rst:199
+msgid ""
+"NOTE: This will export each file or file segment using its **original video "
+"profile** (width, height, framerate, aspect ratio, etc...). It also supports"
+" any :ref:`split_clip_ref` (described above). For example, if you have split"
+" a long video file into many different segments (and named them), you can "
+"now export all the segments as separate video files (using the original "
+"file's video profile)."
+msgstr ""
+"ΣΗΜΕΙΩΣΗ: Αυτό θα εξαγάγει κάθε αρχείο ή τμήμα αρχείου με το **αρχικό προφίλ"
+" βίντεο** (πλάτος, ύψος, ρυθμός καρέ, αναλογία διαστάσεων κ.λπ.). "
+"Υποστηρίζει επίσης τη λειτουργία :ref:`split_clip_ref` (που περιγράφεται "
+"παραπάνω). Για παράδειγμα, αν έχετε διαχωρίσει ένα μεγάλο αρχείο βίντεο σε "
+"πολλά διαφορετικά τμήματα (και τα έχετε ονομάσει), μπορείτε τώρα να "
+"εξαγάγετε όλα τα τμήματα ως ξεχωριστά αρχεία βίντεο (με το προφίλ βίντεο του"
+" αρχικού αρχείου)."
+
+#: ../files.rst:206
+msgid ""
+"In certain cases, you might need to add many files to the timeline at the "
+"same time. For example, a photo slideshow, or a large number of short video "
+"clips. The **Add to Timeline** dialog can automate this task for you. First,"
+" select all files you need to add, right click, and choose Add to Timeline."
+msgstr ""
+"Σε ορισμένες περιπτώσεις μπορεί να χρειαστεί να προσθέσετε πολλά αρχεία στο "
+"χρονολόγιο ταυτόχρονα, για παράδειγμα ένα slideshow φωτογραφιών ή μεγάλο "
+"αριθμό σύντομων κλιπ βίντεο. Το παράθυρο διαλόγου **Προσθήκη στο "
+"Χρονολόγιο** (Add to Timeline) μπορεί να αυτοματοποιήσει αυτή την εργασία. "
+"Αρχικά, επιλέξτε όλα τα αρχεία που θέλετε να προσθέσετε, κάντε δεξί κλικ και"
+" επιλέξτε Προσθήκη στο Χρονολόγιο (Add to Timeline)."
+
+#: ../files.rst:218
+msgid "Selected Files"
+msgstr "Επιλεγμένα αρχεία (Selected Files)"
+
+#: ../files.rst:218
+msgid "The list of selected files that need to be added to the timeline"
+msgstr ""
+"Η λίστα των επιλεγμένων αρχείων που πρέπει να προστεθούν στο χρονολόγιο"
+
+#: ../files.rst:219
+msgid "Order of Files"
+msgstr "Σειρά αρχείων (Order of Files)"
+
+#: ../files.rst:219
+msgid ""
+"Use these buttons to reorder the list of files (move up, move down, "
+"randomize, remove)"
+msgstr ""
+"Χρησιμοποιήστε αυτά τα κουμπιά για να αναδιατάξετε τη λίστα των αρχείων "
+"(μετακίνηση επάνω, μετακίνηση κάτω, τυχαία σειρά, αφαίρεση)"
+
+#: ../files.rst:220
+msgid "Timeline Position"
+msgstr "Θέση στο χρονολόγιο (Timeline Position)"
+
+#: ../files.rst:220
+msgid ""
+"Choose the starting position and track where these files need to be inserted"
+" on the timeline"
+msgstr ""
+"Επιλέξτε τη θέση έναρξης και τον διάδρομο όπου πρέπει να εισαχθούν αυτά τα "
+"αρχεία στο χρονολόγιο"
+
+#: ../files.rst:221
+msgid "Fade Options"
+msgstr "Επιλογές βαθμιαίας εισόδου/εξόδου (Fade Options)"
+
+#: ../files.rst:221
+msgid ""
+"Fade in, fade out, both, or none (only affects the image, and not audio)"
+msgstr ""
+"Βαθμιαία είσοδος, βαθμιαία έξοδος, και τα δύο ή καμία (επηρεάζει μόνο την "
+"εικόνα και όχι τον ήχο)"
+
+#: ../files.rst:222
+msgid "5"
+msgstr ""
+
+#: ../files.rst:222
+msgid "Zoom Options"
+msgstr "Επιλογές μεγέθυνσης (Zoom Options)"
+
+#: ../files.rst:222
+msgid "Zoom in, zoom out, or none"
+msgstr "Μεγέθυνση, σμίκρυνση ή καμία"
+
+#: ../files.rst:223
+msgid "6"
+msgstr ""
+
+#: ../files.rst:223
+msgid "Transitions"
+msgstr "Μεταβάσεις (Transitions)"
+
+#: ../files.rst:223
+msgid ""
+"Choose a specific transition to use between files, random, or none (only "
+"affects the image, and not the audio)"
+msgstr ""
+"Επιλέξτε μια συγκεκριμένη μετάβαση για χρήση ανάμεσα στα αρχεία, τυχαία ή "
+"καμία (επηρεάζει μόνο την εικόνα και όχι τον ήχο)"
+
+#: ../files.rst:229
+msgid "Properties"
+msgstr "Ιδιότητες"
+
+#: ../files.rst:230
+msgid ""
+"To view the properties of any imported file in your video project, right "
+"click on the file, and choose **File Properties**. This will launch the file"
+" properties dialog, which displays information about your media file. For "
+"certain types of images (i.e. image sequences), you can adjust the frame "
+"rate on this dialog also."
+msgstr ""
+"Για να δείτε τις ιδιότητες οποιουδήποτε εισαγμένου αρχείου στο έργο βίντεο, "
+"κάντε δεξί κλικ στο αρχείο και επιλέξτε **Ιδιότητες Αρχείου** (File "
+"Properties). Θα ανοίξει το παράθυρο ιδιοτήτων αρχείου, που εμφανίζει "
+"πληροφορίες για το αρχείο πολυμέσων. Για ορισμένους τύπους εικόνων (π.χ. "
+"ακολουθίες εικόνων) μπορείτε να προσαρμόσετε σε αυτό το παράθυρο και τον "
+"ρυθμό καρέ."
+
+#: ../files.rst:242
+msgid ""
+"Select an image sequence in the **Project Files** panel, right click and "
+"choose **File Properties**"
+msgstr ""
+"Επιλέξτε μια ακολουθία εικόνων στο πάνελ **Αρχεία Έργου** (Project Files), "
+"κάντε δεξί κλικ και επιλέξτε **Ιδιότητες Αρχείου** (File Properties)"
+
+#: ../files.rst:243
+msgid "Frame Rate"
+msgstr "Ρυθμός Καρέ (Frame Rate)"
+
+#: ../files.rst:243
+msgid ""
+"For image sequences, you can also adjust the frame rate of the animation"
+msgstr ""
+"Για τις ακολουθίες εικόνων μπορείτε επίσης να προσαρμόσετε τον ρυθμό καρέ "
+"της κίνησης"
+
+#: ../files.rst:252
+msgid ""
+"This will remove a file from the project. It will not delete the underlying "
+"physical file though, so removing a file from the project merely makes it "
+"unavailable for this video project."
+msgstr ""
+"Αυτό θα αφαιρέσει ένα αρχείο από το έργο. Δεν θα διαγράψει όμως το "
+"υποκείμενο φυσικό αρχείο, επομένως η αφαίρεση ενός αρχείου από το έργο απλώς"
+" το καθιστά μη διαθέσιμο για αυτό το έργο βίντεο."
+
+#: ../files.rst:257
+msgid "Project Assets Folder"
+msgstr "Φάκελος στοιχείων έργου"
+
+#: ../files.rst:258
+msgid ""
+"OpenShot creates and uses a few **temporary working folders** while you "
+"edit. These live under ``.openshot_qt/`` in your user profile and hold "
+"project-specific files that OpenShot generates for you:"
+msgstr ""
+"Το OpenShot δημιουργεί και χρησιμοποιεί μερικούς **προσωρινούς φακέλους "
+"εργασίας** κατά την επεξεργασία. Αυτοί βρίσκονται στο ``.openshot_qt/`` του "
+"προφίλ χρήστη σας και περιέχουν αρχεία συγκεκριμένα για το έργο, τα οποία "
+"δημιουργεί το OpenShot για εσάς:"
+
+#: ../files.rst:261
+msgid ""
+"``.openshot_qt/blender/`` - Blender animation renders created by the "
+"Animated Title dialog"
+msgstr ""
+"``.openshot_qt/blender/`` - Αποδόσεις κίνησης Blender που δημιουργούνται από"
+" το παράθυρο διαλόγου Κινούμενος Τίτλος (Animated Title)"
+
+#: ../files.rst:262
+msgid "``.openshot_qt/title/`` - SVG title files created by the Title dialog"
+msgstr ""
+"``.openshot_qt/title/`` - Αρχεία τίτλων SVG που δημιουργούνται από το "
+"παράθυρο διαλόγου Τίτλος (Title)"
+
+#: ../files.rst:263
+msgid ""
+"``.openshot_qt/thumbnail/`` - Thumbnails generated for Project Files and "
+"Timeline"
+msgstr ""
+"``.openshot_qt/thumbnail/`` - Μικρογραφίες που δημιουργούνται για τα Αρχεία "
+"Έργου και το Χρονολόγιο"
+
+#: ../files.rst:264
+msgid ""
+"``.openshot_qt/clipboard/`` - Media created from clipboard pastes (images, "
+"audio, or video that must be saved to disk first)"
+msgstr ""
+"``.openshot_qt/clipboard/`` - Πολυμέσα που δημιουργούνται από επικολλήσεις "
+"από το πρόχειρο (εικόνες, ήχος ή βίντεο που πρέπει πρώτα να αποθηκευτούν στο"
+" δίσκο)"
+
+#: ../files.rst:265
+msgid ""
+"``.openshot_qt/optimized/`` - Optimized preview files created for smoother "
+"editing"
+msgstr ""
+"``.openshot_qt/optimized/`` - Βελτιστοποιημένα αρχεία προεπισκόπησης που "
+"δημιουργούνται για πιο ομαλή επεξεργασία"
+
+#: ../files.rst:266
+msgid "``.openshot_qt/protobuf_data`` - Tracking and object detection data"
+msgstr ""
+"``.openshot_qt/protobuf_data`` - Δεδομένα παρακολούθησης κίνησης και "
+"ανίχνευσης αντικειμένων"
+
+#: ../files.rst:268
+msgid ""
+"When you choose **File→Save As**, OpenShot copies these folders into your "
+"project directory, inside a single folder named ``PROJECTNAME_Assets``. For "
+"example: ``MyProject_Assets/clipboard`` will contain any media you pasted "
+"from the clipboard, and ``MyProject_Assets/optimized`` will contain any "
+"optimized preview files linked to the project."
+msgstr ""
+"Όταν επιλέγετε **Αρχείο→Αποθήκευση έργου ως** (File→Save As), το OpenShot "
+"αντιγράφει αυτούς τους φακέλους στον φάκελο του έργου σας, μέσα σε έναν "
+"ενιαίο φάκελο με όνομα ``PROJECTNAME_Assets``. Για παράδειγμα: το "
+"``MyProject_Assets/clipboard`` θα περιέχει τυχόν πολυμέσα που επικολλήσατε "
+"από το πρόχειρο και το ``MyProject_Assets/optimized`` θα περιέχει τυχόν "
+"βελτιστοποιημένα αρχεία προεπισκόπησης που συνδέονται με το έργο."
+
+#: ../files.rst:272
+msgid ""
+"As part of this process, all paths inside your ``*.osp`` project file are "
+"updated to be **relative** to your project folder."
+msgstr ""
+"Στο πλαίσιο αυτής της διαδικασίας, όλες οι διαδρομές μέσα στο αρχείο έργου "
+"``*.osp`` ενημερώνονται ώστε να είναι **σχετικές** με τον φάκελο του έργου "
+"σας."
+
+#: ../files.rst:275
+msgid "Missing Files"
+msgstr "Αρχεία που λείπουν"
+
+#: ../files.rst:277
+msgid ""
+"When you create and save a project in OpenShot, any files imported into the "
+"software (such as videos, audio, and images) must remain accessible "
+"throughout the project's duration. This means that these imported files "
+"should not be renamed, deleted, or moved to different folders. Additionally,"
+" the full path where these files are located should not be renamed either. "
+"This principle applies to other video editing software as well."
+msgstr ""
+"Όταν δημιουργείτε και αποθηκεύετε ένα έργο στο OpenShot, όλα τα αρχεία που "
+"εισάγονται στο λογισμικό (όπως βίντεο, ήχος και εικόνες) πρέπει να "
+"παραμένουν προσβάσιμα καθ’ όλη τη διάρκεια του έργου. Αυτό σημαίνει ότι τα "
+"εισαγμένα αυτά αρχεία δεν πρέπει να μετονομάζονται, να διαγράφονται ή να "
+"μετακινούνται σε άλλους φακέλους. Επιπλέον, δεν πρέπει να μετονομάζεται ούτε"
+" η πλήρης διαδρομή όπου βρίσκονται αυτά τα αρχεία. Η αρχή αυτή ισχύει και "
+"για άλλα προγράμματα επεξεργασίας βίντεο."
+
+#: ../files.rst:282
+msgid ""
+"For example, users might move or delete folders, unplug their USB devices, "
+"or move or delete their project files. Any of these examples cause a "
+":guilabel:`Missing File` message, in which OpenShot prompts you to locate "
+"the folder of the missing file(s). Depending on the number of files you "
+"added to your project, OpenShot could prompt you many times to find the "
+"missing files."
+msgstr ""
+"Για παράδειγμα, οι χρήστες μπορεί να μετακινήσουν ή να διαγράψουν φακέλους, "
+"να αποσυνδέσουν τις συσκευές USB τους ή να μετακινήσουν ή να διαγράψουν τα "
+"αρχεία των έργων τους. Οποιοδήποτε από αυτά προκαλεί ένα μήνυμα "
+":guilabel:`Αρχείο που λείπει` (Missing File), με το οποίο το OpenShot σας "
+"ζητά να εντοπίσετε τον φάκελο των αρχείων που λείπουν. Ανάλογα με τον αριθμό"
+" των αρχείων που έχετε προσθέσει στο έργο σας, το OpenShot μπορεί να σας "
+"ζητήσει πολλές φορές να βρείτε τα αρχεία που λείπουν."
+
+#: ../files.rst:286
+msgid ""
+"When OpenShot saves a project, all file paths are converted to **relative** "
+"file paths. As long as you keep all assets organized in the same parent "
+"folder (including the \\*.osp project file), you will be able to move your "
+"project folder without triggering any missing file(s) prompts. You can even "
+"move a self-contained project folder to another computer without any issues."
+msgstr ""
+"Όταν το OpenShot αποθηκεύει ένα έργο, όλες οι διαδρομές αρχείων "
+"μετατρέπονται σε **σχετικές** διαδρομές αρχείων. Εφόσον διατηρείτε όλο το "
+"υλικό οργανωμένο στον ίδιο γονικό φάκελο (συμπεριλαμβανομένου του αρχείου "
+"έργου \\*.osp), θα μπορείτε να μετακινήσετε τον φάκελο του έργου σας χωρίς "
+"να εμφανιστούν μηνύματα για αρχεία που λείπουν. Μπορείτε ακόμη και να "
+"μετακινήσετε έναν αυτόνομο φάκελο έργου σε άλλον υπολογιστή χωρίς κανένα "
+"πρόβλημα."
+
+#: ../files.rst:290
+msgid ""
+"Everyone has their unique way of organizing files, and it's crucial to "
+"remember not to make changes to file paths, rename files, or delete files "
+"when working with video editors, as it can lead to missing file issues. For "
+"a detailed guide on missing file(s), see `The Case of “Missing Files”! "
+"<https://github.com/OpenShot/openshot-qt/wiki/Missing-File-Prompt>`_"
+msgstr ""
+"Ο καθένας έχει τον δικό του τρόπο οργάνωσης των αρχείων και είναι ζωτικής "
+"σημασίας να θυμάστε να μην αλλάζετε διαδρομές αρχείων, να μη μετονομάζετε "
+"και να μη διαγράφετε αρχεία όταν εργάζεστε με προγράμματα επεξεργασίας "
+"βίντεο, καθώς αυτό μπορεί να οδηγήσει σε προβλήματα με αρχεία που λείπουν. "
+"Για έναν αναλυτικό οδηγό σχετικά με τα αρχεία που λείπουν, δείτε `Η "
+"περίπτωση των «Αρχείων που λείπουν»! <https://github.com/OpenShot/openshot-"
+"qt/wiki/Missing-File-Prompt>`_"
