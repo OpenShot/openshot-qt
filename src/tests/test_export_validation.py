@@ -39,7 +39,9 @@ FORMATS = {
             "audio": ["aac", "mp2", "libopus", "flac"], "video": ["libx264", "mpeg4", "h264_nvenc"]},
     "webm": {"default_audio_codec": "libopus", "default_video_codec": "libvpx-vp9",
              "audio": ["libopus"], "video": ["libvpx-vp9"]},
-    "mp3": {"default_audio_codec": "mp2", "default_video_codec": "", "audio": ["mp2"], "video": []},
+    "wav": {"default_audio_codec": "mp2", "default_video_codec": "", "audio": ["mp2"], "video": []},
+    # Like FFmpeg's mp3 muxer: it publishes no codec list, so every answer is "unknown"
+    "mp3": {"default_audio_codec": "mp2", "default_video_codec": "png", "unknown": True},
     "gif": {"default_audio_codec": "", "default_video_codec": "mpeg4", "audio": [], "video": ["mpeg4"]},
     "png": {"default_audio_codec": "", "default_video_codec": "png", "audio": [], "video": ["png"]},
 }
@@ -71,6 +73,8 @@ class FakeWriter:
         info = FORMATS.get(format_name)
         if not info or codec_name not in ENCODERS:
             return 0
+        if info.get("unknown"):
+            return -1
         return int(codec_name in info["audio"] + info["video"])
 
     @staticmethod
@@ -170,8 +174,8 @@ class ExportValidationTests(unittest.TestCase):
     def test_mode_decides_which_settings_matter(self):
         self.assertEqual(self.issues(mode="audio", vcodec="not-a-codec", width=1919), {})
         self.assertEqual(self.issues(mode="video", acodec="not-a-codec", audio_bitrate=""), {})
-        self.assertIn(("vformat", "warning"), self.issues(vformat="mp3", vcodec="", acodec="mp2"))
-        self.assertIn(("vformat", "error"), self.issues(mode="video", vformat="mp3", vcodec=""))
+        self.assertIn(("vformat", "warning"), self.issues(vformat="wav", vcodec="", acodec="mp2"))
+        self.assertIn(("vformat", "error"), self.issues(mode="video", vformat="wav", vcodec=""))
         self.assertIn(("vformat", "error"), self.issues(mode="audio", vformat="gif", acodec=""))
 
     def test_blank_codecs_use_the_format_default(self):
@@ -189,6 +193,29 @@ class ExportValidationTests(unittest.TestCase):
         self.assertIn(("end_frame", "error"), self.issues(start_frame=10, end_frame=10))
         self.assertIn(("folder", "error"), self.issues(folder=os.path.join(PATH, "no-such-folder")))
         self.assertEqual(self.issues(folder=PATH), {})
+
+    def test_cover_image_formats_only_take_an_image_codec(self):
+        issue = self.issues(vformat="mp3", vcodec="libx264", acodec="mp2")[("vcodec", "error")]
+        self.assertIn("cover image", issue.message)
+        self.assertEqual(issue.fix, "png")
+        self.assertEqual(self.issues(vformat="mp3", vcodec="png", acodec="mp2"), {})
+        self.assertEqual(self.issues(vformat="mp3", vcodec="", acodec="mp2"), {})
+        self.assertIn(("vformat", "error"), self.issues(mode="video", vformat="mp3", vcodec="png"))
+        # A cover image has no bit rate to check
+        self.assertEqual(self.issues(vformat="mp3", vcodec="png", acodec="mp2", video_bitrate="23 crf"), {})
+
+    def test_engine_failures_point_at_the_setting_and_suggest_a_fix(self):
+        failed = {"checked": True, "ok": False, "stage": "audio", "message": "mp3: Exactly one MP3 audio stream"}
+        issue = self.validator.engine_issue(settings(vformat="mp3", vcodec="png", acodec="aac"), failed)
+        self.assertEqual((issue.field, issue.fix), ("acodec", "mp2"))
+        self.assertIn("Exactly one MP3 audio stream", issue.message)
+        issue = self.validator.engine_issue(settings(vformat="webm", vcodec="libx264", acodec="libopus"),
+                                            dict(failed, stage="video"))
+        self.assertEqual((issue.field, issue.fix), ("vcodec", "libvpx-vp9"))
+        issue = self.validator.engine_issue(settings(), dict(failed, stage="header"))
+        self.assertEqual((issue.field, issue.fix), ("vformat", None))
+        self.assertIsNone(self.validator.engine_issue(settings(), {"checked": True, "ok": True}))
+        self.assertIsNone(self.validator.engine_issue(settings(), dict(failed, checked=False)))
 
     def test_older_libopenshot_only_checks_what_it_can(self):
         validator = ExportValidator(Capabilities(OldWriter))
@@ -353,18 +380,75 @@ class ExportDialogValidationTests(unittest.TestCase):
         self.assertTrue(dialog.cboChannelLayout.model().item(1).isEnabled())
 
 
-    def test_finished_export_stops_validating(self):
+    def test_engine_check_runs_in_the_background_and_gates_export(self):
+        from unittest.mock import patch
         dialog, validation = self.dialog()
-        dialog.txtAudioCodec.setText("libfdk_aac")
-        validation.validate()
-        self.assertFalse(validation.status_button.isHidden())
-        dialog.txtAudioBitrate.setEnabled(False)
-        validation.lock()
-        self.assertTrue(validation.status_button.isHidden())
-        self.assertFalse(validation.sample_rate_button.isEnabled())
-        dialog.txtAudioCodec.setText("mp2")
-        validation.validate()
-        self.assertFalse(dialog.txtAudioBitrate.isEnabled())
+        calls = []
+
+        def fake_test_writer(path, video, audio, mode, quality_mode):
+            calls.append((os.path.splitext(path)[1], video["vcodec"], audio["acodec"], mode))
+            if audio["acodec"] == "aac" and path.endswith(".mp3"):
+                return {"checked": True, "ok": False, "stage": "audio", "message": "mp3: needs MP3 audio",
+                        "log": [], "elapsed_ms": 1}
+            return {"checked": True, "ok": True, "stage": "", "message": "", "log": [], "elapsed_ms": 1}
+
+        def writer_settings():
+            video = {"vformat": dialog.txtVideoFormat.text(), "vcodec": dialog.txtVideoCodec.text(),
+                     "width": 1920, "height": 1080, "start_frame": 1, "end_frame": 100}
+            return video, {"acodec": dialog.txtAudioCodec.text()}, "video_audio", None
+
+        def settle():
+            from qt_api import QApplication
+            import time
+            deadline = time.time() + 5
+            while validation.engine_running and time.time() < deadline:
+                QApplication.processEvents()
+                time.sleep(0.01)
+            QApplication.processEvents()
+
+        dialog.writer_settings = writer_settings
+        validation.engine_available = True
+        with patch("windows.export_validation_ui.test_writer", side_effect=fake_test_writer):
+            # Both problems show at once: the video codec (a quick check) and the audio (the engine,
+            # checking the audio stream alone)
+            dialog.txtVideoFormat.setText("mp3")
+            dialog.txtVideoCodec.setText("libx264")
+            validation.validate()
+            settle()
+            self.assertEqual(dialog.txtVideoCodec.property("exportIssue"), "error")
+            self.assertEqual(dialog.txtAudioCodec.property("exportIssue"), "error")
+            self.assertEqual(calls[-1][3], "audio")
+
+            dialog.txtVideoCodec.setText("png")
+            validation.validate()
+            settle()
+            # The background check found what the quick checks couldn't
+            self.assertEqual(dialog.txtAudioCodec.property("exportIssue"), "error")
+            self.assertIn("needs MP3 audio", dialog.txtAudioCodec.toolTip())
+            self.assertFalse(dialog.export_button.isEnabled())
+
+            # Unchanged settings reuse the result; a fix checks again
+            count = len(calls)
+            validation.validate()
+            settle()
+            self.assertEqual(len(calls), count)
+            validation.fix_all()
+            settle()
+            self.assertEqual(dialog.txtAudioCodec.text(), "mp2")
+            self.assertEqual(dialog.txtAudioCodec.property("exportIssue"), "")
+            self.assertTrue(dialog.export_button.isEnabled())
+            # Export reuses a passing result for unchanged settings
+            count = len(calls)
+            self.assertTrue(validation.confirm_with_engine())
+            self.assertEqual(len(calls), count)
+
+            # A failure is never reused: Export checks again
+            dialog.txtAudioCodec.setText("aac")
+            validation.validate()
+            settle()
+            count = len(calls)
+            self.assertFalse(validation.confirm_with_engine())
+            self.assertEqual(len(calls), count + 1)
 
 if __name__ == "__main__":
     unittest.main()

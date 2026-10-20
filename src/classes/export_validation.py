@@ -56,6 +56,13 @@ COMMON_FORMATS = ["mp4", "mkv", "mov", "webm", "avi", "mpeg", "ogg", "gif",
 
 IMAGE_SEQUENCE_PATTERN = re.compile(r"%0?\d*d")
 
+# Audio formats whose only "video" is a cover image (i.e. mp3, flac): FFmpeg accepts any video
+# codec there and quietly treats its first frame as the picture.
+COVER_IMAGE_CODECS = ("png", "mjpeg")
+
+# The setting an engine check blames, by the stage that failed (see export_settings.test_writer)
+ENGINE_STAGE_FIELDS = {"video": "vcodec", "audio": "acodec", "format": "vformat", "header": "vformat"}
+
 
 class Issue:
     """One problem with one export setting."""
@@ -226,6 +233,32 @@ class ExportValidator:
             return codec, False
         return (self.caps.format(self._format_name(settings)).get(default_key) or ""), True
 
+    def is_cover_image_format(self, vformat):
+        """True for audio formats whose only picture is a cover image (i.e. mp3, flac)."""
+        info = self.caps.format(vformat)
+        return bool(info.get("found") and info.get("default_audio_codec")
+                    and info.get("default_video_codec") in COVER_IMAGE_CODECS)
+
+    def engine_issue(self, settings, result):
+        """Turn a failed engine check (export_settings.test_writer) into an Issue, or None."""
+        if not result.get("checked") or result.get("ok"):
+            return None
+        _ = self._
+        field = ENGINE_STAGE_FIELDS.get(result.get("stage"), "vformat")
+        fix = None
+        if field == "vcodec":
+            fix = self._suggest_encoder(settings, "video", "default_video_codec")
+        elif field == "acodec":
+            fix = self._suggest_encoder(settings, "audio", "default_audio_codec")
+        current, _is_default = self.effective_codec(
+            settings, field, "default_video_codec" if field == "vcodec" else "default_audio_codec") \
+            if field != "vformat" else (None, False)
+        if fix == current:
+            fix = None
+        message = _("FFmpeg can't export these settings: %(reason)s") % {
+            "reason": result.get("message") or _("unknown error")}
+        return Issue(field, ERROR, message, fix, fix)
+
     def _suggest_encoder(self, settings, media_type, default_key):
         """A good replacement encoder for this format, or None."""
         vformat = self._format_name(settings)
@@ -283,6 +316,20 @@ class ExportValidator:
             else:
                 issues.append(Issue("vformat", WARNING, _("%(format)s files can't hold video, so only audio "
                                                           "will be exported.") % {"format": vformat}))
+            return
+
+        if self.is_cover_image_format(vformat):
+            codec, _is_default = self.effective_codec(settings, "vcodec", "default_video_codec")
+            if settings.get("mode") == VIDEO_ONLY:
+                issues.append(Issue("vformat", ERROR, _("%(format)s files hold audio and a cover image, "
+                                                        "not video.") % {"format": vformat}, "mp4", "mp4"))
+                return
+            if codec not in COVER_IMAGE_CODECS:
+                fix = format_info.get("default_video_codec")
+                issues.append(Issue("vcodec", ERROR, _("%(format)s files can only hold a cover image, so "
+                                                       "%(codec)s video can't be used.") % {
+                                        "format": vformat, "codec": codec}, fix, fix))
+            # A single picture: bit rate and quality settings don't apply
             return
 
         info = self._check_codec(settings, issues, "vcodec", "video", "default_video_codec")

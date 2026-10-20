@@ -25,15 +25,28 @@
  """
 
 from functools import partial
+import json
+import os
+import tempfile
+import threading
 
+import openshot
 from qt_api import (
     QColor, QComboBox, QIcon, QLineEdit, QMenu, QObject, QPainter, QPen, QPixmap, QPoint, QPointF, QSpinBox,
-    QTimer, QToolButton, Qt,
+    QTimer, QToolButton, Qt, pyqtSignal,
 )
 from classes.app import get_app
 from classes.logger import log
 from classes import export_validation
+from classes.export_settings import test_writer
 from classes.export_validation import Capabilities, ExportValidator, ERROR, WARNING
+
+# One engine check at a time: the writer keeps some state (i.e. hardware devices) process-wide
+ENGINE_LOCK = threading.Lock()
+
+# Settings that belong to one stream, so the other stream can still be checked when they're wrong
+VIDEO_FIELDS = {"vcodec", "width", "height", "video_bitrate"}
+AUDIO_FIELDS = {"acodec", "sample_rate", "channel_layout", "audio_bitrate"}
 
 ERROR_COLOR = "#e5484d"
 WARNING_COLOR = "#f5a524"
@@ -107,6 +120,9 @@ def chevron_icon(color, size=16):
 
 
 class ExportValidationUI(QObject):
+    # A background engine check finished: (settings key, result)
+    engineChecked = pyqtSignal(str, object)
+
     """Watch the export dialog's settings, mark invalid ones, and gate the Export button."""
 
     def __init__(self, dialog, validator=None):
@@ -116,7 +132,12 @@ class ExportValidationUI(QObject):
         self.validator = validator or ExportValidator(Capabilities(), self._)
         self.issues = []
         self.auto_fix = False
-        self.locked = False
+        # Engine check (export_settings.test_writer) for the current settings: key -> result
+        self.engine_key = None
+        self.engine_result = None
+        self.engine_running = None
+        self.engine_available = hasattr(openshot.FFmpegWriter, "Test") and hasattr(dialog, "writer_settings")
+        self.engineChecked.connect(self._engine_checked)
         self.fields = {
             "vformat": dialog.txtVideoFormat,
             "vcodec": dialog.txtVideoCodec,
@@ -183,7 +204,6 @@ class ExportValidationUI(QObject):
             button.setToolTip(_("Choose a compatible option"))
             button.clicked.connect(partial(self.show_choices, "sample_rate"))
             layout.addWidget(button)
-            self.sample_rate_button = button
 
     def _add_status_button(self):
         self.status_button = QToolButton(self.dialog)
@@ -237,19 +257,8 @@ class ExportValidationUI(QObject):
         self.auto_fix = True
         self.schedule()
 
-    def lock(self):
-        """Stop validating once the export is done and its settings are read-only."""
-        self.locked = True
-        self.timer.stop()
-        self.status_button.setVisible(False)
-        button = getattr(self, "sample_rate_button", None)
-        if button is not None:
-            button.setEnabled(False)
-
     def validate(self):
         self.timer.stop()
-        if self.locked:
-            return
         issues = self.validator.validate(self.current_settings())
         if self.auto_fix:
             self.auto_fix = False
@@ -263,10 +272,97 @@ class ExportValidationUI(QObject):
                     self.apply_fix(issue, revalidate=False)
                 issues = self.validator.validate(self.current_settings())
             self.timer.stop()
+        engine = self._engine_issue(issues)
+        if engine:
+            issues.append(engine)
         self.issues = issues
         self._show_issues()
         self._update_audio_controls()
         self.update_export_button()
+
+    # ----- Engine check -----
+
+    def _engine_request(self, only=None):
+        """(key, test_writer arguments) for the current settings, or None when there's nothing to check.
+
+        only: "audio" or "video" checks just that stream.
+        """
+        video, audio, mode, quality_mode = self.dialog.writer_settings()
+        mode = only or mode
+        ext = (video.get("vformat") or "").strip().lstrip(".")
+        if not ext:
+            return None
+        # Only the extension matters; nothing is written
+        path = os.path.join(tempfile.gettempdir(), "openshot-export-check." + ext)
+        args = (path, video, audio, mode, quality_mode)
+        relevant = {key: value for key, value in video.items() if key not in ("start_frame", "end_frame")}
+        key = json.dumps([relevant, audio, mode, quality_mode, ext], sort_keys=True)
+        return key, args
+
+    def _engine_issue(self, quick_issues):
+        """The engine check's verdict for these settings, starting a background check when needed."""
+        if not self.engine_available or not self.dialog.exportTabs.isEnabled():
+            return None
+        # Quick checks explain what's wrong more precisely. Still check the other stream, so
+        # (i.e.) a wrong audio codec shows up together with a wrong video codec.
+        wrong = {issue.field for issue in quick_issues if issue.is_error} - {"end_frame", "folder"}
+        only = None
+        if wrong:
+            mode = self.current_settings()["mode"]
+            if mode != export_validation.VIDEO_AUDIO:
+                return None
+            if wrong <= VIDEO_FIELDS:
+                only = "audio"
+            elif wrong <= AUDIO_FIELDS:
+                only = "video"
+            else:
+                return None
+        try:
+            request = self._engine_request(only)
+        except (ValueError, TypeError):
+            return None
+        if request is None:
+            return None
+        key, args = request
+        if key == self.engine_key:
+            return self.validator.engine_issue(self.current_settings(), self.engine_result)
+        if self.engine_running != key:
+            self.engine_running = key
+            threading.Thread(target=self._run_engine_check, args=(key, args), daemon=True).start()
+        return None
+
+    def _run_engine_check(self, key, args):
+        with ENGINE_LOCK:
+            result = test_writer(*args)
+        try:
+            self.engineChecked.emit(key, result)
+        except RuntimeError:
+            pass  # The dialog closed while checking
+
+    def _engine_checked(self, key, result):
+        if self.engine_running == key:
+            self.engine_running = None
+        self.engine_key, self.engine_result = key, result
+        self.validate()
+
+    def confirm_with_engine(self):
+        """Check the current settings with the engine before exporting. Returns False if they fail.
+
+        A passing result for unchanged settings is reused; anything else is checked again, so a
+        one-off failure doesn't block the next attempt.
+        """
+        if not self.engine_available:
+            return True
+        request = self._engine_request()
+        if request is None:
+            return True
+        key, args = request
+        if key != self.engine_key or not self.engine_result.get("ok"):
+            with ENGINE_LOCK:
+                result = test_writer(*args)
+            self.engine_key, self.engine_result = key, result
+        self.validate()
+        return not self.has_errors()
 
     @property
     def errors(self):
