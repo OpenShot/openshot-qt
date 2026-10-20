@@ -155,7 +155,6 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
 
     # Save window settings on close
     def closeEvent(self, event):
-
         app = get_app()
         save_geometry = getattr(self, "saveGeometry", None)
         if callable(save_geometry):
@@ -393,7 +392,6 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
                 sleep(0.25)
 
     def actionNew_trigger(self):
-
 
         app = get_app()
         _ = app._tr  # Get translation function
@@ -848,7 +846,6 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
 
 
     def actionOpen_trigger(self):
-
         app = get_app()
         _ = app._tr
         s = app.get_settings()
@@ -891,7 +888,6 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
             _show_open_dialog()
 
     def actionSave_trigger(self):
-
         app = get_app()
         s = app.get_settings()
         _ = app._tr
@@ -966,7 +962,6 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         self.last_auto_save_data_version = current_data_version
 
     def actionSaveAs_trigger(self):
-
         app = get_app()
         s = app.get_settings()
         _ = app._tr
@@ -1087,7 +1082,6 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
             log.info('canceled')
 
     def actionExportVideo_trigger(self, checked=True):
-
         # show window
         from windows.export import Export
         win = Export()
@@ -1115,7 +1109,6 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         import_xml()
 
     def actionUndo_trigger(self, checked=True):
-
         log.info('actionUndo_trigger')
         get_app().updates.undo()
 
@@ -1123,7 +1116,6 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         self.refreshFrameSignal.emit()
 
     def actionRedo_trigger(self, checked=True):
-
         log.info('actionRedo_trigger')
         get_app().updates.redo()
 

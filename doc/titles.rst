@@ -37,48 +37,99 @@ Track above a video clip. The transparent background will allow the video below 
 Edit text directly in the preview
 ---------------------------------
 
-1. Click **Tt — Add Text** in the **Timeline** toolbar, or choose **Title → Text**. A draft appears
-   immediately, with its placeholder selected and ready to replace by typing.
-   Nothing is added to Project Files or the timeline yet.
-2. Type your text. Press :kbd:`Shift+Enter` for a line break. Use the contextual
-   toolbar for font, size, bold, italic, color, and alignment. **More…** opens
-   additional controls for background fill, padding, text outline, and border.
-3. Press :kbd:`Enter` to create the text asset and its timeline clip together.
-   Press :kbd:`Escape` to discard the draft. Both return keyboard focus to the
-   timeline. Clicking elsewhere does not commit a draft.
-4. Selecting a text clip keeps keyboard focus on the timeline, including when
-   navigating with :kbd:`Ctrl+Arrow`. Press :kbd:`Enter`, double-click the text
-   in the preview, or choose **Edit Text** on the timeline context menu to type.
-   :kbd:`Space` retains its playback behavior outside text editing.
-5. While editing existing text, :kbd:`Enter` applies the changes and
-   :kbd:`Escape` reverts that editing session. Outside typing mode, use the
-   normal transform handles to position, scale, and rotate the selected clip.
+The quickest way to add text is to type it straight onto the video preview.
 
-Text appears in **Project Files** with a rendered thumbnail on black. Drag it
-onto the timeline like an image. Right-click **Edit Text…** (or double-click its
-thumbnail) to edit an asset without placing it on the timeline. **Duplicate**
-creates an independent text asset.
+1. Click **Tt** in the **Timeline** toolbar, choose **Title → Text**, or press :kbd:`Shift+T`.
+   A text clip is added at the playhead, above the clips already there, and its placeholder
+   text is selected, ready to replace by typing.
+2. Type your text. Press :kbd:`Shift+Enter` for a new line.
+3. Press :kbd:`Enter`, or click outside the text, to finish. Keyboard focus returns to the
+   timeline, and the clip shows the normal transform handles to move, scale and rotate it.
+   Press :kbd:`Escape` instead to remove a text you just added (or, when editing an existing
+   text, to throw away this editing session).
 
-Text, fonts, layout, and default styling belong to the shared Project Files asset.
-Editing these updates all clips using it. Text color, background fill, outline and
-border colors, and outline and border widths can be animated independently on each
-timeline clip through **Properties**. Color changes while editing a timeline clip
-also respect **Auto Keyframes** at the playhead. Editing an asset from Project Files
-changes its defaults, preserving existing clip overrides. Timing, effects, scaling,
-and rotation belong to each timeline clip. Use clip scaling to animate text size.
-Creation and shared text changes can each be undone as one project action.
+To edit an existing text, double-click it in the preview, select its clip and press
+:kbd:`Enter`, or right-click the clip and choose **Text → Edit Text**. All of its text is
+selected, so typing replaces it. Starting playback or seeking ends editing without keeping
+unfinished changes, so press :kbd:`Enter` first to keep them.
 
-Text is stored in project JSON and rendered by ``QtTextReader``. It needs no source
-image file; thumbnails are disposable caches. Installed fonts are used with Qt
-fallback when a font is unavailable, so installing the same fonts on another
-computer is necessary to preserve the exact appearance. Font sizes and wrapping
-use project pixels. Direct text uses one style for the whole multiline block.
-Save and export include only committed text. Starting playback, seeking, or
-changing projects discards an unfinished editing session; press :kbd:`Enter`
-first to keep it.
+.. _text_style_bar_ref:
 
-The SVG **Title** editor and SRT **Caption** workflows remain available for
-using templates and timed subtitles.
+Text style bar
+^^^^^^^^^^^^^^
+
+While you type, a small style bar floats over the video preview:
+
+.. table::
+   :widths: 25 75
+
+   ==================  ============================================================
+   Control             Description
+   ==================  ============================================================
+   Font                The font family, from the fonts installed on your computer
+   Size                The font size, in project pixels
+   Bold / Italic       Toggle bold and italic for the whole text
+   Color               The text color (choose a transparent color to show only the outline)
+   Alignment           Align lines left, center or right inside the text box
+   More (…)            Open **Edit Style** for background, padding, outline, border,
+                       box width and letter spacing
+   ==================  ============================================================
+
+The style bar sits at the **top** of the video preview. If that would cover the text you are
+editing, it jumps to the **bottom** of the preview instead, and it returns to the top once the
+text is clear of it again (for example, after you move the text or make it smaller). The style
+bar floats over the video, so it never resizes the preview. Changes from the style bar show on
+the video right away.
+
+.. _text_edit_style_ref:
+
+Edit Style
+^^^^^^^^^^
+
+**Edit Style** has every text setting in one place: the text itself, the style bar controls,
+background color and padding, text outline color and width, border color and width, box
+width (where lines wrap), and letter spacing. Open it from **More (…)** on the style bar,
+from **Text → Edit Style…** on a clip's context menu, or with **Edit Text…** in Project Files.
+The preview at the top shows changes as you make them. Press :kbd:`Ctrl+Enter` or click
+**Apply** to keep them; :kbd:`Enter` adds a new line, and **Cancel** discards the changes.
+**Restore Defaults** returns everything except the text to the default style.
+
+Select several text clips (or several texts in Project Files) and choose **Edit Style…** to
+change their style together. The text box is grayed out, because each text keeps its own
+words, and only the settings you change are applied to all of them.
+
+To reset text clips without opening the dialog, right-click them and choose
+**Text → Reset Style**. Their font, size, colors and outlines return to the defaults, any
+color or outline keyframes on those clips are removed, and their words are kept.
+
+A new text starts with the style you used last (font, size, colors, outline, border and
+spacing), so a series of titles stays consistent. Without a previous text, it uses a
+standard font installed on your computer.
+
+Project Files and Properties
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Each text also appears in **Project Files**, with a thumbnail on black. Drag it onto the
+timeline like an image to use it again. Right-click it and choose **Edit Text…** (or
+double-click it) to edit it without placing it on the timeline. **Duplicate** opens a copy,
+ready to type, and **Apply** adds it as a new, independent text.
+
+The words, font, size, alignment, box width and default colors belong to the text in Project
+Files, so editing them updates every clip that uses that text. When a text clip is selected,
+these settings also appear at the top of **Properties**, and changes there show on the video
+right away (including while you are typing).
+
+Text color, background, outline and border colors, and outline and border widths can be
+animated on each clip with keyframes in **Properties**, like any other clip property. These
+follow **Auto Keyframes** at the playhead. To animate the size of text, animate the clip's
+scale. Undo and Redo work for all text changes.
+
+Text is saved in the project file and drawn by OpenShot's video library, so it needs no image
+files. Fonts come from your computer: to see the same text on another computer, install the
+same fonts there. One style applies to all of a text's lines.
+
+The **Title** editor (SVG templates and animated titles) and **Captions** (timed subtitles)
+remain available for more elaborate designs.
 
 
 Overview

@@ -1213,11 +1213,12 @@ class PropertiesTableView(QTableView):
                 # Compute size of property's possible values range
                 min_max_range = float(property_max) - float(property_min)
 
-                if min_max_range < 1000.0:
+                if min_max_range < 1000.0 and not cur_property[1].get("step_drag"):
                     # Small range - use cursor to calculate new value as percentage of total range
                     self.new_value = property_min + (min_max_range * cursor_value_percent)
                 else:
-                    # range is unreasonably long (such as position, start, end, etc.... which can be huge #'s)
+                    # range is unreasonably long (such as position, start, end, etc.... which can be huge #'s),
+                    # or the property asks for fine steps (such as font size)
 
                     # Get the current value and apply fixed adjustments in response to motion
                     if self.new_value is None:

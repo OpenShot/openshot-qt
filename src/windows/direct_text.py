@@ -10,7 +10,10 @@ from qt_api import (
 from classes.app import get_app
 from classes import info
 from classes.query import Clip, Track, File
-from classes.direct_text import default_text, apply_text, new_text_clip, text_document, save_text_asset, TEXT_ANIMATED, evaluated_text_style, set_text_keyframe
+from classes.direct_text import (
+    default_text, new_text_style, remember_style, reset_style, apply_text, new_text_clip, text_document,
+    save_text_asset, TEXT_ANIMATED, evaluated_text_style, set_text_keyframe, initialize_text_curves,
+)
 
 
 class SnapshotSignals(QObject):
@@ -86,7 +89,10 @@ class TextPreviewView(QGraphicsView):
         painter.setBrush(Qt.NoBrush)
         border = float(owner.draft.get("border_width", 0))
         if border:
-            painter.setPen(QPen(QColor(owner.draft.get("border_color", "#ffffff")), border))
+            pen = QPen(QColor(owner.draft.get("border_color", "#ffffff")), border)
+            # Square corners, matching the native reader.
+            pen.setJoinStyle(Qt.MiterJoin)
+            painter.setPen(pen)
             painter.drawRect(QRectF(border / 2, border / 2,
                                    owner.draft["width"] - border, owner.draft["height"] - border))
         painter.restore()
@@ -202,7 +208,8 @@ class DirectTextController(QObject):
     def apply_property(self, clip_id, key, value):
         """Properties dock entry point; semantic changes never add keyframes."""
         key = key.removeprefix("direct_text.") if hasattr(key, "removeprefix") else key.replace("direct_text.", "", 1)
-        if key not in ("text", "font_family", "font_size", "color", "background", "alignment", "width", "font_bold", "font_italic"):
+        if key not in ("text", "font_family", "font_size", "letter_spacing", "color", "background", "alignment", "width",
+                       "font_bold", "font_italic"):
             return False
         clip = Clip.get(id=clip_id)
         if not clip or not clip.data.get("direct_text"):
@@ -215,6 +222,8 @@ class DirectTextController(QObject):
         style = copy.deepcopy(self.draft if self.clip_id == clip_id and self.draft else clip.data["direct_text"])
         if key in ("font_size", "width"):
             value = max(8 if key == "font_size" else 64, min(1000 if key == "font_size" else 8192, int(value)))
+        if key == "letter_spacing":
+            value = max(-50, min(200, int(value)))
         if key == "alignment" and value not in ("left", "center", "right"):
             return False
         if key in ("color", "background") and not QColor(value).isValid():
@@ -223,12 +232,17 @@ class DirectTextController(QObject):
             style["text"] = self.editor.toPlainText()
         style[key] = value
         if self.clip_id == clip_id and self.draft is not None:
+            # Typing is not committed yet, so show the change on the editor,
+            # its style bar and the Properties dock without saving.
             self.draft = style
             cursor = self.editor.textCursor()
             self.layout_document()
             self.editor.setTextCursor(cursor)
+            self.toolbar.set_style(self.draft)
             self.update_geometry()
+            self.refresh_properties()
         else:
+            remember_style(style, (key,))
             updates = get_app().updates
             previous = updates.transaction_id
             updates.transaction_id = previous or get_app().project.generate_id()
@@ -266,8 +280,9 @@ class DirectTextController(QObject):
         else:
             layer = max(t.data["number"] for t in Track.filter()) + 1000000
         previous = Clip.get(id=getattr(self, "last_clip_id", None))
-        style = copy.deepcopy(previous.data["direct_text"]) if previous and previous.data.get("direct_text") else default_text(project.get("width"), project.get("height"))
-        style["text"] = "Text"
+        style = new_text_style(project.get("width"), project.get("height"))
+        if previous and previous.data.get("direct_text"):
+            style["width"] = previous.data["direct_text"]["width"]
         data = new_text_clip(style, info.TITLE_PATH, position, layer, duration)
         data["id"] = project.generate_id()
         if previous:
@@ -395,7 +410,7 @@ class DirectTextController(QObject):
         palette.setColor(QPalette.Base, QColor(self.draft["background"]))
         self.editor.setPalette(palette)
         self.editor.setStyleSheet("QTextEdit { background: %s; color: %s; padding: 0; border: none; }" % (self.draft["background"], self.draft["color"]))
-        self.draft["height"] = max(self.draft["height"], int(self.editor.document().size().height() + 1))
+        self.draft["height"] = int(self.editor.document().size().height() + 1)
         self.editor.setFixedSize(self.draft["width"], self.draft["height"])
         self.editor.blockSignals(False)
 
@@ -514,6 +529,7 @@ class DirectTextController(QObject):
         finally:
             self.committing = False
             updates.transaction_id = previous
+        remember_style(style)
         self.cancel(return_focus=True)
         self.window.timeline.AddSelectionJS(clip_id, "clip", True)
         self.window.TransformSignal.emit([clip_id])
@@ -555,12 +571,55 @@ class DirectTextController(QObject):
         self.layout_document()
         self.editor.setTextCursor(cursor)
         self.update_geometry()
+        self.refresh_properties()
+
+    def refresh_properties(self):
+        """Show the uncommitted draft in the Properties dock."""
+        model = getattr(getattr(self.window, "propertyTableView", None), "clip_properties_model", None)
+        if model is not None and self.clip_id:
+            model.update_model(self.window.txtPropertyFilter.text())
+
+    def reset_styles(self, clip_ids):
+        """Return text clips to the factory style; each keeps its words."""
+        project = get_app().project
+        clips = [clip for clip in (Clip.get(id=clip_id) for clip_id in clip_ids)
+                 if clip and clip.data.get("direct_text")]
+        locked = {track.data["number"] for track in Track.filter() if track.data.get("lock", False)}
+        clips = [clip for clip in clips if clip.data["layer"] not in locked]
+        if not clips:
+            return
+        if self.clip_id in clip_ids:
+            self.cancel(return_focus=True)
+        updates = get_app().updates
+        previous = updates.transaction_id
+        updates.transaction_id = previous or project.generate_id()
+        try:
+            assets = []
+            for clip in clips:
+                asset = File.get(id=clip.data.get("file_id"))
+                if asset and asset.id not in assets:
+                    assets.append(asset.id)
+                    save_text_asset(reset_style(asset.data["direct_text"], project.get("width"), project.get("height")),
+                                    asset.id)
+            for clip in clips:
+                # Drop this clip's own colors, outlines and their keyframes.
+                data = copy.deepcopy(Clip.get(id=clip.id).data)
+                data["text_style_overrides"] = []
+                for key in TEXT_ANIMATED:
+                    data.pop("text_" + key, None)
+                # The fresh default curves are not this clip's own edits.
+                data["_text_asset_update"] = True
+                self.window.timeline.update_clip_data(initialize_text_curves(data),
+                                                      only_basic_props=False, ignore_reader=False)
+        finally:
+            updates.transaction_id = previous
+        self.window.refreshFrameSignal.emit()
 
     def duplicate_file(self, file_id):
         """Open Edit Text on a copy; Apply adds it to Project Files, Cancel adds nothing."""
         return self.edit_file(file_id, duplicate=True)
 
-    def edit_file(self, file_id, duplicate=False):
+    def edit_file(self, file_id, duplicate=False, title=None):
         """Edit one text file, or the shared style of several (file_id may be a list)."""
         from windows.text_style import TextStyleDialog
         file_ids = [file_id] if isinstance(file_id, str) else list(file_id)
@@ -572,7 +631,7 @@ class DirectTextController(QObject):
         if duplicate:
             assets = [asset]
         original = asset.data["direct_text"]
-        dialog = TextStyleDialog(original, self.window, duplicate=duplicate, count=len(assets))
+        dialog = TextStyleDialog(original, self.window, duplicate=duplicate, count=len(assets), title=title)
         if dialog.exec_():
             style = dialog.style()
             updates = get_app().updates
@@ -590,6 +649,7 @@ class DirectTextController(QObject):
                         result = save_text_asset(merged, each.id)
                     result = assets
                 else:
+                    remember_style(style)
                     result = save_text_asset(style, None if duplicate else asset.id)
                     if duplicate and style["text"] == original["text"]:
                         # Unchanged text would otherwise share the original's name.
@@ -606,12 +666,13 @@ class DirectTextController(QObject):
         from windows.text_style import TextStyleDialog
         style = copy.deepcopy(self.draft)
         style["text"] = self.editor.toPlainText()
-        dialog = TextStyleDialog(style, self.window)
+        dialog = TextStyleDialog(style, self.window, title=get_app()._tr("Edit Style"))
         if dialog.exec_():
             self.draft = dialog.style()
             self.layout_document()
             self.toolbar.set_style(self.draft)
             self.update_geometry()
+            self.refresh_properties()
         self.focus_editor()
 
     def capture_background(self):
@@ -660,9 +721,10 @@ class DirectTextController(QObject):
             self.update_geometry()
 
     def grow_document(self):
+        """Fit the box to the typed text, keeping its top edge in place."""
         if self.draft is None:
             return
-        height = max(self.draft["height"], int(self.editor.document().size().height() + 1))
+        height = int(self.editor.document().size().height() + 1)
         if height != self.draft["height"]:
             before = self.geometry(self.original).map(QPointF(0, 0))
             self.draft["height"] = height
@@ -709,6 +771,7 @@ class DirectTextController(QObject):
                     self.layout_document()
                     self.editor.setTextCursor(cursor)
                 self.original = copy.deepcopy(clip.data)
+                self.toolbar.set_style(self.draft)
                 self.update_geometry()
 
     def shutdown(self):

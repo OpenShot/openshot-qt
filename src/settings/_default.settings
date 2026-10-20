@@ -87,6 +87,13 @@
     "setting": "feedback-release"
   },
   {
+    "value": {},
+    "title": "",
+    "type": "hidden",
+    "category": "General",
+    "setting": "text-last-style"
+  },
+  {
     "value": false,
     "title": "",
     "type": "hidden",

@@ -160,7 +160,7 @@ def verify():
         if "Slice" in titles:
             checks.assertEqual(text_index, titles.index("Slice") + 1)
         text_menu = menu.actions()[text_index].menu()
-        checks.assertEqual([a.text() for a in text_menu.actions()], ["Edit Text", "Edit Style…"])
+        checks.assertEqual([a.text() for a in text_menu.actions()], ["Edit Text", "Edit Style…", "Reset Style"])
         text_menu.actions()[0].trigger()
         checks.assertTrue(controller.clip_id == created_id and controller.toolbar.isVisible())
         checks.assertEqual(controller.editor.textCursor().selectedText(), "Hello\u2029world", "Edit Text selects all text")

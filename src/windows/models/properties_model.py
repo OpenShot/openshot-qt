@@ -77,6 +77,12 @@ class PropertiesModel(updates.UpdateInterface):
         if not isinstance(style, dict):
             return {}
         app = get_app()
+        # While typing, show the uncommitted draft rather than the saved style.
+        controller = getattr(getattr(app, "window", None), "direct_text", None)
+        draft = None
+        if controller is not None and controller.draft is not None and controller.clip_id == clip_data.get("id"):
+            draft = dict(controller.draft, text=controller.editor.toPlainText())
+            style = draft
         locked = any(layer.get("number") == clip_data.get("layer") and layer.get("lock", False)
                      for layer in app.project.get("layers"))
         properties = {}
@@ -86,6 +92,7 @@ class PropertiesModel(updates.UpdateInterface):
             ("font_bold", "Font Bold", "bool", 0, 1),
             ("font_italic", "Font Italic", "bool", 0, 1),
             ("font_size", "Font Size", "int", 8, 1000),
+            ("letter_spacing", "Letter Spacing", "int", -50, 200),
             ("alignment", "Text Alignment", "string", 0, 0),
             ("width", "Text Wrap Width", "int", 64, 8192),
         )
@@ -95,6 +102,9 @@ class PropertiesModel(updates.UpdateInterface):
                         min=minimum, max=maximum, readonly=locked, keyframe=False,
                         points=0, interpolation=openshot.CONSTANT, closest_point_x=1,
                         previous_point_x=1, choices=[])
+            if key == "font_size":
+                # Dragging steps one pixel at a time instead of jumping across 8-1000.
+                prop["step_drag"] = True
             if kind == "bool":
                 prop["choices"] = [dict(name=label, value=choice, selected=value == choice)
                                    for choice, label in ((False, "False"), (True, "True"))]
@@ -110,6 +120,16 @@ class PropertiesModel(updates.UpdateInterface):
         animated = text_animation_properties(clip_data, self.frame_number)
         for prop in animated.values():
             prop["readonly"] = locked
+        if draft is not None:
+            from classes.direct_text import TEXT_ANIMATED
+            for key, (_, kind, _, _) in TEXT_ANIMATED.items():
+                prop = animated["text_" + key]
+                if kind == "color":
+                    color = QColor(draft[key])
+                    for channel in ("red", "green", "blue", "alpha"):
+                        prop[channel]["value"] = getattr(color, channel)()
+                else:
+                    prop["value"] = draft[key]
         properties.update(animated)
         return properties
 

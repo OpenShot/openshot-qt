@@ -108,7 +108,11 @@ class ColorPicker(QColorDialog):
         self.setOption(QColorDialog.DontUseNativeDialog)
         self.setOption(QColorDialog.ShowAlphaChannel)
 
-        # Set the current color after options are set
+        # Set the current color after options are set. Picking a hue keeps
+        # the dialog's alpha, so a fully transparent color would stay invisible.
+        initial_color = QColor(initial_color)
+        if initial_color.alpha() == 0:
+            initial_color.setAlpha(255)
         self.setCurrentColor(initial_color)
         self.colorSelected.connect(self.on_color_selected)
         self.currentColorChanged.connect(self.on_current_color_changed)

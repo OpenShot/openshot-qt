@@ -27,3 +27,14 @@ class DirectTextPropertiesTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stdout[-14000:])
         self.assertNotIn("Traceback (most recent call last)", result.stdout, result.stdout[-14000:])
         self.assertIn("TEXT_PROPERTIES_PASSED", result.stdout)
+
+    def test_feedback_fixes_in_real_app(self):
+        env = dict(os.environ,
+                   PYTHONPATH=smoke_python_path(),
+                   QT_QPA_PLATFORM="offscreen", QT_QUICK_BACKEND="software")
+        result = subprocess.run([sys.executable, str(Path(__file__).with_name("direct_text_feedback_smoke.py"))],  # nosec B603 - Fixed test executable and argument array; no shell.
+                                env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                                universal_newlines=True, timeout=90)
+        self.assertEqual(result.returncode, 0, result.stdout[-14000:])
+        self.assertNotIn("Traceback (most recent call last)", result.stdout, result.stdout[-14000:])
+        self.assertIn("TEXT_FEEDBACK_PASSED", result.stdout)

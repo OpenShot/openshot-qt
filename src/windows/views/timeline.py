@@ -2244,7 +2244,12 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 file_id = selected.data.get("file_id") if selected else None
                 if file_id and selected.data.get("direct_text") and file_id not in style_ids:
                     style_ids.append(file_id)
-            Edit_Style.triggered.connect(partial(self.window.direct_text.edit_file, style_ids))
+            Edit_Style.triggered.connect(partial(self.window.direct_text.edit_file, style_ids, title=_("Edit Style")))
+            text_clip_ids = [selected.id for selected in (Clip.get(id=selected_id) for selected_id in clip_ids)
+                             if selected and selected.data.get("direct_text")] or [clip_id]
+            Reset_Style = Text_Menu.addAction(_("Reset Style"))
+            Reset_Style.setToolTip(_("Restore the default font, size and colors, keeping the text"))
+            Reset_Style.triggered.connect(partial(self.window.direct_text.reset_styles, text_clip_ids))
             menu.addMenu(Text_Menu)
 
         # Keep Copy and Properties available on locked tracks. Disabling the

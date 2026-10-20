@@ -9,21 +9,81 @@ import openshot
 from qt_api import QColor, QFont, QImage, QPainter, QTextDocument, QTextOption, Qt
 
 
+# Preferred default faces, in order. A generic name like "Sans Serif" becomes
+# the legacy "MS Shell Dlg 2" on Windows, so default to a real installed font.
+DEFAULT_FONTS = ("Segoe UI", "Helvetica Neue", "Noto Sans", "DejaVu Sans", "Liberation Sans", "Arial")
+_default_font = None
+# Style that remembers the last text made; the words and box size are per text.
+REMEMBERED_STYLE = ("font_family", "font_bold", "font_italic", "font_size", "letter_spacing", "color",
+                    "background", "alignment", "padding", "stroke_width", "stroke_color",
+                    "border_width", "border_color")
+
+
+def default_font_family():
+    global _default_font
+    if _default_font is None:
+        from qt_api import QFontDatabase, QFontInfo
+        families = set(QFontDatabase().families())
+        _default_font = next((name for name in DEFAULT_FONTS if name in families), None) \
+            or QFontInfo(QFont()).family()
+    return _default_font
+
+
 def default_text(width, height):
-    return dict(version=1, text="Text", font_family="Sans Serif", font_bold=False, font_italic=False, font_size=max(12, round(height / 15)),
+    return dict(version=1, text="Text", font_family=default_font_family(), font_bold=False, font_italic=False,
+                font_size=max(12, round(height / 15)), letter_spacing=0,
                 color="#ffffff", background="#00000000", alignment="center", padding=12,
                 stroke_width=0, stroke_color="#000000", border_width=0, border_color="#ffffff",
                 width=max(64, round(width / 2)), height=max(64, round(height / 8)))
 
 
-def text_document(style, document=None):
-    """Use the same document layout for the in-preview editor and raster."""
-    document = document or QTextDocument()
+def new_text_style(width, height):
+    """Defaults for a new text, with the style of the last text made."""
+    from classes.app import get_app
+    style = default_text(width, height)
+    remembered = get_app().get_settings().get("text-last-style")
+    if isinstance(remembered, dict):
+        style.update({key: remembered[key] for key in REMEMBERED_STYLE if key in remembered})
+    return style
+
+
+def remember_style(style, keys=REMEMBERED_STYLE):
+    """Remember these style keys for the next new text."""
+    from classes.app import get_app
+    settings = get_app().get_settings()
+    remembered = settings.get("text-last-style")
+    remembered = remembered if isinstance(remembered, dict) else {}
+    remembered.update({key: style[key] for key in keys if key in REMEMBERED_STYLE and key in style})
+    settings.set("text-last-style", remembered)
+
+
+def reset_style(style, width, height):
+    """Factory style, keeping the words."""
+    reset = default_text(width, height)
+    reset["text"] = style.get("text", reset["text"])
+    return fit_height(reset)
+
+
+def text_font(style):
     font = QFont(style["font_family"])
     font.setPixelSize(int(style["font_size"]))
     font.setBold(bool(style.get("font_bold", False)))
     font.setItalic(bool(style.get("font_italic", False)))
-    document.setDefaultFont(font)
+    if style.get("letter_spacing"):
+        font.setLetterSpacing(QFont.AbsoluteSpacing, float(style["letter_spacing"]))
+    return font
+
+
+def fit_height(style):
+    """The box is as tall as its text, so it shrinks again when the text does."""
+    style["height"] = int(text_document(style).size().height() + 1)
+    return style
+
+
+def text_document(style, document=None):
+    """Use the same document layout for the in-preview editor and raster."""
+    document = document or QTextDocument()
+    document.setDefaultFont(text_font(style))
     document.setDocumentMargin(style.get("padding", 12))
     option = QTextOption()
     option.setWrapMode(QTextOption.WrapAtWordBoundaryOrAnywhere)
@@ -82,17 +142,14 @@ def sync_text_fps(project_data):
 
 def reader_data(style, fps=None):
     """Native text reader JSON, including normal media metadata for Project Files."""
-    font = QFont(style["font_family"])
-    font.setPixelSize(int(style["font_size"]))
-    font.setBold(bool(style.get("font_bold")))
-    font.setItalic(bool(style.get("font_italic")))
+    font = text_font(dict(style, letter_spacing=0))
     reader = openshot.QtTextReader()
     data = dict(type="QtTextReader", width=int(style["width"]), height=int(style["height"]),
                 text=style["text"], font=font.toString(), text_color=style["color"],
                 background_color=style["background"], document_layout=True,
                 gravity={"left": openshot.GRAVITY_TOP_LEFT, "center": openshot.GRAVITY_TOP,
                          "right": openshot.GRAVITY_TOP_RIGHT}[style["alignment"]])
-    for key in ("padding", "stroke_width", "stroke_color", "border_width", "border_color"):
+    for key in ("padding", "stroke_width", "stroke_color", "border_width", "border_color", "letter_spacing"):
         data[key] = style.get(key, default_text(1920, 1080)[key])
     data["fps"] = dict(fps or project_fps())
     # Reader info is complete after SetJson; opening would render needlessly.
@@ -188,7 +245,7 @@ def apply_text(clip_data, style, root=None):
     """Return detached reader/style data while retaining clip timing and transforms."""
     data = copy.deepcopy(clip_data)
     style = copy.deepcopy(style)
-    style["height"] = max(style["height"], int(text_document(style).size().height() + 1))
+    fit_height(style)
     data.update(direct_text=style, reader=reader_data(style),
                 title=style["text"].split("\n", 1)[0] or "Text")
     data.pop("image", None)
@@ -209,7 +266,7 @@ def save_text_asset(style, file_id=None):
     from classes.query import File, Clip
     from classes.app import get_app
     style = copy.deepcopy(style)
-    style["height"] = max(style["height"], int(text_document(style).size().height() + 1))
+    fit_height(style)
     asset = File.get(id=file_id) if file_id else None
     asset = asset or File()
     data = copy.deepcopy(asset.data or {})

@@ -11,7 +11,7 @@ from qt_api import (Qt, QEvent, QWidget, QFrame, QHBoxLayout, QVBoxLayout, QGrid
 from classes.app import get_app
 from classes import info
 from windows.color_picker import ColorPicker
-from classes.direct_text import text_document, reader_data
+from classes.direct_text import fit_height, reader_data, reset_style
 
 ALIGNMENTS = ("left", "center", "right")
 # Icon artwork is drawn in this color and recolored to match the theme.
@@ -218,12 +218,14 @@ class TextStyleToolbar(QFrame):
 
 class TextStyleDialog(QDialog):
     """Changes stay local until Apply; closing the dialog discards them."""
-    def __init__(self, style, parent, duplicate=False, count=1):
+    PREVIEW_HEIGHTS = (150, 360)
+
+    def __init__(self, style, parent, duplicate=False, count=1, title=None):
         super().__init__(parent)
         self.setObjectName("textStyleDialog")
         self.window = self
         self.draft = copy.deepcopy(style)
-        self.setWindowTitle(get_app()._tr("Edit Text") if count < 2 else get_app()._tr("Edit Style"))
+        self.setWindowTitle(title or (get_app()._tr("Edit Text") if count < 2 else get_app()._tr("Edit Style")))
         self.setMinimumWidth(560)
         layout = QVBoxLayout(self)
         layout.setContentsMargins(16, 16, 16, 16)
@@ -231,7 +233,7 @@ class TextStyleDialog(QDialog):
 
         self.preview = QLabel()
         self.preview.setObjectName("textStylePreview")
-        self.preview.setMinimumHeight(150)
+        self.preview.setFixedHeight(self.PREVIEW_HEIGHTS[0])
         self.preview.setAlignment(Qt.AlignCenter)
         self.preview.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Fixed)
         self.preview.setStyleSheet("QLabel#textStylePreview { background-color: #000000; border-radius: 6px; }")
@@ -265,6 +267,7 @@ class TextStyleDialog(QDialog):
         grid.setColumnMinimumWidth(2, 12)
         grid.setColumnStretch(5, 1)
         self.swatches = {}
+        self.spins = {}
         rows = (("background", "Background", "padding", "Padding", 0, 200),
                 ("stroke_color", "Text outline", "stroke_width", "Width", 0, 30),
                 ("border_color", "Border", "border_width", "Width", 0, 30))
@@ -280,7 +283,9 @@ class TextStyleDialog(QDialog):
             grid.addWidget(self._muted(get_app()._tr(number_label)), row, 3)
             grid.addWidget(self._spin(number_key, minimum, maximum), row, 4)
         grid.addWidget(QLabel(get_app()._tr("Box width")), len(rows), 0)
-        grid.addWidget(self._spin("width", 64, 8192), len(rows), 1, 1, 4, Qt.AlignLeft)
+        grid.addWidget(self._spin("width", 64, 8192), len(rows), 1)
+        grid.addWidget(self._muted(get_app()._tr("Letter spacing")), len(rows), 3)
+        grid.addWidget(self._spin("letter_spacing", -50, 200), len(rows), 4)
         layout.addLayout(grid)
         self.update_swatches()
 
@@ -293,6 +298,10 @@ class TextStyleDialog(QDialog):
         else:
             note = get_app()._tr("Changes apply to every clip that uses this text.")
         footer.addWidget(self._muted(note), 1)
+        defaults = QPushButton(get_app()._tr("Restore Defaults"))
+        defaults.setToolTip(get_app()._tr("Restore the default font, size and colors, keeping the text"))
+        defaults.clicked.connect(self.restore_defaults)
+        footer.addWidget(defaults)
         cancel = QPushButton(get_app()._tr("Cancel"))
         cancel.setProperty("dialogRole", "cancel")
         cancel.clicked.connect(self.reject)
@@ -352,7 +361,19 @@ class TextStyleDialog(QDialog):
         spin.setFixedWidth(96)
         spin.setValue(int(self.draft.get(key, 0)))
         spin.valueChanged.connect(lambda value, k=key: self.style_changed(k, value))
+        self.spins[key] = spin
         return spin
+
+    def restore_defaults(self):
+        project = get_app().project
+        self.draft = reset_style(self.style(), project.get("width"), project.get("height"))
+        self.toolbar.set_style(self.draft)
+        for key, spin in self.spins.items():
+            spin.blockSignals(True)
+            spin.setValue(int(self.draft.get(key, 0)))
+            spin.blockSignals(False)
+        self.update_swatches()
+        self.preview_timer.start(0)
 
     def update_swatches(self):
         for key, swatch in self.swatches.items():
@@ -374,13 +395,17 @@ class TextStyleDialog(QDialog):
                                         callback=lambda color: self.style_changed(key, color.name(QColor.HexArgb)))
 
     def render_preview(self):
-        style = self.style()
-        style["height"] = max(style["height"], int(text_document(style).size().height() + 1))
+        style = fit_height(self.style())
+        # The scale follows only the box width, so a bigger font looks bigger.
+        # The preview grows with the text, and only very tall text is fit.
+        margin = 24
+        shortest, tallest = self.PREVIEW_HEIGHTS
+        fit = min(1.0, (self.preview.width() - margin) / style["width"],
+                  (tallest - margin) / style["height"])
+        self.preview.setFixedHeight(max(shortest, min(tallest, round(style["height"] * fit) + margin)))
         # Draw at the exact device pixels shown, using the native reader's
         # preview raster scale so layout matches the video, then display sharp.
         ratio = self.preview.devicePixelRatioF()
-        bounds = self.preview.size() - QSize(24, 24)
-        fit = min(1.0, bounds.width() / style["width"], bounds.height() / style["height"])
         scale = max(fit * ratio, 0.01)
         reader = openshot.QtTextReader()
         reader.SetJson(json.dumps(reader_data(style, {"num": 30, "den": 1})))
