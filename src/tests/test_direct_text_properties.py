@@ -1,7 +1,7 @@
 """Properties dock regression coverage for editable text clips."""
 import os
 from pathlib import Path
-import subprocess
+import subprocess  # nosec B404 - Launch controlled local processes without a shell.
 import sys
 import unittest
 
@@ -21,7 +21,7 @@ class DirectTextPropertiesTests(unittest.TestCase):
         env = dict(os.environ,
                    PYTHONPATH=smoke_python_path(),
                    QT_QPA_PLATFORM="offscreen", QT_QUICK_BACKEND="software")
-        result = subprocess.run([sys.executable, str(Path(__file__).with_name("direct_text_properties_smoke.py"))],
+        result = subprocess.run([sys.executable, str(Path(__file__).with_name("direct_text_properties_smoke.py"))],  # nosec B603 - Fixed test executable and argument array; no shell.
                                 env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                                 universal_newlines=True, timeout=90)
         self.assertEqual(result.returncode, 0, result.stdout[-14000:])
