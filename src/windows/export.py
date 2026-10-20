@@ -58,6 +58,7 @@ from classes.metrics import track_metric_screen, track_metric_error
 from classes.query import File
 from windows.confetti import celebrate_export
 from windows.export_result import ExportResultTab, export_details
+from windows.export_validation_ui import ExportValidationUI
 
 import json
 
@@ -308,6 +309,9 @@ class Export(QDialog):
 
         # Load previous settings (if any)
         self.load_settings()
+
+        # Check settings as they change (outlines, section icons, and the Export button)
+        self.validation = ExportValidationUI(self)
 
         self.exportTabs.currentChanged.connect(self._apply_tab_order)
         self.toolBox.currentChanged.connect(self._apply_tab_order)
@@ -773,6 +777,10 @@ class Export(QDialog):
             else:
                 self.cboSimpleQuality.setCurrentIndex(self.cboSimpleQuality.count() - 1)
 
+            # Quietly adjust preset audio details this FFmpeg build can't use (i.e. sample rate)
+            if getattr(self, "validation", None):
+                self.validation.request_auto_fix()
+
     def getVideoProfileIndex(self, profile_name=None, profile_key=None):
         """Get the index of a profile name or profile key (-1 if not found)"""
         if profile_name:
@@ -927,6 +935,8 @@ class Export(QDialog):
         self.exportTabs.setEnabled(True)
         self.export_button.setEnabled(True)
         self.btnBrowse.setEnabled(True)
+        if getattr(self, "validation", None):
+            self.validation.update_export_button()
 
     def _setup_toolbox_tab_order(self):
         toolbox = self.toolBox
@@ -1008,6 +1018,14 @@ class Export(QDialog):
 
     def accept(self):
         """ Start exporting video """
+        # Don't start an export that FFmpeg would reject
+        validation = getattr(self, "validation", None)
+        if validation:
+            validation.validate()
+            if validation.has_errors():
+                validation.reveal_first_error()
+                return
+
         # Save export settings
         self.save_settings()
 
@@ -1398,6 +1416,8 @@ class Export(QDialog):
                     child.setEnabled(False)
         # Section headers stay usable, so every settings page can be opened.
         self.toolBox.setEnabled(True)
+        if getattr(self, "validation", None):
+            self.validation.lock()
 
     def retry_export(self):
         """Reopen a fresh export dialog with the same settings."""
