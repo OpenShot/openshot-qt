@@ -308,7 +308,8 @@ class ExportResultTab(QWidget):
         self.location.setCursorPosition(0)
         self.location.setToolTip(path)
         self.location.setAccessibleName(_("File Location"))
-        self.link_button.setText(_("Open Containing Folder"))
+        self.link_button.setToolTip(_("Open Containing Folder"))
+        self.fit_actions()
         self.primary_button.setText(_("Play Audio") if kind == "audio" else _("Watch Video"))
         self.primary_button.setVisible(kind != "image_sequence")
         self.set_details(details)
@@ -322,6 +323,7 @@ class ExportResultTab(QWidget):
         self.detail_label.setText(_("Error Details:"))
         self.error_text.setText(message)
         self.link_button.setText(_("Copy Error Details"))
+        self.link_button.setToolTip("")
         self.primary_button.setText(_("Try Again"))
         self.primary_button.setVisible(on_retry is not None)
         self.set_details(details)
@@ -362,10 +364,27 @@ class ExportResultTab(QWidget):
         for column in range(self.MAX_COLUMNS):
             self.cards_layout.setColumnStretch(column, 1 if column < columns else 0)
 
+    def fit_actions(self):
+        """Shorten the folder link when it can't sit beside the primary button."""
+        if not self.success:
+            return
+        _ = self.translate
+        self.link_button.setText(_("Open Containing Folder"))
+        footer = self.width() - 20
+        needed = self.link_button.sizeHint().width() + 12
+        if self.primary_button.isVisibleTo(self):
+            needed += self.primary_button.sizeHint().width()
+        if needed > footer:
+            self.link_button.setText(_("Show in Folder"))
+
     def eventFilter(self, watched, event):
         if watched is self.content and event.type() == QEvent.Resize:
             self.reflow()
         return False
+
+    def resizeEvent(self, event):
+        super().resizeEvent(event)
+        self.fit_actions()
 
     def minimumSizeHint(self):
         # Never force the export dialog to grow; the details scroll instead.

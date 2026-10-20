@@ -86,6 +86,24 @@ class ExportResultTests(unittest.TestCase):
         self.assertEqual([panel.cards_layout.getItemPosition(panel.cards_layout.indexOf(card))[:2]
                           for card in panel.cards], [(row, 0) for row in range(len(DETAILS))])
 
+    def test_folder_link_shortens_when_narrow(self):
+        # Inside the dialog's tab widget, like the real tab (top-levels enforce layout minimums).
+        holder = QWidget()
+        self.addCleanup(holder.deleteLater)
+        panel = ExportResultTab(lambda text: text, holder)
+        panel.setGeometry(0, 0, 620, 420)
+        holder.show()
+        panel.show_success("/tmp/out.mp4", "video", DETAILS)
+        QApplication.processEvents()
+        self.assertEqual(panel.link_button.text(), "Open Containing Folder")
+        panel.setGeometry(0, 0, 240, 420)
+        QApplication.processEvents()
+        self.assertEqual(panel.link_button.text(), "Show in Folder")
+        self.assertEqual(panel.link_button.toolTip(), "Open Containing Folder")
+        panel.setGeometry(0, 0, 620, 420)
+        QApplication.processEvents()
+        self.assertEqual(panel.link_button.text(), "Open Containing Folder")
+
     def test_cards_prefer_full_rows(self):
         panel = self.make_panel(900)
         panel.show()
