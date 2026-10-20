@@ -34,7 +34,7 @@ import uuid
 
 import openshot
 from qt_api import QImage, QPainter, QColor
-from .protocol import CommandError, MAX_SAMPLES, cli_command, dimensions, session_dir
+from .protocol import CommandError, MAX_SAMPLES, cli_command, cli_environment, dimensions, session_dir
 from .service import existing, finite, output_path
 
 
@@ -199,7 +199,7 @@ def export_command(service, operation, p):
             os.close(fd)
         try:
             with (directory/'worker.log').open('wb') as log:
-                process = subprocess.Popen(cli_command('--_export-worker', str(directory)), stdin=subprocess.DEVNULL, stdout=log, stderr=log)  # nosec B603 - Known OpenShot executable and argument array; no shell.
+                process = subprocess.Popen(cli_command('--_export-worker', str(directory)), stdin=subprocess.DEVNULL, stdout=log, stderr=log, env=cli_environment())  # nosec B603 - Known OpenShot executable and argument array; no shell.
         except Exception:
             remove_export_output(output)
             raise
@@ -233,7 +233,7 @@ def check_export(spec):
         spec_path.write_text(json.dumps(public(spec)))
         try:
             process = subprocess.run(cli_command('--_export-check', str(spec_path)), stdin=subprocess.DEVNULL,  # nosec B603 - Known OpenShot executable and argument array; no shell.
-                                     capture_output=True, timeout=120, check=False)
+                                     capture_output=True, timeout=120, check=False, env=cli_environment())
         except subprocess.TimeoutExpired as exc:
             raise CommandError('check_timeout', 'Checking export settings took too long; the encoder or device did not respond.') from exc
     lines = [line for line in process.stdout.decode('utf-8', 'replace').splitlines() if line.startswith('{')]

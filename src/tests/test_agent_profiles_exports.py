@@ -170,6 +170,15 @@ class ProfileExportTests(unittest.TestCase):
                 resolve(self.service, {'output': output, 'config': config})
         self.assertFalse(Path(output).exists())
 
+    def test_export_processes_load_the_same_libopenshot(self):
+        import importlib.util
+        import os
+        from classes.agent.protocol import cli_environment
+        folder = str(Path(importlib.util.find_spec('openshot').origin).resolve().parent)
+        with patch.dict(os.environ, {'PYTHONPATH': os.pathsep.join(['/elsewhere', folder])}):
+            paths = cli_environment()['PYTHONPATH'].split(os.pathsep)
+        self.assertEqual(paths, [folder, '/elsewhere'])
+
     def test_export_validate_opens_the_engine_without_writing(self):
         self.clip()
         output = Path(self.temp.name)/'out.mp4'
