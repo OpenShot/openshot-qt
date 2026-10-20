@@ -51,10 +51,6 @@ class FakeWriter:
     """Stands in for openshot.FFmpegWriter's capability queries."""
 
     @staticmethod
-    def IsValidCodec(name):
-        return name in ENCODERS
-
-    @staticmethod
     def GetEncoderInfo(name):
         if name not in ENCODERS:
             return json.dumps({"found": False})
@@ -78,19 +74,17 @@ class FakeWriter:
         return int(codec_name in info["audio"] + info["video"])
 
     @staticmethod
+    def GetFormats():
+        return json.dumps([{"extension": name, "name": name, "long_name": name,
+                            "default_audio_codec": info["default_audio_codec"],
+                            "default_video_codec": info["default_video_codec"]} for name, info in FORMATS.items()])
+
+    @staticmethod
     def GetEncoders(media_type, format_name=""):
         names = [name for name, info in ENCODERS.items() if info["type"] == media_type]
         if format_name:
             names = [name for name in names if FakeWriter.IsCodecSupportedByFormat(format_name, name)]
         return json.dumps([{"name": name, "long_name": name} for name in names])
-
-
-class OldWriter:
-    """An older libopenshot, which only knows IsValidCodec."""
-
-    @staticmethod
-    def IsValidCodec(name):
-        return name in ENCODERS
 
 
 def settings(**overrides):
@@ -205,7 +199,7 @@ class ExportValidationTests(unittest.TestCase):
         self.assertEqual(self.issues(vformat="mp3", vcodec="png", acodec="mp2", video_bitrate="23 crf"), {})
 
     def test_engine_failures_point_at_the_setting_and_suggest_a_fix(self):
-        failed = {"checked": True, "ok": False, "stage": "audio", "message": "mp3: Exactly one MP3 audio stream"}
+        failed = {"ok": False, "stage": "audio", "message": "mp3: Exactly one MP3 audio stream"}
         issue = self.validator.engine_issue(settings(vformat="mp3", vcodec="png", acodec="aac"), failed)
         self.assertEqual((issue.field, issue.fix), ("acodec", "mp2"))
         self.assertIn("Exactly one MP3 audio stream", issue.message)
@@ -214,8 +208,7 @@ class ExportValidationTests(unittest.TestCase):
         self.assertEqual((issue.field, issue.fix), ("vcodec", "libvpx-vp9"))
         issue = self.validator.engine_issue(settings(), dict(failed, stage="header"))
         self.assertEqual((issue.field, issue.fix), ("vformat", None))
-        self.assertIsNone(self.validator.engine_issue(settings(), {"checked": True, "ok": True}))
-        self.assertIsNone(self.validator.engine_issue(settings(), dict(failed, checked=False)))
+        self.assertIsNone(self.validator.engine_issue(settings(), {"ok": True}))
 
     def test_long_encoder_menus_split_into_short_groups(self):
         from classes.export_validation import MENU_LIMIT, encoder_menu
@@ -280,24 +273,12 @@ class ExportValidationTests(unittest.TestCase):
         self.assertNotIn("srt", listed)
         self.assertEqual(len(listed), 12)
 
-    def test_older_libopenshot_only_checks_what_it_can(self):
-        validator = ExportValidator(Capabilities(OldWriter))
-        found = {issue.field for issue in validator.validate(settings(vformat="webm", sample_rate=44000))}
-        self.assertEqual(found, set())
-        found = {issue.field for issue in validator.validate(settings(acodec="libfdk_aac", audio_bitrate="128"))}
-        self.assertEqual(found, {"acodec", "audio_bitrate"})
-
 
 class PresetValidationTests(unittest.TestCase):
     """Every bundled preset should be valid with the FFmpeg OpenShot runs on."""
 
     def test_presets_are_valid(self):
-        try:
-            caps = Capabilities()
-        except ImportError:
-            self.skipTest("libopenshot is not available")
-        if not caps.available:
-            self.skipTest("libopenshot is too old to describe encoders")
+        caps = Capabilities()
         validator = ExportValidator(caps)
         modes = {"Video Only": "video", "Audio Only": "audio", "Image Sequence": "image_sequence"}
         preset_folder = os.path.join(PATH, "presets")
@@ -451,9 +432,9 @@ class ExportDialogValidationTests(unittest.TestCase):
         def fake_test_writer(path, video, audio, mode, quality_mode):
             calls.append((os.path.splitext(path)[1], video["vcodec"], audio["acodec"], mode))
             if audio["acodec"] == "aac" and path.endswith(".mp3"):
-                return {"checked": True, "ok": False, "stage": "audio", "message": "mp3: needs MP3 audio",
+                return {"ok": False, "stage": "audio", "message": "mp3: needs MP3 audio",
                         "log": [], "elapsed_ms": 1}
-            return {"checked": True, "ok": True, "stage": "", "message": "", "log": [], "elapsed_ms": 1}
+            return {"ok": True, "stage": "", "message": "", "log": [], "elapsed_ms": 1}
 
         def writer_settings():
             video = {"vformat": dialog.txtVideoFormat.text(), "vcodec": dialog.txtVideoCodec.text(),

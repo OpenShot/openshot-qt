@@ -170,7 +170,6 @@ class ProfileExportTests(unittest.TestCase):
                 resolve(self.service, {'output': output, 'config': config})
         self.assertFalse(Path(output).exists())
 
-    @unittest.skipUnless(hasattr(__import__('openshot').FFmpegWriter, 'Test'), 'libopenshot cannot test export settings')
     def test_export_validate_opens_the_engine_without_writing(self):
         self.clip()
         output = Path(self.temp.name)/'out.mp4'

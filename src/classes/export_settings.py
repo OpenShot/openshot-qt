@@ -81,11 +81,9 @@ def describe_settings(video, audio, mode='video_audio', fmt=''):
 
 def _run_test(path, video, audio, mode, quality_mode, video_options, audio_options):
     started = time.time()
-    result = {'checked': True, 'ok': True, 'stage': '', 'message': '', 'log': [], 'elapsed_ms': 0}
+    result = {'ok': True, 'stage': '', 'message': '', 'log': [], 'elapsed_ms': 0}
     try:
         writer = openshot.FFmpegWriter(path)
-        if not hasattr(writer, 'Test'):
-            return dict(result, checked=False)
         configure_writer(writer, video, audio, mode, quality_mode, video_options, audio_options)
         result.update(json.loads(writer.Test()))
     except Exception as ex:  # libopenshot raises RuntimeError for its own exceptions
@@ -101,10 +99,8 @@ def test_writer(path, video, audio, mode='video_audio', quality_mode=None,
     """Try export settings without writing a file.
 
     The encoders (including hardware encoders) are opened, and the header is written to memory,
-    so the result matches what a real export would do. Returns a dict with checked, ok, stage
-    ("format", "video", "audio", or "header" when the format rejects the pair), message, log,
-    and elapsed_ms. checked is False when this
-    version of libopenshot can't test settings.
+    so the result matches what a real export would do. Returns a dict with ok, stage ("format",
+    "video", "audio", or "header" when the format rejects the pair), message, log, and elapsed_ms.
     """
     result = _run_test(path, video, audio, mode, quality_mode, video_options, audio_options)
     if result['stage'] == 'header' and mode == 'video_audio':
@@ -121,9 +117,7 @@ def test_writer(path, video, audio, mode='video_audio', quality_mode=None,
 
     log = logging.getLogger('OpenShot')
     summary = describe_settings(video, audio, mode, os.path.splitext(path)[1].lstrip('.'))
-    if not result['checked']:
-        pass
-    elif result['ok']:
+    if result['ok']:
         log.info('Checking export settings: %s … OK (%d ms)', summary, result['elapsed_ms'])
     else:
         log.info('Checking export settings: %s … not supported: %s (%d ms)',

@@ -50,7 +50,7 @@ def check(spec, path=None):
     config = spec['config']
     if config['mode'] == 'image_sequence':
         # Frames are saved as images; no writer is opened
-        return {'checked': False, 'ok': True}
+        return {'ok': True}
     apply_engine_settings(config)
     return test_writer(path or spec['output'], spec['video'], spec['audio'], config['mode'],
                        config['quality_mode'], config['video_options'], config['audio_options'])

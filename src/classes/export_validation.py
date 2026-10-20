@@ -113,17 +113,13 @@ def rate_to_value(number, unit):
 
 
 class Capabilities:
-    """Cached questions about the FFmpeg build, asked through libopenshot.
-
-    Older libopenshot versions only know IsValidCodec; then the answers are 'unknown' and
-    validation falls back to the checks it can still make."""
+    """Cached questions about the FFmpeg build, asked through libopenshot."""
 
     def __init__(self, writer=None):
         if writer is None:
             import openshot
             writer = openshot.FFmpegWriter
         self.writer = writer
-        self.available = hasattr(writer, "GetEncoderInfo")
         self._cache = {}
 
     def _cached(self, key, compute):
@@ -137,29 +133,21 @@ class Capabilities:
     def encoder(self, name):
         """Encoder details (or {'found': False}). Lists are None when anything is accepted."""
         name = (name or "").strip()
-        if not self.available:
-            return self._cached(("encoder", name), lambda: {"found": bool(self.writer.IsValidCodec(name))}) or {}
         return self._cached(("encoder", name), lambda: json.loads(self.writer.GetEncoderInfo(name))) or {}
 
     def format(self, name):
-        """Format details, {'found': False}, or {} when unknown."""
+        """Format details, or {'found': False}."""
         name = (name or "").strip()
-        if not self.available:
-            return {}
         return self._cached(("format", name), lambda: json.loads(self.writer.GetFormatInfo(name))) or {}
 
     def supports(self, format_name, codec_name):
         """1 if the format can hold the codec, 0 if not, -1 when unknown."""
-        if not self.available:
-            return -1
         result = self._cached(("supports", format_name, codec_name),
                               lambda: int(self.writer.IsCodecSupportedByFormat(format_name, codec_name)))
         return -1 if result is None else result
 
     def encoders(self, media_type, format_name=""):
         """Available encoders of a media type, optionally limited to those a format can hold."""
-        if not self.available:
-            return []
         return self._cached(("encoders", media_type, format_name),
                             lambda: json.loads(self.writer.GetEncoders(media_type, format_name))) or []
 
@@ -168,9 +156,7 @@ class Capabilities:
         return [name for name in candidates if self.format(name).get("found")]
 
     def all_formats(self):
-        """Every file extension the writer can export to (FFmpegWriter.GetFormats), or []."""
-        if not self.available or not hasattr(self.writer, "GetFormats"):
-            return []
+        """Every file extension the writer can export to (FFmpegWriter.GetFormats)."""
         return self._cached(("all_formats",), lambda: json.loads(self.writer.GetFormats())) or []
 
 
@@ -383,7 +369,7 @@ class ExportValidator:
 
     def engine_issue(self, settings, result):
         """Turn a failed engine check (export_settings.test_writer) into an Issue, or None."""
-        if not result.get("checked") or result.get("ok"):
+        if result.get("ok"):
             return None
         _ = self._
         field = ENGINE_STAGE_FIELDS.get(result.get("stage"), "vformat")

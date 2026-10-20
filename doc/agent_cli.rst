@@ -505,8 +505,7 @@ FFmpeg's own explanation, and the setting to change (``details.cause.path``)::
 
    openshot-cli export validate /tmp/song.mp3 --json '{"mode":"audio","format":"mp3","audio_codec":"aac"}'
 
-``runtime_checked`` is false when the installed engine is too old to check
-settings this way. The export worker runs the same check before rendering.
+The export worker runs the same check before rendering.
 
 Rendering a frame range
 ~~~~~~~~~~~~~~~~~~~~~~~

@@ -174,7 +174,7 @@ def timeline_view(service, p, output):
 
 
 def export_command(service, operation, p):
-    from .exporting import resolve, public, catalogue
+    from .exporting import resolve, catalogue
     if operation in ('preset.list', 'preset.get', 'capabilities'):
         return catalogue('export.'+operation, p)
     if operation == 'list':
@@ -246,11 +246,8 @@ def check_export(spec):
         raise CommandError('incompatible_export', 'Export settings are not supported: ' + outcome['message'], {
             'path': setting, 'stage': outcome['stage'], 'engine_log': outcome['log'],
             'hint': 'Change ' + setting + ', or start from a preset in export preset list.' if setting else None})
-    result['validation'] = dict(result['validation'], runtime_checked=outcome['checked'],
-                                note='Encoders, devices and the container were opened and checked; no file was written.'
-                                if outcome['checked'] else 'This engine version cannot check settings before exporting.')
-    if outcome['checked']:
-        result['validation']['check_ms'] = outcome['elapsed_ms']
+    result['validation'] = dict(result['validation'], runtime_checked=True, check_ms=outcome['elapsed_ms'],
+                                note='Encoders, devices and the container were opened and checked; no file was written.')
     return result
 
 

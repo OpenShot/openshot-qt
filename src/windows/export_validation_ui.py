@@ -31,7 +31,6 @@ import os
 import tempfile
 import threading
 
-import openshot
 from qt_api import (
     QColor, QComboBox, QHBoxLayout, QIcon, QLabel, QLineEdit, QMenu, QObject, QPen, QPoint, QPointF, QPolygonF,
     QRectF, QSize, QSpinBox, QTimer, QToolButton, QVBoxLayout, QWidget, QWidgetAction, Qt, pyqtSignal, QEvent,
@@ -219,7 +218,8 @@ class ExportValidationUI(QObject):
         self.engine_key = None
         self.engine_result = None
         self.engine_running = None
-        self.engine_available = hasattr(openshot.FFmpegWriter, "Test") and hasattr(dialog, "writer_settings")
+        # The export dialog provides the writer settings (tests may use a bare dialog)
+        self.engine_available = hasattr(dialog, "writer_settings")
         self.engineChecked.connect(self._engine_checked)
         self.fields = {
             "vformat": dialog.txtVideoFormat,
@@ -633,10 +633,7 @@ class ExportValidationUI(QObject):
     def _encoder_choices(self, media_type, vformat):
         """(top choices, More menu nodes) for an encoder field."""
         caps = self.validator.caps
-        if caps.available:
-            encoders = caps.encoders(media_type, vformat)
-        else:
-            encoders = [{"name": name} for name in PREFERRED_ENCODERS[media_type] if caps.encoder(name).get("found")]
+        encoders = caps.encoders(media_type, vformat)
         if media_type == "video" and self.validator.is_cover_image_format(vformat):
             # Only a cover image fits (i.e. mp3)
             encoders = [encoder for encoder in encoders if encoder["name"] in export_validation.COVER_IMAGE_CODECS]
@@ -650,7 +647,7 @@ class ExportValidationUI(QObject):
     def _format_choices(self):
         """(common formats, More menu with every other format) for the format field."""
         caps = self.validator.caps
-        common = caps.formats() if caps.available else export_validation.COMMON_FORMATS
+        common = caps.formats()
         rest = [row for row in caps.all_formats() if row.get("extension") not in common]
         more = export_validation.format_menu(rest, self._, caps.encoder)
         choice = lambda row: ("%s — %s" % (row["extension"], row["long_name"]) if row.get("long_name")
