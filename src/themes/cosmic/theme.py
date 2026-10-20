@@ -568,6 +568,16 @@ QTabWidget#generateTabs QTabBar::tab {
     margin-bottom: 10px;
 }
 
+/* Keep the export dialog's name/folder rows and tabs compact. */
+QTabWidget#exportTabs QTabBar::tab {
+    margin-top: 4px;
+}
+
+QDialog#exportDialog QPushButton#btnBrowse {
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
 QTabWidget#generateTabs QTabBar::tab:selected {
     border-bottom: 1.2px solid #53a0ed;
 }
