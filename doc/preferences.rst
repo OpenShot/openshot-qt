@@ -437,7 +437,10 @@ The Advanced tab includes ComfyUI integration and debugging options.
      - Display live FPS in preview playback
    * - Show Export Dialog when Finished
      - Enabled
-     - Display the Export Video window when export completes
+     - Display the Export Video window when export completes, with a summary of the result. See :ref:`export_complete_ref`.
+   * - Celebrate Exports
+     - First Export
+     - Show a burst of confetti when an export succeeds: on the ``First Export`` only, on ``Every Export``, or ``Never``
 
 The ComfyUI **Check** button updates an inline status icon: green checkmark for success, red icon for failure.
 If OpenShot cannot reach this server, AI context menu options are hidden.

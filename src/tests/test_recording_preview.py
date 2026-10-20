@@ -517,7 +517,8 @@ class RecordingPreviewTests(unittest.TestCase):
                 output.write(b"png")
 
         try:
-            with patch.object(helper.info, "THUMBNAIL_PATH", temp_dir), patch.object(
+            with patch.object(helper.info, "THUMBNAIL_PATH", temp_dir), patch(
+                "classes.thumbnail.ThumbnailCacheId", side_effect=str), patch.object(
                 helper.LiveRecordingThumbnailCache,
                 "_save_thumbnail_from_frame",
                 fake_save,
@@ -542,7 +543,9 @@ class RecordingPreviewTests(unittest.TestCase):
         helper = self.audio_recording_module
         temp_dir = tempfile.mkdtemp()
         try:
-            with patch.object(helper.info, "THUMBNAIL_PATH", temp_dir):
+            # Cache ids would otherwise come from whichever project an earlier test loaded.
+            with patch.object(helper.info, "THUMBNAIL_PATH", temp_dir), \
+                    patch("classes.thumbnail.ThumbnailCacheId", side_effect=str):
                 source_dir = os.path.join(temp_dir, "temp-file")
                 os.makedirs(source_dir)
                 with open(os.path.join(source_dir, "1.png"), "wb") as output:

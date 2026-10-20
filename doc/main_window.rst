@@ -221,10 +221,10 @@ available. Choose :guilabel:`Upgrade` to open the download page, or close the
 notice to hide it for that version. You can still open the download page from
 :guilabel:`Help → Update Available` or press :kbd:`F9` when an update is available.
 
-After you have spent some time editing, OpenShot may also invite you to share
-feedback. The survey is optional. You can open it from the notice or dismiss the
-invitation. At any time, choose :guilabel:`Help → Share Feedback` or press
-:kbd:`F8` to share your thoughts.
+After your first successful export of each OpenShot release, a notice invites
+you to share feedback once you close the Export window. The survey is optional.
+You can open it from the notice or dismiss the invitation. At any time, choose
+:guilabel:`Help → Share Feedback` or press :kbd:`F8` to share your thoughts.
 
 About OpenShot
 --------------

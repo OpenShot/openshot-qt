@@ -60,7 +60,6 @@ from qt_api import (
 from classes import exceptions, info, qt_types, sentry, ui_util, updates, tabstops
 from classes.app import get_app
 from classes.asset_keyboard import AssetKeyboardMixin
-from classes.feedback import record_feedback_action
 from classes.exporters.edl import export_edl
 from classes.exporters.final_cut_pro import export_xml
 from classes.importers.edl import import_edl
@@ -2629,7 +2628,6 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
             if profile_changed:
                 # Export dialog settings are profile-dependent; reset cache on profile changes.
                 get_app().updates.update(["export_settings"], None)
-                record_feedback_action("profile")
 
             # Clear transaction id
             get_app().updates.transaction_id = None

@@ -80,13 +80,6 @@
     "setting": "feedback-shown"
   },
   {
-    "value": 0,
-    "title": "",
-    "type": "hidden",
-    "category": "General",
-    "setting": "feedback-use-seconds"
-  },
-  {
     "value": "",
     "title": "",
     "type": "hidden",
@@ -94,18 +87,11 @@
     "setting": "feedback-release"
   },
   {
-    "value": 0,
+    "value": false,
     "title": "",
     "type": "hidden",
     "category": "General",
-    "setting": "feedback-action-count"
-  },
-  {
-    "value": [],
-    "title": "",
-    "type": "hidden",
-    "category": "General",
-    "setting": "feedback-action-categories"
+    "setting": "export-celebrated"
   },
   {
     "value": "",
@@ -659,6 +645,20 @@
     "restart": false,
     "category": "Advanced",
     "setting": "show_finished_window"
+  },
+  {
+    "value": "first",
+    "title": "Celebrate Exports",
+    "type": "dropdown",
+    "restart": false,
+    "category": "General",
+    "setting": "export-celebration",
+    "translate_values": true,
+    "values": [
+      {"value": "first", "name": "First Export"},
+      {"value": "all", "name": "Every Export"},
+      {"value": "none", "name": "Never"}
+    ]
   },
   {
     "value": true,
