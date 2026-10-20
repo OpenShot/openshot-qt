@@ -152,6 +152,30 @@ Audio Settings
    Bit Rate / Quality  The bitrate to use for audio encoding. Accepts the following formats: ``96 kb/s``, ``128 kb/s``, ``192 kb/s``, etc...
    ==================  ============
 
+.. _export_complete_ref:
+
+Export Complete
+---------------
+
+When an export finishes, a :guilabel:`Complete` tab opens in the Export window (unless
+:guilabel:`Show Export Dialog when Finished` is turned off in :ref:`preferences_ref`). It shows where
+the file was saved, with a button to copy its path, along with a summary of the export: format,
+resolution, quality, file size, duration, and how long the export took.
+
+* :guilabel:`Watch Video` opens the exported file in your default video player (:guilabel:`Play Audio`
+  for audio-only exports).
+* :guilabel:`Open Containing Folder` opens your file manager with the exported file selected.
+
+The `Simple` and `Advanced` tabs are still available, but read-only, so you can review exactly which
+settings were used. Click :guilabel:`Done` to close the window.
+
+If an export fails, an :guilabel:`Export Failed` tab explains what went wrong. :guilabel:`Copy Error Details`
+copies the error and export settings (helpful when reporting a problem), and :guilabel:`Try Again` reopens
+the Export window with the same settings.
+
+A successful export also fires a burst of confetti. Use the :guilabel:`Celebrate Exports` preference to
+show it on the first export only (the default), on every export, or never.
+
 .. _export_social_media_ref:
 
 Social Media Quick Reference
