@@ -167,69 +167,131 @@ class Capabilities:
         """The candidate formats this FFmpeg build can write."""
         return [name for name in candidates if self.format(name).get("found")]
 
+    def all_formats(self):
+        """Every file extension the writer can export to (FFmpegWriter.GetFormats), or []."""
+        if not self.available or not hasattr(self.writer, "GetFormats"):
+            return []
+        return self._cached(("all_formats",), lambda: json.loads(self.writer.GetFormats())) or []
 
-# Longest encoder menu before it's split into groups
-MENU_LIMIT = 20
+
+# Menus longer than FLAT_LIMIT are grouped into categories. Groups longer than MENU_LIMIT (about
+# a screen) split again, alphabetically, as a last resort.
+FLAT_LIMIT = 10
+MENU_LIMIT = 30
+
+# Formats for single images, which Image Sequence exports use instead (see its Image Format field)
+SINGLE_IMAGE_FORMATS = ("image2", "image2pipe", "ico", "fits")
+ANIMATION_FORMATS = ("gif", "apng", "webp")
 
 
 def encoder_menu(encoders, media_type, tr=lambda text: text):
-    """Split a long list of encoders into short groups that are quick to skim.
+    """Group encoders into a menu that's quick to skim (see grouped_menu).
 
-    encoders: dicts like Capabilities.encoder() returns. Returns a list of nodes, where each node
-    is an encoder dict or a (title, [nodes]) group: categories (i.e. Hardware Accelerated), then
-    families of related encoders (i.e. PCM), then alphabetical ranges when still too long.
+    encoders: dicts like Capabilities.encoder() returns. Categories are i.e. Hardware Accelerated,
+    and families are encoders of the same codec (i.e. h264) or name prefix (i.e. pcm_).
     """
     _ = tr
-    encoders = sorted(encoders, key=lambda encoder: encoder.get("name", ""))
-    if len(encoders) <= MENU_LIMIT:
-        return encoders
     if media_type == "video":
         categories = [
             (_("Hardware Accelerated"), lambda e: e.get("hardware")),
             (_("Delivery"), lambda e: e.get("lossy") and not e.get("intra_only")),
-            (_("Editing (Intra-frame)"), lambda e: e.get("lossy")),
+            (_("Editing (Intra-frame)"), lambda e: e.get("lossy") and not e.get("image")),
+            (_("Images"), lambda e: e.get("image")),
             (_("Lossless"), lambda e: e.get("lossless")),
         ]
     else:
         categories = [(_("Lossy"), lambda e: e.get("lossy")),
                       (_("Lossless & Uncompressed"), lambda e: e.get("lossless"))]
     categories.append((_("Other"), lambda e: True))
+    return grouped_menu(encoders, categories, lambda e: e.get("name", ""), _encoder_families)
 
+
+def format_menu(formats, tr=lambda text: text, encoder=lambda name: {}):
+    """Group formats (FFmpegWriter.GetFormats rows) into a menu that's quick to skim.
+
+    Formats that can't hold video or audio (i.e. subtitles), and single images, are left out.
+    encoder(name) describes a codec (Capabilities.encoder), to split lossless audio formats out.
+    """
+    _ = tr
+
+    def video(row):
+        return row.get("default_video_codec") and row.get("default_video_codec") not in COVER_IMAGE_CODECS
+
+    formats = [row for row in formats if (row.get("default_video_codec") or row.get("default_audio_codec"))
+               and row.get("name") not in SINGLE_IMAGE_FORMATS]
+    categories = [
+        (_("Video"), lambda row: video(row) and row.get("default_audio_codec")),
+        (_("Audio"), lambda row: row.get("default_audio_codec")
+         and not encoder(row["default_audio_codec"]).get("lossless")),
+        (_("Lossless & PCM Audio"), lambda row: row.get("default_audio_codec")),
+        (_("Animation"), lambda row: row.get("name") in ANIMATION_FORMATS),
+        (_("Raw Video Streams"), lambda row: True),
+    ]
+
+    def families(rows):
+        # Extensions of the same format (i.e. ts, m2ts, mts)
+        counts = {}
+        for row in rows:
+            counts[row.get("name")] = counts.get(row.get("name"), 0) + 1
+        return [row.get("name") if counts[row.get("name")] >= 3 else None for row in rows]
+
+    return grouped_menu(formats, categories, lambda row: row.get("extension", ""), families)
+
+
+def grouped_menu(items, categories, name, families=None):
+    """Split a long list into a menu that's quick to skim.
+
+    Returns a list of nodes, where each node is an item or a (title, [nodes]) group: categories
+    first (the first matching (title, test) wins), then families of related items
+    (families(items) gives each item's family, or None), then alphabetical ranges as a last resort.
+    Short lists stay flat.
+    """
+    items = sorted(items, key=lambda item: name(item).lower())
+    if len(items) <= FLAT_LIMIT:
+        return items
     groups = []
-    remaining = encoders
+    remaining = items
     for title, belongs in categories:
-        members = [encoder for encoder in remaining if belongs(encoder)]
-        remaining = [encoder for encoder in remaining if not belongs(encoder)]
+        members = [item for item in remaining if belongs(item)]
+        remaining = [item for item in remaining if not belongs(item)]
         if members:
-            groups.append(("%s (%d)" % (title, len(members)), _menu_ranges(_encoder_families(members))))
+            nodes = _menu_families(members, name, families) if families else members
+            groups.append(("%s (%d)" % (title, len(members)), _menu_ranges(nodes, name)))
     return groups[0][1] if len(groups) == 1 else groups
 
 
-def _menu_label(node):
-    return node[0] if isinstance(node, tuple) else node.get("name", "")
+def _menu_label(node, name):
+    return node[0] if isinstance(node, tuple) else name(node)
+
+
+def _menu_families(items, name, families):
+    """Collapse families of 3 or more items into one group each."""
+    keys = families(items)
+    by_family = {}
+    for item, key in zip(items, keys):
+        by_family.setdefault(key, []).append(item)
+    nodes = []
+    for key, members in by_family.items():
+        if key and len(members) >= 3:
+            nodes.append(("%s (%d)" % (key.upper(), len(members)), members))
+        else:
+            nodes.extend(members)
+    return sorted(nodes, key=lambda node: _menu_label(node, name).lower())
 
 
 def _encoder_families(encoders):
-    """Group related encoders: the same codec (i.e. h264), or else the same prefix (i.e. pcm_)."""
+    """Each encoder's family: its codec when 3+ share it (i.e. h264), or its name prefix (i.e. pcm)."""
     codecs = {}
     for encoder in encoders:
         codecs[encoder.get("codec")] = codecs.get(encoder.get("codec"), 0) + 1
-    families = {}
+    families = []
     for encoder in encoders:
-        name = encoder.get("name", "")
-        codec = encoder.get("codec")
-        family = codec if codec and codecs[codec] >= 3 else (name.split("_")[0] if "_" in name else None)
-        families.setdefault(family, []).append(encoder)
-    nodes = []
-    for family, members in families.items():
-        if family and len(members) >= 3:
-            nodes.append(("%s (%d)" % (family.upper(), len(members)), members))
-        else:
-            nodes.extend(members)
-    return sorted(nodes, key=lambda node: _menu_label(node).lower())
+        name, codec = encoder.get("name", ""), encoder.get("codec")
+        families.append(codec if codec and codecs[codec] >= 3 else (name.split("_")[0] if "_" in name else None))
+    return families
 
 
-def _menu_ranges(nodes):
+def _menu_ranges(nodes, name):
     """Split a long menu into alphabetical ranges (i.e. "A – F")."""
     if len(nodes) <= MENU_LIMIT:
         return nodes
@@ -238,7 +300,7 @@ def _menu_ranges(nodes):
     ranges = []
     for start in range(0, len(nodes), size):
         part = nodes[start:start + size]
-        first, last = _menu_label(part[0]), _menu_label(part[-1])
+        first, last = _menu_label(part[0], name), _menu_label(part[-1], name)
         if first[:1].upper() != last[:1].upper():
             title = "%s – %s" % (first[:1].upper(), last[:1].upper())
         else:

@@ -221,30 +221,64 @@ class ExportValidationTests(unittest.TestCase):
         from classes.export_validation import MENU_LIMIT, encoder_menu
         encoders = [{"name": "h264_hw%d" % index, "codec": "h264", "hardware": True, "lossy": True}
                     for index in range(4)]
-        encoders += [{"name": letter * 3, "codec": letter, "lossy": True} for letter in "abcdefghijklmnopqrstuvwxy"]
+        encoders += [{"name": letter * 3, "codec": letter, "lossy": True} for letter in "abcdefgh"]
         encoders += [{"name": "prores%d" % index, "codec": "prores", "lossy": True, "intra_only": True}
                      for index in range(3)]
-        encoders += [{"name": "ffv%d" % index, "codec": "ffv%d" % index, "lossless": True} for index in range(2)]
+        encoders += [{"name": "png", "codec": "png", "lossless": True, "image": True},
+                     {"name": "ffv1", "codec": "ffv1", "lossless": True}]
         menu = encoder_menu(encoders, "video")
-        titles = [node[0] for node in menu]
-        self.assertEqual(titles, ["Hardware Accelerated (4)", "Delivery (25)", "Editing (Intra-frame) (3)",
-                                  "Lossless (2)"])
-        # Shared codecs form a family; a long category splits into alphabetical ranges
+        self.assertEqual([node[0] for node in menu], ["Hardware Accelerated (4)", "Delivery (8)",
+                                                      "Editing (Intra-frame) (3)", "Images (1)", "Lossless (1)"])
+        # Shared codecs form a family
         self.assertEqual(menu[0][1][0][0], "H264 (4)")
-        self.assertEqual([title for title, _ in menu[1][1]], ["A – M", "N – Y"])
-        self.assertTrue(all(len(part) <= MENU_LIMIT for _, part in menu[1][1]))
         self.assertEqual(menu[2][1][0][0], "PRORES (3)")
-        # Ranges within one letter name their first and last entries
-        same = [{"name": "lib%02d" % index, "codec": "c%d" % index, "lossy": True} for index in range(30)]
-        self.assertEqual([title for title, _ in encoder_menu(same, "video")], ["lib00 – lib14", "lib15 – lib29"])
+        # Short lists stay flat
+        self.assertEqual(encoder_menu(encoders[:5], "video"), sorted(encoders[:5], key=lambda e: e["name"]))
 
-        # Name prefixes group families too (i.e. pcm_*), and short lists stay flat
+        # Name prefixes group families too (i.e. pcm_*)
         audio = [{"name": "pcm_%02d" % index, "codec": "pcm_%02d" % index, "lossless": True} for index in range(25)]
         audio += [{"name": "aac", "codec": "aac", "lossy": True}]
         menu = encoder_menu(audio, "audio")
         self.assertEqual([node[0] for node in menu], ["Lossy (1)", "Lossless & Uncompressed (25)"])
         self.assertEqual(menu[1][1][0][0], "PCM (25)")
-        self.assertEqual(encoder_menu(audio[-3:], "audio"), sorted(audio[-3:], key=lambda e: e["name"]))
+
+        # A category longer than a screen splits alphabetically, as a last resort
+        many = [{"name": "lib%02d" % index, "codec": "c%d" % index, "lossy": True} for index in range(MENU_LIMIT + 10)]
+        ranges = encoder_menu(many, "video")
+        self.assertEqual([title for title, _ in ranges], ["lib00 – lib19", "lib20 – lib39"])
+        self.assertTrue(all(len(part) <= MENU_LIMIT for _, part in ranges))
+
+    def test_format_menu_groups_every_format_by_what_it_holds(self):
+        from classes.export_validation import format_menu
+
+        def row(extension, name, video="", audio=""):
+            return {"extension": extension, "name": name, "long_name": name.upper(),
+                    "default_video_codec": video, "default_audio_codec": audio}
+        rows = [row("avi", "avi", "mpeg4", "mp3"), row("flv", "flv", "flv", "mp3"), row("nut", "nut", "mpeg4", "mp2"),
+                row("ts", "mpegts", "mpeg2video", "mp2"),
+                row("m2ts", "mpegts", "mpeg2video", "mp2"), row("mts", "mpegts", "mpeg2video", "mp2"),
+                row("aac", "adts", audio="aac"), row("wav", "wav", audio="pcm_s16le"),
+                row("aiff", "aiff", "png", "pcm_s16be"), row("apng", "apng", "apng"),
+                row("h264", "h264", "libx264"), row("png", "image2", "mjpeg"), row("srt", "srt"),
+                row("ac3", "ac3", audio="ac3")]
+        lossless = {"pcm_s16le", "pcm_s16be"}
+        menu = format_menu(rows, encoder=lambda name: {"lossless": name in lossless})
+        titles = [node[0] for node in menu]
+        self.assertEqual(titles, ["Video (6)", "Audio (2)", "Lossless & PCM Audio (2)", "Animation (1)",
+                                  "Raw Video Streams (1)"])
+        # Extensions of one format form a family; single images and subtitles are left out
+        family = dict(node for node in menu[0][1] if isinstance(node, tuple))["MPEGTS (3)"]
+        self.assertEqual([item["extension"] for item in family], ["m2ts", "mts", "ts"])
+        def extensions(nodes):
+            for node in nodes:
+                if isinstance(node, tuple):
+                    yield from extensions(node[1])
+                else:
+                    yield node["extension"]
+        listed = set(extensions(menu))
+        self.assertNotIn("png", listed)
+        self.assertNotIn("srt", listed)
+        self.assertEqual(len(listed), 12)
 
     def test_older_libopenshot_only_checks_what_it_can(self):
         validator = ExportValidator(Capabilities(OldWriter))
@@ -512,6 +546,13 @@ class ExportDialogValidationTests(unittest.TestCase):
         dialog.txtVideoFormat.setText("mp3")
         choices, more = validation.choices("vcodec")
         self.assertEqual([value for _label, value in choices + more], ["png"])
+
+    def test_group_titles_show_ampersands(self):
+        dialog, validation = self.dialog()
+        menu = __import__("qt_api").QMenu()
+        self.addCleanup(menu.deleteLater)
+        validation._add_choices(menu, "acodec", [("Lossless & PCM", [("PCM (pcm_s16le)", "pcm_s16le")])], "")
+        self.assertEqual(menu.actions()[0].text(), "Lossless && PCM")
 
 if __name__ == "__main__":
     unittest.main()

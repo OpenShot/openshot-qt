@@ -139,12 +139,18 @@ class IssueMenuItem(QWidget):
         self.setAttribute(Qt.WA_StyledBackground, True)
         self.setFocusPolicy(Qt.StrongFocus)
         self.setCursor(Qt.PointingHandCursor)
+        # Use the menu's own (theme) text color: palette roles like highlighted-text don't match
+        # every theme (i.e. black on Cosmic Dusk's dark menus). Hover only tints the background.
+        text_color = QColor("#ffffff")
+        if parent is not None:
+            parent.ensurePolished()
+            text_color = parent.palette().color(parent.foregroundRole())
         self.setStyleSheet("""
-            QWidget#exportIssueItem { border-radius: 4px; }
-            QWidget#exportIssueItem:hover, QWidget#exportIssueItem:focus { background: palette(highlight); }
-            QWidget#exportIssueItem:hover QLabel, QWidget#exportIssueItem:focus QLabel {
-                color: palette(highlighted-text); }
-        """)
+            QWidget#exportIssueItem { border-radius: 4px; background: transparent; }
+            QWidget#exportIssueItem:hover, QWidget#exportIssueItem:focus {
+                background: rgba(128, 128, 128, 56); }
+            QWidget#exportIssueItem QLabel { color: %s; background: transparent; }
+        """ % text_color.name())
         layout = QHBoxLayout(self)
         layout.setContentsMargins(10, 6, 12, 6)
         layout.setSpacing(8)
@@ -638,16 +644,27 @@ class ExportValidationUI(QObject):
         top = [encoders[names.index(name)] for name in PREFERRED_ENCODERS[media_type] if name in names]
         rest = [dict(caps.encoder(encoder["name"]), **encoder) for encoder in encoders if encoder not in top]
         more = export_validation.encoder_menu(rest, media_type, self._)
-        return [(self._encoder_label(e), e["name"]) for e in top], self._menu_choices(more)
+        choice = lambda encoder: (self._encoder_label(encoder), encoder["name"])
+        return [choice(e) for e in top], self._menu_choices(more, choice)
 
-    def _menu_choices(self, nodes):
-        """Turn encoder_menu() nodes into (label, value) choices and (title, [choices]) groups."""
+    def _format_choices(self):
+        """(common formats, More menu with every other format) for the format field."""
+        caps = self.validator.caps
+        common = caps.formats() if caps.available else export_validation.COMMON_FORMATS
+        rest = [row for row in caps.all_formats() if row.get("extension") not in common]
+        more = export_validation.format_menu(rest, self._, caps.encoder)
+        choice = lambda row: ("%s — %s" % (row["extension"], row["long_name"]) if row.get("long_name")
+                              else row["extension"], row["extension"])
+        return [(name, name) for name in common], self._menu_choices(more, choice)
+
+    def _menu_choices(self, nodes, choice):
+        """Turn grouped_menu() nodes into (label, value) choices and (title, [choices]) groups."""
         choices = []
         for node in nodes:
             if isinstance(node, tuple):
-                choices.append((node[0], self._menu_choices(node[1])))
+                choices.append((node[0], self._menu_choices(node[1], choice)))
             else:
-                choices.append((self._encoder_label(node), node["name"]))
+                choices.append(choice(node))
         return choices
 
     def choices(self, field):
@@ -656,8 +673,7 @@ class ExportValidationUI(QObject):
         settings = self.current_settings()
         vformat = (settings["vformat"] or "").strip()
         if field == "vformat":
-            formats = caps.formats() if caps.available else export_validation.COMMON_FORMATS
-            return [(name, name) for name in formats], []
+            return self._format_choices()
         if field == "vcodec":
             return self._encoder_choices("video", vformat)
         if field == "acodec":
@@ -703,12 +719,13 @@ class ExportValidationUI(QObject):
         """Add (label, value) choices, and (title, [choices]) groups as submenus."""
         for label, value in choices:
             if isinstance(value, list):
-                self._add_choices(menu.addMenu(label), field, value, current)
+                # "&" marks a shortcut in menu text, so double it (i.e. Lossless & PCM Audio)
+                self._add_choices(menu.addMenu(label.replace("&", "&&")), field, value, current)
             else:
                 self._add_choice(menu, field, label, value, current)
 
     def _add_choice(self, menu, field, label, value, current):
-        action = menu.addAction(label)
+        action = menu.addAction(str(label).replace("&", "&&"))
         action.setCheckable(True)
         action.setChecked(value == current)
         action.triggered.connect(partial(self._choose, field, value))
