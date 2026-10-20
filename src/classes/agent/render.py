@@ -182,7 +182,7 @@ def export_command(service, operation, p):
     if operation in ('start', 'validate'):
         spec = resolve(service, p)
         if operation == 'validate':
-            return public(spec)
+            return check_export(spec)
         output = spec['output']
         job_id = uuid.uuid4().hex
         directory = session_dir() / 'jobs' / job_id
@@ -214,6 +214,43 @@ def export_command(service, operation, p):
     if job['process'].poll() is not None and result['state'] in ('queued', 'running'):
         result.update(state='failed', error='Worker exited unexpectedly; see ' + str(job['directory']/'worker.log'))
         remove_export_output(job['output'])
+    return result
+
+
+def check_export(spec):
+    """Check the resolved settings with the installed engine, in its own process (like the worker)."""
+    from .export_check import STAGE_SETTINGS
+    from .exporting import public
+    result = public(spec)
+    if spec['config']['mode'] == 'image_sequence':
+        result['validation'] = dict(result['validation'], runtime_checked=True,
+                                    note='Image sequences are saved as images; there is no encoder or container to open.')
+        return result
+    folder = session_dir() / 'checks'
+    folder.mkdir(parents=True, exist_ok=True, mode=0o700)
+    with tempfile.TemporaryDirectory(dir=str(folder)) as directory:
+        spec_path = Path(directory) / 'spec.json'
+        spec_path.write_text(json.dumps(public(spec)))
+        try:
+            process = subprocess.run(cli_command('--_export-check', str(spec_path)), stdin=subprocess.DEVNULL,  # nosec B603 - Known OpenShot executable and argument array; no shell.
+                                     capture_output=True, timeout=120, check=False)
+        except subprocess.TimeoutExpired as exc:
+            raise CommandError('check_timeout', 'Checking export settings took too long; the encoder or device did not respond.') from exc
+    lines = [line for line in process.stdout.decode('utf-8', 'replace').splitlines() if line.startswith('{')]
+    if process.returncode != 0 or not lines:
+        raise CommandError('check_failed', 'The export settings check stopped unexpectedly (exit code {}).'.format(process.returncode),
+                           {'stderr': process.stderr.decode('utf-8', 'replace')[-2000:]})
+    outcome = json.loads(lines[-1])
+    if not outcome['ok']:
+        setting = STAGE_SETTINGS.get(outcome['stage'])
+        raise CommandError('incompatible_export', 'Export settings are not supported: ' + outcome['message'], {
+            'path': setting, 'stage': outcome['stage'], 'engine_log': outcome['log'],
+            'hint': 'Change ' + setting + ', or start from a preset in export preset list.' if setting else None})
+    result['validation'] = dict(result['validation'], runtime_checked=outcome['checked'],
+                                note='Encoders, devices and the container were opened and checked; no file was written.'
+                                if outcome['checked'] else 'This engine version cannot check settings before exporting.')
+    if outcome['checked']:
+        result['validation']['check_ms'] = outcome['elapsed_ms']
     return result
 
 
