@@ -156,7 +156,8 @@ QMessageBox QLabel#qt_msgbox_label {
     color: #f2f2f2;
 }
 QMessageBox QPushButton[dialogRole="primary"],
-QDialog#sourcePreviewDialog QPushButton[dialogRole="primary"]:enabled {
+QDialog#sourcePreviewDialog QPushButton[dialogRole="primary"]:enabled,
+QWidget#exportResult QPushButton[dialogRole="primary"]:enabled {
     border-radius: 6px;
     color: #ffffff;
     background-color: #287dcc;
@@ -164,7 +165,9 @@ QDialog#sourcePreviewDialog QPushButton[dialogRole="primary"]:enabled {
 }
 QMessageBox QPushButton[dialogRole="primary"]:hover,
 QDialog#sourcePreviewDialog QPushButton[dialogRole="primary"]:enabled:hover,
-QDialog#sourcePreviewDialog QPushButton[dialogRole="primary"]:enabled:focus {
+QWidget#exportResult QPushButton[dialogRole="primary"]:enabled:hover,
+QDialog#sourcePreviewDialog QPushButton[dialogRole="primary"]:enabled:focus,
+QWidget#exportResult QPushButton[dialogRole="primary"]:enabled:focus {
     background-color: #348de0;
 }
 QMessageBox QPushButton[dialogRole="secondary"] {
@@ -376,7 +379,8 @@ QMessageBox QLabel#qt_msgbox_label {
     color: #25282d;
 }
 QMessageBox QPushButton[dialogRole="primary"],
-QDialog#sourcePreviewDialog QPushButton[dialogRole="primary"]:enabled {
+QDialog#sourcePreviewDialog QPushButton[dialogRole="primary"]:enabled,
+QWidget#exportResult QPushButton[dialogRole="primary"]:enabled {
     border-radius: 6px;
     color: #ffffff;
     background-color: #287dcc;
@@ -384,7 +388,9 @@ QDialog#sourcePreviewDialog QPushButton[dialogRole="primary"]:enabled {
 }
 QMessageBox QPushButton[dialogRole="primary"]:hover,
 QDialog#sourcePreviewDialog QPushButton[dialogRole="primary"]:enabled:hover,
-QDialog#sourcePreviewDialog QPushButton[dialogRole="primary"]:enabled:focus {
+QWidget#exportResult QPushButton[dialogRole="primary"]:enabled:hover,
+QDialog#sourcePreviewDialog QPushButton[dialogRole="primary"]:enabled:focus,
+QWidget#exportResult QPushButton[dialogRole="primary"]:enabled:focus {
     background-color: #176fba;
 }
 QMessageBox QPushButton[dialogRole="secondary"] {

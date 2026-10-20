@@ -44,7 +44,6 @@ from qt_api import QDialog
 
 from classes import info, updates
 from classes.app import get_app
-from classes.feedback import feedback_command, record_feedback_action
 from classes.color_presets import (
     COLOR_GRADE_CLASS_NAME,
     COLOR_PRESET_AUTO_CONTRAST,
@@ -2786,7 +2785,6 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         elif property_name in effect_json:
             effect_json[property_name] = value
 
-    @feedback_command("adjustments")
     def _apply_effect_preset(self, class_name, preset_name, clip_ids):
         """Apply a simple Look effect preset, or remove the effect for the none preset."""
         presets = LOOK_EFFECT_PRESETS.get(class_name, {})
@@ -2846,7 +2844,6 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
             get_app().updates.apply_last_action_to_history(original_clip_data)
 
-    @feedback_command("adjustments")
     def Reset_Look_Triggered(self, clip_ids):
         """Remove all effects managed by the clip Look menu."""
         for clip_id in clip_ids:
@@ -2891,7 +2888,6 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         effects.append(effect_json)
         return effect_json, True
 
-    @feedback_command("adjustments")
     def Color_Triggered(self, preset_name, clip_ids):
         """Apply or reset Color Grade presets for selected clips."""
         for clip_id in clip_ids:
@@ -2941,7 +2937,6 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
             get_app().updates.apply_last_action_to_history(original_clip_data)
 
-    @feedback_command("adjustments")
     def Film_Grain_Triggered(self, preset_name, clip_ids):
         """Apply Film Grain presets for selected clips."""
         for clip_id in clip_ids:
@@ -3094,7 +3089,6 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             # Save changes
             self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
 
-    @feedback_command("adjustments")
     def Animate_Triggered(self, action, clip_ids, transaction_id=None):
         """Apply one-click motion presets to selected clips.
 
@@ -3995,7 +3989,6 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             # Save changes
             self.update_transition_data(tran.data, only_basic_props=False)
 
-    @feedback_command("adjustments")
     def Fade_Triggered(self, action, clip_ids, position="Entire Clip", transaction_id=None):
         """Callback for fade context menus — fades both alpha (video) and volume (audio)"""
         log.debug(action)
@@ -4169,7 +4162,6 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         elif trans_id:
             QTimer.singleShot(0, partial(self.Slice_Triggered, slice_mode, [], [trans_id], cursor_position, ripple))
 
-    @feedback_command("structure")
     def Slice_Triggered(self, action, clip_ids, trans_ids, playhead_position=0, ripple=False):
         """Callback for slice context menus"""
         # Get FPS from project
@@ -4376,7 +4368,6 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             trans.data["position"] -= ripple_gap
             trans.save()
 
-    @feedback_command("adjustments")
     def Volume_Triggered(self, action, clip_ids, position="Entire Clip", level=1.0, transaction_id=None):
         """Callback for volume context menus"""
         log.debug(action)
@@ -5933,7 +5924,6 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
         # Callback function, to actually add the effect object
         def callback(self, effect_names, callback_data):
-            feedback_changed = False
             js_position = callback_data.get('position', 0.0)
             js_nearest_track = callback_data.get('track', 0)
 
@@ -6000,9 +5990,6 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                     # Update clip data for project
                     self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
                     get_app().updates.apply_last_action_to_history(original_clip_data)
-                    feedback_changed = True
-            if feedback_changed:
-                record_feedback_action("effects")
 
         # Find position from javascript
         self.run_js(JS_SCOPE_SELECTOR + ".getJavaScriptPosition({}, {});"
@@ -6071,7 +6058,6 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         effects.append(effect_json)
         self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
         get_app().updates.apply_last_action_to_history(original_clip_data)
-        record_feedback_action("effects")
 
     # Without defining this method, the 'copy' action doesn't show with cursor
     def dragMoveEvent(self, event):

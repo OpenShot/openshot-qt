@@ -31,6 +31,7 @@ import sys
 import tempfile
 import types
 import unittest
+import openshot
 from unittest.mock import Mock, patch
 
 
@@ -401,7 +402,9 @@ class ProxyServiceTests(unittest.TestCase):
              opened=False,
              closed=False,
              frames=[],
+             options=[],
              SetVideoOptions=lambda *args: None,
+             SetOption=lambda *args: writer_obj.options.append(args),
              PrepareStreams=lambda: None,
              SetAudioOptions=lambda *args: None,
              Open=lambda: setattr(writer_obj, "opened", True),
@@ -430,6 +433,9 @@ class ProxyServiceTests(unittest.TestCase):
          self.assertTrue(clip_obj.opened)
          self.assertTrue(clip_obj.closed)
          self.assertTrue(writer_obj.opened)
+         self.assertEqual(writer_obj.options, [
+             (openshot.VIDEO_STREAM, "crf", "23"),
+         ])
          self.assertTrue(writer_obj.closed)
          self.assertEqual(len(created_timelines), 1)
          self.assertEqual(created_timelines[0].preview_width, 1280)

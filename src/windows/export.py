@@ -47,16 +47,17 @@ from qt_api import (
     QMessageBox, QDialog, QDialogButtonBox, QPushButton, QWidget, QLineEdit, QComboBox, QSpinBox, QCheckBox,
     get_existing_directory,
 )
-from qt_api import QIcon
+from qt_api import QColor, QIcon
 from functools import partial
 from classes import info, tabstops
 from classes import ui_util
 from classes import openshot_rc  # noqa
 from classes.logger import log
 from classes.app import get_app
-from classes.feedback import record_feedback_action
 from classes.metrics import track_metric_screen, track_metric_error
 from classes.query import File
+from windows.confetti import celebrate_export
+from windows.export_result import ExportResultTab, export_details
 
 import json
 
@@ -105,6 +106,10 @@ class Export(QDialog):
         self.buttonBox.addButton(self.cancel_button, QDialogButtonBox.RejectRole)
         self.close_button.setVisible(False)
         self.exporting = False
+        # Created when an export ends, as a third tab (success summary or error)
+        self.result_tab = None
+        self.export_elapsed = None
+        self.feedback_pending = False
         self.vbr = {}
         self.abr = {}
 
@@ -1180,12 +1185,14 @@ class Export(QDialog):
         self.cache_thread.StartThread()
 
         # Create FFmpegWriter
+        export_succeeded = False
+        export_error = None
+        mode = {_("Video & Audio"): "video_audio", _("Video Only"): "video",
+                _("Audio Only"): "audio", _("Image Sequence"): "image_sequence"}[export_type]
         try:
             w = openshot.FFmpegWriter(export_file_path)
 
             from classes.export_settings import configure_writer
-            mode = {_("Video & Audio"): "video_audio", _("Video Only"): "video",
-                    _("Audio Only"): "audio", _("Image Sequence"): "image_sequence"}[export_type]
             quality_mode = next((name for name in ("crf", "cqp", "qp")
                                  if name in self.txtVideoBitRate.text()), None)
             configure_writer(w, video_settings, audio_settings, mode, quality_mode)
@@ -1259,8 +1266,8 @@ class Export(QDialog):
 
             # Close writer
             w.Close()
-            if self.exporting and max_frame == end_frame_export:
-                record_feedback_action("export")
+            export_succeeded = self.exporting and max_frame == end_frame_export
+            self.export_elapsed = time.time() - start_time_export
 
             # Emit final exported frame (with elapsed time)
             seconds_run = round((end_time_export - start_time_export))
@@ -1302,12 +1309,14 @@ class Export(QDialog):
 
             # Show friendly error
             friendly_error = error_type_str.split("> ")[0].replace("<", "")
+            export_error = friendly_error
 
-            # Prompt error message
-            msg = QMessageBox()
-            msg.setWindowTitle(_("Export Error"))
-            msg.setText(_("Sorry, there was an error exporting your video: \n%s") % friendly_error)
-            msg.exec_()
+            # The finished dialog shows errors in its own tab; otherwise prompt
+            if not (self.s.get("show_finished_window") and self.exporting):
+                msg = QMessageBox()
+                msg.setWindowTitle(_("Export Error"))
+                msg.setText(_("Sorry, there was an error exporting your video: \n%s") % friendly_error)
+                msg.exec_()
 
         # Notify window of export started
         self.ExportEnded.emit(export_file_path)
@@ -1338,17 +1347,82 @@ class Export(QDialog):
             # Reveal done button
             self.close_button.setVisible(True)
 
-            # Make progress bar green (to indicate we are done)
+            # Make progress bar green (or red after an error) to indicate we are done
             from qt_api import QPalette
             p = QPalette()
-            p.setColor(QPalette.Highlight, Qt.green)
+            p.setColor(QPalette.Highlight, QColor("#e5484d") if export_error else Qt.green)
             self.progressExportVideo.setPalette(p)
+
+            if export_succeeded or export_error:
+                self.show_export_result(export_file_path, mode, export_error)
 
             # Raise the window
             self.show()
+            if export_succeeded:
+                self.celebrate_export()
         else:
+            if export_succeeded:
+                self.celebrate_export()
             # Accept dialog
             super(Export, self).accept()
+
+    def show_export_result(self, path, mode, error=None):
+        """Add and activate a third tab: the exported file's summary, or the error.
+
+        The settings tabs stay browsable (read-only) to see what was used.
+        """
+        _ = get_app()._tr
+        kind = {"video_audio": "video", "video": "video"}.get(mode, mode)
+        try:
+            self.result_tab = panel = ExportResultTab(_, self.exportTabs)
+            if error:
+                panel.show_failure(error, export_details(self, "", kind, _), self.retry_export)
+                title = _("Export Failed")
+            else:
+                panel.show_success(path, kind, export_details(self, path, kind, _))
+                title = _("Complete")
+            self.lock_settings()
+            self.exportTabs.setCurrentIndex(self.exportTabs.addTab(self.result_tab, title))
+        except Exception:
+            log.warning("Unable to show export result", exc_info=True)
+            return
+        self.restore_defaults_button.setVisible(False)
+        panel.focus_primary()
+
+    def lock_settings(self):
+        """Allow browsing the settings tabs, but not editing them."""
+        self.exportTabs.setEnabled(True)
+        for page in (self.Simple, self.Advanced):
+            for child in page.findChildren(QWidget):
+                if isinstance(child, (QLineEdit, QComboBox, QSpinBox, QCheckBox, QPushButton)):
+                    child.setEnabled(False)
+        # Section headers stay usable, so every settings page can be opened.
+        self.toolBox.setEnabled(True)
+
+    def retry_export(self):
+        """Reopen a fresh export dialog with the same settings."""
+        self.reject()
+        QTimer.singleShot(0, get_app().window.actionExportVideo.trigger)
+
+    def celebrate_export(self):
+        """Confetti over the finished dialog; the feedback banner waits until it closes."""
+        window = get_app().window
+        parent = self if self.s.get("show_finished_window") else window
+        celebrate_export(self.s, parent)
+        if self.s.get("show_finished_window"):
+            # Let the result tab have the moment; invite feedback after Done.
+            self.feedback_pending = True
+        else:
+            self.invite_feedback()
+
+    def invite_feedback(self):
+        self.feedback_pending = False
+        controller = getattr(get_app().window, "feedback_controller", None)
+        if controller:
+            try:
+                controller.record_export()
+            except Exception:
+                log.warning("Unable to show feedback invitation", exc_info=True)
 
     def save_settings(self):
         if self.restoring_defaults:
@@ -1360,6 +1434,9 @@ class Export(QDialog):
         # Iterate over all children in the dialog in the order they are defined
         for child in self.findChildren(QWidget):
             if child.objectName().startswith("qt_"):
+                continue
+            # The result tab shows output, never export settings.
+            if self.result_tab is not None and self.result_tab.isAncestorOf(child):
                 continue
             setting = {}
             if isinstance(child, QLineEdit):
@@ -1447,6 +1524,8 @@ class Export(QDialog):
         # Cancel dialog
         self.exporting = False
         super(Export, self).reject()
+        if getattr(self, "feedback_pending", False):
+            self.invite_feedback()
 
     def calculate_all_formats_bitrate(self, quality_key):
         """Calculate a bitrate using bits-per-pixel guidance for All Formats presets."""

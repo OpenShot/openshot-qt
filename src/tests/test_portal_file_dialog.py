@@ -130,7 +130,8 @@ class PortalBusTests(unittest.TestCase):
         cls.daemon.communicate(timeout=5)
 
     def request(self, version=4, status=0, uris=None, failure=None, save=False, folder=False,
-                multiple=False, delayed=False, daemon_release=(1, 14, 3), open_file=None):
+                multiple=False, delayed=False, daemon_release=(1, 14, 3), open_file=None,
+                open_options=None, open_method="OpenFile", file_mode="r+b"):
         from dbus_next import Message, MessageType, Variant
         from dbus_next.aio import MessageBus
 
@@ -152,7 +153,7 @@ class PortalBusTests(unittest.TestCase):
                 if message.member == "Close":
                     self.closed_requests += 1
                     return Message.new_method_return(message)
-                if message.member not in ("OpenFile", "SaveFile"):
+                if message.member not in ("OpenFile", "SaveFile", "OpenDirectory"):
                     return
                 captured.append(message)
                 if message.interface == portal.OPEN_URI:
@@ -191,9 +192,11 @@ class PortalBusTests(unittest.TestCase):
                     self.opened_requests += 1
 
                 if open_file is not None:
-                    options = {"ask": Variant("b", True), "writable": Variant("b", True)}
+                    options = open_options if open_options is not None else {
+                        "ask": Variant("b", True), "writable": Variant("b", True)}
                 client = asyncio.ensure_future(portal._request(
-                    "x11:123", "Choose", options, save, on_opened, open_file=open_file))
+                    "x11:123", "Choose", options, save, on_opened, open_file=open_file,
+                    open_method=open_method, file_mode=file_mode))
                 return await asyncio.wait_for(client, 2)
             finally:
                 await portal._close_bus(service)
@@ -226,6 +229,24 @@ class PortalBusTests(unittest.TestCase):
                     self.assertTrue(calls[0].body[2]['writable'].value)
                     self.assertEqual(self.received_contents, b'<svg/>')
                     self.assertEqual(self.received_access, os.O_RDWR)
+
+    def test_default_application_and_directory_use_read_only_descriptors(self):
+        from dbus_next import Variant
+        with tempfile.TemporaryDirectory() as directory:
+            path = os.path.join(directory, 'export ü.mp4')
+            with open(path, 'wb') as stream:
+                stream.write(b'video')
+            for method in ('OpenFile', 'OpenDirectory'):
+                with self.subTest(method=method):
+                    options = {} if method == 'OpenDirectory' else {
+                        "ask": Variant("b", False), "writable": Variant("b", False)}
+                    result, calls = self.request(open_file=path, open_options=options,
+                                                 open_method=method, file_mode='rb')
+                    self.assertIs(result, True)
+                    self.assertEqual(calls[0].member, method)
+                    self.assertEqual(calls[0].signature, 'sha{sv}')
+                    self.assertEqual(self.received_contents, b'video')
+                    self.assertEqual(self.received_access, os.O_RDONLY)
 
     def test_open_with_cancel_failure_and_cleanup(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -345,6 +366,51 @@ class PortalBusTests(unittest.TestCase):
             self.request()
         self.assertEqual(len(os.listdir("/proc/self/fd")), before)
 
+    def test_file_manager_show_items_selects_the_file(self):
+        import threading
+        from dbus_next import Message, MessageType
+        from dbus_next.aio import MessageBus
+
+        received, ready, stop = [], threading.Event(), None
+
+        def serve():
+            nonlocal stop
+            loop = asyncio.new_event_loop()
+
+            async def run():
+                nonlocal stop
+                stop = loop.create_future()
+                service = await MessageBus(bus_address=self.address).connect()
+                await service.request_name("org.freedesktop.FileManager1")
+
+                def handle(message):
+                    if message.message_type == MessageType.METHOD_CALL and message.member == "ShowItems":
+                        received.append((message.signature, message.body))
+                        return Message.new_method_return(message)
+
+                service.add_message_handler(handle)
+                ready.set()
+                await stop
+                await portal._close_bus(service)
+
+            loop.run_until_complete(run())
+            loop.close()
+
+        thread = threading.Thread(target=serve)
+        thread.start()
+        try:
+            self.assertTrue(ready.wait(5))
+            with patch.dict(os.environ, {"DBUS_SESSION_BUS_ADDRESS": self.address}):
+                self.assertTrue(portal.show_items_in_file_manager("/media/vidéo one.mp4"))
+        finally:
+            stop.get_loop().call_soon_threadsafe(stop.set_result, None)
+            thread.join(5)
+        self.assertEqual(received, [("ass", [["file:///media/vid%C3%A9o%20one.mp4"], ""])])
+        # No file manager service: report an error so callers fall back.
+        with patch.dict(os.environ, {"DBUS_SESSION_BUS_ADDRESS": self.address}), \
+                patch.object(portal, "CALL_TIMEOUT", 0.5):
+            self.assertIsNone(portal.show_items_in_file_manager("/media/a.mp4"))
+
 
 class PortalQtLoopTests(unittest.TestCase):
     @classmethod
@@ -385,6 +451,25 @@ class PortalQtLoopTests(unittest.TestCase):
                 self.assertIs(portal.open_file_with_application(parent, '/tmp/title.svg'), result)
                 self.assertTrue(parent.isEnabled())
             parent.deleteLater()
+
+    @unittest.skipUnless(HAS_DBUS_NEXT, "requires dbus-next")
+    def test_default_application_and_directory_wrappers(self):
+        calls = []
+
+        async def request(parent_id, caption, options, on_opened, open_file, **kwargs):
+            calls.append((options, open_file, kwargs))
+            return True
+
+        parent = qt_api.QtWidgets.QWidget()
+        with patch.object(portal, '_request', side_effect=request):
+            self.assertIs(portal.open_file_with_default_application(parent, '/tmp/a.mp4'), True)
+            self.assertIs(portal.open_containing_directory(parent, '/tmp/a.mp4'), True)
+        options, open_file, kwargs = calls[0]
+        self.assertFalse(options['ask'].value)
+        self.assertFalse(options['writable'].value)
+        self.assertEqual((open_file, kwargs), ('/tmp/a.mp4', {'file_mode': 'rb'}))
+        self.assertEqual(calls[1], ({}, '/tmp/a.mp4', {'open_method': 'OpenDirectory', 'file_mode': 'rb'}))
+        parent.deleteLater()
 
     def test_dependency_or_setup_failure_uses_fallback(self):
         parent = qt_api.QtWidgets.QWidget()

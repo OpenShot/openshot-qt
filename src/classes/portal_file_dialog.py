@@ -94,7 +94,8 @@ def _options(directory, file_filter, multiple, folder, save_name):
     return options
 
 
-async def _request(parent_id, caption, options, save=False, on_opened=None, open_file=None):
+async def _request(parent_id, caption, options, save=False, on_opened=None, open_file=None,
+                   open_method="OpenFile", file_mode="r+b"):
     """Run one request on a private connection, subscribing before opening it."""
     from dbus_next import Message, MessageType, Variant
     from dbus_next.aio import MessageBus
@@ -161,10 +162,9 @@ async def _request(parent_id, caption, options, save=False, on_opened=None, open
                        "org.freedesktop.DBus", "AddMatch", "s", [rule])
 
         if open_file is not None:
-            # Pass a writable descriptor, not a sandbox-specific filename. Ask
-            # explicitly so a default image viewer never bypasses the chooser.
-            with open(open_file, "r+b") as stream:
-                reply = await call(owner, DESKTOP, OPEN_URI, "OpenFile", "sha{sv}",
+            # Pass a descriptor, not a sandbox-specific filename.
+            with open(open_file, file_mode) as stream:
+                reply = await call(owner, DESKTOP, OPEN_URI, open_method, "sha{sv}",
                                    [parent_id, 0, options], unix_fds=[stream.fileno()])
         else:
             reply = await call(owner, DESKTOP, CHOOSER, "SaveFile" if save else "OpenFile",
@@ -225,10 +225,68 @@ def open_file_with_application(parent, filename):
     """Choose an application for editing; True=opened, False=cancel, None=error."""
     def request(parent_id, on_opened):
         from dbus_next import Variant
+        # Ask explicitly so a default image viewer never bypasses the chooser.
         options = {"ask": Variant("b", True), "writable": Variant("b", True)}
         return _request(parent_id, "", options, on_opened=on_opened, open_file=filename)
     result = _run_request(parent, request)
     return None if result is None else bool(result)
+
+
+def open_file_with_default_application(parent, filename):
+    """Open read-only in the user's default app; True=opened, False=cancel, None=error.
+
+    The portal launches the app from the host session, so sandboxes and bundled
+    libraries (e.g. AppImage LD_LIBRARY_PATH) never leak into it.
+    """
+    def request(parent_id, on_opened):
+        from dbus_next import Variant
+        options = {"ask": Variant("b", False), "writable": Variant("b", False)}
+        return _request(parent_id, "", options, on_opened=on_opened, open_file=filename,
+                        file_mode="rb")
+    result = _run_request(parent, request)
+    return None if result is None else bool(result)
+
+
+def open_containing_directory(parent, filename):
+    """Show filename selected in the file manager; True=opened, None=error."""
+    def request(parent_id, on_opened):
+        return _request(parent_id, "", {}, on_opened=on_opened, open_file=filename,
+                        open_method="OpenDirectory", file_mode="rb")
+    result = _run_request(parent, request)
+    return None if result is None else bool(result)
+
+
+def show_items_in_file_manager(filename):
+    """Ask the session file manager to select filename (FileManager1). True=shown, None=error.
+
+    Nautilus, Dolphin, Nemo, Caja, Thunar and PCManFM support it; it is the
+    fallback when the OpenURI portal is unavailable.
+    """
+    async def request():
+        from dbus_next import Message, MessageType
+        from dbus_next.aio import MessageBus
+        bus = MessageBus()
+        try:
+            await asyncio.wait_for(bus.connect(), CALL_TIMEOUT)
+            reply = await asyncio.wait_for(bus.call(Message(
+                destination="org.freedesktop.FileManager1", path="/org/freedesktop/FileManager1",
+                interface="org.freedesktop.FileManager1", member="ShowItems", signature="ass",
+                body=[[QtCore.QUrl.fromLocalFile(os.path.abspath(filename)).toEncoded().data().decode()], ""],
+            )), CALL_TIMEOUT)
+            if reply.message_type == MessageType.ERROR:
+                raise RuntimeError("%s: %s" % (reply.error_name, reply.body))
+            return True
+        finally:
+            await _close_bus(bus)
+
+    loop = asyncio.new_event_loop()
+    try:
+        return loop.run_until_complete(request())
+    except Exception as exc:
+        logger.info("File manager ShowItems unavailable: %s", exc)
+        return None
+    finally:
+        loop.close()
 
 
 def _run_request(parent, request):
