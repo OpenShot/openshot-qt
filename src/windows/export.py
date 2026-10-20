@@ -109,6 +109,7 @@ class Export(QDialog):
         # Created when an export ends, as a third tab (success summary or error)
         self.result_tab = None
         self.export_elapsed = None
+        self.feedback_pending = False
         self.vbr = {}
         self.abr = {}
 
@@ -1404,11 +1405,19 @@ class Export(QDialog):
         QTimer.singleShot(0, get_app().window.actionExportVideo.trigger)
 
     def celebrate_export(self):
-        """Confetti over the finished dialog, then a feedback banner waiting behind it."""
+        """Confetti over the finished dialog; the feedback banner waits until it closes."""
         window = get_app().window
         parent = self if self.s.get("show_finished_window") else window
         celebrate_export(self.s, parent)
-        controller = getattr(window, "feedback_controller", None)
+        if self.s.get("show_finished_window"):
+            # Let the result tab have the moment; invite feedback after Done.
+            self.feedback_pending = True
+        else:
+            self.invite_feedback()
+
+    def invite_feedback(self):
+        self.feedback_pending = False
+        controller = getattr(get_app().window, "feedback_controller", None)
         if controller:
             try:
                 controller.record_export()
@@ -1515,6 +1524,8 @@ class Export(QDialog):
         # Cancel dialog
         self.exporting = False
         super(Export, self).reject()
+        if getattr(self, "feedback_pending", False):
+            self.invite_feedback()
 
     def calculate_all_formats_bitrate(self, quality_key):
         """Calculate a bitrate using bits-per-pixel guidance for All Formats presets."""

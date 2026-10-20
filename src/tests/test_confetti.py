@@ -106,7 +106,7 @@ class ConfettiTests(unittest.TestCase):
         cannon.render(image)
         cannon.deleteLater()
 
-    def test_export_celebrates_and_invites_only_after_writer_success(self):
+    def test_export_celebrates_and_invites_only_after_writer_success_and_close(self):
         from windows.export import Export
         for outcome in ("success", "cancel", "write-error"):
             for finished_window in (True, False):
@@ -158,7 +158,17 @@ class ConfettiTests(unittest.TestCase):
                         dialog.accept()
                     succeeded = outcome == "success"
                     self.assertEqual(celebrate.call_count, int(succeeded))
-                    self.assertEqual(controller.record_export.call_count, int(succeeded))
+                    # The finished dialog holds the banner until it closes.
+                    self.assertEqual(controller.record_export.call_count, int(succeeded and not finished_window))
+                    if finished_window:
+                        with patch("windows.export.get_app", return_value=app), \
+                                patch("windows.export.openshot.Settings"):
+                            dialog.reject()
+                        self.assertEqual(controller.record_export.call_count, int(succeeded))
+                        with patch("windows.export.get_app", return_value=app), \
+                                patch("windows.export.openshot.Settings"):
+                            dialog.reject()
+                        self.assertEqual(controller.record_export.call_count, int(succeeded))
                     # The finished dialog reports success and failure in a result tab.
                     self.assertEqual(summary.call_count, int(finished_window and outcome != "cancel"))
                     if summary.called:
