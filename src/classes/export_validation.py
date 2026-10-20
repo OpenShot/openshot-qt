@@ -194,8 +194,8 @@ def encoder_menu(encoders, media_type, tr=lambda text: text):
     if media_type == "video":
         categories = [
             (_("Hardware Accelerated"), lambda e: e.get("hardware")),
-            (_("Delivery"), lambda e: e.get("lossy") and not e.get("intra_only")),
-            (_("Editing (Intra-frame)"), lambda e: e.get("lossy") and not e.get("image")),
+            (_("Sharing & Playback"), lambda e: e.get("lossy") and not e.get("intra_only")),
+            (_("Editing & Mastering"), lambda e: e.get("lossy") and not e.get("image")),
             (_("Images"), lambda e: e.get("image")),
             (_("Lossless"), lambda e: e.get("lossless")),
         ]

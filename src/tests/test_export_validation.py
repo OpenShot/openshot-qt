@@ -227,8 +227,8 @@ class ExportValidationTests(unittest.TestCase):
         encoders += [{"name": "png", "codec": "png", "lossless": True, "image": True},
                      {"name": "ffv1", "codec": "ffv1", "lossless": True}]
         menu = encoder_menu(encoders, "video")
-        self.assertEqual([node[0] for node in menu], ["Hardware Accelerated (4)", "Delivery (8)",
-                                                      "Editing (Intra-frame) (3)", "Images (1)", "Lossless (1)"])
+        self.assertEqual([node[0] for node in menu], ["Hardware Accelerated (4)", "Sharing & Playback (8)",
+                                                      "Editing & Mastering (3)", "Images (1)", "Lossless (1)"])
         # Shared codecs form a family
         self.assertEqual(menu[0][1][0][0], "H264 (4)")
         self.assertEqual(menu[2][1][0][0], "PRORES (3)")
