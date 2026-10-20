@@ -157,7 +157,7 @@ QMessageBox QLabel#qt_msgbox_label {
 }
 QMessageBox QPushButton[dialogRole="primary"],
 QDialog#sourcePreviewDialog QPushButton[dialogRole="primary"]:enabled,
-QWidget#exportComplete QPushButton[dialogRole="primary"]:enabled {
+QWidget#exportResult QPushButton[dialogRole="primary"]:enabled {
     border-radius: 6px;
     color: #ffffff;
     background-color: #287dcc;
@@ -165,9 +165,9 @@ QWidget#exportComplete QPushButton[dialogRole="primary"]:enabled {
 }
 QMessageBox QPushButton[dialogRole="primary"]:hover,
 QDialog#sourcePreviewDialog QPushButton[dialogRole="primary"]:enabled:hover,
-QWidget#exportComplete QPushButton[dialogRole="primary"]:enabled:hover,
+QWidget#exportResult QPushButton[dialogRole="primary"]:enabled:hover,
 QDialog#sourcePreviewDialog QPushButton[dialogRole="primary"]:enabled:focus,
-QWidget#exportComplete QPushButton[dialogRole="primary"]:enabled:focus {
+QWidget#exportResult QPushButton[dialogRole="primary"]:enabled:focus {
     background-color: #348de0;
 }
 QMessageBox QPushButton[dialogRole="secondary"] {
@@ -341,7 +341,7 @@ QMessageBox QLabel#qt_msgbox_label {
 }
 QMessageBox QPushButton[dialogRole="primary"],
 QDialog#sourcePreviewDialog QPushButton[dialogRole="primary"]:enabled,
-QWidget#exportComplete QPushButton[dialogRole="primary"]:enabled {
+QWidget#exportResult QPushButton[dialogRole="primary"]:enabled {
     border-radius: 6px;
     color: #ffffff;
     background-color: #287dcc;
@@ -349,9 +349,9 @@ QWidget#exportComplete QPushButton[dialogRole="primary"]:enabled {
 }
 QMessageBox QPushButton[dialogRole="primary"]:hover,
 QDialog#sourcePreviewDialog QPushButton[dialogRole="primary"]:enabled:hover,
-QWidget#exportComplete QPushButton[dialogRole="primary"]:enabled:hover,
+QWidget#exportResult QPushButton[dialogRole="primary"]:enabled:hover,
 QDialog#sourcePreviewDialog QPushButton[dialogRole="primary"]:enabled:focus,
-QWidget#exportComplete QPushButton[dialogRole="primary"]:enabled:focus {
+QWidget#exportResult QPushButton[dialogRole="primary"]:enabled:focus {
     background-color: #176fba;
 }
 QMessageBox QPushButton[dialogRole="secondary"] {

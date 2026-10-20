@@ -171,7 +171,7 @@ QPushButton#recordingSegment:checked {
     background-color: rgba(40, 94, 170, 135);
 }
 
-QWidget#Simple, QWidget#Advanced, QWidget#PreferencePanel {
+QWidget#Simple, QWidget#Advanced, QWidget#exportResult, QWidget#PreferencePanel {
     background-color: #141923;
     border: none;
 }
@@ -386,7 +386,7 @@ QDialog#sourcePreviewDialog QToolButton:pressed {
 
 QPushButton#acceptButton,
 QDialog#sourcePreviewDialog QPushButton[dialogRole="primary"]:enabled,
-QWidget#exportComplete QPushButton[dialogRole="primary"]:enabled {
+QWidget#exportResult QPushButton[dialogRole="primary"]:enabled {
     padding: 8px 16px 8px 12px;
     border-radius: 4px;
     background-color: #0078FF;
@@ -395,14 +395,14 @@ QWidget#exportComplete QPushButton[dialogRole="primary"]:enabled {
 
 QPushButton#acceptButton:hover,
 QDialog#sourcePreviewDialog QPushButton[dialogRole="primary"]:enabled:hover,
-QWidget#exportComplete QPushButton[dialogRole="primary"]:enabled:hover {
+QWidget#exportResult QPushButton[dialogRole="primary"]:enabled:hover {
     background-color: #006EE6;
 }
 
 QPushButton#acceptButton:focus,
 QPushButton#acceptButton:default,
 QDialog#sourcePreviewDialog QPushButton[dialogRole="primary"]:enabled:focus,
-QWidget#exportComplete QPushButton[dialogRole="primary"]:enabled:focus {
+QWidget#exportResult QPushButton[dialogRole="primary"]:enabled:focus {
     background-color: #1a86ff;
 }
 

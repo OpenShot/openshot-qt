@@ -1,4 +1,4 @@
-"""Export summary panel, its labels, and opening/revealing the exported file."""
+"""Export result tab (success and failure), its labels, and opening/revealing the file."""
 
 import os
 import sys
@@ -13,21 +13,20 @@ if PATH not in sys.path:
 
 from qt_api import QApplication, QColor, QPalette, isdeleted
 from classes import desktop_open
-from windows import export_complete
-from windows.export_complete import ExportCompletePanel, export_details, format_duration, format_label, format_size
+from windows.export_result import ExportResultTab, export_details, format_duration, format_label, format_size
 
 DETAILS = [("file", "Format", "MP4 (H.264)"), ("film", "Resolution", "HD 720p 30 fps"),
            ("quality", "Quality", "High Quality"), ("size", "File Size", "12.4 MB"),
            ("clock", "Duration", "0:00:01")]
 
 
-class ExportCompleteTests(unittest.TestCase):
+class ExportResultTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.app = QApplication.instance() or QApplication([])
 
     def make_panel(self, width=620):
-        panel = ExportCompletePanel(lambda text: text)
+        panel = ExportResultTab(lambda text: text)
         panel.resize(width, 420)
         self.addCleanup(lambda: panel.deleteLater() if not isdeleted(panel) else None)
         return panel
@@ -50,10 +49,10 @@ class ExportCompleteTests(unittest.TestCase):
         for kind, button, visible in (("video", "Watch Video", True), ("audio", "Play Audio", True),
                                       ("image_sequence", "Watch Video", False)):
             with self.subTest(kind=kind):
-                panel.show_result("/tmp/out.mp4", kind, DETAILS)
+                panel.show_success("/tmp/out.mp4", kind, DETAILS)
                 self.assertEqual(panel.location.text(), "/tmp/out.mp4")
-                self.assertEqual(panel.open_button.text(), button)
-                self.assertEqual(panel.open_button.isVisibleTo(panel), visible)
+                self.assertEqual(panel.primary_button.text(), button)
+                self.assertEqual(panel.primary_button.isVisibleTo(panel), visible)
                 self.assertEqual(len(panel.cards), len(DETAILS))
         self.assertIn("image sequence", panel.subtitle.text())
 
@@ -61,16 +60,17 @@ class ExportCompleteTests(unittest.TestCase):
         panel = self.make_panel(900)
         # Real panels are visible; hidden widgets defer resize events until shown.
         panel.show()
-        panel.show_result("/tmp/out.mp4", "video", DETAILS)
+        panel.show_success("/tmp/out.mp4", "video", DETAILS)
         self.assertEqual(panel.columns, 3)
         panel.resize(260, 420)
+        QApplication.processEvents()
         self.assertEqual(panel.columns, 1)
         self.assertEqual([panel.cards_layout.getItemPosition(panel.cards_layout.indexOf(card))[:2]
                           for card in panel.cards], [(row, 0) for row in range(len(DETAILS))])
 
     def test_style_follows_theme_palette(self):
         panel = self.make_panel()
-        panel.show_result("/tmp/out.mp4", "video", DETAILS)
+        panel.show_success("/tmp/out.mp4", "video", DETAILS)
         for window_text, link, expected_link in (("#ffffff", "#55aaff", "#55aaff"),
                                                  ("#202020", "#1f6fc5", "#1f6fc5"),
                                                  ("#ffffff", "#0000ff", "#7ab8ff")):
@@ -85,16 +85,44 @@ class ExportCompleteTests(unittest.TestCase):
 
     def test_copy_open_and_reveal_use_exported_path(self):
         panel = self.make_panel()
-        panel.show_result("/tmp/out é.mp4", "video", DETAILS)
-        with patch("windows.export_complete.QToolTip.showText"):
+        panel.show_success("/tmp/out é.mp4", "video", DETAILS)
+        with patch("windows.export_result.QToolTip.showText"):
             panel.copy_button.click()
         self.assertEqual(QApplication.clipboard().text(), "/tmp/out é.mp4")
-        with patch("windows.export_complete.open_file", return_value=True) as opened, \
-                patch("windows.export_complete.reveal_file", return_value=True) as revealed:
-            panel.open_button.click()
-            panel.reveal_button.click()
+        with patch("windows.export_result.open_file", return_value=True) as opened, \
+                patch("windows.export_result.reveal_file", return_value=True) as revealed:
+            panel.primary_button.click()
+            panel.link_button.click()
         self.assertEqual(opened.call_args[0][1], "/tmp/out é.mp4")
         self.assertEqual(revealed.call_args[0][1], "/tmp/out é.mp4")
+
+    def test_failure_shows_error_copies_report_and_retries(self):
+        panel = self.make_panel()
+        retry = Mock()
+        panel.show_failure("A valid video codec could not be found", DETAILS[:3], retry)
+        self.assertEqual(panel.headline.text(), "Export Failed")
+        self.assertEqual(panel.primary_button.text(), "Try Again")
+        self.assertTrue(panel.error_text.isVisibleTo(panel))
+        self.assertFalse(panel.location.isVisibleTo(panel))
+        self.assertIn("rgba(229, 72, 77", panel.styleSheet())
+        with patch("windows.export_result.QToolTip.showText"):
+            panel.link_button.click()
+        report = QApplication.clipboard().text()
+        self.assertIn("A valid video codec could not be found", report)
+        self.assertIn("Format: MP4 (H.264)", report)
+        panel.primary_button.click()
+        retry.assert_called_once_with()
+        panel.show_failure("boom", [], None)
+        self.assertFalse(panel.primary_button.isVisibleTo(panel))
+        # Success after failure restores success styling and fields.
+        panel.show_success("/tmp/out.mp4", "video", DETAILS)
+        self.assertIn("rgba(47, 191, 113", panel.styleSheet())
+        self.assertFalse(panel.error_text.isVisibleTo(panel))
+
+    def test_tab_never_demands_more_space(self):
+        panel = self.make_panel()
+        panel.show_success("/tmp/" + "very long folder name/" * 10 + "out.mp4", "video", DETAILS)
+        self.assertEqual((panel.minimumSizeHint().width(), panel.minimumSizeHint().height()), (0, 0))
 
     def test_details_from_dialog(self):
         with tempfile.NamedTemporaryFile(suffix=".mp4") as output:
@@ -119,6 +147,67 @@ class ExportCompleteTests(unittest.TestCase):
             self.assertEqual(sequence["Format"], "PNG")
             self.assertEqual(sequence["Frames"], "90")
             self.assertNotIn("File Size", sequence)
+
+
+class ExportDialogResultTabTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        from tests.qt_test_app import ensure_app_state
+        cls.app = ensure_app_state(QApplication.instance() or QApplication([]),
+                                   lambda: SimpleNamespace(get=lambda key: None))
+
+    def make_dialog(self):
+        from classes import info, ui_util
+        from qt_api import QDialog
+        from windows.export import Export
+        dialog = Export.__new__(Export)
+        QDialog.__init__(dialog)
+        ui_util.load_ui(dialog, os.path.join(info.PATH, "windows", "ui", "export.ui"))
+        dialog.result_tab = None
+        dialog.restoring_defaults = False
+        self.addCleanup(dialog.deleteLater)
+        return dialog
+
+    def test_result_is_a_third_tab_and_settings_stay_browsable_read_only(self):
+        dialog = self.make_dialog()
+        dialog.show()
+        QApplication.processEvents()
+        size = dialog.size()
+        dialog.exportTabs.setEnabled(False)  # as during export
+        app = SimpleNamespace(_tr=lambda text: text, updates=Mock(), project=SimpleNamespace())
+        with patch("windows.export.get_app", return_value=app):
+            dialog.show_export_result("/tmp/out.mp4", "video_audio")
+            QApplication.processEvents()
+            self.assertEqual(dialog.exportTabs.count(), 3)
+            self.assertEqual(dialog.exportTabs.tabText(2), "Complete")
+            self.assertIs(dialog.exportTabs.currentWidget(), dialog.result_tab)
+            self.assertEqual(dialog.size(), size)
+            self.assertTrue(dialog.exportTabs.isEnabled())
+            self.assertTrue(dialog.toolBox.isEnabled())
+            for widget in (dialog.txtVideoCodec, dialog.cboSimpleQuality, dialog.txtWidth):
+                self.assertFalse(widget.isEnabled())
+            dialog.exportTabs.setCurrentIndex(1)
+            self.assertIs(dialog.exportTabs.currentWidget(), dialog.Advanced)
+            dialog.save_settings()
+        names = [setting["name"] for setting in app.updates.update.call_args[0][1]]
+        self.assertIn("txtVideoCodec", names)
+        self.assertNotIn("exportLocation", names)
+
+    def test_failure_tab_and_retry_reopens_dialog(self):
+        dialog = self.make_dialog()
+        trigger = Mock()
+        app = SimpleNamespace(_tr=lambda text: text, window=SimpleNamespace(
+            actionExportVideo=SimpleNamespace(trigger=trigger)))
+        with patch("windows.export.get_app", return_value=app):
+            dialog.show_export_result("/tmp/out.mp4", "video", "Invalid codec")
+        self.assertEqual(dialog.exportTabs.tabText(2), "Export Failed")
+        self.assertEqual(dialog.result_tab.error_text.text(), "Invalid codec")
+        with patch.object(type(dialog), "reject") as reject, \
+                patch("windows.export.get_app", return_value=app), \
+                patch("windows.export.QTimer.singleShot", side_effect=lambda ms, fn: fn()):
+            dialog.result_tab.primary_button.click()
+        reject.assert_called_once_with()
+        trigger.assert_called_once_with()
 
 
 class DesktopOpenTests(unittest.TestCase):

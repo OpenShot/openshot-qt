@@ -1,11 +1,11 @@
-"""Export summary shown in place of the export settings after a successful export."""
+"""Export result tab: a summary after success, or the error after a failure."""
 
 import os
 
 from qt_api import (
     QApplication, QByteArray, QColor, QEvent, QFrame, QGridLayout, QHBoxLayout, QIcon, QLabel,
-    QLineEdit, QPainter, QPalette, QPixmap, QPushButton, QSize, QSizePolicy, QSvgRenderer, Qt,
-    QToolButton, QToolTip, QVBoxLayout, QWidget,
+    QLineEdit, QPainter, QPalette, QPen, QPixmap, QPushButton, QScrollArea, QSize, QSizePolicy,
+    QSvgRenderer, Qt, QToolButton, QToolTip, QVBoxLayout, QWidget,
 )
 
 from classes.desktop_open import open_file, reveal_file
@@ -27,6 +27,7 @@ ICONS = {
     "frames": '<rect x="3" y="5" width="13" height="10" rx="1.5"/><path d="M8 19h11.5a1.5 1.5 0 0 0 1.5-1.5V9"/>',
 }
 SUCCESS = "#2fbf71"
+ERROR = "#e5484d"
 # Mid-tone accents read on both light and dark backgrounds.
 ACCENTS = {"file": "#4a9eff", "film": "#a06cf0", "quality": "#f0a020", "size": "#2fbfa0",
            "clock": "#4a9eff", "frames": "#a06cf0"}
@@ -52,18 +53,24 @@ def svg_pixmap(name, color, size, ratio=1.0):
     return pixmap
 
 
-def success_badge(size, ratio=1.0):
-    """A filled success circle with a white check."""
+def status_badge(success, size, ratio=1.0):
+    """A filled circle: green with a check, or red with an exclamation mark."""
     pixmap = QPixmap(QSize(int(size * ratio), int(size * ratio)))
     pixmap.fill(Qt.transparent)
     painter = QPainter(pixmap)
     painter.setRenderHint(QPainter.Antialiasing, True)
     painter.setPen(Qt.NoPen)
-    painter.setBrush(QColor(SUCCESS))
-    painter.drawEllipse(0, 0, pixmap.width(), pixmap.height())
-    inset = pixmap.width() * 0.22
-    check = svg_pixmap("check", "#ffffff", 24, (pixmap.width() - 2 * inset) / 24.0)
-    painter.drawPixmap(int(inset), int(inset), check)
+    painter.setBrush(QColor(SUCCESS if success else ERROR))
+    side = pixmap.width()
+    painter.drawEllipse(0, 0, side, side)
+    if success:
+        inset = side * 0.22
+        painter.drawPixmap(int(inset), int(inset), svg_pixmap("check", "#ffffff", 24, (side - 2 * inset) / 24.0))
+    else:
+        pen = QPen(QColor("#ffffff"), side * 0.11, Qt.SolidLine, Qt.RoundCap)
+        painter.setPen(pen)
+        painter.drawLine(int(side / 2), int(side * 0.27), int(side / 2), int(side * 0.56))
+        painter.drawPoint(int(side / 2), int(side * 0.73))
     painter.end()
     pixmap.setDevicePixelRatio(ratio)
     return pixmap
@@ -112,10 +119,10 @@ class InfoCard(QFrame):
         self.setObjectName("exportInfoCard")
         self.icon_name = icon
         layout = QHBoxLayout(self)
-        layout.setContentsMargins(12, 10, 12, 10)
-        layout.setSpacing(10)
+        layout.setContentsMargins(10, 8, 10, 8)
+        layout.setSpacing(8)
         self.icon = QLabel(self)
-        self.icon.setFixedSize(24, 24)
+        self.icon.setFixedSize(22, 22)
         layout.addWidget(self.icon, 0, Qt.AlignVCenter)
         text = QVBoxLayout()
         text.setSpacing(1)
@@ -134,56 +141,82 @@ class InfoCard(QFrame):
         color = QColor(ACCENTS.get(self.icon_name, "#4a9eff"))
         if light:
             color = color.darker(125)
-        self.icon.setPixmap(svg_pixmap(self.icon_name, color, 24, self.devicePixelRatioF()))
+        self.icon.setPixmap(svg_pixmap(self.icon_name, color, 22, self.devicePixelRatioF()))
 
 
-class ExportCompletePanel(QWidget):
-    """Summary of the exported file with quick ways to find or watch it."""
+class ExportResultTab(QWidget):
+    """Success summary with ways to find or watch the file, or the error with a retry.
+
+    Details scroll above a pinned action row, so the tab never grows the dialog
+    and its buttons stay visible with large theme fonts.
+    """
 
     MAX_COLUMNS = 3
 
     def __init__(self, translate, parent=None):
         super().__init__(parent)
         _ = self.translate = translate
-        self.setObjectName("exportComplete")
+        self.setObjectName("exportResult")
+        # Let themes paint this page like the Simple/Advanced tabs.
+        self.setAttribute(Qt.WA_StyledBackground, True)
+        self.success = True
         self.path = ""
+        self.error = ""
         self.cards = []
         self.columns = 0
         self.styling = False
+        self.on_retry = None
 
-        layout = QVBoxLayout(self)
-        layout.setContentsMargins(12, 12, 12, 12)
-        layout.setSpacing(10)
+        outer = QVBoxLayout(self)
+        outer.setContentsMargins(0, 0, 0, 0)
+        outer.setSpacing(0)
+        self.scroll = QScrollArea(self)
+        self.scroll.setObjectName("exportResultScroll")
+        self.scroll.setFrameShape(QFrame.NoFrame)
+        self.scroll.setWidgetResizable(True)
+        self.scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.content = QWidget()
+        self.content.setObjectName("exportResultContent")
+        self.content.installEventFilter(self)
+        self.scroll.setWidget(self.content)
+        # setWidget() turns this on; the theme's own background must show through.
+        self.content.setAutoFillBackground(False)
+        self.scroll.viewport().setAutoFillBackground(False)
+        outer.addWidget(self.scroll, 1)
+
+        layout = QVBoxLayout(self.content)
+        layout.setContentsMargins(10, 10, 10, 6)
+        layout.setSpacing(8)
 
         self.banner = QFrame(self)
-        self.banner.setObjectName("exportSuccess")
+        self.banner.setObjectName("exportBanner")
         banner_layout = QHBoxLayout(self.banner)
-        banner_layout.setContentsMargins(16, 12, 16, 12)
-        banner_layout.setSpacing(14)
+        banner_layout.setContentsMargins(14, 10, 14, 10)
+        banner_layout.setSpacing(12)
         self.badge = QLabel(self.banner)
-        self.badge.setFixedSize(40, 40)
+        self.badge.setFixedSize(36, 36)
         banner_layout.addWidget(self.badge, 0, Qt.AlignVCenter)
         headline = QVBoxLayout()
-        headline.setSpacing(2)
-        self.headline = QLabel(_("Export Complete"), self.banner)
-        self.headline.setObjectName("exportSuccessTitle")
+        headline.setSpacing(1)
+        self.headline = QLabel(self.banner)
+        self.headline.setObjectName("exportBannerTitle")
         self.subtitle = QLabel(self.banner)
-        self.subtitle.setObjectName("exportSuccessSubtitle")
+        self.subtitle.setObjectName("exportBannerSubtitle")
         self.subtitle.setWordWrap(True)
         headline.addWidget(self.headline)
         headline.addWidget(self.subtitle)
         banner_layout.addLayout(headline, 1)
         layout.addWidget(self.banner)
 
-        self.location_label = QLabel(_("File Location:"), self)
-        layout.addWidget(self.location_label)
+        # Success: where the file is. Failure: what went wrong.
+        self.detail_label = QLabel(self)
+        layout.addWidget(self.detail_label)
         location = QHBoxLayout()
         location.setSpacing(6)
         self.location = QLineEdit(self)
         self.location.setObjectName("exportLocation")
         self.location.setReadOnly(True)
-        self.location.setAccessibleName(_("File Location"))
-        self.location_label.setBuddy(self.location)
+        self.detail_label.setBuddy(self.location)
         location.addWidget(self.location, 1)
         self.copy_button = QToolButton(self)
         self.copy_button.setObjectName("exportCopyPath")
@@ -193,6 +226,11 @@ class ExportCompletePanel(QWidget):
         self.copy_button.clicked.connect(self.copy_path)
         location.addWidget(self.copy_button)
         layout.addLayout(location)
+        self.error_text = QLabel(self)
+        self.error_text.setObjectName("exportErrorText")
+        self.error_text.setWordWrap(True)
+        self.error_text.setTextInteractionFlags(Qt.TextSelectableByMouse)
+        layout.addWidget(self.error_text)
 
         self.cards_layout = QGridLayout()
         self.cards_layout.setHorizontalSpacing(8)
@@ -200,49 +238,73 @@ class ExportCompletePanel(QWidget):
         layout.addLayout(self.cards_layout)
         layout.addStretch(1)
 
+        footer = QVBoxLayout()
+        footer.setContentsMargins(10, 0, 10, 8)
+        footer.setSpacing(6)
         self.divider = QFrame(self)
         self.divider.setObjectName("exportDivider")
         self.divider.setFixedHeight(1)
-        layout.addWidget(self.divider)
-
+        footer.addWidget(self.divider)
         actions = QHBoxLayout()
         actions.setSpacing(12)
-        self.reveal_button = QPushButton(_("Open Containing Folder"), self)
-        self.reveal_button.setObjectName("exportRevealButton")
-        self.reveal_button.setCursor(Qt.PointingHandCursor)
-        self.reveal_button.setIconSize(QSize(18, 18))
-        self.reveal_button.clicked.connect(self.reveal)
-        actions.addWidget(self.reveal_button)
+        self.link_button = QPushButton(self)
+        self.link_button.setObjectName("exportLinkButton")
+        self.link_button.setCursor(Qt.PointingHandCursor)
+        self.link_button.setIconSize(QSize(16, 16))
+        self.link_button.clicked.connect(self.secondary_action)
+        actions.addWidget(self.link_button)
         actions.addStretch(1)
-        self.open_button = QPushButton(self)
-        self.open_button.setObjectName("exportOpenButton")
+        self.primary_button = QPushButton(self)
+        self.primary_button.setObjectName("exportPrimaryButton")
         # Themes give dialog primary buttons their accent color.
-        self.open_button.setProperty("dialogRole", "primary")
-        self.open_button.setCursor(Qt.PointingHandCursor)
-        self.open_button.setIconSize(QSize(16, 16))
-        self.open_button.clicked.connect(self.open)
-        actions.addWidget(self.open_button)
-        layout.addLayout(actions)
+        self.primary_button.setProperty("dialogRole", "primary")
+        self.primary_button.setCursor(Qt.PointingHandCursor)
+        self.primary_button.setIconSize(QSize(14, 14))
+        self.primary_button.clicked.connect(self.primary_action)
+        actions.addWidget(self.primary_button)
+        footer.addLayout(actions)
+        outer.addLayout(footer)
 
-        self.apply_style()
-
-    def show_result(self, path, kind, details):
+    def show_success(self, path, kind, details):
         """kind: video, audio or image_sequence. details: (icon, title, value) tuples."""
         _ = self.translate
-        self.path = path
+        self.success, self.path, self.error = True, path, ""
+        self.headline.setText(_("Export Complete"))
         self.subtitle.setText({
             "audio": _("Your audio has been exported successfully."),
             "image_sequence": _("Your image sequence has been exported successfully."),
         }.get(kind, _("Your video has been exported successfully.")))
+        self.detail_label.setText(_("File Location:"))
         self.location.setText(path)
         self.location.setCursorPosition(0)
         self.location.setToolTip(path)
-        self.open_button.setText(_("Play Audio") if kind == "audio" else _("Watch Video"))
-        self.open_button.setVisible(kind != "image_sequence")
+        self.location.setAccessibleName(_("File Location"))
+        self.link_button.setText(_("Open Containing Folder"))
+        self.primary_button.setText(_("Play Audio") if kind == "audio" else _("Watch Video"))
+        self.primary_button.setVisible(kind != "image_sequence")
+        self.set_details(details)
+
+    def show_failure(self, message, details, on_retry=None):
+        _ = self.translate
+        self.success, self.path, self.error = False, "", message
+        self.on_retry = on_retry
+        self.headline.setText(_("Export Failed"))
+        self.subtitle.setText(_("Sorry, there was an error exporting your video."))
+        self.detail_label.setText(_("Error Details:"))
+        self.error_text.setText(message)
+        self.link_button.setText(_("Copy Error Details"))
+        self.primary_button.setText(_("Try Again"))
+        self.primary_button.setVisible(on_retry is not None)
+        self.set_details(details)
+
+    def set_details(self, details):
+        self.location.setVisible(self.success)
+        self.copy_button.setVisible(self.success)
+        self.error_text.setVisible(not self.success)
         for card in self.cards:
             self.cards_layout.removeWidget(card)
             card.deleteLater()
-        self.cards = [InfoCard(icon, title, value, self) for icon, title, value in details]
+        self.cards = [InfoCard(icon, title, value, self.content) for icon, title, value in details]
         self.columns = 0
         self.apply_style()
         self.reflow()
@@ -251,8 +313,8 @@ class ExportCompletePanel(QWidget):
         """Use as many equal columns as keep every value on one line."""
         if not self.cards:
             return
-        margins = self.layout().contentsMargins()
-        available = self.width() - margins.left() - margins.right()
+        margins = self.content.layout().contentsMargins()
+        available = self.scroll.viewport().width() - margins.left() - margins.right()
         spacing = self.cards_layout.horizontalSpacing()
         widest = max(card.sizeHint().width() for card in self.cards)
         columns = self.MAX_COLUMNS
@@ -268,27 +330,47 @@ class ExportCompletePanel(QWidget):
         for column in range(self.MAX_COLUMNS):
             self.cards_layout.setColumnStretch(column, 1 if column < columns else 0)
 
-    def resizeEvent(self, event):
-        super().resizeEvent(event)
-        self.reflow()
+    def eventFilter(self, watched, event):
+        if watched is self.content and event.type() == QEvent.Resize:
+            self.reflow()
+        return False
+
+    def minimumSizeHint(self):
+        # Never force the export dialog to grow; the details scroll instead.
+        return QSize(0, 0)
 
     def focus_primary(self):
-        (self.open_button if self.open_button.isVisible() else self.reveal_button).setFocus(Qt.OtherFocusReason)
+        button = self.primary_button if self.primary_button.isVisibleTo(self) else self.link_button
+        button.setFocus(Qt.OtherFocusReason)
 
     def copy_path(self):
-        QApplication.clipboard().setText(self.path)
-        QToolTip.showText(self.copy_button.mapToGlobal(self.copy_button.rect().bottomLeft()),
-                          self.translate("Copied"), self.copy_button)
+        self.copy_text(self.path, self.copy_button)
 
-    def reveal(self):
-        return reveal_file(self.window(), self.path)
+    def copy_text(self, text, anchor):
+        QApplication.clipboard().setText(text)
+        QToolTip.showText(anchor.mapToGlobal(anchor.rect().bottomLeft()), self.translate("Copied"), anchor)
 
-    def open(self):
-        return open_file(self.window(), self.path)
+    def error_report(self):
+        lines = [self.headline.text(), self.error]
+        lines += ["%s: %s" % (card.title.text(), card.value.text()) for card in self.cards]
+        return "\n".join(lines)
+
+    def secondary_action(self):
+        if self.success:
+            return reveal_file(self.window(), self.path)
+        self.copy_text(self.error_report(), self.link_button)
+        return True
+
+    def primary_action(self):
+        if self.success:
+            return open_file(self.window(), self.path)
+        if self.on_retry:
+            self.on_retry()
+        return True
 
     def changeEvent(self, event):
         super().changeEvent(event)
-        if event.type() in (QEvent.PaletteChange, QEvent.StyleChange) and not self.styling:
+        if event.type() == QEvent.PaletteChange and not self.styling:
             self.apply_style()
 
     def apply_style(self):
@@ -307,35 +389,39 @@ class ExportCompletePanel(QWidget):
                 color = QColor(color)
                 return "rgba(%d, %d, %d, %d)" % (color.red(), color.green(), color.blue(), alpha)
 
-            success = QColor(SUCCESS)
+            status = QColor(SUCCESS if self.success else ERROR)
             self.setStyleSheet("""
-                QFrame#exportSuccess {{
-                    background-color: {success_fill};
-                    border: 1px solid {success_border};
+                QWidget#exportResultContent, QScrollArea#exportResultScroll {{
+                    background: transparent; border: none;
+                }}
+                QFrame#exportBanner {{
+                    background-color: {status_fill};
+                    border: 1px solid {status_border};
                     border-radius: 8px;
                 }}
-                QLabel#exportSuccessTitle {{ font-size: 15pt; font-weight: bold; background: transparent; }}
-                QLabel#exportSuccessSubtitle {{ color: {muted}; background: transparent; }}
-                QFrame#exportInfoCard {{
+                QLabel#exportBannerTitle {{ font-size: 13pt; font-weight: bold; background: transparent; }}
+                QLabel#exportBannerSubtitle {{ color: {muted}; background: transparent; }}
+                QFrame#exportInfoCard, QLabel#exportErrorText {{
                     background-color: {card_fill};
                     border: 1px solid {card_border};
                     border-radius: 6px;
                 }}
+                QLabel#exportErrorText {{ padding: 8px 10px; }}
                 QFrame#exportInfoCard QLabel {{ background: transparent; border: none; }}
                 QLabel#exportInfoTitle {{ color: {muted}; }}
                 QLabel#exportInfoValue {{ font-weight: bold; }}
                 QFrame#exportDivider {{ background-color: {card_border}; border: none; }}
-                QPushButton#exportRevealButton {{
+                QPushButton#exportLinkButton {{
                     background: transparent; border: none; padding: 4px 2px;
                     color: {link}; text-decoration: underline;
                 }}
-                QPushButton#exportRevealButton:hover, QPushButton#exportRevealButton:focus {{
+                QPushButton#exportLinkButton:hover, QPushButton#exportLinkButton:focus {{
                     color: {link_hover};
                 }}
-                QPushButton#exportOpenButton {{ padding: 8px 18px 8px 14px; }}
+                QPushButton#exportPrimaryButton {{ padding: 6px 16px 6px 12px; }}
             """.format(
-                success_fill=rgba(success, 46 if light else 38),
-                success_border=rgba(success, 150 if light else 120),
+                status_fill=rgba(status, 46 if light else 38),
+                status_border=rgba(status, 150 if light else 120),
                 muted=rgba(text, 175),
                 card_fill=rgba(text, 10 if light else 12),
                 card_border=rgba(text, 40 if light else 30),
@@ -345,10 +431,10 @@ class ExportCompletePanel(QWidget):
             ratio = self.devicePixelRatioF()
             side = self.location.sizeHint().height()
             self.copy_button.setFixedSize(side, side)
-            self.badge.setPixmap(success_badge(40, ratio))
+            self.badge.setPixmap(status_badge(self.success, 36, ratio))
             self.copy_button.setIcon(QIcon(svg_pixmap("copy", text, 16, ratio)))
-            self.reveal_button.setIcon(QIcon(svg_pixmap("folder", link, 18, ratio)))
-            self.open_button.setIcon(QIcon(svg_pixmap("play", "#ffffff", 16, ratio)))
+            self.link_button.setIcon(QIcon(svg_pixmap("folder" if self.success else "copy", link, 16, ratio)))
+            self.primary_button.setIcon(QIcon(svg_pixmap("play", "#ffffff", 14, ratio)) if self.success else QIcon())
             for card in self.cards:
                 card.refresh_icon(light)
         finally:
