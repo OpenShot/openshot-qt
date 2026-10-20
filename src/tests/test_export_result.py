@@ -11,13 +11,15 @@ PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 if PATH not in sys.path:
     sys.path.append(PATH)
 
-from qt_api import QApplication, QColor, QPalette, isdeleted
+from qt_api import QApplication, QColor, QPalette, QWidget, isdeleted
 from classes import desktop_open
-from windows.export_result import ExportResultTab, export_details, format_duration, format_label, format_size
+from windows.export_result import (
+    ExportResultTab, export_details, format_duration, format_elapsed, format_label, format_size, status_badge,
+)
 
 DETAILS = [("file", "Format", "MP4 (H.264)"), ("film", "Resolution", "HD 720p 30 fps"),
-           ("quality", "Quality", "High Quality"), ("size", "File Size", "12.4 MB"),
-           ("clock", "Duration", "0:00:01")]
+           ("quality-3", "Quality", "High Quality"), ("size", "File Size", "12.4 MB"),
+           ("clock", "Duration", "0:00:01"), ("timer", "Export Time", "4.2s")]
 
 
 class ExportResultTests(unittest.TestCase):
@@ -43,7 +45,23 @@ class ExportResultTests(unittest.TestCase):
         self.assertEqual(format_size(5 * 1024 ** 4), "5120.0 GB")
         self.assertEqual(format_duration(0.4), "0:00:00")
         self.assertEqual(format_duration(3725.2), "1:02:05")
+        self.assertEqual(format_elapsed(0.84), "0.8s")
+        self.assertEqual(format_elapsed(42.4), "42s")
+        self.assertEqual(format_elapsed(187), "3m 07s")
+        self.assertEqual(format_elapsed(3900), "1h 05m")
 
+    def test_badge_mark_is_centered(self):
+        for success in (True, False):
+            image = status_badge(success, 36, 2.0).toImage()
+            marks = [(x, y) for y in range(image.height()) for x in range(image.width())
+                     if image.pixelColor(x, y).lightness() > 240]
+            self.assertGreater(len(marks), 150)
+            center_x = sum(x for x, _ in marks) / float(len(marks))
+            spread = max(x for x, _ in marks) - min(x for x, _ in marks)
+            self.assertAlmostEqual(center_x / image.width(), 0.5, delta=0.06)
+            if success:
+                # The check spans most of the circle, not a small offset glyph.
+                self.assertGreater(spread / float(image.width()), 0.4)
     def test_kinds_set_message_and_primary_action(self):
         panel = self.make_panel()
         for kind, button, visible in (("video", "Watch Video", True), ("audio", "Play Audio", True),
@@ -68,6 +86,16 @@ class ExportResultTests(unittest.TestCase):
         self.assertEqual([panel.cards_layout.getItemPosition(panel.cards_layout.indexOf(card))[:2]
                           for card in panel.cards], [(row, 0) for row in range(len(DETAILS))])
 
+    def test_cards_prefer_full_rows(self):
+        panel = self.make_panel(900)
+        panel.show()
+        panel.show_failure("Error", DETAILS[:4])
+        QApplication.processEvents()
+        self.assertEqual(panel.columns, 2)
+        panel.show_success("/tmp/out.mp4", "video", DETAILS[:5])
+        QApplication.processEvents()
+        self.assertEqual(panel.columns, 3)
+
     def test_style_follows_theme_palette(self):
         panel = self.make_panel()
         panel.show_success("/tmp/out.mp4", "video", DETAILS)
@@ -82,6 +110,20 @@ class ExportResultTests(unittest.TestCase):
                 self.assertIn("color: %s" % expected_link, panel.styleSheet())
                 self.assertFalse(panel.badge.pixmap().isNull())
                 self.assertFalse(panel.copy_button.icon().isNull())
+
+    def test_style_built_while_disabled_uses_active_colors(self):
+        # The result tab is created while the exporting dialog is still disabled.
+        holder = QWidget()
+        self.addCleanup(holder.deleteLater)
+        palette = QPalette(holder.palette())
+        palette.setColor(QPalette.Active, QPalette.WindowText, QColor("#000000"))
+        palette.setColor(QPalette.Inactive, QPalette.WindowText, QColor("#000000"))
+        palette.setColor(QPalette.Disabled, QPalette.WindowText, QColor("#bebebe"))
+        holder.setPalette(palette)
+        holder.setEnabled(False)
+        panel = ExportResultTab(lambda text: text, holder)
+        panel.show_success("/tmp/out.mp4", "video", DETAILS)
+        self.assertIn("QLabel#exportInfoTitle { color: rgba(0, 0, 0, 175); }", panel.styleSheet())
 
     def test_copy_open_and_reveal_use_exported_path(self):
         panel = self.make_panel()
@@ -134,14 +176,22 @@ class ExportResultTests(unittest.TestCase):
                 txtFrameRateNum=Mock(value=lambda: 30), txtFrameRateDen=Mock(value=lambda: 1),
                 txtStartFrame=Mock(value=lambda: 1), txtEndFrame=Mock(value=lambda: 90),
                 txtWidth=Mock(value=lambda: 1920), txtHeight=Mock(value=lambda: 1080),
-                cboSimpleQuality=Mock(currentData=lambda: "High"),
+                cboSimpleQuality=Mock(currentData=lambda: "High"), export_elapsed=42.4,
+                txtSampleRate=Mock(value=lambda: 48000), txtChannels=Mock(value=lambda: 2),
                 cboSimpleVideoProfile=Mock(currentText=lambda: "", currentData=lambda: ""))
             video = dict((title, value) for _, title, value in export_details(dialog, output.name, "video", str))
             self.assertEqual(video, {"Format": "MP4 (H.264)", "Resolution": "1920 × 1080, 30 fps",
-                                     "Quality": "High Quality", "File Size": "2.0 KB", "Duration": "0:00:03"})
+                                     "Quality": "High Quality", "File Size": "2.0 KB", "Duration": "0:00:03",
+                                     "Export Time": "42s"})
+            icons = [icon for icon, _, _ in export_details(dialog, output.name, "video", str)]
+            self.assertIn("quality-3", icons)
             audio = dict((title, value) for _, title, value in export_details(dialog, output.name, "audio", str))
             self.assertNotIn("Resolution", audio)
             self.assertEqual(audio["Format"], "MP4 (AAC)")
+            self.assertEqual(audio["Audio"], "48 kHz, Stereo")
+            self.assertEqual(len(audio), 6)
+            failed = export_details(dialog, "", "video", str)
+            self.assertNotIn("Export Time", [title for _, title, _ in failed])
             sequence = dict((title, value) for _, title, value in
                             export_details(dialog, "/missing/out-%05d.png", "image_sequence", str))
             self.assertEqual(sequence["Format"], "PNG")
@@ -227,7 +277,14 @@ class DesktopOpenTests(unittest.TestCase):
             self.assertEqual(popen.call_args[0][0], ["/usr/bin/xdg-open", output.name])
             self.assertNotIn("LD_LIBRARY_PATH", popen.call_args[1]["env"])
             qt_open.assert_not_called()
-            with patch("classes.portal_file_dialog.open_containing_directory", return_value=None):
+            with patch("classes.portal_file_dialog.open_containing_directory", return_value=None), \
+                    patch("classes.portal_file_dialog.show_items_in_file_manager", return_value=True) as show:
+                popen.reset_mock()
+                self.assertTrue(desktop_open.reveal_file(None, output.name))
+            show.assert_called_once_with(output.name)
+            popen.assert_not_called()
+            with patch("classes.portal_file_dialog.open_containing_directory", return_value=None), \
+                    patch("classes.portal_file_dialog.show_items_in_file_manager", return_value=None):
                 self.assertTrue(desktop_open.reveal_file(None, output.name))
             self.assertEqual(popen.call_args[0][0], ["/usr/bin/xdg-open", os.path.dirname(output.name)])
 

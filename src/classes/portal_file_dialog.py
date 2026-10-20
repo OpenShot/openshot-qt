@@ -256,6 +256,39 @@ def open_containing_directory(parent, filename):
     return None if result is None else bool(result)
 
 
+def show_items_in_file_manager(filename):
+    """Ask the session file manager to select filename (FileManager1). True=shown, None=error.
+
+    Nautilus, Dolphin, Nemo, Caja, Thunar and PCManFM support it; it is the
+    fallback when the OpenURI portal is unavailable.
+    """
+    async def request():
+        from dbus_next import Message, MessageType
+        from dbus_next.aio import MessageBus
+        bus = MessageBus()
+        try:
+            await asyncio.wait_for(bus.connect(), CALL_TIMEOUT)
+            reply = await asyncio.wait_for(bus.call(Message(
+                destination="org.freedesktop.FileManager1", path="/org/freedesktop/FileManager1",
+                interface="org.freedesktop.FileManager1", member="ShowItems", signature="ass",
+                body=[[QtCore.QUrl.fromLocalFile(os.path.abspath(filename)).toEncoded().data().decode()], ""],
+            )), CALL_TIMEOUT)
+            if reply.message_type == MessageType.ERROR:
+                raise RuntimeError("%s: %s" % (reply.error_name, reply.body))
+            return True
+        finally:
+            await _close_bus(bus)
+
+    loop = asyncio.new_event_loop()
+    try:
+        return loop.run_until_complete(request())
+    except Exception as exc:
+        logger.info("File manager ShowItems unavailable: %s", exc)
+        return None
+    finally:
+        loop.close()
+
+
 def _run_request(parent, request):
     """Service a portal request while keeping Qt responsive."""
     loop = asyncio.new_event_loop()

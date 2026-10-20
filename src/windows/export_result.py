@@ -4,7 +4,7 @@ import os
 
 from qt_api import (
     QApplication, QByteArray, QColor, QEvent, QFrame, QGridLayout, QHBoxLayout, QIcon, QLabel,
-    QLineEdit, QPainter, QPalette, QPen, QPixmap, QPushButton, QScrollArea, QSize, QSizePolicy,
+    QLineEdit, QPainter, QPalette, QPen, QPixmap, QPointF, QPolygonF, QPushButton, QScrollArea, QSize, QSizePolicy,
     QSvgRenderer, Qt, QToolButton, QToolTip, QVBoxLayout, QWidget,
 )
 
@@ -12,12 +12,10 @@ from classes.desktop_open import open_file, reveal_file
 
 # Feather-style 24px outline icons, tinted at render time.
 ICONS = {
-    "check": '<path d="M6 12.5l4 4 8-9" stroke-width="2.6"/>',
     "copy": '<rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/>',
     "file": '<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/>',
     "film": '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 3v18M17 3v18M3 12h18M3 7.5h4M3 16.5h4'
             'M17 7.5h4M17 16.5h4"/>',
-    "quality": '<path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.3 6L12 16.4 6.6 19.4l1.3-6L3.4 9.3l6-.7z"/>',
     "size": '<ellipse cx="12" cy="5.5" rx="8" ry="3"/><path d="M4 5.5v13c0 1.7 3.6 3 8 3s8-1.3 8-3v-13'
             'M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/>',
     "clock": '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/>',
@@ -25,12 +23,23 @@ ICONS = {
               'A1.5 1.5 0 0 1 3 18.5z"/>',
     "play": '<path d="M7 4.5v15l12.5-7.5z" fill="{color}"/>',
     "frames": '<rect x="3" y="5" width="13" height="10" rx="1.5"/><path d="M8 19h11.5a1.5 1.5 0 0 0 1.5-1.5V9"/>',
+    "timer": '<circle cx="12" cy="13.5" r="7.5"/><path d="M12 13.5V10M10 2.5h4M18.5 6.5l1.5-1.5"/>',
+    "audio": '<path d="M3 12h2M7 8v8M11 4.5v15M15 8v8M19 10.5v3M21 12h0"/>',
 }
+# Signal bars, filled up to the quality level.
+QUALITY_LEVELS = {"Low": 1, "Med": 2, "High": 3}
+for _level in (1, 2, 3):
+    ICONS["quality-%d" % _level] = "".join(
+        '<rect x="%g" y="%g" width="4" height="%g" rx="1"%s/>'
+        % (3.5 + 6.5 * bar, 19 - 5 * (bar + 1), 5 * (bar + 1),
+           ' fill="{color}"' if bar < _level else ' stroke-opacity="0.45"')
+        for bar in range(3))
 SUCCESS = "#2fbf71"
 ERROR = "#e5484d"
 # Mid-tone accents read on both light and dark backgrounds.
-ACCENTS = {"file": "#4a9eff", "film": "#a06cf0", "quality": "#f0a020", "size": "#2fbfa0",
-           "clock": "#4a9eff", "frames": "#a06cf0"}
+ACCENTS = {"file": "#4a9eff", "film": "#a06cf0", "quality-1": "#f0a020", "quality-2": "#f0a020",
+           "quality-3": "#f0a020", "size": "#2fbfa0", "clock": "#4a9eff", "frames": "#a06cf0",
+           "timer": "#e8618c", "audio": "#a06cf0"}
 VIDEO_CODECS = (("libx264", "H.264"), ("h264", "H.264"), ("libx265", "H.265"), ("hevc", "H.265"),
                 ("libvpx-vp9", "VP9"), ("vp9", "VP9"), ("libvpx", "VP8"), ("av1", "AV1"),
                 ("libaom", "AV1"), ("libsvtav1", "AV1"), ("prores", "ProRes"), ("dnxhd", "DNxHD"),
@@ -63,14 +72,15 @@ def status_badge(success, size, ratio=1.0):
     painter.setBrush(QColor(SUCCESS if success else ERROR))
     side = pixmap.width()
     painter.drawEllipse(0, 0, side, side)
+    # Drawn in pixmap units, so the mark stays centered at any size and DPI.
+    painter.setPen(QPen(QColor("#ffffff"), side * 0.1, Qt.SolidLine, Qt.RoundCap, Qt.RoundJoin))
+    painter.setBrush(Qt.NoBrush)
     if success:
-        inset = side * 0.22
-        painter.drawPixmap(int(inset), int(inset), svg_pixmap("check", "#ffffff", 24, (side - 2 * inset) / 24.0))
+        painter.drawPolyline(QPolygonF([QPointF(side * 0.29, side * 0.52), QPointF(side * 0.44, side * 0.66),
+                                        QPointF(side * 0.71, side * 0.37)]))
     else:
-        pen = QPen(QColor("#ffffff"), side * 0.11, Qt.SolidLine, Qt.RoundCap)
-        painter.setPen(pen)
-        painter.drawLine(int(side / 2), int(side * 0.27), int(side / 2), int(side * 0.56))
-        painter.drawPoint(int(side / 2), int(side * 0.73))
+        painter.drawLine(QPointF(side * 0.5, side * 0.27), QPointF(side * 0.5, side * 0.56))
+        painter.drawPoint(QPointF(side * 0.5, side * 0.73))
     painter.end()
     pixmap.setDevicePixelRatio(ratio)
     return pixmap
@@ -111,6 +121,18 @@ def format_size(size):
 def format_duration(seconds):
     seconds = max(0, int(round(seconds)))
     return "%d:%02d:%02d" % (seconds // 3600, (seconds // 60) % 60, seconds % 60)
+
+
+def format_elapsed(seconds):
+    """Compact wall time, e.g. 0.8s, 42s, 3m 07s, 1h 05m."""
+    if seconds < 10:
+        return "%.1fs" % max(0.0, seconds)
+    seconds = int(round(seconds))
+    if seconds < 60:
+        return "%ds" % seconds
+    if seconds < 3600:
+        return "%dm %02ds" % (seconds // 60, seconds % 60)
+    return "%dh %02dm" % (seconds // 3600, (seconds // 60) % 60)
 
 
 class InfoCard(QFrame):
@@ -211,21 +233,28 @@ class ExportResultTab(QWidget):
         # Success: where the file is. Failure: what went wrong.
         self.detail_label = QLabel(self)
         layout.addWidget(self.detail_label)
-        location = QHBoxLayout()
-        location.setSpacing(6)
-        self.location = QLineEdit(self)
+        # One quiet card: the path plus a flat copy button inside it.
+        self.location_box = QFrame(self)
+        self.location_box.setObjectName("exportLocationBox")
+        location = QHBoxLayout(self.location_box)
+        location.setContentsMargins(8, 2, 2, 2)
+        location.setSpacing(2)
+        self.location = QLineEdit(self.location_box)
+        self.location.setFrame(False)
         self.location.setObjectName("exportLocation")
         self.location.setReadOnly(True)
         self.detail_label.setBuddy(self.location)
         location.addWidget(self.location, 1)
-        self.copy_button = QToolButton(self)
+        self.copy_button = QToolButton(self.location_box)
         self.copy_button.setObjectName("exportCopyPath")
         self.copy_button.setToolTip(_("Copy Path"))
         self.copy_button.setAccessibleName(_("Copy Path"))
-        self.copy_button.setIconSize(QSize(16, 16))
+        self.copy_button.setIconSize(QSize(14, 14))
+        self.copy_button.setAutoRaise(True)
+        self.copy_button.setCursor(Qt.PointingHandCursor)
         self.copy_button.clicked.connect(self.copy_path)
         location.addWidget(self.copy_button)
-        layout.addLayout(location)
+        layout.addWidget(self.location_box)
         self.error_text = QLabel(self)
         self.error_text.setObjectName("exportErrorText")
         self.error_text.setWordWrap(True)
@@ -298,8 +327,7 @@ class ExportResultTab(QWidget):
         self.set_details(details)
 
     def set_details(self, details):
-        self.location.setVisible(self.success)
-        self.copy_button.setVisible(self.success)
+        self.location_box.setVisible(self.success)
         self.error_text.setVisible(not self.success)
         for card in self.cards:
             self.cards_layout.removeWidget(card)
@@ -320,6 +348,10 @@ class ExportResultTab(QWidget):
         columns = self.MAX_COLUMNS
         while columns > 1 and columns * widest + (columns - 1) * spacing > available:
             columns -= 1
+        # Prefer full rows: 4 cards as 2x2 rather than 3 + 1.
+        even = [count for count in range(columns, 1, -1) if len(self.cards) % count == 0]
+        if even:
+            columns = even[0]
         if columns == self.columns:
             return
         self.columns = columns
@@ -378,9 +410,10 @@ class ExportResultTab(QWidget):
         self.styling = True
         try:
             palette = self.palette()
-            text = palette.color(QPalette.WindowText)
+            # Active colors: the tab is built while the exporting dialog is still disabled.
+            text = palette.color(QPalette.Active, QPalette.WindowText)
             light = luma(text) < 128
-            link = palette.color(QPalette.Link)
+            link = palette.color(QPalette.Active, QPalette.Link)
             # Keep the theme's link color unless it would be unreadable here.
             if light != (luma(link) < 128) or link.saturation() < 40:
                 link = QColor("#1f6fc5" if light else "#7ab8ff")
@@ -407,6 +440,21 @@ class ExportResultTab(QWidget):
                     border-radius: 6px;
                 }}
                 QLabel#exportErrorText {{ padding: 8px 10px; }}
+                QFrame#exportLocationBox {{
+                    background-color: {card_fill};
+                    border: 1px solid {card_border};
+                    border-radius: 6px;
+                }}
+                QFrame#exportLocationBox QLineEdit {{
+                    background: transparent; border: none; padding: 3px 0;
+                    color: {muted}; selection-background-color: {card_border};
+                }}
+                QFrame#exportLocationBox QToolButton {{
+                    background: transparent; border: none; border-radius: 4px; padding: 3px;
+                }}
+                QFrame#exportLocationBox QToolButton:hover, QFrame#exportLocationBox QToolButton:focus {{
+                    background-color: {card_border};
+                }}
                 QFrame#exportInfoCard QLabel {{ background: transparent; border: none; }}
                 QLabel#exportInfoTitle {{ color: {muted}; }}
                 QLabel#exportInfoValue {{ font-weight: bold; }}
@@ -429,10 +477,10 @@ class ExportResultTab(QWidget):
                 link_hover=(link.darker(125) if light else link.lighter(120)).name(),
             ))
             ratio = self.devicePixelRatioF()
-            side = self.location.sizeHint().height()
-            self.copy_button.setFixedSize(side, side)
             self.badge.setPixmap(status_badge(self.success, 36, ratio))
-            self.copy_button.setIcon(QIcon(svg_pixmap("copy", text, 16, ratio)))
+            background = palette.color(QPalette.Active, QPalette.Window)
+            muted_icon = QColor(*(int(a * 0.7 + b * 0.3) for a, b in zip(text.getRgb()[:3], background.getRgb()[:3])))
+            self.copy_button.setIcon(QIcon(svg_pixmap("copy", muted_icon, 14, ratio)))
             self.link_button.setIcon(QIcon(svg_pixmap("folder" if self.success else "copy", link, 16, ratio)))
             self.primary_button.setIcon(QIcon(svg_pixmap("play", "#ffffff", 14, ratio)) if self.success else QIcon())
             for card in self.cards:
@@ -461,7 +509,9 @@ def export_details(dialog, path, kind, translate):
     quality_text = {"Low": _("Low Quality"), "Med": _("Medium Quality"),
                     "High": _("High Quality")}.get(quality_value)
     if quality_text:
-        details.append(("quality", _("Quality"), quality_text))
+        details.append(("quality-%d" % QUALITY_LEVELS[quality_value], _("Quality"), quality_text))
+    if kind == "audio":
+        details.append(("audio", _("Audio"), audio_label(dialog, translate)))
     if kind == "image_sequence":
         frames = max(0, dialog.txtEndFrame.value() - dialog.txtStartFrame.value() + 1)
         details.append(("frames", _("Frames"), str(frames)))
@@ -473,7 +523,19 @@ def export_details(dialog, path, kind, translate):
     if fps:
         frames = max(0, dialog.txtEndFrame.value() - dialog.txtStartFrame.value() + 1)
         details.append(("clock", _("Duration"), format_duration(frames / fps)))
+    elapsed = getattr(dialog, "export_elapsed", None)
+    if path and elapsed is not None:
+        details.append(("timer", _("Export Time"), format_elapsed(elapsed)))
     return details
+
+
+def audio_label(dialog, translate):
+    _ = translate
+    rate = dialog.txtSampleRate.value()
+    rate_text = ("%.1f" % (rate / 1000.0)).rstrip("0").rstrip(".") + " kHz"
+    channels = dialog.txtChannels.value()
+    names = {1: _("Mono"), 2: _("Stereo")}
+    return "%s, %s" % (rate_text, names.get(channels, _("%d Channels") % channels))
 
 
 def resolution_label(dialog, fps):

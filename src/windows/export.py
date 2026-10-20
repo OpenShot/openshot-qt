@@ -108,6 +108,7 @@ class Export(QDialog):
         self.exporting = False
         # Created when an export ends, as a third tab (success summary or error)
         self.result_tab = None
+        self.export_elapsed = None
         self.vbr = {}
         self.abr = {}
 
@@ -1265,6 +1266,7 @@ class Export(QDialog):
             # Close writer
             w.Close()
             export_succeeded = self.exporting and max_frame == end_frame_export
+            self.export_elapsed = time.time() - start_time_export
 
             # Emit final exported frame (with elapsed time)
             seconds_run = round((end_time_export - start_time_export))

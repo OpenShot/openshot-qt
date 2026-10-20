@@ -78,7 +78,9 @@ def reveal_file(parent, path):
         return _launch(["explorer", "/select,", os.path.normpath(path)]) or _open_url(folder)
     if sys.platform == "darwin":
         return _launch(["open", "-R", path]) or _open_url(folder)
-    from classes.portal_file_dialog import open_containing_directory
+    from classes.portal_file_dialog import open_containing_directory, show_items_in_file_manager
     if open_containing_directory(parent, path):
+        return True
+    if not _sandboxed() and show_items_in_file_manager(path):
         return True
     return _xdg_open(folder) or _open_url(folder)

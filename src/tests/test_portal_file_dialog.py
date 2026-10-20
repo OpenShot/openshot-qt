@@ -366,6 +366,51 @@ class PortalBusTests(unittest.TestCase):
             self.request()
         self.assertEqual(len(os.listdir("/proc/self/fd")), before)
 
+    def test_file_manager_show_items_selects_the_file(self):
+        import threading
+        from dbus_next import Message, MessageType
+        from dbus_next.aio import MessageBus
+
+        received, ready, stop = [], threading.Event(), None
+
+        def serve():
+            nonlocal stop
+            loop = asyncio.new_event_loop()
+
+            async def run():
+                nonlocal stop
+                stop = loop.create_future()
+                service = await MessageBus(bus_address=self.address).connect()
+                await service.request_name("org.freedesktop.FileManager1")
+
+                def handle(message):
+                    if message.message_type == MessageType.METHOD_CALL and message.member == "ShowItems":
+                        received.append((message.signature, message.body))
+                        return Message.new_method_return(message)
+
+                service.add_message_handler(handle)
+                ready.set()
+                await stop
+                await portal._close_bus(service)
+
+            loop.run_until_complete(run())
+            loop.close()
+
+        thread = threading.Thread(target=serve)
+        thread.start()
+        try:
+            self.assertTrue(ready.wait(5))
+            with patch.dict(os.environ, {"DBUS_SESSION_BUS_ADDRESS": self.address}):
+                self.assertTrue(portal.show_items_in_file_manager("/media/vidéo one.mp4"))
+        finally:
+            stop.get_loop().call_soon_threadsafe(stop.set_result, None)
+            thread.join(5)
+        self.assertEqual(received, [("ass", [["file:///media/vid%C3%A9o%20one.mp4"], ""])])
+        # No file manager service: report an error so callers fall back.
+        with patch.dict(os.environ, {"DBUS_SESSION_BUS_ADDRESS": self.address}), \
+                patch.object(portal, "CALL_TIMEOUT", 0.5):
+            self.assertIsNone(portal.show_items_in_file_manager("/media/a.mp4"))
+
 
 class PortalQtLoopTests(unittest.TestCase):
     @classmethod
