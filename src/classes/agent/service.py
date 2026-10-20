@@ -42,6 +42,7 @@ MUTATIONS |= {k + '.keyframe.' + op for k in ('clip', 'transition', 'effect')
               for op in ('set', 'remove', 'clear', 'transform', 'copy', 'paste')}
 MUTATIONS.add('clip.adjust')
 MUTATIONS |= {'clip.fade', 'clip.split', 'project.profile', 'project.profile.set'}
+MUTATIONS |= {'clip.motion', 'clip.look', 'clip.speed', 'clip.repeat', 'clip.waveform'}
 
 
 def finite(value, name, minimum=0):
@@ -273,6 +274,9 @@ class EditingService:
         if method == 'clip.split':
             from .cuts import split_clip
             return split_clip(self, p)
+        if method in ('clip.motion', 'clip.look', 'clip.speed', 'clip.repeat', 'clip.waveform'):
+            from .clip_presets import command
+            return command(self, method.split('.')[1], p)
         if method == 'timeline.overview':
             from .context import overview
             return overview(self.app, **p)

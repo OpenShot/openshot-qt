@@ -585,6 +585,30 @@ and both summaries; a named batch result supports ``{"$ref":"cut.right.id"}``.
 Splits reject endpoints and locked tracks. Undo restores the original clip in
 one transaction.
 
+Clip menu presets
+~~~~~~~~~~~~~~~~~
+
+The editor's clip menu presets use the same code from the command line. Each
+command lists its presets in its help, and each one is a single undo step:
+
+.. code-block:: bash
+
+   openshot-cli clip motion CLIP_ID --preset slide-in-left
+   openshot-cli clip motion CLIP_ID --preset pulse --at 4.5
+   openshot-cli clip look CLIP_ID --effect ColorGrade --preset warm_up
+   openshot-cli clip look CLIP_ID --effect all --preset none
+   openshot-cli clip speed CLIP_ID --mode forward --factor 2
+   openshot-cli clip speed CLIP_ID --mode freeze --at 3 --duration 2
+   openshot-cli clip repeat CLIP_ID --passes 3 --pattern pingpong
+   openshot-cli clip waveform CLIP_ID
+
+Motion presets are relative to the clip's current transform. Look presets add
+or replace one effect, and ``none`` removes it. Speed and repeat retime every
+keyframe and change the clip's length; ``clip speed --mode reset`` restores
+normal speed. Other menu actions are plain edits: rotate and layout with
+``clip set``, crop with ``effects add Crop``. The commands also work in
+``edit apply`` and ``edit bulk``.
+
 Applying a batch of edits
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
