@@ -46,11 +46,12 @@ _MAX_REQUEST_SECONDS = 1200
 _MAX_CACHE_SAMPLES = 240000
 
 
-def snapshot_clips(mode, start, end, fps):
+def snapshot_clips(mode, start, end, fps, clip_ids=None):
     """Attach bounded, private waveform envelopes to snapshot-only Query clones.
 
     Source extraction and envelope display use the same engine and Qt painter as
     the GUI. No Query.save(), update listeners, or project UI fields are touched.
+    clip_ids optionally limits waveform generation to those clips.
     """
     import openshot
     from classes.waveform import ABSOLUTE_WAVEFORM_FORMAT
@@ -66,6 +67,8 @@ def snapshot_clips(mode, start, end, fps):
             data.setdefault("ui", {}).pop("audio_data", None)
             continue
         position = data.get("position", 0)
+        if clip_ids is not None and clip.id not in clip_ids:
+            continue
         if mode != "waveforms" or position >= end or position + data.get("end", 0) - data.get("start", 0) <= start:
             continue
         file = files.get(data.get("file_id"))

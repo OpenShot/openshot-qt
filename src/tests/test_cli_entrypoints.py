@@ -44,8 +44,12 @@ class CommonEntryTests(unittest.TestCase):
                 root = Path(directory)
                 package = root / 'openshot_qt'
                 (package / 'classes' / 'agent').mkdir(parents=True)
+                (package / 'windows' / 'views' / 'timeline_backend').mkdir(parents=True)
                 for name in ('__init__.py', 'launch.py', 'cli.py', 'classes/__init__.py',
-                             'classes/cli_console.py', 'classes/easing.py', 'classes/agent/__init__.py', 'classes/agent/protocol.py'):
+                             'classes/cli_console.py', 'classes/easing.py', 'classes/agent/__init__.py', 'classes/agent/protocol.py',
+                             'classes/look_presets.py', 'classes/color_presets.py', 'classes/film_grain_presets.py',
+                             'windows/__init__.py', 'windows/views/__init__.py', 'windows/views/timeline_backend/__init__.py',
+                             'windows/views/timeline_backend/enums.py'):
                     shutil.copy2(source / name, package / name)
                 # Missing native/Qt dependencies must not matter to --cli help.
                 for name in ('openshot.py', 'qt_api.py'):

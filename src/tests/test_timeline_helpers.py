@@ -2414,7 +2414,8 @@ class TimelineHelperTests(unittest.TestCase):
         blur_fx, mask_fx = clip.data["effects"]
         self.assertEqual(blur_fx["class_name"], "Blur")
         self.assertEqual(mask_fx["class_name"], "Mask")
-        self.assertEqual(mask_fx["ui-menu"], self.timeline_module.MOTION_EFFECT_UI_MENU)
+        from windows.views.motion import MOTION_EFFECT_UI_MENU
+        self.assertEqual(mask_fx["ui-menu"], MOTION_EFFECT_UI_MENU)
         self.assertEqual(
             os.path.basename(mask_fx["mask_reader"]["path"]),
             "wipe_top_to_bottom.svg",
@@ -7916,7 +7917,10 @@ class TimelineHelperTests(unittest.TestCase):
             def _clip_has_visual(self, candidate):
                 return timeline_module.TimelineView._clip_has_visual(self, candidate)
 
-            def _create_film_grain_effect_json(self):
+            def _apply_effect_preset(self, *args):
+                return timeline_module.TimelineView._apply_effect_preset(self, *args)
+
+            def _create_effect_json(self, _class_name):
                 return {"class_name": "FilmGrain", "id": "FG-1", "seed": 77}
 
             def update_clip_data(self, clip_data, **kwargs):
@@ -7973,6 +7977,9 @@ class TimelineHelperTests(unittest.TestCase):
             def _clip_has_visual(self, candidate):
                 return timeline_module.TimelineView._clip_has_visual(self, candidate)
 
+            def _apply_effect_preset(self, *args):
+                return timeline_module.TimelineView._apply_effect_preset(self, *args)
+
             def update_clip_data(self, clip_data, **kwargs):
                 self.updates.append(copy.deepcopy(clip_data))
 
@@ -8017,6 +8024,9 @@ class TimelineHelperTests(unittest.TestCase):
 
             def _clip_has_visual(self, candidate):
                 return timeline_module.TimelineView._clip_has_visual(self, candidate)
+
+            def _apply_effect_preset(self, *args):
+                return timeline_module.TimelineView._apply_effect_preset(self, *args)
 
             def update_clip_data(self, clip_data, **kwargs):
                 self.updates.append((copy.deepcopy(clip_data), dict(kwargs)))

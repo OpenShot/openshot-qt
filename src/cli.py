@@ -36,7 +36,11 @@ import uuid
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from classes.easing import easing_presets
+from classes.look_presets import LOOK_PRESETS
 from classes.agent.protocol import CommandError, cli_command, parse_json, records, session_dir
+from windows.views.timeline_backend.enums import MenuAnimate
+
+MOTION_PRESETS = [action.name.lower().replace('_', '-') for action in MenuAnimate]
 
 ROOT_HELP = """Start: session list (connect) or session start (new).
 Workflow: inspect -> edit -> project save / export start.
@@ -124,6 +128,10 @@ position is timeline seconds; start/end are source seconds, with end exclusive.
 clip split ID --at 6.5 cuts at timeline time and preserves both halves' animation.
 clip set replaces supplied properties; a scalar replaces animation with a constant.
 clip adjust adds/multiplies existing values and curves.
+Editor menu presets: clip motion, look, speed, repeat, waveform, and fade.
+Other menu actions are plain edits: rotate/layout with clip set
+(rotation, scale_x/y, location_x/y, gravity), crop with effects add Crop,
+keep left/right side with clip set start/end.
 Use clip keyframe help for animation; edit bulk help for changes across clips.""",
     'effects': """Discover with effects list, then effects TYPE help for settings and examples.
 effects add attaches an effect; effects instances lists attached effects and IDs.
@@ -358,6 +366,31 @@ def build_parser():
             p.add_argument('--audio-only', action='store_true', help='Disable video/embedded album art; keep audio.')
             p.add_argument('--volume', type=number, default=1, help='Constant linear gain: 0=mute, 1=original, 0.5=half amplitude.')
             p.add_argument('--end', type=number, help='Exclusive source out-point; default media duration (10s for images).')
+            p = command(s, 'motion', "Apply the editor's Motion menu preset: slides, wipes, bounces, emphasis, camera zoom/pan, credits. Values are relative to the clip's current transform. One undo step.", 'clip.motion')
+            p.add_argument('id', help='Clip ID with video (or a visible waveform).')
+            p.add_argument('--preset', required=True, choices=MOTION_PRESETS, metavar='PRESET', help='*-in-* uses the first second, *-out-* the last second, cam-*/ken-burns-*/credits-* the whole clip, and other emphasis presets one second from --at. none resets motion. Presets: ' + ', '.join(MOTION_PRESETS) + '.')
+            p.add_argument('--at', type=number, help='Timeline seconds where an emphasis preset starts; default (or outside the clip) is the clip start.')
+            p = command(s, 'look', "Apply the editor's Look menu preset by adding or replacing one effect; none removes it. One undo step.", 'clip.look')
+            p.add_argument('id', help='Clip ID with video (or a visible waveform).')
+            p.add_argument('--effect', required=True, choices=['all'] + list(LOOK_PRESETS), help='Effect class; all with preset none resets every Look effect.')
+            p.add_argument('--preset', required=True, choices=sorted({name for names in LOOK_PRESETS.values() for name in names}), metavar='PRESET',
+                           help='Presets per effect: ' + '; '.join('{}: {}'.format(effect, ', '.join(names)) for effect, names in LOOK_PRESETS.items()) + '.')
+            p = command(s, 'speed', "Apply the editor's Speed menu: change speed, reverse, freeze a frame, or reset. Retimes keyframes and changes clip length. One undo step.", 'clip.speed')
+            p.add_argument('id', help='Clip ID.')
+            p.add_argument('--mode', required=True, choices=['forward', 'backward', 'reverse', 'freeze', 'freeze-zoom', 'reset'], help='forward/backward play at --factor; reverse plays backward at the same speed; freeze holds the frame at --at for --duration; reset restores normal speed and removes repeats.')
+            p.add_argument('--factor', type=number, help='Speed for forward/backward: 2 = twice as fast (half length), 0.5 = half speed.')
+            p.add_argument('--at', type=number, help='Freeze start in timeline seconds, inside the clip.')
+            p.add_argument('--duration', type=number, help='Freeze length in seconds; extends the clip.')
+            p = command(s, 'repeat', "Repeat the clip's content (editor Speed > Repeat). Extends the clip; speed --mode reset removes it. One undo step.", 'clip.repeat')
+            p.add_argument('id', help='Clip ID.')
+            p.add_argument('--passes', type=int, required=True, help='Total plays including the first, 2..500.')
+            p.add_argument('--pattern', choices=['loop', 'pingpong'], default='loop', help='loop restarts each pass; pingpong alternates direction.')
+            p.add_argument('--reverse', action='store_true', help='Start the first pass in reverse.')
+            p.add_argument('--delay', type=number, default=0, help='Pause between passes in seconds.')
+            p.add_argument('--ramp', type=float, default=0, help='Speed change per pass in percent, -1000..1000; 0 keeps a constant speed.')
+            p = command(s, 'waveform', 'Show the audio waveform on the timeline clip instead of thumbnails (saved with the project), or --hide it. Undoable.', 'clip.waveform')
+            p.add_argument('id', help='Clip ID with audio.')
+            p.add_argument('--hide', action='store_true', help='Remove the waveform and show thumbnails again.')
         elif kind == 'transition':
             p = command(s, 'add', 'Add a mask transition; brightness runs +1 to -1 (fade in), or reversed.', 'transition.add')
             p.add_argument('--mask', required=True, help='Local mask image/SVG path.')
