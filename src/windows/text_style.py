@@ -5,7 +5,7 @@ import os
 import openshot
 
 from qt_api import (Qt, QEvent, QFontMetrics, QWidget, QFrame, QHBoxLayout, QVBoxLayout, QGridLayout, QFontComboBox,
-                    QSpinBox, QAbstractSpinBox, QToolButton, QButtonGroup, QIcon, QSize, QRectF, QColor,
+                    QSpinBox, QToolButton, QButtonGroup, QIcon, QSize, QRectF, QColor,
                     QDialog, QPushButton, QPlainTextEdit, QLabel, QTimer, QImage, QPixmap, QPainter,
                     QPainterPath, QByteArray, QSvgRenderer, QSizePolicy, pyqtProperty)
 from classes.app import get_app
@@ -60,7 +60,7 @@ def swatch_icon(color, outline, size=QSize(18, 18)):
 class TextStyleToolbar(QFrame):
     """Compact text formatting bar, floated over the video preview or embedded in a dialog."""
 
-    def __init__(self, owner, parent=None, roomy=False):
+    def __init__(self, owner, parent=None, more=True):
         super().__init__(parent or owner.window)
         self.owner = owner
         self.setObjectName("textStyleBar")
@@ -69,34 +69,21 @@ class TextStyleToolbar(QFrame):
         self.loading = False
         self._icon_color = QColor()
         self._color_value = "#ffffff"
-        # The dialog's bar has room for larger controls and size arrows.
-        self.setProperty("roomy", roomy)
-        self.button_size = QSize(33, 31) if roomy else None
         layout = QHBoxLayout(self)
-        layout.setContentsMargins(*((5, 5, 6, 5) if roomy else (6, 4, 6, 4)))
-        layout.setSpacing(9 if roomy else 2)
+        layout.setContentsMargins(6, 4, 6, 4)
+        layout.setSpacing(2)
         self.font = QFontComboBox()
-        self.font.setFixedWidth(166 if roomy else 150)
+        self.font.setFixedWidth(150)
         self.font.setToolTip(get_app()._tr("Font"))
         # Long names show their start rather than scrolling to the end.
         self.font.currentFontChanged.connect(lambda font: self.font.lineEdit().setCursorPosition(0))
         self.size = QSpinBox()
         self.size.setRange(8, 1000)
-        if roomy:
-            self.size.setFixedWidth(69)
-        else:
-            self.size.setButtonSymbols(QAbstractSpinBox.NoButtons)
-            self.size.setAlignment(Qt.AlignCenter)
-            self.size.setFixedWidth(52)
+        self.size.setFixedWidth(66)
         self.size.setToolTip(get_app()._tr("Font size"))
-        if roomy:
-            for control in (self.font, self.size):
-                control.setFixedHeight(27)
         self.bold = self._button(get_app()._tr("Bold"), checkable=True)
         self.italic = self._button(get_app()._tr("Italic"), checkable=True)
         self.color = self._button(get_app()._tr("Text color"))
-        if roomy:
-            self.color.setFixedWidth(25)
         self.alignment = QButtonGroup(self)
         self.alignment.setExclusive(True)
         align_buttons = []
@@ -104,22 +91,18 @@ class TextStyleToolbar(QFrame):
             button = self._button(get_app()._tr(label), checkable=True)
             self.alignment.addButton(button, index)
             align_buttons.append(button)
+        # The dialog opened by "more" shows this bar without it.
         self.more = self._button(get_app()._tr("More text options…"))
-        groups = [(self.font, self.size), (self.bold, self.italic), (self.color,), align_buttons]
-        if not roomy:
-            groups[1:3] = [(self.bold, self.italic, self.color)]
+        groups = [(self.font, self.size), (self.bold, self.italic, self.color), align_buttons]
+        if more:
             groups.append((self.more,))
+        else:
+            self.more.hide()
         for number, group in enumerate(groups):
             if number:
-                self.divider = self._divider()
-                layout.addWidget(self.divider)
+                layout.addWidget(self._divider())
             for control in group:
-                if roomy and control is self.italic:
-                    layout.addSpacing(4)
                 layout.addWidget(control)
-        if roomy:
-            self.more.hide()
-            layout.addStretch()
         for control in (self.font, self.size, self.font.lineEdit(), self.size.lineEdit()):
             if control is not None:
                 control.installEventFilter(self)
@@ -138,9 +121,6 @@ class TextStyleToolbar(QFrame):
         button.setCheckable(checkable)
         button.setAutoRaise(True)
         button.setIconSize(QSize(18, 18))
-        if self.button_size:
-            button.setFixedSize(self.button_size)
-            button.setIconSize(QSize(22, 22))
         # Formatting clicks keep the caret in the text being edited.
         button.setFocusPolicy(Qt.NoFocus)
         return button
@@ -152,7 +132,7 @@ class TextStyleToolbar(QFrame):
         line.setFixedSize(1, 18)
         holder = QWidget()
         spacing = QHBoxLayout(holder)
-        spacing.setContentsMargins(*((3, 0, 3, 0) if self.button_size else (4, 0, 4, 0)))
+        spacing.setContentsMargins(4, 0, 4, 0)
         spacing.addWidget(line)
         return holder
 
@@ -168,12 +148,11 @@ class TextStyleToolbar(QFrame):
 
     def refresh_icons(self):
         color = self._icon_color if self._icon_color.isValid() else self.palette().windowText().color()
-        size = 22 if self.button_size else 18
-        self.bold.setIcon(themed_icon("text-bold", color, size))
-        self.italic.setIcon(themed_icon("text-italic", color, size))
+        self.bold.setIcon(themed_icon("text-bold", color))
+        self.italic.setIcon(themed_icon("text-italic", color))
         for button, name in zip(self.alignment.buttons(), ALIGNMENTS):
-            button.setIcon(themed_icon("text-align-" + name, color, size))
-        self.more.setIcon(themed_icon("text-more", color, size))
+            button.setIcon(themed_icon("text-align-" + name, color))
+        self.more.setIcon(themed_icon("text-more", color))
         self.update_swatch(self._color_value)
 
     def changeEvent(self, event):
@@ -205,9 +184,7 @@ class TextStyleToolbar(QFrame):
 
     def update_swatch(self, value):
         self._color_value = value
-        size = QSize(22, 22) if self.button_size else QSize(18, 18)
-        self.color.setIconSize(size)
-        self.color.setIcon(swatch_icon(value, self.palette().mid().color(), size))
+        self.color.setIcon(swatch_icon(value, self.palette().mid().color(), QSize(18, 18)))
 
     def pick_color(self):
         if self.owner.draft is None:
@@ -247,7 +224,7 @@ class TextStyleDialog(QDialog):
     """Changes stay local until Apply; closing the dialog discards them."""
     PREVIEW_HEIGHTS = (156, 360)
 
-    def __init__(self, style, parent, duplicate=False, count=1, title=None):
+    def __init__(self, style, parent, count=1, title=None):
         super().__init__(parent)
         self.setObjectName("textStyleDialog")
         self.window = self
@@ -287,9 +264,13 @@ class TextStyleDialog(QDialog):
         # Several texts share one style edit; each keeps its own words.
         self.editor.setEnabled(count < 2)
         words.addWidget(self.editor)
-        self.toolbar = TextStyleToolbar(self, self, roomy=True)
-        self.toolbar.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
+        self.toolbar = TextStyleToolbar(self, self, more=False)
         self.toolbar.set_style(self.draft)
+        # Here the bar spans the dialog, and the font name takes the extra width.
+        self.toolbar.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
+        self.toolbar.font.setMinimumWidth(150)
+        self.toolbar.font.setMaximumWidth(16777215)
+        self.toolbar.font.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
         text_section.addWidget(self.toolbar)
 
         # Box: colors on the left, sizes on the right.
@@ -339,20 +320,14 @@ class TextStyleDialog(QDialog):
 
         layout.addSpacing(4)
         footer = QHBoxLayout()
-        footer.setContentsMargins(6, 0, 0, 0)
+        footer.setContentsMargins(0, 0, 0, 0)
         footer.setSpacing(12)
-        if count > 1:
-            note = get_app()._tr("Style changes apply to all %d selected texts.") % count
-        elif duplicate:
-            note = get_app()._tr("Apply adds this copy to Project Files.")
-        else:
-            note = get_app()._tr("Changes apply to every clip that uses this text.")
-        footer.addWidget(self._muted(note), 1)
         defaults = QPushButton(get_app()._tr("Restore Defaults"))
         defaults.setObjectName("textStyleLink")
         defaults.setToolTip(get_app()._tr("Restore the default font, size and colors, keeping the text"))
         defaults.clicked.connect(self.restore_defaults)
         footer.addWidget(defaults)
+        footer.addStretch(1)
         cancel = QPushButton(get_app()._tr("Cancel"))
         cancel.setObjectName("textStyleLink")
         cancel.setProperty("dialogRole", "cancel")
@@ -371,7 +346,7 @@ class TextStyleDialog(QDialog):
         # The theme's stylesheet sets fonts per widget, so a dialog font would not reach them.
         from qt_api import QAbstractButton, QAbstractSpinBox as SpinBox, QComboBox
         for widget in self.findChildren((QLabel, QAbstractButton, SpinBox, QComboBox)):
-            if widget.objectName() != "textStyleHeading":
+            if widget.objectName() != "textStyleHeading" and not self.toolbar.isAncestorOf(widget):
                 widget.setFont(self.body_font)
 
         self.preview_timer = QTimer(self)
@@ -435,17 +410,9 @@ class TextStyleDialog(QDialog):
             font.setPixelSize(round(font.pixelSize() * factor))
         return font
 
-    def _muted(self, text):
-        label = QLabel(text)
-        label.setWordWrap(True)
-        palette = label.palette()
-        text_color, window = palette.windowText().color(), palette.window().color()
-        muted = QColor(*(round(a * 0.7 + b * 0.3) for a, b in zip(text_color.getRgb()[:3], window.getRgb()[:3])))
-        label.setStyleSheet("color: %s;" % muted.name())
-        return label
-
     def _spin(self, key, minimum, maximum):
         spin = QSpinBox()
+        spin.setObjectName("textStyleSpin")
         spin.setRange(minimum, maximum)
         spin.setSuffix(" px")
         spin.setFixedSize(164, 26)

@@ -631,7 +631,7 @@ class DirectTextController(QObject):
         if duplicate:
             assets = [asset]
         original = asset.data["direct_text"]
-        dialog = TextStyleDialog(original, self.window, duplicate=duplicate, count=len(assets), title=title)
+        dialog = TextStyleDialog(original, self.window, count=len(assets), title=title)
         if dialog.exec_():
             style = dialog.style()
             updates = get_app().updates

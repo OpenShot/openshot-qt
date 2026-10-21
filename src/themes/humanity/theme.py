@@ -234,23 +234,6 @@ QPlainTextEdit#textStyleEditor {
     border-radius: 6px;
     padding: 1px 4px;
 }
-QDialog#textStyleDialog QFrame#textStyleBar {
-    background-color: #2d2d2d;
-    border: 1px solid #4a4e54;
-    border-radius: 6px;
-}
-QDialog#textStyleDialog QFrame#textStyleBar QToolButton {
-    background-color: #3a3a3a;
-    border: 1px solid #4a4e54;
-    border-radius: 5px;
-}
-QDialog#textStyleDialog QFrame#textStyleBar QToolButton:hover {
-    background-color: #454545;
-}
-QDialog#textStyleDialog QFrame#textStyleBar QToolButton:checked {
-    background-color: #3a526f;
-    border: 1px solid #2f8cff;
-}
 QToolButton#textStyleSwatch {
     background-color: #2a2a2a;
     border: 1px solid #5a5f66;
@@ -517,23 +500,6 @@ QPlainTextEdit#textStyleEditor {
     border: 1px solid #a9adb3;
     border-radius: 6px;
     padding: 1px 4px;
-}
-QDialog#textStyleDialog QFrame#textStyleBar {
-    background-color: #ebedf0;
-    border: 1px solid #c4c8ce;
-    border-radius: 6px;
-}
-QDialog#textStyleDialog QFrame#textStyleBar QToolButton {
-    background-color: #ffffff;
-    border: 1px solid #c4c8ce;
-    border-radius: 5px;
-}
-QDialog#textStyleDialog QFrame#textStyleBar QToolButton:hover {
-    background-color: #e3e6ea;
-}
-QDialog#textStyleDialog QFrame#textStyleBar QToolButton:checked {
-    background-color: #d7e8fb;
-    border: 1px solid #287dcc;
 }
 QToolButton#textStyleSwatch {
     background-color: #ffffff;
