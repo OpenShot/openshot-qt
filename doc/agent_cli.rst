@@ -498,9 +498,14 @@ Check settings before starting a render::
    openshot-cli export validate /tmp/reel.mp4 --preset builtin:format_mp4_x264
 
 Capabilities report compiled codec availability, not physical GPU availability.
-Validation checks data, profiles, paths, and compiled encoders; actual codec,
-container, native option, and hardware compatibility is checked when the worker
-opens the writer. ``runtime_checked`` makes this distinction explicit.
+Validation goes further: it opens the encoders (including hardware encoders) and
+the container with the exact settings, in a separate process, without writing a
+file. A combination the container can't hold fails with ``incompatible_export``,
+FFmpeg's own explanation, and the setting to change (``details.cause.path``)::
+
+   openshot-cli export validate /tmp/song.mp3 --json '{"mode":"audio","format":"mp3","audio_codec":"aac"}'
+
+The export worker runs the same check before rendering.
 
 Rendering a frame range
 ~~~~~~~~~~~~~~~~~~~~~~~

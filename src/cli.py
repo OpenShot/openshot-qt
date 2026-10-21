@@ -611,6 +611,9 @@ def main(argv=None):
     if len(argv) == 2 and argv[0] == '--_export-worker':
         from classes.agent.export_worker import main as export_worker
         return export_worker(argv[1])
+    if len(argv) == 2 and argv[0] == '--_export-check':
+        from classes.agent.export_check import main as export_check
+        return export_check(argv[1])
     if 'project' in argv:
         index = argv.index('project')
         if argv[index+1:index+2] == ['profile'] and any(flag in argv[index+2:] for flag in ('--width', '--height')) and argv[index+2:index+3] != ['set']:

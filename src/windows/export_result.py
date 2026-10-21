@@ -167,7 +167,7 @@ class InfoCard(QFrame):
 
 
 class ExportResultTab(QWidget):
-    """Success summary with ways to find or watch the file, or the error with a retry.
+    """Success summary with ways to find or watch the file, or the error.
 
     Details scroll above a pinned action row, so the tab never grows the dialog
     and its buttons stay visible with large theme fonts.
@@ -187,7 +187,6 @@ class ExportResultTab(QWidget):
         self.cards = []
         self.columns = 0
         self.styling = False
-        self.on_retry = None
 
         outer = QVBoxLayout(self)
         outer.setContentsMargins(0, 0, 0, 0)
@@ -314,18 +313,17 @@ class ExportResultTab(QWidget):
         self.primary_button.setVisible(kind != "image_sequence")
         self.set_details(details)
 
-    def show_failure(self, message, details, on_retry=None):
+    def show_failure(self, message, details):
         _ = self.translate
         self.success, self.path, self.error = False, "", message
-        self.on_retry = on_retry
         self.headline.setText(_("Export Failed"))
         self.subtitle.setText(_("Sorry, there was an error exporting your video."))
         self.detail_label.setText(_("Error Details:"))
         self.error_text.setText(message)
         self.link_button.setText(_("Copy Error Details"))
         self.link_button.setToolTip("")
-        self.primary_button.setText(_("Try Again"))
-        self.primary_button.setVisible(on_retry is not None)
+        # The settings tabs stay editable, so the fix and the next export happen there
+        self.primary_button.setVisible(False)
         self.set_details(details)
 
     def set_details(self, details):
@@ -415,8 +413,6 @@ class ExportResultTab(QWidget):
     def primary_action(self):
         if self.success:
             return open_file(self.window(), self.path)
-        if self.on_retry:
-            self.on_retry()
         return True
 
     def changeEvent(self, event):

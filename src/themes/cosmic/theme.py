@@ -422,7 +422,8 @@ QPushButton:focus {
 }
 
 QDialog#animatedTitle QPushButton:disabled,
-QDialog#animatedTitle QPushButton#acceptButton:disabled {
+QDialog#animatedTitle QPushButton#acceptButton:disabled,
+QDialog#exportDialog QPushButton#acceptButton:disabled {
     background-color: #202938;
     color: #657386;
 }
