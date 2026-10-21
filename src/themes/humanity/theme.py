@@ -198,10 +198,6 @@ QFrame#textStyleBar {
     border-radius: 8px;
     qproperty-iconColor: #e6e6e6;
 }
-QDialog#textStyleDialog QFrame#textStyleBar {
-    background-color: transparent;
-    border: none;
-}
 QFrame#textStyleBar QToolButton {
     background-color: transparent;
     border: 1px solid transparent;
@@ -210,6 +206,69 @@ QFrame#textStyleBar QToolButton {
 }
 QFrame#textStyleBar QToolButton:hover {
     background-color: #3a3a3a;
+}
+QDialog#textStyleDialog QLabel {
+    background-color: transparent;
+}
+QDialog#textStyleDialog QLabel#textStylePreview {
+    background-color: #000000;
+    border: 1px solid #50555c;
+    border-radius: 6px;
+}
+QFrame#textStyleSection {
+    background-color: #353535;
+    border: 1px solid #4a4e54;
+    border-radius: 8px;
+}
+QDialog#textStyleDialog QLabel#textStyleHeading {
+    color: #ffffff;
+    font-weight: 700;
+}
+QFrame#textStyleRule {
+    background-color: #50555c;
+    border: none;
+}
+QPlainTextEdit#textStyleEditor {
+    background-color: #2a2a2a;
+    border: 1px solid #5a5f66;
+    border-radius: 6px;
+    padding: 1px 4px;
+}
+QDialog#textStyleDialog QFrame#textStyleBar {
+    background-color: #2d2d2d;
+    border: 1px solid #4a4e54;
+    border-radius: 6px;
+}
+QDialog#textStyleDialog QFrame#textStyleBar QToolButton {
+    background-color: #3a3a3a;
+    border: 1px solid #4a4e54;
+    border-radius: 5px;
+}
+QDialog#textStyleDialog QFrame#textStyleBar QToolButton:hover {
+    background-color: #454545;
+}
+QDialog#textStyleDialog QFrame#textStyleBar QToolButton:checked {
+    background-color: #3a526f;
+    border: 1px solid #2f8cff;
+}
+QToolButton#textStyleSwatch {
+    background-color: #2a2a2a;
+    border: 1px solid #5a5f66;
+    border-radius: 6px;
+    padding: 0px;
+}
+QToolButton#textStyleSwatch:hover {
+    border-color: #2f8cff;
+}
+QPushButton#textStyleLink {
+    background-color: transparent;
+    color: #5aa7f0;
+    border: none;
+    padding: 6px;
+}
+QPushButton#textStyleLink:hover,
+QPushButton#textStyleLink:focus {
+    color: #9ccaf7;
 }
 QFrame#textStyleBar QToolButton:checked {
     background-color: #3a526f;
@@ -424,10 +483,6 @@ QFrame#textStyleBar {
     border-radius: 8px;
     qproperty-iconColor: #30343a;
 }
-QDialog#textStyleDialog QFrame#textStyleBar {
-    background-color: transparent;
-    border: none;
-}
 QFrame#textStyleBar QToolButton {
     background-color: transparent;
     border: 1px solid transparent;
@@ -436,6 +491,68 @@ QFrame#textStyleBar QToolButton {
 }
 QFrame#textStyleBar QToolButton:hover {
     background-color: #e3e6ea;
+}
+QDialog#textStyleDialog QLabel {
+    background-color: transparent;
+}
+QDialog#textStyleDialog QLabel#textStylePreview {
+    background-color: #000000;
+    border: 1px solid #a9adb3;
+    border-radius: 6px;
+}
+QFrame#textStyleSection {
+    background-color: #f4f5f7;
+    border: 1px solid #c4c8ce;
+    border-radius: 8px;
+}
+QDialog#textStyleDialog QLabel#textStyleHeading {
+    font-weight: 700;
+}
+QFrame#textStyleRule {
+    background-color: #c4c8ce;
+    border: none;
+}
+QPlainTextEdit#textStyleEditor {
+    background-color: #ffffff;
+    border: 1px solid #a9adb3;
+    border-radius: 6px;
+    padding: 1px 4px;
+}
+QDialog#textStyleDialog QFrame#textStyleBar {
+    background-color: #ebedf0;
+    border: 1px solid #c4c8ce;
+    border-radius: 6px;
+}
+QDialog#textStyleDialog QFrame#textStyleBar QToolButton {
+    background-color: #ffffff;
+    border: 1px solid #c4c8ce;
+    border-radius: 5px;
+}
+QDialog#textStyleDialog QFrame#textStyleBar QToolButton:hover {
+    background-color: #e3e6ea;
+}
+QDialog#textStyleDialog QFrame#textStyleBar QToolButton:checked {
+    background-color: #d7e8fb;
+    border: 1px solid #287dcc;
+}
+QToolButton#textStyleSwatch {
+    background-color: #ffffff;
+    border: 1px solid #a9adb3;
+    border-radius: 6px;
+    padding: 0px;
+}
+QToolButton#textStyleSwatch:hover {
+    border-color: #287dcc;
+}
+QPushButton#textStyleLink {
+    background-color: transparent;
+    color: #176fba;
+    border: none;
+    padding: 6px;
+}
+QPushButton#textStyleLink:hover,
+QPushButton#textStyleLink:focus {
+    color: #0d4f8a;
 }
 QFrame#textStyleBar QToolButton:checked {
     background-color: #d7e8fb;

@@ -390,10 +390,6 @@ QFrame#textStyleBar {
     border-radius: 8px;
     qproperty-iconColor: #91C3FF;
 }
-QDialog#textStyleDialog QFrame#textStyleBar {
-    background-color: transparent;
-    border: none;
-}
 QFrame#textStyleBar QToolButton {
     background-color: transparent;
     border: 1px solid transparent;
@@ -417,6 +413,109 @@ QFrame#textStyleBar QSpinBox {
 QFrame#textStyleDivider {
     background-color: rgba(83, 105, 134, 150);
     border: none;
+}
+
+QDialog#textStyleDialog {
+    background-color: #102034;
+}
+QDialog#textStyleDialog QLabel {
+    color: #e3e9f1;
+    background-color: transparent;
+}
+QDialog#textStyleDialog QLabel#textStylePreview {
+    background-color: #000000;
+    border: 1px solid #28425f;
+    border-radius: 6px;
+}
+QFrame#textStyleSection {
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #1a304b, stop: 1 #17283d);
+    border: 1px solid #233f5e;
+    border-radius: 8px;
+}
+QDialog#textStyleDialog QLabel#textStyleHeading {
+    color: #ffffff;
+    font-weight: 700;
+}
+QFrame#textStyleRule {
+    background-color: #2f4c6c;
+    border: none;
+}
+QPlainTextEdit#textStyleEditor {
+    background-color: #1d2834;
+    color: #f4f7ff;
+    border: 1px solid #3d5878;
+    border-radius: 6px;
+    padding: 1px 4px;
+}
+QPlainTextEdit#textStyleEditor:disabled {
+    color: #dce3ec;
+}
+QDialog#textStyleDialog QFrame#textStyleBar {
+    background-color: #142132;
+    border: 1px solid #253b53;
+    border-radius: 6px;
+    qproperty-iconColor: #eef3fa;
+}
+QDialog#textStyleDialog QFrame#textStyleBar QToolButton {
+    background-color: #1a2b40;
+    border: 1px solid #22344b;
+    border-radius: 5px;
+}
+QDialog#textStyleDialog QFrame#textStyleBar QToolButton:hover {
+    background-color: #223650;
+}
+QDialog#textStyleDialog QFrame#textStyleBar QToolButton:checked {
+    background-color: #1c467b;
+    border: 1px solid #3496fa;
+}
+QDialog#textStyleDialog QFrame#textStyleBar QComboBox,
+QDialog#textStyleDialog QFrame#textStyleBar QSpinBox,
+QDialog#textStyleDialog QSpinBox {
+    background-color: #0f1012;
+    color: #f4f7ff;
+    border: 1px solid #2c3e55;
+    border-radius: 5px;
+    padding: 2px 8px;
+}
+QDialog#textStyleDialog QFrame#textStyleSection QSpinBox {
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-right: 22px;
+}
+QDialog#textStyleDialog QSpinBox::up-arrow,
+QDialog#textStyleDialog QSpinBox::down-arrow {
+    width: 15px;
+    height: 15px;
+}
+QDialog#textStyleDialog QComboBox::down-arrow {
+    width: 18px;
+    height: 18px;
+}
+QToolButton#textStyleSwatch {
+    background-color: #202a37;
+    border: 1px solid #34465c;
+    border-radius: 6px;
+    padding: 0px;
+}
+QToolButton#textStyleSwatch:hover {
+    border-color: #53a0ed;
+}
+QPushButton#textStyleLink {
+    background-color: transparent;
+    color: #55a6ff;
+    border: none;
+    padding: 8px 6px;
+}
+QPushButton#textStyleLink:hover,
+QPushButton#textStyleLink:focus {
+    color: #b8d7ff;
+    background-color: transparent;
+}
+QDialog#textStyleDialog QPushButton#acceptButton {
+    padding: 8px 20px;
+    border-radius: 6px;
+    background-color: #1282fe;
+    font-weight: 700;
 }
 
 QPushButton#acceptButton,
