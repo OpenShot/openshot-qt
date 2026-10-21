@@ -183,12 +183,14 @@ def apply_motion(data, action, fps_float, base_clip=None, playhead_frame=1,
             return preset_val * base_val
         return preset_val + base_val
 
-    data["gravity"] = openshot.GRAVITY_CENTER
+    # Relative presets keep the clip's gravity, so placed clips stay anchored.
+    # Reset, Camera and Credits frame the clip absolutely from the center.
 
     # ── RESET (always runs first for non-NONE actions) ─────────────
     # Clears all previous motion keyframes and removes Blur/Mask effects
     # added by prior motion presets so animations are never additive.
     def _reset_motion():
+        data["gravity"]    = openshot.GRAVITY_CENTER
         data["scale"]      = openshot.SCALE_FIT
         data["scale_x"]    = {"Points": [kf(s, 1.0)]}
         data["scale_y"]    = {"Points": [kf(s, 1.0)]}
@@ -415,6 +417,7 @@ def apply_motion(data, action, fps_float, base_clip=None, playhead_frame=1,
         return project_width, project_height, source_width, source_height
 
     def _apply_camera_motion(values):
+        data["gravity"] = openshot.GRAVITY_CENTER
         data["scale"] = openshot.SCALE_CROP
         for prop in ("scale_x", "scale_y", "location_x", "location_y"):
             remove_points_in_range(data[prop], s, e)
@@ -620,11 +623,13 @@ def apply_motion(data, action, fps_float, base_clip=None, playhead_frame=1,
 
         # ── CREDITS (full scroll, SCALE_CROP) ─────────────────────
         elif action == MenuAnimate.CREDITS_UP:
+            data["gravity"] = openshot.GRAVITY_CENTER
             data["scale"] = openshot.SCALE_CROP
             add("location_y",
                 kf(s,  1.0, openshot.LINEAR),
                 kf(e, -1.0, openshot.LINEAR))
         elif action == MenuAnimate.CREDITS_DOWN:
+            data["gravity"] = openshot.GRAVITY_CENTER
             data["scale"] = openshot.SCALE_CROP
             add("location_y",
                 kf(s, -1.0, openshot.LINEAR),
