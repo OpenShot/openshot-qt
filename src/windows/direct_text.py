@@ -89,7 +89,7 @@ class TextPreviewView(QGraphicsView):
         painter.setBrush(Qt.NoBrush)
         border = float(owner.draft.get("border_width", 0))
         if border:
-            pen = QPen(QColor(owner.draft.get("border_color", "#ffffff")), border)
+            pen = QPen(QColor(owner.draft.get("border", "#ffffff")), border)
             # Square corners, matching the native reader.
             pen.setJoinStyle(Qt.MiterJoin)
             painter.setPen(pen)

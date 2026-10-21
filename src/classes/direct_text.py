@@ -15,8 +15,8 @@ DEFAULT_FONTS = ("Segoe UI", "Helvetica Neue", "Noto Sans", "DejaVu Sans", "Libe
 _default_font = None
 # Style that remembers the last text made; the words and box size are per text.
 REMEMBERED_STYLE = ("font_family", "font_bold", "font_italic", "font_size", "letter_spacing", "color",
-                    "background", "alignment", "padding", "stroke_width", "stroke_color",
-                    "border_width", "border_color")
+                    "background", "alignment", "background_padding", "stroke_width", "stroke",
+                    "border_width", "border")
 
 
 def default_font_family():
@@ -32,8 +32,8 @@ def default_font_family():
 def default_text(width, height):
     return dict(version=1, text="Text", font_family=default_font_family(), font_bold=False, font_italic=False,
                 font_size=max(12, round(height / 15)), letter_spacing=0,
-                color="#ffffff", background="#00000000", alignment="center", padding=12,
-                stroke_width=0, stroke_color="#000000", border_width=0, border_color="#ffffff",
+                color="#ffffff", background="#00000000", alignment="center", background_padding=12,
+                stroke_width=0, stroke="#000000", border_width=0, border="#ffffff",
                 width=max(64, round(width / 2)), height=max(64, round(height / 8)))
 
 
@@ -84,7 +84,7 @@ def text_document(style, document=None):
     """Use the same document layout for the in-preview editor and raster."""
     document = document or QTextDocument()
     document.setDefaultFont(text_font(style))
-    document.setDocumentMargin(style.get("padding", 12))
+    document.setDocumentMargin(style.get("background_padding", 12))
     option = QTextOption()
     option.setWrapMode(QTextOption.WrapAtWordBoundaryOrAnywhere)
     option.setAlignment({"left": Qt.AlignLeft, "center": Qt.AlignHCenter, "right": Qt.AlignRight}[style["alignment"]])
@@ -98,7 +98,7 @@ def text_document(style, document=None):
     fmt = QTextCharFormat()
     fmt.setForeground(QColor(style["color"]))
     if style.get("stroke_width", 0):
-        fmt.setTextOutline(QPen(QColor(style.get("stroke_color", "#000000")), float(style["stroke_width"])))
+        fmt.setTextOutline(QPen(QColor(style.get("stroke", "#000000")), float(style["stroke_width"])))
     cursor.mergeCharFormat(fmt)
     return document
 
@@ -149,7 +149,7 @@ def reader_data(style, fps=None):
                 background_color=style["background"], document_layout=True,
                 gravity={"left": openshot.GRAVITY_TOP_LEFT, "center": openshot.GRAVITY_TOP,
                          "right": openshot.GRAVITY_TOP_RIGHT}[style["alignment"]])
-    for key in ("padding", "stroke_width", "stroke_color", "border_width", "border_color", "letter_spacing"):
+    for key in ("background_padding", "stroke_width", "stroke", "border_width", "border", "letter_spacing"):
         data[key] = style.get(key, default_text(1920, 1080)[key])
     data["fps"] = dict(fps or project_fps())
     # Reader info is complete after SetJson; opening would render needlessly.
@@ -283,15 +283,39 @@ def save_text_asset(style, file_id=None):
     return asset
 
 
+# Style names match the Caption effect where they mean the same thing.
+# Names saved by early test builds, upgraded when a project opens.
+RENAMED_STYLE = {"stroke_color": "stroke", "border_color": "border", "padding": "background_padding"}
+
 # Asset defaults are shared. These properties can be overridden/animated per clip.
+# Only styles that keep the box size animate; font size, padding, width and letter
+# spacing set the size of the text image.
 TEXT_ANIMATED = {
     "color": ("Text Color", "color", 0, 255),
     "background": ("Text Background", "color", 0, 255),
-    "stroke_color": ("Text Outline Color", "color", 0, 255),
-    "border_color": ("Text Border Color", "color", 0, 255),
+    "stroke": ("Text Outline Color", "color", 0, 255),
+    "border": ("Text Border Color", "color", 0, 255),
     "stroke_width": ("Text Outline Width", "float", 0, 30),
     "border_width": ("Text Border Width", "float", 0, 30),
 }
+
+
+def upgrade_style_names(data):
+    """Rename old style keys in a text clip or asset; True when anything changed."""
+    changed = False
+    style = data.get("direct_text")
+    for old, new in RENAMED_STYLE.items():
+        if isinstance(style, dict) and old in style:
+            style.setdefault(new, style.pop(old))
+            changed = True
+        if "text_" + old in data:
+            data.setdefault("text_" + new, data.pop("text_" + old))
+            changed = True
+    overrides = data.get("text_style_overrides")
+    if overrides and any(key in RENAMED_STYLE for key in overrides):
+        data["text_style_overrides"] = sorted(RENAMED_STYLE.get(key, key) for key in overrides)
+        changed = True
+    return changed
 
 
 def initialize_text_curves(data):

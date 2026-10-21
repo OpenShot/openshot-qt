@@ -57,8 +57,8 @@ class DirectTextTests(unittest.TestCase):
         from classes.direct_text import text_document
         style = default_text(640, 360)
         style.update(text="Styled text\nWrapping words " * 3, font_size=28, font_bold=True,
-                     alignment="right", padding=18, stroke_width=1, stroke_color="#0000ff",
-                     border_width=2, border_color="#00ff00", background="#80404040")
+                     alignment="right", background_padding=18, stroke_width=1, stroke="#0000ff",
+                     border_width=2, border="#00ff00", background="#80404040")
         data = new_text_clip(style, None, 0, 1000000, 4)
         style = data["direct_text"]
         expected = QImage(style["width"], style["height"], QImage.Format_ARGB32_Premultiplied)
@@ -68,7 +68,7 @@ class DirectTextTests(unittest.TestCase):
         context.palette.setColor(QPalette.Text, QColor(style["color"]))
         document = text_document(style)
         document.documentLayout().draw(painter, context)
-        pen = QPen(QColor(style["border_color"]), style["border_width"])
+        pen = QPen(QColor(style["border"]), style["border_width"])
         pen.setJoinStyle(Qt.MiterJoin)
         painter.setPen(pen)
         painter.setBrush(Qt.NoBrush)
@@ -114,6 +114,27 @@ class DirectTextTests(unittest.TestCase):
         middle = image.pixelColor(80, 45)
         self.assertLessEqual(abs(middle.red() - 128), 3)
         self.assertLessEqual(abs(middle.blue() - 128), 3)
+
+    def test_old_style_names_upgrade(self):
+        from classes.direct_text import upgrade_style_names, initialize_text_curves, reader_data
+        style = default_text(320, 180)
+        old = {"stroke": "stroke_color", "border": "border_color", "background_padding": "padding"}
+        for new, previous in old.items():
+            style[previous] = style.pop(new)
+        style["stroke_color"] = "#ff00ff00"
+        clip = {"direct_text": style, "text_stroke_color": json.loads(openshot.Color("#ff00ff00").Json()),
+                "text_style_overrides": ["stroke_color", "color"]}
+        self.assertTrue(upgrade_style_names(clip))
+        self.assertFalse(upgrade_style_names(clip))
+        for new, previous in old.items():
+            self.assertIn(new, clip["direct_text"])
+            self.assertNotIn(previous, clip["direct_text"])
+        self.assertEqual(clip["text_style_overrides"], ["color", "stroke"])
+        self.assertNotIn("text_stroke_color", clip)
+        clip["reader"] = reader_data(clip["direct_text"])
+        reader = initialize_text_curves(clip)["reader"]
+        self.assertEqual(reader["stroke"], "#ff00ff00")
+        self.assertIn("stroke", reader["text_animation"])
 
     def test_full_app_text_workflow(self):
         env = dict(os.environ, PYTHONPATH=smoke_python_path(),

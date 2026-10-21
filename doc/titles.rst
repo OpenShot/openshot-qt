@@ -121,8 +121,9 @@ right away (including while you are typing).
 
 Text color, background, outline and border colors, and outline and border widths can be
 animated on each clip with keyframes in **Properties**, like any other clip property. These
-follow **Auto Keyframes** at the playhead. To animate the size of text, animate the clip's
-scale. Undo and Redo work for all text changes.
+follow **Auto Keyframes** at the playhead. Font size, padding, box width and letter spacing
+set the size of the text box, so they have one value per text; to animate the size of text,
+animate the clip's scale. Undo and Redo work for all text changes.
 
 Text is saved in the project file and drawn by OpenShot's video library, so it needs no image
 files. Fonts come from your computer: to see the same text on another computer, install the

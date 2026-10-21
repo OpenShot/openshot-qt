@@ -295,9 +295,9 @@ class TextStyleDialog(QDialog):
         grid.setColumnStretch(7, 1)
         self.swatches = {}
         self.spins = {}
-        rows = (("background", "Background", "padding", "Padding", 0, 200),
-                ("stroke_color", "Text outline", "stroke_width", "Width", 0, 30),
-                ("border_color", "Border", "border_width", "Width", 0, 30))
+        rows = (("background", "Background", "background_padding", "Padding", 0, 200),
+                ("stroke", "Text outline", "stroke_width", "Width", 0, 30),
+                ("border", "Border", "border_width", "Width", 0, 30))
         for row, (color_key, color_label, number_key, number_label, minimum, maximum) in enumerate(rows):
             grid.addWidget(QLabel(get_app()._tr(color_label)), row, 0)
             swatch = QToolButton()

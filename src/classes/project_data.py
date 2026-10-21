@@ -1763,11 +1763,18 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
         # Generated text sources are defined by JSON, never by filesystem paths.
         # Upgrade earlier experimental clip-owned text and synchronize instances.
-        from classes.direct_text import reader_data, initialize_text_curves, sync_text_fps
+        from classes.direct_text import (reader_data, initialize_text_curves, sync_text_fps,
+                                         upgrade_style_names, RENAMED_STYLE)
         text_assets = {f["id"]: f for f in self._data["files"] if f.get("type") == "QtTextReader"}
+        for asset in text_assets.values():
+            if upgrade_style_names(asset) and asset.get("direct_text"):
+                for key in RENAMED_STYLE:
+                    asset.pop(key, None)
+                asset.update(reader_data(asset["direct_text"], self._data.get("fps")))
         for clip in self._data["clips"]:
             if not clip.get("direct_text"):
                 continue
+            upgrade_style_names(clip)
             asset = text_assets.get(clip.get("file_id"))
             if asset is None:
                 asset = reader_data(clip["direct_text"], self._data.get("fps"))
