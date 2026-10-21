@@ -456,18 +456,18 @@ QPlainTextEdit#textStyleEditor:focus {
 QPlainTextEdit#textStyleEditor:disabled {
     color: #91C3FF;
 }
-QSpinBox#textStyleSpin {
+QAbstractSpinBox#textStyleSpin {
     background-color: #121212;
     color: #e6f0ff;
     border: 1px solid transparent;
     border-radius: 4px;
     padding: 3px 22px 3px 8px;
 }
-QSpinBox#textStyleSpin:focus {
+QAbstractSpinBox#textStyleSpin:focus {
     border-color: #53a0ed;
 }
-QSpinBox#textStyleSpin::up-arrow,
-QSpinBox#textStyleSpin::down-arrow {
+QAbstractSpinBox#textStyleSpin::up-arrow,
+QAbstractSpinBox#textStyleSpin::down-arrow {
     width: 15px;
     height: 15px;
 }

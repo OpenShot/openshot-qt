@@ -93,8 +93,10 @@ class PropertiesModel(updates.UpdateInterface):
             ("font_italic", "Font Italic", "bool", 0, 1),
             ("font_size", "Font Size", "int", 8, 1000),
             ("letter_spacing", "Letter Spacing", "int", -50, 200),
+            ("line_spacing", "Line Spacing", "float", 0.5, 5.0),
             ("alignment", "Text Alignment", "string", 0, 0),
-            ("width", "Text Wrap Width", "int", 64, 8192),
+            ("width", "Text Box Width", "int", 64, 8192),
+            ("background_padding", "Text Background Padding", "int", 0, 200),
         )
         for key, name, kind, minimum, maximum in definitions:
             value = style.get(key, False if kind == "bool" else None)
@@ -1057,6 +1059,10 @@ class PropertiesModel(updates.UpdateInterface):
             if value is None:
                 if property[1]["type"] == "int":
                     value, valid = QLocale().system().toInt(item.text())
+                    if not valid:
+                        return
+                elif property[1]["type"] == "float":
+                    value, valid = QLocale().system().toDouble(item.text())
                     if not valid:
                         return
                 else:

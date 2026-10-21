@@ -1,5 +1,6 @@
 """Text editing feedback: Properties/editor sync, box fitting, remembered and reset styles."""
 import importlib
+import json
 import os
 import sys
 import tempfile
@@ -72,6 +73,11 @@ def verify():
         checks.assertEqual(item("direct_text.font_size").text(), "90")
         controller.toolbar.size.setValue(70)
         checks.assertEqual(item("direct_text.font_size").text(), "70")
+        # A style change that grows the box shows every line while typing.
+        controller.style_changed("line_spacing", 2.0)
+        checks.assertEqual(controller.proxy.size().toSize(), controller.editor.size())
+        checks.assertEqual(item("direct_text.line_spacing").text(), "2.000")
+        controller.style_changed("line_spacing", 1.0)
         controller.style_changed("color", "#ffff0000")
         color = model.model.item(item("text_color").row(), 0).data()[1]
         checks.assertEqual((color["red"]["value"], color["green"]["value"], color["alpha"]["value"]), (255, 0, 255))
@@ -93,6 +99,13 @@ def verify():
         # Letter spacing reaches the native reader.
         model.value_updated(item("direct_text.letter_spacing"), value=12)
         checks.assertEqual(Clip.get(id=clip_id).data["reader"]["letter_spacing"], 12)
+        # Padding (Edit Style > Background) is editable in Properties too, and
+        # the box grows to fit it.
+        height = Clip.get(id=clip_id).data["direct_text"]["height"]
+        model.value_updated(item("direct_text.background_padding"), value=40)
+        checks.assertEqual(Clip.get(id=clip_id).data["reader"]["background_padding"], 40)
+        checks.assertGreater(Clip.get(id=clip_id).data["direct_text"]["height"], height)
+        model.value_updated(item("direct_text.background_padding"), value=12)
 
         # New text starts with the last style used.
         controller.arm()
@@ -136,12 +149,85 @@ def verify():
         dialog.render_preview()
         checks.assertGreater(ink_height(dialog.preview.pixmap()), small * 1.6)
         checks.assertEqual(dialog.windowTitle(), "Edit Text")
+        # Shrinking the dialog never squeezes the settings into the divider.
+        dialog.resize(100, dialog.height())
+        app.processEvents()
+        checks.assertGreaterEqual(dialog.width(), dialog.layout().minimumSize().width())
+        checks.assertEqual((dialog.spins["line_spacing"].value(), dialog.spins["background_corner"].value()),
+                           (1.0, 0))
         dialog.restore_defaults()
         checks.assertEqual(dialog.style()["font_size"], factory["font_size"])
         checks.assertEqual(dialog.style()["text"], "Preview")
         dialog.reject()
         dialog.deleteLater()
         app.processEvents()
+
+        # Copy > Text Style pastes the look (and its keyframes) onto other
+        # text clips, keeping their words; other clips and empty paste ignore it.
+        from classes.direct_text import (new_text_clip, save_text_asset, save_clip_data, set_text_keyframe,
+                                         initialize_text_curves)
+        from windows.views.timeline_backend.enums import MenuCopy
+        import copy
+        import openshot
+        layer = app.project.get("layers")[-1]["number"]
+
+        def make(text, position):
+            style = dict(factory, text=text)
+            data = new_text_clip(style, None, position, layer, 2)
+            data["id"] = app.project.generate_id()
+            asset = save_text_asset(data["direct_text"])
+            data.update(file_id=asset.id, reader=copy.deepcopy(asset.data))
+            save_clip_data(data)
+            return data["id"]
+
+        source, target = make("Source", 40), make("Target", 44)
+        source_style = dict(Clip.get(id=source).data["direct_text"], font_size=91, stroke_width=3)
+        save_text_asset(source_style, Clip.get(id=source).data["file_id"])
+        save_clip_data(set_text_keyframe(Clip.get(id=source).data, "color", "#ff00ff00", 1, True))
+        image_path = os.path.join(root, "red.png")
+        image = QImage(32, 32, QImage.Format_ARGB32)
+        image.fill(QColor("red"))
+        image.save(image_path)
+        native = openshot.Clip(image_path)
+        video = json.loads(native.Json())
+        native.Close()
+        video.update(id=app.project.generate_id(), layer=layer, position=50, start=0, end=2)
+        window.timeline.update_clip_data(video, only_basic_props=False, ignore_reader=False)
+        video_before = copy.deepcopy(Clip.get(id=video["id"]).data)
+
+        with patch("windows.views.timeline.StyledContextMenu.show_at", lambda menu, pos: menu):
+            menu = window.timeline.ShowClipMenu(source)
+        copy_menu = next(a.menu() for a in menu.actions() if a.text().replace("&", "") == "Copy")
+        checks.assertIn("Text Style", [a.text() for a in copy_menu.actions()])
+        keyframe_menu = next(a.menu() for a in copy_menu.actions() if a.menu())
+        checks.assertTrue(next(a for a in keyframe_menu.actions() if a.text() == "Text Style").isEnabled())
+
+        window.timeline.Copy_Triggered(MenuCopy.TEXT_STYLE, [source], [], [])
+        clips_before = len(app.project.get("clips"))
+        window.timeline._handle_paste_callback([], [], {"position": 0, "track": layer})
+        checks.assertEqual(len(app.project.get("clips")), clips_before, "A style alone is not a clip")
+        window.timeline._handle_paste_callback([target, video["id"]], [], {"position": 0, "track": layer})
+        pasted = Clip.get(id=target).data
+        checks.assertEqual((pasted["direct_text"]["font_size"], pasted["direct_text"]["stroke_width"]), (91, 3))
+        checks.assertEqual(pasted["direct_text"]["text"], "Target")
+        checks.assertEqual(pasted["text_style_overrides"], ["color"])
+        checks.assertEqual(pasted["text_color"], Clip.get(id=source).data["text_color"])
+        checks.assertIn("color", pasted["reader"]["text_animation"])
+        checks.assertEqual(Clip.get(id=video["id"]).data, video_before)
+        app.updates.undo()
+        checks.assertEqual(Clip.get(id=target).data["direct_text"]["font_size"], factory["font_size"])
+        checks.assertEqual(Clip.get(id=target).data["text_style_overrides"], [])
+        app.updates.redo()
+
+        # Copy > Keyframes > Text Style: only the clip's own text curves, and
+        # Keyframes > All includes them; a video clip ignores text keyframes.
+        save_clip_data(initialize_text_curves(dict(Clip.get(id=target).data, text_style_overrides=[])))
+        window.timeline.Copy_Triggered(MenuCopy.KEYFRAMES_TEXT, [source], [], [])
+        window.timeline._handle_paste_callback([target], [], {"position": 0, "track": layer})
+        checks.assertEqual(Clip.get(id=target).data["text_style_overrides"], ["color"])
+        window.timeline.Copy_Triggered(MenuCopy.KEYFRAMES_ALL, [source], [], [])
+        window.timeline._handle_paste_callback([video["id"]], [], {"position": 0, "track": layer})
+        checks.assertFalse([key for key in Clip.get(id=video["id"]).data if key.startswith("text_")])
 
         # Choosing a color for a transparent background starts opaque.
         # Dialogs left for interpreter exit intermittently crash PyQt5's

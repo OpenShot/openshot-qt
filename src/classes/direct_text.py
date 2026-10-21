@@ -14,9 +14,9 @@ from qt_api import QColor, QFont, QImage, QPainter, QTextDocument, QTextOption, 
 DEFAULT_FONTS = ("Segoe UI", "Helvetica Neue", "Noto Sans", "DejaVu Sans", "Liberation Sans", "Arial")
 _default_font = None
 # Style that remembers the last text made; the words and box size are per text.
-REMEMBERED_STYLE = ("font_family", "font_bold", "font_italic", "font_size", "letter_spacing", "color",
-                    "background", "alignment", "background_padding", "stroke_width", "stroke",
-                    "border_width", "border")
+REMEMBERED_STYLE = ("font_family", "font_bold", "font_italic", "font_size", "letter_spacing", "line_spacing",
+                    "color", "background", "alignment", "background_padding", "background_corner",
+                    "stroke_width", "stroke", "border_width", "border")
 
 
 def default_font_family():
@@ -31,8 +31,9 @@ def default_font_family():
 
 def default_text(width, height):
     return dict(version=1, text="Text", font_family=default_font_family(), font_bold=False, font_italic=False,
-                font_size=max(12, round(height / 15)), letter_spacing=0,
+                font_size=max(12, round(height / 15)), letter_spacing=0, line_spacing=1.0,
                 color="#ffffff", background="#00000000", alignment="center", background_padding=12,
+                background_corner=0,
                 stroke_width=0, stroke="#000000", border_width=0, border="#ffffff",
                 width=max(64, round(width / 2)), height=max(64, round(height / 8)))
 
@@ -80,8 +81,12 @@ def fit_height(style):
     return style
 
 
-def text_document(style, document=None):
-    """Use the same document layout for the in-preview editor and raster."""
+def text_document(style, document=None, outline=False):
+    """Use the same document layout for the in-preview editor and raster.
+
+    The reader draws the outline as its own pass behind the letters, so a
+    wide outline grows outward instead of covering them: outline=True
+    builds that pass, and the default builds the fill on top of it."""
     document = document or QTextDocument()
     document.setDefaultFont(text_font(style))
     document.setDocumentMargin(style.get("background_padding", 12))
@@ -95,12 +100,41 @@ def text_document(style, document=None):
     from qt_api import QTextCursor, QTextCharFormat, QPen
     cursor = QTextCursor(document)
     cursor.select(QTextCursor.Document)
+    apply_line_spacing(document, style)
     fmt = QTextCharFormat()
-    fmt.setForeground(QColor(style["color"]))
+    fmt.setForeground(QColor(Qt.transparent if outline else style["color"]))
     if style.get("stroke_width", 0):
-        fmt.setTextOutline(QPen(QColor(style.get("stroke", "#000000")), float(style["stroke_width"])))
+        # The fill is drawn as a path too (invisible pen), matching the reader.
+        pen = QPen(QColor(style.get("stroke", "#000000")), float(style["stroke_width"])) if outline else QPen(Qt.transparent, 0)
+        fmt.setTextOutline(pen)
     cursor.mergeCharFormat(fmt)
     return document
+
+
+def corner_radius(style):
+    """Background corner radius as drawn: never more than half the box."""
+    corner = max(0.0, float(style.get("background_corner", 0) or 0))
+    return min(corner, min(style["width"], style["height"]) / 2.0)
+
+
+def apply_line_spacing(document, style):
+    """Space every paragraph's lines like the reader; True when anything changed.
+
+    The in-preview editor calls this as it types, since new lines it starts
+    do not always copy the spacing."""
+    from qt_api import QTextBlockFormat, QTextCursor
+    # Line height types are plain ints in Qt 5 and 6: 0 single, 1 proportional.
+    spacing = float(style.get("line_spacing", 1.0))
+    height, kind = (spacing * 100, 1) if spacing != 1.0 else (0, 0)
+    block, changed = document.begin(), False
+    while block.isValid():
+        if (block.blockFormat().lineHeight(), block.blockFormat().lineHeightType()) != (height, kind):
+            fmt = QTextBlockFormat()
+            fmt.setLineHeight(height, kind)
+            QTextCursor(block).mergeBlockFormat(fmt)
+            changed = True
+        block = block.next()
+    return changed
 
 
 def project_fps():
@@ -149,7 +183,8 @@ def reader_data(style, fps=None):
                 background_color=style["background"], document_layout=True,
                 gravity={"left": openshot.GRAVITY_TOP_LEFT, "center": openshot.GRAVITY_TOP,
                          "right": openshot.GRAVITY_TOP_RIGHT}[style["alignment"]])
-    for key in ("background_padding", "stroke_width", "stroke", "border_width", "border", "letter_spacing"):
+    for key in ("background_padding", "background_corner", "stroke_width", "stroke", "border_width", "border",
+                "letter_spacing", "line_spacing"):
         data[key] = style.get(key, default_text(1920, 1080)[key])
     data["fps"] = dict(fps or project_fps())
     # Reader info is complete after SetJson; opening would render needlessly.
@@ -264,7 +299,6 @@ def new_text_clip(style, root, position, layer, duration):
 def save_text_asset(style, file_id=None):
     """Save a shared source and update all its instances in the caller's transaction."""
     from classes.query import File, Clip
-    from classes.app import get_app
     style = copy.deepcopy(style)
     fit_height(style)
     asset = File.get(id=file_id) if file_id else None
@@ -274,13 +308,95 @@ def save_text_asset(style, file_id=None):
     data["name"] = style["text"].split("\n", 1)[0] or "Text"
     asset.data = data
     asset.save()
-    for clip in Clip.filter(file_id=asset.id):
+    # Clip.filter(file_id=...) also matches clips without a file_id.
+    for clip in [c for c in Clip.filter() if c.data.get("file_id") == asset.id]:
         updated = apply_text(clip.data, style)
         updated["reader"] = copy.deepcopy(asset.data)
         sync_text_reader(updated)
         updated["_text_asset_update"] = True
-        get_app().window.timeline.update_clip_data(updated, only_basic_props=False, ignore_reader=False)
+        save_clip_data(updated)
     return asset
+
+
+def save_clip_data(data):
+    """Save a whole clip record through the timeline, or directly without an editor window."""
+    from classes.query import Clip
+    from classes.app import get_app
+    window = getattr(get_app(), "window", None)
+    if window:
+        window.timeline.update_clip_data(data, only_basic_props=False, ignore_reader=False)
+        return
+    clip = Clip.get(id=data.get("id")) or Clip()
+    clip.data = data
+    clip.save()
+
+
+def editable_text_clips(clip_ids):
+    """Text clips among these IDs, skipping clips on locked tracks."""
+    from classes.query import Clip, Track
+    locked = {track.data["number"] for track in Track.filter() if track.data.get("lock", False)}
+    clips = (Clip.get(id=clip_id) for clip_id in clip_ids)
+    return [clip for clip in clips if clip and clip.data.get("direct_text") and clip.data["layer"] not in locked]
+
+
+def reset_text_clips(clip_ids, width, height):
+    """Factory style for these clips' texts; each clip drops its own text keyframes. Caller owns the transaction."""
+    from classes.query import Clip, File
+    clips = editable_text_clips(clip_ids)
+    assets = []
+    for clip in clips:
+        asset = File.get(id=clip.data.get("file_id"))
+        if asset and asset.id not in assets:
+            assets.append(asset.id)
+            save_text_asset(reset_style(asset.data["direct_text"], width, height), asset.id)
+    for clip in clips:
+        data = copy.deepcopy(Clip.get(id=clip.id).data)
+        data["text_style_overrides"] = []
+        for key in TEXT_ANIMATED:
+            data.pop("text_" + key, None)
+        # The fresh default curves are not this clip's own edits.
+        data["_text_asset_update"] = True
+        save_clip_data(initialize_text_curves(data))
+    return [clip.id for clip in clips]
+
+
+def copied_text_keyframes(data):
+    """This clip's own text color and outline/border curves, for Copy > Keyframes."""
+    return {"text_" + key: copy.deepcopy(data["text_" + key])
+            for key in data.get("text_style_overrides", []) if key in TEXT_ANIMATED and "text_" + key in data}
+
+
+def copied_text_style(data):
+    """The look of a text clip, without its words or box width, for Copy > Text Style."""
+    style = data["direct_text"]
+    return {"style": {key: copy.deepcopy(style[key]) for key in REMEMBERED_STYLE if key in style},
+            "keyframes": copied_text_keyframes(data)}
+
+
+def paste_text_style(clip_ids, copied):
+    """Give these text clips a copied look. Their texts take the shared style; each clip
+    then animates exactly what the source clip animated. Caller owns the transaction."""
+    from classes.query import Clip, File
+    clips = editable_text_clips(clip_ids)
+    assets = []
+    for clip in clips:
+        asset = File.get(id=clip.data.get("file_id"))
+        if asset and asset.id not in assets:
+            assets.append(asset.id)
+            style = copy.deepcopy(asset.data["direct_text"])
+            style.update(copy.deepcopy(copied.get("style", {})))
+            save_text_asset(style, asset.id)
+    keyframes = {name: value for name, value in copied.get("keyframes", {}).items()
+                 if name.startswith("text_") and name[5:] in TEXT_ANIMATED}
+    for clip in clips:
+        data = copy.deepcopy(Clip.get(id=clip.id).data)
+        for key in TEXT_ANIMATED:
+            data.pop("text_" + key, None)
+        data.update(copy.deepcopy(keyframes))
+        data["text_style_overrides"] = sorted(name[5:] for name in keyframes)
+        data["_text_asset_update"] = True
+        save_clip_data(initialize_text_curves(data))
+    return [clip.id for clip in clips]
 
 
 # Style names match the Caption effect where they mean the same thing.
@@ -288,15 +404,16 @@ def save_text_asset(style, file_id=None):
 RENAMED_STYLE = {"stroke_color": "stroke", "border_color": "border", "padding": "background_padding"}
 
 # Asset defaults are shared. These properties can be overridden/animated per clip.
-# Only styles that keep the box size animate; font size, padding, width and letter
-# spacing set the size of the text image.
+# Only styles that keep the box size animate; font size, padding, width, letter
+# spacing and line spacing set the size of the text image.
 TEXT_ANIMATED = {
     "color": ("Text Color", "color", 0, 255),
-    "background": ("Text Background", "color", 0, 255),
+    "background": ("Text Background Color", "color", 0, 255),
     "stroke": ("Text Outline Color", "color", 0, 255),
     "border": ("Text Border Color", "color", 0, 255),
     "stroke_width": ("Text Outline Width", "float", 0, 30),
     "border_width": ("Text Border Width", "float", 0, 30),
+    "background_corner": ("Text Corner Radius", "float", 0, 200),
 }
 
 

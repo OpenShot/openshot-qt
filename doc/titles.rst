@@ -71,8 +71,8 @@ While you type, a small style bar floats over the video preview:
    Bold / Italic       Toggle bold and italic for the whole text
    Color               The text color (choose a transparent color to show only the outline)
    Alignment           Align lines left, center or right inside the text box
-   More (…)            Open **Edit Style** for background, padding, outline, border,
-                       box width and letter spacing
+   More (…)            Open **Edit Style** for background, padding, rounded corners,
+                       outline, border, box width, and letter and line spacing
    ==================  ============================================================
 
 The style bar sits at the **top** of the video preview. If that would cover the text you are
@@ -86,13 +86,20 @@ the video right away.
 Edit Style
 ^^^^^^^^^^
 
-**Edit Style** has every text setting in one place: the text itself, the style bar controls,
-background color and padding, text outline color and width, border color and width, box
-width (where lines wrap), and letter spacing. Open it from **More (…)** on the style bar,
+**Edit Style** has every text setting in one place. **Text** holds the words. **Font** has
+the style bar controls, the text outline (color and width), and letter and line spacing.
+**Background** has the box behind the text: its color, padding, rounded corners, border (color
+and width), and box width (where lines wrap). Open it from **More (…)** on the style bar,
 from **Text → Edit Style…** on a clip's context menu, or with **Edit Text…** in Project Files.
 The preview at the top shows changes as you make them. Press :kbd:`Ctrl+Enter` or click
 **Apply** to keep them; :kbd:`Enter` adds a new line, and **Cancel** discards the changes.
 **Restore Defaults** returns everything except the text to the default style.
+
+**Line spacing** sets the distance between lines as a multiple of the normal distance: 1.0 is
+normal, 1.5 adds half a line of space, and values below 1.0 pull lines closer together.
+**Corner radius** rounds the corners of the background and the border, in pixels; 0 keeps them
+square. The text outline is drawn behind the letters, so a wide outline grows outward instead
+of covering them.
 
 Select several text clips (or several texts in Project Files) and choose **Edit Style…** to
 change their style together. The text box is grayed out, because each text keeps its own
@@ -101,6 +108,13 @@ words, and only the settings you change are applied to all of them.
 To reset text clips without opening the dialog, right-click them and choose
 **Text → Reset Style**. Their font, size, colors and outlines return to the defaults, any
 color or outline keyframes on those clips are removed, and their words are kept.
+
+To give other text clips the same look, right-click a text clip and choose **Copy → Text
+Style**, then select the other text clips, right-click and choose **Paste**. They take the
+font, size, colors, outline, border, corners and spacing, plus the copied clip's color,
+outline, border and corner keyframes, and keep their own words and box width. **Copy →
+Keyframes → Text Style** copies only that clip's own text keyframes. Pasting either one onto
+other kinds of clips changes nothing.
 
 A new text starts with the style you used last (font, size, colors, outline, border and
 spacing), so a series of titles stays consistent. Without a previous text, it uses a
@@ -114,20 +128,23 @@ timeline like an image to use it again. Right-click it and choose **Edit Text…
 double-click it) to edit it without placing it on the timeline. **Duplicate** opens a copy,
 ready to type, and **Apply** adds it as a new, independent text.
 
-The words, font, size, alignment, box width and default colors belong to the text in Project
-Files, so editing them updates every clip that uses that text. When a text clip is selected,
-these settings also appear at the top of **Properties**, and changes there show on the video
-right away (including while you are typing).
+The words, font, size, spacing, alignment, box width, padding and default colors belong to the
+text in Project Files, so editing them updates every clip that uses that text. When a text clip
+is selected, these settings also appear at the top of **Properties** (for example **Text Box
+Width** and **Text Background Padding**), and changes there show on the video right away
+(including while you are typing).
 
-Text color, background, outline and border colors, and outline and border widths can be
-animated on each clip with keyframes in **Properties**, like any other clip property. These
-follow **Auto Keyframes** at the playhead. Font size, padding, box width and letter spacing
-set the size of the text box, so they have one value per text; to animate the size of text,
+Text color, background, outline and border colors, outline and border widths, and corner
+radius can be animated on each clip with keyframes in **Properties**, like any other clip
+property. These follow **Auto Keyframes** at the playhead. Font size, padding, box width, and
+letter and line spacing set the size of the text box, so they have one value per text; to animate the size of text,
 animate the clip's scale. Undo and Redo work for all text changes.
 
 Text is saved in the project file and drawn by OpenShot's video library, so it needs no image
 files. Fonts come from your computer: to see the same text on another computer, install the
 same fonts there. One style applies to all of a text's lines.
+
+Text can also be added and styled from the command line; see :ref:`cli_text_ref`.
 
 The **Title** editor (SVG templates and animated titles) and **Captions** (timed subtitles)
 remain available for more elaborate designs.

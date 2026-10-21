@@ -4,8 +4,8 @@ import json
 import os
 import openshot
 
-from qt_api import (Qt, QEvent, QFontMetrics, QWidget, QFrame, QHBoxLayout, QVBoxLayout, QGridLayout, QFontComboBox,
-                    QSpinBox, QToolButton, QButtonGroup, QIcon, QSize, QRectF, QColor,
+from qt_api import (Qt, QEvent, QWidget, QFrame, QHBoxLayout, QVBoxLayout, QFontComboBox,
+                    QSpinBox, QDoubleSpinBox, QToolButton, QButtonGroup, QIcon, QSize, QRectF, QColor,
                     QDialog, QPushButton, QPlainTextEdit, QLabel, QTimer, QImage, QPixmap, QPainter,
                     QPainterPath, QByteArray, QSvgRenderer, QSizePolicy, pyqtProperty)
 from classes.app import get_app
@@ -222,7 +222,7 @@ class TextStyleToolbar(QFrame):
 
 class TextStyleDialog(QDialog):
     """Changes stay local until Apply; closing the dialog discards them."""
-    PREVIEW_HEIGHTS = (156, 360)
+    PREVIEW_HEIGHTS = (110, 220)
 
     def __init__(self, style, parent, count=1, title=None):
         super().__init__(parent)
@@ -245,16 +245,13 @@ class TextStyleDialog(QDialog):
         layout.addWidget(self.preview)
         layout.addSpacing(2)
 
-        # Text: the words and the same style bar shown over the video preview.
-        text_section = self._section(layout, 8, (12, 10, 12, 9))
+        # Text: the words.
+        text_section = self._section(layout, 5, (12, 8, 12, 10))
         if count > 1:
             heading = get_app()._tr("Text (first of %d selected)") % count
         else:
             heading = get_app()._tr("Text")
-        words = QVBoxLayout()
-        words.setSpacing(5)
-        words.addWidget(self._heading(heading))
-        text_section.addLayout(words)
+        text_section.addWidget(self._heading(heading))
         self.editor = QPlainTextEdit()
         self.editor.setObjectName("textStyleEditor")
         self.editor.setPlaceholderText(get_app()._tr("Type your text"))
@@ -263,7 +260,15 @@ class TextStyleDialog(QDialog):
         self.editor.setPlainText(self.draft.get("text", ""))
         # Several texts share one style edit; each keeps its own words.
         self.editor.setEnabled(count < 2)
-        words.addWidget(self.editor)
+        text_section.addWidget(self.editor)
+
+        # Font: everything about the letters. The style bar is the one shown
+        # over the video preview; the rest sits on one row below it.
+        self.swatches = {}
+        self.spins = {}
+        self.columns = {}  # Groups in the same position on each row line up.
+        font_section = self._section(layout, 7, (12, 8, 12, 10))
+        font_section.addWidget(self._heading(get_app()._tr("Font")))
         self.toolbar = TextStyleToolbar(self, self, more=False)
         self.toolbar.set_style(self.draft)
         # Here the bar spans the dialog, and the font name takes the extra width.
@@ -271,51 +276,22 @@ class TextStyleDialog(QDialog):
         self.toolbar.font.setMinimumWidth(150)
         self.toolbar.font.setMaximumWidth(16777215)
         self.toolbar.font.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
-        text_section.addWidget(self.toolbar)
+        font_section.addWidget(self.toolbar)
+        font_section.addLayout(self._row(
+            ("Outline", self._swatch("stroke", "Outline color"), self._spin("stroke_width", 0, 30, "Outline width")),
+            ("Letter spacing", self._spin("letter_spacing", -50, 200)),
+            ("Line spacing", self._spin("line_spacing", 0.5, 5.0))))
 
-        # Box: colors on the left, sizes on the right.
-        box_section = self._section(layout, 7, (12, 8, 12, 12))
-        title_row = QHBoxLayout()
-        title_row.setSpacing(14)
-        title_row.addWidget(self._heading(get_app()._tr("Box")))
-        title_row.addWidget(self._line(QFrame.HLine), 1)
-        box_section.addLayout(title_row)
-        grid = QGridLayout()
-        grid.setContentsMargins(2, 0, 10, 0)
-        grid.setHorizontalSpacing(0)
-        grid.setVerticalSpacing(9)
-        # Label columns fit the longest label in this language and font.
-        metrics = QFontMetrics(self.body_font)
-        left = max(metrics.horizontalAdvance(get_app()._tr(label))
-                   for label in ("Background", "Text outline", "Border", "Box width"))
-        right = max(metrics.horizontalAdvance(get_app()._tr(label))
-                    for label in ("Padding", "Width", "Letter spacing"))
-        for column, width in ((0, max(83, left + 8)), (2, 20), (4, 22), (5, max(96, right + 6))):
-            grid.setColumnMinimumWidth(column, width)
-        grid.setColumnStretch(7, 1)
-        self.swatches = {}
-        self.spins = {}
-        rows = (("background", "Background", "background_padding", "Padding", 0, 200),
-                ("stroke", "Text outline", "stroke_width", "Width", 0, 30),
-                ("border", "Border", "border_width", "Width", 0, 30))
-        for row, (color_key, color_label, number_key, number_label, minimum, maximum) in enumerate(rows):
-            grid.addWidget(QLabel(get_app()._tr(color_label)), row, 0)
-            swatch = QToolButton()
-            swatch.setObjectName("textStyleSwatch")
-            swatch.setToolTip(get_app()._tr("Choose color"))
-            swatch.setFixedSize(34, 24)
-            swatch.setIconSize(QSize(28, 18))
-            swatch.clicked.connect(lambda checked=False, k=color_key: self.pick_color(k))
-            self.swatches[color_key] = swatch
-            grid.addWidget(swatch, row, 1)
-            grid.addWidget(QLabel(get_app()._tr(number_label)), row, 5)
-            grid.addWidget(self._spin(number_key, minimum, maximum), row, 6)
-        grid.addWidget(QLabel(get_app()._tr("Box width")), len(rows), 0)
-        grid.addWidget(self._spin("width", 64, 8192), len(rows), 1)
-        grid.addWidget(QLabel(get_app()._tr("Letter spacing")), len(rows), 5)
-        grid.addWidget(self._spin("letter_spacing", -50, 200), len(rows), 6)
-        grid.addWidget(self._line(QFrame.VLine), 0, 3, len(rows) + 1, 1, Qt.AlignHCenter)
-        box_section.addLayout(grid)
+        # Background: the box behind the letters. A size beside a color is that color's width.
+        box_section = self._section(layout, 7, (12, 8, 12, 10))
+        box_section.addWidget(self._heading(get_app()._tr("Background")))
+        box_section.addLayout(self._row(
+            ("Color", self._swatch("background", "Background color")),
+            ("Padding", self._spin("background_padding", 0, 200)),
+            ("Corner radius", self._spin("background_corner", 0, 200))))
+        box_section.addLayout(self._row(
+            ("Border", self._swatch("border", "Border color"), self._spin("border_width", 0, 30, "Border width")),
+            ("Box width", self._spin("width", 64, 8192, "Lines longer than this wrap"))))
         self.update_swatches()
 
         layout.addSpacing(4)
@@ -348,6 +324,17 @@ class TextStyleDialog(QDialog):
         for widget in self.findChildren((QLabel, QAbstractButton, SpinBox, QComboBox)):
             if widget.objectName() != "textStyleHeading" and not self.toolbar.isAncestorOf(widget):
                 widget.setFont(self.body_font)
+        for groups in self.columns.values():
+            # Labels share a width, so fields start together down each column.
+            label_width = max(group.label.sizeHint().width() for group in groups)
+            for group in groups:
+                group.label.setFixedWidth(label_width)
+            width = max(group.sizeHint().width() for group in groups)
+            for group in groups:
+                group.setFixedWidth(width)
+        # Never narrower than the settings need (labels vary by language).
+        layout.activate()
+        self.setMinimumWidth(max(self.minimumWidth(), layout.minimumSize().width()))
 
         self.preview_timer = QTimer(self)
         self.preview_timer.setSingleShot(True)
@@ -384,16 +371,6 @@ class TextStyleDialog(QDialog):
         section.setSpacing(spacing)
         return section
 
-    def _line(self, shape):
-        line = QFrame()
-        line.setObjectName("textStyleRule")
-        line.setFrameShape(shape)
-        if shape == QFrame.HLine:
-            line.setFixedHeight(1)
-        else:
-            line.setFixedWidth(1)
-        return line
-
     def _heading(self, text):
         label = QLabel(text)
         label.setObjectName("textStyleHeading")
@@ -410,16 +387,60 @@ class TextStyleDialog(QDialog):
             font.setPixelSize(round(font.pixelSize() * factor))
         return font
 
-    def _spin(self, key, minimum, maximum):
-        spin = QSpinBox()
+    def _row(self, *groups):
+        """One row of labeled control groups, left-aligned like the style bar."""
+        row = QHBoxLayout()
+        row.setContentsMargins(0, 0, 0, 0)
+        row.setSpacing(22)
+        for column, (label, *widgets) in enumerate(groups):
+            group = QWidget()
+            box = QHBoxLayout(group)
+            box.setContentsMargins(0, 0, 0, 0)
+            box.setSpacing(6)
+            group.label = QLabel(get_app()._tr(label))
+            box.addWidget(group.label)
+            for widget in widgets:
+                box.addWidget(widget)
+            box.addStretch(1)
+            row.addWidget(group)
+            self.columns.setdefault(column, []).append(group)
+        row.addStretch(1)
+        return row
+
+    def _swatch(self, key, tooltip):
+        swatch = QToolButton()
+        swatch.setObjectName("textStyleSwatch")
+        swatch.setToolTip(get_app()._tr(tooltip))
+        swatch.setFixedSize(34, 24)
+        swatch.setIconSize(QSize(28, 18))
+        swatch.clicked.connect(lambda checked=False, k=key: self.pick_color(k))
+        self.swatches[key] = swatch
+        return swatch
+
+    def _spin(self, key, minimum, maximum, tooltip=None):
+        """Pixel sizes count in whole pixels; line spacing is a multiple (1.0 = normal)."""
+        if isinstance(minimum, float):
+            spin = QDoubleSpinBox()
+            spin.setDecimals(2)
+            spin.setSingleStep(0.1)
+            spin.setSuffix(" \u00d7")
+        else:
+            spin = QSpinBox()
+            spin.setSuffix(" px")
         spin.setObjectName("textStyleSpin")
         spin.setRange(minimum, maximum)
-        spin.setSuffix(" px")
-        spin.setFixedSize(164, 26)
-        spin.setValue(int(self.draft.get(key, 0)))
+        spin.setFixedSize(96, 26)
+        if tooltip:
+            spin.setToolTip(get_app()._tr(tooltip))
+        spin.setValue(self._spin_value(key))
         spin.valueChanged.connect(lambda value, k=key: self.style_changed(k, value))
         self.spins[key] = spin
         return spin
+
+    def _spin_value(self, key):
+        if key == "line_spacing":
+            return float(self.draft.get(key, 1.0))
+        return int(self.draft.get(key, 0))
 
     def restore_defaults(self):
         project = get_app().project
@@ -427,7 +448,7 @@ class TextStyleDialog(QDialog):
         self.toolbar.set_style(self.draft)
         for key, spin in self.spins.items():
             spin.blockSignals(True)
-            spin.setValue(int(self.draft.get(key, 0)))
+            spin.setValue(self._spin_value(key))
             spin.blockSignals(False)
         self.update_swatches()
         self.preview_timer.start(0)

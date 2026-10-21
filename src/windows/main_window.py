@@ -4853,7 +4853,9 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
 
         paste_clip_ids = self.selected_clips
         paste_tran_ids = self.selected_transitions
-        if isinstance(copied_object, (Clip, Transition)):
+        if isinstance(copied_object, (Clip, Transition)) and "reader" in copied_object.data:
+            # A whole copied clip pastes at the playhead; copied keyframes,
+            # effects or a text style paste onto the selection.
             paste_clip_ids = []
             paste_tran_ids = []
         elif isinstance(copied_object, list) and copied_object and all(

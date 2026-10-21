@@ -195,6 +195,8 @@ class MenuCopy(Enum):
     TRANSITION = auto()
     KEYFRAMES_BRIGHTNESS = auto()
     KEYFRAMES_CONTRAST = auto()
+    KEYFRAMES_TEXT = auto()
+    TEXT_STYLE = auto()
 
 
 class MenuSlice(Enum):

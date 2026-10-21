@@ -4,15 +4,16 @@ import json
 
 from qt_api import (
     Qt, QEvent, QGraphicsScene, QGraphicsView, QTextEdit, QFrame, QPalette,
-    QColor, QAbstractButton,
-    QRectF, QPointF, QObject, QTimer, QImage, QPixmap, QRunnable, QThreadPool, pyqtSignal,
+    QColor, QAbstractButton, QPainter, QAbstractTextDocumentLayout,
+    QRectF, QPointF, QSizeF, QObject, QTimer, QImage, QPixmap, QRunnable, QThreadPool, pyqtSignal,
 )
 from classes.app import get_app
 from classes import info
 from classes.query import Clip, Track, File
 from classes.direct_text import (
-    default_text, new_text_style, remember_style, reset_style, apply_text, new_text_clip, text_document,
-    save_text_asset, TEXT_ANIMATED, evaluated_text_style, set_text_keyframe, initialize_text_curves,
+    default_text, new_text_style, remember_style, apply_text, new_text_clip, text_document,
+    save_text_asset, TEXT_ANIMATED, evaluated_text_style, set_text_keyframe,
+    editable_text_clips, reset_text_clips, paste_text_style, apply_line_spacing, corner_radius,
 )
 
 
@@ -93,8 +94,15 @@ class TextPreviewView(QGraphicsView):
             # Square corners, matching the native reader.
             pen.setJoinStyle(Qt.MiterJoin)
             painter.setPen(pen)
-            painter.drawRect(QRectF(border / 2, border / 2,
-                                   owner.draft["width"] - border, owner.draft["height"] - border))
+            rect = QRectF(border / 2, border / 2, owner.draft["width"] - border, owner.draft["height"] - border)
+            corner = corner_radius(owner.draft)
+            if corner:
+                # The outer edge follows the background's curve.
+                radius = max(0.0, corner - border / 2)
+                painter.setRenderHint(QPainter.Antialiasing)
+                painter.drawRoundedRect(rect, radius, radius)
+            else:
+                painter.drawRect(rect)
         painter.restore()
         # Typing and clip transforms are separate modes. Show the text box,
         # without presenting resize/rotation handles that are inactive here.
@@ -128,6 +136,24 @@ class TextEditor(QTextEdit):
                 event.accept()
                 return True
         return super().event(event)
+
+    def paintEvent(self, event):
+        draft = self.owner.draft
+        corner = corner_radius(draft) if draft else 0
+        if corner or (draft and draft.get("stroke_width", 0)):
+            painter = QPainter(self.viewport())
+            if corner:
+                # A rounded box leaves the editor transparent and draws its own background.
+                painter.setRenderHint(QPainter.Antialiasing)
+                painter.setPen(Qt.NoPen)
+                painter.setBrush(QColor(draft["background"]))
+                painter.drawRoundedRect(QRectF(0, 0, draft["width"], draft["height"]), corner, corner)
+            if draft.get("stroke_width", 0):
+                # The outline goes behind the editable letters, as in the render.
+                outline = text_document(draft, outline=True)
+                outline.documentLayout().draw(painter, QAbstractTextDocumentLayout.PaintContext())
+            painter.end()
+        super().paintEvent(event)
 
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_Escape:
@@ -208,8 +234,8 @@ class DirectTextController(QObject):
     def apply_property(self, clip_id, key, value):
         """Properties dock entry point; semantic changes never add keyframes."""
         key = key.removeprefix("direct_text.") if hasattr(key, "removeprefix") else key.replace("direct_text.", "", 1)
-        if key not in ("text", "font_family", "font_size", "letter_spacing", "color", "background", "alignment", "width",
-                       "font_bold", "font_italic"):
+        if key not in ("text", "font_family", "font_size", "letter_spacing", "line_spacing", "color", "background",
+                       "alignment", "width", "background_padding", "font_bold", "font_italic"):
             return False
         clip = Clip.get(id=clip_id)
         if not clip or not clip.data.get("direct_text"):
@@ -224,6 +250,13 @@ class DirectTextController(QObject):
             value = max(8 if key == "font_size" else 64, min(1000 if key == "font_size" else 8192, int(value)))
         if key == "letter_spacing":
             value = max(-50, min(200, int(value)))
+        if key == "background_padding":
+            value = max(0, min(200, int(value)))
+        if key == "line_spacing":
+            try:
+                value = round(max(0.5, min(5.0, float(value))), 2)
+            except (TypeError, ValueError):
+                return False
         if key == "alignment" and value not in ("left", "center", "right"):
             return False
         if key in ("color", "background") and not QColor(value).isValid():
@@ -406,10 +439,12 @@ class DirectTextController(QObject):
         self.editor.blockSignals(True)
         text_document(self.draft, self.editor.document())
         palette = self.editor.palette()
+        # A rounded box paints its own background (TextEditor.paintEvent).
+        background = "#00000000" if corner_radius(self.draft) else self.draft["background"]
         palette.setColor(QPalette.Text, QColor(self.draft["color"]))
-        palette.setColor(QPalette.Base, QColor(self.draft["background"]))
+        palette.setColor(QPalette.Base, QColor(background))
         self.editor.setPalette(palette)
-        self.editor.setStyleSheet("QTextEdit { background: %s; color: %s; padding: 0; border: none; }" % (self.draft["background"], self.draft["color"]))
+        self.editor.setStyleSheet("QTextEdit { background: %s; color: %s; padding: 0; border: none; }" % (background, self.draft["color"]))
         self.draft["height"] = int(self.editor.document().size().height() + 1)
         self.editor.setFixedSize(self.draft["width"], self.draft["height"])
         self.editor.blockSignals(False)
@@ -452,6 +487,12 @@ class DirectTextController(QObject):
         self.scene.setSceneRect(QRectF(self.preview.rect()))
         data = copy.deepcopy(self.original)
         data["direct_text"] = self.draft
+        # The proxy keeps the editor's earlier fixed size as its own limits, so
+        # a box grown by a style change (not typing) would clip its lower lines.
+        size = QSizeF(self.editor.size())
+        self.proxy.setMinimumSize(size)
+        self.proxy.setMaximumSize(size)
+        self.proxy.resize(size)
         self.proxy.setTransform(self.geometry(data))
         self.proxy.setOpacity(self.geometry_props.get("alpha", {}).get("value", 1.0))
         viewport = self.preview.centeredViewport(self.preview.width(), self.preview.height())
@@ -581,36 +622,23 @@ class DirectTextController(QObject):
 
     def reset_styles(self, clip_ids):
         """Return text clips to the factory style; each keeps its words."""
-        project = get_app().project
-        clips = [clip for clip in (Clip.get(id=clip_id) for clip_id in clip_ids)
-                 if clip and clip.data.get("direct_text")]
-        locked = {track.data["number"] for track in Track.filter() if track.data.get("lock", False)}
-        clips = [clip for clip in clips if clip.data["layer"] not in locked]
-        if not clips:
+        self._restyle(clip_ids, lambda clips: reset_text_clips(clips, get_app().project.get("width"),
+                                                               get_app().project.get("height")))
+
+    def paste_style(self, clip_ids, copied):
+        """Paste a copied text look (Copy > Text Style) onto text clips."""
+        self._restyle(clip_ids, lambda clips: paste_text_style(clips, copied))
+
+    def _restyle(self, clip_ids, change):
+        if not editable_text_clips(clip_ids):
             return
         if self.clip_id in clip_ids:
             self.cancel(return_focus=True)
         updates = get_app().updates
         previous = updates.transaction_id
-        updates.transaction_id = previous or project.generate_id()
+        updates.transaction_id = previous or get_app().project.generate_id()
         try:
-            assets = []
-            for clip in clips:
-                asset = File.get(id=clip.data.get("file_id"))
-                if asset and asset.id not in assets:
-                    assets.append(asset.id)
-                    save_text_asset(reset_style(asset.data["direct_text"], project.get("width"), project.get("height")),
-                                    asset.id)
-            for clip in clips:
-                # Drop this clip's own colors, outlines and their keyframes.
-                data = copy.deepcopy(Clip.get(id=clip.id).data)
-                data["text_style_overrides"] = []
-                for key in TEXT_ANIMATED:
-                    data.pop("text_" + key, None)
-                # The fresh default curves are not this clip's own edits.
-                data["_text_asset_update"] = True
-                self.window.timeline.update_clip_data(initialize_text_curves(data),
-                                                      only_basic_props=False, ignore_reader=False)
+            change(clip_ids)
         finally:
             updates.transaction_id = previous
         self.window.refreshFrameSignal.emit()
@@ -724,6 +752,8 @@ class DirectTextController(QObject):
         """Fit the box to the typed text, keeping its top edge in place."""
         if self.draft is None:
             return
+        if apply_line_spacing(self.editor.document(), self.draft):
+            return  # Spacing a new line changes the text again, which lands back here.
         height = int(self.editor.document().size().height() + 1)
         if height != self.draft["height"]:
             before = self.geometry(self.original).map(QPointF(0, 0))
