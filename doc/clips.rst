@@ -654,7 +654,7 @@ mouse. If you select 1 or more clips before pasting, you can paste "over" those 
 - **Tip:** Use this preset to replicate animations or effects across multiple clips.
 - **Tip:** Selecting multiple clips before pasting, sets keyframes and/or effects for all clips.
 - **Tip:** You can copy a single effect, and paste it to multiple selected clips.
-- **Tip:** For text clips, :guilabel:`Copy → Text Style` copies a text's look (font, colors, outline, border, corners and spacing) to paste onto other text clips. See :ref:`text_edit_style_ref`.
+- **Tip:** For text clips, :guilabel:`Copy → Text Style` copies a text's look (font, colors, outline, border, corners and spacing) to paste onto other text clips. :guilabel:`Copy → Keyframes → All` also includes a text clip's color, outline, border and corner keyframes. See :ref:`text_edit_style_ref`.
 
 Remove Gaps
 """""""""""
