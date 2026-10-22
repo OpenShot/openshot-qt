@@ -1,0 +1,380 @@
+# Translated with AI assistance (Claude) and reviewed; UI labels follow the official OpenShot Greek UI catalog.
+# Greek translation of the OpenShot Video Editor documentation.
+# Copyright (C) OpenShot Studios, LLC
+# This file is distributed under the same license as the OpenShot Video Editor package.
+# Ioannis-Stylianos Lafazanis <jslafazanis@gmail.com>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenShot Video Editor 4.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-27 00:00+0000\n"
+"PO-Revision-Date: 2026-10-20 15:50+0300\n"
+"Last-Translator: Ioannis-Stylianos Lafazanis <jslafazanis@gmail.com>\n"
+"Language-Team: Greek <el@li.org>\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../installation.rst:22
+msgid "Installation"
+msgstr "Εγκατάσταση"
+
+#: ../installation.rst:24
+msgid ""
+"The latest official **stable** version of OpenShot Video Editor for Linux, "
+"Mac, Chrome OS, and Windows can be downloaded from the official download "
+"page at https://www.openshot.org/download/. You can find our latest "
+"**unstable** versions (i.e. daily builds) at "
+"https://www.openshot.org/download#daily (these versions are updated very "
+"frequently, and often contain many improvements not yet released in our "
+"stable build)."
+msgstr ""
+"Η τελευταία επίσημη **σταθερή** έκδοση του OpenShot Video Editor για Linux, "
+"Mac, Chrome OS και Windows μπορεί να ληφθεί από την επίσημη σελίδα λήψεων "
+"στη διεύθυνση https://www.openshot.org/download/. Τις τελευταίες "
+"**ασταθείς** εκδόσεις (δηλαδή τις ημερήσιες εκδόσεις, daily builds) μπορείτε"
+" να τις βρείτε στη διεύθυνση https://www.openshot.org/download#daily (αυτές "
+"οι εκδόσεις ενημερώνονται πολύ συχνά και συχνά περιέχουν πολλές βελτιώσεις "
+"που δεν έχουν ακόμη κυκλοφορήσει στη σταθερή μας έκδοση)."
+
+#: ../installation.rst:32
+msgid "Clean Install"
+msgstr "Καθαρή εγκατάσταση"
+
+#: ../installation.rst:34
+msgid ""
+"If you are upgrading from a previous version of OpenShot or are experiencing"
+" a crash or error message after launching OpenShot, please see "
+":ref:`preferences_reset_ref` for instructions on clearing the previous "
+"``openshot.settings`` file (for a clean install with **default "
+"preferences**)."
+msgstr ""
+"Αν κάνετε αναβάθμιση από προηγούμενη έκδοση του OpenShot ή αντιμετωπίζετε "
+"κατάρρευση ή μήνυμα σφάλματος μετά την εκκίνηση του OpenShot, δείτε "
+":ref:`preferences_reset_ref` για οδηγίες σχετικά με τη διαγραφή του "
+"προηγούμενου αρχείου ``openshot.settings`` (για καθαρή εγκατάσταση με τις "
+"**προεπιλεγμένες προτιμήσεις**)."
+
+#: ../installation.rst:39
+msgid "Windows (Installer)"
+msgstr "Windows (πρόγραμμα εγκατάστασης)"
+
+#: ../installation.rst:41
+msgid ""
+"Download the Windows installer from the `official download page "
+"<https://www.openshot.org/download/>`_ (the download page contains both "
+"64-bit and 32-bit versions), double click it, and follow the directions on "
+"screen. Once completed, OpenShot will be installed and available in your "
+"Start menu."
+msgstr ""
+"Κατεβάστε το πρόγραμμα εγκατάστασης για Windows από την `επίσημη σελίδα "
+"λήψεων <https://www.openshot.org/download/>`_ (η σελίδα λήψεων περιέχει "
+"εκδόσεις 64 bit και 32 bit), κάντε διπλό κλικ σε αυτό και ακολουθήστε τις "
+"οδηγίες στην οθόνη. Όταν ολοκληρωθεί η διαδικασία, το OpenShot θα έχει "
+"εγκατασταθεί και θα είναι διαθέσιμο στο μενού Έναρξη (Start)."
+
+#: ../installation.rst:50
+msgid "Windows (Portable)"
+msgstr "Windows (φορητή έκδοση)"
+
+#: ../installation.rst:52
+msgid ""
+"If you need to install OpenShot on Windows without Administrator "
+"permissions, we also support a portable installation process. Download the "
+"Windows installer from the `official download page "
+"<https://www.openshot.org/download/>`_, open the command prompt, and type "
+"the following commands:"
+msgstr ""
+"Αν χρειάζεται να εγκαταστήσετε το OpenShot στα Windows χωρίς δικαιώματα "
+"διαχειριστή, υποστηρίζουμε επίσης μια διαδικασία φορητής εγκατάστασης. "
+"Κατεβάστε το πρόγραμμα εγκατάστασης για Windows από την `επίσημη σελίδα "
+"λήψεων <https://www.openshot.org/download/>`_, ανοίξτε τη γραμμή εντολών "
+"(command prompt) και πληκτρολογήστε τις ακόλουθες εντολές:"
+
+#: ../installation.rst:67 ../installation.rst:185
+msgid "Mac"
+msgstr "Mac"
+
+#: ../installation.rst:69
+msgid ""
+"Download the DMG file from the `official download page "
+"<https://www.openshot.org/download/>`_, double click it, and then drag the "
+"OpenShot application icon into your **Applications** shortcut. This is very "
+"similar to how most Mac applications are installed. Now launch OpenShot from"
+" `Launchpad` or `Applications` in Finder."
+msgstr ""
+"Κατεβάστε το αρχείο DMG από την `επίσημη σελίδα λήψεων "
+"<https://www.openshot.org/download/>`_, κάντε διπλό κλικ σε αυτό και, στη "
+"συνέχεια, σύρετε το εικονίδιο της εφαρμογής OpenShot στη συντόμευση "
+"**Εφαρμογές** (Applications). Η διαδικασία είναι πολύ παρόμοια με τον τρόπο "
+"εγκατάστασης των περισσότερων εφαρμογών Mac. Τώρα εκκινήστε το OpenShot από "
+"το `Launchpad` ή από τις `Εφαρμογές` (Applications) στο Finder."
+
+#: ../installation.rst:74
+msgid ""
+"The current Mac download is built for Intel Macs. On an Apple Silicon Mac, "
+"you can run this Intel version using Rosetta. A native Apple Silicon version"
+" is not currently available."
+msgstr ""
+"Η τρέχουσα λήψη για Mac έχει δημιουργηθεί για Mac με επεξεργαστή Intel. Σε "
+"Mac με Apple Silicon, μπορείτε να εκτελέσετε αυτή την έκδοση για Intel μέσω "
+"του Rosetta. Μια εγγενής έκδοση για Apple Silicon δεν είναι προς το παρόν "
+"διαθέσιμη."
+
+#: ../installation.rst:81
+msgid "Linux (AppImage)"
+msgstr "Linux (AppImage)"
+
+#: ../installation.rst:83
+msgid ""
+"Most Linux distributions have a version of OpenShot in their software "
+"repositories, which can be installed using your package manager / software "
+"store. However, these packaged versions are often very outdated (be sure to "
+"check the version number: :guilabel:`Help→About OpenShot`). For this reason,"
+" we recommend installing an AppImage from the `official download page "
+"<https://www.openshot.org/download/>`_."
+msgstr ""
+"Οι περισσότερες διανομές Linux διαθέτουν μια έκδοση του OpenShot στα "
+"αποθετήρια λογισμικού τους, η οποία μπορεί να εγκατασταθεί με τον "
+"διαχειριστή πακέτων ή το κατάστημα λογισμικού. Ωστόσο, αυτές οι "
+"πακεταρισμένες εκδόσεις είναι συχνά πολύ παλιές (φροντίστε να ελέγξετε τον "
+"αριθμό έκδοσης: :guilabel:`Βοήθεια→Περί του OpenShot` (Help→About "
+"OpenShot)). Για τον λόγο αυτό, συνιστούμε την εγκατάσταση ενός AppImage από "
+"την `επίσημη σελίδα λήψεων <https://www.openshot.org/download/>`_."
+
+#: ../installation.rst:89
+msgid ""
+"Once downloaded, right click on the AppImage, choose Properties, and mark "
+"the file as **Executable**. Finally, double click the AppImage to launch "
+"OpenShot. If double clicking does not launch OpenShot, you can also right "
+"click on the AppImage, and choose `Execute` or `Run`. For a detailed guide "
+"on installing our AppImage and creating a launcher for it, see our `AppImage"
+" Installation Guide <https://github.com/OpenShot/openshot-qt/wiki/AppImage-"
+"Installation>`_."
+msgstr ""
+"Μόλις ολοκληρωθεί η λήψη, κάντε δεξί κλικ στο AppImage, επιλέξτε Ιδιότητες "
+"(Properties) και ορίστε το αρχείο ως **Εκτελέσιμο** (Executable). Τέλος, "
+"κάντε διπλό κλικ στο AppImage για να εκκινήσετε το OpenShot. Αν το διπλό "
+"κλικ δεν εκκινεί το OpenShot, μπορείτε επίσης να κάνετε δεξί κλικ στο "
+"AppImage και να επιλέξετε `Εκτέλεση` (Execute) ή `Εκκίνηση` (Run). Για έναν "
+"αναλυτικό οδηγό σχετικά με την εγκατάσταση του AppImage και τη δημιουργία "
+"εκκινητή για αυτό, δείτε τον `Οδηγό εγκατάστασης AppImage "
+"<https://github.com/OpenShot/openshot-qt/wiki/AppImage-Installation>`_."
+
+#: ../installation.rst:98
+msgid "Unable to Launch AppImage?"
+msgstr "Αδυναμία εκκίνησης του AppImage;"
+
+#: ../installation.rst:99
+msgid ""
+"Please verify that the ``libfuse2`` library is installed, which is required "
+"to mount and read an AppImage. On newer versions of Ubuntu (i.e. 22.04+), "
+"``libfuse2`` is not installed by default. You can install it with the "
+"following command:"
+msgstr ""
+"Βεβαιωθείτε ότι η βιβλιοθήκη ``libfuse2`` είναι εγκατεστημένη, καθώς "
+"απαιτείται για την προσάρτηση και την ανάγνωση ενός AppImage. Στις νεότερες "
+"εκδόσεις του Ubuntu (δηλαδή 22.04+), η ``libfuse2`` δεν είναι εγκατεστημένη "
+"από προεπιλογή. Μπορείτε να την εγκαταστήσετε με την ακόλουθη εντολή:"
+
+#: ../installation.rst:108
+msgid "Install AppImage Launcher"
+msgstr "Εγκατάσταση του AppImageLauncher"
+
+#: ../installation.rst:109
+msgid ""
+"If you plan on using OpenShot often, you will probably want an integrated "
+"launcher for our AppImage. We recommend using AppImageLauncher, which is the"
+" officially supported way to launch (and manage) AppImage files on your "
+"Linux desktop. If you are on a Debian-based distro (Ubuntu, Mint, etc...), "
+"there is an official AppImageLauncher PPA:"
+msgstr ""
+"Αν σκοπεύετε να χρησιμοποιείτε συχνά το OpenShot, πιθανότατα θα θέλετε έναν "
+"ενσωματωμένο εκκινητή για το AppImage μας. Συνιστούμε τη χρήση του "
+"AppImageLauncher, που είναι ο επίσημα υποστηριζόμενος τρόπος εκκίνησης (και "
+"διαχείρισης) αρχείων AppImage στην επιφάνεια εργασίας Linux. Αν "
+"χρησιμοποιείτε διανομή βασισμένη στο Debian (Ubuntu, Mint κ.λπ.), υπάρχει "
+"επίσημο PPA για το AppImageLauncher:"
+
+#: ../installation.rst:121
+msgid "Linux (PPA)"
+msgstr "Linux (PPA)"
+
+#: ../installation.rst:123
+msgid ""
+"For Debian-based Linux distributions (Ubuntu, Mint, etc...), we also have a "
+"PPA (Personal Package Archive), which adds our official OpenShot software "
+"repository to your package manager, making it possible to install our latest"
+" version, without relying on our AppImages."
+msgstr ""
+"Για διανομές Linux βασισμένες στο Debian (Ubuntu, Mint κ.λπ.), διαθέτουμε "
+"επίσης ένα PPA (Personal Package Archive, δηλαδή Αρχείο προσωπικών πακέτων),"
+" το οποίο προσθέτει το επίσημο αποθετήριο λογισμικού του OpenShot στον "
+"διαχειριστή πακέτων σας, επιτρέποντας την εγκατάσταση της τελευταίας μας "
+"έκδοσης χωρίς να εξαρτάστε από τα AppImage."
+
+#: ../installation.rst:128
+msgid "Stable PPA (Contains only official releases)"
+msgstr "Σταθερό PPA (περιέχει μόνο επίσημες εκδόσεις)"
+
+#: ../installation.rst:137
+msgid "Daily PPA (Highly experimental and unstable, for testers)"
+msgstr "Ημερήσιο PPA (εξαιρετικά πειραματικό και ασταθές, για δοκιμαστές)"
+
+#: ../installation.rst:146
+msgid "Chrome OS (Chromebook)"
+msgstr "Chrome OS (Chromebook)"
+
+#: ../installation.rst:148
+msgid ""
+"Chrome OS supports Linux apps, but this feature is off by default. You can "
+"turn it on in *Settings*. Once Linux is enabled, you can install and run "
+"OpenShot Linux AppImages on any *x86-based* Chromebook. The command below "
+"will download our AppImage and configure your system to run OpenShot "
+"successfully."
+msgstr ""
+"Το Chrome OS υποστηρίζει εφαρμογές Linux, αλλά αυτή η δυνατότητα είναι "
+"απενεργοποιημένη από προεπιλογή. Μπορείτε να την ενεργοποιήσετε στις "
+"*Ρυθμίσεις* (Settings). Μόλις ενεργοποιηθεί το Linux, μπορείτε να "
+"εγκαταστήσετε και να εκτελέσετε AppImage του OpenShot για Linux σε "
+"οποιοδήποτε Chromebook *βασισμένο σε x86*. Η παρακάτω εντολή θα κατεβάσει το"
+" AppImage και θα ρυθμίσει το σύστημά σας ώστε να εκτελεί επιτυχώς το "
+"OpenShot."
+
+#: ../installation.rst:153
+msgid "Navigate to *chrome://os-settings/crostini* (Copy/Paste)"
+msgstr ""
+"Μεταβείτε στη διεύθυνση *chrome://os-settings/crostini* "
+"(αντιγραφή/επικόλληση)"
+
+#: ../installation.rst:154
+msgid "Under \"Linux (Beta)\" select \"Turn On\". Default values are fine."
+msgstr ""
+"Στην ενότητα «Linux (Beta)» επιλέξτε «Ενεργοποίηση» (Turn On). Οι "
+"προεπιλεγμένες τιμές είναι κατάλληλες."
+
+#: ../installation.rst:156
+msgid ""
+"When the Terminal appears (i.e. black window), Copy/Paste the following "
+"command:"
+msgstr ""
+"Όταν εμφανιστεί το Τερματικό (Terminal) (δηλαδή ένα μαύρο παράθυρο), "
+"αντιγράψτε και επικολλήστε την ακόλουθη εντολή:"
+
+#: ../installation.rst:156
+msgid ""
+"``bash <(wget -O - http://openshot.org/files/chromeos/install-stable.sh)``"
+msgstr ""
+
+#: ../installation.rst:159
+msgid "Previous Versions"
+msgstr "Προηγούμενες εκδόσεις"
+
+#: ../installation.rst:161
+msgid ""
+"To download old versions of OpenShot Video Editor, you can visit "
+"https://github.com/OpenShot/openshot-qt/tags. Click on the version number "
+"you need, and scroll to the bottom, under the release notes. You will find "
+"download links for each operating system. Download the appropriate version "
+"for your computer, and follow the installation instructions above."
+msgstr ""
+"Για να κατεβάσετε παλαιότερες εκδόσεις του OpenShot Video Editor, μπορείτε "
+"να επισκεφθείτε τη διεύθυνση https://github.com/OpenShot/openshot-qt/tags. "
+"Κάντε κλικ στον αριθμό της έκδοσης που χρειάζεστε και μετακινηθείτε στο "
+"τέλος της σελίδας, κάτω από τις σημειώσεις έκδοσης. Εκεί θα βρείτε "
+"συνδέσμους λήψης για κάθε λειτουργικό σύστημα. Κατεβάστε την κατάλληλη "
+"έκδοση για τον υπολογιστή σας και ακολουθήστε τις οδηγίες εγκατάστασης που "
+"περιγράφονται παραπάνω."
+
+#: ../installation.rst:166
+msgid ""
+"NOTE: Projects (\\*.osp) made with newer versions of OpenShot Video Editor "
+"might not support older versions."
+msgstr ""
+"ΣΗΜΕΙΩΣΗ: Τα έργα (\\*.osp) που δημιουργούνται με νεότερες εκδόσεις του "
+"OpenShot Video Editor ενδέχεται να μην υποστηρίζονται από παλαιότερες "
+"εκδόσεις."
+
+#: ../installation.rst:169
+msgid "Uninstall"
+msgstr "Απεγκατάσταση"
+
+#: ../installation.rst:171
+msgid ""
+"To fully uninstall OpenShot from your system, you must **manually delete** "
+"the ``.openshot_qt`` folder: ``~/.openshot_qt/`` or "
+"``C:\\Users\\USERNAME\\.openshot_qt\\``, which contains all settings and "
+"files used by OpenShot. Be sure to **backup** any recovery files of your "
+"existing projects first (\\*.osp files). Please see "
+":ref:`preferences_reset_ref` for instructions on clearing the previous "
+"``openshot.settings`` file (for a clean install with **default "
+"preferences**)."
+msgstr ""
+"Για να απεγκαταστήσετε πλήρως το OpenShot από το σύστημά σας, πρέπει να "
+"**διαγράψετε χειροκίνητα** τον φάκελο ``.openshot_qt``: ``~/.openshot_qt/`` "
+"ή ``C:\\Users\\USERNAME\\.openshot_qt\\``, ο οποίος περιέχει όλες τις "
+"ρυθμίσεις και τα αρχεία που χρησιμοποιεί το OpenShot. Φροντίστε πρώτα να "
+"κάνετε **αντίγραφο ασφαλείας** όλων των αρχείων ανάκτησης των υπαρχόντων "
+"έργων σας (αρχεία \\*.osp). Δείτε :ref:`preferences_reset_ref` για οδηγίες "
+"σχετικά με τη διαγραφή του προηγούμενου αρχείου ``openshot.settings`` (για "
+"καθαρή εγκατάσταση με τις **προεπιλεγμένες προτιμήσεις**)."
+
+#: ../installation.rst:178
+msgid "Windows"
+msgstr "Windows"
+
+#: ../installation.rst:180
+msgid "Open **Control Panel** from the Start menu"
+msgstr ""
+"Ανοίξτε τον **Πίνακα Ελέγχου** (Control Panel) από το μενού Έναρξη (Start)"
+
+#: ../installation.rst:181
+msgid "Click on **Programs and Features**"
+msgstr ""
+"Κάντε κλικ στο **Προγράμματα και δυνατότητες** (Programs and Features)"
+
+#: ../installation.rst:182
+msgid "Select OpenShot Video Editor, then click **Uninstall**"
+msgstr ""
+"Επιλέξτε το OpenShot Video Editor και κάντε κλικ στο **Κατάργηση "
+"εγκατάστασης** (Uninstall)"
+
+#: ../installation.rst:187
+msgid "Open **Finder** and go to **Applications**"
+msgstr "Ανοίξτε το **Finder** και μεταβείτε στις **Εφαρμογές** (Applications)"
+
+#: ../installation.rst:188
+msgid "Drag the OpenShot Video Editor icon to the **Trash** in the Dock"
+msgstr ""
+"Σύρετε το εικονίδιο του OpenShot Video Editor στον **Κάδο απορριμμάτων** "
+"(Trash) στο Dock"
+
+#: ../installation.rst:189
+msgid "Right-click **Trash** and choose **Empty Trash**"
+msgstr ""
+"Κάντε δεξί κλικ στον **Κάδο απορριμμάτων** (Trash) και επιλέξτε **Άδειασμα "
+"Κάδου** (Empty Trash)"
+
+#: ../installation.rst:192
+msgid "Ubuntu (Linux)"
+msgstr "Ubuntu (Linux)"
+
+#: ../installation.rst:194
+msgid "Open up **Files**"
+msgstr "Ανοίξτε τα **Αρχεία** (Files)"
+
+#: ../installation.rst:195
+msgid "Locate the ``*.AppImage`` and delete the file"
+msgstr "Εντοπίστε το ``*.AppImage`` και διαγράψτε το αρχείο"
+
+#: ../installation.rst:196
+msgid ""
+"OR click Activities, Right-click on OpenShot Video Editor icon, and choose "
+"**Remove AppImage from System**"
+msgstr ""
+"Ή κάντε κλικ στις Δραστηριότητες (Activities), κάντε δεξί κλικ στο εικονίδιο"
+" του OpenShot Video Editor και επιλέξτε **Αφαίρεση του AppImage από το "
+"σύστημα** (Remove AppImage from System)"

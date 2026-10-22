@@ -1,0 +1,387 @@
+# Translated with AI assistance (Claude) and reviewed; UI labels follow the official OpenShot Greek UI catalog.
+# Greek translation of the OpenShot Video Editor documentation.
+# Copyright (C) OpenShot Studios, LLC
+# This file is distributed under the same license as the OpenShot Video Editor package.
+# Ioannis-Stylianos Lafazanis <jslafazanis@gmail.com>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenShot Video Editor 4.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-27 00:00+0000\n"
+"PO-Revision-Date: 2026-10-20 15:50+0300\n"
+"Last-Translator: Ioannis-Stylianos Lafazanis <jslafazanis@gmail.com>\n"
+"Language-Team: Greek <el@li.org>\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../introduction.rst:21
+msgid "Introduction"
+msgstr "Εισαγωγή"
+
+#: ../introduction.rst:23
+msgid ""
+"OpenShot Video Editor is an award-winning, open-source video editor, "
+"available on Linux, macOS, Chrome OS, and Windows. OpenShot can create "
+"stunning videos, films, and animations with an easy-to-use interface and "
+"rich feature-set."
+msgstr ""
+"Το OpenShot Video Editor είναι ένα βραβευμένο πρόγραμμα επεξεργασίας βίντεο "
+"ανοιχτού κώδικα, διαθέσιμο για Linux, macOS, Chrome OS και Windows. Με το "
+"OpenShot μπορείτε να δημιουργήσετε εντυπωσιακά βίντεο, ταινίες και κινούμενα"
+" γραφικά, με μια εύχρηστη διεπαφή και πλούσιο σύνολο λειτουργιών."
+
+#: ../introduction.rst:30
+msgid "Features"
+msgstr "Χαρακτηριστικά"
+
+#: ../introduction.rst:31
+msgid "**Free & open-source** (licensed under GPLv3)"
+msgstr "**Δωρεάν και ανοιχτού κώδικα** (με άδεια GPLv3)"
+
+#: ../introduction.rst:32
+msgid "**Cross-platform** (Linux, macOS, Chrome OS, and Windows)"
+msgstr "**Πολυπλατφορμικό** (Linux, macOS, Chrome OS και Windows)"
+
+#: ../introduction.rst:33
+msgid "**Easy-to-use UI** (beginner-friendly, built-in tutorial)"
+msgstr ""
+"**Εύχρηστη διεπαφή** (φιλική προς αρχάριους, με ενσωματωμένο οδηγό "
+"εκμάθησης)"
+
+#: ../introduction.rst:34
+msgid "**Supports most formats** (video, audio, images - FFmpeg-based)"
+msgstr ""
+"**Υποστήριξη για τις περισσότερες μορφές αρχείων** (βίντεο, ήχος, εικόνες - "
+"βασισμένη στο FFmpeg)"
+
+#: ../introduction.rst:35
+msgid ""
+"**70+ export targets & profiles** (YouTube, TikTok, Reels, Shorts, and more)"
+msgstr ""
+"**Πάνω από 70 προορισμοί και προφίλ εξαγωγής** (YouTube, TikTok, Reels, "
+"Shorts και άλλα)"
+
+#: ../introduction.rst:36
+msgid "**Advanced timeline** (drag-drop, scroll, zoom, snap)"
+msgstr ""
+"**Προηγμένο χρονολόγιο** (μεταφορά και απόθεση, κύλιση, μεγέθυνση, "
+"προσκόλληση)"
+
+#: ../introduction.rst:37
+msgid "**Advanced clips** (trim, alpha, scale, rotate, shear, transform)"
+msgstr ""
+"**Προηγμένα κλιπ** (περικοπή άκρων, διαφάνεια (alpha), κλίμακα, περιστροφή, "
+"διάτμηση, μετασχηματισμός)"
+
+#: ../introduction.rst:38
+msgid "**Real-time preview** (multi-threaded, performance-optimized)"
+msgstr ""
+"**Προεπισκόπηση σε πραγματικό χρόνο** (πολυνηματική, βελτιστοποιημένη ως "
+"προς την απόδοση)"
+
+#: ../introduction.rst:39
+msgid ""
+"**Multiple workspace modes** (Simple and Color views, plus save your own)"
+msgstr ""
+"**Πολλαπλοί τρόποι χώρου εργασίας** (προβολές Απλή (Simple) και Χρώματος "
+"(Color), καθώς και δυνατότητα αποθήκευσης δικών σας)"
+
+#: ../introduction.rst:40
+msgid ""
+"**Keyframe animations & panel** (`linear`, `bézier`, `constant` "
+"interpolation, visual keyframe panel)"
+msgstr ""
+"**Εφέ κίνησης με βασικά καρέ και πάνελ** (παρεμβολή `linear`, `bézier`, "
+"`constant`, οπτικό πάνελ βασικών καρέ)"
+
+#: ../introduction.rst:41
+msgid "**One-click presets** (motion, fade, look, camera, color, and more)"
+msgstr ""
+"**Προρυθμίσεις (presets) με ένα κλικ** (κίνηση, βαθμιαία είσοδος/έξοδος "
+"(fade), εμφάνιση, κάμερα, χρώμα και άλλα)"
+
+#: ../introduction.rst:42
+msgid "**Compositing, overlays, watermarks, transparency**"
+msgstr "**Σύνθεση, επικαλύψεις, υδατογραφήματα, διαφάνεια**"
+
+#: ../introduction.rst:43
+msgid "**Unlimited tracks / layers** (for complex projects)"
+msgstr "**Απεριόριστοι διάδρομοι / επίπεδα** (για σύνθετα έργα)"
+
+#: ../introduction.rst:44
+msgid "**Transitions, masks, wipes** (grayscale images, animated masks)"
+msgstr ""
+"**Μεταβάσεις, μάσκες, σαρώσεις (wipes)** (εικόνες κλίμακας του γκρι, "
+"κινούμενες μάσκες)"
+
+#: ../introduction.rst:45
+msgid ""
+"**Video effects** (chroma key, blur, brightness & contrast, film grain, "
+"stabilizer, and more)"
+msgstr ""
+"**Εφέ βίντεο** (κλειδί χρώματος (chroma key), θόλωμα, φωτεινότητα και "
+"αντίθεση, κόκκος φιλμ, σταθεροποιητής και άλλα)"
+
+#: ../introduction.rst:46
+msgid ""
+"**Audio effects** (compressor, expander, noise removal, echo, and more)"
+msgstr ""
+"**Εφέ ήχου** (συμπιεστής, επεκτατής δυναμικής, αφαίρεση θορύβου, ηχώ και "
+"άλλα)"
+
+#: ../introduction.rst:47
+msgid ""
+"**Color grading** (color wheels, RGB curves, LUT support, video scopes & "
+"analysis)"
+msgstr ""
+"**Χρωματική διαβάθμιση (color grading)** (χρωματικοί τροχοί, καμπύλες RGB, "
+"υποστήριξη LUT, εργαλεία μέτρησης βίντεο (scopes) και ανάλυση)"
+
+#: ../introduction.rst:48
+msgid "**Image sequences & 2D animations**"
+msgstr "**Ακολουθίες εικόνων και κινούμενα γραφικά 2D**"
+
+#: ../introduction.rst:49
+msgid "**Blender 3D integration** (animated 3D title templates)"
+msgstr "**Ενσωμάτωση του Blender 3D** (πρότυπα κινούμενων τίτλων 3D)"
+
+#: ../introduction.rst:50
+msgid ""
+"**Vector file support & editing** (SVG for titles, lower thirds, text "
+"overlays)"
+msgstr ""
+"**Υποστήριξη και επεξεργασία διανυσματικών αρχείων** (SVG για τίτλους, κάτω "
+"τρίτα (lower thirds), επικαλύψεις κειμένου)"
+
+#: ../introduction.rst:51
+msgid "**Audio mixing, waveform, editing**"
+msgstr "**Μίξη ήχου, κυματομορφή, επεξεργασία**"
+
+#: ../introduction.rst:52
+msgid "**Emojis** (open-source stickers & artwork)"
+msgstr "**Emoji** (αυτοκόλλητα και εικαστικά ανοιχτού κώδικα)"
+
+#: ../introduction.rst:53
+msgid "**Frame accuracy** (per-frame navigation)"
+msgstr "**Ακρίβεια καρέ** (πλοήγηση ανά καρέ)"
+
+#: ../introduction.rst:54
+msgid ""
+"**Time re-mapping & speed changes** (slow motion, repeat, loop, ping-pong, "
+"forward/backward)"
+msgstr ""
+"**Επαναχρονισμός (time re-mapping) και αλλαγές ταχύτητας** (αργή κίνηση, "
+"επανάληψη, βρόχος, ping-pong, εμπρός/πίσω)"
+
+#: ../introduction.rst:55
+msgid "**Built-in AI** (motion tracking, object detection, stabilization)"
+msgstr ""
+"**Ενσωματωμένη τεχνητή νοημοσύνη** (παρακολούθηση κίνησης, ανίχνευση "
+"αντικειμένων, σταθεροποίηση)"
+
+#: ../introduction.rst:56
+msgid "**Advanced AI** (see :ref:`ai_ref`)"
+msgstr "**Προηγμένη τεχνητή νοημοσύνη** (βλ. :ref:`ai_ref`)"
+
+#: ../introduction.rst:58
+msgid ""
+"**Tracking & masks** (object tracking, animated mask generation, auto-blur, "
+"auto-highlight)"
+msgstr ""
+"**Παρακολούθηση και μάσκες** (παρακολούθηση αντικειμένων, δημιουργία "
+"κινούμενων μασκών, αυτόματο θόλωμα, αυτόματη επισήμανση)"
+
+#: ../introduction.rst:59
+msgid ""
+"**Image & video generation** (text-to-image, image style transfer, "
+"text/image-to-video)"
+msgstr ""
+"**Δημιουργία εικόνων και βίντεο** (κείμενο σε εικόνα, μεταφορά στυλ εικόνας,"
+" κείμενο/εικόνα σε βίντεο)"
+
+#: ../introduction.rst:60
+msgid ""
+"**Quality enhancement** (upscaling, frame interpolation/increase frame rate)"
+msgstr ""
+"**Βελτίωση ποιότητας** (αναβάθμιση ανάλυσης (upscaling), παρεμβολή καρέ / "
+"αύξηση του ρυθμού καρέ)"
+
+#: ../introduction.rst:61
+msgid ""
+"**Analysis & automation** (auto scene splitting, speech "
+"transcription/captions)"
+msgstr ""
+"**Ανάλυση και αυτοματισμός** (αυτόματος διαχωρισμός σκηνών, μεταγραφή "
+"ομιλίας / λεζάντες)"
+
+#: ../introduction.rst:62
+msgid "**Audio generation** (sound and music generation)"
+msgstr "**Δημιουργία ήχου** (δημιουργία ήχων και μουσικής)"
+
+#: ../introduction.rst:63
+msgid "*Additional workflows can be added with custom ComfyUI templates*"
+msgstr ""
+"*Μπορείτε να προσθέσετε επιπλέον ροές εργασίας με προσαρμοσμένα πρότυπα "
+"ComfyUI*"
+
+#: ../introduction.rst:64
+msgid "**Credits & captions** (scrolling, animated)"
+msgstr "**Τίτλοι τέλους και λεζάντες** (κυλιόμενα, κινούμενα)"
+
+#: ../introduction.rst:65
+msgid "**Hardware acceleration** (NVIDIA, AMD, Intel, etc.)"
+msgstr "**Επιτάχυνση υλικού** (NVIDIA, AMD, Intel κ.ά.)"
+
+#: ../introduction.rst:66
+msgid "**Import & export** (EDL, Final Cut Pro)"
+msgstr "**Εισαγωγή και εξαγωγή** (EDL, Final Cut Pro)"
+
+#: ../introduction.rst:67
+msgid "**Desktop integration** (drag-drop from file managers)"
+msgstr ""
+"**Ενσωμάτωση στην επιφάνεια εργασίας** (μεταφορά και απόθεση από "
+"διαχειριστές αρχείων)"
+
+#: ../introduction.rst:68
+msgid ""
+"**JSON project format** (`OpenShot Cloud API "
+"<https://www.openshot.org/cloud-api/>`_ compatible)"
+msgstr ""
+"**Μορφή έργου JSON** (συμβατή με το `OpenShot Cloud API "
+"<https://www.openshot.org/cloud-api/>`_)"
+
+#: ../introduction.rst:69
+msgid "**Customizable shortcuts**"
+msgstr "**Προσαρμόσιμες συντομεύσεις πληκτρολογίου**"
+
+#: ../introduction.rst:70
+msgid "**Translations** (100+ languages)"
+msgstr "**Μεταφράσεις** (100+ γλώσσες)"
+
+#: ../introduction.rst:71
+msgid "**High DPI** monitor support"
+msgstr "Υποστήριξη οθονών **High DPI**"
+
+#: ../introduction.rst:72
+msgid ""
+"**Community support** (`Visit our forum <https://openshot.org/forum/>`_)"
+msgstr ""
+"**Υποστήριξη από την κοινότητα** (`Επισκεφθείτε το φόρουμ μας "
+"<https://openshot.org/forum/>`_)"
+
+#: ../introduction.rst:75
+msgid "Screenshot"
+msgstr "Στιγμιότυπο οθόνης"
+
+#: ../introduction.rst:81
+msgid "System Requirements"
+msgstr "Απαιτήσεις συστήματος"
+
+#: ../introduction.rst:82
+msgid ""
+"Video editing benefits from modern, multi-core CPUs with **fast clock "
+"speeds** (GHz), large amounts of memory, and fast hard disk drives. "
+"Basically, you want the best computer you can afford when video editing. "
+"Here are the **minimum system requirements**:"
+msgstr ""
+"Η επεξεργασία βίντεο ωφελείται από σύγχρονους πολυπύρηνους επεξεργαστές "
+"(CPU) με **υψηλή ταχύτητα ρολογιού** (GHz), μεγάλη ποσότητα μνήμης και "
+"γρήγορους σκληρούς δίσκους. Βασικά, για την επεξεργασία βίντεο χρειάζεστε "
+"τον καλύτερο υπολογιστή που μπορείτε να αντέξετε οικονομικά. Οι **ελάχιστες "
+"απαιτήσεις συστήματος** είναι οι εξής:"
+
+#: ../introduction.rst:87
+msgid "TL;DR"
+msgstr "Εν συντομία"
+
+#: ../introduction.rst:88
+msgid "Most computers manufactured after 2017 will run OpenShot"
+msgstr ""
+"Οι περισσότεροι υπολογιστές που κατασκευάστηκαν μετά το 2017 μπορούν να "
+"εκτελέσουν το OpenShot"
+
+#: ../introduction.rst:91
+msgid "Minimum Specifications"
+msgstr "Ελάχιστες προδιαγραφές"
+
+#: ../introduction.rst:92
+msgid "64-bit Operating System (*Linux, macOS, Chrome OS, Windows 7/8/10/11*)"
+msgstr ""
+"Λειτουργικό σύστημα 64 bit (*Linux, macOS, Chrome OS, Windows 7/8/10/11*)"
+
+#: ../introduction.rst:95
+msgid "Multi-core processor with 64-bit support"
+msgstr "Πολυπύρηνος επεξεργαστής με υποστήριξη 64 bit"
+
+#: ../introduction.rst:94
+msgid "Minimum cores: 2 (*recommended: 6+ cores*)"
+msgstr "Ελάχιστος αριθμός πυρήνων: 2 (*συνιστώνται: 6+ πυρήνες*)"
+
+#: ../introduction.rst:95
+msgid "Minimum threads: 4 (*recommended: 6+ threads*)"
+msgstr "Ελάχιστος αριθμός νημάτων: 4 (*συνιστώνται: 6+ νήματα*)"
+
+#: ../introduction.rst:96
+msgid "Minimum turbo clock speed: 2.7 Ghz (*recommended: 3.4+ Ghz*)"
+msgstr "Ελάχιστη ταχύτητα ρολογιού turbo: 2.7 Ghz (*συνιστάται: 3.4+ Ghz*)"
+
+#: ../introduction.rst:97
+msgid "4GB of RAM (*16+ GB recommended*)"
+msgstr "4GB μνήμης RAM (*συνιστώνται 16+ GB*)"
+
+#: ../introduction.rst:98
+msgid ""
+"1 GB of hard-disk space for installation & usage (*recommended: 50+ GB "
+"available hard-disk space for media, videos, images, and storage*)"
+msgstr ""
+"1 GB χώρου στον σκληρό δίσκο για την εγκατάσταση και τη χρήση (*συνιστώνται:"
+" 50+ GB διαθέσιμου χώρου στον σκληρό δίσκο για πολυμέσα, βίντεο, εικόνες και"
+" αποθήκευση*)"
+
+#: ../introduction.rst:99
+msgid ""
+"Optional: Solid-state drive (SSD), if utilizing disk-caching add an "
+"additional 10GB of hard-disk space"
+msgstr ""
+"Προαιρετικά: δίσκος στερεάς κατάστασης (SSD)· αν χρησιμοποιείτε προσωρινή "
+"αποθήκευση στον δίσκο (disk caching), προσθέστε επιπλέον 10GB χώρου στον "
+"σκληρό δίσκο"
+
+#: ../introduction.rst:100
+msgid "For factors related to real-time previews, see :ref:`playback_ref`."
+msgstr ""
+"Για παράγοντες που σχετίζονται με την προεπισκόπηση σε πραγματικό χρόνο, "
+"δείτε :ref:`playback_ref`."
+
+#: ../introduction.rst:103
+msgid "License"
+msgstr "Άδεια χρήσης"
+
+#: ../introduction.rst:104
+msgid ""
+"OpenShot Video Editor is free software: you can redistribute it and/or "
+"modify it under the terms of the GNU General Public License as published by "
+"the Free Software Foundation, either version 3 of the License, or (at your "
+"option) any later version."
+msgstr ""
+"Το OpenShot Video Editor είναι ελεύθερο λογισμικό: μπορείτε να το "
+"αναδιανείμετε ή/και να το τροποποιήσετε σύμφωνα με τους όρους της Γενικής "
+"Δημόσιας Άδειας GNU (GNU General Public License), όπως δημοσιεύεται από το "
+"Ίδρυμα Ελεύθερου Λογισμικού (Free Software Foundation), είτε της έκδοσης 3 "
+"της Άδειας είτε (κατά την επιλογή σας) οποιασδήποτε μεταγενέστερης έκδοσης."
+
+#: ../introduction.rst:109
+msgid ""
+"OpenShot Video Editor is distributed in the hope that it will be useful, but"
+" WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
+"or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for"
+" more details."
+msgstr ""
+"Το OpenShot Video Editor διανέμεται με την ελπίδα ότι θα είναι χρήσιμο, αλλά"
+" ΧΩΡΙΣ ΚΑΜΙΑ ΕΓΓΥΗΣΗ· ακόμη και χωρίς τη σιωπηρή εγγύηση ΕΜΠΟΡΕΥΣΙΜΟΤΗΤΑΣ ή "
+"ΚΑΤΑΛΛΗΛΟΤΗΤΑΣ ΓΙΑ ΣΥΓΚΕΚΡΙΜΕΝΟ ΣΚΟΠΟ. Για περισσότερες λεπτομέρειες, δείτε "
+"τη Γενική Δημόσια Άδεια GNU."

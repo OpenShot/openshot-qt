@@ -1,0 +1,82 @@
+# Translated with AI assistance (Claude) and reviewed; UI labels follow the official OpenShot Greek UI catalog.
+# Greek translation of the OpenShot Video Editor documentation.
+# Copyright (C) OpenShot Studios, LLC
+# This file is distributed under the same license as the OpenShot Video Editor package.
+# Ioannis-Stylianos Lafazanis <jslafazanis@gmail.com>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenShot Video Editor 4.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-27 00:00+0000\n"
+"PO-Revision-Date: 2026-10-20 15:50+0300\n"
+"Last-Translator: Ioannis-Stylianos Lafazanis <jslafazanis@gmail.com>\n"
+"Language-Team: Greek <el@li.org>\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../learn_more.rst:23
+msgid "Learn More"
+msgstr "Μάθετε περισσότερα"
+
+#: ../learn_more.rst:24
+msgid ""
+"We are working hard to expand this user guide and to improve OpenShot Video "
+"Editor, but if you are stuck and don't know where to turn, OpenShot has "
+"several sources for additional information."
+msgstr ""
+"Εργαζόμαστε σκληρά για να επεκτείνουμε αυτόν τον οδηγό χρήσης και να "
+"βελτιώσουμε το OpenShot Video Editor, αλλά αν έχετε κολλήσει και δεν ξέρετε "
+"πού να απευθυνθείτε, το OpenShot διαθέτει αρκετές πηγές για επιπλέον "
+"πληροφορίες."
+
+#: ../learn_more.rst:27
+msgid ""
+"OpenShot has several `YouTube Tutorials "
+"<https://www.youtube.com/playlist?list=PLymupH2aoNQNezYzv2lhSwvoyZgLp1Q0T>`_"
+" available to help you learn more."
+msgstr ""
+"Το OpenShot διαθέτει αρκετά `Βίντεο εκμάθησης στο YouTube "
+"<https://www.youtube.com/playlist?list=PLymupH2aoNQNezYzv2lhSwvoyZgLp1Q0T>`_"
+" που σας βοηθούν να μάθετε περισσότερα."
+
+#: ../learn_more.rst:28
+msgid ""
+"OpenShot has a `Reddit User Community <https://openshot.org/forum>`_ "
+"dedicated to users helping users, answering questions, and discussing video "
+"editing and OpenShot topics."
+msgstr ""
+"Το OpenShot διαθέτει μια `Κοινότητα χρηστών στο Reddit "
+"<https://openshot.org/forum>`_ αφιερωμένη στη βοήθεια μεταξύ των χρηστών, "
+"στην απάντηση ερωτήσεων και στη συζήτηση θεμάτων σχετικά με την επεξεργασία "
+"βίντεο και το OpenShot."
+
+#: ../learn_more.rst:29
+msgid ""
+"If you would like to help improve this User Guide, `view source on GitHub "
+"<https://github.com/OpenShot/openshot-qt/tree/develop/doc>`_."
+msgstr ""
+"Αν θέλετε να βοηθήσετε στη βελτίωση αυτού του οδηγού χρήσης, `δείτε τον "
+"πηγαίο κώδικα στο GitHub <https://github.com/OpenShot/openshot-"
+"qt/tree/develop/doc>`_."
+
+#: ../learn_more.rst:30
+msgid ""
+"If you have discovered a new bug, please `Report a Bug "
+"<https://www.openshot.org/issues/new/>`_."
+msgstr ""
+"Αν ανακαλύψατε ένα νέο σφάλμα (bug), παρακαλούμε `αναφέρετέ το "
+"<https://www.openshot.org/issues/new/>`_."
+
+#: ../learn_more.rst:31
+msgid ""
+"If you need professional support, you can open a ticket by sending an "
+"message to support@openshot.org or `Schedule a call "
+"<https://calendly.com/openshot-support/desktop>`_."
+msgstr ""
+"Αν χρειάζεστε επαγγελματική υποστήριξη, μπορείτε να ανοίξετε ένα αίτημα "
+"(ticket) στέλνοντας ένα μήνυμα στο support@openshot.org ή να `Κλείσετε μια "
+"κλήση <https://calendly.com/openshot-support/desktop>`_."
