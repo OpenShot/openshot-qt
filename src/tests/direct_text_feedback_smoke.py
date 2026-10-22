@@ -200,7 +200,7 @@ def verify():
         copy_menu = next(a.menu() for a in menu.actions() if a.text().replace("&", "") == "Copy")
         checks.assertIn("Text Style", [a.text() for a in copy_menu.actions()])
         keyframe_menu = next(a.menu() for a in copy_menu.actions() if a.menu())
-        checks.assertTrue(next(a for a in keyframe_menu.actions() if a.text() == "Text Style").isEnabled())
+        checks.assertNotIn("Text Style", [a.text() for a in keyframe_menu.actions()])
 
         window.timeline.Copy_Triggered(MenuCopy.TEXT_STYLE, [source], [], [])
         clips_before = len(app.project.get("clips"))
@@ -219,13 +219,13 @@ def verify():
         checks.assertEqual(Clip.get(id=target).data["text_style_overrides"], [])
         app.updates.redo()
 
-        # Copy > Keyframes > Text Style: only the clip's own text curves, and
-        # Keyframes > All includes them; a video clip ignores text keyframes.
+        # Copy > Keyframes > All includes the clip's own text curves, and a
+        # video clip ignores them.
         save_clip_data(initialize_text_curves(dict(Clip.get(id=target).data, text_style_overrides=[])))
-        window.timeline.Copy_Triggered(MenuCopy.KEYFRAMES_TEXT, [source], [], [])
+        window.timeline.Copy_Triggered(MenuCopy.KEYFRAMES_ALL, [source], [], [])
         window.timeline._handle_paste_callback([target], [], {"position": 0, "track": layer})
         checks.assertEqual(Clip.get(id=target).data["text_style_overrides"], ["color"])
-        window.timeline.Copy_Triggered(MenuCopy.KEYFRAMES_ALL, [source], [], [])
+        checks.assertEqual(Clip.get(id=target).data["text_color"], Clip.get(id=source).data["text_color"])
         window.timeline._handle_paste_callback([video["id"]], [], {"position": 0, "track": layer})
         checks.assertFalse([key for key in Clip.get(id=video["id"]).data if key.startswith("text_")])
 

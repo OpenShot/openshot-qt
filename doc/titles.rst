@@ -115,9 +115,9 @@ color or outline keyframes on those clips are removed, and their words are kept.
 To give other text clips the same look, right-click a text clip and choose **Copy → Text
 Style**, then select the other text clips, right-click and choose **Paste**. They take the
 font, size, colors, outline, border, corners and spacing, plus the copied clip's color,
-outline, border and corner keyframes, and keep their own words and box width. **Copy →
-Keyframes → Text Style** copies only that clip's own text keyframes. Pasting either one onto
-other kinds of clips changes nothing.
+outline, border and corner keyframes, and keep their own words and box width. Pasting a text
+style onto other kinds of clips changes nothing. **Copy → Keyframes → All** also includes a
+text clip's own text keyframes.
 
 A new text starts with the style you used last (font, size, colors, outline, border and
 spacing), so a series of titles stays consistent. Without a previous text, it uses a

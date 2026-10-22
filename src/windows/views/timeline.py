@@ -1509,12 +1509,6 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             Copy_Keyframes_Volume = Keyframe_Menu.addAction(_("Volume"))
             Copy_Keyframes_Volume.triggered.connect(partial(
                 self.Copy_Triggered, MenuCopy.KEYFRAMES_VOLUME, [clip_id], [], []))
-            if clip.data.get("direct_text"):
-                # Only this clip's own text colors and outline/border widths.
-                Copy_Keyframes_Text = Keyframe_Menu.addAction(_("Text Style"))
-                Copy_Keyframes_Text.setEnabled(bool(copied_text_keyframes(clip.data)))
-                Copy_Keyframes_Text.triggered.connect(partial(
-                    self.Copy_Triggered, MenuCopy.KEYFRAMES_TEXT, [clip_id], [], []))
 
             # Only add copy->effects and copy->keyframes if 1 clip is selected
             Copy_Effects = Copy_Menu.addAction(_("Effects"))
@@ -2875,8 +2869,6 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 clip.data = {'volume': clip.data['volume']}
             elif action == MenuCopy.ALL_EFFECTS:
                 clip.data = {'effects': clip.data['effects']}
-            elif action == MenuCopy.KEYFRAMES_TEXT:
-                clip.data = copied_text_keyframes(clip.data)
             elif action == MenuCopy.TEXT_STYLE:
                 clip.data = {'text_style': copied_text_style(clip.data)} if clip.data.get('direct_text') else {}
 
