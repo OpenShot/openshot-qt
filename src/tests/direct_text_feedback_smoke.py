@@ -16,7 +16,7 @@ from classes import version
 # UI workflow checks must not depend on the external update service.
 version.get_current_Version = lambda: None
 from classes.query import Clip
-from qt_api import QColor, QFont, QFontInfo, QImage, QTimer, QT_API
+from qt_api import QColor, QFont, QFontInfo, QImage, QPoint, Qt, QTimer, QT_API
 QTest = importlib.import_module({"pyqt5": "PyQt5", "pyqt6": "PyQt6", "pyside6": "PySide6"}[QT_API] + ".QtTest").QTest
 
 app = OpenShotApp([], mode="unittest")
@@ -237,6 +237,33 @@ def verify():
         picker.reject()
         picker.deleteLater()
         app.processEvents()
+
+        # Clicking the timeline, another dock, seeking or playing ends typing
+        # and keeps the changes; Properties edits the open text and leaves it open.
+        from classes.direct_text import evaluated_text_style
+        window.show()
+        window.activateWindow()
+        track_area = QPoint(window.timeline.width() // 2, window.timeline.height() - 30)
+        for how, leave in (
+                ("timeline", lambda: QTest.mouseClick(window.timeline, Qt.LeftButton, Qt.NoModifier, track_area)),
+                ("project files", lambda: QTest.mouseClick(window.filesView.viewport(), Qt.LeftButton,
+                                                           Qt.NoModifier, QPoint(10, 10))),
+                ("seek", lambda: window.SeekSignal.emit(40, True)),
+                ("play", lambda: (window.PlaySignal.emit(), window.PauseSignal.emit()))):
+            controller.arm()
+            app.processEvents()
+            typed_id = controller.clip_id
+            QTest.keyClicks(controller.editor, "Kept")
+            controller.toolbar.change("color", "#ffff0000")
+            QTest.mouseClick(window.propertyTableView.viewport(), Qt.LeftButton, Qt.NoModifier, QPoint(10, 10))
+            app.processEvents()
+            checks.assertIsNotNone(controller.draft, how)
+            leave()
+            app.processEvents()
+            checks.assertIsNone(controller.draft, how)
+            kept = Clip.get(id=typed_id).data
+            checks.assertEqual(kept["direct_text"]["text"], "Kept", how)
+            checks.assertEqual(QColor(evaluated_text_style(kept, 1)["color"]), QColor("#ffff0000"), how)
         passed = True
         print("TEXT_FEEDBACK_PASSED", flush=True)
     except Exception:

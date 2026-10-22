@@ -5,7 +5,7 @@ import json
 from qt_api import (
     Qt, QEvent, QGraphicsScene, QGraphicsView, QTextEdit, QFrame, QPalette,
     QColor, QAbstractButton, QPainter, QAbstractTextDocumentLayout,
-    QRectF, QPointF, QSizeF, QObject, QTimer, QImage, QPixmap, QRunnable, QThreadPool, pyqtSignal,
+    QRectF, QPointF, QSizeF, QObject, QTimer, QImage, QPixmap, QRunnable, QThreadPool, QWidget, pyqtSignal,
 )
 from classes.app import get_app
 from classes import info
@@ -216,8 +216,8 @@ class DirectTextController(QObject):
         # Floats over the preview so showing it never resizes the video.
         self.toolbar = TextStyleToolbar(self, preview)
         self.toolbar.hide()
-        window.PlaySignal.connect(self.cancel)
-        window.SeekSignal.connect(self.cancel)
+        window.PlaySignal.connect(self.leave)
+        window.SeekSignal.connect(self.leave)
 
     def arm(self):
         """Create a selected text clip at the playhead, ready for typing."""
@@ -424,6 +424,7 @@ class DirectTextController(QObject):
         self.view.show()
         self.view.raise_()
         self.toolbar.show()
+        get_app().installEventFilter(self)
         self.update_geometry()
         self.focus_editor()
         # Every way into typing selects the text, so typing replaces it.
@@ -772,6 +773,10 @@ class DirectTextController(QObject):
     def eventFilter(self, watched, event):
         if watched is self.preview and event.type() == QEvent.Resize:
             QTimer.singleShot(0, self.update_geometry)
+        elif (event.type() == QEvent.MouseButtonPress and self.draft is not None
+              and isinstance(watched, QWidget)):
+            # Installed on the application only while typing.
+            self.clicked_elsewhere(watched)
         return False
 
     def changed(self, action):
@@ -814,8 +819,8 @@ class DirectTextController(QObject):
         app.updates.disconnect_listener(self)
         if not self._gui_ready:
             return
-        self.window.PlaySignal.disconnect(self.cancel)
-        self.window.SeekSignal.disconnect(self.cancel)
+        self.window.PlaySignal.disconnect(self.leave)
+        self.window.SeekSignal.disconnect(self.leave)
         self.preview.removeEventFilter(self)
         self.drain_snapshots()
         # Break the proxy/editor Python cycle before Qt destroys its children.
@@ -829,6 +834,32 @@ class DirectTextController(QObject):
             self.snapshot_cancel.set()
         self.snapshot_pool.clear()
         self.snapshot_pool.waitForDone()
+
+    def leave(self, *args):
+        """Playing or seeking ends typing and keeps the text, like clicking away."""
+        if self.draft is None:
+            self.cancel()
+        else:
+            self.finish(commit=True)
+
+    def clicked_elsewhere(self, widget):
+        """Clicking other work in the window keeps the text.
+
+        The style bar, the Properties dock (which edits the draft live), and
+        dialogs or popups opened while typing (colors, Edit Style) are part of
+        the edit and leave it open. Focus changes alone never commit.
+        """
+        # Some widgets keep the main window in a "window" attribute.
+        if self.committing or QWidget.window(widget) is not self.window:
+            return
+        properties = getattr(self.window, "dockProperties", None)
+        if any(part is not None and (part is widget or part.isAncestorOf(widget))
+               for part in (self.view, self.toolbar, properties)):
+            return
+        # Qt focuses the clicked widget before this runs; keep it there.
+        focus = get_app().focusWidget()
+        self.return_widget = focus if focus not in (self.editor, self.view) else None
+        self.finish(commit=True)
 
     def cancel(self, *args, return_focus=False):
         self.reveal_timer.stop()
@@ -844,6 +875,7 @@ class DirectTextController(QObject):
         previous_clip = self.clip_id
         self.draft = self.original = self.clip_id = None
         self.created_clip_id = self.create_transaction = None
+        get_app().removeEventFilter(self)
         self.preview.clearTransformState()
         self.view.hide()
         self.toolbar.hide()

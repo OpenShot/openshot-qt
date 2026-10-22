@@ -43,8 +43,10 @@ The quickest way to add text is to type it straight onto the video preview.
    A text clip is added at the playhead, above the clips already there, and its placeholder
    text is selected, ready to replace by typing.
 2. Type your text. Press :kbd:`Shift+Enter` for a new line.
-3. Press :kbd:`Enter`, or click outside the text, to finish. Keyboard focus returns to the
-   timeline, and the clip shows the normal transform handles to move, scale and rotate it.
+3. Press :kbd:`Enter`, or click outside the text, to finish. Clicking anywhere else (the preview,
+   the timeline, another dock), moving the playhead, or pressing Play also finishes and keeps your
+   changes; the style bar and the **Properties** dock change the text without finishing. The clip
+   then shows the normal transform handles to move, scale and rotate it.
    Press :kbd:`Escape` instead to remove a text you just added (or, when editing an existing
    text, to throw away this editing session).
 
@@ -99,7 +101,8 @@ The preview at the top shows changes as you make them. Press :kbd:`Ctrl+Enter` o
 normal, 1.5 adds half a line of space, and values below 1.0 pull lines closer together.
 **Corner radius** rounds the corners of the background and the border, in pixels; 0 keeps them
 square. The text outline is drawn behind the letters, so a wide outline grows outward instead
-of covering them.
+of covering them. For hollow letters, give the text an outline and set the text color's opacity
+to 0 in the color picker: only the outline is drawn, and the video shows through the letters.
 
 Select several text clips (or several texts in Project Files) and choose **Edit Style…** to
 change their style together. The text box is grayed out, because each text keeps its own
