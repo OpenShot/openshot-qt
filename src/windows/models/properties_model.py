@@ -577,6 +577,7 @@ class PropertiesModel(updates.UpdateInterface):
 
     # Update the values of the selected clip, based on the current frame
     def update_frame(self, frame_number, reload_model=True):
+        self.playhead_frame = frame_number
 
         # Check for a selected clip
         if self.selected:
@@ -617,6 +618,30 @@ class PropertiesModel(updates.UpdateInterface):
                 # Update the model data
                 if reload_model:
                     self.update_model(get_app().window.txtPropertyFilter.text())
+
+    def _edit_frame(self, item_id, item_type, force_insert):
+        """The frame to edit on one selected item, and whether to keyframe it.
+
+        Each item uses the playhead's position within itself. When the playhead
+        is outside an item, its nearest keyframe changes instead.
+        """
+        auto_keyframes = force_insert or auto_keyframes_enabled(get_app().window)
+        if getattr(self, "playhead_frame", None) is None:
+            return self.frame_number, auto_keyframes
+        getter = {"clip": "GetClip", "transition": "GetEffect", "effect": "GetClipEffect"}.get(item_type)
+        obj = getter and getattr(get_app().window.timeline_sync.timeline, getter)(item_id)
+        if obj and item_type == "effect":
+            obj = obj.ParentClip()
+        if not obj:
+            return self.frame_number, auto_keyframes
+
+        fps = get_app().project.get("fps")
+        fps_float = float(fps["num"]) / float(fps["den"])
+        requested_time = float(self.playhead_frame - 1) / fps_float
+        frame = round((requested_time - obj.Position() + obj.Start()) * fps_float) + 1
+        first, last = round(obj.Start() * fps_float) + 1, round(obj.End() * fps_float)
+        inside = first <= frame <= last
+        return min(max(frame, first), last), auto_keyframes and (inside or force_insert)
 
     def remove_keyframe(self, item):
         """Remove an existing keyframe (if any)"""
@@ -835,6 +860,8 @@ class PropertiesModel(updates.UpdateInterface):
                     c = Effect.get(id=item_id)
 
                 if c:
+                    frame_number, auto_keyframes = self._edit_frame(item_id, item_type, force_insert)
+
                     # Create reference
                     clip_data = c.data
                     if object_id:
@@ -871,8 +898,7 @@ class PropertiesModel(updates.UpdateInterface):
                                 clip_data[property_key][color] = {"Points": []}
 
                             target_frame = edit_frame(
-                                clip_data[property_key][color].get("Points", []), self.frame_number,
-                                force_insert or auto_keyframes_enabled(get_app().window))
+                                clip_data[property_key][color].get("Points", []), frame_number, auto_keyframes)
 
                             # Loop through points, find a matching points on this frame
                             found_point = False
@@ -924,7 +950,7 @@ class PropertiesModel(updates.UpdateInterface):
                             # Create new point (if needed)
                             if not found_point:
                                 clip_updated = True
-                                log.debug("Created new point at X=%d", self.frame_number)
+                                log.debug("Created new point at X=%d", target_frame)
                                 clip_data[property_key][color].setdefault("Points", []).append({
                                     'co': {'X': target_frame, 'Y': new_value},
                                     'interpolation': 1,
@@ -1190,9 +1216,9 @@ class PropertiesModel(updates.UpdateInterface):
                             # Apply the calculated max_multiple to value
                             value = max(min(value, max_multiple), -max_multiple)
 
+                        frame_number, auto_keyframes = self._edit_frame(item_id, item_type, force_insert)
                         target_frame = edit_frame(
-                            clip_data[property_key].get("Points", []), self.frame_number,
-                            force_insert or auto_keyframes_enabled(get_app().window))
+                            clip_data[property_key].get("Points", []), frame_number, auto_keyframes)
 
                         # Loop through points, find a matching points on this frame
                         found_point = False
@@ -1256,7 +1282,7 @@ class PropertiesModel(updates.UpdateInterface):
                         # Create new point (if needed)
                         elif not found_point and value is not None:
                             clip_updated = True
-                            log.debug("Created new point at X=%d", self.frame_number)
+                            log.debug("Created new point at X=%d", target_frame)
                             clip_data[property_key].setdefault('Points', []).append({
                                 'co': {'X': target_frame, 'Y': int(value) if property_key == "time" else value},
                                 'interpolation': openshot.CONSTANT if choice_keyframes_use_constant else openshot.LINEAR})
@@ -1873,6 +1899,7 @@ class PropertiesModel(updates.UpdateInterface):
         self.selected_ids = []
         self.current_item_id = None
         self.frame_number = 1
+        self.playhead_frame = None
         self.new_item = True
         self.items = {}
         self.ignore_update_signal = False

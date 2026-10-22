@@ -48,6 +48,12 @@ def verify():
                     return model.model.item(row, 1)
             raise AssertionError("Missing property " + key)
 
+        def playhead_at(frame):
+            """Move the playhead to a frame within the clip, as the timeline does."""
+            data, fps = Clip.get(id=clip.id).data, app.project.get("fps")
+            offset = round((data["position"] - data["start"]) * fps["num"] / fps["den"])
+            model.update_frame(offset + frame, reload_model=False)
+
         keys = {model.model.item(row, 0).data()[0] for row in range(model.model.rowCount())}
         checks.assertLessEqual({"alpha", "location_x", "location_y", "scale_x", "scale_y", "rotation"}, keys, keys)
         for key in ("font_family", "font_bold", "font_italic", "font_size", "alignment", "width", "text"):
@@ -74,7 +80,7 @@ def verify():
         checks.assertEqual(Clip.get(id=clip.id).data["direct_text"], after["direct_text"])
         checks.assertEqual(model.model.item(item("direct_text.font_size").row(), 1).text(), "81")
         # Explicit color keys use normal per-clip curves and survive shared edits.
-        model.frame_number = 31
+        playhead_at(31)
         model.color_update(item("text_color"), QColor("#0000ff"), force_insert=True)
         animated = Clip.get(id=clip.id).data
         checks.assertEqual(len(animated["text_color"]["red"]["Points"]), 2)
@@ -142,7 +148,7 @@ def verify():
                                      after["layer"], 4.0)
         sibling.data["file_id"] = asset.id
         sibling.save()
-        model.frame_number = 31
+        playhead_at(31)
         model.color_update(item("text_color"), QColor("#800000ff"), force_insert=True)
         animated = copy.deepcopy(Clip.get(id=clip.id).data)
         project_path = os.path.join(root, "animated-text.osp")

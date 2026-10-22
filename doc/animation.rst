@@ -100,6 +100,11 @@ to the left. Suppose a clip grows from small to large: editing its scale halfway
 off changes the starting scale and leaves the ending scale alone. To change a particular keyframe, move
 the playhead onto it before editing. Turning Auto Keyframes off does not remove your animation.
 
+Auto Keyframes only records on clips under the playhead. When the playhead is before or after a clip,
+editing it changes its nearest keyframe instead, so the whole clip changes without animating. When you
+edit several selected clips at once, each clip follows this rule on its own: clips under the playhead
+are keyframed at the playhead, and the others change without animating.
+
 While editing between keyframes, the preview shows the animation at the playhead. The Properties dock
 may show the earlier keyframe you are changing, so its value can differ from what you see in the preview.
 Hover over a numeric value to check which frame you are editing.
