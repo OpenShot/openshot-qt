@@ -1078,9 +1078,14 @@ def _patch_enums_for_qt6():
     for owner, enum_name in (
             (getattr(QtCore, "Qt", None), "WidgetAttribute"),
             (getattr(QtCore, "Qt", None), "ToolBarArea"),
+            (getattr(QtCore, "Qt", None), "LayoutDirection"),
+            (getattr(QtCore, "QEvent", None), "Type"),
             (getattr(QtCore, "QIODevice", None), "OpenModeFlag"),
             (getattr(QtGui, "QContextMenuEvent", None), "Reason"),
+            (getattr(QtGui, "QIcon", None), "Mode"),
+            (getattr(QtGui, "QIcon", None), "State"),
             (getattr(QtWidgets, "QAbstractItemView", None), "EditTrigger"),
+            (getattr(QtWidgets, "QAbstractItemView", None), "State"),
             (getattr(QtWidgets, "QFormLayout", None), "ItemRole"),
             (getattr(QtWidgets, "QStyle", None), "ControlElement")):
         scoped = getattr(owner, enum_name, None)
