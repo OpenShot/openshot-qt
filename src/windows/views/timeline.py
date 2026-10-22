@@ -67,6 +67,7 @@ from classes.effect_init import effect_options
 from classes.logger import log
 from classes.query import File, Clip, Transition, Track, Effect
 from classes.clipboard import ClipboardManager
+from classes.direct_text import copied_text_keyframes, copied_text_style
 from classes.thumbnail import GetThumbPath
 from classes.waveform_cache import sample_count, is_reference
 from classes.waveform import (
@@ -416,8 +417,12 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
             def apply_clipboard_data(target_obj, clipboard_data, excluded_keys=None):
                 excluded_keys = excluded_keys or []
+                # Text keyframes only apply to text clips (or a whole copied text clip).
+                is_text = bool(target_obj.data.get("direct_text") or clipboard_data.get("direct_text"))
                 for key, value in clipboard_data.items():
                     if key in excluded_keys:
+                        continue
+                    if not is_text and key.startswith("text_"):
                         continue
                     if key == "effects" and isinstance(value, list):
                         existing_effects = target_obj.data.setdefault("effects", [])
@@ -445,11 +450,19 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             if len(clip_ids + tran_ids) == 0 and (
                 isinstance(copied_object, Clip) or isinstance(copied_object, Transition)
             ):
+                if "reader" not in copied_object.data:
+                    # Copied keyframes, effects or a text style paste onto
+                    # selected items; alone they are not a clip to insert.
+                    return
                 copied_object = [copied_object]
 
             if isinstance(copied_object, list):
                 adjust_positions_and_layers(copied_object, position, layer_id)
                 inserted_new_items = True
+
+            if isinstance(copied_object, Clip) and "text_style" in copied_object.data:
+                self.window.direct_text.paste_style(clip_ids, copied_object.data["text_style"])
+                clip_ids = []
 
             for clip_id in clip_ids:
                 clip = Clip.get(id=clip_id)
@@ -1501,6 +1514,11 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             Copy_Effects = Copy_Menu.addAction(_("Effects"))
             Copy_Effects.triggered.connect(partial(
                 self.Copy_Triggered, MenuCopy.ALL_EFFECTS, [clip_id], [], []))
+            if clip.data.get("direct_text"):
+                Copy_Text_Style = Copy_Menu.addAction(_("Text Style"))
+                Copy_Text_Style.setToolTip(_("Font, size, colors, outline, border and their keyframes"))
+                Copy_Text_Style.triggered.connect(partial(
+                    self.Copy_Triggered, MenuCopy.TEXT_STYLE, [clip_id], [], []))
             Copy_Menu.addMenu(Keyframe_Menu)
             copy_action = menu.addMenu(Copy_Menu)
 
@@ -2092,6 +2110,26 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
                 menu.addMenu(Slice_Menu)
 
+        # Text clips: type on the video preview, or open the full style dialog.
+        if clip.data.get("direct_text"):
+            Text_Menu = StyledContextMenu(title=_("Text"), parent=self)
+            Edit_Text = Text_Menu.addAction(_("Edit Text"))
+            Edit_Text.triggered.connect(partial(self.window.direct_text.begin, clip_id))
+            Edit_Style = Text_Menu.addAction(_("Edit Style…"))
+            # With several text clips selected, edit their shared style.
+            style_ids = [clip.data.get("file_id")]
+            for selected in (Clip.get(id=selected_id) for selected_id in clip_ids):
+                file_id = selected.data.get("file_id") if selected else None
+                if file_id and selected.data.get("direct_text") and file_id not in style_ids:
+                    style_ids.append(file_id)
+            Edit_Style.triggered.connect(partial(self.window.direct_text.edit_file, style_ids, title=_("Edit Style")))
+            text_clip_ids = [selected.id for selected in (Clip.get(id=selected_id) for selected_id in clip_ids)
+                             if selected and selected.data.get("direct_text")] or [clip_id]
+            Reset_Style = Text_Menu.addAction(_("Reset Style"))
+            Reset_Style.setToolTip(_("Restore the default font, size and colors, keeping the text"))
+            Reset_Style.triggered.connect(partial(self.window.direct_text.reset_styles, text_clip_ids))
+            menu.addMenu(Text_Menu)
+
         # Keep Copy and Properties available on locked tracks. Disabling the
         # editing submenus also prevents activating their nested actions.
         if locked:
@@ -2239,7 +2277,8 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         clips = Clip.filter(id=clip_id)
         for clip in clips:
             # Force thumbnail image to be refreshed (for a particular frame #)
-            GetThumbPath(clip.data.get("file_id"), thumbnail_frame, clear_cache=True)
+            if not isinstance(clip.data.get("direct_text"), dict):
+                GetThumbPath(clip.data.get("file_id"), thumbnail_frame, clear_cache=True)
 
             if ViewClass == TimelineWidget:
                 if hasattr(self, "clip_painter"):
@@ -2806,7 +2845,8 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                              'location_x': clip.data['location_x'],
                              'location_y': clip.data['location_y'],
                              'time': clip.data['time'],
-                             'volume': clip.data['volume']}
+                             'volume': clip.data['volume'],
+                             **copied_text_keyframes(clip.data)}
             elif action == MenuCopy.KEYFRAMES_ALPHA:
                 clip.data = {'alpha': clip.data['alpha']}
             elif action == MenuCopy.KEYFRAMES_SCALE:
@@ -2829,6 +2869,8 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 clip.data = {'volume': clip.data['volume']}
             elif action == MenuCopy.ALL_EFFECTS:
                 clip.data = {'effects': clip.data['effects']}
+            elif action == MenuCopy.TEXT_STYLE:
+                clip.data = {'text_style': copied_text_style(clip.data)} if clip.data.get('direct_text') else {}
 
             # Append copied instance
             copied_objects.append(clip)
@@ -4680,10 +4722,12 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         snap_to_grid = lambda t: round(t * fps_float) / fps_float
 
         # Create a new Clip object with the file path
-        c = openshot.Clip(file_path)
-
-        # Convert the clip object to JSON and fill missing attributes
-        new_clip = json.loads(c.Json())
+        if file.data.get("type") == "QtTextReader":
+            from classes.direct_text import new_text_clip
+            new_clip = new_text_clip(file.data["direct_text"], None, 0, track, 10)
+        else:
+            c = openshot.Clip(file_path)
+            new_clip = json.loads(c.Json())
         new_clip["file_id"] = file.id
         new_clip["title"] = file.data.get("name", filename)
         new_clip["reader"] = file.data

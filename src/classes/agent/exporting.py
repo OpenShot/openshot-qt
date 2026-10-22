@@ -187,6 +187,8 @@ def resolve(service, params):
         change_profile(data['clips']+data['effects']+data.get('markers', []), native)
     for key in ('width', 'height', 'fps', 'pixel_ratio', 'display_ratio'):
         data[key] = copy.deepcopy(profile[key])
+    from classes.direct_text import sync_text_fps
+    sync_text_fps(data)
     data.update(profile=profile['description'], profile_settings=profile,
                 sample_rate=config['sample_rate'], channels=config['channels'], channel_layout=config['channel_layout'])
     length = max([0]+[c['position']+c['end']-c['start'] for c in data['clips']])

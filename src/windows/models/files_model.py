@@ -228,6 +228,9 @@ class FilesModel(QObject, updates.UpdateInterface):
         name = file.data.get("name", filename)
         media_type = file.data.get("media_type")
 
+        if file.data.get("type") == "QtTextReader":
+            from classes.direct_text import render_text
+            return render_text(file.data["direct_text"], info.THUMBNAIL_PATH, black_background=True), name, media_type
         if media_type in ["video", "image"]:
             thumbnail_frame = 1
             if 'start' in file.data:

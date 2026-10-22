@@ -489,6 +489,10 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         # Convert all position, start, and end trims to profile FPS precision (if any)
         change_profile(self._data["clips"] + self._data["effects"] + self._data["markers"], profile)
 
+        # Text style curves are keyed to project frames (and were rescaled with them)
+        from classes.direct_text import sync_text_fps
+        sync_text_fps(self._data)
+
         return profile
 
     def load(self, file_path, clear_thumbnails=True, interactive=True):
@@ -1405,6 +1409,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
             # Copy any necessary assets for File records
             for file in self._data["files"]:
+                if file.get("type") == "QtTextReader":
+                    continue
                 path = file["path"]
                 file_id = file["id"]
 
@@ -1526,6 +1532,20 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             for clip in self._data["clips"]:
                 file_id = clip.get("file_id") or (clip.get("reader") or {}).get("id")
                 clip_id = clip["id"]
+
+                # Text rasters belong to the clip, without a shared File record.
+                # The title folder was copied above, including immutable history images.
+                if clip.get("direct_text"):
+                    path = (clip.get("reader") or {}).get("path", "")
+                    relative = self._path_relative_to_root(path, info.TITLE_PATH)
+                    if relative is not None:
+                        target = os.path.join(target_title_path, relative)
+                        if os.path.exists(target):
+                            clip["reader"]["path"] = target
+                            clip["image"] = target
+                            # Relocation bypasses updates; discard stale query paths.
+                            from classes.query import QueryObject
+                            QueryObject._cache_version = None
 
                 # For now, store thumbnail path for backwards compatibility
                 if file_id:
@@ -1741,12 +1761,40 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
             return True
 
+        # Generated text sources are defined by JSON, never by filesystem paths.
+        # Upgrade earlier experimental clip-owned text and synchronize instances.
+        from classes.direct_text import (reader_data, initialize_text_curves, sync_text_fps,
+                                         upgrade_style_names, RENAMED_STYLE)
+        text_assets = {f["id"]: f for f in self._data["files"] if f.get("type") == "QtTextReader"}
+        for asset in text_assets.values():
+            if upgrade_style_names(asset) and asset.get("direct_text"):
+                for key in RENAMED_STYLE:
+                    asset.pop(key, None)
+                asset.update(reader_data(asset["direct_text"], self._data.get("fps")))
+        for clip in self._data["clips"]:
+            if not clip.get("direct_text"):
+                continue
+            upgrade_style_names(clip)
+            asset = text_assets.get(clip.get("file_id"))
+            if asset is None:
+                asset = reader_data(clip["direct_text"], self._data.get("fps"))
+                asset.update(id=self.generate_id(), name=clip.get("title") or "Text")
+                self._data["files"].append(asset)
+                text_assets[asset["id"]] = asset
+            clip["file_id"] = asset["id"]
+            clip["reader"] = copy.deepcopy(asset)
+            clip["direct_text"] = copy.deepcopy(asset["direct_text"])
+            initialize_text_curves(clip)
+        sync_text_fps(self._data)
+
         # Loop through each files in natural-sorted filename order
         files_sorted = sorted(
             self._data["files"],
             key=lambda f: os.path.basename(f.get("path", "")).lower()
         )
         for file in files_sorted:
+            if file.get("type") == "QtTextReader":
+                continue
             path = file["path"]
             parent_path, file_name_with_ext = os.path.split(path)
 
@@ -1865,6 +1913,12 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
                         # Rescale keyframes to match new FPS
                         self.rescale_keyframes(fps_factor)
+
+                        # Text readers follow the project frame rate, like their curves
+                        from classes.direct_text import sync_text_fps
+                        from classes.query import QueryObject
+                        sync_text_fps(self._data)
+                        QueryObject._cache_version = None
 
                     # Update size of audio-only files
                     for file in self._data.get("files", []):

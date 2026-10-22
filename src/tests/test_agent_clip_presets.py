@@ -88,6 +88,16 @@ class AgentClipPresetTests(unittest.TestCase):
             self.service.execute('history.undo', {})
         self.assertEqual(self.data(), before)
 
+    def test_relative_motion_keeps_a_placed_clip_anchored(self):
+        import openshot
+        self.call('clip.set', id=self.clip['id'], values={'gravity': openshot.GRAVITY_TOP_RIGHT, 'location_x': -0.05})
+        for preset in ('slide-in-left', 'pulse', 'bounce-out'):
+            self.call('clip.motion', id=self.clip['id'], preset=preset)
+            self.assertEqual(self.data()['gravity'], openshot.GRAVITY_TOP_RIGHT, preset)
+        self.assertAlmostEqual(self.points('location_x')[-1][1], -0.05, places=5)
+        self.call('clip.motion', id=self.clip['id'], preset='cam-push-in')
+        self.assertEqual(self.data()['gravity'], openshot.GRAVITY_CENTER)  # Camera frames from the center.
+
     def test_look_presets_replace_remove_and_reset(self):
         self.call('clip.look', id=self.clip['id'], effect='ColorGrade', preset='warm_up')
         self.call('clip.look', id=self.clip['id'], effect='ColorGrade', preset='boost_color')
