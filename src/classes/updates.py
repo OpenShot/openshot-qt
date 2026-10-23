@@ -406,8 +406,11 @@ class UpdateManager:
     def dispatch_action(self, action):
         """ Distribute changes to all listeners (by calling their changed() method) """
 
+        from classes.query import QueryObject
+
         # Every dispatched action reflects a project mutation; bump the version
         self.data_version += 1
+        QueryObject.invalidate_cache(action)
 
         log.debug(
             "Dispatch action: type=%s key=%s ignore_history=%s transaction=%s",
@@ -425,6 +428,10 @@ class UpdateManager:
 
         except Exception as ex:
             log.error("Couldn't apply '{}' to update listener: {}\n{}".format(action.type, listener, ex))
+        finally:
+            # Listeners that ran before ProjectDataStore applied this action
+            # may have cached the old object.
+            QueryObject.invalidate_cache(action)
         self.update_watchers()
 
     # Perform load action (loading all project data), clearing history for taking a new path

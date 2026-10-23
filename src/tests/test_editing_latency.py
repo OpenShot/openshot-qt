@@ -92,12 +92,12 @@ class EditingFixture:
         for module in ("classes.project_data", "classes.query", "classes.updates",
                        "classes.clip_utils", "windows.views.timeline"):
             self.stack.enter_context(patch(module + ".get_app", return_value=self.app))
-        QueryObject._cache_version = None
+
         QueryObject._cache = {}
 
     def close(self):
         self.stack.close()
-        QueryObject._cache_version = None
+
         QueryObject._cache = {}
 
     def split(self, ids=None):
@@ -213,3 +213,62 @@ class EditingLatencyTests(unittest.TestCase):
         self.assertEqual(json.loads(action.json(only_value=True)), json.loads(json.dumps(values)))
         self.assertIn("history", values)
         self.assertEqual(values, old)
+
+
+class QueryCacheTests(unittest.TestCase):
+    def setUp(self):
+        self.fixture = EditingFixture(count=40)
+        self.addCleanup(self.fixture.close)
+        for index, clip in enumerate(self.fixture.project._data["clips"]):
+            clip["position"] = index * 10.
+
+    def listen_before_project(self):
+        """Query on every dispatch before ProjectDataStore applies it, like timeline views."""
+        listener = types.SimpleNamespace(changed=lambda action: Clip.filter())
+        self.fixture.updates.updateListeners.insert(0, listener)
+
+    def test_ripple_shift_copies_each_moved_clip_not_the_whole_project(self):
+        f = self.fixture
+        self.listen_before_project()
+        Clip.filter()
+        copies = []
+
+        def counting_deepcopy(value, *args):
+            copies.append(value["id"])
+            return copy.deepcopy(value, *args)
+
+        # Count only the query cache's copies, not ProjectDataStore's own
+        with patch("classes.query.copy", types.SimpleNamespace(deepcopy=counting_deepcopy)):
+            TimelineView.RemoveGap_Triggered(f.helper, 5., 10., 1)
+
+        moved = [c for c in f.project.get("clips") if c["id"] != "C0"]
+        self.assertEqual([c["position"] for c in moved], [index * 10. - 5. for index in range(1, 40)])
+        # Each save evicts only its clip: one copy before and one after the
+        # project applies it, instead of recopying all 40 clips 39 times.
+        self.assertLessEqual(len(copies), 2 * len(moved))
+        self.assertEqual(len(f.updates.actionHistory), len(moved))
+
+    def test_cache_follows_updates_nested_keys_inserts_and_reloads(self):
+        f = self.fixture
+        self.listen_before_project()
+        untouched = Clip.get(id="C2").data
+
+        f.updates.update(["clips", {"id": "C1"}], {"position": 99.})
+        self.assertEqual(Clip.get(id="C1").data["position"], 99.)
+        self.assertIs(Clip.get(id="C2").data, untouched)
+
+        f.updates.update(["clips", {"id": "C3"}, "effects", {"id": "E3"}], {"name": "changed"})
+        self.assertEqual(Clip.get(id="C3").data["effects"][0]["name"], "changed")
+
+        f.updates.insert(["clips"], {"id": "NEW", "layer": 1, "position": 500.,
+                                     "start": 0., "end": 1., "duration": 1.})
+        self.assertIsNotNone(Clip.get(id="NEW"))
+        self.assertIs(Clip.get(id="C2").data, untouched)
+
+        # Replaced project data (new or reopened project) is never served stale
+        f.project._data = copy.deepcopy(f.project._data)
+        f.project._data["clips"][2]["position"] = 123.
+        self.assertEqual(Clip.get(id="C2").data["position"], 123.)
+
+        f.updates.load(f.project._data)
+        self.assertIsNot(Clip.get(id="C2").data, untouched)
