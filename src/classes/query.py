@@ -39,8 +39,7 @@ from classes.path_utils import absolute_media_path, media_paths_equal
 class QueryObject:
     """ This class allows one or more project data objects to be queried """
 
-    # Cache detached project objects per update version
-    _cache_version = None
+    # Detached copies of project objects, evicted per object by UpdateManager
     _cache = {}
 
     def __init__(self):
@@ -97,23 +96,37 @@ class QueryObject:
         return None
 
     @classmethod
-    def _get_cached_child(cls, OBJECT_TYPE, child):
-        """Return a cached, detached copy of child, clearing cache when project changes"""
-        updates = get_app().updates
-        current_version = getattr(updates, "data_version", 0)
+    def invalidate_cache(cls, action=None):
+        """Drop cached copies an update action can change (everything when unsure).
 
-        if cls._cache_version != current_version:
+        Evicting only the touched object keeps a ripple edit of N clips at N
+        deep copies instead of N x (all clips), which dominates large projects.
+        """
+        key = getattr(action, "key", None)
+        if not key or not isinstance(key, list) or getattr(action, "type", None) == "load":
             cls._cache = {}
-            cls._cache_version = current_version
+            return
+        object_cache = cls._cache.get(key[0])
+        if not object_cache:
+            return
+        if len(key) > 1 and isinstance(key[1], dict) and "id" in key[1]:
+            object_cache.pop(key[1]["id"], None)
+        elif not (len(key) == 1 and action.type == "insert"):
+            # Inserting appends a new id; anything else may replace the whole list
+            object_cache.clear()
 
+    @classmethod
+    def _get_cached_child(cls, OBJECT_TYPE, child):
+        """Return a cached, detached copy of child (UpdateManager evicts changed objects)"""
         object_cache = cls._cache.setdefault(OBJECT_TYPE.object_name, {})
         child_id = child.get("id")
 
-        # Cache deep copies by id; reuse within the same project version
-        cached = object_cache.get(child_id)
-        if cached is None:
+        # Cache deep copies by id, tied to the project dict they were copied
+        # from, so replaced project data (new or reloaded projects) is recopied
+        source, cached = object_cache.get(child_id, (None, None))
+        if source is not child:
             cached = copy.deepcopy(child)
-            object_cache[child_id] = cached
+            object_cache[child_id] = (child, cached)
         return cached
 
     def filter(OBJECT_TYPE, **kwargs):
