@@ -4722,6 +4722,40 @@ class TimelineHelperTests(unittest.TestCase):
         self.assertFalse(helper.mouse_dragging)
         self.assertEqual(helper.viewport_reset_calls, 1)
 
+    def test_qwidget_pointer_snapshot_outlives_the_qt_event(self):
+        import qt_api
+        from qt_api import QEvent, QMouseEvent
+
+        event = QMouseEvent(
+            QEvent.MouseMove, QPointF(12.0, 40.0), Qt.LeftButton, Qt.LeftButton, Qt.ShiftModifier)
+        snapshot = self.qwidget_base_module._PointerSnapshot(event)
+
+        # Qt frees each event after its handler returns. A nested processEvents()
+        # during batch clip updates used to leave _last_event pointing at one.
+        _backend, sip_like = qt_api._load_sip_like()
+        sip_like.delete(event)
+
+        self.assertEqual(snapshot.position(), QPointF(12.0, 40.0))
+        self.assertEqual(snapshot.pos().x(), 12)
+        self.assertEqual(snapshot.button(), Qt.LeftButton)
+        self.assertEqual(snapshot.buttons(), Qt.LeftButton)
+        self.assertEqual(snapshot.modifiers(), Qt.ShiftModifier)
+
+    def test_qwidget_release_stores_a_snapshot_not_the_qt_event(self):
+        from qt_api import QEvent, QMouseEvent
+
+        helper, _event_cls, _wheel_event_cls = self.make_qwidget_ctrl_zoom_helper()
+        helper._ctrl_zooming = True
+        helper._ctrl_zoom_anchor_y = 120.0
+        release = QMouseEvent(
+            QEvent.MouseButtonRelease, QPointF(20.0, 100.0), Qt.MiddleButton, Qt.NoButton, Qt.NoModifier)
+
+        self.qwidget_base_module.TimelineWidgetBase.mouseReleaseEvent(helper, release)
+
+        self.assertIsNot(helper._last_event, release)
+        self.assertEqual(helper._last_event.position(), QPointF(20.0, 100.0))
+        self.assertEqual(helper._last_event.button(), Qt.MiddleButton)
+
     def test_qwidget_ctrl_wheel_zoom_preserves_viewport_anchor(self):
         helper, _event_cls, wheel_event_cls = self.make_qwidget_ctrl_zoom_helper()
         event = wheel_event_cls(120.0)

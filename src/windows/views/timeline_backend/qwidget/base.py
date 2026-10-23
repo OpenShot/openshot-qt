@@ -111,6 +111,46 @@ def _event_posf(event):
     return QPointF(event.pos())
 
 
+class _PointerSnapshot:
+    """Copy of the mouse event fields the timeline reads after its handler returns.
+
+    Qt frees a QMouseEvent once its handler returns, but the Python wrapper
+    survives. A nested processEvents() (batch clip updates) can deliver another
+    event mid-handler, so ``_last_event`` must never hold the Qt object itself.
+    """
+
+    __slots__ = ("_position", "_global_position", "_button", "_buttons", "_modifiers")
+
+    def __init__(self, event):
+        def read(name, default):
+            getter = getattr(event, name, None)
+            return getter() if callable(getter) else default
+
+        self._position = QPointF(_event_posf(event))
+        self._global_position = QPointF(read("globalPosition", QPointF()))
+        self._button = read("button", Qt.NoButton)
+        self._buttons = read("buttons", Qt.NoButton)
+        self._modifiers = read("modifiers", Qt.NoModifier)
+
+    def position(self):
+        return QPointF(self._position)
+
+    def pos(self):
+        return self._position.toPoint()
+
+    def globalPosition(self):
+        return QPointF(self._global_position)
+
+    def button(self):
+        return self._button
+
+    def buttons(self):
+        return self._buttons
+
+    def modifiers(self):
+        return self._modifiers
+
+
 class _ConditionalTransition(QtCore.QSignalTransition):
     def __init__(self, sender, signal_bytes, source_state, target_state, condition):
         """Create a QSignalTransition that evaluates a condition before firing."""
@@ -3312,7 +3352,7 @@ class TimelineWidgetBase(RazorMixin, QWidget):
                 super().mouseDoubleClickEvent(event)
                 return
             if self.geometry.timeline_handle_rect().contains(pos):
-                self._last_event = event
+                self._last_event = _PointerSnapshot(event)
                 self._startProjectResize()
                 self._set_project_duration_override(self._project_resize_min_duration)
                 self._finishProjectResize()
@@ -3355,7 +3395,7 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         pos = posf
         content_pos = self._is_timeline_content_pos(pos)
         if event.button() == Qt.RightButton:
-            self._last_event = event
+            self._last_event = _PointerSnapshot(event)
             keyframe_marker = self._get_keyframe_at(posf) if content_pos else None
             if keyframe_marker:
                 self._active_keyframe_marker = keyframe_marker
@@ -3407,7 +3447,7 @@ class TimelineWidgetBase(RazorMixin, QWidget):
                     return
             toolbar_button = self._track_toolbar_button_at(pos) if content_pos else None
             if toolbar_button:
-                self._last_event = event
+                self._last_event = _PointerSnapshot(event)
                 self._toolbar_pressed_key = (toolbar_button.get("track_id"), toolbar_button.get("key"))
                 self._toolbar_pressed_inside = True
                 self._toolbar_hover_key = self._toolbar_pressed_key
@@ -3441,7 +3481,7 @@ class TimelineWidgetBase(RazorMixin, QWidget):
             event.accept()
             return
 
-        self._last_event = event
+        self._last_event = _PointerSnapshot(event)
         self.events.pressed.emit(event)
 
     def leaveEvent(self, event):
@@ -3671,7 +3711,7 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         return False
 
     def mouseMoveEvent(self, event):
-        self._last_event = event
+        self._last_event = _PointerSnapshot(event)
         posf = _event_posf(event)
         self._update_pending_clip_menu_drag(posf)
         self._update_pending_transition_menu_drag(posf)
@@ -3741,7 +3781,7 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         self.events.moved.emit(event)
 
     def mouseReleaseEvent(self, event):
-        self._last_event = event
+        self._last_event = _PointerSnapshot(event)
         posf = _event_posf(event)
 
         if event.button() == Qt.LeftButton and self._press_hit == "razor":
