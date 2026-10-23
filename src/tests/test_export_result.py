@@ -156,12 +156,12 @@ class ExportResultTests(unittest.TestCase):
         self.assertEqual(opened.call_args[0][1], "/tmp/out é.mp4")
         self.assertEqual(revealed.call_args[0][1], "/tmp/out é.mp4")
 
-    def test_failure_shows_error_copies_report_and_retries(self):
+    def test_failure_shows_error_and_copies_report(self):
         panel = self.make_panel()
-        retry = Mock()
-        panel.show_failure("A valid video codec could not be found", DETAILS[:3], retry)
+        panel.show_failure("A valid video codec could not be found", DETAILS[:3])
         self.assertEqual(panel.headline.text(), "Export Failed")
-        self.assertEqual(panel.primary_button.text(), "Try Again")
+        # No retry button: the settings tabs stay editable for the next export
+        self.assertFalse(panel.primary_button.isVisibleTo(panel))
         self.assertTrue(panel.error_text.isVisibleTo(panel))
         self.assertFalse(panel.location.isVisibleTo(panel))
         self.assertIn("rgba(229, 72, 77", panel.styleSheet())
@@ -170,10 +170,6 @@ class ExportResultTests(unittest.TestCase):
         report = QApplication.clipboard().text()
         self.assertIn("A valid video codec could not be found", report)
         self.assertIn("Format: MP4 (H.264)", report)
-        panel.primary_button.click()
-        retry.assert_called_once_with()
-        panel.show_failure("boom", [], None)
-        self.assertFalse(panel.primary_button.isVisibleTo(panel))
         # Success after failure restores success styling and fields.
         panel.show_success("/tmp/out.mp4", "video", DETAILS)
         self.assertIn("rgba(47, 191, 113", panel.styleSheet())
@@ -236,12 +232,11 @@ class ExportDialogResultTabTests(unittest.TestCase):
         self.addCleanup(dialog.deleteLater)
         return dialog
 
-    def test_result_is_a_third_tab_and_settings_stay_browsable_read_only(self):
+    def test_result_is_a_third_tab_and_settings_stay_editable(self):
         dialog = self.make_dialog()
         dialog.show()
         QApplication.processEvents()
         size = dialog.size()
-        dialog.exportTabs.setEnabled(False)  # as during export
         app = SimpleNamespace(_tr=lambda text: text, updates=Mock(), project=SimpleNamespace())
         with patch("windows.export.get_app", return_value=app):
             dialog.show_export_result("/tmp/out.mp4", "video_audio")
@@ -250,10 +245,9 @@ class ExportDialogResultTabTests(unittest.TestCase):
             self.assertEqual(dialog.exportTabs.tabText(2), "Complete")
             self.assertIs(dialog.exportTabs.currentWidget(), dialog.result_tab)
             self.assertEqual(dialog.size(), size)
-            self.assertTrue(dialog.exportTabs.isEnabled())
-            self.assertTrue(dialog.toolBox.isEnabled())
+            # Nothing is locked, so settings can change for another export
             for widget in (dialog.txtVideoCodec, dialog.cboSimpleQuality, dialog.txtWidth):
-                self.assertFalse(widget.isEnabled())
+                self.assertTrue(widget.isEnabled())
             dialog.exportTabs.setCurrentIndex(1)
             self.assertIs(dialog.exportTabs.currentWidget(), dialog.Advanced)
             dialog.save_settings()
@@ -261,21 +255,19 @@ class ExportDialogResultTabTests(unittest.TestCase):
         self.assertIn("txtVideoCodec", names)
         self.assertNotIn("exportLocation", names)
 
-    def test_failure_tab_and_retry_reopens_dialog(self):
+    def test_each_export_replaces_the_previous_result(self):
         dialog = self.make_dialog()
-        trigger = Mock()
-        app = SimpleNamespace(_tr=lambda text: text, window=SimpleNamespace(
-            actionExportVideo=SimpleNamespace(trigger=trigger)))
+        app = SimpleNamespace(_tr=lambda text: text)
         with patch("windows.export.get_app", return_value=app):
             dialog.show_export_result("/tmp/out.mp4", "video", "Invalid codec")
-        self.assertEqual(dialog.exportTabs.tabText(2), "Export Failed")
-        self.assertEqual(dialog.result_tab.error_text.text(), "Invalid codec")
-        with patch.object(type(dialog), "reject") as reject, \
-                patch("windows.export.get_app", return_value=app), \
-                patch("windows.export.QTimer.singleShot", side_effect=lambda ms, fn: fn()):
-            dialog.result_tab.primary_button.click()
-        reject.assert_called_once_with()
-        trigger.assert_called_once_with()
+            self.assertEqual(dialog.exportTabs.tabText(2), "Export Failed")
+            self.assertEqual(dialog.result_tab.error_text.text(), "Invalid codec")
+            dialog.show_export_result("/tmp/out.mp4", "video")
+        self.assertEqual(dialog.exportTabs.count(), 3)
+        self.assertEqual(dialog.exportTabs.tabText(2), "Complete")
+        dialog.clear_export_result()
+        self.assertEqual(dialog.exportTabs.count(), 2)
+        self.assertIsNone(dialog.result_tab)
 
 
 class DesktopOpenTests(unittest.TestCase):

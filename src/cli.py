@@ -36,7 +36,12 @@ import uuid
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from classes.easing import easing_presets
+from classes.look_presets import LOOK_PRESETS
 from classes.agent.protocol import CommandError, cli_command, parse_json, records, session_dir
+from windows.views.timeline_backend.enums import MenuAnimate
+
+MOTION_PRESETS = [action.name.lower().replace('_', '-') for action in MenuAnimate]
+TEXT_PLACES = ('center', 'top', 'bottom', 'top-left', 'top-right', 'bottom-left', 'bottom-right', 'lower-third')
 
 ROOT_HELP = """Start: session list (connect) or session start (new).
 Workflow: inspect -> edit -> project save / export start.
@@ -107,6 +112,7 @@ COMMAND_SUMMARIES = {
     'clip': 'Add, trim, split, and animate timeline clips',
     'transition': 'Create and animate transitions between clips',
     'effects': 'Discover, apply, and animate audio/video effects',
+    'text': 'Add, position, and style text clips',
     'timeline': 'Inspect clips and timing; preview frames or timeline',
     'edit': 'Validate and apply batches or changes to many clips',
     'export': 'Choose presets, validate, and render video or audio',
@@ -124,12 +130,33 @@ position is timeline seconds; start/end are source seconds, with end exclusive.
 clip split ID --at 6.5 cuts at timeline time and preserves both halves' animation.
 clip set replaces supplied properties; a scalar replaces animation with a constant.
 clip adjust adds/multiplies existing values and curves.
-Use clip keyframe help for animation; edit bulk help for changes across clips.""",
+Editor menu presets: clip motion, look, speed, repeat, waveform, and fade.
+Other menu actions are plain edits: rotate/layout with clip set
+(rotation, scale_x/y, location_x/y, gravity), crop with effects add Crop,
+keep left/right side with clip set start/end.
+Use clip keyframe help for animation; edit bulk help for changes across clips.
+Text clips: create and style with text add/set; animate them like any clip.""",
     'effects': """Discover with effects list, then effects TYPE help for settings and examples.
 effects add attaches an effect; effects instances lists attached effects and IDs.
 Inspect with effects properties/get before editing. A scalar in effects set
 replaces animation with a constant. Use effects keyframe help for animation,
 including nested color properties; edit bulk help for applying effects to clips.""",
+    'text': """Workflow: text add --text "Title" --layer N, then text get/set to style it.
+A text's words, font, size, alignment, box width and default colors live in
+Project Files and are shared by every clip using it: text set on one clip
+changes them all (changed_clip_ids). --this-clip-only gives one clip its own copy.
+Font size, padding, box width, letter spacing and line spacing set the size of
+the text box, so they cannot be keyframed. To animate size, keyframe the clip's scale.
+Text clips are ordinary clips: position, scale, rotation, alpha, timing,
+fades, motion presets and effects all use clip set/keyframe/fade/motion.
+Each clip can also animate its own text_color, text_background, text_stroke,
+text_border (colors, nested .red/.green/.blue/.alpha 0-255) and
+text_stroke_width, text_border_width, text_background_corner with clip
+keyframe set. Those per-clip values win over the shared style;
+text reset ID --keyframes-only removes them.
+Colors: #RRGGBB, #AARRGGBB, a CSS name, or transparent. Sizes are pixels
+at the project resolution. Use text fonts to find installed font names.
+Bulk styling: edit bulk --select '{"text":true}' with text.set templates.""",
     'transition': """Inspect transition list/get/properties before editing.
 A scalar in transition set replaces animation with a constant.
 Use transition keyframe help for the shared animation workflow.""",
@@ -358,6 +385,31 @@ def build_parser():
             p.add_argument('--audio-only', action='store_true', help='Disable video/embedded album art; keep audio.')
             p.add_argument('--volume', type=number, default=1, help='Constant linear gain: 0=mute, 1=original, 0.5=half amplitude.')
             p.add_argument('--end', type=number, help='Exclusive source out-point; default media duration (10s for images).')
+            p = command(s, 'motion', "Apply the editor's Motion menu preset: slides, wipes, bounces, emphasis, camera zoom/pan, credits. Values are relative to the clip's current transform. One undo step.", 'clip.motion')
+            p.add_argument('id', help='Clip ID with video (or a visible waveform).')
+            p.add_argument('--preset', required=True, choices=MOTION_PRESETS, metavar='PRESET', help='*-in-* uses the first second, *-out-* the last second, cam-*/ken-burns-*/credits-* the whole clip, and other emphasis presets one second from --at. none resets motion. Presets: ' + ', '.join(MOTION_PRESETS) + '.')
+            p.add_argument('--at', type=number, help='Timeline seconds where an emphasis preset starts; default (or outside the clip) is the clip start.')
+            p = command(s, 'look', "Apply the editor's Look menu preset by adding or replacing one effect; none removes it. One undo step.", 'clip.look')
+            p.add_argument('id', help='Clip ID with video (or a visible waveform).')
+            p.add_argument('--effect', required=True, choices=['all'] + list(LOOK_PRESETS), help='Effect class; all with preset none resets every Look effect.')
+            p.add_argument('--preset', required=True, choices=sorted({name for names in LOOK_PRESETS.values() for name in names}), metavar='PRESET',
+                           help='Presets per effect: ' + '; '.join('{}: {}'.format(effect, ', '.join(names)) for effect, names in LOOK_PRESETS.items()) + '.')
+            p = command(s, 'speed', "Apply the editor's Speed menu: change speed, reverse, freeze a frame, or reset. Retimes keyframes and changes clip length. One undo step.", 'clip.speed')
+            p.add_argument('id', help='Clip ID.')
+            p.add_argument('--mode', required=True, choices=['forward', 'backward', 'reverse', 'freeze', 'freeze-zoom', 'reset'], help='forward/backward play at --factor; reverse plays backward at the same speed; freeze holds the frame at --at for --duration; reset restores normal speed and removes repeats.')
+            p.add_argument('--factor', type=number, help='Speed for forward/backward: 2 = twice as fast (half length), 0.5 = half speed.')
+            p.add_argument('--at', type=number, help='Freeze start in timeline seconds, inside the clip.')
+            p.add_argument('--duration', type=number, help='Freeze length in seconds; extends the clip.')
+            p = command(s, 'repeat', "Repeat the clip's content (editor Speed > Repeat). Extends the clip; speed --mode reset removes it. One undo step.", 'clip.repeat')
+            p.add_argument('id', help='Clip ID.')
+            p.add_argument('--passes', type=int, required=True, help='Total plays including the first, 2..500.')
+            p.add_argument('--pattern', choices=['loop', 'pingpong'], default='loop', help='loop restarts each pass; pingpong alternates direction.')
+            p.add_argument('--reverse', action='store_true', help='Start the first pass in reverse.')
+            p.add_argument('--delay', type=number, default=0, help='Pause between passes in seconds.')
+            p.add_argument('--ramp', type=float, default=0, help='Speed change per pass in percent, -1000..1000; 0 keeps a constant speed.')
+            p = command(s, 'waveform', 'Show the audio waveform on the timeline clip instead of thumbnails (saved with the project), or --hide it. Undoable.', 'clip.waveform')
+            p.add_argument('id', help='Clip ID with audio.')
+            p.add_argument('--hide', action='store_true', help='Remove the waveform and show thumbnails again.')
         elif kind == 'transition':
             p = command(s, 'add', 'Add a mask transition; brightness runs +1 to -1 (fade in), or reversed.', 'transition.add')
             p.add_argument('--mask', required=True, help='Local mask image/SVG path.')
@@ -375,6 +427,7 @@ def build_parser():
             p.add_argument('type', help='Class name, display name, or alias from effects list, e.g. Blur or audio_visualization.')
         if kind == 'file':
             add_images(s, kind, command)
+    add_text(group, command)
     s = group('timeline', 'Inspect text/JSON structure, native QWidget timeline images, or composed video frames.')
     p = command(s, 'overview', 'Compact timeline context: ordered IDs, source/timeline ranges, frame coordinates, stream state, effects, neighboring gaps/overlaps. No image or native property payload.', 'timeline.overview')
     p.add_argument('--start', type=number, default=0, help='Inclusive timeline seconds; show items intersecting this range.')
@@ -405,7 +458,7 @@ def build_parser():
     p.add_argument('--expect-revision', type=int, help='Reject before editing if the project revision changed.')
     p.add_argument('--dry-run', action='store_true', help='Preflight only; return command count and revision without changing project/history. Generated IDs are not reserved.')
     p = command(s, 'select', 'Preview a deterministic clip selection without editing. Filters combine with AND; time range is half-open overlap.', 'edit.select')
-    p.add_argument('--json', dest='selection', required=True, help='Selector object: ids (array), layer, start/end seconds, file_id, effect (class or alias), or {"all":true}. Empty selectors are rejected.')
+    p.add_argument('--json', dest='selection', required=True, help='Selector object: ids (array), layer, start/end seconds, file_id, effect (class or alias), text (true = text clips), or {"all":true}. Empty selectors are rejected.')
     p = command(s, 'bulk', 'Expand per-clip templates into the existing edit.apply transaction. Preflight all targets; one undo group, max 256 expanded commands.', 'edit.bulk')
     p.add_argument('--select', dest='selection', required=True, help='Selector JSON, @file.json, or -. Preview with edit select first; use expect-revision when applying.')
     p.add_argument('--json', dest='commands', required=True, help='Command array. Clip commands inherit id; effects.add inherits clip_id. Named references are local to each clip. Other effect edits must reference an earlier named effect. Explicit target IDs are rejected.')
@@ -443,9 +496,9 @@ def build_parser():
     def annotate_json_help(parent):
         method = parent.get_default('method')
         if method:
-            fields = [action.dest for action in parent._actions
-                      if not isinstance(action, (argparse._HelpAction, argparse._SubParsersAction))
-                      and action.dest not in ('wait', 'wait_timeout')]
+            fields = list(dict.fromkeys(action.dest for action in parent._actions
+                                        if not isinstance(action, (argparse._HelpAction, argparse._SubParsersAction))
+                                        and action.dest not in ('wait', 'wait_timeout')))
             if fields:
                 parent.epilog = 'JSON method: {}. Parameter names: {}. Shell flags such as --fps-num use the JSON name fps_num.'.format(method.replace('effect.', 'effects.', 1), ', '.join(fields))
         for action in parent._actions:
@@ -505,6 +558,58 @@ def add_keyframes(subs, kind, command):
             p.add_argument('--json', dest='points', required=True, help='Array of point objects from keyframe list, @file.json, or -. co.X uses space/unit.')
         if op in ('copy', 'paste'):
             p.add_argument('--mode', choices=['merge', 'replace'], required=True, help='merge replaces points at matching frames; replace replaces the entire target curve.')
+
+
+def add_text(group, command):
+    s = group('text', 'Add, inspect, and style text clips. Clip set/keyframe still position and animate them.')
+    p = command(s, 'list', 'List texts in Project Files with their clip IDs. Filters combine with AND.', 'text.list')
+    p.add_argument('--search', help='Case-insensitive text in the words, name, or font.')
+    p.add_argument('--limit', type=int, default=50, help='Results per page, 1..500.')
+    p.add_argument('--offset', type=int, default=0, help='Start offset into the filtered list.')
+    p = command(s, 'fonts', 'List font families installed where the session runs.', 'text.fonts')
+    p.add_argument('--search', help='Case-insensitive text in the family name.')
+    p.add_argument('--limit', type=int, default=50, help='Results per page, 1..500.')
+    p.add_argument('--offset', type=int, default=0, help='Start offset into the filtered list.')
+    p = command(s, 'get', 'Return the shared style, box size in pixels, the clips using this text, and which styles a clip keyframes.', 'text.get')
+    p.add_argument('id', help='Text clip ID, or text file ID from text list.')
+    p = command(s, 'add', 'Create a text in Project Files and place it as a clip on an existing layer. Omitted style options use the editor\'s default style. One undo step.', 'text.add')
+    p.add_argument('--text', required=True, help='The words. Use a real newline for more lines (bash: $\'Line 1\\nLine 2\').')
+    p.add_argument('--layer', type=int, required=True, help='Layer number from project get; higher layers draw on top.')
+    p.add_argument('--position', type=number, default=0, help='Timeline position in seconds.')
+    p.add_argument('--duration', type=number, default=5, help='Length in seconds; change later with clip set end.')
+    p.add_argument('--place', choices=list(TEXT_PLACES), default='center', help='Where the box sits, with a 5%% margin from the edges. Sets the clip\'s gravity and location_x/y; fine-tune with clip set.')
+    add_text_style(p)
+    p = command(s, 'set', 'Change the words or style of a text, shared by every clip using it. One undo step.', 'text.set')
+    p.add_argument('id', help='Text clip ID, or text file ID from text list.')
+    p.add_argument('--text', default=argparse.SUPPRESS, help='New words. Use a real newline for more lines.')
+    p.add_argument('--place', choices=list(TEXT_PLACES), default=argparse.SUPPRESS, help='Move this clip (clip ID only). Replaces location animation with constants.')
+    p.add_argument('--this-clip-only', action='store_true', help='Give this clip its own copy of the text first, so other clips are unchanged.')
+    add_text_style(p)
+    p = command(s, 'reset', 'Return a text clip to the default style (Text > Reset Style), keeping its words; also removes its own text keyframes. One undo step.', 'text.reset')
+    p.add_argument('id', help='Text clip ID.')
+    p.add_argument('--keyframes-only', action='store_true', help='Only remove this clip\'s own text_* keyframes, so it follows the shared style again.')
+
+
+def add_text_style(p):
+    # Omitted options keep the current style (or the editor's default style for text add).
+    p.add_argument('--font', dest='font_family', default=argparse.SUPPRESS, help='Installed font family (see text fonts), e.g. "Noto Sans".')
+    p.add_argument('--size', dest='font_size', type=int, default=argparse.SUPPRESS, help='Font size in pixels, 8..1000.')
+    p.add_argument('--bold', dest='font_bold', action='store_const', const=True, default=argparse.SUPPRESS, help='Bold text.')
+    p.add_argument('--no-bold', dest='font_bold', action='store_const', const=False, default=argparse.SUPPRESS, help='Regular weight.')
+    p.add_argument('--italic', dest='font_italic', action='store_const', const=True, default=argparse.SUPPRESS, help='Italic text.')
+    p.add_argument('--no-italic', dest='font_italic', action='store_const', const=False, default=argparse.SUPPRESS, help='Upright text.')
+    p.add_argument('--align', dest='alignment', choices=['left', 'center', 'right'], default=argparse.SUPPRESS, help='Line alignment inside the box.')
+    p.add_argument('--width', type=int, default=argparse.SUPPRESS, help='Box width in pixels, 64..8192; longer lines wrap. The height fits the text.')
+    p.add_argument('--letter-spacing', type=int, default=argparse.SUPPRESS, help='Extra pixels between letters, -50..200.')
+    p.add_argument('--line-spacing', type=float, default=argparse.SUPPRESS, help='Line height as a multiple of normal, 0.5..5 (1 = normal, 1.5 = roomier).')
+    p.add_argument('--color', default=argparse.SUPPRESS, help='Text color: #RRGGBB, #AARRGGBB, or a CSS name.')
+    p.add_argument('--background', default=argparse.SUPPRESS, help='Box background color; transparent for none.')
+    p.add_argument('--background-padding', type=int, default=argparse.SUPPRESS, help='Pixels between the text and the box edge, 0..200.')
+    p.add_argument('--background-corner', type=float, default=argparse.SUPPRESS, help='Rounded box corner radius in pixels, 0..200 (0 = square); rounds the background and border.')
+    p.add_argument('--stroke', default=argparse.SUPPRESS, help='Text outline color.')
+    p.add_argument('--stroke-width', type=float, default=argparse.SUPPRESS, help='Text outline width in pixels, 0..30; 0 hides it.')
+    p.add_argument('--border', default=argparse.SUPPRESS, help='Box border color.')
+    p.add_argument('--border-width', type=float, default=argparse.SUPPRESS, help='Box border width in pixels, 0..30; 0 hides it.')
 
 
 def add_profile_selection(parser, positional=False):
@@ -578,6 +683,9 @@ def main(argv=None):
     if len(argv) == 2 and argv[0] == '--_export-worker':
         from classes.agent.export_worker import main as export_worker
         return export_worker(argv[1])
+    if len(argv) == 2 and argv[0] == '--_export-check':
+        from classes.agent.export_check import main as export_check
+        return export_check(argv[1])
     if 'project' in argv:
         index = argv.index('project')
         if argv[index+1:index+2] == ['profile'] and any(flag in argv[index+2:] for flag in ('--width', '--height')) and argv[index+2:index+3] != ['set']:

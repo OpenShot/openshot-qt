@@ -2762,6 +2762,12 @@ class KeyframePanelMixin:
         except Exception:
             return [], {}
 
+        if item_type == "clip":
+            clip = Clip.get(id=item_id)
+            if clip and clip.data.get("direct_text"):
+                from classes.direct_text import text_animation_properties
+                props.update(text_animation_properties(clip.data, int(frame)))
+
         tracked = props.pop("objects", None)
         if isinstance(tracked, dict):
             for track_props in tracked.values():

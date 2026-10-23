@@ -204,6 +204,11 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
             log.debug("Already shutting down, skipping the shutdown routine")
             return
         self.shutting_down = True
+        if getattr(self, "direct_text", None):
+            self.direct_text.shutdown()
+        clip_painter = getattr(getattr(self, "timeline", None), "clip_painter", None)
+        if clip_painter is not None and hasattr(clip_painter, "shutdown_text_thumbnails"):
+            clip_painter.shutdown_text_thumbnails()
         if getattr(self, "feedback_controller", None):
             self.feedback_controller.shutdown()
 
@@ -4848,7 +4853,9 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
 
         paste_clip_ids = self.selected_clips
         paste_tran_ids = self.selected_transitions
-        if isinstance(copied_object, (Clip, Transition)):
+        if isinstance(copied_object, (Clip, Transition)) and "reader" in copied_object.data:
+            # A whole copied clip pastes at the playhead; copied keyframes,
+            # effects or a text style paste onto the selection.
             paste_clip_ids = []
             paste_tran_ids = []
         elif isinstance(copied_object, list) and copied_object and all(
@@ -5696,6 +5703,19 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         self.videoPreview.scopeRegionCancelled.connect(self._clear_scope_region_mode)
         self.tabVideo.insertWidget(0, self.videoPreview)
         self.videoPreview.show()
+        from windows.direct_text import DirectTextController
+        self.direct_text = DirectTextController(self, self.videoPreview)
+        self.actionDirectText = QAction(_("Tt — Add Text"), self)
+        self.actionDirectText.setObjectName("actionDirectText")
+        self.actionDirectText.setIcon(QIcon(os.path.join(info.PATH, "images", "tool-text.svg")))
+        self.actionDirectText.setToolTip(_("Add text at the playhead (Shift+T): Enter to apply, Shift+Enter for a new line, Escape to cancel"))
+        self.actionDirectText.triggered.connect(self.direct_text.arm)
+        self.timelineToolbar.addAction(self.actionDirectText)
+        self.actionText = QAction(_("Text"), self)
+        self.actionText.setObjectName("actionText")
+        self.actionText.setIcon(self.actionDirectText.icon())
+        self.actionText.triggered.connect(self.direct_text.arm)
+        self.menuTitle.insertAction(self.menuTitle.actions()[0], self.actionText)
 
         # Load window state and geometry
         self.saved_state = None

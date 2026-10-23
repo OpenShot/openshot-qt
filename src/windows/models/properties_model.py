@@ -26,6 +26,7 @@
  """
 
 import os
+import copy
 from collections import OrderedDict
 from operator import itemgetter
 
@@ -70,6 +71,84 @@ class ClipStandardItemModel(QStandardItemModel):
 
 
 class PropertiesModel(updates.UpdateInterface):
+    def _direct_text_properties(self, clip_data):
+        """Expose semantic typography alongside the native clip properties."""
+        style = clip_data.get("direct_text")
+        if not isinstance(style, dict):
+            return {}
+        app = get_app()
+        # While typing, show the uncommitted draft rather than the saved style.
+        controller = getattr(getattr(app, "window", None), "direct_text", None)
+        draft = None
+        if controller is not None and controller.draft is not None and controller.clip_id == clip_data.get("id"):
+            draft = dict(controller.draft, text=controller.editor.toPlainText())
+            style = draft
+        locked = any(layer.get("number") == clip_data.get("layer") and layer.get("lock", False)
+                     for layer in app.project.get("layers"))
+        properties = {}
+        definitions = (
+            ("text", "Text", "string", 0, 0),
+            ("font_family", "Font", "font", 0, 0),
+            ("font_bold", "Font Bold", "bool", 0, 1),
+            ("font_italic", "Font Italic", "bool", 0, 1),
+            ("font_size", "Font Size", "int", 8, 1000),
+            ("letter_spacing", "Letter Spacing", "int", -50, 200),
+            ("line_spacing", "Line Spacing", "float", 0.5, 5.0),
+            ("alignment", "Text Alignment", "string", 0, 0),
+            ("width", "Text Box Width", "int", 64, 8192),
+            ("background_padding", "Text Background Padding", "int", 0, 200),
+        )
+        for key, name, kind, minimum, maximum in definitions:
+            value = style.get(key, False if kind == "bool" else None)
+            prop = dict(name=name, type=kind, value=value, memo=str(value or ""),
+                        min=minimum, max=maximum, readonly=locked, keyframe=False,
+                        points=0, interpolation=openshot.CONSTANT, closest_point_x=1,
+                        previous_point_x=1, choices=[])
+            if key == "font_size":
+                # Dragging steps one pixel at a time instead of jumping across 8-1000.
+                prop["step_drag"] = True
+            if kind == "bool":
+                prop["choices"] = [dict(name=label, value=choice, selected=value == choice)
+                                   for choice, label in ((False, "False"), (True, "True"))]
+            if key == "alignment":
+                prop["choices"] = [dict(name=label, value=align, selected=value == align)
+                                   for align, label in (("left", "Left"), ("center", "Center"), ("right", "Right"))]
+            if kind == "color":
+                color = QColor(value)
+                for channel in ("red", "green", "blue", "alpha"):
+                    prop[channel] = {"value": getattr(color, channel)()}
+            properties["direct_text." + key] = prop
+        from classes.direct_text import text_animation_properties
+        animated = text_animation_properties(clip_data, self.frame_number)
+        for prop in animated.values():
+            prop["readonly"] = locked
+        if draft is not None:
+            from classes.direct_text import TEXT_ANIMATED
+            for key, (_, kind, _, _) in TEXT_ANIMATED.items():
+                prop = animated["text_" + key]
+                if kind == "color":
+                    color = QColor(draft[key])
+                    for channel in ("red", "green", "blue", "alpha"):
+                        prop[channel]["value"] = getattr(color, channel)()
+                else:
+                    prop["value"] = draft[key]
+        properties.update(animated)
+        return properties
+
+    def _update_direct_text_property(self, item, value, key=None):
+        """Route text edits through the shared asset transaction."""
+        property_key, metadata = self.model.item(item.row(), 0).data()
+        if metadata.get("readonly"):
+            return
+        controller = getattr(get_app().window, "direct_text", None)
+        if controller is None:
+            return
+        # Snapshot IDs before an update can refresh or rebuild the model.
+        selected = list(item.data() or [])
+        for item_id, item_type in selected:
+            if item_type == "clip":
+                controller.apply_property(item_id, key or property_key, value)
+
     def _insert_colorgrade_keyframe(self, data, property_type, frame_number):
         from windows.color_grade_editor import (
             _set_color_value,
@@ -498,6 +577,7 @@ class PropertiesModel(updates.UpdateInterface):
 
     # Update the values of the selected clip, based on the current frame
     def update_frame(self, frame_number, reload_model=True):
+        self.playhead_frame = frame_number
 
         # Check for a selected clip
         if self.selected:
@@ -539,12 +619,38 @@ class PropertiesModel(updates.UpdateInterface):
                 if reload_model:
                     self.update_model(get_app().window.txtPropertyFilter.text())
 
+    def _edit_frame(self, item_id, item_type, force_insert):
+        """The frame to edit on one selected item, and whether to keyframe it.
+
+        Each item uses the playhead's position within itself. When the playhead
+        is outside an item, its nearest keyframe changes instead.
+        """
+        auto_keyframes = force_insert or auto_keyframes_enabled(get_app().window)
+        if getattr(self, "playhead_frame", None) is None:
+            return self.frame_number, auto_keyframes
+        getter = {"clip": "GetClip", "transition": "GetEffect", "effect": "GetClipEffect"}.get(item_type)
+        obj = getter and getattr(get_app().window.timeline_sync.timeline, getter)(item_id)
+        if obj and item_type == "effect":
+            obj = obj.ParentClip()
+        if not obj:
+            return self.frame_number, auto_keyframes
+
+        fps = get_app().project.get("fps")
+        fps_float = float(fps["num"]) / float(fps["den"])
+        requested_time = float(self.playhead_frame - 1) / fps_float
+        frame = round((requested_time - obj.Position() + obj.Start()) * fps_float) + 1
+        first, last = round(obj.Start() * fps_float) + 1, round(obj.End() * fps_float)
+        inside = first <= frame <= last
+        return min(max(frame, first), last), auto_keyframes and (inside or force_insert)
+
     def remove_keyframe(self, item):
         """Remove an existing keyframe (if any)"""
 
         # Determine what was changed
         property = self.model.item(item.row(), 0).data()
         property_type = property[1]["type"]
+        if property[0].startswith("direct_text."):
+            return
         closest_point_x = property[1]["closest_point_x"]
         property_type = property[1]["type"]
         property_key = property[0]
@@ -588,9 +694,18 @@ class PropertiesModel(updates.UpdateInterface):
                 # Determine type of keyframe (normal or color)
                 keyframe_list = []
                 if property_type == "color":
-                    keyframe_list = [clip_data[property_key]["red"], clip_data[property_key]["blue"], clip_data[property_key]["green"]]
+                    keyframe_list = [clip_data[property_key][channel] for channel in ("red", "blue", "green", "alpha")
+                                     if channel in clip_data[property_key]]
                 else:
                     keyframe_list = [clip_data[property_key]]
+
+                text_default = None
+                if property_key.startswith("text_") and clip_data.get("direct_text"):
+                    from classes.direct_text import TEXT_ANIMATED, initialize_text_curves
+                    if property_key[5:] in TEXT_ANIMATED:
+                        defaults = copy.deepcopy(clip_data)
+                        defaults["text_style_overrides"] = []
+                        text_default = initialize_text_curves(defaults)[property_key]
 
                 # Loop through each keyframe (red, blue, and green)
                 for keyframe_index, keyframe in enumerate(keyframe_list):
@@ -620,7 +735,12 @@ class PropertiesModel(updates.UpdateInterface):
                         # Check for 0 keyframes (and use sane defaults instead of the 0.0 default value)
                         default_value = None
                         if not keyframe["Points"]:
-                            if property_key in ["alpha", "scale_x", "scale_y", "time", "volume"]:
+                            if text_default is not None:
+                                default_curve = text_default
+                                if property_type == "color":
+                                    default_curve = text_default[("red", "blue", "green", "alpha")[keyframe_index]]
+                                default_value = default_curve["Points"][0]["co"]["Y"]
+                            elif property_key in ["alpha", "scale_x", "scale_y", "time", "volume"]:
                                 default_value = 1.0
                             elif property_key in ["origin_x", "origin_y"]:
                                 default_value = 0.5
@@ -714,6 +834,9 @@ class PropertiesModel(updates.UpdateInterface):
         # Determine what was changed
         property = self.model.item(item.row(), 0).data()
         property_type = property[1]["type"]
+        if property[0].startswith("direct_text."):
+            self._update_direct_text_property(item, new_color.name(QColor.HexArgb))
+            return
         closest_point_x = property[1]["closest_point_x"]
         previous_point_x = property[1]["previous_point_x"]
         property_key = property[0]
@@ -737,6 +860,8 @@ class PropertiesModel(updates.UpdateInterface):
                     c = Effect.get(id=item_id)
 
                 if c:
+                    frame_number, auto_keyframes = self._edit_frame(item_id, item_type, force_insert)
+
                     # Create reference
                     clip_data = c.data
                     if object_id:
@@ -773,8 +898,7 @@ class PropertiesModel(updates.UpdateInterface):
                                 clip_data[property_key][color] = {"Points": []}
 
                             target_frame = edit_frame(
-                                clip_data[property_key][color].get("Points", []), self.frame_number,
-                                force_insert or auto_keyframes_enabled(get_app().window))
+                                clip_data[property_key][color].get("Points", []), frame_number, auto_keyframes)
 
                             # Loop through points, find a matching points on this frame
                             found_point = False
@@ -826,7 +950,7 @@ class PropertiesModel(updates.UpdateInterface):
                             # Create new point (if needed)
                             if not found_point:
                                 clip_updated = True
-                                log.debug("Created new point at X=%d", self.frame_number)
+                                log.debug("Created new point at X=%d", target_frame)
                                 clip_data[property_key][color].setdefault("Points", []).append({
                                     'co': {'X': target_frame, 'Y': new_value},
                                     'interpolation': 1,
@@ -957,6 +1081,20 @@ class PropertiesModel(updates.UpdateInterface):
 
         # Determine what was changed
         property = self.model.item(item.row(), 0).data()
+        if property[0].startswith("direct_text."):
+            if value is None:
+                if property[1]["type"] == "int":
+                    value, valid = QLocale().system().toInt(item.text())
+                    if not valid:
+                        return
+                elif property[1]["type"] == "float":
+                    value, valid = QLocale().system().toDouble(item.text())
+                    if not valid:
+                        return
+                else:
+                    value = item.text()
+            self._update_direct_text_property(item, value)
+            return
         closest_point_x = property[1]["closest_point_x"]
         previous_point_x = property[1]["previous_point_x"]
         property_type = property[1]["type"]
@@ -1078,9 +1216,9 @@ class PropertiesModel(updates.UpdateInterface):
                             # Apply the calculated max_multiple to value
                             value = max(min(value, max_multiple), -max_multiple)
 
+                        frame_number, auto_keyframes = self._edit_frame(item_id, item_type, force_insert)
                         target_frame = edit_frame(
-                            clip_data[property_key].get("Points", []), self.frame_number,
-                            force_insert or auto_keyframes_enabled(get_app().window))
+                            clip_data[property_key].get("Points", []), frame_number, auto_keyframes)
 
                         # Loop through points, find a matching points on this frame
                         found_point = False
@@ -1144,7 +1282,7 @@ class PropertiesModel(updates.UpdateInterface):
                         # Create new point (if needed)
                         elif not found_point and value is not None:
                             clip_updated = True
-                            log.debug("Created new point at X=%d", self.frame_number)
+                            log.debug("Created new point at X=%d", target_frame)
                             clip_data[property_key].setdefault('Points', []).append({
                                 'co': {'X': target_frame, 'Y': int(value) if property_key == "time" else value},
                                 'interpolation': openshot.CONSTANT if choice_keyframes_use_constant else openshot.LINEAR})
@@ -1647,11 +1785,19 @@ class PropertiesModel(updates.UpdateInterface):
                 self._edit_source_data = None
                 if len(self.selected) == 1 and not auto_keyframes_enabled(app.window):
                     self._edit_source_data = json.loads(c.Json())
+                    if self.selected[0][1] == "clip":
+                        source_clip = Clip.get(id=c.Id())
+                        if source_clip and source_clip.data.get("direct_text"):
+                            self._edit_source_data.update(source_clip.data)
 
                 # Build list of raw properties for all selected items
                 all_raw_properties = []
                 for obj, _item_type in self.selected:
                     props = json.loads(obj.PropertiesJSON(self.frame_number))
+                    if _item_type == "clip":
+                        clip = Clip.get(id=obj.Id())
+                        if clip:
+                            props.update(self._direct_text_properties(clip.data))
                     all_raw_properties.append(props)
 
                 # Use first item's properties as baseline
@@ -1753,6 +1899,7 @@ class PropertiesModel(updates.UpdateInterface):
         self.selected_ids = []
         self.current_item_id = None
         self.frame_number = 1
+        self.playhead_frame = None
         self.new_item = True
         self.items = {}
         self.ignore_update_signal = False

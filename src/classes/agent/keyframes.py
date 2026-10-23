@@ -54,6 +54,11 @@ def curve_paths(data, prefix=''):
     return result
 
 
+# Text styles that set the text box size, with the text set flag for each.
+BOX_SIZE_FLAGS = {'font_size': '--size', 'letter_spacing': '--letter-spacing', 'line_spacing': '--line-spacing',
+                  'background_padding': '--background-padding', 'width': '--width'}
+
+
 def property_curve(obj, path):
     parts = path.split('.')
     value = obj.data
@@ -66,6 +71,11 @@ def property_curve(obj, path):
         choices = [p['property'] for p in curve_paths(obj.data)]
         close = difflib.get_close_matches(path, choices, n=1)
         hint = "Did you mean '{}'?".format(close[0]) if close else 'Run keyframe list ID to discover curve property paths.'
+        style = path[5:] if path.startswith('text_') else path
+        if obj.data.get('direct_text') and style in BOX_SIZE_FLAGS:
+            # These set the size of the text image, so they never animate.
+            hint = ('{} sets the size of the text box, so it cannot be keyframed. Set it with text set ID {}, '
+                    'or keyframe the clip scale_x/scale_y to animate size.').format(style, BOX_SIZE_FLAGS[style])
         fail('Not a keyframe property: ' + path, 'params.property', hint, property=path, available=choices)
     return copy.deepcopy(value)
 

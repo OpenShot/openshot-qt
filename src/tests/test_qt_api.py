@@ -36,6 +36,26 @@ assert loop.exec_() == 0
             text=True, timeout=20)
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
+    def test_dialogs_have_no_context_help_button(self):
+        # Qt5 on Windows adds a "?" button that does nothing in OpenShot.
+        script = """
+import sys
+sys.modules["OpenGL"] = None  # skip OpenGL setup; only attributes matter here
+from classes.qt_bootstrap import configure_qt
+configure_qt()
+from qt_api import QApplication, Qt
+help_button = getattr(Qt, "AA_DisableWindowContextHelpButton", None)
+sys.exit(0 if help_button is None or QApplication.testAttribute(help_button) else 1)
+"""
+        env = os.environ.copy()
+        env["OPENSHOT_QT_API"] = qt_api.QT_API
+        env["QT_QPA_PLATFORM"] = "offscreen"
+        env["PYTHONPATH"] = PATH + os.pathsep + env.get("PYTHONPATH", "")
+        result = subprocess.run(  # nosec B603 - Fixed interpreter and script; no shell.
+            [sys.executable, "-c", script], env=env, capture_output=True,
+            text=True, timeout=20)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
     def test_feedback_event_types_are_available_on_all_bindings(self):
         for name in ("KeyPress", "MouseButtonPress", "MouseButtonRelease",
                      "MouseMove", "Wheel", "TouchBegin", "TouchUpdate",

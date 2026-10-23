@@ -109,6 +109,7 @@ Help becomes more specific as you navigate commands::
    openshot-cli clip keyframe help
    openshot-cli clip keyframe set help
    openshot-cli edit help
+   openshot-cli text help
    openshot-cli effects list
    openshot-cli effects audiovisualization help
    openshot-cli effects audiovisualization help --property background
@@ -498,9 +499,14 @@ Check settings before starting a render::
    openshot-cli export validate /tmp/reel.mp4 --preset builtin:format_mp4_x264
 
 Capabilities report compiled codec availability, not physical GPU availability.
-Validation checks data, profiles, paths, and compiled encoders; actual codec,
-container, native option, and hardware compatibility is checked when the worker
-opens the writer. ``runtime_checked`` makes this distinction explicit.
+Validation goes further: it opens the encoders (including hardware encoders) and
+the container with the exact settings, in a separate process, without writing a
+file. A combination the container can't hold fails with ``incompatible_export``,
+FFmpeg's own explanation, and the setting to change (``details.cause.path``)::
+
+   openshot-cli export validate /tmp/song.mp3 --json '{"mode":"audio","format":"mp3","audio_codec":"aac"}'
+
+The export worker runs the same check before rendering.
 
 Rendering a frame range
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -584,6 +590,83 @@ The left half retains its ID. The response reports requested/actual split times
 and both summaries; a named batch result supports ``{"$ref":"cut.right.id"}``.
 Splits reject endpoints and locked tracks. Undo restores the original clip in
 one transaction.
+
+Clip menu presets
+~~~~~~~~~~~~~~~~~
+
+The editor's clip menu presets use the same code from the command line. Each
+command lists its presets in its help, and each one is a single undo step:
+
+.. code-block:: bash
+
+   openshot-cli clip motion CLIP_ID --preset slide-in-left
+   openshot-cli clip motion CLIP_ID --preset pulse --at 4.5
+   openshot-cli clip look CLIP_ID --effect ColorGrade --preset warm_up
+   openshot-cli clip look CLIP_ID --effect all --preset none
+   openshot-cli clip speed CLIP_ID --mode forward --factor 2
+   openshot-cli clip speed CLIP_ID --mode freeze --at 3 --duration 2
+   openshot-cli clip repeat CLIP_ID --passes 3 --pattern pingpong
+   openshot-cli clip waveform CLIP_ID
+
+Motion presets are relative to the clip's current transform. Look presets add
+or replace one effect, and ``none`` removes it. Speed and repeat retime every
+keyframe and change the clip's length; ``clip speed --mode reset`` restores
+normal speed. Other menu actions are plain edits: rotate and layout with
+``clip set``, crop with ``effects add Crop``. The commands also work in
+``edit apply`` and ``edit bulk``.
+
+.. _cli_text_ref:
+
+Adding and styling text
+~~~~~~~~~~~~~~~~~~~~~~~
+
+``text add`` creates a text and places it as a clip, using the same text as the editor's
+**Text** tool. Options you leave out use the editor's default style:
+
+.. code-block:: bash
+
+   openshot-cli text add --text "Opening Night" --layer 5000000 --position 2 --duration 4 \
+       --place lower-third --font "Noto Sans" --size 72 --bold --color "#ffffff" \
+       --background "#80000000" --background-padding 16 --background-corner 12
+   openshot-cli text get CLIP_ID
+   openshot-cli text set CLIP_ID --stroke black --stroke-width 3
+   openshot-cli text set CLIP_ID --text $'Two\nlines' --line-spacing 1.4
+   openshot-cli text fonts --search noto
+   openshot-cli text list --search opening
+
+The words, font, size, alignment, box width and default colors belong to the text in
+Project Files and are shared by every clip that uses it, just like in the editor.
+``text set`` on one clip changes all of them and lists them in ``changed_clip_ids``;
+``--this-clip-only`` gives that clip its own copy first. ``clip add FILE_ID`` places another
+clip of a text from ``text list``. Sizes are in pixels at the project resolution, and colors
+are ``#RRGGBB``, ``#AARRGGBB`` (with alpha), a CSS name, or ``transparent``. ``--place``
+puts the box at the center, an edge or corner, or a lower third. ``--line-spacing`` is a
+multiple of the normal distance between lines (1 is normal), and ``--background-corner`` rounds
+the background and border corners by that many pixels.
+
+A text clip is an ordinary clip. Position, scale, rotation, opacity, timing, fades, motion
+presets and effects all use the normal ``clip`` commands. Font size, padding, box width, and
+letter and line spacing set the size of the text box, so they cannot be keyframed; to animate the size
+of text, keyframe the clip's scale. Each clip can animate its own text colors and outline and
+border widths with the same keyframe commands as any other property:
+
+.. code-block:: bash
+
+   openshot-cli clip keyframe list CLIP_ID
+   openshot-cli clip keyframe set CLIP_ID --property text_color.alpha --space clip --unit seconds --at 0 --value 0
+   openshot-cli clip keyframe set CLIP_ID --property text_color.alpha --space clip --unit seconds --at 1 --value 255
+
+The animated properties are ``text_color``, ``text_background``, ``text_stroke`` and
+``text_border`` (colors, with ``.red``, ``.green``, ``.blue`` and ``.alpha`` from 0 to 255),
+plus ``text_stroke_width``, ``text_border_width`` and ``text_background_corner``. A clip's own animation wins over the
+shared style, and ``text get`` lists which styles a clip animates. ``text reset CLIP_ID``
+returns a clip to the default style, like **Text → Reset Style**; ``--keyframes-only`` just
+removes the clip's own animation. To style many texts at once, select them with
+``{"text":true}``:
+
+.. code-block:: bash
+
+   openshot-cli edit bulk --select '{"text":true}' --json '[{"method":"text.set","params":{"font_family":"Noto Sans","stroke_width":2}}]'
 
 Applying a batch of edits
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -743,7 +826,8 @@ First preview a selection::
    openshot-cli edit select --json '{"layer":1000000,"start":5,"end":20,"effect":"Saturation"}'
 
 Selectors support ``ids`` (unique clip ID array), ``layer``, ``start``/``end``
-(timeline seconds), ``file_id``, and ``effect`` (class name or alias). Filters
+(timeline seconds), ``file_id``, ``effect`` (class name or alias), and ``text``
+(``true`` selects text clips). Filters
 combine with AND. Time ranges select clips overlapping ``[start, end)``; they do
 not trim those clips. Results are ordered by position, layer, then ID, and include
 IDs, summaries, lock state, and the current revision. Unknown IDs are errors.

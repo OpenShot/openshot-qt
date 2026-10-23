@@ -166,6 +166,49 @@ class AutoKeyframeTests(unittest.TestCase):
         model.color_update(item, QColor(150, 160, 170, 180), force_insert=True)
         self.assertEqual(self.saved["color"]["red"]["Points"][-1]["co"], {"X": 76, "Y": 150})
 
+    def test_each_selected_clip_keyframes_at_the_playhead_or_edits_its_nearest_point(self):
+        # Three clips, 0-5s, 5-20s and 20-25s; recording is on.
+        self.action.isChecked.return_value = True
+        spans = {"A": (0., 5.), "B": (5., 15.), "C": (20., 5.)}
+        clips = {}
+        self.app.window.timeline_sync = types.SimpleNamespace(timeline=types.SimpleNamespace(
+            GetClip=lambda clip_id: types.SimpleNamespace(
+                Position=lambda: spans[clip_id][0], Start=lambda: 0., End=lambda: spans[clip_id][1])))
+
+        def get_clip(id):
+            clip = types.SimpleNamespace(id=id, data=copy.deepcopy(clips[id]))
+            clip.save = lambda: clips[id].update(copy.deepcopy(clip.data))
+            return clip
+        self.enterContext(patch.object(properties_model.Clip, "get", side_effect=get_clip))
+
+        def edit(seconds, key, kind, value):
+            for clip_id in spans:
+                clips[clip_id] = {key: {c: curve((1, 0)) for c in ("red", "green", "blue", "alpha")}
+                                  if kind == "color" else curve((1, 0))}
+            model, item = self.editor(1, key, kind)
+            item.setData([(clip_id, "clip") for clip_id in spans])
+            model.playhead_frame = round(seconds * 25) + 1
+            if kind == "color":
+                model.color_update(item, value)
+            else:
+                model.value_updated(item, value=value)
+            return {clip_id: (data[key]["red"] if kind == "color" else data[key])["Points"]
+                    for clip_id, data in clips.items()}
+
+        for key, kind, value, changed in (("rotation", "float", 30, 30),
+                                          ("text_color", "color", QColor(0, 255, 0), 0)):
+            with self.subTest(property=key):
+                # Playhead after every clip: each clip's last value changes, nothing animates.
+                points = edit(30, key, kind, value)
+                for clip_id in spans:
+                    self.assertEqual(points[clip_id], curve((1, changed))["Points"], clip_id)
+                # Playhead at 10s, inside B only: B keyframes 5s into itself;
+                # A (before the playhead) and C (after it) are not animated.
+                points = edit(10, key, kind, value)
+                self.assertEqual(points["B"], curve((1, 0), (126, changed))["Points"])
+                self.assertEqual(points["A"], curve((1, changed))["Points"])
+                self.assertEqual(points["C"], curve((1, changed))["Points"])
+
     def test_nested_wheel_edit_does_not_insert_or_touch_other_channels(self):
         original = default_wheels_data()
         original["global"]["amount_keyframes"] = curve((1, 0), (51, .2), (101, .8))

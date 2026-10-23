@@ -77,3 +77,9 @@ def configure_qt():
         QApplication.setAttribute(Qt.AA_UseHighDpiPixmaps)
     except AttributeError:
         pass  # Quietly fail for older Qt5 versions
+
+    # Qt5 on Windows adds a "?" (What's This) button to every dialog's title
+    # bar. OpenShot has no What's This help, so the button does nothing.
+    help_button = getattr(Qt, "AA_DisableWindowContextHelpButton", None)
+    if help_button is not None:
+        QApplication.setAttribute(help_button)

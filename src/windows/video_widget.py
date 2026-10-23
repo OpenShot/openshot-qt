@@ -38,7 +38,7 @@ from qt_api import modifiers_has
 from qt_api import (
     QTransform, QPainter, QIcon, QColor, QPen, QBrush, QCursor, QImage, QRegion
 )
-from qt_api import QSizePolicy, QWidget, QPushButton
+from qt_api import QSizePolicy, QWidget, QPushButton, QToolTip, QEvent
 
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
@@ -340,6 +340,11 @@ class VideoWidget(QWidget, updates.UpdateInterface):
     def clearTransformState(self):
         """Clear all transform-related state to avoid using invalid clip/effect objects"""
         self._restore_transform_playback_cache()
+        self.mouse_pressed = False
+        self.mouse_dragging = False
+        self.middle_pan_active = False
+        if QWidget.mouseGrabber() is self:
+            self.releaseMouse()
         self.transforming_clip = None
         self.transforming_clips.clear()
         self.transforming_clip_objects.clear()
@@ -725,8 +730,10 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                     union_rect = clip_rect
                     first_props = clip_props
 
-            # Draw handler(s)
-            if union_rect and first_props and not self.region_enabled:
+            # Draw handler(s); text edit mode shows its own text box instead.
+            text = getattr(getattr(self, "win", None), "direct_text", None)
+            text_editing = bool(text and text.draft is not None)
+            if union_rect and first_props and not self.region_enabled and not text_editing:
                 x = union_rect.x()
                 y = union_rect.y()
                 sw = union_rect.width()
@@ -948,9 +955,28 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         """ Connect signals to renderer """
         renderer.present.connect(self.present)
 
+    def mouseDoubleClickEvent(self, event):
+        text = getattr(getattr(self, "win", None), "direct_text", None)
+        if text and text.draft is not None:
+            event.accept()
+            return
+        if text and event.button() == Qt.LeftButton:
+            clip_id = text.hit(event.pos())
+            if clip_id:
+                text.begin(clip_id)
+                event.accept()
+                return
+        super().mouseDoubleClickEvent(event)
+
     def mousePressEvent(self, event):
         """Capture mouse press event on video preview window"""
         event.accept()
+        text = getattr(getattr(self, "win", None), "direct_text", None)
+        if text and text.draft is not None:
+            return
+        if text and text.armed and event.button() == Qt.LeftButton:
+            text.create(event.pos())
+            return
         if event.button() == Qt.MiddleButton or (
                 event.button() == Qt.LeftButton and getattr(self, "preview_pan_enabled", False)):
             self.mouse_pressed = True
@@ -1344,10 +1370,35 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         if not self.transform_mode or self.transform_mode == self.hover_transform_mode:
             self.setCursor(cursor)
 
+    def event(self, event):
+        # The zoom/pan hint is for an idle preview. Never cover handles, a
+        # region or the text editor (whose tooltip events bubble up here).
+        if event.type() == QEvent.ToolTip:
+            text = getattr(getattr(self, "win", None), "direct_text", None)
+            if (self.transforming_clip or self.region_enabled or self.mouse_dragging
+                    or (text and text.draft is not None)):
+                QToolTip.hideText()
+                event.ignore()
+                return True
+        return super().event(event)
+
     def mouseMoveEvent(self, event):
         """Capture mouse events on video preview window """
+        text = getattr(getattr(self, "win", None), "direct_text", None)
+        if text and text.draft is not None:
+            event.accept()
+            return
         self.mutex.lock()
         event.accept()
+
+        # A double-click can move focus to an editor before the matching release.
+        # Mouse tracking alone must never continue a transform gesture.
+        if not event.buttons() & (Qt.LeftButton | Qt.MiddleButton):
+            self.mouse_pressed = False
+            self.mouse_dragging = False
+            self.middle_pan_active = False
+            self.transform_mode = None
+            self.rotation_drag_value = None
 
         if self.mouse_pressed:
             self.mouse_dragging = True

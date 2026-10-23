@@ -75,3 +75,19 @@ def retarget_keyframe_changes(original, updated, frame):
                 retarget_keyframe_changes(old_item, new_item, frame)
         else:
             retarget_keyframe_changes(old, value, frame)
+
+
+def add_point(keyframe, new_point):
+    """Add a point to a keyframe dict, replacing any point on the same frame."""
+    keyframe["Points"] = [
+        point for point in keyframe["Points"]
+        if point.get("co", {}).get("X") != new_point.get("co", {}).get("X")
+    ] + [new_point]
+
+
+def remove_points_in_range(keyframe, frame_start, frame_end):
+    """Remove all keyframe points with X in [frame_start, frame_end]."""
+    keyframe["Points"] = [
+        p for p in keyframe["Points"]
+        if not (frame_start <= p.get("co", {}).get("X", -1) <= frame_end)
+    ]

@@ -2414,7 +2414,8 @@ class TimelineHelperTests(unittest.TestCase):
         blur_fx, mask_fx = clip.data["effects"]
         self.assertEqual(blur_fx["class_name"], "Blur")
         self.assertEqual(mask_fx["class_name"], "Mask")
-        self.assertEqual(mask_fx["ui-menu"], self.timeline_module.MOTION_EFFECT_UI_MENU)
+        from windows.views.motion import MOTION_EFFECT_UI_MENU
+        self.assertEqual(mask_fx["ui-menu"], MOTION_EFFECT_UI_MENU)
         self.assertEqual(
             os.path.basename(mask_fx["mask_reader"]["path"]),
             "wipe_top_to_bottom.svg",
@@ -6661,6 +6662,156 @@ class TimelineHelperTests(unittest.TestCase):
                                 (frame - 1) / (fps_num / fps_den), expected_time, delta=0.26
                             )
 
+    def test_direct_text_thumbnails_paint_clip_owned_png_and_follow_history(self):
+        from classes.direct_text import default_text, render_text
+
+        with tempfile.TemporaryDirectory() as folder:
+            painter = self.make_clip_painter()
+            self.addCleanup(painter.w.deleteLater)
+            requests = []
+            painter.w.thumbnail_manager = types.SimpleNamespace(
+                request_thumbnail=lambda *args: requests.append(args)
+            )
+            style = default_text(320, 180)
+            style.update(text="Hello", font_size=32, width=160, height=64)
+            white_path = render_text(style, folder)
+            style["color"] = "#ff0000"
+            red_path = render_text(style, folder)
+            clip = types.SimpleNamespace(id="TEXT", data={
+                "direct_text": style, "position": 0.0, "start": 0.0,
+                "end": 5.0, "duration": 5.0,
+                "reader": {"path": white_path, "width": 160, "height": 64},
+            })
+            inner = QRectF(0, 0, 120, 48)
+
+            def render(path):
+                clip.data["reader"]["path"] = path
+                image = QImage(120, 48, QImage.Format_ARGB32)
+                image.fill(QColor("black"))
+                canvas = QPainter(image)
+                try:
+                    self.assertFalse(painter._draw_thumbnails(canvas, clip, inner, None))
+                finally:
+                    canvas.end()
+                return image
+
+            first = render(white_path)
+            self.assertGreater(sum(first.pixelColor(x, y).green() > 20
+                                   for x in range(120) for y in range(48)), 100)
+            edited = render(red_path)
+            self.assertGreater(sum(edited.pixelColor(x, y).red() > 20
+                                   for x in range(120) for y in range(48)), 100)
+            self.assertEqual(sum(edited.pixelColor(x, y).green()
+                                 for x in range(120) for y in range(48)), 0)
+            self.assertEqual(render(white_path), first)  # undo
+            self.assertEqual(render(red_path), edited)  # redo
+
+            # A saved project resolves clip-owned assets without a File object.
+            from classes.assets import get_assets_path
+            from qt_api import QApplication
+            project_file = os.path.join(folder, "saved.osp")
+            title_folder = os.path.join(get_assets_path(project_file), "title")
+            saved_path = render_text(style, title_folder)
+            token = "@assets/title/" + os.path.basename(saved_path)
+            with patch.object(QApplication.instance(), "project",
+                              types.SimpleNamespace(current_filepath=project_file), create=True):
+                self.assertEqual(render(token), edited)
+            self.assertEqual(requests, [])
+            painter.invalidate_clip_thumbnails(clip.id)
+            self.assertEqual(painter.thumb_cache, {})
+
+    def test_text_source_thumbnails_render_off_the_gui_thread(self):
+        from classes.direct_text import default_text
+        from qt_api import QApplication
+
+        with tempfile.TemporaryDirectory() as folder:
+            painter = self.make_clip_painter()
+            self.addCleanup(painter.w.deleteLater)
+            painter.w.thumbnail_manager = types.SimpleNamespace(request_thumbnail=lambda *args: None)
+            style = default_text(320, 180)
+            style.update(text="Async", font_size=32, width=160, height=64)
+            clip = types.SimpleNamespace(id="ASYNC", data={
+                "direct_text": style, "position": 0.0, "start": 0.0, "end": 5.0, "duration": 5.0,
+                "file_id": "F1", "reader": {"type": "QtTextReader", "width": 160, "height": 64},
+            })
+            inner = QRectF(0, 0, 120, 48)
+
+            def paint():
+                image = QImage(120, 48, QImage.Format_ARGB32)
+                image.fill(QColor("black"))
+                canvas = QPainter(image)
+                try:
+                    pending = painter._draw_thumbnails(canvas, clip, inner, None)
+                finally:
+                    canvas.end()
+                lit = sum(image.pixelColor(x, y).lightness() > 128 for x in range(120) for y in range(48))
+                return pending, lit
+
+            def finish_workers():
+                painter._text_thumb_pool.waitForDone()
+                QApplication.processEvents()  # deliver the queued finished signal
+
+            with patch.object(info, "THUMBNAIL_PATH", folder):
+                # First paint never renders on the GUI thread: pending, nothing drawn.
+                self.assertEqual(paint(), (True, 0))
+                self.assertEqual(len(painter._text_thumb_jobs), 1)
+                self.assertEqual(paint()[0], True)  # no duplicate job while rendering
+                finish_workers()
+                self.assertEqual(painter._text_thumb_jobs, set())
+                pending, lit = paint()
+                self.assertFalse(pending)
+                self.assertGreater(lit, 20)
+
+                # Cleared thumbnails are rendered again rather than staying blank.
+                path = next(iter(painter._text_thumb_ready))
+                os.remove(path)
+                painter.thumb_cache.clear()
+                self.assertEqual(paint(), (True, 0))
+                self.assertEqual(paint(), (True, 0))
+                finish_workers()
+                self.assertTrue(os.path.exists(path))
+                self.assertFalse(paint()[0])
+                painter.shutdown_text_thumbnails()
+
+    def test_text_clip_thumbnails_tile_like_media_thumbnails(self):
+        from classes.direct_text import default_text
+        from classes import info
+
+        with tempfile.TemporaryDirectory() as folder:
+            painter = self.make_clip_painter(pixels_per_second=24.0)
+            self.addCleanup(painter.w.deleteLater)
+            # Use the source aspect ratio, as clips without a theme width do.
+            painter.w.theme.clip.thumb_width = 0
+            style = default_text(1280, 720)
+            # A wide text box must not widen the slots: the thumbnail image
+            # has the media thumbnail shape, so tiles would leave gaps.
+            style.update(text="Text", width=1280, height=180)
+            clip = types.SimpleNamespace(id="TILES", data={
+                "direct_text": style, "position": 0.0, "start": 0.0, "end": 20.0, "duration": 20.0,
+                "file_id": "F1", "reader": {"type": "QtTextReader", "width": 1280, "height": 180},
+            })
+            inner = QRectF(0, 0, 400, 48)
+
+            def paint():
+                image = QImage(400, 48, QImage.Format_ARGB32)
+                image.fill(QColor("magenta"))
+                canvas = QPainter(image)
+                try:
+                    pending = painter._draw_thumbnails(canvas, clip, inner, None)
+                finally:
+                    canvas.end()
+                return pending, image
+
+            with patch.object(info, "THUMBNAIL_PATH", folder):
+                paint()
+                painter._text_thumb_pool.waitForDone()
+                QApplication.processEvents()
+                pending, image = paint()
+                painter.shutdown_text_thumbnails()
+            self.assertFalse(pending)
+            gaps = [x for x in range(400) if image.pixelColor(x, 24) == QColor("magenta")]
+            self.assertEqual(gaps, [], "Text thumbnails tile across the clip like media thumbnails")
+
     def test_thumbnail_strip_renders_correct_cached_frames_during_repeated_zoom(self):
         # Encode source frame numbers in solid-color PNGs so we can verify the
         # actual painted pixels through the normal request, load, and cache path.
@@ -7916,7 +8067,10 @@ class TimelineHelperTests(unittest.TestCase):
             def _clip_has_visual(self, candidate):
                 return timeline_module.TimelineView._clip_has_visual(self, candidate)
 
-            def _create_film_grain_effect_json(self):
+            def _apply_effect_preset(self, *args):
+                return timeline_module.TimelineView._apply_effect_preset(self, *args)
+
+            def _create_effect_json(self, _class_name):
                 return {"class_name": "FilmGrain", "id": "FG-1", "seed": 77}
 
             def update_clip_data(self, clip_data, **kwargs):
@@ -7973,6 +8127,9 @@ class TimelineHelperTests(unittest.TestCase):
             def _clip_has_visual(self, candidate):
                 return timeline_module.TimelineView._clip_has_visual(self, candidate)
 
+            def _apply_effect_preset(self, *args):
+                return timeline_module.TimelineView._apply_effect_preset(self, *args)
+
             def update_clip_data(self, clip_data, **kwargs):
                 self.updates.append(copy.deepcopy(clip_data))
 
@@ -8017,6 +8174,9 @@ class TimelineHelperTests(unittest.TestCase):
 
             def _clip_has_visual(self, candidate):
                 return timeline_module.TimelineView._clip_has_visual(self, candidate)
+
+            def _apply_effect_preset(self, *args):
+                return timeline_module.TimelineView._apply_effect_preset(self, *args)
 
             def update_clip_data(self, clip_data, **kwargs):
                 self.updates.append((copy.deepcopy(clip_data), dict(kwargs)))

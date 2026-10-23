@@ -111,7 +111,7 @@ def arguments(method, params):
             expected = list if key in ('commands', 'points') else dict
             if not isinstance(value, expected):
                 fail(path, 'a JSON object' if expected is dict else 'a JSON array', value)
-        elif isinstance(action, argparse._StoreTrueAction):
+        elif isinstance(action, argparse._StoreConstAction) and isinstance(action.const, bool):
             if not isinstance(value, bool):
                 fail(path, 'a boolean', value)
         elif action.type is int:
@@ -136,6 +136,10 @@ def scalar(value, metadata, path, property_name):
     if property_name in ('alpha',):
         numeric(value, path, minimum=0, maximum=1)
     if property_name in ('volume', 'scale_x', 'scale_y'):
+        numeric(value, path, minimum=0)
+    if property_name in ('text_color', 'text_background', 'text_stroke', 'text_border'):
+        numeric(value, path, minimum=0, maximum=255)
+    if property_name in ('text_stroke_width', 'text_border_width', 'text_background_corner'):
         numeric(value, path, minimum=0)
 
 
