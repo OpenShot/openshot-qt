@@ -528,26 +528,34 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                 project_data = (self.read_from_file(file_path, path_mode="absolute")
                                 if interactive else candidate)
 
-                # Fix history (if broken)
-                if not project_data.get("history"):
-                    project_data["history"] = {"undo": [], "redo": []}
-
-                # If project has waveforms, enable removing waveforms
-                if get_app().window:
-                    get_app().window.actionClearWaveformData.setEnabled(False)
-                    for file in project_data["files"]:
-                        if file.get("ui",{}).get("audio_data", []):
-                            get_app().window.actionClearWaveformData.setEnabled(True)
-                            break
-
-            except Exception:
-                try:
-                    # Attempt to load legacy project file (v1.X version)
-                    project_data = self.read_legacy_project_file(file_path)
-
-                except Exception:
-                    # Project file not recognized as v1.X or v2.X, bubble up error
+            except Exception as ex:
+                # Only decoding failures can indicate a legacy pickle. Errors
+                # processing modern project data must retain their real cause.
+                cause = ex
+                while cause.__cause__ is not None:
+                    cause = cause.__cause__
+                if not isinstance(cause, (json.JSONDecodeError, UnicodeDecodeError)):
                     raise
+                from qt_api import is_content_uri
+                if is_content_uri(file_path):
+                    raise
+                with open(file_path, "rb") as stream:
+                    prefix = stream.read(64).lstrip()
+                if not prefix or prefix.startswith((b"{", b"[", b"\xef\xbb\xbf")):
+                    raise
+                project_data = self.read_legacy_project_file(file_path)
+
+            # Fix history (if broken)
+            if not project_data.get("history"):
+                project_data["history"] = {"undo": [], "redo": []}
+
+            # If project has waveforms, enable removing waveforms
+            if get_app().window:
+                get_app().window.actionClearWaveformData.setEnabled(False)
+                for file in project_data["files"]:
+                    if file.get("ui",{}).get("audio_data", []):
+                        get_app().window.actionClearWaveformData.setEnabled(True)
+                        break
 
             # Merge default and project settings, excluding settings not in default.
             recovery_assets = project_data.pop("runtime_assets_path", info.USER_PATH)
