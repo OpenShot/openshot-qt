@@ -12,7 +12,7 @@ if PATH not in sys.path:
     sys.path.append(PATH)
 
 from qt_api import QApplication, QColor, QPalette, QWidget, isdeleted
-from classes import desktop_open
+from classes import desktop_open, portal_file_dialog
 from windows.export_result import (
     ExportResultTab, export_details, format_duration, format_elapsed, format_label, format_size, status_badge,
 )
@@ -279,22 +279,22 @@ class DesktopOpenTests(unittest.TestCase):
                 patch.object(desktop_open.shutil, "which", return_value="/usr/bin/xdg-open"), \
                 patch.object(desktop_open.subprocess, "Popen") as popen, \
                 patch.object(desktop_open.QDesktopServices, "openUrl", return_value=True) as qt_open:
-            with patch("classes.portal_file_dialog.open_file_with_default_application", return_value=True):
+            with patch.object(portal_file_dialog, "open_file_with_default_application", return_value=True):
                 self.assertTrue(desktop_open.open_file(None, output.name))
             popen.assert_not_called()
-            with patch("classes.portal_file_dialog.open_file_with_default_application", return_value=None):
+            with patch.object(portal_file_dialog, "open_file_with_default_application", return_value=None):
                 self.assertTrue(desktop_open.open_file(None, output.name))
             self.assertEqual(popen.call_args[0][0], ["/usr/bin/xdg-open", output.name])
             self.assertNotIn("LD_LIBRARY_PATH", popen.call_args[1]["env"])
             qt_open.assert_not_called()
-            with patch("classes.portal_file_dialog.open_containing_directory", return_value=None), \
-                    patch("classes.portal_file_dialog.show_items_in_file_manager", return_value=True) as show:
+            with patch.object(portal_file_dialog, "open_containing_directory", return_value=None), \
+                    patch.object(portal_file_dialog, "show_items_in_file_manager", return_value=True) as show:
                 popen.reset_mock()
                 self.assertTrue(desktop_open.reveal_file(None, output.name))
             show.assert_called_once_with(output.name)
             popen.assert_not_called()
-            with patch("classes.portal_file_dialog.open_containing_directory", return_value=None), \
-                    patch("classes.portal_file_dialog.show_items_in_file_manager", return_value=None):
+            with patch.object(portal_file_dialog, "open_containing_directory", return_value=None), \
+                    patch.object(portal_file_dialog, "show_items_in_file_manager", return_value=None):
                 self.assertTrue(desktop_open.reveal_file(None, output.name))
             self.assertEqual(popen.call_args[0][0], ["/usr/bin/xdg-open", os.path.dirname(output.name)])
 
@@ -302,7 +302,7 @@ class DesktopOpenTests(unittest.TestCase):
         with patch.object(desktop_open.sys, "platform", "linux"), \
                 patch.object(desktop_open, "_sandboxed", return_value=True), \
                 patch.object(desktop_open.subprocess, "Popen") as popen, \
-                patch("classes.portal_file_dialog.open_file_with_default_application", return_value=None), \
+                patch.object(portal_file_dialog, "open_file_with_default_application", return_value=None), \
                 patch.object(desktop_open.QDesktopServices, "openUrl", return_value=True) as qt_open:
             self.assertTrue(desktop_open.open_file(None, "/tmp/out.mp4"))
         popen.assert_not_called()

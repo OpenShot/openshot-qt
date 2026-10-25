@@ -9,7 +9,9 @@ and final choice to help diagnose environment issues.
 
 import logging
 import os
+import stat
 import sys
+import tempfile
 from typing import List, Optional, Tuple
 
 logger = logging.getLogger(__name__)
@@ -752,11 +754,32 @@ def read_file_text(path) -> str:
 
 def write_file_text(path, content: str) -> None:
     """Write UTF-8 text to *path* — works transparently for local paths and content:// URIs."""
+    write_file_chunks(path, (content,))
+
+
+def write_file_chunks(path, chunks) -> None:
+    """Write text chunks, atomically replacing local files after a successful write."""
     if is_content_uri(path):
-        write_to_content_uri(path, content)
-    else:
-        with open(path, "w", encoding="utf-8") as f:
-            f.write(content)
+        write_to_content_uri(path, "".join(chunks))
+        return
+
+    # Resolve symlinks so saving updates the target, as open(path, 'w') did.
+    path = os.path.realpath(path)
+    directory = os.path.dirname(path)
+    temporary_path = None
+    try:
+        with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", dir=directory,
+                                         prefix=".openshot-", suffix=".tmp", delete=False) as stream:
+            temporary_path = stream.name
+            stream.writelines(chunks)
+            stream.flush()
+            os.fsync(stream.fileno())
+        if os.path.exists(path):
+            os.chmod(temporary_path, stat.S_IMODE(os.stat(path).st_mode))
+        os.replace(temporary_path, path)
+    finally:
+        if temporary_path and os.path.exists(temporary_path):
+            os.unlink(temporary_path)
 
 
 def ensure_extension(path: str, ext: str = ".osp") -> str:

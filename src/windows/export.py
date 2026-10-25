@@ -182,37 +182,7 @@ class Export(QDialog):
         self.checkStartFirstClip.toggled.connect(partial(self.updateFrameRate, True))
         self.checkEndLastClip.toggled.connect(partial(self.updateFrameRate, True))
 
-        # ********* Advanced Profile List **********
-        # Loop through profiles
-        self.profile_names = []
-        self.profile_paths = {}
-        self.current_project_profile = get_app().project.get(['profile'])
-        self.selected_profile = None
-        for profile_folder in [info.USER_PROFILES_PATH, info.PROFILES_PATH]:
-            for file in reversed(sorted(os.listdir(profile_folder))):
-                profile_path = os.path.join(profile_folder, file)
-                if os.path.isdir(profile_path):
-                    continue
-                try:
-                    # Load Profile
-                    profile = openshot.Profile(profile_path)
-
-                    # Add description of Profile to list
-                    profile_name = f"{profile.info.description} ({profile.info.width}x{profile.info.height})"
-                    self.profile_names.append(profile_name)
-                    self.profile_paths[profile_name] = profile_path
-
-                    # Add to dropdown
-                    self.cboProfile.addItem(
-                        self.getProfileName(self.getProfilePath(profile_name)), self.getProfilePath(profile_name))
-
-                    # Set default profile (if it matches the project)
-                    if self.current_project_profile == profile.info.description:
-                        self.selected_profile = profile_name
-
-                except RuntimeError as e:
-                    # This exception occurs when there's a problem parsing the Profile file - display a message and continue
-                    log.error("Failed to parse file '%s' as a profile: %s" % (profile_path, e))
+        self.load_profiles()
 
         # ********* Simple Project Type **********
         # load the simple project type dropdown
@@ -966,6 +936,43 @@ class Export(QDialog):
                 return (0, 0)
 
         return sorted(widgets, key=_pos_key)
+
+    def load_profiles(self):
+        """Populate export profiles, including installations without a user folder."""
+        self.profile_names = []
+        self.profile_paths = {}
+        self.current_project_profile = get_app().project.get(['profile'])
+        self.selected_profile = None
+        for profile_folder in [info.USER_PROFILES_PATH, info.PROFILES_PATH]:
+            try:
+                filenames = os.listdir(profile_folder)
+            except FileNotFoundError:
+                log.warning("Skipping missing profile folder: %s", profile_folder)
+                continue
+            for file in reversed(sorted(filenames)):
+                profile_path = os.path.join(profile_folder, file)
+                if os.path.isdir(profile_path):
+                    continue
+                try:
+                    # Load Profile
+                    profile = openshot.Profile(profile_path)
+
+                    # Add description of Profile to list
+                    profile_name = f"{profile.info.description} ({profile.info.width}x{profile.info.height})"
+                    self.profile_names.append(profile_name)
+                    self.profile_paths[profile_name] = profile_path
+
+                    # Add to dropdown
+                    self.cboProfile.addItem(
+                        self.getProfileName(self.getProfilePath(profile_name)), self.getProfilePath(profile_name))
+
+                    # Set default profile (if it matches the project)
+                    if self.current_project_profile == profile.info.description:
+                        self.selected_profile = profile_name
+
+                except RuntimeError as e:
+                    # This exception occurs when there's a problem parsing the Profile file - display a message and continue
+                    log.error("Failed to parse file '%s' as a profile: %s" % (profile_path, e))
 
     def accept(self):
         """ Start exporting video """

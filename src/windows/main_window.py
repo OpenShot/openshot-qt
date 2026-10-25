@@ -957,7 +957,14 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         else:
             # No saved project found
             log.info("Creating backup of project file: %s", info.BACKUP_FILE)
-            app.project.save(info.BACKUP_FILE, backup_only=True)
+            try:
+                app.project.save(info.BACKUP_FILE, backup_only=True)
+            except Exception as ex:
+                log.error("Couldn't save backup %s", info.BACKUP_FILE, exc_info=True)
+                message = (app._tr("Not enough memory to save the project.")
+                           if isinstance(ex, MemoryError) else str(ex))
+                self.ProjectSaveFailed.emit(info.BACKUP_FILE, message)
+                return
 
         self.last_auto_save_data_version = current_data_version
 
