@@ -28,3 +28,22 @@ class UpdateDispatchTests(unittest.TestCase):
         self.assertNotIn(deleted, manager.updateListeners)
         deleted.changed.assert_not_called()
         live.changed.assert_called_once_with(action)
+
+    def test_failed_insert_retains_exception_and_action_path(self):
+        manager = UpdateManager()
+        failed = Mock()
+        failed.changed.side_effect = MemoryError()
+        following = Mock()
+        manager.add_listener(failed)
+        manager.add_listener(following)
+        action = UpdateAction("insert", ["clips"], {"id": "new"})
+
+        with self.assertLogs("OpenShot", level="ERROR") as logs:
+            manager.dispatch_action(action)
+
+        record = logs.records[0]
+        self.assertIs(record.exc_info[0], MemoryError)
+        self.assertIn("clips", record.getMessage())
+        self.assertIn("insert", record.getMessage())
+        # Do not notify later views of an insertion the project rejected.
+        following.changed.assert_not_called()

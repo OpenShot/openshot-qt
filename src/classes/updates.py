@@ -428,7 +428,8 @@ class UpdateManager:
                 listener.changed(action)
 
         except Exception as ex:
-            log.error("Couldn't apply '{}' to update listener: {}\n{}".format(action.type, listener, ex))
+            log.error("Couldn't apply '%s' to update listener: %s (key=%s)\n%s",
+                      action.type, listener, action.key, ex, exc_info=True)
         self.update_watchers()
 
     # Perform load action (loading all project data), clearing history for taking a new path
