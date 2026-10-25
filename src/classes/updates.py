@@ -29,6 +29,7 @@
 
 from classes.logger import log
 from classes.app import get_app
+from qt_api import QObject, isdeleted
 import json
 import uuid
 
@@ -419,7 +420,10 @@ class UpdateManager:
 
         try:
             # Loop through all listeners
-            for listener in self.updateListeners:
+            for listener in list(self.updateListeners):
+                if isinstance(listener, QObject) and isdeleted(listener):
+                    self.disconnect_listener(listener)
+                    continue
                 # Invoke change method on listener
                 listener.changed(action)
 
