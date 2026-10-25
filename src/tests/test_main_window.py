@@ -182,6 +182,16 @@ class MainWindowTests(unittest.TestCase):
         metrics = types.ModuleType("classes.metrics")
         metrics.track_metric_session = lambda *args, **kwargs: None
         metrics.track_metric_screen = lambda *args, **kwargs: None
+        metrics.track_metric_error = lambda *args, **kwargs: None
+        previous_metrics = sys.modules.get("classes.metrics")
+
+        def restore_metrics():
+            if previous_metrics is None:
+                sys.modules.pop("classes.metrics", None)
+            else:
+                sys.modules["classes.metrics"] = previous_metrics
+
+        cls.addClassCleanup(restore_metrics)
         sys.modules["classes.metrics"] = metrics
         sys.modules.pop("windows.views.timeline", None)
         sys.modules.pop("windows.main_window", None)
