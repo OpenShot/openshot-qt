@@ -191,6 +191,27 @@ class MainWindowTests(unittest.TestCase):
         cls.properties_tableview_module = importlib.import_module("windows.views.properties_tableview")
         cls.properties_model_module = importlib.import_module("windows.models.properties_model")
 
+    def test_failed_backup_reports_error_and_can_retry_same_revision(self):
+        module = self.main_window_module
+        for error in (MemoryError(), OSError("disk full")):
+            with self.subTest(error=type(error).__name__):
+                project = MagicMock(current_filepath=None)
+                project.needs_save.return_value = True
+                project.save.side_effect = [error, None]
+                app = types.SimpleNamespace(project=project,
+                                            updates=types.SimpleNamespace(data_version=7),
+                                            _tr=lambda text: text)
+                window = types.SimpleNamespace(last_auto_save_data_version=6,
+                                               ProjectSaveFailed=MagicMock())
+                with patch.object(module, "get_app", return_value=app):
+                    module.MainWindow.auto_save_project(window)
+                    self.assertEqual(window.last_auto_save_data_version, 6)
+                    window.ProjectSaveFailed.emit.assert_called_once()
+                    self.assertTrue(window.ProjectSaveFailed.emit.call_args[0][1])
+                    module.MainWindow.auto_save_project(window)
+                    self.assertEqual(window.last_auto_save_data_version, 7)
+                    self.assertEqual(project.save.call_count, 2)
+
     def test_track_stack_preserves_selected_track_across_renumbering(self):
         module = self.main_window_module
         layers = [
