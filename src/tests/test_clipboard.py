@@ -1,6 +1,6 @@
 """Regression tests for OpenShot clipboard payloads."""
 
-import pickle
+import pickle  # nosec B403 - Generate controlled pickle fixtures for regression tests.
 import unittest
 
 from qt_api import QMimeData

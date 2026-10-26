@@ -28,7 +28,7 @@
 import copy
 import json
 import os
-import pickle
+import pickle  # nosec B403 - Generate controlled pickle fixtures for regression tests.
 import sys
 import tempfile
 import types
