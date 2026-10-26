@@ -159,6 +159,36 @@ def verify():
         checks.assertEqual(restored["reader"]["text_animation"], animated["reader"]["text_animation"])
         checks.assertEqual(QColor(evaluated_text_style(restored, 31)["color"]), QColor("#800000ff"))
         checks.assertEqual(QColor(evaluated_text_style(Clip.get(id=sibling.id).data, 31)["color"]), QColor(style["color"]))
+        # A complete position drag commits X and Y together and remains one undo.
+        from qt_api import QMouseEvent, QEvent, QPointF, Qt
+        drag = Clip()
+        drag.data = new_text_clip(style, root, 0.0, after["layer"], 4.0)
+        drag.data["file_id"] = asset.id
+        drag.save()
+        window.SeekSignal.emit(1, True)
+        window.timeline.AddSelectionJS(drag.id, "clip", True)
+        QTest.qWait(200)
+        window.TransformSignal.emit([drag.id])
+        video = window.videoPreview
+        video.repaint()
+        checks.assertIsNotNone(video.transform)
+        before_drag = copy.deepcopy(Clip.get(id=drag.id).data)
+        video.hover_transform_mode = 'location'
+        video.mousePressEvent(QMouseEvent(QEvent.MouseButtonPress, QPointF(200, 150),
+                                         Qt.LeftButton, Qt.LeftButton, Qt.NoModifier))
+        video.mouseMoveEvent(QMouseEvent(QEvent.MouseMove, QPointF(230, 180),
+                                        Qt.NoButton, Qt.LeftButton, Qt.NoModifier))
+        video.mouseReleaseEvent(QMouseEvent(QEvent.MouseButtonRelease, QPointF(230, 180),
+                                           Qt.LeftButton, Qt.NoButton, Qt.NoModifier))
+        after_drag = copy.deepcopy(Clip.get(id=drag.id).data)
+        for key in ('location_x', 'location_y'):
+            checks.assertNotEqual(after_drag[key], before_drag[key])
+        app.updates.undo()
+        for key in ('location_x', 'location_y'):
+            checks.assertEqual(Clip.get(id=drag.id).data[key], before_drag[key])
+        app.updates.redo()
+        for key in ('location_x', 'location_y'):
+            checks.assertEqual(Clip.get(id=drag.id).data[key], after_drag[key])
         passed = True
         print("TEXT_PROPERTIES_PASSED", flush=True)
     except Exception:

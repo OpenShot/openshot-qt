@@ -1622,13 +1622,9 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                         location_y += y_motion / viewport_rect.height()
 
                     # Update keyframe value (or create new one)
-                    self.updateClipProperty(
+                    self.updateClipProperties(
                         self.transforming_clips[0].id, clip_frame_number,
-                        'location_x', location_x,
-                        refresh=False)
-                    self.updateClipProperty(
-                        self.transforming_clips[0].id, clip_frame_number,
-                        'location_y', location_y)
+                        {'location_x': location_x, 'location_y': location_y})
                     self._apply_delta_to_clips(
                         'location_x', location_x - raw_properties.get('location_x').get('value'),
                         fps_float, frame_number=clip_frame_number)
@@ -2189,48 +2185,43 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         self.mutex.unlock()
 
     def updateClipProperty(self, clip_id, frame_number, property_key, new_value, refresh=True):
-        """Update a keyframe property to a new value, adding or updating keyframes as needed"""
-        found_point = False
-        clip_updated = False
+        """Update one keyframe property."""
+        self.updateClipProperties(clip_id, frame_number, {property_key: new_value}, refresh)
 
+    def updateClipProperties(self, clip_id, frame_number, values, refresh=True):
+        """Apply one transform sample together, refreshing dependent UI only once."""
         c = Clip.get(id=clip_id)
         if not c:
-            # No clip found
             return
-
-        # Property missing? Create it!
-        if property_key not in c.data:
-            c.data[property_key] = {"Points": []}
-            log.warning("%s: Added missing '%s' to property data", clip_id, property_key)
-
-        points = c.data.get(property_key, {}).get("Points", [])
+        changed = {}
         auto_keyframes = auto_keyframes_enabled(get_app().window)
-        frame_number = edit_frame(points, frame_number, auto_keyframes)
-        for point in points:
-            co = point.get("co", {})
+        for property_key, new_value in values.items():
+            if property_key not in c.data:
+                c.data[property_key] = {"Points": []}
+                log.warning("%s: Added missing '%s' to property data", clip_id, property_key)
+            points = c.data.get(property_key, {}).get("Points", [])
+            target_frame = edit_frame(points, frame_number, auto_keyframes)
+            found_point = False
+            for point in points:
+                if point.get("co", {}).get("X") == target_frame:
+                    found_point = True
+                    point["co"]["Y"] = float(new_value)
+                    if auto_keyframes:
+                        point["interpolation"] = openshot.BEZIER
+                    changed[property_key] = c.data[property_key]
+            if not found_point and new_value is not None:
+                log.debug("Creating new point at X=%s", target_frame)
+                c.data[property_key]["Points"].append({
+                    'co': {'X': target_frame, 'Y': float(new_value)},
+                    'interpolation': openshot.BEZIER
+                })
+                changed[property_key] = c.data[property_key]
 
-            if co.get("X") == frame_number:
-                found_point = True
-                clip_updated = True
-                point["co"]["Y"] = float(new_value)
-                if auto_keyframes:
-                    point["interpolation"] = openshot.BEZIER
-
-        if not found_point and new_value is not None:
-            clip_updated = True
-            log.debug("Creating new point at X=%s", frame_number)
-            c.data[property_key]["Points"].append({
-                'co': {'X': frame_number, 'Y': float(new_value)},
-                'interpolation': openshot.BEZIER
-            })
-
-        if clip_updated:
-            # Reduce # of clip properties we are saving (performance boost)
-            c.data = {property_key: c.data.get(property_key)}
+        if changed:
+            c.data = changed
             if self.transaction_id:
                 get_app().updates.transaction_id = self.transaction_id
             c.save()
-            # Update the preview
             if refresh:
                 get_app().window.refreshFrameSignal.emit()
 
