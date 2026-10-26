@@ -70,6 +70,11 @@ class ClipStandardItemModel(QStandardItemModel):
         return data
 
 
+def N_(message):
+    """Mark property names for extraction; translate when displaying them."""
+    return message
+
+
 class PropertiesModel(updates.UpdateInterface):
     def _direct_text_properties(self, clip_data):
         """Expose semantic typography alongside the native clip properties."""
@@ -87,16 +92,16 @@ class PropertiesModel(updates.UpdateInterface):
                      for layer in app.project.get("layers"))
         properties = {}
         definitions = (
-            ("text", "Text", "string", 0, 0),
-            ("font_family", "Font", "font", 0, 0),
-            ("font_bold", "Font Bold", "bool", 0, 1),
-            ("font_italic", "Font Italic", "bool", 0, 1),
-            ("font_size", "Font Size", "int", 8, 1000),
-            ("letter_spacing", "Letter Spacing", "int", -50, 200),
-            ("line_spacing", "Line Spacing", "float", 0.5, 5.0),
-            ("alignment", "Text Alignment", "string", 0, 0),
-            ("width", "Text Box Width", "int", 64, 8192),
-            ("background_padding", "Text Background Padding", "int", 0, 200),
+            ("text", N_("Text"), "string", 0, 0),
+            ("font_family", N_("Font"), "font", 0, 0),
+            ("font_bold", N_("Font Bold"), "bool", 0, 1),
+            ("font_italic", N_("Font Italic"), "bool", 0, 1),
+            ("font_size", N_("Font Size"), "int", 8, 1000),
+            ("letter_spacing", N_("Letter Spacing"), "int", -50, 200),
+            ("line_spacing", N_("Line Spacing"), "float", 0.5, 5.0),
+            ("alignment", N_("Text Alignment"), "string", 0, 0),
+            ("width", N_("Text Box Width"), "int", 64, 8192),
+            ("background_padding", N_("Text Background Padding"), "int", 0, 200),
         )
         for key, name, kind, minimum, maximum in definitions:
             value = style.get(key, False if kind == "bool" else None)

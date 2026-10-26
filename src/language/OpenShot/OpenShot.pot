@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor (version: 4.1.0)\n"
 "Report-Msgid-Bugs-To: Jonathan Thomas <Jonathan.Oomph@gmail.com>\n"
-"POT-Creation-Date: 2026-10-25 21:33:04.351741\n"
+"POT-Creation-Date: 2026-10-25 22:03:16.592222\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Jonathan Thomas <Jonathan.Oomph@gmail.com>\n"
 "Language-Team: https://translations.launchpad.net/+groups/launchpad-translators\n"
@@ -23,7 +23,7 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt/src/windows/animated_title.py:82
 #: /home/jonathan/apps/openshot-qt/src/windows/export.py:97
 #: /home/jonathan/apps/openshot-qt/src/windows/views/optimized_preview_menu.py:84
-#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:307
+#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:312
 #: /home/jonathan/apps/openshot-qt/src/windows/main_window.py:4719
 #: /home/jonathan/apps/openshot-qt/src/windows/export_clips.py:210
 #: /home/jonathan/apps/openshot-qt/src/windows/file_properties.py:80
@@ -300,8 +300,8 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt/src/windows/views/properties_tableview.py:1830
 #: /home/jonathan/apps/openshot-qt/src/windows/views/timeline.py:662
 #: /home/jonathan/apps/openshot-qt/src/windows/main_window.py:3107
-#: /home/jonathan/apps/openshot-qt/src/windows/models/properties_model.py:1597
-#: /home/jonathan/apps/openshot-qt/src/windows/models/properties_model.py:1704
+#: /home/jonathan/apps/openshot-qt/src/windows/models/properties_model.py:1602
+#: /home/jonathan/apps/openshot-qt/src/windows/models/properties_model.py:1709
 #: /home/jonathan/apps/openshot-qt/src/windows/add_to_timeline.py:540
 #: /home/jonathan/apps/openshot-qt/src/windows/audio_recording.py:1732
 #: /home/jonathan/apps/openshot-qt/src/windows/audio_recording.py:1758
@@ -427,7 +427,7 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt/src/windows/views/properties_tableview.py:1364
 #: /home/jonathan/apps/openshot-qt/src/windows/views/properties_tableview.py:1842
 #: /home/jonathan/apps/openshot-qt/src/windows/views/properties_tableview.py:1992
-#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:472
+#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:477
 #: /home/jonathan/apps/openshot-qt/src/windows/color_grade_editor.py:1555
 #: /home/jonathan/apps/openshot-qt/src/windows/title_editor.py:669
 #: /home/jonathan/apps/openshot-qt/src/windows/title_editor.py:684
@@ -1187,7 +1187,8 @@ msgid "Reset Look"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt/src/windows/views/timeline.py:1804
-#: libopenshot (Effect Properties)
+#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:294 libopenshot
+#: (Effect Properties)
 msgid "Color"
 msgstr ""
 
@@ -1494,13 +1495,14 @@ msgid "Keep Right Side (Ripple)"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt/src/windows/views/timeline.py:2115
-#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:253
+#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:258
 #: /home/jonathan/apps/openshot-qt/src/windows/main_window.py:5721
+#: /home/jonathan/apps/openshot-qt/src/windows/models/properties_model.py:95
 msgid "Text"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt/src/windows/views/timeline.py:2116
-#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:232
+#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:237
 #: /home/jonathan/apps/openshot-qt/src/windows/direct_text.py:128
 msgid "Edit Text"
 msgstr ""
@@ -1512,7 +1514,7 @@ msgid "Edit Style…"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt/src/windows/views/timeline.py:2125
-#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:232
+#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:237
 #: /home/jonathan/apps/openshot-qt/src/windows/direct_text.py:698
 msgid "Edit Style"
 msgstr ""
@@ -1522,7 +1524,7 @@ msgid "Reset Style"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt/src/windows/views/timeline.py:2129
-#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:303
+#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:308
 msgid "Restore the default font, size and colors, keeping the text"
 msgstr ""
 
@@ -2003,62 +2005,129 @@ msgstr ""
 msgid "%d Channels"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:68
+#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:73
 msgid "Enter to apply text, Shift+Enter for a new line, Escape to cancel"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:77
-#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:271 libopenshot
-#: (Effect Properties)
+#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:82
+#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:276
+#: /home/jonathan/apps/openshot-qt/src/windows/models/properties_model.py:96
+#: libopenshot (Effect Properties)
 msgid "Font"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:83
+#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:88
 msgid "Font size"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:84
+#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:89
 msgid "Bold"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:85
+#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:90
 msgid "Italic"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:86
-#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:196
+#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:91
+#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:201
 msgid "Text color"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:95
+msgid "Align left"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:95
+msgid "Align center"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:95
+msgid "Align right"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:100
 msgid "More text options…"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:251
+#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:256
 #, python-format
 msgid "Text (first of %d selected)"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:257
+#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:262
 msgid "Type your text"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:287 libopenshot
+#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:286 libopenshot
+#: (Effect Metadata)
+msgid "Outline"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:286
+msgid "Outline color"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:286
+msgid "Outline width"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:287
+msgid "Letter spacing"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:288
+msgid "Line spacing"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:292 libopenshot
 #: (Effect Properties)
 msgid "Background"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:301
+#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:294
+msgid "Background color"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:295
+msgid "Padding"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:296
+msgid "Corner radius"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:298 libopenshot
+#: (Effect Properties)
+msgid "Border"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:298
+msgid "Border color"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:298
+msgid "Border width"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:299
+msgid "Box width"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:299
+msgid "Lines longer than this wrap"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:306
 #: /home/jonathan/apps/openshot-qt/src/windows/preferences.py:1061
 #: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:48
 msgid "Restore Defaults"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:311
+#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:316
 msgid "Apply"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:317
+#: /home/jonathan/apps/openshot-qt/src/windows/text_style.py:322
 msgid "Apply (Ctrl+Enter)"
 msgstr ""
 
@@ -2626,33 +2695,67 @@ msgstr ""
 msgid "Subject"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/models/properties_model.py:1121
-#: /home/jonathan/apps/openshot-qt/src/windows/models/properties_model.py:1575
-#: /home/jonathan/apps/openshot-qt/src/windows/models/properties_model.py:1684
+#: /home/jonathan/apps/openshot-qt/src/windows/models/properties_model.py:97
+msgid "Font Bold"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt/src/windows/models/properties_model.py:98
+msgid "Font Italic"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt/src/windows/models/properties_model.py:99
+#: libopenshot (Effect Properties)
+msgid "Font Size"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt/src/windows/models/properties_model.py:100
+msgid "Letter Spacing"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt/src/windows/models/properties_model.py:101
+#: libopenshot (Effect Properties)
+msgid "Line Spacing"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt/src/windows/models/properties_model.py:102
+msgid "Text Alignment"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt/src/windows/models/properties_model.py:103
+msgid "Text Box Width"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt/src/windows/models/properties_model.py:104
+msgid "Text Background Padding"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt/src/windows/models/properties_model.py:1126
+#: /home/jonathan/apps/openshot-qt/src/windows/models/properties_model.py:1580
+#: /home/jonathan/apps/openshot-qt/src/windows/models/properties_model.py:1689
 msgid "False"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/models/properties_model.py:1493
+#: /home/jonathan/apps/openshot-qt/src/windows/models/properties_model.py:1498
 #, python-format
 msgid "Editing keyframe at frame %s"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/models/properties_model.py:1523
+#: /home/jonathan/apps/openshot-qt/src/windows/models/properties_model.py:1528
 msgid "Transparency"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/models/properties_model.py:1573
-#: /home/jonathan/apps/openshot-qt/src/windows/models/properties_model.py:1682
+#: /home/jonathan/apps/openshot-qt/src/windows/models/properties_model.py:1578
+#: /home/jonathan/apps/openshot-qt/src/windows/models/properties_model.py:1687
 msgid "True"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/models/properties_model.py:1861
-#: /home/jonathan/apps/openshot-qt/src/windows/models/properties_model.py:1884
+#: /home/jonathan/apps/openshot-qt/src/windows/models/properties_model.py:1866
+#: /home/jonathan/apps/openshot-qt/src/windows/models/properties_model.py:1889
 msgid "Property"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/models/properties_model.py:1861
-#: /home/jonathan/apps/openshot-qt/src/windows/models/properties_model.py:1884
+#: /home/jonathan/apps/openshot-qt/src/windows/models/properties_model.py:1866
+#: /home/jonathan/apps/openshot-qt/src/windows/models/properties_model.py:1889
 msgid "Value"
 msgstr ""
 
@@ -4973,18 +5076,6 @@ msgid "Font Alpha"
 msgstr ""
 
 #: libopenshot (Effect Properties)
-msgid "Font Size"
-msgstr ""
-
-#: libopenshot (Effect Properties)
-msgid "Line Spacing"
-msgstr ""
-
-#: libopenshot (Effect Properties)
-msgid "Border"
-msgstr ""
-
-#: libopenshot (Effect Properties)
 msgid "Stroke Width"
 msgstr ""
 
@@ -5845,10 +5936,6 @@ msgstr ""
 #: libopenshot (Effect Metadata)
 msgid ""
 "Transform the voice present in an audio track into a whispering voice effect."
-msgstr ""
-
-#: libopenshot (Effect Metadata)
-msgid "Outline"
 msgstr ""
 
 #: libopenshot (Effect Metadata)
