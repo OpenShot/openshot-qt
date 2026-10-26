@@ -15,7 +15,7 @@ from classes import version
 # UI workflow checks must not depend on the external update service.
 version.get_current_Version = lambda: None
 from classes.query import Clip
-from qt_api import QColor, QFont, QTimer, QT_API
+from qt_api import QColor, QCoreApplication, QEvent, QFont, QTimer, QT_API
 QTest = importlib.import_module({"pyqt5": "PyQt5", "pyqt6": "PyQt6", "pyside6": "PySide6"}[QT_API] + ".QtTest").QTest
 
 app = OpenShotApp([], mode="unittest")
@@ -160,7 +160,7 @@ def verify():
         checks.assertEqual(QColor(evaluated_text_style(restored, 31)["color"]), QColor("#800000ff"))
         checks.assertEqual(QColor(evaluated_text_style(Clip.get(id=sibling.id).data, 31)["color"]), QColor(style["color"]))
         # Every clip transform keeps all changed properties in one undoable gesture.
-        from qt_api import QMouseEvent, QEvent, QPointF, Qt
+        from qt_api import QMouseEvent, QPointF, Qt
         drag = Clip()
         drag.data = new_text_clip(style, root, 0.0, after["layer"], 4.0)
         drag.data["file_id"] = asset.id
@@ -215,4 +215,8 @@ def verify():
 checks.assertTrue(app.gui())
 QTimer.singleShot(4000, verify)
 app.exec_()
+# Destroy the window while Python and Qt are still fully alive. PyQt5 on
+# Ubuntu 22.04 can crash when these objects survive until interpreter teardown.
+app.window.deleteLater()
+QCoreApplication.sendPostedEvents(None, QEvent.DeferredDelete)
 sys.exit(0 if passed else 1)
