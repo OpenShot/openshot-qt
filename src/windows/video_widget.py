@@ -1551,6 +1551,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                         y_motion_unrotated = -math.sin(rad) * x_motion + math.cos(rad) * y_motion
                         x_motion, y_motion = x_motion_unrotated, y_motion_unrotated
 
+                values = {}
                 if self.transform_mode == 'origin':
                     # Get current keyframe value
                     origin_x = raw_properties.get('origin_x').get('value')
@@ -1572,19 +1573,8 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                     if origin_y > 1.0:
                         origin_y = 1.0
                     # Update keyframe value (or create new one)
-                    self.updateClipProperty(
-                        self.transforming_clips[0].id, clip_frame_number,
-                        'origin_x', origin_x,
-                        refresh=False)
-                    self.updateClipProperty(
-                        self.transforming_clips[0].id, clip_frame_number,
-                        'origin_y', origin_y)
-                    self._apply_delta_to_clips(
-                        'origin_x', origin_x - raw_properties.get('origin_x').get('value'),
-                        fps_float, frame_number=clip_frame_number)
-                    self._apply_delta_to_clips(
-                        'origin_y', origin_y - raw_properties.get('origin_y').get('value'),
-                        fps_float, frame_number=clip_frame_number)
+                    values['origin_x'] = origin_x
+                    values['origin_y'] = origin_y
 
                 elif self.transform_mode == 'location':
                     # Get current keyframe value
@@ -1622,15 +1612,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                         location_y += y_motion / viewport_rect.height()
 
                     # Update keyframe value (or create new one)
-                    self.updateClipProperties(
-                        self.transforming_clips[0].id, clip_frame_number,
-                        {'location_x': location_x, 'location_y': location_y})
-                    self._apply_delta_to_clips(
-                        'location_x', location_x - raw_properties.get('location_x').get('value'),
-                        fps_float, frame_number=clip_frame_number)
-                    self._apply_delta_to_clips(
-                        'location_y', location_y - raw_properties.get('location_y').get('value'),
-                        fps_float, frame_number=clip_frame_number)
+                    values.update({'location_x': location_x, 'location_y': location_y})
 
                 elif self.transform_mode == 'shear_top':
                     # Get current keyframe shear value
@@ -1642,12 +1624,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                     shear_x -= x_motion / ((self.clipBounds.width() * scale_x) / aspect_ratio)
 
                     # Update keyframe value (or create new one)
-                    self.updateClipProperty(
-                        self.transforming_clips[0].id, clip_frame_number,
-                        'shear_x', shear_x)
-                    self._apply_delta_to_clips(
-                        'shear_x', shear_x - raw_properties.get('shear_x').get('value'),
-                        fps_float, frame_number=clip_frame_number)
+                    values['shear_x'] = shear_x
 
                 elif self.transform_mode == 'shear_bottom':
                     # Get current keyframe shear value
@@ -1659,12 +1636,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                     shear_x += x_motion / ((self.clipBounds.width() * scale_x) / aspect_ratio)
 
                     # Update keyframe value (or create new one)
-                    self.updateClipProperty(
-                        self.transforming_clips[0].id, clip_frame_number,
-                        'shear_x', shear_x)
-                    self._apply_delta_to_clips(
-                        'shear_x', shear_x - raw_properties.get('shear_x').get('value'),
-                        fps_float, frame_number=clip_frame_number)
+                    values['shear_x'] = shear_x
 
                 elif self.transform_mode == 'shear_left':
                     # Get current keyframe shear value
@@ -1676,12 +1648,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                     shear_y -= y_motion / (self.clipBounds.height() * scale_y / aspect_ratio)
 
                     # Update keyframe value (or create new one)
-                    self.updateClipProperty(
-                        self.transforming_clips[0].id, clip_frame_number,
-                        'shear_y', shear_y)
-                    self._apply_delta_to_clips(
-                        'shear_y', shear_y - raw_properties.get('shear_y').get('value'),
-                        fps_float, frame_number=clip_frame_number)
+                    values['shear_y'] = shear_y
 
                 elif self.transform_mode == 'shear_right':
                     # Get current keyframe shear value
@@ -1693,12 +1660,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                     shear_y += y_motion / (self.clipBounds.height() * scale_y / aspect_ratio)
 
                     # Update keyframe value (or create new one)
-                    self.updateClipProperty(
-                        self.transforming_clips[0].id, clip_frame_number,
-                        'shear_y', shear_y)
-                    self._apply_delta_to_clips(
-                        'shear_y', shear_y - raw_properties.get('shear_y').get('value'),
-                        fps_float, frame_number=clip_frame_number)
+                    values['shear_y'] = shear_y
 
                 elif self.transform_mode == 'rotation':
                     # Get current rotation keyframe value
@@ -1724,13 +1686,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                         rotation = self._snap_angle(rotation, 15.0)
 
                     # Update keyframe value (or create new one)
-                    self.updateClipProperty(
-                        self.transforming_clips[0].id,
-                        clip_frame_number,
-                        'rotation', rotation)
-                    self._apply_delta_to_clips(
-                        'rotation', rotation - raw_properties.get('rotation').get('value'),
-                        fps_float, frame_number=clip_frame_number)
+                    values['rotation'] = rotation
 
                 elif self.transform_mode.startswith('scale_'):
                     # Get current scale keyframe value
@@ -1769,22 +1725,13 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                             scale_x = scale_y
 
                     # Update keyframe value (or create new one)
-                    both_scaled = scale_x != 0.001 and scale_y != 0.001
                     if scale_x != 0.001:
-                        self.updateClipProperty(
-                            self.transforming_clips[0].id, clip_frame_number,
-                            'scale_x', scale_x,
-                            refresh=(not both_scaled))
-                        self._apply_delta_to_clips(
-                            'scale_x', scale_x - raw_properties.get('scale_x').get('value'),
-                            fps_float, frame_number=clip_frame_number)
+                        values['scale_x'] = scale_x
                     if scale_y != 0.001:
-                        self.updateClipProperty(
-                            self.transforming_clips[0].id, clip_frame_number,
-                            'scale_y', scale_y)
-                        self._apply_delta_to_clips(
-                            'scale_y', scale_y - raw_properties.get('scale_y').get('value'),
-                            fps_float, frame_number=clip_frame_number)
+                        values['scale_y'] = scale_y
+
+                if values:
+                    self._apply_clip_transform(values, raw_properties, clip_frame_number)
 
             # Force re-paint
             self.update()
@@ -2396,17 +2343,18 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
         return frame
 
-    def _apply_delta_to_clips(self, property_key, delta, fps_float, frame_number=None):
+    def _apply_clip_transform(self, values, primary_properties, frame_number):
+        """Save each selected clip once per mouse sample, then refresh once."""
+        pending = [(self.transforming_clips[0].id, frame_number, values)]
+        frame = max(1, int(round(frame_number)))
+        deltas = {key: value - primary_properties[key]['value'] for key, value in values.items()}
         for clip, obj in zip(self.transforming_clips[1:], self.transforming_clip_objects[1:]):
-            if frame_number is None:
-                frame = self._get_clip_frame_number(clip, fps_float)
-            else:
-                frame = max(1, int(round(frame_number)))
-            props = json.loads(obj.PropertiesJSON(frame))
-            value = props.get(property_key).get('value')
-            if self.transaction_id:
-                get_app().updates.transaction_id = self.transaction_id
-            self.updateClipProperty(clip.id, frame, property_key, value + delta, refresh=False)
+            properties = json.loads(obj.PropertiesJSON(frame))
+            pending.append((clip.id, frame, {
+                key: properties[key]['value'] + delta for key, delta in deltas.items()}))
+        for clip_id, frame, changed in pending:
+            self.updateClipProperties(clip_id, frame, changed, refresh=False)
+        get_app().window.refreshFrameSignal.emit()
 
     def _crop_resize_rect(self, width, height, left, top, right, bottom, x_off, y_off):
         width = float(max(width, 0.0))

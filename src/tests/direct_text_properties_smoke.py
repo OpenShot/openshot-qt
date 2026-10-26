@@ -159,7 +159,7 @@ def verify():
         checks.assertEqual(restored["reader"]["text_animation"], animated["reader"]["text_animation"])
         checks.assertEqual(QColor(evaluated_text_style(restored, 31)["color"]), QColor("#800000ff"))
         checks.assertEqual(QColor(evaluated_text_style(Clip.get(id=sibling.id).data, 31)["color"]), QColor(style["color"]))
-        # A complete position drag commits X and Y together and remains one undo.
+        # Every clip transform keeps all changed properties in one undoable gesture.
         from qt_api import QMouseEvent, QEvent, QPointF, Qt
         drag = Clip()
         drag.data = new_text_clip(style, root, 0.0, after["layer"], 4.0)
@@ -172,23 +172,38 @@ def verify():
         video = window.videoPreview
         video.repaint()
         checks.assertIsNotNone(video.transform)
-        before_drag = copy.deepcopy(Clip.get(id=drag.id).data)
-        video.hover_transform_mode = 'location'
-        video.mousePressEvent(QMouseEvent(QEvent.MouseButtonPress, QPointF(200, 150),
-                                         Qt.LeftButton, Qt.LeftButton, Qt.NoModifier))
-        video.mouseMoveEvent(QMouseEvent(QEvent.MouseMove, QPointF(230, 180),
-                                        Qt.NoButton, Qt.LeftButton, Qt.NoModifier))
-        video.mouseReleaseEvent(QMouseEvent(QEvent.MouseButtonRelease, QPointF(230, 180),
-                                           Qt.LeftButton, Qt.NoButton, Qt.NoModifier))
-        after_drag = copy.deepcopy(Clip.get(id=drag.id).data)
-        for key in ('location_x', 'location_y'):
-            checks.assertNotEqual(after_drag[key], before_drag[key])
-        app.updates.undo()
-        for key in ('location_x', 'location_y'):
-            checks.assertEqual(Clip.get(id=drag.id).data[key], before_drag[key])
-        app.updates.redo()
-        for key in ('location_x', 'location_y'):
-            checks.assertEqual(Clip.get(id=drag.id).data[key], after_drag[key])
+        modes = {
+            'location': ('location_x', 'location_y'),
+            'origin': ('origin_x', 'origin_y'),
+            'rotation': ('rotation',),
+            **{name: ('shear_x',) for name in ('shear_top', 'shear_bottom')},
+            **{name: ('shear_y',) for name in ('shear_left', 'shear_right')},
+            **{name: ('scale_x', 'scale_y') for name in (
+                'scale_top_left', 'scale_top_right', 'scale_bottom_left', 'scale_bottom_right')},
+            **{name: ('scale_x',) for name in ('scale_left', 'scale_right')},
+            **{name: ('scale_y',) for name in ('scale_top', 'scale_bottom')},
+        }
+        for mode, keys in modes.items():
+            window.TransformSignal.emit([drag.id])
+            video.repaint()
+            before_drag = copy.deepcopy(Clip.get(id=drag.id).data)
+            video.hover_transform_mode = mode
+            video.mousePressEvent(QMouseEvent(QEvent.MouseButtonPress, QPointF(200, 150),
+                                             Qt.LeftButton, Qt.LeftButton, Qt.NoModifier))
+            video.mouseMoveEvent(QMouseEvent(QEvent.MouseMove, QPointF(203, 152),
+                                            Qt.NoButton, Qt.LeftButton, Qt.NoModifier))
+            video.mouseReleaseEvent(QMouseEvent(QEvent.MouseButtonRelease, QPointF(203, 152),
+                                               Qt.LeftButton, Qt.NoButton, Qt.NoModifier))
+            after_drag = copy.deepcopy(Clip.get(id=drag.id).data)
+            for key in keys:
+                checks.assertNotEqual(after_drag[key], before_drag[key])
+            app.updates.undo()
+            for key in keys:
+                checks.assertEqual(Clip.get(id=drag.id).data[key], before_drag[key])
+            app.updates.redo()
+            for key in keys:
+                checks.assertEqual(Clip.get(id=drag.id).data[key], after_drag[key])
+            app.updates.undo()
         passed = True
         print("TEXT_PROPERTIES_PASSED", flush=True)
     except Exception:

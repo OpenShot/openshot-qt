@@ -134,6 +134,25 @@ class VideoWidgetTransformTests(unittest.TestCase):
         self.widget = VideoWidget.__new__(VideoWidget)
         self.viewport = QRect(0, 0, 160, 90)
 
+    def test_group_transform_batches_each_clip_and_refreshes_once(self):
+        from unittest.mock import Mock
+        secondary = Mock()
+        secondary.PropertiesJSON.return_value = json.dumps({
+            'scale_x': {'value': 2.0}, 'scale_y': {'value': 0.5}})
+        widget = types.SimpleNamespace(
+            transforming_clips=[types.SimpleNamespace(id='A'), types.SimpleNamespace(id='B')],
+            transforming_clip_objects=[Mock(), secondary], updateClipProperties=Mock())
+        refresh = Mock()
+        with patch('windows.video_widget.get_app', return_value=types.SimpleNamespace(
+                window=types.SimpleNamespace(refreshFrameSignal=refresh))):
+            VideoWidget._apply_clip_transform(widget, {'scale_x': 1.25, 'scale_y': 1.5},
+                                              {'scale_x': {'value': 1.0}, 'scale_y': {'value': 1.0}}, 9)
+        self.assertEqual(widget.updateClipProperties.call_count, 2)
+        widget.updateClipProperties.assert_any_call('A', 9, {'scale_x': 1.25, 'scale_y': 1.5}, refresh=False)
+        widget.updateClipProperties.assert_any_call('B', 9, {'scale_x': 2.25, 'scale_y': 1.0}, refresh=False)
+        secondary.PropertiesJSON.assert_called_once_with(9)
+        refresh.emit.assert_called_once_with()
+
     def test_position_sample_updates_both_axes_once(self):
         from unittest.mock import Mock
         for auto_keyframes in (False, True):
