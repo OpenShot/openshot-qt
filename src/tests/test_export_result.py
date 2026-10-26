@@ -27,8 +27,8 @@ class ExportResultTests(unittest.TestCase):
     def setUpClass(cls):
         cls.app = QApplication.instance() or QApplication([])
 
-    def make_panel(self, width=620):
-        panel = ExportResultTab(lambda text: text)
+    def make_panel(self, width=620, parent=None):
+        panel = ExportResultTab(lambda text: text, parent)
         panel.resize(width, 420)
         self.addCleanup(lambda: panel.deleteLater() if not isdeleted(panel) else None)
         return panel
@@ -75,8 +75,12 @@ class ExportResultTests(unittest.TestCase):
         self.assertIn("image sequence", panel.subtitle.text())
 
     def test_cards_reflow_instead_of_clipping(self):
-        panel = self.make_panel(900)
-        # Real panels are visible; hidden widgets defer resize events until shown.
+        # Match the embedded dialog tab; top-level minimum widths depend on fonts.
+        holder = QWidget()
+        self.addCleanup(holder.deleteLater)
+        panel = self.make_panel(900, parent=holder)
+        holder.show()
+        # Hidden widgets defer resize events until shown.
         panel.show()
         panel.show_success("/tmp/out.mp4", "video", DETAILS)
         self.assertEqual(panel.columns, 3)
