@@ -388,7 +388,7 @@ class RecordingPreviewTests(unittest.TestCase):
                 released.set()
 
         reader = BlockingReader()
-        job = helper.WebcamPreviewJob("", 640, 480)
+        job = helper.WebcamPreviewJob("", 640, 480, helper.openshot.CAMERA_CAPTURE_V4L2)
         job._reader = reader
         job._thread = helper.threading.Thread(target=released.wait, daemon=True)
         job._thread.start()
@@ -397,6 +397,119 @@ class RecordingPreviewTests(unittest.TestCase):
 
         self.assertTrue(reader.closed)
         self.assertFalse(job._thread.is_alive())
+
+    def test_windows_webcam_preview_closes_on_opening_thread(self):
+        helper = self.audio_recording_module
+        for during_open in (False, True):
+            with self.subTest(during_open=during_open):
+                entered = threading.Event()
+                cancelled = threading.Event()
+                calls = []
+
+                class Reader:
+                    def __init__(self, settings):
+                        pass
+
+                    def Open(self):
+                        calls.append(("open", threading.get_ident()))
+                        if during_open:
+                            entered.set()
+                            cancelled.wait(3)
+
+                    def GetFrame(self, number):
+                        entered.set()
+                        cancelled.wait(3)
+                        raise RuntimeError("capture cancelled")
+
+                    def RequestClose(self):
+                        calls.append(("request", threading.get_ident()))
+                        cancelled.set()
+
+                    def Close(self):
+                        calls.append(("close", threading.get_ident()))
+
+                job = helper.WebcamPreviewJob("camera", 640, 360,
+                                              helper.openshot.CAMERA_CAPTURE_WINDOWS_DSHOW)
+                with patch.object(helper.openshot, "CameraCaptureReader", Reader):
+                    job.start()
+                    self.assertTrue(entered.wait(2))
+                    job.stop()
+                self.assertFalse(job._thread.is_alive())
+                owner = calls[0][1]
+                self.assertNotEqual(owner, threading.get_ident())
+                self.assertEqual([thread for name, thread in calls if name == "close"], [owner])
+                self.assertTrue(any(name == "request" and thread == threading.get_ident()
+                                    for name, thread in calls))
+
+    def test_windows_recording_cancel_survives_open_reset_and_closes_on_worker(self):
+        helper = self.audio_recording_module
+        entered = threading.Event()
+        cancelled = threading.Event()
+        calls = []
+
+        class Reader:
+            def Open(self):
+                calls.append(("open", threading.get_ident()))
+                entered.set()
+                cancelled.wait(4)
+                # Native Open can reset cancellation while the UI requests stop.
+                cancelled.clear()
+
+            def GetFrame(self, number):
+                cancelled.wait(4)
+                raise RuntimeError("capture cancelled")
+
+            def RequestClose(self):
+                calls.append(("request", threading.get_ident()))
+                cancelled.set()
+
+            def Close(self):
+                calls.append(("close", threading.get_ident()))
+
+        job = helper.LiveVideoRecordingJob(Reader(), "unused.mp4", 640, 360,
+                                          helper.openshot.Fraction(30, 1), source_type="webcam")
+        with patch.object(helper, "camera_capture_backend_is_windows", return_value=True):
+            job.start_async()
+            self.assertTrue(entered.wait(2))
+            job.stop()
+        self.assertFalse(job._thread.is_alive())
+        self.assertIsNone(job.error)
+        self.assertEqual([t for op, t in calls if op == "close"], [calls[0][1]])
+        self.assertNotEqual(calls[0][1], threading.get_ident())
+        self.assertGreaterEqual(sum(op == "request" for op, _ in calls), 2)
+
+    def test_windows_recording_open_timeout_requests_stop_without_ui_cleanup(self):
+        helper = self.audio_recording_module
+        entered = threading.Event()
+        cancelled = threading.Event()
+        calls = []
+
+        class Reader:
+            def Open(self):
+                calls.append(("open", threading.get_ident()))
+                entered.set()
+                cancelled.wait(3)
+                raise RuntimeError("open cancelled")
+
+            def RequestClose(self):
+                calls.append(("request", threading.get_ident()))
+                cancelled.set()
+
+            def Close(self):
+                calls.append(("close", threading.get_ident()))
+
+        job = helper.LiveVideoRecordingJob(Reader(), "unused.mp4", 640, 360,
+                                          helper.openshot.Fraction(30, 1), source_type="webcam")
+        with patch.object(helper, "camera_capture_backend_is_windows", return_value=True):
+            job.start_async()
+            self.assertTrue(entered.wait(2))
+            with self.assertRaisesRegex(RuntimeError, "Timed out opening"):
+                job.wait_until_opened(timeout=0.01)
+            job.finish_stop()
+        self.assertFalse(job._thread.is_alive())
+        self.assertEqual([t for op, t in calls if op == "close"], [calls[0][1]])
+        self.assertNotEqual(calls[0][1], threading.get_ident())
+        self.assertIn(("request", threading.get_ident()), calls)
 
     def test_xdotool_window_picker_rejects_invalid_window_id(self):
         helper = self.recording_widgets_module
