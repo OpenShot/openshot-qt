@@ -43,6 +43,7 @@ def new_text_style(width, height):
     """Defaults for a new text, with the style of the last text made."""
     from classes.app import get_app
     style = default_text(width, height)
+    style["text"] = get_app()._tr("Text")
     remembered = get_app().get_settings().get("text-last-style")
     if isinstance(remembered, dict):
         style.update({key: remembered[key] for key in REMEMBERED_STYLE if key in remembered})
