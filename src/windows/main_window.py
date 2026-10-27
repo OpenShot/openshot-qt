@@ -1652,6 +1652,28 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         elif getattr(self, "audio_recording_content", None):
             self.audio_recording_content.deactivate_if_hidden()
 
+    def _ensure_three_point_edit_dock_content(self):
+        """Create Trim & Edit controls only when the user opens the UI."""
+        if getattr(self, "three_point_edit_content", None):
+            return
+        from windows.three_point_edit import ThreePointEditWidget
+        self.three_point_edit_content = ThreePointEditWidget(self)
+        self.dockThreePointEdit.setWidget(self.three_point_edit_content)
+
+    _ensure_trim_edit_dock_content = _ensure_three_point_edit_dock_content
+
+    def _on_three_point_edit_visibility_changed(self, visible):
+        """Ensure Trim & Edit dock is populated when shown."""
+        if visible:
+            self._ensure_three_point_edit_dock_content()
+            if getattr(self, "three_point_edit_content", None):
+                self.three_point_edit_content.on_show()
+        elif getattr(self, "three_point_edit_content", None):
+            if hasattr(self.three_point_edit_content, "play_timer") and self.three_point_edit_content.play_timer.isActive():
+                self.three_point_edit_content.play_timer.stop()
+
+    _on_trim_edit_visibility_changed = _on_three_point_edit_visibility_changed
+
     def _anchor_and_show_properties_dock(self):
         """Reattach Properties when needed without replacing a view's layout."""
         files_dock = getattr(self, "dockFiles", None)
@@ -3248,6 +3270,8 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
                 property_view._ensure_color_grade_wheels_dock_attached()
             if dock is getattr(self, "dockAudioRecording", None):
                 self._ensure_audio_recording_dock_content()
+            if dock is getattr(self, "dockThreePointEdit", None):
+                self._ensure_three_point_edit_dock_content()
             if self.dockWidgetArea(dock) != Qt.NoDockWidgetArea:
                 # Only show correctly docked widgets
                 dock.show()
@@ -3274,6 +3298,13 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         self.actionAudio_Recording_View.setShortcut(QKeySequence("Alt+Shift+3"))
         self.actionAudio_Recording_View.triggered.connect(self.actionAudio_Recording_View_trigger)
         self.menuView.insertAction(separator_after_views, self.actionAudio_Recording_View)
+        edit_icon = QIcon(os.path.join(info.PATH, "images", "folder_video.png"))
+        self.actionTrim_Edit_View = QAction(edit_icon, _("Trim & Edit View"), self.menuView)
+        self.actionTrim_Edit_View.setObjectName("actionTrim_Edit_View")
+        self.actionTrim_Edit_View.setShortcut(QKeySequence("Alt+Shift+4"))
+        self.actionTrim_Edit_View.triggered.connect(self.actionTrim_Edit_View_trigger)
+        self.menuView.insertAction(separator_after_views, self.actionTrim_Edit_View)
+        self.actionThree_Point_Edit_View = self.actionTrim_Edit_View
         self.menuView.insertSeparator(separator_after_views)
         self.menuView.insertMenu(separator_after_views, self.custom_views_menu)
         self.custom_views_menu.aboutToShow.connect(self._rebuild_custom_views_menu)
@@ -3324,11 +3355,11 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
     def _active_builtin_view(self):
         """Return the built-in view whose critical layout should survive restart."""
         value = get_app().get_settings().get("active_builtin_view") or ""
-        return value if value in {"simple", "color", "recording"} else ""
+        return value if value in {"simple", "color", "recording", "trim_edit", "three_point"} else ""
 
     def _set_active_builtin_view(self, view_id):
         """Persist the selected built-in view independently from custom views."""
-        value = view_id if view_id in {"simple", "color", "recording"} else ""
+        value = view_id if view_id in {"simple", "color", "recording", "trim_edit", "three_point"} else ""
         s = get_app().get_settings()
         s.set("active_builtin_view", value)
         if value:
@@ -3647,6 +3678,66 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         self.showDocks([self.dockAudioRecording])
         self.dockAudioRecording.raise_()
         self.style_dock_widgets()
+
+    def actionTrim_Edit_View_trigger(self):
+        """Show dual-monitor editing layout with Trim & Edit and Video Preview side-by-side."""
+        self._set_active_custom_view_id("")
+        self._set_active_builtin_view("trim_edit")
+        self._ensure_three_point_edit_dock_content()
+        self.removeDocks()
+
+        # Add Docks
+        self.addDocks([
+            self.dockFiles,
+            self.dockTransitions,
+            self.dockEffects,
+            self.dockEmojis,
+        ], Qt.LeftDockWidgetArea)
+
+        self.tabifyDockWidget(self.dockFiles, self.dockTransitions)
+        self.tabifyDockWidget(self.dockTransitions, self.dockEffects)
+        self.tabifyDockWidget(self.dockEffects, self.dockEmojis)
+
+        self.addDocks([self.dockThreePointEdit, self.dockVideo], Qt.TopDockWidgetArea)
+        self.splitDockWidget(self.dockThreePointEdit, self.dockVideo, Qt.Horizontal)
+
+        self.addDocks([self.dockTimeline], Qt.BottomDockWidgetArea)
+
+        self.floatDocks(False)
+        self.showDocks([
+            self.dockFiles,
+            self.dockThreePointEdit,
+            self.dockVideo,
+            self.dockTimeline,
+        ])
+        QCoreApplication.processEvents()
+        self.dockThreePointEdit.raise_()
+        self.style_dock_widgets()
+
+        # Defer size adjustment so Qt has finished its layout pass first.
+        # Default proportions: Files ~20%, Trim & Edit ~40%, Video Preview ~40% horizontally;
+        # Top row ~58%, Timeline ~42% vertically.
+        def _apply_dock_sizes():
+            win_w = max(800, self.width())
+            win_h = max(600, self.height())
+            files_w = max(200, int(win_w * 0.20))
+            trim_w = max(320, int(win_w * 0.40))
+            video_w = max(320, win_w - files_w - trim_w)
+            self.resizeDocks(
+                [self.dockFiles, self.dockThreePointEdit, self.dockVideo],
+                [files_w, trim_w, video_w],
+                Qt.Horizontal,
+            )
+            top_h = max(300, int(win_h * 0.58))
+            timeline_h = max(200, win_h - top_h)
+            self.resizeDocks(
+                [self.dockThreePointEdit, self.dockTimeline],
+                [top_h, timeline_h],
+                Qt.Vertical,
+            )
+        QTimer.singleShot(0, _apply_dock_sizes)
+
+    actionThree_Point_Edit_View_trigger = actionTrim_Edit_View_trigger
 
     def _current_timeline_seconds(self):
         """Return the current playhead position in seconds."""
@@ -5654,6 +5745,16 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         self.dockAudioRecording.hide()
         self.addDockWidget(Qt.RightDockWidgetArea, self.dockAudioRecording)
 
+        self.three_point_edit_content = None
+        self.dockThreePointEdit = QDockWidget(_("Trim & Edit"), self)
+        self.dockThreePointEdit.setObjectName("dockThreePointEdit")
+        self.dockThreePointEdit.setProperty("_skip_auto_tab_order", True)
+        self.dockThreePointEdit.setFocusPolicy(Qt.NoFocus)
+        self.dockThreePointEdit.setMinimumWidth(300)
+        self.dockThreePointEdit.hide()
+        self.addDockWidget(Qt.TopDockWidgetArea, self.dockThreePointEdit)
+        self.dockTrimEdit = self.dockThreePointEdit
+
         # Add Docks submenu to View menu
         self.addViewDocksMenu()
 
@@ -5881,6 +5982,10 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         self.dockAudioRecording.visibilityChanged.connect(self._on_audio_recording_visibility_changed)
         if self.dockAudioRecording.isVisible():
             self._ensure_audio_recording_dock_content()
+
+        self.dockThreePointEdit.visibilityChanged.connect(self._on_three_point_edit_visibility_changed)
+        if self.dockThreePointEdit.isVisible():
+            self._ensure_three_point_edit_dock_content()
 
         # Create tutorial manager
         self.tutorial_manager = TutorialManager(self)

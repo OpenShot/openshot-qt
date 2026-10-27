@@ -159,6 +159,14 @@ def main():
             try:
                 if os.path.exists(newpath):
                     sys.path.insert(0, newpath)
+                    if os.name == "nt" and hasattr(os, "add_dll_directory"):
+                        try:
+                            os.add_dll_directory(newpath)
+                        except Exception:
+                            pass
+                    zip_path = os.path.join(newpath, "library.zip")
+                    if os.path.exists(zip_path):
+                        sys.path.insert(0, zip_path)
                     print(f"Added {newpath} to PYTHONPATH")
                 else:
                     print(f"{newpath} does not exist")

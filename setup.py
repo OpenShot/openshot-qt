@@ -54,7 +54,9 @@ from classes.logger import log
 log.info("Execution path: %s" % os.path.abspath(__file__))
 
 # Boolean: running as root?
-ROOT = os.geteuid() == 0
+# ROOT = os.geteuid() == 0
+ROOT = hasattr(os, "geteuid") and os.geteuid() == 0
+
 # For Debian packaging it could be a fakeroot so reset flag to prevent execution of
 # system update services for Mime and Desktop registrations.
 # The debian/openshot.postinst script must do those.

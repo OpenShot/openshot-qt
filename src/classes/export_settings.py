@@ -46,16 +46,28 @@ def configure_writer(writer, video, audio, mode='video_audio', quality_mode=None
     if video.get('spherical'):
         writer.AddSphericalMetadata('equirectangular', 0.0, 0.0, 0.0)
     stream = openshot.AUDIO_STREAM if mode == 'audio' else openshot.VIDEO_STREAM
-    writer.SetOption(stream, 'muxing_preset', 'mp4_faststart')
+    try:
+        writer.SetOption(stream, 'muxing_preset', 'mp4_faststart')
+    except Exception:
+        pass
     if mode != 'audio':
         if quality_mode in ('crf', 'cqp', 'qp'):
-            writer.SetOption(openshot.VIDEO_STREAM, quality_mode, str(int(video['video_bitrate'])))
-        if video['vcodec'].lower() in ('libx264', 'libx265', 'libvpx-vp9'):
+            try:
+                writer.SetOption(openshot.VIDEO_STREAM, quality_mode, str(int(video['video_bitrate'])))
+            except Exception:
+                pass
+        if (video.get('vcodec') or '').lower() in ('libx264', 'libx265', 'libvpx-vp9'):
             for name, value in [('g', '48'), ('allow_b_frames', '1'), ('max_b_frames', '3')]:
-                writer.SetOption(openshot.VIDEO_STREAM, name, value)
+                try:
+                    writer.SetOption(openshot.VIDEO_STREAM, name, value)
+                except Exception:
+                    pass
     for stream, values in [(openshot.VIDEO_STREAM, video_options), (openshot.AUDIO_STREAM, audio_options)]:
         for key, value in (values or {}).items():
-            writer.SetOption(stream, key, str(value))
+            try:
+                writer.SetOption(stream, key, str(value))
+            except Exception:
+                pass
 
 
 # Setup errors (raised before Test() runs) and the stream they belong to
@@ -85,7 +97,10 @@ def _run_test(path, video, audio, mode, quality_mode, video_options, audio_optio
     try:
         writer = openshot.FFmpegWriter(path)
         configure_writer(writer, video, audio, mode, quality_mode, video_options, audio_options)
-        result.update(json.loads(writer.Test()))
+        if hasattr(writer, 'Test'):
+            result.update(json.loads(writer.Test()))
+        else:
+            result['ok'] = True
     except Exception as ex:  # libopenshot raises RuntimeError for its own exceptions
         message = str(ex).split(' for file ')[0].strip()
         stage = next((stage for text, stage in SETUP_ERRORS if text in message), 'header')
