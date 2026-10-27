@@ -232,6 +232,7 @@ class RecordingPreviewTests(unittest.TestCase):
             screen_card=types.SimpleNamespace(isChecked=lambda: False),
             camera_card=types.SimpleNamespace(isChecked=lambda: False),
             record_button=FakeButton(),
+            settings_widget=helper.QWidget(),
         )
         dock._has_selected_recording_source = lambda: (
             helper.AudioRecordingDockContent._has_selected_recording_source(dock)
@@ -247,10 +248,51 @@ class RecordingPreviewTests(unittest.TestCase):
         self.assertTrue(dock.record_button.enabled)
         self.assertEqual(dock.record_button.tooltip, "")
 
+    def test_recording_settings_lock_preserves_control_availability(self):
+        helper = self.audio_recording_module
+        app = types.SimpleNamespace(_tr=lambda text: text, updates=MagicMock())
+        with patch.object(helper, "get_app", return_value=app), \
+                patch.object(helper.AudioRecordingDockContent, "_sync_source_availability"), \
+                patch.object(helper.AudioRecordingDockContent, "_sync_backend_state"):
+            dock = helper.AudioRecordingDockContent(MagicMock())
+            try:
+                dock.mic_card.blockSignals(True)
+                dock.mic_card.setChecked(True)
+                dock.stereo_button.setEnabled(False)
+                controls = (
+                    dock.mic_card, dock.screen_card, dock.camera_card,
+                    dock.mono_button, dock.device_combo, dock.format_combo,
+                    dock.sample_rate_combo, dock.channels_combo,
+                    dock.mic_section.advanced_button,
+                    dock.screen_section.advanced_button,
+                    dock.camera_section.advanced_button,
+                    dock.full_screen_button, dock.screen_display_edit,
+                    dock.camera_combo, dock.track_combo, dock.preview_combo,
+                )
+                original = [control.isEnabled() for control in controls]
+                for state in ("starting", "recording", "stopping", "saving"):
+                    with self.subTest(state=state):
+                        getattr(dock, "_set_record_button_" + state)()
+                        self.assertTrue(all(not control.isEnabled() for control in controls))
+                        self.assertEqual(dock.record_button.isEnabled(), state == "recording")
+                        with patch.object(dock, "_dock_visible", return_value=True), \
+                                patch.object(dock, "refresh_tracks") as refresh, \
+                                patch.object(dock, "_sync_backend_state") as sync:
+                            dock._activate_after_show()
+                            refresh.assert_not_called()
+                            sync.assert_not_called()
+                        dock._set_record_button_idle()
+                        self.assertEqual([control.isEnabled() for control in controls], original)
+                        self.assertFalse(dock.stereo_button.isEnabled())
+                        self.assertTrue(dock.record_button.isEnabled())
+            finally:
+                dock.deleteLater()
+
     def test_recording_dock_idle_activation_skips_device_discovery(self):
         helper = self.audio_recording_module
         dock = types.SimpleNamespace(
             _activation_pending=True,
+            settings_widget=helper.QWidget(),
             mic_card=types.SimpleNamespace(isChecked=lambda: False),
             camera_card=types.SimpleNamespace(isChecked=lambda: False),
             _dock_visible=lambda: True,

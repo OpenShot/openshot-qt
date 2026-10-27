@@ -789,8 +789,15 @@ class AudioRecordingDockContent(QWidget):
 
         self.scroll_content = QWidget()
         self.scroll_area.setWidget(self.scroll_content)
-        layout = QVBoxLayout(self.scroll_content)
-        layout.setContentsMargins(10, 8, 10, 10)
+        scroll_layout = QVBoxLayout(self.scroll_content)
+        scroll_layout.setContentsMargins(10, 8, 10, 10)
+        scroll_layout.setSpacing(8)
+        # Keep settings under one parent so locking preserves each control's
+        # device/platform availability, while leaving Stop Recording usable.
+        self.settings_widget = QWidget(self.scroll_content)
+        scroll_layout.addWidget(self.settings_widget)
+        layout = QVBoxLayout(self.settings_widget)
+        layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(8)
 
         source_grid = QGridLayout()
@@ -1036,9 +1043,9 @@ class AudioRecordingDockContent(QWidget):
         self.record_button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
         self.record_button.setStyleSheet("font-weight: 600;")
         control_row.addWidget(self.record_button)
-        layout.addLayout(control_row)
+        scroll_layout.addLayout(control_row)
 
-        layout.addStretch()
+        scroll_layout.addStretch()
 
         self.timer = QTimer(self)
         self.timer.setInterval(100)
@@ -2772,6 +2779,7 @@ class AudioRecordingDockContent(QWidget):
         )
 
     def _set_record_button_idle(self):
+        self.settings_widget.setEnabled(True)
         source_selected = self._has_selected_recording_source()
         self.record_button.setEnabled(source_selected)
         self.record_button.setText(get_app()._tr("Start Recording"))
@@ -2793,18 +2801,21 @@ class AudioRecordingDockContent(QWidget):
         ))
 
     def _set_record_button_unavailable(self):
+        self.settings_widget.setEnabled(True)
         self.record_button.setEnabled(False)
         self.record_button.setText(get_app()._tr("Unavailable"))
         self.record_button.setStyleSheet("QPushButton { color: #8b96a8; font-weight: 600; }")
         self.record_button.setToolTip("")
 
     def _set_record_button_starting(self):
+        self.settings_widget.setEnabled(False)
         self.record_button.setEnabled(False)
         self.record_button.setText(get_app()._tr("Starting..."))
         self.record_button.setStyleSheet("QPushButton { color: #d8e3f2; font-weight: 600; }")
         self.record_button.setToolTip("")
 
     def _set_record_button_stopping(self):
+        self.settings_widget.setEnabled(False)
         self.record_button.setEnabled(False)
         self.record_button.setText(get_app()._tr("Stopping..."))
         self.record_button.setStyleSheet(
@@ -2813,12 +2824,14 @@ class AudioRecordingDockContent(QWidget):
         self.record_button.setToolTip("")
 
     def _set_record_button_saving(self):
+        self.settings_widget.setEnabled(False)
         self.record_button.setEnabled(False)
         self.record_button.setText(get_app()._tr("Saving..."))
         self.record_button.setStyleSheet("QPushButton { color: #d8e3f2; font-weight: 600; }")
         self.record_button.setToolTip("")
 
     def _set_record_button_recording(self, elapsed=None):
+        self.settings_widget.setEnabled(False)
         self.record_button.setEnabled(True)
         if elapsed is None:
             elapsed = 0.0
@@ -3003,7 +3016,9 @@ class AudioRecordingDockContent(QWidget):
 
     def _activate_after_show(self):
         self._activation_pending = False
-        if not self._dock_visible():
+        # Restoring the window after capture must not refresh devices or reset
+        # the controls to idle while the recording is still being finalized.
+        if not self._dock_visible() or not self.settings_widget.isEnabled():
             return
         started = time.monotonic()
         try:
