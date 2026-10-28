@@ -846,7 +846,7 @@ class PlayerWorker(QObject):
                 self._source_preview_reader_key = key
             reader = self._source_preview_reader
         decoded = reader.GetFrame(frame)
-        if getattr(self.videoPreview, "gpu_presenter", None):
+        if getattr(getattr(self, "videoPreview", None), "gpu_presenter", None):
             # The queued Python signal owns the shared native frame until the
             # GUI validates the request generation and presents its surface.
             return decoded

@@ -57,12 +57,18 @@ OBJECT_MASK_PREVIEW_STROKE_COLOR = QColor(255, 255, 255, 255)
 OBJECT_MASK_PREVIEW_STROKE_WIDTH = 3
 
 
-_GPU_PREVIEW = (
-    hasattr(openshot, "VulkanOpenGLPresenter")
-    and QT_API == "pyqt5"
-    and hasattr(QtWidgets, "QOpenGLWidget")
-    and os.environ.get("OPENSHOT_RENDER_BACKEND", "vulkan") != "cpu"
-)
+def gpu_preview_enabled(openshot_module=openshot, qt_api=QT_API, widgets=QtWidgets, environ=os.environ):
+    """Draw Vulkan frames natively only for a GPU libopenshot build under PyQt5.
+    OPENSHOT_RENDER_BACKEND=cpu keeps the QWidget preview and CPU frames."""
+    return (
+        hasattr(openshot_module, "VulkanOpenGLPresenter")
+        and qt_api == "pyqt5"
+        and hasattr(widgets, "QOpenGLWidget")
+        and environ.get("OPENSHOT_RENDER_BACKEND", "vulkan") != "cpu"
+    )
+
+
+_GPU_PREVIEW = gpu_preview_enabled()
 _VideoWidgetBase = QtWidgets.QOpenGLWidget if _GPU_PREVIEW else QWidget
 
 
