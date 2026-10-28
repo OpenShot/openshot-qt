@@ -39,13 +39,14 @@ Success means compatible basic editing, source-rate playback with minimal droppe
 | AMD / TBD | CPU baseline | Pending | Pending | Pending | Pending |
 | AMD / TBD | Vulkan | Pending | Pending | Pending | Pending |
 
-## Progress notes — 2026-10-27
+## Progress notes — 2026-10-27/28
 
 - **Implemented:** deferred GPU frame ownership, Vulkan decode/scale, progressive frame mapping, affine transforms and source-over compositing. Real 4K timeline frames remain GPU-backed across overlapping clips. GPU caches now honor byte budgets.
-- **Preview:** Vulkan/OpenGL sharing preserves QPainter overlays. The native framebuffer test passes without CPU materialization. Actual timeline and file-preview dialog integration is under validation.
+- **Preview:** Vulkan/OpenGL sharing preserves QPainter overlays. The native framebuffer test passes without CPU materialization. Basic editing works in OpenShot against the Vulkan build (confirmed manually 2026-10-28); full timeline and file-preview validation continues. Each repaint still rebuilds GL/Vulkan interop resources and waits on the GPU — the next playback-performance target.
 - **Thumbnails:** real 4K decode → GPU resize → CPU PNG save and forward/backward seeks pass.
-- **Export:** GPU RGBA → GPU NV12 → CUDA → NVENC works in an initial export. Full-resolution two-layer/audio validation is ongoing. Native FFmpeg Vulkan encoding crashed and is not used.
+- **Export:** GPU RGBA → GPU NV12 → CUDA → NVENC works. The earlier black-frame problem is fixed: a 48-frame, two-layer 4K export matches the CPU build on every frame (PSNR ≥ 44.7 dB), at 30.8 fps vs 7.5 fps including startup. Audio validation is still pending. A failed GPU export falls back to CPU encoding for the rest of the export. Native FFmpeg Vulkan encoding crashed and is not used.
 - **Compatibility:** CPU Frame, FrameMapper, Clip, FFmpegReader and FFmpegWriter suites pass. GPU ownership, renderer and compositor tests pass. Bilinear interpolation/chroma sampling still differ from CPU output; do not claim pixel identity. High-quality scaling and unsupported formats use CPU fallback. Accelerated source formats currently: 8-bit YUV420P/NV12/RGBA.
+- **Fallbacks:** `OPENSHOT_RENDER_BACKEND=cpu` disables Vulkan at runtime in a GPU build; libopenshot then follows the unchanged CPU path (export output is bit-identical to a CPU build) and openshot-qt keeps the QWidget preview. Vulkan decode failures reopen the reader in software; transform/composite failures read back and use the CPU path; preview failures present a CPU image.
 - **Machine:** RTX 5070, driver 580.82.09; local FFmpeg 7 and Vulkan headers. Python bindings use system Python 3.8 for PyQt5. ComfyUI restarted with permission to release cached VRAM. AMD testing deferred by request.
 
 ## Build, launch and measure
@@ -58,5 +59,9 @@ Existing desktop builds: GPU `libopenshot-git/build-vk`, matching-FFmpeg CPU `li
 OPENSHOT_RENDER_BACKEND=vulkan OPENSHOT_BUILD_DIR=../libopenshot-git/build-vk \
   benchmarks/run-render-backend.sh
 ```
+
+Build either backend from the same source: `-DENABLE_GPU_FRAME=ON` adds Vulkan (requires Vulkan headers and `glslangValidator`; shaders are embedded in the library), while the default `OFF` build has no Vulkan dependencies.
+
+Tests: `ctest` in either build. Vulkan tests run automatically when a Vulkan device (and, for presentation, a display with OpenGL interop) is available, and are reported as skipped otherwise. Set `OPENSHOT_VULKAN_TEST_VIDEO` to exercise the reader cache test with a 4K clip.
 
 `libopenshot-git/examples/run-timeline-benchmarks.py` runs sequential CPU/GPU comparisons and records JSON, commands and dependency versions. `openshot-export-benchmark` exercises full-resolution rendering with NVENC and optional audio. Final measurements must follow functional validation; earlier standalone/prototype timings are not final playback results.
