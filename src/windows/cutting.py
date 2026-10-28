@@ -385,7 +385,12 @@ class Cutting(SourceRangeMixin, QDialog):
 
         self.r.info.has_audio = self.clip.Reader().info.has_audio
         self.r.info.video_length = self.video_length
-        self.clip.display = openshot.FRAME_DISPLAY_CLIP
+        # Paint the source frame number with the existing UI overlays so it
+        # does not materialize every Vulkan frame inside Clip's QPainter path.
+        gpu_presenter = getattr(self.videoPreview, "gpu_presenter", None)
+        self.videoPreview.source_frame_number_overlay = bool(gpu_presenter)
+        self.clip.display = (openshot.FRAME_DISPLAY_NONE if gpu_presenter
+                             else openshot.FRAME_DISPLAY_CLIP)
         self.r.AddClip(self.clip)
         self.r.Open()
 
@@ -520,6 +525,7 @@ class Cutting(SourceRangeMixin, QDialog):
             self.lblVideoTime.setText(self.frame_to_timestamp(self.sliderVideo.value()))
             return
 
+        self.videoPreview.source_frame_number = frame_number
         # Move slider to correct frame position
         self.sliderIgnoreSignal = True
         self.sliderVideo.setValue(frame_number)

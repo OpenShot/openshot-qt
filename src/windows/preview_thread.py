@@ -108,7 +108,11 @@ class PreviewParent(QObject, UpdateInterface):
         playing = (self.worker.player.Mode() == openshot.PLAYBACK_PLAY
                    and self.worker.player.Speed() != 0)
         if self.worker._preview_image_request == request and not playing:
-            self.worker.videoPreview.present(image)
+            presenter = getattr(self.worker.videoPreview, "gpu_presenter", None)
+            if presenter and isinstance(image, openshot.Frame):
+                presenter.Present(image)
+            else:
+                self.worker.videoPreview.present(image)
 
     # Signal when the playback mode changes in the preview player (i.e PLAY, PAUSE, STOP)
     def onModeChanged(self, current_mode):
@@ -842,6 +846,10 @@ class PlayerWorker(QObject):
                 self._source_preview_reader_key = key
             reader = self._source_preview_reader
         decoded = reader.GetFrame(frame)
+        if getattr(self.videoPreview, "gpu_presenter", None):
+            # The queued Python signal owns the shared native frame until the
+            # GUI validates the request generation and presents its surface.
+            return decoded
         # Copy the pixels: the native frame/cache can be released before the
         # GUI receives this image, and no native reader crosses that boundary.
         return QImage(decoded.GetPixelsBytes(), decoded.GetWidth(), decoded.GetHeight(),

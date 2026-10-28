@@ -27,6 +27,7 @@
 
 import json
 import math
+import os
 import time
 import uuid
 
@@ -39,6 +40,7 @@ from qt_api import (
     QTransform, QPainter, QIcon, QColor, QPen, QBrush, QCursor, QImage, QRegion
 )
 from qt_api import QSizePolicy, QWidget, QPushButton, QToolTip, QEvent
+from qt_api import QtWidgets, QT_API, unwrapinstance
 
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
@@ -55,7 +57,16 @@ OBJECT_MASK_PREVIEW_STROKE_COLOR = QColor(255, 255, 255, 255)
 OBJECT_MASK_PREVIEW_STROKE_WIDTH = 3
 
 
-class VideoWidget(QWidget, updates.UpdateInterface):
+_GPU_PREVIEW = (
+    hasattr(openshot, "VulkanOpenGLPresenter")
+    and QT_API == "pyqt5"
+    and hasattr(QtWidgets, "QOpenGLWidget")
+    and os.environ.get("OPENSHOT_RENDER_BACKEND", "vulkan") != "cpu"
+)
+_VideoWidgetBase = QtWidgets.QOpenGLWidget if _GPU_PREVIEW else QWidget
+
+
+class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
     """ A QWidget used on the video display widget """
     regionAnnotationChanged = pyqtSignal()
     regionAnnotationLimitReached = pyqtSignal()
@@ -560,8 +571,17 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         return pix_size
 
     def paintEvent(self, event, *args):
+        if _GPU_PREVIEW:
+            return super().paintEvent(event)
+        self._paint_preview(event)
+
+    def paintGL(self):
+        self._paint_preview()
+
+    def _paint_preview(self, event=None):
         """ Custom paint event """
-        event.accept()
+        if event is not None:
+            event.accept()
         self.mutex.lock()
 
         # Ensure screen-space handle attribute exists and reset each paint
@@ -591,11 +611,24 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
             # Background
             bg_color = self.palette().color(self.backgroundRole())
-            painter.fillRect(event.rect(), bg_color)
+            painter.fillRect(event.rect() if event is not None else self.rect(), bg_color)
 
             # Viewport and frame
             viewport = self.centeredViewport(self.width(), self.height())
-            if self.current_image:
+            gpu_drawn = False
+            if self.gpu_presenter and self.gpu_presenter.Width() > 0:
+                self.curr_frame_size = self._scaled_frame_size(
+                    QSize(self.gpu_presenter.Width(), self.gpu_presenter.Height()), self.size())
+                scale = self.devicePixelRatioF()
+                painter.beginNativePainting()
+                try:
+                    gpu_drawn = self.gpu_presenter.Draw(
+                        round(viewport.x() * scale),
+                        round((self.height() - viewport.y() - viewport.height()) * scale),
+                        round(viewport.width() * scale), round(viewport.height() * scale))
+                finally:
+                    painter.endNativePainting()
+            if not gpu_drawn and self.current_image:
                 pix_size = self._scaled_frame_size(self.current_image.size(), self.size())
                 self.curr_frame_size = pix_size
 
@@ -606,6 +639,20 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                     Qt.SmoothTransformation
                 )
                 painter.drawImage(viewport, scaled_img)
+
+            if getattr(self, "source_frame_number_overlay", False):
+                source_frame = getattr(self, "source_frame_number", 1)
+                image_width = self.gpu_presenter.Width() if self.gpu_presenter else 0
+                image_height = self.gpu_presenter.Height() if self.gpu_presenter else 0
+                if not image_width and self.current_image:
+                    image_width, image_height = self.current_image.width(), self.current_image.height()
+                if image_width and image_height:
+                    painter.save()
+                    painter.translate(viewport.x(), viewport.y())
+                    painter.scale(viewport.width() / image_width, viewport.height() / image_height)
+                    painter.setPen(QColor("#ffffff"))
+                    painter.drawText(20, 20, str(source_frame))
+                    painter.restore()
 
             # Prep for transform UI
             fps = get_app().project.get("fps")
@@ -935,6 +982,24 @@ class VideoWidget(QWidget, updates.UpdateInterface):
     @pyqtSlot(QImage)
     def present(self, image, *args):
         """ Present the current frame """
+        # CPU seek/hover requests must supersede the last retained GPU frame.
+        if self.gpu_presenter:
+            self.gpu_presenter.Clear()
+
+        self._record_present()
+
+        # Get frame's QImage from libopenshot
+        self.current_image = image
+
+        # Request an async paint to avoid recursive QWidget repaint on Windows.
+        self.update()
+
+    @pyqtSlot(int)
+    def gpu_presented(self, frame_number):
+        self.source_frame_number = frame_number
+        self._record_present()
+
+    def _record_present(self):
 
         # Calculate "render" / "present" FPS
         current_sec = time.localtime(time.time()).tm_sec
@@ -944,12 +1009,6 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             self.present_fps_counter = 1
         else:
             self.present_fps_counter += 1
-
-        # Get frame's QImage from libopenshot
-        self.current_image = image
-
-        # Request an async paint to avoid recursive QWidget repaint on Windows.
-        self.update()
 
     def connectSignals(self, renderer):
         """ Connect signals to renderer """
@@ -2942,6 +3001,10 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
     def resizeEvent(self, event):
         """Widget resize event"""
+        if _GPU_PREVIEW:
+            # QOpenGLWidget must recreate its framebuffer at the new physical
+            # pixel size before our viewport or native presenter can draw.
+            super().resizeEvent(event)
         event.accept()
         if hasattr(self, "pan_x") and hasattr(self, "pan_y"):
             self.pan_x, self.pan_y = VideoWidget._clamp_pan(
@@ -3026,6 +3089,9 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         continue to match the current project's aspect ratio."""
         # Invoke parent init
         super().__init__(*args)
+        self.gpu_presenter = (
+            openshot.VulkanOpenGLPresenter(int(unwrapinstance(self))) if _GPU_PREVIEW else None
+        )
         self.watch_project = bool(watch_project)
 
         # Translate object
