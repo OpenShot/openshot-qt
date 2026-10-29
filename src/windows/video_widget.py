@@ -40,7 +40,7 @@ from qt_api import (
     QTransform, QPainter, QIcon, QColor, QPen, QBrush, QCursor, QImage, QRegion
 )
 from qt_api import QSizePolicy, QWidget, QPushButton, QToolTip, QEvent
-from qt_api import QtWidgets, QT_API, unwrapinstance
+from qt_api import QtGui, QtWidgets, QT_API, unwrapinstance
 
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
@@ -57,14 +57,23 @@ OBJECT_MASK_PREVIEW_STROKE_COLOR = QColor(255, 255, 255, 255)
 OBJECT_MASK_PREVIEW_STROKE_WIDTH = 3
 
 
-def gpu_preview_enabled(openshot_module=openshot, qt_api=QT_API, widgets=QtWidgets, environ=os.environ):
+def opengl_available():
+    """True when Qt can create an OpenGL context (not offscreen or broken drivers)."""
+    if QtWidgets.QApplication.instance() is None:
+        return False
+    return QtGui.QOpenGLContext().create()
+
+
+def gpu_preview_enabled(openshot_module=openshot, qt_api=QT_API, widgets=QtWidgets, environ=os.environ,
+                        opengl_check=opengl_available):
     """Draw Vulkan frames natively only for a GPU libopenshot build under PyQt5.
-    OPENSHOT_RENDER_BACKEND=cpu keeps the QWidget preview and CPU frames."""
+    OPENSHOT_RENDER_BACKEND=cpu, or no working OpenGL, keeps the QWidget preview."""
     return (
         hasattr(openshot_module, "VulkanOpenGLPresenter")
         and qt_api == "pyqt5"
         and hasattr(widgets, "QOpenGLWidget")
         and environ.get("OPENSHOT_RENDER_BACKEND", "vulkan") != "cpu"
+        and opengl_check()
     )
 
 

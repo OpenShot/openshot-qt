@@ -41,22 +41,29 @@ CPU_OPENSHOT = SimpleNamespace()
 WIDGETS = SimpleNamespace(QOpenGLWidget=object)
 
 
+def has_opengl():
+    return True
+
+
 class GpuPreviewEnabledTests(unittest.TestCase):
     def test_gpu_build_under_pyqt5_uses_native_preview(self):
-        self.assertTrue(gpu_preview_enabled(GPU_OPENSHOT, "pyqt5", WIDGETS, {}))
+        self.assertTrue(gpu_preview_enabled(GPU_OPENSHOT, "pyqt5", WIDGETS, {}, has_opengl))
         self.assertTrue(gpu_preview_enabled(
-            GPU_OPENSHOT, "pyqt5", WIDGETS, {"OPENSHOT_RENDER_BACKEND": "vulkan"}))
+            GPU_OPENSHOT, "pyqt5", WIDGETS, {"OPENSHOT_RENDER_BACKEND": "vulkan"}, has_opengl))
+
+    def test_missing_opengl_keeps_widget_preview(self):
+        self.assertFalse(gpu_preview_enabled(GPU_OPENSHOT, "pyqt5", WIDGETS, {}, lambda: False))
 
     def test_cpu_build_keeps_widget_preview(self):
-        self.assertFalse(gpu_preview_enabled(CPU_OPENSHOT, "pyqt5", WIDGETS, {}))
+        self.assertFalse(gpu_preview_enabled(CPU_OPENSHOT, "pyqt5", WIDGETS, {}, has_opengl))
 
     def test_cpu_backend_keeps_widget_preview_in_gpu_build(self):
         self.assertFalse(gpu_preview_enabled(
-            GPU_OPENSHOT, "pyqt5", WIDGETS, {"OPENSHOT_RENDER_BACKEND": "cpu"}))
+            GPU_OPENSHOT, "pyqt5", WIDGETS, {"OPENSHOT_RENDER_BACKEND": "cpu"}, has_opengl))
 
     def test_other_qt_bindings_keep_widget_preview(self):
-        self.assertFalse(gpu_preview_enabled(GPU_OPENSHOT, "pyqt6", WIDGETS, {}))
-        self.assertFalse(gpu_preview_enabled(GPU_OPENSHOT, "pyqt5", SimpleNamespace(), {}))
+        self.assertFalse(gpu_preview_enabled(GPU_OPENSHOT, "pyqt6", WIDGETS, {}, has_opengl))
+        self.assertFalse(gpu_preview_enabled(GPU_OPENSHOT, "pyqt5", SimpleNamespace(), {}, has_opengl))
 
 
 class SourcePreviewPresentationTests(unittest.TestCase):
