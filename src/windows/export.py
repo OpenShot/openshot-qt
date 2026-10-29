@@ -453,7 +453,13 @@ class Export(QDialog):
                             codec_text = ""
                             if codec.childNodes:
                                 codec_text = codec.childNodes[0].data
-                            if "vaapi" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
+                            if codec_text.endswith("_vulkan"):
+                                # The encoder being compiled in does not establish
+                                # that this device/driver can actually open it.
+                                available = getattr(openshot, "GpuEncoders", lambda: [])()
+                                if codec_text in available:
+                                    acceleration_types[_(title.childNodes[0].data)] = QIcon()
+                            elif "vaapi" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
                                 acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-vaapi.svg")
                             elif "nvenc" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
                                 acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-nvenc.svg")

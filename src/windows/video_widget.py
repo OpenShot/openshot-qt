@@ -61,6 +61,10 @@ def opengl_available():
     """True when Qt can create an OpenGL context (not offscreen or broken drivers)."""
     if QtWidgets.QApplication.instance() is None:
         return False
+    # These platforms can create a GL context without supporting QOpenGLWidget
+    # painting. Keep QWidget presentation so seeks also repaint the overlays.
+    if QtWidgets.QApplication.platformName() in ("offscreen", "minimal"):
+        return False
     return QtGui.QOpenGLContext().create()
 
 
