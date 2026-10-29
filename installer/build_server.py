@@ -918,6 +918,16 @@ def main():
                 if not os.path.isfile(os.path.join(app_dir_path, "usr", "bin", qt_library)):
                     raise RuntimeError("AppImage is missing required Qt library: %s" % qt_library)
 
+            # GPU drivers come from the host, and one process cannot load two FFmpegs.
+            bundled_libs = os.listdir(os.path.join(app_dir_path, "usr", "bin"))
+            for lib_name in bundled_libs:
+                if lib_name.startswith(("libvulkan.so", "libcuda.so", "libnvidia-")):
+                    raise RuntimeError("AppImage must not bundle host GPU library: %s" % lib_name)
+            avcodec_libs = [lib_name for lib_name in bundled_libs
+                            if re.match(r"libavcodec\.so\.\d+$", lib_name)]
+            if len(avcodec_libs) > 1:
+                raise RuntimeError("AppImage bundles more than one FFmpeg: %s" % avcodec_libs)
+
             # Prefer the desktop's native file picker through XDG portals.
             install_linux_portal_theme(app_dir_path)
 

@@ -20,6 +20,8 @@ linux:
   stage: build
   variables:
     OPENCV_ROOT: /opt/opencv-4.13.0
+    # Runner image provides FFmpeg 7 (with Vulkan) in /opt
+    FFMPEG_ROOT: /opt/ffmpeg-7.1.3
   artifacts:
     when: always
     expire_in: 2 weeks
@@ -42,9 +44,13 @@ linux:
     - unzip artifacts.zip
     - "if [ \"$CI_COMMIT_REF_NAME\" = \"arm64-support\" ]; then grep -qx \"CI_COMMIT_REF_NAME:arm64-support\" build/install-x64/share/libopenshot.env || exit 1; fi"
     - cp -r "$CI_PROJECT_DIR/build/install-x64/python/." "$CI_PROJECT_DIR"
+    - if [ ! -f "$FFMPEG_ROOT/env.sh" ]; then echo "ERROR runner is missing $FFMPEG_ROOT (FFmpeg 7 with Vulkan)"; exit 1; fi
+    - . "$FFMPEG_ROOT/env.sh"
     - export LD_LIBRARY_PATH=$OPENCV_ROOT/lib:$CI_PROJECT_DIR/build/install-x64/lib:$LD_LIBRARY_PATH
     - ldd "$CI_PROJECT_DIR/build/install-x64/lib/libopenshot.so" | tee "$CI_PROJECT_DIR/build/install-x64/share/libopenshot-linux-deps.log"
     - if grep -q "libpipewire-0.3" "$CI_PROJECT_DIR/build/install-x64/share/libopenshot-linux-deps.log"; then echo "ERROR libopenshot must not link PipeWire directly"; exit 1; fi
+    - if grep -q "not found" "$CI_PROJECT_DIR/build/install-x64/share/libopenshot-linux-deps.log"; then echo "ERROR libopenshot has unresolved libraries"; exit 1; fi
+    - if grep -qE "libavcodec\.so\.58|libavutil\.so\.56" "$CI_PROJECT_DIR/build/install-x64/share/libopenshot-linux-deps.log"; then echo "ERROR libopenshot also loads the system FFmpeg 4.2"; exit 1; fi
     - if [ ! -f "$CI_PROJECT_DIR/build/install-x64/lib/libopenshot-wayland-capture.so" ]; then echo "WARNING libopenshot artifact was built without the optional PipeWire Wayland capture module"; fi
     - export QT_QPA_PLATFORM=offscreen
     - python3 -m unittest discover -s src/tests -t src/tests --quiet

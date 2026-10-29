@@ -575,6 +575,8 @@ elif sys.platform == "linux":
         "libXdmcp.so.6",
         "libpipewire-0.3.so.0",
         "libspa-0.2.so",
+        # The Vulkan loader must match the host's GPU drivers (NVIDIA, Mesa).
+        "libvulkan.so.1",
     }
     system_libs_to_skip.update(appimage_driver_libs)
 
