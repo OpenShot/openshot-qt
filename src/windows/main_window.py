@@ -957,7 +957,14 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         else:
             # No saved project found
             log.info("Creating backup of project file: %s", info.BACKUP_FILE)
-            app.project.save(info.BACKUP_FILE, backup_only=True)
+            try:
+                app.project.save(info.BACKUP_FILE, backup_only=True)
+            except Exception as ex:
+                log.error("Couldn't save backup %s", info.BACKUP_FILE, exc_info=True)
+                message = (app._tr("Not enough memory to save the project.")
+                           if isinstance(ex, MemoryError) else str(ex))
+                self.ProjectSaveFailed.emit(info.BACKUP_FILE, message)
+                return
 
         self.last_auto_save_data_version = current_data_version
 
@@ -2336,33 +2343,28 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
 
         return all_marker_positions
 
-    def actionPreviousMarker_trigger(self, checked=True):
-        log.info("actionPreviousMarker_trigger")
-
-        # Calculate current position (in seconds)
+    def seekToAdjacentMarker(self, forward):
+        """Seek to the closest marker frame before (or after) the current frame"""
         fps = get_app().project.get("fps")
         fps_float = float(fps["num"]) / float(fps["den"])
-        current_position = (self.preview_thread.current_frame - 1) / fps_float
-        all_marker_positions = self.findAllMarkerPositions()
+        current_frame = self.preview_thread.current_frame
+        last_frame = get_app().window.timeline_sync.GetLastFrame()
 
-        # Loop through all markers, and find the closest one to the left
-        closest_position = None
-        for marker_position in sorted(all_marker_positions):
-            # Is marker smaller than position?
-            if marker_position < current_position and (abs(marker_position - current_position) > 0.001):
-                # Is marker larger than previous marker
-                if closest_position and marker_position > closest_position:
-                    # Set a new closest marker
-                    closest_position = marker_position
-                elif not closest_position:
-                    # First one found
-                    closest_position = marker_position
+        # Compare markers in frames (not seconds), so a marker which rounds to
+        # the current frame (i.e. a clip end between frames) is never chosen
+        marker_frames = {
+            min(round(marker_position * fps_float) + 1, last_frame)
+            for marker_position in self.findAllMarkerPositions()
+        }
+        if forward:
+            candidates = [frame for frame in marker_frames if frame > current_frame]
+            frame_to_seek = min(candidates, default=None)
+        else:
+            candidates = [frame for frame in marker_frames if frame < current_frame]
+            frame_to_seek = max(candidates, default=None)
 
-        # Seek to marker position (if any)
-        if closest_position is not None:
-            # Seek
-            frame_to_seek = round(closest_position * fps_float) + 1
-            frame_to_seek = min(frame_to_seek, get_app().window.timeline_sync.GetLastFrame())
+        # Seek to marker frame (if any)
+        if frame_to_seek is not None:
             self.SeekSignal.emit(frame_to_seek, True)
 
             # Keep properties in sync with the seek target. Avoid forcing
@@ -2370,41 +2372,14 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
             # player position and overwrite this navigation jump.
             get_app().window.propertyTableView.select_frame(frame_to_seek)
         self.timeline.setFocus(Qt.OtherFocusReason)
+
+    def actionPreviousMarker_trigger(self, checked=True):
+        log.info("actionPreviousMarker_trigger")
+        self.seekToAdjacentMarker(forward=False)
 
     def actionNextMarker_trigger(self, checked=True):
         log.info("actionNextMarker_trigger")
-
-        # Calculate current position (in seconds)
-        fps = get_app().project.get("fps")
-        fps_float = float(fps["num"]) / float(fps["den"])
-        current_position = (self.preview_thread.current_frame - 1) / fps_float
-        all_marker_positions = self.findAllMarkerPositions()
-
-        # Loop through all markers, and find the closest one to the right
-        closest_position = None
-        for marker_position in sorted(all_marker_positions):
-            # Is marker smaller than position?
-            if marker_position > current_position and (abs(marker_position - current_position) > 0.001):
-                # Is marker larger than previous marker
-                if closest_position and marker_position < closest_position:
-                    # Set a new closest marker
-                    closest_position = marker_position
-                elif not closest_position:
-                    # First one found
-                    closest_position = marker_position
-
-        # Seek to marker position (if any)
-        if closest_position is not None:
-            # Seek
-            frame_to_seek = round(closest_position * fps_float) + 1
-            frame_to_seek = min(frame_to_seek, get_app().window.timeline_sync.GetLastFrame())
-            self.SeekSignal.emit(frame_to_seek, True)
-
-            # Keep properties in sync with the seek target. Avoid forcing
-            # refreshFrameSignal here: it can queue a stale seek to the old
-            # player position and overwrite this navigation jump.
-            get_app().window.propertyTableView.select_frame(frame_to_seek)
-        self.timeline.setFocus(Qt.OtherFocusReason)
+        self.seekToAdjacentMarker(forward=True)
 
     def actionCenterOnPlayhead_trigger(self, checked=True):
         """ Center the timeline on the current playhead position """

@@ -4,6 +4,7 @@ import hashlib
 import json
 import os
 import tempfile
+from functools import lru_cache
 
 import openshot
 from qt_api import QColor, QFont, QImage, QPainter, QTextDocument, QTextOption, Qt
@@ -42,6 +43,7 @@ def new_text_style(width, height):
     """Defaults for a new text, with the style of the last text made."""
     from classes.app import get_app
     style = default_text(width, height)
+    style["text"] = get_app()._tr("Text")
     remembered = get_app().get_settings().get("text-last-style")
     if isinstance(remembered, dict):
         style.update({key: remembered[key] for key in REMEMBERED_STYLE if key in remembered})
@@ -477,12 +479,26 @@ def evaluated_text_style(data, frame):
 
 def text_animation_properties(data, frame):
     """Use libopenshot's normal keyframe metadata for Properties and curve editing."""
+    # Position/scale edits do not change typography. Do not rebuild every text
+    # curve (or copy the whole clip) for each axis of a preview drag.
+    source = {"direct_text": data["direct_text"],
+              "text_style_overrides": data.get("text_style_overrides", []), "reader": {}}
+    for key in TEXT_ANIMATED:
+        if key in source["text_style_overrides"] and "text_" + key in data:
+            source["text_" + key] = data["text_" + key]
+    # Return fresh objects: the Properties dock adds readonly/draft values.
+    return json.loads(_text_animation_properties_json(json.dumps(source, sort_keys=True), frame))
+
+
+@lru_cache(maxsize=128)
+def _text_animation_properties_json(source_json, frame):
+    """Cache immutable metadata by text style, overrides, and clip frame."""
     result = {}
     native = openshot.Clip()
     def property_for(curve):
         native.alpha.SetJson(json.dumps(curve))
         return json.loads(native.PropertiesJSON(frame))["alpha"]
-    source = initialize_text_curves(copy.deepcopy(data))
+    source = initialize_text_curves(json.loads(source_json))
     for key, (name, kind, minimum, maximum) in TEXT_ANIMATED.items():
         curve = source["text_" + key]
         if kind == "color":
@@ -495,7 +511,7 @@ def text_animation_properties(data, frame):
             prop = property_for(curve)
         prop.update(name=name, type=kind, min=minimum, max=maximum)
         result["text_" + key] = prop
-    return result
+    return json.dumps(result)
 
 
 def set_text_keyframe(data, key, value, frame, auto_keyframes):

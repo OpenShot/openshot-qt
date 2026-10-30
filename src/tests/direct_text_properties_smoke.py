@@ -15,7 +15,7 @@ from classes import version
 # UI workflow checks must not depend on the external update service.
 version.get_current_Version = lambda: None
 from classes.query import Clip
-from qt_api import QColor, QFont, QTimer, QT_API
+from qt_api import QColor, QCoreApplication, QEvent, QFont, QTimer, QT_API
 QTest = importlib.import_module({"pyqt5": "PyQt5", "pyqt6": "PyQt6", "pyside6": "PySide6"}[QT_API] + ".QtTest").QTest
 
 app = OpenShotApp([], mode="unittest")
@@ -159,6 +159,51 @@ def verify():
         checks.assertEqual(restored["reader"]["text_animation"], animated["reader"]["text_animation"])
         checks.assertEqual(QColor(evaluated_text_style(restored, 31)["color"]), QColor("#800000ff"))
         checks.assertEqual(QColor(evaluated_text_style(Clip.get(id=sibling.id).data, 31)["color"]), QColor(style["color"]))
+        # Every clip transform keeps all changed properties in one undoable gesture.
+        from qt_api import QMouseEvent, QPointF, Qt
+        drag = Clip()
+        drag.data = new_text_clip(style, root, 0.0, after["layer"], 4.0)
+        drag.data["file_id"] = asset.id
+        drag.save()
+        window.SeekSignal.emit(1, True)
+        window.timeline.AddSelectionJS(drag.id, "clip", True)
+        QTest.qWait(200)
+        window.TransformSignal.emit([drag.id])
+        video = window.videoPreview
+        video.repaint()
+        checks.assertIsNotNone(video.transform)
+        modes = {
+            'location': ('location_x', 'location_y'),
+            'origin': ('origin_x', 'origin_y'),
+            'rotation': ('rotation',),
+            **{name: ('shear_x',) for name in ('shear_top', 'shear_bottom')},
+            **{name: ('shear_y',) for name in ('shear_left', 'shear_right')},
+            **{name: ('scale_x', 'scale_y') for name in (
+                'scale_top_left', 'scale_top_right', 'scale_bottom_left', 'scale_bottom_right')},
+            **{name: ('scale_x',) for name in ('scale_left', 'scale_right')},
+            **{name: ('scale_y',) for name in ('scale_top', 'scale_bottom')},
+        }
+        for mode, keys in modes.items():
+            window.TransformSignal.emit([drag.id])
+            video.repaint()
+            before_drag = copy.deepcopy(Clip.get(id=drag.id).data)
+            video.hover_transform_mode = mode
+            video.mousePressEvent(QMouseEvent(QEvent.MouseButtonPress, QPointF(200, 150),
+                                             Qt.LeftButton, Qt.LeftButton, Qt.NoModifier))
+            video.mouseMoveEvent(QMouseEvent(QEvent.MouseMove, QPointF(203, 152),
+                                            Qt.NoButton, Qt.LeftButton, Qt.NoModifier))
+            video.mouseReleaseEvent(QMouseEvent(QEvent.MouseButtonRelease, QPointF(203, 152),
+                                               Qt.LeftButton, Qt.NoButton, Qt.NoModifier))
+            after_drag = copy.deepcopy(Clip.get(id=drag.id).data)
+            for key in keys:
+                checks.assertNotEqual(after_drag[key], before_drag[key])
+            app.updates.undo()
+            for key in keys:
+                checks.assertEqual(Clip.get(id=drag.id).data[key], before_drag[key])
+            app.updates.redo()
+            for key in keys:
+                checks.assertEqual(Clip.get(id=drag.id).data[key], after_drag[key])
+            app.updates.undo()
         passed = True
         print("TEXT_PROPERTIES_PASSED", flush=True)
     except Exception:
@@ -170,4 +215,8 @@ def verify():
 checks.assertTrue(app.gui())
 QTimer.singleShot(4000, verify)
 app.exec_()
+# Destroy the window while Python and Qt are still fully alive. PyQt5 on
+# Ubuntu 22.04 can crash when these objects survive until interpreter teardown.
+app.window.deleteLater()
+QCoreApplication.sendPostedEvents(None, QEvent.DeferredDelete)
 sys.exit(0 if passed else 1)

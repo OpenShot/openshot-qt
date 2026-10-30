@@ -213,13 +213,14 @@ class JsonDataStore:
 
     def write_to_file(self, file_path, data, path_mode="ignore", previous_path=None):
         """ Save JSON settings to a file """
-        from qt_api import write_file_text, is_content_uri
+        from qt_api import write_file_chunks, is_content_uri
         try:
-            contents = json.dumps(data, ensure_ascii=False, indent=1)
+            chunks = json.JSONEncoder(ensure_ascii=False, indent=1).iterencode(data)
             # Path conversion is only meaningful for local filesystem paths.
             if path_mode == "relative" and not is_content_uri(file_path):
-                contents = self.convert_paths_to_relative(file_path, previous_path, contents)
-            write_file_text(file_path, contents)
+                contents = self.convert_paths_to_relative(file_path, previous_path, "".join(chunks))
+                chunks = (contents,)
+            write_file_chunks(file_path, chunks)
         except Exception as ex:
             msg = "Couldn't save {} file:\n{}\n{}".format(self.data_type, file_path, ex)
             log.error(msg)
