@@ -162,8 +162,8 @@ def main():
                     if os.name == "nt" and hasattr(os, "add_dll_directory"):
                         try:
                             os.add_dll_directory(newpath)
-                        except Exception:
-                            pass
+                        except OSError as err:
+                            print(f"Failed to add DLL directory {newpath}: {err}")
                     zip_path = os.path.join(newpath, "library.zip")
                     if os.path.exists(zip_path):
                         sys.path.insert(0, zip_path)

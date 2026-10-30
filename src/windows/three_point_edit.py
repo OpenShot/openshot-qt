@@ -17,23 +17,21 @@ the Free Software Foundation, either version 3 of the License, or
 """
 
 import copy
-import json
-import math
 import os
 import uuid
 
 from qt_api import (
-    Qt, pyqtSignal, pyqtSlot, QObject, QWidget, QDockWidget, QLabel,
+    Qt, pyqtSlot, QObject, QWidget, QDockWidget, QLabel,
     QPushButton, QToolButton, QComboBox, QSlider, QLineEdit, QAction,
     QIcon, QTimer, QColor, QPainter, QBrush, QPen, QFont, QSizePolicy,
     QVBoxLayout, QHBoxLayout, QGridLayout, QFrame, QScrollArea, QPixmap,
     QImage, QKeySequence, QMessageBox, QRect, QRectF, QSplitter, QSize
 )
 
-from classes import info, time_parts, ui_util
+from classes import info, ui_util
 from classes.app import get_app
 from classes.logger import log
-from classes.query import Clip, File, Track
+from classes.query import Clip, File
 from classes.thumbnail import FindCachedThumbnail, ThumbnailCacheId
 
 
@@ -73,14 +71,14 @@ def parse_tc(tc_str, fps=30.0):
     try:
         if len(parts) == 1:
             return max(0.0, float(parts[0]))
-        elif len(parts) == 2:
+        if len(parts) == 2:
             return max(0.0, float(parts[0]) * 60.0 + float(parts[1]))
-        elif len(parts) == 3:
+        if len(parts) == 3:
             if "." in parts[2]:
                 sec_part, frame_part = parts[2].split(".", 1)
                 return max(0.0, float(parts[0]) * 3600.0 + float(parts[1]) * 60.0 + float(sec_part) + (float(frame_part) / fps))
             return max(0.0, float(parts[0]) * 3600.0 + float(parts[1]) * 60.0 + float(parts[2]))
-        elif len(parts) >= 4:
+        if len(parts) >= 4:
             h, m, sec, f = float(parts[0]), float(parts[1]), float(parts[2]), float(parts[3])
             return max(0.0, h * 3600.0 + m * 60.0 + sec + (f / fps))
     except (ValueError, TypeError):
@@ -231,8 +229,8 @@ class ThreePointEditWidget(QWidget):
                 sel_model = self.win.filesView.selectionModel()
                 if sel_model:
                     sel_model.selectionChanged.connect(self._on_project_files_selection_changed)
-        except Exception:
-            pass
+        except (AttributeError, RuntimeError) as ex:
+            log.debug("Failed to connect project files selection: %s", ex)
 
     def _on_project_files_selection_changed(self, selected=None, deselected=None):
         """Handle selection changes in Project Files view."""
@@ -245,8 +243,8 @@ class ThreePointEditWidget(QWidget):
                         f = sel[0]
                 if f and (not self.current_file or self.current_file.id != f.id):
                     self.select_file_by_id(f.id)
-        except Exception:
-            pass
+        except (AttributeError, RuntimeError, IndexError) as ex:
+            log.debug("Project files selection change error: %s", ex)
 
     def select_file_by_id(self, file_id):
         """Switch source combo to the specified file ID."""
@@ -496,7 +494,7 @@ class ThreePointEditWidget(QWidget):
         self.cmb_policy.addItem(_("Trim Source (Fit Timeline)"), "trim_source")
         self.cmb_policy.addItem(_("Trim Timeline (Fit Source)"), "trim_timeline")
         self.cmb_policy.addItem(_("Ripple / Shift"), "ripple")
-        self.cmb_policy.currentIndexChanged.connect(lambda: self._update_status_and_parameters())
+        self.cmb_policy.currentIndexChanged.connect(self._on_policy_changed)
 
         opt_layout.addWidget(lbl_track)
         opt_layout.addWidget(self.cmb_track)
@@ -1019,7 +1017,7 @@ class ThreePointEditWidget(QWidget):
                     "layer": layer,
                     "message": f"4-Point Fit to Fill (Speed: {speed_factor * 100:.1f}%) on {track_label}."
                 }
-            elif policy == "trim_source":
+            if policy == "trim_source":
                 resolved_s_out = min(src_dur, s_in + tl_span)
                 return {
                     "valid": True,
@@ -1034,7 +1032,7 @@ class ThreePointEditWidget(QWidget):
                     "layer": layer,
                     "message": f"4-Point Mismatch: Trim Source to {format_tc(tl_span, p_fps)} on {track_label}."
                 }
-            elif policy == "trim_timeline":
+            if policy == "trim_timeline":
                 resolved_tl_out = self.timeline_in + source_span
                 return {
                     "valid": True,
@@ -1049,7 +1047,7 @@ class ThreePointEditWidget(QWidget):
                     "layer": layer,
                     "message": f"4-Point Mismatch: Trim Timeline to {format_tc(source_span, p_fps)} on {track_label}."
                 }
-            elif policy == "ripple":
+            if policy == "ripple":
                 return {
                     "valid": True,
                     "mode": "4-point",
@@ -1119,6 +1117,10 @@ class ThreePointEditWidget(QWidget):
             }
 
         return {"valid": False, "message": _("Incomplete edit points.")}
+
+    def _on_policy_changed(self, _index=0):
+        """Handle 4-point policy combo selection changes."""
+        self._update_status_and_parameters()
 
     def _update_status_and_parameters(self):
         """Recalculate and update the UI status label and action buttons."""
