@@ -86,7 +86,6 @@ if not ARCHLIB.endswith('/'):
 python_packages = ["os",
                    "sys",
                    QT_BINDING_PACKAGE,
-                   "openshot",
                    "time",
                    "uuid",
                    "idna",
@@ -105,6 +104,12 @@ python_packages = ["os",
                    "webbrowser",
                    "json",
                    ]
+for _pkg in ["openshot"]:
+    try:
+        __import__(_pkg)
+        python_packages.append(_pkg)
+    except ImportError:
+        pass
 
 # Modules to include
 python_modules = ["{}.QtNetwork".format(QT_BINDING_PACKAGE),"idna.idnadata",
@@ -130,6 +135,8 @@ openshot_copy_path = os.path.join(PATH, "openshot_qt")
 if os.path.exists(os.path.join(PATH, "src")):
     print("Copying modules to openshot_qt directory: %s" % openshot_copy_path)
     # Only make a copy if the SRC directory is present (otherwise ignore this)
+    if os.path.exists(openshot_copy_path):
+        rmtree(openshot_copy_path, ignore_errors=True)
     copytree(os.path.join(PATH, "src"), openshot_copy_path)
 
     # Make a copy of the launch.py script (to name it more appropriately)
@@ -370,11 +377,12 @@ if sys.platform == "win32":
     src_files.append((os.path.join(PATH, "installer", "launch-win.bat"), "launch-win.bat"))
 
     # Add additional package
-    python_packages.extend([
-        "idna",
-        "OpenGL",
-        "OpenGL_accelerate",
-    ])
+    for _pkg in ["idna", "OpenGL", "OpenGL_accelerate"]:
+        try:
+            __import__(_pkg)
+            python_packages.append(_pkg)
+        except ImportError:
+            pass
 
     # Manually add BABL extensions (used in ChromaKey effect) - these are loaded at runtime,
     # and thus cx_freeze is not able to detect them
@@ -725,8 +733,25 @@ elif sys.platform == "linux":
 # Set options
 build_options["build_exe"] = build_exe_options
 
+def create_executable(script, **kwargs):
+    sig = inspect.signature(Executable.__init__).parameters
+    mapping = {
+        "shortcutName": "shortcut_name",
+        "shortcutDir": "shortcut_dir",
+        "targetName": "target_name",
+    }
+    adapted = {}
+    for k, v in kwargs.items():
+        if k in sig:
+            adapted[k] = v
+        elif k in mapping and mapping[k] in sig:
+            adapted[mapping[k]] = v
+        else:
+            adapted[k] = v
+    return Executable(script, **adapted)
+
 # Define launcher executable to create
-exes = [Executable("openshot_qt/launch.py",
+exes = [create_executable("openshot_qt/launch.py",
                    base=base,
                    icon=os.path.join(PATH, "xdg", iconFile),
                    shortcutName="%s" % info.PRODUCT_NAME,
@@ -735,13 +760,13 @@ exes = [Executable("openshot_qt/launch.py",
                    copyright=info.COPYRIGHT)]
 
 # Agent CLI needs a console entry point, including in GUI-only Windows bundles.
-exes.append(Executable("openshot_qt/cli.py", base=None,
+exes.append(create_executable("openshot_qt/cli.py", base=None,
                        targetName="openshot-cli.exe" if sys.platform == "win32" else "openshot-cli",
                        copyright=info.COPYRIGHT))
 
 try:
     # Include extra launcher configuration, if defined
-    exes.append(Executable("openshot_qt/launch.py",
+    exes.append(create_executable("openshot_qt/launch.py",
                 base=extra_exe['base'],
                 icon=os.path.join(PATH, "xdg", iconFile),
                 targetName=extra_exe['name'],
