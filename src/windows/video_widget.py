@@ -68,20 +68,28 @@ def opengl_available():
     return QtGui.QOpenGLContext().create()
 
 
-def gpu_preview_enabled(openshot_module=openshot, qt_api=QT_API, widgets=QtWidgets, environ=os.environ,
-                        opengl_check=opengl_available):
-    """Draw GPU frames through the platform presenter in a GPU build under PyQt5.
-    OPENSHOT_RENDER_BACKEND=cpu, or no working OpenGL, keeps the QWidget preview."""
-    return (
-        hasattr(openshot_module, "VulkanOpenGLPresenter")
-        and qt_api == "pyqt5"
-        and hasattr(widgets, "QOpenGLWidget")
-        and environ.get("OPENSHOT_RENDER_BACKEND", "vulkan") != "cpu"
-        and opengl_check()
-    )
+def gpu_preview_status(openshot_module=openshot, qt_api=QT_API, widgets=QtWidgets, environ=os.environ,
+                       opengl_check=opengl_available):
+    """Return the preview choice and the reason, without initializing Vulkan."""
+    if not hasattr(openshot_module, "VulkanOpenGLPresenter"):
+        return False, "libopenshot has no Vulkan presenter binding"
+    if qt_api != "pyqt5":
+        return False, "native Vulkan preview requires PyQt5 (using %s)" % qt_api
+    if not hasattr(widgets, "QOpenGLWidget"):
+        return False, "Qt has no QOpenGLWidget"
+    if environ.get("OPENSHOT_RENDER_BACKEND", "vulkan") == "cpu":
+        return False, "OPENSHOT_RENDER_BACKEND=cpu"
+    if not opengl_check():
+        return False, "Qt could not create a usable OpenGL context"
+    return True, "native GPU presenter available; frame interop is checked during drawing"
 
 
-_GPU_PREVIEW = gpu_preview_enabled()
+def gpu_preview_enabled(*args, **kwargs):
+    """True when this process can select native GPU preview."""
+    return gpu_preview_status(*args, **kwargs)[0]
+
+
+_GPU_PREVIEW, _GPU_PREVIEW_REASON = gpu_preview_status()
 _VideoWidgetBase = QtWidgets.QOpenGLWidget if _GPU_PREVIEW else QWidget
 
 
@@ -3111,8 +3119,7 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
         self.gpu_presenter = (
             openshot.VulkanOpenGLPresenter(int(unwrapinstance(self))) if _GPU_PREVIEW else None
         )
-        if self.gpu_presenter:
-            log.info("GPU preview uses the native platform presenter; unsupported interop falls back to CPU")
+        log.info("Vulkan preview selected=%s: %s", _GPU_PREVIEW, _GPU_PREVIEW_REASON)
         self.watch_project = bool(watch_project)
 
         # Translate object

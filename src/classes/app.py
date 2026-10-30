@@ -176,6 +176,13 @@ class OpenShotApp(QApplication):
             from classes.distribution import distribution_label
             log.info("distribution: %s", distribution_label())
             log.info("libopenshot version: %s" % openshot.OPENSHOT_VERSION_FULL)
+            log.info("libopenshot Python bindings: %s", getattr(openshot, "__file__", "unknown"))
+            log.info("libopenshot native extension: %s",
+                     getattr(sys.modules.get("_openshot"), "__file__", "unknown"))
+            log.info("Vulkan API available: presenter=%s, devices=%s, encoders=%s; requested backend=%s",
+                     hasattr(openshot, "VulkanOpenGLPresenter"),
+                     hasattr(openshot, "ListGpuDevices"), hasattr(openshot, "GpuEncoders"),
+                     os.getenv("OPENSHOT_RENDER_BACKEND", "vulkan (default)"))
             log.info("platform: %s" % platform.platform())
             log.info("processor: %s" % platform.processor())
             log.info("machine: %s" % platform.machine())

@@ -33,7 +33,7 @@ import openshot
 from qt_api import QImage
 
 from windows.preview_thread import PreviewParent
-from windows.video_widget import gpu_preview_enabled
+from windows.video_widget import gpu_preview_enabled, gpu_preview_status
 
 
 GPU_OPENSHOT = SimpleNamespace(VulkanOpenGLPresenter=object)
@@ -46,6 +46,25 @@ def has_opengl():
 
 
 class GpuPreviewEnabledTests(unittest.TestCase):
+    def test_missing_binding_and_failed_context_have_distinct_reasons(self):
+        check = Mock(return_value=False)
+        enabled, reason = gpu_preview_status(CPU_OPENSHOT, "pyqt5", WIDGETS, {}, check)
+        self.assertFalse(enabled)
+        self.assertIn("binding", reason)
+        check.assert_not_called()
+        enabled, reason = gpu_preview_status(GPU_OPENSHOT, "pyqt5", WIDGETS, {}, check)
+        self.assertFalse(enabled)
+        self.assertIn("OpenGL", reason)
+        check.assert_called_once_with()
+
+    def test_cpu_override_reports_reason_without_context_probe(self):
+        check = Mock()
+        enabled, reason = gpu_preview_status(
+            GPU_OPENSHOT, "pyqt5", WIDGETS, {"OPENSHOT_RENDER_BACKEND": "cpu"}, check)
+        self.assertFalse(enabled)
+        self.assertEqual(reason, "OPENSHOT_RENDER_BACKEND=cpu")
+        check.assert_not_called()
+
     def test_gpu_build_under_pyqt5_uses_native_preview(self):
         self.assertTrue(gpu_preview_enabled(GPU_OPENSHOT, "pyqt5", WIDGETS, {}, has_opengl))
         self.assertTrue(gpu_preview_enabled(

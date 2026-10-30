@@ -165,6 +165,14 @@ except BaseException:
     raise
 log.info("Execution path: %s" % os.path.abspath(__file__))
 log.info("Artifact path detected and added to sys.path: %s" % artifact_path)
+if git_branch_name == "vulkan-mvp":
+    import openshot
+    missing = [name for name in ("VulkanOpenGLPresenter", "ListGpuDevices", "GpuEncoders")
+               if not hasattr(openshot, name)]
+    if missing:
+        raise RuntimeError("vulkan-mvp requires GPU-enabled libopenshot bindings; missing: %s; loaded: %s"
+                           % (", ".join(missing), getattr(openshot, "__file__", "unknown")))
+    log.info("Verified Vulkan API in packaged bindings: %s", openshot.__file__)
 
 # Find files matching patterns
 def find_files(directory, patterns):
