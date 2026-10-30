@@ -193,6 +193,27 @@ class AboutTests(unittest.TestCase):
         self.assertFalse(dialog.isVisible())
         self.assertFalse(dialog.particle_timer.isActive())
 
+    def test_gpu_footer_and_copy_use_same_cached_evidence(self):
+        diagnostics = Mock()
+        diagnostics.brief.return_value = "GPU: Test GPU · Vulkan available · not yet observed"
+        diagnostics.report_lines.return_value = [diagnostics.brief.return_value,
+                                                 "GPU preview: native draws=0; CPU fallback draws=0"]
+        diagnostics.copy_lines.return_value = [diagnostics.brief.return_value,
+                                               "GPU driver: test | Vulkan API: 1.3"]
+        self.dialog.app.gpu_diagnostics = diagnostics
+        self.dialog.update_gpu_status()
+        self.assertIn("not yet observed", self.dialog.lblGpuStatus.text())
+        self.assertIn("native draws=0", self.dialog.lblGpuStatus.toolTip())
+        with patch.object(self.dialog, "get_performance_details", return_value=[]):
+            copied = self.dialog.build_version_info_markdown()
+        self.assertIn(diagnostics.brief.return_value, copied)
+        self.assertIn("GPU driver: test", copied)
+        self.assertNotIn("native draws=0", copied)
+        self.assertEqual(self.dialog.lblGpuStatus.height(), 18)
+        self.assertTrue(self.dialog.gpu_status_timer.isActive())
+        self.dialog.hide()
+        self.assertFalse(self.dialog.gpu_status_timer.isActive())
+
     def test_long_description_keeps_logo_and_controls_separate(self):
         dialog = self.dialog
         dialog.lblAboutDescription.setText(

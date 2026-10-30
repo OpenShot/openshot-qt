@@ -176,13 +176,9 @@ class OpenShotApp(QApplication):
             from classes.distribution import distribution_label
             log.info("distribution: %s", distribution_label())
             log.info("libopenshot version: %s" % openshot.OPENSHOT_VERSION_FULL)
-            log.info("libopenshot Python bindings: %s", getattr(openshot, "__file__", "unknown"))
-            log.info("libopenshot native extension: %s",
-                     getattr(sys.modules.get("_openshot"), "__file__", "unknown"))
-            log.info("Vulkan API available: presenter=%s, devices=%s, encoders=%s; requested backend=%s",
-                     hasattr(openshot, "VulkanOpenGLPresenter"),
-                     hasattr(openshot, "ListGpuDevices"), hasattr(openshot, "GpuEncoders"),
-                     os.getenv("OPENSHOT_RENDER_BACKEND", "vulkan (default)"))
+            from classes.gpu_diagnostics import GpuDiagnostics
+            self.gpu_diagnostics = GpuDiagnostics(openshot, log)
+            self.gpu_diagnostics.log_startup()
             log.info("platform: %s" % platform.platform())
             log.info("processor: %s" % platform.processor())
             log.info("machine: %s" % platform.machine())
@@ -283,6 +279,14 @@ class OpenShotApp(QApplication):
         from windows.main_window import MainWindow
         log.debug("Creating main interface window")
         self.window = MainWindow()
+        diagnostics = getattr(self, "gpu_diagnostics", None)
+        if diagnostics:
+            diagnostics.start_probe()
+            self.gpu_diagnostics_timer = QTimer(self)
+            self.gpu_diagnostics_timer.setInterval(30000)
+            self.gpu_diagnostics_timer.timeout.connect(diagnostics.log_summary)
+            self.gpu_diagnostics_timer.start()
+            self.aboutToQuit.connect(diagnostics.log_summary)
 
         # Check for gui launch failures
         if self.mode == "quit":

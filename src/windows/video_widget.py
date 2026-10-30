@@ -655,6 +655,13 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
                         round(viewport.width() * scale), round(viewport.height() * scale))
                 finally:
                     painter.endNativePainting()
+                diagnostics = getattr(get_app(), "gpu_diagnostics", None)
+                if diagnostics and self._gpu_diagnostic_id is not None:
+                    reason = ""
+                    if not gpu_drawn:
+                        explain = getattr(self.gpu_presenter, "FallbackReason", None)
+                        reason = explain() if explain else "Native interop unavailable; library reports no reason"
+                    diagnostics.observe_preview(self._gpu_diagnostic_id, gpu_drawn, reason)
             if not gpu_drawn and self.current_image:
                 pix_size = self._scaled_frame_size(self.current_image.size(), self.size())
                 self.curr_frame_size = pix_size
@@ -3120,6 +3127,10 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
             openshot.VulkanOpenGLPresenter(int(unwrapinstance(self))) if _GPU_PREVIEW else None
         )
         log.info("Vulkan preview selected=%s: %s", _GPU_PREVIEW, _GPU_PREVIEW_REASON)
+        diagnostics = getattr(get_app(), "gpu_diagnostics", None)
+        self._gpu_diagnostic_id = (diagnostics.register_preview(
+            "timeline" if watch_project else "source", _GPU_PREVIEW, _GPU_PREVIEW_REASON)
+            if diagnostics else None)
         self.watch_project = bool(watch_project)
 
         # Translate object
