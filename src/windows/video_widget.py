@@ -70,7 +70,7 @@ def opengl_available():
 
 def gpu_preview_enabled(openshot_module=openshot, qt_api=QT_API, widgets=QtWidgets, environ=os.environ,
                         opengl_check=opengl_available):
-    """Draw Vulkan frames natively only for a GPU libopenshot build under PyQt5.
+    """Draw GPU frames through the platform presenter in a GPU build under PyQt5.
     OPENSHOT_RENDER_BACKEND=cpu, or no working OpenGL, keeps the QWidget preview."""
     return (
         hasattr(openshot_module, "VulkanOpenGLPresenter")
@@ -3111,6 +3111,8 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
         self.gpu_presenter = (
             openshot.VulkanOpenGLPresenter(int(unwrapinstance(self))) if _GPU_PREVIEW else None
         )
+        if self.gpu_presenter:
+            log.info("GPU preview uses the native platform presenter; unsupported interop falls back to CPU")
         self.watch_project = bool(watch_project)
 
         # Translate object

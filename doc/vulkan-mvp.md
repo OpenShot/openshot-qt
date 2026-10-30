@@ -2,7 +2,7 @@
 
 ## Goal
 
-Find out how fast real 4K editing and export can be on an NVIDIA desktop and, later, an AMD Radeon laptop. Current focus: NVIDIA desktop only. Prioritize responsive timeline and file-preview playback, fast seeking, and fast exports in OpenShot itself.
+Build experimental installers for Linux, Windows, and macOS, with capability-based support for NVIDIA, AMD, and Intel GPUs. Prioritize responsive timeline and file-preview playback, fast seeking, and fast exports in OpenShot itself. GPU support depends on the operating system, driver, codec, and available interop; a vendor name alone does not establish support.
 
 ## Scope and design
 
@@ -48,6 +48,22 @@ Success means compatible basic editing, source-rate playback with minimal droppe
 - **Compatibility:** CPU Frame, FrameMapper, Clip, FFmpegReader and FFmpegWriter suites pass. GPU ownership, renderer and compositor tests pass. Bilinear interpolation/chroma sampling still differ from CPU output; do not claim pixel identity. High-quality scaling and unsupported formats use CPU fallback. Accelerated source formats currently: 8-bit YUV420P/NV12/RGBA.
 - **Fallbacks:** `OPENSHOT_RENDER_BACKEND=cpu` disables Vulkan at runtime in a GPU build; libopenshot then follows the unchanged CPU path (export output is bit-identical to a CPU build) and openshot-qt keeps the QWidget preview. Vulkan decode failures reopen the reader in software; transform/composite failures read back and use the CPU path; preview failures present a CPU image.
 - **Machine:** RTX 5070, driver 580.82.09; local FFmpeg 7 and Vulkan headers. Python bindings use system Python 3.8 for PyQt5. ComfyUI restarted with permission to release cached VRAM. AMD testing deferred by request.
+
+## Platform integration — 2026-10-30
+
+| OS | Hardware decode | Compositor | Native Qt display | Hardware export |
+| --- | --- | --- | --- | --- |
+| Linux | FFmpeg Vulkan Video | Vulkan | OpenGL external memory and semaphores through file descriptors | NVENC through a GPU transfer; native Vulkan encoders when provided by FFmpeg |
+| Windows | FFmpeg Vulkan Video | Vulkan | OpenGL external memory and semaphores through Win32 handles | NVENC through a GPU transfer; native Vulkan encoders when provided by FFmpeg |
+| macOS | VideoToolbox NV12 IOSurfaces | Vulkan through MoltenVK and shared Metal texture views | IOSurface shared with CGL/OpenGL | Vulkan writes directly into encoder-owned VideoToolbox NV12 IOSurfaces |
+
+The Mac path requires macOS 10.15 or newer, Metal, and a compatible MoltenVK runtime. It does not require Vulkan Video support from Metal. Preview and export wait for GPU completion when crossing API boundaries; this avoids CPU pixel transfers but does not eliminate synchronization costs. The runtime ships inside the installer so end users do not need Homebrew or a Vulkan SDK.
+
+The Mac native presentation test checks colors, vertical orientation, Qt overlays, 64 draws, and zero libopenshot CPU materializations. The VideoToolbox integration test exercises two transformed layers at 640×360 and 1280×720, checks hardware decode and zero CPU materializations during export, then compares decoded output pixels against the composited frame. These tests passed on Intel UHD 630 under Catalina. Linux native presentation passed on RTX 5070. Windows x64 and x86 builds each passed 620 library tests and 40 Qt tests on the AWS validation runner. Other devices still need hardware validation; the AWS runner has no GPU for presentation tests.
+
+FFmpeg 7.1 does not provide the native Vulkan H.264/HEVC encoders introduced in FFmpeg 8. NVENC's existing path performs a device-to-device copy. VA-API/QSV/AMF exports are not a verified copy-free route in this MVP. Unsupported codecs, effects, GPU combinations, or display interop use the CPU fallback. Modern NVIDIA/AMD/Intel hardware with suitable drivers is the target; this is not a promise of copy-free decode/display/export on every card or on older NVIDIA Macs.
+
+For a build installed with GPU support, the Python API exposes `ListGpuDevices()`, `ActiveGpuDevice()`, `GpuEncoders()`, and `VulkanFrameReadbackCount()`. A preview's `gpu_presenter.NativeDraws()` and `FallbackFrames()` distinguish native draws from CPU presentation. `GpuEncoders()` reports encoders that actually open, rather than merely compiled-in codec names. Explicit thumbnail/image requests and CPU effects legitimately increase the readback count; compare it around a controlled playback/export interval.
 
 ## Build, launch and measure
 

@@ -465,8 +465,12 @@ class Export(QDialog):
                                 acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-nvenc.svg")
                             elif "dxva2" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
                                 acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-dx.svg")
-                            elif "videotoolbox" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
-                                acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-vtb.svg")
+                            elif "videotoolbox" in codec_text:
+                                probe = (getattr(openshot, "GpuEncoders", None)
+                                         if os.getenv("OPENSHOT_RENDER_BACKEND", "vulkan") != "cpu" else None)
+                                available = (codec_text in probe()) if probe else openshot.FFmpegWriter.IsValidCodec(codec_text)
+                                if available:
+                                    acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-vtb.svg")
                             elif "qsv" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
                                 acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-qsv.svg")
                             elif openshot.FFmpegWriter.IsValidCodec(codec_text) or codec_text == "":

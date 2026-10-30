@@ -650,6 +650,16 @@ elif sys.platform == "darwin":
     if os.path.exists(resvg_path):
         external_so_files.append((resvg_path, os.path.basename(resvg_path)))
 
+    # Include the Vulkan implementation explicitly: FFmpeg loads it dynamically,
+    # so dependency scanning alone cannot find it on a machine without a SDK.
+    ffmpeg_root = os.getenv("FFMPEGDIR")
+    if ffmpeg_root:
+        ffmpeg_lib_path = os.path.join(ffmpeg_root, "lib")
+        build_exe_options.setdefault("bin_path_includes", []).append(ffmpeg_lib_path)
+        moltenvk_path = os.path.join(ffmpeg_lib_path, "libMoltenVK.dylib")
+        if os.path.isfile(moltenvk_path):
+            external_so_files.append((moltenvk_path, "libMoltenVK.dylib"))
+
     opencv_root = os.getenv("OPENCV_ROOT")
     if opencv_root:
         opencv_lib_path = os.getenv("OPENCV_FREEZE_LIB_PATH") or os.path.join(opencv_root, "lib")
