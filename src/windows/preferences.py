@@ -48,7 +48,8 @@ from classes.language import get_all_languages
 from classes.logger import log
 from classes.metrics import track_metric_screen
 from windows.toggle_switch import ToggleSwitch
-from windows.views.hardware_combo import HardwareComboBox, set_hardware_item
+from windows.views.hardware_combo import (HardwareComboBox, set_hardware_item,
+                                          BADGE_WIDTH, BADGE_HEIGHT)
 
 import openshot
 
@@ -332,16 +333,30 @@ class Preferences(QDialog):
                 elif param["type"] == "dropdown":
 
                     # create spinner
-                    widget = HardwareComboBox() if param.get("setting") == "hw-decoder" else QComboBox()
-                    if param.get("setting") == "hw-decoder":
+                    widget = HardwareComboBox() if param.get("setting") in ("hw-decoder", "gpu-mode") else QComboBox()
+                    if param.get("setting") in ("hw-decoder", "gpu-mode"):
                         # Icon-bearing entries need extra vertical room.
-                        widget.setMinimumHeight(34)
+                        widget.setIconSize(QSize(BADGE_WIDTH, BADGE_HEIGHT))
+                        widget.setMinimumHeight(32)
                     else:
                         widget.setFixedHeight(28)
                     widget.setSizeAdjustPolicy(QComboBox.AdjustToMinimumContentsLengthWithIcon)
 
                     # Get values
                     value_list = param["values"]
+                    if param['setting'] == 'gpu-device':
+                        value_list = [{"value": "", "name": _("Automatic (recommended)")}]
+                        diagnostics = getattr(app, 'gpu_diagnostics', None)
+                        if diagnostics:
+                            value_list.extend({"value": d['name'], "name": d['name']}
+                                              for d in diagnostics.snapshot()['devices']
+                                              if d['type'] != 'software')
+                        saved = param['value']
+                        if saved and not any(v['value'] == saved for v in value_list):
+                            value_list.append({"value": saved, "name": saved})
+                        widget.setToolTip(_("GPU used for Vulkan video processing. Automatic is recommended. Restart OpenShot after changing this setting."))
+                    elif param['setting'] == 'gpu-mode':
+                        widget.setToolTip(_("Try GPU processing with Vulkan, or use CPU compatibility mode. Export encoding is selected separately. Restart OpenShot after changing this setting."))
                     # Overwrite value list (for profile dropdown)
                     if param["setting"] == "default-profile":
                         value_list = []
@@ -501,6 +516,9 @@ class Preferences(QDialog):
                             and abs(float(v) - current_scale) < 0.001
                         ) or v == param["value"]:
                             widget.setCurrentIndex(box_index)
+                        if param['setting'] == 'gpu-mode':
+                            set_hardware_item(widget, widget.count() - 1,
+                                              'cpu' if v == 'cpu' else 'gpu')
                         box_index = box_index + 1
 
                     widget.currentIndexChanged.connect(functools.partial(self.dropdown_index_changed, widget, param))
@@ -533,11 +551,18 @@ class Preferences(QDialog):
             tabWidget.layout().addStretch()
 
         self.apply_all_dependencies()
+        self.update_gpu_preference_controls()
 
         # Delete all tabs and widgets
         self.DeleteAllTabs(onlyInVisible=True)
 
         self._apply_tab_order()
+
+    def update_gpu_preference_controls(self):
+        mode = self.setting_widgets.get('gpu-mode')
+        device = self.setting_widgets.get('gpu-device')
+        if mode and device:
+            device.setEnabled(mode.currentData() != 'cpu')
 
     def register_setting_widget(self, param, widget, label=None):
         """Store widget references and register dependency relationships."""
@@ -920,6 +945,8 @@ class Preferences(QDialog):
         value = widget.itemData(index)
         self.s.set(param["setting"], value)
         log.info(value)
+        if param['setting'] == 'gpu-mode':
+            self.update_gpu_preference_controls()
 
         # Apply cache settings (if needed)
         if param["setting"] in ["cache-mode", "cache-image-format"]:

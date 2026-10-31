@@ -209,10 +209,19 @@ class AboutTests(unittest.TestCase):
         self.assertIn(diagnostics.brief.return_value, copied)
         self.assertIn("GPU driver: test", copied)
         self.assertNotIn("native draws=0", copied)
-        self.assertEqual(self.dialog.lblGpuStatus.height(), 18)
+        self.assertGreaterEqual(self.dialog.lblGpuStatus.height(), 22)
         self.assertTrue(self.dialog.gpu_status_timer.isActive())
         self.dialog.hide()
         self.assertFalse(self.dialog.gpu_status_timer.isActive())
+
+    def test_copy_button_centers_beside_two_and_three_version_lines(self):
+        for count in (2, 3):
+            self.dialog.txtversion.setText('<br>'.join(['Version details'] * count))
+            self.app.processEvents()
+            button = self.dialog.btnCopyVersionInfo.geometry()
+            description = self.dialog.txtversion.geometry()
+            self.assertLessEqual(abs(button.center().y() - description.center().y()), 2)
+            self.assertEqual(button.height(), 28)
 
     def test_long_description_keeps_logo_and_controls_separate(self):
         dialog = self.dialog

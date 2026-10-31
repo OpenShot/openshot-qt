@@ -112,6 +112,7 @@ class Export(QDialog):
         # Created when an export ends, as a third tab (success summary or error)
         self.result_tab = None
         self.export_elapsed = None
+        self.export_gpu_snapshot = {}
         self.feedback_pending = False
         self.vbr = {}
         self.abr = {}
@@ -1157,6 +1158,11 @@ class Export(QDialog):
         # Precision of the progress bar
         format_of_progress_string = "%4.1f%% "
 
+        measurements = getattr(get_app(), 'gpu_measurements', None)
+        if measurements:
+            measurements.reset(exporting=True)
+        self.export_gpu_snapshot = {}
+
         # Start video cache thread (to start caching frames)
         self.cache_thread.Reader(self.timeline)
         self.cache_thread.setSpeed(1)
@@ -1173,6 +1179,7 @@ class Export(QDialog):
 
             # Open the writer
             w.Open()
+            measured_write = getattr(w, 'WriteMeasuredFrame', None)
 
             # Notify window of export started
             title_message = ""
@@ -1230,7 +1237,10 @@ class Export(QDialog):
                 max_frame = frame
 
                 # Write the frame object to the video
-                w.WriteFrame(self.timeline.GetFrame(frame))
+                if callable(measured_write):
+                    measured_write(self.timeline, frame)
+                else:
+                    w.WriteFrame(self.timeline.GetFrame(frame))
                 if self.cache_thread:
                     self.cache_thread.Seek(frame)
 
@@ -1312,6 +1322,10 @@ class Export(QDialog):
         get_app().window.timeline_sync.timeline.SetCache(self.old_cache_object)
         get_app().window.cache_object = self.old_cache_object
 
+        measurements = getattr(get_app(), 'gpu_measurements', None)
+        if measurements:
+            self.export_gpu_snapshot = measurements.snapshot(exporting=True)
+
         # Handle end of export (for non-canceled exports)
         if self.s.get("show_finished_window") and self.exporting:
             # Done replaces Cancel; Export stays, for another run with different settings
@@ -1353,6 +1367,7 @@ class Export(QDialog):
             else:
                 panel.show_success(path, kind, export_details(self, path, kind, _))
                 title = _("Complete")
+            panel.set_gpu_metrics(getattr(self, 'export_gpu_snapshot', {}))
             self.exportTabs.setCurrentIndex(self.exportTabs.addTab(self.result_tab, title))
         except Exception:
             log.warning("Unable to show export result", exc_info=True)
@@ -1436,6 +1451,8 @@ class Export(QDialog):
         self.timeline = openshot.Timeline(
             width, height, openshot.Fraction(fps.num, fps.den),
             sample_rate, channels, channel_layout)
+        if hasattr(self.timeline, 'gpu_metrics_export'):
+            self.timeline.gpu_metrics_export = True
         # Init various properties
         self.timeline.info.sample_rate = sample_rate
         self.timeline.info.channels = channels

@@ -684,12 +684,31 @@
     "setting": "automatic_transitions"
   },
   {
+    "title": "GPU processing",
+    "category": "Performance",
+    "setting": "gpu-mode",
+    "type": "dropdown",
+    "translate_values": true,
+    "values": [{"value": "auto", "name": "Automatic (Vulkan)"}, {"value": "cpu", "name": "CPU compatibility mode"}],
+    "value": "auto",
+    "restart": true
+  },
+  {
+    "title": "Preferred GPU",
+    "category": "Performance",
+    "setting": "gpu-device",
+    "type": "dropdown",
+    "values": [],
+    "value": "",
+    "restart": true
+  },
+  {
     "max": 4,
     "title": "Hardware Decoder Mode",
     "category": "Performance",
     "min": 0,
     "setting": "hw-decoder",
-    "type": "dropdown",
+    "type": "hidden",
     "value": "0",
     "translate_values": true,
     "values": [
@@ -734,7 +753,7 @@
     "category": "Performance",
     "min": 0,
     "setting": "graca_number_de",
-    "type": "dropdown",
+    "type": "hidden",
     "value": "0",
     "translate_values": true,
     "values": [],
@@ -746,7 +765,7 @@
     "category": "Performance",
     "min": 0,
     "setting": "graca_number_en",
-    "type": "dropdown",
+    "type": "hidden",
     "value": "0",
     "values": [],
     "restart": false
@@ -755,7 +774,7 @@
     "min": 2,
     "max": 128,
     "value": 12,
-    "title": "OMP Threads",
+    "title": "CPU Processing Threads",
     "type": "spinner-int",
     "restart": true,
     "category": "Performance",
@@ -765,7 +784,7 @@
     "min": 2,
     "max": 16,
     "value": 8,
-    "title": "FFmpeg Threads",
+    "title": "CPU Video Codec Threads",
     "type": "spinner-int",
     "restart": true,
     "category": "Performance",
@@ -776,7 +795,7 @@
     "max": 16000,
     "value": 1950,
     "title": "Hardware Decoder Max Width (0 = Default)",
-    "type": "spinner-int",
+    "type": "hidden",
     "restart": true,
     "category": "Performance",
     "setting": "decode_hw_max_width"
@@ -786,7 +805,7 @@
     "max": 16000,
     "value": 1100,
     "title": "Hardware Decoder Max Height (0 = Default)",
-    "type": "spinner-int",
+    "type": "hidden",
     "restart": true,
     "category": "Performance",
     "setting": "decode_hw_max_height"

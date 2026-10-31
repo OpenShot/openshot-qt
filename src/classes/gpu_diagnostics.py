@@ -26,7 +26,8 @@ class GpuDiagnostics:
         self.errors = []
         self.last_summary = None
         self.apis = {name: callable(getattr(native, name, None)) for name in
-                     ("VulkanOpenGLPresenter", "ListGpuDevices", "ActiveGpuDevice", "GpuEncoders")}
+                     ("VulkanOpenGLPresenter", "ListGpuDevices", "ActiveGpuDevice", "GpuEncoders",
+                      "GpuMetricsSnapshot", "ResetGpuMetrics")}
 
     def event(self, name, **details):
         self.log.info("GPU diagnostics [%s]: %s", name,
@@ -119,6 +120,44 @@ class GpuDiagnostics:
         if current != self.last_summary:
             self.event("session summary", **current)
             self.last_summary = current
+
+    def user_status(self, translate=lambda value: value):
+        """Interpret cached timeline presentation evidence for the About badge."""
+        _ = translate
+        state = self.snapshot()
+        previews = [p for p in state['previews'] if p['name'] == 'timeline']
+        native = sum(p['native_draws'] for p in previews)
+        cpu = sum(p['cpu_draws'] for p in previews)
+        device = state['selected'] or next((d['name'] for d in state['devices']
+                                           if d['type'] != 'software'), '')
+        mode, title, help_text = 'cpu', _('CPU preview'), _('Play a clip to check preview acceleration.')
+        if state['backend'] == 'cpu':
+            title = _('CPU compatibility mode')
+            help_text = _('GPU preview processing is off. Export encoding is chosen separately.')
+        elif native:
+            mode = 'gpu'
+            title = _('GPU preview active') if not cpu else _('GPU preview with CPU fallback')
+            help_text = (_('GPU presentation succeeded. Some frames also used CPU image data.') if cpu else
+                         _('GPU presentation succeeded. Decode and export can use different paths.'))
+        elif state['probe'] != 'complete':
+            title = _('Checking GPU…')
+        elif not state['apis']['ListGpuDevices']:
+            title = _('GPU support unavailable in this build')
+            help_text = _('Use a build with Vulkan support. Use About → Copy Version Info when asking for help.')
+        elif not device:
+            title = _('No usable Vulkan GPU detected')
+            help_text = _('OpenShot could not detect a usable Vulkan GPU. Use About → Copy Version Info for troubleshooting.')
+        elif not state['selected']:
+            title = _('GPU detected · initialization unavailable')
+            help_text = _('A GPU was detected, but OpenShot could not initialize it for Vulkan processing. Use About → Copy Version Info for troubleshooting.')
+        elif cpu:
+            title = _('CPU preview fallback')
+            help_text = _('GPU presentation has not succeeded. Hover the About GPU status to see the fallback reason.')
+        else:
+            title = _('GPU available · not yet used')
+        return dict(mode=mode, title=title, help=help_text, device=device,
+                    encoders=state['encoders'], probe=state['probe'],
+                    ready=bool(state['selected']) and not native and not cpu and state['backend'] != 'cpu')
 
     def brief(self, translate=lambda value: value):
         _ = translate

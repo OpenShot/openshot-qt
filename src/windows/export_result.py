@@ -264,6 +264,26 @@ class ExportResultTab(QWidget):
         self.cards_layout.setHorizontalSpacing(8)
         self.cards_layout.setVerticalSpacing(8)
         layout.addLayout(self.cards_layout)
+        # A compact summary belongs with this export's result, not its settings.
+        self.gpu_summary = QFrame(self.content)
+        self.gpu_summary.setObjectName('exportInfoCard')
+        gpu_layout = QVBoxLayout(self.gpu_summary)
+        gpu_layout.setContentsMargins(10, 8, 10, 8)
+        gpu_layout.setSpacing(4)
+        gpu_header = QHBoxLayout()
+        gpu_label = QLabel(self.translate('GPU pipeline · this export'), self.gpu_summary)
+        gpu_header.addWidget(gpu_label)
+        gpu_header.addStretch()
+        from windows.views.gpu_metrics import GpuSegments
+        self.gpu_segments = GpuSegments(self.translate, self.gpu_summary, exporting=True)
+        gpu_header.addWidget(self.gpu_segments)
+        gpu_layout.addLayout(gpu_header)
+        self.gpu_stage_summary = QLabel(self.gpu_summary)
+        self.gpu_stage_summary.setObjectName('exportInfoTitle')
+        self.gpu_stage_summary.setWordWrap(True)
+        gpu_layout.addWidget(self.gpu_stage_summary)
+        layout.addWidget(self.gpu_summary)
+        self.gpu_summary.hide()
         layout.addStretch(1)
 
         footer = QVBoxLayout()
@@ -292,6 +312,16 @@ class ExportResultTab(QWidget):
         actions.addWidget(self.primary_button)
         footer.addLayout(actions)
         outer.addLayout(footer)
+
+    def set_gpu_metrics(self, snapshot):
+        self.gpu_segments.set_snapshot(snapshot)
+        available = snapshot.get('native_available', True)
+        self.gpu_stage_summary.setText(' · '.join('%s %s' % (
+            self.translate(row['label']), '—' if row['percent'] is None else '%g%%' % round(row['percent'], 1))
+            for row in self.gpu_segments.rows) if available else
+            self.translate('GPU counters unavailable. Rebuild libopenshot and restart OpenShot.'))
+        self.gpu_summary.setToolTip(self.gpu_segments.toolTip())
+        self.gpu_summary.setVisible(bool(snapshot) and (not available or any(row['total'] for row in self.gpu_segments.rows)))
 
     def show_success(self, path, kind, details):
         """kind: video, audio or image_sequence. details: (icon, title, value) tuples."""

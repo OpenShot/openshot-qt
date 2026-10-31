@@ -36,7 +36,8 @@ import random
 
 from qt_api import Qt, pyqtSignal
 from qt_api import QIcon, QSize, QTimer
-from qt_api import QDialog, QLabel
+from qt_api import QDialog, QLabel, QHBoxLayout, QSizePolicy
+from windows.views.gpu_performance import GpuStatusBadge
 from qt_api import QColor, QLinearGradient, QPainter, QPointF, QRadialGradient, QRectF, QSvgRenderer
 from qt_api import QElapsedTimer, QEvent, QPixmap, QRegion
 
@@ -152,7 +153,7 @@ class About(QDialog):
             }
             QLabel#txtversion, QLabel#lblAboutCompany {
                 background: transparent;
-                margin-bottom: 10px;
+                margin-bottom: 0px;
             }
             QToolButton#btnCopyVersionInfo {
                 background: rgba(255, 255, 255, 8);
@@ -161,7 +162,7 @@ class About(QDialog):
                 color: #DCEEFF;
                 font-size: 11px;
                 font-weight: 600;
-                margin-bottom: 8px;
+                margin-bottom: 0px;
                 padding: 2px 8px;
             }
             QToolButton#btnCopyVersionInfo:hover {
@@ -208,14 +209,24 @@ class About(QDialog):
         self.lblAboutDescription.setWordWrap(True)
         self.lblAboutDescription.setText(about_html)
         self.lblAboutCompany.setText(company_html)
-        self.lblAboutCompany.setAlignment(Qt.AlignRight | Qt.AlignBottom)
-        self.txtversion.setAlignment(Qt.AlignLeft | Qt.AlignBottom)
+        self.txtversion.setAlignment(Qt.AlignLeft | Qt.AlignVCenter)
+        self.lblAboutCompany.setAlignment(Qt.AlignRight | Qt.AlignVCenter)
+        self.horizontalLayoutVersionCopyright.setAlignment(self.txtversion, Qt.AlignVCenter)
+        self.horizontalLayoutVersionCopyright.setAlignment(self.btnCopyVersionInfo, Qt.AlignVCenter)
+        self.btnCopyVersionInfo.setFixedHeight(28)
+        self.btnCopyVersionInfo.setMinimumWidth(68)
         self.lblGpuStatus = QLabel(self)
         self.lblGpuStatus.setObjectName("lblGpuStatus")
         self.lblGpuStatus.setTextFormat(Qt.PlainText)
         self.lblGpuStatus.setStyleSheet("color: #A9B3C3; font-size: 10px; font-weight: normal;")
-        self.lblGpuStatus.setFixedHeight(18)
-        self.verticalLayout.insertWidget(2, self.lblGpuStatus)
+        self.lblGpuStatus.setMinimumHeight(22)
+        self.lblGpuStatus.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
+        self.gpuBadge = GpuStatusBadge(self)
+        gpu_row = QHBoxLayout()
+        gpu_row.setSpacing(8)
+        gpu_row.addWidget(self.gpuBadge)
+        gpu_row.addWidget(self.lblGpuStatus, 1)
+        self.verticalLayout.insertLayout(2, gpu_row)
         self.gpu_status_timer = QTimer(self)
         self.gpu_status_timer.setInterval(1000)
         self.gpu_status_timer.timeout.connect(self.update_gpu_status)
@@ -480,7 +491,10 @@ class About(QDialog):
         diagnostics = getattr(self.app, "gpu_diagnostics", None)
         text = (diagnostics.brief(self.app._tr) if diagnostics else
                 self.app._tr("GPU diagnostics not collected"))
-        width = max(100, self.width() - 48)
+        state = diagnostics.user_status(self.app._tr) if diagnostics else {}
+        self.gpuBadge.set_mode(state.get('mode', 'cpu') if isinstance(state, dict) else 'cpu')
+        self.gpuBadge.setToolTip(text)
+        width = max(100, self.width() - 120)
         self.lblGpuStatus.setText(self.lblGpuStatus.fontMetrics().elidedText(text, Qt.ElideRight, width))
         self.lblGpuStatus.setAccessibleName(text)
         self.lblGpuStatus.setToolTip("\n".join(diagnostics.report_lines()) if diagnostics else text)

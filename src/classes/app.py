@@ -130,6 +130,20 @@ class OpenShotApp(QApplication):
         # Init data objects
         self.settings = settings.SettingStore(parent=self)
         self.settings.load()
+        from classes.gpu_settings import apply_gpu_preferences
+        gpu_environment_overrides = {key: os.environ[key] for key in
+                                     ('OPENSHOT_RENDER_BACKEND', 'OPENSHOT_VULKAN_DEVICE')
+                                     if key in os.environ}
+        apply_gpu_preferences(self.settings, native=openshot)
+        diagnostics = getattr(self, 'gpu_diagnostics', None)
+        if diagnostics:
+            diagnostics.environ = dict(os.environ)
+            diagnostics.environment_overrides = gpu_environment_overrides
+            diagnostics.event('effective settings', backend=os.environ.get('OPENSHOT_RENDER_BACKEND'),
+                              device=os.environ.get('OPENSHOT_VULKAN_DEVICE', 'automatic'),
+                              environment_overrides=gpu_environment_overrides)
+        from classes.gpu_metrics import GpuMeasurements
+        self.gpu_measurements = GpuMeasurements(openshot, getattr(self, 'gpu_diagnostics', None))
         assets_path = info.configure_asset_defaults(self.settings.get("unsaved-assets-path"))
         log.info("Unsaved project assets: %s", assets_path)
         if self.mode != "unittest":

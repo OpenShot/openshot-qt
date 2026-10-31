@@ -33,6 +33,21 @@ class ExportResultTests(unittest.TestCase):
         self.addCleanup(lambda: panel.deleteLater() if not isdeleted(panel) else None)
         return panel
 
+    def test_gpu_summary_keeps_only_this_export_and_hides_without_measurements(self):
+        panel = self.make_panel()
+        panel.show_success('/tmp/out.mp4', 'video', DETAILS)
+        raw = {'decode_gpu': 8, 'decode_cpu': 2, 'render_gpu': 10,
+               'copy_free': 9, 'gpu_requests': 10, 'encode_gpu': 10}
+        panel.set_gpu_metrics(raw)
+        raw['encode_gpu'] = 0
+        self.assertFalse(panel.gpu_summary.isHidden())
+        self.assertIn('Encode 100%', panel.gpu_stage_summary.text())
+        panel.set_gpu_metrics({})
+        self.assertTrue(panel.gpu_summary.isHidden())
+        panel.set_gpu_metrics({'native_available': False})
+        self.assertFalse(panel.gpu_summary.isHidden())
+        self.assertIn('counters unavailable', panel.gpu_stage_summary.text())
+
     def test_labels(self):
         self.assertEqual(format_label("mp4", "libx264", "aac", "video"), "MP4 (H.264)")
         self.assertEqual(format_label("webm", "libvpx-vp9", "libopus", "video"), "WEBM (VP9)")

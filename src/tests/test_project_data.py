@@ -34,7 +34,7 @@ import tempfile
 import types
 import unittest
 from contextlib import ExitStack
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 import openshot
 
@@ -132,6 +132,14 @@ class ProjectDataTests(unittest.TestCase):
 
     def tearDown(self):
         ensure_app_state(self.app)
+
+    def test_new_project_resets_gpu_measurements(self):
+        measurements = Mock()
+        self.app.updates = types.SimpleNamespace(load=Mock())
+        store = ProjectDataStore()
+        with patch.object(self.app, 'gpu_measurements', measurements, create=True):
+            store.load('')
+        measurements.reset.assert_called_once_with()
 
     def test_broken_json_and_empty_projects_do_not_fall_back_to_pickle(self):
         for contents in ('{"clips": [', '', '  [1,'):

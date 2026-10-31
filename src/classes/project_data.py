@@ -516,6 +516,9 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                         check_paths(child)
             check_paths(candidate)
         self.new()
+        measurements = getattr(get_app(), 'gpu_measurements', None)
+        if measurements:
+            measurements.reset()
 
         if file_path:
             log.info("Loading project file: %s", file_path)

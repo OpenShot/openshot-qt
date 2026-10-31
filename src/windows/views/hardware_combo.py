@@ -8,6 +8,8 @@ from qt_api import (Qt, QComboBox, QStyledItemDelegate, QStyleOptionViewItem,
 from classes import hardware_rc  # noqa: F401; registers vector badges
 
 BADGES_ROLE = Qt.UserRole + 51
+BADGE_WIDTH = 64
+BADGE_HEIGHT = 22
 
 
 def style_enum(name, group):
@@ -81,7 +83,7 @@ class HardwareItemDelegate(QStyledItemDelegate):
         dpr = painter.device().devicePixelRatioF()
         badge_y = round((rect.center().y() - 11) * dpr) / dpr
         badge_x = round((rect.left() + 8) * dpr) / dpr
-        badge_rect = QRectF(badge_x, badge_y, 64, 22)
+        badge_rect = QRectF(badge_x, badge_y, BADGE_WIDTH, BADGE_HEIGHT)
         # Render vectors directly in both the selected control and popup.
         self.renderers[data['mode']].render(painter, badge_rect)
         text_rect = QRectF(badge_rect.right() + 12, rect.top(),
