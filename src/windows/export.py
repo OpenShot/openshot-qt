@@ -29,7 +29,6 @@ import functools
 import locale
 import os
 import time
-import tempfile
 import math
 
 import openshot
@@ -56,6 +55,7 @@ from classes.logger import log
 from classes.app import get_app
 from classes.metrics import track_metric_screen, track_metric_error
 from classes.query import File
+from classes.filename_utils import invalid_characters
 from windows.confetti import celebrate_export
 from windows.export_result import ExportResultTab, export_details
 from windows.export_validation_ui import ExportValidationUI
@@ -1059,14 +1059,22 @@ class Export(QDialog):
         export_file_path = os.path.join(folder_path or default_folder, file_name_with_ext)
         log.info("Export path: %s" % export_file_path)
 
-        # Check if filename is valid (by creating a blank file in a temporary place)
-        try:
-            open(os.path.join(tempfile.gettempdir(), file_name_with_ext), 'w')
-        except OSError:
-            # Invalid path detected, so use default file name instead
-            file_name_with_ext = "%s.%s" % (default_filename, self.txtVideoFormat.text().strip())
-            export_file_path = os.path.join(self.txtExportFolder.text().strip() or default_folder, file_name_with_ext)
-            log.info("Invalid export path detected, changing to: %s" % export_file_path)
+        # Reject a file name the OS cannot write, and say why (#6081). This used to probe
+        # the system temp folder instead: every export left a 0-byte file behind there, a
+        # name Windows refuses (e.g. a colon) was silently swapped for "Untitled Project"
+        # without telling the user, and the real target path was never what got checked.
+        bad_characters = invalid_characters(file_name_with_ext)
+        if bad_characters:
+            log.warning("Invalid export file name %r - contains: %s" %
+                        (file_name_with_ext, " ".join(bad_characters)))
+            QMessageBox.warning(
+                self,
+                _("Export Video"),
+                _("%s is not a valid file name.\nRemove these characters: %s")
+                % (file_name_with_ext, " ".join(bad_characters)))
+            self.enableControls()
+            self.exporting = False
+            return
 
         file = File.get(path=export_file_path)
         if file:
