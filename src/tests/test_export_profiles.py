@@ -38,3 +38,37 @@ class ExportProfileTests(unittest.TestCase):
             self.assertEqual(dialog.profile_paths, {"HD 720p (1280x720)": str(profile)})
             self.assertEqual(dialog.selected_profile, "HD 720p (1280x720)")
             dialog.cboProfile.addItem.assert_called_once_with(str(profile), str(profile))
+
+    def test_export_choices_distinguish_missing_nvenc_from_unavailable_vulkan(self):
+        from qt_api import QApplication, QComboBox, QSize, Qt
+        from classes.export_settings import encoder_support
+        self.__class__.app = QApplication.instance() or QApplication([])
+        with tempfile.TemporaryDirectory() as directory:
+            installed = Path(directory) / "installed"
+            user = Path(directory) / "user"
+            installed.mkdir(); user.mkdir()
+            for title, codec in (("CPU", "libx264"), ("NVIDIA", "h264_nvenc"), ("Vulkan", "h264_vulkan")):
+                (installed / (title + ".xml")).write_text(
+                    "<export-option><type>All Formats</type><title>%s</title>"
+                    "<videocodec>%s</videocodec></export-option>" % (title, codec))
+            api = SimpleNamespace(FFmpegWriter=SimpleNamespace(IsValidCodec=Mock(
+                side_effect=lambda codec: codec != "h264_nvenc")), GpuEncoders=Mock(return_value=[]))
+            target = QComboBox()
+            project = QComboBox(); project.addItem("All Formats", "All Formats")
+            dialog = SimpleNamespace(cboSimpleTarget=target)
+            with patch.object(self.export, "get_app", return_value=SimpleNamespace(_tr=lambda text: text)), \
+                    patch.object(self.export.info, "EXPORT_PRESETS_PATH", str(installed)), \
+                    patch.object(self.export.info, "USER_PRESETS_PATH", str(user)), \
+                    patch.object(self.export, "encoder_support", side_effect=lambda codec: encoder_support(codec, api, {})), \
+                    patch.object(self.export.log, "info") as log_info:
+                self.export.Export.cboSimpleProjectType_index_changed(dialog, project, 0)
+                self.assertEqual([target.itemText(n) for n in range(target.count())], ["CPU"])
+                details = log_info.call_args.args[1]
+                self.assertIn("not included", details["h264_nvenc"]["reason"])
+                self.assertIn("did not open", details["h264_vulkan"]["reason"])
+                self.assertEqual(target.iconSize(), QSize(64, 22))
+                self.assertIn("Software encoder", target.itemData(0, Qt.ToolTipRole))
+                api.FFmpegWriter.IsValidCodec.side_effect = lambda codec: True
+                self.export.Export.cboSimpleProjectType_index_changed(dialog, project, 0)
+                self.assertEqual([target.itemText(n) for n in range(target.count())], ["CPU", "NVIDIA"])
+                self.assertFalse(target.itemIcon(1).isNull())

@@ -41,13 +41,14 @@ from qt_api import (
 from qt_api import QKeySequence, QIcon
 
 from classes import info, ui_util, tabstops
-from classes import openshot_rc  # noqa
+from classes import hardware_rc, openshot_rc  # noqa
 from classes.app import get_app
 from classes.distribution import is_snap
 from classes.language import get_all_languages
 from classes.logger import log
 from classes.metrics import track_metric_screen
 from windows.toggle_switch import ToggleSwitch
+from windows.views.hardware_combo import HardwareComboBox, set_hardware_item
 
 import openshot
 
@@ -331,7 +332,7 @@ class Preferences(QDialog):
                 elif param["type"] == "dropdown":
 
                     # create spinner
-                    widget = QComboBox()
+                    widget = HardwareComboBox() if param.get("setting") == "hw-decoder" else QComboBox()
                     if param.get("setting") == "hw-decoder":
                         # Icon-bearing entries need extra vertical room.
                         widget.setMinimumHeight(34)
@@ -468,26 +469,29 @@ class Preferences(QDialog):
                         # TODO: Find a more elegant way to do this
                         icon = None
                         if k == "Linux VA-API" or i == 1:
-                            icon = QIcon(":/hw/hw-accel-vaapi.svg")
+                            icon = QIcon(":/hardware/gpu.svg")
                         elif k == "Nvidia NVDEC" or i == 2:
-                            icon = QIcon(":/hw/hw-accel-nvdec.svg")
+                            icon = QIcon(":/hardware/gpu.svg")
                         elif k == "Linux VDPAU" or i == 6:
-                            icon = QIcon(":/hw/hw-accel-vdpau.svg")
+                            icon = QIcon(":/hardware/gpu.svg")
                         elif k == "Windows D3D9" or i == 3:
-                            icon = QIcon(":/hw/hw-accel-dx.svg")
+                            icon = QIcon(":/hardware/gpu.svg")
                         elif k == "Windows D3D11" or i == 4:
-                            icon = QIcon(":/hw/hw-accel-dx.svg")
+                            icon = QIcon(":/hardware/gpu.svg")
                         elif k == "MacOS" or i == 5:
-                            icon = QIcon(":/hw/hw-accel-vtb.svg")
+                            icon = QIcon(":/hardware/gpu.svg")
                         elif k == "Intel QSV" or i == 7:
-                            icon = QIcon(":/hw/hw-accel-qsv.svg")
+                            icon = QIcon(":/hardware/gpu.svg")
                         elif k == "No acceleration" or i == 0:
-                            icon = QIcon(":/hw/hw-accel-none.svg")
+                            icon = QIcon(":/hardware/cpu.svg")
 
                         # add dropdown item
                         if icon:
-                            widget.setIconSize(QSize(60, 18))
+                            widget.setIconSize(QSize(64, 22))
                             widget.addItem(icon, _(k), v)
+                            if isinstance(widget, HardwareComboBox):
+                                mode = "cpu" if k == "No acceleration" or i == 0 else "gpu"
+                                set_hardware_item(widget, widget.count() - 1, mode)
                         else:
                             widget.addItem(_(k), v)
 

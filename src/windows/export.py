@@ -51,7 +51,8 @@ from qt_api import QColor, QIcon, QPalette
 from functools import partial
 from classes import info, tabstops
 from classes import ui_util
-from classes import openshot_rc  # noqa
+from classes.export_settings import encoder_support
+from classes import hardware_rc, openshot_rc  # noqa
 from classes.logger import log
 from classes.app import get_app
 from classes.metrics import track_metric_screen, track_metric_error
@@ -59,6 +60,7 @@ from classes.query import File
 from windows.confetti import celebrate_export
 from windows.export_result import ExportResultTab, export_details
 from windows.export_validation_ui import ExportValidationUI
+from windows.views.hardware_combo import set_hardware_item, export_choice_label, backend_badge
 
 import json
 
@@ -437,6 +439,8 @@ class Export(QDialog):
         # parse the xml files and get targets that match the project type
         project_types = []
         acceleration_types = {}
+        codec_support = {}
+        target_details = {}
         for preset_folder in [info.EXPORT_PRESETS_PATH, info.USER_PRESETS_PATH]:
             for file in os.listdir(preset_folder):
                 preset_path = os.path.join(preset_folder, file)
@@ -453,28 +457,23 @@ class Export(QDialog):
                             codec_text = ""
                             if codec.childNodes:
                                 codec_text = codec.childNodes[0].data
-                            if codec_text.endswith("_vulkan"):
-                                # The encoder being compiled in does not establish
-                                # that this device/driver can actually open it.
-                                available = getattr(openshot, "GpuEncoders", lambda: [])()
-                                if codec_text in available:
-                                    acceleration_types[_(title.childNodes[0].data)] = QIcon()
-                            elif "vaapi" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
-                                acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-vaapi.svg")
-                            elif "nvenc" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
-                                acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-nvenc.svg")
-                            elif "dxva2" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
-                                acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-dx.svg")
-                            elif "videotoolbox" in codec_text:
-                                probe = (getattr(openshot, "GpuEncoders", None)
-                                         if os.getenv("OPENSHOT_RENDER_BACKEND", "vulkan") != "cpu" else None)
-                                available = (codec_text in probe()) if probe else openshot.FFmpegWriter.IsValidCodec(codec_text)
-                                if available:
-                                    acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-vtb.svg")
-                            elif "qsv" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
-                                acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-qsv.svg")
-                            elif openshot.FFmpegWriter.IsValidCodec(codec_text) or codec_text == "":
-                                acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-none.svg")
+                            if codec_text not in codec_support:
+                                codec_support[codec_text] = encoder_support(codec_text)
+                            backend, supported, reason = codec_support[codec_text]
+                            if supported:
+                                target = _(title.childNodes[0].data)
+                                resource = "cpu" if backend == "cpu" else "gpu"
+                                acceleration_types[target] = QIcon(":/hardware/%s.svg" % resource)
+                                container_nodes = xmldoc.getElementsByTagName("videoformat")
+                                container = (container_nodes[0].firstChild.data
+                                             if container_nodes and container_nodes[0].firstChild else "")
+                                target_details[target] = dict(
+                                    tooltip="%s: %s" % (codec_text or "Video disabled", reason),
+                                    label=export_choice_label(target, container, codec_text, backend),
+                                    mode=resource, route=backend_badge(backend, _),
+                                    technology={'nvenc': 'NVENC', 'qsv': 'Quick Sync (QSV)',
+                                                'vtb': 'VideoToolbox', 'vaapi': 'VA-API',
+                                                'dx': 'DirectX', 'vulkan': 'Vulkan', 'amf': 'AMF'}.get(backend, ''))
 
                 except ExpatError as e:
                     # This indicates an invalid Preset file - display an error and continue
@@ -486,11 +485,28 @@ class Export(QDialog):
         # Add all targets for selected project type
         preset_index = 0
         selected_preset = 0
+        log.info("GPU export presets: %s", {
+            codec: {"shown": supported, "reason": reason}
+            for codec, (backend, supported, reason) in codec_support.items() if backend != "cpu"})
         for item in sorted(project_types):
             icon = acceleration_types.get(item)
             if icon:
-                self.cboSimpleTarget.setIconSize(QSize(60, 18))
+                self.cboSimpleTarget.setIconSize(QSize(64, 22))
                 self.cboSimpleTarget.addItem(icon, item, item)
+                index = self.cboSimpleTarget.count() - 1
+                details = target_details[item]
+                tooltip = details['tooltip']
+                if details['route']:
+                    tooltip = "%s · %s\n%s" % (details['route'], details['technology'], tooltip)
+                self.cboSimpleTarget.setItemData(index, tooltip, Qt.ToolTipRole)
+                self.cboSimpleTarget.setItemData(index, tooltip, Qt.AccessibleDescriptionRole)
+                description = (_("Software encoding") if details['mode'] == 'cpu'
+                               else _("Hardware encoding"))
+                secondary = " · ".join(part for part in (
+                    description, details['route'] if details['route'] != 'Cross-platform' else '',
+                    details['technology']) if part)
+                set_hardware_item(self.cboSimpleTarget, index, details['mode'],
+                                  details['label'], details['route'], secondary)
             else:
                 continue
 

@@ -31,6 +31,39 @@ import time
 import openshot
 
 
+def encoder_support(codec, native=openshot, environ=os.environ):
+    """Return backend, preset availability, and why; compile/driver checks differ.
+
+    Preserve legacy NVENC/QSV/VA-API visibility based on compiled support.
+    Vulkan and GPU-mode VideoToolbox presets additionally require an open probe.
+    """
+    backend = "cpu"
+    for suffix, name in (("_vulkan", "vulkan"), ("_nvenc", "nvenc"), ("_vaapi", "vaapi"),
+                         ("_dxva2", "dx"), ("_videotoolbox", "vtb"), ("_qsv", "qsv"),
+                         ("_amf", "amf")):
+        if codec.endswith(suffix):
+            backend = name
+            break
+    if not codec:
+        return backend, True, "No video encoder required"
+    if not native.FFmpegWriter.IsValidCodec(codec):
+        return backend, False, "Encoder is not included in this FFmpeg build"
+    probe = getattr(native, "GpuEncoders", None)
+    if backend == "vulkan" or (backend == "vtb" and probe and
+                               environ.get("OPENSHOT_RENDER_BACKEND", "vulkan") != "cpu"):
+        if not probe:
+            return backend, False, "This library has no GPU encoder capability API"
+        try:
+            if codec not in probe():
+                return backend, False, "Encoder did not open on the selected GPU; see GPU diagnostics"
+        except Exception as error:
+            return backend, False, "GPU encoder probe failed: %s" % error
+        return backend, True, "Hardware encoder opened on the selected GPU"
+    if backend != "cpu":
+        return backend, True, "Encoder included; GPU and driver support are checked when export starts"
+    return backend, True, "Software encoder (CPU)"
+
+
 def configure_writer(writer, video, audio, mode='video_audio', quality_mode=None,
                      video_options=None, audio_options=None):
     if mode in ('video_audio', 'video', 'image_sequence'):
