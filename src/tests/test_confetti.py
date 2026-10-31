@@ -109,8 +109,8 @@ class ConfettiTests(unittest.TestCase):
     def test_export_celebrates_and_invites_only_after_writer_success_and_close(self):
         from windows.export import Export
         for outcome in ("success", "cancel", "write-error"):
-            for finished_window in (True, False):
-                with self.subTest(outcome=outcome, finished_window=finished_window), \
+            for finished_window, measured in ((True, False), (True, True), (False, False), (False, True)):
+                with self.subTest(outcome=outcome, finished_window=finished_window, measured=measured), \
                         tempfile.TemporaryDirectory() as folder:
                     dialog = Export.__new__(Export)
                     QDialog.__init__(dialog)
@@ -140,7 +140,14 @@ class ConfettiTests(unittest.TestCase):
                     window = SimpleNamespace(timeline_sync=Mock(), feedback_controller=controller)
                     app = SimpleNamespace(_tr=lambda text: text, get_settings=Mock,
                         project=SimpleNamespace(), window=window)
-                    writer = Mock()
+                    writer_methods = ['Open', 'Close', 'SetVideoOptions', 'SetAudioOptions',
+                                      'PrepareStreams', 'AddSphericalMetadata', 'SetOption', 'WriteFrame']
+                    if measured:
+                        writer_methods.append('WriteMeasuredFrame')
+                    writer = Mock(spec_set=writer_methods)
+                    if measured:
+                        writer.WriteMeasuredFrame.side_effect = (
+                            lambda reader, number: writer.WriteFrame(reader.GetFrame(number)))
                     if outcome == "cancel":
                         writer.WriteFrame.side_effect = lambda frame: setattr(dialog, "exporting", False)
                     elif outcome == "write-error":
@@ -157,6 +164,9 @@ class ConfettiTests(unittest.TestCase):
                             patch("windows.export.celebrate_export") as celebrate:
                         dialog.accept()
                     succeeded = outcome == "success"
+                    self.assertEqual(writer.WriteFrame.call_count, 3 if succeeded else 1)
+                    if measured:
+                        self.assertEqual(writer.WriteMeasuredFrame.call_count, writer.WriteFrame.call_count)
                     self.assertEqual(celebrate.call_count, int(succeeded))
                     # The finished dialog holds the banner until it closes.
                     self.assertEqual(controller.record_export.call_count, int(succeeded and not finished_window))
