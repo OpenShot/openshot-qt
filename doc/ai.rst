@@ -156,6 +156,80 @@ back into :guilabel:`Project Files`.
 OpenShot also writes a ``.openshot_qt/comfyui/debug.json`` payload for advanced
 users who want to inspect the exact request sent to ComfyUI.
 
+.. _extra_inputs_ref:
+
+Templates With Multiple Inputs
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+By default, a template's only input is the source file you selected before
+opening the dialog, bound with the ``__openshot_input__`` placeholder in the
+template's ``*.json``. Some workflows need more than that -- a second image or
+video, a separate audio track, or a short text detail the model should use.
+
+Declare each additional input as an entry in a top-level ``extra_inputs`` list
+in your template's JSON:
+
+.. code-block:: json
+
+   "extra_inputs": [
+     { "key": "end_clip", "type": "video", "label": "End clip", "required": true },
+     { "key": "scene_note", "type": "text", "label": "Scene detail", "required": false,
+       "default": "a quiet transition" },
+     { "key": "quality_preset", "type": "choice", "label": "Quality",
+       "choices": ["fast", "balanced", "best"], "default": "balanced" }
+   ]
+
+- ``key`` -- lowercase letters, numbers, and underscores only; must be unique
+  within the template.
+- ``type`` -- ``image``, ``video``, or ``audio`` (picked from your Project
+  Files, same as any other source file); ``text`` (a plain text field); or
+  ``choice`` (a fixed dropdown of allowed values -- use this instead of
+  ``text`` whenever the workflow only accepts specific values, so a user can't
+  submit something that would break it).
+- ``label`` -- the field's display label in the dialog's :guilabel:`Reference`
+  tab. Optional; derived from ``key`` if omitted.
+- ``required`` -- whether the field must be filled in before
+  :guilabel:`Generate` is enabled. Defaults to ``true``.
+- ``default`` -- (``text`` and ``choice`` only) a value the field starts with,
+  which the user can accept as-is or change. For ``text``, this pre-fills the
+  field (distinct from a placeholder hint, which disappears once the field has
+  real content). For ``choice``, this pre-selects one of the listed
+  ``choices``; ignored if it doesn't match one of them.
+- ``choices`` -- (``choice`` only, required) a non-empty list of allowed
+  string values. The dialog shows them as a dropdown; nothing else is
+  selectable.
+
+The dialog builds one widget per declared entry -- a file picker for
+``image``/``video``/``audio``, a text field for ``text``, a dropdown for
+``choice`` -- and validates every required entry before queuing the job.
+
+Reference each declared input from your workflow with a named placeholder,
+matching the entry's ``key``:
+
+- ``__openshot_input:end_clip__``
+- ``{{openshot_input:end_clip}}``
+- ``$openshot_input:end_clip``
+
+Any of the three forms works; use whichever reads more naturally for the
+node/value you're setting. A ``text``- or ``choice``-type entry's value is
+substituted directly wherever its placeholder appears -- it does not need to
+be a file path, and (unlike ``image``/``video``/``audio`` placeholders, which
+must be a field's entire value) it can appear in the middle of a longer
+string, such as one word inside a larger fixed prompt template:
+
+.. code-block:: json
+
+   "text": "A steady shot of __openshot_input:scene_note__, well lit."
+
+An ``image``/``video``/``audio`` placeholder must still be a field's entire
+value -- embedding a resolved file path in the middle of a string wouldn't
+make sense to whatever node consumes it.
+
+The older, single-purpose ``"needs_reference_image": true`` flag (with the
+``__openshot_reference_image__`` placeholder) still works exactly as before,
+and is equivalent to declaring one ``extra_inputs`` entry with
+``"key": "reference_image", "type": "image"``.
+
 AI Action Dialog
 ----------------
 
@@ -176,7 +250,9 @@ What you can do in the dialog:
 - Enter the prompt text.
 - Preview the selected source file (for enhance workflows).
 - Set the output name for generated media.
-- Pick a reference image in the :guilabel:`Reference` tab for workflows that require one.
+- Pick any additional images, video, or audio a workflow needs in the
+  :guilabel:`Reference` tab, fill in an extra text field, or pick from a
+  fixed dropdown if the workflow asks for one.
 - Provide tracking points/rectangles for tracking workflows.
 - Start the job with :guilabel:`Generate` or close with :guilabel:`Cancel`.
 
@@ -333,6 +409,19 @@ Change Image Style... (``img2img-basic``)
 - Why: Restyle an existing image while keeping the source composition.
 - How: Choose :guilabel:`Enhance with AI` on an image, enter a style prompt, then generate.
 - Details: Uses ``comfyui/img2img-basic.json`` with ``sd_xl_base_1.0.safetensors``.
+
+Blend + Restyle (Multi-Input Demo) (``image-blend-multi-input-demo``)
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+- Why: Reference example showing a template that declares more than one
+  extra input (a second image, plus a text field) -- see
+  :ref:`extra_inputs_ref` above. Blends a second image over the source, then
+  restyles the result from a text prompt.
+- How: Choose :guilabel:`Enhance with AI` on an image, pick an overlay image
+  and enter a restyle prompt in the :guilabel:`Reference` tab, then generate.
+- Details: Uses ``comfyui/image-blend-multi-input-demo.json`` with
+  ``sd_xl_base_1.0.safetensors``. Uses only core ComfyUI nodes -- no custom
+  node packages required.
 
 Depth (``image-extract-depth``)
 """""""""""""""""""""""""""""""""""
