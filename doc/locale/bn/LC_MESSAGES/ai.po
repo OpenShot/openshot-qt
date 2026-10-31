@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,12 +19,12 @@ msgstr ""
 "Generated-By: Babel 2.10.3\n"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:23
+#: ../doc/ai.rst:23
 msgid "Advanced AI: ComfyUI"
 msgstr "উন্নত AI: ComfyUI"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:25
+#: ../doc/ai.rst:25
 msgid ""
 "OpenShot can connect to a local `ComfyUI "
 "<https://github.com/comfyanonymous/ComfyUI>`_ server and run AI workflows "
@@ -39,7 +39,7 @@ msgstr ""
 "প্রয়োজন এবং বিল্ট-ইন ওয়ার্কফ্লো টেমপ্লেটগুলি কোথায় থাকে৷"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:30
+#: ../doc/ai.rst:30
 msgid ""
 "AI features in OpenShot are **experimental** and require a **high-end "
 "workstation**."
@@ -48,7 +48,7 @@ msgstr ""
 "ওয়ার্কস্টেশন** প্রয়োজন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:32
+#: ../doc/ai.rst:32
 msgid ""
 "These tools are **not recommended** for laptops, mid-range desktops, or "
 "budget systems."
@@ -57,7 +57,7 @@ msgstr ""
 "**প্রস্তাবিত নয়**।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:33
+#: ../doc/ai.rst:33
 msgid ""
 "You must run a local `ComfyUI <https://github.com/comfyanonymous/ComfyUI>`_ "
 "server."
@@ -66,79 +66,79 @@ msgstr ""
 "সার্ভার চালাতে হবে।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:34
+#: ../doc/ai.rst:34
 msgid ""
 "You should expect model downloads, setup work, and workflow troubleshooting."
 msgstr ""
 "আপনাকে মডেল ডাউনলোড, সেটআপ কাজ, এবং ওয়ার্কফ্লো সমস্যার সমাধান আশা করতে হবে।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:37
+#: ../doc/ai.rst:37
 msgid "Minimum Recommended Hardware"
 msgstr "ন্যূনতম সুপারিশকৃত হার্ডওয়্যার"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:43
+#: ../doc/ai.rst:43
 msgid "Component"
 msgstr "উপাদান"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:43
+#: ../doc/ai.rst:43
 msgid "Recommendation"
 msgstr "সুপারিশ"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:45
+#: ../doc/ai.rst:45
 msgid "GPU"
 msgstr "জিপিইউ"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:45
+#: ../doc/ai.rst:45
 msgid "NVIDIA 5070 12GB or better (16-24GB VRAM strongly preferred)"
 msgstr "NVIDIA 5070 12GB বা আরও ভাল (16-24GB VRAM দৃঢ়ভাবে পছন্দ করা হয়)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:46
+#: ../doc/ai.rst:46
 msgid "CPU"
 msgstr "সিপিইউ"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:46
+#: ../doc/ai.rst:46
 msgid "Ryzen 9 5900-class CPU (or equivalent high-clock multi-core)"
 msgstr "Ryzen 9 5900-শ্রেণীর সিপিইউ (অথবা সমতুল্য উচ্চ-ক্লক মাল্টি-কোর)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:47
+#: ../doc/ai.rst:47
 msgid "System memory"
 msgstr "সিস্টেম মেমরি"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:47
+#: ../doc/ai.rst:47
 msgid "64GB RAM or more"
 msgstr "৬৪GB RAM বা তার বেশি"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:48
+#: ../doc/ai.rst:48
 msgid "Storage"
 msgstr "স্টোরেজ"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:48
+#: ../doc/ai.rst:48
 msgid "200GB free space for models, cache, and generated outputs"
 msgstr "মডেল, ক্যাশে, এবং তৈরি আউটপুটের জন্য ২০০GB ফ্রি স্পেস"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:49
+#: ../doc/ai.rst:49
 msgid "Experience"
 msgstr "অভিজ্ঞতা"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:49
+#: ../doc/ai.rst:49
 msgid "Comfortable with ComfyUI graphs, models, and node dependencies"
 msgstr "ComfyUI গ্রাফ, মডেল, এবং নোড নির্ভরশীলতায় দক্ষ"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:52
+#: ../doc/ai.rst:52
 msgid ""
 "If your system is below these levels, jobs will stall, fail, and produce "
 "unstable results. If your GPU has 8GB or less of VRAM, you will run out of "
@@ -149,36 +149,36 @@ msgstr ""
 " মডেলগুলি চালানোর সময় মেমরি শেষ হয়ে যাবে।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:56
+#: ../doc/ai.rst:56
 msgid "Installation and Setup"
 msgstr "ইনস্টলেশন এবং সেটআপ"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:58
+#: ../doc/ai.rst:58
 msgid "Use this quick setup path before trying any AI workflow in OpenShot:"
 msgstr ""
 "OpenShot-এ কোনো AI ওয়ার্কফ্লো চেষ্টা করার আগে এই দ্রুত সেটআপ পদ্ধতি ব্যবহার"
 " করুন:"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:60
+#: ../doc/ai.rst:60
 msgid "Install ComfyUI and confirm it starts correctly."
 msgstr "ComfyUI ইনস্টল করুন এবং নিশ্চিত করুন এটি সঠিকভাবে শুরু হয়।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:61
+#: ../doc/ai.rst:61
 msgid "Install required custom nodes (listed below)."
 msgstr "প্রয়োজনীয় কাস্টম নোডগুলি ইনস্টল করুন (নীচে তালিকাভুক্ত)।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:62
+#: ../doc/ai.rst:62
 msgid ""
 "Download required model files (listed below) into matching model folders."
 msgstr ""
 "প্রয়োজনীয় মডেল ফাইলগুলি (নীচে তালিকাভুক্ত) ডাউনলোড করে সঠিক মডেল ফোল্ডারে "
 "রাখুন।"
 
-#: ../ai.rst:63
+#: ../doc/ai.rst:63
 msgid ""
 "Start ComfyUI, then open :guilabel:`Edit->Preferences->Advanced` and set "
 ":guilabel:`ComfyUI URL`."
@@ -187,14 +187,14 @@ msgstr ""
 "সেট করুন :guilabel:`ComfyUI URL`।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:64
+#: ../doc/ai.rst:64
 msgid "Click :guilabel:`Check` to confirm OpenShot can reach the server."
 msgstr ""
 "OpenShot সার্ভারে পৌঁছাতে পারে কিনা তা নিশ্চিত করতে :guilabel:`Check` ক্লিক "
 "করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:66
+#: ../doc/ai.rst:66
 msgid ""
 "For a full step-by-step server setup guide, see the OpenShot wiki: `ComfyUI:"
 " Advanced AI Setup Guide <https://github.com/OpenShot/openshot-"
@@ -205,7 +205,7 @@ msgstr ""
 "qt/wiki/ComfyUI:-Advanced-AI-Setup-Guide>`_।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:69
+#: ../doc/ai.rst:69
 msgid ""
 "For full ComfyUI installation details, see the official repository: `ComfyUI"
 " on GitHub <https://github.com/comfyanonymous/ComfyUI>`_."
@@ -214,12 +214,12 @@ msgstr ""
 " on GitHub <https://github.com/comfyanonymous/ComfyUI>`_।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:73
+#: ../doc/ai.rst:73
 msgid "Required Custom Nodes"
 msgstr "প্রয়োজনীয় কাস্টম নোড"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:75
+#: ../doc/ai.rst:75
 msgid ""
 "`comfyui_controlnet_aux "
 "<https://github.com/Fannovel16/comfyui_controlnet_aux>`_"
@@ -228,7 +228,7 @@ msgstr ""
 "<https://github.com/Fannovel16/comfyui_controlnet_aux>`_"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:76
+#: ../doc/ai.rst:76
 msgid ""
 "`ComfyUI-Frame-Interpolation <https://github.com/Fannovel16/ComfyUI-Frame-"
 "Interpolation>`_"
@@ -237,7 +237,7 @@ msgstr ""
 "Interpolation>`_"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:77
+#: ../doc/ai.rst:77
 msgid ""
 "`ComfyUI-VideoHelperSuite <https://github.com/Kosinkadink/ComfyUI-"
 "VideoHelperSuite>`_"
@@ -246,7 +246,7 @@ msgstr ""
 "VideoHelperSuite>`_"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:78
+#: ../doc/ai.rst:78
 msgid ""
 "`ComfyUI-Video-Segmentation <https://github.com/miaoshouai/ComfyUI-Video-"
 "Segmentation>`_"
@@ -255,137 +255,137 @@ msgstr ""
 "Segmentation>`_"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:79
+#: ../doc/ai.rst:79
 msgid "`ComfyUI-Whisper <https://github.com/yuvraj108c/ComfyUI-Whisper>`_"
 msgstr "`ComfyUI-Whisper <https://github.com/yuvraj108c/ComfyUI-Whisper>`_"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:80
+#: ../doc/ai.rst:80
 msgid "`OpenShot-ComfyUI <https://github.com/OpenShot/OpenShot-ComfyUI>`_"
 msgstr "`OpenShot-ComfyUI <https://github.com/OpenShot/OpenShot-ComfyUI>`_"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:83
+#: ../doc/ai.rst:83
 msgid "Required Models / Files"
 msgstr "প্রয়োজনীয় মডেল / ফাইল"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:85
+#: ../doc/ai.rst:85
 msgid "``ComfyUI/models/diffusion_models/wan2.1_vace_1.3B_fp16.safetensors``"
 msgstr "``ComfyUI/models/diffusion_models/wan2.1_vace_1.3B_fp16.safetensors``"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:86
+#: ../doc/ai.rst:86
 msgid ""
 "``ComfyUI/custom_nodes/ComfyUI-Frame-Interpolation/ckpts/rife/rife47.pth``"
 msgstr ""
 "``ComfyUI/custom_nodes/ComfyUI-Frame-Interpolation/ckpts/rife/rife47.pth``"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:87
+#: ../doc/ai.rst:87
 msgid "``ComfyUI/models/checkpoints/sd_xl_base_1.0.safetensors``"
 msgstr "``ComfyUI/models/checkpoints/sd_xl_base_1.0.safetensors``"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:88
+#: ../doc/ai.rst:88
 msgid "``ComfyUI/models/checkpoints/sd_xl_refiner_1.0.safetensors``"
 msgstr "``ComfyUI/models/checkpoints/sd_xl_refiner_1.0.safetensors``"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:89
+#: ../doc/ai.rst:89
 msgid "``ComfyUI/models/checkpoints/stable-audio-open-1.0.safetensors``"
 msgstr "``ComfyUI/models/checkpoints/stable-audio-open-1.0.safetensors``"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:90
+#: ../doc/ai.rst:90
 msgid "``ComfyUI/models/clip_vision/clip_vision_g.safetensors``"
 msgstr "``ComfyUI/models/clip_vision/clip_vision_g.safetensors``"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:91
+#: ../doc/ai.rst:91
 msgid "``ComfyUI/models/diffusion_models/wan2.2_ti2v_5B_fp16.safetensors``"
 msgstr "``ComfyUI/models/diffusion_models/wan2.2_ti2v_5B_fp16.safetensors``"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:92
+#: ../doc/ai.rst:92
 msgid "``ComfyUI/models/grounding-dino/groundingdino_swint_ogc.pth``"
 msgstr "``ComfyUI/models/grounding-dino/groundingdino_swint_ogc.pth``"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:93
+#: ../doc/ai.rst:93
 msgid "``ComfyUI/models/sam2/sam2.1_hiera_base_plus.pt``"
 msgstr "``ComfyUI/models/sam2/sam2.1_hiera_base_plus.pt``"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:94
+#: ../doc/ai.rst:94
 msgid "``ComfyUI/models/sam2/sam2.1_hiera_small-fp16.safetensors``"
 msgstr "``ComfyUI/models/sam2/sam2.1_hiera_small-fp16.safetensors``"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:95
+#: ../doc/ai.rst:95
 msgid "``ComfyUI/models/sam2/sam2.1_hiera_small.pt``"
 msgstr "``ComfyUI/models/sam2/sam2.1_hiera_small.pt``"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:96
+#: ../doc/ai.rst:96
 msgid "``ComfyUI/models/sam2/sam2.1_hiera_tiny-fp16.safetensors``"
 msgstr "``ComfyUI/models/sam2/sam2.1_hiera_tiny-fp16.safetensors``"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:97
+#: ../doc/ai.rst:97
 msgid "``ComfyUI/models/sam2/sam2.1_hiera_tiny.pt``"
 msgstr "``ComfyUI/models/sam2/sam2.1_hiera_tiny.pt``"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:98
+#: ../doc/ai.rst:98
 msgid "``ComfyUI/models/sam2/sam2_hiera_small.pt``"
 msgstr "``ComfyUI/models/sam2/sam2_hiera_small.pt``"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:99
+#: ../doc/ai.rst:99
 msgid "``ComfyUI/models/stt/whisper/large-v3.pt``"
 msgstr "``ComfyUI/models/stt/whisper/large-v3.pt``"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:100
+#: ../doc/ai.rst:100
 msgid "``ComfyUI/models/stt/whisper/medium.pt``"
 msgstr "``ComfyUI/models/stt/whisper/medium.pt``"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:101
+#: ../doc/ai.rst:101
 msgid "``ComfyUI/models/text_encoders/t5-base.safetensors``"
 msgstr "``ComfyUI/models/text_encoders/t5-base.safetensors``"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:102
+#: ../doc/ai.rst:102
 msgid ""
 "``ComfyUI/models/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors``"
 msgstr ""
 "``ComfyUI/models/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors``"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:103
+#: ../doc/ai.rst:103
 msgid "``ComfyUI/models/TTS/Ace-Step1.5/acestep-v15-turbo/silence_latent.pt``"
 msgstr ""
 "``ComfyUI/models/TTS/Ace-Step1.5/acestep-v15-turbo/silence_latent.pt``"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:104
+#: ../doc/ai.rst:104
 msgid "``ComfyUI/models/upscale_models/RealESRGAN_x4plus.safetensors``"
 msgstr "``ComfyUI/models/upscale_models/RealESRGAN_x4plus.safetensors``"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:105
+#: ../doc/ai.rst:105
 msgid "``ComfyUI/models/vae/wan_2.1_vae.safetensors``"
 msgstr "``ComfyUI/models/vae/wan_2.1_vae.safetensors``"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:106
+#: ../doc/ai.rst:106
 msgid "``ComfyUI/models/vae/wan2.2_vae.safetensors``"
 msgstr "``ComfyUI/models/vae/wan2.2_vae.safetensors``"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:107
+#: ../doc/ai.rst:107
 msgid ""
 "``ComfyUI/models/VLM/transnetv2-pytorch-weights/transnetv2-pytorch-"
 "weights.pth``"
@@ -394,33 +394,33 @@ msgstr ""
 "weights.pth``"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:110
+#: ../doc/ai.rst:110
 msgid "What Users See in OpenShot"
 msgstr "OpenShot-এ ব্যবহারকারীরা যা দেখেন"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:112
+#: ../doc/ai.rst:112
 msgid "When ComfyUI is available, OpenShot shows AI tools in context menus:"
 msgstr ""
 "যখন ComfyUI উপলব্ধ থাকে, OpenShot প্রসঙ্গ মেনুতে AI সরঞ্জামগুলি দেখায়:"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:114
+#: ../doc/ai.rst:114
 msgid ":guilabel:`Create with AI` for creating new assets"
 msgstr ":guilabel:`Create with AI` নতুন সম্পদ তৈরি করার জন্য"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:118
+#: ../doc/ai.rst:118
 msgid ":guilabel:`Enhance with AI (images)` for processing image assets"
 msgstr ":guilabel:`Enhance with AI (images)` চিত্র সম্পদ প্রক্রিয়াকরণের জন্য"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:122
+#: ../doc/ai.rst:122
 msgid ":guilabel:`Enhance with AI (videos)` for processing video assets"
 msgstr ":guilabel:`Enhance with AI (videos)` ভিডিও সম্পদ প্রক্রিয়াকরণের জন্য"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:126
+#: ../doc/ai.rst:126
 msgid ""
 "Generated files are added to :guilabel:`Project Files` with progress text "
 "and queue badges. Outputs are saved under ``.openshot_qt/comfyui-output/``."
@@ -430,7 +430,7 @@ msgstr ""
 "হয়।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:129
+#: ../doc/ai.rst:129
 msgid ""
 "Starting a **new project** or opening an **existing project** clears the "
 "temporary ``.openshot_qt`` AI working folders so you begin with a clean "
@@ -445,7 +445,7 @@ msgstr ""
 "ডিরেক্টরিতেই থাকে।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:134
+#: ../doc/ai.rst:134
 msgid ""
 "If ComfyUI is unavailable, OpenShot disables the AI menus. Configure the "
 "server URL in :guilabel:`Edit->Preferences->Advanced`, then use the "
@@ -456,12 +456,12 @@ msgstr ""
 ":guilabel:`Check` বোতামটি ব্যবহার করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:139
+#: ../doc/ai.rst:139
 msgid "Workflow Templates"
 msgstr "ওয়ার্কফ্লো টেমপ্লেট"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:141
+#: ../doc/ai.rst:141
 msgid ""
 "OpenShot reads built-in templates from ``comfyui/``. It also loads custom "
 "user templates from ``~/.openshot_qt/comfyui/``."
@@ -470,17 +470,17 @@ msgstr ""
 "``~/.openshot_qt/comfyui/`` থেকে কাস্টম ব্যবহারকারী টেমপ্লেটগুলিও লোড করে৷"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:144
+#: ../doc/ai.rst:144
 msgid "To add your own workflow:"
 msgstr "আপনার নিজস্ব ওয়ার্কফ্লো যোগ করতে:"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:146
+#: ../doc/ai.rst:146
 msgid "In ComfyUI, open the workflow tab you want to use."
 msgstr "ComfyUI তে, আপনি যে ওয়ার্কফ্লো ব্যবহার করতে চান সেই ট্যাবটি খুলুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:147
+#: ../doc/ai.rst:147
 msgid ""
 "Choose :guilabel:`Export (API)` to save the workflow as a ``*.json`` file."
 msgstr ""
@@ -488,17 +488,17 @@ msgstr ""
 "সংরক্ষণ করতে।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:148
+#: ../doc/ai.rst:148
 msgid "Copy that JSON file into ``~/.openshot_qt/comfyui/``."
 msgstr "সেই JSON ফাইলটি ``~/.openshot_qt/comfyui/`` এ কপি করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:149
+#: ../doc/ai.rst:149
 msgid "Restart OpenShot, or reopen the project if needed."
 msgstr "OpenShot পুনরায় চালু করুন, অথবা প্রয়োজনে প্রকল্পটি পুনরায় খুলুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:151
+#: ../doc/ai.rst:151
 msgid ""
 "OpenShot will automatically load the workflow and show it in the appropriate"
 " AI menu. When you trigger it from OpenShot, the selected source file is "
@@ -511,7 +511,7 @@ msgstr ""
 " :guilabel:`Project Files` এ আমদানি করা হবে।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:156
+#: ../doc/ai.rst:156
 msgid ""
 "OpenShot also writes a ``.openshot_qt/comfyui/debug.json`` payload for "
 "advanced users who want to inspect the exact request sent to ComfyUI."
@@ -520,12 +520,12 @@ msgstr ""
 "পে-লোডও লেখে যারা ComfyUI-তে পাঠানো সঠিক অনুরোধ পরীক্ষা করতে চান।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:160
+#: ../doc/ai.rst:160
 msgid "AI Action Dialog"
 msgstr "AI অ্যাকশন ডায়ালগ"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:162
+#: ../doc/ai.rst:162
 msgid ""
 "Both :guilabel:`Create with AI` and :guilabel:`Enhance with AI` open the "
 "same generation dialog."
@@ -534,53 +534,53 @@ msgstr ""
 "জেনারেশন ডায়ালগ খুলে।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:167
+#: ../doc/ai.rst:167
 msgid "Why this dialog matters:"
 msgstr "এই ডায়ালগটি কেন গুরুত্বপূর্ণ:"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:169
+#: ../doc/ai.rst:169
 msgid "It keeps all AI inputs in one place."
 msgstr "এটি সমস্ত AI ইনপুট এক জায়গায় রাখে।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:170
+#: ../doc/ai.rst:170
 msgid "It validates required fields before queuing the job."
 msgstr "কাজের কিউ করার আগে এটি প্রয়োজনীয় ক্ষেত্রগুলি যাচাই করে।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:171
+#: ../doc/ai.rst:171
 msgid "It lets you set up tracking prompts before expensive runs."
 msgstr ""
 "এটি আপনাকে ব্যয়বহুল রান শুরু করার আগে ট্র্যাকিং প্রম্পট সেট আপ করতে দেয়।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:173
+#: ../doc/ai.rst:173
 msgid "What you can do in the dialog:"
 msgstr "আপনি ডায়ালগে যা করতে পারেন:"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:175
+#: ../doc/ai.rst:175
 msgid "Choose the workflow/action."
 msgstr "ওয়ার্কফ্লো/অ্যাকশন নির্বাচন করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:176
+#: ../doc/ai.rst:176
 msgid "Enter the prompt text."
 msgstr "প্রম্পট টেক্সট লিখুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:177
+#: ../doc/ai.rst:177
 msgid "Preview the selected source file (for enhance workflows)."
 msgstr "নির্বাচিত সোর্স ফাইলের প্রিভিউ দেখুন (উন্নত ওয়ার্কফ্লোর জন্য)।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:178
+#: ../doc/ai.rst:178
 msgid "Set the output name for generated media."
 msgstr "উত্পন্ন মিডিয়ার আউটপুট নাম নির্ধারণ করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:179
+#: ../doc/ai.rst:179
 msgid ""
 "Pick a reference image in the :guilabel:`Reference` tab for workflows that "
 "require one."
@@ -589,13 +589,13 @@ msgstr ""
 "রেফারেন্স ছবি নির্বাচন করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:180
+#: ../doc/ai.rst:180
 msgid "Provide tracking points/rectangles for tracking workflows."
 msgstr ""
 "ট্র্যাকিং ওয়ার্কফ্লোর জন্য ট্র্যাকিং পয়েন্ট/আয়তক্ষেত্র প্রদান করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:181
+#: ../doc/ai.rst:181
 msgid ""
 "Start the job with :guilabel:`Generate` or close with :guilabel:`Cancel`."
 msgstr ""
@@ -603,12 +603,12 @@ msgstr ""
 "করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:186
+#: ../doc/ai.rst:186
 msgid "Tracking (Mask, Blur, Highlight)"
 msgstr "ট্র্যাকিং (মাস্ক, ব্লার, হাইলাইট)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:188
+#: ../doc/ai.rst:188
 msgid ""
 "Tracking workflows (:guilabel:`Blur...`, :guilabel:`Highlight...`, "
 ":guilabel:`Mask...`) use a region screen where you mark what to include and "
@@ -619,12 +619,12 @@ msgstr ""
 "অন্তর্ভুক্ত করবেন এবং কী উপেক্ষা করবেন তা চিহ্নিত করেন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:195
+#: ../doc/ai.rst:195
 msgid "Why this matters"
 msgstr "এটি কেন গুরুত্বপূর্ণ"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:197
+#: ../doc/ai.rst:197
 msgid ""
 "Tracking helps your effect stay attached to a moving subject over time. For "
 "example, you can blur a face, highlight a player, or generate a clean mask "
@@ -636,78 +636,78 @@ msgstr ""
 "অনেক ফ্রেম জুড়ে অনুসরণ করে।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:202
+#: ../doc/ai.rst:202
 msgid "Tracking Icons"
 msgstr "ট্র্যাকিং আইকন"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:208
+#: ../doc/ai.rst:208
 msgid "Icon / Marker"
 msgstr "আইকন / মার্কার"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:209
+#: ../doc/ai.rst:209
 msgid "Meaning"
 msgstr "অর্থ"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:210
+#: ../doc/ai.rst:210
 msgid "Blue dot"
 msgstr "নীল বিন্দু"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:211
+#: ../doc/ai.rst:211
 msgid "Positive tracking coordinate (foreground/subject seed point)."
 msgstr "ইতিবাচক ট্র্যাকিং স্থানাঙ্ক (সামনের অংশ/বিষয় বীজ বিন্দু)।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:212
+#: ../doc/ai.rst:212
 msgid "Red dot"
 msgstr "লাল বিন্দু"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:213
+#: ../doc/ai.rst:213
 msgid "Negative tracking coordinate (background/exclusion seed point)."
 msgstr "নেতিবাচক ট্র্যাকিং স্থানাঙ্ক (পটভূমি/বর্জন বীজ বিন্দু)।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:214
+#: ../doc/ai.rst:214
 msgid "Blue rectangle"
 msgstr "নীল আয়তক্ষেত্র"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:215
+#: ../doc/ai.rst:215
 msgid "Positive region seed (broad subject hint)."
 msgstr "ইতিবাচক অঞ্চল বীজ (বিস্তৃত বিষয় ইঙ্গিত)।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:216
+#: ../doc/ai.rst:216
 msgid "Red rectangle"
 msgstr "লাল আয়তক্ষেত্র"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:217
+#: ../doc/ai.rst:217
 msgid "Negative region seed (broad exclusion hint)."
 msgstr "নেতিবাচক অঞ্চল বীজ (বিস্তৃত বর্জন ইঙ্গিত)।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:218
+#: ../doc/ai.rst:218
 msgid "Delete icon"
 msgstr "আইকন মুছুন"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:219
+#: ../doc/ai.rst:219
 msgid "Clear all current tracking seeds (points/rectangles) and start over."
 msgstr ""
 "বর্তমান সমস্ত ট্র্যাকিং বীজ (বিন্দু/আয়তক্ষেত্র) মুছে ফেলুন এবং পুনরায় শুরু"
 " করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:222
+#: ../doc/ai.rst:222
 msgid "How Tracking Works"
 msgstr "ট্র্যাকিং কীভাবে কাজ করে"
 
-#: ../ai.rst:224
+#: ../doc/ai.rst:224
 msgid ""
 "OpenShot sends your positive and negative markers as seed coordinates to the"
 " tracking model, which builds a mask for the subject and then follows it "
@@ -722,47 +722,47 @@ msgstr ""
 "<https://github.com/facebookresearch/sam2>`_ ব্যবহার করে।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:230
+#: ../doc/ai.rst:230
 msgid "How to use it"
 msgstr "এটি কীভাবে ব্যবহার করবেন"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:232
+#: ../doc/ai.rst:232
 msgid "Pick a frame where the subject is clearly visible."
 msgstr "একটি ফ্রেম নির্বাচন করুন যেখানে বিষয়টি স্পষ্টভাবে দৃশ্যমান।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:233
+#: ../doc/ai.rst:233
 msgid "Start with one blue dot on the subject."
 msgstr "বিষয়ের উপর একটি নীল বিন্দু দিয়ে শুরু করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:234
+#: ../doc/ai.rst:234
 msgid "Add red dots on nearby background only if needed."
 msgstr "প্রয়োজনে কাছাকাছি পটভূমিতে লাল বিন্দু যোগ করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:235
+#: ../doc/ai.rst:235
 msgid "Add rectangles when you need faster broad selection."
 msgstr "দ্রুত বিস্তৃত নির্বাচন প্রয়োজন হলে আয়তক্ষেত্র যোগ করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:236
+#: ../doc/ai.rst:236
 msgid "Repeat on additional frames when motion/shape changes."
 msgstr "গতি/আকৃতির পরিবর্তন হলে অতিরিক্ত ফ্রেমে পুনরাবৃত্তি করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:238
+#: ../doc/ai.rst:238
 msgid "Adjusting over time (frame slider):"
 msgstr "সময়ের সাথে সামঞ্জস্য করা (ফ্রেম স্লাইডার):"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:240
+#: ../doc/ai.rst:240
 msgid "Move the frame slider to different moments in the clip."
 msgstr "ক্লিপের বিভিন্ন মুহূর্তে ফ্রেম স্লাইডার সরান।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:241
+#: ../doc/ai.rst:241
 msgid ""
 "Add or adjust dots/rectangles on frames where tracking starts to drift."
 msgstr ""
@@ -770,7 +770,7 @@ msgstr ""
 "সামঞ্জস্য করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:242
+#: ../doc/ai.rst:242
 msgid ""
 "Use additional seed points only where needed, especially on occlusions, fast"
 " motion, or major shape changes."
@@ -779,32 +779,32 @@ msgstr ""
 " আচ্ছাদন, দ্রুত গতি, বা বড় আকৃতি পরিবর্তনের ক্ষেত্রে।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:244
+#: ../doc/ai.rst:244
 msgid "**Mask Preview Output (from this tracking process):**"
 msgstr "**মাস্ক প্রিভিউ আউটপুট (এই ট্র্যাকিং প্রক্রিয়া থেকে):**"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:249
+#: ../doc/ai.rst:249
 msgid "Best Practices"
 msgstr "সেরা অনুশীলন"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:251
+#: ../doc/ai.rst:251
 msgid "Use a short test clip first."
 msgstr "প্রথমে একটি ছোট টেস্ট ক্লিপ ব্যবহার করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:252
+#: ../doc/ai.rst:252
 msgid "Start simple: a single blue dot is often enough."
 msgstr "সহজভাবে শুরু করুন: একটি নীল বিন্দু প্রায়ই যথেষ্ট।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:253
+#: ../doc/ai.rst:253
 msgid "Add more points only where tracking fails."
 msgstr "ট্র্যাকিং ব্যর্থ হলে শুধুমাত্র সেখানে আরও বিন্দু যোগ করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:254
+#: ../doc/ai.rst:254
 msgid ""
 "If needed, add a more nuanced set of positive/negative points and "
 "rectangles."
@@ -812,12 +812,12 @@ msgstr ""
 "প্রয়োজনে, আরও সূক্ষ্ম ইতিবাচক/নেতিবাচক পয়েন্ট এবং আয়তক্ষেত্র যোগ করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:255
+#: ../doc/ai.rst:255
 msgid "Keep positive and negative points separated clearly."
 msgstr "ইতিবাচক এবং নেতিবাচক পয়েন্ট স্পষ্টভাবে আলাদা রাখুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:256
+#: ../doc/ai.rst:256
 msgid ""
 "If tracking becomes messy, use the Delete icon and restart with cleaner "
 "seeds."
@@ -826,12 +826,12 @@ msgstr ""
 "দিয়ে পুনরায় শুরু করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:259
+#: ../doc/ai.rst:259
 msgid "Job Queue, Progress, and Cancel"
 msgstr "কাজের সারি, অগ্রগতি, এবং বাতিল"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:261
+#: ../doc/ai.rst:261
 msgid ""
 "After you click :guilabel:`Generate`, the request is queued and runs in "
 "OpenShot's AI job queue."
@@ -840,19 +840,19 @@ msgstr ""
 "এর AI কাজের সারিতে চলে।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:264
+#: ../doc/ai.rst:264
 msgid ""
 "Progress is shown in :guilabel:`Project Files` (badges and status text)."
 msgstr ""
 "অগ্রগতি :guilabel:`Project Files`-এ (ব্যাজ এবং স্থিতি টেক্সট) প্রদর্শিত হয়।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:265
+#: ../doc/ai.rst:265
 msgid "Completed outputs are imported back into :guilabel:`Project Files`."
 msgstr ""
 "সম্পন্ন আউটপুটগুলি :guilabel:`Project Files`-এ পুনরায় আমদানি করা হয়।"
 
-#: ../ai.rst:266
+#: ../doc/ai.rst:266
 msgid ""
 "Active jobs can be canceled by right-clicking the generated project file "
 "with the progress bar and choosing :guilabel:`Cancel Job`."
@@ -861,17 +861,17 @@ msgstr ""
 ":guilabel:`Cancel Job` বেছে নিয়ে সক্রিয় চাকরি বাতিল করা যেতে পারে।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:267
+#: ../doc/ai.rst:267
 msgid "Outputs are written under ``.openshot_qt/comfyui-output/``."
 msgstr "আউটপুটগুলি ``.openshot_qt/comfyui-output/`` এর অধীনে লেখা হয়।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:270
+#: ../doc/ai.rst:270
 msgid "Built-in JSON Workflows"
 msgstr "অন্তর্নির্মিত JSON ওয়ার্কফ্লো"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:272
+#: ../doc/ai.rst:272
 msgid ""
 "The sections below map directly to built-in JSON templates in ``comfyui/``. "
 "Each subsection describes why you might use it, how to run it, and key "
@@ -882,22 +882,22 @@ msgstr ""
 "পারেন, এটি কীভাবে চালাবেন এবং মূল বিবরণ।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:276
+#: ../doc/ai.rst:276
 msgid "Create with AI"
 msgstr "AI দিয়ে তৈরি করুন"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:279
+#: ../doc/ai.rst:279
 msgid "Image... (``txt2img-basic``)"
 msgstr "ছবি... (``txt2img-basic``)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:281
+#: ../doc/ai.rst:281
 msgid "Why: Generate still images from a text prompt."
 msgstr "কেন: টেক্সট প্রম্পট থেকে স্থির ছবি তৈরি করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:282
+#: ../doc/ai.rst:282
 msgid ""
 "How: Choose :guilabel:`Create with AI` -> :guilabel:`Image...`, enter a "
 "prompt, then generate."
@@ -906,7 +906,7 @@ msgstr ""
 "একটি প্রম্পট লিখুন, তারপর তৈরি করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:283
+#: ../doc/ai.rst:283
 msgid ""
 "Details: Uses ``comfyui/txt2img-basic.json`` with "
 "``sd_xl_base_1.0.safetensors``."
@@ -915,17 +915,17 @@ msgstr ""
 "basic.json`` ব্যবহার করে।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:286
+#: ../doc/ai.rst:286
 msgid "Video... (``txt2video-svd``)"
 msgstr "ভিডিও... (``txt2video-svd``)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:288
+#: ../doc/ai.rst:288
 msgid "Why: Generate short video clips from text."
 msgstr "কেন: টেক্সট থেকে সংক্ষিপ্ত ভিডিও ক্লিপ তৈরি করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:289
+#: ../doc/ai.rst:289
 msgid ""
 "How: Choose :guilabel:`Create with AI` -> :guilabel:`Video...`, enter a "
 "prompt, then generate."
@@ -934,7 +934,7 @@ msgstr ""
 "একটি প্রম্পট লিখুন, তারপর তৈরি করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:290
+#: ../doc/ai.rst:290
 msgid ""
 "Details: Uses ``comfyui/txt2video-svd.json`` with WAN video generation "
 "models."
@@ -943,17 +943,17 @@ msgstr ""
 "ব্যবহার করে।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:293
+#: ../doc/ai.rst:293
 msgid "Sound... (``txt2audio-stable-open``)"
 msgstr "শব্দ... (``txt2audio-stable-open``)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:295
+#: ../doc/ai.rst:295
 msgid "Why: Generate non-musical audio from text prompts."
 msgstr "কেন: টেক্সট প্রম্পট থেকে অ-মিউজিক্যাল অডিও তৈরি করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:296
+#: ../doc/ai.rst:296
 msgid ""
 "How: Choose :guilabel:`Create with AI` -> :guilabel:`Sound...`, enter a "
 "prompt, then generate."
@@ -962,7 +962,7 @@ msgstr ""
 "একটি প্রম্পট লিখুন, তারপর তৈরি করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:297
+#: ../doc/ai.rst:297
 msgid ""
 "Details: Uses ``comfyui/txt2audio-stable-open.json`` with Stable Audio Open "
 "models."
@@ -971,17 +971,17 @@ msgstr ""
 "open.json`` ব্যবহার করে।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:300
+#: ../doc/ai.rst:300
 msgid "Music... (``txt2music-ace-step``)"
 msgstr "সঙ্গীত... (``txt2music-ace-step``)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:302
+#: ../doc/ai.rst:302
 msgid "Why: Generate music from style/tags (and optional lyrics)."
 msgstr "কেন: স্টাইল/ট্যাগ (এবং ঐচ্ছিক গানের কথা) থেকে সঙ্গীত তৈরি করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:303
+#: ../doc/ai.rst:303
 msgid ""
 "How: Choose :guilabel:`Create with AI` -> :guilabel:`Music...`, enter prompt"
 " text, then generate."
@@ -990,7 +990,7 @@ msgstr ""
 "প্রম্পট লিখুন, তারপর তৈরি করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:304
+#: ../doc/ai.rst:304
 msgid ""
 "Details: Uses ``comfyui/txt2music-ace-step.json`` with an Ace-Step 1.5 "
 "checkpoint."
@@ -999,21 +999,21 @@ msgstr ""
 "step.json`` ব্যবহার করে।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:307
+#: ../doc/ai.rst:307
 msgid "Enhance with AI"
 msgstr "AI দিয়ে উন্নত করুন"
 
-#: ../ai.rst:310
+#: ../doc/ai.rst:310
 msgid "Noise -> Reduce (``audio-noise-reduce``)"
 msgstr "শব্দ -> হ্রাস (``audio-noise-reduce``)"
 
-#: ../ai.rst:312
+#: ../doc/ai.rst:312
 msgid ""
 "Why: Lightly reduce steady background noise while keeping more of the "
 "original ambience."
 msgstr "কেন: মূল পরিবেশের আরও অংশ রেখে স্থির পটভূমির শব্দ হালকাভাবে কমানো।"
 
-#: ../ai.rst:313
+#: ../doc/ai.rst:313
 msgid ""
 "How: Choose :guilabel:`Enhance with AI` -> :guilabel:`Noise` -> "
 ":guilabel:`Reduce` on an audio file, then generate."
@@ -1021,7 +1021,7 @@ msgstr ""
 "কিভাবে: একটি অডিও ফাইলে :guilabel:`Enhance with AI` -> :guilabel:`Noise` -> "
 ":guilabel:`Reduce` নির্বাচন করুন, তারপর তৈরি করুন।"
 
-#: ../ai.rst:314
+#: ../doc/ai.rst:314
 msgid ""
 "Details: Uses ``comfyui/audio-noise-reduce.json`` with "
 "``OpenShotDeepFilterNetDenoiseAudio``."
@@ -1029,15 +1029,15 @@ msgstr ""
 "বিস্তারিত: ``OpenShotDeepFilterNetDenoiseAudio`` সহ ``comfyui/audio-noise-"
 "reduce.json`` ব্যবহার করে।"
 
-#: ../ai.rst:317
+#: ../doc/ai.rst:317
 msgid "Noise -> Remove (``audio-noise-remove``)"
 msgstr "শব্দ -> সরান (``audio-noise-remove``)"
 
-#: ../ai.rst:319
+#: ../doc/ai.rst:319
 msgid "Why: Aggressively remove background noise from noisy recordings."
 msgstr "কেন: শব্দযুক্ত রেকর্ডিং থেকে পটভূমির শব্দ জোরালোভাবে সরানো।"
 
-#: ../ai.rst:320
+#: ../doc/ai.rst:320
 msgid ""
 "How: Choose :guilabel:`Enhance with AI` -> :guilabel:`Noise` -> "
 ":guilabel:`Remove` on an audio file, then generate."
@@ -1045,7 +1045,7 @@ msgstr ""
 "কিভাবে: একটি অডিও ফাইলে :guilabel:`Enhance with AI` -> :guilabel:`Noise` -> "
 ":guilabel:`Remove` নির্বাচন করুন, তারপর তৈরি করুন।"
 
-#: ../ai.rst:321
+#: ../doc/ai.rst:321
 msgid ""
 "Details: Uses ``comfyui/audio-noise-remove.json`` with "
 "``OpenShotDeepFilterNetDenoiseAudio``."
@@ -1053,11 +1053,11 @@ msgstr ""
 "বিস্তারিত: ``OpenShotDeepFilterNetDenoiseAudio`` সহ ``comfyui/audio-noise-"
 "remove.json`` ব্যবহার করে।"
 
-#: ../ai.rst:324
+#: ../doc/ai.rst:324
 msgid "Clarity -> Speech (``audio-clarity-speech``)"
 msgstr "স্বচ্ছতা -> বক্তৃতা (``audio-clarity-speech``)"
 
-#: ../ai.rst:326
+#: ../doc/ai.rst:326
 msgid ""
 "Why: Improve clarity for speech recordings that sound dull, noisy, "
 "bandwidth-limited, or low fidelity."
@@ -1065,7 +1065,7 @@ msgstr ""
 "কেন: এমন বক্তৃতা রেকর্ডিংয়ের স্বচ্ছতা উন্নত করা যা ম্লান, শব্দযুক্ত, "
 "ব্যান্ডউইথ সীমিত, বা কম মানের শোনায়।"
 
-#: ../ai.rst:327
+#: ../doc/ai.rst:327
 msgid ""
 "How: Choose :guilabel:`Enhance with AI` -> :guilabel:`Clarity` -> "
 ":guilabel:`Speech` on an audio file, then generate."
@@ -1073,7 +1073,7 @@ msgstr ""
 "কিভাবে: একটি অডিও ফাইলে :guilabel:`Enhance with AI` -> :guilabel:`Clarity` "
 "-> :guilabel:`Speech` নির্বাচন করুন, তারপর তৈরি করুন।"
 
-#: ../ai.rst:328
+#: ../doc/ai.rst:328
 msgid ""
 "Details: Uses ``comfyui/audio-clarity-speech.json`` with "
 "``OpenShotLavaSRSpeechClarity``."
@@ -1082,17 +1082,17 @@ msgstr ""
 "speech.json`` ব্যবহার করে।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:331
+#: ../doc/ai.rst:331
 msgid "Change Image Style... (``img2img-basic``)"
 msgstr "ছবির স্টাইল পরিবর্তন করুন... (``img2img-basic``)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:333
+#: ../doc/ai.rst:333
 msgid "Why: Restyle an existing image while keeping the source composition."
 msgstr "কেন: উৎস রচনাটি রেখে একটি বিদ্যমান ছবির স্টাইল পরিবর্তন করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:334
+#: ../doc/ai.rst:334
 msgid ""
 "How: Choose :guilabel:`Enhance with AI` on an image, enter a style prompt, "
 "then generate."
@@ -1101,7 +1101,7 @@ msgstr ""
 "প্রম্পট লিখুন, তারপর তৈরি করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:335
+#: ../doc/ai.rst:335
 msgid ""
 "Details: Uses ``comfyui/img2img-basic.json`` with "
 "``sd_xl_base_1.0.safetensors``."
@@ -1110,17 +1110,17 @@ msgstr ""
 "basic.json`` ব্যবহার করে।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:338
+#: ../doc/ai.rst:338
 msgid "Depth (``image-extract-depth``)"
 msgstr "গভীরতা (``image-extract-depth``)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:340
+#: ../doc/ai.rst:340
 msgid "Why: Export a grayscale depth-map image from a source image."
 msgstr "কারণ: একটি উৎস ছবির থেকে গ্রেস্কেল গভীরতা-মানচিত্র ছবি রপ্তানি করা।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:341
+#: ../doc/ai.rst:341
 msgid ""
 "How: Choose :guilabel:`Enhance with AI` -> :guilabel:`Extract` -> "
 ":guilabel:`Depth` on an image, then generate."
@@ -1129,7 +1129,7 @@ msgstr ""
 ":guilabel:`Depth` নির্বাচন করুন, তারপর তৈরি করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:342
+#: ../doc/ai.rst:342
 msgid ""
 "Details: Uses ``comfyui/image-extract-depth.json`` with "
 "``DepthAnythingV2Preprocessor``."
@@ -1138,17 +1138,17 @@ msgstr ""
 "``DepthAnythingV2Preprocessor`` এর সাথে।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:345
+#: ../doc/ai.rst:345
 msgid "Lines (``image-extract-lines``)"
 msgstr "রেখা (``image-extract-lines``)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:347
+#: ../doc/ai.rst:347
 msgid "Why: Export a line-map image from a source image."
 msgstr "কারণ: একটি উৎস ছবির থেকে লাইন-মানচিত্র ছবি রপ্তানি করা।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:348
+#: ../doc/ai.rst:348
 msgid ""
 "How: Choose :guilabel:`Enhance with AI` -> :guilabel:`Extract` -> "
 ":guilabel:`Lines` on an image, then generate."
@@ -1157,7 +1157,7 @@ msgstr ""
 ":guilabel:`Lines` নির্বাচন করুন, তারপর তৈরি করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:349
+#: ../doc/ai.rst:349
 msgid ""
 "Details: Uses ``comfyui/image-extract-lines.json`` with "
 "``LineArtPreprocessor``."
@@ -1166,17 +1166,17 @@ msgstr ""
 "``LineArtPreprocessor`` এর সাথে।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:352
+#: ../doc/ai.rst:352
 msgid "Image to Video... (``img2video-wan``)"
 msgstr "ছবি থেকে ভিডিও... (``img2video-wan``)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:354
+#: ../doc/ai.rst:354
 msgid "Why: Turn a still image into a generated video shot."
 msgstr "কেন: একটি স্থির ছবিকে তৈরি করা ভিডিও শটে রূপান্তর করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:355
+#: ../doc/ai.rst:355
 msgid ""
 "How: Choose :guilabel:`Enhance with AI` on an image, provide prompt "
 "guidance, then generate."
@@ -1185,7 +1185,7 @@ msgstr ""
 "নির্দেশনা দিন, তারপর তৈরি করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:356
+#: ../doc/ai.rst:356
 msgid ""
 "Details: Uses ``comfyui/img2video-wan.json`` with WAN 2.2 image-to-video "
 "models."
@@ -1194,17 +1194,17 @@ msgstr ""
 "ব্যবহার করে।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:359
+#: ../doc/ai.rst:359
 msgid "Change Video Style... (``video2video-basic``)"
 msgstr "ভিডিওর স্টাইল পরিবর্তন করুন... (``video2video-basic``)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:361
+#: ../doc/ai.rst:361
 msgid "Why: Apply a new visual style to a source video."
 msgstr "কেন: একটি উৎস ভিডিওতে নতুন ভিজ্যুয়াল স্টাইল প্রয়োগ করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:362
+#: ../doc/ai.rst:362
 msgid ""
 "How: Choose :guilabel:`Enhance with AI` on a video, enter a style prompt, "
 "pick a reference image in the :guilabel:`Reference` tab, then generate."
@@ -1214,7 +1214,7 @@ msgstr ""
 "করুন, তারপর তৈরি করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:363
+#: ../doc/ai.rst:363
 msgid ""
 "Details: Uses ``comfyui/video2video-basic.json`` with WAN VACE video-to-"
 "video nodes, a required reference image, blended "
@@ -1229,17 +1229,17 @@ msgstr ""
 "``comfyui/video2video-basic.json`` ব্যবহার করে।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:366
+#: ../doc/ai.rst:366
 msgid "Depth (``video-extract-depth``)"
 msgstr "গভীরতা (``video-extract-depth``)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:368
+#: ../doc/ai.rst:368
 msgid "Why: Export a grayscale depth-map version of a source video."
 msgstr "কারণ: একটি উৎস ভিডিওর গ্রেস্কেল গভীরতা-মানচিত্র সংস্করণ রপ্তানি করা।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:369
+#: ../doc/ai.rst:369
 msgid ""
 "How: Choose :guilabel:`Enhance with AI` -> :guilabel:`Extract` -> "
 ":guilabel:`Depth` on a video, then generate."
@@ -1248,7 +1248,7 @@ msgstr ""
 ":guilabel:`Depth` নির্বাচন করুন, তারপর তৈরি করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:370
+#: ../doc/ai.rst:370
 msgid ""
 "Details: Uses ``comfyui/video-extract-depth.json`` with "
 "``DepthAnythingV2Preprocessor`` and preserves the source frame rate."
@@ -1257,17 +1257,17 @@ msgstr ""
 "``DepthAnythingV2Preprocessor`` এর সাথে এবং উৎস ফ্রেম রেট সংরক্ষণ করে।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:373
+#: ../doc/ai.rst:373
 msgid "Lines (``video-extract-lines``)"
 msgstr "রেখা (``video-extract-lines``)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:375
+#: ../doc/ai.rst:375
 msgid "Why: Export a line-map version of a source video."
 msgstr "কারণ: একটি উৎস ভিডিওর লাইন-মানচিত্র সংস্করণ রপ্তানি করা।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:376
+#: ../doc/ai.rst:376
 msgid ""
 "How: Choose :guilabel:`Enhance with AI` -> :guilabel:`Extract` -> "
 ":guilabel:`Lines` on a video, then generate."
@@ -1276,7 +1276,7 @@ msgstr ""
 ":guilabel:`Lines` নির্বাচন করুন, তারপর তৈরি করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:377
+#: ../doc/ai.rst:377
 msgid ""
 "Details: Uses ``comfyui/video-extract-lines.json`` with "
 "``LineArtPreprocessor`` and preserves the source frame rate."
@@ -1285,17 +1285,17 @@ msgstr ""
 "``LineArtPreprocessor`` এর সাথে এবং উৎস ফ্রেম রেট সংরক্ষণ করে।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:380
+#: ../doc/ai.rst:380
 msgid "Increase Resolution (image) (``upscale-realesrgan-x4``)"
 msgstr "রেজোলিউশন বাড়ান (ছবি) (``upscale-realesrgan-x4``)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:382
+#: ../doc/ai.rst:382
 msgid "Why: Upscale low-resolution images."
 msgstr "কেন: কম রেজোলিউশনের ছবি উন্নত করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:383
+#: ../doc/ai.rst:383
 msgid ""
 "How: Choose :guilabel:`Enhance with AI` on an image, select increase "
 "resolution, then generate."
@@ -1304,7 +1304,7 @@ msgstr ""
 "বাড়ানোর অপশন নির্বাচন করুন, তারপর তৈরি করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:384
+#: ../doc/ai.rst:384
 msgid ""
 "Details: Uses ``comfyui/upscale-realesrgan-x4.json`` with "
 "``RealESRGAN_x4plus.safetensors``."
@@ -1313,17 +1313,17 @@ msgstr ""
 "realesrgan-x4.json`` ব্যবহার করে।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:387
+#: ../doc/ai.rst:387
 msgid "Increase Resolution (video) (``video-upscale-gan``)"
 msgstr "রেজোলিউশন বাড়ান (ভিডিও) (``video-upscale-gan``)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:389
+#: ../doc/ai.rst:389
 msgid "Why: Upscale video frames for higher apparent detail."
 msgstr "কেন: উচ্চতর দৃশ্যমান বিশদ জন্য ভিডিও ফ্রেম উন্নত করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:390
+#: ../doc/ai.rst:390
 msgid ""
 "How: Choose :guilabel:`Enhance with AI` on a video, select increase "
 "resolution, then generate."
@@ -1332,7 +1332,7 @@ msgstr ""
 "বাড়ানোর অপশন নির্বাচন করুন, তারপর তৈরি করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:391
+#: ../doc/ai.rst:391
 msgid ""
 "Details: Uses ``comfyui/video-upscale-gan.json`` with "
 "``RealESRGAN_x4plus.safetensors``."
@@ -1341,17 +1341,17 @@ msgstr ""
 "upscale-gan.json`` ব্যবহার করে।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:394
+#: ../doc/ai.rst:394
 msgid "Smooth Motion (2x Frame Rate) (``video-frame-interpolation-rife2x``)"
 msgstr "মসৃণ গতি (২ গুণ ফ্রেম রেট) (``video-frame-interpolation-rife2x``)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:396
+#: ../doc/ai.rst:396
 msgid "Why: Increase frame rate for smoother perceived motion."
 msgstr "কেন: মসৃণ গতি অনুভূতির জন্য ফ্রেম রেট বাড়ান।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:397
+#: ../doc/ai.rst:397
 msgid ""
 "How: Choose :guilabel:`Enhance with AI` on a video, select smooth motion, "
 "then generate."
@@ -1360,7 +1360,7 @@ msgstr ""
 "অপশন নির্বাচন করুন, তারপর তৈরি করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:398
+#: ../doc/ai.rst:398
 msgid ""
 "Details: Uses ``comfyui/video-frame-interpolation-rife2x.json`` with "
 "``rife47.pth``."
@@ -1369,12 +1369,12 @@ msgstr ""
 "rife2x.json`` ব্যবহার করে।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:401
+#: ../doc/ai.rst:401
 msgid "Split into Scenes (``video-segment-scenes-transnet``)"
 msgstr "দৃশ্যগুলিতে ভাগ করুন (``video-segment-scenes-transnet``)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:403
+#: ../doc/ai.rst:403
 msgid ""
 "Why: Automatically detect scene changes and split long clips into segments."
 msgstr ""
@@ -1382,7 +1382,7 @@ msgstr ""
 "ভাগ করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:404
+#: ../doc/ai.rst:404
 msgid ""
 "How: Choose :guilabel:`Enhance with AI` on a video, select scene splitting, "
 "then generate."
@@ -1391,7 +1391,7 @@ msgstr ""
 "বিভাজনের অপশন নির্বাচন করুন, তারপর তৈরি করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:405
+#: ../doc/ai.rst:405
 msgid ""
 "Details: Uses ``comfyui/video-segment-scenes-transnet.json`` with "
 "TransNetV2."
@@ -1400,17 +1400,17 @@ msgstr ""
 "transnet.json`` ব্যবহার করে।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:408
+#: ../doc/ai.rst:408
 msgid "Add Captions from Speech (``video-whisper-srt``)"
 msgstr "বক্তৃতা থেকে ক্যাপশন যোগ করুন (``video-whisper-srt``)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:410
+#: ../doc/ai.rst:410
 msgid "Why: Transcribe speech into subtitle/caption files."
 msgstr "কারণ: বক্তৃতাকে সাবটাইটেল/ক্যাপশন ফাইলে রূপান্তর করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:411
+#: ../doc/ai.rst:411
 msgid ""
 "How: Choose :guilabel:`Enhance with AI` on a video, select captions, then "
 "generate."
@@ -1419,7 +1419,7 @@ msgstr ""
 "বাছাই করুন, তারপর তৈরি করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:412
+#: ../doc/ai.rst:412
 msgid ""
 "Details: Uses ``comfyui/video-whisper-srt.json`` and creates SRT output."
 msgstr ""
@@ -1427,12 +1427,12 @@ msgstr ""
 "তৈরি করে।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:415
+#: ../doc/ai.rst:415
 msgid "Tracking Workflows (SAM2)"
 msgstr "ট্র্যাকিং ওয়ার্কফ্লো (SAM2)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:417
+#: ../doc/ai.rst:417
 msgid ""
 "These workflows use the same region/tracking input flow and are grouped in "
 "the tracking context menu."
@@ -1441,23 +1441,23 @@ msgstr ""
 "ট্র্যাকিং প্রসঙ্গ মেনুতে গুচ্ছবদ্ধ।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:421
+#: ../doc/ai.rst:421
 msgid "Blur... (image) (``image-blur-anything-sam2``)"
 msgstr "ব্লার করুন... (ছবি) (``image-blur-anything-sam2``)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:423
+#: ../doc/ai.rst:423
 msgid "Why: Blur selected subject areas in a still image."
 msgstr "কারণ: একটি স্থির ছবিতে নির্বাচিত বিষয়বস্তুকে ব্লার করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:424 ../ai.rst:431 ../ai.rst:438
+#: ../doc/ai.rst:424 ../doc/ai.rst:431 ../doc/ai.rst:438
 msgid "How: Select points/rectangles for the subject, then generate."
 msgstr ""
 "কিভাবে: বিষয়বস্তুর জন্য পয়েন্ট/আয়তক্ষেত্র নির্বাচন করুন, তারপর তৈরি করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:425
+#: ../doc/ai.rst:425
 msgid ""
 "Details: Uses ``comfyui/image-blur-anything-sam2.json`` with SAM2 image "
 "segmentation."
@@ -1466,17 +1466,17 @@ msgstr ""
 "sam2.json`` ব্যবহার করে।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:428
+#: ../doc/ai.rst:428
 msgid "Highlight... (image) (``image-highlight-anything-sam2``)"
 msgstr "হাইলাইট করুন... (ছবি) (``image-highlight-anything-sam2``)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:430
+#: ../doc/ai.rst:430
 msgid "Why: Emphasize selected subject areas in a still image."
 msgstr "কারণ: একটি স্থির ছবিতে নির্বাচিত বিষয়বস্তুকে জোর দিন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:432
+#: ../doc/ai.rst:432
 msgid ""
 "Details: Uses ``comfyui/image-highlight-anything-sam2.json`` with SAM2 image"
 " segmentation."
@@ -1485,17 +1485,17 @@ msgstr ""
 "sam2.json`` ব্যবহার করে।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:435
+#: ../doc/ai.rst:435
 msgid "Mask... (image) (``image-mask-anything-sam2``)"
 msgstr "মাস্ক করুন... (ছবি) (``image-mask-anything-sam2``)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:437
+#: ../doc/ai.rst:437
 msgid "Why: Generate an image mask for selected subject areas."
 msgstr "কারণ: নির্বাচিত বিষয়বস্তুর জন্য একটি ইমেজ মাস্ক তৈরি করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:439
+#: ../doc/ai.rst:439
 msgid ""
 "Details: Uses ``comfyui/image-mask-anything-sam2.json`` with SAM2 image "
 "segmentation."
@@ -1504,23 +1504,23 @@ msgstr ""
 "sam2.json`` ব্যবহার করে।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:442
+#: ../doc/ai.rst:442
 msgid "Blur... (video) (``video-blur-anything-sam2``)"
 msgstr "ব্লার করুন... (ভিডিও) (``video-blur-anything-sam2``)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:444
+#: ../doc/ai.rst:444
 msgid "Why: Track and blur a moving subject in video."
 msgstr "কারণ: ভিডিওতে চলমান বিষয়বস্তুকে ট্র্যাক এবং ব্লার করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:445 ../ai.rst:452 ../ai.rst:459
+#: ../doc/ai.rst:445 ../doc/ai.rst:452 ../doc/ai.rst:459
 msgid "How: Mark subject/background in the region screen, then generate."
 msgstr ""
 "কিভাবে: অঞ্চল স্ক্রিনে বিষয়বস্তু/পটভূমি চিহ্নিত করুন, তারপর তৈরি করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:446
+#: ../doc/ai.rst:446
 msgid ""
 "Details: Uses ``comfyui/video-blur-anything-sam2.json`` with SAM2 video "
 "tracking."
@@ -1529,17 +1529,17 @@ msgstr ""
 "sam2.json`` ব্যবহার করে।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:449
+#: ../doc/ai.rst:449
 msgid "Highlight... (video) (``video-highlight-anything-sam2``)"
 msgstr "হাইলাইট করুন... (ভিডিও) (``video-highlight-anything-sam2``)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:451
+#: ../doc/ai.rst:451
 msgid "Why: Track and highlight a moving subject in video."
 msgstr "কারণ: ভিডিওতে চলমান বিষয়বস্তুকে ট্র্যাক এবং হাইলাইট করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:453
+#: ../doc/ai.rst:453
 msgid ""
 "Details: Uses ``comfyui/video-highlight-anything-sam2.json`` with SAM2 video"
 " tracking."
@@ -1548,19 +1548,19 @@ msgstr ""
 "anything-sam2.json`` ব্যবহার করে।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:456
+#: ../doc/ai.rst:456
 msgid "Mask... (video) (``video-mask-anything-sam2``)"
 msgstr "মাস্ক করুন... (ভিডিও) (``video-mask-anything-sam2``)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:458
+#: ../doc/ai.rst:458
 msgid "Why: Generate an animated mask that follows a moving subject."
 msgstr ""
 "কারণ: একটি চলমান বিষয়বস্তুকে অনুসরণ করে এমন একটি অ্যানিমেটেড মাস্ক তৈরি "
 "করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:460
+#: ../doc/ai.rst:460
 msgid ""
 "Details: Uses ``comfyui/video-mask-anything-sam2.json`` with SAM2 video "
 "tracking."
@@ -1569,62 +1569,62 @@ msgstr ""
 "sam2.json`` ব্যবহার করে।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:463
+#: ../doc/ai.rst:463
 msgid "Starting Points for New Users"
 msgstr "নতুন ব্যবহারকারীদের জন্য শুরু করার পয়েন্ট"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:465
+#: ../doc/ai.rst:465
 msgid "If you are new to these tools, start with:"
 msgstr "আপনি যদি এই সরঞ্জামগুলোর নতুন হন, তাহলে শুরু করুন:"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:467
+#: ../doc/ai.rst:467
 msgid ":guilabel:`Create with AI` -> :guilabel:`Image`"
 msgstr ":guilabel:`Create with AI` -> :guilabel:`Image`"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:468
+#: ../doc/ai.rst:468
 msgid ":guilabel:`Enhance with AI` -> :guilabel:`Increase Resolution`"
 msgstr ":guilabel:`Enhance with AI` -> :guilabel:`Increase Resolution`"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:469
+#: ../doc/ai.rst:469
 msgid ":guilabel:`Enhance with AI` -> :guilabel:`Smooth Motion`"
 msgstr ":guilabel:`Enhance with AI` -> :guilabel:`Smooth Motion`"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:470
+#: ../doc/ai.rst:470
 msgid ":guilabel:`Enhance with AI` -> :guilabel:`Split into Scenes`"
 msgstr ":guilabel:`Enhance with AI` -> :guilabel:`Split into Scenes`"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:471
+#: ../doc/ai.rst:471
 msgid ":guilabel:`Enhance with AI` -> :guilabel:`Add Captions`"
 msgstr ":guilabel:`Enhance with AI` -> :guilabel:`Add Captions`"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:474
+#: ../doc/ai.rst:474
 msgid "Troubleshooting"
 msgstr "সমস্যা সমাধান"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:476
+#: ../doc/ai.rst:476
 msgid "If AI menus do not appear or jobs fail immediately:"
 msgstr "যদি AI মেনুগুলো প্রদর্শিত না হয় বা কাজগুলি তৎক্ষণাৎ ব্যর্থ হয়:"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:478
+#: ../doc/ai.rst:478
 msgid "Verify ComfyUI is running and reachable at the configured URL."
 msgstr "নিশ্চিত করুন ComfyUI চলছে এবং নির্ধারিত URL-এ পৌঁছানো যাচ্ছে।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:479
+#: ../doc/ai.rst:479
 msgid "Confirm required models exist in your ComfyUI environment."
 msgstr "নিশ্চিত করুন আপনার ComfyUI পরিবেশে প্রয়োজনীয় মডেলগুলি আছে।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:480
+#: ../doc/ai.rst:480
 msgid ""
 "Confirm custom node packages are installed for the workflow you selected."
 msgstr ""
@@ -1632,17 +1632,17 @@ msgstr ""
 "প্যাকেজগুলি ইনস্টল করা হয়েছে।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:481
+#: ../doc/ai.rst:481
 msgid "Reduce batch/chunk sizes for long clips."
 msgstr "দীর্ঘ ক্লিপের জন্য ব্যাচ/চাঙ্ক আকার কমান।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:482
+#: ../doc/ai.rst:482
 msgid "Re-test with a short clip or still image first."
 msgstr "প্রথমে একটি ছোট ক্লিপ বা স্থির ছবি দিয়ে পুনরায় পরীক্ষা করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:484
+#: ../doc/ai.rst:484
 msgid ""
 "For general performance and cache tuning, see :ref:`preferences_ref` and "
 ":ref:`playback_ref`."

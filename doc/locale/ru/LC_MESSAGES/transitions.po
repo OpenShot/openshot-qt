@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:23
+#: ../doc/transitions.rst:23
 msgid "Transitions"
 msgstr "Переходы"
 
-#: ../transitions.rst:25
+#: ../doc/transitions.rst:25
 msgid ""
 "A transition is used to gradually fade (also called a **cross dissolve** or "
 "**crossfade**) or wipe between two clip images. In OpenShot, transitions are"
@@ -41,7 +41,7 @@ msgstr ""
 " чаще всего в начале или в конце клипа."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:31
+#: ../doc/transitions.rst:31
 msgid ""
 "NOTE: Transitions **do not** affect **audio**, so if you are intending to "
 "fade in/out the audio volume of a clip, you must adjust the ``volume`` clip "
@@ -52,52 +52,52 @@ msgstr ""
 "отрегулировать свойство ``volume`` клипа. См. :ref:`clip_properties_ref`"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:35
+#: ../doc/transitions.rst:35
 msgid "Overview"
 msgstr "Обзор"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:40
+#: ../doc/transitions.rst:40
 msgid "#"
 msgstr "#"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:40
+#: ../doc/transitions.rst:40
 msgid "Name"
 msgstr "Имя"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:40 ../transitions.rst:105
+#: ../doc/transitions.rst:40 ../doc/transitions.rst:106
 msgid "Description"
 msgstr "Описание"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:42
+#: ../doc/transitions.rst:42
 msgid "1"
 msgstr "1"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:42
+#: ../doc/transitions.rst:42
 msgid "Clip 1"
 msgstr "Клип 1"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:42
+#: ../doc/transitions.rst:42
 msgid "A video clip"
 msgstr "Видеоклип"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:43
+#: ../doc/transitions.rst:43
 msgid "2"
 msgstr "2"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:43
+#: ../doc/transitions.rst:43
 msgid "Transition"
 msgstr "Переход"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:43
+#: ../doc/transitions.rst:43
 msgid ""
 "A gradual fade transition between the 2 clip images, created automatically "
 "by overlapping the clips (does not affect the audio)"
@@ -106,27 +106,27 @@ msgstr ""
 " автоматически при наложении клипов (не влияет на звук)"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:44
+#: ../doc/transitions.rst:44
 msgid "3"
 msgstr "3"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:44
+#: ../doc/transitions.rst:44
 msgid "Clip 2"
 msgstr "Клип 2"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:44
+#: ../doc/transitions.rst:44
 msgid "An image clip"
 msgstr "Изображение"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:48
+#: ../doc/transitions.rst:48
 msgid "Direction"
 msgstr "Направление"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:49
+#: ../doc/transitions.rst:49
 msgid ""
 "Transitions adjust the alpha/transparency of the overlapping clip image "
 "(i.e. the clip under the transition), and can either fade from opaque to "
@@ -143,12 +143,12 @@ msgstr ""
 "анимируя визуальное затухание любым удобным способом."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:56
+#: ../doc/transitions.rst:56
 msgid "Transparency"
 msgstr "Прозрачность"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:57
+#: ../doc/transitions.rst:57
 msgid ""
 "If transitions are used on images or videos that contain transparency (*i.e."
 " alpha channel*) this will result in the original clip disappearing abruptly"
@@ -173,12 +173,12 @@ msgstr ""
 " для более плавного перехода."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:65
+#: ../doc/transitions.rst:65
 msgid "Cutting & Slicing"
 msgstr "Вырезание и нарезка"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:66
+#: ../doc/transitions.rst:66
 msgid ""
 "OpenShot has many easy ways to adjust the start and end trim positions of a "
 "transition (otherwise known as cutting or trimming). The most common method "
@@ -195,12 +195,12 @@ msgstr ""
 ":ref:`keyboard_shortcut_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:71
+#: ../doc/transitions.rst:71
 msgid "Mask"
 msgstr "Маска"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:72
+#: ../doc/transitions.rst:72
 msgid ""
 "In video editing, masks are powerful tools that allow you to selectively "
 "display specific areas of a video clip. Similar to masking in image editing,"
@@ -213,7 +213,7 @@ msgstr ""
 "применяться изменения, оставляя остальные части видео без изменений."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:76
+#: ../doc/transitions.rst:76
 msgid ""
 "A mask can be thought of as a shape or path that outlines the area you want "
 "to target. Commonly used shapes include rectangles, circles, and freeform "
@@ -224,7 +224,7 @@ msgstr ""
 " контуры. Маскированная область называется «маскированным регионом»."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:79
+#: ../doc/transitions.rst:79
 msgid ""
 "Masks can be animated, allowing you to change the shape or position over "
 "time. This enables dynamic effects like revealing hidden elements or "
@@ -244,12 +244,12 @@ msgstr ""
 "последовательностями изображений для создания анимированных сложных масок."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:86
+#: ../doc/transitions.rst:86
 msgid "Custom Transition"
 msgstr "Пользовательский переход"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:87
+#: ../doc/transitions.rst:87
 msgid ""
 "Any greyscale image can be used as a transition (or mask), by adding it to "
 "your ``~/.openshot_qt/transitions/`` folder. Just be sure to name your file "
@@ -262,30 +262,32 @@ msgstr ""
 "пользовательский переход/маска появится в списке переходов."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:92
+#: ../doc/transitions.rst:92
 msgid "Transition Properties"
 msgstr "Свойства перехода"
 
-# Translated with gpt-4.1-mini
-#: ../transitions.rst:93
+#: ../doc/transitions.rst:93
 msgid ""
 "Below is a list of transition properties which can be edited, and in most "
 "cases, animated over time. To view a transition's properties, right click "
 "and choose :guilabel:`Properties`. The property editor will appear, where "
-"you can change these properties. NOTE: Pay close attention to where the "
-"play-head (i.e. red playback line) is. Key frames are automatically created "
-"at the current playback position, to help create animations."
+"you can change these properties. Move the playhead to a keyframe to adjust "
+"that part of the transition. If you want to add a change between existing "
+"keyframes, leave :ref:`auto_keyframes_ref` on and edit at the new position. "
+"With it off, editing between keyframes adjusts the earlier one instead."
 msgstr ""
 "Ниже приведён список свойств перехода, которые можно редактировать и, в "
-"большинстве случаев, анимировать со временем. Чтобы просмотреть свойства "
+"большинстве случаев, анимировать во времени. Чтобы просмотреть свойства "
 "перехода, щёлкните правой кнопкой мыши и выберите :guilabel:`Свойства`. "
 "Появится редактор свойств, где вы сможете изменить эти параметры. "
-"ПРИМЕЧАНИЕ: Обратите внимание на положение головки воспроизведения (красная "
-"линия воспроизведения). Ключевые кадры автоматически создаются в текущей "
-"позиции воспроизведения для помощи в создании анимаций."
+"Переместите индикатор воспроизведения к ключевому кадру, чтобы "
+"отредактировать эту часть перехода. Если вы хотите добавить изменение между "
+"существующими ключевыми кадрами, оставьте включённым "
+":ref:`auto_keyframes_ref` и редактируйте в новой позиции. Если он выключен, "
+"редактирование между ключевыми кадрами изменит предыдущий ключевой кадр."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:98
+#: ../doc/transitions.rst:99
 msgid ""
 "NOTE: Transitions do not affect audio, so if you are intending to fade "
 "in/out the audio volume of a clip, you must adjust the ``volume`` clip "
@@ -296,27 +298,27 @@ msgstr ""
 "отрегулировать свойство ``volume`` клипа. См. :ref:`clip_properties_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:105
+#: ../doc/transitions.rst:106
 msgid "Transition Property Name"
 msgstr "Название свойства перехода"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:105
+#: ../doc/transitions.rst:106
 msgid "Type"
 msgstr "Тип"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:107
+#: ../doc/transitions.rst:108
 msgid "Brightness"
 msgstr "Яркость"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:107 ../transitions.rst:108
+#: ../doc/transitions.rst:108 ../doc/transitions.rst:109
 msgid "Key-frame"
 msgstr "Ключевой кадр"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:107
+#: ../doc/transitions.rst:108
 msgid ""
 "Curve representing the brightness of the transition image, which affects the"
 " fade/wipe (-1 to 1)"
@@ -325,12 +327,12 @@ msgstr ""
 "затухание/стирание (-1 до 1)"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:108
+#: ../doc/transitions.rst:109
 msgid "Contrast"
 msgstr "Контраст"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:108
+#: ../doc/transitions.rst:109
 msgid ""
 "Curve representing the contrast of the transition image, which affects the "
 "softness/hardness of the fade/wipe (0 to 20)"
@@ -339,43 +341,43 @@ msgstr ""
 "мягкость/жесткость затухания/стирания (0 до 20)"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:109 ../transitions.rst:124
+#: ../doc/transitions.rst:110 ../doc/transitions.rst:125
 msgid "Duration"
 msgstr "Длительность"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:109 ../transitions.rst:110 ../transitions.rst:117
-#: ../transitions.rst:119
+#: ../doc/transitions.rst:110 ../doc/transitions.rst:111
+#: ../doc/transitions.rst:118 ../doc/transitions.rst:120
 msgid "Float"
 msgstr "Число с плавающей точкой"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:109
+#: ../doc/transitions.rst:110
 msgid "The length of the transition (in seconds). Read-only property."
 msgstr "Длительность перехода (в секундах). Только для чтения."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:110 ../transitions.rst:132
+#: ../doc/transitions.rst:111 ../doc/transitions.rst:133
 msgid "End"
 msgstr "Конец"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:110
+#: ../doc/transitions.rst:111
 msgid "The end trimming position of the transition (in seconds)."
 msgstr "Позиция обрезки конца перехода (в секундах)."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:111 ../transitions.rst:140
+#: ../doc/transitions.rst:112 ../doc/transitions.rst:141
 msgid "ID"
 msgstr "ID"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:111 ../transitions.rst:116
+#: ../doc/transitions.rst:112 ../doc/transitions.rst:117
 msgid "String"
 msgstr "Строка"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:111
+#: ../doc/transitions.rst:112
 msgid ""
 "A randomly generated GUID (globally unique identifier) assigned to each "
 "transition. Read-only property."
@@ -383,16 +385,17 @@ msgstr ""
 "Случайно сгенерированный GUID (глобально уникальный идентификатор), "
 "присвоенный каждому переходу. Только для чтения."
 
-#: ../transitions.rst:112
+#: ../doc/transitions.rst:113
 msgid "Mask: Invert"
 msgstr "Маска: Инвертировать"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:112 ../transitions.rst:113 ../transitions.rst:118
+#: ../doc/transitions.rst:113 ../doc/transitions.rst:114
+#: ../doc/transitions.rst:119
 msgid "Bool"
 msgstr "Булево"
 
-#: ../transitions.rst:112
+#: ../doc/transitions.rst:113
 msgid ""
 "Invert the mask source so light areas become dark and dark areas become "
 "light."
@@ -400,25 +403,25 @@ msgstr ""
 "Инвертировать источник маски, чтобы светлые области стали тёмными, а тёмные "
 "— светлыми."
 
-#: ../transitions.rst:113
+#: ../doc/transitions.rst:114
 msgid "Mask: Loop"
 msgstr "Маска: Зациклить"
 
-#: ../transitions.rst:113
+#: ../doc/transitions.rst:114
 msgid ""
 "Loop an animated mask source when the transition is longer than the source."
 msgstr ""
 "Зациклить анимированный источник маски, если переход длиннее источника."
 
-#: ../transitions.rst:114
+#: ../doc/transitions.rst:115
 msgid "Mask: Source"
 msgstr "Маска: Источник"
 
-#: ../transitions.rst:114
+#: ../doc/transitions.rst:115
 msgid "Reader"
 msgstr "Читатель"
 
-#: ../transitions.rst:114
+#: ../doc/transitions.rst:115
 msgid ""
 "The image, image sequence, or video used as the transition's grayscale mask "
 "source."
@@ -426,27 +429,27 @@ msgstr ""
 "Изображение, последовательность изображений или видео, используемые в "
 "качестве источника градаций серого для маски перехода."
 
-#: ../transitions.rst:115
+#: ../doc/transitions.rst:116
 msgid "Mask: Time Mode"
 msgstr "Маска: Режим времени"
 
-#: ../transitions.rst:115
+#: ../doc/transitions.rst:116
 msgid "Enum"
 msgstr "Перечисление"
 
-#: ../transitions.rst:115
+#: ../doc/transitions.rst:116
 msgid "Controls how OpenShot maps transition time to an animated mask source."
 msgstr ""
 "Управляет тем, как OpenShot сопоставляет время перехода с анимированным "
 "источником маски."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:116
+#: ../doc/transitions.rst:117
 msgid "Parent"
 msgstr "Родитель"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:116
+#: ../doc/transitions.rst:117
 msgid ""
 "The parent object to this transition, which makes many of these keyframe "
 "values initialize to the parent value."
@@ -455,22 +458,22 @@ msgstr ""
 "кадров инициализируются значениями родителя."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:117
+#: ../doc/transitions.rst:118
 msgid "Position"
 msgstr "Позиция"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:117
+#: ../doc/transitions.rst:118
 msgid "The position of the transition on the timeline (in seconds)."
 msgstr "Позиция перехода на временной шкале (в секундах)."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:118
+#: ../doc/transitions.rst:119
 msgid "Replace Image"
 msgstr "Заменить изображение"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:118
+#: ../doc/transitions.rst:119
 msgid ""
 "For debugging a problem, this property displays the transition image "
 "(instead of becoming a transparency)."
@@ -478,27 +481,27 @@ msgstr ""
 "Для отладки эта опция отображает изображение перехода (вместо прозрачности)."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:119
+#: ../doc/transitions.rst:120
 msgid "Start"
 msgstr "Начало"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:119
+#: ../doc/transitions.rst:120
 msgid "The start trimming position of the transition (in seconds)."
 msgstr "Позиция обрезки начала перехода (в секундах)."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:120 ../transitions.rst:158
+#: ../doc/transitions.rst:121 ../doc/transitions.rst:159
 msgid "Track"
 msgstr "Дорожка"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:120
+#: ../doc/transitions.rst:121
 msgid "Int"
 msgstr "Целое число"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:120
+#: ../doc/transitions.rst:121
 msgid ""
 "The layer which holds the transition (higher tracks are rendered on top of "
 "lower tracks)."
@@ -507,7 +510,7 @@ msgstr ""
 "поверх дорожек с меньшим)."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:125
+#: ../doc/transitions.rst:126
 msgid ""
 "The :guilabel:`Duration` property is a float value indicating the length of "
 "the transition in seconds. This is a Read-only property. This is calculated "
@@ -520,7 +523,7 @@ msgstr ""
 " перехода :guilabel:`Start` и/или :guilabel:`End`."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:128
+#: ../doc/transitions.rst:129
 msgid ""
 "**Usage Example:** Inspect the duration of a transition to ensure it fits a "
 "specific time slot in the project."
@@ -529,7 +532,7 @@ msgstr ""
 "что он подходит под определённый временной интервал в проекте."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:129
+#: ../doc/transitions.rst:130
 msgid ""
 "**Tip:** Consider using the \"Duration\" property for transitions that need "
 "to match specific time intervals, such as dialogue or scenes."
@@ -539,7 +542,7 @@ msgstr ""
 "сценам."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:133
+#: ../doc/transitions.rst:134
 msgid ""
 "The :guilabel:`End` property defines the trimming point at the end of the "
 "transition in seconds, allowing you to control how much of the transition is"
@@ -551,7 +554,7 @@ msgstr ""
 "Изменение этого свойства повлияет на свойство :guilabel:`Duration`."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:136
+#: ../doc/transitions.rst:137
 msgid ""
 "**Usage Example:** Trimming the end of a transition to align with another "
 "clip or trimming off unwanted sections of the transition."
@@ -560,7 +563,7 @@ msgstr ""
 "клипом или удаления нежелательных частей перехода."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:137
+#: ../doc/transitions.rst:138
 msgid ""
 "**Tip:** Combine the \"Start\" and \"End\" properties to precisely control "
 "the visible portion of the transition."
@@ -569,7 +572,7 @@ msgstr ""
 "контроля видимой части перехода."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:141
+#: ../doc/transitions.rst:142
 msgid ""
 "The :guilabel:`ID` property holds a randomly generated GUID (Globally Unique"
 " Identifier) assigned to each transition, ensuring its uniqueness. This is a"
@@ -581,7 +584,7 @@ msgstr ""
 "создании перехода."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:144
+#: ../doc/transitions.rst:145
 msgid ""
 "**Usage Example:** Referencing specific transitions within custom scripts or"
 " automation tasks."
@@ -590,7 +593,7 @@ msgstr ""
 "пользовательских скриптах или автоматизации."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:145
+#: ../doc/transitions.rst:146
 msgid ""
 "**Tip:** While typically managed behind the scenes, understanding transition"
 " IDs can aid in advanced project customization."
@@ -598,11 +601,11 @@ msgstr ""
 "**Совет:** Хотя обычно управление происходит за кулисами, понимание ID "
 "переходов может помочь в продвинутой настройке проекта."
 
-#: ../transitions.rst:148
+#: ../doc/transitions.rst:149
 msgid "Mask Properties"
 msgstr "Свойства маски"
 
-#: ../transitions.rst:149
+#: ../doc/transitions.rst:150
 msgid ""
 "The :guilabel:`Mask: Source`, :guilabel:`Mask: Time Mode`, :guilabel:`Mask: "
 "Loop`, and :guilabel:`Mask: Invert` properties control the grayscale mask "
@@ -618,7 +621,7 @@ msgstr ""
 "зацикливания определяют, какой кадр источника используется в каждой точке "
 "перехода."
 
-#: ../transitions.rst:154
+#: ../doc/transitions.rst:155
 msgid ""
 "**Usage Example:** Use :guilabel:`Mask: Invert` when the visible and hidden "
 "areas of a custom mask are reversed."
@@ -626,7 +629,7 @@ msgstr ""
 "**Пример использования:** Используйте :guilabel:`Mask: Invert`, когда "
 "видимые и скрытые области пользовательской маски перепутаны."
 
-#: ../transitions.rst:155
+#: ../doc/transitions.rst:156
 msgid ""
 "**Tip:** When using an animated mask, trim the mask source carefully before "
 "enabling loop behavior."
@@ -635,7 +638,7 @@ msgstr ""
 " маски перед включением зацикливания."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:159
+#: ../doc/transitions.rst:160
 msgid ""
 "The :guilabel:`Track` property is an integer indicating the layer on which "
 "the transition is placed. Transitions on higher tracks are rendered above "
@@ -646,7 +649,7 @@ msgstr ""
 "переходов на более низких."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:162
+#: ../doc/transitions.rst:163
 msgid ""
 "**Usage Example:** Arranging transitions in different layers for creating "
 "visual depth and complexity."
@@ -655,13 +658,30 @@ msgstr ""
 "создания визуальной глубины и сложности."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:163
+#: ../doc/transitions.rst:164
 msgid ""
 "**Tip:** Use higher tracks for elements that need to appear above others, "
 "like text overlays or graphics."
 msgstr ""
 "**Совет:** Используйте более высокие дорожки для элементов, которые должны "
 "отображаться поверх других, например, текстовых наложений или графики."
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "Below is a list of transition properties which can be edited, and in most "
+#~ "cases, animated over time. To view a transition's properties, right click "
+#~ "and choose :guilabel:`Properties`. The property editor will appear, where "
+#~ "you can change these properties. NOTE: Pay close attention to where the "
+#~ "play-head (i.e. red playback line) is. Key frames are automatically created "
+#~ "at the current playback position, to help create animations."
+#~ msgstr ""
+#~ "Ниже приведён список свойств перехода, которые можно редактировать и, в "
+#~ "большинстве случаев, анимировать со временем. Чтобы просмотреть свойства "
+#~ "перехода, щёлкните правой кнопкой мыши и выберите :guilabel:`Свойства`. "
+#~ "Появится редактор свойств, где вы сможете изменить эти параметры. "
+#~ "ПРИМЕЧАНИЕ: Обратите внимание на положение головки воспроизведения (красная "
+#~ "линия воспроизведения). Ключевые кадры автоматически создаются в текущей "
+#~ "позиции воспроизведения для помощи в создании анимаций."
 
 # Translated with gpt-4.1-mini
 #~ msgid ""

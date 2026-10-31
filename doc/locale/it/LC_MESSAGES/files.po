@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-02 17:20-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,16 +20,16 @@ msgstr ""
 "Generated-By: Babel 2.10.3\n"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:23
+#: ../doc/files.rst:23
 msgid "Files"
 msgstr "File"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:25
+#: ../doc/files.rst:25
 msgid ""
 "To create a video, we need to make media files available to our project by "
-"importing files into OpenShot. Most media file types are recognized, such as "
-"videos, images, and audio files. Files can be viewed and managed in the "
+"importing files into OpenShot. Most media file types are recognized, such as"
+" videos, images, and audio files. Files can be viewed and managed in the "
 "**Project Files** panel."
 msgstr ""
 "Per creare un video, dobbiamo rendere disponibili i file multimediali al "
@@ -38,7 +38,7 @@ msgstr ""
 "possono essere visualizzati e gestiti nel pannello **File di progetto**."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:29
+#: ../doc/files.rst:29
 msgid ""
 "Note that imported files are not copied anywhere, they remain in the "
 "physical location they were before and are simply being made available to "
@@ -52,17 +52,17 @@ msgstr ""
 "nella loro posizione fisica originale e sono semplicemente resi disponibili "
 "al tuo progetto video. Pertanto, non devono essere cancellati, rinominati o "
 "spostati dopo essere stati aggiunti al progetto. I filtri \"Mostra tutto\", "
-"\"Video\", \"Audio\", \"Immagine\" sopra i file ti permettono di vedere solo "
-"i tipi di file di tuo interesse. Puoi anche alternare la visualizzazione tra "
-"la vista :guilabel:`dettagli` e :guilabel:`miniature` dei tuoi file."
+"\"Video\", \"Audio\", \"Immagine\" sopra i file ti permettono di vedere solo"
+" i tipi di file di tuo interesse. Puoi anche alternare la visualizzazione "
+"tra la vista :guilabel:`dettagli` e :guilabel:`miniature` dei tuoi file."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:39
+#: ../doc/files.rst:39
 msgid "Import Files"
 msgstr "Importa file"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:40
+#: ../doc/files.rst:40
 msgid ""
 "There are many different ways to import media files into an OpenShot "
 "project. When a file is imported successfully, it will be automatically "
@@ -71,29 +71,29 @@ msgid ""
 "automatically display the panel."
 msgstr ""
 "Ci sono molti modi diversi per importare file multimediali in un progetto "
-"OpenShot. Quando un file viene importato con successo, viene automaticamente "
-"selezionato e portato in vista (nel pannello **File di progetto**). Inoltre, "
-"se il pannello **File di progetto** non è attualmente visibile, OpenShot lo "
-"mostrerà automaticamente."
+"OpenShot. Quando un file viene importato con successo, viene automaticamente"
+" selezionato e portato in vista (nel pannello **File di progetto**). "
+"Inoltre, se il pannello **File di progetto** non è attualmente visibile, "
+"OpenShot lo mostrerà automaticamente."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:48
+#: ../doc/files.rst:48
 msgid "Import File Method"
 msgstr "Metodo di importazione file"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:48 ../files.rst:85 ../files.rst:142 ../files.rst:182
-#: ../files.rst:216 ../files.rst:240
+#: ../doc/files.rst:48 ../doc/files.rst:85 ../doc/files.rst:288
+#: ../doc/files.rst:362 ../doc/files.rst:386
 msgid "Description"
 msgstr "Descrizione"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:50
+#: ../doc/files.rst:50
 msgid "Drag and Drop"
 msgstr "Trascina e rilascia"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:50
+#: ../doc/files.rst:50
 msgid ""
 "Drag and drop the files from your file manager (file explorer, finder, "
 "etc...)."
@@ -102,99 +102,102 @@ msgstr ""
 "ecc...)."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:51
+#: ../doc/files.rst:51
 msgid "Context menu (`File Menu`_)"
 msgstr "Menu contestuale (`Menu File`_)"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:51
+#: ../doc/files.rst:51
 msgid ""
-"Right click anywhere in the **Project Files** panel and choose :guilabel:"
-"`Import Files`."
+"Right click anywhere in the **Project Files** panel and choose "
+":guilabel:`Import Files`."
 msgstr ""
 "Fai clic con il tasto destro in qualsiasi punto del pannello **File di "
 "progetto** e scegli :guilabel:`Importa file`."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:52
+#: ../doc/files.rst:52
 msgid "Main Menu"
 msgstr "Menu principale"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:52
+#: ../doc/files.rst:52
 msgid "In the main menu choose: :guilabel:`File\\→Import Files`."
 msgstr "Nel menu principale scegli: :guilabel:`File\\→Importa file`."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:53
+#: ../doc/files.rst:53
 msgid "Toolbar button"
 msgstr "Pulsante barra degli strumenti"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:53
+#: ../doc/files.rst:53
 msgid "Click the :guilabel:`+` toolbar button in the main toolbar."
 msgstr ""
 "Clicca il pulsante :guilabel:`+` nella barra degli strumenti principale."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:54
+#: ../doc/files.rst:54
 msgid "Keyboard shortcut"
 msgstr "Scorciatoia da tastiera"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:54
+#: ../doc/files.rst:54
 msgid "Press :kbd:`Ctrl-F` (:kbd:`Cmd-F` on Mac)."
 msgstr "Premi :kbd:`Ctrl-F` (:kbd:`Cmd-F` su Mac)."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:55 ../files.rst:63
+#: ../doc/files.rst:55 ../doc/files.rst:63
 msgid "Paste from Clipboard"
 msgstr "Incolla dagli appunti"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:55
+#: ../doc/files.rst:55
 msgid ""
 "Press :kbd:`Ctrl-V` (:kbd:`Cmd-V` on Mac) to paste copied files from your "
 "clipboard. See :ref:`paste_from_clipboard_ref`."
 msgstr ""
-"Premi :kbd:`Ctrl-V` (:kbd:`Cmd-V` su Mac) per incollare i file copiati dagli "
-"appunti. Vedi :ref:`paste_from_clipboard_ref`."
+"Premi :kbd:`Ctrl-V` (:kbd:`Cmd-V` su Mac) per incollare i file copiati dagli"
+" appunti. Vedi :ref:`paste_from_clipboard_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:64
+#: ../doc/files.rst:64
 msgid ""
 "You can paste files and clipboard media straight into OpenShot. If you "
-"copied one or more files in your file manager, switch to OpenShot and press :"
-"kbd:`Ctrl-V` in the **Project Files** panel to add them, just like importing."
+"copied one or more files in your file manager, switch to OpenShot and press "
+":kbd:`Ctrl-V` in the **Project Files** panel to add them, just like "
+"importing."
 msgstr ""
 "Puoi incollare file e media dagli appunti direttamente in OpenShot. Se hai "
-"copiato uno o più file nel tuo gestore file, passa a OpenShot e premi :kbd:"
-"`Ctrl-V` nel pannello **File di progetto** per aggiungerli, proprio come con "
-"l'importazione."
+"copiato uno o più file nel tuo gestore file, passa a OpenShot e premi "
+":kbd:`Ctrl-V` nel pannello **File di progetto** per aggiungerli, proprio "
+"come con l'importazione."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:67
+#: ../doc/files.rst:67
 msgid ""
 "If you copied media **data** (for example, **Copy Image** in a web browser, "
-"a pasted frame from another app, or other image/audio/video clipboard data), "
-"press :kbd:`Ctrl-V` in OpenShot to create a file for that clipboard content. "
-"OpenShot saves a copy in a temporary folder: ``.openshot_qt/clipboard/``. "
-"The new file is then added to your project and appears in **Project Files**."
+"a pasted frame from another app, or other image/audio/video clipboard data),"
+" press :kbd:`Ctrl-V` in OpenShot to create a file for that clipboard "
+"content. OpenShot saves a copy in a temporary folder: "
+"``.openshot_qt/clipboard/``. The new file is then added to your project and "
+"appears in **Project Files**."
 msgstr ""
 "Se hai copiato dati multimediali **(media data)** (ad esempio, **Copia "
 "immagine** in un browser web, un fotogramma incollato da un'altra app o "
 "altri dati immagine/audio/video dagli appunti), premi :kbd:`Ctrl-V` in "
-"OpenShot per creare un file per quel contenuto degli appunti. OpenShot salva "
-"una copia in una cartella temporanea: ``.openshot_qt/clipboard/``. Il nuovo "
-"file viene quindi aggiunto al tuo progetto e appare in **File di progetto**."
+"OpenShot per creare un file per quel contenuto degli appunti. OpenShot salva"
+" una copia in una cartella temporanea: ``.openshot_qt/clipboard/``. Il nuovo"
+" file viene quindi aggiunto al tuo progetto e appare in **File di "
+"progetto**."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:74
+#: ../doc/files.rst:74
 msgid "File Menu"
 msgstr "Menu file"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:75
+#: ../doc/files.rst:75
 msgid ""
 "To view the file menu, right click on a file (in the **Project Files** "
 "panel). Here are the actions you can use from the file menu."
@@ -204,27 +207,27 @@ msgstr ""
 "file."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:84
+#: ../doc/files.rst:84
 msgid "File Context Option"
 msgstr "Opzione menu contestuale file"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:86
+#: ../doc/files.rst:86
 msgid "Import Files..."
 msgstr "Importa file..."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:87
+#: ../doc/files.rst:87
 msgid "Import files into your project"
 msgstr "Importa file nel tuo progetto"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:88
+#: ../doc/files.rst:88
 msgid "Create with AI / Enhance with AI (Optional)"
 msgstr "Crea con AI / Migliora con AI (Opzionale)"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:89
+#: ../doc/files.rst:89
 msgid ""
 "AI menu actions for generating or enhancing media files. These options are "
 "shown only when AI is enabled and the selected file type supports the "
@@ -235,32 +238,32 @@ msgstr ""
 "selezionato supporta il flusso di lavoro. Vedi :ref:`ai_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:90
+#: ../doc/files.rst:90
 msgid "Details View"
 msgstr "Vista Dettagli"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:91
+#: ../doc/files.rst:91
 msgid "Switch the Project Files panel to details view"
 msgstr "Passa il pannello File di Progetto alla vista dettagli"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:92 ../files.rst:114
+#: ../doc/files.rst:92 ../doc/files.rst:116
 msgid "Preview File"
 msgstr "Anteprima file"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:93
+#: ../doc/files.rst:93
 msgid "Preview a media file"
 msgstr "Visualizza l'anteprima di un file multimediale"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:94 ../files.rst:170
+#: ../doc/files.rst:94 ../doc/files.rst:316
 msgid "Split File"
 msgstr "Dividi file"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:95
+#: ../doc/files.rst:95
 msgid ""
 "Split a file into many smaller files. The new trimmed files appear in the "
 "Project Files list."
@@ -269,24 +272,24 @@ msgstr ""
 "nell'elenco File di progetto."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:96 ../files.rst:193
+#: ../doc/files.rst:96 ../doc/files.rst:339
 msgid "Export Files"
 msgstr "Esporta file"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:97
+#: ../doc/files.rst:97
 msgid "Export selected files (and split segments) to a destination folder"
 msgstr ""
 "Esporta i file selezionati (e i segmenti divisi) in una cartella di "
 "destinazione"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:98 ../files.rst:205
+#: ../doc/files.rst:98 ../doc/files.rst:351
 msgid "Add to Timeline"
 msgstr "Aggiungi alla timeline"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:99
+#: ../doc/files.rst:99
 msgid ""
 "Add many files to the timeline in one step, including transitions or "
 "alternating tracks."
@@ -295,15 +298,15 @@ msgstr ""
 "o tracce alternate."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:100
+#: ../doc/files.rst:100
 msgid "Choose Profile"
 msgstr "Scegli profilo"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:101
+#: ../doc/files.rst:101
 msgid ""
-"Change the current project profile to match the selected file. If the file's "
-"profile does not match a known profile, it will give you the option to "
+"Change the current project profile to match the selected file. If the file's"
+" profile does not match a known profile, it will give you the option to "
 "create a custom profile."
 msgstr ""
 "Modifica il profilo del progetto corrente per corrispondere al file "
@@ -311,107 +314,264 @@ msgstr ""
 "verrà data l'opzione di creare un profilo personalizzato."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:102 ../files.rst:242
+#: ../doc/files.rst:102 ../doc/files.rst:388
 msgid "File Properties"
 msgstr "Proprietà file"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:103
+#: ../doc/files.rst:103
 msgid "View the properties of a file, such as frame rate, size, etc..."
 msgstr ""
 "Visualizza le proprietà di un file, come frame rate, dimensione, ecc..."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:104 ../files.rst:125
+#: ../doc/files.rst:104 ../doc/files.rst:184
 msgid "Optimize"
 msgstr "Ottimizza"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:105
+#: ../doc/files.rst:105
 msgid ""
 "Create, link, unlink, or delete optimized preview files for the selected "
 "video files."
 msgstr ""
-"Crea, collega, scollega o elimina i file di anteprima ottimizzati per i file "
-"video selezionati."
+"Crea, collega, scollega o elimina i file di anteprima ottimizzati per i file"
+" video selezionati."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:106 ../files.rst:250
+#: ../doc/files.rst:106 ../doc/files.rst:396
 msgid "Remove from Project"
 msgstr "Rimuovi dal progetto"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:107
+#: ../doc/files.rst:107
 msgid "Remove a file from the project"
 msgstr "Rimuovi un file dal progetto"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:108
+#: ../doc/files.rst:108
 msgid "Edit Title"
 msgstr "Modifica titolo"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:109
+#: ../doc/files.rst:109
 msgid "Edit an existing title SVG file (shown when an SVG title is selected)"
 msgstr ""
 "Modifica un file titolo SVG esistente (mostrato quando un titolo SVG è "
 "selezionato)"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:110
+#: ../doc/files.rst:110
 msgid "Duplicate Title"
 msgstr "Duplica titolo"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:111
+#: ../doc/files.rst:111
 #, fuzzy
 msgid ""
 "Make a copy, and then edit the copied title SVG file (shown when an SVG "
 "title is selected)"
 msgstr "Crea una copia e poi modifica il file titolo SVG copiato"
 
-# Translated with gpt-4.1-mini
-#: ../files.rst:115
+#: ../doc/files.rst:117
 msgid ""
 "The :guilabel:`Preview File` action opens the Preview dialog for the "
-"selected file from :guilabel:`Project Files`. Simply double check a file to "
-"open this dialog."
+"selected file from :guilabel:`Project Files`. Double-click a file, or press "
+":kbd:`Shift+2` or :kbd:`Alt+P` while the file list has focus. With the "
+"timeline focused, the same shortcut plays the selected clip from its Start "
+"point. You can also right-click a timeline clip and choose "
+":guilabel:`Preview Clip`. Double-clicking a saved split reopens its range "
+"editor instead of read-only preview."
 msgstr ""
-"L'azione :guilabel:`Anteprima File` apre la finestra di anteprima per il "
-"file selezionato da :guilabel:`File di Progetto`. Basta fare doppio clic su "
-"un file per aprire questa finestra."
+"L'azione :guilabel:`Anteprima file` apre la finestra di anteprima per il "
+"file selezionato da :guilabel:`File di progetto`. Fai doppio clic su un "
+"file, oppure premi :kbd:`Shift+2` o :kbd:`Alt+P` mentre la lista dei file è "
+"attiva. Con la timeline attiva, la stessa scorciatoia riproduce la clip "
+"selezionata dal suo punto di inizio. Puoi anche cliccare con il tasto destro"
+" su una clip della timeline e scegliere :guilabel:`Anteprima clip`. Il "
+"doppio clic su uno split salvato riapre il suo editor di intervallo invece "
+"dell'anteprima in sola lettura."
+
+#: ../doc/files.rst:124
+msgid "Playback starts automatically when you open a preview or Split File."
+msgstr ""
+"La riproduzione inizia automaticamente quando apri un'anteprima o un file "
+"split."
+
+#: ../doc/files.rst:125
+msgid ""
+":guilabel:`Loop` repeats playback and is enabled by default in Preview."
+msgstr ""
+":guilabel:`Loop` ripete la riproduzione ed è abilitato di default "
+"nell'anteprima."
+
+#: ../doc/files.rst:126
+msgid "Click the speaker to mute preview audio without changing the project."
+msgstr ""
+"Clicca sull'altoparlante per disattivare l'audio dell'anteprima senza "
+"modificare il progetto."
+
+#: ../doc/files.rst:127
+msgid ""
+"Click or drag the volume slider to adjust preview audio without affecting "
+"your exported video. Save the project to remember this volume for all its "
+"previews."
+msgstr ""
+"Clicca o trascina il cursore del volume per regolare l'audio dell'anteprima "
+"senza influire sul video esportato. Salva il progetto per ricordare questo "
+"volume per tutte le anteprime."
+
+#: ../doc/files.rst:129
+msgid ""
+"Use Fit Window to size the video area to the source aspect ratio. Black bars"
+" already encoded in the source remain visible."
+msgstr ""
+"Usa Adatta finestra per dimensionare l'area video al rapporto d'aspetto "
+"della sorgente. Le barre nere già codificate nella sorgente rimangono "
+"visibili."
+
+#: ../doc/files.rst:131
+msgid ""
+"Seeking during playback keeps playback running. Dragging to resize, move, or"
+" draw a range pauses playback so its boundary frames can be inspected."
+msgstr ""
+"La ricerca durante la riproduzione mantiene la riproduzione attiva. "
+"Trascinare per ridimensionare, spostare o disegnare un intervallo mette in "
+"pausa la riproduzione per poter ispezionare i fotogrammi ai bordi."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:118
-msgid "Playback starts automatically."
-msgstr "La riproduzione inizia automaticamente."
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:119
-msgid "Loop is enabled by default."
-msgstr "Il loop è abilitato di default."
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:120
+#: ../doc/files.rst:133
 msgid "Press :kbd:`Space` to toggle play/pause."
 msgstr "Premi :kbd:`Spazio` per attivare/disattivare play/pausa."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:121
+#: ../doc/files.rst:134
 msgid "Use the mouse scroll wheel to zoom in/out."
 msgstr "Usa la rotellina del mouse per ingrandire/ridurre."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:122
+#: ../doc/files.rst:135
 msgid ""
-"A :guilabel:`Reset Zoom` button appears when zoom is not 100%, and resets to "
-"100%."
+"A :guilabel:`Reset Zoom` button appears when zoom is not 100%, and resets to"
+" 100%."
 msgstr ""
-"Un pulsante :guilabel:`Reimposta Zoom` appare quando lo zoom non è al 100% e "
-"lo riporta al 100%."
+"Un pulsante :guilabel:`Reimposta Zoom` appare quando lo zoom non è al 100% e"
+" lo riporta al 100%."
+
+#: ../doc/files.rst:137
+msgid ""
+"Resize or maximize the window to suit your workspace. Preview and Split File"
+" remember your window size when you save the project."
+msgstr ""
+"Ridimensiona o massimizza la finestra per adattarla al tuo spazio di lavoro."
+" Anteprima e file split ricordano la dimensione della finestra quando salvi "
+"il progetto."
+
+#: ../doc/files.rst:140
+msgid ""
+"The colored bar beneath the ruler shows sections already loaded for "
+"playback. If playback is choppy, try a smaller window or :ref:`optimize the "
+"file <optimize_ref>`."
+msgstr ""
+"La barra colorata sotto il righello mostra le sezioni già caricate per la "
+"riproduzione. Se la riproduzione è a scatti, prova una finestra più piccola "
+"o :ref:`ottimizza il file <optimize_ref>`."
+
+#: ../doc/files.rst:143
+msgid ""
+"Preview File shows playback and scrubbing controls only. Preview Clip and "
+"Split File add range editing below the shared preview. The source ruler and "
+"filmstrip show the full recording, with the selected range highlighted. Drag"
+" either grip to adjust the range and move the playhead with it. Drag on the "
+"ruler above the filmstrip to scrub without changing the range. Edit the "
+"Start and End timecodes for precise boundaries, or click the adjacent clock "
+"button to use the current playhead position (:kbd:`I` / :kbd:`O`). End is "
+"the last included frame; a one-frame range is valid. Duration shows the "
+"length of the selected range and can be edited to move End while keeping "
+"Start fixed. Duration is limited to at least one frame and at most the "
+"remaining source length. The buttons beside Play jump to Start and End."
+msgstr ""
+"Anteprima file mostra solo i controlli di riproduzione e scorrimento. "
+"Anteprima clip e file split aggiungono la modifica dell'intervallo sotto "
+"l'anteprima condivisa. Il righello sorgente e la striscia di fotogrammi "
+"mostrano la registrazione completa, con l'intervallo selezionato "
+"evidenziato. Trascina una delle maniglie per regolare l'intervallo e "
+"spostare il cursore di riproduzione con esso. Trascina sul righello sopra la"
+" striscia per scorrere senza modificare l'intervallo. Modifica i timecode di"
+" Inizio e Fine per confini precisi, oppure clicca il pulsante orologio "
+"adiacente per usare la posizione corrente del cursore (:kbd:`I` / :kbd:`O`)."
+" Fine è l'ultimo fotogramma incluso; un intervallo di un fotogramma è "
+"valido. Durata mostra la lunghezza dell'intervallo selezionato e può essere "
+"modificata per spostare Fine mantenendo fisso Inizio. La durata è limitata "
+"ad almeno un fotogramma e al massimo alla lunghezza residua della sorgente. "
+"I pulsanti accanto a Riproduci saltano a Inizio e Fine."
+
+#: ../doc/files.rst:155
+msgid ""
+"When editing a timeline clip, :guilabel:`Update Clip` updates only that "
+"clip. Its position stays fixed and its duration changes; neighboring clips "
+"do not move. Locked or retimed clips can be previewed, but range application"
+" is disabled. :guilabel:`Reset` reloads the saved range. Each update is one "
+"undo step."
+msgstr ""
+"Quando modifichi una clip della timeline, :guilabel:`Aggiorna clip` aggiorna"
+" solo quella clip. La sua posizione resta fissa e la sua durata cambia; le "
+"clip vicine non si spostano. Le clip bloccate o ritimate possono essere "
+"anteprime, ma l'applicazione dell'intervallo è disabilitata. "
+":guilabel:`Reimposta` ricarica l'intervallo salvato. Ogni aggiornamento "
+"corrisponde a un passo di annullamento."
+
+#: ../doc/files.rst:160
+msgid ""
+"Split File provides Start, End, Duration, and an optional Name beside "
+":guilabel:`Create`. Each click creates one Project Files entry and leaves "
+"the window open to create another. Pressing :kbd:`Enter` in Name or outside "
+"the time fields saves and closes the editor. In Start, End, or Duration, "
+"Enter commits the value and keeps the editor open. Tab moves through Start, "
+"End, Duration, and Name; Shift+Tab reverses the order. Each creation is one "
+"undo step. Opening an existing split lets you update its range and name "
+"without changing existing timeline clips. :guilabel:`Update` saves the split"
+" and closes its editor, refreshing the file and dependent clip thumbnails. "
+":guilabel:`Update Clip` saves and closes clip preview. Use the window close "
+"control or :kbd:`Esc` to close without applying changes."
+msgstr ""
+"Il file split offre Inizio, Fine, Durata e un Nome opzionale accanto a "
+":guilabel:`Crea`. Ogni clic crea una voce nei File di progetto e lascia la "
+"finestra aperta per crearne un'altra. Premendo :kbd:`Invio` nel campo Nome o"
+" fuori dai campi temporali si salva e chiude l'editor. In Inizio, Fine o "
+"Durata, Invio conferma il valore e mantiene aperto l'editor. Tab scorre tra "
+"Inizio, Fine, Durata e Nome; Shift+Tab inverte l'ordine. Ogni creazione è un"
+" passo di annullamento. Aprire uno split esistente permette di aggiornare il"
+" suo intervallo e nome senza modificare le clip esistenti nella timeline. "
+":guilabel:`Aggiorna` salva lo split e chiude l'editor, aggiornando il file e"
+" le miniature delle clip dipendenti. :guilabel:`Aggiorna clip` salva e "
+"chiude l'anteprima clip. Usa il controllo di chiusura della finestra o "
+":kbd:`Esc` per chiudere senza applicare modifiche."
+
+#: ../doc/files.rst:173
+msgid ""
+"Drag a filmstrip handle to trim, drag inside the selection to move it, or "
+"drag outside it to draw a new range. Click to seek, or drag on the ruler to "
+"scrub without changing the range."
+msgstr ""
+"Trascina una maniglia della striscia di fotogrammi per tagliare, trascina "
+"all'interno della selezione per spostarla, o trascina fuori per disegnare un"
+" nuovo intervallo. Clicca per cercare, o trascina sul righello per scorrere "
+"senza modificare l'intervallo."
+
+#: ../doc/files.rst:177
+msgid ""
+"If a modified range changes elsewhere in the project, discard its local "
+"changes and reload it before saving. The dialog remains attached to its "
+"original source or timeline clip when the main-window selection changes."
+msgstr ""
+"Se un intervallo modificato cambia altrove nel progetto, scarta le modifiche"
+" locali e ricaricalo prima di salvare. La finestra rimane collegata alla sua"
+" sorgente originale o clip della timeline quando cambia la selezione nella "
+"finestra principale."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:126
+#: ../doc/files.rst:185
 msgid ""
 "Optimized preview files are lower-resolution copies of your source video "
 "files (sometimes referred to as proxy files), used to improve editing "
@@ -425,39 +585,299 @@ msgstr ""
 "particolarmente utili con formati di grandi dimensioni come 4K, frame rate "
 "elevati o bitrate elevati."
 
+#: ../doc/files.rst:190
+msgid "Automatic optimization"
+msgstr "Ottimizzazione automatica"
+
+#: ../doc/files.rst:191
+msgid ""
+"When OpenShot creates a video's first thumbnail, it records how long the "
+"first frame takes to produce. This uses work already needed to display the "
+"video in Project Files; there is no separate decoding test. Videos whose "
+"thumbnail frame takes longer than the :guilabel:`Auto-Optimize Threshold` "
+"may benefit from smaller preview copies."
+msgstr ""
+"Quando OpenShot crea la prima miniatura di un video, registra quanto tempo "
+"impiega a produrre il primo fotogramma. Questo utilizza il lavoro già "
+"necessario per mostrare il video nei File di progetto; non c'è un test di "
+"decodifica separato. I video il cui fotogramma miniatura impiega più tempo "
+"del :guilabel:`Limite di auto-ottimizzazione` possono beneficiare di copie "
+"di anteprima più piccole."
+
+#: ../doc/files.rst:196
+msgid ""
+"With the default :guilabel:`Ask` preference, a banner appears when OpenShot "
+"finds a qualifying video in a project that does not yet have a saved choice:"
+msgstr ""
+"Con la preferenza predefinita :guilabel:`Chiedi`, appare un banner quando "
+"OpenShot trova un video idoneo in un progetto che non ha ancora una scelta "
+"salvata:"
+
+#: ../doc/files.rst:199
+msgid ""
+"**Optimize videos for smoother playback?** Originals and export quality stay"
+" unchanged."
+msgstr ""
+"**Ottimizzare i video per una riproduzione più fluida?** Originali e qualità"
+" di esportazione rimangono invariati."
+
+#: ../doc/files.rst:201
+msgid ""
+"Click :guilabel:`Optimize Automatically` to enable automatic optimization "
+"for the current project. The banner disappears immediately, and qualifying "
+"videos are added to the optimization queue. Videos you import later also "
+"join the queue when they qualify, even if another video is already being "
+"optimized. You are not asked again for each file."
+msgstr ""
+"Clicca :guilabel:`Ottimizza automaticamente` per abilitare l'ottimizzazione "
+"automatica per il progetto corrente. Il banner scompare immediatamente e i "
+"video idonei vengono aggiunti alla coda di ottimizzazione. I video importati"
+" successivamente si uniscono alla coda quando sono idonei, anche se un altro"
+" video è già in fase di ottimizzazione. Non ti verrà chiesto di nuovo per "
+"ogni file."
+
+#: ../doc/files.rst:206
+msgid ""
+"You can continue editing while optimization runs. There is no progress "
+"banner; progress appears on the files in Project Files instead."
+msgstr ""
+"Puoi continuare a modificare mentre l'ottimizzazione è in corso. Non c'è un "
+"banner di progresso; il progresso appare invece sui file nei File di "
+"progetto."
+
+#: ../doc/files.rst:209
+msgid ""
+"Click :guilabel:`Not Now` or close the banner to decline. OpenShot remembers"
+" your choice when you save the project, so reopening it or importing more "
+"videos does not repeat the suggestion. To change your choice, check or "
+"uncheck :menuselection:`File --> Auto-Optimize` or press :kbd:`Ctrl+Alt+O` "
+"(:kbd:`Command+Alt+O` on macOS). Customize this shortcut in "
+":menuselection:`Edit --> Preferences --> Keyboard`. Turning it off stops new"
+" automatic work; jobs already started can be canceled through the file's "
+":guilabel:`Optimize` submenu. Existing optimized copies remain available."
+msgstr ""
+"Fai clic su :guilabel:`Non Ora` o chiudi il banner per rifiutare. OpenShot "
+"ricorda la tua scelta quando salvi il progetto, quindi riaprirlo o importare"
+" altri video non ripete il suggerimento. Per cambiare la tua scelta, "
+"seleziona o deseleziona :menuselection:`File --> Auto-Optimize` oppure premi"
+" :kbd:`Ctrl+Alt+O` (:kbd:`Command+Alt+O` su macOS). Personalizza questa "
+"scorciatoia in :menuselection:`Modifica --> Preferenze --> Tastiera`. "
+"Disattivandola si fermano i nuovi lavori automatici; i lavori già avviati "
+"possono essere annullati tramite il sottomenu :guilabel:`Ottimizza` del "
+"file. Le copie ottimizzate esistenti rimangono disponibili."
+
+#: ../doc/files.rst:217
+msgid ""
+"In :menuselection:`Edit --> Preferences`, open the :guilabel:`Optimize` tab "
+"(see :ref:`preferences_optimize_ref`):"
+msgstr ""
+"In :menuselection:`Modifica --> Preferenze`, apri la scheda "
+":guilabel:`Ottimizza` (vedi :ref:`preferences_optimize_ref`):"
+
+#: ../doc/files.rst:220
+msgid ""
+":guilabel:`Auto-Optimize`: :guilabel:`Ask` shows the banner and is the "
+"default. :guilabel:`Always` optimizes qualifying videos without a banner. "
+":guilabel:`Never` disables suggestions and automatic processing. These "
+"defaults apply to projects without a saved choice; a project's own setting "
+"takes precedence."
+msgstr ""
+":guilabel:`Auto-Ottimizza`: :guilabel:`Chiedi` mostra il banner ed è "
+"l'impostazione predefinita. :guilabel:`Sempre` ottimizza i video idonei "
+"senza mostrare il banner. :guilabel:`Mai` disabilita suggerimenti e processi"
+" automatici. Questi valori predefiniti si applicano ai progetti senza una "
+"scelta salvata; la configurazione del progetto ha la precedenza."
+
+#: ../doc/files.rst:224
+msgid ""
+":guilabel:`Auto-Optimize Threshold`: defaults to **200 ms**. Lower values "
+"include more videos; higher values include fewer. This measures producing "
+"the first thumbnail frame, not opening the file, saving the thumbnail, or "
+"waiting in a queue."
+msgstr ""
+":guilabel:`Soglia Auto-Ottimizza`: predefinita a **200 ms**. Valori più "
+"bassi includono più video; valori più alti ne includono meno. Questa misura "
+"il tempo per produrre il primo fotogramma della miniatura, non l'apertura "
+"del file, il salvataggio della miniatura o l'attesa in coda."
+
+#: ../doc/files.rst:227
+msgid ""
+":guilabel:`Optimized Preview Resolution` and :guilabel:`Concurrent Optimize "
+"Jobs` control the preview copies and how many videos can be processed at "
+"once."
+msgstr ""
+":guilabel:`Risoluzione Anteprima Ottimizzata` e :guilabel:`Lavori di "
+"Ottimizzazione Concorrenti` controllano le copie di anteprima e quanti video"
+" possono essere processati contemporaneamente."
+
+#: ../doc/files.rst:230
+msgid ""
+"Thumbnail timing is saved with each file in the project. OpenShot reuses a "
+"valid timing when you reopen the project on the same computer. A changed "
+"source file or a different computer needs a new measurement. When opening "
+"older projects, OpenShot refreshes missing timings in the background, one "
+"small thumbnail at a time, checking videos used on the timeline first. New "
+"checks pause during playback. Slow videos trigger the same banner; accepting"
+" it also checks and queues the remaining videos. Enabling :guilabel:`File → "
+"Auto-Optimize` starts these checks too. Choosing :guilabel:`Never` or "
+"dismissing the banner stops further checks for that project. Save the "
+"project to keep its timings for next time. You can always optimize videos "
+"manually."
+msgstr ""
+"Il tempo della miniatura viene salvato con ogni file nel progetto. OpenShot "
+"riutilizza un tempo valido quando riapri il progetto sullo stesso computer. "
+"Un file sorgente modificato o un computer diverso richiedono una nuova "
+"misurazione. Aprendo progetti più vecchi, OpenShot aggiorna i tempi mancanti"
+" in background, una piccola miniatura alla volta, controllando prima i video"
+" usati nella timeline. I nuovi controlli si mettono in pausa durante la "
+"riproduzione. I video lenti attivano lo stesso banner; accettandolo si "
+"controllano e mettono in coda anche i video rimanenti. Abilitare "
+":guilabel:`File → Auto-Ottimizza` avvia anche questi controlli. Scegliere "
+":guilabel:`Mai` o chiudere il banner ferma ulteriori controlli per quel "
+"progetto. Salva il progetto per mantenere i tempi per la prossima volta. "
+"Puoi sempre ottimizzare i video manualmente."
+
+#: ../doc/files.rst:240
+msgid ""
+"The threshold is a guide, not a guarantee of playback performance. Other "
+"applications can affect timing, and effects or overlapping clips can slow "
+"playback independently of the source video. Optimized copies use additional "
+"disk space in the project's assets folder; original files and export quality"
+" stay unchanged. Canceled or failed automatic jobs are not automatically "
+"retried during the current project session."
+msgstr ""
+"La soglia è una guida, non una garanzia delle prestazioni di riproduzione. "
+"Altre applicazioni possono influenzare i tempi, e effetti o clip sovrapposti"
+" possono rallentare la riproduzione indipendentemente dal video sorgente. Le"
+" copie ottimizzate usano spazio disco aggiuntivo nella cartella assets del "
+"progetto; i file originali e la qualità di esportazione rimangono invariati."
+" I lavori automatici annullati o falliti non vengono ritentati "
+"automaticamente durante la sessione corrente del progetto."
+
+#: ../doc/files.rst:246
+msgid ""
+"Closing OpenShot cancels queued and running optimization jobs. Active jobs "
+"finish their current processing step before closing, and unfinished preview "
+"files are removed."
+msgstr ""
+"Chiudere OpenShot annulla i lavori di ottimizzazione in coda e in "
+"esecuzione. I lavori attivi completano il passaggio di elaborazione corrente"
+" prima della chiusura, e i file di anteprima non completati vengono rimossi."
+
+#: ../doc/files.rst:250
+msgid "Optimization status"
+msgstr "Stato dell'ottimizzazione"
+
+#: ../doc/files.rst:251
+msgid ""
+"Hover over a file in Project Files to see its filename followed by a brief "
+"status:"
+msgstr ""
+"Passa il mouse su un file in File di Progetto per vedere il nome del file "
+"seguito da un breve stato:"
+
+#: ../doc/files.rst:257
+msgid "Tooltip status"
+msgstr "Stato del suggerimento"
+
+#: ../doc/files.rst:258
+msgid "Meaning"
+msgstr "Significato"
+
+#: ../doc/files.rst:259
+msgid "Queued for optimization"
+msgstr "In coda per l'ottimizzazione"
+
+#: ../doc/files.rst:260
+msgid "Waiting for an available optimization job slot."
+msgstr "In attesa di uno slot disponibile per l'ottimizzazione."
+
+#: ../doc/files.rst:261
+msgid "Optimizing for smoother playback — 35%"
+msgstr "Ottimizzazione per una riproduzione più fluida — 35%"
+
+#: ../doc/files.rst:262
+msgid "Creating a preview copy. The percentage shows progress."
+msgstr ""
+"Creazione di una copia di anteprima. La percentuale indica il progresso."
+
+#: ../doc/files.rst:263
+msgid "Optimized for smoother playback"
+msgstr "Ottimizzato per una riproduzione più fluida"
+
+#: ../doc/files.rst:264
+msgid "The preview copy is ready to use."
+msgstr "La copia di anteprima è pronta per l'uso."
+
+#: ../doc/files.rst:265
+msgid "Canceling optimization"
+msgstr "Annullamento dell'ottimizzazione"
+
+#: ../doc/files.rst:266
+msgid "Stopping the current job and cleaning up the unfinished copy."
+msgstr ""
+"Interruzione del lavoro corrente e pulizia della copia non completata."
+
+#: ../doc/files.rst:267
+msgid "Optimized preview missing"
+msgstr "Anteprima ottimizzata mancante"
+
+#: ../doc/files.rst:268
+msgid ""
+"The linked preview copy cannot be found. Recreate it with Optimize Video or "
+"link an existing copy."
+msgstr ""
+"La copia di anteprima collegata non può essere trovata. Ricreala con "
+"Ottimizza Video o collega una copia esistente."
+
+#: ../doc/files.rst:270
+msgid ""
+"To stop a queued or running job, right-click the file and choose "
+":menuselection:`Optimize --> Cancel`. Canceling a job does not turn off "
+":menuselection:`File --> Auto-Optimize` for later imports."
+msgstr ""
+"Per fermare un lavoro in coda o in esecuzione, clicca con il tasto destro "
+"sul file e scegli :menuselection:`Ottimizza --> Annulla`. Annullare un "
+"lavoro non disattiva :menuselection:`File --> Auto-Ottimizza` per "
+"importazioni successive."
+
+#: ../doc/files.rst:275
+msgid "Manual optimization"
+msgstr "Ottimizzazione manuale"
+
 # Translated with gpt-4.1-mini
-#: ../files.rst:130
+#: ../doc/files.rst:276
 msgid ""
 "For video files, the file context menu includes an :guilabel:`Optimize` "
-"submenu. This feature creates or links smaller preview copies of your source "
-"clips, which can improve playback and scrubbing on slower systems or with "
+"submenu. This feature creates or links smaller preview copies of your source"
+" clips, which can improve playback and scrubbing on slower systems or with "
 "high-resolution footage. Optimizing also pre-loads thumbnails to further "
 "improve the editing smoothness when zooming into the timeline."
 msgstr ""
-"Per i file video, il menu contestuale include un sottomenu :guilabel:"
-"`Ottimizza`. Questa funzione crea o collega copie di anteprima più piccole "
-"delle clip sorgente, migliorando la riproduzione e lo scorrimento su sistemi "
-"più lenti o con filmati ad alta risoluzione. L’ottimizzazione carica anche "
-"in anticipo le miniature per migliorare ulteriormente la fluidità del "
-"montaggio durante lo zoom sulla timeline."
+"Per i file video, il menu contestuale include un sottomenu "
+":guilabel:`Ottimizza`. Questa funzione crea o collega copie di anteprima più"
+" piccole delle clip sorgente, migliorando la riproduzione e lo scorrimento "
+"su sistemi più lenti o con filmati ad alta risoluzione. L’ottimizzazione "
+"carica anche in anticipo le miniature per migliorare ulteriormente la "
+"fluidità del montaggio durante lo zoom sulla timeline."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:135
+#: ../doc/files.rst:281
 msgid "The :guilabel:`Optimize` submenu contains these actions:"
 msgstr "Il sottomenu :guilabel:`Ottimizza` contiene queste azioni:"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:141
+#: ../doc/files.rst:287
 msgid "Action"
 msgstr "Azione"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:143
+#: ../doc/files.rst:289
 msgid "Optimize Video"
 msgstr "Ottimizza video"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:144
+#: ../doc/files.rst:290
 msgid ""
 "Create an optimized preview file for each selected video file. OpenShot "
 "stores these files in the project's ``optimized`` assets folder."
@@ -467,16 +887,17 @@ msgstr ""
 "del progetto."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:145
+#: ../doc/files.rst:291
 msgid "Link to Existing..."
 msgstr "Collega a esistenti..."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:146
+#: ../doc/files.rst:292
 msgid ""
-"Choose a folder containing already-created optimized files and link the best "
-"matching files to the selected source clips. This supports common proxy "
-"naming styles, known proxy suffixes, file ID suffixes, and extension changes."
+"Choose a folder containing already-created optimized files and link the best"
+" matching files to the selected source clips. This supports common proxy "
+"naming styles, known proxy suffixes, file ID suffixes, and extension "
+"changes."
 msgstr ""
 "Scegli una cartella contenente file ottimizzati già creati e collega i file "
 "più adatti alle clip sorgente selezionate. Supporta stili comuni di "
@@ -484,26 +905,26 @@ msgstr ""
 "estensione."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:147
+#: ../doc/files.rst:293
 msgid "Unlink"
 msgstr "Scollega"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:148
+#: ../doc/files.rst:294
 msgid ""
 "Remove the optimized preview link from the selected file without deleting "
 "the optimized file from disk."
 msgstr ""
-"Rimuove il collegamento all’anteprima ottimizzata dal file selezionato senza "
-"eliminare il file ottimizzato dal disco."
+"Rimuove il collegamento all’anteprima ottimizzata dal file selezionato senza"
+" eliminare il file ottimizzato dal disco."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:149
+#: ../doc/files.rst:295
 msgid "Delete & Unlink"
 msgstr "Elimina e scollega"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:150
+#: ../doc/files.rst:296
 msgid ""
 "Delete the linked optimized file from disk, then remove the link from the "
 "selected file."
@@ -512,50 +933,50 @@ msgstr ""
 "collegamento dal file selezionato."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:152
+#: ../doc/files.rst:298
 msgid ""
-"When optimization is in progress, the submenu changes to a single :guilabel:"
-"`Cancel` action for the selected file(s). Optimized preview files are used "
-"only for editing and preview playback. Your final export still uses the "
-"original source files."
+"When optimization is in progress, the submenu changes to a single "
+":guilabel:`Cancel` action for the selected file(s). Optimized preview files "
+"are used only for editing and preview playback. Your final export still uses"
+" the original source files."
 msgstr ""
 "Quando l’ottimizzazione è in corso, il sottomenu cambia in una singola "
 "azione :guilabel:`Annulla` per il/i file selezionato/i. I file di anteprima "
-"ottimizzati sono usati solo per il montaggio e la riproduzione di anteprima. "
-"L’esportazione finale utilizza ancora i file sorgente originali."
+"ottimizzati sono usati solo per il montaggio e la riproduzione di anteprima."
+" L’esportazione finale utilizza ancora i file sorgente originali."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:155
+#: ../doc/files.rst:301
 msgid ""
 "When you use :guilabel:`Link to Existing...`, OpenShot tries to match each "
-"selected source clip to an existing optimized file in a safe order. It first "
-"looks for the same base filename with a different video extension, then for "
-"common proxy-style names such as ``_proxy``, ``_preview``, ``_optimized``, "
-"``_lowres``, resolution tags such as ``_720p`` or ``_1080p``, and camera/"
-"editor-style variants such as ``_p``. It also supports names that add the "
-"OpenShot file ID after a known proxy suffix, such as ``clip001_proxy_F1."
-"mp4``, and it can still match files named only by file ID, such as ``F1."
-"mp4``."
+"selected source clip to an existing optimized file in a safe order. It first"
+" looks for the same base filename with a different video extension, then for"
+" common proxy-style names such as ``_proxy``, ``_preview``, ``_optimized``, "
+"``_lowres``, resolution tags such as ``_720p`` or ``_1080p``, and "
+"camera/editor-style variants such as ``_p``. It also supports names that add"
+" the OpenShot file ID after a known proxy suffix, such as "
+"``clip001_proxy_F1.mp4``, and it can still match files named only by file "
+"ID, such as ``F1.mp4``."
 msgstr ""
 "Quando usi :guilabel:`Collega a esistenti...`, OpenShot cerca di abbinare "
 "ogni clip sorgente selezionata a un file ottimizzato esistente in un ordine "
-"sicuro. Cerca prima lo stesso nome base con un’estensione video diversa, poi "
-"nomi comuni in stile proxy come ``_proxy``, ``_preview``, ``_optimized``, "
+"sicuro. Cerca prima lo stesso nome base con un’estensione video diversa, poi"
+" nomi comuni in stile proxy come ``_proxy``, ``_preview``, ``_optimized``, "
 "``_lowres``, tag di risoluzione come ``_720p`` o ``_1080p``, e varianti in "
 "stile camera/editor come ``_p``. Supporta anche nomi che aggiungono l’ID "
 "file OpenShot dopo un suffisso proxy noto, come ``clip001_proxy_F1.mp4``, e "
 "può abbinare anche file nominati solo con l’ID file, come ``F1.mp4``."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:162
+#: ../doc/files.rst:308
 msgid ""
 "Best practice when bringing your own optimized files is to keep the same "
 "base filename as the source clip and add a clear proxy-style suffix, for "
-"example ``clip001_proxy.mp4`` or ``clip001_proxy.mov``. If you need to avoid "
-"filename collisions, append the OpenShot file ID after the proxy suffix, for "
-"example ``clip001_proxy_F1.mp4``. Avoid unrelated suffixes such as "
-"``_final`` or ``_reviewcopy``, because OpenShot does not treat those as safe "
-"proxy naming patterns."
+"example ``clip001_proxy.mp4`` or ``clip001_proxy.mov``. If you need to avoid"
+" filename collisions, append the OpenShot file ID after the proxy suffix, "
+"for example ``clip001_proxy_F1.mp4``. Avoid unrelated suffixes such as "
+"``_final`` or ``_reviewcopy``, because OpenShot does not treat those as safe"
+" proxy naming patterns."
 msgstr ""
 "La migliore pratica quando si usano file ottimizzati propri è mantenere lo "
 "stesso nome base della clip sorgente e aggiungere un suffisso chiaro in "
@@ -565,100 +986,67 @@ msgstr ""
 "correlati come ``_final`` o ``_reviewcopy``, perché OpenShot non li "
 "considera pattern sicuri per la denominazione proxy."
 
-# Translated with gpt-4.1-mini
-#: ../files.rst:171
+#: ../doc/files.rst:317
 msgid ""
-"If you need to cut a large video file into many smaller files before "
-"editing, the **Split File** dialog is built exactly for this purpose. Right "
-"click on a file, and choose :guilabel:`Split File`. Use this dialog to "
-"quickly separate a large file into many smaller segments. For each segment, "
-"you can select the starting and ending frame, and a title. Each segment "
-"appears as a new file in the Project Files dialog."
+"Use **Split File** to choose the parts of a longer recording you want to "
+"work with. Right click a file in **Project Files** and choose "
+":guilabel:`Split File`. Select the start and end of a segment, give it an "
+"optional name, and click :guilabel:`Create`. Adjust the markers and repeat "
+"to prepare as many segments as you need."
 msgstr ""
-"Se hai bisogno di tagliare un grande file video in molti file più piccoli "
-"prima di modificare, la finestra di dialogo **Dividi file** è stata creata "
-"proprio per questo scopo. Fai clic con il tasto destro su un file e scegli :"
-"guilabel:`Dividi file`. Usa questa finestra per separare rapidamente un file "
-"grande in molti segmenti più piccoli. Per ogni segmento, puoi selezionare il "
-"fotogramma iniziale e finale, e un titolo. Ogni segmento appare come un "
-"nuovo file nella finestra File di progetto."
+"Usa **Dividi File** per scegliere le parti di una registrazione più lunga "
+"con cui vuoi lavorare. Clicca con il tasto destro su un file in **File di "
+"Progetto** e scegli :guilabel:`Dividi File`. Seleziona l'inizio e la fine di"
+" un segmento, assegnagli un nome opzionale e clicca :guilabel:`Crea`. Regola"
+" i marcatori e ripeti per preparare tutti i segmenti di cui hai bisogno."
 
-# Translated with gpt-4.1-mini
-#: ../files.rst:182 ../files.rst:216 ../files.rst:240
-msgid "#"
-msgstr "#"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:182 ../files.rst:216 ../files.rst:240
-msgid "Name"
-msgstr "Nome"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:184 ../files.rst:218 ../files.rst:242
-msgid "1"
-msgstr "1"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:184
-msgid "Start of File"
-msgstr "Inizio del file"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:184
-msgid "Choose the starting frame of your file by clicking this button"
-msgstr "Scegli il fotogramma iniziale del tuo file cliccando questo pulsante"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:185 ../files.rst:219 ../files.rst:243
-msgid "2"
-msgstr "2"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:185
-msgid "End of File"
-msgstr "Fine del file"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:185
-msgid "Choose the ending frame of your file by clicking this button"
-msgstr "Scegli il fotogramma finale del tuo file cliccando questo pulsante"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:186 ../files.rst:220
-msgid "3"
-msgstr "3"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:186
-msgid "Name of File"
-msgstr "Nome del file"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:186
-msgid "Enter an optional name"
-msgstr "Inserisci un nome opzionale"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:187 ../files.rst:221
-msgid "4"
-msgstr "4"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:187
-msgid "Create Button"
-msgstr "Pulsante Crea"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:187
+#: ../doc/files.rst:322
 msgid ""
-"Create the file (which resets this dialog, so you can repeat these steps for "
-"each segment)"
+"Each segment appears in Project Files and can be added to the timeline like "
+"any other file. The segments all use the original media on disk, so you can "
+"prepare them without making extra copies of the recording."
 msgstr ""
-"Crea il file (che resetta questa finestra, così puoi ripetere questi "
-"passaggi per ogni segmento)"
+"Ogni segmento appare in File di Progetto e può essere aggiunto alla timeline"
+" come qualsiasi altro file. I segmenti usano tutti il media originale su "
+"disco, quindi puoi prepararli senza creare copie extra della registrazione."
+
+#: ../doc/files.rst:325
+msgid ""
+"When you add a segment to the timeline, OpenShot gives its properties "
+"starting keyframes at the segment's beginning. For example, with "
+":ref:`auto_keyframes_ref` on, you can move to the end and change the "
+"rotation to make it turn over the length of that segment. The animation "
+"starts from the part you chose to use."
+msgstr ""
+"Quando aggiungi un segmento alla timeline, OpenShot assegna le sue proprietà"
+" iniziando i fotogrammi chiave all'inizio del segmento. Per esempio, con "
+":ref:`auto_keyframes_ref` attivato, puoi spostarti alla fine e cambiare la "
+"rotazione per farlo ruotare lungo tutta la durata di quel segmento. "
+"L'animazione parte dalla parte che hai scelto di usare."
+
+#: ../doc/files.rst:329
+msgid ""
+"If you have already animated a timeline clip, slicing it preserves that "
+"animation through the cut. Split File is useful for choosing your segments "
+"before you begin that work."
+msgstr ""
+"Se hai già animato una clip nella timeline, tagliarla preserva "
+"quell'animazione attraverso il taglio. Dividi File è utile per scegliere i "
+"tuoi segmenti prima di iniziare quel lavoro."
+
+#: ../doc/files.rst:332
+msgid ""
+"Preview an existing split-file entry to adjust its saved IN/OUT range. The "
+"ruler includes the surrounding footage, allowing you to extend the range "
+"again without reimporting the source."
+msgstr ""
+"Anteprima di una voce di file diviso esistente per regolare il suo "
+"intervallo IN/OUT salvato. Il righello include il filmato circostante, "
+"permettendoti di estendere nuovamente l'intervallo senza reimportare la "
+"sorgente."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:190
+#: ../doc/files.rst:336
 msgid ""
 "Please refer to the section :ref:`clips_cutting_slicing_ref` for more ways "
 "to cut and slice clips directly in the timeline."
@@ -667,31 +1055,31 @@ msgstr ""
 "tagliare e dividere le clip direttamente nella timeline."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:194
+#: ../doc/files.rst:340
 msgid ""
 "If you want your split file segments available outside of your OpenShot "
-"project, or want to copy all your video assets to one place, you can do this "
-"with the **Export Files** dialog. Simply :kbd:`Ctrl+Click` to select all the "
-"files you like, then :kbd:`Right Click` and choose :guilabel:`Export Files`. "
-"In the dialog that appears, choose a destination folder, and click :guilabel:"
-"`Export`."
+"project, or want to copy all your video assets to one place, you can do this"
+" with the **Export Files** dialog. Simply :kbd:`Ctrl+Click` to select all "
+"the files you like, then :kbd:`Right Click` and choose :guilabel:`Export "
+"Files`. In the dialog that appears, choose a destination folder, and click "
+":guilabel:`Export`."
 msgstr ""
 "Se vuoi che i segmenti dei file divisi siano disponibili al di fuori del "
 "progetto OpenShot, o vuoi copiare tutti i tuoi asset video in un unico "
-"posto, puoi farlo con la finestra di dialogo **Esporta file**. Basta :kbd:"
-"`Ctrl+Click` per selezionare tutti i file desiderati, poi :kbd:`Click "
+"posto, puoi farlo con la finestra di dialogo **Esporta file**. Basta "
+":kbd:`Ctrl+Click` per selezionare tutti i file desiderati, poi :kbd:`Click "
 "destro` e scegliere :guilabel:`Esporta file`. Nella finestra che appare, "
 "scegli una cartella di destinazione e clicca :guilabel:`Esporta`."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:199
+#: ../doc/files.rst:345
 msgid ""
 "NOTE: This will export each file or file segment using its **original video "
-"profile** (width, height, framerate, aspect ratio, etc...). It also supports "
-"any :ref:`split_clip_ref` (described above). For example, if you have split "
-"a long video file into many different segments (and named them), you can now "
-"export all the segments as separate video files (using the original file's "
-"video profile)."
+"profile** (width, height, framerate, aspect ratio, etc...). It also supports"
+" any :ref:`split_clip_ref` (described above). For example, if you have split"
+" a long video file into many different segments (and named them), you can "
+"now export all the segments as separate video files (using the original "
+"file's video profile)."
 msgstr ""
 "NOTA: Questo esporterà ogni file o segmento di file usando il suo **profilo "
 "video originale** (larghezza, altezza, frame rate, rapporto d'aspetto, "
@@ -701,65 +1089,96 @@ msgstr ""
 "separati (usando il profilo video originale del file)."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:206
+#: ../doc/files.rst:352
 msgid ""
 "In certain cases, you might need to add many files to the timeline at the "
 "same time. For example, a photo slideshow, or a large number of short video "
-"clips. The **Add to Timeline** dialog can automate this task for you. First, "
-"select all files you need to add, right click, and choose Add to Timeline."
+"clips. The **Add to Timeline** dialog can automate this task for you. First,"
+" select all files you need to add, right click, and choose Add to Timeline."
 msgstr ""
-"In alcuni casi, potresti aver bisogno di aggiungere molti file alla timeline "
-"contemporaneamente. Per esempio, una presentazione fotografica o un gran "
+"In alcuni casi, potresti aver bisogno di aggiungere molti file alla timeline"
+" contemporaneamente. Per esempio, una presentazione fotografica o un gran "
 "numero di brevi clip video. La finestra di dialogo **Aggiungi alla "
-"timeline** può automatizzare questo compito per te. Prima, seleziona tutti i "
-"file da aggiungere, clicca con il tasto destro e scegli Aggiungi alla "
+"timeline** può automatizzare questo compito per te. Prima, seleziona tutti i"
+" file da aggiungere, clicca con il tasto destro e scegli Aggiungi alla "
 "timeline."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:218
+#: ../doc/files.rst:362 ../doc/files.rst:386
+msgid "#"
+msgstr "#"
+
+# Translated with gpt-4.1-mini
+#: ../doc/files.rst:362 ../doc/files.rst:386
+msgid "Name"
+msgstr "Nome"
+
+# Translated with gpt-4.1-mini
+#: ../doc/files.rst:364 ../doc/files.rst:388
+msgid "1"
+msgstr "1"
+
+# Translated with gpt-4.1-mini
+#: ../doc/files.rst:364
 msgid "Selected Files"
 msgstr "File selezionati"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:218
+#: ../doc/files.rst:364
 msgid "The list of selected files that need to be added to the timeline"
-msgstr "La lista dei file selezionati che devono essere aggiunti alla timeline"
+msgstr ""
+"La lista dei file selezionati che devono essere aggiunti alla timeline"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:219
+#: ../doc/files.rst:365 ../doc/files.rst:389
+msgid "2"
+msgstr "2"
+
+# Translated with gpt-4.1-mini
+#: ../doc/files.rst:365
 msgid "Order of Files"
 msgstr "Ordine dei file"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:219
+#: ../doc/files.rst:365
 msgid ""
 "Use these buttons to reorder the list of files (move up, move down, "
 "randomize, remove)"
 msgstr ""
-"Usa questi pulsanti per riordinare la lista dei file (sposta su, sposta giù, "
-"casuale, rimuovi)"
+"Usa questi pulsanti per riordinare la lista dei file (sposta su, sposta giù,"
+" casuale, rimuovi)"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:220
+#: ../doc/files.rst:366
+msgid "3"
+msgstr "3"
+
+# Translated with gpt-4.1-mini
+#: ../doc/files.rst:366
 msgid "Timeline Position"
 msgstr "Posizione nella timeline"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:220
+#: ../doc/files.rst:366
 msgid ""
-"Choose the starting position and track where these files need to be inserted "
-"on the timeline"
+"Choose the starting position and track where these files need to be inserted"
+" on the timeline"
 msgstr ""
 "Scegli la posizione iniziale e la traccia dove questi file devono essere "
 "inseriti nella timeline"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:221
+#: ../doc/files.rst:367
+msgid "4"
+msgstr "4"
+
+# Translated with gpt-4.1-mini
+#: ../doc/files.rst:367
 msgid "Fade Options"
 msgstr "Opzioni di dissolvenza"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:221
+#: ../doc/files.rst:367
 msgid ""
 "Fade in, fade out, both, or none (only affects the image, and not audio)"
 msgstr ""
@@ -767,32 +1186,32 @@ msgstr ""
 "sull'immagine, non sull'audio)"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:222
+#: ../doc/files.rst:368
 msgid "5"
 msgstr "5"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:222
+#: ../doc/files.rst:368
 msgid "Zoom Options"
 msgstr "Opzioni di zoom"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:222
+#: ../doc/files.rst:368
 msgid "Zoom in, zoom out, or none"
 msgstr "Zoom avanti, zoom indietro o nessuno"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:223
+#: ../doc/files.rst:369
 msgid "6"
 msgstr "6"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:223
+#: ../doc/files.rst:369
 msgid "Transitions"
 msgstr "Transizioni"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:223
+#: ../doc/files.rst:369
 msgid ""
 "Choose a specific transition to use between files, random, or none (only "
 "affects the image, and not the audio)"
@@ -801,27 +1220,27 @@ msgstr ""
 "(influisce solo sull'immagine, non sull'audio)"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:229
+#: ../doc/files.rst:375
 msgid "Properties"
 msgstr "Proprietà"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:230
+#: ../doc/files.rst:376
 msgid ""
 "To view the properties of any imported file in your video project, right "
-"click on the file, and choose **File Properties**. This will launch the file "
-"properties dialog, which displays information about your media file. For "
+"click on the file, and choose **File Properties**. This will launch the file"
+" properties dialog, which displays information about your media file. For "
 "certain types of images (i.e. image sequences), you can adjust the frame "
 "rate on this dialog also."
 msgstr ""
 "Per visualizzare le proprietà di un file importato nel tuo progetto video, "
 "clicca con il tasto destro sul file e scegli **Proprietà file**. Questo "
-"aprirà la finestra delle proprietà del file, che mostra informazioni sul tuo "
-"file multimediale. Per alcuni tipi di immagini (es. sequenze di immagini), "
+"aprirà la finestra delle proprietà del file, che mostra informazioni sul tuo"
+" file multimediale. Per alcuni tipi di immagini (es. sequenze di immagini), "
 "puoi anche regolare il frame rate in questa finestra."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:242
+#: ../doc/files.rst:388
 msgid ""
 "Select an image sequence in the **Project Files** panel, right click and "
 "choose **File Properties**"
@@ -830,36 +1249,50 @@ msgstr ""
 "con il tasto destro e scegli **Proprietà file**"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:243
+#: ../doc/files.rst:389
 msgid "Frame Rate"
 msgstr "Frame rate"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:243
+#: ../doc/files.rst:389
 msgid ""
 "For image sequences, you can also adjust the frame rate of the animation"
 msgstr ""
 "Per le sequenze di immagini, puoi anche regolare il frame rate "
 "dell'animazione"
 
-# Translated with gpt-4.1-mini
-#: ../files.rst:252
+#: ../doc/files.rst:398
 msgid ""
-"This will remove a file from the project. It will not delete the underlying "
-"physical file though, so removing a file from the project merely makes it "
-"unavailable for this video project."
+"Removing an entry from **Project Files** does not delete the source media "
+"from disk."
 msgstr ""
-"Questo rimuoverà un file dal progetto. Tuttavia, non eliminerà il file "
-"fisico sottostante, quindi rimuovere un file dal progetto lo rende "
-"semplicemente non disponibile per questo progetto video."
+"Rimuovere una voce da **File di progetto** non elimina il file sorgente dal "
+"disco."
+
+#: ../doc/files.rst:400
+msgid ""
+"You can import the file again whenever you need it. For example, after "
+"preparing several :ref:`Split File segments <split_clip_ref>` and removing "
+"the original from Project Files, you might want to use a different part of "
+"the recording. Import it again to work with the whole recording; your "
+"existing segments stay as they are. If the original is already in Project "
+"Files, importing it again selects it."
+msgstr ""
+"Puoi importare nuovamente il file ogni volta che ne hai bisogno. Per "
+"esempio, dopo aver preparato diversi :ref:`segmenti di file diviso "
+"<split_clip_ref>` e aver rimosso l'originale dai File di progetto, potresti "
+"voler usare una parte diversa della registrazione. Importalo di nuovo per "
+"lavorare con l'intera registrazione; i tuoi segmenti esistenti rimangono "
+"invariati. Se l'originale è già nei File di progetto, importarlo di nuovo lo"
+" seleziona."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:257
+#: ../doc/files.rst:408
 msgid "Project Assets Folder"
 msgstr "Cartella degli asset del progetto"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:258
+#: ../doc/files.rst:409
 msgid ""
 "OpenShot creates and uses a few **temporary working folders** while you "
 "edit. These live under ``.openshot_qt/`` in your user profile and hold "
@@ -870,7 +1303,7 @@ msgstr ""
 "e contengono file specifici del progetto che OpenShot genera per te:"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:261
+#: ../doc/files.rst:412
 msgid ""
 "``.openshot_qt/blender/`` - Blender animation renders created by the "
 "Animated Title dialog"
@@ -879,12 +1312,13 @@ msgstr ""
 "finestra Titolo Animato"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:262
+#: ../doc/files.rst:413
 msgid "``.openshot_qt/title/`` - SVG title files created by the Title dialog"
-msgstr "``.openshot_qt/title/`` - File titolo SVG creati dalla finestra Titolo"
+msgstr ""
+"``.openshot_qt/title/`` - File titolo SVG creati dalla finestra Titolo"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:263
+#: ../doc/files.rst:414
 msgid ""
 "``.openshot_qt/thumbnail/`` - Thumbnails generated for Project Files and "
 "Timeline"
@@ -893,7 +1327,7 @@ msgstr ""
 "la timeline"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:264
+#: ../doc/files.rst:415
 msgid ""
 "``.openshot_qt/clipboard/`` - Media created from clipboard pastes (images, "
 "audio, or video that must be saved to disk first)"
@@ -902,7 +1336,7 @@ msgstr ""
 "(immagini, audio o video che devono prima essere salvati su disco)"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:265
+#: ../doc/files.rst:416
 msgid ""
 "``.openshot_qt/optimized/`` - Optimized preview files created for smoother "
 "editing"
@@ -911,13 +1345,13 @@ msgstr ""
 "montaggio più fluido"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:266
+#: ../doc/files.rst:417
 msgid "``.openshot_qt/protobuf_data`` - Tracking and object detection data"
 msgstr ""
 "``.openshot_qt/protobuf_data`` - Dati di tracciamento e rilevamento oggetti"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:268
+#: ../doc/files.rst:419
 msgid ""
 "When you choose **File→Save As**, OpenShot copies these folders into your "
 "project directory, inside a single folder named ``PROJECTNAME_Assets``. For "
@@ -927,12 +1361,12 @@ msgid ""
 msgstr ""
 "Quando scegli **File→Salva con nome**, OpenShot copia queste cartelle nella "
 "directory del progetto, all’interno di una singola cartella chiamata "
-"``PROJECTNAME_Assets``. Per esempio: ``MyProject_Assets/clipboard`` conterrà "
-"i media incollati dagli appunti, e ``MyProject_Assets/optimized`` conterrà i "
-"file di anteprima ottimizzati collegati al progetto."
+"``PROJECTNAME_Assets``. Per esempio: ``MyProject_Assets/clipboard`` conterrà"
+" i media incollati dagli appunti, e ``MyProject_Assets/optimized`` conterrà "
+"i file di anteprima ottimizzati collegati al progetto."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:272
+#: ../doc/files.rst:423
 #, fuzzy
 msgid ""
 "As part of this process, all paths inside your ``*.osp`` project file are "
@@ -944,46 +1378,47 @@ msgstr ""
 "backup come un'unica cartella."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:275
+#: ../doc/files.rst:426
 msgid "Missing Files"
 msgstr "File mancanti"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:277
+#: ../doc/files.rst:428
 msgid ""
 "When you create and save a project in OpenShot, any files imported into the "
 "software (such as videos, audio, and images) must remain accessible "
 "throughout the project's duration. This means that these imported files "
-"should not be renamed, deleted, or moved to different folders. Additionally, "
-"the full path where these files are located should not be renamed either. "
+"should not be renamed, deleted, or moved to different folders. Additionally,"
+" the full path where these files are located should not be renamed either. "
 "This principle applies to other video editing software as well."
 msgstr ""
 "Quando crei e salvi un progetto in OpenShot, tutti i file importati nel "
 "software (come video, audio e immagini) devono rimanere accessibili per "
 "tutta la durata del progetto. Ciò significa che questi file importati non "
-"devono essere rinominati, eliminati o spostati in cartelle diverse. Inoltre, "
-"il percorso completo in cui si trovano questi file non deve essere "
-"rinominato. Questo principio si applica anche ad altri software di montaggio "
-"video."
+"devono essere rinominati, eliminati o spostati in cartelle diverse. Inoltre,"
+" il percorso completo in cui si trovano questi file non deve essere "
+"rinominato. Questo principio si applica anche ad altri software di montaggio"
+" video."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:282
+#: ../doc/files.rst:433
 msgid ""
 "For example, users might move or delete folders, unplug their USB devices, "
-"or move or delete their project files. Any of these examples cause a :"
-"guilabel:`Missing File` message, in which OpenShot prompts you to locate the "
-"folder of the missing file(s). Depending on the number of files you added to "
-"your project, OpenShot could prompt you many times to find the missing files."
+"or move or delete their project files. Any of these examples cause a "
+":guilabel:`Missing File` message, in which OpenShot prompts you to locate "
+"the folder of the missing file(s). Depending on the number of files you "
+"added to your project, OpenShot could prompt you many times to find the "
+"missing files."
 msgstr ""
 "Ad esempio, gli utenti potrebbero spostare o eliminare cartelle, scollegare "
 "i dispositivi USB o spostare o eliminare i file del progetto. Qualsiasi di "
 "questi casi provoca un messaggio :guilabel:`File Mancante`, in cui OpenShot "
-"ti chiede di individuare la cartella del file o dei file mancanti. A seconda "
-"del numero di file aggiunti al progetto, OpenShot potrebbe chiederti più "
+"ti chiede di individuare la cartella del file o dei file mancanti. A seconda"
+" del numero di file aggiunti al progetto, OpenShot potrebbe chiederti più "
 "volte di trovare i file mancanti."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:286
+#: ../doc/files.rst:437
 msgid ""
 "When OpenShot saves a project, all file paths are converted to **relative** "
 "file paths. As long as you keep all assets organized in the same parent "
@@ -999,7 +1434,7 @@ msgstr ""
 "autonoma su un altro computer senza problemi."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:290
+#: ../doc/files.rst:441
 msgid ""
 "Everyone has their unique way of organizing files, and it's crucial to "
 "remember not to make changes to file paths, rename files, or delete files "
@@ -1007,9 +1442,90 @@ msgid ""
 "a detailed guide on missing file(s), see `The Case of “Missing Files”! "
 "<https://github.com/OpenShot/openshot-qt/wiki/Missing-File-Prompt>`_"
 msgstr ""
-"Ognuno ha il proprio modo di organizzare i file, ed è fondamentale ricordare "
-"di non modificare i percorsi dei file, rinominare o eliminare file quando si "
-"lavora con editor video, poiché ciò può causare problemi di file mancanti. "
-"Per una guida dettagliata sui file mancanti, consulta `Il Caso dei “File "
-"Mancanti”! <https://github.com/OpenShot/openshot-qt/wiki/Missing-File-"
-"Prompt>`_."
+"Ognuno ha il proprio modo di organizzare i file, ed è fondamentale ricordare"
+" di non modificare i percorsi dei file, rinominare o eliminare file quando "
+"si lavora con editor video, poiché ciò può causare problemi di file "
+"mancanti. Per una guida dettagliata sui file mancanti, consulta `Il Caso dei"
+" “File Mancanti”! <https://github.com/OpenShot/openshot-qt/wiki/Missing-"
+"File-Prompt>`_."
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "The :guilabel:`Preview File` action opens the Preview dialog for the "
+#~ "selected file from :guilabel:`Project Files`. Simply double check a file to "
+#~ "open this dialog."
+#~ msgstr ""
+#~ "L'azione :guilabel:`Anteprima File` apre la finestra di anteprima per il "
+#~ "file selezionato da :guilabel:`File di Progetto`. Basta fare doppio clic su "
+#~ "un file per aprire questa finestra."
+
+# Translated with gpt-4.1-mini
+#~ msgid "Playback starts automatically."
+#~ msgstr "La riproduzione inizia automaticamente."
+
+# Translated with gpt-4.1-mini
+#~ msgid "Loop is enabled by default."
+#~ msgstr "Il loop è abilitato di default."
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "If you need to cut a large video file into many smaller files before "
+#~ "editing, the **Split File** dialog is built exactly for this purpose. Right "
+#~ "click on a file, and choose :guilabel:`Split File`. Use this dialog to "
+#~ "quickly separate a large file into many smaller segments. For each segment, "
+#~ "you can select the starting and ending frame, and a title. Each segment "
+#~ "appears as a new file in the Project Files dialog."
+#~ msgstr ""
+#~ "Se hai bisogno di tagliare un grande file video in molti file più piccoli "
+#~ "prima di modificare, la finestra di dialogo **Dividi file** è stata creata "
+#~ "proprio per questo scopo. Fai clic con il tasto destro su un file e scegli "
+#~ ":guilabel:`Dividi file`. Usa questa finestra per separare rapidamente un "
+#~ "file grande in molti segmenti più piccoli. Per ogni segmento, puoi "
+#~ "selezionare il fotogramma iniziale e finale, e un titolo. Ogni segmento "
+#~ "appare come un nuovo file nella finestra File di progetto."
+
+# Translated with gpt-4.1-mini
+#~ msgid "Start of File"
+#~ msgstr "Inizio del file"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Choose the starting frame of your file by clicking this button"
+#~ msgstr "Scegli il fotogramma iniziale del tuo file cliccando questo pulsante"
+
+# Translated with gpt-4.1-mini
+#~ msgid "End of File"
+#~ msgstr "Fine del file"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Choose the ending frame of your file by clicking this button"
+#~ msgstr "Scegli il fotogramma finale del tuo file cliccando questo pulsante"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Name of File"
+#~ msgstr "Nome del file"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Enter an optional name"
+#~ msgstr "Inserisci un nome opzionale"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Create Button"
+#~ msgstr "Pulsante Crea"
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "Create the file (which resets this dialog, so you can repeat these steps for"
+#~ " each segment)"
+#~ msgstr ""
+#~ "Crea il file (che resetta questa finestra, così puoi ripetere questi "
+#~ "passaggi per ogni segmento)"
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "This will remove a file from the project. It will not delete the underlying "
+#~ "physical file though, so removing a file from the project merely makes it "
+#~ "unavailable for this video project."
+#~ msgstr ""
+#~ "Questo rimuoverà un file dal progetto. Tuttavia, non eliminerà il file "
+#~ "fisico sottostante, quindi rimuovere un file dal progetto lo rende "
+#~ "semplicemente non disponibile per questo progetto video."

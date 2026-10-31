@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 4.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: 2026-08-30 16:50-0500\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,11 +16,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../color.rst:23
+#: ../doc/color.rst:23
 msgid "Color"
 msgstr "Litur"
 
-#: ../color.rst:25
+#: ../doc/color.rst:25
 msgid ""
 "Have you ever noticed that thriller films look gritty and desaturated while "
 "romantic comedies feel vibrant and warm? That is not an accident — it is "
@@ -36,7 +36,7 @@ msgstr ""
 "til að nota hann, hvort sem þú ert að laga vandamál í upptöku eða byggja upp"
 " kvikmyndalegt útlit frá grunni."
 
-#: ../color.rst:32
+#: ../doc/color.rst:32
 msgid ""
 "*The OpenShot Color View: video preview in the center, Color Wheels dock on "
 "the right, and video scopes (Luma Waveform and Histogram) below.*"
@@ -44,7 +44,7 @@ msgstr ""
 "*OpenShot litaskoðun: myndbandsforskoðun í miðjunni, litahjól við hægri kant"
 " og myndbandsmælar (Luma bylgjulína og litróf) fyrir neðan.*"
 
-#: ../color.rst:37
+#: ../doc/color.rst:37
 msgid ""
 ":ref:`effects_color_grade` in :doc:`effects` — full property reference and "
 "keyframe details for the Color Grade effect."
@@ -52,11 +52,11 @@ msgstr ""
 ":ref:`effects_color_grade` í :doc:`effects` — fullkomin eiginleika- og "
 "lykilrammaupplýsingar fyrir litastigseiginleikann."
 
-#: ../color.rst:43
+#: ../doc/color.rst:43
 msgid "Understanding Color"
 msgstr "Skilningur á lit"
 
-#: ../color.rst:45
+#: ../doc/color.rst:45
 msgid ""
 "Every pixel in a digital video frame is made of three numbers: **Red**, "
 "**Green**, and **Blue** (each 0–255). White is all three at maximum; black "
@@ -70,11 +70,11 @@ msgstr ""
 "Samsetning aðalrita skapar aukalitina (rauður + grænn = gulur, rauður + blár"
 " = magenta, grænn + blár = cyan)."
 
-#: ../color.rst:49
+#: ../doc/color.rst:49
 msgid "Four properties you will adjust constantly:"
 msgstr "Fjórar eiginleikar sem þú munt stilla stöðugt:"
 
-#: ../color.rst:51
+#: ../doc/color.rst:51
 msgid ""
 "**Exposure** — overall brightness. Overexposed footage has many pixels near "
 "255 (blown-out highlights); underexposed footage is crushed near 0."
@@ -82,7 +82,7 @@ msgstr ""
 "**Birta** — heildarlýsing. Ofbirt efni hefur marga pixla nálægt 255 "
 "(ofbirtir hápunktar); undirbirt efni er þjappað nálægt 0."
 
-#: ../color.rst:53
+#: ../doc/color.rst:53
 msgid ""
 "**Contrast** — the spread between brightest and darkest. High contrast is "
 "dramatic; low contrast looks flat or milky."
@@ -90,7 +90,7 @@ msgstr ""
 "**Andstæða** — munurinn á milli bjartasta og dimmasta. Há andstæða er "
 "dramatísk; lág andstæða lítur út fyrir að vera flöt eða mjólkurkennd."
 
-#: ../color.rst:55
+#: ../doc/color.rst:55
 msgid ""
 "**Saturation** — how vivid the colors are. Zero saturation = grayscale. "
 "Cameras often record slightly less saturation than reality to give editors "
@@ -100,7 +100,7 @@ msgstr ""
 "Myndavélar taka oft upp aðeins minni mettun en raunveruleikinn til að gefa "
 "ritstjórum meira svigrúm."
 
-#: ../color.rst:57
+#: ../doc/color.rst:57
 msgid ""
 "**Hue** — the actual color (red, yellow, green, blue…). Shifting hue rotates"
 " all colors around the color wheel and is mostly used for creative stylistic"
@@ -110,11 +110,11 @@ msgstr ""
 "litblæ snýr öllum litum í kringum litahjólið og er mest notað fyrir skapandi"
 " stíláhrif."
 
-#: ../color.rst:61
+#: ../doc/color.rst:61
 msgid "Video Scopes — What They Are and Why They Matter"
 msgstr "Myndbandsmælar — hvað þeir eru og hvers vegna þeir skipta máli"
 
-#: ../color.rst:63
+#: ../doc/color.rst:63
 msgid ""
 "Your monitor is not a reliable measuring tool — room lighting, screen "
 "brightness, and uncalibrated displays all affect what you see. **Video "
@@ -126,7 +126,7 @@ msgstr ""
 "raunveruleg pixilgildi í myndinni þinni sem nákvæmar línurit. Þeir ljúga "
 "aldrei, jafnvel þó skjárinn þinn geri það."
 
-#: ../color.rst:67
+#: ../doc/color.rst:67
 msgid ""
 "OpenShot includes three scopes, all accessible from :guilabel:`View → "
 "Scopes` or opened automatically by the clip menu options described in "
@@ -136,7 +136,7 @@ msgstr ""
 ":guilabel:`Skoða → Mælar` eða opnast sjálfkrafa með valkostum í klippum sem "
 "lýst er í :ref:`getting_started_ref`:"
 
-#: ../color.rst:70
+#: ../doc/color.rst:70
 msgid ""
 "**Luma Waveform** — shows brightness across the frame, column by column. "
 "Instantly reveals overexposure, underexposure, and contrast problems. See "
@@ -145,7 +145,7 @@ msgstr ""
 "**Luma bylgjulína** — sýnir birtu yfir rammann, dálk fyrir dálk. Afhjúpar "
 "strax ofbirtu, undirbirtu og andstæðuvandamál. Sjá :ref:`luma_waveform_ref`."
 
-#: ../color.rst:72
+#: ../doc/color.rst:72
 msgid ""
 "**Histogram** — shows how many pixels exist at each brightness level. Great "
 "for exposure and channel balance at a glance. See :ref:`histogram_ref`."
@@ -153,7 +153,7 @@ msgstr ""
 "**Litróf** — sýnir hversu margir pixlar eru á hverju birtustigi. Frábært til"
 " að meta birtu og jafnvægi rása í fljótu bragði. Sjá :ref:`histogram_ref`."
 
-#: ../color.rst:74
+#: ../doc/color.rst:74
 msgid ""
 "**Vectorscope** — a circular chroma plot showing the hue and saturation of "
 "every pixel. Ideal for checking color casts, overall saturation, and — with "
@@ -163,7 +163,7 @@ msgstr ""
 "pixils. Frábært til að athuga litaskekkju, heildarmettun og — með innbyggðu "
 "húðlitarlínu — meta andlit. Sjá :ref:`vectorscope_ref`."
 
-#: ../color.rst:78
+#: ../doc/color.rst:78
 msgid ""
 "Every scope also has a **Region** button in its toolbar. Click it and drag a"
 " box over any part of the video preview to restrict scope analysis to just "
@@ -175,11 +175,11 @@ msgstr ""
 " mælingar við það svæði — gagnlegt til að einangra andlit, himin eða ákveðið"
 " svæði í ramma."
 
-#: ../color.rst:83
+#: ../doc/color.rst:83
 msgid "Color Correction — Fixing What Is Wrong"
 msgstr "Litaleiðrétting — að laga það sem er rangt"
 
-#: ../color.rst:85
+#: ../doc/color.rst:85
 msgid ""
 "**Color correction** is the process of fixing technical problems in footage "
 "so it looks the way reality appeared: wrong white balance, bad exposure, "
@@ -192,11 +192,11 @@ msgstr ""
 "lítur náttúrulega út og heldur sér á öllum skjám. Sjá "
 ":ref:`color_correction_ref`."
 
-#: ../color.rst:90
+#: ../doc/color.rst:90
 msgid "Color Grading — Building a Look"
 msgstr "Litastigun — að byggja upp útlit"
 
-#: ../color.rst:92
+#: ../doc/color.rst:92
 msgid ""
 "**Color grading** is the creative step: using the same tools to give "
 "corrected footage a deliberate visual mood or style. A warm golden "
@@ -210,11 +210,11 @@ msgstr ""
 "appelsínugult — stigun er þar sem efnið fer úr „lítur rétt út“ í „lítur "
 "meðvitað út“. Sjá :ref:`color_grading_ref`."
 
-#: ../color.rst:99
+#: ../doc/color.rst:99
 msgid "Getting Started"
 msgstr "Byrjaðu"
 
-#: ../color.rst:101
+#: ../doc/color.rst:101
 msgid ""
 "OpenShot offers several ways to open its color tools, depending on what you "
 "need:"
@@ -222,11 +222,11 @@ msgstr ""
 "OpenShot býður upp á nokkra vegu til að opna litatól sín, eftir því hvað þú "
 "þarft:"
 
-#: ../color.rst:106
+#: ../doc/color.rst:106
 msgid "**Right-click a clip → Look → Adjust Colors**"
 msgstr "**Hægri smelltu á klippu → Útlit → Stilltu liti**"
 
-#: ../color.rst:104
+#: ../doc/color.rst:104
 msgid ""
 "The quickest all-in-one setup. OpenShot adds the :guilabel:`Color Grade` "
 "effect to the clip, selects it, opens the :guilabel:`Properties` panel, and "
@@ -238,7 +238,7 @@ msgstr ""
 "sýnir :guilabel:`Litahjól` viðmótið og alla þrjá myndbandsmæla — tilbúið til"
 " að stigun hefjist strax."
 
-#: ../color.rst:110
+#: ../doc/color.rst:110
 msgid ""
 "**Right-click a clip → Look → Color → [preset]** *(Auto Contrast, Lift "
 "Shadows, Warm Up, Boost Color…)*"
@@ -246,7 +246,7 @@ msgstr ""
 "**Hægri smelltu á klippu → Útlit → Litur → [forsniðinn]** *(Sjálfvirk "
 "andstæða, Lyftu skuggum, Hitaðu upp, Auka lit…)*"
 
-#: ../color.rst:109
+#: ../doc/color.rst:109
 msgid ""
 "Adds the Color Grade effect with a useful preset already applied. The Color "
 "Wheels and scopes are not opened automatically — open them any time from "
@@ -256,11 +256,11 @@ msgstr ""
 "er að beita. Litahjól og mælar opnast ekki sjálfkrafa — opnaðu þá hvenær sem"
 " er úr :guilabel:`Skoða → Mælar`."
 
-#: ../color.rst:115
+#: ../doc/color.rst:115
 msgid "**Right-click a clip → Look → Analyze Colors**"
 msgstr "**Hægri smelltu á klippu → Útlit → Greindu liti**"
 
-#: ../color.rst:113
+#: ../doc/color.rst:113
 msgid ""
 "Opens all three scopes (Luma Waveform, Histogram, and Vectorscope, tabbed "
 "together on the right) without adding any Color Grade effect. Use this to "
@@ -272,11 +272,11 @@ msgstr ""
 " meta efni áður en þú ákveður hvort það þurfi stigun, eða einfaldlega til að"
 " fylgjast með stigum meðan á spilun stendur."
 
-#: ../color.rst:120
+#: ../doc/color.rst:120
 msgid "**View → Color View** *(optional immersive mode)*"
 msgstr "**Skoða → Litaskoðun** *(valfrjáls innlifunarstilling)*"
 
-#: ../color.rst:118
+#: ../doc/color.rst:118
 msgid ""
 "Switches the entire interface into a dedicated color grading layout: the "
 "video preview is maximized in the center, non-color docks are hidden, the "
@@ -288,11 +288,11 @@ msgstr ""
 "hægra megin og mælar birtast neðst. Skiptu aftur í venjulegt útlit úr sama "
 "valmynd þegar þú ert búinn."
 
-#: ../color.rst:123
+#: ../doc/color.rst:123
 msgid "**Effects tab → drag Color Grade onto a clip**"
 msgstr "**Áhrifaflipi → dragðu Litastig á klippu**"
 
-#: ../color.rst:123
+#: ../doc/color.rst:123
 msgid ""
 "The fully manual approach. Add the effect without opening any docks "
 "automatically."
@@ -300,11 +300,11 @@ msgstr ""
 "Algerlega handvirk aðferð. Bættu áhrifinu við án þess að opna neina dokka "
 "sjálfkrafa."
 
-#: ../color.rst:128
+#: ../doc/color.rst:128
 msgid "Video Scopes"
 msgstr "Myndbandsmælar"
 
-#: ../color.rst:130
+#: ../doc/color.rst:130
 msgid ""
 "Each scope updates live as the playhead moves. Use the **Region** button in "
 "any scope's toolbar to analyze just a selected area of the preview rather "
@@ -314,11 +314,11 @@ msgstr ""
 "hnappinn í verkfærastikunni á hvaða mæli sem er til að greina aðeins valið "
 "svæði forskoðunar frekar en alla rammann."
 
-#: ../color.rst:136
+#: ../doc/color.rst:136
 msgid "The Luma Waveform"
 msgstr "Luma bylgjulínurit"
 
-#: ../color.rst:138
+#: ../doc/color.rst:138
 msgid ""
 "The Luma Waveform maps every pixel by horizontal position (X axis = left-to-"
 "right across the frame) and brightness (Y axis = 0% at bottom to 100% at "
@@ -330,7 +330,7 @@ msgstr ""
 "efst). Þar sem margir pixlar deila sama birtustigi á sömu láréttu stöðu, "
 "glóir línan bjartari."
 
-#: ../color.rst:144
+#: ../doc/color.rst:144
 msgid ""
 "*The Luma Waveform in RGB Parade mode, showing red, green, and blue channels"
 " side by side.*"
@@ -338,17 +338,17 @@ msgstr ""
 "*Luma bylgjulínuritið í RGB skrúðgöngu ham, sýnir rauða, græna og bláa rás "
 "hlið við hlið.*"
 
-#: ../color.rst:146 ../color.rst:188 ../color.rst:230
+#: ../doc/color.rst:146 ../doc/color.rst:188 ../doc/color.rst:230
 msgid "**How to read it:**"
 msgstr "**Hvernig á að lesa það:**"
 
-#: ../color.rst:148
+#: ../doc/color.rst:148
 msgid "Waveform clustered near the **bottom** → underexposed. Raise Exposure."
 msgstr ""
 "Bylgjulína safnast nálægt **neðri hluta** → undirexponeruð. Hækkaðu "
 "útsetningu."
 
-#: ../color.rst:149
+#: ../doc/color.rst:149
 msgid ""
 "Waveform packed against the **top** → overexposed. Lower Exposure or "
 "Highlights."
@@ -356,7 +356,7 @@ msgstr ""
 "Bylgjulína þétt við **efri brún** → yfirexponeruð. Lækkaðu útsetningu eða "
 "hápunktana."
 
-#: ../color.rst:150
+#: ../doc/color.rst:150
 msgid ""
 "A **narrow horizontal band** in the middle → low contrast, image looks "
 "milky. Increase Contrast."
@@ -364,7 +364,7 @@ msgstr ""
 "Þröng **lárétt rönd** í miðjunni → lítill kontrastur, myndin lítur út fyrir "
 "að vera mjólkurkennd. Hækkaðu kontrast."
 
-#: ../color.rst:151
+#: ../doc/color.rst:151
 msgid ""
 "A **thick line at the very bottom** → blacks are crushed. Raise Shadows or "
 "lift the bottom-left point of Curve: All to restore shadow detail."
@@ -372,7 +372,7 @@ msgstr ""
 "Þykk **lína neðst** → svört svæði eru þjappuð. Hækkaðu skugga eða lyftu "
 "neðra vinstra punkti á Línu: Allt til að endurheimta smáatriði í skuggum."
 
-#: ../color.rst:154
+#: ../doc/color.rst:154
 msgid ""
 "IRE reference lines appear at 10%, 50%, and 90% as faint dashed lines. A "
 "well-exposed image keeps highlights below 90% and shadows above 5%."
@@ -380,23 +380,23 @@ msgstr ""
 "IRE viðmiðunarlínur birtast við 10%, 50% og 90% sem fölskraðar línur. Vel "
 "útsett mynd heldur hápunktum undir 90% og skuggum yfir 5%."
 
-#: ../color.rst:158
+#: ../doc/color.rst:158
 msgid "Waveform Modes"
 msgstr "Bylgjulína hamir"
 
-#: ../color.rst:164
+#: ../doc/color.rst:164
 msgid "Mode"
 msgstr "Hamur"
 
-#: ../color.rst:164
+#: ../doc/color.rst:164
 msgid "What It Shows"
 msgstr "Hvað það sýnir"
 
-#: ../color.rst:166
+#: ../doc/color.rst:166
 msgid "Luma"
 msgstr "Luma"
 
-#: ../color.rst:166
+#: ../doc/color.rst:166
 msgid ""
 "Brightness only (ignores color). Best for exposure and contrast work. Trace "
 "color can be changed to Green, White, or Orange."
@@ -404,11 +404,11 @@ msgstr ""
 "Aðeins birtustig (hunsar lit). Best fyrir útsetningu og kontrastvinnu. Litur"
 " línu má breyta í Grænan, Hvítan eða Appelsínugulan."
 
-#: ../color.rst:168
+#: ../doc/color.rst:168
 msgid "RGB Overlay"
 msgstr "RGB yfirlag"
 
-#: ../color.rst:168
+#: ../doc/color.rst:168
 msgid ""
 "Red, green, and blue channels drawn on top of each other in their natural "
 "colors. Quick visual check for overall channel balance."
@@ -416,11 +416,11 @@ msgstr ""
 "Rauður, grænn og blár rás teiknaðar ofan á hvor aðra í sínum náttúrulegu "
 "litum. Fljótlegt sjónrænt mat á jafnvægi rása."
 
-#: ../color.rst:170
+#: ../doc/color.rst:170
 msgid "RGB Parade"
 msgstr "RGB skrúðganga"
 
-#: ../color.rst:170
+#: ../doc/color.rst:170
 msgid ""
 "Three side-by-side panels (R, G, B). If one panel sits noticeably higher "
 "than the others in areas that should be neutral, white balance is off. Blue "
@@ -430,19 +430,19 @@ msgstr ""
 "en hin í hlutum sem eiga að vera hlutlausir, er hvítajafnvægið rangt. Blár "
 "hærri en rauður í hápunktum → myndin er of köld."
 
-#: ../color.rst:173
+#: ../doc/color.rst:173
 msgid "Red / Green / Blue"
 msgstr "Rauður / Grænn / Blár"
 
-#: ../color.rst:173
+#: ../doc/color.rst:173
 msgid "Shows a single channel in isolation."
 msgstr "Sýnir eina rás í einangrun."
 
-#: ../color.rst:179
+#: ../doc/color.rst:179
 msgid "The Histogram"
 msgstr "Dreifirit"
 
-#: ../color.rst:181
+#: ../doc/color.rst:181
 msgid ""
 "The Histogram sorts all pixels by brightness (0 = black on the left, 255 = "
 "white on the right) and shows how many pixels exist at each level as a bar "
@@ -452,15 +452,15 @@ msgstr ""
 "255 = hvítt hægra megin) og sýnir hversu margir pixlar eru á hverju stigi "
 "sem súlurit. Rauður, grænn, blár og luma eru lögð yfir."
 
-#: ../color.rst:186
+#: ../doc/color.rst:186
 msgid "*The Histogram in All Channels / Logarithmic mode.*"
 msgstr "*Dreifiritið í öllum rásum / Logrithma ham.*"
 
-#: ../color.rst:190
+#: ../doc/color.rst:190
 msgid "Bars **clustered left** → underexposed."
 msgstr "Súlur **safnast til vinstri** → undirexponeruð."
 
-#: ../color.rst:191
+#: ../doc/color.rst:191
 msgid ""
 "Bars **pushed against the right edge** → overexposed, possibly clipping. A "
 "sharp wall on the right means highlight detail is gone."
@@ -468,7 +468,7 @@ msgstr ""
 "Súlur **þrýstast að hægri brún** → yfirexponeruð, mögulega skerðing. Skörp "
 "veggur hægra megin þýðir að hápunktaupplýsingar eru horfnar."
 
-#: ../color.rst:193
+#: ../doc/color.rst:193
 msgid ""
 "A **narrow hill in the middle** → low contrast. Increasing Contrast will "
 "spread the bars out."
@@ -476,11 +476,11 @@ msgstr ""
 "Þröngur **hóll í miðjunni** → lítill kontrastur. Að auka kontrast mun dreifa"
 " súlunum."
 
-#: ../color.rst:195
+#: ../doc/color.rst:195
 msgid "The Histogram dock has two dropdowns:"
 msgstr "Dreifiritadokkurinn hefur tvo fellivalmyndir:"
 
-#: ../color.rst:197
+#: ../doc/color.rst:197
 msgid ""
 "**Channel** — *All Channels* shows R, G, B, and luma overlaid; individual "
 "options isolate one. If the Red histogram extends further right than Green "
@@ -490,7 +490,7 @@ msgstr ""
 "valmöguleikar einangra eina. Ef rauða dreifiritið nær lengra til hægri en "
 "græna og bláa, er myndin hlý."
 
-#: ../color.rst:199
+#: ../doc/color.rst:199
 msgid ""
 "**Scale** — *Logarithmic* (default) keeps rare tonal values visible. "
 "*Linear* shows raw counts, useful for comparing the relative weight of "
@@ -500,11 +500,11 @@ msgstr ""
 " *Línulegur* sýnir hráar tölur, gagnlegt til að bera saman hlutfallslega "
 "þyngd mismunandi tóna."
 
-#: ../color.rst:205
+#: ../doc/color.rst:205
 msgid "The Vectorscope"
 msgstr "Vektorrit"
 
-#: ../color.rst:207
+#: ../doc/color.rst:207
 msgid ""
 "The Vectorscope is a 2D chroma plot. Each pixel is placed on a circular "
 "graph by its **hue** (direction from center) and **saturation** (distance "
@@ -516,13 +516,13 @@ msgstr ""
 "Pixill í miðjunni er litlaus (grár eða svartur); einn á brún er "
 "fullmettaður."
 
-#: ../color.rst:213
+#: ../doc/color.rst:213
 msgid ""
 "*The Vectorscope in Colorized mode, with the skin tone cluster visible near "
 "the center.*"
 msgstr "*Vektorritið í litahætti, með húðlitarhóp sýnilegan nálægt miðju.*"
 
-#: ../color.rst:215
+#: ../doc/color.rst:215
 msgid ""
 "The outer ring shows broadcast hue labels — **R** (red), **Mg** (magenta), "
 "**B** (blue), **Cy** (cyan), **G** (green), **Yi** (yellow) — at their "
@@ -536,11 +536,11 @@ msgstr ""
 " allir húðlitir manna, frá ljósasta til dökkasta, ættu að falla nokkurn "
 "veginn eftir þessari línu í gul-appelsínugulu svæði milli Yi og R."
 
-#: ../color.rst:220
+#: ../doc/color.rst:220
 msgid "**Display modes:**"
 msgstr "**Sýningarhamir:**"
 
-#: ../color.rst:222
+#: ../doc/color.rst:222
 msgid ""
 "**Colorized** (default) — each plotted pixel adopts the hue color of its "
 "position on the wheel. Makes it easy to see which colors are present and how"
@@ -550,7 +550,7 @@ msgstr ""
 " á hjólinu. Gør það auðvelt að sjá hvaða litir eru til staðar og hversu "
 "mettaðir þeir eru."
 
-#: ../color.rst:224
+#: ../doc/color.rst:224
 msgid ""
 "**Density** — monochrome brightness. Brighter = more pixels sharing that "
 "hue/saturation. Good for focusing on shape and balance rather than color "
@@ -560,7 +560,7 @@ msgstr ""
 "litbrigði/mettun. Gott til að einbeita sér að lögun og jafnvægi frekar en "
 "litareinkenni."
 
-#: ../color.rst:226
+#: ../doc/color.rst:226
 msgid ""
 "**Intensity** — heatmap from blue (sparse) to red (dense). Quickly shows "
 "which colors dominate."
@@ -568,7 +568,7 @@ msgstr ""
 "**Styrkur** — hitakort frá bláum (dreifður) til rauðs (þéttur). Sýnir fljótt"
 " hvaða litir ráða."
 
-#: ../color.rst:228
+#: ../doc/color.rst:228
 msgid ""
 "**Zoom:** 100%, 200%, or 400%. Use 200% for skin tone work — it magnifies "
 "subtle shifts near center."
@@ -576,7 +576,7 @@ msgstr ""
 "**Skerpa:** 100%, 200% eða 400%. Notaðu 200% fyrir húðlitavinnu — það "
 "stækkar smáar breytingar nálægt miðju."
 
-#: ../color.rst:232
+#: ../doc/color.rst:232
 msgid ""
 "Plot concentrated near the **center** → image is desaturated. Increase "
 "Saturation or Vibrance."
@@ -584,7 +584,7 @@ msgstr ""
 "Punktar safnast saman nálægt **miðjunni** → myndin er litlaus. Auka mettun "
 "eða lífskraft."
 
-#: ../color.rst:233
+#: ../doc/color.rst:233
 msgid ""
 "Plot tilted toward one side → color cast. Use Temperature, Tint, or the "
 "Global color wheel to push the cluster back toward center."
@@ -592,7 +592,7 @@ msgstr ""
 "Punktar hallast til annars vegar → litaskekkja. Notaðu Hitastig, Litblöndu "
 "eða Alheims litahjólið til að ýta hópnum aftur að miðju."
 
-#: ../color.rst:235
+#: ../doc/color.rst:235
 msgid ""
 "For **skin tone evaluation**: use the Region selector to draw a box over a "
 "face in the preview. The cluster should fall along the dashed skin tone line"
@@ -602,11 +602,11 @@ msgstr ""
 "forskoðun. Hópurinn ætti að falla eftir strikalínu húðlitarins (sjá "
 ":ref:`skin_tones_ref`)."
 
-#: ../color.rst:241
+#: ../doc/color.rst:241
 msgid "Color Correction"
 msgstr "Lita leiðrétting"
 
-#: ../color.rst:243
+#: ../doc/color.rst:243
 msgid ""
 "Color correction fixes technical problems — wrong white balance, bad "
 "exposure, flat contrast — so footage looks clean and natural. It is always "
@@ -616,11 +616,11 @@ msgstr ""
 " flatur kontrast — svo efnið lítur hreint og náttúrulegt út. Þetta er alltaf"
 " fyrsta skrefið, áður en unnið er skapandi."
 
-#: ../color.rst:249
+#: ../doc/color.rst:249
 msgid "White Balance — Making Whites Look White"
 msgstr "Hvítajafnvægi — Láta hvítt líta út eins og hvítt"
 
-#: ../color.rst:251
+#: ../doc/color.rst:251
 msgid ""
 "Different light sources cast different colors: incandescent bulbs are "
 "orange-warm, fluorescent lights are greenish, open shade is cool blue. When "
@@ -632,7 +632,7 @@ msgstr ""
 "sjálfvirkt hvítajafnvægi myndavélarinnar gerir rangt mat, lítur efnið út "
 "fyrir að vera litað. Að laga þetta er næstum alltaf fyrsta skrefið þitt."
 
-#: ../color.rst:255
+#: ../doc/color.rst:255
 msgid ""
 "Use **Temperature** and **Tint** in the :guilabel:`Color Grade` effect "
 "properties:"
@@ -640,7 +640,7 @@ msgstr ""
 "Notaðu **Hitastig** og **Litblöndu** í eiginleikum :guilabel:`Lita stigunar`"
 " áhrifa:"
 
-#: ../color.rst:257
+#: ../doc/color.rst:257
 msgid ""
 "**Temperature** — shifts the image warmer (positive) or cooler (negative). "
 "Footage that looks too orange? Slide it negative."
@@ -648,7 +648,7 @@ msgstr ""
 "**Hitastig** — færist myndin hlýrri (jákvætt) eða kaldari (neikvætt). Ef "
 "efnið lítur of appelsínugult út, dragðu það neikvætt."
 
-#: ../color.rst:259
+#: ../doc/color.rst:259
 msgid ""
 "**Tint** — fine-tunes green/magenta balance. Use this after Temperature to "
 "remove a lingering fluorescent tinge. Positive = magenta, negative = green."
@@ -657,7 +657,7 @@ msgstr ""
 "Hitastig til að fjarlægja eftirvænt flúrljósa litbrigði. Jákvætt = magenta, "
 "neikvætt = grænt."
 
-#: ../color.rst:262
+#: ../doc/color.rst:262
 msgid ""
 "A quick check: find something in the shot that should be neutral — a white "
 "wall, a gray shirt, the whites of someone's eyes. The **RGB Parade** "
@@ -669,11 +669,11 @@ msgstr ""
 " gerir þetta hlutlægt: allar þrjár rásir ættu að vera á sama hæð í þeim "
 "hlutlausu svæðum."
 
-#: ../color.rst:269
+#: ../doc/color.rst:269
 msgid "Skin Tones"
 msgstr "Húðlitar"
 
-#: ../color.rst:271
+#: ../doc/color.rst:271
 msgid ""
 "Human faces are the most scrutinized subjects in video. Viewers sense when "
 "skin looks wrong instantly, even if they cannot say why. Good skin tones are"
@@ -684,7 +684,7 @@ msgstr ""
 "vegna. Góðir húðlitar eru hlýir — þeir hallast að appelsínugulum, ekki "
 "grænum eða bláum."
 
-#: ../color.rst:274
+#: ../doc/color.rst:274
 msgid ""
 "All human skin tones — regardless of race — fall roughly along the same "
 "diagonal line on a vectorscope: the **skin tone line**. They shift lighter "
@@ -696,7 +696,7 @@ msgstr ""
 "eru meira eða minna mettaðir, en lenda alltaf í appelsínugulu til gulri "
 "svæðinu. Vectorscope OpenShot leyfir þér að staðfesta þetta beint:"
 
-#: ../color.rst:278
+#: ../doc/color.rst:278
 msgid ""
 "Right-click the clip → :guilabel:`Color → Analyze Colors` to open the "
 "scopes."
@@ -704,7 +704,7 @@ msgstr ""
 "Hægri smelltu á klippuna → :guilabel:`Litur → Greina liti` til að opna "
 "mælitækin."
 
-#: ../color.rst:279
+#: ../doc/color.rst:279
 msgid ""
 "In the Vectorscope toolbar, click the **Region** button and drag a box over "
 "the skin in the preview."
@@ -712,7 +712,7 @@ msgstr ""
 "Í tækjastikunni fyrir Vectorscope, smelltu á **Svæði** hnappinn og dragðu "
 "kassann yfir húðina í forskoðun."
 
-#: ../color.rst:280
+#: ../doc/color.rst:280
 msgid ""
 "The cluster should sit along the dashed skin tone line. If it drifts toward "
 "green or blue, use **Temperature** (warmer) or the **Global** color wheel to"
@@ -722,7 +722,7 @@ msgstr ""
 " grænum eða bláum lit, notaðu **Hitastig** (hlýrra) eða **Alheims** "
 "litahjólið til að ýta honum aftur að appelsínugulu-gulu."
 
-#: ../color.rst:285
+#: ../doc/color.rst:285
 msgid ""
 "*A face region selected in the video preview (left) with the vectorscope "
 "plotting only those pixels (right). The skin tone cluster aligns with the "
@@ -732,7 +732,7 @@ msgstr ""
 "sýnir aðeins þá punkta (hægri). Hópur húðlita raðast með strikalínu "
 "húðlitarins í gul-appelsínugulu svæðinu.*"
 
-#: ../color.rst:288
+#: ../doc/color.rst:288
 msgid ""
 "Avoid pushing Saturation too high — over-saturated skin looks unnatural even"
 " when the hue is correct."
@@ -740,11 +740,11 @@ msgstr ""
 "Forðastu að ýta mettun of hátt — ofmettuð húð lítur óeðlilega út jafnvel "
 "þegar litbrigðið er rétt."
 
-#: ../color.rst:291
+#: ../doc/color.rst:291
 msgid "Primary Correction Controls"
 msgstr "Aðal leiðréttingastýringar"
 
-#: ../color.rst:293
+#: ../doc/color.rst:293
 msgid ""
 "These controls appear in the :guilabel:`Properties` panel when the Color "
 "Grade effect is selected:"
@@ -752,51 +752,51 @@ msgstr ""
 "Þessar stýringar birtast í :guilabel:`Eiginleikar` glugganum þegar Lita "
 "stigunar áhrif eru valin:"
 
-#: ../color.rst:299
+#: ../doc/color.rst:299
 msgid "Property"
 msgstr "Eiginleiki"
 
-#: ../color.rst:299
+#: ../doc/color.rst:299
 msgid "What It Does"
 msgstr "Hvað það gerir"
 
-#: ../color.rst:301
+#: ../doc/color.rst:301
 msgid "Temperature"
 msgstr "Hitastig"
 
-#: ../color.rst:301
+#: ../doc/color.rst:301
 msgid "Warms (positive) or cools (negative) the entire image."
 msgstr "Gör myndina hlýrri (jákvætt) eða kaldari (neikvætt)."
 
-#: ../color.rst:302
+#: ../doc/color.rst:302
 msgid "Tint"
 msgstr "Litblanda"
 
-#: ../color.rst:302
+#: ../doc/color.rst:302
 msgid "Fine-tunes green/magenta balance after Temperature."
 msgstr "Fínstillir jafnvægi græns/magenta eftir Hitastig."
 
-#: ../color.rst:303
+#: ../doc/color.rst:303
 msgid "Exposure"
 msgstr "Lýsing"
 
-#: ../color.rst:303
+#: ../doc/color.rst:303
 msgid "Makes the whole image brighter or darker."
 msgstr "Gör alla myndina bjartari eða dekkri."
 
-#: ../color.rst:304
+#: ../doc/color.rst:304
 msgid "Contrast"
 msgstr "Andstæða"
 
-#: ../color.rst:304
+#: ../doc/color.rst:304
 msgid "Expands (positive) or compresses (negative) the tonal range."
 msgstr "Víkkar (jákvætt) eða þrengir (neikvætt) tónsvið."
 
-#: ../color.rst:305 ../color.rst:364
+#: ../doc/color.rst:305 ../doc/color.rst:364
 msgid "Highlights"
 msgstr "Ljósir blettir"
 
-#: ../color.rst:305
+#: ../doc/color.rst:305
 msgid ""
 "Brightens or darkens only the bright parts. Negative values recover "
 "overexposed highlights."
@@ -804,29 +804,29 @@ msgstr ""
 "Gör aðeins björtu hlutana bjartari eða dekkri. Neikvæð gildi endurheimta "
 "oflýst ljós."
 
-#: ../color.rst:307 ../color.rst:362
+#: ../doc/color.rst:307 ../doc/color.rst:362
 msgid "Shadows"
 msgstr "Skuggar"
 
-#: ../color.rst:307
+#: ../doc/color.rst:307
 msgid ""
 "Lifts or lowers only the dark parts. Positive values open up shadow detail."
 msgstr ""
 "Lyftir eða lækkar aðeins dökku hlutana. Jákvæð gildi opna skuggadetaljar."
 
-#: ../color.rst:309
+#: ../doc/color.rst:309
 msgid "Saturation"
 msgstr "Mettun"
 
-#: ../color.rst:309
+#: ../doc/color.rst:309
 msgid "Overall color intensity. 1.0 = unchanged, 0.0 = grayscale."
 msgstr "Heildarlitstyrkur. 1.0 = óbreytt, 0.0 = gráskala."
 
-#: ../color.rst:310
+#: ../doc/color.rst:310
 msgid "Vibrance"
 msgstr "Lífskraftur"
 
-#: ../color.rst:310
+#: ../doc/color.rst:310
 msgid ""
 "Like Saturation, but preferentially boosts muted colors without "
 "oversaturating ones that are already vivid."
@@ -834,15 +834,15 @@ msgstr ""
 "Svipað og Mettun, en eykur aðallega daufari liti án þess að ofmetta þá sem "
 "eru þegar skærir."
 
-#: ../color.rst:315
+#: ../doc/color.rst:315
 msgid "A Correction Workflow"
 msgstr "Leiðréttingarvinnuflæði"
 
-#: ../color.rst:317
+#: ../doc/color.rst:317
 msgid "Work in this order for the best results:"
 msgstr "Vinna í þessari röð fyrir bestu niðurstöður:"
 
-#: ../color.rst:319
+#: ../doc/color.rst:319
 msgid ""
 "**Fix white balance first** — Temperature and Tint until neutrals look "
 "neutral."
@@ -850,15 +850,15 @@ msgstr ""
 "**Lagfæra hvítajafnvægið fyrst** — Hitastig og Litblöndu þar til hlutlausir "
 "litir líta hlutlaust út."
 
-#: ../color.rst:320
+#: ../doc/color.rst:320
 msgid "**Set exposure** — Exposure until brightness feels correct."
 msgstr "**Stilla lýsingu** — Lýsing þar til birtan er rétt."
 
-#: ../color.rst:321
+#: ../doc/color.rst:321
 msgid "**Adjust contrast** — expand or compress the tonal range to add depth."
 msgstr "**Stilla andstæðu** — víkka eða þrengja tónsvið til að bæta dýpt."
 
-#: ../color.rst:322
+#: ../doc/color.rst:322
 msgid ""
 "**Recover clipping** — Highlights and Shadows if bright areas are blown or "
 "shadows are crushed."
@@ -866,11 +866,11 @@ msgstr ""
 "**Endurheimta klippingu** — Ljósir blettir og skuggar ef björt svæði eru "
 "oflýst eða skuggar þjappaðir."
 
-#: ../color.rst:323
+#: ../doc/color.rst:323
 msgid "**Adjust saturation** — Saturation or Vibrance to taste."
 msgstr "**Stilla mettun** — Mettun eða Lífskraft eftir smekk."
 
-#: ../color.rst:324
+#: ../doc/color.rst:324
 msgid ""
 "**Check skin tones** — open the Vectorscope, use the Region selector on "
 "faces, and confirm the cluster aligns with the skin tone line."
@@ -878,7 +878,7 @@ msgstr ""
 "**Athuga húðliti** — opna Vectorscope, nota svæðisval á andlit og staðfesta "
 "að hópurinn raðast með húðlitalínunni."
 
-#: ../color.rst:327
+#: ../doc/color.rst:327
 msgid ""
 "Use the scopes at each step — they show you what is actually in the image, "
 "regardless of monitor calibration."
@@ -886,11 +886,11 @@ msgstr ""
 "Notið mælingatæki í hverju skrefi — þau sýna hvað er raunverulega í "
 "myndinni, óháð skjástillingum."
 
-#: ../color.rst:333
+#: ../doc/color.rst:333
 msgid "Color Grading"
 msgstr "Litaúrvinnsla"
 
-#: ../color.rst:335
+#: ../doc/color.rst:335
 msgid ""
 "Color grading is the creative step: using the same tools to build a "
 "deliberate visual mood on top of corrected footage. A few classic grades to "
@@ -900,7 +900,7 @@ msgstr ""
 "meðvitaða sjónræna stemningu ofan á leiðréttum upptökum. Nokkrar klassískar "
 "litaúrvinnslur til að veita þér innblástur:"
 
-#: ../color.rst:338
+#: ../doc/color.rst:338
 msgid ""
 "**Warm, golden nostalgic** — push Highlights toward orange-yellow, nudge "
 "Midtones slightly warm."
@@ -908,7 +908,7 @@ msgstr ""
 "**Heitt, gyllt og nostalgískt** — ýttu hápunktum í átt að appelsínugulu-"
 "gulu, hnoðaðu miðtóna örlítið hlýja."
 
-#: ../color.rst:339
+#: ../doc/color.rst:339
 msgid ""
 "**Cold, clinical** — cool the Shadows, desaturate slightly, keep Highlights "
 "neutral."
@@ -916,7 +916,7 @@ msgstr ""
 "**Kalt, klínísk** — kældu skugga, draga úr mettun örlítið, haltu hápunktum "
 "hlutlausum."
 
-#: ../color.rst:340
+#: ../doc/color.rst:340
 msgid ""
 "**Teal and orange** — the blockbuster look: Shadows toward teal, Highlights "
 "toward orange."
@@ -924,7 +924,7 @@ msgstr ""
 "**Blágrænt og appelsínugult** — stórmyndastíllinn: skuggar í átt að "
 "blágrænu, hápunktar í átt að appelsínugulu."
 
-#: ../color.rst:341
+#: ../doc/color.rst:341
 msgid ""
 "**Faded film** — lift the black point slightly (Curves) so shadows never "
 "reach full black."
@@ -932,11 +932,11 @@ msgstr ""
 "**Dauf kvikmynd** — lyftu svörtu punkti örlítið (Kúrvur) svo skuggar ná "
 "aldrei fullkomnu svörtu."
 
-#: ../color.rst:346
+#: ../doc/color.rst:346
 msgid "Color Wheels"
 msgstr "Litahjól"
 
-#: ../color.rst:348
+#: ../doc/color.rst:348
 msgid ""
 "Color wheels push color into specific **tonal ranges** without affecting the"
 " others. This is the tool professional colorists reach for most."
@@ -944,44 +944,44 @@ msgstr ""
 "Litahjól ýta lit í ákveðin **tónbil** án þess að hafa áhrif á önnur. Þetta "
 "er verkfærið sem faglitafræðingar nota mest."
 
-#: ../color.rst:353
+#: ../doc/color.rst:353
 msgid ""
 "*The Color Wheels dock, showing Global, Shadows, Midtones, and Highlights "
 "wheels.*"
 msgstr "*Litahjóladokkinn sýnir hnattrænt, skugga, miðtóna og hápunktahjól.*"
 
-#: ../color.rst:359
+#: ../doc/color.rst:359
 msgid "Wheel"
 msgstr "Hjól"
 
-#: ../color.rst:359
+#: ../doc/color.rst:359
 msgid "What It Affects"
 msgstr "Hvað það hefur áhrif á"
 
-#: ../color.rst:361
+#: ../doc/color.rst:361
 msgid "Global"
 msgstr "Heildar"
 
-#: ../color.rst:361
+#: ../doc/color.rst:361
 msgid "A color tint across the **entire image** at all brightness levels."
 msgstr "Litaáferð yfir **alla myndina** á öllum birtustigum."
 
-#: ../color.rst:362
+#: ../doc/color.rst:362
 msgid "Color only in the **darkest parts**. Great for a cool teal tint."
 msgstr ""
 "Litur aðeins í **dimmustu hlutum**. Frábært fyrir kaldan blágrænan blæ."
 
-#: ../color.rst:363
+#: ../doc/color.rst:363
 msgid "Midtones"
 msgstr "Miðtónar"
 
-#: ../color.rst:363
+#: ../doc/color.rst:363
 msgid ""
 "Color in the **middle tones** — where most skin tones live. Handle gently."
 msgstr ""
 "Litur í **miðtónum** — þar sem flest húðlitur eru. Meðhöndlaðu varlega."
 
-#: ../color.rst:364
+#: ../doc/color.rst:364
 msgid ""
 "Color only in the **brightest parts**. Warming highlights while keeping "
 "shadows cool is the foundation of the teal-and-orange look."
@@ -989,7 +989,7 @@ msgstr ""
 "Litur aðeins í **björtustu hlutum**. Að hlýja hápunktum á meðan skuggar eru "
 "kaldir er grunnurinn að blágræna og appelsínugula útlitinu."
 
-#: ../color.rst:368
+#: ../doc/color.rst:368
 msgid ""
 "Drag the **central dot** toward the desired color. Further from center = "
 "stronger effect."
@@ -997,36 +997,36 @@ msgstr ""
 "Dragðu **miðpunktinn** í átt að æskilegum lit. Fjarlægð frá miðju = sterkari"
 " áhrif."
 
-#: ../color.rst:369
+#: ../doc/color.rst:369
 msgid ""
 "The **Amount** slider blends the tinted result back toward the original."
 msgstr ""
 "Sleðinn **Magn** blandar litbreyttu niðurstöðunni aftur að upprunalegu."
 
-#: ../color.rst:370
+#: ../doc/color.rst:370
 msgid "The **Luma** slider adjusts the brightness of that tonal zone."
 msgstr "Sleðinn **Luma** stillir birtustig þess tónsvæðis."
 
-#: ../color.rst:371
+#: ../doc/color.rst:371
 msgid ""
 "Right-click any wheel in Properties → **Reset** to return it to neutral."
 msgstr ""
 "Hægri-smelltu á hvaða hjól sem er í Eiginleikum → **Endurstilla** til að "
 "færa það aftur í hlutlaust."
 
-#: ../color.rst:373
+#: ../doc/color.rst:373
 msgid "**To build the classic teal-and-orange look:**"
 msgstr "**Til að byggja upp klassíska blágræna og appelsínugula útlitið:**"
 
-#: ../color.rst:375
+#: ../doc/color.rst:375
 msgid "Drag **Shadows** toward teal (blue-green)."
 msgstr "Dragðu **skugga** í átt að blágrænu (blágrænt)."
 
-#: ../color.rst:376
+#: ../doc/color.rst:376
 msgid "Drag **Highlights** toward orange."
 msgstr "Dragðu **hápunktana** í átt að appelsínugulu."
 
-#: ../color.rst:377
+#: ../doc/color.rst:377
 msgid ""
 "Optionally nudge **Midtones** very slightly toward orange to warm skin "
 "tones."
@@ -1034,16 +1034,16 @@ msgstr ""
 "Ýttu valkvætt **miðtónum** örlítið í átt að appelsínugulu til að hlýja "
 "húðlitum."
 
-#: ../color.rst:378
+#: ../doc/color.rst:378
 msgid ""
 "Lower the Amount sliders to 0.3–0.5 so the effect does not become overdone."
 msgstr "Lækkaðu sleðana fyrir Magn í 0,3–0,5 svo áhrifin verði ekki of mikil."
 
-#: ../color.rst:383
+#: ../doc/color.rst:383
 msgid "Curves — Precise Tonal and Color Control"
 msgstr "Kúrvur — Nákvæm stjórn á tónum og litum"
 
-#: ../color.rst:385
+#: ../doc/color.rst:385
 msgid ""
 "A curve is a graph where the horizontal axis is the input value and the "
 "vertical axis is the output value. A straight diagonal line means no change."
@@ -1054,7 +1054,7 @@ msgstr ""
 "úttaksgildi. Bein ská lína þýðir engar breytingar. Beygðu kúrvuna og þú "
 "breytir sambandinu milli inntaks og úttaks fyrir það tónbil."
 
-#: ../color.rst:391
+#: ../doc/color.rst:391
 msgid ""
 "*The OpenShot Curve Editor. Click to add points, drag to reshape, right-"
 "click to change interpolation.*"
@@ -1062,11 +1062,11 @@ msgstr ""
 "*OpenShot kúrvu ritillinn. Smelltu til að bæta við punktum, dragðu til að "
 "breyta lögun, hægri-smelltu til að breyta milligöngu.*"
 
-#: ../color.rst:393
+#: ../doc/color.rst:393
 msgid "**Common curve shapes:**"
 msgstr "**Algengar kúrvulögun:**"
 
-#: ../color.rst:395
+#: ../doc/color.rst:395
 msgid ""
 "**S-curve** — pull the upper-right quarter up, the lower-left quarter down. "
 "Adds contrast and pop without shifting mid-gray. The most common starting "
@@ -1076,7 +1076,7 @@ msgstr ""
 "Bætir við andstæðu og lífi án þess að breyta miðgráu. Algengasta "
 "byrjunaraðgerðin."
 
-#: ../color.rst:397
+#: ../doc/color.rst:397
 msgid ""
 "**Lifted blacks** — drag the bottom-left corner upward. Shadows never go "
 "fully to black — the faded-film look."
@@ -1084,7 +1084,7 @@ msgstr ""
 "**Lyft svörtum** — dragðu neðri vinstra hornið upp. Skuggar ná aldrei "
 "fullkomnu svörtu — dauf kvikmynd útlit."
 
-#: ../color.rst:399
+#: ../doc/color.rst:399
 msgid ""
 "**Lower highlights** — add a point in the upper-right and pull it down. "
 "Recovers bright areas without affecting the rest."
@@ -1092,16 +1092,16 @@ msgstr ""
 "**Lækka hápunkta** — bættu við punkti efst til hægri og dragðu hann niður. "
 "Endurheimtir bjarta hluta án þess að hafa áhrif á rest."
 
-#: ../color.rst:402
+#: ../doc/color.rst:402
 msgid "**The four channels:**"
 msgstr "**Fjórir rásir:**"
 
-#: ../color.rst:404
+#: ../doc/color.rst:404
 msgid ""
 "**Curve: All** — overall brightness across all channels. Used most often."
 msgstr "**Kúrva: Allt** — heildarbirtustig yfir allar rásir. Notað oftast."
 
-#: ../color.rst:405
+#: ../doc/color.rst:405
 msgid ""
 "**Curve: Red** — up adds red (warms), down adds cyan. Pull shadows down for "
 "a cool shadow tint."
@@ -1109,11 +1109,11 @@ msgstr ""
 "**Kúrva: Rauður** — upp bætir rauðu (hlýjar), niður bætir cyan. Dragðu "
 "skugga niður fyrir kaldan skuggablæ."
 
-#: ../color.rst:406
+#: ../doc/color.rst:406
 msgid "**Curve: Green** — up adds green, down adds magenta."
 msgstr "**Kúrva: Grænn** — upp bætir grænu, niður bætir magenta."
 
-#: ../color.rst:407
+#: ../doc/color.rst:407
 msgid ""
 "**Curve: Blue** — up cools, down warms. Classic move: pull Blue Shadows up "
 "(cool teal shadows) and Blue Highlights down (warm orange highlights)."
@@ -1122,7 +1122,7 @@ msgstr ""
 "skugga upp (kaldir blágrænir skuggar) og bláa hápunkta niður (hlýir "
 "appelsínugulir hápunktar)."
 
-#: ../color.rst:410
+#: ../doc/color.rst:410
 msgid ""
 "Curves beat sliders because you can apply *different* adjustments to "
 "*different* tonal ranges in a single operation — for example, warming "
@@ -1132,11 +1132,11 @@ msgstr ""
 "tónbil í einni aðgerð — til dæmis að hlýja hápunktum á sama tíma og kæla "
 "skugga."
 
-#: ../color.rst:416
+#: ../doc/color.rst:416
 msgid "LUT Files — One-Click Color Looks"
 msgstr "LUT skrár — Litastílar með einum smelli"
 
-#: ../color.rst:418
+#: ../doc/color.rst:418
 msgid ""
 "A **LUT** (Lookup Table) is a pre-made color transformation: for every input"
 " color, output a specific different color. Professional colorists use LUTs "
@@ -1148,7 +1148,7 @@ msgstr ""
 "kvikmyndafilmu, myndavélastíla eða kvikmyndastíla með einum smelli. OpenShot"
 " styður iðnaðarstaðlaðar **.cube** skrár."
 
-#: ../color.rst:422
+#: ../doc/color.rst:422
 msgid ""
 "OpenShot ships with a built-in LUT collection — see the :ref:`effects_ref` "
 "page for a visual gallery. Free **.cube** packs are widely available from "
@@ -1158,19 +1158,19 @@ msgstr ""
 "myndrænt sýnishorn. Ókeypis **.cube** pakkar eru víða fáanlegir frá "
 "ljósmyndasamfélögum á netinu."
 
-#: ../color.rst:425
+#: ../doc/color.rst:425
 msgid "**How to apply a LUT:**"
 msgstr "**Hvernig á að nota LUT:**"
 
-#: ../color.rst:427
+#: ../doc/color.rst:427
 msgid "Select the :guilabel:`Color Grade` effect properties."
 msgstr "Veldu :guilabel:`Litaúrvinnslu` eiginleika áhrifa."
 
-#: ../color.rst:428
+#: ../doc/color.rst:428
 msgid "Click :guilabel:`LUT File` and browse to a **.cube** file."
 msgstr "Smelltu á :guilabel:`LUT skrá` og flettu að **.cube** skrá."
 
-#: ../color.rst:429
+#: ../doc/color.rst:429
 msgid ""
 "Use :guilabel:`LUT Intensity` (0.0–1.0) to blend the LUT with your corrected"
 " image. Most professionals land between 0.4–0.7 for a natural feel."
@@ -1178,11 +1178,11 @@ msgstr ""
 "Notaðu :guilabel:`LUT styrk` (0.0–1.0) til að blanda LUT við leiðrétta "
 "myndina þína. Flestir fagmenn velja bilið 0,4–0,7 fyrir náttúrulegt útlit."
 
-#: ../color.rst:432
+#: ../doc/color.rst:432
 msgid "**Tips:**"
 msgstr "**Ábendingar:**"
 
-#: ../color.rst:434
+#: ../doc/color.rst:434
 msgid ""
 "Correct first, then grade. LUTs assume properly balanced footage — applied "
 "to a color-cast image, they will look wrong."
@@ -1191,7 +1191,7 @@ msgstr ""
 "þau eru notuð á mynd með litaskekkju, mun útkoman líta út fyrir að vera "
 "röng."
 
-#: ../color.rst:436
+#: ../doc/color.rst:436
 msgid ""
 "Most included LUTs target Rec. 709 footage (HD cameras, smartphones). If "
 "your camera records in a LOG profile, apply the appropriate LOG conversion "
@@ -1201,7 +1201,7 @@ msgstr ""
 "snjallsímar). Ef myndavélin þín skráir í LOG prófíl, notaðu viðeigandi LOG "
 "umbreytingu LUT fyrst."
 
-#: ../color.rst:438
+#: ../doc/color.rst:438
 msgid ""
 "Stack Color Grade with separate Color Map / Lookup effects to layer multiple"
 " LUTs."
@@ -1209,11 +1209,11 @@ msgstr ""
 "Leggðu litaúrvinnslu saman með aðskildum litakorti / leitaraðgerðum til að "
 "raða mörgum LUTs ofan á hvor annan."
 
-#: ../color.rst:443
+#: ../doc/color.rst:443
 msgid "The Mix Control"
 msgstr "Stýringin Mix"
 
-#: ../color.rst:445
+#: ../doc/color.rst:445
 msgid ""
 "The **Mix** control (0.0–1.0) at the bottom of the Color Grade effect blends"
 " the graded result with the original image. At 1.0, the full grade applies. "
@@ -1223,7 +1223,7 @@ msgstr ""
 "litaúrvinnslunni við upprunalegu myndina. Við 1.0 er full litaúrvinnsla "
 "notuð. Við 0.0 er upprunalega myndin sýnd."
 
-#: ../color.rst:448
+#: ../doc/color.rst:448
 msgid ""
 "If your grade is correct but feels slightly heavy, dial Mix back to 0.7–0.9 "
 "to soften everything at once — no need to revisit every individual control."
@@ -1232,7 +1232,7 @@ msgstr ""
 "til að mýkja allt í einu — ekki þarf að fara yfir hvern einstakan "
 "stýringarkost aftur."
 
-#: ../color.rst:451
+#: ../doc/color.rst:451
 msgid ""
 "Mix is keyframable: animate the grade fading in or out over time, for "
 "example opening a scene flat and letting it bloom into full color."
@@ -1241,11 +1241,11 @@ msgstr ""
 "tímanum, til dæmis að opna senuna flatt og láta hana springa út í fullan "
 "lit."
 
-#: ../color.rst:457
+#: ../doc/color.rst:457
 msgid "Putting It All Together — A Complete Workflow"
 msgstr "Að setja allt saman — Fullkomið vinnuflæði"
 
-#: ../color.rst:459
+#: ../doc/color.rst:459
 msgid ""
 "Select your clip. Right-click → :guilabel:`Color → Adjust Colors` to add the"
 " effect and open the Color Wheels and scopes in one step. Or use "
@@ -1257,7 +1257,7 @@ msgstr ""
 ":guilabel:`Color → Analyze Colors` fyrst ef þú vilt meta myndefnið áður en "
 "þú ákveður litaúrvinnslu."
 
-#: ../color.rst:462
+#: ../doc/color.rst:462
 msgid ""
 "**Check the scopes before touching anything** — is the waveform too high or "
 "too low? A cast on the RGB Parade? The histogram clipping against the right "
@@ -1266,11 +1266,11 @@ msgstr ""
 "**Skoðaðu mæla áður en þú breytir neinu** — er bylgjulínan of há eða of lág?"
 " Er litaskekkja á RGB Parade? Er histogrammið klippt við hægri brún?"
 
-#: ../color.rst:464
+#: ../doc/color.rst:464
 msgid "Fix **Temperature** and **Tint** to neutralize white balance."
 msgstr "Lagfæra **Hitastig** og **Litblæ** til að jafna hvítajafnvægið."
 
-#: ../color.rst:465
+#: ../doc/color.rst:465
 msgid ""
 "Fix **Exposure**, then **Contrast**. Use **Highlights** and **Shadows** to "
 "recover clipping."
@@ -1278,11 +1278,11 @@ msgstr ""
 "Lagfæra **Birta**, síðan **Andstæða**. Notaðu **Hápunkta** og **Skugga** til"
 " að endurheimta klippingu."
 
-#: ../color.rst:466
+#: ../doc/color.rst:466
 msgid "Gently adjust **Saturation** or **Vibrance**."
 msgstr "Stilltu varlega **Mettun** eða **Lífskraft**."
 
-#: ../color.rst:467
+#: ../doc/color.rst:467
 msgid ""
 "Open the **Vectorscope**, click Region, and draw a box over any faces. "
 "Confirm the skin tone cluster aligns with the dashed line. If not, adjust "
@@ -1292,7 +1292,7 @@ msgstr ""
 "Staðfestu að húðlitasafnið raðist við strikalínuna. Ef ekki, stilltu "
 "Hitastig eða alhliða litahjólið."
 
-#: ../color.rst:469
+#: ../doc/color.rst:469
 msgid ""
 "Open the **Color Wheels** dock and build your creative grade — push Shadows "
 "one direction, Highlights the opposite, handle Midtones carefully."
@@ -1300,7 +1300,7 @@ msgstr ""
 "Opnaðu **Litahjól** gluggann og byggðu upp skapandi litaúrvinnslu — ýttu "
 "Skuggum í eina átt, Hápunktum í hina, meðhöndla Miðtóna varlega."
 
-#: ../color.rst:471
+#: ../doc/color.rst:471
 msgid ""
 "Fine-tune with **Curves**: a gentle S-curve on Curve: All; Curve: Blue for a"
 " cinematic push (cool shadows up, warm highlights down)."
@@ -1308,17 +1308,17 @@ msgstr ""
 "Fínstilltu með **Beygjum**: mjúk S-beygja á Curve: All; Curve: Blue fyrir "
 "kvikmyndalegt útlit (kaldir skuggar upp, hlýir hápunktar niður)."
 
-#: ../color.rst:473
+#: ../doc/color.rst:473
 msgid ""
 "Optionally browse to a **.cube** LUT and blend it in with **LUT Intensity**."
 msgstr ""
 "Valkvætt skoðaðu **.cube** LUT og blandaðu því inn með **LUT Intensity**."
 
-#: ../color.rst:474
+#: ../doc/color.rst:474
 msgid "If the overall grade feels heavy, lower **Mix** to 0.7–0.9."
 msgstr "Ef heildarlitaúrvinnslan virðist þung, lækkaðu **Mix** í 0.7–0.9."
 
-#: ../color.rst:475
+#: ../doc/color.rst:475
 msgid ""
 "To compare before/after, drag **Mix** to 0.0 to see the original, then back "
 "to 1.0."
@@ -1326,7 +1326,7 @@ msgstr ""
 "Til að bera saman fyrir/eftir, dragðu **Mix** í 0.0 til að sjá upprunalegu "
 "myndina, svo aftur í 1.0."
 
-#: ../color.rst:476
+#: ../doc/color.rst:476
 msgid ""
 "Happy with the result? Right-click the effect → **Copy**, select other "
 "clips, and **Paste Effects**. Or use the **Parent** property to link "
@@ -1336,7 +1336,7 @@ msgstr ""
 "klippur og **Líma áhrif**. Eða notaðu **Parent** eiginleikann til að tengja "
 "margar klippur við eina meginlitaúrvinnslu (sjá :ref:`effect_parent_ref`)."
 
-#: ../color.rst:480
+#: ../doc/color.rst:480
 msgid ""
 "For animating color properties over time, see :ref:`animation_ref`. For a "
 "complete list of all Color Grade properties, see :ref:`effects_ref`."

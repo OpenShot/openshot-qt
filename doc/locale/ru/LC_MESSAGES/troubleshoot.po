@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-26 14:26-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,12 +20,12 @@ msgstr ""
 "Generated-By: Babel 2.10.3\n"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:23
+#: ../doc/troubleshoot.rst:23
 msgid "Troubleshooting"
 msgstr "Устранение неполадок"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:25
+#: ../doc/troubleshoot.rst:25
 msgid ""
 "If you are experiencing an issue with OpenShot, such as a freeze, crash, or "
 "error message, there are many different techniques which can be useful for "
@@ -35,11 +35,101 @@ msgstr ""
 "сообщение об ошибке, существует множество различных методов, которые могут "
 "помочь в их устранении."
 
-#: ../troubleshoot.rst:31
+#: ../doc/troubleshoot.rst:31
+msgid "Large or Slow Project Files with Audio Waveforms"
+msgstr "Большие или медленные файлы проектов с аудиоволнами"
+
+#: ../doc/troubleshoot.rst:33
+msgid ""
+"Older projects with many audio waveforms can have unusually large ``.osp`` "
+"files and take longer to open or save. Older builds stored the waveform "
+"measurements inside the project file, sometimes repeating them for clips and"
+" undo history."
+msgstr ""
+"Старые проекты с множеством аудиоволн могут иметь необычно большие файлы "
+"``.osp`` и дольше открываться или сохраняться. В старых версиях измерения "
+"волн хранились внутри файла проекта, иногда повторяясь для клипов и истории "
+"отмен."
+
+#: ../doc/troubleshoot.rst:37
+msgid ""
+"The latest build stores these measurements in **separate compressed waveform"
+" files** instead. The project keeps small references to those files, "
+"reducing the data copied during editing and written into the ``.osp`` file. "
+"These files describe audio levels for display, not copies of the audio "
+"itself; your media and exported sound are unchanged."
+msgstr ""
+"Последняя версия сохраняет эти измерения в **отдельных сжатых файлах волн**."
+" Проект хранит небольшие ссылки на эти файлы, уменьшая объем данных, "
+"копируемых при редактировании и записываемых в файл ``.osp``. Эти файлы "
+"описывают уровни звука для отображения, а не копии самого аудио; ваши медиа "
+"и экспортированный звук остаются без изменений."
+
+#: ../doc/troubleshoot.rst:43
+msgid "To update an older project:"
+msgstr "Чтобы обновить старый проект:"
+
+#: ../doc/troubleshoot.rst:45
+msgid ""
+"Open it in the latest build. OpenShot automatically moves embedded waveform "
+"data into its waveform cache, preserving the existing waveform appearance."
+msgstr ""
+"Откройте его в последней версии. OpenShot автоматически перемещает "
+"встроенные данные волн в свой кэш волн, сохраняя внешний вид волн."
+
+#: ../doc/troubleshoot.rst:47
+msgid ""
+"Choose :guilabel:`File → Save Project As` to keep the original project as a "
+"backup, or save normally to update the existing file."
+msgstr ""
+"Выберите :guilabel:`Файл → Сохранить проект как`, чтобы сохранить оригинал "
+"проекта как резервную копию, или сохраните обычным способом для обновления "
+"существующего файла."
+
+#: ../doc/troubleshoot.rst:49
+msgid ""
+"Keep the saved project's ``_assets`` folder alongside its ``.osp`` file when"
+" copying or backing up the project."
+msgstr ""
+"Держите папку ``_assets`` сохранённого проекта рядом с файлом ``.osp`` при "
+"копировании или резервном копировании проекта."
+
+#: ../doc/troubleshoot.rst:52
+msgid ""
+"For example, ``MyProject.osp`` stores its compressed ``.wfc`` waveform files"
+" in ``MyProject_assets/waveforms/``. Each file contains compact numeric "
+"measurements compressed for storage. Identical waveform data can share the "
+"same cache file. OpenShot also uses a local cache while you work, including "
+"before the first save."
+msgstr ""
+"Например, ``MyProject.osp`` хранит сжатые файлы волн ``.wfc`` в папке "
+"``MyProject_assets/waveforms/``. Каждый файл содержит компактные числовые "
+"измерения, сжатые для хранения. Идентичные данные волн могут использовать "
+"один и тот же кэш-файл. OpenShot также использует локальный кэш во время "
+"работы, включая период до первого сохранения."
+
+#: ../doc/troubleshoot.rst:57
+msgid ""
+"The first opening still needs to read the old embedded data, so it can take "
+"time. The smaller project file is written when you save. Generating a "
+"waveform for a new, long audio file still requires analyzing that audio. If "
+"waveform cache files are missing, OpenShot can rebuild visible waveforms "
+"from the original media. See :ref:`timeline_waveform_display_ref` for "
+"waveform display and regeneration options."
+msgstr ""
+"Первое открытие всё ещё требует чтения старых встроенных данных, поэтому "
+"может занять время. Меньший файл проекта записывается при сохранении. "
+"Генерация волны для нового длинного аудиофайла всё ещё требует анализа этого"
+" аудио. Если файлы кэша волн отсутствуют, OpenShot может восстановить "
+"видимые волны из оригинального медиа. См. "
+":ref:`timeline_waveform_display_ref` для параметров отображения и "
+"восстановления волн."
+
+#: ../doc/troubleshoot.rst:66
 msgid "Using Logs to Troubleshoot a Problem"
 msgstr "Использование журналов для устранения проблем"
 
-#: ../troubleshoot.rst:33
+#: ../doc/troubleshoot.rst:68
 msgid ""
 "A log is a text file that records what OpenShot is doing, along with "
 "warnings and errors. These files can help the support team understand a "
@@ -49,7 +139,7 @@ msgstr ""
 "предупреждения и ошибки. Эти файлы могут помочь службе поддержки понять "
 "проблему, даже если вы не видите сообщения об ошибке на экране."
 
-#: ../troubleshoot.rst:37
+#: ../doc/troubleshoot.rst:72
 msgid ""
 "OpenShot keeps two log files in the ``.openshot_qt`` folder inside your home"
 " folder. On Linux and macOS, this location is written as "
@@ -59,23 +149,23 @@ msgstr ""
 "домашней папки. В Linux и macOS этот путь записывается как "
 "``~/.openshot_qt/``. Эта папка может быть скрыта в вашем файловом менеджере."
 
-#: ../troubleshoot.rst:41
+#: ../doc/troubleshoot.rst:76
 msgid "The two log files"
 msgstr "Два файла журнала"
 
-#: ../troubleshoot.rst:45
+#: ../doc/troubleshoot.rst:80
 msgid "File"
 msgstr "Файл"
 
-#: ../troubleshoot.rst:46
+#: ../doc/troubleshoot.rst:81
 msgid "What it records"
 msgstr "Что он записывает"
 
-#: ../troubleshoot.rst:47 ../troubleshoot.rst:74
+#: ../doc/troubleshoot.rst:82 ../doc/troubleshoot.rst:109
 msgid "``openshot-qt.log``"
 msgstr "``openshot-qt.log``"
 
-#: ../troubleshoot.rst:48
+#: ../doc/troubleshoot.rst:83
 msgid ""
 "Activity in the editor: starting OpenShot, loading projects, changing "
 "settings, and using the interface. This is usually the best place to start "
@@ -85,11 +175,11 @@ msgstr ""
 " и использование интерфейса. Обычно это лучшее место для начала "
 "расследования проблемы."
 
-#: ../troubleshoot.rst:51 ../troubleshoot.rst:77
+#: ../doc/troubleshoot.rst:86 ../doc/troubleshoot.rst:112
 msgid "``libopenshot.log``"
 msgstr "``libopenshot.log``"
 
-#: ../troubleshoot.rst:52
+#: ../doc/troubleshoot.rst:87
 msgid ""
 "Activity in OpenShot's video and audio engine, the part that reads media and"
 " builds the pictures and sound used in previews and exported videos. "
@@ -100,7 +190,7 @@ msgstr ""
 "Подробное логирование движка помогает исследовать проблемы воспроизведения и"
 " экспорта."
 
-#: ../troubleshoot.rst:56
+#: ../doc/troubleshoot.rst:91
 msgid ""
 "These files record different parts of the same application. When reporting a"
 " problem, include both files if available. You do not need to understand "
@@ -110,49 +200,49 @@ msgstr ""
 "проблеме прикладывайте оба файла, если они доступны. Вам не нужно понимать "
 "каждую строку самостоятельно."
 
-#: ../troubleshoot.rst:61
+#: ../doc/troubleshoot.rst:96
 msgid "Choose which part of OpenShot to log"
 msgstr "Выберите, какую часть OpenShot вести в журнал"
 
-#: ../troubleshoot.rst:63
+#: ../doc/troubleshoot.rst:98
 msgid "Open **Edit → Preferences → Advanced** to find these two settings:"
 msgstr ""
 "Откройте **Правка → Настройки → Дополнительно**, чтобы найти эти два "
 "параметра:"
 
-#: ../troubleshoot.rst:65
+#: ../doc/troubleshoot.rst:100
 msgid "Preferences and matching terminal options"
 msgstr "Настройки и соответствующие параметры терминала"
 
-#: ../troubleshoot.rst:69
+#: ../doc/troubleshoot.rst:104
 msgid "Preference"
 msgstr "Настройка"
 
-#: ../troubleshoot.rst:70
+#: ../doc/troubleshoot.rst:105
 msgid "Matching argument"
 msgstr "Соответствующий аргумент"
 
-#: ../troubleshoot.rst:71
+#: ../doc/troubleshoot.rst:106
 msgid "Log file"
 msgstr "Файл журнала"
 
-#: ../troubleshoot.rst:72
+#: ../doc/troubleshoot.rst:107
 msgid "User Interface Debug Logging"
 msgstr "Отладочное логирование интерфейса пользователя"
 
-#: ../troubleshoot.rst:73
+#: ../doc/troubleshoot.rst:108
 msgid "``--debug-ui``"
 msgstr "``--debug-ui``"
 
-#: ../troubleshoot.rst:75
+#: ../doc/troubleshoot.rst:110
 msgid "Video & Audio Engine Debug Logging"
 msgstr "Отладочное логирование видео- и аудиодвижка"
 
-#: ../troubleshoot.rst:76 ../troubleshoot.rst:142
+#: ../doc/troubleshoot.rst:111 ../doc/troubleshoot.rst:179
 msgid "``--debug-engine``"
 msgstr "``--debug-engine``"
 
-#: ../troubleshoot.rst:79
+#: ../doc/troubleshoot.rst:114
 msgid ""
 "Both preferences are off by default, which keeps the normal summary "
 "messages. Turning one on adds detail to its log file immediately. It does "
@@ -165,7 +255,7 @@ msgstr ""
 "сообщений в терминал. Настройки остаются включёнными между запусками, пока "
 "вы их не выключите."
 
-#: ../troubleshoot.rst:84
+#: ../doc/troubleshoot.rst:119
 msgid ""
 "**User Interface Debug Logging** is a good starting point for problems with "
 "startup, project loading, settings, or the interface. **Video & Audio Engine"
@@ -181,7 +271,7 @@ msgstr ""
 "экспорта. Логи движка могут быстро расти и замедлять OpenShot. Включайте эту"
 " настройку незадолго до повторения проблемы, а затем выключайте."
 
-#: ../troubleshoot.rst:91
+#: ../doc/troubleshoot.rst:126
 msgid ""
 "The engine preference was previously called **Debug Mode (Verbose)**. Its "
 "saved on/off setting carries over to the new name."
@@ -189,11 +279,11 @@ msgstr ""
 "Настройка движка ранее называлась **Режим отладки (Подробный)**. Сохранённое"
 " состояние включения/выключения перенесено на новое имя."
 
-#: ../troubleshoot.rst:95
+#: ../doc/troubleshoot.rst:130
 msgid "Use a terminal for one launch"
 msgstr "Используйте терминал для одного запуска"
 
-#: ../troubleshoot.rst:97
+#: ../doc/troubleshoot.rst:132
 msgid ""
 "A terminal is a window where you type commands. The matching arguments "
 "enable the same extra detail as the preferences, and also display it in the "
@@ -203,7 +293,7 @@ msgstr ""
 " включают те же дополнительные детали, что и настройки, и отображают их в "
 "терминале:"
 
-#: ../troubleshoot.rst:104
+#: ../doc/troubleshoot.rst:139
 msgid ""
 "This records interface details for one launch. The familiar ``--debug`` and "
 "shorter ``-d`` options mean exactly the same thing as ``--debug-ui``. For "
@@ -213,11 +303,11 @@ msgstr ""
 "``--debug`` и короткая ``-d`` означают то же, что и ``--debug-ui``. Для "
 "деталей видео- и аудиодвижка используйте:"
 
-#: ../troubleshoot.rst:112
+#: ../doc/troubleshoot.rst:147
 msgid "To collect both types of detail together:"
 msgstr "Чтобы собрать оба типа деталей вместе:"
 
-#: ../troubleshoot.rst:118
+#: ../doc/troubleshoot.rst:153
 msgid ""
 "Repeat the steps that cause the problem, then close OpenShot and collect the"
 " logs. These arguments do not change your saved preferences. Starting "
@@ -227,7 +317,7 @@ msgstr ""
 "журналы. Эти аргументы не меняют ваши сохранённые настройки. При обычном "
 "запуске OpenShot возвращается к вашим обычным настройкам логирования."
 
-#: ../troubleshoot.rst:122
+#: ../doc/troubleshoot.rst:157
 msgid ""
 "``openshot-qt.log`` starts a new file when it reaches about 25 MB and keeps "
 "three older copies. ``libopenshot.log`` keeps growing as messages are added."
@@ -239,90 +329,95 @@ msgstr ""
 "добавления сообщений. После сохранения нужных журналов вы можете удалить "
 "старые файлы журналов, пока OpenShot закрыт."
 
-#: ../troubleshoot.rst:128
-msgid "Other command-line options"
-msgstr "Другие параметры командной строки"
+#: ../doc/troubleshoot.rst:163
+msgid "Other logging options"
+msgstr "Другие параметры ведения журнала"
 
-#: ../troubleshoot.rst:130
+#: ../doc/troubleshoot.rst:165
 msgid ""
 "Most users only need the two controls above. The following options let you "
 "choose how much detail goes into the files or appears in the terminal. Here,"
-" *console* means the terminal output."
+" *console* means the terminal output. For the complete list of application "
+"launch options, see :ref:`launch_options_ref`. To edit projects or automate "
+"exports from the terminal, see :ref:`cli_ref`."
 msgstr ""
-"Большинству пользователей нужны только два вышеуказанных параметра. "
-"Следующие опции позволяют выбрать, сколько деталей записывать в файлы или "
-"отображать в терминале. Здесь *console* означает вывод в терминал."
+"Большинству пользователей нужны только два вышеуказанных элемента "
+"управления. Следующие параметры позволяют выбрать, сколько деталей "
+"записывается в файлы или отображается в терминале. Здесь *консоль* означает "
+"вывод в терминал. Для полного списка опций запуска приложения смотрите "
+":ref:`launch_options_ref`. Для редактирования проектов или автоматизации "
+"экспорта из терминала смотрите :ref:`cli_ref`."
 
-#: ../troubleshoot.rst:134
+#: ../doc/troubleshoot.rst:171
 msgid "Logging options"
 msgstr "Параметры логирования"
 
-#: ../troubleshoot.rst:138
+#: ../doc/troubleshoot.rst:175
 msgid "Option"
 msgstr "Опция"
 
-#: ../troubleshoot.rst:139
+#: ../doc/troubleshoot.rst:176
 msgid "What it does"
 msgstr "Что она делает"
 
-#: ../troubleshoot.rst:140
+#: ../doc/troubleshoot.rst:177
 msgid "``--debug-ui``, ``--debug``, or ``-d``"
 msgstr "``--debug-ui``, ``--debug`` или ``-d``"
 
-#: ../troubleshoot.rst:141
+#: ../doc/troubleshoot.rst:178
 msgid "Enables User Interface Debug Logging in its file and the terminal."
 msgstr ""
 "Включает отладочное логирование интерфейса пользователя в файл и терминал."
 
-#: ../troubleshoot.rst:143
+#: ../doc/troubleshoot.rst:180
 msgid ""
 "Enables Video & Audio Engine Debug Logging in its file and the terminal."
 msgstr ""
 "Включает отладочное логирование видео- и аудиодвижка в файл и терминал."
 
-#: ../troubleshoot.rst:144
+#: ../doc/troubleshoot.rst:181
 msgid "``--debug-file``"
 msgstr "``--debug-file``"
 
-#: ../troubleshoot.rst:145
+#: ../doc/troubleshoot.rst:182
 msgid ""
 "Adds editor details to ``openshot-qt.log`` without adding terminal detail."
 msgstr ""
 "Добавляет детали редактора в ``openshot-qt.log`` без добавления деталей в "
 "терминал."
 
-#: ../troubleshoot.rst:146
+#: ../doc/troubleshoot.rst:183
 msgid "``--debug-console``"
 msgstr "``--debug-console``"
 
-#: ../troubleshoot.rst:147
+#: ../doc/troubleshoot.rst:184
 msgid "Adds editor details in the terminal without adding file detail."
 msgstr "Добавляет детали редактора в терминал без добавления деталей в файл."
 
-#: ../troubleshoot.rst:148
+#: ../doc/troubleshoot.rst:185
 msgid "``--log-level LEVEL``"
 msgstr "``--log-level LEVEL``"
 
-#: ../troubleshoot.rst:149
+#: ../doc/troubleshoot.rst:186
 msgid "Sets the detail for both logs and their terminal output."
 msgstr ""
 "Устанавливает уровень детализации для обоих журналов и их вывода в терминал."
 
-#: ../troubleshoot.rst:150
+#: ../doc/troubleshoot.rst:187
 msgid "``--log-file-level LEVEL``"
 msgstr "``--log-file-level LEVEL``"
 
-#: ../troubleshoot.rst:151
+#: ../doc/troubleshoot.rst:188
 msgid "Sets the detail for both log files, leaving terminal settings alone."
 msgstr ""
 "Устанавливает уровень детализации для обоих файлов журналов, не изменяя "
 "настройки терминала."
 
-#: ../troubleshoot.rst:152
+#: ../doc/troubleshoot.rst:189
 msgid "``--log-console-level LEVEL``"
 msgstr "``--log-console-level LEVEL``"
 
-#: ../troubleshoot.rst:153
+#: ../doc/troubleshoot.rst:190
 msgid ""
 "Sets the detail in the terminal for both the editor and engine, leaving file"
 " settings alone."
@@ -330,7 +425,7 @@ msgstr ""
 "Устанавливает уровень детализации в терминале для редактора и движка, не "
 "изменяя настройки файлов."
 
-#: ../troubleshoot.rst:156
+#: ../doc/troubleshoot.rst:193
 msgid ""
 "Replace ``LEVEL`` with ``debug`` for detailed messages or ``info`` for the "
 "normal summary. ``warning`` shows warnings and errors; ``error`` shows "
@@ -345,7 +440,7 @@ msgstr ""
 "может продолжать записываться. Работают также имена в верхнем регистре, "
 "например ``DEBUG``."
 
-#: ../troubleshoot.rst:162
+#: ../doc/troubleshoot.rst:199
 msgid ""
 "For example, to collect detailed messages in **both files** while keeping "
 "the terminal at its usual level:"
@@ -353,7 +448,7 @@ msgstr ""
 "Например, чтобы собирать подробные сообщения в **обоих файлах**, сохраняя "
 "обычный уровень терминала:"
 
-#: ../troubleshoot.rst:169
+#: ../doc/troubleshoot.rst:206
 msgid ""
 "This also enables the large engine log, so use it briefly. The older "
 "``--debug-file`` and ``--debug-console`` options still work even though they"
@@ -363,11 +458,11 @@ msgstr ""
 "Старые опции ``--debug-file`` и ``--debug-console`` всё ещё работают, хотя и"
 " не указаны в ``--help``."
 
-#: ../troubleshoot.rst:174
+#: ../doc/troubleshoot.rst:211
 msgid "Environment variables"
 msgstr "Переменные окружения"
 
-#: ../troubleshoot.rst:176
+#: ../doc/troubleshoot.rst:213
 msgid ""
 "An environment variable is a named setting passed to a program when it "
 "starts. These are useful when starting OpenShot from a script or when a "
@@ -379,67 +474,67 @@ msgstr ""
 "поддержки просит вас попробовать определённую настройку. Для обычного "
 "использования их задавать не нужно."
 
-#: ../troubleshoot.rst:180
+#: ../doc/troubleshoot.rst:217
 msgid "Optional environment settings"
 msgstr "Дополнительные настройки окружения"
 
-#: ../troubleshoot.rst:184
+#: ../doc/troubleshoot.rst:221
 msgid "Variable"
 msgstr "Переменная"
 
-#: ../troubleshoot.rst:185
+#: ../doc/troubleshoot.rst:222
 msgid "What it controls"
 msgstr "Что контролирует"
 
-#: ../troubleshoot.rst:186
+#: ../doc/troubleshoot.rst:223
 msgid "``OPENSHOT_LOG_LEVEL``"
 msgstr "``OPENSHOT_LOG_LEVEL``"
 
-#: ../troubleshoot.rst:187
+#: ../doc/troubleshoot.rst:224
 msgid "Detail in both files and the terminal."
 msgstr "Детализация в обоих файлах и терминале."
 
-#: ../troubleshoot.rst:188
+#: ../doc/troubleshoot.rst:225
 msgid "``OPENSHOT_LOG_FILE_LEVEL``"
 msgstr "``OPENSHOT_LOG_FILE_LEVEL``"
 
-#: ../troubleshoot.rst:189
+#: ../doc/troubleshoot.rst:226
 msgid "Detail in both files only."
 msgstr "Детализация только в обоих файлах."
 
-#: ../troubleshoot.rst:190
+#: ../doc/troubleshoot.rst:227
 msgid "``OPENSHOT_LOG_CONSOLE_LEVEL``"
 msgstr "``OPENSHOT_LOG_CONSOLE_LEVEL``"
 
-#: ../troubleshoot.rst:191
+#: ../doc/troubleshoot.rst:228
 msgid "Detail in the terminal only, for both parts of OpenShot."
 msgstr "Детализация только в терминале для обеих частей OpenShot."
 
-#: ../troubleshoot.rst:192
+#: ../doc/troubleshoot.rst:229
 msgid "``LIBOPENSHOT_LOG_LEVEL``"
 msgstr "``LIBOPENSHOT_LOG_LEVEL``"
 
-#: ../troubleshoot.rst:193
+#: ../doc/troubleshoot.rst:230
 msgid "Detail for the video and audio engine, in its file and the terminal."
 msgstr "Детализация для видео- и аудиодвижка, в его файле и терминале."
 
-#: ../troubleshoot.rst:194
+#: ../doc/troubleshoot.rst:231
 msgid "``LIBOPENSHOT_LOG_FILE_LEVEL``"
 msgstr "``LIBOPENSHOT_LOG_FILE_LEVEL``"
 
-#: ../troubleshoot.rst:195
+#: ../doc/troubleshoot.rst:232
 msgid "Detail in ``libopenshot.log`` only."
 msgstr "Детализация только в ``libopenshot.log``."
 
-#: ../troubleshoot.rst:196
+#: ../doc/troubleshoot.rst:233
 msgid "``LIBOPENSHOT_LOG_CONSOLE_LEVEL``"
 msgstr "``LIBOPENSHOT_LOG_CONSOLE_LEVEL``"
 
-#: ../troubleshoot.rst:197
+#: ../doc/troubleshoot.rst:234
 msgid "Engine detail in the terminal only."
 msgstr "Детализация движка только в терминале."
 
-#: ../troubleshoot.rst:199
+#: ../doc/troubleshoot.rst:236
 msgid ""
 "For example, this Linux/macOS terminal command requests detailed engine "
 "logging in its file for one launch:"
@@ -447,7 +542,7 @@ msgstr ""
 "Например, эта команда терминала Linux/macOS запрашивает подробное ведение "
 "журнала движка в его файле для одного запуска:"
 
-#: ../troubleshoot.rst:206
+#: ../doc/troubleshoot.rst:243
 msgid ""
 "If settings overlap, command-line options take priority, followed by "
 "environment variables, then Preferences, then the normal defaults. Each "
@@ -463,7 +558,7 @@ msgstr ""
 "сохранённые настройки. Наведите курсор на любой флажок, чтобы увидеть, "
 "управляет ли другой параметр этим файлом журнала."
 
-#: ../troubleshoot.rst:212
+#: ../doc/troubleshoot.rst:249
 msgid ""
 "Within the environment settings, ``LIBOPENSHOT_`` values take priority over "
 "``OPENSHOT_`` values for the engine. Within either group, a file-only or "
@@ -479,7 +574,7 @@ msgstr ""
 "командной строки для одного и того же вывода отклоняются; недопустимые "
 "уровни окружения сообщаются и игнорируются."
 
-#: ../troubleshoot.rst:218
+#: ../doc/troubleshoot.rst:255
 msgid ""
 "For older scripts, ``LIBOPENSHOT_DEBUG`` still enables detailed engine "
 "messages in the terminal whenever it is present, even if its value is ``0``."
@@ -496,12 +591,12 @@ msgstr ""
 " настроек ведения журнала не меняет ваши предпочтения по отчётам об ошибках."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:225
+#: ../doc/troubleshoot.rst:262
 msgid "Windows 11 Unresponsive"
 msgstr "Windows 11 не отвечает"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:227
+#: ../doc/troubleshoot.rst:264
 msgid ""
 "If you experience a freeze on Windows 11, this is a known issue with PyQt5 "
 "and Windows 11, related to the accessibility features in Qt. This is "
@@ -518,7 +613,7 @@ msgstr ""
 " или пользователь не завершит процесс)."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:232
+#: ../doc/troubleshoot.rst:269
 msgid ""
 "A simple work-around is to avoid :kbd:`Ctrl+C` on Windows 11, and instead "
 "use the right-click Copy/Paste menus. Another work-around is to remap your "
@@ -533,12 +628,12 @@ msgstr ""
 "OpenShot. См. :ref:`preferences_keyboard_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:237
+#: ../doc/troubleshoot.rst:274
 msgid "Windows Debugging with GDB"
 msgstr "Отладка Windows с помощью GDB"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:239
+#: ../doc/troubleshoot.rst:276
 msgid ""
 "If you are experiencing a crash or freeze with OpenShot in Windows 10/11, "
 "the following step by step instructions will help you determine the cause of"
@@ -554,12 +649,12 @@ msgstr ""
 "прикрепления к отчетам об ошибках (для более быстрого решения)."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:245
+#: ../doc/troubleshoot.rst:282
 msgid "Install the Latest Daily Build"
 msgstr "Установите последнюю ежедневную сборку"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:247
+#: ../doc/troubleshoot.rst:284
 msgid ""
 "Before attaching a debugger, please download the **latest version** of "
 "OpenShot: https://www.openshot.org/download#daily. Install this version of "
@@ -575,12 +670,12 @@ msgstr ""
 "<https://github.com/OpenShot/openshot-qt/wiki/Windows-Debugging-with-GDB>`_."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:252
+#: ../doc/troubleshoot.rst:289
 msgid "Install MSYS2"
 msgstr "Установите MSYS2"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:254
+#: ../doc/troubleshoot.rst:291
 msgid ""
 "The Windows version of OpenShot is compiled using an environment called "
 "MSYS2. In order to attach the GDB debugger to our executable, ``openshot-"
@@ -592,12 +687,12 @@ msgstr ""
 "только один раз."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:257
+#: ../doc/troubleshoot.rst:294
 msgid "Download & Install MSYS2: `<http://www.msys2.org/>`_"
 msgstr "Скачайте и установите MSYS2: `<http://www.msys2.org/>`_"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:258 ../troubleshoot.rst:274
+#: ../doc/troubleshoot.rst:295 ../doc/troubleshoot.rst:311
 msgid ""
 "Run ``MSYS2 MinGW x64`` command prompt (for example: "
 "``C:\\msys64\\msys2_shell.cmd -mingw64``)"
@@ -606,46 +701,46 @@ msgstr ""
 "``C:\\msys64\\msys2_shell.cmd -mingw64``)"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:259
+#: ../doc/troubleshoot.rst:296
 msgid "Update all packages (*Copy/Paste the following command*):"
 msgstr "Обновите все пакеты (*Скопируйте/вставьте следующую команду*):"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:265
+#: ../doc/troubleshoot.rst:302
 msgid "Install GDB debugger (*Copy/Paste the following command*):"
 msgstr "Установите отладчик GDB (*Скопируйте/вставьте следующую команду*):"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:272
+#: ../doc/troubleshoot.rst:309
 msgid "Launch OpenShot with GDB Debugger"
 msgstr "Запустите OpenShot с отладчиком GDB"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:276
+#: ../doc/troubleshoot.rst:313
 msgid "Update the PATH (*Copy/Paste the following commands*):"
 msgstr "Обновите PATH (*Скопируйте/вставьте следующие команды*):"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:283
+#: ../doc/troubleshoot.rst:320
 msgid ""
 "Load OpenShot into the GDB debugger (*Copy/Paste the following commands*):"
 msgstr ""
 "Загрузите OpenShot в отладчик GDB (*Скопируйте/вставьте следующие команды*):"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:290
+#: ../doc/troubleshoot.rst:327
 msgid "Launch OpenShot from GDB prompt (*Copy/Paste the following command*):"
 msgstr ""
 "Запустите OpenShot из приглашения GDB (*Скопируйте/вставьте следующую "
 "команду*):"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:297
+#: ../doc/troubleshoot.rst:334
 msgid "Print Debugging Info"
 msgstr "Вывести отладочную информацию"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:299
+#: ../doc/troubleshoot.rst:336
 msgid ""
 "Once OpenShot has launched successfully with GDB attached, all you need to "
 "do is trigger a crash or freeze in OpenShot. When a crash occurs, switch "
@@ -660,12 +755,12 @@ msgstr ""
 "``backtrace``. Ниже приведены другие команды."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:313
+#: ../doc/troubleshoot.rst:350
 msgid "High DPI / 4K Monitors"
 msgstr "Высокое DPI / 4K мониторы"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:315
+#: ../doc/troubleshoot.rst:352
 msgid ""
 "OpenShot Video Editor provides robust support for High DPI (Dots Per Inch) "
 "monitors, ensuring that the interface looks sharp and is easily readable on "
@@ -678,12 +773,12 @@ msgstr ""
 "полезна для 4K мониторов и других дисплеев с высоким разрешением."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:321
+#: ../doc/troubleshoot.rst:358
 msgid "Per Monitor DPI Awareness"
 msgstr "Осведомленность о DPI для каждого монитора"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:323
+#: ../doc/troubleshoot.rst:360
 msgid ""
 "OpenShot is DPI aware on a per-monitor basis, meaning it can adjust its "
 "scaling dynamically depending on the DPI settings of each connected monitor."
@@ -695,12 +790,12 @@ msgstr ""
 " разных дисплеях."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:328
+#: ../doc/troubleshoot.rst:365
 msgid "DPI Scaling on Windows"
 msgstr "Масштабирование DPI в Windows"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:330
+#: ../doc/troubleshoot.rst:367
 msgid ""
 "On Windows, OpenShot rounds the scaling factor to the nearest whole value to"
 " maintain visual integrity. This helps avoid visual artifacts in the UI and "
@@ -715,22 +810,22 @@ msgstr ""
 "интерфейса, чем ожидалось."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:335
+#: ../doc/troubleshoot.rst:372
 msgid "**125% scaling** rounds to **100%**"
 msgstr "**Масштабирование 125%** округляется до **100%**"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:336
+#: ../doc/troubleshoot.rst:373
 msgid "**150% scaling** rounds to **200%**"
 msgstr "**Масштабирование 150%** округляется до **200%**"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:339
+#: ../doc/troubleshoot.rst:376
 msgid "Workarounds for Fine-Grained Adjustment"
 msgstr "Обходные пути для точной настройки"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:341
+#: ../doc/troubleshoot.rst:378
 msgid ""
 "While rounding helps maintain a clean interface, there are workarounds for "
 "users who require more precise control over scaling. These methods are **not"
@@ -742,12 +837,12 @@ msgstr ""
 "артефактов:"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:345
+#: ../doc/troubleshoot.rst:382
 msgid "**QT_SCALE_FACTOR_ROUNDING_POLICY=PassThrough**"
 msgstr "**QT_SCALE_FACTOR_ROUNDING_POLICY=PassThrough**"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:347
+#: ../doc/troubleshoot.rst:384
 msgid ""
 "Setting this environment variable can disable rounding and allow more "
 "precise scaling."
@@ -756,7 +851,7 @@ msgstr ""
 "более точное масштабирование."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:348
+#: ../doc/troubleshoot.rst:385
 msgid ""
 "**Note:** This may cause visual artifacts, particularly in the timeline, and"
 " is not recommended."
@@ -765,12 +860,12 @@ msgstr ""
 "временной шкале, и не рекомендуется."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:350
+#: ../doc/troubleshoot.rst:387
 msgid "**QT_SCALE_FACTOR=1.25** (or similar value)"
 msgstr "**QT_SCALE_FACTOR=1.25** (или похожее значение)"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:352
+#: ../doc/troubleshoot.rst:389
 msgid ""
 "Manually setting the scale factor can provide finer adjustments to the font "
 "and UI scaling."
@@ -779,7 +874,7 @@ msgstr ""
 "настройку размера шрифта и масштабирования интерфейса."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:353
+#: ../doc/troubleshoot.rst:390
 msgid ""
 "This can also be set via Preferences (User Interface Scale), but expect "
 "border/line issues on Windows with fractional scales."
@@ -788,7 +883,7 @@ msgstr ""
 "ожидайте проблем с границами/линиями в Windows при дробных масштабах."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:354
+#: ../doc/troubleshoot.rst:391
 msgid ""
 "**Note:** This method can also lead to visual artifacts and make OpenShot "
 "harder to use."
@@ -797,7 +892,7 @@ msgstr ""
 "усложнить использование OpenShot."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:356
+#: ../doc/troubleshoot.rst:393
 msgid ""
 "For more info on adjusting these environment variables, please visit "
 "https://github.com/OpenShot/openshot-qt/wiki/OpenShot-UI-too-large."
@@ -805,3 +900,15 @@ msgstr ""
 "Для получения дополнительной информации о настройке этих переменных "
 "окружения, пожалуйста, посетите https://github.com/OpenShot/openshot-"
 "qt/wiki/OpenShot-UI-too-large."
+
+#~ msgid "Other command-line options"
+#~ msgstr "Другие параметры командной строки"
+
+#~ msgid ""
+#~ "Most users only need the two controls above. The following options let you "
+#~ "choose how much detail goes into the files or appears in the terminal. Here,"
+#~ " *console* means the terminal output."
+#~ msgstr ""
+#~ "Большинству пользователей нужны только два вышеуказанных параметра. "
+#~ "Следующие опции позволяют выбрать, сколько деталей записывать в файлы или "
+#~ "отображать в терминале. Здесь *console* означает вывод в терминал."

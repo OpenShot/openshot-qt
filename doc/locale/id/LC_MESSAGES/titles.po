@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,11 +20,11 @@ msgstr ""
 "Generated-By: Babel 2.10.3\n"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:23
+#: ../doc/titles.rst:23
 msgid "Text & Titles"
 msgstr "Teks & Judul"
 
-#: ../titles.rst:25
+#: ../doc/titles.rst:25
 msgid ""
 "Adding text overlays, lower thirds, and titles is an important aspect of "
 "video editing, and OpenShot comes with an easy-to-use Title Editor. Use the "
@@ -38,7 +38,7 @@ msgstr ""
 ":kbd:`Ctrl+T`."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:29
+#: ../doc/titles.rst:29
 msgid ""
 "Titles are simply vector image files with transparent backgrounds "
 "(``*.svg``). OpenShot comes with many easy-to-use templates, but you can "
@@ -59,68 +59,394 @@ msgstr ""
 "judul tersebut pada Track di atas klip video. Latar belakang transparan akan"
 " memungkinkan video di bawahnya terlihat di belakang teks."
 
+#: ../doc/titles.rst:38
+msgid "Edit text directly in the preview"
+msgstr "Edit teks langsung di pratinjau"
+
+#: ../doc/titles.rst:40
+msgid ""
+"The quickest way to add text is to type it straight onto the video preview."
+msgstr ""
+"Cara tercepat untuk menambahkan teks adalah dengan mengetiknya langsung di "
+"pratinjau video."
+
+#: ../doc/titles.rst:42
+msgid ""
+"Click **Tt** in the **Timeline** toolbar, choose **Title → Text**, or press "
+":kbd:`Shift+T`. A text clip is added at the playhead, above the clips "
+"already there, and its placeholder text is selected, ready to replace by "
+"typing."
+msgstr ""
+"Klik **Tt** di toolbar **Timeline**, pilih **Title → Text**, atau tekan "
+":kbd:`Shift+T`. Klip teks akan ditambahkan di playhead, di atas klip yang "
+"sudah ada, dan teks placeholder-nya dipilih, siap diganti dengan mengetik."
+
+#: ../doc/titles.rst:45
+msgid "Type your text. Press :kbd:`Shift+Enter` for a new line."
+msgstr "Ketik teks Anda. Tekan :kbd:`Shift+Enter` untuk baris baru."
+
+#: ../doc/titles.rst:46
+msgid ""
+"Press :kbd:`Enter`, or click outside the text, to finish. Clicking anywhere "
+"else (the preview, the timeline, another dock), moving the playhead, or "
+"pressing Play also finishes and keeps your changes; the style bar and the "
+"**Properties** dock change the text without finishing. The clip then shows "
+"the normal transform handles to move, scale and rotate it. Press "
+":kbd:`Escape` instead to remove a text you just added (or, when editing an "
+"existing text, to throw away this editing session)."
+msgstr ""
+"Tekan :kbd:`Enter`, atau klik di luar teks, untuk menyelesaikan. Mengklik di"
+" tempat lain (pratinjau, timeline, dock lain), memindahkan playhead, atau "
+"menekan Play juga menyelesaikan dan menyimpan perubahan Anda; style bar dan "
+"dock **Properties** mengubah teks tanpa menyelesaikan. Klip kemudian "
+"menampilkan pegangan transformasi normal untuk memindahkan, mengubah ukuran,"
+" dan memutar. Tekan :kbd:`Escape` untuk menghapus teks yang baru saja Anda "
+"tambahkan (atau, saat mengedit teks yang ada, untuk membatalkan sesi "
+"pengeditan ini)."
+
+#: ../doc/titles.rst:53
+msgid ""
+"To edit an existing text, double-click it in the preview, select its clip "
+"and press :kbd:`Enter`, or right-click the clip and choose **Text → Edit "
+"Text**. All of its text is selected, so typing replaces it. Starting "
+"playback or seeking ends editing without keeping unfinished changes, so "
+"press :kbd:`Enter` first to keep them."
+msgstr ""
+"Untuk mengedit teks yang sudah ada, klik dua kali di pratinjau, pilih "
+"klipnya dan tekan :kbd:`Enter`, atau klik kanan klip dan pilih **Text → Edit"
+" Text**. Semua teks akan dipilih, jadi mengetik akan menggantinya. Memulai "
+"pemutaran atau mencari mengakhiri pengeditan tanpa menyimpan perubahan yang "
+"belum selesai, jadi tekan :kbd:`Enter` terlebih dahulu untuk menyimpannya."
+
+#: ../doc/titles.rst:61
+msgid "Text style bar"
+msgstr "Bar gaya teks"
+
+#: ../doc/titles.rst:63
+msgid "While you type, a small style bar floats over the video preview:"
+msgstr ""
+"Saat Anda mengetik, sebuah bar gaya kecil mengambang di atas pratinjau "
+"video:"
+
+#: ../doc/titles.rst:69
+msgid "Control"
+msgstr "Kontrol"
+
 # Translated with gpt-4.1-mini
-#: ../titles.rst:36
+#: ../doc/titles.rst:69 ../doc/titles.rst:165 ../doc/titles.rst:184
+#: ../doc/titles.rst:306 ../doc/titles.rst:325
+msgid "Description"
+msgstr "Deskripsi"
+
+#: ../doc/titles.rst:71
+msgid "Font"
+msgstr "Font"
+
+#: ../doc/titles.rst:71
+msgid "The font family, from the fonts installed on your computer"
+msgstr "Keluarga font, dari font yang terpasang di komputer Anda"
+
+#: ../doc/titles.rst:72
+msgid "Size"
+msgstr "Ukuran"
+
+#: ../doc/titles.rst:72
+msgid "The font size, in project pixels"
+msgstr "Ukuran font, dalam piksel proyek"
+
+#: ../doc/titles.rst:73
+msgid "Bold / Italic"
+msgstr "Tebal / Miring"
+
+#: ../doc/titles.rst:73
+msgid "Toggle bold and italic for the whole text"
+msgstr "Beralih tebal dan miring untuk seluruh teks"
+
+#: ../doc/titles.rst:74
+msgid "Color"
+msgstr "Warna"
+
+#: ../doc/titles.rst:74
+msgid "The text color (choose a transparent color to show only the outline)"
+msgstr ""
+"Warna teks (pilih warna transparan untuk hanya menampilkan garis tepi)"
+
+#: ../doc/titles.rst:75
+msgid "Alignment"
+msgstr "Perataan"
+
+#: ../doc/titles.rst:75
+msgid "Align lines left, center or right inside the text box"
+msgstr "Ratakan baris ke kiri, tengah, atau kanan di dalam kotak teks"
+
+#: ../doc/titles.rst:76
+msgid "More (…)"
+msgstr "Lainnya (…)"
+
+#: ../doc/titles.rst:76
+msgid ""
+"Open **Edit Style** for background, padding, rounded corners, outline, "
+"border, box width, and letter and line spacing"
+msgstr ""
+"Buka **Edit Style** untuk latar belakang, padding, sudut membulat, garis "
+"tepi, batas, lebar kotak, serta jarak huruf dan baris"
+
+#: ../doc/titles.rst:80
+msgid ""
+"The style bar sits at the **top** of the video preview. If that would cover "
+"the text you are editing, it jumps to the **bottom** of the preview instead,"
+" and it returns to the top once the text is clear of it again (for example, "
+"after you move the text or make it smaller). The style bar floats over the "
+"video, so it never resizes the preview. Changes from the style bar show on "
+"the video right away."
+msgstr ""
+"Bar gaya berada di **atas** pratinjau video. Jika itu menutupi teks yang "
+"Anda edit, bar tersebut akan pindah ke **bawah** pratinjau, dan kembali ke "
+"atas setelah teks tidak lagi menutupinya (misalnya, setelah Anda memindahkan"
+" teks atau memperkecilnya). Bar gaya mengambang di atas video, jadi tidak "
+"pernah mengubah ukuran pratinjau. Perubahan dari bar gaya langsung terlihat "
+"di video."
+
+#: ../doc/titles.rst:89
+msgid "Edit Style"
+msgstr "Edit Gaya"
+
+#: ../doc/titles.rst:91
+msgid ""
+"**Edit Style** has every text setting in one place. **Text** holds the "
+"words. **Font** has the style bar controls, the text outline (color and "
+"width), and letter and line spacing. **Background** has the box behind the "
+"text: its color, padding, rounded corners, border (color and width), and box"
+" width (where lines wrap). Open it from **More (…)** on the style bar, from "
+"**Text → Edit Style…** on a clip's context menu, or with **Edit Text…** in "
+"Project Files. The preview at the top shows changes as you make them. Press "
+":kbd:`Ctrl+Enter` or click **Apply** to keep them; :kbd:`Enter` adds a new "
+"line, and **Cancel** discards the changes. **Restore Defaults** returns "
+"everything except the text to the default style."
+msgstr ""
+"**Edit Gaya** memiliki semua pengaturan teks dalam satu tempat. **Text** "
+"berisi kata-kata. **Font** memiliki kontrol bar gaya, garis tepi teks (warna"
+" dan lebar), serta jarak huruf dan baris. **Background** memiliki kotak di "
+"belakang teks: warnanya, padding, sudut membulat, batas (warna dan lebar), "
+"dan lebar kotak (tempat baris membungkus). Buka dari **Lainnya (…)** di bar "
+"gaya, dari **Text → Edit Style…** di menu konteks klip, atau dengan **Edit "
+"Text…** di Berkas Proyek. Pratinjau di atas menunjukkan perubahan saat Anda "
+"membuatnya. Tekan :kbd:`Ctrl+Enter` atau klik **Terapkan** untuk menyimpan; "
+":kbd:`Enter` menambah baris baru, dan **Batal** membatalkan perubahan. "
+"**Kembalikan ke Default** mengembalikan semuanya kecuali teks ke gaya "
+"default."
+
+#: ../doc/titles.rst:100
+msgid ""
+"**Line spacing** sets the distance between lines as a multiple of the normal"
+" distance: 1.0 is normal, 1.5 adds half a line of space, and values below "
+"1.0 pull lines closer together. **Corner radius** rounds the corners of the "
+"background and the border, in pixels; 0 keeps them square. The text outline "
+"is drawn behind the letters, so a wide outline grows outward instead of "
+"covering them. For hollow letters, give the text an outline and set the text"
+" color's opacity to 0 in the color picker: only the outline is drawn, and "
+"the video shows through the letters."
+msgstr ""
+"**Jarak baris** mengatur jarak antar baris sebagai kelipatan jarak normal: "
+"1.0 adalah normal, 1.5 menambah setengah baris ruang, dan nilai di bawah 1.0"
+" menarik baris lebih dekat. **Radius sudut** membulatkan sudut latar "
+"belakang dan batas, dalam piksel; 0 menjaga sudut tetap persegi. Garis tepi "
+"teks digambar di belakang huruf, jadi garis tepi yang lebar tumbuh ke luar "
+"bukan menutupi huruf. Untuk huruf berlubang, berikan garis tepi pada teks "
+"dan atur opasitas warna teks ke 0 di pemilih warna: hanya garis tepi yang "
+"digambar, dan video terlihat melalui huruf."
+
+#: ../doc/titles.rst:107
+msgid ""
+"Select several text clips (or several texts in Project Files) and choose "
+"**Edit Style…** to change their style together. The text box is grayed out, "
+"because each text keeps its own words, and only the settings you change are "
+"applied to all of them."
+msgstr ""
+"Pilih beberapa klip teks (atau beberapa teks di Berkas Proyek) dan pilih "
+"**Edit Style…** untuk mengubah gaya mereka bersama-sama. Kotak teks berwarna"
+" abu-abu, karena setiap teks mempertahankan kata-katanya sendiri, dan hanya "
+"pengaturan yang Anda ubah yang diterapkan ke semuanya."
+
+#: ../doc/titles.rst:111
+msgid ""
+"To reset text clips without opening the dialog, right-click them and choose "
+"**Text → Reset Style**. Their font, size, colors and outlines return to the "
+"defaults, any color or outline keyframes on those clips are removed, and "
+"their words are kept."
+msgstr ""
+"Untuk mengatur ulang klip teks tanpa membuka dialog, klik kanan dan pilih "
+"**Text → Reset Style**. Font, ukuran, warna, dan garis tepi mereka kembali "
+"ke default, semua keyframe warna atau garis tepi pada klip tersebut dihapus,"
+" dan kata-kata mereka tetap dipertahankan."
+
+#: ../doc/titles.rst:115
+msgid ""
+"To give other text clips the same look, right-click a text clip and choose "
+"**Copy → Text Style**, then select the other text clips, right-click and "
+"choose **Paste**. They take the font, size, colors, outline, border, corners"
+" and spacing, plus the copied clip's color, outline, border and corner "
+"keyframes, and keep their own words and box width. Pasting a text style onto"
+" other kinds of clips changes nothing. **Copy → Keyframes → All** also "
+"includes a text clip's own text keyframes."
+msgstr ""
+"Untuk memberikan tampilan yang sama pada klip teks lain, klik kanan klip "
+"teks dan pilih **Copy → Text Style**, lalu pilih klip teks lain, klik kanan "
+"dan pilih **Paste**. Mereka mengambil font, ukuran, warna, garis tepi, "
+"batas, sudut, dan jarak, plus keyframe warna, garis tepi, batas, dan sudut "
+"dari klip yang disalin, dan mempertahankan kata-kata serta lebar kotak "
+"mereka sendiri. Menempelkan gaya teks ke jenis klip lain tidak mengubah apa "
+"pun. **Copy → Keyframes → All** juga menyertakan keyframe teks dari klip "
+"teks itu sendiri."
+
+#: ../doc/titles.rst:122
+msgid ""
+"A new text starts with the style you used last (font, size, colors, outline,"
+" border and spacing), so a series of titles stays consistent. Without a "
+"previous text, it uses a standard font installed on your computer."
+msgstr ""
+"Teks baru dimulai dengan gaya yang terakhir Anda gunakan (font, ukuran, "
+"warna, garis tepi, batas, dan jarak), sehingga serangkaian judul tetap "
+"konsisten. Jika tidak ada teks sebelumnya, digunakan font standar yang "
+"terpasang di komputer Anda."
+
+#: ../doc/titles.rst:127
+msgid "Project Files and Properties"
+msgstr "Berkas Proyek dan Properti"
+
+#: ../doc/titles.rst:129
+msgid ""
+"Each text also appears in **Project Files**, with a thumbnail on black. Drag"
+" it onto the timeline like an image to use it again. Right-click it and "
+"choose **Edit Text…** (or double-click it) to edit it without placing it on "
+"the timeline. **Duplicate** opens a copy, ready to type, and **Apply** adds "
+"it as a new, independent text."
+msgstr ""
+"Setiap teks juga muncul di **Project Files**, dengan thumbnail berwarna "
+"hitam. Seret ke timeline seperti gambar untuk menggunakannya lagi. Klik "
+"kanan dan pilih **Edit Text…** (atau klik dua kali) untuk mengeditnya tanpa "
+"menempatkannya di timeline. **Duplicate** membuka salinan, siap untuk "
+"diketik, dan **Apply** menambahkannya sebagai teks baru yang independen."
+
+#: ../doc/titles.rst:134
+msgid ""
+"The words, font, size, spacing, alignment, box width, padding and default "
+"colors belong to the text in Project Files, so editing them updates every "
+"clip that uses that text. When a text clip is selected, these settings also "
+"appear at the top of **Properties** (for example **Text Box Width** and "
+"**Text Background Padding**), and changes there show on the video right away"
+" (including while you are typing)."
+msgstr ""
+"Kata-kata, font, ukuran, jarak, perataan, lebar kotak, padding, dan warna "
+"default milik teks di Project Files, jadi mengeditnya memperbarui setiap "
+"klip yang menggunakan teks tersebut. Ketika klip teks dipilih, pengaturan "
+"ini juga muncul di bagian atas **Properties** (misalnya **Text Box Width** "
+"dan **Text Background Padding**), dan perubahan di sana langsung terlihat di"
+" video (termasuk saat Anda mengetik)."
+
+#: ../doc/titles.rst:140
+msgid ""
+"Text color, background, outline and border colors, outline and border "
+"widths, and corner radius can be animated on each clip with keyframes in "
+"**Properties**, like any other clip property. These follow **Auto "
+"Keyframes** at the playhead. Font size, padding, box width, and letter and "
+"line spacing set the size of the text box, so they have one value per text; "
+"to animate the size of text, animate the clip's scale. Undo and Redo work "
+"for all text changes."
+msgstr ""
+"Warna teks, latar belakang, warna garis luar dan batas, lebar garis luar dan"
+" batas, serta radius sudut dapat dianimasikan pada setiap klip dengan "
+"keyframe di **Properties**, seperti properti klip lainnya. Ini mengikuti "
+"**Auto Keyframes** pada playhead. Ukuran font, padding, lebar kotak, serta "
+"jarak huruf dan baris menentukan ukuran kotak teks, jadi mereka memiliki "
+"satu nilai per teks; untuk menganimasikan ukuran teks, animasikan skala "
+"klip. Undo dan Redo berfungsi untuk semua perubahan teks."
+
+#: ../doc/titles.rst:146
+msgid ""
+"Text is saved in the project file and drawn by OpenShot's video library, so "
+"it needs no image files. Fonts come from your computer: to see the same text"
+" on another computer, install the same fonts there. One style applies to all"
+" of a text's lines."
+msgstr ""
+"Teks disimpan dalam file proyek dan digambar oleh perpustakaan video "
+"OpenShot, jadi tidak memerlukan file gambar. Font berasal dari komputer "
+"Anda: untuk melihat teks yang sama di komputer lain, pasang font yang sama "
+"di sana. Satu gaya berlaku untuk semua baris teks."
+
+#: ../doc/titles.rst:150
+msgid ""
+"Text can also be added and styled from the command line; see "
+":ref:`cli_text_ref`."
+msgstr ""
+"Teks juga dapat ditambahkan dan diberi gaya dari baris perintah; lihat "
+":ref:`cli_text_ref`."
+
+#: ../doc/titles.rst:152
+msgid ""
+"The **Title** editor (SVG templates and animated titles) and **Captions** "
+"(timed subtitles) remain available for more elaborate designs."
+msgstr ""
+"Editor **Title** (template SVG dan judul animasi) serta **Captions** "
+"(subtitle berwaktu) tetap tersedia untuk desain yang lebih rumit."
+
+# Translated with gpt-4.1-mini
+#: ../doc/titles.rst:157
 msgid "Overview"
 msgstr "Ikhtisar"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:44 ../titles.rst:185
+#: ../doc/titles.rst:165 ../doc/titles.rst:306
 msgid "#"
 msgstr "#"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:44 ../titles.rst:185
+#: ../doc/titles.rst:165 ../doc/titles.rst:306
 msgid "Name"
 msgstr "Nama"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:44 ../titles.rst:63 ../titles.rst:185 ../titles.rst:204
-msgid "Description"
-msgstr "Deskripsi"
-
-# Translated with gpt-4.1-mini
-#: ../titles.rst:46 ../titles.rst:187
+#: ../doc/titles.rst:167 ../doc/titles.rst:308
 msgid "1"
 msgstr "1"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:46 ../titles.rst:187
+#: ../doc/titles.rst:167 ../doc/titles.rst:308
 msgid "Choose a Template"
 msgstr "Pilih Template"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:46
+#: ../doc/titles.rst:167
 msgid "Choose from any available vector title template"
 msgstr "Pilih dari template judul vektor yang tersedia"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:47 ../titles.rst:188
+#: ../doc/titles.rst:168 ../doc/titles.rst:309
 msgid "2"
 msgstr "2"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:47 ../titles.rst:188
+#: ../doc/titles.rst:168 ../doc/titles.rst:309
 msgid "Preview Title"
 msgstr "Pratinjau Judul"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:47 ../titles.rst:188
+#: ../doc/titles.rst:168 ../doc/titles.rst:309
 msgid "Preview your title as you make changes"
 msgstr "Pratinjau judul Anda saat Anda melakukan perubahan"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:48 ../titles.rst:189
+#: ../doc/titles.rst:169 ../doc/titles.rst:310
 msgid "3"
 msgstr "3"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:48 ../titles.rst:189
+#: ../doc/titles.rst:169 ../doc/titles.rst:310
 msgid "Title Properties"
 msgstr "Properti Judul"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:48
+#: ../doc/titles.rst:169
 msgid ""
 "Change the text, font, size, colors, or edit in an advanced, external SVG "
 "image editor (such as Inkscape)"
@@ -129,27 +455,27 @@ msgstr ""
 "yang canggih (seperti Inkscape)"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:49 ../titles.rst:190
+#: ../doc/titles.rst:170 ../doc/titles.rst:311
 msgid "4"
 msgstr "4"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:49
+#: ../doc/titles.rst:170
 msgid "Save"
 msgstr "Simpan"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:49
+#: ../doc/titles.rst:170
 msgid "Save and add the title to your project"
 msgstr "Simpan dan tambahkan judul ke proyek Anda"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:53
+#: ../doc/titles.rst:174
 msgid "Title Templates"
 msgstr "Template Judul"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:55
+#: ../doc/titles.rst:176
 msgid ""
 "OpenShot includes a variety of vector title templates that can be used to "
 "enhance your video projects. Below is a table listing the available titles "
@@ -160,262 +486,262 @@ msgstr ""
 " judul yang tersedia dan deskripsinya:"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:62
+#: ../doc/titles.rst:183
 msgid "Title Name"
 msgstr "Nama Judul"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:64
+#: ../doc/titles.rst:185
 msgid "Bar 1"
 msgstr "Bar 1"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:65
+#: ../doc/titles.rst:186
 msgid "A simple bar with text centered."
 msgstr "Bar sederhana dengan teks yang dipusatkan."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:66
+#: ../doc/titles.rst:187
 msgid "Bar 2"
 msgstr "Bar 2"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:67
+#: ../doc/titles.rst:188
 msgid "A simple bar, centered, with 2 lines of text."
 msgstr "Bar sederhana, dipusatkan, dengan 2 baris teks."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:68
+#: ../doc/titles.rst:189
 msgid "Bar 3"
 msgstr "Bar 3"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:69
+#: ../doc/titles.rst:190
 msgid "Another variation of a simple bar with text, for lower 3rds."
 msgstr "Variasi lain dari bar sederhana dengan teks, untuk lower thirds."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:70
+#: ../doc/titles.rst:191
 msgid "Box"
 msgstr "Kotak"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:71
+#: ../doc/titles.rst:192
 #, fuzzy
 msgid "A simple boxed title layout for centered text."
 msgstr "Bar sederhana dengan teks yang dipusatkan."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:72
+#: ../doc/titles.rst:193
 msgid "Bubbles 1"
 msgstr "Bubbles 1"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:73
+#: ../doc/titles.rst:194
 msgid "A title with bubble graphics for a playful look."
 msgstr "Judul dengan grafik gelembung untuk tampilan yang ceria."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:74
+#: ../doc/titles.rst:195
 msgid "Bubbles 2"
 msgstr "Bubbles 2"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:75
+#: ../doc/titles.rst:196
 msgid "A different bubble design for a fun and creative title."
 msgstr "Desain gelembung berbeda untuk judul yang menyenangkan dan kreatif."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:76
+#: ../doc/titles.rst:197
 msgid "Camera Border"
 msgstr "Bingkai Kamera"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:77
+#: ../doc/titles.rst:198
 msgid "A border that mimics a camera viewfinder with centered text."
 msgstr "Bingkai yang meniru jendela bidik kamera dengan teks yang dipusatkan."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:78
+#: ../doc/titles.rst:199
 msgid "Cloud 1"
 msgstr "Cloud 1"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:79
+#: ../doc/titles.rst:200
 msgid "A title with a playful cloud graphic and text."
 msgstr "Judul dengan grafik awan yang ceria dan teks."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:80
+#: ../doc/titles.rst:201
 msgid "Cloud 2"
 msgstr "Cloud 2"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:81
+#: ../doc/titles.rst:202
 msgid "Another playful cloud design with 3 clouds and text."
 msgstr "Desain awan ceria lain dengan 3 awan dan teks."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:82
+#: ../doc/titles.rst:203
 msgid "Creative Commons 1"
 msgstr "Creative Commons 1"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:83
+#: ../doc/titles.rst:204
 msgid "Contains text and icons for Creative Commons attribution."
 msgstr "Berisi teks dan ikon untuk atribusi Creative Commons."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:84
+#: ../doc/titles.rst:205
 msgid "Creative Commons 2"
 msgstr "Creative Commons 2"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:85
+#: ../doc/titles.rst:206
 msgid ""
 "Another Creative Commons design with different styling plus website text."
 msgstr "Desain Creative Commons lain dengan gaya berbeda plus teks situs web."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:86
+#: ../doc/titles.rst:207
 msgid "Film Rating 1"
 msgstr "Rating Film 1"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:87
+#: ../doc/titles.rst:208
 msgid "Displays a film rating for all audiences."
 msgstr "Menampilkan rating film untuk semua penonton."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:88
+#: ../doc/titles.rst:209
 msgid "Film Rating 2"
 msgstr "Rating Film 2"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:89
+#: ../doc/titles.rst:210
 msgid "Displays a film rating of \"R\" restricted."
 msgstr "Menampilkan rating film \"R\" terbatas."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:90
+#: ../doc/titles.rst:211
 msgid "Film Rating 3"
 msgstr "Rating Film 3"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:91
+#: ../doc/titles.rst:212
 msgid "Displays a film rating of \"G\" for general audiences."
 msgstr "Menampilkan rating film \"G\" untuk penonton umum."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:92
+#: ../doc/titles.rst:213
 msgid "Film Rating 4"
 msgstr "Rating Film 4"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:93
+#: ../doc/titles.rst:214
 msgid "Displays a film rating of \"PG-13\", parents strongly cautioned."
 msgstr ""
 "Menampilkan rating film \"PG-13\", orang tua sangat disarankan berhati-hati."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:94
+#: ../doc/titles.rst:215
 #, fuzzy
 msgid "Flare"
 msgstr "Silau"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:95
+#: ../doc/titles.rst:216
 #, fuzzy
 msgid "A title with a bright flare effect for a cinematic look."
 msgstr "Judul dengan efek asap untuk tampilan dramatis."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:96
+#: ../doc/titles.rst:217
 msgid "Flames"
 msgstr "Api"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:97
+#: ../doc/titles.rst:218
 msgid "A title with flame graphics for a fiery effect."
 msgstr "Judul dengan grafik api untuk efek menyala."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:98
+#: ../doc/titles.rst:219
 msgid "Footer 1"
 msgstr "Footer 1"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:99
+#: ../doc/titles.rst:220
 msgid "A footer bar for lower thirds (left aligned)."
 msgstr "Bar footer untuk lower thirds (rata kiri)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:100
+#: ../doc/titles.rst:221
 msgid "Footer 2"
 msgstr "Footer 2"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:101
+#: ../doc/titles.rst:222
 msgid "A footer bar for lower thirds (center aligned)."
 msgstr "Bar footer untuk lower thirds (rata tengah)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:102
+#: ../doc/titles.rst:223
 msgid "Footer 3"
 msgstr "Footer 3"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:103
+#: ../doc/titles.rst:224
 msgid "A footer bar for lower thirds (right aligned)."
 msgstr "Bar footer untuk lower thirds (rata kanan)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:104
+#: ../doc/titles.rst:225
 msgid "Gold 1"
 msgstr "Emas 1"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:105
+#: ../doc/titles.rst:226
 msgid "A title with a gold color scheme, centered with one line of text."
 msgstr "Judul dengan skema warna emas, dipusatkan dengan satu baris teks."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:106
+#: ../doc/titles.rst:227
 msgid "Gold 2"
 msgstr "Emas 2"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:107
+#: ../doc/titles.rst:228
 msgid "Another gold-themed title, centered with two lines of text."
 msgstr "Judul bertema emas lain, dipusatkan dengan dua baris teks."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:108
+#: ../doc/titles.rst:229
 msgid "Gold Bottom"
 msgstr "Emas Bawah"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:109
+#: ../doc/titles.rst:230
 msgid "Gold title positioned at the bottom of the screen."
 msgstr "Judul emas yang ditempatkan di bagian bawah layar."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:110
+#: ../doc/titles.rst:231
 msgid "Gold Top"
 msgstr "Emas Atas"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:111
+#: ../doc/titles.rst:232
 msgid "Gold title positioned at the top of the screen."
 msgstr "Judul emas yang ditempatkan di bagian atas layar."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:112
+#: ../doc/titles.rst:233
 msgid "Gray Box 1"
 msgstr "Kotak Abu-abu 1"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:113
+#: ../doc/titles.rst:234
 msgid ""
 "A simple gray box for highlighting text (one line of text, top-left "
 "aligned)."
@@ -424,12 +750,12 @@ msgstr ""
 "atas)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:114
+#: ../doc/titles.rst:235
 msgid "Gray Box 2"
 msgstr "Kotak Abu-abu 2"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:115
+#: ../doc/titles.rst:236
 msgid ""
 "A simple gray box for highlighting text (two lins of text, top-left "
 "aligned)."
@@ -438,12 +764,12 @@ msgstr ""
 "atas)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:116
+#: ../doc/titles.rst:237
 msgid "Gray Box 3"
 msgstr "Kotak Abu-abu 3"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:117
+#: ../doc/titles.rst:238
 msgid ""
 "A simple gray box for highlighting text (one line of text, bottom-right "
 "aligned)."
@@ -452,12 +778,12 @@ msgstr ""
 "bawah)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:118
+#: ../doc/titles.rst:239
 msgid "Gray Box 4"
 msgstr "Kotak Abu-abu 4"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:119
+#: ../doc/titles.rst:240
 msgid ""
 "A simple gray box for highlighting text (two lines of text, bottom-right "
 "aligned)."
@@ -466,184 +792,184 @@ msgstr ""
 "bawah)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:120
+#: ../doc/titles.rst:241
 msgid "Header 1"
 msgstr "Header 1"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:121
+#: ../doc/titles.rst:242
 msgid "A header bar for titles or section headers (top-left aligned)."
 msgstr "Bar header untuk judul atau header bagian (rata kiri atas)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:122
+#: ../doc/titles.rst:243
 msgid "Header 2"
 msgstr "Header 2"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:123
+#: ../doc/titles.rst:244
 msgid "A header bar for titles or section headers (center aligned)."
 msgstr "Bar header untuk judul atau header bagian (rata tengah)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:124
+#: ../doc/titles.rst:245
 msgid "Header 3"
 msgstr "Header 3"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:125
+#: ../doc/titles.rst:246
 msgid "A header bar for titles or section headers (top-right aligned)."
 msgstr "Bar header untuk judul atau header bagian (rata kanan atas)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:126
+#: ../doc/titles.rst:247
 msgid "OpenShot"
 msgstr "OpenShot"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:127
+#: ../doc/titles.rst:248
 msgid "A title featuring OpenShot branding."
 msgstr "Judul yang menampilkan merek OpenShot."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:128
+#: ../doc/titles.rst:249
 msgid "Oval 1"
 msgstr "Oval 1"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:129
+#: ../doc/titles.rst:250
 msgid "An oval shape for highlighting or decorative purposes, text centered."
 msgstr "Bentuk oval untuk menyorot atau tujuan dekoratif, teks rata tengah."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:130
+#: ../doc/titles.rst:251
 msgid "Oval 2"
 msgstr "Oval 2"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:131
+#: ../doc/titles.rst:252
 msgid "Another oval design with a different style, text centered."
 msgstr "Desain oval lain dengan gaya berbeda, teks rata tengah."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:132
+#: ../doc/titles.rst:253
 msgid "Oval 3"
 msgstr "Oval 3"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:133
+#: ../doc/titles.rst:254
 msgid ""
 "Another oval design with two-lines of text, one at the top, one at the "
 "bottom."
 msgstr "Desain oval lain dengan dua baris teks, satu di atas, satu di bawah."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:134
+#: ../doc/titles.rst:255
 msgid "Oval 4"
 msgstr "Oval 4"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:135
+#: ../doc/titles.rst:256
 msgid "Yet another oval design, with text centered plus refection."
 msgstr "Desain oval lain lagi, dengan teks rata tengah plus refleksi."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:136
+#: ../doc/titles.rst:257
 msgid "Post it"
 msgstr "Post it"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:137
+#: ../doc/titles.rst:258
 msgid "Mimics a sticky note for annotations or reminders."
 msgstr "Meniru catatan tempel untuk anotasi atau pengingat."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:138
+#: ../doc/titles.rst:259
 msgid "Ribbon 1"
 msgstr "Pita 1"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:139
+#: ../doc/titles.rst:260
 msgid "A ribbon graphic with text."
 msgstr "Grafik pita dengan teks."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:140
+#: ../doc/titles.rst:261
 msgid "Ribbon 2"
 msgstr "Pita 2"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:141
+#: ../doc/titles.rst:262
 msgid "Another ribbon design with text."
 msgstr "Desain pita lain dengan teks."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:142
+#: ../doc/titles.rst:263
 msgid "Ribbon 3"
 msgstr "Pita 3"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:143
+#: ../doc/titles.rst:264
 msgid "A third variation of a ribbon design with text."
 msgstr "Variasi ketiga dari desain pita dengan teks."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:144
+#: ../doc/titles.rst:265
 msgid "Smoke 1"
 msgstr "Asap 1"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:145
+#: ../doc/titles.rst:266
 msgid "A title with smoke effects for a dramatic look."
 msgstr "Judul dengan efek asap untuk tampilan dramatis."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:146
+#: ../doc/titles.rst:267
 msgid "Smoke 2"
 msgstr "Asap 2"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:147
+#: ../doc/titles.rst:268
 msgid "Another smoke design with a different style."
 msgstr "Desain asap lain dengan gaya berbeda."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:148
+#: ../doc/titles.rst:269
 msgid "Smoke 3"
 msgstr "Asap 3"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:149
+#: ../doc/titles.rst:270
 msgid "A third variation of smoke effects."
 msgstr "Variasi ketiga dari efek asap."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:150
+#: ../doc/titles.rst:271
 msgid "Solid Color"
 msgstr "Warna Solid"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:151
+#: ../doc/titles.rst:272
 msgid "A full-screen color background for various uses."
 msgstr "Latar belakang warna layar penuh untuk berbagai penggunaan."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:152
+#: ../doc/titles.rst:273
 msgid "Standard 1"
 msgstr "Standar 1"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:153
+#: ../doc/titles.rst:274
 msgid "A standard title design for general purposes (two lines centered)."
 msgstr "Desain judul standar untuk tujuan umum (dua baris rata tengah)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:154
+#: ../doc/titles.rst:275
 msgid "Standard 2"
 msgstr "Standar 2"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:155
+#: ../doc/titles.rst:276
 msgid ""
 "Another standard title with a different style (one line of text plus "
 "reflection)."
@@ -651,55 +977,55 @@ msgstr ""
 "Judul standar lain dengan gaya berbeda (satu baris teks plus refleksi)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:156
+#: ../doc/titles.rst:277
 msgid "Standard 3"
 msgstr "Standar 3"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:157
+#: ../doc/titles.rst:278
 msgid "A third variation of a standard title (three lines of text)."
 msgstr "Variasi ketiga dari judul standar (tiga baris teks)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:158
+#: ../doc/titles.rst:279
 msgid "Standard 4"
 msgstr "Standar 4"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:159
+#: ../doc/titles.rst:280
 msgid "Yet another standard title design (four lines of text)."
 msgstr "Desain judul standar lain lagi (empat baris teks)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:160
+#: ../doc/titles.rst:281
 msgid "Sunset"
 msgstr "Matahari Terbenam"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:161
+#: ../doc/titles.rst:282
 msgid "A title with sunset gradient for a warm, end-of-day theme."
 msgstr ""
 "Judul dengan gradasi matahari terbenam untuk tema hangat di akhir hari."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:162
+#: ../doc/titles.rst:283
 msgid "TV Rating"
 msgstr "Rating TV"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:163
+#: ../doc/titles.rst:284
 msgid ""
 "Displays TV ratings badge such as \"G\" and \"PG\" (for the corner of the "
 "screen)."
 msgstr "Menampilkan lencana rating TV seperti \"G\" dan \"PG\" (untuk sudut layar)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:167
+#: ../doc/titles.rst:288
 msgid "Custom Title Templates"
 msgstr "Template Judul Kustom"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:168
+#: ../doc/titles.rst:289
 msgid ""
 "OpenShot can use any vector SVG image file as a custom title template in the"
 " :guilabel:`Title Editor` dialog. Just add an SVG image file to your "
@@ -716,7 +1042,7 @@ msgstr ""
 " **Edit Title** atau **Duplicate Title**."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:172
+#: ../doc/titles.rst:293
 msgid ""
 "Note: These SVG templates are only used by the :guilabel:`Title Editor` "
 "dialog, and not :guilabel:`Animated Title` dialog."
@@ -725,12 +1051,12 @@ msgstr ""
 "Editor`, dan bukan dialog :guilabel:`Animated Title`."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:177
+#: ../doc/titles.rst:298
 msgid "3D Animated Titles"
 msgstr "Judul Animasi 3D"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:178
+#: ../doc/titles.rst:299
 msgid ""
 "Adding a 3D animated title is just as easy, using our **Animated Title** "
 "dialog. Use the Title menu (located in the main menu of OpenShot) to launch "
@@ -745,32 +1071,32 @@ msgstr ""
 " ini dapat berfungsi di OpenShot. Lihat :ref:`blender_install_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:187
+#: ../doc/titles.rst:308
 msgid "Choose from any available 3D title templates"
 msgstr "Pilih dari template judul 3D yang tersedia"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:189
+#: ../doc/titles.rst:310
 msgid "Change the text, colors, and advanced properties"
 msgstr "Ubah teks, warna, dan properti lanjutan"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:190
+#: ../doc/titles.rst:311
 msgid "Render"
 msgstr "Render"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:190
+#: ../doc/titles.rst:311
 msgid "Render the 3D animation, and add it to your project"
 msgstr "Render animasi 3D, dan tambahkan ke proyek Anda"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:194
+#: ../doc/titles.rst:315
 msgid "3D Animated Templates"
 msgstr "Template Animasi 3D"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:196
+#: ../doc/titles.rst:317
 msgid ""
 "OpenShot includes a variety of 3D animated templates that can be used to add"
 " dynamic and engaging elements to your video projects. Below is a table "
@@ -781,27 +1107,27 @@ msgstr ""
 " tabel yang mencantumkan template yang tersedia beserta deskripsinya:"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:203
+#: ../doc/titles.rst:324
 msgid "Template Name"
 msgstr "Nama Template"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:205
+#: ../doc/titles.rst:326
 msgid "Blinds (Two Titles)"
 msgstr "Blinds (Dua Judul)"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:206
+#: ../doc/titles.rst:327
 msgid "An animation featuring a blinds effect."
 msgstr "Animasi dengan efek tirai."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:207
+#: ../doc/titles.rst:328
 msgid "Blur"
 msgstr "Blur"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:208
+#: ../doc/titles.rst:329
 msgid ""
 "A template that blurs text in and out, providing a smooth transition effect."
 msgstr ""
@@ -809,12 +1135,12 @@ msgstr ""
 "yang halus."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:209
+#: ../doc/titles.rst:330
 msgid "Color Tiles"
 msgstr "Ubin Warna"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:210
+#: ../doc/titles.rst:331
 msgid ""
 "An animation with changing colors, suitable for vibrant and dynamic titles."
 msgstr ""
@@ -822,12 +1148,12 @@ msgstr ""
 "dinamis."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:211
+#: ../doc/titles.rst:332
 msgid "Dissolving Text"
 msgstr "Teks Menghilang"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:212
+#: ../doc/titles.rst:333
 msgid ""
 "A dissolve effect that turns any text into particles which get blown away by"
 " the wind."
@@ -835,22 +1161,22 @@ msgstr ""
 "Efek larut yang mengubah teks menjadi partikel yang diterbangkan angin."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:213
+#: ../doc/titles.rst:334
 msgid "World Map"
 msgstr "Peta Dunia"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:214
+#: ../doc/titles.rst:335
 msgid "A template featuring a rotating Earth between 2 locations."
 msgstr "Template yang menampilkan Bumi berputar antara 2 lokasi."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:215
+#: ../doc/titles.rst:336
 msgid "Exploding Text"
 msgstr "Teks Meledak"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:216
+#: ../doc/titles.rst:337
 msgid ""
 "An animation where the title explode into pieces, adding dramatic impact."
 msgstr ""
@@ -858,85 +1184,85 @@ msgstr ""
 "dramatis."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:217
+#: ../doc/titles.rst:338
 msgid "Fly Towards Camera"
 msgstr "Terbang Menuju Kamera"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:218
+#: ../doc/titles.rst:339
 msgid "A fly-by animation with a single title zooming past the screen."
 msgstr "Animasi terbang dengan satu judul yang memperbesar melewati layar."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:219
+#: ../doc/titles.rst:340
 msgid "Fly Towards Camera (Two Titles)"
 msgstr "Terbang Menuju Kamera (Dua Judul)"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:220
+#: ../doc/titles.rst:341
 msgid "Similar to Fly By 1, but with two titles flying by."
 msgstr ""
 "Mirip dengan Terbang Lewat 1, tetapi dengan dua judul yang terbang lewat."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:221
+#: ../doc/titles.rst:342
 msgid "Glare"
 msgstr "Silau"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:222
+#: ../doc/titles.rst:343
 msgid "An animation with a glare effect, adding a bright, reflective look."
 msgstr "Animasi dengan efek silau, menambah tampilan cerah dan reflektif."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:223
+#: ../doc/titles.rst:344
 msgid "Glass Slider"
 msgstr "Geser Kaca"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:224
+#: ../doc/titles.rst:345
 msgid "A sliding glass effect, providing a modern and sleek transition."
 msgstr "Efek geser kaca, memberikan transisi yang modern dan ramping."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:225
+#: ../doc/titles.rst:346
 msgid "Lens Flare"
 msgstr "Cahaya Lensa"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:226
+#: ../doc/titles.rst:347
 msgid "An animation featuring a lens flare, adding a cinematic touch."
 msgstr "Animasi dengan cahaya lensa, menambah sentuhan sinematik."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:227
+#: ../doc/titles.rst:348
 msgid "Magic Wand"
 msgstr "Tongkat Ajaib"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:228
+#: ../doc/titles.rst:349
 msgid "A whimsical magic wand effect, ideal for magical or fantasy themes."
 msgstr ""
 "Efek tongkat ajaib yang imajinatif, ideal untuk tema magis atau fantasi."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:229
+#: ../doc/titles.rst:350
 msgid "Neon Curves"
 msgstr "Lengkungan Neon"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:230
+#: ../doc/titles.rst:351
 msgid "An animation with neon curves, creating a futuristic and vibrant look."
 msgstr ""
 "Animasi dengan lengkungan neon, menciptakan tampilan futuristik dan hidup."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:231
+#: ../doc/titles.rst:352
 msgid "Picture Frames (4 pictures)"
 msgstr "Bingkai Gambar (4 gambar)"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:232
+#: ../doc/titles.rst:353
 msgid ""
 "A template featuring four picture frames, suitable for showcasing images or "
 "video clips."
@@ -945,32 +1271,32 @@ msgstr ""
 "gambar atau klip video."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:233
+#: ../doc/titles.rst:354
 msgid "Rotate 360"
 msgstr "Putar 360"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:234
+#: ../doc/titles.rst:355
 msgid "A 360-degree rotation effect, providing a dynamic title animation."
 msgstr "Efek rotasi 360 derajat, memberikan animasi judul yang dinamis."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:235
+#: ../doc/titles.rst:356
 msgid "Slide Left to Right"
 msgstr "Geser Dari Kiri ke Kanan"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:236
+#: ../doc/titles.rst:357
 msgid "A sliding effect where titles move from left to right."
 msgstr "Efek geser di mana judul bergerak dari kiri ke kanan."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:237
+#: ../doc/titles.rst:358
 msgid "Snow"
 msgstr "Salju"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:238
+#: ../doc/titles.rst:359
 msgid ""
 "An animation with falling snow particles, perfect for winter or holiday "
 "themes."
@@ -979,34 +1305,34 @@ msgstr ""
 "atau liburan."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:239
+#: ../doc/titles.rst:360
 msgid "Space Movie Intro"
 msgstr "Intro Film Luar Angkasa"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:240
+#: ../doc/titles.rst:361
 msgid "A cinematic space-themed intro, ideal for epic or sci-fi projects."
 msgstr ""
 "Intro bertema luar angkasa sinematik, ideal untuk proyek epik atau fiksi "
 "ilmiah."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:241
+#: ../doc/titles.rst:362
 msgid "Wireframe Text"
 msgstr "Teks Wireframe"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:242
+#: ../doc/titles.rst:363
 msgid "An animation with wireframe text, adding a technical or digital look."
 msgstr "Animasi dengan teks wireframe, menambah tampilan teknis atau digital."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:243
+#: ../doc/titles.rst:364
 msgid "Zoom to Clapboard"
 msgstr "Perbesar ke Clapboard"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:244
+#: ../doc/titles.rst:365
 msgid ""
 "A zoom title with a clapboard, perfect for film or video production themes."
 msgstr ""
@@ -1014,12 +1340,12 @@ msgstr ""
 "video."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:247
+#: ../doc/titles.rst:368
 msgid "Importing Text"
 msgstr "Mengimpor Teks"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:249
+#: ../doc/titles.rst:370
 msgid ""
 "You can generate text & titles in many different programs, such as Blender, "
 "Inkscape, Krita, Gimp, etc... Before you can import text into OpenShot, you "
@@ -1032,7 +1358,7 @@ msgstr ""
 "yang mengandung **latar belakang transparan** dan saluran **alpha**."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:253
+#: ../doc/titles.rst:374
 msgid ""
 "The ``SVG`` format is a great choice for vector graphics (curves, shapes, "
 "text effects and paths), however it is **not** always 100% compatible with "
@@ -1051,7 +1377,7 @@ msgstr ""
 "teks tidak menutupi video dan gambar di timeline di bawahnya."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:258
+#: ../doc/titles.rst:379
 msgid ""
 "For information on importing animated sequences into OpenShot, please see "
 ":ref:`animation_image_seq_ref`."
@@ -1060,12 +1386,12 @@ msgstr ""
 ":ref:`animation_image_seq_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:261
+#: ../doc/titles.rst:382
 msgid "Installing Inkscape"
 msgstr "Menginstal Inkscape"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:263
+#: ../doc/titles.rst:384
 msgid ""
 "The :guilabel:`Advanced Editor` feature in the :guilabel:`Title Editor` "
 "dialog requires the latest version of Inkscape "
@@ -1080,12 +1406,12 @@ msgstr ""
 "Preferences."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:270
+#: ../doc/titles.rst:391
 msgid "Installing Blender"
 msgstr "Menginstal Blender"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:272
+#: ../doc/titles.rst:393
 msgid ""
 "The :guilabel:`Animated Title` feature in OpenShot requires the latest "
 "version of Blender (https://www.blender.org/download/) be installed and the "
@@ -1102,7 +1428,7 @@ msgstr ""
 "lama tidak kompatibel dengan OpenShot Video Editor."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:278
+#: ../doc/titles.rst:399
 msgid ""
 "For a detailed guide on how to install these dependencies, see `Blender & "
 "Inkscape Guide <https://github.com/OpenShot/openshot-qt/wiki/Blender-and-"

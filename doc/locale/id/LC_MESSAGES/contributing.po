@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-16 18:08-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,12 +18,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:22
+#: ../doc/contributing.rst:22
 msgid "Contributing"
 msgstr "Berkontribusi"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:24
+#: ../doc/contributing.rst:24
 msgid ""
 "Want to help improve OpenShot (*and make some friends in the process*)? "
 "Please consider joining our open-source team by filling out this quick "
@@ -33,74 +33,74 @@ msgid ""
 msgstr ""
 "Ingin membantu meningkatkan OpenShot (*dan membuat beberapa teman dalam "
 "prosesnya*)? Silakan pertimbangkan untuk bergabung dengan tim open-source "
-"kami dengan mengisi `formulir kontributor <https://forms.gle/"
-"CRqkS5tLMJE1V36V8>`_ ini dan perkenalkan diri Anda! Semua relawan "
-"dipersilakan, tanpa memandang keterampilan atau tingkat keahlian. **Mari "
-"kita bangun sesuatu yang luar biasa!**"
+"kami dengan mengisi `formulir kontributor "
+"<https://forms.gle/CRqkS5tLMJE1V36V8>`_ ini dan perkenalkan diri Anda! Semua"
+" relawan dipersilakan, tanpa memandang keterampilan atau tingkat keahlian. "
+"**Mari kita bangun sesuatu yang luar biasa!**"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:30
+#: ../doc/contributing.rst:30
 msgid "How to Contribute"
 msgstr "Cara Berkontribusi"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:32
+#: ../doc/contributing.rst:32
 msgid "There are many different ways to help and support OpenShot, including:"
 msgstr ""
 "Ada banyak cara berbeda untuk membantu dan mendukung OpenShot, termasuk:"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:34
+#: ../doc/contributing.rst:34
 msgid "Testing"
 msgstr "Pengujian"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:35
+#: ../doc/contributing.rst:35
 msgid "`Translations <https://translations.launchpad.net/openshot/2.0>`_"
 msgstr "`Terjemahan <https://translations.launchpad.net/openshot/2.0>`_"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:36
+#: ../doc/contributing.rst:36
 msgid ""
 "`Documentation <https://github.com/OpenShot/openshot-qt/tree/develop/doc>`_"
 msgstr ""
 "`Dokumentasi <https://github.com/OpenShot/openshot-qt/tree/develop/doc>`_"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:37
+#: ../doc/contributing.rst:37
 msgid "Customer Service"
 msgstr "Layanan Pelanggan"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:38
+#: ../doc/contributing.rst:38
 msgid "Social Media / Marketing"
 msgstr "Media Sosial / Pemasaran"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:39
+#: ../doc/contributing.rst:39
 msgid "`Software Development <https://github.com/OpenShot>`_"
 msgstr "`Pengembangan Perangkat Lunak <https://github.com/OpenShot>`_"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:40
+#: ../doc/contributing.rst:40
 msgid "Art / Design / UI"
 msgstr "Seni / Desain / UI"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:41
+#: ../doc/contributing.rst:41
 msgid "`User Community <https://openshot.org/forum>`_"
 msgstr "`Komunitas Pengguna <https://openshot.org/forum>`_"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:42
+#: ../doc/contributing.rst:42
 msgid "`Donations <https://openshot.org/donate>`_"
 msgstr "`Donasi <https://openshot.org/donate>`_"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:44
+#: ../doc/contributing.rst:44
 msgid ""
-"All of these areas are **equally important**, so we would love to know which "
-"ones appeal to you the most. Please take a moment and fill-out our quick "
+"All of these areas are **equally important**, so we would love to know which"
+" ones appeal to you the most. Please take a moment and fill-out our quick "
 "`contributor form <https://forms.gle/CRqkS5tLMJE1V36V8>`_."
 msgstr ""
 "Semua bidang ini **sama pentingnya**, jadi kami ingin tahu mana yang paling "
@@ -108,58 +108,60 @@ msgstr ""
 "kontributor <https://forms.gle/CRqkS5tLMJE1V36V8>`_ kami yang singkat."
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:48
+#: ../doc/contributing.rst:48
 msgid "Did you find a bug?"
 msgstr "Apakah Anda menemukan bug?"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:50
+#: ../doc/contributing.rst:50
 msgid ""
-"Please use our step-by-step bug reporting page: https://openshot.org/issues/"
-"new/ to troubleshoot a potential new bug. This guide will instruct you on "
-"how to delete you log files, test with the latest daily build, and search "
-"for duplicate bug reports (in case someone else has already reported this "
-"same issue). At the end of the guide, it will help you create a detailed and "
-"useful bug report for our development team and volunteers."
+"Please use our step-by-step bug reporting page: "
+"https://openshot.org/issues/new/ to troubleshoot a potential new bug. This "
+"guide will instruct you on how to delete you log files, test with the latest"
+" daily build, and search for duplicate bug reports (in case someone else has"
+" already reported this same issue). At the end of the guide, it will help "
+"you create a detailed and useful bug report for our development team and "
+"volunteers."
 msgstr ""
-"Silakan gunakan halaman pelaporan bug langkah demi langkah kami: https://"
-"openshot.org/issues/new/ untuk memecahkan masalah bug baru yang potensial. "
-"Panduan ini akan menginstruksikan Anda cara menghapus file log Anda, menguji "
-"dengan build harian terbaru, dan mencari laporan bug duplikat (jika "
-"seseorang sudah melaporkan masalah yang sama). Di akhir panduan, ini akan "
-"membantu Anda membuat laporan bug yang rinci dan berguna untuk tim "
+"Silakan gunakan halaman pelaporan bug langkah demi langkah kami: "
+"https://openshot.org/issues/new/ untuk memecahkan masalah bug baru yang "
+"potensial. Panduan ini akan menginstruksikan Anda cara menghapus file log "
+"Anda, menguji dengan build harian terbaru, dan mencari laporan bug duplikat "
+"(jika seseorang sudah melaporkan masalah yang sama). Di akhir panduan, ini "
+"akan membantu Anda membuat laporan bug yang rinci dan berguna untuk tim "
 "pengembangan dan relawan kami."
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:57
+#: ../doc/contributing.rst:57
 msgid "Software Developers"
 msgstr "Pengembang Perangkat Lunak"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:58
+#: ../doc/contributing.rst:58
 msgid ""
-"OpenShot uses GitHub to manage issues and source code: https://github.com/"
-"OpenShot. Please read our guide on `Becoming a Developer <https://github.com/"
-"OpenShot/openshot-qt/wiki/Become-a-Developer>`_ for a step-by-step guide on "
-"compiling OpenShot and making your first pull request on GitHub."
+"OpenShot uses GitHub to manage issues and source code: "
+"https://github.com/OpenShot. Please read our guide on `Becoming a Developer "
+"<https://github.com/OpenShot/openshot-qt/wiki/Become-a-Developer>`_ for a "
+"step-by-step guide on compiling OpenShot and making your first pull request "
+"on GitHub."
 msgstr ""
-"OpenShot menggunakan GitHub untuk mengelola masalah dan kode sumber: https://"
-"github.com/OpenShot. Silakan baca panduan kami tentang `Menjadi Pengembang "
-"<https://github.com/OpenShot/openshot-qt/wiki/Become-a-Developer>`_ untuk "
-"panduan langkah demi langkah tentang cara mengompilasi OpenShot dan membuat "
-"pull request pertama Anda di GitHub."
+"OpenShot menggunakan GitHub untuk mengelola masalah dan kode sumber: "
+"https://github.com/OpenShot. Silakan baca panduan kami tentang `Menjadi "
+"Pengembang <https://github.com/OpenShot/openshot-qt/wiki/Become-a-"
+"Developer>`_ untuk panduan langkah demi langkah tentang cara mengompilasi "
+"OpenShot dan membuat pull request pertama Anda di GitHub."
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:63
+#: ../doc/contributing.rst:63
 msgid "Made with Love"
 msgstr "Dibuat dengan Cinta"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:65
+#: ../doc/contributing.rst:65
 msgid ""
 "OpenShot Video Editor is a volunteer effort and a **labor of love**. Please "
-"be patient with any issues you find, and feel free to `get involved <https://"
-"forms.gle/CRqkS5tLMJE1V36V8>`_ and help us fix them!"
+"be patient with any issues you find, and feel free to `get involved "
+"<https://forms.gle/CRqkS5tLMJE1V36V8>`_ and help us fix them!"
 msgstr ""
 "OpenShot Video Editor adalah usaha sukarela dan sebuah **kerja cinta**. "
 "Harap bersabar dengan masalah yang Anda temukan, dan jangan ragu untuk "
@@ -167,11 +169,11 @@ msgstr ""
 "memperbaikinya!"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:69
+#: ../doc/contributing.rst:69
 msgid "Thank you for your support!"
 msgstr "Terima kasih atas dukungan Anda!"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:70
+#: ../doc/contributing.rst:70
 msgid "*-- OpenShot Team*"
 msgstr "*-- Tim OpenShot*"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-26 14:26-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,12 +20,12 @@ msgstr ""
 "Generated-By: Babel 2.10.3\n"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:23
+#: ../doc/timeline.rst:23
 msgid "Timeline"
 msgstr "Cronologie"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:25
+#: ../doc/timeline.rst:25
 msgid ""
 "The timeline is where your video comes together. You arrange clips, trim "
 "them, layer visuals, and make timing decisions here. If you are new to "
@@ -38,54 +38,61 @@ msgstr ""
 "simplă de la stânga la dreapta: momentele mai vechi pe stânga, momentele mai"
 " târzii pe dreapta."
 
-# Translated with gpt-4.1-mini
-#: ../timeline.rst:32
+#: ../doc/timeline.rst:32
 msgid ""
 "If you are just getting started, read :ref:`quick_tutorial_ref` first, then "
 "come back here for more detail. For a labeled breakdown of toolbar controls,"
-" see :ref:`timeline_toolbar_ref`."
+" see :ref:`timeline_toolbar_ref`. To select, move, and trim clips and "
+"transitions with the keyboard, see :ref:`timeline_keyboard_ref`. You can "
+"also focus Project Files with :kbd:`Shift+1` and press :kbd:`Ctrl+Enter` to "
+"place selected files at the playhead on the target track."
 msgstr ""
-"Dacă abia începi, citește mai întâi :ref:`quick_tutorial_ref`, apoi revino "
-"aici pentru mai multe detalii. Pentru o descriere etichetată a controalelor "
-"din bara de instrumente, vezi :ref:`timeline_toolbar_ref`."
+"Dacă abia începeți, citiți mai întâi :ref:`quick_tutorial_ref`, apoi "
+"reveniți aici pentru mai multe detalii. Pentru o descriere etichetată a "
+"controalelor din bara de instrumente, consultați "
+":ref:`timeline_toolbar_ref`. Pentru a selecta, muta și tăia clipuri și "
+"tranziții cu tastatura, consultați :ref:`timeline_keyboard_ref`. De "
+"asemenea, puteți focaliza Fișierele Proiectului cu :kbd:`Shift+1` și apăsați"
+" :kbd:`Ctrl+Enter` pentru a plasa fișierele selectate la capul de redare pe "
+"pista țintă."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:37
+#: ../doc/timeline.rst:40
 msgid "Timeline Basics"
 msgstr "Bazele cronologiei"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:39
+#: ../doc/timeline.rst:42
 msgid "These terms are used often in this guide:"
 msgstr "Acești termeni sunt folosiți frecvent în acest ghid:"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:45
+#: ../doc/timeline.rst:48
 msgid "Term"
 msgstr "Termen"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:45
+#: ../doc/timeline.rst:48
 msgid "Meaning"
 msgstr "Sens"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:47
+#: ../doc/timeline.rst:50
 msgid "Playhead"
 msgstr "Indicator de redare"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:47
+#: ../doc/timeline.rst:50
 msgid "The red line that shows your current time position."
 msgstr "Linia roșie care arată poziția ta curentă în timp."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:48
+#: ../doc/timeline.rst:51
 msgid "Track"
 msgstr "Pistă"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:48
+#: ../doc/timeline.rst:51
 msgid ""
 "A horizontal layer that holds clips (top tracks appear above lower tracks)."
 msgstr ""
@@ -93,55 +100,55 @@ msgstr ""
 "celor inferioare)."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:49
+#: ../doc/timeline.rst:52
 msgid "Clip"
 msgstr "Clip"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:49
+#: ../doc/timeline.rst:52
 msgid "A video, audio, or image item placed on a track."
 msgstr "Un element video, audio sau imagine plasat pe o pistă."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:50
+#: ../doc/timeline.rst:53
 msgid "Transition"
 msgstr "Tranziție"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:50
+#: ../doc/timeline.rst:53
 msgid "A blend between two overlapping clips."
 msgstr "O îmbinare între două clipuri suprapuse."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:51
+#: ../doc/timeline.rst:54
 msgid "Marker"
 msgstr "Marcator"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:51
+#: ../doc/timeline.rst:54
 msgid "A saved point in time you can jump back to quickly."
 msgstr "Un punct salvat în timp la care poți reveni rapid."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:52
+#: ../doc/timeline.rst:55
 msgid "Keyframe"
 msgstr "Cadru cheie"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:52
+#: ../doc/timeline.rst:55
 msgid "A saved value at a point in time (used for animation)."
 msgstr "O valoare salvată la un moment în timp (folosită pentru animație)."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:55
+#: ../doc/timeline.rst:58
 msgid "For a full glossary, see :ref:`glossary_ref`."
 msgstr "Pentru un glosar complet, vezi :ref:`glossary_ref`."
 
-#: ../timeline.rst:58
+#: ../doc/timeline.rst:61
 msgid "Current Timecode"
 msgstr "Codul de timp curent"
 
-#: ../timeline.rst:60
+#: ../doc/timeline.rst:63
 msgid ""
 "The current timecode appears at the left side of the timeline ruler and "
 "shows the playhead's exact position. Click the timecode, enter a new value, "
@@ -152,7 +159,7 @@ msgstr ""
 "introduceți o valoare nouă și apăsați :kbd:`Enter` pentru a muta capul de "
 "redare la acel cadru."
 
-#: ../timeline.rst:64
+#: ../doc/timeline.rst:67
 msgid ""
 "Clear the field or enter ``0`` to jump to the start of the timeline. Press "
 ":kbd:`Up` or :kbd:`Down` to step the selected timecode segment; hold "
@@ -166,39 +173,39 @@ msgstr ""
 "cu o secundă. Apăsați :kbd:`Esc` pentru a anula."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:70
+#: ../doc/timeline.rst:73
 msgid "Common Timeline Tasks"
 msgstr "Sarcini comune în cronologie"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:72
+#: ../doc/timeline.rst:75
 msgid "Most editing sessions follow a similar flow:"
 msgstr "Majoritatea sesiunilor de editare urmează un flux similar:"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:74
+#: ../doc/timeline.rst:77
 msgid "Add media to the project using :ref:`import_files_ref`."
 msgstr "Adaugă media în proiect folosind :ref:`import_files_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:75
+#: ../doc/timeline.rst:78
 msgid "Drag files from the project panel onto timeline tracks."
 msgstr "Trage fișierele din panoul proiectului pe pistele din cronologie."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:76
+#: ../doc/timeline.rst:79
 msgid "Trim clip edges to remove extra content."
 msgstr ""
 "Decupează marginile clipurilor pentru a elimina conținutul suplimentar."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:77
+#: ../doc/timeline.rst:80
 msgid "Move clips into order and stack tracks to build your scene."
 msgstr ""
 "Mută clipurile în ordine și suprapune pistele pentru a construi scena ta."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:78
+#: ../doc/timeline.rst:81
 msgid ""
 "Add transitions and effects where needed (:ref:`transitions_ref`, "
 ":ref:`effects_ref`)."
@@ -207,12 +214,12 @@ msgstr ""
 ":ref:`effects_ref`)."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:79
+#: ../doc/timeline.rst:82
 msgid "Preview and adjust timing (:ref:`playback_ref`)."
 msgstr "Previzualizează și ajustează sincronizarea (:ref:`playback_ref`)."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:81
+#: ../doc/timeline.rst:84
 msgid ""
 "Clip trimming, slicing, and clip context menu actions are covered in detail "
 "in :ref:`clips_ref`."
@@ -221,28 +228,28 @@ msgstr ""
 "clipurilor sunt detaliate în :ref:`clips_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:84
+#: ../doc/timeline.rst:87
 msgid "Selecting Clips and Transitions"
 msgstr "Selectarea clipurilor și tranzițiilor"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:86
+#: ../doc/timeline.rst:89
 msgid "Selection is one of the most important timeline skills:"
 msgstr ""
 "Selectarea este una dintre cele mai importante abilități în cronologie:"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:88
+#: ../doc/timeline.rst:91
 msgid "Click an item to select it."
 msgstr "Fă clic pe un element pentru a-l selecta."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:89
+#: ../doc/timeline.rst:92
 msgid ":kbd:`Ctrl+Click` adds or removes items from selection."
 msgstr ":kbd:`Ctrl+Click` adaugă sau elimină elemente din selecție."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:90
+#: ../doc/timeline.rst:93
 msgid ""
 ":kbd:`Shift+Click` selects a range between your anchor item and the clicked "
 "item."
@@ -251,12 +258,12 @@ msgstr ""
 "elementul pe care ai făcut clic."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:91
+#: ../doc/timeline.rst:94
 msgid ":kbd:`Ctrl+Shift+Click` adds that range to your current selection."
 msgstr ":kbd:`Ctrl+Shift+Click` adaugă acel interval la selecția ta curentă."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:92
+#: ../doc/timeline.rst:95
 msgid ""
 ":kbd:`Alt+Click` ripple-selects from the clicked item to the end of the "
 "track."
@@ -265,32 +272,43 @@ msgstr ""
 "până la sfârșitul pistei."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:93
+#: ../doc/timeline.rst:96
 msgid "Drag an empty-area selection box to select multiple items."
 msgstr ""
 "Trage o casetă de selecție într-o zonă liberă pentru a selecta mai multe "
 "elemente."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:95
+#: ../doc/timeline.rst:98
 msgid "See :ref:`clips_ref` for the full list and examples."
 msgstr "Vezi :ref:`clips_ref` pentru lista completă și exemple."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:98
+#: ../doc/timeline.rst:101
 msgid "Timeline Toolbar and Zoom"
 msgstr "Bara de instrumente a cronologiei și zoom"
 
-# Translated with gpt-4.1-mini
-#: ../timeline.rst:100
+#: ../doc/timeline.rst:103
 msgid ""
 "The timeline toolbar helps with common navigation and editing actions "
-"(snapping, retime, razor, markers, centering, and zoom)."
+"(snapping, auto keyframes, retime, razor, markers, centering, and zoom)."
 msgstr ""
-"Bara de instrumente a cronologiei ajută la acțiuni comune de navigare și "
-"editare (aliniere, schimbare de timp, lamă, markere, centrare și zoom)."
+"Bara de instrumente a timeline-ului ajută la acțiuni comune de navigare și "
+"editare (aliniere, cadre cheie automate, retimp, lamă, marcatori, centrare "
+"și zoom)."
 
-#: ../timeline.rst:103
+#: ../doc/timeline.rst:106
+msgid ""
+"Use the diamond button to turn :ref:`auto_keyframes_ref` on or off. Leave it"
+" on to build animations as you edit, or turn it off to adjust existing "
+"values without adding keyframes."
+msgstr ""
+"Folosiți butonul diamant pentru a activa sau dezactiva "
+":ref:`auto_keyframes_ref`. Lăsați-l activat pentru a crea animații în timp "
+"ce editați sau dezactivați-l pentru a ajusta valorile existente fără a "
+"adăuga cadre cheie."
+
+#: ../doc/timeline.rst:109
 msgid ""
 "The :ref:`razor_tool_ref` shows a cut guide and timecode over the target "
 "clip. While paused, hovering also previews the cut frame without moving the "
@@ -306,7 +324,7 @@ msgstr ""
 " și toleranță de aliniere ca și celelalte editări din cronologie."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:109
+#: ../doc/timeline.rst:115
 msgid ""
 "Tip: If timeline editing feels crowded, zoom in with the timeline slider to "
 "make small clip adjustments easier."
@@ -316,7 +334,7 @@ msgstr ""
 "ușoare."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:112
+#: ../doc/timeline.rst:118
 msgid ""
 "You can also zoom the timeline with :kbd:`Ctrl+Scroll Wheel`. On the QWidget"
 " timeline, hold :kbd:`Ctrl` and drag with the middle mouse button for smooth"
@@ -327,34 +345,34 @@ msgstr ""
 "mijlociu al mouse-ului pentru o mărire lină."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:117
+#: ../doc/timeline.rst:123
 msgid "Tracks, Locking, and Inserting"
 msgstr "Piste, blocare și inserare"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:119
+#: ../doc/timeline.rst:125
 msgid "Tracks help organize your edit. A common setup is:"
 msgstr ""
 "Pistele ajută la organizarea editării tale. O configurație comună este:"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:121
+#: ../doc/timeline.rst:127
 msgid "Top tracks: titles, overlays, logos, picture-in-picture"
 msgstr ""
 "Pistele superioare: titluri, suprapuneri, logo-uri, imagine în imagine"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:122
+#: ../doc/timeline.rst:128
 msgid "Middle tracks: main video content"
 msgstr "Pistele din mijloc: conținut video principal"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:123
+#: ../doc/timeline.rst:129
 msgid "Lower tracks: music and sound effects"
 msgstr "Pistele inferioare: muzică și efecte sonore"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:125
+#: ../doc/timeline.rst:131
 msgid ""
 "You can lock tracks to protect them from accidental edits and use "
 "insert/ripple editing when you need later clips to move automatically."
@@ -363,7 +381,7 @@ msgstr ""
 " editarea prin inserare/val pentru a muta automat clipurile ulterioare."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:128
+#: ../doc/timeline.rst:134
 msgid ""
 "For track layout basics, see :ref:`tracks_ref`. For detailed clip editing "
 "behavior, see :ref:`clips_cutting_slicing_ref`."
@@ -372,13 +390,28 @@ msgstr ""
 "comportamentul detaliat al editării clipurilor, vezi "
 ":ref:`clips_cutting_slicing_ref`."
 
+#: ../doc/timeline.rst:138
+msgid ""
+"For projects with many layers, choose **Minimal** or **Compact** under "
+"**Preferences → Timeline → Track Size** to see more tracks with less "
+"scrolling. Choose **Relaxed** for more vertical room, or **Default** to "
+"restore the theme's original height. Keyframe panel spacing adjusts too. See"
+" :ref:`preferences_track_size_ref` for details."
+msgstr ""
+"Pentru proiecte cu multe straturi, alegeți **Minimal** sau **Compact** în "
+"**Preferințe → Timeline → Dimensiunea pistei** pentru a vedea mai multe "
+"piste cu mai puțin derulare. Alegeți **Relaxed** pentru mai mult spațiu "
+"vertical sau **Default** pentru a restaura înălțimea originală a temei. "
+"Spațierea panoului de cadre cheie se ajustează de asemenea. Consultați "
+":ref:`preferences_track_size_ref` pentru detalii."
+
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:132
+#: ../doc/timeline.rst:145
 msgid "Keyframes in the Timeline"
 msgstr "Cadre cheie în cronologie"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:134
+#: ../doc/timeline.rst:147
 msgid ""
 "Keyframes let you change values over time, such as position, scale, "
 "rotation, opacity, and effect settings."
@@ -387,7 +420,7 @@ msgstr ""
 "scala, rotația, opacitatea și setările efectelor."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:137
+#: ../doc/timeline.rst:150
 msgid ""
 "In the timeline keyframe panel, each row represents one animated property. "
 "You can:"
@@ -396,27 +429,40 @@ msgstr ""
 "proprietate animată. Poți:"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:139
+#: ../doc/timeline.rst:152
 msgid "Add a keyframe row for a property"
 msgstr "Adaugă un rând de cadre cheie pentru o proprietate"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:140
+#: ../doc/timeline.rst:153
 msgid "Insert new keyframes along the row"
 msgstr "Inserează cadre cheie noi de-a lungul rândului"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:141
+#: ../doc/timeline.rst:154
 msgid "Move keyframes to change timing"
 msgstr "Mută cadrele cheie pentru a schimba sincronizarea"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:142
+#: ../doc/timeline.rst:155
 msgid "Change interpolation to control motion style"
 msgstr "Schimbă interpolarea pentru a controla stilul mișcării"
 
+#: ../doc/timeline.rst:157
+msgid ""
+"Single-click a keyframe on a clip or in the keyframe panel to select it and "
+"move the playhead to its frame. This leaves the Properties dock open or "
+"closed as you have arranged it. Double-click the keyframe, or right-click it"
+" and choose :guilabel:`Properties`, to open the dock."
+msgstr ""
+"Faceți clic o singură dată pe un cadru cheie pe un clip sau în panoul de "
+"cadre cheie pentru a-l selecta și a muta capul de redare la cadrul său. "
+"Aceasta lasă panoul Proprietăți deschis sau închis, așa cum l-ați aranjat. "
+"Faceți dublu clic pe cadrul cheie sau faceți clic dreapta pe el și alegeți "
+":guilabel:`Properties` pentru a deschide panoul."
+
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:144
+#: ../doc/timeline.rst:162
 msgid ""
 "For keyframe concepts and animation examples, see :ref:`animation_ref`."
 msgstr ""
@@ -424,12 +470,12 @@ msgstr ""
 ":ref:`animation_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:147
+#: ../doc/timeline.rst:165
 msgid "Next Steps"
 msgstr "Pașii următori"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:149
+#: ../doc/timeline.rst:167
 msgid ""
 "After you are comfortable with timeline basics, these sections are the best "
 "next reads:"
@@ -438,23 +484,41 @@ msgstr ""
 "cele mai bune lecturi următoare:"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:151
+#: ../doc/timeline.rst:169
 msgid ":ref:`clips_ref` for trimming, slicing, and clip properties"
 msgstr ""
 ":ref:`clips_ref` pentru decupare, tăiere și proprietăți ale clipurilor"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:152
+#: ../doc/timeline.rst:170
 msgid ":ref:`effects_ref` for video/audio effects"
 msgstr ":ref:`effects_ref` pentru efecte video/audio"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:153
+#: ../doc/timeline.rst:171
 msgid ":ref:`animation_ref` for keyframe animation workflows"
 msgstr ""
 ":ref:`animation_ref` pentru fluxuri de lucru cu animații pe cadre cheie"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:154
+#: ../doc/timeline.rst:172
 msgid ":doc:`export` for creating your final video file"
 msgstr ":doc:`export` pentru crearea fișierului video final"
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "If you are just getting started, read :ref:`quick_tutorial_ref` first, then "
+#~ "come back here for more detail. For a labeled breakdown of toolbar controls,"
+#~ " see :ref:`timeline_toolbar_ref`."
+#~ msgstr ""
+#~ "Dacă abia începi, citește mai întâi :ref:`quick_tutorial_ref`, apoi revino "
+#~ "aici pentru mai multe detalii. Pentru o descriere etichetată a controalelor "
+#~ "din bara de instrumente, vezi :ref:`timeline_toolbar_ref`."
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "The timeline toolbar helps with common navigation and editing actions "
+#~ "(snapping, retime, razor, markers, centering, and zoom)."
+#~ msgstr ""
+#~ "Bara de instrumente a cronologiei ajută la acțiuni comune de navigare și "
+#~ "editare (aliniere, schimbare de timp, lamă, markere, centrare și zoom)."

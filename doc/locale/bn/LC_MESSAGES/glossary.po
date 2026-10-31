@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,12 +18,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:23
+#: ../doc/glossary.rst:23
 msgid "Glossary"
 msgstr "শব্দকোষ"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:25
+#: ../doc/glossary.rst:25
 msgid ""
 "There is much technical terminology in today's fast-moving media-centric "
 "world. If you find yourself wondering what a video production term or an "
@@ -40,12 +40,12 @@ msgstr ""
 "তোলে।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:34
+#: ../doc/glossary.rst:34
 msgid "Definitions"
 msgstr "সংজ্ঞাসমূহ"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:36
+#: ../doc/glossary.rst:36
 msgid ""
 "These definitions are a work-in-progress. Please let us know if you need a "
 "term defined by contacting support@openshot.org."
@@ -54,7 +54,7 @@ msgstr ""
 " চান, অনুগ্রহ করে support@openshot.org-এ যোগাযোগ করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:39
+#: ../doc/glossary.rst:39
 msgid ""
 ":ref:`letter_A_ref` :ref:`letter_B_ref` :ref:`letter_C_ref` "
 ":ref:`letter_D_ref` :ref:`letter_E_ref` :ref:`letter_F_ref` "
@@ -75,27 +75,27 @@ msgstr ""
 ":ref:`letter_Z_ref`"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:69
+#: ../doc/glossary.rst:69
 msgid "-A-"
 msgstr "-A-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:70
+#: ../doc/glossary.rst:70
 msgid "A-Roll:"
 msgstr "এ-রোল:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:71
+#: ../doc/glossary.rst:71
 msgid "The Principal video that is usually someone speaking."
 msgstr "প্রধান ভিডিও যা সাধারণত কেউ কথা বলছে।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:72
+#: ../doc/glossary.rst:72
 msgid "Aliasing:"
 msgstr "অ্যালিয়াসিং:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:73
+#: ../doc/glossary.rst:73
 msgid ""
 "The undesirable jagged or stair-stepped appearance of angled lines in an "
 "image, graphic, or text."
@@ -104,12 +104,12 @@ msgstr ""
 "সিঁড়ির মতো চেহারা।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:74
+#: ../doc/glossary.rst:74
 msgid "Alpha:"
 msgstr "আলফা:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:75
+#: ../doc/glossary.rst:75
 msgid ""
 "Alpha blending is a convex combination of two colors allowing for "
 "transparency effects in computer graphics.  The value of alpha in the color "
@@ -121,12 +121,12 @@ msgstr ""
 "০.০ সম্পূর্ণ স্বচ্ছ রঙ নির্দেশ করে এবং ১.০ সম্পূর্ণ অস্বচ্ছ রঙ নির্দেশ করে।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:76
+#: ../doc/glossary.rst:76
 msgid "Alpha Channel:"
 msgstr "আলফা চ্যানেল:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:77
+#: ../doc/glossary.rst:77
 msgid ""
 "An alpha channel is a channel in an image or movie clip that controls the "
 "opacity region."
@@ -135,22 +135,22 @@ msgstr ""
 "নিয়ন্ত্রণ করে।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:78
+#: ../doc/glossary.rst:78
 msgid "Ambient Noise:"
 msgstr "পরিবেশগত শব্দ:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:79
+#: ../doc/glossary.rst:79
 msgid "Ambient noise is background noise specific to the shooting location."
 msgstr "পরিবেশগত শব্দ হল শুটিং স্থানের নির্দিষ্ট পটভূমির শব্দ।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:80
+#: ../doc/glossary.rst:80
 msgid "Animation:"
 msgstr "অ্যানিমেশন:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:81
+#: ../doc/glossary.rst:81
 msgid ""
 "The technique of making inanimate objects or drawings appear to move in "
 "motion pictures or computer graphics."
@@ -159,12 +159,12 @@ msgstr ""
 "কৌশল।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:82
+#: ../doc/glossary.rst:82
 msgid "Anti-Aliasing:"
 msgstr "অ্যান্টি-অ্যালিয়াসিং:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:83
+#: ../doc/glossary.rst:83
 msgid ""
 "Anti-aliasing is a process for smoothing jagged lines in an image.  Anti-"
 "aliasing can also mean a method of filtering out erroneous frequencies in an"
@@ -174,24 +174,24 @@ msgstr ""
 "এটি অডিও সিগন্যালের ভুল ফ্রিকোয়েন্সি ফিল্টার করার পদ্ধতিও হতে পারে।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:84
+#: ../doc/glossary.rst:84
 msgid "Artifact:"
 msgstr "আর্টিফ্যাক্ট:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:85
+#: ../doc/glossary.rst:85
 msgid ""
 "An artifact is undesired data in an image because of digital processing."
 msgstr ""
 "আর্টিফ্যাক্ট হল ডিজিটাল প্রক্রিয়াকরণের কারণে ছবিতে অনাকাঙ্ক্ষিত তথ্য।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:86
+#: ../doc/glossary.rst:86
 msgid "Aspect Ratio:"
 msgstr "অ্যাসপেক্ট রেশিও:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:87
+#: ../doc/glossary.rst:87
 msgid ""
 "The ratio of width to height in a flat surface or 2-dimensional abstract "
 "construction, such as an image, video, character, or pixel.  The standard "
@@ -204,12 +204,12 @@ msgstr ""
 "অ্যাসপেক্ট রেশিও হল ১.৮৫:১ এবং ২.৩৫:১।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:88
+#: ../doc/glossary.rst:88
 msgid "ATSC:"
 msgstr "ATSC:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:89
+#: ../doc/glossary.rst:89
 msgid ""
 "ATSC is a digital broadcast standard that replaced the older analog NTSC "
 "standard.  The standard covers both standard and high-definition formats."
@@ -218,12 +218,12 @@ msgstr ""
 " করেছে। এই মানটি স্ট্যান্ডার্ড এবং হাই-ডেফিনিশন উভয় ফরম্যাটকে কভার করে।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:91
+#: ../doc/glossary.rst:91
 msgid "Audio Sample Rate:"
 msgstr "অডিও স্যাম্পল রেট:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:91
+#: ../doc/glossary.rst:91
 msgid ""
 "The number of samples taken per second to reproduce audio digitally.  The "
 "higher the sample rate, the higher the quality of the digital audio.  A rate"
@@ -235,17 +235,17 @@ msgstr ""
 "৪৪,১০০ নমুনা CD-মানের অডিও তৈরি করে এবং মানুষের শ্রবণের পরিসর ধারণ করে।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:96
+#: ../doc/glossary.rst:96
 msgid "-B-"
 msgstr "-B-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:97
+#: ../doc/glossary.rst:97
 msgid "B-roll:"
 msgstr "বি-রোল:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:98
+#: ../doc/glossary.rst:98
 msgid ""
 "B-roll is supplemental footage that provides supporting details and greater "
 "flexibility when editing video.  Common examples include the footage used to"
@@ -256,24 +256,24 @@ msgstr ""
 " করে গল্প বলার জন্য ব্যবহৃত ফুটেজ।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:99
+#: ../doc/glossary.rst:99
 msgid "Bit:"
 msgstr "বিট:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:100
+#: ../doc/glossary.rst:100
 msgid ""
 "The elementary unit for digital storage.  A BIT can be either a 1 (one) or a"
 " 0 (zero)."
 msgstr "ডিজিটাল স্টোরেজের মৌলিক একক। একটি বিট হতে পারে ১ (এক) অথবা ০ (শূন্য)।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:101
+#: ../doc/glossary.rst:101
 msgid "Bit Depth:"
 msgstr "বিট ডেপথ:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:102
+#: ../doc/glossary.rst:102
 msgid ""
 "In digital graphics and video, bit depth indicates the number of colors an "
 "image can display.  A high-contrast (no gray tones) black and white image is"
@@ -290,12 +290,12 @@ msgstr ""
 "বেশি, শব্দের গুণমান তত ভালো।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:103
+#: ../doc/glossary.rst:103
 msgid "Bitrate:"
 msgstr "বিটরেট:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:104
+#: ../doc/glossary.rst:104
 msgid ""
 "The frequency at which bits (binary digits) pass a given physical or "
 "metaphorical point, measured in bps (bits per second).  For every second in "
@@ -308,12 +308,12 @@ msgstr ""
 "সেকেন্ডে, পরিবর্তনশীল বা ধ্রুবক হতে পারে।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:105
+#: ../doc/glossary.rst:105
 msgid "Blue Screen:"
 msgstr "ব্লু স্ক্রিন:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:106
+#: ../doc/glossary.rst:106
 msgid ""
 "A blue screen is a blue background that the subject stands in front of that "
 "the computer later replaces with another background in post-production.  See"
@@ -324,12 +324,12 @@ msgstr ""
 "কম্পোজিটিং এবং গ্রীন স্ক্রিনও দেখুন।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:108
+#: ../doc/glossary.rst:108
 msgid "Blue Screen Compositing:"
 msgstr "ব্লু স্ক্রিন কম্পোজিটিং:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:108
+#: ../doc/glossary.rst:108
 msgid ""
 "The process of making all blue elements in an image transparent and placing "
 "a different background underneath."
@@ -338,17 +338,17 @@ msgstr ""
 "প্রক্রিয়া।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:113
+#: ../doc/glossary.rst:113
 msgid "-C-"
 msgstr "-C-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:114
+#: ../doc/glossary.rst:114
 msgid "Capture:"
 msgstr "ক্যাপচার:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:115
+#: ../doc/glossary.rst:115
 msgid ""
 "The process of transferring source video from a camcorder or tape deck to a "
 "computer.  If the source video is analog, the capture process converts the "
@@ -359,12 +359,12 @@ msgstr ""
 "করে।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:116
+#: ../doc/glossary.rst:116
 msgid "Channel:"
 msgstr "চ্যানেল:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:117
+#: ../doc/glossary.rst:117
 msgid ""
 "A channel is one of several grayscale components used to make up a color "
 "image.  Red, green, and blue channels make up RGB images, with an optional "
@@ -375,12 +375,12 @@ msgstr ""
 " একটি ঐচ্ছিক আলফা চ্যানেল সহ।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:118
+#: ../doc/glossary.rst:118
 msgid "Chromakey:"
 msgstr "ক্রোমাকি:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:119
+#: ../doc/glossary.rst:119
 msgid ""
 "Chromakey is a method of creating transparency in a video source by "
 "selecting a specific \"key color\" to create an alpha matte.  It is "
@@ -393,12 +393,12 @@ msgstr ""
 "ভিজ্যুয়াল ইফেক্ট কম্পোজিটিংয়ের জন্য।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:120
+#: ../doc/glossary.rst:120
 msgid "Clip:"
 msgstr "ক্লিপ:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:121
+#: ../doc/glossary.rst:121
 msgid ""
 "A digitized or captured portion of video, audio, or both.  Clips are media "
 "files added to the Timeline, usually part of a more extensive recording."
@@ -407,12 +407,12 @@ msgstr ""
 "ফাইল যা টাইমলাইনে যোগ করা হয়, সাধারণত একটি বৃহত্তর রেকর্ডিংয়ের অংশ।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:122
+#: ../doc/glossary.rst:122
 msgid "Codec:"
 msgstr "কোডেক:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:123
+#: ../doc/glossary.rst:123
 msgid ""
 "Codec is a video compression technology used to compress data in a video "
 "file.  Codec stands for \"Compression Decompression.\" An example of a "
@@ -423,12 +423,12 @@ msgstr ""
 "উদাহরণ হল H.264।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:124
+#: ../doc/glossary.rst:124
 msgid "Color Correction:"
 msgstr "রঙ সংশোধন:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:125
+#: ../doc/glossary.rst:125
 msgid ""
 "The process of altering the color of a video, especially one shot under less"
 " than ideal conditions, such as low light."
@@ -436,11 +436,11 @@ msgstr ""
 "ভিডিওর রঙ পরিবর্তনের প্রক্রিয়া, বিশেষ করে কম আলোসহ আদর্শ নয় এমন অবস্থায় "
 "ধারণকৃত ভিডিওর ক্ষেত্রে।"
 
-#: ../glossary.rst:126
+#: ../doc/glossary.rst:126
 msgid "Color Grade / Color Grading:"
 msgstr "রঙ গ্রেড / রঙ গ্রেডিং:"
 
-#: ../glossary.rst:127
+#: ../doc/glossary.rst:127
 msgid ""
 "The process of stylizing or enhancing the look and mood of a video beyond "
 "technical correction. Color grading adjusts tonal balance, hue, saturation, "
@@ -453,24 +453,24 @@ msgstr ""
 "উষ্ণ সিনেমাটিক চেহারা বা একটি ঠান্ডা, রঙহীন টোন)। রঙ সংশোধনও দেখুন।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:128
+#: ../doc/glossary.rst:128
 msgid "Compositing:"
 msgstr "কম্পোজিটিং:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:129
+#: ../doc/glossary.rst:129
 msgid ""
 "Construction of a composite image by combining multiple images and other "
 "elements."
 msgstr "একাধিক ছবি এবং অন্যান্য উপাদান একত্রিত করে একটি যৌগিক ছবি তৈরি করা।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:130
+#: ../doc/glossary.rst:130
 msgid "Coverage:"
 msgstr "কভারেজ:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:131
+#: ../doc/glossary.rst:131
 msgid ""
 "Coverage is the process of shooting additional footage and camera angles to "
 "cover the action in the scene.  Coverage is so that the editor has a more "
@@ -481,12 +481,12 @@ msgstr ""
 "পোস্ট-প্রোডাকশন পর্যায়ে আরও ভাল বিকল্পের সুযোগ তৈরি করে।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:132
+#: ../doc/glossary.rst:132
 msgid "Compression:"
 msgstr "কম্প্রেশন:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:133
+#: ../doc/glossary.rst:133
 msgid ""
 "The process of reducing data, such as in an audio or video file, into a form"
 " that requires less space."
@@ -495,12 +495,12 @@ msgstr ""
 "রূপান্তর করা।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:134
+#: ../doc/glossary.rst:134
 msgid "Crop Factor:"
 msgstr "ক্রপ ফ্যাক্টর:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:135
+#: ../doc/glossary.rst:135
 msgid ""
 "Crop factor is a number (typically from 1.3-2.0) that represents the ratio "
 "of a sensor's imaging area to that of a full-frame sensor.  Try multiplying "
@@ -513,12 +513,12 @@ msgstr ""
 "লেন্স/সেন্সর সংমিশ্রণের জন্য ফোকাল দৈর্ঘ্য দেয়।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:136
+#: ../doc/glossary.rst:136
 msgid "Crawl:"
 msgstr "ক্রল:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:137
+#: ../doc/glossary.rst:137
 msgid ""
 "Crawl is a text effect where the text moves right-to-left (in the English-"
 "speaking world)."
@@ -527,12 +527,12 @@ msgstr ""
 "অঞ্চলে)।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:138
+#: ../doc/glossary.rst:138
 msgid "Cross-fade:"
 msgstr "ক্রস-ফেড:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:139
+#: ../doc/glossary.rst:139
 msgid ""
 "A cross-fade is a simultaneous fade-in of one audio or video source as "
 "another fades out so that they overlap temporarily.  Also called a dissolve."
@@ -541,22 +541,22 @@ msgstr ""
 " হয়, যাতে তারা সাময়িকভাবে ওভারল্যাপ করে। এটিকে ডাইজলভও বলা হয়।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:140
+#: ../doc/glossary.rst:140
 msgid "Cut:"
 msgstr "কাট:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:141
+#: ../doc/glossary.rst:141
 msgid "A cut is an instantaneous change from one shot to another."
 msgstr "কাট হল এক শট থেকে অন্য শটে তাত্ক্ষণিক পরিবর্তন।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:142
+#: ../doc/glossary.rst:142
 msgid "Cut-in (Insert Shot):"
 msgstr "কাট-ইন (ইনসার্ট শট):"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:143
+#: ../doc/glossary.rst:143
 msgid ""
 "It is a type of shot that most often shows the objects the subject is in "
 "contact with or manipulating.  Cut-in shots are correspondingly helpful to "
@@ -567,12 +567,12 @@ msgstr ""
 " বিষয় থেকে সরে যায়।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:145
+#: ../doc/glossary.rst:145
 msgid "Cutting on Action:"
 msgstr "কাটিং অন অ্যাকশন:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:145
+#: ../doc/glossary.rst:145
 msgid ""
 "Cutting on action is a technique used to create a more interesting scene. "
 "The concept is simple… when you cut in the middle of an action, it will "
@@ -583,17 +583,17 @@ msgstr ""
 "বেশি ভিজ্যুয়ালি আকর্ষণীয় দেখায়।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:150
+#: ../doc/glossary.rst:150
 msgid "-D-"
 msgstr "-D-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:151
+#: ../doc/glossary.rst:151
 msgid "Data Rate:"
 msgstr "ডেটা রেট:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:152
+#: ../doc/glossary.rst:152
 msgid ""
 "The amount of data moved over time (for example, 10 MB per second).  Often "
 "used to describe a hard drive's ability to retrieve and deliver information."
@@ -603,23 +603,23 @@ msgstr ""
 "ব্যবহৃত হয়।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:153
+#: ../doc/glossary.rst:153
 msgid "Denominator:"
 msgstr "হার:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:154
+#: ../doc/glossary.rst:154
 msgid ""
 "The number or expression below the line in a fraction (such as 2 in ½)."
 msgstr "ভগ্নাংশের নিচের অংশের সংখ্যা বা প্রকাশ (যেমন ½ তে ২)।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:155
+#: ../doc/glossary.rst:155
 msgid "Digital Video:"
 msgstr "ডিজিটাল ভিডিও:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:156
+#: ../doc/glossary.rst:156
 msgid ""
 "Digital video is an electronic representation of moving visual images "
 "(video) in the form of encoded digital data.  In contrast, analog video "
@@ -632,22 +632,22 @@ msgstr ""
 "ধারাবাহিকভাবে প্রদর্শিত ডিজিটাল ছবির একটি সিরিজ।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:157
+#: ../doc/glossary.rst:157
 msgid "Digitize:"
 msgstr "ডিজিটাইজ:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:158
+#: ../doc/glossary.rst:158
 msgid "To convert analog video or audio to digital form."
 msgstr "অ্যানালগ ভিডিও বা অডিওকে ডিজিটাল ফর্মে রূপান্তর করা।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:160
+#: ../doc/glossary.rst:160
 msgid "Dissolve:"
 msgstr "ডাইজলভ:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:160
+#: ../doc/glossary.rst:160
 msgid ""
 "Dissolve is an image transition effect where one picture gradually "
 "disappears as another appears.  Also called a cross-fade."
@@ -656,17 +656,17 @@ msgstr ""
 "আরেকটি ছবি প্রদর্শিত হয়। এটিকে ক্রস-ফেডও বলা হয়।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:165
+#: ../doc/glossary.rst:165
 msgid "-E-"
 msgstr "-E-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:166
+#: ../doc/glossary.rst:166
 msgid "Editing:"
 msgstr "সম্পাদনা:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:167
+#: ../doc/glossary.rst:167
 msgid ""
 "Editing is the process or result of selectively sequencing video and audio "
 "clips into a new video file.  Typically involves reviewing raw footage and "
@@ -679,12 +679,12 @@ msgstr ""
 "অন্তর্ভুক্ত।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:168
+#: ../doc/glossary.rst:168
 msgid "Effect:"
 msgstr "ইফেক্ট:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:169
+#: ../doc/glossary.rst:169
 msgid ""
 "Synthetic sounds and animations created in the digital domain applied to a "
 "clip to change a specific parameter of video or audio.  Examples: the color "
@@ -695,12 +695,12 @@ msgstr ""
 "ভিজ্যুয়াল উপাদানের রঙ বা একটি অডিও ট্র্যাকের রিভার্ব।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:170
+#: ../doc/glossary.rst:170
 msgid "Encode:"
 msgstr "এনকোড:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:171
+#: ../doc/glossary.rst:171
 msgid ""
 "To merge the individual video signals (for example, red, green, and blue) "
 "into a combined signal, or to convert a video file to a different format "
@@ -711,12 +711,12 @@ msgstr ""
 "ফরম্যাটে রূপান্তর করা।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:173
+#: ../doc/glossary.rst:173
 msgid "Export:"
 msgstr "রপ্তানি:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:173
+#: ../doc/glossary.rst:173
 msgid ""
 "Export refers to the process of assembling your edited video project into a "
 "single file that then plays back on its own, shared, or uploaded."
@@ -726,17 +726,17 @@ msgstr ""
 "আপলোড করা যায়।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:178
+#: ../doc/glossary.rst:178
 msgid "-F-"
 msgstr "-F-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:179
+#: ../doc/glossary.rst:179
 msgid "Fade:"
 msgstr "ফেড:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:180
+#: ../doc/glossary.rst:180
 msgid ""
 "A fade is the gradual diminishing or heightening of visual or audio "
 "intensity.  Usage: fade-out, fade to black, fade-in, or fade up from black."
@@ -745,12 +745,12 @@ msgstr ""
 "ফেড-আউট, ফেড টু ব্ল্যাক, ফেড-ইন, বা ব্ল্যাক থেকে ফেড আপ।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:181
+#: ../doc/glossary.rst:181
 msgid "Fade-in:"
 msgstr "ফেড-ইন:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:182
+#: ../doc/glossary.rst:182
 msgid ""
 "1.(n.) a shot that begins in total darkness and gradually lightens to full "
 "brightness.  2. (v.) To gradually bring sound from inaudibility to the "
@@ -761,12 +761,12 @@ msgstr ""
 "ভলিউমে নিয়ে আসা।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:183
+#: ../doc/glossary.rst:183
 msgid "Fade-out:"
 msgstr "ফেড-আউট:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:184
+#: ../doc/glossary.rst:184
 msgid ""
 "1.(n.) a shot that begins in full brightness and gradually dims to total "
 "darkness.  2. (v.) To gradually bring sound from the required volume to "
@@ -777,12 +777,12 @@ msgstr ""
 "অশ্রুতিতে নিয়ে আসা।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:185
+#: ../doc/glossary.rst:185
 msgid "Filter:"
 msgstr "ফিল্টার:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:186
+#: ../doc/glossary.rst:186
 msgid ""
 "A video filter is a software component that performs some operation on a "
 "multimedia stream.  Multiple filters used in a chain, known as a filter "
@@ -797,12 +797,12 @@ msgstr ""
 "ডাউনস্ট্রিম ফিল্টারে আউটপুট করে।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:187
+#: ../doc/glossary.rst:187
 msgid "Final Cut:"
 msgstr "ফাইনাল কাট:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:188
+#: ../doc/glossary.rst:188
 msgid ""
 "The final video production, assembled from high-quality clips, and ready for"
 " export to the selected delivery media."
@@ -811,12 +811,12 @@ msgstr ""
 "ডেলিভারি মিডিয়াতে এক্সপোর্টের জন্য প্রস্তুত।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:189
+#: ../doc/glossary.rst:189
 msgid "Finishing:"
 msgstr "ফিনিশিং:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:190
+#: ../doc/glossary.rst:190
 msgid ""
 "The stage that brings together all assets of a piece.  Your output from this"
 " stage is your master/sub-master."
@@ -825,12 +825,12 @@ msgstr ""
 "মাস্টার/সাব-মাস্টার।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:191
+#: ../doc/glossary.rst:191
 msgid "Footage:"
 msgstr "ফুটেজ:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:192
+#: ../doc/glossary.rst:192
 msgid ""
 "Derived from having feet of film, this is almost synonymous with video "
 "clips."
@@ -838,12 +838,12 @@ msgstr ""
 "ফুটেজ শব্দটি ফিল্মের ফুট থেকে উদ্ভূত, যা প্রায় ভিডিও ক্লিপের সমার্থক।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:193
+#: ../doc/glossary.rst:193
 msgid "Frame:"
 msgstr "ফ্রেম:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:194
+#: ../doc/glossary.rst:194
 msgid ""
 "In filmmaking, video production, animation, and related fields, a frame is "
 "one of the many still images which compose the complete moving picture."
@@ -852,12 +852,12 @@ msgstr ""
 "ফ্রেম হল অনেক স্থির চিত্রের একটি যা সম্পূর্ণ চলমান ছবি গঠন করে।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:195
+#: ../doc/glossary.rst:195
 msgid "Frames Per Second (fps):"
 msgstr "ফ্রেম প্রতি সেকেন্ড (fps):"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:196
+#: ../doc/glossary.rst:196
 msgid ""
 "The number of frames played every second.  At 15 fps and lower, the human "
 "eye can detect individual frames, causing the video to appear jerky."
@@ -866,12 +866,12 @@ msgstr ""
 "পৃথক ফ্রেম শনাক্ত করতে পারে, যার ফলে ভিডিও ঝাঁকুনি মনে হয়।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:197
+#: ../doc/glossary.rst:197
 msgid "Frame Rate:"
 msgstr "ফ্রেম রেট:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:198
+#: ../doc/glossary.rst:198
 msgid ""
 "Frame rate (expressed in frames per second or FPS) is the frequency (rate "
 "expressed in Hz) at which consecutive images called frames appear on "
@@ -886,12 +886,12 @@ msgstr ""
 " ৩০, ৫০, ৬০।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:200
+#: ../doc/glossary.rst:200
 msgid "Frequency:"
 msgstr "ফ্রিকোয়েন্সি:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:200
+#: ../doc/glossary.rst:200
 msgid ""
 "The number of audio cycles per second, expressed in hertz (Hz).  Frequency "
 "determines the pitch of a sound."
@@ -900,17 +900,17 @@ msgstr ""
 "একটি শব্দের পিচ নির্ধারণ করে।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:205
+#: ../doc/glossary.rst:205
 msgid "-G-"
 msgstr "-G-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:206
+#: ../doc/glossary.rst:206
 msgid "Gamma:"
 msgstr "গামা:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:207
+#: ../doc/glossary.rst:207
 msgid ""
 "A measurement of the intensity of mid-tones in an image.  Adjusting the "
 "gamma adjusts the level of the mid-tones while leaving the blacks and whites"
@@ -920,12 +920,12 @@ msgstr ""
 "পরিবর্তিত হয়, কিন্তু কালো ও সাদা অংশ অপরিবর্তিত থাকে।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:208
+#: ../doc/glossary.rst:208
 msgid "GPU:"
 msgstr "জিপিইউ:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:209
+#: ../doc/glossary.rst:209
 msgid ""
 "Graphics processing unit.  A microprocessor with built-in capabilities for "
 "handling 3D graphics more efficiently than a CPU (central processing unit)."
@@ -934,12 +934,12 @@ msgstr ""
 "ইউনিট) থেকে বেশি দক্ষতার সাথে 3D গ্রাফিক্স পরিচালনা করতে সক্ষম।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:210
+#: ../doc/glossary.rst:210
 msgid "Gravity:"
 msgstr "গ্র্যাভিটি:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:211
+#: ../doc/glossary.rst:211
 msgid ""
 "Gravity in OpenShot is a property of each clip that sets the clip's initial "
 "position on the screen."
@@ -948,12 +948,12 @@ msgstr ""
 "অবস্থান স্ক্রিনে নির্ধারণ করে।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:212
+#: ../doc/glossary.rst:212
 msgid "Green screen"
 msgstr "গ্রিন স্ক্রিন"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:213
+#: ../doc/glossary.rst:213
 msgid ""
 "A green background that the subject stands in front of that is another "
 "background in post-production."
@@ -962,12 +962,12 @@ msgstr ""
 "একটি পটভূমিতে পরিবর্তিত হয়।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:215
+#: ../doc/glossary.rst:215
 msgid "Green Screen Compositing"
 msgstr "গ্রিন স্ক্রিন কম্পোজিটিং"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:215
+#: ../doc/glossary.rst:215
 msgid ""
 "The process of making all green elements in an image transparent and placing"
 " a different background underneath, so it appears that the subject is in a "
@@ -977,17 +977,17 @@ msgstr ""
 "প্রক্রিয়া, যাতে বিষয়টি অন্য স্থানে অবস্থান করছে বলে মনে হয়।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:220
+#: ../doc/glossary.rst:220
 msgid "-H-"
 msgstr "-H-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:221
+#: ../doc/glossary.rst:221
 msgid "High Definition (HD):"
 msgstr "হাই ডেফিনিশন (HD):"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:222
+#: ../doc/glossary.rst:222
 msgid ""
 "A general term for a video signal with a significantly higher resolution "
 "than standard definition."
@@ -996,12 +996,12 @@ msgstr ""
 "সিগন্যালের সাধারণ শব্দ।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:223
+#: ../doc/glossary.rst:223
 msgid "HDMI:"
 msgstr "HDMI:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:224
+#: ../doc/glossary.rst:224
 msgid ""
 "High Definition Multimedia Interface.  Interface for transmitting high "
 "definition digital audio and video data."
@@ -1010,12 +1010,12 @@ msgstr ""
 "ভিডিও ডেটা প্রেরণের জন্য ইন্টারফেস।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:225
+#: ../doc/glossary.rst:225
 msgid "HDR:"
 msgstr "HDR:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:226
+#: ../doc/glossary.rst:226
 msgid ""
 "HDR (high dynamic range) is the compositing of two images, one that "
 "correctly exposes the highlights, and another that properly exposes the dark"
@@ -1026,12 +1026,12 @@ msgstr ""
 "করলে একটি সঠিকভাবে প্রকাশিত ছবি পাওয়া যায়।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:227
+#: ../doc/glossary.rst:227
 msgid "HDTV:"
 msgstr "HDTV:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:228
+#: ../doc/glossary.rst:228
 msgid ""
 "High Definition TV.  A broadcast format that allows for a higher resolution "
 "signal than the traditional formats, NTSC, PAL, and SECAM."
@@ -1040,12 +1040,12 @@ msgstr ""
 " এবং SECAM থেকে উচ্চ রেজোলিউশনের সিগন্যাল প্রদান করে।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:229
+#: ../doc/glossary.rst:229
 msgid "HDV:"
 msgstr "HDV:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:230
+#: ../doc/glossary.rst:230
 msgid ""
 "High Definition Video.  The format used to record HDTV-quality data with "
 "video camcorders."
@@ -1054,33 +1054,33 @@ msgstr ""
 " ব্যবহৃত ফরম্যাট।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:231
+#: ../doc/glossary.rst:231
 msgid "Headroom:"
 msgstr "হেডরুম:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:232
+#: ../doc/glossary.rst:232
 msgid ""
 "The space between the top of a character's head and the top of the frame."
 msgstr "একটি চরিত্রের মাথার উপরের অংশ এবং ফ্রেমের উপরের অংশের মধ্যে স্থান।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:233
+#: ../doc/glossary.rst:233
 msgid "Hiss:"
 msgstr "হিস:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:234
+#: ../doc/glossary.rst:234
 msgid "Noise caused by imperfections in the recording medium."
 msgstr "রেকর্ডিং মাধ্যমের ত্রুটির কারণে সৃষ্ট শব্দ।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:236
+#: ../doc/glossary.rst:236
 msgid "Hue:"
 msgstr "হিউ:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:236
+#: ../doc/glossary.rst:236
 msgid ""
 "The shade of a color.  This is the general color category into which the "
 "color falls.  For example, pink, crimson, and plum are different colors, but"
@@ -1092,17 +1092,17 @@ msgstr ""
 "কালো, এবং ধূসর টোন হিউ নয়।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:241
+#: ../doc/glossary.rst:241
 msgid "-I-"
 msgstr "-I-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:242
+#: ../doc/glossary.rst:242
 msgid "Image Stabilizer:"
 msgstr "ইমেজ স্টেবিলাইজার:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:243
+#: ../doc/glossary.rst:243
 msgid ""
 "Also referred to as an electronic image stabilizer.  A technique used to "
 "remove the movement caused by camera shake."
@@ -1111,12 +1111,12 @@ msgstr ""
 "আন্দোলন দূর করার একটি প্রযুক্তি।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:244
+#: ../doc/glossary.rst:244
 msgid "Importing:"
 msgstr "ইম্পোর্টিং:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:245
+#: ../doc/glossary.rst:245
 msgid ""
 "Importing is the process of transferring videos from your camera onto your "
 "computer or into a piece of editing software."
@@ -1125,12 +1125,12 @@ msgstr ""
 "স্থানান্তর করার প্রক্রিয়া।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:246
+#: ../doc/glossary.rst:246
 msgid "Interframe Compression:"
 msgstr "ইন্টারফ্রেম কম্প্রেশন:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:247
+#: ../doc/glossary.rst:247
 msgid ""
 "A compression scheme, such as MPEG that reduces the amount of video "
 "information by storing only the differences between a frame and those "
@@ -1140,12 +1140,12 @@ msgstr ""
 "মধ্যে পার্থক্যগুলি সংরক্ষণ করে ভিডিও তথ্যের পরিমাণ কমায়।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:248
+#: ../doc/glossary.rst:248
 msgid "Interpolation:"
 msgstr "ইন্টারপোলেশন:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:249
+#: ../doc/glossary.rst:249
 msgid ""
 "Used in animation to calculate the motion in between two user-generated "
 "keyframes so that the editor does not need to animate each frame manually.  "
@@ -1156,12 +1156,12 @@ msgstr ""
 "এটি প্রক্রিয়াটি দ্রুততর করে এবং ফলস্বরূপ অ্যানিমেশনকে মসৃণ করে।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:251
+#: ../doc/glossary.rst:251
 msgid "Intertitles:"
 msgstr "ইন্টারটাইটেলস:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:251
+#: ../doc/glossary.rst:251
 msgid ""
 "Titles that appear on their own between footage.  Commonly seen in silent "
 "movies to substitute dialogue, also used as chapter headings."
@@ -1171,17 +1171,17 @@ msgstr ""
 "হয়।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:256
+#: ../doc/glossary.rst:256
 msgid "-J-"
 msgstr "-J-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:257
+#: ../doc/glossary.rst:257
 msgid "J-Cut:"
 msgstr "জে-কাট:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:258
+#: ../doc/glossary.rst:258
 msgid ""
 "An edit in which the audio starts before the video, giving the video a "
 "dramatic introduction.  Also known as an audio lead."
@@ -1190,24 +1190,24 @@ msgstr ""
 " অডিও লিড হিসেবেও পরিচিত।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:259
+#: ../doc/glossary.rst:259
 msgid "Jog"
 msgstr "জগ"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:260
+#: ../doc/glossary.rst:260
 msgid ""
 "To move forward or backward through video by playing it one field or frame "
 "at a time."
 msgstr "ভিডিও একবারে একটি ফিল্ড বা ফ্রেম প্লে করে সামনে বা পিছনে সরানো।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:262
+#: ../doc/glossary.rst:262
 msgid "Jump Cut:"
 msgstr "জাম্প কাট:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:262
+#: ../doc/glossary.rst:262
 msgid ""
 "A jump cut is an unnatural, abrupt switch between shots identical in the "
 "subject but slightly different in screen location, so the subject appears to"
@@ -1218,15 +1218,15 @@ msgstr ""
 "অবস্থান থেকে অন্য অবস্থানে লাফিয়ে যাওয়ার মতো দেখায়।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:267
+#: ../doc/glossary.rst:267
 msgid "-K-"
 msgstr "-K-"
 
-#: ../glossary.rst:268
+#: ../doc/glossary.rst:268
 msgid "Ken Burns Effect:"
 msgstr "কেন বার্নস প্রভাব:"
 
-#: ../glossary.rst:269
+#: ../doc/glossary.rst:269
 msgid ""
 "A pan-and-zoom animation technique applied to still images or video clips to"
 " create the illusion of camera movement. Named after documentary filmmaker "
@@ -1240,24 +1240,24 @@ msgstr ""
 "Motion → Camera` প্রিসেট ব্যবহার করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:270
+#: ../doc/glossary.rst:270
 msgid "Key:"
 msgstr "কি:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:271
+#: ../doc/glossary.rst:271
 msgid ""
 "A method for creating transparency, such as a bluescreen key or a chroma "
 "key."
 msgstr "স্বচ্ছতা তৈরির একটি পদ্ধতি, যেমন ব্লুস্ক্রিন কি বা ক্রোমা কি।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:273
+#: ../doc/glossary.rst:273
 msgid "Keyframe:"
 msgstr "কিফ্রেম:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:273
+#: ../doc/glossary.rst:273
 msgid ""
 "A keyframe is a frame that contains a record of specific settings (e.g., "
 "scale, rotation, brightness).  Start and endpoints for animated effects.  By"
@@ -1270,17 +1270,17 @@ msgstr ""
 "নির্দিষ্ট দিকগুলো অ্যানিমেট করতে পারেন।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:278
+#: ../doc/glossary.rst:278
 msgid "-L-"
 msgstr "-L-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:279
+#: ../doc/glossary.rst:279
 msgid "L-Cut:"
 msgstr "এল-কাট:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:280
+#: ../doc/glossary.rst:280
 msgid ""
 "An L-cut is an edit in which the video ends before the audio.  L-cuts act as"
 " a subtle transition from one scene to the next."
@@ -1289,12 +1289,12 @@ msgstr ""
 "দৃশ্য থেকে অন্য দৃশ্যে সূক্ষ্ম পরিবর্তন হিসেবে কাজ করে।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:281
+#: ../doc/glossary.rst:281
 msgid "Letterbox:"
 msgstr "লেটারবক্স:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:282
+#: ../doc/glossary.rst:282
 msgid ""
 "A technique used to preserve the original aspect ratio of a motion picture "
 "when played on a TV.  Letterboxing adds black bars to the top and bottom of "
@@ -1304,12 +1304,12 @@ msgstr ""
 "প্রযুক্তি। লেটারবক্সিং স্ক্রিনের উপরে এবং নিচে কালো বার যোগ করে।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:283
+#: ../doc/glossary.rst:283
 msgid "Linear Editing:"
 msgstr "লিনিয়ার এডিটিং:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:284
+#: ../doc/glossary.rst:284
 msgid ""
 "A form of video editing which lays out cuts sequentially, one by one, to "
 "produce the final scene. This contrasts with non-linear editing which allows"
@@ -1320,12 +1320,12 @@ msgstr ""
 "কাট করার অনুমতি দেয়।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:285
+#: ../doc/glossary.rst:285
 msgid "Log:"
 msgstr "লগ:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:286
+#: ../doc/glossary.rst:286
 msgid ""
 "A record of start and end timecode, reel numbers, scene descriptions, and "
 "other information for a specified clip."
@@ -1334,12 +1334,12 @@ msgstr ""
 "অন্যান্য তথ্যের রেকর্ড।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:287
+#: ../doc/glossary.rst:287
 msgid "Lossless:"
 msgstr "লসলেস:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:288
+#: ../doc/glossary.rst:288
 msgid ""
 "A compression scheme that results in no loss of data from decompressing the "
 "file.  Lossless files are generally quite large (but still smaller than "
@@ -1351,12 +1351,12 @@ msgstr ""
 "ডিকোড করতে অনেক প্রসেসিং পাওয়ার প্রয়োজন হতে পারে।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:289
+#: ../doc/glossary.rst:289
 msgid "Lossy:"
 msgstr "লসি:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:290
+#: ../doc/glossary.rst:290
 msgid ""
 "Lossy compression is a compression scheme that degrades quality.  Lossy "
 "algorithms compress digital data by eliminating the data least sensitive to "
@@ -1366,11 +1366,11 @@ msgstr ""
 "ডিজিটাল ডেটা কম্প্রেস করে এমন ডেটা বাদ দিয়ে যা মানুষের চোখের জন্য কম "
 "সংবেদনশীল এবং সর্বোচ্চ কম্প্রেশন রেট প্রদান করে।"
 
-#: ../glossary.rst:291
+#: ../doc/glossary.rst:291
 msgid "Lower Third:"
 msgstr "লোয়ার থার্ড:"
 
-#: ../glossary.rst:292
+#: ../doc/glossary.rst:292
 msgid ""
 "A text or graphic overlay positioned in the lower third of the screen, "
 "commonly used to display a speaker's name, title, or other identifying "
@@ -1384,11 +1384,11 @@ msgstr ""
 "OpenShot-এ, এগুলো তৈরি করতে টাইটেল এডিটর ব্যবহার করুন এবং আপনার ভিডিওর উপরে "
 "একটি ট্র্যাকে টাইটেল ক্লিপ রাখুন।"
 
-#: ../glossary.rst:294
+#: ../doc/glossary.rst:294
 msgid "LUT (Look-Up Table):"
 msgstr "এলইউটি (লুক-আপ টেবিল):"
 
-#: ../glossary.rst:294
+#: ../doc/glossary.rst:294
 msgid ""
 "A file that maps one set of colors to another, used to apply a specific "
 "color grade or look to a video clip in one step. LUTs can replicate film "
@@ -1401,38 +1401,38 @@ msgstr ""
 "OpenShot-এর রঙ গ্রেড ইফেক্ট সরাসরি এলইউটি ফাইল সমর্থন করে।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:299
+#: ../doc/glossary.rst:299
 msgid "-M-"
 msgstr "-M-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:300
+#: ../doc/glossary.rst:300
 msgid "Mark In:"
 msgstr "মার্ক ইন:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:301
+#: ../doc/glossary.rst:301
 msgid ""
 "Placing a marker at the beginning of where you want your clip to start."
 msgstr "আপনার ক্লিপ শুরু করার স্থানে একটি মার্কার স্থাপন করা।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:302
+#: ../doc/glossary.rst:302
 msgid "Mark Out:"
 msgstr "মার্ক আউট:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:303
+#: ../doc/glossary.rst:303
 msgid "Placing a marker at the beginning of where you want your clip to end."
 msgstr "আপনার ক্লিপ শেষ করার স্থানে একটি মার্কার স্থাপন করা।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:304
+#: ../doc/glossary.rst:304
 msgid "Match Action:"
 msgstr "ম্যাচ অ্যাকশন:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:305
+#: ../doc/glossary.rst:305
 msgid ""
 "Match action (or match cut) is a technique where an editor will cut from one"
 " visually similar scene to another."
@@ -1441,12 +1441,12 @@ msgstr ""
 " অন্য দৃশ্যে ভিজ্যুয়ালি মিল রেখে কাট করে।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:306
+#: ../doc/glossary.rst:306
 msgid "Memory Bank:"
 msgstr "মেমোরি ব্যাংক:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:307
+#: ../doc/glossary.rst:307
 msgid ""
 "A Memory Bank is a video that documents specific periods or events in "
 "someone's life.  It can be set to music, make use of natural sound, record "
@@ -1458,12 +1458,12 @@ msgstr ""
 " করতে পারে।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:308
+#: ../doc/glossary.rst:308
 msgid "Marker:"
 msgstr "মার্কার:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:309
+#: ../doc/glossary.rst:309
 msgid ""
 "An object used to mark a location.  Clip markers signify essential points "
 "within a clip.  Timeline markers indicate scenes, locations for titles, or "
@@ -1477,12 +1477,12 @@ msgstr ""
 "ট্রিমিংয়ের জন্য।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:310
+#: ../doc/glossary.rst:310
 msgid "Mask:"
 msgstr "মাস্ক:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:311
+#: ../doc/glossary.rst:311
 msgid ""
 "The transparent area of an image, typically defined by a graphic shape or a "
 "bluescreen background.  Also called a matte."
@@ -1491,12 +1491,12 @@ msgstr ""
 "ব্যাকগ্রাউন্ড দ্বারা সংজ্ঞায়িত। এটিকে ম্যাটও বলা হয়।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:312
+#: ../doc/glossary.rst:312
 msgid "Matte:"
 msgstr "ম্যাট:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:313
+#: ../doc/glossary.rst:313
 msgid ""
 "Matte is an image mask used in visual effects to control applying an effect "
 "to certain parts of the image."
@@ -1505,12 +1505,12 @@ msgstr ""
 "ইফেক্ট প্রয়োগ নিয়ন্ত্রণ করার জন্য।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:314
+#: ../doc/glossary.rst:314
 msgid "Montage:"
 msgstr "মন্টাজ:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:315
+#: ../doc/glossary.rst:315
 msgid ""
 "A montage is a self-contained sequence of shots assembled in juxtaposition "
 "to each other to communicate an idea or mood.  The implied relationship "
@@ -1521,12 +1521,12 @@ msgstr ""
 "সম্পর্ক একটি নতুন বার্তা তৈরি করে।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:317
+#: ../doc/glossary.rst:317
 msgid "Motion Artifact:"
 msgstr "মোশন আর্টিফ্যাক্ট:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:317
+#: ../doc/glossary.rst:317
 msgid ""
 "Visual interference caused by the difference between the frame rate of the "
 "camera and the motion of the object.  The most common display of this is "
@@ -1540,27 +1540,27 @@ msgstr ""
 "ক্যামেরা ও টেলিভিশনের মধ্যে সিঙ্ক্রোনাইজেশনের অভাব নির্দেশ করে।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:322
+#: ../doc/glossary.rst:322
 msgid "-N-"
 msgstr "-N-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:323
+#: ../doc/glossary.rst:323
 msgid "Noise:"
 msgstr "নয়েজ:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:324
+#: ../doc/glossary.rst:324
 msgid "Undesired data in a video or audio signal.  See also artifact."
 msgstr "ভিডিও বা অডিও সিগনালে অনাকাঙ্ক্ষিত তথ্য। আর্টিফ্যাক্টও দেখুন।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:325
+#: ../doc/glossary.rst:325
 msgid "Non-linear Editing:"
 msgstr "নন-লিনিয়ার এডিটিং:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:326
+#: ../doc/glossary.rst:326
 msgid ""
 "An editing system that performs edits at any time, in any order.  Access is "
 "random, which means that the system can jump to specific pieces of data "
@@ -1571,23 +1571,23 @@ msgstr ""
 "সরাসরি যেতে পারে।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:327
+#: ../doc/glossary.rst:327
 msgid "Numerator:"
 msgstr "নিউমারেটর:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:328
+#: ../doc/glossary.rst:328
 msgid ""
 "The number or expression above the line in a fraction (such as 1 in ½)."
 msgstr "ভগ্নাংশের লাইনের উপরে থাকা সংখ্যা বা প্রকাশ (যেমন ½ এর ১)।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:330
+#: ../doc/glossary.rst:330
 msgid "NTSC:"
 msgstr "NTSC:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:330
+#: ../doc/glossary.rst:330
 msgid ""
 "NTSC is an abbreviation for National Television Standards Committee.  NTSC "
 "is the group that initially developed the black & white and subsequently "
@@ -1603,17 +1603,17 @@ msgstr ""
 "প্রদর্শিত হয়। বর্তমানে ATSC NTSC এর পরিবর্তে ব্যবহৃত হচ্ছে।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:335
+#: ../doc/glossary.rst:335
 msgid "-O-"
 msgstr "-O-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:336
+#: ../doc/glossary.rst:336
 msgid "Offline Editing:"
 msgstr "অফলাইন এডিটিং:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:337
+#: ../doc/glossary.rst:337
 msgid ""
 "Editing a rough cut using low-quality clips, and then producing the final "
 "cut with high-quality clips, usually on a more sophisticated editing system "
@@ -1624,24 +1624,24 @@ msgstr ""
 "চেয়ে উন্নত এডিটিং সিস্টেমে।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:338
+#: ../doc/glossary.rst:338
 msgid "Online Editing:"
 msgstr "অনলাইন এডিটিং:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:339
+#: ../doc/glossary.rst:339
 msgid ""
 "Doing all editing (including the rough cut) on the same clips that produce "
 "the final cut."
 msgstr "সমস্ত এডিটিং (রাফ কাট সহ) একই ক্লিপে করা যা চূড়ান্ত কাট তৈরি করে।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:341
+#: ../doc/glossary.rst:341
 msgid "Opacity:"
 msgstr "অপাসিটি:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:341
+#: ../doc/glossary.rst:341
 msgid ""
 "An inverse measure of the level of transparency in an image, which is of "
 "importance when compositing.  An image's alpha channel stores its opacity "
@@ -1651,17 +1651,17 @@ msgstr ""
 "গুরুত্বপূর্ণ। একটি ছবির আলফা চ্যানেল তার অপাসিটির তথ্য সংরক্ষণ করে।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:346
+#: ../doc/glossary.rst:346
 msgid "-P-"
 msgstr "-P-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:347
+#: ../doc/glossary.rst:347
 msgid "PAL:"
 msgstr "PAL:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:348
+#: ../doc/glossary.rst:348
 msgid ""
 "PAL is an abbreviation for Phase Alternate Line.  This is the video format "
 "standard used in many European countries.  Six-hundred twenty-five lines "
@@ -1672,22 +1672,22 @@ msgstr ""
 "সেকেন্ডে ২৫ ফ্রেমে প্রদর্শিত হয়।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:349
+#: ../doc/glossary.rst:349
 msgid "Pan:"
 msgstr "প্যান:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:350
+#: ../doc/glossary.rst:350
 msgid "A horizontal movement of the camera on a fixed axis."
 msgstr "ক্যামেরার একটি নির্দিষ্ট অক্ষ বরাবর অনুভূমিক গতি।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:351
+#: ../doc/glossary.rst:351
 msgid "Pan and Scan:"
 msgstr "প্যান অ্যান্ড স্ক্যান:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:352
+#: ../doc/glossary.rst:352
 msgid ""
 "A method of converting widescreen images to a 4:3 aspect ratio.  Cropping "
 "the video so that it fills the entire screen and panning it into position "
@@ -1698,12 +1698,12 @@ msgstr ""
 "দেখানো।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:353
+#: ../doc/glossary.rst:353
 msgid "Picture in Picture (PIP):"
 msgstr "পিকচার ইন পিকচার (PIP):"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:354
+#: ../doc/glossary.rst:354
 msgid ""
 "An effect of superimposing a small window of footage over a larger window "
 "and the two play at the same time."
@@ -1712,12 +1712,12 @@ msgstr ""
 "করার ইফেক্ট।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:355
+#: ../doc/glossary.rst:355
 msgid "Pixel:"
 msgstr "পিক্সেল:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:356
+#: ../doc/glossary.rst:356
 msgid ""
 "One of the tiny dots that make up the representation of an image in a "
 "computer's memory.  The smallest unit of a digital image."
@@ -1726,12 +1726,12 @@ msgstr ""
 "সবচেয়ে ছোট ইউনিট।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:357
+#: ../doc/glossary.rst:357
 msgid "Pixel Aspect Ratio:"
 msgstr "পিক্সেল অ্যাসপেক্ট রেশিও:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:358
+#: ../doc/glossary.rst:358
 msgid ""
 "Aspect ratio is the ratio between the width and height of your video; the "
 "Pixel Aspect Ratio is the ratio between the width and height of the pixels."
@@ -1742,23 +1742,23 @@ msgstr ""
 "স্ট্যান্ডার্ড পিক্সেল অ্যাসপেক্ট রেশিও ১:১।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:359
+#: ../doc/glossary.rst:359
 msgid "Pixelation:"
 msgstr "পিক্সেলেশন:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:360
+#: ../doc/glossary.rst:360
 msgid ""
 "The display of large, blocky pixels in an image caused by over-enlarging it."
 msgstr "অতিরিক্ত বড় করার কারণে ছবিতে বড়, ব্লক আকৃতির পিক্সেল দেখা।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:361
+#: ../doc/glossary.rst:361
 msgid "Playhead:"
 msgstr "প্লেহেড:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:362
+#: ../doc/glossary.rst:362
 msgid ""
 "When editing audio or video in a current computer, the Playhead is a graphic"
 " line in the Timeline that represents the current accessed position, or "
@@ -1768,12 +1768,12 @@ msgstr ""
 "বর্তমান অবস্থান বা ফ্রেম নির্দেশ করে।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:363
+#: ../doc/glossary.rst:363
 msgid "Post-production (Post):"
 msgstr "পোস্ট-প্রোডাকশন (পোস্ট):"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:364
+#: ../doc/glossary.rst:364
 msgid ""
 "Post-production (post) is any video production activity following the "
 "initial recording.  Typically, post involves editing, the addition of "
@@ -1786,12 +1786,12 @@ msgstr ""
 "প্রোডাকশনে পরিণত হয়।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:365
+#: ../doc/glossary.rst:365
 msgid "Poster Frame:"
 msgstr "পোস্টার ফ্রেম:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:366
+#: ../doc/glossary.rst:366
 msgid ""
 "A single frame of a clip, selected as a thumbnail to indicate the clip's "
 "contents."
@@ -1800,12 +1800,12 @@ msgstr ""
 "বিষয়বস্তু নির্দেশ করে।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:368
+#: ../doc/glossary.rst:368
 msgid "Project:"
 msgstr "প্রজেক্ট:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:368
+#: ../doc/glossary.rst:368
 msgid ""
 "A project is all the files, transitions, effects, and animations that you "
 "make or use within OpenShot."
@@ -1814,29 +1814,29 @@ msgstr ""
 "ইফেক্ট এবং অ্যানিমেশন।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:373
+#: ../doc/glossary.rst:373
 msgid "-R-"
 msgstr "-R-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:374
+#: ../doc/glossary.rst:374
 msgid "Raw Footage:"
 msgstr "র’ ফুটেজ:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:375
+#: ../doc/glossary.rst:375
 msgid "Raw footage is pre-edited footage, usually direct from the camera."
 msgstr ""
 "র’ ফুটেজ হলো পূর্বে সম্পাদিত নয় এমন ফুটেজ, সাধারণত সরাসরি ক্যামেরা থেকে "
 "নেওয়া।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:376
+#: ../doc/glossary.rst:376
 msgid "Real-time:"
 msgstr "রিয়েল-টাইম:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:377
+#: ../doc/glossary.rst:377
 msgid ""
 "Real-time occurs immediately, without delay for rendering.  If a transition "
 "occurs in real-time, there is no waiting, the computer creates the effect or"
@@ -1847,12 +1847,12 @@ msgstr ""
 "তাৎক্ষণিকভাবে এফেক্ট বা ট্রানজিশন তৈরি করে এবং ফলাফল দেখায়।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:378
+#: ../doc/glossary.rst:378
 msgid "Rendering:"
 msgstr "রেন্ডারিং:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:379
+#: ../doc/glossary.rst:379
 msgid ""
 "The process by which the video editing software and hardware convert the raw"
 " video, effects, transitions, and filters into a new continuous video file."
@@ -1861,12 +1861,12 @@ msgstr ""
 "ফিল্টারগুলোকে একটি নতুন ধারাবাহিক ভিডিও ফাইলে রূপান্তর করার প্রক্রিয়া।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:380
+#: ../doc/glossary.rst:380
 msgid "Render Time:"
 msgstr "রেন্ডার সময়:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:381
+#: ../doc/glossary.rst:381
 msgid ""
 "The render time is the time it takes an editing computer to composite source"
 " elements and commands into a single video file.  Rendering allows the "
@@ -1877,12 +1877,12 @@ msgstr ""
 "এফেক্টসহ সিকোয়েন্সকে সম্পূর্ণ গতিতে প্লে করতে দেয়।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:382
+#: ../doc/glossary.rst:382
 msgid "Resolution:"
 msgstr "রেজোলিউশন:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:383
+#: ../doc/glossary.rst:383
 msgid ""
 "Resolution refers to the actual number of horizontal and vertical pixels "
 "your video contains.  Common resolution Examples: (SD) 640×480, (HD) "
@@ -1898,12 +1898,12 @@ msgstr ""
 "যথাক্রমে SD, ৪৮০p, ৭২০p, ১০৮০p, ১৪৪০p, ৪K এবং ৮K হিসেবে দেখা যায়।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:384
+#: ../doc/glossary.rst:384
 msgid "RGB:"
 msgstr "RGB:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:385
+#: ../doc/glossary.rst:385
 msgid ""
 "Monitors, cameras, and digital projectors use the primary colors of light "
 "(Red, Green, and Blue) to make images."
@@ -1912,23 +1912,23 @@ msgstr ""
 "নীল) ব্যবহার করে ছবি তৈরি করে।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:386
+#: ../doc/glossary.rst:386
 msgid "RGBA:"
 msgstr "RGBA:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:387
+#: ../doc/glossary.rst:387
 msgid ""
 "A file containing an RGB image plus an alpha channel for transparency "
 "information."
 msgstr ""
 "একটি ফাইল যা RGB ছবি এবং স্বচ্ছতার তথ্যের জন্য একটি আলফা চ্যানেল ধারণ করে।"
 
-#: ../glossary.rst:388
+#: ../doc/glossary.rst:388
 msgid "Ripple Edit:"
 msgstr "রিপল এডিট:"
 
-#: ../glossary.rst:389
+#: ../doc/glossary.rst:389
 msgid ""
 "An edit where trimming a clip automatically shifts all subsequent clips on "
 "the timeline forward or backward by the same amount, closing or opening a "
@@ -1941,12 +1941,12 @@ msgstr ""
 "বলা হয়।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:390
+#: ../doc/glossary.rst:390
 msgid "Roll:"
 msgstr "রোল:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:391
+#: ../doc/glossary.rst:391
 msgid ""
 "Roll is a text effect commonly seen in end credits, where text typically "
 "moves from the bottom to the top of the screen."
@@ -1955,12 +1955,12 @@ msgstr ""
 "সাধারণত স্ক্রিনের নিচ থেকে উপরে চলে।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:393
+#: ../doc/glossary.rst:393
 msgid "Rough cut:"
 msgstr "রাফ কাট:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:393
+#: ../doc/glossary.rst:393
 msgid ""
 "A rough cut is a preliminary edit of footage in the approximate sequence, "
 "length, and content of a finished program."
@@ -1969,17 +1969,17 @@ msgstr ""
 "ক্রম, দৈর্ঘ্য এবং বিষয়বস্তু অনুসারে করা হয়।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:398
+#: ../doc/glossary.rst:398
 msgid "-S-"
 msgstr "-S-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:399
+#: ../doc/glossary.rst:399
 msgid "Sample Rate:"
 msgstr "স্যাম্পল রেট:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:400
+#: ../doc/glossary.rst:400
 msgid ""
 "In digital audio, the number of samples per second.  The higher the number, "
 "the better the sound quality."
@@ -1988,22 +1988,22 @@ msgstr ""
 "মান তত ভালো।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:401
+#: ../doc/glossary.rst:401
 msgid "Scene:"
 msgstr "সিন:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:402
+#: ../doc/glossary.rst:402
 msgid "Action that occurs in one location at one time."
 msgstr "একটি নির্দিষ্ট সময়ে একটি স্থানে ঘটে যাওয়া ক্রিয়া।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:403
+#: ../doc/glossary.rst:403
 msgid "Scrub:"
 msgstr "স্ক্রাব:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:404
+#: ../doc/glossary.rst:404
 msgid ""
 "Scrubbing is an act of moving the cursor or playhead across the Timeline "
 "manually.  Once specific to audio tracks, the term now also refers to video "
@@ -2014,22 +2014,22 @@ msgstr ""
 " প্রযোজ্য।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:405
+#: ../doc/glossary.rst:405
 msgid "Shot:"
 msgstr "শট:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:406
+#: ../doc/glossary.rst:406
 msgid "A recording of a single take."
 msgstr "একটি একক টেকের রেকর্ডিং।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:407
+#: ../doc/glossary.rst:407
 msgid "Side Data:"
 msgstr "সাইড ডেটা:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:408
+#: ../doc/glossary.rst:408
 msgid ""
 "Auxiliary per-stream metadata (e.g. rotation, stereo3D, spherical) attached "
 "to packets or streams in containers like MP4."
@@ -2038,12 +2038,12 @@ msgstr ""
 "মতো কন্টেইনারে প্যাকেট বা স্ট্রিমের সাথে সংযুক্ত থাকে।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:409
+#: ../doc/glossary.rst:409
 msgid "Slow-motion:"
 msgstr "স্লো-মোশন:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:410
+#: ../doc/glossary.rst:410
 msgid ""
 "A shot in which action takes place at a slower than average speed.  The "
 "camera achieves slow-motion by speeding up the frame rate during recording "
@@ -2053,12 +2053,12 @@ msgstr ""
 " ফ্রেম রেট বাড়িয়ে এবং পরে ফ্রেমগুলো ধীর গতিতে প্লে করে স্লো-মোশন তৈরি করে।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:411
+#: ../doc/glossary.rst:411
 msgid "Snap:"
 msgstr "স্ন্যাপ:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:412
+#: ../doc/glossary.rst:412
 msgid ""
 "Snapping quickly positions an object in alignment with grid lines, "
 "guidelines, or another object.  Snapping causes the object to automatically "
@@ -2071,12 +2071,12 @@ msgstr ""
 " নিয়ে যায়।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:413
+#: ../doc/glossary.rst:413
 msgid "Spherical Video:"
 msgstr "গোলাকার ভিডিও:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:414
+#: ../doc/glossary.rst:414
 msgid ""
 "A full-sphere (360×180°) video format that requires special metadata (SV3D) "
 "so players know to render it as an interactive panorama."
@@ -2085,12 +2085,12 @@ msgstr ""
 "যাতে প্লেয়ারগুলো এটি ইন্টারেক্টিভ প্যানোরামা হিসেবে রেন্ডার করতে পারে।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:415
+#: ../doc/glossary.rst:415
 msgid "Splice:"
 msgstr "স্প্লাইস:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:416
+#: ../doc/glossary.rst:416
 msgid ""
 "The process of physically attaching two pieces of film using tape or cement."
 msgstr ""
@@ -2098,12 +2098,12 @@ msgstr ""
 "প্রক্রিয়া।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:417
+#: ../doc/glossary.rst:417
 msgid "Split cut (L-cut or J-cut):"
 msgstr "স্প্লিট কাট (এল-কাট বা জে-কাট):"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:418
+#: ../doc/glossary.rst:418
 msgid ""
 "An edit in which the audio starts before or after the picture cut.  Used for"
 " easing the transition from one scene or shot to another."
@@ -2112,12 +2112,12 @@ msgstr ""
 "থেকে অন্যটিতে ট্রানজিশন সহজ করার জন্য ব্যবহৃত হয়।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:419
+#: ../doc/glossary.rst:419
 msgid "Splitscreen:"
 msgstr "স্প্লিটস্ক্রিন:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:420
+#: ../doc/glossary.rst:420
 msgid ""
 "A unique effect that displays two or more scenes simultaneously on different"
 " parts of the screen."
@@ -2126,12 +2126,12 @@ msgstr ""
 "প্রদর্শন করে।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:421
+#: ../doc/glossary.rst:421
 msgid "Sound Effects:"
 msgstr "সাউন্ড এফেক্টস:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:422
+#: ../doc/glossary.rst:422
 msgid ""
 "Sound effects are contrived audio, usually prerecorded, incorporated with a "
 "video soundtrack to resemble a real occurrence.  Blowing on a microphone, "
@@ -2143,12 +2143,12 @@ msgstr ""
 "পারে।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:423
+#: ../doc/glossary.rst:423
 msgid "Soundtrack:"
 msgstr "সাউন্ডট্র্যাক:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:424
+#: ../doc/glossary.rst:424
 msgid ""
 "The soundtrack is the audio portion of a video recording, often multifaceted"
 " with natural sound, voiceovers, background music, or other sounds."
@@ -2157,12 +2157,12 @@ msgstr ""
 "শব্দ, ভয়েসওভার, ব্যাকগ্রাউন্ড মিউজিক বা অন্যান্য শব্দের সমন্বয়ে গঠিত।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:425
+#: ../doc/glossary.rst:425
 msgid "Stabilization:"
 msgstr "স্ট্যাবিলাইজেশন:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:426
+#: ../doc/glossary.rst:426
 msgid ""
 "Image stabilization is a family of techniques that reduce blurring "
 "associated with the motion of a camera or other imaging device during "
@@ -2172,12 +2172,12 @@ msgstr ""
 "ইমেজিং ডিভাইসের চলাচলের কারণে এক্সপোজারের সময় হওয়া ঝাপসা কমায়।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:427
+#: ../doc/glossary.rst:427
 msgid "Standard Definition (SD):"
 msgstr "স্ট্যান্ডার্ড ডেফিনিশন (SD):"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:428
+#: ../doc/glossary.rst:428
 msgid ""
 "Television broadcasting standard with a lower resolution than high "
 "definition."
@@ -2185,35 +2185,35 @@ msgstr ""
 "একটি টেলিভিশন সম্প্রচার মান যা হাই ডেফিনিশনের চেয়ে কম রেজোলিউশন রয়েছে।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:429
+#: ../doc/glossary.rst:429
 msgid "Step:"
 msgstr "স্টেপ:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:430
+#: ../doc/glossary.rst:430
 msgid ""
 "The act of moving forward or backward through video one frame at a time."
 msgstr "ভিডিওতে এক ফ্রেম করে সামনে বা পিছনে যাওয়ার কাজ।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:431
+#: ../doc/glossary.rst:431
 msgid "Still Frame:"
 msgstr "স্টিল ফ্রেম:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:432
+#: ../doc/glossary.rst:432
 msgid "A single frame of video is repeated, so it appears to have no motion."
 msgstr ""
 "একটি একক ভিডিও ফ্রেম পুনরাবৃত্তি করা হয়, যাতে এটি কোনো গতি ছাড়াই প্রদর্শিত"
 " হয়।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:433
+#: ../doc/glossary.rst:433
 msgid "Straight Cut:"
 msgstr "স্ট্রেইট কাট:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:434
+#: ../doc/glossary.rst:434
 msgid ""
 "The most common edit, consecutive clips placed one after another in the "
 "Timeline window.  Straight cuts are preferable to transitions when the "
@@ -2224,22 +2224,22 @@ msgstr ""
 "লক্ষ্যযোগ্য না করতে চান তবে ট্রানজিশনের চেয়ে সরল কাটাই বেশি পছন্দনীয়।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:435
+#: ../doc/glossary.rst:435
 msgid "Superimposing:"
 msgstr "সুপারইম্পোজিং:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:436
+#: ../doc/glossary.rst:436
 msgid "Combining images, where one or more layers involve transparency."
 msgstr "ছবিগুলি একত্রিত করা, যেখানে এক বা একাধিক স্তরে স্বচ্ছতা থাকে।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:437
+#: ../doc/glossary.rst:437
 msgid "Sync (Synchronization):"
 msgstr "সিঙ্ক (সময়সঙ্গতি):"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:438
+#: ../doc/glossary.rst:438
 msgid ""
 "Synchronization refers to the relative timing of audio (sound) and video "
 "(image) parts during creation, post-production (mixing), transmission, "
@@ -2250,12 +2250,12 @@ msgstr ""
 "প্লেব্যাক প্রক্রিয়ার সময় ঘটে।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:439
+#: ../doc/glossary.rst:439
 msgid "SECAM:"
 msgstr "এসইসিএএম:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:440
+#: ../doc/glossary.rst:440
 msgid ""
 "Systeme Electronique Couleur Avec Memoire, a TV format used mainly in "
 "Eastern Europe, Russia, and Africa."
@@ -2264,12 +2264,12 @@ msgstr ""
 "পূর্ব ইউরোপ, রাশিয়া এবং আফ্রিকায় ব্যবহৃত হয়।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:442
+#: ../doc/glossary.rst:442
 msgid "SV3D (Spherical Video metadata):"
 msgstr "এসভি৩ডি (স্ফেরিক্যাল ভিডিও মেটাডেটা):"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:442
+#: ../doc/glossary.rst:442
 msgid ""
 "The “sv3d” atom in MP4/MOV files—side-data that marks a clip as 360° and "
 "carries projection, yaw/pitch/roll parameters."
@@ -2278,17 +2278,17 @@ msgstr ""
 " করে এবং প্রজেকশন, ইয়াও/পিচ/রোল প্যারামিটার বহন করে।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:447
+#: ../doc/glossary.rst:447
 msgid "-T-"
 msgstr "-টি-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:448
+#: ../doc/glossary.rst:448
 msgid "Tilt:"
 msgstr "টিল্ট:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:449
+#: ../doc/glossary.rst:449
 msgid ""
 "Tilting is a cinematographic technique in which the camera stays in a fixed "
 "position but rotates up/down in a vertical plane."
@@ -2297,12 +2297,12 @@ msgstr ""
 "কিন্তু উল্লম্ব সমতলে উপরে/নিচে ঘোরে।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:450
+#: ../doc/glossary.rst:450
 msgid "Timecode:"
 msgstr "টাইমকোড:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:451
+#: ../doc/glossary.rst:451
 msgid ""
 "The timecode is the discrete address given to each frame of the video (for "
 "example, 1:20:24:09).  Timecode makes frame-accurate editing possible and "
@@ -2313,12 +2313,12 @@ msgstr ""
 "সঠিকভাবে চিহ্নিত করতে সাহায্য করে।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:452
+#: ../doc/glossary.rst:452
 msgid "Time-lapse:"
 msgstr "টাইম-ল্যাপস:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:453
+#: ../doc/glossary.rst:453
 msgid ""
 "It is a technique for capturing each frame in a video at a much slower rate "
 "than usual.  When played back at regular speed, time appears to go by "
@@ -2331,12 +2331,12 @@ msgstr ""
 "অর্জন করে।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:454
+#: ../doc/glossary.rst:454
 msgid "Timeline:"
 msgstr "টাইমলাইন:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:455
+#: ../doc/glossary.rst:455
 msgid ""
 "The Timeline is an editing interface that lays out a video project in a "
 "linear fashion consisting of clips laid horizontally across the screen."
@@ -2345,12 +2345,12 @@ msgstr ""
 "সাজায়, যেখানে ক্লিপগুলি স্ক্রিন জুড়ে অনুভূমিকভাবে স্থাপন করা হয়।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:456
+#: ../doc/glossary.rst:456
 msgid "Timeline Editing:"
 msgstr "টাইমলাইন সম্পাদনা:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:457
+#: ../doc/glossary.rst:457
 msgid ""
 "Timeline editing is a computer-based method of editing, in which bars "
 "proportional to the length of a clip, represent video and audio clips on a "
@@ -2361,12 +2361,12 @@ msgstr ""
 "উপস্থাপন করে।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:458
+#: ../doc/glossary.rst:458
 msgid "Titling:"
 msgstr "টাইটলিং:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:459
+#: ../doc/glossary.rst:459
 msgid ""
 "Titling is the process or result of incorporating on-screen text as credits,"
 " captions, or any other alphanumeric communication."
@@ -2375,22 +2375,22 @@ msgstr ""
 "ক্রেডিট, ক্যাপশন বা অন্য কোনো আলফানিউমেরিক যোগাযোগ।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:460
+#: ../doc/glossary.rst:460
 msgid "Track:"
 msgstr "ট্র্যাক:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:461
+#: ../doc/glossary.rst:461
 msgid "A separate audio or video layer on a timeline."
 msgstr "টাইমলাইনে একটি পৃথক অডিও বা ভিডিও স্তর।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:462
+#: ../doc/glossary.rst:462
 msgid "Transcode:"
 msgstr "ট্রান্সকোড:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:463
+#: ../doc/glossary.rst:463
 msgid ""
 "Converting a digital file to another digital file format.  This usually "
 "involves audio and video compression."
@@ -2399,22 +2399,22 @@ msgstr ""
 "অডিও এবং ভিডিও কম্প্রেশন থাকে।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:464
+#: ../doc/glossary.rst:464
 msgid "Transparency:"
 msgstr "স্বচ্ছতা:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:465
+#: ../doc/glossary.rst:465
 msgid "Percentage of the opacity of a video clip or element."
 msgstr "একটি ভিডিও ক্লিপ বা উপাদানের অস্বচ্ছতার শতাংশ।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:466
+#: ../doc/glossary.rst:466
 msgid "Transition:"
 msgstr "ট্রানজিশন:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:467
+#: ../doc/glossary.rst:467
 msgid ""
 "A method of juxtaposing two scenes.  Transitions can take many forms, "
 "including cuts, dissolves, and wipes."
@@ -2423,27 +2423,27 @@ msgstr ""
 "পারে, যেমন কাট, ডিজলভ এবং ওয়াইপ।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:469
+#: ../doc/glossary.rst:469
 msgid "Trim:"
 msgstr "ট্রিম:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:469
+#: ../doc/glossary.rst:469
 msgid "Removing frames from the beginning, middle, or end of a clip."
 msgstr "একটি ক্লিপের শুরু, মাঝখান বা শেষ থেকে ফ্রেম সরানো।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:474
+#: ../doc/glossary.rst:474
 msgid "-V-"
 msgstr "-ভি-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:475
+#: ../doc/glossary.rst:475
 msgid "Video Format:"
 msgstr "ভিডিও ফরম্যাট:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:476
+#: ../doc/glossary.rst:476
 msgid ""
 "The video format is a standard that determines the way a video signal "
 "records on videotape.  Standards include DV, 8-mm, Beta, and VHS."
@@ -2452,12 +2452,12 @@ msgstr ""
 "রেকর্ড হয়। মানগুলির মধ্যে রয়েছে DV, ৮-মিমি, বিটা, এবং VHS।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:477
+#: ../doc/glossary.rst:477
 msgid "Voiceover:"
 msgstr "ভয়েসওভার:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:478
+#: ../doc/glossary.rst:478
 msgid ""
 "A term used to describe off-camera narration that is not part of a scene "
 "(non-diegetic)."
@@ -2466,12 +2466,12 @@ msgstr ""
 "নয় (নন-ডাইজেটিক)।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:480
+#: ../doc/glossary.rst:480
 msgid "VTR:"
 msgstr "ভিটিআর:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:480
+#: ../doc/glossary.rst:480
 msgid ""
 "A Videotape recorder also referred to as a 'deck'.  Decks duplicate "
 "videotapes and inputting and outputting from a computer."
@@ -2480,17 +2480,17 @@ msgstr ""
 "কম্পিউটার থেকে ইনপুট ও আউটপুট করে।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:485
+#: ../doc/glossary.rst:485
 msgid "-W-"
 msgstr "-ডব্লিউ-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:486
+#: ../doc/glossary.rst:486
 msgid "Widescreen:"
 msgstr "ওয়াইডস্ক্রিন:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:487
+#: ../doc/glossary.rst:487
 msgid ""
 "A format in which the width-to-height ratio of the frame is greater than 4:3"
 " so that it is significantly wider than it is tall."
@@ -2499,12 +2499,12 @@ msgstr ""
 " উচ্চতার তুলনায় অনেক বেশি প্রশস্ত।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:489
+#: ../doc/glossary.rst:489
 msgid "Wipe:"
 msgstr "ওয়াইপ:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:489
+#: ../doc/glossary.rst:489
 msgid ""
 "A wipe is a transition from one shot to another.  The edge of the transition"
 " moves across the original image as a line or a pattern, revealing the new "
@@ -2515,17 +2515,17 @@ msgstr ""
 "করে।"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:494
+#: ../doc/glossary.rst:494
 msgid "-Z-"
 msgstr "-জেড-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:496
+#: ../doc/glossary.rst:496
 msgid "Zoom:"
 msgstr "জুম:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:496
+#: ../doc/glossary.rst:496
 msgid ""
 "A shot where the image grows more substantial or smaller by adjusting the "
 "focal length of the lens instead of physically moving the camera."

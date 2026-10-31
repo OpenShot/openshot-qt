@@ -114,7 +114,7 @@ locale_dirs = ["locale/"]
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This patterns also effect to html_static_path and html_extra_path
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+exclude_patterns = ['issue-6177-verification.rst', '_build', 'Thumbs.db', '.DS_Store']
 
 # The reST default role (used for this markup: `text`) to use for all
 # documents.
@@ -300,6 +300,8 @@ latex_elements = {
 
 def _configure_latex_fonts(app, config):
     lang = (config.language or "").lower()
+    if lang.startswith("ja"):
+        config.latex_docclass = {"manual": "report"}
     latex_elements = dict(config.latex_elements or {})
 
     fontpkg = r"""
@@ -310,11 +312,18 @@ def _configure_latex_fonts(app, config):
 \setmainfont{Noto Serif}
 \setsansfont{Noto Sans}
 \setmonofont{Noto Sans Mono}[Scale=0.9]
+\usepackage{newunicodechar}
+\newfontfamily\openshotsymbolfont{DejaVu Sans}
+\newunicodechar{→}{{\openshotsymbolfont →}}
+\newunicodechar{←}{{\openshotsymbolfont ←}}
+\newunicodechar{↔}{{\openshotsymbolfont ↔}}
+\newunicodechar{␣}{{\openshotsymbolfont ␣}}
 """
 
     preamble = latex_elements.get("preamble", "")
+    preamble += r'\sphinxsetup{verbatimvisiblespace={\textcolor{red}{\openshotsymbolfont\char"2423}}}'
     if lang.startswith("bn"):
-        # If your bn is already fine, leave it alone — but polyglossia is also OK.
+        # Keep Bengali shaping while preserving Latin text in commands.
         fontpkg += r"""
 \usepackage{ucharclasses}
 \newfontfamily\bengalifont[
@@ -323,21 +332,55 @@ def _configure_latex_fonts(app, config):
   AutoFakeBold=2.0
 ]{Noto Sans Bengali}
 \setTransitionsFor{Bengali}{\begingroup\bengalifont}{\endgroup}
+\newunicodechar{।}{{\bengalifont ।}}
+\newfontfamily\openshotarabicfallback[Script=Arabic,ItalicFont={DejaVu Sans},ItalicFeatures={FakeSlant=0.2},BoldItalicFont={DejaVu Sans Bold},BoldItalicFeatures={FakeSlant=0.2}]{DejaVu Sans}
+
+\newfontfamily\openshotkoreanfallback{Noto Sans CJK KR}
+
 """
 
-    elif lang.startswith("fa"):
+    if lang.startswith(("ar", "fa")):
+        fontpkg += r"""
+\setmonofont{DejaVu Sans Mono}[ItalicFont={DejaVu Sans Mono},ItalicFeatures={FakeSlant=0.2}]
+\newfontfamily\openshotcjkfallback{Noto Sans CJK SC}
+\newunicodechar{粗}{{\openshotcjkfallback 粗}}
+\newfontfamily\arabicfont[Script=Arabic,ItalicFont={DejaVu Sans},ItalicFeatures={FakeSlant=0.2},BoldItalicFont={DejaVu Sans Bold},BoldItalicFeatures={FakeSlant=0.2}]{DejaVu Sans}
+\newfontfamily\arabicfontsf[Script=Arabic,ItalicFont={DejaVu Sans},ItalicFeatures={FakeSlant=0.2},BoldItalicFont={DejaVu Sans Bold},BoldItalicFeatures={FakeSlant=0.2}]{DejaVu Sans}
+\newfontfamily\arabicfonttt[Script=Arabic,ItalicFont={DejaVu Sans Mono},ItalicFeatures={FakeSlant=0.2}]{DejaVu Sans Mono}
+"""
+    elif lang.startswith("hi"):
         fontpkg += r"""
 \usepackage{ucharclasses}
-\usepackage{newunicodechar}
-\newfontfamily\arabicfont[
-  Script=Arabic,
-  Language=Farsi,
-  AutoFakeSlant=0.2,
-  AutoFakeBold=2.0
-]{Noto Naskh Arabic}
-\setTransitionsFor{Arabic}{\begingroup\arabicfont}{\endgroup}
-\newunicodechar{^^^^200c}{}
+\newfontfamily\devanagarifont[Script=Devanagari,AutoFakeSlant=0.2]{Noto Sans Devanagari}
+
+\newfontfamily\openshotbengalifallback[Script=Bengali]{Noto Sans Bengali}
+\newfontfamily\devanagarifontsf[Script=Devanagari,AutoFakeSlant=0.2]{Noto Sans Devanagari}
+\newfontfamily\devanagarifonttt[Script=Devanagari,AutoFakeSlant=0.2]{Noto Sans Devanagari}
 """
+    elif lang.startswith(("ja", "ko", "zh")):
+        cjk = "JP" if lang.startswith("ja") else "KR" if lang.startswith("ko") else "TC" if "hant" in lang else "SC"
+        fontpkg += (r"\usepackage{xeCJK}" + "\n"
+                    + r"\setCJKmainfont{Noto Serif CJK " + cjk + "}\n"
+                    + r"\setCJKsansfont{Noto Sans CJK " + cjk + "}\n"
+                    + r"\setCJKmonofont{Noto Sans CJK " + cjk + "}\n")
+
+
+    if lang.startswith(("ar", "fa")):
+        rtl_language = "farsi" if lang.startswith("fa") else "arabic"
+        # bidi must load after Sphinx's color, table, and hyperlink packages.
+        latex_elements["polyglossia"] = ""
+        preamble += (r"\usepackage{polyglossia}\setmainlanguage{" + rtl_language + r"}\setotherlanguage{english}")
+        preamble += r"""
+\usepackage{etoolbox}
+\BeforeBeginEnvironment{sphinxVerbatim}{\begin{LTR}}
+\AfterEndEnvironment{sphinxVerbatim}{\end{LTR}}
+\let\openshotoriginalcode\sphinxcode
+\renewcommand{\sphinxcode}[1]{\textenglish{\openshotoriginalcode{#1}}}
+"""
+        latex_elements["maketitle"] = (r"\release{\textenglish{" + config.release
+            + r"}}\title{\textenglish{OpenShot Video Editor Documentation}}"
+            + r"\author{\textenglish{OpenShot Studios, LLC}}\sphinxmaketitle")
+
 
     latex_elements["fontpkg"] = fontpkg
     latex_elements["preamble"] = preamble
@@ -360,6 +403,14 @@ def _rewrite_shared_assets(app, exception):
     if not lang or lang == "en":
         return
 
+    local_scripts = ("translations.js", "documentation_options.js", "language_data.js")
+    preserved_scripts = {}
+    for name in local_scripts:
+        path = os.path.join(app.outdir, "_static", name)
+        if os.path.isfile(path):
+            with open(path, "rb") as handle:
+                preserved_scripts[name] = handle.read()
+
     replacements = {
         "_static/": "../_static/",
         "_images/": "../_images/",
@@ -375,7 +426,11 @@ def _rewrite_shared_assets(app, exception):
             path = os.path.join(root, name)
             with open(path, "r", encoding="utf-8") as handle:
                 data = handle.read()
-            new_data = pattern.sub(lambda m: replacements[m.group(1)], data)
+            def shared_path(match):
+                if match.group(1) == "_static/" and data[match.end():].startswith(local_scripts):
+                    return match.group(1)
+                return replacements[match.group(1)]
+            new_data = pattern.sub(shared_path, data)
             if new_data != data:
                 with open(path, "w", encoding="utf-8") as handle:
                     handle.write(new_data)
@@ -389,6 +444,13 @@ def _rewrite_shared_assets(app, exception):
                 for dname in dirs:
                     os.rmdir(os.path.join(root, dname))
             os.rmdir(target)
+
+    if preserved_scripts:
+        static_dir = os.path.join(app.outdir, "_static")
+        os.makedirs(static_dir, exist_ok=True)
+        for name, data in preserved_scripts.items():
+            with open(os.path.join(static_dir, name), "wb") as handle:
+                handle.write(data)
 
 
 # Grouping the document tree into LaTeX files. List of tuples
@@ -558,7 +620,51 @@ epub_exclude_files = ['search.html']
 #
 # epub_use_index = True
 
+def _fixed_rtl_pdf_tables(app, doctree, docname):
+    # Fixed-width tabular columns avoid bidi/tabulary measurement failures.
+    if app.builder.format == "latex" and (app.config.language or "").startswith(("ar", "fa")):
+        from docutils import nodes
+        for table in doctree.findall(nodes.table):
+            if "colwidths-given" not in table["classes"]:
+                table["classes"].append("colwidths-given")
+
+
+def _configure_bengali_latex(app):
+    if app.builder.format != "latex" or not (app.config.language or "").startswith("bn"):
+        return
+    from sphinx.writers.latex import LaTeXTranslator
+
+    # Scope fonts inside emphasis and headings; preserve legacy mixed-script text.
+    class BengaliFontTranslator(LaTeXTranslator):
+        def encode(self, text):
+            encoded = super().encode(text)
+            for pattern, font in [(r"[\u0980-\u09ff\u0964-\u0965]+", "bengalifont"),
+                                  (r"[\u0600-\u06ff]+", "openshotarabicfallback"),
+                                  (r"[\uac00-\ud7af]+", "openshotkoreanfallback")]:
+                encoded = re.sub(pattern, lambda m: "{\\" + font + " " + m.group() + "}", encoded)
+            return encoded
+
+    app.set_translator("latex", BengaliFontTranslator, override=True)
+
+
+def _wrap_hindi_latex_fonts(app, exception):
+    if exception is not None or app.builder.format != "latex" or not (app.config.language or "").startswith("hi"):
+        return
+    # Include generated captions, dates, and running headings as well as body text.
+    for name in ("OpenShotVideoEditor.tex", "sphinxmessages.sty"):
+        path = os.path.join(app.outdir, name)
+        with open(path, encoding="utf-8") as handle:
+            data = handle.read()
+        data = re.sub(r"[\u0900-\u097f\u1cd0-\u1cff]+", lambda m: r"{\devanagarifont " + m.group() + "}", data)
+        data = re.sub(r"[\u0980-\u09ff]+", lambda m: r"{\openshotbengalifallback " + m.group() + "}", data)
+        with open(path, "w", encoding="utf-8") as handle:
+            handle.write(data)
+
+
 def setup(app):
+    app.connect("build-finished", _wrap_hindi_latex_fonts)
+    app.connect("builder-inited", _configure_bengali_latex)
+    app.connect("doctree-resolved", _fixed_rtl_pdf_tables)
     app.add_config_value("ga4_measurement_id", None, "env")
     if hasattr(app, "add_css_file"):
         app.add_css_file("lightbox.css")

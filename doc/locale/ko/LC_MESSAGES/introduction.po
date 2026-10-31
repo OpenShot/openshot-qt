@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,11 +20,11 @@ msgstr ""
 "Generated-By: Babel 2.10.3\n"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:21
+#: ../doc/introduction.rst:21
 msgid "Introduction"
 msgstr "소개"
 
-#: ../introduction.rst:23
+#: ../doc/introduction.rst:23
 msgid ""
 "OpenShot Video Editor is an award-winning, open-source video editor, "
 "available on Linux, macOS, Chrome OS, and Windows. OpenShot can create "
@@ -36,203 +36,203 @@ msgstr ""
 " 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:30
+#: ../doc/introduction.rst:30
 msgid "Features"
 msgstr "기능"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:31
+#: ../doc/introduction.rst:31
 msgid "**Free & open-source** (licensed under GPLv3)"
 msgstr "** 무료 및 오픈 소스** (GPLv3 라이선스)"
 
-#: ../introduction.rst:32
+#: ../doc/introduction.rst:32
 msgid "**Cross-platform** (Linux, macOS, Chrome OS, and Windows)"
 msgstr "**크로스 플랫폼** (Linux, macOS, Chrome OS, Windows)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:33
+#: ../doc/introduction.rst:33
 msgid "**Easy-to-use UI** (beginner-friendly, built-in tutorial)"
 msgstr "** 사용하기 쉬운 UI** (초보자 친화적, 내장 튜토리얼)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:34
+#: ../doc/introduction.rst:34
 msgid "**Supports most formats** (video, audio, images - FFmpeg-based)"
 msgstr "** 대부분의 포맷 지원** (비디오, 오디오, 이미지 - FFmpeg 기반)"
 
-#: ../introduction.rst:35
+#: ../doc/introduction.rst:35
 msgid ""
 "**70+ export targets & profiles** (YouTube, TikTok, Reels, Shorts, and more)"
 msgstr "**70개 이상의 내보내기 대상 및 프로필** (YouTube, TikTok, Reels, Shorts 등)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:36
+#: ../doc/introduction.rst:36
 msgid "**Advanced timeline** (drag-drop, scroll, zoom, snap)"
 msgstr "** 고급 타임라인** (드래그 앤 드롭, 스크롤, 확대/축소, 스냅)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:37
+#: ../doc/introduction.rst:37
 msgid "**Advanced clips** (trim, alpha, scale, rotate, shear, transform)"
 msgstr "** 고급 클립** (트림, 알파, 스케일, 회전, 쉬어, 변환)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:38
+#: ../doc/introduction.rst:38
 msgid "**Real-time preview** (multi-threaded, performance-optimized)"
 msgstr "** 실시간 미리보기** (멀티스레드, 성능 최적화)"
 
-#: ../introduction.rst:39
+#: ../doc/introduction.rst:39
 msgid ""
 "**Multiple workspace modes** (Simple and Color views, plus save your own)"
 msgstr "**다중 작업 공간 모드** (간단 및 컬러 뷰, 그리고 사용자 지정 저장 가능)"
 
-#: ../introduction.rst:40
+#: ../doc/introduction.rst:40
 msgid ""
 "**Keyframe animations & panel** (`linear`, `bézier`, `constant` "
 "interpolation, visual keyframe panel)"
 msgstr "**키프레임 애니메이션 및 패널** (`linear`, `bézier`, `constant` 보간, 시각적 키프레임 패널)"
 
-#: ../introduction.rst:41
+#: ../doc/introduction.rst:41
 msgid "**One-click presets** (motion, fade, look, camera, color, and more)"
 msgstr "**원클릭 프리셋** (모션, 페이드, 룩, 카메라, 색상 등)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:42
+#: ../doc/introduction.rst:42
 msgid "**Compositing, overlays, watermarks, transparency**"
 msgstr "** 합성, 오버레이, 워터마크, 투명도**"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:43
+#: ../doc/introduction.rst:43
 msgid "**Unlimited tracks / layers** (for complex projects)"
 msgstr "** 무제한 트랙 / 레이어** (복잡한 프로젝트용)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:44
+#: ../doc/introduction.rst:44
 msgid "**Transitions, masks, wipes** (grayscale images, animated masks)"
 msgstr "** 전환, 마스크, 와이프** (그레이스케일 이미지, 애니메이션 마스크)"
 
-#: ../introduction.rst:45
+#: ../doc/introduction.rst:45
 msgid ""
 "**Video effects** (chroma key, blur, brightness & contrast, film grain, "
 "stabilizer, and more)"
 msgstr "**비디오 효과** (크로마 키, 블러, 밝기 및 대비, 필름 그레인, 안정화 등)"
 
-#: ../introduction.rst:46
+#: ../doc/introduction.rst:46
 msgid ""
 "**Audio effects** (compressor, expander, noise removal, echo, and more)"
 msgstr "**오디오 효과** (컴프레서, 익스팬더, 노이즈 제거, 에코 등)"
 
-#: ../introduction.rst:47
+#: ../doc/introduction.rst:47
 msgid ""
 "**Color grading** (color wheels, RGB curves, LUT support, video scopes & "
 "analysis)"
 msgstr "**컬러 그레이딩** (컬러 휠, RGB 커브, LUT 지원, 비디오 스코프 및 분석)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:48
+#: ../doc/introduction.rst:48
 msgid "**Image sequences & 2D animations**"
 msgstr "** 이미지 시퀀스 및 2D 애니메이션**"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:49
+#: ../doc/introduction.rst:49
 msgid "**Blender 3D integration** (animated 3D title templates)"
 msgstr "**Blender 3D 통합** (애니메이션 3D 타이틀 템플릿)"
 
-#: ../introduction.rst:50
+#: ../doc/introduction.rst:50
 msgid ""
 "**Vector file support & editing** (SVG for titles, lower thirds, text "
 "overlays)"
 msgstr "**벡터 파일 지원 및 편집** (타이틀, 로어 서드, 텍스트 오버레이용 SVG)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:51
+#: ../doc/introduction.rst:51
 msgid "**Audio mixing, waveform, editing**"
 msgstr "** 오디오 믹싱, 파형, 편집**"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:52
+#: ../doc/introduction.rst:52
 msgid "**Emojis** (open-source stickers & artwork)"
 msgstr "** 이모지** (오픈 소스 스티커 및 아트워크)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:53
+#: ../doc/introduction.rst:53
 msgid "**Frame accuracy** (per-frame navigation)"
 msgstr "** 프레임 정확도** (프레임별 탐색)"
 
-#: ../introduction.rst:54
+#: ../doc/introduction.rst:54
 msgid ""
 "**Time re-mapping & speed changes** (slow motion, repeat, loop, ping-pong, "
 "forward/backward)"
 msgstr "**시간 재매핑 및 속도 변경** (슬로우 모션, 반복, 루프, 핑퐁, 앞으로/뒤로)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:55
+#: ../doc/introduction.rst:55
 #, fuzzy
 msgid "**Built-in AI** (motion tracking, object detection, stabilization)"
 msgstr "** 고급 AI** (모션 트래킹, 객체 인식, 안정화)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:56
+#: ../doc/introduction.rst:56
 msgid "**Advanced AI** (see :ref:`ai_ref`)"
 msgstr "**고급 AI** (:ref:`ai_ref` 참조)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:58
+#: ../doc/introduction.rst:58
 msgid ""
 "**Tracking & masks** (object tracking, animated mask generation, auto-blur, "
 "auto-highlight)"
 msgstr "**추적 및 마스크** (객체 추적, 애니메이션 마스크 생성, 자동 블러, 자동 하이라이트)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:59
+#: ../doc/introduction.rst:59
 msgid ""
 "**Image & video generation** (text-to-image, image style transfer, "
 "text/image-to-video)"
 msgstr "**이미지 및 비디오 생성** (텍스트-이미지, 이미지 스타일 전송, 텍스트/이미지-비디오)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:60
+#: ../doc/introduction.rst:60
 msgid ""
 "**Quality enhancement** (upscaling, frame interpolation/increase frame rate)"
 msgstr "**품질 향상** (업스케일링, 프레임 보간/프레임 속도 증가)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:61
+#: ../doc/introduction.rst:61
 msgid ""
 "**Analysis & automation** (auto scene splitting, speech "
 "transcription/captions)"
 msgstr "**분석 및 자동화** (자동 장면 분할, 음성 전사/자막)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:62
+#: ../doc/introduction.rst:62
 msgid "**Audio generation** (sound and music generation)"
 msgstr "**오디오 생성** (사운드 및 음악 생성)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:63
+#: ../doc/introduction.rst:63
 msgid "*Additional workflows can be added with custom ComfyUI templates*"
 msgstr "*사용자 정의 ComfyUI 템플릿으로 추가 워크플로우를 추가할 수 있습니다*"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:64
+#: ../doc/introduction.rst:64
 msgid "**Credits & captions** (scrolling, animated)"
 msgstr "** 크레딧 및 자막** (스크롤, 애니메이션)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:65
+#: ../doc/introduction.rst:65
 msgid "**Hardware acceleration** (NVIDIA, AMD, Intel, etc.)"
 msgstr "** 하드웨어 가속** (NVIDIA, AMD, Intel 등)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:66
+#: ../doc/introduction.rst:66
 msgid "**Import & export** (EDL, Final Cut Pro)"
 msgstr "** 가져오기 및 내보내기** (EDL, Final Cut Pro)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:67
+#: ../doc/introduction.rst:67
 msgid "**Desktop integration** (drag-drop from file managers)"
 msgstr "** 데스크탑 통합** (파일 관리자에서 드래그 앤 드롭)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:68
+#: ../doc/introduction.rst:68
 msgid ""
 "**JSON project format** (`OpenShot Cloud API "
 "<https://www.openshot.org/cloud-api/>`_ compatible)"
@@ -241,38 +241,38 @@ msgstr ""
 "api/>`_ 호환)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:69
+#: ../doc/introduction.rst:69
 msgid "**Customizable shortcuts**"
 msgstr "** 사용자 정의 가능한 단축키**"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:70
+#: ../doc/introduction.rst:70
 msgid "**Translations** (100+ languages)"
 msgstr "** 번역** (100개 이상의 언어)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:71
+#: ../doc/introduction.rst:71
 msgid "**High DPI** monitor support"
 msgstr "** 고해상도 DPI** 모니터 지원"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:72
+#: ../doc/introduction.rst:72
 msgid ""
 "**Community support** (`Visit our forum <https://openshot.org/forum/>`_)"
 msgstr "** 커뮤니티 지원** (` 포럼 방문 <https://openshot.org/forum/>`_)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:75
+#: ../doc/introduction.rst:75
 msgid "Screenshot"
 msgstr "스크린샷"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:81
+#: ../doc/introduction.rst:81
 msgid "System Requirements"
 msgstr "시스템 요구 사항"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:82
+#: ../doc/introduction.rst:82
 msgid ""
 "Video editing benefits from modern, multi-core CPUs with **fast clock "
 "speeds** (GHz), large amounts of memory, and fast hard disk drives. "
@@ -280,78 +280,78 @@ msgid ""
 "Here are the **minimum system requirements**:"
 msgstr ""
 "비디오 편집은 ** 빠른 클럭 속도**(GHz), 대용량 메모리, 빠른 하드 디스크 드라이브를 갖춘 최신 멀티코어 CPU에서 이점을 "
-"얻습니다. 기본적으로 비디오 편집 시 가능한 최고의 컴퓨터를 사용하는 것이 좋습니다. 다음은 ** 최소 시스템 요구 사항**입니다:"
+"얻습니다. 기본적으로 비디오 편집 시 가능한 최고의 컴퓨터를 사용하는 것이 좋습니다. 다음은 ** 최소 시스템 요구 사항**\\ 입니다:"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:87
+#: ../doc/introduction.rst:87
 msgid "TL;DR"
 msgstr "요약"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:88
+#: ../doc/introduction.rst:88
 msgid "Most computers manufactured after 2017 will run OpenShot"
 msgstr "2017년 이후에 제조된 대부분의 컴퓨터는 OpenShot을 실행할 수 있습니다"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:91
+#: ../doc/introduction.rst:91
 msgid "Minimum Specifications"
 msgstr "최소 사양"
 
-#: ../introduction.rst:92
+#: ../doc/introduction.rst:92
 msgid "64-bit Operating System (*Linux, macOS, Chrome OS, Windows 7/8/10/11*)"
 msgstr "64비트 운영 체제 (*Linux, macOS, Chrome OS, Windows 7/8/10/11*)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:95
+#: ../doc/introduction.rst:95
 msgid "Multi-core processor with 64-bit support"
 msgstr "64비트 지원 멀티코어 프로세서"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:94
+#: ../doc/introduction.rst:94
 msgid "Minimum cores: 2 (*recommended: 6+ cores*)"
 msgstr "최소 코어: 2개 (*권장: 6개 이상*)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:95
+#: ../doc/introduction.rst:95
 msgid "Minimum threads: 4 (*recommended: 6+ threads*)"
 msgstr "최소 스레드: 4개 (*권장: 6개 이상*)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:96
+#: ../doc/introduction.rst:96
 msgid "Minimum turbo clock speed: 2.7 Ghz (*recommended: 3.4+ Ghz*)"
 msgstr "최소 터보 클럭 속도: 2.7 GHz (*권장: 3.4 GHz 이상*)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:97
+#: ../doc/introduction.rst:97
 msgid "4GB of RAM (*16+ GB recommended*)"
 msgstr "4GB RAM (*권장: 16GB 이상*)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:98
+#: ../doc/introduction.rst:98
 msgid ""
 "1 GB of hard-disk space for installation & usage (*recommended: 50+ GB "
 "available hard-disk space for media, videos, images, and storage*)"
 msgstr "설치 및 사용을 위한 1GB 하드 디스크 공간 (*권장: 미디어, 비디오, 이미지 및 저장용 50GB 이상 가용 공간*)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:99
+#: ../doc/introduction.rst:99
 msgid ""
 "Optional: Solid-state drive (SSD), if utilizing disk-caching add an "
 "additional 10GB of hard-disk space"
 msgstr "선택 사항: 디스크 캐싱을 사용하는 경우 추가 10GB 하드 디스크 공간이 필요한 솔리드 스테이트 드라이브(SSD)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:100
+#: ../doc/introduction.rst:100
 msgid "For factors related to real-time previews, see :ref:`playback_ref`."
 msgstr "실시간 미리보기 관련 사항은 :ref:`playback_ref` 를 참조하세요."
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:103
+#: ../doc/introduction.rst:103
 msgid "License"
 msgstr "라이선스"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:104
+#: ../doc/introduction.rst:104
 msgid ""
 "OpenShot Video Editor is free software: you can redistribute it and/or "
 "modify it under the terms of the GNU General Public License as published by "
@@ -362,7 +362,7 @@ msgstr ""
 " 사용 허가서(GPL) 버전 3 또는 그 이후 버전의 조건에 따라 재배포 및/또는 수정할 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:109
+#: ../doc/introduction.rst:109
 msgid ""
 "OpenShot Video Editor is distributed in the hope that it will be useful, but"
 " WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "

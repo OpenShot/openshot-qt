@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:23
+#: ../doc/transitions.rst:23
 msgid "Transitions"
 msgstr "转场"
 
-#: ../transitions.rst:25
+#: ../doc/transitions.rst:25
 msgid ""
 "A transition is used to gradually fade (also called a **cross dissolve** or "
 "**crossfade**) or wipe between two clip images. In OpenShot, transitions are"
@@ -32,93 +32,94 @@ msgid ""
 "transition must be placed on top of a clip (overlapping it), with the most "
 "common location being the beginning or end of a clip."
 msgstr ""
-"转场用于在两个剪辑图像之间逐渐淡出（也称为**交叉溶解**或**交叉淡入**）或擦除。在 OpenShot "
-"中，转场以蓝色圆角矩形显示在时间线上。当你重叠两个剪辑时，转场会自动创建，也可以通过从**转场**面板拖动到时间线上手动添加。转场必须放置在剪辑之上（重叠剪辑），最常见的位置是剪辑的开始或结束。"
+"转场用于在两个剪辑图像之间逐渐淡出（也称为\\ **交叉溶解**\\ 或\\ **交叉淡入**\\ ）或擦除。在 OpenShot "
+"中，转场以蓝色圆角矩形显示在时间线上。当你重叠两个剪辑时，转场会自动创建，也可以通过从\\ **转场**\\ "
+"面板拖动到时间线上手动添加。转场必须放置在剪辑之上（重叠剪辑），最常见的位置是剪辑的开始或结束。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:31
+#: ../doc/transitions.rst:31
 msgid ""
 "NOTE: Transitions **do not** affect **audio**, so if you are intending to "
 "fade in/out the audio volume of a clip, you must adjust the ``volume`` clip "
 "property. See :ref:`clip_properties_ref`"
 msgstr ""
-"注意：转场**不影响** 音频，因此如果你想淡入/淡出剪辑的音量，必须调整剪辑的 ``volume`` 属性。详见 "
+"注意：转场\\ **不影响** 音频，因此如果你想淡入/淡出剪辑的音量，必须调整剪辑的 ``volume`` 属性。详见 "
 ":ref:`clip_properties_ref` 。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:35
+#: ../doc/transitions.rst:35
 msgid "Overview"
 msgstr "概述"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:40
+#: ../doc/transitions.rst:40
 msgid "#"
 msgstr "编号"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:40
+#: ../doc/transitions.rst:40
 msgid "Name"
 msgstr "名称"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:40 ../transitions.rst:105
+#: ../doc/transitions.rst:40 ../doc/transitions.rst:106
 msgid "Description"
 msgstr "描述"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:42
+#: ../doc/transitions.rst:42
 msgid "1"
 msgstr "1"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:42
+#: ../doc/transitions.rst:42
 msgid "Clip 1"
 msgstr "剪辑 1"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:42
+#: ../doc/transitions.rst:42
 msgid "A video clip"
 msgstr "一个视频剪辑"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:43
+#: ../doc/transitions.rst:43
 msgid "2"
 msgstr "2"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:43
+#: ../doc/transitions.rst:43
 msgid "Transition"
 msgstr "转场"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:43
+#: ../doc/transitions.rst:43
 msgid ""
 "A gradual fade transition between the 2 clip images, created automatically "
 "by overlapping the clips (does not affect the audio)"
 msgstr "两个剪辑图像之间的渐变淡入转场，由重叠剪辑自动创建（不影响音频）"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:44
+#: ../doc/transitions.rst:44
 msgid "3"
 msgstr "3"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:44
+#: ../doc/transitions.rst:44
 msgid "Clip 2"
 msgstr "剪辑 2"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:44
+#: ../doc/transitions.rst:44
 msgid "An image clip"
 msgstr "一个图像剪辑"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:48
+#: ../doc/transitions.rst:48
 msgid "Direction"
 msgstr "方向"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:49
+#: ../doc/transitions.rst:49
 msgid ""
 "Transitions adjust the alpha/transparency of the overlapping clip image "
 "(i.e. the clip under the transition), and can either fade from opaque to "
@@ -131,12 +132,12 @@ msgstr ""
 ":guilabel:`反转转场` 来改变淡入淡出的方向。你也可以手动调整 **亮度** 曲线，以任意方式动画化视觉淡入效果。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:56
+#: ../doc/transitions.rst:56
 msgid "Transparency"
 msgstr "透明度"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:57
+#: ../doc/transitions.rst:57
 msgid ""
 "If transitions are used on images or videos that contain transparency (*i.e."
 " alpha channel*) this will result in the original clip disappearing abruptly"
@@ -155,12 +156,12 @@ msgstr ""
 ":ref:`clip_presets_ref` 。或者，在使用透明剪辑时，可以结合转场和 ``alpha`` 淡出以实现更平滑的过渡。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:65
+#: ../doc/transitions.rst:65
 msgid "Cutting & Slicing"
 msgstr "剪切与切片"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:66
+#: ../doc/transitions.rst:66
 msgid ""
 "OpenShot has many easy ways to adjust the start and end trim positions of a "
 "transition (otherwise known as cutting or trimming). The most common method "
@@ -174,12 +175,12 @@ msgstr ""
 " :ref:`clips_cutting_slicing_ref` 和 :ref:`keyboard_shortcut_ref` 。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:71
+#: ../doc/transitions.rst:71
 msgid "Mask"
 msgstr "蒙版"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:72
+#: ../doc/transitions.rst:72
 msgid ""
 "In video editing, masks are powerful tools that allow you to selectively "
 "display specific areas of a video clip. Similar to masking in image editing,"
@@ -189,7 +190,7 @@ msgstr ""
 "在视频编辑中，蒙版是强大的工具，允许你选择性地显示视频剪辑的特定区域。类似于图像编辑中的蒙版，视频蒙版定义了将应用更改的区域，同时保持视频的其他部分不受影响。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:76
+#: ../doc/transitions.rst:76
 msgid ""
 "A mask can be thought of as a shape or path that outlines the area you want "
 "to target. Commonly used shapes include rectangles, circles, and freeform "
@@ -197,7 +198,7 @@ msgid ""
 msgstr "蒙版可以被视为勾勒出目标区域的形状或路径。常用的形状包括矩形、圆形和自由路径。被蒙版覆盖的区域称为“蒙版区域”。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:79
+#: ../doc/transitions.rst:79
 msgid ""
 "Masks can be animated, allowing you to change the shape or position over "
 "time. This enables dynamic effects like revealing hidden elements or "
@@ -212,12 +213,12 @@ msgstr ""
 "关键帧曲线，将转场转换为蒙版。保持亮度的静态（不变）值，将维持固定的蒙版位置。结合自定义转场图像，甚至自定义图像序列，可创建动画复杂蒙版。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:86
+#: ../doc/transitions.rst:86
 msgid "Custom Transition"
 msgstr "自定义转场"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:87
+#: ../doc/transitions.rst:87
 msgid ""
 "Any greyscale image can be used as a transition (or mask), by adding it to "
 "your ``~/.openshot_qt/transitions/`` folder. Just be sure to name your file "
@@ -228,25 +229,26 @@ msgstr ""
 "文件夹。确保文件名易于识别，然后重启 OpenShot。你的自定义转场/蒙版将出现在转场列表中。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:92
+#: ../doc/transitions.rst:92
 msgid "Transition Properties"
 msgstr "转场属性"
 
-# Translated with gpt-4.1-mini
-#: ../transitions.rst:93
+#: ../doc/transitions.rst:93
 msgid ""
 "Below is a list of transition properties which can be edited, and in most "
 "cases, animated over time. To view a transition's properties, right click "
 "and choose :guilabel:`Properties`. The property editor will appear, where "
-"you can change these properties. NOTE: Pay close attention to where the "
-"play-head (i.e. red playback line) is. Key frames are automatically created "
-"at the current playback position, to help create animations."
+"you can change these properties. Move the playhead to a keyframe to adjust "
+"that part of the transition. If you want to add a change between existing "
+"keyframes, leave :ref:`auto_keyframes_ref` on and edit at the new position. "
+"With it off, editing between keyframes adjusts the earlier one instead."
 msgstr ""
-"以下是可编辑的转场属性列表，大多数属性可以随时间动画化。要查看转场属性，右键点击并选择 :guilabel:`属性` "
-"。属性编辑器将出现，你可以在其中更改这些属性。注意：请密切关注播放头（即红色播放线）的位置。关键帧会自动在当前播放位置创建，以帮助制作动画。"
+"下面是可以编辑的转场属性列表，在大多数情况下，这些属性可以随时间动画。要查看转场属性，请右键点击并选择 :guilabel:`属性`\\ "
+"。属性编辑器将会出现，您可以在其中更改这些属性。将播放头移动到关键帧以调整转场的该部分。如果您想在现有关键帧之间添加更改，请保持 "
+":ref:`auto_keyframes_ref` 开启并在新位置编辑。关闭时，在关键帧之间编辑会调整较早的关键帧。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:98
+#: ../doc/transitions.rst:99
 msgid ""
 "NOTE: Transitions do not affect audio, so if you are intending to fade "
 "in/out the audio volume of a clip, you must adjust the ``volume`` clip "
@@ -256,200 +258,201 @@ msgstr ""
 ":ref:`clip_properties_ref` 。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:105
+#: ../doc/transitions.rst:106
 msgid "Transition Property Name"
 msgstr "转场属性名称"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:105
+#: ../doc/transitions.rst:106
 msgid "Type"
 msgstr "类型"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:107
+#: ../doc/transitions.rst:108
 msgid "Brightness"
 msgstr "亮度"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:107 ../transitions.rst:108
+#: ../doc/transitions.rst:108 ../doc/transitions.rst:109
 msgid "Key-frame"
 msgstr "关键帧"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:107
+#: ../doc/transitions.rst:108
 msgid ""
 "Curve representing the brightness of the transition image, which affects the"
 " fade/wipe (-1 to 1)"
 msgstr "表示过渡图像亮度的曲线，影响淡入/擦除效果（-1 到 1）"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:108
+#: ../doc/transitions.rst:109
 msgid "Contrast"
 msgstr "对比度"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:108
+#: ../doc/transitions.rst:109
 msgid ""
 "Curve representing the contrast of the transition image, which affects the "
 "softness/hardness of the fade/wipe (0 to 20)"
 msgstr "表示过渡图像对比度的曲线，影响淡入/擦除的柔和度/硬度（0 到 20）"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:109 ../transitions.rst:124
+#: ../doc/transitions.rst:110 ../doc/transitions.rst:125
 msgid "Duration"
 msgstr "持续时间"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:109 ../transitions.rst:110 ../transitions.rst:117
-#: ../transitions.rst:119
+#: ../doc/transitions.rst:110 ../doc/transitions.rst:111
+#: ../doc/transitions.rst:118 ../doc/transitions.rst:120
 msgid "Float"
 msgstr "浮点数"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:109
+#: ../doc/transitions.rst:110
 msgid "The length of the transition (in seconds). Read-only property."
 msgstr "过渡的长度（以秒为单位）。只读属性。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:110 ../transitions.rst:132
+#: ../doc/transitions.rst:111 ../doc/transitions.rst:133
 msgid "End"
 msgstr "结束"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:110
+#: ../doc/transitions.rst:111
 msgid "The end trimming position of the transition (in seconds)."
 msgstr "过渡的结束修剪位置（以秒为单位）。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:111 ../transitions.rst:140
+#: ../doc/transitions.rst:112 ../doc/transitions.rst:141
 msgid "ID"
 msgstr "ID"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:111 ../transitions.rst:116
+#: ../doc/transitions.rst:112 ../doc/transitions.rst:117
 msgid "String"
 msgstr "字符串"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:111
+#: ../doc/transitions.rst:112
 msgid ""
 "A randomly generated GUID (globally unique identifier) assigned to each "
 "transition. Read-only property."
 msgstr "为每个过渡分配的随机生成的 GUID（全局唯一标识符）。只读属性。"
 
-#: ../transitions.rst:112
+#: ../doc/transitions.rst:113
 msgid "Mask: Invert"
 msgstr "蒙版：反转"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:112 ../transitions.rst:113 ../transitions.rst:118
+#: ../doc/transitions.rst:113 ../doc/transitions.rst:114
+#: ../doc/transitions.rst:119
 msgid "Bool"
 msgstr "布尔值"
 
-#: ../transitions.rst:112
+#: ../doc/transitions.rst:113
 msgid ""
 "Invert the mask source so light areas become dark and dark areas become "
 "light."
 msgstr "反转蒙版源，使亮区变暗，暗区变亮。"
 
-#: ../transitions.rst:113
+#: ../doc/transitions.rst:114
 msgid "Mask: Loop"
 msgstr "蒙版：循环"
 
-#: ../transitions.rst:113
+#: ../doc/transitions.rst:114
 msgid ""
 "Loop an animated mask source when the transition is longer than the source."
 msgstr "当转场时间长于蒙版源时，循环播放动画蒙版源。"
 
-#: ../transitions.rst:114
+#: ../doc/transitions.rst:115
 msgid "Mask: Source"
 msgstr "蒙版：源"
 
-#: ../transitions.rst:114
+#: ../doc/transitions.rst:115
 msgid "Reader"
 msgstr "读取器"
 
-#: ../transitions.rst:114
+#: ../doc/transitions.rst:115
 msgid ""
 "The image, image sequence, or video used as the transition's grayscale mask "
 "source."
 msgstr "用作转场灰度蒙版源的图像、图像序列或视频。"
 
-#: ../transitions.rst:115
+#: ../doc/transitions.rst:116
 msgid "Mask: Time Mode"
 msgstr "蒙版：时间模式"
 
-#: ../transitions.rst:115
+#: ../doc/transitions.rst:116
 msgid "Enum"
 msgstr "枚举"
 
-#: ../transitions.rst:115
+#: ../doc/transitions.rst:116
 msgid "Controls how OpenShot maps transition time to an animated mask source."
 msgstr "控制 OpenShot 如何将转场时间映射到动画蒙版源。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:116
+#: ../doc/transitions.rst:117
 msgid "Parent"
 msgstr "父对象"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:116
+#: ../doc/transitions.rst:117
 msgid ""
 "The parent object to this transition, which makes many of these keyframe "
 "values initialize to the parent value."
 msgstr "此过渡的父对象，许多关键帧值会初始化为父对象的值。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:117
+#: ../doc/transitions.rst:118
 msgid "Position"
 msgstr "位置"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:117
+#: ../doc/transitions.rst:118
 msgid "The position of the transition on the timeline (in seconds)."
 msgstr "过渡在时间轴上的位置（以秒为单位）。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:118
+#: ../doc/transitions.rst:119
 msgid "Replace Image"
 msgstr "替换图像"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:118
+#: ../doc/transitions.rst:119
 msgid ""
 "For debugging a problem, this property displays the transition image "
 "(instead of becoming a transparency)."
 msgstr "用于调试问题，此属性显示过渡图像（而非变为透明）。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:119
+#: ../doc/transitions.rst:120
 msgid "Start"
 msgstr "开始"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:119
+#: ../doc/transitions.rst:120
 msgid "The start trimming position of the transition (in seconds)."
 msgstr "过渡的开始修剪位置（以秒为单位）。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:120 ../transitions.rst:158
+#: ../doc/transitions.rst:121 ../doc/transitions.rst:159
 msgid "Track"
 msgstr "轨道"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:120
+#: ../doc/transitions.rst:121
 msgid "Int"
 msgstr "整数"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:120
+#: ../doc/transitions.rst:121
 msgid ""
 "The layer which holds the transition (higher tracks are rendered on top of "
 "lower tracks)."
 msgstr "承载过渡的图层（较高轨道会渲染在较低轨道之上）。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:125
+#: ../doc/transitions.rst:126
 msgid ""
 "The :guilabel:`Duration` property is a float value indicating the length of "
 "the transition in seconds. This is a Read-only property. This is calculated "
@@ -460,21 +463,21 @@ msgstr ""
 ":guilabel:` 开始` 和/或 :guilabel:` 结束` 过渡属性。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:128
+#: ../doc/transitions.rst:129
 msgid ""
 "**Usage Example:** Inspect the duration of a transition to ensure it fits a "
 "specific time slot in the project."
 msgstr "**使用示例：** 检查过渡的持续时间，确保其适合项目中的特定时间段。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:129
+#: ../doc/transitions.rst:130
 msgid ""
 "**Tip:** Consider using the \"Duration\" property for transitions that need "
 "to match specific time intervals, such as dialogue or scenes."
 msgstr "**提示：** 对于需要匹配特定时间间隔（如对话或场景）的过渡，建议使用“持续时间”属性。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:133
+#: ../doc/transitions.rst:134
 msgid ""
 "The :guilabel:`End` property defines the trimming point at the end of the "
 "transition in seconds, allowing you to control how much of the transition is"
@@ -485,21 +488,21 @@ msgstr ""
 "过渡属性。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:136
+#: ../doc/transitions.rst:137
 msgid ""
 "**Usage Example:** Trimming the end of a transition to align with another "
 "clip or trimming off unwanted sections of the transition."
 msgstr "**使用示例：** 修剪过渡的结束部分，使其与另一个剪辑对齐，或去除不需要的过渡部分。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:137
+#: ../doc/transitions.rst:138
 msgid ""
 "**Tip:** Combine the \"Start\" and \"End\" properties to precisely control "
 "the visible portion of the transition."
 msgstr "**提示：** 结合“开始”和“结束”属性，精确控制过渡的可见部分。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:141
+#: ../doc/transitions.rst:142
 msgid ""
 "The :guilabel:`ID` property holds a randomly generated GUID (Globally Unique"
 " Identifier) assigned to each transition, ensuring its uniqueness. This is a"
@@ -509,24 +512,24 @@ msgstr ""
 "在创建过渡时分配。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:144
+#: ../doc/transitions.rst:145
 msgid ""
 "**Usage Example:** Referencing specific transitions within custom scripts or"
 " automation tasks."
 msgstr "**使用示例：** 在自定义脚本或自动化任务中引用特定过渡。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:145
+#: ../doc/transitions.rst:146
 msgid ""
 "**Tip:** While typically managed behind the scenes, understanding transition"
 " IDs can aid in advanced project customization."
 msgstr "**提示：** 虽然通常在后台管理，了解过渡 ID 有助于高级项目定制。"
 
-#: ../transitions.rst:148
+#: ../doc/transitions.rst:149
 msgid "Mask Properties"
 msgstr "蒙版属性"
 
-#: ../transitions.rst:149
+#: ../doc/transitions.rst:150
 msgid ""
 "The :guilabel:`Mask: Source`, :guilabel:`Mask: Time Mode`, :guilabel:`Mask: "
 "Loop`, and :guilabel:`Mask: Invert` properties control the grayscale mask "
@@ -534,23 +537,24 @@ msgid ""
 "use video or image sequences, with time mapping and looping options "
 "determining which source frame is used at each point in the transition."
 msgstr ""
-":guilabel:`蒙版：源`、:guilabel:`蒙版：时间模式`、:guilabel:`蒙版：循环` 和 :guilabel:`蒙版：反转` "
+":guilabel:`蒙版：源`\\ 、\\ :guilabel:`蒙版：时间模式`\\ 、\\ :guilabel:`蒙版：循环` 和 "
+":guilabel:`蒙版：反转` "
 "属性控制转场使用的灰度蒙版。静态蒙版使用单张图像。动画蒙版可以使用视频或图像序列，时间映射和循环选项决定转场中每个时刻使用的源帧。"
 
-#: ../transitions.rst:154
+#: ../doc/transitions.rst:155
 msgid ""
 "**Usage Example:** Use :guilabel:`Mask: Invert` when the visible and hidden "
 "areas of a custom mask are reversed."
-msgstr "**使用示例：** 当自定义蒙版的可见区域和隐藏区域反转时，使用 :guilabel:`蒙版：反转`。"
+msgstr "**使用示例：** 当自定义蒙版的可见区域和隐藏区域反转时，使用 :guilabel:`蒙版：反转`\\ 。"
 
-#: ../transitions.rst:155
+#: ../doc/transitions.rst:156
 msgid ""
 "**Tip:** When using an animated mask, trim the mask source carefully before "
 "enabling loop behavior."
 msgstr "**提示：** 使用动画蒙版时，请在启用循环行为前仔细修剪蒙版源。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:159
+#: ../doc/transitions.rst:160
 msgid ""
 "The :guilabel:`Track` property is an integer indicating the layer on which "
 "the transition is placed. Transitions on higher tracks are rendered above "
@@ -558,18 +562,30 @@ msgid ""
 msgstr ":guilabel:`轨道` 属性是一个整数，表示过渡所在的图层。较高轨道的过渡会渲染在较低轨道之上。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:162
+#: ../doc/transitions.rst:163
 msgid ""
 "**Usage Example:** Arranging transitions in different layers for creating "
 "visual depth and complexity."
 msgstr "**使用示例：** 将过渡安排在不同图层，以创建视觉深度和复杂性。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:163
+#: ../doc/transitions.rst:164
 msgid ""
 "**Tip:** Use higher tracks for elements that need to appear above others, "
 "like text overlays or graphics."
 msgstr "**提示：** 对于需要显示在其他元素之上的内容，如文字叠加或图形，使用较高的轨道。 "
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "Below is a list of transition properties which can be edited, and in most "
+#~ "cases, animated over time. To view a transition's properties, right click "
+#~ "and choose :guilabel:`Properties`. The property editor will appear, where "
+#~ "you can change these properties. NOTE: Pay close attention to where the "
+#~ "play-head (i.e. red playback line) is. Key frames are automatically created "
+#~ "at the current playback position, to help create animations."
+#~ msgstr ""
+#~ "以下是可编辑的转场属性列表，大多数属性可以随时间动画化。要查看转场属性，右键点击并选择 :guilabel:`属性` "
+#~ "。属性编辑器将出现，你可以在其中更改这些属性。注意：请密切关注播放头（即红色播放线）的位置。关键帧会自动在当前播放位置创建，以帮助制作动画。"
 
 # Translated with gpt-4.1-mini
 #~ msgid ""
@@ -582,5 +598,5 @@ msgstr "**提示：** 对于需要显示在其他元素之上的内容，如文�
 #~ "of a clip."
 #~ msgstr ""
 #~ "转场用于在两个剪辑图像之间逐渐淡入淡出（或擦除）。在 OpenShot "
-#~ "中，转场以时间轴上的蓝色圆角矩形表示。当你重叠两个剪辑时，转场会自动创建，也可以从**转场** "
+#~ "中，转场以时间轴上的蓝色圆角矩形表示。当你重叠两个剪辑时，转场会自动创建，也可以从\\ **转场** "
 #~ "面板拖动到时间轴上手动添加。转场必须放置在剪辑之上（重叠剪辑），最常见的位置是剪辑的开始或结束。"

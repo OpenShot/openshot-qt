@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 4.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: 2026-08-30 16:50-0500\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../color.rst:23
+#: ../doc/color.rst:23
 msgid "Color"
 msgstr "색상"
 
-#: ../color.rst:25
+#: ../doc/color.rst:25
 msgid ""
 "Have you ever noticed that thriller films look gritty and desaturated while "
 "romantic comedies feel vibrant and warm? That is not an accident — it is "
@@ -31,17 +31,17 @@ msgid ""
 "scratch."
 msgstr ""
 "스릴러 영화가 거칠고 채도가 낮게 보이는 반면, 로맨틱 코미디는 생동감 있고 따뜻하게 느껴진다는 것을 눈치채신 적 있나요? 이는 우연이 "
-"아니라 의도된 **색상 작업**입니다. 색상은 비디오에서 가장 강력한 스토리텔링 도구 중 하나이며, OpenShot은 문제 장면을 "
+"아니라 의도된 **색상 작업**\\ 입니다. 색상은 비디오에서 가장 강력한 스토리텔링 도구 중 하나이며, OpenShot은 문제 장면을 "
 "수정하든 처음부터 영화 같은 룩을 만들든 전문적인 도구를 제공합니다."
 
-#: ../color.rst:32
+#: ../doc/color.rst:32
 msgid ""
 "*The OpenShot Color View: video preview in the center, Color Wheels dock on "
 "the right, and video scopes (Luma Waveform and Histogram) below.*"
 msgstr ""
 "*OpenShot 색상 뷰: 중앙에 비디오 미리보기, 오른쪽에 색상 휠 도크, 아래에 비디오 스코프(루마 웨이브폼 및 히스토그램).*"
 
-#: ../color.rst:37
+#: ../doc/color.rst:37
 msgid ""
 ":ref:`effects_color_grade` in :doc:`effects` — full property reference and "
 "keyframe details for the Color Grade effect."
@@ -49,11 +49,11 @@ msgstr ""
 ":doc:`effects` 의 :ref:`effects_color_grade` — Color Grade 효과의 전체 속성 참조 및 "
 "키프레임 세부 정보."
 
-#: ../color.rst:43
+#: ../doc/color.rst:43
 msgid "Understanding Color"
 msgstr "색상 이해하기"
 
-#: ../color.rst:45
+#: ../doc/color.rst:45
 msgid ""
 "Every pixel in a digital video frame is made of three numbers: **Red**, "
 "**Green**, and **Blue** (each 0–255). White is all three at maximum; black "
@@ -65,11 +65,11 @@ msgstr ""
 "흰색은 세 가지가 모두 최대치이고, 검은색은 모두 0이며, 회색은 세 가지가 동일하게 섞인 색입니다. 기본색을 조합하면 2차 색상이 "
 "만들어집니다 (빨강 + 초록 = 노랑, 빨강 + 파랑 = 마젠타, 초록 + 파랑 = 시안)."
 
-#: ../color.rst:49
+#: ../doc/color.rst:49
 msgid "Four properties you will adjust constantly:"
 msgstr "계속해서 조정하게 될 네 가지 속성:"
 
-#: ../color.rst:51
+#: ../doc/color.rst:51
 msgid ""
 "**Exposure** — overall brightness. Overexposed footage has many pixels near "
 "255 (blown-out highlights); underexposed footage is crushed near 0."
@@ -77,13 +77,13 @@ msgstr ""
 "**노출** — 전체 밝기. 과다 노출된 영상은 255 근처의 픽셀이 많아 하이라이트가 날아가고, 노출 부족 영상은 0 근처에서 "
 "뭉개집니다."
 
-#: ../color.rst:53
+#: ../doc/color.rst:53
 msgid ""
 "**Contrast** — the spread between brightest and darkest. High contrast is "
 "dramatic; low contrast looks flat or milky."
 msgstr "**대비** — 가장 밝은 부분과 가장 어두운 부분의 차이. 높은 대비는 극적이며, 낮은 대비는 평평하거나 흐릿해 보입니다."
 
-#: ../color.rst:55
+#: ../doc/color.rst:55
 msgid ""
 "**Saturation** — how vivid the colors are. Zero saturation = grayscale. "
 "Cameras often record slightly less saturation than reality to give editors "
@@ -92,7 +92,7 @@ msgstr ""
 "**채도** — 색상의 선명도. 채도가 0이면 흑백입니다. 카메라는 편집자가 조정할 수 있도록 실제보다 약간 낮은 채도로 녹화하는 경우가"
 " 많습니다."
 
-#: ../color.rst:57
+#: ../doc/color.rst:57
 msgid ""
 "**Hue** — the actual color (red, yellow, green, blue…). Shifting hue rotates"
 " all colors around the color wheel and is mostly used for creative stylistic"
@@ -101,11 +101,11 @@ msgstr ""
 "**색상(Hue)** — 실제 색상(빨강, 노랑, 초록, 파랑 등). 색상 이동은 모든 색을 색상환 주위로 회전시키며 주로 창의적인 "
 "스타일 효과에 사용됩니다."
 
-#: ../color.rst:61
+#: ../doc/color.rst:61
 msgid "Video Scopes — What They Are and Why They Matter"
 msgstr "비디오 스코프 — 무엇이며 왜 중요한가"
 
-#: ../color.rst:63
+#: ../doc/color.rst:63
 msgid ""
 "Your monitor is not a reliable measuring tool — room lighting, screen "
 "brightness, and uncalibrated displays all affect what you see. **Video "
@@ -113,44 +113,45 @@ msgid ""
 "They never lie, even if your monitor does."
 msgstr ""
 "모니터는 신뢰할 수 있는 측정 도구가 아닙니다 — 주변 조명, 화면 밝기, 보정되지 않은 디스플레이가 모두 보이는 것에 영향을 줍니다. "
-"**비디오 스코프**는 이미지의 실제 픽셀 값을 정확한 그래프로 표시합니다. 모니터가 거짓말을 해도 스코프는 절대 거짓말하지 않습니다."
+"**비디오 스코프**\\ 는 이미지의 실제 픽셀 값을 정확한 그래프로 표시합니다. 모니터가 거짓말을 해도 스코프는 절대 거짓말하지 "
+"않습니다."
 
-#: ../color.rst:67
+#: ../doc/color.rst:67
 msgid ""
 "OpenShot includes three scopes, all accessible from :guilabel:`View → "
 "Scopes` or opened automatically by the clip menu options described in "
 ":ref:`getting_started_ref`:"
 msgstr ""
-"OpenShot에는 세 가지 스코프가 포함되어 있으며, 모두 :guilabel:`보기 → 스코프`에서 접근하거나 "
-":ref:`getting_started_ref`에 설명된 클립 메뉴 옵션으로 자동으로 열 수 있습니다:"
+"OpenShot에는 세 가지 스코프가 포함되어 있으며, 모두 :guilabel:`보기 → 스코프`\\ 에서 접근하거나 "
+":ref:`getting_started_ref`\\ 에 설명된 클립 메뉴 옵션으로 자동으로 열 수 있습니다:"
 
-#: ../color.rst:70
+#: ../doc/color.rst:70
 msgid ""
 "**Luma Waveform** — shows brightness across the frame, column by column. "
 "Instantly reveals overexposure, underexposure, and contrast problems. See "
 ":ref:`luma_waveform_ref`."
 msgstr ""
 "**루마 웨이브폼** — 프레임 전체의 밝기를 열 단위로 보여줍니다. 과다 노출, 노출 부족, 대비 문제를 즉시 확인할 수 있습니다. "
-":ref:`luma_waveform_ref`를 참조하세요."
+":ref:`luma_waveform_ref`\\ 를 참조하세요."
 
-#: ../color.rst:72
+#: ../doc/color.rst:72
 msgid ""
 "**Histogram** — shows how many pixels exist at each brightness level. Great "
 "for exposure and channel balance at a glance. See :ref:`histogram_ref`."
 msgstr ""
 "**히스토그램** — 각 밝기 수준에 존재하는 픽셀 수를 보여줍니다. 노출과 채널 밸런스를 한눈에 확인하기 좋습니다. "
-":ref:`histogram_ref`를 참조하세요."
+":ref:`histogram_ref`\\ 를 참조하세요."
 
-#: ../color.rst:74
+#: ../doc/color.rst:74
 msgid ""
 "**Vectorscope** — a circular chroma plot showing the hue and saturation of "
 "every pixel. Ideal for checking color casts, overall saturation, and — with "
 "its built-in skin tone line — evaluating faces. See :ref:`vectorscope_ref`."
 msgstr ""
 "**벡터스코프** — 모든 픽셀의 색상과 채도를 나타내는 원형 크로마 플롯입니다. 색상 편향, 전체 채도 확인에 이상적이며 내장된 피부 "
-"톤 라인으로 얼굴 평가에도 유용합니다. :ref:`vectorscope_ref`를 참조하세요."
+"톤 라인으로 얼굴 평가에도 유용합니다. :ref:`vectorscope_ref`\\ 를 참조하세요."
 
-#: ../color.rst:78
+#: ../doc/color.rst:78
 msgid ""
 "Every scope also has a **Region** button in its toolbar. Click it and drag a"
 " box over any part of the video preview to restrict scope analysis to just "
@@ -160,26 +161,26 @@ msgstr ""
 "모든 스코프에는 도구 모음에 **영역(Region)** 버튼이 있습니다. 클릭하고 비디오 미리보기의 원하는 부분에 상자를 드래그하면 해당"
 " 영역만 스코프 분석에 제한할 수 있습니다 — 얼굴, 하늘 또는 특정 영역을 분리할 때 유용합니다."
 
-#: ../color.rst:83
+#: ../doc/color.rst:83
 msgid "Color Correction — Fixing What Is Wrong"
 msgstr "색상 보정 — 잘못된 부분 수정하기"
 
-#: ../color.rst:85
+#: ../doc/color.rst:85
 msgid ""
 "**Color correction** is the process of fixing technical problems in footage "
 "so it looks the way reality appeared: wrong white balance, bad exposure, "
 "flat contrast, unwanted color casts. The goal is a clean, neutral image that"
 " looks natural and holds up on any screen. See :ref:`color_correction_ref`."
 msgstr ""
-"**색상 보정**은 영상의 기술적 문제를 수정하여 현실과 같은 모습을 만드는 과정입니다: 잘못된 화이트 밸런스, 부적절한 노출, 평평한 "
-"대비, 원치 않는 색상 편향 등이 포함됩니다. 목표는 자연스럽고 어떤 화면에서도 잘 보이는 깨끗하고 중립적인 이미지입니다. "
-":ref:`color_correction_ref`를 참조하세요."
+"**색상 보정**\\ 은 영상의 기술적 문제를 수정하여 현실과 같은 모습을 만드는 과정입니다: 잘못된 화이트 밸런스, 부적절한 노출, "
+"평평한 대비, 원치 않는 색상 편향 등이 포함됩니다. 목표는 자연스럽고 어떤 화면에서도 잘 보이는 깨끗하고 중립적인 이미지입니다. "
+":ref:`color_correction_ref`\\ 를 참조하세요."
 
-#: ../color.rst:90
+#: ../doc/color.rst:90
 msgid "Color Grading — Building a Look"
 msgstr "색상 그레이딩 — 룩 만들기"
 
-#: ../color.rst:92
+#: ../doc/color.rst:92
 msgid ""
 "**Color grading** is the creative step: using the same tools to give "
 "corrected footage a deliberate visual mood or style. A warm golden "
@@ -187,25 +188,25 @@ msgid ""
 "is where footage goes from \"looks right\" to \"looks intentional.\" See "
 ":ref:`color_grading_ref`."
 msgstr ""
-"**색상 그레이딩**은 창의적인 단계로, 같은 도구를 사용해 보정된 영상을 의도된 시각적 분위기나 스타일로 만듭니다. 따뜻한 황금빛 "
-"향수, 차가운 임상 스릴러, 영화 같은 청록색과 주황색 조합 등 — 그레이딩은 영상이 '그럴듯해 보임'에서 '의도된 모습'으로 변하는 "
-"과정입니다. :ref:`color_grading_ref`를 참조하세요."
+"**색상 그레이딩**\\ 은 창의적인 단계로, 같은 도구를 사용해 보정된 영상을 의도된 시각적 분위기나 스타일로 만듭니다. 따뜻한 황금빛"
+" 향수, 차가운 임상 스릴러, 영화 같은 청록색과 주황색 조합 등 — 그레이딩은 영상이 '그럴듯해 보임'에서 '의도된 모습'으로 변하는 "
+"과정입니다. :ref:`color_grading_ref`\\ 를 참조하세요."
 
-#: ../color.rst:99
+#: ../doc/color.rst:99
 msgid "Getting Started"
 msgstr "시작하기"
 
-#: ../color.rst:101
+#: ../doc/color.rst:101
 msgid ""
 "OpenShot offers several ways to open its color tools, depending on what you "
 "need:"
 msgstr "OpenShot은 필요에 따라 색상 도구를 여는 여러 방법을 제공합니다:"
 
-#: ../color.rst:106
+#: ../doc/color.rst:106
 msgid "**Right-click a clip → Look → Adjust Colors**"
 msgstr "**클립 우클릭 → 룩 → 색상 조정**"
 
-#: ../color.rst:104
+#: ../doc/color.rst:104
 msgid ""
 "The quickest all-in-one setup. OpenShot adds the :guilabel:`Color Grade` "
 "effect to the clip, selects it, opens the :guilabel:`Properties` panel, and "
@@ -216,26 +217,26 @@ msgstr ""
 ":guilabel:`속성` 패널을 열고 :guilabel:`색상 휠` 도크와 세 가지 비디오 스코프를 모두 표시하여 즉시 그레이딩할 "
 "준비를 합니다."
 
-#: ../color.rst:110
+#: ../doc/color.rst:110
 msgid ""
 "**Right-click a clip → Look → Color → [preset]** *(Auto Contrast, Lift "
 "Shadows, Warm Up, Boost Color…)*"
 msgstr "**클립 우클릭 → 룩 → 색상 → [프리셋]** *(자동 대비, 그림자 밝게, 따뜻하게, 색상 강화…)*"
 
-#: ../color.rst:109
+#: ../doc/color.rst:109
 msgid ""
 "Adds the Color Grade effect with a useful preset already applied. The Color "
 "Wheels and scopes are not opened automatically — open them any time from "
 ":guilabel:`View → Scopes`."
 msgstr ""
 "유용한 프리셋이 적용된 Color Grade 효과를 추가합니다. 색상 휠과 스코프는 자동으로 열리지 않으며, 언제든지 "
-":guilabel:`보기 → 스코프`에서 열 수 있습니다."
+":guilabel:`보기 → 스코프`\\ 에서 열 수 있습니다."
 
-#: ../color.rst:115
+#: ../doc/color.rst:115
 msgid "**Right-click a clip → Look → Analyze Colors**"
 msgstr "**클립 우클릭 → 룩 → 색상 분석**"
 
-#: ../color.rst:113
+#: ../doc/color.rst:113
 msgid ""
 "Opens all three scopes (Luma Waveform, Histogram, and Vectorscope, tabbed "
 "together on the right) without adding any Color Grade effect. Use this to "
@@ -245,11 +246,11 @@ msgstr ""
 "Color Grade 효과를 추가하지 않고 세 가지 스코프(루마 웨이브폼, 히스토그램, 벡터스코프)를 모두 열어 오른쪽 탭으로 "
 "표시합니다. 그레이딩 필요 여부를 판단하기 전 영상 평가나 재생 중 레벨 모니터링에 사용하세요."
 
-#: ../color.rst:120
+#: ../doc/color.rst:120
 msgid "**View → Color View** *(optional immersive mode)*"
 msgstr "**보기 → 색상 뷰** *(선택적 몰입 모드)*"
 
-#: ../color.rst:118
+#: ../doc/color.rst:118
 msgid ""
 "Switches the entire interface into a dedicated color grading layout: the "
 "video preview is maximized in the center, non-color docks are hidden, the "
@@ -259,21 +260,21 @@ msgstr ""
 "전체 인터페이스를 전용 색상 보정 레이아웃으로 전환합니다: 비디오 미리보기가 중앙에 최대화되고, 색상과 관련 없는 도크는 숨겨지며, 색상"
 " 휠 도크가 오른쪽에 나타나고, 스코프는 아래에 표시됩니다. 완료 후 동일한 메뉴에서 일반 레이아웃으로 다시 전환하세요."
 
-#: ../color.rst:123
+#: ../doc/color.rst:123
 msgid "**Effects tab → drag Color Grade onto a clip**"
 msgstr "**효과 탭 → 클립에 색상 보정 드래그**"
 
-#: ../color.rst:123
+#: ../doc/color.rst:123
 msgid ""
 "The fully manual approach. Add the effect without opening any docks "
 "automatically."
 msgstr "완전 수동 방식입니다. 도크를 자동으로 열지 않고 효과를 추가합니다."
 
-#: ../color.rst:128
+#: ../doc/color.rst:128
 msgid "Video Scopes"
 msgstr "비디오 스코프"
 
-#: ../color.rst:130
+#: ../doc/color.rst:130
 msgid ""
 "Each scope updates live as the playhead moves. Use the **Region** button in "
 "any scope's toolbar to analyze just a selected area of the preview rather "
@@ -282,11 +283,11 @@ msgstr ""
 "플레이헤드가 이동할 때마다 각 스코프가 실시간으로 업데이트됩니다. 미리보기 전체가 아닌 선택한 영역만 분석하려면 스코프 도구 모음의 "
 "**영역** 버튼을 사용하세요."
 
-#: ../color.rst:136
+#: ../doc/color.rst:136
 msgid "The Luma Waveform"
 msgstr "루마 웨이브폼"
 
-#: ../color.rst:138
+#: ../doc/color.rst:138
 msgid ""
 "The Luma Waveform maps every pixel by horizontal position (X axis = left-to-"
 "right across the frame) and brightness (Y axis = 0% at bottom to 100% at "
@@ -296,33 +297,33 @@ msgstr ""
 "루마 웨이브폼은 각 픽셀을 수평 위치(X축 = 프레임 왼쪽에서 오른쪽)와 밝기(Y축 = 아래 0%에서 위 100%)로 매핑합니다. 동일한"
 " 수평 위치에서 많은 픽셀이 같은 밝기를 가질 경우, 트레이스가 더 밝게 빛납니다."
 
-#: ../color.rst:144
+#: ../doc/color.rst:144
 msgid ""
 "*The Luma Waveform in RGB Parade mode, showing red, green, and blue channels"
 " side by side.*"
 msgstr "*RGB 퍼레이드 모드의 루마 웨이브폼으로, 빨강, 초록, 파랑 채널이 나란히 표시됩니다.*"
 
-#: ../color.rst:146 ../color.rst:188 ../color.rst:230
+#: ../doc/color.rst:146 ../doc/color.rst:188 ../doc/color.rst:230
 msgid "**How to read it:**"
 msgstr "**읽는 방법:**"
 
-#: ../color.rst:148
+#: ../doc/color.rst:148
 msgid "Waveform clustered near the **bottom** → underexposed. Raise Exposure."
-msgstr "웨이브폼이 **아래쪽**에 몰려 있음 → 노출 부족. 노출을 올리세요."
+msgstr "웨이브폼이 **아래쪽**\\ 에 몰려 있음 → 노출 부족. 노출을 올리세요."
 
-#: ../color.rst:149
+#: ../doc/color.rst:149
 msgid ""
 "Waveform packed against the **top** → overexposed. Lower Exposure or "
 "Highlights."
-msgstr "웨이브폼이 **위쪽**에 밀집됨 → 과다 노출. 노출 또는 하이라이트를 낮추세요."
+msgstr "웨이브폼이 **위쪽**\\ 에 밀집됨 → 과다 노출. 노출 또는 하이라이트를 낮추세요."
 
-#: ../color.rst:150
+#: ../doc/color.rst:150
 msgid ""
 "A **narrow horizontal band** in the middle → low contrast, image looks "
 "milky. Increase Contrast."
 msgstr "가운데에 **좁은 수평 띠** → 낮은 대비, 이미지가 뿌옇게 보임. 대비를 높이세요."
 
-#: ../color.rst:151
+#: ../doc/color.rst:151
 msgid ""
 "A **thick line at the very bottom** → blacks are crushed. Raise Shadows or "
 "lift the bottom-left point of Curve: All to restore shadow detail."
@@ -330,7 +331,7 @@ msgstr ""
 "맨 아래에 **두꺼운 선** → 블랙이 뭉개짐. 그림자(Shadows)를 올리거나 Curve: All의 왼쪽 아래 점을 올려 그림자 "
 "디테일을 복원하세요."
 
-#: ../color.rst:154
+#: ../doc/color.rst:154
 msgid ""
 "IRE reference lines appear at 10%, 50%, and 90% as faint dashed lines. A "
 "well-exposed image keeps highlights below 90% and shadows above 5%."
@@ -338,43 +339,43 @@ msgstr ""
 "IRE 기준선은 10%, 50%, 90%에 희미한 점선으로 표시됩니다. 적절한 노출의 이미지는 하이라이트가 90% 이하, 그림자가 5% "
 "이상을 유지합니다."
 
-#: ../color.rst:158
+#: ../doc/color.rst:158
 msgid "Waveform Modes"
 msgstr "웨이브폼 모드"
 
-#: ../color.rst:164
+#: ../doc/color.rst:164
 msgid "Mode"
 msgstr "모드"
 
-#: ../color.rst:164
+#: ../doc/color.rst:164
 msgid "What It Shows"
 msgstr "표시 내용"
 
-#: ../color.rst:166
+#: ../doc/color.rst:166
 msgid "Luma"
 msgstr "루마"
 
-#: ../color.rst:166
+#: ../doc/color.rst:166
 msgid ""
 "Brightness only (ignores color). Best for exposure and contrast work. Trace "
 "color can be changed to Green, White, or Orange."
 msgstr "밝기만 표시(색상 무시). 노출 및 대비 작업에 최적. 트레이스 색상은 녹색, 흰색, 주황색으로 변경 가능."
 
-#: ../color.rst:168
+#: ../doc/color.rst:168
 msgid "RGB Overlay"
 msgstr "RGB 오버레이"
 
-#: ../color.rst:168
+#: ../doc/color.rst:168
 msgid ""
 "Red, green, and blue channels drawn on top of each other in their natural "
 "colors. Quick visual check for overall channel balance."
 msgstr "빨강, 초록, 파랑 채널이 자연색으로 겹쳐서 그려집니다. 전체 채널 밸런스를 빠르게 확인할 수 있습니다."
 
-#: ../color.rst:170
+#: ../doc/color.rst:170
 msgid "RGB Parade"
 msgstr "RGB 퍼레이드"
 
-#: ../color.rst:170
+#: ../doc/color.rst:170
 msgid ""
 "Three side-by-side panels (R, G, B). If one panel sits noticeably higher "
 "than the others in areas that should be neutral, white balance is off. Blue "
@@ -383,19 +384,19 @@ msgstr ""
 "나란히 배치된 세 개의 패널(R, G, B). 중립 영역에서 한 패널이 눈에 띄게 높으면 화이트 밸런스가 맞지 않은 것입니다. "
 "하이라이트에서 파랑이 빨강보다 높으면 이미지가 너무 차갑습니다."
 
-#: ../color.rst:173
+#: ../doc/color.rst:173
 msgid "Red / Green / Blue"
 msgstr "빨강 / 초록 / 파랑"
 
-#: ../color.rst:173
+#: ../doc/color.rst:173
 msgid "Shows a single channel in isolation."
 msgstr "단일 채널만 분리하여 표시합니다."
 
-#: ../color.rst:179
+#: ../doc/color.rst:179
 msgid "The Histogram"
 msgstr "히스토그램"
 
-#: ../color.rst:181
+#: ../doc/color.rst:181
 msgid ""
 "The Histogram sorts all pixels by brightness (0 = black on the left, 255 = "
 "white on the right) and shows how many pixels exist at each level as a bar "
@@ -404,71 +405,71 @@ msgstr ""
 "히스토그램은 모든 픽셀을 밝기별로 정렬(0 = 왼쪽의 검정, 255 = 오른쪽의 흰색)하고 각 밝기 수준에 존재하는 픽셀 수를 막대 "
 "그래프로 표시합니다. 빨강, 초록, 파랑, 루마가 겹쳐서 표시됩니다."
 
-#: ../color.rst:186
+#: ../doc/color.rst:186
 msgid "*The Histogram in All Channels / Logarithmic mode.*"
 msgstr "*모든 채널 / 로그 모드의 히스토그램.*"
 
-#: ../color.rst:190
+#: ../doc/color.rst:190
 msgid "Bars **clustered left** → underexposed."
 msgstr "막대가 **왼쪽에 몰림** → 노출 부족."
 
-#: ../color.rst:191
+#: ../doc/color.rst:191
 msgid ""
 "Bars **pushed against the right edge** → overexposed, possibly clipping. A "
 "sharp wall on the right means highlight detail is gone."
 msgstr ""
 "막대가 **오른쪽 끝에 밀림** → 과다 노출, 클리핑 가능성 있음. 오른쪽에 뚜렷한 벽이 있으면 하이라이트 디테일이 사라진 것입니다."
 
-#: ../color.rst:193
+#: ../doc/color.rst:193
 msgid ""
 "A **narrow hill in the middle** → low contrast. Increasing Contrast will "
 "spread the bars out."
 msgstr "가운데에 **좁은 언덕** → 낮은 대비. 대비를 높이면 막대가 퍼집니다."
 
-#: ../color.rst:195
+#: ../doc/color.rst:195
 msgid "The Histogram dock has two dropdowns:"
 msgstr "히스토그램 도크에는 두 개의 드롭다운이 있습니다:"
 
-#: ../color.rst:197
+#: ../doc/color.rst:197
 msgid ""
 "**Channel** — *All Channels* shows R, G, B, and luma overlaid; individual "
 "options isolate one. If the Red histogram extends further right than Green "
 "and Blue, the image is warm."
 msgstr ""
-"**채널** — *모든 채널*은 R, G, B, 루마를 겹쳐서 표시하며, 개별 옵션은 하나만 분리합니다. 빨강 히스토그램이 초록과 "
+"**채널** — *모든 채널*\\ 은 R, G, B, 루마를 겹쳐서 표시하며, 개별 옵션은 하나만 분리합니다. 빨강 히스토그램이 초록과 "
 "파랑보다 더 오른쪽으로 확장되면 이미지가 따뜻합니다."
 
-#: ../color.rst:199
+#: ../doc/color.rst:199
 msgid ""
 "**Scale** — *Logarithmic* (default) keeps rare tonal values visible. "
 "*Linear* shows raw counts, useful for comparing the relative weight of "
 "different tones."
 msgstr ""
-"**스케일** — *로그* (기본)는 희귀 톤 값을 가시화합니다. *선형*은 원시 개수를 표시하며, 서로 다른 톤의 상대적 비중을 비교할"
-" 때 유용합니다."
+"**스케일** — *로그* (기본)는 희귀 톤 값을 가시화합니다. *선형*\\ 은 원시 개수를 표시하며, 서로 다른 톤의 상대적 비중을 "
+"비교할 때 유용합니다."
 
-#: ../color.rst:205
+#: ../doc/color.rst:205
 msgid "The Vectorscope"
 msgstr "벡터스코프"
 
-#: ../color.rst:207
+#: ../doc/color.rst:207
 msgid ""
 "The Vectorscope is a 2D chroma plot. Each pixel is placed on a circular "
 "graph by its **hue** (direction from center) and **saturation** (distance "
 "from center). A pixel at dead center is colorless (gray or black); one at "
 "the edge is fully saturated."
 msgstr ""
-"벡터스코프는 2D 크로마 플롯입니다. 각 픽셀은 **색상(hue)**(중심에서의 방향)과 **채도(saturation)**(중심에서의 "
-"거리)에 따라 원형 그래프에 배치됩니다. 중심 정가운데 픽셀은 무채색(회색 또는 검정)이며, 가장자리에 있는 픽셀은 완전히 채도된 "
-"상태입니다."
+"벡터스코프는 2D 크로마 플롯입니다. 각 픽셀은 **색상(hue)**\\ (중심에서의 방향)과 **채도(saturation)**\\ "
+"(중심에서의 거리)에 따라 원형 그래프에 배치됩니다. 중심 정가운데 픽셀은 무채색(회색 또는 검정)이며, 가장자리에 있는 픽셀은 완전히 "
+"채도된 상태입니다."
 
-#: ../color.rst:213
+#: ../doc/color.rst:213
 msgid ""
 "*The Vectorscope in Colorized mode, with the skin tone cluster visible near "
 "the center.*"
 msgstr "*컬러화 모드의 벡터스코프로, 중심 근처에 피부 톤 클러스터가 보입니다.*"
 
-#: ../color.rst:215
+#: ../doc/color.rst:215
 msgid ""
 "The outer ring shows broadcast hue labels — **R** (red), **Mg** (magenta), "
 "**B** (blue), **Cy** (cyan), **G** (green), **Yi** (yellow) — at their "
@@ -477,14 +478,15 @@ msgid ""
 "roughly along this line in the yellow-orange zone between Yi and R."
 msgstr ""
 "외곽 원은 방송용 색상 라벨을 표시합니다 — **R** (빨강), **Mg** (마젠타), **B** (파랑), **Cy** (시안), "
-"**G** (초록), **Yi** (노랑) — 색상 휠 주변 위치에 있습니다. **점선 스포크 라인**은 **피부 톤 라인**으로, 가장"
-" 밝은 피부부터 가장 어두운 피부까지 모든 인간 피부 톤은 대략 이 선을 따라 Yi와 R 사이의 노랑-주황 영역에 위치해야 합니다."
+"**G** (초록), **Yi** (노랑) — 색상 휠 주변 위치에 있습니다. **점선 스포크 라인**\\ 은 **피부 톤 라인**\\ "
+"으로, 가장 밝은 피부부터 가장 어두운 피부까지 모든 인간 피부 톤은 대략 이 선을 따라 Yi와 R 사이의 노랑-주황 영역에 위치해야 "
+"합니다."
 
-#: ../color.rst:220
+#: ../doc/color.rst:220
 msgid "**Display modes:**"
 msgstr "**표시 모드:**"
 
-#: ../color.rst:222
+#: ../doc/color.rst:222
 msgid ""
 "**Colorized** (default) — each plotted pixel adopts the hue color of its "
 "position on the wheel. Makes it easy to see which colors are present and how"
@@ -493,7 +495,7 @@ msgstr ""
 "**컬러화** (기본) — 각 플롯된 픽셀이 휠상의 위치 색상(hue)을 채택합니다. 어떤 색상이 있고 얼마나 채도되었는지 쉽게 확인할 "
 "수 있습니다."
 
-#: ../color.rst:224
+#: ../doc/color.rst:224
 msgid ""
 "**Density** — monochrome brightness. Brighter = more pixels sharing that "
 "hue/saturation. Good for focusing on shape and balance rather than color "
@@ -501,45 +503,45 @@ msgid ""
 msgstr ""
 "**밀도** — 단색 밝기. 밝을수록 해당 색상/채도를 공유하는 픽셀이 많음. 색상 정체성보다는 형태와 균형에 집중할 때 좋습니다."
 
-#: ../color.rst:226
+#: ../doc/color.rst:226
 msgid ""
 "**Intensity** — heatmap from blue (sparse) to red (dense). Quickly shows "
 "which colors dominate."
 msgstr "**강도** — 파랑(희박)에서 빨강(밀집)까지의 히트맵. 어떤 색상이 지배적인지 빠르게 보여줍니다."
 
-#: ../color.rst:228
+#: ../doc/color.rst:228
 msgid ""
 "**Zoom:** 100%, 200%, or 400%. Use 200% for skin tone work — it magnifies "
 "subtle shifts near center."
 msgstr ""
 "**확대:** 100%, 200%, 또는 400%. 피부 톤 작업에는 200%를 사용하세요 — 중심 근처의 미묘한 변화를 확대합니다."
 
-#: ../color.rst:232
+#: ../doc/color.rst:232
 msgid ""
 "Plot concentrated near the **center** → image is desaturated. Increase "
 "Saturation or Vibrance."
 msgstr "플롯이 **중앙** 근처에 집중됨 → 이미지가 탈채도됨. 채도 또는 생동감을 높이세요."
 
-#: ../color.rst:233
+#: ../doc/color.rst:233
 msgid ""
 "Plot tilted toward one side → color cast. Use Temperature, Tint, or the "
 "Global color wheel to push the cluster back toward center."
 msgstr "플롯이 한쪽으로 기울어짐 → 색상 편향. 온도, 색조 또는 전체 색상 휠을 사용하여 클러스터를 다시 중앙으로 밀어 넣으세요."
 
-#: ../color.rst:235
+#: ../doc/color.rst:235
 msgid ""
 "For **skin tone evaluation**: use the Region selector to draw a box over a "
 "face in the preview. The cluster should fall along the dashed skin tone line"
 " (see :ref:`skin_tones_ref`)."
 msgstr ""
-"**피부 톤 평가**를 위해: 미리보기에서 얼굴 위에 상자를 그리려면 영역 선택기를 사용하세요. 클러스터는 점선으로 된 피부 톤 선을 "
-"따라야 합니다 (:ref:`skin_tones_ref` 참조)."
+"**피부 톤 평가**\\ 를 위해: 미리보기에서 얼굴 위에 상자를 그리려면 영역 선택기를 사용하세요. 클러스터는 점선으로 된 피부 톤 "
+"선을 따라야 합니다 (:ref:`skin_tones_ref` 참조)."
 
-#: ../color.rst:241
+#: ../doc/color.rst:241
 msgid "Color Correction"
 msgstr "색상 보정"
 
-#: ../color.rst:243
+#: ../doc/color.rst:243
 msgid ""
 "Color correction fixes technical problems — wrong white balance, bad "
 "exposure, flat contrast — so footage looks clean and natural. It is always "
@@ -548,11 +550,11 @@ msgstr ""
 "색상 보정은 기술적 문제 — 잘못된 화이트 밸런스, 부적절한 노출, 평평한 대비 — 를 수정하여 영상이 깨끗하고 자연스럽게 보이도록 "
 "합니다. 이는 항상 창의적 작업 전에 첫 번째 단계입니다."
 
-#: ../color.rst:249
+#: ../doc/color.rst:249
 msgid "White Balance — Making Whites Look White"
 msgstr "화이트 밸런스 — 흰색을 흰색답게 만들기"
 
-#: ../color.rst:251
+#: ../doc/color.rst:251
 msgid ""
 "Different light sources cast different colors: incandescent bulbs are "
 "orange-warm, fluorescent lights are greenish, open shade is cool blue. When "
@@ -562,14 +564,14 @@ msgstr ""
 "다양한 광원은 서로 다른 색을 투사합니다: 백열등은 주황빛 따뜻함, 형광등은 녹색빛, 그늘은 차가운 파란색입니다. 카메라 자동 화이트 "
 "밸런스가 잘못 추측하면 영상이 색상 편향으로 보입니다. 이를 수정하는 것이 거의 항상 첫 번째 작업입니다."
 
-#: ../color.rst:255
+#: ../doc/color.rst:255
 msgid ""
 "Use **Temperature** and **Tint** in the :guilabel:`Color Grade` effect "
 "properties:"
 msgstr ""
 ":guilabel:`Color Grade` 효과 속성에서 **온도(Temperature)** 와 **색조(Tint)** 를 사용하세요:"
 
-#: ../color.rst:257
+#: ../doc/color.rst:257
 msgid ""
 "**Temperature** — shifts the image warmer (positive) or cooler (negative). "
 "Footage that looks too orange? Slide it negative."
@@ -577,7 +579,7 @@ msgstr ""
 "**온도(Temperature)** — 이미지를 더 따뜻하게(양수) 또는 차갑게(음수) 조정합니다. 영상이 너무 주황색으로 보이나요? "
 "음수 쪽으로 조절하세요."
 
-#: ../color.rst:259
+#: ../doc/color.rst:259
 msgid ""
 "**Tint** — fine-tunes green/magenta balance. Use this after Temperature to "
 "remove a lingering fluorescent tinge. Positive = magenta, negative = green."
@@ -585,7 +587,7 @@ msgstr ""
 "**색조(Tint)** — 녹색/마젠타 균형을 미세 조정합니다. 온도 조정 후 남아 있는 형광등 색조를 제거할 때 사용하세요. 양수는 "
 "마젠타, 음수는 녹색입니다."
 
-#: ../color.rst:262
+#: ../doc/color.rst:262
 msgid ""
 "A quick check: find something in the shot that should be neutral — a white "
 "wall, a gray shirt, the whites of someone's eyes. The **RGB Parade** "
@@ -595,11 +597,11 @@ msgstr ""
 "간단한 확인: 영상에서 중립이어야 할 대상 — 흰 벽, 회색 셔츠, 눈의 흰자위 — 를 찾으세요. **RGB 퍼레이드** 파형 모드는 "
 "이를 객관적으로 보여줍니다: 세 채널 모두 중립 영역에서 같은 높이에 있어야 합니다."
 
-#: ../color.rst:269
+#: ../doc/color.rst:269
 msgid "Skin Tones"
 msgstr "피부 톤"
 
-#: ../color.rst:271
+#: ../doc/color.rst:271
 msgid ""
 "Human faces are the most scrutinized subjects in video. Viewers sense when "
 "skin looks wrong instantly, even if they cannot say why. Good skin tones are"
@@ -608,29 +610,29 @@ msgstr ""
 "인간의 얼굴은 영상에서 가장 세심하게 관찰되는 대상입니다. 시청자는 피부가 이상해 보일 때 즉시 감지하지만 이유를 말하지 못할 수도 "
 "있습니다. 좋은 피부 톤은 따뜻하며, 녹색이나 파란색이 아닌 주황색에 가깝습니다."
 
-#: ../color.rst:274
+#: ../doc/color.rst:274
 msgid ""
 "All human skin tones — regardless of race — fall roughly along the same "
 "diagonal line on a vectorscope: the **skin tone line**. They shift lighter "
 "or darker and more or less saturated, but they always land in the orange-to-"
 "yellow zone. OpenShot's Vectorscope lets you verify this directly:"
 msgstr ""
-"모든 인종의 인간 피부 톤은 대략 벡터스코프의 같은 대각선, 즉 **피부 톤 선**을 따라 위치합니다. 밝거나 어둡고 채도가 다르지만 "
-"항상 주황색에서 노란색 영역에 속합니다. OpenShot의 벡터스코프를 통해 이를 직접 확인할 수 있습니다:"
+"모든 인종의 인간 피부 톤은 대략 벡터스코프의 같은 대각선, 즉 **피부 톤 선**\\ 을 따라 위치합니다. 밝거나 어둡고 채도가 "
+"다르지만 항상 주황색에서 노란색 영역에 속합니다. OpenShot의 벡터스코프를 통해 이를 직접 확인할 수 있습니다:"
 
-#: ../color.rst:278
+#: ../doc/color.rst:278
 msgid ""
 "Right-click the clip → :guilabel:`Color → Analyze Colors` to open the "
 "scopes."
-msgstr "클립을 우클릭 → :guilabel:`색상 → 색상 분석`을 선택하여 스코프를 엽니다."
+msgstr "클립을 우클릭 → :guilabel:`색상 → 색상 분석`\\ 을 선택하여 스코프를 엽니다."
 
-#: ../color.rst:279
+#: ../doc/color.rst:279
 msgid ""
 "In the Vectorscope toolbar, click the **Region** button and drag a box over "
 "the skin in the preview."
 msgstr "벡터스코프 도구 모음에서 **영역(Region)** 버튼을 클릭하고 미리보기에서 피부 위에 상자를 드래그하세요."
 
-#: ../color.rst:280
+#: ../doc/color.rst:280
 msgid ""
 "The cluster should sit along the dashed skin tone line. If it drifts toward "
 "green or blue, use **Temperature** (warmer) or the **Global** color wheel to"
@@ -639,7 +641,7 @@ msgstr ""
 "클러스터는 점선으로 된 피부 톤 선을 따라 있어야 합니다. 녹색이나 파란색 쪽으로 치우치면 **온도(Temperature)** (더 "
 "따뜻하게) 또는 **전체(Global)** 색상 휠을 사용해 주황-노란색 쪽으로 다시 밀어 넣으세요."
 
-#: ../color.rst:285
+#: ../doc/color.rst:285
 msgid ""
 "*A face region selected in the video preview (left) with the vectorscope "
 "plotting only those pixels (right). The skin tone cluster aligns with the "
@@ -648,148 +650,148 @@ msgstr ""
 "*비디오 미리보기(왼쪽)에서 선택된 얼굴 영역과 해당 픽셀만 벡터스코프에 표시된 모습(오른쪽). 피부 톤 클러스터가 노란-주황색 영역의 "
 "점선 피부 톤 선과 일치합니다.*"
 
-#: ../color.rst:288
+#: ../doc/color.rst:288
 msgid ""
 "Avoid pushing Saturation too high — over-saturated skin looks unnatural even"
 " when the hue is correct."
 msgstr "채도를 너무 높게 조절하지 마세요 — 채도가 과도한 피부는 색상이 맞더라도 부자연스럽게 보입니다."
 
-#: ../color.rst:291
+#: ../doc/color.rst:291
 msgid "Primary Correction Controls"
 msgstr "기본 보정 컨트롤"
 
-#: ../color.rst:293
+#: ../doc/color.rst:293
 msgid ""
 "These controls appear in the :guilabel:`Properties` panel when the Color "
 "Grade effect is selected:"
 msgstr "Color Grade 효과가 선택되면 :guilabel:`속성(Properties)` 패널에 이 컨트롤들이 나타납니다:"
 
-#: ../color.rst:299
+#: ../doc/color.rst:299
 msgid "Property"
 msgstr "속성"
 
-#: ../color.rst:299
+#: ../doc/color.rst:299
 msgid "What It Does"
 msgstr "기능"
 
-#: ../color.rst:301
+#: ../doc/color.rst:301
 msgid "Temperature"
 msgstr "온도"
 
-#: ../color.rst:301
+#: ../doc/color.rst:301
 msgid "Warms (positive) or cools (negative) the entire image."
 msgstr "전체 이미지를 따뜻하게(양수) 또는 차갑게(음수) 만듭니다."
 
-#: ../color.rst:302
+#: ../doc/color.rst:302
 msgid "Tint"
 msgstr "색조"
 
-#: ../color.rst:302
+#: ../doc/color.rst:302
 msgid "Fine-tunes green/magenta balance after Temperature."
 msgstr "온도 조정 후 녹색/마젠타 균형을 미세 조정합니다."
 
-#: ../color.rst:303
+#: ../doc/color.rst:303
 msgid "Exposure"
 msgstr "노출"
 
-#: ../color.rst:303
+#: ../doc/color.rst:303
 msgid "Makes the whole image brighter or darker."
 msgstr "전체 이미지를 더 밝거나 어둡게 만듭니다."
 
-#: ../color.rst:304
+#: ../doc/color.rst:304
 msgid "Contrast"
 msgstr "대비"
 
-#: ../color.rst:304
+#: ../doc/color.rst:304
 msgid "Expands (positive) or compresses (negative) the tonal range."
 msgstr "톤 범위를 확장(양수)하거나 압축(음수)합니다."
 
-#: ../color.rst:305 ../color.rst:364
+#: ../doc/color.rst:305 ../doc/color.rst:364
 msgid "Highlights"
 msgstr "하이라이트"
 
-#: ../color.rst:305
+#: ../doc/color.rst:305
 msgid ""
 "Brightens or darkens only the bright parts. Negative values recover "
 "overexposed highlights."
 msgstr "밝은 부분만 밝게 또는 어둡게 합니다. 음수 값은 과다 노출된 하이라이트를 복구합니다."
 
-#: ../color.rst:307 ../color.rst:362
+#: ../doc/color.rst:307 ../doc/color.rst:362
 msgid "Shadows"
 msgstr "그림자"
 
-#: ../color.rst:307
+#: ../doc/color.rst:307
 msgid ""
 "Lifts or lowers only the dark parts. Positive values open up shadow detail."
 msgstr "어두운 부분만 밝게 또는 어둡게 합니다. 양수 값은 그림자 디테일을 살립니다."
 
-#: ../color.rst:309
+#: ../doc/color.rst:309
 msgid "Saturation"
 msgstr "채도"
 
-#: ../color.rst:309
+#: ../doc/color.rst:309
 msgid "Overall color intensity. 1.0 = unchanged, 0.0 = grayscale."
 msgstr "전체 색상 강도. 1.0 = 변경 없음, 0.0 = 그레이스케일."
 
-#: ../color.rst:310
+#: ../doc/color.rst:310
 msgid "Vibrance"
 msgstr "생동감"
 
-#: ../color.rst:310
+#: ../doc/color.rst:310
 msgid ""
 "Like Saturation, but preferentially boosts muted colors without "
 "oversaturating ones that are already vivid."
 msgstr "채도와 비슷하지만, 이미 선명한 색상을 과도하게 채색하지 않고 은은한 색상을 우선적으로 강화합니다."
 
-#: ../color.rst:315
+#: ../doc/color.rst:315
 msgid "A Correction Workflow"
 msgstr "보정 작업 흐름"
 
-#: ../color.rst:317
+#: ../doc/color.rst:317
 msgid "Work in this order for the best results:"
 msgstr "최상의 결과를 위해 다음 순서로 작업하세요:"
 
-#: ../color.rst:319
+#: ../doc/color.rst:319
 msgid ""
 "**Fix white balance first** — Temperature and Tint until neutrals look "
 "neutral."
 msgstr "**먼저 화이트 밸런스를 맞추세요** — 중립색이 중립으로 보일 때까지 온도와 색조를 조정합니다."
 
-#: ../color.rst:320
+#: ../doc/color.rst:320
 msgid "**Set exposure** — Exposure until brightness feels correct."
 msgstr "**노출 설정** — 밝기가 적절하게 느껴질 때까지 노출을 조정합니다."
 
-#: ../color.rst:321
+#: ../doc/color.rst:321
 msgid "**Adjust contrast** — expand or compress the tonal range to add depth."
 msgstr "**대비 조정** — 깊이를 더하기 위해 톤 범위를 확장하거나 압축합니다."
 
-#: ../color.rst:322
+#: ../doc/color.rst:322
 msgid ""
 "**Recover clipping** — Highlights and Shadows if bright areas are blown or "
 "shadows are crushed."
 msgstr "**클리핑 복구** — 밝은 영역이 날아갔거나 그림자가 뭉개졌다면 하이라이트와 그림자를 조정하세요."
 
-#: ../color.rst:323
+#: ../doc/color.rst:323
 msgid "**Adjust saturation** — Saturation or Vibrance to taste."
 msgstr "**채도 조정** — 채도 또는 생동감을 취향에 맞게 조절하세요."
 
-#: ../color.rst:324
+#: ../doc/color.rst:324
 msgid ""
 "**Check skin tones** — open the Vectorscope, use the Region selector on "
 "faces, and confirm the cluster aligns with the skin tone line."
 msgstr "**피부 톤 확인** — 벡터스코프를 열고 얼굴에 영역 선택기를 사용하여 클러스터가 피부 톤 선과 일치하는지 확인하세요."
 
-#: ../color.rst:327
+#: ../doc/color.rst:327
 msgid ""
 "Use the scopes at each step — they show you what is actually in the image, "
 "regardless of monitor calibration."
 msgstr "각 단계에서 스코프를 사용하세요 — 모니터 보정과 상관없이 이미지에 실제로 무엇이 있는지 보여줍니다."
 
-#: ../color.rst:333
+#: ../doc/color.rst:333
 msgid "Color Grading"
 msgstr "컬러 그레이딩"
 
-#: ../color.rst:335
+#: ../doc/color.rst:335
 msgid ""
 "Color grading is the creative step: using the same tools to build a "
 "deliberate visual mood on top of corrected footage. A few classic grades to "
@@ -798,132 +800,133 @@ msgstr ""
 "컬러 그레이딩은 창의적인 단계입니다: 동일한 도구를 사용하여 보정된 영상 위에 의도적인 시각적 분위기를 만듭니다. 영감을 줄 몇 가지 "
 "고전적인 그레이드:"
 
-#: ../color.rst:338
+#: ../doc/color.rst:338
 msgid ""
 "**Warm, golden nostalgic** — push Highlights toward orange-yellow, nudge "
 "Midtones slightly warm."
 msgstr "**따뜻하고 황금빛의 향수를 불러일으키는** — 하이라이트를 주황-노란색 쪽으로 밀고, 미드톤을 약간 따뜻하게 조정하세요."
 
-#: ../color.rst:339
+#: ../doc/color.rst:339
 msgid ""
 "**Cold, clinical** — cool the Shadows, desaturate slightly, keep Highlights "
 "neutral."
 msgstr "**차갑고 임상적인** — 그림자를 차갑게 하고, 채도를 약간 낮추며, 하이라이트는 중립적으로 유지하세요."
 
-#: ../color.rst:340
+#: ../doc/color.rst:340
 msgid ""
 "**Teal and orange** — the blockbuster look: Shadows toward teal, Highlights "
 "toward orange."
 msgstr "**청록색과 주황색** — 블록버스터 스타일: 그림자는 청록색 쪽으로, 하이라이트는 주황색 쪽으로 조정하세요."
 
-#: ../color.rst:341
+#: ../doc/color.rst:341
 msgid ""
 "**Faded film** — lift the black point slightly (Curves) so shadows never "
 "reach full black."
 msgstr "**바랜 필름** — 블랙 포인트를 약간 올려서(커브 사용) 그림자가 완전한 검정에 도달하지 않게 하세요."
 
-#: ../color.rst:346
+#: ../doc/color.rst:346
 msgid "Color Wheels"
 msgstr "컬러 휠"
 
-#: ../color.rst:348
+#: ../doc/color.rst:348
 msgid ""
 "Color wheels push color into specific **tonal ranges** without affecting the"
 " others. This is the tool professional colorists reach for most."
 msgstr ""
-"컬러 휠은 다른 영역에 영향을 주지 않고 특정 **톤 범위**에 색상을 밀어 넣습니다. 전문 컬러리스트들이 가장 많이 사용하는 "
+"컬러 휠은 다른 영역에 영향을 주지 않고 특정 **톤 범위**\\ 에 색상을 밀어 넣습니다. 전문 컬러리스트들이 가장 많이 사용하는 "
 "도구입니다."
 
-#: ../color.rst:353
+#: ../doc/color.rst:353
 msgid ""
 "*The Color Wheels dock, showing Global, Shadows, Midtones, and Highlights "
 "wheels.*"
 msgstr "*글로벌, 그림자, 미드톤, 하이라이트 휠을 보여주는 컬러 휠 도크.*"
 
-#: ../color.rst:359
+#: ../doc/color.rst:359
 msgid "Wheel"
 msgstr "휠"
 
-#: ../color.rst:359
+#: ../doc/color.rst:359
 msgid "What It Affects"
 msgstr "영향을 주는 부분"
 
-#: ../color.rst:361
+#: ../doc/color.rst:361
 msgid "Global"
 msgstr "글로벌"
 
-#: ../color.rst:361
+#: ../doc/color.rst:361
 msgid "A color tint across the **entire image** at all brightness levels."
-msgstr "모든 밝기 수준에서 **전체 이미지**에 색조를 입힙니다."
+msgstr "모든 밝기 수준에서 **전체 이미지**\\ 에 색조를 입힙니다."
 
-#: ../color.rst:362
+#: ../doc/color.rst:362
 msgid "Color only in the **darkest parts**. Great for a cool teal tint."
-msgstr "**가장 어두운 부분**에만 색상을 적용합니다. 차가운 청록색 색조에 적합합니다."
+msgstr "**가장 어두운 부분**\\ 에만 색상을 적용합니다. 차가운 청록색 색조에 적합합니다."
 
-#: ../color.rst:363
+#: ../doc/color.rst:363
 msgid "Midtones"
 msgstr "미드톤"
 
-#: ../color.rst:363
+#: ../doc/color.rst:363
 msgid ""
 "Color in the **middle tones** — where most skin tones live. Handle gently."
-msgstr "대부분의 피부 톤이 위치한 **중간 톤**에 색상을 적용합니다. 부드럽게 다루세요."
+msgstr "대부분의 피부 톤이 위치한 **중간 톤**\\ 에 색상을 적용합니다. 부드럽게 다루세요."
 
-#: ../color.rst:364
+#: ../doc/color.rst:364
 msgid ""
 "Color only in the **brightest parts**. Warming highlights while keeping "
 "shadows cool is the foundation of the teal-and-orange look."
 msgstr ""
-"**가장 밝은 부분**에만 색상을 적용합니다. 하이라이트는 따뜻하게, 그림자는 차갑게 유지하는 것이 청록색과 주황색 룩의 기본입니다."
+"**가장 밝은 부분**\\ 에만 색상을 적용합니다. 하이라이트는 따뜻하게, 그림자는 차갑게 유지하는 것이 청록색과 주황색 룩의 "
+"기본입니다."
 
-#: ../color.rst:368
+#: ../doc/color.rst:368
 msgid ""
 "Drag the **central dot** toward the desired color. Further from center = "
 "stronger effect."
-msgstr "**중앙 점**을 원하는 색상 쪽으로 드래그하세요. 중심에서 멀어질수록 효과가 강해집니다."
+msgstr "**중앙 점**\\ 을 원하는 색상 쪽으로 드래그하세요. 중심에서 멀어질수록 효과가 강해집니다."
 
-#: ../color.rst:369
+#: ../doc/color.rst:369
 msgid ""
 "The **Amount** slider blends the tinted result back toward the original."
 msgstr "**양(Amount)** 슬라이더는 색조가 입혀진 결과를 원본 쪽으로 혼합합니다."
 
-#: ../color.rst:370
+#: ../doc/color.rst:370
 msgid "The **Luma** slider adjusts the brightness of that tonal zone."
 msgstr "**루마(Luma)** 슬라이더는 해당 톤 영역의 밝기를 조절합니다."
 
-#: ../color.rst:371
+#: ../doc/color.rst:371
 msgid ""
 "Right-click any wheel in Properties → **Reset** to return it to neutral."
-msgstr "속성에서 휠을 우클릭하고 → **초기화**를 선택하여 중립 상태로 되돌리세요."
+msgstr "속성에서 휠을 우클릭하고 → **초기화**\\ 를 선택하여 중립 상태로 되돌리세요."
 
-#: ../color.rst:373
+#: ../doc/color.rst:373
 msgid "**To build the classic teal-and-orange look:**"
 msgstr "**고전적인 청록색과 주황색 룩을 만들려면:**"
 
-#: ../color.rst:375
+#: ../doc/color.rst:375
 msgid "Drag **Shadows** toward teal (blue-green)."
-msgstr "**그림자**를 청록색(청록-녹색) 쪽으로 드래그하세요."
+msgstr "**그림자**\\ 를 청록색(청록-녹색) 쪽으로 드래그하세요."
 
-#: ../color.rst:376
+#: ../doc/color.rst:376
 msgid "Drag **Highlights** toward orange."
-msgstr "**하이라이트**를 주황색 쪽으로 드래그하세요."
+msgstr "**하이라이트**\\ 를 주황색 쪽으로 드래그하세요."
 
-#: ../color.rst:377
+#: ../doc/color.rst:377
 msgid ""
 "Optionally nudge **Midtones** very slightly toward orange to warm skin "
 "tones."
-msgstr "선택적으로 **미드톤**을 아주 약간 주황색 쪽으로 밀어 피부 톤을 따뜻하게 만드세요."
+msgstr "선택적으로 **미드톤**\\ 을 아주 약간 주황색 쪽으로 밀어 피부 톤을 따뜻하게 만드세요."
 
-#: ../color.rst:378
+#: ../doc/color.rst:378
 msgid ""
 "Lower the Amount sliders to 0.3–0.5 so the effect does not become overdone."
 msgstr "효과가 과하지 않도록 양(Amount) 슬라이더를 0.3–0.5로 낮추세요."
 
-#: ../color.rst:383
+#: ../doc/color.rst:383
 msgid "Curves — Precise Tonal and Color Control"
 msgstr "커브 — 정밀한 톤 및 색상 제어"
 
-#: ../color.rst:385
+#: ../doc/color.rst:385
 msgid ""
 "A curve is a graph where the horizontal axis is the input value and the "
 "vertical axis is the output value. A straight diagonal line means no change."
@@ -933,17 +936,17 @@ msgstr ""
 "커브는 가로축이 입력 값이고 세로축이 출력 값인 그래프입니다. 직선 대각선은 변화가 없음을 의미합니다. 커브를 구부리면 해당 톤 범위에 "
 "대한 입력과 출력의 관계가 변경됩니다."
 
-#: ../color.rst:391
+#: ../doc/color.rst:391
 msgid ""
 "*The OpenShot Curve Editor. Click to add points, drag to reshape, right-"
 "click to change interpolation.*"
 msgstr "*OpenShot 커브 편집기. 클릭하여 점을 추가하고, 드래그하여 모양을 변경하며, 우클릭하여 보간법을 변경하세요.*"
 
-#: ../color.rst:393
+#: ../doc/color.rst:393
 msgid "**Common curve shapes:**"
 msgstr "**일반적인 커브 모양:**"
 
-#: ../color.rst:395
+#: ../doc/color.rst:395
 msgid ""
 "**S-curve** — pull the upper-right quarter up, the lower-left quarter down. "
 "Adds contrast and pop without shifting mid-gray. The most common starting "
@@ -952,29 +955,29 @@ msgstr ""
 "**S-커브** — 오른쪽 상단 4분의 1을 위로, 왼쪽 하단 4분의 1을 아래로 당깁니다. 중간 회색을 이동시키지 않고 대비와 생동감을"
 " 더합니다. 가장 일반적인 시작 동작입니다."
 
-#: ../color.rst:397
+#: ../doc/color.rst:397
 msgid ""
 "**Lifted blacks** — drag the bottom-left corner upward. Shadows never go "
 "fully to black — the faded-film look."
 msgstr "**올려진 블랙** — 왼쪽 하단 모서리를 위로 드래그하세요. 그림자가 완전한 검정에 도달하지 않는 바랜 필름 룩입니다."
 
-#: ../color.rst:399
+#: ../doc/color.rst:399
 msgid ""
 "**Lower highlights** — add a point in the upper-right and pull it down. "
 "Recovers bright areas without affecting the rest."
 msgstr ""
 "**하이라이트 낮추기** — 오른쪽 상단에 점을 추가하고 아래로 당기세요. 나머지 부분에 영향을 주지 않고 밝은 영역을 복구합니다."
 
-#: ../color.rst:402
+#: ../doc/color.rst:402
 msgid "**The four channels:**"
 msgstr "**네 가지 채널:**"
 
-#: ../color.rst:404
+#: ../doc/color.rst:404
 msgid ""
 "**Curve: All** — overall brightness across all channels. Used most often."
 msgstr "**커브: 전체(All)** — 모든 채널의 전체 밝기. 가장 자주 사용됩니다."
 
-#: ../color.rst:405
+#: ../doc/color.rst:405
 msgid ""
 "**Curve: Red** — up adds red (warms), down adds cyan. Pull shadows down for "
 "a cool shadow tint."
@@ -982,11 +985,11 @@ msgstr ""
 "**커브: 빨강(Red)** — 위로 올리면 빨강(따뜻함) 추가, 아래로 내리면 시안 추가. 그림자를 내려 차가운 그림자 색조를 "
 "만드세요."
 
-#: ../color.rst:406
+#: ../doc/color.rst:406
 msgid "**Curve: Green** — up adds green, down adds magenta."
 msgstr "**커브: 초록(Green)** — 위로 올리면 초록 추가, 아래로 내리면 마젠타 추가."
 
-#: ../color.rst:407
+#: ../doc/color.rst:407
 msgid ""
 "**Curve: Blue** — up cools, down warms. Classic move: pull Blue Shadows up "
 "(cool teal shadows) and Blue Highlights down (warm orange highlights)."
@@ -994,7 +997,7 @@ msgstr ""
 "**커브: 파랑(Blue)** — 위로 올리면 차갑게, 아래로 내리면 따뜻하게 만듭니다. 고전적인 방법: 파랑 그림자를 올려 차가운 청록"
 " 그림자를 만들고, 파랑 하이라이트를 내려 따뜻한 주황 하이라이트를 만드세요."
 
-#: ../color.rst:410
+#: ../doc/color.rst:410
 msgid ""
 "Curves beat sliders because you can apply *different* adjustments to "
 "*different* tonal ranges in a single operation — for example, warming "
@@ -1003,11 +1006,11 @@ msgstr ""
 "커브는 슬라이더보다 우수한데, 한 번의 작업으로 *다른* 톤 범위에 *다양한* 조정을 적용할 수 있기 때문입니다 — 예를 들어, "
 "하이라이트는 따뜻하게, 그림자는 동시에 차갑게 조정할 수 있습니다."
 
-#: ../color.rst:416
+#: ../doc/color.rst:416
 msgid "LUT Files — One-Click Color Looks"
 msgstr "LUT 파일 — 원클릭 컬러 룩"
 
-#: ../color.rst:418
+#: ../doc/color.rst:418
 msgid ""
 "A **LUT** (Lookup Table) is a pre-made color transformation: for every input"
 " color, output a specific different color. Professional colorists use LUTs "
@@ -1017,7 +1020,7 @@ msgstr ""
 "**LUT**(룩업 테이블)는 미리 만들어진 색상 변환입니다: 입력 색상마다 특정 다른 색상을 출력합니다. 전문 컬러리스트들은 LUT를 "
 "사용해 필름 스톡, 카메라 룩, 영화 스타일을 원클릭으로 재현합니다. OpenShot은 업계 표준 **.cube** 파일을 지원합니다."
 
-#: ../color.rst:422
+#: ../doc/color.rst:422
 msgid ""
 "OpenShot ships with a built-in LUT collection — see the :ref:`effects_ref` "
 "page for a visual gallery. Free **.cube** packs are widely available from "
@@ -1026,19 +1029,19 @@ msgstr ""
 "OpenShot은 내장된 LUT 컬렉션과 함께 제공됩니다 — 시각적 갤러리는 :ref:`effects_ref` 페이지를 참조하세요. 무료"
 " **.cube** 팩은 온라인 사진 커뮤니티에서 널리 구할 수 있습니다."
 
-#: ../color.rst:425
+#: ../doc/color.rst:425
 msgid "**How to apply a LUT:**"
 msgstr "**LUT 적용 방법:**"
 
-#: ../color.rst:427
+#: ../doc/color.rst:427
 msgid "Select the :guilabel:`Color Grade` effect properties."
 msgstr ":guilabel:`Color Grade` 효과 속성을 선택하세요."
 
-#: ../color.rst:428
+#: ../doc/color.rst:428
 msgid "Click :guilabel:`LUT File` and browse to a **.cube** file."
-msgstr ":guilabel:`LUT File`을 클릭하고 **.cube** 파일을 찾아 선택하세요."
+msgstr ":guilabel:`LUT File`\\ 을 클릭하고 **.cube** 파일을 찾아 선택하세요."
 
-#: ../color.rst:429
+#: ../doc/color.rst:429
 msgid ""
 "Use :guilabel:`LUT Intensity` (0.0–1.0) to blend the LUT with your corrected"
 " image. Most professionals land between 0.4–0.7 for a natural feel."
@@ -1046,11 +1049,11 @@ msgstr ""
 ":guilabel:`LUT Intensity` (0.0–1.0)를 사용해 LUT와 보정된 이미지를 혼합하세요. 대부분의 전문가들은 "
 "자연스러운 느낌을 위해 0.4–0.7 사이를 사용합니다."
 
-#: ../color.rst:432
+#: ../doc/color.rst:432
 msgid "**Tips:**"
 msgstr "**팁:**"
 
-#: ../color.rst:434
+#: ../doc/color.rst:434
 msgid ""
 "Correct first, then grade. LUTs assume properly balanced footage — applied "
 "to a color-cast image, they will look wrong."
@@ -1058,7 +1061,7 @@ msgstr ""
 "먼저 보정을 한 후 등급을 조정하세요. LUT는 적절히 균형 잡힌 영상에 적용된다고 가정하므로, 색조가 틀어진 이미지에 적용하면 잘못 "
 "보일 수 있습니다."
 
-#: ../color.rst:436
+#: ../doc/color.rst:436
 msgid ""
 "Most included LUTs target Rec. 709 footage (HD cameras, smartphones). If "
 "your camera records in a LOG profile, apply the appropriate LOG conversion "
@@ -1067,17 +1070,17 @@ msgstr ""
 "대부분의 포함된 LUT는 Rec. 709 영상(HD 카메라, 스마트폰)을 대상으로 합니다. 카메라가 LOG 프로필로 녹화하는 경우, "
 "적절한 LOG 변환 LUT를 먼저 적용하세요."
 
-#: ../color.rst:438
+#: ../doc/color.rst:438
 msgid ""
 "Stack Color Grade with separate Color Map / Lookup effects to layer multiple"
 " LUTs."
 msgstr "여러 LUT를 겹치기 위해 별도의 컬러 맵/룩업 효과와 함께 컬러 그레이드를 쌓으세요."
 
-#: ../color.rst:443
+#: ../doc/color.rst:443
 msgid "The Mix Control"
 msgstr "믹스 컨트롤"
 
-#: ../color.rst:445
+#: ../doc/color.rst:445
 msgid ""
 "The **Mix** control (0.0–1.0) at the bottom of the Color Grade effect blends"
 " the graded result with the original image. At 1.0, the full grade applies. "
@@ -1086,7 +1089,7 @@ msgstr ""
 "컬러 그레이드 효과 하단의 **믹스** 컨트롤(0.0–1.0)은 등급 조정된 결과와 원본 이미지를 혼합합니다. 1.0에서는 전체 등급이 "
 "적용되고, 0.0에서는 원본이 표시됩니다."
 
-#: ../color.rst:448
+#: ../doc/color.rst:448
 msgid ""
 "If your grade is correct but feels slightly heavy, dial Mix back to 0.7–0.9 "
 "to soften everything at once — no need to revisit every individual control."
@@ -1094,7 +1097,7 @@ msgstr ""
 "등급이 올바르지만 약간 무겁게 느껴진다면, 믹스를 0.7–0.9로 낮춰 한 번에 부드럽게 조정하세요 — 각 개별 컨트롤을 다시 조정할 "
 "필요가 없습니다."
 
-#: ../color.rst:451
+#: ../doc/color.rst:451
 msgid ""
 "Mix is keyframable: animate the grade fading in or out over time, for "
 "example opening a scene flat and letting it bloom into full color."
@@ -1102,22 +1105,22 @@ msgstr ""
 "믹스는 키프레임 설정이 가능하여, 예를 들어 장면을 평평하게 시작했다가 점차 완전한 색상으로 변하는 등급 페이드 인/아웃 애니메이션을 "
 "만들 수 있습니다."
 
-#: ../color.rst:457
+#: ../doc/color.rst:457
 msgid "Putting It All Together — A Complete Workflow"
 msgstr "모두 합치기 — 완전한 워크플로우"
 
-#: ../color.rst:459
+#: ../doc/color.rst:459
 msgid ""
 "Select your clip. Right-click → :guilabel:`Color → Adjust Colors` to add the"
 " effect and open the Color Wheels and scopes in one step. Or use "
 ":guilabel:`Color → Analyze Colors` first if you want to evaluate the footage"
 " before committing to a grade."
 msgstr ""
-"클립을 선택하세요. 마우스 오른쪽 버튼 클릭 → :guilabel:`Color → Adjust Colors`를 선택하여 효과를 추가하고 "
-"컬러 휠과 스코프를 한 번에 엽니다. 또는 등급을 적용하기 전에 영상을 평가하려면 먼저 :guilabel:`Color → Analyze "
-"Colors`를 사용하세요."
+"클립을 선택하세요. 마우스 오른쪽 버튼 클릭 → :guilabel:`Color → Adjust Colors`\\ 를 선택하여 효과를 "
+"추가하고 컬러 휠과 스코프를 한 번에 엽니다. 또는 등급을 적용하기 전에 영상을 평가하려면 먼저 :guilabel:`Color → "
+"Analyze Colors`\\ 를 사용하세요."
 
-#: ../color.rst:462
+#: ../doc/color.rst:462
 msgid ""
 "**Check the scopes before touching anything** — is the waveform too high or "
 "too low? A cast on the RGB Parade? The histogram clipping against the right "
@@ -1126,32 +1129,33 @@ msgstr ""
 "**아무것도 조정하기 전에 스코프를 확인하세요** — 파형이 너무 높거나 낮나요? RGB 퍼레이드에 색조가 있나요? 히스토그램이 오른쪽 "
 "가장자리에서 클리핑되고 있나요?"
 
-#: ../color.rst:464
+#: ../doc/color.rst:464
 msgid "Fix **Temperature** and **Tint** to neutralize white balance."
-msgstr "화이트 밸런스를 중화하기 위해 **온도(Temperature)**와 **틴트(Tint)**를 조정하세요."
+msgstr "화이트 밸런스를 중화하기 위해 **온도(Temperature)**\\ 와 **틴트(Tint)**\\ 를 조정하세요."
 
-#: ../color.rst:465
+#: ../doc/color.rst:465
 msgid ""
 "Fix **Exposure**, then **Contrast**. Use **Highlights** and **Shadows** to "
 "recover clipping."
 msgstr ""
-"**노출(Exposure)**을 조정한 후 **대비(Contrast)**를 조정하세요. 클리핑을 복구하려면 "
-"**하이라이트(Highlights)**와 **섀도우(Shadows)**를 사용하세요."
+"**노출(Exposure)**\\ 을 조정한 후 **대비(Contrast)**\\ 를 조정하세요. 클리핑을 복구하려면 "
+"**하이라이트(Highlights)**\\ 와 **섀도우(Shadows)**\\ 를 사용하세요."
 
-#: ../color.rst:466
+#: ../doc/color.rst:466
 msgid "Gently adjust **Saturation** or **Vibrance**."
-msgstr "**채도(Saturation)** 또는 **생동감(Vibrance)**을 부드럽게 조정하세요."
+msgstr "**채도(Saturation)** 또는 **생동감(Vibrance)**\\ 을 부드럽게 조정하세요."
 
-#: ../color.rst:467
+#: ../doc/color.rst:467
 msgid ""
 "Open the **Vectorscope**, click Region, and draw a box over any faces. "
 "Confirm the skin tone cluster aligns with the dashed line. If not, adjust "
 "Temperature or the Global color wheel."
 msgstr ""
-"**벡터스코프(Vectorscope)**를 열고, 영역(Region)을 클릭한 후 얼굴 위에 상자를 그리세요. 피부 톤 클러스터가 점선과"
-" 일치하는지 확인하세요. 그렇지 않으면 온도(Temperature)나 전체 컬러 휠(Global color wheel)을 조정하세요."
+"**벡터스코프(Vectorscope)**\\ 를 열고, 영역(Region)을 클릭한 후 얼굴 위에 상자를 그리세요. 피부 톤 클러스터가 "
+"점선과 일치하는지 확인하세요. 그렇지 않으면 온도(Temperature)나 전체 컬러 휠(Global color wheel)을 "
+"조정하세요."
 
-#: ../color.rst:469
+#: ../doc/color.rst:469
 msgid ""
 "Open the **Color Wheels** dock and build your creative grade — push Shadows "
 "one direction, Highlights the opposite, handle Midtones carefully."
@@ -1159,43 +1163,43 @@ msgstr ""
 "**컬러 휠(Color Wheels)** 도크를 열고 창의적인 등급을 만드세요 — 섀도우는 한 방향으로, 하이라이트는 반대 방향으로 "
 "밀고, 미드톤은 신중하게 다루세요."
 
-#: ../color.rst:471
+#: ../doc/color.rst:471
 msgid ""
 "Fine-tune with **Curves**: a gentle S-curve on Curve: All; Curve: Blue for a"
 " cinematic push (cool shadows up, warm highlights down)."
 msgstr ""
-"**커브(Curves)**로 미세 조정하세요: Curve: All에 부드러운 S-커브, Curve: Blue에 시네마틱 효과를 위한 "
-"조정(차가운 섀도우는 올리고, 따뜻한 하이라이트는 내림)."
+"**커브(Curves)**\\ 로 미세 조정하세요: Curve: All에 부드러운 S-커브, Curve: Blue에 시네마틱 효과를 위한"
+" 조정(차가운 섀도우는 올리고, 따뜻한 하이라이트는 내림)."
 
-#: ../color.rst:473
+#: ../doc/color.rst:473
 msgid ""
 "Optionally browse to a **.cube** LUT and blend it in with **LUT Intensity**."
-msgstr "선택적으로 **.cube** LUT를 찾아서 **LUT 강도(LUT Intensity)**로 혼합하세요."
+msgstr "선택적으로 **.cube** LUT를 찾아서 **LUT 강도(LUT Intensity)**\\ 로 혼합하세요."
 
-#: ../color.rst:474
+#: ../doc/color.rst:474
 msgid "If the overall grade feels heavy, lower **Mix** to 0.7–0.9."
-msgstr "전체 등급이 무겁게 느껴지면 **믹스(Mix)**를 0.7–0.9로 낮추세요."
+msgstr "전체 등급이 무겁게 느껴지면 **믹스(Mix)**\\ 를 0.7–0.9로 낮추세요."
 
-#: ../color.rst:475
+#: ../doc/color.rst:475
 msgid ""
 "To compare before/after, drag **Mix** to 0.0 to see the original, then back "
 "to 1.0."
-msgstr "전후를 비교하려면 **믹스(Mix)**를 0.0으로 드래그하여 원본을 보고, 다시 1.0으로 되돌리세요."
+msgstr "전후를 비교하려면 **믹스(Mix)**\\ 를 0.0으로 드래그하여 원본을 보고, 다시 1.0으로 되돌리세요."
 
-#: ../color.rst:476
+#: ../doc/color.rst:476
 msgid ""
 "Happy with the result? Right-click the effect → **Copy**, select other "
 "clips, and **Paste Effects**. Or use the **Parent** property to link "
 "multiple clips to a single master grade (see :ref:`effect_parent_ref`)."
 msgstr ""
 "결과가 만족스러우면 효과를 마우스 오른쪽 버튼 클릭 → **복사(Copy)**, 다른 클립을 선택한 후 **효과 붙여넣기(Paste "
-"Effects)**를 하세요. 또는 **부모(Parent)** 속성을 사용해 여러 클립을 하나의 마스터 그레이드에 연결할 수 있습니다 "
-"(:ref:`effect_parent_ref` 참조)."
+"Effects)**\\ 를 하세요. 또는 **부모(Parent)** 속성을 사용해 여러 클립을 하나의 마스터 그레이드에 연결할 수 "
+"있습니다 (:ref:`effect_parent_ref` 참조)."
 
-#: ../color.rst:480
+#: ../doc/color.rst:480
 msgid ""
 "For animating color properties over time, see :ref:`animation_ref`. For a "
 "complete list of all Color Grade properties, see :ref:`effects_ref`."
 msgstr ""
-"시간에 따른 색상 속성 애니메이션에 대해서는 :ref:`animation_ref`를 참조하세요. 모든 컬러 그레이드 속성의 전체 목록은 "
-":ref:`effects_ref`를 참조하세요."
+"시간에 따른 색상 속성 애니메이션에 대해서는 :ref:`animation_ref`\\ 를 참조하세요. 모든 컬러 그레이드 속성의 전체 "
+"목록은 :ref:`effects_ref`\\ 를 참조하세요."

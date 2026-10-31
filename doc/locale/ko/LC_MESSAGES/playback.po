@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-16 18:08-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,12 +18,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:23
+#: ../doc/playback.rst:23
 msgid "Playback"
 msgstr "재생"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:24
+#: ../doc/playback.rst:24
 msgid ""
 "The preview window is where video & audio playback takes place in OpenShot "
 "Video Editor. The preview window utilizes real-time video rendering, "
@@ -33,82 +33,87 @@ msgid ""
 "CPU, and requires a modern computer and some reasonable assumptions and "
 "factors (listed below)."
 msgstr ""
-"미리보기 창은 OpenShot Video Editor에서 비디오 및 오디오 재생이 이루어지는 곳"
-"입니다. 미리보기 창은 실시간 비디오 렌더링, 캐싱, 재샘플링 및 이미지 스케일링"
-"을 활용합니다. 이 영역은 편집 내용을 다시 보고(듣고) 조정하는 데 필요한 피드"
-"백을 제공하는 주요 공간입니다. 또한 CPU에 가장 큰 부하를 주는 작업 중 하나이"
-"며, 최신 컴퓨터와 몇 가지 합리적인 조건 및 요소(아래에 나열됨)를 필요로 합니"
-"다."
+"미리보기 창은 OpenShot Video Editor에서 비디오 및 오디오 재생이 이루어지는 곳입니다. 미리보기 창은 실시간 비디오 "
+"렌더링, 캐싱, 재샘플링 및 이미지 스케일링을 활용합니다. 이 영역은 편집 내용을 다시 보고(듣고) 조정하는 데 필요한 피드백을 제공하는"
+" 주요 공간입니다. 또한 CPU에 가장 큰 부하를 주는 작업 중 하나이며, 최신 컴퓨터와 몇 가지 합리적인 조건 및 요소(아래에 "
+"나열됨)를 필요로 합니다."
+
+#: ../doc/playback.rst:29
+msgid ""
+"To watch a file or choose a section before adding it to the timeline, right-"
+"click it in Project Files and choose :guilabel:`Preview File` or "
+":guilabel:`Split File`. See :ref:`source_preview_ref`."
+msgstr ""
+"타임라인에 추가하기 전에 파일을 보거나 구간을 선택하려면 프로젝트 파일에서 해당 파일을 마우스 오른쪽 버튼으로 클릭하고 "
+":guilabel:`미리보기` 또는 :guilabel:`파일 분할`\\ 을 선택하세요. 자세한 내용은 "
+":ref:`source_preview_ref`\\ 를 참조하세요."
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:30
+#: ../doc/playback.rst:34
 msgid "Real-Time Preview"
 msgstr "실시간 미리보기"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:31
+#: ../doc/playback.rst:35
 msgid ""
 "Many factors affect how smoothly the **real-time video preview** can "
 "playback on your computer. This requires a fast, modern multi-threaded CPU, "
-"lots of RAM (memory), and a modern GPU. We have listed many of the important "
-"factors below."
+"lots of RAM (memory), and a modern GPU. We have listed many of the important"
+" factors below."
 msgstr ""
-"여러 요소가 컴퓨터에서 ** 실시간 비디오 미리보기** 가 얼마나 원활하게 재생되"
-"는지에 영향을 미칩니다. 이를 위해서는 빠르고 최신의 멀티스레드 CPU, 충분한 "
-"RAM(메모리), 최신 GPU가 필요합니다. 중요한 요소들을 아래에 나열했습니다."
+"여러 요소가 컴퓨터에서 ** 실시간 비디오 미리보기** 가 얼마나 원활하게 재생되는지에 영향을 미칩니다. 이를 위해서는 빠르고 최신의 "
+"멀티스레드 CPU, 충분한 RAM(메모리), 최신 GPU가 필요합니다. 중요한 요소들을 아래에 나열했습니다."
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:38
+#: ../doc/playback.rst:42
 msgid "Factor"
 msgstr "요소"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:38 ../playback.rst:97
+#: ../doc/playback.rst:42 ../doc/playback.rst:101
 msgid "Description"
 msgstr "설명"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:40
+#: ../doc/playback.rst:44
 msgid "CPU"
 msgstr "CPU"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:40
+#: ../doc/playback.rst:44
 msgid ""
 "If your CPU is too slow or has too few cores, you will likely experience a "
 "slow, choppy preview. We recommend installing OpenShot on fairly modern "
 "computer. See :ref:`min_system_req_ref` for more details on the hardware "
 "requirements for OpenShot Video Editor."
 msgstr ""
-"CPU가 너무 느리거나 코어 수가 적으면 미리보기가 느리고 끊길 수 있습니다. "
-"OpenShot은 비교적 최신 컴퓨터에 설치하는 것을 권장합니다. OpenShot Video "
-"Editor의 하드웨어 요구 사항에 대한 자세한 내용은 :ref:`min_system_req_ref` "
-"를 참조하세요."
+"CPU가 너무 느리거나 코어 수가 적으면 미리보기가 느리고 끊길 수 있습니다. OpenShot은 비교적 최신 컴퓨터에 설치하는 것을 "
+"권장합니다. OpenShot Video Editor의 하드웨어 요구 사항에 대한 자세한 내용은 "
+":ref:`min_system_req_ref` 를 참조하세요."
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:43
+#: ../doc/playback.rst:47
 msgid "Memory"
 msgstr "메모리"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:43
+#: ../doc/playback.rst:47
 msgid ""
 "If your available RAM memory is too limited, you will likely see huge drops "
 "in real-time performance, and your entire system will lag. We recommend "
-"installing additional RAM in your computer, if possible. See :ref:"
-"`min_system_req_ref`."
+"installing additional RAM in your computer, if possible. See "
+":ref:`min_system_req_ref`."
 msgstr ""
-"사용 가능한 RAM 메모리가 너무 부족하면 실시간 성능이 크게 저하되고 시스템 전"
-"체가 느려질 수 있습니다. 가능하다면 컴퓨터에 추가 RAM을 설치하는 것을 권장합"
-"니다. 자세한 내용은 :ref:`min_system_req_ref` 를 참조하세요."
+"사용 가능한 RAM 메모리가 너무 부족하면 실시간 성능이 크게 저하되고 시스템 전체가 느려질 수 있습니다. 가능하다면 컴퓨터에 추가 "
+"RAM을 설치하는 것을 권장합니다. 자세한 내용은 :ref:`min_system_req_ref` 를 참조하세요."
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:46
+#: ../doc/playback.rst:50
 msgid "Cache"
 msgstr "캐시"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:46
+#: ../doc/playback.rst:50
 msgid ""
 "Your cache settings in the OpenShot Preferences are very important for "
 "determining how many frames to processes in advance. A value too low or too "
@@ -116,24 +121,22 @@ msgid ""
 "related to the available RAM. The higher the cache values, the more RAM and "
 "CPU is needed. We recommend experimenting with the Cache Preferences in "
 "OpenShot if you are experiencing issues with smooth playback. This same "
-"caching system also prepares frames ahead of time during export, speeding up "
-"the final render. See :ref:`preferences_cache_ref`."
+"caching system also prepares frames ahead of time during export, speeding up"
+" the final render. See :ref:`preferences_cache_ref`."
 msgstr ""
-"OpenShot 환경설정의 캐시 설정은 미리 처리할 프레임 수를 결정하는 데 매우 중요"
-"합니다. 값이 너무 낮거나 높으면 실시간 비디오 미리보기 중에 지연이 발생할 수 "
-"있습니다. 캐시는 사용 가능한 RAM과도 관련이 있습니다. 캐시 값이 높을수록 더 "
-"많은 RAM과 CPU가 필요합니다. 원활한 재생에 문제가 있을 경우 OpenShot의 캐시 "
-"환경설정을 조정해 보시기 바랍니다. 이 캐시 시스템은 내보내기 시에도 프레임을 "
-"미리 준비하여 최종 렌더링 속도를 높입니다. 자세한 내용은 :ref:"
-"`preferences_cache_ref` 를 참조하세요."
+"OpenShot 환경설정의 캐시 설정은 미리 처리할 프레임 수를 결정하는 데 매우 중요합니다. 값이 너무 낮거나 높으면 실시간 비디오 "
+"미리보기 중에 지연이 발생할 수 있습니다. 캐시는 사용 가능한 RAM과도 관련이 있습니다. 캐시 값이 높을수록 더 많은 RAM과 CPU가"
+" 필요합니다. 원활한 재생에 문제가 있을 경우 OpenShot의 캐시 환경설정을 조정해 보시기 바랍니다. 이 캐시 시스템은 내보내기 "
+"시에도 프레임을 미리 준비하여 최종 렌더링 속도를 높입니다. 자세한 내용은 :ref:`preferences_cache_ref` 를 "
+"참조하세요."
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:52
+#: ../doc/playback.rst:56
 msgid "Preview Size"
 msgstr "미리보기 크기"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:52
+#: ../doc/playback.rst:56
 msgid ""
 "The height x width of your preview dock (widget) is very important for "
 "smooth real-time previews. The larger the window size, the more pixels must "
@@ -142,19 +145,17 @@ msgid ""
 "smooth video playback. On a slower computer, the preview window size might "
 "need to be very small for real-time previews (i.e. 320 x 240)."
 msgstr ""
-"미리보기 도크(위젯)의 높이 x 너비는 원활한 실시간 미리보기에 매우 중요합니"
-"다. 창 크기가 클수록 프레임당 렌더링해야 하는 픽셀이 많아지고 CPU와 RAM 요구"
-"량도 증가합니다. 원활한 비디오 재생이 될 때까지 미리보기 창 크기를 줄이는 것"
-"이 권장됩니다. 느린 컴퓨터에서는 실시간 미리보기를 위해 미리보기 창 크기가 매"
-"우 작아야 할 수도 있습니다(예: 320 x 240)."
+"미리보기 도크(위젯)의 높이 x 너비는 원활한 실시간 미리보기에 매우 중요합니다. 창 크기가 클수록 프레임당 렌더링해야 하는 픽셀이 "
+"많아지고 CPU와 RAM 요구량도 증가합니다. 원활한 비디오 재생이 될 때까지 미리보기 창 크기를 줄이는 것이 권장됩니다. 느린 "
+"컴퓨터에서는 실시간 미리보기를 위해 미리보기 창 크기가 매우 작아야 할 수도 있습니다(예: 320 x 240)."
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:57
+#: ../doc/playback.rst:61
 msgid "Profile"
 msgstr "프로필"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:57
+#: ../doc/playback.rst:61
 msgid ""
 "Your project profile determines which size (width x height) and frame rate "
 "(FPS) are used during both playback and exporting. For example, if you are "
@@ -163,19 +164,18 @@ msgid ""
 "preview speed on slower computers. See :ref:`profiles_ref` for more "
 "information on available profiles."
 msgstr ""
-"프로젝트 프로필은 재생 및 내보내기 시 사용되는 크기(너비 x 높이)와 프레임 속"
-"도(FPS)를 결정합니다. 예를 들어, FHD 1920x1080 크기 프로필을 사용하는 경우, "
-"느린 컴퓨터에서 미리보기 속도를 높이기 위해 동일한 종횡비(이 예에서는 "
-"``16x9``)의 더 작은 프로필을 선택할 수 있습니다. 사용 가능한 프로필에 대한 자"
-"세한 내용은 :ref:`profiles_ref` 를 참조하세요."
+"프로젝트 프로필은 재생 및 내보내기 시 사용되는 크기(너비 x 높이)와 프레임 속도(FPS)를 결정합니다. 예를 들어, FHD "
+"1920x1080 크기 프로필을 사용하는 경우, 느린 컴퓨터에서 미리보기 속도를 높이기 위해 동일한 종횡비(이 예에서는 "
+"``16x9``)의 더 작은 프로필을 선택할 수 있습니다. 사용 가능한 프로필에 대한 자세한 내용은 :ref:`profiles_ref` "
+"를 참조하세요."
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:61
+#: ../doc/playback.rst:65
 msgid "FPS (Frame Rate)"
 msgstr "FPS (프레임 속도)"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:61
+#: ../doc/playback.rst:65
 msgid ""
 "The FPS of your project is also very important, and a large factor for "
 "smooth video playback. For example, a 60 FPS video must render twice the "
@@ -183,18 +183,17 @@ msgid ""
 "downs in real-time performance, it can be helpful to reduce your project's "
 "FPS to a lower value, such as 30 or 24."
 msgstr ""
-"프로젝트의 FPS도 매우 중요하며 원활한 비디오 재생에 큰 영향을 미칩니다. 예를 "
-"들어, 60 FPS 비디오는 30 FPS 비디오보다 두 배 많은 프레임을 렌더링해야 합니"
-"다. 실시간 성능 저하가 발생하면 프로젝트의 FPS를 30 또는 24와 같은 낮은 값으"
-"로 줄이는 것이 도움이 될 수 있습니다."
+"프로젝트의 FPS도 매우 중요하며 원활한 비디오 재생에 큰 영향을 미칩니다. 예를 들어, 60 FPS 비디오는 30 FPS 비디오보다 두"
+" 배 많은 프레임을 렌더링해야 합니다. 실시간 성능 저하가 발생하면 프로젝트의 FPS를 30 또는 24와 같은 낮은 값으로 줄이는 것이 "
+"도움이 될 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:65
+#: ../doc/playback.rst:69
 msgid "Matching Rates"
 msgstr "일치하는 속도"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:65
+#: ../doc/playback.rst:69
 msgid ""
 "It is very important to match your source assets FPS and Sample Rate with "
 "your Project FPS and Project sample rate. If either rate does not match "
@@ -205,118 +204,108 @@ msgid ""
 "inspect the source asset rates, and ensure they match your Project settings "
 "(shown at the top of OpenShot). See :ref:`file_properties_ref`."
 msgstr ""
-"소스 자산의 FPS 및 샘플 속도를 프로젝트의 FPS 및 샘플 속도와 일치시키는 것이 "
-"매우 중요합니다. 어느 한 쪽이라도 정확히 일치하지 않으면 OpenShot이 불일치하"
-"는 속도를 정규화하는 데 많은 추가 CPU와 RAM이 필요합니다. 이로 인해 오디오 "
-"팝, 정렬 불일치, 중복 프레임, 실시간 비디오 미리보기 지연이 발생할 수 있습니"
-"다. 파일을 마우스 오른쪽 버튼으로 클릭하고 :guilabel:` 파일 속성` 을 선택하"
-"여 소스 자산 속도를 확인하고 프로젝트 설정(상단에 표시됨)과 일치하는지 확인"
-"할 수 있습니다. 자세한 내용은 :ref:`file_properties_ref` 를 참조하세요."
+"소스 자산의 FPS 및 샘플 속도를 프로젝트의 FPS 및 샘플 속도와 일치시키는 것이 매우 중요합니다. 어느 한 쪽이라도 정확히 일치하지"
+" 않으면 OpenShot이 불일치하는 속도를 정규화하는 데 많은 추가 CPU와 RAM이 필요합니다. 이로 인해 오디오 팝, 정렬 불일치,"
+" 중복 프레임, 실시간 비디오 미리보기 지연이 발생할 수 있습니다. 파일을 마우스 오른쪽 버튼으로 클릭하고 :guilabel:` 파일 "
+"속성` 을 선택하여 소스 자산 속도를 확인하고 프로젝트 설정(상단에 표시됨)과 일치하는지 확인할 수 있습니다. 자세한 내용은 "
+":ref:`file_properties_ref` 를 참조하세요."
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:71
+#: ../doc/playback.rst:75
 msgid "Source Assets"
 msgstr "소스 자산"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:71
+#: ../doc/playback.rst:75
 msgid ""
 "For example, if you are editing 4K 60 FPS source assets, this is likely "
 "going to put a strain on your system. A common solution is using another "
-"tool (such as FFmpeg) to create a copy (or proxy) of all your source assets, "
-"at a lower resolution (and maybe even a lower FPS). It is recommended to "
-"keep these proxy video files in their own folder, separate from the original "
-"video files. Once you have completed your video editing with the proxy "
+"tool (such as FFmpeg) to create a copy (or proxy) of all your source assets,"
+" at a lower resolution (and maybe even a lower FPS). It is recommended to "
+"keep these proxy video files in their own folder, separate from the original"
+" video files. Once you have completed your video editing with the proxy "
 "files, simply copy/paste your `*.osp` project file back into the original "
 "folder, and export the higher quality, original files."
 msgstr ""
-"예를 들어 4K 60 FPS 소스 자산을 편집하는 경우 시스템에 부담이 될 수 있습니"
-"다. 일반적인 해결책은 FFmpeg와 같은 다른 도구를 사용하여 모든 소스 자산의 복"
-"사본(또는 프록시)을 낮은 해상도(및 경우에 따라 낮은 FPS)로 만드는 것입니다. "
-"이러한 프록시 비디오 파일은 원본 비디오 파일과 별도의 폴더에 보관하는 것이 권"
-"장됩니다. 프록시 파일로 비디오 편집을 완료한 후에는 `*.osp` 프로젝트 파일을 "
-"원본 폴더로 복사/붙여넣기 하고, 더 높은 품질의 원본 파일을 내보내면 됩니다."
+"예를 들어 4K 60 FPS 소스 자산을 편집하는 경우 시스템에 부담이 될 수 있습니다. 일반적인 해결책은 FFmpeg와 같은 다른 "
+"도구를 사용하여 모든 소스 자산의 복사본(또는 프록시)을 낮은 해상도(및 경우에 따라 낮은 FPS)로 만드는 것입니다. 이러한 프록시 "
+"비디오 파일은 원본 비디오 파일과 별도의 폴더에 보관하는 것이 권장됩니다. 프록시 파일로 비디오 편집을 완료한 후에는 `*.osp` "
+"프로젝트 파일을 원본 폴더로 복사/붙여넣기 하고, 더 높은 품질의 원본 파일을 내보내면 됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:77 ../playback.rst:101
+#: ../doc/playback.rst:81 ../doc/playback.rst:105
 msgid "Audio Device"
 msgstr "오디오 장치"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:77
+#: ../doc/playback.rst:81
 msgid ""
-"If you are still having issues with audio lag or sync, please verify you are "
-"using the correct :guilabel:`Playback Audio Device` for playback (in the "
+"If you are still having issues with audio lag or sync, please verify you are"
+" using the correct :guilabel:`Playback Audio Device` for playback (in the "
 "OpenShot Preferences). See :ref:`preferences_preview_ref`. Verify your "
 "default audio device (on your operating system) is using the same sample "
-"rate and all *Audio Enhancements* are disabled. On certain operating systems "
-"(such as Windows), mismatching sample rates or audio enhancements can cause "
-"severe audio / video sync problems. Lastly, try adjusting the :guilabel:"
-"`Playback Audio Buffer Size` (lower values will playback audio with less "
-"delay, higher values will playback audio with a larger delay). OpenShot "
-"defaults to a buffer size of 512, which is reasonable for most systems, "
-"however on some systems you might need to lower (or raise) this value for "
-"smooth and lag-free audio playback. Be sure to restart OpenShot after "
-"changing the audio playback settings."
+"rate and all *Audio Enhancements* are disabled. On certain operating systems"
+" (such as Windows), mismatching sample rates or audio enhancements can cause"
+" severe audio / video sync problems. Lastly, try adjusting the "
+":guilabel:`Playback Audio Buffer Size` (lower values will playback audio "
+"with less delay, higher values will playback audio with a larger delay). "
+"OpenShot defaults to a buffer size of 512, which is reasonable for most "
+"systems, however on some systems you might need to lower (or raise) this "
+"value for smooth and lag-free audio playback. Be sure to restart OpenShot "
+"after changing the audio playback settings."
 msgstr ""
-"오디오 지연 또는 동기화 문제가 계속 발생하면, 올바른 :guilabel:` 재생 오디오 "
-"장치` 를 사용하고 있는지 OpenShot 환경설정에서 확인하세요. :ref:"
-"`preferences_preview_ref` 를 참조하십시오. 운영 체제의 기본 오디오 장치가 동"
-"일한 샘플 속도를 사용하고 모든 *오디오 향상* 기능이 비활성화되어 있는지 확인"
-"하세요. 일부 운영 체제(예: Windows)에서는 샘플 속도 불일치나 오디오 향상 기능"
-"이 심각한 오디오/비디오 동기화 문제를 일으킬 수 있습니다. 마지막으로 :"
-"guilabel:` 재생 오디오 버퍼 크기` 를 조정해 보세요(값이 낮을수록 지연이 적"
-"고, 높을수록 지연이 커집니다). OpenShot은 기본적으로 512 크기의 버퍼를 사용하"
-"며 대부분 시스템에 적합하지만, 일부 시스템에서는 원활하고 지연 없는 오디오 재"
-"생을 위해 이 값을 낮추거나 높여야 할 수 있습니다. 오디오 재생 설정을 변경한 "
-"후에는 반드시 OpenShot을 재시작하세요."
+"오디오 지연 또는 동기화 문제가 계속 발생하면, 올바른 :guilabel:` 재생 오디오 장치` 를 사용하고 있는지 OpenShot "
+"환경설정에서 확인하세요. :ref:`preferences_preview_ref` 를 참조하십시오. 운영 체제의 기본 오디오 장치가 동일한"
+" 샘플 속도를 사용하고 모든 *오디오 향상* 기능이 비활성화되어 있는지 확인하세요. 일부 운영 체제(예: Windows)에서는 샘플 속도"
+" 불일치나 오디오 향상 기능이 심각한 오디오/비디오 동기화 문제를 일으킬 수 있습니다. 마지막으로 :guilabel:` 재생 오디오 버퍼"
+" 크기` 를 조정해 보세요(값이 낮을수록 지연이 적고, 높을수록 지연이 커집니다). OpenShot은 기본적으로 512 크기의 버퍼를 "
+"사용하며 대부분 시스템에 적합하지만, 일부 시스템에서는 원활하고 지연 없는 오디오 재생을 위해 이 값을 낮추거나 높여야 할 수 있습니다."
+" 오디오 재생 설정을 변경한 후에는 반드시 OpenShot을 재시작하세요."
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:89
+#: ../doc/playback.rst:93
 msgid "Audio Troubleshooting"
 msgstr "오디오 문제 해결"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:90
+#: ../doc/playback.rst:94
 msgid ""
 "If you are still experiencing audio related issues, and the above real-time "
 "playback factors did not resolve your issue, here are some additional "
 "troubleshooting steps you can take."
 msgstr ""
-"여전히 오디오 관련 문제가 발생하고 위의 실시간 재생 요소들이 문제를 해결하지 "
-"못했다면, 다음 추가 문제 해결 단계를 시도해 보세요."
+"여전히 오디오 관련 문제가 발생하고 위의 실시간 재생 요소들이 문제를 해결하지 못했다면, 다음 추가 문제 해결 단계를 시도해 보세요."
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:97
+#: ../doc/playback.rst:101
 msgid "Step"
 msgstr "단계"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:99
+#: ../doc/playback.rst:103
 msgid "Latest Daily Build"
 msgstr "최신 데일리 빌드"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:99
+#: ../doc/playback.rst:103
 msgid ""
-"Verify you are running the latest daily build of OpenShot: https://www."
-"openshot.org/download#daily"
+"Verify you are running the latest daily build of OpenShot: "
+"https://www.openshot.org/download#daily"
 msgstr ""
-"OpenShot의 최신 데일리 빌드를 실행 중인지 확인하세요: https://www.openshot."
-"org/download#daily"
+"OpenShot의 최신 데일리 빌드를 실행 중인지 확인하세요: https://www.openshot.org/download#daily"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:100
+#: ../doc/playback.rst:104
 msgid "Clean Install"
 msgstr "깨끗한 설치"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:100
+#: ../doc/playback.rst:104
 msgid "See :ref:`preferences_reset_ref` for a clean install"
 msgstr "깨끗한 설치 방법은 :ref:`preferences_reset_ref` 를 참조하세요"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:101
+#: ../doc/playback.rst:105
 msgid ""
 "Check that the Playback Audio Device is set correctly for your sound output "
 "under Preferences in the Preview tab. Restart OpenShot after changing the "
@@ -324,24 +313,22 @@ msgid ""
 "from the video card, headphones, etc.) to rule out other audio issues. "
 "Disable `automatic sound suppression` for voice calls during microphone "
 "activity, and disable `Audio Enhancements` under the advanced settings tab "
-"of your audio device (not all audio devices have these settings). See :ref:"
-"`preferences_preview_ref`."
+"of your audio device (not all audio devices have these settings). See "
+":ref:`preferences_preview_ref`."
 msgstr ""
-"환경설정의 미리보기 탭에서 재생 오디오 장치가 사운드 출력에 맞게 올바르게 설"
-"정되어 있는지 확인하세요. 설정을 변경한 후에는 OpenShot을 재시작하세요. 다른 "
-"오디오 장치(USB, 비디오 카드의 HDMI 오디오, 헤드폰 등)를 사용해 다른 오디오 "
-"문제인지 확인할 수도 있습니다. 마이크 사용 중 음성 통화 시 ` 자동 소리 억제`"
-"를 비활성화하고, 오디오 장치의 고급 설정 탭에서 ` 오디오 향상` 기능을 비활성"
-"화하세요(모든 오디오 장치에 이 설정이 있는 것은 아닙니다). :ref:"
-"`preferences_preview_ref` 를 참조하세요."
+"환경설정의 미리보기 탭에서 재생 오디오 장치가 사운드 출력에 맞게 올바르게 설정되어 있는지 확인하세요. 설정을 변경한 후에는 "
+"OpenShot을 재시작하세요. 다른 오디오 장치(USB, 비디오 카드의 HDMI 오디오, 헤드폰 등)를 사용해 다른 오디오 문제인지 "
+"확인할 수도 있습니다. 마이크 사용 중 음성 통화 시 ` 자동 소리 억제`를 비활성화하고, 오디오 장치의 고급 설정 탭에서 ` 오디오 "
+"향상` 기능을 비활성화하세요(모든 오디오 장치에 이 설정이 있는 것은 아닙니다). :ref:`preferences_preview_ref`"
+" 를 참조하세요."
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:107
+#: ../doc/playback.rst:111
 msgid "Audio Buffer Size"
 msgstr "오디오 버퍼 크기"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:107
+#: ../doc/playback.rst:111
 msgid ""
 "The audio buffer size is the amount of audio samples which must first be "
 "buffered in OpenShot before audio playback can begin. If this value is too "
@@ -353,75 +340,97 @@ msgid ""
 "be adjusted up or down, for in-sync and lag-free audio playback. The range "
 "is 128 to 4096."
 msgstr ""
-"오디오 버퍼 크기는 오디오 재생이 시작되기 전에 OpenShot이 먼저 버퍼링해야 하"
-"는 오디오 샘플의 양입니다. 이 값이 너무 낮으면 오디오 끊김, 잡음, 터지는 소리"
-"가 발생할 수 있습니다. 값이 너무 높으면 오디오 재생 시작 전에 지연이나 랙이 "
-"발생할 수 있습니다. OpenShot은 이 값을 기본적으로 512로 설정하며, 대부분 시스"
-"템에서 원활한 오디오 재생과 최소한의 지연을 제공합니다. 그러나 일부 시스템에"
-"서는 동기화되고 지연 없는 오디오 재생을 위해 이 값을 조정해야 할 수 있습니"
-"다. 범위는 128에서 4096입니다."
+"오디오 버퍼 크기는 오디오 재생이 시작되기 전에 OpenShot이 먼저 버퍼링해야 하는 오디오 샘플의 양입니다. 이 값이 너무 낮으면 "
+"오디오 끊김, 잡음, 터지는 소리가 발생할 수 있습니다. 값이 너무 높으면 오디오 재생 시작 전에 지연이나 랙이 발생할 수 있습니다. "
+"OpenShot은 이 값을 기본적으로 512로 설정하며, 대부분 시스템에서 원활한 오디오 재생과 최소한의 지연을 제공합니다. 그러나 일부"
+" 시스템에서는 동기화되고 지연 없는 오디오 재생을 위해 이 값을 조정해야 할 수 있습니다. 범위는 128에서 4096입니다."
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:113
+#: ../doc/playback.rst:117
 msgid "Sample Rate"
 msgstr "샘플 속도"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:113
+#: ../doc/playback.rst:117
 msgid ""
 "Ensure that the `Default Audio Sample Rate` and `Default Audio Channels` on "
 "the Preview tab of the Preferences window match your hardware. You can also "
 "check these settings in the operating system control panel (i.e. Windows "
 "Sound Control Panel). See :ref:`preferences_preview_ref`."
 msgstr ""
-"환경설정 창의 미리보기 탭에서 ` 기본 오디오 샘플 속도` 와 ` 기본 오디오 채널"
-"` 이 하드웨어와 일치하는지 확인하세요. 운영 체제 제어판(예: Windows 사운드 제"
-"어판)에서도 이 설정을 확인할 수 있습니다. :ref:`preferences_preview_ref` 를 "
-"참조하세요."
+"환경설정 창의 미리보기 탭에서 ` 기본 오디오 샘플 속도` 와 ` 기본 오디오 채널` 이 하드웨어와 일치하는지 확인하세요. 운영 체제 "
+"제어판(예: Windows 사운드 제어판)에서도 이 설정을 확인할 수 있습니다. :ref:`preferences_preview_ref` "
+"를 참조하세요."
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:116
+#: ../doc/playback.rst:120
 msgid "Volume"
 msgstr "볼륨"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:116
+#: ../doc/playback.rst:120
 msgid ""
-"Ensure that the volume does not exceed 100% on overlapping clips (such as an "
-"audio track combined with a video track). Lower the volume on individual "
+"Ensure that the volume does not exceed 100% on overlapping clips (such as an"
+" audio track combined with a video track). Lower the volume on individual "
 "clips if needed. See :ref:`clip_volume_mixing_ref`."
 msgstr ""
-"중첩된 클립(예: 오디오 트랙과 비디오 트랙이 결합된 경우)에서 볼륨이 100%를 초"
-"과하지 않도록 하세요. 필요하면 개별 클립의 볼륨을 낮추세요. :ref:"
-"`clip_volume_mixing_ref` 를 참조하세요."
+"중첩된 클립(예: 오디오 트랙과 비디오 트랙이 결합된 경우)에서 볼륨이 100%를 초과하지 않도록 하세요. 필요하면 개별 클립의 볼륨을 "
+"낮추세요. :ref:`clip_volume_mixing_ref` 를 참조하세요."
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:118
+#: ../doc/playback.rst:122
 msgid "Headphones"
 msgstr "헤드폰"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:118
+#: ../doc/playback.rst:122
 msgid ""
-"If you're using headphones, plug them in before starting OpenShot. Launching "
-"OpenShot with no speakers, headphones, or valid audio playback device can "
+"If you're using headphones, plug them in before starting OpenShot. Launching"
+" OpenShot with no speakers, headphones, or valid audio playback device can "
 "cause OpenShot to freeze during playback."
 msgstr ""
-"헤드폰을 사용하는 경우 OpenShot을 시작하기 전에 연결하세요. 스피커, 헤드폰 또"
-"는 유효한 오디오 재생 장치 없이 OpenShot을 실행하면 재생 중에 OpenShot이 멈"
-"출 수 있습니다."
+"헤드폰을 사용하는 경우 OpenShot을 시작하기 전에 연결하세요. 스피커, 헤드폰 또는 유효한 오디오 재생 장치 없이 OpenShot을"
+" 실행하면 재생 중에 OpenShot이 멈출 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:120
+#: ../doc/playback.rst:124
 msgid "OS Updates"
 msgstr "운영 체제 업데이트"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:120
+#: ../doc/playback.rst:124
 msgid ""
 "Update your operating system and any pending security updates. Some audio "
 "issues, especially audio device specific issues, can be resolved with an "
 "operating system update."
 msgstr ""
-"운영 체제와 보안 업데이트를 최신 상태로 유지하세요. 일부 오디오 문제, 특히 오"
-"디오 장치 관련 문제는 운영 체제 업데이트로 해결될 수 있습니다."
+"운영 체제와 보안 업데이트를 최신 상태로 유지하세요. 일부 오디오 문제, 특히 오디오 장치 관련 문제는 운영 체제 업데이트로 해결될 수 "
+"있습니다."
+
+#: ../doc/playback.rst:129
+msgid "Smoother playback with optimized videos"
+msgstr "최적화된 비디오로 더 부드러운 재생"
+
+#: ../doc/playback.rst:130
+msgid ""
+"If your source videos are difficult to play smoothly, enable "
+":menuselection:`File --> Auto-Optimize`. OpenShot identifies videos on your "
+"computer using their recorded thumbnail timings, and creates smaller preview"
+" copies for videos above the threshold in :menuselection:`Edit --> "
+"Preferences --> Optimize`. This setting belongs to the current project and "
+"is saved with it. You can keep editing while copies are created; exporting "
+"still uses your original files."
+msgstr ""
+"원본 비디오가 부드럽게 재생되지 않는 경우 :menuselection:`파일 --> 자동 최적화`\\ 를 활성화하세요. OpenShot은"
+" 컴퓨터에 있는 비디오의 기록된 썸네일 타이밍을 사용하여 비디오를 식별하고, :menuselection:`편집 --> 환경 설정 --> "
+"최적화`\\ 에서 설정한 임계값을 초과하는 비디오에 대해 더 작은 미리보기 복사본을 생성합니다. 이 설정은 현재 프로젝트에 속하며 "
+"프로젝트와 함께 저장됩니다. 복사본이 생성되는 동안에도 편집을 계속할 수 있으며, 내보내기는 여전히 원본 파일을 사용합니다."
+
+#: ../doc/playback.rst:137
+msgid ""
+"See :ref:`optimize_ref` for the banner, progress indicators, and manual "
+"optimization options, or :ref:`preferences_optimize_ref` to adjust the "
+"threshold and default behavior."
+msgstr ""
+"배너, 진행 표시기 및 수동 최적화 옵션에 대해서는 :ref:`optimize_ref`\\ 를 참조하고, 임계값 및 기본 동작을 "
+"조정하려면 :ref:`preferences_optimize_ref`\\ 를 참조하세요."

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,12 +18,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:23
+#: ../doc/glossary.rst:23
 msgid "Glossary"
 msgstr "용어집"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:25
+#: ../doc/glossary.rst:25
 msgid ""
 "There is much technical terminology in today's fast-moving media-centric "
 "world. If you find yourself wondering what a video production term or an "
@@ -37,19 +37,19 @@ msgstr ""
 "용어들을 익히면 작업이 더 쉬워집니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:34
+#: ../doc/glossary.rst:34
 msgid "Definitions"
 msgstr "정의"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:36
+#: ../doc/glossary.rst:36
 msgid ""
 "These definitions are a work-in-progress. Please let us know if you need a "
 "term defined by contacting support@openshot.org."
 msgstr "이 정의들은 진행 중인 작업입니다. 정의가 필요한 용어가 있으면 support@openshot.org로 연락해 알려주세요."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:39
+#: ../doc/glossary.rst:39
 msgid ""
 ":ref:`letter_A_ref` :ref:`letter_B_ref` :ref:`letter_C_ref` "
 ":ref:`letter_D_ref` :ref:`letter_E_ref` :ref:`letter_F_ref` "
@@ -70,39 +70,39 @@ msgstr ""
 ":ref:`letter_Z_ref`"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:69
+#: ../doc/glossary.rst:69
 msgid "-A-"
 msgstr "-A-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:70
+#: ../doc/glossary.rst:70
 msgid "A-Roll:"
 msgstr "A-롤:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:71
+#: ../doc/glossary.rst:71
 msgid "The Principal video that is usually someone speaking."
 msgstr "주로 누군가가 말하는 주요 영상."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:72
+#: ../doc/glossary.rst:72
 msgid "Aliasing:"
 msgstr "에일리어싱:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:73
+#: ../doc/glossary.rst:73
 msgid ""
 "The undesirable jagged or stair-stepped appearance of angled lines in an "
 "image, graphic, or text."
 msgstr "이미지, 그래픽 또는 텍스트에서 각진 선이 톱니 모양이나 계단식으로 보이는 바람직하지 않은 현상."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:74
+#: ../doc/glossary.rst:74
 msgid "Alpha:"
 msgstr "알파:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:75
+#: ../doc/glossary.rst:75
 msgid ""
 "Alpha blending is a convex combination of two colors allowing for "
 "transparency effects in computer graphics.  The value of alpha in the color "
@@ -113,46 +113,46 @@ msgstr ""
 " 0.0은 완전 투명한 색상을, 1.0은 완전 불투명한 색상을 나타냅니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:76
+#: ../doc/glossary.rst:76
 msgid "Alpha Channel:"
 msgstr "알파 채널:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:77
+#: ../doc/glossary.rst:77
 msgid ""
 "An alpha channel is a channel in an image or movie clip that controls the "
 "opacity region."
 msgstr "알파 채널은 이미지나 동영상 클립에서 불투명도 영역을 제어하는 채널입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:78
+#: ../doc/glossary.rst:78
 msgid "Ambient Noise:"
 msgstr "주변 소음:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:79
+#: ../doc/glossary.rst:79
 msgid "Ambient noise is background noise specific to the shooting location."
 msgstr "주변 소음은 촬영 장소에 특화된 배경 소음입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:80
+#: ../doc/glossary.rst:80
 msgid "Animation:"
 msgstr "애니메이션:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:81
+#: ../doc/glossary.rst:81
 msgid ""
 "The technique of making inanimate objects or drawings appear to move in "
 "motion pictures or computer graphics."
 msgstr "무생물이나 그림을 영화나 컴퓨터 그래픽에서 움직이는 것처럼 보이게 하는 기법."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:82
+#: ../doc/glossary.rst:82
 msgid "Anti-Aliasing:"
 msgstr "안티 에일리어싱:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:83
+#: ../doc/glossary.rst:83
 msgid ""
 "Anti-aliasing is a process for smoothing jagged lines in an image.  Anti-"
 "aliasing can also mean a method of filtering out erroneous frequencies in an"
@@ -162,23 +162,23 @@ msgstr ""
 "있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:84
+#: ../doc/glossary.rst:84
 msgid "Artifact:"
 msgstr "아티팩트:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:85
+#: ../doc/glossary.rst:85
 msgid ""
 "An artifact is undesired data in an image because of digital processing."
 msgstr "아티팩트는 디지털 처리로 인해 이미지에 나타나는 원치 않는 데이터입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:86
+#: ../doc/glossary.rst:86
 msgid "Aspect Ratio:"
 msgstr "종횡비:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:87
+#: ../doc/glossary.rst:87
 msgid ""
 "The ratio of width to height in a flat surface or 2-dimensional abstract "
 "construction, such as an image, video, character, or pixel.  The standard "
@@ -190,24 +190,24 @@ msgstr ""
 "2.35:1입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:88
+#: ../doc/glossary.rst:88
 msgid "ATSC:"
 msgstr "ATSC:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:89
+#: ../doc/glossary.rst:89
 msgid ""
 "ATSC is a digital broadcast standard that replaced the older analog NTSC "
 "standard.  The standard covers both standard and high-definition formats."
 msgstr "ATSC는 구형 아날로그 NTSC 표준을 대체한 디지털 방송 표준입니다. 이 표준은 표준 및 고화질 형식을 모두 포함합니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:91
+#: ../doc/glossary.rst:91
 msgid "Audio Sample Rate:"
 msgstr "오디오 샘플링 속도:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:91
+#: ../doc/glossary.rst:91
 msgid ""
 "The number of samples taken per second to reproduce audio digitally.  The "
 "higher the sample rate, the higher the quality of the digital audio.  A rate"
@@ -218,17 +218,17 @@ msgstr ""
 "샘플은 CD 품질의 오디오를 생성하며 인간의 청취 범위를 포착합니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:96
+#: ../doc/glossary.rst:96
 msgid "-B-"
 msgstr "-B-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:97
+#: ../doc/glossary.rst:97
 msgid "B-roll:"
 msgstr "B-롤:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:98
+#: ../doc/glossary.rst:98
 msgid ""
 "B-roll is supplemental footage that provides supporting details and greater "
 "flexibility when editing video.  Common examples include the footage used to"
@@ -238,24 +238,24 @@ msgstr ""
 "위해 사용되는 영상이 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:99
+#: ../doc/glossary.rst:99
 msgid "Bit:"
 msgstr "비트:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:100
+#: ../doc/glossary.rst:100
 msgid ""
 "The elementary unit for digital storage.  A BIT can be either a 1 (one) or a"
 " 0 (zero)."
 msgstr "디지털 저장의 기본 단위입니다. 비트는 1(일) 또는 0(영)일 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:101
+#: ../doc/glossary.rst:101
 msgid "Bit Depth:"
 msgstr "비트 깊이:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:102
+#: ../doc/glossary.rst:102
 msgid ""
 "In digital graphics and video, bit depth indicates the number of colors an "
 "image can display.  A high-contrast (no gray tones) black and white image is"
@@ -269,12 +269,12 @@ msgstr ""
 "색상을 표시할 수 있습니다. 마찬가지로 디지털 오디오에서 비트 깊이는 샘플당 비트 수를 나타내며, 숫자가 높을수록 음질이 향상됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:103
+#: ../doc/glossary.rst:103
 msgid "Bitrate:"
 msgstr "비트레이트:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:104
+#: ../doc/glossary.rst:104
 msgid ""
 "The frequency at which bits (binary digits) pass a given physical or "
 "metaphorical point, measured in bps (bits per second).  For every second in "
@@ -285,12 +285,12 @@ msgstr ""
 " 또는 데이터 레이트는 초당 사용되는 데이터 양입니다. 비트레이트는 킬로비트/초 단위로 가변 또는 고정일 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:105
+#: ../doc/glossary.rst:105
 msgid "Blue Screen:"
 msgstr "블루 스크린:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:106
+#: ../doc/glossary.rst:106
 msgid ""
 "A blue screen is a blue background that the subject stands in front of that "
 "the computer later replaces with another background in post-production.  See"
@@ -300,29 +300,29 @@ msgstr ""
 "참조하세요."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:108
+#: ../doc/glossary.rst:108
 msgid "Blue Screen Compositing:"
 msgstr "블루 스크린 합성:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:108
+#: ../doc/glossary.rst:108
 msgid ""
 "The process of making all blue elements in an image transparent and placing "
 "a different background underneath."
 msgstr "이미지 내 모든 파란색 요소를 투명하게 처리하고 그 아래에 다른 배경을 배치하는 과정."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:113
+#: ../doc/glossary.rst:113
 msgid "-C-"
 msgstr "-C-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:114
+#: ../doc/glossary.rst:114
 msgid "Capture:"
 msgstr "캡처:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:115
+#: ../doc/glossary.rst:115
 msgid ""
 "The process of transferring source video from a camcorder or tape deck to a "
 "computer.  If the source video is analog, the capture process converts the "
@@ -332,12 +332,12 @@ msgstr ""
 "변환합니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:116
+#: ../doc/glossary.rst:116
 msgid "Channel:"
 msgstr "채널:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:117
+#: ../doc/glossary.rst:117
 msgid ""
 "A channel is one of several grayscale components used to make up a color "
 "image.  Red, green, and blue channels make up RGB images, with an optional "
@@ -347,12 +347,12 @@ msgstr ""
 " 위한 알파 채널이 선택적으로 포함됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:118
+#: ../doc/glossary.rst:118
 msgid "Chromakey:"
 msgstr "크로마키:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:119
+#: ../doc/glossary.rst:119
 msgid ""
 "Chromakey is a method of creating transparency in a video source by "
 "selecting a specific \"key color\" to create an alpha matte.  It is "
@@ -363,12 +363,12 @@ msgstr ""
 "표시하거나 시각 효과 합성에 자주 사용됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:120
+#: ../doc/glossary.rst:120
 msgid "Clip:"
 msgstr "클립:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:121
+#: ../doc/glossary.rst:121
 msgid ""
 "A digitized or captured portion of video, audio, or both.  Clips are media "
 "files added to the Timeline, usually part of a more extensive recording."
@@ -377,12 +377,12 @@ msgstr ""
 "일부입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:122
+#: ../doc/glossary.rst:122
 msgid "Codec:"
 msgstr "코덱:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:123
+#: ../doc/glossary.rst:123
 msgid ""
 "Codec is a video compression technology used to compress data in a video "
 "file.  Codec stands for \"Compression Decompression.\" An example of a "
@@ -392,22 +392,22 @@ msgstr ""
 " 예로 H.264가 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:124
+#: ../doc/glossary.rst:124
 msgid "Color Correction:"
 msgstr "색상 보정:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:125
+#: ../doc/glossary.rst:125
 msgid ""
 "The process of altering the color of a video, especially one shot under less"
 " than ideal conditions, such as low light."
 msgstr "특히 저조도와 같은 이상적인 조건이 아닌 환경에서 촬영된 비디오의 색상을 변경하는 과정입니다."
 
-#: ../glossary.rst:126
+#: ../doc/glossary.rst:126
 msgid "Color Grade / Color Grading:"
 msgstr "색상 보정 / 색상 그레이딩:"
 
-#: ../glossary.rst:127
+#: ../doc/glossary.rst:127
 msgid ""
 "The process of stylizing or enhancing the look and mood of a video beyond "
 "technical correction. Color grading adjusts tonal balance, hue, saturation, "
@@ -418,24 +418,24 @@ msgstr ""
 " 같은 느낌 또는 차갑고 채도가 낮은 톤)을 달성하기 위해 톤 밸런스, 색조, 채도 및 대비를 조정합니다. 색상 보정도 참조하세요."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:128
+#: ../doc/glossary.rst:128
 msgid "Compositing:"
 msgstr "합성:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:129
+#: ../doc/glossary.rst:129
 msgid ""
 "Construction of a composite image by combining multiple images and other "
 "elements."
 msgstr "여러 이미지와 기타 요소를 결합하여 합성 이미지를 만드는 과정입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:130
+#: ../doc/glossary.rst:130
 msgid "Coverage:"
 msgstr "커버리지:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:131
+#: ../doc/glossary.rst:131
 msgid ""
 "Coverage is the process of shooting additional footage and camera angles to "
 "cover the action in the scene.  Coverage is so that the editor has a more "
@@ -445,24 +445,24 @@ msgstr ""
 "선택지를 가질 수 있도록 합니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:132
+#: ../doc/glossary.rst:132
 msgid "Compression:"
 msgstr "압축:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:133
+#: ../doc/glossary.rst:133
 msgid ""
 "The process of reducing data, such as in an audio or video file, into a form"
 " that requires less space."
 msgstr "오디오 또는 비디오 파일과 같은 데이터를 더 적은 공간을 차지하는 형태로 줄이는 과정입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:134
+#: ../doc/glossary.rst:134
 msgid "Crop Factor:"
 msgstr "크롭 팩터:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:135
+#: ../doc/glossary.rst:135
 msgid ""
 "Crop factor is a number (typically from 1.3-2.0) that represents the ratio "
 "of a sensor's imaging area to that of a full-frame sensor.  Try multiplying "
@@ -473,24 +473,24 @@ msgstr ""
 "크롭 팩터를 곱해 보세요. 렌즈와 센서 조합의 초점 거리를 알 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:136
+#: ../doc/glossary.rst:136
 msgid "Crawl:"
 msgstr "크롤:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:137
+#: ../doc/glossary.rst:137
 msgid ""
 "Crawl is a text effect where the text moves right-to-left (in the English-"
 "speaking world)."
 msgstr "크롤은 텍스트가 오른쪽에서 왼쪽으로 움직이는 텍스트 효과입니다 (영어권에서)."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:138
+#: ../doc/glossary.rst:138
 msgid "Cross-fade:"
 msgstr "크로스 페이드:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:139
+#: ../doc/glossary.rst:139
 msgid ""
 "A cross-fade is a simultaneous fade-in of one audio or video source as "
 "another fades out so that they overlap temporarily.  Also called a dissolve."
@@ -499,22 +499,22 @@ msgstr ""
 "디졸브라고도 합니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:140
+#: ../doc/glossary.rst:140
 msgid "Cut:"
 msgstr "컷:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:141
+#: ../doc/glossary.rst:141
 msgid "A cut is an instantaneous change from one shot to another."
 msgstr "컷은 한 샷에서 다른 샷으로 즉각적으로 전환되는 것입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:142
+#: ../doc/glossary.rst:142
 msgid "Cut-in (Insert Shot):"
 msgstr "컷인 (인서트 샷):"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:143
+#: ../doc/glossary.rst:143
 msgid ""
 "It is a type of shot that most often shows the objects the subject is in "
 "contact with or manipulating.  Cut-in shots are correspondingly helpful to "
@@ -523,12 +523,12 @@ msgstr ""
 "컷인은 피사체가 접촉하거나 조작하는 물체를 주로 보여주는 샷 유형입니다. 컷인 샷은 잠시 피사체에서 벗어나기 때문에 B-롤에 유용합니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:145
+#: ../doc/glossary.rst:145
 msgid "Cutting on Action:"
 msgstr "동작에서 자르기:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:145
+#: ../doc/glossary.rst:145
 msgid ""
 "Cutting on action is a technique used to create a more interesting scene. "
 "The concept is simple… when you cut in the middle of an action, it will "
@@ -538,17 +538,17 @@ msgstr ""
 " 더 흥미롭게 보입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:150
+#: ../doc/glossary.rst:150
 msgid "-D-"
 msgstr "-D-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:151
+#: ../doc/glossary.rst:151
 msgid "Data Rate:"
 msgstr "데이터 전송률:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:152
+#: ../doc/glossary.rst:152
 msgid ""
 "The amount of data moved over time (for example, 10 MB per second).  Often "
 "used to describe a hard drive's ability to retrieve and deliver information."
@@ -556,23 +556,23 @@ msgstr ""
 "시간당 이동하는 데이터 양(예: 초당 10MB)입니다. 하드 드라이브의 정보 검색 및 전달 능력을 설명할 때 자주 사용됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:153
+#: ../doc/glossary.rst:153
 msgid "Denominator:"
 msgstr "분모:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:154
+#: ../doc/glossary.rst:154
 msgid ""
 "The number or expression below the line in a fraction (such as 2 in ½)."
 msgstr "분수에서 선 아래에 있는 숫자나 식(예: ½에서 2)입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:155
+#: ../doc/glossary.rst:155
 msgid "Digital Video:"
 msgstr "디지털 비디오:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:156
+#: ../doc/glossary.rst:156
 msgid ""
 "Digital video is an electronic representation of moving visual images "
 "(video) in the form of encoded digital data.  In contrast, analog video "
@@ -583,39 +583,39 @@ msgstr ""
 "아날로그 신호로 움직이는 시각적 이미지를 나타냅니다. 디지털 비디오는 빠르게 연속적으로 표시되는 일련의 디지털 이미지로 구성됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:157
+#: ../doc/glossary.rst:157
 msgid "Digitize:"
 msgstr "디지털화:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:158
+#: ../doc/glossary.rst:158
 msgid "To convert analog video or audio to digital form."
 msgstr "아날로그 비디오 또는 오디오를 디지털 형태로 변환하는 것입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:160
+#: ../doc/glossary.rst:160
 msgid "Dissolve:"
 msgstr "디졸브:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:160
+#: ../doc/glossary.rst:160
 msgid ""
 "Dissolve is an image transition effect where one picture gradually "
 "disappears as another appears.  Also called a cross-fade."
 msgstr "디졸브는 한 이미지가 서서히 사라지면서 다른 이미지가 나타나는 이미지 전환 효과입니다. 크로스 페이드라고도 합니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:165
+#: ../doc/glossary.rst:165
 msgid "-E-"
 msgstr "-E-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:166
+#: ../doc/glossary.rst:166
 msgid "Editing:"
 msgstr "편집:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:167
+#: ../doc/glossary.rst:167
 msgid ""
 "Editing is the process or result of selectively sequencing video and audio "
 "clips into a new video file.  Typically involves reviewing raw footage and "
@@ -626,12 +626,12 @@ msgstr ""
 "원하는 부분을 새로운 미리 정해진 순서로 옮기는 작업을 포함합니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:168
+#: ../doc/glossary.rst:168
 msgid "Effect:"
 msgstr "효과:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:169
+#: ../doc/glossary.rst:169
 msgid ""
 "Synthetic sounds and animations created in the digital domain applied to a "
 "clip to change a specific parameter of video or audio.  Examples: the color "
@@ -641,12 +641,12 @@ msgstr ""
 " 요소의 색상 또는 오디오 트랙의 리버브."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:170
+#: ../doc/glossary.rst:170
 msgid "Encode:"
 msgstr "인코딩:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:171
+#: ../doc/glossary.rst:171
 msgid ""
 "To merge the individual video signals (for example, red, green, and blue) "
 "into a combined signal, or to convert a video file to a different format "
@@ -655,12 +655,12 @@ msgstr ""
 "개별 비디오 신호(예: 빨강, 초록, 파랑)를 결합된 신호로 합치거나, 코덱을 사용해 비디오 파일을 다른 형식으로 변환하는 것입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:173
+#: ../doc/glossary.rst:173
 msgid "Export:"
 msgstr "내보내기:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:173
+#: ../doc/glossary.rst:173
 msgid ""
 "Export refers to the process of assembling your edited video project into a "
 "single file that then plays back on its own, shared, or uploaded."
@@ -668,17 +668,17 @@ msgstr ""
 "내보내기란 편집한 비디오 프로젝트를 하나의 파일로 조립하여 독립적으로 재생하거나 공유하거나 업로드할 수 있는 과정을 말합니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:178
+#: ../doc/glossary.rst:178
 msgid "-F-"
 msgstr "-F-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:179
+#: ../doc/glossary.rst:179
 msgid "Fade:"
 msgstr "페이드:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:180
+#: ../doc/glossary.rst:180
 msgid ""
 "A fade is the gradual diminishing or heightening of visual or audio "
 "intensity.  Usage: fade-out, fade to black, fade-in, or fade up from black."
@@ -687,12 +687,12 @@ msgstr ""
 "검은색에서 페이드 업."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:181
+#: ../doc/glossary.rst:181
 msgid "Fade-in:"
 msgstr "페이드 인:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:182
+#: ../doc/glossary.rst:182
 msgid ""
 "1.(n.) a shot that begins in total darkness and gradually lightens to full "
 "brightness.  2. (v.) To gradually bring sound from inaudibility to the "
@@ -701,12 +701,12 @@ msgstr ""
 "1.(명사) 완전한 어둠에서 시작하여 점차 밝아지는 장면. 2.(동사) 소리를 들리지 않는 상태에서 원하는 볼륨까지 점차 올리는 것."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:183
+#: ../doc/glossary.rst:183
 msgid "Fade-out:"
 msgstr "페이드 아웃:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:184
+#: ../doc/glossary.rst:184
 msgid ""
 "1.(n.) a shot that begins in full brightness and gradually dims to total "
 "darkness.  2. (v.) To gradually bring sound from the required volume to "
@@ -715,12 +715,12 @@ msgstr ""
 "1.(명사) 완전한 밝기에서 시작하여 점차 어두워지는 장면. 2.(동사) 소리를 원하는 볼륨에서 들리지 않는 상태로 점차 줄이는 것."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:185
+#: ../doc/glossary.rst:185
 msgid "Filter:"
 msgstr "필터:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:186
+#: ../doc/glossary.rst:186
 msgid ""
 "A video filter is a software component that performs some operation on a "
 "multimedia stream.  Multiple filters used in a chain, known as a filter "
@@ -732,48 +732,48 @@ msgstr ""
 "필터는 각 필터가 상류 필터로부터 입력을 받아 처리한 후 하류 필터로 출력하는 과정을 말합니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:187
+#: ../doc/glossary.rst:187
 msgid "Final Cut:"
 msgstr "최종 편집:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:188
+#: ../doc/glossary.rst:188
 msgid ""
 "The final video production, assembled from high-quality clips, and ready for"
 " export to the selected delivery media."
 msgstr "고품질 클립으로 조립된 최종 비디오 제작물로, 선택한 전달 매체로 내보낼 준비가 된 상태입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:189
+#: ../doc/glossary.rst:189
 msgid "Finishing:"
 msgstr "마무리:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:190
+#: ../doc/glossary.rst:190
 msgid ""
 "The stage that brings together all assets of a piece.  Your output from this"
 " stage is your master/sub-master."
 msgstr "모든 자산을 하나로 모으는 단계입니다. 이 단계의 출력물이 마스터/서브 마스터가 됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:191
+#: ../doc/glossary.rst:191
 msgid "Footage:"
 msgstr "영상 자료:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:192
+#: ../doc/glossary.rst:192
 msgid ""
 "Derived from having feet of film, this is almost synonymous with video "
 "clips."
 msgstr "필름 길이 단위인 '피트'에서 유래한 용어로, 비디오 클립과 거의 동의어입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:193
+#: ../doc/glossary.rst:193
 msgid "Frame:"
 msgstr "프레임:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:194
+#: ../doc/glossary.rst:194
 msgid ""
 "In filmmaking, video production, animation, and related fields, a frame is "
 "one of the many still images which compose the complete moving picture."
@@ -781,24 +781,24 @@ msgstr ""
 "영화 제작, 비디오 제작, 애니메이션 및 관련 분야에서 프레임은 완전한 움직이는 영상을 구성하는 여러 정지 이미지 중 하나입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:195
+#: ../doc/glossary.rst:195
 msgid "Frames Per Second (fps):"
 msgstr "초당 프레임 수 (fps):"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:196
+#: ../doc/glossary.rst:196
 msgid ""
 "The number of frames played every second.  At 15 fps and lower, the human "
 "eye can detect individual frames, causing the video to appear jerky."
 msgstr "초당 재생되는 프레임 수입니다. 15fps 이하에서는 사람의 눈이 개별 프레임을 인식하여 영상이 끊기는 것처럼 보입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:197
+#: ../doc/glossary.rst:197
 msgid "Frame Rate:"
 msgstr "프레임 속도:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:198
+#: ../doc/glossary.rst:198
 msgid ""
 "Frame rate (expressed in frames per second or FPS) is the frequency (rate "
 "expressed in Hz) at which consecutive images called frames appear on "
@@ -811,29 +811,29 @@ msgstr ""
 "50, 60."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:200
+#: ../doc/glossary.rst:200
 msgid "Frequency:"
 msgstr "주파수:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:200
+#: ../doc/glossary.rst:200
 msgid ""
 "The number of audio cycles per second, expressed in hertz (Hz).  Frequency "
 "determines the pitch of a sound."
 msgstr "초당 오디오 사이클 수로, 헤르츠(Hz) 단위로 표현됩니다. 주파수는 소리의 음높이를 결정합니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:205
+#: ../doc/glossary.rst:205
 msgid "-G-"
 msgstr "-G-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:206
+#: ../doc/glossary.rst:206
 msgid "Gamma:"
 msgstr "감마:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:207
+#: ../doc/glossary.rst:207
 msgid ""
 "A measurement of the intensity of mid-tones in an image.  Adjusting the "
 "gamma adjusts the level of the mid-tones while leaving the blacks and whites"
@@ -842,12 +842,12 @@ msgstr ""
 "이미지 중간 톤의 강도를 측정하는 값입니다. 감마를 조절하면 검은색과 흰색은 그대로 두고 중간 톤의 밝기만 조절할 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:208
+#: ../doc/glossary.rst:208
 msgid "GPU:"
 msgstr "GPU:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:209
+#: ../doc/glossary.rst:209
 msgid ""
 "Graphics processing unit.  A microprocessor with built-in capabilities for "
 "handling 3D graphics more efficiently than a CPU (central processing unit)."
@@ -855,36 +855,36 @@ msgstr ""
 "그래픽 처리 장치. CPU(중앙 처리 장치)보다 3D 그래픽을 더 효율적으로 처리할 수 있는 내장 기능을 가진 마이크로프로세서입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:210
+#: ../doc/glossary.rst:210
 msgid "Gravity:"
 msgstr "중력:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:211
+#: ../doc/glossary.rst:211
 msgid ""
 "Gravity in OpenShot is a property of each clip that sets the clip's initial "
 "position on the screen."
 msgstr "OpenShot에서 중력은 각 클립의 초기 화면 위치를 설정하는 속성입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:212
+#: ../doc/glossary.rst:212
 msgid "Green screen"
 msgstr "그린 스크린"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:213
+#: ../doc/glossary.rst:213
 msgid ""
 "A green background that the subject stands in front of that is another "
 "background in post-production."
 msgstr "피사체가 서 있는 녹색 배경으로, 후반 작업에서 다른 배경으로 대체됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:215
+#: ../doc/glossary.rst:215
 msgid "Green Screen Compositing"
 msgstr "그린 스크린 합성"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:215
+#: ../doc/glossary.rst:215
 msgid ""
 "The process of making all green elements in an image transparent and placing"
 " a different background underneath, so it appears that the subject is in a "
@@ -892,41 +892,41 @@ msgid ""
 msgstr "이미지 내 모든 녹색 요소를 투명하게 만들어 다른 배경을 깔아 피사체가 다른 장소에 있는 것처럼 보이게 하는 과정입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:220
+#: ../doc/glossary.rst:220
 msgid "-H-"
 msgstr "-H-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:221
+#: ../doc/glossary.rst:221
 msgid "High Definition (HD):"
 msgstr "고화질 (HD):"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:222
+#: ../doc/glossary.rst:222
 msgid ""
 "A general term for a video signal with a significantly higher resolution "
 "than standard definition."
 msgstr "표준 화질보다 훨씬 높은 해상도를 가진 비디오 신호의 일반적인 용어입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:223
+#: ../doc/glossary.rst:223
 msgid "HDMI:"
 msgstr "HDMI:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:224
+#: ../doc/glossary.rst:224
 msgid ""
 "High Definition Multimedia Interface.  Interface for transmitting high "
 "definition digital audio and video data."
 msgstr "고화질 멀티미디어 인터페이스. 고화질 디지털 오디오 및 비디오 데이터를 전송하는 인터페이스입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:225
+#: ../doc/glossary.rst:225
 msgid "HDR:"
 msgstr "HDR:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:226
+#: ../doc/glossary.rst:226
 msgid ""
 "HDR (high dynamic range) is the compositing of two images, one that "
 "correctly exposes the highlights, and another that properly exposes the dark"
@@ -936,57 +936,57 @@ msgstr ""
 "이미지를 만드는 기술입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:227
+#: ../doc/glossary.rst:227
 msgid "HDTV:"
 msgstr "HDTV:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:228
+#: ../doc/glossary.rst:228
 msgid ""
 "High Definition TV.  A broadcast format that allows for a higher resolution "
 "signal than the traditional formats, NTSC, PAL, and SECAM."
 msgstr "고화질 TV. NTSC, PAL, SECAM과 같은 전통적인 포맷보다 더 높은 해상도 신호를 지원하는 방송 포맷입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:229
+#: ../doc/glossary.rst:229
 msgid "HDV:"
 msgstr "HDV:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:230
+#: ../doc/glossary.rst:230
 msgid ""
 "High Definition Video.  The format used to record HDTV-quality data with "
 "video camcorders."
 msgstr "고화질 비디오. 비디오 캠코더로 HDTV 품질 데이터를 녹화하는 데 사용되는 포맷입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:231
+#: ../doc/glossary.rst:231
 msgid "Headroom:"
 msgstr "헤드룸:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:232
+#: ../doc/glossary.rst:232
 msgid ""
 "The space between the top of a character's head and the top of the frame."
 msgstr "인물 머리 위와 프레임 상단 사이의 공간입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:233
+#: ../doc/glossary.rst:233
 msgid "Hiss:"
 msgstr "히스:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:234
+#: ../doc/glossary.rst:234
 msgid "Noise caused by imperfections in the recording medium."
 msgstr "녹음 매체의 불완전성으로 인해 발생하는 잡음입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:236
+#: ../doc/glossary.rst:236
 msgid "Hue:"
 msgstr "색상:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:236
+#: ../doc/glossary.rst:236
 msgid ""
 "The shade of a color.  This is the general color category into which the "
 "color falls.  For example, pink, crimson, and plum are different colors, but"
@@ -997,41 +997,41 @@ msgstr ""
 "속합니다. 흰색, 검은색, 회색 톤은 색상이 아닙니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:241
+#: ../doc/glossary.rst:241
 msgid "-I-"
 msgstr "-I-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:242
+#: ../doc/glossary.rst:242
 msgid "Image Stabilizer:"
 msgstr "이미지 안정화:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:243
+#: ../doc/glossary.rst:243
 msgid ""
 "Also referred to as an electronic image stabilizer.  A technique used to "
 "remove the movement caused by camera shake."
 msgstr "전자식 이미지 안정화라고도 합니다. 카메라 흔들림으로 인한 움직임을 제거하는 기술입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:244
+#: ../doc/glossary.rst:244
 msgid "Importing:"
 msgstr "가져오기:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:245
+#: ../doc/glossary.rst:245
 msgid ""
 "Importing is the process of transferring videos from your camera onto your "
 "computer or into a piece of editing software."
 msgstr "가져오기는 카메라에서 컴퓨터나 편집 소프트웨어로 비디오를 전송하는 과정입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:246
+#: ../doc/glossary.rst:246
 msgid "Interframe Compression:"
 msgstr "프레임 간 압축:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:247
+#: ../doc/glossary.rst:247
 msgid ""
 "A compression scheme, such as MPEG that reduces the amount of video "
 "information by storing only the differences between a frame and those "
@@ -1039,12 +1039,12 @@ msgid ""
 msgstr "MPEG와 같은 압축 방식으로, 한 프레임과 그 이전 프레임 간의 차이만 저장하여 비디오 정보량을 줄입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:248
+#: ../doc/glossary.rst:248
 msgid "Interpolation:"
 msgstr "보간:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:249
+#: ../doc/glossary.rst:249
 msgid ""
 "Used in animation to calculate the motion in between two user-generated "
 "keyframes so that the editor does not need to animate each frame manually.  "
@@ -1054,53 +1054,53 @@ msgstr ""
 " 인해 작업 속도가 빨라지고 결과 애니메이션이 부드러워집니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:251
+#: ../doc/glossary.rst:251
 msgid "Intertitles:"
 msgstr "인터타이틀:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:251
+#: ../doc/glossary.rst:251
 msgid ""
 "Titles that appear on their own between footage.  Commonly seen in silent "
 "movies to substitute dialogue, also used as chapter headings."
 msgstr "영상 사이에 독립적으로 나타나는 자막입니다. 무성 영화에서 대사를 대신하거나 챕터 제목으로 자주 사용됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:256
+#: ../doc/glossary.rst:256
 msgid "-J-"
 msgstr "-J-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:257
+#: ../doc/glossary.rst:257
 msgid "J-Cut:"
 msgstr "J-컷:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:258
+#: ../doc/glossary.rst:258
 msgid ""
 "An edit in which the audio starts before the video, giving the video a "
 "dramatic introduction.  Also known as an audio lead."
 msgstr "오디오가 비디오보다 먼저 시작되어 비디오에 극적인 도입을 주는 편집 기법입니다. 오디오 리드라고도 합니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:259
+#: ../doc/glossary.rst:259
 msgid "Jog"
 msgstr "조그"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:260
+#: ../doc/glossary.rst:260
 msgid ""
 "To move forward or backward through video by playing it one field or frame "
 "at a time."
 msgstr "비디오를 한 필드 또는 한 프레임씩 재생하며 앞으로 또는 뒤로 이동하는 것."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:262
+#: ../doc/glossary.rst:262
 msgid "Jump Cut:"
 msgstr "점프 컷:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:262
+#: ../doc/glossary.rst:262
 msgid ""
 "A jump cut is an unnatural, abrupt switch between shots identical in the "
 "subject but slightly different in screen location, so the subject appears to"
@@ -1110,15 +1110,15 @@ msgstr ""
 "갑작스러운 전환입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:267
+#: ../doc/glossary.rst:267
 msgid "-K-"
 msgstr "-K-"
 
-#: ../glossary.rst:268
+#: ../doc/glossary.rst:268
 msgid "Ken Burns Effect:"
 msgstr "켄 번즈 효과:"
 
-#: ../glossary.rst:269
+#: ../doc/glossary.rst:269
 msgid ""
 "A pan-and-zoom animation technique applied to still images or video clips to"
 " create the illusion of camera movement. Named after documentary filmmaker "
@@ -1130,24 +1130,24 @@ msgstr ""
 " 프리셋을 사용하여 원클릭 켄 번즈 애니메이션을 만들 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:270
+#: ../doc/glossary.rst:270
 msgid "Key:"
 msgstr "키:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:271
+#: ../doc/glossary.rst:271
 msgid ""
 "A method for creating transparency, such as a bluescreen key or a chroma "
 "key."
 msgstr "블루스크린 키나 크로마 키와 같이 투명도를 만드는 방법입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:273
+#: ../doc/glossary.rst:273
 msgid "Keyframe:"
 msgstr "키프레임:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:273
+#: ../doc/glossary.rst:273
 msgid ""
 "A keyframe is a frame that contains a record of specific settings (e.g., "
 "scale, rotation, brightness).  Start and endpoints for animated effects.  By"
@@ -1158,29 +1158,29 @@ msgstr ""
 "설정하여 비디오 재생 중에 이러한 매개변수를 조정해 특정 부분을 애니메이션화할 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:278
+#: ../doc/glossary.rst:278
 msgid "-L-"
 msgstr "-L-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:279
+#: ../doc/glossary.rst:279
 msgid "L-Cut:"
 msgstr "L-컷:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:280
+#: ../doc/glossary.rst:280
 msgid ""
 "An L-cut is an edit in which the video ends before the audio.  L-cuts act as"
 " a subtle transition from one scene to the next."
 msgstr "L-컷은 비디오가 오디오보다 먼저 끝나는 편집 기법입니다. 장면 간의 부드러운 전환 역할을 합니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:281
+#: ../doc/glossary.rst:281
 msgid "Letterbox:"
 msgstr "레터박스:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:282
+#: ../doc/glossary.rst:282
 msgid ""
 "A technique used to preserve the original aspect ratio of a motion picture "
 "when played on a TV.  Letterboxing adds black bars to the top and bottom of "
@@ -1188,12 +1188,12 @@ msgid ""
 msgstr "TV에서 영화를 재생할 때 원본 종횡비를 유지하기 위한 기법입니다. 레터박스는 화면 상단과 하단에 검은색 바를 추가합니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:283
+#: ../doc/glossary.rst:283
 msgid "Linear Editing:"
 msgstr "선형 편집:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:284
+#: ../doc/glossary.rst:284
 msgid ""
 "A form of video editing which lays out cuts sequentially, one by one, to "
 "produce the final scene. This contrasts with non-linear editing which allows"
@@ -1202,24 +1202,24 @@ msgstr ""
 "컷을 순차적으로 하나씩 배열하여 최종 장면을 만드는 비디오 편집 방식입니다. 임의 순서로 편집할 수 있는 비선형 편집과 대조됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:285
+#: ../doc/glossary.rst:285
 msgid "Log:"
 msgstr "로그:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:286
+#: ../doc/glossary.rst:286
 msgid ""
 "A record of start and end timecode, reel numbers, scene descriptions, and "
 "other information for a specified clip."
 msgstr "지정된 클립의 시작 및 종료 타임코드, 릴 번호, 장면 설명 및 기타 정보를 기록한 것입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:287
+#: ../doc/glossary.rst:287
 msgid "Lossless:"
 msgstr "무손실:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:288
+#: ../doc/glossary.rst:288
 msgid ""
 "A compression scheme that results in no loss of data from decompressing the "
 "file.  Lossless files are generally quite large (but still smaller than "
@@ -1230,12 +1230,12 @@ msgstr ""
 "해독하는 데 상당한 처리 능력이 필요할 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:289
+#: ../doc/glossary.rst:289
 msgid "Lossy:"
 msgstr "손실 압축:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:290
+#: ../doc/glossary.rst:290
 msgid ""
 "Lossy compression is a compression scheme that degrades quality.  Lossy "
 "algorithms compress digital data by eliminating the data least sensitive to "
@@ -1244,11 +1244,11 @@ msgstr ""
 "손실 압축은 품질이 저하되는 압축 방식입니다. 손실 알고리즘은 인간의 눈에 덜 민감한 데이터를 제거하여 디지털 데이터를 압축하며 가장 "
 "높은 압축률을 제공합니다."
 
-#: ../glossary.rst:291
+#: ../doc/glossary.rst:291
 msgid "Lower Third:"
 msgstr "로어 서드:"
 
-#: ../glossary.rst:292
+#: ../doc/glossary.rst:292
 msgid ""
 "A text or graphic overlay positioned in the lower third of the screen, "
 "commonly used to display a speaker's name, title, or other identifying "
@@ -1260,11 +1260,11 @@ msgstr ""
 "사용됩니다. 로어 서드는 뉴스, 다큐멘터리, 기업 비디오에서 필수 요소입니다. OpenShot에서는 타이틀 편집기를 사용해 만들고, "
 "타이틀 클립을 비디오 위 트랙에 배치하세요."
 
-#: ../glossary.rst:294
+#: ../doc/glossary.rst:294
 msgid "LUT (Look-Up Table):"
 msgstr "LUT (룩업 테이블):"
 
-#: ../glossary.rst:294
+#: ../doc/glossary.rst:294
 msgid ""
 "A file that maps one set of colors to another, used to apply a specific "
 "color grade or look to a video clip in one step. LUTs can replicate film "
@@ -1276,50 +1276,50 @@ msgstr ""
 "지원합니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:299
+#: ../doc/glossary.rst:299
 msgid "-M-"
 msgstr "-M-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:300
+#: ../doc/glossary.rst:300
 msgid "Mark In:"
 msgstr "마크 인:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:301
+#: ../doc/glossary.rst:301
 msgid ""
 "Placing a marker at the beginning of where you want your clip to start."
 msgstr "클립이 시작되길 원하는 지점의 시작 부분에 마커를 배치하는 것."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:302
+#: ../doc/glossary.rst:302
 msgid "Mark Out:"
 msgstr "마크 아웃:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:303
+#: ../doc/glossary.rst:303
 msgid "Placing a marker at the beginning of where you want your clip to end."
 msgstr "클립이 끝나길 원하는 지점의 시작 부분에 마커를 배치하는 것."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:304
+#: ../doc/glossary.rst:304
 msgid "Match Action:"
 msgstr "매치 액션:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:305
+#: ../doc/glossary.rst:305
 msgid ""
 "Match action (or match cut) is a technique where an editor will cut from one"
 " visually similar scene to another."
 msgstr "매치 액션(또는 매치 컷)은 편집자가 시각적으로 유사한 장면에서 다른 장면으로 전환하는 기법입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:306
+#: ../doc/glossary.rst:306
 msgid "Memory Bank:"
 msgstr "메모리 뱅크:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:307
+#: ../doc/glossary.rst:307
 msgid ""
 "A Memory Bank is a video that documents specific periods or events in "
 "someone's life.  It can be set to music, make use of natural sound, record "
@@ -1329,12 +1329,12 @@ msgstr ""
 " 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:308
+#: ../doc/glossary.rst:308
 msgid "Marker:"
 msgstr "마커:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:309
+#: ../doc/glossary.rst:309
 msgid ""
 "An object used to mark a location.  Clip markers signify essential points "
 "within a clip.  Timeline markers indicate scenes, locations for titles, or "
@@ -1345,36 +1345,36 @@ msgstr ""
 " 중요한 지점을 표시합니다. 클립 마커와 타임라인 마커를 사용하여 클립의 위치 지정 및 트리밍을 합니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:310
+#: ../doc/glossary.rst:310
 msgid "Mask:"
 msgstr "마스크:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:311
+#: ../doc/glossary.rst:311
 msgid ""
 "The transparent area of an image, typically defined by a graphic shape or a "
 "bluescreen background.  Also called a matte."
 msgstr "이미지의 투명 영역으로, 일반적으로 그래픽 형태나 블루스크린 배경으로 정의됩니다. 매트라고도 합니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:312
+#: ../doc/glossary.rst:312
 msgid "Matte:"
 msgstr "매트:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:313
+#: ../doc/glossary.rst:313
 msgid ""
 "Matte is an image mask used in visual effects to control applying an effect "
 "to certain parts of the image."
 msgstr "매트는 시각 효과에서 이미지의 특정 부분에 효과를 적용하는 것을 제어하는 이미지 마스크입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:314
+#: ../doc/glossary.rst:314
 msgid "Montage:"
 msgstr "몽타주:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:315
+#: ../doc/glossary.rst:315
 msgid ""
 "A montage is a self-contained sequence of shots assembled in juxtaposition "
 "to each other to communicate an idea or mood.  The implied relationship "
@@ -1384,12 +1384,12 @@ msgstr ""
 "암시된 관계가 새로운 메시지를 만듭니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:317
+#: ../doc/glossary.rst:317
 msgid "Motion Artifact:"
 msgstr "모션 아티팩트:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:317
+#: ../doc/glossary.rst:317
 msgid ""
 "Visual interference caused by the difference between the frame rate of the "
 "camera and the motion of the object.  The most common display of this is "
@@ -1401,27 +1401,27 @@ msgstr ""
 " 깜빡이거나 선이 스캔되는 현상으로, 이는 카메라와 텔레비전 간 프레임 속도 차이와 동기화 부족 때문입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:322
+#: ../doc/glossary.rst:322
 msgid "-N-"
 msgstr "-N-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:323
+#: ../doc/glossary.rst:323
 msgid "Noise:"
 msgstr "노이즈:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:324
+#: ../doc/glossary.rst:324
 msgid "Undesired data in a video or audio signal.  See also artifact."
 msgstr "비디오 또는 오디오 신호에 원치 않는 데이터. 아티팩트도 참조하세요."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:325
+#: ../doc/glossary.rst:325
 msgid "Non-linear Editing:"
 msgstr "비선형 편집:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:326
+#: ../doc/glossary.rst:326
 msgid ""
 "An editing system that performs edits at any time, in any order.  Access is "
 "random, which means that the system can jump to specific pieces of data "
@@ -1431,23 +1431,23 @@ msgstr ""
 "이동할 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:327
+#: ../doc/glossary.rst:327
 msgid "Numerator:"
 msgstr "분자:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:328
+#: ../doc/glossary.rst:328
 msgid ""
 "The number or expression above the line in a fraction (such as 1 in ½)."
 msgstr "분수에서 선 위에 있는 숫자나 식 (예: ½에서 1)."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:330
+#: ../doc/glossary.rst:330
 msgid "NTSC:"
 msgstr "NTSC:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:330
+#: ../doc/glossary.rst:330
 msgid ""
 "NTSC is an abbreviation for National Television Standards Committee.  NTSC "
 "is the group that initially developed the black & white and subsequently "
@@ -1461,17 +1461,17 @@ msgstr ""
 " 인터레이스 라인으로 구성되며 초당 29.97 프레임으로 표시됩니다. 현재 ATSC가 NTSC를 대체했습니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:335
+#: ../doc/glossary.rst:335
 msgid "-O-"
 msgstr "-O-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:336
+#: ../doc/glossary.rst:336
 msgid "Offline Editing:"
 msgstr "오프라인 편집:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:337
+#: ../doc/glossary.rst:337
 msgid ""
 "Editing a rough cut using low-quality clips, and then producing the final "
 "cut with high-quality clips, usually on a more sophisticated editing system "
@@ -1479,24 +1479,24 @@ msgid ""
 msgstr "저화질 클립으로 러프 컷을 편집한 후, 보통 더 정교한 편집 시스템에서 고화질 클립으로 최종 컷을 제작하는 편집 방식입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:338
+#: ../doc/glossary.rst:338
 msgid "Online Editing:"
 msgstr "온라인 편집:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:339
+#: ../doc/glossary.rst:339
 msgid ""
 "Doing all editing (including the rough cut) on the same clips that produce "
 "the final cut."
 msgstr "최종 컷을 만드는 동일한 클립에서 모든 편집(러프 컷 포함)을 수행하는 방식입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:341
+#: ../doc/glossary.rst:341
 msgid "Opacity:"
 msgstr "불투명도:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:341
+#: ../doc/glossary.rst:341
 msgid ""
 "An inverse measure of the level of transparency in an image, which is of "
 "importance when compositing.  An image's alpha channel stores its opacity "
@@ -1504,17 +1504,17 @@ msgid ""
 msgstr "이미지의 투명도 수준의 역수로, 합성 시 중요합니다. 이미지의 알파 채널이 불투명도 정보를 저장합니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:346
+#: ../doc/glossary.rst:346
 msgid "-P-"
 msgstr "-P-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:347
+#: ../doc/glossary.rst:347
 msgid "PAL:"
 msgstr "PAL:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:348
+#: ../doc/glossary.rst:348
 msgid ""
 "PAL is an abbreviation for Phase Alternate Line.  This is the video format "
 "standard used in many European countries.  Six-hundred twenty-five lines "
@@ -1524,22 +1524,22 @@ msgstr ""
 "625개의 라인으로 구성되며 초당 25 프레임으로 표시됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:349
+#: ../doc/glossary.rst:349
 msgid "Pan:"
 msgstr "팬:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:350
+#: ../doc/glossary.rst:350
 msgid "A horizontal movement of the camera on a fixed axis."
 msgstr "고정 축을 따라 카메라가 수평으로 움직이는 것."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:351
+#: ../doc/glossary.rst:351
 msgid "Pan and Scan:"
 msgstr "팬 앤 스캔:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:352
+#: ../doc/glossary.rst:352
 msgid ""
 "A method of converting widescreen images to a 4:3 aspect ratio.  Cropping "
 "the video so that it fills the entire screen and panning it into position "
@@ -1548,36 +1548,36 @@ msgstr ""
 "와이드스크린 영상을 4:3 화면비로 변환하는 방법입니다. 영상을 잘라 화면 전체를 채우고 팬하여 장면의 핵심 부분을 보여줍니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:353
+#: ../doc/glossary.rst:353
 msgid "Picture in Picture (PIP):"
 msgstr "픽처 인 픽처 (PIP):"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:354
+#: ../doc/glossary.rst:354
 msgid ""
 "An effect of superimposing a small window of footage over a larger window "
 "and the two play at the same time."
 msgstr "작은 영상 창을 큰 영상 창 위에 겹쳐 동시에 재생하는 효과입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:355
+#: ../doc/glossary.rst:355
 msgid "Pixel:"
 msgstr "픽셀:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:356
+#: ../doc/glossary.rst:356
 msgid ""
 "One of the tiny dots that make up the representation of an image in a "
 "computer's memory.  The smallest unit of a digital image."
 msgstr "컴퓨터 메모리에서 이미지를 구성하는 아주 작은 점 중 하나입니다. 디지털 이미지의 가장 작은 단위입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:357
+#: ../doc/glossary.rst:357
 msgid "Pixel Aspect Ratio:"
 msgstr "픽셀 종횡비:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:358
+#: ../doc/glossary.rst:358
 msgid ""
 "Aspect ratio is the ratio between the width and height of your video; the "
 "Pixel Aspect Ratio is the ratio between the width and height of the pixels."
@@ -1585,23 +1585,23 @@ msgid ""
 msgstr "화면비는 비디오의 가로와 세로 비율이며, 픽셀 종횡비는 픽셀의 가로와 세로 비율입니다. 표준 픽셀 종횡비는 1:1입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:359
+#: ../doc/glossary.rst:359
 msgid "Pixelation:"
 msgstr "픽셀화:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:360
+#: ../doc/glossary.rst:360
 msgid ""
 "The display of large, blocky pixels in an image caused by over-enlarging it."
 msgstr "이미지를 과도하게 확대하여 큰 블록 형태의 픽셀이 보이는 현상입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:361
+#: ../doc/glossary.rst:361
 msgid "Playhead:"
 msgstr "플레이헤드:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:362
+#: ../doc/glossary.rst:362
 msgid ""
 "When editing audio or video in a current computer, the Playhead is a graphic"
 " line in the Timeline that represents the current accessed position, or "
@@ -1609,12 +1609,12 @@ msgid ""
 msgstr "오디오 또는 비디오 편집 시, 플레이헤드는 타임라인에서 현재 위치 또는 프레임을 나타내는 그래픽 선입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:363
+#: ../doc/glossary.rst:363
 msgid "Post-production (Post):"
 msgstr "포스트 프로덕션 (후반 작업):"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:364
+#: ../doc/glossary.rst:364
 msgid ""
 "Post-production (post) is any video production activity following the "
 "initial recording.  Typically, post involves editing, the addition of "
@@ -1625,51 +1625,51 @@ msgstr ""
 "효과, 타이틀, 다양한 시각 효과 등이 포함되어 완성된 제작물을 만듭니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:365
+#: ../doc/glossary.rst:365
 msgid "Poster Frame:"
 msgstr "포스터 프레임:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:366
+#: ../doc/glossary.rst:366
 msgid ""
 "A single frame of a clip, selected as a thumbnail to indicate the clip's "
 "contents."
 msgstr "클립의 내용을 나타내기 위해 썸네일로 선택된 단일 프레임입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:368
+#: ../doc/glossary.rst:368
 msgid "Project:"
 msgstr "프로젝트:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:368
+#: ../doc/glossary.rst:368
 msgid ""
 "A project is all the files, transitions, effects, and animations that you "
 "make or use within OpenShot."
 msgstr "프로젝트는 OpenShot 내에서 만들거나 사용하는 모든 파일, 전환, 효과 및 애니메이션을 포함합니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:373
+#: ../doc/glossary.rst:373
 msgid "-R-"
 msgstr "-R-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:374
+#: ../doc/glossary.rst:374
 msgid "Raw Footage:"
 msgstr "원본 영상:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:375
+#: ../doc/glossary.rst:375
 msgid "Raw footage is pre-edited footage, usually direct from the camera."
 msgstr "원본 영상은 보통 카메라에서 직접 촬영한 편집 전 영상입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:376
+#: ../doc/glossary.rst:376
 msgid "Real-time:"
 msgstr "실시간:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:377
+#: ../doc/glossary.rst:377
 msgid ""
 "Real-time occurs immediately, without delay for rendering.  If a transition "
 "occurs in real-time, there is no waiting, the computer creates the effect or"
@@ -1679,24 +1679,24 @@ msgstr ""
 "보여줍니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:378
+#: ../doc/glossary.rst:378
 msgid "Rendering:"
 msgstr "렌더링:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:379
+#: ../doc/glossary.rst:379
 msgid ""
 "The process by which the video editing software and hardware convert the raw"
 " video, effects, transitions, and filters into a new continuous video file."
 msgstr "비디오 편집 소프트웨어와 하드웨어가 원본 비디오, 효과, 전환 및 필터를 새로운 연속 비디오 파일로 변환하는 과정입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:380
+#: ../doc/glossary.rst:380
 msgid "Render Time:"
 msgstr "렌더 시간:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:381
+#: ../doc/glossary.rst:381
 msgid ""
 "The render time is the time it takes an editing computer to composite source"
 " elements and commands into a single video file.  Rendering allows the "
@@ -1706,12 +1706,12 @@ msgstr ""
 "시퀀스가 원활하게 재생되도록 합니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:382
+#: ../doc/glossary.rst:382
 msgid "Resolution:"
 msgstr "해상도:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:383
+#: ../doc/glossary.rst:383
 msgid ""
 "Resolution refers to the actual number of horizontal and vertical pixels "
 "your video contains.  Common resolution Examples: (SD) 640×480, (HD) "
@@ -1726,34 +1726,34 @@ msgstr ""
 "8K로 표시됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:384
+#: ../doc/glossary.rst:384
 msgid "RGB:"
 msgstr "RGB:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:385
+#: ../doc/glossary.rst:385
 msgid ""
 "Monitors, cameras, and digital projectors use the primary colors of light "
 "(Red, Green, and Blue) to make images."
 msgstr "모니터, 카메라, 디지털 프로젝터는 빛의 기본 색상(빨강, 초록, 파랑)을 사용하여 이미지를 만듭니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:386
+#: ../doc/glossary.rst:386
 msgid "RGBA:"
 msgstr "RGBA:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:387
+#: ../doc/glossary.rst:387
 msgid ""
 "A file containing an RGB image plus an alpha channel for transparency "
 "information."
 msgstr "투명도 정보를 위한 알파 채널이 포함된 RGB 이미지 파일입니다."
 
-#: ../glossary.rst:388
+#: ../doc/glossary.rst:388
 msgid "Ripple Edit:"
 msgstr "리플 에디트:"
 
-#: ../glossary.rst:389
+#: ../doc/glossary.rst:389
 msgid ""
 "An edit where trimming a clip automatically shifts all subsequent clips on "
 "the timeline forward or backward by the same amount, closing or opening a "
@@ -1764,63 +1764,63 @@ msgstr ""
 "지점 이후 클립 간의 동기화가 유지됩니다. 리플 트림이라고도 합니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:390
+#: ../doc/glossary.rst:390
 msgid "Roll:"
 msgstr "롤:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:391
+#: ../doc/glossary.rst:391
 msgid ""
 "Roll is a text effect commonly seen in end credits, where text typically "
 "moves from the bottom to the top of the screen."
 msgstr "롤은 엔딩 크레딧에서 흔히 볼 수 있는 텍스트 효과로, 텍스트가 보통 화면 아래에서 위로 이동합니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:393
+#: ../doc/glossary.rst:393
 msgid "Rough cut:"
 msgstr "러프 컷:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:393
+#: ../doc/glossary.rst:393
 msgid ""
 "A rough cut is a preliminary edit of footage in the approximate sequence, "
 "length, and content of a finished program."
 msgstr "러프 컷은 완성된 프로그램의 대략적인 순서, 길이, 내용을 반영한 예비 편집본입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:398
+#: ../doc/glossary.rst:398
 msgid "-S-"
 msgstr "-S-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:399
+#: ../doc/glossary.rst:399
 msgid "Sample Rate:"
 msgstr "샘플 레이트:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:400
+#: ../doc/glossary.rst:400
 msgid ""
 "In digital audio, the number of samples per second.  The higher the number, "
 "the better the sound quality."
 msgstr "디지털 오디오에서 초당 샘플 수입니다. 숫자가 높을수록 음질이 좋습니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:401
+#: ../doc/glossary.rst:401
 msgid "Scene:"
 msgstr "씬:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:402
+#: ../doc/glossary.rst:402
 msgid "Action that occurs in one location at one time."
 msgstr "한 장소에서 한 시점에 발생하는 동작입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:403
+#: ../doc/glossary.rst:403
 msgid "Scrub:"
 msgstr "스크럽:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:404
+#: ../doc/glossary.rst:404
 msgid ""
 "Scrubbing is an act of moving the cursor or playhead across the Timeline "
 "manually.  Once specific to audio tracks, the term now also refers to video "
@@ -1830,34 +1830,34 @@ msgstr ""
 "적용됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:405
+#: ../doc/glossary.rst:405
 msgid "Shot:"
 msgstr "샷:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:406
+#: ../doc/glossary.rst:406
 msgid "A recording of a single take."
 msgstr "한 번의 촬영으로 기록된 영상입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:407
+#: ../doc/glossary.rst:407
 msgid "Side Data:"
 msgstr "사이드 데이터:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:408
+#: ../doc/glossary.rst:408
 msgid ""
 "Auxiliary per-stream metadata (e.g. rotation, stereo3D, spherical) attached "
 "to packets or streams in containers like MP4."
 msgstr "MP4 같은 컨테이너 내 패킷이나 스트림에 첨부된 보조 스트림별 메타데이터(예: 회전, 스테레오3D, 구형 영상)입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:409
+#: ../doc/glossary.rst:409
 msgid "Slow-motion:"
 msgstr "슬로우 모션:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:410
+#: ../doc/glossary.rst:410
 msgid ""
 "A shot in which action takes place at a slower than average speed.  The "
 "camera achieves slow-motion by speeding up the frame rate during recording "
@@ -1866,12 +1866,12 @@ msgstr ""
 "평균 속도보다 느리게 동작이 진행되는 샷입니다. 카메라는 녹화 시 프레임 속도를 높이고 재생 시 느리게 재생하여 슬로우 모션을 만듭니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:411
+#: ../doc/glossary.rst:411
 msgid "Snap:"
 msgstr "스냅:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:412
+#: ../doc/glossary.rst:412
 msgid ""
 "Snapping quickly positions an object in alignment with grid lines, "
 "guidelines, or another object.  Snapping causes the object to automatically "
@@ -1882,12 +1882,12 @@ msgstr ""
 "드래그하면 자동으로 정확한 위치로 이동합니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:413
+#: ../doc/glossary.rst:413
 msgid "Spherical Video:"
 msgstr "구형 비디오:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:414
+#: ../doc/glossary.rst:414
 msgid ""
 "A full-sphere (360×180°) video format that requires special metadata (SV3D) "
 "so players know to render it as an interactive panorama."
@@ -1896,47 +1896,47 @@ msgstr ""
 "합니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:415
+#: ../doc/glossary.rst:415
 msgid "Splice:"
 msgstr "스플라이스:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:416
+#: ../doc/glossary.rst:416
 msgid ""
 "The process of physically attaching two pieces of film using tape or cement."
 msgstr "테이프나 접착제로 두 필름 조각을 물리적으로 연결하는 과정입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:417
+#: ../doc/glossary.rst:417
 msgid "Split cut (L-cut or J-cut):"
 msgstr "스플릿 컷 (L컷 또는 J컷):"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:418
+#: ../doc/glossary.rst:418
 msgid ""
 "An edit in which the audio starts before or after the picture cut.  Used for"
 " easing the transition from one scene or shot to another."
 msgstr "오디오가 영상 컷 전후에 시작되는 편집 기법으로, 장면이나 샷 간 전환을 부드럽게 합니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:419
+#: ../doc/glossary.rst:419
 msgid "Splitscreen:"
 msgstr "분할 화면:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:420
+#: ../doc/glossary.rst:420
 msgid ""
 "A unique effect that displays two or more scenes simultaneously on different"
 " parts of the screen."
 msgstr "화면의 여러 부분에 두 개 이상의 장면을 동시에 표시하는 독특한 효과입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:421
+#: ../doc/glossary.rst:421
 msgid "Sound Effects:"
 msgstr "음향 효과:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:422
+#: ../doc/glossary.rst:422
 msgid ""
 "Sound effects are contrived audio, usually prerecorded, incorporated with a "
 "video soundtrack to resemble a real occurrence.  Blowing on a microphone, "
@@ -1946,24 +1946,24 @@ msgstr ""
 "불어넣어 허리케인 장면에 바람 소리를 더할 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:423
+#: ../doc/glossary.rst:423
 msgid "Soundtrack:"
 msgstr "사운드트랙:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:424
+#: ../doc/glossary.rst:424
 msgid ""
 "The soundtrack is the audio portion of a video recording, often multifaceted"
 " with natural sound, voiceovers, background music, or other sounds."
 msgstr "사운드트랙은 비디오 녹화의 오디오 부분으로, 자연음, 내레이션, 배경 음악 또는 기타 소리로 구성됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:425
+#: ../doc/glossary.rst:425
 msgid "Stabilization:"
 msgstr "안정화:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:426
+#: ../doc/glossary.rst:426
 msgid ""
 "Image stabilization is a family of techniques that reduce blurring "
 "associated with the motion of a camera or other imaging device during "
@@ -1971,45 +1971,45 @@ msgid ""
 msgstr "이미지 안정화는 노출 중 카메라나 기타 영상 장치의 움직임으로 인한 흐림 현상을 줄이는 기술군입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:427
+#: ../doc/glossary.rst:427
 msgid "Standard Definition (SD):"
 msgstr "표준 화질 (SD):"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:428
+#: ../doc/glossary.rst:428
 msgid ""
 "Television broadcasting standard with a lower resolution than high "
 "definition."
 msgstr "고화질보다 낮은 해상도의 텔레비전 방송 표준입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:429
+#: ../doc/glossary.rst:429
 msgid "Step:"
 msgstr "스텝:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:430
+#: ../doc/glossary.rst:430
 msgid ""
 "The act of moving forward or backward through video one frame at a time."
 msgstr "비디오를 한 프레임씩 앞으로 또는 뒤로 이동하는 행위입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:431
+#: ../doc/glossary.rst:431
 msgid "Still Frame:"
 msgstr "정지 프레임:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:432
+#: ../doc/glossary.rst:432
 msgid "A single frame of video is repeated, so it appears to have no motion."
 msgstr "한 프레임의 비디오가 반복되어 움직임이 없는 것처럼 보입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:433
+#: ../doc/glossary.rst:433
 msgid "Straight Cut:"
 msgstr "스트레이트 컷:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:434
+#: ../doc/glossary.rst:434
 msgid ""
 "The most common edit, consecutive clips placed one after another in the "
 "Timeline window.  Straight cuts are preferable to transitions when the "
@@ -2019,22 +2019,22 @@ msgstr ""
 " 직컷이 더 선호됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:435
+#: ../doc/glossary.rst:435
 msgid "Superimposing:"
 msgstr "합성:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:436
+#: ../doc/glossary.rst:436
 msgid "Combining images, where one or more layers involve transparency."
 msgstr "한 개 이상의 레이어에 투명도가 포함된 이미지를 결합하는 것."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:437
+#: ../doc/glossary.rst:437
 msgid "Sync (Synchronization):"
 msgstr "동기화 (Synchronization):"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:438
+#: ../doc/glossary.rst:438
 msgid ""
 "Synchronization refers to the relative timing of audio (sound) and video "
 "(image) parts during creation, post-production (mixing), transmission, "
@@ -2043,12 +2043,12 @@ msgstr ""
 "동기화는 제작, 후반 작업(믹싱), 전송, 수신 및 재생 처리 중 오디오(사운드)와 비디오(영상) 부분의 상대적인 타이밍을 의미합니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:439
+#: ../doc/glossary.rst:439
 msgid "SECAM:"
 msgstr "SECAM:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:440
+#: ../doc/glossary.rst:440
 msgid ""
 "Systeme Electronique Couleur Avec Memoire, a TV format used mainly in "
 "Eastern Europe, Russia, and Africa."
@@ -2056,41 +2056,41 @@ msgstr ""
 "Systeme Electronique Couleur Avec Memoire, 주로 동유럽, 러시아 및 아프리카에서 사용되는 TV 포맷."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:442
+#: ../doc/glossary.rst:442
 msgid "SV3D (Spherical Video metadata):"
 msgstr "SV3D (구면 비디오 메타데이터):"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:442
+#: ../doc/glossary.rst:442
 msgid ""
 "The “sv3d” atom in MP4/MOV files—side-data that marks a clip as 360° and "
 "carries projection, yaw/pitch/roll parameters."
 msgstr "MP4/MOV 파일 내 “sv3d” 애트움—클립을 360°로 표시하고 투영, 요/피치/롤 매개변수를 포함하는 부가 데이터."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:447
+#: ../doc/glossary.rst:447
 msgid "-T-"
 msgstr "-T-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:448
+#: ../doc/glossary.rst:448
 msgid "Tilt:"
 msgstr "틸트:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:449
+#: ../doc/glossary.rst:449
 msgid ""
 "Tilting is a cinematographic technique in which the camera stays in a fixed "
 "position but rotates up/down in a vertical plane."
 msgstr "틸트는 카메라가 고정된 위치에 있으면서 수직 평면에서 위아래로 회전하는 촬영 기법입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:450
+#: ../doc/glossary.rst:450
 msgid "Timecode:"
 msgstr "타임코드:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:451
+#: ../doc/glossary.rst:451
 msgid ""
 "The timecode is the discrete address given to each frame of the video (for "
 "example, 1:20:24:09).  Timecode makes frame-accurate editing possible and "
@@ -2100,12 +2100,12 @@ msgstr ""
 "하며, 편집자가 로그에서 장면을 정확히 식별할 수 있도록 합니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:452
+#: ../doc/glossary.rst:452
 msgid "Time-lapse:"
 msgstr "타임랩스:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:453
+#: ../doc/glossary.rst:453
 msgid ""
 "It is a technique for capturing each frame in a video at a much slower rate "
 "than usual.  When played back at regular speed, time appears to go by "
@@ -2116,24 +2116,24 @@ msgstr ""
 " 편집 프로그램은 비디오를 빨리 감거나 속도를 높여 이를 구현합니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:454
+#: ../doc/glossary.rst:454
 msgid "Timeline:"
 msgstr "타임라인:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:455
+#: ../doc/glossary.rst:455
 msgid ""
 "The Timeline is an editing interface that lays out a video project in a "
 "linear fashion consisting of clips laid horizontally across the screen."
 msgstr "타임라인은 비디오 프로젝트를 화면에 가로로 배치된 클립들로 선형적으로 배열하는 편집 인터페이스입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:456
+#: ../doc/glossary.rst:456
 msgid "Timeline Editing:"
 msgstr "타임라인 편집:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:457
+#: ../doc/glossary.rst:457
 msgid ""
 "Timeline editing is a computer-based method of editing, in which bars "
 "proportional to the length of a clip, represent video and audio clips on a "
@@ -2141,83 +2141,83 @@ msgid ""
 msgstr "타임라인 편집은 컴퓨터 기반 편집 방식으로, 클립 길이에 비례하는 막대가 컴퓨터 화면에 비디오 및 오디오 클립을 나타냅니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:458
+#: ../doc/glossary.rst:458
 msgid "Titling:"
 msgstr "타이틀링:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:459
+#: ../doc/glossary.rst:459
 msgid ""
 "Titling is the process or result of incorporating on-screen text as credits,"
 " captions, or any other alphanumeric communication."
 msgstr "타이틀링은 크레딧, 자막 또는 기타 문자 정보를 화면에 삽입하는 과정 또는 결과입니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:460
+#: ../doc/glossary.rst:460
 msgid "Track:"
 msgstr "트랙:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:461
+#: ../doc/glossary.rst:461
 msgid "A separate audio or video layer on a timeline."
 msgstr "타임라인 상의 별도 오디오 또는 비디오 레이어."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:462
+#: ../doc/glossary.rst:462
 msgid "Transcode:"
 msgstr "트랜스코드:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:463
+#: ../doc/glossary.rst:463
 msgid ""
 "Converting a digital file to another digital file format.  This usually "
 "involves audio and video compression."
 msgstr "디지털 파일을 다른 디지털 파일 형식으로 변환하는 것. 일반적으로 오디오 및 비디오 압축이 포함됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:464
+#: ../doc/glossary.rst:464
 msgid "Transparency:"
 msgstr "투명도:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:465
+#: ../doc/glossary.rst:465
 msgid "Percentage of the opacity of a video clip or element."
 msgstr "비디오 클립 또는 요소의 불투명도 비율."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:466
+#: ../doc/glossary.rst:466
 msgid "Transition:"
 msgstr "전환:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:467
+#: ../doc/glossary.rst:467
 msgid ""
 "A method of juxtaposing two scenes.  Transitions can take many forms, "
 "including cuts, dissolves, and wipes."
 msgstr "두 장면을 나란히 배치하는 방법. 전환은 컷, 디졸브, 와이프 등 다양한 형태가 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:469
+#: ../doc/glossary.rst:469
 msgid "Trim:"
 msgstr "트림:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:469
+#: ../doc/glossary.rst:469
 msgid "Removing frames from the beginning, middle, or end of a clip."
 msgstr "클립의 시작, 중간 또는 끝에서 프레임을 제거하는 것."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:474
+#: ../doc/glossary.rst:474
 msgid "-V-"
 msgstr "-V-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:475
+#: ../doc/glossary.rst:475
 msgid "Video Format:"
 msgstr "비디오 포맷:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:476
+#: ../doc/glossary.rst:476
 msgid ""
 "The video format is a standard that determines the way a video signal "
 "records on videotape.  Standards include DV, 8-mm, Beta, and VHS."
@@ -2225,53 +2225,53 @@ msgstr ""
 "비디오 포맷은 비디오 신호가 비디오테이프에 기록되는 방식을 결정하는 표준입니다. 표준에는 DV, 8mm, 베타, VHS 등이 포함됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:477
+#: ../doc/glossary.rst:477
 msgid "Voiceover:"
 msgstr "보이스오버:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:478
+#: ../doc/glossary.rst:478
 msgid ""
 "A term used to describe off-camera narration that is not part of a scene "
 "(non-diegetic)."
 msgstr "장면의 일부가 아닌 카메라 밖 내레이션을 설명하는 용어(비내러티브)."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:480
+#: ../doc/glossary.rst:480
 msgid "VTR:"
 msgstr "VTR:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:480
+#: ../doc/glossary.rst:480
 msgid ""
 "A Videotape recorder also referred to as a 'deck'.  Decks duplicate "
 "videotapes and inputting and outputting from a computer."
 msgstr "비디오테이프 레코더로 '덱'이라고도 불립니다. 덱은 비디오테이프를 복제하고 컴퓨터와 입출력을 수행합니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:485
+#: ../doc/glossary.rst:485
 msgid "-W-"
 msgstr "-W-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:486
+#: ../doc/glossary.rst:486
 msgid "Widescreen:"
 msgstr "와이드스크린:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:487
+#: ../doc/glossary.rst:487
 msgid ""
 "A format in which the width-to-height ratio of the frame is greater than 4:3"
 " so that it is significantly wider than it is tall."
 msgstr "프레임의 가로 세로 비율이 4:3보다 커서 가로가 세로보다 훨씬 넓은 포맷."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:489
+#: ../doc/glossary.rst:489
 msgid "Wipe:"
 msgstr "와이프:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:489
+#: ../doc/glossary.rst:489
 msgid ""
 "A wipe is a transition from one shot to another.  The edge of the transition"
 " moves across the original image as a line or a pattern, revealing the new "
@@ -2280,17 +2280,17 @@ msgstr ""
 "와이프는 한 샷에서 다른 샷으로 전환하는 방식입니다. 전환의 가장자리가 선이나 패턴으로 원본 이미지를 가로질러 새로운 샷을 드러냅니다."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:494
+#: ../doc/glossary.rst:494
 msgid "-Z-"
 msgstr "-Z-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:496
+#: ../doc/glossary.rst:496
 msgid "Zoom:"
 msgstr "줌:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:496
+#: ../doc/glossary.rst:496
 msgid ""
 "A shot where the image grows more substantial or smaller by adjusting the "
 "focal length of the lens instead of physically moving the camera."

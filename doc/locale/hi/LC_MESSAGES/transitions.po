@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:23
+#: ../doc/transitions.rst:23
 msgid "Transitions"
 msgstr "ट्रांज़िशन"
 
-#: ../transitions.rst:25
+#: ../doc/transitions.rst:25
 msgid ""
 "A transition is used to gradually fade (also called a **cross dissolve** or "
 "**crossfade**) or wipe between two clip images. In OpenShot, transitions are"
@@ -41,7 +41,7 @@ msgstr ""
 "(ओवरलैप करते हुए) रखा जाना चाहिए, आमतौर पर क्लिप की शुरुआत या अंत में।"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:31
+#: ../doc/transitions.rst:31
 msgid ""
 "NOTE: Transitions **do not** affect **audio**, so if you are intending to "
 "fade in/out the audio volume of a clip, you must adjust the ``volume`` clip "
@@ -52,52 +52,52 @@ msgstr ""
 "समायोजित करना होगा। देखें :ref:`clip_properties_ref`"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:35
+#: ../doc/transitions.rst:35
 msgid "Overview"
 msgstr "समीक्षा"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:40
+#: ../doc/transitions.rst:40
 msgid "#"
 msgstr "#"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:40
+#: ../doc/transitions.rst:40
 msgid "Name"
 msgstr "नाम"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:40 ../transitions.rst:105
+#: ../doc/transitions.rst:40 ../doc/transitions.rst:106
 msgid "Description"
 msgstr "विवरण"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:42
+#: ../doc/transitions.rst:42
 msgid "1"
 msgstr "1"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:42
+#: ../doc/transitions.rst:42
 msgid "Clip 1"
 msgstr "क्लिप 1"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:42
+#: ../doc/transitions.rst:42
 msgid "A video clip"
 msgstr "एक वीडियो क्लिप"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:43
+#: ../doc/transitions.rst:43
 msgid "2"
 msgstr "2"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:43
+#: ../doc/transitions.rst:43
 msgid "Transition"
 msgstr "ट्रांज़िशन"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:43
+#: ../doc/transitions.rst:43
 msgid ""
 "A gradual fade transition between the 2 clip images, created automatically "
 "by overlapping the clips (does not affect the audio)"
@@ -106,27 +106,27 @@ msgstr ""
 "ओवरलैप करने पर स्वचालित रूप से बनता है (ऑडियो को प्रभावित नहीं करता)"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:44
+#: ../doc/transitions.rst:44
 msgid "3"
 msgstr "3"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:44
+#: ../doc/transitions.rst:44
 msgid "Clip 2"
 msgstr "क्लिप 2"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:44
+#: ../doc/transitions.rst:44
 msgid "An image clip"
 msgstr "एक छवि क्लिप"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:48
+#: ../doc/transitions.rst:48
 msgid "Direction"
 msgstr "दिशा"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:49
+#: ../doc/transitions.rst:49
 msgid ""
 "Transitions adjust the alpha/transparency of the overlapping clip image "
 "(i.e. the clip under the transition), and can either fade from opaque to "
@@ -143,12 +143,12 @@ msgstr ""
 "हैं, जिससे आप दृश्य फीका को अपनी इच्छा अनुसार एनिमेट कर सकते हैं।"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:56
+#: ../doc/transitions.rst:56
 msgid "Transparency"
 msgstr "पारदर्शिता"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:57
+#: ../doc/transitions.rst:57
 msgid ""
 "If transitions are used on images or videos that contain transparency (*i.e."
 " alpha channel*) this will result in the original clip disappearing abruptly"
@@ -173,12 +173,12 @@ msgstr ""
 "कर सकते हैं ताकि अधिक सुचारू रूप से फीका हो सके।"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:65
+#: ../doc/transitions.rst:65
 msgid "Cutting & Slicing"
 msgstr "कटिंग और स्लाइसिंग"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:66
+#: ../doc/transitions.rst:66
 msgid ""
 "OpenShot has many easy ways to adjust the start and end trim positions of a "
 "transition (otherwise known as cutting or trimming). The most common method "
@@ -194,12 +194,12 @@ msgstr ""
 ":ref:`clips_cutting_slicing_ref` और :ref:`keyboard_shortcut_ref`।"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:71
+#: ../doc/transitions.rst:71
 msgid "Mask"
 msgstr "मास्क"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:72
+#: ../doc/transitions.rst:72
 msgid ""
 "In video editing, masks are powerful tools that allow you to selectively "
 "display specific areas of a video clip. Similar to masking in image editing,"
@@ -212,7 +212,7 @@ msgstr ""
 "जहाँ परिवर्तन लागू होंगे जबकि वीडियो के अन्य भाग अप्रभावित रहेंगे।"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:76
+#: ../doc/transitions.rst:76
 msgid ""
 "A mask can be thought of as a shape or path that outlines the area you want "
 "to target. Commonly used shapes include rectangles, circles, and freeform "
@@ -224,7 +224,7 @@ msgstr ""
 "क्षेत्र\" कहा जाता है।"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:79
+#: ../doc/transitions.rst:79
 msgid ""
 "Masks can be animated, allowing you to change the shape or position over "
 "time. This enables dynamic effects like revealing hidden elements or "
@@ -243,12 +243,12 @@ msgstr ""
 "अनुक्रमों के साथ मिलाकर एनिमेटेड, जटिल मास्क बनाएँ।"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:86
+#: ../doc/transitions.rst:86
 msgid "Custom Transition"
 msgstr "कस्टम ट्रांज़िशन"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:87
+#: ../doc/transitions.rst:87
 msgid ""
 "Any greyscale image can be used as a transition (or mask), by adding it to "
 "your ``~/.openshot_qt/transitions/`` folder. Just be sure to name your file "
@@ -261,29 +261,31 @@ msgstr ""
 "प्रारंभ करें। आपका कस्टम ट्रांज़िशन/मास्क अब ट्रांज़िशन सूची में दिखाई देगा।"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:92
+#: ../doc/transitions.rst:92
 msgid "Transition Properties"
 msgstr "ट्रांज़िशन गुण"
 
-# Translated with gpt-4.1-mini
-#: ../transitions.rst:93
+#: ../doc/transitions.rst:93
 msgid ""
 "Below is a list of transition properties which can be edited, and in most "
 "cases, animated over time. To view a transition's properties, right click "
 "and choose :guilabel:`Properties`. The property editor will appear, where "
-"you can change these properties. NOTE: Pay close attention to where the "
-"play-head (i.e. red playback line) is. Key frames are automatically created "
-"at the current playback position, to help create animations."
+"you can change these properties. Move the playhead to a keyframe to adjust "
+"that part of the transition. If you want to add a change between existing "
+"keyframes, leave :ref:`auto_keyframes_ref` on and edit at the new position. "
+"With it off, editing between keyframes adjusts the earlier one instead."
 msgstr ""
-"नीचे ट्रांज़िशन गुणों की सूची है जिन्हें संपादित किया जा सकता है, और अधिकांश"
-" मामलों में समय के साथ एनिमेट किया जा सकता है। ट्रांज़िशन के गुण देखने के "
-"लिए, राइट क्लिक करें और :guilabel:`Properties` चुनें। गुण संपादक प्रकट होगा,"
-" जहाँ आप इन गुणों को बदल सकते हैं। नोट: प्ले-हेड (यानी लाल प्लेबैक लाइन) की "
-"स्थिति पर ध्यान दें। की-फ्रेम वर्तमान प्लेबैक स्थिति पर स्वचालित रूप से बनाए"
-" जाते हैं, जिससे एनिमेशन बनाने में मदद मिलती है।"
+"नीचे संक्रमण गुणों की एक सूची दी गई है जिन्हें संपादित किया जा सकता है, और "
+"अधिकांश मामलों में, समय के साथ एनिमेट किया जा सकता है। संक्रमण के गुण देखने "
+"के लिए, राइट क्लिक करें और :guilabel:`Properties` चुनें। गुण संपादक प्रकट "
+"होगा, जहाँ आप इन गुणों को बदल सकते हैं। संक्रमण के उस भाग को समायोजित करने "
+"के लिए प्लेहेड को एक कीफ़्रेम पर ले जाएं। यदि आप मौजूदा कीफ़्रेम के बीच कोई "
+"परिवर्तन जोड़ना चाहते हैं, तो :ref:`auto_keyframes_ref` चालू रखें और नए "
+"स्थान पर संपादित करें। इसे बंद करने पर, कीफ़्रेम के बीच संपादन पहले वाले "
+"कीफ़्रेम को समायोजित करता है।"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:98
+#: ../doc/transitions.rst:99
 msgid ""
 "NOTE: Transitions do not affect audio, so if you are intending to fade "
 "in/out the audio volume of a clip, you must adjust the ``volume`` clip "
@@ -294,27 +296,27 @@ msgstr ""
 "समायोजित करना होगा। देखें :ref:`clip_properties_ref`।"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:105
+#: ../doc/transitions.rst:106
 msgid "Transition Property Name"
 msgstr "ट्रांज़िशन प्रॉपर्टी नाम"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:105
+#: ../doc/transitions.rst:106
 msgid "Type"
 msgstr "प्रकार"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:107
+#: ../doc/transitions.rst:108
 msgid "Brightness"
 msgstr "ब्राइटनेस"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:107 ../transitions.rst:108
+#: ../doc/transitions.rst:108 ../doc/transitions.rst:109
 msgid "Key-frame"
 msgstr "की-फ्रेम"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:107
+#: ../doc/transitions.rst:108
 msgid ""
 "Curve representing the brightness of the transition image, which affects the"
 " fade/wipe (-1 to 1)"
@@ -323,12 +325,12 @@ msgstr ""
 "प्रभावित करता है"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:108
+#: ../doc/transitions.rst:109
 msgid "Contrast"
 msgstr "कॉन्ट्रास्ट"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:108
+#: ../doc/transitions.rst:109
 msgid ""
 "Curve representing the contrast of the transition image, which affects the "
 "softness/hardness of the fade/wipe (0 to 20)"
@@ -337,43 +339,43 @@ msgstr ""
 "कोमलता/कठोरता (0 से 20) को प्रभावित करता है"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:109 ../transitions.rst:124
+#: ../doc/transitions.rst:110 ../doc/transitions.rst:125
 msgid "Duration"
 msgstr "अवधि"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:109 ../transitions.rst:110 ../transitions.rst:117
-#: ../transitions.rst:119
+#: ../doc/transitions.rst:110 ../doc/transitions.rst:111
+#: ../doc/transitions.rst:118 ../doc/transitions.rst:120
 msgid "Float"
 msgstr "फ्लोट"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:109
+#: ../doc/transitions.rst:110
 msgid "The length of the transition (in seconds). Read-only property."
 msgstr "ट्रांज़िशन की लंबाई (सेकंड में)। केवल-पढ़ने योग्य गुण।"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:110 ../transitions.rst:132
+#: ../doc/transitions.rst:111 ../doc/transitions.rst:133
 msgid "End"
 msgstr "अंत"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:110
+#: ../doc/transitions.rst:111
 msgid "The end trimming position of the transition (in seconds)."
 msgstr "ट्रांज़िशन के अंत ट्रिमिंग की स्थिति (सेकंड में)।"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:111 ../transitions.rst:140
+#: ../doc/transitions.rst:112 ../doc/transitions.rst:141
 msgid "ID"
 msgstr "आईडी"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:111 ../transitions.rst:116
+#: ../doc/transitions.rst:112 ../doc/transitions.rst:117
 msgid "String"
 msgstr "स्ट्रिंग"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:111
+#: ../doc/transitions.rst:112
 msgid ""
 "A randomly generated GUID (globally unique identifier) assigned to each "
 "transition. Read-only property."
@@ -381,16 +383,17 @@ msgstr ""
 "प्रत्येक ट्रांज़िशन को सौंपा गया एक यादृच्छिक रूप से उत्पन्न GUID (वैश्विक "
 "अद्वितीय पहचानकर्ता)। केवल-पढ़ने योग्य गुण।"
 
-#: ../transitions.rst:112
+#: ../doc/transitions.rst:113
 msgid "Mask: Invert"
 msgstr "मास्क: उलटना"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:112 ../transitions.rst:113 ../transitions.rst:118
+#: ../doc/transitions.rst:113 ../doc/transitions.rst:114
+#: ../doc/transitions.rst:119
 msgid "Bool"
 msgstr "बूल"
 
-#: ../transitions.rst:112
+#: ../doc/transitions.rst:113
 msgid ""
 "Invert the mask source so light areas become dark and dark areas become "
 "light."
@@ -398,24 +401,24 @@ msgstr ""
 "मास्क स्रोत को उलटें ताकि हल्के क्षेत्र अंधेरे हो जाएं और अंधेरे क्षेत्र "
 "हल्के हो जाएं।"
 
-#: ../transitions.rst:113
+#: ../doc/transitions.rst:114
 msgid "Mask: Loop"
 msgstr "मास्क: लूप"
 
-#: ../transitions.rst:113
+#: ../doc/transitions.rst:114
 msgid ""
 "Loop an animated mask source when the transition is longer than the source."
 msgstr "जब ट्रांज़िशन स्रोत से लंबा हो तो एनिमेटेड मास्क स्रोत को लूप करें।"
 
-#: ../transitions.rst:114
+#: ../doc/transitions.rst:115
 msgid "Mask: Source"
 msgstr "मास्क: स्रोत"
 
-#: ../transitions.rst:114
+#: ../doc/transitions.rst:115
 msgid "Reader"
 msgstr "रीडर"
 
-#: ../transitions.rst:114
+#: ../doc/transitions.rst:115
 msgid ""
 "The image, image sequence, or video used as the transition's grayscale mask "
 "source."
@@ -423,27 +426,27 @@ msgstr ""
 "ट्रांज़िशन के ग्रेस्केल मास्क स्रोत के रूप में उपयोग की गई छवि, छवि अनुक्रम,"
 " या वीडियो।"
 
-#: ../transitions.rst:115
+#: ../doc/transitions.rst:116
 msgid "Mask: Time Mode"
 msgstr "मास्क: समय मोड"
 
-#: ../transitions.rst:115
+#: ../doc/transitions.rst:116
 msgid "Enum"
 msgstr "एनम"
 
-#: ../transitions.rst:115
+#: ../doc/transitions.rst:116
 msgid "Controls how OpenShot maps transition time to an animated mask source."
 msgstr ""
 "OpenShot ट्रांज़िशन समय को एनिमेटेड मास्क स्रोत से कैसे मैप करता है, इसे "
 "नियंत्रित करता है।"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:116
+#: ../doc/transitions.rst:117
 msgid "Parent"
 msgstr "पेरेंट"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:116
+#: ../doc/transitions.rst:117
 msgid ""
 "The parent object to this transition, which makes many of these keyframe "
 "values initialize to the parent value."
@@ -452,22 +455,22 @@ msgstr ""
 "प्रारंभ करता है।"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:117
+#: ../doc/transitions.rst:118
 msgid "Position"
 msgstr "स्थिति"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:117
+#: ../doc/transitions.rst:118
 msgid "The position of the transition on the timeline (in seconds)."
 msgstr "टाइमलाइन पर ट्रांज़िशन की स्थिति (सेकंड में)।"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:118
+#: ../doc/transitions.rst:119
 msgid "Replace Image"
 msgstr "छवि बदलें"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:118
+#: ../doc/transitions.rst:119
 msgid ""
 "For debugging a problem, this property displays the transition image "
 "(instead of becoming a transparency)."
@@ -476,27 +479,27 @@ msgstr ""
 "बनने के बजाय)।"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:119
+#: ../doc/transitions.rst:120
 msgid "Start"
 msgstr "प्रारंभ"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:119
+#: ../doc/transitions.rst:120
 msgid "The start trimming position of the transition (in seconds)."
 msgstr "ट्रांज़िशन के प्रारंभ ट्रिमिंग की स्थिति (सेकंड में)।"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:120 ../transitions.rst:158
+#: ../doc/transitions.rst:121 ../doc/transitions.rst:159
 msgid "Track"
 msgstr "ट्रैक"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:120
+#: ../doc/transitions.rst:121
 msgid "Int"
 msgstr "इंट"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:120
+#: ../doc/transitions.rst:121
 msgid ""
 "The layer which holds the transition (higher tracks are rendered on top of "
 "lower tracks)."
@@ -505,7 +508,7 @@ msgstr ""
 "हैं)।"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:125
+#: ../doc/transitions.rst:126
 msgid ""
 "The :guilabel:`Duration` property is a float value indicating the length of "
 "the transition in seconds. This is a Read-only property. This is calculated "
@@ -518,7 +521,7 @@ msgstr ""
 ":guilabel:`End` ट्रांज़िशन गुणों को संपादित करना होगा।"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:128
+#: ../doc/transitions.rst:129
 msgid ""
 "**Usage Example:** Inspect the duration of a transition to ensure it fits a "
 "specific time slot in the project."
@@ -527,7 +530,7 @@ msgstr ""
 "सके कि यह परियोजना में एक विशिष्ट समय स्लॉट के लिए उपयुक्त है।"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:129
+#: ../doc/transitions.rst:130
 msgid ""
 "**Tip:** Consider using the \"Duration\" property for transitions that need "
 "to match specific time intervals, such as dialogue or scenes."
@@ -536,7 +539,7 @@ msgstr ""
 " जिन्हें विशिष्ट समय अंतराल, जैसे संवाद या दृश्यों, के साथ मेल खाना होता है।"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:133
+#: ../doc/transitions.rst:134
 msgid ""
 "The :guilabel:`End` property defines the trimming point at the end of the "
 "transition in seconds, allowing you to control how much of the transition is"
@@ -549,7 +552,7 @@ msgstr ""
 "ट्रांज़िशन गुण प्रभावित होगा।"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:136
+#: ../doc/transitions.rst:137
 msgid ""
 "**Usage Example:** Trimming the end of a transition to align with another "
 "clip or trimming off unwanted sections of the transition."
@@ -558,7 +561,7 @@ msgstr ""
 "के साथ संरेखित हो या ट्रांज़िशन के अनचाहे हिस्सों को हटाना।"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:137
+#: ../doc/transitions.rst:138
 msgid ""
 "**Tip:** Combine the \"Start\" and \"End\" properties to precisely control "
 "the visible portion of the transition."
@@ -567,7 +570,7 @@ msgstr ""
 "के लिए \"Start\" और \"End\" गुणों को मिलाएं।"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:141
+#: ../doc/transitions.rst:142
 msgid ""
 "The :guilabel:`ID` property holds a randomly generated GUID (Globally Unique"
 " Identifier) assigned to each transition, ensuring its uniqueness. This is a"
@@ -579,7 +582,7 @@ msgstr ""
 " सौंपा जाता है।"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:144
+#: ../doc/transitions.rst:145
 msgid ""
 "**Usage Example:** Referencing specific transitions within custom scripts or"
 " automation tasks."
@@ -588,7 +591,7 @@ msgstr ""
 "ट्रांज़िशनों का संदर्भ देना।"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:145
+#: ../doc/transitions.rst:146
 msgid ""
 "**Tip:** While typically managed behind the scenes, understanding transition"
 " IDs can aid in advanced project customization."
@@ -596,11 +599,11 @@ msgstr ""
 "**टिप:** हालांकि आमतौर पर यह पर्दे के पीछे प्रबंधित होता है, ट्रांज़िशन आईडी"
 " को समझना उन्नत परियोजना अनुकूलन में मदद कर सकता है।"
 
-#: ../transitions.rst:148
+#: ../doc/transitions.rst:149
 msgid "Mask Properties"
 msgstr "मास्क गुण"
 
-#: ../transitions.rst:149
+#: ../doc/transitions.rst:150
 msgid ""
 "The :guilabel:`Mask: Source`, :guilabel:`Mask: Time Mode`, :guilabel:`Mask: "
 "Loop`, and :guilabel:`Mask: Invert` properties control the grayscale mask "
@@ -615,7 +618,7 @@ msgstr ""
 "मैपिंग और लूपिंग विकल्प यह निर्धारित करते हैं कि ट्रांज़िशन के प्रत्येक "
 "बिंदु पर कौन सा स्रोत फ्रेम उपयोग किया जाता है।"
 
-#: ../transitions.rst:154
+#: ../doc/transitions.rst:155
 msgid ""
 "**Usage Example:** Use :guilabel:`Mask: Invert` when the visible and hidden "
 "areas of a custom mask are reversed."
@@ -623,7 +626,7 @@ msgstr ""
 "**उपयोग उदाहरण:** जब कस्टम मास्क के दिखाई देने वाले और छिपे हुए क्षेत्र उलट "
 "हों, तब :guilabel:`Mask: Invert` का उपयोग करें।"
 
-#: ../transitions.rst:155
+#: ../doc/transitions.rst:156
 msgid ""
 "**Tip:** When using an animated mask, trim the mask source carefully before "
 "enabling loop behavior."
@@ -632,7 +635,7 @@ msgstr ""
 "मास्क स्रोत को सावधानीपूर्वक ट्रिम करें।"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:159
+#: ../doc/transitions.rst:160
 msgid ""
 "The :guilabel:`Track` property is an integer indicating the layer on which "
 "the transition is placed. Transitions on higher tracks are rendered above "
@@ -643,7 +646,7 @@ msgstr ""
 " ऊपर रेंडर होते हैं।"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:162
+#: ../doc/transitions.rst:163
 msgid ""
 "**Usage Example:** Arranging transitions in different layers for creating "
 "visual depth and complexity."
@@ -652,13 +655,29 @@ msgstr ""
 "ट्रांज़िशन व्यवस्थित करना।"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:163
+#: ../doc/transitions.rst:164
 msgid ""
 "**Tip:** Use higher tracks for elements that need to appear above others, "
 "like text overlays or graphics."
 msgstr ""
 "**टिप:** उन तत्वों के लिए ऊंचे ट्रैक का उपयोग करें जिन्हें अन्य तत्वों के "
 "ऊपर दिखाना होता है, जैसे टेक्स्ट ओवरले या ग्राफिक्स।"
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "Below is a list of transition properties which can be edited, and in most "
+#~ "cases, animated over time. To view a transition's properties, right click "
+#~ "and choose :guilabel:`Properties`. The property editor will appear, where "
+#~ "you can change these properties. NOTE: Pay close attention to where the "
+#~ "play-head (i.e. red playback line) is. Key frames are automatically created "
+#~ "at the current playback position, to help create animations."
+#~ msgstr ""
+#~ "नीचे ट्रांज़िशन गुणों की सूची है जिन्हें संपादित किया जा सकता है, और अधिकांश"
+#~ " मामलों में समय के साथ एनिमेट किया जा सकता है। ट्रांज़िशन के गुण देखने के "
+#~ "लिए, राइट क्लिक करें और :guilabel:`Properties` चुनें। गुण संपादक प्रकट होगा,"
+#~ " जहाँ आप इन गुणों को बदल सकते हैं। नोट: प्ले-हेड (यानी लाल प्लेबैक लाइन) की "
+#~ "स्थिति पर ध्यान दें। की-फ्रेम वर्तमान प्लेबैक स्थिति पर स्वचालित रूप से बनाए"
+#~ " जाते हैं, जिससे एनिमेशन बनाने में मदद मिलती है।"
 
 # Translated with gpt-4.1-mini
 #~ msgid ""

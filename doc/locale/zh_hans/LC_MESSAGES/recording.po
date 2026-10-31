@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 4.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: 2026-08-30 16:50-0500\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,11 +16,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../recording.rst:23
+#: ../doc/recording.rst:23
 msgid "Recording"
 msgstr "录制"
 
-#: ../recording.rst:25
+#: ../doc/recording.rst:25
 msgid ""
 "OpenShot can record a microphone, the desktop, and a webcam directly into "
 "the current project. You can enable one source or combine several in a "
@@ -31,36 +31,36 @@ msgstr ""
 "OpenShot "
 "可以直接将麦克风、桌面和网络摄像头录制到当前项目中。您可以启用一个来源或在同步录制会话中组合多个来源。每个来源保持为独立的媒体文件和时间线片段，便于单独调整麦克风音量、裁剪网络摄像头或编辑屏幕捕获。"
 
-#: ../recording.rst:29
+#: ../doc/recording.rst:29
 msgid ""
 "Open the dedicated layout with :guilabel:`View → Recording View`, or show "
 "only the dock with :guilabel:`View → Docks → Recording`."
 msgstr "通过 :guilabel:`视图 → 录制视图` 打开专用布局，或通过 :guilabel:`视图 → 停靠栏 → 录制` 仅显示停靠栏。"
 
-#: ../recording.rst:-1
+#: ../doc/recording.rst:-1
 msgid "OpenShot Recording View with the microphone source selected by default"
 msgstr "默认选择麦克风来源的 OpenShot 录制视图"
 
-#: ../recording.rst:36
+#: ../doc/recording.rst:36
 msgid "Quick Start"
 msgstr "快速开始"
 
-#: ../recording.rst:38
+#: ../doc/recording.rst:38
 msgid ""
 "Move the timeline playhead to the point where the recording should begin."
 msgstr "将时间线播放头移动到录制应开始的位置。"
 
-#: ../recording.rst:39
+#: ../doc/recording.rst:39
 msgid "Open :guilabel:`View → Recording View`."
-msgstr "打开 :guilabel:`视图 → 录制视图`。"
+msgstr "打开 :guilabel:`视图 → 录制视图`\\ 。"
 
-#: ../recording.rst:40
+#: ../doc/recording.rst:40
 msgid ""
 "Enable :guilabel:`Mic`, :guilabel:`Screen`, :guilabel:`Webcam`, or any "
 "combination of them."
-msgstr "启用 :guilabel:`麦克风`、:guilabel:`屏幕`、:guilabel:`网络摄像头`，或它们的任意组合。"
+msgstr "启用 :guilabel:`麦克风`\\ 、\\ :guilabel:`屏幕`\\ 、\\ :guilabel:`网络摄像头`\\ ，或它们的任意组合。"
 
-#: ../recording.rst:41
+#: ../doc/recording.rst:41
 msgid ""
 "Select the destination :guilabel:`Track`. Multiple sources use adjacent "
 "tracks automatically. Select :guilabel:`No Track` to add completed "
@@ -68,41 +68,42 @@ msgid ""
 "clips on the timeline. Choose whether the timeline :guilabel:`Preview` "
 "should play during Mic or Webcam recording."
 msgstr ""
-"选择目标 :guilabel:`轨道`。多个来源会自动使用相邻轨道。选择 :guilabel:`无轨道` 可将完成的录制添加到 "
-":guilabel:`项目文件`，而不在时间线上创建实时预览或片段。选择是否在麦克风或网络摄像头录制时播放时间线 :guilabel:`预览`。"
+"选择目标 :guilabel:`轨道`\\ 。多个来源会自动使用相邻轨道。选择 :guilabel:`无轨道` 可将完成的录制添加到 "
+":guilabel:`项目文件`\\ ，而不在时间线上创建实时预览或片段。选择是否在麦克风或网络摄像头录制时播放时间线 :guilabel:`预览`\\"
+" 。"
 
-#: ../recording.rst:44
+#: ../doc/recording.rst:44
 msgid ""
 "Open each source's :guilabel:`Advanced` section and verify its device and "
 "quality options."
 msgstr "打开每个来源的 :guilabel:`高级` 部分，确认其设备和质量选项。"
 
-#: ../recording.rst:45
+#: ../doc/recording.rst:45
 msgid ""
 "Click :guilabel:`Start Recording`. Perform the narration or action you want "
 "to capture."
-msgstr "点击 :guilabel:`开始录制`。进行您想要捕捉的旁白或操作。"
+msgstr "点击 :guilabel:`开始录制`\\ 。进行您想要捕捉的旁白或操作。"
 
-#: ../recording.rst:46
+#: ../doc/recording.rst:46
 msgid ""
 "Click :guilabel:`Stop Recording`, either in the dock or from the recording "
 "status control."
-msgstr "点击 :guilabel:`停止录制`，可在停靠栏或录制状态控制中操作。"
+msgstr "点击 :guilabel:`停止录制`\\ ，可在停靠栏或录制状态控制中操作。"
 
-#: ../recording.rst:47
+#: ../doc/recording.rst:47
 msgid ""
 "Wait briefly while OpenShot finishes the files. They are imported into "
 ":guilabel:`Project Files` and, unless :guilabel:`No Track` is selected, "
 "placed on the timeline."
 msgstr ""
-"请稍候，OpenShot 正在完成文件处理。文件将导入到 :guilabel:`项目文件`，除非选择了 "
-":guilabel:`无轨道`，否则会放置在时间线上。"
+"请稍候，OpenShot 正在完成文件处理。文件将导入到 :guilabel:`项目文件`\\ ，除非选择了 :guilabel:`无轨道`\\ "
+"，否则会放置在时间线上。"
 
-#: ../recording.rst:51
+#: ../doc/recording.rst:51
 msgid "Quick Audio Commentary"
 msgstr "快速音频解说"
 
-#: ../recording.rst:53
+#: ../doc/recording.rst:53
 msgid ""
 "To begin commentary at an existing clip, right-click the clip and choose "
 ":guilabel:`Audio → Record`. OpenShot moves the playhead to the clip's first "
@@ -112,91 +113,91 @@ msgid ""
 "remains the general entry point for screen, webcam, microphone, and combined"
 " recording sessions."
 msgstr ""
-"要在现有片段开始解说，请右键点击该片段并选择 :guilabel:`音频 → 录制`。OpenShot "
-"会将播放头移动到片段的第一帧，打开录制停靠栏，并选择片段下方第一个可用的未锁定轨道。确认已启用 :guilabel:`麦克风`，然后点击 "
-":guilabel:`开始录制`。完整的 :guilabel:`视图 → 录制视图` 仍是屏幕、网络摄像头、麦克风及组合录制会话的通用入口。"
+"要在现有片段开始解说，请右键点击该片段并选择 :guilabel:`音频 → 录制`\\ 。OpenShot "
+"会将播放头移动到片段的第一帧，打开录制停靠栏，并选择片段下方第一个可用的未锁定轨道。确认已启用 :guilabel:`麦克风`\\ ，然后点击 "
+":guilabel:`开始录制`\\ 。完整的 :guilabel:`视图 → 录制视图` 仍是屏幕、网络摄像头、麦克风及组合录制会话的通用入口。"
 
-#: ../recording.rst:60
+#: ../doc/recording.rst:60
 msgid "Recording Sources"
 msgstr "录制来源"
 
-#: ../recording.rst:62
+#: ../doc/recording.rst:62
 msgid ""
 "The source cards at the top of the dock can be enabled independently. An "
 "unavailable card indicates that the required device, operating-system "
 "capture service, or libopenshot feature was not detected."
 msgstr "停靠栏顶部的来源卡可以独立启用。不可用的卡表示未检测到所需的设备、操作系统捕获服务或 libopenshot 功能。"
 
-#: ../recording.rst:65
+#: ../doc/recording.rst:65
 msgid "Recorded sources and outputs"
 msgstr "录制的来源和输出"
 
-#: ../recording.rst:69 ../recording.rst:107
+#: ../doc/recording.rst:69 ../doc/recording.rst:107
 msgid "Source"
 msgstr "来源"
 
-#: ../recording.rst:70
+#: ../doc/recording.rst:70
 msgid "Recorded File"
 msgstr "录制文件"
 
-#: ../recording.rst:71
+#: ../doc/recording.rst:71
 msgid "Audio"
 msgstr "音频"
 
-#: ../recording.rst:72
+#: ../doc/recording.rst:72
 msgid "Typical Use"
 msgstr "典型用途"
 
-#: ../recording.rst:73 ../recording.rst:111 ../recording.rst:272
+#: ../doc/recording.rst:73 ../doc/recording.rst:111 ../doc/recording.rst:272
 msgid "Mic"
 msgstr "麦克风"
 
-#: ../recording.rst:74
+#: ../doc/recording.rst:74
 msgid "``Mic-<timestamp>``"
 msgstr "``Mic-<timestamp>``"
 
-#: ../recording.rst:75
+#: ../doc/recording.rst:75
 msgid "Microphone only"
 msgstr "仅麦克风"
 
-#: ../recording.rst:76
+#: ../doc/recording.rst:76
 msgid "Narration, voice-over, commentary, or interviews."
 msgstr "旁白、配音、解说或采访。"
 
-#: ../recording.rst:77 ../recording.rst:110 ../recording.rst:194
-#: ../recording.rst:275
+#: ../doc/recording.rst:77 ../doc/recording.rst:110 ../doc/recording.rst:194
+#: ../doc/recording.rst:275
 msgid "Screen"
 msgstr "屏幕"
 
-#: ../recording.rst:78
+#: ../doc/recording.rst:78
 msgid "``Screen-<timestamp>.mp4``"
 msgstr "``Screen-<timestamp>.mp4``"
 
-#: ../recording.rst:79
+#: ../doc/recording.rst:79
 msgid "Optional system audio"
 msgstr "可选系统音频"
 
-#: ../recording.rst:80
+#: ../doc/recording.rst:80
 msgid "Tutorials, demonstrations, presentations, or games."
 msgstr "教程、演示、演讲或游戏。"
 
-#: ../recording.rst:81 ../recording.rst:109
+#: ../doc/recording.rst:81 ../doc/recording.rst:109
 msgid "Webcam"
 msgstr "网络摄像头"
 
-#: ../recording.rst:82
+#: ../doc/recording.rst:82
 msgid "``Webcam-<timestamp>.mp4``"
 msgstr "``Webcam-<timestamp>.mp4``"
 
-#: ../recording.rst:83
+#: ../doc/recording.rst:83
 msgid "No audio"
 msgstr "无音频"
 
-#: ../recording.rst:84
+#: ../doc/recording.rst:84
 msgid "Presenter video or a picture-in-picture camera."
 msgstr "演示者视频或画中画摄像头。"
 
-#: ../recording.rst:86
+#: ../doc/recording.rst:86
 msgid ""
 "When Mic and Screen are enabled together, microphone audio is kept in its "
 "own file while system audio is embedded in the screen video. This separation"
@@ -206,11 +207,11 @@ msgid ""
 msgstr ""
 "当同时启用麦克风和屏幕时，麦克风音频保存在独立文件中，而系统音频嵌入屏幕视频中。这种分离是有意为之：它允许您在编辑时独立调整、静音、淡出或处理人声和电脑音频。网络摄像头视频无音频，避免了麦克风轨道重复和回声。"
 
-#: ../recording.rst:91
+#: ../doc/recording.rst:91
 msgid "Live Feedback and Timeline Placement"
 msgstr "实时反馈和时间线放置"
 
-#: ../recording.rst:93
+#: ../doc/recording.rst:93
 msgid ""
 "The microphone meter responds before and during recording, which helps "
 "confirm that the selected input is working. During recording, OpenShot draws"
@@ -220,7 +221,7 @@ msgstr ""
 "麦克风计量器在录制前和录制时都会响应，有助于确认所选输入设备正常工作。录制期间，OpenShot "
 "会在时间线上绘制临时片段和实时麦克风波形。录制停止后，完成的文件将替换这些预览。"
 
-#: ../recording.rst:97
+#: ../doc/recording.rst:97
 msgid ""
 "Select :guilabel:`No Track` in the Track list when you want to capture media"
 " without adding live objects or completed clips to the timeline. The "
@@ -228,36 +229,36 @@ msgid ""
 " to preview, organize, or add to the timeline later. This is useful when "
 "recording several takes before choosing which one to edit."
 msgstr ""
-"当您想捕获媒体但不将实时对象或完成的片段添加到时间线时，请在轨道列表中选择 :guilabel:`无轨道`。完成的录制仍会导入到 "
-":guilabel:`项目文件`，可供预览、整理或稍后添加到时间线。这在录制多个镜头后选择编辑哪一个时非常有用。"
+"当您想捕获媒体但不将实时对象或完成的片段添加到时间线时，请在轨道列表中选择 :guilabel:`无轨道`\\ 。完成的录制仍会导入到 "
+":guilabel:`项目文件`\\ ，可供预览、整理或稍后添加到时间线。这在录制多个镜头后选择编辑哪一个时非常有用。"
 
-#: ../recording.rst:101
+#: ../doc/recording.rst:101
 msgid ""
 "All enabled sources start at the same timeline position. OpenShot stacks "
 "them in a useful compositing order:"
 msgstr "所有启用的来源都从相同的时间线位置开始。OpenShot 按有用的合成顺序堆叠它们："
 
-#: ../recording.rst:103
+#: ../doc/recording.rst:103
 msgid "Default source stack"
 msgstr "默认来源堆叠"
 
-#: ../recording.rst:107
+#: ../doc/recording.rst:107
 msgid "Placement"
 msgstr "放置"
 
-#: ../recording.rst:109
+#: ../doc/recording.rst:109
 msgid "Highest assigned track, so a corner camera appears on top."
 msgstr "分配的最高轨道，因此角落摄像头显示在最上层。"
 
-#: ../recording.rst:110
+#: ../doc/recording.rst:110
 msgid "Below the webcam and above microphone audio."
 msgstr "位于网络摄像头下方，麦克风音频上方。"
 
-#: ../recording.rst:111
+#: ../doc/recording.rst:111
 msgid "Lowest assigned track because it contains audio only."
 msgstr "分配的最低轨道，因为它仅包含音频。"
 
-#: ../recording.rst:114
+#: ../doc/recording.rst:114
 msgid ""
 "If there are not enough tracks below the selected track, OpenShot creates or"
 " selects additional tracks as needed. Recordings are also added to "
@@ -267,11 +268,11 @@ msgstr ""
 "如果所选轨道下方的轨道不足，OpenShot 会根据需要创建或选择额外的轨道。录制内容也会添加到 :guilabel:`项目文件` "
 "中，因此即使删除了它们的第一个时间线剪辑，也可以重复使用。"
 
-#: ../recording.rst:119
+#: ../doc/recording.rst:119
 msgid "Timeline Preview During Recording"
 msgstr "录制期间的时间线预览"
 
-#: ../recording.rst:121
+#: ../doc/recording.rst:121
 msgid ""
 "The :guilabel:`Preview` control beside :guilabel:`Track` can play the "
 "project from the current playhead while a Mic, Webcam, or combined Mic + "
@@ -282,54 +283,54 @@ msgstr ""
 ":guilabel:`Track` 旁边的 :guilabel:`Preview` "
 "控件可以在捕获麦克风、摄像头或麦克风+摄像头组合录制时，从当前播放头播放项目。这对于配音、解说和反应视频非常有用。停止录制时，如果录制器启动了时间线播放，也会停止时间线播放。"
 
-#: ../recording.rst:125
+#: ../doc/recording.rst:125
 msgid "Preview options"
 msgstr "预览选项"
 
-#: ../recording.rst:129 ../recording.rst:152 ../recording.rst:192
-#: ../recording.rst:242
+#: ../doc/recording.rst:129 ../doc/recording.rst:152 ../doc/recording.rst:192
+#: ../doc/recording.rst:242
 msgid "Option"
 msgstr "选项"
 
-#: ../recording.rst:129
+#: ../doc/recording.rst:129
 msgid "Behavior"
 msgstr "行为"
 
-#: ../recording.rst:131
+#: ../doc/recording.rst:131
 msgid "Off"
 msgstr "关闭"
 
-#: ../recording.rst:131
+#: ../doc/recording.rst:131
 msgid "Records without starting timeline playback."
 msgstr "录制时不启动时间线播放。"
 
-#: ../recording.rst:132
+#: ../doc/recording.rst:132
 msgid "Full"
 msgstr "全分辨率"
 
-#: ../recording.rst:132
+#: ../doc/recording.rst:132
 msgid "Plays the timeline using the normal preview resolution."
 msgstr "使用正常预览分辨率播放时间线。"
 
-#: ../recording.rst:133
+#: ../doc/recording.rst:133
 msgid "Half"
 msgstr "半分辨率"
 
-#: ../recording.rst:133
+#: ../doc/recording.rst:133
 msgid "Reduces preview rendering resolution to improve recording performance."
 msgstr "降低预览渲染分辨率以提升录制性能。"
 
-#: ../recording.rst:134
+#: ../doc/recording.rst:134
 msgid "Quarter"
 msgstr "四分之一分辨率"
 
-#: ../recording.rst:134
+#: ../doc/recording.rst:134
 msgid ""
 "Uses the lowest preview resolution for demanding projects or slower "
 "computers."
 msgstr "对高负载项目或较慢的电脑使用最低预览分辨率。"
 
-#: ../recording.rst:137
+#: ../doc/recording.rst:137
 msgid ""
 "Preview resolution changes only the temporary OpenShot preview. It does not "
 "reduce the resolution or quality of the recorded Mic or Webcam files. Use "
@@ -342,11 +343,11 @@ msgstr ""
 "预览，不会降低录制的麦克风或摄像头文件的分辨率或质量。时间线包含音频时请使用耳机，以免麦克风录入扬声器声音。选择 :guilabel:`Screen` "
 "时，预览会被强制设为 :guilabel:`关闭` 并禁用；取消选择 Screen 会恢复之前的设置。"
 
-#: ../recording.rst:143
+#: ../doc/recording.rst:143
 msgid "Microphone Recording"
 msgstr "麦克风录制"
 
-#: ../recording.rst:145
+#: ../doc/recording.rst:145
 msgid ""
 "Enable :guilabel:`Mic` to record narration as a separate audio file. Use the"
 " Mono/Stereo control beside the level meter for the common channel choice, "
@@ -355,71 +356,71 @@ msgstr ""
 "启用 :guilabel:`Mic` 以将旁白录制为单独的音频文件。使用电平计旁的单声道/立体声控制选择常用通道，打开 :guilabel:`高级` "
 "以设置所有选项。"
 
-#: ../recording.rst:148
+#: ../doc/recording.rst:148
 msgid "Microphone options"
 msgstr "麦克风选项"
 
-#: ../recording.rst:152
+#: ../doc/recording.rst:152
 msgid "Typical Default"
 msgstr "典型默认"
 
-#: ../recording.rst:152 ../recording.rst:175 ../recording.rst:192
-#: ../recording.rst:242
+#: ../doc/recording.rst:152 ../doc/recording.rst:175 ../doc/recording.rst:192
+#: ../doc/recording.rst:242
 msgid "Description"
 msgstr "描述"
 
-#: ../recording.rst:154 ../recording.rst:244
+#: ../doc/recording.rst:154 ../doc/recording.rst:244
 msgid "Input"
 msgstr "输入"
 
-#: ../recording.rst:154
+#: ../doc/recording.rst:154
 msgid "System input"
 msgstr "系统输入"
 
-#: ../recording.rst:154
+#: ../doc/recording.rst:154
 msgid "Selects the microphone or audio-input device."
 msgstr "选择麦克风或音频输入设备。"
 
-#: ../recording.rst:155
+#: ../doc/recording.rst:155
 msgid "Format"
 msgstr "格式"
 
-#: ../recording.rst:155
+#: ../doc/recording.rst:155
 msgid "FLAC"
 msgstr "FLAC"
 
-#: ../recording.rst:155
+#: ../doc/recording.rst:155
 msgid ""
 "Chooses WAV, FLAC, or MP3. FLAC is lossless with smaller files than WAV."
 msgstr "选择 WAV、FLAC 或 MP3。FLAC 是无损格式，文件比 WAV 小。"
 
-#: ../recording.rst:156
+#: ../doc/recording.rst:156
 msgid "Sample Rate"
 msgstr "采样率"
 
-#: ../recording.rst:156
+#: ../doc/recording.rst:156
 msgid "48000 Hz"
 msgstr "48000 赫兹"
 
-#: ../recording.rst:156
+#: ../doc/recording.rst:156
 msgid ""
 "Sets the recording sample rate. Match the device and project when possible."
 msgstr "设置录制采样率。尽可能匹配设备和项目。"
 
-#: ../recording.rst:157
+#: ../doc/recording.rst:157
 msgid "Channels"
 msgstr "声道"
 
-#: ../recording.rst:157
+#: ../doc/recording.rst:157
 msgid "Mono"
 msgstr "单声道"
 
-#: ../recording.rst:157
+#: ../doc/recording.rst:157
 msgid ""
 "Records one or two input channels. Mono is usually best for one microphone."
 msgstr "录制一或两个输入声道。单声道通常适合单个麦克风。"
 
-#: ../recording.rst:160
+#: ../doc/recording.rst:160
 msgid ""
 "Aim for a healthy meter response without clipping. A quiet waveform should "
 "remain visually quiet; OpenShot no longer normalizes every newly generated "
@@ -433,144 +434,144 @@ msgstr ""
 " RMS 包络总结持续能量。其细节由 :guilabel:`编辑 → 首选项 → 时间线 → 波形采样（每秒）` 控制。录制后请参见 "
 ":ref:`clip_presets_ref` 了解波形显示和音量控制。"
 
-#: ../recording.rst:167
+#: ../doc/recording.rst:167
 msgid "Screen Recording"
 msgstr "屏幕录制"
 
-#: ../recording.rst:169
+#: ../doc/recording.rst:169
 msgid "Enable :guilabel:`Screen`, then choose a capture mode:"
-msgstr "启用 :guilabel:`Screen`，然后选择捕获模式："
+msgstr "启用 :guilabel:`Screen`\\ ，然后选择捕获模式："
 
-#: ../recording.rst:171
+#: ../doc/recording.rst:171
 msgid "Screen capture modes"
 msgstr "屏幕捕获模式"
 
-#: ../recording.rst:175
+#: ../doc/recording.rst:175
 msgid "Mode"
 msgstr "模式"
 
-#: ../recording.rst:177
+#: ../doc/recording.rst:177
 msgid "Full Screen"
 msgstr "全屏"
 
-#: ../recording.rst:177
+#: ../doc/recording.rst:177
 msgid "Captures the selected display or combined desktop area."
 msgstr "捕获所选显示器或组合桌面区域。"
 
-#: ../recording.rst:178
+#: ../doc/recording.rst:178
 msgid "Window"
 msgstr "窗口"
 
-#: ../recording.rst:178
+#: ../doc/recording.rst:178
 msgid ""
 "Click a window to capture its bounds. Availability and exact behavior depend"
 " on the platform."
 msgstr "点击窗口以捕获其边界。可用性和具体行为取决于平台。"
 
-#: ../recording.rst:179
+#: ../doc/recording.rst:179
 msgid "Region"
 msgstr "区域"
 
-#: ../recording.rst:179
+#: ../doc/recording.rst:179
 msgid ""
 "Drag or select a rectangular desktop area. Availability depends on the "
 "platform."
 msgstr "拖动或选择矩形桌面区域。可用性取决于平台。"
 
-#: ../recording.rst:182
+#: ../doc/recording.rst:182
 msgid ""
 "On Wayland desktops, the operating system's sharing portal asks which screen"
 " or window to share when recording starts. The numeric window and region "
 "controls are hidden because selection belongs to that portal."
 msgstr "在 Wayland 桌面环境中，操作系统的共享门户会在录制开始时询问共享哪个屏幕或窗口。数字窗口和区域控件被隐藏，因为选择由该门户管理。"
 
-#: ../recording.rst:186
+#: ../doc/recording.rst:186
 msgid "Screen Advanced Options"
 msgstr "屏幕高级选项"
 
-#: ../recording.rst:188
+#: ../doc/recording.rst:188
 msgid "Screen options"
 msgstr "屏幕选项"
 
-#: ../recording.rst:192
+#: ../doc/recording.rst:192
 msgid "Default"
 msgstr "默认"
 
-#: ../recording.rst:194
+#: ../doc/recording.rst:194
 msgid "Primary display"
 msgstr "主显示器"
 
-#: ../recording.rst:194
+#: ../doc/recording.rst:194
 msgid "Selects a display or the complete desktop when supported."
 msgstr "选择显示器或完整桌面（如果支持）。"
 
-#: ../recording.rst:195
+#: ../doc/recording.rst:195
 msgid "Offset"
 msgstr "偏移"
 
-#: ../recording.rst:195 ../recording.rst:196
+#: ../doc/recording.rst:195 ../doc/recording.rst:196
 msgid "Selected bounds"
 msgstr "选定边界"
 
-#: ../recording.rst:195
+#: ../doc/recording.rst:195
 msgid "Sets the capture area's X and Y desktop coordinates."
 msgstr "设置捕获区域的桌面 X 和 Y 坐标。"
 
-#: ../recording.rst:196 ../recording.rst:248
+#: ../doc/recording.rst:196 ../doc/recording.rst:248
 msgid "Size"
 msgstr "大小"
 
-#: ../recording.rst:196
+#: ../doc/recording.rst:196
 msgid ""
 "Sets capture width and height. OpenShot uses encoder-safe even dimensions."
 msgstr "设置捕获宽度和高度。OpenShot 使用编码器安全的偶数尺寸。"
 
-#: ../recording.rst:197
+#: ../doc/recording.rst:197
 msgid "FPS"
 msgstr "帧率"
 
-#: ../recording.rst:197
+#: ../doc/recording.rst:197
 msgid "30"
 msgstr "30"
 
-#: ../recording.rst:197
+#: ../doc/recording.rst:197
 msgid "Sets the screen recording frame rate: 15, 24, 30, or 60 FPS."
 msgstr "设置屏幕录制帧率：15、24、30 或 60 FPS。"
 
-#: ../recording.rst:198 ../recording.rst:211
+#: ../doc/recording.rst:198 ../doc/recording.rst:211
 msgid "System Audio"
 msgstr "系统音频"
 
-#: ../recording.rst:198 ../recording.rst:199
+#: ../doc/recording.rst:198 ../doc/recording.rst:199
 msgid "On"
 msgstr "开启"
 
-#: ../recording.rst:198
+#: ../doc/recording.rst:198
 msgid "Embeds computer playback audio in the screen MP4 when supported."
 msgstr "在支持的情况下，将计算机播放音频嵌入屏幕 MP4 中。"
 
-#: ../recording.rst:199
+#: ../doc/recording.rst:199
 msgid "Cursor"
 msgstr "光标"
 
-#: ../recording.rst:199
+#: ../doc/recording.rst:199
 msgid "Includes the mouse pointer in the screen recording."
 msgstr "在屏幕录制中包含鼠标指针。"
 
-#: ../recording.rst:200
+#: ../doc/recording.rst:200
 msgid "Hide OpenShot"
 msgstr "隐藏 OpenShot"
 
-#: ../recording.rst:200
+#: ../doc/recording.rst:200
 msgid "No"
 msgstr "关闭"
 
-#: ../recording.rst:200
+#: ../doc/recording.rst:200
 msgid ""
 "Temporarily hides OpenShot during selection and recording when enabled."
 msgstr "启用时，在选择和录制期间临时隐藏 OpenShot。"
 
-#: ../recording.rst:205
+#: ../doc/recording.rst:205
 msgid ""
 "On some Windows systems using high-DPI display scaling, the mouse pointer "
 "may be displaced or missing from screen recordings made on a scaled display."
@@ -584,7 +585,7 @@ msgstr ""
 "100% 缩放的显示器上录制，临时将目标显示器设置为 100%，或使用单独的屏幕捕获应用程序。屏幕视频仍会正常录制，将 "
 ":guilabel:`Cursor` 设置为 :guilabel:`关闭` 可避免受影响的指针叠加。"
 
-#: ../recording.rst:213
+#: ../doc/recording.rst:213
 msgid ""
 ":guilabel:`System Audio` is enabled by default on supported capture "
 "backends. It records sound playing through the computer—such as a game, "
@@ -595,7 +596,7 @@ msgstr ""
 ":guilabel:`系统音频` "
 "在支持的捕获后端中默认启用。它录制通过计算机播放的声音——例如游戏、浏览器、媒体播放器或演示——在屏幕录制中。它不会替代麦克风源。当您希望系统音频和解说分别作为可独立编辑的剪辑时，请同时启用这两个源。"
 
-#: ../recording.rst:217
+#: ../doc/recording.rst:217
 msgid ""
 "If the control is disabled, the active platform or libopenshot build does "
 "not provide system-audio capture. OpenShot forces the option Off rather than"
@@ -605,27 +606,27 @@ msgstr ""
 "如果控件被禁用，说明当前平台或 libopenshot 构建不支持系统音频捕获。OpenShot "
 "会强制将该选项设置为关闭，以避免产生误导性的静音音轨。操作系统的隐私设置和音频路由配置也可能影响捕获。"
 
-#: ../recording.rst:223
+#: ../doc/recording.rst:223
 msgid ""
 "System Audio recording is not currently available on macOS. Screen video, "
 "microphone, and webcam recording remain available, but the :guilabel:`System"
 " Audio` option is disabled and forced to :guilabel:`Off`."
 msgstr ""
 "macOS 当前不支持系统音频录制。屏幕视频、麦克风和摄像头录制仍然可用，但 :guilabel:`系统音频` 选项被禁用并强制设置为 "
-":guilabel:`关闭`。"
+":guilabel:`关闭`\\ 。"
 
-#: ../recording.rst:228
+#: ../doc/recording.rst:228
 msgid ""
 "Avoid playing captured system audio through speakers while also recording a "
 "microphone unless that sound is intentional. Headphones reduce echo and "
 "prevent the microphone from recording the speakers a second time."
 msgstr "除非有意，否则避免在录制麦克风时通过扬声器播放捕获的系统音频。使用耳机可以减少回声，防止麦克风再次录制扬声器声音。"
 
-#: ../recording.rst:232
+#: ../doc/recording.rst:232
 msgid "Webcam Recording"
 msgstr "摄像头录制"
 
-#: ../recording.rst:234
+#: ../doc/recording.rst:234
 msgid ""
 "Enable :guilabel:`Webcam` to record a camera as a silent video clip. A live "
 "preview helps verify framing before you start. When Screen is also enabled, "
@@ -635,149 +636,150 @@ msgstr ""
 "启用 :guilabel:`摄像头` 以录制无声视频剪辑。实时预览有助于在开始前确认构图。当同时启用屏幕录制时，默认布局为右下角圆角 30% "
 "大小摄像头。单独录制摄像头时，默认为全尺寸。"
 
-#: ../recording.rst:238
+#: ../doc/recording.rst:238
 msgid "Webcam options"
 msgstr "摄像头选项"
 
-#: ../recording.rst:244
+#: ../doc/recording.rst:244
 msgid "Selects an available webcam or video-capture device."
 msgstr "选择可用的摄像头或视频捕获设备。"
 
-#: ../recording.rst:245
+#: ../doc/recording.rst:245
 msgid "Resolution"
 msgstr "分辨率"
 
-#: ../recording.rst:245
+#: ../doc/recording.rst:245
 msgid "Selects a resolution reported by the camera."
 msgstr "选择摄像头报告的分辨率。"
 
-#: ../recording.rst:246
+#: ../doc/recording.rst:246
 msgid "Record FPS"
 msgstr "录制帧率"
 
-#: ../recording.rst:246
+#: ../doc/recording.rst:246
 msgid "Selects a frame rate supported at the chosen resolution."
 msgstr "选择所选分辨率支持的帧率。"
 
-#: ../recording.rst:247
+#: ../doc/recording.rst:247
 msgid "Layout"
 msgstr "布局"
 
-#: ../recording.rst:247
+#: ../doc/recording.rst:247
 msgid ""
 "Chooses Bottom/Top Left/Right, Left, Right, Center, or Full Size placement."
 msgstr "选择底部/顶部 左/右，左，右，居中或全尺寸位置。"
 
-#: ../recording.rst:248
+#: ../doc/recording.rst:248
 msgid "Sets a corner camera to 20%, 30%, or 40% of the project frame."
 msgstr "将角落摄像头设置为项目画面的 20%、30% 或 40%。"
 
-#: ../recording.rst:249
+#: ../doc/recording.rst:249
 msgid "Corners"
 msgstr "角落"
 
-#: ../recording.rst:249
+#: ../doc/recording.rst:249
 msgid "Uses Rectangle, Rounded, or Oval camera corners."
 msgstr "使用矩形、圆角或椭圆形摄像头角。"
 
-#: ../recording.rst:252
+#: ../doc/recording.rst:252
 msgid ""
 "Layout choices are applied as ordinary clip properties. After recording, use"
 " :guilabel:`Gravity`, :guilabel:`Scale X`, :guilabel:`Scale Y`, "
 ":guilabel:`Margin`, and :guilabel:`Corner Radius` to refine the result. See "
 ":ref:`clip_properties_ref`."
 msgstr ""
-"布局选择作为普通剪辑属性应用。录制后，使用 :guilabel:`重力`、:guilabel:`缩放 X`、:guilabel:`缩放 "
-"Y`、:guilabel:`边距` 和 :guilabel:`圆角半径` 来优化结果。参见 :ref:`clip_properties_ref`。"
+"布局选择作为普通剪辑属性应用。录制后，使用 :guilabel:`重力`\\ 、\\ :guilabel:`缩放 X`\\ 、\\ "
+":guilabel:`缩放 Y`\\ 、\\ :guilabel:`边距` 和 :guilabel:`圆角半径` 来优化结果。参见 "
+":ref:`clip_properties_ref`\\ 。"
 
-#: ../recording.rst:257
+#: ../doc/recording.rst:257
 msgid "Combining Sources"
 msgstr "组合来源"
 
-#: ../recording.rst:259
+#: ../doc/recording.rst:259
 msgid ""
 "The Recording View keeps all enabled source controls together while leaving "
 "the preview and timeline visible."
 msgstr "录制视图将所有启用的来源控件集中显示，同时保持预览和时间线可见。"
 
-#: ../recording.rst:-1
+#: ../doc/recording.rst:-1
 msgid ""
 "OpenShot Recording View with microphone, screen, and webcam sources selected"
 msgstr "OpenShot 录制视图，已选择麦克风、屏幕和摄像头来源"
 
-#: ../recording.rst:264
+#: ../doc/recording.rst:264
 msgid "Useful recording combinations"
 msgstr "实用的录制组合"
 
-#: ../recording.rst:268
+#: ../doc/recording.rst:268
 msgid "Workflow"
 msgstr "工作流程"
 
-#: ../recording.rst:269
+#: ../doc/recording.rst:269
 msgid "Enable"
 msgstr "启用"
 
-#: ../recording.rst:270
+#: ../doc/recording.rst:270
 msgid "Result"
 msgstr "结果"
 
-#: ../recording.rst:271
+#: ../doc/recording.rst:271
 msgid "Voice-over"
 msgstr "配音"
 
-#: ../recording.rst:273
+#: ../doc/recording.rst:273
 msgid "One editable narration file."
 msgstr "一个可编辑的旁白文件。"
 
-#: ../recording.rst:274
+#: ../doc/recording.rst:274
 msgid "Silent tutorial"
 msgstr "无声教程"
 
-#: ../recording.rst:276
+#: ../doc/recording.rst:276
 msgid "Screen MP4; turn System Audio Off if silence is desired."
 msgstr "屏幕 MP4；如果需要静音，请关闭系统音频。"
 
-#: ../recording.rst:277
+#: ../doc/recording.rst:277
 msgid "Game commentary"
 msgstr "游戏解说"
 
-#: ../recording.rst:278
+#: ../doc/recording.rst:278
 msgid "Mic + Screen"
 msgstr "麦克风 + 屏幕"
 
-#: ../recording.rst:279
+#: ../doc/recording.rst:279
 msgid "Separate mic clip plus screen video with game audio."
 msgstr "独立麦克风剪辑加上带游戏音频的屏幕视频。"
 
-#: ../recording.rst:280
+#: ../doc/recording.rst:280
 msgid "Presenter camera"
 msgstr "演示者摄像头"
 
-#: ../recording.rst:281
+#: ../doc/recording.rst:281
 msgid "Mic + Webcam"
 msgstr "麦克风 + 摄像头"
 
-#: ../recording.rst:282
+#: ../doc/recording.rst:282
 msgid "Separate voice and silent camera video."
 msgstr "独立的声音和无声摄像头视频。"
 
-#: ../recording.rst:283
+#: ../doc/recording.rst:283
 msgid "Tutorial with camera"
 msgstr "带摄像头的教程"
 
-#: ../recording.rst:284
+#: ../doc/recording.rst:284
 msgid "Mic + Screen + Webcam"
 msgstr "麦克风 + 屏幕 + 摄像头"
 
-#: ../recording.rst:285
+#: ../doc/recording.rst:285
 msgid "Three synchronized clips with webcam above the screen."
 msgstr "三个同步剪辑，摄像头位于屏幕上方。"
 
-#: ../recording.rst:288
+#: ../doc/recording.rst:288
 msgid "Where Recordings Are Saved"
 msgstr "录制文件保存位置"
 
-#: ../recording.rst:290
+#: ../doc/recording.rst:290
 msgid ""
 "Recordings are saved in the project's assets folder under ``recordings``. If"
 " the project has not been saved yet, OpenShot uses its user-data location. "
@@ -787,42 +789,42 @@ msgstr ""
 "录制文件保存在项目的资源文件夹下的 ``recordings`` 中。如果项目尚未保存，OpenShot "
 "会使用其用户数据位置。文件名包含来源名称和时间戳；另加数字后缀以避免覆盖同一秒内创建的文件。"
 
-#: ../recording.rst:294
+#: ../doc/recording.rst:294
 msgid ""
 "Save the project before a long or important session so its recording "
 "destination is predictable. Do not move or rename recorded files outside "
 "OpenShot while the project is using them."
 msgstr "在长时间或重要的录制会话前保存项目，以确保录制文件的保存位置可预测。项目使用录制文件时，请勿在 OpenShot 外移动或重命名这些文件。"
 
-#: ../recording.rst:298
+#: ../doc/recording.rst:298
 msgid "Permissions and Platform Behavior"
 msgstr "权限和平台行为"
 
-#: ../recording.rst:300
+#: ../doc/recording.rst:300
 msgid ""
 "Screen and camera capture depend on operating-system services, hardware, and"
 " build support. The controls in the dock adapt to the available backend."
 msgstr "屏幕和摄像头捕获依赖于操作系统服务、硬件和构建支持。停靠栏中的控件会根据可用的后端进行调整。"
 
-#: ../recording.rst:303
+#: ../doc/recording.rst:303
 msgid ""
 "**Linux/X11:** Full-screen, window, and numeric region capture are available"
 " when the X11 capture backend is built."
 msgstr "**Linux/X11：** 当构建了 X11 捕获后端时，支持全屏、窗口和数值区域捕获。"
 
-#: ../recording.rst:304
+#: ../doc/recording.rst:304
 msgid ""
 "**Linux/Wayland:** The desktop sharing portal chooses the capture source "
 "after recording starts."
 msgstr "**Linux/Wayland：** 桌面共享门户在录制开始后选择捕获源。"
 
-#: ../recording.rst:305
+#: ../doc/recording.rst:305
 msgid ""
 "**Windows:** Desktop capture uses the available Windows screen backend; "
 "camera devices use Windows capture services."
 msgstr "**Windows：** 桌面捕获使用可用的 Windows 屏幕后端；摄像头设备使用 Windows 捕获服务。"
 
-#: ../recording.rst:306
+#: ../doc/recording.rst:306
 msgid ""
 "**macOS:** Screen capture uses the supported macOS backend, with window and "
 "region choices represented as cropped screen bounds when required. System "
@@ -832,7 +834,7 @@ msgstr ""
 "**macOS：** 屏幕捕获使用支持的 macOS "
 "后端，窗口和区域选择在需要时以裁剪的屏幕边界表示。目前不支持系统音频录制；麦克风录制仍作为单独的音频源可用。"
 
-#: ../recording.rst:310
+#: ../doc/recording.rst:310
 msgid ""
 "The first recording may trigger Screen Recording, Microphone, Camera, or "
 "desktop-sharing permission prompts. Approve the requested source, then "
@@ -843,150 +845,150 @@ msgstr ""
 "首次录制可能会触发屏幕录制、麦克风、摄像头或桌面共享权限提示。批准请求的源后，如果操作系统要求，请重启 "
 "OpenShot。禁用的源卡或选项优于静默省略不支持的源的录制。"
 
-#: ../recording.rst:315
+#: ../doc/recording.rst:315
 msgid "Troubleshooting Recording"
 msgstr "录制故障排除"
 
-#: ../recording.rst:317
+#: ../doc/recording.rst:317
 msgid "Common recording problems"
 msgstr "常见录制问题"
 
-#: ../recording.rst:321
+#: ../doc/recording.rst:321
 msgid "Problem"
 msgstr "问题"
 
-#: ../recording.rst:321
+#: ../doc/recording.rst:321
 msgid "What to Check"
 msgstr "检查内容"
 
-#: ../recording.rst:323
+#: ../doc/recording.rst:323
 msgid "Mic meter does not move"
 msgstr "麦克风计量器无反应"
 
-#: ../recording.rst:323
+#: ../doc/recording.rst:323
 msgid ""
 "Select the correct Input, verify OS microphone permission, and check "
 "mute/gain."
 msgstr "选择正确的输入，验证操作系统麦克风权限，并检查静音/增益。"
 
-#: ../recording.rst:324
+#: ../doc/recording.rst:324
 msgid "Mic clips or distorts"
 msgstr "麦克风出现削波或失真"
 
-#: ../recording.rst:324
+#: ../doc/recording.rst:324
 msgid "Lower hardware/input gain and keep peaks below full scale."
 msgstr "降低硬件/输入增益，保持峰值低于满刻度。"
 
-#: ../recording.rst:325
+#: ../doc/recording.rst:325
 msgid "Mic is very quiet"
 msgstr "麦克风声音很小"
 
-#: ../recording.rst:325
+#: ../doc/recording.rst:325
 msgid ""
 "Raise input gain near the device; timeline waveform height does not change "
 "audio."
 msgstr "在设备附近提高输入增益；时间线波形高度不会改变音频。"
 
-#: ../recording.rst:326
+#: ../doc/recording.rst:326
 msgid "System Audio is disabled"
 msgstr "系统音频被禁用"
 
-#: ../recording.rst:326
+#: ../doc/recording.rst:326
 msgid ""
 "The active screen backend/build does not support it; check platform audio "
 "routing."
 msgstr "当前屏幕后端/构建不支持；请检查平台音频路由。"
 
-#: ../recording.rst:327
+#: ../doc/recording.rst:327
 msgid "System Audio is silent"
 msgstr "系统音频无声"
 
-#: ../recording.rst:327
+#: ../doc/recording.rst:327
 msgid ""
 "Play audio before testing, verify the output device, and inspect OS "
 "privacy/routing."
 msgstr "测试前播放音频，验证输出设备，并检查操作系统隐私/路由设置。"
 
-#: ../recording.rst:328
+#: ../doc/recording.rst:328
 msgid "Voice contains game echo"
 msgstr "声音包含游戏回声"
 
-#: ../recording.rst:328
+#: ../doc/recording.rst:328
 msgid "Use headphones so the mic does not capture speaker playback."
 msgstr "使用耳机，避免麦克风捕捉扬声器播放声音。"
 
-#: ../recording.rst:329
+#: ../doc/recording.rst:329
 msgid "Screen source is incorrect"
 msgstr "屏幕源不正确"
 
-#: ../recording.rst:329
+#: ../doc/recording.rst:329
 msgid ""
 "Re-select Full Screen/Window/Region; on Wayland, choose again in the portal."
 msgstr "重新选择全屏/窗口/区域；在 Wayland 上，请在门户中重新选择。"
 
-#: ../recording.rst:330
+#: ../doc/recording.rst:330
 msgid "Cursor missing on Windows"
 msgstr "Windows 上光标缺失"
 
-#: ../recording.rst:330
+#: ../doc/recording.rst:330
 msgid ""
 "High-DPI scaling can affect the pointer overlay; try the target display at "
 "100%."
 msgstr "高 DPI 缩放可能影响指针叠加；尝试将目标显示设置为 100%。"
 
-#: ../recording.rst:331
+#: ../doc/recording.rst:331
 msgid "Webcam is unavailable"
 msgstr "摄像头不可用"
 
-#: ../recording.rst:331
+#: ../doc/recording.rst:331
 msgid ""
 "Check camera permission, close other camera apps, and reconnect the device."
 msgstr "检查摄像头权限，关闭其他摄像头应用，并重新连接设备。"
 
-#: ../recording.rst:332
+#: ../doc/recording.rst:332
 msgid "Recording is choppy"
 msgstr "录制画面卡顿"
 
-#: ../recording.rst:332
+#: ../doc/recording.rst:332
 msgid ""
 "Lower screen/camera FPS or resolution and close CPU-intensive applications."
 msgstr "降低屏幕/摄像头帧率或分辨率，关闭高 CPU 占用的应用。"
 
-#: ../recording.rst:333
+#: ../doc/recording.rst:333
 msgid "Clips appear on wrong track"
 msgstr "剪辑出现在错误的轨道上"
 
-#: ../recording.rst:333
+#: ../doc/recording.rst:333
 msgid ""
 "Choose the top destination Track before recording, then move clips if "
 "needed."
 msgstr "录制前选择顶部目标轨道，必要时再移动剪辑。"
 
-#: ../recording.rst:337
+#: ../doc/recording.rst:337
 msgid "After Recording"
 msgstr "录制后"
 
-#: ../recording.rst:339
+#: ../doc/recording.rst:339
 msgid ""
 "Recorded clips behave like imported media. You can trim, slice, move, mute, "
 "fade, add effects, and adjust volume or layout with the standard editing "
 "tools. Useful next topics are:"
 msgstr "录制的剪辑表现如导入的媒体。您可以使用标准编辑工具进行修剪、切片、移动、静音、淡入淡出、添加效果以及调整音量或布局。以下主题可能有用："
 
-#: ../recording.rst:342
+#: ../doc/recording.rst:342
 msgid ":ref:`clips_cutting_slicing_ref` for trimming and slicing."
 msgstr ":ref:`clips_cutting_slicing_ref` 用于修剪和切片。"
 
-#: ../recording.rst:343
+#: ../doc/recording.rst:343
 msgid ""
 ":ref:`clip_presets_ref` for waveform, volume, fade, and other clip actions."
 msgstr ":ref:`clip_presets_ref` 用于波形、音量、淡入淡出及其他剪辑操作。"
 
-#: ../recording.rst:344
+#: ../doc/recording.rst:344
 msgid ""
 ":ref:`clip_properties_ref` for webcam placement and detailed adjustments."
 msgstr ":ref:`clip_properties_ref` 用于摄像头位置和详细调整。"
 
-#: ../recording.rst:345
+#: ../doc/recording.rst:345
 msgid ":ref:`playback_ref` for playback and audio troubleshooting."
 msgstr ":ref:`playback_ref` 用于播放和音频故障排除。"

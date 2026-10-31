@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-16 18:08-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,12 +18,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:23
+#: ../doc/playback.rst:23
 msgid "Playback"
 msgstr "Redare"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:24
+#: ../doc/playback.rst:24
 msgid ""
 "The preview window is where video & audio playback takes place in OpenShot "
 "Video Editor. The preview window utilizes real-time video rendering, "
@@ -41,41 +41,52 @@ msgstr ""
 "pentru CPU-ul tău și necesită un calculator modern și anumite condiții "
 "rezonabile (listate mai jos)."
 
+#: ../doc/playback.rst:29
+msgid ""
+"To watch a file or choose a section before adding it to the timeline, right-"
+"click it in Project Files and choose :guilabel:`Preview File` or "
+":guilabel:`Split File`. See :ref:`source_preview_ref`."
+msgstr ""
+"Pentru a viziona un fișier sau a alege o secțiune înainte de a-l adăuga pe "
+"linia temporală, faceți clic dreapta pe el în Fișierele Proiectului și "
+"alegeți :guilabel:`Previzualizare fișier` sau :guilabel:`Împarte fișier`. "
+"Consultați :ref:`source_preview_ref`."
+
 # Translated with gpt-4.1-mini
-#: ../playback.rst:30
+#: ../doc/playback.rst:34
 msgid "Real-Time Preview"
 msgstr "Previzualizare în timp real"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:31
+#: ../doc/playback.rst:35
 msgid ""
 "Many factors affect how smoothly the **real-time video preview** can "
 "playback on your computer. This requires a fast, modern multi-threaded CPU, "
-"lots of RAM (memory), and a modern GPU. We have listed many of the important "
-"factors below."
+"lots of RAM (memory), and a modern GPU. We have listed many of the important"
+" factors below."
 msgstr ""
 "Mulți factori influențează cât de fluidă poate fi redarea **previzualizării "
-"video în timp real** pe calculatorul tău. Este necesar un CPU modern, rapid, "
-"multi-thread, multă memorie RAM și o placă video modernă. Am listat mai jos "
-"mulți dintre factorii importanți."
+"video în timp real** pe calculatorul tău. Este necesar un CPU modern, rapid,"
+" multi-thread, multă memorie RAM și o placă video modernă. Am listat mai jos"
+" mulți dintre factorii importanți."
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:38
+#: ../doc/playback.rst:42
 msgid "Factor"
 msgstr "Factor"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:38 ../playback.rst:97
+#: ../doc/playback.rst:42 ../doc/playback.rst:101
 msgid "Description"
 msgstr "Descriere"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:40
+#: ../doc/playback.rst:44
 msgid "CPU"
 msgstr "CPU"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:40
+#: ../doc/playback.rst:44
 msgid ""
 "If your CPU is too slow or has too few cores, you will likely experience a "
 "slow, choppy preview. We recommend installing OpenShot on fairly modern "
@@ -84,21 +95,21 @@ msgid ""
 msgstr ""
 "Dacă CPU-ul tău este prea lent sau are prea puține nuclee, vei experimenta "
 "probabil o previzualizare lentă și sacadată. Recomandăm instalarea OpenShot "
-"pe un calculator destul de modern. Vezi :ref:`min_system_req_ref` pentru mai "
-"multe detalii despre cerințele hardware pentru OpenShot Video Editor."
+"pe un calculator destul de modern. Vezi :ref:`min_system_req_ref` pentru mai"
+" multe detalii despre cerințele hardware pentru OpenShot Video Editor."
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:43
+#: ../doc/playback.rst:47
 msgid "Memory"
 msgstr "Memorie"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:43
+#: ../doc/playback.rst:47
 msgid ""
 "If your available RAM memory is too limited, you will likely see huge drops "
 "in real-time performance, and your entire system will lag. We recommend "
-"installing additional RAM in your computer, if possible. See :ref:"
-"`min_system_req_ref`."
+"installing additional RAM in your computer, if possible. See "
+":ref:`min_system_req_ref`."
 msgstr ""
 "Dacă memoria RAM disponibilă este prea limitată, vei observa probabil "
 "scăderi mari de performanță în timp real, iar întregul sistem va întârzia. "
@@ -106,12 +117,12 @@ msgstr ""
 "posibil. Vezi :ref:`min_system_req_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:46
+#: ../doc/playback.rst:50
 msgid "Cache"
 msgstr "Cache"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:46
+#: ../doc/playback.rst:50
 msgid ""
 "Your cache settings in the OpenShot Preferences are very important for "
 "determining how many frames to processes in advance. A value too low or too "
@@ -119,26 +130,26 @@ msgid ""
 "related to the available RAM. The higher the cache values, the more RAM and "
 "CPU is needed. We recommend experimenting with the Cache Preferences in "
 "OpenShot if you are experiencing issues with smooth playback. This same "
-"caching system also prepares frames ahead of time during export, speeding up "
-"the final render. See :ref:`preferences_cache_ref`."
+"caching system also prepares frames ahead of time during export, speeding up"
+" the final render. See :ref:`preferences_cache_ref`."
 msgstr ""
 "Setările de cache din Preferințele OpenShot sunt foarte importante pentru a "
-"determina câte cadre să fie procesate în avans. O valoare prea mică sau prea "
-"mare poate cauza întârzieri în previzualizarea video în timp real. Cache-ul "
-"este, de asemenea, legat de memoria RAM disponibilă. Cu cât valorile cache-"
+"determina câte cadre să fie procesate în avans. O valoare prea mică sau prea"
+" mare poate cauza întârzieri în previzualizarea video în timp real. Cache-ul"
+" este, de asemenea, legat de memoria RAM disponibilă. Cu cât valorile cache-"
 "ului sunt mai mari, cu atât este nevoie de mai multă memorie RAM și CPU. "
 "Recomandăm să experimentați cu Preferințele de Cache din OpenShot dacă "
 "întâmpinați probleme cu redarea fluidă. Același sistem de cache pregătește "
-"cadrele în avans și în timpul exportului, accelerând redarea finală. Vezi :"
-"ref:`preferences_cache_ref`."
+"cadrele în avans și în timpul exportului, accelerând redarea finală. Vezi "
+":ref:`preferences_cache_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:52
+#: ../doc/playback.rst:56
 msgid "Preview Size"
 msgstr "Dimensiunea previzualizării"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:52
+#: ../doc/playback.rst:56
 msgid ""
 "The height x width of your preview dock (widget) is very important for "
 "smooth real-time previews. The larger the window size, the more pixels must "
@@ -152,16 +163,16 @@ msgstr ""
 "mai mare, cu atât mai mulți pixeli trebuie redați pe cadru și cu atât mai "
 "mult CPU și RAM sunt necesare. Se recomandă reducerea dimensiunii ferestrei "
 "de previzualizare până când obții o redare video fluidă. Pe un calculator "
-"mai lent, dimensiunea ferestrei de previzualizare poate trebui să fie foarte "
-"mică pentru previzualizări în timp real (de ex. 320 x 240)."
+"mai lent, dimensiunea ferestrei de previzualizare poate trebui să fie foarte"
+" mică pentru previzualizări în timp real (de ex. 320 x 240)."
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:57
+#: ../doc/playback.rst:61
 msgid "Profile"
 msgstr "Profil"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:57
+#: ../doc/playback.rst:61
 msgid ""
 "Your project profile determines which size (width x height) and frame rate "
 "(FPS) are used during both playback and exporting. For example, if you are "
@@ -170,20 +181,20 @@ msgid ""
 "preview speed on slower computers. See :ref:`profiles_ref` for more "
 "information on available profiles."
 msgstr ""
-"Profilul proiectului tău determină ce dimensiune (lățime x înălțime) și rată "
-"de cadre (FPS) sunt folosite atât la redare, cât și la export. De exemplu, "
+"Profilul proiectului tău determină ce dimensiune (lățime x înălțime) și rată"
+" de cadre (FPS) sunt folosite atât la redare, cât și la export. De exemplu, "
 "dacă folosești un profil FHD 1920x1080, poți alege și un profil mai mic cu "
 "același raport de aspect (``16x9`` în acest exemplu), pentru a îmbunătăți "
 "viteza previzualizării pe calculatoare mai lente. Vezi :ref:`profiles_ref` "
 "pentru mai multe informații despre profilele disponibile."
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:61
+#: ../doc/playback.rst:65
 msgid "FPS (Frame Rate)"
 msgstr "FPS (Rată de cadre)"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:61
+#: ../doc/playback.rst:65
 msgid ""
 "The FPS of your project is also very important, and a large factor for "
 "smooth video playback. For example, a 60 FPS video must render twice the "
@@ -192,18 +203,18 @@ msgid ""
 "FPS to a lower value, such as 30 or 24."
 msgstr ""
 "FPS-ul proiectului tău este, de asemenea, foarte important și un factor "
-"major pentru redarea video fluidă. De exemplu, un video la 60 FPS trebuie să "
-"redea de două ori mai multe cadre comparativ cu unul la 30 FPS. Dacă "
+"major pentru redarea video fluidă. De exemplu, un video la 60 FPS trebuie să"
+" redea de două ori mai multe cadre comparativ cu unul la 30 FPS. Dacă "
 "întâmpini încetiniri în performanța în timp real, poate fi util să reduci "
 "FPS-ul proiectului la o valoare mai mică, cum ar fi 30 sau 24."
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:65
+#: ../doc/playback.rst:69
 msgid "Matching Rates"
 msgstr "Potrivirea ratelor"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:65
+#: ../doc/playback.rst:69
 msgid ""
 "It is very important to match your source assets FPS and Sample Rate with "
 "your Project FPS and Project sample rate. If either rate does not match "
@@ -221,66 +232,66 @@ msgstr ""
 "poate duce la pocnituri audio, aliniamente greșite, cadre duplicate și "
 "întârzieri suplimentare în previzualizarea video în timp real. Poți face "
 "clic dreapta pe un fișier și alege :guilabel:`Proprietăți fișier` pentru a "
-"verifica ratele fișierelor sursă și a te asigura că se potrivesc cu setările "
-"proiectului (afișate în partea de sus a OpenShot). Vezi :ref:"
-"`file_properties_ref`."
+"verifica ratele fișierelor sursă și a te asigura că se potrivesc cu setările"
+" proiectului (afișate în partea de sus a OpenShot). Vezi "
+":ref:`file_properties_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:71
+#: ../doc/playback.rst:75
 msgid "Source Assets"
 msgstr "Fișiere sursă"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:71
+#: ../doc/playback.rst:75
 msgid ""
 "For example, if you are editing 4K 60 FPS source assets, this is likely "
 "going to put a strain on your system. A common solution is using another "
-"tool (such as FFmpeg) to create a copy (or proxy) of all your source assets, "
-"at a lower resolution (and maybe even a lower FPS). It is recommended to "
-"keep these proxy video files in their own folder, separate from the original "
-"video files. Once you have completed your video editing with the proxy "
+"tool (such as FFmpeg) to create a copy (or proxy) of all your source assets,"
+" at a lower resolution (and maybe even a lower FPS). It is recommended to "
+"keep these proxy video files in their own folder, separate from the original"
+" video files. Once you have completed your video editing with the proxy "
 "files, simply copy/paste your `*.osp` project file back into the original "
 "folder, and export the higher quality, original files."
 msgstr ""
 "De exemplu, dacă editezi fișiere sursă 4K la 60 FPS, acest lucru va pune "
-"probabil o presiune mare pe sistemul tău. O soluție comună este să folosești "
-"un alt instrument (cum ar fi FFmpeg) pentru a crea o copie (sau proxy) a "
-"tuturor fișierelor sursă, la o rezoluție mai mică (și poate chiar un FPS mai "
-"mic). Se recomandă să păstrezi aceste fișiere proxy într-un folder separat, "
-"distinct de fișierele video originale. După ce ai terminat editarea video cu "
-"fișierele proxy, pur și simplu copiază/lipeste fișierul proiect `*.osp` "
+"probabil o presiune mare pe sistemul tău. O soluție comună este să folosești"
+" un alt instrument (cum ar fi FFmpeg) pentru a crea o copie (sau proxy) a "
+"tuturor fișierelor sursă, la o rezoluție mai mică (și poate chiar un FPS mai"
+" mic). Se recomandă să păstrezi aceste fișiere proxy într-un folder separat,"
+" distinct de fișierele video originale. După ce ai terminat editarea video "
+"cu fișierele proxy, pur și simplu copiază/lipeste fișierul proiect `*.osp` "
 "înapoi în folderul original și exportă fișierele originale de calitate "
 "superioară."
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:77 ../playback.rst:101
+#: ../doc/playback.rst:81 ../doc/playback.rst:105
 msgid "Audio Device"
 msgstr "Dispozitiv audio"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:77
+#: ../doc/playback.rst:81
 msgid ""
-"If you are still having issues with audio lag or sync, please verify you are "
-"using the correct :guilabel:`Playback Audio Device` for playback (in the "
+"If you are still having issues with audio lag or sync, please verify you are"
+" using the correct :guilabel:`Playback Audio Device` for playback (in the "
 "OpenShot Preferences). See :ref:`preferences_preview_ref`. Verify your "
 "default audio device (on your operating system) is using the same sample "
-"rate and all *Audio Enhancements* are disabled. On certain operating systems "
-"(such as Windows), mismatching sample rates or audio enhancements can cause "
-"severe audio / video sync problems. Lastly, try adjusting the :guilabel:"
-"`Playback Audio Buffer Size` (lower values will playback audio with less "
-"delay, higher values will playback audio with a larger delay). OpenShot "
-"defaults to a buffer size of 512, which is reasonable for most systems, "
-"however on some systems you might need to lower (or raise) this value for "
-"smooth and lag-free audio playback. Be sure to restart OpenShot after "
-"changing the audio playback settings."
+"rate and all *Audio Enhancements* are disabled. On certain operating systems"
+" (such as Windows), mismatching sample rates or audio enhancements can cause"
+" severe audio / video sync problems. Lastly, try adjusting the "
+":guilabel:`Playback Audio Buffer Size` (lower values will playback audio "
+"with less delay, higher values will playback audio with a larger delay). "
+"OpenShot defaults to a buffer size of 512, which is reasonable for most "
+"systems, however on some systems you might need to lower (or raise) this "
+"value for smooth and lag-free audio playback. Be sure to restart OpenShot "
+"after changing the audio playback settings."
 msgstr ""
 "Dacă încă întâmpinați probleme cu întârzierea sau sincronizarea audio, vă "
 "rugăm să verificați dacă utilizați dispozitivul corect :guilabel:`Playback "
-"Audio Device` pentru redare (în Preferințele OpenShot). Consultați :ref:"
-"`preferences_preview_ref`. Verificați dacă dispozitivul audio implicit (pe "
-"sistemul dumneavoastră de operare) folosește aceeași rată de eșantionare și "
-"dacă toate *Îmbunătățirile Audio* sunt dezactivate. Pe anumite sisteme de "
-"operare (cum ar fi Windows), ratele de eșantionare necorespunzătoare sau "
+"Audio Device` pentru redare (în Preferințele OpenShot). Consultați "
+":ref:`preferences_preview_ref`. Verificați dacă dispozitivul audio implicit "
+"(pe sistemul dumneavoastră de operare) folosește aceeași rată de eșantionare"
+" și dacă toate *Îmbunătățirile Audio* sunt dezactivate. Pe anumite sisteme "
+"de operare (cum ar fi Windows), ratele de eșantionare necorespunzătoare sau "
 "îmbunătățirile audio pot cauza probleme grave de sincronizare audio/video. "
 "În cele din urmă, încercați să ajustați :guilabel:`Playback Audio Buffer "
 "Size` (valorile mai mici vor reda audio cu o întârziere mai mică, valorile "
@@ -292,52 +303,52 @@ msgstr ""
 "de redare audio."
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:89
+#: ../doc/playback.rst:93
 msgid "Audio Troubleshooting"
 msgstr "Depanare Audio"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:90
+#: ../doc/playback.rst:94
 msgid ""
 "If you are still experiencing audio related issues, and the above real-time "
 "playback factors did not resolve your issue, here are some additional "
 "troubleshooting steps you can take."
 msgstr ""
-"Dacă încă întâmpinați probleme legate de audio și factorii de redare în timp "
-"real de mai sus nu au rezolvat problema, iată câțiva pași suplimentari de "
+"Dacă încă întâmpinați probleme legate de audio și factorii de redare în timp"
+" real de mai sus nu au rezolvat problema, iată câțiva pași suplimentari de "
 "depanare pe care îi puteți urma."
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:97
+#: ../doc/playback.rst:101
 msgid "Step"
 msgstr "Pas"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:99
+#: ../doc/playback.rst:103
 msgid "Latest Daily Build"
 msgstr "Ultima versiune zilnică"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:99
+#: ../doc/playback.rst:103
 msgid ""
-"Verify you are running the latest daily build of OpenShot: https://www."
-"openshot.org/download#daily"
+"Verify you are running the latest daily build of OpenShot: "
+"https://www.openshot.org/download#daily"
 msgstr ""
-"Verificați dacă rulați ultima versiune zilnică a OpenShot: https://www."
-"openshot.org/download#daily"
+"Verificați dacă rulați ultima versiune zilnică a OpenShot: "
+"https://www.openshot.org/download#daily"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:100
+#: ../doc/playback.rst:104
 msgid "Clean Install"
 msgstr "Instalare Curată"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:100
+#: ../doc/playback.rst:104
 msgid "See :ref:`preferences_reset_ref` for a clean install"
 msgstr "Consultați :ref:`preferences_reset_ref` pentru o instalare curată"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:101
+#: ../doc/playback.rst:105
 msgid ""
 "Check that the Playback Audio Device is set correctly for your sound output "
 "under Preferences in the Preview tab. Restart OpenShot after changing the "
@@ -345,8 +356,8 @@ msgid ""
 "from the video card, headphones, etc.) to rule out other audio issues. "
 "Disable `automatic sound suppression` for voice calls during microphone "
 "activity, and disable `Audio Enhancements` under the advanced settings tab "
-"of your audio device (not all audio devices have these settings). See :ref:"
-"`preferences_preview_ref`."
+"of your audio device (not all audio devices have these settings). See "
+":ref:`preferences_preview_ref`."
 msgstr ""
 "Verificați dacă dispozitivul de redare audio este setat corect pentru "
 "ieșirea de sunet în Preferințe, în fila Previzualizare. Reporniti OpenShot "
@@ -354,17 +365,17 @@ msgstr ""
 "audio (USB, audio prin HDMI de la placa video, căști etc.) pentru a elimina "
 "alte probleme audio. Dezactivați `suprimarea automată a sunetului` pentru "
 "apelurile vocale în timpul utilizării microfonului și dezactivați "
-"`Îmbunătățirile Audio` în fila de setări avansate a dispozitivului audio (nu "
-"toate dispozitivele audio au aceste setări). Consultați :ref:"
-"`preferences_preview_ref`."
+"`Îmbunătățirile Audio` în fila de setări avansate a dispozitivului audio (nu"
+" toate dispozitivele audio au aceste setări). Consultați "
+":ref:`preferences_preview_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:107
+#: ../doc/playback.rst:111
 msgid "Audio Buffer Size"
 msgstr "Dimensiunea Bufferului Audio"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:107
+#: ../doc/playback.rst:111
 msgid ""
 "The audio buffer size is the amount of audio samples which must first be "
 "buffered in OpenShot before audio playback can begin. If this value is too "
@@ -388,12 +399,12 @@ msgstr ""
 "redare audio sincronizată și fără lag. Intervalul este între 128 și 4096."
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:113
+#: ../doc/playback.rst:117
 msgid "Sample Rate"
 msgstr "Rată de Eșantionare"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:113
+#: ../doc/playback.rst:117
 msgid ""
 "Ensure that the `Default Audio Sample Rate` and `Default Audio Channels` on "
 "the Preview tab of the Preferences window match your hardware. You can also "
@@ -407,15 +418,15 @@ msgstr ""
 "Consultați :ref:`preferences_preview_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:116
+#: ../doc/playback.rst:120
 msgid "Volume"
 msgstr "Volum"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:116
+#: ../doc/playback.rst:120
 msgid ""
-"Ensure that the volume does not exceed 100% on overlapping clips (such as an "
-"audio track combined with a video track). Lower the volume on individual "
+"Ensure that the volume does not exceed 100% on overlapping clips (such as an"
+" audio track combined with a video track). Lower the volume on individual "
 "clips if needed. See :ref:`clip_volume_mixing_ref`."
 msgstr ""
 "Asigurați-vă că volumul nu depășește 100% pe clipurile suprapuse (cum ar fi "
@@ -423,28 +434,28 @@ msgstr ""
 "individuale dacă este necesar. Consultați :ref:`clip_volume_mixing_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:118
+#: ../doc/playback.rst:122
 msgid "Headphones"
 msgstr "Căști"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:118
+#: ../doc/playback.rst:122
 msgid ""
-"If you're using headphones, plug them in before starting OpenShot. Launching "
-"OpenShot with no speakers, headphones, or valid audio playback device can "
+"If you're using headphones, plug them in before starting OpenShot. Launching"
+" OpenShot with no speakers, headphones, or valid audio playback device can "
 "cause OpenShot to freeze during playback."
 msgstr ""
 "Dacă folosiți căști, conectați-le înainte de a porni OpenShot. Lansarea "
-"OpenShot fără difuzoare, căști sau un dispozitiv valid de redare audio poate "
-"cauza blocarea OpenShot în timpul redării."
+"OpenShot fără difuzoare, căști sau un dispozitiv valid de redare audio poate"
+" cauza blocarea OpenShot în timpul redării."
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:120
+#: ../doc/playback.rst:124
 msgid "OS Updates"
 msgstr "Actualizări OS"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:120
+#: ../doc/playback.rst:124
 msgid ""
 "Update your operating system and any pending security updates. Some audio "
 "issues, especially audio device specific issues, can be resolved with an "
@@ -453,3 +464,36 @@ msgstr ""
 "Actualizați sistemul de operare și toate actualizările de securitate în "
 "așteptare. Unele probleme audio, în special cele specifice dispozitivelor "
 "audio, pot fi rezolvate printr-o actualizare a sistemului de operare."
+
+#: ../doc/playback.rst:129
+msgid "Smoother playback with optimized videos"
+msgstr "Redare mai fluidă cu videoclipuri optimizate"
+
+#: ../doc/playback.rst:130
+msgid ""
+"If your source videos are difficult to play smoothly, enable "
+":menuselection:`File --> Auto-Optimize`. OpenShot identifies videos on your "
+"computer using their recorded thumbnail timings, and creates smaller preview"
+" copies for videos above the threshold in :menuselection:`Edit --> "
+"Preferences --> Optimize`. This setting belongs to the current project and "
+"is saved with it. You can keep editing while copies are created; exporting "
+"still uses your original files."
+msgstr ""
+"Dacă videoclipurile sursă sunt greu de redat fluent, activați "
+":menuselection:`Fișier --> Auto-optimizare`. OpenShot identifică "
+"videoclipurile de pe computerul dvs. folosind timpii înregistrați ai "
+"miniaturilor și creează copii mai mici pentru previzualizare pentru "
+"videoclipurile care depășesc pragul din :menuselection:`Editare --> "
+"Preferințe --> Optimizare`. Această setare aparține proiectului curent și "
+"este salvată împreună cu acesta. Puteți continua să editați în timp ce "
+"copiile sunt create; exportul folosește în continuare fișierele originale."
+
+#: ../doc/playback.rst:137
+msgid ""
+"See :ref:`optimize_ref` for the banner, progress indicators, and manual "
+"optimization options, or :ref:`preferences_optimize_ref` to adjust the "
+"threshold and default behavior."
+msgstr ""
+"Consultați :ref:`optimize_ref` pentru banner, indicatorii de progres și "
+"opțiunile de optimizare manuală, sau :ref:`preferences_optimize_ref` pentru "
+"a ajusta pragul și comportamentul implicit."

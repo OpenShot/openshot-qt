@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-22 12:37-0600\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,12 +18,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:23
+#: ../doc/playback.rst:23
 msgid "Playback"
 msgstr "播放"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:24
+#: ../doc/playback.rst:24
 msgid ""
 "The preview window is where video & audio playback takes place in OpenShot "
 "Video Editor. The preview window utilizes real-time video rendering, "
@@ -37,13 +37,22 @@ msgstr ""
 "中進行視訊與音訊播放的地方。預覽視窗使用即時視訊渲染、快取、重取樣和影像縮放。這是回放（及聆聽）您的編輯內容的主要區域，提供您調整所需的反饋。這也是對 "
 "CPU 負擔最大的操作之一，需要現代電腦及一些合理的假設與因素（如下所列）。"
 
+#: ../doc/playback.rst:29
+msgid ""
+"To watch a file or choose a section before adding it to the timeline, right-"
+"click it in Project Files and choose :guilabel:`Preview File` or "
+":guilabel:`Split File`. See :ref:`source_preview_ref`."
+msgstr ""
+"要在加入時間軸前觀看檔案或選擇區段，請在專案檔案中對該檔案點擊右鍵，然後選擇 :guilabel:`預覽檔案` 或 :guilabel:`分割檔案`\\"
+" 。詳見 :ref:`source_preview_ref`\\ 。"
+
 # Translated with gpt-4.1-mini
-#: ../playback.rst:30
+#: ../doc/playback.rst:34
 msgid "Real-Time Preview"
 msgstr "即時預覽"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:31
+#: ../doc/playback.rst:35
 msgid ""
 "Many factors affect how smoothly the **real-time video preview** can "
 "playback on your computer. This requires a fast, modern multi-threaded CPU, "
@@ -54,22 +63,22 @@ msgstr ""
 "GPU。我們在下方列出了許多重要因素。"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:38
+#: ../doc/playback.rst:42
 msgid "Factor"
 msgstr "因素"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:38 ../playback.rst:97
+#: ../doc/playback.rst:42 ../doc/playback.rst:101
 msgid "Description"
 msgstr "說明"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:40
+#: ../doc/playback.rst:44
 msgid "CPU"
 msgstr "CPU"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:40
+#: ../doc/playback.rst:44
 msgid ""
 "If your CPU is too slow or has too few cores, you will likely experience a "
 "slow, choppy preview. We recommend installing OpenShot on fairly modern "
@@ -80,12 +89,12 @@ msgstr ""
 ":ref:`min_system_req_ref` 以了解 OpenShot Video Editor 的硬體需求詳細資訊。"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:43
+#: ../doc/playback.rst:47
 msgid "Memory"
 msgstr "記憶體"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:43
+#: ../doc/playback.rst:47
 msgid ""
 "If your available RAM memory is too limited, you will likely see huge drops "
 "in real-time performance, and your entire system will lag. We recommend "
@@ -96,12 +105,12 @@ msgstr ""
 ":ref:`min_system_req_ref` 。"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:46
+#: ../doc/playback.rst:50
 msgid "Cache"
 msgstr "快取"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:46
+#: ../doc/playback.rst:50
 msgid ""
 "Your cache settings in the OpenShot Preferences are very important for "
 "determining how many frames to processes in advance. A value too low or too "
@@ -117,12 +126,12 @@ msgstr ""
 "中的快取偏好設定。此快取系統同時也會在匯出時預先準備影格，加快最終渲染速度。請參閱 :ref:`preferences_cache_ref` 。"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:52
+#: ../doc/playback.rst:56
 msgid "Preview Size"
 msgstr "預覽大小"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:52
+#: ../doc/playback.rst:56
 msgid ""
 "The height x width of your preview dock (widget) is very important for "
 "smooth real-time previews. The larger the window size, the more pixels must "
@@ -135,12 +144,12 @@ msgstr ""
 "也越多。建議持續縮小預覽視窗大小，直到達到流暢的視訊播放。在較慢的電腦上，即時預覽的視窗大小可能需要非常小（例如 320 x 240）。"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:57
+#: ../doc/playback.rst:61
 msgid "Profile"
 msgstr "設定檔"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:57
+#: ../doc/playback.rst:61
 msgid ""
 "Your project profile determines which size (width x height) and frame rate "
 "(FPS) are used during both playback and exporting. For example, if you are "
@@ -154,12 +163,12 @@ msgstr ""
 "以了解可用設定檔的更多資訊。"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:61
+#: ../doc/playback.rst:65
 msgid "FPS (Frame Rate)"
 msgstr "FPS（影格率）"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:61
+#: ../doc/playback.rst:65
 msgid ""
 "The FPS of your project is also very important, and a large factor for "
 "smooth video playback. For example, a 60 FPS video must render twice the "
@@ -171,12 +180,12 @@ msgstr ""
 "影片的兩倍。如果您遇到即時效能變慢，降低專案的 FPS 至較低值（如 30 或 24）可能會有幫助。"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:65
+#: ../doc/playback.rst:69
 msgid "Matching Rates"
 msgstr "匹配速率"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:65
+#: ../doc/playback.rst:69
 msgid ""
 "It is very important to match your source assets FPS and Sample Rate with "
 "your Project FPS and Project sample rate. If either rate does not match "
@@ -192,12 +201,12 @@ msgstr ""
 "，檢查來源素材的速率，並確保它們與專案設定（顯示於 OpenShot 頂部）相符。請參閱 :ref:`file_properties_ref` 。"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:71
+#: ../doc/playback.rst:75
 msgid "Source Assets"
 msgstr "來源素材"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:71
+#: ../doc/playback.rst:75
 msgid ""
 "For example, if you are editing 4K 60 FPS source assets, this is likely "
 "going to put a strain on your system. A common solution is using another "
@@ -214,12 +223,12 @@ msgstr ""
 "專案檔複製/貼上回原始資料夾，然後匯出較高品質的原始檔案。"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:77 ../playback.rst:101
+#: ../doc/playback.rst:81 ../doc/playback.rst:105
 msgid "Audio Device"
 msgstr "音訊裝置"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:77
+#: ../doc/playback.rst:81
 msgid ""
 "If you are still having issues with audio lag or sync, please verify you are"
 " using the correct :guilabel:`Playback Audio Device` for playback (in the "
@@ -243,12 +252,12 @@ msgstr ""
 "OpenShot。"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:89
+#: ../doc/playback.rst:93
 msgid "Audio Troubleshooting"
 msgstr "音訊故障排除"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:90
+#: ../doc/playback.rst:94
 msgid ""
 "If you are still experiencing audio related issues, and the above real-time "
 "playback factors did not resolve your issue, here are some additional "
@@ -256,34 +265,34 @@ msgid ""
 msgstr "如果您仍然遇到音訊相關問題，且上述即時播放因素未能解決您的問題，您可以嘗試以下其他故障排除步驟。"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:97
+#: ../doc/playback.rst:101
 msgid "Step"
 msgstr "步驟"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:99
+#: ../doc/playback.rst:103
 msgid "Latest Daily Build"
 msgstr "最新每日版本"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:99
+#: ../doc/playback.rst:103
 msgid ""
 "Verify you are running the latest daily build of OpenShot: "
 "https://www.openshot.org/download#daily"
 msgstr "請確認您正在執行最新的 OpenShot 每日版本：https://www.openshot.org/download#daily"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:100
+#: ../doc/playback.rst:104
 msgid "Clean Install"
 msgstr "全新安裝"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:100
+#: ../doc/playback.rst:104
 msgid "See :ref:`preferences_reset_ref` for a clean install"
 msgstr "請參閱 :ref:`preferences_reset_ref` 以了解全新安裝方法"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:101
+#: ../doc/playback.rst:105
 msgid ""
 "Check that the Playback Audio Device is set correctly for your sound output "
 "under Preferences in the Preview tab. Restart OpenShot after changing the "
@@ -300,12 +309,12 @@ msgstr ""
 " :ref:`preferences_preview_ref` 。"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:107
+#: ../doc/playback.rst:111
 msgid "Audio Buffer Size"
 msgstr "音訊緩衝區大小"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:107
+#: ../doc/playback.rst:111
 msgid ""
 "The audio buffer size is the amount of audio samples which must first be "
 "buffered in OpenShot before audio playback can begin. If this value is too "
@@ -324,12 +333,12 @@ msgstr ""
 " 128 到 4096。"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:113
+#: ../doc/playback.rst:117
 msgid "Sample Rate"
 msgstr "取樣率"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:113
+#: ../doc/playback.rst:117
 msgid ""
 "Ensure that the `Default Audio Sample Rate` and `Default Audio Channels` on "
 "the Preview tab of the Preferences window match your hardware. You can also "
@@ -340,12 +349,12 @@ msgstr ""
 "音效控制面板）中檢查這些設定。請參閱 :ref:`preferences_preview_ref` 。"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:116
+#: ../doc/playback.rst:120
 msgid "Volume"
 msgstr "音量"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:116
+#: ../doc/playback.rst:120
 msgid ""
 "Ensure that the volume does not exceed 100% on overlapping clips (such as an"
 " audio track combined with a video track). Lower the volume on individual "
@@ -355,12 +364,12 @@ msgstr ""
 ":ref:`clip_volume_mixing_ref` 。"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:118
+#: ../doc/playback.rst:122
 msgid "Headphones"
 msgstr "耳機"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:118
+#: ../doc/playback.rst:122
 msgid ""
 "If you're using headphones, plug them in before starting OpenShot. Launching"
 " OpenShot with no speakers, headphones, or valid audio playback device can "
@@ -370,14 +379,41 @@ msgstr ""
 "在播放時當機。"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:120
+#: ../doc/playback.rst:124
 msgid "OS Updates"
 msgstr "作業系統更新"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:120
+#: ../doc/playback.rst:124
 msgid ""
 "Update your operating system and any pending security updates. Some audio "
 "issues, especially audio device specific issues, can be resolved with an "
 "operating system update."
 msgstr "請更新您的作業系統及所有待處理的安全性更新。有些音訊問題，特別是音訊裝置特定的問題，可以透過作業系統更新來解決。"
+
+#: ../doc/playback.rst:129
+msgid "Smoother playback with optimized videos"
+msgstr "使用優化影片以獲得更順暢的播放體驗"
+
+#: ../doc/playback.rst:130
+msgid ""
+"If your source videos are difficult to play smoothly, enable "
+":menuselection:`File --> Auto-Optimize`. OpenShot identifies videos on your "
+"computer using their recorded thumbnail timings, and creates smaller preview"
+" copies for videos above the threshold in :menuselection:`Edit --> "
+"Preferences --> Optimize`. This setting belongs to the current project and "
+"is saved with it. You can keep editing while copies are created; exporting "
+"still uses your original files."
+msgstr ""
+"如果您的原始影片難以順暢播放，請啟用 :menuselection:`檔案 --> 自動優化`\\ 。OpenShot "
+"會根據影片的縮圖時間點識別電腦中的影片，並為超過 :menuselection:`編輯 --> 偏好設定 --> 優化` "
+"閾值的影片建立較小的預覽副本。此設定屬於目前專案並會與專案一同儲存。您可以在建立副本時繼續編輯；匯出時仍會使用您的原始檔案。"
+
+#: ../doc/playback.rst:137
+msgid ""
+"See :ref:`optimize_ref` for the banner, progress indicators, and manual "
+"optimization options, or :ref:`preferences_optimize_ref` to adjust the "
+"threshold and default behavior."
+msgstr ""
+"請參閱 :ref:`optimize_ref` 了解橫幅、進度指示器及手動優化選項，或參閱 "
+":ref:`preferences_optimize_ref` 以調整閾值和預設行為。"

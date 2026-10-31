@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-26 14:26-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,12 +18,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:22
+#: ../doc/installation.rst:22
 msgid "Installation"
 msgstr "설치"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:24
+#: ../doc/installation.rst:24
 msgid ""
 "The latest official **stable** version of OpenShot Video Editor for Linux, "
 "Mac, Chrome OS, and Windows can be downloaded from the official download "
@@ -39,12 +39,12 @@ msgstr ""
 "자주 업데이트되며, 안정 빌드에 아직 포함되지 않은 많은 개선 사항이 포함되어 있습니다)."
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:32
+#: ../doc/installation.rst:32
 msgid "Clean Install"
 msgstr "새로 설치"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:34
+#: ../doc/installation.rst:34
 msgid ""
 "If you are upgrading from a previous version of OpenShot or are experiencing"
 " a crash or error message after launching OpenShot, please see "
@@ -57,12 +57,12 @@ msgstr ""
 "설정으로 새로 설치할 때 필요합니다)."
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:39
+#: ../doc/installation.rst:39
 msgid "Windows (Installer)"
 msgstr "윈도우 (설치 프로그램)"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:41
+#: ../doc/installation.rst:41
 msgid ""
 "Download the Windows installer from the `official download page "
 "<https://www.openshot.org/download/>`_ (the download page contains both "
@@ -75,12 +75,12 @@ msgstr ""
 "설치하세요. 설치가 완료되면 OpenShot이 시작 메뉴에서 실행 가능합니다."
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:50
+#: ../doc/installation.rst:50
 msgid "Windows (Portable)"
 msgstr "윈도우 (포터블)"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:52
+#: ../doc/installation.rst:52
 msgid ""
 "If you need to install OpenShot on Windows without Administrator "
 "permissions, we also support a portable installation process. Download the "
@@ -93,12 +93,12 @@ msgstr ""
 "다음 명령어를 입력하세요:"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:67 ../installation.rst:185
+#: ../doc/installation.rst:67 ../doc/installation.rst:189
 msgid "Mac"
 msgstr "맥"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:69
+#: ../doc/installation.rst:69
 msgid ""
 "Download the DMG file from the `official download page "
 "<https://www.openshot.org/download/>`_, double click it, and then drag the "
@@ -110,7 +110,7 @@ msgstr ""
 "클릭하고, OpenShot 애플리케이션 아이콘을 ** 응용 프로그램** 바로 가기로 드래그하세요. 대부분의 Mac 애플리케이션 설치 "
 "방식과 매우 유사합니다. 이제 ` 런치패드` 또는 Finder의 ` 응용 프로그램` 에서 OpenShot을 실행하세요."
 
-#: ../installation.rst:74
+#: ../doc/installation.rst:74
 msgid ""
 "The current Mac download is built for Intel Macs. On an Apple Silicon Mac, "
 "you can run this Intel version using Rosetta. A native Apple Silicon version"
@@ -120,12 +120,12 @@ msgstr ""
 "Intel 버전을 실행할 수 있습니다. 현재 네이티브 Apple Silicon 버전은 제공되지 않습니다."
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:81
+#: ../doc/installation.rst:81
 msgid "Linux (AppImage)"
 msgstr "리눅스 (AppImage)"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:83
+#: ../doc/installation.rst:83
 msgid ""
 "Most Linux distributions have a version of OpenShot in their software "
 "repositories, which can be installed using your package manager / software "
@@ -140,7 +140,7 @@ msgstr ""
 "<https://www.openshot.org/download/>`_ 에서 AppImage를 설치하는 것을 권장합니다."
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:89
+#: ../doc/installation.rst:89
 msgid ""
 "Once downloaded, right click on the AppImage, choose Properties, and mark "
 "the file as **Executable**. Finally, double click the AppImage to launch "
@@ -157,12 +157,12 @@ msgstr ""
 " 참조하세요."
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:98
+#: ../doc/installation.rst:98
 msgid "Unable to Launch AppImage?"
 msgstr "AppImage 실행 불가?"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:99
+#: ../doc/installation.rst:99
 msgid ""
 "Please verify that the ``libfuse2`` library is installed, which is required "
 "to mount and read an AppImage. On newer versions of Ubuntu (i.e. 22.04+), "
@@ -173,12 +173,12 @@ msgstr ""
 "22.04 이상)에서는 기본적으로 ``libfuse2`` 가 설치되어 있지 않습니다. 다음 명령어로 설치할 수 있습니다:"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:108
+#: ../doc/installation.rst:108
 msgid "Install AppImage Launcher"
 msgstr "AppImage 실행기 설치"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:109
+#: ../doc/installation.rst:109
 msgid ""
 "If you plan on using OpenShot often, you will probably want an integrated "
 "launcher for our AppImage. We recommend using AppImageLauncher, which is the"
@@ -190,13 +190,22 @@ msgstr ""
 " 데스크톱에서 AppImage 파일을 실행(및 관리)하는 공식 지원 방법입니다. Debian 계열 배포판(Ubuntu, Mint 등)을 "
 "사용 중이라면 공식 AppImageLauncher PPA가 있습니다:"
 
+#: ../doc/installation.rst:120
+msgid ""
+"For command-line editing and automation, see :ref:`cli_ref`. If "
+"AppImageLauncher shows integration dialogs when using ``--cli``, follow the "
+"environment-variable instructions in :ref:`cli_appimage_ref`."
+msgstr ""
+"명령줄 편집 및 자동화에 대해서는 :ref:`cli_ref` 를 참조하세요. AppImageLauncher 가 ``--cli`` 사용 시"
+" 통합 대화상자를 표시하면, :ref:`cli_appimage_ref` 에 있는 환경 변수 지침을 따르세요."
+
 # Translated with gpt-4.1-mini
-#: ../installation.rst:121
+#: ../doc/installation.rst:125
 msgid "Linux (PPA)"
 msgstr "리눅스 (PPA)"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:123
+#: ../doc/installation.rst:127
 msgid ""
 "For Debian-based Linux distributions (Ubuntu, Mint, etc...), we also have a "
 "PPA (Personal Package Archive), which adds our official OpenShot software "
@@ -207,22 +216,22 @@ msgstr ""
 "PPA(개인 패키지 아카이브)를 제공합니다. 이를 통해 AppImage에 의존하지 않고 최신 버전을 설치할 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:128
+#: ../doc/installation.rst:132
 msgid "Stable PPA (Contains only official releases)"
 msgstr "안정 PPA (공식 릴리스만 포함)"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:137
+#: ../doc/installation.rst:141
 msgid "Daily PPA (Highly experimental and unstable, for testers)"
 msgstr "일일 PPA (매우 실험적이고 불안정하며, 테스터용)"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:146
+#: ../doc/installation.rst:150
 msgid "Chrome OS (Chromebook)"
 msgstr "크롬 OS (크롬북)"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:148
+#: ../doc/installation.rst:152
 msgid ""
 "Chrome OS supports Linux apps, but this feature is off by default. You can "
 "turn it on in *Settings*. Once Linux is enabled, you can install and run "
@@ -235,36 +244,36 @@ msgstr ""
 "다운로드하고 OpenShot 실행에 필요한 시스템 구성을 자동으로 수행합니다."
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:153
+#: ../doc/installation.rst:157
 msgid "Navigate to *chrome://os-settings/crostini* (Copy/Paste)"
 msgstr "*chrome://os-settings/crostini* 로 이동 (복사/붙여넣기)"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:154
+#: ../doc/installation.rst:158
 msgid "Under \"Linux (Beta)\" select \"Turn On\". Default values are fine."
 msgstr "\"Linux (Beta)\"에서 \"켜기\"를 선택하세요. 기본값을 사용해도 됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:156
+#: ../doc/installation.rst:160
 msgid ""
 "When the Terminal appears (i.e. black window), Copy/Paste the following "
 "command:"
 msgstr "터미널 창(검은색 창)이 나타나면 다음 명령어를 복사/붙여넣기 하세요:"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:156
+#: ../doc/installation.rst:160
 msgid ""
 "``bash <(wget -O - http://openshot.org/files/chromeos/install-stable.sh)``"
 msgstr ""
 "``bash <(wget -O - http://openshot.org/files/chromeos/install-stable.sh)``"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:159
+#: ../doc/installation.rst:163
 msgid "Previous Versions"
 msgstr "이전 버전"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:161
+#: ../doc/installation.rst:165
 msgid ""
 "To download old versions of OpenShot Video Editor, you can visit "
 "https://github.com/OpenShot/openshot-qt/tags. Click on the version number "
@@ -277,7 +286,7 @@ msgstr ""
 "컴퓨터에 맞는 버전을 다운로드하고 위의 설치 지침을 따르세요."
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:166
+#: ../doc/installation.rst:170
 msgid ""
 "NOTE: Projects (\\*.osp) made with newer versions of OpenShot Video Editor "
 "might not support older versions."
@@ -285,12 +294,12 @@ msgstr ""
 "참고: 최신 버전의 OpenShot Video Editor로 만든 프로젝트(\\*.osp)는 이전 버전에서 지원되지 않을 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:169
+#: ../doc/installation.rst:173
 msgid "Uninstall"
 msgstr "제거"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:171
+#: ../doc/installation.rst:175
 msgid ""
 "To fully uninstall OpenShot from your system, you must **manually delete** "
 "the ``.openshot_qt`` folder: ``~/.openshot_qt/`` or "
@@ -308,57 +317,57 @@ msgstr ""
 "설정으로 ** 깨끗한 설치** 를 위해)."
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:178
+#: ../doc/installation.rst:182
 msgid "Windows"
 msgstr "윈도우"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:180
+#: ../doc/installation.rst:184
 msgid "Open **Control Panel** from the Start menu"
 msgstr "시작 메뉴에서 ** 제어판** 을 엽니다"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:181
+#: ../doc/installation.rst:185
 msgid "Click on **Programs and Features**"
 msgstr "** 프로그램 및 기능** 을 클릭합니다"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:182
+#: ../doc/installation.rst:186
 msgid "Select OpenShot Video Editor, then click **Uninstall**"
 msgstr "OpenShot Video Editor를 선택한 후 ** 제거** 를 클릭합니다"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:187
+#: ../doc/installation.rst:191
 msgid "Open **Finder** and go to **Applications**"
 msgstr "**Finder** 를 열고 ** 응용 프로그램** 으로 이동합니다"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:188
+#: ../doc/installation.rst:192
 msgid "Drag the OpenShot Video Editor icon to the **Trash** in the Dock"
 msgstr "Dock의 ** 휴지통** 으로 OpenShot Video Editor 아이콘을 끌어다 놓습니다"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:189
+#: ../doc/installation.rst:193
 msgid "Right-click **Trash** and choose **Empty Trash**"
 msgstr "** 휴지통** 을 마우스 오른쪽 버튼으로 클릭하고 ** 휴지통 비우기** 를 선택합니다"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:192
+#: ../doc/installation.rst:196
 msgid "Ubuntu (Linux)"
 msgstr "우분투 (리눅스)"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:194
+#: ../doc/installation.rst:198
 msgid "Open up **Files**"
 msgstr "** 파일** 을 엽니다"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:195
+#: ../doc/installation.rst:199
 msgid "Locate the ``*.AppImage`` and delete the file"
 msgstr "``*.AppImage`` 파일을 찾아 삭제합니다"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:196
+#: ../doc/installation.rst:200
 msgid ""
 "OR click Activities, Right-click on OpenShot Video Editor icon, and choose "
 "**Remove AppImage from System**"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,11 +20,11 @@ msgstr ""
 "Generated-By: Babel 2.10.3\n"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:21
+#: ../doc/introduction.rst:21
 msgid "Introduction"
 msgstr "Introductie"
 
-#: ../introduction.rst:23
+#: ../doc/introduction.rst:23
 msgid ""
 "OpenShot Video Editor is an award-winning, open-source video editor, "
 "available on Linux, macOS, Chrome OS, and Windows. OpenShot can create "
@@ -37,66 +37,66 @@ msgstr ""
 " een rijke set functies."
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:30
+#: ../doc/introduction.rst:30
 msgid "Features"
 msgstr "Functies"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:31
+#: ../doc/introduction.rst:31
 msgid "**Free & open-source** (licensed under GPLv3)"
 msgstr "**Gratis & open-source** (gelicentieerd onder GPLv3)"
 
-#: ../introduction.rst:32
+#: ../doc/introduction.rst:32
 msgid "**Cross-platform** (Linux, macOS, Chrome OS, and Windows)"
 msgstr "**Cross-platform** (Linux, macOS, Chrome OS en Windows)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:33
+#: ../doc/introduction.rst:33
 msgid "**Easy-to-use UI** (beginner-friendly, built-in tutorial)"
 msgstr ""
 "**Gebruiksvriendelijke interface** (geschikt voor beginners, ingebouwde "
 "tutorial)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:34
+#: ../doc/introduction.rst:34
 msgid "**Supports most formats** (video, audio, images - FFmpeg-based)"
 msgstr ""
 "**Ondersteunt de meeste formaten** (video, audio, afbeeldingen - gebaseerd "
 "op FFmpeg)"
 
-#: ../introduction.rst:35
+#: ../doc/introduction.rst:35
 msgid ""
 "**70+ export targets & profiles** (YouTube, TikTok, Reels, Shorts, and more)"
 msgstr ""
 "**70+ exportdoelen & profielen** (YouTube, TikTok, Reels, Shorts en meer)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:36
+#: ../doc/introduction.rst:36
 msgid "**Advanced timeline** (drag-drop, scroll, zoom, snap)"
 msgstr ""
 "**Geavanceerde tijdlijn** (slepen en neerzetten, scrollen, zoomen, "
 "vastklikken)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:37
+#: ../doc/introduction.rst:37
 msgid "**Advanced clips** (trim, alpha, scale, rotate, shear, transform)"
 msgstr ""
 "**Geavanceerde clips** (trimmen, alfa, schalen, roteren, scheren, "
 "transformeren)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:38
+#: ../doc/introduction.rst:38
 msgid "**Real-time preview** (multi-threaded, performance-optimized)"
 msgstr "**Realtime preview** (multi-threaded, prestatie-geoptimaliseerd)"
 
-#: ../introduction.rst:39
+#: ../doc/introduction.rst:39
 msgid ""
 "**Multiple workspace modes** (Simple and Color views, plus save your own)"
 msgstr ""
 "**Meerdere werkruimte-modi** (Eenvoudige en Kleurweergaven, plus sla je "
 "eigen op)"
 
-#: ../introduction.rst:40
+#: ../doc/introduction.rst:40
 msgid ""
 "**Keyframe animations & panel** (`linear`, `bézier`, `constant` "
 "interpolation, visual keyframe panel)"
@@ -104,29 +104,29 @@ msgstr ""
 "**Keyframe-animaties & paneel** (`linear`, `bézier`, `constant` "
 "interpolatie, visueel keyframe-paneel)"
 
-#: ../introduction.rst:41
+#: ../doc/introduction.rst:41
 msgid "**One-click presets** (motion, fade, look, camera, color, and more)"
 msgstr ""
 "**One-click presets** (beweging, vervagen, look, camera, kleur en meer)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:42
+#: ../doc/introduction.rst:42
 msgid "**Compositing, overlays, watermarks, transparency**"
 msgstr "**Compositing, overlays, watermerken, transparantie**"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:43
+#: ../doc/introduction.rst:43
 msgid "**Unlimited tracks / layers** (for complex projects)"
 msgstr "**Onbeperkte sporen / lagen** (voor complexe projecten)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:44
+#: ../doc/introduction.rst:44
 msgid "**Transitions, masks, wipes** (grayscale images, animated masks)"
 msgstr ""
 "**Overgangen, maskers, wipes** (grijswaardenafbeeldingen, geanimeerde "
 "maskers)"
 
-#: ../introduction.rst:45
+#: ../doc/introduction.rst:45
 msgid ""
 "**Video effects** (chroma key, blur, brightness & contrast, film grain, "
 "stabilizer, and more)"
@@ -134,13 +134,13 @@ msgstr ""
 "**Video-effecten** (chroma key, vervaging, helderheid & contrast, "
 "filmkorrel, stabilisator en meer)"
 
-#: ../introduction.rst:46
+#: ../doc/introduction.rst:46
 msgid ""
 "**Audio effects** (compressor, expander, noise removal, echo, and more)"
 msgstr ""
 "**Audio-effecten** (compressor, expander, ruisonderdrukking, echo en meer)"
 
-#: ../introduction.rst:47
+#: ../doc/introduction.rst:47
 msgid ""
 "**Color grading** (color wheels, RGB curves, LUT support, video scopes & "
 "analysis)"
@@ -149,16 +149,16 @@ msgstr ""
 " & analyse)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:48
+#: ../doc/introduction.rst:48
 msgid "**Image sequences & 2D animations**"
 msgstr "**Beeldreeksen & 2D-animaties**"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:49
+#: ../doc/introduction.rst:49
 msgid "**Blender 3D integration** (animated 3D title templates)"
 msgstr "**Blender 3D-integratie** (geanimeerde 3D-titelsjablonen)"
 
-#: ../introduction.rst:50
+#: ../doc/introduction.rst:50
 msgid ""
 "**Vector file support & editing** (SVG for titles, lower thirds, text "
 "overlays)"
@@ -167,21 +167,21 @@ msgstr ""
 "thirds, tekstoverlays)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:51
+#: ../doc/introduction.rst:51
 msgid "**Audio mixing, waveform, editing**"
 msgstr "**Audiomixing, golfvorm, bewerking**"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:52
+#: ../doc/introduction.rst:52
 msgid "**Emojis** (open-source stickers & artwork)"
 msgstr "**Emoji's** (open-source stickers & artwork)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:53
+#: ../doc/introduction.rst:53
 msgid "**Frame accuracy** (per-frame navigation)"
 msgstr "**Frame-nauwkeurigheid** (navigatie per frame)"
 
-#: ../introduction.rst:54
+#: ../doc/introduction.rst:54
 msgid ""
 "**Time re-mapping & speed changes** (slow motion, repeat, loop, ping-pong, "
 "forward/backward)"
@@ -190,18 +190,18 @@ msgstr ""
 "pong, vooruit/achteruit)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:55
+#: ../doc/introduction.rst:55
 #, fuzzy
 msgid "**Built-in AI** (motion tracking, object detection, stabilization)"
 msgstr "**Geavanceerde AI** (bewegingsvolging, objectdetectie, stabilisatie)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:56
+#: ../doc/introduction.rst:56
 msgid "**Advanced AI** (see :ref:`ai_ref`)"
 msgstr "**Geavanceerde AI** (zie :ref:`ai_ref`)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:58
+#: ../doc/introduction.rst:58
 msgid ""
 "**Tracking & masks** (object tracking, animated mask generation, auto-blur, "
 "auto-highlight)"
@@ -210,7 +210,7 @@ msgstr ""
 "automatische vervaging, automatische markering)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:59
+#: ../doc/introduction.rst:59
 msgid ""
 "**Image & video generation** (text-to-image, image style transfer, "
 "text/image-to-video)"
@@ -219,7 +219,7 @@ msgstr ""
 "afbeelding, tekst/afbeelding-naar-video)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:60
+#: ../doc/introduction.rst:60
 msgid ""
 "**Quality enhancement** (upscaling, frame interpolation/increase frame rate)"
 msgstr ""
@@ -227,7 +227,7 @@ msgstr ""
 "framesnelheid)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:61
+#: ../doc/introduction.rst:61
 msgid ""
 "**Analysis & automation** (auto scene splitting, speech "
 "transcription/captions)"
@@ -236,39 +236,39 @@ msgstr ""
 "spraaktranscriptie/ondertitels)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:62
+#: ../doc/introduction.rst:62
 msgid "**Audio generation** (sound and music generation)"
 msgstr "**Audiogeneratie** (geluids- en muziekproductie)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:63
+#: ../doc/introduction.rst:63
 msgid "*Additional workflows can be added with custom ComfyUI templates*"
 msgstr ""
 "*Extra workflows kunnen worden toegevoegd met aangepaste ComfyUI-sjablonen*"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:64
+#: ../doc/introduction.rst:64
 msgid "**Credits & captions** (scrolling, animated)"
 msgstr "**Credits & onderschriften** (scrollend, geanimeerd)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:65
+#: ../doc/introduction.rst:65
 msgid "**Hardware acceleration** (NVIDIA, AMD, Intel, etc.)"
 msgstr "**Hardwareversnelling** (NVIDIA, AMD, Intel, enz.)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:66
+#: ../doc/introduction.rst:66
 msgid "**Import & export** (EDL, Final Cut Pro)"
 msgstr "**Importeren & exporteren** (EDL, Final Cut Pro)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:67
+#: ../doc/introduction.rst:67
 msgid "**Desktop integration** (drag-drop from file managers)"
 msgstr ""
 "**Desktopintegratie** (slepen en neerzetten vanuit bestandsbeheerders)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:68
+#: ../doc/introduction.rst:68
 msgid ""
 "**JSON project format** (`OpenShot Cloud API "
 "<https://www.openshot.org/cloud-api/>`_ compatible)"
@@ -277,22 +277,22 @@ msgstr ""
 "<https://www.openshot.org/cloud-api/>`_ compatibel)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:69
+#: ../doc/introduction.rst:69
 msgid "**Customizable shortcuts**"
 msgstr "**Aanpasbare sneltoetsen**"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:70
+#: ../doc/introduction.rst:70
 msgid "**Translations** (100+ languages)"
 msgstr "**Vertalingen** (100+ talen)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:71
+#: ../doc/introduction.rst:71
 msgid "**High DPI** monitor support"
 msgstr "**High DPI** monitorondersteuning"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:72
+#: ../doc/introduction.rst:72
 msgid ""
 "**Community support** (`Visit our forum <https://openshot.org/forum/>`_)"
 msgstr ""
@@ -300,17 +300,17 @@ msgstr ""
 "<https://openshot.org/forum/>`_)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:75
+#: ../doc/introduction.rst:75
 msgid "Screenshot"
 msgstr "Screenshot"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:81
+#: ../doc/introduction.rst:81
 msgid "System Requirements"
 msgstr "Systeemvereisten"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:82
+#: ../doc/introduction.rst:82
 msgid ""
 "Video editing benefits from modern, multi-core CPUs with **fast clock "
 "speeds** (GHz), large amounts of memory, and fast hard disk drives. "
@@ -323,52 +323,52 @@ msgstr ""
 "videobewerking. Hier zijn de **minimale systeemvereisten**:"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:87
+#: ../doc/introduction.rst:87
 msgid "TL;DR"
 msgstr "Samenvatting"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:88
+#: ../doc/introduction.rst:88
 msgid "Most computers manufactured after 2017 will run OpenShot"
 msgstr "De meeste computers die na 2017 zijn gemaakt, kunnen OpenShot draaien"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:91
+#: ../doc/introduction.rst:91
 msgid "Minimum Specifications"
 msgstr "Minimale specificaties"
 
-#: ../introduction.rst:92
+#: ../doc/introduction.rst:92
 msgid "64-bit Operating System (*Linux, macOS, Chrome OS, Windows 7/8/10/11*)"
 msgstr ""
 "64-bit besturingssysteem (*Linux, macOS, Chrome OS, Windows 7/8/10/11*)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:95
+#: ../doc/introduction.rst:95
 msgid "Multi-core processor with 64-bit support"
 msgstr "Multi-core processor met 64-bit ondersteuning"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:94
+#: ../doc/introduction.rst:94
 msgid "Minimum cores: 2 (*recommended: 6+ cores*)"
 msgstr "Minimaal aantal cores: 2 (*aanbevolen: 6+ cores*)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:95
+#: ../doc/introduction.rst:95
 msgid "Minimum threads: 4 (*recommended: 6+ threads*)"
 msgstr "Minimaal aantal threads: 4 (*aanbevolen: 6+ threads*)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:96
+#: ../doc/introduction.rst:96
 msgid "Minimum turbo clock speed: 2.7 Ghz (*recommended: 3.4+ Ghz*)"
 msgstr "Minimale turbo kloksnelheid: 2,7 GHz (*aanbevolen: 3,4+ GHz*)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:97
+#: ../doc/introduction.rst:97
 msgid "4GB of RAM (*16+ GB recommended*)"
 msgstr "4 GB RAM (*16+ GB aanbevolen*)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:98
+#: ../doc/introduction.rst:98
 msgid ""
 "1 GB of hard-disk space for installation & usage (*recommended: 50+ GB "
 "available hard-disk space for media, videos, images, and storage*)"
@@ -377,7 +377,7 @@ msgstr ""
 "beschikbare harde-schijfruimte voor media, video's, afbeeldingen en opslag*)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:99
+#: ../doc/introduction.rst:99
 msgid ""
 "Optional: Solid-state drive (SSD), if utilizing disk-caching add an "
 "additional 10GB of hard-disk space"
@@ -386,18 +386,18 @@ msgstr ""
 "voeg dan 10 GB extra harde-schijfruimte toe"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:100
+#: ../doc/introduction.rst:100
 msgid "For factors related to real-time previews, see :ref:`playback_ref`."
 msgstr ""
 "Voor factoren gerelateerd aan realtime previews, zie :ref:`playback_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:103
+#: ../doc/introduction.rst:103
 msgid "License"
 msgstr "Licentie"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:104
+#: ../doc/introduction.rst:104
 msgid ""
 "OpenShot Video Editor is free software: you can redistribute it and/or "
 "modify it under the terms of the GNU General Public License as published by "
@@ -410,7 +410,7 @@ msgstr ""
 "(naar keuze) een latere versie."
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:109
+#: ../doc/introduction.rst:109
 msgid ""
 "OpenShot Video Editor is distributed in the hope that it will be useful, but"
 " WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "

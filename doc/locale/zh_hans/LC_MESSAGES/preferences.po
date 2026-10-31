@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-26 14:26-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,12 +20,12 @@ msgstr ""
 "Generated-By: Babel 2.10.3\n"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:23
+#: ../doc/preferences.rst:23
 msgid "Preferences"
 msgstr "首选项"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:25
+#: ../doc/preferences.rst:25
 msgid ""
 "The Preferences window contains many important settings and configuration "
 "options for OpenShot. They can be found in the top menu under "
@@ -36,7 +36,7 @@ msgstr ""
 "中找到。许多设置在应用更改后需要重启 OpenShot。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:29
+#: ../doc/preferences.rst:29
 msgid ""
 "NOTE: Some features such as `Animated Titles` and `external SVG editing` "
 "require setting the paths for **Blender** and **Inkscape** under the General"
@@ -47,142 +47,148 @@ msgstr ""
 "的路径。如果您发现音频播放问题，例如音频漂移，可能需要在“预览”标签下调整音频设置。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:36
+#: ../doc/preferences.rst:36
 msgid "General"
 msgstr "常规"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:40
+#: ../doc/preferences.rst:40
 msgid ""
 "The General tab of the Preferences window allows you to modify the settings "
 "that apply to OpenShot as a whole."
 msgstr "首选项窗口的“常规”标签允许您修改适用于整个 OpenShot 的设置。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:46 ../preferences.rst:109 ../preferences.rst:132
-#: ../preferences.rst:157 ../preferences.rst:204 ../preferences.rst:234
-#: ../preferences.rst:290 ../preferences.rst:329
+#: ../doc/preferences.rst:46 ../doc/preferences.rst:109
+#: ../doc/preferences.rst:170 ../doc/preferences.rst:191
+#: ../doc/preferences.rst:248 ../doc/preferences.rst:295
+#: ../doc/preferences.rst:325 ../doc/preferences.rst:381
+#: ../doc/preferences.rst:420
 msgid "Setting"
 msgstr "设置"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:47 ../preferences.rst:50 ../preferences.rst:109
-#: ../preferences.rst:132 ../preferences.rst:134 ../preferences.rst:157
-#: ../preferences.rst:330
+#: ../doc/preferences.rst:47 ../doc/preferences.rst:50
+#: ../doc/preferences.rst:109 ../doc/preferences.rst:111
+#: ../doc/preferences.rst:170 ../doc/preferences.rst:172
+#: ../doc/preferences.rst:192 ../doc/preferences.rst:248
+#: ../doc/preferences.rst:421
 msgid "Default"
 msgstr "默认"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:48 ../preferences.rst:109 ../preferences.rst:132
-#: ../preferences.rst:204 ../preferences.rst:235 ../preferences.rst:290
-#: ../preferences.rst:310 ../preferences.rst:331
+#: ../doc/preferences.rst:48 ../doc/preferences.rst:109
+#: ../doc/preferences.rst:170 ../doc/preferences.rst:193
+#: ../doc/preferences.rst:295 ../doc/preferences.rst:326
+#: ../doc/preferences.rst:381 ../doc/preferences.rst:401
+#: ../doc/preferences.rst:422
 msgid "Description"
 msgstr "描述"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:49
+#: ../doc/preferences.rst:49
 msgid "Language"
 msgstr "语言"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:51
+#: ../doc/preferences.rst:51
 msgid "Choose your preferred language for OpenShot menus and windows"
 msgstr "选择您偏好的 OpenShot 菜单和窗口语言"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:52
+#: ../doc/preferences.rst:52
 msgid "Default Theme"
 msgstr "默认主题"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:53
+#: ../doc/preferences.rst:53
 msgid "Cosmic Dusk"
 msgstr "宇宙黄昏"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:54
+#: ../doc/preferences.rst:54
 #, fuzzy
 msgid "Choose your theme for OpenShot"
 msgstr "选择 OpenShot 的主题，支持浅色、深色或无主题"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:55
+#: ../doc/preferences.rst:55
 msgid "User Interface Scale"
 msgstr "用户界面缩放"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:56
+#: ../doc/preferences.rst:56
 msgid "100%"
 msgstr "100%"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:57
+#: ../doc/preferences.rst:57
 msgid ""
 "Choose a preset UI scaling factor for larger or smaller interface elements"
 msgstr "选择预设的界面缩放比例，以调整界面元素的大小"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:58
+#: ../doc/preferences.rst:58
 #, fuzzy
 msgid "Default Profile"
 msgstr "默认视频配置文件"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:59
+#: ../doc/preferences.rst:59
 #, fuzzy
 msgid "HD 720p 30 fps"
 msgstr "高清 720P 30 帧/秒"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:60
+#: ../doc/preferences.rst:60
 #, fuzzy
 msgid "Select the default profile for new projects and exports"
 msgstr "选择预览和导出默认使用的配置文件"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:61
+#: ../doc/preferences.rst:61
 msgid "Blender Command (path)"
 msgstr "Blender 命令（路径）"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:62
+#: ../doc/preferences.rst:62
 msgid "blender"
 msgstr "blender"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:63
+#: ../doc/preferences.rst:63
 msgid "The path to the binary for Blender (version 5.0+)"
 msgstr "Blender 可执行文件的路径（版本 5.0 及以上）"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:64
+#: ../doc/preferences.rst:64
 msgid "Advanced Title Editor (path)"
 msgstr "高级标题编辑器（路径）"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:65
+#: ../doc/preferences.rst:65
 msgid "inkscape"
 msgstr "inkscape"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:66
+#: ../doc/preferences.rst:66
 msgid "The path to the binary for Inkscape"
 msgstr "Inkscape 可执行文件的路径"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:69
+#: ../doc/preferences.rst:69
 msgid "Themes"
 msgstr "主题"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:70
+#: ../doc/preferences.rst:70
 msgid ""
 "OpenShot comes with 3 standard themes, which change the look and feel of the"
 " program."
 msgstr "OpenShot 提供了 3 种标准主题，可改变程序的外观和感觉。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:72
+#: ../doc/preferences.rst:72
 #, fuzzy
 msgid ""
 "**Cosmic Dusk:** [Default Theme] A bluish theme with a more modern UI "
@@ -195,7 +201,7 @@ msgstr ""
 "设计主题，提升编辑器的视觉美感。该主题采用蓝色和紫色的色调，赋予界面现代且充满活力的感觉。它结合了现代美学与功能性，提供一个清新且视觉吸引力强的视频编辑工作空间。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:73
+#: ../doc/preferences.rst:73
 msgid ""
 "**Humanity Dark:** A dark theme with dark gray tones, providing a modern and"
 " sleek look. This theme is designed for users who prefer working in low-"
@@ -207,7 +213,7 @@ msgstr ""
 "一款采用深灰色调的暗色主题，提供现代且简洁的外观。该主题专为喜欢在低光环境下工作或偏好更内敛专业外观的用户设计。深灰色背景减少眩光和眼睛疲劳，适合长时间编辑使用。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:74
+#: ../doc/preferences.rst:74
 msgid ""
 "**Retro:** A light theme that offers a classic and clean appearance. This "
 "theme uses light gray and white tones, making it ideal for users who prefer "
@@ -218,12 +224,12 @@ msgstr ""
 "一款浅色主题，提供经典且简洁的外观。该主题使用浅灰色和白色调，适合喜欢明亮且高对比界面的用户。它提供传统的外观，尤其适合光线充足的环境，保护视力。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:79
+#: ../doc/preferences.rst:79
 msgid "Restoring Defaults"
 msgstr "恢复默认设置"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:80
+#: ../doc/preferences.rst:80
 msgid ""
 "In OpenShot, each preferences category (or tab) in the Preferences window "
 "has a **Restore Defaults** button that allows you to easily reset the values"
@@ -235,7 +241,7 @@ msgstr ""
 "按钮，允许您轻松重置该类别的值。如果您只想重置某些偏好设置部分（如键盘快捷键），而不影响其他自定义设置，此功能非常有用。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:84
+#: ../doc/preferences.rst:84
 msgid ""
 "**Where to Find the Restore Defaults Button:** Each category or tab in the "
 "Preferences window has a **Restore Defaults** button located in the bottom "
@@ -247,7 +253,7 @@ msgstr ""
 "按钮。按钮名称会根据您查看的类别更新。例如，在“键盘”标签页中，按钮会显示为 **恢复默认：键盘** 。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:89
+#: ../doc/preferences.rst:89
 msgid ""
 "**How It Works:** Only the settings in the currently selected category will "
 "be restored to their default values. This selective restoration makes it "
@@ -255,7 +261,7 @@ msgid ""
 msgstr "**工作原理：** 只有当前选中的类别中的设置会恢复为默认值。这种选择性恢复使得重置某些偏好设置变得简单，而不会影响其他设置。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:93
+#: ../doc/preferences.rst:93
 msgid ""
 "**Tip for Beginners:** - If you're not sure about a change you've made in a "
 "particular category, don’t hesitate to use the **Restore Defaults** button. "
@@ -266,223 +272,403 @@ msgstr ""
 "按钮。这是撤销更改并恢复该类别默认设置的简单方法，不会影响您的整体配置。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:99
+#: ../doc/preferences.rst:99
 msgid "Timeline"
 msgstr "时间线"
 
-#: ../preferences.rst:103
+#: ../doc/preferences.rst:103
 msgid ""
 "The Timeline tab controls default timeline behavior and clip/transition "
 "insertion defaults."
 msgstr "时间轴标签控制默认的时间轴行为以及剪辑/转场插入的默认设置。"
 
+#: ../doc/preferences.rst:111 ../doc/preferences.rst:128
+msgid "Track Size"
+msgstr "轨道大小"
+
+#: ../doc/preferences.rst:111
+msgid "Theme-specific track sizing: Minimal, Compact, Default, or Relaxed"
+msgstr "主题特定的轨道大小：最小、紧凑、默认或宽松"
+
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:111
+#: ../doc/preferences.rst:112
 msgid "Thumbnail Style"
 msgstr "缩略图样式"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:111
+#: ../doc/preferences.rst:112
 msgid "Entire Clip"
 msgstr "整个剪辑"
 
-#: ../preferences.rst:111
+#: ../doc/preferences.rst:112
 msgid "Thumbnail density for the timeline"
 msgstr "时间轴的缩略图密度"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:112
+#: ../doc/preferences.rst:113
 msgid "Image Length (seconds)"
 msgstr "图片时长（秒）"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:112 ../preferences.rst:113
+#: ../doc/preferences.rst:113 ../doc/preferences.rst:114
 msgid "10.00"
 msgstr "10.00"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:112
+#: ../doc/preferences.rst:113
 msgid "Default duration for still images added to the timeline"
 msgstr "添加到时间线的静态图像默认时长"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:113
+#: ../doc/preferences.rst:114
 #, fuzzy
 msgid "Transition Length (seconds)"
 msgstr "图片时长（秒）"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:113
+#: ../doc/preferences.rst:114
 msgid "Default duration for newly added transitions"
 msgstr "新添加转场的默认时长"
 
-#: ../preferences.rst:114
+#: ../doc/preferences.rst:115
 msgid "Waveform Samples (per second)"
 msgstr "波形采样（每秒）"
 
-#: ../preferences.rst:114
+#: ../doc/preferences.rst:115
 msgid "200"
 msgstr "200"
 
-#: ../preferences.rst:114
+#: ../doc/preferences.rst:115
 msgid "Detail stored for new peak/RMS timeline waveforms (20–400)"
 msgstr "为新的峰值/RMS时间轴波形存储的细节（20–400）"
 
+#: ../doc/preferences.rst:116
+msgid "Auto Keyframes on Startup"
+msgstr "启动时自动关键帧"
+
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:115
+#: ../doc/preferences.rst:116 ../doc/preferences.rst:117
+#: ../doc/preferences.rst:250 ../doc/preferences.rst:433
+#: ../doc/preferences.rst:439
+msgid "Enabled"
+msgstr "已启用"
+
+#: ../doc/preferences.rst:116
+msgid "Start OpenShot with automatic keyframing enabled"
+msgstr "启动 OpenShot 时启用自动关键帧"
+
+# Translated with gpt-4.1-mini
+#: ../doc/preferences.rst:117
 msgid "Auto-Transition (overlap clips)"
 msgstr "自动转场（剪辑重叠）"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:115 ../preferences.rst:159 ../preferences.rst:342
-#: ../preferences.rst:348
-msgid "Enabled"
-msgstr "已启用"
-
-# Translated with gpt-4.1-mini
-#: ../preferences.rst:115
+#: ../doc/preferences.rst:117
 msgid "Automatically create transitions when clips overlap"
 msgstr "剪辑重叠时自动创建转场"
 
+#: ../doc/preferences.rst:120
+msgid ""
+"**Auto Keyframes on Startup** chooses whether your edits automatically "
+"create keyframes when OpenShot opens. Turn it off if you prefer to place "
+"keyframes yourself. The change takes effect next time you open OpenShot. You"
+" can still use the timeline's Auto Keyframes button to switch modes while "
+"editing without changing your startup preference."
+msgstr ""
+"**启动时自动关键帧** 选项决定在打开 OpenShot 时是否自动创建关键帧。如果您更喜欢自己放置关键帧，请关闭此选项。更改将在下次打开 "
+"OpenShot 时生效。您仍然可以使用时间线上的自动关键帧按钮在编辑时切换模式，而无需更改启动时的偏好设置。"
+
+#: ../doc/preferences.rst:130
+msgid ""
+"Choose **Preferences → Timeline → Track Size** to control how many tracks "
+"fit vertically in the timeline:"
+msgstr "选择 **偏好设置 → 时间线 → 轨道大小** 来控制时间线上垂直显示的轨道数量："
+
+#: ../doc/preferences.rst:133
+msgid ""
+"**Minimal:** Fit the most tracks on screen, useful for large projects with "
+"many video, audio, and overlay layers."
+msgstr "**最小：** 在屏幕上显示最多的轨道，适用于包含许多视频、音频和叠加层的大型项目。"
+
+#: ../doc/preferences.rst:135
+msgid ""
+"**Compact:** Show more tracks while leaving a little more room for clip "
+"content and track controls than Minimal."
+msgstr "**紧凑：** 显示更多轨道，同时比最小模式为剪辑内容和轨道控制留出更多空间。"
+
+#: ../doc/preferences.rst:137
+msgid ""
+"**Default:** Use the theme's original track height, matching the layout "
+"before changing this preference."
+msgstr "**默认：** 使用主题的原始轨道高度，与更改此偏好设置前的布局相匹配。"
+
+#: ../doc/preferences.rst:139
+msgid ""
+"**Relaxed:** Give clips, thumbnails, and controls more vertical room when "
+"working with fewer tracks."
+msgstr "**宽松：** 在轨道较少时，为剪辑、缩略图和控件提供更多垂直空间。"
+
+#: ../doc/preferences.rst:142
+msgid ""
+"Sizes are theme-specific; Cosmic Dusk offers the shortest Minimal tracks. "
+"Track gaps, clip and transition heights, and keyframe panel rows adapt with "
+"the selected size. Minimal and Compact place track controls beside the track"
+" name."
+msgstr ""
+"大小因主题而异；Cosmic Dusk "
+"主题提供最短的最小轨道。轨道间隙、剪辑和转场高度以及关键帧面板行数会根据所选大小调整。最小和紧凑模式将轨道控件放置在轨道名称旁边。"
+
+#: ../doc/preferences.rst:146
+msgid ""
+"Changes take effect immediately without restarting OpenShot. This is an "
+"application preference: it changes the timeline display, not your project's "
+"clips or exported video. Select **Default** at any time to restore the "
+"current theme's original sizing."
+msgstr ""
+"更改会立即生效，无需重启 OpenShot。这是应用程序偏好设置：它更改时间线显示，而不会影响项目中的剪辑或导出的视频。随时选择 **默认** "
+"以恢复当前主题的原始大小。"
+
+#: ../doc/preferences.rst:151
+msgid ""
+"Try Minimal or Compact to compare layers with less vertical scrolling. Use "
+"Relaxed when you want larger thumbnails. Track Size changes vertical space; "
+"timeline zoom changes how much time is visible horizontally. **Thumbnail "
+"Style** separately controls how thumbnails are distributed along each clip."
+msgstr ""
+"尝试使用最小或紧凑模式以减少垂直滚动来比较图层。需要更大缩略图时使用宽松模式。轨道大小改变垂直空间；时间线缩放改变水平可见时间。\\ **缩略图样式**"
+" 单独控制缩略图在每个剪辑上的分布。"
+
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:121
+#: ../doc/preferences.rst:159
 msgid "Preview"
 msgstr "预览"
 
-# Translated with gpt-4.1-mini
-#: ../preferences.rst:125
+#: ../doc/preferences.rst:163
 msgid ""
 "The Preview tab of the Preferences window controls real-time preview audio "
-"behavior, including device selection, sample rate, channels, buffering, "
-"playback volume, and optimized preview behavior."
-msgstr "首选项窗口的预览标签控制实时预览音频行为，包括设备选择、采样率、声道、缓冲、播放音量和优化的预览行为。"
+"behavior, including device selection, sample rate, channels, buffering, and "
+"playback volume."
+msgstr "偏好设置窗口的预览标签控制实时预览音频行为，包括设备选择、采样率、声道、缓冲和播放音量。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:134
+#: ../doc/preferences.rst:172
 msgid "Playback Audio Device"
 msgstr "播放音频设备"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:134
+#: ../doc/preferences.rst:172
 msgid "Audio output device used during preview playback"
 msgstr "预览播放时使用的音频输出设备"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:135
+#: ../doc/preferences.rst:173
 msgid "Default Audio Sample Rate"
 msgstr "默认音频采样率"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:135
+#: ../doc/preferences.rst:173
 #, fuzzy
 msgid "48000"
 msgstr "44100"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:135
+#: ../doc/preferences.rst:173
 #, fuzzy
 msgid "Default preview sample rate"
 msgstr "默认音频采样率"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:136
+#: ../doc/preferences.rst:174
 msgid "Default Audio Channels"
 msgstr "默认音频通道"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:136
+#: ../doc/preferences.rst:174
 msgid "Stereo (2 Channel)"
 msgstr "立体声（2 通道）"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:136
+#: ../doc/preferences.rst:174
 msgid "Default preview channel layout"
 msgstr "默认预览声道布局"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:137
+#: ../doc/preferences.rst:175
 msgid "Playback Audio Buffer Size"
 msgstr "播放音频缓冲区大小"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:137
+#: ../doc/preferences.rst:175
 msgid "512"
 msgstr "512"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:137
+#: ../doc/preferences.rst:175
 msgid "Audio samples buffered before playback begins (128 to 4096)"
 msgstr "播放开始前缓冲的音频样本数（128 到 4096）"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:138
+#: ../doc/preferences.rst:176
 msgid "Volume"
 msgstr "音量"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:138
+#: ../doc/preferences.rst:176
 msgid "75"
 msgstr "75"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:138
+#: ../doc/preferences.rst:176
 msgid "Preview playback volume percentage"
 msgstr "预览播放音量百分比"
 
+#: ../doc/preferences.rst:182
+msgid "Optimize"
+msgstr "优化"
+
+#: ../doc/preferences.rst:184
+msgid ""
+"The Optimize tab controls automatic suggestions and the smaller preview "
+"copies used for smoother editing. Original files and export quality stay "
+"unchanged."
+msgstr "优化标签控制自动建议和用于更流畅编辑的较小预览副本。原始文件和导出质量保持不变。"
+
+#: ../doc/preferences.rst:194
+msgid "Auto-Optimize"
+msgstr "自动优化"
+
+#: ../doc/preferences.rst:195
+msgid "Ask"
+msgstr "询问"
+
+#: ../doc/preferences.rst:196
+msgid ""
+"Choose Ask, Always, or Never as the default for projects without a saved "
+"Auto-Optimize choice."
+msgstr "为没有保存自动优化选择的项目设置默认值：询问、始终或从不。"
+
+#: ../doc/preferences.rst:197
+msgid "Auto-Optimize Threshold"
+msgstr "自动优化阈值"
+
+#: ../doc/preferences.rst:198
+msgid "200 ms"
+msgstr "200 毫秒"
+
+#: ../doc/preferences.rst:199
+msgid ""
+"Videos qualify when their first thumbnail frame takes longer than this to "
+"generate. Lower values include more videos; higher values include fewer."
+msgstr "当视频的第一个缩略图帧生成时间超过此值时，视频符合条件。较低的值包含更多视频；较高的值包含更少。"
+
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:139
+#: ../doc/preferences.rst:200
 msgid "Concurrent Optimize Jobs"
 msgstr "并发优化任务"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:139
+#: ../doc/preferences.rst:201
 msgid "2"
 msgstr "2"
 
-# Translated with gpt-4.1-mini
-#: ../preferences.rst:139
-msgid "Number of video files OpenShot can optimize at the same time"
-msgstr "OpenShot 可同时优化的视频文件数量"
+#: ../doc/preferences.rst:202
+msgid "Number of videos OpenShot can optimize at the same time."
+msgstr "OpenShot 可同时优化的视频数量。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:140
+#: ../doc/preferences.rst:203
 msgid "Optimized Preview Resolution"
 msgstr "优化预览分辨率"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:140
+#: ../doc/preferences.rst:204
 msgid "1280x720"
 msgstr "1280x720"
 
-# Translated with gpt-4.1-mini
-#: ../preferences.rst:140
-msgid "Maximum resolution used when creating optimized preview files"
-msgstr "创建优化预览文件时使用的最大分辨率"
+#: ../doc/preferences.rst:205
+msgid "Maximum resolution used for optimized preview copies."
+msgstr "用于优化预览副本的最大分辨率。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:141
+#: ../doc/preferences.rst:206
 msgid "Thumbnail Preload Rate / second"
 msgstr "缩略图预加载速率 / 秒"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:141
+#: ../doc/preferences.rst:207
 msgid "4"
 msgstr "4"
 
-# Translated with gpt-4.1-mini
-#: ../preferences.rst:141
+#: ../doc/preferences.rst:208
 msgid ""
-"How many thumbnail preview frames per second are pre-generated while "
-"optimizing video"
-msgstr "优化视频时每秒预生成的缩略图预览帧数"
+"Number of thumbnail preview frames per second pre-generated while optimizing"
+" a video."
+msgstr "优化视频时预生成的每秒缩略图预览帧数。"
+
+#: ../doc/preferences.rst:210
+msgid "The :guilabel:`Auto-Optimize` choices work as follows:"
+msgstr ":guilabel:`自动优化` 选项的工作方式如下："
+
+#: ../doc/preferences.rst:212
+msgid ""
+":guilabel:`Ask`: show a banner when qualifying videos are found. Accepting "
+"enables automatic optimization for that project; dismissing remembers your "
+"decision."
+msgstr ":guilabel:`询问`\\ ：当发现符合条件的视频时显示横幅。接受则启用该项目的自动优化；关闭则记住您的决定。"
+
+#: ../doc/preferences.rst:214
+msgid ""
+":guilabel:`Always`: automatically optimize qualifying videos without a "
+"banner."
+msgstr ":guilabel:`始终`\\ ：自动优化符合条件的视频，无需显示横幅。"
+
+#: ../doc/preferences.rst:215
+msgid ""
+":guilabel:`Never`: do not show the banner or start automatic optimization."
+msgstr ":guilabel:`从不`\\ ：不显示横幅，也不启动自动优化。"
+
+#: ../doc/preferences.rst:217
+msgid ""
+"These are defaults, not overrides of saved project choices. For example, "
+"selecting :guilabel:`Never` here does not turn off a project where you "
+"already enabled :menuselection:`File --> Auto-Optimize`. Use that menu item "
+"to change the current project's setting. Manual optimization remains "
+"available with every preference."
+msgstr ""
+"这些是默认设置，不会覆盖已保存的项目选择。例如，此处选择 :guilabel:`从不` 并不会关闭您已启用 :menuselection:`文件 -->"
+" 自动优化` 的项目。请使用该菜单项更改当前项目的设置。每个偏好设置都仍然支持手动优化。"
+
+#: ../doc/preferences.rst:222
+msgid ""
+"The threshold is measured in milliseconds (**ms**). With the default **200 "
+"ms**, a video with a recorded time of 350 ms qualifies, while one with a "
+"time of 50 ms does not. Changing the threshold re-evaluates existing timings"
+" without decoding videos again; it does not cancel jobs already queued or "
+"running."
+msgstr ""
+"阈值以毫秒（\\ **ms**\\ ）为单位。默认 **200 ms** 时，记录时间为 350 ms 的视频符合条件，而 50 ms "
+"的视频不符合。更改阈值会重新评估现有时间，而无需重新解码视频；不会取消已排队或正在运行的任务。"
+
+#: ../doc/preferences.rst:227
+msgid ""
+"The timing comes from normal thumbnail generation. Older projects without "
+"saved timings are checked in the background, one small thumbnail at a time, "
+"when Auto-Optimize is set to Ask or Always (or enabled from the File menu). "
+"It excludes opening the file, writing the thumbnail image, and waiting in a "
+"queue. It is saved with the project's file information and reused on the "
+"same computer while the source file is unchanged. See :ref:`optimize_ref` "
+"for the banner, status indicators, and manual optimization options."
+msgstr ""
+"时间来自正常的缩略图生成。旧项目如果没有保存时间，会在后台逐个小缩略图检查，当自动优化设置为询问或始终（或从文件菜单启用）时进行。此过程不包括打开文件、写入缩略图图像和排队等待。时间信息保存在项目文件信息中，并在源文件未更改时在同一台计算机上重复使用。有关横幅、状态指示器和手动优化选项，请参见"
+" :ref:`optimize_ref`\\ 。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:145
+#: ../doc/preferences.rst:236
 msgid "Autosave"
 msgstr "自动保存"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:149
+#: ../doc/preferences.rst:240
 msgid ""
 "Autosave is a feature in OpenShot which automatically saves the current "
 "changes to your project after a specific number of minutes, helping to "
@@ -492,47 +678,47 @@ msgstr ""
 "自动保存是 OpenShot 的一项功能，会在特定分钟数后自动保存您项目的当前更改，帮助减少因崩溃、卡死或用户错误导致的数据丢失风险或影响。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:159
+#: ../doc/preferences.rst:250
 msgid "Enable Autosave"
 msgstr "启用自动保存"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:160
+#: ../doc/preferences.rst:251
 msgid "Autosave Interval (minutes)"
 msgstr "自动保存间隔（分钟）"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:160
+#: ../doc/preferences.rst:251
 msgid "3"
 msgstr "3"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:161
+#: ../doc/preferences.rst:252
 msgid "History Limit (# of undo/redo)"
 msgstr "历史记录限制（撤销/重做次数）"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:161
+#: ../doc/preferences.rst:252
 msgid "15"
 msgstr "15"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:162
+#: ../doc/preferences.rst:253
 msgid "Recovery Limit (# of project copies)"
 msgstr "恢复限制（项目副本数量）"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:162
+#: ../doc/preferences.rst:253
 msgid "30"
 msgstr "30"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:166
+#: ../doc/preferences.rst:257
 msgid "Recovery"
 msgstr "恢复"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:168
+#: ../doc/preferences.rst:259
 msgid ""
 "**Before each save**, a compressed ``*.zip`` copy of the current project is "
 "saved in the recovery folder, to further reduce the risk of data loss. The "
@@ -544,7 +730,7 @@ msgstr ""
 "``C:\\Users\\USERNAME\\.openshot_qt\\recovery`` 。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:172
+#: ../doc/preferences.rst:263
 msgid ""
 "To recover a corrupt or broken ``*.osp`` project file, use the "
 ":guilabel:`File->Recovery` menu on the main window after opening your "
@@ -564,7 +750,7 @@ msgstr ""
 "\\\"-backup.osp\\\" 文件重命名为原始项目文件名以恢复。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:180
+#: ../doc/preferences.rst:271
 msgid ""
 "To **manually** recover a corrupt or broken ``*.osp`` project file, please "
 "find the most recent copy in the recovery folder, and copy/paste the file "
@@ -575,18 +761,18 @@ msgid ""
 "**Date Modified** on the file to select the version you are interested in "
 "recovering."
 msgstr ""
-"要**手动** 恢复损坏或破损的 ``*.osp`` "
-"项目文件，请在恢复文件夹中找到最新的副本，并将文件复制粘贴到您的原始项目文件夹位置（即包含损坏项目的文件夹）。如果恢复文件是压缩的（``*.zip`` "
-"），您必须先解压出 ``*.osp`` 文件，然后将其复制到项目文件夹。恢复文件命名为 ``{time}-{project-name}`` "
-"。您也可以使用文件的**修改日期** 来选择您想恢复的版本。"
+"要\\ **手动** 恢复损坏或破损的 ``*.osp`` "
+"项目文件，请在恢复文件夹中找到最新的副本，并将文件复制粘贴到您的原始项目文件夹位置（即包含损坏项目的文件夹）。如果恢复文件是压缩的（\\ "
+"``*.zip`` ），您必须先解压出 ``*.osp`` 文件，然后将其复制到项目文件夹。恢复文件命名为 ``{time}-{project-"
+"name}`` 。您也可以使用文件的\\ **修改日期** 来选择您想恢复的版本。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:190
+#: ../doc/preferences.rst:281
 msgid "Cache"
 msgstr "缓存"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:194
+#: ../doc/preferences.rst:285
 msgid ""
 "Cache settings can be adjusted to make real-time playback faster or less CPU"
 " intensive. The cache is used to store image and audio data for each frame "
@@ -601,12 +787,12 @@ msgstr ""
 "也越多。需要平衡，默认设置提供了一组合理的缓存值，应该能让大多数计算机流畅播放视频和音频。参见 :ref:`playback_ref` 。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:206
+#: ../doc/preferences.rst:297
 msgid "Cache Mode"
 msgstr "缓存模式"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:206
+#: ../doc/preferences.rst:297
 msgid ""
 "Choose between Memory or Disk caching (memory caching is preferred). Disk "
 "caching writes image data to the hard disk for later retrieving, and works "
@@ -614,12 +800,12 @@ msgid ""
 msgstr "选择内存缓存或磁盘缓存（推荐内存缓存）。磁盘缓存将图像数据写入硬盘以供后续读取，使用 SSD 效果最佳。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:207
+#: ../doc/preferences.rst:298
 msgid "Cache Limit (MB)"
 msgstr "缓存限制（MB）"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:207
+#: ../doc/preferences.rst:298
 msgid ""
 "How many MB are set aside for cache related data. Larger numbers are not "
 "always better, since it takes more CPU to generate more frames to fill the "
@@ -627,22 +813,22 @@ msgid ""
 msgstr "为缓存相关数据预留多少 MB。数值越大不一定越好，因为生成更多帧以填充缓存需要更多 CPU。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:208
+#: ../doc/preferences.rst:299
 msgid "Image Format (Disk Only)"
 msgstr "图像格式（仅限磁盘）"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:208
+#: ../doc/preferences.rst:299
 msgid "Image format to store disk cache image data"
 msgstr "用于存储磁盘缓存图像数据的图像格式"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:209
+#: ../doc/preferences.rst:300
 msgid "Scale Factor (Disk Only)"
 msgstr "缩放比例（仅限磁盘）"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:209
+#: ../doc/preferences.rst:300
 msgid ""
 "Percentage (0.1 to 1.0) to reduce the size of disk based image files stored "
 "in the disk cache. Smaller numbers make writing and reading cached image "
@@ -650,36 +836,36 @@ msgid ""
 msgstr "用于缩小存储在磁盘缓存中的基于磁盘的图像文件大小的百分比（0.1 到 1.0）。数值越小，写入和读取缓存图像文件越快。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:210
+#: ../doc/preferences.rst:301
 msgid "Image Quality (Disk Only)"
 msgstr "图像质量（仅限磁盘）"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:210
+#: ../doc/preferences.rst:301
 msgid ""
 "Quality of the image files used in disk cache. The higher compression can "
 "cause more slowness, but results in smaller file sizes."
 msgstr "磁盘缓存中使用的图像文件质量。压缩率越高可能导致更慢，但文件大小更小。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:211
+#: ../doc/preferences.rst:302
 msgid "Cache Pre-roll: Min Frames:"
 msgstr "缓存预加载：最小帧数："
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:211
+#: ../doc/preferences.rst:302
 msgid ""
 "Minimum # of frames that must be cached before playback begins. The larger "
 "the #, the larger the wait before playback begins."
 msgstr "播放开始前必须缓存的最小帧数。数值越大，播放开始前等待时间越长。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:212
+#: ../doc/preferences.rst:303
 msgid "Cache Pre-roll: Max Frames:"
 msgstr "缓存预加载：最大帧数："
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:212
+#: ../doc/preferences.rst:303
 msgid ""
 "Maximum # of frames that can be cached during playback (in front of the "
 "playhead). The larger the #, the more CPU is required to cache ahead - vs "
@@ -687,12 +873,12 @@ msgid ""
 msgstr "播放时可缓存的最大帧数（在播放头前方）。数字越大，缓存前方帧所需的CPU越多，而不是显示已缓存的帧。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:213
+#: ../doc/preferences.rst:304
 msgid "Cache Ahead (Percent):"
 msgstr "前置缓存（百分比）："
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:213
+#: ../doc/preferences.rst:304
 msgid ""
 "Between 0.0 and 1.0. This represents how much % we cache ahead of the "
 "playhead. For example, 0.5 would cache 50% behind and 50% ahead of the "
@@ -701,12 +887,12 @@ msgstr ""
 "介于0.0和1.0之间。表示我们在播放头前方缓存的百分比。例如，0.5表示播放头前后各缓存50%，0.8表示播放头后缓存20%，前缓存80%。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:214
+#: ../doc/preferences.rst:305
 msgid "Cache Max Frames:"
 msgstr "最大缓存帧数："
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:214
+#: ../doc/preferences.rst:305
 #, fuzzy
 msgid ""
 "This is an override on the total allowed frames that can be cached by our "
@@ -722,23 +908,23 @@ msgstr ""
 "这是对缓存线程允许缓存的总帧数的覆盖。默认值为600帧，即使您为OpenShot的缓存大小分配了大量内存，此设置也会覆盖最大缓存帧数。原因是当预览窗口非常小时，且缓存大小设置过高，OpenShot可能会计算出可以缓存3万帧或更多，这会占用大量CPU资源，导致系统卡顿。此设置旨在将缓存上限限制在合理范围内，即使系统为OpenShot分配了大量内存。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:217
+#: ../doc/preferences.rst:308
 msgid ""
 "OpenShot's default cache settings now target a balanced preview experience: "
 "roughly **50% behind / 50% ahead** of the playhead, **768 MB** cache memory,"
 " and **900** max frames. In practice, this improves scrubbing and seek "
 "behavior while reducing stale preview frames on slower systems."
 msgstr ""
-"OpenShot 的默认缓存设置现针对平衡的预览体验：播放头前后各约 **50%**，缓存内存为 **768 MB**，最大帧数为 "
-"**900**。实际使用中，这提升了拖动和查找的表现，同时减少了较慢系统上的过时预览帧。"
+"OpenShot 的默认缓存设置现针对平衡的预览体验：播放头前后各约 **50%**\\ ，缓存内存为 **768 MB**\\ ，最大帧数为 "
+"**900**\\ 。实际使用中，这提升了拖动和查找的表现，同时减少了较慢系统上的过时预览帧。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:223
+#: ../doc/preferences.rst:314
 msgid "Performance"
 msgstr "性能"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:226
+#: ../doc/preferences.rst:317
 msgid ""
 "Please keep in mind that GPU hardware acceleration is experimental at the "
 "moment. OpenShot supports both decoding and encoding acceleration. For more "
@@ -753,99 +939,99 @@ msgstr ""
 "<https://github.com/OpenShot/libopenshot/blob/develop/doc/HW-ACCEL.md>`_"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:236
+#: ../doc/preferences.rst:327
 msgid "Hardware Decoder Mode"
 msgstr "硬件解码模式"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:237
+#: ../doc/preferences.rst:328
 msgid ""
 "Select the hardware decoding backend to use. Use :guilabel:`Test` to verify "
 "the selected decoder mode."
 msgstr "选择要使用的硬件解码后端。使用 :guilabel:`测试` 来验证所选的解码模式。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:238
+#: ../doc/preferences.rst:329
 msgid "Hardware Decoder Graphics Card"
 msgstr "硬件解码显卡"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:239
+#: ../doc/preferences.rst:330
 msgid "Choose which GPU device is used for hardware decoding."
 msgstr "选择用于硬件解码的 GPU 设备。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:240
+#: ../doc/preferences.rst:331
 msgid "Hardware Encoder Graphics Card"
 msgstr "硬件编码显卡"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:241
+#: ../doc/preferences.rst:332
 msgid "Choose which GPU device is used for hardware encoding."
 msgstr "选择用于硬件编码的 GPU 设备。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:242
+#: ../doc/preferences.rst:333
 msgid "OMP Threads"
 msgstr "OMP 线程数"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:243
+#: ../doc/preferences.rst:334
 msgid ""
 "Number of OpenMP worker threads used by performance-sensitive processing."
 msgstr "性能敏感处理使用的 OpenMP 工作线程数。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:244
+#: ../doc/preferences.rst:335
 msgid "FFmpeg Threads"
 msgstr "FFmpeg 线程数"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:245
+#: ../doc/preferences.rst:336
 msgid "Number of FFmpeg threads used for decoding/encoding."
 msgstr "用于解码/编码的 FFmpeg 线程数。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:246
+#: ../doc/preferences.rst:337
 msgid "Hardware Decoder Max Width (0 = Default)"
 msgstr "硬件解码最大宽度（0 = 默认）"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:247
+#: ../doc/preferences.rst:338
 msgid ""
 "Optional maximum width for hardware decoding. Use ``0`` for no explicit "
 "limit."
 msgstr "硬件解码的可选最大宽度。使用 ``0`` 表示无限制。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:248
+#: ../doc/preferences.rst:339
 msgid "Hardware Decoder Max Height (0 = Default)"
 msgstr "硬件解码最大高度（0 = 默认）"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:249
+#: ../doc/preferences.rst:340
 msgid ""
 "Optional maximum height for hardware decoding. Use ``0`` for no explicit "
 "limit."
 msgstr "硬件解码的可选最大高度。使用 ``0`` 表示无限制。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:250
+#: ../doc/preferences.rst:341
 msgid "Use Blender GPU rendering for Animated Titles"
 msgstr "为动画标题使用 Blender GPU 渲染"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:251
+#: ../doc/preferences.rst:342
 msgid "Enable GPU rendering for Blender-based animated titles."
 msgstr "启用基于 Blender 的动画标题的 GPU 渲染。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:256
+#: ../doc/preferences.rst:347
 msgid "Keyboard"
 msgstr "键盘"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:259
+#: ../doc/preferences.rst:350
 msgid ""
 "This section allows you to view and customize hotkeys for various actions in"
 " the application. Here, you can assign and manage multiple shortcuts for the"
@@ -853,17 +1039,17 @@ msgid ""
 msgstr "本节允许您查看和自定义应用程序中各种操作的快捷键。您可以为同一操作分配和管理多个快捷键，并在需要时恢复默认快捷键。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:262
+#: ../doc/preferences.rst:353
 msgid ""
 "**Assign Multiple Shortcuts**: You can assign multiple keyboard shortcuts to"
 " the same action by separating them with a pipe (``|``) delimiter. This "
 "flexibility allows you to configure as many shortcuts as you need for each "
 "action."
 msgstr ""
-"**分配多个快捷键** ：您可以通过使用管道符（``|`` ）分隔，为同一操作分配多个键盘快捷键。此灵活性允许您为每个操作配置所需数量的快捷键。"
+"**分配多个快捷键** ：您可以通过使用管道符（\\ ``|`` ）分隔，为同一操作分配多个键盘快捷键。此灵活性允许您为每个操作配置所需数量的快捷键。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:265
+#: ../doc/preferences.rst:356
 msgid ""
 "**Immediate Application**: No restart is required after adjusting keyboard "
 "shortcuts. Changes are applied immediately, so you can start using your "
@@ -871,7 +1057,7 @@ msgid ""
 msgstr "**即时应用** ：调整快捷键后无需重启。更改会立即生效，您可以立即使用更新后的快捷键。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:268
+#: ../doc/preferences.rst:359
 msgid ""
 "**Restore Default Shortcuts**: If needed, you can reset all keyboard "
 "shortcuts to their default settings by clicking on the :guilabel:`Restore "
@@ -881,27 +1067,27 @@ msgstr ""
 "**恢复默认快捷键** ：如有需要，您可以点击首选项界面左下角的 :guilabel:`恢复默认：键盘` 按钮，将所有快捷键重置为默认设置。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:271
+#: ../doc/preferences.rst:362
 msgid ""
 "**Unique Shortcuts**: Each keyboard shortcut must be unique. If there are "
 "any duplicate shortcuts, they will be highlighted in **red** and will not "
 "function until the conflict is resolved."
-msgstr "**唯一快捷键** ：每个快捷键必须唯一。如有重复快捷键，将以**红色** 高亮显示，且在冲突解决前无法使用。"
+msgstr "**唯一快捷键** ：每个快捷键必须唯一。如有重复快捷键，将以\\ **红色** 高亮显示，且在冲突解决前无法使用。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:275
+#: ../doc/preferences.rst:366
 msgid ""
 "For more detailed information on how to use and customize keyboard "
 "shortcuts, see :ref:`keyboard_shortcut_ref`."
 msgstr "有关如何使用和自定义快捷键的详细信息，请参见 :ref:`keyboard_shortcut_ref` 。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:278
+#: ../doc/preferences.rst:369
 msgid "Location"
 msgstr "位置"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:282
+#: ../doc/preferences.rst:373
 msgid ""
 "Default file path locations for saving/opening projects, importing files, "
 "and exporting videos can be configured here. This can save you time by "
@@ -911,44 +1097,44 @@ msgstr ""
 "可在此配置保存/打开项目、导入文件和导出视频的默认文件路径位置。这样可以节省时间，使打开/保存文件对话框默认定位到最合适的起始文件夹（选项如下所述）。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:292
+#: ../doc/preferences.rst:383
 msgid "File Import"
 msgstr "文件导入"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:292
+#: ../doc/preferences.rst:383
 msgid "Default folder to choose when importing a file"
 msgstr "导入文件时默认选择的文件夹"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:293
+#: ../doc/preferences.rst:384
 msgid "Save or Open Project"
 msgstr "保存或打开项目"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:293
+#: ../doc/preferences.rst:384
 msgid "Default folder to choose when saving or opening a project file"
 msgstr "保存或打开项目文件时默认选择的文件夹"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:294
+#: ../doc/preferences.rst:385
 msgid "Video Export"
 msgstr "视频导出"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:294
+#: ../doc/preferences.rst:385
 msgid "Default folder to choose when exporting a video"
 msgstr "导出视频时默认选择的文件夹"
 
-#: ../preferences.rst:295
+#: ../doc/preferences.rst:386
 msgid "Unsaved Project Assets Folder"
 msgstr "未保存项目资源文件夹"
 
-#: ../preferences.rst:295
+#: ../doc/preferences.rst:386
 msgid "Folder for assets created before a project is saved (restart required)"
 msgstr "项目保存前创建的资源文件夹（需要重启）"
 
-#: ../preferences.rst:298
+#: ../doc/preferences.rst:389
 msgid ""
 "On Linux, the unsaved assets folder defaults to ``~/Videos/.openshot-tmp`` "
 "when ``~/Videos`` exists and the hidden child folder is writable. Otherwise,"
@@ -960,89 +1146,89 @@ msgid ""
 "folder as ordinary disposable cache data."
 msgstr ""
 "在 Linux 上，当 ``~/Videos`` 存在且隐藏子文件夹可写时，未保存资源文件夹默认为 ``~/Videos/.openshot-"
-"tmp``。否则，OpenShot 使用 "
-"``~/.openshot_qt``，这也是其他平台的默认设置。您可以在首选项中选择不同的文件夹。保存项目时，会将其资源移至项目的 "
-"``<project>_assets`` "
+"tmp``\\ 。否则，OpenShot 使用 ``~/.openshot_qt``\\ "
+"，这也是其他平台的默认设置。您可以在首选项中选择不同的文件夹。保存项目时，会将其资源移至项目的 ``<project>_assets`` "
 "文件夹；后续的标题和动画将使用该文件夹。这些资源可能包含未保存项目或崩溃恢复所需的媒体，因此请勿将该文件夹删除为普通可丢弃的缓存数据。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:310
+#: ../doc/preferences.rst:401
 msgid "Values"
 msgstr "数值"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:312
+#: ../doc/preferences.rst:403
 msgid "**Recent Folder**"
 msgstr "**最近文件夹**"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:312
+#: ../doc/preferences.rst:403
 msgid ""
 "The last folder used for this same operation. Project folders, Import "
 "folders, and Export folders are tracked separately."
 msgstr "此操作上次使用的文件夹。项目文件夹、导入文件夹和导出文件夹分别跟踪。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:313
+#: ../doc/preferences.rst:404
 msgid "**Project Folder**"
 msgstr "**项目文件夹**"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:313
+#: ../doc/preferences.rst:404
 msgid ""
 "The current project folder (or the user's home folder, if the project is not"
 " yet saved)"
 msgstr "当前项目文件夹（如果项目尚未保存，则为用户主文件夹）"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:319
+#: ../doc/preferences.rst:410
 msgid "Advanced"
 msgstr "高级"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:323
+#: ../doc/preferences.rst:414
 msgid "The Advanced tab includes ComfyUI integration and debugging options."
 msgstr "高级标签包含 ComfyUI 集成和调试选项。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:332
+#: ../doc/preferences.rst:423
 msgid "Comfy UI URL"
 msgstr "Comfy UI URL"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:333
+#: ../doc/preferences.rst:424
 msgid "``http://127.0.0.1:8188``"
 msgstr "``http://127.0.0.1:8188``"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:334
+#: ../doc/preferences.rst:425
 msgid "URL of your local or remote ComfyUI server"
 msgstr "本地或远程 ComfyUI 服务器的 URL"
 
-#: ../preferences.rst:335
+#: ../doc/preferences.rst:426
 msgid "User Interface Debug Logging"
 msgstr "用户界面调试日志"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:336 ../preferences.rst:339 ../preferences.rst:345
+#: ../doc/preferences.rst:427 ../doc/preferences.rst:430
+#: ../doc/preferences.rst:436
 #, fuzzy
 msgid "Disabled"
 msgstr "已启用"
 
-#: ../preferences.rst:337
+#: ../doc/preferences.rst:428
 msgid ""
 "Record interface and project details in ``openshot-qt.log``. The matching "
 "``--debug-ui`` (or ``--debug``) argument enables these details for one "
 "launch, including terminal output. See :ref:`logging_ref`."
 msgstr ""
-"在 ``openshot-qt.log`` 中记录界面和项目详细信息。匹配的 ``--debug-ui``（或 "
-"``--debug``）参数启用一次启动的这些详细信息，包括终端输出。参见 :ref:`logging_ref`。"
+"在 ``openshot-qt.log`` 中记录界面和项目详细信息。匹配的 ``--debug-ui``\\ （或 ``--debug``\\ "
+"）参数启用一次启动的这些详细信息，包括终端输出。参见 :ref:`logging_ref`\\ 。"
 
-#: ../preferences.rst:338
+#: ../doc/preferences.rst:429
 msgid "Video & Audio Engine Debug Logging"
 msgstr "视频和音频引擎调试日志"
 
-#: ../preferences.rst:340
+#: ../doc/preferences.rst:431
 msgid ""
 "Record video and audio processing details in ``libopenshot.log``. The "
 "matching ``--debug-engine`` argument enables these details for one launch, "
@@ -1050,40 +1236,55 @@ msgid ""
 "See :ref:`logging_ref`."
 msgstr ""
 "在 ``libopenshot.log`` 中记录视频和音频处理详细信息。匹配的 ``--debug-engine`` "
-"参数启用一次启动的这些详细信息，包括终端输出。日志可能迅速增长；完成后请关闭。参见 :ref:`logging_ref`。"
+"参数启用一次启动的这些详细信息，包括终端输出。日志可能迅速增长；完成后请关闭。参见 :ref:`logging_ref`\\ 。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:341
+#: ../doc/preferences.rst:432
 msgid "Send Anonymous Metrics and Errors"
 msgstr "发送匿名指标和错误"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:343
+#: ../doc/preferences.rst:434
 msgid "Send anonymous telemetry and error reports"
 msgstr "发送匿名遥测和错误报告"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:344
+#: ../doc/preferences.rst:435
 msgid "Show Playback Performance (FPS)"
 msgstr "显示播放性能（FPS）"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:346
+#: ../doc/preferences.rst:437
 msgid "Display live FPS in preview playback"
 msgstr "在预览播放中显示实时 FPS"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:347
+#: ../doc/preferences.rst:438
 msgid "Show Export Dialog when Finished"
 msgstr "导出完成后显示导出对话框"
 
-# Translated with gpt-4.1-mini
-#: ../preferences.rst:349
-msgid "Display the Export Video window when export completes"
-msgstr "导出完成时显示导出视频窗口"
+#: ../doc/preferences.rst:440
+msgid ""
+"Display the Export Video window when export completes, with a summary of the"
+" result. See :ref:`export_complete_ref`."
+msgstr "导出完成后显示导出视频窗口，并附带结果摘要。参见 :ref:`export_complete_ref`\\ 。"
+
+#: ../doc/preferences.rst:441
+msgid "Celebrate Exports"
+msgstr "庆祝导出"
+
+#: ../doc/preferences.rst:442
+msgid "First Export"
+msgstr "首次导出"
+
+#: ../doc/preferences.rst:443
+msgid ""
+"Show a burst of confetti when an export succeeds: on the ``First Export`` "
+"only, on ``Every Export``, or ``Never``"
+msgstr "导出成功时显示彩带爆炸效果：仅在“首次导出”、每次导出时，或从不显示"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:351
+#: ../doc/preferences.rst:445
 msgid ""
 "The ComfyUI **Check** button updates an inline status icon: green checkmark "
 "for success, red icon for failure. If OpenShot cannot reach this server, AI "
@@ -1091,15 +1292,15 @@ msgid ""
 "requirements, and workflow options."
 msgstr ""
 "ComfyUI 的 **检查** 按钮会更新内联状态图标：成功时显示绿色勾选，失败时显示红色图标。如果 OpenShot 无法连接此服务器，AI "
-"上下文菜单选项将被隐藏。详情、要求和工作流程选项请参见 :ref:`ai_ref`。"
+"上下文菜单选项将被隐藏。详情、要求和工作流程选项请参见 :ref:`ai_ref`\\ 。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:358
+#: ../doc/preferences.rst:452
 msgid "Reset (Default Values)"
 msgstr "重置（默认值）"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:360
+#: ../doc/preferences.rst:454
 msgid ""
 "To reset **all** preferences to their default values, please delete the "
 "``openshot.settings`` file and re-launch OpenShot. The settings file can be "
@@ -1108,13 +1309,13 @@ msgid ""
 "re-launched, it will create the missing ``openshot.settings`` file with "
 "default values."
 msgstr ""
-"要将**所有** 首选项重置为默认值，请删除 ``openshot.settings`` 文件并重新启动 "
-"OpenShot。该设置文件位于路径：``~/.openshot_qt/openshot.settings`` 或 "
+"要将\\ **所有** 首选项重置为默认值，请删除 ``openshot.settings`` 文件并重新启动 "
+"OpenShot。该设置文件位于路径：\\ ``~/.openshot_qt/openshot.settings`` 或 "
 "``C:\\Users\\USERNAME\\.openshot_qt\\openshot.settings`` 。重新启动后，OpenShot "
 "会创建缺失的 ``openshot.settings`` 文件并使用默认值。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:365
+#: ../doc/preferences.rst:459
 msgid ""
 "Optionally, you can delete the entire ``.openshot_qt/`` folder and re-launch"
 " OpenShot. However, please make a **backup** of any customized folders: "
@@ -1122,12 +1323,12 @@ msgid ""
 "yolo**. For example, your ``/recovery/`` sub-folder contains backup copies "
 "of all your existing projects (``*.osp`` files)."
 msgstr ""
-"您也可以选择删除整个 ``.openshot_qt/`` 文件夹并重新启动 OpenShot。但请务必**备份** "
-"任何自定义文件夹：**emojis、presets、profiles、recovery、title_templates、transitions 或 "
-"yolo** 。例如，您的 ``/recovery/`` 子文件夹包含所有现有项目（``*.osp`` 文件）的备份副本。"
+"您也可以选择删除整个 ``.openshot_qt/`` 文件夹并重新启动 OpenShot。但请务必\\ **备份** 任何自定义文件夹：\\ "
+"**emojis、presets、profiles、recovery、title_templates、transitions 或 yolo** "
+"。例如，您的 ``/recovery/`` 子文件夹包含所有现有项目（\\ ``*.osp`` 文件）的备份副本。"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:370
+#: ../doc/preferences.rst:464
 msgid ""
 "Deleting the ``.openshot_qt/`` folder is the quickest method to restore "
 "OpenShot preferences and settings to their Default values (i.e. also called "
@@ -1142,6 +1343,31 @@ msgstr ""
 "Installation-of-OpenShot>`_ 。 `step-by-step guide "
 "<https://github.com/OpenShot/openshot-qt/wiki/Clean-Installation-of-"
 "OpenShot>`_"
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "The Preview tab of the Preferences window controls real-time preview audio "
+#~ "behavior, including device selection, sample rate, channels, buffering, "
+#~ "playback volume, and optimized preview behavior."
+#~ msgstr "首选项窗口的预览标签控制实时预览音频行为，包括设备选择、采样率、声道、缓冲、播放音量和优化的预览行为。"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Number of video files OpenShot can optimize at the same time"
+#~ msgstr "OpenShot 可同时优化的视频文件数量"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Maximum resolution used when creating optimized preview files"
+#~ msgstr "创建优化预览文件时使用的最大分辨率"
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "How many thumbnail preview frames per second are pre-generated while "
+#~ "optimizing video"
+#~ msgstr "优化视频时每秒预生成的缩略图预览帧数"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Display the Export Video window when export completes"
+#~ msgstr "导出完成时显示导出视频窗口"
 
 # Translated with gpt-4.1-mini
 #~ msgid "Debug Mode (Port)"

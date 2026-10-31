@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 4.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: 2026-08-30 16:50-0500\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../color.rst:23
+#: ../doc/color.rst:23
 msgid "Color"
 msgstr "Màu sắc"
 
-#: ../color.rst:25
+#: ../doc/color.rst:25
 msgid ""
 "Have you ever noticed that thriller films look gritty and desaturated while "
 "romantic comedies feel vibrant and warm? That is not an accident — it is "
@@ -37,7 +37,7 @@ msgstr ""
 "bạn các công cụ chuyên nghiệp để sử dụng nó, dù bạn đang sửa một cảnh quay "
 "có vấn đề hay xây dựng một phong cách điện ảnh từ đầu."
 
-#: ../color.rst:32
+#: ../doc/color.rst:32
 msgid ""
 "*The OpenShot Color View: video preview in the center, Color Wheels dock on "
 "the right, and video scopes (Luma Waveform and Histogram) below.*"
@@ -46,7 +46,7 @@ msgstr ""
 "Bánh xe Màu bên phải, và các thước đo video (Đồ thị Luma và Biểu đồ) bên "
 "dưới.*"
 
-#: ../color.rst:37
+#: ../doc/color.rst:37
 msgid ""
 ":ref:`effects_color_grade` in :doc:`effects` — full property reference and "
 "keyframe details for the Color Grade effect."
@@ -54,11 +54,11 @@ msgstr ""
 ":ref:`effects_color_grade` trong :doc:`effects` — tham khảo đầy đủ thuộc "
 "tính và chi tiết khung khóa cho hiệu ứng Phân loại Màu."
 
-#: ../color.rst:43
+#: ../doc/color.rst:43
 msgid "Understanding Color"
 msgstr "Hiểu về Màu sắc"
 
-#: ../color.rst:45
+#: ../doc/color.rst:45
 msgid ""
 "Every pixel in a digital video frame is made of three numbers: **Red**, "
 "**Green**, and **Blue** (each 0–255). White is all three at maximum; black "
@@ -72,11 +72,11 @@ msgstr ""
 "ba. Kết hợp các màu cơ bản tạo ra màu thứ cấp (Đỏ + Xanh lá = Vàng, Đỏ + "
 "Xanh dương = Hồng, Xanh lá + Xanh dương = Xanh lơ)."
 
-#: ../color.rst:49
+#: ../doc/color.rst:49
 msgid "Four properties you will adjust constantly:"
 msgstr "Bốn thuộc tính bạn sẽ điều chỉnh thường xuyên:"
 
-#: ../color.rst:51
+#: ../doc/color.rst:51
 msgid ""
 "**Exposure** — overall brightness. Overexposed footage has many pixels near "
 "255 (blown-out highlights); underexposed footage is crushed near 0."
@@ -84,7 +84,7 @@ msgstr ""
 "**Phơi sáng** — độ sáng tổng thể. Cảnh quay bị phơi sáng quá mức có nhiều "
 "điểm ảnh gần 255 (vùng sáng bị cháy); cảnh quay thiếu sáng bị nén gần 0."
 
-#: ../color.rst:53
+#: ../doc/color.rst:53
 msgid ""
 "**Contrast** — the spread between brightest and darkest. High contrast is "
 "dramatic; low contrast looks flat or milky."
@@ -92,7 +92,7 @@ msgstr ""
 "**Độ tương phản** — sự chênh lệch giữa vùng sáng nhất và tối nhất. Độ tương "
 "phản cao tạo cảm giác kịch tính; độ tương phản thấp trông phẳng hoặc mờ."
 
-#: ../color.rst:55
+#: ../doc/color.rst:55
 msgid ""
 "**Saturation** — how vivid the colors are. Zero saturation = grayscale. "
 "Cameras often record slightly less saturation than reality to give editors "
@@ -102,7 +102,7 @@ msgstr ""
 "xám. Máy quay thường ghi lại độ bão hòa thấp hơn thực tế một chút để cho "
 "phép biên tập viên có nhiều không gian hơn."
 
-#: ../color.rst:57
+#: ../doc/color.rst:57
 msgid ""
 "**Hue** — the actual color (red, yellow, green, blue…). Shifting hue rotates"
 " all colors around the color wheel and is mostly used for creative stylistic"
@@ -112,11 +112,11 @@ msgstr ""
 "sẽ xoay tất cả các màu quanh bánh xe màu và chủ yếu được dùng cho các hiệu "
 "ứng sáng tạo phong cách."
 
-#: ../color.rst:61
+#: ../doc/color.rst:61
 msgid "Video Scopes — What They Are and Why They Matter"
 msgstr "Thước đo Video — Chúng là gì và Tại sao Quan trọng"
 
-#: ../color.rst:63
+#: ../doc/color.rst:63
 msgid ""
 "Your monitor is not a reliable measuring tool — room lighting, screen "
 "brightness, and uncalibrated displays all affect what you see. **Video "
@@ -129,7 +129,7 @@ msgstr ""
 "trong hình ảnh của bạn dưới dạng các biểu đồ chính xác. Chúng không bao giờ "
 "nói dối, ngay cả khi màn hình của bạn có thể."
 
-#: ../color.rst:67
+#: ../doc/color.rst:67
 msgid ""
 "OpenShot includes three scopes, all accessible from :guilabel:`View → "
 "Scopes` or opened automatically by the clip menu options described in "
@@ -139,7 +139,7 @@ msgstr ""
 " Thước đo` hoặc được mở tự động qua các tùy chọn menu clip được mô tả trong "
 ":ref:`getting_started_ref`:"
 
-#: ../color.rst:70
+#: ../doc/color.rst:70
 msgid ""
 "**Luma Waveform** — shows brightness across the frame, column by column. "
 "Instantly reveals overexposure, underexposure, and contrast problems. See "
@@ -149,7 +149,7 @@ msgstr ""
 "lập tức phát hiện các vấn đề phơi sáng quá mức, thiếu sáng và độ tương phản."
 " Xem :ref:`luma_waveform_ref`."
 
-#: ../color.rst:72
+#: ../doc/color.rst:72
 msgid ""
 "**Histogram** — shows how many pixels exist at each brightness level. Great "
 "for exposure and channel balance at a glance. See :ref:`histogram_ref`."
@@ -157,7 +157,7 @@ msgstr ""
 "**Biểu đồ** — hiển thị số lượng điểm ảnh ở mỗi mức độ sáng. Rất hữu ích để "
 "đánh giá phơi sáng và cân bằng kênh ngay lập tức. Xem :ref:`histogram_ref`."
 
-#: ../color.rst:74
+#: ../doc/color.rst:74
 msgid ""
 "**Vectorscope** — a circular chroma plot showing the hue and saturation of "
 "every pixel. Ideal for checking color casts, overall saturation, and — with "
@@ -167,7 +167,7 @@ msgstr ""
 " của từng điểm ảnh. Lý tưởng để kiểm tra màu sắc lệch, độ bão hòa tổng thể, "
 "và — với đường da tích hợp — đánh giá khuôn mặt. Xem :ref:`vectorscope_ref`."
 
-#: ../color.rst:78
+#: ../doc/color.rst:78
 msgid ""
 "Every scope also has a **Region** button in its toolbar. Click it and drag a"
 " box over any part of the video preview to restrict scope analysis to just "
@@ -179,11 +179,11 @@ msgstr ""
 "thước đo chỉ trong vùng đó — hữu ích để cô lập khuôn mặt, bầu trời hoặc bất "
 "kỳ khu vực cụ thể nào của khung hình."
 
-#: ../color.rst:83
+#: ../doc/color.rst:83
 msgid "Color Correction — Fixing What Is Wrong"
 msgstr "Chỉnh sửa Màu sắc — Sửa chữa những gì sai"
 
-#: ../color.rst:85
+#: ../doc/color.rst:85
 msgid ""
 "**Color correction** is the process of fixing technical problems in footage "
 "so it looks the way reality appeared: wrong white balance, bad exposure, "
@@ -196,11 +196,11 @@ msgstr ""
 "tính, trông tự nhiên và hiển thị tốt trên mọi màn hình. Xem "
 ":ref:`color_correction_ref`."
 
-#: ../color.rst:90
+#: ../doc/color.rst:90
 msgid "Color Grading — Building a Look"
 msgstr "Phân loại Màu — Tạo phong cách"
 
-#: ../color.rst:92
+#: ../doc/color.rst:92
 msgid ""
 "**Color grading** is the creative step: using the same tools to give "
 "corrected footage a deliberate visual mood or style. A warm golden "
@@ -214,11 +214,11 @@ msgstr ""
 "điện ảnh xanh lam-cam — phân loại màu là nơi cảnh quay chuyển từ \"trông "
 "đúng\" sang \"trông có chủ ý.\" Xem :ref:`color_grading_ref`."
 
-#: ../color.rst:99
+#: ../doc/color.rst:99
 msgid "Getting Started"
 msgstr "Bắt đầu"
 
-#: ../color.rst:101
+#: ../doc/color.rst:101
 msgid ""
 "OpenShot offers several ways to open its color tools, depending on what you "
 "need:"
@@ -226,11 +226,11 @@ msgstr ""
 "OpenShot cung cấp nhiều cách để mở các công cụ màu sắc, tùy thuộc vào nhu "
 "cầu của bạn:"
 
-#: ../color.rst:106
+#: ../doc/color.rst:106
 msgid "**Right-click a clip → Look → Adjust Colors**"
 msgstr "**Nhấp chuột phải vào clip → Giao diện → Điều chỉnh Màu sắc**"
 
-#: ../color.rst:104
+#: ../doc/color.rst:104
 msgid ""
 "The quickest all-in-one setup. OpenShot adds the :guilabel:`Color Grade` "
 "effect to the clip, selects it, opens the :guilabel:`Properties` panel, and "
@@ -242,7 +242,7 @@ msgstr ""
 " và hiển thị bảng điều khiển :guilabel:`Bánh xe Màu` cùng cả ba thước đo "
 "video — sẵn sàng để phân loại ngay lập tức."
 
-#: ../color.rst:110
+#: ../doc/color.rst:110
 msgid ""
 "**Right-click a clip → Look → Color → [preset]** *(Auto Contrast, Lift "
 "Shadows, Warm Up, Boost Color…)*"
@@ -250,7 +250,7 @@ msgstr ""
 "**Nhấp chuột phải vào clip → Giao diện → Màu → [cài đặt sẵn]** *(Tự động "
 "Tương phản, Nâng bóng, Làm ấm, Tăng màu…)*"
 
-#: ../color.rst:109
+#: ../doc/color.rst:109
 msgid ""
 "Adds the Color Grade effect with a useful preset already applied. The Color "
 "Wheels and scopes are not opened automatically — open them any time from "
@@ -260,11 +260,11 @@ msgstr ""
 "Bánh xe Màu và các thước đo không được mở tự động — bạn có thể mở chúng bất "
 "cứ lúc nào từ :guilabel:`Xem → Thước đo`."
 
-#: ../color.rst:115
+#: ../doc/color.rst:115
 msgid "**Right-click a clip → Look → Analyze Colors**"
 msgstr "**Nhấp chuột phải vào clip → Giao diện → Phân tích Màu sắc**"
 
-#: ../color.rst:113
+#: ../doc/color.rst:113
 msgid ""
 "Opens all three scopes (Luma Waveform, Histogram, and Vectorscope, tabbed "
 "together on the right) without adding any Color Grade effect. Use this to "
@@ -276,11 +276,11 @@ msgstr ""
 "cảnh quay trước khi quyết định có cần phân loại hay chỉ để theo dõi mức độ "
 "trong khi phát."
 
-#: ../color.rst:120
+#: ../doc/color.rst:120
 msgid "**View → Color View** *(optional immersive mode)*"
 msgstr "**Xem → Giao diện Màu sắc** *(chế độ nhập vai tùy chọn)*"
 
-#: ../color.rst:118
+#: ../doc/color.rst:118
 msgid ""
 "Switches the entire interface into a dedicated color grading layout: the "
 "video preview is maximized in the center, non-color docks are hidden, the "
@@ -292,11 +292,11 @@ msgstr ""
 "dock Bánh Xe Màu xuất hiện bên phải, và các thước đo xuất hiện bên dưới. "
 "Quay lại bố cục bình thường của bạn từ cùng menu khi hoàn tất."
 
-#: ../color.rst:123
+#: ../doc/color.rst:123
 msgid "**Effects tab → drag Color Grade onto a clip**"
 msgstr "**Tab Hiệu Ứng → kéo Phân Loại Màu lên một clip**"
 
-#: ../color.rst:123
+#: ../doc/color.rst:123
 msgid ""
 "The fully manual approach. Add the effect without opening any docks "
 "automatically."
@@ -304,11 +304,11 @@ msgstr ""
 "Cách tiếp cận hoàn toàn thủ công. Thêm hiệu ứng mà không tự động mở bất kỳ "
 "dock nào."
 
-#: ../color.rst:128
+#: ../doc/color.rst:128
 msgid "Video Scopes"
 msgstr "Thước Đo Video"
 
-#: ../color.rst:130
+#: ../doc/color.rst:130
 msgid ""
 "Each scope updates live as the playhead moves. Use the **Region** button in "
 "any scope's toolbar to analyze just a selected area of the preview rather "
@@ -318,11 +318,11 @@ msgstr ""
 " trong thanh công cụ của bất kỳ thước đo nào để phân tích chỉ khu vực được "
 "chọn của bản xem trước thay vì toàn bộ khung hình."
 
-#: ../color.rst:136
+#: ../doc/color.rst:136
 msgid "The Luma Waveform"
 msgstr "Đồ Thị Luma"
 
-#: ../color.rst:138
+#: ../doc/color.rst:138
 msgid ""
 "The Luma Waveform maps every pixel by horizontal position (X axis = left-to-"
 "right across the frame) and brightness (Y axis = 0% at bottom to 100% at "
@@ -334,7 +334,7 @@ msgstr ""
 "Nơi nhiều pixel có cùng độ sáng tại vị trí ngang giống nhau, dấu vết sẽ phát"
 " sáng hơn."
 
-#: ../color.rst:144
+#: ../doc/color.rst:144
 msgid ""
 "*The Luma Waveform in RGB Parade mode, showing red, green, and blue channels"
 " side by side.*"
@@ -342,22 +342,22 @@ msgstr ""
 "*Đồ thị Luma ở chế độ Diễu RGB, hiển thị các kênh đỏ, xanh lá và xanh dương "
 "cạnh nhau.*"
 
-#: ../color.rst:146 ../color.rst:188 ../color.rst:230
+#: ../doc/color.rst:146 ../doc/color.rst:188 ../doc/color.rst:230
 msgid "**How to read it:**"
 msgstr "**Cách đọc:**"
 
-#: ../color.rst:148
+#: ../doc/color.rst:148
 msgid "Waveform clustered near the **bottom** → underexposed. Raise Exposure."
 msgstr "Đồ thị tập trung gần **đáy** → thiếu sáng. Tăng Độ Phơi Sáng."
 
-#: ../color.rst:149
+#: ../doc/color.rst:149
 msgid ""
 "Waveform packed against the **top** → overexposed. Lower Exposure or "
 "Highlights."
 msgstr ""
 "Đồ thị dồn sát **đỉnh** → thừa sáng. Giảm Độ Phơi Sáng hoặc Vùng Sáng."
 
-#: ../color.rst:150
+#: ../doc/color.rst:150
 msgid ""
 "A **narrow horizontal band** in the middle → low contrast, image looks "
 "milky. Increase Contrast."
@@ -365,7 +365,7 @@ msgstr ""
 "Một **dải ngang hẹp** ở giữa → độ tương phản thấp, hình ảnh trông mờ đục. "
 "Tăng Độ Tương Phản."
 
-#: ../color.rst:151
+#: ../doc/color.rst:151
 msgid ""
 "A **thick line at the very bottom** → blacks are crushed. Raise Shadows or "
 "lift the bottom-left point of Curve: All to restore shadow detail."
@@ -374,7 +374,7 @@ msgstr ""
 "nâng điểm dưới cùng bên trái của Đường Cong: Tất cả để phục hồi chi tiết "
 "bóng."
 
-#: ../color.rst:154
+#: ../doc/color.rst:154
 msgid ""
 "IRE reference lines appear at 10%, 50%, and 90% as faint dashed lines. A "
 "well-exposed image keeps highlights below 90% and shadows above 5%."
@@ -383,23 +383,23 @@ msgstr ""
 "nét đứt mờ. Hình ảnh được phơi sáng tốt giữ vùng sáng dưới 90% và vùng tối "
 "trên 5%."
 
-#: ../color.rst:158
+#: ../doc/color.rst:158
 msgid "Waveform Modes"
 msgstr "Chế Độ Đồ Thị"
 
-#: ../color.rst:164
+#: ../doc/color.rst:164
 msgid "Mode"
 msgstr "Chế Độ"
 
-#: ../color.rst:164
+#: ../doc/color.rst:164
 msgid "What It Shows"
 msgstr "Nội Dung Hiển Thị"
 
-#: ../color.rst:166
+#: ../doc/color.rst:166
 msgid "Luma"
 msgstr "Luma"
 
-#: ../color.rst:166
+#: ../doc/color.rst:166
 msgid ""
 "Brightness only (ignores color). Best for exposure and contrast work. Trace "
 "color can be changed to Green, White, or Orange."
@@ -407,11 +407,11 @@ msgstr ""
 "Chỉ độ sáng (bỏ qua màu sắc). Tốt nhất cho công việc phơi sáng và tương "
 "phản. Màu dấu vết có thể thay đổi thành Xanh lá, Trắng, hoặc Cam."
 
-#: ../color.rst:168
+#: ../doc/color.rst:168
 msgid "RGB Overlay"
 msgstr "Chồng RGB"
 
-#: ../color.rst:168
+#: ../doc/color.rst:168
 msgid ""
 "Red, green, and blue channels drawn on top of each other in their natural "
 "colors. Quick visual check for overall channel balance."
@@ -419,11 +419,11 @@ msgstr ""
 "Các kênh đỏ, xanh lá, và xanh dương được vẽ chồng lên nhau với màu sắc tự "
 "nhiên. Kiểm tra nhanh cân bằng tổng thể các kênh."
 
-#: ../color.rst:170
+#: ../doc/color.rst:170
 msgid "RGB Parade"
 msgstr "Diễu RGB"
 
-#: ../color.rst:170
+#: ../doc/color.rst:170
 msgid ""
 "Three side-by-side panels (R, G, B). If one panel sits noticeably higher "
 "than the others in areas that should be neutral, white balance is off. Blue "
@@ -433,19 +433,19 @@ msgstr ""
 "khác ở vùng nên trung tính, cân bằng trắng bị lệch. Xanh dương cao hơn đỏ ở "
 "vùng sáng → hình ảnh quá lạnh."
 
-#: ../color.rst:173
+#: ../doc/color.rst:173
 msgid "Red / Green / Blue"
 msgstr "Đỏ / Xanh Lá / Xanh Dương"
 
-#: ../color.rst:173
+#: ../doc/color.rst:173
 msgid "Shows a single channel in isolation."
 msgstr "Hiển thị một kênh riêng biệt."
 
-#: ../color.rst:179
+#: ../doc/color.rst:179
 msgid "The Histogram"
 msgstr "Biểu Đồ Phổ"
 
-#: ../color.rst:181
+#: ../doc/color.rst:181
 msgid ""
 "The Histogram sorts all pixels by brightness (0 = black on the left, 255 = "
 "white on the right) and shows how many pixels exist at each level as a bar "
@@ -455,15 +455,15 @@ msgstr ""
 " bên phải) và hiển thị số lượng pixel ở mỗi mức dưới dạng biểu đồ cột. Các "
 "kênh đỏ, xanh lá, xanh dương và luma được chồng lên nhau."
 
-#: ../color.rst:186
+#: ../doc/color.rst:186
 msgid "*The Histogram in All Channels / Logarithmic mode.*"
 msgstr "*Biểu đồ phổ ở chế độ Tất Cả Kênh / Logarit.*"
 
-#: ../color.rst:190
+#: ../doc/color.rst:190
 msgid "Bars **clustered left** → underexposed."
 msgstr "Các cột **tập trung bên trái** → thiếu sáng."
 
-#: ../color.rst:191
+#: ../doc/color.rst:191
 msgid ""
 "Bars **pushed against the right edge** → overexposed, possibly clipping. A "
 "sharp wall on the right means highlight detail is gone."
@@ -471,7 +471,7 @@ msgstr ""
 "Các cột **dồn sát mép phải** → thừa sáng, có thể bị cắt cụt. Một bức tường "
 "sắc nét bên phải nghĩa là chi tiết vùng sáng đã mất."
 
-#: ../color.rst:193
+#: ../doc/color.rst:193
 msgid ""
 "A **narrow hill in the middle** → low contrast. Increasing Contrast will "
 "spread the bars out."
@@ -479,11 +479,11 @@ msgstr ""
 "Một **đồi hẹp ở giữa** → độ tương phản thấp. Tăng Độ Tương Phản sẽ làm các "
 "cột trải rộng ra."
 
-#: ../color.rst:195
+#: ../doc/color.rst:195
 msgid "The Histogram dock has two dropdowns:"
 msgstr "Dock Biểu Đồ Phổ có hai menu thả xuống:"
 
-#: ../color.rst:197
+#: ../doc/color.rst:197
 msgid ""
 "**Channel** — *All Channels* shows R, G, B, and luma overlaid; individual "
 "options isolate one. If the Red histogram extends further right than Green "
@@ -493,7 +493,7 @@ msgstr ""
 "chọn riêng biệt tách riêng một kênh. Nếu biểu đồ đỏ kéo dài hơn sang phải so"
 " với xanh lá và xanh dương, hình ảnh có tông ấm."
 
-#: ../color.rst:199
+#: ../doc/color.rst:199
 msgid ""
 "**Scale** — *Logarithmic* (default) keeps rare tonal values visible. "
 "*Linear* shows raw counts, useful for comparing the relative weight of "
@@ -503,11 +503,11 @@ msgstr ""
 " Tính* hiển thị số lượng thô, hữu ích để so sánh trọng số tương đối của các "
 "tông khác nhau."
 
-#: ../color.rst:205
+#: ../doc/color.rst:205
 msgid "The Vectorscope"
 msgstr "Thước Đo Vector"
 
-#: ../color.rst:207
+#: ../doc/color.rst:207
 msgid ""
 "The Vectorscope is a 2D chroma plot. Each pixel is placed on a circular "
 "graph by its **hue** (direction from center) and **saturation** (distance "
@@ -518,14 +518,14 @@ msgstr ""
 "theo **màu sắc** (hướng từ tâm) và **độ bão hòa** (khoảng cách từ tâm). "
 "Pixel ở chính giữa không màu (xám hoặc đen); pixel ở rìa bão hòa hoàn toàn."
 
-#: ../color.rst:213
+#: ../doc/color.rst:213
 msgid ""
 "*The Vectorscope in Colorized mode, with the skin tone cluster visible near "
 "the center.*"
 msgstr ""
 "*Thước đo Vector ở chế độ Tô Màu, với cụm tông da hiển thị gần trung tâm.*"
 
-#: ../color.rst:215
+#: ../doc/color.rst:215
 msgid ""
 "The outer ring shows broadcast hue labels — **R** (red), **Mg** (magenta), "
 "**B** (blue), **Cy** (cyan), **G** (green), **Yi** (yellow) — at their "
@@ -539,11 +539,11 @@ msgstr ""
 "tông da người, từ sáng nhất đến tối nhất, nên nằm gần đường này trong vùng "
 "vàng-cam giữa Yi và R."
 
-#: ../color.rst:220
+#: ../doc/color.rst:220
 msgid "**Display modes:**"
 msgstr "**Chế độ hiển thị:**"
 
-#: ../color.rst:222
+#: ../doc/color.rst:222
 msgid ""
 "**Colorized** (default) — each plotted pixel adopts the hue color of its "
 "position on the wheel. Makes it easy to see which colors are present and how"
@@ -552,7 +552,7 @@ msgstr ""
 "**Tô Màu** (mặc định) — mỗi pixel được vẽ nhận màu sắc theo vị trí trên bánh"
 " xe. Giúp dễ dàng nhận biết màu sắc hiện diện và độ bão hòa của chúng."
 
-#: ../color.rst:224
+#: ../doc/color.rst:224
 msgid ""
 "**Density** — monochrome brightness. Brighter = more pixels sharing that "
 "hue/saturation. Good for focusing on shape and balance rather than color "
@@ -561,7 +561,7 @@ msgstr ""
 "**Mật Độ** — độ sáng đơn sắc. Sáng hơn = nhiều pixel chia sẻ cùng màu sắc/độ"
 " bão hòa. Tốt để tập trung vào hình dạng và cân bằng hơn là nhận dạng màu."
 
-#: ../color.rst:226
+#: ../doc/color.rst:226
 msgid ""
 "**Intensity** — heatmap from blue (sparse) to red (dense). Quickly shows "
 "which colors dominate."
@@ -569,7 +569,7 @@ msgstr ""
 "**Cường Độ** — bản đồ nhiệt từ xanh dương (thưa) đến đỏ (đậm đặc). Hiển thị "
 "nhanh màu nào chiếm ưu thế."
 
-#: ../color.rst:228
+#: ../doc/color.rst:228
 msgid ""
 "**Zoom:** 100%, 200%, or 400%. Use 200% for skin tone work — it magnifies "
 "subtle shifts near center."
@@ -577,7 +577,7 @@ msgstr ""
 "**Phóng To:** 100%, 200%, hoặc 400%. Dùng 200% cho công việc tông da — nó "
 "phóng đại các thay đổi tinh tế gần trung tâm."
 
-#: ../color.rst:232
+#: ../doc/color.rst:232
 msgid ""
 "Plot concentrated near the **center** → image is desaturated. Increase "
 "Saturation or Vibrance."
@@ -585,7 +585,7 @@ msgstr ""
 "Biểu đồ tập trung gần **trung tâm** → hình ảnh bị mất màu. Tăng Độ bão hòa "
 "hoặc Độ sống động."
 
-#: ../color.rst:233
+#: ../doc/color.rst:233
 msgid ""
 "Plot tilted toward one side → color cast. Use Temperature, Tint, or the "
 "Global color wheel to push the cluster back toward center."
@@ -593,7 +593,7 @@ msgstr ""
 "Biểu đồ nghiêng về một phía → ám màu. Sử dụng Nhiệt độ, Tông màu, hoặc bánh "
 "xe màu Toàn cục để đẩy cụm màu trở lại trung tâm."
 
-#: ../color.rst:235
+#: ../doc/color.rst:235
 msgid ""
 "For **skin tone evaluation**: use the Region selector to draw a box over a "
 "face in the preview. The cluster should fall along the dashed skin tone line"
@@ -603,11 +603,11 @@ msgstr ""
 "khuôn mặt trong bản xem trước. Cụm màu nên nằm dọc theo đường nét đứt của "
 "tông màu da (xem :ref:`skin_tones_ref`)."
 
-#: ../color.rst:241
+#: ../doc/color.rst:241
 msgid "Color Correction"
 msgstr "Chỉnh sửa màu sắc"
 
-#: ../color.rst:243
+#: ../doc/color.rst:243
 msgid ""
 "Color correction fixes technical problems — wrong white balance, bad "
 "exposure, flat contrast — so footage looks clean and natural. It is always "
@@ -617,11 +617,11 @@ msgstr ""
 "sáng kém, tương phản phẳng — để hình ảnh trông sạch và tự nhiên. Đây luôn là"
 " bước đầu tiên, trước bất kỳ công việc sáng tạo nào."
 
-#: ../color.rst:249
+#: ../doc/color.rst:249
 msgid "White Balance — Making Whites Look White"
 msgstr "Cân bằng trắng — Làm cho màu trắng trông thật trắng"
 
-#: ../color.rst:251
+#: ../doc/color.rst:251
 msgid ""
 "Different light sources cast different colors: incandescent bulbs are "
 "orange-warm, fluorescent lights are greenish, open shade is cool blue. When "
@@ -633,7 +633,7 @@ msgstr ""
 "bằng trắng tự động của máy ảnh đoán sai, hình ảnh sẽ bị ám màu. Sửa lỗi này "
 "thường là bước đầu tiên của bạn."
 
-#: ../color.rst:255
+#: ../doc/color.rst:255
 msgid ""
 "Use **Temperature** and **Tint** in the :guilabel:`Color Grade` effect "
 "properties:"
@@ -641,7 +641,7 @@ msgstr ""
 "Sử dụng **Nhiệt độ** và **Tông màu** trong thuộc tính hiệu ứng "
 ":guilabel:`Color Grade`:"
 
-#: ../color.rst:257
+#: ../doc/color.rst:257
 msgid ""
 "**Temperature** — shifts the image warmer (positive) or cooler (negative). "
 "Footage that looks too orange? Slide it negative."
@@ -649,7 +649,7 @@ msgstr ""
 "**Nhiệt độ** — làm hình ảnh ấm hơn (dương) hoặc mát hơn (âm). Hình ảnh quá "
 "cam? Kéo về phía âm."
 
-#: ../color.rst:259
+#: ../doc/color.rst:259
 msgid ""
 "**Tint** — fine-tunes green/magenta balance. Use this after Temperature to "
 "remove a lingering fluorescent tinge. Positive = magenta, negative = green."
@@ -657,7 +657,7 @@ msgstr ""
 "**Tông màu** — điều chỉnh cân bằng xanh lục/hồng. Dùng sau Nhiệt độ để loại "
 "bỏ sắc huỳnh quang còn sót lại. Dương = hồng, âm = xanh lục."
 
-#: ../color.rst:262
+#: ../doc/color.rst:262
 msgid ""
 "A quick check: find something in the shot that should be neutral — a white "
 "wall, a gray shirt, the whites of someone's eyes. The **RGB Parade** "
@@ -669,11 +669,11 @@ msgstr ""
 "giúp việc này khách quan: cả ba kênh nên ở cùng mức độ trong các vùng trung "
 "tính đó."
 
-#: ../color.rst:269
+#: ../doc/color.rst:269
 msgid "Skin Tones"
 msgstr "Tông màu da"
 
-#: ../color.rst:271
+#: ../doc/color.rst:271
 msgid ""
 "Human faces are the most scrutinized subjects in video. Viewers sense when "
 "skin looks wrong instantly, even if they cannot say why. Good skin tones are"
@@ -683,7 +683,7 @@ msgstr ""
 " ngay lập tức cảm nhận khi da trông không đúng, dù không thể nói rõ lý do. "
 "Tông màu da tốt là ấm — nghiêng về cam, không phải xanh lục hay xanh dương."
 
-#: ../color.rst:274
+#: ../doc/color.rst:274
 msgid ""
 "All human skin tones — regardless of race — fall roughly along the same "
 "diagonal line on a vectorscope: the **skin tone line**. They shift lighter "
@@ -695,7 +695,7 @@ msgstr ""
 "và độ bão hòa, nhưng luôn nằm trong vùng cam đến vàng. Vectorscope của "
 "OpenShot cho phép bạn xác minh điều này trực tiếp:"
 
-#: ../color.rst:278
+#: ../doc/color.rst:278
 msgid ""
 "Right-click the clip → :guilabel:`Color → Analyze Colors` to open the "
 "scopes."
@@ -703,7 +703,7 @@ msgstr ""
 "Nhấp chuột phải vào clip → :guilabel:`Color → Analyze Colors` để mở các công"
 " cụ đo màu."
 
-#: ../color.rst:279
+#: ../doc/color.rst:279
 msgid ""
 "In the Vectorscope toolbar, click the **Region** button and drag a box over "
 "the skin in the preview."
@@ -711,7 +711,7 @@ msgstr ""
 "Trong thanh công cụ Vectorscope, nhấn nút **Region** và kéo một hộp lên vùng"
 " da trong bản xem trước."
 
-#: ../color.rst:280
+#: ../doc/color.rst:280
 msgid ""
 "The cluster should sit along the dashed skin tone line. If it drifts toward "
 "green or blue, use **Temperature** (warmer) or the **Global** color wheel to"
@@ -721,7 +721,7 @@ msgstr ""
 "lục hoặc xanh dương, hãy dùng **Nhiệt độ** (ấm hơn) hoặc bánh xe màu **Toàn "
 "cục** để đẩy nó trở lại vùng cam-vàng."
 
-#: ../color.rst:285
+#: ../doc/color.rst:285
 msgid ""
 "*A face region selected in the video preview (left) with the vectorscope "
 "plotting only those pixels (right). The skin tone cluster aligns with the "
@@ -731,7 +731,7 @@ msgstr ""
 " chỉ vẽ các điểm ảnh đó (bên phải). Cụm tông màu da thẳng hàng với đường nét"
 " đứt của tông màu da trong vùng vàng-cam.*"
 
-#: ../color.rst:288
+#: ../doc/color.rst:288
 msgid ""
 "Avoid pushing Saturation too high — over-saturated skin looks unnatural even"
 " when the hue is correct."
@@ -739,11 +739,11 @@ msgstr ""
 "Tránh tăng Độ bão hòa quá cao — da bị bão hòa quá mức trông không tự nhiên "
 "ngay cả khi sắc thái đúng."
 
-#: ../color.rst:291
+#: ../doc/color.rst:291
 msgid "Primary Correction Controls"
 msgstr "Các điều khiển chỉnh sửa chính"
 
-#: ../color.rst:293
+#: ../doc/color.rst:293
 msgid ""
 "These controls appear in the :guilabel:`Properties` panel when the Color "
 "Grade effect is selected:"
@@ -751,81 +751,81 @@ msgstr ""
 "Các điều khiển này xuất hiện trong bảng :guilabel:`Properties` khi hiệu ứng "
 "Color Grade được chọn:"
 
-#: ../color.rst:299
+#: ../doc/color.rst:299
 msgid "Property"
 msgstr "Thuộc tính"
 
-#: ../color.rst:299
+#: ../doc/color.rst:299
 msgid "What It Does"
 msgstr "Chức năng"
 
-#: ../color.rst:301
+#: ../doc/color.rst:301
 msgid "Temperature"
 msgstr "Nhiệt độ"
 
-#: ../color.rst:301
+#: ../doc/color.rst:301
 msgid "Warms (positive) or cools (negative) the entire image."
 msgstr "Làm ấm (dương) hoặc làm mát (âm) toàn bộ hình ảnh."
 
-#: ../color.rst:302
+#: ../doc/color.rst:302
 msgid "Tint"
 msgstr "Tông màu"
 
-#: ../color.rst:302
+#: ../doc/color.rst:302
 msgid "Fine-tunes green/magenta balance after Temperature."
 msgstr "Điều chỉnh cân bằng xanh lục/hồng sau Nhiệt độ."
 
-#: ../color.rst:303
+#: ../doc/color.rst:303
 msgid "Exposure"
 msgstr "Phơi sáng"
 
-#: ../color.rst:303
+#: ../doc/color.rst:303
 msgid "Makes the whole image brighter or darker."
 msgstr "Làm cho toàn bộ hình ảnh sáng hơn hoặc tối hơn."
 
-#: ../color.rst:304
+#: ../doc/color.rst:304
 msgid "Contrast"
 msgstr "Tương phản"
 
-#: ../color.rst:304
+#: ../doc/color.rst:304
 msgid "Expands (positive) or compresses (negative) the tonal range."
 msgstr "Mở rộng (dương) hoặc nén (âm) dải tông màu."
 
-#: ../color.rst:305 ../color.rst:364
+#: ../doc/color.rst:305 ../doc/color.rst:364
 msgid "Highlights"
 msgstr "Vùng sáng"
 
-#: ../color.rst:305
+#: ../doc/color.rst:305
 msgid ""
 "Brightens or darkens only the bright parts. Negative values recover "
 "overexposed highlights."
 msgstr ""
 "Làm sáng hoặc tối chỉ các vùng sáng. Giá trị âm phục hồi vùng sáng bị cháy."
 
-#: ../color.rst:307 ../color.rst:362
+#: ../doc/color.rst:307 ../doc/color.rst:362
 msgid "Shadows"
 msgstr "Bóng tối"
 
-#: ../color.rst:307
+#: ../doc/color.rst:307
 msgid ""
 "Lifts or lowers only the dark parts. Positive values open up shadow detail."
 msgstr ""
 "Nâng lên hoặc hạ xuống chỉ các vùng tối. Giá trị dương làm rõ chi tiết bóng "
 "tối."
 
-#: ../color.rst:309
+#: ../doc/color.rst:309
 msgid "Saturation"
 msgstr "Độ bão hòa"
 
-#: ../color.rst:309
+#: ../doc/color.rst:309
 msgid "Overall color intensity. 1.0 = unchanged, 0.0 = grayscale."
 msgstr "Cường độ màu tổng thể. 1.0 = không đổi, 0.0 = thang xám."
 
-#: ../color.rst:310
+#: ../doc/color.rst:310
 msgid "Vibrance"
 msgstr "Độ sống động"
 
-#: ../color.rst:310
+#: ../doc/color.rst:310
 msgid ""
 "Like Saturation, but preferentially boosts muted colors without "
 "oversaturating ones that are already vivid."
@@ -833,15 +833,15 @@ msgstr ""
 "Tương tự Độ bão hòa, nhưng ưu tiên tăng màu nhạt mà không làm quá bão hòa "
 "các màu đã rực rỡ."
 
-#: ../color.rst:315
+#: ../doc/color.rst:315
 msgid "A Correction Workflow"
 msgstr "Quy trình chỉnh sửa"
 
-#: ../color.rst:317
+#: ../doc/color.rst:317
 msgid "Work in this order for the best results:"
 msgstr "Làm theo thứ tự này để có kết quả tốt nhất:"
 
-#: ../color.rst:319
+#: ../doc/color.rst:319
 msgid ""
 "**Fix white balance first** — Temperature and Tint until neutrals look "
 "neutral."
@@ -849,16 +849,16 @@ msgstr ""
 "**Sửa cân bằng trắng trước** — Nhiệt độ và Tông màu cho đến khi các vùng "
 "trung tính trông trung tính."
 
-#: ../color.rst:320
+#: ../doc/color.rst:320
 msgid "**Set exposure** — Exposure until brightness feels correct."
 msgstr "**Đặt phơi sáng** — Phơi sáng cho đến khi độ sáng cảm thấy đúng."
 
-#: ../color.rst:321
+#: ../doc/color.rst:321
 msgid "**Adjust contrast** — expand or compress the tonal range to add depth."
 msgstr ""
 "**Điều chỉnh tương phản** — mở rộng hoặc nén dải tông màu để tăng chiều sâu."
 
-#: ../color.rst:322
+#: ../doc/color.rst:322
 msgid ""
 "**Recover clipping** — Highlights and Shadows if bright areas are blown or "
 "shadows are crushed."
@@ -866,12 +866,12 @@ msgstr ""
 "**Phục hồi vùng cháy sáng** — Vùng sáng và bóng tối nếu các vùng sáng bị "
 "cháy hoặc bóng tối bị mất chi tiết."
 
-#: ../color.rst:323
+#: ../doc/color.rst:323
 msgid "**Adjust saturation** — Saturation or Vibrance to taste."
 msgstr ""
 "**Điều chỉnh độ bão hòa** — Độ bão hòa hoặc Độ sống động theo sở thích."
 
-#: ../color.rst:324
+#: ../doc/color.rst:324
 msgid ""
 "**Check skin tones** — open the Vectorscope, use the Region selector on "
 "faces, and confirm the cluster aligns with the skin tone line."
@@ -879,7 +879,7 @@ msgstr ""
 "**Kiểm tra tông màu da** — mở Vectorscope, dùng công cụ chọn Vùng trên khuôn"
 " mặt, và xác nhận cụm màu thẳng hàng với đường tông màu da."
 
-#: ../color.rst:327
+#: ../doc/color.rst:327
 msgid ""
 "Use the scopes at each step — they show you what is actually in the image, "
 "regardless of monitor calibration."
@@ -887,11 +887,11 @@ msgstr ""
 "Sử dụng các phạm vi ở mỗi bước — chúng cho bạn thấy những gì thực sự có "
 "trong hình ảnh, bất kể hiệu chuẩn màn hình."
 
-#: ../color.rst:333
+#: ../doc/color.rst:333
 msgid "Color Grading"
 msgstr "Phân loại màu"
 
-#: ../color.rst:335
+#: ../doc/color.rst:335
 msgid ""
 "Color grading is the creative step: using the same tools to build a "
 "deliberate visual mood on top of corrected footage. A few classic grades to "
@@ -901,7 +901,7 @@ msgstr ""
 "trạng hình ảnh có chủ ý trên nền cảnh quay đã được chỉnh sửa. Một vài kiểu "
 "phân loại cổ điển để truyền cảm hứng cho bạn:"
 
-#: ../color.rst:338
+#: ../doc/color.rst:338
 msgid ""
 "**Warm, golden nostalgic** — push Highlights toward orange-yellow, nudge "
 "Midtones slightly warm."
@@ -909,7 +909,7 @@ msgstr ""
 "**Ấm áp, hoài cổ vàng** — đẩy vùng sáng về phía cam-vàng, nhẹ nhàng làm ấm "
 "vùng trung gian."
 
-#: ../color.rst:339
+#: ../doc/color.rst:339
 msgid ""
 "**Cold, clinical** — cool the Shadows, desaturate slightly, keep Highlights "
 "neutral."
@@ -917,7 +917,7 @@ msgstr ""
 "**Lạnh lùng, lâm sàng** — làm mát vùng bóng, giảm bão hòa nhẹ, giữ vùng sáng"
 " trung tính."
 
-#: ../color.rst:340
+#: ../doc/color.rst:340
 msgid ""
 "**Teal and orange** — the blockbuster look: Shadows toward teal, Highlights "
 "toward orange."
@@ -925,7 +925,7 @@ msgstr ""
 "**Xanh lam và cam** — phong cách bom tấn: vùng bóng về xanh lam, vùng sáng "
 "về cam."
 
-#: ../color.rst:341
+#: ../doc/color.rst:341
 msgid ""
 "**Faded film** — lift the black point slightly (Curves) so shadows never "
 "reach full black."
@@ -933,11 +933,11 @@ msgstr ""
 "**Phim phai màu** — nâng điểm đen nhẹ (Đường cong) để vùng bóng không bao "
 "giờ trở nên hoàn toàn đen."
 
-#: ../color.rst:346
+#: ../doc/color.rst:346
 msgid "Color Wheels"
 msgstr "Bánh xe màu"
 
-#: ../color.rst:348
+#: ../doc/color.rst:348
 msgid ""
 "Color wheels push color into specific **tonal ranges** without affecting the"
 " others. This is the tool professional colorists reach for most."
@@ -946,7 +946,7 @@ msgstr ""
 "các dải khác. Đây là công cụ mà các chuyên gia phân loại màu thường sử dụng "
 "nhất."
 
-#: ../color.rst:353
+#: ../doc/color.rst:353
 msgid ""
 "*The Color Wheels dock, showing Global, Shadows, Midtones, and Highlights "
 "wheels.*"
@@ -954,38 +954,38 @@ msgstr ""
 "*Thanh công cụ Bánh xe màu, hiển thị các bánh xe Toàn cục, Bóng, Trung gian "
 "và Vùng sáng.*"
 
-#: ../color.rst:359
+#: ../doc/color.rst:359
 msgid "Wheel"
 msgstr "Bánh xe"
 
-#: ../color.rst:359
+#: ../doc/color.rst:359
 msgid "What It Affects"
 msgstr "Ảnh hưởng đến"
 
-#: ../color.rst:361
+#: ../doc/color.rst:361
 msgid "Global"
 msgstr "Toàn cục"
 
-#: ../color.rst:361
+#: ../doc/color.rst:361
 msgid "A color tint across the **entire image** at all brightness levels."
 msgstr "Một lớp màu phủ trên **toàn bộ hình ảnh** ở mọi mức độ sáng."
 
-#: ../color.rst:362
+#: ../doc/color.rst:362
 msgid "Color only in the **darkest parts**. Great for a cool teal tint."
 msgstr "Màu chỉ ở **phần tối nhất**. Tuyệt vời cho lớp màu xanh lam mát mẻ."
 
-#: ../color.rst:363
+#: ../doc/color.rst:363
 msgid "Midtones"
 msgstr "Trung gian"
 
-#: ../color.rst:363
+#: ../doc/color.rst:363
 msgid ""
 "Color in the **middle tones** — where most skin tones live. Handle gently."
 msgstr ""
 "Màu ở **các tông trung gian** — nơi phần lớn tông màu da tồn tại. Xử lý nhẹ "
 "nhàng."
 
-#: ../color.rst:364
+#: ../doc/color.rst:364
 msgid ""
 "Color only in the **brightest parts**. Warming highlights while keeping "
 "shadows cool is the foundation of the teal-and-orange look."
@@ -993,7 +993,7 @@ msgstr ""
 "Màu chỉ ở **phần sáng nhất**. Làm ấm vùng sáng trong khi giữ vùng bóng mát "
 "là nền tảng của phong cách xanh lam và cam."
 
-#: ../color.rst:368
+#: ../doc/color.rst:368
 msgid ""
 "Drag the **central dot** toward the desired color. Further from center = "
 "stronger effect."
@@ -1001,51 +1001,51 @@ msgstr ""
 "Kéo **chấm trung tâm** về phía màu mong muốn. Xa trung tâm hơn = hiệu ứng "
 "mạnh hơn."
 
-#: ../color.rst:369
+#: ../doc/color.rst:369
 msgid ""
 "The **Amount** slider blends the tinted result back toward the original."
 msgstr "Thanh trượt **Lượng** pha trộn kết quả có màu trở lại với bản gốc."
 
-#: ../color.rst:370
+#: ../doc/color.rst:370
 msgid "The **Luma** slider adjusts the brightness of that tonal zone."
 msgstr "Thanh trượt **Luma** điều chỉnh độ sáng của vùng tông màu đó."
 
-#: ../color.rst:371
+#: ../doc/color.rst:371
 msgid ""
 "Right-click any wheel in Properties → **Reset** to return it to neutral."
 msgstr ""
 "Nhấp chuột phải vào bất kỳ bánh xe nào trong Thuộc tính → **Đặt lại** để trả"
 " về trạng thái trung tính."
 
-#: ../color.rst:373
+#: ../doc/color.rst:373
 msgid "**To build the classic teal-and-orange look:**"
 msgstr "**Để tạo phong cách xanh lam và cam cổ điển:**"
 
-#: ../color.rst:375
+#: ../doc/color.rst:375
 msgid "Drag **Shadows** toward teal (blue-green)."
 msgstr "Kéo **vùng bóng** về phía xanh lam (xanh lục lam)."
 
-#: ../color.rst:376
+#: ../doc/color.rst:376
 msgid "Drag **Highlights** toward orange."
 msgstr "Kéo **vùng sáng** về phía cam."
 
-#: ../color.rst:377
+#: ../doc/color.rst:377
 msgid ""
 "Optionally nudge **Midtones** very slightly toward orange to warm skin "
 "tones."
 msgstr ""
 "Tùy chọn đẩy nhẹ **vùng trung gian** về phía cam để làm ấm tông màu da."
 
-#: ../color.rst:378
+#: ../doc/color.rst:378
 msgid ""
 "Lower the Amount sliders to 0.3–0.5 so the effect does not become overdone."
 msgstr "Hạ thanh trượt Lượng xuống 0.3–0.5 để hiệu ứng không bị quá mức."
 
-#: ../color.rst:383
+#: ../doc/color.rst:383
 msgid "Curves — Precise Tonal and Color Control"
 msgstr "Đường cong — Kiểm soát tông màu và màu sắc chính xác"
 
-#: ../color.rst:385
+#: ../doc/color.rst:385
 msgid ""
 "A curve is a graph where the horizontal axis is the input value and the "
 "vertical axis is the output value. A straight diagonal line means no change."
@@ -1057,7 +1057,7 @@ msgstr ""
 "đường cong và bạn thay đổi mối quan hệ giữa đầu vào và đầu ra cho dải tông "
 "màu đó."
 
-#: ../color.rst:391
+#: ../doc/color.rst:391
 msgid ""
 "*The OpenShot Curve Editor. Click to add points, drag to reshape, right-"
 "click to change interpolation.*"
@@ -1065,11 +1065,11 @@ msgstr ""
 "*Trình chỉnh sửa Đường cong OpenShot. Nhấp để thêm điểm, kéo để thay đổi "
 "hình dạng, nhấp chuột phải để thay đổi phép nội suy.*"
 
-#: ../color.rst:393
+#: ../doc/color.rst:393
 msgid "**Common curve shapes:**"
 msgstr "**Các hình dạng đường cong phổ biến:**"
 
-#: ../color.rst:395
+#: ../doc/color.rst:395
 msgid ""
 "**S-curve** — pull the upper-right quarter up, the lower-left quarter down. "
 "Adds contrast and pop without shifting mid-gray. The most common starting "
@@ -1079,7 +1079,7 @@ msgstr ""
 "xuống. Tăng độ tương phản và nổi bật mà không làm lệch xám trung gian. Cách "
 "bắt đầu phổ biến nhất."
 
-#: ../color.rst:397
+#: ../doc/color.rst:397
 msgid ""
 "**Lifted blacks** — drag the bottom-left corner upward. Shadows never go "
 "fully to black — the faded-film look."
@@ -1087,7 +1087,7 @@ msgstr ""
 "**Nâng điểm đen** — kéo góc dưới bên trái lên trên. Vùng bóng không bao giờ "
 "trở nên hoàn toàn đen — phong cách phim phai màu."
 
-#: ../color.rst:399
+#: ../doc/color.rst:399
 msgid ""
 "**Lower highlights** — add a point in the upper-right and pull it down. "
 "Recovers bright areas without affecting the rest."
@@ -1095,18 +1095,18 @@ msgstr ""
 "**Hạ vùng sáng** — thêm điểm ở góc trên bên phải và kéo xuống. Phục hồi vùng"
 " sáng mà không ảnh hưởng đến phần còn lại."
 
-#: ../color.rst:402
+#: ../doc/color.rst:402
 msgid "**The four channels:**"
 msgstr "**Bốn kênh:**"
 
-#: ../color.rst:404
+#: ../doc/color.rst:404
 msgid ""
 "**Curve: All** — overall brightness across all channels. Used most often."
 msgstr ""
 "**Đường cong: Tất cả** — độ sáng tổng thể trên tất cả các kênh. Sử dụng "
 "nhiều nhất."
 
-#: ../color.rst:405
+#: ../doc/color.rst:405
 msgid ""
 "**Curve: Red** — up adds red (warms), down adds cyan. Pull shadows down for "
 "a cool shadow tint."
@@ -1114,12 +1114,12 @@ msgstr ""
 "**Đường cong: Đỏ** — kéo lên thêm đỏ (làm ấm), kéo xuống thêm xanh lơ. Kéo "
 "vùng bóng xuống để có lớp màu bóng mát."
 
-#: ../color.rst:406
+#: ../doc/color.rst:406
 msgid "**Curve: Green** — up adds green, down adds magenta."
 msgstr ""
 "**Đường cong: Xanh lá** — kéo lên thêm xanh lá, kéo xuống thêm hồng tím."
 
-#: ../color.rst:407
+#: ../doc/color.rst:407
 msgid ""
 "**Curve: Blue** — up cools, down warms. Classic move: pull Blue Shadows up "
 "(cool teal shadows) and Blue Highlights down (warm orange highlights)."
@@ -1128,7 +1128,7 @@ msgstr ""
 "điển: kéo vùng bóng xanh dương lên (bóng xanh lam mát) và vùng sáng xanh "
 "dương xuống (vùng sáng cam ấm)."
 
-#: ../color.rst:410
+#: ../doc/color.rst:410
 msgid ""
 "Curves beat sliders because you can apply *different* adjustments to "
 "*different* tonal ranges in a single operation — for example, warming "
@@ -1138,11 +1138,11 @@ msgstr ""
 "*khác nhau* cho các dải tông màu *khác nhau* trong một thao tác duy nhất — "
 "ví dụ, làm ấm vùng sáng trong khi làm mát vùng bóng cùng lúc."
 
-#: ../color.rst:416
+#: ../doc/color.rst:416
 msgid "LUT Files — One-Click Color Looks"
 msgstr "Tệp LUT — Phong cách màu chỉ với một cú nhấp"
 
-#: ../color.rst:418
+#: ../doc/color.rst:418
 msgid ""
 "A **LUT** (Lookup Table) is a pre-made color transformation: for every input"
 " color, output a specific different color. Professional colorists use LUTs "
@@ -1154,7 +1154,7 @@ msgstr ""
 "để tái tạo phim, phong cách máy quay hoặc phong cách điện ảnh chỉ với một cú"
 " nhấp. OpenShot hỗ trợ các tệp **.cube** theo tiêu chuẩn ngành."
 
-#: ../color.rst:422
+#: ../doc/color.rst:422
 msgid ""
 "OpenShot ships with a built-in LUT collection — see the :ref:`effects_ref` "
 "page for a visual gallery. Free **.cube** packs are widely available from "
@@ -1164,19 +1164,19 @@ msgstr ""
 "để xem thư viện hình ảnh. Các gói **.cube** miễn phí có sẵn rộng rãi từ các "
 "cộng đồng nhiếp ảnh trực tuyến."
 
-#: ../color.rst:425
+#: ../doc/color.rst:425
 msgid "**How to apply a LUT:**"
 msgstr "**Cách áp dụng LUT:**"
 
-#: ../color.rst:427
+#: ../doc/color.rst:427
 msgid "Select the :guilabel:`Color Grade` effect properties."
 msgstr "Chọn thuộc tính hiệu ứng :guilabel:`Phân loại màu`."
 
-#: ../color.rst:428
+#: ../doc/color.rst:428
 msgid "Click :guilabel:`LUT File` and browse to a **.cube** file."
 msgstr "Nhấp vào :guilabel:`Tệp LUT` và duyệt đến tệp **.cube**."
 
-#: ../color.rst:429
+#: ../doc/color.rst:429
 msgid ""
 "Use :guilabel:`LUT Intensity` (0.0–1.0) to blend the LUT with your corrected"
 " image. Most professionals land between 0.4–0.7 for a natural feel."
@@ -1185,11 +1185,11 @@ msgstr ""
 "chỉnh sửa của bạn. Hầu hết chuyên gia chọn khoảng 0.4–0.7 để có cảm giác tự "
 "nhiên."
 
-#: ../color.rst:432
+#: ../doc/color.rst:432
 msgid "**Tips:**"
 msgstr "**Mẹo:**"
 
-#: ../color.rst:434
+#: ../doc/color.rst:434
 msgid ""
 "Correct first, then grade. LUTs assume properly balanced footage — applied "
 "to a color-cast image, they will look wrong."
@@ -1197,7 +1197,7 @@ msgstr ""
 "Chỉnh sửa trước, sau đó mới phân loại màu. LUT giả định cảnh quay đã cân "
 "bằng đúng cách — nếu áp dụng cho hình ảnh bị lệch màu, chúng sẽ trông sai."
 
-#: ../color.rst:436
+#: ../doc/color.rst:436
 msgid ""
 "Most included LUTs target Rec. 709 footage (HD cameras, smartphones). If "
 "your camera records in a LOG profile, apply the appropriate LOG conversion "
@@ -1207,7 +1207,7 @@ msgstr ""
 "thông minh). Nếu máy quay của bạn ghi ở định dạng LOG, hãy áp dụng LUT "
 "chuyển đổi LOG phù hợp trước."
 
-#: ../color.rst:438
+#: ../doc/color.rst:438
 msgid ""
 "Stack Color Grade with separate Color Map / Lookup effects to layer multiple"
 " LUTs."
@@ -1215,11 +1215,11 @@ msgstr ""
 "Xếp chồng Phân loại Màu với các hiệu ứng Bản đồ Màu / Tra cứu riêng biệt để "
 "chồng nhiều LUT."
 
-#: ../color.rst:443
+#: ../doc/color.rst:443
 msgid "The Mix Control"
 msgstr "Điều Khiển Trộn"
 
-#: ../color.rst:445
+#: ../doc/color.rst:445
 msgid ""
 "The **Mix** control (0.0–1.0) at the bottom of the Color Grade effect blends"
 " the graded result with the original image. At 1.0, the full grade applies. "
@@ -1229,7 +1229,7 @@ msgstr ""
 "trộn kết quả đã phân loại với hình ảnh gốc. Ở 1.0, áp dụng toàn bộ phân "
 "loại. Ở 0.0, hiển thị hình ảnh gốc."
 
-#: ../color.rst:448
+#: ../doc/color.rst:448
 msgid ""
 "If your grade is correct but feels slightly heavy, dial Mix back to 0.7–0.9 "
 "to soften everything at once — no need to revisit every individual control."
@@ -1238,7 +1238,7 @@ msgstr ""
 " để làm mềm mọi thứ cùng lúc — không cần phải điều chỉnh lại từng điều khiển"
 " riêng lẻ."
 
-#: ../color.rst:451
+#: ../doc/color.rst:451
 msgid ""
 "Mix is keyframable: animate the grade fading in or out over time, for "
 "example opening a scene flat and letting it bloom into full color."
@@ -1247,11 +1247,11 @@ msgstr ""
 " ra theo thời gian, ví dụ mở một cảnh phẳng và để nó bung ra thành màu đầy "
 "đủ."
 
-#: ../color.rst:457
+#: ../doc/color.rst:457
 msgid "Putting It All Together — A Complete Workflow"
 msgstr "Tổng Hợp Tất Cả — Một Quy Trình Làm Việc Hoàn Chỉnh"
 
-#: ../color.rst:459
+#: ../doc/color.rst:459
 msgid ""
 "Select your clip. Right-click → :guilabel:`Color → Adjust Colors` to add the"
 " effect and open the Color Wheels and scopes in one step. Or use "
@@ -1263,7 +1263,7 @@ msgstr ""
 " dụng :guilabel:`Color → Analyze Colors` trước nếu bạn muốn đánh giá cảnh "
 "quay trước khi áp dụng phân loại."
 
-#: ../color.rst:462
+#: ../doc/color.rst:462
 msgid ""
 "**Check the scopes before touching anything** — is the waveform too high or "
 "too low? A cast on the RGB Parade? The histogram clipping against the right "
@@ -1273,11 +1273,11 @@ msgstr ""
 "quá thấp không? Có sự lệch màu trên RGB Parade? Biểu đồ có bị cắt ở mép phải"
 " không?"
 
-#: ../color.rst:464
+#: ../doc/color.rst:464
 msgid "Fix **Temperature** and **Tint** to neutralize white balance."
 msgstr "Sửa **Nhiệt độ** và **Sắc thái** để trung hòa cân bằng trắng."
 
-#: ../color.rst:465
+#: ../doc/color.rst:465
 msgid ""
 "Fix **Exposure**, then **Contrast**. Use **Highlights** and **Shadows** to "
 "recover clipping."
@@ -1285,11 +1285,11 @@ msgstr ""
 "Sửa **Phơi sáng**, sau đó **Tương phản**. Dùng **Vùng sáng** và **Bóng tối**"
 " để khôi phục phần bị cắt."
 
-#: ../color.rst:466
+#: ../doc/color.rst:466
 msgid "Gently adjust **Saturation** or **Vibrance**."
 msgstr "Điều chỉnh nhẹ nhàng **Độ bão hòa** hoặc **Sức sống**."
 
-#: ../color.rst:467
+#: ../doc/color.rst:467
 msgid ""
 "Open the **Vectorscope**, click Region, and draw a box over any faces. "
 "Confirm the skin tone cluster aligns with the dashed line. If not, adjust "
@@ -1299,7 +1299,7 @@ msgstr ""
 "Xác nhận cụm tông màu da có khớp với đường nét đứt không. Nếu không, điều "
 "chỉnh Nhiệt độ hoặc bánh xe màu Toàn cục."
 
-#: ../color.rst:469
+#: ../doc/color.rst:469
 msgid ""
 "Open the **Color Wheels** dock and build your creative grade — push Shadows "
 "one direction, Highlights the opposite, handle Midtones carefully."
@@ -1307,7 +1307,7 @@ msgstr ""
 "Mở dock **Bánh Xe Màu** và xây dựng phân loại sáng tạo của bạn — đẩy Bóng "
 "tối theo một hướng, Vùng sáng theo hướng ngược lại, xử lý Midtones cẩn thận."
 
-#: ../color.rst:471
+#: ../doc/color.rst:471
 msgid ""
 "Fine-tune with **Curves**: a gentle S-curve on Curve: All; Curve: Blue for a"
 " cinematic push (cool shadows up, warm highlights down)."
@@ -1316,17 +1316,17 @@ msgstr ""
 " Đường cong: Xanh dương để tạo hiệu ứng điện ảnh (bóng tối mát lên, vùng "
 "sáng ấm xuống)."
 
-#: ../color.rst:473
+#: ../doc/color.rst:473
 msgid ""
 "Optionally browse to a **.cube** LUT and blend it in with **LUT Intensity**."
 msgstr ""
 "Tùy chọn duyệt đến một LUT **.cube** và pha trộn nó với **Cường độ LUT**."
 
-#: ../color.rst:474
+#: ../doc/color.rst:474
 msgid "If the overall grade feels heavy, lower **Mix** to 0.7–0.9."
 msgstr "Nếu phân loại tổng thể cảm thấy nặng, giảm **Trộn** xuống 0.7–0.9."
 
-#: ../color.rst:475
+#: ../doc/color.rst:475
 msgid ""
 "To compare before/after, drag **Mix** to 0.0 to see the original, then back "
 "to 1.0."
@@ -1334,7 +1334,7 @@ msgstr ""
 "Để so sánh trước/sau, kéo **Trộn** về 0.0 để xem bản gốc, sau đó kéo lại về "
 "1.0."
 
-#: ../color.rst:476
+#: ../doc/color.rst:476
 msgid ""
 "Happy with the result? Right-click the effect → **Copy**, select other "
 "clips, and **Paste Effects**. Or use the **Parent** property to link "
@@ -1344,7 +1344,7 @@ msgstr ""
 "clip khác, và **Dán hiệu ứng**. Hoặc sử dụng thuộc tính **Parent** để liên "
 "kết nhiều clip với một phân loại chính (xem :ref:`effect_parent_ref`)."
 
-#: ../color.rst:480
+#: ../doc/color.rst:480
 msgid ""
 "For animating color properties over time, see :ref:`animation_ref`. For a "
 "complete list of all Color Grade properties, see :ref:`effects_ref`."
