@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-02 17:20-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,16 +20,16 @@ msgstr ""
 "Generated-By: Babel 2.10.3\n"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:23
+#: ../doc/files.rst:23
 msgid "Files"
 msgstr "Файли"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:25
+#: ../doc/files.rst:25
 msgid ""
 "To create a video, we need to make media files available to our project by "
-"importing files into OpenShot. Most media file types are recognized, such as "
-"videos, images, and audio files. Files can be viewed and managed in the "
+"importing files into OpenShot. Most media file types are recognized, such as"
+" videos, images, and audio files. Files can be viewed and managed in the "
 "**Project Files** panel."
 msgstr ""
 "Щоб створити відео, потрібно зробити медіафайли доступними для нашого "
@@ -38,7 +38,7 @@ msgstr ""
 "переглядати та керувати ними у панелі **Файли проєкту**."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:29
+#: ../doc/files.rst:29
 msgid ""
 "Note that imported files are not copied anywhere, they remain in the "
 "physical location they were before and are simply being made available to "
@@ -53,16 +53,16 @@ msgstr ""
 "вашого відеопроєкту. Тому їх не можна видаляти, перейменовувати або "
 "переміщувати після додавання до проєкту. Фільтри «Показати всі», «Відео», "
 "«Аудіо», «Зображення» над файлами дозволяють бачити лише потрібні типи "
-"файлів. Ви також можете перемикати перегляд між :guilabel:`деталями` та :"
-"guilabel:`мініатюрами`."
+"файлів. Ви також можете перемикати перегляд між :guilabel:`деталями` та "
+":guilabel:`мініатюрами`."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:39
+#: ../doc/files.rst:39
 msgid "Import Files"
 msgstr "Імпортувати файли"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:40
+#: ../doc/files.rst:40
 msgid ""
 "There are many different ways to import media files into an OpenShot "
 "project. When a file is imported successfully, it will be automatically "
@@ -76,23 +76,23 @@ msgstr ""
 "не відображається, OpenShot автоматично покаже її."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:48
+#: ../doc/files.rst:48
 msgid "Import File Method"
 msgstr "Метод імпорту файлу"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:48 ../files.rst:85 ../files.rst:142 ../files.rst:182
-#: ../files.rst:216 ../files.rst:240
+#: ../doc/files.rst:48 ../doc/files.rst:85 ../doc/files.rst:288
+#: ../doc/files.rst:362 ../doc/files.rst:386
 msgid "Description"
 msgstr "Опис"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:50
+#: ../doc/files.rst:50
 msgid "Drag and Drop"
 msgstr "Перетягування"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:50
+#: ../doc/files.rst:50
 msgid ""
 "Drag and drop the files from your file manager (file explorer, finder, "
 "etc...)."
@@ -100,56 +100,56 @@ msgstr ""
 "Перетягніть файли з вашого файлового менеджера (провідника, Finder тощо)."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:51
+#: ../doc/files.rst:51
 msgid "Context menu (`File Menu`_)"
 msgstr "Контекстне меню (`File Menu`_)"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:51
+#: ../doc/files.rst:51
 msgid ""
-"Right click anywhere in the **Project Files** panel and choose :guilabel:"
-"`Import Files`."
+"Right click anywhere in the **Project Files** panel and choose "
+":guilabel:`Import Files`."
 msgstr ""
-"Клацніть правою кнопкою миші будь-де у панелі **Файли проєкту** та виберіть :"
-"guilabel:`Імпортувати файли`."
+"Клацніть правою кнопкою миші будь-де у панелі **Файли проєкту** та виберіть "
+":guilabel:`Імпортувати файли`."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:52
+#: ../doc/files.rst:52
 msgid "Main Menu"
 msgstr "Головне меню"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:52
+#: ../doc/files.rst:52
 msgid "In the main menu choose: :guilabel:`File\\→Import Files`."
 msgstr "У головному меню виберіть: :guilabel:`Файл\\→Імпортувати файли`."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:53
+#: ../doc/files.rst:53
 msgid "Toolbar button"
 msgstr "Кнопка панелі інструментів"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:53
+#: ../doc/files.rst:53
 msgid "Click the :guilabel:`+` toolbar button in the main toolbar."
 msgstr "Натисніть кнопку :guilabel:`+` на головній панелі інструментів."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:54
+#: ../doc/files.rst:54
 msgid "Keyboard shortcut"
 msgstr "Клавіатурне скорочення"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:54
+#: ../doc/files.rst:54
 msgid "Press :kbd:`Ctrl-F` (:kbd:`Cmd-F` on Mac)."
 msgstr "Натисніть :kbd:`Ctrl-F` (:kbd:`Cmd-F` на Mac)."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:55 ../files.rst:63
+#: ../doc/files.rst:55 ../doc/files.rst:63
 msgid "Paste from Clipboard"
 msgstr "Вставити з буфера обміну"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:55
+#: ../doc/files.rst:55
 msgid ""
 "Press :kbd:`Ctrl-V` (:kbd:`Cmd-V` on Mac) to paste copied files from your "
 "clipboard. See :ref:`paste_from_clipboard_ref`."
@@ -158,40 +158,42 @@ msgstr ""
 "файли з буфера обміну. Див. :ref:`paste_from_clipboard_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:64
+#: ../doc/files.rst:64
 msgid ""
 "You can paste files and clipboard media straight into OpenShot. If you "
-"copied one or more files in your file manager, switch to OpenShot and press :"
-"kbd:`Ctrl-V` in the **Project Files** panel to add them, just like importing."
+"copied one or more files in your file manager, switch to OpenShot and press "
+":kbd:`Ctrl-V` in the **Project Files** panel to add them, just like "
+"importing."
 msgstr ""
-"Ви можете вставляти файли та медіа з буфера обміну безпосередньо в OpenShot. "
-"Якщо ви скопіювали один або кілька файлів у файловому менеджері, "
+"Ви можете вставляти файли та медіа з буфера обміну безпосередньо в OpenShot."
+" Якщо ви скопіювали один або кілька файлів у файловому менеджері, "
 "переключіться в OpenShot і натисніть :kbd:`Ctrl-V` у панелі **Файли "
 "проєкту**, щоб додати їх, як при імпорті."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:67
+#: ../doc/files.rst:67
 msgid ""
 "If you copied media **data** (for example, **Copy Image** in a web browser, "
-"a pasted frame from another app, or other image/audio/video clipboard data), "
-"press :kbd:`Ctrl-V` in OpenShot to create a file for that clipboard content. "
-"OpenShot saves a copy in a temporary folder: ``.openshot_qt/clipboard/``. "
-"The new file is then added to your project and appears in **Project Files**."
+"a pasted frame from another app, or other image/audio/video clipboard data),"
+" press :kbd:`Ctrl-V` in OpenShot to create a file for that clipboard "
+"content. OpenShot saves a copy in a temporary folder: "
+"``.openshot_qt/clipboard/``. The new file is then added to your project and "
+"appears in **Project Files**."
 msgstr ""
 "Якщо ви скопіювали медіадані (наприклад, **Копіювати зображення** у веб-"
-"браузері, вставлений кадр з іншої програми або інші дані зображень/аудіо/"
-"відео з буфера обміну), натисніть :kbd:`Ctrl-V` в OpenShot, щоб створити "
-"файл для цього вмісту буфера обміну. OpenShot зберігає копію у тимчасовій "
-"папці: ``.openshot_qt/clipboard/``. Новий файл додається до вашого проєкту і "
-"з’являється у **Файлах проєкту**."
+"браузері, вставлений кадр з іншої програми або інші дані "
+"зображень/аудіо/відео з буфера обміну), натисніть :kbd:`Ctrl-V` в OpenShot, "
+"щоб створити файл для цього вмісту буфера обміну. OpenShot зберігає копію у "
+"тимчасовій папці: ``.openshot_qt/clipboard/``. Новий файл додається до "
+"вашого проєкту і з’являється у **Файлах проєкту**."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:74
+#: ../doc/files.rst:74
 msgid "File Menu"
 msgstr "Меню файлу"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:75
+#: ../doc/files.rst:75
 msgid ""
 "To view the file menu, right click on a file (in the **Project Files** "
 "panel). Here are the actions you can use from the file menu."
@@ -200,27 +202,27 @@ msgstr ""
 "**Файли проєкту**). Ось дії, які можна виконати з меню файлу."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:84
+#: ../doc/files.rst:84
 msgid "File Context Option"
 msgstr "Опції контекстного меню файлу"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:86
+#: ../doc/files.rst:86
 msgid "Import Files..."
 msgstr "Імпортувати файли..."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:87
+#: ../doc/files.rst:87
 msgid "Import files into your project"
 msgstr "Імпортувати файли у ваш проєкт"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:88
+#: ../doc/files.rst:88
 msgid "Create with AI / Enhance with AI (Optional)"
 msgstr "Створити за допомогою ШІ / Покращити за допомогою ШІ (необов’язково)"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:89
+#: ../doc/files.rst:89
 msgid ""
 "AI menu actions for generating or enhancing media files. These options are "
 "shown only when AI is enabled and the selected file type supports the "
@@ -231,32 +233,32 @@ msgstr ""
 "робочий процес. Див. :ref:`ai_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:90
+#: ../doc/files.rst:90
 msgid "Details View"
 msgstr "Перегляд деталей"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:91
+#: ../doc/files.rst:91
 msgid "Switch the Project Files panel to details view"
 msgstr "Переключити панель файлів проєкту на перегляд деталей"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:92 ../files.rst:114
+#: ../doc/files.rst:92 ../doc/files.rst:116
 msgid "Preview File"
 msgstr "Попередній перегляд файлу"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:93
+#: ../doc/files.rst:93
 msgid "Preview a media file"
 msgstr "Переглянути медіафайл"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:94 ../files.rst:170
+#: ../doc/files.rst:94 ../doc/files.rst:316
 msgid "Split File"
 msgstr "Розділити файл"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:95
+#: ../doc/files.rst:95
 msgid ""
 "Split a file into many smaller files. The new trimmed files appear in the "
 "Project Files list."
@@ -265,22 +267,23 @@ msgstr ""
 "списку Файлів проєкту."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:96 ../files.rst:193
+#: ../doc/files.rst:96 ../doc/files.rst:339
 msgid "Export Files"
 msgstr "Експорт файлів"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:97
+#: ../doc/files.rst:97
 msgid "Export selected files (and split segments) to a destination folder"
-msgstr "Експортувати вибрані файли (та розділені сегменти) у папку призначення"
+msgstr ""
+"Експортувати вибрані файли (та розділені сегменти) у папку призначення"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:98 ../files.rst:205
+#: ../doc/files.rst:98 ../doc/files.rst:351
 msgid "Add to Timeline"
 msgstr "Додати на Таймлайн"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:99
+#: ../doc/files.rst:99
 msgid ""
 "Add many files to the timeline in one step, including transitions or "
 "alternating tracks."
@@ -289,15 +292,15 @@ msgstr ""
 "чергуванням доріжок."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:100
+#: ../doc/files.rst:100
 msgid "Choose Profile"
 msgstr "Вибрати профіль"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:101
+#: ../doc/files.rst:101
 msgid ""
-"Change the current project profile to match the selected file. If the file's "
-"profile does not match a known profile, it will give you the option to "
+"Change the current project profile to match the selected file. If the file's"
+" profile does not match a known profile, it will give you the option to "
 "create a custom profile."
 msgstr ""
 "Змінити поточний профіль проєкту, щоб відповідати вибраному файлу. Якщо "
@@ -305,22 +308,22 @@ msgstr ""
 "власний профіль."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:102 ../files.rst:242
+#: ../doc/files.rst:102 ../doc/files.rst:388
 msgid "File Properties"
 msgstr "Властивості файлу"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:103
+#: ../doc/files.rst:103
 msgid "View the properties of a file, such as frame rate, size, etc..."
 msgstr "Переглянути властивості файлу, такі як частота кадрів, розмір тощо..."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:104 ../files.rst:125
+#: ../doc/files.rst:104 ../doc/files.rst:184
 msgid "Optimize"
 msgstr "Оптимізувати"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:105
+#: ../doc/files.rst:105
 msgid ""
 "Create, link, unlink, or delete optimized preview files for the selected "
 "video files."
@@ -329,81 +332,237 @@ msgstr ""
 "попереднього перегляду для вибраних відеофайлів."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:106 ../files.rst:250
+#: ../doc/files.rst:106 ../doc/files.rst:396
 msgid "Remove from Project"
 msgstr "Видалити з проєкту"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:107
+#: ../doc/files.rst:107
 msgid "Remove a file from the project"
 msgstr "Видалити файл з проєкту"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:108
+#: ../doc/files.rst:108
 msgid "Edit Title"
 msgstr "Редагувати заголовок"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:109
+#: ../doc/files.rst:109
 msgid "Edit an existing title SVG file (shown when an SVG title is selected)"
 msgstr ""
-"Редагувати існуючий SVG-файл заголовка (показується при виборі SVG-заголовка)"
+"Редагувати існуючий SVG-файл заголовка (показується при виборі SVG-"
+"заголовка)"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:110
+#: ../doc/files.rst:110
 msgid "Duplicate Title"
 msgstr "Дублювати заголовок"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:111
+#: ../doc/files.rst:111
 #, fuzzy
 msgid ""
 "Make a copy, and then edit the copied title SVG file (shown when an SVG "
 "title is selected)"
 msgstr "Створити копію, а потім редагувати скопійований SVG-файл заголовка"
 
-# Translated with gpt-4.1-mini
-#: ../files.rst:115
+#: ../doc/files.rst:117
 msgid ""
 "The :guilabel:`Preview File` action opens the Preview dialog for the "
-"selected file from :guilabel:`Project Files`. Simply double check a file to "
-"open this dialog."
+"selected file from :guilabel:`Project Files`. Double-click a file, or press "
+":kbd:`Shift+2` or :kbd:`Alt+P` while the file list has focus. With the "
+"timeline focused, the same shortcut plays the selected clip from its Start "
+"point. You can also right-click a timeline clip and choose "
+":guilabel:`Preview Clip`. Double-clicking a saved split reopens its range "
+"editor instead of read-only preview."
 msgstr ""
-"Дія :guilabel:`Переглянути файл` відкриває діалог перегляду для вибраного "
-"файлу з :guilabel:`Файли проєкту`. Просто двічі клацніть файл, щоб відкрити "
-"цей діалог."
+"Дія :guilabel:`Preview File` відкриває діалог попереднього перегляду для "
+"вибраного файлу з :guilabel:`Project Files`. Подвійний клік по файлу або "
+"натискання :kbd:`Shift+2` чи :kbd:`Alt+P`, коли список файлів у фокусі. Якщо"
+" фокус на часовій шкалі, той самий ярлик відтворює вибраний кліп з його "
+"початкової точки. Також можна клацнути правою кнопкою миші по кліпу на "
+"часовій шкалі та вибрати :guilabel:`Preview Clip`. Подвійний клік по "
+"збереженому розбиттю знову відкриває редактор діапазону замість лише для "
+"читання перегляду."
+
+#: ../doc/files.rst:124
+msgid "Playback starts automatically when you open a preview or Split File."
+msgstr ""
+"Відтворення починається автоматично при відкритті попереднього перегляду або"
+" Split File."
+
+#: ../doc/files.rst:125
+msgid ""
+":guilabel:`Loop` repeats playback and is enabled by default in Preview."
+msgstr ""
+":guilabel:`Loop` повторює відтворення і за замовчуванням увімкнено в "
+"попередньому перегляді."
+
+#: ../doc/files.rst:126
+msgid "Click the speaker to mute preview audio without changing the project."
+msgstr ""
+"Клацніть на значок динаміка, щоб вимкнути звук попереднього перегляду без "
+"зміни проекту."
+
+#: ../doc/files.rst:127
+msgid ""
+"Click or drag the volume slider to adjust preview audio without affecting "
+"your exported video. Save the project to remember this volume for all its "
+"previews."
+msgstr ""
+"Клацніть або перетягніть повзунок гучності, щоб налаштувати звук "
+"попереднього перегляду без впливу на експортоване відео. Збережіть проект, "
+"щоб запам’ятати цей рівень гучності для всіх попередніх переглядів."
+
+#: ../doc/files.rst:129
+msgid ""
+"Use Fit Window to size the video area to the source aspect ratio. Black bars"
+" already encoded in the source remain visible."
+msgstr ""
+"Використовуйте Fit Window, щоб підлаштувати область відео під співвідношення"
+" сторін джерела. Чорні смуги, вже закодовані в джерелі, залишаються "
+"видимими."
+
+#: ../doc/files.rst:131
+msgid ""
+"Seeking during playback keeps playback running. Dragging to resize, move, or"
+" draw a range pauses playback so its boundary frames can be inspected."
+msgstr ""
+"Перемотування під час відтворення не зупиняє відтворення. Перетягування для "
+"зміни розміру, переміщення або створення діапазону призупиняє відтворення, "
+"щоб можна було переглянути крайні кадри."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:118
-msgid "Playback starts automatically."
-msgstr "Відтворення починається автоматично."
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:119
-msgid "Loop is enabled by default."
-msgstr "За замовчуванням увімкнено повтор."
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:120
+#: ../doc/files.rst:133
 msgid "Press :kbd:`Space` to toggle play/pause."
 msgstr "Натисніть :kbd:`Пробіл`, щоб увімкнути/вимкнути відтворення/паузу."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:121
+#: ../doc/files.rst:134
 msgid "Use the mouse scroll wheel to zoom in/out."
 msgstr "Використовуйте колесо прокрутки миші, щоб збільшити/зменшити масштаб."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:122
+#: ../doc/files.rst:135
 msgid ""
-"A :guilabel:`Reset Zoom` button appears when zoom is not 100%, and resets to "
-"100%."
+"A :guilabel:`Reset Zoom` button appears when zoom is not 100%, and resets to"
+" 100%."
 msgstr ""
 "Кнопка :guilabel:`Скинути масштаб` з’являється, коли масштаб не 100%, і "
 "скидає його до 100%."
 
+#: ../doc/files.rst:137
+msgid ""
+"Resize or maximize the window to suit your workspace. Preview and Split File"
+" remember your window size when you save the project."
+msgstr ""
+"Змініть розмір або розгорніть вікно відповідно до вашого робочого простору. "
+"Preview і Split File запам’ятовують розмір вікна при збереженні проекту."
+
+#: ../doc/files.rst:140
+msgid ""
+"The colored bar beneath the ruler shows sections already loaded for "
+"playback. If playback is choppy, try a smaller window or :ref:`optimize the "
+"file <optimize_ref>`."
+msgstr ""
+"Кольорова смуга під лінійкою показує ділянки, вже завантажені для "
+"відтворення. Якщо відтворення гальмує, спробуйте менше вікно або "
+":ref:`оптимізуйте файл <optimize_ref>`."
+
+#: ../doc/files.rst:143
+msgid ""
+"Preview File shows playback and scrubbing controls only. Preview Clip and "
+"Split File add range editing below the shared preview. The source ruler and "
+"filmstrip show the full recording, with the selected range highlighted. Drag"
+" either grip to adjust the range and move the playhead with it. Drag on the "
+"ruler above the filmstrip to scrub without changing the range. Edit the "
+"Start and End timecodes for precise boundaries, or click the adjacent clock "
+"button to use the current playhead position (:kbd:`I` / :kbd:`O`). End is "
+"the last included frame; a one-frame range is valid. Duration shows the "
+"length of the selected range and can be edited to move End while keeping "
+"Start fixed. Duration is limited to at least one frame and at most the "
+"remaining source length. The buttons beside Play jump to Start and End."
+msgstr ""
+"Preview File показує лише елементи керування відтворенням і перемотуванням. "
+"Preview Clip і Split File додають редагування діапазону під спільним "
+"переглядом. Лінійка джерела та стрічка кадрів показують повний запис із "
+"виділеним вибраним діапазоном. Перетягніть будь-яку ручку, щоб налаштувати "
+"діапазон і перемістити позицію відтворення разом із ним. Перетягніть по "
+"лінійці над стрічкою кадрів, щоб перемотувати без зміни діапазону. Редагуйте"
+" часові коди Початку та Кінця для точних меж або натисніть кнопку годинника "
+"поруч, щоб використати поточну позицію відтворення (:kbd:`I` / :kbd:`O`). "
+"Кінець — це останній включений кадр; діапазон у один кадр є дійсним. "
+"Тривалість показує довжину вибраного діапазону і може редагуватися для "
+"зміщення Кінця при фіксованому Початку. Тривалість обмежена мінімум одним "
+"кадром і максимум залишком довжини джерела. Кнопки поруч із Відтворенням "
+"переходять до Початку та Кінця."
+
+#: ../doc/files.rst:155
+msgid ""
+"When editing a timeline clip, :guilabel:`Update Clip` updates only that "
+"clip. Its position stays fixed and its duration changes; neighboring clips "
+"do not move. Locked or retimed clips can be previewed, but range application"
+" is disabled. :guilabel:`Reset` reloads the saved range. Each update is one "
+"undo step."
+msgstr ""
+"Під час редагування кліпу на часовій шкалі :guilabel:`Update Clip` оновлює "
+"лише цей кліп. Його позиція залишається фіксованою, а тривалість змінюється;"
+" сусідні кліпи не рухаються. Заблоковані або змінені за часом кліпи можна "
+"переглядати, але застосування діапазону вимкнено. :guilabel:`Reset` "
+"завантажує збережений діапазон заново. Кожне оновлення — це один крок "
+"скасування."
+
+#: ../doc/files.rst:160
+msgid ""
+"Split File provides Start, End, Duration, and an optional Name beside "
+":guilabel:`Create`. Each click creates one Project Files entry and leaves "
+"the window open to create another. Pressing :kbd:`Enter` in Name or outside "
+"the time fields saves and closes the editor. In Start, End, or Duration, "
+"Enter commits the value and keeps the editor open. Tab moves through Start, "
+"End, Duration, and Name; Shift+Tab reverses the order. Each creation is one "
+"undo step. Opening an existing split lets you update its range and name "
+"without changing existing timeline clips. :guilabel:`Update` saves the split"
+" and closes its editor, refreshing the file and dependent clip thumbnails. "
+":guilabel:`Update Clip` saves and closes clip preview. Use the window close "
+"control or :kbd:`Esc` to close without applying changes."
+msgstr ""
+"Split File надає поля Початок, Кінець, Тривалість і необов’язкове Ім’я поруч"
+" із :guilabel:`Create`. Кожен клік створює один запис у Project Files і "
+"залишає вікно відкритим для створення наступного. Натискання :kbd:`Enter` в "
+"Імені або поза часовими полями зберігає і закриває редактор. У Початку, "
+"Кінці або Тривалості Enter підтверджує значення і залишає редактор "
+"відкритим. Tab переходить між Початком, Кінцем, Тривалістю та Іменем; "
+"Shift+Tab змінює порядок. Кожне створення — це один крок скасування. "
+"Відкриття існуючого розбиття дозволяє оновити його діапазон і ім’я без зміни"
+" існуючих кліпів на часовій шкалі. :guilabel:`Update` зберігає розбиття і "
+"закриває редактор, оновлюючи файл і мініатюри залежних кліпів. "
+":guilabel:`Update Clip` зберігає і закриває перегляд кліпу. Використовуйте "
+"кнопку закриття вікна або :kbd:`Esc`, щоб закрити без застосування змін."
+
+#: ../doc/files.rst:173
+msgid ""
+"Drag a filmstrip handle to trim, drag inside the selection to move it, or "
+"drag outside it to draw a new range. Click to seek, or drag on the ruler to "
+"scrub without changing the range."
+msgstr ""
+"Перетягніть ручку стрічки кадрів, щоб обрізати, перетягніть всередині "
+"вибору, щоб перемістити його, або перетягніть поза ним, щоб намалювати новий"
+" діапазон. Клацніть, щоб перемотати, або перетягніть по лінійці, щоб "
+"перемотувати без зміни діапазону."
+
+#: ../doc/files.rst:177
+msgid ""
+"If a modified range changes elsewhere in the project, discard its local "
+"changes and reload it before saving. The dialog remains attached to its "
+"original source or timeline clip when the main-window selection changes."
+msgstr ""
+"Якщо змінений діапазон змінюється в іншому місці проекту, відкиньте локальні"
+" зміни і перезавантажте його перед збереженням. Діалог залишається "
+"прив’язаним до свого оригінального джерела або кліпу на часовій шкалі при "
+"зміні вибору в головному вікні."
+
 # Translated with gpt-4.1-mini
-#: ../files.rst:126
+#: ../doc/files.rst:185
 msgid ""
 "Optimized preview files are lower-resolution copies of your source video "
 "files (sometimes referred to as proxy files), used to improve editing "
@@ -417,57 +576,313 @@ msgstr ""
 "зміни оригінальних медіафайлів. Вони особливо корисні для великих форматів, "
 "таких як 4K, високий кадровий режим або відео з високим бітрейтом."
 
+#: ../doc/files.rst:190
+msgid "Automatic optimization"
+msgstr "Автоматична оптимізація"
+
+#: ../doc/files.rst:191
+msgid ""
+"When OpenShot creates a video's first thumbnail, it records how long the "
+"first frame takes to produce. This uses work already needed to display the "
+"video in Project Files; there is no separate decoding test. Videos whose "
+"thumbnail frame takes longer than the :guilabel:`Auto-Optimize Threshold` "
+"may benefit from smaller preview copies."
+msgstr ""
+"Коли OpenShot створює першу мініатюру відео, він фіксує, скільки часу займає"
+" створення першого кадру. Це використовує роботу, вже потрібну для "
+"відображення відео в Project Files; окремого тесту декодування немає. Відео,"
+" у яких створення мініатюри займає більше часу, ніж :guilabel:`Auto-Optimize"
+" Threshold`, можуть отримати користь від менших копій для попереднього "
+"перегляду."
+
+#: ../doc/files.rst:196
+msgid ""
+"With the default :guilabel:`Ask` preference, a banner appears when OpenShot "
+"finds a qualifying video in a project that does not yet have a saved choice:"
+msgstr ""
+"За замовчуванням із налаштуванням :guilabel:`Ask` з’являється банер, коли "
+"OpenShot знаходить відповідне відео в проекті, для якого ще не збережено "
+"вибір:"
+
+#: ../doc/files.rst:199
+msgid ""
+"**Optimize videos for smoother playback?** Originals and export quality stay"
+" unchanged."
+msgstr ""
+"**Оптимізувати відео для плавнішого відтворення?** Оригінали та якість "
+"експорту залишаються без змін."
+
+#: ../doc/files.rst:201
+msgid ""
+"Click :guilabel:`Optimize Automatically` to enable automatic optimization "
+"for the current project. The banner disappears immediately, and qualifying "
+"videos are added to the optimization queue. Videos you import later also "
+"join the queue when they qualify, even if another video is already being "
+"optimized. You are not asked again for each file."
+msgstr ""
+"Натисніть :guilabel:`Optimize Automatically`, щоб увімкнути автоматичну "
+"оптимізацію для поточного проекту. Банер зникає одразу, а відповідні відео "
+"додаються до черги оптимізації. Відео, які ви імпортуєте пізніше, також "
+"приєднуються до черги, якщо вони відповідають вимогам, навіть якщо інше "
+"відео вже оптимізується. Вас більше не запитують для кожного файлу."
+
+#: ../doc/files.rst:206
+msgid ""
+"You can continue editing while optimization runs. There is no progress "
+"banner; progress appears on the files in Project Files instead."
+msgstr ""
+"Ви можете продовжувати редагування під час оптимізації. Банера прогресу "
+"немає; прогрес відображається на файлах у Project Files."
+
+#: ../doc/files.rst:209
+msgid ""
+"Click :guilabel:`Not Now` or close the banner to decline. OpenShot remembers"
+" your choice when you save the project, so reopening it or importing more "
+"videos does not repeat the suggestion. To change your choice, check or "
+"uncheck :menuselection:`File --> Auto-Optimize` or press :kbd:`Ctrl+Alt+O` "
+"(:kbd:`Command+Alt+O` on macOS). Customize this shortcut in "
+":menuselection:`Edit --> Preferences --> Keyboard`. Turning it off stops new"
+" automatic work; jobs already started can be canceled through the file's "
+":guilabel:`Optimize` submenu. Existing optimized copies remain available."
+msgstr ""
+"Натисніть :guilabel:`Not Now` або закрийте банер, щоб відмовитися. OpenShot "
+"запам’ятовує ваш вибір при збереженні проєкту, тому повторне відкриття або "
+"імпорт відео не повторює пропозицію. Щоб змінити вибір, встановіть або "
+"зніміть прапорець :menuselection:`File --> Auto-Optimize` або натисніть "
+":kbd:`Ctrl+Alt+O` (:kbd:`Command+Alt+O` на macOS). Налаштуйте цю комбінацію "
+"в :menuselection:`Edit --> Preferences --> Keyboard`. Вимкнення зупиняє нову"
+" автоматичну роботу; вже розпочаті завдання можна скасувати через підменю "
+":guilabel:`Optimize` файлу. Існуючі оптимізовані копії залишаються "
+"доступними."
+
+#: ../doc/files.rst:217
+msgid ""
+"In :menuselection:`Edit --> Preferences`, open the :guilabel:`Optimize` tab "
+"(see :ref:`preferences_optimize_ref`):"
+msgstr ""
+"У :menuselection:`Edit --> Preferences` відкрийте вкладку "
+":guilabel:`Optimize` (див. :ref:`preferences_optimize_ref`):"
+
+#: ../doc/files.rst:220
+msgid ""
+":guilabel:`Auto-Optimize`: :guilabel:`Ask` shows the banner and is the "
+"default. :guilabel:`Always` optimizes qualifying videos without a banner. "
+":guilabel:`Never` disables suggestions and automatic processing. These "
+"defaults apply to projects without a saved choice; a project's own setting "
+"takes precedence."
+msgstr ""
+":guilabel:`Auto-Optimize`: :guilabel:`Ask` показує банер і є налаштуванням "
+"за замовчуванням. :guilabel:`Always` оптимізує відповідні відео без банера. "
+":guilabel:`Never` вимикає пропозиції та автоматичну обробку. Ці налаштування"
+" застосовуються до проєктів без збереженого вибору; власне налаштування "
+"проєкту має пріоритет."
+
+#: ../doc/files.rst:224
+msgid ""
+":guilabel:`Auto-Optimize Threshold`: defaults to **200 ms**. Lower values "
+"include more videos; higher values include fewer. This measures producing "
+"the first thumbnail frame, not opening the file, saving the thumbnail, or "
+"waiting in a queue."
+msgstr ""
+":guilabel:`Auto-Optimize Threshold`: за замовчуванням **200 мс**. Нижчі "
+"значення включають більше відео; вищі — менше. Це вимірює час створення "
+"першого кадру мініатюри, а не відкриття файлу, збереження мініатюри чи "
+"очікування в черзі."
+
+#: ../doc/files.rst:227
+msgid ""
+":guilabel:`Optimized Preview Resolution` and :guilabel:`Concurrent Optimize "
+"Jobs` control the preview copies and how many videos can be processed at "
+"once."
+msgstr ""
+":guilabel:`Optimized Preview Resolution` та :guilabel:`Concurrent Optimize "
+"Jobs` керують копіями попереднього перегляду та кількістю відео, які можна "
+"обробляти одночасно."
+
+#: ../doc/files.rst:230
+msgid ""
+"Thumbnail timing is saved with each file in the project. OpenShot reuses a "
+"valid timing when you reopen the project on the same computer. A changed "
+"source file or a different computer needs a new measurement. When opening "
+"older projects, OpenShot refreshes missing timings in the background, one "
+"small thumbnail at a time, checking videos used on the timeline first. New "
+"checks pause during playback. Slow videos trigger the same banner; accepting"
+" it also checks and queues the remaining videos. Enabling :guilabel:`File → "
+"Auto-Optimize` starts these checks too. Choosing :guilabel:`Never` or "
+"dismissing the banner stops further checks for that project. Save the "
+"project to keep its timings for next time. You can always optimize videos "
+"manually."
+msgstr ""
+"Час створення мініатюри зберігається з кожним файлом у проєкті. OpenShot "
+"повторно використовує дійсний час при повторному відкритті проєкту на тому ж"
+" комп’ютері. Змінений вихідний файл або інший комп’ютер потребують нового "
+"виміру. При відкритті старих проєктів OpenShot оновлює відсутні часи у "
+"фоновому режимі, по одній маленькій мініатюрі за раз, спочатку перевіряючи "
+"відео, використані на часовій шкалі. Нові перевірки призупиняються під час "
+"відтворення. Повільні відео викликають той самий банер; прийняття його також"
+" перевіряє та ставить у чергу решту відео. Увімкнення :guilabel:`File → "
+"Auto-Optimize` також запускає ці перевірки. Вибір :guilabel:`Never` або "
+"закриття банера зупиняє подальші перевірки для цього проєкту. Збережіть "
+"проєкт, щоб зберегти часи для наступного разу. Ви завжди можете оптимізувати"
+" відео вручну."
+
+#: ../doc/files.rst:240
+msgid ""
+"The threshold is a guide, not a guarantee of playback performance. Other "
+"applications can affect timing, and effects or overlapping clips can slow "
+"playback independently of the source video. Optimized copies use additional "
+"disk space in the project's assets folder; original files and export quality"
+" stay unchanged. Canceled or failed automatic jobs are not automatically "
+"retried during the current project session."
+msgstr ""
+"Поріг є орієнтиром, а не гарантією продуктивності відтворення. Інші програми"
+" можуть впливати на час, а ефекти чи накладення кліпів можуть уповільнювати "
+"відтворення незалежно від вихідного відео. Оптимізовані копії використовують"
+" додаткове місце на диску в папці ресурсів проєкту; оригінальні файли та "
+"якість експорту залишаються незмінними. Скасовані або невдалі автоматичні "
+"завдання не повторюються автоматично під час поточної сесії проєкту."
+
+#: ../doc/files.rst:246
+msgid ""
+"Closing OpenShot cancels queued and running optimization jobs. Active jobs "
+"finish their current processing step before closing, and unfinished preview "
+"files are removed."
+msgstr ""
+"Закриття OpenShot скасовує завдання оптимізації в черзі та ті, що "
+"виконуються. Активні завдання завершують поточний крок обробки перед "
+"закриттям, а незавершені файли попереднього перегляду видаляються."
+
+#: ../doc/files.rst:250
+msgid "Optimization status"
+msgstr "Статус оптимізації"
+
+#: ../doc/files.rst:251
+msgid ""
+"Hover over a file in Project Files to see its filename followed by a brief "
+"status:"
+msgstr ""
+"Наведіть курсор на файл у Проєктних файлах, щоб побачити його ім’я та "
+"короткий статус:"
+
+#: ../doc/files.rst:257
+msgid "Tooltip status"
+msgstr "Статус підказки"
+
+#: ../doc/files.rst:258
+msgid "Meaning"
+msgstr "Значення"
+
+#: ../doc/files.rst:259
+msgid "Queued for optimization"
+msgstr "У черзі на оптимізацію"
+
+#: ../doc/files.rst:260
+msgid "Waiting for an available optimization job slot."
+msgstr "Очікування доступного слота для завдання оптимізації."
+
+#: ../doc/files.rst:261
+msgid "Optimizing for smoother playback — 35%"
+msgstr "Оптимізація для плавнішого відтворення — 35%"
+
+#: ../doc/files.rst:262
+msgid "Creating a preview copy. The percentage shows progress."
+msgstr "Створення копії для попереднього перегляду. Відсоток показує прогрес."
+
+#: ../doc/files.rst:263
+msgid "Optimized for smoother playback"
+msgstr "Оптимізовано для плавнішого відтворення"
+
+#: ../doc/files.rst:264
+msgid "The preview copy is ready to use."
+msgstr "Копія для попереднього перегляду готова до використання."
+
+#: ../doc/files.rst:265
+msgid "Canceling optimization"
+msgstr "Скасування оптимізації"
+
+#: ../doc/files.rst:266
+msgid "Stopping the current job and cleaning up the unfinished copy."
+msgstr "Зупинка поточного завдання та очищення незавершеної копії."
+
+#: ../doc/files.rst:267
+msgid "Optimized preview missing"
+msgstr "Оптимізована копія попереднього перегляду відсутня"
+
+#: ../doc/files.rst:268
+msgid ""
+"The linked preview copy cannot be found. Recreate it with Optimize Video or "
+"link an existing copy."
+msgstr ""
+"Пов’язана копія попереднього перегляду не знайдена. Відтворіть її за "
+"допомогою Optimize Video або зв’яжіть існуючу копію."
+
+#: ../doc/files.rst:270
+msgid ""
+"To stop a queued or running job, right-click the file and choose "
+":menuselection:`Optimize --> Cancel`. Canceling a job does not turn off "
+":menuselection:`File --> Auto-Optimize` for later imports."
+msgstr ""
+"Щоб зупинити завдання в черзі або виконанні, клацніть файл правою кнопкою та"
+" виберіть :menuselection:`Optimize --> Cancel`. Скасування завдання не "
+"вимикає :menuselection:`File --> Auto-Optimize` для подальшого імпорту."
+
+#: ../doc/files.rst:275
+msgid "Manual optimization"
+msgstr "Ручна оптимізація"
+
 # Translated with gpt-4.1-mini
-#: ../files.rst:130
+#: ../doc/files.rst:276
 msgid ""
 "For video files, the file context menu includes an :guilabel:`Optimize` "
-"submenu. This feature creates or links smaller preview copies of your source "
-"clips, which can improve playback and scrubbing on slower systems or with "
+"submenu. This feature creates or links smaller preview copies of your source"
+" clips, which can improve playback and scrubbing on slower systems or with "
 "high-resolution footage. Optimizing also pre-loads thumbnails to further "
 "improve the editing smoothness when zooming into the timeline."
 msgstr ""
-"Для відеофайлів контекстне меню містить підменю :guilabel:`Оптимізувати`. Ця "
-"функція створює або пов’язує менші копії попереднього перегляду ваших "
+"Для відеофайлів контекстне меню містить підменю :guilabel:`Оптимізувати`. Ця"
+" функція створює або пов’язує менші копії попереднього перегляду ваших "
 "вихідних кліпів, що може покращити відтворення та перемотування на "
 "повільніших системах або з відео високої роздільної здатності. Оптимізація "
 "також попередньо завантажує мініатюри для подальшого покращення плавності "
 "редагування при збільшенні часової шкали."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:135
+#: ../doc/files.rst:281
 msgid "The :guilabel:`Optimize` submenu contains these actions:"
 msgstr "Підменю :guilabel:`Оптимізувати` містить такі дії:"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:141
+#: ../doc/files.rst:287
 msgid "Action"
 msgstr "Дія"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:143
+#: ../doc/files.rst:289
 msgid "Optimize Video"
 msgstr "Оптимізувати відео"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:144
+#: ../doc/files.rst:290
 msgid ""
 "Create an optimized preview file for each selected video file. OpenShot "
 "stores these files in the project's ``optimized`` assets folder."
 msgstr ""
 "Створити оптимізований файл попереднього перегляду для кожного вибраного "
-"відеофайлу. OpenShot зберігає ці файли у папці ``optimized`` активів проекту."
+"відеофайлу. OpenShot зберігає ці файли у папці ``optimized`` активів "
+"проекту."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:145
+#: ../doc/files.rst:291
 msgid "Link to Existing..."
 msgstr "Пов’язати з існуючими..."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:146
+#: ../doc/files.rst:292
 msgid ""
-"Choose a folder containing already-created optimized files and link the best "
-"matching files to the selected source clips. This supports common proxy "
-"naming styles, known proxy suffixes, file ID suffixes, and extension changes."
+"Choose a folder containing already-created optimized files and link the best"
+" matching files to the selected source clips. This supports common proxy "
+"naming styles, known proxy suffixes, file ID suffixes, and extension "
+"changes."
 msgstr ""
 "Виберіть папку, що містить уже створені оптимізовані файли, і пов’яжіть "
 "найкращі відповідні файли з вибраними вихідними кліпами. Підтримуються "
@@ -475,12 +890,12 @@ msgstr ""
 "ідентифікаторів файлів та зміни розширень."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:147
+#: ../doc/files.rst:293
 msgid "Unlink"
 msgstr "Розірвати зв’язок"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:148
+#: ../doc/files.rst:294
 msgid ""
 "Remove the optimized preview link from the selected file without deleting "
 "the optimized file from disk."
@@ -489,44 +904,44 @@ msgstr ""
 "файлу без видалення оптимізованого файлу з диска."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:149
+#: ../doc/files.rst:295
 msgid "Delete & Unlink"
 msgstr "Видалити та розірвати зв’язок"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:150
+#: ../doc/files.rst:296
 msgid ""
 "Delete the linked optimized file from disk, then remove the link from the "
 "selected file."
 msgstr ""
-"Видалити пов’язаний оптимізований файл з диска, а потім видалити посилання з "
-"вибраного файлу."
+"Видалити пов’язаний оптимізований файл з диска, а потім видалити посилання з"
+" вибраного файлу."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:152
+#: ../doc/files.rst:298
 msgid ""
-"When optimization is in progress, the submenu changes to a single :guilabel:"
-"`Cancel` action for the selected file(s). Optimized preview files are used "
-"only for editing and preview playback. Your final export still uses the "
-"original source files."
+"When optimization is in progress, the submenu changes to a single "
+":guilabel:`Cancel` action for the selected file(s). Optimized preview files "
+"are used only for editing and preview playback. Your final export still uses"
+" the original source files."
 msgstr ""
-"Під час оптимізації підменю змінюється на одну дію :guilabel:`Скасувати` для "
-"вибраних файлів. Оптимізовані файли попереднього перегляду використовуються "
-"лише для редагування та перегляду. Ваш фінальний експорт все одно "
+"Під час оптимізації підменю змінюється на одну дію :guilabel:`Скасувати` для"
+" вибраних файлів. Оптимізовані файли попереднього перегляду використовуються"
+" лише для редагування та перегляду. Ваш фінальний експорт все одно "
 "використовує оригінальні вихідні файли."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:155
+#: ../doc/files.rst:301
 msgid ""
 "When you use :guilabel:`Link to Existing...`, OpenShot tries to match each "
-"selected source clip to an existing optimized file in a safe order. It first "
-"looks for the same base filename with a different video extension, then for "
-"common proxy-style names such as ``_proxy``, ``_preview``, ``_optimized``, "
-"``_lowres``, resolution tags such as ``_720p`` or ``_1080p``, and camera/"
-"editor-style variants such as ``_p``. It also supports names that add the "
-"OpenShot file ID after a known proxy suffix, such as ``clip001_proxy_F1."
-"mp4``, and it can still match files named only by file ID, such as ``F1."
-"mp4``."
+"selected source clip to an existing optimized file in a safe order. It first"
+" looks for the same base filename with a different video extension, then for"
+" common proxy-style names such as ``_proxy``, ``_preview``, ``_optimized``, "
+"``_lowres``, resolution tags such as ``_720p`` or ``_1080p``, and "
+"camera/editor-style variants such as ``_p``. It also supports names that add"
+" the OpenShot file ID after a known proxy suffix, such as "
+"``clip001_proxy_F1.mp4``, and it can still match files named only by file "
+"ID, such as ``F1.mp4``."
 msgstr ""
 "Коли ви використовуєте :guilabel:`Пов’язати з існуючими...`, OpenShot "
 "намагається співставити кожен вибраний вихідний кліп з існуючим "
@@ -540,15 +955,15 @@ msgstr ""
 "лише за ідентифікатором файлу, наприклад ``F1.mp4``."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:162
+#: ../doc/files.rst:308
 msgid ""
 "Best practice when bringing your own optimized files is to keep the same "
 "base filename as the source clip and add a clear proxy-style suffix, for "
-"example ``clip001_proxy.mp4`` or ``clip001_proxy.mov``. If you need to avoid "
-"filename collisions, append the OpenShot file ID after the proxy suffix, for "
-"example ``clip001_proxy_F1.mp4``. Avoid unrelated suffixes such as "
-"``_final`` or ``_reviewcopy``, because OpenShot does not treat those as safe "
-"proxy naming patterns."
+"example ``clip001_proxy.mp4`` or ``clip001_proxy.mov``. If you need to avoid"
+" filename collisions, append the OpenShot file ID after the proxy suffix, "
+"for example ``clip001_proxy_F1.mp4``. Avoid unrelated suffixes such as "
+"``_final`` or ``_reviewcopy``, because OpenShot does not treat those as safe"
+" proxy naming patterns."
 msgstr ""
 "Найкраща практика при використанні власних оптимізованих файлів — зберігати "
 "той самий базовий ім’я файлу, що й у вихідного кліпу, і додавати чіткий "
@@ -558,100 +973,67 @@ msgstr ""
 "несумісних суфіксів, таких як ``_final`` або ``_reviewcopy``, оскільки "
 "OpenShot не розглядає їх як безпечні шаблони найменування проксі."
 
-# Translated with gpt-4.1-mini
-#: ../files.rst:171
+#: ../doc/files.rst:317
 msgid ""
-"If you need to cut a large video file into many smaller files before "
-"editing, the **Split File** dialog is built exactly for this purpose. Right "
-"click on a file, and choose :guilabel:`Split File`. Use this dialog to "
-"quickly separate a large file into many smaller segments. For each segment, "
-"you can select the starting and ending frame, and a title. Each segment "
-"appears as a new file in the Project Files dialog."
+"Use **Split File** to choose the parts of a longer recording you want to "
+"work with. Right click a file in **Project Files** and choose "
+":guilabel:`Split File`. Select the start and end of a segment, give it an "
+"optional name, and click :guilabel:`Create`. Adjust the markers and repeat "
+"to prepare as many segments as you need."
 msgstr ""
-"Якщо потрібно розрізати великий відеофайл на багато менших перед "
-"редагуванням, діалог **Розділити файл** створений саме для цього. Клацніть "
-"правою кнопкою миші на файлі та виберіть :guilabel:`Розділити файл`. "
-"Використовуйте цей діалог, щоб швидко розділити великий файл на багато "
-"менших сегментів. Для кожного сегмента можна вибрати початковий і кінцевий "
-"кадр, а також заголовок. Кожен сегмент з’являється як новий файл у діалозі "
-"Файли проєкту."
+"Використовуйте **Split File**, щоб вибрати частини довшого запису, з якими "
+"хочете працювати. Клацніть файл у **Project Files** правою кнопкою та "
+"виберіть :guilabel:`Split File`. Виберіть початок і кінець сегмента, за "
+"бажанням дайте йому ім’я та натисніть :guilabel:`Create`. Налаштуйте маркери"
+" та повторюйте, щоб підготувати стільки сегментів, скільки потрібно."
 
-# Translated with gpt-4.1-mini
-#: ../files.rst:182 ../files.rst:216 ../files.rst:240
-msgid "#"
-msgstr "№"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:182 ../files.rst:216 ../files.rst:240
-msgid "Name"
-msgstr "Назва"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:184 ../files.rst:218 ../files.rst:242
-msgid "1"
-msgstr "1"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:184
-msgid "Start of File"
-msgstr "Початок файлу"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:184
-msgid "Choose the starting frame of your file by clicking this button"
-msgstr "Виберіть початковий кадр файлу, натиснувши цю кнопку"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:185 ../files.rst:219 ../files.rst:243
-msgid "2"
-msgstr "2"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:185
-msgid "End of File"
-msgstr "Кінець файлу"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:185
-msgid "Choose the ending frame of your file by clicking this button"
-msgstr "Виберіть кінцевий кадр вашого файлу, натиснувши цю кнопку"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:186 ../files.rst:220
-msgid "3"
-msgstr "3"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:186
-msgid "Name of File"
-msgstr "Назва файлу"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:186
-msgid "Enter an optional name"
-msgstr "Введіть необов’язкову назву"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:187 ../files.rst:221
-msgid "4"
-msgstr "4"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:187
-msgid "Create Button"
-msgstr "Кнопка створення"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:187
+#: ../doc/files.rst:322
 msgid ""
-"Create the file (which resets this dialog, so you can repeat these steps for "
-"each segment)"
+"Each segment appears in Project Files and can be added to the timeline like "
+"any other file. The segments all use the original media on disk, so you can "
+"prepare them without making extra copies of the recording."
 msgstr ""
-"Створити файл (що скидає цей діалог, щоб ви могли повторити ці кроки для "
-"кожного сегмента)"
+"Кожен сегмент з’являється в Project Files і може бути доданий на часову "
+"шкалу як будь-який інший файл. Сегменти використовують оригінальні "
+"медіафайли на диску, тому ви можете підготувати їх без створення додаткових "
+"копій запису."
+
+#: ../doc/files.rst:325
+msgid ""
+"When you add a segment to the timeline, OpenShot gives its properties "
+"starting keyframes at the segment's beginning. For example, with "
+":ref:`auto_keyframes_ref` on, you can move to the end and change the "
+"rotation to make it turn over the length of that segment. The animation "
+"starts from the part you chose to use."
+msgstr ""
+"Коли ви додаєте сегмент на часову шкалу, OpenShot встановлює його "
+"властивості, починаючи ключові кадри з початку сегмента. Наприклад, з "
+"увімкненим :ref:`auto_keyframes_ref` ви можете перейти до кінця та змінити "
+"обертання, щоб він повертався протягом довжини цього сегмента. Анімація "
+"починається з вибраної вами частини."
+
+#: ../doc/files.rst:329
+msgid ""
+"If you have already animated a timeline clip, slicing it preserves that "
+"animation through the cut. Split File is useful for choosing your segments "
+"before you begin that work."
+msgstr ""
+"Якщо ви вже анімували кліп на часовій шкалі, його розрізання зберігає цю "
+"анімацію через розріз. Split File корисний для вибору сегментів перед "
+"початком цієї роботи."
+
+#: ../doc/files.rst:332
+msgid ""
+"Preview an existing split-file entry to adjust its saved IN/OUT range. The "
+"ruler includes the surrounding footage, allowing you to extend the range "
+"again without reimporting the source."
+msgstr ""
+"Перегляньте існуючий запис розбитого файлу, щоб відрегулювати збережений "
+"діапазон IN/OUT. Лінійка включає навколишні кадри, що дозволяє знову "
+"розширити діапазон без повторного імпорту джерела."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:190
+#: ../doc/files.rst:336
 msgid ""
 "Please refer to the section :ref:`clips_cutting_slicing_ref` for more ways "
 "to cut and slice clips directly in the timeline."
@@ -661,70 +1043,90 @@ msgstr ""
 "на часовій шкалі."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:194
+#: ../doc/files.rst:340
 msgid ""
 "If you want your split file segments available outside of your OpenShot "
-"project, or want to copy all your video assets to one place, you can do this "
-"with the **Export Files** dialog. Simply :kbd:`Ctrl+Click` to select all the "
-"files you like, then :kbd:`Right Click` and choose :guilabel:`Export Files`. "
-"In the dialog that appears, choose a destination folder, and click :guilabel:"
-"`Export`."
+"project, or want to copy all your video assets to one place, you can do this"
+" with the **Export Files** dialog. Simply :kbd:`Ctrl+Click` to select all "
+"the files you like, then :kbd:`Right Click` and choose :guilabel:`Export "
+"Files`. In the dialog that appears, choose a destination folder, and click "
+":guilabel:`Export`."
 msgstr ""
 "Якщо ви хочете, щоб сегменти розділених файлів були доступні поза вашим "
 "проектом OpenShot, або хочете скопіювати всі ваші відеоактиви в одне місце, "
-"ви можете зробити це за допомогою діалогу **Експорт файлів**. Просто :kbd:"
-"`Ctrl+Click`, щоб вибрати всі потрібні файли, потім :kbd:`Right Click` і "
-"виберіть :guilabel:`Експорт файлів`. У діалоговому вікні, що з’явиться, "
+"ви можете зробити це за допомогою діалогу **Експорт файлів**. Просто "
+":kbd:`Ctrl+Click`, щоб вибрати всі потрібні файли, потім :kbd:`Right Click` "
+"і виберіть :guilabel:`Експорт файлів`. У діалоговому вікні, що з’явиться, "
 "виберіть папку призначення та натисніть :guilabel:`Експорт`."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:199
+#: ../doc/files.rst:345
 msgid ""
 "NOTE: This will export each file or file segment using its **original video "
-"profile** (width, height, framerate, aspect ratio, etc...). It also supports "
-"any :ref:`split_clip_ref` (described above). For example, if you have split "
-"a long video file into many different segments (and named them), you can now "
-"export all the segments as separate video files (using the original file's "
-"video profile)."
+"profile** (width, height, framerate, aspect ratio, etc...). It also supports"
+" any :ref:`split_clip_ref` (described above). For example, if you have split"
+" a long video file into many different segments (and named them), you can "
+"now export all the segments as separate video files (using the original "
+"file's video profile)."
 msgstr ""
 "ПРИМІТКА: Це експортує кожен файл або сегмент файлу з використанням його "
 "**оригінального відеопрофілю** (ширина, висота, частота кадрів, "
-"співвідношення сторін тощо). Також підтримує будь-який :ref:`split_clip_ref` "
-"(описаний вище). Наприклад, якщо ви розділили довгий відеофайл на багато "
+"співвідношення сторін тощо). Також підтримує будь-який :ref:`split_clip_ref`"
+" (описаний вище). Наприклад, якщо ви розділили довгий відеофайл на багато "
 "різних сегментів (і назвали їх), тепер ви можете експортувати всі сегменти "
 "як окремі відеофайли (з використанням відеопрофілю оригінального файлу)."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:206
+#: ../doc/files.rst:352
 msgid ""
 "In certain cases, you might need to add many files to the timeline at the "
 "same time. For example, a photo slideshow, or a large number of short video "
-"clips. The **Add to Timeline** dialog can automate this task for you. First, "
-"select all files you need to add, right click, and choose Add to Timeline."
+"clips. The **Add to Timeline** dialog can automate this task for you. First,"
+" select all files you need to add, right click, and choose Add to Timeline."
 msgstr ""
 "У деяких випадках вам може знадобитися додати багато файлів на часову шкалу "
 "одночасно. Наприклад, фотослайдшоу або велику кількість коротких "
 "відеокліпів. Діалог **Додати на часову шкалу** може автоматизувати це "
-"завдання для вас. Спочатку виберіть усі файли, які потрібно додати, клацніть "
-"правою кнопкою миші та виберіть Додати на часову шкалу."
+"завдання для вас. Спочатку виберіть усі файли, які потрібно додати, клацніть"
+" правою кнопкою миші та виберіть Додати на часову шкалу."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:218
+#: ../doc/files.rst:362 ../doc/files.rst:386
+msgid "#"
+msgstr "№"
+
+# Translated with gpt-4.1-mini
+#: ../doc/files.rst:362 ../doc/files.rst:386
+msgid "Name"
+msgstr "Назва"
+
+# Translated with gpt-4.1-mini
+#: ../doc/files.rst:364 ../doc/files.rst:388
+msgid "1"
+msgstr "1"
+
+# Translated with gpt-4.1-mini
+#: ../doc/files.rst:364
 msgid "Selected Files"
 msgstr "Вибрані файли"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:218
+#: ../doc/files.rst:364
 msgid "The list of selected files that need to be added to the timeline"
 msgstr "Список вибраних файлів, які потрібно додати на часову шкалу"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:219
+#: ../doc/files.rst:365 ../doc/files.rst:389
+msgid "2"
+msgstr "2"
+
+# Translated with gpt-4.1-mini
+#: ../doc/files.rst:365
 msgid "Order of Files"
 msgstr "Порядок файлів"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:219
+#: ../doc/files.rst:365
 msgid ""
 "Use these buttons to reorder the list of files (move up, move down, "
 "randomize, remove)"
@@ -733,26 +1135,36 @@ msgstr ""
 "вгору, перемістити вниз, випадковий порядок, видалити)"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:220
+#: ../doc/files.rst:366
+msgid "3"
+msgstr "3"
+
+# Translated with gpt-4.1-mini
+#: ../doc/files.rst:366
 msgid "Timeline Position"
 msgstr "Позиція на часовій шкалі"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:220
+#: ../doc/files.rst:366
 msgid ""
-"Choose the starting position and track where these files need to be inserted "
-"on the timeline"
+"Choose the starting position and track where these files need to be inserted"
+" on the timeline"
 msgstr ""
 "Виберіть початкову позицію та доріжку, куди потрібно вставити ці файли на "
 "часову шкалу"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:221
+#: ../doc/files.rst:367
+msgid "4"
+msgstr "4"
+
+# Translated with gpt-4.1-mini
+#: ../doc/files.rst:367
 msgid "Fade Options"
 msgstr "Параметри затемнення"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:221
+#: ../doc/files.rst:367
 msgid ""
 "Fade in, fade out, both, or none (only affects the image, and not audio)"
 msgstr ""
@@ -760,100 +1172,112 @@ msgstr ""
 "(впливає лише на зображення, а не на аудіо)"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:222
+#: ../doc/files.rst:368
 msgid "5"
 msgstr "5"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:222
+#: ../doc/files.rst:368
 msgid "Zoom Options"
 msgstr "Параметри масштабування"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:222
+#: ../doc/files.rst:368
 msgid "Zoom in, zoom out, or none"
 msgstr "Збільшення, зменшення або без змін"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:223
+#: ../doc/files.rst:369
 msgid "6"
 msgstr "6"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:223
+#: ../doc/files.rst:369
 msgid "Transitions"
 msgstr "Переходи"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:223
+#: ../doc/files.rst:369
 msgid ""
 "Choose a specific transition to use between files, random, or none (only "
 "affects the image, and not the audio)"
 msgstr ""
-"Виберіть конкретний перехід для використання між файлами, випадковий або без "
-"переходу (впливає лише на зображення, а не на аудіо)"
+"Виберіть конкретний перехід для використання між файлами, випадковий або без"
+" переходу (впливає лише на зображення, а не на аудіо)"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:229
+#: ../doc/files.rst:375
 msgid "Properties"
 msgstr "Властивості"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:230
+#: ../doc/files.rst:376
 msgid ""
 "To view the properties of any imported file in your video project, right "
-"click on the file, and choose **File Properties**. This will launch the file "
-"properties dialog, which displays information about your media file. For "
+"click on the file, and choose **File Properties**. This will launch the file"
+" properties dialog, which displays information about your media file. For "
 "certain types of images (i.e. image sequences), you can adjust the frame "
 "rate on this dialog also."
 msgstr ""
 "Щоб переглянути властивості будь-якого імпортованого файлу у вашому "
 "відеопроекті, клацніть правою кнопкою миші на файлі та виберіть "
-"**Властивості файлу**. Це відкриє діалог властивостей файлу, який відображає "
-"інформацію про ваш медіафайл. Для певних типів зображень (наприклад, "
+"**Властивості файлу**. Це відкриє діалог властивостей файлу, який відображає"
+" інформацію про ваш медіафайл. Для певних типів зображень (наприклад, "
 "послідовності зображень) ви також можете налаштувати частоту кадрів у цьому "
 "діалозі."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:242
+#: ../doc/files.rst:388
 msgid ""
 "Select an image sequence in the **Project Files** panel, right click and "
 "choose **File Properties**"
 msgstr ""
-"Виберіть послідовність зображень у панелі **Файли проекту**, клацніть правою "
-"кнопкою миші та виберіть **Властивості файлу**"
+"Виберіть послідовність зображень у панелі **Файли проекту**, клацніть правою"
+" кнопкою миші та виберіть **Властивості файлу**"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:243
+#: ../doc/files.rst:389
 msgid "Frame Rate"
 msgstr "Частота кадрів"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:243
+#: ../doc/files.rst:389
 msgid ""
 "For image sequences, you can also adjust the frame rate of the animation"
 msgstr ""
 "Для послідовностей зображень ви також можете налаштувати частоту кадрів "
 "анімації"
 
-# Translated with gpt-4.1-mini
-#: ../files.rst:252
+#: ../doc/files.rst:398
 msgid ""
-"This will remove a file from the project. It will not delete the underlying "
-"physical file though, so removing a file from the project merely makes it "
-"unavailable for this video project."
+"Removing an entry from **Project Files** does not delete the source media "
+"from disk."
 msgstr ""
-"Це видалить файл із проекту. Проте фізичний файл не буде видалено, тому "
-"видалення файлу з проекту лише робить його недоступним для цього "
-"відеопроекту."
+"Видалення запису з **Файлів проекту** не видаляє вихідний медіафайл з диска."
+
+#: ../doc/files.rst:400
+msgid ""
+"You can import the file again whenever you need it. For example, after "
+"preparing several :ref:`Split File segments <split_clip_ref>` and removing "
+"the original from Project Files, you might want to use a different part of "
+"the recording. Import it again to work with the whole recording; your "
+"existing segments stay as they are. If the original is already in Project "
+"Files, importing it again selects it."
+msgstr ""
+"Ви можете імпортувати файл знову, коли це буде потрібно. Наприклад, після "
+"підготовки кількох :ref:`сегментів розбиття файлу <split_clip_ref>` і "
+"видалення оригіналу з Файлів проекту, ви можете захотіти використати іншу "
+"частину запису. Імпортуйте його знову, щоб працювати з усім записом; ваші "
+"існуючі сегменти залишаються без змін. Якщо оригінал вже є у Файлах проекту,"
+" повторний імпорт вибирає його."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:257
+#: ../doc/files.rst:408
 msgid "Project Assets Folder"
 msgstr "Папка ресурсів проекту"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:258
+#: ../doc/files.rst:409
 msgid ""
 "OpenShot creates and uses a few **temporary working folders** while you "
 "edit. These live under ``.openshot_qt/`` in your user profile and hold "
@@ -865,7 +1289,7 @@ msgstr ""
 "для вас:"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:261
+#: ../doc/files.rst:412
 msgid ""
 "``.openshot_qt/blender/`` - Blender animation renders created by the "
 "Animated Title dialog"
@@ -874,13 +1298,14 @@ msgstr ""
 "діалогу анімованої назви"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:262
+#: ../doc/files.rst:413
 msgid "``.openshot_qt/title/`` - SVG title files created by the Title dialog"
 msgstr ""
-"``.openshot_qt/title/`` - SVG-файли назв, створені за допомогою діалогу назви"
+"``.openshot_qt/title/`` - SVG-файли назв, створені за допомогою діалогу "
+"назви"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:263
+#: ../doc/files.rst:414
 msgid ""
 "``.openshot_qt/thumbnail/`` - Thumbnails generated for Project Files and "
 "Timeline"
@@ -889,7 +1314,7 @@ msgstr ""
 "часової шкали"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:264
+#: ../doc/files.rst:415
 msgid ""
 "``.openshot_qt/clipboard/`` - Media created from clipboard pastes (images, "
 "audio, or video that must be saved to disk first)"
@@ -898,7 +1323,7 @@ msgstr ""
 "(зображення, аудіо або відео, які спочатку потрібно зберегти на диск)"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:265
+#: ../doc/files.rst:416
 msgid ""
 "``.openshot_qt/optimized/`` - Optimized preview files created for smoother "
 "editing"
@@ -907,13 +1332,13 @@ msgstr ""
 "створені для плавнішого редагування"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:266
+#: ../doc/files.rst:417
 msgid "``.openshot_qt/protobuf_data`` - Tracking and object detection data"
 msgstr ""
 "``.openshot_qt/protobuf_data`` - дані відстеження та виявлення об’єктів"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:268
+#: ../doc/files.rst:419
 msgid ""
 "When you choose **File→Save As**, OpenShot copies these folders into your "
 "project directory, inside a single folder named ``PROJECTNAME_Assets``. For "
@@ -923,52 +1348,54 @@ msgid ""
 msgstr ""
 "Коли ви обираєте **Файл→Зберегти як**, OpenShot копіює ці папки у ваш "
 "каталог проекту, всередині однієї папки з назвою ``PROJECTNAME_Assets``. "
-"Наприклад: ``MyProject_Assets/clipboard`` міститиме будь-які медіафайли, які "
-"ви вставили з буфера обміну, а ``MyProject_Assets/optimized`` міститиме будь-"
-"які оптимізовані файли попереднього перегляду, пов’язані з проектом."
+"Наприклад: ``MyProject_Assets/clipboard`` міститиме будь-які медіафайли, які"
+" ви вставили з буфера обміну, а ``MyProject_Assets/optimized`` міститиме "
+"будь-які оптимізовані файли попереднього перегляду, пов’язані з проектом."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:272
+#: ../doc/files.rst:423
 #, fuzzy
 msgid ""
 "As part of this process, all paths inside your ``*.osp`` project file are "
 "updated to be **relative** to your project folder."
 msgstr ""
-"У рамках цього процесу всі шляхи всередині вашого проектного файлу ``*.osp`` "
-"оновлюються так, щоб бути **відносними** до папки вашого проекту. Це робить "
-"все автономним і полегшує переміщення або резервне копіювання як однієї "
+"У рамках цього процесу всі шляхи всередині вашого проектного файлу ``*.osp``"
+" оновлюються так, щоб бути **відносними** до папки вашого проекту. Це робить"
+" все автономним і полегшує переміщення або резервне копіювання як однієї "
 "папки."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:275
+#: ../doc/files.rst:426
 msgid "Missing Files"
 msgstr "Відсутні файли"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:277
+#: ../doc/files.rst:428
 msgid ""
 "When you create and save a project in OpenShot, any files imported into the "
 "software (such as videos, audio, and images) must remain accessible "
 "throughout the project's duration. This means that these imported files "
-"should not be renamed, deleted, or moved to different folders. Additionally, "
-"the full path where these files are located should not be renamed either. "
+"should not be renamed, deleted, or moved to different folders. Additionally,"
+" the full path where these files are located should not be renamed either. "
 "This principle applies to other video editing software as well."
 msgstr ""
 "Коли ви створюєте та зберігаєте проєкт в OpenShot, усі файли, імпортовані у "
 "програму (наприклад, відео, аудіо та зображення), мають залишатися "
 "доступними протягом усього часу роботи з проєктом. Це означає, що ці "
 "імпортовані файли не слід перейменовувати, видаляти або переміщувати в інші "
-"папки. Крім того, повний шлях до цих файлів також не повинен змінюватися. Це "
-"правило застосовується і до іншого програмного забезпечення для відеомонтажу."
+"папки. Крім того, повний шлях до цих файлів також не повинен змінюватися. Це"
+" правило застосовується і до іншого програмного забезпечення для "
+"відеомонтажу."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:282
+#: ../doc/files.rst:433
 msgid ""
 "For example, users might move or delete folders, unplug their USB devices, "
-"or move or delete their project files. Any of these examples cause a :"
-"guilabel:`Missing File` message, in which OpenShot prompts you to locate the "
-"folder of the missing file(s). Depending on the number of files you added to "
-"your project, OpenShot could prompt you many times to find the missing files."
+"or move or delete their project files. Any of these examples cause a "
+":guilabel:`Missing File` message, in which OpenShot prompts you to locate "
+"the folder of the missing file(s). Depending on the number of files you "
+"added to your project, OpenShot could prompt you many times to find the "
+"missing files."
 msgstr ""
 "Наприклад, користувачі можуть переміщувати або видаляти папки, відключати "
 "USB-пристрої або переміщувати чи видаляти файли проєкту. Будь-яка з цих дій "
@@ -978,7 +1405,7 @@ msgstr ""
 "файлів."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:286
+#: ../doc/files.rst:437
 msgid ""
 "When OpenShot saves a project, all file paths are converted to **relative** "
 "file paths. As long as you keep all assets organized in the same parent "
@@ -989,11 +1416,11 @@ msgstr ""
 "Коли OpenShot зберігає проєкт, усі шляхи до файлів конвертуються у "
 "**відносні** шляхи. Якщо ви зберігаєте всі ресурси в одній батьківській "
 "папці (включно з файлом проєкту \\*.osp), ви зможете переміщувати папку "
-"проєкту без появи повідомлень про відсутні файли. Ви навіть можете перенести "
-"самодостатню папку проєкту на інший комп’ютер без жодних проблем."
+"проєкту без появи повідомлень про відсутні файли. Ви навіть можете перенести"
+" самодостатню папку проєкту на інший комп’ютер без жодних проблем."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:290
+#: ../doc/files.rst:441
 msgid ""
 "Everyone has their unique way of organizing files, and it's crucial to "
 "remember not to make changes to file paths, rename files, or delete files "
@@ -1001,9 +1428,90 @@ msgid ""
 "a detailed guide on missing file(s), see `The Case of “Missing Files”! "
 "<https://github.com/OpenShot/openshot-qt/wiki/Missing-File-Prompt>`_"
 msgstr ""
-"Кожен має свій унікальний спосіб організації файлів, і важливо пам’ятати, що "
-"не слід змінювати шляхи до файлів, перейменовувати або видаляти файли під "
+"Кожен має свій унікальний спосіб організації файлів, і важливо пам’ятати, що"
+" не слід змінювати шляхи до файлів, перейменовувати або видаляти файли під "
 "час роботи з відеоредакторами, оскільки це може призвести до проблем із "
 "відсутніми файлами. Для детального керівництва щодо відсутніх файлів див. "
-"`The Case of “Missing Files”! <https://github.com/OpenShot/openshot-qt/wiki/"
-"Missing-File-Prompt>`_."
+"`The Case of “Missing Files”! <https://github.com/OpenShot/openshot-"
+"qt/wiki/Missing-File-Prompt>`_."
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "The :guilabel:`Preview File` action opens the Preview dialog for the "
+#~ "selected file from :guilabel:`Project Files`. Simply double check a file to "
+#~ "open this dialog."
+#~ msgstr ""
+#~ "Дія :guilabel:`Переглянути файл` відкриває діалог перегляду для вибраного "
+#~ "файлу з :guilabel:`Файли проєкту`. Просто двічі клацніть файл, щоб відкрити "
+#~ "цей діалог."
+
+# Translated with gpt-4.1-mini
+#~ msgid "Playback starts automatically."
+#~ msgstr "Відтворення починається автоматично."
+
+# Translated with gpt-4.1-mini
+#~ msgid "Loop is enabled by default."
+#~ msgstr "За замовчуванням увімкнено повтор."
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "If you need to cut a large video file into many smaller files before "
+#~ "editing, the **Split File** dialog is built exactly for this purpose. Right "
+#~ "click on a file, and choose :guilabel:`Split File`. Use this dialog to "
+#~ "quickly separate a large file into many smaller segments. For each segment, "
+#~ "you can select the starting and ending frame, and a title. Each segment "
+#~ "appears as a new file in the Project Files dialog."
+#~ msgstr ""
+#~ "Якщо потрібно розрізати великий відеофайл на багато менших перед "
+#~ "редагуванням, діалог **Розділити файл** створений саме для цього. Клацніть "
+#~ "правою кнопкою миші на файлі та виберіть :guilabel:`Розділити файл`. "
+#~ "Використовуйте цей діалог, щоб швидко розділити великий файл на багато "
+#~ "менших сегментів. Для кожного сегмента можна вибрати початковий і кінцевий "
+#~ "кадр, а також заголовок. Кожен сегмент з’являється як новий файл у діалозі "
+#~ "Файли проєкту."
+
+# Translated with gpt-4.1-mini
+#~ msgid "Start of File"
+#~ msgstr "Початок файлу"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Choose the starting frame of your file by clicking this button"
+#~ msgstr "Виберіть початковий кадр файлу, натиснувши цю кнопку"
+
+# Translated with gpt-4.1-mini
+#~ msgid "End of File"
+#~ msgstr "Кінець файлу"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Choose the ending frame of your file by clicking this button"
+#~ msgstr "Виберіть кінцевий кадр вашого файлу, натиснувши цю кнопку"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Name of File"
+#~ msgstr "Назва файлу"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Enter an optional name"
+#~ msgstr "Введіть необов’язкову назву"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Create Button"
+#~ msgstr "Кнопка створення"
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "Create the file (which resets this dialog, so you can repeat these steps for"
+#~ " each segment)"
+#~ msgstr ""
+#~ "Створити файл (що скидає цей діалог, щоб ви могли повторити ці кроки для "
+#~ "кожного сегмента)"
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "This will remove a file from the project. It will not delete the underlying "
+#~ "physical file though, so removing a file from the project merely makes it "
+#~ "unavailable for this video project."
+#~ msgstr ""
+#~ "Це видалить файл із проекту. Проте фізичний файл не буде видалено, тому "
+#~ "видалення файлу з проекту лише робить його недоступним для цього "
+#~ "відеопроекту."

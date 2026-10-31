@@ -20,6 +20,7 @@ linux:
   stage: build
   variables:
     OPENCV_ROOT: /opt/opencv-4.13.0
+    FFMPEG_ROOT: /opt/ffmpeg-7.1.3
   artifacts:
     when: always
     expire_in: 2 weeks
@@ -42,9 +43,12 @@ linux:
     - unzip artifacts.zip
     - "if [ \"$CI_COMMIT_REF_NAME\" = \"arm64-support\" ]; then grep -qx \"CI_COMMIT_REF_NAME:arm64-support\" build/install-x64/share/libopenshot.env || exit 1; fi"
     - cp -r "$CI_PROJECT_DIR/build/install-x64/python/." "$CI_PROJECT_DIR"
+    - if [ ! -f "$FFMPEG_ROOT/env.sh" ]; then echo "ERROR runner is missing $FFMPEG_ROOT"; exit 1; fi
+    - . "$FFMPEG_ROOT/env.sh"
     - export LD_LIBRARY_PATH=$OPENCV_ROOT/lib:$CI_PROJECT_DIR/build/install-x64/lib:$LD_LIBRARY_PATH
     - ldd "$CI_PROJECT_DIR/build/install-x64/lib/libopenshot.so" | tee "$CI_PROJECT_DIR/build/install-x64/share/libopenshot-linux-deps.log"
     - if grep -q "libpipewire-0.3" "$CI_PROJECT_DIR/build/install-x64/share/libopenshot-linux-deps.log"; then echo "ERROR libopenshot must not link PipeWire directly"; exit 1; fi
+    - if grep -qE "not found|libavcodec\.so\.58|libavutil\.so\.56" "$CI_PROJECT_DIR/build/install-x64/share/libopenshot-linux-deps.log"; then echo "ERROR unresolved libraries or system FFmpeg 4.2"; exit 1; fi
     - if [ ! -f "$CI_PROJECT_DIR/build/install-x64/lib/libopenshot-wayland-capture.so" ]; then echo "WARNING libopenshot artifact was built without the optional PipeWire Wayland capture module"; fi
     - export QT_QPA_PLATFORM=offscreen
     - python3 -m unittest discover -s src/tests -t src/tests --quiet
@@ -65,6 +69,7 @@ mac:
   stage: build
   variables:
     OPENCV_ROOT: /usr/local/openshot/opencv-4.13.0
+    FFMPEGDIR: /usr/local/openshot/ffmpeg-7.1.3
   artifacts:
     when: always
     expire_in: 2 weeks
@@ -99,7 +104,8 @@ mac:
     - export OPENCV_FREEZE_LIB_PATH="$CI_PROJECT_DIR/build/opencv-freeze-lib"
     - python3 installer/fix_opencv_rpath.py "$CI_PROJECT_DIR/_openshot.so" "$OPENCV_ROOT" "$OPENCV_FREEZE_LIB_PATH" "$CI_PROJECT_DIR"/build/install-x64/lib/libopenshot*.dylib
     - export LD_LIBRARY_PATH=$CI_PROJECT_DIR/build/install-x64/lib:$LD_LIBRARY_PATH
-    - export DYLD_LIBRARY_PATH=$OPENCV_ROOT/lib:$CI_PROJECT_DIR/build/install-x64/lib:$DYLD_LIBRARY_PATH
+    - '"$FFMPEGDIR/bin/ffmpeg" -version'
+    - export DYLD_LIBRARY_PATH=$FFMPEGDIR/lib:$OPENCV_ROOT/lib:$CI_PROJECT_DIR/build/install-x64/lib:$DYLD_LIBRARY_PATH
     - VERSION=$(python3 src/launch.py -V)
     - echo -e "CI_PROJECT_NAME:$CI_PROJECT_NAME\nCI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME\nCI_COMMIT_SHA:$CI_COMMIT_SHA\nCI_JOB_ID:$CI_JOB_ID\nCI_PIPELINE_ID:$CI_PIPELINE_ID\nVERSION:$VERSION" > "build/install-x64/share/$CI_PROJECT_NAME.env"
     - git log $(git describe --tags --abbrev=0 @^)..@ --oneline --pretty=format:"- %C(auto,yellow)%h%C(auto,magenta)% %C(auto,blue)%>(12,trunc)%ad %C(auto,green)%<(25,trunc)%aN%C(auto,reset)%s%C(auto,red)% gD% D" --date=short > "build/install-x64/share/$CI_PROJECT_NAME.log"
@@ -131,6 +137,7 @@ win-x64:
     - "if ($CI_COMMIT_REF_NAME -eq \"arm64-support\" -and -not (Select-String -Path \"build/install-x64/share/libopenshot.env\" -Pattern \"^CI_COMMIT_REF_NAME:arm64-support$\" -Quiet)) { throw \"Matching arm64-support library artifacts are required\" }"
     - Copy-Item "$CI_PROJECT_DIR/build/install-x64/python/*" -Destination "$CI_PROJECT_DIR"
     - $env:MSYSTEM = "MINGW64"
+    - if ((& "C:/msys64/mingw64/bin/ffmpeg.exe" -version | Select-Object -First 1) -notmatch "^ffmpeg version 7[.]1[.]") { throw "FFmpeg 7.1 is required" }
     - $env:OPENCV_ROOT = "C:\msys64\mingw64\opencv-4.13.0"
     - $env:OPENCV_DLL_DIR = "$env:OPENCV_ROOT\x64\mingw\bin"
     - $originalPath = $env:Path
@@ -178,6 +185,7 @@ win-x86:
     - "if ($CI_COMMIT_REF_NAME -eq \"arm64-support\" -and -not (Select-String -Path \"build/install-x86/share/libopenshot.env\" -Pattern \"^CI_COMMIT_REF_NAME:arm64-support$\" -Quiet)) { throw \"Matching arm64-support library artifacts are required\" }"
     - Copy-Item "$CI_PROJECT_DIR/build/install-x86/python/*" -Destination "$CI_PROJECT_DIR"
     - $env:MSYSTEM = "MINGW32"
+    - if ((& "C:/msys64/mingw32/bin/ffmpeg.exe" -version | Select-Object -First 1) -notmatch "^ffmpeg version 7[.]1[.]") { throw "FFmpeg 7.1 is required" }
     - $env:OPENCV_ROOT = "C:\msys64\mingw32\opencv-4.13.0"
     - $env:OPENCV_DLL_DIR = "$env:OPENCV_ROOT\x64\mingw\bin"
     - $originalPath = $env:Path

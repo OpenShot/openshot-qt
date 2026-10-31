@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 4.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: 2026-08-30 16:50-0500\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 # Main-window terminology review, 2026-09-26.
-#: ../recording.rst:23
+#: ../doc/recording.rst:23
 msgid "Recording"
 msgstr "Ghi âm và ghi hình"
 
-#: ../recording.rst:25
+#: ../doc/recording.rst:25
 msgid ""
 "OpenShot can record a microphone, the desktop, and a webcam directly into "
 "the current project. You can enable one source or combine several in a "
@@ -37,7 +37,7 @@ msgstr ""
 "hoặc chỉnh sửa bản ghi màn hình riêng biệt."
 
 # Main-window terminology review, 2026-09-26.
-#: ../recording.rst:29
+#: ../doc/recording.rst:29
 msgid ""
 "Open the dedicated layout with :guilabel:`View → Recording View`, or show "
 "only the dock with :guilabel:`View → Docks → Recording`."
@@ -45,24 +45,24 @@ msgstr ""
 "Mở bố cục chuyên dụng với :guilabel:`Xem → Giao diện Ghi âm`, hoặc chỉ hiển "
 "thị dock với :guilabel:`Xem → Dock → Ghi âm và ghi hình`."
 
-#: ../recording.rst:-1
+#: ../doc/recording.rst:-1
 msgid "OpenShot Recording View with the microphone source selected by default"
 msgstr "Giao diện Ghi âm OpenShot với nguồn micro được chọn mặc định"
 
-#: ../recording.rst:36
+#: ../doc/recording.rst:36
 msgid "Quick Start"
 msgstr "Bắt đầu nhanh"
 
-#: ../recording.rst:38
+#: ../doc/recording.rst:38
 msgid ""
 "Move the timeline playhead to the point where the recording should begin."
 msgstr "Di chuyển đầu phát trên dòng thời gian đến điểm bắt đầu ghi âm."
 
-#: ../recording.rst:39
+#: ../doc/recording.rst:39
 msgid "Open :guilabel:`View → Recording View`."
 msgstr "Mở :guilabel:`Xem → Giao diện Ghi âm`."
 
-#: ../recording.rst:40
+#: ../doc/recording.rst:40
 msgid ""
 "Enable :guilabel:`Mic`, :guilabel:`Screen`, :guilabel:`Webcam`, or any "
 "combination of them."
@@ -70,7 +70,7 @@ msgstr ""
 "Bật :guilabel:`Mic`, :guilabel:`Màn hình`, :guilabel:`Webcam`, hoặc bất kỳ "
 "sự kết hợp nào trong số chúng."
 
-#: ../recording.rst:41
+#: ../doc/recording.rst:41
 msgid ""
 "Select the destination :guilabel:`Track`. Multiple sources use adjacent "
 "tracks automatically. Select :guilabel:`No Track` to add completed "
@@ -84,7 +84,7 @@ msgstr ""
 "dòng thời gian. Chọn xem :guilabel:`Xem trước` trên dòng thời gian có nên "
 "phát trong khi ghi Mic hoặc Webcam hay không."
 
-#: ../recording.rst:44
+#: ../doc/recording.rst:44
 msgid ""
 "Open each source's :guilabel:`Advanced` section and verify its device and "
 "quality options."
@@ -92,7 +92,7 @@ msgstr ""
 "Mở phần :guilabel:`Nâng cao` của từng nguồn và kiểm tra các tùy chọn thiết "
 "bị và chất lượng."
 
-#: ../recording.rst:45
+#: ../doc/recording.rst:45
 msgid ""
 "Click :guilabel:`Start Recording`. Perform the narration or action you want "
 "to capture."
@@ -100,7 +100,7 @@ msgstr ""
 "Nhấn :guilabel:`Bắt đầu Ghi âm`. Thực hiện lời thuyết minh hoặc hành động "
 "bạn muốn ghi lại."
 
-#: ../recording.rst:46
+#: ../doc/recording.rst:46
 msgid ""
 "Click :guilabel:`Stop Recording`, either in the dock or from the recording "
 "status control."
@@ -108,7 +108,7 @@ msgstr ""
 "Nhấn :guilabel:`Dừng Ghi âm`, trong dock hoặc từ điều khiển trạng thái ghi "
 "âm."
 
-#: ../recording.rst:47
+#: ../doc/recording.rst:47
 msgid ""
 "Wait briefly while OpenShot finishes the files. They are imported into "
 ":guilabel:`Project Files` and, unless :guilabel:`No Track` is selected, "
@@ -118,11 +118,11 @@ msgstr ""
 ":guilabel:`Tệp Dự án` và, trừ khi chọn :guilabel:`Không Dòng`, sẽ được đặt "
 "trên dòng thời gian."
 
-#: ../recording.rst:51
+#: ../doc/recording.rst:51
 msgid "Quick Audio Commentary"
 msgstr "Bình luận âm thanh nhanh"
 
-#: ../recording.rst:53
+#: ../doc/recording.rst:53
 msgid ""
 "To begin commentary at an existing clip, right-click the clip and choose "
 ":guilabel:`Audio → Record`. OpenShot moves the playhead to the clip's first "
@@ -139,11 +139,11 @@ msgstr ""
 "đầu Ghi âm`. Giao diện đầy đủ :guilabel:`Xem → Giao diện Ghi âm` vẫn là điểm"
 " vào chung cho các phiên ghi màn hình, webcam, micro và kết hợp."
 
-#: ../recording.rst:60
+#: ../doc/recording.rst:60
 msgid "Recording Sources"
 msgstr "Nguồn ghi âm"
 
-#: ../recording.rst:62
+#: ../doc/recording.rst:62
 msgid ""
 "The source cards at the top of the dock can be enabled independently. An "
 "unavailable card indicates that the required device, operating-system "
@@ -153,76 +153,76 @@ msgstr ""
 "biết thiết bị cần thiết, dịch vụ ghi của hệ điều hành hoặc tính năng "
 "libopenshot không được phát hiện."
 
-#: ../recording.rst:65
+#: ../doc/recording.rst:65
 msgid "Recorded sources and outputs"
 msgstr "Nguồn và đầu ra đã ghi"
 
-#: ../recording.rst:69 ../recording.rst:107
+#: ../doc/recording.rst:69 ../doc/recording.rst:107
 msgid "Source"
 msgstr "Nguồn"
 
-#: ../recording.rst:70
+#: ../doc/recording.rst:70
 msgid "Recorded File"
 msgstr "Tệp đã ghi"
 
-#: ../recording.rst:71
+#: ../doc/recording.rst:71
 msgid "Audio"
 msgstr "Âm thanh"
 
-#: ../recording.rst:72
+#: ../doc/recording.rst:72
 msgid "Typical Use"
 msgstr "Sử dụng điển hình"
 
-#: ../recording.rst:73 ../recording.rst:111 ../recording.rst:272
+#: ../doc/recording.rst:73 ../doc/recording.rst:111 ../doc/recording.rst:272
 msgid "Mic"
 msgstr "Mic"
 
-#: ../recording.rst:74
+#: ../doc/recording.rst:74
 msgid "``Mic-<timestamp>``"
 msgstr "``Mic-<timestamp>``"
 
-#: ../recording.rst:75
+#: ../doc/recording.rst:75
 msgid "Microphone only"
 msgstr "Chỉ micro"
 
-#: ../recording.rst:76
+#: ../doc/recording.rst:76
 msgid "Narration, voice-over, commentary, or interviews."
 msgstr "Thuyết minh, lồng tiếng, bình luận hoặc phỏng vấn."
 
-#: ../recording.rst:77 ../recording.rst:110 ../recording.rst:194
-#: ../recording.rst:275
+#: ../doc/recording.rst:77 ../doc/recording.rst:110 ../doc/recording.rst:194
+#: ../doc/recording.rst:275
 msgid "Screen"
 msgstr "Màn hình"
 
-#: ../recording.rst:78
+#: ../doc/recording.rst:78
 msgid "``Screen-<timestamp>.mp4``"
 msgstr "``Screen-<timestamp>.mp4``"
 
-#: ../recording.rst:79
+#: ../doc/recording.rst:79
 msgid "Optional system audio"
 msgstr "Âm thanh hệ thống tùy chọn"
 
-#: ../recording.rst:80
+#: ../doc/recording.rst:80
 msgid "Tutorials, demonstrations, presentations, or games."
 msgstr "Hướng dẫn, trình diễn, thuyết trình hoặc trò chơi."
 
-#: ../recording.rst:81 ../recording.rst:109
+#: ../doc/recording.rst:81 ../doc/recording.rst:109
 msgid "Webcam"
 msgstr "Webcam"
 
-#: ../recording.rst:82
+#: ../doc/recording.rst:82
 msgid "``Webcam-<timestamp>.mp4``"
 msgstr "``Webcam-<timestamp>.mp4``"
 
-#: ../recording.rst:83
+#: ../doc/recording.rst:83
 msgid "No audio"
 msgstr "Không có âm thanh"
 
-#: ../recording.rst:84
+#: ../doc/recording.rst:84
 msgid "Presenter video or a picture-in-picture camera."
 msgstr "Video người thuyết trình hoặc camera hình trong hình."
 
-#: ../recording.rst:86
+#: ../doc/recording.rst:86
 msgid ""
 "When Mic and Screen are enabled together, microphone audio is kept in its "
 "own file while system audio is embedded in the screen video. This separation"
@@ -236,11 +236,11 @@ msgstr ""
 "riêng biệt giọng nói và âm thanh máy tính trong quá trình chỉnh sửa. Video "
 "webcam không có âm thanh, tránh trùng lặp đường âm micro và tiếng vọng."
 
-#: ../recording.rst:91
+#: ../doc/recording.rst:91
 msgid "Live Feedback and Timeline Placement"
 msgstr "Phản hồi trực tiếp và vị trí trên dòng thời gian"
 
-#: ../recording.rst:93
+#: ../doc/recording.rst:93
 msgid ""
 "The microphone meter responds before and during recording, which helps "
 "confirm that the selected input is working. During recording, OpenShot draws"
@@ -252,7 +252,7 @@ msgstr ""
 "tạm thời và sóng âm micro trực tiếp trên dòng thời gian. Các tệp hoàn chỉnh "
 "sẽ thay thế các bản xem trước này sau khi ghi dừng."
 
-#: ../recording.rst:97
+#: ../doc/recording.rst:97
 msgid ""
 "Select :guilabel:`No Track` in the Track list when you want to capture media"
 " without adding live objects or completed clips to the timeline. The "
@@ -266,7 +266,7 @@ msgstr ""
 "sàng để xem trước, tổ chức hoặc thêm vào dòng thời gian sau. Điều này hữu "
 "ích khi ghi nhiều lần trước khi chọn bản chỉnh sửa."
 
-#: ../recording.rst:101
+#: ../doc/recording.rst:101
 msgid ""
 "All enabled sources start at the same timeline position. OpenShot stacks "
 "them in a useful compositing order:"
@@ -274,27 +274,27 @@ msgstr ""
 "Tất cả các nguồn được bật bắt đầu tại cùng một vị trí trên dòng thời gian. "
 "OpenShot xếp chồng chúng theo thứ tự ghép ảnh hữu ích:"
 
-#: ../recording.rst:103
+#: ../doc/recording.rst:103
 msgid "Default source stack"
 msgstr "Ngăn xếp nguồn mặc định"
 
-#: ../recording.rst:107
+#: ../doc/recording.rst:107
 msgid "Placement"
 msgstr "Vị trí"
 
-#: ../recording.rst:109
+#: ../doc/recording.rst:109
 msgid "Highest assigned track, so a corner camera appears on top."
 msgstr "Dòng được gán cao nhất, vì vậy camera góc sẽ xuất hiện ở trên cùng."
 
-#: ../recording.rst:110
+#: ../doc/recording.rst:110
 msgid "Below the webcam and above microphone audio."
 msgstr "Dưới webcam và trên âm thanh micro."
 
-#: ../recording.rst:111
+#: ../doc/recording.rst:111
 msgid "Lowest assigned track because it contains audio only."
 msgstr "Dòng được gán thấp nhất vì nó chỉ chứa âm thanh."
 
-#: ../recording.rst:114
+#: ../doc/recording.rst:114
 msgid ""
 "If there are not enough tracks below the selected track, OpenShot creates or"
 " selects additional tracks as needed. Recordings are also added to "
@@ -306,11 +306,11 @@ msgstr ""
 ":guilabel:`Project Files`, để có thể tái sử dụng ngay cả khi bạn xóa các "
 "clip đầu tiên trên dòng thời gian."
 
-#: ../recording.rst:119
+#: ../doc/recording.rst:119
 msgid "Timeline Preview During Recording"
 msgstr "Xem trước dòng thời gian trong khi ghi"
 
-#: ../recording.rst:121
+#: ../doc/recording.rst:121
 msgid ""
 "The :guilabel:`Preview` control beside :guilabel:`Track` can play the "
 "project from the current playhead while a Mic, Webcam, or combined Mic + "
@@ -323,48 +323,48 @@ msgstr ""
 "Webcam. Điều này hữu ích cho lồng tiếng, bình luận và video phản ứng. Dừng "
 "ghi cũng sẽ dừng phát dòng thời gian nếu bộ ghi đã bắt đầu phát."
 
-#: ../recording.rst:125
+#: ../doc/recording.rst:125
 msgid "Preview options"
 msgstr "Tùy chọn xem trước"
 
-#: ../recording.rst:129 ../recording.rst:152 ../recording.rst:192
-#: ../recording.rst:242
+#: ../doc/recording.rst:129 ../doc/recording.rst:152 ../doc/recording.rst:192
+#: ../doc/recording.rst:242
 msgid "Option"
 msgstr "Tùy chọn"
 
-#: ../recording.rst:129
+#: ../doc/recording.rst:129
 msgid "Behavior"
 msgstr "Hành vi"
 
-#: ../recording.rst:131
+#: ../doc/recording.rst:131
 msgid "Off"
 msgstr "Tắt"
 
-#: ../recording.rst:131
+#: ../doc/recording.rst:131
 msgid "Records without starting timeline playback."
 msgstr "Ghi mà không bắt đầu phát dòng thời gian."
 
-#: ../recording.rst:132
+#: ../doc/recording.rst:132
 msgid "Full"
 msgstr "Đầy đủ"
 
-#: ../recording.rst:132
+#: ../doc/recording.rst:132
 msgid "Plays the timeline using the normal preview resolution."
 msgstr "Phát dòng thời gian với độ phân giải xem trước bình thường."
 
-#: ../recording.rst:133
+#: ../doc/recording.rst:133
 msgid "Half"
 msgstr "Một nửa"
 
-#: ../recording.rst:133
+#: ../doc/recording.rst:133
 msgid "Reduces preview rendering resolution to improve recording performance."
 msgstr "Giảm độ phân giải xem trước để cải thiện hiệu suất ghi."
 
-#: ../recording.rst:134
+#: ../doc/recording.rst:134
 msgid "Quarter"
 msgstr "Một phần tư"
 
-#: ../recording.rst:134
+#: ../doc/recording.rst:134
 msgid ""
 "Uses the lowest preview resolution for demanding projects or slower "
 "computers."
@@ -372,7 +372,7 @@ msgstr ""
 "Sử dụng độ phân giải xem trước thấp nhất cho các dự án đòi hỏi cao hoặc máy "
 "tính chậm hơn."
 
-#: ../recording.rst:137
+#: ../doc/recording.rst:137
 msgid ""
 "Preview resolution changes only the temporary OpenShot preview. It does not "
 "reduce the resolution or quality of the recorded Mic or Webcam files. Use "
@@ -387,11 +387,11 @@ msgstr ""
 "Khi chọn :guilabel:`Screen`, Xem trước sẽ bị buộc tắt và vô hiệu hóa; bỏ "
 "chọn Screen sẽ khôi phục lựa chọn trước đó."
 
-#: ../recording.rst:143
+#: ../doc/recording.rst:143
 msgid "Microphone Recording"
 msgstr "Ghi âm Microphone"
 
-#: ../recording.rst:145
+#: ../doc/recording.rst:145
 msgid ""
 "Enable :guilabel:`Mic` to record narration as a separate audio file. Use the"
 " Mono/Stereo control beside the level meter for the common channel choice, "
@@ -401,74 +401,74 @@ msgstr ""
 "biệt. Sử dụng điều khiển Mono/Stereo bên cạnh đồng hồ đo mức để chọn kênh "
 "phổ biến, và mở :guilabel:`Advanced` để cài đặt đầy đủ."
 
-#: ../recording.rst:148
+#: ../doc/recording.rst:148
 msgid "Microphone options"
 msgstr "Tùy chọn Microphone"
 
-#: ../recording.rst:152
+#: ../doc/recording.rst:152
 msgid "Typical Default"
 msgstr "Mặc định điển hình"
 
-#: ../recording.rst:152 ../recording.rst:175 ../recording.rst:192
-#: ../recording.rst:242
+#: ../doc/recording.rst:152 ../doc/recording.rst:175 ../doc/recording.rst:192
+#: ../doc/recording.rst:242
 msgid "Description"
 msgstr "Mô tả"
 
-#: ../recording.rst:154 ../recording.rst:244
+#: ../doc/recording.rst:154 ../doc/recording.rst:244
 msgid "Input"
 msgstr "Đầu vào"
 
-#: ../recording.rst:154
+#: ../doc/recording.rst:154
 msgid "System input"
 msgstr "Đầu vào hệ thống"
 
-#: ../recording.rst:154
+#: ../doc/recording.rst:154
 msgid "Selects the microphone or audio-input device."
 msgstr "Chọn microphone hoặc thiết bị đầu vào âm thanh."
 
-#: ../recording.rst:155
+#: ../doc/recording.rst:155
 msgid "Format"
 msgstr "Định dạng"
 
-#: ../recording.rst:155
+#: ../doc/recording.rst:155
 msgid "FLAC"
 msgstr "FLAC"
 
-#: ../recording.rst:155
+#: ../doc/recording.rst:155
 msgid ""
 "Chooses WAV, FLAC, or MP3. FLAC is lossless with smaller files than WAV."
 msgstr ""
 "Chọn WAV, FLAC hoặc MP3. FLAC là định dạng không mất dữ liệu với tệp nhỏ hơn"
 " WAV."
 
-#: ../recording.rst:156
+#: ../doc/recording.rst:156
 msgid "Sample Rate"
 msgstr "Tần số mẫu"
 
-#: ../recording.rst:156
+#: ../doc/recording.rst:156
 msgid "48000 Hz"
 msgstr "48000 Hz"
 
-#: ../recording.rst:156
+#: ../doc/recording.rst:156
 msgid ""
 "Sets the recording sample rate. Match the device and project when possible."
 msgstr "Đặt tần số mẫu ghi âm. Cố gắng khớp với thiết bị và dự án khi có thể."
 
-#: ../recording.rst:157
+#: ../doc/recording.rst:157
 msgid "Channels"
 msgstr "Kênh"
 
-#: ../recording.rst:157
+#: ../doc/recording.rst:157
 msgid "Mono"
 msgstr "Đơn âm"
 
-#: ../recording.rst:157
+#: ../doc/recording.rst:157
 msgid ""
 "Records one or two input channels. Mono is usually best for one microphone."
 msgstr ""
 "Ghi một hoặc hai kênh đầu vào. Đơn âm thường tốt nhất cho một microphone."
 
-#: ../recording.rst:160
+#: ../doc/recording.rst:160
 msgid ""
 "Aim for a healthy meter response without clipping. A quiet waveform should "
 "remain visually quiet; OpenShot no longer normalizes every newly generated "
@@ -486,35 +486,35 @@ msgstr ""
 "Samples (per second)`. Xem :ref:`clip_presets_ref` để biết hiển thị sóng âm "
 "và điều khiển âm lượng sau khi ghi."
 
-#: ../recording.rst:167
+#: ../doc/recording.rst:167
 msgid "Screen Recording"
 msgstr "Ghi màn hình"
 
-#: ../recording.rst:169
+#: ../doc/recording.rst:169
 msgid "Enable :guilabel:`Screen`, then choose a capture mode:"
 msgstr "Bật :guilabel:`Screen`, sau đó chọn chế độ ghi:"
 
-#: ../recording.rst:171
+#: ../doc/recording.rst:171
 msgid "Screen capture modes"
 msgstr "Chế độ ghi màn hình"
 
-#: ../recording.rst:175
+#: ../doc/recording.rst:175
 msgid "Mode"
 msgstr "Chế độ"
 
-#: ../recording.rst:177
+#: ../doc/recording.rst:177
 msgid "Full Screen"
 msgstr "Toàn màn hình"
 
-#: ../recording.rst:177
+#: ../doc/recording.rst:177
 msgid "Captures the selected display or combined desktop area."
 msgstr "Ghi lại màn hình đã chọn hoặc khu vực desktop kết hợp."
 
-#: ../recording.rst:178
+#: ../doc/recording.rst:178
 msgid "Window"
 msgstr "Cửa sổ"
 
-#: ../recording.rst:178
+#: ../doc/recording.rst:178
 msgid ""
 "Click a window to capture its bounds. Availability and exact behavior depend"
 " on the platform."
@@ -522,11 +522,11 @@ msgstr ""
 "Nhấp vào một cửa sổ để ghi lại vùng của nó. Tính khả dụng và hành vi chính "
 "xác phụ thuộc vào nền tảng."
 
-#: ../recording.rst:179
+#: ../doc/recording.rst:179
 msgid "Region"
 msgstr "Vùng"
 
-#: ../recording.rst:179
+#: ../doc/recording.rst:179
 msgid ""
 "Drag or select a rectangular desktop area. Availability depends on the "
 "platform."
@@ -534,7 +534,7 @@ msgstr ""
 "Kéo hoặc chọn một khu vực hình chữ nhật trên desktop. Tính khả dụng phụ "
 "thuộc vào nền tảng."
 
-#: ../recording.rst:182
+#: ../doc/recording.rst:182
 msgid ""
 "On Wayland desktops, the operating system's sharing portal asks which screen"
 " or window to share when recording starts. The numeric window and region "
@@ -544,96 +544,96 @@ msgstr ""
 " sổ nào để chia sẻ khi bắt đầu ghi. Các điều khiển số cho cửa sổ và vùng bị "
 "ẩn vì việc chọn thuộc về cổng đó."
 
-#: ../recording.rst:186
+#: ../doc/recording.rst:186
 msgid "Screen Advanced Options"
 msgstr "Tùy chọn nâng cao màn hình"
 
-#: ../recording.rst:188
+#: ../doc/recording.rst:188
 msgid "Screen options"
 msgstr "Tùy chọn màn hình"
 
-#: ../recording.rst:192
+#: ../doc/recording.rst:192
 msgid "Default"
 msgstr "Mặc định"
 
-#: ../recording.rst:194
+#: ../doc/recording.rst:194
 msgid "Primary display"
 msgstr "Màn hình chính"
 
-#: ../recording.rst:194
+#: ../doc/recording.rst:194
 msgid "Selects a display or the complete desktop when supported."
 msgstr "Chọn một màn hình hoặc toàn bộ desktop khi được hỗ trợ."
 
-#: ../recording.rst:195
+#: ../doc/recording.rst:195
 msgid "Offset"
 msgstr "Độ lệch"
 
-#: ../recording.rst:195 ../recording.rst:196
+#: ../doc/recording.rst:195 ../doc/recording.rst:196
 msgid "Selected bounds"
 msgstr "Giới hạn đã chọn"
 
-#: ../recording.rst:195
+#: ../doc/recording.rst:195
 msgid "Sets the capture area's X and Y desktop coordinates."
 msgstr "Đặt tọa độ X và Y của khu vực ghi trên desktop."
 
-#: ../recording.rst:196 ../recording.rst:248
+#: ../doc/recording.rst:196 ../doc/recording.rst:248
 msgid "Size"
 msgstr "Kích thước"
 
-#: ../recording.rst:196
+#: ../doc/recording.rst:196
 msgid ""
 "Sets capture width and height. OpenShot uses encoder-safe even dimensions."
 msgstr ""
 "Đặt chiều rộng và chiều cao ghi. OpenShot sử dụng kích thước chẵn an toàn "
 "cho bộ mã hóa."
 
-#: ../recording.rst:197
+#: ../doc/recording.rst:197
 msgid "FPS"
 msgstr "FPS"
 
-#: ../recording.rst:197
+#: ../doc/recording.rst:197
 msgid "30"
 msgstr "30"
 
-#: ../recording.rst:197
+#: ../doc/recording.rst:197
 msgid "Sets the screen recording frame rate: 15, 24, 30, or 60 FPS."
 msgstr "Đặt tốc độ khung hình ghi màn hình: 15, 24, 30 hoặc 60 FPS."
 
-#: ../recording.rst:198 ../recording.rst:211
+#: ../doc/recording.rst:198 ../doc/recording.rst:211
 msgid "System Audio"
 msgstr "Âm thanh hệ thống"
 
-#: ../recording.rst:198 ../recording.rst:199
+#: ../doc/recording.rst:198 ../doc/recording.rst:199
 msgid "On"
 msgstr "Bật"
 
-#: ../recording.rst:198
+#: ../doc/recording.rst:198
 msgid "Embeds computer playback audio in the screen MP4 when supported."
 msgstr ""
 "Nhúng âm thanh phát lại máy tính vào video MP4 màn hình khi được hỗ trợ."
 
-#: ../recording.rst:199
+#: ../doc/recording.rst:199
 msgid "Cursor"
 msgstr "Con trỏ"
 
-#: ../recording.rst:199
+#: ../doc/recording.rst:199
 msgid "Includes the mouse pointer in the screen recording."
 msgstr "Bao gồm con trỏ chuột trong bản ghi màn hình."
 
-#: ../recording.rst:200
+#: ../doc/recording.rst:200
 msgid "Hide OpenShot"
 msgstr "Ẩn OpenShot"
 
-#: ../recording.rst:200
+#: ../doc/recording.rst:200
 msgid "No"
 msgstr "Tắt"
 
-#: ../recording.rst:200
+#: ../doc/recording.rst:200
 msgid ""
 "Temporarily hides OpenShot during selection and recording when enabled."
 msgstr "Tạm thời ẩn OpenShot trong khi chọn và ghi hình khi được bật."
 
-#: ../recording.rst:205
+#: ../doc/recording.rst:205
 msgid ""
 "On some Windows systems using high-DPI display scaling, the mouse pointer "
 "may be displaced or missing from screen recordings made on a scaled display."
@@ -651,7 +651,7 @@ msgstr ""
 "được ghi bình thường, và việc đặt :guilabel:`Con trỏ` thành :guilabel:`Tắt` "
 "sẽ tránh lớp phủ con trỏ bị ảnh hưởng."
 
-#: ../recording.rst:213
+#: ../doc/recording.rst:213
 msgid ""
 ":guilabel:`System Audio` is enabled by default on supported capture "
 "backends. It records sound playing through the computer—such as a game, "
@@ -665,7 +665,7 @@ msgstr ""
 "không thay thế nguồn Mic. Bật cả hai nguồn khi bạn muốn âm thanh hệ thống và"
 " bình luận trên các clip có thể chỉnh sửa độc lập."
 
-#: ../recording.rst:217
+#: ../doc/recording.rst:217
 msgid ""
 "If the control is disabled, the active platform or libopenshot build does "
 "not provide system-audio capture. OpenShot forces the option Off rather than"
@@ -678,7 +678,7 @@ msgstr ""
 " của hệ điều hành và cấu hình định tuyến âm thanh cũng có thể ảnh hưởng đến "
 "việc ghi âm."
 
-#: ../recording.rst:223
+#: ../doc/recording.rst:223
 msgid ""
 "System Audio recording is not currently available on macOS. Screen video, "
 "microphone, and webcam recording remain available, but the :guilabel:`System"
@@ -688,7 +688,7 @@ msgstr ""
 " micro và webcam vẫn có thể sử dụng, nhưng tùy chọn :guilabel:`Âm thanh hệ "
 "thống` bị vô hiệu hóa và buộc thành :guilabel:`Tắt`."
 
-#: ../recording.rst:228
+#: ../doc/recording.rst:228
 msgid ""
 "Avoid playing captured system audio through speakers while also recording a "
 "microphone unless that sound is intentional. Headphones reduce echo and "
@@ -698,11 +698,11 @@ msgstr ""
 " trừ khi âm thanh đó là có chủ ý. Tai nghe giúp giảm tiếng vang và ngăn "
 "micro ghi lại âm thanh từ loa lần thứ hai."
 
-#: ../recording.rst:232
+#: ../doc/recording.rst:232
 msgid "Webcam Recording"
 msgstr "Ghi hình Webcam"
 
-#: ../recording.rst:234
+#: ../doc/recording.rst:234
 msgid ""
 "Enable :guilabel:`Webcam` to record a camera as a silent video clip. A live "
 "preview helps verify framing before you start. When Screen is also enabled, "
@@ -714,54 +714,54 @@ msgstr ""
 "màn hình cũng được bật, bố cục mặc định là camera tròn, chiếm 30% ở góc dưới"
 " bên phải. Khi chỉ ghi webcam, nó mặc định kích thước đầy đủ."
 
-#: ../recording.rst:238
+#: ../doc/recording.rst:238
 msgid "Webcam options"
 msgstr "Tùy chọn Webcam"
 
-#: ../recording.rst:244
+#: ../doc/recording.rst:244
 msgid "Selects an available webcam or video-capture device."
 msgstr "Chọn một webcam hoặc thiết bị ghi hình video có sẵn."
 
-#: ../recording.rst:245
+#: ../doc/recording.rst:245
 msgid "Resolution"
 msgstr "Độ phân giải"
 
-#: ../recording.rst:245
+#: ../doc/recording.rst:245
 msgid "Selects a resolution reported by the camera."
 msgstr "Chọn độ phân giải được camera báo cáo."
 
-#: ../recording.rst:246
+#: ../doc/recording.rst:246
 msgid "Record FPS"
 msgstr "Ghi FPS"
 
-#: ../recording.rst:246
+#: ../doc/recording.rst:246
 msgid "Selects a frame rate supported at the chosen resolution."
 msgstr "Chọn tốc độ khung hình được hỗ trợ ở độ phân giải đã chọn."
 
-#: ../recording.rst:247
+#: ../doc/recording.rst:247
 msgid "Layout"
 msgstr "Bố cục"
 
-#: ../recording.rst:247
+#: ../doc/recording.rst:247
 msgid ""
 "Chooses Bottom/Top Left/Right, Left, Right, Center, or Full Size placement."
 msgstr ""
 "Chọn vị trí đặt ở dưới/trên trái/phải, trái, phải, giữa hoặc kích thước đầy "
 "đủ."
 
-#: ../recording.rst:248
+#: ../doc/recording.rst:248
 msgid "Sets a corner camera to 20%, 30%, or 40% of the project frame."
 msgstr "Đặt camera góc chiếm 20%, 30% hoặc 40% khung dự án."
 
-#: ../recording.rst:249
+#: ../doc/recording.rst:249
 msgid "Corners"
 msgstr "Góc"
 
-#: ../recording.rst:249
+#: ../doc/recording.rst:249
 msgid "Uses Rectangle, Rounded, or Oval camera corners."
 msgstr "Sử dụng góc camera hình chữ nhật, bo tròn hoặc hình bầu dục."
 
-#: ../recording.rst:252
+#: ../doc/recording.rst:252
 msgid ""
 "Layout choices are applied as ordinary clip properties. After recording, use"
 " :guilabel:`Gravity`, :guilabel:`Scale X`, :guilabel:`Scale Y`, "
@@ -773,11 +773,11 @@ msgstr ""
 ":guilabel:`Margin`, và :guilabel:`Corner Radius` để tinh chỉnh kết quả. Xem "
 ":ref:`clip_properties_ref`."
 
-#: ../recording.rst:257
+#: ../doc/recording.rst:257
 msgid "Combining Sources"
 msgstr "Kết hợp các nguồn"
 
-#: ../recording.rst:259
+#: ../doc/recording.rst:259
 msgid ""
 "The Recording View keeps all enabled source controls together while leaving "
 "the preview and timeline visible."
@@ -785,86 +785,86 @@ msgstr ""
 "Chế độ xem Ghi hình giữ tất cả các điều khiển nguồn được bật cùng nhau trong"
 " khi vẫn hiển thị bản xem trước và dòng thời gian."
 
-#: ../recording.rst:-1
+#: ../doc/recording.rst:-1
 msgid ""
 "OpenShot Recording View with microphone, screen, and webcam sources selected"
 msgstr ""
 "Chế độ xem Ghi hình OpenShot với các nguồn micro, màn hình và webcam được "
 "chọn"
 
-#: ../recording.rst:264
+#: ../doc/recording.rst:264
 msgid "Useful recording combinations"
 msgstr "Các kết hợp ghi hình hữu ích"
 
-#: ../recording.rst:268
+#: ../doc/recording.rst:268
 msgid "Workflow"
 msgstr "Quy trình làm việc"
 
-#: ../recording.rst:269
+#: ../doc/recording.rst:269
 msgid "Enable"
 msgstr "Bật"
 
-#: ../recording.rst:270
+#: ../doc/recording.rst:270
 msgid "Result"
 msgstr "Kết quả"
 
-#: ../recording.rst:271
+#: ../doc/recording.rst:271
 msgid "Voice-over"
 msgstr "Lồng tiếng"
 
-#: ../recording.rst:273
+#: ../doc/recording.rst:273
 msgid "One editable narration file."
 msgstr "Một tệp thuyết minh có thể chỉnh sửa."
 
-#: ../recording.rst:274
+#: ../doc/recording.rst:274
 msgid "Silent tutorial"
 msgstr "Hướng dẫn không âm thanh"
 
-#: ../recording.rst:276
+#: ../doc/recording.rst:276
 msgid "Screen MP4; turn System Audio Off if silence is desired."
 msgstr "Video màn hình MP4; tắt Âm thanh hệ thống nếu muốn im lặng."
 
-#: ../recording.rst:277
+#: ../doc/recording.rst:277
 msgid "Game commentary"
 msgstr "Bình luận trò chơi"
 
-#: ../recording.rst:278
+#: ../doc/recording.rst:278
 msgid "Mic + Screen"
 msgstr "Mic + Màn hình"
 
-#: ../recording.rst:279
+#: ../doc/recording.rst:279
 msgid "Separate mic clip plus screen video with game audio."
 msgstr "Clip mic riêng biệt cùng video màn hình có âm thanh trò chơi."
 
-#: ../recording.rst:280
+#: ../doc/recording.rst:280
 msgid "Presenter camera"
 msgstr "Camera người thuyết trình"
 
-#: ../recording.rst:281
+#: ../doc/recording.rst:281
 msgid "Mic + Webcam"
 msgstr "Mic + Webcam"
 
-#: ../recording.rst:282
+#: ../doc/recording.rst:282
 msgid "Separate voice and silent camera video."
 msgstr "Âm thanh giọng nói riêng biệt và video camera không âm thanh."
 
-#: ../recording.rst:283
+#: ../doc/recording.rst:283
 msgid "Tutorial with camera"
 msgstr "Hướng dẫn có camera"
 
-#: ../recording.rst:284
+#: ../doc/recording.rst:284
 msgid "Mic + Screen + Webcam"
 msgstr "Mic + Màn hình + Webcam"
 
-#: ../recording.rst:285
+#: ../doc/recording.rst:285
 msgid "Three synchronized clips with webcam above the screen."
 msgstr "Ba clip đồng bộ với webcam nằm trên màn hình."
 
-#: ../recording.rst:288
+#: ../doc/recording.rst:288
 msgid "Where Recordings Are Saved"
 msgstr "Nơi lưu bản ghi"
 
-#: ../recording.rst:290
+#: ../doc/recording.rst:290
 msgid ""
 "Recordings are saved in the project's assets folder under ``recordings``. If"
 " the project has not been saved yet, OpenShot uses its user-data location. "
@@ -876,7 +876,7 @@ msgstr ""
 "nó. Tên tệp chứa tên nguồn và dấu thời gian; một hậu tố số khác tránh ghi đè"
 " tệp được tạo trong cùng một giây."
 
-#: ../recording.rst:294
+#: ../doc/recording.rst:294
 msgid ""
 "Save the project before a long or important session so its recording "
 "destination is predictable. Do not move or rename recorded files outside "
@@ -886,11 +886,11 @@ msgstr ""
 "lưu bản ghi được dự đoán trước. Không di chuyển hoặc đổi tên các tệp ghi "
 "hình bên ngoài OpenShot khi dự án đang sử dụng chúng."
 
-#: ../recording.rst:298
+#: ../doc/recording.rst:298
 msgid "Permissions and Platform Behavior"
 msgstr "Quyền và Hành vi Nền tảng"
 
-#: ../recording.rst:300
+#: ../doc/recording.rst:300
 msgid ""
 "Screen and camera capture depend on operating-system services, hardware, and"
 " build support. The controls in the dock adapt to the available backend."
@@ -899,7 +899,7 @@ msgstr ""
 "cứng và hỗ trợ xây dựng. Các điều khiển trong dock sẽ thích ứng với backend "
 "có sẵn."
 
-#: ../recording.rst:303
+#: ../doc/recording.rst:303
 msgid ""
 "**Linux/X11:** Full-screen, window, and numeric region capture are available"
 " when the X11 capture backend is built."
@@ -907,14 +907,14 @@ msgstr ""
 "**Linux/X11:** Ghi lại toàn màn hình, cửa sổ và vùng số có sẵn khi backend "
 "ghi X11 được xây dựng."
 
-#: ../recording.rst:304
+#: ../doc/recording.rst:304
 msgid ""
 "**Linux/Wayland:** The desktop sharing portal chooses the capture source "
 "after recording starts."
 msgstr ""
 "**Linux/Wayland:** Cổng chia sẻ màn hình chọn nguồn ghi sau khi bắt đầu ghi."
 
-#: ../recording.rst:305
+#: ../doc/recording.rst:305
 msgid ""
 "**Windows:** Desktop capture uses the available Windows screen backend; "
 "camera devices use Windows capture services."
@@ -922,7 +922,7 @@ msgstr ""
 "**Windows:** Ghi màn hình sử dụng backend màn hình Windows có sẵn; thiết bị "
 "camera sử dụng dịch vụ ghi của Windows."
 
-#: ../recording.rst:306
+#: ../doc/recording.rst:306
 msgid ""
 "**macOS:** Screen capture uses the supported macOS backend, with window and "
 "region choices represented as cropped screen bounds when required. System "
@@ -934,7 +934,7 @@ msgstr ""
 " thống hiện không được hỗ trợ; ghi âm micro vẫn có sẵn như một nguồn âm "
 "thanh riêng biệt."
 
-#: ../recording.rst:310
+#: ../doc/recording.rst:310
 msgid ""
 "The first recording may trigger Screen Recording, Microphone, Camera, or "
 "desktop-sharing permission prompts. Approve the requested source, then "
@@ -948,27 +948,27 @@ msgstr ""
 "vô hiệu hóa vẫn tốt hơn một bản ghi bỏ qua nguồn không được hỗ trợ một cách "
 "âm thầm."
 
-#: ../recording.rst:315
+#: ../doc/recording.rst:315
 msgid "Troubleshooting Recording"
 msgstr "Khắc phục sự cố ghi"
 
-#: ../recording.rst:317
+#: ../doc/recording.rst:317
 msgid "Common recording problems"
 msgstr "Các vấn đề ghi phổ biến"
 
-#: ../recording.rst:321
+#: ../doc/recording.rst:321
 msgid "Problem"
 msgstr "Vấn đề"
 
-#: ../recording.rst:321
+#: ../doc/recording.rst:321
 msgid "What to Check"
 msgstr "Cần kiểm tra"
 
-#: ../recording.rst:323
+#: ../doc/recording.rst:323
 msgid "Mic meter does not move"
 msgstr "Đồng hồ mic không di chuyển"
 
-#: ../recording.rst:323
+#: ../doc/recording.rst:323
 msgid ""
 "Select the correct Input, verify OS microphone permission, and check "
 "mute/gain."
@@ -976,19 +976,19 @@ msgstr ""
 "Chọn đầu vào đúng, xác minh quyền micro của hệ điều hành, và kiểm tra tắt "
 "tiếng/tăng âm."
 
-#: ../recording.rst:324
+#: ../doc/recording.rst:324
 msgid "Mic clips or distorts"
 msgstr "Mic bị cắt hoặc méo tiếng"
 
-#: ../recording.rst:324
+#: ../doc/recording.rst:324
 msgid "Lower hardware/input gain and keep peaks below full scale."
 msgstr "Giảm độ lợi phần cứng/đầu vào và giữ đỉnh dưới mức tối đa."
 
-#: ../recording.rst:325
+#: ../doc/recording.rst:325
 msgid "Mic is very quiet"
 msgstr "Mic rất nhỏ tiếng"
 
-#: ../recording.rst:325
+#: ../doc/recording.rst:325
 msgid ""
 "Raise input gain near the device; timeline waveform height does not change "
 "audio."
@@ -996,11 +996,11 @@ msgstr ""
 "Tăng độ lợi đầu vào gần thiết bị; chiều cao sóng âm trên dòng thời gian "
 "không thay đổi âm thanh."
 
-#: ../recording.rst:326
+#: ../doc/recording.rst:326
 msgid "System Audio is disabled"
 msgstr "Âm thanh hệ thống bị vô hiệu hóa"
 
-#: ../recording.rst:326
+#: ../doc/recording.rst:326
 msgid ""
 "The active screen backend/build does not support it; check platform audio "
 "routing."
@@ -1008,11 +1008,11 @@ msgstr ""
 "Backend/môi trường ghi màn hình hiện tại không hỗ trợ; kiểm tra định tuyến "
 "âm thanh nền tảng."
 
-#: ../recording.rst:327
+#: ../doc/recording.rst:327
 msgid "System Audio is silent"
 msgstr "Âm thanh hệ thống im lặng"
 
-#: ../recording.rst:327
+#: ../doc/recording.rst:327
 msgid ""
 "Play audio before testing, verify the output device, and inspect OS "
 "privacy/routing."
@@ -1020,30 +1020,30 @@ msgstr ""
 "Phát âm thanh trước khi kiểm tra, xác minh thiết bị đầu ra, và kiểm tra "
 "quyền riêng tư/định tuyến của hệ điều hành."
 
-#: ../recording.rst:328
+#: ../doc/recording.rst:328
 msgid "Voice contains game echo"
 msgstr "Giọng nói có tiếng vọng trò chơi"
 
-#: ../recording.rst:328
+#: ../doc/recording.rst:328
 msgid "Use headphones so the mic does not capture speaker playback."
 msgstr "Sử dụng tai nghe để mic không thu lại âm thanh loa phát."
 
-#: ../recording.rst:329
+#: ../doc/recording.rst:329
 msgid "Screen source is incorrect"
 msgstr "Nguồn màn hình không chính xác"
 
-#: ../recording.rst:329
+#: ../doc/recording.rst:329
 msgid ""
 "Re-select Full Screen/Window/Region; on Wayland, choose again in the portal."
 msgstr ""
 "Chọn lại Toàn màn hình/Cửa sổ/Vùng; trên Wayland, chọn lại trong cổng chia "
 "sẻ."
 
-#: ../recording.rst:330
+#: ../doc/recording.rst:330
 msgid "Cursor missing on Windows"
 msgstr "Con trỏ bị mất trên Windows"
 
-#: ../recording.rst:330
+#: ../doc/recording.rst:330
 msgid ""
 "High-DPI scaling can affect the pointer overlay; try the target display at "
 "100%."
@@ -1051,33 +1051,33 @@ msgstr ""
 "Tỉ lệ DPI cao có thể ảnh hưởng đến lớp phủ con trỏ; thử màn hình mục tiêu ở "
 "100%."
 
-#: ../recording.rst:331
+#: ../doc/recording.rst:331
 msgid "Webcam is unavailable"
 msgstr "Webcam không khả dụng"
 
-#: ../recording.rst:331
+#: ../doc/recording.rst:331
 msgid ""
 "Check camera permission, close other camera apps, and reconnect the device."
 msgstr ""
 "Kiểm tra quyền camera, đóng các ứng dụng camera khác, và kết nối lại thiết "
 "bị."
 
-#: ../recording.rst:332
+#: ../doc/recording.rst:332
 msgid "Recording is choppy"
 msgstr "Ghi hình bị giật"
 
-#: ../recording.rst:332
+#: ../doc/recording.rst:332
 msgid ""
 "Lower screen/camera FPS or resolution and close CPU-intensive applications."
 msgstr ""
 "Giảm FPS hoặc độ phân giải màn hình/camera và đóng các ứng dụng sử dụng CPU "
 "cao."
 
-#: ../recording.rst:333
+#: ../doc/recording.rst:333
 msgid "Clips appear on wrong track"
 msgstr "Các đoạn clip xuất hiện trên đường nhạc sai"
 
-#: ../recording.rst:333
+#: ../doc/recording.rst:333
 msgid ""
 "Choose the top destination Track before recording, then move clips if "
 "needed."
@@ -1085,11 +1085,11 @@ msgstr ""
 "Chọn Đường nhạc đích trên cùng trước khi ghi, sau đó di chuyển các đoạn clip"
 " nếu cần."
 
-#: ../recording.rst:337
+#: ../doc/recording.rst:337
 msgid "After Recording"
 msgstr "Sau khi ghi"
 
-#: ../recording.rst:339
+#: ../doc/recording.rst:339
 msgid ""
 "Recorded clips behave like imported media. You can trim, slice, move, mute, "
 "fade, add effects, and adjust volume or layout with the standard editing "
@@ -1100,22 +1100,22 @@ msgstr ""
 "lượng hoặc bố cục bằng các công cụ chỉnh sửa tiêu chuẩn. Các chủ đề tiếp "
 "theo hữu ích là:"
 
-#: ../recording.rst:342
+#: ../doc/recording.rst:342
 msgid ":ref:`clips_cutting_slicing_ref` for trimming and slicing."
 msgstr ":ref:`clips_cutting_slicing_ref` for trimming and slicing."
 
-#: ../recording.rst:343
+#: ../doc/recording.rst:343
 msgid ""
 ":ref:`clip_presets_ref` for waveform, volume, fade, and other clip actions."
 msgstr ""
 ":ref:`clip_presets_ref` for waveform, volume, fade, and other clip actions."
 
-#: ../recording.rst:344
+#: ../doc/recording.rst:344
 msgid ""
 ":ref:`clip_properties_ref` for webcam placement and detailed adjustments."
 msgstr ""
 ":ref:`clip_properties_ref` for webcam placement and detailed adjustments."
 
-#: ../recording.rst:345
+#: ../doc/recording.rst:345
 msgid ":ref:`playback_ref` for playback and audio troubleshooting."
 msgstr ":ref:`playback_ref` for playback and audio troubleshooting."

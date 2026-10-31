@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,12 +18,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:21
+#: ../doc/getting_started.rst:21
 msgid "Video Editing Basics"
 msgstr "视频编辑基础"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:23
+#: ../doc/getting_started.rst:23
 msgid ""
 "You do not need to be a trained videographer to understand how to create "
 "videos well. Simple editing can keep your viewers engaged longer, and add a "
@@ -32,7 +32,7 @@ msgstr ""
 "你不需要成为受过训练的视频摄影师也能理解如何制作出色的视频。简单的编辑可以让观众更长时间地保持兴趣，并增添专业感，即使你不是专业的视频编辑。"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:27
+#: ../doc/getting_started.rst:27
 msgid ""
 "Basically, video editing is taking footage, cutting it up, removing the "
 "pieces you do not want, and keeping the bits you do. Back in the old days, "
@@ -42,37 +42,37 @@ msgstr ""
 "基本上，视频编辑就是剪辑素材，去除不需要的部分，保留你想要的片段。过去，编辑是切割胶片并拼接起来。幸运的是，软件让整个过程变得更加易于操作。"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:32
+#: ../doc/getting_started.rst:32
 msgid "There are three main jobs of video editing:"
 msgstr "视频编辑有三个主要任务："
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:34
+#: ../doc/getting_started.rst:34
 msgid "Remove mistakes or unwanted sections"
 msgstr "去除错误或不需要的部分"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:35
+#: ../doc/getting_started.rst:35
 msgid "Keep the video moving at an engaging pace"
 msgstr "保持视频节奏吸引人"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:36
+#: ../doc/getting_started.rst:36
 msgid "Insert supporting footage, audio, or titles"
 msgstr "插入辅助画面、音频或标题"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:38
+#: ../doc/getting_started.rst:38
 msgid "Use these three points as a checklist as you edit."
 msgstr "在编辑时以这三点作为检查清单。"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:41
+#: ../doc/getting_started.rst:41
 msgid "Computer"
 msgstr "电脑"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:42
+#: ../doc/getting_started.rst:42
 msgid ""
 "Video editing does not require an expensive machine, especially if you are a"
 " beginner. However, it would be best if you had a more recent monitor and "
@@ -86,12 +86,12 @@ msgstr ""
 ":ref:`min_system_req_ref` 检查系统规格，确保适合视频编辑。不幸的是，许多旧电脑速度不足以支持视频编辑，建议尽可能升级整套系统。"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:50
+#: ../doc/getting_started.rst:50
 msgid "Accessories"
 msgstr "配件"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:51
+#: ../doc/getting_started.rst:51
 msgid ""
 "Before beginning a video project, ensure there is enough storage space on "
 "your computer to save all the necessary clips. For example, one hour of "
@@ -103,7 +103,7 @@ msgstr ""
 "DV摄像机拍摄）大约占用11GB存储空间。如果电脑内部存储无法容纳所有剪辑，解决方案是购买外置硬盘。"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:57
+#: ../doc/getting_started.rst:57
 msgid ""
 "It would help if you had several cables, usually Firewire or USB, to connect"
 " your computer, external hard drive, and a camera. Different computers and "
@@ -112,12 +112,12 @@ msgid ""
 msgstr "你需要几根电缆，通常是Firewire或USB，用于连接电脑、外置硬盘和摄像机。不同的电脑和摄像机支持不同的接口，购买前请查阅说明书。"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:63
+#: ../doc/getting_started.rst:63
 msgid "Practical Tips"
 msgstr "实用技巧"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:64
+#: ../doc/getting_started.rst:64
 msgid ""
 "Becoming a great video editor isn’t effortless, but with practice and "
 "patience, you’ll be editing like a professional in no time. Here are a few "
@@ -126,12 +126,12 @@ msgid ""
 msgstr "成为优秀的视频编辑并非轻而易举，但通过练习和耐心，你很快就能像专业人士一样编辑。以下是成为熟练视频编辑所需了解的一些基本技巧和方法。"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:69
+#: ../doc/getting_started.rst:69
 msgid "Pick the Right Computer"
 msgstr "选择合适的电脑"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:70
+#: ../doc/getting_started.rst:70
 msgid ""
 "While having a great computer won’t necessarily make you a great video "
 "editor, a faster computer will allow you to focus more of your time on the "
@@ -142,11 +142,11 @@ msgstr ""
 "拥有一台好电脑不一定能让你成为优秀的视频编辑，但更快的电脑能让你把更多时间专注于讲述故事，而不是等待电脑渲染。每个人对哪种电脑最适合编辑都有自己的看法，这取决于你的个人偏好。"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:77
+#: ../doc/getting_started.rst:77
 msgid "Keep Shooting"
 msgstr "持续拍摄"
 
-#: ../getting_started.rst:78
+#: ../doc/getting_started.rst:78
 msgid ""
 "Record more video and audio than you think you will need for your project. "
 "Include video that enhances the scene, sets a mood, or tells a story. You "
@@ -160,15 +160,15 @@ msgid ""
 msgstr ""
 "录制比您认为项目所需更多的视频和音频。包括能够增强场景、营造氛围或讲述故事的视频。您可以使用额外的视频来实现项目中的平滑过渡。如果您的项目需要配音、旁白、屏幕录制或网络摄像头录像，您可以使用"
 " :guilabel:`视图->录制视图` 打开 OpenShot 的录制工具。有关麦克风、系统音频、屏幕和网络摄像头选项的更多详细信息，请参见 "
-":ref:`recording_ref`。对于更专业的捕获工作流程，您仍然可以使用外部应用程序录制并将完成的媒体导入 OpenShot。"
+":ref:`recording_ref`\\ 。对于更专业的捕获工作流程，您仍然可以使用外部应用程序录制并将完成的媒体导入 OpenShot。"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:88
+#: ../doc/getting_started.rst:88
 msgid "Organize Your Project Files"
 msgstr "整理项目文件"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:89
+#: ../doc/getting_started.rst:89
 msgid ""
 "Composition is the key to success, whether you are running Linux, on a Mac, "
 "or a Windows machine. Be sure to label video files, audio files, and even "
@@ -182,12 +182,12 @@ msgstr ""
 "会跟踪你的剪辑，但如果项目保存后移动了文件，可能会导致整个项目丢失。编辑前的整理非常重要。"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:98
+#: ../doc/getting_started.rst:98
 msgid "Watch Everything"
 msgstr "观看所有素材"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:99
+#: ../doc/getting_started.rst:99
 msgid ""
 "Watching everything is the first step in the editing process. Writer and "
 "filmmaker David Andrew Stoler says there is gold in the most unlikely of "
@@ -198,12 +198,12 @@ msgstr ""
 "说，最不可能的地方藏有宝藏：“演员最美的表情往往是在剪辑之后捕捉到的。”"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:105
+#: ../doc/getting_started.rst:105
 msgid "Edit for a Story"
 msgstr "为故事而编辑"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:106
+#: ../doc/getting_started.rst:106
 msgid ""
 "Remember that as you edit, you are telling a story. Editing is so much more "
 "than merely cutting footage and adding effects. It is an opportunity to take"
@@ -214,12 +214,12 @@ msgstr ""
 "记住，编辑时你是在讲述一个故事。编辑不仅仅是剪辑素材和添加特效，而是带领观众踏上一段旅程。无论你是在编辑复杂的叙事影片，还是制作个人视频，你都在讲述更深层次的故事。"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:113
+#: ../doc/getting_started.rst:113
 msgid "Keyboard Shortcuts"
 msgstr "键盘快捷键"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:114
+#: ../doc/getting_started.rst:114
 msgid ""
 "One of the easiest ways to tell the difference between and professional "
 "video editor and a novice is to simply look at how much they use the "
@@ -228,12 +228,12 @@ msgid ""
 msgstr "区分专业视频编辑和新手的最简单方法之一就是看他们使用键盘的频率。经验丰富的编辑知道，节省的几秒钟在整个项目中会累计成显著的时间。"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:120
+#: ../doc/getting_started.rst:120
 msgid "Learn the Lingo"
 msgstr "学习术语"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:121
+#: ../doc/getting_started.rst:121
 msgid ""
 "Video editing is not just a hobby or a profession; it is an industry. And "
 "just like any industry, there is a ton of jargon to learn. Practically "
@@ -245,12 +245,12 @@ msgstr ""
 "中的所有术语才能成为更好的视频编辑，但基本的术语知识有助于你更好地与其他编辑或客户沟通。"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:129
+#: ../doc/getting_started.rst:129
 msgid "Assemble, Then Make a Rough Cut"
 msgstr "组装素材，然后制作粗剪"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:130
+#: ../doc/getting_started.rst:130
 msgid ""
 "Drag and drop all your video footage into a timeline and make sure your "
 "frame size and frame rates are consistent. Begin a new timeline and drag-"
@@ -260,12 +260,12 @@ msgstr ""
 "将所有视频素材拖放到时间线上，并确保帧大小和帧率一致。开始一个新的时间线，将最佳剪辑拖放到组装剪辑中。记得经常保存您的工作，并记录每个版本的日期和时间。"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:136
+#: ../doc/getting_started.rst:136
 msgid "Refine Your Video"
 msgstr "完善您的视频"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:137
+#: ../doc/getting_started.rst:137
 msgid ""
 "In this phase, your rough cut begins to resemble a cohesive project. Adjust "
 "the sound and color, make sure the dialog is audible, and add music, titles,"
@@ -277,12 +277,12 @@ msgstr ""
 "在此阶段，您的粗剪开始呈现出一个连贯的项目。调整声音和色彩，确保对话清晰可听，并添加音乐、标题或图形。色彩校正是将素材调整到一个色彩基准的过程。无论拍摄对象多么出色，您几乎总需要进行一些基本的后期处理以保证视频的一致性。"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:145
+#: ../doc/getting_started.rst:145
 msgid "Refine Some More"
 msgstr "进一步完善"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:146
+#: ../doc/getting_started.rst:146
 msgid ""
 "A slow scene can set the mood and add tension or it can bore an audience. A "
 "fast scene can add adrenaline to your audience’s systems or it can give them"
@@ -293,12 +293,12 @@ msgstr ""
 "慢节奏的场景可以营造氛围和紧张感，也可能让观众感到无聊。快节奏的场景可以激发观众的肾上腺素，也可能让他们头痛。一些剪辑师会多次以不同方式剪辑项目，直到找到合适的节奏。不要因为多次剪辑而气馁。"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:153
+#: ../doc/getting_started.rst:153
 msgid "Exporting"
 msgstr "导出"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:154
+#: ../doc/getting_started.rst:154
 msgid ""
 "People view most of their projects on phones, tablets, or computers, so it "
 "is essential to know how to export for the web. The goal when exporting a "
@@ -309,12 +309,12 @@ msgstr ""
 "大多数人会在手机、平板或电脑上观看他们的项目，因此了解如何为网络导出非常重要。为网络导出视频的目标是以最小的文件大小获得最高的质量。决定最终视频文件大小的四个主要因素是："
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:160
+#: ../doc/getting_started.rst:160
 msgid "Codec"
 msgstr "编码器"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:161
+#: ../doc/getting_started.rst:161
 msgid ""
 "A codec determines the type of file format (MP4, AVI, MOV). The more "
 "compression performed by the codec, the smaller your video’s size. Videos "
@@ -322,12 +322,12 @@ msgid ""
 msgstr "编码器决定文件格式类型（MP4、AVI、MOV）。编码器压缩越多，视频文件越小。文件较小的视频通常视觉质量较低。"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:166
+#: ../doc/getting_started.rst:166
 msgid "Resolution"
 msgstr "分辨率"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:167
+#: ../doc/getting_started.rst:167
 msgid ""
 "Resolution refers to the number of horizontal and vertical pixels (dots on "
 "display) your video contains. For example, a 4K UHD (2160P) video has four "
@@ -338,12 +338,12 @@ msgstr ""
 "UHD（2160P）视频的分辨率是FHD（1080P）视频的四倍。更高的分辨率意味着更多的信息需要存储，因此文件大小更大。"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:173
+#: ../doc/getting_started.rst:173
 msgid "Bit Rate"
 msgstr "比特率"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:174
+#: ../doc/getting_started.rst:174
 msgid ""
 "The Bit Rate is the measure of the speed of data processing of your video. A"
 " higher bit rate means higher-quality video and larger files. OpenShot "
@@ -353,12 +353,12 @@ msgstr ""
 "比特率是衡量视频数据处理速度的指标。更高的比特率意味着更高质量的视频和更大的文件。OpenShot允许您在导出视频窗口的高级选项卡中手动设置比特率/质量。"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:180
+#: ../doc/getting_started.rst:180
 msgid "Frame Rate"
 msgstr "帧率"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:181
+#: ../doc/getting_started.rst:181
 msgid ""
 "The frequency (in Hz) at which consecutive images, called frames, appear on "
 "the display is the Frame Rate. Typically, you export your video in the film "
@@ -369,12 +369,12 @@ msgstr ""
 "帧率是指连续图像（称为帧）在显示器上出现的频率（以赫兹为单位）。通常，您会以电影标准（24fps）或电视广播标准（30fps，PAL制式为25fps）导出视频。虽然这里的调整空间不大，但请注意，如果您选择以48fps、50fps或60fps导出，文件大小将翻倍。"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:188
+#: ../doc/getting_started.rst:188
 msgid "Conclusion"
 msgstr "总结"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:189
+#: ../doc/getting_started.rst:189
 msgid ""
 "In conclusion, video editing is an accessible skill that can elevate your "
 "video content even if you're not a professional videographer. With the "

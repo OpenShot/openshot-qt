@@ -1,0 +1,1912 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) OpenShot Studios, LLC
+# This file is distributed under the same license as the OpenShot Video Editor package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenShot Video Editor 4.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../doc/keyboard.rst:4
+msgid "Keyboard Shortcuts"
+msgstr "Pikanäppäimet"
+
+#: ../doc/keyboard.rst:5
+msgid ""
+"Find shortcuts by task below, or jump to the full reference. These are the "
+"default assignments; customize them in :guilabel:`Edit → Preferences → "
+"Keyboard` (:guilabel:`OpenShot Video Editor → Preferences` on macOS). See "
+":ref:`preferences_keyboard_ref` for details."
+msgstr ""
+"Etsi pikanäppäimiä tehtävän mukaan alta tai siirry täydelliseen viitteeseen."
+" Nämä ovat oletusasetukset; mukauta niitä kohdassa :guilabel:`Muokkaa → "
+"Asetukset → Näppäimistö` (:guilabel:`OpenShot Video Editor → Asetukset` "
+"macOS:llä). Katso lisätietoja kohdasta :ref:`preferences_keyboard_ref`."
+
+#: ../doc/keyboard.rst:10
+msgid "On macOS, use Command for shortcuts shown with Ctrl."
+msgstr "macOS:llä käytä Command-näppäintä Ctrl:n sijaan pikanäppäimissä."
+
+#: ../doc/keyboard.rst:14
+msgid "On this page"
+msgstr "Tällä sivulla"
+
+#: ../doc/keyboard.rst:19
+msgid "Using the timeline with a keyboard"
+msgstr "Aikajanan käyttäminen näppäimistöllä"
+
+#: ../doc/keyboard.rst:20
+msgid ""
+"Focus the timeline before selecting, moving, or trimming clips and "
+"transitions with these shortcuts."
+msgstr ""
+"Kohdista aikajana ennen leikkeiden ja siirtymien valitsemista, siirtämistä "
+"tai rajaamista näillä pikanäppäimillä."
+
+#: ../doc/keyboard.rst:23
+msgid "Moving between panels"
+msgstr "Siirtyminen paneelien välillä"
+
+#: ../doc/keyboard.rst:29 ../doc/keyboard.rst:153 ../doc/keyboard.rst:186
+#: ../doc/keyboard.rst:224 ../doc/keyboard.rst:250 ../doc/keyboard.rst:389
+#: ../doc/keyboard.rst:420
+msgid "Action"
+msgstr "Toiminto"
+
+#: ../doc/keyboard.rst:30 ../doc/keyboard.rst:111 ../doc/keyboard.rst:154
+#: ../doc/keyboard.rst:187 ../doc/keyboard.rst:225 ../doc/keyboard.rst:251
+msgid "Shortcut"
+msgstr "Pikanäppäin"
+
+#: ../doc/keyboard.rst:31 ../doc/keyboard.rst:522
+msgid "Focus Project Files"
+msgstr "Kohdista projektitiedostoihin"
+
+#: ../doc/keyboard.rst:32 ../doc/keyboard.rst:523
+msgid ":kbd:`Shift+1`"
+msgstr ":kbd:`Shift+1`"
+
+#: ../doc/keyboard.rst:33
+msgid "Preview the selected file or timeline clip's source"
+msgstr "Esikatsele valitun tiedoston tai aikajanan leikkeen lähdettä"
+
+#: ../doc/keyboard.rst:34 ../doc/keyboard.rst:394 ../doc/keyboard.rst:601
+msgid ":kbd:`Shift+2` or :kbd:`Alt+P`"
+msgstr ":kbd:`Shift+2` tai :kbd:`Alt+P`"
+
+#: ../doc/keyboard.rst:35
+msgid "Focus the timeline"
+msgstr "Kohdista aikajana"
+
+#: ../doc/keyboard.rst:36 ../doc/keyboard.rst:526
+msgid ":kbd:`Shift+3`"
+msgstr ":kbd:`Shift+3`"
+
+#: ../doc/keyboard.rst:37 ../doc/keyboard.rst:528
+msgid "Focus Transitions"
+msgstr "Kohdista siirtymiin"
+
+#: ../doc/keyboard.rst:38 ../doc/keyboard.rst:529
+msgid ":kbd:`Shift+7`"
+msgstr ":kbd:`Shift+7`"
+
+#: ../doc/keyboard.rst:39 ../doc/keyboard.rst:516
+msgid "Focus Effects"
+msgstr "Kohdista tehosteisiin"
+
+#: ../doc/keyboard.rst:40 ../doc/keyboard.rst:517
+msgid ":kbd:`Shift+8`"
+msgstr ":kbd:`Shift+8`"
+
+#: ../doc/keyboard.rst:41 ../doc/keyboard.rst:519
+msgid "Focus Emojis"
+msgstr "Kohdista emojeihin"
+
+#: ../doc/keyboard.rst:42 ../doc/keyboard.rst:520
+msgid ":kbd:`Shift+9`"
+msgstr ":kbd:`Shift+9`"
+
+#: ../doc/keyboard.rst:43
+msgid "Move to the next / previous control"
+msgstr "Siirry seuraavaan / edelliseen ohjaimeen"
+
+#: ../doc/keyboard.rst:44 ../doc/keyboard.rst:46
+msgid ":kbd:`Tab` / :kbd:`Shift+Tab`"
+msgstr ":kbd:`Tab` / :kbd:`Shift+Tab`"
+
+#: ../doc/keyboard.rst:45
+msgid "Focus the next / previous dock tab title without selecting it"
+msgstr ""
+"Kohdista seuraavaan / edelliseen telakan välilehden otsikkoon valitsematta "
+"sitä"
+
+#: ../doc/keyboard.rst:47
+msgid "Move focus between dock tab titles"
+msgstr "Siirrä kohdistusta telakan välilehtien otsikoiden välillä"
+
+#: ../doc/keyboard.rst:48
+msgid ":kbd:`Left` / :kbd:`Right` while a title has focus"
+msgstr ":kbd:`Vasen` / :kbd:`Oikea` kun otsikko on kohdistettuna"
+
+#: ../doc/keyboard.rst:49
+msgid "Activate the focused dock tab and enter its first control"
+msgstr ""
+"Aktivoi kohdistettu telakan välilehti ja siirry sen ensimmäiseen ohjaimeen"
+
+#: ../doc/keyboard.rst:50
+msgid ":kbd:`Space` or :kbd:`Enter`"
+msgstr ":kbd:`Välilyönti` tai :kbd:`Enter`"
+
+#: ../doc/keyboard.rst:51
+msgid "Browse Project Files, transitions, effects, or emojis"
+msgstr "Selaa projektitiedostoja, siirtymiä, tehosteita tai emojeja"
+
+#: ../doc/keyboard.rst:52
+msgid "Arrow keys while the list has focus"
+msgstr "Nuolinäppäimet kun lista on kohdistettuna"
+
+#: ../doc/keyboard.rst:54
+msgid ""
+"Each grouped dock title is a separate Tab stop. Its normal focus style marks"
+" the focused title (an underline in Cosmic Dusk); moving focus does not "
+"change the selected dock. Activate a title to switch docks and focus its "
+"first control. Clicking a dock tab also focuses its first control, even if "
+"that tab is already selected. Only the active dock's visible controls "
+"participate in the Tab sequence; hidden dock controls are skipped."
+msgstr ""
+"Jokainen ryhmitelty telakan otsikko on oma Tab-pysäkkinsä. Sen normaali "
+"kohdistustyyli merkitsee kohdistetun otsikon (alleviivaus Cosmic Duskissa); "
+"kohdistuksen siirtäminen ei vaihda valittua telakkaa. Aktivoi otsikko "
+"vaihtaaksesi telakkaa ja kohdistuaksesi sen ensimmäiseen ohjaimeen. Telakan "
+"välilehden napsautus kohdistaa myös sen ensimmäiseen ohjaimeen, vaikka "
+"välilehti olisi jo valittu. Vain aktiivisen telakan näkyvät ohjaimet "
+"osallistuvat Tab-järjestykseen; piilotetut ohjaimet ohitetaan."
+
+#: ../doc/keyboard.rst:61
+msgid ""
+"When focus is inside a dock, the underline stays beneath its active tab. "
+"When you Tab between titles, the underline follows the focused title. The "
+"timeline itself is one Tab stop; Tab does not visit each clip or transition."
+msgstr ""
+"Kun kohdistus on telakassa, alleviivaus pysyy aktiivisen välilehden alla. "
+"Kun siirryt Tabilla otsikoiden välillä, alleviivaus seuraa kohdistettua "
+"otsikkoa. Aikajana itsessään on yksi Tab-pysäkki; Tab ei käy läpi jokaista "
+"leikkeen tai siirtymän kohdetta."
+
+#: ../doc/keyboard.rst:65
+msgid ""
+"The timeline's ruler and track headers, including their labels, dim when "
+"unfocused. The clip area stays the same. In Cosmic Dusk, a blue underline "
+"marks the focused dock's title text or active tab, and buttons show a blue "
+"focus border. The untitled timeline dock has no underline."
+msgstr ""
+"Aikajanan viivoitin ja raidat, mukaan lukien niiden otsikot, himmenevät kun "
+"ne eivät ole kohdistettuina. Leikealue pysyy samana. Cosmic Duskissa sininen"
+" alleviivaus merkitsee kohdistetun telakan otsikkotekstiä tai aktiivista "
+"välilehteä, ja painikkeet näyttävät sinisen kohdistuskehyksen. Nimettömällä "
+"aikajanan telakalla ei ole alleviivausta."
+
+#: ../doc/keyboard.rst:71
+msgid "Previewing a source"
+msgstr "Lähteen esikatselu"
+
+#: ../doc/keyboard.rst:72
+msgid ""
+"Press :kbd:`Shift+2` or :kbd:`Alt+P` with focus in Project Files to preview "
+"the selected file. With focus on the timeline, the same command previews the"
+" active selected clip from its Start point. With multiple items selected, "
+"the active selection anchor determines the source. Transitions and clips "
+"without an available project file do not open a source preview."
+msgstr ""
+"Paina :kbd:`Shift+2` tai :kbd:`Alt+P` kun kohdistus on Projektitiedostoissa "
+"esikatselemaan valittua tiedostoa. Kun kohdistus on aikajanalla, sama "
+"komento esikatselee aktiivisen valitun leikkeen aloituspisteestä. Kun useita"
+" kohteita on valittuna, aktiivinen valinnan ankkuri määrittää lähteen. "
+"Siirtymät ja leikkeet ilman saatavilla olevaa projektitiedostoa eivät avaa "
+"lähteen esikatselua."
+
+#: ../doc/keyboard.rst:78
+msgid ""
+"An existing preview for the same file or the same timeline clip is reused. "
+"Different timeline clips have separate range-editing targets, even if they "
+"use the same source. When neither the file list nor the timeline has focus, "
+"the command does nothing."
+msgstr ""
+"Sama tiedosto tai aikajanan leike käyttää olemassa olevaa esikatselua "
+"uudelleen. Eri aikajanan leikkeillä on omat alueen muokkauskohteensa, vaikka"
+" ne käyttäisivät samaa lähdettä. Kun ei tiedostolista eikä aikajana ole "
+"kohdistettuna, komento ei tee mitään."
+
+#: ../doc/keyboard.rst:83
+msgid ""
+"In Preview File, click or drag the source ruler to scrub. Preview Clip and "
+"Split File also provide range editing: drag the Start/End grips, move the "
+"selected filmstrip range, draw a new range outside it, or edit their "
+"timecodes, or press :kbd:`I` / :kbd:`O` to set a marker at the playhead. End"
+" is the last included frame. :guilabel:`Loop` repeats the marked range. The "
+"preview uses your configured timeline playback and range-editing shortcuts: "
+":kbd:`,` / :kbd:`.` move the range one frame (:kbd:`Shift` moves five). "
+":kbd:`[` selects Start for trimming, :kbd:`]` selects End; comma and period "
+"then trim that edge. :kbd:`Esc` leaves trim mode before closing the dialog. "
+":kbd:`Left` / :kbd:`Right` scrub frames without changing the range. "
+":kbd:`Space` toggles playback, :kbd:`J` / :kbd:`L` change playback speed and"
+" :kbd:`K` pauses. These shortcuts leave text entry alone in Name and "
+"timecodes."
+msgstr ""
+"Esikatsele tiedostoa -tilassa napsauta tai vedä lähdeviivoitinta "
+"kelataksesi. Esikatsele leike ja Jaa tiedosto -tilat tarjoavat myös alueen "
+"muokkauksen: vedä Aloitus/Lopetus kahvoja, siirrä valittua filmiraitaa, "
+"piirrä uusi alue sen ulkopuolelle tai muokkaa niiden aikakoodeja, tai paina "
+":kbd:`I` / :kbd:`O` asettaaksesi merkin toistopäähän. Lopetus on viimeinen "
+"sisällytetty ruutu. :guilabel:`Toista` toistaa merkittyä aluetta. Esikatselu"
+" käyttää määritettyjä aikajanan toisto- ja alueen muokkauspikanäppäimiä: "
+":kbd:`,` / :kbd:`.` siirtävät aluetta yhden ruudun (:kbd:`Shift` siirtää "
+"viisi). :kbd:`[` valitsee Aloituksen rajaukseen, :kbd:`]` valitsee "
+"Lopetuksen; pilkku ja piste sitten rajaavat kyseisen reunan. :kbd:`Esc` "
+"poistuu rajaus-tilasta ennen ikkunan sulkemista. :kbd:`Vasen` / :kbd:`Oikea`"
+" kelaa ruutuja muuttamatta aluetta. :kbd:`Välilyönti` vaihtaa toiston "
+"päälle/pois, :kbd:`J` / :kbd:`L` muuttavat toistonopeutta ja :kbd:`K` "
+"pysäyttää. Nämä pikanäppäimet eivät vaikuta tekstin syöttöön Nimi- ja "
+"aikakoodikentissä."
+
+#: ../doc/keyboard.rst:96
+msgid ""
+"Scrubbing and moving markers do not edit the project until you click the "
+"dialog's Create, Update, or Update Clip button. See :ref:`split_clip_ref`."
+msgstr ""
+"Raahaus ja merkkien siirtäminen eivät muokkaa projektia ennen kuin napsautat"
+" valintaikkunan Luo, Päivitä tai Päivitä leike -painiketta. Katso "
+":ref:`split_clip_ref`."
+
+#: ../doc/keyboard.rst:100
+msgid "Adding and applying assets"
+msgstr "Resurssien lisääminen ja soveltaminen"
+
+#: ../doc/keyboard.rst:101
+msgid ""
+"The panel shortcuts above open the dock and focus its asset list directly. "
+"Use the arrow keys to choose an asset, then :kbd:`Ctrl+Enter` to add or "
+"apply it. Your existing browser selection is preserved; if nothing is "
+"selected, focusing the browser selects its current item or the first "
+"available item."
+msgstr ""
+"Yllä olevat paneelin pikanäppäimet avaavat telakan ja kohdistavat suoraan "
+"sen resurssiluetteloon. Käytä nuolinäppäimiä valitaksesi resurssi, sitten "
+":kbd:`Ctrl+Enter` lisätäksesi tai soveltaaksesi sitä. Nykyinen selaimen "
+"valintasi säilyy; jos mitään ei ole valittuna, selaimen kohdistaminen "
+"valitsee sen nykyisen kohteen tai ensimmäisen saatavilla olevan kohteen."
+
+#: ../doc/keyboard.rst:110
+msgid "Panel / action"
+msgstr "Paneeli / toiminto"
+
+#: ../doc/keyboard.rst:112
+msgid "Result"
+msgstr "Tulos"
+
+#: ../doc/keyboard.rst:113
+msgid "Project Files: add selected files"
+msgstr "Projektitiedostot: lisää valitut tiedostot"
+
+#: ../doc/keyboard.rst:114 ../doc/keyboard.rst:117 ../doc/keyboard.rst:120
+#: ../doc/keyboard.rst:123 ../doc/keyboard.rst:430
+msgid ":kbd:`Ctrl+Enter`"
+msgstr ":kbd:`Ctrl+Enter`"
+
+#: ../doc/keyboard.rst:115
+msgid ""
+"Place files sequentially at the playhead, in browser order, on the target "
+"track."
+msgstr ""
+"Aseta tiedostot peräkkäin toistopään kohdalle selaimen järjestyksessä "
+"kohderadalle."
+
+#: ../doc/keyboard.rst:116
+msgid "Effects: apply selected effects"
+msgstr "Tehosteet: sovella valittuja tehosteita"
+
+#: ../doc/keyboard.rst:118
+msgid ""
+"Apply to the selected timeline clips. Browsing effects keeps that clip "
+"selection."
+msgstr ""
+"Sovella valittuihin aikajanaleikkeisiin. Tehosteiden selaaminen säilyttää "
+"leikkeiden valinnan."
+
+#: ../doc/keyboard.rst:119
+msgid "Transitions: add selected transitions"
+msgstr "Siirtymät: lisää valitut siirtymät"
+
+#: ../doc/keyboard.rst:121
+msgid ""
+"Place at the playhead on the target track, using the default transition "
+"length."
+msgstr ""
+"Aseta toistopään kohdalle kohderadalle käyttäen oletussiirtymän pituutta."
+
+#: ../doc/keyboard.rst:122
+msgid "Emojis: add selected emoji"
+msgstr "Emojit: lisää valittu emoji"
+
+#: ../doc/keyboard.rst:124
+msgid ""
+"Place at the playhead on the target track, using the default image length."
+msgstr "Aseta toistopään kohdalle kohderadalle käyttäen oletuskuvan pituutta."
+
+#: ../doc/keyboard.rst:125
+msgid "Open the Add to Timeline dialog for selected files"
+msgstr "Avaa Lisää aikajanalle -valintaikkuna valituille tiedostoille"
+
+#: ../doc/keyboard.rst:126 ../doc/keyboard.rst:436
+msgid ":kbd:`Ctrl+Alt+A`"
+msgstr ":kbd:`Ctrl+Alt+A`"
+
+#: ../doc/keyboard.rst:127
+msgid "Choose placement and other options before adding the files."
+msgstr "Valitse sijoitus ja muut asetukset ennen tiedostojen lisäämistä."
+
+#: ../doc/keyboard.rst:129
+msgid ""
+"The target is the selected timeline item's track, or the remembered track if"
+" nothing is selected. With neither available, OpenShot uses the highest "
+"unlocked track. The target track label appears **bold** while browsing "
+"assets. To change it, select an item on the desired track or clear the "
+"timeline selection and click the desired track before returning to the "
+"browser. A locked target blocks the operation; effects also require selected"
+" clips on unlocked tracks."
+msgstr ""
+"Kohde on valitun aikajanan kohteen raita tai muistettu raita, jos mitään ei "
+"ole valittuna. Jos kumpaakaan ei ole, OpenShot käyttää korkeinta "
+"lukitsematonta raitaa. Kohderaidan etiketti näkyy **lihavoituna** resurssien"
+" selaamisen aikana. Vaihtaaksesi sitä, valitse kohde halutulta raidalta tai "
+"tyhjennä aikajanan valinta ja napsauta haluttua raitaa ennen palaamista "
+"selaimeen. Lukittu kohde estää toiminnon; tehosteet vaativat myös valitut "
+"leikkeet lukitsemattomilla raidoilla."
+
+#: ../doc/keyboard.rst:136
+msgid ""
+"Adding at the playhead uses normal OpenShot placement: it does not make room"
+" by shifting later clips or overwrite their content. As with dragging a "
+"single clip, an overlap can create an automatic transition. The playhead "
+"stays in place and focus stays in the browser, so you can continue choosing "
+"assets. Press :kbd:`Shift+3` to edit the newly added timeline items."
+msgstr ""
+"Lisääminen toistopään kohdalle käyttää normaalia OpenShotin sijoitusta: se "
+"ei tee tilaa siirtämällä myöhempiä leikkeitä eikä korvaa niiden sisältöä. "
+"Kuten yksittäisen leikkeen raahaamisessa, päällekkäisyys voi luoda "
+"automaattisen siirtymän. Toistopää pysyy paikallaan ja kohdistus pysyy "
+"selaimessa, joten voit jatkaa resurssien valintaa. Paina :kbd:`Shift+3` "
+"muokataksesi juuri lisättyjä aikajanan kohteita."
+
+#: ../doc/keyboard.rst:142
+msgid ""
+"For example: :kbd:`Shift+1` → arrow keys → :kbd:`Ctrl+Enter` → "
+":kbd:`Shift+3`. The add/apply shortcut works in the asset list, not while "
+"typing in a filter or renaming an item."
+msgstr ""
+"Esimerkiksi: :kbd:`Shift+1` → nuolinäppäimet → :kbd:`Ctrl+Enter` → "
+":kbd:`Shift+3`. Lisää/sovella-pikanäppäin toimii resurssiluettelossa, ei "
+"suodattimen kirjoittamisen tai kohteen uudelleennimeämisen aikana."
+
+#: ../doc/keyboard.rst:147
+msgid "Moving the playhead"
+msgstr "Toistopään siirtäminen"
+
+#: ../doc/keyboard.rst:155
+msgid "Step backward / forward one frame"
+msgstr "Siirry taaksepäin / eteenpäin yhdellä ruudulla"
+
+#: ../doc/keyboard.rst:156
+msgid ":kbd:`Left` / :kbd:`Right`"
+msgstr ":kbd:`Left` / :kbd:`Right`"
+
+#: ../doc/keyboard.rst:157
+msgid "Step backward / forward five frames"
+msgstr "Siirry taaksepäin / eteenpäin viidellä ruudulla"
+
+#: ../doc/keyboard.rst:158
+msgid ":kbd:`Shift+Left` / :kbd:`Shift+Right`"
+msgstr ":kbd:`Shift+Left` / :kbd:`Shift+Right`"
+
+#: ../doc/keyboard.rst:159
+msgid "Go to the previous / next edit"
+msgstr "Siirry edelliseen / seuraavaan muokkaukseen"
+
+#: ../doc/keyboard.rst:160
+msgid ":kbd:`Up` / :kbd:`Down`"
+msgstr ":kbd:`Up` / :kbd:`Down`"
+
+#: ../doc/keyboard.rst:161
+msgid "Jump to the start / end"
+msgstr "Siirry alkuun / loppuun"
+
+#: ../doc/keyboard.rst:162
+msgid ":kbd:`Home` / :kbd:`End`"
+msgstr ":kbd:`Home` / :kbd:`End`"
+
+#: ../doc/keyboard.rst:163
+msgid "Center the timeline on the playhead"
+msgstr "Keskitä aikajana toistopään kohdalle"
+
+#: ../doc/keyboard.rst:164 ../doc/keyboard.rst:451
+msgid ":kbd:`Shift+C`"
+msgstr ":kbd:`Shift+C`"
+
+#: ../doc/keyboard.rst:165 ../doc/keyboard.rst:292
+msgid "Play / pause"
+msgstr "Toista / keskeytä"
+
+#: ../doc/keyboard.rst:166 ../doc/keyboard.rst:595
+msgid ":kbd:`Space`"
+msgstr ":kbd:`Space`"
+
+#: ../doc/keyboard.rst:167
+msgid "Play in reverse"
+msgstr "Toista taaksepäin"
+
+#: ../doc/keyboard.rst:168 ../doc/keyboard.rst:634
+msgid ":kbd:`J`"
+msgstr ":kbd:`J`"
+
+#: ../doc/keyboard.rst:169
+msgid "Stop playback"
+msgstr "Pysäytä toisto"
+
+#: ../doc/keyboard.rst:170 ../doc/keyboard.rst:712
+msgid ":kbd:`K`"
+msgstr ":kbd:`K`"
+
+#: ../doc/keyboard.rst:171
+msgid "Play forward"
+msgstr "Toista eteenpäin"
+
+#: ../doc/keyboard.rst:172 ../doc/keyboard.rst:511
+msgid ":kbd:`L`"
+msgstr ":kbd:`L`"
+
+#: ../doc/keyboard.rst:174
+msgid ""
+"Edit navigation uses the selected item's track, or the last clicked track if"
+" nothing is selected. With no active track, it starts on the highest track "
+"containing a clip or transition at the playhead, or the highest populated "
+"track in a gap."
+msgstr ""
+"Muokkausnavigointi käyttää valitun kohteen raitaa tai viimeksi napsautettua "
+"raitaa, jos mitään ei ole valittuna. Ilman aktiivista raitaa se alkaa "
+"korkeimmalta raidalta, joka sisältää leikkeen tai siirtymän toistopään "
+"kohdalla, tai korkeimmalta täytetyltä raidalta aukossa."
+
+#: ../doc/keyboard.rst:179
+msgid "Selecting clips and transitions"
+msgstr "Leikkeiden ja siirtymien valinta"
+
+#: ../doc/keyboard.rst:180
+msgid ""
+"These shortcuts select both clips and transitions. Selection brings an item "
+"into view without changing the zoom or playhead."
+msgstr ""
+"Nämä pikanäppäimet valitsevat sekä leikkeet että siirtymät. Valinta tuo "
+"kohteen näkyviin muuttamatta zoomausta tai toistopäätä."
+
+#: ../doc/keyboard.rst:188
+msgid "Select the previous / next item"
+msgstr "Valitse edellinen / seuraava kohde"
+
+#: ../doc/keyboard.rst:189
+msgid ":kbd:`Ctrl+Left` / :kbd:`Ctrl+Right`"
+msgstr ":kbd:`Ctrl+Left` / :kbd:`Ctrl+Right`"
+
+#: ../doc/keyboard.rst:190
+msgid "Select an item above / below"
+msgstr "Valitse kohde yläpuolelta / alapuolelta"
+
+#: ../doc/keyboard.rst:191
+msgid ":kbd:`Ctrl+Up` / :kbd:`Ctrl+Down`"
+msgstr ":kbd:`Ctrl+Up` / :kbd:`Ctrl+Down`"
+
+#: ../doc/keyboard.rst:192
+msgid "Extend selection to the previous / next item"
+msgstr "Laajenna valinta edelliseen / seuraavaan kohteeseen"
+
+#: ../doc/keyboard.rst:193
+msgid ":kbd:`Ctrl+Shift+Left` / :kbd:`Ctrl+Shift+Right`"
+msgstr ":kbd:`Ctrl+Shift+Left` / :kbd:`Ctrl+Shift+Right`"
+
+#: ../doc/keyboard.rst:194
+msgid "Cycle through items under the playhead"
+msgstr "Selaa kohteita toistopään alla"
+
+#: ../doc/keyboard.rst:195 ../doc/keyboard.rst:652
+msgid ":kbd:`D`"
+msgstr ":kbd:`D`"
+
+#: ../doc/keyboard.rst:196
+msgid "Extend selection through items under the playhead"
+msgstr "Laajenna valinta kohteiden läpi toistopään alla"
+
+#: ../doc/keyboard.rst:197 ../doc/keyboard.rst:502
+msgid ":kbd:`Ctrl+Shift+D`"
+msgstr ":kbd:`Ctrl+Shift+D`"
+
+#: ../doc/keyboard.rst:198
+msgid "Select all / clear selection"
+msgstr "Valitse kaikki / poista valinta"
+
+#: ../doc/keyboard.rst:199
+msgid ":kbd:`Ctrl+A` / :kbd:`Ctrl+Shift+A`"
+msgstr ":kbd:`Ctrl+A` / :kbd:`Ctrl+Shift+A`"
+
+#: ../doc/keyboard.rst:201
+msgid ""
+"**Left/right** follows the current track first. When no item remains in that"
+" direction, it continues to the closest item start on another track."
+msgstr ""
+"**Vasen/oikea** seuraa ensin nykyistä raitaa. Kun kyseisessä suunnassa ei "
+"ole enää kohteita, se jatkaa lähimmän kohteen alkuun toisella raidalla."
+
+#: ../doc/keyboard.rst:204
+msgid ""
+"**Up/down** looks above or below the selected item, preferring items that "
+"overlap it in time. The nearest overlapping track wins. If nothing overlaps,"
+" the smallest horizontal gap wins, then the nearest track. Ties on a track "
+"favor the closest item center. Empty tracks and unrelated items farther to "
+"the side do not block navigation. With no selection, the playhead supplies "
+"the starting position."
+msgstr ""
+"**Ylös/alas** etsii valitun kohteen ylä- tai alapuolelta, suosien "
+"ajallisesti päällekkäisiä kohteita. Lähin päällekkäinen raita voittaa. Jos "
+"päällekkäisyyttä ei ole, pienin vaakasuuntainen väli voittaa, sitten lähin "
+"raita. Tasapelit raidalla suosivat lähintä kohteen keskustaa. Tyhjät raidat "
+"ja kauempana sivulla olevat ei-liittyvät kohteet eivät estä navigointia. "
+"Ilman valintaa toistopää tarjoaa aloituspaikan."
+
+#: ../doc/keyboard.rst:210
+msgid ""
+"**Selection at the playhead** cycles from the highest track to the lowest, "
+"then wraps to the top. Moving the playhead restarts the cycle. If no item is"
+" under it, the selection stays unchanged. Extending selection keeps items "
+"already selected."
+msgstr ""
+"**Valinta toistopäällä** kiertää ylimmästä raidasta alimpaan ja palaa sitten"
+" ylös. Toistopään siirtäminen käynnistää kierron uudelleen. Jos sen alla ei "
+"ole kohdetta, valinta pysyy ennallaan. Valinnan laajentaminen säilyttää jo "
+"valitut kohteet."
+
+#: ../doc/keyboard.rst:217
+msgid "Moving clips and transitions"
+msgstr "Leikkeiden ja siirtymien siirtäminen"
+
+#: ../doc/keyboard.rst:218
+msgid ""
+"These shortcuts move the selected clips and transitions when no trim edge is"
+" selected."
+msgstr ""
+"Nämä pikanäppäimet siirtävät valittuja leikkeitä ja siirtymiä, kun reunaa ei"
+" ole valittu."
+
+#: ../doc/keyboard.rst:226
+msgid "Move left / right one frame"
+msgstr "Siirrä vasemmalle / oikealle yhden kehyksen"
+
+#: ../doc/keyboard.rst:227 ../doc/keyboard.rst:257
+msgid ":kbd:`,` / :kbd:`.`"
+msgstr ":kbd:`,` / :kbd:`.`"
+
+#: ../doc/keyboard.rst:228
+msgid "Move left / right five frames"
+msgstr "Siirrä vasemmalle / oikealle viisi kehystä"
+
+#: ../doc/keyboard.rst:229 ../doc/keyboard.rst:259
+msgid ":kbd:`Shift+,` / :kbd:`Shift+.`"
+msgstr ":kbd:`Shift+,` / :kbd:`Shift+.`"
+
+#: ../doc/keyboard.rst:230
+msgid "Move up / down one track"
+msgstr "Siirrä ylös / alas yhdellä raidalla"
+
+#: ../doc/keyboard.rst:231
+msgid ":kbd:`Alt+Up` / :kbd:`Alt+Down`"
+msgstr ":kbd:`Alt+Ylös` / :kbd:`Alt+Alas`"
+
+#: ../doc/keyboard.rst:233
+msgid ""
+"Track moves keep the selection's timing and can use empty tracks. A locked "
+"track or the edge of the track list blocks the whole track move."
+msgstr ""
+"Raidan siirrot säilyttävät valinnan ajoituksen ja voivat käyttää tyhjiä "
+"raitoja. Lukittu raita tai raidat-listan reuna estää koko raidansiirron."
+
+#: ../doc/keyboard.rst:236
+msgid ""
+"Hold a comma/period shortcut to move continuously. OpenShot previews the "
+"movement while the key repeats, then saves the final positions when you "
+"release it. One Undo reverses the entire hold, including all selected items."
+" Separate key taps remain separate undo steps. Leaving the timeline or "
+"starting another keyboard command also finishes the current movement."
+msgstr ""
+"Pidä pilkku/piste-pikanäppäintä painettuna siirtääksesi jatkuvasti. OpenShot"
+" esikatseluttaa siirron toiston aikana ja tallentaa lopulliset sijainnit "
+"vapautettaessa. Yksi Kumoa peruuttaa koko pidon, mukaan lukien kaikki "
+"valitut kohteet. Erilliset näppäimen painallukset ovat erillisiä "
+"kumoamisaskelia. Aikajanasta poistuminen tai toisen näppäinkomennon "
+"aloittaminen lopettaa nykyisen siirron."
+
+#: ../doc/keyboard.rst:243
+msgid "Trimming clips and transitions"
+msgstr "Leikkeiden ja siirtymien trimmaus"
+
+#: ../doc/keyboard.rst:244
+msgid ""
+"Select a clip or transition, choose its left or right edge, then adjust that"
+" edge."
+msgstr ""
+"Valitse leike tai siirtymä, valitse sen vasen tai oikea reuna ja säädä sitä "
+"reunaa."
+
+#: ../doc/keyboard.rst:252
+msgid "Select the left trim edge"
+msgstr "Valitse vasen trimmausreuna"
+
+#: ../doc/keyboard.rst:253 ../doc/keyboard.rst:661
+msgid ":kbd:`[`"
+msgstr ":kbd:`[`"
+
+#: ../doc/keyboard.rst:254
+msgid "Select the right trim edge"
+msgstr "Valitse oikea trimmausreuna"
+
+#: ../doc/keyboard.rst:255 ../doc/keyboard.rst:673
+msgid ":kbd:`]`"
+msgstr ":kbd:`]`"
+
+#: ../doc/keyboard.rst:256
+msgid "Move the selected edge left / right one frame"
+msgstr "Siirrä valittua reunaa vasemmalle / oikealle yhden kehyksen"
+
+#: ../doc/keyboard.rst:258
+msgid "Move the selected edge left / right five frames"
+msgstr "Siirrä valittua reunaa vasemmalle / oikealle viisi kehystä"
+
+#: ../doc/keyboard.rst:260
+msgid "Leave trim mode and restore the timeline preview"
+msgstr "Poistu trimmaustilasta ja palauta aikajanan esikatselu"
+
+#: ../doc/keyboard.rst:261
+msgid ":kbd:`Esc`"
+msgstr ":kbd:`Esc`"
+
+#: ../doc/keyboard.rst:263
+msgid ""
+"The selected edge has a fading highlight. Video Preview shows the first "
+"included frame for the left edge or the last included frame for the right "
+"edge, updating after each trim without moving the playhead. For transitions,"
+" the preview shows the transition mask. Trims respect the available source "
+"media and do not ripple other clips."
+msgstr ""
+"Valitulla reunalla on himmenevä korostus. Videon esikatselu näyttää vasemman"
+" reunan ensimmäisen sisältyvän kehyksen tai oikean reunan viimeisen "
+"sisältyvän kehyksen, päivittyen jokaisen trimmin jälkeen ilman toistopään "
+"siirtymistä. Siirtymien esikatselussa näkyy siirtymän maski. Trimmaus "
+"kunnioittaa käytettävissä olevaa lähdemateriaalia eikä vaikuta muihin "
+"leikkeitä."
+
+#: ../doc/keyboard.rst:269
+msgid ""
+"Holding a trim shortcut also groups its repeated adjustments into one undo "
+"step."
+msgstr ""
+"Trimmauspikanäppäimen pitäminen painettuna ryhmittelee toistuvat säädöt "
+"yhdeksi kumoamisaskeleeksi."
+
+#: ../doc/keyboard.rst:271
+msgid ""
+"After leaving trim mode, comma/period move whole clips and transitions "
+"again."
+msgstr ""
+"Trimmaustilasta poistumisen jälkeen pilkku/piste siirtävät taas kokonaisia "
+"leikkeitä ja siirtymiä."
+
+#: ../doc/keyboard.rst:274
+msgid "Coming from another editor?"
+msgstr "Tuleeko toisesta editorista?"
+
+#: ../doc/keyboard.rst:275
+msgid ""
+"Compare a few everyday editing tasks with shortcuts you may already know."
+msgstr ""
+"Vertaa muutamia arkisia editointitehtäviä pikanäppäimiin, jotka saatat jo "
+"tuntea."
+
+#: ../doc/keyboard.rst:277
+msgid ""
+"The table shows OpenShot's Windows/Linux defaults, Adobe Premiere Pro and "
+"DaVinci Resolve Windows defaults, and Final Cut Pro Mac defaults. On macOS, "
+"OpenShot uses Command for shortcuts shown with Ctrl. Shortcuts in other "
+"editors can vary with the version, keyboard layout, selected preset, and "
+"active panel. Similar shortcuts can also behave differently on stacked or "
+"connected clips."
+msgstr ""
+"Taulukko näyttää OpenShotin Windows/Linux-oletukset, Adobe Premiere Pron ja "
+"DaVinci Resolven Windows-oletukset sekä Final Cut Pron Mac-oletukset. "
+"macOS:ssä OpenShot käyttää Command-näppäintä Ctrl:n sijaan. Muiden editorien"
+" pikanäppäimet voivat vaihdella version, näppäinasettelun, valitun "
+"esiasetuksen ja aktiivisen paneelin mukaan. Samankaltaiset pikanäppäimet "
+"voivat myös toimia eri tavoin pinotuilla tai yhdistetyillä leikkeillä."
+
+#: ../doc/keyboard.rst:283
+msgid "Everyday editing shortcuts"
+msgstr "Arkiset editointipikanäppäimet"
+
+#: ../doc/keyboard.rst:287
+msgid "Task"
+msgstr "Tehtävä"
+
+#: ../doc/keyboard.rst:288
+msgid "OpenShot"
+msgstr "OpenShot"
+
+#: ../doc/keyboard.rst:289
+msgid "Premiere Pro"
+msgstr "Premiere Pro"
+
+#: ../doc/keyboard.rst:290
+msgid "DaVinci Resolve"
+msgstr "DaVinci Resolve"
+
+#: ../doc/keyboard.rst:291
+msgid "Final Cut Pro"
+msgstr "Final Cut Pro"
+
+#: ../doc/keyboard.rst:293 ../doc/keyboard.rst:294 ../doc/keyboard.rst:295
+#: ../doc/keyboard.rst:296
+msgid "Space"
+msgstr "Välilyönti"
+
+#: ../doc/keyboard.rst:297
+msgid "Reverse / stop / forward"
+msgstr "Käänteinen / pysäytä / eteenpäin"
+
+#: ../doc/keyboard.rst:298 ../doc/keyboard.rst:299 ../doc/keyboard.rst:300
+#: ../doc/keyboard.rst:301
+msgid "J / K / L"
+msgstr "J / K / L"
+
+#: ../doc/keyboard.rst:302
+msgid "Previous / next frame"
+msgstr "Edellinen / seuraava kehys"
+
+#: ../doc/keyboard.rst:303 ../doc/keyboard.rst:304 ../doc/keyboard.rst:305
+#: ../doc/keyboard.rst:306
+msgid "Left / Right"
+msgstr "Vasen / Oikea"
+
+#: ../doc/keyboard.rst:307
+msgid "Previous / next edit"
+msgstr "Edellinen / seuraava muokkaus"
+
+#: ../doc/keyboard.rst:308
+msgid "Up / Down (active track)"
+msgstr "Ylös / Alas (aktiivinen raita)"
+
+#: ../doc/keyboard.rst:309 ../doc/keyboard.rst:310 ../doc/keyboard.rst:311
+msgid "Up / Down"
+msgstr "Ylös / Alas"
+
+#: ../doc/keyboard.rst:312
+msgid "Focus media browser / project assets"
+msgstr "Kohdista mediakirjasto / projektin resurssit"
+
+#: ../doc/keyboard.rst:313
+msgid "Shift+1"
+msgstr "Shift+1"
+
+#: ../doc/keyboard.rst:314
+msgid "Shift+1 (Project panel)"
+msgstr "Shift+1 (Projektipaneeli)"
+
+#: ../doc/keyboard.rst:315 ../doc/keyboard.rst:320
+msgid "Not listed here"
+msgstr "Ei listattu tässä"
+
+#: ../doc/keyboard.rst:316
+msgid "Cmd+1 (Browser)"
+msgstr "Cmd+1 (Selaimen)"
+
+#: ../doc/keyboard.rst:317
+msgid "Focus timeline"
+msgstr "Kohdista aikajana"
+
+#: ../doc/keyboard.rst:318 ../doc/keyboard.rst:319
+msgid "Shift+3"
+msgstr "Vaihto+3"
+
+#: ../doc/keyboard.rst:321
+msgid "Cmd+2"
+msgstr "Cmd+2"
+
+#: ../doc/keyboard.rst:322
+msgid "Add source media at the playhead"
+msgstr "Lisää lähdemedia toistopäähän"
+
+#: ../doc/keyboard.rst:323
+msgid "Ctrl+Enter (place on target track)"
+msgstr "Ctrl+Enter (aseta kohderaitaan)"
+
+#: ../doc/keyboard.rst:324
+msgid "Comma (insert); period (overwrite)"
+msgstr "Pilkkku (lisää); piste (korvaa)"
+
+#: ../doc/keyboard.rst:325
+msgid "F9 (insert); F10 (overwrite)"
+msgstr "F9 (lisää); F10 (korvaa)"
+
+#: ../doc/keyboard.rst:326
+msgid "W (insert); D (overwrite); Q (connect)"
+msgstr "W (lisää); D (korvaa); Q (yhdistä)"
+
+#: ../doc/keyboard.rst:327
+msgid "Select previous / next clip"
+msgstr "Valitse edellinen / seuraava leike"
+
+#: ../doc/keyboard.rst:328 ../doc/keyboard.rst:330
+msgid "Ctrl+Left / Right"
+msgstr "Ctrl+Vasen / Oikea"
+
+#: ../doc/keyboard.rst:329 ../doc/keyboard.rst:333 ../doc/keyboard.rst:335
+msgid "Ctrl+Up / Down"
+msgstr "Ctrl+Ylös / Alas"
+
+#: ../doc/keyboard.rst:331
+msgid "Cmd+Left / Right (same role; also moves playhead)"
+msgstr "Cmd+Vasen / Oikea (sama toiminto; siirtää myös toistopäätä)"
+
+#: ../doc/keyboard.rst:332
+msgid "Select clip above / below"
+msgstr "Valitse leike yläpuolelta / alapuolelta"
+
+#: ../doc/keyboard.rst:334
+msgid "No default listed here"
+msgstr "Ei oletusta tässä"
+
+#: ../doc/keyboard.rst:336
+msgid "Cmd+Up / Down"
+msgstr "Cmd+Ylös / Alas"
+
+#: ../doc/keyboard.rst:337
+msgid "Move selection up / down"
+msgstr "Siirrä valinta ylös / alas"
+
+#: ../doc/keyboard.rst:338 ../doc/keyboard.rst:339 ../doc/keyboard.rst:340
+msgid "Alt+Up / Down"
+msgstr "Alt+Ylös / Alas"
+
+#: ../doc/keyboard.rst:341
+msgid "Option+Up / Down (connected clips)"
+msgstr "Option+Ylös / Alas (yhdistetyt leikkeet)"
+
+#: ../doc/keyboard.rst:342
+msgid "Nudge left / right one frame"
+msgstr "Siirrä vasemmalle / oikealle yhden kehyksen"
+
+#: ../doc/keyboard.rst:343 ../doc/keyboard.rst:345 ../doc/keyboard.rst:346
+msgid "Comma / period"
+msgstr "Pilkkku / piste"
+
+#: ../doc/keyboard.rst:344
+msgid "Alt+Left / Right"
+msgstr "Alt+Vasen / Oikea"
+
+#: ../doc/keyboard.rst:347
+msgid "Nudge by several frames"
+msgstr "Siirrä useita kehyksiä"
+
+#: ../doc/keyboard.rst:348
+msgid "Shift+comma / period (5)"
+msgstr "Vaihto+pilkkku / piste (5)"
+
+#: ../doc/keyboard.rst:349
+msgid "Alt+Shift+Left / Right (5)"
+msgstr "Alt+Vaihto+Vasen / Oikea (5)"
+
+#: ../doc/keyboard.rst:350
+msgid "Shift+comma / period (configurable; default 5)"
+msgstr "Vaihto+pilkkku / piste (määritettävissä; oletus 5)"
+
+#: ../doc/keyboard.rst:351
+msgid "Shift+comma / period (10)"
+msgstr "Vaihto+pilkkku / piste (10)"
+
+#: ../doc/keyboard.rst:352
+msgid "Select at playhead"
+msgstr "Valitse toistopäässä"
+
+#: ../doc/keyboard.rst:353
+msgid "D (cycles through stacked clips)"
+msgstr "D (kiertää pinotut leikkeet)"
+
+#: ../doc/keyboard.rst:354
+msgid "D"
+msgstr "D"
+
+#: ../doc/keyboard.rst:355
+msgid "Shift+V (nearest clip/gap)"
+msgstr "Vaihto+V (lähin leike/aukko)"
+
+#: ../doc/keyboard.rst:356
+msgid "X selects a range; C selects under the pointer"
+msgstr "X valitsee alueen; C valitsee osoittimen alla"
+
+#: ../doc/keyboard.rst:357
+msgid "Split at playhead"
+msgstr "Jaa toistopäässä"
+
+#: ../doc/keyboard.rst:358
+msgid "Ctrl+K (selected clips)"
+msgstr "Ctrl+K (valitut leikkeet)"
+
+#: ../doc/keyboard.rst:359
+msgid "Ctrl+K (targeted tracks)"
+msgstr "Ctrl+K (kohderaidat)"
+
+#: ../doc/keyboard.rst:360
+msgid "Ctrl+B"
+msgstr "Ctrl+B"
+
+#: ../doc/keyboard.rst:361
+msgid "Cmd+B"
+msgstr "Cmd+B"
+
+#: ../doc/keyboard.rst:362 ../doc/keyboard.rst:726
+msgid "Undo"
+msgstr "Kumoa"
+
+#: ../doc/keyboard.rst:363 ../doc/keyboard.rst:364 ../doc/keyboard.rst:365
+msgid "Ctrl+Z"
+msgstr "Ctrl+Z"
+
+#: ../doc/keyboard.rst:366
+msgid "Cmd+Z"
+msgstr "Cmd+Z"
+
+#: ../doc/keyboard.rst:367
+msgid "Save project"
+msgstr "Tallenna projekti"
+
+#: ../doc/keyboard.rst:368 ../doc/keyboard.rst:369 ../doc/keyboard.rst:370
+msgid "Ctrl+S"
+msgstr "Ctrl+S"
+
+#: ../doc/keyboard.rst:371
+msgid "Saves automatically"
+msgstr "Tallentaa automaattisesti"
+
+#: ../doc/keyboard.rst:373
+msgid ""
+"For complete shortcut lists and customization options, see the `Premiere Pro"
+" keyboard reference <https://helpx.adobe.com/premiere/desktop/get-"
+"started/keyboard-shortcuts/default-keyboard-shortcuts.html>`_, `DaVinci "
+"Resolve training guides "
+"<https://www.blackmagicdesign.com/products/davinciresolve/training>`_, and "
+"`Final Cut Pro keyboard reference <https://support.apple.com/guide/final-"
+"cut-pro/ver90ba5929/mac>`_."
+msgstr ""
+"Täydelliset pikanäppäinluettelot ja mukautusvaihtoehdot löytyvät osoitteista"
+" `Premiere Pro keyboard reference "
+"<https://helpx.adobe.com/premiere/desktop/get-started/keyboard-"
+"shortcuts/default-keyboard-shortcuts.html>`_, `DaVinci Resolve training "
+"guides <https://www.blackmagicdesign.com/products/davinciresolve/training>`_"
+" ja `Final Cut Pro keyboard reference "
+"<https://support.apple.com/guide/final-cut-pro/ver90ba5929/mac>`_."
+
+#: ../doc/keyboard.rst:381
+msgid "Mouse shortcuts"
+msgstr "Hiiren pikanäppäimet"
+
+#: ../doc/keyboard.rst:382
+msgid ""
+"These gestures complement the keyboard shortcuts. In Project Files' Details "
+"view, double-click the thumbnail column for the file actions below."
+msgstr ""
+"Nämä eleet täydentävät näppäimistön pikanäppäimiä. Projektitiedostojen "
+"Tiedot-näkymässä kaksoisnapsauta pikkukuvapylvästä alla olevia "
+"tiedostotoimintoja varten."
+
+#: ../doc/keyboard.rst:390
+msgid "Mouse gesture"
+msgstr "Hiiren ele"
+
+#: ../doc/keyboard.rst:391
+msgid "Keyboard alternative"
+msgstr "Näppäimistövaihtoehto"
+
+#: ../doc/keyboard.rst:392
+msgid "Preview a file in Project Files"
+msgstr "Esikatsele tiedostoa Projektitiedostoissa"
+
+#: ../doc/keyboard.rst:393
+msgid "Double-click the file"
+msgstr "Kaksoisnapsauta tiedostoa"
+
+#: ../doc/keyboard.rst:395
+msgid "Open file properties in Project Files"
+msgstr "Avaa tiedoston ominaisuudet Projektitiedostoissa"
+
+#: ../doc/keyboard.rst:396
+msgid ":kbd:`Ctrl` + double-click the file"
+msgstr ":kbd:`Ctrl` + kaksoisnapsauta tiedostoa"
+
+#: ../doc/keyboard.rst:397 ../doc/keyboard.rst:514
+msgid ":kbd:`Alt+I`"
+msgstr ":kbd:`Alt+I`"
+
+#: ../doc/keyboard.rst:398
+msgid "Split a file in Project Files"
+msgstr "Jaa tiedosto Projektitiedostoissa"
+
+#: ../doc/keyboard.rst:399
+msgid ":kbd:`Shift` + double-click the file"
+msgstr ":kbd:`Vaihto` + kaksoisnapsauta tiedostoa"
+
+#: ../doc/keyboard.rst:400 ../doc/keyboard.rst:709
+msgid ":kbd:`Alt+S`"
+msgstr ":kbd:`Alt+S`"
+
+#: ../doc/keyboard.rst:401
+msgid "Select an item and everything to its right on the same track"
+msgstr "Valitse kohde ja kaikki sen oikealla samalla raidalla"
+
+#: ../doc/keyboard.rst:402
+msgid ":kbd:`Alt` + click the clip or transition"
+msgstr ":kbd:`Alt` + napsauta leikettä tai siirtymää"
+
+#: ../doc/keyboard.rst:403
+msgid ":kbd:`Alt+A` with an item selected"
+msgstr ":kbd:`Alt+A` kohteen ollessa valittuna"
+
+#: ../doc/keyboard.rst:404
+msgid "Open properties for a timeline clip or transition"
+msgstr "Avaa aikajanan leikkeen tai siirtymän ominaisuudet"
+
+#: ../doc/keyboard.rst:405
+msgid "Double-click the item"
+msgstr "Kaksoisnapsauta kohdetta"
+
+#: ../doc/keyboard.rst:406 ../doc/keyboard.rst:616
+msgid ":kbd:`U`"
+msgstr ":kbd:`U`"
+
+#: ../doc/keyboard.rst:407
+msgid "Fit the whole timeline in view"
+msgstr "Sovita koko aikajana näkymään"
+
+#: ../doc/keyboard.rst:408
+msgid "Double-click the zoom slider"
+msgstr "Kaksoisnapsauta zoomausliukusäädintä"
+
+#: ../doc/keyboard.rst:409
+msgid ":kbd:`\\\\` or :kbd:`Shift+\\\\`"
+msgstr ":kbd:`\\\\` tai :kbd:`Vaihto+\\\\`"
+
+#: ../doc/keyboard.rst:412
+msgid "Full shortcut reference"
+msgstr "Täydellinen pikanäppäinviite"
+
+#: ../doc/keyboard.rst:413
+msgid ""
+"These are the default shortcuts, including view shortcuts supplied by the "
+"menus. Your assignments in Preferences may differ. On macOS, Command is used"
+" for shortcuts shown with Ctrl."
+msgstr ""
+"Nämä ovat oletuspikanäppäimet, mukaan lukien valikoiden tarjoamat "
+"näkymäpikanäppäimet. Asetuksesi Asetuksissa voivat poiketa. macOS:ssä "
+"Commandia käytetään Ctrl:n sijaan pikanäppäimissä."
+
+#: ../doc/keyboard.rst:416
+msgid "Default keyboard shortcuts"
+msgstr "Oletusnäppäimistön pikanäppäimet"
+
+#: ../doc/keyboard.rst:421
+msgid "Primary shortcut"
+msgstr "Ensisijainen pikanäppäin"
+
+#: ../doc/keyboard.rst:422
+msgid "Alternatives"
+msgstr "Vaihtoehdot"
+
+#: ../doc/keyboard.rst:423
+msgid "About OpenShot"
+msgstr "Tietoja OpenShotista"
+
+#: ../doc/keyboard.rst:424
+msgid ":kbd:`Ctrl+H`"
+msgstr ":kbd:`Ctrl+H`"
+
+#: ../doc/keyboard.rst:426
+msgid "Add Marker"
+msgstr "Lisää merkki"
+
+#: ../doc/keyboard.rst:427
+msgid ":kbd:`M`"
+msgstr ":kbd:`M`"
+
+#: ../doc/keyboard.rst:429
+msgid "Add or Apply Selected Asset"
+msgstr "Lisää tai käytä valittua resurssia"
+
+#: ../doc/keyboard.rst:432
+msgid "Add Text"
+msgstr "Lisää teksti"
+
+#: ../doc/keyboard.rst:433
+msgid ":kbd:`Shift+T`"
+msgstr ":kbd:`Shift+T`"
+
+#: ../doc/keyboard.rst:435
+msgid "Add to Timeline"
+msgstr "Lisää aikajanalle"
+
+#: ../doc/keyboard.rst:438
+msgid "Add Track"
+msgstr "Lisää raita"
+
+#: ../doc/keyboard.rst:439
+msgid ":kbd:`Ctrl+Y`"
+msgstr ":kbd:`Ctrl+Y`"
+
+#: ../doc/keyboard.rst:441
+msgid "Animated Title"
+msgstr "Animoitu otsikko"
+
+#: ../doc/keyboard.rst:442
+msgid ":kbd:`Ctrl+Shift+T`"
+msgstr ":kbd:`Ctrl+Shift+T`"
+
+#: ../doc/keyboard.rst:444
+msgid "Ask a Question..."
+msgstr "Kysy kysymys..."
+
+#: ../doc/keyboard.rst:445
+msgid ":kbd:`F4`"
+msgstr ":kbd:`F4`"
+
+#: ../doc/keyboard.rst:447
+msgid "Auto-Optimize"
+msgstr "Automaattinen optimointi"
+
+#: ../doc/keyboard.rst:448
+msgid ":kbd:`Ctrl+Alt+O`"
+msgstr ":kbd:`Ctrl+Alt+O`"
+
+#: ../doc/keyboard.rst:450
+msgid "Center on Playhead"
+msgstr "Keskitä toistopäähän"
+
+#: ../doc/keyboard.rst:453
+msgid "Choose Profile"
+msgstr "Valitse profiili"
+
+#: ../doc/keyboard.rst:454
+msgid ":kbd:`Ctrl+Alt+P`"
+msgstr ":kbd:`Ctrl+Alt+P`"
+
+#: ../doc/keyboard.rst:456
+msgid "Clear All Cache"
+msgstr "Tyhjennä kaikki välimuistit"
+
+#: ../doc/keyboard.rst:457
+msgid ":kbd:`Ctrl+Shift+ESC`"
+msgstr ":kbd:`Ctrl+Shift+ESC`"
+
+#: ../doc/keyboard.rst:459
+msgid "Clear History"
+msgstr "Tyhjennä historia"
+
+#: ../doc/keyboard.rst:460
+msgid ":kbd:`Ctrl+Shift+H`"
+msgstr ":kbd:`Ctrl+Shift+H`"
+
+#: ../doc/keyboard.rst:462
+msgid "Clear Waveform Display Data"
+msgstr "Tyhjennä aaltomuodon näyttötiedot"
+
+#: ../doc/keyboard.rst:463
+msgid ":kbd:`Ctrl+Shift+W`"
+msgstr ":kbd:`Ctrl+Shift+W`"
+
+#: ../doc/keyboard.rst:465
+msgid "Color View"
+msgstr "Värinäkymä"
+
+#: ../doc/keyboard.rst:466
+msgid ":kbd:`Alt+Shift+2`"
+msgstr ":kbd:`Alt+Shift+2`"
+
+#: ../doc/keyboard.rst:468
+msgid "Copy"
+msgstr "Kopioi"
+
+#: ../doc/keyboard.rst:469
+msgid ":kbd:`Ctrl+C`"
+msgstr ":kbd:`Ctrl+C`"
+
+#: ../doc/keyboard.rst:471
+msgid "Cut"
+msgstr "Leikkaa"
+
+#: ../doc/keyboard.rst:472
+msgid ":kbd:`Ctrl+X`"
+msgstr ":kbd:`Ctrl+X`"
+
+#: ../doc/keyboard.rst:474
+msgid "Delete Item"
+msgstr "Poista kohde"
+
+#: ../doc/keyboard.rst:475
+msgid ":kbd:`Delete`"
+msgstr ":kbd:`Delete`"
+
+#: ../doc/keyboard.rst:476
+msgid ":kbd:`Backspace`"
+msgstr ":kbd:`Backspace`"
+
+#: ../doc/keyboard.rst:477
+msgid "Delete Item (Ripple)"
+msgstr "Poista kohde (aaltovaikutus)"
+
+#: ../doc/keyboard.rst:478
+msgid ":kbd:`Shift+Delete`"
+msgstr ":kbd:`Shift+Delete`"
+
+#: ../doc/keyboard.rst:480
+msgid "Delete Optimized Videos"
+msgstr "Poista optimoidut videot"
+
+#: ../doc/keyboard.rst:481
+msgid ":kbd:`Ctrl+Shift+O`"
+msgstr ":kbd:`Ctrl+Shift+O`"
+
+#: ../doc/keyboard.rst:483
+msgid "Details View"
+msgstr "Tiedot-näkymä"
+
+#: ../doc/keyboard.rst:484
+msgid ":kbd:`Ctrl+Page Up`"
+msgstr ":kbd:`Ctrl+Page Up`"
+
+#: ../doc/keyboard.rst:486
+msgid "Donate"
+msgstr "Lahjoita"
+
+#: ../doc/keyboard.rst:487
+msgid ":kbd:`F7`"
+msgstr ":kbd:`F7`"
+
+#: ../doc/keyboard.rst:489
+msgid "Duplicate"
+msgstr "Kaksoiskappale"
+
+#: ../doc/keyboard.rst:490
+msgid ":kbd:`Ctrl+Shift+/`"
+msgstr ":kbd:`Ctrl+Shift+/`"
+
+#: ../doc/keyboard.rst:492
+msgid "Edit Title"
+msgstr "Muokkaa otsikkoa"
+
+#: ../doc/keyboard.rst:493
+msgid ":kbd:`Alt+T`"
+msgstr ":kbd:`Alt+T`"
+
+#: ../doc/keyboard.rst:495
+msgid "Export Files"
+msgstr "Vie tiedostot"
+
+#: ../doc/keyboard.rst:496
+msgid ":kbd:`Ctrl+Shift+E`"
+msgstr ":kbd:`Ctrl+Shift+E`"
+
+#: ../doc/keyboard.rst:498
+msgid "Export Video"
+msgstr "Vie video"
+
+#: ../doc/keyboard.rst:499
+msgid ":kbd:`Ctrl+E`"
+msgstr ":kbd:`Ctrl+E`"
+
+#: ../doc/keyboard.rst:500
+msgid ":kbd:`Ctrl+M`"
+msgstr ":kbd:`Ctrl+M`"
+
+#: ../doc/keyboard.rst:501
+msgid "Extend Selection at Playhead"
+msgstr "Laajenna valintaa toistopäällä"
+
+#: ../doc/keyboard.rst:504
+msgid "Extend Selection to Next Item"
+msgstr "Laajenna valintaa seuraavaan kohteeseen"
+
+#: ../doc/keyboard.rst:505
+msgid ":kbd:`Ctrl+Shift+Right`"
+msgstr ":kbd:`Ctrl+Shift+Right`"
+
+#: ../doc/keyboard.rst:507
+msgid "Extend Selection to Previous Item"
+msgstr "Laajenna valintaa edelliseen kohteeseen"
+
+#: ../doc/keyboard.rst:508
+msgid ":kbd:`Ctrl+Shift+Left`"
+msgstr ":kbd:`Ctrl+Shift+Left`"
+
+#: ../doc/keyboard.rst:510
+msgid "Fast Forward"
+msgstr "Pikakelaus eteenpäin"
+
+#: ../doc/keyboard.rst:513
+msgid "File Properties"
+msgstr "Tiedoston ominaisuudet"
+
+#: ../doc/keyboard.rst:525
+msgid "Focus Timeline"
+msgstr "Kohdista aikajana"
+
+#: ../doc/keyboard.rst:531
+msgid "Fullscreen"
+msgstr "Koko näyttö"
+
+#: ../doc/keyboard.rst:532
+msgid ":kbd:`F11`"
+msgstr ":kbd:`F11`"
+
+#: ../doc/keyboard.rst:534
+msgid "Import Files..."
+msgstr "Tuo tiedostoja..."
+
+#: ../doc/keyboard.rst:535
+msgid ":kbd:`Ctrl+I`"
+msgstr ":kbd:`Ctrl+I`"
+
+#: ../doc/keyboard.rst:537
+msgid "Insert Keyframe"
+msgstr "Lisää avainkehys"
+
+#: ../doc/keyboard.rst:538
+msgid ":kbd:`Alt+Shift+K`"
+msgstr ":kbd:`Alt+Shift+K`"
+
+#: ../doc/keyboard.rst:540
+msgid "Join our Community..."
+msgstr "Liity yhteisöömme..."
+
+#: ../doc/keyboard.rst:541
+msgid ":kbd:`F5`"
+msgstr ":kbd:`F5`"
+
+#: ../doc/keyboard.rst:543
+msgid "Jump To End"
+msgstr "Siirry loppuun"
+
+#: ../doc/keyboard.rst:544
+msgid ":kbd:`End`"
+msgstr ":kbd:`End`"
+
+#: ../doc/keyboard.rst:546
+msgid "Jump To Start"
+msgstr "Siirry alkuun"
+
+#: ../doc/keyboard.rst:547
+msgid ":kbd:`Home`"
+msgstr ":kbd:`Home`"
+
+#: ../doc/keyboard.rst:549
+msgid "Launch Tutorial"
+msgstr "Käynnistä opastus"
+
+#: ../doc/keyboard.rst:550
+msgid ":kbd:`F2`"
+msgstr ":kbd:`F2`"
+
+#: ../doc/keyboard.rst:552
+msgid "Move Selection Down One Track"
+msgstr "Siirrä valinta yhden raidan alaspäin"
+
+#: ../doc/keyboard.rst:553
+msgid ":kbd:`Alt+Down`"
+msgstr ":kbd:`Alt+Down`"
+
+#: ../doc/keyboard.rst:555
+msgid "Move Selection Up One Track"
+msgstr "Siirrä valinta yhden raidan ylöspäin"
+
+#: ../doc/keyboard.rst:556
+msgid ":kbd:`Alt+Up`"
+msgstr ":kbd:`Alt+Up`"
+
+#: ../doc/keyboard.rst:558
+msgid "New Project"
+msgstr "Uusi projekti"
+
+#: ../doc/keyboard.rst:559
+msgid ":kbd:`Ctrl+N`"
+msgstr ":kbd:`Ctrl+N`"
+
+#: ../doc/keyboard.rst:561
+msgid "Next Edit Point"
+msgstr "Seuraava muokkauspiste"
+
+#: ../doc/keyboard.rst:562
+msgid ":kbd:`Down`"
+msgstr ":kbd:`Down`"
+
+#: ../doc/keyboard.rst:564
+msgid "Next Five Frames"
+msgstr "Seuraavat viisi kehystä"
+
+#: ../doc/keyboard.rst:565
+msgid ":kbd:`Shift+Right`"
+msgstr ":kbd:`Shift+Right`"
+
+#: ../doc/keyboard.rst:567
+msgid "Next Frame"
+msgstr "Seuraava kehys"
+
+#: ../doc/keyboard.rst:568
+msgid ":kbd:`Right`"
+msgstr ":kbd:`Right`"
+
+#: ../doc/keyboard.rst:570
+msgid "Next Marker"
+msgstr "Seuraava merkki"
+
+#: ../doc/keyboard.rst:571
+msgid ":kbd:`Shift+M`"
+msgstr ":kbd:`Shift+M`"
+
+#: ../doc/keyboard.rst:572
+msgid ":kbd:`Alt+Right`"
+msgstr ":kbd:`Alt+Right`"
+
+#: ../doc/keyboard.rst:573
+msgid "Nudge left (1 Frame)"
+msgstr "Siirrä vasemmalle (1 kehys)"
+
+#: ../doc/keyboard.rst:574
+msgid ":kbd:`,`"
+msgstr ":kbd:`,`"
+
+#: ../doc/keyboard.rst:576
+msgid "Nudge left (5 Frames)"
+msgstr "Siirrä vasemmalle (5 kehystä)"
+
+#: ../doc/keyboard.rst:577
+msgid ":kbd:`Shift+,`"
+msgstr ":kbd:`Shift+,`"
+
+#: ../doc/keyboard.rst:579
+msgid "Nudge right (1 Frame)"
+msgstr "Siirrä oikealle (1 kehys)"
+
+#: ../doc/keyboard.rst:580
+msgid ":kbd:`.`"
+msgstr ":kbd:`.`"
+
+#: ../doc/keyboard.rst:582
+msgid "Nudge right (5 Frames)"
+msgstr "Siirrä oikealle (5 kehystä)"
+
+#: ../doc/keyboard.rst:583
+msgid ":kbd:`Shift+.`"
+msgstr ":kbd:`Shift+.`"
+
+#: ../doc/keyboard.rst:585
+msgid "Open Help Contents"
+msgstr "Avaa ohjeen sisältö"
+
+#: ../doc/keyboard.rst:586
+msgid ":kbd:`F1`"
+msgstr ":kbd:`F1`"
+
+#: ../doc/keyboard.rst:588
+msgid "Open Project..."
+msgstr "Avaa projekti..."
+
+#: ../doc/keyboard.rst:589
+msgid ":kbd:`Ctrl+O`"
+msgstr ":kbd:`Ctrl+O`"
+
+#: ../doc/keyboard.rst:591
+msgid "Paste"
+msgstr "Liitä"
+
+#: ../doc/keyboard.rst:592
+msgid ":kbd:`Ctrl+V`"
+msgstr ":kbd:`Ctrl+V`"
+
+#: ../doc/keyboard.rst:594
+msgid "Play/Pause Toggle"
+msgstr "Toisto/Tauko-vaihto"
+
+#: ../doc/keyboard.rst:597
+msgid "Preferences"
+msgstr "Asetukset"
+
+#: ../doc/keyboard.rst:598
+msgid ":kbd:`Ctrl+P`"
+msgstr ":kbd:`Ctrl+P`"
+
+#: ../doc/keyboard.rst:600
+msgid "Preview File"
+msgstr "Esikatsele tiedosto"
+
+#: ../doc/keyboard.rst:603
+msgid "Previous Edit Point"
+msgstr "Edellinen muokkauspiste"
+
+#: ../doc/keyboard.rst:604
+msgid ":kbd:`Up`"
+msgstr ":kbd:`Ylös`"
+
+#: ../doc/keyboard.rst:606
+msgid "Previous Five Frames"
+msgstr "Edelliset viisi ruutua"
+
+#: ../doc/keyboard.rst:607
+msgid ":kbd:`Shift+Left`"
+msgstr ":kbd:`Vaihto+Vasen`"
+
+#: ../doc/keyboard.rst:609
+msgid "Previous Frame"
+msgstr "Edellinen ruutu"
+
+#: ../doc/keyboard.rst:610
+msgid ":kbd:`Left`"
+msgstr ":kbd:`Vasen`"
+
+#: ../doc/keyboard.rst:612
+msgid "Previous Marker"
+msgstr "Edellinen merkki"
+
+#: ../doc/keyboard.rst:613
+msgid ":kbd:`Ctrl+Shift+M`"
+msgstr ":kbd:`Ctrl+Vaihto+M`"
+
+#: ../doc/keyboard.rst:614
+msgid ":kbd:`Alt+Left`"
+msgstr ":kbd:`Alt+Vasen`"
+
+#: ../doc/keyboard.rst:615
+msgid "Properties"
+msgstr "Ominaisuudet"
+
+#: ../doc/keyboard.rst:618
+msgid "Quit"
+msgstr "Poistu"
+
+#: ../doc/keyboard.rst:619
+msgid ":kbd:`Ctrl+Q`"
+msgstr ":kbd:`Ctrl+Q`"
+
+#: ../doc/keyboard.rst:621
+msgid "Razor Toggle"
+msgstr "Sahanterä-vaihto"
+
+#: ../doc/keyboard.rst:622
+msgid ":kbd:`C`"
+msgstr ":kbd:`C`"
+
+#: ../doc/keyboard.rst:623
+msgid ":kbd:`B` or :kbd:`R`"
+msgstr ":kbd:`B` tai :kbd:`R`"
+
+#: ../doc/keyboard.rst:624
+msgid "Recording View"
+msgstr "Tallennusnäkymä"
+
+#: ../doc/keyboard.rst:625
+msgid ":kbd:`Alt+Shift+3`"
+msgstr ":kbd:`Alt+Vaihto+3`"
+
+#: ../doc/keyboard.rst:627
+msgid "Redo"
+msgstr "Tee uudelleen"
+
+#: ../doc/keyboard.rst:628
+msgid ":kbd:`Ctrl+Shift+Z`"
+msgstr ":kbd:`Ctrl+Vaihto+Z`"
+
+#: ../doc/keyboard.rst:630
+msgid "Report a Bug..."
+msgstr "Ilmoita virheestä..."
+
+#: ../doc/keyboard.rst:631
+msgid ":kbd:`F3`"
+msgstr ":kbd:`F3`"
+
+#: ../doc/keyboard.rst:633
+msgid "Rewind"
+msgstr "Kelaa taaksepäin"
+
+#: ../doc/keyboard.rst:636
+msgid "Save Current Frame"
+msgstr "Tallenna nykyinen ruutu"
+
+#: ../doc/keyboard.rst:637
+msgid ":kbd:`Shift+E`"
+msgstr ":kbd:`Vaihto+E`"
+
+#: ../doc/keyboard.rst:639
+msgid "Save Project"
+msgstr "Tallenna projekti"
+
+#: ../doc/keyboard.rst:640
+msgid ":kbd:`Ctrl+S`"
+msgstr ":kbd:`Ctrl+S`"
+
+#: ../doc/keyboard.rst:642
+msgid "Save Project As..."
+msgstr "Tallenna projekti nimellä..."
+
+#: ../doc/keyboard.rst:643
+msgid ":kbd:`Ctrl+Shift+S`"
+msgstr ":kbd:`Ctrl+Vaihto+S`"
+
+#: ../doc/keyboard.rst:645
+msgid "Select All"
+msgstr "Valitse kaikki"
+
+#: ../doc/keyboard.rst:646
+msgid ":kbd:`Ctrl+A`"
+msgstr ":kbd:`Ctrl+A`"
+
+#: ../doc/keyboard.rst:648
+msgid "Select Item Above"
+msgstr "Valitse yläpuolella oleva kohde"
+
+#: ../doc/keyboard.rst:649
+msgid ":kbd:`Ctrl+Up`"
+msgstr ":kbd:`Ctrl+Ylös`"
+
+#: ../doc/keyboard.rst:651
+msgid "Select Item at Playhead"
+msgstr "Valitse kohde toistopäätteen kohdalla"
+
+#: ../doc/keyboard.rst:654
+msgid "Select Item Below"
+msgstr "Valitse alapuolella oleva kohde"
+
+#: ../doc/keyboard.rst:655
+msgid ":kbd:`Ctrl+Down`"
+msgstr ":kbd:`Ctrl+Alas`"
+
+#: ../doc/keyboard.rst:657
+msgid "Select Item (Ripple)"
+msgstr "Valitse kohde (aaltoliike)"
+
+#: ../doc/keyboard.rst:658
+msgid ":kbd:`Alt+A`"
+msgstr ":kbd:`Alt+A`"
+
+#: ../doc/keyboard.rst:660
+msgid "Select Left Item Edge"
+msgstr "Valitse kohteen vasen reuna"
+
+#: ../doc/keyboard.rst:663
+msgid "Select Next Item"
+msgstr "Valitse seuraava kohde"
+
+#: ../doc/keyboard.rst:664
+msgid ":kbd:`Ctrl+Right`"
+msgstr ":kbd:`Ctrl+Oikea`"
+
+#: ../doc/keyboard.rst:666
+msgid "Select None"
+msgstr "Poista valinta"
+
+#: ../doc/keyboard.rst:667
+msgid ":kbd:`Ctrl+Shift+A`"
+msgstr ":kbd:`Ctrl+Vaihto+A`"
+
+#: ../doc/keyboard.rst:669
+msgid "Select Previous Item"
+msgstr "Valitse edellinen kohde"
+
+#: ../doc/keyboard.rst:670
+msgid ":kbd:`Ctrl+Left`"
+msgstr ":kbd:`Ctrl+Vasen`"
+
+#: ../doc/keyboard.rst:672
+msgid "Select Right Item Edge"
+msgstr "Valitse kohteen oikea reuna"
+
+#: ../doc/keyboard.rst:675
+msgid "Share Feedback..."
+msgstr "Jaa palautetta..."
+
+#: ../doc/keyboard.rst:676
+msgid ":kbd:`F8`"
+msgstr ":kbd:`F8`"
+
+#: ../doc/keyboard.rst:678
+msgid "Simple View"
+msgstr "Yksinkertainen näkymä"
+
+#: ../doc/keyboard.rst:679
+msgid ":kbd:`Alt+Shift+0`"
+msgstr ":kbd:`Alt+Vaihto+0`"
+
+#: ../doc/keyboard.rst:681
+msgid "Slice All: Keep Both Sides"
+msgstr "Leikkaa kaikki: säilytä molemmat puolet"
+
+#: ../doc/keyboard.rst:682
+msgid ":kbd:`Ctrl+Shift+K`"
+msgstr ":kbd:`Ctrl+Vaihto+K`"
+
+#: ../doc/keyboard.rst:684
+msgid "Slice All: Keep Left Side"
+msgstr "Leikkaa kaikki: säilytä vasen puoli"
+
+#: ../doc/keyboard.rst:685
+msgid ":kbd:`Ctrl+Shift+J`"
+msgstr ":kbd:`Ctrl+Vaihto+J`"
+
+#: ../doc/keyboard.rst:687
+msgid "Slice All: Keep Right Side"
+msgstr "Leikkaa kaikki: säilytä oikea puoli"
+
+#: ../doc/keyboard.rst:688
+msgid ":kbd:`Ctrl+Shift+L`"
+msgstr ":kbd:`Ctrl+Vaihto+L`"
+
+#: ../doc/keyboard.rst:690
+msgid "Slice Selected: Keep Both Sides"
+msgstr "Leikkaa valitut: säilytä molemmat puolet"
+
+#: ../doc/keyboard.rst:691
+msgid ":kbd:`Ctrl+K`"
+msgstr ":kbd:`Ctrl+K`"
+
+#: ../doc/keyboard.rst:693
+msgid "Slice Selected: Keep Left (Ripple)"
+msgstr "Leikkaa valitut: säilytä vasen (aaltoliike)"
+
+#: ../doc/keyboard.rst:694
+msgid ":kbd:`W`"
+msgstr ":kbd:`W`"
+
+#: ../doc/keyboard.rst:696
+msgid "Slice Selected: Keep Left Side"
+msgstr "Leikkaa valitut: säilytä vasen puoli"
+
+#: ../doc/keyboard.rst:697
+msgid ":kbd:`Ctrl+J`"
+msgstr ":kbd:`Ctrl+J`"
+
+#: ../doc/keyboard.rst:699
+msgid "Slice Selected: Keep Right (Ripple)"
+msgstr "Leikkaa valitut: säilytä oikea (aaltoliike)"
+
+#: ../doc/keyboard.rst:700
+msgid ":kbd:`Q`"
+msgstr ":kbd:`Q`"
+
+#: ../doc/keyboard.rst:702
+msgid "Slice Selected: Keep Right Side"
+msgstr "Leikkaa valitut: säilytä oikea puoli"
+
+#: ../doc/keyboard.rst:703
+msgid ":kbd:`Ctrl+L`"
+msgstr ":kbd:`Ctrl+L`"
+
+#: ../doc/keyboard.rst:705
+msgid "Snapping Toggle"
+msgstr "Kiinnitys päälle/pois"
+
+#: ../doc/keyboard.rst:706
+msgid ":kbd:`S`"
+msgstr ":kbd:`S`"
+
+#: ../doc/keyboard.rst:708
+msgid "Split File"
+msgstr "Jaa tiedosto"
+
+#: ../doc/keyboard.rst:711
+msgid "Stop Playback"
+msgstr "Pysäytä toisto"
+
+#: ../doc/keyboard.rst:714
+msgid "Thumbnail View"
+msgstr "Pikkukuvien näkymä"
+
+#: ../doc/keyboard.rst:715
+msgid ":kbd:`Ctrl+Page Down`"
+msgstr ":kbd:`Ctrl+Sivu alas`"
+
+#: ../doc/keyboard.rst:717
+msgid "Timing Toggle"
+msgstr "Ajoituksen vaihto"
+
+#: ../doc/keyboard.rst:718
+msgid ":kbd:`T`"
+msgstr ":kbd:`T`"
+
+#: ../doc/keyboard.rst:720
+msgid "Title"
+msgstr "Otsikko"
+
+#: ../doc/keyboard.rst:721
+msgid ":kbd:`Ctrl+T`"
+msgstr ":kbd:`Ctrl+T`"
+
+#: ../doc/keyboard.rst:723
+msgid "Translate this Application..."
+msgstr "Käännä tämä sovellus..."
+
+#: ../doc/keyboard.rst:724
+msgid ":kbd:`F6`"
+msgstr ":kbd:`F6`"
+
+#: ../doc/keyboard.rst:727
+msgid ":kbd:`Ctrl+Z`"
+msgstr ":kbd:`Ctrl+Z`"
+
+#: ../doc/keyboard.rst:729
+msgid "Update Available"
+msgstr "Päivitys saatavilla"
+
+#: ../doc/keyboard.rst:730
+msgid ":kbd:`F9`"
+msgstr ":kbd:`F9`"
+
+#: ../doc/keyboard.rst:732
+msgid "View Toolbar"
+msgstr "Näytä työkalupalkki"
+
+#: ../doc/keyboard.rst:733
+msgid ":kbd:`Ctrl+Shift+B`"
+msgstr ":kbd:`Ctrl+Vaihto+B`"
+
+#: ../doc/keyboard.rst:735
+msgid "Zoom In"
+msgstr "Lähennä"
+
+#: ../doc/keyboard.rst:736
+msgid ":kbd:`=`"
+msgstr ":kbd:`=`"
+
+#: ../doc/keyboard.rst:737
+msgid ":kbd:`Ctrl+=`"
+msgstr ":kbd:`Ctrl+=`"
+
+#: ../doc/keyboard.rst:738
+msgid "Zoom Out"
+msgstr "Loitonna"
+
+#: ../doc/keyboard.rst:739
+msgid ":kbd:`-`"
+msgstr ":kbd:`-`"
+
+#: ../doc/keyboard.rst:740
+msgid ":kbd:`Ctrl+-`"
+msgstr ":kbd:`Ctrl+-`"
+
+#: ../doc/keyboard.rst:741
+msgid "Zoom to Timeline"
+msgstr "Suurenna aikajanalle"
+
+#: ../doc/keyboard.rst:742
+msgid ":kbd:`\\\\`"
+msgstr ":kbd:`\\\\`"
+
+#: ../doc/keyboard.rst:743
+msgid ":kbd:`Shift+\\\\`"
+msgstr ":kbd:`Shift+\\\\`"

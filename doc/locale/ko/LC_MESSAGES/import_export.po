@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-16 18:08-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,117 +18,116 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:21
+#: ../doc/import_export.rst:21
 msgid "Import & Export"
 msgstr "가져오기 및 내보내기"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:23
+#: ../doc/import_export.rst:23
 msgid ""
 "Video editing projects (including tracks, clips, and keyframes) can be "
-"**imported** and **exported** from OpenShot Video Editor in widely supported "
-"formats (**EDL**: Edit Decision Lists, and **XML**: Final Cut Pro format). "
+"**imported** and **exported** from OpenShot Video Editor in widely supported"
+" formats (**EDL**: Edit Decision Lists, and **XML**: Final Cut Pro format). "
 "For example, if you start editing a video in a different program (Adobe "
 "Premier, Final Cut Pro, etc...), but later need to move all your edits to "
 "OpenShot (or vice versa)."
 msgstr ""
-"트랙, 클립, 키프레임을 포함한 비디오 편집 프로젝트는 OpenShot Video Editor에"
-"서 널리 지원되는 형식(**EDL**: 편집 결정 목록, **XML**: Final Cut Pro 형식)으"
-"로 ** 가져오기** 및 ** 내보내기** 할 수 있습니다. 예를 들어, 다른 프로그램"
-"(Adobe Premiere, Final Cut Pro 등)에서 비디오 편집을 시작했지만 나중에 모든 "
-"편집 내용을 OpenShot으로 옮겨야 할 때 사용할 수 있습니다."
+"트랙, 클립, 키프레임을 포함한 비디오 편집 프로젝트는 OpenShot Video Editor에서 널리 지원되는 형식(**EDL**: "
+"편집 결정 목록, **XML**: Final Cut Pro 형식)으로 ** 가져오기** 및 ** 내보내기** 할 수 있습니다. 예를 "
+"들어, 다른 프로그램(Adobe Premiere, Final Cut Pro 등)에서 비디오 편집을 시작했지만 나중에 모든 편집 내용을 "
+"OpenShot으로 옮겨야 할 때 사용할 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:29
+#: ../doc/import_export.rst:29
 msgid "EDL (Edit Decision Lists)"
 msgstr "EDL (편집 결정 목록)"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:30
+#: ../doc/import_export.rst:30
 msgid ""
 "The following features are supported when importing and exporting an EDL "
 "file with OpenShot."
 msgstr "OpenShot에서 EDL 파일을 가져오고 내보낼 때 다음 기능들이 지원됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:36
+#: ../doc/import_export.rst:36
 msgid "EDL Option Name"
 msgstr "EDL 옵션 이름"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:36 ../import_export.rst:122
+#: ../doc/import_export.rst:36 ../doc/import_export.rst:122
 msgid "Description"
 msgstr "설명"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:38
+#: ../doc/import_export.rst:38
 msgid "EDL Format"
 msgstr "EDL 형식"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:38
+#: ../doc/import_export.rst:38
 msgid "CMX-3600 (a very widely supported variation)"
 msgstr "CMX-3600 (매우 널리 지원되는 변형)"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:39
+#: ../doc/import_export.rst:39
 msgid "Single Track"
 msgstr "단일 트랙"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:39
+#: ../doc/import_export.rst:39
 msgid ""
 "Only a single track can be imported at a time (this is a limitation of the "
 "EDL format)"
 msgstr "한 번에 하나의 트랙만 가져올 수 있습니다(EDL 형식의 제한 사항입니다)."
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:40
+#: ../doc/import_export.rst:40
 msgid "Tape Name"
 msgstr "테이프 이름"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:40
+#: ../doc/import_export.rst:40
 msgid "Only **AX** and **BL** tape names are currently supported in OpenShot"
 msgstr "현재 OpenShot에서는 **AX** 및 **BL** 테이프 이름만 지원됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:41
+#: ../doc/import_export.rst:41
 msgid "Edits (V and A)"
 msgstr "편집 (비디오 및 오디오)"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:41
+#: ../doc/import_export.rst:41
 msgid "Only edits are currently supported (transitions are not yet supported)"
 msgstr "현재 편집만 지원되며(전환은 아직 지원되지 않음)"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:42 ../import_export.rst:127
+#: ../doc/import_export.rst:42 ../doc/import_export.rst:127
 msgid "Opacity"
 msgstr "불투명도"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:42 ../import_export.rst:127
+#: ../doc/import_export.rst:42 ../doc/import_export.rst:127
 msgid "Opacity keyframes are supported"
 msgstr "불투명도 키프레임이 지원됩니다"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:43 ../import_export.rst:128
+#: ../doc/import_export.rst:43 ../doc/import_export.rst:128
 msgid "Audio Levels"
 msgstr "오디오 레벨"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:43 ../import_export.rst:128
+#: ../doc/import_export.rst:43 ../doc/import_export.rst:128
 msgid "Volume keyframes are supported"
 msgstr "볼륨 키프레임이 지원됩니다"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:47
+#: ../doc/import_export.rst:47
 msgid "Example EDL Output"
 msgstr "EDL 출력 예시"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:49
+#: ../doc/import_export.rst:49
 msgid ""
 "OpenShot follows the CMX 3600 layout for event lines and uses comment lines "
 "(`* ...`) to carry keyframes. CMX 3600 does not define units or "
@@ -137,31 +136,30 @@ msgid ""
 "with or without spaces, mixed case, optional interpolation tokens, and "
 "ignores unknown trailing text/reel tags to maximize compatibility."
 msgstr ""
-"OpenShot은 이벤트 라인에 CMX 3600 레이아웃을 따르며, 키프레임을 전달하기 위"
-"해 주석 라인(`* ...`)을 사용합니다. CMX 3600은 주석에 단위나 보간법을 정의하"
-"지 않으므로, 내보내기 기능은 읽기 쉬운 값과 보간법 이름을 추가하며, 가져오기 "
-"기능은 매우 관대하여 공백 유무, 대소문자 혼용, 선택적 보간 토큰을 허용하고, "
-"호환성을 극대화하기 위해 알 수 없는 후행 텍스트/릴 태그를 무시합니다."
+"OpenShot은 이벤트 라인에 CMX 3600 레이아웃을 따르며, 키프레임을 전달하기 위해 주석 라인(`* ...`)을 사용합니다. "
+"CMX 3600은 주석에 단위나 보간법을 정의하지 않으므로, 내보내기 기능은 읽기 쉬운 값과 보간법 이름을 추가하며, 가져오기 기능은 "
+"매우 관대하여 공백 유무, 대소문자 혼용, 선택적 보간 토큰을 허용하고, 호환성을 극대화하기 위해 알 수 없는 후행 텍스트/릴 태그를 "
+"무시합니다."
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:109
+#: ../doc/import_export.rst:109
 msgid "XML (Final Cut Pro format)"
 msgstr "XML (Final Cut Pro 형식)"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:110
+#: ../doc/import_export.rst:110
 msgid ""
 "The following features are supported when importing and exporting an XML "
 "file with OpenShot. This XML format is supported in many video editors (not "
 "just Final Cut Pro). In fact, most commercial video editors have some "
 "support for importing and exporting this same XML format."
 msgstr ""
-"OpenShot에서 XML 파일을 가져오고 내보낼 때 다음 기능들이 지원됩니다. 이 XML "
-"형식은 많은 비디오 편집기에서 지원되며(Final Cut Pro뿐만 아니라), 대부분의 상"
-"용 비디오 편집기에서 이 동일한 XML 형식의 가져오기 및 내보내기를 지원합니다."
+"OpenShot에서 XML 파일을 가져오고 내보낼 때 다음 기능들이 지원됩니다. 이 XML 형식은 많은 비디오 편집기에서 "
+"지원되며(Final Cut Pro뿐만 아니라), 대부분의 상용 비디오 편집기에서 이 동일한 XML 형식의 가져오기 및 내보내기를 "
+"지원합니다."
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:114
+#: ../doc/import_export.rst:114
 msgid ""
 "OpenShot uses the legacy Final Cut Pro XML Interchange Format (**xmeml**) "
 "from Final Cut Pro 7. Our exporter writes `<!DOCTYPE xmeml>` projects that "
@@ -169,53 +167,50 @@ msgid ""
 "schema versions of that interchange format (the DTDs shipped with Final Cut "
 "Pro 7)."
 msgstr ""
-"OpenShot은 Final Cut Pro 7의 레거시 Final Cut Pro XML 교환 형식(**xmeml**)을 "
-"사용합니다. 내보내기 기능은 Final Cut Pro XML DTD v1.0을 따르는 `<!DOCTYPE "
-"xmeml>` 프로젝트를 작성하며, 해당 교환 형식의 v4 및 v5 스키마 버전과 호환됩니"
-"다(Final Cut Pro 7에 포함된 DTD)."
+"OpenShot은 Final Cut Pro 7의 레거시 Final Cut Pro XML 교환 형식(**xmeml**)을 사용합니다. "
+"내보내기 기능은 Final Cut Pro XML DTD v1.0을 따르는 `<!DOCTYPE xmeml>` 프로젝트를 작성하며, 해당 "
+"교환 형식의 v4 및 v5 스키마 버전과 호환됩니다(Final Cut Pro 7에 포함된 DTD)."
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:122
+#: ../doc/import_export.rst:122
 msgid "XML Option Name"
 msgstr "XML 옵션 이름"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:124
+#: ../doc/import_export.rst:124
 msgid "XML Format"
 msgstr "XML 형식"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:124
+#: ../doc/import_export.rst:124
 msgid ""
 "Final Cut Pro format (but most commercial video editors also support this "
 "format)"
 msgstr "Final Cut Pro 형식(대부분의 상용 비디오 편집기도 이 형식을 지원함)"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:125
+#: ../doc/import_export.rst:125
 msgid "All Tracks"
 msgstr "모든 트랙"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:125
+#: ../doc/import_export.rst:125
 msgid "All video and audio tracks are supported"
 msgstr "모든 비디오 및 오디오 트랙이 지원됩니다"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:126
+#: ../doc/import_export.rst:126
 msgid "Edits"
 msgstr "편집"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:126
+#: ../doc/import_export.rst:126
 msgid ""
 "All clips on all tracks are supported (video, image, and audio files). "
 "Transitions are not yet supported."
-msgstr ""
-"모든 트랙의 모든 클립(비디오, 이미지, 오디오 파일)이 지원됩니다. 전환은 아직 "
-"지원되지 않습니다."
+msgstr "모든 트랙의 모든 클립(비디오, 이미지, 오디오 파일)이 지원됩니다. 전환은 아직 지원되지 않습니다."
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:132
+#: ../doc/import_export.rst:132
 msgid "Example XML Output (tree view)"
 msgstr "XML 출력 예시 (트리 뷰)"

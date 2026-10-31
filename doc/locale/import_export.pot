@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenShot Video Editor 4.0\n"
+"Project-Id-Version: OpenShot Video Editor 4.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,131 +16,131 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../import_export.rst:21
+#: ../doc/import_export.rst:21
 msgid "Import & Export"
 msgstr ""
 
-#: ../import_export.rst:23
+#: ../doc/import_export.rst:23
 msgid "Video editing projects (including tracks, clips, and keyframes) can be **imported** and **exported** from OpenShot Video Editor in widely supported formats (**EDL**: Edit Decision Lists, and **XML**: Final Cut Pro format). For example, if you start editing a video in a different program (Adobe Premier, Final Cut Pro, etc...), but later need to move all your edits to OpenShot (or vice versa)."
 msgstr ""
 
-#: ../import_export.rst:29
+#: ../doc/import_export.rst:29
 msgid "EDL (Edit Decision Lists)"
 msgstr ""
 
-#: ../import_export.rst:30
+#: ../doc/import_export.rst:30
 msgid "The following features are supported when importing and exporting an EDL file with OpenShot."
 msgstr ""
 
-#: ../import_export.rst:36
+#: ../doc/import_export.rst:36
 msgid "EDL Option Name"
 msgstr ""
 
-#: ../import_export.rst:36
-#: ../import_export.rst:122
+#: ../doc/import_export.rst:36
+#: ../doc/import_export.rst:122
 msgid "Description"
 msgstr ""
 
-#: ../import_export.rst:38
+#: ../doc/import_export.rst:38
 msgid "EDL Format"
 msgstr ""
 
-#: ../import_export.rst:38
+#: ../doc/import_export.rst:38
 msgid "CMX-3600 (a very widely supported variation)"
 msgstr ""
 
-#: ../import_export.rst:39
+#: ../doc/import_export.rst:39
 msgid "Single Track"
 msgstr ""
 
-#: ../import_export.rst:39
+#: ../doc/import_export.rst:39
 msgid "Only a single track can be imported at a time (this is a limitation of the EDL format)"
 msgstr ""
 
-#: ../import_export.rst:40
+#: ../doc/import_export.rst:40
 msgid "Tape Name"
 msgstr ""
 
-#: ../import_export.rst:40
+#: ../doc/import_export.rst:40
 msgid "Only **AX** and **BL** tape names are currently supported in OpenShot"
 msgstr ""
 
-#: ../import_export.rst:41
+#: ../doc/import_export.rst:41
 msgid "Edits (V and A)"
 msgstr ""
 
-#: ../import_export.rst:41
+#: ../doc/import_export.rst:41
 msgid "Only edits are currently supported (transitions are not yet supported)"
 msgstr ""
 
-#: ../import_export.rst:42
-#: ../import_export.rst:127
+#: ../doc/import_export.rst:42
+#: ../doc/import_export.rst:127
 msgid "Opacity"
 msgstr ""
 
-#: ../import_export.rst:42
-#: ../import_export.rst:127
+#: ../doc/import_export.rst:42
+#: ../doc/import_export.rst:127
 msgid "Opacity keyframes are supported"
 msgstr ""
 
-#: ../import_export.rst:43
-#: ../import_export.rst:128
+#: ../doc/import_export.rst:43
+#: ../doc/import_export.rst:128
 msgid "Audio Levels"
 msgstr ""
 
-#: ../import_export.rst:43
-#: ../import_export.rst:128
+#: ../doc/import_export.rst:43
+#: ../doc/import_export.rst:128
 msgid "Volume keyframes are supported"
 msgstr ""
 
-#: ../import_export.rst:47
+#: ../doc/import_export.rst:47
 msgid "Example EDL Output"
 msgstr ""
 
-#: ../import_export.rst:49
+#: ../doc/import_export.rst:49
 msgid "OpenShot follows the CMX 3600 layout for event lines and uses comment lines (`* ...`) to carry keyframes. CMX 3600 does not define units or interpolation in comments, so our exporter adds readable values and interpolation names, and our importer is very forgiving: it accepts units with or without spaces, mixed case, optional interpolation tokens, and ignores unknown trailing text/reel tags to maximize compatibility."
 msgstr ""
 
-#: ../import_export.rst:109
+#: ../doc/import_export.rst:109
 msgid "XML (Final Cut Pro format)"
 msgstr ""
 
-#: ../import_export.rst:110
+#: ../doc/import_export.rst:110
 msgid "The following features are supported when importing and exporting an XML file with OpenShot. This XML format is supported in many video editors (not just Final Cut Pro). In fact, most commercial video editors have some support for importing and exporting this same XML format."
 msgstr ""
 
-#: ../import_export.rst:114
+#: ../doc/import_export.rst:114
 msgid "OpenShot uses the legacy Final Cut Pro XML Interchange Format (**xmeml**) from Final Cut Pro 7. Our exporter writes `<!DOCTYPE xmeml>` projects that follow the Final Cut Pro XML DTD v1.0, and is compatible with the v4 and v5 schema versions of that interchange format (the DTDs shipped with Final Cut Pro 7)."
 msgstr ""
 
-#: ../import_export.rst:122
+#: ../doc/import_export.rst:122
 msgid "XML Option Name"
 msgstr ""
 
-#: ../import_export.rst:124
+#: ../doc/import_export.rst:124
 msgid "XML Format"
 msgstr ""
 
-#: ../import_export.rst:124
+#: ../doc/import_export.rst:124
 msgid "Final Cut Pro format (but most commercial video editors also support this format)"
 msgstr ""
 
-#: ../import_export.rst:125
+#: ../doc/import_export.rst:125
 msgid "All Tracks"
 msgstr ""
 
-#: ../import_export.rst:125
+#: ../doc/import_export.rst:125
 msgid "All video and audio tracks are supported"
 msgstr ""
 
-#: ../import_export.rst:126
+#: ../doc/import_export.rst:126
 msgid "Edits"
 msgstr ""
 
-#: ../import_export.rst:126
+#: ../doc/import_export.rst:126
 msgid "All clips on all tracks are supported (video, image, and audio files). Transitions are not yet supported."
 msgstr ""
 
-#: ../import_export.rst:132
+#: ../doc/import_export.rst:132
 msgid "Example XML Output (tree view)"
 msgstr ""

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-16 18:08-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,52 +18,52 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:23
+#: ../doc/quick_tutorial.rst:23
 msgid "Quick Tutorial"
 msgstr "آموزش سریع"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:25
+#: ../doc/quick_tutorial.rst:25
 msgid ""
 "Using OpenShot is very easy, and this tutorial will take you through the "
-"basics in **under 5 minutes**. After this tutorial, you will be able to make "
-"a simple photo slide-show with music."
+"basics in **under 5 minutes**. After this tutorial, you will be able to make"
+" a simple photo slide-show with music."
 msgstr ""
 "استفاده از OpenShot بسیار آسان است و این آموزش شما را در کمتر از ۵ دقیقه با "
-"اصول اولیه آشنا می‌کند. پس از این آموزش، قادر خواهید بود یک نمایش اسلاید ساده "
-"از عکس‌ها همراه با موسیقی بسازید."
+"اصول اولیه آشنا می‌کند. پس از این آموزش، قادر خواهید بود یک نمایش اسلاید "
+"ساده از عکس‌ها همراه با موسیقی بسازید."
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:30
+#: ../doc/quick_tutorial.rst:30
 msgid "Basic Terminology"
 msgstr "اصطلاحات پایه"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:31
+#: ../doc/quick_tutorial.rst:31
 msgid ""
-"To help understand the steps below, here are some definitions of a few basic "
-"terms used in this tutorial."
+"To help understand the steps below, here are some definitions of a few basic"
+" terms used in this tutorial."
 msgstr ""
 "برای درک بهتر مراحل زیر، تعاریفی از چند اصطلاح پایه که در این آموزش استفاده "
 "شده است، ارائه شده است."
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:38
+#: ../doc/quick_tutorial.rst:38
 msgid "Term"
 msgstr "اصطلاح"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:38
+#: ../doc/quick_tutorial.rst:38
 msgid "Description"
 msgstr "توضیح"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:40
+#: ../doc/quick_tutorial.rst:40
 msgid "Project"
 msgstr "پروژه"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:40
+#: ../doc/quick_tutorial.rst:40
 msgid ""
 "A **project** includes references to all the video files and edits "
 "(animations, titles, etc...), saved in a single file."
@@ -72,70 +72,70 @@ msgstr ""
 "عنوان‌ها و غیره) است که در یک فایل واحد ذخیره شده‌اند."
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:41
+#: ../doc/quick_tutorial.rst:41
 msgid "Timeline"
 msgstr "خط زمان"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:41
+#: ../doc/quick_tutorial.rst:41
 msgid ""
 "The **timeline** is an editing user interface that represents edits and "
 "clips on a horizontal ruler. Time progresses from left to right."
 msgstr ""
-"**خط زمان** یک رابط کاربری ویرایش است که ویرایش‌ها و کلیپ‌ها را روی یک خط افقی "
-"نمایش می‌دهد. زمان از چپ به راست پیش می‌رود."
+"**خط زمان** یک رابط کاربری ویرایش است که ویرایش‌ها و کلیپ‌ها را روی یک خط "
+"افقی نمایش می‌دهد. زمان از چپ به راست پیش می‌رود."
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:42
+#: ../doc/quick_tutorial.rst:42
 msgid "Track"
 msgstr "ردیف"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:42
+#: ../doc/quick_tutorial.rst:42
 msgid ""
 "A separate **layer** on the timeline, which can hold clips. A timeline is "
 "made up of many tracks, stacked vertically."
 msgstr ""
-"یک **لایه** جداگانه در خط زمان که می‌تواند کلیپ‌ها را در خود جای دهد. خط زمان "
-"از چندین ردیف که به صورت عمودی روی هم قرار گرفته‌اند، تشکیل شده است."
+"یک **لایه** جداگانه در خط زمان که می‌تواند کلیپ‌ها را در خود جای دهد. خط "
+"زمان از چندین ردیف که به صورت عمودی روی هم قرار گرفته‌اند، تشکیل شده است."
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:43
+#: ../doc/quick_tutorial.rst:43
 msgid "Clip"
 msgstr "کلیپ"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:43
+#: ../doc/quick_tutorial.rst:43
 msgid ""
-"A **trimmed** portion of video, audio, or both positioned on a track, and at "
-"a specific position in time. When files are dropped on the timeline, they "
+"A **trimmed** portion of video, audio, or both positioned on a track, and at"
+" a specific position in time. When files are dropped on the timeline, they "
 "are represented as a Clip."
 msgstr ""
-"یک بخش **برش‌خورده** از ویدئو، صدا یا هر دو که روی یک ردیف و در موقعیت زمانی "
-"مشخص قرار دارد. وقتی فایل‌ها روی خط زمان رها می‌شوند، به صورت یک کلیپ نمایش "
-"داده می‌شوند."
+"یک بخش **برش‌خورده** از ویدئو، صدا یا هر دو که روی یک ردیف و در موقعیت زمانی"
+" مشخص قرار دارد. وقتی فایل‌ها روی خط زمان رها می‌شوند، به صورت یک کلیپ نمایش"
+" داده می‌شوند."
 
 # Main-window terminology review, 2026-09-26.
-#: ../quick_tutorial.rst:44
+#: ../doc/quick_tutorial.rst:44
 msgid "Transition"
 msgstr "گذار"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:44
+#: ../doc/quick_tutorial.rst:44
 msgid ""
-"A method to **blend** two images. Transitions can take many forms, including "
-"cuts, dissolves, and wipes."
+"A method to **blend** two images. Transitions can take many forms, including"
+" cuts, dissolves, and wipes."
 msgstr ""
-"روشی برای **ترکیب** دو تصویر. ترنزیشن‌ها می‌توانند اشکال مختلفی داشته باشند، "
-"از جمله برش‌ها، محو شدن‌ها و پاک‌کن‌ها."
+"روشی برای **ترکیب** دو تصویر. ترنزیشن‌ها می‌توانند اشکال مختلفی داشته باشند،"
+" از جمله برش‌ها، محو شدن‌ها و پاک‌کن‌ها."
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:48
+#: ../doc/quick_tutorial.rst:48
 msgid "Video Tutorials"
 msgstr "آموزش‌های ویدئویی"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:50
+#: ../doc/quick_tutorial.rst:50
 msgid ""
 "If you prefer to learn by **watching videos** instead of reading, we have "
 "many official video tutorials that cover a wide range of beginner and "
@@ -144,125 +144,125 @@ msgid ""
 msgstr ""
 "اگر ترجیح می‌دهید به جای خواندن، با **تماشای ویدئوها** یاد بگیرید، ما "
 "آموزش‌های ویدئویی رسمی زیادی داریم که موضوعات متنوعی برای مبتدیان و مقدماتی "
-"را پوشش می‌دهند. این ویدئوها گام بعدی عالی برای تسلط بر OpenShot Video Editor "
-"هستند!"
+"را پوشش می‌دهند. این ویدئوها گام بعدی عالی برای تسلط بر OpenShot Video "
+"Editor هستند!"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:54
+#: ../doc/quick_tutorial.rst:54
 msgid "`Video: Getting Started <https://youtu.be/1k-ISfd-YBE>`_"
 msgstr "`ویدئو: شروع به کار <https://youtu.be/1k-ISfd-YBE>`_"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:55
+#: ../doc/quick_tutorial.rst:55
 msgid "`Video: The Basics (Part 1) <https://youtu.be/VE6awGSr22Q>`_"
 msgstr "`ویدئو: اصول اولیه (قسمت ۱) <https://youtu.be/VE6awGSr22Q>`_"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:56
+#: ../doc/quick_tutorial.rst:56
 msgid "`Video: The Basics (Part 2) <https://youtu.be/6PA98QL9tkw>`_"
 msgstr "`ویدئو: اصول اولیه (قسمت ۲) <https://youtu.be/6PA98QL9tkw>`_"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:57
+#: ../doc/quick_tutorial.rst:57
 msgid "`Video: Basic Animation <https://youtu.be/P3zIprwr1rk>`_"
 msgstr "`ویدئو: انیمیشن پایه <https://youtu.be/P3zIprwr1rk>`_"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:58
+#: ../doc/quick_tutorial.rst:58
 msgid "`Video: Trim, Slice, and Split <https://youtu.be/BQS2tmgD_Rk>`_"
 msgstr "`ویدئو: برش، تقسیم و جدا کردن <https://youtu.be/BQS2tmgD_Rk>`_"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:59
+#: ../doc/quick_tutorial.rst:59
 msgid "`Video: Chroma Key <https://youtu.be/2sushecqMs4>`_"
 msgstr "`ویدئو: کروم کی <https://youtu.be/2sushecqMs4>`_"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:60
+#: ../doc/quick_tutorial.rst:60
 msgid "`Video: Masks & Transitions <https://youtu.be/Hd9k3x0diOo>`_"
 msgstr "`ویدئو: ماسک‌ها و انتقال‌ها <https://youtu.be/Hd9k3x0diOo>`_"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:61
+#: ../doc/quick_tutorial.rst:61
 msgid "`Video: Backup & Recovery <https://youtu.be/5XaWBTBTpTo>`_"
 msgstr "`ویدئو: پشتیبان‌گیری و بازیابی <https://youtu.be/5XaWBTBTpTo>`_"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:64
+#: ../doc/quick_tutorial.rst:64
 msgid "Step 1 – Import Photos & Music"
 msgstr "مرحله ۱ – وارد کردن عکس‌ها و موسیقی"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:66
+#: ../doc/quick_tutorial.rst:66
 msgid ""
 "Before we can begin making a video, we need to import media files into "
 "OpenShot. Most video, image and music file formats will work. Drag and drop "
 "a few videos or images and a music file from your Desktop to OpenShot. Be "
 "sure to drop the files where the arrow in the illustration is pointing to."
 msgstr ""
-"قبل از شروع ساخت ویدئو، باید فایل‌های رسانه‌ای را به OpenShot وارد کنیم. بیشتر "
-"فرمت‌های ویدئو، تصویر و موسیقی پشتیبانی می‌شوند. چند ویدئو یا تصویر و یک فایل "
-"موسیقی را از دسکتاپ خود به OpenShot بکشید و رها کنید. حتماً فایل‌ها را در جایی "
-"رها کنید که فلش در تصویر نشان می‌دهد."
+"قبل از شروع ساخت ویدئو، باید فایل‌های رسانه‌ای را به OpenShot وارد کنیم. "
+"بیشتر فرمت‌های ویدئو، تصویر و موسیقی پشتیبانی می‌شوند. چند ویدئو یا تصویر و "
+"یک فایل موسیقی را از دسکتاپ خود به OpenShot بکشید و رها کنید. حتماً فایل‌ها "
+"را در جایی رها کنید که فلش در تصویر نشان می‌دهد."
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:73
+#: ../doc/quick_tutorial.rst:73
 msgid ""
 "Alternative methods to add files to your projects are described in the "
 "section :ref:`import_files_ref`. The \"Show All\", \"Video\", \"Audio\", "
 "\"Image\" filters above the added files allows you to only see the file "
 "types you are interested in."
 msgstr ""
-"روش‌های جایگزین برای افزودن فایل‌ها به پروژه‌های شما در بخش :ref:"
-"`import_files_ref` توضیح داده شده است. فیلترهای «نمایش همه»، «ویدئو»، «صدا» "
-"و «تصویر» بالای فایل‌های اضافه شده به شما اجازه می‌دهند فقط نوع فایل‌های مورد "
-"نظر خود را ببینید."
+"روش‌های جایگزین برای افزودن فایل‌ها به پروژه‌های شما در بخش "
+":ref:`import_files_ref` توضیح داده شده است. فیلترهای «نمایش همه»، «ویدئو»، "
+"«صدا» و «تصویر» بالای فایل‌های اضافه شده به شما اجازه می‌دهند فقط نوع "
+"فایل‌های مورد نظر خود را ببینید."
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:78
+#: ../doc/quick_tutorial.rst:78
 msgid "Step 2 – Add Photos to Timeline"
 msgstr "مرحله ۲ – افزودن عکس‌ها به خط زمان"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:80
+#: ../doc/quick_tutorial.rst:80
 msgid ""
 "Next, drag each video or photo onto a track in the timeline (as seen in the "
 "illustration). The timeline represents your final video, so arrange your "
 "photos (i.e. clips) in whatever sequence you want them to appear in your "
-"video. If you overlap two clips, OpenShot will automatically create a smooth "
-"fade between them (only affects the image, and not audio), displayed by blue "
-"rounded rectangles between the clips. Remember, you can rearrange the clips "
-"as many times as needed by simply dragging and dropping them."
+"video. If you overlap two clips, OpenShot will automatically create a smooth"
+" fade between them (only affects the image, and not audio), displayed by "
+"blue rounded rectangles between the clips. Remember, you can rearrange the "
+"clips as many times as needed by simply dragging and dropping them."
 msgstr ""
 "سپس، هر ویدئو یا عکس را روی یک ردیف در خط زمان بکشید (همانطور که در تصویر "
 "نشان داده شده است). خط زمان نمایانگر ویدئوی نهایی شماست، بنابراین عکس‌ها "
 "(یعنی کلیپ‌ها) را به هر ترتیبی که می‌خواهید در ویدئوی خود ظاهر شوند، مرتب "
 "کنید. اگر دو کلیپ روی هم قرار بگیرند، OpenShot به طور خودکار یک محو شدن نرم "
 "بین آن‌ها ایجاد می‌کند (فقط تصویر را تحت تأثیر قرار می‌دهد، نه صدا) که با "
-"مستطیل‌های گرد آبی بین کلیپ‌ها نمایش داده می‌شود. به یاد داشته باشید، می‌توانید "
-"کلیپ‌ها را هر چند بار که لازم است با کشیدن و رها کردن مرتب کنید."
+"مستطیل‌های گرد آبی بین کلیپ‌ها نمایش داده می‌شود. به یاد داشته باشید، "
+"می‌توانید کلیپ‌ها را هر چند بار که لازم است با کشیدن و رها کردن مرتب کنید."
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:87
+#: ../doc/quick_tutorial.rst:87
 msgid ""
 "You can also shorten or lengthen each clip, by clicking the left or right "
 "edge and dragging your mouse. For example, if you want a photo to last "
-"longer than 10 seconds (the default duration), simply grab the right edge of "
-"the photo (on the timeline), and drag it to the right (to increase the "
+"longer than 10 seconds (the default duration), simply grab the right edge of"
+" the photo (on the timeline), and drag it to the right (to increase the "
 "clip's duration on the timeline)."
 msgstr ""
-"همچنین می‌توانید هر کلیپ را با کلیک روی لبه چپ یا راست و کشیدن ماوس کوتاه یا "
-"بلند کنید. برای مثال، اگر می‌خواهید یک عکس بیشتر از ۱۰ ثانیه (مدت زمان "
+"همچنین می‌توانید هر کلیپ را با کلیک روی لبه چپ یا راست و کشیدن ماوس کوتاه یا"
+" بلند کنید. برای مثال، اگر می‌خواهید یک عکس بیشتر از ۱۰ ثانیه (مدت زمان "
 "پیش‌فرض) نمایش داده شود، کافی است لبه راست عکس (روی خط زمان) را گرفته و به "
 "سمت راست بکشید (تا مدت زمان کلیپ روی خط زمان افزایش یابد)."
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:95
+#: ../doc/quick_tutorial.rst:95
 msgid "Step 3 – Add Music to Timeline"
 msgstr "مرحله ۳ – افزودن موسیقی به خط زمان"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:97
+#: ../doc/quick_tutorial.rst:97
 msgid ""
 "To make our creation more interesting, we need to add some music. Click on "
 "the music file that you imported in step 1, and drag it onto the timeline. "
@@ -270,82 +270,82 @@ msgid ""
 "it smaller (that will make it end earlier). You could also insert the same "
 "file multiple times, if your music is too short."
 msgstr ""
-"برای جذاب‌تر کردن اثرمان، باید موسیقی اضافه کنیم. روی فایل موسیقی که در مرحله "
-"۱ وارد کردید کلیک کنید و آن را روی خط زمان بکشید. اگر آهنگ خیلی طولانی است، "
-"لبه راست کلیپ موسیقی را گرفته و کوچکتر کنید (این باعث می‌شود زودتر پایان "
-"یابد). همچنین می‌توانید همان فایل را چند بار وارد کنید اگر موسیقی شما خیلی "
-"کوتاه است."
+"برای جذاب‌تر کردن اثرمان، باید موسیقی اضافه کنیم. روی فایل موسیقی که در "
+"مرحله ۱ وارد کردید کلیک کنید و آن را روی خط زمان بکشید. اگر آهنگ خیلی طولانی"
+" است، لبه راست کلیپ موسیقی را گرفته و کوچکتر کنید (این باعث می‌شود زودتر "
+"پایان یابد). همچنین می‌توانید همان فایل را چند بار وارد کنید اگر موسیقی شما "
+"خیلی کوتاه است."
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:105
+#: ../doc/quick_tutorial.rst:105
 msgid "Step 4 – Preview your Project"
 msgstr "مرحله ۴ – پیش‌نمایش پروژه"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:107
+#: ../doc/quick_tutorial.rst:107
 msgid ""
 "To preview what our video looks & sounds like, click the :guilabel:`Play` "
 "button under the preview window. You can also pause, rewind, and fast-"
 "forward your video project by clicking the corresponding buttons."
 msgstr ""
 "برای پیش‌نمایش ظاهر و صدای ویدئوی خود، روی دکمه :guilabel:`Play` زیر پنجره "
-"پیش‌نمایش کلیک کنید. همچنین می‌توانید با کلیک روی دکمه‌های مربوطه، ویدئوی خود "
-"را متوقف، عقب‌گرد یا جلو ببرید."
+"پیش‌نمایش کلیک کنید. همچنین می‌توانید با کلیک روی دکمه‌های مربوطه، ویدئوی "
+"خود را متوقف، عقب‌گرد یا جلو ببرید."
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:114
+#: ../doc/quick_tutorial.rst:114
 msgid "Step 5 – Export your Video"
 msgstr "مرحله ۵ – خروجی گرفتن از ویدئو"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:115
+#: ../doc/quick_tutorial.rst:115
 msgid ""
-"Once you have edited your photo slide-show video, the last step is to export "
-"the project. Exporting converts your OpenShot project into a single video "
+"Once you have edited your photo slide-show video, the last step is to export"
+" the project. Exporting converts your OpenShot project into a single video "
 "output file. By using the default settings, the video works on most media "
 "players (such as VLC) or websites (such as YouTube, Vimeo, …)."
 msgstr ""
 "پس از ویرایش ویدئوی نمایش اسلاید عکس، آخرین مرحله خروجی گرفتن از پروژه است. "
 "خروجی گرفتن پروژه OpenShot شما را به یک فایل ویدئویی واحد تبدیل می‌کند. با "
-"استفاده از تنظیمات پیش‌فرض، ویدئو در بیشتر پخش‌کننده‌های رسانه‌ای (مانند VLC) یا "
-"وب‌سایت‌ها (مانند YouTube، Vimeo و غیره) قابل پخش است."
+"استفاده از تنظیمات پیش‌فرض، ویدئو در بیشتر پخش‌کننده‌های رسانه‌ای (مانند "
+"VLC) یا وب‌سایت‌ها (مانند YouTube، Vimeo و غیره) قابل پخش است."
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:120
+#: ../doc/quick_tutorial.rst:120
 msgid ""
-"Click on the Export Video icon at the top of the screen (or use the :"
-"guilabel:`File→Export Video` menu). The default values will work fine, so "
+"Click on the Export Video icon at the top of the screen (or use the "
+":guilabel:`File→Export Video` menu). The default values will work fine, so "
 "just click the :guilabel:`Export Video` button to render your new video."
 msgstr ""
-"روی نماد صدور ویدیو در بالای صفحه کلیک کنید (یا از منوی :guilabel:"
-"`File→Export Video` استفاده کنید). مقادیر پیش‌فرض به خوبی کار می‌کنند، "
-"بنابراین فقط روی دکمه :guilabel:`Export Video` کلیک کنید تا ویدیوی جدید شما "
-"رندر شود."
+"روی نماد صدور ویدیو در بالای صفحه کلیک کنید (یا از منوی "
+":guilabel:`File→Export Video` استفاده کنید). مقادیر پیش‌فرض به خوبی کار "
+"می‌کنند، بنابراین فقط روی دکمه :guilabel:`Export Video` کلیک کنید تا ویدیوی "
+"جدید شما رندر شود."
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:127
+#: ../doc/quick_tutorial.rst:127
 msgid "Conclusion"
 msgstr "نتیجه‌گیری"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:128
+#: ../doc/quick_tutorial.rst:128
 msgid ""
 "You should now have a basic understanding of how OpenShot works. Importing, "
-"Arranging, Previewing, and Exporting. Hopefully this tutorial took less than "
-"**5 minutes** for you to complete. Please read the rest of this guide for a "
-"more detailed understanding of OpenShot and its advanced features."
+"Arranging, Previewing, and Exporting. Hopefully this tutorial took less than"
+" **5 minutes** for you to complete. Please read the rest of this guide for a"
+" more detailed understanding of OpenShot and its advanced features."
 msgstr ""
-"اکنون باید درک پایه‌ای از نحوه کار OpenShot داشته باشید: وارد کردن، مرتب‌سازی، "
-"پیش‌نمایش و صدور. امیدواریم این آموزش کمتر از **۵ دقیقه** برای شما طول کشیده "
-"باشد. لطفاً بقیه این راهنما را برای درک دقیق‌تر OpenShot و ویژگی‌های پیشرفته آن "
-"مطالعه کنید."
+"اکنون باید درک پایه‌ای از نحوه کار OpenShot داشته باشید: وارد کردن، "
+"مرتب‌سازی، پیش‌نمایش و صدور. امیدواریم این آموزش کمتر از **۵ دقیقه** برای "
+"شما طول کشیده باشد. لطفاً بقیه این راهنما را برای درک دقیق‌تر OpenShot و "
+"ویژگی‌های پیشرفته آن مطالعه کنید."
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:133
+#: ../doc/quick_tutorial.rst:133
 msgid ""
 "If you have any questions after reading this User Guide, please consider "
-"joining our `Reddit User Community <https://openshot.org/forum>`_ to discuss "
-"topics, ask questions, and meet with other OpenShot users."
+"joining our `Reddit User Community <https://openshot.org/forum>`_ to discuss"
+" topics, ask questions, and meet with other OpenShot users."
 msgstr ""
 "اگر پس از خواندن این راهنمای کاربر سوالی داشتید، لطفاً به جامعه کاربران "
 "Reddit ما در `Reddit User Community <https://openshot.org/forum>`_ بپیوندید "

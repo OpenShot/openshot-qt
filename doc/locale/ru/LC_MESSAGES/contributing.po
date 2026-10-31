@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-16 18:08-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,12 +18,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:22
+#: ../doc/contributing.rst:22
 msgid "Contributing"
 msgstr "Участие в проекте"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:24
+#: ../doc/contributing.rst:24
 msgid ""
 "Want to help improve OpenShot (*and make some friends in the process*)? "
 "Please consider joining our open-source team by filling out this quick "
@@ -33,72 +33,73 @@ msgid ""
 msgstr ""
 "Хотите помочь улучшить OpenShot (*и завести новых друзей в процессе*)? "
 "Пожалуйста, присоединяйтесь к нашей команде с открытым исходным кодом, "
-"заполнив эту быструю `форму участника <https://forms.gle/"
-"CRqkS5tLMJE1V36V8>`_ и представьтесь! Все волонтеры приветствуются, "
-"независимо от навыков или уровня. **Давайте создадим что-то удивительное!**"
+"заполнив эту быструю `форму участника "
+"<https://forms.gle/CRqkS5tLMJE1V36V8>`_ и представьтесь! Все волонтеры "
+"приветствуются, независимо от навыков или уровня. **Давайте создадим что-то "
+"удивительное!**"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:30
+#: ../doc/contributing.rst:30
 msgid "How to Contribute"
 msgstr "Как внести вклад"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:32
+#: ../doc/contributing.rst:32
 msgid "There are many different ways to help and support OpenShot, including:"
 msgstr "Существует множество способов помочь и поддержать OpenShot, включая:"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:34
+#: ../doc/contributing.rst:34
 msgid "Testing"
 msgstr "Тестирование"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:35
+#: ../doc/contributing.rst:35
 msgid "`Translations <https://translations.launchpad.net/openshot/2.0>`_"
 msgstr "`Переводы <https://translations.launchpad.net/openshot/2.0>`_"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:36
+#: ../doc/contributing.rst:36
 msgid ""
 "`Documentation <https://github.com/OpenShot/openshot-qt/tree/develop/doc>`_"
 msgstr ""
 "`Документация <https://github.com/OpenShot/openshot-qt/tree/develop/doc>`_"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:37
+#: ../doc/contributing.rst:37
 msgid "Customer Service"
 msgstr "Обслуживание клиентов"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:38
+#: ../doc/contributing.rst:38
 msgid "Social Media / Marketing"
 msgstr "Социальные сети / Маркетинг"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:39
+#: ../doc/contributing.rst:39
 msgid "`Software Development <https://github.com/OpenShot>`_"
 msgstr "`Разработка программного обеспечения <https://github.com/OpenShot>`_"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:40
+#: ../doc/contributing.rst:40
 msgid "Art / Design / UI"
 msgstr "Искусство / Дизайн / Интерфейс"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:41
+#: ../doc/contributing.rst:41
 msgid "`User Community <https://openshot.org/forum>`_"
 msgstr "`Сообщество пользователей <https://openshot.org/forum>`_"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:42
+#: ../doc/contributing.rst:42
 msgid "`Donations <https://openshot.org/donate>`_"
 msgstr "`Пожертвования <https://openshot.org/donate>`_"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:44
+#: ../doc/contributing.rst:44
 msgid ""
-"All of these areas are **equally important**, so we would love to know which "
-"ones appeal to you the most. Please take a moment and fill-out our quick "
+"All of these areas are **equally important**, so we would love to know which"
+" ones appeal to you the most. Please take a moment and fill-out our quick "
 "`contributor form <https://forms.gle/CRqkS5tLMJE1V36V8>`_."
 msgstr ""
 "Все эти области **одинаково важны**, поэтому нам хотелось бы узнать, какие "
@@ -106,19 +107,20 @@ msgstr ""
 "быструю `форму участника <https://forms.gle/CRqkS5tLMJE1V36V8>`_."
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:48
+#: ../doc/contributing.rst:48
 msgid "Did you find a bug?"
 msgstr "Вы нашли ошибку?"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:50
+#: ../doc/contributing.rst:50
 msgid ""
-"Please use our step-by-step bug reporting page: https://openshot.org/issues/"
-"new/ to troubleshoot a potential new bug. This guide will instruct you on "
-"how to delete you log files, test with the latest daily build, and search "
-"for duplicate bug reports (in case someone else has already reported this "
-"same issue). At the end of the guide, it will help you create a detailed and "
-"useful bug report for our development team and volunteers."
+"Please use our step-by-step bug reporting page: "
+"https://openshot.org/issues/new/ to troubleshoot a potential new bug. This "
+"guide will instruct you on how to delete you log files, test with the latest"
+" daily build, and search for duplicate bug reports (in case someone else has"
+" already reported this same issue). At the end of the guide, it will help "
+"you create a detailed and useful bug report for our development team and "
+"volunteers."
 msgstr ""
 "Пожалуйста, используйте нашу пошаговую страницу для сообщения об ошибках: "
 "https://openshot.org/issues/new/ для устранения возможной новой ошибки. Это "
@@ -129,35 +131,36 @@ msgstr ""
 "волонтеров."
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:57
+#: ../doc/contributing.rst:57
 msgid "Software Developers"
 msgstr "Разработчики программного обеспечения"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:58
+#: ../doc/contributing.rst:58
 msgid ""
-"OpenShot uses GitHub to manage issues and source code: https://github.com/"
-"OpenShot. Please read our guide on `Becoming a Developer <https://github.com/"
-"OpenShot/openshot-qt/wiki/Become-a-Developer>`_ for a step-by-step guide on "
-"compiling OpenShot and making your first pull request on GitHub."
+"OpenShot uses GitHub to manage issues and source code: "
+"https://github.com/OpenShot. Please read our guide on `Becoming a Developer "
+"<https://github.com/OpenShot/openshot-qt/wiki/Become-a-Developer>`_ for a "
+"step-by-step guide on compiling OpenShot and making your first pull request "
+"on GitHub."
 msgstr ""
-"OpenShot использует GitHub для управления задачами и исходным кодом: https://"
-"github.com/OpenShot. Пожалуйста, прочитайте наше руководство `Как стать "
-"разработчиком <https://github.com/OpenShot/openshot-qt/wiki/Become-a-"
+"OpenShot использует GitHub для управления задачами и исходным кодом: "
+"https://github.com/OpenShot. Пожалуйста, прочитайте наше руководство `Как "
+"стать разработчиком <https://github.com/OpenShot/openshot-qt/wiki/Become-a-"
 "Developer>`_ с пошаговой инструкцией по компиляции OpenShot и созданию "
 "вашего первого pull request на GitHub."
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:63
+#: ../doc/contributing.rst:63
 msgid "Made with Love"
 msgstr "Сделано с любовью"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:65
+#: ../doc/contributing.rst:65
 msgid ""
 "OpenShot Video Editor is a volunteer effort and a **labor of love**. Please "
-"be patient with any issues you find, and feel free to `get involved <https://"
-"forms.gle/CRqkS5tLMJE1V36V8>`_ and help us fix them!"
+"be patient with any issues you find, and feel free to `get involved "
+"<https://forms.gle/CRqkS5tLMJE1V36V8>`_ and help us fix them!"
 msgstr ""
 "OpenShot Video Editor — это волонтерский проект и **дело любви**. "
 "Пожалуйста, будьте терпеливы к любым найденным проблемам и не стесняйтесь "
@@ -165,11 +168,11 @@ msgstr ""
 "исправить!"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:69
+#: ../doc/contributing.rst:69
 msgid "Thank you for your support!"
 msgstr "Спасибо за вашу поддержку!"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:70
+#: ../doc/contributing.rst:70
 msgid "*-- OpenShot Team*"
 msgstr "*-- Команда OpenShot*"

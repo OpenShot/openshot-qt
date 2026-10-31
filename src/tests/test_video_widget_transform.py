@@ -134,6 +134,50 @@ class VideoWidgetTransformTests(unittest.TestCase):
         self.widget = VideoWidget.__new__(VideoWidget)
         self.viewport = QRect(0, 0, 160, 90)
 
+    def test_group_transform_batches_each_clip_and_refreshes_once(self):
+        from unittest.mock import Mock
+        secondary = Mock()
+        secondary.PropertiesJSON.return_value = json.dumps({
+            'scale_x': {'value': 2.0}, 'scale_y': {'value': 0.5}})
+        widget = types.SimpleNamespace(
+            transforming_clips=[types.SimpleNamespace(id='A'), types.SimpleNamespace(id='B')],
+            transforming_clip_objects=[Mock(), secondary], updateClipProperties=Mock())
+        refresh = Mock()
+        with patch('windows.video_widget.get_app', return_value=types.SimpleNamespace(
+                window=types.SimpleNamespace(refreshFrameSignal=refresh))):
+            VideoWidget._apply_clip_transform(widget, {'scale_x': 1.25, 'scale_y': 1.5},
+                                              {'scale_x': {'value': 1.0}, 'scale_y': {'value': 1.0}}, 9)
+        self.assertEqual(widget.updateClipProperties.call_count, 2)
+        widget.updateClipProperties.assert_any_call('A', 9, {'scale_x': 1.25, 'scale_y': 1.5}, refresh=False)
+        widget.updateClipProperties.assert_any_call('B', 9, {'scale_x': 2.25, 'scale_y': 1.0}, refresh=False)
+        secondary.PropertiesJSON.assert_called_once_with(9)
+        refresh.emit.assert_called_once_with()
+
+    def test_position_sample_updates_both_axes_once(self):
+        from unittest.mock import Mock
+        for auto_keyframes in (False, True):
+            with self.subTest(auto_keyframes=auto_keyframes):
+                clip = types.SimpleNamespace(data={
+                    'location_x': {'Points': [{'co': {'X': 1, 'Y': 0.0}, 'interpolation': openshot.LINEAR}]},
+                    'location_y': {'Points': [{'co': {'X': 5, 'Y': 0.0}, 'interpolation': openshot.LINEAR}]},
+                    'unrelated': 'preserved in project'}, save=Mock())
+                refresh = Mock()
+                fake_app = types.SimpleNamespace(window=types.SimpleNamespace(refreshFrameSignal=refresh))
+                widget = types.SimpleNamespace(transaction_id=None)
+                with patch('windows.video_widget.Clip.get', return_value=clip), \
+                     patch('windows.video_widget.get_app', return_value=fake_app), \
+                     patch('windows.video_widget.auto_keyframes_enabled', return_value=auto_keyframes):
+                    VideoWidget.updateClipProperties(widget, 'TEXT', 12,
+                                                     {'location_x': 0.25, 'location_y': -0.5})
+                clip.save.assert_called_once_with()
+                refresh.emit.assert_called_once_with()
+                self.assertEqual(set(clip.data), {'location_x', 'location_y'})
+                for key, value, original_frame in (('location_x', 0.25, 1), ('location_y', -0.5, 5)):
+                    target = 12 if auto_keyframes else original_frame
+                    point = next(p for p in clip.data[key]['Points'] if p['co']['X'] == target)
+                    self.assertEqual(point['co']['Y'], value)
+                    self.assertEqual(point['interpolation'], openshot.BEZIER if auto_keyframes else openshot.LINEAR)
+
     def test_outline_stays_visible_at_widget_edges_at_fractional_scales(self):
         for ratio in (1.0, 1.25, 1.5, 1.75, 2.0):
             for width, height in ((160, 90), (161, 91), (203, 115)):

@@ -1,0 +1,1780 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) OpenShot Studios, LLC
+# This file is distributed under the same license as the OpenShot Video Editor package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenShot Video Editor 4.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: hr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../doc/agent_cli.rst:6
+msgid "Command Line Interface"
+msgstr "Sučelje naredbenog retka"
+
+#: ../doc/agent_cli.rst:8
+msgid ""
+"Bring OpenShot into your command-line workflow. Import footage, trim and "
+"arrange clips, apply effects, animate properties with keyframes, and export "
+"videos from your terminal. Use a few commands to automate repetitive edits, "
+"write a script for a recurring project, or let an AI agent help assemble and"
+" refine a video."
+msgstr ""
+"Uvedite OpenShot u svoj radni tijek naredbenog retka. Uvezite snimke, "
+"izrežite i rasporedite isječke, primijenite efekte, animirajte svojstva "
+"pomoću ključnih okvira i izvezite videozapise iz terminala. Koristite "
+"nekoliko naredbi za automatizaciju ponavljajućih uređivanja, napišite "
+"skriptu za ponavljajući projekt ili dopustite AI agentu da pomogne sastaviti"
+" i doraditi video."
+
+#: ../doc/agent_cli.rst:13
+msgid ""
+"The command line works with the same projects as the editor. You can control"
+" an open editor and review changes as you go, or work in a **headless "
+"session** without opening a window. A session keeps your project open "
+"between commands, including its edits, undo history, and export jobs. Save "
+"it as an ``.osp`` project whenever you want to continue editing later."
+msgstr ""
+"Naredbeni redak radi sa istim projektima kao i uređivač. Možete kontrolirati"
+" otvoreni uređivač i pregledavati promjene tijekom rada ili raditi u "
+"**headless sesiji** bez otvaranja prozora. Sesija drži vaš projekt otvorenim"
+" između naredbi, uključujući uređivanja, povijest poništavanja i zadatke "
+"izvoza. Spremite ga kao ``.osp`` projekt kad god želite nastaviti uređivanje"
+" kasnije."
+
+#: ../doc/agent_cli.rst:20
+msgid "Getting started"
+msgstr "Početak rada"
+
+#: ../doc/agent_cli.rst:22
+msgid ""
+"Use your installed OpenShot executable followed by ``--cli``. Start with "
+"``intro`` for a short guide to sessions, editing, animation, and saving, or "
+"``help`` for the command overview. These commands do not need an active "
+"session. The examples below require an OpenShot build that includes command-"
+"line editing."
+msgstr ""
+"Koristite instaliranu OpenShot izvršnu datoteku praćenu s ``--cli``. Počnite"
+" s ``intro`` za kratki vodič o sesijama, uređivanju, animaciji i spremanju, "
+"ili ``help`` za pregled naredbi. Ove naredbe ne zahtijevaju aktivnu sesiju. "
+"Primjeri u nastavku zahtijevaju OpenShot verziju koja uključuje uređivanje "
+"putem naredbenog retka."
+
+#: ../doc/agent_cli.rst:30
+msgid "Linux AppImage"
+msgstr "Linux AppImage"
+
+#: ../doc/agent_cli.rst:32
+msgid "From the directory containing your downloaded AppImage::"
+msgstr "Iz direktorija koji sadrži preuzeti AppImage::"
+
+#: ../doc/agent_cli.rst:37
+msgid ""
+"Replace ``OpenShot.AppImage`` with your downloaded filename. If "
+"**AppImageLauncher** shows desktop integration dialogs, set "
+"``APPIMAGELAUNCHER_DISABLE=1`` before launching the command::"
+msgstr ""
+"Zamijenite ``OpenShot.AppImage`` s imenom vaše preuzete datoteke. Ako "
+"**AppImageLauncher** prikazuje dijaloge za integraciju na radnu površinu, "
+"postavite ``APPIMAGELAUNCHER_DISABLE=1`` prije pokretanja naredbe::"
+
+#: ../doc/agent_cli.rst:43
+msgid "For scripts or repeated commands, set it once in your current shell::"
+msgstr ""
+"Za skripte ili ponovljene naredbe, postavite ga jednom u vašem trenutnom "
+"shellu::"
+
+#: ../doc/agent_cli.rst:48
+msgid ""
+"The variable must be set before launching the AppImage: AppImageLauncher can"
+" intercept it before OpenShot receives ``--cli``. Relative media paths and "
+"``@batch.json`` files are resolved from your working directory. Keep the "
+"AppImage file available while its sessions or exports are running."
+msgstr ""
+"Varijabla mora biti postavljena prije pokretanja AppImage: AppImageLauncher "
+"može presresti varijablu prije nego što OpenShot primi ``--cli``. Relativne "
+"putanje do medija i ``@batch.json`` datoteke rješavaju se iz vašeg radnog "
+"direktorija. Držite AppImage datoteku dostupnom dok su sesije ili izvozi u "
+"tijeku."
+
+#: ../doc/agent_cli.rst:54
+msgid "Linux Snap"
+msgstr "Linux Snap"
+
+#: ../doc/agent_cli.rst:56
+msgid "For the `OpenShot Snap <https://snapcraft.io/openshot-qt>`_, use::"
+msgstr "Za `OpenShot Snap <https://snapcraft.io/openshot-qt>`_, koristite::"
+
+#: ../doc/agent_cli.rst:62
+msgid ""
+"Snap's file permissions apply to command-line editing too. Keep media, "
+"projects, and exports in locations the Snap can access, such as your home "
+"folder. To allow access to external drives, connect the removable-media "
+"permission::"
+msgstr ""
+"Dozvole datoteka Snap-a vrijede i za uređivanje putem naredbenog retka. "
+"Držite medije, projekte i izvoze na lokacijama kojima Snap može pristupiti, "
+"poput vaše korisničke mape. Za dopuštanje pristupa vanjskim diskovima, "
+"povežite dozvolu removable-media::"
+
+#: ../doc/agent_cli.rst:69
+msgid "Windows"
+msgstr "Windows"
+
+#: ../doc/agent_cli.rst:73
+msgid ""
+"**Use openshot-qt-cmd.exe for command-line editing on Windows.** This "
+"console executable displays command results, help, and errors in your "
+"terminal. The desktop executable, ``openshot-qt.exe``, does not display "
+"standard output in an interactive terminal, leaving commands without visible"
+" feedback and making the CLI difficult to use."
+msgstr ""
+"**Koristite openshot-qt-cmd.exe za uređivanje putem naredbenog retka na "
+"Windowsu.** Ova konzolna izvršna datoteka prikazuje rezultate naredbi, pomoć"
+" i pogreške u vašem terminalu. Desktop izvršna datoteka, ``openshot-"
+"qt.exe``, ne prikazuje standardni izlaz u interaktivnom terminalu, "
+"ostavljajući naredbe bez vidljive povratne informacije i otežavajući "
+"korištenje CLI-ja."
+
+#: ../doc/agent_cli.rst:79
+msgid "In PowerShell, from the OpenShot installation directory::"
+msgstr "U PowerShellu, iz direktorija instalacije OpenShot-a::"
+
+#: ../doc/agent_cli.rst:85
+msgid ""
+"If you are in a different directory, use the full path to ``openshot-qt-"
+"cmd.exe``. Keep ``--cli`` after the executable name."
+msgstr ""
+"Ako ste u drugom direktoriju, koristite puni put do ``openshot-qt-cmd.exe``."
+" Zadržite ``--cli`` nakon imena izvršne datoteke."
+
+#: ../doc/agent_cli.rst:89
+msgid "macOS"
+msgstr "macOS"
+
+#: ../doc/agent_cli.rst:91
+msgid "For an installation in Applications::"
+msgstr "Za instalaciju u Applications::"
+
+#: ../doc/agent_cli.rst:97
+msgid "Finding commands"
+msgstr "Pronalaženje naredbi"
+
+#: ../doc/agent_cli.rst:99
+msgid ""
+"Throughout this guide, ``openshot-cli`` is shorthand for your installation's"
+" command above, such as ``snap run openshot-qt --cli`` or "
+"``./OpenShot.AppImage --cli``. Some installations also provide an "
+"``openshot-cli`` command directly. When running from source, use ``python3 "
+"src/launch.py --cli`` in OpenShot's Python environment."
+msgstr ""
+"U ovom vodiču, ``openshot-cli`` je skraćenica za naredbu vaše instalacije "
+"gore, poput ``snap run openshot-qt --cli`` ili ``./OpenShot.AppImage "
+"--cli``. Neke instalacije također izravno pružaju naredbu ``openshot-cli``. "
+"Pri pokretanju iz izvornog koda, koristite ``python3 src/launch.py --cli`` u"
+" OpenShot Python okruženju."
+
+#: ../doc/agent_cli.rst:105
+msgid ""
+"Bare ``--cli``, ``--cli help``, and ``--cli --help`` show the same overview."
+" Help becomes more specific as you navigate commands::"
+msgstr ""
+"Sami ``--cli``, ``--cli help`` i ``--cli --help`` prikazuju isti pregled. "
+"Pomoć postaje specifičnija kako prelazite kroz naredbe::"
+
+#: ../doc/agent_cli.rst:117
+msgid ""
+"Group help explains workflows with examples; operation help describes "
+"arguments and behavior. ``--help`` is equivalent to trailing ``help``. All "
+"help commands work without an editing session."
+msgstr ""
+"Grupna pomoć objašnjava radne tokove s primjerima; pomoć za operacije "
+"opisuje argumente i ponašanje. ``--help`` je ekvivalentno završnom ``help``."
+" Sve naredbe pomoći rade bez uređivačke sesije."
+
+#: ../doc/agent_cli.rst:121
+msgid ""
+"``effects list`` shows the available effects with short descriptions. Effect"
+" help explains their properties, defaults, choices, and ranges. ``effects "
+"instances`` lists effects already attached to clips, with parent clip IDs. "
+"Class names, display names, and underscore aliases identify the same effect."
+msgstr ""
+"``effects list`` prikazuje dostupne efekte s kratkim opisima. Pomoć za "
+"efekte objašnjava njihova svojstva, zadane vrijednosti, izbore i raspon. "
+"``effects instances`` navodi efekte već pridružene isječcima, s ID-ovima "
+"roditeljskih isječaka. Imena klasa, prikazna imena i aliasi s donjom crtom "
+"identificiraju isti efekt."
+
+#: ../doc/agent_cli.rst:127
+msgid "Working with scripts and AI agents"
+msgstr "Rad sa skriptama i AI agentima"
+
+#: ../doc/agent_cli.rst:129
+msgid ""
+"AI coding agents such as **Codex** and **Claude Code** can use the CLI to "
+"inspect and edit OpenShot projects through terminal commands. Give your "
+"agent the path to your OpenShot executable, the media or project to work "
+"with, and the desired result: duration, dimensions, animation style, and "
+"output location. Ask it to read ``--cli intro`` before starting. The same "
+"commands work when you type them yourself or run them from a script."
+msgstr ""
+"AI kodni agenti poput **Codex** i **Claude Code** mogu koristiti CLI za "
+"pregled i uređivanje OpenShot projekata putem terminalskih naredbi. Dajte "
+"agentu put do vaše OpenShot izvršne datoteke, medije ili projekt za rad i "
+"željeni rezultat: trajanje, dimenzije, stil animacije i lokaciju izlaza. "
+"Zamolite ga da pročita ``--cli intro`` prije početka. Iste naredbe rade kada"
+" ih sami upisujete ili pokrećete iz skripte."
+
+#: ../doc/agent_cli.rst:136
+msgid ""
+"Start with ``intro``, then use command-specific help as needed. A useful "
+"workflow is to select a session, inspect the project, make a small set of "
+"changes, review the result, and save. Commands return structured JSON so "
+"scripts and agents can use object IDs and results directly instead of "
+"interpreting screen output."
+msgstr ""
+"Počnite s ``intro``, zatim koristite pomoć specifičnu za naredbu prema "
+"potrebi. Koristan radni tok je odabrati sesiju, pregledati projekt, "
+"napraviti mali skup promjena, pregledati rezultat i spremiti. Naredbe "
+"vraćaju strukturirani JSON tako da skripte i agenti mogu koristiti ID-jeve "
+"objekata i rezultate izravno umjesto tumačenja izlaza na zaslonu."
+
+#: ../doc/agent_cli.rst:141
+msgid ""
+"**Inspect before editing.** Use returned IDs and property information "
+"instead of guessing names, track numbers, or timing. Select a session "
+"explicitly when more than one project is open."
+msgstr ""
+"**Pregledajte prije uređivanja.** Koristite vraćene ID-jeve i informacije o "
+"svojstvima umjesto nagađanja imena, brojeva traka ili vremena. Izričito "
+"odaberite sesiju kada je otvoreno više projekata."
+
+#: ../doc/agent_cli.rst:144
+msgid ""
+"**Group repeated edits.** Use ``edit apply`` for a sequence of changes or "
+"``edit bulk`` to apply a template to selected clips. Validate with ``--dry-"
+"run`` before applying a batch."
+msgstr ""
+"**Grupirajte ponovljena uređivanja.** Koristite ``edit apply`` za niz "
+"promjena ili ``edit bulk`` za primjenu predloška na odabrane isječke. "
+"Provjerite s ``--dry-run`` prije primjene grupe."
+
+#: ../doc/agent_cli.rst:147
+msgid ""
+"**Check animation.** Choose a coordinate space, start with a few keyframes, "
+"and use easing presets for familiar motion. ``keyframe preview`` samples the"
+" curve so you can spot pauses or jumps before exporting. Review rendered "
+"motion as well; a contact sheet alone cannot show how an animation feels."
+msgstr ""
+"**Provjerite animaciju.** Odaberite koordinatni prostor, započnite s "
+"nekoliko ključnih okvira i koristite unaprijed postavljene efekte "
+"ublažavanja za poznati pokret. ``keyframe preview`` uzorkuje krivulju kako "
+"biste mogli uočiti pauze ili skokove prije izvoza. Također pregledajte "
+"renderirani pokret; sam kontaktni list ne može pokazati kako animacija "
+"izgleda."
+
+#: ../doc/agent_cli.rst:151
+msgid ""
+"**Save and follow exports.** Save the project explicitly and check the "
+"export job's status before treating an output as complete. If a request "
+"times out, inspect its status before repeating an edit."
+msgstr ""
+"**Spremite i pratite izvoze.** Izričito spremite projekt i provjerite status"
+" zadatka izvoza prije nego što smatrate izlaz dovršenim. Ako zahtjev "
+"istekne, provjerite njegov status prije ponovnog uređivanja."
+
+#: ../doc/agent_cli.rst:155
+msgid ""
+"The sections below explain these workflows and their timing conventions."
+msgstr ""
+"Donji odjeljci objašnjavaju ove radne tokove i njihove vremenske konvencije."
+
+#: ../doc/agent_cli.rst:158
+msgid "Sessions and outputs"
+msgstr "Sesije i izlazi"
+
+#: ../doc/agent_cli.rst:161
+msgid "Starting or finding a session"
+msgstr "Pokretanje ili pronalaženje sesije"
+
+#: ../doc/agent_cli.rst:163
+msgid "Start one headless session (without an editor window)::"
+msgstr "Pokrenite jednu sesiju bez sučelja (bez prozora uređivača)::"
+
+#: ../doc/agent_cli.rst:167
+msgid ""
+"To open an existing project at startup, add ``--project "
+"\"/path/project.osp\"``. The successful JSON response contains "
+"``result.session_id``. Copy that value. If OpenShot is already running, or "
+"you have forgotten the ID, find available sessions with::"
+msgstr ""
+"Za otvaranje postojećeg projekta pri pokretanju, dodajte ``--project "
+"\"/path/project.osp\"``. Uspješan JSON odgovor sadrži ``result.session_id``."
+" Kopirajte tu vrijednost. Ako je OpenShot već pokrenut ili ste zaboravili "
+"ID, pronađite dostupne sesije pomoću::"
+
+#: ../doc/agent_cli.rst:174
+msgid ""
+"Choose the session for the project you intend to edit. You do not need to "
+"start a new session for each command."
+msgstr ""
+"Odaberite sesiju za projekt koji namjeravate uređivati. Ne morate pokretati "
+"novu sesiju za svaku naredbu."
+
+#: ../doc/agent_cli.rst:180
+msgid "Selecting a session"
+msgstr "Odabir sesije"
+
+#: ../doc/agent_cli.rst:184
+msgid ""
+"**Set OPENSHOT_SESSION once, then run commands normally.** Your terminal "
+"remembers the selected session, so you do not need to pass ``--session`` "
+"with every command. Use the PowerShell or Bash example below."
+msgstr ""
+"**Postavite OPENSHOT_SESSION jednom, zatim pokrećite naredbe normalno.** Vaš"
+" terminal pamti odabranu sesiju, tako da ne morate svaki put koristiti "
+"``--session``. Koristite primjer za PowerShell ili Bash u nastavku."
+
+#: ../doc/agent_cli.rst:188
+msgid ""
+"Replace ``SESSION_ID`` below with the ``session_id`` returned by ``session "
+"start`` or ``session list``."
+msgstr ""
+"Zamijenite ``SESSION_ID`` u nastavku s ``session_id`` koji vraća ``session "
+"start`` ili ``session list``."
+
+#: ../doc/agent_cli.rst:191 ../doc/agent_cli.rst:422
+msgid "Windows PowerShell::"
+msgstr "Windows PowerShell::"
+
+#: ../doc/agent_cli.rst:197
+msgid "Linux Bash::"
+msgstr "Linux Bash::"
+
+#: ../doc/agent_cli.rst:203
+msgid ""
+"On macOS, use the same ``export`` syntax. For macOS or Snap commands, "
+"substitute your installation's executable from Getting started. The "
+"selection lasts for this terminal and commands launched from it. Set it "
+"again in a new terminal, or update it when switching to a different session."
+msgstr ""
+"Na macOS-u koristite istu ``export`` sintaksu. Za macOS ili Snap naredbe, "
+"zamijenite izvršnu datoteku s onom iz vašeg instalacijskog vodiča. Odabir "
+"vrijedi za ovaj terminal i naredbe pokrenute iz njega. Postavite ga ponovno "
+"u novom terminalu ili ažurirajte pri prelasku na drugu sesiju."
+
+#: ../doc/agent_cli.rst:208
+msgid ""
+"**The remaining editing and export examples assume OPENSHOT_SESSION is "
+"set.** The next subsection shows how to capture the ID automatically for "
+"scripts."
+msgstr ""
+"**Preostali primjeri uređivanja i izvoza pretpostavljaju da je "
+"OPENSHOT_SESSION postavljen.** Sljedeći pododjeljak pokazuje kako automatski"
+" dohvatiti ID za skripte."
+
+#: ../doc/agent_cli.rst:211
+msgid ""
+"To target a different session for just one command, use ``--session``. It "
+"overrides ``OPENSHOT_SESSION`` without changing your terminal's selection::"
+msgstr ""
+"Za ciljanje druge sesije samo za jednu naredbu, koristite ``--session``. To "
+"nadjačava ``OPENSHOT_SESSION`` bez promjene odabira u vašem terminalu::"
+
+#: ../doc/agent_cli.rst:216
+msgid ""
+"With a packaged executable, put this override after ``--cli`` and before the"
+" command group: ``--cli --session OTHER_SESSION_ID project get``."
+msgstr ""
+"Kod pakiranog izvršnog programa, stavite ovu zamjenu nakon ``--cli`` i prije"
+" grupe naredbi: ``--cli --session OTHER_SESSION_ID project get``."
+
+#: ../doc/agent_cli.rst:219
+msgid ""
+"Automatic selection only works when exactly one reachable session exists. If"
+" you see ``session_required``, run ``session list`` and explicitly select "
+"the intended session. If it is no longer listed, start it again and use the "
+"new ID. Help, ``intro``, and session discovery do not require a selected "
+"session."
+msgstr ""
+"Automatski odabir radi samo ako postoji točno jedna dostupna sesija. Ako "
+"vidite ``session_required``, pokrenite ``session list`` i eksplicitno "
+"odaberite željenu sesiju. Ako više nije na popisu, pokrenite je ponovno i "
+"koristite novi ID. Pomoć, ``intro`` i otkrivanje sesija ne zahtijevaju "
+"odabranu sesiju."
+
+#: ../doc/agent_cli.rst:225
+msgid "Capturing the session ID automatically"
+msgstr "Automatsko dohvaćanje ID-a sesije"
+
+#: ../doc/agent_cli.rst:227
+msgid ""
+"Scripts can read ``result.session_id`` directly from the JSON returned by "
+"``session start`` and set ``OPENSHOT_SESSION`` for subsequent commands. "
+"There is no need to copy the ID manually or read a log file. Check that "
+"startup succeeded before using the returned ID."
+msgstr ""
+"Skripte mogu izravno pročitati ``result.session_id`` iz JSON-a koji vraća "
+"``session start`` i postaviti ``OPENSHOT_SESSION`` za naredbe koje slijede. "
+"Nema potrebe ručno kopirati ID ili čitati datoteku dnevnika. Provjerite je "
+"li pokretanje uspjelo prije korištenja vraćenog ID-a."
+
+#: ../doc/agent_cli.rst:232
+msgid "Windows PowerShell (set the executable path for your installation)::"
+msgstr ""
+"Windows PowerShell (postavite putanju izvršne datoteke za vašu "
+"instalaciju)::"
+
+#: ../doc/agent_cli.rst:244
+msgid "Linux Bash (requires ``jq`` to read JSON)::"
+msgstr "Linux Bash (za čitanje JSON-a zahtijeva ``jq``)::"
+
+#: ../doc/agent_cli.rst:256
+msgid ""
+"The environment variable selects a session for commands launched from this "
+"terminal; it does not change a system-wide setting. Starting a session does "
+"not set the variable automatically. After stopping the session, clear the "
+"selection with ``Remove-Item Env:OPENSHOT_SESSION`` in PowerShell or ``unset"
+" OPENSHOT_SESSION`` in Bash."
+msgstr ""
+"Varijabla okoline odabire sesiju za naredbe pokrenute iz ovog terminala; ne "
+"mijenja sistemsku postavku. Pokretanje sesije ne postavlja varijablu "
+"automatski. Nakon zaustavljanja sesije, očistite odabir s ``Remove-Item "
+"Env:OPENSHOT_SESSION`` u PowerShellu ili ``unset OPENSHOT_SESSION`` u Bashu."
+
+#: ../doc/agent_cli.rst:263
+msgid "Showing and stopping a session"
+msgstr "Prikazivanje i zaustavljanje sesije"
+
+#: ../doc/agent_cli.rst:265
+msgid "To show the selected session in the editor::"
+msgstr "Za prikaz odabrane sesije u uređivaču::"
+
+#: ../doc/agent_cli.rst:269
+msgid ""
+"On a desktop, ``session show`` creates the editor in the same process and "
+"keeps the live project, IDs, history, export jobs, and connection. Repeated "
+"calls raise the existing window. ``session start --show`` opens it "
+"immediately. Sessions started without a display, or with "
+"``QT_QPA_PLATFORM=offscreen``/``minimal``, cannot later show a desktop "
+"window. For those sessions, save and open the project in a new desktop "
+"session. Once shown, close the session through the editor window."
+msgstr ""
+"Na radnoj površini, ``session show`` stvara uređivač u istom procesu i "
+"održava aktivni projekt, ID-ove, povijest, zadatke izvoza i vezu. Ponavljani"
+" pozivi podižu postojeći prozor. ``session start --show`` otvara ga odmah. "
+"Sesije pokrenute bez prikaza ili s ``QT_QPA_PLATFORM=offscreen``/``minimal``"
+" ne mogu kasnije prikazati prozor radne površine. Za te sesije spremite i "
+"otvorite projekt u novoj sesiji radne površine. Nakon prikaza, zatvorite "
+"sesiju kroz prozor uređivača."
+
+#: ../doc/agent_cli.rst:277
+msgid ""
+"Global options (``--session``, ``--timeout``) go before the command. "
+"``session serve`` stays in the foreground for supervisors; ``session start``"
+" returns after a background host registers. ``session stop`` refuses unsaved"
+" changes and active exports. Use ``--discard`` only to intentionally discard"
+" unsaved edits."
+msgstr ""
+"Globalne opcije (``--session``, ``--timeout``) idu prije naredbe. ``session "
+"serve`` ostaje u prvom planu za nadzornike; ``session start`` se vraća nakon"
+" registracije pozadinskog domaćina. ``session stop`` odbija nespremljene "
+"promjene i aktivne izvoze. Koristite ``--discard`` samo za namjerno "
+"odbacivanje nespremljenih izmjena."
+
+#: ../doc/agent_cli.rst:283
+msgid "Command output"
+msgstr "Izlaz naredbe"
+
+#: ../doc/agent_cli.rst:285
+msgid ""
+"Results are JSON on stdout, except the default text timeline view. Errors "
+"are JSON on stderr with exit status 1; argument-parser errors exit 2. "
+"Mutations return compact summaries with an ``inspect`` command. ``get`` "
+"returns native object JSON. Project replies include a revision; effect "
+"catalog replies do not require a session. Logs from headless sessions live "
+"beside their registry records. ``OPENSHOT_SESSION_DIR`` overrides the "
+"default ``~/.openshot_qt/sessions`` directory."
+msgstr ""
+"Rezultati su JSON na stdout, osim zadane tekstualne vremenske linije. "
+"Pogreške su JSON na stderr s izlaznim statusom 1; pogreške parsera "
+"argumenata izlaze s 2. Mutacije vraćaju sažete sažetke s naredbom "
+"``inspect``. ``get`` vraća izvorni JSON objekta. Odgovori projekta uključuju"
+" reviziju; odgovori kataloga efekata ne zahtijevaju sesiju. Dnevnici iz "
+"sesija bez sučelja nalaze se uz njihove zapise u registru. "
+"``OPENSHOT_SESSION_DIR`` nadjačava zadani direktorij "
+"``~/.openshot_qt/sessions``."
+
+#: ../doc/agent_cli.rst:292
+msgid ""
+"Sessions accept commands locally on your computer. Keep the session registry"
+" private, since it contains the credentials used to access your editing "
+"sessions. Exports work from a snapshot, so you can continue editing while a "
+"job runs."
+msgstr ""
+"Sesije prihvaćaju naredbe lokalno na vašem računalu. Držite registar sesija "
+"privatnim, jer sadrži vjerodajnice za pristup vašim uređivačkim sesijama. "
+"Izvozi rade iz snimke, tako da možete nastaviti uređivati dok posao traje."
+
+#: ../doc/agent_cli.rst:297
+msgid "Opening and saving projects"
+msgstr "Otvaranje i spremanje projekata"
+
+#: ../doc/agent_cli.rst:299
+msgid ""
+"An OpenShot project (``.osp``) stores your editable timeline. Exporting "
+"creates a finished video; saving the project lets you return to its clips, "
+"effects, and keyframes later. Save your project separately even when you "
+"also export a video."
+msgstr ""
+"OpenShot projekt (``.osp``) pohranjuje vašu uređivu vremensku liniju. Izvoz "
+"stvara gotov video; spremanje projekta omogućuje vam povratak na njegove "
+"isječke, efekte i ključne okvire kasnije. Spremite svoj projekt zasebno čak "
+"i kada izvozite video."
+
+#: ../doc/agent_cli.rst:304
+msgid "Opening a project"
+msgstr "Otvaranje projekta"
+
+#: ../doc/agent_cli.rst:306
+msgid "Start a session with an existing project::"
+msgstr "Pokrenite sesiju s postojećim projektom::"
+
+#: ../doc/agent_cli.rst:310
+msgid ""
+"Add ``--show`` to open its editor window too. To use an editor that is "
+"already running, find it with ``session list``. Set ``OPENSHOT_SESSION`` to "
+"its returned session ID, then open or inspect a project::"
+msgstr ""
+"Dodajte ``--show`` za otvaranje i njegovog prozora uređivača. Za korištenje "
+"uređivača koji je već pokrenut, pronađite ga pomoću ``session list``. "
+"Postavite ``OPENSHOT_SESSION`` na vraćeni ID sesije, zatim otvorite ili "
+"pregledajte projekt::"
+
+#: ../doc/agent_cli.rst:317
+msgid ""
+"Replace the example path with your own, and quote paths containing spaces. "
+"``project open`` replaces the selected session's current project. It refuses"
+" to discard unsaved edits unless you explicitly add ``--discard``; save "
+"those edits first if you want to keep them. Opening through the CLI does not"
+" show interactive missing-media dialogs, so keep the project's source media "
+"available."
+msgstr ""
+"Zamijenite primjer puta vlastitim i stavite navodnike oko putova koji sadrže"
+" razmake. ``project open`` zamjenjuje trenutni projekt odabrane sesije. "
+"Odbija odbaciti nespremljene izmjene osim ako eksplicitno ne dodate "
+"``--discard``; prvo spremite te izmjene ako ih želite sačuvati. Otvaranje "
+"putem CLI ne prikazuje interaktivne dijaloge za nedostajući medij, stoga "
+"držite izvorni medij projekta dostupan."
+
+#: ../doc/agent_cli.rst:323
+msgid ""
+"For a new, empty project, use ``session start`` without ``--project``, then "
+"import media and add clips as described under Editing."
+msgstr ""
+"Za novi, prazan projekt, koristite ``session start`` bez ``--project``, "
+"zatim uvezite medije i dodajte isječke kao što je opisano u odjeljku "
+"Uređivanje."
+
+#: ../doc/agent_cli.rst:327
+msgid "Saving a project or a copy"
+msgstr "Spremanje projekta ili kopije"
+
+#: ../doc/agent_cli.rst:329
+msgid ""
+"Save to a new file, or create a separate version before making more "
+"changes::"
+msgstr ""
+"Spremite u novu datoteku ili napravite zasebnu verziju prije daljnjih "
+"promjena::"
+
+#: ../doc/agent_cli.rst:333
+msgid "To update an existing file, explicitly allow replacement::"
+msgstr "Za ažuriranje postojeće datoteke, eksplicitno dopustite zamjenu::"
+
+#: ../doc/agent_cli.rst:337
+msgid ""
+"Always supply the destination path. Saving an ``.osp`` does not package all "
+"your source footage into that file; keep the referenced media available when"
+" moving or reopening the project."
+msgstr ""
+"Uvijek navedite odredišnu putanju. Spremanje ``.osp`` ne uključuje sav "
+"izvorni materijal u tu datoteku; držite referencirani medij dostupan "
+"prilikom premještanja ili ponovnog otvaranja projekta."
+
+#: ../doc/agent_cli.rst:342
+msgid "Exporting a video"
+msgstr "Izvoz videa"
+
+#: ../doc/agent_cli.rst:344
+msgid ""
+"Automate rendering and exporting from scripts or AI agents, using the "
+"project's settings or choosing a different output profile for each render. "
+"Export jobs can run in the background or wait for completion before your "
+"script continues. To render an MP4 using the project's resolution and frame "
+"rate::"
+msgstr ""
+"Automatizirajte renderiranje i izvoz iz skripti ili AI agenata, koristeći "
+"postavke projekta ili birajući drugačiji izlazni profil za svaki render. "
+"Izvozni poslovi mogu se izvoditi u pozadini ili čekati dovršetak prije "
+"nastavka vaše skripte. Za renderiranje MP4 koristeći rezoluciju i broj "
+"sličica projekta::"
+
+#: ../doc/agent_cli.rst:351
+msgid ""
+"By default, OpenShot uses H.264 video and AAC audio. Replace the example "
+"path with your destination, using an existing folder and a new filename. "
+"Existing outputs are never overwritten. Exporting does not save your "
+"editable ``.osp`` project; use ``project save`` separately to keep your "
+"editing work."
+msgstr ""
+"Po zadanim postavkama, OpenShot koristi H.264 video i AAC audio. Zamijenite "
+"primjer puta s vašom odredišnom putanjom, koristeći postojeću mapu i novo "
+"ime datoteke. Postojeći izlazi se nikada ne prepisuju. Izvoz ne sprema vaš "
+"uređivi ``.osp`` projekt; koristite ``project save`` zasebno za čuvanje "
+"vašeg uređivačkog rada."
+
+#: ../doc/agent_cli.rst:356
+msgid ""
+"The ``--wait`` option keeps the command running until the export completes "
+"or reports a failure. Review the finished video before sharing it."
+msgstr ""
+"Opcija ``--wait`` drži naredbu aktivnom dok izvoz ne završi ili ne prijavi "
+"neuspjeh. Pregledajte gotov video prije dijeljenja."
+
+#: ../doc/agent_cli.rst:360
+msgid "Checking export progress"
+msgstr "Provjera napretka izvoza"
+
+#: ../doc/agent_cli.rst:362
+msgid ""
+"Leave off ``--wait`` to start an export in the background. The response "
+"includes a job ID you can use to check its progress::"
+msgstr ""
+"Nemojte koristiti ``--wait`` za pokretanje izvoza u pozadini. Odgovor "
+"uključuje ID posla koji možete koristiti za provjeru napretka::"
+
+#: ../doc/agent_cli.rst:370
+msgid ""
+"Replace ``JOB_ID`` with the returned ID. If waiting times out, the export "
+"keeps running; check the same job instead of starting another export. To "
+"stop a job, use ``export cancel JOB_ID``. Each job captures the timeline "
+"when it starts, so later edits do not change an export already in progress."
+msgstr ""
+"Zamijenite ``JOB_ID`` vraćenim ID-om. Ako čekanje istekne, izvoz se "
+"nastavlja; provjerite isti posao umjesto pokretanja drugog izvoza. Za "
+"zaustavljanje posla koristite ``export cancel JOB_ID``. Svaki posao snima "
+"vremensku liniju pri pokretanju, tako da kasnije izmjene ne mijenjaju izvoz "
+"koji je već u tijeku."
+
+#: ../doc/agent_cli.rst:375
+msgid ""
+"Waiting defaults to 600 seconds; adjust this with ``--wait-timeout``. This "
+"is separate from the global per-request ``--timeout``. Export failures, "
+"cancellation, and wait timeouts exit with status 1 and include job details."
+msgstr ""
+"Čekanje je zadano na 600 sekundi; prilagodite to pomoću ``--wait-timeout``. "
+"Ovo je odvojeno od globalnog po zahtjevu ``--timeout``. Neuspjesi izvoza, "
+"otkazivanje i isteci čekanja završavaju s statusom 1 i uključuju detalje "
+"posla."
+
+#: ../doc/agent_cli.rst:380
+msgid "Exporting in multiple profiles"
+msgstr "Izvoz u više profila"
+
+#: ../doc/agent_cli.rst:382
+msgid ""
+"Export the same timeline at different resolutions or aspect ratios by "
+"choosing an export profile for each output. **An export profile applies only"
+" to that job**; it does not change the editing project's profile. A profile "
+"sets dimensions, frame rate, and aspect ratio; an export preset selects "
+"encoding settings such as MP4/H.264."
+msgstr ""
+"Izvezite istu vremensku liniju u različitim rezolucijama ili omjerima "
+"stranica odabirom izvoznog profila za svaki izlaz. **Izvozni profil se "
+"odnosi samo na taj posao**; ne mijenja profil uređivačkog projekta. Profil "
+"postavlja dimenzije, broj sličica i omjer stranica; izvozni preset odabire "
+"postavke kodiranja poput MP4/H.264."
+
+#: ../doc/agent_cli.rst:388
+msgid "Find the available profiles and inspect their settings::"
+msgstr "Pronađite dostupne profile i pregledajte njihove postavke::"
+
+#: ../doc/agent_cli.rst:394
+msgid ""
+"For example, export landscape versions at 720p and 1080p, then a square "
+"version at 1080 by 1080. These profiles all use 30 fps::"
+msgstr ""
+"Na primjer, izvezite verzije u pejzažnom formatu na 720p i 1080p, zatim "
+"kvadratnu verziju 1080 x 1080. Svi ovi profili koriste 30 fps::"
+
+#: ../doc/agent_cli.rst:401
+msgid ""
+"Use a different output filename for each version. Keep edits unchanged "
+"between jobs when you want matching versions. Changing aspect ratio can "
+"change framing: review each output, especially titles and animated subjects."
+" For a separately composed square or portrait version, save a project copy, "
+"change its project profile, and adjust the clips before exporting. See "
+"Profiles and the export settings below for custom profiles and encoding "
+"options."
+msgstr ""
+"Koristite različito ime izlazne datoteke za svaku verziju. Ostavite izmjene "
+"nepromijenjene između poslova ako želite usklađene verzije. Promjena omjera "
+"stranica može promijeniti kadriranje: pregledajte svaki izlaz, posebno "
+"naslove i animirane objekte. Za zasebno sastavljenu kvadratnu ili portretnu "
+"verziju, spremite kopiju projekta, promijenite njegov projektni profil i "
+"prilagodite isječke prije izvoza. Pogledajte Profile i postavke izvoza u "
+"nastavku za prilagođene profile i opcije kodiranja."
+
+#: ../doc/agent_cli.rst:409
+msgid "Batch exporting multiple projects"
+msgstr "Serijski izvoz više projekata"
+
+#: ../doc/agent_cli.rst:411
+msgid ""
+"Reuse one headless session to render several saved projects in sequence. "
+"Open a project, export it with ``--wait``, then open the next project. The "
+"examples below use each project's own resolution and frame rate and create "
+"MP4 files beside the ``.osp`` files. Add ``--profile PROFILE_ID`` to the "
+"export command to use one output profile for every project."
+msgstr ""
+"Ponovno koristite jednu sesiju bez sučelja za renderiranje nekoliko "
+"spremljenih projekata jedan za drugim. Otvorite projekt, izvezite ga s "
+"``--wait``, zatim otvorite sljedeći projekt. Primjeri u nastavku koriste "
+"rezoluciju i broj sličica svakog projekta i stvaraju MP4 datoteke pored "
+"``.osp`` datoteka. Dodajte ``--profile PROFILE_ID`` u naredbu izvoza za "
+"korištenje jednog izlaznog profila za svaki projekt."
+
+#: ../doc/agent_cli.rst:417
+msgid ""
+"First run the matching automatic session-ID example above successfully, in "
+"the same terminal. It defines ``openshot`` and selects the new session. "
+"Replace the project paths below with your own. Use distinct output names "
+"that do not already exist; the examples check all destinations before "
+"starting the batch."
+msgstr ""
+"Prvo uspješno pokrenite odgovarajući primjer automatskog session-ID-a gore, "
+"u istom terminalu. On definira ``openshot`` i odabire novu sesiju. "
+"Zamijenite putanje projekata u nastavku vlastitim. Koristite različita imena"
+" izlaza koja već ne postoje; primjeri provjeravaju sve destinacije prije "
+"pokretanja serije."
+
+#: ../doc/agent_cli.rst:446
+msgid "Linux Bash (the parentheses keep error handling local to the batch)::"
+msgstr ""
+"Linux Bash (zagrade održavaju lokalno rukovanje pogreškama unutar serije)::"
+
+#: ../doc/agent_cli.rst:467
+msgid ""
+"Both recipes stop the batch on a command failure and leave the session "
+"available for inspection. The wait limit here is 24 hours per export. A wait"
+" timeout leaves the render running: use ``export list`` and ``export status "
+"JOB_ID --wait`` before retrying. Completed videos remain on disk; remove "
+"completed projects from the batch before resuming. After resolving a "
+"failure, stop the session and clear its environment variable when you are "
+"finished."
+msgstr ""
+"Oba recepta zaustavljaju seriju pri neuspjehu naredbe i ostavljaju sesiju "
+"dostupnom za pregled. Ovdje je ograničenje čekanja 24 sata po izvozu. Istek "
+"vremena čekanja ostavlja renderiranje aktivnim: prije ponovnog pokušaja "
+"koristite ``export list`` i ``export status JOB_ID --wait``. Završeni "
+"videozapisi ostaju na disku; uklonite dovršene projekte iz serije prije "
+"nastavka. Nakon rješavanja pogreške, zaustavite sesiju i očistite njezinu "
+"varijablu okoline kad završite."
+
+#: ../doc/agent_cli.rst:475
+msgid "Choosing presets and encoding settings"
+msgstr "Odabir predložaka i postavki kodiranja"
+
+#: ../doc/agent_cli.rst:477
+msgid "Discover the installed export presets and supported settings::"
+msgstr "Otkrijte instalirane predloške izvoza i podržane postavke::"
+
+#: ../doc/agent_cli.rst:484
+msgid ""
+"Export also accepts ``--from-file FILE_ID`` with optional ``--create-"
+"custom``. Settings resolve in this order: project defaults, preset, advanced"
+" JSON, explicit profile/quality/range flags. Advanced JSON exposes "
+"video/audio codecs and bitrate, audio layout/rate/channels, native codec "
+"options, hardware device settings, and thread counts."
+msgstr ""
+"Izvoz također prihvaća ``--from-file FILE_ID`` s opcionalnim ``--create-"
+"custom``. Postavke se rješavaju ovim redoslijedom: zadane postavke projekta,"
+" predložak, napredni JSON, eksplicitne zastavice profila/kvalitete/raspona. "
+"Napredni JSON otkriva video/audio kodeke i bitrate, raspored/stopu/kanale "
+"zvuka, izvorne opcije kodeka, postavke hardverskih uređaja i broj niti."
+
+#: ../doc/agent_cli.rst:490
+msgid "For example, select an encoder option through advanced JSON::"
+msgstr "Na primjer, odaberite opciju enkodera putem naprednog JSON-a::"
+
+#: ../doc/agent_cli.rst:495
+msgid "Validating export settings"
+msgstr "Provjera valjanosti postavki izvoza"
+
+#: ../doc/agent_cli.rst:497
+msgid "Check settings before starting a render::"
+msgstr "Provjerite postavke prije početka renderiranja::"
+
+#: ../doc/agent_cli.rst:501
+msgid ""
+"Capabilities report compiled codec availability, not physical GPU "
+"availability. Validation goes further: it opens the encoders (including "
+"hardware encoders) and the container with the exact settings, in a separate "
+"process, without writing a file. A combination the container can't hold "
+"fails with ``incompatible_export``, FFmpeg's own explanation, and the "
+"setting to change (``details.cause.path``)::"
+msgstr ""
+"Izvještaj o mogućnostima prikazuje dostupnost sastavljenih kodeka, a ne "
+"fizičku dostupnost GPU-a. Validacija ide dalje: otvara enkodere (uključujući"
+" hardverske enkodere) i spremnik s točnim postavkama, u zasebnom procesu, "
+"bez pisanja datoteke. Kombinacija koju spremnik ne može podržati ne uspijeva"
+" s ``incompatible_export``, FFmpegovim vlastitim objašnjenjem i postavkom za"
+" promjenu (``details.cause.path``)::"
+
+#: ../doc/agent_cli.rst:509
+msgid "The export worker runs the same check before rendering."
+msgstr "Radnik za izvoz izvodi istu provjeru prije renderiranja."
+
+#: ../doc/agent_cli.rst:512
+msgid "Rendering a frame range"
+msgstr "Renderiranje raspona okvira"
+
+#: ../doc/agent_cli.rst:514
+msgid ""
+"Use ``--start-frame`` and ``--end-frame`` to render part of the timeline. "
+"Ranges are inclusive and one-based at the **export profile's FPS**. For "
+"example, render the first 90 frames at 30 fps (three seconds)::"
+msgstr ""
+"Koristite ``--start-frame`` i ``--end-frame`` za renderiranje dijela "
+"vremenske linije. Rasponi su uključivi i broje se od jedan prema **FPS-u "
+"profila izvoza**. Na primjer, renderirajte prvih 90 okvira pri 30 fps (tri "
+"sekunde)::"
+
+#: ../doc/agent_cli.rst:521
+msgid "Audio-only exports and image sequences"
+msgstr "Izvozi samo zvuka i nizovi slika"
+
+#: ../doc/agent_cli.rst:523
+msgid "Choose an output mode with advanced JSON::"
+msgstr "Odaberite način izlaza pomoću naprednog JSON-a::"
+
+#: ../doc/agent_cli.rst:528
+msgid ""
+"Image sequences require a new output directory. Existing outputs are never "
+"overwritten."
+msgstr ""
+"Nizovi slika zahtijevaju novi direktorij izlaza. Postojeći izlazi se nikada "
+"ne prepisuju."
+
+#: ../doc/agent_cli.rst:532
+msgid "Editing"
+msgstr "Uređivanje"
+
+#: ../doc/agent_cli.rst:535
+msgid "Adding clips and effects"
+msgstr "Dodavanje isječaka i efekata"
+
+#: ../doc/agent_cli.rst:537
+msgid ""
+"Use the IDs returned by import/add/list, and discover layer numbers with "
+"``project get``::"
+msgstr ""
+"Koristite ID-jeve vraćene naredbama import/add/list i otkrijte brojeve "
+"slojeva pomoću ``project get``::"
+
+#: ../doc/agent_cli.rst:549
+msgid ""
+"Choose the project profile early when possible; populated projects also "
+"support profile changes through the existing FPS conversion and undo system."
+" ``--audio-only`` on clip creation suppresses video, including embedded "
+"cover art in music files. To use that clip for Audio Visualization instead, "
+"enable its video and audio, and follow the effect's help for transparent "
+"overlays and layer placement."
+msgstr ""
+"Kad god je moguće, odaberite profil projekta rano; popunjeni projekti "
+"također podržavaju promjene profila kroz postojeći sustav konverzije FPS-a i"
+" poništavanja. ``--audio-only`` pri stvaranju isječka isključuje video, "
+"uključujući ugrađene naslovnice u glazbenim datotekama. Za korištenje tog "
+"isječka za Audio Vizualizaciju, omogućite njegov video i audio te slijedite "
+"upute efekta za prozirne slojeve i postavljanje slojeva."
+
+#: ../doc/agent_cli.rst:556
+msgid "Understanding clip timing"
+msgstr "Razumijevanje vremenskog rasporeda isječka"
+
+#: ../doc/agent_cli.rst:558
+msgid ""
+"The example keyframes assume a 30fps project and a clip trimmed at source "
+"10s. Position is in timeline seconds; start/end are source seconds, with end"
+" exclusive. Frames start at 1. File thumbnail frames use source FPS. "
+"Timeline frames use project FPS. Clip keyframes use source coordinates at "
+"project FPS, so trimming the clip does not move its first visible keyframe "
+"to frame 1."
+msgstr ""
+"Primjer ključnih okvira pretpostavlja projekt od 30 fps i isječak skraćen na"
+" izvornih 10 s. Pozicija je u sekundama vremenske linije; početak/kraj su u "
+"sekundama izvora, pri čemu je kraj isključen. Okviri počinju od 1. Okviri "
+"sličica datoteke koriste izvorni FPS. Okviri vremenske linije koriste FPS "
+"projekta. Ključni okviri isječka koriste izvorne koordinate pri FPS-u "
+"projekta, tako da skraćivanje isječka ne pomiče njegov prvi vidljivi ključni"
+" okvir na okvir 1."
+
+#: ../doc/agent_cli.rst:565
+msgid "Changing properties"
+msgstr "Promjena svojstava"
+
+#: ../doc/agent_cli.rst:567
+msgid ""
+"``set`` merges top-level properties. Scalars turn keyframed properties into "
+"constants. A supplied nested curve replaces that curve; use ``keyframe set``"
+" to change just one point. JSON arguments accept inline JSON, "
+"``@file.json``, or ``-`` for stdin. Property names, types, enums, keyframes,"
+" references, and timing are validated before editing the project. Errors "
+"identify the field, expected value, received value, and a correction where "
+"possible. GUI slider ranges are advisory where the engine supports values "
+"beyond them."
+msgstr ""
+"``set`` spaja svojstva najviše razine. Skalarni podaci pretvaraju svojstva s"
+" ključnim okvirima u konstante. Dostavljena ugniježđena krivulja zamjenjuje "
+"tu krivulju; koristite ``keyframe set`` za promjenu samo jedne točke. JSON "
+"argumenti prihvaćaju inline JSON, ``@file.json`` ili ``-`` za stdin. Imena "
+"svojstava, tipovi, enumeracije, ključni okviri, reference i vremenski "
+"raspored provjeravaju se prije uređivanja projekta. Pogreške identificiraju "
+"polje, očekivanu vrijednost, primljenu vrijednost i ispravak gdje je moguće."
+" Rasponi klizača GUI-ja su savjetodavni tamo gdje motor podržava vrijednosti"
+" izvan njih."
+
+#: ../doc/agent_cli.rst:576
+msgid "Adding fades"
+msgstr "Dodavanje prijelaza"
+
+#: ../doc/agent_cli.rst:578
+msgid ""
+"``clip fade ID --in 0.5 --out 0.5`` calculates source-trim keyframe "
+"coordinates automatically. It replaces the alpha curve; ``--property volume "
+"--value 0.25`` instead creates an audio fade with a 0.25 peak gain. "
+"Durations must fit between the first and last visible frames; fade-out "
+"reaches zero on the last frame."
+msgstr ""
+"``clip fade ID --in 0.5 --out 0.5`` automatski izračunava koordinate "
+"ključnih okvira za izvorno skraćivanje. Zamjenjuje alfa krivulju; "
+"``--property volume --value 0.25`` umjesto toga stvara audio prijelaz s "
+"vršnim pojačanjem od 0.25. Trajanja moraju stati između prvog i zadnjeg "
+"vidljivog okvira; izblijedjenje doseže nulu na zadnjem okviru."
+
+#: ../doc/agent_cli.rst:584
+msgid "Splitting clips"
+msgstr "Razdvajanje isječaka"
+
+#: ../doc/agent_cli.rst:586
+msgid ""
+"``clip split ID --at 6.5`` uses timeline seconds, snaps to the nearest "
+"project frame, and keeps both halves. It retains source-coordinate curves "
+"and duplicates effects with fresh IDs on the right half, following the "
+"editor's slicing behavior. The left half retains its ID. The response "
+"reports requested/actual split times and both summaries; a named batch "
+"result supports ``{\"$ref\":\"cut.right.id\"}``. Splits reject endpoints and"
+" locked tracks. Undo restores the original clip in one transaction."
+msgstr ""
+"``clip split ID --at 6.5`` koristi sekunde vremenske linije, prilagođava se "
+"najbližem okviru projekta i zadržava oba dijela. Zadržava krivulje izvornog "
+"koordinatnog sustava i duplicira efekte s novim ID-jevima na desnoj "
+"polovici, slijedeći ponašanje rezanja uređivača. Lijeva polovica zadržava "
+"svoj ID. Odgovor prikazuje tražena/stvarna vremena rezanja i oba sažetka; "
+"imenovani rezultat serije podržava ``{\"$ref\":\"cut.right.id\"}``. Rezanja "
+"odbacuju krajnje točke i zaključane tragove. Poništi vraća izvorni isječak u"
+" jednoj transakciji."
+
+#: ../doc/agent_cli.rst:595
+msgid "Clip menu presets"
+msgstr "Predlošci izbornika isječaka"
+
+#: ../doc/agent_cli.rst:597
+msgid ""
+"The editor's clip menu presets use the same code from the command line. Each"
+" command lists its presets in its help, and each one is a single undo step:"
+msgstr ""
+"Predlošci izbornika isječaka uređivača koriste isti kod kao i naredbeni "
+"redak. Svaka naredba navodi svoje predloške u pomoći, a svaki je jedan korak"
+" poništavanja:"
+
+#: ../doc/agent_cli.rst:611
+msgid ""
+"Motion presets are relative to the clip's current transform. Look presets "
+"add or replace one effect, and ``none`` removes it. Speed and repeat retime "
+"every keyframe and change the clip's length; ``clip speed --mode reset`` "
+"restores normal speed. Other menu actions are plain edits: rotate and layout"
+" with ``clip set``, crop with ``effects add Crop``. The commands also work "
+"in ``edit apply`` and ``edit bulk``."
+msgstr ""
+"Predlošci pokreta odnose se na trenutnu transformaciju isječka. Predlošci "
+"izgleda dodaju ili zamjenjuju jedan efekt, a ``none`` ga uklanja. Brzina i "
+"ponavljanje mijenjaju vrijeme svakog ključnog okvira i mijenjaju duljinu "
+"isječka; ``clip speed --mode reset`` vraća normalnu brzinu. Ostale radnje u "
+"izborniku su obične izmjene: rotacija i raspored s ``clip set``, obrezivanje"
+" s ``effects add Crop``. Naredbe također rade u ``edit apply`` i ``edit "
+"bulk``."
+
+#: ../doc/agent_cli.rst:621
+msgid "Adding and styling text"
+msgstr "Dodavanje i oblikovanje teksta"
+
+#: ../doc/agent_cli.rst:623
+msgid ""
+"``text add`` creates a text and places it as a clip, using the same text as "
+"the editor's **Text** tool. Options you leave out use the editor's default "
+"style:"
+msgstr ""
+"``text add`` stvara tekst i postavlja ga kao isječak, koristeći isti tekst "
+"kao i alat **Text** u uređivaču. Opcije koje izostavite koriste zadani stil "
+"uređivača:"
+
+#: ../doc/agent_cli.rst:637
+msgid ""
+"The words, font, size, alignment, box width and default colors belong to the"
+" text in Project Files and are shared by every clip that uses it, just like "
+"in the editor. ``text set`` on one clip changes all of them and lists them "
+"in ``changed_clip_ids``; ``--this-clip-only`` gives that clip its own copy "
+"first. ``clip add FILE_ID`` places another clip of a text from ``text "
+"list``. Sizes are in pixels at the project resolution, and colors are "
+"``#RRGGBB``, ``#AARRGGBB`` (with alpha), a CSS name, or ``transparent``. "
+"``--place`` puts the box at the center, an edge or corner, or a lower third."
+" ``--line-spacing`` is a multiple of the normal distance between lines (1 is"
+" normal), and ``--background-corner`` rounds the background and border "
+"corners by that many pixels."
+msgstr ""
+"Riječi, font, veličina, poravnanje, širina okvira i zadane boje pripadaju "
+"tekstu u Projektnoj datoteci i dijele se među svim isječcima koji ga "
+"koriste, kao i u uređivaču. ``text set`` na jednom isječku mijenja sve njih "
+"i navodi ih u ``changed_clip_ids``; ``--this-clip-only`` prvo daje tom "
+"isječku njegovu vlastitu kopiju. ``clip add FILE_ID`` postavlja drugi "
+"isječak teksta iz ``text list``. Veličine su u pikselima pri rezoluciji "
+"projekta, a boje su ``#RRGGBB``, ``#AARRGGBB`` (s alfa kanalom), CSS ime ili"
+" ``transparent``. ``--place`` postavlja okvir u centar, na rub ili kut, ili "
+"donju trećinu. ``--line-spacing`` je višekratnik normalnog razmaka između "
+"redaka (1 je normalno), a ``--background-corner`` zaokružuje kutove pozadine"
+" i obruba za toliko piksela."
+
+#: ../doc/agent_cli.rst:647
+msgid ""
+"A text clip is an ordinary clip. Position, scale, rotation, opacity, timing,"
+" fades, motion presets and effects all use the normal ``clip`` commands. "
+"Font size, padding, box width, and letter and line spacing set the size of "
+"the text box, so they cannot be keyframed; to animate the size of text, "
+"keyframe the clip's scale. Each clip can animate its own text colors and "
+"outline and border widths with the same keyframe commands as any other "
+"property:"
+msgstr ""
+"Tekstualni isječak je običan isječak. Položaj, skaliranje, rotacija, "
+"prozirnost, vremensko usklađivanje, izblijedjenja, predlošci pokreta i "
+"efekti svi koriste uobičajene ``clip`` naredbe. Veličina fonta, razmak, "
+"širina okvira te razmak između slova i redaka određuju veličinu tekstualnog "
+"okvira, pa ih nije moguće animirati ključnim okvirima; za animaciju veličine"
+" teksta, animirajte skaliranje isječka. Svaki isječak može animirati svoje "
+"boje teksta, obrub i širine obruba koristeći iste naredbe za ključne okvire "
+"kao i za bilo koje drugo svojstvo:"
+
+#: ../doc/agent_cli.rst:659
+msgid ""
+"The animated properties are ``text_color``, ``text_background``, "
+"``text_stroke`` and ``text_border`` (colors, with ``.red``, ``.green``, "
+"``.blue`` and ``.alpha`` from 0 to 255), plus ``text_stroke_width``, "
+"``text_border_width`` and ``text_background_corner``. A clip's own animation"
+" wins over the shared style, and ``text get`` lists which styles a clip "
+"animates. ``text reset CLIP_ID`` returns a clip to the default style, like "
+"**Text → Reset Style**; ``--keyframes-only`` just removes the clip's own "
+"animation. To style many texts at once, select them with "
+"``{\"text\":true}``:"
+msgstr ""
+"Animirana svojstva su ``text_color``, ``text_background``, ``text_stroke`` i"
+" ``text_border`` (boje, s ``.red``, ``.green``, ``.blue`` i ``.alpha`` od 0 "
+"do 255), plus ``text_stroke_width``, ``text_border_width`` i "
+"``text_background_corner``. Vlastita animacija isječka ima prednost nad "
+"zajedničkim stilom, a ``text get`` navodi koje stilove isječak animira. "
+"``text reset CLIP_ID`` vraća isječak na zadani stil, kao u **Text → Reset "
+"Style**; ``--keyframes-only`` uklanja samo vlastitu animaciju isječka. Za "
+"oblikovanje više tekstova odjednom, odaberite ih s ``{\"text\":true}``:"
+
+#: ../doc/agent_cli.rst:672
+msgid "Applying a batch of edits"
+msgstr "Primjena serije izmjena"
+
+#: ../doc/agent_cli.rst:674
+msgid ""
+"``edit apply --json @edits.json --expect-revision 12`` accepts up to 256 "
+"ordered mutation commands, using dotted command names such as ``clip.set`` "
+"and ``effects.add`` (the older ``effect.add`` spelling also works)::"
+msgstr ""
+"``edit apply --json @edits.json --expect-revision 12`` prihvaća do 256 "
+"naredbi mutacije u redoslijedu, koristeći nazive naredbi s točkama poput "
+"``clip.set`` i ``effects.add`` (stariji oblik ``effect.add`` također radi)::"
+
+#: ../doc/agent_cli.rst:685
+msgid ""
+"The optional ``as`` binds a result for later commands in the same batch. A "
+"``{\"$ref\":\"shot.id\"}`` object substitutes that result's field. "
+"References only resolve earlier names; misspellings, forward references, and"
+" duplicate names fail before live updates. The response includes ordered "
+"compact results and a ``refs`` map of actual IDs. All changes in a "
+"successful batch form one undo/redo step. ``project.profile.set`` also "
+"supports populated timelines. Opening, saving, exporting, and inspection "
+"commands stay outside edit batches. Each command's help lists its JSON "
+"parameter names, including the underscore spelling of shell flags (for "
+"example, ``--fps-num`` becomes ``fps_num``)."
+msgstr ""
+"Opcionalni ``as`` veže rezultat za kasnije naredbe u istoj seriji. Objekt "
+"``{\"$ref\":\"shot.id\"}`` zamjenjuje polje tog rezultata. Reference "
+"rješavaju samo ranije nazive; pogreške u pisanju, buduće reference i "
+"duplicirani nazivi ne uspijevaju prije ažuriranja uživo. Odgovor uključuje "
+"uređene kompaktne rezultate i mapu ``refs`` stvarnih ID-eva. Sve promjene u "
+"uspješnoj seriji čine jedan korak poništavanja/ponavljanja. "
+"``project.profile.set`` također podržava popunjene vremenske linije. Naredbe"
+" za otvaranje, spremanje, izvoz i inspekciju ostaju izvan serija izmjena. "
+"Pomoć za svaku naredbu navodi nazive JSON parametara, uključujući oblik s "
+"donjom crtom za zastavice ljuske (na primjer, ``--fps-num`` postaje "
+"``fps_num``)."
+
+#: ../doc/agent_cli.rst:696
+msgid "Validating batches and handling errors"
+msgstr "Provjera serija i rukovanje pogreškama"
+
+#: ../doc/agent_cli.rst:698
+msgid ""
+"All commands in edit batches preflight against a detached project before any"
+" live updates. Invalid input leaves the live project and revision unchanged."
+" Valid batches form one undo group. Unexpected runtime failures can still "
+"produce partial changes; errors report completed operations. A timeout does "
+"not imply cancellation, so inspect state before retrying mutations."
+msgstr ""
+"Sve naredbe u serijama izmjena prethodno se provjeravaju na odvojenom "
+"projektu prije bilo kakvih ažuriranja uživo. Nevažeći unos ostavlja živi "
+"projekt i reviziju nepromijenjenima. Valjane serije čine jednu grupu "
+"poništavanja. Neočekivani kvarovi u izvođenju mogu ipak proizvesti "
+"djelomične promjene; pogreške izvještavaju o dovršenim operacijama. Istek "
+"vremena ne znači otkazivanje, stoga provjerite stanje prije ponovnog "
+"pokušaja izmjena."
+
+#: ../doc/agent_cli.rst:705
+msgid "Precise keyframe editing"
+msgstr "Precizno uređivanje ključnih okvira"
+
+#: ../doc/agent_cli.rst:707
+msgid ""
+"``clip``, ``transition``, and ``effects`` support ``keyframe list``, "
+"``set``, ``remove``, ``clear``, ``transform``, ``copy``, and ``paste``. "
+"Property paths can address nested curves, such as ``color.red`` on a Chroma "
+"Key effect. Editing a nested curve preserves sibling channels. Run "
+"``keyframe list ID`` without a property to discover curve paths and point "
+"counts. Discovery and point listings include trim/position timing context; "
+"point listings also report native frame coordinates. ``get`` and "
+"``properties`` expose the complete native object and property metadata. "
+"Errors identify invalid fields, suggest close property names, and explain "
+"coordinate corrections."
+msgstr ""
+"``clip``, ``transition`` i ``effects`` podržavaju ``keyframe list``, "
+"``set``, ``remove``, ``clear``, ``transform``, ``copy`` i ``paste``. Putanje"
+" svojstava mogu adresirati ugniježđene krivulje, poput ``color.red`` na "
+"efektu Chroma Key. Uređivanje ugniježđene krivulje čuva susjedne kanale. "
+"Pokrenite ``keyframe list ID`` bez svojstva za otkrivanje putanja krivulja i"
+" broja točaka. Otkrivanje i popisi točaka uključuju kontekst vremenskog "
+"podešavanja trim/pozicije; popisi točaka također prikazuju izvorne "
+"koordinate okvira. ``get`` i ``properties`` izlažu kompletan izvorni objekt "
+"i metapodatke svojstava. Pogreške identificiraju nevažeća polja, predlažu "
+"slična imena svojstava i objašnjavaju korekcije koordinata."
+
+#: ../doc/agent_cli.rst:717
+msgid ""
+"Choose coordinates explicitly with ``--space native|clip|timeline`` and "
+"``--unit frames|seconds``. All frames use project FPS and are 1-based; "
+"seconds start at zero and snap to the nearest frame. Native is the existing "
+"engine keyframe coordinate (including source trim). Clip coordinates start "
+"at the visible clip in-point; timeline coordinates start at project time "
+"zero. Attached effects use their parent clip's timing. These coordinates "
+"address animation time, not the media frames selected by a time-remapping "
+"curve."
+msgstr ""
+"Izričito odaberite koordinate pomoću ``--space native|clip|timeline`` i "
+"``--unit frames|seconds``. Svi okviri koriste FPS projekta i numerirani su "
+"od 1; sekunde počinju od nule i zaokružuju se na najbliži okvir. Native su "
+"postojeće koordinate ključnog okvira motora (uključujući izrez izvora). "
+"Koordinate isječka počinju od vidljive ulazne točke isječka; koordinate "
+"vremenske linije počinju od nule vremena projekta. Priloženi efekti koriste "
+"vremensko usklađivanje roditeljskog isječka. Ove koordinate se odnose na "
+"vrijeme animacije, a ne na medijske okvire odabrane krivuljom vremenskog "
+"preslikavanja."
+
+#: ../doc/agent_cli.rst:725
+msgid ""
+"For a clip positioned at 5 seconds, trimmed at 2 seconds, in a 30 fps "
+"project, clip frame 1, timeline frame 151, and native frame 61 address the "
+"same point. Position and trim snap independently to the project frame grid. "
+"Listing an entire curve can include hidden points with nonpositive "
+"clip/timeline coordinates. Legacy ``--frame`` still means a native frame and"
+" cannot combine with ``--at``."
+msgstr ""
+"Za isječak pozicioniran na 5 sekundi, skraćen na 2 sekunde, u projektu od 30"
+" fps, okvir isječka 1, okvir vremenske crte 151 i izvorni okvir 61 "
+"adresiraju istu točku. Pozicija i skraćivanje neovisno se poravnavaju na "
+"mrežu okvira projekta. Popis cijele krivulje može uključivati skrivene točke"
+" s nepozitivnim koordinatama isječka/vremenske crte. Naslijeđeni ``--frame``"
+" i dalje znači izvorni okvir i ne može se kombinirati s ``--at``."
+
+#: ../doc/agent_cli.rst:731
+msgid "Examples::"
+msgstr "Primjeri::"
+
+#: ../doc/agent_cli.rst:743
+msgid "Interpolation, easing, and preview"
+msgstr "Interpolacija, ublažavanje i pregled"
+
+#: ../doc/agent_cli.rst:745
+msgid ""
+"Interpolation describes the segment **into the destination point**. Linear "
+"gives a steady rate between points. Constant holds the preceding value until"
+" the destination, then jumps. Native default Bezier handles ease at both "
+"ends of each segment. Adding an intermediate point can therefore introduce "
+"an unintended slowdown; for one eased move, start with two endpoints. "
+"Normally leave handles alone and choose a named preset for a specific style."
+msgstr ""
+"Interpolacija opisuje segment **do odredišne točke**. Linearna daje stalnu "
+"brzinu između točaka. Konstantna drži prethodnu vrijednost do odredišta, "
+"zatim skače. Izvorni zadani Bezier upravljači ublažavaju na oba kraja svakog"
+" segmenta. Dodavanje međutočke može stoga uzrokovati neželjeno usporavanje; "
+"za jedan ublaženi pokret, započnite s dvije krajnje točke. Obično ostavite "
+"upravljače netaknutima i odaberite imenovani predložak za određeni stil."
+
+#: ../doc/agent_cli.rst:752
+msgid ""
+"Discover the same easing presets used by the editor's menus, without a "
+"session::"
+msgstr ""
+"Otkrijte iste predloške ublažavanja koje koriste izbornici uređivača, bez "
+"sesije::"
+
+#: ../doc/agent_cli.rst:756
+msgid "Apply a preset to the incoming segment by setting its destination::"
+msgstr ""
+"Primijenite predložak na dolazni segment postavljanjem njegove odredišne "
+"točke::"
+
+#: ../doc/agent_cli.rst:761
+msgid ""
+"The easing option implies Bezier. It sets the previous point's outgoing "
+"handle and the destination's incoming handle together, preserving other "
+"handles and point values. An earlier point must exist. Do not combine it "
+"with custom handles or a different interpolation. Presets work in batches "
+"and bulk templates. The GUI preset **ease** (\"Ease (Default)\") differs "
+"from the native handles used by plain Bezier interpolation. Back presets can"
+" overshoot endpoint values."
+msgstr ""
+"Opcija ublažavanja podrazumijeva Bezier. Postavlja izlazni upravljač "
+"prethodne točke i ulazni upravljač odredišne točke zajedno, čuvajući ostale "
+"upravljače i vrijednosti točaka. Mora postojati ranija točka. Nemojte je "
+"kombinirati s prilagođenim upravljačima ili drugačijom interpolacijom. "
+"Predlošci rade u serijama i masovnim predlošcima. GUI predložak **ease** "
+"(\"Ublažavanje (zadano)\") razlikuje se od izvornog upravljača koji koristi "
+"obična Bezier interpolacija. Povratni predlošci mogu premašiti vrijednosti "
+"krajnjih točaka."
+
+#: ../doc/agent_cli.rst:768
+msgid ""
+"Inspect motion **before rendering**, using the native curve evaluator::"
+msgstr ""
+"Pregledajte pokret **prije renderiranja**, koristeći izvorni evaluator "
+"krivulje::"
+
+#: ../doc/agent_cli.rst:773
+msgid ""
+"Preview is read-only and works identically for effects and transitions. It "
+"returns values and signed incoming_rate / outgoing_rate in property units "
+"per second, calculated from immediately adjacent frames. These are finite "
+"differences, not analytic derivatives. At native frame 1 the incoming rate "
+"is null. Adjacent-frame rates can inspect outside the requested range. Near-"
+"zero rates around an interior point reveal a pause; differing rates reveal a"
+" speed change. Constant interpolation reveals a jump at the destination."
+msgstr ""
+"Pregled je samo za čitanje i radi identično za efekte i prijelaze. Vraća "
+"vrijednosti i potpisane incoming_rate / outgoing_rate u jedinicama svojstva "
+"po sekundi, izračunate iz neposredno susjednih okvira. To su konačne "
+"razlike, a ne analitički derivati. Na izvornom okviru 1 dolazna brzina je "
+"nula. Stope susjednih okvira mogu pregledavati izvan traženog raspona. Stope"
+" blizu nule oko unutarnje točke otkrivaju pauzu; različite stope otkrivaju "
+"promjenu brzine. Konstantna interpolacija otkriva skok na odredištu."
+
+#: ../doc/agent_cli.rst:781
+msgid ""
+"Without a range, preview spans the curve's first and last points. Ranges are"
+" inclusive, with 17 evenly spaced samples by default (--count: 2–256). "
+"Keyframes and their immediate neighbors inside the range are also included, "
+"so a sparse sample count will not hide a keyframe stall. The maximum is 1024"
+" samples; larger requests require a narrower range. --at samples one frame. "
+"Preview reports requested-space coordinates and actual native frames; "
+"seconds snap to project frames as they do for editing."
+msgstr ""
+"Bez raspona, pregled obuhvaća prve i posljednje točke krivulje. Rasponi su "
+"uključivi, s 17 ravnomjerno raspoređenih uzoraka prema zadanim postavkama "
+"(--count: 2–256). Ključni okviri i njihovi neposredni susjedi unutar raspona"
+" također su uključeni, tako da rijedak broj uzoraka neće sakriti zastoj "
+"ključnog okvira. Maksimum je 1024 uzorka; veći zahtjevi zahtijevaju uži "
+"raspon. --at uzorkuje jedan okvir. Pregled izvještava koordinate u traženom "
+"prostoru i stvarne izvorne okvire; sekunde se poravnavaju s okvirima "
+"projekta kao i kod uređivanja."
+
+#: ../doc/agent_cli.rst:789
+msgid ""
+"For advanced custom handles, both X and Y are normalized to the segment: X "
+"is a fraction of its frame span; Y is a fraction of its value change. The "
+"first control comes from the previous point's handle_right, the second from "
+"the destination's handle_left. Native defaults are right=(0.5, 0), "
+"left=(0.5, 1), with flat endpoint tangents. Changing handle_type alone does "
+"not recalculate a continuous tangent through surrounding points. Existing "
+"handles are preserved when moving a point."
+msgstr ""
+"Za napredne prilagođene upravljače, i X i Y su normalizirani na segment: X "
+"je dio njegovog raspona okvira; Y je dio promjene njegove vrijednosti. Prva "
+"kontrola dolazi iz handle_right prethodne točke, druga iz handle_left "
+"odredišne točke. Izvorne zadane vrijednosti su right=(0.5, 0), left=(0.5, "
+"1), s ravnim tangensima na krajevima. Promjena samo handle_type ne "
+"preračunava kontinuirani tangens kroz okolne točke. Postojeći upravljači se "
+"čuvaju pri pomicanju točke."
+
+#: ../doc/agent_cli.rst:797
+msgid ""
+"Keyframe ranges are **inclusive**, unlike clip-selection time ranges. List "
+"emits ``points`` whose ``co.X`` values use the requested coordinate "
+"space/unit. Pass that array to ``keyframe paste --json @points.json`` with "
+"the same space/unit, choosing ``--mode merge`` (replace matching frames, "
+"retain others) or ``--mode replace`` (replace the entire curve). ``copy`` "
+"accepts a source of the same object kind, an optional ``--source-property``,"
+" and anchors the first selected source point at ``--at`` on the target. "
+"Other curves and source objects remain unchanged."
+msgstr ""
+"Rasponi ključnih okvira su **uključivi**, za razliku od vremenskih raspona "
+"odabira isječaka. Popis emitira ``points`` čije vrijednosti ``co.X`` koriste"
+" traženi koordinatni prostor/jedinicu. Proslijedite taj niz u ``keyframe "
+"paste --json @points.json`` s istim prostorom/jedinicom, birajući ``--mode "
+"merge`` (zamijeni podudarajuće okvire, zadrži ostale) ili ``--mode replace``"
+" (zamijeni cijelu krivulju). ``copy`` prihvaća izvor iste vrste objekta, "
+"opcionalni ``--source-property``, i sidri prvu odabranu izvornu točku na "
+"``--at`` na odredištu. Ostale krivulje i izvorni objekti ostaju "
+"nepromijenjeni."
+
+#: ../doc/agent_cli.rst:805
+msgid ""
+"``transform`` applies a positive time scale around the first selected point,"
+" or ``--pivot``, followed by a signed ``--offset`` in the chosen unit. Frame"
+" snapping that creates duplicate coordinates is rejected, including "
+"collisions with points outside the selected range. Native coordinates must "
+"remain at least 1. Native normalized Bézier handles and interpolation travel"
+" with each point; handles are not absolute frame coordinates. ``set "
+"--handles`` changes only supplied handles. Interpolation belongs to the "
+"destination point."
+msgstr ""
+"``transform`` primjenjuje pozitivnu vremensku skalu oko prve odabrane točke "
+"ili ``--pivot``, praćenu potpisanim ``--offset`` u odabranoj jedinici. "
+"Poravnanje okvira koje stvara duplicirane koordinate odbija se, uključujući "
+"sudare s točkama izvan odabranog raspona. Izvorne koordinate moraju ostati "
+"barem 1. Izvorni normalizirani Bézier upravljači i interpolacija putuju s "
+"svakom točkom; upravljači nisu apsolutne koordinate okvira. ``set "
+"--handles`` mijenja samo dane upravljače. Interpolacija pripada odredišnoj "
+"točki."
+
+#: ../doc/agent_cli.rst:813
+msgid ""
+"``clear`` retains a constant base point at native frame 1: specify "
+"``--value`` or sample the existing curve with ``--at`` (default native frame"
+" 1). Removing the last point also retains a constant base, so subsequent "
+"keyframe additions remain valid."
+msgstr ""
+"``clear`` zadržava konstantnu baznu točku na izvornom okviru 1: navedite "
+"``--value`` ili uzorkujte postojeću krivulju s ``--at`` (zadano izvorni "
+"okvir 1). Uklanjanje posljednje točke također zadržava konstantnu bazu, tako"
+" da naknadna dodavanja ključnih okvira ostaju valjana."
+
+#: ../doc/agent_cli.rst:818
+msgid "Selecting and editing many clips"
+msgstr "Odabir i uređivanje mnogih isječaka"
+
+#: ../doc/agent_cli.rst:820
+msgid ""
+"Use ``edit apply --dry-run`` to validate a batch without changing the "
+"project. Use ``edit bulk`` to repeat a small command template for each "
+"selected clip, with all changes grouped into one undo step."
+msgstr ""
+"Koristite ``edit apply --dry-run`` za provjeru serije bez mijenjanja "
+"projekta. Koristite ``edit bulk`` za ponavljanje malog predloška naredbe za "
+"svaki odabrani isječak, sa svim promjenama grupiranim u jedan korak "
+"poništavanja."
+
+#: ../doc/agent_cli.rst:824
+msgid "First preview a selection::"
+msgstr "Prvo pregledajte odabir::"
+
+#: ../doc/agent_cli.rst:828
+msgid ""
+"Selectors support ``ids`` (unique clip ID array), ``layer``, "
+"``start``/``end`` (timeline seconds), ``file_id``, ``effect`` (class name or"
+" alias), and ``text`` (``true`` selects text clips). Filters combine with "
+"AND. Time ranges select clips overlapping ``[start, end)``; they do not trim"
+" those clips. Results are ordered by position, layer, then ID, and include "
+"IDs, summaries, lock state, and the current revision. Unknown IDs are "
+"errors. An empty selector is rejected; use ``{\"all\":true}`` explicitly for"
+" every clip. Selections are bounded to 256 clips and are never silently "
+"truncated."
+msgstr ""
+"Selektori podržavaju ``ids`` (jedinstveni niz ID-ova isječaka), ``layer``, "
+"``start``/``end`` (sekunde na vremenskoj liniji), ``file_id``, ``effect`` "
+"(naziv klase ili alias) i ``text`` (``true`` odabire tekstualne isječke). "
+"Filtri se kombiniraju s AND. Vremenski rasponi odabiru isječke koji se "
+"preklapaju s ``[start, end)``; oni ne skraćuju te isječke. Rezultati su "
+"poredani po poziciji, sloju, zatim ID-u, i uključuju ID-ove, sažetke, stanje"
+" zaključavanja i trenutnu reviziju. Nepoznati ID-ovi su pogreške. Prazan "
+"selektor se odbacuje; koristite ``{\"all\":true}`` eksplicitno za svaki "
+"isječak. Odabiri su ograničeni na 256 isječaka i nikada se ne skraćuju tiho."
+
+#: ../doc/agent_cli.rst:837
+msgid "For example, save this array as ``templates.json``::"
+msgstr "Na primjer, spremite ovaj niz kao ``templates.json``::"
+
+#: ../doc/agent_cli.rst:846
+msgid "Validate it, then apply against the revision returned by selection::"
+msgstr "Potvrdite ga, zatim primijenite na reviziju vraćenu odabirom::"
+
+#: ../doc/agent_cli.rst:851
+msgid ""
+"Existing-clip commands inherit ``id``; ``effects.add`` inherits ``clip_id``."
+" Omit these target parameters in templates. Effect edits must reference an "
+"earlier named result. Names are local to each selected clip, so ``look.id`` "
+"refers to a different effect for each clip. To change existing effect "
+"instances by explicit ID, continue using ``edit apply``. The selected ID set"
+" is fixed before expansion; changes to position or effects do not change the"
+" remaining targets."
+msgstr ""
+"Naredbe za postojeće isječke nasljeđuju ``id``; ``effects.add`` nasljeđuje "
+"``clip_id``. Izostavite ove ciljne parametre u predlošcima. Uređivanja "
+"efekata moraju se odnositi na ranije imenovani rezultat. Imena su lokalna za"
+" svaki odabrani isječak, pa ``look.id`` odnosi se na različiti efekt za "
+"svaki isječak. Za promjenu postojećih instanci efekata po eksplicitnom ID-u "
+"nastavite koristiti ``edit apply``. Odabrani skup ID-ova je fiksiran prije "
+"proširenja; promjene položaja ili efekata ne mijenjaju preostale ciljeve."
+
+#: ../doc/agent_cli.rst:858
+msgid ""
+"``clip set`` applies absolute properties; ``clip adjust`` applies "
+"``multiply`` then ``add`` to a numeric property or every value in a curve, "
+"preserving point timing, interpolation, and normalized handles. It validates"
+" resulting values, including nonnegative positions and volume. Structural "
+"fields remain protected."
+msgstr ""
+"``clip set`` primjenjuje apsolutna svojstva; ``clip adjust`` primjenjuje "
+"``multiply`` zatim ``add`` na numeričko svojstvo ili svaku vrijednost u "
+"krivulji, čuvajući vremenski raspored točaka, interpolaciju i normalizirane "
+"ručke. Provjerava dobivene vrijednosti, uključujući nenegativne položaje i "
+"glasnoću. Strukturna polja ostaju zaštićena."
+
+#: ../doc/agent_cli.rst:863
+msgid ""
+"Bulk operations reject empty selections, locked target tracks, and more than"
+" 256 expanded commands. Every expanded operation passes detached preflight "
+"before any live edit. Dry runs do not reserve generated IDs. Use ``--expect-"
+"revision`` to reject stale selections. Successful batches are one undo step,"
+" including after save/reopen. GUI refreshes are batched. Unexpected "
+"runtime/listener errors can still leave a partial transaction; the error "
+"reports completed operations and undo reverts that group, as with ``edit "
+"apply``."
+msgstr ""
+"Masovne operacije odbacuju prazne odabire, zaključane ciljne tragove i više "
+"od 256 proširenih naredbi. Svaka proširena operacija prolazi odvojenu "
+"provjeru prije bilo kakve žive izmjene. Suhi testovi ne rezerviraju "
+"generirane ID-ove. Koristite ``--expect-revision`` za odbacivanje "
+"zastarjelih odabira. Uspješne serije su jedan korak poništavanja, "
+"uključujući nakon spremanja/ponovnog otvaranja. Osvježavanja GUI-ja su "
+"grupirana. Neočekivane pogreške u runtime-u/slušaču mogu ostaviti djelomičnu"
+" transakciju; pogreška prijavljuje dovršene operacije, a poništavanje vraća "
+"tu grupu, kao kod ``edit apply``."
+
+#: ../doc/agent_cli.rst:872
+msgid "Profiles"
+msgstr "Profili"
+
+#: ../doc/agent_cli.rst:874
+msgid "Discover profiles and match imported video without guessing IDs::"
+msgstr ""
+"Otkrivanje profila i usklađivanje uvezenog videa bez nagađanja ID-ova::"
+
+#: ../doc/agent_cli.rst:884
+msgid ""
+"Catalog entries include stable IDs, descriptions, dimensions, rational FPS, "
+"aspect ratios, and scan settings. List/search is paginated. Source matching "
+"returns exact IDs and ranked alternatives with explicit differences. Setting"
+" from a file requires an exact match unless ``--create-custom`` is "
+"specified; it never silently chooses a nearby profile. Still images and "
+"audio-only sources cannot define a video profile. Matching uses declared "
+"source FPS."
+msgstr ""
+"Unosi u katalog uključuju stabilne ID-ove, opise, dimenzije, racionalni FPS,"
+" omjere širine i visine te postavke skeniranja. Popis/pretraživanje je "
+"paginirano. Usklađivanje izvora vraća točne ID-ove i rangirane alternative s"
+" eksplicitnim razlikama. Postavljanje iz datoteke zahtijeva točno "
+"podudaranje osim ako nije specificirano ``--create-custom``; nikada tiho ne "
+"bira bliski profil. Statične slike i izvori samo za zvuk ne mogu definirati "
+"video profil. Usklađivanje koristi deklarirani FPS izvora."
+
+#: ../doc/agent_cli.rst:891
+msgid ""
+"Custom settings are embedded in the saved project, including rational rates,"
+" so reopening does not require installing a separate profile file. Project "
+"profile changes use existing frame-rate conversion and one undo transaction."
+" Undo/redo restores clip timing and keyframes, including rounding-sensitive "
+"positions. Export can independently select a profile without changing the "
+"project."
+msgstr ""
+"Prilagođene postavke ugrađene su u spremljeni projekt, uključujući "
+"racionalne stope, tako da ponovno otvaranje ne zahtijeva instalaciju zasebne"
+" datoteke profila. Promjene profila projekta koriste postojeću konverziju "
+"brzine kadrova i jednu transakciju poništavanja. Poništi/ponovi vraća "
+"vremenski raspored isječaka i ključne okvire, uključujući pozicije "
+"osjetljive na zaokruživanje. Izvoz može neovisno odabrati profil bez "
+"mijenjanja projekta."
+
+#: ../doc/agent_cli.rst:897
+msgid ""
+"Saved undo history follows the editor's history-limit preference. The limit "
+"is a soft action budget: all records belonging to retained transactions are "
+"kept, so saving cannot truncate a large batch into a partial undo action. "
+"Zero disables saved history. The separate 256-command batch request bound "
+"still applies."
+msgstr ""
+"Spremljena povijest poništavanja slijedi preferenciju ograničenja povijesti "
+"uređivača. Ograničenje je mekani proračun akcija: svi zapisi koji pripadaju "
+"zadržanim transakcijama se čuvaju, tako da spremanje ne može skratiti veliku"
+" seriju u djelomičnu akciju poništavanja. Nula onemogućuje spremljenu "
+"povijest. I dalje vrijedi zasebno ograničenje zahtjeva za seriju od 256 "
+"naredbi."
+
+#: ../doc/agent_cli.rst:903
+msgid "Inspecting media and timelines"
+msgstr "Pregled medija i vremenskih linija"
+
+#: ../doc/agent_cli.rst:905
+msgid ""
+"Inspect clip timing and track layout as text or JSON, or render images to "
+"review composition and framing before exporting."
+msgstr ""
+"Pregledajte vremenski raspored isječaka i raspored tragova kao tekst ili "
+"JSON, ili renderirajte slike za pregled kompozicije i kadriranja prije "
+"izvoza."
+
+#: ../doc/agent_cli.rst:909
+msgid "Timeline summaries"
+msgstr "Sažeci vremenske linije"
+
+#: ../doc/agent_cli.rst:911
+msgid ""
+"Use a text view for a quick overview, or structured JSON for scripts and "
+"agents::"
+msgstr ""
+"Koristite tekstualni prikaz za brz pregled ili strukturirani JSON za skripte"
+" i agente::"
+
+#: ../doc/agent_cli.rst:917
+msgid ""
+"``timeline view`` defaults to compact text with used tracks, object IDs, "
+"timeline/source intervals, stream state, gain, and gaps/overlaps. Use "
+"``--detail summary|clips|full`` to choose detail, ``--format json`` for "
+"structured context, and ``--start/--end``, ``--layer``, and pagination to "
+"focus the result."
+msgstr ""
+"``timeline view`` prema zadanim postavkama prikazuje kompaktni tekst s "
+"korištenim tragovima, ID-ovima objekata, intervalima vremenske "
+"linije/izvora, stanjem toka, pojačanjem i prazninama/preklapanjima. "
+"Koristite ``--detail summary|clips|full`` za odabir detalja, ``--format "
+"json`` za strukturirani kontekst, te ``--start/--end``, ``--layer`` i "
+"paginaciju za fokusiranje rezultata."
+
+#: ../doc/agent_cli.rst:922
+msgid ""
+"``timeline overview`` supplies compact structured context without image "
+"bytes: ordered IDs, sequence per track, timeline/source intervals, visible "
+"trim ranges, frame coordinates, audio/video state, effects, and neighboring "
+"gaps or overlaps. Intervals and frame spans are end-exclusive; frame numbers"
+" are one-based. Source frames use source FPS; timeline and keyframe "
+"coordinates use project FPS. Use ``--layer`` and ``--start/--end`` to focus,"
+" and ``--limit/--offset`` to paginate (default 100, maximum 500 items). "
+"Time-remapped clips explicitly withhold inferred source mappings. Use the "
+"returned revision with ``edit apply --expect-revision``."
+msgstr ""
+"``timeline overview`` pruža kompaktni strukturirani kontekst bez bajtova "
+"slike: poredani ID-ovi, redoslijed po tragu, intervali vremenske "
+"linije/izvora, vidljivi rasponi rezanja, koordinate okvira, stanje "
+"zvuka/videa, efekti i susjedne praznine ili preklapanja. Intervali i rasponi"
+" okvira su isključivi na kraju; brojevi okvira su jedinični. Izvorni okviri "
+"koriste FPS izvora; koordinate vremenske linije i ključnih okvira koriste "
+"FPS projekta. Koristite ``--layer`` i ``--start/--end`` za fokusiranje, te "
+"``--limit/--offset`` za paginaciju (zadano 100, maksimalno 500 stavki). "
+"Isječci s vremenskim preslikavanjem eksplicitno zadržavaju zaključane "
+"izvore. Koristite vraćenu reviziju s ``edit apply --expect-revision``."
+
+#: ../doc/agent_cli.rst:932
+msgid "Frame previews and contact sheets"
+msgstr "Pregledi okvira i kontaktne ploče"
+
+#: ../doc/agent_cli.rst:934
+msgid ""
+"Render a single frame with ``thumbnail`` or sample a range with ``strip``. "
+"Use ``file`` to inspect source media and ``timeline`` to inspect the "
+"composed video, including effects and layered clips::"
+msgstr ""
+"Renderirajte jedan okvir s ``thumbnail`` ili uzorkujte raspon s ``strip``. "
+"Koristite ``file`` za pregled izvornog medija i ``timeline`` za pregled "
+"složenog videa, uključujući efekte i slojevite isječke::"
+
+#: ../doc/agent_cli.rst:943
+msgid ""
+"Frame images default to 320x180 pixels; contact sheets default to 160x90 per"
+" tile, plus timecode labels. Use ``--width`` and ``--height`` to choose "
+"output pixels. Responses include exact sample/frame metadata. Contact sheets"
+" help review composition across a sequence; use keyframe previews and "
+"rendered video to assess motion between those samples."
+msgstr ""
+"Slike okvira prema zadanim postavkama su 320x180 piksela; kontaktne ploče "
+"prema zadanim postavkama su 160x90 po pločici, plus oznake vremenskog koda. "
+"Koristite ``--width`` i ``--height`` za odabir izlaznih piksela. Odgovori "
+"uključuju točne metapodatke uzorka/okvira. Kontaktne ploče pomažu u pregledu"
+" kompozicije kroz sekvencu; koristite preglede ključnih okvira i renderirani"
+" video za procjenu pokreta između tih uzoraka."
+
+#: ../doc/agent_cli.rst:950
+msgid "Timeline images"
+msgstr "Slike vremenske crte"
+
+#: ../doc/agent_cli.rst:952
+msgid ""
+"Capture the editor's track layout, including its ruler, thumbnails, effects,"
+" transitions, and waveforms::"
+msgstr ""
+"Zabilježite raspored traka uređivača, uključujući njegovu ravnalo, sličice, "
+"efekte, prijelaze i valne oblike::"
+
+#: ../doc/agent_cli.rst:957
+msgid ""
+"Specifying ``--output`` selects image format; ``--format image`` also "
+"selects it explicitly. The capture does not change the editor's viewport or "
+"project. Responses include clip IDs and timing alongside pixel bounds."
+msgstr ""
+"Navođenjem ``--output`` odabire se format slike; ``--format image`` također "
+"ga eksplicitno odabire. Snimka ne mijenja prikaz uređivača ili projekt. "
+"Odgovori uključuju ID-ove isječaka i vremenske oznake uz granice piksela."
+
+#: ../doc/agent_cli.rst:961
+msgid ""
+"Images default to 1280 pixels wide, with height fitted to used tracks. Use "
+"``--width``, ``--height``, or ``--all-tracks`` to adjust the layout, and "
+"``--track-size`` or ``--track-label-width`` to adjust tracks and labels. The"
+" start/end range determines zoom; ``--pixels-per-second`` instead derives "
+"the width from the time range."
+msgstr ""
+"Slike su zadano široke 1280 piksela, a visina se prilagođava korištenim "
+"trakama. Koristite ``--width``, ``--height`` ili ``--all-tracks`` za "
+"prilagodbu rasporeda, te ``--track-size`` ili ``--track-label-width`` za "
+"prilagodbu traka i oznaka. Početni/krajnji raspon određuje zum; ``--pixels-"
+"per-second`` umjesto toga izračunava širinu iz vremenskog raspona."
+
+#: ../doc/agent_cli.rst:968
+msgid "Audio waveform views"
+msgstr "Prikazi valnih oblika zvuka"
+
+#: ../doc/agent_cli.rst:970
+msgid ""
+"Choose ``--mode waveforms`` to inspect audio envelopes on the timeline::"
+msgstr ""
+"Odaberite ``--mode waveforms`` za pregled audio omotnica na vremenskoj "
+"crti::"
+
+#: ../doc/agent_cli.rst:974
+msgid ""
+"``--mode auto`` uses the existing cached waveform display; ``--mode "
+"thumbnails`` shows thumbnails instead. Waveforms represent source peak/RMS "
+"levels with clip volume and timing adjustments, before audio effects or "
+"mixing."
+msgstr ""
+"``--mode auto`` koristi postojeći predmemorirani prikaz valnog oblika; "
+"``--mode thumbnails`` prikazuje umjesto toga sličice. Valni oblici "
+"predstavljaju vršne/RMS razine izvora s prilagodbama glasnoće isječka i "
+"vremena, prije audio efekata ili miksanja."
+
+#: ../doc/agent_cli.rst:978
+msgid ""
+"Uncached waveform extraction decodes whole sources, limited to 600 seconds "
+"per source and 1200 source-seconds per request. Narrowing the visible range "
+"does not reduce that decoding work. For longer sources, generate waveforms "
+"in the editor first or use thumbnail mode. Subsequent requests can reuse "
+"cached waveforms."
+msgstr ""
+"Ekstrakcija valnog oblika bez predmemorije dekodira cijele izvore, "
+"ograničeno na 600 sekundi po izvoru i 1200 sekundi izvora po zahtjevu. "
+"Sužavanje vidljivog raspona ne smanjuje taj posao dekodiranja. Za duže "
+"izvore prvo generirajte valne oblike u uređivaču ili koristite način "
+"sličica. Naknadni zahtjevi mogu ponovno koristiti predmemorirane valne "
+"oblike."
+
+#: ../doc/agent_cli.rst:984
+msgid "Image output and limits"
+msgstr "Izlaz slike i ograničenja"
+
+#: ../doc/agent_cli.rst:986
+msgid ""
+"Image paths must be new PNG files in existing directories. Images are "
+"limited to 4096 pixels per axis, 8,388,608 total pixels, and 64 contact-"
+"sheet samples. Requests beyond these limits fail before rendering."
+msgstr ""
+"Putanje slika moraju biti nove PNG datoteke u postojećim direktorijima. "
+"Slike su ograničene na 4096 piksela po osi, ukupno 8.388.608 piksela i 64 "
+"uzorka kontakt lista. Zahtjevi izvan ovih ograničenja ne uspijevaju prije "
+"renderiranja."
+
+#: ../doc/agent_cli.rst:990
+msgid ""
+"Images are written to files; JSON responses include their paths and "
+"``image_bytes`` sizes. Inspection waits for the image to finish, and large "
+"requests can briefly occupy the editor."
+msgstr ""
+"Slike se zapisuju u datoteke; JSON odgovori uključuju njihove putanje i "
+"veličine ``image_bytes``. Inspekcija čeka da se slika završi, a veliki "
+"zahtjevi mogu nakratko zauzeti uređivač."
+
+#: ../doc/agent_cli.rst:995
+msgid "Handling command timeouts"
+msgstr "Rukovanje istekom vremena naredbi"
+
+#: ../doc/agent_cli.rst:997
+msgid ""
+"A request timeout does not mean a mutation failed. Use the operation ID in "
+"the error with ``operation get ID`` before retrying. ``operation list`` "
+"discovers recent mutations and their states, revisions, and outcomes. "
+"Completed operations retain their results when small enough, including "
+"returned object IDs. Storage is bounded to 100 operations and 4 MiB, with "
+"individual result bodies omitted above 256 KiB. These records last only for "
+"the running session. They do not restore projects after a crash or prevent a"
+" repeated command from applying the same edit again. Export jobs have their "
+"own status/list commands."
+msgstr ""
+"Istek vremena zahtjeva ne znači da je izmjena neuspjela. Koristite ID "
+"operacije iz pogreške s ``operation get ID`` prije ponovnog pokušaja. "
+"``operation list`` otkriva nedavne izmjene i njihova stanja, revizije i "
+"ishode. Završene operacije zadržavaju svoje rezultate ako su dovoljno male, "
+"uključujući vraćene ID-eve objekata. Pohrana je ograničena na 100 operacija "
+"i 4 MiB, s pojedinačnim tijelima rezultata izostavljenim iznad 256 KiB. Ti "
+"zapisi traju samo tijekom aktivne sesije. Ne obnavljaju projekte nakon pada "
+"niti sprječavaju ponovljenu naredbu da ponovno primijeni istu izmjenu. "
+"Izvozne zadatke imaju vlastite naredbe statusa/liste."

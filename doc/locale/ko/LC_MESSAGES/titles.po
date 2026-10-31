@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,11 +20,11 @@ msgstr ""
 "Generated-By: Babel 2.10.3\n"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:23
+#: ../doc/titles.rst:23
 msgid "Text & Titles"
 msgstr "텍스트 및 타이틀"
 
-#: ../titles.rst:25
+#: ../doc/titles.rst:25
 msgid ""
 "Adding text overlays, lower thirds, and titles is an important aspect of "
 "video editing, and OpenShot comes with an easy-to-use Title Editor. Use the "
@@ -36,7 +36,7 @@ msgstr ""
 " 사용할 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:29
+#: ../doc/titles.rst:29
 msgid ""
 "Titles are simply vector image files with transparent backgrounds "
 "(``*.svg``). OpenShot comes with many easy-to-use templates, but you can "
@@ -52,95 +52,377 @@ msgstr ""
 "수 있게 해줍니다. 필요에 따라 고급 외부 SVG 편집기에서 추가 편집도 가능합니다. 타이틀을 프로젝트에 추가한 후에는 비디오 클립 위의"
 " 트랙에 타이틀을 드래그 앤 드롭하세요. 투명 배경 덕분에 텍스트 뒤로 비디오가 보이게 됩니다."
 
+#: ../doc/titles.rst:38
+msgid "Edit text directly in the preview"
+msgstr "미리보기에서 텍스트를 직접 편집하기"
+
+#: ../doc/titles.rst:40
+msgid ""
+"The quickest way to add text is to type it straight onto the video preview."
+msgstr "텍스트를 추가하는 가장 빠른 방법은 비디오 미리보기 화면에 바로 입력하는 것입니다."
+
+#: ../doc/titles.rst:42
+msgid ""
+"Click **Tt** in the **Timeline** toolbar, choose **Title → Text**, or press "
+":kbd:`Shift+T`. A text clip is added at the playhead, above the clips "
+"already there, and its placeholder text is selected, ready to replace by "
+"typing."
+msgstr ""
+"**Timeline** 도구 모음에서 **Tt**\\ 를 클릭하거나, **Title → Text**\\ 를 선택하거나, "
+":kbd:`Shift+T`\\ 를 누르세요. 재생 헤드 위치에 텍스트 클립이 추가되며, 기존 클립 위에 표시되고, 자리 표시자 텍스트가 "
+"선택되어 바로 입력하여 교체할 수 있습니다."
+
+#: ../doc/titles.rst:45
+msgid "Type your text. Press :kbd:`Shift+Enter` for a new line."
+msgstr "텍스트를 입력하세요. 새 줄을 만들려면 :kbd:`Shift+Enter`\\ 를 누르세요."
+
+#: ../doc/titles.rst:46
+msgid ""
+"Press :kbd:`Enter`, or click outside the text, to finish. Clicking anywhere "
+"else (the preview, the timeline, another dock), moving the playhead, or "
+"pressing Play also finishes and keeps your changes; the style bar and the "
+"**Properties** dock change the text without finishing. The clip then shows "
+"the normal transform handles to move, scale and rotate it. Press "
+":kbd:`Escape` instead to remove a text you just added (or, when editing an "
+"existing text, to throw away this editing session)."
+msgstr ""
+":kbd:`Enter`\\ 를 누르거나 텍스트 외부를 클릭하여 편집을 마치세요. 미리보기, 타임라인, 다른 도크를 클릭하거나 재생 헤드를"
+" 이동하거나 재생 버튼을 눌러도 편집이 완료되고 변경 사항이 저장됩니다. 스타일 바와 **Properties** 도크는 편집을 종료하지 "
+"않고 텍스트를 변경합니다. 클립은 이동, 크기 조절, 회전을 위한 일반 변환 핸들을 표시합니다. 방금 추가한 텍스트를 제거하거나(기존 "
+"텍스트 편집 시에는 편집 세션을 취소하려면) :kbd:`Escape`\\ 를 누르세요."
+
+#: ../doc/titles.rst:53
+msgid ""
+"To edit an existing text, double-click it in the preview, select its clip "
+"and press :kbd:`Enter`, or right-click the clip and choose **Text → Edit "
+"Text**. All of its text is selected, so typing replaces it. Starting "
+"playback or seeking ends editing without keeping unfinished changes, so "
+"press :kbd:`Enter` first to keep them."
+msgstr ""
+"기존 텍스트를 편집하려면 미리보기에서 더블 클릭하거나 클립을 선택한 후 :kbd:`Enter`\\ 를 누르거나 클립을 우클릭하고 "
+"**Text → Edit Text**\\ 를 선택하세요. 텍스트 전체가 선택되어 입력하면 교체됩니다. 재생 시작이나 탐색은 편집을 "
+"종료하지만 미완성 변경 사항은 저장하지 않으므로, 변경 사항을 유지하려면 먼저 :kbd:`Enter`\\ 를 누르세요."
+
+#: ../doc/titles.rst:61
+msgid "Text style bar"
+msgstr "텍스트 스타일 바"
+
+#: ../doc/titles.rst:63
+msgid "While you type, a small style bar floats over the video preview:"
+msgstr "입력하는 동안 작은 스타일 바가 비디오 미리보기 위에 떠 있습니다:"
+
+#: ../doc/titles.rst:69
+msgid "Control"
+msgstr "컨트롤"
+
 # Translated with gpt-4.1-mini
-#: ../titles.rst:36
+#: ../doc/titles.rst:69 ../doc/titles.rst:165 ../doc/titles.rst:184
+#: ../doc/titles.rst:306 ../doc/titles.rst:325
+msgid "Description"
+msgstr "설명"
+
+#: ../doc/titles.rst:71
+msgid "Font"
+msgstr "글꼴"
+
+#: ../doc/titles.rst:71
+msgid "The font family, from the fonts installed on your computer"
+msgstr "컴퓨터에 설치된 글꼴 중 글꼴 패밀리"
+
+#: ../doc/titles.rst:72
+msgid "Size"
+msgstr "크기"
+
+#: ../doc/titles.rst:72
+msgid "The font size, in project pixels"
+msgstr "프로젝트 픽셀 단위의 글꼴 크기"
+
+#: ../doc/titles.rst:73
+msgid "Bold / Italic"
+msgstr "굵게 / 기울임"
+
+#: ../doc/titles.rst:73
+msgid "Toggle bold and italic for the whole text"
+msgstr "전체 텍스트에 대해 굵게 및 기울임을 전환"
+
+#: ../doc/titles.rst:74
+msgid "Color"
+msgstr "색상"
+
+#: ../doc/titles.rst:74
+msgid "The text color (choose a transparent color to show only the outline)"
+msgstr "텍스트 색상 (윤곽선만 보이도록 투명 색상을 선택하세요)"
+
+#: ../doc/titles.rst:75
+msgid "Alignment"
+msgstr "정렬"
+
+#: ../doc/titles.rst:75
+msgid "Align lines left, center or right inside the text box"
+msgstr "텍스트 상자 내에서 줄을 왼쪽, 가운데 또는 오른쪽으로 정렬"
+
+#: ../doc/titles.rst:76
+msgid "More (…)"
+msgstr "더 보기 (…)"
+
+#: ../doc/titles.rst:76
+msgid ""
+"Open **Edit Style** for background, padding, rounded corners, outline, "
+"border, box width, and letter and line spacing"
+msgstr "배경, 여백, 둥근 모서리, 윤곽선, 테두리, 상자 너비, 글자 및 줄 간격을 설정하는 **Edit Style** 열기"
+
+#: ../doc/titles.rst:80
+msgid ""
+"The style bar sits at the **top** of the video preview. If that would cover "
+"the text you are editing, it jumps to the **bottom** of the preview instead,"
+" and it returns to the top once the text is clear of it again (for example, "
+"after you move the text or make it smaller). The style bar floats over the "
+"video, so it never resizes the preview. Changes from the style bar show on "
+"the video right away."
+msgstr ""
+"스타일 바는 비디오 미리보기의 **상단**\\ 에 위치합니다. 편집 중인 텍스트를 가릴 경우 스타일 바는 미리보기의 **하단**\\ 으로"
+" 이동하며, 텍스트가 다시 스타일 바에서 벗어나면 상단으로 돌아옵니다(예: 텍스트를 이동하거나 크기를 줄인 후). 스타일 바는 비디오 "
+"위에 떠 있으므로 미리보기 크기를 변경하지 않습니다. 스타일 바에서 변경한 내용은 즉시 비디오에 반영됩니다."
+
+#: ../doc/titles.rst:89
+msgid "Edit Style"
+msgstr "스타일 편집"
+
+#: ../doc/titles.rst:91
+msgid ""
+"**Edit Style** has every text setting in one place. **Text** holds the "
+"words. **Font** has the style bar controls, the text outline (color and "
+"width), and letter and line spacing. **Background** has the box behind the "
+"text: its color, padding, rounded corners, border (color and width), and box"
+" width (where lines wrap). Open it from **More (…)** on the style bar, from "
+"**Text → Edit Style…** on a clip's context menu, or with **Edit Text…** in "
+"Project Files. The preview at the top shows changes as you make them. Press "
+":kbd:`Ctrl+Enter` or click **Apply** to keep them; :kbd:`Enter` adds a new "
+"line, and **Cancel** discards the changes. **Restore Defaults** returns "
+"everything except the text to the default style."
+msgstr ""
+"**Edit Style**\\ 에서는 모든 텍스트 설정을 한 곳에서 할 수 있습니다. **Text**\\ 는 단어를 포함합니다. "
+"**Font**\\ 는 스타일 바 컨트롤, 텍스트 윤곽선(색상 및 너비), 글자 및 줄 간격을 포함합니다. **Background**\\"
+" 는 텍스트 뒤의 상자를 설정하며, 색상, 여백, 둥근 모서리, 테두리(색상 및 너비), 상자 너비(줄 바꿈 위치)를 포함합니다. 스타일"
+" 바의 **More (…)**, 클립 컨텍스트 메뉴의 **Text → Edit Style…**, 또는 프로젝트 파일의 **Edit "
+"Text…**\\ 에서 열 수 있습니다. 상단 미리보기에서 변경 사항을 실시간으로 확인할 수 있습니다. 변경 사항을 저장하려면 "
+":kbd:`Ctrl+Enter`\\ 를 누르거나 **Apply**\\ 를 클릭하세요; :kbd:`Enter`\\ 는 새 줄을 추가하며, "
+"**Cancel**\\ 은 변경 사항을 취소합니다. **Restore Defaults**\\ 는 텍스트를 제외한 모든 설정을 기본 "
+"스타일로 되돌립니다."
+
+#: ../doc/titles.rst:100
+msgid ""
+"**Line spacing** sets the distance between lines as a multiple of the normal"
+" distance: 1.0 is normal, 1.5 adds half a line of space, and values below "
+"1.0 pull lines closer together. **Corner radius** rounds the corners of the "
+"background and the border, in pixels; 0 keeps them square. The text outline "
+"is drawn behind the letters, so a wide outline grows outward instead of "
+"covering them. For hollow letters, give the text an outline and set the text"
+" color's opacity to 0 in the color picker: only the outline is drawn, and "
+"the video shows through the letters."
+msgstr ""
+"**줄 간격**\\ 은 줄 사이 거리를 기본 거리의 배수로 설정합니다: 1.0은 기본, 1.5는 반 줄 간격을 추가하며, 1.0 미만은 "
+"줄을 더 가깝게 만듭니다. **모서리 반경**\\ 은 배경과 테두리의 모서리를 픽셀 단위로 둥글게 만듭니다; 0은 각을 유지합니다. "
+"텍스트 윤곽선은 글자 뒤에 그려지므로, 넓은 윤곽선은 글자를 덮지 않고 바깥쪽으로 확장됩니다. 속이 빈 글자를 만들려면 텍스트에 윤곽선을"
+" 주고 색상 선택기에서 텍스트 색상의 불투명도를 0으로 설정하세요: 윤곽선만 그려지고 글자를 통해 비디오가 보입니다."
+
+#: ../doc/titles.rst:107
+msgid ""
+"Select several text clips (or several texts in Project Files) and choose "
+"**Edit Style…** to change their style together. The text box is grayed out, "
+"because each text keeps its own words, and only the settings you change are "
+"applied to all of them."
+msgstr ""
+"여러 텍스트 클립(또는 프로젝트 파일 내 여러 텍스트)을 선택하고 **Edit Style…**\\ 을 선택하여 스타일을 함께 변경하세요."
+" 텍스트 상자는 회색으로 표시되며, 각 텍스트는 자신의 단어를 유지하고 변경한 설정만 모두에 적용됩니다."
+
+#: ../doc/titles.rst:111
+msgid ""
+"To reset text clips without opening the dialog, right-click them and choose "
+"**Text → Reset Style**. Their font, size, colors and outlines return to the "
+"defaults, any color or outline keyframes on those clips are removed, and "
+"their words are kept."
+msgstr ""
+"대화상자를 열지 않고 텍스트 클립을 초기화하려면 클립을 우클릭하고 **Text → Reset Style**\\ 을 선택하세요. 글꼴, "
+"크기, 색상 및 윤곽선이 기본값으로 돌아가고, 해당 클립의 색상 또는 윤곽선 키프레임이 제거되며, 단어는 유지됩니다."
+
+#: ../doc/titles.rst:115
+msgid ""
+"To give other text clips the same look, right-click a text clip and choose "
+"**Copy → Text Style**, then select the other text clips, right-click and "
+"choose **Paste**. They take the font, size, colors, outline, border, corners"
+" and spacing, plus the copied clip's color, outline, border and corner "
+"keyframes, and keep their own words and box width. Pasting a text style onto"
+" other kinds of clips changes nothing. **Copy → Keyframes → All** also "
+"includes a text clip's own text keyframes."
+msgstr ""
+"다른 텍스트 클립에 동일한 스타일을 적용하려면 텍스트 클립을 우클릭하고 **Copy → Text Style**\\ 을 선택한 후, 다른 "
+"텍스트 클립을 선택하고 우클릭하여 **Paste**\\ 를 선택하세요. 글꼴, 크기, 색상, 윤곽선, 테두리, 모서리, 간격과 복사한 "
+"클립의 색상, 윤곽선, 테두리, 모서리 키프레임이 적용되며, 각 클립의 단어와 상자 너비는 유지됩니다. 텍스트 스타일을 다른 종류의 "
+"클립에 붙여넣어도 변경되지 않습니다. **Copy → Keyframes → All**\\ 은 텍스트 클립의 텍스트 키프레임도 포함합니다."
+
+#: ../doc/titles.rst:122
+msgid ""
+"A new text starts with the style you used last (font, size, colors, outline,"
+" border and spacing), so a series of titles stays consistent. Without a "
+"previous text, it uses a standard font installed on your computer."
+msgstr ""
+"새 텍스트는 마지막에 사용한 스타일(글꼴, 크기, 색상, 윤곽선, 테두리 및 간격)로 시작하므로 일련의 제목이 일관성을 유지합니다. 이전"
+" 텍스트가 없으면 컴퓨터에 설치된 기본 글꼴을 사용합니다."
+
+#: ../doc/titles.rst:127
+msgid "Project Files and Properties"
+msgstr "프로젝트 파일 및 속성"
+
+#: ../doc/titles.rst:129
+msgid ""
+"Each text also appears in **Project Files**, with a thumbnail on black. Drag"
+" it onto the timeline like an image to use it again. Right-click it and "
+"choose **Edit Text…** (or double-click it) to edit it without placing it on "
+"the timeline. **Duplicate** opens a copy, ready to type, and **Apply** adds "
+"it as a new, independent text."
+msgstr ""
+"각 텍스트는 **프로젝트 파일**\\ 에도 검은색 썸네일과 함께 나타납니다. 이미지를 끌어다 놓듯 타임라인에 끌어다 놓아 다시 사용할 수"
+" 있습니다. 텍스트를 마우스 오른쪽 버튼으로 클릭하고 **텍스트 편집…** 을 선택하거나(또는 더블 클릭하여) 타임라인에 놓지 않고 "
+"편집할 수 있습니다. **복제** 는 복사본을 열어 입력할 준비를 하며, **적용** 은 새롭고 독립적인 텍스트로 추가합니다."
+
+#: ../doc/titles.rst:134
+msgid ""
+"The words, font, size, spacing, alignment, box width, padding and default "
+"colors belong to the text in Project Files, so editing them updates every "
+"clip that uses that text. When a text clip is selected, these settings also "
+"appear at the top of **Properties** (for example **Text Box Width** and "
+"**Text Background Padding**), and changes there show on the video right away"
+" (including while you are typing)."
+msgstr ""
+"단어, 글꼴, 크기, 간격, 정렬, 상자 너비, 여백 및 기본 색상은 프로젝트 파일의 텍스트에 속하므로 이를 편집하면 해당 텍스트를 "
+"사용하는 모든 클립이 업데이트됩니다. 텍스트 클립이 선택되면 이러한 설정이 **속성** 상단에도 나타나며(예: **텍스트 상자 너비** "
+"및 **텍스트 배경 여백**), 그곳에서 변경한 내용은 입력 중에도 즉시 비디오에 반영됩니다."
+
+#: ../doc/titles.rst:140
+msgid ""
+"Text color, background, outline and border colors, outline and border "
+"widths, and corner radius can be animated on each clip with keyframes in "
+"**Properties**, like any other clip property. These follow **Auto "
+"Keyframes** at the playhead. Font size, padding, box width, and letter and "
+"line spacing set the size of the text box, so they have one value per text; "
+"to animate the size of text, animate the clip's scale. Undo and Redo work "
+"for all text changes."
+msgstr ""
+"텍스트 색상, 배경, 외곽선 및 테두리 색상, 외곽선 및 테두리 너비, 모서리 반경은 다른 클립 속성과 마찬가지로 **속성**\\ 에서 "
+"키프레임으로 각 클립마다 애니메이션할 수 있습니다. 이들은 재생 헤드의 **자동 키프레임**\\ 을 따릅니다. 글꼴 크기, 여백, 상자 "
+"너비, 글자 및 줄 간격은 텍스트 상자의 크기를 설정하므로 텍스트마다 하나의 값을 가지며, 텍스트 크기를 애니메이션하려면 클립의 크기를 "
+"애니메이션해야 합니다. 실행 취소 및 다시 실행은 모든 텍스트 변경에 적용됩니다."
+
+#: ../doc/titles.rst:146
+msgid ""
+"Text is saved in the project file and drawn by OpenShot's video library, so "
+"it needs no image files. Fonts come from your computer: to see the same text"
+" on another computer, install the same fonts there. One style applies to all"
+" of a text's lines."
+msgstr ""
+"텍스트는 프로젝트 파일에 저장되고 OpenShot의 비디오 라이브러리에서 그려지므로 이미지 파일이 필요 없습니다. 글꼴은 컴퓨터에서 "
+"가져오며, 다른 컴퓨터에서 동일한 텍스트를 보려면 동일한 글꼴을 설치해야 합니다. 하나의 스타일이 텍스트의 모든 줄에 적용됩니다."
+
+#: ../doc/titles.rst:150
+msgid ""
+"Text can also be added and styled from the command line; see "
+":ref:`cli_text_ref`."
+msgstr ""
+"텍스트는 명령줄에서도 추가하고 스타일을 지정할 수 있습니다; 자세한 내용은 :ref:`cli_text_ref` 를 참조하세요."
+
+#: ../doc/titles.rst:152
+msgid ""
+"The **Title** editor (SVG templates and animated titles) and **Captions** "
+"(timed subtitles) remain available for more elaborate designs."
+msgstr ""
+"**타이틀** 편집기(SVG 템플릿 및 애니메이션 타이틀)와 **자막**\\ (시간 지정 자막)은 더 정교한 디자인을 위해 계속 사용할 "
+"수 있습니다."
+
+# Translated with gpt-4.1-mini
+#: ../doc/titles.rst:157
 msgid "Overview"
 msgstr "개요"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:44 ../titles.rst:185
+#: ../doc/titles.rst:165 ../doc/titles.rst:306
 msgid "#"
 msgstr "#"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:44 ../titles.rst:185
+#: ../doc/titles.rst:165 ../doc/titles.rst:306
 msgid "Name"
 msgstr "이름"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:44 ../titles.rst:63 ../titles.rst:185 ../titles.rst:204
-msgid "Description"
-msgstr "설명"
-
-# Translated with gpt-4.1-mini
-#: ../titles.rst:46 ../titles.rst:187
+#: ../doc/titles.rst:167 ../doc/titles.rst:308
 msgid "1"
 msgstr "1"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:46 ../titles.rst:187
+#: ../doc/titles.rst:167 ../doc/titles.rst:308
 msgid "Choose a Template"
 msgstr "템플릿 선택"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:46
+#: ../doc/titles.rst:167
 msgid "Choose from any available vector title template"
 msgstr "사용 가능한 벡터 타이틀 템플릿 중에서 선택하세요"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:47 ../titles.rst:188
+#: ../doc/titles.rst:168 ../doc/titles.rst:309
 msgid "2"
 msgstr "2"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:47 ../titles.rst:188
+#: ../doc/titles.rst:168 ../doc/titles.rst:309
 msgid "Preview Title"
 msgstr "타이틀 미리보기"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:47 ../titles.rst:188
+#: ../doc/titles.rst:168 ../doc/titles.rst:309
 msgid "Preview your title as you make changes"
 msgstr "변경 사항을 적용하며 타이틀을 미리 봅니다"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:48 ../titles.rst:189
+#: ../doc/titles.rst:169 ../doc/titles.rst:310
 msgid "3"
 msgstr "3"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:48 ../titles.rst:189
+#: ../doc/titles.rst:169 ../doc/titles.rst:310
 msgid "Title Properties"
 msgstr "타이틀 속성"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:48
+#: ../doc/titles.rst:169
 msgid ""
 "Change the text, font, size, colors, or edit in an advanced, external SVG "
 "image editor (such as Inkscape)"
 msgstr "텍스트, 글꼴, 크기, 색상을 변경하거나 고급 외부 SVG 이미지 편집기(예: Inkscape)에서 편집하세요"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:49 ../titles.rst:190
+#: ../doc/titles.rst:170 ../doc/titles.rst:311
 msgid "4"
 msgstr "4"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:49
+#: ../doc/titles.rst:170
 msgid "Save"
 msgstr "저장"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:49
+#: ../doc/titles.rst:170
 msgid "Save and add the title to your project"
 msgstr "저장하고 타이틀을 프로젝트에 추가합니다"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:53
+#: ../doc/titles.rst:174
 msgid "Title Templates"
 msgstr "타이틀 템플릿"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:55
+#: ../doc/titles.rst:176
 msgid ""
 "OpenShot includes a variety of vector title templates that can be used to "
 "enhance your video projects. Below is a table listing the available titles "
@@ -150,535 +432,535 @@ msgstr ""
 " 설명을 나열합니다:"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:62
+#: ../doc/titles.rst:183
 msgid "Title Name"
 msgstr "타이틀 이름"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:64
+#: ../doc/titles.rst:185
 msgid "Bar 1"
 msgstr "바 1"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:65
+#: ../doc/titles.rst:186
 msgid "A simple bar with text centered."
 msgstr "텍스트가 중앙에 배치된 단순한 바입니다."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:66
+#: ../doc/titles.rst:187
 msgid "Bar 2"
 msgstr "바 2"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:67
+#: ../doc/titles.rst:188
 msgid "A simple bar, centered, with 2 lines of text."
 msgstr "텍스트 2줄이 중앙에 배치된 단순한 바입니다."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:68
+#: ../doc/titles.rst:189
 msgid "Bar 3"
 msgstr "바 3"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:69
+#: ../doc/titles.rst:190
 msgid "Another variation of a simple bar with text, for lower 3rds."
 msgstr "로어 서드용 텍스트가 포함된 또 다른 단순한 바 변형입니다."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:70
+#: ../doc/titles.rst:191
 msgid "Box"
 msgstr "상자"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:71
+#: ../doc/titles.rst:192
 #, fuzzy
 msgid "A simple boxed title layout for centered text."
 msgstr "텍스트가 중앙에 배치된 단순한 바입니다."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:72
+#: ../doc/titles.rst:193
 msgid "Bubbles 1"
 msgstr "버블 1"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:73
+#: ../doc/titles.rst:194
 msgid "A title with bubble graphics for a playful look."
 msgstr "장난기 있는 느낌의 버블 그래픽이 포함된 타이틀입니다."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:74
+#: ../doc/titles.rst:195
 msgid "Bubbles 2"
 msgstr "버블 2"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:75
+#: ../doc/titles.rst:196
 msgid "A different bubble design for a fun and creative title."
 msgstr "재미있고 창의적인 타이틀을 위한 다른 버블 디자인입니다."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:76
+#: ../doc/titles.rst:197
 msgid "Camera Border"
 msgstr "카메라 테두리"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:77
+#: ../doc/titles.rst:198
 msgid "A border that mimics a camera viewfinder with centered text."
 msgstr "중앙에 텍스트가 있는 카메라 뷰파인더를 모방한 테두리입니다."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:78
+#: ../doc/titles.rst:199
 msgid "Cloud 1"
 msgstr "클라우드 1"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:79
+#: ../doc/titles.rst:200
 msgid "A title with a playful cloud graphic and text."
 msgstr "장난기 있는 구름 그래픽과 텍스트가 포함된 타이틀입니다."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:80
+#: ../doc/titles.rst:201
 msgid "Cloud 2"
 msgstr "클라우드 2"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:81
+#: ../doc/titles.rst:202
 msgid "Another playful cloud design with 3 clouds and text."
 msgstr "3개의 구름과 텍스트가 포함된 또 다른 장난기 있는 구름 디자인입니다."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:82
+#: ../doc/titles.rst:203
 msgid "Creative Commons 1"
 msgstr "크리에이티브 커먼즈 1"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:83
+#: ../doc/titles.rst:204
 msgid "Contains text and icons for Creative Commons attribution."
 msgstr "크리에이티브 커먼즈 저작자 표시용 텍스트와 아이콘이 포함되어 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:84
+#: ../doc/titles.rst:205
 msgid "Creative Commons 2"
 msgstr "크리에이티브 커먼즈 2"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:85
+#: ../doc/titles.rst:206
 msgid ""
 "Another Creative Commons design with different styling plus website text."
 msgstr "다른 스타일과 웹사이트 텍스트가 포함된 또 다른 크리에이티브 커먼즈 디자인입니다."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:86
+#: ../doc/titles.rst:207
 msgid "Film Rating 1"
 msgstr "영화 등급 1"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:87
+#: ../doc/titles.rst:208
 msgid "Displays a film rating for all audiences."
 msgstr "모든 관객용 영화 등급을 표시합니다."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:88
+#: ../doc/titles.rst:209
 msgid "Film Rating 2"
 msgstr "영화 등급 2"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:89
+#: ../doc/titles.rst:210
 msgid "Displays a film rating of \"R\" restricted."
 msgstr "\"R\" 등급(제한 관람)을 표시합니다."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:90
+#: ../doc/titles.rst:211
 msgid "Film Rating 3"
 msgstr "영화 등급 3"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:91
+#: ../doc/titles.rst:212
 msgid "Displays a film rating of \"G\" for general audiences."
 msgstr "\"G\" 등급(일반 관람가)을 표시합니다."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:92
+#: ../doc/titles.rst:213
 msgid "Film Rating 4"
 msgstr "영화 등급 4"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:93
+#: ../doc/titles.rst:214
 msgid "Displays a film rating of \"PG-13\", parents strongly cautioned."
 msgstr "\"PG-13\" 등급(부모 지도 강력 권고)을 표시합니다."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:94
+#: ../doc/titles.rst:215
 #, fuzzy
 msgid "Flare"
 msgstr "눈부심"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:95
+#: ../doc/titles.rst:216
 #, fuzzy
 msgid "A title with a bright flare effect for a cinematic look."
 msgstr "드라마틱한 효과를 위한 연기 효과가 있는 제목."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:96
+#: ../doc/titles.rst:217
 msgid "Flames"
 msgstr "불꽃"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:97
+#: ../doc/titles.rst:218
 msgid "A title with flame graphics for a fiery effect."
 msgstr "불꽃 그래픽이 포함된 불타는 효과의 타이틀입니다."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:98
+#: ../doc/titles.rst:219
 msgid "Footer 1"
 msgstr "푸터 1"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:99
+#: ../doc/titles.rst:220
 msgid "A footer bar for lower thirds (left aligned)."
 msgstr "로어 서드용 푸터 바(왼쪽 정렬)입니다."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:100
+#: ../doc/titles.rst:221
 msgid "Footer 2"
 msgstr "푸터 2"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:101
+#: ../doc/titles.rst:222
 msgid "A footer bar for lower thirds (center aligned)."
 msgstr "로어 서드용 푸터 바(중앙 정렬)입니다."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:102
+#: ../doc/titles.rst:223
 msgid "Footer 3"
 msgstr "푸터 3"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:103
+#: ../doc/titles.rst:224
 msgid "A footer bar for lower thirds (right aligned)."
 msgstr "로어 서드용 푸터 바(오른쪽 정렬)입니다."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:104
+#: ../doc/titles.rst:225
 msgid "Gold 1"
 msgstr "골드 1"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:105
+#: ../doc/titles.rst:226
 msgid "A title with a gold color scheme, centered with one line of text."
 msgstr "골드 색상 테마의 타이틀로, 텍스트 한 줄이 중앙에 배치되어 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:106
+#: ../doc/titles.rst:227
 msgid "Gold 2"
 msgstr "골드 2"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:107
+#: ../doc/titles.rst:228
 msgid "Another gold-themed title, centered with two lines of text."
 msgstr "골드 테마의 또 다른 타이틀로, 텍스트 두 줄이 중앙에 배치되어 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:108
+#: ../doc/titles.rst:229
 msgid "Gold Bottom"
 msgstr "골드 하단"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:109
+#: ../doc/titles.rst:230
 msgid "Gold title positioned at the bottom of the screen."
 msgstr "화면 하단에 위치한 골드 타이틀입니다."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:110
+#: ../doc/titles.rst:231
 msgid "Gold Top"
 msgstr "골드 상단"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:111
+#: ../doc/titles.rst:232
 msgid "Gold title positioned at the top of the screen."
 msgstr "화면 상단에 위치한 골드 타이틀입니다."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:112
+#: ../doc/titles.rst:233
 msgid "Gray Box 1"
 msgstr "회색 박스 1"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:113
+#: ../doc/titles.rst:234
 msgid ""
 "A simple gray box for highlighting text (one line of text, top-left "
 "aligned)."
 msgstr "텍스트 강조용 단순 회색 박스(텍스트 한 줄, 좌상단 정렬)입니다."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:114
+#: ../doc/titles.rst:235
 msgid "Gray Box 2"
 msgstr "회색 박스 2"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:115
+#: ../doc/titles.rst:236
 msgid ""
 "A simple gray box for highlighting text (two lins of text, top-left "
 "aligned)."
 msgstr "텍스트 강조용 단순 회색 박스(텍스트 두 줄, 좌상단 정렬)입니다."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:116
+#: ../doc/titles.rst:237
 msgid "Gray Box 3"
 msgstr "회색 박스 3"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:117
+#: ../doc/titles.rst:238
 msgid ""
 "A simple gray box for highlighting text (one line of text, bottom-right "
 "aligned)."
 msgstr "텍스트를 강조하기 위한 간단한 회색 상자(한 줄 텍스트, 오른쪽 하단 정렬)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:118
+#: ../doc/titles.rst:239
 msgid "Gray Box 4"
 msgstr "회색 상자 4"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:119
+#: ../doc/titles.rst:240
 msgid ""
 "A simple gray box for highlighting text (two lines of text, bottom-right "
 "aligned)."
 msgstr "텍스트를 강조하기 위한 간단한 회색 상자(두 줄 텍스트, 오른쪽 하단 정렬)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:120
+#: ../doc/titles.rst:241
 msgid "Header 1"
 msgstr "헤더 1"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:121
+#: ../doc/titles.rst:242
 msgid "A header bar for titles or section headers (top-left aligned)."
 msgstr "제목 또는 섹션 헤더용 헤더 바(왼쪽 상단 정렬)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:122
+#: ../doc/titles.rst:243
 msgid "Header 2"
 msgstr "헤더 2"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:123
+#: ../doc/titles.rst:244
 msgid "A header bar for titles or section headers (center aligned)."
 msgstr "제목 또는 섹션 헤더용 헤더 바(가운데 정렬)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:124
+#: ../doc/titles.rst:245
 msgid "Header 3"
 msgstr "헤더 3"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:125
+#: ../doc/titles.rst:246
 msgid "A header bar for titles or section headers (top-right aligned)."
 msgstr "제목 또는 섹션 헤더용 헤더 바(오른쪽 상단 정렬)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:126
+#: ../doc/titles.rst:247
 msgid "OpenShot"
 msgstr "OpenShot"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:127
+#: ../doc/titles.rst:248
 msgid "A title featuring OpenShot branding."
 msgstr "OpenShot 브랜드가 포함된 제목입니다."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:128
+#: ../doc/titles.rst:249
 msgid "Oval 1"
 msgstr "타원 1"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:129
+#: ../doc/titles.rst:250
 msgid "An oval shape for highlighting or decorative purposes, text centered."
 msgstr "강조 또는 장식용 타원형, 텍스트 중앙 정렬."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:130
+#: ../doc/titles.rst:251
 msgid "Oval 2"
 msgstr "타원 2"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:131
+#: ../doc/titles.rst:252
 msgid "Another oval design with a different style, text centered."
 msgstr "다른 스타일의 또 다른 타원 디자인, 텍스트 중앙 정렬."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:132
+#: ../doc/titles.rst:253
 msgid "Oval 3"
 msgstr "타원 3"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:133
+#: ../doc/titles.rst:254
 msgid ""
 "Another oval design with two-lines of text, one at the top, one at the "
 "bottom."
 msgstr "위와 아래에 각각 한 줄씩 텍스트가 있는 또 다른 타원 디자인."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:134
+#: ../doc/titles.rst:255
 msgid "Oval 4"
 msgstr "타원 4"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:135
+#: ../doc/titles.rst:256
 msgid "Yet another oval design, with text centered plus refection."
 msgstr "텍스트 중앙 정렬과 반사가 포함된 또 다른 타원 디자인."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:136
+#: ../doc/titles.rst:257
 msgid "Post it"
 msgstr "포스트잇"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:137
+#: ../doc/titles.rst:258
 msgid "Mimics a sticky note for annotations or reminders."
 msgstr "주석이나 알림용 스티키 노트 모방."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:138
+#: ../doc/titles.rst:259
 msgid "Ribbon 1"
 msgstr "리본 1"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:139
+#: ../doc/titles.rst:260
 msgid "A ribbon graphic with text."
 msgstr "텍스트가 포함된 리본 그래픽."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:140
+#: ../doc/titles.rst:261
 msgid "Ribbon 2"
 msgstr "리본 2"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:141
+#: ../doc/titles.rst:262
 msgid "Another ribbon design with text."
 msgstr "텍스트가 포함된 또 다른 리본 디자인."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:142
+#: ../doc/titles.rst:263
 msgid "Ribbon 3"
 msgstr "리본 3"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:143
+#: ../doc/titles.rst:264
 msgid "A third variation of a ribbon design with text."
 msgstr "텍스트가 포함된 세 번째 리본 디자인 변형."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:144
+#: ../doc/titles.rst:265
 msgid "Smoke 1"
 msgstr "스모크 1"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:145
+#: ../doc/titles.rst:266
 msgid "A title with smoke effects for a dramatic look."
 msgstr "드라마틱한 효과를 위한 연기 효과가 있는 제목."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:146
+#: ../doc/titles.rst:267
 msgid "Smoke 2"
 msgstr "스모크 2"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:147
+#: ../doc/titles.rst:268
 msgid "Another smoke design with a different style."
 msgstr "다른 스타일의 또 다른 연기 디자인."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:148
+#: ../doc/titles.rst:269
 msgid "Smoke 3"
 msgstr "스모크 3"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:149
+#: ../doc/titles.rst:270
 msgid "A third variation of smoke effects."
 msgstr "세 번째 연기 효과 변형."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:150
+#: ../doc/titles.rst:271
 msgid "Solid Color"
 msgstr "단색"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:151
+#: ../doc/titles.rst:272
 msgid "A full-screen color background for various uses."
 msgstr "다양한 용도의 전체 화면 색상 배경."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:152
+#: ../doc/titles.rst:273
 msgid "Standard 1"
 msgstr "표준 1"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:153
+#: ../doc/titles.rst:274
 msgid "A standard title design for general purposes (two lines centered)."
 msgstr "일반 용도의 표준 제목 디자인(두 줄 중앙 정렬)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:154
+#: ../doc/titles.rst:275
 msgid "Standard 2"
 msgstr "표준 2"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:155
+#: ../doc/titles.rst:276
 msgid ""
 "Another standard title with a different style (one line of text plus "
 "reflection)."
 msgstr "다른 스타일의 또 다른 표준 제목(한 줄 텍스트 및 반사 포함)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:156
+#: ../doc/titles.rst:277
 msgid "Standard 3"
 msgstr "표준 3"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:157
+#: ../doc/titles.rst:278
 msgid "A third variation of a standard title (three lines of text)."
 msgstr "세 줄 텍스트가 있는 표준 제목의 세 번째 변형."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:158
+#: ../doc/titles.rst:279
 msgid "Standard 4"
 msgstr "표준 4"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:159
+#: ../doc/titles.rst:280
 msgid "Yet another standard title design (four lines of text)."
 msgstr "네 줄 텍스트가 있는 또 다른 표준 제목 디자인."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:160
+#: ../doc/titles.rst:281
 msgid "Sunset"
 msgstr "선셋"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:161
+#: ../doc/titles.rst:282
 msgid "A title with sunset gradient for a warm, end-of-day theme."
 msgstr "따뜻한 하루 마감 테마를 위한 선셋 그라데이션 제목."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:162
+#: ../doc/titles.rst:283
 msgid "TV Rating"
 msgstr "TV 등급"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:163
+#: ../doc/titles.rst:284
 msgid ""
 "Displays TV ratings badge such as \"G\" and \"PG\" (for the corner of the "
 "screen)."
 msgstr "화면 모서리에 표시되는 \"G\" 및 \"PG\"와 같은 TV 등급 배지 표시."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:167
+#: ../doc/titles.rst:288
 msgid "Custom Title Templates"
 msgstr "사용자 정의 제목 템플릿"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:168
+#: ../doc/titles.rst:289
 msgid ""
 "OpenShot can use any vector SVG image file as a custom title template in the"
 " :guilabel:`Title Editor` dialog. Just add an SVG image file to your "
@@ -693,7 +975,7 @@ msgstr ""
 "마우스 오른쪽 버튼으로 클릭하여 ** 제목 편집** 또는 ** 제목 복제** 를 선택할 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:172
+#: ../doc/titles.rst:293
 msgid ""
 "Note: These SVG templates are only used by the :guilabel:`Title Editor` "
 "dialog, and not :guilabel:`Animated Title` dialog."
@@ -702,12 +984,12 @@ msgstr ""
 "Title` 대화 상자에서는 사용되지 않습니다."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:177
+#: ../doc/titles.rst:298
 msgid "3D Animated Titles"
 msgstr "3D 애니메이션 제목"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:178
+#: ../doc/titles.rst:299
 msgid ""
 "Adding a 3D animated title is just as easy, using our **Animated Title** "
 "dialog. Use the Title menu (located in the main menu of OpenShot) to launch "
@@ -721,32 +1003,32 @@ msgstr ""
 "참조하세요."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:187
+#: ../doc/titles.rst:308
 msgid "Choose from any available 3D title templates"
 msgstr "사용 가능한 3D 제목 템플릿 중에서 선택"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:189
+#: ../doc/titles.rst:310
 msgid "Change the text, colors, and advanced properties"
 msgstr "텍스트, 색상 및 고급 속성 변경"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:190
+#: ../doc/titles.rst:311
 msgid "Render"
 msgstr "렌더링"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:190
+#: ../doc/titles.rst:311
 msgid "Render the 3D animation, and add it to your project"
 msgstr "3D 애니메이션을 렌더링하고 프로젝트에 추가"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:194
+#: ../doc/titles.rst:315
 msgid "3D Animated Templates"
 msgstr "3D 애니메이션 템플릿"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:196
+#: ../doc/titles.rst:317
 msgid ""
 "OpenShot includes a variety of 3D animated templates that can be used to add"
 " dynamic and engaging elements to your video projects. Below is a table "
@@ -756,227 +1038,227 @@ msgstr ""
 "아래는 사용 가능한 템플릿과 설명을 나열한 표입니다:"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:203
+#: ../doc/titles.rst:324
 msgid "Template Name"
 msgstr "템플릿 이름"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:205
+#: ../doc/titles.rst:326
 msgid "Blinds (Two Titles)"
 msgstr "블라인드 (두 개의 제목)"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:206
+#: ../doc/titles.rst:327
 msgid "An animation featuring a blinds effect."
 msgstr "블라인드 효과가 있는 애니메이션."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:207
+#: ../doc/titles.rst:328
 msgid "Blur"
 msgstr "블러"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:208
+#: ../doc/titles.rst:329
 msgid ""
 "A template that blurs text in and out, providing a smooth transition effect."
 msgstr "텍스트가 흐려졌다가 선명해지는 부드러운 전환 효과 템플릿."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:209
+#: ../doc/titles.rst:330
 msgid "Color Tiles"
 msgstr "컬러 타일"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:210
+#: ../doc/titles.rst:331
 msgid ""
 "An animation with changing colors, suitable for vibrant and dynamic titles."
 msgstr "색상이 변하는 애니메이션으로, 생동감 있고 역동적인 제목에 적합."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:211
+#: ../doc/titles.rst:332
 msgid "Dissolving Text"
 msgstr "해체되는 텍스트"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:212
+#: ../doc/titles.rst:333
 msgid ""
 "A dissolve effect that turns any text into particles which get blown away by"
 " the wind."
 msgstr "텍스트를 입자로 분해하여 바람에 날려 보내는 해체 효과."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:213
+#: ../doc/titles.rst:334
 msgid "World Map"
 msgstr "세계 지도"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:214
+#: ../doc/titles.rst:335
 msgid "A template featuring a rotating Earth between 2 locations."
 msgstr "두 위치 사이에서 지구가 회전하는 템플릿."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:215
+#: ../doc/titles.rst:336
 msgid "Exploding Text"
 msgstr "폭발하는 텍스트"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:216
+#: ../doc/titles.rst:337
 msgid ""
 "An animation where the title explode into pieces, adding dramatic impact."
 msgstr "제목이 조각으로 폭발하는 애니메이션으로, 극적인 효과를 더합니다."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:217
+#: ../doc/titles.rst:338
 msgid "Fly Towards Camera"
 msgstr "카메라를 향해 날아가기"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:218
+#: ../doc/titles.rst:339
 msgid "A fly-by animation with a single title zooming past the screen."
 msgstr "단일 제목이 화면을 빠르게 지나가는 플라이바이 애니메이션입니다."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:219
+#: ../doc/titles.rst:340
 msgid "Fly Towards Camera (Two Titles)"
 msgstr "카메라를 향해 날아가기 (두 개의 제목)"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:220
+#: ../doc/titles.rst:341
 msgid "Similar to Fly By 1, but with two titles flying by."
 msgstr "Fly By 1과 비슷하지만 두 개의 제목이 날아갑니다."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:221
+#: ../doc/titles.rst:342
 msgid "Glare"
 msgstr "눈부심"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:222
+#: ../doc/titles.rst:343
 msgid "An animation with a glare effect, adding a bright, reflective look."
 msgstr "밝고 반사되는 느낌을 주는 눈부심 효과 애니메이션입니다."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:223
+#: ../doc/titles.rst:344
 msgid "Glass Slider"
 msgstr "유리 슬라이더"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:224
+#: ../doc/titles.rst:345
 msgid "A sliding glass effect, providing a modern and sleek transition."
 msgstr "현대적이고 세련된 전환을 제공하는 유리 슬라이딩 효과입니다."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:225
+#: ../doc/titles.rst:346
 msgid "Lens Flare"
 msgstr "렌즈 플레어"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:226
+#: ../doc/titles.rst:347
 msgid "An animation featuring a lens flare, adding a cinematic touch."
 msgstr "영화 같은 느낌을 더하는 렌즈 플레어 애니메이션입니다."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:227
+#: ../doc/titles.rst:348
 msgid "Magic Wand"
 msgstr "마법 지팡이"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:228
+#: ../doc/titles.rst:349
 msgid "A whimsical magic wand effect, ideal for magical or fantasy themes."
 msgstr "마법이나 판타지 테마에 적합한 기발한 마법 지팡이 효과입니다."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:229
+#: ../doc/titles.rst:350
 msgid "Neon Curves"
 msgstr "네온 곡선"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:230
+#: ../doc/titles.rst:351
 msgid "An animation with neon curves, creating a futuristic and vibrant look."
 msgstr "미래적이고 활기찬 느낌을 주는 네온 곡선 애니메이션입니다."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:231
+#: ../doc/titles.rst:352
 msgid "Picture Frames (4 pictures)"
 msgstr "사진 프레임 (4장)"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:232
+#: ../doc/titles.rst:353
 msgid ""
 "A template featuring four picture frames, suitable for showcasing images or "
 "video clips."
 msgstr "이미지나 비디오 클립을 보여주기에 적합한 네 개의 사진 프레임 템플릿입니다."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:233
+#: ../doc/titles.rst:354
 msgid "Rotate 360"
 msgstr "360도 회전"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:234
+#: ../doc/titles.rst:355
 msgid "A 360-degree rotation effect, providing a dynamic title animation."
 msgstr "역동적인 제목 애니메이션을 위한 360도 회전 효과입니다."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:235
+#: ../doc/titles.rst:356
 msgid "Slide Left to Right"
 msgstr "왼쪽에서 오른쪽으로 슬라이드"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:236
+#: ../doc/titles.rst:357
 msgid "A sliding effect where titles move from left to right."
 msgstr "제목이 왼쪽에서 오른쪽으로 이동하는 슬라이딩 효과입니다."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:237
+#: ../doc/titles.rst:358
 msgid "Snow"
 msgstr "눈"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:238
+#: ../doc/titles.rst:359
 msgid ""
 "An animation with falling snow particles, perfect for winter or holiday "
 "themes."
 msgstr "겨울이나 휴일 테마에 적합한 눈송이 떨어지는 애니메이션입니다."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:239
+#: ../doc/titles.rst:360
 msgid "Space Movie Intro"
 msgstr "우주 영화 인트로"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:240
+#: ../doc/titles.rst:361
 msgid "A cinematic space-themed intro, ideal for epic or sci-fi projects."
 msgstr "서사적이거나 공상과학 프로젝트에 적합한 영화 같은 우주 테마 인트로입니다."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:241
+#: ../doc/titles.rst:362
 msgid "Wireframe Text"
 msgstr "와이어프레임 텍스트"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:242
+#: ../doc/titles.rst:363
 msgid "An animation with wireframe text, adding a technical or digital look."
 msgstr "기술적이거나 디지털한 느낌을 주는 와이어프레임 텍스트 애니메이션입니다."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:243
+#: ../doc/titles.rst:364
 msgid "Zoom to Clapboard"
 msgstr "클랩보드로 줌"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:244
+#: ../doc/titles.rst:365
 msgid ""
 "A zoom title with a clapboard, perfect for film or video production themes."
 msgstr "영화나 비디오 제작 테마에 적합한 클랩보드 줌 타이틀입니다."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:247
+#: ../doc/titles.rst:368
 msgid "Importing Text"
 msgstr "텍스트 가져오기"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:249
+#: ../doc/titles.rst:370
 msgid ""
 "You can generate text & titles in many different programs, such as Blender, "
 "Inkscape, Krita, Gimp, etc... Before you can import text into OpenShot, you "
@@ -988,7 +1270,7 @@ msgstr ""
 "먼저 내보내야 합니다."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:253
+#: ../doc/titles.rst:374
 msgid ""
 "The ``SVG`` format is a great choice for vector graphics (curves, shapes, "
 "text effects and paths), however it is **not** always 100% compatible with "
@@ -1003,7 +1285,7 @@ msgstr ""
 "투명 배경과 알파 채널은 OpenShot에서 텍스트가 아래 타임라인의 비디오와 이미지를 가리지 않도록 하는 데 필요합니다."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:258
+#: ../doc/titles.rst:379
 msgid ""
 "For information on importing animated sequences into OpenShot, please see "
 ":ref:`animation_image_seq_ref`."
@@ -1011,12 +1293,12 @@ msgstr ""
 "OpenShot에 애니메이션 시퀀스를 가져오는 방법에 대한 정보는 :ref:`animation_image_seq_ref` 를 참조하세요."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:261
+#: ../doc/titles.rst:382
 msgid "Installing Inkscape"
 msgstr "Inkscape 설치"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:263
+#: ../doc/titles.rst:384
 msgid ""
 "The :guilabel:`Advanced Editor` feature in the :guilabel:`Title Editor` "
 "dialog requires the latest version of Inkscape "
@@ -1030,12 +1312,12 @@ msgstr ""
 " 참조하세요."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:270
+#: ../doc/titles.rst:391
 msgid "Installing Blender"
 msgstr "Blender 설치"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:272
+#: ../doc/titles.rst:393
 msgid ""
 "The :guilabel:`Animated Title` feature in OpenShot requires the latest "
 "version of Blender (https://www.blender.org/download/) be installed and the "
@@ -1051,7 +1333,7 @@ msgstr ""
 "호환되지 않습니다."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:278
+#: ../doc/titles.rst:399
 msgid ""
 "For a detailed guide on how to install these dependencies, see `Blender & "
 "Inkscape Guide <https://github.com/OpenShot/openshot-qt/wiki/Blender-and-"

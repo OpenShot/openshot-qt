@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-16 18:08-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,12 +20,12 @@ msgstr ""
 "Generated-By: Babel 2.10.3\n"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:22
+#: ../doc/contributing.rst:22
 msgid "Contributing"
 msgstr "Contribuer"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:24
+#: ../doc/contributing.rst:24
 msgid ""
 "Want to help improve OpenShot (*and make some friends in the process*)? "
 "Please consider joining our open-source team by filling out this quick "
@@ -35,146 +35,148 @@ msgid ""
 msgstr ""
 "Vous souhaitez aider à améliorer OpenShot (*et vous faire des amis en même "
 "temps*) ? Veuillez envisager de rejoindre notre équipe open-source en "
-"remplissant ce rapide `formulaire de contribution <https://forms.gle/"
-"CRqkS5tLMJE1V36V8>`_ et en vous présentant ! Tous les bénévoles sont les "
-"bienvenus, quel que soit leur niveau de compétence. **Construisons quelque "
-"chose d'incroyable !**"
+"remplissant ce rapide `formulaire de contribution "
+"<https://forms.gle/CRqkS5tLMJE1V36V8>`_ et en vous présentant ! Tous les "
+"bénévoles sont les bienvenus, quel que soit leur niveau de compétence. "
+"**Construisons quelque chose d'incroyable !**"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:30
+#: ../doc/contributing.rst:30
 msgid "How to Contribute"
 msgstr "Comment contribuer"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:32
+#: ../doc/contributing.rst:32
 msgid "There are many different ways to help and support OpenShot, including:"
 msgstr ""
 "Il existe de nombreuses façons d'aider et de soutenir OpenShot, notamment :"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:34
+#: ../doc/contributing.rst:34
 msgid "Testing"
 msgstr "Tests"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:35
+#: ../doc/contributing.rst:35
 msgid "`Translations <https://translations.launchpad.net/openshot/2.0>`_"
 msgstr "`Traductions <https://translations.launchpad.net/openshot/2.0>`_"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:36
+#: ../doc/contributing.rst:36
 msgid ""
 "`Documentation <https://github.com/OpenShot/openshot-qt/tree/develop/doc>`_"
 msgstr ""
 "`Documentation <https://github.com/OpenShot/openshot-qt/tree/develop/doc>`_"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:37
+#: ../doc/contributing.rst:37
 msgid "Customer Service"
 msgstr "Service client"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:38
+#: ../doc/contributing.rst:38
 msgid "Social Media / Marketing"
 msgstr "Réseaux sociaux / Marketing"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:39
+#: ../doc/contributing.rst:39
 msgid "`Software Development <https://github.com/OpenShot>`_"
 msgstr "`Développement logiciel <https://github.com/OpenShot>`_"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:40
+#: ../doc/contributing.rst:40
 msgid "Art / Design / UI"
 msgstr "Art / Design / Interface utilisateur"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:41
+#: ../doc/contributing.rst:41
 msgid "`User Community <https://openshot.org/forum>`_"
 msgstr "`Communauté d'utilisateurs <https://openshot.org/forum>`_"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:42
+#: ../doc/contributing.rst:42
 msgid "`Donations <https://openshot.org/donate>`_"
 msgstr "`Dons <https://openshot.org/donate>`_"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:44
+#: ../doc/contributing.rst:44
 msgid ""
-"All of these areas are **equally important**, so we would love to know which "
-"ones appeal to you the most. Please take a moment and fill-out our quick "
+"All of these areas are **equally important**, so we would love to know which"
+" ones appeal to you the most. Please take a moment and fill-out our quick "
 "`contributor form <https://forms.gle/CRqkS5tLMJE1V36V8>`_."
 msgstr ""
 "Tous ces domaines sont **également importants**, nous aimerions donc savoir "
 "lesquels vous intéressent le plus. Veuillez prendre un moment pour remplir "
-"notre rapide `formulaire de contribution <https://forms.gle/"
-"CRqkS5tLMJE1V36V8>`_."
+"notre rapide `formulaire de contribution "
+"<https://forms.gle/CRqkS5tLMJE1V36V8>`_."
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:48
+#: ../doc/contributing.rst:48
 msgid "Did you find a bug?"
 msgstr "Avez-vous trouvé un bug ?"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:50
+#: ../doc/contributing.rst:50
 msgid ""
-"Please use our step-by-step bug reporting page: https://openshot.org/issues/"
-"new/ to troubleshoot a potential new bug. This guide will instruct you on "
-"how to delete you log files, test with the latest daily build, and search "
-"for duplicate bug reports (in case someone else has already reported this "
-"same issue). At the end of the guide, it will help you create a detailed and "
-"useful bug report for our development team and volunteers."
+"Please use our step-by-step bug reporting page: "
+"https://openshot.org/issues/new/ to troubleshoot a potential new bug. This "
+"guide will instruct you on how to delete you log files, test with the latest"
+" daily build, and search for duplicate bug reports (in case someone else has"
+" already reported this same issue). At the end of the guide, it will help "
+"you create a detailed and useful bug report for our development team and "
+"volunteers."
 msgstr ""
 "Veuillez utiliser notre page de signalement de bugs étape par étape : "
-"https://openshot.org/issues/new/ pour diagnostiquer un éventuel nouveau bug. "
-"Ce guide vous expliquera comment supprimer vos fichiers journaux, tester "
+"https://openshot.org/issues/new/ pour diagnostiquer un éventuel nouveau bug."
+" Ce guide vous expliquera comment supprimer vos fichiers journaux, tester "
 "avec la dernière version quotidienne, et rechercher les rapports de bugs en "
-"double (au cas où quelqu'un d'autre aurait déjà signalé ce même problème). À "
-"la fin du guide, il vous aidera à créer un rapport de bug détaillé et utile "
-"pour notre équipe de développement et nos bénévoles."
+"double (au cas où quelqu'un d'autre aurait déjà signalé ce même problème). À"
+" la fin du guide, il vous aidera à créer un rapport de bug détaillé et utile"
+" pour notre équipe de développement et nos bénévoles."
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:57
+#: ../doc/contributing.rst:57
 msgid "Software Developers"
 msgstr "Développeurs logiciels"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:58
+#: ../doc/contributing.rst:58
 msgid ""
-"OpenShot uses GitHub to manage issues and source code: https://github.com/"
-"OpenShot. Please read our guide on `Becoming a Developer <https://github.com/"
-"OpenShot/openshot-qt/wiki/Become-a-Developer>`_ for a step-by-step guide on "
-"compiling OpenShot and making your first pull request on GitHub."
+"OpenShot uses GitHub to manage issues and source code: "
+"https://github.com/OpenShot. Please read our guide on `Becoming a Developer "
+"<https://github.com/OpenShot/openshot-qt/wiki/Become-a-Developer>`_ for a "
+"step-by-step guide on compiling OpenShot and making your first pull request "
+"on GitHub."
 msgstr ""
-"OpenShot utilise GitHub pour gérer les problèmes et le code source : https://"
-"github.com/OpenShot. Veuillez lire notre guide `Devenir développeur <https://"
-"github.com/OpenShot/openshot-qt/wiki/Become-a-Developer>`_ pour un guide "
-"étape par étape sur la compilation d'OpenShot et la création de votre "
+"OpenShot utilise GitHub pour gérer les problèmes et le code source : "
+"https://github.com/OpenShot. Veuillez lire notre guide `Devenir développeur "
+"<https://github.com/OpenShot/openshot-qt/wiki/Become-a-Developer>`_ pour un "
+"guide étape par étape sur la compilation d'OpenShot et la création de votre "
 "première pull request sur GitHub."
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:63
+#: ../doc/contributing.rst:63
 msgid "Made with Love"
 msgstr "Fait avec amour"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:65
+#: ../doc/contributing.rst:65
 msgid ""
 "OpenShot Video Editor is a volunteer effort and a **labor of love**. Please "
-"be patient with any issues you find, and feel free to `get involved <https://"
-"forms.gle/CRqkS5tLMJE1V36V8>`_ and help us fix them!"
+"be patient with any issues you find, and feel free to `get involved "
+"<https://forms.gle/CRqkS5tLMJE1V36V8>`_ and help us fix them!"
 msgstr ""
 "OpenShot Video Editor est un projet bénévole et un **travail d'amour**. "
-"Merci de faire preuve de patience face aux problèmes que vous rencontrez, et "
-"n'hésitez pas à `vous impliquer <https://forms.gle/CRqkS5tLMJE1V36V8>`_ pour "
-"nous aider à les résoudre !"
+"Merci de faire preuve de patience face aux problèmes que vous rencontrez, et"
+" n'hésitez pas à `vous impliquer <https://forms.gle/CRqkS5tLMJE1V36V8>`_ "
+"pour nous aider à les résoudre !"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:69
+#: ../doc/contributing.rst:69
 msgid "Thank you for your support!"
 msgstr "Merci pour votre soutien !"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:70
+#: ../doc/contributing.rst:70
 msgid "*-- OpenShot Team*"
 msgstr "*-- L'équipe OpenShot*"

@@ -13,6 +13,11 @@ from classes import info
 from windows.color_picker import ColorPicker
 from classes.direct_text import fit_height, reader_data, reset_style
 
+def N_(message):
+    """Mark helper arguments for extraction; translate when displaying them."""
+    return message
+
+
 ALIGNMENTS = ("left", "center", "right")
 # Icon artwork is drawn in this color and recolored to match the theme.
 ICON_PLACEHOLDER = "#9dccff"
@@ -87,7 +92,7 @@ class TextStyleToolbar(QFrame):
         self.alignment = QButtonGroup(self)
         self.alignment.setExclusive(True)
         align_buttons = []
-        for index, label in enumerate(("Align left", "Align center", "Align right")):
+        for index, label in enumerate((N_("Align left"), N_("Align center"), N_("Align right"))):
             button = self._button(get_app()._tr(label), checkable=True)
             self.alignment.addButton(button, index)
             align_buttons.append(button)
@@ -278,20 +283,20 @@ class TextStyleDialog(QDialog):
         self.toolbar.font.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
         font_section.addWidget(self.toolbar)
         font_section.addLayout(self._row(
-            ("Outline", self._swatch("stroke", "Outline color"), self._spin("stroke_width", 0, 30, "Outline width")),
-            ("Letter spacing", self._spin("letter_spacing", -50, 200)),
-            ("Line spacing", self._spin("line_spacing", 0.5, 5.0))))
+            (N_("Outline"), self._swatch("stroke", N_("Outline color")), self._spin("stroke_width", 0, 30, N_("Outline width"))),
+            (N_("Letter spacing"), self._spin("letter_spacing", -50, 200)),
+            (N_("Line spacing"), self._spin("line_spacing", 0.5, 5.0))))
 
         # Background: the box behind the letters. A size beside a color is that color's width.
         box_section = self._section(layout, 7, (12, 8, 12, 10))
         box_section.addWidget(self._heading(get_app()._tr("Background")))
         box_section.addLayout(self._row(
-            ("Color", self._swatch("background", "Background color")),
-            ("Padding", self._spin("background_padding", 0, 200)),
-            ("Corner radius", self._spin("background_corner", 0, 200))))
+            (N_("Color"), self._swatch("background", N_("Background color"))),
+            (N_("Padding"), self._spin("background_padding", 0, 200)),
+            (N_("Corner radius"), self._spin("background_corner", 0, 200))))
         box_section.addLayout(self._row(
-            ("Border", self._swatch("border", "Border color"), self._spin("border_width", 0, 30, "Border width")),
-            ("Box width", self._spin("width", 64, 8192, "Lines longer than this wrap"))))
+            (N_("Border"), self._swatch("border", N_("Border color")), self._spin("border_width", 0, 30, N_("Border width"))),
+            (N_("Box width"), self._spin("width", 64, 8192, N_("Lines longer than this wrap")))))
         self.update_swatches()
 
         layout.addSpacing(4)

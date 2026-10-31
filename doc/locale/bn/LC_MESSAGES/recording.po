@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 4.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: 2026-08-30 16:50-0500\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,11 +16,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../recording.rst:23
+#: ../doc/recording.rst:23
 msgid "Recording"
 msgstr "রেকর্ডিং"
 
-#: ../recording.rst:25
+#: ../doc/recording.rst:25
 msgid ""
 "OpenShot can record a microphone, the desktop, and a webcam directly into "
 "the current project. You can enable one source or combine several in a "
@@ -34,7 +34,7 @@ msgstr ""
 "টাইমলাইন ক্লিপ হিসেবে থাকে, যা মাইক্রোফোনের ভলিউম সামঞ্জস্য করা, ওয়েবক্যাম "
 "ক্রপ করা, বা স্ক্রিন ক্যাপচার আলাদাভাবে সম্পাদনা করা সহজ করে তোলে।"
 
-#: ../recording.rst:29
+#: ../doc/recording.rst:29
 msgid ""
 "Open the dedicated layout with :guilabel:`View → Recording View`, or show "
 "only the dock with :guilabel:`View → Docks → Recording`."
@@ -42,25 +42,25 @@ msgstr ""
 ":guilabel:`View → Recording View` দিয়ে নিবেদিত বিন্যাস খুলুন, অথবা "
 ":guilabel:`View → Docks → Recording` দিয়ে শুধুমাত্র ডক দেখান।"
 
-#: ../recording.rst:-1
+#: ../doc/recording.rst:-1
 msgid "OpenShot Recording View with the microphone source selected by default"
 msgstr ""
 "ডিফল্টভাবে মাইক্রোফোন উৎস নির্বাচিত অবস্থায় OpenShot রেকর্ডিং ভিউ খুলুন"
 
-#: ../recording.rst:36
+#: ../doc/recording.rst:36
 msgid "Quick Start"
 msgstr "দ্রুত শুরু"
 
-#: ../recording.rst:38
+#: ../doc/recording.rst:38
 msgid ""
 "Move the timeline playhead to the point where the recording should begin."
 msgstr "রেকর্ডিং শুরু হওয়ার পয়েন্টে টাইমলাইন প্লেহেড সরান।"
 
-#: ../recording.rst:39
+#: ../doc/recording.rst:39
 msgid "Open :guilabel:`View → Recording View`."
 msgstr ":guilabel:`View → Recording View` খুলুন।"
 
-#: ../recording.rst:40
+#: ../doc/recording.rst:40
 msgid ""
 "Enable :guilabel:`Mic`, :guilabel:`Screen`, :guilabel:`Webcam`, or any "
 "combination of them."
@@ -68,7 +68,7 @@ msgstr ""
 ":guilabel:`Mic`, :guilabel:`Screen`, :guilabel:`Webcam` অথবা তাদের যেকোনো "
 "সমন্বয় সক্রিয় করুন।"
 
-#: ../recording.rst:41
+#: ../doc/recording.rst:41
 msgid ""
 "Select the destination :guilabel:`Track`. Multiple sources use adjacent "
 "tracks automatically. Select :guilabel:`No Track` to add completed "
@@ -82,7 +82,7 @@ msgstr ""
 " ক্লিপ তৈরি হবে না। মাইক্রোফোন বা ওয়েবক্যাম রেকর্ডিং চলাকালীন টাইমলাইন "
 ":guilabel:`Preview` চালানো হবে কিনা তা নির্বাচন করুন।"
 
-#: ../recording.rst:44
+#: ../doc/recording.rst:44
 msgid ""
 "Open each source's :guilabel:`Advanced` section and verify its device and "
 "quality options."
@@ -90,7 +90,7 @@ msgstr ""
 "প্রতিটি উৎসের :guilabel:`Advanced` বিভাগ খুলে তার ডিভাইস এবং গুণগত মানের "
 "বিকল্প যাচাই করুন।"
 
-#: ../recording.rst:45
+#: ../doc/recording.rst:45
 msgid ""
 "Click :guilabel:`Start Recording`. Perform the narration or action you want "
 "to capture."
@@ -98,7 +98,7 @@ msgstr ""
 ":guilabel:`Start Recording` ক্লিক করুন। আপনি যে বর্ণনা বা ক্রিয়া ক্যাপচার "
 "করতে চান তা সম্পাদন করুন।"
 
-#: ../recording.rst:46
+#: ../doc/recording.rst:46
 msgid ""
 "Click :guilabel:`Stop Recording`, either in the dock or from the recording "
 "status control."
@@ -106,7 +106,7 @@ msgstr ""
 "ডক বা রেকর্ডিং স্ট্যাটাস নিয়ন্ত্রণ থেকে :guilabel:`Stop Recording` ক্লিক "
 "করুন।"
 
-#: ../recording.rst:47
+#: ../doc/recording.rst:47
 msgid ""
 "Wait briefly while OpenShot finishes the files. They are imported into "
 ":guilabel:`Project Files` and, unless :guilabel:`No Track` is selected, "
@@ -116,11 +116,11 @@ msgstr ""
 ":guilabel:`Project Files` এ আমদানি করা হয় এবং যদি :guilabel:`No Track` "
 "নির্বাচন না করা হয়, তাহলে টাইমলাইনে স্থাপন করা হয়।"
 
-#: ../recording.rst:51
+#: ../doc/recording.rst:51
 msgid "Quick Audio Commentary"
 msgstr "দ্রুত অডিও মন্তব্য"
 
-#: ../recording.rst:53
+#: ../doc/recording.rst:53
 msgid ""
 "To begin commentary at an existing clip, right-click the clip and choose "
 ":guilabel:`Audio → Record`. OpenShot moves the playhead to the clip's first "
@@ -138,11 +138,11 @@ msgstr ""
 " View` স্ক্রিন, ওয়েবক্যাম, মাইক্রোফোন এবং সমন্বিত রেকর্ডিং সেশনের সাধারণ "
 "প্রবেশদ্বার হিসেবে থাকে।"
 
-#: ../recording.rst:60
+#: ../doc/recording.rst:60
 msgid "Recording Sources"
 msgstr "রেকর্ডিং উৎসসমূহ"
 
-#: ../recording.rst:62
+#: ../doc/recording.rst:62
 msgid ""
 "The source cards at the top of the dock can be enabled independently. An "
 "unavailable card indicates that the required device, operating-system "
@@ -152,76 +152,76 @@ msgstr ""
 "নির্দেশ করে যে প্রয়োজনীয় ডিভাইস, অপারেটিং সিস্টেম ক্যাপচার সার্ভিস, অথবা "
 "libopenshot ফিচার সনাক্ত হয়নি।"
 
-#: ../recording.rst:65
+#: ../doc/recording.rst:65
 msgid "Recorded sources and outputs"
 msgstr "রেকর্ডকৃত উৎস এবং আউটপুট"
 
-#: ../recording.rst:69 ../recording.rst:107
+#: ../doc/recording.rst:69 ../doc/recording.rst:107
 msgid "Source"
 msgstr "উৎস"
 
-#: ../recording.rst:70
+#: ../doc/recording.rst:70
 msgid "Recorded File"
 msgstr "রেকর্ডকৃত ফাইল"
 
-#: ../recording.rst:71
+#: ../doc/recording.rst:71
 msgid "Audio"
 msgstr "অডিও"
 
-#: ../recording.rst:72
+#: ../doc/recording.rst:72
 msgid "Typical Use"
 msgstr "সাধারণ ব্যবহার"
 
-#: ../recording.rst:73 ../recording.rst:111 ../recording.rst:272
+#: ../doc/recording.rst:73 ../doc/recording.rst:111 ../doc/recording.rst:272
 msgid "Mic"
 msgstr "মাইক্রোফোন"
 
-#: ../recording.rst:74
+#: ../doc/recording.rst:74
 msgid "``Mic-<timestamp>``"
 msgstr "``Mic-<timestamp>``"
 
-#: ../recording.rst:75
+#: ../doc/recording.rst:75
 msgid "Microphone only"
 msgstr "শুধুমাত্র মাইক্রোফোন"
 
-#: ../recording.rst:76
+#: ../doc/recording.rst:76
 msgid "Narration, voice-over, commentary, or interviews."
 msgstr "বর্ণনা, ভয়েস-ওভার, মন্তব্য, অথবা সাক্ষাৎকার।"
 
-#: ../recording.rst:77 ../recording.rst:110 ../recording.rst:194
-#: ../recording.rst:275
+#: ../doc/recording.rst:77 ../doc/recording.rst:110 ../doc/recording.rst:194
+#: ../doc/recording.rst:275
 msgid "Screen"
 msgstr "স্ক্রিন"
 
-#: ../recording.rst:78
+#: ../doc/recording.rst:78
 msgid "``Screen-<timestamp>.mp4``"
 msgstr "``Screen-<timestamp>.mp4``"
 
-#: ../recording.rst:79
+#: ../doc/recording.rst:79
 msgid "Optional system audio"
 msgstr "ঐচ্ছিক সিস্টেম অডিও"
 
-#: ../recording.rst:80
+#: ../doc/recording.rst:80
 msgid "Tutorials, demonstrations, presentations, or games."
 msgstr "টিউটোরিয়াল, প্রদর্শনী, উপস্থাপনা, অথবা গেম।"
 
-#: ../recording.rst:81 ../recording.rst:109
+#: ../doc/recording.rst:81 ../doc/recording.rst:109
 msgid "Webcam"
 msgstr "ওয়েবক্যাম"
 
-#: ../recording.rst:82
+#: ../doc/recording.rst:82
 msgid "``Webcam-<timestamp>.mp4``"
 msgstr "``Webcam-<timestamp>.mp4``"
 
-#: ../recording.rst:83
+#: ../doc/recording.rst:83
 msgid "No audio"
 msgstr "অডিও নেই"
 
-#: ../recording.rst:84
+#: ../doc/recording.rst:84
 msgid "Presenter video or a picture-in-picture camera."
 msgstr "উপস্থাপকের ভিডিও অথবা পিকচার-ইন-পিকচার ক্যামেরা।"
 
-#: ../recording.rst:86
+#: ../doc/recording.rst:86
 msgid ""
 "When Mic and Screen are enabled together, microphone audio is kept in its "
 "own file while system audio is embedded in the screen video. This separation"
@@ -235,11 +235,11 @@ msgstr ""
 "আলাদাভাবে সামঞ্জস্য, মিউট, ফেড বা প্রক্রিয়াকরণ করতে দেয়। ওয়েবক্যাম "
 "ভিডিওতে অডিও থাকে না, যা ডুপ্লিকেট মাইক্রোফোন ট্র্যাক এবং ইকো এড়ায়।"
 
-#: ../recording.rst:91
+#: ../doc/recording.rst:91
 msgid "Live Feedback and Timeline Placement"
 msgstr "লাইভ প্রতিক্রিয়া এবং টাইমলাইন স্থাপন"
 
-#: ../recording.rst:93
+#: ../doc/recording.rst:93
 msgid ""
 "The microphone meter responds before and during recording, which helps "
 "confirm that the selected input is working. During recording, OpenShot draws"
@@ -252,7 +252,7 @@ msgstr ""
 "ওয়েভফর্ম আঁকে। রেকর্ডিং বন্ধ হওয়ার পর সম্পন্ন ফাইলগুলো এই প্রিভিউগুলো "
 "প্রতিস্থাপন করে।"
 
-#: ../recording.rst:97
+#: ../doc/recording.rst:97
 msgid ""
 "Select :guilabel:`No Track` in the Track list when you want to capture media"
 " without adding live objects or completed clips to the timeline. The "
@@ -267,7 +267,7 @@ msgstr ""
 " বিশেষ করে একাধিক টেক রেকর্ড করার সময় উপকারী, যাতে আপনি কোনটি সম্পাদনা "
 "করবেন তা নির্বাচন করতে পারেন।"
 
-#: ../recording.rst:101
+#: ../doc/recording.rst:101
 msgid ""
 "All enabled sources start at the same timeline position. OpenShot stacks "
 "them in a useful compositing order:"
@@ -275,28 +275,28 @@ msgstr ""
 "সকল সক্রিয় উৎস একই টাইমলাইন অবস্থান থেকে শুরু হয়। OpenShot সেগুলো একটি "
 "কার্যকর কম্পোজিটিং ক্রমে স্তূপিত করে:"
 
-#: ../recording.rst:103
+#: ../doc/recording.rst:103
 msgid "Default source stack"
 msgstr "ডিফল্ট উৎস স্তূপ"
 
-#: ../recording.rst:107
+#: ../doc/recording.rst:107
 msgid "Placement"
 msgstr "অবস্থান"
 
-#: ../recording.rst:109
+#: ../doc/recording.rst:109
 msgid "Highest assigned track, so a corner camera appears on top."
 msgstr ""
 "সর্বোচ্চ বরাদ্দকৃত ট্র্যাক, যাতে একটি কর্নার ক্যামেরা উপরে প্রদর্শিত হয়।"
 
-#: ../recording.rst:110
+#: ../doc/recording.rst:110
 msgid "Below the webcam and above microphone audio."
 msgstr "ওয়েবক্যামের নিচে এবং মাইক্রোফোন অডিওর উপরে।"
 
-#: ../recording.rst:111
+#: ../doc/recording.rst:111
 msgid "Lowest assigned track because it contains audio only."
 msgstr "সর্বনিম্ন বরাদ্দকৃত ট্র্যাক কারণ এতে শুধুমাত্র অডিও থাকে।"
 
-#: ../recording.rst:114
+#: ../doc/recording.rst:114
 msgid ""
 "If there are not enough tracks below the selected track, OpenShot creates or"
 " selects additional tracks as needed. Recordings are also added to "
@@ -308,11 +308,11 @@ msgstr ""
 ":guilabel:`Project Files` এ যোগ করা হয়, তাই আপনি প্রথম টাইমলাইন ক্লিপগুলি "
 "মুছে ফেললেও সেগুলি পুনরায় ব্যবহার করা যায়।"
 
-#: ../recording.rst:119
+#: ../doc/recording.rst:119
 msgid "Timeline Preview During Recording"
 msgstr "রেকর্ডিং চলাকালীন টাইমলাইন প্রিভিউ"
 
-#: ../recording.rst:121
+#: ../doc/recording.rst:121
 msgid ""
 "The :guilabel:`Preview` control beside :guilabel:`Track` can play the "
 "project from the current playhead while a Mic, Webcam, or combined Mic + "
@@ -326,48 +326,48 @@ msgstr ""
 " জন্য উপযোগী। রেকর্ডিং বন্ধ করলে রেকর্ডার যখন শুরু করেছিল তখন টাইমলাইন "
 "প্লেব্যাকও বন্ধ হয়ে যায়।"
 
-#: ../recording.rst:125
+#: ../doc/recording.rst:125
 msgid "Preview options"
 msgstr "প্রিভিউ বিকল্পসমূহ"
 
-#: ../recording.rst:129 ../recording.rst:152 ../recording.rst:192
-#: ../recording.rst:242
+#: ../doc/recording.rst:129 ../doc/recording.rst:152 ../doc/recording.rst:192
+#: ../doc/recording.rst:242
 msgid "Option"
 msgstr "বিকল্প"
 
-#: ../recording.rst:129
+#: ../doc/recording.rst:129
 msgid "Behavior"
 msgstr "আচরণ"
 
-#: ../recording.rst:131
+#: ../doc/recording.rst:131
 msgid "Off"
 msgstr "বন্ধ"
 
-#: ../recording.rst:131
+#: ../doc/recording.rst:131
 msgid "Records without starting timeline playback."
 msgstr "টাইমলাইন প্লেব্যাক শুরু না করে রেকর্ড করে।"
 
-#: ../recording.rst:132
+#: ../doc/recording.rst:132
 msgid "Full"
 msgstr "পূর্ণ"
 
-#: ../recording.rst:132
+#: ../doc/recording.rst:132
 msgid "Plays the timeline using the normal preview resolution."
 msgstr "সাধারণ প্রিভিউ রেজোলিউশন ব্যবহার করে টাইমলাইন চালায়।"
 
-#: ../recording.rst:133
+#: ../doc/recording.rst:133
 msgid "Half"
 msgstr "অর্ধেক"
 
-#: ../recording.rst:133
+#: ../doc/recording.rst:133
 msgid "Reduces preview rendering resolution to improve recording performance."
 msgstr "রেকর্ডিং পারফরম্যান্স উন্নত করতে প্রিভিউ রেন্ডারিং রেজোলিউশন কমায়।"
 
-#: ../recording.rst:134
+#: ../doc/recording.rst:134
 msgid "Quarter"
 msgstr "চতুর্থাংশ"
 
-#: ../recording.rst:134
+#: ../doc/recording.rst:134
 msgid ""
 "Uses the lowest preview resolution for demanding projects or slower "
 "computers."
@@ -375,7 +375,7 @@ msgstr ""
 "চাহিদাসম্পন্ন প্রকল্প বা ধীর কম্পিউটারের জন্য সর্বনিম্ন প্রিভিউ রেজোলিউশন "
 "ব্যবহার করে।"
 
-#: ../recording.rst:137
+#: ../doc/recording.rst:137
 msgid ""
 "Preview resolution changes only the temporary OpenShot preview. It does not "
 "reduce the resolution or quality of the recorded Mic or Webcam files. Use "
@@ -391,11 +391,11 @@ msgstr ""
 ":guilabel:`Off` এ চলে যায় এবং নিষ্ক্রিয় হয়; স্ক্রিন নির্বাচন বাতিল করলে "
 "পূর্বের পছন্দ পুনরুদ্ধার হয়।"
 
-#: ../recording.rst:143
+#: ../doc/recording.rst:143
 msgid "Microphone Recording"
 msgstr "মাইক্রোফোন রেকর্ডিং"
 
-#: ../recording.rst:145
+#: ../doc/recording.rst:145
 msgid ""
 "Enable :guilabel:`Mic` to record narration as a separate audio file. Use the"
 " Mono/Stereo control beside the level meter for the common channel choice, "
@@ -405,74 +405,74 @@ msgstr ""
 " সাধারণ চ্যানেল পছন্দের জন্য লেভেল মিটারের পাশে থাকা Mono/Stereo নিয়ন্ত্রণ "
 "ব্যবহার করুন, এবং সব সেটিংসের জন্য :guilabel:`Advanced` খুলুন।"
 
-#: ../recording.rst:148
+#: ../doc/recording.rst:148
 msgid "Microphone options"
 msgstr "মাইক্রোফোন বিকল্পসমূহ"
 
-#: ../recording.rst:152
+#: ../doc/recording.rst:152
 msgid "Typical Default"
 msgstr "সাধারণ ডিফল্ট"
 
-#: ../recording.rst:152 ../recording.rst:175 ../recording.rst:192
-#: ../recording.rst:242
+#: ../doc/recording.rst:152 ../doc/recording.rst:175 ../doc/recording.rst:192
+#: ../doc/recording.rst:242
 msgid "Description"
 msgstr "বর্ণনা"
 
-#: ../recording.rst:154 ../recording.rst:244
+#: ../doc/recording.rst:154 ../doc/recording.rst:244
 msgid "Input"
 msgstr "ইনপুট"
 
-#: ../recording.rst:154
+#: ../doc/recording.rst:154
 msgid "System input"
 msgstr "সিস্টেম ইনপুট"
 
-#: ../recording.rst:154
+#: ../doc/recording.rst:154
 msgid "Selects the microphone or audio-input device."
 msgstr "মাইক্রোফোন বা অডিও ইনপুট ডিভাইস নির্বাচন করে।"
 
-#: ../recording.rst:155
+#: ../doc/recording.rst:155
 msgid "Format"
 msgstr "ফরম্যাট"
 
-#: ../recording.rst:155
+#: ../doc/recording.rst:155
 msgid "FLAC"
 msgstr "FLAC"
 
-#: ../recording.rst:155
+#: ../doc/recording.rst:155
 msgid ""
 "Chooses WAV, FLAC, or MP3. FLAC is lossless with smaller files than WAV."
 msgstr "WAV, FLAC, বা MP3 নির্বাচন করে। FLAC হলো লসলেস এবং WAV থেকে ছোট ফাইল।"
 
-#: ../recording.rst:156
+#: ../doc/recording.rst:156
 msgid "Sample Rate"
 msgstr "স্যাম্পল রেট"
 
-#: ../recording.rst:156
+#: ../doc/recording.rst:156
 msgid "48000 Hz"
 msgstr "৪৮০০০ Hz"
 
-#: ../recording.rst:156
+#: ../doc/recording.rst:156
 msgid ""
 "Sets the recording sample rate. Match the device and project when possible."
 msgstr ""
 "রেকর্ডিং স্যাম্পল রেট নির্ধারণ করে। সম্ভব হলে ডিভাইস এবং প্রকল্পের সাথে "
 "মিলান।"
 
-#: ../recording.rst:157
+#: ../doc/recording.rst:157
 msgid "Channels"
 msgstr "চ্যানেল"
 
-#: ../recording.rst:157
+#: ../doc/recording.rst:157
 msgid "Mono"
 msgstr "মোনো"
 
-#: ../recording.rst:157
+#: ../doc/recording.rst:157
 msgid ""
 "Records one or two input channels. Mono is usually best for one microphone."
 msgstr ""
 "এক বা দুই ইনপুট চ্যানেল রেকর্ড করে। এক মাইক্রোফোনের জন্য সাধারণত মোনো সেরা।"
 
-#: ../recording.rst:160
+#: ../doc/recording.rst:160
 msgid ""
 "Aim for a healthy meter response without clipping. A quiet waveform should "
 "remain visually quiet; OpenShot no longer normalizes every newly generated "
@@ -490,36 +490,36 @@ msgstr ""
 "second)` থেকে। রেকর্ডিংয়ের পর ওয়েভফর্ম প্রদর্শন এবং অডিও ভলিউম "
 "নিয়ন্ত্রণের জন্য দেখুন :ref:`clip_presets_ref`।"
 
-#: ../recording.rst:167
+#: ../doc/recording.rst:167
 msgid "Screen Recording"
 msgstr "স্ক্রিন রেকর্ডিং"
 
-#: ../recording.rst:169
+#: ../doc/recording.rst:169
 msgid "Enable :guilabel:`Screen`, then choose a capture mode:"
 msgstr ""
 ":guilabel:`Screen` সক্রিয় করুন, তারপর একটি ক্যাপচার মোড নির্বাচন করুন:"
 
-#: ../recording.rst:171
+#: ../doc/recording.rst:171
 msgid "Screen capture modes"
 msgstr "স্ক্রিন ক্যাপচার মোডসমূহ"
 
-#: ../recording.rst:175
+#: ../doc/recording.rst:175
 msgid "Mode"
 msgstr "মোড"
 
-#: ../recording.rst:177
+#: ../doc/recording.rst:177
 msgid "Full Screen"
 msgstr "পূর্ণ স্ক্রিন"
 
-#: ../recording.rst:177
+#: ../doc/recording.rst:177
 msgid "Captures the selected display or combined desktop area."
 msgstr "নির্বাচিত ডিসপ্লে বা সম্মিলিত ডেস্কটপ এলাকা ক্যাপচার করে।"
 
-#: ../recording.rst:178
+#: ../doc/recording.rst:178
 msgid "Window"
 msgstr "উইন্ডো"
 
-#: ../recording.rst:178
+#: ../doc/recording.rst:178
 msgid ""
 "Click a window to capture its bounds. Availability and exact behavior depend"
 " on the platform."
@@ -527,11 +527,11 @@ msgstr ""
 "ক্যাপচার করার জন্য একটি উইন্ডোতে ক্লিক করুন। উপলব্ধতা এবং সঠিক আচরণ "
 "প্ল্যাটফর্মের উপর নির্ভর করে।"
 
-#: ../recording.rst:179
+#: ../doc/recording.rst:179
 msgid "Region"
 msgstr "অঞ্চল"
 
-#: ../recording.rst:179
+#: ../doc/recording.rst:179
 msgid ""
 "Drag or select a rectangular desktop area. Availability depends on the "
 "platform."
@@ -539,7 +539,7 @@ msgstr ""
 "একটি আয়তাকার ডেস্কটপ এলাকা টেনে বা নির্বাচন করুন। উপলব্ধতা প্ল্যাটফর্মের "
 "উপর নির্ভর করে।"
 
-#: ../recording.rst:182
+#: ../doc/recording.rst:182
 msgid ""
 "On Wayland desktops, the operating system's sharing portal asks which screen"
 " or window to share when recording starts. The numeric window and region "
@@ -549,96 +549,96 @@ msgstr ""
 " কোন স্ক্রিন বা উইন্ডো শেয়ার করতে হবে তা জিজ্ঞাসা করে। সংখ্যাসূচক উইন্ডো "
 "এবং অঞ্চল নিয়ন্ত্রণগুলি লুকানো থাকে কারণ নির্বাচন সেই পোর্টালের অন্তর্গত।"
 
-#: ../recording.rst:186
+#: ../doc/recording.rst:186
 msgid "Screen Advanced Options"
 msgstr "স্ক্রিন উন্নত বিকল্পসমূহ"
 
-#: ../recording.rst:188
+#: ../doc/recording.rst:188
 msgid "Screen options"
 msgstr "স্ক্রিন বিকল্পসমূহ"
 
-#: ../recording.rst:192
+#: ../doc/recording.rst:192
 msgid "Default"
 msgstr "ডিফল্ট"
 
-#: ../recording.rst:194
+#: ../doc/recording.rst:194
 msgid "Primary display"
 msgstr "প্রাথমিক ডিসপ্লে"
 
-#: ../recording.rst:194
+#: ../doc/recording.rst:194
 msgid "Selects a display or the complete desktop when supported."
 msgstr "সমর্থিত হলে একটি ডিসপ্লে বা সম্পূর্ণ ডেস্কটপ নির্বাচন করে।"
 
-#: ../recording.rst:195
+#: ../doc/recording.rst:195
 msgid "Offset"
 msgstr "অফসেট"
 
-#: ../recording.rst:195 ../recording.rst:196
+#: ../doc/recording.rst:195 ../doc/recording.rst:196
 msgid "Selected bounds"
 msgstr "নির্বাচিত সীমানা"
 
-#: ../recording.rst:195
+#: ../doc/recording.rst:195
 msgid "Sets the capture area's X and Y desktop coordinates."
 msgstr "ক্যাপচার এলাকার X এবং Y ডেস্কটপ স্থানাঙ্ক নির্ধারণ করে।"
 
-#: ../recording.rst:196 ../recording.rst:248
+#: ../doc/recording.rst:196 ../doc/recording.rst:248
 msgid "Size"
 msgstr "আকার"
 
-#: ../recording.rst:196
+#: ../doc/recording.rst:196
 msgid ""
 "Sets capture width and height. OpenShot uses encoder-safe even dimensions."
 msgstr ""
 "ক্যাপচার প্রস্থ এবং উচ্চতা নির্ধারণ করে। OpenShot এনকোডার-সুরক্ষিত সম মাত্রা"
 " ব্যবহার করে।"
 
-#: ../recording.rst:197
+#: ../doc/recording.rst:197
 msgid "FPS"
 msgstr "FPS"
 
-#: ../recording.rst:197
+#: ../doc/recording.rst:197
 msgid "30"
 msgstr "৩০"
 
-#: ../recording.rst:197
+#: ../doc/recording.rst:197
 msgid "Sets the screen recording frame rate: 15, 24, 30, or 60 FPS."
 msgstr "স্ক্রিন রেকর্ডিং ফ্রেম রেট নির্ধারণ করে: ১৫, ২৪, ৩০, বা ৬০ FPS।"
 
-#: ../recording.rst:198 ../recording.rst:211
+#: ../doc/recording.rst:198 ../doc/recording.rst:211
 msgid "System Audio"
 msgstr "সিস্টেম অডিও"
 
-#: ../recording.rst:198 ../recording.rst:199
+#: ../doc/recording.rst:198 ../doc/recording.rst:199
 msgid "On"
 msgstr "চালু"
 
-#: ../recording.rst:198
+#: ../doc/recording.rst:198
 msgid "Embeds computer playback audio in the screen MP4 when supported."
 msgstr "সমর্থিত হলে স্ক্রিন MP4-তে কম্পিউটার প্লেব্যাক অডিও এম্বেড করে।"
 
-#: ../recording.rst:199
+#: ../doc/recording.rst:199
 msgid "Cursor"
 msgstr "কার্সর"
 
-#: ../recording.rst:199
+#: ../doc/recording.rst:199
 msgid "Includes the mouse pointer in the screen recording."
 msgstr "স্ক্রিন রেকর্ডিং-এ মাউস পয়েন্টার অন্তর্ভুক্ত করে।"
 
-#: ../recording.rst:200
+#: ../doc/recording.rst:200
 msgid "Hide OpenShot"
 msgstr "OpenShot লুকান"
 
-#: ../recording.rst:200
+#: ../doc/recording.rst:200
 msgid "No"
 msgstr "না"
 
-#: ../recording.rst:200
+#: ../doc/recording.rst:200
 msgid ""
 "Temporarily hides OpenShot during selection and recording when enabled."
 msgstr ""
 "সক্রিয় থাকলে নির্বাচন এবং রেকর্ডিং চলাকালীন OpenShot অস্থায়ীভাবে লুকায়।"
 
-#: ../recording.rst:205
+#: ../doc/recording.rst:205
 msgid ""
 "On some Windows systems using high-DPI display scaling, the mouse pointer "
 "may be displaced or missing from screen recordings made on a scaled display."
@@ -656,7 +656,7 @@ msgstr ""
 "ভিডিও এখনও স্বাভাবিকভাবে রেকর্ড হয়, এবং :guilabel:`Cursor` সেট করা "
 ":guilabel:`Off` এ প্রভাবিত পয়েন্টার ওভারলে এড়ায়।"
 
-#: ../recording.rst:213
+#: ../doc/recording.rst:213
 msgid ""
 ":guilabel:`System Audio` is enabled by default on supported capture "
 "backends. It records sound playing through the computer—such as a game, "
@@ -670,7 +670,7 @@ msgstr ""
 "উৎসের পরিবর্তে নয়। আপনি যখন সিস্টেম অডিও এবং স্বাধীনভাবে সম্পাদনাযোগ্য "
 "ক্লিপে মন্তব্য চান, তখন উভয় উৎস সক্রিয় করুন।"
 
-#: ../recording.rst:217
+#: ../doc/recording.rst:217
 msgid ""
 "If the control is disabled, the active platform or libopenshot build does "
 "not provide system-audio capture. OpenShot forces the option Off rather than"
@@ -683,7 +683,7 @@ msgstr ""
 "সিস্টেমের গোপনীয়তা সেটিংস এবং অডিও-রাউটিং কনফিগারেশনও ক্যাপচারে প্রভাব "
 "ফেলতে পারে।"
 
-#: ../recording.rst:223
+#: ../doc/recording.rst:223
 msgid ""
 "System Audio recording is not currently available on macOS. Screen video, "
 "microphone, and webcam recording remain available, but the :guilabel:`System"
@@ -694,7 +694,7 @@ msgstr ""
 "Audio` বিকল্পটি নিষ্ক্রিয় এবং বাধ্যতামূলকভাবে :guilabel:`Off` এ সেট করা "
 "হয়।"
 
-#: ../recording.rst:228
+#: ../doc/recording.rst:228
 msgid ""
 "Avoid playing captured system audio through speakers while also recording a "
 "microphone unless that sound is intentional. Headphones reduce echo and "
@@ -704,11 +704,11 @@ msgstr ""
 "এড়িয়ে চলুন যদি না সেই শব্দ ইচ্ছাকৃত হয়। হেডফোন ইকো কমায় এবং মাইক্রোফোনকে"
 " স্পিকার থেকে দ্বিতীয়বার রেকর্ড করা থেকে রোধ করে।"
 
-#: ../recording.rst:232
+#: ../doc/recording.rst:232
 msgid "Webcam Recording"
 msgstr "ওয়েবক্যাম রেকর্ডিং"
 
-#: ../recording.rst:234
+#: ../doc/recording.rst:234
 msgid ""
 "Enable :guilabel:`Webcam` to record a camera as a silent video clip. A live "
 "preview helps verify framing before you start. When Screen is also enabled, "
@@ -721,54 +721,54 @@ msgstr ""
 "গোলাকার, ৩০% ক্যামেরা। যখন ওয়েবক্যাম একা রেকর্ড করা হয়, এটি ডিফল্টরূপে "
 "পূর্ণ আকারে থাকে।"
 
-#: ../recording.rst:238
+#: ../doc/recording.rst:238
 msgid "Webcam options"
 msgstr "ওয়েবক্যাম বিকল্পসমূহ"
 
-#: ../recording.rst:244
+#: ../doc/recording.rst:244
 msgid "Selects an available webcam or video-capture device."
 msgstr "উপলব্ধ ওয়েবক্যাম বা ভিডিও-ক্যাপচার ডিভাইস নির্বাচন করে।"
 
-#: ../recording.rst:245
+#: ../doc/recording.rst:245
 msgid "Resolution"
 msgstr "রেজোলিউশন"
 
-#: ../recording.rst:245
+#: ../doc/recording.rst:245
 msgid "Selects a resolution reported by the camera."
 msgstr "ক্যামেরা দ্বারা রিপোর্ট করা রেজোলিউশন নির্বাচন করে।"
 
-#: ../recording.rst:246
+#: ../doc/recording.rst:246
 msgid "Record FPS"
 msgstr "রেকর্ড FPS"
 
-#: ../recording.rst:246
+#: ../doc/recording.rst:246
 msgid "Selects a frame rate supported at the chosen resolution."
 msgstr "নির্বাচিত রেজোলিউশনে সমর্থিত ফ্রেম রেট নির্বাচন করে।"
 
-#: ../recording.rst:247
+#: ../doc/recording.rst:247
 msgid "Layout"
 msgstr "লেআউট"
 
-#: ../recording.rst:247
+#: ../doc/recording.rst:247
 msgid ""
 "Chooses Bottom/Top Left/Right, Left, Right, Center, or Full Size placement."
 msgstr ""
 "নিচ/উপর বাম/ডান, বাম, ডান, কেন্দ্র, অথবা পূর্ণ আকারের অবস্থান নির্বাচন করে।"
 
-#: ../recording.rst:248
+#: ../doc/recording.rst:248
 msgid "Sets a corner camera to 20%, 30%, or 40% of the project frame."
 msgstr "কোণার ক্যামেরার আকার প্রকল্প ফ্রেমের ২০%, ৩০%, অথবা ৪০% এ সেট করে।"
 
-#: ../recording.rst:249
+#: ../doc/recording.rst:249
 msgid "Corners"
 msgstr "কোণাগুলো"
 
-#: ../recording.rst:249
+#: ../doc/recording.rst:249
 msgid "Uses Rectangle, Rounded, or Oval camera corners."
 msgstr ""
 "ক্যামেরার কোণ হিসেবে আয়তক্ষেত্র, গোলাকার, অথবা ডিম্বাকৃতি ব্যবহার করে।"
 
-#: ../recording.rst:252
+#: ../doc/recording.rst:252
 msgid ""
 "Layout choices are applied as ordinary clip properties. After recording, use"
 " :guilabel:`Gravity`, :guilabel:`Scale X`, :guilabel:`Scale Y`, "
@@ -780,11 +780,11 @@ msgstr ""
 ":guilabel:`Scale Y`, :guilabel:`Margin`, এবং :guilabel:`Corner Radius` "
 "ব্যবহার করুন। দেখুন :ref:`clip_properties_ref`।"
 
-#: ../recording.rst:257
+#: ../doc/recording.rst:257
 msgid "Combining Sources"
 msgstr "উৎসসমূহ একত্রিত করা"
 
-#: ../recording.rst:259
+#: ../doc/recording.rst:259
 msgid ""
 "The Recording View keeps all enabled source controls together while leaving "
 "the preview and timeline visible."
@@ -792,86 +792,86 @@ msgstr ""
 "রেকর্ডিং ভিউ সক্রিয় সব উৎস নিয়ন্ত্রণ একসাথে রাখে এবং প্রিভিউ ও টাইমলাইন "
 "দৃশ্যমান রাখে।"
 
-#: ../recording.rst:-1
+#: ../doc/recording.rst:-1
 msgid ""
 "OpenShot Recording View with microphone, screen, and webcam sources selected"
 msgstr ""
 "মাইক্রোফোন, স্ক্রিন, এবং ওয়েবক্যাম উৎস নির্বাচিত অবস্থায় OpenShot রেকর্ডিং"
 " ভিউ"
 
-#: ../recording.rst:264
+#: ../doc/recording.rst:264
 msgid "Useful recording combinations"
 msgstr "উপযোগী রেকর্ডিং সংমিশ্রণ"
 
-#: ../recording.rst:268
+#: ../doc/recording.rst:268
 msgid "Workflow"
 msgstr "কর্মপ্রবাহ"
 
-#: ../recording.rst:269
+#: ../doc/recording.rst:269
 msgid "Enable"
 msgstr "সক্রিয় করুন"
 
-#: ../recording.rst:270
+#: ../doc/recording.rst:270
 msgid "Result"
 msgstr "ফলাফল"
 
-#: ../recording.rst:271
+#: ../doc/recording.rst:271
 msgid "Voice-over"
 msgstr "ভয়েস-ওভার"
 
-#: ../recording.rst:273
+#: ../doc/recording.rst:273
 msgid "One editable narration file."
 msgstr "একটি সম্পাদনাযোগ্য বর্ণনা ফাইল।"
 
-#: ../recording.rst:274
+#: ../doc/recording.rst:274
 msgid "Silent tutorial"
 msgstr "নীরব টিউটোরিয়াল"
 
-#: ../recording.rst:276
+#: ../doc/recording.rst:276
 msgid "Screen MP4; turn System Audio Off if silence is desired."
 msgstr "স্ক্রিন MP4; নীরবতা চাইলে সিস্টেম অডিও বন্ধ করুন।"
 
-#: ../recording.rst:277
+#: ../doc/recording.rst:277
 msgid "Game commentary"
 msgstr "গেম মন্তব্য"
 
-#: ../recording.rst:278
+#: ../doc/recording.rst:278
 msgid "Mic + Screen"
 msgstr "মাইক্রোফোন + স্ক্রিন"
 
-#: ../recording.rst:279
+#: ../doc/recording.rst:279
 msgid "Separate mic clip plus screen video with game audio."
 msgstr "স্বতন্ত্র মাইক্রোফোন ক্লিপ এবং গেম অডিওসহ স্ক্রিন ভিডিও।"
 
-#: ../recording.rst:280
+#: ../doc/recording.rst:280
 msgid "Presenter camera"
 msgstr "উপস্থাপক ক্যামেরা"
 
-#: ../recording.rst:281
+#: ../doc/recording.rst:281
 msgid "Mic + Webcam"
 msgstr "মাইক্রোফোন + ওয়েবক্যাম"
 
-#: ../recording.rst:282
+#: ../doc/recording.rst:282
 msgid "Separate voice and silent camera video."
 msgstr "স্বতন্ত্র ভয়েস এবং নীরব ক্যামেরা ভিডিও।"
 
-#: ../recording.rst:283
+#: ../doc/recording.rst:283
 msgid "Tutorial with camera"
 msgstr "ক্যামেরাসহ টিউটোরিয়াল"
 
-#: ../recording.rst:284
+#: ../doc/recording.rst:284
 msgid "Mic + Screen + Webcam"
 msgstr "মাইক্রোফোন + স্ক্রিন + ওয়েবক্যাম"
 
-#: ../recording.rst:285
+#: ../doc/recording.rst:285
 msgid "Three synchronized clips with webcam above the screen."
 msgstr "স্ক্রিনের উপরে ওয়েবক্যামসহ তিনটি সিঙ্ক্রোনাইজড ক্লিপ।"
 
-#: ../recording.rst:288
+#: ../doc/recording.rst:288
 msgid "Where Recordings Are Saved"
 msgstr "রেকর্ডিং কোথায় সংরক্ষিত হয়"
 
-#: ../recording.rst:290
+#: ../doc/recording.rst:290
 msgid ""
 "Recordings are saved in the project's assets folder under ``recordings``. If"
 " the project has not been saved yet, OpenShot uses its user-data location. "
@@ -883,7 +883,7 @@ msgstr ""
 "অবস্থান ব্যবহার করে। ফাইলনামগুলিতে উৎসের নাম এবং টাইমস্ট্যাম্প থাকে; আরেকটি "
 "সংখ্যাসূচক সাফিক্স একই সেকেন্ডে তৈরি ফাইল ওভাররাইট হওয়া থেকে রক্ষা করে।"
 
-#: ../recording.rst:294
+#: ../doc/recording.rst:294
 msgid ""
 "Save the project before a long or important session so its recording "
 "destination is predictable. Do not move or rename recorded files outside "
@@ -893,11 +893,11 @@ msgstr ""
 "গন্তব্য পূর্বানুমানযোগ্য হয়। প্রকল্প ব্যবহার করার সময় OpenShot এর বাইরে "
 "রেকর্ড করা ফাইলগুলি সরান বা নাম পরিবর্তন করবেন না।"
 
-#: ../recording.rst:298
+#: ../doc/recording.rst:298
 msgid "Permissions and Platform Behavior"
 msgstr "অনুমতি এবং প্ল্যাটফর্ম আচরণ"
 
-#: ../recording.rst:300
+#: ../doc/recording.rst:300
 msgid ""
 "Screen and camera capture depend on operating-system services, hardware, and"
 " build support. The controls in the dock adapt to the available backend."
@@ -906,7 +906,7 @@ msgstr ""
 "বিল্ড সমর্থনের উপর নির্ভর করে। ডকের নিয়ন্ত্রণগুলি উপলব্ধ ব্যাকএন্ডের সাথে "
 "মানিয়ে নেয়।"
 
-#: ../recording.rst:303
+#: ../doc/recording.rst:303
 msgid ""
 "**Linux/X11:** Full-screen, window, and numeric region capture are available"
 " when the X11 capture backend is built."
@@ -914,7 +914,7 @@ msgstr ""
 "**Linux/X11:** X11 ক্যাপচার ব্যাকএন্ড তৈরি হলে ফুল-স্ক্রীন, উইন্ডো এবং "
 "সংখ্যাসূচক অঞ্চল ক্যাপচার উপলব্ধ থাকে।"
 
-#: ../recording.rst:304
+#: ../doc/recording.rst:304
 msgid ""
 "**Linux/Wayland:** The desktop sharing portal chooses the capture source "
 "after recording starts."
@@ -922,7 +922,7 @@ msgstr ""
 "**Linux/Wayland:** ডেস্কটপ শেয়ারিং পোর্টাল রেকর্ডিং শুরু হওয়ার পর ক্যাপচার"
 " উৎস নির্বাচন করে।"
 
-#: ../recording.rst:305
+#: ../doc/recording.rst:305
 msgid ""
 "**Windows:** Desktop capture uses the available Windows screen backend; "
 "camera devices use Windows capture services."
@@ -930,7 +930,7 @@ msgstr ""
 "**Windows:** ডেস্কটপ ক্যাপচার উপলব্ধ Windows স্ক্রীন ব্যাকএন্ড ব্যবহার করে; "
 "ক্যামেরা ডিভাইসগুলি Windows ক্যাপচার সেবা ব্যবহার করে।"
 
-#: ../recording.rst:306
+#: ../doc/recording.rst:306
 msgid ""
 "**macOS:** Screen capture uses the supported macOS backend, with window and "
 "region choices represented as cropped screen bounds when required. System "
@@ -942,7 +942,7 @@ msgstr ""
 "উপস্থাপিত হয়। সিস্টেম অডিও রেকর্ডিং বর্তমানে সমর্থিত নয়; মাইক্রোফোন "
 "রেকর্ডিং আলাদা অডিও উৎস হিসেবে উপলব্ধ থাকে।"
 
-#: ../recording.rst:310
+#: ../doc/recording.rst:310
 msgid ""
 "The first recording may trigger Screen Recording, Microphone, Camera, or "
 "desktop-sharing permission prompts. Approve the requested source, then "
@@ -956,27 +956,27 @@ msgstr ""
 "বা বিকল্প এমন একটি রেকর্ডিংয়ের চেয়ে ভালো যা নীরবে অপ্রতিষ্ঠিত উৎস বাদ "
 "দেয়।"
 
-#: ../recording.rst:315
+#: ../doc/recording.rst:315
 msgid "Troubleshooting Recording"
 msgstr "রেকর্ডিং সমস্যা সমাধান"
 
-#: ../recording.rst:317
+#: ../doc/recording.rst:317
 msgid "Common recording problems"
 msgstr "সাধারণ রেকর্ডিং সমস্যা"
 
-#: ../recording.rst:321
+#: ../doc/recording.rst:321
 msgid "Problem"
 msgstr "সমস্যা"
 
-#: ../recording.rst:321
+#: ../doc/recording.rst:321
 msgid "What to Check"
 msgstr "যা পরীক্ষা করবেন"
 
-#: ../recording.rst:323
+#: ../doc/recording.rst:323
 msgid "Mic meter does not move"
 msgstr "মাইক্রোফোন মিটার সরছে না"
 
-#: ../recording.rst:323
+#: ../doc/recording.rst:323
 msgid ""
 "Select the correct Input, verify OS microphone permission, and check "
 "mute/gain."
@@ -984,19 +984,19 @@ msgstr ""
 "সঠিক ইনপুট নির্বাচন করুন, OS মাইক্রোফোন অনুমতি যাচাই করুন, এবং মিউট/গেইন "
 "পরীক্ষা করুন।"
 
-#: ../recording.rst:324
+#: ../doc/recording.rst:324
 msgid "Mic clips or distorts"
 msgstr "মাইক্রোফোন ক্লিপ বা বিকৃত হয়"
 
-#: ../recording.rst:324
+#: ../doc/recording.rst:324
 msgid "Lower hardware/input gain and keep peaks below full scale."
 msgstr "হার্ডওয়্যার/ইনপুট গেইন কমান এবং পিকগুলো ফুল স্কেলের নিচে রাখুন।"
 
-#: ../recording.rst:325
+#: ../doc/recording.rst:325
 msgid "Mic is very quiet"
 msgstr "মাইক্রোফোন খুব শান্ত"
 
-#: ../recording.rst:325
+#: ../doc/recording.rst:325
 msgid ""
 "Raise input gain near the device; timeline waveform height does not change "
 "audio."
@@ -1004,11 +1004,11 @@ msgstr ""
 "ডিভাইসের কাছে ইনপুট গেইন বাড়ান; টাইমলাইন ওয়েভফর্ম উচ্চতা অডিও পরিবর্তন করে"
 " না।"
 
-#: ../recording.rst:326
+#: ../doc/recording.rst:326
 msgid "System Audio is disabled"
 msgstr "সিস্টেম অডিও নিষ্ক্রিয়"
 
-#: ../recording.rst:326
+#: ../doc/recording.rst:326
 msgid ""
 "The active screen backend/build does not support it; check platform audio "
 "routing."
@@ -1016,11 +1016,11 @@ msgstr ""
 "সক্রিয় স্ক্রীন ব্যাকএন্ড/বিল্ড এটি সমর্থন করে না; প্ল্যাটফর্ম অডিও রাউটিং "
 "পরীক্ষা করুন।"
 
-#: ../recording.rst:327
+#: ../doc/recording.rst:327
 msgid "System Audio is silent"
 msgstr "সিস্টেম অডিও নীরব"
 
-#: ../recording.rst:327
+#: ../doc/recording.rst:327
 msgid ""
 "Play audio before testing, verify the output device, and inspect OS "
 "privacy/routing."
@@ -1028,31 +1028,31 @@ msgstr ""
 "পরীক্ষার আগে অডিও চালান, আউটপুট ডিভাইস যাচাই করুন, এবং OS গোপনীয়তা/রাউটিং "
 "পরীক্ষা করুন।"
 
-#: ../recording.rst:328
+#: ../doc/recording.rst:328
 msgid "Voice contains game echo"
 msgstr "কণ্ঠে গেম ইকো রয়েছে"
 
-#: ../recording.rst:328
+#: ../doc/recording.rst:328
 msgid "Use headphones so the mic does not capture speaker playback."
 msgstr ""
 "মাইক্রোফোন স্পিকার প্লেব্যাক ক্যাপচার না করার জন্য হেডফোন ব্যবহার করুন।"
 
-#: ../recording.rst:329
+#: ../doc/recording.rst:329
 msgid "Screen source is incorrect"
 msgstr "স্ক্রীন উৎস ভুল"
 
-#: ../recording.rst:329
+#: ../doc/recording.rst:329
 msgid ""
 "Re-select Full Screen/Window/Region; on Wayland, choose again in the portal."
 msgstr ""
 "ফুল স্ক্রীন/উইন্ডো/অঞ্চল পুনরায় নির্বাচন করুন; ওয়েল্যান্ডে, পোর্টালে আবার "
 "নির্বাচন করুন।"
 
-#: ../recording.rst:330
+#: ../doc/recording.rst:330
 msgid "Cursor missing on Windows"
 msgstr "Windows-এ কার্সর অনুপস্থিত"
 
-#: ../recording.rst:330
+#: ../doc/recording.rst:330
 msgid ""
 "High-DPI scaling can affect the pointer overlay; try the target display at "
 "100%."
@@ -1060,33 +1060,33 @@ msgstr ""
 "হাই-ডিপিআই স্কেলিং পয়েন্টার ওভারলে প্রভাবিত করতে পারে; লক্ষ্য ডিসপ্লে ১০০% "
 "এ চেষ্টা করুন।"
 
-#: ../recording.rst:331
+#: ../doc/recording.rst:331
 msgid "Webcam is unavailable"
 msgstr "ওয়েবক্যাম উপলব্ধ নয়"
 
-#: ../recording.rst:331
+#: ../doc/recording.rst:331
 msgid ""
 "Check camera permission, close other camera apps, and reconnect the device."
 msgstr ""
 "ক্যামেরা অনুমতি পরীক্ষা করুন, অন্যান্য ক্যামেরা অ্যাপ বন্ধ করুন, এবং ডিভাইস "
 "পুনরায় সংযুক্ত করুন।"
 
-#: ../recording.rst:332
+#: ../doc/recording.rst:332
 msgid "Recording is choppy"
 msgstr "রেকর্ডিং ঝাঁকুনি করছে"
 
-#: ../recording.rst:332
+#: ../doc/recording.rst:332
 msgid ""
 "Lower screen/camera FPS or resolution and close CPU-intensive applications."
 msgstr ""
 "স্ক্রীন/ক্যামেরা FPS বা রেজোলিউশন কমান এবং CPU-গুরুত্বপূর্ণ অ্যাপ্লিকেশন "
 "বন্ধ করুন।"
 
-#: ../recording.rst:333
+#: ../doc/recording.rst:333
 msgid "Clips appear on wrong track"
 msgstr "ক্লিপগুলি ভুল ট্র্যাকে প্রদর্শিত হচ্ছে"
 
-#: ../recording.rst:333
+#: ../doc/recording.rst:333
 msgid ""
 "Choose the top destination Track before recording, then move clips if "
 "needed."
@@ -1094,11 +1094,11 @@ msgstr ""
 "রেকর্ডিংয়ের আগে শীর্ষ গন্তব্য ট্র্যাক নির্বাচন করুন, প্রয়োজনে ক্লিপগুলি "
 "সরান।"
 
-#: ../recording.rst:337
+#: ../doc/recording.rst:337
 msgid "After Recording"
 msgstr "রেকর্ডিংয়ের পর"
 
-#: ../recording.rst:339
+#: ../doc/recording.rst:339
 msgid ""
 "Recorded clips behave like imported media. You can trim, slice, move, mute, "
 "fade, add effects, and adjust volume or layout with the standard editing "
@@ -1108,23 +1108,23 @@ msgstr ""
 "সরানো, মিউট, ফেড, ইফেক্ট যোগ করা এবং ভলিউম বা বিন্যাস সামঞ্জস্য করতে পারেন "
 "স্ট্যান্ডার্ড সম্পাদনা সরঞ্জাম দিয়ে। পরবর্তী দরকারী বিষয়গুলি হল:"
 
-#: ../recording.rst:342
+#: ../doc/recording.rst:342
 msgid ":ref:`clips_cutting_slicing_ref` for trimming and slicing."
 msgstr ":ref:`clips_cutting_slicing_ref` ট্রিমিং এবং স্লাইসিং এর জন্য।"
 
-#: ../recording.rst:343
+#: ../doc/recording.rst:343
 msgid ""
 ":ref:`clip_presets_ref` for waveform, volume, fade, and other clip actions."
 msgstr ""
 ":ref:`clip_presets_ref` ওয়েভফর্ম, ভলিউম, ফেড এবং অন্যান্য ক্লিপ "
 "ক্রিয়াকলাপের জন্য।"
 
-#: ../recording.rst:344
+#: ../doc/recording.rst:344
 msgid ""
 ":ref:`clip_properties_ref` for webcam placement and detailed adjustments."
 msgstr ""
 ":ref:`clip_properties_ref` ওয়েবক্যাম স্থাপন এবং বিস্তারিত সামঞ্জস্যের জন্য।"
 
-#: ../recording.rst:345
+#: ../doc/recording.rst:345
 msgid ":ref:`playback_ref` for playback and audio troubleshooting."
 msgstr ":ref:`playback_ref` প্লেব্যাক এবং অডিও সমস্যা সমাধানের জন্য।"

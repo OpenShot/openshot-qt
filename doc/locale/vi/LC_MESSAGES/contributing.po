@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-16 18:08-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,12 +18,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:22
+#: ../doc/contributing.rst:22
 msgid "Contributing"
 msgstr "Đóng góp"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:24
+#: ../doc/contributing.rst:24
 msgid ""
 "Want to help improve OpenShot (*and make some friends in the process*)? "
 "Please consider joining our open-source team by filling out this quick "
@@ -31,73 +31,74 @@ msgid ""
 "yourself! All volunteers are welcome, regardless of skills or skill level. "
 "**Let's build something amazing!**"
 msgstr ""
-"Bạn muốn giúp cải thiện OpenShot (*và kết bạn trong quá trình này*)? Hãy cân "
-"nhắc tham gia đội ngũ mã nguồn mở của chúng tôi bằng cách điền vào `biểu mẫu "
-"đóng góp <https://forms.gle/CRqkS5tLMJE1V36V8>`_ này và giới thiệu về bản "
-"thân! Tất cả tình nguyện viên đều được chào đón, bất kể kỹ năng hay trình "
-"độ. **Hãy cùng xây dựng điều gì đó tuyệt vời!**"
+"Bạn muốn giúp cải thiện OpenShot (*và kết bạn trong quá trình này*)? Hãy cân"
+" nhắc tham gia đội ngũ mã nguồn mở của chúng tôi bằng cách điền vào `biểu "
+"mẫu đóng góp <https://forms.gle/CRqkS5tLMJE1V36V8>`_ này và giới thiệu về "
+"bản thân! Tất cả tình nguyện viên đều được chào đón, bất kể kỹ năng hay "
+"trình độ. **Hãy cùng xây dựng điều gì đó tuyệt vời!**"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:30
+#: ../doc/contributing.rst:30
 msgid "How to Contribute"
 msgstr "Cách Đóng Góp"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:32
+#: ../doc/contributing.rst:32
 msgid "There are many different ways to help and support OpenShot, including:"
 msgstr "Có nhiều cách khác nhau để giúp đỡ và hỗ trợ OpenShot, bao gồm:"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:34
+#: ../doc/contributing.rst:34
 msgid "Testing"
 msgstr "Kiểm thử"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:35
+#: ../doc/contributing.rst:35
 msgid "`Translations <https://translations.launchpad.net/openshot/2.0>`_"
 msgstr "`Dịch thuật <https://translations.launchpad.net/openshot/2.0>`_"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:36
+#: ../doc/contributing.rst:36
 msgid ""
 "`Documentation <https://github.com/OpenShot/openshot-qt/tree/develop/doc>`_"
-msgstr "`Tài liệu <https://github.com/OpenShot/openshot-qt/tree/develop/doc>`_"
+msgstr ""
+"`Tài liệu <https://github.com/OpenShot/openshot-qt/tree/develop/doc>`_"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:37
+#: ../doc/contributing.rst:37
 msgid "Customer Service"
 msgstr "Dịch vụ Khách hàng"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:38
+#: ../doc/contributing.rst:38
 msgid "Social Media / Marketing"
 msgstr "Truyền thông Xã hội / Marketing"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:39
+#: ../doc/contributing.rst:39
 msgid "`Software Development <https://github.com/OpenShot>`_"
 msgstr "`Phát triển Phần mềm <https://github.com/OpenShot>`_"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:40
+#: ../doc/contributing.rst:40
 msgid "Art / Design / UI"
 msgstr "Nghệ thuật / Thiết kế / Giao diện người dùng"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:41
+#: ../doc/contributing.rst:41
 msgid "`User Community <https://openshot.org/forum>`_"
 msgstr "`Cộng đồng Người dùng <https://openshot.org/forum>`_"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:42
+#: ../doc/contributing.rst:42
 msgid "`Donations <https://openshot.org/donate>`_"
 msgstr "`Quyên góp <https://openshot.org/donate>`_"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:44
+#: ../doc/contributing.rst:44
 msgid ""
-"All of these areas are **equally important**, so we would love to know which "
-"ones appeal to you the most. Please take a moment and fill-out our quick "
+"All of these areas are **equally important**, so we would love to know which"
+" ones appeal to you the most. Please take a moment and fill-out our quick "
 "`contributor form <https://forms.gle/CRqkS5tLMJE1V36V8>`_."
 msgstr ""
 "Tất cả các lĩnh vực này đều **quan trọng như nhau**, vì vậy chúng tôi rất "
@@ -106,57 +107,60 @@ msgstr ""
 "của chúng tôi."
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:48
+#: ../doc/contributing.rst:48
 msgid "Did you find a bug?"
 msgstr "Bạn có tìm thấy lỗi không?"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:50
+#: ../doc/contributing.rst:50
 msgid ""
-"Please use our step-by-step bug reporting page: https://openshot.org/issues/"
-"new/ to troubleshoot a potential new bug. This guide will instruct you on "
-"how to delete you log files, test with the latest daily build, and search "
-"for duplicate bug reports (in case someone else has already reported this "
-"same issue). At the end of the guide, it will help you create a detailed and "
-"useful bug report for our development team and volunteers."
+"Please use our step-by-step bug reporting page: "
+"https://openshot.org/issues/new/ to troubleshoot a potential new bug. This "
+"guide will instruct you on how to delete you log files, test with the latest"
+" daily build, and search for duplicate bug reports (in case someone else has"
+" already reported this same issue). At the end of the guide, it will help "
+"you create a detailed and useful bug report for our development team and "
+"volunteers."
 msgstr ""
-"Vui lòng sử dụng trang báo cáo lỗi từng bước của chúng tôi: https://openshot."
-"org/issues/new/ để xử lý sự cố lỗi mới tiềm năng. Hướng dẫn này sẽ chỉ bạn "
-"cách xóa các tệp nhật ký, thử nghiệm với bản dựng hàng ngày mới nhất, và tìm "
-"kiếm các báo cáo lỗi trùng lặp (trong trường hợp người khác đã báo cáo cùng "
-"một lỗi). Cuối hướng dẫn, nó sẽ giúp bạn tạo báo cáo lỗi chi tiết và hữu ích "
-"cho đội ngũ phát triển và tình nguyện viên của chúng tôi."
+"Vui lòng sử dụng trang báo cáo lỗi từng bước của chúng tôi: "
+"https://openshot.org/issues/new/ để xử lý sự cố lỗi mới tiềm năng. Hướng dẫn"
+" này sẽ chỉ bạn cách xóa các tệp nhật ký, thử nghiệm với bản dựng hàng ngày "
+"mới nhất, và tìm kiếm các báo cáo lỗi trùng lặp (trong trường hợp người khác"
+" đã báo cáo cùng một lỗi). Cuối hướng dẫn, nó sẽ giúp bạn tạo báo cáo lỗi "
+"chi tiết và hữu ích cho đội ngũ phát triển và tình nguyện viên của chúng "
+"tôi."
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:57
+#: ../doc/contributing.rst:57
 msgid "Software Developers"
 msgstr "Nhà Phát Triển Phần Mềm"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:58
+#: ../doc/contributing.rst:58
 msgid ""
-"OpenShot uses GitHub to manage issues and source code: https://github.com/"
-"OpenShot. Please read our guide on `Becoming a Developer <https://github.com/"
-"OpenShot/openshot-qt/wiki/Become-a-Developer>`_ for a step-by-step guide on "
-"compiling OpenShot and making your first pull request on GitHub."
+"OpenShot uses GitHub to manage issues and source code: "
+"https://github.com/OpenShot. Please read our guide on `Becoming a Developer "
+"<https://github.com/OpenShot/openshot-qt/wiki/Become-a-Developer>`_ for a "
+"step-by-step guide on compiling OpenShot and making your first pull request "
+"on GitHub."
 msgstr ""
-"OpenShot sử dụng GitHub để quản lý các vấn đề và mã nguồn: https://github."
-"com/OpenShot. Vui lòng đọc hướng dẫn của chúng tôi về `Trở thành Nhà Phát "
-"Triển <https://github.com/OpenShot/openshot-qt/wiki/Become-a-Developer>`_ để "
-"có hướng dẫn từng bước về cách biên dịch OpenShot và tạo pull request đầu "
-"tiên trên GitHub."
+"OpenShot sử dụng GitHub để quản lý các vấn đề và mã nguồn: "
+"https://github.com/OpenShot. Vui lòng đọc hướng dẫn của chúng tôi về `Trở "
+"thành Nhà Phát Triển <https://github.com/OpenShot/openshot-qt/wiki/Become-a-"
+"Developer>`_ để có hướng dẫn từng bước về cách biên dịch OpenShot và tạo "
+"pull request đầu tiên trên GitHub."
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:63
+#: ../doc/contributing.rst:63
 msgid "Made with Love"
 msgstr "Được tạo ra với Tình yêu"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:65
+#: ../doc/contributing.rst:65
 msgid ""
 "OpenShot Video Editor is a volunteer effort and a **labor of love**. Please "
-"be patient with any issues you find, and feel free to `get involved <https://"
-"forms.gle/CRqkS5tLMJE1V36V8>`_ and help us fix them!"
+"be patient with any issues you find, and feel free to `get involved "
+"<https://forms.gle/CRqkS5tLMJE1V36V8>`_ and help us fix them!"
 msgstr ""
 "OpenShot Video Editor là một nỗ lực tình nguyện và là một **công việc làm "
 "bằng tình yêu**. Vui lòng kiên nhẫn với bất kỳ vấn đề nào bạn gặp phải, và "
@@ -164,11 +168,11 @@ msgstr ""
 "chúng tôi sửa chúng!"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:69
+#: ../doc/contributing.rst:69
 msgid "Thank you for your support!"
 msgstr "Cảm ơn bạn đã ủng hộ!"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:70
+#: ../doc/contributing.rst:70
 msgid "*-- OpenShot Team*"
 msgstr "*-- Đội ngũ OpenShot*"

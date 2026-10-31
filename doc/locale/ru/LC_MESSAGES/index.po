@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 # Translated with gpt-4.1-mini
-#: ../index.rst:21
+#: ../doc/index.rst:21
 msgid "OpenShot User Guide"
 msgstr "Руководство пользователя OpenShot"
 
-#: ../index.rst:23
+#: ../doc/index.rst:23
 msgid ""
 "OpenShot Video Editor is a free, award-winning, open-source video editor, "
 "available on Linux, Mac, Chrome OS, and Windows. OpenShot can create "
@@ -35,7 +35,7 @@ msgstr ""
 "интерфейса и богатого набора функций."
 
 # Translated with gpt-4.1-mini
-#: ../index.rst:30
+#: ../doc/index.rst:30
 msgid "Table of Contents:"
 msgstr "Содержание:"
 

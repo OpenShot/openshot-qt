@@ -1,0 +1,1904 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) OpenShot Studios, LLC
+# This file is distributed under the same license as the OpenShot Video Editor package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenShot Video Editor 4.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: bn\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../doc/keyboard.rst:4
+msgid "Keyboard Shortcuts"
+msgstr "কীবোর্ড শর্টকাট"
+
+#: ../doc/keyboard.rst:5
+msgid ""
+"Find shortcuts by task below, or jump to the full reference. These are the "
+"default assignments; customize them in :guilabel:`Edit → Preferences → "
+"Keyboard` (:guilabel:`OpenShot Video Editor → Preferences` on macOS). See "
+":ref:`preferences_keyboard_ref` for details."
+msgstr ""
+"নীচের কাজ অনুযায়ী শর্টকাট খুঁজুন, অথবা সম্পূর্ণ রেফারেন্সে যান। এগুলো "
+"ডিফল্ট নিয়োগ; এগুলো কাস্টমাইজ করুন :guilabel:`Edit → Preferences → "
+"Keyboard` (:guilabel:`OpenShot Video Editor → Preferences` ম্যাকওএস-এ)। "
+"বিস্তারিত জানতে দেখুন :ref:`preferences_keyboard_ref`\\ ।"
+
+#: ../doc/keyboard.rst:10
+msgid "On macOS, use Command for shortcuts shown with Ctrl."
+msgstr ""
+"ম্যাকওএস-এ, Ctrl এর পরিবর্তে Command ব্যবহার করুন যেসব শর্টকাটে Ctrl দেখানো "
+"হয়েছে।"
+
+#: ../doc/keyboard.rst:14
+msgid "On this page"
+msgstr "এই পৃষ্ঠায়"
+
+#: ../doc/keyboard.rst:19
+msgid "Using the timeline with a keyboard"
+msgstr "কীবোর্ড দিয়ে টাইমলাইন ব্যবহার"
+
+#: ../doc/keyboard.rst:20
+msgid ""
+"Focus the timeline before selecting, moving, or trimming clips and "
+"transitions with these shortcuts."
+msgstr ""
+"এই শর্টকাটগুলো দিয়ে ক্লিপ এবং ট্রানজিশন নির্বাচন, সরানো বা ট্রিম করার আগে "
+"টাইমলাইনে ফোকাস দিন।"
+
+#: ../doc/keyboard.rst:23
+msgid "Moving between panels"
+msgstr "প্যানেলগুলোর মধ্যে স্থানান্তর"
+
+#: ../doc/keyboard.rst:29 ../doc/keyboard.rst:153 ../doc/keyboard.rst:186
+#: ../doc/keyboard.rst:224 ../doc/keyboard.rst:250 ../doc/keyboard.rst:389
+#: ../doc/keyboard.rst:420
+msgid "Action"
+msgstr "কর্ম"
+
+#: ../doc/keyboard.rst:30 ../doc/keyboard.rst:111 ../doc/keyboard.rst:154
+#: ../doc/keyboard.rst:187 ../doc/keyboard.rst:225 ../doc/keyboard.rst:251
+msgid "Shortcut"
+msgstr "শর্টকাট"
+
+#: ../doc/keyboard.rst:31 ../doc/keyboard.rst:522
+msgid "Focus Project Files"
+msgstr "প্রজেক্ট ফাইলগুলিতে ফোকাস দিন"
+
+#: ../doc/keyboard.rst:32 ../doc/keyboard.rst:523
+msgid ":kbd:`Shift+1`"
+msgstr ":kbd:`Shift+1`"
+
+#: ../doc/keyboard.rst:33
+msgid "Preview the selected file or timeline clip's source"
+msgstr "নির্বাচিত ফাইল বা টাইমলাইন ক্লিপের সোর্স প্রিভিউ করুন"
+
+#: ../doc/keyboard.rst:34 ../doc/keyboard.rst:394 ../doc/keyboard.rst:601
+msgid ":kbd:`Shift+2` or :kbd:`Alt+P`"
+msgstr ":kbd:`Shift+2` অথবা :kbd:`Alt+P`"
+
+#: ../doc/keyboard.rst:35
+msgid "Focus the timeline"
+msgstr "টাইমলাইনে ফোকাস দিন"
+
+#: ../doc/keyboard.rst:36 ../doc/keyboard.rst:526
+msgid ":kbd:`Shift+3`"
+msgstr ":kbd:`Shift+3`"
+
+#: ../doc/keyboard.rst:37 ../doc/keyboard.rst:528
+msgid "Focus Transitions"
+msgstr "ট্রানজিশনে ফোকাস দিন"
+
+#: ../doc/keyboard.rst:38 ../doc/keyboard.rst:529
+msgid ":kbd:`Shift+7`"
+msgstr ":kbd:`Shift+7`"
+
+#: ../doc/keyboard.rst:39 ../doc/keyboard.rst:516
+msgid "Focus Effects"
+msgstr "ইফেক্টে ফোকাস দিন"
+
+#: ../doc/keyboard.rst:40 ../doc/keyboard.rst:517
+msgid ":kbd:`Shift+8`"
+msgstr ":kbd:`Shift+8`"
+
+#: ../doc/keyboard.rst:41 ../doc/keyboard.rst:519
+msgid "Focus Emojis"
+msgstr "ইমোজিতে ফোকাস দিন"
+
+#: ../doc/keyboard.rst:42 ../doc/keyboard.rst:520
+msgid ":kbd:`Shift+9`"
+msgstr ":kbd:`Shift+9`"
+
+#: ../doc/keyboard.rst:43
+msgid "Move to the next / previous control"
+msgstr "পরবর্তী / পূর্ববর্তী নিয়ন্ত্রণে যান"
+
+#: ../doc/keyboard.rst:44 ../doc/keyboard.rst:46
+msgid ":kbd:`Tab` / :kbd:`Shift+Tab`"
+msgstr ":kbd:`Tab` / :kbd:`Shift+Tab`"
+
+#: ../doc/keyboard.rst:45
+msgid "Focus the next / previous dock tab title without selecting it"
+msgstr "পরবর্তী / পূর্ববর্তী ডক ট্যাব শিরোনামে ফোকাস দিন, নির্বাচন না করে"
+
+#: ../doc/keyboard.rst:47
+msgid "Move focus between dock tab titles"
+msgstr "ডক ট্যাব শিরোনামের মধ্যে ফোকাস স্থানান্তর করুন"
+
+#: ../doc/keyboard.rst:48
+msgid ":kbd:`Left` / :kbd:`Right` while a title has focus"
+msgstr "শিরোনামে ফোকাস থাকাকালে :kbd:`Left` / :kbd:`Right`"
+
+#: ../doc/keyboard.rst:49
+msgid "Activate the focused dock tab and enter its first control"
+msgstr "ফোকাসকৃত ডক ট্যাব সক্রিয় করুন এবং এর প্রথম নিয়ন্ত্রণে প্রবেশ করুন"
+
+#: ../doc/keyboard.rst:50
+msgid ":kbd:`Space` or :kbd:`Enter`"
+msgstr ":kbd:`Space` অথবা :kbd:`Enter`"
+
+#: ../doc/keyboard.rst:51
+msgid "Browse Project Files, transitions, effects, or emojis"
+msgstr "প্রজেক্ট ফাইল, ট্রানজিশন, ইফেক্ট অথবা ইমোজি ব্রাউজ করুন"
+
+#: ../doc/keyboard.rst:52
+msgid "Arrow keys while the list has focus"
+msgstr "তালিকায় ফোকাস থাকাকালে অ্যারো কী"
+
+#: ../doc/keyboard.rst:54
+msgid ""
+"Each grouped dock title is a separate Tab stop. Its normal focus style marks"
+" the focused title (an underline in Cosmic Dusk); moving focus does not "
+"change the selected dock. Activate a title to switch docks and focus its "
+"first control. Clicking a dock tab also focuses its first control, even if "
+"that tab is already selected. Only the active dock's visible controls "
+"participate in the Tab sequence; hidden dock controls are skipped."
+msgstr ""
+"প্রতিটি গ্রুপকৃত ডক শিরোনাম আলাদা ট্যাব স্টপ। এর সাধারণ ফোকাস স্টাইল "
+"ফোকাসকৃত শিরোনাম চিহ্নিত করে (Cosmic Dusk-এ আন্ডারলাইন); ফোকাস স্থানান্তর "
+"করলে নির্বাচিত ডক পরিবর্তন হয় না। শিরোনাম সক্রিয় করলে ডক পরিবর্তন হয় এবং "
+"এর প্রথম নিয়ন্ত্রণে ফোকাস যায়। ডক ট্যাবে ক্লিক করলেও এর প্রথম নিয়ন্ত্রণে "
+"ফোকাস যায়, এমনকি ট্যাবটি ইতিমধ্যে নির্বাচিত থাকলেও। শুধুমাত্র সক্রিয় ডকের "
+"দৃশ্যমান নিয়ন্ত্রণগুলো ট্যাব সিকোয়েন্সে অংশ নেয়; লুকানো ডক নিয়ন্ত্রণগুলো"
+" বাদ দেওয়া হয়।"
+
+#: ../doc/keyboard.rst:61
+msgid ""
+"When focus is inside a dock, the underline stays beneath its active tab. "
+"When you Tab between titles, the underline follows the focused title. The "
+"timeline itself is one Tab stop; Tab does not visit each clip or transition."
+msgstr ""
+"যখন ফোকাস ডকের ভিতরে থাকে, আন্ডারলাইন সক্রিয় ট্যাবের নিচে থাকে। শিরোনামের "
+"মধ্যে ট্যাব করলে আন্ডারলাইন ফোকাসকৃত শিরোনাম অনুসরণ করে। টাইমলাইন নিজেই একটি"
+" ট্যাব স্টপ; ট্যাব প্রতিটি ক্লিপ বা ট্রানজিশনে যায় না।"
+
+#: ../doc/keyboard.rst:65
+msgid ""
+"The timeline's ruler and track headers, including their labels, dim when "
+"unfocused. The clip area stays the same. In Cosmic Dusk, a blue underline "
+"marks the focused dock's title text or active tab, and buttons show a blue "
+"focus border. The untitled timeline dock has no underline."
+msgstr ""
+"টাইমলাইনের রুলার এবং ট্র্যাক হেডার, তাদের লেবেলসহ, ফোকাস না থাকলে ম্লান হয়ে"
+" যায়। ক্লিপ এলাকা অপরিবর্তিত থাকে। Cosmic Dusk-এ, একটি নীল আন্ডারলাইন "
+"ফোকাসকৃত ডকের শিরোনাম টেক্সট বা সক্রিয় ট্যাব চিহ্নিত করে, এবং বোতামগুলো নীল"
+" ফোকাস বর্ডার দেখায়। শিরোনামহীন টাইমলাইন ডকে কোনো আন্ডারলাইন থাকে না।"
+
+#: ../doc/keyboard.rst:71
+msgid "Previewing a source"
+msgstr "একটি সোর্স প্রিভিউ করা"
+
+#: ../doc/keyboard.rst:72
+msgid ""
+"Press :kbd:`Shift+2` or :kbd:`Alt+P` with focus in Project Files to preview "
+"the selected file. With focus on the timeline, the same command previews the"
+" active selected clip from its Start point. With multiple items selected, "
+"the active selection anchor determines the source. Transitions and clips "
+"without an available project file do not open a source preview."
+msgstr ""
+"প্রজেক্ট ফাইলগুলিতে ফোকাস থাকাকালে নির্বাচিত ফাইল প্রিভিউ করতে "
+":kbd:`Shift+2` অথবা :kbd:`Alt+P` চাপুন। টাইমলাইনে ফোকাস থাকলে একই কমান্ড "
+"সক্রিয় নির্বাচিত ক্লিপের শুরু থেকে প্রিভিউ দেখায়। একাধিক আইটেম নির্বাচিত "
+"থাকলে সক্রিয় নির্বাচন অ্যাঙ্কর সোর্স নির্ধারণ করে। প্রজেক্ট ফাইল না থাকা "
+"ট্রানজিশন এবং ক্লিপ সোর্স প্রিভিউ খুলে না।"
+
+#: ../doc/keyboard.rst:78
+msgid ""
+"An existing preview for the same file or the same timeline clip is reused. "
+"Different timeline clips have separate range-editing targets, even if they "
+"use the same source. When neither the file list nor the timeline has focus, "
+"the command does nothing."
+msgstr ""
+"একই ফাইল বা একই টাইমলাইন ক্লিপের পূর্বের প্রিভিউ পুনরায় ব্যবহার করা হয়। "
+"বিভিন্ন টাইমলাইন ক্লিপের আলাদা রেঞ্জ-এডিটিং লক্ষ্য থাকে, যদিও তারা একই সোর্স"
+" ব্যবহার করে। ফাইল তালিকা বা টাইমলাইনে ফোকাস না থাকলে কমান্ড কিছু করে না।"
+
+#: ../doc/keyboard.rst:83
+msgid ""
+"In Preview File, click or drag the source ruler to scrub. Preview Clip and "
+"Split File also provide range editing: drag the Start/End grips, move the "
+"selected filmstrip range, draw a new range outside it, or edit their "
+"timecodes, or press :kbd:`I` / :kbd:`O` to set a marker at the playhead. End"
+" is the last included frame. :guilabel:`Loop` repeats the marked range. The "
+"preview uses your configured timeline playback and range-editing shortcuts: "
+":kbd:`,` / :kbd:`.` move the range one frame (:kbd:`Shift` moves five). "
+":kbd:`[` selects Start for trimming, :kbd:`]` selects End; comma and period "
+"then trim that edge. :kbd:`Esc` leaves trim mode before closing the dialog. "
+":kbd:`Left` / :kbd:`Right` scrub frames without changing the range. "
+":kbd:`Space` toggles playback, :kbd:`J` / :kbd:`L` change playback speed and"
+" :kbd:`K` pauses. These shortcuts leave text entry alone in Name and "
+"timecodes."
+msgstr ""
+"প্রিভিউ ফাইলে, সোর্স রুলারে ক্লিক করুন বা ড্র্যাগ করে স্ক্রাব করুন। প্রিভিউ "
+"ক্লিপ এবং স্প্লিট ফাইলেও রেঞ্জ এডিটিং সুবিধা আছে: স্টার্ট/এন্ড গ্রিপস "
+"ড্র্যাগ করুন, নির্বাচিত ফিল্মস্ট্রিপ রেঞ্জ সরান, এর বাইরে নতুন রেঞ্জ আঁকুন, "
+"অথবা তাদের টাইমকোড সম্পাদনা করুন, অথবা প্লেহেডে মার্কার সেট করতে :kbd:`I` / "
+":kbd:`O` চাপুন। এন্ড হলো অন্তর্ভুক্ত সর্বশেষ ফ্রেম। :guilabel:`Loop` চিহ্নিত"
+" রেঞ্জ পুনরাবৃত্তি করে। প্রিভিউ আপনার কনফিগার করা টাইমলাইন প্লেব্যাক এবং "
+"রেঞ্জ-এডিটিং শর্টকাট ব্যবহার করে: :kbd:`,` / :kbd:`.` রেঞ্জ এক ফ্রেম সরায় "
+"(:kbd:`Shift` পাঁচ ফ্রেম সরায়)। :kbd:`[` ট্রিমিংয়ের জন্য স্টার্ট নির্বাচন "
+"করে, :kbd:`]` এন্ড নির্বাচন করে; কমা এবং পিরিয়ড পরে সেই প্রান্ত ট্রিম করে। "
+":kbd:`Esc` ডায়ালগ বন্ধ করার আগে ট্রিম মোড থেকে বেরিয়ে আসে। :kbd:`Left` / "
+":kbd:`Right` ফ্রেম স্ক্রাব করে রেঞ্জ পরিবর্তন না করে। :kbd:`Space` প্লেব্যাক"
+" টগল করে, :kbd:`J` / :kbd:`L` প্লেব্যাক গতি পরিবর্তন করে এবং :kbd:`K` বিরতি "
+"দেয়। এই শর্টকাটগুলো নাম এবং টাইমকোডে টেক্সট এন্ট্রিকে স্পর্শ করে না"
+
+#: ../doc/keyboard.rst:96
+msgid ""
+"Scrubbing and moving markers do not edit the project until you click the "
+"dialog's Create, Update, or Update Clip button. See :ref:`split_clip_ref`."
+msgstr ""
+"স্ক্রাবিং এবং মার্কার সরানো প্রকল্প সম্পাদনা করে না যতক্ষণ না আপনি ডায়ালগের"
+" Create, Update, অথবা Update Clip বোতামে ক্লিক করেন। দেখুন "
+":ref:`split_clip_ref`\\ ।"
+
+#: ../doc/keyboard.rst:100
+msgid "Adding and applying assets"
+msgstr "অ্যাসেট যোগ করা এবং প্রয়োগ করা"
+
+#: ../doc/keyboard.rst:101
+msgid ""
+"The panel shortcuts above open the dock and focus its asset list directly. "
+"Use the arrow keys to choose an asset, then :kbd:`Ctrl+Enter` to add or "
+"apply it. Your existing browser selection is preserved; if nothing is "
+"selected, focusing the browser selects its current item or the first "
+"available item."
+msgstr ""
+"উপরের প্যানেল শর্টকাটগুলি ডক খুলে সরাসরি তার অ্যাসেট তালিকায় ফোকাস করে। "
+"একটি অ্যাসেট নির্বাচন করতে তীর চাবি ব্যবহার করুন, তারপর এটি যোগ বা প্রয়োগ "
+"করতে :kbd:`Ctrl+Enter` চাপুন। আপনার বিদ্যমান ব্রাউজার নির্বাচন সংরক্ষিত "
+"থাকে; কিছু নির্বাচিত না থাকলে, ব্রাউজারে ফোকাস করলে তার বর্তমান আইটেম বা "
+"প্রথম উপলব্ধ আইটেম নির্বাচন হয়।"
+
+#: ../doc/keyboard.rst:110
+msgid "Panel / action"
+msgstr "প্যানেল / ক্রিয়া"
+
+#: ../doc/keyboard.rst:112
+msgid "Result"
+msgstr "ফলাফল"
+
+#: ../doc/keyboard.rst:113
+msgid "Project Files: add selected files"
+msgstr "প্রকল্প ফাইল: নির্বাচিত ফাইল যোগ করুন"
+
+#: ../doc/keyboard.rst:114 ../doc/keyboard.rst:117 ../doc/keyboard.rst:120
+#: ../doc/keyboard.rst:123 ../doc/keyboard.rst:430
+msgid ":kbd:`Ctrl+Enter`"
+msgstr ":kbd:`Ctrl+Enter`"
+
+#: ../doc/keyboard.rst:115
+msgid ""
+"Place files sequentially at the playhead, in browser order, on the target "
+"track."
+msgstr ""
+"ফাইলগুলো প্লেহেডে ধারাবাহিকভাবে, ব্রাউজারের ক্রমে, লক্ষ্য ট্র্যাকে স্থাপন "
+"করুন।"
+
+#: ../doc/keyboard.rst:116
+msgid "Effects: apply selected effects"
+msgstr "ইফেক্ট: নির্বাচিত ইফেক্ট প্রয়োগ করুন"
+
+#: ../doc/keyboard.rst:118
+msgid ""
+"Apply to the selected timeline clips. Browsing effects keeps that clip "
+"selection."
+msgstr ""
+"নির্বাচিত টাইমলাইন ক্লিপে প্রয়োগ করুন। ইফেক্ট ব্রাউজ করার সময় সেই ক্লিপ "
+"নির্বাচন বজায় থাকে।"
+
+#: ../doc/keyboard.rst:119
+msgid "Transitions: add selected transitions"
+msgstr "ট্রানজিশন: নির্বাচিত ট্রানজিশন যোগ করুন"
+
+#: ../doc/keyboard.rst:121
+msgid ""
+"Place at the playhead on the target track, using the default transition "
+"length."
+msgstr ""
+"ডিফল্ট ট্রানজিশন দৈর্ঘ্য ব্যবহার করে লক্ষ্য ট্র্যাকের প্লেহেডে স্থাপন করুন।"
+
+#: ../doc/keyboard.rst:122
+msgid "Emojis: add selected emoji"
+msgstr "ইমোজি: নির্বাচিত ইমোজি যোগ করুন"
+
+#: ../doc/keyboard.rst:124
+msgid ""
+"Place at the playhead on the target track, using the default image length."
+msgstr ""
+"ডিফল্ট ইমেজ দৈর্ঘ্য ব্যবহার করে লক্ষ্য ট্র্যাকের প্লেহেডে স্থাপন করুন।"
+
+#: ../doc/keyboard.rst:125
+msgid "Open the Add to Timeline dialog for selected files"
+msgstr "নির্বাচিত ফাইলের জন্য Add to Timeline ডায়ালগ খুলুন"
+
+#: ../doc/keyboard.rst:126 ../doc/keyboard.rst:436
+msgid ":kbd:`Ctrl+Alt+A`"
+msgstr ":kbd:`Ctrl+Alt+A`"
+
+#: ../doc/keyboard.rst:127
+msgid "Choose placement and other options before adding the files."
+msgstr "ফাইল যোগ করার আগে স্থাপন এবং অন্যান্য বিকল্প নির্বাচন করুন।"
+
+#: ../doc/keyboard.rst:129
+msgid ""
+"The target is the selected timeline item's track, or the remembered track if"
+" nothing is selected. With neither available, OpenShot uses the highest "
+"unlocked track. The target track label appears **bold** while browsing "
+"assets. To change it, select an item on the desired track or clear the "
+"timeline selection and click the desired track before returning to the "
+"browser. A locked target blocks the operation; effects also require selected"
+" clips on unlocked tracks."
+msgstr ""
+"লক্ষ্য হল নির্বাচিত টাইমলাইন আইটেমের ট্র্যাক, অথবা কিছু নির্বাচিত না থাকলে "
+"স্মৃতিতে থাকা ট্র্যাক। যদি দুটিই না থাকে, OpenShot সর্বোচ্চ আনলক করা ট্র্যাক"
+" ব্যবহার করে। অ্যাসেট ব্রাউজ করার সময় লক্ষ্য ট্র্যাকের লেবেল **বোল্ড** "
+"দেখায়। এটি পরিবর্তন করতে, পছন্দসই ট্র্যাকের একটি আইটেম নির্বাচন করুন অথবা "
+"টাইমলাইন নির্বাচন মুছে দিন এবং ব্রাউজারে ফিরে যাওয়ার আগে পছন্দসই ট্র্যাকে "
+"ক্লিক করুন। একটি লক করা লক্ষ্য অপারেশন ব্লক করে; ইফেক্টের জন্যও আনলক করা "
+"ট্র্যাকে নির্বাচিত ক্লিপ প্রয়োজন।"
+
+#: ../doc/keyboard.rst:136
+msgid ""
+"Adding at the playhead uses normal OpenShot placement: it does not make room"
+" by shifting later clips or overwrite their content. As with dragging a "
+"single clip, an overlap can create an automatic transition. The playhead "
+"stays in place and focus stays in the browser, so you can continue choosing "
+"assets. Press :kbd:`Shift+3` to edit the newly added timeline items."
+msgstr ""
+"প্লেহেডে যোগ করা সাধারণ OpenShot স্থাপন ব্যবহার করে: এটি পরবর্তী ক্লিপ "
+"সরিয়ে জায়গা তৈরি করে না বা তাদের বিষয়বস্তু ওভাররাইট করে না। একটি একক "
+"ক্লিপ টেনে আনার মতো, ওভারল্যাপ একটি স্বয়ংক্রিয় ট্রানজিশন তৈরি করতে পারে। "
+"প্লেহেড একই স্থানে থাকে এবং ফোকাস ব্রাউজারে থাকে, তাই আপনি অ্যাসেট নির্বাচন "
+"চালিয়ে যেতে পারেন। নতুন যোগ করা টাইমলাইন আইটেম সম্পাদনা করতে :kbd:`Shift+3`"
+" চাপুন।"
+
+#: ../doc/keyboard.rst:142
+msgid ""
+"For example: :kbd:`Shift+1` → arrow keys → :kbd:`Ctrl+Enter` → "
+":kbd:`Shift+3`. The add/apply shortcut works in the asset list, not while "
+"typing in a filter or renaming an item."
+msgstr ""
+"উদাহরণস্বরূপ: :kbd:`Shift+1` → তীর চাবি → :kbd:`Ctrl+Enter` → "
+":kbd:`Shift+3`\\ । অ্যাড/অ্যাপ্লাই শর্টকাট অ্যাসেট তালিকায় কাজ করে, "
+"ফিল্টারে টাইপ করার সময় বা আইটেমের নাম পরিবর্তনের সময় নয়।"
+
+#: ../doc/keyboard.rst:147
+msgid "Moving the playhead"
+msgstr "প্লেহেড সরানো"
+
+#: ../doc/keyboard.rst:155
+msgid "Step backward / forward one frame"
+msgstr "এক ফ্রেম পিছনে / সামনে যান"
+
+#: ../doc/keyboard.rst:156
+msgid ":kbd:`Left` / :kbd:`Right`"
+msgstr ":kbd:`Left` / :kbd:`Right`"
+
+#: ../doc/keyboard.rst:157
+msgid "Step backward / forward five frames"
+msgstr "পাঁচ ফ্রেম পিছনে / সামনে যান"
+
+#: ../doc/keyboard.rst:158
+msgid ":kbd:`Shift+Left` / :kbd:`Shift+Right`"
+msgstr ":kbd:`Shift+Left` / :kbd:`Shift+Right`"
+
+#: ../doc/keyboard.rst:159
+msgid "Go to the previous / next edit"
+msgstr "পূর্ববর্তী / পরবর্তী সম্পাদনায় যান"
+
+#: ../doc/keyboard.rst:160
+msgid ":kbd:`Up` / :kbd:`Down`"
+msgstr ":kbd:`Up` / :kbd:`Down`"
+
+#: ../doc/keyboard.rst:161
+msgid "Jump to the start / end"
+msgstr "শুরু / শেষ এ ঝাঁপ দিন"
+
+#: ../doc/keyboard.rst:162
+msgid ":kbd:`Home` / :kbd:`End`"
+msgstr ":kbd:`Home` / :kbd:`End`"
+
+#: ../doc/keyboard.rst:163
+msgid "Center the timeline on the playhead"
+msgstr "প্লেহেডে টাইমলাইন কেন্দ্র করুন"
+
+#: ../doc/keyboard.rst:164 ../doc/keyboard.rst:451
+msgid ":kbd:`Shift+C`"
+msgstr ":kbd:`Shift+C`"
+
+#: ../doc/keyboard.rst:165 ../doc/keyboard.rst:292
+msgid "Play / pause"
+msgstr "চালান / বিরতি দিন"
+
+#: ../doc/keyboard.rst:166 ../doc/keyboard.rst:595
+msgid ":kbd:`Space`"
+msgstr ":kbd:`Space`"
+
+#: ../doc/keyboard.rst:167
+msgid "Play in reverse"
+msgstr "উল্টো দিকে চালান"
+
+#: ../doc/keyboard.rst:168 ../doc/keyboard.rst:634
+msgid ":kbd:`J`"
+msgstr ":kbd:`J`"
+
+#: ../doc/keyboard.rst:169
+msgid "Stop playback"
+msgstr "চলমান বন্ধ করুন"
+
+#: ../doc/keyboard.rst:170 ../doc/keyboard.rst:712
+msgid ":kbd:`K`"
+msgstr ":kbd:`K`"
+
+#: ../doc/keyboard.rst:171
+msgid "Play forward"
+msgstr "সামনে চালান"
+
+#: ../doc/keyboard.rst:172 ../doc/keyboard.rst:511
+msgid ":kbd:`L`"
+msgstr ":kbd:`L`"
+
+#: ../doc/keyboard.rst:174
+msgid ""
+"Edit navigation uses the selected item's track, or the last clicked track if"
+" nothing is selected. With no active track, it starts on the highest track "
+"containing a clip or transition at the playhead, or the highest populated "
+"track in a gap."
+msgstr ""
+"সম্পাদনা নেভিগেশন নির্বাচিত আইটেমের ট্র্যাক ব্যবহার করে, অথবা কিছু নির্বাচিত"
+" না থাকলে সর্বশেষ ক্লিক করা ট্র্যাক। কোনো সক্রিয় ট্র্যাক না থাকলে, এটি "
+"প্লেহেডে ক্লিপ বা ট্রানজিশন থাকা সর্বোচ্চ ট্র্যাক থেকে শুরু হয়, অথবা গ্যাপে"
+" সর্বোচ্চ জনবহুল ট্র্যাক থেকে।"
+
+#: ../doc/keyboard.rst:179
+msgid "Selecting clips and transitions"
+msgstr "ক্লিপ এবং ট্রানজিশন নির্বাচন করা"
+
+#: ../doc/keyboard.rst:180
+msgid ""
+"These shortcuts select both clips and transitions. Selection brings an item "
+"into view without changing the zoom or playhead."
+msgstr ""
+"এই শর্টকাটগুলি ক্লিপ এবং ট্রানজিশন উভয়ই নির্বাচন করে। নির্বাচন একটি আইটেমকে"
+" দৃশ্যমান করে, জুম বা প্লেহেড পরিবর্তন না করে।"
+
+#: ../doc/keyboard.rst:188
+msgid "Select the previous / next item"
+msgstr "পূর্ববর্তী / পরবর্তী আইটেম নির্বাচন করুন"
+
+#: ../doc/keyboard.rst:189
+msgid ":kbd:`Ctrl+Left` / :kbd:`Ctrl+Right`"
+msgstr ":kbd:`Ctrl+Left` / :kbd:`Ctrl+Right`"
+
+#: ../doc/keyboard.rst:190
+msgid "Select an item above / below"
+msgstr "উপরের / নিচের একটি আইটেম নির্বাচন করুন"
+
+#: ../doc/keyboard.rst:191
+msgid ":kbd:`Ctrl+Up` / :kbd:`Ctrl+Down`"
+msgstr ":kbd:`Ctrl+Up` / :kbd:`Ctrl+Down`"
+
+#: ../doc/keyboard.rst:192
+msgid "Extend selection to the previous / next item"
+msgstr "নির্বাচন সম্প্রসারণ করুন পূর্ববর্তী / পরবর্তী আইটেম পর্যন্ত"
+
+#: ../doc/keyboard.rst:193
+msgid ":kbd:`Ctrl+Shift+Left` / :kbd:`Ctrl+Shift+Right`"
+msgstr ":kbd:`Ctrl+Shift+Left` / :kbd:`Ctrl+Shift+Right`"
+
+#: ../doc/keyboard.rst:194
+msgid "Cycle through items under the playhead"
+msgstr "প্লেহেডের নিচে থাকা আইটেমগুলোর মধ্যে সাইকেল করুন"
+
+#: ../doc/keyboard.rst:195 ../doc/keyboard.rst:652
+msgid ":kbd:`D`"
+msgstr ":kbd:`D`"
+
+#: ../doc/keyboard.rst:196
+msgid "Extend selection through items under the playhead"
+msgstr "প্লেহেডের নিচে থাকা আইটেমগুলোর মাধ্যমে নির্বাচন সম্প্রসারণ করুন"
+
+#: ../doc/keyboard.rst:197 ../doc/keyboard.rst:502
+msgid ":kbd:`Ctrl+Shift+D`"
+msgstr ":kbd:`Ctrl+Shift+D`"
+
+#: ../doc/keyboard.rst:198
+msgid "Select all / clear selection"
+msgstr "সব নির্বাচন করুন / নির্বাচন পরিষ্কার করুন"
+
+#: ../doc/keyboard.rst:199
+msgid ":kbd:`Ctrl+A` / :kbd:`Ctrl+Shift+A`"
+msgstr ":kbd:`Ctrl+A` / :kbd:`Ctrl+Shift+A`"
+
+#: ../doc/keyboard.rst:201
+msgid ""
+"**Left/right** follows the current track first. When no item remains in that"
+" direction, it continues to the closest item start on another track."
+msgstr ""
+"**বাম/ডান** প্রথমে বর্তমান ট্র্যাক অনুসরণ করে। যখন ঐ দিকের কোনো আইটেম থাকে "
+"না, তখন এটি অন্য ট্র্যাকের সবচেয়ে কাছের আইটেম শুরুতে চলে যায়।"
+
+#: ../doc/keyboard.rst:204
+msgid ""
+"**Up/down** looks above or below the selected item, preferring items that "
+"overlap it in time. The nearest overlapping track wins. If nothing overlaps,"
+" the smallest horizontal gap wins, then the nearest track. Ties on a track "
+"favor the closest item center. Empty tracks and unrelated items farther to "
+"the side do not block navigation. With no selection, the playhead supplies "
+"the starting position."
+msgstr ""
+"**উপর/নিচে** নির্বাচিত আইটেমের উপরে বা নিচে তাকায়, সময়ে ওভারল্যাপ করা "
+"আইটেমগুলিকে অগ্রাধিকার দেয়। সবচেয়ে কাছের ওভারল্যাপ করা ট্র্যাক জিতে যায়। "
+"যদি কিছু ওভারল্যাপ না করে, তাহলে সবচেয়ে ছোট অনুভূমিক ফাঁক জিতে যায়, তারপর "
+"সবচেয়ে কাছের ট্র্যাক। একটি ট্র্যাকে সমান হলে সবচেয়ে কাছের আইটেম কেন্দ্রকে "
+"অগ্রাধিকার দেওয়া হয়। খালি ট্র্যাক এবং দূরে থাকা সম্পর্কহীন আইটেমগুলি "
+"নেভিগেশন ব্লক করে না। কোনো নির্বাচন না থাকলে, প্লেহেড শুরু অবস্থান সরবরাহ "
+"করে।"
+
+#: ../doc/keyboard.rst:210
+msgid ""
+"**Selection at the playhead** cycles from the highest track to the lowest, "
+"then wraps to the top. Moving the playhead restarts the cycle. If no item is"
+" under it, the selection stays unchanged. Extending selection keeps items "
+"already selected."
+msgstr ""
+"**প্লেহেডে নির্বাচন** সর্বোচ্চ ট্র্যাক থেকে সর্বনিম্ন ট্র্যাক পর্যন্ত ঘুরে, "
+"তারপর উপরে ফিরে আসে। প্লেহেড সরালে চক্র পুনরায় শুরু হয়। যদি এর নিচে কোনো "
+"আইটেম না থাকে, নির্বাচন অপরিবর্তিত থাকে। নির্বাচন বাড়ালে ইতিমধ্যে নির্বাচিত"
+" আইটেমগুলি থাকে।"
+
+#: ../doc/keyboard.rst:217
+msgid "Moving clips and transitions"
+msgstr "ক্লিপ এবং ট্রানজিশন সরানো"
+
+#: ../doc/keyboard.rst:218
+msgid ""
+"These shortcuts move the selected clips and transitions when no trim edge is"
+" selected."
+msgstr ""
+"যখন কোনো ট্রিম এজ নির্বাচন করা হয় না, তখন এই শর্টকাটগুলি নির্বাচিত ক্লিপ "
+"এবং ট্রানজিশন সরায়।"
+
+#: ../doc/keyboard.rst:226
+msgid "Move left / right one frame"
+msgstr "এক ফ্রেম বামে / ডানে সরান"
+
+#: ../doc/keyboard.rst:227 ../doc/keyboard.rst:257
+msgid ":kbd:`,` / :kbd:`.`"
+msgstr ":kbd:`,` / :kbd:`.`"
+
+#: ../doc/keyboard.rst:228
+msgid "Move left / right five frames"
+msgstr "পাঁচ ফ্রেম বামে / ডানে সরান"
+
+#: ../doc/keyboard.rst:229 ../doc/keyboard.rst:259
+msgid ":kbd:`Shift+,` / :kbd:`Shift+.`"
+msgstr ":kbd:`Shift+,` / :kbd:`Shift+.`"
+
+#: ../doc/keyboard.rst:230
+msgid "Move up / down one track"
+msgstr "একটি ট্র্যাক উপরে / নিচে সরান"
+
+#: ../doc/keyboard.rst:231
+msgid ":kbd:`Alt+Up` / :kbd:`Alt+Down`"
+msgstr ":kbd:`Alt+Up` / :kbd:`Alt+Down`"
+
+#: ../doc/keyboard.rst:233
+msgid ""
+"Track moves keep the selection's timing and can use empty tracks. A locked "
+"track or the edge of the track list blocks the whole track move."
+msgstr ""
+"ট্র্যাক সরানো নির্বাচনের সময় বজায় রাখে এবং খালি ট্র্যাক ব্যবহার করতে পারে।"
+" একটি লক করা ট্র্যাক বা ট্র্যাক তালিকার প্রান্ত পুরো ট্র্যাক সরানো বন্ধ করে "
+"দেয়।"
+
+#: ../doc/keyboard.rst:236
+msgid ""
+"Hold a comma/period shortcut to move continuously. OpenShot previews the "
+"movement while the key repeats, then saves the final positions when you "
+"release it. One Undo reverses the entire hold, including all selected items."
+" Separate key taps remain separate undo steps. Leaving the timeline or "
+"starting another keyboard command also finishes the current movement."
+msgstr ""
+"অবিরত সরানোর জন্য কমা/পিরিয়ড শর্টকাট ধরে রাখুন। OpenShot কী বারবার চাপার "
+"সময় সরানোর প্রিভিউ দেখায়, এবং ছেড়ে দিলে চূড়ান্ত অবস্থান সংরক্ষণ করে। "
+"একটি Undo পুরো ধরে রাখাকে বিপরীত করে, সমস্ত নির্বাচিত আইটেমসহ। আলাদা কী চাপা"
+" আলাদা Undo ধাপ থাকে। টাইমলাইন ছেড়ে যাওয়া বা অন্য কী-বোর্ড কমান্ড শুরু "
+"করাও বর্তমান সরানো শেষ করে।"
+
+#: ../doc/keyboard.rst:243
+msgid "Trimming clips and transitions"
+msgstr "ক্লিপ এবং ট্রানজিশন ট্রিম করা"
+
+#: ../doc/keyboard.rst:244
+msgid ""
+"Select a clip or transition, choose its left or right edge, then adjust that"
+" edge."
+msgstr ""
+"একটি ক্লিপ বা ট্রানজিশন নির্বাচন করুন, এর বাম বা ডান প্রান্ত নির্বাচন করুন, "
+"তারপর সেই প্রান্তটি সামঞ্জস্য করুন।"
+
+#: ../doc/keyboard.rst:252
+msgid "Select the left trim edge"
+msgstr "বাম ট্রিম প্রান্ত নির্বাচন করুন"
+
+#: ../doc/keyboard.rst:253 ../doc/keyboard.rst:661
+msgid ":kbd:`[`"
+msgstr ":kbd:`[`"
+
+#: ../doc/keyboard.rst:254
+msgid "Select the right trim edge"
+msgstr "ডান ট্রিম প্রান্ত নির্বাচন করুন"
+
+#: ../doc/keyboard.rst:255 ../doc/keyboard.rst:673
+msgid ":kbd:`]`"
+msgstr ":kbd:`]`"
+
+#: ../doc/keyboard.rst:256
+msgid "Move the selected edge left / right one frame"
+msgstr "নির্বাচিত প্রান্ত এক ফ্রেম বামে / ডানে সরান"
+
+#: ../doc/keyboard.rst:258
+msgid "Move the selected edge left / right five frames"
+msgstr "নির্বাচিত প্রান্ত পাঁচ ফ্রেম বামে / ডানে সরান"
+
+#: ../doc/keyboard.rst:260
+msgid "Leave trim mode and restore the timeline preview"
+msgstr "ট্রিম মোড ছেড়ে টাইমলাইন প্রিভিউ পুনরুদ্ধার করুন"
+
+#: ../doc/keyboard.rst:261
+msgid ":kbd:`Esc`"
+msgstr ":kbd:`Esc`"
+
+#: ../doc/keyboard.rst:263
+msgid ""
+"The selected edge has a fading highlight. Video Preview shows the first "
+"included frame for the left edge or the last included frame for the right "
+"edge, updating after each trim without moving the playhead. For transitions,"
+" the preview shows the transition mask. Trims respect the available source "
+"media and do not ripple other clips."
+msgstr ""
+"নির্বাচিত প্রান্তে একটি ফেইডিং হাইলাইট থাকে। ভিডিও প্রিভিউ বাম প্রান্তের "
+"জন্য প্রথম অন্তর্ভুক্ত ফ্রেম বা ডান প্রান্তের জন্য শেষ অন্তর্ভুক্ত ফ্রেম "
+"দেখায়, প্রতিটি ট্রিমের পরে প্লেহেড না সরিয়ে আপডেট হয়। ট্রানজিশনের জন্য, "
+"প্রিভিউ ট্রানজিশন মাস্ক দেখায়। ট্রিমগুলি উপলব্ধ সোর্স মিডিয়াকে সম্মান করে "
+"এবং অন্যান্য ক্লিপে প্রভাব ফেলে না।"
+
+#: ../doc/keyboard.rst:269
+msgid ""
+"Holding a trim shortcut also groups its repeated adjustments into one undo "
+"step."
+msgstr ""
+"ট্রিম শর্টকাট ধরে রাখলে এর পুনরাবৃত্তি সমন্বয়গুলো একক Undo ধাপে গোষ্ঠীবদ্ধ "
+"হয়।"
+
+#: ../doc/keyboard.rst:271
+msgid ""
+"After leaving trim mode, comma/period move whole clips and transitions "
+"again."
+msgstr ""
+"ট্রিম মোড ছেড়ে গেলে, কমা/পিরিয়ড আবার পুরো ক্লিপ এবং ট্রানজিশন সরায়।"
+
+#: ../doc/keyboard.rst:274
+msgid "Coming from another editor?"
+msgstr "অন্য কোনো এডিটর থেকে আসছেন?"
+
+#: ../doc/keyboard.rst:275
+msgid ""
+"Compare a few everyday editing tasks with shortcuts you may already know."
+msgstr ""
+"আপনি হয়তো ইতিমধ্যেই জানেন এমন শর্টকাটের সাথে কিছু দৈনন্দিন এডিটিং কাজ তুলনা"
+" করুন।"
+
+#: ../doc/keyboard.rst:277
+msgid ""
+"The table shows OpenShot's Windows/Linux defaults, Adobe Premiere Pro and "
+"DaVinci Resolve Windows defaults, and Final Cut Pro Mac defaults. On macOS, "
+"OpenShot uses Command for shortcuts shown with Ctrl. Shortcuts in other "
+"editors can vary with the version, keyboard layout, selected preset, and "
+"active panel. Similar shortcuts can also behave differently on stacked or "
+"connected clips."
+msgstr ""
+"টেবিলটি OpenShot এর Windows/Linux ডিফল্ট, Adobe Premiere Pro এবং DaVinci "
+"Resolve Windows ডিফল্ট, এবং Final Cut Pro Mac ডিফল্ট দেখায়। macOS এ, "
+"OpenShot Ctrl এর পরিবর্তে Command ব্যবহার করে। অন্যান্য এডিটরে শর্টকাট "
+"সংস্করণ, কীবোর্ড বিন্যাস, নির্বাচিত প্রিসেট এবং সক্রিয় প্যানেলের উপর নির্ভর"
+" করে পরিবর্তিত হতে পারে। একই ধরনের শর্টকাট স্ট্যাক করা বা সংযুক্ত ক্লিপে "
+"ভিন্নভাবে কাজ করতে পারে।"
+
+#: ../doc/keyboard.rst:283
+msgid "Everyday editing shortcuts"
+msgstr "দৈনন্দিন এডিটিং শর্টকাট"
+
+#: ../doc/keyboard.rst:287
+msgid "Task"
+msgstr "কাজ"
+
+#: ../doc/keyboard.rst:288
+msgid "OpenShot"
+msgstr "OpenShot"
+
+#: ../doc/keyboard.rst:289
+msgid "Premiere Pro"
+msgstr "Premiere Pro"
+
+#: ../doc/keyboard.rst:290
+msgid "DaVinci Resolve"
+msgstr "DaVinci Resolve"
+
+#: ../doc/keyboard.rst:291
+msgid "Final Cut Pro"
+msgstr "Final Cut Pro"
+
+#: ../doc/keyboard.rst:293 ../doc/keyboard.rst:294 ../doc/keyboard.rst:295
+#: ../doc/keyboard.rst:296
+msgid "Space"
+msgstr "স্পেস"
+
+#: ../doc/keyboard.rst:297
+msgid "Reverse / stop / forward"
+msgstr "পিছনে / থামান / সামনে"
+
+#: ../doc/keyboard.rst:298 ../doc/keyboard.rst:299 ../doc/keyboard.rst:300
+#: ../doc/keyboard.rst:301
+msgid "J / K / L"
+msgstr "J / K / L"
+
+#: ../doc/keyboard.rst:302
+msgid "Previous / next frame"
+msgstr "পূর্ববর্তী / পরবর্তী ফ্রেম"
+
+#: ../doc/keyboard.rst:303 ../doc/keyboard.rst:304 ../doc/keyboard.rst:305
+#: ../doc/keyboard.rst:306
+msgid "Left / Right"
+msgstr "বাম / ডান"
+
+#: ../doc/keyboard.rst:307
+msgid "Previous / next edit"
+msgstr "পূর্ববর্তী / পরবর্তী সম্পাদনা"
+
+#: ../doc/keyboard.rst:308
+msgid "Up / Down (active track)"
+msgstr "উপর / নিচে (সক্রিয় ট্র্যাক)"
+
+#: ../doc/keyboard.rst:309 ../doc/keyboard.rst:310 ../doc/keyboard.rst:311
+msgid "Up / Down"
+msgstr "উপর / নিচে"
+
+#: ../doc/keyboard.rst:312
+msgid "Focus media browser / project assets"
+msgstr "মিডিয়া ব্রাউজার / প্রকল্প সম্পদে ফোকাস করুন"
+
+#: ../doc/keyboard.rst:313
+msgid "Shift+1"
+msgstr "Shift+1"
+
+#: ../doc/keyboard.rst:314
+msgid "Shift+1 (Project panel)"
+msgstr "Shift+1 (প্রকল্প প্যানেল)"
+
+#: ../doc/keyboard.rst:315 ../doc/keyboard.rst:320
+msgid "Not listed here"
+msgstr "এখানে তালিকাভুক্ত নয়"
+
+#: ../doc/keyboard.rst:316
+msgid "Cmd+1 (Browser)"
+msgstr "Cmd+1 (ব্রাউজার)"
+
+#: ../doc/keyboard.rst:317
+msgid "Focus timeline"
+msgstr "টাইমলাইন ফোকাস করুন"
+
+#: ../doc/keyboard.rst:318 ../doc/keyboard.rst:319
+msgid "Shift+3"
+msgstr "Shift+3"
+
+#: ../doc/keyboard.rst:321
+msgid "Cmd+2"
+msgstr "Cmd+2"
+
+#: ../doc/keyboard.rst:322
+msgid "Add source media at the playhead"
+msgstr "প্লেহেডে সোর্স মিডিয়া যোগ করুন"
+
+#: ../doc/keyboard.rst:323
+msgid "Ctrl+Enter (place on target track)"
+msgstr "Ctrl+Enter (টার্গেট ট্র্যাকে রাখুন)"
+
+#: ../doc/keyboard.rst:324
+msgid "Comma (insert); period (overwrite)"
+msgstr "কমা (সন্নিবেশ); পিরিয়ড (ওভাররাইট)"
+
+#: ../doc/keyboard.rst:325
+msgid "F9 (insert); F10 (overwrite)"
+msgstr "F9 (সন্নিবেশ); F10 (ওভাররাইট)"
+
+#: ../doc/keyboard.rst:326
+msgid "W (insert); D (overwrite); Q (connect)"
+msgstr "W (সন্নিবেশ); D (ওভাররাইট); Q (সংযোগ)"
+
+#: ../doc/keyboard.rst:327
+msgid "Select previous / next clip"
+msgstr "পূর্ববর্তী / পরবর্তী ক্লিপ নির্বাচন করুন"
+
+#: ../doc/keyboard.rst:328 ../doc/keyboard.rst:330
+msgid "Ctrl+Left / Right"
+msgstr "Ctrl+বাম / ডান"
+
+#: ../doc/keyboard.rst:329 ../doc/keyboard.rst:333 ../doc/keyboard.rst:335
+msgid "Ctrl+Up / Down"
+msgstr "Ctrl+উপর / নিচে"
+
+#: ../doc/keyboard.rst:331
+msgid "Cmd+Left / Right (same role; also moves playhead)"
+msgstr "Cmd+বাম / ডান (একই ভূমিকা; প্লেহেডও সরায়)"
+
+#: ../doc/keyboard.rst:332
+msgid "Select clip above / below"
+msgstr "উপরের / নিচের ক্লিপ নির্বাচন করুন"
+
+#: ../doc/keyboard.rst:334
+msgid "No default listed here"
+msgstr "এখানে কোন ডিফল্ট তালিকাভুক্ত নেই"
+
+#: ../doc/keyboard.rst:336
+msgid "Cmd+Up / Down"
+msgstr "Cmd+উপর / নিচে"
+
+#: ../doc/keyboard.rst:337
+msgid "Move selection up / down"
+msgstr "নির্বাচন উপরে / নিচে সরান"
+
+#: ../doc/keyboard.rst:338 ../doc/keyboard.rst:339 ../doc/keyboard.rst:340
+msgid "Alt+Up / Down"
+msgstr "Alt+উপর / নিচে"
+
+#: ../doc/keyboard.rst:341
+msgid "Option+Up / Down (connected clips)"
+msgstr "Option+উপর / নিচে (সংযুক্ত ক্লিপ)"
+
+#: ../doc/keyboard.rst:342
+msgid "Nudge left / right one frame"
+msgstr "এক ফ্রেম বাম / ডানে সরান"
+
+#: ../doc/keyboard.rst:343 ../doc/keyboard.rst:345 ../doc/keyboard.rst:346
+msgid "Comma / period"
+msgstr "কমা / পিরিয়ড"
+
+#: ../doc/keyboard.rst:344
+msgid "Alt+Left / Right"
+msgstr "Alt+বাম / ডান"
+
+#: ../doc/keyboard.rst:347
+msgid "Nudge by several frames"
+msgstr "কয়েক ফ্রেম দ্বারা সরান"
+
+#: ../doc/keyboard.rst:348
+msgid "Shift+comma / period (5)"
+msgstr "Shift+কমা / পিরিয়ড (৫)"
+
+#: ../doc/keyboard.rst:349
+msgid "Alt+Shift+Left / Right (5)"
+msgstr "Alt+Shift+বাম / ডান (৫)"
+
+#: ../doc/keyboard.rst:350
+msgid "Shift+comma / period (configurable; default 5)"
+msgstr "Shift+কমা / পিরিয়ড (কনফিগারযোগ্য; ডিফল্ট ৫)"
+
+#: ../doc/keyboard.rst:351
+msgid "Shift+comma / period (10)"
+msgstr "Shift+কমা / পিরিয়ড (১০)"
+
+#: ../doc/keyboard.rst:352
+msgid "Select at playhead"
+msgstr "প্লেহেডে নির্বাচন করুন"
+
+#: ../doc/keyboard.rst:353
+msgid "D (cycles through stacked clips)"
+msgstr "D (স্ট্যাক করা ক্লিপের মধ্যে ঘুরে)"
+
+#: ../doc/keyboard.rst:354
+msgid "D"
+msgstr "D"
+
+#: ../doc/keyboard.rst:355
+msgid "Shift+V (nearest clip/gap)"
+msgstr "Shift+V (নিকটতম ক্লিপ/ফাঁক)"
+
+#: ../doc/keyboard.rst:356
+msgid "X selects a range; C selects under the pointer"
+msgstr "X একটি পরিসর নির্বাচন করে; C পয়েন্টারের নিচে নির্বাচন করে"
+
+#: ../doc/keyboard.rst:357
+msgid "Split at playhead"
+msgstr "প্লেহেডে ভাগ করুন"
+
+#: ../doc/keyboard.rst:358
+msgid "Ctrl+K (selected clips)"
+msgstr "Ctrl+K (নির্বাচিত ক্লিপ)"
+
+#: ../doc/keyboard.rst:359
+msgid "Ctrl+K (targeted tracks)"
+msgstr "Ctrl+K (টার্গেট ট্র্যাক)"
+
+#: ../doc/keyboard.rst:360
+msgid "Ctrl+B"
+msgstr "Ctrl+B"
+
+#: ../doc/keyboard.rst:361
+msgid "Cmd+B"
+msgstr "Cmd+B"
+
+#: ../doc/keyboard.rst:362 ../doc/keyboard.rst:726
+msgid "Undo"
+msgstr "পূর্বাবস্থা ফেরান"
+
+#: ../doc/keyboard.rst:363 ../doc/keyboard.rst:364 ../doc/keyboard.rst:365
+msgid "Ctrl+Z"
+msgstr "Ctrl+Z"
+
+#: ../doc/keyboard.rst:366
+msgid "Cmd+Z"
+msgstr "Cmd+Z"
+
+#: ../doc/keyboard.rst:367
+msgid "Save project"
+msgstr "প্রকল্প সংরক্ষণ করুন"
+
+#: ../doc/keyboard.rst:368 ../doc/keyboard.rst:369 ../doc/keyboard.rst:370
+msgid "Ctrl+S"
+msgstr "Ctrl+S"
+
+#: ../doc/keyboard.rst:371
+msgid "Saves automatically"
+msgstr "স্বয়ংক্রিয়ভাবে সংরক্ষণ করে"
+
+#: ../doc/keyboard.rst:373
+msgid ""
+"For complete shortcut lists and customization options, see the `Premiere Pro"
+" keyboard reference <https://helpx.adobe.com/premiere/desktop/get-"
+"started/keyboard-shortcuts/default-keyboard-shortcuts.html>`_, `DaVinci "
+"Resolve training guides "
+"<https://www.blackmagicdesign.com/products/davinciresolve/training>`_, and "
+"`Final Cut Pro keyboard reference <https://support.apple.com/guide/final-"
+"cut-pro/ver90ba5929/mac>`_."
+msgstr ""
+"সম্পূর্ণ শর্টকাট তালিকা এবং কাস্টমাইজেশন বিকল্পের জন্য, দেখুন `Premiere Pro "
+"কীবোর্ড রেফারেন্স <https://helpx.adobe.com/premiere/desktop/get-"
+"started/keyboard-shortcuts/default-keyboard-shortcuts.html>`_, `DaVinci "
+"Resolve প্রশিক্ষণ গাইড "
+"<https://www.blackmagicdesign.com/products/davinciresolve/training>`_, এবং "
+"`Final Cut Pro কীবোর্ড রেফারেন্স <https://support.apple.com/guide/final-cut-"
+"pro/ver90ba5929/mac>`_।"
+
+#: ../doc/keyboard.rst:381
+msgid "Mouse shortcuts"
+msgstr "মাউস শর্টকাট"
+
+#: ../doc/keyboard.rst:382
+msgid ""
+"These gestures complement the keyboard shortcuts. In Project Files' Details "
+"view, double-click the thumbnail column for the file actions below."
+msgstr ""
+"এই জেসচারগুলি কীবোর্ড শর্টকাটগুলিকে সম্পূরক করে। Project Files এর Details "
+"ভিউতে, নিচের ফাইল অ্যাকশনের জন্য থাম্বনেইল কলামে ডাবল-ক্লিক করুন।"
+
+#: ../doc/keyboard.rst:390
+msgid "Mouse gesture"
+msgstr "মাউস জেসচার"
+
+#: ../doc/keyboard.rst:391
+msgid "Keyboard alternative"
+msgstr "কীবোর্ড বিকল্প"
+
+#: ../doc/keyboard.rst:392
+msgid "Preview a file in Project Files"
+msgstr "Project Files এ একটি ফাইল প্রিভিউ করুন"
+
+#: ../doc/keyboard.rst:393
+msgid "Double-click the file"
+msgstr "ফাইলটি ডাবল-ক্লিক করুন"
+
+#: ../doc/keyboard.rst:395
+msgid "Open file properties in Project Files"
+msgstr "Project Files এ ফাইলের বৈশিষ্ট্য খুলুন"
+
+#: ../doc/keyboard.rst:396
+msgid ":kbd:`Ctrl` + double-click the file"
+msgstr ":kbd:`Ctrl` + ফাইলটি ডাবল-ক্লিক করুন"
+
+#: ../doc/keyboard.rst:397 ../doc/keyboard.rst:514
+msgid ":kbd:`Alt+I`"
+msgstr ":kbd:`Alt+I`"
+
+#: ../doc/keyboard.rst:398
+msgid "Split a file in Project Files"
+msgstr "Project Files এ একটি ফাইল ভাগ করুন"
+
+#: ../doc/keyboard.rst:399
+msgid ":kbd:`Shift` + double-click the file"
+msgstr ":kbd:`Shift` + ফাইলটি ডাবল-ক্লিক করুন"
+
+#: ../doc/keyboard.rst:400 ../doc/keyboard.rst:709
+msgid ":kbd:`Alt+S`"
+msgstr ":kbd:`Alt+S`"
+
+#: ../doc/keyboard.rst:401
+msgid "Select an item and everything to its right on the same track"
+msgstr "একটি আইটেম এবং একই ট্র্যাকের ডানদিকে সবকিছু নির্বাচন করুন"
+
+#: ../doc/keyboard.rst:402
+msgid ":kbd:`Alt` + click the clip or transition"
+msgstr ":kbd:`Alt` + ক্লিপ বা ট্রানজিশনে ক্লিক করুন"
+
+#: ../doc/keyboard.rst:403
+msgid ":kbd:`Alt+A` with an item selected"
+msgstr "একটি আইটেম নির্বাচিত অবস্থায় :kbd:`Alt+A`"
+
+#: ../doc/keyboard.rst:404
+msgid "Open properties for a timeline clip or transition"
+msgstr "টাইমলাইন ক্লিপ বা ট্রানজিশনের বৈশিষ্ট্য খুলুন"
+
+#: ../doc/keyboard.rst:405
+msgid "Double-click the item"
+msgstr "আইটেমটি ডাবল-ক্লিক করুন"
+
+#: ../doc/keyboard.rst:406 ../doc/keyboard.rst:616
+msgid ":kbd:`U`"
+msgstr ":kbd:`U`"
+
+#: ../doc/keyboard.rst:407
+msgid "Fit the whole timeline in view"
+msgstr "পুরো টাইমলাইন ভিউতে ফিট করুন"
+
+#: ../doc/keyboard.rst:408
+msgid "Double-click the zoom slider"
+msgstr "জুম স্লাইডার ডাবল-ক্লিক করুন"
+
+#: ../doc/keyboard.rst:409
+msgid ":kbd:`\\\\` or :kbd:`Shift+\\\\`"
+msgstr ":kbd:`\\\\` অথবা :kbd:`Shift+\\\\`"
+
+#: ../doc/keyboard.rst:412
+msgid "Full shortcut reference"
+msgstr "সম্পূর্ণ শর্টকাট রেফারেন্স"
+
+#: ../doc/keyboard.rst:413
+msgid ""
+"These are the default shortcuts, including view shortcuts supplied by the "
+"menus. Your assignments in Preferences may differ. On macOS, Command is used"
+" for shortcuts shown with Ctrl."
+msgstr ""
+"এগুলি ডিফল্ট শর্টকাট, যার মধ্যে মেনু দ্বারা সরবরাহিত ভিউ শর্টকাটও রয়েছে। "
+"আপনার Preferences এ নিয়োগ ভিন্ন হতে পারে। macOS এ, Command ব্যবহার করা হয় "
+"Ctrl সহ প্রদর্শিত শর্টকাটের জন্য।"
+
+#: ../doc/keyboard.rst:416
+msgid "Default keyboard shortcuts"
+msgstr "ডিফল্ট কীবোর্ড শর্টকাট"
+
+#: ../doc/keyboard.rst:421
+msgid "Primary shortcut"
+msgstr "প্রাথমিক শর্টকাট"
+
+#: ../doc/keyboard.rst:422
+msgid "Alternatives"
+msgstr "বিকল্প"
+
+#: ../doc/keyboard.rst:423
+msgid "About OpenShot"
+msgstr "OpenShot সম্পর্কে"
+
+#: ../doc/keyboard.rst:424
+msgid ":kbd:`Ctrl+H`"
+msgstr ":kbd:`Ctrl+H`"
+
+#: ../doc/keyboard.rst:426
+msgid "Add Marker"
+msgstr "মার্কার যোগ করুন"
+
+#: ../doc/keyboard.rst:427
+msgid ":kbd:`M`"
+msgstr ":kbd:`M`"
+
+#: ../doc/keyboard.rst:429
+msgid "Add or Apply Selected Asset"
+msgstr "নির্বাচিত সম্পদ যোগ করুন বা প্রয়োগ করুন"
+
+#: ../doc/keyboard.rst:432
+msgid "Add Text"
+msgstr "টেক্সট যোগ করুন"
+
+#: ../doc/keyboard.rst:433
+msgid ":kbd:`Shift+T`"
+msgstr ":kbd:`Shift+T`"
+
+#: ../doc/keyboard.rst:435
+msgid "Add to Timeline"
+msgstr "টাইমলাইনে যোগ করুন"
+
+#: ../doc/keyboard.rst:438
+msgid "Add Track"
+msgstr "ট্র্যাক যোগ করুন"
+
+#: ../doc/keyboard.rst:439
+msgid ":kbd:`Ctrl+Y`"
+msgstr ":kbd:`Ctrl+Y`"
+
+#: ../doc/keyboard.rst:441
+msgid "Animated Title"
+msgstr "অ্যানিমেটেড শিরোনাম"
+
+#: ../doc/keyboard.rst:442
+msgid ":kbd:`Ctrl+Shift+T`"
+msgstr ":kbd:`Ctrl+Shift+T`"
+
+#: ../doc/keyboard.rst:444
+msgid "Ask a Question..."
+msgstr "একটি প্রশ্ন করুন..."
+
+#: ../doc/keyboard.rst:445
+msgid ":kbd:`F4`"
+msgstr ":kbd:`F4`"
+
+#: ../doc/keyboard.rst:447
+msgid "Auto-Optimize"
+msgstr "স্বয়ংক্রিয় অপ্টিমাইজ করুন"
+
+#: ../doc/keyboard.rst:448
+msgid ":kbd:`Ctrl+Alt+O`"
+msgstr ":kbd:`Ctrl+Alt+O`"
+
+#: ../doc/keyboard.rst:450
+msgid "Center on Playhead"
+msgstr "প্লেহেডের কেন্দ্রে"
+
+#: ../doc/keyboard.rst:453
+msgid "Choose Profile"
+msgstr "প্রোফাইল নির্বাচন করুন"
+
+#: ../doc/keyboard.rst:454
+msgid ":kbd:`Ctrl+Alt+P`"
+msgstr ":kbd:`Ctrl+Alt+P`"
+
+#: ../doc/keyboard.rst:456
+msgid "Clear All Cache"
+msgstr "সমস্ত ক্যাশে পরিষ্কার করুন"
+
+#: ../doc/keyboard.rst:457
+msgid ":kbd:`Ctrl+Shift+ESC`"
+msgstr ":kbd:`Ctrl+Shift+ESC`"
+
+#: ../doc/keyboard.rst:459
+msgid "Clear History"
+msgstr "ইতিহাস মুছুন"
+
+#: ../doc/keyboard.rst:460
+msgid ":kbd:`Ctrl+Shift+H`"
+msgstr ":kbd:`Ctrl+Shift+H`"
+
+#: ../doc/keyboard.rst:462
+msgid "Clear Waveform Display Data"
+msgstr "ওয়েভফর্ম প্রদর্শন ডেটা মুছুন"
+
+#: ../doc/keyboard.rst:463
+msgid ":kbd:`Ctrl+Shift+W`"
+msgstr ":kbd:`Ctrl+Shift+W`"
+
+#: ../doc/keyboard.rst:465
+msgid "Color View"
+msgstr "রঙের দৃশ্য"
+
+#: ../doc/keyboard.rst:466
+msgid ":kbd:`Alt+Shift+2`"
+msgstr ":kbd:`Alt+Shift+2`"
+
+#: ../doc/keyboard.rst:468
+msgid "Copy"
+msgstr "কপি করুন"
+
+#: ../doc/keyboard.rst:469
+msgid ":kbd:`Ctrl+C`"
+msgstr ":kbd:`Ctrl+C`"
+
+#: ../doc/keyboard.rst:471
+msgid "Cut"
+msgstr "কাট করুন"
+
+#: ../doc/keyboard.rst:472
+msgid ":kbd:`Ctrl+X`"
+msgstr ":kbd:`Ctrl+X`"
+
+#: ../doc/keyboard.rst:474
+msgid "Delete Item"
+msgstr "আইটেম মুছুন"
+
+#: ../doc/keyboard.rst:475
+msgid ":kbd:`Delete`"
+msgstr ":kbd:`Delete`"
+
+#: ../doc/keyboard.rst:476
+msgid ":kbd:`Backspace`"
+msgstr ":kbd:`Backspace`"
+
+#: ../doc/keyboard.rst:477
+msgid "Delete Item (Ripple)"
+msgstr "আইটেম মুছুন (রিপল)"
+
+#: ../doc/keyboard.rst:478
+msgid ":kbd:`Shift+Delete`"
+msgstr ":kbd:`Shift+Delete`"
+
+#: ../doc/keyboard.rst:480
+msgid "Delete Optimized Videos"
+msgstr "অপ্টিমাইজ করা ভিডিও মুছুন"
+
+#: ../doc/keyboard.rst:481
+msgid ":kbd:`Ctrl+Shift+O`"
+msgstr ":kbd:`Ctrl+Shift+O`"
+
+#: ../doc/keyboard.rst:483
+msgid "Details View"
+msgstr "বিস্তারিত দৃশ্য"
+
+#: ../doc/keyboard.rst:484
+msgid ":kbd:`Ctrl+Page Up`"
+msgstr ":kbd:`Ctrl+Page Up`"
+
+#: ../doc/keyboard.rst:486
+msgid "Donate"
+msgstr "দান করুন"
+
+#: ../doc/keyboard.rst:487
+msgid ":kbd:`F7`"
+msgstr ":kbd:`F7`"
+
+#: ../doc/keyboard.rst:489
+msgid "Duplicate"
+msgstr "প্রতিলিপি করুন"
+
+#: ../doc/keyboard.rst:490
+msgid ":kbd:`Ctrl+Shift+/`"
+msgstr ":kbd:`Ctrl+Shift+/`"
+
+#: ../doc/keyboard.rst:492
+msgid "Edit Title"
+msgstr "শিরোনাম সম্পাদনা করুন"
+
+#: ../doc/keyboard.rst:493
+msgid ":kbd:`Alt+T`"
+msgstr ":kbd:`Alt+T`"
+
+#: ../doc/keyboard.rst:495
+msgid "Export Files"
+msgstr "ফাইল রপ্তানি করুন"
+
+#: ../doc/keyboard.rst:496
+msgid ":kbd:`Ctrl+Shift+E`"
+msgstr ":kbd:`Ctrl+Shift+E`"
+
+#: ../doc/keyboard.rst:498
+msgid "Export Video"
+msgstr "ভিডিও রপ্তানি করুন"
+
+#: ../doc/keyboard.rst:499
+msgid ":kbd:`Ctrl+E`"
+msgstr ":kbd:`Ctrl+E`"
+
+#: ../doc/keyboard.rst:500
+msgid ":kbd:`Ctrl+M`"
+msgstr ":kbd:`Ctrl+M`"
+
+#: ../doc/keyboard.rst:501
+msgid "Extend Selection at Playhead"
+msgstr "প্লেহেডে নির্বাচন বাড়ান"
+
+#: ../doc/keyboard.rst:504
+msgid "Extend Selection to Next Item"
+msgstr "পরবর্তী আইটেম পর্যন্ত নির্বাচন বাড়ান"
+
+#: ../doc/keyboard.rst:505
+msgid ":kbd:`Ctrl+Shift+Right`"
+msgstr ":kbd:`Ctrl+Shift+Right`"
+
+#: ../doc/keyboard.rst:507
+msgid "Extend Selection to Previous Item"
+msgstr "পূর্ববর্তী আইটেম পর্যন্ত নির্বাচন বাড়ান"
+
+#: ../doc/keyboard.rst:508
+msgid ":kbd:`Ctrl+Shift+Left`"
+msgstr ":kbd:`Ctrl+Shift+Left`"
+
+#: ../doc/keyboard.rst:510
+msgid "Fast Forward"
+msgstr "দ্রুত অগ্রসর করুন"
+
+#: ../doc/keyboard.rst:513
+msgid "File Properties"
+msgstr "ফাইল বৈশিষ্ট্য"
+
+#: ../doc/keyboard.rst:525
+msgid "Focus Timeline"
+msgstr "টাইমলাইনে ফোকাস করুন"
+
+#: ../doc/keyboard.rst:531
+msgid "Fullscreen"
+msgstr "পূর্ণ পর্দা"
+
+#: ../doc/keyboard.rst:532
+msgid ":kbd:`F11`"
+msgstr ":kbd:`F11`"
+
+#: ../doc/keyboard.rst:534
+msgid "Import Files..."
+msgstr "ফাইল আমদানি করুন..."
+
+#: ../doc/keyboard.rst:535
+msgid ":kbd:`Ctrl+I`"
+msgstr ":kbd:`Ctrl+I`"
+
+#: ../doc/keyboard.rst:537
+msgid "Insert Keyframe"
+msgstr "কীফ্রেম সন্নিবেশ করুন"
+
+#: ../doc/keyboard.rst:538
+msgid ":kbd:`Alt+Shift+K`"
+msgstr ":kbd:`Alt+Shift+K`"
+
+#: ../doc/keyboard.rst:540
+msgid "Join our Community..."
+msgstr "আমাদের কমিউনিটিতে যোগ দিন..."
+
+#: ../doc/keyboard.rst:541
+msgid ":kbd:`F5`"
+msgstr ":kbd:`F5`"
+
+#: ../doc/keyboard.rst:543
+msgid "Jump To End"
+msgstr "শেষে যান"
+
+#: ../doc/keyboard.rst:544
+msgid ":kbd:`End`"
+msgstr ":kbd:`End`"
+
+#: ../doc/keyboard.rst:546
+msgid "Jump To Start"
+msgstr "শুরুতে যান"
+
+#: ../doc/keyboard.rst:547
+msgid ":kbd:`Home`"
+msgstr ":kbd:`Home`"
+
+#: ../doc/keyboard.rst:549
+msgid "Launch Tutorial"
+msgstr "টিউটোরিয়াল চালু করুন"
+
+#: ../doc/keyboard.rst:550
+msgid ":kbd:`F2`"
+msgstr ":kbd:`F2`"
+
+#: ../doc/keyboard.rst:552
+msgid "Move Selection Down One Track"
+msgstr "নির্বাচন এক ট্র্যাক নিচে সরান"
+
+#: ../doc/keyboard.rst:553
+msgid ":kbd:`Alt+Down`"
+msgstr ":kbd:`Alt+Down`"
+
+#: ../doc/keyboard.rst:555
+msgid "Move Selection Up One Track"
+msgstr "নির্বাচন এক ট্র্যাক উপরে সরান"
+
+#: ../doc/keyboard.rst:556
+msgid ":kbd:`Alt+Up`"
+msgstr ":kbd:`Alt+Up`"
+
+#: ../doc/keyboard.rst:558
+msgid "New Project"
+msgstr "নতুন প্রকল্প"
+
+#: ../doc/keyboard.rst:559
+msgid ":kbd:`Ctrl+N`"
+msgstr ":kbd:`Ctrl+N`"
+
+#: ../doc/keyboard.rst:561
+msgid "Next Edit Point"
+msgstr "পরবর্তী সম্পাদনার পয়েন্ট"
+
+#: ../doc/keyboard.rst:562
+msgid ":kbd:`Down`"
+msgstr ":kbd:`Down`"
+
+#: ../doc/keyboard.rst:564
+msgid "Next Five Frames"
+msgstr "পরবর্তী পাঁচ ফ্রেম"
+
+#: ../doc/keyboard.rst:565
+msgid ":kbd:`Shift+Right`"
+msgstr ":kbd:`Shift+Right`"
+
+#: ../doc/keyboard.rst:567
+msgid "Next Frame"
+msgstr "পরবর্তী ফ্রেম"
+
+#: ../doc/keyboard.rst:568
+msgid ":kbd:`Right`"
+msgstr ":kbd:`Right`"
+
+#: ../doc/keyboard.rst:570
+msgid "Next Marker"
+msgstr "পরবর্তী মার্কার"
+
+#: ../doc/keyboard.rst:571
+msgid ":kbd:`Shift+M`"
+msgstr ":kbd:`Shift+M`"
+
+#: ../doc/keyboard.rst:572
+msgid ":kbd:`Alt+Right`"
+msgstr ":kbd:`Alt+Right`"
+
+#: ../doc/keyboard.rst:573
+msgid "Nudge left (1 Frame)"
+msgstr "এক ফ্রেম বামে সরান"
+
+#: ../doc/keyboard.rst:574
+msgid ":kbd:`,`"
+msgstr ":kbd:`,`"
+
+#: ../doc/keyboard.rst:576
+msgid "Nudge left (5 Frames)"
+msgstr "পাঁচ ফ্রেম বামে সরান"
+
+#: ../doc/keyboard.rst:577
+msgid ":kbd:`Shift+,`"
+msgstr ":kbd:`Shift+,`"
+
+#: ../doc/keyboard.rst:579
+msgid "Nudge right (1 Frame)"
+msgstr "এক ফ্রেম ডানে সরান"
+
+#: ../doc/keyboard.rst:580
+msgid ":kbd:`.`"
+msgstr ":kbd:`.`"
+
+#: ../doc/keyboard.rst:582
+msgid "Nudge right (5 Frames)"
+msgstr "পাঁচ ফ্রেম ডানে সরান"
+
+#: ../doc/keyboard.rst:583
+msgid ":kbd:`Shift+.`"
+msgstr ":kbd:`Shift+.`"
+
+#: ../doc/keyboard.rst:585
+msgid "Open Help Contents"
+msgstr "সহায়তা বিষয়বস্তু খুলুন"
+
+#: ../doc/keyboard.rst:586
+msgid ":kbd:`F1`"
+msgstr ":kbd:`F1`"
+
+#: ../doc/keyboard.rst:588
+msgid "Open Project..."
+msgstr "প্রকল্প খুলুন..."
+
+#: ../doc/keyboard.rst:589
+msgid ":kbd:`Ctrl+O`"
+msgstr ":kbd:`Ctrl+O`"
+
+#: ../doc/keyboard.rst:591
+msgid "Paste"
+msgstr "পেস্ট করুন"
+
+#: ../doc/keyboard.rst:592
+msgid ":kbd:`Ctrl+V`"
+msgstr ":kbd:`Ctrl+V`"
+
+#: ../doc/keyboard.rst:594
+msgid "Play/Pause Toggle"
+msgstr "প্লে/পজ টগল করুন"
+
+#: ../doc/keyboard.rst:597
+msgid "Preferences"
+msgstr "পছন্দসমূহ"
+
+#: ../doc/keyboard.rst:598
+msgid ":kbd:`Ctrl+P`"
+msgstr ":kbd:`Ctrl+P`"
+
+#: ../doc/keyboard.rst:600
+msgid "Preview File"
+msgstr "ফাইল পূর্বদর্শন"
+
+#: ../doc/keyboard.rst:603
+msgid "Previous Edit Point"
+msgstr "পূর্ববর্তী সম্পাদনা পয়েন্ট"
+
+#: ../doc/keyboard.rst:604
+msgid ":kbd:`Up`"
+msgstr ":kbd:`Up`"
+
+#: ../doc/keyboard.rst:606
+msgid "Previous Five Frames"
+msgstr "পূর্ববর্তী পাঁচটি ফ্রেম"
+
+#: ../doc/keyboard.rst:607
+msgid ":kbd:`Shift+Left`"
+msgstr ":kbd:`Shift+Left`"
+
+#: ../doc/keyboard.rst:609
+msgid "Previous Frame"
+msgstr "পূর্ববর্তী ফ্রেম"
+
+#: ../doc/keyboard.rst:610
+msgid ":kbd:`Left`"
+msgstr ":kbd:`Left`"
+
+#: ../doc/keyboard.rst:612
+msgid "Previous Marker"
+msgstr "পূর্ববর্তী মার্কার"
+
+#: ../doc/keyboard.rst:613
+msgid ":kbd:`Ctrl+Shift+M`"
+msgstr ":kbd:`Ctrl+Shift+M`"
+
+#: ../doc/keyboard.rst:614
+msgid ":kbd:`Alt+Left`"
+msgstr ":kbd:`Alt+Left`"
+
+#: ../doc/keyboard.rst:615
+msgid "Properties"
+msgstr "গুণাবলী"
+
+#: ../doc/keyboard.rst:618
+msgid "Quit"
+msgstr "প্রস্থান করুন"
+
+#: ../doc/keyboard.rst:619
+msgid ":kbd:`Ctrl+Q`"
+msgstr ":kbd:`Ctrl+Q`"
+
+#: ../doc/keyboard.rst:621
+msgid "Razor Toggle"
+msgstr "রেজর টগল করুন"
+
+#: ../doc/keyboard.rst:622
+msgid ":kbd:`C`"
+msgstr ":kbd:`C`"
+
+#: ../doc/keyboard.rst:623
+msgid ":kbd:`B` or :kbd:`R`"
+msgstr ":kbd:`B` অথবা :kbd:`R`"
+
+#: ../doc/keyboard.rst:624
+msgid "Recording View"
+msgstr "রেকর্ডিং ভিউ"
+
+#: ../doc/keyboard.rst:625
+msgid ":kbd:`Alt+Shift+3`"
+msgstr ":kbd:`Alt+Shift+3`"
+
+#: ../doc/keyboard.rst:627
+msgid "Redo"
+msgstr "পুনরায় করুন"
+
+#: ../doc/keyboard.rst:628
+msgid ":kbd:`Ctrl+Shift+Z`"
+msgstr ":kbd:`Ctrl+Shift+Z`"
+
+#: ../doc/keyboard.rst:630
+msgid "Report a Bug..."
+msgstr "বাগ রিপোর্ট করুন..."
+
+#: ../doc/keyboard.rst:631
+msgid ":kbd:`F3`"
+msgstr ":kbd:`F3`"
+
+#: ../doc/keyboard.rst:633
+msgid "Rewind"
+msgstr "পিছনে নিন"
+
+#: ../doc/keyboard.rst:636
+msgid "Save Current Frame"
+msgstr "বর্তমান ফ্রেম সংরক্ষণ করুন"
+
+#: ../doc/keyboard.rst:637
+msgid ":kbd:`Shift+E`"
+msgstr ":kbd:`Shift+E`"
+
+#: ../doc/keyboard.rst:639
+msgid "Save Project"
+msgstr "প্রকল্প সংরক্ষণ করুন"
+
+#: ../doc/keyboard.rst:640
+msgid ":kbd:`Ctrl+S`"
+msgstr ":kbd:`Ctrl+S`"
+
+#: ../doc/keyboard.rst:642
+msgid "Save Project As..."
+msgstr "প্রকল্প সংরক্ষণ করুন যেমন..."
+
+#: ../doc/keyboard.rst:643
+msgid ":kbd:`Ctrl+Shift+S`"
+msgstr ":kbd:`Ctrl+Shift+S`"
+
+#: ../doc/keyboard.rst:645
+msgid "Select All"
+msgstr "সব নির্বাচন করুন"
+
+#: ../doc/keyboard.rst:646
+msgid ":kbd:`Ctrl+A`"
+msgstr ":kbd:`Ctrl+A`"
+
+#: ../doc/keyboard.rst:648
+msgid "Select Item Above"
+msgstr "উপরের আইটেম নির্বাচন করুন"
+
+#: ../doc/keyboard.rst:649
+msgid ":kbd:`Ctrl+Up`"
+msgstr ":kbd:`Ctrl+Up`"
+
+#: ../doc/keyboard.rst:651
+msgid "Select Item at Playhead"
+msgstr "প্লেহেডে আইটেম নির্বাচন করুন"
+
+#: ../doc/keyboard.rst:654
+msgid "Select Item Below"
+msgstr "নিচের আইটেম নির্বাচন করুন"
+
+#: ../doc/keyboard.rst:655
+msgid ":kbd:`Ctrl+Down`"
+msgstr ":kbd:`Ctrl+Down`"
+
+#: ../doc/keyboard.rst:657
+msgid "Select Item (Ripple)"
+msgstr "আইটেম নির্বাচন করুন (রিপল)"
+
+#: ../doc/keyboard.rst:658
+msgid ":kbd:`Alt+A`"
+msgstr ":kbd:`Alt+A`"
+
+#: ../doc/keyboard.rst:660
+msgid "Select Left Item Edge"
+msgstr "বাম আইটেম প্রান্ত নির্বাচন করুন"
+
+#: ../doc/keyboard.rst:663
+msgid "Select Next Item"
+msgstr "পরবর্তী আইটেম নির্বাচন করুন"
+
+#: ../doc/keyboard.rst:664
+msgid ":kbd:`Ctrl+Right`"
+msgstr ":kbd:`Ctrl+Right`"
+
+#: ../doc/keyboard.rst:666
+msgid "Select None"
+msgstr "কিছুই নির্বাচন করবেন না"
+
+#: ../doc/keyboard.rst:667
+msgid ":kbd:`Ctrl+Shift+A`"
+msgstr ":kbd:`Ctrl+Shift+A`"
+
+#: ../doc/keyboard.rst:669
+msgid "Select Previous Item"
+msgstr "পূর্ববর্তী আইটেম নির্বাচন করুন"
+
+#: ../doc/keyboard.rst:670
+msgid ":kbd:`Ctrl+Left`"
+msgstr ":kbd:`Ctrl+Left`"
+
+#: ../doc/keyboard.rst:672
+msgid "Select Right Item Edge"
+msgstr "ডান আইটেম প্রান্ত নির্বাচন করুন"
+
+#: ../doc/keyboard.rst:675
+msgid "Share Feedback..."
+msgstr "প্রতিক্রিয়া শেয়ার করুন..."
+
+#: ../doc/keyboard.rst:676
+msgid ":kbd:`F8`"
+msgstr ":kbd:`F8`"
+
+#: ../doc/keyboard.rst:678
+msgid "Simple View"
+msgstr "সরল ভিউ"
+
+#: ../doc/keyboard.rst:679
+msgid ":kbd:`Alt+Shift+0`"
+msgstr ":kbd:`Alt+Shift+0`"
+
+#: ../doc/keyboard.rst:681
+msgid "Slice All: Keep Both Sides"
+msgstr "সব কাটা: উভয় পাশ রাখুন"
+
+#: ../doc/keyboard.rst:682
+msgid ":kbd:`Ctrl+Shift+K`"
+msgstr ":kbd:`Ctrl+Shift+K`"
+
+#: ../doc/keyboard.rst:684
+msgid "Slice All: Keep Left Side"
+msgstr "সব কাটা: বাম পাশ রাখুন"
+
+#: ../doc/keyboard.rst:685
+msgid ":kbd:`Ctrl+Shift+J`"
+msgstr ":kbd:`Ctrl+Shift+J`"
+
+#: ../doc/keyboard.rst:687
+msgid "Slice All: Keep Right Side"
+msgstr "সব কাটা: ডান পাশ রাখুন"
+
+#: ../doc/keyboard.rst:688
+msgid ":kbd:`Ctrl+Shift+L`"
+msgstr ":kbd:`Ctrl+Shift+L`"
+
+#: ../doc/keyboard.rst:690
+msgid "Slice Selected: Keep Both Sides"
+msgstr "নির্বাচিত কাটা: উভয় পাশ রাখুন"
+
+#: ../doc/keyboard.rst:691
+msgid ":kbd:`Ctrl+K`"
+msgstr ":kbd:`Ctrl+K`"
+
+#: ../doc/keyboard.rst:693
+msgid "Slice Selected: Keep Left (Ripple)"
+msgstr "নির্বাচিত কাটা: বাম পাশ রাখুন (রিপল)"
+
+#: ../doc/keyboard.rst:694
+msgid ":kbd:`W`"
+msgstr ":kbd:`W`"
+
+#: ../doc/keyboard.rst:696
+msgid "Slice Selected: Keep Left Side"
+msgstr "নির্বাচিত কাটা: বাম পাশ রাখুন"
+
+#: ../doc/keyboard.rst:697
+msgid ":kbd:`Ctrl+J`"
+msgstr ":kbd:`Ctrl+J`"
+
+#: ../doc/keyboard.rst:699
+msgid "Slice Selected: Keep Right (Ripple)"
+msgstr "নির্বাচিত কাটা: ডান পাশ রাখুন (রিপল)"
+
+#: ../doc/keyboard.rst:700
+msgid ":kbd:`Q`"
+msgstr ":kbd:`Q`"
+
+#: ../doc/keyboard.rst:702
+msgid "Slice Selected: Keep Right Side"
+msgstr "নির্বাচিত কাটা: ডান পাশ রাখুন"
+
+#: ../doc/keyboard.rst:703
+msgid ":kbd:`Ctrl+L`"
+msgstr ":kbd:`Ctrl+L`"
+
+#: ../doc/keyboard.rst:705
+msgid "Snapping Toggle"
+msgstr "স্ন্যাপিং টগল করুন"
+
+#: ../doc/keyboard.rst:706
+msgid ":kbd:`S`"
+msgstr ":kbd:`S`"
+
+#: ../doc/keyboard.rst:708
+msgid "Split File"
+msgstr "ফাইল বিভক্ত করুন"
+
+#: ../doc/keyboard.rst:711
+msgid "Stop Playback"
+msgstr "প্লেব্যাক বন্ধ করুন"
+
+#: ../doc/keyboard.rst:714
+msgid "Thumbnail View"
+msgstr "থাম্বনেইল ভিউ"
+
+#: ../doc/keyboard.rst:715
+msgid ":kbd:`Ctrl+Page Down`"
+msgstr ":kbd:`Ctrl+Page Down`"
+
+#: ../doc/keyboard.rst:717
+msgid "Timing Toggle"
+msgstr "টাইমিং টগল করুন"
+
+#: ../doc/keyboard.rst:718
+msgid ":kbd:`T`"
+msgstr ":kbd:`T`"
+
+#: ../doc/keyboard.rst:720
+msgid "Title"
+msgstr "শিরোনাম"
+
+#: ../doc/keyboard.rst:721
+msgid ":kbd:`Ctrl+T`"
+msgstr ":kbd:`Ctrl+T`"
+
+#: ../doc/keyboard.rst:723
+msgid "Translate this Application..."
+msgstr "এই অ্যাপ্লিকেশন অনুবাদ করুন..."
+
+#: ../doc/keyboard.rst:724
+msgid ":kbd:`F6`"
+msgstr ":kbd:`F6`"
+
+#: ../doc/keyboard.rst:727
+msgid ":kbd:`Ctrl+Z`"
+msgstr ":kbd:`Ctrl+Z`"
+
+#: ../doc/keyboard.rst:729
+msgid "Update Available"
+msgstr "আপডেট উপলব্ধ"
+
+#: ../doc/keyboard.rst:730
+msgid ":kbd:`F9`"
+msgstr ":kbd:`F9`"
+
+#: ../doc/keyboard.rst:732
+msgid "View Toolbar"
+msgstr "টুলবার দেখুন"
+
+#: ../doc/keyboard.rst:733
+msgid ":kbd:`Ctrl+Shift+B`"
+msgstr ":kbd:`Ctrl+Shift+B`"
+
+#: ../doc/keyboard.rst:735
+msgid "Zoom In"
+msgstr "জুম ইন করুন"
+
+#: ../doc/keyboard.rst:736
+msgid ":kbd:`=`"
+msgstr ":kbd:`=`"
+
+#: ../doc/keyboard.rst:737
+msgid ":kbd:`Ctrl+=`"
+msgstr ":kbd:`Ctrl+=`"
+
+#: ../doc/keyboard.rst:738
+msgid "Zoom Out"
+msgstr "জুম আউট করুন"
+
+#: ../doc/keyboard.rst:739
+msgid ":kbd:`-`"
+msgstr ":kbd:`-`"
+
+#: ../doc/keyboard.rst:740
+msgid ":kbd:`Ctrl+-`"
+msgstr ":kbd:`Ctrl+-`"
+
+#: ../doc/keyboard.rst:741
+msgid "Zoom to Timeline"
+msgstr "টাইমলাইন-এ জুম করুন"
+
+#: ../doc/keyboard.rst:742
+msgid ":kbd:`\\\\`"
+msgstr ":kbd:`\\\\`"
+
+#: ../doc/keyboard.rst:743
+msgid ":kbd:`Shift+\\\\`"
+msgstr ":kbd:`Shift+\\\\`"

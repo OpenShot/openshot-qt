@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-16 18:08-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,34 +18,34 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:21
+#: ../doc/import_export.rst:21
 msgid "Import & Export"
 msgstr "Importar e Exportar"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:23
+#: ../doc/import_export.rst:23
 msgid ""
 "Video editing projects (including tracks, clips, and keyframes) can be "
-"**imported** and **exported** from OpenShot Video Editor in widely supported "
-"formats (**EDL**: Edit Decision Lists, and **XML**: Final Cut Pro format). "
+"**imported** and **exported** from OpenShot Video Editor in widely supported"
+" formats (**EDL**: Edit Decision Lists, and **XML**: Final Cut Pro format). "
 "For example, if you start editing a video in a different program (Adobe "
 "Premier, Final Cut Pro, etc...), but later need to move all your edits to "
 "OpenShot (or vice versa)."
 msgstr ""
-"Projetos de edição de vídeo (incluindo faixas, clipes e quadros-chave) podem "
-"ser **importados** e **exportados** do OpenShot Video Editor em formatos "
+"Projetos de edição de vídeo (incluindo faixas, clipes e quadros-chave) podem"
+" ser **importados** e **exportados** do OpenShot Video Editor em formatos "
 "amplamente suportados (**EDL**: Listas de Decisão de Edição, e **XML**: "
 "formato Final Cut Pro). Por exemplo, se você começar a editar um vídeo em "
 "outro programa (Adobe Premiere, Final Cut Pro, etc...), mas depois precisar "
 "mover todas as suas edições para o OpenShot (ou vice-versa)."
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:29
+#: ../doc/import_export.rst:29
 msgid "EDL (Edit Decision Lists)"
 msgstr "EDL (Listas de Decisão de Edição)"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:30
+#: ../doc/import_export.rst:30
 msgid ""
 "The following features are supported when importing and exporting an EDL "
 "file with OpenShot."
@@ -54,89 +54,90 @@ msgstr ""
 "com o OpenShot."
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:36
+#: ../doc/import_export.rst:36
 msgid "EDL Option Name"
 msgstr "Nome da Opção EDL"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:36 ../import_export.rst:122
+#: ../doc/import_export.rst:36 ../doc/import_export.rst:122
 msgid "Description"
 msgstr "Descrição"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:38
+#: ../doc/import_export.rst:38
 msgid "EDL Format"
 msgstr "Formato EDL"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:38
+#: ../doc/import_export.rst:38
 msgid "CMX-3600 (a very widely supported variation)"
 msgstr "CMX-3600 (uma variação amplamente suportada)"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:39
+#: ../doc/import_export.rst:39
 msgid "Single Track"
 msgstr "Faixa Única"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:39
+#: ../doc/import_export.rst:39
 msgid ""
 "Only a single track can be imported at a time (this is a limitation of the "
 "EDL format)"
 msgstr ""
-"Apenas uma faixa pode ser importada por vez (esta é uma limitação do formato "
-"EDL)"
+"Apenas uma faixa pode ser importada por vez (esta é uma limitação do formato"
+" EDL)"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:40
+#: ../doc/import_export.rst:40
 msgid "Tape Name"
 msgstr "Nome da Fita"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:40
+#: ../doc/import_export.rst:40
 msgid "Only **AX** and **BL** tape names are currently supported in OpenShot"
 msgstr ""
-"Apenas os nomes de fita **AX** e **BL** são atualmente suportados no OpenShot"
+"Apenas os nomes de fita **AX** e **BL** são atualmente suportados no "
+"OpenShot"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:41
+#: ../doc/import_export.rst:41
 msgid "Edits (V and A)"
 msgstr "Edições (V e A)"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:41
+#: ../doc/import_export.rst:41
 msgid "Only edits are currently supported (transitions are not yet supported)"
 msgstr ""
 "Apenas edições são atualmente suportadas (transições ainda não são "
 "suportadas)"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:42 ../import_export.rst:127
+#: ../doc/import_export.rst:42 ../doc/import_export.rst:127
 msgid "Opacity"
 msgstr "Opacidade"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:42 ../import_export.rst:127
+#: ../doc/import_export.rst:42 ../doc/import_export.rst:127
 msgid "Opacity keyframes are supported"
 msgstr "Quadros-chave de opacidade são suportados"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:43 ../import_export.rst:128
+#: ../doc/import_export.rst:43 ../doc/import_export.rst:128
 msgid "Audio Levels"
 msgstr "Níveis de Áudio"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:43 ../import_export.rst:128
+#: ../doc/import_export.rst:43 ../doc/import_export.rst:128
 msgid "Volume keyframes are supported"
 msgstr "Quadros-chave de volume são suportados"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:47
+#: ../doc/import_export.rst:47
 msgid "Example EDL Output"
 msgstr "Exemplo de Saída EDL"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:49
+#: ../doc/import_export.rst:49
 msgid ""
 "OpenShot follows the CMX 3600 layout for event lines and uses comment lines "
 "(`* ...`) to carry keyframes. CMX 3600 does not define units or "
@@ -149,17 +150,17 @@ msgstr ""
 "comentário (`* ...`) para carregar quadros-chave. O CMX 3600 não define "
 "unidades ou interpolação nos comentários, então nosso exportador adiciona "
 "valores legíveis e nomes de interpolação, e nosso importador é muito "
-"tolerante: aceita unidades com ou sem espaços, caixa mista, tokens opcionais "
-"de interpolação e ignora textos desconhecidos ou etiquetas de rolo para "
+"tolerante: aceita unidades com ou sem espaços, caixa mista, tokens opcionais"
+" de interpolação e ignora textos desconhecidos ou etiquetas de rolo para "
 "maximizar a compatibilidade."
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:109
+#: ../doc/import_export.rst:109
 msgid "XML (Final Cut Pro format)"
 msgstr "XML (formato Final Cut Pro)"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:110
+#: ../doc/import_export.rst:110
 msgid ""
 "The following features are supported when importing and exporting an XML "
 "file with OpenShot. This XML format is supported in many video editors (not "
@@ -169,10 +170,11 @@ msgstr ""
 "Os seguintes recursos são suportados ao importar e exportar um arquivo XML "
 "com o OpenShot. Este formato XML é suportado em muitos editores de vídeo "
 "(não apenas no Final Cut Pro). De fato, a maioria dos editores de vídeo "
-"comerciais tem algum suporte para importar e exportar este mesmo formato XML."
+"comerciais tem algum suporte para importar e exportar este mesmo formato "
+"XML."
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:114
+#: ../doc/import_export.rst:114
 msgid ""
 "OpenShot uses the legacy Final Cut Pro XML Interchange Format (**xmeml**) "
 "from Final Cut Pro 7. Our exporter writes `<!DOCTYPE xmeml>` projects that "
@@ -181,47 +183,47 @@ msgid ""
 "Pro 7)."
 msgstr ""
 "O OpenShot usa o formato legado de intercâmbio XML do Final Cut Pro "
-"(**xmeml**) do Final Cut Pro 7. Nosso exportador escreve projetos `<!DOCTYPE "
-"xmeml>` que seguem o DTD XML do Final Cut Pro v1.0, e é compatível com as "
+"(**xmeml**) do Final Cut Pro 7. Nosso exportador escreve projetos `<!DOCTYPE"
+" xmeml>` que seguem o DTD XML do Final Cut Pro v1.0, e é compatível com as "
 "versões de esquema v4 e v5 desse formato de intercâmbio (os DTDs fornecidos "
 "com o Final Cut Pro 7)."
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:122
+#: ../doc/import_export.rst:122
 msgid "XML Option Name"
 msgstr "Nome da Opção XML"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:124
+#: ../doc/import_export.rst:124
 msgid "XML Format"
 msgstr "Formato XML"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:124
+#: ../doc/import_export.rst:124
 msgid ""
 "Final Cut Pro format (but most commercial video editors also support this "
 "format)"
 msgstr ""
-"Formato Final Cut Pro (mas a maioria dos editores de vídeo comerciais também "
-"suporta este formato)"
+"Formato Final Cut Pro (mas a maioria dos editores de vídeo comerciais também"
+" suporta este formato)"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:125
+#: ../doc/import_export.rst:125
 msgid "All Tracks"
 msgstr "Todas as Faixas"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:125
+#: ../doc/import_export.rst:125
 msgid "All video and audio tracks are supported"
 msgstr "Todas as faixas de vídeo e áudio são suportadas"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:126
+#: ../doc/import_export.rst:126
 msgid "Edits"
 msgstr "Edições"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:126
+#: ../doc/import_export.rst:126
 msgid ""
 "All clips on all tracks are supported (video, image, and audio files). "
 "Transitions are not yet supported."
@@ -230,6 +232,6 @@ msgstr ""
 "de áudio). Transições ainda não são suportadas."
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:132
+#: ../doc/import_export.rst:132
 msgid "Example XML Output (tree view)"
 msgstr "Exemplo de Saída XML (visão em árvore)"

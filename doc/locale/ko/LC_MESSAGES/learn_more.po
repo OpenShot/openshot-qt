@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-16 18:08-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,66 +18,64 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 # Translated with gpt-4.1-mini
-#: ../learn_more.rst:23
+#: ../doc/learn_more.rst:23
 msgid "Learn More"
 msgstr "자세히 알아보기"
 
 # Translated with gpt-4.1-mini
-#: ../learn_more.rst:24
+#: ../doc/learn_more.rst:24
 msgid ""
 "We are working hard to expand this user guide and to improve OpenShot Video "
 "Editor, but if you are stuck and don't know where to turn, OpenShot has "
 "several sources for additional information."
 msgstr ""
-"우리는 이 사용자 가이드를 확장하고 OpenShot Video Editor를 개선하기 위해 열심"
-"히 노력하고 있지만, 막히거나 어디로 가야 할지 모를 때 OpenShot에는 추가 정보"
-"를 얻을 수 있는 여러 출처가 있습니다."
+"우리는 이 사용자 가이드를 확장하고 OpenShot Video Editor를 개선하기 위해 열심히 노력하고 있지만, 막히거나 어디로 가야"
+" 할지 모를 때 OpenShot에는 추가 정보를 얻을 수 있는 여러 출처가 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../learn_more.rst:27
+#: ../doc/learn_more.rst:27
 msgid ""
-"OpenShot has several `YouTube Tutorials <https://www.youtube.com/playlist?"
-"list=PLymupH2aoNQNezYzv2lhSwvoyZgLp1Q0T>`_ available to help you learn more."
+"OpenShot has several `YouTube Tutorials "
+"<https://www.youtube.com/playlist?list=PLymupH2aoNQNezYzv2lhSwvoyZgLp1Q0T>`_"
+" available to help you learn more."
 msgstr ""
-"OpenShot에는 더 배우는 데 도움이 되는 여러 `YouTube 튜토리얼 <https://www."
-"youtube.com/playlist?list=PLymupH2aoNQNezYzv2lhSwvoyZgLp1Q0T>`_ 이 있습니다."
+"OpenShot에는 더 배우는 데 도움이 되는 여러 `YouTube 튜토리얼 "
+"<https://www.youtube.com/playlist?list=PLymupH2aoNQNezYzv2lhSwvoyZgLp1Q0T>`_"
+" 이 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../learn_more.rst:28
+#: ../doc/learn_more.rst:28
 msgid ""
 "OpenShot has a `Reddit User Community <https://openshot.org/forum>`_ "
 "dedicated to users helping users, answering questions, and discussing video "
 "editing and OpenShot topics."
 msgstr ""
-"OpenShot에는 사용자들이 서로 돕고, 질문에 답하며, 비디오 편집과 OpenShot 주제"
-"를 논의하는 데 전념하는 `Reddit 사용자 커뮤니티 <https://openshot.org/"
-"forum>`_ 가 있습니다."
+"OpenShot에는 사용자들이 서로 돕고, 질문에 답하며, 비디오 편집과 OpenShot 주제를 논의하는 데 전념하는 `Reddit "
+"사용자 커뮤니티 <https://openshot.org/forum>`_ 가 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../learn_more.rst:29
+#: ../doc/learn_more.rst:29
 msgid ""
 "If you would like to help improve this User Guide, `view source on GitHub "
 "<https://github.com/OpenShot/openshot-qt/tree/develop/doc>`_."
 msgstr ""
-"이 사용자 가이드 개선에 도움을 주고 싶다면, `GitHub에서 소스 보기 <https://"
-"github.com/OpenShot/openshot-qt/tree/develop/doc>`_ 를 참조하세요."
+"이 사용자 가이드 개선에 도움을 주고 싶다면, `GitHub에서 소스 보기 "
+"<https://github.com/OpenShot/openshot-qt/tree/develop/doc>`_ 를 참조하세요."
 
 # Translated with gpt-4.1-mini
-#: ../learn_more.rst:30
+#: ../doc/learn_more.rst:30
 msgid ""
-"If you have discovered a new bug, please `Report a Bug <https://www.openshot."
-"org/issues/new/>`_."
+"If you have discovered a new bug, please `Report a Bug "
+"<https://www.openshot.org/issues/new/>`_."
 msgstr ""
-"새로운 버그를 발견했다면, ` 버그 신고하기 <https://www.openshot.org/issues/"
-"new/>`_ 를 이용해 주세요."
+"새로운 버그를 발견했다면, ` 버그 신고하기 <https://www.openshot.org/issues/new/>`_ 를 이용해 주세요."
 
 # Translated with gpt-4.1-mini
-#: ../learn_more.rst:31
+#: ../doc/learn_more.rst:31
 msgid ""
 "If you need professional support, you can open a ticket by sending an "
-"message to support@openshot.org or `Schedule a call <https://calendly.com/"
-"openshot-support/desktop>`_."
+"message to support@openshot.org or `Schedule a call "
+"<https://calendly.com/openshot-support/desktop>`_."
 msgstr ""
-"전문적인 지원이 필요하면 support@openshot.org로 메시지를 보내 티켓을 열거나 `"
-"통화 예약하기 <https://calendly.com/openshot-support/desktop>`_ 를 이용하세"
-"요."
+"전문적인 지원이 필요하면 support@openshot.org로 메시지를 보내 티켓을 열거나 `통화 예약하기 "
+"<https://calendly.com/openshot-support/desktop>`_ 를 이용하세요."
