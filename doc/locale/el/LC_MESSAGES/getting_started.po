@@ -1,0 +1,456 @@
+# Translated with AI assistance (Claude) and reviewed; UI labels follow the official OpenShot Greek UI catalog.
+# Greek translation of the OpenShot Video Editor documentation.
+# Copyright (C) OpenShot Studios, LLC
+# This file is distributed under the same license as the OpenShot Video Editor package.
+# Ioannis-Stylianos Lafazanis <jslafazanis@gmail.com>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenShot Video Editor 4.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-27 00:00+0000\n"
+"PO-Revision-Date: 2026-10-20 15:50+0300\n"
+"Last-Translator: Ioannis-Stylianos Lafazanis <jslafazanis@gmail.com>\n"
+"Language-Team: Greek <el@li.org>\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../getting_started.rst:21
+msgid "Video Editing Basics"
+msgstr "Βασικά στοιχεία της επεξεργασίας βίντεο"
+
+#: ../getting_started.rst:23
+msgid ""
+"You do not need to be a trained videographer to understand how to create "
+"videos well. Simple editing can keep your viewers engaged longer, and add a "
+"professional feel, even if you are not a professional video editor."
+msgstr ""
+"Δεν χρειάζεται να είστε εκπαιδευμένος βιντεογράφος για να καταλάβετε πώς "
+"δημιουργούνται καλά βίντεο. Μια απλή επεξεργασία μπορεί να κρατήσει το κοινό"
+" σας ενδιαφερόμενο για περισσότερο και να προσδώσει επαγγελματικό ύφος, "
+"ακόμη και αν δεν είστε επαγγελματίας επεξεργαστής βίντεο."
+
+#: ../getting_started.rst:27
+msgid ""
+"Basically, video editing is taking footage, cutting it up, removing the "
+"pieces you do not want, and keeping the bits you do. Back in the old days, "
+"editing was slicing reels of film and piecing it together. Thankfully "
+"software makes the whole process much more manageable."
+msgstr ""
+"Βασικά, η επεξεργασία βίντεο σημαίνει να παίρνετε το υλικό, να το κόβετε, να"
+" αφαιρείτε τα κομμάτια που δεν θέλετε και να κρατάτε αυτά που θέλετε. Παλιά,"
+" η επεξεργασία σήμαινε κόψιμο ρολών φιλμ και συναρμολόγησή τους. Ευτυχώς, το"
+" λογισμικό κάνει ολόκληρη τη διαδικασία πολύ πιο εύκολη."
+
+#: ../getting_started.rst:32
+msgid "There are three main jobs of video editing:"
+msgstr "Η επεξεργασία βίντεο έχει τρεις βασικές αποστολές:"
+
+#: ../getting_started.rst:34
+msgid "Remove mistakes or unwanted sections"
+msgstr "Αφαίρεση λαθών ή ανεπιθύμητων τμημάτων"
+
+#: ../getting_started.rst:35
+msgid "Keep the video moving at an engaging pace"
+msgstr "Διατήρηση ενός ρυθμού που κρατά ζωντανό το ενδιαφέρον για το βίντεο"
+
+#: ../getting_started.rst:36
+msgid "Insert supporting footage, audio, or titles"
+msgstr "Εισαγωγή υποστηρικτικού υλικού, ήχου ή τίτλων"
+
+#: ../getting_started.rst:38
+msgid "Use these three points as a checklist as you edit."
+msgstr ""
+"Χρησιμοποιήστε αυτά τα τρία σημεία ως λίστα ελέγχου κατά την επεξεργασία."
+
+#: ../getting_started.rst:41
+msgid "Computer"
+msgstr "Υπολογιστής"
+
+#: ../getting_started.rst:42
+msgid ""
+"Video editing does not require an expensive machine, especially if you are a"
+" beginner. However, it would be best if you had a more recent monitor and "
+"graphics card. If you have an older computer, check your system "
+"specifications against OpenShot's :ref:`min_system_req_ref` to make sure it "
+"works for video editing. Unfortunately, many older computers are not fast "
+"enough for video editing, and you should upgrade your whole system, if "
+"possible."
+msgstr ""
+"Η επεξεργασία βίντεο δεν απαιτεί ακριβό μηχάνημα, ειδικά αν είστε αρχάριοι. "
+"Ωστόσο, θα ήταν προτιμότερο να διαθέτετε μια πιο πρόσφατη οθόνη και κάρτα "
+"γραφικών. Αν έχετε παλαιότερο υπολογιστή, ελέγξτε τις προδιαγραφές του "
+"συστήματός σας σε σχέση με τις απαιτήσεις του OpenShot "
+"(:ref:`min_system_req_ref`), ώστε να βεβαιωθείτε ότι είναι κατάλληλος για "
+"επεξεργασία βίντεο. Δυστυχώς, πολλοί παλαιότεροι υπολογιστές δεν είναι "
+"αρκετά γρήγοροι για επεξεργασία βίντεο και, αν είναι δυνατόν, θα πρέπει να "
+"αναβαθμίσετε ολόκληρο το σύστημά σας."
+
+#: ../getting_started.rst:50
+msgid "Accessories"
+msgstr "Αξεσουάρ"
+
+#: ../getting_started.rst:51
+msgid ""
+"Before beginning a video project, ensure there is enough storage space on "
+"your computer to save all the necessary clips. For example, one hour of "
+"1080i video, such as from a mini-DV camcorder, takes up nearly 11 GB of "
+"storage. If your computer's internal storage device cannot store all the "
+"clips, the solution is to buy an external drive."
+msgstr ""
+"Πριν ξεκινήσετε ένα έργο βίντεο, βεβαιωθείτε ότι υπάρχει αρκετός "
+"αποθηκευτικός χώρος στον υπολογιστή σας για όλα τα απαραίτητα κλιπ. Για "
+"παράδειγμα, μία ώρα βίντεο 1080i, όπως από μια κάμερα mini-DV, καταλαμβάνει "
+"σχεδόν 11 GB αποθηκευτικού χώρου. Αν η εσωτερική αποθηκευτική μονάδα του "
+"υπολογιστή σας δεν μπορεί να χωρέσει όλα τα κλιπ, η λύση είναι να αγοράσετε "
+"έναν εξωτερικό δίσκο."
+
+#: ../getting_started.rst:57
+msgid ""
+"It would help if you had several cables, usually Firewire or USB, to connect"
+" your computer, external hard drive, and a camera. Different computers and "
+"cameras accept other connectors, so check your manuals before buying "
+"anything."
+msgstr ""
+"Θα χρειαστείτε αρκετά καλώδια, συνήθως Firewire ή USB, για να συνδέσετε τον "
+"υπολογιστή σας, τον εξωτερικό σκληρό δίσκο και μια κάμερα. Διαφορετικοί "
+"υπολογιστές και κάμερες δέχονται διαφορετικούς συνδέσμους, γι’ αυτό ελέγξτε "
+"τα εγχειρίδιά σας πριν αγοράσετε οτιδήποτε."
+
+#: ../getting_started.rst:63
+msgid "Practical Tips"
+msgstr "Πρακτικές συμβουλές"
+
+#: ../getting_started.rst:64
+msgid ""
+"Becoming a great video editor isn’t effortless, but with practice and "
+"patience, you’ll be editing like a professional in no time. Here are a few "
+"of the essential tips and techniques you need to know to become a skilled "
+"video editor."
+msgstr ""
+"Το να γίνετε εξαιρετικός επεξεργαστής βίντεο δεν είναι εύκολο, αλλά με "
+"εξάσκηση και υπομονή σύντομα θα επεξεργάζεστε σαν επαγγελματίας. Ακολουθούν "
+"μερικές από τις βασικές συμβουλές και τεχνικές που χρειάζεται να γνωρίζετε "
+"για να γίνετε ικανός επεξεργαστής βίντεο."
+
+#: ../getting_started.rst:69
+msgid "Pick the Right Computer"
+msgstr "Επιλέξτε τον κατάλληλο υπολογιστή"
+
+#: ../getting_started.rst:70
+msgid ""
+"While having a great computer won’t necessarily make you a great video "
+"editor, a faster computer will allow you to focus more of your time on the "
+"story you’re trying to tell rather than your computer rendering. Everyone "
+"has their own opinions about what computer is best for editing, but it all "
+"depends on your own preferences."
+msgstr ""
+"Αν και ένας εξαιρετικός υπολογιστής δεν θα σας κάνει απαραίτητα εξαιρετικό "
+"επεξεργαστή βίντεο, ένας ταχύτερος υπολογιστής θα σας επιτρέψει να "
+"αφιερώσετε περισσότερο χρόνο στην ιστορία που προσπαθείτε να πείτε, αντί να "
+"περιμένετε την απόδοση (rendering) από τον υπολογιστή σας. Ο καθένας έχει τη"
+" δική του άποψη για το ποιος υπολογιστής είναι ο καλύτερος για επεξεργασία, "
+"αλλά όλα εξαρτώνται από τις προσωπικές σας προτιμήσεις."
+
+#: ../getting_started.rst:77
+msgid "Keep Shooting"
+msgstr "Συνεχίστε να καταγράφετε"
+
+#: ../getting_started.rst:78
+msgid ""
+"Record more video and audio than you think you will need for your project. "
+"Include video that enhances the scene, sets a mood, or tells a story. You "
+"can use the extra video for smooth transitions in your project. If your "
+"project requires voice overs, narration, screen capture, or webcam footage, "
+"you can use :guilabel:`View->Recording View` to open OpenShot's recording "
+"tools. For more details, including microphone, system audio, screen, and "
+"webcam options, see :ref:`recording_ref`. For more specialized capture "
+"workflows, you can still record with an external application and import the "
+"finished media into OpenShot."
+msgstr ""
+"Καταγράψτε περισσότερο βίντεο και ήχο από όσο νομίζετε ότι θα χρειαστείτε "
+"για το έργο σας. Συμπεριλάβετε βίντεο που ενισχύει τη σκηνή, δημιουργεί "
+"διάθεση ή αφηγείται μια ιστορία. Μπορείτε να χρησιμοποιήσετε το επιπλέον "
+"βίντεο για ομαλές μεταβάσεις στο έργο σας. Αν το έργο σας απαιτεί αφήγηση "
+"εκτός πλάνου (voiceover), αφήγηση, καταγραφή οθόνης ή υλικό από κάμερα web, "
+"μπορείτε να χρησιμοποιήσετε το :guilabel:`Προβολή->Προβολή εγγραφής` "
+"(View->Recording View) για να ανοίξετε τα εργαλεία εγγραφής του OpenShot. "
+"Για περισσότερες λεπτομέρειες, συμπεριλαμβανομένων των επιλογών μικροφώνου, "
+"ήχου συστήματος, οθόνης και κάμερας web, δείτε :ref:`recording_ref`. Για πιο"
+" εξειδικευμένες ροές εργασίας καταγραφής, μπορείτε και πάλι να κάνετε "
+"εγγραφή με μια εξωτερική εφαρμογή και να εισαγάγετε το τελικό υλικό στο "
+"OpenShot."
+
+#: ../getting_started.rst:88
+msgid "Organize Your Project Files"
+msgstr "Οργανώστε τα αρχεία του έργου σας"
+
+#: ../getting_started.rst:89
+msgid ""
+"Composition is the key to success, whether you are running Linux, on a Mac, "
+"or a Windows machine. Be sure to label video files, audio files, and even "
+"still images clearly and keep all your clips on the same device and in the "
+"same folder for easy access. OpenShot tries to keep up with your clips, but "
+"if you move them after your project is saved, you could lose your entire "
+"project. Organizing before you begin editing can be very advantageous."
+msgstr ""
+"Η σύνθεση είναι το κλειδί της επιτυχίας, είτε εργάζεστε σε Linux, είτε σε "
+"Mac, είτε σε υπολογιστή με Windows. Φροντίστε να ονομάζετε με σαφήνεια τα "
+"αρχεία βίντεο, τα αρχεία ήχου και ακόμη και τις στατικές εικόνες και να "
+"διατηρείτε όλα τα κλιπ σας στην ίδια συσκευή και στον ίδιο φάκελο για εύκολη"
+" πρόσβαση. Το OpenShot προσπαθεί να παρακολουθεί τα κλιπ σας, αλλά αν τα "
+"μετακινήσετε αφού αποθηκευτεί το έργο σας, μπορεί να χάσετε ολόκληρο το έργο"
+" σας. Η οργάνωση πριν ξεκινήσετε την επεξεργασία μπορεί να αποδειχθεί πολύ "
+"ωφέλιμη."
+
+#: ../getting_started.rst:98
+msgid "Watch Everything"
+msgstr "Παρακολουθήστε τα πάντα"
+
+#: ../getting_started.rst:99
+msgid ""
+"Watching everything is the first step in the editing process. Writer and "
+"filmmaker David Andrew Stoler says there is gold in the most unlikely of "
+"places: \"Some of the most beautiful expressions you're going to get from "
+"the actors are after the cut.\""
+msgstr ""
+"Η παρακολούθηση ολόκληρου του υλικού είναι το πρώτο βήμα της διαδικασίας "
+"επεξεργασίας. Ο συγγραφέας και κινηματογραφιστής David Andrew Stoler λέει "
+"ότι υπάρχει χρυσός στα πιο απίθανα μέρη: «Μερικές από τις πιο όμορφες "
+"εκφράσεις που θα πάρετε από τους ηθοποιούς έρχονται μετά το κόψιμο (cut).»"
+
+#: ../getting_started.rst:105
+msgid "Edit for a Story"
+msgstr "Επεξεργαστείτε με γνώμονα την ιστορία"
+
+#: ../getting_started.rst:106
+msgid ""
+"Remember that as you edit, you are telling a story. Editing is so much more "
+"than merely cutting footage and adding effects. It is an opportunity to take"
+" your audience on a journey. Whether you are editing a complex narrative "
+"film or only putting together a personal video, you tell a more in-depth "
+"story."
+msgstr ""
+"Να θυμάστε ότι κατά την επεξεργασία διηγείστε μια ιστορία. Η επεξεργασία "
+"είναι πολύ περισσότερα από το απλό κόψιμο του υλικού και την προσθήκη εφέ. "
+"Είναι μια ευκαιρία να πάρετε το κοινό σας σε ένα ταξίδι. Είτε επεξεργάζεστε "
+"μια σύνθετη αφηγηματική ταινία είτε απλώς συνθέτετε ένα προσωπικό βίντεο, "
+"διηγείστε μια πιο εμπεριστατωμένη ιστορία."
+
+#: ../getting_started.rst:113
+msgid "Keyboard Shortcuts"
+msgstr "Συντομεύσεις πληκτρολογίου"
+
+#: ../getting_started.rst:114
+msgid ""
+"One of the easiest ways to tell the difference between and professional "
+"video editor and a novice is to simply look at how much they use the "
+"keyboard. Editors that have been in the business for some time know that a "
+"few seconds saved add up over the length of the project."
+msgstr ""
+"Ένας από τους ευκολότερους τρόπους για να ξεχωρίσετε έναν επαγγελματία "
+"επεξεργαστή βίντεο από έναν αρχάριο είναι να δείτε πόσο χρησιμοποιεί το "
+"πληκτρολόγιο. Οι επεξεργαστές που βρίσκονται στον χώρο για αρκετό καιρό "
+"γνωρίζουν ότι μερικά δευτερόλεπτα που εξοικονομούνται αθροίζονται σε όλη τη "
+"διάρκεια του έργου."
+
+#: ../getting_started.rst:120
+msgid "Learn the Lingo"
+msgstr "Μάθετε την ορολογία"
+
+#: ../getting_started.rst:121
+msgid ""
+"Video editing is not just a hobby or a profession; it is an industry. And "
+"just like any industry, there is a ton of jargon to learn. Practically "
+"speaking, you do not need to know all the terms on the :ref:`glossary_ref` "
+"to become a better video editor, but a fundamental knowledge of the terms "
+"may help you communicate better with other video editors or clients."
+msgstr ""
+"Η επεξεργασία βίντεο δεν είναι απλώς χόμπι ή επάγγελμα· είναι μια "
+"βιομηχανία. Και όπως σε κάθε βιομηχανία, υπάρχει πληθώρα όρων προς εκμάθηση."
+" Πρακτικά, δεν χρειάζεται να γνωρίζετε όλους τους όρους στο "
+":ref:`glossary_ref` για να γίνετε καλύτερος επεξεργαστής βίντεο, αλλά μια "
+"βασική γνώση των όρων μπορεί να σας βοηθήσει να επικοινωνείτε καλύτερα με "
+"άλλους επεξεργαστές βίντεο ή με πελάτες."
+
+#: ../getting_started.rst:129
+msgid "Assemble, Then Make a Rough Cut"
+msgstr "Συναρμολογήστε και μετά κάντε μια πρόχειρη κοπή (rough cut)"
+
+#: ../getting_started.rst:130
+msgid ""
+"Drag and drop all your video footage into a timeline and make sure your "
+"frame size and frame rates are consistent. Begin a new timeline and drag-"
+"and-drop the best clips into what becomes your assembly cut. Remember to "
+"save your work frequently, and notate the date and time of each version."
+msgstr ""
+"Σύρετε και αποθέστε όλο το βιντεοσκοπημένο υλικό σας σε ένα χρονολόγιο και "
+"βεβαιωθείτε ότι το μέγεθος καρέ και οι ρυθμοί καρέ είναι συνεπείς. Ξεκινήστε"
+" ένα νέο χρονολόγιο και σύρετε και αποθέστε τα καλύτερα κλιπ σε αυτό που θα "
+"γίνει η συναρμολογημένη κοπή σας (assembly cut). Θυμηθείτε να αποθηκεύετε "
+"συχνά την εργασία σας και να σημειώνετε την ημερομηνία και την ώρα κάθε "
+"έκδοσης."
+
+#: ../getting_started.rst:136
+msgid "Refine Your Video"
+msgstr "Βελτιώστε το βίντεό σας"
+
+#: ../getting_started.rst:137
+msgid ""
+"In this phase, your rough cut begins to resemble a cohesive project. Adjust "
+"the sound and color, make sure the dialog is audible, and add music, titles,"
+" or graphics in this phase. Color correction is the process of setting your "
+"footage to a color baseline. No matter how great your subject looks on set, "
+"you will almost always need to do some basic post-processing for a "
+"consistent video."
+msgstr ""
+"Σε αυτή τη φάση, η πρόχειρη κοπή σας αρχίζει να μοιάζει με ένα συνεκτικό "
+"έργο. Προσαρμόστε τον ήχο και το χρώμα, βεβαιωθείτε ότι ο διάλογος ακούγεται"
+" καθαρά και προσθέστε μουσική, τίτλους ή γραφικά σε αυτή τη φάση. Η "
+"χρωματική διόρθωση είναι η διαδικασία ρύθμισης του υλικού σας σε μια "
+"χρωματική βάση αναφοράς. Όσο υπέροχο κι αν φαίνεται το θέμα σας στο πλατό, "
+"σχεδόν πάντα θα χρειαστεί να κάνετε κάποια βασική μετα-επεξεργασία για ένα "
+"συνεπές βίντεο."
+
+#: ../getting_started.rst:145
+msgid "Refine Some More"
+msgstr "Βελτιώστε το κι άλλο"
+
+#: ../getting_started.rst:146
+msgid ""
+"A slow scene can set the mood and add tension or it can bore an audience. A "
+"fast scene can add adrenaline to your audience’s systems or it can give them"
+" headaches. Some editors cut their projects several different ways before "
+"they find the right pace. Do not let cutting your project several times "
+"discourage you."
+msgstr ""
+"Μια αργή σκηνή μπορεί να δημιουργήσει διάθεση και να προσθέσει ένταση ή "
+"μπορεί να κουράσει το κοινό. Μια γρήγορη σκηνή μπορεί να προσθέσει "
+"αδρεναλίνη στον οργανισμό του κοινού σας ή να του προκαλέσει πονοκεφάλους. "
+"Ορισμένοι επεξεργαστές κόβουν τα έργα τους με αρκετούς διαφορετικούς τρόπους"
+" μέχρι να βρουν τον σωστό ρυθμό. Μην αφήσετε το γεγονός ότι κόβετε το έργο "
+"σας αρκετές φορές να σας αποθαρρύνει."
+
+#: ../getting_started.rst:153
+msgid "Exporting"
+msgstr "Εξαγωγή"
+
+#: ../getting_started.rst:154
+msgid ""
+"People view most of their projects on phones, tablets, or computers, so it "
+"is essential to know how to export for the web. The goal when exporting a "
+"video for the web is to create the highest quality possible with the "
+"smallest file size. Four main factors determine the file size of your "
+"finished video:"
+msgstr ""
+"Οι άνθρωποι παρακολουθούν τα περισσότερα έργα σε τηλέφωνα, tablet ή "
+"υπολογιστές, γι’ αυτό είναι απαραίτητο να γνωρίζετε πώς να κάνετε εξαγωγή "
+"για το διαδίκτυο. Ο στόχος κατά την εξαγωγή ενός βίντεο για το διαδίκτυο "
+"είναι να δημιουργηθεί η υψηλότερη δυνατή ποιότητα με το μικρότερο δυνατό "
+"μέγεθος αρχείου. Τέσσερις βασικοί παράγοντες καθορίζουν το μέγεθος αρχείου "
+"του τελικού βίντεό σας:"
+
+#: ../getting_started.rst:160
+msgid "Codec"
+msgstr "Κωδικοποιητής (codec)"
+
+#: ../getting_started.rst:161
+msgid ""
+"A codec determines the type of file format (MP4, AVI, MOV). The more "
+"compression performed by the codec, the smaller your video’s size. Videos "
+"that are smaller in file size tend to be lower in visual quality."
+msgstr ""
+"Ο κωδικοποιητής (codec) καθορίζει τον τύπο της μορφής αρχείου (MP4, AVI, "
+"MOV). Όσο μεγαλύτερη είναι η συμπίεση που εκτελεί ο κωδικοποιητής, τόσο "
+"μικρότερο είναι το μέγεθος του βίντεό σας. Τα βίντεο με μικρότερο μέγεθος "
+"αρχείου τείνουν να έχουν χαμηλότερη οπτική ποιότητα."
+
+#: ../getting_started.rst:166
+msgid "Resolution"
+msgstr "Ανάλυση"
+
+#: ../getting_started.rst:167
+msgid ""
+"Resolution refers to the number of horizontal and vertical pixels (dots on "
+"display) your video contains. For example, a 4K UHD (2160P) video has four "
+"times the resolution of FHD (1080P) video. A higher resolution means more "
+"information to store so that you will have larger file sizes."
+msgstr ""
+"Η ανάλυση αναφέρεται στον αριθμό των οριζόντιων και κατακόρυφων pixel "
+"(κουκκίδες στην οθόνη) που περιέχει το βίντεό σας. Για παράδειγμα, ένα "
+"βίντεο 4K UHD (2160P) έχει τετραπλάσια ανάλυση από ένα βίντεο FHD (1080P). "
+"Μεγαλύτερη ανάλυση σημαίνει περισσότερες πληροφορίες προς αποθήκευση, με "
+"αποτέλεσμα μεγαλύτερα μεγέθη αρχείων."
+
+#: ../getting_started.rst:173
+msgid "Bit Rate"
+msgstr "Ρυθμός bit (bitrate)"
+
+#: ../getting_started.rst:174
+msgid ""
+"The Bit Rate is the measure of the speed of data processing of your video. A"
+" higher bit rate means higher-quality video and larger files. OpenShot "
+"allows you to manually set the Bit Rate / Quality in the Advanced tab of the"
+" Export Video window."
+msgstr ""
+"Ο ρυθμός bit (Bit Rate) είναι το μέτρο της ταχύτητας επεξεργασίας δεδομένων "
+"του βίντεό σας. Ένας υψηλότερος ρυθμός bit σημαίνει βίντεο υψηλότερης "
+"ποιότητας και μεγαλύτερα αρχεία. Το OpenShot σας επιτρέπει να ορίσετε "
+"χειροκίνητα τον ρυθμό bit / την ποιότητα στην καρτέλα Προχωρημένο (Advanced)"
+" του παραθύρου Εξαγωγή βίντεο (Export Video)."
+
+#: ../getting_started.rst:180
+msgid "Frame Rate"
+msgstr "Ρυθμός καρέ"
+
+#: ../getting_started.rst:181
+msgid ""
+"The frequency (in Hz) at which consecutive images, called frames, appear on "
+"the display is the Frame Rate. Typically, you export your video in the film "
+"standard (24fps) or the TV broadcast standard of 30fps (or 25fps in PAL). "
+"While there is not much wiggle room here, you should note that if you decide"
+" to export your video in 48fps, 50fps, or 60fps, your file size doubles."
+msgstr ""
+"Η συχνότητα (σε Hz) με την οποία διαδοχικές εικόνες, που ονομάζονται καρέ, "
+"εμφανίζονται στην οθόνη είναι ο ρυθμός καρέ (Frame Rate). Συνήθως, εξάγετε "
+"το βίντεό σας στο πρότυπο του κινηματογράφου (24fps) ή στο πρότυπο "
+"τηλεοπτικής μετάδοσης των 30fps (ή 25fps στο PAL). Παρότι δεν υπάρχει μεγάλο"
+" περιθώριο εδώ, θα πρέπει να σημειώσετε ότι αν αποφασίσετε να εξαγάγετε το "
+"βίντεό σας σε 48fps, 50fps ή 60fps, το μέγεθος του αρχείου σας "
+"διπλασιάζεται."
+
+#: ../getting_started.rst:188
+msgid "Conclusion"
+msgstr "Συμπέρασμα"
+
+#: ../getting_started.rst:189
+msgid ""
+"In conclusion, video editing is an accessible skill that can elevate your "
+"video content even if you're not a professional videographer. With the "
+"ability to trim, arrange, and enhance footage, you can create engaging "
+"videos that captivate your audience. Whether you're a beginner or on your "
+"way to becoming a skilled video editor, remember to focus on storytelling, "
+"efficient organization, and refining your project's details. From selecting "
+"the right computer to mastering keyboard shortcuts and understanding "
+"technical aspects like codecs and resolutions, your journey in video editing"
+" can lead to polished and impactful results. As you venture into the world "
+"of video editing, keep in mind that practice, patience, and a commitment to "
+"learning are key to achieving excellence in this creative endeavor."
+msgstr ""
+"Συμπερασματικά, η επεξεργασία βίντεο είναι μια προσβάσιμη δεξιότητα που "
+"μπορεί να αναβαθμίσει το βιντεοσκοπημένο περιεχόμενό σας ακόμη και αν δεν "
+"είστε επαγγελματίας βιντεογράφος. Με τη δυνατότητα περικοπής, τακτοποίησης "
+"και βελτίωσης του υλικού, μπορείτε να δημιουργήσετε ελκυστικά βίντεο που "
+"μαγνητίζουν το κοινό σας. Είτε είστε αρχάριος είτε βρίσκεστε στον δρόμο για "
+"να γίνετε ικανός επεξεργαστής βίντεο, θυμηθείτε να εστιάζετε στην αφήγηση, "
+"στην αποτελεσματική οργάνωση και στη βελτίωση των λεπτομερειών του έργου "
+"σας. Από την επιλογή του κατάλληλου υπολογιστή μέχρι την εξοικείωση με τις "
+"συντομεύσεις πληκτρολογίου και την κατανόηση τεχνικών πτυχών όπως οι "
+"κωδικοποιητές (codecs) και οι αναλύσεις, το ταξίδι σας στην επεξεργασία "
+"βίντεο μπορεί να οδηγήσει σε άρτια και εντυπωσιακά αποτελέσματα. Καθώς "
+"εισέρχεστε στον κόσμο της επεξεργασίας βίντεο, να έχετε κατά νου ότι η "
+"εξάσκηση, η υπομονή και η δέσμευση στη μάθηση είναι το κλειδί για την "
+"επίτευξη αριστείας σε αυτή τη δημιουργική προσπάθεια."

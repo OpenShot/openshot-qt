@@ -1,0 +1,613 @@
+# Translated with AI assistance (Claude) and reviewed; UI labels follow the official OpenShot Greek UI catalog.
+# Greek translation of the OpenShot Video Editor documentation.
+# Copyright (C) OpenShot Studios, LLC
+# This file is distributed under the same license as the OpenShot Video Editor package.
+# Ioannis-Stylianos Lafazanis <jslafazanis@gmail.com>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenShot Video Editor 4.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-27 00:00+0000\n"
+"PO-Revision-Date: 2026-10-20 15:50+0300\n"
+"Last-Translator: Ioannis-Stylianos Lafazanis <jslafazanis@gmail.com>\n"
+"Language-Team: Greek <el@li.org>\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../transitions.rst:23
+msgid "Transitions"
+msgstr "Μεταβάσεις"
+
+#: ../transitions.rst:25
+msgid ""
+"A transition is used to gradually fade (also called a **cross dissolve** or "
+"**crossfade**) or wipe between two clip images. In OpenShot, transitions are"
+" represented by blue, rounded rectangles on the timeline. They are "
+"automatically created when you overlap two clips, and can be added manually "
+"by dragging one onto the timeline from the **Transitions** panel. A "
+"transition must be placed on top of a clip (overlapping it), with the most "
+"common location being the beginning or end of a clip."
+msgstr ""
+"Η μετάβαση χρησιμοποιείται για να γίνει σταδιακή αλλαγή (ονομάζεται επίσης "
+"**διασταυρούμενη σταδιακή εναλλαγή** (cross dissolve) ή **διασταυρούμενη "
+"μετάβαση** (crossfade)) ή σάρωση (wipe) ανάμεσα σε δύο εικόνες κλιπ. Στο "
+"OpenShot, οι μεταβάσεις αναπαρίστανται με μπλε ορθογώνια με στρογγυλεμένες "
+"γωνίες στο χρονολόγιο. Δημιουργούνται αυτόματα όταν επικαλύπτετε δύο κλιπ "
+"και μπορούν να προστεθούν χειροκίνητα σύροντάς τες στο χρονολόγιο από το "
+"πάνελ **Μεταβάσεις** (Transitions). Η μετάβαση πρέπει να τοποθετείται πάνω "
+"σε ένα κλιπ (επικαλύπτοντάς το), με πιο συνηθισμένη θέση την αρχή ή το τέλος"
+" του κλιπ."
+
+#: ../transitions.rst:31
+msgid ""
+"NOTE: Transitions **do not** affect **audio**, so if you are intending to "
+"fade in/out the audio volume of a clip, you must adjust the ``volume`` clip "
+"property. See :ref:`clip_properties_ref`"
+msgstr ""
+"ΣΗΜΕΙΩΣΗ: Οι μεταβάσεις **δεν** επηρεάζουν τον **ήχο**· αν θέλετε να κάνετε "
+"βαθμιαία είσοδο/έξοδο στην ένταση του ήχου ενός κλιπ, πρέπει να προσαρμόσετε"
+" την ιδιότητα ``volume`` του κλιπ. Βλ. :ref:`clip_properties_ref`"
+
+#: ../transitions.rst:35
+msgid "Overview"
+msgstr "Επισκόπηση"
+
+#: ../transitions.rst:40
+msgid "#"
+msgstr ""
+
+#: ../transitions.rst:40
+msgid "Name"
+msgstr "Όνομα"
+
+#: ../transitions.rst:40 ../transitions.rst:105
+msgid "Description"
+msgstr "Περιγραφή"
+
+#: ../transitions.rst:42
+msgid "1"
+msgstr ""
+
+#: ../transitions.rst:42
+msgid "Clip 1"
+msgstr "Κλιπ 1 (Clip 1)"
+
+#: ../transitions.rst:42
+msgid "A video clip"
+msgstr "Ένα κλιπ βίντεο"
+
+#: ../transitions.rst:43
+msgid "2"
+msgstr ""
+
+#: ../transitions.rst:43
+msgid "Transition"
+msgstr "Μετάβαση (Transition)"
+
+#: ../transitions.rst:43
+msgid ""
+"A gradual fade transition between the 2 clip images, created automatically "
+"by overlapping the clips (does not affect the audio)"
+msgstr ""
+"Μια σταδιακή μετάβαση ανάμεσα στις 2 εικόνες των κλιπ, που δημιουργείται "
+"αυτόματα με την επικάλυψη των κλιπ (δεν επηρεάζει τον ήχο)"
+
+#: ../transitions.rst:44
+msgid "3"
+msgstr ""
+
+#: ../transitions.rst:44
+msgid "Clip 2"
+msgstr "Κλιπ 2 (Clip 2)"
+
+#: ../transitions.rst:44
+msgid "An image clip"
+msgstr "Ένα κλιπ εικόνας"
+
+#: ../transitions.rst:48
+msgid "Direction"
+msgstr "Κατεύθυνση"
+
+#: ../transitions.rst:49
+msgid ""
+"Transitions adjust the alpha/transparency of the overlapping clip image "
+"(i.e. the clip under the transition), and can either fade from opaque to "
+"transparent, or transparent to opaque (does not affect the audio). Right "
+"click and choose :guilabel:`Reverse Transition` to change the direction of "
+"the fade. You can also manually adjust the **Brightness** curve, animating "
+"the visual fade in any way you wish."
+msgstr ""
+"Οι μεταβάσεις προσαρμόζουν τη διαφάνεια (alpha) της εικόνας του κλιπ που "
+"επικαλύπτεται (δηλαδή του κλιπ κάτω από τη μετάβαση) και μπορούν είτε να "
+"περνούν από αδιαφανές σε διαφανές είτε από διαφανές σε αδιαφανές (δεν "
+"επηρεάζουν τον ήχο). Κάντε δεξί κλικ και επιλέξτε :guilabel:`Αντίστροφη "
+"Μετάβαση` (Reverse Transition) για να αλλάξετε την κατεύθυνση της σταδιακής "
+"αλλαγής. Μπορείτε επίσης να προσαρμόσετε χειροκίνητα την καμπύλη "
+"**Φωτεινότητα** (Brightness), κινώντας την οπτική σταδιακή αλλαγή με όποιον "
+"τρόπο θέλετε."
+
+#: ../transitions.rst:56
+msgid "Transparency"
+msgstr "Διαφάνεια"
+
+#: ../transitions.rst:57
+msgid ""
+"If transitions are used on images or videos that contain transparency (*i.e."
+" alpha channel*) this will result in the original clip disappearing abruptly"
+" (or popping out of existence), since OpenShot's transition system expects "
+"the 2nd clip to fully cover up the first clip. For example, if the 2nd clip "
+"does not fully cover the first clip, a transition might not be the best tool"
+" to use. Instead, you should consider adjusting the ``alpha`` property of "
+"the first clip to make it fade out where needed, see "
+":ref:`clip_properties_ref` or :ref:`clip_presets_ref`. Alternatively, you "
+"can combine a transition and ``alpha`` fade when using transparent clips to "
+"more smoothly fade between then."
+msgstr ""
+"Αν οι μεταβάσεις χρησιμοποιηθούν σε εικόνες ή βίντεο που περιέχουν διαφάνεια"
+" (*δηλαδή κανάλι alpha*), το αρχικό κλιπ θα εξαφανιστεί απότομα (ή θα "
+"«πεταχτεί» εκτός ύπαρξης), επειδή το σύστημα μεταβάσεων του OpenShot "
+"περιμένει το 2ο κλιπ να καλύπτει πλήρως το πρώτο. Για παράδειγμα, αν το 2ο "
+"κλιπ δεν καλύπτει πλήρως το πρώτο, η μετάβαση ίσως να μην είναι το καλύτερο "
+"εργαλείο. Αντί γι’ αυτό, σκεφτείτε να προσαρμόσετε την ιδιότητα ``alpha`` "
+"του πρώτου κλιπ ώστε να σβήνει εκεί που χρειάζεται, βλ. "
+":ref:`clip_properties_ref` ή :ref:`clip_presets_ref`. Εναλλακτικά, μπορείτε "
+"να συνδυάσετε μια μετάβαση και μια σταδιακή αλλαγή του ``alpha`` όταν "
+"χρησιμοποιείτε διαφανή κλιπ, για πιο ομαλή αλλαγή ανάμεσά τους."
+
+#: ../transitions.rst:65
+msgid "Cutting & Slicing"
+msgstr "Κόψιμο και διαχωρισμός"
+
+#: ../transitions.rst:66
+msgid ""
+"OpenShot has many easy ways to adjust the start and end trim positions of a "
+"transition (otherwise known as cutting or trimming). The most common method "
+"is simply grabbing the left (or right) edge of the transition and dragging. "
+"For a complete guide to slicing and all available keyboard shortcuts, see "
+"the :ref:`clips_cutting_slicing_ref` and :ref:`keyboard_shortcut_ref` "
+"sections."
+msgstr ""
+"Το OpenShot διαθέτει πολλούς εύκολους τρόπους για να προσαρμόσετε τις θέσεις"
+" περικοπής έναρξης και λήξης μιας μετάβασης (γνωστό και ως κόψιμο ή περικοπή"
+" άκρων). Η πιο συνηθισμένη μέθοδος είναι απλώς να πιάσετε την αριστερή (ή τη"
+" δεξιά) άκρη της μετάβασης και να τη σύρετε. Για έναν πλήρη οδηγό για τον "
+"διαχωρισμό και όλες τις διαθέσιμες συντομεύσεις πληκτρολογίου, βλ. τις "
+"ενότητες :ref:`clips_cutting_slicing_ref` και :ref:`keyboard_shortcut_ref`."
+
+#: ../transitions.rst:71
+msgid "Mask"
+msgstr "Μάσκα"
+
+#: ../transitions.rst:72
+msgid ""
+"In video editing, masks are powerful tools that allow you to selectively "
+"display specific areas of a video clip. Similar to masking in image editing,"
+" video masks define a region where changes will be applied while leaving "
+"other parts of the video unaffected."
+msgstr ""
+"Στην επεξεργασία βίντεο, οι μάσκες είναι ισχυρά εργαλεία που σας επιτρέπουν "
+"να εμφανίζετε επιλεκτικά συγκεκριμένες περιοχές ενός κλιπ βίντεο. Όπως και η"
+" μάσκα στην επεξεργασία εικόνας, οι μάσκες βίντεο ορίζουν μια περιοχή όπου "
+"θα εφαρμοστούν οι αλλαγές, αφήνοντας τα υπόλοιπα μέρη του βίντεο "
+"ανεπηρέαστα."
+
+#: ../transitions.rst:76
+msgid ""
+"A mask can be thought of as a shape or path that outlines the area you want "
+"to target. Commonly used shapes include rectangles, circles, and freeform "
+"paths. The masked area is referred to as the \"masked region.\""
+msgstr ""
+"Μια μάσκα μπορεί να θεωρηθεί ως ένα σχήμα ή μια διαδρομή που περιγράφει την "
+"περιοχή-στόχο. Συνηθισμένα σχήματα είναι τα ορθογώνια, οι κύκλοι και οι "
+"διαδρομές ελεύθερης μορφής. Η περιοχή που καλύπτεται από τη μάσκα ονομάζεται"
+" «περιοχή μάσκας»."
+
+#: ../transitions.rst:79
+msgid ""
+"Masks can be animated, allowing you to change the shape or position over "
+"time. This enables dynamic effects like revealing hidden elements or "
+"transitioning between different visual states. In OpenShot, you can convert "
+"a transition to a mask, by customizing the :guilabel:`Brightness` key-frame "
+"curve. Keeping a static (unchanging) value of brightness, will maintain a "
+"fixed mask location. Combine this with custom transition images, or even "
+"custom image sequences, to create animated, complex masks."
+msgstr ""
+"Οι μάσκες μπορούν να κινούνται, επιτρέποντάς σας να αλλάζετε το σχήμα ή τη "
+"θέση τους με τον χρόνο. Αυτό επιτρέπει δυναμικά εφέ, όπως η αποκάλυψη "
+"κρυμμένων στοιχείων ή η μετάβαση ανάμεσα σε διαφορετικές οπτικές "
+"καταστάσεις. Στο OpenShot μπορείτε να μετατρέψετε μια μετάβαση σε μάσκα "
+"προσαρμόζοντας την καμπύλη βασικών καρέ της :guilabel:`Φωτεινότητας` "
+"(Brightness). Αν κρατήσετε σταθερή (αμετάβλητη) τιμή φωτεινότητας, η θέση "
+"της μάσκας θα παραμείνει σταθερή. Συνδυάστε το με προσαρμοσμένες εικόνες "
+"μετάβασης, ή ακόμη και με προσαρμοσμένες ακολουθίες εικόνων, για να "
+"δημιουργήσετε κινούμενες, σύνθετες μάσκες."
+
+#: ../transitions.rst:86
+msgid "Custom Transition"
+msgstr "Προσαρμοσμένη μετάβαση"
+
+#: ../transitions.rst:87
+msgid ""
+"Any greyscale image can be used as a transition (or mask), by adding it to "
+"your ``~/.openshot_qt/transitions/`` folder. Just be sure to name your file "
+"something that is easily recognizable, and restart OpenShot. Your custom "
+"transition/mask will now show up in the list of transitions."
+msgstr ""
+"Οποιαδήποτε εικόνα κλίμακας του γκρι μπορεί να χρησιμοποιηθεί ως μετάβαση (ή"
+" μάσκα), προσθέτοντάς την στον φάκελο ``~/.openshot_qt/transitions/``. "
+"Φροντίστε να ονομάσετε το αρχείο με κάτι που αναγνωρίζεται εύκολα και "
+"επανεκκινήστε το OpenShot. Η προσαρμοσμένη μετάβαση/μάσκα σας θα εμφανίζεται"
+" πλέον στη λίστα των μεταβάσεων."
+
+#: ../transitions.rst:92
+msgid "Transition Properties"
+msgstr "Ιδιότητες μετάβασης"
+
+#: ../transitions.rst:93
+msgid ""
+"Below is a list of transition properties which can be edited, and in most "
+"cases, animated over time. To view a transition's properties, right click "
+"and choose :guilabel:`Properties`. The property editor will appear, where "
+"you can change these properties. NOTE: Pay close attention to where the "
+"play-head (i.e. red playback line) is. Key frames are automatically created "
+"at the current playback position, to help create animations."
+msgstr ""
+"Παρακάτω υπάρχει μια λίστα με ιδιότητες μετάβασης που μπορούν να "
+"επεξεργαστούν και, στις περισσότερες περιπτώσεις, να κινηθούν με τον χρόνο. "
+"Για να δείτε τις ιδιότητες μιας μετάβασης, κάντε δεξί κλικ και επιλέξτε "
+":guilabel:`Ιδιότητες` (Properties). Θα εμφανιστεί ο επεξεργαστής ιδιοτήτων, "
+"όπου μπορείτε να αλλάξετε αυτές τις ιδιότητες. ΣΗΜΕΙΩΣΗ: Προσέξτε πού "
+"βρίσκεται η κεφαλή αναπαραγωγής (δηλαδή η κόκκινη γραμμή αναπαραγωγής). Τα "
+"βασικά καρέ δημιουργούνται αυτόματα στην τρέχουσα θέση αναπαραγωγής, ώστε να"
+" διευκολύνεται η δημιουργία κινήσεων."
+
+#: ../transitions.rst:98
+msgid ""
+"NOTE: Transitions do not affect audio, so if you are intending to fade "
+"in/out the audio volume of a clip, you must adjust the ``volume`` clip "
+"property. See :ref:`clip_properties_ref`."
+msgstr ""
+"ΣΗΜΕΙΩΣΗ: Οι μεταβάσεις δεν επηρεάζουν τον ήχο· αν θέλετε να κάνετε βαθμιαία"
+" είσοδο/έξοδο στην ένταση του ήχου ενός κλιπ, πρέπει να προσαρμόσετε την "
+"ιδιότητα ``volume`` του κλιπ. Βλ. :ref:`clip_properties_ref`."
+
+#: ../transitions.rst:105
+msgid "Transition Property Name"
+msgstr "Όνομα ιδιότητας μετάβασης"
+
+#: ../transitions.rst:105
+msgid "Type"
+msgstr "Τύπος"
+
+#: ../transitions.rst:107
+msgid "Brightness"
+msgstr ""
+
+#: ../transitions.rst:107 ../transitions.rst:108
+msgid "Key-frame"
+msgstr ""
+
+#: ../transitions.rst:107
+msgid ""
+"Curve representing the brightness of the transition image, which affects the"
+" fade/wipe (-1 to 1)"
+msgstr ""
+"Καμπύλη που αναπαριστά τη φωτεινότητα της εικόνας μετάβασης, η οποία "
+"επηρεάζει τη σταδιακή αλλαγή/σάρωση (-1 έως 1)"
+
+#: ../transitions.rst:108
+msgid "Contrast"
+msgstr ""
+
+#: ../transitions.rst:108
+msgid ""
+"Curve representing the contrast of the transition image, which affects the "
+"softness/hardness of the fade/wipe (0 to 20)"
+msgstr ""
+"Καμπύλη που αναπαριστά την αντίθεση της εικόνας μετάβασης, η οποία επηρεάζει"
+" τη μαλακότητα/σκληρότητα της σταδιακής αλλαγής/σάρωσης (0 έως 20)"
+
+#: ../transitions.rst:109 ../transitions.rst:124
+msgid "Duration"
+msgstr "Διάρκεια (Duration)"
+
+#: ../transitions.rst:109 ../transitions.rst:110 ../transitions.rst:117
+#: ../transitions.rst:119
+msgid "Float"
+msgstr ""
+
+#: ../transitions.rst:109
+msgid "The length of the transition (in seconds). Read-only property."
+msgstr ""
+"Η διάρκεια της μετάβασης (σε δευτερόλεπτα). Ιδιότητα μόνο για ανάγνωση."
+
+#: ../transitions.rst:110 ../transitions.rst:132
+msgid "End"
+msgstr "Τέλος (End)"
+
+#: ../transitions.rst:110
+msgid "The end trimming position of the transition (in seconds)."
+msgstr "Η θέση περικοπής του τέλους της μετάβασης (σε δευτερόλεπτα)."
+
+#: ../transitions.rst:111 ../transitions.rst:140
+msgid "ID"
+msgstr "Ταυτότητα (ID)"
+
+#: ../transitions.rst:111 ../transitions.rst:116
+msgid "String"
+msgstr ""
+
+#: ../transitions.rst:111
+msgid ""
+"A randomly generated GUID (globally unique identifier) assigned to each "
+"transition. Read-only property."
+msgstr ""
+"Ένα τυχαία παραγόμενο GUID (καθολικά μοναδικό αναγνωριστικό) που εκχωρείται "
+"σε κάθε μετάβαση. Ιδιότητα μόνο για ανάγνωση."
+
+#: ../transitions.rst:112
+msgid "Mask: Invert"
+msgstr ""
+
+#: ../transitions.rst:112 ../transitions.rst:113 ../transitions.rst:118
+msgid "Bool"
+msgstr ""
+
+#: ../transitions.rst:112
+msgid ""
+"Invert the mask source so light areas become dark and dark areas become "
+"light."
+msgstr ""
+"Αντιστρέφει την πηγή της μάσκας, ώστε οι φωτεινές περιοχές να γίνονται "
+"σκοτεινές και οι σκοτεινές φωτεινές."
+
+#: ../transitions.rst:113
+msgid "Mask: Loop"
+msgstr ""
+
+#: ../transitions.rst:113
+msgid ""
+"Loop an animated mask source when the transition is longer than the source."
+msgstr ""
+"Επαναλαμβάνει μια κινούμενη πηγή μάσκας όταν η μετάβαση είναι μεγαλύτερη από"
+" την πηγή."
+
+#: ../transitions.rst:114
+msgid "Mask: Source"
+msgstr ""
+
+#: ../transitions.rst:114
+msgid "Reader"
+msgstr ""
+
+#: ../transitions.rst:114
+msgid ""
+"The image, image sequence, or video used as the transition's grayscale mask "
+"source."
+msgstr ""
+"Η εικόνα, η ακολουθία εικόνων ή το βίντεο που χρησιμοποιείται ως πηγή μάσκας"
+" σε κλίμακα του γκρι για τη μετάβαση."
+
+#: ../transitions.rst:115
+msgid "Mask: Time Mode"
+msgstr ""
+
+#: ../transitions.rst:115
+msgid "Enum"
+msgstr ""
+
+#: ../transitions.rst:115
+msgid "Controls how OpenShot maps transition time to an animated mask source."
+msgstr ""
+"Ελέγχει πώς το OpenShot αντιστοιχίζει τον χρόνο της μετάβασης σε μια "
+"κινούμενη πηγή μάσκας."
+
+#: ../transitions.rst:116
+msgid "Parent"
+msgstr ""
+
+#: ../transitions.rst:116
+msgid ""
+"The parent object to this transition, which makes many of these keyframe "
+"values initialize to the parent value."
+msgstr ""
+"Το γονικό αντικείμενο αυτής της μετάβασης, το οποίο κάνει πολλές από αυτές "
+"τις τιμές βασικών καρέ να αρχικοποιούνται με την τιμή του γονέα."
+
+#: ../transitions.rst:117
+msgid "Position"
+msgstr ""
+
+#: ../transitions.rst:117
+msgid "The position of the transition on the timeline (in seconds)."
+msgstr "Η θέση της μετάβασης στο χρονολόγιο (σε δευτερόλεπτα)."
+
+#: ../transitions.rst:118
+msgid "Replace Image"
+msgstr ""
+
+#: ../transitions.rst:118
+msgid ""
+"For debugging a problem, this property displays the transition image "
+"(instead of becoming a transparency)."
+msgstr ""
+"Για τον εντοπισμό σφαλμάτων, αυτή η ιδιότητα εμφανίζει την εικόνα της "
+"μετάβασης (αντί να μετατρέπεται σε διαφάνεια)."
+
+#: ../transitions.rst:119
+msgid "Start"
+msgstr ""
+
+#: ../transitions.rst:119
+msgid "The start trimming position of the transition (in seconds)."
+msgstr "Η θέση περικοπής της αρχής της μετάβασης (σε δευτερόλεπτα)."
+
+#: ../transitions.rst:120 ../transitions.rst:158
+msgid "Track"
+msgstr "Διάδρομος (Track)"
+
+#: ../transitions.rst:120
+msgid "Int"
+msgstr ""
+
+#: ../transitions.rst:120
+msgid ""
+"The layer which holds the transition (higher tracks are rendered on top of "
+"lower tracks)."
+msgstr ""
+"Το επίπεδο που φιλοξενεί τη μετάβαση (οι ψηλότεροι διάδρομοι αποδίδονται "
+"πάνω από τους χαμηλότερους)."
+
+#: ../transitions.rst:125
+msgid ""
+"The :guilabel:`Duration` property is a float value indicating the length of "
+"the transition in seconds. This is a Read-only property. This is calculated "
+"by: End - Start. To modify duration, you must edit the :guilabel:`Start` "
+"and/or :guilabel:`End` transition properties."
+msgstr ""
+"Η ιδιότητα :guilabel:`Διάρκεια` (Duration) είναι μια τιμή κινητής "
+"υποδιαστολής που δείχνει το μήκος της μετάβασης σε δευτερόλεπτα. Είναι "
+"ιδιότητα μόνο για ανάγνωση. Υπολογίζεται ως: End - Start. Για να "
+"τροποποιήσετε τη διάρκεια, πρέπει να επεξεργαστείτε τις ιδιότητες μετάβασης "
+":guilabel:`Αρχή` (Start) ή/και :guilabel:`Τέλος` (End)."
+
+#: ../transitions.rst:128
+msgid ""
+"**Usage Example:** Inspect the duration of a transition to ensure it fits a "
+"specific time slot in the project."
+msgstr ""
+"**Παράδειγμα χρήσης:** Ελέγξτε τη διάρκεια μιας μετάβασης ώστε να "
+"βεβαιωθείτε ότι χωράει σε ένα συγκεκριμένο χρονικό διάστημα του έργου."
+
+#: ../transitions.rst:129
+msgid ""
+"**Tip:** Consider using the \"Duration\" property for transitions that need "
+"to match specific time intervals, such as dialogue or scenes."
+msgstr ""
+"**Συμβουλή:** Σκεφτείτε να χρησιμοποιήσετε την ιδιότητα «Διάρκεια» "
+"(Duration) για μεταβάσεις που πρέπει να ταιριάζουν με συγκεκριμένα χρονικά "
+"διαστήματα, όπως διάλογοι ή σκηνές."
+
+#: ../transitions.rst:133
+msgid ""
+"The :guilabel:`End` property defines the trimming point at the end of the "
+"transition in seconds, allowing you to control how much of the transition is"
+" visible in the timeline. Changing this property will impact the "
+":guilabel:`Duration` transition property."
+msgstr ""
+"Η ιδιότητα :guilabel:`Τέλος` (End) ορίζει το σημείο περικοπής στο τέλος της "
+"μετάβασης σε δευτερόλεπτα, επιτρέποντάς σας να ελέγξετε πόσο μέρος της "
+"μετάβασης είναι ορατό στο χρονολόγιο. Η αλλαγή αυτής της ιδιότητας θα "
+"επηρεάσει την ιδιότητα μετάβασης :guilabel:`Διάρκεια` (Duration)."
+
+#: ../transitions.rst:136
+msgid ""
+"**Usage Example:** Trimming the end of a transition to align with another "
+"clip or trimming off unwanted sections of the transition."
+msgstr ""
+"**Παράδειγμα χρήσης:** Περικοπή του τέλους μιας μετάβασης ώστε να "
+"ευθυγραμμιστεί με άλλο κλιπ, ή αφαίρεση ανεπιθύμητων τμημάτων της μετάβασης."
+
+#: ../transitions.rst:137
+msgid ""
+"**Tip:** Combine the \"Start\" and \"End\" properties to precisely control "
+"the visible portion of the transition."
+msgstr ""
+"**Συμβουλή:** Συνδυάστε τις ιδιότητες «Αρχή» (Start) και «Τέλος» (End) για "
+"να ελέγξετε με ακρίβεια το ορατό τμήμα της μετάβασης."
+
+#: ../transitions.rst:141
+msgid ""
+"The :guilabel:`ID` property holds a randomly generated GUID (Globally Unique"
+" Identifier) assigned to each transition, ensuring its uniqueness. This is a"
+" Read-only property, and assigned by OpenShot when a transition is created."
+msgstr ""
+"Η ιδιότητα :guilabel:`Ταυτότητα` (ID) περιέχει ένα τυχαία παραγόμενο GUID "
+"(καθολικά μοναδικό αναγνωριστικό) που εκχωρείται σε κάθε μετάβαση και "
+"διασφαλίζει τη μοναδικότητά της. Είναι ιδιότητα μόνο για ανάγνωση και "
+"εκχωρείται από το OpenShot κατά τη δημιουργία μιας μετάβασης."
+
+#: ../transitions.rst:144
+msgid ""
+"**Usage Example:** Referencing specific transitions within custom scripts or"
+" automation tasks."
+msgstr ""
+"**Παράδειγμα χρήσης:** Αναφορά σε συγκεκριμένες μεταβάσεις μέσα σε "
+"προσαρμοσμένα σενάρια (scripts) ή εργασίες αυτοματοποίησης."
+
+#: ../transitions.rst:145
+msgid ""
+"**Tip:** While typically managed behind the scenes, understanding transition"
+" IDs can aid in advanced project customization."
+msgstr ""
+"**Συμβουλή:** Παρότι συνήθως διαχειρίζονται στο παρασκήνιο, η κατανόηση των "
+"αναγνωριστικών των μεταβάσεων μπορεί να βοηθήσει στην προχωρημένη προσαρμογή"
+" του έργου."
+
+#: ../transitions.rst:148
+msgid "Mask Properties"
+msgstr "Ιδιότητες μάσκας"
+
+#: ../transitions.rst:149
+msgid ""
+"The :guilabel:`Mask: Source`, :guilabel:`Mask: Time Mode`, :guilabel:`Mask: "
+"Loop`, and :guilabel:`Mask: Invert` properties control the grayscale mask "
+"used by a transition. Static masks use a single image. Animated masks can "
+"use video or image sequences, with time mapping and looping options "
+"determining which source frame is used at each point in the transition."
+msgstr ""
+"Οι ιδιότητες :guilabel:`Μάσκα: Πηγή` (Mask: Source), :guilabel:`Μάσκα: "
+"Λειτουργία χρόνου` (Mask: Time Mode), :guilabel:`Μάσκα: Επανάληψη` (Mask: "
+"Loop) και :guilabel:`Μάσκα: Αντιστροφή` (Mask: Invert) ελέγχουν τη μάσκα σε "
+"κλίμακα του γκρι που χρησιμοποιεί μια μετάβαση. Οι στατικές μάσκες "
+"χρησιμοποιούν μία μόνο εικόνα. Οι κινούμενες μάσκες μπορούν να χρησιμοποιούν"
+" βίντεο ή ακολουθίες εικόνων, με επιλογές χρονικής αντιστοίχισης και "
+"επανάληψης που καθορίζουν ποιο καρέ της πηγής χρησιμοποιείται σε κάθε σημείο"
+" της μετάβασης."
+
+#: ../transitions.rst:154
+msgid ""
+"**Usage Example:** Use :guilabel:`Mask: Invert` when the visible and hidden "
+"areas of a custom mask are reversed."
+msgstr ""
+"**Παράδειγμα χρήσης:** Χρησιμοποιήστε την ιδιότητα :guilabel:`Μάσκα: "
+"Αντιστροφή` (Mask: Invert) όταν οι ορατές και οι κρυφές περιοχές μιας "
+"προσαρμοσμένης μάσκας είναι αντεστραμμένες."
+
+#: ../transitions.rst:155
+msgid ""
+"**Tip:** When using an animated mask, trim the mask source carefully before "
+"enabling loop behavior."
+msgstr ""
+"**Συμβουλή:** Όταν χρησιμοποιείτε κινούμενη μάσκα, περικόψτε προσεκτικά την "
+"πηγή της μάσκας πριν ενεργοποιήσετε την επανάληψη."
+
+#: ../transitions.rst:159
+msgid ""
+"The :guilabel:`Track` property is an integer indicating the layer on which "
+"the transition is placed. Transitions on higher tracks are rendered above "
+"those on lower tracks."
+msgstr ""
+"Η ιδιότητα :guilabel:`Διάδρομος` (Track) είναι ένας ακέραιος που δείχνει το "
+"επίπεδο στο οποίο τοποθετείται η μετάβαση. Οι μεταβάσεις σε ψηλότερους "
+"διαδρόμους αποδίδονται πάνω από εκείνες σε χαμηλότερους."
+
+#: ../transitions.rst:162
+msgid ""
+"**Usage Example:** Arranging transitions in different layers for creating "
+"visual depth and complexity."
+msgstr ""
+"**Παράδειγμα χρήσης:** Τακτοποίηση μεταβάσεων σε διαφορετικά επίπεδα για τη "
+"δημιουργία οπτικού βάθους και πολυπλοκότητας."
+
+#: ../transitions.rst:163
+msgid ""
+"**Tip:** Use higher tracks for elements that need to appear above others, "
+"like text overlays or graphics."
+msgstr ""
+"**Συμβουλή:** Χρησιμοποιήστε ψηλότερους διαδρόμους για στοιχεία που πρέπει "
+"να εμφανίζονται πάνω από άλλα, όπως επικαλύψεις κειμένου ή γραφικά."

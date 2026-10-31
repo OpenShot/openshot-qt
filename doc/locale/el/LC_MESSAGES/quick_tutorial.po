@@ -1,0 +1,329 @@
+# Translated with AI assistance (Claude) and reviewed; UI labels follow the official OpenShot Greek UI catalog.
+# Greek translation of the OpenShot Video Editor documentation.
+# Copyright (C) OpenShot Studios, LLC
+# This file is distributed under the same license as the OpenShot Video Editor package.
+# Ioannis-Stylianos Lafazanis <jslafazanis@gmail.com>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenShot Video Editor 4.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-27 00:00+0000\n"
+"PO-Revision-Date: 2026-10-20 15:50+0300\n"
+"Last-Translator: Ioannis-Stylianos Lafazanis <jslafazanis@gmail.com>\n"
+"Language-Team: Greek <el@li.org>\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../quick_tutorial.rst:23
+msgid "Quick Tutorial"
+msgstr "Γρήγορος οδηγός"
+
+#: ../quick_tutorial.rst:25
+msgid ""
+"Using OpenShot is very easy, and this tutorial will take you through the "
+"basics in **under 5 minutes**. After this tutorial, you will be able to make"
+" a simple photo slide-show with music."
+msgstr ""
+"Η χρήση του OpenShot είναι πολύ εύκολη και αυτός ο οδηγός θα σας καθοδηγήσει"
+" στα βασικά σε **λιγότερο από 5 λεπτά**. Μετά από αυτόν τον οδηγό, θα "
+"μπορείτε να φτιάξετε μια απλή παρουσίαση φωτογραφιών (slideshow) με μουσική."
+
+#: ../quick_tutorial.rst:30
+msgid "Basic Terminology"
+msgstr "Βασική ορολογία"
+
+#: ../quick_tutorial.rst:31
+msgid ""
+"To help understand the steps below, here are some definitions of a few basic"
+" terms used in this tutorial."
+msgstr ""
+"Για να κατανοήσετε πιο εύκολα τα παρακάτω βήματα, ακολουθούν οι ορισμοί "
+"ορισμένων βασικών όρων που χρησιμοποιούνται σε αυτόν τον οδηγό."
+
+#: ../quick_tutorial.rst:38
+msgid "Term"
+msgstr "Όρος"
+
+#: ../quick_tutorial.rst:38
+msgid "Description"
+msgstr "Περιγραφή"
+
+#: ../quick_tutorial.rst:40
+msgid "Project"
+msgstr "Έργο (Project)"
+
+#: ../quick_tutorial.rst:40
+msgid ""
+"A **project** includes references to all the video files and edits "
+"(animations, titles, etc...), saved in a single file."
+msgstr ""
+"Ένα **έργο** περιλαμβάνει αναφορές σε όλα τα αρχεία βίντεο και τις "
+"επεξεργασίες (κινήσεις, τίτλους κ.λπ.), αποθηκευμένες σε ένα ενιαίο αρχείο."
+
+#: ../quick_tutorial.rst:41
+msgid "Timeline"
+msgstr "Χρονολόγιο (Timeline)"
+
+#: ../quick_tutorial.rst:41
+msgid ""
+"The **timeline** is an editing user interface that represents edits and "
+"clips on a horizontal ruler. Time progresses from left to right."
+msgstr ""
+"Το **χρονολόγιο** είναι μια διεπαφή επεξεργασίας που αναπαριστά τις "
+"επεξεργασίες και τα κλιπ πάνω σε έναν οριζόντιο χάρακα. Ο χρόνος προχωρά από"
+" αριστερά προς τα δεξιά."
+
+#: ../quick_tutorial.rst:42
+msgid "Track"
+msgstr "Διάδρομος (Track)"
+
+#: ../quick_tutorial.rst:42
+msgid ""
+"A separate **layer** on the timeline, which can hold clips. A timeline is "
+"made up of many tracks, stacked vertically."
+msgstr ""
+"Ένα ξεχωριστό **επίπεδο** στο χρονολόγιο, το οποίο μπορεί να περιέχει κλιπ. "
+"Ένα χρονολόγιο αποτελείται από πολλούς διαδρόμους, τοποθετημένους κατακόρυφα"
+" τον έναν πάνω από τον άλλον."
+
+#: ../quick_tutorial.rst:43
+msgid "Clip"
+msgstr "Κλιπ (Clip)"
+
+#: ../quick_tutorial.rst:43
+msgid ""
+"A **trimmed** portion of video, audio, or both positioned on a track, and at"
+" a specific position in time. When files are dropped on the timeline, they "
+"are represented as a Clip."
+msgstr ""
+"Ένα **περικομμένο** τμήμα βίντεο, ήχου ή και των δύο, τοποθετημένο σε έναν "
+"διάδρομο και σε συγκεκριμένη χρονική θέση. Όταν τα αρχεία τοποθετούνται στο "
+"χρονολόγιο, αναπαρίστανται ως κλιπ."
+
+#: ../quick_tutorial.rst:44
+msgid "Transition"
+msgstr "Μετάβαση (Transition)"
+
+#: ../quick_tutorial.rst:44
+msgid ""
+"A method to **blend** two images. Transitions can take many forms, including"
+" cuts, dissolves, and wipes."
+msgstr ""
+"Μια μέθοδος **ανάμειξης** δύο εικόνων. Οι μεταβάσεις μπορούν να έχουν πολλές"
+" μορφές, όπως κοπές, σταδιακές εναλλαγές (dissolves) και σαρώσεις (wipes)."
+
+#: ../quick_tutorial.rst:48
+msgid "Video Tutorials"
+msgstr "Βίντεο εκμάθησης"
+
+#: ../quick_tutorial.rst:50
+msgid ""
+"If you prefer to learn by **watching videos** instead of reading, we have "
+"many official video tutorials that cover a wide range of beginner and "
+"introductory topics. These videos are a great next step on your way to "
+"master OpenShot Video Editor!"
+msgstr ""
+"Αν προτιμάτε να μαθαίνετε **παρακολουθώντας βίντεο** αντί να διαβάζετε, "
+"διαθέτουμε πολλά επίσημα βίντεο εκμάθησης που καλύπτουν ένα ευρύ φάσμα "
+"θεμάτων για αρχάριους και εισαγωγικού επιπέδου. Αυτά τα βίντεο αποτελούν ένα"
+" εξαιρετικό επόμενο βήμα στον δρόμο σας προς την πλήρη εξοικείωση με το "
+"OpenShot Video Editor!"
+
+#: ../quick_tutorial.rst:54
+msgid "`Video: Getting Started <https://youtu.be/1k-ISfd-YBE>`_"
+msgstr "`Βίντεο: Πρώτα βήματα <https://youtu.be/1k-ISfd-YBE>`_"
+
+#: ../quick_tutorial.rst:55
+msgid "`Video: The Basics (Part 1) <https://youtu.be/VE6awGSr22Q>`_"
+msgstr "`Βίντεο: Τα βασικά (Μέρος 1) <https://youtu.be/VE6awGSr22Q>`_"
+
+#: ../quick_tutorial.rst:56
+msgid "`Video: The Basics (Part 2) <https://youtu.be/6PA98QL9tkw>`_"
+msgstr "`Βίντεο: Τα βασικά (Μέρος 2) <https://youtu.be/6PA98QL9tkw>`_"
+
+#: ../quick_tutorial.rst:57
+msgid "`Video: Basic Animation <https://youtu.be/P3zIprwr1rk>`_"
+msgstr "`Βίντεο: Βασική κίνηση <https://youtu.be/P3zIprwr1rk>`_"
+
+#: ../quick_tutorial.rst:58
+msgid "`Video: Trim, Slice, and Split <https://youtu.be/BQS2tmgD_Rk>`_"
+msgstr ""
+"`Βίντεο: Περικοπή άκρων, κόψιμο και διαχωρισμός "
+"<https://youtu.be/BQS2tmgD_Rk>`_"
+
+#: ../quick_tutorial.rst:59
+msgid "`Video: Chroma Key <https://youtu.be/2sushecqMs4>`_"
+msgstr "`Βίντεο: Κλειδί χρώματος <https://youtu.be/2sushecqMs4>`_"
+
+#: ../quick_tutorial.rst:60
+msgid "`Video: Masks & Transitions <https://youtu.be/Hd9k3x0diOo>`_"
+msgstr "`Βίντεο: Μάσκες και μεταβάσεις <https://youtu.be/Hd9k3x0diOo>`_"
+
+#: ../quick_tutorial.rst:61
+msgid "`Video: Backup & Recovery <https://youtu.be/5XaWBTBTpTo>`_"
+msgstr ""
+"`Βίντεο: Αντίγραφα ασφαλείας και ανάκτηση <https://youtu.be/5XaWBTBTpTo>`_"
+
+#: ../quick_tutorial.rst:64
+msgid "Step 1 – Import Photos & Music"
+msgstr "Βήμα 1 – Εισαγωγή φωτογραφιών και μουσικής"
+
+#: ../quick_tutorial.rst:66
+msgid ""
+"Before we can begin making a video, we need to import media files into "
+"OpenShot. Most video, image and music file formats will work. Drag and drop "
+"a few videos or images and a music file from your Desktop to OpenShot. Be "
+"sure to drop the files where the arrow in the illustration is pointing to."
+msgstr ""
+"Προτού ξεκινήσουμε τη δημιουργία ενός βίντεο, πρέπει να εισαγάγουμε αρχεία "
+"πολυμέσων στο OpenShot. Οι περισσότερες μορφές αρχείων βίντεο, εικόνας και "
+"μουσικής λειτουργούν. Σύρετε και αποθέστε μερικά βίντεο ή εικόνες και ένα "
+"αρχείο μουσικής από την επιφάνεια εργασίας σας στο OpenShot. Φροντίστε να "
+"αποθέσετε τα αρχεία εκεί που δείχνει το βέλος στην εικόνα."
+
+#: ../quick_tutorial.rst:73
+msgid ""
+"Alternative methods to add files to your projects are described in the "
+"section :ref:`import_files_ref`. The \"Show All\", \"Video\", \"Audio\", "
+"\"Image\" filters above the added files allows you to only see the file "
+"types you are interested in."
+msgstr ""
+"Εναλλακτικοί τρόποι προσθήκης αρχείων στα έργα σας περιγράφονται στην "
+"ενότητα :ref:`import_files_ref`. Τα φίλτρα «Εμφάνιση Όλων» (Show All), "
+"«Βίντεο» (Video), «Ήχος» (Audio), «Εικόνα» (Image) πάνω από τα αρχεία που "
+"έχετε προσθέσει σας επιτρέπουν να βλέπετε μόνο τους τύπους αρχείων που σας "
+"ενδιαφέρουν."
+
+#: ../quick_tutorial.rst:78
+msgid "Step 2 – Add Photos to Timeline"
+msgstr "Βήμα 2 – Προσθήκη φωτογραφιών στο χρονολόγιο"
+
+#: ../quick_tutorial.rst:80
+msgid ""
+"Next, drag each video or photo onto a track in the timeline (as seen in the "
+"illustration). The timeline represents your final video, so arrange your "
+"photos (i.e. clips) in whatever sequence you want them to appear in your "
+"video. If you overlap two clips, OpenShot will automatically create a smooth"
+" fade between them (only affects the image, and not audio), displayed by "
+"blue rounded rectangles between the clips. Remember, you can rearrange the "
+"clips as many times as needed by simply dragging and dropping them."
+msgstr ""
+"Στη συνέχεια, σύρετε κάθε βίντεο ή φωτογραφία σε έναν διάδρομο του "
+"χρονολογίου (όπως φαίνεται στην εικόνα). Το χρονολόγιο αναπαριστά το τελικό "
+"σας βίντεο, γι’ αυτό τακτοποιήστε τις φωτογραφίες σας (δηλαδή τα κλιπ) με "
+"όποια σειρά θέλετε να εμφανίζονται στο βίντεό σας. Αν επικαλύψετε δύο κλιπ, "
+"το OpenShot θα δημιουργήσει αυτόματα μια ομαλή βαθμιαία μετάβαση (fade) "
+"ανάμεσά τους (επηρεάζει μόνο την εικόνα και όχι τον ήχο), η οποία "
+"εμφανίζεται ως μπλε στρογγυλεμένα ορθογώνια ανάμεσα στα κλιπ. Θυμηθείτε ότι "
+"μπορείτε να αναδιατάξετε τα κλιπ όσες φορές χρειαστεί, απλώς σύροντας και "
+"αποθέτοντάς τα."
+
+#: ../quick_tutorial.rst:87
+msgid ""
+"You can also shorten or lengthen each clip, by clicking the left or right "
+"edge and dragging your mouse. For example, if you want a photo to last "
+"longer than 10 seconds (the default duration), simply grab the right edge of"
+" the photo (on the timeline), and drag it to the right (to increase the "
+"clip's duration on the timeline)."
+msgstr ""
+"Μπορείτε επίσης να μικρύνετε ή να μεγαλώσετε τη διάρκεια κάθε κλιπ, κάνοντας"
+" κλικ στο αριστερό ή το δεξί άκρο και σύροντας το ποντίκι. Για παράδειγμα, "
+"αν θέλετε μια φωτογραφία να διαρκεί περισσότερο από 10 δευτερόλεπτα (η "
+"προεπιλεγμένη διάρκεια), πιάστε απλώς το δεξί άκρο της φωτογραφίας (στο "
+"χρονολόγιο) και σύρετέ το προς τα δεξιά (για να αυξήσετε τη διάρκεια του "
+"κλιπ στο χρονολόγιο)."
+
+#: ../quick_tutorial.rst:95
+msgid "Step 3 – Add Music to Timeline"
+msgstr "Βήμα 3 – Προσθήκη μουσικής στο χρονολόγιο"
+
+#: ../quick_tutorial.rst:97
+msgid ""
+"To make our creation more interesting, we need to add some music. Click on "
+"the music file that you imported in step 1, and drag it onto the timeline. "
+"If the song is too long, grab the right edge of your music clip, and resize "
+"it smaller (that will make it end earlier). You could also insert the same "
+"file multiple times, if your music is too short."
+msgstr ""
+"Για να κάνουμε τη δημιουργία μας πιο ενδιαφέρουσα, πρέπει να προσθέσουμε "
+"λίγη μουσική. Κάντε κλικ στο αρχείο μουσικής που εισαγάγατε στο βήμα 1 και "
+"σύρετέ το στο χρονολόγιο. Αν το τραγούδι είναι πολύ μεγάλο, πιάστε το δεξί "
+"άκρο του κλιπ μουσικής και μικρύνετέ το (έτσι θα τελειώνει νωρίτερα). "
+"Μπορείτε επίσης να εισαγάγετε το ίδιο αρχείο πολλές φορές, αν η μουσική σας "
+"είναι πολύ σύντομη."
+
+#: ../quick_tutorial.rst:105
+msgid "Step 4 – Preview your Project"
+msgstr "Βήμα 4 – Προεπισκόπηση του έργου σας"
+
+#: ../quick_tutorial.rst:107
+msgid ""
+"To preview what our video looks & sounds like, click the :guilabel:`Play` "
+"button under the preview window. You can also pause, rewind, and fast-"
+"forward your video project by clicking the corresponding buttons."
+msgstr ""
+"Για να δείτε πώς φαίνεται και πώς ακούγεται το βίντεό μας, κάντε κλικ στο "
+"κουμπί :guilabel:`Αναπαραγωγή` (Play) κάτω από το παράθυρο προεπισκόπησης. "
+"Μπορείτε επίσης να κάνετε παύση, γρήγορη επιστροφή και γρήγορη προώθηση του "
+"βίντεο του έργου σας, κάνοντας κλικ στα αντίστοιχα κουμπιά."
+
+#: ../quick_tutorial.rst:114
+msgid "Step 5 – Export your Video"
+msgstr "Βήμα 5 – Εξαγωγή του βίντεό σας"
+
+#: ../quick_tutorial.rst:115
+msgid ""
+"Once you have edited your photo slide-show video, the last step is to export"
+" the project. Exporting converts your OpenShot project into a single video "
+"output file. By using the default settings, the video works on most media "
+"players (such as VLC) or websites (such as YouTube, Vimeo, …)."
+msgstr ""
+"Αφού ολοκληρώσετε την επεξεργασία του βίντεο με την παρουσίαση φωτογραφιών, "
+"το τελευταίο βήμα είναι η εξαγωγή του έργου. Η εξαγωγή μετατρέπει το έργο "
+"σας στο OpenShot σε ένα ενιαίο αρχείο βίντεο εξόδου. Με τις προεπιλεγμένες "
+"ρυθμίσεις, το βίντεο λειτουργεί στα περισσότερα προγράμματα αναπαραγωγής "
+"πολυμέσων (όπως το VLC) ή σε ιστότοπους (όπως το YouTube, το Vimeo, …)."
+
+#: ../quick_tutorial.rst:120
+msgid ""
+"Click on the Export Video icon at the top of the screen (or use the "
+":guilabel:`File→Export Video` menu). The default values will work fine, so "
+"just click the :guilabel:`Export Video` button to render your new video."
+msgstr ""
+"Κάντε κλικ στο εικονίδιο Εξαγωγή βίντεο (Export Video) στο επάνω μέρος της "
+"οθόνης (ή χρησιμοποιήστε το μενού :guilabel:`Αρχείο→Εξαγωγή βίντεο` "
+"(File→Export Video)). Οι προεπιλεγμένες τιμές είναι κατάλληλες, οπότε απλώς "
+"κάντε κλικ στο κουμπί :guilabel:`Εξαγωγή βίντεο` (Export Video) για να γίνει"
+" η απόδοση (rendering) του νέου σας βίντεο."
+
+#: ../quick_tutorial.rst:127
+msgid "Conclusion"
+msgstr "Συμπέρασμα"
+
+#: ../quick_tutorial.rst:128
+msgid ""
+"You should now have a basic understanding of how OpenShot works. Importing, "
+"Arranging, Previewing, and Exporting. Hopefully this tutorial took less than"
+" **5 minutes** for you to complete. Please read the rest of this guide for a"
+" more detailed understanding of OpenShot and its advanced features."
+msgstr ""
+"Τώρα θα πρέπει να έχετε μια βασική κατανόηση του τρόπου λειτουργίας του "
+"OpenShot: εισαγωγή, τακτοποίηση, προεπισκόπηση και εξαγωγή. Ελπίζουμε ότι ο "
+"οδηγός αυτός σας πήρε λιγότερο από **5 λεπτά**. Διαβάστε το υπόλοιπο του "
+"οδηγού χρήσης για μια πιο αναλυτική κατανόηση του OpenShot και των "
+"προηγμένων λειτουργιών του."
+
+#: ../quick_tutorial.rst:133
+msgid ""
+"If you have any questions after reading this User Guide, please consider "
+"joining our `Reddit User Community <https://openshot.org/forum>`_ to discuss"
+" topics, ask questions, and meet with other OpenShot users."
+msgstr ""
+"Αν έχετε οποιεσδήποτε ερωτήσεις μετά την ανάγνωση αυτού του οδηγού χρήσης, "
+"σκεφτείτε να εγγραφείτε στην `Κοινότητα χρηστών στο Reddit "
+"<https://openshot.org/forum>`_ για να συζητήσετε θέματα, να υποβάλετε "
+"ερωτήσεις και να γνωρίσετε άλλους χρήστες του OpenShot."
