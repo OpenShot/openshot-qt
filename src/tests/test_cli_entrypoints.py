@@ -136,7 +136,7 @@ assert os.path.isfile(os.path.join(namespace['EXPORT_PRESETS_PATH'], 'videotoolb
                     (expected / folder).mkdir()
                 (expected / 'presets/videotoolbox.xml').write_text('<export-option/>')
                 env = dict(os.environ, PYTHONPATH=str(info.parent.parent))
-                result = subprocess.run([sys.executable, '-c', script, str(info),
+                result = subprocess.run([sys.executable, '-c', script, str(info),  # nosec B603 - Fixed interpreter and test source; no shell.
                                          str(root / 'openshot-qt'), platform, str(expected)],
                                         capture_output=True, text=True, timeout=20, env=env)
                 self.assertEqual(result.returncode, 0, result.stderr)
@@ -151,7 +151,7 @@ sys.argv = ['openshot-cli.exe', '--help']
 exec(compile(source, 'frozen-cli', 'exec'), {'__name__': '__main__'})
 """
         env = dict(os.environ, PYTHONPATH=str(cli.parent))
-        result = subprocess.run([sys.executable, '-c', script, str(cli)],
+        result = subprocess.run([sys.executable, '-c', script, str(cli)],  # nosec B603 - Fixed interpreter and test source; no shell.
                                 capture_output=True, text=True, timeout=20, env=env)
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn('Workflow:', result.stdout)

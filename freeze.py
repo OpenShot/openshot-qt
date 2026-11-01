@@ -113,7 +113,7 @@ try:
 except ImportError:
     pass
 else:
-    python_packages.append("OpenGL")
+    python_packages.append(OpenGL.__name__)
 
 # Modules to include
 python_modules = ["{}.QtNetwork".format(QT_BINDING_PACKAGE),"idna.idnadata",

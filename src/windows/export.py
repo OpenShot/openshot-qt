@@ -447,26 +447,29 @@ class Export(QDialog):
                     if _(type[0].childNodes[0].data) == selected_project:
                         titles = xmldoc.getElementsByTagName("title")
                         videocodecs = xmldoc.getElementsByTagName("videocodec")
-                        for title in titles:
-                            project_types.append(_(title.childNodes[0].data))
+                        target_names = [_(title.childNodes[0].data) for title in titles]
+                        project_types.extend(target_names)
                         for codec in videocodecs:
                             codec_text = ""
                             if codec.childNodes:
                                 codec_text = codec.childNodes[0].data
                             if "vaapi" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
-                                acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-vaapi.svg")
+                                icon = QIcon(":/hw/hw-accel-vaapi.svg")
                             elif "nvenc" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
-                                acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-nvenc.svg")
+                                icon = QIcon(":/hw/hw-accel-nvenc.svg")
                             elif "amf" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
-                                acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-amf.svg")
+                                icon = QIcon(":/hw/hw-accel-amf.svg")
                             elif "dxva2" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
-                                acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-dx.svg")
+                                icon = QIcon(":/hw/hw-accel-dx.svg")
                             elif "videotoolbox" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
-                                acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-vtb.svg")
+                                icon = QIcon(":/hw/hw-accel-vtb.svg")
                             elif "qsv" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
-                                acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-qsv.svg")
+                                icon = QIcon(":/hw/hw-accel-qsv.svg")
                             elif openshot.FFmpegWriter.IsValidCodec(codec_text) or codec_text == "":
-                                acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-none.svg")
+                                icon = QIcon(":/hw/hw-accel-none.svg")
+                            else:
+                                continue
+                            acceleration_types.update(dict.fromkeys(target_names, icon))
 
                 except ExpatError as e:
                     # This indicates an invalid Preset file - display an error and continue

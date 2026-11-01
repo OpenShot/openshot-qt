@@ -3,7 +3,7 @@
 import ctypes
 import os
 from pathlib import Path
-import subprocess
+import subprocess  # nosec B404 - Runs controlled package checks without a shell.
 import sys
 
 ENCODERS = ('h264_nvenc', 'hevc_nvenc', 'h264_qsv', 'hevc_qsv', 'h264_amf', 'hevc_amf')
@@ -36,7 +36,7 @@ def main():
     env = os.environ.copy()
     env['LD_LIBRARY_PATH'] = str(bundle)
     env.pop('LD_PRELOAD', None)
-    subprocess.run([sys.executable, '-c',
+    subprocess.run([sys.executable,  # nosec B603 - Fixed interpreter and local checker; no shell. '-c',
                     'import runpy,sys; runpy.run_path(sys.argv[1])["check_runtime"](sys.argv[2])',
                     str(Path(__file__).resolve()), str(bundle)], env=env, check=True)
 

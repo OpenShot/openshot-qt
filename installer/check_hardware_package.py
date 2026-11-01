@@ -4,7 +4,7 @@ import argparse
 import json
 import os
 from pathlib import Path
-import subprocess
+import subprocess  # nosec B404 - Runs controlled package checks without a shell.
 import sys
 import tempfile
 
@@ -28,7 +28,7 @@ def check_package(package, platform=None):
         if not executable.is_file():
             raise RuntimeError('Missing packaged executable: ' + str(executable))
         with tempfile.TemporaryDirectory(prefix='openshot-package-check-') as work:
-            result = subprocess.run(
+            result = subprocess.run(  # nosec B603 - Explicit bundled executable and fixed CLI arguments; no shell.
                 [str(executable), '--cli', 'export', 'preset', 'list'],
                 env=env, cwd=work, capture_output=True, text=True, timeout=120)
         if result.returncode:

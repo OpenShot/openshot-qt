@@ -14,7 +14,7 @@ def configure_windows_dll_paths():
     paths = [path for path in candidates if os.path.isdir(path)]
     os.environ['PATH'] = os.pathsep.join(paths + [os.environ.get('PATH', '')])
     add_directory = getattr(os, 'add_dll_directory', None)
-    if add_directory:
+    if callable(add_directory):
         for path in paths:
             if path not in _DLL_HANDLES:
                 # Retain the handles: closing them unregisters these directories.
