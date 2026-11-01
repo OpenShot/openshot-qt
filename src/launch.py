@@ -44,16 +44,12 @@ import sys
 import os
 import argparse
 
-# Ensure Qt plugin DLL dependencies are found on Windows packaged builds.
-if os.name == "nt":
-    _exe_dir = os.path.dirname(os.path.abspath(sys.executable))
-    _qt_dll_dirs = [
-        os.path.join(_exe_dir, "lib", binding_name)
-        for binding_name in ("PyQt{}".format(6), "PySide{}".format(6), "PyQt{}".format(5))
-    ]
-    _existing_qt_dll_dirs = [path for path in _qt_dll_dirs if os.path.isdir(path)]
-    if _existing_qt_dll_dirs:
-        os.environ["PATH"] = os.pathsep.join(_existing_qt_dll_dirs + [os.environ.get("PATH", "")])
+# Configure native dependencies before GUI or CLI imports.
+if __package__:
+    from .classes.windows_dlls import configure_windows_dll_paths
+else:
+    from classes.windows_dlls import configure_windows_dll_paths
+configure_windows_dll_paths()
 
 # Dispatch automation before Qt/native imports or GUI argument handling. This
 # also runs when launch is loaded through the installed GUI entry point.

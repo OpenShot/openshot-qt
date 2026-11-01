@@ -46,7 +46,7 @@ class CommonEntryTests(unittest.TestCase):
                 (package / 'classes' / 'agent').mkdir(parents=True)
                 (package / 'windows' / 'views' / 'timeline_backend').mkdir(parents=True)
                 for name in ('__init__.py', 'launch.py', 'cli.py', 'classes/__init__.py',
-                             'classes/cli_console.py', 'classes/easing.py', 'classes/agent/__init__.py', 'classes/agent/protocol.py',
+                             'classes/cli_console.py', 'classes/windows_dlls.py', 'classes/easing.py', 'classes/agent/__init__.py', 'classes/agent/protocol.py',
                              'classes/look_presets.py', 'classes/color_presets.py', 'classes/film_grain_presets.py',
                              'windows/__init__.py', 'windows/views/__init__.py', 'windows/views/timeline_backend/__init__.py',
                              'windows/views/timeline_backend/enums.py'):
@@ -90,6 +90,21 @@ class CommonEntryTests(unittest.TestCase):
         for output in outputs:
             self.assertEqual(outputs[0], output)
         self.assertIn('Workflow:', outputs[0])
+
+    def test_frozen_console_help_does_not_require_file_global(self):
+        cli = Path(__file__).resolve().parents[1] / 'cli.py'
+        script = """
+import sys
+source = open(sys.argv[1], encoding='utf-8').read()
+sys.frozen = True
+sys.argv = ['openshot-cli.exe', '--help']
+exec(compile(source, 'frozen-cli', 'exec'), {'__name__': '__main__'})
+"""
+        env = dict(os.environ, PYTHONPATH=str(cli.parent))
+        result = subprocess.run([sys.executable, '-c', script, str(cli)],
+                                capture_output=True, text=True, timeout=20, env=env)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn('Workflow:', result.stdout)
 
     @unittest.skipUnless(os.name == 'nt', 'Requires Windows native standard handles')
     def test_windows_gui_style_missing_streams_preserve_redirected_io(self):

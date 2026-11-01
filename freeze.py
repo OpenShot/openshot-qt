@@ -395,6 +395,9 @@ if sys.platform == "win32":
     # Add the Qt image codec runtime DLLs to the app root, since Windows does not search
     # the packaged binding subdir when loading dependencies for imageformat plugins.
     mingw_bin_path = "c:/msys64/%s/bin" % MSYSTEM
+    # Keep the selected FFmpeg build and Intel dispatcher ahead of SDK DLLs.
+    ffmpeg_bin_path = os.path.join(os.getenv("FFMPEGDIR", "c:/msys64/%s" % MSYSTEM), "bin")
+    build_exe_options.setdefault("bin_path_includes", []).insert(0, ffmpeg_bin_path)
     imageformat_runtime_dlls = [
         "libjpeg-8.dll",
         "libjasper-4.dll",
@@ -659,6 +662,10 @@ elif sys.platform == "darwin":
     if os.path.exists(resvg_path):
         external_so_files.append((resvg_path, os.path.basename(resvg_path)))
 
+    ffmpeg_root = os.getenv("FFMPEGDIR")
+    if ffmpeg_root:
+        build_exe_options.setdefault("bin_path_includes", []).append(os.path.join(ffmpeg_root, "lib"))
+
     opencv_root = os.getenv("OPENCV_ROOT")
     if opencv_root:
         opencv_lib_path = os.getenv("OPENCV_FREEZE_LIB_PATH") or os.path.join(opencv_root, "lib")
@@ -800,6 +807,13 @@ if sys.platform == "darwin":
             elif frozen_path.endswith(".app"):
                 fix_rpath(os.path.join(build_path, frozen_path, "Contents", "MacOS"))
                 print_min_versions(os.path.join(build_path, frozen_path, "Contents", "MacOS"))
+
+elif sys.platform == "win32":
+    # cx_Freeze may prefer DLLs beside its Python executable over our FFmpeg prefix.
+    from installer.windows_ffmpeg import stage_ffmpeg_runtime
+    for frozen_path in os.listdir(build_path):
+        if frozen_path.startswith("exe") and ".previous-" not in frozen_path:
+            stage_ffmpeg_runtime(os.path.dirname(ffmpeg_bin_path), os.path.join(build_path, frozen_path))
 
 elif sys.platform == "linux":
     # Linux issues with frozen folder
