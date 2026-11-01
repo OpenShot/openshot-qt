@@ -36,9 +36,10 @@ def main():
     env = os.environ.copy()
     env['LD_LIBRARY_PATH'] = str(bundle)
     env.pop('LD_PRELOAD', None)
-    subprocess.run([sys.executable,  # nosec B603 - Fixed interpreter and local checker; no shell. '-c',
-                    'import runpy,sys; runpy.run_path(sys.argv[1])["check_runtime"](sys.argv[2])',
-                    str(Path(__file__).resolve()), str(bundle)], env=env, check=True)
+    subprocess.run(  # nosec B603 - Fixed interpreter and local checker; no shell.
+        [sys.executable, '-c',
+         'import runpy,sys; runpy.run_path(sys.argv[1])["check_runtime"](sys.argv[2])',
+         str(Path(__file__).resolve()), str(bundle)], env=env, check=True)
 
 
 if __name__ == '__main__':
