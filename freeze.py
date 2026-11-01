@@ -106,6 +106,15 @@ python_packages = ["os",
                    "json",
                    ]
 
+# PyOpenGL loads its platform backend dynamically. Include the full package
+# when installed so frozen startup can import that backend as well.
+try:
+    import OpenGL
+except ImportError:
+    pass
+else:
+    python_packages.append("OpenGL")
+
 # Modules to include
 python_modules = ["{}.QtNetwork".format(QT_BINDING_PACKAGE),"idna.idnadata",
                   "sentry_sdk.integrations.stdlib",
