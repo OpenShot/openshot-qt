@@ -51,7 +51,7 @@ assert QtWidgets.QApplication.instance() is None
             # Stage the real modules needed by --version, using setup.py's layout.
             for name in ("__init__.py", "launch.py", "qt_api.py",
                          "classes/__init__.py", "classes/info.py", "classes/log_config.py",
-                         "classes/qt_bootstrap.py"):
+                         "classes/qt_bootstrap.py", "classes/windows_dlls.py"):
                 shutil.copy2(str(source / name), str(package / name))
 
             home = root / "home"
