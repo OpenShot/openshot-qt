@@ -38,6 +38,8 @@ def check_package(package, platform=None):
         if not responses or not responses[-1].get('ok'):
             raise RuntimeError(name + ' returned no successful preset catalogue:\n' + result.stdout)
         presets = responses[-1]['result']
+        if not presets:
+            raise RuntimeError(name + ' returned an empty preset catalogue; check bundled resource paths')
         available = {row['video_codec'] for row in presets if row['codecs_available']}
         missing = sorted(set(required) - available)
         if missing:

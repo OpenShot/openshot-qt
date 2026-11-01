@@ -69,3 +69,6 @@ class HardwarePackageCheckTests(unittest.TestCase):
                     response.stdout = json.dumps({'ok': True, 'result': rows})
                     with self.assertRaisesRegex(RuntimeError, 'missing hardware export'):
                         checker.check_package(package, platform=platform)
+                    response.stdout = json.dumps({'ok': True, 'result': []})
+                    with self.assertRaisesRegex(RuntimeError, 'empty preset catalogue'):
+                        checker.check_package(package, platform=platform)

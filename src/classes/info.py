@@ -43,8 +43,10 @@ COPYRIGHT = "(c) 2008-{} {}".format(strftime("%Y"), COMPANY_NAME)
 CWD = os.getcwd()
 
 # Application paths
-# Frozen bytecode may live under lib/classes, while bundled assets sit by the executable.
-PATH = (os.path.dirname(os.path.abspath(sys.executable)) if getattr(sys, "frozen", False)
+# Windows/Linux assets sit by the executable. Mac assets follow classes under lib,
+# then under Resources after the DMG builder moves and symlinks that directory.
+PATH = (os.path.dirname(os.path.abspath(sys.executable))
+        if getattr(sys, "frozen", False) and sys.platform != "darwin"
         else os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 RESOURCES_PATH = os.path.join(PATH, "resources")
 PROFILES_PATH = os.path.join(PATH, "profiles")

@@ -91,25 +91,47 @@ class CommonEntryTests(unittest.TestCase):
             self.assertEqual(outputs[0], output)
         self.assertIn('Workflow:', outputs[0])
 
-    def test_frozen_resource_paths_follow_executable_not_bytecode(self):
+    def test_frozen_resource_paths_match_platform_packaging(self):
         info = Path(__file__).resolve().parents[1] / 'classes/info.py'
         script = """
 import os,sys
+import qt_api  # Load the host binding before simulating another platform.
 source = open(sys.argv[1], encoding='utf-8').read()
 sys.frozen = True
 sys.executable = sys.argv[2]
+sys.platform = sys.argv[3]
 root = os.path.dirname(sys.executable)
 namespace = {'__file__': os.path.join(root, 'lib', 'classes', 'info.pyc')}
 exec(compile(source, namespace['__file__'], 'exec'), namespace)
-assert namespace['PATH'] == root
+expected = sys.argv[4]
+assert namespace['PATH'] == expected, (namespace['PATH'], expected)
 for name, folder in (('EXPORT_PRESETS_PATH', 'presets'), ('PROFILES_PATH', 'profiles'),
                      ('RESOURCES_PATH', 'resources'), ('IMAGES_PATH', 'images')):
-    assert namespace[name] == os.path.join(root, folder), name
+    assert namespace[name] == os.path.join(expected, folder), name
+assert os.path.isfile(os.path.join(namespace['EXPORT_PRESETS_PATH'], 'videotoolbox.xml'))
 """
-        for relative in ('openshot-qt.exe', 'OpenShot.app/Contents/MacOS/openshot-qt'):
-            with self.subTest(relative=relative), tempfile.TemporaryDirectory() as directory:
+        layouts = [('win32', False), ('linux', False), ('darwin', False)]
+        if os.name != 'nt':
+            layouts.append(('darwin', True))  # DMG layout uses POSIX symlinks.
+        for platform, relocated in layouts:
+            with self.subTest(platform=platform, relocated=relocated), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                if platform == 'darwin':
+                    root = root / 'OpenShot.app/Contents/MacOS'
+                bytecode = root / 'lib/classes'
+                if relocated:
+                    expected = root.parent / 'Resources'
+                    (expected / 'classes').mkdir(parents=True)
+                    bytecode.parent.mkdir(parents=True)
+                    bytecode.symlink_to('../../Resources/classes', target_is_directory=True)
+                else:
+                    bytecode.mkdir(parents=True)
+                    expected = root / 'lib' if platform == 'darwin' else root
+                (expected / 'presets').mkdir()
+                (expected / 'presets/videotoolbox.xml').write_text('<export-option/>')
                 env = dict(os.environ, PYTHONPATH=str(info.parent.parent))
-                result = subprocess.run([sys.executable, '-c', script, str(info), str(Path(directory) / relative)],
+                result = subprocess.run([sys.executable, '-c', script, str(info),
+                                         str(root / 'openshot-qt'), platform, str(expected)],
                                         capture_output=True, text=True, timeout=20, env=env)
                 self.assertEqual(result.returncode, 0, result.stderr)
 
