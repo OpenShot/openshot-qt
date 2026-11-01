@@ -43,7 +43,9 @@ COPYRIGHT = "(c) 2008-{} {}".format(strftime("%Y"), COMPANY_NAME)
 CWD = os.getcwd()
 
 # Application paths
-PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))  # Primary openshot folder
+# Frozen bytecode may live under lib/classes, while bundled assets sit by the executable.
+PATH = (os.path.dirname(os.path.abspath(sys.executable)) if getattr(sys, "frozen", False)
+        else os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 RESOURCES_PATH = os.path.join(PATH, "resources")
 PROFILES_PATH = os.path.join(PATH, "profiles")
 IMAGES_PATH = os.path.join(PATH, "images")

@@ -91,6 +91,28 @@ class CommonEntryTests(unittest.TestCase):
             self.assertEqual(outputs[0], output)
         self.assertIn('Workflow:', outputs[0])
 
+    def test_frozen_resource_paths_follow_executable_not_bytecode(self):
+        info = Path(__file__).resolve().parents[1] / 'classes/info.py'
+        script = """
+import os,sys
+source = open(sys.argv[1], encoding='utf-8').read()
+sys.frozen = True
+sys.executable = sys.argv[2]
+root = os.path.dirname(sys.executable)
+namespace = {'__file__': os.path.join(root, 'lib', 'classes', 'info.pyc')}
+exec(compile(source, namespace['__file__'], 'exec'), namespace)
+assert namespace['PATH'] == root
+for name, folder in (('EXPORT_PRESETS_PATH', 'presets'), ('PROFILES_PATH', 'profiles'),
+                     ('RESOURCES_PATH', 'resources'), ('IMAGES_PATH', 'images')):
+    assert namespace[name] == os.path.join(root, folder), name
+"""
+        for relative in ('openshot-qt.exe', 'OpenShot.app/Contents/MacOS/openshot-qt'):
+            with self.subTest(relative=relative), tempfile.TemporaryDirectory() as directory:
+                env = dict(os.environ, PYTHONPATH=str(info.parent.parent))
+                result = subprocess.run([sys.executable, '-c', script, str(info), str(Path(directory) / relative)],
+                                        capture_output=True, text=True, timeout=20, env=env)
+                self.assertEqual(result.returncode, 0, result.stderr)
+
     def test_frozen_console_help_does_not_require_file_global(self):
         cli = Path(__file__).resolve().parents[1] / 'cli.py'
         script = """
