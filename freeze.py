@@ -715,6 +715,18 @@ elif sys.platform == "darwin":
                                          os.path.join(brew_prefix, "opt/tesseract/lib/libtesseract.4.dylib"),
                                          os.path.join(brew_prefix, "opt/leptonica/lib/liblept.5.dylib")]
 
+# The SVG image loader alone rasterizes QIcons at their intrinsic size. Keep
+# the SVG icon engine too, so badges render at the display's device pixel ratio.
+svg_icon_plugins = list(find_files(
+    os.path.join(QLibraryInfo.location(QLibraryInfo.PluginsPath), "iconengines"),
+    ["*svgicon*.dll", "*svgicon*.so", "*svgicon*.dylib"]))
+if not svg_icon_plugins:
+    raise RuntimeError("Qt's SVG icon engine is required for high-DPI icons")
+# System Qt plugin paths can be excluded by the freezer unless explicitly included.
+build_exe_options.setdefault("bin_includes", []).extend(svg_icon_plugins)
+for plugin_path in svg_icon_plugins:
+    external_so_files.append((plugin_path, os.path.join("iconengines", os.path.basename(plugin_path))))
+
 # Dependencies are automatically detected, but it might need fine tuning.
 build_exe_options["packages"] = python_packages
 build_exe_options["include_files"] = src_files + external_so_files
