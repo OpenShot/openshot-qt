@@ -928,6 +928,15 @@ def main():
             if len(avcodec_libs) > 1:
                 raise RuntimeError("AppImage bundles more than one FFmpeg: %s" % avcodec_libs)
 
+            # The dispatcher is redistributable; GPU drivers remain host dependencies.
+            ffmpeg_root = os.environ.get("FFMPEG_ROOT") or os.environ.get("FFMPEGDIR")
+            if not ffmpeg_root:
+                raise RuntimeError("FFMPEG_ROOT is required to package oneVPL notices")
+            shutil.copytree(os.path.join(ffmpeg_root, "share", "vpl", "licensing"),
+                            os.path.join(app_dir_path, "usr", "share", "licenses", "oneVPL"))
+            subprocess.run([sys.executable, os.path.join(PATH, "installer", "check-linux-hardware.py"),
+                            os.path.join(app_dir_path, "usr", "bin")], check=True)
+
             # Prefer the desktop's native file picker through XDG portals.
             install_linux_portal_theme(app_dir_path)
 
