@@ -104,10 +104,10 @@ root = os.path.dirname(sys.executable)
 namespace = {'__file__': os.path.join(root, 'lib', 'classes', 'info.pyc')}
 exec(compile(source, namespace['__file__'], 'exec'), namespace)
 expected = sys.argv[4]
-assert namespace['PATH'] == expected, (namespace['PATH'], expected)
+assert os.path.samefile(namespace['PATH'], expected), (namespace['PATH'], expected)
 for name, folder in (('EXPORT_PRESETS_PATH', 'presets'), ('PROFILES_PATH', 'profiles'),
                      ('RESOURCES_PATH', 'resources'), ('IMAGES_PATH', 'images')):
-    assert namespace[name] == os.path.join(expected, folder), name
+    assert os.path.samefile(namespace[name], os.path.join(expected, folder)), name
 assert os.path.isfile(os.path.join(namespace['EXPORT_PRESETS_PATH'], 'videotoolbox.xml'))
 """
         layouts = [('win32', False), ('linux', False), ('darwin', False)]
@@ -116,6 +116,11 @@ assert os.path.isfile(os.path.join(namespace['EXPORT_PRESETS_PATH'], 'videotoolb
         for platform, relocated in layouts:
             with self.subTest(platform=platform, relocated=relocated), tempfile.TemporaryDirectory() as directory:
                 root = Path(directory)
+                if platform == 'darwin' and os.name != 'nt':
+                    # Reproduce macOS's /var -> /private/var temp-directory alias.
+                    (root / 'real').mkdir()
+                    (root / 'alias').symlink_to(root / 'real', target_is_directory=True)
+                    root = root / 'alias'
                 if platform == 'darwin':
                     root = root / 'OpenShot.app/Contents/MacOS'
                 bytecode = root / 'lib/classes'
@@ -127,7 +132,8 @@ assert os.path.isfile(os.path.join(namespace['EXPORT_PRESETS_PATH'], 'videotoolb
                 else:
                     bytecode.mkdir(parents=True)
                     expected = root / 'lib' if platform == 'darwin' else root
-                (expected / 'presets').mkdir()
+                for folder in ('presets', 'profiles', 'resources', 'images'):
+                    (expected / folder).mkdir()
                 (expected / 'presets/videotoolbox.xml').write_text('<export-option/>')
                 env = dict(os.environ, PYTHONPATH=str(info.parent.parent))
                 result = subprocess.run([sys.executable, '-c', script, str(info),
