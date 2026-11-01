@@ -41,6 +41,10 @@ class KeyframeTransportTests(unittest.TestCase):
             directory = Path(temporary)
             from tests.agent_test_support import subprocess_environment
             env = subprocess_environment(QT_QPA_PLATFORM='offscreen', OPENSHOT_SESSION_DIR=str(directory / 'sessions'))
+            # Exercise real transport with a long temp path, as found on macOS.
+            socket_directory = directory / ('socket-' + 'x' * 30)
+            socket_directory.mkdir()
+            env['TMPDIR'] = str(socket_directory)
             env.pop('OPENSHOT_SESSION', None)
             session_id = uuid.uuid4().hex
             with (directory / 'server.log').open('w') as log:
