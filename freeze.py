@@ -394,6 +394,10 @@ if sys.platform == "win32":
     # Add the Qt image codec runtime DLLs to the app root, since Windows does not search
     # the packaged binding subdir when loading dependencies for imageformat plugins.
     mingw_bin_path = "c:/msys64/%s/bin" % MSYSTEM
+    # Use the same FFmpeg DLLs as the native build, including Intel's dispatcher.
+    # NVIDIA/AMD runtime DLLs come from the user's graphics driver.
+    ffmpeg_bin_path = os.path.join(os.getenv("FFMPEGDIR", "c:/msys64/%s" % MSYSTEM), "bin")
+    build_exe_options.setdefault("bin_path_includes", []).insert(0, ffmpeg_bin_path)
     imageformat_runtime_dlls = [
         "libjpeg-8.dll",
         "libjasper-4.dll",
@@ -809,6 +813,14 @@ if sys.platform == "darwin":
             elif frozen_path.endswith(".app"):
                 fix_rpath(os.path.join(build_path, frozen_path, "Contents", "MacOS"))
                 print_min_versions(os.path.join(build_path, frozen_path, "Contents", "MacOS"))
+
+elif sys.platform == "win32":
+    # The freezer can prefer DLLs beside its own Python executable over the
+    # configured build prefix. Replace those copies after dependency scanning.
+    from installer.windows_ffmpeg import stage_ffmpeg_runtime
+    for frozen_path in os.listdir(build_path):
+        if frozen_path.startswith("exe") and ".previous-" not in frozen_path:
+            stage_ffmpeg_runtime(os.path.dirname(ffmpeg_bin_path), os.path.join(build_path, frozen_path))
 
 elif sys.platform == "linux":
     # Linux issues with frozen folder

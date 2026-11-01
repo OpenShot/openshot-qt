@@ -130,6 +130,7 @@ win-x64:
     - build\install-x64\share\*.env
     - build\install-x64\share\*.log
     - build\build-server.log
+    - build/windows-hardware-package.json
   script:
     - $PSVersionTable
     - $PSDefaultParameterValues['Out-File:Encoding'] = 'utf8'
@@ -140,6 +141,8 @@ win-x64:
     - Copy-Item "$CI_PROJECT_DIR/build/install-x64/python/*" -Destination "$CI_PROJECT_DIR"
     - $env:MSYSTEM = "MINGW64"
     - if ((& "C:/msys64/mingw64/bin/ffmpeg.exe" -version | Select-Object -First 1) -notmatch "^ffmpeg version 7[.]1[.]") { throw "FFmpeg 7.1 is required" }
+    - $gpuEncoders = (& "C:/msys64/mingw64/bin/ffmpeg.exe" -hide_banner -encoders 2>&1 | Out-String)
+    - 'if ($LASTEXITCODE -ne 0) { throw "Could not enumerate FFmpeg encoders" }; foreach ($codec in @("h264_nvenc", "hevc_nvenc", "h264_qsv", "hevc_qsv", "h264_amf", "hevc_amf")) { if ($gpuEncoders -notmatch "\b$codec\b") { throw "Windows FFmpeg is missing required hardware encoder $codec" } }'
     - $env:OPENCV_ROOT = "C:\msys64\mingw64\opencv-4.13.0"
     - $env:OPENCV_DLL_DIR = "$env:OPENCV_ROOT\x64\mingw\bin"
     - $originalPath = $env:Path
@@ -156,6 +159,7 @@ win-x64:
     - git log "$PREV_GIT_LABEL..@" --oneline --pretty=format:"- %C(auto,yellow)%h%C(auto,magenta)% %C(auto,blue)%>(12,trunc)%ad %C(auto,green)%<(25,trunc)%aN%C(auto,reset)%s%C(auto,red)% gD% D" --date=short > "build/install-x64/share/$CI_PROJECT_NAME.log"
     - python3 -u freeze.py build --git-branch=$CI_COMMIT_REF_NAME
     - $EXE_PATH = "$CI_PROJECT_DIR\build\exe.mingw-" + $PY_ABI + "\openshot-qt.exe"
+    - python3 installer/check_windows_hardware.py (Split-Path $EXE_PATH) --report build/windows-hardware-package.json
     - $manifestPath = "installer/windows.manifest"
     - (Get-Content $manifestPath) -creplace "ARCHITECTURE", "amd64" | Set-Content $manifestPath
     - mt.exe -manifest installer/windows.manifest -validate_manifest
@@ -178,6 +182,7 @@ win-x86:
     - build\install-x86\share\*.env
     - build\install-x86\share\*.log
     - build\build-server.log
+    - build/windows-hardware-package.json
   script:
     - $PSVersionTable
     - $PSDefaultParameterValues['Out-File:Encoding'] = 'utf8'
@@ -188,6 +193,8 @@ win-x86:
     - Copy-Item "$CI_PROJECT_DIR/build/install-x86/python/*" -Destination "$CI_PROJECT_DIR"
     - $env:MSYSTEM = "MINGW32"
     - if ((& "C:/msys64/mingw32/bin/ffmpeg.exe" -version | Select-Object -First 1) -notmatch "^ffmpeg version 7[.]1[.]") { throw "FFmpeg 7.1 is required" }
+    - $gpuEncoders = (& "C:/msys64/mingw32/bin/ffmpeg.exe" -hide_banner -encoders 2>&1 | Out-String)
+    - 'if ($LASTEXITCODE -ne 0) { throw "Could not enumerate FFmpeg encoders" }; foreach ($codec in @("h264_nvenc", "hevc_nvenc", "h264_qsv", "hevc_qsv", "h264_amf", "hevc_amf")) { if ($gpuEncoders -notmatch "\b$codec\b") { throw "Windows FFmpeg is missing required hardware encoder $codec" } }'
     - $env:OPENCV_ROOT = "C:\msys64\mingw32\opencv-4.13.0"
     - $env:OPENCV_DLL_DIR = "$env:OPENCV_ROOT\x64\mingw\bin"
     - $originalPath = $env:Path
@@ -204,6 +211,7 @@ win-x86:
     - git log "$PREV_GIT_LABEL..@" --oneline --pretty=format:"- %C(auto,yellow)%h%C(auto,magenta)% %C(auto,blue)%>(12,trunc)%ad %C(auto,green)%<(25,trunc)%aN%C(auto,reset)%s%C(auto,red)% gD% D" --date=short > "build/install-x86/share/$CI_PROJECT_NAME.log"
     - python3 -u freeze.py build --git-branch=$CI_COMMIT_REF_NAME
     - $EXE_PATH = "$CI_PROJECT_DIR\build\exe.mingw-" + $PY_ABI + "\openshot-qt.exe"
+    - python3 installer/check_windows_hardware.py (Split-Path $EXE_PATH) --report build/windows-hardware-package.json
     - editbin /LARGEADDRESSAWARE "$EXE_PATH"
     - $manifestPath = "installer/windows.manifest"
     - (Get-Content $manifestPath) -creplace "ARCHITECTURE", "x86" | Set-Content $manifestPath
@@ -245,6 +253,7 @@ win-sign-x64:
     paths:
     - build\*-x86_64.exe
     - build\build-server.log
+    - build/windows-hardware-package.json
   dependencies:
     - win-x64
   script:
@@ -265,6 +274,7 @@ win-sign-x86:
     paths:
     - build\*-x86.exe
     - build\build-server.log
+    - build/windows-hardware-package.json
   dependencies:
     - win-x86
   script:
