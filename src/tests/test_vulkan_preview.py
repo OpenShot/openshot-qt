@@ -27,13 +27,14 @@
 
 from types import SimpleNamespace
 import unittest
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 
 import openshot
 from qt_api import QImage
 
 from windows.preview_thread import PreviewParent
 from windows.video_widget import gpu_preview_enabled, gpu_preview_status
+from windows import video_widget
 
 
 GPU_OPENSHOT = SimpleNamespace(VulkanOpenGLPresenter=object)
@@ -43,6 +44,19 @@ WIDGETS = SimpleNamespace(QOpenGLWidget=object)
 
 def has_opengl():
     return True
+
+
+class OpenGLAvailabilityTests(unittest.TestCase):
+    def test_created_context_must_support_shader_programs(self):
+        application = SimpleNamespace(instance=lambda: object(), platformName=lambda: "windows")
+        for version, expected in (((1, 1), False), ((2, 0), True), ((4, 6), True)):
+            with self.subTest(version=version):
+                context = Mock()
+                context.create.return_value = True
+                context.format.return_value.version.return_value = version
+                with patch.object(video_widget.QtWidgets, "QApplication", application), \
+                        patch.object(video_widget.QtGui, "QOpenGLContext", return_value=context):
+                    self.assertEqual(video_widget.opengl_available(), expected)
 
 
 class GpuPreviewEnabledTests(unittest.TestCase):
@@ -69,6 +83,15 @@ class GpuPreviewEnabledTests(unittest.TestCase):
         self.assertTrue(gpu_preview_enabled(GPU_OPENSHOT, "pyqt5", WIDGETS, {}, has_opengl))
         self.assertTrue(gpu_preview_enabled(
             GPU_OPENSHOT, "pyqt5", WIDGETS, {"OPENSHOT_RENDER_BACKEND": "vulkan"}, has_opengl))
+
+    def test_cpu_display_override_does_not_probe_opengl(self):
+        check = Mock()
+        environment = {"OPENSHOT_RENDER_BACKEND": "vulkan", "OPENSHOT_PRESENTATION_BACKEND": "cpu"}
+        enabled, reason = gpu_preview_status(GPU_OPENSHOT, "pyqt5", WIDGETS, environment, check)
+        self.assertFalse(enabled)
+        self.assertIn("Vulkan processing remains enabled", reason)
+        self.assertEqual(environment["OPENSHOT_RENDER_BACKEND"], "vulkan")
+        check.assert_not_called()
 
     def test_missing_opengl_keeps_widget_preview(self):
         self.assertFalse(gpu_preview_enabled(GPU_OPENSHOT, "pyqt5", WIDGETS, {}, lambda: False))

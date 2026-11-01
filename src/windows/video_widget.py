@@ -58,14 +58,20 @@ OBJECT_MASK_PREVIEW_STROKE_WIDTH = 3
 
 
 def opengl_available():
-    """True when Qt can create an OpenGL context (not offscreen or broken drivers)."""
+    """True when Qt can create the OpenGL 2+ context its painter requires."""
     if QtWidgets.QApplication.instance() is None:
         return False
     # These platforms can create a GL context without supporting QOpenGLWidget
     # painting. Keep QWidget presentation so seeks also repaint the overlays.
     if QtWidgets.QApplication.platformName() in ("offscreen", "minimal"):
         return False
-    return QtGui.QOpenGLContext().create()
+    context = QtGui.QOpenGLContext()
+    if not context.create():
+        return False
+    # Windows' GDI Generic implementation can successfully create an OpenGL
+    # 1.1 context. QOpenGLWidget's QPainter then calls missing shader functions
+    # before our presenter can reject that context and fall back.
+    return context.format().version() >= (2, 0)
 
 
 def gpu_preview_status(openshot_module=openshot, qt_api=QT_API, widgets=QtWidgets, environ=os.environ,
@@ -79,6 +85,8 @@ def gpu_preview_status(openshot_module=openshot, qt_api=QT_API, widgets=QtWidget
         return False, "Qt has no QOpenGLWidget"
     if environ.get("OPENSHOT_RENDER_BACKEND", "vulkan") == "cpu":
         return False, "OPENSHOT_RENDER_BACKEND=cpu"
+    if environ.get("OPENSHOT_PRESENTATION_BACKEND") == "cpu":
+        return False, "OPENSHOT_PRESENTATION_BACKEND=cpu (Vulkan processing remains enabled)"
     if not opengl_check():
         return False, "Qt could not create a usable OpenGL context"
     return True, "native GPU presenter available; frame interop is checked during drawing"
