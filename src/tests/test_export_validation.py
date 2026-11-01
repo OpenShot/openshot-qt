@@ -198,6 +198,19 @@ class ExportValidationTests(unittest.TestCase):
         # A cover image has no bit rate to check
         self.assertEqual(self.issues(vformat="mp3", vcodec="png", acodec="mp2", video_bitrate="23 crf"), {})
 
+    def test_hardware_replacements_preserve_family_and_put_cpu_last(self):
+        from unittest.mock import patch
+        caps = Capabilities(FakeWriter)
+        validator = ExportValidator(caps)
+        with patch.object(caps, "encoder", return_value={"found": True}), \
+                patch.object(caps, "supports", side_effect=lambda fmt, codec: int(codec != "h264_amf")):
+            candidates = validator.video_replacements(settings(vcodec="h264_nvenc"))
+            vulkan = validator.video_replacements(settings(vcodec="hevc_vulkan"))
+        self.assertEqual(candidates, ["h264_qsv", "h264_videotoolbox", "h264_vaapi", "h264_vulkan", "libx264"])
+        self.assertEqual(vulkan, ["hevc_nvenc", "hevc_qsv", "hevc_amf", "hevc_videotoolbox", "hevc_vaapi", "libx265"])
+        self.assertEqual(validator.video_replacements(settings(vcodec="libx264")), [])
+        self.assertEqual(validator.video_replacements(settings(vformat="webm", vcodec="h264_qsv")), [])
+
     def test_engine_failures_point_at_the_setting_and_suggest_a_fix(self):
         failed = {"ok": False, "stage": "audio", "message": "mp3: Exactly one MP3 audio stream"}
         issue = self.validator.engine_issue(settings(vformat="mp3", vcodec="png", acodec="aac"), failed)
@@ -348,6 +361,47 @@ class ExportDialogValidationTests(unittest.TestCase):
         with patch("windows.export_validation_ui.get_app", return_value=SimpleNamespace(_tr=lambda text: text)):
             validation = ExportValidationUI(dialog, ExportValidator(Capabilities(FakeWriter)))
         return dialog, validation
+
+    def test_hardware_fix_checks_candidates_and_stops_at_first_success(self):
+        from unittest.mock import patch
+        dialog, validation = self.dialog()
+        args = ("check.mp4", {"vcodec": "h264_nvenc", "width": 1920}, {}, "video_audio", None)
+        failure = {"ok": False, "stage": "video", "message": "unavailable"}
+        candidates = ["h264_qsv", "h264_videotoolbox", "libx264"]
+        for results, expected, calls in (([failure, failure, {"ok": True}], "h264_videotoolbox", 3),
+                                         ([failure] * 3 + [{"ok": True}], "libx264", 4),
+                                         ([failure] * 4, None, 4)):
+            with self.subTest(replacement=expected), \
+                    patch("windows.export_validation_ui.test_writer", side_effect=results) as check, \
+                    patch.object(validation, "validate"):
+                validation._run_engine_check("snapshot", args, candidates)
+                self.assertEqual(validation.engine_result["replacement"], expected)
+                self.assertEqual(check.call_count, calls)
+                self.assertEqual(args[1]["vcodec"], "h264_nvenc")
+                for call in check.call_args_list[1:]:
+                    self.assertEqual(call.args[1]["width"], 1920)
+                    self.assertEqual(call.args[3], "video")
+
+    def test_missing_gpu_encoder_offers_only_a_tested_replacement(self):
+        from unittest.mock import patch
+        dialog, validation = self.dialog()
+        dialog.txtVideoCodec.setText("h264_qsv")
+        dialog.writer_settings = lambda: ({"vformat": "mp4", "vcodec": dialog.txtVideoCodec.text()},
+                                          {}, "video_audio", None)
+        validation.engine_available = True
+        with patch("windows.export_validation_ui.threading.Thread"):
+            validation.validate()
+            issue = next(issue for issue in validation.issues if issue.field == "vcodec")
+            self.assertIsNone(issue.fix)
+            key, args = validation._engine_request("audio")
+            with patch("windows.export_validation_ui.test_writer", side_effect=[
+                    {"ok": True}, {"ok": False, "stage": "video"}, {"ok": True}]):
+                validation._run_engine_check(key, args, ["h264_nvenc", "libx264"])
+            issue = next(issue for issue in validation.issues if issue.field == "vcodec")
+            self.assertEqual(issue.fix, "h264_nvenc")
+            self.assertEqual(dialog.txtVideoCodec.text(), "h264_qsv")
+            validation.apply_fix(issue)
+            self.assertEqual(dialog.txtVideoCodec.text(), "h264_nvenc")
 
     def test_invalid_setting_is_outlined_badged_and_blocks_export(self):
         dialog, validation = self.dialog()

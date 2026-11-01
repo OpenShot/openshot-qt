@@ -296,6 +296,17 @@ def _menu_ranges(nodes, name):
     return ranges
 
 
+# Keep replacements in the same codec family; never silently change H.264 to HEVC.
+# Vendor encoders come first; Vulkan is the cross-platform GPU fallback before CPU.
+HARDWARE_BACKENDS = ("nvenc", "qsv", "amf", "videotoolbox", "vaapi", "vulkan")
+SOFTWARE_ENCODERS = {"h264": "libx264", "hevc": "libx265", "av1": "libsvtav1"}
+
+
+def hardware_family(codec):
+    family, _, backend = codec.rpartition("_")
+    return family if backend in HARDWARE_BACKENDS and family in SOFTWARE_ENCODERS else None
+
+
 def _closest(value, choices):
     return min(choices, key=lambda choice: (abs(choice - value), -choice))
 
@@ -387,8 +398,23 @@ class ExportValidator:
             "reason": result.get("message") or _("unknown error")}
         return Issue(field, ERROR, message, fix, fix)
 
+    def video_replacements(self, settings):
+        """A bounded list of compatible GPU replacements, followed by same-family CPU."""
+        current = (settings.get("vcodec") or "").strip()
+        family = hardware_family(current)
+        if not family:
+            return []
+        names = [family + "_" + backend for backend in HARDWARE_BACKENDS]
+        names.append(SOFTWARE_ENCODERS[family])
+        vformat = self._format_name(settings)
+        return [name for name in names if name != current
+                and self.caps.encoder(name).get("found")
+                and self.caps.supports(vformat, name) != 0]
+
     def _suggest_encoder(self, settings, media_type, default_key):
         """A good replacement encoder for this format, or None."""
+        if media_type == "video" and hardware_family((settings.get("vcodec") or "").strip()):
+            return None  # The UI must test hardware replacements before offering one.
         vformat = self._format_name(settings)
         default = self.caps.format(vformat).get(default_key)
         if default and self.caps.encoder(default).get("found"):

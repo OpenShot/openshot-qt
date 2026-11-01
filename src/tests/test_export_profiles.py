@@ -72,3 +72,39 @@ class ExportProfileTests(unittest.TestCase):
                 self.export.Export.cboSimpleProjectType_index_changed(dialog, project, 0)
                 self.assertEqual([target.itemText(n) for n in range(target.count())], ["CPU", "NVIDIA"])
                 self.assertFalse(target.itemIcon(1).isNull())
+
+    def test_target_badge_tracks_encoder_changes_without_reapplying_presets(self):
+        from qt_api import QApplication, QLineEdit
+        from windows.views.hardware_combo import HardwareComboBox, BADGES_ROLE
+        self.__class__.app = QApplication.instance() or QApplication([])
+        combo = HardwareComboBox()
+        dialog = SimpleNamespace(cboSimpleTarget=combo,
+                                 video_targets={'GPU': ('mp4', 'h264_nvenc'), 'CPU': ('mp4', 'libx264')},
+                                 txtVideoFormat=QLineEdit('mp4'), txtVideoCodec=QLineEdit('libx264'))
+        support = {'h264_nvenc': ('nvenc', True, 'included'), 'libx264': ('cpu', True, 'software'),
+                   'h264_vulkan': ('vulkan', True, 'opened')}
+        changed = Mock()
+        with patch.object(self.export, "get_app", return_value=SimpleNamespace(_tr=lambda text: text)), \
+                patch.object(self.export, "encoder_support", side_effect=lambda codec: support[codec]):
+            self.export.add_target_item(combo, 'GPU', 'MP4 (H.264)', 'h264_nvenc', 'nvenc', 'included')
+            self.export.add_target_item(combo, 'CPU', 'MP4 (H.264)', 'libx264', 'cpu', 'software')
+            combo.currentIndexChanged.connect(changed)
+            # A replaced encoder must not leave the NVIDIA preset and its GPU badge selected
+            self.export.Export.sync_video_target(dialog)
+            self.assertEqual(combo.currentData(), 'CPU')
+            self.assertEqual(combo.itemData(combo.currentIndex(), BADGES_ROLE)['mode'], 'cpu')
+            dialog.txtVideoCodec.setText('h264_vulkan')
+            self.export.Export.sync_video_target(dialog)
+            badge = combo.itemData(combo.currentIndex(), BADGES_ROLE)
+            self.assertIsNone(combo.currentData())
+            self.assertEqual(combo.currentText(), 'mp4 (h264_vulkan)')
+            self.assertEqual((badge['mode'], badge['route']), ('gpu', 'Cross-platform'))
+            dialog.txtVideoCodec.setText('h264_nvenc')
+            self.export.Export.sync_video_target(dialog)
+            self.assertEqual(combo.currentData(), 'GPU')
+            self.assertEqual(combo.itemData(combo.currentIndex(), BADGES_ROLE)['route'], 'NVIDIA')
+            self.assertEqual(combo.count(), 2)
+        changed.assert_not_called()
+        combo.deleteLater()
+        dialog.txtVideoFormat.deleteLater()
+        dialog.txtVideoCodec.deleteLater()

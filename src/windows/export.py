@@ -67,6 +67,29 @@ import json
 MAX_FPS_SPINBOX_VALUE = 2147483647
 
 
+def add_target_item(combo, data, label, codec, backend, reason):
+    """Append a target with its CPU/GPU badge. data is the preset title, or None
+    for advanced settings that match no preset."""
+    _ = get_app()._tr
+    mode = "cpu" if backend == "cpu" else "gpu"
+    combo.setIconSize(QSize(64, 22))
+    combo.addItem(QIcon(":/hardware/%s.svg" % mode), label, data)
+    index = combo.count() - 1
+    route = backend_badge(backend, _)
+    technology = {'nvenc': 'NVENC', 'qsv': 'Quick Sync (QSV)', 'vtb': 'VideoToolbox',
+                  'vaapi': 'VA-API', 'dx': 'DirectX', 'vulkan': 'Vulkan', 'amf': 'AMF'}.get(backend, '')
+    tooltip = "%s: %s" % (codec or "Video disabled", reason)
+    if route:
+        tooltip = "%s · %s\n%s" % (route, technology, tooltip)
+    combo.setItemData(index, tooltip, Qt.ToolTipRole)
+    combo.setItemData(index, tooltip, Qt.AccessibleDescriptionRole)
+    description = _("Software encoding") if mode == "cpu" else _("Hardware encoding")
+    secondary = " · ".join(part for part in (
+        description, route if route != 'Cross-platform' else '', technology) if part)
+    set_hardware_item(combo, index, mode, label, route, secondary)
+    return index
+
+
 class Export(QDialog):
     """ Export Dialog """
 
@@ -439,9 +462,9 @@ class Export(QDialog):
 
         # parse the xml files and get targets that match the project type
         project_types = []
-        acceleration_types = {}
         codec_support = {}
         target_details = {}
+        self.video_targets = {}
         for preset_folder in [info.EXPORT_PRESETS_PATH, info.USER_PRESETS_PATH]:
             for file in os.listdir(preset_folder):
                 preset_path = os.path.join(preset_folder, file)
@@ -454,6 +477,13 @@ class Export(QDialog):
                         videocodecs = xmldoc.getElementsByTagName("videocodec")
                         for title in titles:
                             project_types.append(_(title.childNodes[0].data))
+                        container_nodes = xmldoc.getElementsByTagName("videoformat")
+                        container = (container_nodes[0].firstChild.data
+                                     if container_nodes and container_nodes[0].firstChild else "")
+                        codec_name = (videocodecs[0].firstChild.data
+                                      if videocodecs and videocodecs[0].firstChild else "")
+                        self.video_targets.update(
+                            (_(title.childNodes[0].data), (container, codec_name)) for title in titles)
                         for codec in videocodecs:
                             codec_text = ""
                             if codec.childNodes:
@@ -463,18 +493,9 @@ class Export(QDialog):
                             backend, supported, reason = codec_support[codec_text]
                             if supported:
                                 target = _(title.childNodes[0].data)
-                                resource = "cpu" if backend == "cpu" else "gpu"
-                                acceleration_types[target] = QIcon(":/hardware/%s.svg" % resource)
-                                container_nodes = xmldoc.getElementsByTagName("videoformat")
-                                container = (container_nodes[0].firstChild.data
-                                             if container_nodes and container_nodes[0].firstChild else "")
-                                target_details[target] = dict(
-                                    tooltip="%s: %s" % (codec_text or "Video disabled", reason),
-                                    label=export_choice_label(target, container, codec_text, backend),
-                                    mode=resource, route=backend_badge(backend, _),
-                                    technology={'nvenc': 'NVENC', 'qsv': 'Quick Sync (QSV)',
-                                                'vtb': 'VideoToolbox', 'vaapi': 'VA-API',
-                                                'dx': 'DirectX', 'vulkan': 'Vulkan', 'amf': 'AMF'}.get(backend, ''))
+                                target_details[target] = (
+                                    export_choice_label(target, container, codec_text, backend),
+                                    codec_text, backend, reason)
 
                 except ExpatError as e:
                     # This indicates an invalid Preset file - display an error and continue
@@ -490,24 +511,8 @@ class Export(QDialog):
             codec: {"shown": supported, "reason": reason}
             for codec, (backend, supported, reason) in codec_support.items() if backend != "cpu"})
         for item in sorted(project_types):
-            icon = acceleration_types.get(item)
-            if icon:
-                self.cboSimpleTarget.setIconSize(QSize(64, 22))
-                self.cboSimpleTarget.addItem(icon, item, item)
-                index = self.cboSimpleTarget.count() - 1
-                details = target_details[item]
-                tooltip = details['tooltip']
-                if details['route']:
-                    tooltip = "%s · %s\n%s" % (details['route'], details['technology'], tooltip)
-                self.cboSimpleTarget.setItemData(index, tooltip, Qt.ToolTipRole)
-                self.cboSimpleTarget.setItemData(index, tooltip, Qt.AccessibleDescriptionRole)
-                description = (_("Software encoding") if details['mode'] == 'cpu'
-                               else _("Hardware encoding"))
-                secondary = " · ".join(part for part in (
-                    description, details['route'] if details['route'] != 'Cross-platform' else '',
-                    details['technology']) if part)
-                set_hardware_item(self.cboSimpleTarget, index, details['mode'],
-                                  details['label'], details['route'], secondary)
+            if item in target_details:
+                add_target_item(self.cboSimpleTarget, item, *target_details[item])
             else:
                 continue
 
@@ -563,6 +568,33 @@ class Export(QDialog):
             self.cboSpherical.setCurrentIndex(0)
 
         self.update_all_formats_bitrates()
+
+    def sync_video_target(self):
+        """Keep the displayed target and its badge consistent with the advanced video
+        settings (i.e. after a fix replaces the encoder), without reapplying presets."""
+        targets = getattr(self, "video_targets", {})
+        combo = self.cboSimpleTarget
+        actual = (self.txtVideoFormat.text().strip(), self.txtVideoCodec.text().strip())
+        if targets.get(combo.currentData()) == actual:
+            return
+        blocked = combo.blockSignals(True)
+        try:
+            # Discard the previous custom display, if any.
+            for index in range(combo.count() - 1, -1, -1):
+                if combo.itemData(index) is None:
+                    combo.removeItem(index)
+            for index in range(combo.count()):
+                if targets.get(combo.itemData(index)) == actual:
+                    combo.setCurrentIndex(index)
+                    return
+            # Advanced settings need not match a named preset. Show the real encoder
+            # rather than leaving an unrelated preset's title and GPU badge selected.
+            backend, _supported, reason = encoder_support(actual[1])
+            combo.setCurrentIndex(add_target_item(combo, None, "%s (%s)" % actual, actual[1], backend, reason))
+        finally:
+            combo.blockSignals(blocked)
+            if hasattr(combo, "sync_details"):
+                combo.sync_details()
 
     def cboSimpleTarget_index_changed(self, widget, index):
         selected_target = widget.itemData(index)
