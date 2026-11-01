@@ -74,6 +74,25 @@ class FileWriteTests(unittest.TestCase):
                 self.assertEqual(path.read_text(), "original")
                 self.assertEqual(os.listdir(directory), ["project.osp"])
 
+    def test_save_on_filesystem_without_chmod_support(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "project.osp"
+            path.write_text("old")
+            with patch.object(qt_api.os, "chmod", side_effect=OSError(errno.EOPNOTSUPP, "unsupported")):
+                qt_api.write_file_text(path, "new")
+            self.assertEqual(path.read_text(), "new")
+            self.assertEqual(os.listdir(directory), ["project.osp"])
+
+    def test_permission_copy_errors_still_preserve_previous_project(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "project.osp"
+            path.write_text("old")
+            with patch.object(qt_api.os, "chmod", side_effect=PermissionError(errno.EACCES, "denied")):
+                with self.assertRaises(PermissionError):
+                    qt_api.write_file_text(path, "new")
+            self.assertEqual(path.read_text(), "old")
+            self.assertEqual(os.listdir(directory), ["project.osp"])
+
     def test_content_uri_keeps_existing_writer(self):
         with patch.object(qt_api, "write_to_content_uri") as write:
             qt_api.write_file_text("content://documents/project", "new data")

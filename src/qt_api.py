@@ -7,6 +7,7 @@ Selects an available binding (PyQt6/PySide6/PyQt5) using the
 and final choice to help diagnose environment issues.
 """
 
+import errno
 import logging
 import os
 import stat
@@ -788,7 +789,12 @@ def write_file_chunks(path, chunks) -> None:
             stream.flush()
             os.fsync(stream.fileno())
         if os.path.exists(path):
-            os.chmod(temporary_path, stat.S_IMODE(os.stat(path).st_mode))
+            try:
+                os.chmod(temporary_path, stat.S_IMODE(os.stat(path).st_mode))
+            except OSError as exc:
+                # GVfs/SMB mounts may support writes but not Unix permissions.
+                if exc.errno not in (errno.ENOTSUP, errno.EOPNOTSUPP):
+                    raise
         replace_file_with_retry(temporary_path, path)
     finally:
         if temporary_path and os.path.exists(temporary_path):
