@@ -51,7 +51,7 @@ from qt_api import QColor, QIcon, QPalette
 from functools import partial
 from classes import info, tabstops
 from classes import ui_util
-from classes import openshot_rc  # noqa
+from classes import export_hardware_rc, openshot_rc  # noqa
 from classes.logger import log
 from classes.app import get_app
 from classes.metrics import track_metric_screen, track_metric_error
@@ -457,6 +457,8 @@ class Export(QDialog):
                                 acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-vaapi.svg")
                             elif "nvenc" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
                                 acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-nvenc.svg")
+                            elif "amf" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
+                                acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-amf.svg")
                             elif "dxva2" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
                                 acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-dx.svg")
                             elif "videotoolbox" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
