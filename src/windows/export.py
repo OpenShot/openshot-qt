@@ -51,7 +51,7 @@ from qt_api import QColor, QIcon, QPalette
 from functools import partial
 from classes import info, tabstops
 from classes import ui_util
-from classes import openshot_rc  # noqa
+from classes import export_hardware_rc, openshot_rc  # noqa
 from classes.logger import log
 from classes.app import get_app
 from classes.metrics import track_metric_screen, track_metric_error
@@ -437,6 +437,7 @@ class Export(QDialog):
         # parse the xml files and get targets that match the project type
         project_types = []
         acceleration_types = {}
+        self.video_targets = {}
         for preset_folder in [info.EXPORT_PRESETS_PATH, info.USER_PRESETS_PATH]:
             for file in os.listdir(preset_folder):
                 preset_path = os.path.join(preset_folder, file)
@@ -447,24 +448,34 @@ class Export(QDialog):
                     if _(type[0].childNodes[0].data) == selected_project:
                         titles = xmldoc.getElementsByTagName("title")
                         videocodecs = xmldoc.getElementsByTagName("videocodec")
-                        for title in titles:
-                            project_types.append(_(title.childNodes[0].data))
+                        target_names = [_(title.childNodes[0].data) for title in titles]
+                        project_types.extend(target_names)
+                        formats = xmldoc.getElementsByTagName("videoformat")
+                        format_name = formats[0].childNodes[0].data if formats else ""
+                        codec_name = (videocodecs[0].childNodes[0].data
+                                      if videocodecs and videocodecs[0].childNodes else "")
+                        self.video_targets.update(dict.fromkeys(target_names, (format_name, codec_name)))
                         for codec in videocodecs:
                             codec_text = ""
                             if codec.childNodes:
                                 codec_text = codec.childNodes[0].data
                             if "vaapi" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
-                                acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-vaapi.svg")
+                                icon = QIcon(":/hw/hw-accel-vaapi.svg")
                             elif "nvenc" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
-                                acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-nvenc.svg")
+                                icon = QIcon(":/hw/hw-accel-nvenc.svg")
+                            elif "amf" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
+                                icon = QIcon(":/hw/hw-accel-amf.svg")
                             elif "dxva2" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
-                                acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-dx.svg")
+                                icon = QIcon(":/hw/hw-accel-dx.svg")
                             elif "videotoolbox" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
-                                acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-vtb.svg")
+                                icon = QIcon(":/hw/hw-accel-vtb.svg")
                             elif "qsv" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
-                                acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-qsv.svg")
+                                icon = QIcon(":/hw/hw-accel-qsv.svg")
                             elif openshot.FFmpegWriter.IsValidCodec(codec_text) or codec_text == "":
-                                acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-none.svg")
+                                icon = QIcon(":/hw/hw-accel-none.svg")
+                            else:
+                                continue
+                            acceleration_types.update(dict.fromkeys(target_names, icon))
 
                 except ExpatError as e:
                     # This indicates an invalid Preset file - display an error and continue
@@ -536,6 +547,34 @@ class Export(QDialog):
             self.cboSpherical.setCurrentIndex(0)
 
         self.update_all_formats_bitrates()
+
+    def sync_video_target(self):
+        """Keep the displayed target consistent without reapplying preset settings."""
+        targets = getattr(self, "video_targets", {})
+        combo = self.cboSimpleTarget
+        actual = (self.txtVideoFormat.text().strip(), self.txtVideoCodec.text().strip())
+        if targets.get(combo.currentData()) == actual:
+            return
+        blocked = combo.blockSignals(True)
+        try:
+            # Discard the previous custom display, if any.
+            for index in range(combo.count() - 1, -1, -1):
+                if combo.itemData(index) is None:
+                    combo.removeItem(index)
+            for index in range(combo.count()):
+                if targets.get(combo.itemData(index)) == actual:
+                    combo.setCurrentIndex(index)
+                    return
+            # Advanced settings need not match a named preset. Show the real encoder
+            # rather than leaving an unrelated preset's title and GPU badge selected.
+            backend = actual[1].rsplit("_", 1)[-1]
+            badge = {"nvenc": "nvenc", "qsv": "qsv", "amf": "amf", "vaapi": "vaapi",
+                     "videotoolbox": "vtb", "dxva2": "dx"}.get(backend, "none")
+            icon = QIcon(":/hw/hw-accel-%s.svg" % badge)
+            combo.addItem(icon, "%s (%s)" % (actual[0], actual[1]), None)
+            combo.setCurrentIndex(combo.count() - 1)
+        finally:
+            combo.blockSignals(blocked)
 
     def cboSimpleTarget_index_changed(self, widget, index):
         selected_target = widget.itemData(index)

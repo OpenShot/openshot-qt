@@ -1,4 +1,4 @@
-ALL: ../src/classes/openshot_rc.py
+ALL: ../src/classes/openshot_rc.py ../src/classes/export_hardware_rc.py
 
 PYTHON ?= python3
 PYRCC ?= pyrcc5
@@ -13,4 +13,8 @@ ICONS+=$(shell /usr/bin/find . -type f -name hw-accel\*.svg -newer ../src/classe
 
 ../src/classes/openshot_rc.py: openshot.qrc $(ICONS)
 	$(PYRCC) openshot.qrc -o $@
+	$(PYTHON) ../src/language/neutralize_resource_import.py $@
+
+../src/classes/export_hardware_rc.py: export-hardware.qrc hw-accel-amf.svg hw-accel-vtb.svg
+	$(PYRCC) export-hardware.qrc -o $@
 	$(PYTHON) ../src/language/neutralize_resource_import.py $@

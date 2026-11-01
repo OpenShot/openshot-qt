@@ -3,6 +3,8 @@ import copy
 import json
 import os
 from pathlib import Path
+import shutil
+from unittest.mock import patch
 import subprocess  # nosec B404 - Launch controlled local processes without a shell.
 import sys
 import tempfile
@@ -27,6 +29,26 @@ class DirectTextTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.app, _ = get_or_create_app(lambda: QApplication([]))
+
+    def test_locked_thumbnail_uses_concurrent_cached_image(self):
+        with tempfile.TemporaryDirectory() as root:
+            style = default_text(640, 360)
+
+            def concurrent_render(source, destination):
+                shutil.copyfile(source, destination)
+                raise PermissionError("Another renderer published and opened this image")
+
+            with patch("classes.direct_text.replace_file_with_retry", side_effect=concurrent_render):
+                path = render_text(style, root)
+            self.assertFalse(QImage(path).isNull())
+            self.assertEqual(os.listdir(root), [os.path.basename(path)])
+
+    def test_thumbnail_permission_error_without_cached_image_is_not_hidden(self):
+        with tempfile.TemporaryDirectory() as root:
+            with patch("classes.direct_text.replace_file_with_retry", side_effect=PermissionError("denied")):
+                with self.assertRaises(PermissionError):
+                    render_text(default_text(640, 360), root)
+            self.assertEqual(os.listdir(root), [])
 
     def test_text_metadata_ignores_transforms_but_tracks_style_and_animation(self):
         from classes.direct_text import (text_animation_properties, set_text_keyframe,

@@ -38,3 +38,64 @@ class ExportProfileTests(unittest.TestCase):
             self.assertEqual(dialog.profile_paths, {"HD 720p (1280x720)": str(profile)})
             self.assertEqual(dialog.selected_profile, "HD 720p (1280x720)")
             dialog.cboProfile.addItem.assert_called_once_with(str(profile), str(profile))
+
+    def test_gpu_targets_follow_compiled_encoders_with_visible_badges(self):
+        from qt_api import QApplication, QComboBox
+        from tests.qt_test_app import get_or_create_app
+        self.__class__.app, _ = get_or_create_app(lambda: QApplication([]))
+        targets = {
+            'h264_nvenc': 'MP4 (h.264 nv)',
+            'hevc_nvenc': 'MP4 (h.265 nvenc)',
+            'h264_qsv': 'MP4 (h.264 qsv)',
+            'hevc_qsv': 'MP4 (h.265 qsv)',
+            'h264_amf': 'MP4 (h.264 amf)',
+            'hevc_amf': 'MP4 (h.265 amf)',
+            'h264_videotoolbox': 'MP4 (h.264 videotoolbox)',
+        }
+        for available in (set(targets), {'h264_videotoolbox'}, set()):
+            with self.subTest(available=available), tempfile.TemporaryDirectory() as user_presets:
+                combo = QComboBox()
+                dialog = SimpleNamespace(cboSimpleTarget=combo)
+                selector = Mock()
+                selector.itemData.return_value = 'All Formats'
+                writer = SimpleNamespace(IsValidCodec=lambda codec: codec in available or codec == 'libx264')
+                with patch.object(self.export, 'get_app', return_value=SimpleNamespace(_tr=lambda text: text)), \
+                        patch.object(self.export.info, 'USER_PRESETS_PATH', user_presets), \
+                        patch.object(self.export.openshot, 'FFmpegWriter', writer):
+                    self.export.Export.cboSimpleProjectType_index_changed(dialog, selector, 0)
+                shown = {combo.itemText(index): index for index in range(combo.count())}
+                self.assertIn('MP4 (h.264)', shown)
+                for codec, title in targets.items():
+                    self.assertEqual(title in shown, codec in available, codec)
+                    if title in shown:
+                        self.assertFalse(combo.itemIcon(shown[title]).isNull(), codec)
+                combo.deleteLater()
+
+    def test_target_tracks_encoder_changes_without_reapplying_presets(self):
+        from qt_api import QApplication, QComboBox, QLineEdit
+        from tests.qt_test_app import get_or_create_app
+        self.__class__.app, _ = get_or_create_app(lambda: QApplication([]))
+        combo = QComboBox()
+        combo.addItem('GPU', 'GPU')
+        combo.addItem('CPU', 'CPU')
+        dialog = SimpleNamespace(cboSimpleTarget=combo,
+                                 video_targets={'GPU': ('mp4', 'h264_nvenc'), 'CPU': ('mp4', 'libx264')},
+                                 txtVideoFormat=QLineEdit('mp4'), txtVideoCodec=QLineEdit('libx264'))
+        changed = Mock()
+        combo.currentIndexChanged.connect(changed)
+        self.export.Export.sync_video_target(dialog)
+        self.assertEqual(combo.currentData(), 'CPU')
+        changed.assert_not_called()
+        dialog.txtVideoCodec.setText('h264_videotoolbox')
+        self.export.Export.sync_video_target(dialog)
+        self.assertEqual(combo.currentText(), 'mp4 (h264_videotoolbox)')
+        self.assertIsNone(combo.currentData())
+        self.assertFalse(combo.itemIcon(combo.currentIndex()).isNull())
+        dialog.txtVideoCodec.setText('libx264')
+        self.export.Export.sync_video_target(dialog)
+        self.assertEqual(combo.currentData(), 'CPU')
+        self.assertEqual(combo.count(), 2)
+        changed.assert_not_called()
+        combo.deleteLater()
+        dialog.txtVideoFormat.deleteLater()
+        dialog.txtVideoCodec.deleteLater()

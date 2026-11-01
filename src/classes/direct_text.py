@@ -7,7 +7,7 @@ import tempfile
 from functools import lru_cache
 
 import openshot
-from qt_api import QColor, QFont, QImage, QPainter, QTextDocument, QTextOption, Qt
+from qt_api import QColor, QFont, QImage, QPainter, QTextDocument, QTextOption, Qt, replace_file_with_retry
 
 
 # Preferred default faces, in order. A generic name like "Sans Serif" becomes
@@ -271,7 +271,13 @@ def render_text(style, root, black_background=False, device_scale=None):
         try:
             if not image.save(temporary, "PNG"):
                 raise OSError("Unable to render text thumbnail")
-            os.replace(temporary, path)
+            try:
+                replace_file_with_retry(temporary, path)
+            except PermissionError:
+                # Another renderer may have published this same content-addressed
+                # image while we rendered it. Keep that cached image if locked.
+                if not os.path.isfile(path):
+                    raise
         finally:
             if os.path.exists(temporary):
                 os.remove(temporary)

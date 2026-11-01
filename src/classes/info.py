@@ -30,9 +30,9 @@ import sys
 import tempfile
 from time import strftime
 
-VERSION = "4.1.0"
+VERSION = "4.1.1"
 MINIMUM_LIBOPENSHOT_VERSION = "1.1.0"
-DATE = "20261025000000"
+DATE = "20261101000000"
 NAME = "openshot-qt"
 PRODUCT_NAME = "OpenShot Video Editor"
 GPL_VERSION = "3"
@@ -43,7 +43,11 @@ COPYRIGHT = "(c) 2008-{} {}".format(strftime("%Y"), COMPANY_NAME)
 CWD = os.getcwd()
 
 # Application paths
-PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))  # Primary openshot folder
+# Windows/Linux assets sit by the executable. Mac assets follow classes under lib,
+# then under Resources after the DMG builder moves and symlinks that directory.
+PATH = (os.path.dirname(os.path.abspath(sys.executable))
+        if getattr(sys, "frozen", False) and sys.platform != "darwin"
+        else os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 RESOURCES_PATH = os.path.join(PATH, "resources")
 PROFILES_PATH = os.path.join(PATH, "profiles")
 IMAGES_PATH = os.path.join(PATH, "images")
