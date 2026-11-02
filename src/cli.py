@@ -34,7 +34,8 @@ import sys
 import time
 import uuid
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
+if not getattr(sys, "frozen", False):
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
 from classes.easing import easing_presets
 from classes.look_presets import LOOK_PRESETS
 from classes.agent.protocol import CommandError, cli_command, parse_json, records, session_dir
@@ -674,6 +675,8 @@ def normalize_help(argv):
 
 
 def main(argv=None):
+    from classes.windows_dlls import configure_windows_dll_paths
+    configure_windows_dll_paths()
     from classes.cli_console import ensure_standard_streams
     ensure_standard_streams()
     argv = list(sys.argv[1:] if argv is None else argv)

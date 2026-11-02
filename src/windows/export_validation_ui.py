@@ -342,6 +342,8 @@ class ExportValidationUI(QObject):
 
     def validate(self):
         self.timer.stop()
+        if hasattr(self.dialog, "sync_video_target"):
+            self.dialog.sync_video_target()
         issues = self.validator.validate(self.current_settings())
         if self.auto_fix:
             self.auto_fix = False
@@ -390,11 +392,14 @@ class ExportValidationUI(QObject):
         # (i.e.) a wrong audio codec shows up together with a wrong video codec.
         wrong = {issue.field for issue in quick_issues if issue.is_error} - {"end_frame", "folder"}
         only = None
+        hardware = export_validation.hardware_family(self.current_settings()["vcodec"])
         if wrong:
             mode = self.current_settings()["mode"]
-            if mode != export_validation.VIDEO_AUDIO:
+            if hardware and mode == export_validation.VIDEO_ONLY and wrong <= VIDEO_FIELDS:
+                only = "video"
+            elif mode != export_validation.VIDEO_AUDIO:
                 return None
-            if wrong <= VIDEO_FIELDS:
+            elif wrong <= VIDEO_FIELDS:
                 only = "audio"
             elif wrong <= AUDIO_FIELDS:
                 only = "video"
@@ -407,16 +412,38 @@ class ExportValidationUI(QObject):
         if request is None:
             return None
         key, args = request
+        if hardware:
+            # Never offer an untested default CPU codec for a hardware failure.
+            replacement = self.engine_result.get("replacement") if key == self.engine_key else None
+            for issue in quick_issues:
+                if issue.field == "vcodec":
+                    issue.fix = issue.fix_label = replacement
         if key == self.engine_key:
-            return self.validator.engine_issue(self.current_settings(), self.engine_result)
+            issue = self.validator.engine_issue(self.current_settings(), self.engine_result)
+            if hardware and issue and issue.field == "vcodec":
+                issue.fix = issue.fix_label = self.engine_result.get("replacement")
+            return issue
         if self.engine_running != key:
             self.engine_running = key
-            threading.Thread(target=self._run_engine_check, args=(key, args), daemon=True).start()
+            threading.Thread(target=self._run_engine_check,
+                             args=(key, args, self.validator.video_replacements(self.current_settings())),
+                             daemon=True).start()
         return None
 
-    def _run_engine_check(self, key, args):
+    def _run_engine_check(self, key, args, replacements=()):
         with ENGINE_LOCK:
             result = test_writer(*args)
+            video_result = result
+            if replacements and args[3] == "audio":
+                video_result = test_writer(args[0], args[1], args[2], "video", args[4])
+            if not video_result.get("ok") and video_result.get("stage") == "video":
+                result["replacement"] = None
+                for codec in replacements:
+                    video = dict(args[1], vcodec=codec)
+                    candidate = (args[0], video, args[2], "video", args[4])
+                    if test_writer(*candidate).get("ok"):
+                        result["replacement"] = codec
+                        break
         try:
             self.engineChecked.emit(key, result)
         except RuntimeError:

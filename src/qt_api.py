@@ -7,11 +7,13 @@ Selects an available binding (PyQt6/PySide6/PyQt5) using the
 and final choice to help diagnose environment issues.
 """
 
+import errno
 import logging
 import os
 import stat
 import sys
 import tempfile
+import time
 from typing import List, Optional, Tuple
 
 logger = logging.getLogger(__name__)
@@ -757,6 +759,18 @@ def write_file_text(path, content: str) -> None:
     write_file_chunks(path, (content,))
 
 
+def replace_file_with_retry(source, destination):
+    """Keep replacement atomic while allowing brief Windows file locks to clear."""
+    for attempt in range(4):
+        try:
+            os.replace(source, destination)
+            return
+        except PermissionError as exc:
+            if getattr(exc, "winerror", None) not in (5, 32, 33) or attempt == 3:
+                raise
+            time.sleep(0.05)
+
+
 def write_file_chunks(path, chunks) -> None:
     """Write text chunks, atomically replacing local files after a successful write."""
     if is_content_uri(path):
@@ -775,8 +789,13 @@ def write_file_chunks(path, chunks) -> None:
             stream.flush()
             os.fsync(stream.fileno())
         if os.path.exists(path):
-            os.chmod(temporary_path, stat.S_IMODE(os.stat(path).st_mode))
-        os.replace(temporary_path, path)
+            try:
+                os.chmod(temporary_path, stat.S_IMODE(os.stat(path).st_mode))
+            except OSError as exc:
+                # GVfs/SMB mounts may support writes but not Unix permissions.
+                if exc.errno not in (errno.ENOTSUP, errno.EOPNOTSUPP):
+                    raise
+        replace_file_with_retry(temporary_path, path)
     finally:
         if temporary_path and os.path.exists(temporary_path):
             os.unlink(temporary_path)
@@ -1089,7 +1108,8 @@ def _patch_enums_for_qt6():
             for name in ("ShortcutOverride", "Resize", "Paint", "KeyPress", "KeyRelease",
                          "MouseButtonPress", "MouseButtonRelease", "MouseMove", "Wheel",
                          "TouchBegin", "TouchUpdate", "WindowActivate", "WindowStateChange",
-                         "DeferredDelete", "Close", "Hide", "Show", "Move"):
+                         "DeferredDelete", "Close", "Hide", "Show", "Move",
+                         "ToolTip", "FocusOut", "WindowDeactivate"):
                 if hasattr(event_type, name) and not hasattr(QEvent, name):
                     try:
                         setattr(QEvent, name, getattr(event_type, name))
