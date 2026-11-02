@@ -22,11 +22,24 @@ class GpuMetricTests(unittest.TestCase):
         cls.app = QApplication.instance() or QApplication([])
 
     def test_threshold_is_strict_and_no_activity_is_neutral(self):
-        rows = stages({'decode_gpu': 3, 'decode_cpu': 1, 'render_gpu': 4,
-                       'copy_free': 2, 'gpu_requests': 4})
+        rows = stages({'decode_gpu': 30, 'decode_cpu': 10, 'render_gpu': 40,
+                       'copy_free': 20, 'gpu_requests': 40})
         self.assertEqual([r['percent'] for r in rows], [75, 100, 50, None])
         self.assertTrue(all(r['percent'] is None for r in stages({})))
         self.assertEqual(stages({'encode_gpu': 9, 'encode_cpu': 1}, True)[3]['percent'], 90)
+
+    def test_live_stages_stay_gray_while_warming_up(self):
+        rows = stages({'decode_gpu': 9, 'render_gpu': 3, 'render_cpu': 7})
+        self.assertEqual([r['percent'] for r in rows[:2]], [None, 30])
+        self.assertTrue(rows[0]['warming'])
+        self.assertFalse(rows[1]['warming'])
+        # A finished export is complete, however short it was.
+        self.assertEqual(stages({'decode_gpu': 2}, True)[0]['percent'], 100)
+        widget = GpuSegments()
+        widget.set_snapshot({'decode_gpu': 4, 'upload_failures': 3})
+        self.assertIn('Warming up (4 of 10', widget.toolTip())
+        self.assertIn('GPU upload failures: 3', widget.toolTip())
+        widget.close()
 
     def test_export_snapshot_is_independent_and_reset_keeps_preview_registration(self):
         native = SimpleNamespace(GpuMetricsSnapshot=Mock(return_value=json.dumps({'decode_gpu': 5})),

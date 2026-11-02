@@ -1,6 +1,10 @@
 """Small snapshots for the GPU debug UI; native code owns all work counters."""
 import json
 
+# Live stages stay gray until they have this many operations, so the first
+# imports, thumbnails and an empty timeline do not set the initial colors.
+WARMUP_OPERATIONS = 10
+
 
 class GpuMeasurements:
     def __init__(self, native, diagnostics=None):
@@ -27,7 +31,9 @@ class GpuMeasurements:
 
 
 def stages(raw, exporting=False):
-    """No activity is unknown, never 0% or a green success."""
+    """No activity is unknown, never 0% or a green success. Frozen export reports
+    are complete, so only the live preview waits for WARMUP_OPERATIONS."""
+    warmup = 1 if exporting else WARMUP_OPERATIONS
     rows = [('Decode', 'decode_gpu', 'decode_cpu'), ('Render', 'render_gpu', 'render_cpu'),
             ('Copy-free', 'copy_free', None),
             ('Encode', 'encode_gpu', 'encode_cpu') if exporting else ('Display', 'display_gpu', 'display_cpu')]
@@ -35,9 +41,10 @@ def stages(raw, exporting=False):
     for label, gpu_key, cpu_key in rows:
         gpu = int(raw.get(gpu_key, 0))
         total = gpu + int(raw.get(cpu_key, 0)) if cpu_key else int(raw.get('gpu_requests', 0))
-        percent = min(100, max(0, 100 * gpu / total)) if total else None
+        percent = min(100, max(0, 100 * gpu / total)) if total >= warmup else None
         unit = {'Decode': 'decoded video frames', 'Render': 'render operations',
                 'Copy-free': 'GPU work requests', 'Display': 'presentation attempts',
                 'Encode': 'encoder submissions'}[label]
-        result.append(dict(label=label, gpu=gpu, total=total, percent=percent, unit=unit))
+        result.append(dict(label=label, gpu=gpu, total=total, percent=percent, unit=unit,
+                           warming=0 < total < warmup, warmup=warmup))
     return result

@@ -18,17 +18,23 @@ class GpuSegments(QWidget):
         _ = self.translate
         lines = []
         for row in self.rows:
-            value = (_('No measured work') if row['percent'] is None else
-                     '%g%% (%s/%s %s)' % (round(row['percent'], 1), row['gpu'], row['total'], _(row['unit'])))
+            if row['warming']:
+                value = _('Warming up (%s of %s %s)') % (row['total'], row['warmup'], _(row['unit']))
+            elif row['percent'] is None:
+                value = _('No measured work')
+            else:
+                value = '%g%% (%s/%s %s)' % (round(row['percent'], 1), row['gpu'], row['total'], _(row['unit']))
             lines.append('%s: %s' % (_(row['label']), value))
         if self.raw.get('native_available') is False:
             lines.insert(0, _('Native GPU work counters unavailable. Rebuild libopenshot and restart OpenShot.'))
-        lines.extend([_('Green: above 75%. Amber: 75% or less. Gray: no measurements.'),
+        lines.extend([_('Green: above 75%. Amber: 75% or less. Gray: no measurements or warming up.'),
                       _('Decode/render/encode count operations, not GPU utilization. Cached work is not counted again.'),
                       _('Copy-free: GPU work requests without CPU readback; initial uploads are reported separately.')])
         if self.raw.get('image_sources'):
             lines.append(_('CPU-origin image requests: %s (expected)') % self.raw['image_sources'])
         lines.append(_('CPU readbacks: %s · uploads: %s') % (self.raw.get('readbacks', 0), self.raw.get('uploads', 0)))
+        if self.raw.get('upload_failures'):
+            lines.append(_('GPU upload failures: %s (often low GPU memory)') % self.raw['upload_failures'])
         text = '\n'.join(lines)
         self.setToolTip(text)
         self.setAccessibleDescription(text)
@@ -103,8 +109,12 @@ class GpuStageRow(QWidget):
         _ = self.translate
         self.name.setText(_(row['label']))
         self.value.setText('—' if row['percent'] is None else '%g%%' % round(row['percent'], 1))
-        self.caption.setText(_('No measured work yet') if row['percent'] is None else
-                             '%s / %s %s' % (row['gpu'], row['total'], _(row['unit'])))
+        if row['warming']:
+            self.caption.setText(_('Warming up: %s of %s %s') % (row['total'], row['warmup'], _(row['unit'])))
+        elif row['percent'] is None:
+            self.caption.setText(_('No measured work yet'))
+        else:
+            self.caption.setText('%s / %s %s' % (row['gpu'], row['total'], _(row['unit'])))
         self.bar.set_percent(row['percent'])
         self.setToolTip('%s: %s' % (_(row['label']), self.caption.text()))
 
@@ -148,7 +158,8 @@ class GpuMetricsDock(QDockWidget):
         layout.addWidget(transfer_title)
         transfers = QHBoxLayout()
         self.transfer_values = {}
-        for key, title in [('readbacks', 'Readbacks'), ('uploads', 'Uploads'), ('image_sources', 'Image requests')]:
+        for key, title in [('readbacks', 'Readbacks'), ('uploads', 'Uploads'), ('upload_failures', 'Upload failures'),
+                           ('image_sources', 'Image requests')]:
             column = QVBoxLayout()
             number = QLabel('—', panel)
             number.setStyleSheet('font-size: 19px; font-weight: 600;')

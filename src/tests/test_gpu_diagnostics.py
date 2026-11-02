@@ -13,7 +13,8 @@ def native_api():
     return SimpleNamespace(VulkanOpenGLPresenter=Mock(), ListGpuDevices=Mock(return_value=[device]),
                            ActiveGpuDevice=Mock(return_value=device),
                            GpuEncoders=Mock(return_value=["h264_nvenc"]),
-                           VulkanFrameReadbackCount=Mock(return_value=3))
+                           VulkanFrameReadbackCount=Mock(return_value=3),
+                           VulkanUploadFailureCount=Mock(return_value=0))
 
 
 class GpuDiagnosticsTests(unittest.TestCase):
@@ -63,6 +64,36 @@ class GpuDiagnosticsTests(unittest.TestCase):
         report.log_summary()
         report.log_summary()
         self.assertEqual(logger.info.call_count, 5)
+
+    def test_cpu_backed_frames_while_warming_up_are_not_reported(self):
+        logger = Mock()
+        native = native_api()
+        report = GpuDiagnostics(native, logger, {})
+        report.probe()
+        key = report.register_preview("timeline", True, "available")
+        calls = logger.info.call_count
+        for _ in range(10):
+            report.observe_preview(key, False, "Frame is CPU-backed (decode, rendering, or an effect required CPU pixels)")
+        preview = report.snapshot()["previews"][0]
+        self.assertEqual(preview["cpu_draws"], 10)
+        self.assertEqual(preview["fallback_reasons"], [])
+        self.assertEqual(logger.info.call_count, calls)
+        # After the warm-up the same reason is a real fallback.
+        report.observe_preview(key, False, "Frame is CPU-backed (decode, rendering, or an effect required CPU pixels)")
+        self.assertEqual(len(report.snapshot()["previews"][0]["fallback_reasons"]), 1)
+        self.assertEqual(logger.info.call_count, calls + 1)
+        # Other reasons are reported immediately.
+        other = report.register_preview("source", True, "available")
+        report.observe_preview(other, False, "Submit presentation transfer: VK_ERROR_DEVICE_LOST")
+        self.assertEqual(logger.info.call_count, calls + 3)
+
+    def test_upload_failures_are_reported(self):
+        native = native_api()
+        native.VulkanUploadFailureCount.return_value = 7
+        report = GpuDiagnostics(native, Mock(), {})
+        report.probe()
+        self.assertEqual(report.snapshot()["upload_failures"], 7)
+        self.assertIn("GPU image upload failures (session): 7", "\n".join(report.report_lines()))
 
     def test_cpu_build_does_not_claim_that_no_gpu_exists(self):
         report = GpuDiagnostics(SimpleNamespace(), Mock(), {})

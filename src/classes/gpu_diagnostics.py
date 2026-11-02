@@ -10,6 +10,8 @@ import os
 import sys
 import threading
 
+from classes.gpu_metrics import WARMUP_OPERATIONS
+
 
 class GpuDiagnostics:
     def __init__(self, native, logger, environ=None):
@@ -94,12 +96,16 @@ class GpuDiagnostics:
             counter = "native_draws" if native_draw else "cpu_draws"
             first = preview[counter] == 0
             preview[counter] += 1
-            new_reason = (reason and reason not in preview["fallback_reasons"]
+            # An empty timeline, a still image or a frame decoded before the GPU
+            # path warms up is CPU-backed by design; only later ones are reported.
+            warming = (reason.startswith("Frame is CPU-backed") and
+                       preview["native_draws"] + preview["cpu_draws"] <= WARMUP_OPERATIONS)
+            new_reason = (reason and not warming and reason not in preview["fallback_reasons"]
                           and len(preview["fallback_reasons"]) < 8)
             if new_reason:
                 preview["fallback_reasons"].append(reason)
             name = preview["name"]
-        if first or new_reason:
+        if (first and not warming) or new_reason:
             self.event("native preview confirmed" if native_draw else "CPU preview fallback",
                        preview=name, reason=reason or None)
 
@@ -109,10 +115,12 @@ class GpuDiagnostics:
                                         selected=self.selected, encoders=self.encoders, errors=self.errors,
                                         previews=list(self.previews.values()),
                                         backend=self.environ.get("OPENSHOT_RENDER_BACKEND", "vulkan")))
-        try:
-            result["readbacks"] = self.native.VulkanFrameReadbackCount()
-        except (AttributeError, RuntimeError):
-            result["readbacks"] = None
+        for key, probe in (("readbacks", "VulkanFrameReadbackCount"),
+                           ("upload_failures", "VulkanUploadFailureCount")):
+            try:
+                result[key] = getattr(self.native, probe)()
+            except (AttributeError, RuntimeError):
+                result[key] = None
         return result
 
     def log_summary(self):
@@ -266,6 +274,9 @@ class GpuDiagnostics:
         lines.extend("GPU probe error: " + error for error in state["errors"])
         lines.append("GPU → CPU materializations (session): %s (includes thumbnails and CPU effects)" %
                      (state["readbacks"] if state["readbacks"] is not None else "unavailable"))
+        if state.get("upload_failures"):
+            lines.append("GPU image upload failures (session): %s (CPU images kept on the CPU; "
+                         "often low GPU memory)" % state["upload_failures"])
         lines.append("GPU capabilities and preview counts do not establish hardware decoding or encoding; "
                      "see libopenshot.log for per-reader and export paths.")
         return lines
