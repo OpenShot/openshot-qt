@@ -36,6 +36,16 @@ class GpuDiagnosticsTests(unittest.TestCase):
         self.assertNotIn("h264_nvenc", "\n".join(copied))
         self.assertIn("h264_nvenc", "\n".join(report.report_lines()))
 
+    def test_copy_names_gpu_debug_switches(self):
+        report = GpuDiagnostics(native_api(), Mock(), {"OPENSHOT_GPU_DEBUG": "1",
+                                                       "OPENSHOT_PRESENTATION_SYNC": "wait"})
+        report.probe()
+        self.assertEqual(report.copy_lines()[-1],
+                         "Debug settings: OPENSHOT_GPU_DEBUG=1, OPENSHOT_PRESENTATION_SYNC=wait")
+        quiet = GpuDiagnostics(native_api(), Mock(), {})
+        quiet.probe()
+        self.assertNotIn("Debug settings", "\n".join(quiet.copy_lines()))
+
     def test_capabilities_do_not_claim_acceleration(self):
         report = GpuDiagnostics(native_api(), Mock(), {})
         report.probe()

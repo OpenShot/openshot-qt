@@ -12,6 +12,10 @@ import threading
 
 from classes.gpu_metrics import WARMUP_OPERATIONS
 
+# Temporary GPU debugging switches for test builds (see libopenshot GpuDebug.h).
+DEBUG_VARIABLES = ("OPENSHOT_GPU_DEBUG", "OPENSHOT_TRACE_PRESENTATION", "OPENSHOT_PRESENTATION_BACKEND",
+                   "OPENSHOT_PRESENTATION_TEST", "OPENSHOT_PRESENTATION_SYNC", "OPENSHOT_PRESENTATION_DEDICATED")
+
 
 class GpuDiagnostics:
     def __init__(self, native, logger, environ=None):
@@ -250,6 +254,9 @@ class GpuDiagnostics:
                 lines.append("Fallback reason: " + (reason[:237] + "…" if len(reason) > 240 else reason))
         if driver_line:
             lines.append(driver_line)
+        debug = ["%s=%s" % (key, self.environ[key]) for key in DEBUG_VARIABLES if self.environ.get(key)]
+        if debug:
+            lines.append("Debug settings: " + ", ".join(debug))
         return lines
 
     def report_lines(self):

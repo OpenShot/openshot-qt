@@ -131,8 +131,9 @@ class OpenShotApp(QApplication):
         self.settings = settings.SettingStore(parent=self)
         self.settings.load()
         from classes.gpu_settings import apply_gpu_preferences
+        from classes.gpu_diagnostics import DEBUG_VARIABLES
         gpu_environment_overrides = {key: os.environ[key] for key in
-                                     ('OPENSHOT_RENDER_BACKEND', 'OPENSHOT_VULKAN_DEVICE')
+                                     ('OPENSHOT_RENDER_BACKEND', 'OPENSHOT_VULKAN_DEVICE') + DEBUG_VARIABLES
                                      if key in os.environ}
         apply_gpu_preferences(self.settings, native=openshot)
         diagnostics = getattr(self, 'gpu_diagnostics', None)
