@@ -505,6 +505,22 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         # Update preview
         self.refreshFrameSignal.emit()
 
+    def gpu_device_lost(self):
+        """Keep editing on the CPU after the GPU driver resets or times out."""
+        if getattr(self, "_gpu_device_lost_handled", False):
+            return
+        self._gpu_device_lost_handled = True
+        _ = get_app()._tr
+        log.warning("GPU device lost; clearing cached GPU frames and continuing on the CPU")
+        diagnostics = getattr(get_app(), "gpu_diagnostics", None)
+        if diagnostics:
+            diagnostics.event("device lost", reason="Vulkan reported VK_ERROR_DEVICE_LOST")
+        # Cached frames may still point at the lost GPU; render them again on the CPU.
+        self.timeline_sync.timeline.ClearAllCache(True)
+        self.refreshFrameSignal.emit()
+        self.statusBar.showMessage(
+            _("The GPU stopped responding, so OpenShot is using the CPU for the rest of this session."), 20000)
+
     def actionClearAllCache_trigger(self):
         """ Clear all timeline cache - deep clear """
         self.timeline_sync.timeline.ClearAllCache(True)

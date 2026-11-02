@@ -1,6 +1,7 @@
 """GPU capability evidence must never be mistaken for observed acceleration."""
 from types import SimpleNamespace
 import unittest
+import unittest.mock
 from unittest.mock import Mock
 
 from classes.gpu_diagnostics import GpuDiagnostics
@@ -146,3 +147,24 @@ class GpuDiagnosticsTests(unittest.TestCase):
         text = "\n".join(report.report_lines())
         self.assertIn("Vulkan API: not reported", text)
         self.assertIn("encode=not reported", text)
+
+
+class GpuDeviceLostTests(unittest.TestCase):
+    def test_device_loss_clears_gpu_frames_once_and_keeps_editing(self):
+        from qt_api import QApplication
+        from tests.qt_test_app import get_or_create_app, ensure_app_state
+        app, _ = get_or_create_app(lambda: QApplication([]))
+        ensure_app_state(app, dict)
+        from windows import main_window
+        window = SimpleNamespace(timeline_sync=SimpleNamespace(timeline=Mock()), refreshFrameSignal=Mock(),
+                                 statusBar=Mock())
+        diagnostics = Mock()
+        fake_app = SimpleNamespace(_tr=lambda text: text, gpu_diagnostics=diagnostics)
+        with unittest.mock.patch.object(main_window, "get_app", return_value=fake_app):
+            main_window.MainWindow.gpu_device_lost(window)
+            main_window.MainWindow.gpu_device_lost(window)
+        window.timeline_sync.timeline.ClearAllCache.assert_called_once_with(True)
+        window.refreshFrameSignal.emit.assert_called_once_with()
+        window.statusBar.showMessage.assert_called_once()
+        self.assertIn("CPU", window.statusBar.showMessage.call_args[0][0])
+        diagnostics.event.assert_called_once()

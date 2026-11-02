@@ -670,6 +670,13 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
                         explain = getattr(self.gpu_presenter, "FallbackReason", None)
                         reason = explain() if explain else "Native interop unavailable; library reports no reason"
                     diagnostics.observe_preview(self._gpu_diagnostic_id, gpu_drawn, reason)
+                device_lost = getattr(openshot, "VulkanDeviceLost", None)
+                window = getattr(get_app(), "window", None)
+                if (not gpu_drawn and callable(device_lost) and device_lost()
+                        and hasattr(window, "gpu_device_lost")
+                        and not getattr(window, "_gpu_device_lost_handled", False)):
+                    # Not from inside paintEvent: the handler clears caches and repaints.
+                    QTimer.singleShot(0, window.gpu_device_lost)
             if not gpu_drawn and self.current_image:
                 pix_size = self._scaled_frame_size(self.current_image.size(), self.size())
                 self.curr_frame_size = pix_size
