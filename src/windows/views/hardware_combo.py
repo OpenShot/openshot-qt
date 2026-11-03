@@ -54,6 +54,11 @@ def backend_badge(backend, translate=lambda value: value):
             'vaapi': 'Linux', 'dx': 'Windows', 'vulkan': translate('Cross-platform')}.get(backend, '')
 
 
+def backend_technology(backend):
+    return {'nvenc': 'NVENC', 'qsv': 'Quick Sync (QSV)', 'vtb': 'VideoToolbox',
+            'vaapi': 'VA-API', 'dx': 'DirectX', 'vulkan': 'Vulkan', 'amf': 'AMF'}.get(backend, '')
+
+
 class HardwareItemDelegate(QStyledItemDelegate):
     def __init__(self, parent):
         super().__init__(parent)

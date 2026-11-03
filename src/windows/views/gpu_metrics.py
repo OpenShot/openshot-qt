@@ -1,5 +1,5 @@
 """One four-segment visualization for live preview and frozen export reports."""
-from qt_api import (Qt, QWidget, QPainter, QColor, QRectF, QSize, QTimer, QVBoxLayout,
+from qt_api import (Qt, QWidget, QPainter, QColor, QRectF, QSize, QTimer, QVBoxLayout, QGridLayout,
                     QHBoxLayout, QLabel, QPushButton, QDockWidget, QFrame, QScrollArea, QPalette)
 from classes.gpu_metrics import stages
 
@@ -156,18 +156,22 @@ class GpuMetricsDock(QDockWidget):
         layout.addWidget(divider)
         transfer_title = QLabel(translate('CPU transfers'), panel)
         layout.addWidget(transfer_title)
-        transfers = QHBoxLayout()
+        # Two columns, so translated captions fit a narrow dock.
+        transfers = QGridLayout()
+        transfers.setHorizontalSpacing(15)
         self.transfer_values = {}
-        for key, title in [('readbacks', 'Readbacks'), ('uploads', 'Uploads'), ('upload_failures', 'Upload failures'),
-                           ('image_sources', 'Image requests')]:
+        for index, (key, title) in enumerate([('readbacks', 'Readbacks'), ('uploads', 'Uploads'),
+                                              ('upload_failures', 'Upload failures'),
+                                              ('image_sources', 'Image requests')]):
             column = QVBoxLayout()
             number = QLabel('—', panel)
             number.setStyleSheet('font-size: 19px; font-weight: 600;')
             caption = QLabel(translate(title), panel)
+            caption.setWordWrap(True)
             caption.setStyleSheet('color: palette(mid); font-size: 11px;')
             column.addWidget(number)
             column.addWidget(caption)
-            transfers.addLayout(column, 1)
+            transfers.addLayout(column, index // 2, index % 2)
             self.transfer_values[key] = number
         layout.addLayout(transfers)
         self.details = QLabel(panel)
@@ -182,6 +186,7 @@ class GpuMetricsDock(QDockWidget):
             row_layout.setContentsMargins(0, 0, 0, 0)
             row_layout.setSpacing(4)
             label = QLabel(row)
+            label.setWordWrap(True)
             label.setStyleSheet('font-size: 11px;')
             bar = GpuWorkBar(row, readback=True)
             row_layout.addWidget(label)
@@ -194,7 +199,10 @@ class GpuMetricsDock(QDockWidget):
         scroll.setAutoFillBackground(False)
         scroll.setWidgetResizable(True)
         scroll.setFrameShape(QFrame.NoFrame)
+        # Content wraps to the dock's width; it never scrolls sideways.
+        scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         scroll.setWidget(surface)
+        self.scroll = scroll
         scroll.viewport().setAutoFillBackground(False)
         surface.setAutoFillBackground(False)
         panel.setAutoFillBackground(False)
@@ -230,6 +238,9 @@ class GpuMetricsDock(QDockWidget):
         if reasons:
             self.details.setText(self.details.text() + '\n' + self.translate('Readback causes'))
         self.setToolTip(self.translate('Green bar = GPU path; amber = CPU path. Copy-free shows GPU work without readback. Counts exclude repeated cached work.'))
+        # Never narrower than the content, which wraps instead of scrolling sideways.
+        self.scroll.setMinimumWidth(self.scroll.widget().minimumSizeHint().width()
+                                    + self.scroll.verticalScrollBar().sizeHint().width())
 
 
 class GpuPreviewSegments(GpuSegments):
@@ -249,6 +260,10 @@ class GpuPreviewSegments(GpuSegments):
 
     def mouseReleaseEvent(self, event):
         if event.button() == Qt.LeftButton:
+            # A new dock narrows the timeline; keep its visible range in place.
+            begin_layout = getattr(getattr(self.window, 'timeline', None), 'begin_properties_layout_change', None)
+            if begin_layout:
+                begin_layout()
             dock = getattr(self.window, 'gpuMetricsDock', None)
             if dock is None:
                 dock = self.window.gpuMetricsDock = GpuMetricsDock(self.measurements, self.translate, self.window)

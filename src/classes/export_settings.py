@@ -31,19 +31,23 @@ import time
 import openshot
 
 
+def encoder_backend(codec):
+    """The hardware backend an FFmpeg encoder name selects, or "cpu"."""
+    for suffix, name in (("_vulkan", "vulkan"), ("_nvenc", "nvenc"), ("_vaapi", "vaapi"),
+                         ("_dxva2", "dx"), ("_videotoolbox", "vtb"), ("_qsv", "qsv"),
+                         ("_amf", "amf")):
+        if (codec or "").endswith(suffix):
+            return name
+    return "cpu"
+
+
 def encoder_support(codec, native=openshot, environ=os.environ):
     """Return backend, preset availability, and why; compile/driver checks differ.
 
     Preserve legacy NVENC/QSV/VA-API visibility based on compiled support.
     Vulkan and GPU-mode VideoToolbox presets additionally require an open probe.
     """
-    backend = "cpu"
-    for suffix, name in (("_vulkan", "vulkan"), ("_nvenc", "nvenc"), ("_vaapi", "vaapi"),
-                         ("_dxva2", "dx"), ("_videotoolbox", "vtb"), ("_qsv", "qsv"),
-                         ("_amf", "amf")):
-        if codec.endswith(suffix):
-            backend = name
-            break
+    backend = encoder_backend(codec)
     if not codec:
         return backend, True, "No video encoder required"
     if not native.FFmpegWriter.IsValidCodec(codec):

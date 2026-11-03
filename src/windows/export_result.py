@@ -9,6 +9,8 @@ from qt_api import (
 )
 
 from classes.desktop_open import open_file, reveal_file
+from classes.export_settings import encoder_backend
+from windows.views.hardware_combo import backend_technology
 
 # Feather-style 24px outline icons, tinted at render time.
 ICONS = {
@@ -26,6 +28,9 @@ ICONS = {
     "timer": '<circle cx="12" cy="13.5" r="7.5"/><path d="M12 13.5V10M10 2.5h4M18.5 6.5l1.5-1.5"/>',
     "audio": '<path d="M3 12h2M7 8v8M11 4.5v15M15 8v8M19 10.5v3M21 12h0"/>',
 }
+# A chip, colored by where the video was encoded.
+ICONS["gpu"] = ICONS["cpu"] = ('<rect x="6" y="6" width="12" height="12" rx="1.5"/><rect x="9.5" y="9.5" width="5" '
+                               'height="5" rx="0.5"/><path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3"/>')
 # Signal bars, filled up to the quality level.
 QUALITY_LEVELS = {"Low": 1, "Med": 2, "High": 3}
 for _level in (1, 2, 3):
@@ -39,7 +44,7 @@ ERROR = "#e5484d"
 # Mid-tone accents read on both light and dark backgrounds.
 ACCENTS = {"file": "#4a9eff", "film": "#a06cf0", "quality-1": "#f0a020", "quality-2": "#f0a020",
            "quality-3": "#f0a020", "size": "#2fbfa0", "clock": "#4a9eff", "frames": "#a06cf0",
-           "timer": "#e8618c", "audio": "#a06cf0"}
+           "timer": "#e8618c", "audio": "#a06cf0", "gpu": "#2fbf71", "cpu": "#8a94a6"}
 VIDEO_CODECS = (("libx264", "H.264"), ("h264", "H.264"), ("libx265", "H.265"), ("hevc", "H.265"),
                 ("libvpx-vp9", "VP9"), ("vp9", "VP9"), ("libvpx", "VP8"), ("av1", "AV1"),
                 ("libaom", "AV1"), ("libsvtav1", "AV1"), ("prores", "ProRes"), ("dnxhd", "DNxHD"),
@@ -388,7 +393,9 @@ class ExportResultTab(QWidget):
         for card in self.cards:
             self.cards_layout.removeWidget(card)
         for index, card in enumerate(self.cards):
-            self.cards_layout.addWidget(card, index // columns, index % columns)
+            # The last card fills a partial row, e.g. 7 cards as 3 + 3 + 1 wide.
+            span = columns - index % columns if index == len(self.cards) - 1 else 1
+            self.cards_layout.addWidget(card, index // columns, index % columns, 1, span)
         for column in range(self.MAX_COLUMNS):
             self.cards_layout.setColumnStretch(column, 1 if column < columns else 0)
 
@@ -571,7 +578,19 @@ def export_details(dialog, path, kind, translate):
     elapsed = getattr(dialog, "export_elapsed", None)
     if path and elapsed is not None:
         details.append(("timer", _("Export Time"), format_elapsed(elapsed)))
+    video_codec = dialog.txtVideoCodec.text().strip()
+    if kind == "video" and video_codec:
+        details.append(encoder_detail(video_codec, translate))
     return details
+
+
+def encoder_detail(codec, translate):
+    """The export target's CPU/GPU badge as a tile, e.g. GPU · NVENC."""
+    _ = translate
+    backend = encoder_backend(codec)
+    if backend == "cpu":
+        return "cpu", _("Encoder"), "%s · %s" % (_("CPU"), _("Software"))
+    return "gpu", _("Encoder"), "%s · %s" % (_("GPU"), backend_technology(backend))
 
 
 def audio_label(dialog, translate):

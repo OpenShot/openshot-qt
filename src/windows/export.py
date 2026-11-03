@@ -60,7 +60,7 @@ from classes.query import File
 from windows.confetti import celebrate_export
 from windows.export_result import ExportResultTab, export_details
 from windows.export_validation_ui import ExportValidationUI
-from windows.views.hardware_combo import set_hardware_item, export_choice_label, backend_badge
+from windows.views.hardware_combo import set_hardware_item, export_choice_label, backend_badge, backend_technology
 
 import json
 
@@ -76,8 +76,7 @@ def add_target_item(combo, data, label, codec, backend, reason):
     combo.addItem(QIcon(":/hardware/%s.svg" % mode), label, data)
     index = combo.count() - 1
     route = backend_badge(backend, _)
-    technology = {'nvenc': 'NVENC', 'qsv': 'Quick Sync (QSV)', 'vtb': 'VideoToolbox',
-                  'vaapi': 'VA-API', 'dx': 'DirectX', 'vulkan': 'Vulkan', 'amf': 'AMF'}.get(backend, '')
+    technology = backend_technology(backend)
     tooltip = "%s: %s" % (codec or "Video disabled", reason)
     if route:
         tooltip = "%s · %s\n%s" % (route, technology, tooltip)
