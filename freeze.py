@@ -64,6 +64,7 @@ from cx_Freeze import setup, Executable
 import cx_Freeze
 import shutil
 from installer.version_parser import parse_version_info, parse_build_name, write_build_metadata
+from installer.linux_qt import display_plugins, HOST_DISPLAY_LIBRARIES
 
 PATH = os.path.dirname(os.path.realpath(__file__))  # Primary openshot folder
 sys.path.insert(0, os.path.join(PATH, "src"))
@@ -480,10 +481,10 @@ elif sys.platform == "linux":
     if os.path.exists(resvg_path):
         external_so_files.append((resvg_path, os.path.basename(resvg_path)))
 
-    # Add Qt xcbglintegrations plugin
-    xcbgl_path = ARCHLIB + "qt5/"
-    for filename in find_files(os.path.join(xcbgl_path, "plugins", "xcbglintegrations"), ["*"]):
-        external_so_files.append((filename, os.path.relpath(filename, start=xcbgl_path)))
+    # Plugins are loaded dynamically: copy and scan their dependencies explicitly,
+    # from the same Qt installation as the Python binding.
+    qt_display_plugins = display_plugins(QLibraryInfo.location(QLibraryInfo.PluginsPath))
+    external_so_files.extend(qt_display_plugins)
 
     # Add libsoftokn3
     nss_path = ARCHLIB + "nss/"
@@ -531,6 +532,7 @@ elif sys.platform == "linux":
         mod = import_module(mod_name)
         qt_mod_files.append(inspect.getfile(mod))
     lib_list = qt_mod_files
+    lib_list.extend(source for source, destination in qt_display_plugins)
     try:
         import _ssl
         lib_list.append(inspect.getfile(_ssl))
@@ -591,6 +593,7 @@ elif sys.platform == "linux":
         "libvulkan.so.1",
     }
     system_libs_to_skip.update(appimage_driver_libs)
+    system_libs_to_skip.update(HOST_DISPLAY_LIBRARIES)
 
     include_override_libs = {
         "libgcrypt.so.11",
@@ -745,6 +748,8 @@ elif sys.platform == "linux":
     # The portal client uses asyncio; its optional GLib adapter must not pull
     # PyGObject and GTK into the AppImage.
     build_exe_options["excludes"].append("gi")
+    # cx_Freeze also discovers native dependencies independently of lib_list.
+    build_exe_options["bin_excludes"] = sorted(HOST_DISPLAY_LIBRARIES)
 
 # Set options
 build_options["build_exe"] = build_exe_options

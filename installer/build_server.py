@@ -45,6 +45,7 @@ from github3 import login, GitHubError
 from requests.auth import HTTPBasicAuth
 from requests import post
 from version_parser import parse_version_info, parse_build_name
+from linux_qt import check_display_runtime
 
 PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))  # Primary openshot folder
 PY_ABI = sysconfig.get_config_var('py_version_short')
@@ -917,6 +918,7 @@ def main():
             for qt_library in ("libQt5Core.so.5", "libQt5Network.so.5"):
                 if not os.path.isfile(os.path.join(app_dir_path, "usr", "bin", qt_library)):
                     raise RuntimeError("AppImage is missing required Qt library: %s" % qt_library)
+            check_display_runtime(os.path.join(app_dir_path, 'usr', 'bin'))
 
             # GPU drivers come from the host, and one process cannot load two FFmpegs.
             bundled_libs = os.listdir(os.path.join(app_dir_path, "usr", "bin"))

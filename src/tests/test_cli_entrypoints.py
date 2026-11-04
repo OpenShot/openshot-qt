@@ -150,7 +150,8 @@ import json, os, sys
 print(json.dumps({'args': sys.argv[1:], 'cwd': os.getcwd(),
                   'appdir': os.environ['APPDIR'], 'appimage': os.environ.get('APPIMAGE'), 'libraries': os.environ['LD_LIBRARY_PATH'],
                   'plugins': os.environ['QT_PLUGIN_PATH'], 'data': os.environ['XDG_DATA_DIRS'],
-                  'theme': os.environ.get('QT_QPA_PLATFORMTHEME')}))
+                  'theme': os.environ.get('QT_QPA_PLATFORMTHEME'),
+                  'platform': os.environ.get('QT_QPA_PLATFORM')}))
 if '--stdin' in sys.argv:
     print(sys.stdin.read(), end='')
 if '--error' in sys.argv:
@@ -193,6 +194,20 @@ if '--error' in sys.argv:
         self.assertEqual(json.loads(self.run_bundle('--cli').stdout)['theme'], 'xdgdesktopportal')
         self.env['QT_QPA_PLATFORMTHEME'] = 'custom'
         self.assertEqual(json.loads(self.run_bundle('--cli').stdout)['theme'], 'custom')
+
+    def test_native_wayland_for_gui_preserves_platform_overrides_and_headless_cli(self):
+        self.env.pop('QT_QPA_PLATFORM', None)
+        self.env['WAYLAND_DISPLAY'] = 'wayland-test'
+        self.assertIsNone(json.loads(self.run_bundle().stdout)['platform'])
+        (self.bin / 'platforms').mkdir()
+        (self.bin / 'platforms' / 'libqwayland-generic.so').touch()
+        self.assertEqual(json.loads(self.run_bundle().stdout)['platform'], 'wayland')
+        self.assertIsNone(json.loads(self.run_bundle('--cli', 'session', 'start').stdout)['platform'])
+        self.env['QT_QPA_PLATFORM'] = 'xcb'
+        self.assertEqual(json.loads(self.run_bundle().stdout)['platform'], 'xcb')
+        self.env.pop('QT_QPA_PLATFORM')
+        self.env.pop('WAYLAND_DISPLAY')
+        self.assertIsNone(json.loads(self.run_bundle().stdout)['platform'])
 
     def test_frozen_workers_reopen_image_instead_of_using_client_mount(self):
         image = self.root / 'OpenShot with spaces.AppImage'

@@ -7,6 +7,14 @@ export LD_LIBRARY_PATH="${HERE}"
 # Set some environment variables
 export QT_PLUGIN_PATH="${HERE}"
 
+# Qt 5.12 defaults to XWayland on GNOME, which may offer only software OpenGL.
+# GUI launches should use the bundled native Wayland plugin. CLI workers choose
+# their own offscreen platform, and explicit user overrides remain effective.
+if [[ -z "${QT_QPA_PLATFORM:-}" && -n "${WAYLAND_DISPLAY:-}" \
+      && "${1:-}" != --cli && -f "${HERE}/platforms/libqwayland-generic.so" ]]; then
+    export QT_QPA_PLATFORM=wayland
+fi
+
 # Opt into Vulkan video decoding for this experimental build before loading Mesa.
 # Each driver reads only its own settings. Encoding remains driver-default.
 if [[ "${OPENSHOT_RENDER_BACKEND:-vulkan}" != cpu ]]; then
