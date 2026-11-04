@@ -10,6 +10,7 @@ from qt_api import (
 
 from classes.desktop_open import open_file, reveal_file
 from classes.export_settings import encoder_backend
+from classes.gpu_metrics import export_acceleration
 from windows.views.hardware_combo import backend_technology
 
 # Feather-style 24px outline icons, tinted at render time.
@@ -28,9 +29,7 @@ ICONS = {
     "timer": '<circle cx="12" cy="13.5" r="7.5"/><path d="M12 13.5V10M10 2.5h4M18.5 6.5l1.5-1.5"/>',
     "audio": '<path d="M3 12h2M7 8v8M11 4.5v15M15 8v8M19 10.5v3M21 12h0"/>',
 }
-# A chip, colored by where the video was encoded.
-ICONS["gpu"] = ICONS["cpu"] = ('<rect x="6" y="6" width="12" height="12" rx="1.5"/><rect x="9.5" y="9.5" width="5" '
-                               'height="5" rx="0.5"/><path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3"/>')
+ICONS["lightning"] = '<path d="M13 2 4 14h7l-1 8 10-12h-7l1-8Z"/>'
 # Signal bars, filled up to the quality level.
 QUALITY_LEVELS = {"Low": 1, "Med": 2, "High": 3}
 for _level in (1, 2, 3):
@@ -272,21 +271,27 @@ class ExportResultTab(QWidget):
         # A compact summary belongs with this export's result, not its settings.
         self.gpu_summary = QFrame(self.content)
         self.gpu_summary.setObjectName('exportInfoCard')
-        gpu_layout = QVBoxLayout(self.gpu_summary)
-        gpu_layout.setContentsMargins(10, 8, 10, 8)
-        gpu_layout.setSpacing(4)
-        gpu_header = QHBoxLayout()
-        gpu_label = QLabel(self.translate('GPU pipeline · this export'), self.gpu_summary)
-        gpu_header.addWidget(gpu_label)
-        gpu_header.addStretch()
-        from windows.views.gpu_metrics import GpuSegments
-        self.gpu_segments = GpuSegments(self.translate, self.gpu_summary, exporting=True)
-        gpu_header.addWidget(self.gpu_segments)
-        gpu_layout.addLayout(gpu_header)
+        gpu_layout = QHBoxLayout(self.gpu_summary)
+        gpu_layout.setContentsMargins(14, 12, 14, 12)
+        gpu_layout.setSpacing(12)
+        self.gpu_icon = QLabel(self.gpu_summary)
+        self.gpu_icon.setFixedSize(24, 24)
+        gpu_layout.addWidget(self.gpu_icon)
+        gpu_text = QVBoxLayout()
+        gpu_text.setSpacing(3)
+        self.gpu_headline = QLabel(self.gpu_summary)
+        self.gpu_headline.setObjectName('exportInfoValue')
+        self.gpu_headline.setWordWrap(True)
+        gpu_text.addWidget(self.gpu_headline)
         self.gpu_stage_summary = QLabel(self.gpu_summary)
         self.gpu_stage_summary.setObjectName('exportInfoTitle')
         self.gpu_stage_summary.setWordWrap(True)
-        gpu_layout.addWidget(self.gpu_stage_summary)
+        gpu_text.addWidget(self.gpu_stage_summary)
+        gpu_layout.addLayout(gpu_text, 1)
+        from windows.views.gpu_metrics import GpuSegments
+        self.gpu_segments = GpuSegments(self.translate, self.gpu_summary, exporting=True)
+        self.gpu_segments.setFixedSize(92, 16)
+        gpu_layout.addWidget(self.gpu_segments)
         layout.addWidget(self.gpu_summary)
         self.gpu_summary.hide()
         layout.addStretch(1)
@@ -320,13 +325,30 @@ class ExportResultTab(QWidget):
 
     def set_gpu_metrics(self, snapshot):
         self.gpu_segments.set_snapshot(snapshot)
-        available = snapshot.get('native_available', True)
-        self.gpu_stage_summary.setText(' · '.join('%s %s' % (
-            self.translate(row['label']), '—' if row['percent'] is None else '%g%%' % round(row['percent'], 1))
-            for row in self.gpu_segments.rows) if available else
-            self.translate('GPU counters unavailable. Rebuild libopenshot and restart OpenShot.'))
-        self.gpu_summary.setToolTip(self.gpu_segments.toolTip())
-        self.gpu_summary.setVisible(bool(snapshot) and (not available or any(row['total'] for row in self.gpu_segments.rows)))
+        state, headline, caption = export_acceleration(snapshot)
+        self.gpu_acceleration_state = state
+        self.gpu_headline.setText(self.translate(headline))
+        self.gpu_stage_summary.setText(self.translate(caption))
+        self.refresh_gpu_icon()
+        tooltip = self.gpu_segments.toolTip()
+        codec = snapshot.get('encoder')
+        if codec:
+            _, title, value = encoder_detail(codec, self.translate)
+            tooltip += '\n%s: %s' % (title, value)
+        self.gpu_summary.setToolTip(tooltip)
+        self.gpu_segments.setToolTip(tooltip)
+        self.gpu_segments.setAccessibleDescription(tooltip)
+        self.gpu_summary.setAccessibleName(self.translate(headline))
+        self.gpu_summary.setAccessibleDescription(self.translate(caption))
+        self.gpu_summary.setVisible(bool(snapshot) and (snapshot.get('native_available') is False
+                                   or any(row['total'] for row in self.gpu_segments.rows)))
+
+    def refresh_gpu_icon(self):
+        color = {'full': '#2fbf71', 'partial': '#d99b36'}.get(
+            getattr(self, 'gpu_acceleration_state', 'unknown'), '#8a94a6')
+        if luma(self.palette().color(QPalette.Active, QPalette.WindowText)) < 128:
+            color = QColor(color).darker(125)
+        self.gpu_icon.setPixmap(svg_pixmap('lightning', color, 24, self.devicePixelRatioF()))
 
     def show_success(self, path, kind, details):
         """kind: video, audio or image_sequence. details: (icon, title, value) tuples."""
@@ -537,6 +559,7 @@ class ExportResultTab(QWidget):
             self.primary_button.setIcon(QIcon(svg_pixmap("play", "#ffffff", 14, ratio)) if self.success else QIcon())
             for card in self.cards:
                 card.refresh_icon(light)
+            self.refresh_gpu_icon()
         finally:
             self.styling = False
 
@@ -578,9 +601,6 @@ def export_details(dialog, path, kind, translate):
     elapsed = getattr(dialog, "export_elapsed", None)
     if path and elapsed is not None:
         details.append(("timer", _("Export Time"), format_elapsed(elapsed)))
-    video_codec = dialog.txtVideoCodec.text().strip()
-    if kind == "video" and video_codec:
-        details.append(encoder_detail(video_codec, translate))
     return details
 
 

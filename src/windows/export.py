@@ -135,6 +135,7 @@ class Export(QDialog):
         self.result_tab = None
         self.export_elapsed = None
         self.export_gpu_snapshot = {}
+        self.export_encoder = None
         self.feedback_pending = False
         self.vbr = {}
         self.abr = {}
@@ -1193,6 +1194,7 @@ class Export(QDialog):
         if measurements:
             measurements.reset(exporting=True)
         self.export_gpu_snapshot = {}
+        self.export_encoder = None
 
         # Start video cache thread (to start caching frames)
         self.cache_thread.Reader(self.timeline)
@@ -1210,6 +1212,7 @@ class Export(QDialog):
 
             # Open the writer
             w.Open()
+            self.export_encoder = w.info.vcodec
             measured_write = getattr(w, 'WriteMeasuredFrame', None)
 
             # Notify window of export started
@@ -1356,6 +1359,8 @@ class Export(QDialog):
         measurements = getattr(get_app(), 'gpu_measurements', None)
         if measurements:
             self.export_gpu_snapshot = measurements.snapshot(exporting=True)
+            if self.export_encoder:
+                self.export_gpu_snapshot['encoder'] = self.export_encoder
 
         # Handle end of export (for non-canceled exports)
         if self.s.get("show_finished_window") and self.exporting:
@@ -1398,7 +1403,7 @@ class Export(QDialog):
             else:
                 panel.show_success(path, kind, export_details(self, path, kind, _))
                 title = _("Complete")
-            panel.set_gpu_metrics(getattr(self, 'export_gpu_snapshot', {}))
+            panel.set_gpu_metrics(getattr(self, 'export_gpu_snapshot', {}) if kind == 'video' else {})
             self.exportTabs.setCurrentIndex(self.exportTabs.addTab(self.result_tab, title))
         except Exception:
             log.warning("Unable to show export result", exc_info=True)

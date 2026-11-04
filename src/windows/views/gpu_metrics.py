@@ -1,7 +1,7 @@
 """One four-segment visualization for live preview and frozen export reports."""
 from qt_api import (Qt, QWidget, QPainter, QColor, QRectF, QSize, QTimer, QVBoxLayout, QGridLayout,
                     QHBoxLayout, QLabel, QPushButton, QDockWidget, QFrame, QScrollArea, QPalette)
-from classes.gpu_metrics import stages
+from classes.gpu_metrics import stages, export_acceleration
 
 
 class GpuSegments(QWidget):
@@ -16,26 +16,22 @@ class GpuSegments(QWidget):
         self.raw = dict(raw)
         self.rows = stages(self.raw, self.exporting)
         _ = self.translate
-        lines = []
-        for row in self.rows:
-            if row['warming']:
-                value = _('Warming up (%s of %s %s)') % (row['total'], row['warmup'], _(row['unit']))
-            elif row['percent'] is None:
-                value = _('No measured work')
-            else:
-                value = '%g%% (%s/%s %s)' % (round(row['percent'], 1), row['gpu'], row['total'], _(row['unit']))
-            lines.append('%s: %s' % (_(row['label']), value))
         if self.raw.get('native_available') is False:
-            lines.insert(0, _('Native GPU work counters unavailable. Rebuild libopenshot and restart OpenShot.'))
-        lines.extend([_('Green: above 75%. Amber: 75% or less. Gray: no measurements or warming up.'),
-                      _('Decode/render/encode count operations, not GPU utilization. Cached work is not counted again.'),
-                      _('Copy-free: GPU work requests without CPU readback; initial uploads are reported separately.')])
-        if self.raw.get('image_sources'):
-            lines.append(_('CPU-origin image requests: %s (expected)') % self.raw['image_sources'])
-        lines.append(_('CPU readbacks: %s · uploads: %s') % (self.raw.get('readbacks', 0), self.raw.get('uploads', 0)))
+            text = _('GPU measurements are unavailable.')
+        elif self.exporting:
+            text = _(export_acceleration(self.raw)[2])
+        elif any(row['warming'] for row in self.rows):
+            text = _('Measuring GPU acceleration…')
+        elif not any(row['total'] for row in self.rows):
+            text = _('Play a video to measure GPU acceleration.')
+        else:
+            # Keep all four stages on one line; detailed counts live in the Inspector.
+            labels = [_('Read'), _('Process'), _('Stay on GPU'), _('Display')]
+            values = ['—' if row['percent'] is None else '%g%%' % round(row['percent'], 1)
+                      for row in self.rows]
+            text = _('GPU: %s') % ' · '.join('%s %s' % pair for pair in zip(labels, values))
         if self.raw.get('upload_failures'):
-            lines.append(_('GPU upload failures: %s (often low GPU memory)') % self.raw['upload_failures'])
-        text = '\n'.join(lines)
+            text = _('Some GPU work could not be completed.')
         self.setToolTip(text)
         self.setAccessibleDescription(text)
         self.update()
@@ -50,7 +46,8 @@ class GpuSegments(QWidget):
             if row['percent'] is not None:
                 color = QColor('#2fbf71' if row['percent'] > 75 else '#d99b36')
             painter.setBrush(color)
-            painter.drawRoundedRect(QRectF(index * 16, 4, 13, 8), 2, 2)
+            width = (self.width() - 12) / 4
+            painter.drawRoundedRect(QRectF(index * (width + 4), 4, width, 8), 2, 2)
         painter.end()
 
 

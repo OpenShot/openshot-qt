@@ -41,10 +41,34 @@ def stages(raw, exporting=False):
     for label, gpu_key, cpu_key in rows:
         gpu = int(raw.get(gpu_key, 0))
         total = gpu + int(raw.get(cpu_key, 0)) if cpu_key else int(raw.get('gpu_requests', 0))
+        if exporting and label == 'Copy-free' and raw.get('export_frames', 0):
+            # Rendering can happen on a cache worker, before the encoder's readback.
+            # Use complete writer requests so those separate scopes cannot inflate this stage.
+            gpu, total = int(raw.get('export_copy_free', 0)), int(raw['export_frames'])
         percent = min(100, max(0, 100 * gpu / total)) if total >= warmup else None
         unit = {'Decode': 'decoded video frames', 'Render': 'render operations',
                 'Copy-free': 'GPU work requests', 'Display': 'presentation attempts',
                 'Encode': 'encoder submissions'}[label]
+        if exporting and label == 'Copy-free' and raw.get('export_frames', 0):
+            unit = 'exported frames'
         result.append(dict(label=label, gpu=gpu, total=total, percent=percent, unit=unit,
                            warming=0 < total < warmup, warmup=warmup))
     return result
+
+
+def export_acceleration(raw):
+    """Describe measured video work; unknown counters must never imply success."""
+    rows = stages(raw, exporting=True)
+    if raw.get('native_available') is False or not any(row['total'] for row in rows):
+        return 'unknown', 'GPU acceleration unavailable', 'Acceleration measurements are unavailable for this export.'
+    gpu_work = sum(int(raw.get(key, 0)) for key in ('decode_gpu', 'render_gpu', 'encode_gpu'))
+    if not gpu_work:
+        return 'none', 'No GPU acceleration', 'Your computer’s main processor handled this export.'
+    required = [row for row in rows if row['label'] != 'Decode' or not raw.get('image_sources') or row['total']]
+    if all(row['percent'] == 100 for row in required) and not raw.get('readbacks', 0):
+        return 'full', 'Fully GPU accelerated', 'Your GPU handled the video from start to finish.'
+    if raw.get('encode_cpu', 0) and not raw.get('encode_gpu', 0) and raw.get('render_gpu', 0):
+        caption = 'Your GPU prepared the video. Your CPU encoded the file.'
+    else:
+        caption = 'Your GPU handled part of the video processing.'
+    return 'partial', 'Partially GPU accelerated', caption

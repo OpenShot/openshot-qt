@@ -41,12 +41,36 @@ class ExportResultTests(unittest.TestCase):
         panel.set_gpu_metrics(raw)
         raw['encode_gpu'] = 0
         self.assertFalse(panel.gpu_summary.isHidden())
-        self.assertIn('Encode 100%', panel.gpu_stage_summary.text())
+        self.assertEqual(panel.gpu_headline.text(), 'Partially GPU accelerated')
+        self.assertEqual(panel.gpu_summary.toolTip(), 'Your GPU handled part of the video processing.')
         panel.set_gpu_metrics({})
         self.assertTrue(panel.gpu_summary.isHidden())
         panel.set_gpu_metrics({'native_available': False})
         self.assertFalse(panel.gpu_summary.isHidden())
-        self.assertIn('counters unavailable', panel.gpu_stage_summary.text())
+        self.assertIn('measurements are unavailable', panel.gpu_stage_summary.text())
+
+    def test_gpu_summary_uses_one_card_for_all_states_and_encoder_details(self):
+        panel = self.make_panel()
+        panel.show_success('/tmp/out.mp4', 'video', DETAILS)
+        full = dict(decode_gpu=10, render_gpu=10, encode_gpu=10, export_frames=10,
+                    export_copy_free=10, encoder='h264_nvenc')
+        panel.set_gpu_metrics(full)
+        self.assertEqual(panel.gpu_headline.text(), 'Fully GPU accelerated')
+        self.assertEqual(len(panel.cards), 6)
+        self.assertIn('NVENC', panel.gpu_summary.toolTip())
+        self.assertEqual(len(panel.gpu_summary.toolTip().splitlines()), 2)
+        self.assertFalse(panel.gpu_icon.pixmap().isNull())
+        partial = dict(full, encode_gpu=0, encode_cpu=10, export_copy_free=0,
+                       readbacks=10, encoder='libx264')
+        panel.set_gpu_metrics(partial)
+        self.assertEqual(panel.gpu_headline.text(), 'Partially GPU accelerated')
+        self.assertIn('Your CPU encoded', panel.gpu_stage_summary.text())
+        self.assertEqual(panel.gpu_segments.rows[2]['percent'], 0)
+        self.assertIn('Encoder: CPU · Software', panel.gpu_summary.toolTip())
+        panel.set_gpu_metrics(dict(decode_cpu=10, render_cpu=10, encode_cpu=10,
+                                   export_frames=10, export_copy_free=0))
+        self.assertEqual(panel.gpu_headline.text(), 'No GPU acceleration')
+        self.assertTrue(all(row['percent'] == 0 for row in panel.gpu_segments.rows))
 
     def test_labels(self):
         self.assertEqual(format_label("mp4", "libx264", "aac", "video"), "MP4 (H.264)")
@@ -202,7 +226,7 @@ class ExportResultTests(unittest.TestCase):
     def test_last_card_fills_a_partial_row(self):
         panel = self.make_panel(width=900)
         panel.show()
-        panel.show_success("/tmp/out.mp4", "video", DETAILS + [encoder_detail("h264_nvenc", str)])
+        panel.show_success("/tmp/out.mp4", "video", DETAILS + [("audio", "Audio", "Stereo")])
         panel.reflow()
         self.assertEqual(panel.columns, 3)
         index = panel.cards_layout.indexOf(panel.cards[-1])
@@ -229,7 +253,7 @@ class ExportResultTests(unittest.TestCase):
             video = dict((title, value) for _, title, value in export_details(dialog, output.name, "video", str))
             self.assertEqual(video, {"Format": "MP4 (H.264)", "Resolution": "1920 × 1080, 30 fps",
                                      "Quality": "High Quality", "File Size": "2.0 KB", "Duration": "0:00:03",
-                                     "Export Time": "42s", "Encoder": "CPU · Software"})
+                                     "Export Time": "42s"})
             icons = [icon for icon, _, _ in export_details(dialog, output.name, "video", str)]
             self.assertIn("quality-3", icons)
             audio = dict((title, value) for _, title, value in export_details(dialog, output.name, "audio", str))

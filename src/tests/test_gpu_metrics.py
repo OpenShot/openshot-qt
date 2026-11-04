@@ -12,7 +12,7 @@ if SOURCE_ROOT not in sys.path:
     sys.path.insert(0, SOURCE_ROOT)
 
 from qt_api import QApplication
-from classes.gpu_metrics import GpuMeasurements, stages
+from classes.gpu_metrics import GpuMeasurements, stages, export_acceleration
 from windows.views.gpu_metrics import GpuSegments, GpuMetricsDock
 
 
@@ -37,8 +37,8 @@ class GpuMetricTests(unittest.TestCase):
         self.assertEqual(stages({'decode_gpu': 2}, True)[0]['percent'], 100)
         widget = GpuSegments()
         widget.set_snapshot({'decode_gpu': 4, 'upload_failures': 3})
-        self.assertIn('Warming up (4 of 10', widget.toolTip())
-        self.assertIn('GPU upload failures: 3', widget.toolTip())
+        self.assertEqual(len(widget.toolTip().splitlines()), 1)
+        self.assertIn('Some GPU work could not be completed.', widget.toolTip())
         widget.close()
 
     def test_export_snapshot_is_independent_and_reset_keeps_preview_registration(self):
@@ -62,7 +62,23 @@ class GpuMetricTests(unittest.TestCase):
         self.assertTrue(all(row['percent'] is None for row in stages(raw)))
         self.assertFalse(raw['native_available'])
 
-    def test_export_widget_freezes_its_snapshot_and_explains_cpu_images(self):
+    def test_export_copy_free_counts_cached_frames_at_the_writer(self):
+        raw = dict(render_gpu=10, copy_free=10, gpu_requests=10,
+                   export_frames=10, export_copy_free=0, readbacks=10, encode_cpu=10)
+        self.assertEqual(stages(raw, True)[2]['percent'], 0)
+        self.assertEqual(stages(raw)[2]['percent'], 100)
+        self.assertEqual(export_acceleration(raw)[0], 'partial')
+
+    def test_full_acceleration_requires_known_stages_and_no_readbacks(self):
+        raw = dict(decode_gpu=10, render_gpu=10, encode_gpu=10,
+                   export_frames=10, export_copy_free=10)
+        self.assertEqual(export_acceleration(raw)[0], 'full')
+        self.assertEqual(export_acceleration(dict(raw, readbacks=1))[0], 'partial')
+        self.assertEqual(export_acceleration(dict(raw, decode_gpu=0))[0], 'partial')
+        self.assertEqual(export_acceleration(dict(raw, native_available=False))[0], 'unknown')
+        self.assertEqual(export_acceleration({})[0], 'unknown')
+
+    def test_export_tooltip_is_a_short_stage_summary_and_freezes_its_snapshot(self):
         raw = {'decode_gpu': 8, 'decode_cpu': 2, 'image_sources': 4,
                'copy_free': 9, 'gpu_requests': 10, 'encode_gpu': 10}
         widget = GpuSegments(exporting=True)
@@ -70,9 +86,7 @@ class GpuMetricTests(unittest.TestCase):
         raw['decode_gpu'] = 0
         self.assertEqual(widget.rows[0]['percent'], 80)
         self.assertEqual(widget.rows[3]['label'], 'Encode')
-        self.assertIn('expected', widget.toolTip())
-        self.assertIn('not GPU utilization', widget.toolTip())
-        self.assertIn('readback', widget.toolTip())
+        self.assertEqual(widget.toolTip(), 'Your GPU handled part of the video processing.')
         widget.close()
 
     def test_dock_reset_and_bounded_reason_details(self):
