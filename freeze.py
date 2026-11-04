@@ -542,7 +542,6 @@ elif sys.platform == "linux":
             os.path.join(libopenshot_path, "libopenshot.so"),
             os.path.join(libopenshot_path, "libopenshot-wayland-capture.so"),
             "/usr/local/lib/libresvg.so",
-            ARCHLIB + "qt5/plugins/platforms/libqxcb.so"
             ]:
         if os.path.exists(lib_name):
             lib_list.append(lib_name)

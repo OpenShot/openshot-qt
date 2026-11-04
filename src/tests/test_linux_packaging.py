@@ -16,7 +16,7 @@ spec.loader.exec_module(linux_qt)
 @unittest.skipUnless(sys.platform.startswith('linux'), 'Linux AppImage runtime')
 class LinuxQtPackagingTests(unittest.TestCase):
     def make_runtime(self, root):
-        for name in ('libQt5WaylandClient.so.5',) + linux_qt.WAYLAND_PLUGINS:
+        for name in ('libQt5WaylandClient.so.5',) + linux_qt.DISPLAY_PLUGINS:
             path = root / name
             path.parent.mkdir(parents=True, exist_ok=True)
             path.touch()
@@ -25,8 +25,6 @@ class LinuxQtPackagingTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             self.make_runtime(root)
-            (root / 'wayland-decoration-client').mkdir()
-            (root / 'wayland-decoration-client' / 'libbradient.so').touch()
             files = linux_qt.display_plugins(root)
             self.assertIn((str(root / linux_qt.WAYLAND_PLUGINS[0]), linux_qt.WAYLAND_PLUGINS[0]), files)
             self.assertIn((str(root / 'wayland-decoration-client/libbradient.so'),
@@ -34,6 +32,15 @@ class LinuxQtPackagingTests(unittest.TestCase):
             (root / linux_qt.WAYLAND_PLUGINS[2]).unlink()
             with self.assertRaisesRegex(RuntimeError, 'install qtwayland5'):
                 linux_qt.display_plugins(root)
+
+    def test_missing_selected_x11_or_portal_plugin_does_not_use_system_qt(self):
+        for name in ('platforms/libqxcb.so', 'platformthemes/libqxdgdesktopportal.so'):
+            with self.subTest(plugin=name), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                self.make_runtime(root)
+                (root / name).unlink()
+                with self.assertRaisesRegex(RuntimeError, 'Matching Qt display plugins'):
+                    linux_qt.display_plugins(root)
 
     def test_missing_qt_runtime_and_bundled_host_wayland_are_rejected(self):
         with tempfile.TemporaryDirectory() as directory:
