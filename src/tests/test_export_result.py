@@ -42,7 +42,9 @@ class ExportResultTests(unittest.TestCase):
         raw['encode_gpu'] = 0
         self.assertFalse(panel.gpu_summary.isHidden())
         self.assertEqual(panel.gpu_headline.text(), 'Partially GPU accelerated')
-        self.assertEqual(panel.gpu_summary.toolTip(), 'Your GPU handled part of the video processing.')
+        self.assertIn('Read 80% · Process 100% · Copy-free 90% · Encode 100%',
+                      panel.gpu_segments.toolTip())
+        self.assertEqual(len(panel.gpu_segments.toolTip().splitlines()), 3)
         panel.set_gpu_metrics({})
         self.assertTrue(panel.gpu_summary.isHidden())
         panel.set_gpu_metrics({'native_available': False})
@@ -58,7 +60,9 @@ class ExportResultTests(unittest.TestCase):
         self.assertEqual(panel.gpu_headline.text(), 'Fully GPU accelerated')
         self.assertEqual(len(panel.cards), 6)
         self.assertIn('NVENC', panel.gpu_summary.toolTip())
-        self.assertEqual(len(panel.gpu_summary.toolTip().splitlines()), 2)
+        self.assertEqual(len(panel.gpu_summary.toolTip().splitlines()), 4)
+        self.assertEqual(len(panel.gpu_segments.toolTip().splitlines()), 3)
+        self.assertNotIn('Encoder:', panel.gpu_segments.toolTip())
         self.assertFalse(panel.gpu_icon.pixmap().isNull())
         partial = dict(full, encode_gpu=0, encode_cpu=10, export_copy_free=0,
                        readbacks=10, encoder='libx264')

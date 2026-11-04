@@ -1,7 +1,7 @@
 """One four-segment visualization for live preview and frozen export reports."""
 from qt_api import (Qt, QWidget, QPainter, QColor, QRectF, QSize, QTimer, QVBoxLayout, QGridLayout,
                     QHBoxLayout, QLabel, QPushButton, QDockWidget, QFrame, QScrollArea, QPalette)
-from classes.gpu_metrics import stages, export_acceleration
+from classes.gpu_metrics import stages
 
 
 class GpuSegments(QWidget):
@@ -16,22 +16,20 @@ class GpuSegments(QWidget):
         self.raw = dict(raw)
         self.rows = stages(self.raw, self.exporting)
         _ = self.translate
+        labels = [_('Read'), _('Process'), _('Copy-free'),
+                  _('Encode') if self.exporting else _('Display')]
+        values = ['—' if row['percent'] is None else '%g%%' % round(row['percent'], 1)
+                  for row in self.rows]
         if self.raw.get('native_available') is False:
-            text = _('GPU measurements are unavailable.')
-        elif self.exporting:
-            text = _(export_acceleration(self.raw)[2])
-        elif any(row['warming'] for row in self.rows):
-            text = _('Measuring GPU acceleration…')
-        elif not any(row['total'] for row in self.rows):
-            text = _('Play a video to measure GPU acceleration.')
+            summary = _('GPU measurements are unavailable.')
         else:
-            # Keep all four stages on one line; detailed counts live in the Inspector.
-            labels = [_('Read'), _('Process'), _('Stay on GPU'), _('Display')]
-            values = ['—' if row['percent'] is None else '%g%%' % round(row['percent'], 1)
-                      for row in self.rows]
-            text = _('GPU: %s') % ' · '.join('%s %s' % pair for pair in zip(labels, values))
+            summary = ' · '.join('%s %s' % pair for pair in zip(labels, values))
+        text = '\n'.join((
+            _('GPU acceleration'), summary,
+            _('Green: GPU · Amber: CPU involved · Gray: not measured'),
+        ))
         if self.raw.get('upload_failures'):
-            text = _('Some GPU work could not be completed.')
+            text += '\n' + _('Some GPU work could not be completed.')
         self.setToolTip(text)
         self.setAccessibleDescription(text)
         self.update()
@@ -253,7 +251,7 @@ class GpuPreviewSegments(GpuSegments):
 
     def refresh(self):
         self.set_snapshot(self.measurements.snapshot())
-        self.setToolTip(self.toolTip() + '\n' + self.translate('Click to open GPU Inspector.'))
+        self.setAccessibleDescription(self.toolTip() + '\n' + self.translate('Click to open GPU Inspector.'))
 
     def mouseReleaseEvent(self, event):
         if event.button() == Qt.LeftButton:

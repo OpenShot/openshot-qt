@@ -122,14 +122,11 @@ class Export(QDialog):
         self.cancel_button.setObjectName("cancelButton")
         self.export_button = QPushButton(_('Export Video'))
         self.export_button.setObjectName("acceptButton")
-        self.close_button = QPushButton(_('Done'))
         self.restoring_defaults = False
         self.restore_defaults_button.clicked.connect(self.restore_defaults)
 
-        self.buttonBox.addButton(self.close_button, QDialogButtonBox.RejectRole)
         self.buttonBox.addButton(self.export_button, QDialogButtonBox.AcceptRole)
         self.buttonBox.addButton(self.cancel_button, QDialogButtonBox.RejectRole)
-        self.close_button.setVisible(False)
         self.exporting = False
         # Created when an export ends, as a third tab (success summary or error)
         self.result_tab = None
@@ -293,7 +290,6 @@ class Export(QDialog):
                 self.restore_defaults_button,
                 self.cancel_button,
                 self.export_button,
-                self.close_button,
             ]
         )
 
@@ -1046,8 +1042,7 @@ class Export(QDialog):
 
         # Start fresh after a previous export from this dialog
         self.clear_export_result()
-        self.cancel_button.setVisible(True)
-        self.close_button.setVisible(False)
+        self.cancel_button.setText(get_app()._tr('Cancel'))
         self.progressExportVideo.setPalette(QPalette())
 
         # Save export settings
@@ -1364,9 +1359,9 @@ class Export(QDialog):
 
         # Handle end of export (for non-canceled exports)
         if self.s.get("show_finished_window") and self.exporting:
-            # Done replaces Cancel; Export stays, for another run with different settings
-            self.cancel_button.setVisible(False)
-            self.close_button.setVisible(True)
+            # Reuse the same footer button so closing stays available after export.
+            self.exporting = False
+            self.cancel_button.setText(get_app()._tr('Done'))
 
             # Make progress bar green (or red after an error) to indicate we are done
             p = QPalette()
@@ -1628,7 +1623,7 @@ class Export(QDialog):
     def reject(self):
         self.save_settings()
 
-        if self.exporting and not self.close_button.isVisible():
+        if self.exporting:
             # Show confirmation dialog
             _ = get_app()._tr
             result = QMessageBox.question(

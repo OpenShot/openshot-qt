@@ -37,7 +37,8 @@ class GpuMetricTests(unittest.TestCase):
         self.assertEqual(stages({'decode_gpu': 2}, True)[0]['percent'], 100)
         widget = GpuSegments()
         widget.set_snapshot({'decode_gpu': 4, 'upload_failures': 3})
-        self.assertEqual(len(widget.toolTip().splitlines()), 1)
+        self.assertEqual(len(widget.toolTip().splitlines()), 4)
+        self.assertIn('Read —', widget.toolTip())
         self.assertIn('Some GPU work could not be completed.', widget.toolTip())
         widget.close()
 
@@ -86,7 +87,10 @@ class GpuMetricTests(unittest.TestCase):
         raw['decode_gpu'] = 0
         self.assertEqual(widget.rows[0]['percent'], 80)
         self.assertEqual(widget.rows[3]['label'], 'Encode')
-        self.assertEqual(widget.toolTip(), 'Your GPU handled part of the video processing.')
+        self.assertEqual(widget.toolTip(),
+                         'GPU acceleration\n'
+                         'Read 80% · Process — · Copy-free 90% · Encode 100%\n'
+                         'Green: GPU · Amber: CPU involved · Gray: not measured')
         widget.close()
 
     def test_dock_reset_and_bounded_reason_details(self):

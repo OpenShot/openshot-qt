@@ -11,7 +11,8 @@ PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 if PATH not in sys.path:
     sys.path.append(PATH)
 
-from qt_api import QApplication, QDialog, QImage, QPainter, QWidget, Qt, isdeleted
+from qt_api import (QApplication, QDialog, QDialogButtonBox, QPushButton,
+                    QVBoxLayout, QImage, QPainter, QWidget, Qt, isdeleted)
 from windows import confetti
 from windows.confetti import ConfettiCannon, celebrate_export, should_celebrate
 
@@ -117,8 +118,13 @@ class ConfettiTests(unittest.TestCase):
                     self.addCleanup(dialog.deleteLater)
                     for name in ("save_settings", "enableControls", "disableControls", "updateFrameRate",
                                  "progressExportVideo", "timeline", "cache_thread",
-                                 "cancel_button", "export_button", "close_button", "prepare_next_export"):
+                                 "export_button", "prepare_next_export"):
                         setattr(dialog, name, Mock())
+                    dialog.cancel_button = QPushButton("Cancel", dialog)
+                    dialog.buttonBox = QDialogButtonBox(dialog)
+                    dialog.buttonBox.addButton(dialog.cancel_button, QDialogButtonBox.RejectRole)
+                    dialog.buttonBox.rejected.connect(dialog.reject)
+                    QVBoxLayout(dialog).addWidget(dialog.buttonBox)
                     for name, value in {"txtStartFrame": 1, "txtEndFrame": 3,
                             "txtFrameRateNum": 24, "txtFrameRateDen": 1, "txtWidth": 16, "txtHeight": 16,
                             "txtPixelRatioNum": 1, "txtPixelRatioDen": 1,
@@ -175,9 +181,16 @@ class ConfettiTests(unittest.TestCase):
                     # The finished dialog holds the banner until it closes.
                     self.assertEqual(controller.record_export.call_count, int(succeeded and not finished_window))
                     if finished_window:
+                        if outcome != "cancel":
+                            self.assertEqual(dialog.cancel_button.text(), "Done")
+                            self.assertFalse(dialog.cancel_button.isHidden())
+                            self.assertGreaterEqual(dialog.buttonBox.layout().indexOf(dialog.cancel_button), 0)
+                            self.assertFalse(dialog.exporting)
                         with patch("windows.export.get_app", return_value=app), \
-                                patch("windows.export.openshot.Settings"):
-                            dialog.reject()
+                                patch("windows.export.openshot.Settings"), \
+                                patch("windows.export.QMessageBox.question") as confirm:
+                            dialog.cancel_button.click()
+                            confirm.assert_not_called()
                         self.assertEqual(controller.record_export.call_count, int(succeeded))
                         with patch("windows.export.get_app", return_value=app), \
                                 patch("windows.export.openshot.Settings"):

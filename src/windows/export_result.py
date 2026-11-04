@@ -336,8 +336,6 @@ class ExportResultTab(QWidget):
             _, title, value = encoder_detail(codec, self.translate)
             tooltip += '\n%s: %s' % (title, value)
         self.gpu_summary.setToolTip(tooltip)
-        self.gpu_segments.setToolTip(tooltip)
-        self.gpu_segments.setAccessibleDescription(tooltip)
         self.gpu_summary.setAccessibleName(self.translate(headline))
         self.gpu_summary.setAccessibleDescription(self.translate(caption))
         self.gpu_summary.setVisible(bool(snapshot) and (snapshot.get('native_available') is False
