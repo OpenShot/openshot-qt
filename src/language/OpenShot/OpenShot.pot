@@ -6,7 +6,7 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenShot Video Editor (version: 4.1.0)\n"
+"Project-Id-Version: OpenShot Video Editor (version: 4.1.1)\n"
 "Report-Msgid-Bugs-To: Jonathan Thomas <Jonathan.Oomph@gmail.com>\n"
 "POT-Creation-Date: 2026-10-25 22:03:16.592222\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
@@ -7876,4 +7876,20 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt/src/windows/ui/title-editor.ui:14
 msgid "Titles"
+msgstr ""
+
+#: src/presets/format_mp4_h264_amf.xml
+msgid "MP4 (h.264 amf)"
+msgstr ""
+
+#: src/presets/format_mp4_hevc_nvenc.xml
+msgid "MP4 (h.265 nvenc)"
+msgstr ""
+
+#: src/presets/format_mp4_hevc_amf.xml
+msgid "MP4 (h.265 amf)"
+msgstr ""
+
+#: src/presets/format_mp4_hevc_qsv.xml
+msgid "MP4 (h.265 qsv)"
 msgstr ""

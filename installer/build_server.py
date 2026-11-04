@@ -913,7 +913,7 @@ def main():
                 raise RuntimeError("FFMPEG_ROOT is required to package oneVPL notices")
             shutil.copytree(os.path.join(ffmpeg_root, "share", "vpl", "licensing"),
                             os.path.join(app_dir_path, "usr", "share", "licenses", "oneVPL"))
-            subprocess.run([sys.executable, os.path.join(PATH, "installer", "check-linux-hardware.py"),
+            subprocess.run([sys.executable, os.path.join(PATH, "installer", "check-linux-hardware.py"),  # nosec B603 - Fixed interpreter and local package checker; no shell.
                             os.path.join(app_dir_path, "usr", "bin")], check=True)
 
             # Copy .desktop file, replacing Exec= commandline

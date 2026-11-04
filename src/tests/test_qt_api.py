@@ -4,6 +4,8 @@ import os
 import subprocess
 import sys
 import unittest
+from types import SimpleNamespace
+from unittest.mock import patch
 
 
 PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
@@ -80,6 +82,16 @@ with patch("classes.qt_bootstrap.os.name", "nt"):
             [sys.executable, "-c", script], env=env, capture_output=True,
             text=True, timeout=20)
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+    def test_qt6_scoped_tooltip_and_focus_events_get_legacy_aliases(self):
+        events = SimpleNamespace(ToolTip=110, FocusOut=9, WindowDeactivate=25)
+        event_class = type("ScopedEvent", (), {"Type": events})
+        core = SimpleNamespace(QEvent=event_class, Qt=SimpleNamespace())
+        with patch.multiple(qt_api, QT_API="pyqt6", QtCore=core,
+                            QtGui=SimpleNamespace(), QtWidgets=SimpleNamespace()):
+            qt_api._patch_enums_for_qt6()
+        for name in ("ToolTip", "FocusOut", "WindowDeactivate"):
+            self.assertEqual(getattr(event_class, name), getattr(events, name))
 
     def test_feedback_event_types_are_available_on_all_bindings(self):
         for name in ("KeyPress", "MouseButtonPress", "MouseButtonRelease",

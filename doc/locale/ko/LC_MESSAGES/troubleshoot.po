@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-26 14:26-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,23 +20,101 @@ msgstr ""
 "Generated-By: Babel 2.10.3\n"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:23
+#: ../doc/troubleshoot.rst:23
 msgid "Troubleshooting"
 msgstr "문제 해결"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:25
+#: ../doc/troubleshoot.rst:25
 msgid ""
 "If you are experiencing an issue with OpenShot, such as a freeze, crash, or "
 "error message, there are many different techniques which can be useful for "
 "troubleshooting the issue."
 msgstr "OpenShot에서 정지, 충돌 또는 오류 메시지와 같은 문제가 발생하는 경우, 문제 해결에 유용한 다양한 방법이 있습니다."
 
-#: ../troubleshoot.rst:31
+#: ../doc/troubleshoot.rst:31
+msgid "Large or Slow Project Files with Audio Waveforms"
+msgstr "오디오 파형이 포함된 크거나 느린 프로젝트 파일"
+
+#: ../doc/troubleshoot.rst:33
+msgid ""
+"Older projects with many audio waveforms can have unusually large ``.osp`` "
+"files and take longer to open or save. Older builds stored the waveform "
+"measurements inside the project file, sometimes repeating them for clips and"
+" undo history."
+msgstr ""
+"오디오 파형이 많은 오래된 프로젝트는 비정상적으로 큰 ``.osp`` 파일을 가질 수 있으며 열거나 저장하는 데 시간이 더 걸릴 수 "
+"있습니다. 이전 빌드는 파형 측정값을 프로젝트 파일 내에 저장했으며, 때로는 클립과 실행 취소 기록에 대해 반복 저장하기도 했습니다."
+
+#: ../doc/troubleshoot.rst:37
+msgid ""
+"The latest build stores these measurements in **separate compressed waveform"
+" files** instead. The project keeps small references to those files, "
+"reducing the data copied during editing and written into the ``.osp`` file. "
+"These files describe audio levels for display, not copies of the audio "
+"itself; your media and exported sound are unchanged."
+msgstr ""
+"최신 빌드는 이러한 측정값을 **별도의 압축된 파형 파일**\\ 에 저장합니다. 프로젝트는 해당 파일들에 대한 작은 참조만 유지하여 편집"
+" 중 복사되는 데이터와 ``.osp`` 파일에 기록되는 데이터를 줄입니다. 이 파일들은 오디오 자체의 복사본이 아니라 표시용 오디오 "
+"레벨을 설명하며, 미디어와 내보낸 소리는 변경되지 않습니다."
+
+#: ../doc/troubleshoot.rst:43
+msgid "To update an older project:"
+msgstr "오래된 프로젝트를 업데이트하려면:"
+
+#: ../doc/troubleshoot.rst:45
+msgid ""
+"Open it in the latest build. OpenShot automatically moves embedded waveform "
+"data into its waveform cache, preserving the existing waveform appearance."
+msgstr ""
+"최신 빌드에서 프로젝트를 엽니다. OpenShot은 내장된 파형 데이터를 자동으로 파형 캐시로 이동하여 기존 파형 모양을 유지합니다."
+
+#: ../doc/troubleshoot.rst:47
+msgid ""
+"Choose :guilabel:`File → Save Project As` to keep the original project as a "
+"backup, or save normally to update the existing file."
+msgstr ""
+":guilabel:`파일 → 프로젝트 다른 이름으로 저장`\\ 을 선택하여 원본 프로젝트를 백업으로 유지하거나, 기존 파일을 "
+"업데이트하려면 일반 저장을 하십시오."
+
+#: ../doc/troubleshoot.rst:49
+msgid ""
+"Keep the saved project's ``_assets`` folder alongside its ``.osp`` file when"
+" copying or backing up the project."
+msgstr "프로젝트를 복사하거나 백업할 때 저장된 프로젝트의 ``_assets`` 폴더를 ``.osp`` 파일과 함께 보관하십시오."
+
+#: ../doc/troubleshoot.rst:52
+msgid ""
+"For example, ``MyProject.osp`` stores its compressed ``.wfc`` waveform files"
+" in ``MyProject_assets/waveforms/``. Each file contains compact numeric "
+"measurements compressed for storage. Identical waveform data can share the "
+"same cache file. OpenShot also uses a local cache while you work, including "
+"before the first save."
+msgstr ""
+"예를 들어, ``MyProject.osp``\\ 는 압축된 ``.wfc`` 파형 파일들을 "
+"``MyProject_assets/waveforms/``\\ 에 저장합니다. 각 파일은 저장을 위해 압축된 간결한 수치 측정값을 "
+"포함합니다. 동일한 파형 데이터는 같은 캐시 파일을 공유할 수 있습니다. OpenShot은 첫 저장 전을 포함하여 작업 중에도 로컬 "
+"캐시를 사용합니다."
+
+#: ../doc/troubleshoot.rst:57
+msgid ""
+"The first opening still needs to read the old embedded data, so it can take "
+"time. The smaller project file is written when you save. Generating a "
+"waveform for a new, long audio file still requires analyzing that audio. If "
+"waveform cache files are missing, OpenShot can rebuild visible waveforms "
+"from the original media. See :ref:`timeline_waveform_display_ref` for "
+"waveform display and regeneration options."
+msgstr ""
+"첫 번째 열기에서는 여전히 오래된 내장 데이터를 읽어야 하므로 시간이 걸릴 수 있습니다. 저장할 때 더 작은 프로젝트 파일이 작성됩니다."
+" 새롭고 긴 오디오 파일의 파형 생성은 여전히 해당 오디오 분석이 필요합니다. 파형 캐시 파일이 없으면 OpenShot이 원본 미디어에서"
+" 표시 가능한 파형을 재생성할 수 있습니다. 파형 표시 및 재생성 옵션은 "
+":ref:`timeline_waveform_display_ref`\\ 를 참조하십시오."
+
+#: ../doc/troubleshoot.rst:66
 msgid "Using Logs to Troubleshoot a Problem"
 msgstr "문제 해결을 위한 로그 사용하기"
 
-#: ../troubleshoot.rst:33
+#: ../doc/troubleshoot.rst:68
 msgid ""
 "A log is a text file that records what OpenShot is doing, along with "
 "warnings and errors. These files can help the support team understand a "
@@ -45,32 +123,32 @@ msgstr ""
 "로그는 OpenShot이 수행하는 작업과 경고 및 오류를 기록하는 텍스트 파일입니다. 이러한 파일은 화면에 오류 메시지가 표시되지 않아도"
 " 지원팀이 문제를 이해하는 데 도움이 될 수 있습니다."
 
-#: ../troubleshoot.rst:37
+#: ../doc/troubleshoot.rst:72
 msgid ""
 "OpenShot keeps two log files in the ``.openshot_qt`` folder inside your home"
 " folder. On Linux and macOS, this location is written as "
 "``~/.openshot_qt/``. The folder may be hidden in your file manager."
 msgstr ""
 "OpenShot은 홈 폴더 내의 ``.openshot_qt`` 폴더에 두 개의 로그 파일을 보관합니다. Linux와 macOS에서는 이 "
-"위치가 ``~/.openshot_qt/``로 표시됩니다. 이 폴더는 파일 관리자에서 숨겨져 있을 수 있습니다."
+"위치가 ``~/.openshot_qt/``\\ 로 표시됩니다. 이 폴더는 파일 관리자에서 숨겨져 있을 수 있습니다."
 
-#: ../troubleshoot.rst:41
+#: ../doc/troubleshoot.rst:76
 msgid "The two log files"
 msgstr "두 개의 로그 파일"
 
-#: ../troubleshoot.rst:45
+#: ../doc/troubleshoot.rst:80
 msgid "File"
 msgstr "파일"
 
-#: ../troubleshoot.rst:46
+#: ../doc/troubleshoot.rst:81
 msgid "What it records"
 msgstr "기록 내용"
 
-#: ../troubleshoot.rst:47 ../troubleshoot.rst:74
+#: ../doc/troubleshoot.rst:82 ../doc/troubleshoot.rst:109
 msgid "``openshot-qt.log``"
 msgstr "``openshot-qt.log``"
 
-#: ../troubleshoot.rst:48
+#: ../doc/troubleshoot.rst:83
 msgid ""
 "Activity in the editor: starting OpenShot, loading projects, changing "
 "settings, and using the interface. This is usually the best place to start "
@@ -79,11 +157,11 @@ msgstr ""
 "편집기 활동: OpenShot 시작, 프로젝트 불러오기, 설정 변경 및 인터페이스 사용. 문제를 조사할 때 보통 가장 먼저 확인하는 "
 "곳입니다."
 
-#: ../troubleshoot.rst:51 ../troubleshoot.rst:77
+#: ../doc/troubleshoot.rst:86 ../doc/troubleshoot.rst:112
 msgid "``libopenshot.log``"
 msgstr "``libopenshot.log``"
 
-#: ../troubleshoot.rst:52
+#: ../doc/troubleshoot.rst:87
 msgid ""
 "Activity in OpenShot's video and audio engine, the part that reads media and"
 " builds the pictures and sound used in previews and exported videos. "
@@ -92,7 +170,7 @@ msgstr ""
 "OpenShot의 비디오 및 오디오 엔진 활동으로, 미디어를 읽고 미리보기 및 내보낸 비디오에 사용되는 영상과 소리를 생성하는 "
 "부분입니다. 자세한 엔진 로그는 재생 및 내보내기 문제를 조사하는 데 도움이 됩니다."
 
-#: ../troubleshoot.rst:56
+#: ../doc/troubleshoot.rst:91
 msgid ""
 "These files record different parts of the same application. When reporting a"
 " problem, include both files if available. You do not need to understand "
@@ -101,47 +179,47 @@ msgstr ""
 "이 파일들은 동일한 애플리케이션의 서로 다른 부분을 기록합니다. 문제를 보고할 때 가능하면 두 파일 모두 포함하세요. 모든 내용을 직접 "
 "이해할 필요는 없습니다."
 
-#: ../troubleshoot.rst:61
+#: ../doc/troubleshoot.rst:96
 msgid "Choose which part of OpenShot to log"
 msgstr "OpenShot의 어느 부분을 로그할지 선택하세요"
 
-#: ../troubleshoot.rst:63
+#: ../doc/troubleshoot.rst:98
 msgid "Open **Edit → Preferences → Advanced** to find these two settings:"
-msgstr "**편집 → 환경설정 → 고급**을 열어 이 두 설정을 찾으세요:"
+msgstr "**편집 → 환경설정 → 고급**\\ 을 열어 이 두 설정을 찾으세요:"
 
-#: ../troubleshoot.rst:65
+#: ../doc/troubleshoot.rst:100
 msgid "Preferences and matching terminal options"
 msgstr "환경설정 및 일치하는 터미널 옵션"
 
-#: ../troubleshoot.rst:69
+#: ../doc/troubleshoot.rst:104
 msgid "Preference"
 msgstr "환경설정"
 
-#: ../troubleshoot.rst:70
+#: ../doc/troubleshoot.rst:105
 msgid "Matching argument"
 msgstr "일치하는 인수"
 
-#: ../troubleshoot.rst:71
+#: ../doc/troubleshoot.rst:106
 msgid "Log file"
 msgstr "로그 파일"
 
-#: ../troubleshoot.rst:72
+#: ../doc/troubleshoot.rst:107
 msgid "User Interface Debug Logging"
 msgstr "사용자 인터페이스 디버그 로그"
 
-#: ../troubleshoot.rst:73
+#: ../doc/troubleshoot.rst:108
 msgid "``--debug-ui``"
 msgstr "``--debug-ui``"
 
-#: ../troubleshoot.rst:75
+#: ../doc/troubleshoot.rst:110
 msgid "Video & Audio Engine Debug Logging"
 msgstr "비디오 및 오디오 엔진 디버그 로그"
 
-#: ../troubleshoot.rst:76 ../troubleshoot.rst:142
+#: ../doc/troubleshoot.rst:111 ../doc/troubleshoot.rst:179
 msgid "``--debug-engine``"
 msgstr "``--debug-engine``"
 
-#: ../troubleshoot.rst:79
+#: ../doc/troubleshoot.rst:114
 msgid ""
 "Both preferences are off by default, which keeps the normal summary "
 "messages. Turning one on adds detail to its log file immediately. It does "
@@ -151,7 +229,7 @@ msgstr ""
 "두 환경설정 모두 기본적으로 꺼져 있어 일반 요약 메시지를 유지합니다. 하나를 켜면 해당 로그 파일에 즉시 세부 정보가 추가됩니다. 다른"
 " 로그나 터미널 메시지는 변경되지 않습니다. 환경설정은 사용자가 끌 때까지 실행 간에 유지됩니다."
 
-#: ../troubleshoot.rst:84
+#: ../doc/troubleshoot.rst:119
 msgid ""
 "**User Interface Debug Logging** is a good starting point for problems with "
 "startup, project loading, settings, or the interface. **Video & Audio Engine"
@@ -160,41 +238,42 @@ msgid ""
 "quickly and may slow OpenShot down. Turn this setting on shortly before "
 "repeating the problem, then turn it off afterward."
 msgstr ""
-"**사용자 인터페이스 디버그 로그**는 시작, 프로젝트 불러오기, 설정 또는 인터페이스 문제의 좋은 출발점입니다. **비디오 및 오디오 "
-"엔진 디버그 로그**는 비디오 및 오디오 처리에 관한 세부 정보를 추가하여 재생 및 내보내기 문제 조사에 도움이 됩니다. 엔진 로그는 "
-"매우 빠르게 커질 수 있어 OpenShot 속도를 저하시킬 수 있습니다. 문제를 재현하기 직전에 이 설정을 켜고, 완료 후에는 끄세요."
+"**사용자 인터페이스 디버그 로그**\\ 는 시작, 프로젝트 불러오기, 설정 또는 인터페이스 문제의 좋은 출발점입니다. **비디오 및 "
+"오디오 엔진 디버그 로그**\\ 는 비디오 및 오디오 처리에 관한 세부 정보를 추가하여 재생 및 내보내기 문제 조사에 도움이 됩니다. "
+"엔진 로그는 매우 빠르게 커질 수 있어 OpenShot 속도를 저하시킬 수 있습니다. 문제를 재현하기 직전에 이 설정을 켜고, 완료 "
+"후에는 끄세요."
 
-#: ../troubleshoot.rst:91
+#: ../doc/troubleshoot.rst:126
 msgid ""
 "The engine preference was previously called **Debug Mode (Verbose)**. Its "
 "saved on/off setting carries over to the new name."
-msgstr "엔진 환경설정은 이전에 **디버그 모드 (상세)**라고 불렸습니다. 저장된 켜기/끄기 설정은 새 이름으로 이어집니다."
+msgstr "엔진 환경설정은 이전에 **디버그 모드 (상세)**\\ 라고 불렸습니다. 저장된 켜기/끄기 설정은 새 이름으로 이어집니다."
 
-#: ../troubleshoot.rst:95
+#: ../doc/troubleshoot.rst:130
 msgid "Use a terminal for one launch"
 msgstr "한 번 실행할 때 터미널 사용하기"
 
-#: ../troubleshoot.rst:97
+#: ../doc/troubleshoot.rst:132
 msgid ""
 "A terminal is a window where you type commands. The matching arguments "
 "enable the same extra detail as the preferences, and also display it in the "
 "terminal:"
 msgstr "터미널은 명령어를 입력하는 창입니다. 일치하는 인수는 환경설정과 동일한 추가 세부 정보를 활성화하며 터미널에 표시합니다:"
 
-#: ../troubleshoot.rst:104
+#: ../doc/troubleshoot.rst:139
 msgid ""
 "This records interface details for one launch. The familiar ``--debug`` and "
 "shorter ``-d`` options mean exactly the same thing as ``--debug-ui``. For "
 "video and audio engine details, use:"
 msgstr ""
 "이 옵션은 한 번 실행 시 인터페이스 세부 정보를 기록합니다. 익숙한 ``--debug`` 및 짧은 ``-d`` 옵션은 "
-"``--debug-ui``와 동일한 의미입니다. 비디오 및 오디오 엔진 세부 정보는 다음을 사용하세요:"
+"``--debug-ui``\\ 와 동일한 의미입니다. 비디오 및 오디오 엔진 세부 정보는 다음을 사용하세요:"
 
-#: ../troubleshoot.rst:112
+#: ../doc/troubleshoot.rst:147
 msgid "To collect both types of detail together:"
 msgstr "두 가지 세부 정보를 함께 수집하려면:"
 
-#: ../troubleshoot.rst:118
+#: ../doc/troubleshoot.rst:153
 msgid ""
 "Repeat the steps that cause the problem, then close OpenShot and collect the"
 " logs. These arguments do not change your saved preferences. Starting "
@@ -203,99 +282,103 @@ msgstr ""
 "문제를 일으키는 단계를 반복한 후 OpenShot을 닫고 로그를 수집하세요. 이 인수들은 저장된 환경설정을 변경하지 않습니다. "
 "OpenShot을 정상적으로 시작하면 평소의 로그 설정으로 돌아갑니다."
 
-#: ../troubleshoot.rst:122
+#: ../doc/troubleshoot.rst:157
 msgid ""
 "``openshot-qt.log`` starts a new file when it reaches about 25 MB and keeps "
 "three older copies. ``libopenshot.log`` keeps growing as messages are added."
 " After saving any logs you need, you can remove old log files while OpenShot"
 " is closed."
 msgstr ""
-"``openshot-qt.log``는 약 25MB에 도달하면 새 파일을 시작하고 이전 파일 3개를 보관합니다. "
-"``libopenshot.log``는 메시지가 추가될수록 계속 커집니다. 필요한 로그를 저장한 후 OpenShot이 닫혀 있을 때 오래된"
-" 로그 파일을 삭제할 수 있습니다."
+"``openshot-qt.log``\\ 는 약 25MB에 도달하면 새 파일을 시작하고 이전 파일 3개를 보관합니다. "
+"``libopenshot.log``\\ 는 메시지가 추가될수록 계속 커집니다. 필요한 로그를 저장한 후 OpenShot이 닫혀 있을 때 "
+"오래된 로그 파일을 삭제할 수 있습니다."
 
-#: ../troubleshoot.rst:128
-msgid "Other command-line options"
-msgstr "기타 명령줄 옵션"
+#: ../doc/troubleshoot.rst:163
+msgid "Other logging options"
+msgstr "기타 로깅 옵션"
 
-#: ../troubleshoot.rst:130
+#: ../doc/troubleshoot.rst:165
 msgid ""
 "Most users only need the two controls above. The following options let you "
 "choose how much detail goes into the files or appears in the terminal. Here,"
-" *console* means the terminal output."
+" *console* means the terminal output. For the complete list of application "
+"launch options, see :ref:`launch_options_ref`. To edit projects or automate "
+"exports from the terminal, see :ref:`cli_ref`."
 msgstr ""
-"대부분 사용자는 위의 두 가지 제어만 필요합니다. 다음 옵션은 파일에 기록되거나 터미널에 표시되는 세부 정보의 양을 선택할 수 있게 "
-"합니다. 여기서 *console*은 터미널 출력을 의미합니다."
+"대부분의 사용자는 위의 두 가지 제어만 필요합니다. 다음 옵션들은 파일에 기록되거나 터미널에 표시되는 세부 수준을 선택할 수 있게 "
+"합니다. 여기서 *콘솔*\\ 은 터미널 출력을 의미합니다. 애플리케이션 실행 옵션 전체 목록은 "
+":ref:`launch_options_ref`\\ 를 참조하십시오. 터미널에서 프로젝트를 편집하거나 내보내기를 자동화하려면 "
+":ref:`cli_ref`\\ 를 참조하십시오."
 
-#: ../troubleshoot.rst:134
+#: ../doc/troubleshoot.rst:171
 msgid "Logging options"
 msgstr "로그 옵션"
 
-#: ../troubleshoot.rst:138
+#: ../doc/troubleshoot.rst:175
 msgid "Option"
 msgstr "옵션"
 
-#: ../troubleshoot.rst:139
+#: ../doc/troubleshoot.rst:176
 msgid "What it does"
 msgstr "기능"
 
-#: ../troubleshoot.rst:140
+#: ../doc/troubleshoot.rst:177
 msgid "``--debug-ui``, ``--debug``, or ``-d``"
 msgstr "``--debug-ui``, ``--debug``, 또는 ``-d``"
 
-#: ../troubleshoot.rst:141
+#: ../doc/troubleshoot.rst:178
 msgid "Enables User Interface Debug Logging in its file and the terminal."
 msgstr "사용자 인터페이스 디버그 로그를 파일과 터미널에서 활성화합니다."
 
-#: ../troubleshoot.rst:143
+#: ../doc/troubleshoot.rst:180
 msgid ""
 "Enables Video & Audio Engine Debug Logging in its file and the terminal."
 msgstr "비디오 및 오디오 엔진 디버그 로그를 파일과 터미널에서 활성화합니다."
 
-#: ../troubleshoot.rst:144
+#: ../doc/troubleshoot.rst:181
 msgid "``--debug-file``"
 msgstr "``--debug-file``"
 
-#: ../troubleshoot.rst:145
+#: ../doc/troubleshoot.rst:182
 msgid ""
 "Adds editor details to ``openshot-qt.log`` without adding terminal detail."
-msgstr "터미널 세부 정보 없이 ``openshot-qt.log``에 편집기 세부 정보를 추가합니다."
+msgstr "터미널 세부 정보 없이 ``openshot-qt.log``\\ 에 편집기 세부 정보를 추가합니다."
 
-#: ../troubleshoot.rst:146
+#: ../doc/troubleshoot.rst:183
 msgid "``--debug-console``"
 msgstr "``--debug-console``"
 
-#: ../troubleshoot.rst:147
+#: ../doc/troubleshoot.rst:184
 msgid "Adds editor details in the terminal without adding file detail."
 msgstr "파일 세부 정보 없이 터미널에 편집기 세부 정보를 추가합니다."
 
-#: ../troubleshoot.rst:148
+#: ../doc/troubleshoot.rst:185
 msgid "``--log-level LEVEL``"
 msgstr "``--log-level LEVEL``"
 
-#: ../troubleshoot.rst:149
+#: ../doc/troubleshoot.rst:186
 msgid "Sets the detail for both logs and their terminal output."
 msgstr "두 로그와 터미널 출력의 세부 수준을 설정합니다."
 
-#: ../troubleshoot.rst:150
+#: ../doc/troubleshoot.rst:187
 msgid "``--log-file-level LEVEL``"
 msgstr "``--log-file-level LEVEL``"
 
-#: ../troubleshoot.rst:151
+#: ../doc/troubleshoot.rst:188
 msgid "Sets the detail for both log files, leaving terminal settings alone."
 msgstr "터미널 설정은 변경하지 않고 두 로그 파일의 세부 수준을 설정합니다."
 
-#: ../troubleshoot.rst:152
+#: ../doc/troubleshoot.rst:189
 msgid "``--log-console-level LEVEL``"
 msgstr "``--log-console-level LEVEL``"
 
-#: ../troubleshoot.rst:153
+#: ../doc/troubleshoot.rst:190
 msgid ""
 "Sets the detail in the terminal for both the editor and engine, leaving file"
 " settings alone."
 msgstr "편집기와 엔진 모두에 대해 터미널의 상세 수준을 설정하며, 파일 설정은 변경하지 않습니다."
 
-#: ../troubleshoot.rst:156
+#: ../doc/troubleshoot.rst:193
 msgid ""
 "Replace ``LEVEL`` with ``debug`` for detailed messages or ``info`` for the "
 "normal summary. ``warning`` shows warnings and errors; ``error`` shows "
@@ -308,13 +391,13 @@ msgstr ""
 "표시합니다. ``off`` 는 일반 로그 메시지를 중지하지만 기존 충돌 진단은 여전히 기록될 수 있습니다. ``DEBUG`` 와 같은 "
 "대문자 이름도 작동합니다."
 
-#: ../troubleshoot.rst:162
+#: ../doc/troubleshoot.rst:199
 msgid ""
 "For example, to collect detailed messages in **both files** while keeping "
 "the terminal at its usual level:"
-msgstr "예를 들어, 터미널은 평소 수준으로 유지하면서 **두 파일 모두**에서 상세 메시지를 수집하려면:"
+msgstr "예를 들어, 터미널은 평소 수준으로 유지하면서 **두 파일 모두**\\ 에서 상세 메시지를 수집하려면:"
 
-#: ../troubleshoot.rst:169
+#: ../doc/troubleshoot.rst:206
 msgid ""
 "This also enables the large engine log, so use it briefly. The older "
 "``--debug-file`` and ``--debug-console`` options still work even though they"
@@ -323,11 +406,11 @@ msgstr ""
 "이 옵션은 대용량 엔진 로그도 활성화하므로 잠시만 사용하세요. 이전의 ``--debug-file`` 및 ``--debug-"
 "console`` 옵션도 ``--help`` 에는 없지만 여전히 작동합니다."
 
-#: ../troubleshoot.rst:174
+#: ../doc/troubleshoot.rst:211
 msgid "Environment variables"
 msgstr "환경 변수"
 
-#: ../troubleshoot.rst:176
+#: ../doc/troubleshoot.rst:213
 msgid ""
 "An environment variable is a named setting passed to a program when it "
 "starts. These are useful when starting OpenShot from a script or when a "
@@ -337,73 +420,73 @@ msgstr ""
 "환경 변수는 프로그램이 시작될 때 전달되는 이름이 지정된 설정입니다. 스크립트에서 OpenShot을 시작하거나 지원 담당자가 특정 설정을"
 " 시도해 보라고 할 때 유용합니다. 일반적인 사용에서는 설정할 필요가 없습니다."
 
-#: ../troubleshoot.rst:180
+#: ../doc/troubleshoot.rst:217
 msgid "Optional environment settings"
 msgstr "선택적 환경 설정"
 
-#: ../troubleshoot.rst:184
+#: ../doc/troubleshoot.rst:221
 msgid "Variable"
 msgstr "변수"
 
-#: ../troubleshoot.rst:185
+#: ../doc/troubleshoot.rst:222
 msgid "What it controls"
 msgstr "제어 대상"
 
-#: ../troubleshoot.rst:186
+#: ../doc/troubleshoot.rst:223
 msgid "``OPENSHOT_LOG_LEVEL``"
 msgstr "``OPENSHOT_LOG_LEVEL``"
 
-#: ../troubleshoot.rst:187
+#: ../doc/troubleshoot.rst:224
 msgid "Detail in both files and the terminal."
 msgstr "두 파일과 터미널 모두의 상세 정보."
 
-#: ../troubleshoot.rst:188
+#: ../doc/troubleshoot.rst:225
 msgid "``OPENSHOT_LOG_FILE_LEVEL``"
 msgstr "``OPENSHOT_LOG_FILE_LEVEL``"
 
-#: ../troubleshoot.rst:189
+#: ../doc/troubleshoot.rst:226
 msgid "Detail in both files only."
 msgstr "두 파일에만 상세 정보."
 
-#: ../troubleshoot.rst:190
+#: ../doc/troubleshoot.rst:227
 msgid "``OPENSHOT_LOG_CONSOLE_LEVEL``"
 msgstr "``OPENSHOT_LOG_CONSOLE_LEVEL``"
 
-#: ../troubleshoot.rst:191
+#: ../doc/troubleshoot.rst:228
 msgid "Detail in the terminal only, for both parts of OpenShot."
 msgstr "OpenShot의 두 부분 모두에 대해 터미널에만 상세 정보."
 
-#: ../troubleshoot.rst:192
+#: ../doc/troubleshoot.rst:229
 msgid "``LIBOPENSHOT_LOG_LEVEL``"
 msgstr "``LIBOPENSHOT_LOG_LEVEL``"
 
-#: ../troubleshoot.rst:193
+#: ../doc/troubleshoot.rst:230
 msgid "Detail for the video and audio engine, in its file and the terminal."
 msgstr "비디오 및 오디오 엔진에 대한 상세 정보, 파일과 터미널 모두."
 
-#: ../troubleshoot.rst:194
+#: ../doc/troubleshoot.rst:231
 msgid "``LIBOPENSHOT_LOG_FILE_LEVEL``"
 msgstr "``LIBOPENSHOT_LOG_FILE_LEVEL``"
 
-#: ../troubleshoot.rst:195
+#: ../doc/troubleshoot.rst:232
 msgid "Detail in ``libopenshot.log`` only."
 msgstr "``libopenshot.log`` 에만 상세 정보."
 
-#: ../troubleshoot.rst:196
+#: ../doc/troubleshoot.rst:233
 msgid "``LIBOPENSHOT_LOG_CONSOLE_LEVEL``"
 msgstr "``LIBOPENSHOT_LOG_CONSOLE_LEVEL``"
 
-#: ../troubleshoot.rst:197
+#: ../doc/troubleshoot.rst:234
 msgid "Engine detail in the terminal only."
 msgstr "터미널에만 엔진 상세 정보."
 
-#: ../troubleshoot.rst:199
+#: ../doc/troubleshoot.rst:236
 msgid ""
 "For example, this Linux/macOS terminal command requests detailed engine "
 "logging in its file for one launch:"
 msgstr "예를 들어, 이 Linux/macOS 터미널 명령은 한 번 실행 시 엔진 로그 파일에 상세 로그를 요청합니다:"
 
-#: ../troubleshoot.rst:206
+#: ../doc/troubleshoot.rst:243
 msgid ""
 "If settings overlap, command-line options take priority, followed by "
 "environment variables, then Preferences, then the normal defaults. Each "
@@ -416,7 +499,7 @@ msgstr ""
 "출력에만 영향을 줍니다: ``--debug`` 는 엔진 환경 설정을 덮어쓰지 않습니다. 임시 덮어쓰기는 저장된 환경 설정을 변경하지 "
 "않습니다. 체크박스 위에 마우스를 올리면 다른 설정이 해당 로그 파일을 제어하는지 확인할 수 있습니다."
 
-#: ../troubleshoot.rst:212
+#: ../doc/troubleshoot.rst:249
 msgid ""
 "Within the environment settings, ``LIBOPENSHOT_`` values take priority over "
 "``OPENSHOT_`` values for the engine. Within either group, a file-only or "
@@ -429,7 +512,7 @@ msgstr ""
 "전용 또는 콘솔 전용 수준이 일반 수준보다 우선합니다. 명령줄 옵션도 동일한 파일/콘솔 규칙을 따릅니다. 동일 출력에 대한 상충하는 "
 "명령줄 수준은 거부되며, 잘못된 환경 수준은 보고되고 무시됩니다."
 
-#: ../troubleshoot.rst:218
+#: ../doc/troubleshoot.rst:255
 msgid ""
 "For older scripts, ``LIBOPENSHOT_DEBUG`` still enables detailed engine "
 "messages in the terminal whenever it is present, even if its value is ``0``."
@@ -443,12 +526,12 @@ msgstr ""
 " OpenShot 자체는 위의 로그 폴더를 사용합니다. 로그 설정 변경은 오류 보고 환경 설정을 변경하지 않습니다."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:225
+#: ../doc/troubleshoot.rst:262
 msgid "Windows 11 Unresponsive"
 msgstr "Windows 11 응답 없음"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:227
+#: ../doc/troubleshoot.rst:264
 msgid ""
 "If you experience a freeze on Windows 11, this is a known issue with PyQt5 "
 "and Windows 11, related to the accessibility features in Qt. This is "
@@ -463,7 +546,7 @@ msgstr ""
 "충돌하거나 사용자가 프로세스를 종료할 때까지 계속됩니다)."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:232
+#: ../doc/troubleshoot.rst:269
 msgid ""
 "A simple work-around is to avoid :kbd:`Ctrl+C` on Windows 11, and instead "
 "use the right-click Copy/Paste menus. Another work-around is to remap your "
@@ -477,12 +560,12 @@ msgstr ""
 " 참조하세요."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:237
+#: ../doc/troubleshoot.rst:274
 msgid "Windows Debugging with GDB"
 msgstr "Windows에서 GDB로 디버깅하기"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:239
+#: ../doc/troubleshoot.rst:276
 msgid ""
 "If you are experiencing a crash or freeze with OpenShot in Windows 10/11, "
 "the following step by step instructions will help you determine the cause of"
@@ -496,12 +579,12 @@ msgstr ""
 "문제 해결이 빨라집니다."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:245
+#: ../doc/troubleshoot.rst:282
 msgid "Install the Latest Daily Build"
 msgstr "최신 데일리 빌드 설치"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:247
+#: ../doc/troubleshoot.rst:284
 msgid ""
 "Before attaching a debugger, please download the **latest version** of "
 "OpenShot: https://www.openshot.org/download#daily. Install this version of "
@@ -517,12 +600,12 @@ msgstr ""
 "with-GDB>`_ 를 참조하세요."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:252
+#: ../doc/troubleshoot.rst:289
 msgid "Install MSYS2"
 msgstr "MSYS2 설치"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:254
+#: ../doc/troubleshoot.rst:291
 msgid ""
 "The Windows version of OpenShot is compiled using an environment called "
 "MSYS2. In order to attach the GDB debugger to our executable, ``openshot-"
@@ -532,12 +615,12 @@ msgstr ""
 " 연결하려면 먼저 MSYS2를 설치해야 합니다. 이 단계는 한 번만 필요합니다."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:257
+#: ../doc/troubleshoot.rst:294
 msgid "Download & Install MSYS2: `<http://www.msys2.org/>`_"
 msgstr "MSYS2 다운로드 및 설치: `<http://www.msys2.org/>`_"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:258 ../troubleshoot.rst:274
+#: ../doc/troubleshoot.rst:295 ../doc/troubleshoot.rst:311
 msgid ""
 "Run ``MSYS2 MinGW x64`` command prompt (for example: "
 "``C:\\msys64\\msys2_shell.cmd -mingw64``)"
@@ -545,43 +628,43 @@ msgstr ""
 "``MSYS2 MinGW x64`` 명령 프롬프트 실행 (예: ``C:\\msys64\\msys2_shell.cmd -mingw64``)"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:259
+#: ../doc/troubleshoot.rst:296
 msgid "Update all packages (*Copy/Paste the following command*):"
 msgstr "모든 패키지 업데이트 (*다음 명령어 복사/붙여넣기*):"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:265
+#: ../doc/troubleshoot.rst:302
 msgid "Install GDB debugger (*Copy/Paste the following command*):"
 msgstr "GDB 디버거 설치 (*다음 명령어 복사/붙여넣기*):"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:272
+#: ../doc/troubleshoot.rst:309
 msgid "Launch OpenShot with GDB Debugger"
 msgstr "GDB 디버거로 OpenShot 실행"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:276
+#: ../doc/troubleshoot.rst:313
 msgid "Update the PATH (*Copy/Paste the following commands*):"
 msgstr "PATH 업데이트 (*다음 명령어 복사/붙여넣기*):"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:283
+#: ../doc/troubleshoot.rst:320
 msgid ""
 "Load OpenShot into the GDB debugger (*Copy/Paste the following commands*):"
 msgstr "GDB 디버거에 OpenShot 로드 (*다음 명령어 복사/붙여넣기*):"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:290
+#: ../doc/troubleshoot.rst:327
 msgid "Launch OpenShot from GDB prompt (*Copy/Paste the following command*):"
 msgstr "GDB 프롬프트에서 OpenShot 실행 (*다음 명령어 복사/붙여넣기*):"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:297
+#: ../doc/troubleshoot.rst:334
 msgid "Print Debugging Info"
 msgstr "디버깅 정보 출력"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:299
+#: ../doc/troubleshoot.rst:336
 msgid ""
 "Once OpenShot has launched successfully with GDB attached, all you need to "
 "do is trigger a crash or freeze in OpenShot. When a crash occurs, switch "
@@ -594,12 +677,12 @@ msgstr ""
 " (백트레이스)입니다. 더 많은 명령어가 아래에 나와 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:313
+#: ../doc/troubleshoot.rst:350
 msgid "High DPI / 4K Monitors"
 msgstr "고해상도 DPI / 4K 모니터"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:315
+#: ../doc/troubleshoot.rst:352
 msgid ""
 "OpenShot Video Editor provides robust support for High DPI (Dots Per Inch) "
 "monitors, ensuring that the interface looks sharp and is easily readable on "
@@ -610,12 +693,12 @@ msgstr ""
 "디스플레이에서도 인터페이스가 선명하고 쉽게 읽히도록 보장합니다. 이 지원은 특히 4K 모니터 및 기타 고해상도 디스플레이에서 유용합니다."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:321
+#: ../doc/troubleshoot.rst:358
 msgid "Per Monitor DPI Awareness"
 msgstr "모니터별 DPI 인식"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:323
+#: ../doc/troubleshoot.rst:360
 msgid ""
 "OpenShot is DPI aware on a per-monitor basis, meaning it can adjust its "
 "scaling dynamically depending on the DPI settings of each connected monitor."
@@ -625,12 +708,12 @@ msgstr ""
 "통해 다양한 디스플레이에서 일관된 사용자 경험을 제공합니다."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:328
+#: ../doc/troubleshoot.rst:365
 msgid "DPI Scaling on Windows"
 msgstr "Windows에서의 DPI 스케일링"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:330
+#: ../doc/troubleshoot.rst:367
 msgid ""
 "On Windows, OpenShot rounds the scaling factor to the nearest whole value to"
 " maintain visual integrity. This helps avoid visual artifacts in the UI and "
@@ -642,22 +725,22 @@ msgstr ""
 "예상보다 더 큰 글꼴과 UI 요소를 초래할 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:335
+#: ../doc/troubleshoot.rst:372
 msgid "**125% scaling** rounds to **100%**"
 msgstr "**125% 스케일링** 은 **100%** 로 반올림됩니다"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:336
+#: ../doc/troubleshoot.rst:373
 msgid "**150% scaling** rounds to **200%**"
 msgstr "**150% 스케일링** 은 **200%** 로 반올림됩니다"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:339
+#: ../doc/troubleshoot.rst:376
 msgid "Workarounds for Fine-Grained Adjustment"
 msgstr "세밀한 조정을 위한 우회 방법"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:341
+#: ../doc/troubleshoot.rst:378
 msgid ""
 "While rounding helps maintain a clean interface, there are workarounds for "
 "users who require more precise control over scaling. These methods are **not"
@@ -667,38 +750,38 @@ msgstr ""
 "왜곡이 발생할 수 있으므로 **권장되지 않습니다:**"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:345
+#: ../doc/troubleshoot.rst:382
 msgid "**QT_SCALE_FACTOR_ROUNDING_POLICY=PassThrough**"
 msgstr "**QT_SCALE_FACTOR_ROUNDING_POLICY=PassThrough**"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:347
+#: ../doc/troubleshoot.rst:384
 msgid ""
 "Setting this environment variable can disable rounding and allow more "
 "precise scaling."
 msgstr "이 환경 변수를 설정하면 반올림이 비활성화되어 더 정밀한 스케일링이 가능합니다."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:348
+#: ../doc/troubleshoot.rst:385
 msgid ""
 "**Note:** This may cause visual artifacts, particularly in the timeline, and"
 " is not recommended."
 msgstr "**참고:** 이로 인해 특히 타임라인에서 시각적 왜곡이 발생할 수 있으므로 권장되지 않습니다."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:350
+#: ../doc/troubleshoot.rst:387
 msgid "**QT_SCALE_FACTOR=1.25** (or similar value)"
 msgstr "**QT_SCALE_FACTOR=1.25** (또는 유사한 값)"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:352
+#: ../doc/troubleshoot.rst:389
 msgid ""
 "Manually setting the scale factor can provide finer adjustments to the font "
 "and UI scaling."
 msgstr "스케일 팩터를 수동으로 설정하면 글꼴과 UI 스케일링을 더 세밀하게 조정할 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:353
+#: ../doc/troubleshoot.rst:390
 msgid ""
 "This can also be set via Preferences (User Interface Scale), but expect "
 "border/line issues on Windows with fractional scales."
@@ -707,17 +790,28 @@ msgstr ""
 "발생이 예상됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:354
+#: ../doc/troubleshoot.rst:391
 msgid ""
 "**Note:** This method can also lead to visual artifacts and make OpenShot "
 "harder to use."
 msgstr "**참고:** 이 방법 역시 시각적 왜곡을 유발할 수 있으며 OpenShot 사용을 어렵게 만들 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:356
+#: ../doc/troubleshoot.rst:393
 msgid ""
 "For more info on adjusting these environment variables, please visit "
 "https://github.com/OpenShot/openshot-qt/wiki/OpenShot-UI-too-large."
 msgstr ""
 "이 환경 변수 조정에 대한 자세한 정보는 https://github.com/OpenShot/openshot-"
 "qt/wiki/OpenShot-UI-too-large 를 방문해 주세요."
+
+#~ msgid "Other command-line options"
+#~ msgstr "기타 명령줄 옵션"
+
+#~ msgid ""
+#~ "Most users only need the two controls above. The following options let you "
+#~ "choose how much detail goes into the files or appears in the terminal. Here,"
+#~ " *console* means the terminal output."
+#~ msgstr ""
+#~ "대부분 사용자는 위의 두 가지 제어만 필요합니다. 다음 옵션은 파일에 기록되거나 터미널에 표시되는 세부 정보의 양을 선택할 수 있게 "
+#~ "합니다. 여기서 *console*은 터미널 출력을 의미합니다."

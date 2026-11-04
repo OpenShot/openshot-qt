@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,11 +20,11 @@ msgstr ""
 "Generated-By: Babel 2.10.3\n"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:21
+#: ../doc/introduction.rst:21
 msgid "Introduction"
 msgstr "Introduksjon"
 
-#: ../introduction.rst:23
+#: ../doc/introduction.rst:23
 msgid ""
 "OpenShot Video Editor is an award-winning, open-source video editor, "
 "available on Linux, macOS, Chrome OS, and Windows. OpenShot can create "
@@ -37,61 +37,61 @@ msgstr ""
 "og et rikt funksjonssett."
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:30
+#: ../doc/introduction.rst:30
 msgid "Features"
 msgstr "Funksjoner"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:31
+#: ../doc/introduction.rst:31
 msgid "**Free & open-source** (licensed under GPLv3)"
 msgstr "**Gratis og åpen kildekode** (lisensiert under GPLv3)"
 
-#: ../introduction.rst:32
+#: ../doc/introduction.rst:32
 msgid "**Cross-platform** (Linux, macOS, Chrome OS, and Windows)"
 msgstr "**Tverrplattform** (Linux, macOS, Chrome OS og Windows)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:33
+#: ../doc/introduction.rst:33
 msgid "**Easy-to-use UI** (beginner-friendly, built-in tutorial)"
 msgstr ""
 "**Brukervennlig grensesnitt** (nybegynnervennlig, innebygd veiledning)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:34
+#: ../doc/introduction.rst:34
 msgid "**Supports most formats** (video, audio, images - FFmpeg-based)"
 msgstr ""
 "**Støtter de fleste formater** (video, lyd, bilder - basert på FFmpeg)"
 
-#: ../introduction.rst:35
+#: ../doc/introduction.rst:35
 msgid ""
 "**70+ export targets & profiles** (YouTube, TikTok, Reels, Shorts, and more)"
 msgstr ""
 "**70+ eksportmål og profiler** (YouTube, TikTok, Reels, Shorts og mer)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:36
+#: ../doc/introduction.rst:36
 msgid "**Advanced timeline** (drag-drop, scroll, zoom, snap)"
 msgstr ""
 "**Avansert tidslinje** (dra-og-slipp, rulling, zoom, magnetisk justering)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:37
+#: ../doc/introduction.rst:37
 msgid "**Advanced clips** (trim, alpha, scale, rotate, shear, transform)"
 msgstr ""
 "**Avanserte klipp** (beskjær, alfa, skaler, roter, skjær, transformer)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:38
+#: ../doc/introduction.rst:38
 msgid "**Real-time preview** (multi-threaded, performance-optimized)"
 msgstr "**Forhåndsvisning i sanntid** (flere tråder, ytelsesoptimalisert)"
 
-#: ../introduction.rst:39
+#: ../doc/introduction.rst:39
 msgid ""
 "**Multiple workspace modes** (Simple and Color views, plus save your own)"
 msgstr ""
 "**Flere arbeidsområde-moduser** (Enkel og fargevisning, pluss lag dine egne)"
 
-#: ../introduction.rst:40
+#: ../doc/introduction.rst:40
 msgid ""
 "**Keyframe animations & panel** (`linear`, `bézier`, `constant` "
 "interpolation, visual keyframe panel)"
@@ -99,28 +99,28 @@ msgstr ""
 "**Keyframe-animasjoner og panel** (`linear`, `bézier`, `constant` "
 "interpolasjon, visuelt keyframe-panel)"
 
-#: ../introduction.rst:41
+#: ../doc/introduction.rst:41
 msgid "**One-click presets** (motion, fade, look, camera, color, and more)"
 msgstr ""
 "**Forhåndsinnstillinger med ett klikk** (bevegelse, fade, utseende, kamera, "
 "farge og mer)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:42
+#: ../doc/introduction.rst:42
 msgid "**Compositing, overlays, watermarks, transparency**"
 msgstr "**Kompositt, overlegg, vannmerker, gjennomsiktighet**"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:43
+#: ../doc/introduction.rst:43
 msgid "**Unlimited tracks / layers** (for complex projects)"
 msgstr "**Ubegrensede spor / lag** (for komplekse prosjekter)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:44
+#: ../doc/introduction.rst:44
 msgid "**Transitions, masks, wipes** (grayscale images, animated masks)"
 msgstr "**Overganger, masker, wipes** (gråtonede bilder, animerte masker)"
 
-#: ../introduction.rst:45
+#: ../doc/introduction.rst:45
 msgid ""
 "**Video effects** (chroma key, blur, brightness & contrast, film grain, "
 "stabilizer, and more)"
@@ -128,12 +128,12 @@ msgstr ""
 "**Videoeffekter** (chroma key, uskarphet, lysstyrke og kontrast, filmkorn, "
 "stabilisator og mer)"
 
-#: ../introduction.rst:46
+#: ../doc/introduction.rst:46
 msgid ""
 "**Audio effects** (compressor, expander, noise removal, echo, and more)"
 msgstr "**Lyd effekter** (kompressor, ekspander, støyfjerning, ekko og mer)"
 
-#: ../introduction.rst:47
+#: ../doc/introduction.rst:47
 msgid ""
 "**Color grading** (color wheels, RGB curves, LUT support, video scopes & "
 "analysis)"
@@ -141,16 +141,16 @@ msgstr ""
 "**Fargegradering** (fargehjul, RGB-kurver, LUT-støtte, videoskop og analyse)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:48
+#: ../doc/introduction.rst:48
 msgid "**Image sequences & 2D animations**"
 msgstr "**Bildesekvenser og 2D-animasjoner**"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:49
+#: ../doc/introduction.rst:49
 msgid "**Blender 3D integration** (animated 3D title templates)"
 msgstr "**Blender 3D-integrasjon** (animerte 3D-tittelsjabloner)"
 
-#: ../introduction.rst:50
+#: ../doc/introduction.rst:50
 msgid ""
 "**Vector file support & editing** (SVG for titles, lower thirds, text "
 "overlays)"
@@ -159,21 +159,21 @@ msgstr ""
 "tekstoverlegg)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:51
+#: ../doc/introduction.rst:51
 msgid "**Audio mixing, waveform, editing**"
 msgstr "**Lydmiksing, bølgeform, redigering**"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:52
+#: ../doc/introduction.rst:52
 msgid "**Emojis** (open-source stickers & artwork)"
 msgstr "**Emojier** (åpne klistremerker og grafikk)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:53
+#: ../doc/introduction.rst:53
 msgid "**Frame accuracy** (per-frame navigation)"
 msgstr "**Ramme-nøyaktighet** (navigering per ramme)"
 
-#: ../introduction.rst:54
+#: ../doc/introduction.rst:54
 msgid ""
 "**Time re-mapping & speed changes** (slow motion, repeat, loop, ping-pong, "
 "forward/backward)"
@@ -182,18 +182,18 @@ msgstr ""
 "pong, fremover/bakover)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:55
+#: ../doc/introduction.rst:55
 #, fuzzy
 msgid "**Built-in AI** (motion tracking, object detection, stabilization)"
 msgstr "**Avansert AI** (bevegelsessporing, objektdeteksjon, stabilisering)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:56
+#: ../doc/introduction.rst:56
 msgid "**Advanced AI** (see :ref:`ai_ref`)"
 msgstr "**Avansert AI** (se :ref:`ai_ref`)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:58
+#: ../doc/introduction.rst:58
 msgid ""
 "**Tracking & masks** (object tracking, animated mask generation, auto-blur, "
 "auto-highlight)"
@@ -202,7 +202,7 @@ msgstr ""
 "uskarphet, automatisk utheving)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:59
+#: ../doc/introduction.rst:59
 msgid ""
 "**Image & video generation** (text-to-image, image style transfer, "
 "text/image-to-video)"
@@ -211,7 +211,7 @@ msgstr ""
 "tekst/bilde-til-video)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:60
+#: ../doc/introduction.rst:60
 msgid ""
 "**Quality enhancement** (upscaling, frame interpolation/increase frame rate)"
 msgstr ""
@@ -219,7 +219,7 @@ msgstr ""
 "bildefrekvens)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:61
+#: ../doc/introduction.rst:61
 msgid ""
 "**Analysis & automation** (auto scene splitting, speech "
 "transcription/captions)"
@@ -228,38 +228,38 @@ msgstr ""
 "transkripsjon/teksting)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:62
+#: ../doc/introduction.rst:62
 msgid "**Audio generation** (sound and music generation)"
 msgstr "**Lydgenerering** (lyd- og musikkgenerering)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:63
+#: ../doc/introduction.rst:63
 msgid "*Additional workflows can be added with custom ComfyUI templates*"
 msgstr ""
 "*Ytterligere arbeidsflyter kan legges til med tilpassede ComfyUI-maler*"
 
 # Main-window terminology review, 2026-09-26.
-#: ../introduction.rst:64
+#: ../doc/introduction.rst:64
 msgid "**Credits & captions** (scrolling, animated)"
 msgstr "**Krediteringer og undertekster** (rullende, animerte)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:65
+#: ../doc/introduction.rst:65
 msgid "**Hardware acceleration** (NVIDIA, AMD, Intel, etc.)"
 msgstr "**Maskinvareakselerasjon** (NVIDIA, AMD, Intel, osv.)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:66
+#: ../doc/introduction.rst:66
 msgid "**Import & export** (EDL, Final Cut Pro)"
 msgstr "**Import og eksport** (EDL, Final Cut Pro)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:67
+#: ../doc/introduction.rst:67
 msgid "**Desktop integration** (drag-drop from file managers)"
 msgstr "**Skrivebordsintegrasjon** (dra-og-slipp fra filbehandlere)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:68
+#: ../doc/introduction.rst:68
 msgid ""
 "**JSON project format** (`OpenShot Cloud API "
 "<https://www.openshot.org/cloud-api/>`_ compatible)"
@@ -268,39 +268,39 @@ msgstr ""
 "<https://www.openshot.org/cloud-api/>`_ kompatibelt)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:69
+#: ../doc/introduction.rst:69
 msgid "**Customizable shortcuts**"
 msgstr "**Tilpassbare snarveier**"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:70
+#: ../doc/introduction.rst:70
 msgid "**Translations** (100+ languages)"
 msgstr "**Oversettelser** (100+ språk)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:71
+#: ../doc/introduction.rst:71
 msgid "**High DPI** monitor support"
 msgstr "**Støtte for skjermer med høy DPI**"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:72
+#: ../doc/introduction.rst:72
 msgid ""
 "**Community support** (`Visit our forum <https://openshot.org/forum/>`_)"
 msgstr ""
 "**Fellesskapsstøtte** (`Besøk vårt forum <https://openshot.org/forum/>`_)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:75
+#: ../doc/introduction.rst:75
 msgid "Screenshot"
 msgstr "Skjermbilde"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:81
+#: ../doc/introduction.rst:81
 msgid "System Requirements"
 msgstr "Systemkrav"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:82
+#: ../doc/introduction.rst:82
 msgid ""
 "Video editing benefits from modern, multi-core CPUs with **fast clock "
 "speeds** (GHz), large amounts of memory, and fast hard disk drives. "
@@ -313,51 +313,51 @@ msgstr ""
 "er de **minimum systemkravene**:"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:87
+#: ../doc/introduction.rst:87
 msgid "TL;DR"
 msgstr "Kort oppsummert"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:88
+#: ../doc/introduction.rst:88
 msgid "Most computers manufactured after 2017 will run OpenShot"
 msgstr "De fleste datamaskiner produsert etter 2017 vil kjøre OpenShot"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:91
+#: ../doc/introduction.rst:91
 msgid "Minimum Specifications"
 msgstr "Minimumsspesifikasjoner"
 
-#: ../introduction.rst:92
+#: ../doc/introduction.rst:92
 msgid "64-bit Operating System (*Linux, macOS, Chrome OS, Windows 7/8/10/11*)"
 msgstr "64-bit operativsystem (*Linux, macOS, Chrome OS, Windows 7/8/10/11*)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:95
+#: ../doc/introduction.rst:95
 msgid "Multi-core processor with 64-bit support"
 msgstr "Flerkjernet prosessor med 64-bit støtte"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:94
+#: ../doc/introduction.rst:94
 msgid "Minimum cores: 2 (*recommended: 6+ cores*)"
 msgstr "Minimum kjerner: 2 (*anbefalt: 6+ kjerner*)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:95
+#: ../doc/introduction.rst:95
 msgid "Minimum threads: 4 (*recommended: 6+ threads*)"
 msgstr "Minimum tråder: 4 (*anbefalt: 6+ tråder*)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:96
+#: ../doc/introduction.rst:96
 msgid "Minimum turbo clock speed: 2.7 Ghz (*recommended: 3.4+ Ghz*)"
 msgstr "Minimum turbo klokkefrekvens: 2,7 GHz (*anbefalt: 3,4+ GHz*)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:97
+#: ../doc/introduction.rst:97
 msgid "4GB of RAM (*16+ GB recommended*)"
 msgstr "4 GB RAM (*16+ GB anbefalt*)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:98
+#: ../doc/introduction.rst:98
 msgid ""
 "1 GB of hard-disk space for installation & usage (*recommended: 50+ GB "
 "available hard-disk space for media, videos, images, and storage*)"
@@ -366,7 +366,7 @@ msgstr ""
 "harddiskplass for media, videoer, bilder og lagring*)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:99
+#: ../doc/introduction.rst:99
 msgid ""
 "Optional: Solid-state drive (SSD), if utilizing disk-caching add an "
 "additional 10GB of hard-disk space"
@@ -375,18 +375,18 @@ msgstr ""
 "ytterligere 10 GB harddiskplass"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:100
+#: ../doc/introduction.rst:100
 msgid "For factors related to real-time previews, see :ref:`playback_ref`."
 msgstr ""
 "For faktorer relatert til forhåndsvisning i sanntid, se :ref:`playback_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:103
+#: ../doc/introduction.rst:103
 msgid "License"
 msgstr "Lisens"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:104
+#: ../doc/introduction.rst:104
 msgid ""
 "OpenShot Video Editor is free software: you can redistribute it and/or "
 "modify it under the terms of the GNU General Public License as published by "
@@ -399,7 +399,7 @@ msgstr ""
 " senere versjon."
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:109
+#: ../doc/introduction.rst:109
 msgid ""
 "OpenShot Video Editor is distributed in the hope that it will be useful, but"
 " WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "

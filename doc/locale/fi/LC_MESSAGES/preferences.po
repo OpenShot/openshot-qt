@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-26 14:26-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,12 +20,12 @@ msgstr ""
 "Generated-By: Babel 2.10.3\n"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:23
+#: ../doc/preferences.rst:23
 msgid "Preferences"
 msgstr "Asetukset"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:25
+#: ../doc/preferences.rst:25
 msgid ""
 "The Preferences window contains many important settings and configuration "
 "options for OpenShot. They can be found in the top menu under "
@@ -38,7 +38,7 @@ msgstr ""
 "uudelleenkäynnistyksen muutosten voimaantulon jälkeen."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:29
+#: ../doc/preferences.rst:29
 msgid ""
 "NOTE: Some features such as `Animated Titles` and `external SVG editing` "
 "require setting the paths for **Blender** and **Inkscape** under the General"
@@ -52,12 +52,12 @@ msgstr ""
 "välilehdellä."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:36
+#: ../doc/preferences.rst:36
 msgid "General"
 msgstr "Yleiset"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:40
+#: ../doc/preferences.rst:40
 msgid ""
 "The General tab of the Preferences window allows you to modify the settings "
 "that apply to OpenShot as a whole."
@@ -66,64 +66,70 @@ msgstr ""
 "koskevat koko OpenShottia."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:46 ../preferences.rst:109 ../preferences.rst:132
-#: ../preferences.rst:157 ../preferences.rst:204 ../preferences.rst:234
-#: ../preferences.rst:290 ../preferences.rst:329
+#: ../doc/preferences.rst:46 ../doc/preferences.rst:109
+#: ../doc/preferences.rst:170 ../doc/preferences.rst:191
+#: ../doc/preferences.rst:248 ../doc/preferences.rst:295
+#: ../doc/preferences.rst:325 ../doc/preferences.rst:381
+#: ../doc/preferences.rst:420
 msgid "Setting"
 msgstr "Asetus"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:47 ../preferences.rst:50 ../preferences.rst:109
-#: ../preferences.rst:132 ../preferences.rst:134 ../preferences.rst:157
-#: ../preferences.rst:330
+#: ../doc/preferences.rst:47 ../doc/preferences.rst:50
+#: ../doc/preferences.rst:109 ../doc/preferences.rst:111
+#: ../doc/preferences.rst:170 ../doc/preferences.rst:172
+#: ../doc/preferences.rst:192 ../doc/preferences.rst:248
+#: ../doc/preferences.rst:421
 msgid "Default"
 msgstr "Oletus"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:48 ../preferences.rst:109 ../preferences.rst:132
-#: ../preferences.rst:204 ../preferences.rst:235 ../preferences.rst:290
-#: ../preferences.rst:310 ../preferences.rst:331
+#: ../doc/preferences.rst:48 ../doc/preferences.rst:109
+#: ../doc/preferences.rst:170 ../doc/preferences.rst:193
+#: ../doc/preferences.rst:295 ../doc/preferences.rst:326
+#: ../doc/preferences.rst:381 ../doc/preferences.rst:401
+#: ../doc/preferences.rst:422
 msgid "Description"
 msgstr "Kuvaus"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:49
+#: ../doc/preferences.rst:49
 msgid "Language"
 msgstr "Kieli"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:51
+#: ../doc/preferences.rst:51
 msgid "Choose your preferred language for OpenShot menus and windows"
 msgstr "Valitse haluamasi kieli OpenShotin valikoille ja ikkunoille"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:52
+#: ../doc/preferences.rst:52
 msgid "Default Theme"
 msgstr "Oletusteema"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:53
+#: ../doc/preferences.rst:53
 msgid "Cosmic Dusk"
 msgstr "Kosminen Hämärä"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:54
+#: ../doc/preferences.rst:54
 #, fuzzy
 msgid "Choose your theme for OpenShot"
 msgstr "Valitse teema OpenShotille: Vaalea, Tumma tai Ei mitään"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:55
+#: ../doc/preferences.rst:55
 msgid "User Interface Scale"
 msgstr "Käyttöliittymän skaalaus"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:56
+#: ../doc/preferences.rst:56
 msgid "100%"
 msgstr "100%"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:57
+#: ../doc/preferences.rst:57
 msgid ""
 "Choose a preset UI scaling factor for larger or smaller interface elements"
 msgstr ""
@@ -131,60 +137,60 @@ msgstr ""
 "käyttöliittymäelementeille"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:58
+#: ../doc/preferences.rst:58
 #, fuzzy
 msgid "Default Profile"
 msgstr "Oletusvideoprofiili"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:59
+#: ../doc/preferences.rst:59
 #, fuzzy
 msgid "HD 720p 30 fps"
 msgstr "HD 720P 30 fps"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:60
+#: ../doc/preferences.rst:60
 #, fuzzy
 msgid "Select the default profile for new projects and exports"
 msgstr "Valitse profiili esikatselun ja vientiasetusten oletuksiksi"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:61
+#: ../doc/preferences.rst:61
 msgid "Blender Command (path)"
 msgstr "Blender-komento (polku)"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:62
+#: ../doc/preferences.rst:62
 msgid "blender"
 msgstr "blender"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:63
+#: ../doc/preferences.rst:63
 msgid "The path to the binary for Blender (version 5.0+)"
 msgstr "Polku Blenderin suoritettavaan tiedostoon (versio 5.0 tai uudempi)"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:64
+#: ../doc/preferences.rst:64
 msgid "Advanced Title Editor (path)"
 msgstr "Laajennettu otsikkotyökalu (polku)"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:65
+#: ../doc/preferences.rst:65
 msgid "inkscape"
 msgstr "inkscape"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:66
+#: ../doc/preferences.rst:66
 msgid "The path to the binary for Inkscape"
 msgstr "Polku Inkscapen suoritettavaan tiedostoon"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:69
+#: ../doc/preferences.rst:69
 msgid "Themes"
 msgstr "Teemat"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:70
+#: ../doc/preferences.rst:70
 msgid ""
 "OpenShot comes with 3 standard themes, which change the look and feel of the"
 " program."
@@ -193,7 +199,7 @@ msgstr ""
 "käyttökokemusta."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:72
+#: ../doc/preferences.rst:72
 #, fuzzy
 msgid ""
 "**Cosmic Dusk:** [Default Theme] A bluish theme with a more modern UI "
@@ -210,7 +216,7 @@ msgstr ""
 "videoeditointiin."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:73
+#: ../doc/preferences.rst:73
 msgid ""
 "**Humanity Dark:** A dark theme with dark gray tones, providing a modern and"
 " sleek look. This theme is designed for users who prefer working in low-"
@@ -225,7 +231,7 @@ msgstr ""
 "silmien rasitusta, tehden siitä sopivan pitkiin editointisessioihin."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:74
+#: ../doc/preferences.rst:74
 msgid ""
 "**Retro:** A light theme that offers a classic and clean appearance. This "
 "theme uses light gray and white tones, making it ideal for users who prefer "
@@ -239,12 +245,12 @@ msgstr ""
 "miellyttävä erityisesti hyvin valaistuissa ympäristöissä."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:79
+#: ../doc/preferences.rst:79
 msgid "Restoring Defaults"
 msgstr "Oletusten palauttaminen"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:80
+#: ../doc/preferences.rst:80
 msgid ""
 "In OpenShot, each preferences category (or tab) in the Preferences window "
 "has a **Restore Defaults** button that allows you to easily reset the values"
@@ -259,7 +265,7 @@ msgstr ""
 "pikanäppäimiä, vaikuttamatta muihin mukautettuihin asetuksiisi."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:84
+#: ../doc/preferences.rst:84
 msgid ""
 "**Where to Find the Restore Defaults Button:** Each category or tab in the "
 "Preferences window has a **Restore Defaults** button located in the bottom "
@@ -274,7 +280,7 @@ msgstr ""
 "painikkeessa lukee **Palauta oletukset: Näppäimistö**."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:89
+#: ../doc/preferences.rst:89
 msgid ""
 "**How It Works:** Only the settings in the currently selected category will "
 "be restored to their default values. This selective restoration makes it "
@@ -285,7 +291,7 @@ msgstr ""
 "palauttamista vaikuttamatta muihin."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:93
+#: ../doc/preferences.rst:93
 msgid ""
 "**Tip for Beginners:** - If you're not sure about a change you've made in a "
 "particular category, don’t hesitate to use the **Restore Defaults** button. "
@@ -298,11 +304,11 @@ msgstr ""
 "oletusasetuksiin vaikuttamatta koko asetuksiisi."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:99
+#: ../doc/preferences.rst:99
 msgid "Timeline"
 msgstr "Aikajana"
 
-#: ../preferences.rst:103
+#: ../doc/preferences.rst:103
 msgid ""
 "The Timeline tab controls default timeline behavior and clip/transition "
 "insertion defaults."
@@ -310,222 +316,448 @@ msgstr ""
 "Aikajanataulu-välilehti ohjaa oletusaikajanan toimintaa sekä "
 "leikkeiden/siirtymien lisäämisen oletuksia."
 
+#: ../doc/preferences.rst:111 ../doc/preferences.rst:128
+msgid "Track Size"
+msgstr "Raidan koko"
+
+#: ../doc/preferences.rst:111
+msgid "Theme-specific track sizing: Minimal, Compact, Default, or Relaxed"
+msgstr ""
+"Teemakohtainen raidan koko: Minimiaalinen, Kompakti, Oletus tai Rentoutunut"
+
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:111
+#: ../doc/preferences.rst:112
 msgid "Thumbnail Style"
 msgstr "Esikatselukuvan tyyli"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:111
+#: ../doc/preferences.rst:112
 msgid "Entire Clip"
 msgstr "Koko leike"
 
-#: ../preferences.rst:111
+#: ../doc/preferences.rst:112
 msgid "Thumbnail density for the timeline"
 msgstr "Pikkukuvien tiheys aikajanalla"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:112
+#: ../doc/preferences.rst:113
 msgid "Image Length (seconds)"
 msgstr "Kuvan kesto (sekunteina)"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:112 ../preferences.rst:113
+#: ../doc/preferences.rst:113 ../doc/preferences.rst:114
 msgid "10.00"
 msgstr "10.00"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:112
+#: ../doc/preferences.rst:113
 msgid "Default duration for still images added to the timeline"
 msgstr "Oletuskesto aikajanalle lisätyille staattisille kuville"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:113
+#: ../doc/preferences.rst:114
 #, fuzzy
 msgid "Transition Length (seconds)"
 msgstr "Kuvan kesto (sekunteina)"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:113
+#: ../doc/preferences.rst:114
 msgid "Default duration for newly added transitions"
 msgstr "Oletuskesto uusille siirtymille"
 
-#: ../preferences.rst:114
+#: ../doc/preferences.rst:115
 msgid "Waveform Samples (per second)"
 msgstr "Aaltomuotona näytteitä (sekunnissa)"
 
-#: ../preferences.rst:114
+#: ../doc/preferences.rst:115
 msgid "200"
 msgstr "200"
 
-#: ../preferences.rst:114
+#: ../doc/preferences.rst:115
 msgid "Detail stored for new peak/RMS timeline waveforms (20–400)"
 msgstr ""
 "Tallennettujen uusien huippu-/RMS-aaltomuotojen yksityiskohdat aikajanalla "
 "(20–400)"
 
+#: ../doc/preferences.rst:116
+msgid "Auto Keyframes on Startup"
+msgstr "Automaattiset avainkehykset käynnistyksessä"
+
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:115
+#: ../doc/preferences.rst:116 ../doc/preferences.rst:117
+#: ../doc/preferences.rst:250 ../doc/preferences.rst:433
+#: ../doc/preferences.rst:439
+msgid "Enabled"
+msgstr "Käytössä"
+
+#: ../doc/preferences.rst:116
+msgid "Start OpenShot with automatic keyframing enabled"
+msgstr "Käynnistä OpenShot automaattisilla avainkehyksillä"
+
+# Translated with gpt-4.1-mini
+#: ../doc/preferences.rst:117
 msgid "Auto-Transition (overlap clips)"
 msgstr "Automaattinen siirtymä (leikkeiden päällekkäisyys)"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:115 ../preferences.rst:159 ../preferences.rst:342
-#: ../preferences.rst:348
-msgid "Enabled"
-msgstr "Käytössä"
-
-# Translated with gpt-4.1-mini
-#: ../preferences.rst:115
+#: ../doc/preferences.rst:117
 msgid "Automatically create transitions when clips overlap"
 msgstr "Luo siirtymät automaattisesti, kun leikkeet menevät päällekkäin"
 
+#: ../doc/preferences.rst:120
+msgid ""
+"**Auto Keyframes on Startup** chooses whether your edits automatically "
+"create keyframes when OpenShot opens. Turn it off if you prefer to place "
+"keyframes yourself. The change takes effect next time you open OpenShot. You"
+" can still use the timeline's Auto Keyframes button to switch modes while "
+"editing without changing your startup preference."
+msgstr ""
+"**Automaattiset avainkehykset käynnistyksessä** valitsee, luovatko "
+"muokkauksesi automaattisesti avainkehyksiä, kun OpenShot avataan. Poista "
+"käytöstä, jos haluat sijoittaa avainkehykset itse. Muutos astuu voimaan "
+"seuraavalla OpenShotin käynnistyksellä. Voit silti käyttää aikajanan "
+"Automaattiset avainkehykset -painiketta vaihtaaksesi tilaa muokkauksen "
+"aikana muuttamatta käynnistysasetustasi."
+
+#: ../doc/preferences.rst:130
+msgid ""
+"Choose **Preferences → Timeline → Track Size** to control how many tracks "
+"fit vertically in the timeline:"
+msgstr ""
+"Valitse **Asetukset → Aikajana → Raidan koko** hallitaksesi, kuinka monta "
+"raitaa mahtuu pystysuunnassa aikajanalle:"
+
+#: ../doc/preferences.rst:133
+msgid ""
+"**Minimal:** Fit the most tracks on screen, useful for large projects with "
+"many video, audio, and overlay layers."
+msgstr ""
+"**Minimaalinen:** Mahdollistaa eniten raitoja näytöllä, hyödyllinen suurissa"
+" projekteissa, joissa on monta video-, ääni- ja päällekkäiskerrosta."
+
+#: ../doc/preferences.rst:135
+msgid ""
+"**Compact:** Show more tracks while leaving a little more room for clip "
+"content and track controls than Minimal."
+msgstr ""
+"**Kompakti:** Näyttää enemmän raitoja jättäen hieman enemmän tilaa "
+"leikkeiden sisällölle ja raidan ohjaimille kuin Minimaalinen."
+
+#: ../doc/preferences.rst:137
+msgid ""
+"**Default:** Use the theme's original track height, matching the layout "
+"before changing this preference."
+msgstr ""
+"**Oletus:** Käytä teeman alkuperäistä raidan korkeutta, joka vastaa "
+"asettelua ennen tämän asetuksen muuttamista."
+
+#: ../doc/preferences.rst:139
+msgid ""
+"**Relaxed:** Give clips, thumbnails, and controls more vertical room when "
+"working with fewer tracks."
+msgstr ""
+"**Rentoutunut:** Anna leikkeille, pikkukuville ja ohjaimille enemmän "
+"pystysuoraa tilaa, kun työskentelet vähemmän raitojen kanssa."
+
+#: ../doc/preferences.rst:142
+msgid ""
+"Sizes are theme-specific; Cosmic Dusk offers the shortest Minimal tracks. "
+"Track gaps, clip and transition heights, and keyframe panel rows adapt with "
+"the selected size. Minimal and Compact place track controls beside the track"
+" name."
+msgstr ""
+"Koot ovat teemakohtaisia; Cosmic Dusk tarjoaa lyhyimmät Minimaalisen raidat."
+" Raidan välit, leikkeiden ja siirtymien korkeudet sekä avainkehys-paneelin "
+"rivit mukautuvat valitun koon mukaan. Minimaalinen ja Kompakti sijoittavat "
+"raidan ohjaimet raidan nimen viereen."
+
+#: ../doc/preferences.rst:146
+msgid ""
+"Changes take effect immediately without restarting OpenShot. This is an "
+"application preference: it changes the timeline display, not your project's "
+"clips or exported video. Select **Default** at any time to restore the "
+"current theme's original sizing."
+msgstr ""
+"Muutokset tulevat voimaan välittömästi ilman OpenShotin "
+"uudelleenkäynnistystä. Tämä on sovellusasetuksen muutos: se muuttaa "
+"aikajanan näyttöä, ei projektisi leikkeitä tai vietyä videota. Valitse "
+"**Oletus** milloin tahansa palauttaaksesi nykyisen teeman alkuperäisen koon."
+
+#: ../doc/preferences.rst:151
+msgid ""
+"Try Minimal or Compact to compare layers with less vertical scrolling. Use "
+"Relaxed when you want larger thumbnails. Track Size changes vertical space; "
+"timeline zoom changes how much time is visible horizontally. **Thumbnail "
+"Style** separately controls how thumbnails are distributed along each clip."
+msgstr ""
+"Kokeile Minimaalista tai Kompakti-tilaa vertaillaksesi kerroksia vähemmällä "
+"pystysuuntaisella vierityksellä. Käytä Rentoutunutta, kun haluat suurempia "
+"pikkukuvia. Raidan koko muuttaa pystysuuntaista tilaa; aikajanan zoomaus "
+"muuttaa, kuinka paljon aikaa näkyy vaakasuunnassa. **Pikkukuvan tyyli** "
+"ohjaa erikseen, miten pikkukuvat jakautuvat kunkin leikkeen kohdalla."
+
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:121
+#: ../doc/preferences.rst:159
 msgid "Preview"
 msgstr "Esikatselu"
 
-# Translated with gpt-4.1-mini
-#: ../preferences.rst:125
+#: ../doc/preferences.rst:163
 msgid ""
 "The Preview tab of the Preferences window controls real-time preview audio "
-"behavior, including device selection, sample rate, channels, buffering, "
-"playback volume, and optimized preview behavior."
+"behavior, including device selection, sample rate, channels, buffering, and "
+"playback volume."
 msgstr ""
-"Asetukset-ikkunan Esikatselu-välilehti ohjaa reaaliaikaisen esikatselun "
-"äänen toimintaa, mukaan lukien laitteen valinta, näytteenottotaajuus, "
-"kanavat, puskurointi, toistovolyymin ja optimoidun esikatselukäytöksen."
+"Esikatselu-välilehti Asetukset-ikkunassa hallitsee reaaliaikaisen "
+"esikatselun ääntä, mukaan lukien laitteen valinnan, näytteenottotaajuuden, "
+"kanavat, puskuroinnin ja toiston äänenvoimakkuuden."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:134
+#: ../doc/preferences.rst:172
 msgid "Playback Audio Device"
 msgstr "Toiston äänilaite"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:134
+#: ../doc/preferences.rst:172
 msgid "Audio output device used during preview playback"
 msgstr "Äänentoistolaitteisto, jota käytetään esikatselun toistossa"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:135
+#: ../doc/preferences.rst:173
 msgid "Default Audio Sample Rate"
 msgstr "Oletusääninäytteenottotaajuus"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:135
+#: ../doc/preferences.rst:173
 #, fuzzy
 msgid "48000"
 msgstr "44100"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:135
+#: ../doc/preferences.rst:173
 #, fuzzy
 msgid "Default preview sample rate"
 msgstr "Oletusääninäytteenottotaajuus"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:136
+#: ../doc/preferences.rst:174
 msgid "Default Audio Channels"
 msgstr "Oletusäänikanavat"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:136
+#: ../doc/preferences.rst:174
 msgid "Stereo (2 Channel)"
 msgstr "Stereo (2 kanavaa)"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:136
+#: ../doc/preferences.rst:174
 msgid "Default preview channel layout"
 msgstr "Oletusesikatselukanavien asettelu"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:137
+#: ../doc/preferences.rst:175
 msgid "Playback Audio Buffer Size"
 msgstr "Toiston äänipuskurin koko"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:137
+#: ../doc/preferences.rst:175
 msgid "512"
 msgstr "512"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:137
+#: ../doc/preferences.rst:175
 msgid "Audio samples buffered before playback begins (128 to 4096)"
 msgstr "Äänenäytteiden puskurointi ennen toiston alkamista (128–4096)"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:138
+#: ../doc/preferences.rst:176
 msgid "Volume"
 msgstr "Äänenvoimakkuus"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:138
+#: ../doc/preferences.rst:176
 msgid "75"
 msgstr "75"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:138
+#: ../doc/preferences.rst:176
 msgid "Preview playback volume percentage"
 msgstr "Esikatselun toiston äänenvoimakkuus prosentteina"
 
+#: ../doc/preferences.rst:182
+msgid "Optimize"
+msgstr "Optimoi"
+
+#: ../doc/preferences.rst:184
+msgid ""
+"The Optimize tab controls automatic suggestions and the smaller preview "
+"copies used for smoother editing. Original files and export quality stay "
+"unchanged."
+msgstr ""
+"Optimoi-välilehti hallitsee automaattisia ehdotuksia ja pienempiä "
+"esikatselukopioita, joita käytetään sujuvampaan muokkaukseen. Alkuperäiset "
+"tiedostot ja vientilaatu pysyvät muuttumattomina."
+
+#: ../doc/preferences.rst:194
+msgid "Auto-Optimize"
+msgstr "Automaattinen optimointi"
+
+#: ../doc/preferences.rst:195
+msgid "Ask"
+msgstr "Kysy"
+
+#: ../doc/preferences.rst:196
+msgid ""
+"Choose Ask, Always, or Never as the default for projects without a saved "
+"Auto-Optimize choice."
+msgstr ""
+"Valitse Kysy, Aina tai Ei koskaan oletukseksi projekteille, joilla ei ole "
+"tallennettua automaattisen optimoinnin valintaa."
+
+#: ../doc/preferences.rst:197
+msgid "Auto-Optimize Threshold"
+msgstr "Automaattisen optimoinnin kynnysarvo"
+
+#: ../doc/preferences.rst:198
+msgid "200 ms"
+msgstr "200 ms"
+
+#: ../doc/preferences.rst:199
+msgid ""
+"Videos qualify when their first thumbnail frame takes longer than this to "
+"generate. Lower values include more videos; higher values include fewer."
+msgstr ""
+"Videot kelpaavat, kun niiden ensimmäisen pikkukuvan kehys kestää kauemmin "
+"kuin tämä luoda. Pienemmät arvot sisältävät enemmän videoita; suuremmat "
+"arvot vähemmän."
+
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:139
+#: ../doc/preferences.rst:200
 msgid "Concurrent Optimize Jobs"
 msgstr "Samanaikaiset optimointitehtävät"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:139
+#: ../doc/preferences.rst:201
 msgid "2"
 msgstr "2"
 
-# Translated with gpt-4.1-mini
-#: ../preferences.rst:139
-msgid "Number of video files OpenShot can optimize at the same time"
-msgstr "Kuinka monta videotiedostoa OpenShot voi optimoida samanaikaisesti"
+#: ../doc/preferences.rst:202
+msgid "Number of videos OpenShot can optimize at the same time."
+msgstr "Samanaikaisesti optimoitavien videoiden määrä OpenShotissa."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:140
+#: ../doc/preferences.rst:203
 msgid "Optimized Preview Resolution"
 msgstr "Optimoitu esikatselun tarkkuus"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:140
+#: ../doc/preferences.rst:204
 msgid "1280x720"
 msgstr "1280x720"
 
-# Translated with gpt-4.1-mini
-#: ../preferences.rst:140
-msgid "Maximum resolution used when creating optimized preview files"
-msgstr ""
-"Suurin tarkkuus, jota käytetään optimoitujen esikatselutiedostojen "
-"luomisessa"
+#: ../doc/preferences.rst:205
+msgid "Maximum resolution used for optimized preview copies."
+msgstr "Optimoitujen esikatselukopioiden enimmäistarkkuus."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:141
+#: ../doc/preferences.rst:206
 msgid "Thumbnail Preload Rate / second"
 msgstr "Pikkukuvan esilatausnopeus / sekunti"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:141
+#: ../doc/preferences.rst:207
 msgid "4"
 msgstr "4"
 
-# Translated with gpt-4.1-mini
-#: ../preferences.rst:141
+#: ../doc/preferences.rst:208
 msgid ""
-"How many thumbnail preview frames per second are pre-generated while "
-"optimizing video"
+"Number of thumbnail preview frames per second pre-generated while optimizing"
+" a video."
 msgstr ""
-"Kuinka monta pikkukuvan esikatselun ruutua sekunnissa esigeneroidaan videota"
-" optimoitaessa"
+"Esigeneroitujen pikkukuvien kehysten määrä sekunnissa videota optimoitaessa."
+
+#: ../doc/preferences.rst:210
+msgid "The :guilabel:`Auto-Optimize` choices work as follows:"
+msgstr ":guilabel:`Automaattisen optimoinnin` valinnat toimivat seuraavasti:"
+
+#: ../doc/preferences.rst:212
+msgid ""
+":guilabel:`Ask`: show a banner when qualifying videos are found. Accepting "
+"enables automatic optimization for that project; dismissing remembers your "
+"decision."
+msgstr ""
+":guilabel:`Kysy`: näytä ilmoitus, kun kelpaavia videoita löytyy. "
+"Hyväksyminen ottaa automaattisen optimoinnin käyttöön kyseisessä "
+"projektissa; hylkääminen muistaa päätöksesi."
+
+#: ../doc/preferences.rst:214
+msgid ""
+":guilabel:`Always`: automatically optimize qualifying videos without a "
+"banner."
+msgstr ""
+":guilabel:`Aina`: optimoi kelpaavat videot automaattisesti ilman ilmoitusta."
+
+#: ../doc/preferences.rst:215
+msgid ""
+":guilabel:`Never`: do not show the banner or start automatic optimization."
+msgstr ""
+":guilabel:`Ei koskaan`: älä näytä ilmoitusta tai aloita automaattista "
+"optimointia."
+
+#: ../doc/preferences.rst:217
+msgid ""
+"These are defaults, not overrides of saved project choices. For example, "
+"selecting :guilabel:`Never` here does not turn off a project where you "
+"already enabled :menuselection:`File --> Auto-Optimize`. Use that menu item "
+"to change the current project's setting. Manual optimization remains "
+"available with every preference."
+msgstr ""
+"Nämä ovat oletuksia, eivät tallennettujen projektivalintojen korvauksia. "
+"Esimerkiksi :guilabel:`Ei koskaan` valitseminen täällä ei poista käytöstä "
+"projektia, jossa olet jo ottanut käyttöön :menuselection:`Tiedosto --> "
+"Automaattinen optimointi`. Käytä kyseistä valikkokohtaa muuttaaksesi "
+"nykyisen projektin asetusta. Manuaalinen optimointi on edelleen "
+"käytettävissä kaikilla asetuksilla."
+
+#: ../doc/preferences.rst:222
+msgid ""
+"The threshold is measured in milliseconds (**ms**). With the default **200 "
+"ms**, a video with a recorded time of 350 ms qualifies, while one with a "
+"time of 50 ms does not. Changing the threshold re-evaluates existing timings"
+" without decoding videos again; it does not cancel jobs already queued or "
+"running."
+msgstr ""
+"Kynnysarvo mitataan millisekunteina (**ms**). Oletusarvolla **200 ms** "
+"video, jonka tallennusaika on 350 ms, kelpaa, kun taas 50 ms ei kelpaa. "
+"Kynnyksen muuttaminen arvioi olemassa olevat ajat uudelleen ilman videoiden "
+"uudelleenkoodausta; se ei peruuta jo jonossa olevia tai käynnissä olevia "
+"tehtäviä."
+
+#: ../doc/preferences.rst:227
+msgid ""
+"The timing comes from normal thumbnail generation. Older projects without "
+"saved timings are checked in the background, one small thumbnail at a time, "
+"when Auto-Optimize is set to Ask or Always (or enabled from the File menu). "
+"It excludes opening the file, writing the thumbnail image, and waiting in a "
+"queue. It is saved with the project's file information and reused on the "
+"same computer while the source file is unchanged. See :ref:`optimize_ref` "
+"for the banner, status indicators, and manual optimization options."
+msgstr ""
+"Ajastus tulee normaalista pikkukuvien generoinnista. Vanhemmat projektit, "
+"joilla ei ole tallennettuja aikoja, tarkistetaan taustalla yksi pikkukuva "
+"kerrallaan, kun Automaattinen optimointi on asetettu Kysy tai Aina (tai "
+"otettu käyttöön Tiedosto-valikosta). Se ei sisällä tiedoston avaamista, "
+"pikkukuvan kirjoittamista tai jonossa odottamista. Se tallennetaan projektin"
+" tiedostotietoihin ja käytetään uudelleen samalla tietokoneella, kun "
+"lähdetiedosto on muuttumaton. Katso :ref:`optimize_ref` ilmoitusta, "
+"tilailmaisimia ja manuaalisen optimoinnin vaihtoehtoja varten."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:145
+#: ../doc/preferences.rst:236
 msgid "Autosave"
 msgstr "Automaattinen tallennus"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:149
+#: ../doc/preferences.rst:240
 msgid ""
 "Autosave is a feature in OpenShot which automatically saves the current "
 "changes to your project after a specific number of minutes, helping to "
@@ -538,47 +770,47 @@ msgstr ""
 "jumiutumisen tai käyttäjävirheen sattuessa."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:159
+#: ../doc/preferences.rst:250
 msgid "Enable Autosave"
 msgstr "Ota automaattinen tallennus käyttöön"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:160
+#: ../doc/preferences.rst:251
 msgid "Autosave Interval (minutes)"
 msgstr "Automaattisen tallennuksen väli (minuutteina)"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:160
+#: ../doc/preferences.rst:251
 msgid "3"
 msgstr "3"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:161
+#: ../doc/preferences.rst:252
 msgid "History Limit (# of undo/redo)"
 msgstr "Historia-raja (kumoa/toista -toimintojen määrä)"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:161
+#: ../doc/preferences.rst:252
 msgid "15"
 msgstr "15"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:162
+#: ../doc/preferences.rst:253
 msgid "Recovery Limit (# of project copies)"
 msgstr "Palautusraja (projektikopioiden määrä)"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:162
+#: ../doc/preferences.rst:253
 msgid "30"
 msgstr "30"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:166
+#: ../doc/preferences.rst:257
 msgid "Recovery"
 msgstr "Palautus"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:168
+#: ../doc/preferences.rst:259
 msgid ""
 "**Before each save**, a compressed ``*.zip`` copy of the current project is "
 "saved in the recovery folder, to further reduce the risk of data loss. The "
@@ -592,7 +824,7 @@ msgstr ""
 "``C:\\Users\\USERNAME\\.openshot_qt\\recovery``."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:172
+#: ../doc/preferences.rst:263
 msgid ""
 "To recover a corrupt or broken ``*.osp`` project file, use the "
 ":guilabel:`File->Recovery` menu on the main window after opening your "
@@ -617,7 +849,7 @@ msgstr ""
 "palauttaaksesi sen."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:180
+#: ../doc/preferences.rst:271
 msgid ""
 "To **manually** recover a corrupt or broken ``*.osp`` project file, please "
 "find the most recent copy in the recovery folder, and copy/paste the file "
@@ -638,12 +870,12 @@ msgstr ""
 "palautettavan version."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:190
+#: ../doc/preferences.rst:281
 msgid "Cache"
 msgstr "Välimuisti"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:194
+#: ../doc/preferences.rst:285
 msgid ""
 "Cache settings can be adjusted to make real-time playback faster or less CPU"
 " intensive. The cache is used to store image and audio data for each frame "
@@ -663,12 +895,12 @@ msgstr ""
 "tietokoneiden sujuvan video- ja äänen toiston. Katso :ref:`playback_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:206
+#: ../doc/preferences.rst:297
 msgid "Cache Mode"
 msgstr "Välimuistin tila"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:206
+#: ../doc/preferences.rst:297
 msgid ""
 "Choose between Memory or Disk caching (memory caching is preferred). Disk "
 "caching writes image data to the hard disk for later retrieving, and works "
@@ -679,12 +911,12 @@ msgstr ""
 " toimii parhaiten SSD-levyillä."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:207
+#: ../doc/preferences.rst:298
 msgid "Cache Limit (MB)"
 msgstr "Välimuistin raja (Mt)"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:207
+#: ../doc/preferences.rst:298
 msgid ""
 "How many MB are set aside for cache related data. Larger numbers are not "
 "always better, since it takes more CPU to generate more frames to fill the "
@@ -694,22 +926,22 @@ msgstr ""
 "aina ole parempia, koska välimuistin täyttämiseen tarvitaan enemmän CPU:ta."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:208
+#: ../doc/preferences.rst:299
 msgid "Image Format (Disk Only)"
 msgstr "Kuvamuoto (vain levyvälimuisti)"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:208
+#: ../doc/preferences.rst:299
 msgid "Image format to store disk cache image data"
 msgstr "Kuvamuoto levyvälimuistissa tallennettaville kuvatiedoille"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:209
+#: ../doc/preferences.rst:300
 msgid "Scale Factor (Disk Only)"
 msgstr "Mittakaavakerroin (vain levyvälimuisti)"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:209
+#: ../doc/preferences.rst:300
 msgid ""
 "Percentage (0.1 to 1.0) to reduce the size of disk based image files stored "
 "in the disk cache. Smaller numbers make writing and reading cached image "
@@ -720,12 +952,12 @@ msgstr ""
 "kirjoittamista ja lukemista."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:210
+#: ../doc/preferences.rst:301
 msgid "Image Quality (Disk Only)"
 msgstr "Kuvan laatu (vain levyvälimuisti)"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:210
+#: ../doc/preferences.rst:301
 msgid ""
 "Quality of the image files used in disk cache. The higher compression can "
 "cause more slowness, but results in smaller file sizes."
@@ -734,12 +966,12 @@ msgstr ""
 "toimintaa, mutta pienentää tiedostokokoa."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:211
+#: ../doc/preferences.rst:302
 msgid "Cache Pre-roll: Min Frames:"
 msgstr "Välimuistin esilataus: Minimikehykset:"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:211
+#: ../doc/preferences.rst:302
 msgid ""
 "Minimum # of frames that must be cached before playback begins. The larger "
 "the #, the larger the wait before playback begins."
@@ -749,12 +981,12 @@ msgstr ""
 "alkamista."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:212
+#: ../doc/preferences.rst:303
 msgid "Cache Pre-roll: Max Frames:"
 msgstr "Välimuistin esilataus: Maksimikehykset:"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:212
+#: ../doc/preferences.rst:303
 msgid ""
 "Maximum # of frames that can be cached during playback (in front of the "
 "playhead). The larger the #, the more CPU is required to cache ahead - vs "
@@ -766,12 +998,12 @@ msgstr ""
 "kehysten näyttämiseen."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:213
+#: ../doc/preferences.rst:304
 msgid "Cache Ahead (Percent):"
 msgstr "Välimuisti eteenpäin (prosenttia):"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:213
+#: ../doc/preferences.rst:304
 msgid ""
 "Between 0.0 and 1.0. This represents how much % we cache ahead of the "
 "playhead. For example, 0.5 would cache 50% behind and 50% ahead of the "
@@ -783,12 +1015,12 @@ msgstr ""
 "edessä."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:214
+#: ../doc/preferences.rst:305
 msgid "Cache Max Frames:"
 msgstr "Välimuistin enimmäiskehykset:"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:214
+#: ../doc/preferences.rst:305
 #, fuzzy
 msgid ""
 "This is an override on the total allowed frames that can be cached by our "
@@ -812,7 +1044,7 @@ msgstr ""
 "OpenShotilla on käytettävissään suuri määrä RAM-muistia."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:217
+#: ../doc/preferences.rst:308
 msgid ""
 "OpenShot's default cache settings now target a balanced preview experience: "
 "roughly **50% behind / 50% ahead** of the playhead, **768 MB** cache memory,"
@@ -826,12 +1058,12 @@ msgstr ""
 "esikatseluruutuja hitaammilla järjestelmillä."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:223
+#: ../doc/preferences.rst:314
 msgid "Performance"
 msgstr "Suorituskyky"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:226
+#: ../doc/preferences.rst:317
 msgid ""
 "Please keep in mind that GPU hardware acceleration is experimental at the "
 "moment. OpenShot supports both decoding and encoding acceleration. For more "
@@ -848,12 +1080,12 @@ msgstr ""
 "aina nopeampi kuin CPU-koodaus."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:236
+#: ../doc/preferences.rst:327
 msgid "Hardware Decoder Mode"
 msgstr "Laitteistodekooderin tila"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:237
+#: ../doc/preferences.rst:328
 msgid ""
 "Select the hardware decoding backend to use. Use :guilabel:`Test` to verify "
 "the selected decoder mode."
@@ -862,32 +1094,32 @@ msgstr ""
 ":guilabel:`Test` varmistaaksesi valitun dekooderin tilan."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:238
+#: ../doc/preferences.rst:329
 msgid "Hardware Decoder Graphics Card"
 msgstr "Laitteistodekooderin näytönohjain"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:239
+#: ../doc/preferences.rst:330
 msgid "Choose which GPU device is used for hardware decoding."
 msgstr "Valitse, mitä GPU-laitetta käytetään laitteistodekoodaukseen."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:240
+#: ../doc/preferences.rst:331
 msgid "Hardware Encoder Graphics Card"
 msgstr "Laitteistokooderin näytönohjain"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:241
+#: ../doc/preferences.rst:332
 msgid "Choose which GPU device is used for hardware encoding."
 msgstr "Valitse, mitä GPU-laitetta käytetään laitteistokoodaukseen."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:242
+#: ../doc/preferences.rst:333
 msgid "OMP Threads"
 msgstr "OMP-säikeet"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:243
+#: ../doc/preferences.rst:334
 msgid ""
 "Number of OpenMP worker threads used by performance-sensitive processing."
 msgstr ""
@@ -895,22 +1127,22 @@ msgstr ""
 "käsittelyssä."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:244
+#: ../doc/preferences.rst:335
 msgid "FFmpeg Threads"
 msgstr "FFmpeg-säikeet"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:245
+#: ../doc/preferences.rst:336
 msgid "Number of FFmpeg threads used for decoding/encoding."
 msgstr "FFmpeg-säikeiden määrä, jota käytetään purkuun/koodaukseen."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:246
+#: ../doc/preferences.rst:337
 msgid "Hardware Decoder Max Width (0 = Default)"
 msgstr "Laitteistodekooderin enimmäisleveys (0 = oletus)"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:247
+#: ../doc/preferences.rst:338
 msgid ""
 "Optional maximum width for hardware decoding. Use ``0`` for no explicit "
 "limit."
@@ -919,12 +1151,12 @@ msgstr ""
 "haluta rajaa."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:248
+#: ../doc/preferences.rst:339
 msgid "Hardware Decoder Max Height (0 = Default)"
 msgstr "Laitteistodekooderin enimmäiskorkeus (0 = oletus)"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:249
+#: ../doc/preferences.rst:340
 msgid ""
 "Optional maximum height for hardware decoding. Use ``0`` for no explicit "
 "limit."
@@ -933,23 +1165,23 @@ msgstr ""
 "haluta rajaa."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:250
+#: ../doc/preferences.rst:341
 msgid "Use Blender GPU rendering for Animated Titles"
 msgstr "Käytä Blenderin GPU-renderöintiä animoituihin otsikoihin"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:251
+#: ../doc/preferences.rst:342
 msgid "Enable GPU rendering for Blender-based animated titles."
 msgstr ""
 "Ota käyttöön GPU-renderöinti Blender-pohjaisille animoiduille otsikoille."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:256
+#: ../doc/preferences.rst:347
 msgid "Keyboard"
 msgstr "Näppäimistö"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:259
+#: ../doc/preferences.rst:350
 msgid ""
 "This section allows you to view and customize hotkeys for various actions in"
 " the application. Here, you can assign and manage multiple shortcuts for the"
@@ -960,7 +1192,7 @@ msgstr ""
 "toiminnolle sekä palauttaa oletuspikanäppäimet tarvittaessa."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:262
+#: ../doc/preferences.rst:353
 msgid ""
 "**Assign Multiple Shortcuts**: You can assign multiple keyboard shortcuts to"
 " the same action by separating them with a pipe (``|``) delimiter. This "
@@ -973,7 +1205,7 @@ msgstr ""
 "toiminnolle."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:265
+#: ../doc/preferences.rst:356
 msgid ""
 "**Immediate Application**: No restart is required after adjusting keyboard "
 "shortcuts. Changes are applied immediately, so you can start using your "
@@ -984,7 +1216,7 @@ msgstr ""
 "alkaa käyttää päivitettyjä pikanäppäimiä välittömästi."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:268
+#: ../doc/preferences.rst:359
 msgid ""
 "**Restore Default Shortcuts**: If needed, you can reset all keyboard "
 "shortcuts to their default settings by clicking on the :guilabel:`Restore "
@@ -996,7 +1228,7 @@ msgstr ""
 "alakulmassa olevaa :guilabel:`Palauta oletukset: Näppäimistö` -painiketta."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:271
+#: ../doc/preferences.rst:362
 msgid ""
 "**Unique Shortcuts**: Each keyboard shortcut must be unique. If there are "
 "any duplicate shortcuts, they will be highlighted in **red** and will not "
@@ -1007,7 +1239,7 @@ msgstr ""
 "toimi ennen kuin ristiriita on ratkaistu."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:275
+#: ../doc/preferences.rst:366
 msgid ""
 "For more detailed information on how to use and customize keyboard "
 "shortcuts, see :ref:`keyboard_shortcut_ref`."
@@ -1016,12 +1248,12 @@ msgstr ""
 ":ref:`keyboard_shortcut_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:278
+#: ../doc/preferences.rst:369
 msgid "Location"
 msgstr "Sijainti"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:282
+#: ../doc/preferences.rst:373
 msgid ""
 "Default file path locations for saving/opening projects, importing files, "
 "and exporting videos can be configured here. This can save you time by "
@@ -1034,46 +1266,46 @@ msgstr ""
 "kansiosta (vaihtoehdot kuvattu alla)."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:292
+#: ../doc/preferences.rst:383
 msgid "File Import"
 msgstr "Tiedoston tuonti"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:292
+#: ../doc/preferences.rst:383
 msgid "Default folder to choose when importing a file"
 msgstr "Oletuskansio tiedoston tuontiin"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:293
+#: ../doc/preferences.rst:384
 msgid "Save or Open Project"
 msgstr "Projektin tallennus tai avaaminen"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:293
+#: ../doc/preferences.rst:384
 msgid "Default folder to choose when saving or opening a project file"
 msgstr "Oletuskansio projektitiedoston tallennukseen tai avaamiseen"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:294
+#: ../doc/preferences.rst:385
 msgid "Video Export"
 msgstr "Videon vienti"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:294
+#: ../doc/preferences.rst:385
 msgid "Default folder to choose when exporting a video"
 msgstr "Oletuskansio videon vientiin"
 
-#: ../preferences.rst:295
+#: ../doc/preferences.rst:386
 msgid "Unsaved Project Assets Folder"
 msgstr "Tallentamattomien projektin resurssikansio"
 
-#: ../preferences.rst:295
+#: ../doc/preferences.rst:386
 msgid "Folder for assets created before a project is saved (restart required)"
 msgstr ""
 "Kansio resursseille, jotka luodaan ennen projektin tallentamista (vaatii "
 "uudelleenkäynnistyksen)"
 
-#: ../preferences.rst:298
+#: ../doc/preferences.rst:389
 msgid ""
 "On Linux, the unsaved assets folder defaults to ``~/Videos/.openshot-tmp`` "
 "when ``~/Videos`` exists and the hidden child folder is writable. Otherwise,"
@@ -1095,17 +1327,17 @@ msgstr ""
 "poista kansiota tavallisena välimuistina."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:310
+#: ../doc/preferences.rst:401
 msgid "Values"
 msgstr "Arvot"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:312
+#: ../doc/preferences.rst:403
 msgid "**Recent Folder**"
 msgstr "**Viimeisin kansio**"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:312
+#: ../doc/preferences.rst:403
 msgid ""
 "The last folder used for this same operation. Project folders, Import "
 "folders, and Export folders are tracked separately."
@@ -1114,12 +1346,12 @@ msgstr ""
 "tuontikansiot ja vientikansiot seurataan erikseen."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:313
+#: ../doc/preferences.rst:404
 msgid "**Project Folder**"
 msgstr "**Projektikansio**"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:313
+#: ../doc/preferences.rst:404
 msgid ""
 "The current project folder (or the user's home folder, if the project is not"
 " yet saved)"
@@ -1128,43 +1360,44 @@ msgstr ""
 "vielä tallennettu)"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:319
+#: ../doc/preferences.rst:410
 msgid "Advanced"
 msgstr "Lisäasetukset"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:323
+#: ../doc/preferences.rst:414
 msgid "The Advanced tab includes ComfyUI integration and debugging options."
 msgstr ""
 "Lisäasetukset-välilehti sisältää ComfyUI-integraation ja "
 "virheenkorjausvaihtoehdot."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:332
+#: ../doc/preferences.rst:423
 msgid "Comfy UI URL"
 msgstr "Comfy UI:n URL-osoite"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:333
+#: ../doc/preferences.rst:424
 msgid "``http://127.0.0.1:8188``"
 msgstr "``http://127.0.0.1:8188``"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:334
+#: ../doc/preferences.rst:425
 msgid "URL of your local or remote ComfyUI server"
 msgstr "Paikallisen tai etäisen ComfyUI-palvelimesi URL-osoite"
 
-#: ../preferences.rst:335
+#: ../doc/preferences.rst:426
 msgid "User Interface Debug Logging"
 msgstr "Käyttöliittymän virheenkorjauslokitus"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:336 ../preferences.rst:339 ../preferences.rst:345
+#: ../doc/preferences.rst:427 ../doc/preferences.rst:430
+#: ../doc/preferences.rst:436
 #, fuzzy
 msgid "Disabled"
 msgstr "Käytössä"
 
-#: ../preferences.rst:337
+#: ../doc/preferences.rst:428
 msgid ""
 "Record interface and project details in ``openshot-qt.log``. The matching "
 "``--debug-ui`` (or ``--debug``) argument enables these details for one "
@@ -1175,11 +1408,11 @@ msgstr ""
 "käyttöön yhden käynnistyksen ajaksi, mukaan lukien terminaalin tulostus. "
 "Katso :ref:`logging_ref`."
 
-#: ../preferences.rst:338
+#: ../doc/preferences.rst:429
 msgid "Video & Audio Engine Debug Logging"
 msgstr "Video- ja ääniytimeen liittyvä virheenkorjauslokitus"
 
-#: ../preferences.rst:340
+#: ../doc/preferences.rst:431
 msgid ""
 "Record video and audio processing details in ``libopenshot.log``. The "
 "matching ``--debug-engine`` argument enables these details for one launch, "
@@ -1192,37 +1425,56 @@ msgstr ""
 "kasvaa nopeasti; sammuta, kun olet valmis. Katso :ref:`logging_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:341
+#: ../doc/preferences.rst:432
 msgid "Send Anonymous Metrics and Errors"
 msgstr "Lähetä nimettömiä mittareita ja virheitä"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:343
+#: ../doc/preferences.rst:434
 msgid "Send anonymous telemetry and error reports"
 msgstr "Lähetä nimettömiä telemetria- ja virheraportteja"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:344
+#: ../doc/preferences.rst:435
 msgid "Show Playback Performance (FPS)"
 msgstr "Näytä toiston suorituskyky (FPS)"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:346
+#: ../doc/preferences.rst:437
 msgid "Display live FPS in preview playback"
 msgstr "Näytä reaaliaikainen FPS esikatselun toistossa"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:347
+#: ../doc/preferences.rst:438
 msgid "Show Export Dialog when Finished"
 msgstr "Näytä vienti-ikkuna valmistumisen jälkeen"
 
-# Translated with gpt-4.1-mini
-#: ../preferences.rst:349
-msgid "Display the Export Video window when export completes"
-msgstr "Näytä Vie video -ikkuna viennin valmistuttua"
+#: ../doc/preferences.rst:440
+msgid ""
+"Display the Export Video window when export completes, with a summary of the"
+" result. See :ref:`export_complete_ref`."
+msgstr ""
+"Näytä Vie video -ikkuna viennin valmistuttua, tuloksen yhteenveto mukana. "
+"Katso :ref:`export_complete_ref`."
+
+#: ../doc/preferences.rst:441
+msgid "Celebrate Exports"
+msgstr "Juhli vientiä"
+
+#: ../doc/preferences.rst:442
+msgid "First Export"
+msgstr "Ensimmäinen vienti"
+
+#: ../doc/preferences.rst:443
+msgid ""
+"Show a burst of confetti when an export succeeds: on the ``First Export`` "
+"only, on ``Every Export``, or ``Never``"
+msgstr ""
+"Näytä konfettisuihku, kun vienti onnistuu: vain ``Ensimmäisellä viennillä``,"
+" ``Jokaisella viennillä`` tai ``Ei koskaan``"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:351
+#: ../doc/preferences.rst:445
 msgid ""
 "The ComfyUI **Check** button updates an inline status icon: green checkmark "
 "for success, red icon for failure. If OpenShot cannot reach this server, AI "
@@ -1235,12 +1487,12 @@ msgstr ""
 "Katso :ref:`ai_ref` asennusohjeet, vaatimukset ja työnkulkuvaihtoehdot."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:358
+#: ../doc/preferences.rst:452
 msgid "Reset (Default Values)"
 msgstr "Palauta (oletusarvot)"
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:360
+#: ../doc/preferences.rst:454
 msgid ""
 "To reset **all** preferences to their default values, please delete the "
 "``openshot.settings`` file and re-launch OpenShot. The settings file can be "
@@ -1257,7 +1509,7 @@ msgstr ""
 "oletusarvoilla."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:365
+#: ../doc/preferences.rst:459
 msgid ""
 "Optionally, you can delete the entire ``.openshot_qt/`` folder and re-launch"
 " OpenShot. However, please make a **backup** of any customized folders: "
@@ -1273,7 +1525,7 @@ msgstr ""
 " projekteistasi (``*.osp``-tiedostot)."
 
 # Translated with gpt-4.1-mini
-#: ../preferences.rst:370
+#: ../doc/preferences.rst:464
 msgid ""
 "Deleting the ``.openshot_qt/`` folder is the quickest method to restore "
 "OpenShot preferences and settings to their Default values (i.e. also called "
@@ -1288,6 +1540,38 @@ msgstr ""
 "ja asetustiedostot. Katso vaiheittainen opas `step-by-step guide "
 "<https://github.com/OpenShot/openshot-qt/wiki/Clean-Installation-of-"
 "OpenShot>`_ saadaksesi lisätietoja OpenShotin **puhdistusasennuksista**."
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "The Preview tab of the Preferences window controls real-time preview audio "
+#~ "behavior, including device selection, sample rate, channels, buffering, "
+#~ "playback volume, and optimized preview behavior."
+#~ msgstr ""
+#~ "Asetukset-ikkunan Esikatselu-välilehti ohjaa reaaliaikaisen esikatselun "
+#~ "äänen toimintaa, mukaan lukien laitteen valinta, näytteenottotaajuus, "
+#~ "kanavat, puskurointi, toistovolyymin ja optimoidun esikatselukäytöksen."
+
+# Translated with gpt-4.1-mini
+#~ msgid "Number of video files OpenShot can optimize at the same time"
+#~ msgstr "Kuinka monta videotiedostoa OpenShot voi optimoida samanaikaisesti"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Maximum resolution used when creating optimized preview files"
+#~ msgstr ""
+#~ "Suurin tarkkuus, jota käytetään optimoitujen esikatselutiedostojen "
+#~ "luomisessa"
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "How many thumbnail preview frames per second are pre-generated while "
+#~ "optimizing video"
+#~ msgstr ""
+#~ "Kuinka monta pikkukuvan esikatselun ruutua sekunnissa esigeneroidaan videota"
+#~ " optimoitaessa"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Display the Export Video window when export completes"
+#~ msgstr "Näytä Vie video -ikkuna viennin valmistuttua"
 
 # Translated with gpt-4.1-mini
 #~ msgid "Debug Mode (Port)"

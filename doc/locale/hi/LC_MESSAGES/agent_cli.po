@@ -1,0 +1,1774 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) OpenShot Studios, LLC
+# This file is distributed under the same license as the OpenShot Video Editor package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenShot Video Editor 4.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: hi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../doc/agent_cli.rst:6
+msgid "Command Line Interface"
+msgstr "कमांड लाइन इंटरफ़ेस"
+
+#: ../doc/agent_cli.rst:8
+msgid ""
+"Bring OpenShot into your command-line workflow. Import footage, trim and "
+"arrange clips, apply effects, animate properties with keyframes, and export "
+"videos from your terminal. Use a few commands to automate repetitive edits, "
+"write a script for a recurring project, or let an AI agent help assemble and"
+" refine a video."
+msgstr ""
+"OpenShot को अपने कमांड-लाइन वर्कफ़्लो में लाएं। फुटेज आयात करें, क्लिप ट्रिम"
+" और व्यवस्थित करें, प्रभाव लागू करें, कीफ़्रेम के साथ गुणों को एनिमेट करें, "
+"और अपने टर्मिनल से वीडियो निर्यात करें। दोहराए जाने वाले संपादनों को "
+"स्वचालित करने के लिए कुछ कमांड का उपयोग करें, एक आवर्ती परियोजना के लिए "
+"स्क्रिप्ट लिखें, या एक AI एजेंट को वीडियो को असेंबल और परिष्कृत करने में मदद"
+" करने दें।"
+
+#: ../doc/agent_cli.rst:13
+msgid ""
+"The command line works with the same projects as the editor. You can control"
+" an open editor and review changes as you go, or work in a **headless "
+"session** without opening a window. A session keeps your project open "
+"between commands, including its edits, undo history, and export jobs. Save "
+"it as an ``.osp`` project whenever you want to continue editing later."
+msgstr ""
+"कमांड लाइन उसी परियोजनाओं के साथ काम करता है जो संपादक के साथ होते हैं। आप "
+"एक खुले संपादक को नियंत्रित कर सकते हैं और जैसे-जैसे आप काम करते हैं, "
+"परिवर्तन देख सकते हैं, या बिना विंडो खोले **हेडलैस सेशन** में काम कर सकते "
+"हैं। एक सेशन आपके प्रोजेक्ट को कमांड्स के बीच खुला रखता है, जिसमें इसके "
+"संपादन, पूर्ववत इतिहास, और निर्यात कार्य शामिल हैं। जब भी आप बाद में संपादन "
+"जारी रखना चाहें, इसे ``.osp`` परियोजना के रूप में सहेजें।"
+
+#: ../doc/agent_cli.rst:20
+msgid "Getting started"
+msgstr "शुरू करना"
+
+#: ../doc/agent_cli.rst:22
+msgid ""
+"Use your installed OpenShot executable followed by ``--cli``. Start with "
+"``intro`` for a short guide to sessions, editing, animation, and saving, or "
+"``help`` for the command overview. These commands do not need an active "
+"session. The examples below require an OpenShot build that includes command-"
+"line editing."
+msgstr ""
+"अपने इंस्टॉल किए गए OpenShot निष्पादन योग्य फ़ाइल का उपयोग करें, उसके बाद "
+"``--cli`` लगाएं। सेशन्स, संपादन, एनिमेशन, और सहेजने के लिए एक संक्षिप्त "
+"मार्गदर्शिका के लिए ``intro`` से शुरू करें, या कमांड अवलोकन के लिए ``help`` "
+"का उपयोग करें। इन कमांड्स को सक्रिय सेशन की आवश्यकता नहीं होती। नीचे दिए गए "
+"उदाहरणों के लिए OpenShot का ऐसा संस्करण चाहिए जिसमें कमांड-लाइन संपादन शामिल"
+" हो।"
+
+#: ../doc/agent_cli.rst:30
+msgid "Linux AppImage"
+msgstr "लिनक्स AppImage"
+
+#: ../doc/agent_cli.rst:32
+msgid "From the directory containing your downloaded AppImage::"
+msgstr "अपने डाउनलोड किए गए AppImage वाली निर्देशिका से::"
+
+#: ../doc/agent_cli.rst:37
+msgid ""
+"Replace ``OpenShot.AppImage`` with your downloaded filename. If "
+"**AppImageLauncher** shows desktop integration dialogs, set "
+"``APPIMAGELAUNCHER_DISABLE=1`` before launching the command::"
+msgstr ""
+"``OpenShot.AppImage`` को अपने डाउनलोड किए गए फ़ाइल नाम से बदलें। यदि "
+"**AppImageLauncher** डेस्कटॉप इंटीग्रेशन संवाद दिखाता है, तो कमांड शुरू करने"
+" से पहले ``APPIMAGELAUNCHER_DISABLE=1`` सेट करें::"
+
+#: ../doc/agent_cli.rst:43
+msgid "For scripts or repeated commands, set it once in your current shell::"
+msgstr ""
+"स्क्रिप्ट या बार-बार चलने वाले कमांड्स के लिए, इसे अपने वर्तमान शेल में एक "
+"बार सेट करें::"
+
+#: ../doc/agent_cli.rst:48
+msgid ""
+"The variable must be set before launching the AppImage: AppImageLauncher can"
+" intercept it before OpenShot receives ``--cli``. Relative media paths and "
+"``@batch.json`` files are resolved from your working directory. Keep the "
+"AppImage file available while its sessions or exports are running."
+msgstr ""
+"AppImage लॉन्च करने से पहले यह वेरिएबल सेट होना चाहिए: AppImageLauncher इसे "
+"OpenShot के ``--cli`` प्राप्त करने से पहले इंटरसेप्ट कर सकता है। सापेक्ष "
+"मीडिया पथ और ``@batch.json`` फ़ाइलें आपके कार्य निर्देशिका से हल की जाती "
+"हैं। जब इसके सेशन्स या निर्यात चल रहे हों, तब AppImage फ़ाइल उपलब्ध रखें।"
+
+#: ../doc/agent_cli.rst:54
+msgid "Linux Snap"
+msgstr "लिनक्स Snap"
+
+#: ../doc/agent_cli.rst:56
+msgid "For the `OpenShot Snap <https://snapcraft.io/openshot-qt>`_, use::"
+msgstr ""
+"`OpenShot Snap <https://snapcraft.io/openshot-qt>`_ के लिए, उपयोग करें::"
+
+#: ../doc/agent_cli.rst:62
+msgid ""
+"Snap's file permissions apply to command-line editing too. Keep media, "
+"projects, and exports in locations the Snap can access, such as your home "
+"folder. To allow access to external drives, connect the removable-media "
+"permission::"
+msgstr ""
+"Snap की फ़ाइल अनुमतियाँ कमांड-लाइन संपादन पर भी लागू होती हैं। मीडिया, "
+"परियोजनाओं, और निर्यातों को ऐसी जगहों पर रखें जहाँ Snap पहुँच सकता हो, जैसे "
+"आपका होम फ़ोल्डर। बाहरी ड्राइव्स तक पहुँच की अनुमति देने के लिए, removable-"
+"media अनुमति कनेक्ट करें::"
+
+#: ../doc/agent_cli.rst:69
+msgid "Windows"
+msgstr "विंडोज़"
+
+#: ../doc/agent_cli.rst:73
+msgid ""
+"**Use openshot-qt-cmd.exe for command-line editing on Windows.** This "
+"console executable displays command results, help, and errors in your "
+"terminal. The desktop executable, ``openshot-qt.exe``, does not display "
+"standard output in an interactive terminal, leaving commands without visible"
+" feedback and making the CLI difficult to use."
+msgstr ""
+"**विंडोज़ पर कमांड-लाइन संपादन के लिए openshot-qt-cmd.exe का उपयोग करें।** "
+"यह कंसोल निष्पादन योग्य आपकी टर्मिनल में कमांड परिणाम, सहायता, और त्रुटियाँ "
+"दिखाता है। डेस्कटॉप निष्पादन योग्य, ``openshot-qt.exe``, इंटरैक्टिव टर्मिनल "
+"में मानक आउटपुट नहीं दिखाता, जिससे कमांड्स बिना दृश्य प्रतिक्रिया के रह जाते"
+" हैं और CLI का उपयोग कठिन हो जाता है।"
+
+#: ../doc/agent_cli.rst:79
+msgid "In PowerShell, from the OpenShot installation directory::"
+msgstr "PowerShell में, OpenShot इंस्टॉलेशन निर्देशिका से::"
+
+#: ../doc/agent_cli.rst:85
+msgid ""
+"If you are in a different directory, use the full path to ``openshot-qt-"
+"cmd.exe``. Keep ``--cli`` after the executable name."
+msgstr ""
+"यदि आप किसी अन्य निर्देशिका में हैं, तो ``openshot-qt-cmd.exe`` का पूरा पथ "
+"उपयोग करें। निष्पादन योग्य नाम के बाद ``--cli`` रखें।"
+
+#: ../doc/agent_cli.rst:89
+msgid "macOS"
+msgstr "macOS"
+
+#: ../doc/agent_cli.rst:91
+msgid "For an installation in Applications::"
+msgstr "Applications में इंस्टॉलेशन के लिए::"
+
+#: ../doc/agent_cli.rst:97
+msgid "Finding commands"
+msgstr "कमांड्स ढूँढना"
+
+#: ../doc/agent_cli.rst:99
+msgid ""
+"Throughout this guide, ``openshot-cli`` is shorthand for your installation's"
+" command above, such as ``snap run openshot-qt --cli`` or "
+"``./OpenShot.AppImage --cli``. Some installations also provide an "
+"``openshot-cli`` command directly. When running from source, use ``python3 "
+"src/launch.py --cli`` in OpenShot's Python environment."
+msgstr ""
+"इस गाइड में, ``openshot-cli`` आपके इंस्टॉलेशन के ऊपर दिए गए कमांड का "
+"संक्षिप्त रूप है, जैसे ``snap run openshot-qt --cli`` या "
+"``./OpenShot.AppImage --cli``\\ । कुछ इंस्टॉलेशन्स सीधे ``openshot-cli`` "
+"कमांड भी प्रदान करते हैं। स्रोत से चलाते समय, OpenShot के Python वातावरण में"
+" ``python3 src/launch.py --cli`` का उपयोग करें।"
+
+#: ../doc/agent_cli.rst:105
+msgid ""
+"Bare ``--cli``, ``--cli help``, and ``--cli --help`` show the same overview."
+" Help becomes more specific as you navigate commands::"
+msgstr ""
+"सिर्फ ``--cli``, ``--cli help``, और ``--cli --help`` एक ही अवलोकन दिखाते "
+"हैं। जैसे-जैसे आप कमांड्स में नेविगेट करते हैं, सहायता अधिक विशिष्ट हो जाती "
+"है::"
+
+#: ../doc/agent_cli.rst:117
+msgid ""
+"Group help explains workflows with examples; operation help describes "
+"arguments and behavior. ``--help`` is equivalent to trailing ``help``. All "
+"help commands work without an editing session."
+msgstr ""
+"ग्रुप सहायता उदाहरणों के साथ वर्कफ़्लोज़ समझाती है; ऑपरेशन सहायता तर्क और "
+"व्यवहार का वर्णन करती है। ``--help`` अंत में ``help`` के बराबर है। सभी "
+"सहायता कमांड्स बिना संपादन सेशन के काम करते हैं।"
+
+#: ../doc/agent_cli.rst:121
+msgid ""
+"``effects list`` shows the available effects with short descriptions. Effect"
+" help explains their properties, defaults, choices, and ranges. ``effects "
+"instances`` lists effects already attached to clips, with parent clip IDs. "
+"Class names, display names, and underscore aliases identify the same effect."
+msgstr ""
+"``effects list`` उपलब्ध प्रभावों को संक्षिप्त विवरण के साथ दिखाता है। प्रभाव"
+" सहायता उनके गुण, डिफ़ॉल्ट, विकल्प, और सीमाएँ समझाती है। ``effects "
+"instances`` उन प्रभावों को सूचीबद्ध करता है जो पहले से क्लिप्स से जुड़े हैं,"
+" साथ ही पैरेंट क्लिप आईडी। क्लास नाम, डिस्प्ले नाम, और अंडरस्कोर उपनाम एक ही"
+" प्रभाव की पहचान करते हैं।"
+
+#: ../doc/agent_cli.rst:127
+msgid "Working with scripts and AI agents"
+msgstr "स्क्रिप्ट्स और AI एजेंट्स के साथ काम करना"
+
+#: ../doc/agent_cli.rst:129
+msgid ""
+"AI coding agents such as **Codex** and **Claude Code** can use the CLI to "
+"inspect and edit OpenShot projects through terminal commands. Give your "
+"agent the path to your OpenShot executable, the media or project to work "
+"with, and the desired result: duration, dimensions, animation style, and "
+"output location. Ask it to read ``--cli intro`` before starting. The same "
+"commands work when you type them yourself or run them from a script."
+msgstr ""
+"**Codex** और **Claude Code** जैसे AI कोडिंग एजेंट CLI का उपयोग करके टर्मिनल "
+"कमांड्स के माध्यम से OpenShot परियोजनाओं का निरीक्षण और संपादन कर सकते हैं। "
+"अपने एजेंट को OpenShot निष्पादन योग्य का पथ, काम करने के लिए मीडिया या "
+"परियोजना, और वांछित परिणाम: अवधि, आयाम, एनिमेशन शैली, और आउटपुट स्थान दें। "
+"शुरू करने से पहले इसे ``--cli intro`` पढ़ने के लिए कहें। जब आप स्वयं टाइप "
+"करें या स्क्रिप्ट से चलाएं, तो वही कमांड काम करते हैं।"
+
+#: ../doc/agent_cli.rst:136
+msgid ""
+"Start with ``intro``, then use command-specific help as needed. A useful "
+"workflow is to select a session, inspect the project, make a small set of "
+"changes, review the result, and save. Commands return structured JSON so "
+"scripts and agents can use object IDs and results directly instead of "
+"interpreting screen output."
+msgstr ""
+"``intro`` से शुरू करें, फिर आवश्यकतानुसार कमांड-विशिष्ट सहायता का उपयोग "
+"करें। एक उपयोगी वर्कफ़्लो है सेशन चुनना, परियोजना का निरीक्षण करना, कुछ छोटे"
+" बदलाव करना, परिणाम की समीक्षा करना, और सहेजना। कमांड्स संरचित JSON लौटाते "
+"हैं ताकि स्क्रिप्ट्स और एजेंट्स स्क्रीन आउटपुट की व्याख्या करने के बजाय सीधे"
+" ऑब्जेक्ट आईडी और परिणामों का उपयोग कर सकें।"
+
+#: ../doc/agent_cli.rst:141
+msgid ""
+"**Inspect before editing.** Use returned IDs and property information "
+"instead of guessing names, track numbers, or timing. Select a session "
+"explicitly when more than one project is open."
+msgstr ""
+"**संपादन से पहले निरीक्षण करें।** नाम, ट्रैक नंबर, या समय का अनुमान लगाने के"
+" बजाय लौटाए गए आईडी और गुण जानकारी का उपयोग करें। जब एक से अधिक परियोजनाएं "
+"खुली हों तो स्पष्ट रूप से एक सेशन चुनें।"
+
+#: ../doc/agent_cli.rst:144
+msgid ""
+"**Group repeated edits.** Use ``edit apply`` for a sequence of changes or "
+"``edit bulk`` to apply a template to selected clips. Validate with ``--dry-"
+"run`` before applying a batch."
+msgstr ""
+"**दोहराए गए संपादनों को समूहित करें।** बदलावों के अनुक्रम के लिए ``edit "
+"apply`` का उपयोग करें या चयनित क्लिप्स पर टेम्पलेट लागू करने के लिए ``edit "
+"bulk`` का उपयोग करें। बैच लागू करने से पहले ``--dry-run`` के साथ सत्यापित "
+"करें।"
+
+#: ../doc/agent_cli.rst:147
+msgid ""
+"**Check animation.** Choose a coordinate space, start with a few keyframes, "
+"and use easing presets for familiar motion. ``keyframe preview`` samples the"
+" curve so you can spot pauses or jumps before exporting. Review rendered "
+"motion as well; a contact sheet alone cannot show how an animation feels."
+msgstr ""
+"**एनिमेशन जांचें।** एक निर्देशांक स्थान चुनें, कुछ कीफ़्रेम के साथ शुरू "
+"करें, और परिचित गति के लिए ईज़िंग प्रीसेट्स का उपयोग करें। ``keyframe "
+"preview`` कर्व का नमूना लेता है ताकि आप निर्यात से पहले विराम या छलांग देख "
+"सकें। प्रस्तुत गति की समीक्षा भी करें; केवल एक संपर्क शीट यह नहीं दिखा सकती "
+"कि एक एनिमेशन कैसा महसूस होता है।"
+
+#: ../doc/agent_cli.rst:151
+msgid ""
+"**Save and follow exports.** Save the project explicitly and check the "
+"export job's status before treating an output as complete. If a request "
+"times out, inspect its status before repeating an edit."
+msgstr ""
+"**सहेजें और निर्यात का पालन करें।** परियोजना को स्पष्ट रूप से सहेजें और "
+"आउटपुट को पूर्ण मानने से पहले निर्यात कार्य की स्थिति जांचें। यदि कोई अनुरोध"
+" समय समाप्त हो जाता है, तो संपादन दोहराने से पहले उसकी स्थिति जांचें।"
+
+#: ../doc/agent_cli.rst:155
+msgid ""
+"The sections below explain these workflows and their timing conventions."
+msgstr ""
+"नीचे दिए गए अनुभाग इन कार्यप्रवाहों और उनके समय निर्धारण कन्वेंशनों को "
+"समझाते हैं।"
+
+#: ../doc/agent_cli.rst:158
+msgid "Sessions and outputs"
+msgstr "सेशन्स और आउटपुट"
+
+#: ../doc/agent_cli.rst:161
+msgid "Starting or finding a session"
+msgstr "सेशन शुरू करना या ढूँढना"
+
+#: ../doc/agent_cli.rst:163
+msgid "Start one headless session (without an editor window)::"
+msgstr "एक हेडलेस सेशन शुरू करें (संपादक विंडो के बिना)::"
+
+#: ../doc/agent_cli.rst:167
+msgid ""
+"To open an existing project at startup, add ``--project "
+"\"/path/project.osp\"``. The successful JSON response contains "
+"``result.session_id``. Copy that value. If OpenShot is already running, or "
+"you have forgotten the ID, find available sessions with::"
+msgstr ""
+"स्टार्टअप पर मौजूदा परियोजना खोलने के लिए, ``--project "
+"\"/path/project.osp\"`` जोड़ें। सफल JSON प्रतिक्रिया में "
+"``result.session_id`` होता है। उस मान को कॉपी करें। यदि OpenShot पहले से चल "
+"रहा है, या आपने ID भूल गए हैं, तो उपलब्ध सेशन्स खोजने के लिए::"
+
+#: ../doc/agent_cli.rst:174
+msgid ""
+"Choose the session for the project you intend to edit. You do not need to "
+"start a new session for each command."
+msgstr ""
+"उस परियोजना के लिए सेशन चुनें जिसे आप संपादित करना चाहते हैं। प्रत्येक कमांड"
+" के लिए नया सेशन शुरू करने की आवश्यकता नहीं है।"
+
+#: ../doc/agent_cli.rst:180
+msgid "Selecting a session"
+msgstr "सेशन चुनना"
+
+#: ../doc/agent_cli.rst:184
+msgid ""
+"**Set OPENSHOT_SESSION once, then run commands normally.** Your terminal "
+"remembers the selected session, so you do not need to pass ``--session`` "
+"with every command. Use the PowerShell or Bash example below."
+msgstr ""
+"**OPENSHOT_SESSION एक बार सेट करें, फिर सामान्य रूप से कमांड चलाएं।** आपका "
+"टर्मिनल चयनित सेशन को याद रखता है, इसलिए हर कमांड के साथ ``--session`` पास "
+"करने की जरूरत नहीं है। नीचे दिए गए PowerShell या Bash उदाहरण का उपयोग करें।"
+
+#: ../doc/agent_cli.rst:188
+msgid ""
+"Replace ``SESSION_ID`` below with the ``session_id`` returned by ``session "
+"start`` or ``session list``."
+msgstr ""
+"नीचे ``SESSION_ID`` को ``session start`` या ``session list`` द्वारा लौटाए गए"
+" ``session_id`` से बदलें।"
+
+#: ../doc/agent_cli.rst:191 ../doc/agent_cli.rst:422
+msgid "Windows PowerShell::"
+msgstr "Windows PowerShell::"
+
+#: ../doc/agent_cli.rst:197
+msgid "Linux Bash::"
+msgstr "Linux Bash::"
+
+#: ../doc/agent_cli.rst:203
+msgid ""
+"On macOS, use the same ``export`` syntax. For macOS or Snap commands, "
+"substitute your installation's executable from Getting started. The "
+"selection lasts for this terminal and commands launched from it. Set it "
+"again in a new terminal, or update it when switching to a different session."
+msgstr ""
+"macOS पर, समान ``export`` सिंटैक्स का उपयोग करें। macOS या Snap कमांड के "
+"लिए, Getting started से अपनी स्थापना का executable बदलें। चयन इस टर्मिनल और "
+"इससे शुरू किए गए कमांड के लिए रहता है। इसे नए टर्मिनल में फिर से सेट करें, "
+"या अलग सेशन पर स्विच करते समय अपडेट करें।"
+
+#: ../doc/agent_cli.rst:208
+msgid ""
+"**The remaining editing and export examples assume OPENSHOT_SESSION is "
+"set.** The next subsection shows how to capture the ID automatically for "
+"scripts."
+msgstr ""
+"**बाकी संपादन और निर्यात उदाहरण मानते हैं कि OPENSHOT_SESSION सेट है।** अगला"
+" उपखंड दिखाता है कि स्क्रिप्ट्स के लिए ID को स्वचालित रूप से कैसे कैप्चर "
+"करें।"
+
+#: ../doc/agent_cli.rst:211
+msgid ""
+"To target a different session for just one command, use ``--session``. It "
+"overrides ``OPENSHOT_SESSION`` without changing your terminal's selection::"
+msgstr ""
+"केवल एक कमांड के लिए अलग सेशन को लक्षित करने के लिए, ``--session`` का उपयोग "
+"करें। यह आपके टर्मिनल के चयन को बदले बिना ``OPENSHOT_SESSION`` को ओवरराइड "
+"करता है::"
+
+#: ../doc/agent_cli.rst:216
+msgid ""
+"With a packaged executable, put this override after ``--cli`` and before the"
+" command group: ``--cli --session OTHER_SESSION_ID project get``."
+msgstr ""
+"पैकेज्ड executable के साथ, इस ओवरराइड को ``--cli`` के बाद और कमांड समूह से "
+"पहले रखें: ``--cli --session OTHER_SESSION_ID project get``\\ ।"
+
+#: ../doc/agent_cli.rst:219
+msgid ""
+"Automatic selection only works when exactly one reachable session exists. If"
+" you see ``session_required``, run ``session list`` and explicitly select "
+"the intended session. If it is no longer listed, start it again and use the "
+"new ID. Help, ``intro``, and session discovery do not require a selected "
+"session."
+msgstr ""
+"स्वचालित चयन केवल तब काम करता है जब ठीक एक पहुंच योग्य सेशन मौजूद हो। यदि आप"
+" ``session_required`` देखें, तो ``session list`` चलाएं और इच्छित सेशन को "
+"स्पष्ट रूप से चुनें। यदि यह अब सूची में नहीं है, तो इसे फिर से शुरू करें और "
+"नया ID उपयोग करें। सहायता, ``intro``, और सेशन खोज के लिए चयनित सेशन आवश्यक "
+"नहीं है।"
+
+#: ../doc/agent_cli.rst:225
+msgid "Capturing the session ID automatically"
+msgstr "सेशन ID को स्वचालित रूप से कैप्चर करना"
+
+#: ../doc/agent_cli.rst:227
+msgid ""
+"Scripts can read ``result.session_id`` directly from the JSON returned by "
+"``session start`` and set ``OPENSHOT_SESSION`` for subsequent commands. "
+"There is no need to copy the ID manually or read a log file. Check that "
+"startup succeeded before using the returned ID."
+msgstr ""
+"स्क्रिप्ट्स सीधे ``session start`` द्वारा लौटाए गए JSON से "
+"``result.session_id`` पढ़ सकते हैं और बाद के कमांड के लिए "
+"``OPENSHOT_SESSION`` सेट कर सकते हैं। ID को मैन्युअली कॉपी करने या लॉग फ़ाइल"
+" पढ़ने की आवश्यकता नहीं है। लौटाए गए ID का उपयोग करने से पहले जांचें कि "
+"स्टार्टअप सफल हुआ।"
+
+#: ../doc/agent_cli.rst:232
+msgid "Windows PowerShell (set the executable path for your installation)::"
+msgstr "Windows PowerShell (अपनी स्थापना के लिए executable पथ सेट करें)::"
+
+#: ../doc/agent_cli.rst:244
+msgid "Linux Bash (requires ``jq`` to read JSON)::"
+msgstr "Linux Bash (JSON पढ़ने के लिए ``jq`` आवश्यक)::"
+
+#: ../doc/agent_cli.rst:256
+msgid ""
+"The environment variable selects a session for commands launched from this "
+"terminal; it does not change a system-wide setting. Starting a session does "
+"not set the variable automatically. After stopping the session, clear the "
+"selection with ``Remove-Item Env:OPENSHOT_SESSION`` in PowerShell or ``unset"
+" OPENSHOT_SESSION`` in Bash."
+msgstr ""
+"पर्यावरण चर इस टर्मिनल से शुरू किए गए कमांड के लिए एक सेशन चुनता है; यह "
+"सिस्टम-व्यापी सेटिंग को नहीं बदलता। सेशन शुरू करने से यह चर स्वचालित रूप से "
+"सेट नहीं होता। सेशन बंद करने के बाद, PowerShell में ``Remove-Item "
+"Env:OPENSHOT_SESSION`` या Bash में ``unset OPENSHOT_SESSION`` से चयन साफ़ "
+"करें।"
+
+#: ../doc/agent_cli.rst:263
+msgid "Showing and stopping a session"
+msgstr "सेशन दिखाना और रोकना"
+
+#: ../doc/agent_cli.rst:265
+msgid "To show the selected session in the editor::"
+msgstr "संपादक में चयनित सेशन दिखाने के लिए::"
+
+#: ../doc/agent_cli.rst:269
+msgid ""
+"On a desktop, ``session show`` creates the editor in the same process and "
+"keeps the live project, IDs, history, export jobs, and connection. Repeated "
+"calls raise the existing window. ``session start --show`` opens it "
+"immediately. Sessions started without a display, or with "
+"``QT_QPA_PLATFORM=offscreen``/``minimal``, cannot later show a desktop "
+"window. For those sessions, save and open the project in a new desktop "
+"session. Once shown, close the session through the editor window."
+msgstr ""
+"डेस्कटॉप पर, ``session show`` उसी प्रक्रिया में संपादक बनाता है और लाइव "
+"परियोजना, IDs, इतिहास, निर्यात कार्य, और कनेक्शन बनाए रखता है। बार-बार कॉल "
+"करने पर मौजूदा विंडो ऊपर आती है। ``session start --show`` इसे तुरंत खोलता "
+"है। बिना डिस्प्ले के शुरू किए गए सेशन्स, या "
+"``QT_QPA_PLATFORM=offscreen``/``minimal`` के साथ, बाद में डेस्कटॉप विंडो "
+"नहीं दिखा सकते। उन सेशन्स के लिए, परियोजना को सहेजें और नए डेस्कटॉप सेशन में"
+" खोलें। एक बार दिखाए जाने के बाद, संपादक विंडो के माध्यम से सेशन बंद करें।"
+
+#: ../doc/agent_cli.rst:277
+msgid ""
+"Global options (``--session``, ``--timeout``) go before the command. "
+"``session serve`` stays in the foreground for supervisors; ``session start``"
+" returns after a background host registers. ``session stop`` refuses unsaved"
+" changes and active exports. Use ``--discard`` only to intentionally discard"
+" unsaved edits."
+msgstr ""
+"वैश्विक विकल्प (``--session``, ``--timeout``) कमांड से पहले आते हैं। "
+"``session serve`` पर्यवेक्षकों के लिए अग्रभूमि में रहता है; ``session "
+"start`` पृष्ठभूमि होस्ट पंजीकृत होने के बाद लौटता है। ``session stop`` बिना "
+"सहेजे गए परिवर्तनों और सक्रिय निर्यातों को अस्वीकार करता है। बिना सहेजे गए "
+"संपादनों को जानबूझकर छोड़ने के लिए ही ``--discard`` का उपयोग करें।"
+
+#: ../doc/agent_cli.rst:283
+msgid "Command output"
+msgstr "कमांड आउटपुट"
+
+#: ../doc/agent_cli.rst:285
+msgid ""
+"Results are JSON on stdout, except the default text timeline view. Errors "
+"are JSON on stderr with exit status 1; argument-parser errors exit 2. "
+"Mutations return compact summaries with an ``inspect`` command. ``get`` "
+"returns native object JSON. Project replies include a revision; effect "
+"catalog replies do not require a session. Logs from headless sessions live "
+"beside their registry records. ``OPENSHOT_SESSION_DIR`` overrides the "
+"default ``~/.openshot_qt/sessions`` directory."
+msgstr ""
+"परिणाम stdout पर JSON होते हैं, डिफ़ॉल्ट टेक्स्ट टाइमलाइन दृश्य को छोड़कर। "
+"त्रुटियाँ stderr पर JSON होती हैं और exit status 1 के साथ होती हैं; "
+"argument-parser त्रुटियाँ exit 2 के साथ होती हैं। म्यूटेशन compact सारांश "
+"``inspect`` कमांड के साथ लौटाते हैं। ``get`` मूल ऑब्जेक्ट JSON लौटाता है। "
+"परियोजना उत्तरों में एक संशोधन शामिल होता है; प्रभाव कैटलॉग उत्तरों के लिए "
+"सेशन आवश्यक नहीं होता। हेडलेस सेशन्स के लॉग उनके रजिस्ट्री रिकॉर्ड के पास "
+"रहते हैं। ``OPENSHOT_SESSION_DIR`` डिफ़ॉल्ट ``~/.openshot_qt/sessions`` "
+"निर्देशिका को ओवरराइड करता है।"
+
+#: ../doc/agent_cli.rst:292
+msgid ""
+"Sessions accept commands locally on your computer. Keep the session registry"
+" private, since it contains the credentials used to access your editing "
+"sessions. Exports work from a snapshot, so you can continue editing while a "
+"job runs."
+msgstr ""
+"सेशन्स आपके कंप्यूटर पर स्थानीय रूप से कमांड स्वीकार करते हैं। सेशन "
+"रजिस्ट्री को निजी रखें, क्योंकि इसमें आपके संपादन सेशन्स तक पहुँचने के लिए "
+"उपयोग किए गए प्रमाणपत्र होते हैं। निर्यात स्नैपशॉट से काम करता है, इसलिए आप "
+"एक जॉब चलने के दौरान संपादन जारी रख सकते हैं।"
+
+#: ../doc/agent_cli.rst:297
+msgid "Opening and saving projects"
+msgstr "परियोजनाओं को खोलना और सहेजना"
+
+#: ../doc/agent_cli.rst:299
+msgid ""
+"An OpenShot project (``.osp``) stores your editable timeline. Exporting "
+"creates a finished video; saving the project lets you return to its clips, "
+"effects, and keyframes later. Save your project separately even when you "
+"also export a video."
+msgstr ""
+"एक OpenShot प्रोजेक्ट (``.osp``) आपकी संपादन योग्य टाइमलाइन को संग्रहीत करता"
+" है। निर्यात करने से एक तैयार वीडियो बनता है; प्रोजेक्ट को सहेजने से आप बाद "
+"में इसके क्लिप्स, इफेक्ट्स, और कीफ्रेम्स पर वापस आ सकते हैं। वीडियो निर्यात "
+"करते समय भी अपने प्रोजेक्ट को अलग से सहेजें।"
+
+#: ../doc/agent_cli.rst:304
+msgid "Opening a project"
+msgstr "एक प्रोजेक्ट खोलना"
+
+#: ../doc/agent_cli.rst:306
+msgid "Start a session with an existing project::"
+msgstr "मौजूदा प्रोजेक्ट के साथ एक सेशन शुरू करें::"
+
+#: ../doc/agent_cli.rst:310
+msgid ""
+"Add ``--show`` to open its editor window too. To use an editor that is "
+"already running, find it with ``session list``. Set ``OPENSHOT_SESSION`` to "
+"its returned session ID, then open or inspect a project::"
+msgstr ""
+"इसके एडिटर विंडो को भी खोलने के लिए ``--show`` जोड़ें। पहले से चल रहे एडिटर "
+"का उपयोग करने के लिए, इसे ``session list`` से खोजें। ``OPENSHOT_SESSION`` को"
+" इसके लौटाए गए सेशन आईडी पर सेट करें, फिर एक प्रोजेक्ट खोलें या निरीक्षण "
+"करें::"
+
+#: ../doc/agent_cli.rst:317
+msgid ""
+"Replace the example path with your own, and quote paths containing spaces. "
+"``project open`` replaces the selected session's current project. It refuses"
+" to discard unsaved edits unless you explicitly add ``--discard``; save "
+"those edits first if you want to keep them. Opening through the CLI does not"
+" show interactive missing-media dialogs, so keep the project's source media "
+"available."
+msgstr ""
+"उदाहरण पथ को अपने पथ से बदलें, और जिन पथों में स्पेस हो उन्हें उद्धरण "
+"चिह्नों में रखें। ``project open`` चयनित सेशन के वर्तमान प्रोजेक्ट को बदल "
+"देता है। यह बिना सहेजे गए संपादनों को तब तक छोड़ने से मना करता है जब तक आप "
+"स्पष्ट रूप से ``--discard`` न जोड़ें; यदि आप उन्हें रखना चाहते हैं तो पहले "
+"उन संपादनों को सहेजें। CLI के माध्यम से खोलने पर इंटरैक्टिव मिसिंग-मीडिया "
+"डायलॉग नहीं दिखते, इसलिए प्रोजेक्ट के स्रोत मीडिया को उपलब्ध रखें।"
+
+#: ../doc/agent_cli.rst:323
+msgid ""
+"For a new, empty project, use ``session start`` without ``--project``, then "
+"import media and add clips as described under Editing."
+msgstr ""
+"एक नया, खाली प्रोजेक्ट बनाने के लिए, ``--project`` के बिना ``session start``"
+" का उपयोग करें, फिर मीडिया आयात करें और Editing के तहत वर्णित अनुसार क्लिप्स"
+" जोड़ें।"
+
+#: ../doc/agent_cli.rst:327
+msgid "Saving a project or a copy"
+msgstr "प्रोजेक्ट या उसकी कॉपी सहेजना"
+
+#: ../doc/agent_cli.rst:329
+msgid ""
+"Save to a new file, or create a separate version before making more "
+"changes::"
+msgstr "नई फ़ाइल में सहेजें, या और बदलाव करने से पहले एक अलग संस्करण बनाएं::"
+
+#: ../doc/agent_cli.rst:333
+msgid "To update an existing file, explicitly allow replacement::"
+msgstr ""
+"मौजूदा फ़ाइल को अपडेट करने के लिए, स्पष्ट रूप से प्रतिस्थापन की अनुमति दें::"
+
+#: ../doc/agent_cli.rst:337
+msgid ""
+"Always supply the destination path. Saving an ``.osp`` does not package all "
+"your source footage into that file; keep the referenced media available when"
+" moving or reopening the project."
+msgstr ""
+"हमेशा गंतव्य पथ प्रदान करें। ``.osp`` सहेजने से आपकी सभी स्रोत फुटेज उस "
+"फ़ाइल में पैक नहीं होती; प्रोजेक्ट को स्थानांतरित या पुनः खोलते समय संदर्भित"
+" मीडिया उपलब्ध रखें।"
+
+#: ../doc/agent_cli.rst:342
+msgid "Exporting a video"
+msgstr "वीडियो निर्यात करना"
+
+#: ../doc/agent_cli.rst:344
+msgid ""
+"Automate rendering and exporting from scripts or AI agents, using the "
+"project's settings or choosing a different output profile for each render. "
+"Export jobs can run in the background or wait for completion before your "
+"script continues. To render an MP4 using the project's resolution and frame "
+"rate::"
+msgstr ""
+"स्क्रिप्ट्स या AI एजेंट्स से रेंडरिंग और निर्यात को स्वचालित करें, प्रोजेक्ट"
+" की सेटिंग्स का उपयोग करते हुए या प्रत्येक रेंडर के लिए अलग आउटपुट प्रोफ़ाइल"
+" चुनकर। निर्यात जॉब्स बैकग्राउंड में चल सकते हैं या आपके स्क्रिप्ट के जारी "
+"रहने से पहले पूर्णता का इंतजार कर सकते हैं। प्रोजेक्ट के रिज़ॉल्यूशन और "
+"फ्रेम रेट का उपयोग करके MP4 रेंडर करने के लिए::"
+
+#: ../doc/agent_cli.rst:351
+msgid ""
+"By default, OpenShot uses H.264 video and AAC audio. Replace the example "
+"path with your destination, using an existing folder and a new filename. "
+"Existing outputs are never overwritten. Exporting does not save your "
+"editable ``.osp`` project; use ``project save`` separately to keep your "
+"editing work."
+msgstr ""
+"डिफ़ॉल्ट रूप से, OpenShot H.264 वीडियो और AAC ऑडियो का उपयोग करता है। उदाहरण"
+" पथ को अपने गंतव्य से बदलें, एक मौजूदा फ़ोल्डर और नया फ़ाइल नाम उपयोग करते "
+"हुए। मौजूदा आउटपुट कभी अधिलेखित नहीं होते। निर्यात करने से आपका संपादन योग्य"
+" ``.osp`` प्रोजेक्ट सहेजा नहीं जाता; अपना संपादन कार्य रखने के लिए अलग से "
+"``project save`` का उपयोग करें।"
+
+#: ../doc/agent_cli.rst:356
+msgid ""
+"The ``--wait`` option keeps the command running until the export completes "
+"or reports a failure. Review the finished video before sharing it."
+msgstr ""
+"``--wait`` विकल्प कमांड को तब तक चलाए रखता है जब तक निर्यात पूरा न हो जाए या"
+" विफलता की सूचना न दे। साझा करने से पहले तैयार वीडियो की समीक्षा करें।"
+
+#: ../doc/agent_cli.rst:360
+msgid "Checking export progress"
+msgstr "निर्यात प्रगति जांचना"
+
+#: ../doc/agent_cli.rst:362
+msgid ""
+"Leave off ``--wait`` to start an export in the background. The response "
+"includes a job ID you can use to check its progress::"
+msgstr ""
+"बैकग्राउंड में निर्यात शुरू करने के लिए ``--wait`` न जोड़ें। प्रतिक्रिया में"
+" एक जॉब आईडी शामिल होती है जिसका उपयोग आप इसकी प्रगति जांचने के लिए कर सकते "
+"हैं::"
+
+#: ../doc/agent_cli.rst:370
+msgid ""
+"Replace ``JOB_ID`` with the returned ID. If waiting times out, the export "
+"keeps running; check the same job instead of starting another export. To "
+"stop a job, use ``export cancel JOB_ID``. Each job captures the timeline "
+"when it starts, so later edits do not change an export already in progress."
+msgstr ""
+"``JOB_ID`` को लौटाए गए आईडी से बदलें। यदि प्रतीक्षा समय समाप्त हो जाता है, "
+"तो निर्यात चलता रहता है; एक और निर्यात शुरू करने के बजाय उसी जॉब की जांच "
+"करें। जॉब रोकने के लिए, ``export cancel JOB_ID`` का उपयोग करें। प्रत्येक जॉब"
+" शुरू होने पर टाइमलाइन को कैप्चर करता है, इसलिए बाद के संपादन पहले से चल रहे"
+" निर्यात को प्रभावित नहीं करते।"
+
+#: ../doc/agent_cli.rst:375
+msgid ""
+"Waiting defaults to 600 seconds; adjust this with ``--wait-timeout``. This "
+"is separate from the global per-request ``--timeout``. Export failures, "
+"cancellation, and wait timeouts exit with status 1 and include job details."
+msgstr ""
+"प्रतीक्षा डिफ़ॉल्ट रूप से 600 सेकंड है; इसे ``--wait-timeout`` से समायोजित "
+"करें। यह वैश्विक प्रति-रिक्वेस्ट ``--timeout`` से अलग है। निर्यात विफलताएं, "
+"रद्दीकरण, और प्रतीक्षा समय समाप्त होने पर स्थिति 1 के साथ बाहर निकलते हैं और"
+" जॉब विवरण शामिल होते हैं।"
+
+#: ../doc/agent_cli.rst:380
+msgid "Exporting in multiple profiles"
+msgstr "कई प्रोफाइल में निर्यात करना"
+
+#: ../doc/agent_cli.rst:382
+msgid ""
+"Export the same timeline at different resolutions or aspect ratios by "
+"choosing an export profile for each output. **An export profile applies only"
+" to that job**; it does not change the editing project's profile. A profile "
+"sets dimensions, frame rate, and aspect ratio; an export preset selects "
+"encoding settings such as MP4/H.264."
+msgstr ""
+"प्रत्येक आउटपुट के लिए एक निर्यात प्रोफ़ाइल चुनकर एक ही टाइमलाइन को विभिन्न "
+"रिज़ॉल्यूशन या आस्पेक्ट रेशियो में निर्यात करें। **एक निर्यात प्रोफ़ाइल केवल"
+" उस जॉब पर लागू होती है**; यह संपादन प्रोजेक्ट की प्रोफ़ाइल को नहीं बदलती। "
+"एक प्रोफ़ाइल आयाम, फ्रेम रेट, और आस्पेक्ट रेशियो सेट करती है; एक निर्यात "
+"प्रीसेट MP4/H.264 जैसे एन्कोडिंग सेटिंग्स चुनता है।"
+
+#: ../doc/agent_cli.rst:388
+msgid "Find the available profiles and inspect their settings::"
+msgstr "उपलब्ध प्रोफाइल खोजें और उनकी सेटिंग्स जांचें::"
+
+#: ../doc/agent_cli.rst:394
+msgid ""
+"For example, export landscape versions at 720p and 1080p, then a square "
+"version at 1080 by 1080. These profiles all use 30 fps::"
+msgstr ""
+"उदाहरण के लिए, 720p और 1080p पर लैंडस्केप संस्करण निर्यात करें, फिर "
+"1080x1080 पर एक स्क्वायर संस्करण। ये सभी प्रोफाइल 30 fps का उपयोग करते हैं::"
+
+#: ../doc/agent_cli.rst:401
+msgid ""
+"Use a different output filename for each version. Keep edits unchanged "
+"between jobs when you want matching versions. Changing aspect ratio can "
+"change framing: review each output, especially titles and animated subjects."
+" For a separately composed square or portrait version, save a project copy, "
+"change its project profile, and adjust the clips before exporting. See "
+"Profiles and the export settings below for custom profiles and encoding "
+"options."
+msgstr ""
+"प्रत्येक संस्करण के लिए अलग आउटपुट फ़ाइल नाम का उपयोग करें। जब आप मेल खाते "
+"संस्करण चाहते हैं तो जॉब्स के बीच संपादनों को अपरिवर्तित रखें। आस्पेक्ट "
+"रेशियो बदलने से फ्रेमिंग बदल सकती है: प्रत्येक आउटपुट की समीक्षा करें, विशेष"
+" रूप से शीर्षक और एनिमेटेड विषय। अलग से तैयार किए गए स्क्वायर या पोर्ट्रेट "
+"संस्करण के लिए, प्रोजेक्ट की एक कॉपी सहेजें, उसका प्रोजेक्ट प्रोफ़ाइल बदलें,"
+" और निर्यात से पहले क्लिप्स समायोजित करें। कस्टम प्रोफाइल और एन्कोडिंग "
+"विकल्पों के लिए नीचे प्रोफाइल और निर्यात सेटिंग्स देखें।"
+
+#: ../doc/agent_cli.rst:409
+msgid "Batch exporting multiple projects"
+msgstr "कई प्रोजेक्ट्स का बैच निर्यात"
+
+#: ../doc/agent_cli.rst:411
+msgid ""
+"Reuse one headless session to render several saved projects in sequence. "
+"Open a project, export it with ``--wait``, then open the next project. The "
+"examples below use each project's own resolution and frame rate and create "
+"MP4 files beside the ``.osp`` files. Add ``--profile PROFILE_ID`` to the "
+"export command to use one output profile for every project."
+msgstr ""
+"एक हेडलेस सेशन को पुनः उपयोग करें ताकि कई सहेजे गए प्रोजेक्ट्स को क्रम में "
+"रेंडर किया जा सके। एक प्रोजेक्ट खोलें, इसे ``--wait`` के साथ निर्यात करें, "
+"फिर अगला प्रोजेक्ट खोलें। नीचे दिए गए उदाहरण प्रत्येक प्रोजेक्ट के अपने "
+"रिज़ॉल्यूशन और फ्रेम रेट का उपयोग करते हैं और ``.osp`` फ़ाइलों के बगल में "
+"MP4 फ़ाइलें बनाते हैं। हर प्रोजेक्ट के लिए एक आउटपुट प्रोफ़ाइल उपयोग करने के"
+" लिए निर्यात कमांड में ``--profile PROFILE_ID`` जोड़ें।"
+
+#: ../doc/agent_cli.rst:417
+msgid ""
+"First run the matching automatic session-ID example above successfully, in "
+"the same terminal. It defines ``openshot`` and selects the new session. "
+"Replace the project paths below with your own. Use distinct output names "
+"that do not already exist; the examples check all destinations before "
+"starting the batch."
+msgstr ""
+"सबसे पहले ऊपर दिए गए मेल खाते स्वचालित सेशन-ID उदाहरण को उसी टर्मिनल में "
+"सफलतापूर्वक चलाएं। यह ``openshot`` को परिभाषित करता है और नया सेशन चुनता है।"
+" नीचे दिए गए प्रोजेक्ट पथों को अपने अनुसार बदलें। ऐसे अलग-अलग आउटपुट नामों "
+"का उपयोग करें जो पहले से मौजूद न हों; उदाहरण बैच शुरू करने से पहले सभी "
+"गंतव्यों की जांच करते हैं।"
+
+#: ../doc/agent_cli.rst:446
+msgid "Linux Bash (the parentheses keep error handling local to the batch)::"
+msgstr "Linux Bash (कोष्ठक त्रुटि हैंडलिंग को बैच तक सीमित रखते हैं)::"
+
+#: ../doc/agent_cli.rst:467
+msgid ""
+"Both recipes stop the batch on a command failure and leave the session "
+"available for inspection. The wait limit here is 24 hours per export. A wait"
+" timeout leaves the render running: use ``export list`` and ``export status "
+"JOB_ID --wait`` before retrying. Completed videos remain on disk; remove "
+"completed projects from the batch before resuming. After resolving a "
+"failure, stop the session and clear its environment variable when you are "
+"finished."
+msgstr ""
+"दोनों विधियाँ कमांड विफलता पर बैच को रोकती हैं और निरीक्षण के लिए सेशन "
+"उपलब्ध छोड़ती हैं। यहाँ प्रतीक्षा सीमा प्रति निर्यात 24 घंटे है। प्रतीक्षा "
+"समय समाप्त होने पर रेंडर चलता रहता है: पुनः प्रयास करने से पहले ``export "
+"list`` और ``export status JOB_ID --wait`` का उपयोग करें। पूर्ण वीडियो डिस्क "
+"पर रहते हैं; पुनः शुरू करने से पहले पूर्ण प्रोजेक्ट्स को बैच से हटा दें। "
+"विफलता हल करने के बाद, सेशन को बंद करें और समाप्त होने पर उसका पर्यावरण चर "
+"साफ़ करें।"
+
+#: ../doc/agent_cli.rst:475
+msgid "Choosing presets and encoding settings"
+msgstr "प्रिसेट और एन्कोडिंग सेटिंग्स चुनना"
+
+#: ../doc/agent_cli.rst:477
+msgid "Discover the installed export presets and supported settings::"
+msgstr "स्थापित निर्यात प्रिसेट और समर्थित सेटिंग्स खोजें::"
+
+#: ../doc/agent_cli.rst:484
+msgid ""
+"Export also accepts ``--from-file FILE_ID`` with optional ``--create-"
+"custom``. Settings resolve in this order: project defaults, preset, advanced"
+" JSON, explicit profile/quality/range flags. Advanced JSON exposes "
+"video/audio codecs and bitrate, audio layout/rate/channels, native codec "
+"options, hardware device settings, and thread counts."
+msgstr ""
+"Export ``--from-file FILE_ID`` को वैकल्पिक ``--create-custom`` के साथ भी "
+"स्वीकार करता है। सेटिंग्स इस क्रम में हल होती हैं: प्रोजेक्ट डिफ़ॉल्ट, "
+"प्रिसेट, उन्नत JSON, स्पष्ट प्रोफ़ाइल/गुणवत्ता/रेंज फ्लैग। उन्नत JSON "
+"वीडियो/ऑडियो कोडेक्स और बिटरेट, ऑडियो लेआउट/रेट/चैनल, मूल कोडेक विकल्प, "
+"हार्डवेयर डिवाइस सेटिंग्स, और थ्रेड काउंट्स को प्रकट करता है।"
+
+#: ../doc/agent_cli.rst:490
+msgid "For example, select an encoder option through advanced JSON::"
+msgstr "उदाहरण के लिए, उन्नत JSON के माध्यम से एक एन्कोडर विकल्प चुनें::"
+
+#: ../doc/agent_cli.rst:495
+msgid "Validating export settings"
+msgstr "निर्यात सेटिंग्स का सत्यापन"
+
+#: ../doc/agent_cli.rst:497
+msgid "Check settings before starting a render::"
+msgstr "रेंडर शुरू करने से पहले सेटिंग्स जांचें::"
+
+#: ../doc/agent_cli.rst:501
+msgid ""
+"Capabilities report compiled codec availability, not physical GPU "
+"availability. Validation goes further: it opens the encoders (including "
+"hardware encoders) and the container with the exact settings, in a separate "
+"process, without writing a file. A combination the container can't hold "
+"fails with ``incompatible_export``, FFmpeg's own explanation, and the "
+"setting to change (``details.cause.path``)::"
+msgstr ""
+"क्षमताएँ संकलित कोडेक उपलब्धता की रिपोर्ट करती हैं, भौतिक GPU उपलब्धता की "
+"नहीं। सत्यापन आगे बढ़ता है: यह एन्कोडर्स (हार्डवेयर एन्कोडर्स सहित) और "
+"कंटेनर को सटीक सेटिंग्स के साथ एक अलग प्रक्रिया में खोलता है, बिना फ़ाइल "
+"लिखे। कंटेनर जो संयोजन नहीं रख सकता वह ``incompatible_export`` के साथ विफल "
+"होता है, FFmpeg की अपनी व्याख्या, और बदलने वाली सेटिंग "
+"(``details.cause.path``)::"
+
+#: ../doc/agent_cli.rst:509
+msgid "The export worker runs the same check before rendering."
+msgstr "निर्यात कार्यकर्ता रेंडरिंग से पहले वही जांच करता है।"
+
+#: ../doc/agent_cli.rst:512
+msgid "Rendering a frame range"
+msgstr "फ्रेम रेंज का रेंडरिंग"
+
+#: ../doc/agent_cli.rst:514
+msgid ""
+"Use ``--start-frame`` and ``--end-frame`` to render part of the timeline. "
+"Ranges are inclusive and one-based at the **export profile's FPS**. For "
+"example, render the first 90 frames at 30 fps (three seconds)::"
+msgstr ""
+"टाइमलाइन के एक भाग को रेंडर करने के लिए ``--start-frame`` और ``--end-frame``"
+" का उपयोग करें। रेंज समावेशी और **निर्यात प्रोफ़ाइल के FPS** पर एक-आधारित "
+"होती हैं। उदाहरण के लिए, पहले 90 फ्रेम 30 fps (तीन सेकंड) पर रेंडर करें::"
+
+#: ../doc/agent_cli.rst:521
+msgid "Audio-only exports and image sequences"
+msgstr "केवल ऑडियो निर्यात और छवि अनुक्रम"
+
+#: ../doc/agent_cli.rst:523
+msgid "Choose an output mode with advanced JSON::"
+msgstr "उन्नत JSON के साथ एक आउटपुट मोड चुनें::"
+
+#: ../doc/agent_cli.rst:528
+msgid ""
+"Image sequences require a new output directory. Existing outputs are never "
+"overwritten."
+msgstr ""
+"छवि अनुक्रमों के लिए एक नया आउटपुट निर्देशिका आवश्यक है। मौजूदा आउटपुट कभी "
+"अधिलेखित नहीं होते।"
+
+#: ../doc/agent_cli.rst:532
+msgid "Editing"
+msgstr "संपादन"
+
+#: ../doc/agent_cli.rst:535
+msgid "Adding clips and effects"
+msgstr "क्लिप्स और प्रभाव जोड़ना"
+
+#: ../doc/agent_cli.rst:537
+msgid ""
+"Use the IDs returned by import/add/list, and discover layer numbers with "
+"``project get``::"
+msgstr ""
+"import/add/list द्वारा लौटाए गए IDs का उपयोग करें, और ``project get`` से "
+"लेयर नंबर खोजें::"
+
+#: ../doc/agent_cli.rst:549
+msgid ""
+"Choose the project profile early when possible; populated projects also "
+"support profile changes through the existing FPS conversion and undo system."
+" ``--audio-only`` on clip creation suppresses video, including embedded "
+"cover art in music files. To use that clip for Audio Visualization instead, "
+"enable its video and audio, and follow the effect's help for transparent "
+"overlays and layer placement."
+msgstr ""
+"संभव हो तो प्रोजेक्ट प्रोफ़ाइल जल्दी चुनें; भरे हुए प्रोजेक्ट्स मौजूदा FPS "
+"रूपांतरण और पूर्ववत प्रणाली के माध्यम से प्रोफ़ाइल परिवर्तन का भी समर्थन "
+"करते हैं। क्लिप निर्माण पर ``--audio-only`` वीडियो को दबाता है, जिसमें संगीत"
+" फ़ाइलों में एम्बेडेड कवर आर्ट भी शामिल है। उस क्लिप का ऑडियो विज़ुअलाइज़ेशन"
+" के लिए उपयोग करने के लिए, उसका वीडियो और ऑडियो सक्षम करें, और पारदर्शी "
+"ओवरले और लेयर प्लेसमेंट के लिए प्रभाव की सहायता का पालन करें।"
+
+#: ../doc/agent_cli.rst:556
+msgid "Understanding clip timing"
+msgstr "क्लिप टाइमिंग को समझना"
+
+#: ../doc/agent_cli.rst:558
+msgid ""
+"The example keyframes assume a 30fps project and a clip trimmed at source "
+"10s. Position is in timeline seconds; start/end are source seconds, with end"
+" exclusive. Frames start at 1. File thumbnail frames use source FPS. "
+"Timeline frames use project FPS. Clip keyframes use source coordinates at "
+"project FPS, so trimming the clip does not move its first visible keyframe "
+"to frame 1."
+msgstr ""
+"उदाहरण की कीफ्रेम 30fps प्रोजेक्ट और स्रोत 10 सेकंड पर ट्रिम किए गए क्लिप को"
+" मानती हैं। स्थिति टाइमलाइन सेकंड में है; प्रारंभ/समाप्त स्रोत सेकंड हैं, "
+"समाप्ति अपवाद के साथ। फ्रेम 1 से शुरू होते हैं। फ़ाइल थंबनेल फ्रेम स्रोत FPS"
+" का उपयोग करते हैं। टाइमलाइन फ्रेम प्रोजेक्ट FPS का उपयोग करते हैं। क्लिप "
+"कीफ्रेम प्रोजेक्ट FPS पर स्रोत निर्देशांक का उपयोग करते हैं, इसलिए क्लिप "
+"ट्रिम करने से इसका पहला दृश्य कीफ्रेम फ्रेम 1 पर नहीं आता।"
+
+#: ../doc/agent_cli.rst:565
+msgid "Changing properties"
+msgstr "गुण बदलना"
+
+#: ../doc/agent_cli.rst:567
+msgid ""
+"``set`` merges top-level properties. Scalars turn keyframed properties into "
+"constants. A supplied nested curve replaces that curve; use ``keyframe set``"
+" to change just one point. JSON arguments accept inline JSON, "
+"``@file.json``, or ``-`` for stdin. Property names, types, enums, keyframes,"
+" references, and timing are validated before editing the project. Errors "
+"identify the field, expected value, received value, and a correction where "
+"possible. GUI slider ranges are advisory where the engine supports values "
+"beyond them."
+msgstr ""
+"``set`` शीर्ष-स्तरीय गुणों को मर्ज करता है। स्केलर कीफ्रेम वाले गुणों को "
+"स्थिरांक में बदल देते हैं। दिया गया नेस्टेड कर्व उस कर्व को बदल देता है; "
+"केवल एक बिंदु बदलने के लिए ``keyframe set`` का उपयोग करें। JSON तर्क इनलाइन "
+"JSON, ``@file.json``, या stdin के लिए ``-`` स्वीकार करते हैं। संपादन से पहले"
+" प्रॉपर्टी नाम, प्रकार, एनम, कीफ्रेम, संदर्भ, और टाइमिंग का सत्यापन किया "
+"जाता है। त्रुटियाँ फ़ील्ड, अपेक्षित मान, प्राप्त मान, और संभव सुधार को "
+"पहचानती हैं। GUI स्लाइडर रेंज सलाहकार होती हैं जहाँ इंजन उनसे अधिक मानों का "
+"समर्थन करता है।"
+
+#: ../doc/agent_cli.rst:576
+msgid "Adding fades"
+msgstr "फेड जोड़ना"
+
+#: ../doc/agent_cli.rst:578
+msgid ""
+"``clip fade ID --in 0.5 --out 0.5`` calculates source-trim keyframe "
+"coordinates automatically. It replaces the alpha curve; ``--property volume "
+"--value 0.25`` instead creates an audio fade with a 0.25 peak gain. "
+"Durations must fit between the first and last visible frames; fade-out "
+"reaches zero on the last frame."
+msgstr ""
+"``clip fade ID --in 0.5 --out 0.5`` स्रोत-ट्रिम कीफ्रेम निर्देशांक स्वचालित "
+"रूप से गणना करता है। यह अल्फा कर्व को बदल देता है; इसके बजाय ``--property "
+"volume --value 0.25`` 0.25 पीक गेन के साथ ऑडियो फेड बनाता है। अवधि पहली और "
+"अंतिम दृश्य फ्रेम के बीच फिट होनी चाहिए; फेड-आउट अंतिम फ्रेम पर शून्य तक "
+"पहुंचता है।"
+
+#: ../doc/agent_cli.rst:584
+msgid "Splitting clips"
+msgstr "क्लिप्स को विभाजित करना"
+
+#: ../doc/agent_cli.rst:586
+msgid ""
+"``clip split ID --at 6.5`` uses timeline seconds, snaps to the nearest "
+"project frame, and keeps both halves. It retains source-coordinate curves "
+"and duplicates effects with fresh IDs on the right half, following the "
+"editor's slicing behavior. The left half retains its ID. The response "
+"reports requested/actual split times and both summaries; a named batch "
+"result supports ``{\"$ref\":\"cut.right.id\"}``. Splits reject endpoints and"
+" locked tracks. Undo restores the original clip in one transaction."
+msgstr ""
+"``clip split ID --at 6.5`` टाइमलाइन सेकंड का उपयोग करता है, निकटतम प्रोजेक्ट"
+" फ्रेम पर स्नैप करता है, और दोनों हिस्सों को रखता है। यह स्रोत-निर्देशांक "
+"कर्व को बनाए रखता है और संपादक के स्लाइसिंग व्यवहार के अनुसार दाहिने हिस्से "
+"पर ताज़ा IDs के साथ प्रभावों को डुप्लिकेट करता है। बायाँ हिस्सा अपनी ID रखता"
+" है। प्रतिक्रिया अनुरोधित/वास्तविक विभाजन समय और दोनों सारांशों की रिपोर्ट "
+"करती है; एक नामित बैच परिणाम ``{\"$ref\":\"cut.right.id\"}`` का समर्थन करता "
+"है। विभाजन एंडपॉइंट्स और लॉक किए गए ट्रैकों को अस्वीकार करता है। पूर्ववत एक "
+"लेन-देन में मूल क्लिप को पुनर्स्थापित करता है।"
+
+#: ../doc/agent_cli.rst:595
+msgid "Clip menu presets"
+msgstr "क्लिप मेनू प्रिसेट"
+
+#: ../doc/agent_cli.rst:597
+msgid ""
+"The editor's clip menu presets use the same code from the command line. Each"
+" command lists its presets in its help, and each one is a single undo step:"
+msgstr ""
+"संपादक के क्लिप मेनू प्रीसेट कमांड लाइन से समान कोड का उपयोग करते हैं। "
+"प्रत्येक कमांड अपनी सहायता में अपने प्रीसेट सूचीबद्ध करता है, और प्रत्येक एक"
+" एकल पूर्ववत चरण होता है:"
+
+#: ../doc/agent_cli.rst:611
+msgid ""
+"Motion presets are relative to the clip's current transform. Look presets "
+"add or replace one effect, and ``none`` removes it. Speed and repeat retime "
+"every keyframe and change the clip's length; ``clip speed --mode reset`` "
+"restores normal speed. Other menu actions are plain edits: rotate and layout"
+" with ``clip set``, crop with ``effects add Crop``. The commands also work "
+"in ``edit apply`` and ``edit bulk``."
+msgstr ""
+"मोशन प्रीसेट क्लिप के वर्तमान ट्रांसफॉर्म के सापेक्ष होते हैं। लुक प्रीसेट "
+"एक प्रभाव जोड़ते हैं या बदलते हैं, और ``none`` इसे हटाता है। गति और "
+"पुनरावृत्ति हर कीफ़्रेम का पुनःसमय निर्धारण करते हैं और क्लिप की लंबाई बदलते"
+" हैं; ``clip speed --mode reset`` सामान्य गति पुनर्स्थापित करता है। अन्य "
+"मेनू क्रियाएँ साधारण संपादन हैं: ``clip set`` से घुमाएं और लेआउट करें, "
+"``effects add Crop`` से क्रॉप करें। ये कमांड ``edit apply`` और ``edit bulk``"
+" में भी काम करते हैं।"
+
+#: ../doc/agent_cli.rst:621
+msgid "Adding and styling text"
+msgstr "पाठ जोड़ना और शैली बनाना"
+
+#: ../doc/agent_cli.rst:623
+msgid ""
+"``text add`` creates a text and places it as a clip, using the same text as "
+"the editor's **Text** tool. Options you leave out use the editor's default "
+"style:"
+msgstr ""
+"``text add`` एक पाठ बनाता है और इसे क्लिप के रूप में रखता है, जो संपादक के "
+"**Text** टूल के समान पाठ का उपयोग करता है। जो विकल्प आप छोड़ते हैं वे संपादक"
+" की डिफ़ॉल्ट शैली का उपयोग करते हैं:"
+
+#: ../doc/agent_cli.rst:637
+msgid ""
+"The words, font, size, alignment, box width and default colors belong to the"
+" text in Project Files and are shared by every clip that uses it, just like "
+"in the editor. ``text set`` on one clip changes all of them and lists them "
+"in ``changed_clip_ids``; ``--this-clip-only`` gives that clip its own copy "
+"first. ``clip add FILE_ID`` places another clip of a text from ``text "
+"list``. Sizes are in pixels at the project resolution, and colors are "
+"``#RRGGBB``, ``#AARRGGBB`` (with alpha), a CSS name, or ``transparent``. "
+"``--place`` puts the box at the center, an edge or corner, or a lower third."
+" ``--line-spacing`` is a multiple of the normal distance between lines (1 is"
+" normal), and ``--background-corner`` rounds the background and border "
+"corners by that many pixels."
+msgstr ""
+"शब्द, फ़ॉन्ट, आकार, संरेखण, बॉक्स की चौड़ाई और डिफ़ॉल्ट रंग प्रोजेक्ट "
+"फ़ाइलों में पाठ से संबंधित होते हैं और इसे उपयोग करने वाले प्रत्येक क्लिप "
+"द्वारा साझा किए जाते हैं, जैसे संपादक में होता है। एक क्लिप पर ``text set`` "
+"सभी को बदलता है और उन्हें ``changed_clip_ids`` में सूचीबद्ध करता है; "
+"``--this-clip-only`` पहले उस क्लिप को उसकी अपनी प्रति देता है। ``clip add "
+"FILE_ID`` ``text list`` से एक अन्य पाठ क्लिप रखता है। आकार प्रोजेक्ट "
+"रिज़ॉल्यूशन में पिक्सेल में होते हैं, और रंग ``#RRGGBB``, ``#AARRGGBB`` "
+"(अल्फा के साथ), एक CSS नाम, या ``transparent`` हो सकते हैं। ``--place`` "
+"बॉक्स को केंद्र, किनारा या कोना, या निचले तिहाई में रखता है। ``--line-"
+"spacing`` पंक्तियों के बीच सामान्य दूरी का गुणक है (1 सामान्य है), और "
+"``--background-corner`` पृष्ठभूमि और सीमा के कोनों को उतने पिक्सेल से गोल "
+"करता है।"
+
+#: ../doc/agent_cli.rst:647
+msgid ""
+"A text clip is an ordinary clip. Position, scale, rotation, opacity, timing,"
+" fades, motion presets and effects all use the normal ``clip`` commands. "
+"Font size, padding, box width, and letter and line spacing set the size of "
+"the text box, so they cannot be keyframed; to animate the size of text, "
+"keyframe the clip's scale. Each clip can animate its own text colors and "
+"outline and border widths with the same keyframe commands as any other "
+"property:"
+msgstr ""
+"एक टेक्स्ट क्लिप एक सामान्य क्लिप होता है। स्थिति, स्केल, घुमाव, "
+"अपारदर्शिता, समय निर्धारण, फीकेपन, मोशन प्रीसेट और प्रभाव सभी सामान्य "
+"``clip`` कमांड का उपयोग करते हैं। फ़ॉन्ट आकार, पैडिंग, बॉक्स की चौड़ाई, और "
+"अक्षर तथा पंक्ति की दूरी टेक्स्ट बॉक्स का आकार निर्धारित करते हैं, इसलिए "
+"इन्हें कीफ़्रेम नहीं किया जा सकता; टेक्स्ट के आकार को एनिमेट करने के लिए, "
+"क्लिप के स्केल को कीफ़्रेम करें। प्रत्येक क्लिप अपने टेक्स्ट रंग, आउटलाइन और"
+" सीमा की चौड़ाई को अन्य गुणों की तरह कीफ़्रेम कमांड से एनिमेट कर सकता है:"
+
+#: ../doc/agent_cli.rst:659
+msgid ""
+"The animated properties are ``text_color``, ``text_background``, "
+"``text_stroke`` and ``text_border`` (colors, with ``.red``, ``.green``, "
+"``.blue`` and ``.alpha`` from 0 to 255), plus ``text_stroke_width``, "
+"``text_border_width`` and ``text_background_corner``. A clip's own animation"
+" wins over the shared style, and ``text get`` lists which styles a clip "
+"animates. ``text reset CLIP_ID`` returns a clip to the default style, like "
+"**Text → Reset Style**; ``--keyframes-only`` just removes the clip's own "
+"animation. To style many texts at once, select them with "
+"``{\"text\":true}``:"
+msgstr ""
+"एनिमेटेड गुण हैं ``text_color``, ``text_background``, ``text_stroke`` और "
+"``text_border`` (रंग, जिनमें ``.red``, ``.green``, ``.blue`` और ``.alpha`` 0"
+" से 255 तक होते हैं), साथ ही ``text_stroke_width``, ``text_border_width`` और"
+" ``text_background_corner``\\ । एक क्लिप की अपनी एनिमेशन साझा शैली पर जीतती "
+"है, और ``text get`` सूचीबद्ध करता है कि कौन सी शैलियाँ क्लिप एनिमेट करता है।"
+" ``text reset CLIP_ID`` क्लिप को डिफ़ॉल्ट शैली में वापस लाता है, जैसे **Text"
+" → Reset Style**; ``--keyframes-only`` केवल क्लिप की अपनी एनिमेशन हटाता है। "
+"कई टेक्स्ट को एक साथ स्टाइल करने के लिए, उन्हें ``{\"text\":true}`` से "
+"चुनें:"
+
+#: ../doc/agent_cli.rst:672
+msgid "Applying a batch of edits"
+msgstr "संपादनों के बैच को लागू करना"
+
+#: ../doc/agent_cli.rst:674
+msgid ""
+"``edit apply --json @edits.json --expect-revision 12`` accepts up to 256 "
+"ordered mutation commands, using dotted command names such as ``clip.set`` "
+"and ``effects.add`` (the older ``effect.add`` spelling also works)::"
+msgstr ""
+"``edit apply --json @edits.json --expect-revision 12`` 256 तक क्रमबद्ध "
+"म्यूटेशन कमांड स्वीकार करता है, जैसे ``clip.set`` और ``effects.add`` (पुराना"
+" ``effect.add`` वर्तनी भी काम करता है) जैसे डॉटेड कमांड नामों का उपयोग "
+"करके::"
+
+#: ../doc/agent_cli.rst:685
+msgid ""
+"The optional ``as`` binds a result for later commands in the same batch. A "
+"``{\"$ref\":\"shot.id\"}`` object substitutes that result's field. "
+"References only resolve earlier names; misspellings, forward references, and"
+" duplicate names fail before live updates. The response includes ordered "
+"compact results and a ``refs`` map of actual IDs. All changes in a "
+"successful batch form one undo/redo step. ``project.profile.set`` also "
+"supports populated timelines. Opening, saving, exporting, and inspection "
+"commands stay outside edit batches. Each command's help lists its JSON "
+"parameter names, including the underscore spelling of shell flags (for "
+"example, ``--fps-num`` becomes ``fps_num``)."
+msgstr ""
+"वैकल्पिक ``as`` उसी बैच में बाद के कमांड के लिए एक परिणाम बांधता है। एक "
+"``{\"$ref\":\"shot.id\"}`` ऑब्जेक्ट उस परिणाम के फ़ील्ड को प्रतिस्थापित करता"
+" है। संदर्भ केवल पहले के नामों को हल करते हैं; गलत वर्तनी, अग्रिम संदर्भ, और"
+" डुप्लिकेट नाम लाइव अपडेट से पहले विफल हो जाते हैं। प्रतिक्रिया में क्रमबद्ध"
+" संक्षिप्त परिणाम और वास्तविक आईडी का ``refs`` मानचित्र शामिल होता है। सफल "
+"बैच में सभी परिवर्तन एक पूर्ववत/पुनः करने वाले चरण बनाते हैं। "
+"``project.profile.set`` भरे हुए टाइमलाइन का भी समर्थन करता है। खोलने, "
+"सहेजने, निर्यात करने, और निरीक्षण कमांड संपादन बैच के बाहर रहते हैं। "
+"प्रत्येक कमांड की सहायता इसके JSON पैरामीटर नाम सूचीबद्ध करती है, जिसमें शेल"
+" फ्लैग्स की अंडरस्कोर वर्तनी शामिल है (उदाहरण के लिए, ``--fps-num`` "
+"``fps_num`` बन जाता है)।"
+
+#: ../doc/agent_cli.rst:696
+msgid "Validating batches and handling errors"
+msgstr "बैचों का सत्यापन और त्रुटियों को संभालना"
+
+#: ../doc/agent_cli.rst:698
+msgid ""
+"All commands in edit batches preflight against a detached project before any"
+" live updates. Invalid input leaves the live project and revision unchanged."
+" Valid batches form one undo group. Unexpected runtime failures can still "
+"produce partial changes; errors report completed operations. A timeout does "
+"not imply cancellation, so inspect state before retrying mutations."
+msgstr ""
+"संपादन बैचों के सभी कमांड किसी भी लाइव अपडेट से पहले एक अलग प्रोजेक्ट के "
+"खिलाफ पूर्व-उड़ान करते हैं। अमान्य इनपुट लाइव प्रोजेक्ट और संशोधन को "
+"अपरिवर्तित छोड़ देता है। वैध बैच एक पूर्ववत समूह बनाते हैं। अप्रत्याशित "
+"रनटाइम विफलताएँ अभी भी आंशिक परिवर्तन उत्पन्न कर सकती हैं; त्रुटियाँ पूर्ण "
+"संचालन की रिपोर्ट करती हैं। टाइमआउट रद्दीकरण का संकेत नहीं देता, इसलिए "
+"म्यूटेशन पुनः प्रयास करने से पहले स्थिति जांचें।"
+
+#: ../doc/agent_cli.rst:705
+msgid "Precise keyframe editing"
+msgstr "सटीक कीफ़्रेम संपादन"
+
+#: ../doc/agent_cli.rst:707
+msgid ""
+"``clip``, ``transition``, and ``effects`` support ``keyframe list``, "
+"``set``, ``remove``, ``clear``, ``transform``, ``copy``, and ``paste``. "
+"Property paths can address nested curves, such as ``color.red`` on a Chroma "
+"Key effect. Editing a nested curve preserves sibling channels. Run "
+"``keyframe list ID`` without a property to discover curve paths and point "
+"counts. Discovery and point listings include trim/position timing context; "
+"point listings also report native frame coordinates. ``get`` and "
+"``properties`` expose the complete native object and property metadata. "
+"Errors identify invalid fields, suggest close property names, and explain "
+"coordinate corrections."
+msgstr ""
+"``clip``, ``transition``, और ``effects`` ``keyframe list``, ``set``, "
+"``remove``, ``clear``, ``transform``, ``copy``, और ``paste`` का समर्थन करते "
+"हैं। प्रॉपर्टी पथ नेस्टेड कर्व को संबोधित कर सकते हैं, जैसे कि Chroma Key "
+"प्रभाव पर ``color.red``\\ । नेस्टेड कर्व संपादन से सिबलिंग चैनल सुरक्षित "
+"रहते हैं। कर्व पथ और पॉइंट गणना खोजने के लिए बिना प्रॉपर्टी के ``keyframe "
+"list ID`` चलाएं। खोज और पॉइंट सूचीकरण में ट्रिम/स्थिति समय संदर्भ शामिल होता"
+" है; पॉइंट सूचीकरण मूल फ्रेम निर्देशांक भी रिपोर्ट करता है। ``get`` और "
+"``properties`` पूर्ण मूल ऑब्जेक्ट और प्रॉपर्टी मेटाडेटा प्रकट करते हैं। "
+"त्रुटियाँ अमान्य फ़ील्ड की पहचान करती हैं, निकटवर्ती प्रॉपर्टी नाम सुझाती "
+"हैं, और निर्देशांक सुधार समझाती हैं।"
+
+#: ../doc/agent_cli.rst:717
+msgid ""
+"Choose coordinates explicitly with ``--space native|clip|timeline`` and "
+"``--unit frames|seconds``. All frames use project FPS and are 1-based; "
+"seconds start at zero and snap to the nearest frame. Native is the existing "
+"engine keyframe coordinate (including source trim). Clip coordinates start "
+"at the visible clip in-point; timeline coordinates start at project time "
+"zero. Attached effects use their parent clip's timing. These coordinates "
+"address animation time, not the media frames selected by a time-remapping "
+"curve."
+msgstr ""
+"``--space native|clip|timeline`` और ``--unit frames|seconds`` के साथ स्पष्ट "
+"रूप से निर्देशांक चुनें। सभी फ्रेम प्रोजेक्ट FPS का उपयोग करते हैं और "
+"1-आधारित होते हैं; सेकंड शून्य से शुरू होते हैं और निकटतम फ्रेम पर स्नैप "
+"होते हैं। Native मौजूदा इंजन कीफ़्रेम निर्देशांक है (स्रोत ट्रिम सहित)। "
+"क्लिप निर्देशांक दृश्य क्लिप इन-पॉइंट से शुरू होते हैं; टाइमलाइन निर्देशांक "
+"प्रोजेक्ट समय शून्य से शुरू होते हैं। संलग्न प्रभाव अपने पैरेंट क्लिप के समय"
+" का उपयोग करते हैं। ये निर्देशांक एनिमेशन समय को संबोधित करते हैं, न कि "
+"मीडिया फ्रेम जिन्हें टाइम-रिमैपिंग कर्व द्वारा चुना गया है।"
+
+#: ../doc/agent_cli.rst:725
+msgid ""
+"For a clip positioned at 5 seconds, trimmed at 2 seconds, in a 30 fps "
+"project, clip frame 1, timeline frame 151, and native frame 61 address the "
+"same point. Position and trim snap independently to the project frame grid. "
+"Listing an entire curve can include hidden points with nonpositive "
+"clip/timeline coordinates. Legacy ``--frame`` still means a native frame and"
+" cannot combine with ``--at``."
+msgstr ""
+"5 सेकंड पर स्थित एक क्लिप के लिए, जिसे 2 सेकंड पर ट्रिम किया गया है, 30 fps "
+"प्रोजेक्ट में, क्लिप फ्रेम 1, टाइमलाइन फ्रेम 151, और नेटिव फ्रेम 61 एक ही "
+"बिंदु को संदर्भित करते हैं। पोजीशन और ट्रिम स्वतंत्र रूप से प्रोजेक्ट फ्रेम "
+"ग्रिड से स्नैप होते हैं। पूरी कर्व सूची में नकारात्मक या शून्य "
+"क्लिप/टाइमलाइन निर्देशांक वाले छिपे हुए बिंदु भी शामिल हो सकते हैं। पुराना "
+"``--frame`` अभी भी नेटिव फ्रेम का मतलब है और इसे ``--at`` के साथ संयोजित "
+"नहीं किया जा सकता।"
+
+#: ../doc/agent_cli.rst:731
+msgid "Examples::"
+msgstr "उदाहरण::"
+
+#: ../doc/agent_cli.rst:743
+msgid "Interpolation, easing, and preview"
+msgstr "इंटरपोलेशन, ईज़िंग, और पूर्वावलोकन"
+
+#: ../doc/agent_cli.rst:745
+msgid ""
+"Interpolation describes the segment **into the destination point**. Linear "
+"gives a steady rate between points. Constant holds the preceding value until"
+" the destination, then jumps. Native default Bezier handles ease at both "
+"ends of each segment. Adding an intermediate point can therefore introduce "
+"an unintended slowdown; for one eased move, start with two endpoints. "
+"Normally leave handles alone and choose a named preset for a specific style."
+msgstr ""
+"इंटरपोलेशन उस खंड का वर्णन करता है जो **गंतव्य बिंदु की ओर** होता है। लिनियर"
+" बिंदुओं के बीच स्थिर दर देता है। कॉन्स्टेंट गंतव्य तक पूर्ववर्ती मान को "
+"बनाए रखता है, फिर अचानक बदलता है। नेटिव डिफ़ॉल्ट Bezier हैंडल प्रत्येक खंड "
+"के दोनों सिरों पर ईज़िंग करता है। एक मध्यवर्ती बिंदु जोड़ने से अनजाने में "
+"धीमा होना हो सकता है; एक ईज़्ड मूव के लिए, दो एंडपॉइंट्स से शुरू करें। "
+"सामान्यतः हैंडल्स को वैसे ही छोड़ें और किसी विशिष्ट शैली के लिए नामित "
+"प्रीसेट चुनें।"
+
+#: ../doc/agent_cli.rst:752
+msgid ""
+"Discover the same easing presets used by the editor's menus, without a "
+"session::"
+msgstr ""
+"सत्र के बिना, संपादक के मेनू द्वारा उपयोग किए गए समान ईज़िंग प्रीसेट खोजें::"
+
+#: ../doc/agent_cli.rst:756
+msgid "Apply a preset to the incoming segment by setting its destination::"
+msgstr "अपने गंतव्य को सेट करके आने वाले खंड पर एक प्रीसेट लागू करें::"
+
+#: ../doc/agent_cli.rst:761
+msgid ""
+"The easing option implies Bezier. It sets the previous point's outgoing "
+"handle and the destination's incoming handle together, preserving other "
+"handles and point values. An earlier point must exist. Do not combine it "
+"with custom handles or a different interpolation. Presets work in batches "
+"and bulk templates. The GUI preset **ease** (\"Ease (Default)\") differs "
+"from the native handles used by plain Bezier interpolation. Back presets can"
+" overshoot endpoint values."
+msgstr ""
+"ईज़िंग विकल्प Bezier को दर्शाता है। यह पिछले बिंदु के आउटगोइंग हैंडल और "
+"गंतव्य के इनकमिंग हैंडल को एक साथ सेट करता है, अन्य हैंडल और बिंदु मानों को "
+"संरक्षित करते हुए। एक पूर्व बिंदु मौजूद होना चाहिए। इसे कस्टम हैंडल या किसी "
+"अलग इंटरपोलेशन के साथ संयोजित न करें। प्रीसेट बैच और बल्क टेम्पलेट में काम "
+"करते हैं। GUI प्रीसेट **ease** (\"Ease (Default)\") साधारण Bezier इंटरपोलेशन"
+" में उपयोग किए गए नेटिव हैंडल से अलग है। बैक प्रीसेट्स एंडपॉइंट मानों को "
+"ओवरशूट कर सकते हैं।"
+
+#: ../doc/agent_cli.rst:768
+msgid ""
+"Inspect motion **before rendering**, using the native curve evaluator::"
+msgstr ""
+"नेटिव कर्व इवैल्युएटर का उपयोग करके **रेंडरिंग से पहले** गति का निरीक्षण "
+"करें::"
+
+#: ../doc/agent_cli.rst:773
+msgid ""
+"Preview is read-only and works identically for effects and transitions. It "
+"returns values and signed incoming_rate / outgoing_rate in property units "
+"per second, calculated from immediately adjacent frames. These are finite "
+"differences, not analytic derivatives. At native frame 1 the incoming rate "
+"is null. Adjacent-frame rates can inspect outside the requested range. Near-"
+"zero rates around an interior point reveal a pause; differing rates reveal a"
+" speed change. Constant interpolation reveals a jump at the destination."
+msgstr ""
+"पूर्वावलोकन केवल-पढ़ने योग्य है और प्रभावों और संक्रमणों के लिए समान रूप से "
+"काम करता है। यह मान और साइन किए गए incoming_rate / outgoing_rate को प्रति "
+"सेकंड प्रॉपर्टी यूनिट में लौटाता है, जो तुरंत आस-पास के फ्रेम से गणना किए "
+"जाते हैं। ये सीमित अंतर हैं, विश्लेषणात्मक व्युत्पन्न नहीं। नेटिव फ्रेम 1 पर"
+" incoming rate शून्य होता है। आस-पास के फ्रेम दर अनुरोधित सीमा के बाहर भी "
+"निरीक्षण कर सकते हैं। आंतरिक बिंदु के आसपास लगभग शून्य दरें एक विराम दिखाती "
+"हैं; भिन्न दरें गति परिवर्तन दिखाती हैं। कॉन्स्टेंट इंटरपोलेशन गंतव्य पर एक "
+"छलांग दिखाता है।"
+
+#: ../doc/agent_cli.rst:781
+msgid ""
+"Without a range, preview spans the curve's first and last points. Ranges are"
+" inclusive, with 17 evenly spaced samples by default (--count: 2–256). "
+"Keyframes and their immediate neighbors inside the range are also included, "
+"so a sparse sample count will not hide a keyframe stall. The maximum is 1024"
+" samples; larger requests require a narrower range. --at samples one frame. "
+"Preview reports requested-space coordinates and actual native frames; "
+"seconds snap to project frames as they do for editing."
+msgstr ""
+"रेंज के बिना, पूर्वावलोकन कर्व के पहले और अंतिम बिंदुओं को कवर करता है। रेंज"
+" समावेशी होती हैं, डिफ़ॉल्ट रूप से 17 समान रूप से फैले नमूने (--count: "
+"2–256) के साथ। कीफ्रेम और उनके तत्काल पड़ोसी भी रेंज के अंदर शामिल होते हैं,"
+" इसलिए कम नमूना संख्या कीफ्रेम स्टॉल को छिपाएगी नहीं। अधिकतम 1024 नमूने हैं;"
+" बड़े अनुरोधों के लिए संकीर्ण रेंज आवश्यक है। --at एक फ्रेम का नमूना लेता "
+"है। पूर्वावलोकन अनुरोधित-स्थान निर्देशांक और वास्तविक नेटिव फ्रेम रिपोर्ट "
+"करता है; सेकंड प्रोजेक्ट फ्रेम से स्नैप होते हैं जैसे संपादन में होता है।"
+
+#: ../doc/agent_cli.rst:789
+msgid ""
+"For advanced custom handles, both X and Y are normalized to the segment: X "
+"is a fraction of its frame span; Y is a fraction of its value change. The "
+"first control comes from the previous point's handle_right, the second from "
+"the destination's handle_left. Native defaults are right=(0.5, 0), "
+"left=(0.5, 1), with flat endpoint tangents. Changing handle_type alone does "
+"not recalculate a continuous tangent through surrounding points. Existing "
+"handles are preserved when moving a point."
+msgstr ""
+"उन्नत कस्टम हैंडल के लिए, X और Y दोनों को खंड के अनुसार सामान्यीकृत किया "
+"जाता है: X उसके फ्रेम स्पैन का एक अंश है; Y उसके मान परिवर्तन का एक अंश है। "
+"पहला नियंत्रण पिछले बिंदु के handle_right से आता है, दूसरा गंतव्य के "
+"handle_left से। नेटिव डिफ़ॉल्ट्स हैं right=(0.5, 0), left=(0.5, 1), सपाट "
+"एंडपॉइंट टैन्जेंट्स के साथ। केवल handle_type बदलने से आस-पास के बिंदुओं के "
+"माध्यम से निरंतर टैन्जेंट पुनर्गणना नहीं होती। बिंदु को स्थानांतरित करते समय"
+" मौजूदा हैंडल संरक्षित रहते हैं।"
+
+#: ../doc/agent_cli.rst:797
+msgid ""
+"Keyframe ranges are **inclusive**, unlike clip-selection time ranges. List "
+"emits ``points`` whose ``co.X`` values use the requested coordinate "
+"space/unit. Pass that array to ``keyframe paste --json @points.json`` with "
+"the same space/unit, choosing ``--mode merge`` (replace matching frames, "
+"retain others) or ``--mode replace`` (replace the entire curve). ``copy`` "
+"accepts a source of the same object kind, an optional ``--source-property``,"
+" and anchors the first selected source point at ``--at`` on the target. "
+"Other curves and source objects remain unchanged."
+msgstr ""
+"कीफ्रेम रेंज **समावेशी** होती हैं, क्लिप-चयन समय रेंज के विपरीत। सूची "
+"``points`` जारी करती है जिनके ``co.X`` मान अनुरोधित निर्देशांक स्थान/इकाई का"
+" उपयोग करते हैं। उस सरणी को ``keyframe paste --json @points.json`` को उसी "
+"स्थान/इकाई के साथ पास करें, ``--mode merge`` (मिलते फ्रेम बदलें, अन्य रखें) "
+"या ``--mode replace`` (पूरी कर्व बदलें) चुनते हुए। ``copy`` समान ऑब्जेक्ट "
+"प्रकार का स्रोत स्वीकार करता है, वैकल्पिक ``--source-property`` के साथ, और "
+"पहले चयनित स्रोत बिंदु को लक्ष्य पर ``--at`` पर एंकर करता है। अन्य कर्व और "
+"स्रोत ऑब्जेक्ट अपरिवर्तित रहते हैं।"
+
+#: ../doc/agent_cli.rst:805
+msgid ""
+"``transform`` applies a positive time scale around the first selected point,"
+" or ``--pivot``, followed by a signed ``--offset`` in the chosen unit. Frame"
+" snapping that creates duplicate coordinates is rejected, including "
+"collisions with points outside the selected range. Native coordinates must "
+"remain at least 1. Native normalized Bézier handles and interpolation travel"
+" with each point; handles are not absolute frame coordinates. ``set "
+"--handles`` changes only supplied handles. Interpolation belongs to the "
+"destination point."
+msgstr ""
+"``transform`` पहले चयनित बिंदु या ``--pivot`` के आसपास सकारात्मक समय पैमाना "
+"लागू करता है, इसके बाद चुनी गई इकाई में साइन किया हुआ ``--offset`` होता है। "
+"फ्रेम स्नैपिंग जो डुप्लिकेट निर्देशांक बनाता है, अस्वीकार कर दिया जाता है, "
+"जिसमें चयनित रेंज के बाहर के बिंदुओं के साथ टकराव भी शामिल है। नेटिव "
+"निर्देशांक कम से कम 1 रहना चाहिए। नेटिव सामान्यीकृत Bézier हैंडल और "
+"इंटरपोलेशन प्रत्येक बिंदु के साथ चलते हैं; हैंडल पूर्ण फ्रेम निर्देशांक नहीं"
+" हैं। ``set --handles`` केवल प्रदान किए गए हैंडल बदलता है। इंटरपोलेशन गंतव्य"
+" बिंदु का होता है।"
+
+#: ../doc/agent_cli.rst:813
+msgid ""
+"``clear`` retains a constant base point at native frame 1: specify "
+"``--value`` or sample the existing curve with ``--at`` (default native frame"
+" 1). Removing the last point also retains a constant base, so subsequent "
+"keyframe additions remain valid."
+msgstr ""
+"``clear`` नेटिव फ्रेम 1 पर एक स्थिर बेस पॉइंट बनाए रखता है: ``--value`` "
+"निर्दिष्ट करें या ``--at`` के साथ मौजूदा कर्व का नमूना लें (डिफ़ॉल्ट नेटिव "
+"फ्रेम 1)। अंतिम बिंदु हटाने से भी स्थिर बेस बना रहता है, इसलिए बाद के "
+"कीफ्रेम जोड़ना मान्य रहता है।"
+
+#: ../doc/agent_cli.rst:818
+msgid "Selecting and editing many clips"
+msgstr "कई क्लिप का चयन और संपादन"
+
+#: ../doc/agent_cli.rst:820
+msgid ""
+"Use ``edit apply --dry-run`` to validate a batch without changing the "
+"project. Use ``edit bulk`` to repeat a small command template for each "
+"selected clip, with all changes grouped into one undo step."
+msgstr ""
+"प्रोजेक्ट बदले बिना बैच को मान्य करने के लिए ``edit apply --dry-run`` का "
+"उपयोग करें। प्रत्येक चयनित क्लिप के लिए एक छोटा कमांड टेम्पलेट दोहराने के "
+"लिए ``edit bulk`` का उपयोग करें, जिसमें सभी परिवर्तन एक ही undo चरण में "
+"समूहित हों।"
+
+#: ../doc/agent_cli.rst:824
+msgid "First preview a selection::"
+msgstr "पहले चयन का पूर्वावलोकन करें::"
+
+#: ../doc/agent_cli.rst:828
+msgid ""
+"Selectors support ``ids`` (unique clip ID array), ``layer``, "
+"``start``/``end`` (timeline seconds), ``file_id``, ``effect`` (class name or"
+" alias), and ``text`` (``true`` selects text clips). Filters combine with "
+"AND. Time ranges select clips overlapping ``[start, end)``; they do not trim"
+" those clips. Results are ordered by position, layer, then ID, and include "
+"IDs, summaries, lock state, and the current revision. Unknown IDs are "
+"errors. An empty selector is rejected; use ``{\"all\":true}`` explicitly for"
+" every clip. Selections are bounded to 256 clips and are never silently "
+"truncated."
+msgstr ""
+"सेलेक्टर्स ``ids`` (अद्वितीय क्लिप आईडी सूची), ``layer``, ``start``/``end`` "
+"(टाइमलाइन सेकंड), ``file_id``, ``effect`` (क्लास नाम या उपनाम), और ``text`` "
+"(``true`` टेक्स्ट क्लिप चुनता है) का समर्थन करते हैं। फ़िल्टर AND के साथ "
+"संयोजित होते हैं। समय सीमा उन क्लिप्स का चयन करती है जो ``[start, end)`` के "
+"साथ ओवरलैप करते हैं; वे उन क्लिप्स को ट्रिम नहीं करते। परिणाम स्थिति, लेयर, "
+"फिर ID के अनुसार क्रमबद्ध होते हैं, और इनमें IDs, सारांश, लॉक स्थिति, और "
+"वर्तमान संशोधन शामिल होते हैं। अज्ञात IDs त्रुटियाँ हैं। खाली सेलेक्टर "
+"अस्वीकार किया जाता है; हर क्लिप के लिए स्पष्ट रूप से ``{\"all\":true}`` का "
+"उपयोग करें। चयन 256 क्लिप तक सीमित हैं और कभी भी चुपचाप कट नहीं जाते।"
+
+#: ../doc/agent_cli.rst:837
+msgid "For example, save this array as ``templates.json``::"
+msgstr "उदाहरण के लिए, इस सूची को ``templates.json`` के रूप में सहेजें::"
+
+#: ../doc/agent_cli.rst:846
+msgid "Validate it, then apply against the revision returned by selection::"
+msgstr ""
+"इसे सत्यापित करें, फिर चयन द्वारा लौटाए गए संशोधन के खिलाफ लागू करें::"
+
+#: ../doc/agent_cli.rst:851
+msgid ""
+"Existing-clip commands inherit ``id``; ``effects.add`` inherits ``clip_id``."
+" Omit these target parameters in templates. Effect edits must reference an "
+"earlier named result. Names are local to each selected clip, so ``look.id`` "
+"refers to a different effect for each clip. To change existing effect "
+"instances by explicit ID, continue using ``edit apply``. The selected ID set"
+" is fixed before expansion; changes to position or effects do not change the"
+" remaining targets."
+msgstr ""
+"मौजूदा क्लिप कमांड ``id`` विरासत में लेते हैं; ``effects.add`` ``clip_id`` "
+"विरासत में लेता है। टेम्पलेट्स में इन लक्ष्य पैरामीटरों को छोड़ दें। प्रभाव "
+"संपादनों को पहले नामित परिणाम का संदर्भ देना चाहिए। नाम प्रत्येक चयनित क्लिप"
+" के लिए स्थानीय होते हैं, इसलिए ``look.id`` प्रत्येक क्लिप के लिए अलग प्रभाव"
+" को संदर्भित करता है। स्पष्ट ID द्वारा मौजूदा प्रभाव उदाहरणों को बदलने के "
+"लिए, ``edit apply`` का उपयोग जारी रखें। चयनित ID सेट विस्तार से पहले निश्चित"
+" होता है; स्थिति या प्रभावों में परिवर्तन शेष लक्ष्यों को नहीं बदलते।"
+
+#: ../doc/agent_cli.rst:858
+msgid ""
+"``clip set`` applies absolute properties; ``clip adjust`` applies "
+"``multiply`` then ``add`` to a numeric property or every value in a curve, "
+"preserving point timing, interpolation, and normalized handles. It validates"
+" resulting values, including nonnegative positions and volume. Structural "
+"fields remain protected."
+msgstr ""
+"``clip set`` पूर्ण गुण लागू करता है; ``clip adjust`` एक संख्यात्मक गुण या "
+"कर्व में हर मान पर पहले ``multiply`` फिर ``add`` लागू करता है, बिंदु समय, "
+"इंटरपोलेशन, और सामान्यीकृत हैंडल को संरक्षित करते हुए। यह परिणामी मानों को "
+"सत्यापित करता है, जिसमें गैर-ऋणात्मक स्थिति और वॉल्यूम शामिल हैं। संरचनात्मक"
+" फ़ील्ड सुरक्षित रहते हैं।"
+
+#: ../doc/agent_cli.rst:863
+msgid ""
+"Bulk operations reject empty selections, locked target tracks, and more than"
+" 256 expanded commands. Every expanded operation passes detached preflight "
+"before any live edit. Dry runs do not reserve generated IDs. Use ``--expect-"
+"revision`` to reject stale selections. Successful batches are one undo step,"
+" including after save/reopen. GUI refreshes are batched. Unexpected "
+"runtime/listener errors can still leave a partial transaction; the error "
+"reports completed operations and undo reverts that group, as with ``edit "
+"apply``."
+msgstr ""
+"थोक संचालन खाली चयन, लॉक किए गए लक्ष्य ट्रैक, और 256 से अधिक विस्तारित कमांड"
+" को अस्वीकार करते हैं। प्रत्येक विस्तारित ऑपरेशन किसी भी लाइव संपादन से पहले"
+" अलग प्रीफ़्लाइट पास करता है। ड्राई रन उत्पन्न IDs आरक्षित नहीं करते। पुराने"
+" चयन को अस्वीकार करने के लिए ``--expect-revision`` का उपयोग करें। सफल बैच एक"
+" अनडू चरण होते हैं, जिसमें सहेजने/पुनः खोलने के बाद भी शामिल है। GUI रिफ्रेश"
+" बैच में होते हैं। अप्रत्याशित रनटाइम/लिसनर त्रुटियाँ अभी भी आंशिक लेनदेन "
+"छोड़ सकती हैं; त्रुटि पूरी हुई ऑपरेशनों की रिपोर्ट करती है और अनडू उस समूह "
+"को पूर्ववत करता है, जैसा कि ``edit apply`` के साथ होता है।"
+
+#: ../doc/agent_cli.rst:872
+msgid "Profiles"
+msgstr "प्रोफाइल"
+
+#: ../doc/agent_cli.rst:874
+msgid "Discover profiles and match imported video without guessing IDs::"
+msgstr "प्रोफाइल खोजें और बिना IDs का अनुमान लगाए आयातित वीडियो से मेल करें::"
+
+#: ../doc/agent_cli.rst:884
+msgid ""
+"Catalog entries include stable IDs, descriptions, dimensions, rational FPS, "
+"aspect ratios, and scan settings. List/search is paginated. Source matching "
+"returns exact IDs and ranked alternatives with explicit differences. Setting"
+" from a file requires an exact match unless ``--create-custom`` is "
+"specified; it never silently chooses a nearby profile. Still images and "
+"audio-only sources cannot define a video profile. Matching uses declared "
+"source FPS."
+msgstr ""
+"कैटलॉग प्रविष्टियों में स्थिर IDs, विवरण, आयाम, युक्तिसंगत FPS, पहलू अनुपात,"
+" और स्कैन सेटिंग्स शामिल हैं। सूची/खोज पृष्ठित होती है। स्रोत मिलान सटीक IDs"
+" और स्पष्ट अंतर के साथ रैंक किए गए विकल्प लौटाता है। फ़ाइल से सेटिंग के लिए "
+"सटीक मेल आवश्यक है जब तक कि ``--create-custom`` निर्दिष्ट न हो; यह कभी भी "
+"पास के प्रोफाइल को चुपचाप नहीं चुनता। स्थिर छवियाँ और केवल ऑडियो स्रोत "
+"वीडियो प्रोफाइल परिभाषित नहीं कर सकते। मिलान घोषित स्रोत FPS का उपयोग करता "
+"है।"
+
+#: ../doc/agent_cli.rst:891
+msgid ""
+"Custom settings are embedded in the saved project, including rational rates,"
+" so reopening does not require installing a separate profile file. Project "
+"profile changes use existing frame-rate conversion and one undo transaction."
+" Undo/redo restores clip timing and keyframes, including rounding-sensitive "
+"positions. Export can independently select a profile without changing the "
+"project."
+msgstr ""
+"कस्टम सेटिंग्स सहेजे गए प्रोजेक्ट में एम्बेड होती हैं, जिसमें युक्तिसंगत "
+"दरें शामिल हैं, इसलिए पुनः खोलने के लिए अलग प्रोफाइल फ़ाइल स्थापित करने की "
+"आवश्यकता नहीं होती। प्रोजेक्ट प्रोफाइल परिवर्तन मौजूदा फ्रेम-रेट रूपांतरण और"
+" एक अनडू लेनदेन का उपयोग करते हैं। अनडू/रीडू क्लिप समय और कीफ़्रेम्स को "
+"पुनर्स्थापित करता है, जिसमें राउंडिंग-संवेदनशील स्थिति शामिल हैं। निर्यात "
+"स्वतंत्र रूप से प्रोफाइल चुन सकता है बिना प्रोजेक्ट बदले।"
+
+#: ../doc/agent_cli.rst:897
+msgid ""
+"Saved undo history follows the editor's history-limit preference. The limit "
+"is a soft action budget: all records belonging to retained transactions are "
+"kept, so saving cannot truncate a large batch into a partial undo action. "
+"Zero disables saved history. The separate 256-command batch request bound "
+"still applies."
+msgstr ""
+"सहेजी गई अनडू इतिहास संपादक की इतिहास-सीमा प्राथमिकता का पालन करती है। यह "
+"सीमा एक सॉफ्ट क्रिया बजट है: सभी रिकॉर्ड जो रखे गए लेनदेन से संबंधित हैं, "
+"रखे जाते हैं, इसलिए सहेजना बड़े बैच को आंशिक अनडू क्रिया में काट नहीं सकता। "
+"शून्य सहेजी गई इतिहास को अक्षम करता है। अलग 256-कमांड बैच अनुरोध सीमा अभी भी"
+" लागू होती है।"
+
+#: ../doc/agent_cli.rst:903
+msgid "Inspecting media and timelines"
+msgstr "मीडिया और टाइमलाइन का निरीक्षण"
+
+#: ../doc/agent_cli.rst:905
+msgid ""
+"Inspect clip timing and track layout as text or JSON, or render images to "
+"review composition and framing before exporting."
+msgstr ""
+"क्लिप समय और ट्रैक लेआउट को टेक्स्ट या JSON के रूप में निरीक्षण करें, या "
+"निर्यात से पहले रचना और फ्रेमिंग की समीक्षा के लिए छवियाँ रेंडर करें।"
+
+#: ../doc/agent_cli.rst:909
+msgid "Timeline summaries"
+msgstr "टाइमलाइन सारांश"
+
+#: ../doc/agent_cli.rst:911
+msgid ""
+"Use a text view for a quick overview, or structured JSON for scripts and "
+"agents::"
+msgstr ""
+"त्वरित अवलोकन के लिए टेक्स्ट दृश्य का उपयोग करें, या स्क्रिप्ट और एजेंट्स के"
+" लिए संरचित JSON::"
+
+#: ../doc/agent_cli.rst:917
+msgid ""
+"``timeline view`` defaults to compact text with used tracks, object IDs, "
+"timeline/source intervals, stream state, gain, and gaps/overlaps. Use "
+"``--detail summary|clips|full`` to choose detail, ``--format json`` for "
+"structured context, and ``--start/--end``, ``--layer``, and pagination to "
+"focus the result."
+msgstr ""
+"``timeline view`` डिफ़ॉल्ट रूप से उपयोग किए गए ट्रैकों, ऑब्जेक्ट IDs, "
+"टाइमलाइन/स्रोत अंतराल, स्ट्रीम स्थिति, गेन, और गैप/ओवरलैप के साथ संक्षिप्त "
+"टेक्स्ट होता है। विवरण चुनने के लिए ``--detail summary|clips|full`` का उपयोग"
+" करें, संरचित संदर्भ के लिए ``--format json``, और परिणाम पर ध्यान केंद्रित "
+"करने के लिए ``--start/--end``, ``--layer``, और पेजिनेशन।"
+
+#: ../doc/agent_cli.rst:922
+msgid ""
+"``timeline overview`` supplies compact structured context without image "
+"bytes: ordered IDs, sequence per track, timeline/source intervals, visible "
+"trim ranges, frame coordinates, audio/video state, effects, and neighboring "
+"gaps or overlaps. Intervals and frame spans are end-exclusive; frame numbers"
+" are one-based. Source frames use source FPS; timeline and keyframe "
+"coordinates use project FPS. Use ``--layer`` and ``--start/--end`` to focus,"
+" and ``--limit/--offset`` to paginate (default 100, maximum 500 items). "
+"Time-remapped clips explicitly withhold inferred source mappings. Use the "
+"returned revision with ``edit apply --expect-revision``."
+msgstr ""
+"``timeline overview`` छवि बाइट्स के बिना संक्षिप्त संरचित संदर्भ प्रदान करता"
+" है: क्रमबद्ध IDs, प्रति ट्रैक अनुक्रम, टाइमलाइन/स्रोत अंतराल, दृश्य ट्रिम "
+"रेंज, फ्रेम निर्देशांक, ऑडियो/वीडियो स्थिति, प्रभाव, और पड़ोसी गैप या "
+"ओवरलैप। अंतराल और फ्रेम स्पैन अंत-विशिष्ट हैं; फ्रेम नंबर एक-आधारित हैं। "
+"स्रोत फ्रेम स्रोत FPS का उपयोग करते हैं; टाइमलाइन और कीफ़्रेम निर्देशांक "
+"प्रोजेक्ट FPS का उपयोग करते हैं। ध्यान केंद्रित करने के लिए ``--layer`` और "
+"``--start/--end`` का उपयोग करें, और पेजिनेशन के लिए ``--limit/--offset`` "
+"(डिफ़ॉल्ट 100, अधिकतम 500 आइटम)। टाइम-रिमैप्ड क्लिप स्पष्ट रूप से अनुमानित "
+"स्रोत मैपिंग्स को रोकते हैं। लौटाए गए संशोधन को ``edit apply --expect-"
+"revision`` के साथ उपयोग करें।"
+
+#: ../doc/agent_cli.rst:932
+msgid "Frame previews and contact sheets"
+msgstr "फ्रेम पूर्वावलोकन और संपर्क शीट"
+
+#: ../doc/agent_cli.rst:934
+msgid ""
+"Render a single frame with ``thumbnail`` or sample a range with ``strip``. "
+"Use ``file`` to inspect source media and ``timeline`` to inspect the "
+"composed video, including effects and layered clips::"
+msgstr ""
+"``thumbnail`` के साथ एकल फ्रेम रेंडर करें या ``strip`` के साथ एक सीमा का "
+"नमूना लें। स्रोत मीडिया का निरीक्षण करने के लिए ``file`` और प्रभावों और "
+"लेयर्ड क्लिप्स सहित संयोजित वीडियो का निरीक्षण करने के लिए ``timeline`` का "
+"उपयोग करें::"
+
+#: ../doc/agent_cli.rst:943
+msgid ""
+"Frame images default to 320x180 pixels; contact sheets default to 160x90 per"
+" tile, plus timecode labels. Use ``--width`` and ``--height`` to choose "
+"output pixels. Responses include exact sample/frame metadata. Contact sheets"
+" help review composition across a sequence; use keyframe previews and "
+"rendered video to assess motion between those samples."
+msgstr ""
+"फ्रेम छवियाँ डिफ़ॉल्ट रूप से 320x180 पिक्सेल होती हैं; संपर्क शीट्स प्रति "
+"टाइल 160x90 डिफ़ॉल्ट होती हैं, साथ ही टाइमकोड लेबल। आउटपुट पिक्सेल चुनने के "
+"लिए ``--width`` और ``--height`` का उपयोग करें। प्रतिक्रियाओं में सटीक "
+"नमूना/फ्रेम मेटाडेटा शामिल होता है। संपर्क शीट्स अनुक्रम में रचना की समीक्षा"
+" में मदद करती हैं; उन नमूनों के बीच गति का आकलन करने के लिए कीफ़्रेम "
+"पूर्वावलोकन और रेंडर किए गए वीडियो का उपयोग करें।"
+
+#: ../doc/agent_cli.rst:950
+msgid "Timeline images"
+msgstr "टाइमलाइन छवियाँ"
+
+#: ../doc/agent_cli.rst:952
+msgid ""
+"Capture the editor's track layout, including its ruler, thumbnails, effects,"
+" transitions, and waveforms::"
+msgstr ""
+"संपादक की ट्रैक लेआउट को कैप्चर करें, जिसमें इसका रूलर, थंबनेल, इफेक्ट्स, "
+"ट्रांज़िशन और वेवफ़ॉर्म शामिल हैं::"
+
+#: ../doc/agent_cli.rst:957
+msgid ""
+"Specifying ``--output`` selects image format; ``--format image`` also "
+"selects it explicitly. The capture does not change the editor's viewport or "
+"project. Responses include clip IDs and timing alongside pixel bounds."
+msgstr ""
+"``--output`` निर्दिष्ट करने से छवि प्रारूप चुना जाता है; ``--format image`` "
+"इसे स्पष्ट रूप से चुनता है। कैप्चर संपादक के व्यूपोर्ट या प्रोजेक्ट को नहीं "
+"बदलता। प्रतिक्रियाओं में क्लिप आईडी और समय के साथ पिक्सेल सीमाएँ शामिल होती "
+"हैं।"
+
+#: ../doc/agent_cli.rst:961
+msgid ""
+"Images default to 1280 pixels wide, with height fitted to used tracks. Use "
+"``--width``, ``--height``, or ``--all-tracks`` to adjust the layout, and "
+"``--track-size`` or ``--track-label-width`` to adjust tracks and labels. The"
+" start/end range determines zoom; ``--pixels-per-second`` instead derives "
+"the width from the time range."
+msgstr ""
+"छवियाँ डिफ़ॉल्ट रूप से 1280 पिक्सेल चौड़ी होती हैं, और ऊंचाई उपयोग किए गए "
+"ट्रैकों के अनुसार फिट होती है। लेआउट समायोजित करने के लिए ``--width``, "
+"``--height``, या ``--all-tracks`` का उपयोग करें, और ट्रैक और लेबल समायोजित "
+"करने के लिए ``--track-size`` या ``--track-label-width`` का उपयोग करें। "
+"प्रारंभ/समाप्ति सीमा ज़ूम निर्धारित करती है; ``--pixels-per-second`` इसके "
+"बजाय समय सीमा से चौड़ाई निकालता है।"
+
+#: ../doc/agent_cli.rst:968
+msgid "Audio waveform views"
+msgstr "ऑडियो वेवफ़ॉर्म दृश्य"
+
+#: ../doc/agent_cli.rst:970
+msgid ""
+"Choose ``--mode waveforms`` to inspect audio envelopes on the timeline::"
+msgstr ""
+"टाइमलाइन पर ऑडियो एनवलप्स का निरीक्षण करने के लिए ``--mode waveforms`` "
+"चुनें::"
+
+#: ../doc/agent_cli.rst:974
+msgid ""
+"``--mode auto`` uses the existing cached waveform display; ``--mode "
+"thumbnails`` shows thumbnails instead. Waveforms represent source peak/RMS "
+"levels with clip volume and timing adjustments, before audio effects or "
+"mixing."
+msgstr ""
+"``--mode auto`` मौजूदा कैश्ड वेवफ़ॉर्म डिस्प्ले का उपयोग करता है; ``--mode "
+"thumbnails`` इसके बजाय थंबनेल दिखाता है। वेवफ़ॉर्म स्रोत पीक/RMS स्तरों को "
+"क्लिप वॉल्यूम और समय समायोजन के साथ दर्शाते हैं, ऑडियो इफेक्ट्स या मिक्सिंग "
+"से पहले।"
+
+#: ../doc/agent_cli.rst:978
+msgid ""
+"Uncached waveform extraction decodes whole sources, limited to 600 seconds "
+"per source and 1200 source-seconds per request. Narrowing the visible range "
+"does not reduce that decoding work. For longer sources, generate waveforms "
+"in the editor first or use thumbnail mode. Subsequent requests can reuse "
+"cached waveforms."
+msgstr ""
+"अनकैश्ड वेवफ़ॉर्म निष्कर्षण पूरे स्रोतों को डिकोड करता है, प्रति स्रोत 600 "
+"सेकंड और प्रति अनुरोध 1200 स्रोत-सेकंड तक सीमित। दृश्य सीमा को संकीर्ण करने "
+"से वह डिकोडिंग कार्य कम नहीं होता। लंबे स्रोतों के लिए, पहले संपादक में "
+"वेवफ़ॉर्म बनाएं या थंबनेल मोड का उपयोग करें। बाद के अनुरोध कैश्ड वेवफ़ॉर्म "
+"पुनः उपयोग कर सकते हैं।"
+
+#: ../doc/agent_cli.rst:984
+msgid "Image output and limits"
+msgstr "छवि आउटपुट और सीमाएँ"
+
+#: ../doc/agent_cli.rst:986
+msgid ""
+"Image paths must be new PNG files in existing directories. Images are "
+"limited to 4096 pixels per axis, 8,388,608 total pixels, and 64 contact-"
+"sheet samples. Requests beyond these limits fail before rendering."
+msgstr ""
+"छवि पथ मौजूदा निर्देशिकाओं में नए PNG फ़ाइलें होनी चाहिए। छवियाँ प्रति अक्ष "
+"4096 पिक्सेल, कुल 8,388,608 पिक्सेल, और 64 कॉन्टैक्ट-शीट नमूनों तक सीमित "
+"हैं। इन सीमाओं से बाहर के अनुरोध रेंडरिंग से पहले विफल हो जाते हैं।"
+
+#: ../doc/agent_cli.rst:990
+msgid ""
+"Images are written to files; JSON responses include their paths and "
+"``image_bytes`` sizes. Inspection waits for the image to finish, and large "
+"requests can briefly occupy the editor."
+msgstr ""
+"छवियाँ फ़ाइलों में लिखी जाती हैं; JSON प्रतिक्रियाओं में उनके पथ और "
+"``image_bytes`` आकार शामिल होते हैं। निरीक्षण छवि के समाप्त होने का इंतजार "
+"करता है, और बड़े अनुरोध अस्थायी रूप से संपादक को व्यस्त कर सकते हैं।"
+
+#: ../doc/agent_cli.rst:995
+msgid "Handling command timeouts"
+msgstr "कमांड टाइमआउट को संभालना"
+
+#: ../doc/agent_cli.rst:997
+msgid ""
+"A request timeout does not mean a mutation failed. Use the operation ID in "
+"the error with ``operation get ID`` before retrying. ``operation list`` "
+"discovers recent mutations and their states, revisions, and outcomes. "
+"Completed operations retain their results when small enough, including "
+"returned object IDs. Storage is bounded to 100 operations and 4 MiB, with "
+"individual result bodies omitted above 256 KiB. These records last only for "
+"the running session. They do not restore projects after a crash or prevent a"
+" repeated command from applying the same edit again. Export jobs have their "
+"own status/list commands."
+msgstr ""
+"एक अनुरोध टाइमआउट का मतलब यह नहीं है कि परिवर्तन विफल हो गया। पुनः प्रयास "
+"करने से पहले त्रुटि में ऑपरेशन आईडी का उपयोग करें ``operation get ID`` के "
+"साथ। ``operation list`` हाल के परिवर्तनों और उनकी स्थितियों, संशोधनों, और "
+"परिणामों का पता लगाता है। पूर्ण ऑपरेशन अपने परिणाम तब तक रखते हैं जब वे छोटे"
+" हों, जिसमें लौटाए गए ऑब्जेक्ट आईडी शामिल हैं। संग्रहण 100 ऑपरेशनों और 4 MiB"
+" तक सीमित है, और 256 KiB से ऊपर के व्यक्तिगत परिणाम निकायों को छोड़ दिया "
+"जाता है। ये रिकॉर्ड केवल चल रहे सत्र के लिए रहते हैं। वे क्रैश के बाद "
+"प्रोजेक्ट्स को पुनर्स्थापित नहीं करते या एक ही संपादन को दोहराए गए कमांड से "
+"लागू होने से नहीं रोकते। एक्सपोर्ट जॉब्स के अपने स्वयं के स्थिति/सूची कमांड "
+"होते हैं।"

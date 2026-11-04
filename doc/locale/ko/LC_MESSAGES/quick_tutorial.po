@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-16 18:08-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,247 +18,230 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:23
+#: ../doc/quick_tutorial.rst:23
 msgid "Quick Tutorial"
 msgstr "빠른 튜토리얼"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:25
+#: ../doc/quick_tutorial.rst:25
 msgid ""
 "Using OpenShot is very easy, and this tutorial will take you through the "
-"basics in **under 5 minutes**. After this tutorial, you will be able to make "
-"a simple photo slide-show with music."
+"basics in **under 5 minutes**. After this tutorial, you will be able to make"
+" a simple photo slide-show with music."
 msgstr ""
-"OpenShot 사용은 매우 쉽고, 이 튜토리얼은 **5분 이내** 에 기본 사항을 안내합니"
-"다. 이 튜토리얼을 마치면 음악이 포함된 간단한 사진 슬라이드쇼를 만들 수 있습"
-"니다."
+"OpenShot 사용은 매우 쉽고, 이 튜토리얼은 **5분 이내** 에 기본 사항을 안내합니다. 이 튜토리얼을 마치면 음악이 포함된 "
+"간단한 사진 슬라이드쇼를 만들 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:30
+#: ../doc/quick_tutorial.rst:30
 msgid "Basic Terminology"
 msgstr "기본 용어"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:31
+#: ../doc/quick_tutorial.rst:31
 msgid ""
-"To help understand the steps below, here are some definitions of a few basic "
-"terms used in this tutorial."
-msgstr ""
-"아래 단계를 이해하는 데 도움이 되도록, 이 튜토리얼에서 사용되는 몇 가지 기본 "
-"용어의 정의를 소개합니다."
+"To help understand the steps below, here are some definitions of a few basic"
+" terms used in this tutorial."
+msgstr "아래 단계를 이해하는 데 도움이 되도록, 이 튜토리얼에서 사용되는 몇 가지 기본 용어의 정의를 소개합니다."
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:38
+#: ../doc/quick_tutorial.rst:38
 msgid "Term"
 msgstr "용어"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:38
+#: ../doc/quick_tutorial.rst:38
 msgid "Description"
 msgstr "설명"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:40
+#: ../doc/quick_tutorial.rst:40
 msgid "Project"
 msgstr "프로젝트"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:40
+#: ../doc/quick_tutorial.rst:40
 msgid ""
 "A **project** includes references to all the video files and edits "
 "(animations, titles, etc...), saved in a single file."
-msgstr ""
-"** 프로젝트** 는 모든 비디오 파일과 편집(애니메이션, 타이틀 등)에 대한 참조"
-"를 포함하며, 하나의 파일로 저장됩니다."
+msgstr "** 프로젝트** 는 모든 비디오 파일과 편집(애니메이션, 타이틀 등)에 대한 참조를 포함하며, 하나의 파일로 저장됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:41
+#: ../doc/quick_tutorial.rst:41
 msgid "Timeline"
 msgstr "타임라인"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:41
+#: ../doc/quick_tutorial.rst:41
 msgid ""
 "The **timeline** is an editing user interface that represents edits and "
 "clips on a horizontal ruler. Time progresses from left to right."
 msgstr ""
-"** 타임라인** 은 편집 사용자 인터페이스로, 편집 및 클립을 가로 눈금에 표시합"
-"니다. 시간은 왼쪽에서 오른쪽으로 진행됩니다."
+"** 타임라인** 은 편집 사용자 인터페이스로, 편집 및 클립을 가로 눈금에 표시합니다. 시간은 왼쪽에서 오른쪽으로 진행됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:42
+#: ../doc/quick_tutorial.rst:42
 msgid "Track"
 msgstr "트랙"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:42
+#: ../doc/quick_tutorial.rst:42
 msgid ""
 "A separate **layer** on the timeline, which can hold clips. A timeline is "
 "made up of many tracks, stacked vertically."
-msgstr ""
-"타임라인의 별도 ** 레이어** 로, 클립을 담을 수 있습니다. 타임라인은 여러 트랙"
-"이 수직으로 쌓여 구성됩니다."
+msgstr "타임라인의 별도 ** 레이어** 로, 클립을 담을 수 있습니다. 타임라인은 여러 트랙이 수직으로 쌓여 구성됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:43
+#: ../doc/quick_tutorial.rst:43
 msgid "Clip"
 msgstr "클립"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:43
+#: ../doc/quick_tutorial.rst:43
 msgid ""
-"A **trimmed** portion of video, audio, or both positioned on a track, and at "
-"a specific position in time. When files are dropped on the timeline, they "
+"A **trimmed** portion of video, audio, or both positioned on a track, and at"
+" a specific position in time. When files are dropped on the timeline, they "
 "are represented as a Clip."
 msgstr ""
-"트랙에 배치된 비디오, 오디오 또는 둘 다의 ** 트리밍된** 부분으로, 특정 시간 "
-"위치에 있습니다. 파일을 타임라인에 드롭하면 클립으로 표시됩니다."
+"트랙에 배치된 비디오, 오디오 또는 둘 다의 ** 트리밍된** 부분으로, 특정 시간 위치에 있습니다. 파일을 타임라인에 드롭하면 클립으로"
+" 표시됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:44
+#: ../doc/quick_tutorial.rst:44
 msgid "Transition"
 msgstr "트랜지션"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:44
+#: ../doc/quick_tutorial.rst:44
 msgid ""
-"A method to **blend** two images. Transitions can take many forms, including "
-"cuts, dissolves, and wipes."
-msgstr ""
-"두 이미지를 ** 블렌딩** 하는 방법입니다. 트랜지션은 컷, 디졸브, 와이프 등 다"
-"양한 형태가 있습니다."
+"A method to **blend** two images. Transitions can take many forms, including"
+" cuts, dissolves, and wipes."
+msgstr "두 이미지를 ** 블렌딩** 하는 방법입니다. 트랜지션은 컷, 디졸브, 와이프 등 다양한 형태가 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:48
+#: ../doc/quick_tutorial.rst:48
 msgid "Video Tutorials"
 msgstr "비디오 튜토리얼"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:50
+#: ../doc/quick_tutorial.rst:50
 msgid ""
 "If you prefer to learn by **watching videos** instead of reading, we have "
 "many official video tutorials that cover a wide range of beginner and "
 "introductory topics. These videos are a great next step on your way to "
 "master OpenShot Video Editor!"
 msgstr ""
-"읽기 대신 ** 비디오 시청** 으로 배우고 싶다면, 초보자 및 입문자용 다양한 공"
-"식 비디오 튜토리얼이 있습니다. 이 비디오들은 OpenShot Video Editor를 마스터하"
-"는 데 훌륭한 다음 단계입니다!"
+"읽기 대신 ** 비디오 시청** 으로 배우고 싶다면, 초보자 및 입문자용 다양한 공식 비디오 튜토리얼이 있습니다. 이 비디오들은 "
+"OpenShot Video Editor를 마스터하는 데 훌륭한 다음 단계입니다!"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:54
+#: ../doc/quick_tutorial.rst:54
 msgid "`Video: Getting Started <https://youtu.be/1k-ISfd-YBE>`_"
 msgstr "` 비디오: 시작하기 <https://youtu.be/1k-ISfd-YBE>`_"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:55
+#: ../doc/quick_tutorial.rst:55
 msgid "`Video: The Basics (Part 1) <https://youtu.be/VE6awGSr22Q>`_"
 msgstr "` 비디오: 기본 사항 (1부) <https://youtu.be/VE6awGSr22Q>`_"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:56
+#: ../doc/quick_tutorial.rst:56
 msgid "`Video: The Basics (Part 2) <https://youtu.be/6PA98QL9tkw>`_"
 msgstr "` 비디오: 기본 사항 (2부) <https://youtu.be/6PA98QL9tkw>`_"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:57
+#: ../doc/quick_tutorial.rst:57
 msgid "`Video: Basic Animation <https://youtu.be/P3zIprwr1rk>`_"
 msgstr "` 비디오: 기본 애니메이션 <https://youtu.be/P3zIprwr1rk>`_"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:58
+#: ../doc/quick_tutorial.rst:58
 msgid "`Video: Trim, Slice, and Split <https://youtu.be/BQS2tmgD_Rk>`_"
 msgstr "` 비디오: 트림, 슬라이스, 분할 <https://youtu.be/BQS2tmgD_Rk>`_"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:59
+#: ../doc/quick_tutorial.rst:59
 msgid "`Video: Chroma Key <https://youtu.be/2sushecqMs4>`_"
 msgstr "` 비디오: 크로마 키 <https://youtu.be/2sushecqMs4>`_"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:60
+#: ../doc/quick_tutorial.rst:60
 msgid "`Video: Masks & Transitions <https://youtu.be/Hd9k3x0diOo>`_"
 msgstr "` 비디오: 마스크 및 트랜지션 <https://youtu.be/Hd9k3x0diOo>`_"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:61
+#: ../doc/quick_tutorial.rst:61
 msgid "`Video: Backup & Recovery <https://youtu.be/5XaWBTBTpTo>`_"
 msgstr "` 비디오: 백업 및 복구 <https://youtu.be/5XaWBTBTpTo>`_"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:64
+#: ../doc/quick_tutorial.rst:64
 msgid "Step 1 – Import Photos & Music"
 msgstr "1단계 – 사진 및 음악 가져오기"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:66
+#: ../doc/quick_tutorial.rst:66
 msgid ""
 "Before we can begin making a video, we need to import media files into "
 "OpenShot. Most video, image and music file formats will work. Drag and drop "
 "a few videos or images and a music file from your Desktop to OpenShot. Be "
 "sure to drop the files where the arrow in the illustration is pointing to."
 msgstr ""
-"비디오 제작을 시작하기 전에 미디어 파일을 OpenShot으로 가져와야 합니다. 대부"
-"분의 비디오, 이미지 및 음악 파일 형식이 지원됩니다. 데스크탑에서 몇 개의 비디"
-"오 또는 이미지와 음악 파일을 OpenShot으로 드래그 앤 드롭하세요. 그림의 화살표"
-"가 가리키는 위치에 파일을 놓으십시오."
+"비디오 제작을 시작하기 전에 미디어 파일을 OpenShot으로 가져와야 합니다. 대부분의 비디오, 이미지 및 음악 파일 형식이 "
+"지원됩니다. 데스크탑에서 몇 개의 비디오 또는 이미지와 음악 파일을 OpenShot으로 드래그 앤 드롭하세요. 그림의 화살표가 가리키는 "
+"위치에 파일을 놓으십시오."
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:73
+#: ../doc/quick_tutorial.rst:73
 msgid ""
 "Alternative methods to add files to your projects are described in the "
 "section :ref:`import_files_ref`. The \"Show All\", \"Video\", \"Audio\", "
 "\"Image\" filters above the added files allows you to only see the file "
 "types you are interested in."
 msgstr ""
-"프로젝트에 파일을 추가하는 다른 방법은 :ref:`import_files_ref` 섹션에 설명되"
-"어 있습니다. 추가된 파일 위의 \"모두 보기\", \"비디오\", \"오디오\", \"이미지"
-"\" 필터를 사용하면 관심 있는 파일 유형만 볼 수 있습니다."
+"프로젝트에 파일을 추가하는 다른 방법은 :ref:`import_files_ref` 섹션에 설명되어 있습니다. 추가된 파일 위의 \"모두 "
+"보기\", \"비디오\", \"오디오\", \"이미지\" 필터를 사용하면 관심 있는 파일 유형만 볼 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:78
+#: ../doc/quick_tutorial.rst:78
 msgid "Step 2 – Add Photos to Timeline"
 msgstr "2단계 – 사진을 타임라인에 추가하기"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:80
+#: ../doc/quick_tutorial.rst:80
 msgid ""
 "Next, drag each video or photo onto a track in the timeline (as seen in the "
 "illustration). The timeline represents your final video, so arrange your "
 "photos (i.e. clips) in whatever sequence you want them to appear in your "
-"video. If you overlap two clips, OpenShot will automatically create a smooth "
-"fade between them (only affects the image, and not audio), displayed by blue "
-"rounded rectangles between the clips. Remember, you can rearrange the clips "
-"as many times as needed by simply dragging and dropping them."
+"video. If you overlap two clips, OpenShot will automatically create a smooth"
+" fade between them (only affects the image, and not audio), displayed by "
+"blue rounded rectangles between the clips. Remember, you can rearrange the "
+"clips as many times as needed by simply dragging and dropping them."
 msgstr ""
-"다음으로, 각 비디오 또는 사진을 타임라인의 트랙에 드래그하세요(그림 참조). 타"
-"임라인은 최종 비디오를 나타내므로, 사진(즉, 클립)을 원하는 순서대로 배치하세"
-"요. 두 클립이 겹치면 OpenShot이 자동으로 부드러운 페이드 효과를 생성합니다(이"
-"미지에만 적용되며 오디오에는 영향을 주지 않음). 클립 사이에 파란색 둥근 사각"
-"형으로 표시됩니다. 클립은 필요에 따라 언제든지 드래그 앤 드롭으로 재배열할 "
-"수 있습니다."
+"다음으로, 각 비디오 또는 사진을 타임라인의 트랙에 드래그하세요(그림 참조). 타임라인은 최종 비디오를 나타내므로, 사진(즉, 클립)을 "
+"원하는 순서대로 배치하세요. 두 클립이 겹치면 OpenShot이 자동으로 부드러운 페이드 효과를 생성합니다(이미지에만 적용되며 오디오에는"
+" 영향을 주지 않음). 클립 사이에 파란색 둥근 사각형으로 표시됩니다. 클립은 필요에 따라 언제든지 드래그 앤 드롭으로 재배열할 수 "
+"있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:87
+#: ../doc/quick_tutorial.rst:87
 msgid ""
 "You can also shorten or lengthen each clip, by clicking the left or right "
 "edge and dragging your mouse. For example, if you want a photo to last "
-"longer than 10 seconds (the default duration), simply grab the right edge of "
-"the photo (on the timeline), and drag it to the right (to increase the "
+"longer than 10 seconds (the default duration), simply grab the right edge of"
+" the photo (on the timeline), and drag it to the right (to increase the "
 "clip's duration on the timeline)."
 msgstr ""
-"각 클립의 왼쪽 또는 오른쪽 가장자리를 클릭하고 마우스를 드래그하여 길이를 줄"
-"이거나 늘릴 수 있습니다. 예를 들어, 사진이 기본 지속 시간인 10초보다 오래 지"
-"속되길 원하면, 타임라인에서 사진의 오른쪽 가장자리를 잡고 오른쪽으로 드래그하"
-"여 클립의 지속 시간을 늘리세요."
+"각 클립의 왼쪽 또는 오른쪽 가장자리를 클릭하고 마우스를 드래그하여 길이를 줄이거나 늘릴 수 있습니다. 예를 들어, 사진이 기본 지속 "
+"시간인 10초보다 오래 지속되길 원하면, 타임라인에서 사진의 오른쪽 가장자리를 잡고 오른쪽으로 드래그하여 클립의 지속 시간을 늘리세요."
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:95
+#: ../doc/quick_tutorial.rst:95
 msgid "Step 3 – Add Music to Timeline"
 msgstr "3단계 – 음악을 타임라인에 추가하기"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:97
+#: ../doc/quick_tutorial.rst:97
 msgid ""
 "To make our creation more interesting, we need to add some music. Click on "
 "the music file that you imported in step 1, and drag it onto the timeline. "
@@ -266,81 +249,74 @@ msgid ""
 "it smaller (that will make it end earlier). You could also insert the same "
 "file multiple times, if your music is too short."
 msgstr ""
-"작품을 더 흥미롭게 만들기 위해 음악을 추가해야 합니다. 1단계에서 가져온 음악 "
-"파일을 클릭하고 타임라인으로 드래그하세요. 노래가 너무 길면 음악 클립의 오른"
-"쪽 가장자리를 잡고 크기를 줄여 일찍 끝나도록 할 수 있습니다. 음악이 너무 짧으"
-"면 같은 파일을 여러 번 삽입할 수도 있습니다."
+"작품을 더 흥미롭게 만들기 위해 음악을 추가해야 합니다. 1단계에서 가져온 음악 파일을 클릭하고 타임라인으로 드래그하세요. 노래가 너무 "
+"길면 음악 클립의 오른쪽 가장자리를 잡고 크기를 줄여 일찍 끝나도록 할 수 있습니다. 음악이 너무 짧으면 같은 파일을 여러 번 삽입할 "
+"수도 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:105
+#: ../doc/quick_tutorial.rst:105
 msgid "Step 4 – Preview your Project"
 msgstr "4단계 – 프로젝트 미리보기"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:107
+#: ../doc/quick_tutorial.rst:107
 msgid ""
 "To preview what our video looks & sounds like, click the :guilabel:`Play` "
 "button under the preview window. You can also pause, rewind, and fast-"
 "forward your video project by clicking the corresponding buttons."
 msgstr ""
-"비디오의 영상과 소리를 미리 보려면 미리보기 창 아래의 :guilabel:` 재생` 버튼"
-"을 클릭하세요. 또한 해당 버튼을 클릭하여 일시정지, 되감기, 빨리 감기도 할 수 "
-"있습니다."
+"비디오의 영상과 소리를 미리 보려면 미리보기 창 아래의 :guilabel:` 재생` 버튼을 클릭하세요. 또한 해당 버튼을 클릭하여 "
+"일시정지, 되감기, 빨리 감기도 할 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:114
+#: ../doc/quick_tutorial.rst:114
 msgid "Step 5 – Export your Video"
 msgstr "5단계 – 비디오 내보내기"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:115
+#: ../doc/quick_tutorial.rst:115
 msgid ""
-"Once you have edited your photo slide-show video, the last step is to export "
-"the project. Exporting converts your OpenShot project into a single video "
+"Once you have edited your photo slide-show video, the last step is to export"
+" the project. Exporting converts your OpenShot project into a single video "
 "output file. By using the default settings, the video works on most media "
 "players (such as VLC) or websites (such as YouTube, Vimeo, …)."
 msgstr ""
-"사진 슬라이드쇼 비디오 편집을 마쳤으면 마지막 단계는 프로젝트를 내보내는 것입"
-"니다. 내보내기는 OpenShot 프로젝트를 하나의 비디오 출력 파일로 변환합니다. 기"
-"본 설정을 사용하면 이 비디오는 대부분의 미디어 플레이어(예: VLC)나 웹사이트"
-"(예: YouTube, Vimeo 등)에서 재생됩니다."
+"사진 슬라이드쇼 비디오 편집을 마쳤으면 마지막 단계는 프로젝트를 내보내는 것입니다. 내보내기는 OpenShot 프로젝트를 하나의 비디오 "
+"출력 파일로 변환합니다. 기본 설정을 사용하면 이 비디오는 대부분의 미디어 플레이어(예: VLC)나 웹사이트(예: YouTube, "
+"Vimeo 등)에서 재생됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:120
+#: ../doc/quick_tutorial.rst:120
 msgid ""
-"Click on the Export Video icon at the top of the screen (or use the :"
-"guilabel:`File→Export Video` menu). The default values will work fine, so "
+"Click on the Export Video icon at the top of the screen (or use the "
+":guilabel:`File→Export Video` menu). The default values will work fine, so "
 "just click the :guilabel:`Export Video` button to render your new video."
 msgstr ""
-"화면 상단의 비디오 내보내기 아이콘을 클릭하거나 :guilabel:` 파일→비디오 내보"
-"내기` 메뉴를 사용하세요. 기본 설정 값이 적절하므로, :guilabel:` 비디오 내보내"
-"기` 버튼을 클릭하여 새 비디오를 렌더링하면 됩니다."
+"화면 상단의 비디오 내보내기 아이콘을 클릭하거나 :guilabel:` 파일→비디오 내보내기` 메뉴를 사용하세요. 기본 설정 값이 "
+"적절하므로, :guilabel:` 비디오 내보내기` 버튼을 클릭하여 새 비디오를 렌더링하면 됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:127
+#: ../doc/quick_tutorial.rst:127
 msgid "Conclusion"
 msgstr "결론"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:128
+#: ../doc/quick_tutorial.rst:128
 msgid ""
 "You should now have a basic understanding of how OpenShot works. Importing, "
-"Arranging, Previewing, and Exporting. Hopefully this tutorial took less than "
-"**5 minutes** for you to complete. Please read the rest of this guide for a "
-"more detailed understanding of OpenShot and its advanced features."
+"Arranging, Previewing, and Exporting. Hopefully this tutorial took less than"
+" **5 minutes** for you to complete. Please read the rest of this guide for a"
+" more detailed understanding of OpenShot and its advanced features."
 msgstr ""
-"이제 OpenShot의 작동 방식인 가져오기, 배열, 미리보기, 내보내기에 대해 기본적"
-"인 이해를 하셨을 것입니다. 이 튜토리얼을 완료하는 데 5분 미만이 걸렸기를 바랍"
-"니다. OpenShot과 그 고급 기능에 대해 더 자세히 이해하려면 이 가이드의 나머지 "
-"부분을 읽어보세요."
+"이제 OpenShot의 작동 방식인 가져오기, 배열, 미리보기, 내보내기에 대해 기본적인 이해를 하셨을 것입니다. 이 튜토리얼을 완료하는"
+" 데 5분 미만이 걸렸기를 바랍니다. OpenShot과 그 고급 기능에 대해 더 자세히 이해하려면 이 가이드의 나머지 부분을 읽어보세요."
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:133
+#: ../doc/quick_tutorial.rst:133
 msgid ""
 "If you have any questions after reading this User Guide, please consider "
-"joining our `Reddit User Community <https://openshot.org/forum>`_ to discuss "
-"topics, ask questions, and meet with other OpenShot users."
+"joining our `Reddit User Community <https://openshot.org/forum>`_ to discuss"
+" topics, ask questions, and meet with other OpenShot users."
 msgstr ""
-"이 사용자 가이드를 읽은 후 질문이 있으시면, 주제 토론, 질문, 다른 OpenShot 사"
-"용자와의 만남을 위해 `Reddit 사용자 커뮤니티 <https://openshot.org/forum>`_ "
-"에 참여해 보시기 바랍니다."
+"이 사용자 가이드를 읽은 후 질문이 있으시면, 주제 토론, 질문, 다른 OpenShot 사용자와의 만남을 위해 `Reddit 사용자 "
+"커뮤니티 <https://openshot.org/forum>`_ 에 참여해 보시기 바랍니다."

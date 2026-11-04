@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 4.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: 2026-08-30 16:50-0500\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 # Main-window terminology review, 2026-09-26.
-#: ../recording.rst:23
+#: ../doc/recording.rst:23
 msgid "Recording"
 msgstr "録音・録画"
 
-#: ../recording.rst:25
+#: ../doc/recording.rst:25
 msgid ""
 "OpenShot can record a microphone, the desktop, and a webcam directly into "
 "the current project. You can enable one source or combine several in a "
@@ -34,40 +34,41 @@ msgstr ""
 "はマイク、デスクトップ、ウェブカメラを現在のプロジェクトに直接録画できます。1つのソースを有効にするか、複数を同期録画セッションで組み合わせることが可能です。各ソースは独立したメディアファイルおよびタイムラインクリップとして保持されるため、マイク音量の調整、ウェブカメラのトリミング、画面キャプチャの編集を個別に行いやすくなっています。"
 
 # Main-window terminology review, 2026-09-26.
-#: ../recording.rst:29
+#: ../doc/recording.rst:29
 msgid ""
 "Open the dedicated layout with :guilabel:`View → Recording View`, or show "
 "only the dock with :guilabel:`View → Docks → Recording`."
 msgstr ""
-":guilabel:`表示 → 録音・録画ビュー` で専用レイアウトを開くか、:guilabel:`表示 → ドック → 録音・録画` "
+":guilabel:`表示 → 録音・録画ビュー` で専用レイアウトを開くか、\\ :guilabel:`表示 → ドック → 録音・録画` "
 "でドックのみを表示します。"
 
-#: ../recording.rst:-1
+#: ../doc/recording.rst:-1
 msgid "OpenShot Recording View with the microphone source selected by default"
 msgstr "デフォルトでマイクソースが選択された OpenShot 録画ビュー"
 
-#: ../recording.rst:36
+#: ../doc/recording.rst:36
 msgid "Quick Start"
 msgstr "クイックスタート"
 
-#: ../recording.rst:38
+#: ../doc/recording.rst:38
 msgid ""
 "Move the timeline playhead to the point where the recording should begin."
 msgstr "録画を開始したい位置にタイムラインの再生ヘッドを移動します。"
 
 # Main-window terminology review, 2026-09-26.
-#: ../recording.rst:39
+#: ../doc/recording.rst:39
 msgid "Open :guilabel:`View → Recording View`."
 msgstr ":guilabel:`表示 → 録音・録画ビュー` を開きます。"
 
-#: ../recording.rst:40
+#: ../doc/recording.rst:40
 msgid ""
 "Enable :guilabel:`Mic`, :guilabel:`Screen`, :guilabel:`Webcam`, or any "
 "combination of them."
 msgstr ""
-":guilabel:`マイク`、:guilabel:`画面`、:guilabel:`ウェブカメラ` のいずれか、または組み合わせを有効にします。"
+":guilabel:`マイク`\\ 、\\ :guilabel:`画面`\\ 、\\ :guilabel:`ウェブカメラ` "
+"のいずれか、または組み合わせを有効にします。"
 
-#: ../recording.rst:41
+#: ../doc/recording.rst:41
 msgid ""
 "Select the destination :guilabel:`Track`. Multiple sources use adjacent "
 "tracks automatically. Select :guilabel:`No Track` to add completed "
@@ -75,43 +76,43 @@ msgid ""
 "clips on the timeline. Choose whether the timeline :guilabel:`Preview` "
 "should play during Mic or Webcam recording."
 msgstr ""
-"録画先の :guilabel:`トラック` を選択します。複数のソースは隣接するトラックを自動的に使用します。:guilabel:`トラックなし` "
-"を選ぶと、完成した録画はライブプレビューやタイムライン上のクリップを作成せずに :guilabel:`プロジェクトファイル` "
+"録画先の :guilabel:`トラック` を選択します。複数のソースは隣接するトラックを自動的に使用します。\\ :guilabel:`トラックなし`"
+" を選ぶと、完成した録画はライブプレビューやタイムライン上のクリップを作成せずに :guilabel:`プロジェクトファイル` "
 "に追加されます。マイクまたはウェブカメラ録画中にタイムラインの :guilabel:`プレビュー` を再生するかどうかを選択してください。"
 
-#: ../recording.rst:44
+#: ../doc/recording.rst:44
 msgid ""
 "Open each source's :guilabel:`Advanced` section and verify its device and "
 "quality options."
 msgstr "各ソースの :guilabel:`詳細` セクションを開き、デバイスと品質オプションを確認します。"
 
-#: ../recording.rst:45
+#: ../doc/recording.rst:45
 msgid ""
 "Click :guilabel:`Start Recording`. Perform the narration or action you want "
 "to capture."
 msgstr ":guilabel:`録画開始` をクリックし、録音したいナレーションや動作を行います。"
 
-#: ../recording.rst:46
+#: ../doc/recording.rst:46
 msgid ""
 "Click :guilabel:`Stop Recording`, either in the dock or from the recording "
 "status control."
 msgstr "ドックまたは録画ステータスコントロールから :guilabel:`録画停止` をクリックします。"
 
-#: ../recording.rst:47
+#: ../doc/recording.rst:47
 msgid ""
 "Wait briefly while OpenShot finishes the files. They are imported into "
 ":guilabel:`Project Files` and, unless :guilabel:`No Track` is selected, "
 "placed on the timeline."
 msgstr ""
-"OpenShot がファイルの処理を完了するまで少し待ちます。ファイルは :guilabel:`プロジェクトファイル` "
-"にインポートされ、:guilabel:`トラックなし` が選択されていなければタイムラインに配置されます。"
+"OpenShot がファイルの処理を完了するまで少し待ちます。ファイルは :guilabel:`プロジェクトファイル` にインポートされ、\\ "
+":guilabel:`トラックなし` が選択されていなければタイムラインに配置されます。"
 
-#: ../recording.rst:51
+#: ../doc/recording.rst:51
 msgid "Quick Audio Commentary"
 msgstr "クイック音声解説"
 
 # Main-window terminology review, 2026-09-26.
-#: ../recording.rst:53
+#: ../doc/recording.rst:53
 msgid ""
 "To begin commentary at an existing clip, right-click the clip and choose "
 ":guilabel:`Audio → Record`. OpenShot moves the playhead to the clip's first "
@@ -122,15 +123,15 @@ msgid ""
 " recording sessions."
 msgstr ""
 "既存のクリップで解説を始めるには、クリップを右クリックして :guilabel:`音声 → 録音` を選択します。OpenShot "
-"は再生ヘッドをクリップの最初のフレームに移動し、録画ドックを開き、クリップの下の最初の利用可能なロック解除トラックを選択します。:guilabel:`マイク`"
-" が有効になっていることを確認し、:guilabel:`録画開始` "
+"は再生ヘッドをクリップの最初のフレームに移動し、録画ドックを開き、クリップの下の最初の利用可能なロック解除トラックを選択します。\\ "
+":guilabel:`マイク` が有効になっていることを確認し、\\ :guilabel:`録画開始` "
 "をクリックします。画面、ウェブカメラ、マイク、複合録画セッションの一般的な入口は引き続き :guilabel:`表示 → 録音・録画ビュー` です。"
 
-#: ../recording.rst:60
+#: ../doc/recording.rst:60
 msgid "Recording Sources"
 msgstr "録画ソース"
 
-#: ../recording.rst:62
+#: ../doc/recording.rst:62
 msgid ""
 "The source cards at the top of the dock can be enabled independently. An "
 "unavailable card indicates that the required device, operating-system "
@@ -139,76 +140,76 @@ msgstr ""
 "ドック上部のソースカードは独立して有効化できます。利用不可のカードは、必要なデバイス、OSのキャプチャサービス、または libopenshot "
 "の機能が検出されなかったことを示します。"
 
-#: ../recording.rst:65
+#: ../doc/recording.rst:65
 msgid "Recorded sources and outputs"
 msgstr "録画されたソースと出力"
 
-#: ../recording.rst:69 ../recording.rst:107
+#: ../doc/recording.rst:69 ../doc/recording.rst:107
 msgid "Source"
 msgstr "ソース"
 
-#: ../recording.rst:70
+#: ../doc/recording.rst:70
 msgid "Recorded File"
 msgstr "録画ファイル"
 
-#: ../recording.rst:71
+#: ../doc/recording.rst:71
 msgid "Audio"
 msgstr "オーディオ"
 
-#: ../recording.rst:72
+#: ../doc/recording.rst:72
 msgid "Typical Use"
 msgstr "典型的な用途"
 
-#: ../recording.rst:73 ../recording.rst:111 ../recording.rst:272
+#: ../doc/recording.rst:73 ../doc/recording.rst:111 ../doc/recording.rst:272
 msgid "Mic"
 msgstr "マイク"
 
-#: ../recording.rst:74
+#: ../doc/recording.rst:74
 msgid "``Mic-<timestamp>``"
 msgstr "``Mic-<timestamp>``"
 
-#: ../recording.rst:75
+#: ../doc/recording.rst:75
 msgid "Microphone only"
 msgstr "マイクのみ"
 
-#: ../recording.rst:76
+#: ../doc/recording.rst:76
 msgid "Narration, voice-over, commentary, or interviews."
 msgstr "ナレーション、ボイスオーバー、解説、インタビュー。"
 
-#: ../recording.rst:77 ../recording.rst:110 ../recording.rst:194
-#: ../recording.rst:275
+#: ../doc/recording.rst:77 ../doc/recording.rst:110 ../doc/recording.rst:194
+#: ../doc/recording.rst:275
 msgid "Screen"
 msgstr "画面"
 
-#: ../recording.rst:78
+#: ../doc/recording.rst:78
 msgid "``Screen-<timestamp>.mp4``"
 msgstr "``Screen-<timestamp>.mp4``"
 
-#: ../recording.rst:79
+#: ../doc/recording.rst:79
 msgid "Optional system audio"
 msgstr "オプションのシステム音声"
 
-#: ../recording.rst:80
+#: ../doc/recording.rst:80
 msgid "Tutorials, demonstrations, presentations, or games."
 msgstr "チュートリアル、デモンストレーション、プレゼンテーション、ゲーム。"
 
-#: ../recording.rst:81 ../recording.rst:109
+#: ../doc/recording.rst:81 ../doc/recording.rst:109
 msgid "Webcam"
 msgstr "ウェブカメラ"
 
-#: ../recording.rst:82
+#: ../doc/recording.rst:82
 msgid "``Webcam-<timestamp>.mp4``"
 msgstr "``Webcam-<timestamp>.mp4``"
 
-#: ../recording.rst:83
+#: ../doc/recording.rst:83
 msgid "No audio"
 msgstr "音声なし"
 
-#: ../recording.rst:84
+#: ../doc/recording.rst:84
 msgid "Presenter video or a picture-in-picture camera."
 msgstr "プレゼンタービデオまたはピクチャーインピクチャーカメラ。"
 
-#: ../recording.rst:86
+#: ../doc/recording.rst:86
 msgid ""
 "When Mic and Screen are enabled together, microphone audio is kept in its "
 "own file while system audio is embedded in the screen video. This separation"
@@ -218,11 +219,11 @@ msgid ""
 msgstr ""
 "マイクと画面が同時に有効な場合、マイク音声は別ファイルに保持され、システム音声は画面ビデオに埋め込まれます。この分離は意図的で、編集時に音声とコンピュータ音声を独立して調整、ミュート、フェード、処理できるようにします。ウェブカメラのビデオには音声がなく、マイクトラックの重複やエコーを避けます。"
 
-#: ../recording.rst:91
+#: ../doc/recording.rst:91
 msgid "Live Feedback and Timeline Placement"
 msgstr "ライブフィードバックとタイムライン配置"
 
-#: ../recording.rst:93
+#: ../doc/recording.rst:93
 msgid ""
 "The microphone meter responds before and during recording, which helps "
 "confirm that the selected input is working. During recording, OpenShot draws"
@@ -232,7 +233,7 @@ msgstr ""
 "マイクメーターは録画前および録画中に反応し、選択した入力が動作していることを確認できます。録画中、OpenShot "
 "はタイムラインに一時クリップとライブマイク波形を描画します。録画停止後、完成したファイルがこれらのプレビューに置き換わります。"
 
-#: ../recording.rst:97
+#: ../doc/recording.rst:97
 msgid ""
 "Select :guilabel:`No Track` in the Track list when you want to capture media"
 " without adding live objects or completed clips to the timeline. The "
@@ -244,33 +245,33 @@ msgstr ""
 "を選択します。完成した録画は :guilabel:`プロジェクトファイル` "
 "にインポートされ、後でプレビュー、整理、タイムラインへの追加が可能です。編集するテイクを選ぶ前に複数回録画する際に便利です。"
 
-#: ../recording.rst:101
+#: ../doc/recording.rst:101
 msgid ""
 "All enabled sources start at the same timeline position. OpenShot stacks "
 "them in a useful compositing order:"
 msgstr "有効なすべてのソースは同じタイムライン位置から開始します。OpenShot はそれらを便利な合成順に積み重ねます："
 
-#: ../recording.rst:103
+#: ../doc/recording.rst:103
 msgid "Default source stack"
 msgstr "デフォルトのソーススタック"
 
-#: ../recording.rst:107
+#: ../doc/recording.rst:107
 msgid "Placement"
 msgstr "配置"
 
-#: ../recording.rst:109
+#: ../doc/recording.rst:109
 msgid "Highest assigned track, so a corner camera appears on top."
 msgstr "最も高い割り当てトラックで、コーナーカメラが最前面に表示されます。"
 
-#: ../recording.rst:110
+#: ../doc/recording.rst:110
 msgid "Below the webcam and above microphone audio."
 msgstr "ウェブカメラの下、マイク音声の上に配置されます。"
 
-#: ../recording.rst:111
+#: ../doc/recording.rst:111
 msgid "Lowest assigned track because it contains audio only."
 msgstr "音声のみを含むため、最も低い割り当てトラックです。"
 
-#: ../recording.rst:114
+#: ../doc/recording.rst:114
 msgid ""
 "If there are not enough tracks below the selected track, OpenShot creates or"
 " selects additional tracks as needed. Recordings are also added to "
@@ -280,11 +281,11 @@ msgstr ""
 "選択したトラックの下に十分なトラックがない場合、OpenShot は必要に応じて追加のトラックを作成または選択します。録音は "
 ":guilabel:`Project Files` にも追加されるため、最初のタイムラインクリップを削除しても再利用できます。"
 
-#: ../recording.rst:119
+#: ../doc/recording.rst:119
 msgid "Timeline Preview During Recording"
 msgstr "録音中のタイムラインプレビュー"
 
-#: ../recording.rst:121
+#: ../doc/recording.rst:121
 msgid ""
 "The :guilabel:`Preview` control beside :guilabel:`Track` can play the "
 "project from the current playhead while a Mic, Webcam, or combined Mic + "
@@ -295,54 +296,54 @@ msgstr ""
 ":guilabel:`Track` の隣にある :guilabel:`Preview` "
 "コントロールは、マイク、ウェブカメラ、またはマイク＋ウェブカメラの録音中に現在の再生位置からプロジェクトを再生できます。これはナレーション、解説、リアクション動画に便利です。録音を停止すると、録音開始時に再生されたタイムラインの再生も停止します。"
 
-#: ../recording.rst:125
+#: ../doc/recording.rst:125
 msgid "Preview options"
 msgstr "プレビューオプション"
 
-#: ../recording.rst:129 ../recording.rst:152 ../recording.rst:192
-#: ../recording.rst:242
+#: ../doc/recording.rst:129 ../doc/recording.rst:152 ../doc/recording.rst:192
+#: ../doc/recording.rst:242
 msgid "Option"
 msgstr "オプション"
 
-#: ../recording.rst:129
+#: ../doc/recording.rst:129
 msgid "Behavior"
 msgstr "動作"
 
-#: ../recording.rst:131
+#: ../doc/recording.rst:131
 msgid "Off"
 msgstr "オフ"
 
-#: ../recording.rst:131
+#: ../doc/recording.rst:131
 msgid "Records without starting timeline playback."
 msgstr "タイムラインの再生を開始せずに録音します。"
 
-#: ../recording.rst:132
+#: ../doc/recording.rst:132
 msgid "Full"
 msgstr "フル"
 
-#: ../recording.rst:132
+#: ../doc/recording.rst:132
 msgid "Plays the timeline using the normal preview resolution."
 msgstr "通常のプレビュー解像度でタイムラインを再生します。"
 
-#: ../recording.rst:133
+#: ../doc/recording.rst:133
 msgid "Half"
 msgstr "ハーフ"
 
-#: ../recording.rst:133
+#: ../doc/recording.rst:133
 msgid "Reduces preview rendering resolution to improve recording performance."
 msgstr "録音パフォーマンス向上のためにプレビューのレンダリング解像度を下げます。"
 
-#: ../recording.rst:134
+#: ../doc/recording.rst:134
 msgid "Quarter"
 msgstr "クォーター"
 
-#: ../recording.rst:134
+#: ../doc/recording.rst:134
 msgid ""
 "Uses the lowest preview resolution for demanding projects or slower "
 "computers."
 msgstr "負荷の高いプロジェクトや低速なコンピューター向けに最も低いプレビュー解像度を使用します。"
 
-#: ../recording.rst:137
+#: ../doc/recording.rst:137
 msgid ""
 "Preview resolution changes only the temporary OpenShot preview. It does not "
 "reduce the resolution or quality of the recorded Mic or Webcam files. Use "
@@ -352,14 +353,15 @@ msgid ""
 "choice."
 msgstr ""
 "プレビュー解像度の変更は一時的な OpenShot "
-"プレビューにのみ影響し、録音されたマイクやウェブカメラのファイルの解像度や品質は低下しません。タイムラインに音声がある場合は、マイクがスピーカーの音を拾わないようにヘッドホンを使用してください。:guilabel:`Screen`"
-" が選択されると、プレビューは強制的に :guilabel:`Off` になり無効化されます。Screen の選択を解除すると以前の設定に戻ります。"
+"プレビューにのみ影響し、録音されたマイクやウェブカメラのファイルの解像度や品質は低下しません。タイムラインに音声がある場合は、マイクがスピーカーの音を拾わないようにヘッドホンを使用してください。\\"
+" :guilabel:`Screen` が選択されると、プレビューは強制的に :guilabel:`Off` になり無効化されます。Screen "
+"の選択を解除すると以前の設定に戻ります。"
 
-#: ../recording.rst:143
+#: ../doc/recording.rst:143
 msgid "Microphone Recording"
 msgstr "マイク録音"
 
-#: ../recording.rst:145
+#: ../doc/recording.rst:145
 msgid ""
 "Enable :guilabel:`Mic` to record narration as a separate audio file. Use the"
 " Mono/Stereo control beside the level meter for the common channel choice, "
@@ -369,71 +371,71 @@ msgstr ""
 "を有効にしてナレーションを別の音声ファイルとして録音します。レベルメーターの横にあるモノラル/ステレオのコントロールで一般的なチャンネル設定を選択し、すべての設定は"
 " :guilabel:`Advanced` で開きます。"
 
-#: ../recording.rst:148
+#: ../doc/recording.rst:148
 msgid "Microphone options"
 msgstr "マイクオプション"
 
-#: ../recording.rst:152
+#: ../doc/recording.rst:152
 msgid "Typical Default"
 msgstr "一般的なデフォルト"
 
-#: ../recording.rst:152 ../recording.rst:175 ../recording.rst:192
-#: ../recording.rst:242
+#: ../doc/recording.rst:152 ../doc/recording.rst:175 ../doc/recording.rst:192
+#: ../doc/recording.rst:242
 msgid "Description"
 msgstr "説明"
 
-#: ../recording.rst:154 ../recording.rst:244
+#: ../doc/recording.rst:154 ../doc/recording.rst:244
 msgid "Input"
 msgstr "入力"
 
-#: ../recording.rst:154
+#: ../doc/recording.rst:154
 msgid "System input"
 msgstr "システム入力"
 
-#: ../recording.rst:154
+#: ../doc/recording.rst:154
 msgid "Selects the microphone or audio-input device."
 msgstr "マイクまたは音声入力デバイスを選択します。"
 
-#: ../recording.rst:155
+#: ../doc/recording.rst:155
 msgid "Format"
 msgstr "フォーマット"
 
-#: ../recording.rst:155
+#: ../doc/recording.rst:155
 msgid "FLAC"
 msgstr "FLAC"
 
-#: ../recording.rst:155
+#: ../doc/recording.rst:155
 msgid ""
 "Chooses WAV, FLAC, or MP3. FLAC is lossless with smaller files than WAV."
 msgstr "WAV、FLAC、MP3 を選択します。FLAC はロスレスで WAV よりファイルサイズが小さいです。"
 
-#: ../recording.rst:156
+#: ../doc/recording.rst:156
 msgid "Sample Rate"
 msgstr "サンプルレート"
 
-#: ../recording.rst:156
+#: ../doc/recording.rst:156
 msgid "48000 Hz"
 msgstr "48000 Hz"
 
-#: ../recording.rst:156
+#: ../doc/recording.rst:156
 msgid ""
 "Sets the recording sample rate. Match the device and project when possible."
 msgstr "録音のサンプルレートを設定します。可能な場合はデバイスとプロジェクトに合わせてください。"
 
-#: ../recording.rst:157
+#: ../doc/recording.rst:157
 msgid "Channels"
 msgstr "チャンネル"
 
-#: ../recording.rst:157
+#: ../doc/recording.rst:157
 msgid "Mono"
 msgstr "モノラル"
 
-#: ../recording.rst:157
+#: ../doc/recording.rst:157
 msgid ""
 "Records one or two input channels. Mono is usually best for one microphone."
 msgstr "1 または 2 チャンネルの入力を録音します。モノラルは通常、マイク1本に最適です。"
 
-#: ../recording.rst:160
+#: ../doc/recording.rst:160
 msgid ""
 "Aim for a healthy meter response without clipping. A quiet waveform should "
 "remain visually quiet; OpenShot no longer normalizes every newly generated "
@@ -448,51 +450,51 @@ msgstr ""
 "エンベロープは持続エネルギーを要約します。詳細は :guilabel:`編集 → 設定 → タイムライン → 波形サンプル（毎秒）` "
 "で制御します。録音後の波形表示と音量制御については :ref:`clip_presets_ref` を参照してください。"
 
-#: ../recording.rst:167
+#: ../doc/recording.rst:167
 msgid "Screen Recording"
 msgstr "画面録画"
 
-#: ../recording.rst:169
+#: ../doc/recording.rst:169
 msgid "Enable :guilabel:`Screen`, then choose a capture mode:"
 msgstr ":guilabel:`Screen` を有効にしてからキャプチャモードを選択してください:"
 
-#: ../recording.rst:171
+#: ../doc/recording.rst:171
 msgid "Screen capture modes"
 msgstr "画面キャプチャモード"
 
-#: ../recording.rst:175
+#: ../doc/recording.rst:175
 msgid "Mode"
 msgstr "モード"
 
-#: ../recording.rst:177
+#: ../doc/recording.rst:177
 msgid "Full Screen"
 msgstr "全画面"
 
-#: ../recording.rst:177
+#: ../doc/recording.rst:177
 msgid "Captures the selected display or combined desktop area."
 msgstr "選択したディスプレイまたは結合されたデスクトップ領域をキャプチャします。"
 
-#: ../recording.rst:178
+#: ../doc/recording.rst:178
 msgid "Window"
 msgstr "ウィンドウ"
 
-#: ../recording.rst:178
+#: ../doc/recording.rst:178
 msgid ""
 "Click a window to capture its bounds. Availability and exact behavior depend"
 " on the platform."
 msgstr "ウィンドウをクリックしてその範囲をキャプチャします。利用可能性と正確な動作はプラットフォームによって異なります。"
 
-#: ../recording.rst:179
+#: ../doc/recording.rst:179
 msgid "Region"
 msgstr "領域"
 
-#: ../recording.rst:179
+#: ../doc/recording.rst:179
 msgid ""
 "Drag or select a rectangular desktop area. Availability depends on the "
 "platform."
 msgstr "ドラッグまたは選択して矩形のデスクトップ領域を指定します。利用可能性はプラットフォームによります。"
 
-#: ../recording.rst:182
+#: ../doc/recording.rst:182
 msgid ""
 "On Wayland desktops, the operating system's sharing portal asks which screen"
 " or window to share when recording starts. The numeric window and region "
@@ -501,93 +503,93 @@ msgstr ""
 "Wayland デスクトップでは、録画開始時に OS "
 "の共有ポータルがどの画面またはウィンドウを共有するかを尋ねます。選択はそのポータルに属するため、数値によるウィンドウや領域のコントロールは非表示になります。"
 
-#: ../recording.rst:186
+#: ../doc/recording.rst:186
 msgid "Screen Advanced Options"
 msgstr "画面詳細オプション"
 
-#: ../recording.rst:188
+#: ../doc/recording.rst:188
 msgid "Screen options"
 msgstr "画面オプション"
 
-#: ../recording.rst:192
+#: ../doc/recording.rst:192
 msgid "Default"
 msgstr "デフォルト"
 
-#: ../recording.rst:194
+#: ../doc/recording.rst:194
 msgid "Primary display"
 msgstr "プライマリディスプレイ"
 
-#: ../recording.rst:194
+#: ../doc/recording.rst:194
 msgid "Selects a display or the complete desktop when supported."
 msgstr "対応している場合、ディスプレイまたはデスクトップ全体を選択します。"
 
-#: ../recording.rst:195
+#: ../doc/recording.rst:195
 msgid "Offset"
 msgstr "オフセット"
 
-#: ../recording.rst:195 ../recording.rst:196
+#: ../doc/recording.rst:195 ../doc/recording.rst:196
 msgid "Selected bounds"
 msgstr "選択範囲"
 
-#: ../recording.rst:195
+#: ../doc/recording.rst:195
 msgid "Sets the capture area's X and Y desktop coordinates."
 msgstr "キャプチャ領域のデスクトップ上の X および Y 座標を設定します。"
 
-#: ../recording.rst:196 ../recording.rst:248
+#: ../doc/recording.rst:196 ../doc/recording.rst:248
 msgid "Size"
 msgstr "サイズ"
 
-#: ../recording.rst:196
+#: ../doc/recording.rst:196
 msgid ""
 "Sets capture width and height. OpenShot uses encoder-safe even dimensions."
 msgstr "キャプチャの幅と高さを設定します。OpenShot はエンコーダーに安全な偶数の寸法を使用します。"
 
-#: ../recording.rst:197
+#: ../doc/recording.rst:197
 msgid "FPS"
 msgstr "FPS"
 
-#: ../recording.rst:197
+#: ../doc/recording.rst:197
 msgid "30"
 msgstr "30"
 
-#: ../recording.rst:197
+#: ../doc/recording.rst:197
 msgid "Sets the screen recording frame rate: 15, 24, 30, or 60 FPS."
 msgstr "画面録画のフレームレートを設定します：15、24、30、または 60 FPS。"
 
-#: ../recording.rst:198 ../recording.rst:211
+#: ../doc/recording.rst:198 ../doc/recording.rst:211
 msgid "System Audio"
 msgstr "システムオーディオ"
 
-#: ../recording.rst:198 ../recording.rst:199
+#: ../doc/recording.rst:198 ../doc/recording.rst:199
 msgid "On"
 msgstr "オン"
 
-#: ../recording.rst:198
+#: ../doc/recording.rst:198
 msgid "Embeds computer playback audio in the screen MP4 when supported."
 msgstr "対応している場合、画面MP4にコンピュータの再生音声を埋め込みます。"
 
-#: ../recording.rst:199
+#: ../doc/recording.rst:199
 msgid "Cursor"
 msgstr "カーソル"
 
-#: ../recording.rst:199
+#: ../doc/recording.rst:199
 msgid "Includes the mouse pointer in the screen recording."
 msgstr "画面録画にマウスポインターを含めます。"
 
-#: ../recording.rst:200
+#: ../doc/recording.rst:200
 msgid "Hide OpenShot"
 msgstr "OpenShotを隠す"
 
-#: ../recording.rst:200
+#: ../doc/recording.rst:200
 msgid "No"
 msgstr "いいえ"
 
-#: ../recording.rst:200
+#: ../doc/recording.rst:200
 msgid ""
 "Temporarily hides OpenShot during selection and recording when enabled."
 msgstr "有効にすると、選択と録画中にOpenShotを一時的に隠します。"
 
-#: ../recording.rst:205
+#: ../doc/recording.rst:205
 msgid ""
 "On some Windows systems using high-DPI display scaling, the mouse pointer "
 "may be displaced or missing from screen recordings made on a scaled display."
@@ -597,10 +599,10 @@ msgid ""
 "setting :guilabel:`Cursor` to :guilabel:`Off` avoids the affected pointer "
 "overlay."
 msgstr ""
-"一部のWindowsシステムで高DPIディスプレイスケーリングを使用している場合、スケーリングされたディスプレイでの画面録画にマウスポインターがずれたり表示されなかったりすることがあります。ポインターの表示が重要な場合は、100%スケーリングに設定されたディスプレイで録画するか、一時的に対象ディスプレイを100%に設定するか、別の画面キャプチャアプリケーションを使用してください。画面動画は通常通り録画され、:guilabel:`Cursor`"
-" を :guilabel:`Off` に設定すると影響を受けるポインターのオーバーレイを回避できます。"
+"一部のWindowsシステムで高DPIディスプレイスケーリングを使用している場合、スケーリングされたディスプレイでの画面録画にマウスポインターがずれたり表示されなかったりすることがあります。ポインターの表示が重要な場合は、100%スケーリングに設定されたディスプレイで録画するか、一時的に対象ディスプレイを100%に設定するか、別の画面キャプチャアプリケーションを使用してください。画面動画は通常通り録画され、\\"
+" :guilabel:`Cursor` を :guilabel:`Off` に設定すると影響を受けるポインターのオーバーレイを回避できます。"
 
-#: ../recording.rst:213
+#: ../doc/recording.rst:213
 msgid ""
 ":guilabel:`System Audio` is enabled by default on supported capture "
 "backends. It records sound playing through the computer—such as a game, "
@@ -611,7 +613,7 @@ msgstr ""
 ":guilabel:`System Audio` "
 "は対応するキャプチャバックエンドでデフォルトで有効になっています。ゲーム、ブラウザ、メディアプレーヤー、プレゼンテーションなど、コンピュータで再生される音声を画面録画内に記録します。マイクソースの代わりにはなりません。システムオーディオとコメントを独立して編集可能なクリップで録音したい場合は両方のソースを有効にしてください。"
 
-#: ../recording.rst:217
+#: ../doc/recording.rst:217
 msgid ""
 "If the control is disabled, the active platform or libopenshot build does "
 "not provide system-audio capture. OpenShot forces the option Off rather than"
@@ -620,16 +622,16 @@ msgid ""
 msgstr ""
 "このコントロールが無効の場合、使用中のプラットフォームまたはlibopenshotビルドはシステムオーディオのキャプチャを提供していません。OpenShotは誤解を招く無音トラックを生成する代わりにオプションを強制的にオフにします。OSのプライバシー設定やオーディオルーティングの構成もキャプチャに影響を与えることがあります。"
 
-#: ../recording.rst:223
+#: ../doc/recording.rst:223
 msgid ""
 "System Audio recording is not currently available on macOS. Screen video, "
 "microphone, and webcam recording remain available, but the :guilabel:`System"
 " Audio` option is disabled and forced to :guilabel:`Off`."
 msgstr ""
-"macOSでは現在、システムオーディオの録音は利用できません。画面動画、マイク、ウェブカメラの録画は引き続き利用可能ですが、:guilabel:`System"
-" Audio` オプションは無効化され、強制的に :guilabel:`Off` に設定されます。"
+"macOSでは現在、システムオーディオの録音は利用できません。画面動画、マイク、ウェブカメラの録画は引き続き利用可能ですが、\\ "
+":guilabel:`System Audio` オプションは無効化され、強制的に :guilabel:`Off` に設定されます。"
 
-#: ../recording.rst:228
+#: ../doc/recording.rst:228
 msgid ""
 "Avoid playing captured system audio through speakers while also recording a "
 "microphone unless that sound is intentional. Headphones reduce echo and "
@@ -637,11 +639,11 @@ msgid ""
 msgstr ""
 "録音中にマイクを使用している場合、意図しない限りキャプチャしたシステムオーディオをスピーカーから再生しないでください。ヘッドホンを使用するとエコーが減り、マイクがスピーカーの音を二重に録音するのを防げます。"
 
-#: ../recording.rst:232
+#: ../doc/recording.rst:232
 msgid "Webcam Recording"
 msgstr "ウェブカメラ録画"
 
-#: ../recording.rst:234
+#: ../doc/recording.rst:234
 msgid ""
 "Enable :guilabel:`Webcam` to record a camera as a silent video clip. A live "
 "preview helps verify framing before you start. When Screen is also enabled, "
@@ -651,150 +653,151 @@ msgstr ""
 ":guilabel:`Webcam` "
 "を有効にすると、カメラを無音のビデオクリップとして録画します。ライブプレビューで開始前にフレーミングを確認できます。画面録画も有効な場合、デフォルトのレイアウトは右下隅に丸みを帯びた30%サイズのカメラです。ウェブカメラ単独録画時はフルサイズがデフォルトです。"
 
-#: ../recording.rst:238
+#: ../doc/recording.rst:238
 msgid "Webcam options"
 msgstr "ウェブカメラオプション"
 
-#: ../recording.rst:244
+#: ../doc/recording.rst:244
 msgid "Selects an available webcam or video-capture device."
 msgstr "利用可能なウェブカメラまたはビデオキャプチャデバイスを選択します。"
 
-#: ../recording.rst:245
+#: ../doc/recording.rst:245
 msgid "Resolution"
 msgstr "解像度"
 
-#: ../recording.rst:245
+#: ../doc/recording.rst:245
 msgid "Selects a resolution reported by the camera."
 msgstr "カメラが報告する解像度を選択します。"
 
-#: ../recording.rst:246
+#: ../doc/recording.rst:246
 msgid "Record FPS"
 msgstr "録画FPS"
 
-#: ../recording.rst:246
+#: ../doc/recording.rst:246
 msgid "Selects a frame rate supported at the chosen resolution."
 msgstr "選択した解像度でサポートされているフレームレートを選択します。"
 
-#: ../recording.rst:247
+#: ../doc/recording.rst:247
 msgid "Layout"
 msgstr "レイアウト"
 
-#: ../recording.rst:247
+#: ../doc/recording.rst:247
 msgid ""
 "Chooses Bottom/Top Left/Right, Left, Right, Center, or Full Size placement."
 msgstr "下/上 左/右、左、右、中央、またはフルサイズの配置を選択します。"
 
-#: ../recording.rst:248
+#: ../doc/recording.rst:248
 msgid "Sets a corner camera to 20%, 30%, or 40% of the project frame."
 msgstr "コーナーカメラのサイズをプロジェクトフレームの20%、30%、または40%に設定します。"
 
-#: ../recording.rst:249
+#: ../doc/recording.rst:249
 msgid "Corners"
 msgstr "コーナー"
 
-#: ../recording.rst:249
+#: ../doc/recording.rst:249
 msgid "Uses Rectangle, Rounded, or Oval camera corners."
 msgstr "カメラのコーナーを長方形、丸み、または楕円形に設定します。"
 
-#: ../recording.rst:252
+#: ../doc/recording.rst:252
 msgid ""
 "Layout choices are applied as ordinary clip properties. After recording, use"
 " :guilabel:`Gravity`, :guilabel:`Scale X`, :guilabel:`Scale Y`, "
 ":guilabel:`Margin`, and :guilabel:`Corner Radius` to refine the result. See "
 ":ref:`clip_properties_ref`."
 msgstr ""
-"レイアウトの選択は通常のクリッププロパティとして適用されます。録画後に :guilabel:`Gravity`、:guilabel:`Scale "
-"X`、:guilabel:`Scale Y`、:guilabel:`Margin`、および :guilabel:`Corner Radius` "
-"を使って調整してください。詳細は :ref:`clip_properties_ref` を参照してください。"
+"レイアウトの選択は通常のクリッププロパティとして適用されます。録画後に :guilabel:`Gravity`\\ 、\\ "
+":guilabel:`Scale X`\\ 、\\ :guilabel:`Scale Y`\\ 、\\ :guilabel:`Margin`\\ "
+"、および :guilabel:`Corner Radius` を使って調整してください。詳細は :ref:`clip_properties_ref` "
+"を参照してください。"
 
-#: ../recording.rst:257
+#: ../doc/recording.rst:257
 msgid "Combining Sources"
 msgstr "ソースの組み合わせ"
 
-#: ../recording.rst:259
+#: ../doc/recording.rst:259
 msgid ""
 "The Recording View keeps all enabled source controls together while leaving "
 "the preview and timeline visible."
 msgstr "録画ビューは有効なすべてのソースコントロールをまとめ、プレビューとタイムラインを表示したままにします。"
 
-#: ../recording.rst:-1
+#: ../doc/recording.rst:-1
 msgid ""
 "OpenShot Recording View with microphone, screen, and webcam sources selected"
 msgstr "マイク、画面、ウェブカメラのソースが選択されたOpenShot録画ビュー"
 
-#: ../recording.rst:264
+#: ../doc/recording.rst:264
 msgid "Useful recording combinations"
 msgstr "便利な録画の組み合わせ"
 
-#: ../recording.rst:268
+#: ../doc/recording.rst:268
 msgid "Workflow"
 msgstr "ワークフロー"
 
-#: ../recording.rst:269
+#: ../doc/recording.rst:269
 msgid "Enable"
 msgstr "有効にする"
 
-#: ../recording.rst:270
+#: ../doc/recording.rst:270
 msgid "Result"
 msgstr "結果"
 
-#: ../recording.rst:271
+#: ../doc/recording.rst:271
 msgid "Voice-over"
 msgstr "ボイスオーバー"
 
-#: ../recording.rst:273
+#: ../doc/recording.rst:273
 msgid "One editable narration file."
 msgstr "編集可能なナレーションファイルが1つ。"
 
-#: ../recording.rst:274
+#: ../doc/recording.rst:274
 msgid "Silent tutorial"
 msgstr "無音チュートリアル"
 
-#: ../recording.rst:276
+#: ../doc/recording.rst:276
 msgid "Screen MP4; turn System Audio Off if silence is desired."
 msgstr "画面MP4。無音にしたい場合はシステムオーディオをオフにしてください。"
 
-#: ../recording.rst:277
+#: ../doc/recording.rst:277
 msgid "Game commentary"
 msgstr "ゲーム解説"
 
-#: ../recording.rst:278
+#: ../doc/recording.rst:278
 msgid "Mic + Screen"
 msgstr "マイク＋画面"
 
-#: ../recording.rst:279
+#: ../doc/recording.rst:279
 msgid "Separate mic clip plus screen video with game audio."
 msgstr "マイククリップとゲーム音声付き画面動画を別々に録画。"
 
-#: ../recording.rst:280
+#: ../doc/recording.rst:280
 msgid "Presenter camera"
 msgstr "プレゼンターカメラ"
 
-#: ../recording.rst:281
+#: ../doc/recording.rst:281
 msgid "Mic + Webcam"
 msgstr "マイク＋ウェブカメラ"
 
-#: ../recording.rst:282
+#: ../doc/recording.rst:282
 msgid "Separate voice and silent camera video."
 msgstr "音声と無音のカメラ動画を別々に録画。"
 
-#: ../recording.rst:283
+#: ../doc/recording.rst:283
 msgid "Tutorial with camera"
 msgstr "カメラ付きチュートリアル"
 
-#: ../recording.rst:284
+#: ../doc/recording.rst:284
 msgid "Mic + Screen + Webcam"
 msgstr "マイク＋画面＋ウェブカメラ"
 
-#: ../recording.rst:285
+#: ../doc/recording.rst:285
 msgid "Three synchronized clips with webcam above the screen."
 msgstr "画面の上にウェブカメラがある3つの同期クリップ。"
 
-#: ../recording.rst:288
+#: ../doc/recording.rst:288
 msgid "Where Recordings Are Saved"
 msgstr "録画ファイルの保存場所"
 
-#: ../recording.rst:290
+#: ../doc/recording.rst:290
 msgid ""
 "Recordings are saved in the project's assets folder under ``recordings``. If"
 " the project has not been saved yet, OpenShot uses its user-data location. "
@@ -804,7 +807,7 @@ msgstr ""
 "録画ファイルはプロジェクトのアセットフォルダ内の ``recordings`` "
 "に保存されます。プロジェクトがまだ保存されていない場合、OpenShotはユーザーデータの場所を使用します。ファイル名にはソース名とタイムスタンプが含まれ、同じ秒に作成されたファイルの上書きを避けるために別の数字のサフィックスが付加されます。"
 
-#: ../recording.rst:294
+#: ../doc/recording.rst:294
 msgid ""
 "Save the project before a long or important session so its recording "
 "destination is predictable. Do not move or rename recorded files outside "
@@ -812,31 +815,31 @@ msgid ""
 msgstr ""
 "長時間または重要なセッションの前にプロジェクトを保存し、録画の保存先を予測可能にしてください。プロジェクトが録画ファイルを使用している間は、OpenShotの外で録画ファイルを移動または名前変更しないでください。"
 
-#: ../recording.rst:298
+#: ../doc/recording.rst:298
 msgid "Permissions and Platform Behavior"
 msgstr "権限とプラットフォームの動作"
 
-#: ../recording.rst:300
+#: ../doc/recording.rst:300
 msgid ""
 "Screen and camera capture depend on operating-system services, hardware, and"
 " build support. The controls in the dock adapt to the available backend."
 msgstr ""
 "画面およびカメラのキャプチャは、オペレーティングシステムのサービス、ハードウェア、およびビルドのサポートに依存します。ドックのコントロールは利用可能なバックエンドに適応します。"
 
-#: ../recording.rst:303
+#: ../doc/recording.rst:303
 msgid ""
 "**Linux/X11:** Full-screen, window, and numeric region capture are available"
 " when the X11 capture backend is built."
 msgstr ""
 "**Linux/X11:** X11キャプチャバックエンドがビルドされている場合、全画面、ウィンドウ、および数値領域のキャプチャが利用可能です。"
 
-#: ../recording.rst:304
+#: ../doc/recording.rst:304
 msgid ""
 "**Linux/Wayland:** The desktop sharing portal chooses the capture source "
 "after recording starts."
 msgstr "**Linux/Wayland:** デスクトップ共有ポータルは録画開始後にキャプチャソースを選択します。"
 
-#: ../recording.rst:305
+#: ../doc/recording.rst:305
 msgid ""
 "**Windows:** Desktop capture uses the available Windows screen backend; "
 "camera devices use Windows capture services."
@@ -844,7 +847,7 @@ msgstr ""
 "**Windows:** "
 "デスクトップキャプチャは利用可能なWindows画面バックエンドを使用し、カメラデバイスはWindowsキャプチャサービスを使用します。"
 
-#: ../recording.rst:306
+#: ../doc/recording.rst:306
 msgid ""
 "**macOS:** Screen capture uses the supported macOS backend, with window and "
 "region choices represented as cropped screen bounds when required. System "
@@ -854,7 +857,7 @@ msgstr ""
 "**macOS:** "
 "画面キャプチャはサポートされているmacOSバックエンドを使用し、必要に応じてウィンドウおよび領域の選択は切り取られた画面範囲として表されます。システムオーディオの録音は現在サポートされていません。マイク録音は別のオーディオソースとして利用可能です。"
 
-#: ../recording.rst:310
+#: ../doc/recording.rst:310
 msgid ""
 "The first recording may trigger Screen Recording, Microphone, Camera, or "
 "desktop-sharing permission prompts. Approve the requested source, then "
@@ -864,130 +867,130 @@ msgid ""
 msgstr ""
 "最初の録画では、画面録画、マイク、カメラ、またはデスクトップ共有の権限プロンプトが表示されることがあります。要求されたソースを許可し、必要に応じてオペレーティングシステムが要求する場合はOpenShotを再起動してください。無効化されたソースカードやオプションは、サポートされていないソースを黙って省略する録画よりも望ましいです。"
 
-#: ../recording.rst:315
+#: ../doc/recording.rst:315
 msgid "Troubleshooting Recording"
 msgstr "録画のトラブルシューティング"
 
-#: ../recording.rst:317
+#: ../doc/recording.rst:317
 msgid "Common recording problems"
 msgstr "一般的な録画の問題"
 
-#: ../recording.rst:321
+#: ../doc/recording.rst:321
 msgid "Problem"
 msgstr "問題"
 
-#: ../recording.rst:321
+#: ../doc/recording.rst:321
 msgid "What to Check"
 msgstr "確認すべきこと"
 
-#: ../recording.rst:323
+#: ../doc/recording.rst:323
 msgid "Mic meter does not move"
 msgstr "マイクメーターが動かない"
 
-#: ../recording.rst:323
+#: ../doc/recording.rst:323
 msgid ""
 "Select the correct Input, verify OS microphone permission, and check "
 "mute/gain."
 msgstr "正しい入力を選択し、OSのマイク権限を確認し、ミュートやゲインをチェックしてください。"
 
-#: ../recording.rst:324
+#: ../doc/recording.rst:324
 msgid "Mic clips or distorts"
 msgstr "マイクがクリップまたは歪む"
 
-#: ../recording.rst:324
+#: ../doc/recording.rst:324
 msgid "Lower hardware/input gain and keep peaks below full scale."
 msgstr "ハードウェア/入力ゲインを下げ、ピークをフルスケール以下に保ってください。"
 
-#: ../recording.rst:325
+#: ../doc/recording.rst:325
 msgid "Mic is very quiet"
 msgstr "マイクの音が非常に小さい"
 
-#: ../recording.rst:325
+#: ../doc/recording.rst:325
 msgid ""
 "Raise input gain near the device; timeline waveform height does not change "
 "audio."
 msgstr "デバイス近くの入力ゲインを上げてください。タイムラインの波形の高さは音量を変えません。"
 
-#: ../recording.rst:326
+#: ../doc/recording.rst:326
 msgid "System Audio is disabled"
 msgstr "システムオーディオが無効"
 
-#: ../recording.rst:326
+#: ../doc/recording.rst:326
 msgid ""
 "The active screen backend/build does not support it; check platform audio "
 "routing."
 msgstr "現在の画面バックエンド/ビルドはサポートしていません。プラットフォームのオーディオルーティングを確認してください。"
 
-#: ../recording.rst:327
+#: ../doc/recording.rst:327
 msgid "System Audio is silent"
 msgstr "システムオーディオが無音"
 
-#: ../recording.rst:327
+#: ../doc/recording.rst:327
 msgid ""
 "Play audio before testing, verify the output device, and inspect OS "
 "privacy/routing."
 msgstr "テスト前に音声を再生し、出力デバイスを確認し、OSのプライバシーやルーティングを調べてください。"
 
-#: ../recording.rst:328
+#: ../doc/recording.rst:328
 msgid "Voice contains game echo"
 msgstr "音声にゲームのエコーが含まれる"
 
-#: ../recording.rst:328
+#: ../doc/recording.rst:328
 msgid "Use headphones so the mic does not capture speaker playback."
 msgstr "マイクがスピーカーの再生音を拾わないようにヘッドホンを使用してください。"
 
-#: ../recording.rst:329
+#: ../doc/recording.rst:329
 msgid "Screen source is incorrect"
 msgstr "画面ソースが正しくない"
 
-#: ../recording.rst:329
+#: ../doc/recording.rst:329
 msgid ""
 "Re-select Full Screen/Window/Region; on Wayland, choose again in the portal."
 msgstr "全画面/ウィンドウ/領域を再選択してください。Waylandではポータルで再度選択してください。"
 
-#: ../recording.rst:330
+#: ../doc/recording.rst:330
 msgid "Cursor missing on Windows"
 msgstr "Windowsでカーソルが表示されない"
 
-#: ../recording.rst:330
+#: ../doc/recording.rst:330
 msgid ""
 "High-DPI scaling can affect the pointer overlay; try the target display at "
 "100%."
 msgstr "高DPIスケーリングはポインターオーバーレイに影響を与えることがあります。ターゲットディスプレイを100%で試してください。"
 
-#: ../recording.rst:331
+#: ../doc/recording.rst:331
 msgid "Webcam is unavailable"
 msgstr "ウェブカメラが利用できない"
 
-#: ../recording.rst:331
+#: ../doc/recording.rst:331
 msgid ""
 "Check camera permission, close other camera apps, and reconnect the device."
 msgstr "カメラの権限を確認し、他のカメラアプリを閉じて、デバイスを再接続してください。"
 
-#: ../recording.rst:332
+#: ../doc/recording.rst:332
 msgid "Recording is choppy"
 msgstr "録画が途切れる"
 
-#: ../recording.rst:332
+#: ../doc/recording.rst:332
 msgid ""
 "Lower screen/camera FPS or resolution and close CPU-intensive applications."
 msgstr "画面/カメラのFPSまたは解像度を下げ、CPU負荷の高いアプリケーションを閉じてください。"
 
-#: ../recording.rst:333
+#: ../doc/recording.rst:333
 msgid "Clips appear on wrong track"
 msgstr "クリップが誤ったトラックに表示される"
 
-#: ../recording.rst:333
+#: ../doc/recording.rst:333
 msgid ""
 "Choose the top destination Track before recording, then move clips if "
 "needed."
 msgstr "録画前に最上位の宛先トラックを選択し、必要に応じてクリップを移動してください。"
 
-#: ../recording.rst:337
+#: ../doc/recording.rst:337
 msgid "After Recording"
 msgstr "録画後"
 
-#: ../recording.rst:339
+#: ../doc/recording.rst:339
 msgid ""
 "Recorded clips behave like imported media. You can trim, slice, move, mute, "
 "fade, add effects, and adjust volume or layout with the standard editing "
@@ -995,20 +998,20 @@ msgid ""
 msgstr ""
 "録画したクリップはインポートしたメディアと同様に扱えます。標準の編集ツールでトリム、スライス、移動、ミュート、フェード、エフェクト追加、音量やレイアウトの調整が可能です。次に役立つトピックは以下の通りです："
 
-#: ../recording.rst:342
+#: ../doc/recording.rst:342
 msgid ":ref:`clips_cutting_slicing_ref` for trimming and slicing."
 msgstr ":ref:`clips_cutting_slicing_ref` はトリミングとスライスについて。"
 
-#: ../recording.rst:343
+#: ../doc/recording.rst:343
 msgid ""
 ":ref:`clip_presets_ref` for waveform, volume, fade, and other clip actions."
 msgstr ":ref:`clip_presets_ref` は波形、音量、フェード、その他のクリップ操作について。"
 
-#: ../recording.rst:344
+#: ../doc/recording.rst:344
 msgid ""
 ":ref:`clip_properties_ref` for webcam placement and detailed adjustments."
 msgstr ":ref:`clip_properties_ref` はウェブカメラの配置と詳細な調整について。"
 
-#: ../recording.rst:345
+#: ../doc/recording.rst:345
 msgid ":ref:`playback_ref` for playback and audio troubleshooting."
 msgstr ":ref:`playback_ref` は再生とオーディオのトラブルシューティングについて。"

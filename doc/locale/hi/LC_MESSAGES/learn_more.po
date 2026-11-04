@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-16 18:08-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,66 +18,69 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 # Translated with gpt-4.1-mini
-#: ../learn_more.rst:23
+#: ../doc/learn_more.rst:23
 msgid "Learn More"
 msgstr "और जानें"
 
 # Translated with gpt-4.1-mini
-#: ../learn_more.rst:24
+#: ../doc/learn_more.rst:24
 msgid ""
 "We are working hard to expand this user guide and to improve OpenShot Video "
 "Editor, but if you are stuck and don't know where to turn, OpenShot has "
 "several sources for additional information."
 msgstr ""
-"हम इस उपयोगकर्ता मार्गदर्शिका का विस्तार करने और OpenShot Video Editor को बेहतर "
-"बनाने के लिए कड़ी मेहनत कर रहे हैं, लेकिन यदि आप फंस गए हैं और नहीं जानते कि कहाँ जाएं, तो "
-"OpenShot के पास अतिरिक्त जानकारी के लिए कई स्रोत हैं।"
+"हम इस उपयोगकर्ता मार्गदर्शिका का विस्तार करने और OpenShot Video Editor को "
+"बेहतर बनाने के लिए कड़ी मेहनत कर रहे हैं, लेकिन यदि आप फंस गए हैं और नहीं "
+"जानते कि कहाँ जाएं, तो OpenShot के पास अतिरिक्त जानकारी के लिए कई स्रोत हैं।"
 
 # Translated with gpt-4.1-mini
-#: ../learn_more.rst:27
+#: ../doc/learn_more.rst:27
 msgid ""
-"OpenShot has several `YouTube Tutorials <https://www.youtube.com/playlist?"
-"list=PLymupH2aoNQNezYzv2lhSwvoyZgLp1Q0T>`_ available to help you learn more."
+"OpenShot has several `YouTube Tutorials "
+"<https://www.youtube.com/playlist?list=PLymupH2aoNQNezYzv2lhSwvoyZgLp1Q0T>`_"
+" available to help you learn more."
 msgstr ""
-"OpenShot के पास आपकी सहायता के लिए कई `YouTube ट्यूटोरियल्स <https://www.youtube."
-"com/playlist?list=PLymupH2aoNQNezYzv2lhSwvoyZgLp1Q0T>`_ उपलब्ध हैं।"
+"OpenShot के पास आपकी सहायता के लिए कई `YouTube ट्यूटोरियल्स "
+"<https://www.youtube.com/playlist?list=PLymupH2aoNQNezYzv2lhSwvoyZgLp1Q0T>`_"
+" उपलब्ध हैं।"
 
 # Translated with gpt-4.1-mini
-#: ../learn_more.rst:28
+#: ../doc/learn_more.rst:28
 msgid ""
 "OpenShot has a `Reddit User Community <https://openshot.org/forum>`_ "
 "dedicated to users helping users, answering questions, and discussing video "
 "editing and OpenShot topics."
 msgstr ""
-"OpenShot के पास एक `Reddit उपयोगकर्ता समुदाय <https://openshot.org/forum>`_ है "
-"जो उपयोगकर्ताओं की मदद करने, प्रश्नों का उत्तर देने, और वीडियो संपादन तथा OpenShot "
-"विषयों पर चर्चा करने के लिए समर्पित है।"
+"OpenShot के पास एक `Reddit उपयोगकर्ता समुदाय <https://openshot.org/forum>`_ "
+"है जो उपयोगकर्ताओं की मदद करने, प्रश्नों का उत्तर देने, और वीडियो संपादन तथा"
+" OpenShot विषयों पर चर्चा करने के लिए समर्पित है।"
 
 # Translated with gpt-4.1-mini
-#: ../learn_more.rst:29
+#: ../doc/learn_more.rst:29
 msgid ""
 "If you would like to help improve this User Guide, `view source on GitHub "
 "<https://github.com/OpenShot/openshot-qt/tree/develop/doc>`_."
 msgstr ""
-"यदि आप इस उपयोगकर्ता मार्गदर्शिका को बेहतर बनाने में मदद करना चाहते हैं, तो `GitHub पर "
-"स्रोत देखें <https://github.com/OpenShot/openshot-qt/tree/develop/doc>`_।"
+"यदि आप इस उपयोगकर्ता मार्गदर्शिका को बेहतर बनाने में मदद करना चाहते हैं, तो "
+"`GitHub पर स्रोत देखें <https://github.com/OpenShot/openshot-"
+"qt/tree/develop/doc>`_।"
 
 # Translated with gpt-4.1-mini
-#: ../learn_more.rst:30
+#: ../doc/learn_more.rst:30
 msgid ""
-"If you have discovered a new bug, please `Report a Bug <https://www.openshot."
-"org/issues/new/>`_."
+"If you have discovered a new bug, please `Report a Bug "
+"<https://www.openshot.org/issues/new/>`_."
 msgstr ""
-"यदि आपने कोई नया बग पाया है, तो कृपया `बग रिपोर्ट करें <https://www.openshot.org/"
-"issues/new/>`_।"
+"यदि आपने कोई नया बग पाया है, तो कृपया `बग रिपोर्ट करें "
+"<https://www.openshot.org/issues/new/>`_।"
 
 # Translated with gpt-4.1-mini
-#: ../learn_more.rst:31
+#: ../doc/learn_more.rst:31
 msgid ""
 "If you need professional support, you can open a ticket by sending an "
-"message to support@openshot.org or `Schedule a call <https://calendly.com/"
-"openshot-support/desktop>`_."
+"message to support@openshot.org or `Schedule a call "
+"<https://calendly.com/openshot-support/desktop>`_."
 msgstr ""
-"यदि आपको पेशेवर सहायता की आवश्यकता है, तो आप support@openshot.org पर संदेश भेजकर "
-"टिकट खोल सकते हैं या `कॉल शेड्यूल करें <https://calendly.com/openshot-support/"
-"desktop>`_।"
+"यदि आपको पेशेवर सहायता की आवश्यकता है, तो आप support@openshot.org पर संदेश "
+"भेजकर टिकट खोल सकते हैं या `कॉल शेड्यूल करें <https://calendly.com/openshot-"
+"support/desktop>`_।"

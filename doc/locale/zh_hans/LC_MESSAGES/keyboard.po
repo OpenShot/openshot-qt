@@ -1,0 +1,1817 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) OpenShot Studios, LLC
+# This file is distributed under the same license as the OpenShot Video Editor package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenShot Video Editor 4.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_hans\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../doc/keyboard.rst:4
+msgid "Keyboard Shortcuts"
+msgstr "键盘快捷键"
+
+#: ../doc/keyboard.rst:5
+msgid ""
+"Find shortcuts by task below, or jump to the full reference. These are the "
+"default assignments; customize them in :guilabel:`Edit → Preferences → "
+"Keyboard` (:guilabel:`OpenShot Video Editor → Preferences` on macOS). See "
+":ref:`preferences_keyboard_ref` for details."
+msgstr ""
+"在下方按任务查找快捷键，或跳转到完整参考。这些是默认分配；可在 :guilabel:`编辑 → 首选项 → 键盘`\\ （macOS 上为 "
+":guilabel:`OpenShot Video Editor → 首选项`\\ ）中自定义。详情见 "
+":ref:`preferences_keyboard_ref`\\ 。"
+
+#: ../doc/keyboard.rst:10
+msgid "On macOS, use Command for shortcuts shown with Ctrl."
+msgstr "在 macOS 上，使用 Command 键代替显示为 Ctrl 的快捷键。"
+
+#: ../doc/keyboard.rst:14
+msgid "On this page"
+msgstr "本页内容"
+
+#: ../doc/keyboard.rst:19
+msgid "Using the timeline with a keyboard"
+msgstr "使用键盘操作时间线"
+
+#: ../doc/keyboard.rst:20
+msgid ""
+"Focus the timeline before selecting, moving, or trimming clips and "
+"transitions with these shortcuts."
+msgstr "在使用这些快捷键选择、移动或修剪剪辑和转场之前，请先聚焦时间线。"
+
+#: ../doc/keyboard.rst:23
+msgid "Moving between panels"
+msgstr "在面板间切换"
+
+#: ../doc/keyboard.rst:29 ../doc/keyboard.rst:153 ../doc/keyboard.rst:186
+#: ../doc/keyboard.rst:224 ../doc/keyboard.rst:250 ../doc/keyboard.rst:389
+#: ../doc/keyboard.rst:420
+msgid "Action"
+msgstr "操作"
+
+#: ../doc/keyboard.rst:30 ../doc/keyboard.rst:111 ../doc/keyboard.rst:154
+#: ../doc/keyboard.rst:187 ../doc/keyboard.rst:225 ../doc/keyboard.rst:251
+msgid "Shortcut"
+msgstr "快捷键"
+
+#: ../doc/keyboard.rst:31 ../doc/keyboard.rst:522
+msgid "Focus Project Files"
+msgstr "聚焦项目文件"
+
+#: ../doc/keyboard.rst:32 ../doc/keyboard.rst:523
+msgid ":kbd:`Shift+1`"
+msgstr ":kbd:`Shift+1`"
+
+#: ../doc/keyboard.rst:33
+msgid "Preview the selected file or timeline clip's source"
+msgstr "预览所选文件或时间线剪辑的源"
+
+#: ../doc/keyboard.rst:34 ../doc/keyboard.rst:394 ../doc/keyboard.rst:601
+msgid ":kbd:`Shift+2` or :kbd:`Alt+P`"
+msgstr ":kbd:`Shift+2` 或 :kbd:`Alt+P`"
+
+#: ../doc/keyboard.rst:35
+msgid "Focus the timeline"
+msgstr "聚焦时间线"
+
+#: ../doc/keyboard.rst:36 ../doc/keyboard.rst:526
+msgid ":kbd:`Shift+3`"
+msgstr ":kbd:`Shift+3`"
+
+#: ../doc/keyboard.rst:37 ../doc/keyboard.rst:528
+msgid "Focus Transitions"
+msgstr "聚焦转场"
+
+#: ../doc/keyboard.rst:38 ../doc/keyboard.rst:529
+msgid ":kbd:`Shift+7`"
+msgstr ":kbd:`Shift+7`"
+
+#: ../doc/keyboard.rst:39 ../doc/keyboard.rst:516
+msgid "Focus Effects"
+msgstr "聚焦特效"
+
+#: ../doc/keyboard.rst:40 ../doc/keyboard.rst:517
+msgid ":kbd:`Shift+8`"
+msgstr ":kbd:`Shift+8`"
+
+#: ../doc/keyboard.rst:41 ../doc/keyboard.rst:519
+msgid "Focus Emojis"
+msgstr "聚焦表情符号"
+
+#: ../doc/keyboard.rst:42 ../doc/keyboard.rst:520
+msgid ":kbd:`Shift+9`"
+msgstr ":kbd:`Shift+9`"
+
+#: ../doc/keyboard.rst:43
+msgid "Move to the next / previous control"
+msgstr "移动到下一个 / 上一个控件"
+
+#: ../doc/keyboard.rst:44 ../doc/keyboard.rst:46
+msgid ":kbd:`Tab` / :kbd:`Shift+Tab`"
+msgstr ":kbd:`Tab` / :kbd:`Shift+Tab`"
+
+#: ../doc/keyboard.rst:45
+msgid "Focus the next / previous dock tab title without selecting it"
+msgstr "聚焦下一个 / 上一个停靠标签标题但不选择它"
+
+#: ../doc/keyboard.rst:47
+msgid "Move focus between dock tab titles"
+msgstr "在停靠标签标题间移动焦点"
+
+#: ../doc/keyboard.rst:48
+msgid ":kbd:`Left` / :kbd:`Right` while a title has focus"
+msgstr "当标题聚焦时，使用 :kbd:`Left` / :kbd:`Right`"
+
+#: ../doc/keyboard.rst:49
+msgid "Activate the focused dock tab and enter its first control"
+msgstr "激活聚焦的停靠标签并进入其第一个控件"
+
+#: ../doc/keyboard.rst:50
+msgid ":kbd:`Space` or :kbd:`Enter`"
+msgstr ":kbd:`Space` 或 :kbd:`Enter`"
+
+#: ../doc/keyboard.rst:51
+msgid "Browse Project Files, transitions, effects, or emojis"
+msgstr "浏览项目文件、转场、特效或表情符号"
+
+#: ../doc/keyboard.rst:52
+msgid "Arrow keys while the list has focus"
+msgstr "列表聚焦时使用方向键"
+
+#: ../doc/keyboard.rst:54
+msgid ""
+"Each grouped dock title is a separate Tab stop. Its normal focus style marks"
+" the focused title (an underline in Cosmic Dusk); moving focus does not "
+"change the selected dock. Activate a title to switch docks and focus its "
+"first control. Clicking a dock tab also focuses its first control, even if "
+"that tab is already selected. Only the active dock's visible controls "
+"participate in the Tab sequence; hidden dock controls are skipped."
+msgstr ""
+"每个分组的停靠标题都是一个独立的 Tab 停靠点。其正常聚焦样式标记聚焦的标题（Cosmic Dusk "
+"中为下划线）；移动焦点不会更改选中的停靠。激活标题以切换停靠并聚焦其第一个控件。点击停靠标签也会聚焦其第一个控件，即使该标签已被选中。只有活动停靠的可见控件参与"
+" Tab 序列；隐藏的停靠控件会被跳过。"
+
+#: ../doc/keyboard.rst:61
+msgid ""
+"When focus is inside a dock, the underline stays beneath its active tab. "
+"When you Tab between titles, the underline follows the focused title. The "
+"timeline itself is one Tab stop; Tab does not visit each clip or transition."
+msgstr ""
+"当焦点在停靠内时，下划线保持在其活动标签下方。切换标题时，下划线跟随聚焦的标题。时间线本身是一个 Tab 停靠点；Tab 不会访问每个剪辑或转场。"
+
+#: ../doc/keyboard.rst:65
+msgid ""
+"The timeline's ruler and track headers, including their labels, dim when "
+"unfocused. The clip area stays the same. In Cosmic Dusk, a blue underline "
+"marks the focused dock's title text or active tab, and buttons show a blue "
+"focus border. The untitled timeline dock has no underline."
+msgstr ""
+"时间线的标尺和轨道标题（包括其标签）在失焦时变暗。剪辑区域保持不变。在 Cosmic Dusk "
+"主题中，蓝色下划线标记聚焦的停靠标题文本或活动标签，按钮显示蓝色焦点边框。无标题的时间线停靠没有下划线。"
+
+#: ../doc/keyboard.rst:71
+msgid "Previewing a source"
+msgstr "预览源"
+
+#: ../doc/keyboard.rst:72
+msgid ""
+"Press :kbd:`Shift+2` or :kbd:`Alt+P` with focus in Project Files to preview "
+"the selected file. With focus on the timeline, the same command previews the"
+" active selected clip from its Start point. With multiple items selected, "
+"the active selection anchor determines the source. Transitions and clips "
+"without an available project file do not open a source preview."
+msgstr ""
+"在项目文件聚焦时，按 :kbd:`Shift+2` 或 :kbd:`Alt+P` "
+"预览所选文件。在时间线聚焦时，同一命令从起始点预览活动选中的剪辑。多项选择时，活动选择锚点决定源。无可用项目文件的转场和剪辑不会打开源预览。"
+
+#: ../doc/keyboard.rst:78
+msgid ""
+"An existing preview for the same file or the same timeline clip is reused. "
+"Different timeline clips have separate range-editing targets, even if they "
+"use the same source. When neither the file list nor the timeline has focus, "
+"the command does nothing."
+msgstr ""
+"相同文件或相同时间线剪辑的现有预览会被重用。不同时间线剪辑有独立的范围编辑目标，即使它们使用相同的源。当文件列表和时间线均未聚焦时，该命令无效。"
+
+#: ../doc/keyboard.rst:83
+msgid ""
+"In Preview File, click or drag the source ruler to scrub. Preview Clip and "
+"Split File also provide range editing: drag the Start/End grips, move the "
+"selected filmstrip range, draw a new range outside it, or edit their "
+"timecodes, or press :kbd:`I` / :kbd:`O` to set a marker at the playhead. End"
+" is the last included frame. :guilabel:`Loop` repeats the marked range. The "
+"preview uses your configured timeline playback and range-editing shortcuts: "
+":kbd:`,` / :kbd:`.` move the range one frame (:kbd:`Shift` moves five). "
+":kbd:`[` selects Start for trimming, :kbd:`]` selects End; comma and period "
+"then trim that edge. :kbd:`Esc` leaves trim mode before closing the dialog. "
+":kbd:`Left` / :kbd:`Right` scrub frames without changing the range. "
+":kbd:`Space` toggles playback, :kbd:`J` / :kbd:`L` change playback speed and"
+" :kbd:`K` pauses. These shortcuts leave text entry alone in Name and "
+"timecodes."
+msgstr ""
+"在预览文件中，点击或拖动源标尺进行擦洗。预览剪辑和拆分文件也提供范围编辑：拖动起始/结束控制点，移动选中的胶片范围，在其外绘制新范围，或编辑时间码，或按"
+" :kbd:`I` / :kbd:`O` 在播放头设置标记。结束为包含的最后一帧。\\ :guilabel:`循环` "
+"重复标记范围。预览使用您配置的时间线播放和范围编辑快捷键：\\ :kbd:`,` / :kbd:`.` 移动范围一帧（按 :kbd:`Shift` "
+"移动五帧）。\\ :kbd:`[` 选择起点进行修剪，\\ :kbd:`]` 选择终点；逗号和句点修剪该边缘。\\ :kbd:`Esc` "
+"在关闭对话框前退出修剪模式。\\ :kbd:`Left` / :kbd:`Right` 擦洗帧但不改变范围。\\ :kbd:`Space` "
+"切换播放，\\ :kbd:`J` / :kbd:`L` 改变播放速度，\\ :kbd:`K` 暂停。这些快捷键不会影响名称和时间码的文本输入。"
+
+#: ../doc/keyboard.rst:96
+msgid ""
+"Scrubbing and moving markers do not edit the project until you click the "
+"dialog's Create, Update, or Update Clip button. See :ref:`split_clip_ref`."
+msgstr "拖动和移动标记不会编辑项目，直到您点击对话框中的创建、更新或更新剪辑按钮。参见 :ref:`split_clip_ref`\\ 。"
+
+#: ../doc/keyboard.rst:100
+msgid "Adding and applying assets"
+msgstr "添加和应用素材"
+
+#: ../doc/keyboard.rst:101
+msgid ""
+"The panel shortcuts above open the dock and focus its asset list directly. "
+"Use the arrow keys to choose an asset, then :kbd:`Ctrl+Enter` to add or "
+"apply it. Your existing browser selection is preserved; if nothing is "
+"selected, focusing the browser selects its current item or the first "
+"available item."
+msgstr ""
+"上面的面板快捷键会打开停靠面板并直接聚焦其素材列表。使用方向键选择素材，然后按 :kbd:`Ctrl+Enter` "
+"添加或应用它。您现有的浏览器选择将被保留；如果没有选择任何内容，聚焦浏览器时会选择当前项目或第一个可用项目。"
+
+#: ../doc/keyboard.rst:110
+msgid "Panel / action"
+msgstr "面板 / 操作"
+
+#: ../doc/keyboard.rst:112
+msgid "Result"
+msgstr "结果"
+
+#: ../doc/keyboard.rst:113
+msgid "Project Files: add selected files"
+msgstr "项目文件：添加选中的文件"
+
+#: ../doc/keyboard.rst:114 ../doc/keyboard.rst:117 ../doc/keyboard.rst:120
+#: ../doc/keyboard.rst:123 ../doc/keyboard.rst:430
+msgid ":kbd:`Ctrl+Enter`"
+msgstr ":kbd:`Ctrl+Enter`"
+
+#: ../doc/keyboard.rst:115
+msgid ""
+"Place files sequentially at the playhead, in browser order, on the target "
+"track."
+msgstr "按浏览顺序将文件依次放置在播放头处的目标轨道上。"
+
+#: ../doc/keyboard.rst:116
+msgid "Effects: apply selected effects"
+msgstr "效果：应用选中的效果"
+
+#: ../doc/keyboard.rst:118
+msgid ""
+"Apply to the selected timeline clips. Browsing effects keeps that clip "
+"selection."
+msgstr "应用于选中的时间线剪辑。浏览效果时保持该剪辑选择。"
+
+#: ../doc/keyboard.rst:119
+msgid "Transitions: add selected transitions"
+msgstr "转场：添加选中的转场"
+
+#: ../doc/keyboard.rst:121
+msgid ""
+"Place at the playhead on the target track, using the default transition "
+"length."
+msgstr "使用默认转场长度，将其放置在目标轨道的播放头处。"
+
+#: ../doc/keyboard.rst:122
+msgid "Emojis: add selected emoji"
+msgstr "表情符号：添加选中的表情"
+
+#: ../doc/keyboard.rst:124
+msgid ""
+"Place at the playhead on the target track, using the default image length."
+msgstr "使用默认图像长度，将其放置在目标轨道的播放头处。"
+
+#: ../doc/keyboard.rst:125
+msgid "Open the Add to Timeline dialog for selected files"
+msgstr "为选中的文件打开添加到时间线对话框"
+
+#: ../doc/keyboard.rst:126 ../doc/keyboard.rst:436
+msgid ":kbd:`Ctrl+Alt+A`"
+msgstr ":kbd:`Ctrl+Alt+A`"
+
+#: ../doc/keyboard.rst:127
+msgid "Choose placement and other options before adding the files."
+msgstr "在添加文件之前选择放置位置和其他选项。"
+
+#: ../doc/keyboard.rst:129
+msgid ""
+"The target is the selected timeline item's track, or the remembered track if"
+" nothing is selected. With neither available, OpenShot uses the highest "
+"unlocked track. The target track label appears **bold** while browsing "
+"assets. To change it, select an item on the desired track or clear the "
+"timeline selection and click the desired track before returning to the "
+"browser. A locked target blocks the operation; effects also require selected"
+" clips on unlocked tracks."
+msgstr ""
+"目标是选中时间线项目的轨道，或者如果没有选中任何内容，则为记忆的轨道。如果两者都不可用，OpenShot "
+"会使用最高的未锁定轨道。浏览素材时，目标轨道标签会以\\ **加粗**\\ "
+"显示。要更改它，请选择所需轨道上的项目，或清除时间线选择并点击所需轨道，然后返回浏览器。锁定的目标会阻止操作；效果还需要在未锁定轨道上选中剪辑。"
+
+#: ../doc/keyboard.rst:136
+msgid ""
+"Adding at the playhead uses normal OpenShot placement: it does not make room"
+" by shifting later clips or overwrite their content. As with dragging a "
+"single clip, an overlap can create an automatic transition. The playhead "
+"stays in place and focus stays in the browser, so you can continue choosing "
+"assets. Press :kbd:`Shift+3` to edit the newly added timeline items."
+msgstr ""
+"在播放头处添加使用正常的 OpenShot "
+"放置方式：不会通过移动后续剪辑来腾出空间，也不会覆盖它们的内容。与拖动单个剪辑一样，重叠可能会创建自动转场。播放头保持不动，焦点保持在浏览器中，因此您可以继续选择素材。按"
+" :kbd:`Shift+3` 编辑新添加的时间线项目。"
+
+#: ../doc/keyboard.rst:142
+msgid ""
+"For example: :kbd:`Shift+1` → arrow keys → :kbd:`Ctrl+Enter` → "
+":kbd:`Shift+3`. The add/apply shortcut works in the asset list, not while "
+"typing in a filter or renaming an item."
+msgstr ""
+"例如：\\ :kbd:`Shift+1` → 方向键 → :kbd:`Ctrl+Enter` → :kbd:`Shift+3`\\ "
+"。添加/应用快捷键在素材列表中有效，输入过滤器或重命名项目时无效。"
+
+#: ../doc/keyboard.rst:147
+msgid "Moving the playhead"
+msgstr "移动播放头"
+
+#: ../doc/keyboard.rst:155
+msgid "Step backward / forward one frame"
+msgstr "向后 / 向前移动一帧"
+
+#: ../doc/keyboard.rst:156
+msgid ":kbd:`Left` / :kbd:`Right`"
+msgstr ":kbd:`Left` / :kbd:`Right`"
+
+#: ../doc/keyboard.rst:157
+msgid "Step backward / forward five frames"
+msgstr "向后 / 向前移动五帧"
+
+#: ../doc/keyboard.rst:158
+msgid ":kbd:`Shift+Left` / :kbd:`Shift+Right`"
+msgstr ":kbd:`Shift+Left` / :kbd:`Shift+Right`"
+
+#: ../doc/keyboard.rst:159
+msgid "Go to the previous / next edit"
+msgstr "跳转到上一个 / 下一个编辑点"
+
+#: ../doc/keyboard.rst:160
+msgid ":kbd:`Up` / :kbd:`Down`"
+msgstr ":kbd:`Up` / :kbd:`Down`"
+
+#: ../doc/keyboard.rst:161
+msgid "Jump to the start / end"
+msgstr "跳转到开始 / 结束"
+
+#: ../doc/keyboard.rst:162
+msgid ":kbd:`Home` / :kbd:`End`"
+msgstr ":kbd:`Home` / :kbd:`End`"
+
+#: ../doc/keyboard.rst:163
+msgid "Center the timeline on the playhead"
+msgstr "将时间线中心对准播放头"
+
+#: ../doc/keyboard.rst:164 ../doc/keyboard.rst:451
+msgid ":kbd:`Shift+C`"
+msgstr ":kbd:`Shift+C`"
+
+#: ../doc/keyboard.rst:165 ../doc/keyboard.rst:292
+msgid "Play / pause"
+msgstr "播放 / 暂停"
+
+#: ../doc/keyboard.rst:166 ../doc/keyboard.rst:595
+msgid ":kbd:`Space`"
+msgstr ":kbd:`Space`"
+
+#: ../doc/keyboard.rst:167
+msgid "Play in reverse"
+msgstr "倒放"
+
+#: ../doc/keyboard.rst:168 ../doc/keyboard.rst:634
+msgid ":kbd:`J`"
+msgstr ":kbd:`J`"
+
+#: ../doc/keyboard.rst:169
+msgid "Stop playback"
+msgstr "停止播放"
+
+#: ../doc/keyboard.rst:170 ../doc/keyboard.rst:712
+msgid ":kbd:`K`"
+msgstr ":kbd:`K`"
+
+#: ../doc/keyboard.rst:171
+msgid "Play forward"
+msgstr "正向播放"
+
+#: ../doc/keyboard.rst:172 ../doc/keyboard.rst:511
+msgid ":kbd:`L`"
+msgstr ":kbd:`L`"
+
+#: ../doc/keyboard.rst:174
+msgid ""
+"Edit navigation uses the selected item's track, or the last clicked track if"
+" nothing is selected. With no active track, it starts on the highest track "
+"containing a clip or transition at the playhead, or the highest populated "
+"track in a gap."
+msgstr ""
+"编辑导航使用选中项目的轨道，或如果没有选中任何内容，则使用最后点击的轨道。若无活动轨道，则从播放头处包含剪辑或转场的最高轨道开始，或从间隙中最高的已填充轨道开始。"
+
+#: ../doc/keyboard.rst:179
+msgid "Selecting clips and transitions"
+msgstr "选择剪辑和转场"
+
+#: ../doc/keyboard.rst:180
+msgid ""
+"These shortcuts select both clips and transitions. Selection brings an item "
+"into view without changing the zoom or playhead."
+msgstr "这些快捷键可选择剪辑和转场。选择会使项目进入视图，但不会改变缩放或播放头位置。"
+
+#: ../doc/keyboard.rst:188
+msgid "Select the previous / next item"
+msgstr "选择上一个 / 下一个项目"
+
+#: ../doc/keyboard.rst:189
+msgid ":kbd:`Ctrl+Left` / :kbd:`Ctrl+Right`"
+msgstr ":kbd:`Ctrl+Left` / :kbd:`Ctrl+Right`"
+
+#: ../doc/keyboard.rst:190
+msgid "Select an item above / below"
+msgstr "选择上方 / 下方的项目"
+
+#: ../doc/keyboard.rst:191
+msgid ":kbd:`Ctrl+Up` / :kbd:`Ctrl+Down`"
+msgstr ":kbd:`Ctrl+Up` / :kbd:`Ctrl+Down`"
+
+#: ../doc/keyboard.rst:192
+msgid "Extend selection to the previous / next item"
+msgstr "扩展选择到上一个 / 下一个项目"
+
+#: ../doc/keyboard.rst:193
+msgid ":kbd:`Ctrl+Shift+Left` / :kbd:`Ctrl+Shift+Right`"
+msgstr ":kbd:`Ctrl+Shift+Left` / :kbd:`Ctrl+Shift+Right`"
+
+#: ../doc/keyboard.rst:194
+msgid "Cycle through items under the playhead"
+msgstr "循环选择播放头下的项目"
+
+#: ../doc/keyboard.rst:195 ../doc/keyboard.rst:652
+msgid ":kbd:`D`"
+msgstr ":kbd:`D`"
+
+#: ../doc/keyboard.rst:196
+msgid "Extend selection through items under the playhead"
+msgstr "扩展选择覆盖播放头下的项目"
+
+#: ../doc/keyboard.rst:197 ../doc/keyboard.rst:502
+msgid ":kbd:`Ctrl+Shift+D`"
+msgstr ":kbd:`Ctrl+Shift+D`"
+
+#: ../doc/keyboard.rst:198
+msgid "Select all / clear selection"
+msgstr "全选 / 清除选择"
+
+#: ../doc/keyboard.rst:199
+msgid ":kbd:`Ctrl+A` / :kbd:`Ctrl+Shift+A`"
+msgstr ":kbd:`Ctrl+A` / :kbd:`Ctrl+Shift+A`"
+
+#: ../doc/keyboard.rst:201
+msgid ""
+"**Left/right** follows the current track first. When no item remains in that"
+" direction, it continues to the closest item start on another track."
+msgstr "**左右键** 优先跟随当前轨道。当该方向没有剩余项目时，会继续跳转到另一轨道上最近的项目起点。"
+
+#: ../doc/keyboard.rst:204
+msgid ""
+"**Up/down** looks above or below the selected item, preferring items that "
+"overlap it in time. The nearest overlapping track wins. If nothing overlaps,"
+" the smallest horizontal gap wins, then the nearest track. Ties on a track "
+"favor the closest item center. Empty tracks and unrelated items farther to "
+"the side do not block navigation. With no selection, the playhead supplies "
+"the starting position."
+msgstr ""
+"**上下键** "
+"查看所选项目的上方或下方，优先选择时间上重叠的项目。最近的重叠轨道优先。如果没有重叠，则选择最小的水平间隙，然后是最近的轨道。轨道上的平局则偏向最近的项目中心。空轨道和远侧无关项目不会阻碍导航。无选择时，播放头提供起始位置。"
+
+#: ../doc/keyboard.rst:210
+msgid ""
+"**Selection at the playhead** cycles from the highest track to the lowest, "
+"then wraps to the top. Moving the playhead restarts the cycle. If no item is"
+" under it, the selection stays unchanged. Extending selection keeps items "
+"already selected."
+msgstr ""
+"**播放头处的选择** 从最高轨道循环到最低轨道，然后回到顶部。移动播放头会重新开始循环。如果播放头下没有项目，选择保持不变。扩展选择会保留已选项目。"
+
+#: ../doc/keyboard.rst:217
+msgid "Moving clips and transitions"
+msgstr "移动剪辑和转场"
+
+#: ../doc/keyboard.rst:218
+msgid ""
+"These shortcuts move the selected clips and transitions when no trim edge is"
+" selected."
+msgstr "当未选择修剪边缘时，这些快捷键用于移动选中的剪辑和转场。"
+
+#: ../doc/keyboard.rst:226
+msgid "Move left / right one frame"
+msgstr "向左 / 右移动一帧"
+
+#: ../doc/keyboard.rst:227 ../doc/keyboard.rst:257
+msgid ":kbd:`,` / :kbd:`.`"
+msgstr ":kbd:`,` / :kbd:`.`"
+
+#: ../doc/keyboard.rst:228
+msgid "Move left / right five frames"
+msgstr "向左 / 右移动五帧"
+
+#: ../doc/keyboard.rst:229 ../doc/keyboard.rst:259
+msgid ":kbd:`Shift+,` / :kbd:`Shift+.`"
+msgstr ":kbd:`Shift+,` / :kbd:`Shift+.`"
+
+#: ../doc/keyboard.rst:230
+msgid "Move up / down one track"
+msgstr "向上 / 下移动一轨"
+
+#: ../doc/keyboard.rst:231
+msgid ":kbd:`Alt+Up` / :kbd:`Alt+Down`"
+msgstr ":kbd:`Alt+上` / :kbd:`Alt+下`"
+
+#: ../doc/keyboard.rst:233
+msgid ""
+"Track moves keep the selection's timing and can use empty tracks. A locked "
+"track or the edge of the track list blocks the whole track move."
+msgstr "轨道移动保持选择的时间位置，并可使用空轨道。锁定轨道或轨道列表边缘会阻止整个轨道移动。"
+
+#: ../doc/keyboard.rst:236
+msgid ""
+"Hold a comma/period shortcut to move continuously. OpenShot previews the "
+"movement while the key repeats, then saves the final positions when you "
+"release it. One Undo reverses the entire hold, including all selected items."
+" Separate key taps remain separate undo steps. Leaving the timeline or "
+"starting another keyboard command also finishes the current movement."
+msgstr ""
+"按住逗号/句号快捷键可连续移动。OpenShot "
+"会在按键重复时预览移动，松开时保存最终位置。一次撤销可回退整个按住操作，包括所有选中项目。单独按键保持单独撤销步骤。离开时间线或开始其他键盘命令也会结束当前移动。"
+
+#: ../doc/keyboard.rst:243
+msgid "Trimming clips and transitions"
+msgstr "修剪剪辑和转场"
+
+#: ../doc/keyboard.rst:244
+msgid ""
+"Select a clip or transition, choose its left or right edge, then adjust that"
+" edge."
+msgstr "选择剪辑或转场，选择其左边缘或右边缘，然后调整该边缘。"
+
+#: ../doc/keyboard.rst:252
+msgid "Select the left trim edge"
+msgstr "选择左修剪边缘"
+
+#: ../doc/keyboard.rst:253 ../doc/keyboard.rst:661
+msgid ":kbd:`[`"
+msgstr ":kbd:`[`"
+
+#: ../doc/keyboard.rst:254
+msgid "Select the right trim edge"
+msgstr "选择右修剪边缘"
+
+#: ../doc/keyboard.rst:255 ../doc/keyboard.rst:673
+msgid ":kbd:`]`"
+msgstr ":kbd:`]`"
+
+#: ../doc/keyboard.rst:256
+msgid "Move the selected edge left / right one frame"
+msgstr "将选中边缘向左 / 右移动一帧"
+
+#: ../doc/keyboard.rst:258
+msgid "Move the selected edge left / right five frames"
+msgstr "将选中边缘向左 / 右移动五帧"
+
+#: ../doc/keyboard.rst:260
+msgid "Leave trim mode and restore the timeline preview"
+msgstr "退出修剪模式并恢复时间线预览"
+
+#: ../doc/keyboard.rst:261
+msgid ":kbd:`Esc`"
+msgstr ":kbd:`Esc`"
+
+#: ../doc/keyboard.rst:263
+msgid ""
+"The selected edge has a fading highlight. Video Preview shows the first "
+"included frame for the left edge or the last included frame for the right "
+"edge, updating after each trim without moving the playhead. For transitions,"
+" the preview shows the transition mask. Trims respect the available source "
+"media and do not ripple other clips."
+msgstr ""
+"选中的边缘有渐隐高亮。视频预览显示左边缘的第一个包含帧或右边缘的最后一个包含帧，每次修剪后更新但不移动播放头。转场预览显示转场蒙版。修剪遵循可用源媒体，不会波及其他剪辑。"
+
+#: ../doc/keyboard.rst:269
+msgid ""
+"Holding a trim shortcut also groups its repeated adjustments into one undo "
+"step."
+msgstr "按住修剪快捷键时，重复调整会合并为一个撤销步骤。"
+
+#: ../doc/keyboard.rst:271
+msgid ""
+"After leaving trim mode, comma/period move whole clips and transitions "
+"again."
+msgstr "退出修剪模式后，逗号/句号快捷键再次移动整个剪辑和转场。"
+
+#: ../doc/keyboard.rst:274
+msgid "Coming from another editor?"
+msgstr "来自其他编辑器？"
+
+#: ../doc/keyboard.rst:275
+msgid ""
+"Compare a few everyday editing tasks with shortcuts you may already know."
+msgstr "比较一些你可能已经熟悉的日常编辑任务快捷键。"
+
+#: ../doc/keyboard.rst:277
+msgid ""
+"The table shows OpenShot's Windows/Linux defaults, Adobe Premiere Pro and "
+"DaVinci Resolve Windows defaults, and Final Cut Pro Mac defaults. On macOS, "
+"OpenShot uses Command for shortcuts shown with Ctrl. Shortcuts in other "
+"editors can vary with the version, keyboard layout, selected preset, and "
+"active panel. Similar shortcuts can also behave differently on stacked or "
+"connected clips."
+msgstr ""
+"表格显示了 OpenShot 在 Windows/Linux 的默认快捷键，Adobe Premiere Pro 和 DaVinci Resolve "
+"Windows 的默认快捷键，以及 Final Cut Pro Mac 的默认快捷键。在 macOS 上，OpenShot 使用 Command "
+"替代显示为 Ctrl 的快捷键。其他编辑器的快捷键可能因版本、键盘布局、选定预设和活动面板而异。类似快捷键在堆叠或连接的剪辑上也可能表现不同。"
+
+#: ../doc/keyboard.rst:283
+msgid "Everyday editing shortcuts"
+msgstr "日常编辑快捷键"
+
+#: ../doc/keyboard.rst:287
+msgid "Task"
+msgstr "任务"
+
+#: ../doc/keyboard.rst:288
+msgid "OpenShot"
+msgstr "OpenShot"
+
+#: ../doc/keyboard.rst:289
+msgid "Premiere Pro"
+msgstr "Premiere Pro"
+
+#: ../doc/keyboard.rst:290
+msgid "DaVinci Resolve"
+msgstr "DaVinci Resolve"
+
+#: ../doc/keyboard.rst:291
+msgid "Final Cut Pro"
+msgstr "Final Cut Pro"
+
+#: ../doc/keyboard.rst:293 ../doc/keyboard.rst:294 ../doc/keyboard.rst:295
+#: ../doc/keyboard.rst:296
+msgid "Space"
+msgstr "空格"
+
+#: ../doc/keyboard.rst:297
+msgid "Reverse / stop / forward"
+msgstr "倒退 / 停止 / 快进"
+
+#: ../doc/keyboard.rst:298 ../doc/keyboard.rst:299 ../doc/keyboard.rst:300
+#: ../doc/keyboard.rst:301
+msgid "J / K / L"
+msgstr "J / K / L"
+
+#: ../doc/keyboard.rst:302
+msgid "Previous / next frame"
+msgstr "上一帧 / 下一帧"
+
+#: ../doc/keyboard.rst:303 ../doc/keyboard.rst:304 ../doc/keyboard.rst:305
+#: ../doc/keyboard.rst:306
+msgid "Left / Right"
+msgstr "左 / 右"
+
+#: ../doc/keyboard.rst:307
+msgid "Previous / next edit"
+msgstr "上一个 / 下一个编辑点"
+
+#: ../doc/keyboard.rst:308
+msgid "Up / Down (active track)"
+msgstr "上 / 下（活动轨道）"
+
+#: ../doc/keyboard.rst:309 ../doc/keyboard.rst:310 ../doc/keyboard.rst:311
+msgid "Up / Down"
+msgstr "上 / 下"
+
+#: ../doc/keyboard.rst:312
+msgid "Focus media browser / project assets"
+msgstr "聚焦媒体浏览器 / 项目资源"
+
+#: ../doc/keyboard.rst:313
+msgid "Shift+1"
+msgstr "Shift+1"
+
+#: ../doc/keyboard.rst:314
+msgid "Shift+1 (Project panel)"
+msgstr "Shift+1（项目面板）"
+
+#: ../doc/keyboard.rst:315 ../doc/keyboard.rst:320
+msgid "Not listed here"
+msgstr "此处未列出"
+
+#: ../doc/keyboard.rst:316
+msgid "Cmd+1 (Browser)"
+msgstr "Cmd+1（浏览器）"
+
+#: ../doc/keyboard.rst:317
+msgid "Focus timeline"
+msgstr "聚焦时间线"
+
+#: ../doc/keyboard.rst:318 ../doc/keyboard.rst:319
+msgid "Shift+3"
+msgstr "Shift+3"
+
+#: ../doc/keyboard.rst:321
+msgid "Cmd+2"
+msgstr "Cmd+2"
+
+#: ../doc/keyboard.rst:322
+msgid "Add source media at the playhead"
+msgstr "在播放头处添加源媒体"
+
+#: ../doc/keyboard.rst:323
+msgid "Ctrl+Enter (place on target track)"
+msgstr "Ctrl+Enter（放置到目标轨道）"
+
+#: ../doc/keyboard.rst:324
+msgid "Comma (insert); period (overwrite)"
+msgstr "逗号（插入）；句号（覆盖）"
+
+#: ../doc/keyboard.rst:325
+msgid "F9 (insert); F10 (overwrite)"
+msgstr "F9（插入）；F10（覆盖）"
+
+#: ../doc/keyboard.rst:326
+msgid "W (insert); D (overwrite); Q (connect)"
+msgstr "W（插入）；D（覆盖）；Q（连接）"
+
+#: ../doc/keyboard.rst:327
+msgid "Select previous / next clip"
+msgstr "选择上一个/下一个剪辑"
+
+#: ../doc/keyboard.rst:328 ../doc/keyboard.rst:330
+msgid "Ctrl+Left / Right"
+msgstr "Ctrl+左/右"
+
+#: ../doc/keyboard.rst:329 ../doc/keyboard.rst:333 ../doc/keyboard.rst:335
+msgid "Ctrl+Up / Down"
+msgstr "Ctrl+上/下"
+
+#: ../doc/keyboard.rst:331
+msgid "Cmd+Left / Right (same role; also moves playhead)"
+msgstr "Cmd+左/右（相同功能；同时移动播放头）"
+
+#: ../doc/keyboard.rst:332
+msgid "Select clip above / below"
+msgstr "选择上方/下方剪辑"
+
+#: ../doc/keyboard.rst:334
+msgid "No default listed here"
+msgstr "此处无默认设置"
+
+#: ../doc/keyboard.rst:336
+msgid "Cmd+Up / Down"
+msgstr "Cmd+上/下"
+
+#: ../doc/keyboard.rst:337
+msgid "Move selection up / down"
+msgstr "向上/向下移动选中项"
+
+#: ../doc/keyboard.rst:338 ../doc/keyboard.rst:339 ../doc/keyboard.rst:340
+msgid "Alt+Up / Down"
+msgstr "Alt+上/下"
+
+#: ../doc/keyboard.rst:341
+msgid "Option+Up / Down (connected clips)"
+msgstr "Option+上/下（连接剪辑）"
+
+#: ../doc/keyboard.rst:342
+msgid "Nudge left / right one frame"
+msgstr "微调左/右一帧"
+
+#: ../doc/keyboard.rst:343 ../doc/keyboard.rst:345 ../doc/keyboard.rst:346
+msgid "Comma / period"
+msgstr "逗号/句号"
+
+#: ../doc/keyboard.rst:344
+msgid "Alt+Left / Right"
+msgstr "Alt+左/右"
+
+#: ../doc/keyboard.rst:347
+msgid "Nudge by several frames"
+msgstr "微调多帧"
+
+#: ../doc/keyboard.rst:348
+msgid "Shift+comma / period (5)"
+msgstr "Shift+逗号/句号（5）"
+
+#: ../doc/keyboard.rst:349
+msgid "Alt+Shift+Left / Right (5)"
+msgstr "Alt+Shift+左/右（5）"
+
+#: ../doc/keyboard.rst:350
+msgid "Shift+comma / period (configurable; default 5)"
+msgstr "Shift+逗号/句号（可配置；默认5）"
+
+#: ../doc/keyboard.rst:351
+msgid "Shift+comma / period (10)"
+msgstr "Shift+逗号/句号（10）"
+
+#: ../doc/keyboard.rst:352
+msgid "Select at playhead"
+msgstr "在播放头处选择"
+
+#: ../doc/keyboard.rst:353
+msgid "D (cycles through stacked clips)"
+msgstr "D（循环切换堆叠剪辑）"
+
+#: ../doc/keyboard.rst:354
+msgid "D"
+msgstr "D"
+
+#: ../doc/keyboard.rst:355
+msgid "Shift+V (nearest clip/gap)"
+msgstr "Shift+V（最近的剪辑/间隙）"
+
+#: ../doc/keyboard.rst:356
+msgid "X selects a range; C selects under the pointer"
+msgstr "X 选择范围；C 选择指针下的内容"
+
+#: ../doc/keyboard.rst:357
+msgid "Split at playhead"
+msgstr "在播放头处拆分"
+
+#: ../doc/keyboard.rst:358
+msgid "Ctrl+K (selected clips)"
+msgstr "Ctrl+K（选中剪辑）"
+
+#: ../doc/keyboard.rst:359
+msgid "Ctrl+K (targeted tracks)"
+msgstr "Ctrl+K（目标轨道）"
+
+#: ../doc/keyboard.rst:360
+msgid "Ctrl+B"
+msgstr "Ctrl+B"
+
+#: ../doc/keyboard.rst:361
+msgid "Cmd+B"
+msgstr "Cmd+B"
+
+#: ../doc/keyboard.rst:362 ../doc/keyboard.rst:726
+msgid "Undo"
+msgstr "撤销"
+
+#: ../doc/keyboard.rst:363 ../doc/keyboard.rst:364 ../doc/keyboard.rst:365
+msgid "Ctrl+Z"
+msgstr "Ctrl+Z"
+
+#: ../doc/keyboard.rst:366
+msgid "Cmd+Z"
+msgstr "Cmd+Z"
+
+#: ../doc/keyboard.rst:367
+msgid "Save project"
+msgstr "保存项目"
+
+#: ../doc/keyboard.rst:368 ../doc/keyboard.rst:369 ../doc/keyboard.rst:370
+msgid "Ctrl+S"
+msgstr "Ctrl+S"
+
+#: ../doc/keyboard.rst:371
+msgid "Saves automatically"
+msgstr "自动保存"
+
+#: ../doc/keyboard.rst:373
+msgid ""
+"For complete shortcut lists and customization options, see the `Premiere Pro"
+" keyboard reference <https://helpx.adobe.com/premiere/desktop/get-"
+"started/keyboard-shortcuts/default-keyboard-shortcuts.html>`_, `DaVinci "
+"Resolve training guides "
+"<https://www.blackmagicdesign.com/products/davinciresolve/training>`_, and "
+"`Final Cut Pro keyboard reference <https://support.apple.com/guide/final-"
+"cut-pro/ver90ba5929/mac>`_."
+msgstr ""
+"有关完整的快捷键列表和自定义选项，请参阅 `Premiere Pro 键盘参考 "
+"<https://helpx.adobe.com/premiere/desktop/get-started/keyboard-"
+"shortcuts/default-keyboard-shortcuts.html>`_、`DaVinci Resolve 培训指南 "
+"<https://www.blackmagicdesign.com/products/davinciresolve/training>`_ 和 "
+"`Final Cut Pro 键盘参考 <https://support.apple.com/guide/final-cut-"
+"pro/ver90ba5929/mac>`_。"
+
+#: ../doc/keyboard.rst:381
+msgid "Mouse shortcuts"
+msgstr "鼠标快捷键"
+
+#: ../doc/keyboard.rst:382
+msgid ""
+"These gestures complement the keyboard shortcuts. In Project Files' Details "
+"view, double-click the thumbnail column for the file actions below."
+msgstr "这些手势补充了键盘快捷键。在项目文件的详细视图中，双击缩略图列以执行以下文件操作。"
+
+#: ../doc/keyboard.rst:390
+msgid "Mouse gesture"
+msgstr "鼠标手势"
+
+#: ../doc/keyboard.rst:391
+msgid "Keyboard alternative"
+msgstr "键盘替代"
+
+#: ../doc/keyboard.rst:392
+msgid "Preview a file in Project Files"
+msgstr "在项目文件中预览文件"
+
+#: ../doc/keyboard.rst:393
+msgid "Double-click the file"
+msgstr "双击文件"
+
+#: ../doc/keyboard.rst:395
+msgid "Open file properties in Project Files"
+msgstr "在项目文件中打开文件属性"
+
+#: ../doc/keyboard.rst:396
+msgid ":kbd:`Ctrl` + double-click the file"
+msgstr ":kbd:`Ctrl` + 双击文件"
+
+#: ../doc/keyboard.rst:397 ../doc/keyboard.rst:514
+msgid ":kbd:`Alt+I`"
+msgstr ":kbd:`Alt+I`"
+
+#: ../doc/keyboard.rst:398
+msgid "Split a file in Project Files"
+msgstr "在项目文件中拆分文件"
+
+#: ../doc/keyboard.rst:399
+msgid ":kbd:`Shift` + double-click the file"
+msgstr ":kbd:`Shift` + 双击文件"
+
+#: ../doc/keyboard.rst:400 ../doc/keyboard.rst:709
+msgid ":kbd:`Alt+S`"
+msgstr ":kbd:`Alt+S`"
+
+#: ../doc/keyboard.rst:401
+msgid "Select an item and everything to its right on the same track"
+msgstr "选择同一轨道上某项及其右侧所有内容"
+
+#: ../doc/keyboard.rst:402
+msgid ":kbd:`Alt` + click the clip or transition"
+msgstr ":kbd:`Alt` + 点击剪辑或转场"
+
+#: ../doc/keyboard.rst:403
+msgid ":kbd:`Alt+A` with an item selected"
+msgstr "选中项目时按 :kbd:`Alt+A`"
+
+#: ../doc/keyboard.rst:404
+msgid "Open properties for a timeline clip or transition"
+msgstr "打开时间线剪辑或转场的属性"
+
+#: ../doc/keyboard.rst:405
+msgid "Double-click the item"
+msgstr "双击项目"
+
+#: ../doc/keyboard.rst:406 ../doc/keyboard.rst:616
+msgid ":kbd:`U`"
+msgstr ":kbd:`U`"
+
+#: ../doc/keyboard.rst:407
+msgid "Fit the whole timeline in view"
+msgstr "适应整个时间线视图"
+
+#: ../doc/keyboard.rst:408
+msgid "Double-click the zoom slider"
+msgstr "双击缩放滑块"
+
+#: ../doc/keyboard.rst:409
+msgid ":kbd:`\\\\` or :kbd:`Shift+\\\\`"
+msgstr ":kbd:`\\\\` 或 :kbd:`Shift+\\\\`"
+
+#: ../doc/keyboard.rst:412
+msgid "Full shortcut reference"
+msgstr "完整快捷键参考"
+
+#: ../doc/keyboard.rst:413
+msgid ""
+"These are the default shortcuts, including view shortcuts supplied by the "
+"menus. Your assignments in Preferences may differ. On macOS, Command is used"
+" for shortcuts shown with Ctrl."
+msgstr ""
+"这些是默认快捷键，包括菜单提供的视图快捷键。您在偏好设置中的分配可能不同。在 macOS 上，Command 用于显示为 Ctrl 的快捷键。"
+
+#: ../doc/keyboard.rst:416
+msgid "Default keyboard shortcuts"
+msgstr "默认键盘快捷键"
+
+#: ../doc/keyboard.rst:421
+msgid "Primary shortcut"
+msgstr "主要快捷键"
+
+#: ../doc/keyboard.rst:422
+msgid "Alternatives"
+msgstr "替代快捷键"
+
+#: ../doc/keyboard.rst:423
+msgid "About OpenShot"
+msgstr "关于 OpenShot"
+
+#: ../doc/keyboard.rst:424
+msgid ":kbd:`Ctrl+H`"
+msgstr ":kbd:`Ctrl+H`"
+
+#: ../doc/keyboard.rst:426
+msgid "Add Marker"
+msgstr "添加标记"
+
+#: ../doc/keyboard.rst:427
+msgid ":kbd:`M`"
+msgstr ":kbd:`M`"
+
+#: ../doc/keyboard.rst:429
+msgid "Add or Apply Selected Asset"
+msgstr "添加或应用所选素材"
+
+#: ../doc/keyboard.rst:432
+msgid "Add Text"
+msgstr "添加文本"
+
+#: ../doc/keyboard.rst:433
+msgid ":kbd:`Shift+T`"
+msgstr ":kbd:`Shift+T`"
+
+#: ../doc/keyboard.rst:435
+msgid "Add to Timeline"
+msgstr "添加到时间线"
+
+#: ../doc/keyboard.rst:438
+msgid "Add Track"
+msgstr "添加轨道"
+
+#: ../doc/keyboard.rst:439
+msgid ":kbd:`Ctrl+Y`"
+msgstr ":kbd:`Ctrl+Y`"
+
+#: ../doc/keyboard.rst:441
+msgid "Animated Title"
+msgstr "动画标题"
+
+#: ../doc/keyboard.rst:442
+msgid ":kbd:`Ctrl+Shift+T`"
+msgstr ":kbd:`Ctrl+Shift+T`"
+
+#: ../doc/keyboard.rst:444
+msgid "Ask a Question..."
+msgstr "提问..."
+
+#: ../doc/keyboard.rst:445
+msgid ":kbd:`F4`"
+msgstr ":kbd:`F4`"
+
+#: ../doc/keyboard.rst:447
+msgid "Auto-Optimize"
+msgstr "自动优化"
+
+#: ../doc/keyboard.rst:448
+msgid ":kbd:`Ctrl+Alt+O`"
+msgstr ":kbd:`Ctrl+Alt+O`"
+
+#: ../doc/keyboard.rst:450
+msgid "Center on Playhead"
+msgstr "居中播放头"
+
+#: ../doc/keyboard.rst:453
+msgid "Choose Profile"
+msgstr "选择配置文件"
+
+#: ../doc/keyboard.rst:454
+msgid ":kbd:`Ctrl+Alt+P`"
+msgstr ":kbd:`Ctrl+Alt+P`"
+
+#: ../doc/keyboard.rst:456
+msgid "Clear All Cache"
+msgstr "清除所有缓存"
+
+#: ../doc/keyboard.rst:457
+msgid ":kbd:`Ctrl+Shift+ESC`"
+msgstr ":kbd:`Ctrl+Shift+ESC`"
+
+#: ../doc/keyboard.rst:459
+msgid "Clear History"
+msgstr "清除历史记录"
+
+#: ../doc/keyboard.rst:460
+msgid ":kbd:`Ctrl+Shift+H`"
+msgstr ":kbd:`Ctrl+Shift+H`"
+
+#: ../doc/keyboard.rst:462
+msgid "Clear Waveform Display Data"
+msgstr "清除波形显示数据"
+
+#: ../doc/keyboard.rst:463
+msgid ":kbd:`Ctrl+Shift+W`"
+msgstr ":kbd:`Ctrl+Shift+W`"
+
+#: ../doc/keyboard.rst:465
+msgid "Color View"
+msgstr "颜色视图"
+
+#: ../doc/keyboard.rst:466
+msgid ":kbd:`Alt+Shift+2`"
+msgstr ":kbd:`Alt+Shift+2`"
+
+#: ../doc/keyboard.rst:468
+msgid "Copy"
+msgstr "复制"
+
+#: ../doc/keyboard.rst:469
+msgid ":kbd:`Ctrl+C`"
+msgstr ":kbd:`Ctrl+C`"
+
+#: ../doc/keyboard.rst:471
+msgid "Cut"
+msgstr "剪切"
+
+#: ../doc/keyboard.rst:472
+msgid ":kbd:`Ctrl+X`"
+msgstr ":kbd:`Ctrl+X`"
+
+#: ../doc/keyboard.rst:474
+msgid "Delete Item"
+msgstr "删除项目"
+
+#: ../doc/keyboard.rst:475
+msgid ":kbd:`Delete`"
+msgstr ":kbd:`Delete`"
+
+#: ../doc/keyboard.rst:476
+msgid ":kbd:`Backspace`"
+msgstr ":kbd:`Backspace`"
+
+#: ../doc/keyboard.rst:477
+msgid "Delete Item (Ripple)"
+msgstr "删除项目（波纹）"
+
+#: ../doc/keyboard.rst:478
+msgid ":kbd:`Shift+Delete`"
+msgstr ":kbd:`Shift+Delete`"
+
+#: ../doc/keyboard.rst:480
+msgid "Delete Optimized Videos"
+msgstr "删除优化视频"
+
+#: ../doc/keyboard.rst:481
+msgid ":kbd:`Ctrl+Shift+O`"
+msgstr ":kbd:`Ctrl+Shift+O`"
+
+#: ../doc/keyboard.rst:483
+msgid "Details View"
+msgstr "详细视图"
+
+#: ../doc/keyboard.rst:484
+msgid ":kbd:`Ctrl+Page Up`"
+msgstr ":kbd:`Ctrl+Page Up`"
+
+#: ../doc/keyboard.rst:486
+msgid "Donate"
+msgstr "捐赠"
+
+#: ../doc/keyboard.rst:487
+msgid ":kbd:`F7`"
+msgstr ":kbd:`F7`"
+
+#: ../doc/keyboard.rst:489
+msgid "Duplicate"
+msgstr "复制"
+
+#: ../doc/keyboard.rst:490
+msgid ":kbd:`Ctrl+Shift+/`"
+msgstr ":kbd:`Ctrl+Shift+/`"
+
+#: ../doc/keyboard.rst:492
+msgid "Edit Title"
+msgstr "编辑标题"
+
+#: ../doc/keyboard.rst:493
+msgid ":kbd:`Alt+T`"
+msgstr ":kbd:`Alt+T`"
+
+#: ../doc/keyboard.rst:495
+msgid "Export Files"
+msgstr "导出文件"
+
+#: ../doc/keyboard.rst:496
+msgid ":kbd:`Ctrl+Shift+E`"
+msgstr ":kbd:`Ctrl+Shift+E`"
+
+#: ../doc/keyboard.rst:498
+msgid "Export Video"
+msgstr "导出视频"
+
+#: ../doc/keyboard.rst:499
+msgid ":kbd:`Ctrl+E`"
+msgstr ":kbd:`Ctrl+E`"
+
+#: ../doc/keyboard.rst:500
+msgid ":kbd:`Ctrl+M`"
+msgstr ":kbd:`Ctrl+M`"
+
+#: ../doc/keyboard.rst:501
+msgid "Extend Selection at Playhead"
+msgstr "在播放头处扩展选择"
+
+#: ../doc/keyboard.rst:504
+msgid "Extend Selection to Next Item"
+msgstr "扩展选择到下一个项目"
+
+#: ../doc/keyboard.rst:505
+msgid ":kbd:`Ctrl+Shift+Right`"
+msgstr ":kbd:`Ctrl+Shift+Right`"
+
+#: ../doc/keyboard.rst:507
+msgid "Extend Selection to Previous Item"
+msgstr "扩展选择到上一个项目"
+
+#: ../doc/keyboard.rst:508
+msgid ":kbd:`Ctrl+Shift+Left`"
+msgstr ":kbd:`Ctrl+Shift+Left`"
+
+#: ../doc/keyboard.rst:510
+msgid "Fast Forward"
+msgstr "快进"
+
+#: ../doc/keyboard.rst:513
+msgid "File Properties"
+msgstr "文件属性"
+
+#: ../doc/keyboard.rst:525
+msgid "Focus Timeline"
+msgstr "聚焦时间线"
+
+#: ../doc/keyboard.rst:531
+msgid "Fullscreen"
+msgstr "全屏"
+
+#: ../doc/keyboard.rst:532
+msgid ":kbd:`F11`"
+msgstr ":kbd:`F11`"
+
+#: ../doc/keyboard.rst:534
+msgid "Import Files..."
+msgstr "导入文件..."
+
+#: ../doc/keyboard.rst:535
+msgid ":kbd:`Ctrl+I`"
+msgstr ":kbd:`Ctrl+I`"
+
+#: ../doc/keyboard.rst:537
+msgid "Insert Keyframe"
+msgstr "插入关键帧"
+
+#: ../doc/keyboard.rst:538
+msgid ":kbd:`Alt+Shift+K`"
+msgstr ":kbd:`Alt+Shift+K`"
+
+#: ../doc/keyboard.rst:540
+msgid "Join our Community..."
+msgstr "加入我们的社区..."
+
+#: ../doc/keyboard.rst:541
+msgid ":kbd:`F5`"
+msgstr ":kbd:`F5`"
+
+#: ../doc/keyboard.rst:543
+msgid "Jump To End"
+msgstr "跳转到结尾"
+
+#: ../doc/keyboard.rst:544
+msgid ":kbd:`End`"
+msgstr ":kbd:`End`"
+
+#: ../doc/keyboard.rst:546
+msgid "Jump To Start"
+msgstr "跳转到开始"
+
+#: ../doc/keyboard.rst:547
+msgid ":kbd:`Home`"
+msgstr ":kbd:`Home`"
+
+#: ../doc/keyboard.rst:549
+msgid "Launch Tutorial"
+msgstr "启动教程"
+
+#: ../doc/keyboard.rst:550
+msgid ":kbd:`F2`"
+msgstr ":kbd:`F2`"
+
+#: ../doc/keyboard.rst:552
+msgid "Move Selection Down One Track"
+msgstr "将选择下移一轨"
+
+#: ../doc/keyboard.rst:553
+msgid ":kbd:`Alt+Down`"
+msgstr ":kbd:`Alt+Down`"
+
+#: ../doc/keyboard.rst:555
+msgid "Move Selection Up One Track"
+msgstr "将选择上移一轨"
+
+#: ../doc/keyboard.rst:556
+msgid ":kbd:`Alt+Up`"
+msgstr ":kbd:`Alt+Up`"
+
+#: ../doc/keyboard.rst:558
+msgid "New Project"
+msgstr "新建项目"
+
+#: ../doc/keyboard.rst:559
+msgid ":kbd:`Ctrl+N`"
+msgstr ":kbd:`Ctrl+N`"
+
+#: ../doc/keyboard.rst:561
+msgid "Next Edit Point"
+msgstr "下一个编辑点"
+
+#: ../doc/keyboard.rst:562
+msgid ":kbd:`Down`"
+msgstr ":kbd:`Down`"
+
+#: ../doc/keyboard.rst:564
+msgid "Next Five Frames"
+msgstr "下五帧"
+
+#: ../doc/keyboard.rst:565
+msgid ":kbd:`Shift+Right`"
+msgstr ":kbd:`Shift+Right`"
+
+#: ../doc/keyboard.rst:567
+msgid "Next Frame"
+msgstr "下一帧"
+
+#: ../doc/keyboard.rst:568
+msgid ":kbd:`Right`"
+msgstr ":kbd:`Right`"
+
+#: ../doc/keyboard.rst:570
+msgid "Next Marker"
+msgstr "下一个标记"
+
+#: ../doc/keyboard.rst:571
+msgid ":kbd:`Shift+M`"
+msgstr ":kbd:`Shift+M`"
+
+#: ../doc/keyboard.rst:572
+msgid ":kbd:`Alt+Right`"
+msgstr ":kbd:`Alt+Right`"
+
+#: ../doc/keyboard.rst:573
+msgid "Nudge left (1 Frame)"
+msgstr "微调左移（1帧）"
+
+#: ../doc/keyboard.rst:574
+msgid ":kbd:`,`"
+msgstr ":kbd:`,`"
+
+#: ../doc/keyboard.rst:576
+msgid "Nudge left (5 Frames)"
+msgstr "微调左移（5帧）"
+
+#: ../doc/keyboard.rst:577
+msgid ":kbd:`Shift+,`"
+msgstr ":kbd:`Shift+,`"
+
+#: ../doc/keyboard.rst:579
+msgid "Nudge right (1 Frame)"
+msgstr "微调右移（1帧）"
+
+#: ../doc/keyboard.rst:580
+msgid ":kbd:`.`"
+msgstr ":kbd:`.`"
+
+#: ../doc/keyboard.rst:582
+msgid "Nudge right (5 Frames)"
+msgstr "微调右移（5帧）"
+
+#: ../doc/keyboard.rst:583
+msgid ":kbd:`Shift+.`"
+msgstr ":kbd:`Shift+.`"
+
+#: ../doc/keyboard.rst:585
+msgid "Open Help Contents"
+msgstr "打开帮助内容"
+
+#: ../doc/keyboard.rst:586
+msgid ":kbd:`F1`"
+msgstr ":kbd:`F1`"
+
+#: ../doc/keyboard.rst:588
+msgid "Open Project..."
+msgstr "打开项目..."
+
+#: ../doc/keyboard.rst:589
+msgid ":kbd:`Ctrl+O`"
+msgstr ":kbd:`Ctrl+O`"
+
+#: ../doc/keyboard.rst:591
+msgid "Paste"
+msgstr "粘贴"
+
+#: ../doc/keyboard.rst:592
+msgid ":kbd:`Ctrl+V`"
+msgstr ":kbd:`Ctrl+V`"
+
+#: ../doc/keyboard.rst:594
+msgid "Play/Pause Toggle"
+msgstr "播放/暂停 切换"
+
+#: ../doc/keyboard.rst:597
+msgid "Preferences"
+msgstr "首选项"
+
+#: ../doc/keyboard.rst:598
+msgid ":kbd:`Ctrl+P`"
+msgstr ":kbd:`Ctrl+P`"
+
+#: ../doc/keyboard.rst:600
+msgid "Preview File"
+msgstr "预览文件"
+
+#: ../doc/keyboard.rst:603
+msgid "Previous Edit Point"
+msgstr "上一个编辑点"
+
+#: ../doc/keyboard.rst:604
+msgid ":kbd:`Up`"
+msgstr ":kbd:`上`"
+
+#: ../doc/keyboard.rst:606
+msgid "Previous Five Frames"
+msgstr "前五帧"
+
+#: ../doc/keyboard.rst:607
+msgid ":kbd:`Shift+Left`"
+msgstr ":kbd:`Shift+左`"
+
+#: ../doc/keyboard.rst:609
+msgid "Previous Frame"
+msgstr "上一帧"
+
+#: ../doc/keyboard.rst:610
+msgid ":kbd:`Left`"
+msgstr ":kbd:`左`"
+
+#: ../doc/keyboard.rst:612
+msgid "Previous Marker"
+msgstr "上一个标记"
+
+#: ../doc/keyboard.rst:613
+msgid ":kbd:`Ctrl+Shift+M`"
+msgstr ":kbd:`Ctrl+Shift+M`"
+
+#: ../doc/keyboard.rst:614
+msgid ":kbd:`Alt+Left`"
+msgstr ":kbd:`Alt+左`"
+
+#: ../doc/keyboard.rst:615
+msgid "Properties"
+msgstr "属性"
+
+#: ../doc/keyboard.rst:618
+msgid "Quit"
+msgstr "退出"
+
+#: ../doc/keyboard.rst:619
+msgid ":kbd:`Ctrl+Q`"
+msgstr ":kbd:`Ctrl+Q`"
+
+#: ../doc/keyboard.rst:621
+msgid "Razor Toggle"
+msgstr "剃刀工具切换"
+
+#: ../doc/keyboard.rst:622
+msgid ":kbd:`C`"
+msgstr ":kbd:`C`"
+
+#: ../doc/keyboard.rst:623
+msgid ":kbd:`B` or :kbd:`R`"
+msgstr ":kbd:`B` 或 :kbd:`R`"
+
+#: ../doc/keyboard.rst:624
+msgid "Recording View"
+msgstr "录制视图"
+
+#: ../doc/keyboard.rst:625
+msgid ":kbd:`Alt+Shift+3`"
+msgstr ":kbd:`Alt+Shift+3`"
+
+#: ../doc/keyboard.rst:627
+msgid "Redo"
+msgstr "重做"
+
+#: ../doc/keyboard.rst:628
+msgid ":kbd:`Ctrl+Shift+Z`"
+msgstr ":kbd:`Ctrl+Shift+Z`"
+
+#: ../doc/keyboard.rst:630
+msgid "Report a Bug..."
+msgstr "报告错误..."
+
+#: ../doc/keyboard.rst:631
+msgid ":kbd:`F3`"
+msgstr ":kbd:`F3`"
+
+#: ../doc/keyboard.rst:633
+msgid "Rewind"
+msgstr "倒带"
+
+#: ../doc/keyboard.rst:636
+msgid "Save Current Frame"
+msgstr "保存当前帧"
+
+#: ../doc/keyboard.rst:637
+msgid ":kbd:`Shift+E`"
+msgstr ":kbd:`Shift+E`"
+
+#: ../doc/keyboard.rst:639
+msgid "Save Project"
+msgstr "保存项目"
+
+#: ../doc/keyboard.rst:640
+msgid ":kbd:`Ctrl+S`"
+msgstr ":kbd:`Ctrl+S`"
+
+#: ../doc/keyboard.rst:642
+msgid "Save Project As..."
+msgstr "项目另存为..."
+
+#: ../doc/keyboard.rst:643
+msgid ":kbd:`Ctrl+Shift+S`"
+msgstr ":kbd:`Ctrl+Shift+S`"
+
+#: ../doc/keyboard.rst:645
+msgid "Select All"
+msgstr "全选"
+
+#: ../doc/keyboard.rst:646
+msgid ":kbd:`Ctrl+A`"
+msgstr ":kbd:`Ctrl+A`"
+
+#: ../doc/keyboard.rst:648
+msgid "Select Item Above"
+msgstr "选择上方项目"
+
+#: ../doc/keyboard.rst:649
+msgid ":kbd:`Ctrl+Up`"
+msgstr ":kbd:`Ctrl+上`"
+
+#: ../doc/keyboard.rst:651
+msgid "Select Item at Playhead"
+msgstr "选择播放头处项目"
+
+#: ../doc/keyboard.rst:654
+msgid "Select Item Below"
+msgstr "选择下方项目"
+
+#: ../doc/keyboard.rst:655
+msgid ":kbd:`Ctrl+Down`"
+msgstr ":kbd:`Ctrl+下`"
+
+#: ../doc/keyboard.rst:657
+msgid "Select Item (Ripple)"
+msgstr "选择项目（波纹）"
+
+#: ../doc/keyboard.rst:658
+msgid ":kbd:`Alt+A`"
+msgstr ":kbd:`Alt+A`"
+
+#: ../doc/keyboard.rst:660
+msgid "Select Left Item Edge"
+msgstr "选择项目左边缘"
+
+#: ../doc/keyboard.rst:663
+msgid "Select Next Item"
+msgstr "选择下一个项目"
+
+#: ../doc/keyboard.rst:664
+msgid ":kbd:`Ctrl+Right`"
+msgstr ":kbd:`Ctrl+右`"
+
+#: ../doc/keyboard.rst:666
+msgid "Select None"
+msgstr "取消选择"
+
+#: ../doc/keyboard.rst:667
+msgid ":kbd:`Ctrl+Shift+A`"
+msgstr ":kbd:`Ctrl+Shift+A`"
+
+#: ../doc/keyboard.rst:669
+msgid "Select Previous Item"
+msgstr "选择上一个项目"
+
+#: ../doc/keyboard.rst:670
+msgid ":kbd:`Ctrl+Left`"
+msgstr ":kbd:`Ctrl+左`"
+
+#: ../doc/keyboard.rst:672
+msgid "Select Right Item Edge"
+msgstr "选择项目右边缘"
+
+#: ../doc/keyboard.rst:675
+msgid "Share Feedback..."
+msgstr "分享反馈..."
+
+#: ../doc/keyboard.rst:676
+msgid ":kbd:`F8`"
+msgstr ":kbd:`F8`"
+
+#: ../doc/keyboard.rst:678
+msgid "Simple View"
+msgstr "简易视图"
+
+#: ../doc/keyboard.rst:679
+msgid ":kbd:`Alt+Shift+0`"
+msgstr ":kbd:`Alt+Shift+0`"
+
+#: ../doc/keyboard.rst:681
+msgid "Slice All: Keep Both Sides"
+msgstr "全部切片：保留两侧"
+
+#: ../doc/keyboard.rst:682
+msgid ":kbd:`Ctrl+Shift+K`"
+msgstr ":kbd:`Ctrl+Shift+K`"
+
+#: ../doc/keyboard.rst:684
+msgid "Slice All: Keep Left Side"
+msgstr "全部切片：保留左侧"
+
+#: ../doc/keyboard.rst:685
+msgid ":kbd:`Ctrl+Shift+J`"
+msgstr ":kbd:`Ctrl+Shift+J`"
+
+#: ../doc/keyboard.rst:687
+msgid "Slice All: Keep Right Side"
+msgstr "全部切片：保留右侧"
+
+#: ../doc/keyboard.rst:688
+msgid ":kbd:`Ctrl+Shift+L`"
+msgstr ":kbd:`Ctrl+Shift+L`"
+
+#: ../doc/keyboard.rst:690
+msgid "Slice Selected: Keep Both Sides"
+msgstr "切片选中：保留两侧"
+
+#: ../doc/keyboard.rst:691
+msgid ":kbd:`Ctrl+K`"
+msgstr ":kbd:`Ctrl+K`"
+
+#: ../doc/keyboard.rst:693
+msgid "Slice Selected: Keep Left (Ripple)"
+msgstr "切片选中：保留左侧（波纹）"
+
+#: ../doc/keyboard.rst:694
+msgid ":kbd:`W`"
+msgstr ":kbd:`W`"
+
+#: ../doc/keyboard.rst:696
+msgid "Slice Selected: Keep Left Side"
+msgstr "切片选中：保留左侧"
+
+#: ../doc/keyboard.rst:697
+msgid ":kbd:`Ctrl+J`"
+msgstr ":kbd:`Ctrl+J`"
+
+#: ../doc/keyboard.rst:699
+msgid "Slice Selected: Keep Right (Ripple)"
+msgstr "切片选中：保留右侧（波纹）"
+
+#: ../doc/keyboard.rst:700
+msgid ":kbd:`Q`"
+msgstr ":kbd:`Q`"
+
+#: ../doc/keyboard.rst:702
+msgid "Slice Selected: Keep Right Side"
+msgstr "切片选中：保留右侧"
+
+#: ../doc/keyboard.rst:703
+msgid ":kbd:`Ctrl+L`"
+msgstr ":kbd:`Ctrl+L`"
+
+#: ../doc/keyboard.rst:705
+msgid "Snapping Toggle"
+msgstr "吸附切换"
+
+#: ../doc/keyboard.rst:706
+msgid ":kbd:`S`"
+msgstr ":kbd:`S`"
+
+#: ../doc/keyboard.rst:708
+msgid "Split File"
+msgstr "拆分文件"
+
+#: ../doc/keyboard.rst:711
+msgid "Stop Playback"
+msgstr "停止播放"
+
+#: ../doc/keyboard.rst:714
+msgid "Thumbnail View"
+msgstr "缩略图视图"
+
+#: ../doc/keyboard.rst:715
+msgid ":kbd:`Ctrl+Page Down`"
+msgstr ":kbd:`Ctrl+向下翻页`"
+
+#: ../doc/keyboard.rst:717
+msgid "Timing Toggle"
+msgstr "时间切换"
+
+#: ../doc/keyboard.rst:718
+msgid ":kbd:`T`"
+msgstr ":kbd:`T`"
+
+#: ../doc/keyboard.rst:720
+msgid "Title"
+msgstr "标题"
+
+#: ../doc/keyboard.rst:721
+msgid ":kbd:`Ctrl+T`"
+msgstr ":kbd:`Ctrl+T`"
+
+#: ../doc/keyboard.rst:723
+msgid "Translate this Application..."
+msgstr "翻译此应用程序..."
+
+#: ../doc/keyboard.rst:724
+msgid ":kbd:`F6`"
+msgstr ":kbd:`F6`"
+
+#: ../doc/keyboard.rst:727
+msgid ":kbd:`Ctrl+Z`"
+msgstr ":kbd:`Ctrl+Z`"
+
+#: ../doc/keyboard.rst:729
+msgid "Update Available"
+msgstr "有可用更新"
+
+#: ../doc/keyboard.rst:730
+msgid ":kbd:`F9`"
+msgstr ":kbd:`F9`"
+
+#: ../doc/keyboard.rst:732
+msgid "View Toolbar"
+msgstr "显示工具栏"
+
+#: ../doc/keyboard.rst:733
+msgid ":kbd:`Ctrl+Shift+B`"
+msgstr ":kbd:`Ctrl+Shift+B`"
+
+#: ../doc/keyboard.rst:735
+msgid "Zoom In"
+msgstr "放大"
+
+#: ../doc/keyboard.rst:736
+msgid ":kbd:`=`"
+msgstr ":kbd:`=`"
+
+#: ../doc/keyboard.rst:737
+msgid ":kbd:`Ctrl+=`"
+msgstr ":kbd:`Ctrl+=`"
+
+#: ../doc/keyboard.rst:738
+msgid "Zoom Out"
+msgstr "缩小"
+
+#: ../doc/keyboard.rst:739
+msgid ":kbd:`-`"
+msgstr ":kbd:`-`"
+
+#: ../doc/keyboard.rst:740
+msgid ":kbd:`Ctrl+-`"
+msgstr ":kbd:`Ctrl+-`"
+
+#: ../doc/keyboard.rst:741
+msgid "Zoom to Timeline"
+msgstr "缩放到时间线"
+
+#: ../doc/keyboard.rst:742
+msgid ":kbd:`\\\\`"
+msgstr ":kbd:`\\\\`"
+
+#: ../doc/keyboard.rst:743
+msgid ":kbd:`Shift+\\\\`"
+msgstr ":kbd:`Shift+\\\\`"

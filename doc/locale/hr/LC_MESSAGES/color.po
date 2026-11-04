@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 4.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: 2026-08-30 16:50-0500\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: ../color.rst:23
+#: ../doc/color.rst:23
 msgid "Color"
 msgstr "Boja"
 
-#: ../color.rst:25
+#: ../doc/color.rst:25
 msgid ""
 "Have you ever noticed that thriller films look gritty and desaturated while "
 "romantic comedies feel vibrant and warm? That is not an accident — it is "
@@ -37,7 +37,7 @@ msgstr ""
 "upotrebu, bilo da popravljate problematični kadar ili gradite "
 "kinematografski izgled od nule."
 
-#: ../color.rst:32
+#: ../doc/color.rst:32
 msgid ""
 "*The OpenShot Color View: video preview in the center, Color Wheels dock on "
 "the right, and video scopes (Luma Waveform and Histogram) below.*"
@@ -45,7 +45,7 @@ msgstr ""
 "*OpenShot prikaz boja: video pregled u sredini, Color Wheels (kotači boja) s"
 " desne strane i video mjerači (Luma Waveform i Histogram) ispod.*"
 
-#: ../color.rst:37
+#: ../doc/color.rst:37
 msgid ""
 ":ref:`effects_color_grade` in :doc:`effects` — full property reference and "
 "keyframe details for the Color Grade effect."
@@ -53,11 +53,11 @@ msgstr ""
 ":ref:`effects_color_grade` u :doc:`effects` — potpuni popis svojstava i "
 "detalji o ključnim kadrovima za efekt Color Grade."
 
-#: ../color.rst:43
+#: ../doc/color.rst:43
 msgid "Understanding Color"
 msgstr "Razumijevanje boje"
 
-#: ../color.rst:45
+#: ../doc/color.rst:45
 msgid ""
 "Every pixel in a digital video frame is made of three numbers: **Red**, "
 "**Green**, and **Blue** (each 0–255). White is all three at maximum; black "
@@ -71,11 +71,11 @@ msgstr ""
 "primarnih boja nastaju sekundarne boje (Crvena + Zelena = Žuta, Crvena + "
 "Plava = Magenta, Zelena + Plava = Cijan)."
 
-#: ../color.rst:49
+#: ../doc/color.rst:49
 msgid "Four properties you will adjust constantly:"
 msgstr "Četiri svojstva koja ćete stalno podešavati:"
 
-#: ../color.rst:51
+#: ../doc/color.rst:51
 msgid ""
 "**Exposure** — overall brightness. Overexposed footage has many pixels near "
 "255 (blown-out highlights); underexposed footage is crushed near 0."
@@ -84,7 +84,7 @@ msgstr ""
 "piksela blizu 255 (preeksponirani istaknuti dijelovi); podeksponirani snimci"
 " su stisnuti blizu 0."
 
-#: ../color.rst:53
+#: ../doc/color.rst:53
 msgid ""
 "**Contrast** — the spread between brightest and darkest. High contrast is "
 "dramatic; low contrast looks flat or milky."
@@ -92,7 +92,7 @@ msgstr ""
 "**Kontrast** — raspon između najsvjetlijeg i najtamnijeg. Visoki kontrast je"
 " dramatičan; nizak kontrast izgleda ravno ili mliječno."
 
-#: ../color.rst:55
+#: ../doc/color.rst:55
 msgid ""
 "**Saturation** — how vivid the colors are. Zero saturation = grayscale. "
 "Cameras often record slightly less saturation than reality to give editors "
@@ -102,7 +102,7 @@ msgstr ""
 " često snimaju nešto manju zasićenost od stvarnosti kako bi urednicima "
 "ostavile više prostora."
 
-#: ../color.rst:57
+#: ../doc/color.rst:57
 msgid ""
 "**Hue** — the actual color (red, yellow, green, blue…). Shifting hue rotates"
 " all colors around the color wheel and is mostly used for creative stylistic"
@@ -112,11 +112,11 @@ msgstr ""
 " sve boje oko kotača boja i uglavnom se koristi za kreativne stilističke "
 "efekte."
 
-#: ../color.rst:61
+#: ../doc/color.rst:61
 msgid "Video Scopes — What They Are and Why They Matter"
 msgstr "Video mjerači — što su i zašto su važni"
 
-#: ../color.rst:63
+#: ../doc/color.rst:63
 msgid ""
 "Your monitor is not a reliable measuring tool — room lighting, screen "
 "brightness, and uncalibrated displays all affect what you see. **Video "
@@ -128,7 +128,7 @@ msgstr ""
 "prikazuju stvarne vrijednosti piksela na vašoj slici kao precizne grafikone."
 " Oni nikada ne lažu, čak i ako vaš monitor laže."
 
-#: ../color.rst:67
+#: ../doc/color.rst:67
 msgid ""
 "OpenShot includes three scopes, all accessible from :guilabel:`View → "
 "Scopes` or opened automatically by the clip menu options described in "
@@ -138,7 +138,7 @@ msgstr ""
 " ili se automatski otvaraju putem opcija izbornika klipa opisanih u "
 ":ref:`getting_started_ref`:"
 
-#: ../color.rst:70
+#: ../doc/color.rst:70
 msgid ""
 "**Luma Waveform** — shows brightness across the frame, column by column. "
 "Instantly reveals overexposure, underexposure, and contrast problems. See "
@@ -148,7 +148,7 @@ msgstr ""
 "Odmah otkriva probleme s preeksponiranošću, podeksponiranošću i kontrastom. "
 "Pogledajte :ref:`luma_waveform_ref`."
 
-#: ../color.rst:72
+#: ../doc/color.rst:72
 msgid ""
 "**Histogram** — shows how many pixels exist at each brightness level. Great "
 "for exposure and channel balance at a glance. See :ref:`histogram_ref`."
@@ -157,7 +157,7 @@ msgstr ""
 " Izvrsno za brz pregled ekspozicije i ravnoteže kanala. Pogledajte "
 ":ref:`histogram_ref`."
 
-#: ../color.rst:74
+#: ../doc/color.rst:74
 msgid ""
 "**Vectorscope** — a circular chroma plot showing the hue and saturation of "
 "every pixel. Ideal for checking color casts, overall saturation, and — with "
@@ -167,7 +167,7 @@ msgstr ""
 "svakog piksela. Idealan za provjeru boja, ukupne zasićenosti i — s ugrađenom"
 " linijom tonova kože — za procjenu lica. Pogledajte :ref:`vectorscope_ref`."
 
-#: ../color.rst:78
+#: ../doc/color.rst:78
 msgid ""
 "Every scope also has a **Region** button in its toolbar. Click it and drag a"
 " box over any part of the video preview to restrict scope analysis to just "
@@ -179,11 +179,11 @@ msgstr ""
 "ograničili analizu mjerača samo na taj dio — korisno za izoliranje lica, "
 "neba ili bilo kojeg specifičnog područja okvira."
 
-#: ../color.rst:83
+#: ../doc/color.rst:83
 msgid "Color Correction — Fixing What Is Wrong"
 msgstr "Ispravljanje boje — popravljanje pogrešaka"
 
-#: ../color.rst:85
+#: ../doc/color.rst:85
 msgid ""
 "**Color correction** is the process of fixing technical problems in footage "
 "so it looks the way reality appeared: wrong white balance, bad exposure, "
@@ -196,11 +196,11 @@ msgstr ""
 "neutralna slika koja izgleda prirodno i dobro izgleda na bilo kojem zaslonu."
 " Pogledajte :ref:`color_correction_ref`."
 
-#: ../color.rst:90
+#: ../doc/color.rst:90
 msgid "Color Grading — Building a Look"
 msgstr "Color Grading — stvaranje izgleda"
 
-#: ../color.rst:92
+#: ../doc/color.rst:92
 msgid ""
 "**Color grading** is the creative step: using the same tools to give "
 "corrected footage a deliberate visual mood or style. A warm golden "
@@ -214,11 +214,11 @@ msgstr ""
 "grading je mjesto gdje snimka prelazi iz \"izgleda ispravno\" u \"izgleda "
 "namjerno.\" Pogledajte :ref:`color_grading_ref`."
 
-#: ../color.rst:99
+#: ../doc/color.rst:99
 msgid "Getting Started"
 msgstr "Početak"
 
-#: ../color.rst:101
+#: ../doc/color.rst:101
 msgid ""
 "OpenShot offers several ways to open its color tools, depending on what you "
 "need:"
@@ -226,11 +226,11 @@ msgstr ""
 "OpenShot nudi nekoliko načina za otvaranje alata za boju, ovisno o vašim "
 "potrebama:"
 
-#: ../color.rst:106
+#: ../doc/color.rst:106
 msgid "**Right-click a clip → Look → Adjust Colors**"
 msgstr "**Desni klik na klip → Izgled → Prilagodi boje**"
 
-#: ../color.rst:104
+#: ../doc/color.rst:104
 msgid ""
 "The quickest all-in-one setup. OpenShot adds the :guilabel:`Color Grade` "
 "effect to the clip, selects it, opens the :guilabel:`Properties` panel, and "
@@ -242,7 +242,7 @@ msgstr ""
 ":guilabel:`Color Wheels` dock i sva tri video mjerača — spremno za odmah "
 "ocjenjivanje."
 
-#: ../color.rst:110
+#: ../doc/color.rst:110
 msgid ""
 "**Right-click a clip → Look → Color → [preset]** *(Auto Contrast, Lift "
 "Shadows, Warm Up, Boost Color…)*"
@@ -250,7 +250,7 @@ msgstr ""
 "**Desni klik na klip → Izgled → Boja → [predložak]** *(Auto Contrast, Lift "
 "Shadows, Warm Up, Boost Color…)*"
 
-#: ../color.rst:109
+#: ../doc/color.rst:109
 msgid ""
 "Adds the Color Grade effect with a useful preset already applied. The Color "
 "Wheels and scopes are not opened automatically — open them any time from "
@@ -260,11 +260,11 @@ msgstr ""
 "Wheels i mjerači se ne otvaraju automatski — otvorite ih bilo kada iz "
 ":guilabel:`Prikaz → Mjerači`."
 
-#: ../color.rst:115
+#: ../doc/color.rst:115
 msgid "**Right-click a clip → Look → Analyze Colors**"
 msgstr "**Desni klik na klip → Izgled → Analiziraj boje**"
 
-#: ../color.rst:113
+#: ../doc/color.rst:113
 msgid ""
 "Opens all three scopes (Luma Waveform, Histogram, and Vectorscope, tabbed "
 "together on the right) without adding any Color Grade effect. Use this to "
@@ -276,11 +276,11 @@ msgstr ""
 "procjenu snimke prije nego odlučite treba li grading ili jednostavno za "
 "praćenje razina tijekom reprodukcije."
 
-#: ../color.rst:120
+#: ../doc/color.rst:120
 msgid "**View → Color View** *(optional immersive mode)*"
 msgstr "**Prikaz → Prikaz boja** *(opcionalni uranjajući način)*"
 
-#: ../color.rst:118
+#: ../doc/color.rst:118
 msgid ""
 "Switches the entire interface into a dedicated color grading layout: the "
 "video preview is maximized in the center, non-color docks are hidden, the "
@@ -293,11 +293,11 @@ msgstr ""
 "skopevi ispod. Vratite se na svoj normalni raspored iz istog izbornika kad "
 "završite."
 
-#: ../color.rst:123
+#: ../doc/color.rst:123
 msgid "**Effects tab → drag Color Grade onto a clip**"
 msgstr "**Kartica Efekti → povucite Color Grade na isječak**"
 
-#: ../color.rst:123
+#: ../doc/color.rst:123
 msgid ""
 "The fully manual approach. Add the effect without opening any docks "
 "automatically."
@@ -305,11 +305,11 @@ msgstr ""
 "Potpuno ručni pristup. Dodajte efekt bez automatskog otvaranja bilo kojih "
 "priključaka."
 
-#: ../color.rst:128
+#: ../doc/color.rst:128
 msgid "Video Scopes"
 msgstr "Video skopevi"
 
-#: ../color.rst:130
+#: ../doc/color.rst:130
 msgid ""
 "Each scope updates live as the playhead moves. Use the **Region** button in "
 "any scope's toolbar to analyze just a selected area of the preview rather "
@@ -319,11 +319,11 @@ msgstr ""
 "gumb **Region** u alatnoj traci bilo kojeg skopa za analizu samo odabranog "
 "područja pregleda umjesto cijelog kadra."
 
-#: ../color.rst:136
+#: ../doc/color.rst:136
 msgid "The Luma Waveform"
 msgstr "Luma valni oblik"
 
-#: ../color.rst:138
+#: ../doc/color.rst:138
 msgid ""
 "The Luma Waveform maps every pixel by horizontal position (X axis = left-to-"
 "right across the frame) and brightness (Y axis = 0% at bottom to 100% at "
@@ -335,7 +335,7 @@ msgstr ""
 "vrhu). Gdje mnogo piksela dijeli istu svjetlinu na istoj horizontalnoj "
 "poziciji, trag svijetli jače."
 
-#: ../color.rst:144
+#: ../doc/color.rst:144
 msgid ""
 "*The Luma Waveform in RGB Parade mode, showing red, green, and blue channels"
 " side by side.*"
@@ -343,16 +343,16 @@ msgstr ""
 "*Luma valni oblik u RGB Parade načinu, prikazujući crveni, zeleni i plavi "
 "kanal jedan pored drugog.*"
 
-#: ../color.rst:146 ../color.rst:188 ../color.rst:230
+#: ../doc/color.rst:146 ../doc/color.rst:188 ../doc/color.rst:230
 msgid "**How to read it:**"
 msgstr "**Kako ga čitati:**"
 
-#: ../color.rst:148
+#: ../doc/color.rst:148
 msgid "Waveform clustered near the **bottom** → underexposed. Raise Exposure."
 msgstr ""
 "Valni oblik skupljen blizu **dna** → podeksponirano. Povećajte ekspoziciju."
 
-#: ../color.rst:149
+#: ../doc/color.rst:149
 msgid ""
 "Waveform packed against the **top** → overexposed. Lower Exposure or "
 "Highlights."
@@ -360,7 +360,7 @@ msgstr ""
 "Valni oblik pritisnut uz **vrh** → preeksponirano. Smanjite ekspoziciju ili "
 "istaknute dijelove."
 
-#: ../color.rst:150
+#: ../doc/color.rst:150
 msgid ""
 "A **narrow horizontal band** in the middle → low contrast, image looks "
 "milky. Increase Contrast."
@@ -368,7 +368,7 @@ msgstr ""
 "Uski **horizontalni pojas** u sredini → nizak kontrast, slika izgleda "
 "mliječno. Povećajte kontrast."
 
-#: ../color.rst:151
+#: ../doc/color.rst:151
 msgid ""
 "A **thick line at the very bottom** → blacks are crushed. Raise Shadows or "
 "lift the bottom-left point of Curve: All to restore shadow detail."
@@ -376,7 +376,7 @@ msgstr ""
 "Debela linija na samom dnu → crne boje su zgnječene. Povećajte sjene ili "
 "podignite donju lijevu točku na Krivulji: Sve za vraćanje detalja u sjenama."
 
-#: ../color.rst:154
+#: ../doc/color.rst:154
 msgid ""
 "IRE reference lines appear at 10%, 50%, and 90% as faint dashed lines. A "
 "well-exposed image keeps highlights below 90% and shadows above 5%."
@@ -385,23 +385,23 @@ msgstr ""
 "linije. Dobro eksponirana slika drži istaknute dijelove ispod 90% i sjene "
 "iznad 5%."
 
-#: ../color.rst:158
+#: ../doc/color.rst:158
 msgid "Waveform Modes"
 msgstr "Načini valnog oblika"
 
-#: ../color.rst:164
+#: ../doc/color.rst:164
 msgid "Mode"
 msgstr "Način"
 
-#: ../color.rst:164
+#: ../doc/color.rst:164
 msgid "What It Shows"
 msgstr "Što prikazuje"
 
-#: ../color.rst:166
+#: ../doc/color.rst:166
 msgid "Luma"
 msgstr "Luma"
 
-#: ../color.rst:166
+#: ../doc/color.rst:166
 msgid ""
 "Brightness only (ignores color). Best for exposure and contrast work. Trace "
 "color can be changed to Green, White, or Orange."
@@ -409,11 +409,11 @@ msgstr ""
 "Samo svjetlina (ignora boju). Najbolje za rad s ekspozicijom i kontrastom. "
 "Boja traga može se promijeniti u zelenu, bijelu ili narančastu."
 
-#: ../color.rst:168
+#: ../doc/color.rst:168
 msgid "RGB Overlay"
 msgstr "RGB preklapanje"
 
-#: ../color.rst:168
+#: ../doc/color.rst:168
 msgid ""
 "Red, green, and blue channels drawn on top of each other in their natural "
 "colors. Quick visual check for overall channel balance."
@@ -421,11 +421,11 @@ msgstr ""
 "Crveni, zeleni i plavi kanali nacrtani jedan preko drugog u svojim prirodnim"
 " bojama. Brza vizualna provjera ukupne ravnoteže kanala."
 
-#: ../color.rst:170
+#: ../doc/color.rst:170
 msgid "RGB Parade"
 msgstr "RGB parada"
 
-#: ../color.rst:170
+#: ../doc/color.rst:170
 msgid ""
 "Three side-by-side panels (R, G, B). If one panel sits noticeably higher "
 "than the others in areas that should be neutral, white balance is off. Blue "
@@ -436,19 +436,19 @@ msgstr ""
 "isključen. Plava viša od crvene u istaknutim dijelovima → slika je "
 "prehladna."
 
-#: ../color.rst:173
+#: ../doc/color.rst:173
 msgid "Red / Green / Blue"
 msgstr "Crvena / Zelena / Plava"
 
-#: ../color.rst:173
+#: ../doc/color.rst:173
 msgid "Shows a single channel in isolation."
 msgstr "Prikazuje jedan kanal izolirano."
 
-#: ../color.rst:179
+#: ../doc/color.rst:179
 msgid "The Histogram"
 msgstr "Histogram"
 
-#: ../color.rst:181
+#: ../doc/color.rst:181
 msgid ""
 "The Histogram sorts all pixels by brightness (0 = black on the left, 255 = "
 "white on the right) and shows how many pixels exist at each level as a bar "
@@ -458,15 +458,15 @@ msgstr ""
 " desno) i prikazuje koliko piksela postoji na svakoj razini kao stupčasti "
 "dijagram. Crvena, zelena, plava i luma su preklopljeni."
 
-#: ../color.rst:186
+#: ../doc/color.rst:186
 msgid "*The Histogram in All Channels / Logarithmic mode.*"
 msgstr "*Histogram u načinu Svi kanali / Logaritamski.*"
 
-#: ../color.rst:190
+#: ../doc/color.rst:190
 msgid "Bars **clustered left** → underexposed."
 msgstr "Stupci **skupljeni lijevo** → podeksponirano."
 
-#: ../color.rst:191
+#: ../doc/color.rst:191
 msgid ""
 "Bars **pushed against the right edge** → overexposed, possibly clipping. A "
 "sharp wall on the right means highlight detail is gone."
@@ -474,7 +474,7 @@ msgstr ""
 "Stupci **pritisnuti uz desni rub** → preeksponirano, moguće izrezivanje. "
 "Oštri zid s desne strane znači da su detalji istaknutih dijelova izgubljeni."
 
-#: ../color.rst:193
+#: ../doc/color.rst:193
 msgid ""
 "A **narrow hill in the middle** → low contrast. Increasing Contrast will "
 "spread the bars out."
@@ -482,11 +482,11 @@ msgstr ""
 "Uski brežuljak u sredini → nizak kontrast. Povećanje kontrasta će raširiti "
 "stupce."
 
-#: ../color.rst:195
+#: ../doc/color.rst:195
 msgid "The Histogram dock has two dropdowns:"
 msgstr "Histogram priključak ima dva padajuća izbornika:"
 
-#: ../color.rst:197
+#: ../doc/color.rst:197
 msgid ""
 "**Channel** — *All Channels* shows R, G, B, and luma overlaid; individual "
 "options isolate one. If the Red histogram extends further right than Green "
@@ -496,7 +496,7 @@ msgstr ""
 "opcije izoliraju jedan. Ako se crveni histogram proteže dalje desno od "
 "zelenog i plavog, slika je topla."
 
-#: ../color.rst:199
+#: ../doc/color.rst:199
 msgid ""
 "**Scale** — *Logarithmic* (default) keeps rare tonal values visible. "
 "*Linear* shows raw counts, useful for comparing the relative weight of "
@@ -506,11 +506,11 @@ msgstr ""
 "vidljivima. *Linearno* prikazuje sirove brojeve, korisno za usporedbu "
 "relativne težine različitih tonova."
 
-#: ../color.rst:205
+#: ../doc/color.rst:205
 msgid "The Vectorscope"
 msgstr "Vectorscope"
 
-#: ../color.rst:207
+#: ../doc/color.rst:207
 msgid ""
 "The Vectorscope is a 2D chroma plot. Each pixel is placed on a circular "
 "graph by its **hue** (direction from center) and **saturation** (distance "
@@ -522,7 +522,7 @@ msgstr ""
 "od centra). Piksel u samom centru je bez boje (siv ili crn); onaj na rubu je"
 " potpuno zasićen."
 
-#: ../color.rst:213
+#: ../doc/color.rst:213
 msgid ""
 "*The Vectorscope in Colorized mode, with the skin tone cluster visible near "
 "the center.*"
@@ -530,7 +530,7 @@ msgstr ""
 "*Vectorscope u obojenom načinu, s klasterom tonova kože vidljivim blizu "
 "centra.*"
 
-#: ../color.rst:215
+#: ../doc/color.rst:215
 msgid ""
 "The outer ring shows broadcast hue labels — **R** (red), **Mg** (magenta), "
 "**B** (blue), **Cy** (cyan), **G** (green), **Yi** (yellow) — at their "
@@ -545,11 +545,11 @@ msgstr ""
 "do najtamnijeg, trebali bi otprilike padati duž ove linije u žuto-"
 "narančastoj zoni između Yi i R."
 
-#: ../color.rst:220
+#: ../doc/color.rst:220
 msgid "**Display modes:**"
 msgstr "**Načini prikaza:**"
 
-#: ../color.rst:222
+#: ../doc/color.rst:222
 msgid ""
 "**Colorized** (default) — each plotted pixel adopts the hue color of its "
 "position on the wheel. Makes it easy to see which colors are present and how"
@@ -559,7 +559,7 @@ msgstr ""
 "pozicije na kotaču. Olakšava vidjeti koje su boje prisutne i koliko su "
 "zasićene."
 
-#: ../color.rst:224
+#: ../doc/color.rst:224
 msgid ""
 "**Density** — monochrome brightness. Brighter = more pixels sharing that "
 "hue/saturation. Good for focusing on shape and balance rather than color "
@@ -569,7 +569,7 @@ msgstr ""
 "nijansu/zasićenje. Dobro za fokusiranje na oblik i ravnotežu umjesto na "
 "identitet boje."
 
-#: ../color.rst:226
+#: ../doc/color.rst:226
 msgid ""
 "**Intensity** — heatmap from blue (sparse) to red (dense). Quickly shows "
 "which colors dominate."
@@ -577,7 +577,7 @@ msgstr ""
 "**Intenzitet** — toplinska karta od plave (rijetka) do crvene (gusta). Brzo "
 "pokazuje koje boje dominiraju."
 
-#: ../color.rst:228
+#: ../doc/color.rst:228
 msgid ""
 "**Zoom:** 100%, 200%, or 400%. Use 200% for skin tone work — it magnifies "
 "subtle shifts near center."
@@ -585,7 +585,7 @@ msgstr ""
 "**Povećanje:** 100%, 200% ili 400%. Koristite 200% za rad s tonovima kože — "
 "povećava suptilne pomake blizu centra."
 
-#: ../color.rst:232
+#: ../doc/color.rst:232
 msgid ""
 "Plot concentrated near the **center** → image is desaturated. Increase "
 "Saturation or Vibrance."
@@ -593,7 +593,7 @@ msgstr ""
 "Grafikon koncentriran blizu **središta** → slika je desaturirana. Povećajte "
 "Zasićenost ili Živost."
 
-#: ../color.rst:233
+#: ../doc/color.rst:233
 msgid ""
 "Plot tilted toward one side → color cast. Use Temperature, Tint, or the "
 "Global color wheel to push the cluster back toward center."
@@ -602,7 +602,7 @@ msgstr ""
 "Temperatura, Nijansa ili Globalni kotač boja da pomaknete skup natrag prema "
 "središtu."
 
-#: ../color.rst:235
+#: ../doc/color.rst:235
 msgid ""
 "For **skin tone evaluation**: use the Region selector to draw a box over a "
 "face in the preview. The cluster should fall along the dashed skin tone line"
@@ -612,11 +612,11 @@ msgstr ""
 "preko lica u pretpregledu. Skup bi trebao pasti duž isprekidane linije tona "
 "kože (vidi :ref:`skin_tones_ref`)."
 
-#: ../color.rst:241
+#: ../doc/color.rst:241
 msgid "Color Correction"
 msgstr "Ispravak boje"
 
-#: ../color.rst:243
+#: ../doc/color.rst:243
 msgid ""
 "Color correction fixes technical problems — wrong white balance, bad "
 "exposure, flat contrast — so footage looks clean and natural. It is always "
@@ -626,11 +626,11 @@ msgstr ""
 "ekspozicija, ravni kontrast — kako bi snimka izgledala čisto i prirodno. "
 "Uvijek je to prvi korak, prije bilo kakvog kreativnog rada."
 
-#: ../color.rst:249
+#: ../doc/color.rst:249
 msgid "White Balance — Making Whites Look White"
 msgstr "Balans bijele — čini bijele boje stvarno bijelima"
 
-#: ../color.rst:251
+#: ../doc/color.rst:251
 msgid ""
 "Different light sources cast different colors: incandescent bulbs are "
 "orange-warm, fluorescent lights are greenish, open shade is cool blue. When "
@@ -642,7 +642,7 @@ msgstr ""
 "hladno plava. Kada automatski balans bijele kamere pogriješi, snimka izgleda"
 " obojano. Popravljanje toga je gotovo uvijek vaš prvi korak."
 
-#: ../color.rst:255
+#: ../doc/color.rst:255
 msgid ""
 "Use **Temperature** and **Tint** in the :guilabel:`Color Grade` effect "
 "properties:"
@@ -650,7 +650,7 @@ msgstr ""
 "Koristite **Temperaturu** i **Nijansu** u svojstvima efekta :guilabel:`Color"
 " Grade`:"
 
-#: ../color.rst:257
+#: ../doc/color.rst:257
 msgid ""
 "**Temperature** — shifts the image warmer (positive) or cooler (negative). "
 "Footage that looks too orange? Slide it negative."
@@ -658,7 +658,7 @@ msgstr ""
 "**Temperatura** — pomiče sliku toplije (pozitivno) ili hladnije (negativno)."
 " Snimka izgleda previše narančasto? Pomaknite prema negativnom."
 
-#: ../color.rst:259
+#: ../doc/color.rst:259
 msgid ""
 "**Tint** — fine-tunes green/magenta balance. Use this after Temperature to "
 "remove a lingering fluorescent tinge. Positive = magenta, negative = green."
@@ -667,7 +667,7 @@ msgstr ""
 "Temperature da uklonite preostali fluorescentni ton. Pozitivno = magenta, "
 "negativno = zelena."
 
-#: ../color.rst:262
+#: ../doc/color.rst:262
 msgid ""
 "A quick check: find something in the shot that should be neutral — a white "
 "wall, a gray shirt, the whites of someone's eyes. The **RGB Parade** "
@@ -679,11 +679,11 @@ msgstr ""
 "Parade** to čini objektivnim: sva tri kanala trebaju biti na istoj visini u "
 "tim neutralnim područjima."
 
-#: ../color.rst:269
+#: ../doc/color.rst:269
 msgid "Skin Tones"
 msgstr "Toni kože"
 
-#: ../color.rst:271
+#: ../doc/color.rst:271
 msgid ""
 "Human faces are the most scrutinized subjects in video. Viewers sense when "
 "skin looks wrong instantly, even if they cannot say why. Good skin tones are"
@@ -693,7 +693,7 @@ msgstr ""
 " kada koža izgleda pogrešno, čak i ako ne mogu reći zašto. Dobri tonovi kože"
 " su topli — naginju narančastoj, a ne zelenoj ili plavoj."
 
-#: ../color.rst:274
+#: ../doc/color.rst:274
 msgid ""
 "All human skin tones — regardless of race — fall roughly along the same "
 "diagonal line on a vectorscope: the **skin tone line**. They shift lighter "
@@ -706,7 +706,7 @@ msgstr ""
 "narančasto-žutoj zoni. OpenShotov Vektorskop vam omogućuje da to izravno "
 "provjerite:"
 
-#: ../color.rst:278
+#: ../doc/color.rst:278
 msgid ""
 "Right-click the clip → :guilabel:`Color → Analyze Colors` to open the "
 "scopes."
@@ -714,7 +714,7 @@ msgstr ""
 "Desni klik na isječak → :guilabel:`Color → Analyze Colors` za otvaranje "
 "mjerača."
 
-#: ../color.rst:279
+#: ../doc/color.rst:279
 msgid ""
 "In the Vectorscope toolbar, click the **Region** button and drag a box over "
 "the skin in the preview."
@@ -722,7 +722,7 @@ msgstr ""
 "Na alatnoj traci Vektorskopa kliknite gumb **Region** i povucite okvir preko"
 " kože u pretpregledu."
 
-#: ../color.rst:280
+#: ../doc/color.rst:280
 msgid ""
 "The cluster should sit along the dashed skin tone line. If it drifts toward "
 "green or blue, use **Temperature** (warmer) or the **Global** color wheel to"
@@ -732,7 +732,7 @@ msgstr ""
 "zelenoj ili plavoj, koristite **Temperaturu** (toplije) ili **Globalni** "
 "kotač boja da ga pomaknete natrag prema narančasto-žutoj."
 
-#: ../color.rst:285
+#: ../doc/color.rst:285
 msgid ""
 "*A face region selected in the video preview (left) with the vectorscope "
 "plotting only those pixels (right). The skin tone cluster aligns with the "
@@ -742,7 +742,7 @@ msgstr ""
 "prikazuje samo te piksele (desno). Skup tonova kože poravnava se s "
 "isprekidanom linijom tona kože u žuto-narančastoj zoni.*"
 
-#: ../color.rst:288
+#: ../doc/color.rst:288
 msgid ""
 "Avoid pushing Saturation too high — over-saturated skin looks unnatural even"
 " when the hue is correct."
@@ -750,11 +750,11 @@ msgstr ""
 "Izbjegavajte previše povećavati Zasićenost — previše zasićena koža izgleda "
 "neprirodno čak i kada je nijansa ispravna."
 
-#: ../color.rst:291
+#: ../doc/color.rst:291
 msgid "Primary Correction Controls"
 msgstr "Glavne kontrole ispravka"
 
-#: ../color.rst:293
+#: ../doc/color.rst:293
 msgid ""
 "These controls appear in the :guilabel:`Properties` panel when the Color "
 "Grade effect is selected:"
@@ -762,51 +762,51 @@ msgstr ""
 "Ove kontrole se pojavljuju u panelu :guilabel:`Properties` kada je odabran "
 "efekt Color Grade:"
 
-#: ../color.rst:299
+#: ../doc/color.rst:299
 msgid "Property"
 msgstr "Svojstvo"
 
-#: ../color.rst:299
+#: ../doc/color.rst:299
 msgid "What It Does"
 msgstr "Što radi"
 
-#: ../color.rst:301
+#: ../doc/color.rst:301
 msgid "Temperature"
 msgstr "Temperatura"
 
-#: ../color.rst:301
+#: ../doc/color.rst:301
 msgid "Warms (positive) or cools (negative) the entire image."
 msgstr "Zagrijava (pozitivno) ili hladi (negativno) cijelu sliku."
 
-#: ../color.rst:302
+#: ../doc/color.rst:302
 msgid "Tint"
 msgstr "Nijansa"
 
-#: ../color.rst:302
+#: ../doc/color.rst:302
 msgid "Fine-tunes green/magenta balance after Temperature."
 msgstr "Fino podešava ravnotežu zelene/magente nakon Temperature."
 
-#: ../color.rst:303
+#: ../doc/color.rst:303
 msgid "Exposure"
 msgstr "Ekspozicija"
 
-#: ../color.rst:303
+#: ../doc/color.rst:303
 msgid "Makes the whole image brighter or darker."
 msgstr "Čini cijelu sliku svjetlijom ili tamnijom."
 
-#: ../color.rst:304
+#: ../doc/color.rst:304
 msgid "Contrast"
 msgstr "Kontrast"
 
-#: ../color.rst:304
+#: ../doc/color.rst:304
 msgid "Expands (positive) or compresses (negative) the tonal range."
 msgstr "Proširuje (pozitivno) ili komprimira (negativno) tonalni raspon."
 
-#: ../color.rst:305 ../color.rst:364
+#: ../doc/color.rst:305 ../doc/color.rst:364
 msgid "Highlights"
 msgstr "Istaknute svjetlosti"
 
-#: ../color.rst:305
+#: ../doc/color.rst:305
 msgid ""
 "Brightens or darkens only the bright parts. Negative values recover "
 "overexposed highlights."
@@ -814,30 +814,30 @@ msgstr ""
 "Posvjetljuje ili potamnjuje samo svijetle dijelove. Negativne vrijednosti "
 "vraćaju preeksponirane istaknute dijelove."
 
-#: ../color.rst:307 ../color.rst:362
+#: ../doc/color.rst:307 ../doc/color.rst:362
 msgid "Shadows"
 msgstr "Sjene"
 
-#: ../color.rst:307
+#: ../doc/color.rst:307
 msgid ""
 "Lifts or lowers only the dark parts. Positive values open up shadow detail."
 msgstr ""
 "Podiže ili spušta samo tamne dijelove. Pozitivne vrijednosti otvaraju "
 "detalje u sjenama."
 
-#: ../color.rst:309
+#: ../doc/color.rst:309
 msgid "Saturation"
 msgstr "Zasićenost"
 
-#: ../color.rst:309
+#: ../doc/color.rst:309
 msgid "Overall color intensity. 1.0 = unchanged, 0.0 = grayscale."
 msgstr "Ukupna intenzivnost boje. 1.0 = nepromijenjeno, 0.0 = crno-bijelo."
 
-#: ../color.rst:310
+#: ../doc/color.rst:310
 msgid "Vibrance"
 msgstr "Živost"
 
-#: ../color.rst:310
+#: ../doc/color.rst:310
 msgid ""
 "Like Saturation, but preferentially boosts muted colors without "
 "oversaturating ones that are already vivid."
@@ -845,15 +845,15 @@ msgstr ""
 "Slično Zasićenosti, ali preferencijalno pojačava prigušene boje bez "
 "prekomjernog zasićivanja već živih."
 
-#: ../color.rst:315
+#: ../doc/color.rst:315
 msgid "A Correction Workflow"
 msgstr "Radni tijek ispravka"
 
-#: ../color.rst:317
+#: ../doc/color.rst:317
 msgid "Work in this order for the best results:"
 msgstr "Radite u ovom redoslijedu za najbolje rezultate:"
 
-#: ../color.rst:319
+#: ../doc/color.rst:319
 msgid ""
 "**Fix white balance first** — Temperature and Tint until neutrals look "
 "neutral."
@@ -861,18 +861,18 @@ msgstr ""
 "**Prvo popravite balans bijele** — Temperatura i Nijansa dok neutrali ne "
 "izgledaju neutralno."
 
-#: ../color.rst:320
+#: ../doc/color.rst:320
 msgid "**Set exposure** — Exposure until brightness feels correct."
 msgstr ""
 "**Postavite ekspoziciju** — Ekspozicija dok svjetlina ne bude ispravna."
 
-#: ../color.rst:321
+#: ../doc/color.rst:321
 msgid "**Adjust contrast** — expand or compress the tonal range to add depth."
 msgstr ""
 "**Podesite kontrast** — proširite ili komprimirajte tonalni raspon za "
 "dodavanje dubine."
 
-#: ../color.rst:322
+#: ../doc/color.rst:322
 msgid ""
 "**Recover clipping** — Highlights and Shadows if bright areas are blown or "
 "shadows are crushed."
@@ -880,11 +880,11 @@ msgstr ""
 "**Vratite izrezivanje** — Istaknute svjetlosti i Sjene ako su svijetli "
 "dijelovi preeksponirani ili su sjene zgusnute."
 
-#: ../color.rst:323
+#: ../doc/color.rst:323
 msgid "**Adjust saturation** — Saturation or Vibrance to taste."
 msgstr "**Podesite zasićenost** — Zasićenost ili Živost po ukusu."
 
-#: ../color.rst:324
+#: ../doc/color.rst:324
 msgid ""
 "**Check skin tones** — open the Vectorscope, use the Region selector on "
 "faces, and confirm the cluster aligns with the skin tone line."
@@ -892,7 +892,7 @@ msgstr ""
 "**Provjerite tonove kože** — otvorite Vektorskop, koristite selektor regije "
 "na licima i potvrdite da se skup poravnava s linijom tona kože."
 
-#: ../color.rst:327
+#: ../doc/color.rst:327
 msgid ""
 "Use the scopes at each step — they show you what is actually in the image, "
 "regardless of monitor calibration."
@@ -900,11 +900,11 @@ msgstr ""
 "Koristite opsege na svakom koraku — oni vam pokazuju što je zapravo na "
 "slici, bez obzira na kalibraciju monitora."
 
-#: ../color.rst:333
+#: ../doc/color.rst:333
 msgid "Color Grading"
 msgstr "Korekcija boja"
 
-#: ../color.rst:335
+#: ../doc/color.rst:335
 msgid ""
 "Color grading is the creative step: using the same tools to build a "
 "deliberate visual mood on top of corrected footage. A few classic grades to "
@@ -914,7 +914,7 @@ msgstr ""
 "namjernog vizualnog ugođaja na ispravljenom materijalu. Nekoliko klasičnih "
 "stilova za inspiraciju:"
 
-#: ../color.rst:338
+#: ../doc/color.rst:338
 msgid ""
 "**Warm, golden nostalgic** — push Highlights toward orange-yellow, nudge "
 "Midtones slightly warm."
@@ -922,7 +922,7 @@ msgstr ""
 "**Toplo, zlatno nostalgično** — pomaknite istaknute dijelove prema "
 "narančasto-žutoj, blago zagrijte srednje tonove."
 
-#: ../color.rst:339
+#: ../doc/color.rst:339
 msgid ""
 "**Cold, clinical** — cool the Shadows, desaturate slightly, keep Highlights "
 "neutral."
@@ -930,7 +930,7 @@ msgstr ""
 "**Hladno, klinički** — ohladite sjene, blago desaturirajte, zadržite "
 "istaknute dijelove neutralnima."
 
-#: ../color.rst:340
+#: ../doc/color.rst:340
 msgid ""
 "**Teal and orange** — the blockbuster look: Shadows toward teal, Highlights "
 "toward orange."
@@ -938,7 +938,7 @@ msgstr ""
 "**Plavo-zelena i narančasta** — izgled velikog hita: sjene prema plavo-"
 "zelenoj, istaknuti dijelovi prema narančastoj."
 
-#: ../color.rst:341
+#: ../doc/color.rst:341
 msgid ""
 "**Faded film** — lift the black point slightly (Curves) so shadows never "
 "reach full black."
@@ -946,11 +946,11 @@ msgstr ""
 "**Izblijedjeli film** — blago podignite crnu točku (Krivulje) tako da sjene "
 "nikada ne postanu potpuno crne."
 
-#: ../color.rst:346
+#: ../doc/color.rst:346
 msgid "Color Wheels"
 msgstr "Kotači boja"
 
-#: ../color.rst:348
+#: ../doc/color.rst:348
 msgid ""
 "Color wheels push color into specific **tonal ranges** without affecting the"
 " others. This is the tool professional colorists reach for most."
@@ -958,7 +958,7 @@ msgstr ""
 "Kotači boja pomiču boju u određene **tonalne rasponе** bez utjecaja na "
 "ostale. Ovo je alat kojem se profesionalni koloristi najčešće obraćaju."
 
-#: ../color.rst:353
+#: ../doc/color.rst:353
 msgid ""
 "*The Color Wheels dock, showing Global, Shadows, Midtones, and Highlights "
 "wheels.*"
@@ -966,39 +966,39 @@ msgstr ""
 "*Prikaz panela Kotači boja, koji prikazuje kotače Global, Sjene, Srednje "
 "tonove i Istaknute dijelove.*"
 
-#: ../color.rst:359
+#: ../doc/color.rst:359
 msgid "Wheel"
 msgstr "Kotač"
 
-#: ../color.rst:359
+#: ../doc/color.rst:359
 msgid "What It Affects"
 msgstr "Na što utječe"
 
-#: ../color.rst:361
+#: ../doc/color.rst:361
 msgid "Global"
 msgstr "Globalno"
 
-#: ../color.rst:361
+#: ../doc/color.rst:361
 msgid "A color tint across the **entire image** at all brightness levels."
 msgstr "Boja preko **cijele slike** na svim razinama svjetline."
 
-#: ../color.rst:362
+#: ../doc/color.rst:362
 msgid "Color only in the **darkest parts**. Great for a cool teal tint."
 msgstr ""
 "Boja samo u **najtamnijim dijelovima**. Odlično za hladni plavo-zeleni ton."
 
-#: ../color.rst:363
+#: ../doc/color.rst:363
 msgid "Midtones"
 msgstr "Srednji tonovi"
 
-#: ../color.rst:363
+#: ../doc/color.rst:363
 msgid ""
 "Color in the **middle tones** — where most skin tones live. Handle gently."
 msgstr ""
 "Boja u **srednjim tonovima** — gdje se nalazi većina tonova kože. Postupajte"
 " nježno."
 
-#: ../color.rst:364
+#: ../doc/color.rst:364
 msgid ""
 "Color only in the **brightest parts**. Warming highlights while keeping "
 "shadows cool is the foundation of the teal-and-orange look."
@@ -1006,7 +1006,7 @@ msgstr ""
 "Boja samo u **najsvjetlijim dijelovima**. Zagrijavanje istaknutih dijelova "
 "dok se sjene drže hladnima temelj je izgleda plavo-zelene i narančaste."
 
-#: ../color.rst:368
+#: ../doc/color.rst:368
 msgid ""
 "Drag the **central dot** toward the desired color. Further from center = "
 "stronger effect."
@@ -1014,35 +1014,35 @@ msgstr ""
 "Povucite **središnju točku** prema željenoj boji. Što je dalje od centra = "
 "jači efekt."
 
-#: ../color.rst:369
+#: ../doc/color.rst:369
 msgid ""
 "The **Amount** slider blends the tinted result back toward the original."
 msgstr "Kliznik **Količina** miješa obojeni rezultat natrag prema izvorniku."
 
-#: ../color.rst:370
+#: ../doc/color.rst:370
 msgid "The **Luma** slider adjusts the brightness of that tonal zone."
 msgstr "Kliznik **Luma** podešava svjetlinu tog tonalnog područja."
 
-#: ../color.rst:371
+#: ../doc/color.rst:371
 msgid ""
 "Right-click any wheel in Properties → **Reset** to return it to neutral."
 msgstr ""
 "Desni klik na bilo koji kotač u Svojstvima → **Poništi** za vraćanje na "
 "neutralno."
 
-#: ../color.rst:373
+#: ../doc/color.rst:373
 msgid "**To build the classic teal-and-orange look:**"
 msgstr "**Za izgradnju klasičnog izgleda plavo-zelene i narančaste:**"
 
-#: ../color.rst:375
+#: ../doc/color.rst:375
 msgid "Drag **Shadows** toward teal (blue-green)."
 msgstr "Povucite **Sjene** prema plavo-zelenoj (plavo-zelena)."
 
-#: ../color.rst:376
+#: ../doc/color.rst:376
 msgid "Drag **Highlights** toward orange."
 msgstr "Povucite **Istaknute dijelove** prema narančastoj."
 
-#: ../color.rst:377
+#: ../doc/color.rst:377
 msgid ""
 "Optionally nudge **Midtones** very slightly toward orange to warm skin "
 "tones."
@@ -1050,16 +1050,16 @@ msgstr ""
 "Po želji blago pomaknite **Srednje tonove** prema narančastoj za "
 "zagrijavanje tonova kože."
 
-#: ../color.rst:378
+#: ../doc/color.rst:378
 msgid ""
 "Lower the Amount sliders to 0.3–0.5 so the effect does not become overdone."
 msgstr "Smanjite kliznike Količine na 0.3–0.5 kako efekt ne bi bio pretjeran."
 
-#: ../color.rst:383
+#: ../doc/color.rst:383
 msgid "Curves — Precise Tonal and Color Control"
 msgstr "Krivulje — Precizna kontrola tona i boje"
 
-#: ../color.rst:385
+#: ../doc/color.rst:385
 msgid ""
 "A curve is a graph where the horizontal axis is the input value and the "
 "vertical axis is the output value. A straight diagonal line means no change."
@@ -1070,7 +1070,7 @@ msgstr ""
 "os vrijednost izlaza. Ravna dijagonalna linija znači bez promjene. Savijte "
 "krivulju i mijenjate odnos između ulaza i izlaza za taj tonalni raspon."
 
-#: ../color.rst:391
+#: ../doc/color.rst:391
 msgid ""
 "*The OpenShot Curve Editor. Click to add points, drag to reshape, right-"
 "click to change interpolation.*"
@@ -1078,11 +1078,11 @@ msgstr ""
 "*Uređivač krivulja OpenShot-a. Kliknite za dodavanje točaka, povucite za "
 "preoblikovanje, desni klik za promjenu interpolacije.*"
 
-#: ../color.rst:393
+#: ../doc/color.rst:393
 msgid "**Common curve shapes:**"
 msgstr "**Uobičajeni oblici krivulja:**"
 
-#: ../color.rst:395
+#: ../doc/color.rst:395
 msgid ""
 "**S-curve** — pull the upper-right quarter up, the lower-left quarter down. "
 "Adds contrast and pop without shifting mid-gray. The most common starting "
@@ -1092,7 +1092,7 @@ msgstr ""
 "četvrtinu dolje. Dodaje kontrast i živost bez pomicanja srednje sive. "
 "Najčešći početni potez."
 
-#: ../color.rst:397
+#: ../doc/color.rst:397
 msgid ""
 "**Lifted blacks** — drag the bottom-left corner upward. Shadows never go "
 "fully to black — the faded-film look."
@@ -1100,7 +1100,7 @@ msgstr ""
 "**Podignute crne** — povucite donji lijevi kut prema gore. Sjene nikada ne "
 "postaju potpuno crne — izgled izblijedjelog filma."
 
-#: ../color.rst:399
+#: ../doc/color.rst:399
 msgid ""
 "**Lower highlights** — add a point in the upper-right and pull it down. "
 "Recovers bright areas without affecting the rest."
@@ -1108,17 +1108,17 @@ msgstr ""
 "**Smanjite istaknute dijelove** — dodajte točku u gornjem desnom dijelu i "
 "povucite je dolje. Vraća svijetle dijelove bez utjecaja na ostalo."
 
-#: ../color.rst:402
+#: ../doc/color.rst:402
 msgid "**The four channels:**"
 msgstr "**Četiri kanala:**"
 
-#: ../color.rst:404
+#: ../doc/color.rst:404
 msgid ""
 "**Curve: All** — overall brightness across all channels. Used most often."
 msgstr ""
 "**Krivulja: Sve** — ukupna svjetlina kroz sve kanale. Najčešće korištena."
 
-#: ../color.rst:405
+#: ../doc/color.rst:405
 msgid ""
 "**Curve: Red** — up adds red (warms), down adds cyan. Pull shadows down for "
 "a cool shadow tint."
@@ -1126,11 +1126,11 @@ msgstr ""
 "**Krivulja: Crvena** — gore dodaje crvenu (zagrijava), dolje dodaje cijan. "
 "Povucite sjene dolje za hladni ton sjena."
 
-#: ../color.rst:406
+#: ../doc/color.rst:406
 msgid "**Curve: Green** — up adds green, down adds magenta."
 msgstr "**Krivulja: Zelena** — gore dodaje zelenu, dolje dodaje magentu."
 
-#: ../color.rst:407
+#: ../doc/color.rst:407
 msgid ""
 "**Curve: Blue** — up cools, down warms. Classic move: pull Blue Shadows up "
 "(cool teal shadows) and Blue Highlights down (warm orange highlights)."
@@ -1139,7 +1139,7 @@ msgstr ""
 "plave sjene gore (hladne plavo-zelene sjene) i plave istaknute dijelove "
 "dolje (topli narančasti istaknuti dijelovi)."
 
-#: ../color.rst:410
+#: ../doc/color.rst:410
 msgid ""
 "Curves beat sliders because you can apply *different* adjustments to "
 "*different* tonal ranges in a single operation — for example, warming "
@@ -1149,11 +1149,11 @@ msgstr ""
 "na *različite* tonalne rasponе u jednoj operaciji — na primjer, zagrijavanje"
 " istaknutih dijelova dok istovremeno hladite sjene."
 
-#: ../color.rst:416
+#: ../doc/color.rst:416
 msgid "LUT Files — One-Click Color Looks"
 msgstr "LUT datoteke — Izgledi boja jednim klikom"
 
-#: ../color.rst:418
+#: ../doc/color.rst:418
 msgid ""
 "A **LUT** (Lookup Table) is a pre-made color transformation: for every input"
 " color, output a specific different color. Professional colorists use LUTs "
@@ -1166,7 +1166,7 @@ msgstr ""
 "stilova jednim klikom. OpenShot podržava industrijski standardne **.cube** "
 "datoteke."
 
-#: ../color.rst:422
+#: ../doc/color.rst:422
 msgid ""
 "OpenShot ships with a built-in LUT collection — see the :ref:`effects_ref` "
 "page for a visual gallery. Free **.cube** packs are widely available from "
@@ -1176,19 +1176,19 @@ msgstr ""
 ":ref:`effects_ref` za vizualnu galeriju. Besplatni **.cube** paketi široko "
 "su dostupni u online zajednicama fotografa."
 
-#: ../color.rst:425
+#: ../doc/color.rst:425
 msgid "**How to apply a LUT:**"
 msgstr "**Kako primijeniti LUT:**"
 
-#: ../color.rst:427
+#: ../doc/color.rst:427
 msgid "Select the :guilabel:`Color Grade` effect properties."
 msgstr "Odaberite svojstva efekta :guilabel:`Color Grade`."
 
-#: ../color.rst:428
+#: ../doc/color.rst:428
 msgid "Click :guilabel:`LUT File` and browse to a **.cube** file."
 msgstr "Kliknite :guilabel:`LUT File` i pronađite **.cube** datoteku."
 
-#: ../color.rst:429
+#: ../doc/color.rst:429
 msgid ""
 "Use :guilabel:`LUT Intensity` (0.0–1.0) to blend the LUT with your corrected"
 " image. Most professionals land between 0.4–0.7 for a natural feel."
@@ -1197,11 +1197,11 @@ msgstr ""
 "ispravljenom slikom. Većina profesionalaca koristi vrijednosti između "
 "0.4–0.7 za prirodan dojam."
 
-#: ../color.rst:432
+#: ../doc/color.rst:432
 msgid "**Tips:**"
 msgstr "**Savjeti:**"
 
-#: ../color.rst:434
+#: ../doc/color.rst:434
 msgid ""
 "Correct first, then grade. LUTs assume properly balanced footage — applied "
 "to a color-cast image, they will look wrong."
@@ -1209,7 +1209,7 @@ msgstr ""
 "Prvo ispravite, zatim ocijenite. LUT-ovi pretpostavljaju pravilno "
 "izbalansirane snimke — primijenjeni na sliku s bojom, izgledat će pogrešno."
 
-#: ../color.rst:436
+#: ../doc/color.rst:436
 msgid ""
 "Most included LUTs target Rec. 709 footage (HD cameras, smartphones). If "
 "your camera records in a LOG profile, apply the appropriate LOG conversion "
@@ -1219,7 +1219,7 @@ msgstr ""
 "telefoni). Ako vaša kamera snima u LOG profilu, prvo primijenite "
 "odgovarajući LOG konverzijski LUT."
 
-#: ../color.rst:438
+#: ../doc/color.rst:438
 msgid ""
 "Stack Color Grade with separate Color Map / Lookup effects to layer multiple"
 " LUTs."
@@ -1227,11 +1227,11 @@ msgstr ""
 "Složite Color Grade s posebnim efektima Color Map / Lookup za slojevito "
 "korištenje više LUT-ova."
 
-#: ../color.rst:443
+#: ../doc/color.rst:443
 msgid "The Mix Control"
 msgstr "Kontrola miješanja"
 
-#: ../color.rst:445
+#: ../doc/color.rst:445
 msgid ""
 "The **Mix** control (0.0–1.0) at the bottom of the Color Grade effect blends"
 " the graded result with the original image. At 1.0, the full grade applies. "
@@ -1241,7 +1241,7 @@ msgstr ""
 "rezultat s izvornom slikom. Na 1.0 primjenjuje se puna ocjena. Na 0.0 "
 "prikazuje se original."
 
-#: ../color.rst:448
+#: ../doc/color.rst:448
 msgid ""
 "If your grade is correct but feels slightly heavy, dial Mix back to 0.7–0.9 "
 "to soften everything at once — no need to revisit every individual control."
@@ -1250,7 +1250,7 @@ msgstr ""
 " omekšate sve odjednom — nema potrebe vraćati se na svaki pojedinačni "
 "kontroler."
 
-#: ../color.rst:451
+#: ../doc/color.rst:451
 msgid ""
 "Mix is keyframable: animate the grade fading in or out over time, for "
 "example opening a scene flat and letting it bloom into full color."
@@ -1259,11 +1259,11 @@ msgstr ""
 "ili nestajanje ocjene tijekom vremena, na primjer otvarajući scenu ravno i "
 "dopuštajući joj da procvjeta u punu boju."
 
-#: ../color.rst:457
+#: ../doc/color.rst:457
 msgid "Putting It All Together — A Complete Workflow"
 msgstr "Sve zajedno — potpuni tijek rada"
 
-#: ../color.rst:459
+#: ../doc/color.rst:459
 msgid ""
 "Select your clip. Right-click → :guilabel:`Color → Adjust Colors` to add the"
 " effect and open the Color Wheels and scopes in one step. Or use "
@@ -1275,7 +1275,7 @@ msgstr ""
 "prvo upotrijebite :guilabel:`Color → Analyze Colors` ako želite procijeniti "
 "snimku prije nego što se odlučite za ocjenu."
 
-#: ../color.rst:462
+#: ../doc/color.rst:462
 msgid ""
 "**Check the scopes before touching anything** — is the waveform too high or "
 "too low? A cast on the RGB Parade? The histogram clipping against the right "
@@ -1285,11 +1285,11 @@ msgstr ""
 "previsok ili prenizak? Postoji li boja na RGB Parade? Je li histogram "
 "odsječen na desnom rubu?"
 
-#: ../color.rst:464
+#: ../doc/color.rst:464
 msgid "Fix **Temperature** and **Tint** to neutralize white balance."
 msgstr "Ispravite **Temperature** i **Tint** za neutralizaciju bijele boje."
 
-#: ../color.rst:465
+#: ../doc/color.rst:465
 msgid ""
 "Fix **Exposure**, then **Contrast**. Use **Highlights** and **Shadows** to "
 "recover clipping."
@@ -1297,11 +1297,11 @@ msgstr ""
 "Ispravite **Exposure**, zatim **Contrast**. Koristite **Highlights** i "
 "**Shadows** za vraćanje odsječenih dijelova."
 
-#: ../color.rst:466
+#: ../doc/color.rst:466
 msgid "Gently adjust **Saturation** or **Vibrance**."
 msgstr "Pažljivo prilagodite **Saturation** ili **Vibrance**."
 
-#: ../color.rst:467
+#: ../doc/color.rst:467
 msgid ""
 "Open the **Vectorscope**, click Region, and draw a box over any faces. "
 "Confirm the skin tone cluster aligns with the dashed line. If not, adjust "
@@ -1311,7 +1311,7 @@ msgstr ""
 " lica. Potvrdite da se skup tonova kože poravnava s isprekidanom linijom. "
 "Ako ne, prilagodite Temperature ili Global color wheel."
 
-#: ../color.rst:469
+#: ../doc/color.rst:469
 msgid ""
 "Open the **Color Wheels** dock and build your creative grade — push Shadows "
 "one direction, Highlights the opposite, handle Midtones carefully."
@@ -1320,7 +1320,7 @@ msgstr ""
 "pomaknite Shadows u jednom smjeru, Highlights u suprotnom, pažljivo rukujte "
 "Midtones."
 
-#: ../color.rst:471
+#: ../doc/color.rst:471
 msgid ""
 "Fine-tune with **Curves**: a gentle S-curve on Curve: All; Curve: Blue for a"
 " cinematic push (cool shadows up, warm highlights down)."
@@ -1328,17 +1328,17 @@ msgstr ""
 "Fino podesite s **Curves**: blagi S-oblik na Curve: All; Curve: Blue za "
 "filmski efekt (hladni sjenovi gore, topli istaknuti dijelovi dolje)."
 
-#: ../color.rst:473
+#: ../doc/color.rst:473
 msgid ""
 "Optionally browse to a **.cube** LUT and blend it in with **LUT Intensity**."
 msgstr ""
 "Po želji potražite **.cube** LUT i pomiješajte ga s **LUT Intensity**."
 
-#: ../color.rst:474
+#: ../doc/color.rst:474
 msgid "If the overall grade feels heavy, lower **Mix** to 0.7–0.9."
 msgstr "Ako ukupna ocjena djeluje teška, smanjite **Mix** na 0.7–0.9."
 
-#: ../color.rst:475
+#: ../doc/color.rst:475
 msgid ""
 "To compare before/after, drag **Mix** to 0.0 to see the original, then back "
 "to 1.0."
@@ -1346,7 +1346,7 @@ msgstr ""
 "Za usporedbu prije/nakon, povucite **Mix** na 0.0 da vidite original, zatim "
 "natrag na 1.0."
 
-#: ../color.rst:476
+#: ../doc/color.rst:476
 msgid ""
 "Happy with the result? Right-click the effect → **Copy**, select other "
 "clips, and **Paste Effects**. Or use the **Parent** property to link "
@@ -1357,7 +1357,7 @@ msgstr ""
 "povezivanje više isječaka s jednom glavnom ocjenom (vidi "
 ":ref:`effect_parent_ref`)."
 
-#: ../color.rst:480
+#: ../doc/color.rst:480
 msgid ""
 "For animating color properties over time, see :ref:`animation_ref`. For a "
 "complete list of all Color Grade properties, see :ref:`effects_ref`."

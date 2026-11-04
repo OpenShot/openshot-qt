@@ -1,0 +1,1748 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) OpenShot Studios, LLC
+# This file is distributed under the same license as the OpenShot Video Editor package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenShot Video Editor 4.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: vi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../doc/agent_cli.rst:6
+msgid "Command Line Interface"
+msgstr "Giao diện Dòng lệnh"
+
+#: ../doc/agent_cli.rst:8
+msgid ""
+"Bring OpenShot into your command-line workflow. Import footage, trim and "
+"arrange clips, apply effects, animate properties with keyframes, and export "
+"videos from your terminal. Use a few commands to automate repetitive edits, "
+"write a script for a recurring project, or let an AI agent help assemble and"
+" refine a video."
+msgstr ""
+"Đưa OpenShot vào quy trình làm việc dòng lệnh của bạn. Nhập cảnh quay, cắt "
+"và sắp xếp các đoạn clip, áp dụng hiệu ứng, tạo hoạt ảnh thuộc tính với "
+"keyframe, và xuất video từ terminal của bạn. Sử dụng một vài lệnh để tự động"
+" hóa các chỉnh sửa lặp đi lặp lại, viết script cho dự án định kỳ, hoặc để "
+"một tác nhân AI giúp lắp ráp và tinh chỉnh video."
+
+#: ../doc/agent_cli.rst:13
+msgid ""
+"The command line works with the same projects as the editor. You can control"
+" an open editor and review changes as you go, or work in a **headless "
+"session** without opening a window. A session keeps your project open "
+"between commands, including its edits, undo history, and export jobs. Save "
+"it as an ``.osp`` project whenever you want to continue editing later."
+msgstr ""
+"Dòng lệnh hoạt động với cùng các dự án như trình chỉnh sửa. Bạn có thể điều "
+"khiển một trình chỉnh sửa đang mở và xem lại các thay đổi khi làm việc, hoặc"
+" làm việc trong một **phiên không giao diện** mà không cần mở cửa sổ. Một "
+"phiên giữ dự án của bạn mở giữa các lệnh, bao gồm các chỉnh sửa, lịch sử "
+"hoàn tác và các công việc xuất. Lưu nó dưới dạng dự án ``.osp`` bất cứ khi "
+"nào bạn muốn tiếp tục chỉnh sửa sau."
+
+#: ../doc/agent_cli.rst:20
+msgid "Getting started"
+msgstr "Bắt đầu"
+
+#: ../doc/agent_cli.rst:22
+msgid ""
+"Use your installed OpenShot executable followed by ``--cli``. Start with "
+"``intro`` for a short guide to sessions, editing, animation, and saving, or "
+"``help`` for the command overview. These commands do not need an active "
+"session. The examples below require an OpenShot build that includes command-"
+"line editing."
+msgstr ""
+"Sử dụng tệp thực thi OpenShot đã cài đặt của bạn kèm theo ``--cli``. Bắt đầu"
+" với ``intro`` để có hướng dẫn ngắn về phiên làm việc, chỉnh sửa, hoạt ảnh "
+"và lưu, hoặc ``help`` để xem tổng quan lệnh. Các lệnh này không cần phiên "
+"làm việc đang hoạt động. Các ví dụ dưới đây yêu cầu bản OpenShot có hỗ trợ "
+"chỉnh sửa dòng lệnh."
+
+#: ../doc/agent_cli.rst:30
+msgid "Linux AppImage"
+msgstr "Linux AppImage"
+
+#: ../doc/agent_cli.rst:32
+msgid "From the directory containing your downloaded AppImage::"
+msgstr "Từ thư mục chứa AppImage bạn đã tải về::"
+
+#: ../doc/agent_cli.rst:37
+msgid ""
+"Replace ``OpenShot.AppImage`` with your downloaded filename. If "
+"**AppImageLauncher** shows desktop integration dialogs, set "
+"``APPIMAGELAUNCHER_DISABLE=1`` before launching the command::"
+msgstr ""
+"Thay ``OpenShot.AppImage`` bằng tên tệp bạn đã tải về. Nếu "
+"**AppImageLauncher** hiển thị hộp thoại tích hợp desktop, hãy đặt "
+"``APPIMAGELAUNCHER_DISABLE=1`` trước khi chạy lệnh::"
+
+#: ../doc/agent_cli.rst:43
+msgid "For scripts or repeated commands, set it once in your current shell::"
+msgstr ""
+"Đối với script hoặc các lệnh lặp lại, thiết lập một lần trong shell hiện tại"
+" của bạn::"
+
+#: ../doc/agent_cli.rst:48
+msgid ""
+"The variable must be set before launching the AppImage: AppImageLauncher can"
+" intercept it before OpenShot receives ``--cli``. Relative media paths and "
+"``@batch.json`` files are resolved from your working directory. Keep the "
+"AppImage file available while its sessions or exports are running."
+msgstr ""
+"Biến này phải được thiết lập trước khi khởi chạy AppImage: AppImageLauncher "
+"có thể chặn nó trước khi OpenShot nhận được ``--cli``. Đường dẫn media tương"
+" đối và các tệp ``@batch.json`` được giải quyết từ thư mục làm việc của bạn."
+" Giữ tệp AppImage sẵn có trong khi các phiên hoặc xuất đang chạy."
+
+#: ../doc/agent_cli.rst:54
+msgid "Linux Snap"
+msgstr "Linux Snap"
+
+#: ../doc/agent_cli.rst:56
+msgid "For the `OpenShot Snap <https://snapcraft.io/openshot-qt>`_, use::"
+msgstr ""
+"Đối với `OpenShot Snap <https://snapcraft.io/openshot-qt>`_, sử dụng::"
+
+#: ../doc/agent_cli.rst:62
+msgid ""
+"Snap's file permissions apply to command-line editing too. Keep media, "
+"projects, and exports in locations the Snap can access, such as your home "
+"folder. To allow access to external drives, connect the removable-media "
+"permission::"
+msgstr ""
+"Quyền truy cập tệp của Snap cũng áp dụng cho chỉnh sửa dòng lệnh. Giữ media,"
+" dự án và xuất ở các vị trí mà Snap có thể truy cập, như thư mục nhà của "
+"bạn. Để cho phép truy cập ổ đĩa ngoài, kết nối quyền removable-media::"
+
+#: ../doc/agent_cli.rst:69
+msgid "Windows"
+msgstr "Windows"
+
+#: ../doc/agent_cli.rst:73
+msgid ""
+"**Use openshot-qt-cmd.exe for command-line editing on Windows.** This "
+"console executable displays command results, help, and errors in your "
+"terminal. The desktop executable, ``openshot-qt.exe``, does not display "
+"standard output in an interactive terminal, leaving commands without visible"
+" feedback and making the CLI difficult to use."
+msgstr ""
+"**Sử dụng openshot-qt-cmd.exe để chỉnh sửa dòng lệnh trên Windows.** Tệp "
+"thực thi console này hiển thị kết quả lệnh, trợ giúp và lỗi trong terminal "
+"của bạn. Tệp thực thi desktop, ``openshot-qt.exe``, không hiển thị đầu ra "
+"chuẩn trong terminal tương tác, khiến các lệnh không có phản hồi hiển thị và"
+" làm CLI khó sử dụng."
+
+#: ../doc/agent_cli.rst:79
+msgid "In PowerShell, from the OpenShot installation directory::"
+msgstr "Trong PowerShell, từ thư mục cài đặt OpenShot::"
+
+#: ../doc/agent_cli.rst:85
+msgid ""
+"If you are in a different directory, use the full path to ``openshot-qt-"
+"cmd.exe``. Keep ``--cli`` after the executable name."
+msgstr ""
+"Nếu bạn ở thư mục khác, sử dụng đường dẫn đầy đủ đến ``openshot-qt-"
+"cmd.exe``. Giữ ``--cli`` sau tên tệp thực thi."
+
+#: ../doc/agent_cli.rst:89
+msgid "macOS"
+msgstr "macOS"
+
+#: ../doc/agent_cli.rst:91
+msgid "For an installation in Applications::"
+msgstr "Đối với cài đặt trong Applications::"
+
+#: ../doc/agent_cli.rst:97
+msgid "Finding commands"
+msgstr "Tìm lệnh"
+
+#: ../doc/agent_cli.rst:99
+msgid ""
+"Throughout this guide, ``openshot-cli`` is shorthand for your installation's"
+" command above, such as ``snap run openshot-qt --cli`` or "
+"``./OpenShot.AppImage --cli``. Some installations also provide an "
+"``openshot-cli`` command directly. When running from source, use ``python3 "
+"src/launch.py --cli`` in OpenShot's Python environment."
+msgstr ""
+"Trong suốt hướng dẫn này, ``openshot-cli`` là cách viết tắt cho lệnh cài đặt"
+" của bạn ở trên, như ``snap run openshot-qt --cli`` hoặc "
+"``./OpenShot.AppImage --cli``. Một số cài đặt cũng cung cấp lệnh ``openshot-"
+"cli`` trực tiếp. Khi chạy từ mã nguồn, sử dụng ``python3 src/launch.py "
+"--cli`` trong môi trường Python của OpenShot."
+
+#: ../doc/agent_cli.rst:105
+msgid ""
+"Bare ``--cli``, ``--cli help``, and ``--cli --help`` show the same overview."
+" Help becomes more specific as you navigate commands::"
+msgstr ""
+"Chỉ ``--cli``, ``--cli help``, và ``--cli --help`` đều hiển thị cùng một "
+"tổng quan. Trợ giúp sẽ cụ thể hơn khi bạn điều hướng các lệnh::"
+
+#: ../doc/agent_cli.rst:117
+msgid ""
+"Group help explains workflows with examples; operation help describes "
+"arguments and behavior. ``--help`` is equivalent to trailing ``help``. All "
+"help commands work without an editing session."
+msgstr ""
+"Trợ giúp nhóm giải thích quy trình làm việc với ví dụ; trợ giúp thao tác mô "
+"tả các đối số và hành vi. ``--help`` tương đương với ``help`` ở cuối. Tất cả"
+" các lệnh trợ giúp hoạt động mà không cần phiên chỉnh sửa."
+
+#: ../doc/agent_cli.rst:121
+msgid ""
+"``effects list`` shows the available effects with short descriptions. Effect"
+" help explains their properties, defaults, choices, and ranges. ``effects "
+"instances`` lists effects already attached to clips, with parent clip IDs. "
+"Class names, display names, and underscore aliases identify the same effect."
+msgstr ""
+"``effects list`` hiển thị các hiệu ứng có sẵn với mô tả ngắn gọn. Trợ giúp "
+"hiệu ứng giải thích các thuộc tính, mặc định, lựa chọn và phạm vi của chúng."
+" ``effects instances`` liệt kê các hiệu ứng đã gắn vào các đoạn clip, kèm "
+"theo ID đoạn clip cha. Tên lớp, tên hiển thị và bí danh dấu gạch dưới xác "
+"định cùng một hiệu ứng."
+
+#: ../doc/agent_cli.rst:127
+msgid "Working with scripts and AI agents"
+msgstr "Làm việc với script và tác nhân AI"
+
+#: ../doc/agent_cli.rst:129
+msgid ""
+"AI coding agents such as **Codex** and **Claude Code** can use the CLI to "
+"inspect and edit OpenShot projects through terminal commands. Give your "
+"agent the path to your OpenShot executable, the media or project to work "
+"with, and the desired result: duration, dimensions, animation style, and "
+"output location. Ask it to read ``--cli intro`` before starting. The same "
+"commands work when you type them yourself or run them from a script."
+msgstr ""
+"Các tác nhân lập trình AI như **Codex** và **Claude Code** có thể sử dụng "
+"CLI để kiểm tra và chỉnh sửa dự án OpenShot qua các lệnh terminal. Cung cấp "
+"cho tác nhân đường dẫn đến tệp thực thi OpenShot của bạn, media hoặc dự án "
+"để làm việc, và kết quả mong muốn: thời lượng, kích thước, phong cách hoạt "
+"ảnh và vị trí xuất. Yêu cầu nó đọc ``--cli intro`` trước khi bắt đầu. Các "
+"lệnh giống nhau hoạt động khi bạn tự nhập hoặc chạy từ script."
+
+#: ../doc/agent_cli.rst:136
+msgid ""
+"Start with ``intro``, then use command-specific help as needed. A useful "
+"workflow is to select a session, inspect the project, make a small set of "
+"changes, review the result, and save. Commands return structured JSON so "
+"scripts and agents can use object IDs and results directly instead of "
+"interpreting screen output."
+msgstr ""
+"Bắt đầu với ``intro``, sau đó sử dụng trợ giúp theo lệnh khi cần. Một quy "
+"trình hữu ích là chọn một phiên, kiểm tra dự án, thực hiện một số thay đổi "
+"nhỏ, xem lại kết quả và lưu lại. Các lệnh trả về JSON có cấu trúc để script "
+"và tác nhân có thể sử dụng trực tiếp ID đối tượng và kết quả thay vì phải "
+"giải thích đầu ra màn hình."
+
+#: ../doc/agent_cli.rst:141
+msgid ""
+"**Inspect before editing.** Use returned IDs and property information "
+"instead of guessing names, track numbers, or timing. Select a session "
+"explicitly when more than one project is open."
+msgstr ""
+"**Kiểm tra trước khi chỉnh sửa.** Sử dụng ID trả về và thông tin thuộc tính "
+"thay vì đoán tên, số track hoặc thời gian. Chọn phiên rõ ràng khi có nhiều "
+"hơn một dự án đang mở."
+
+#: ../doc/agent_cli.rst:144
+msgid ""
+"**Group repeated edits.** Use ``edit apply`` for a sequence of changes or "
+"``edit bulk`` to apply a template to selected clips. Validate with ``--dry-"
+"run`` before applying a batch."
+msgstr ""
+"**Nhóm các chỉnh sửa lặp lại.** Sử dụng ``edit apply`` cho một chuỗi thay "
+"đổi hoặc ``edit bulk`` để áp dụng mẫu cho các đoạn clip được chọn. Xác thực "
+"với ``--dry-run`` trước khi áp dụng một lô."
+
+#: ../doc/agent_cli.rst:147
+msgid ""
+"**Check animation.** Choose a coordinate space, start with a few keyframes, "
+"and use easing presets for familiar motion. ``keyframe preview`` samples the"
+" curve so you can spot pauses or jumps before exporting. Review rendered "
+"motion as well; a contact sheet alone cannot show how an animation feels."
+msgstr ""
+"**Kiểm tra hoạt ảnh.** Chọn không gian tọa độ, bắt đầu với một vài khung "
+"hình chính, và sử dụng các cài đặt trước easing để có chuyển động quen "
+"thuộc. ``keyframe preview`` lấy mẫu đường cong để bạn có thể phát hiện các "
+"điểm dừng hoặc nhảy trước khi xuất. Cũng xem lại chuyển động đã được kết "
+"xuất; một bảng liên hệ đơn thuần không thể hiện được cảm giác của hoạt ảnh."
+
+#: ../doc/agent_cli.rst:151
+msgid ""
+"**Save and follow exports.** Save the project explicitly and check the "
+"export job's status before treating an output as complete. If a request "
+"times out, inspect its status before repeating an edit."
+msgstr ""
+"**Lưu và theo dõi xuất.** Lưu dự án một cách rõ ràng và kiểm tra trạng thái "
+"công việc xuất trước khi coi đầu ra là hoàn thành. Nếu một yêu cầu hết thời "
+"gian chờ, hãy kiểm tra trạng thái của nó trước khi lặp lại chỉnh sửa."
+
+#: ../doc/agent_cli.rst:155
+msgid ""
+"The sections below explain these workflows and their timing conventions."
+msgstr ""
+"Các phần dưới đây giải thích các quy trình làm việc này và các quy ước về "
+"thời gian của chúng."
+
+#: ../doc/agent_cli.rst:158
+msgid "Sessions and outputs"
+msgstr "Phiên làm việc và đầu ra"
+
+#: ../doc/agent_cli.rst:161
+msgid "Starting or finding a session"
+msgstr "Bắt đầu hoặc tìm một phiên làm việc"
+
+#: ../doc/agent_cli.rst:163
+msgid "Start one headless session (without an editor window)::"
+msgstr ""
+"Bắt đầu một phiên làm việc không giao diện (không có cửa sổ chỉnh sửa)::"
+
+#: ../doc/agent_cli.rst:167
+msgid ""
+"To open an existing project at startup, add ``--project "
+"\"/path/project.osp\"``. The successful JSON response contains "
+"``result.session_id``. Copy that value. If OpenShot is already running, or "
+"you have forgotten the ID, find available sessions with::"
+msgstr ""
+"Để mở một dự án hiện có khi khởi động, thêm ``--project "
+"\"/path/project.osp\"``. Phản hồi JSON thành công chứa "
+"``result.session_id``. Sao chép giá trị đó. Nếu OpenShot đã chạy hoặc bạn "
+"quên ID, hãy tìm các phiên có sẵn bằng::"
+
+#: ../doc/agent_cli.rst:174
+msgid ""
+"Choose the session for the project you intend to edit. You do not need to "
+"start a new session for each command."
+msgstr ""
+"Chọn phiên làm việc cho dự án bạn định chỉnh sửa. Bạn không cần phải bắt đầu"
+" một phiên mới cho mỗi lệnh."
+
+#: ../doc/agent_cli.rst:180
+msgid "Selecting a session"
+msgstr "Chọn một phiên làm việc"
+
+#: ../doc/agent_cli.rst:184
+msgid ""
+"**Set OPENSHOT_SESSION once, then run commands normally.** Your terminal "
+"remembers the selected session, so you do not need to pass ``--session`` "
+"with every command. Use the PowerShell or Bash example below."
+msgstr ""
+"**Đặt OPENSHOT_SESSION một lần, sau đó chạy các lệnh bình thường.** Terminal"
+" của bạn sẽ nhớ phiên đã chọn, vì vậy bạn không cần phải truyền "
+"``--session`` với mỗi lệnh. Sử dụng ví dụ PowerShell hoặc Bash bên dưới."
+
+#: ../doc/agent_cli.rst:188
+msgid ""
+"Replace ``SESSION_ID`` below with the ``session_id`` returned by ``session "
+"start`` or ``session list``."
+msgstr ""
+"Thay thế ``SESSION_ID`` bên dưới bằng ``session_id`` trả về từ ``session "
+"start`` hoặc ``session list``."
+
+#: ../doc/agent_cli.rst:191 ../doc/agent_cli.rst:422
+msgid "Windows PowerShell::"
+msgstr "Windows PowerShell::"
+
+#: ../doc/agent_cli.rst:197
+msgid "Linux Bash::"
+msgstr "Linux Bash::"
+
+#: ../doc/agent_cli.rst:203
+msgid ""
+"On macOS, use the same ``export`` syntax. For macOS or Snap commands, "
+"substitute your installation's executable from Getting started. The "
+"selection lasts for this terminal and commands launched from it. Set it "
+"again in a new terminal, or update it when switching to a different session."
+msgstr ""
+"Trên macOS, sử dụng cú pháp ``export`` tương tự. Đối với các lệnh macOS hoặc"
+" Snap, thay thế bằng tệp thực thi của bạn từ phần Bắt đầu. Lựa chọn này chỉ "
+"áp dụng cho terminal này và các lệnh được khởi chạy từ nó. Đặt lại trong "
+"terminal mới hoặc cập nhật khi chuyển sang phiên khác."
+
+#: ../doc/agent_cli.rst:208
+msgid ""
+"**The remaining editing and export examples assume OPENSHOT_SESSION is "
+"set.** The next subsection shows how to capture the ID automatically for "
+"scripts."
+msgstr ""
+"**Các ví dụ chỉnh sửa và xuất còn lại giả định OPENSHOT_SESSION đã được "
+"đặt.** Phần tiếp theo sẽ hướng dẫn cách lấy ID tự động cho các script."
+
+#: ../doc/agent_cli.rst:211
+msgid ""
+"To target a different session for just one command, use ``--session``. It "
+"overrides ``OPENSHOT_SESSION`` without changing your terminal's selection::"
+msgstr ""
+"Để nhắm đến một phiên khác chỉ cho một lệnh, sử dụng ``--session``. Nó ghi "
+"đè ``OPENSHOT_SESSION`` mà không thay đổi lựa chọn trong terminal của bạn::"
+
+#: ../doc/agent_cli.rst:216
+msgid ""
+"With a packaged executable, put this override after ``--cli`` and before the"
+" command group: ``--cli --session OTHER_SESSION_ID project get``."
+msgstr ""
+"Với tệp thực thi đóng gói, đặt ghi đè này sau ``--cli`` và trước nhóm lệnh: "
+"``--cli --session OTHER_SESSION_ID project get``."
+
+#: ../doc/agent_cli.rst:219
+msgid ""
+"Automatic selection only works when exactly one reachable session exists. If"
+" you see ``session_required``, run ``session list`` and explicitly select "
+"the intended session. If it is no longer listed, start it again and use the "
+"new ID. Help, ``intro``, and session discovery do not require a selected "
+"session."
+msgstr ""
+"Chọn tự động chỉ hoạt động khi tồn tại đúng một phiên có thể truy cập. Nếu "
+"bạn thấy ``session_required``, chạy ``session list`` và chọn rõ ràng phiên "
+"mong muốn. Nếu nó không còn trong danh sách, hãy khởi động lại và sử dụng ID"
+" mới. Trợ giúp, ``intro``, và khám phá phiên không yêu cầu phiên được chọn."
+
+#: ../doc/agent_cli.rst:225
+msgid "Capturing the session ID automatically"
+msgstr "Tự động lấy ID phiên làm việc"
+
+#: ../doc/agent_cli.rst:227
+msgid ""
+"Scripts can read ``result.session_id`` directly from the JSON returned by "
+"``session start`` and set ``OPENSHOT_SESSION`` for subsequent commands. "
+"There is no need to copy the ID manually or read a log file. Check that "
+"startup succeeded before using the returned ID."
+msgstr ""
+"Các script có thể đọc trực tiếp ``result.session_id`` từ JSON trả về bởi "
+"``session start`` và đặt ``OPENSHOT_SESSION`` cho các lệnh tiếp theo. Không "
+"cần sao chép ID thủ công hoặc đọc file log. Kiểm tra khởi động thành công "
+"trước khi sử dụng ID trả về."
+
+#: ../doc/agent_cli.rst:232
+msgid "Windows PowerShell (set the executable path for your installation)::"
+msgstr "Windows PowerShell (đặt đường dẫn thực thi cho cài đặt của bạn)::"
+
+#: ../doc/agent_cli.rst:244
+msgid "Linux Bash (requires ``jq`` to read JSON)::"
+msgstr "Linux Bash (yêu cầu ``jq`` để đọc JSON)::"
+
+#: ../doc/agent_cli.rst:256
+msgid ""
+"The environment variable selects a session for commands launched from this "
+"terminal; it does not change a system-wide setting. Starting a session does "
+"not set the variable automatically. After stopping the session, clear the "
+"selection with ``Remove-Item Env:OPENSHOT_SESSION`` in PowerShell or ``unset"
+" OPENSHOT_SESSION`` in Bash."
+msgstr ""
+"Biến môi trường chọn một phiên cho các lệnh khởi chạy từ terminal này; nó "
+"không thay đổi cài đặt toàn hệ thống. Bắt đầu một phiên không tự động đặt "
+"biến này. Sau khi dừng phiên, xóa lựa chọn bằng ``Remove-Item "
+"Env:OPENSHOT_SESSION`` trong PowerShell hoặc ``unset OPENSHOT_SESSION`` "
+"trong Bash."
+
+#: ../doc/agent_cli.rst:263
+msgid "Showing and stopping a session"
+msgstr "Hiển thị và dừng một phiên làm việc"
+
+#: ../doc/agent_cli.rst:265
+msgid "To show the selected session in the editor::"
+msgstr "Để hiển thị phiên đã chọn trong trình chỉnh sửa::"
+
+#: ../doc/agent_cli.rst:269
+msgid ""
+"On a desktop, ``session show`` creates the editor in the same process and "
+"keeps the live project, IDs, history, export jobs, and connection. Repeated "
+"calls raise the existing window. ``session start --show`` opens it "
+"immediately. Sessions started without a display, or with "
+"``QT_QPA_PLATFORM=offscreen``/``minimal``, cannot later show a desktop "
+"window. For those sessions, save and open the project in a new desktop "
+"session. Once shown, close the session through the editor window."
+msgstr ""
+"Trên máy tính để bàn, ``session show`` tạo trình chỉnh sửa trong cùng một "
+"tiến trình và giữ dự án đang hoạt động, các ID, lịch sử, công việc xuất và "
+"kết nối. Gọi lại nhiều lần sẽ đưa cửa sổ hiện có lên trước. ``session start "
+"--show`` mở nó ngay lập tức. Các phiên bắt đầu không có hiển thị, hoặc với "
+"``QT_QPA_PLATFORM=offscreen``/``minimal``, không thể hiển thị cửa sổ máy "
+"tính để bàn sau đó. Với các phiên đó, hãy lưu và mở dự án trong một phiên "
+"máy tính để bàn mới. Khi đã hiển thị, đóng phiên qua cửa sổ trình chỉnh sửa."
+
+#: ../doc/agent_cli.rst:277
+msgid ""
+"Global options (``--session``, ``--timeout``) go before the command. "
+"``session serve`` stays in the foreground for supervisors; ``session start``"
+" returns after a background host registers. ``session stop`` refuses unsaved"
+" changes and active exports. Use ``--discard`` only to intentionally discard"
+" unsaved edits."
+msgstr ""
+"Các tùy chọn toàn cục (``--session``, ``--timeout``) đặt trước lệnh. "
+"``session serve`` chạy ở chế độ nền trước cho người giám sát; ``session "
+"start`` trả về sau khi máy chủ nền đăng ký. ``session stop`` từ chối các "
+"thay đổi chưa lưu và các xuất đang hoạt động. Chỉ sử dụng ``--discard`` để "
+"cố ý bỏ các chỉnh sửa chưa lưu."
+
+#: ../doc/agent_cli.rst:283
+msgid "Command output"
+msgstr "Kết quả lệnh"
+
+#: ../doc/agent_cli.rst:285
+msgid ""
+"Results are JSON on stdout, except the default text timeline view. Errors "
+"are JSON on stderr with exit status 1; argument-parser errors exit 2. "
+"Mutations return compact summaries with an ``inspect`` command. ``get`` "
+"returns native object JSON. Project replies include a revision; effect "
+"catalog replies do not require a session. Logs from headless sessions live "
+"beside their registry records. ``OPENSHOT_SESSION_DIR`` overrides the "
+"default ``~/.openshot_qt/sessions`` directory."
+msgstr ""
+"Kết quả là JSON trên stdout, ngoại trừ chế độ xem timeline văn bản mặc định."
+" Lỗi là JSON trên stderr với mã thoát 1; lỗi phân tích đối số thoát 2. Các "
+"thao tác thay đổi trả về tóm tắt gọn với lệnh ``inspect``. ``get`` trả về "
+"JSON đối tượng gốc. Phản hồi dự án bao gồm phiên bản; phản hồi danh mục hiệu"
+" ứng không yêu cầu phiên. Nhật ký từ các phiên không giao diện nằm cạnh các "
+"bản ghi đăng ký của chúng. ``OPENSHOT_SESSION_DIR`` ghi đè thư mục mặc định "
+"``~/.openshot_qt/sessions``."
+
+#: ../doc/agent_cli.rst:292
+msgid ""
+"Sessions accept commands locally on your computer. Keep the session registry"
+" private, since it contains the credentials used to access your editing "
+"sessions. Exports work from a snapshot, so you can continue editing while a "
+"job runs."
+msgstr ""
+"Phiên làm việc chấp nhận lệnh cục bộ trên máy tính của bạn. Giữ bí mật đăng "
+"ký phiên làm việc, vì nó chứa thông tin xác thực dùng để truy cập các phiên "
+"chỉnh sửa của bạn. Xuất bản hoạt động từ một ảnh chụp nhanh, vì vậy bạn có "
+"thể tiếp tục chỉnh sửa trong khi một công việc đang chạy."
+
+#: ../doc/agent_cli.rst:297
+msgid "Opening and saving projects"
+msgstr "Mở và lưu dự án"
+
+#: ../doc/agent_cli.rst:299
+msgid ""
+"An OpenShot project (``.osp``) stores your editable timeline. Exporting "
+"creates a finished video; saving the project lets you return to its clips, "
+"effects, and keyframes later. Save your project separately even when you "
+"also export a video."
+msgstr ""
+"Một dự án OpenShot (``.osp``) lưu trữ dòng thời gian có thể chỉnh sửa của "
+"bạn. Xuất bản tạo ra một video hoàn chỉnh; lưu dự án cho phép bạn quay lại "
+"các clip, hiệu ứng và khung khóa sau này. Hãy lưu dự án của bạn riêng biệt "
+"ngay cả khi bạn cũng xuất video."
+
+#: ../doc/agent_cli.rst:304
+msgid "Opening a project"
+msgstr "Mở một dự án"
+
+#: ../doc/agent_cli.rst:306
+msgid "Start a session with an existing project::"
+msgstr "Bắt đầu một phiên làm việc với dự án hiện có::"
+
+#: ../doc/agent_cli.rst:310
+msgid ""
+"Add ``--show`` to open its editor window too. To use an editor that is "
+"already running, find it with ``session list``. Set ``OPENSHOT_SESSION`` to "
+"its returned session ID, then open or inspect a project::"
+msgstr ""
+"Thêm ``--show`` để mở cửa sổ trình chỉnh sửa của nó nữa. Để sử dụng trình "
+"chỉnh sửa đang chạy, tìm nó bằng ``session list``. Đặt ``OPENSHOT_SESSION`` "
+"thành ID phiên trả về, sau đó mở hoặc kiểm tra một dự án::"
+
+#: ../doc/agent_cli.rst:317
+msgid ""
+"Replace the example path with your own, and quote paths containing spaces. "
+"``project open`` replaces the selected session's current project. It refuses"
+" to discard unsaved edits unless you explicitly add ``--discard``; save "
+"those edits first if you want to keep them. Opening through the CLI does not"
+" show interactive missing-media dialogs, so keep the project's source media "
+"available."
+msgstr ""
+"Thay thế đường dẫn ví dụ bằng đường dẫn của bạn, và đặt dấu ngoặc cho các "
+"đường dẫn chứa khoảng trắng. ``project open`` thay thế dự án hiện tại của "
+"phiên được chọn. Nó từ chối loại bỏ các chỉnh sửa chưa lưu trừ khi bạn thêm "
+"rõ ràng ``--discard``; hãy lưu các chỉnh sửa đó trước nếu bạn muốn giữ "
+"chúng. Mở qua CLI không hiển thị hộp thoại tương tác thiếu phương tiện, vì "
+"vậy hãy giữ nguồn phương tiện của dự án sẵn có."
+
+#: ../doc/agent_cli.rst:323
+msgid ""
+"For a new, empty project, use ``session start`` without ``--project``, then "
+"import media and add clips as described under Editing."
+msgstr ""
+"Đối với dự án mới, trống, sử dụng ``session start`` mà không có "
+"``--project``, sau đó nhập phương tiện và thêm clip như mô tả trong phần "
+"Chỉnh sửa."
+
+#: ../doc/agent_cli.rst:327
+msgid "Saving a project or a copy"
+msgstr "Lưu dự án hoặc bản sao"
+
+#: ../doc/agent_cli.rst:329
+msgid ""
+"Save to a new file, or create a separate version before making more "
+"changes::"
+msgstr ""
+"Lưu vào tệp mới, hoặc tạo một phiên bản riêng biệt trước khi thực hiện thêm "
+"thay đổi::"
+
+#: ../doc/agent_cli.rst:333
+msgid "To update an existing file, explicitly allow replacement::"
+msgstr "Để cập nhật tệp hiện có, cho phép thay thế rõ ràng::"
+
+#: ../doc/agent_cli.rst:337
+msgid ""
+"Always supply the destination path. Saving an ``.osp`` does not package all "
+"your source footage into that file; keep the referenced media available when"
+" moving or reopening the project."
+msgstr ""
+"Luôn cung cấp đường dẫn đích. Lưu một tệp ``.osp`` không đóng gói tất cả "
+"cảnh quay nguồn của bạn vào tệp đó; giữ phương tiện tham chiếu sẵn có khi di"
+" chuyển hoặc mở lại dự án."
+
+#: ../doc/agent_cli.rst:342
+msgid "Exporting a video"
+msgstr "Xuất video"
+
+#: ../doc/agent_cli.rst:344
+msgid ""
+"Automate rendering and exporting from scripts or AI agents, using the "
+"project's settings or choosing a different output profile for each render. "
+"Export jobs can run in the background or wait for completion before your "
+"script continues. To render an MP4 using the project's resolution and frame "
+"rate::"
+msgstr ""
+"Tự động hóa việc kết xuất và xuất video từ các script hoặc tác nhân AI, sử "
+"dụng cài đặt dự án hoặc chọn một cấu hình đầu ra khác cho mỗi lần kết xuất. "
+"Các công việc xuất có thể chạy nền hoặc chờ hoàn thành trước khi script của "
+"bạn tiếp tục. Để kết xuất MP4 sử dụng độ phân giải và tốc độ khung hình của "
+"dự án::"
+
+#: ../doc/agent_cli.rst:351
+msgid ""
+"By default, OpenShot uses H.264 video and AAC audio. Replace the example "
+"path with your destination, using an existing folder and a new filename. "
+"Existing outputs are never overwritten. Exporting does not save your "
+"editable ``.osp`` project; use ``project save`` separately to keep your "
+"editing work."
+msgstr ""
+"Theo mặc định, OpenShot sử dụng video H.264 và âm thanh AAC. Thay thế đường "
+"dẫn ví dụ bằng đích của bạn, sử dụng thư mục hiện có và tên tệp mới. Các đầu"
+" ra hiện có không bao giờ bị ghi đè. Xuất không lưu dự án ``.osp`` có thể "
+"chỉnh sửa của bạn; sử dụng ``project save`` riêng để giữ công việc chỉnh "
+"sửa."
+
+#: ../doc/agent_cli.rst:356
+msgid ""
+"The ``--wait`` option keeps the command running until the export completes "
+"or reports a failure. Review the finished video before sharing it."
+msgstr ""
+"Tùy chọn ``--wait`` giữ lệnh chạy cho đến khi xuất hoàn thành hoặc báo lỗi. "
+"Xem lại video hoàn chỉnh trước khi chia sẻ."
+
+#: ../doc/agent_cli.rst:360
+msgid "Checking export progress"
+msgstr "Kiểm tra tiến trình xuất"
+
+#: ../doc/agent_cli.rst:362
+msgid ""
+"Leave off ``--wait`` to start an export in the background. The response "
+"includes a job ID you can use to check its progress::"
+msgstr ""
+"Bỏ ``--wait`` để bắt đầu xuất ở chế độ nền. Phản hồi bao gồm một ID công "
+"việc bạn có thể dùng để kiểm tra tiến trình::"
+
+#: ../doc/agent_cli.rst:370
+msgid ""
+"Replace ``JOB_ID`` with the returned ID. If waiting times out, the export "
+"keeps running; check the same job instead of starting another export. To "
+"stop a job, use ``export cancel JOB_ID``. Each job captures the timeline "
+"when it starts, so later edits do not change an export already in progress."
+msgstr ""
+"Thay thế ``JOB_ID`` bằng ID trả về. Nếu thời gian chờ hết hạn, việc xuất vẫn"
+" tiếp tục; kiểm tra cùng một công việc thay vì bắt đầu xuất khác. Để dừng "
+"công việc, dùng ``export cancel JOB_ID``. Mỗi công việc ghi lại dòng thời "
+"gian khi bắt đầu, vì vậy các chỉnh sửa sau không thay đổi xuất đang tiến "
+"hành."
+
+#: ../doc/agent_cli.rst:375
+msgid ""
+"Waiting defaults to 600 seconds; adjust this with ``--wait-timeout``. This "
+"is separate from the global per-request ``--timeout``. Export failures, "
+"cancellation, and wait timeouts exit with status 1 and include job details."
+msgstr ""
+"Thời gian chờ mặc định là 600 giây; điều chỉnh bằng ``--wait-timeout``. Điều"
+" này tách biệt với ``--timeout`` toàn cục cho mỗi yêu cầu. Lỗi xuất, hủy bỏ "
+"và hết thời gian chờ sẽ thoát với trạng thái 1 và bao gồm chi tiết công "
+"việc."
+
+#: ../doc/agent_cli.rst:380
+msgid "Exporting in multiple profiles"
+msgstr "Xuất theo nhiều cấu hình"
+
+#: ../doc/agent_cli.rst:382
+msgid ""
+"Export the same timeline at different resolutions or aspect ratios by "
+"choosing an export profile for each output. **An export profile applies only"
+" to that job**; it does not change the editing project's profile. A profile "
+"sets dimensions, frame rate, and aspect ratio; an export preset selects "
+"encoding settings such as MP4/H.264."
+msgstr ""
+"Xuất cùng một dòng thời gian ở các độ phân giải hoặc tỷ lệ khung hình khác "
+"nhau bằng cách chọn cấu hình xuất cho mỗi đầu ra. **Một cấu hình xuất chỉ áp"
+" dụng cho công việc đó**; nó không thay đổi cấu hình dự án chỉnh sửa. Một "
+"cấu hình đặt kích thước, tốc độ khung hình và tỷ lệ khung hình; một cài đặt "
+"trước xuất chọn các thiết lập mã hóa như MP4/H.264."
+
+#: ../doc/agent_cli.rst:388
+msgid "Find the available profiles and inspect their settings::"
+msgstr "Tìm các cấu hình có sẵn và kiểm tra cài đặt của chúng::"
+
+#: ../doc/agent_cli.rst:394
+msgid ""
+"For example, export landscape versions at 720p and 1080p, then a square "
+"version at 1080 by 1080. These profiles all use 30 fps::"
+msgstr ""
+"Ví dụ, xuất các phiên bản phong cảnh ở 720p và 1080p, sau đó một phiên bản "
+"vuông ở 1080 x 1080. Các cấu hình này đều sử dụng 30 fps::"
+
+#: ../doc/agent_cli.rst:401
+msgid ""
+"Use a different output filename for each version. Keep edits unchanged "
+"between jobs when you want matching versions. Changing aspect ratio can "
+"change framing: review each output, especially titles and animated subjects."
+" For a separately composed square or portrait version, save a project copy, "
+"change its project profile, and adjust the clips before exporting. See "
+"Profiles and the export settings below for custom profiles and encoding "
+"options."
+msgstr ""
+"Sử dụng tên tệp đầu ra khác nhau cho mỗi phiên bản. Giữ các chỉnh sửa không "
+"thay đổi giữa các công việc khi bạn muốn các phiên bản khớp nhau. Thay đổi "
+"tỷ lệ khung hình có thể thay đổi bố cục: xem lại từng đầu ra, đặc biệt là "
+"tiêu đề và đối tượng hoạt hình. Đối với phiên bản vuông hoặc chân dung được "
+"soạn riêng, lưu một bản sao dự án, thay đổi cấu hình dự án và điều chỉnh các"
+" clip trước khi xuất. Xem phần Cấu hình và cài đặt xuất bên dưới để biết cấu"
+" hình tùy chỉnh và tùy chọn mã hóa."
+
+#: ../doc/agent_cli.rst:409
+msgid "Batch exporting multiple projects"
+msgstr "Xuất hàng loạt nhiều dự án"
+
+#: ../doc/agent_cli.rst:411
+msgid ""
+"Reuse one headless session to render several saved projects in sequence. "
+"Open a project, export it with ``--wait``, then open the next project. The "
+"examples below use each project's own resolution and frame rate and create "
+"MP4 files beside the ``.osp`` files. Add ``--profile PROFILE_ID`` to the "
+"export command to use one output profile for every project."
+msgstr ""
+"Tái sử dụng một phiên làm việc không giao diện để kết xuất nhiều dự án đã "
+"lưu theo thứ tự. Mở một dự án, xuất nó với ``--wait``, sau đó mở dự án tiếp "
+"theo. Các ví dụ dưới đây sử dụng độ phân giải và tốc độ khung hình riêng của"
+" từng dự án và tạo các tệp MP4 bên cạnh các tệp ``.osp``. Thêm ``--profile "
+"PROFILE_ID`` vào lệnh xuất để sử dụng một cấu hình đầu ra cho mọi dự án."
+
+#: ../doc/agent_cli.rst:417
+msgid ""
+"First run the matching automatic session-ID example above successfully, in "
+"the same terminal. It defines ``openshot`` and selects the new session. "
+"Replace the project paths below with your own. Use distinct output names "
+"that do not already exist; the examples check all destinations before "
+"starting the batch."
+msgstr ""
+"Trước tiên hãy chạy thành công ví dụ session-ID tự động phù hợp ở trên, "
+"trong cùng một terminal. Nó định nghĩa ``openshot`` và chọn phiên làm việc "
+"mới. Thay thế các đường dẫn dự án bên dưới bằng của bạn. Sử dụng tên đầu ra "
+"riêng biệt chưa tồn tại; các ví dụ kiểm tra tất cả các điểm đến trước khi "
+"bắt đầu lô."
+
+#: ../doc/agent_cli.rst:446
+msgid "Linux Bash (the parentheses keep error handling local to the batch)::"
+msgstr "Linux Bash (dấu ngoặc giữ xử lý lỗi cục bộ cho lô)::"
+
+#: ../doc/agent_cli.rst:467
+msgid ""
+"Both recipes stop the batch on a command failure and leave the session "
+"available for inspection. The wait limit here is 24 hours per export. A wait"
+" timeout leaves the render running: use ``export list`` and ``export status "
+"JOB_ID --wait`` before retrying. Completed videos remain on disk; remove "
+"completed projects from the batch before resuming. After resolving a "
+"failure, stop the session and clear its environment variable when you are "
+"finished."
+msgstr ""
+"Cả hai phương pháp đều dừng lô khi lệnh thất bại và giữ phiên làm việc để "
+"kiểm tra. Giới hạn chờ ở đây là 24 giờ cho mỗi lần xuất. Hết thời gian chờ "
+"sẽ để quá trình render tiếp tục chạy: sử dụng ``export list`` và ``export "
+"status JOB_ID --wait`` trước khi thử lại. Video hoàn thành vẫn còn trên đĩa;"
+" xóa các dự án đã hoàn thành khỏi lô trước khi tiếp tục. Sau khi giải quyết "
+"lỗi, dừng phiên và xóa biến môi trường khi bạn hoàn tất."
+
+#: ../doc/agent_cli.rst:475
+msgid "Choosing presets and encoding settings"
+msgstr "Chọn các cài đặt trước và thiết lập mã hóa"
+
+#: ../doc/agent_cli.rst:477
+msgid "Discover the installed export presets and supported settings::"
+msgstr ""
+"Khám phá các cài đặt trước xuất đã cài đặt và các thiết lập được hỗ trợ::"
+
+#: ../doc/agent_cli.rst:484
+msgid ""
+"Export also accepts ``--from-file FILE_ID`` with optional ``--create-"
+"custom``. Settings resolve in this order: project defaults, preset, advanced"
+" JSON, explicit profile/quality/range flags. Advanced JSON exposes "
+"video/audio codecs and bitrate, audio layout/rate/channels, native codec "
+"options, hardware device settings, and thread counts."
+msgstr ""
+"Xuất cũng chấp nhận ``--from-file FILE_ID`` với tùy chọn ``--create-"
+"custom``. Các thiết lập được giải quyết theo thứ tự: mặc định dự án, cài đặt"
+" trước, JSON nâng cao, các cờ rõ ràng cho hồ sơ/chất lượng/phạm vi. JSON "
+"nâng cao cho phép truy cập codec video/audio và bitrate, bố cục/tốc độ/kênh "
+"âm thanh, tùy chọn codec gốc, thiết lập thiết bị phần cứng và số lượng "
+"luồng."
+
+#: ../doc/agent_cli.rst:490
+msgid "For example, select an encoder option through advanced JSON::"
+msgstr "Ví dụ, chọn một tùy chọn bộ mã hóa qua JSON nâng cao::"
+
+#: ../doc/agent_cli.rst:495
+msgid "Validating export settings"
+msgstr "Xác thực các thiết lập xuất"
+
+#: ../doc/agent_cli.rst:497
+msgid "Check settings before starting a render::"
+msgstr "Kiểm tra các thiết lập trước khi bắt đầu render::"
+
+#: ../doc/agent_cli.rst:501
+msgid ""
+"Capabilities report compiled codec availability, not physical GPU "
+"availability. Validation goes further: it opens the encoders (including "
+"hardware encoders) and the container with the exact settings, in a separate "
+"process, without writing a file. A combination the container can't hold "
+"fails with ``incompatible_export``, FFmpeg's own explanation, and the "
+"setting to change (``details.cause.path``)::"
+msgstr ""
+"Báo cáo khả năng cho biết codec đã biên dịch có sẵn, không phải khả năng GPU"
+" vật lý. Việc xác thực đi xa hơn: nó mở các bộ mã hóa (bao gồm bộ mã hóa "
+"phần cứng) và container với các thiết lập chính xác, trong một tiến trình "
+"riêng biệt, không ghi file. Một kết hợp mà container không thể chứa sẽ thất "
+"bại với ``incompatible_export``, giải thích của FFmpeg, và thiết lập cần "
+"thay đổi (``details.cause.path``)::"
+
+#: ../doc/agent_cli.rst:509
+msgid "The export worker runs the same check before rendering."
+msgstr "Tiến trình xuất chạy kiểm tra tương tự trước khi render."
+
+#: ../doc/agent_cli.rst:512
+msgid "Rendering a frame range"
+msgstr "Render một phạm vi khung hình"
+
+#: ../doc/agent_cli.rst:514
+msgid ""
+"Use ``--start-frame`` and ``--end-frame`` to render part of the timeline. "
+"Ranges are inclusive and one-based at the **export profile's FPS**. For "
+"example, render the first 90 frames at 30 fps (three seconds)::"
+msgstr ""
+"Sử dụng ``--start-frame`` và ``--end-frame`` để render một phần của dòng "
+"thời gian. Phạm vi bao gồm và bắt đầu từ 1 theo **FPS của hồ sơ xuất**. Ví "
+"dụ, render 90 khung hình đầu tiên ở 30 fps (ba giây)::"
+
+#: ../doc/agent_cli.rst:521
+msgid "Audio-only exports and image sequences"
+msgstr "Xuất chỉ âm thanh và chuỗi hình ảnh"
+
+#: ../doc/agent_cli.rst:523
+msgid "Choose an output mode with advanced JSON::"
+msgstr "Chọn chế độ đầu ra với JSON nâng cao::"
+
+#: ../doc/agent_cli.rst:528
+msgid ""
+"Image sequences require a new output directory. Existing outputs are never "
+"overwritten."
+msgstr ""
+"Chuỗi hình ảnh yêu cầu thư mục đầu ra mới. Các đầu ra hiện có không bao giờ "
+"bị ghi đè."
+
+#: ../doc/agent_cli.rst:532
+msgid "Editing"
+msgstr "Chỉnh sửa"
+
+#: ../doc/agent_cli.rst:535
+msgid "Adding clips and effects"
+msgstr "Thêm clip và hiệu ứng"
+
+#: ../doc/agent_cli.rst:537
+msgid ""
+"Use the IDs returned by import/add/list, and discover layer numbers with "
+"``project get``::"
+msgstr ""
+"Sử dụng các ID trả về bởi import/add/list, và tìm số lớp với ``project "
+"get``::"
+
+#: ../doc/agent_cli.rst:549
+msgid ""
+"Choose the project profile early when possible; populated projects also "
+"support profile changes through the existing FPS conversion and undo system."
+" ``--audio-only`` on clip creation suppresses video, including embedded "
+"cover art in music files. To use that clip for Audio Visualization instead, "
+"enable its video and audio, and follow the effect's help for transparent "
+"overlays and layer placement."
+msgstr ""
+"Chọn hồ sơ dự án sớm khi có thể; các dự án đã có dữ liệu cũng hỗ trợ thay "
+"đổi hồ sơ thông qua hệ thống chuyển đổi FPS và hoàn tác hiện có. ``--audio-"
+"only`` khi tạo clip sẽ tắt video, bao gồm cả ảnh bìa nhúng trong file nhạc. "
+"Để sử dụng clip đó cho Hiển thị Âm thanh, hãy bật video và âm thanh của nó, "
+"và làm theo hướng dẫn hiệu ứng về lớp phủ trong suốt và vị trí lớp."
+
+#: ../doc/agent_cli.rst:556
+msgid "Understanding clip timing"
+msgstr "Hiểu về thời gian clip"
+
+#: ../doc/agent_cli.rst:558
+msgid ""
+"The example keyframes assume a 30fps project and a clip trimmed at source "
+"10s. Position is in timeline seconds; start/end are source seconds, with end"
+" exclusive. Frames start at 1. File thumbnail frames use source FPS. "
+"Timeline frames use project FPS. Clip keyframes use source coordinates at "
+"project FPS, so trimming the clip does not move its first visible keyframe "
+"to frame 1."
+msgstr ""
+"Các khung hình chính ví dụ giả định dự án 30fps và clip được cắt tại nguồn "
+"10 giây. Vị trí tính bằng giây trên dòng thời gian; bắt đầu/kết thúc là giây"
+" nguồn, kết thúc không bao gồm. Khung hình bắt đầu từ 1. Khung hình thu nhỏ "
+"file dùng FPS nguồn. Khung hình dòng thời gian dùng FPS dự án. Khung hình "
+"chính clip dùng tọa độ nguồn theo FPS dự án, nên việc cắt clip không làm "
+"khung hình chính đầu tiên hiển thị chuyển về khung 1."
+
+#: ../doc/agent_cli.rst:565
+msgid "Changing properties"
+msgstr "Thay đổi thuộc tính"
+
+#: ../doc/agent_cli.rst:567
+msgid ""
+"``set`` merges top-level properties. Scalars turn keyframed properties into "
+"constants. A supplied nested curve replaces that curve; use ``keyframe set``"
+" to change just one point. JSON arguments accept inline JSON, "
+"``@file.json``, or ``-`` for stdin. Property names, types, enums, keyframes,"
+" references, and timing are validated before editing the project. Errors "
+"identify the field, expected value, received value, and a correction where "
+"possible. GUI slider ranges are advisory where the engine supports values "
+"beyond them."
+msgstr ""
+"``set`` hợp nhất các thuộc tính cấp cao nhất. Các giá trị vô hướng biến các "
+"thuộc tính có khung hình chính thành hằng số. Một đường cong lồng nhau được "
+"cung cấp thay thế đường cong đó; dùng ``keyframe set`` để thay đổi chỉ một "
+"điểm. Tham số JSON chấp nhận JSON nội tuyến, ``@file.json``, hoặc ``-`` cho "
+"stdin. Tên thuộc tính, kiểu, enum, khung hình chính, tham chiếu và thời gian"
+" được xác thực trước khi chỉnh sửa dự án. Lỗi xác định trường, giá trị mong "
+"đợi, giá trị nhận được và sửa chữa nếu có thể. Phạm vi thanh trượt GUI chỉ "
+"mang tính tham khảo khi engine hỗ trợ giá trị vượt quá."
+
+#: ../doc/agent_cli.rst:576
+msgid "Adding fades"
+msgstr "Thêm hiệu ứng mờ dần"
+
+#: ../doc/agent_cli.rst:578
+msgid ""
+"``clip fade ID --in 0.5 --out 0.5`` calculates source-trim keyframe "
+"coordinates automatically. It replaces the alpha curve; ``--property volume "
+"--value 0.25`` instead creates an audio fade with a 0.25 peak gain. "
+"Durations must fit between the first and last visible frames; fade-out "
+"reaches zero on the last frame."
+msgstr ""
+"``clip fade ID --in 0.5 --out 0.5`` tự động tính toán tọa độ khung hình "
+"chính cắt nguồn. Nó thay thế đường cong alpha; ``--property volume --value "
+"0.25`` thay vào đó tạo hiệu ứng mờ âm thanh với đỉnh âm lượng 0.25. Thời "
+"lượng phải nằm giữa khung hình đầu và cuối hiển thị; hiệu ứng mờ dần kết "
+"thúc ở giá trị không trên khung cuối."
+
+#: ../doc/agent_cli.rst:584
+msgid "Splitting clips"
+msgstr "Chia clip"
+
+#: ../doc/agent_cli.rst:586
+msgid ""
+"``clip split ID --at 6.5`` uses timeline seconds, snaps to the nearest "
+"project frame, and keeps both halves. It retains source-coordinate curves "
+"and duplicates effects with fresh IDs on the right half, following the "
+"editor's slicing behavior. The left half retains its ID. The response "
+"reports requested/actual split times and both summaries; a named batch "
+"result supports ``{\"$ref\":\"cut.right.id\"}``. Splits reject endpoints and"
+" locked tracks. Undo restores the original clip in one transaction."
+msgstr ""
+"``clip split ID --at 6.5`` sử dụng giây trên dòng thời gian, tự động căn "
+"khung gần nhất của dự án, và giữ cả hai phần. Nó giữ lại các đường cong tọa "
+"độ nguồn và sao chép hiệu ứng với ID mới ở nửa bên phải, theo hành vi cắt "
+"của trình chỉnh sửa. Nửa bên trái giữ nguyên ID. Phản hồi báo cáo thời gian "
+"cắt yêu cầu/thực tế và cả hai bản tóm tắt; kết quả lô có tên hỗ trợ "
+"``{\"$ref\":\"cut.right.id\"}``. Việc cắt từ chối điểm cuối và các track bị "
+"khóa. Hoàn tác khôi phục clip gốc trong một giao dịch."
+
+#: ../doc/agent_cli.rst:595
+msgid "Clip menu presets"
+msgstr "Cài đặt trước menu clip"
+
+#: ../doc/agent_cli.rst:597
+msgid ""
+"The editor's clip menu presets use the same code from the command line. Each"
+" command lists its presets in its help, and each one is a single undo step:"
+msgstr ""
+"Các cài đặt trước menu clip của trình chỉnh sửa sử dụng cùng mã từ dòng "
+"lệnh. Mỗi lệnh liệt kê các cài đặt trước trong phần trợ giúp của nó, và mỗi "
+"cái là một bước hoàn tác duy nhất:"
+
+#: ../doc/agent_cli.rst:611
+msgid ""
+"Motion presets are relative to the clip's current transform. Look presets "
+"add or replace one effect, and ``none`` removes it. Speed and repeat retime "
+"every keyframe and change the clip's length; ``clip speed --mode reset`` "
+"restores normal speed. Other menu actions are plain edits: rotate and layout"
+" with ``clip set``, crop with ``effects add Crop``. The commands also work "
+"in ``edit apply`` and ``edit bulk``."
+msgstr ""
+"Các cài đặt trước chuyển động liên quan đến biến đổi hiện tại của clip. Các "
+"cài đặt trước Look thêm hoặc thay thế một hiệu ứng, và ``none`` loại bỏ nó. "
+"Tốc độ và lặp lại điều chỉnh lại thời gian từng khung hình chính và thay đổi"
+" độ dài clip; ``clip speed --mode reset`` khôi phục tốc độ bình thường. Các "
+"hành động menu khác là chỉnh sửa đơn giản: xoay và bố cục với ``clip set``, "
+"cắt với ``effects add Crop``. Các lệnh cũng hoạt động trong ``edit apply`` "
+"và ``edit bulk``."
+
+#: ../doc/agent_cli.rst:621
+msgid "Adding and styling text"
+msgstr "Thêm và tạo kiểu văn bản"
+
+#: ../doc/agent_cli.rst:623
+msgid ""
+"``text add`` creates a text and places it as a clip, using the same text as "
+"the editor's **Text** tool. Options you leave out use the editor's default "
+"style:"
+msgstr ""
+"``text add`` tạo một văn bản và đặt nó như một clip, sử dụng cùng văn bản "
+"với công cụ **Text** của trình chỉnh sửa. Các tùy chọn bạn bỏ qua sẽ sử dụng"
+" kiểu mặc định của trình chỉnh sửa:"
+
+#: ../doc/agent_cli.rst:637
+msgid ""
+"The words, font, size, alignment, box width and default colors belong to the"
+" text in Project Files and are shared by every clip that uses it, just like "
+"in the editor. ``text set`` on one clip changes all of them and lists them "
+"in ``changed_clip_ids``; ``--this-clip-only`` gives that clip its own copy "
+"first. ``clip add FILE_ID`` places another clip of a text from ``text "
+"list``. Sizes are in pixels at the project resolution, and colors are "
+"``#RRGGBB``, ``#AARRGGBB`` (with alpha), a CSS name, or ``transparent``. "
+"``--place`` puts the box at the center, an edge or corner, or a lower third."
+" ``--line-spacing`` is a multiple of the normal distance between lines (1 is"
+" normal), and ``--background-corner`` rounds the background and border "
+"corners by that many pixels."
+msgstr ""
+"Các từ, phông chữ, kích thước, căn chỉnh, chiều rộng hộp và màu mặc định "
+"thuộc về văn bản trong Tệp Dự án và được chia sẻ bởi mọi clip sử dụng nó, "
+"giống như trong trình chỉnh sửa. ``text set`` trên một clip thay đổi tất cả "
+"chúng và liệt kê chúng trong ``changed_clip_ids``; ``--this-clip-only`` "
+"trước tiên tạo bản sao riêng cho clip đó. ``clip add FILE_ID`` đặt một clip "
+"khác của văn bản từ ``text list``. Kích thước tính bằng pixel theo độ phân "
+"giải dự án, và màu sắc là ``#RRGGBB``, ``#AARRGGBB`` (có alpha), tên CSS, "
+"hoặc ``transparent``. ``--place`` đặt hộp ở trung tâm, một cạnh hoặc góc, "
+"hoặc phần ba dưới. ``--line-spacing`` là bội số của khoảng cách bình thường "
+"giữa các dòng (1 là bình thường), và ``--background-corner`` làm tròn các "
+"góc nền và viền theo số pixel đó."
+
+#: ../doc/agent_cli.rst:647
+msgid ""
+"A text clip is an ordinary clip. Position, scale, rotation, opacity, timing,"
+" fades, motion presets and effects all use the normal ``clip`` commands. "
+"Font size, padding, box width, and letter and line spacing set the size of "
+"the text box, so they cannot be keyframed; to animate the size of text, "
+"keyframe the clip's scale. Each clip can animate its own text colors and "
+"outline and border widths with the same keyframe commands as any other "
+"property:"
+msgstr ""
+"Một clip văn bản là một clip thông thường. Vị trí, tỷ lệ, xoay, độ mờ, thời "
+"gian, hiệu ứng mờ dần, cài đặt trước chuyển động và hiệu ứng đều sử dụng các"
+" lệnh ``clip`` bình thường. Kích thước phông chữ, khoảng đệm, chiều rộng "
+"hộp, và khoảng cách chữ và dòng xác định kích thước hộp văn bản, vì vậy "
+"chúng không thể được tạo khung khóa; để tạo hoạt ảnh kích thước văn bản, hãy"
+" tạo khung khóa tỷ lệ clip. Mỗi clip có thể tạo hoạt ảnh màu văn bản riêng, "
+"đường viền và độ rộng viền với các lệnh khung khóa giống như các thuộc tính "
+"khác:"
+
+#: ../doc/agent_cli.rst:659
+msgid ""
+"The animated properties are ``text_color``, ``text_background``, "
+"``text_stroke`` and ``text_border`` (colors, with ``.red``, ``.green``, "
+"``.blue`` and ``.alpha`` from 0 to 255), plus ``text_stroke_width``, "
+"``text_border_width`` and ``text_background_corner``. A clip's own animation"
+" wins over the shared style, and ``text get`` lists which styles a clip "
+"animates. ``text reset CLIP_ID`` returns a clip to the default style, like "
+"**Text → Reset Style**; ``--keyframes-only`` just removes the clip's own "
+"animation. To style many texts at once, select them with "
+"``{\"text\":true}``:"
+msgstr ""
+"Các thuộc tính được tạo hoạt ảnh là ``text_color``, ``text_background``, "
+"``text_stroke`` và ``text_border`` (màu sắc, với ``.red``, ``.green``, "
+"``.blue`` và ``.alpha`` từ 0 đến 255), cùng với ``text_stroke_width``, "
+"``text_border_width`` và ``text_background_corner``. Hoạt ảnh riêng của clip"
+" sẽ ưu tiên hơn kiểu chia sẻ, và ``text get`` liệt kê các kiểu mà clip tạo "
+"hoạt ảnh. ``text reset CLIP_ID`` trả clip về kiểu mặc định, giống như **Text"
+" → Reset Style**; ``--keyframes-only`` chỉ loại bỏ hoạt ảnh riêng của clip. "
+"Để tạo kiểu nhiều văn bản cùng lúc, chọn chúng với ``{\"text\":true}``:"
+
+#: ../doc/agent_cli.rst:672
+msgid "Applying a batch of edits"
+msgstr "Áp dụng một loạt chỉnh sửa"
+
+#: ../doc/agent_cli.rst:674
+msgid ""
+"``edit apply --json @edits.json --expect-revision 12`` accepts up to 256 "
+"ordered mutation commands, using dotted command names such as ``clip.set`` "
+"and ``effects.add`` (the older ``effect.add`` spelling also works)::"
+msgstr ""
+"``edit apply --json @edits.json --expect-revision 12`` chấp nhận tới 256 "
+"lệnh biến đổi có thứ tự, sử dụng tên lệnh có dấu chấm như ``clip.set`` và "
+"``effects.add`` (cách viết cũ ``effect.add`` cũng hoạt động)::"
+
+#: ../doc/agent_cli.rst:685
+msgid ""
+"The optional ``as`` binds a result for later commands in the same batch. A "
+"``{\"$ref\":\"shot.id\"}`` object substitutes that result's field. "
+"References only resolve earlier names; misspellings, forward references, and"
+" duplicate names fail before live updates. The response includes ordered "
+"compact results and a ``refs`` map of actual IDs. All changes in a "
+"successful batch form one undo/redo step. ``project.profile.set`` also "
+"supports populated timelines. Opening, saving, exporting, and inspection "
+"commands stay outside edit batches. Each command's help lists its JSON "
+"parameter names, including the underscore spelling of shell flags (for "
+"example, ``--fps-num`` becomes ``fps_num``)."
+msgstr ""
+"Tùy chọn ``as`` liên kết một kết quả cho các lệnh sau trong cùng một lô. Một"
+" đối tượng ``{\"$ref\":\"shot.id\"}`` thay thế trường của kết quả đó. Tham "
+"chiếu chỉ giải quyết tên trước đó; lỗi chính tả, tham chiếu tiến, và tên "
+"trùng lặp sẽ thất bại trước khi cập nhật trực tiếp. Phản hồi bao gồm kết quả"
+" gọn gàng có thứ tự và bản đồ ``refs`` của các ID thực tế. Tất cả thay đổi "
+"trong một lô thành công tạo thành một bước hoàn tác/làm lại. "
+"``project.profile.set`` cũng hỗ trợ các dòng thời gian đã được điền. Các "
+"lệnh mở, lưu, xuất và kiểm tra nằm ngoài các lô chỉnh sửa. Phần trợ giúp của"
+" mỗi lệnh liệt kê tên tham số JSON, bao gồm cách viết dấu gạch dưới của các "
+"cờ shell (ví dụ, ``--fps-num`` trở thành ``fps_num``)."
+
+#: ../doc/agent_cli.rst:696
+msgid "Validating batches and handling errors"
+msgstr "Xác thực các lô và xử lý lỗi"
+
+#: ../doc/agent_cli.rst:698
+msgid ""
+"All commands in edit batches preflight against a detached project before any"
+" live updates. Invalid input leaves the live project and revision unchanged."
+" Valid batches form one undo group. Unexpected runtime failures can still "
+"produce partial changes; errors report completed operations. A timeout does "
+"not imply cancellation, so inspect state before retrying mutations."
+msgstr ""
+"Tất cả các lệnh trong các lô chỉnh sửa được kiểm tra trước trên một dự án "
+"tách rời trước khi cập nhật trực tiếp. Đầu vào không hợp lệ sẽ giữ nguyên dự"
+" án trực tiếp và phiên bản. Các lô hợp lệ tạo thành một nhóm hoàn tác. Các "
+"lỗi thời gian chạy không mong muốn vẫn có thể tạo ra các thay đổi một phần; "
+"lỗi báo cáo các thao tác đã hoàn thành. Hết thời gian không đồng nghĩa với "
+"việc hủy bỏ, vì vậy hãy kiểm tra trạng thái trước khi thử lại các biến đổi."
+
+#: ../doc/agent_cli.rst:705
+msgid "Precise keyframe editing"
+msgstr "Chỉnh sửa khung khóa chính xác"
+
+#: ../doc/agent_cli.rst:707
+msgid ""
+"``clip``, ``transition``, and ``effects`` support ``keyframe list``, "
+"``set``, ``remove``, ``clear``, ``transform``, ``copy``, and ``paste``. "
+"Property paths can address nested curves, such as ``color.red`` on a Chroma "
+"Key effect. Editing a nested curve preserves sibling channels. Run "
+"``keyframe list ID`` without a property to discover curve paths and point "
+"counts. Discovery and point listings include trim/position timing context; "
+"point listings also report native frame coordinates. ``get`` and "
+"``properties`` expose the complete native object and property metadata. "
+"Errors identify invalid fields, suggest close property names, and explain "
+"coordinate corrections."
+msgstr ""
+"``clip``, ``transition``, và ``effects`` hỗ trợ ``keyframe list``, ``set``, "
+"``remove``, ``clear``, ``transform``, ``copy``, và ``paste``. Đường dẫn "
+"thuộc tính có thể truy cập các đường cong lồng nhau, như ``color.red`` trên "
+"hiệu ứng Chroma Key. Chỉnh sửa một đường cong lồng nhau giữ nguyên các kênh "
+"anh em. Chạy ``keyframe list ID`` mà không có thuộc tính để khám phá đường "
+"dẫn đường cong và số điểm. Việc khám phá và liệt kê điểm bao gồm ngữ cảnh "
+"thời gian cắt/vị trí; liệt kê điểm cũng báo cáo tọa độ khung gốc. ``get`` và"
+" ``properties`` hiển thị đầy đủ đối tượng gốc và siêu dữ liệu thuộc tính. "
+"Lỗi xác định các trường không hợp lệ, gợi ý tên thuộc tính gần đúng, và giải"
+" thích các sửa tọa độ."
+
+#: ../doc/agent_cli.rst:717
+msgid ""
+"Choose coordinates explicitly with ``--space native|clip|timeline`` and "
+"``--unit frames|seconds``. All frames use project FPS and are 1-based; "
+"seconds start at zero and snap to the nearest frame. Native is the existing "
+"engine keyframe coordinate (including source trim). Clip coordinates start "
+"at the visible clip in-point; timeline coordinates start at project time "
+"zero. Attached effects use their parent clip's timing. These coordinates "
+"address animation time, not the media frames selected by a time-remapping "
+"curve."
+msgstr ""
+"Chọn tọa độ rõ ràng với ``--space native|clip|timeline`` và ``--unit "
+"frames|seconds``. Tất cả các khung hình sử dụng FPS dự án và bắt đầu từ 1; "
+"giây bắt đầu từ 0 và chụp vào khung gần nhất. Native là tọa độ khung khóa "
+"của engine hiện tại (bao gồm cắt nguồn). Tọa độ clip bắt đầu từ điểm vào "
+"clip hiển thị; tọa độ dòng thời gian bắt đầu từ thời gian 0 của dự án. Các "
+"hiệu ứng đính kèm sử dụng thời gian của clip cha. Các tọa độ này đề cập đến "
+"thời gian hoạt ảnh, không phải các khung phương tiện được chọn bởi đường "
+"cong tái bản đồ thời gian."
+
+#: ../doc/agent_cli.rst:725
+msgid ""
+"For a clip positioned at 5 seconds, trimmed at 2 seconds, in a 30 fps "
+"project, clip frame 1, timeline frame 151, and native frame 61 address the "
+"same point. Position and trim snap independently to the project frame grid. "
+"Listing an entire curve can include hidden points with nonpositive "
+"clip/timeline coordinates. Legacy ``--frame`` still means a native frame and"
+" cannot combine with ``--at``."
+msgstr ""
+"Đối với một clip đặt tại 5 giây, cắt tại 2 giây, trong một dự án 30 fps, "
+"khung clip 1, khung thời gian 151 và khung gốc 61 đều chỉ cùng một điểm. Vị "
+"trí và cắt được căn chỉnh độc lập với lưới khung dự án. Liệt kê toàn bộ "
+"đường cong có thể bao gồm các điểm ẩn với tọa độ clip/thời gian không dương."
+" Tham số ``--frame`` cũ vẫn có nghĩa là khung gốc và không thể kết hợp với "
+"``--at``."
+
+#: ../doc/agent_cli.rst:731
+msgid "Examples::"
+msgstr "Ví dụ::"
+
+#: ../doc/agent_cli.rst:743
+msgid "Interpolation, easing, and preview"
+msgstr "Nội suy, làm mượt và xem trước"
+
+#: ../doc/agent_cli.rst:745
+msgid ""
+"Interpolation describes the segment **into the destination point**. Linear "
+"gives a steady rate between points. Constant holds the preceding value until"
+" the destination, then jumps. Native default Bezier handles ease at both "
+"ends of each segment. Adding an intermediate point can therefore introduce "
+"an unintended slowdown; for one eased move, start with two endpoints. "
+"Normally leave handles alone and choose a named preset for a specific style."
+msgstr ""
+"Nội suy mô tả đoạn **vào điểm đích**. Tuyến tính cho tốc độ ổn định giữa các"
+" điểm. Hằng số giữ giá trị trước đó cho đến điểm đích, sau đó nhảy. Tay cầm "
+"Bezier mặc định gốc làm mượt ở cả hai đầu mỗi đoạn. Thêm một điểm trung gian"
+" có thể gây chậm không mong muốn; với một chuyển động làm mượt, bắt đầu với "
+"hai điểm đầu cuối. Thông thường để nguyên tay cầm và chọn một mẫu đặt tên "
+"cho phong cách cụ thể."
+
+#: ../doc/agent_cli.rst:752
+msgid ""
+"Discover the same easing presets used by the editor's menus, without a "
+"session::"
+msgstr ""
+"Khám phá các mẫu làm mượt giống như trong menu của trình chỉnh sửa, không "
+"cần phiên làm việc::"
+
+#: ../doc/agent_cli.rst:756
+msgid "Apply a preset to the incoming segment by setting its destination::"
+msgstr ""
+"Áp dụng một mẫu đặt sẵn cho đoạn đến bằng cách thiết lập điểm đích của nó::"
+
+#: ../doc/agent_cli.rst:761
+msgid ""
+"The easing option implies Bezier. It sets the previous point's outgoing "
+"handle and the destination's incoming handle together, preserving other "
+"handles and point values. An earlier point must exist. Do not combine it "
+"with custom handles or a different interpolation. Presets work in batches "
+"and bulk templates. The GUI preset **ease** (\"Ease (Default)\") differs "
+"from the native handles used by plain Bezier interpolation. Back presets can"
+" overshoot endpoint values."
+msgstr ""
+"Tùy chọn làm mượt ngụ ý Bezier. Nó thiết lập tay cầm ra của điểm trước và "
+"tay cầm vào của điểm đích cùng nhau, giữ nguyên các tay cầm và giá trị điểm "
+"khác. Phải có điểm trước đó. Không kết hợp với tay cầm tùy chỉnh hoặc nội "
+"suy khác. Các mẫu đặt sẵn hoạt động theo lô và mẫu hàng loạt. Mẫu GUI "
+"**ease** (\"Ease (Mặc định)\") khác với tay cầm gốc dùng trong nội suy "
+"Bezier thuần túy. Các mẫu đặt sẵn lùi có thể vượt quá giá trị điểm cuối."
+
+#: ../doc/agent_cli.rst:768
+msgid ""
+"Inspect motion **before rendering**, using the native curve evaluator::"
+msgstr ""
+"Kiểm tra chuyển động **trước khi kết xuất**, sử dụng bộ đánh giá đường cong "
+"gốc::"
+
+#: ../doc/agent_cli.rst:773
+msgid ""
+"Preview is read-only and works identically for effects and transitions. It "
+"returns values and signed incoming_rate / outgoing_rate in property units "
+"per second, calculated from immediately adjacent frames. These are finite "
+"differences, not analytic derivatives. At native frame 1 the incoming rate "
+"is null. Adjacent-frame rates can inspect outside the requested range. Near-"
+"zero rates around an interior point reveal a pause; differing rates reveal a"
+" speed change. Constant interpolation reveals a jump at the destination."
+msgstr ""
+"Xem trước chỉ đọc và hoạt động giống nhau cho hiệu ứng và chuyển tiếp. Nó "
+"trả về giá trị và tỷ lệ incoming_rate / outgoing_rate có dấu theo đơn vị "
+"thuộc tính trên giây, tính từ các khung liền kề ngay lập tức. Đây là sai "
+"phân hữu hạn, không phải đạo hàm phân tích. Tại khung gốc 1, tỷ lệ vào là "
+"bằng không. Tỷ lệ khung liền kề có thể kiểm tra ngoài phạm vi yêu cầu. Tỷ lệ"
+" gần bằng không quanh điểm bên trong cho thấy tạm dừng; tỷ lệ khác nhau cho "
+"thấy thay đổi tốc độ. Nội suy hằng số cho thấy nhảy tại điểm đích."
+
+#: ../doc/agent_cli.rst:781
+msgid ""
+"Without a range, preview spans the curve's first and last points. Ranges are"
+" inclusive, with 17 evenly spaced samples by default (--count: 2–256). "
+"Keyframes and their immediate neighbors inside the range are also included, "
+"so a sparse sample count will not hide a keyframe stall. The maximum is 1024"
+" samples; larger requests require a narrower range. --at samples one frame. "
+"Preview reports requested-space coordinates and actual native frames; "
+"seconds snap to project frames as they do for editing."
+msgstr ""
+"Không có phạm vi, xem trước trải dài từ điểm đầu đến điểm cuối của đường "
+"cong. Phạm vi bao gồm cả hai đầu, với 17 mẫu cách đều theo mặc định "
+"(--count: 2–256). Các khung chính và các điểm lân cận ngay bên trong phạm vi"
+" cũng được bao gồm, nên số mẫu thưa không che giấu sự dừng khung chính. Tối "
+"đa là 1024 mẫu; yêu cầu lớn hơn cần phạm vi hẹp hơn. --at lấy mẫu một khung."
+" Xem trước báo cáo tọa độ không gian yêu cầu và khung gốc thực tế; giây được"
+" căn chỉnh với khung dự án như khi chỉnh sửa."
+
+#: ../doc/agent_cli.rst:789
+msgid ""
+"For advanced custom handles, both X and Y are normalized to the segment: X "
+"is a fraction of its frame span; Y is a fraction of its value change. The "
+"first control comes from the previous point's handle_right, the second from "
+"the destination's handle_left. Native defaults are right=(0.5, 0), "
+"left=(0.5, 1), with flat endpoint tangents. Changing handle_type alone does "
+"not recalculate a continuous tangent through surrounding points. Existing "
+"handles are preserved when moving a point."
+msgstr ""
+"Đối với tay cầm tùy chỉnh nâng cao, cả X và Y được chuẩn hóa theo đoạn: X là"
+" phần tỷ lệ của khoảng khung; Y là phần tỷ lệ của sự thay đổi giá trị. Điều "
+"khiển đầu tiên lấy từ tay cầm phải của điểm trước, điều khiển thứ hai từ tay"
+" cầm trái của điểm đích. Mặc định gốc là phải=(0.5, 0), trái=(0.5, 1), với "
+"tiếp tuyến đầu cuối phẳng. Chỉ thay đổi handle_type không tính lại tiếp "
+"tuyến liên tục qua các điểm xung quanh. Tay cầm hiện có được giữ nguyên khi "
+"di chuyển điểm."
+
+#: ../doc/agent_cli.rst:797
+msgid ""
+"Keyframe ranges are **inclusive**, unlike clip-selection time ranges. List "
+"emits ``points`` whose ``co.X`` values use the requested coordinate "
+"space/unit. Pass that array to ``keyframe paste --json @points.json`` with "
+"the same space/unit, choosing ``--mode merge`` (replace matching frames, "
+"retain others) or ``--mode replace`` (replace the entire curve). ``copy`` "
+"accepts a source of the same object kind, an optional ``--source-property``,"
+" and anchors the first selected source point at ``--at`` on the target. "
+"Other curves and source objects remain unchanged."
+msgstr ""
+"Phạm vi khung chính là **bao gồm**, không giống như phạm vi thời gian chọn "
+"clip. Danh sách phát ra ``points`` có giá trị ``co.X`` sử dụng không "
+"gian/đơn vị tọa độ yêu cầu. Truyền mảng đó vào ``keyframe paste --json "
+"@points.json`` với cùng không gian/đơn vị, chọn ``--mode merge`` (thay thế "
+"khung trùng, giữ lại các khung khác) hoặc ``--mode replace`` (thay thế toàn "
+"bộ đường cong). ``copy`` chấp nhận nguồn cùng loại đối tượng, tùy chọn "
+"``--source-property``, và neo điểm nguồn được chọn đầu tiên tại ``--at`` "
+"trên mục tiêu. Các đường cong và đối tượng nguồn khác không thay đổi."
+
+#: ../doc/agent_cli.rst:805
+msgid ""
+"``transform`` applies a positive time scale around the first selected point,"
+" or ``--pivot``, followed by a signed ``--offset`` in the chosen unit. Frame"
+" snapping that creates duplicate coordinates is rejected, including "
+"collisions with points outside the selected range. Native coordinates must "
+"remain at least 1. Native normalized Bézier handles and interpolation travel"
+" with each point; handles are not absolute frame coordinates. ``set "
+"--handles`` changes only supplied handles. Interpolation belongs to the "
+"destination point."
+msgstr ""
+"``transform`` áp dụng tỷ lệ thời gian dương quanh điểm được chọn đầu tiên, "
+"hoặc ``--pivot``, theo sau là ``--offset`` có dấu theo đơn vị chọn. Việc căn"
+" khung tạo tọa độ trùng bị từ chối, bao gồm va chạm với điểm ngoài phạm vi "
+"chọn. Tọa độ gốc phải luôn lớn hơn hoặc bằng 1. Tay cầm Bézier chuẩn hóa gốc"
+" và nội suy di chuyển cùng mỗi điểm; tay cầm không phải tọa độ khung tuyệt "
+"đối. ``set --handles`` chỉ thay đổi tay cầm được cung cấp. Nội suy thuộc về "
+"điểm đích."
+
+#: ../doc/agent_cli.rst:813
+msgid ""
+"``clear`` retains a constant base point at native frame 1: specify "
+"``--value`` or sample the existing curve with ``--at`` (default native frame"
+" 1). Removing the last point also retains a constant base, so subsequent "
+"keyframe additions remain valid."
+msgstr ""
+"``clear`` giữ một điểm cơ sở cố định tại khung gốc 1: chỉ định ``--value`` "
+"hoặc lấy mẫu đường cong hiện có với ``--at`` (mặc định khung gốc 1). Xóa "
+"điểm cuối cùng cũng giữ cơ sở cố định, nên các khung chính thêm sau vẫn hợp "
+"lệ."
+
+#: ../doc/agent_cli.rst:818
+msgid "Selecting and editing many clips"
+msgstr "Chọn và chỉnh sửa nhiều clip"
+
+#: ../doc/agent_cli.rst:820
+msgid ""
+"Use ``edit apply --dry-run`` to validate a batch without changing the "
+"project. Use ``edit bulk`` to repeat a small command template for each "
+"selected clip, with all changes grouped into one undo step."
+msgstr ""
+"Sử dụng ``edit apply --dry-run`` để kiểm tra một lô mà không thay đổi dự án."
+" Sử dụng ``edit bulk`` để lặp lại một mẫu lệnh nhỏ cho mỗi clip được chọn, "
+"với tất cả thay đổi được nhóm thành một bước hoàn tác."
+
+#: ../doc/agent_cli.rst:824
+msgid "First preview a selection::"
+msgstr "Trước tiên xem trước một lựa chọn::"
+
+#: ../doc/agent_cli.rst:828
+msgid ""
+"Selectors support ``ids`` (unique clip ID array), ``layer``, "
+"``start``/``end`` (timeline seconds), ``file_id``, ``effect`` (class name or"
+" alias), and ``text`` (``true`` selects text clips). Filters combine with "
+"AND. Time ranges select clips overlapping ``[start, end)``; they do not trim"
+" those clips. Results are ordered by position, layer, then ID, and include "
+"IDs, summaries, lock state, and the current revision. Unknown IDs are "
+"errors. An empty selector is rejected; use ``{\"all\":true}`` explicitly for"
+" every clip. Selections are bounded to 256 clips and are never silently "
+"truncated."
+msgstr ""
+"Bộ chọn hỗ trợ ``ids`` (mảng ID clip duy nhất), ``layer``, ``start``/``end``"
+" (giây trên dòng thời gian), ``file_id``, ``effect`` (tên lớp hoặc bí danh),"
+" và ``text`` (``true`` chọn các clip văn bản). Bộ lọc kết hợp với AND. "
+"Khoảng thời gian chọn các clip chồng lên ``[start, end)``; chúng không cắt "
+"các clip đó. Kết quả được sắp xếp theo vị trí, lớp, rồi ID, và bao gồm ID, "
+"tóm tắt, trạng thái khóa, và phiên bản hiện tại. ID không xác định là lỗi. "
+"Bộ chọn rỗng bị từ chối; sử dụng ``{\"all\":true}`` rõ ràng cho mỗi clip. "
+"Lựa chọn bị giới hạn tối đa 256 clip và không bao giờ bị cắt ngầm."
+
+#: ../doc/agent_cli.rst:837
+msgid "For example, save this array as ``templates.json``::"
+msgstr "Ví dụ, lưu mảng này dưới tên ``templates.json``::"
+
+#: ../doc/agent_cli.rst:846
+msgid "Validate it, then apply against the revision returned by selection::"
+msgstr "Xác thực nó, sau đó áp dụng với phiên bản trả về bởi lựa chọn::"
+
+#: ../doc/agent_cli.rst:851
+msgid ""
+"Existing-clip commands inherit ``id``; ``effects.add`` inherits ``clip_id``."
+" Omit these target parameters in templates. Effect edits must reference an "
+"earlier named result. Names are local to each selected clip, so ``look.id`` "
+"refers to a different effect for each clip. To change existing effect "
+"instances by explicit ID, continue using ``edit apply``. The selected ID set"
+" is fixed before expansion; changes to position or effects do not change the"
+" remaining targets."
+msgstr ""
+"Các lệnh clip hiện có kế thừa ``id``; ``effects.add`` kế thừa ``clip_id``. "
+"Bỏ qua các tham số mục tiêu này trong mẫu. Chỉnh sửa hiệu ứng phải tham "
+"chiếu đến kết quả đã đặt tên trước đó. Tên là cục bộ cho mỗi clip được chọn,"
+" nên ``look.id`` tham chiếu đến hiệu ứng khác nhau cho mỗi clip. Để thay đổi"
+" các thể hiện hiệu ứng hiện có bằng ID rõ ràng, tiếp tục sử dụng ``edit "
+"apply``. Bộ ID được chọn cố định trước khi mở rộng; thay đổi vị trí hoặc "
+"hiệu ứng không làm thay đổi các mục tiêu còn lại."
+
+#: ../doc/agent_cli.rst:858
+msgid ""
+"``clip set`` applies absolute properties; ``clip adjust`` applies "
+"``multiply`` then ``add`` to a numeric property or every value in a curve, "
+"preserving point timing, interpolation, and normalized handles. It validates"
+" resulting values, including nonnegative positions and volume. Structural "
+"fields remain protected."
+msgstr ""
+"``clip set`` áp dụng các thuộc tính tuyệt đối; ``clip adjust`` áp dụng "
+"``multiply`` rồi ``add`` cho một thuộc tính số hoặc mọi giá trị trong một "
+"đường cong, giữ nguyên thời gian điểm, nội suy và tay cầm chuẩn hóa. Nó xác "
+"thực các giá trị kết quả, bao gồm vị trí không âm và âm lượng. Các trường "
+"cấu trúc vẫn được bảo vệ."
+
+#: ../doc/agent_cli.rst:863
+msgid ""
+"Bulk operations reject empty selections, locked target tracks, and more than"
+" 256 expanded commands. Every expanded operation passes detached preflight "
+"before any live edit. Dry runs do not reserve generated IDs. Use ``--expect-"
+"revision`` to reject stale selections. Successful batches are one undo step,"
+" including after save/reopen. GUI refreshes are batched. Unexpected "
+"runtime/listener errors can still leave a partial transaction; the error "
+"reports completed operations and undo reverts that group, as with ``edit "
+"apply``."
+msgstr ""
+"Các thao tác hàng loạt từ chối lựa chọn rỗng, các track mục tiêu bị khóa, và"
+" hơn 256 lệnh mở rộng. Mỗi thao tác mở rộng đều trải qua kiểm tra trước tách"
+" rời trước khi chỉnh sửa trực tiếp. Chạy thử không giữ ID đã tạo. Sử dụng "
+"``--expect-revision`` để từ chối lựa chọn lỗi thời. Các lô thành công là một"
+" bước hoàn tác, bao gồm sau khi lưu/mở lại. Làm mới GUI được gom nhóm. Lỗi "
+"runtime/người nghe không mong muốn vẫn có thể để lại giao dịch một phần; lỗi"
+" báo cáo các thao tác đã hoàn thành và hoàn tác sẽ phục hồi nhóm đó, như với"
+" ``edit apply``."
+
+#: ../doc/agent_cli.rst:872
+msgid "Profiles"
+msgstr "Hồ sơ"
+
+#: ../doc/agent_cli.rst:874
+msgid "Discover profiles and match imported video without guessing IDs::"
+msgstr "Khám phá hồ sơ và khớp video nhập khẩu mà không đoán ID::"
+
+#: ../doc/agent_cli.rst:884
+msgid ""
+"Catalog entries include stable IDs, descriptions, dimensions, rational FPS, "
+"aspect ratios, and scan settings. List/search is paginated. Source matching "
+"returns exact IDs and ranked alternatives with explicit differences. Setting"
+" from a file requires an exact match unless ``--create-custom`` is "
+"specified; it never silently chooses a nearby profile. Still images and "
+"audio-only sources cannot define a video profile. Matching uses declared "
+"source FPS."
+msgstr ""
+"Các mục danh mục bao gồm ID ổn định, mô tả, kích thước, FPS hữu tỉ, tỷ lệ "
+"khung hình và cài đặt quét. Danh sách/tìm kiếm được phân trang. Khớp nguồn "
+"trả về ID chính xác và các lựa chọn thay thế được xếp hạng với sự khác biệt "
+"rõ ràng. Cài đặt từ tệp yêu cầu khớp chính xác trừ khi chỉ định ``--create-"
+"custom``; nó không bao giờ chọn ngầm một hồ sơ gần đó. Ảnh tĩnh và nguồn chỉ"
+" âm thanh không thể định nghĩa hồ sơ video. Việc khớp sử dụng FPS nguồn đã "
+"khai báo."
+
+#: ../doc/agent_cli.rst:891
+msgid ""
+"Custom settings are embedded in the saved project, including rational rates,"
+" so reopening does not require installing a separate profile file. Project "
+"profile changes use existing frame-rate conversion and one undo transaction."
+" Undo/redo restores clip timing and keyframes, including rounding-sensitive "
+"positions. Export can independently select a profile without changing the "
+"project."
+msgstr ""
+"Cài đặt tùy chỉnh được nhúng trong dự án đã lưu, bao gồm tỷ lệ hữu tỉ, nên "
+"mở lại không cần cài đặt tệp hồ sơ riêng biệt. Thay đổi hồ sơ dự án sử dụng "
+"chuyển đổi tốc độ khung hình hiện có và một giao dịch hoàn tác. Hoàn tác/làm"
+" lại phục hồi thời gian clip và keyframe, bao gồm vị trí nhạy cảm với làm "
+"tròn. Xuất có thể chọn hồ sơ độc lập mà không thay đổi dự án."
+
+#: ../doc/agent_cli.rst:897
+msgid ""
+"Saved undo history follows the editor's history-limit preference. The limit "
+"is a soft action budget: all records belonging to retained transactions are "
+"kept, so saving cannot truncate a large batch into a partial undo action. "
+"Zero disables saved history. The separate 256-command batch request bound "
+"still applies."
+msgstr ""
+"Lịch sử hoàn tác đã lưu tuân theo tùy chọn giới hạn lịch sử của trình chỉnh "
+"sửa. Giới hạn là ngân sách hành động mềm: tất cả bản ghi thuộc các giao dịch"
+" được giữ lại đều được giữ, nên việc lưu không thể cắt ngắn một lô lớn thành"
+" hành động hoàn tác một phần. Giá trị 0 vô hiệu hóa lịch sử đã lưu. Giới hạn"
+" yêu cầu lô 256 lệnh riêng biệt vẫn áp dụng."
+
+#: ../doc/agent_cli.rst:903
+msgid "Inspecting media and timelines"
+msgstr "Kiểm tra phương tiện và dòng thời gian"
+
+#: ../doc/agent_cli.rst:905
+msgid ""
+"Inspect clip timing and track layout as text or JSON, or render images to "
+"review composition and framing before exporting."
+msgstr ""
+"Kiểm tra thời gian clip và bố cục track dưới dạng văn bản hoặc JSON, hoặc "
+"kết xuất hình ảnh để xem lại bố cục và khung hình trước khi xuất."
+
+#: ../doc/agent_cli.rst:909
+msgid "Timeline summaries"
+msgstr "Tóm tắt dòng thời gian"
+
+#: ../doc/agent_cli.rst:911
+msgid ""
+"Use a text view for a quick overview, or structured JSON for scripts and "
+"agents::"
+msgstr ""
+"Sử dụng chế độ xem văn bản để tổng quan nhanh, hoặc JSON có cấu trúc cho "
+"kịch bản và tác nhân::"
+
+#: ../doc/agent_cli.rst:917
+msgid ""
+"``timeline view`` defaults to compact text with used tracks, object IDs, "
+"timeline/source intervals, stream state, gain, and gaps/overlaps. Use "
+"``--detail summary|clips|full`` to choose detail, ``--format json`` for "
+"structured context, and ``--start/--end``, ``--layer``, and pagination to "
+"focus the result."
+msgstr ""
+"``timeline view`` mặc định là văn bản gọn với các track đã dùng, ID đối "
+"tượng, khoảng thời gian dòng thời gian/nguồn, trạng thái luồng, âm lượng, và"
+" khoảng trống/chồng lấn. Dùng ``--detail summary|clips|full`` để chọn chi "
+"tiết, ``--format json`` cho ngữ cảnh có cấu trúc, và ``--start/--end``, "
+"``--layer``, cùng phân trang để tập trung kết quả."
+
+#: ../doc/agent_cli.rst:922
+msgid ""
+"``timeline overview`` supplies compact structured context without image "
+"bytes: ordered IDs, sequence per track, timeline/source intervals, visible "
+"trim ranges, frame coordinates, audio/video state, effects, and neighboring "
+"gaps or overlaps. Intervals and frame spans are end-exclusive; frame numbers"
+" are one-based. Source frames use source FPS; timeline and keyframe "
+"coordinates use project FPS. Use ``--layer`` and ``--start/--end`` to focus,"
+" and ``--limit/--offset`` to paginate (default 100, maximum 500 items). "
+"Time-remapped clips explicitly withhold inferred source mappings. Use the "
+"returned revision with ``edit apply --expect-revision``."
+msgstr ""
+"``timeline overview`` cung cấp ngữ cảnh có cấu trúc gọn mà không có byte "
+"hình ảnh: ID theo thứ tự, trình tự mỗi track, khoảng thời gian dòng thời "
+"gian/nguồn, phạm vi cắt hiển thị, tọa độ khung hình, trạng thái âm "
+"thanh/hình ảnh, hiệu ứng, và khoảng trống hoặc chồng lấn lân cận. Khoảng "
+"thời gian và phạm vi khung hình không bao gồm điểm cuối; số khung hình bắt "
+"đầu từ 1. Khung hình nguồn dùng FPS nguồn; tọa độ dòng thời gian và keyframe"
+" dùng FPS dự án. Dùng ``--layer`` và ``--start/--end`` để tập trung, và "
+"``--limit/--offset`` để phân trang (mặc định 100, tối đa 500 mục). Các clip "
+"đổi thời gian rõ ràng giữ lại ánh xạ nguồn suy luận. Dùng phiên bản trả về "
+"với ``edit apply --expect-revision``."
+
+#: ../doc/agent_cli.rst:932
+msgid "Frame previews and contact sheets"
+msgstr "Xem trước khung hình và bảng liên hệ"
+
+#: ../doc/agent_cli.rst:934
+msgid ""
+"Render a single frame with ``thumbnail`` or sample a range with ``strip``. "
+"Use ``file`` to inspect source media and ``timeline`` to inspect the "
+"composed video, including effects and layered clips::"
+msgstr ""
+"Kết xuất một khung hình đơn với ``thumbnail`` hoặc lấy mẫu một phạm vi với "
+"``strip``. Dùng ``file`` để kiểm tra phương tiện nguồn và ``timeline`` để "
+"kiểm tra video đã ghép, bao gồm hiệu ứng và các clip xếp lớp::"
+
+#: ../doc/agent_cli.rst:943
+msgid ""
+"Frame images default to 320x180 pixels; contact sheets default to 160x90 per"
+" tile, plus timecode labels. Use ``--width`` and ``--height`` to choose "
+"output pixels. Responses include exact sample/frame metadata. Contact sheets"
+" help review composition across a sequence; use keyframe previews and "
+"rendered video to assess motion between those samples."
+msgstr ""
+"Hình ảnh khung hình mặc định là 320x180 pixel; bảng liên hệ mặc định là "
+"160x90 mỗi ô, cộng với nhãn mã thời gian. Dùng ``--width`` và ``--height`` "
+"để chọn kích thước đầu ra. Phản hồi bao gồm siêu dữ liệu mẫu/khung hình "
+"chính xác. Bảng liên hệ giúp xem lại bố cục qua một chuỗi; dùng xem trước "
+"keyframe và video kết xuất để đánh giá chuyển động giữa các mẫu đó."
+
+#: ../doc/agent_cli.rst:950
+msgid "Timeline images"
+msgstr "Hình ảnh dòng thời gian"
+
+#: ../doc/agent_cli.rst:952
+msgid ""
+"Capture the editor's track layout, including its ruler, thumbnails, effects,"
+" transitions, and waveforms::"
+msgstr ""
+"Chụp bố cục các bản nhạc của trình chỉnh sửa, bao gồm thước đo, hình thu "
+"nhỏ, hiệu ứng, chuyển tiếp và dạng sóng::"
+
+#: ../doc/agent_cli.rst:957
+msgid ""
+"Specifying ``--output`` selects image format; ``--format image`` also "
+"selects it explicitly. The capture does not change the editor's viewport or "
+"project. Responses include clip IDs and timing alongside pixel bounds."
+msgstr ""
+"Chỉ định ``--output`` để chọn định dạng hình ảnh; ``--format image`` cũng "
+"chọn định dạng đó một cách rõ ràng. Việc chụp không thay đổi khung nhìn hoặc"
+" dự án của trình chỉnh sửa. Phản hồi bao gồm ID clip và thời gian cùng với "
+"giới hạn pixel."
+
+#: ../doc/agent_cli.rst:961
+msgid ""
+"Images default to 1280 pixels wide, with height fitted to used tracks. Use "
+"``--width``, ``--height``, or ``--all-tracks`` to adjust the layout, and "
+"``--track-size`` or ``--track-label-width`` to adjust tracks and labels. The"
+" start/end range determines zoom; ``--pixels-per-second`` instead derives "
+"the width from the time range."
+msgstr ""
+"Hình ảnh mặc định rộng 1280 pixel, chiều cao phù hợp với các bản nhạc được "
+"sử dụng. Dùng ``--width``, ``--height`` hoặc ``--all-tracks`` để điều chỉnh "
+"bố cục, và ``--track-size`` hoặc ``--track-label-width`` để điều chỉnh bản "
+"nhạc và nhãn. Phạm vi bắt đầu/kết thúc xác định mức thu phóng; ``--pixels-"
+"per-second`` thay vào đó lấy chiều rộng từ phạm vi thời gian."
+
+#: ../doc/agent_cli.rst:968
+msgid "Audio waveform views"
+msgstr "Chế độ xem dạng sóng âm thanh"
+
+#: ../doc/agent_cli.rst:970
+msgid ""
+"Choose ``--mode waveforms`` to inspect audio envelopes on the timeline::"
+msgstr ""
+"Chọn ``--mode waveforms`` để kiểm tra bao âm thanh trên dòng thời gian::"
+
+#: ../doc/agent_cli.rst:974
+msgid ""
+"``--mode auto`` uses the existing cached waveform display; ``--mode "
+"thumbnails`` shows thumbnails instead. Waveforms represent source peak/RMS "
+"levels with clip volume and timing adjustments, before audio effects or "
+"mixing."
+msgstr ""
+"``--mode auto`` sử dụng hiển thị dạng sóng đã được lưu trong bộ nhớ đệm; "
+"``--mode thumbnails`` hiển thị hình thu nhỏ thay thế. Dạng sóng biểu thị mức"
+" đỉnh/RMS nguồn với điều chỉnh âm lượng và thời gian clip, trước khi áp dụng"
+" hiệu ứng âm thanh hoặc trộn."
+
+#: ../doc/agent_cli.rst:978
+msgid ""
+"Uncached waveform extraction decodes whole sources, limited to 600 seconds "
+"per source and 1200 source-seconds per request. Narrowing the visible range "
+"does not reduce that decoding work. For longer sources, generate waveforms "
+"in the editor first or use thumbnail mode. Subsequent requests can reuse "
+"cached waveforms."
+msgstr ""
+"Việc trích xuất dạng sóng không lưu trong bộ nhớ đệm giải mã toàn bộ nguồn, "
+"giới hạn 600 giây mỗi nguồn và 1200 giây nguồn mỗi yêu cầu. Thu hẹp phạm vi "
+"hiển thị không giảm công việc giải mã đó. Với nguồn dài hơn, hãy tạo dạng "
+"sóng trong trình chỉnh sửa trước hoặc sử dụng chế độ hình thu nhỏ. Các yêu "
+"cầu tiếp theo có thể tái sử dụng dạng sóng đã lưu trong bộ nhớ đệm."
+
+#: ../doc/agent_cli.rst:984
+msgid "Image output and limits"
+msgstr "Đầu ra hình ảnh và giới hạn"
+
+#: ../doc/agent_cli.rst:986
+msgid ""
+"Image paths must be new PNG files in existing directories. Images are "
+"limited to 4096 pixels per axis, 8,388,608 total pixels, and 64 contact-"
+"sheet samples. Requests beyond these limits fail before rendering."
+msgstr ""
+"Đường dẫn hình ảnh phải là các tệp PNG mới trong các thư mục hiện có. Hình "
+"ảnh bị giới hạn ở 4096 pixel mỗi trục, tổng cộng 8.388.608 pixel, và 64 mẫu "
+"bảng liên hệ. Các yêu cầu vượt quá giới hạn này sẽ thất bại trước khi kết "
+"xuất."
+
+#: ../doc/agent_cli.rst:990
+msgid ""
+"Images are written to files; JSON responses include their paths and "
+"``image_bytes`` sizes. Inspection waits for the image to finish, and large "
+"requests can briefly occupy the editor."
+msgstr ""
+"Hình ảnh được ghi vào tệp; phản hồi JSON bao gồm đường dẫn và kích thước "
+"``image_bytes`` của chúng. Việc kiểm tra chờ hình ảnh hoàn thành, và các yêu"
+" cầu lớn có thể chiếm dụng trình chỉnh sửa trong thời gian ngắn."
+
+#: ../doc/agent_cli.rst:995
+msgid "Handling command timeouts"
+msgstr "Xử lý hết thời gian lệnh"
+
+#: ../doc/agent_cli.rst:997
+msgid ""
+"A request timeout does not mean a mutation failed. Use the operation ID in "
+"the error with ``operation get ID`` before retrying. ``operation list`` "
+"discovers recent mutations and their states, revisions, and outcomes. "
+"Completed operations retain their results when small enough, including "
+"returned object IDs. Storage is bounded to 100 operations and 4 MiB, with "
+"individual result bodies omitted above 256 KiB. These records last only for "
+"the running session. They do not restore projects after a crash or prevent a"
+" repeated command from applying the same edit again. Export jobs have their "
+"own status/list commands."
+msgstr ""
+"Hết thời gian yêu cầu không có nghĩa là thao tác thay đổi thất bại. Sử dụng "
+"ID thao tác trong lỗi với ``operation get ID`` trước khi thử lại. "
+"``operation list`` tìm các thao tác thay đổi gần đây cùng trạng thái, phiên "
+"bản và kết quả của chúng. Các thao tác hoàn thành giữ lại kết quả khi đủ "
+"nhỏ, bao gồm cả ID đối tượng trả về. Bộ nhớ lưu trữ giới hạn 100 thao tác và"
+" 4 MiB, với các phần kết quả riêng lẻ bị bỏ qua trên 256 KiB. Các bản ghi "
+"này chỉ tồn tại trong phiên làm việc hiện tại. Chúng không khôi phục dự án "
+"sau sự cố hoặc ngăn lệnh lặp lại áp dụng cùng một chỉnh sửa. Các công việc "
+"xuất có các lệnh trạng thái/danh sách riêng."

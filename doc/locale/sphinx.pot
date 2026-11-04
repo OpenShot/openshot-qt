@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenShot Video Editor 4.0\n"
+"Project-Id-Version: OpenShot Video Editor 4.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,15 +16,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../_templates/footer.html:19
+#: ../doc/_templates/footer.html:19
 msgid "&copy; <a href=\"%(path)s\">Copyright</a> %(copyright)s."
 msgstr ""
 
-#: ../_templates/footer.html:21
+#: ../doc/_templates/footer.html:21
 msgid "&copy; Copyright %(copyright)s - <a data-iframe-height href=\"http://www.openshot.org/\">www.openshot.org</a>."
 msgstr ""
 
-#: ../_templates/footer.html:26
+#: ../doc/_templates/footer.html:26
 msgid "\n"
 "        <span class=\"build\">\n"
 "          Build\n"
@@ -33,7 +33,7 @@ msgid "\n"
 "      "
 msgstr ""
 
-#: ../_templates/footer.html:33
+#: ../doc/_templates/footer.html:33
 msgid "\n"
 "        <span class=\"commit\">\n"
 "          Revision <code>%(commit)s</code>.\n"
@@ -41,10 +41,10 @@ msgid "\n"
 "      "
 msgstr ""
 
-#: ../_templates/footer.html:39
+#: ../doc/_templates/footer.html:39
 msgid "Last updated on %(last_updated)s."
 msgstr ""
 
-#: ../_templates/footer.html:46
+#: ../doc/_templates/footer.html:46
 msgid "Built with <a href=\"http://sphinx-doc.org/\">Sphinx</a> using a <a href=\"https://github.com/snide/sphinx_rtd_theme\">theme</a> provided by <a href=\"https://readthedocs.org\">Read the Docs</a>"
 msgstr ""

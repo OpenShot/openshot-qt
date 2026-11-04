@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,12 +18,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:23
+#: ../doc/glossary.rst:23
 msgid "Glossary"
 msgstr "Thuật ngữ"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:25
+#: ../doc/glossary.rst:25
 msgid ""
 "There is much technical terminology in today's fast-moving media-centric "
 "world. If you find yourself wondering what a video production term or an "
@@ -40,12 +40,12 @@ msgstr ""
 "những thuật ngữ này sẽ giúp công việc của bạn dễ dàng hơn."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:34
+#: ../doc/glossary.rst:34
 msgid "Definitions"
 msgstr "Định nghĩa"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:36
+#: ../doc/glossary.rst:36
 msgid ""
 "These definitions are a work-in-progress. Please let us know if you need a "
 "term defined by contacting support@openshot.org."
@@ -55,7 +55,7 @@ msgstr ""
 "support@openshot.org."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:39
+#: ../doc/glossary.rst:39
 msgid ""
 ":ref:`letter_A_ref` :ref:`letter_B_ref` :ref:`letter_C_ref` "
 ":ref:`letter_D_ref` :ref:`letter_E_ref` :ref:`letter_F_ref` "
@@ -76,27 +76,27 @@ msgstr ""
 ":ref:`letter_Z_ref`"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:69
+#: ../doc/glossary.rst:69
 msgid "-A-"
 msgstr "-A-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:70
+#: ../doc/glossary.rst:70
 msgid "A-Roll:"
 msgstr "A-Roll:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:71
+#: ../doc/glossary.rst:71
 msgid "The Principal video that is usually someone speaking."
 msgstr "Video chính thường là người đang nói."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:72
+#: ../doc/glossary.rst:72
 msgid "Aliasing:"
 msgstr "Răng cưa (Aliasing):"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:73
+#: ../doc/glossary.rst:73
 msgid ""
 "The undesirable jagged or stair-stepped appearance of angled lines in an "
 "image, graphic, or text."
@@ -105,12 +105,12 @@ msgstr ""
 "các đường nghiêng trong hình ảnh, đồ họa hoặc văn bản."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:74
+#: ../doc/glossary.rst:74
 msgid "Alpha:"
 msgstr "Alpha:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:75
+#: ../doc/glossary.rst:75
 msgid ""
 "Alpha blending is a convex combination of two colors allowing for "
 "transparency effects in computer graphics.  The value of alpha in the color "
@@ -123,12 +123,12 @@ msgstr ""
 "hoàn toàn không trong suốt."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:76
+#: ../doc/glossary.rst:76
 msgid "Alpha Channel:"
 msgstr "Kênh Alpha:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:77
+#: ../doc/glossary.rst:77
 msgid ""
 "An alpha channel is a channel in an image or movie clip that controls the "
 "opacity region."
@@ -136,22 +136,22 @@ msgstr ""
 "Kênh alpha là một kênh trong hình ảnh hoặc đoạn phim điều khiển vùng độ mờ."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:78
+#: ../doc/glossary.rst:78
 msgid "Ambient Noise:"
 msgstr "Tiếng ồn môi trường:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:79
+#: ../doc/glossary.rst:79
 msgid "Ambient noise is background noise specific to the shooting location."
 msgstr "Tiếng ồn môi trường là tiếng ồn nền đặc trưng cho vị trí quay phim."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:80
+#: ../doc/glossary.rst:80
 msgid "Animation:"
 msgstr "Hoạt hình:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:81
+#: ../doc/glossary.rst:81
 msgid ""
 "The technique of making inanimate objects or drawings appear to move in "
 "motion pictures or computer graphics."
@@ -160,12 +160,12 @@ msgstr ""
 " hoặc đồ họa máy tính."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:82
+#: ../doc/glossary.rst:82
 msgid "Anti-Aliasing:"
 msgstr "Chống răng cưa (Anti-Aliasing):"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:83
+#: ../doc/glossary.rst:83
 msgid ""
 "Anti-aliasing is a process for smoothing jagged lines in an image.  Anti-"
 "aliasing can also mean a method of filtering out erroneous frequencies in an"
@@ -176,12 +176,12 @@ msgstr ""
 "hiệu âm thanh."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:84
+#: ../doc/glossary.rst:84
 msgid "Artifact:"
 msgstr "Hiện tượng nhiễu (Artifact):"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:85
+#: ../doc/glossary.rst:85
 msgid ""
 "An artifact is undesired data in an image because of digital processing."
 msgstr ""
@@ -189,12 +189,12 @@ msgstr ""
 "ra."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:86
+#: ../doc/glossary.rst:86
 msgid "Aspect Ratio:"
 msgstr "Tỷ lệ khung hình:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:87
+#: ../doc/glossary.rst:87
 msgid ""
 "The ratio of width to height in a flat surface or 2-dimensional abstract "
 "construction, such as an image, video, character, or pixel.  The standard "
@@ -207,12 +207,12 @@ msgstr ""
 "biến nhất cho phim điện ảnh là 1.85:1 và 2.35:1."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:88
+#: ../doc/glossary.rst:88
 msgid "ATSC:"
 msgstr "ATSC:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:89
+#: ../doc/glossary.rst:89
 msgid ""
 "ATSC is a digital broadcast standard that replaced the older analog NTSC "
 "standard.  The standard covers both standard and high-definition formats."
@@ -221,12 +221,12 @@ msgstr ""
 " Tiêu chuẩn này bao gồm cả định dạng tiêu chuẩn và độ nét cao."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:91
+#: ../doc/glossary.rst:91
 msgid "Audio Sample Rate:"
 msgstr "Tần số lấy mẫu âm thanh:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:91
+#: ../doc/glossary.rst:91
 msgid ""
 "The number of samples taken per second to reproduce audio digitally.  The "
 "higher the sample rate, the higher the quality of the digital audio.  A rate"
@@ -238,17 +238,17 @@ msgstr ""
 "giây tạo ra âm thanh chất lượng CD và bao phủ phạm vi nghe của con người."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:96
+#: ../doc/glossary.rst:96
 msgid "-B-"
 msgstr "-B-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:97
+#: ../doc/glossary.rst:97
 msgid "B-roll:"
 msgstr "B-roll:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:98
+#: ../doc/glossary.rst:98
 msgid ""
 "B-roll is supplemental footage that provides supporting details and greater "
 "flexibility when editing video.  Common examples include the footage used to"
@@ -259,12 +259,12 @@ msgstr ""
 " bản tin để giúp kể câu chuyện."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:99
+#: ../doc/glossary.rst:99
 msgid "Bit:"
 msgstr "Bit:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:100
+#: ../doc/glossary.rst:100
 msgid ""
 "The elementary unit for digital storage.  A BIT can be either a 1 (one) or a"
 " 0 (zero)."
@@ -273,12 +273,12 @@ msgstr ""
 "(không)."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:101
+#: ../doc/glossary.rst:101
 msgid "Bit Depth:"
 msgstr "Độ sâu bit:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:102
+#: ../doc/glossary.rst:102
 msgid ""
 "In digital graphics and video, bit depth indicates the number of colors an "
 "image can display.  A high-contrast (no gray tones) black and white image is"
@@ -295,12 +295,12 @@ msgstr ""
 "mẫu. Số càng cao, chất lượng âm thanh càng tốt."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:103
+#: ../doc/glossary.rst:103
 msgid "Bitrate:"
 msgstr "Tốc độ bit:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:104
+#: ../doc/glossary.rst:104
 msgid ""
 "The frequency at which bits (binary digits) pass a given physical or "
 "metaphorical point, measured in bps (bits per second).  For every second in "
@@ -313,12 +313,12 @@ msgstr ""
 "thể thay đổi hoặc cố định."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:105
+#: ../doc/glossary.rst:105
 msgid "Blue Screen:"
 msgstr "Màn hình xanh:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:106
+#: ../doc/glossary.rst:106
 msgid ""
 "A blue screen is a blue background that the subject stands in front of that "
 "the computer later replaces with another background in post-production.  See"
@@ -329,12 +329,12 @@ msgstr ""
 " màn hình xanh lá."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:108
+#: ../doc/glossary.rst:108
 msgid "Blue Screen Compositing:"
 msgstr "Ghép màn hình xanh:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:108
+#: ../doc/glossary.rst:108
 msgid ""
 "The process of making all blue elements in an image transparent and placing "
 "a different background underneath."
@@ -343,17 +343,17 @@ msgstr ""
 "suốt và đặt nền khác bên dưới."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:113
+#: ../doc/glossary.rst:113
 msgid "-C-"
 msgstr "-C-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:114
+#: ../doc/glossary.rst:114
 msgid "Capture:"
 msgstr "Ghi hình:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:115
+#: ../doc/glossary.rst:115
 msgid ""
 "The process of transferring source video from a camcorder or tape deck to a "
 "computer.  If the source video is analog, the capture process converts the "
@@ -364,12 +364,12 @@ msgstr ""
 "kỹ thuật số."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:116
+#: ../doc/glossary.rst:116
 msgid "Channel:"
 msgstr "Kênh:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:117
+#: ../doc/glossary.rst:117
 msgid ""
 "A channel is one of several grayscale components used to make up a color "
 "image.  Red, green, and blue channels make up RGB images, with an optional "
@@ -380,12 +380,12 @@ msgstr ""
 " một kênh alpha tùy chọn để tạo độ trong suốt."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:118
+#: ../doc/glossary.rst:118
 msgid "Chromakey:"
 msgstr "Chromakey:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:119
+#: ../doc/glossary.rst:119
 msgid ""
 "Chromakey is a method of creating transparency in a video source by "
 "selecting a specific \"key color\" to create an alpha matte.  It is "
@@ -398,12 +398,12 @@ msgstr ""
 "cho việc ghép hiệu ứng hình ảnh."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:120
+#: ../doc/glossary.rst:120
 msgid "Clip:"
 msgstr "Clip:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:121
+#: ../doc/glossary.rst:121
 msgid ""
 "A digitized or captured portion of video, audio, or both.  Clips are media "
 "files added to the Timeline, usually part of a more extensive recording."
@@ -413,12 +413,12 @@ msgstr ""
 "lớn hơn."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:122
+#: ../doc/glossary.rst:122
 msgid "Codec:"
 msgstr "Codec:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:123
+#: ../doc/glossary.rst:123
 msgid ""
 "Codec is a video compression technology used to compress data in a video "
 "file.  Codec stands for \"Compression Decompression.\" An example of a "
@@ -429,12 +429,12 @@ msgstr ""
 " codec phổ biến là H.264."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:124
+#: ../doc/glossary.rst:124
 msgid "Color Correction:"
 msgstr "Chỉnh màu:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:125
+#: ../doc/glossary.rst:125
 msgid ""
 "The process of altering the color of a video, especially one shot under less"
 " than ideal conditions, such as low light."
@@ -442,11 +442,11 @@ msgstr ""
 "Quá trình thay đổi màu sắc của video, đặc biệt là video quay trong điều kiện"
 " không lý tưởng như ánh sáng yếu."
 
-#: ../glossary.rst:126
+#: ../doc/glossary.rst:126
 msgid "Color Grade / Color Grading:"
 msgstr "Phân loại màu / Tô màu:"
 
-#: ../glossary.rst:127
+#: ../doc/glossary.rst:127
 msgid ""
 "The process of stylizing or enhancing the look and mood of a video beyond "
 "technical correction. Color grading adjusts tonal balance, hue, saturation, "
@@ -460,12 +460,12 @@ msgstr ""
 "màu."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:128
+#: ../doc/glossary.rst:128
 msgid "Compositing:"
 msgstr "Ghép hình:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:129
+#: ../doc/glossary.rst:129
 msgid ""
 "Construction of a composite image by combining multiple images and other "
 "elements."
@@ -474,12 +474,12 @@ msgstr ""
 "khác."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:130
+#: ../doc/glossary.rst:130
 msgid "Coverage:"
 msgstr "Góc quay bổ sung:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:131
+#: ../doc/glossary.rst:131
 msgid ""
 "Coverage is the process of shooting additional footage and camera angles to "
 "cover the action in the scene.  Coverage is so that the editor has a more "
@@ -490,12 +490,12 @@ msgstr ""
 "vào giai đoạn hậu kỳ."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:132
+#: ../doc/glossary.rst:132
 msgid "Compression:"
 msgstr "Nén:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:133
+#: ../doc/glossary.rst:133
 msgid ""
 "The process of reducing data, such as in an audio or video file, into a form"
 " that requires less space."
@@ -504,12 +504,12 @@ msgstr ""
 "dạng chiếm ít không gian hơn."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:134
+#: ../doc/glossary.rst:134
 msgid "Crop Factor:"
 msgstr "Hệ số crop:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:135
+#: ../doc/glossary.rst:135
 msgid ""
 "Crop factor is a number (typically from 1.3-2.0) that represents the ratio "
 "of a sensor's imaging area to that of a full-frame sensor.  Try multiplying "
@@ -521,12 +521,12 @@ msgstr ""
 " cảm biến máy ảnh để có tiêu cự tương ứng cho bộ kết hợp ống kính/cảm biến."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:136
+#: ../doc/glossary.rst:136
 msgid "Crawl:"
 msgstr "Chữ chạy:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:137
+#: ../doc/glossary.rst:137
 msgid ""
 "Crawl is a text effect where the text moves right-to-left (in the English-"
 "speaking world)."
@@ -534,12 +534,12 @@ msgstr ""
 "Crawl là hiệu ứng chữ chạy từ phải sang trái (trong thế giới nói tiếng Anh)."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:138
+#: ../doc/glossary.rst:138
 msgid "Cross-fade:"
 msgstr "Chuyển cảnh chồng:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:139
+#: ../doc/glossary.rst:139
 msgid ""
 "A cross-fade is a simultaneous fade-in of one audio or video source as "
 "another fades out so that they overlap temporarily.  Also called a dissolve."
@@ -548,22 +548,22 @@ msgstr ""
 " khi nguồn khác mờ dần ra, tạo sự chồng lấp tạm thời. Còn gọi là hòa tan."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:140
+#: ../doc/glossary.rst:140
 msgid "Cut:"
 msgstr "Cắt:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:141
+#: ../doc/glossary.rst:141
 msgid "A cut is an instantaneous change from one shot to another."
 msgstr "Cắt là sự chuyển đổi tức thời từ một cảnh quay sang cảnh khác."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:142
+#: ../doc/glossary.rst:142
 msgid "Cut-in (Insert Shot):"
 msgstr "Cảnh cận (Cut-in):"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:143
+#: ../doc/glossary.rst:143
 msgid ""
 "It is a type of shot that most often shows the objects the subject is in "
 "contact with or manipulating.  Cut-in shots are correspondingly helpful to "
@@ -573,12 +573,12 @@ msgstr ""
 "thao tác. Cảnh cận hữu ích cho b-roll vì tạm thời rời khỏi chủ thể chính."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:145
+#: ../doc/glossary.rst:145
 msgid "Cutting on Action:"
 msgstr "Cắt khi hành động:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:145
+#: ../doc/glossary.rst:145
 msgid ""
 "Cutting on action is a technique used to create a more interesting scene. "
 "The concept is simple… when you cut in the middle of an action, it will "
@@ -589,17 +589,17 @@ msgstr ""
 "hình ảnh."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:150
+#: ../doc/glossary.rst:150
 msgid "-D-"
 msgstr "-D-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:151
+#: ../doc/glossary.rst:151
 msgid "Data Rate:"
 msgstr "Tốc độ dữ liệu:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:152
+#: ../doc/glossary.rst:152
 msgid ""
 "The amount of data moved over time (for example, 10 MB per second).  Often "
 "used to describe a hard drive's ability to retrieve and deliver information."
@@ -608,23 +608,23 @@ msgstr ""
 "Thường dùng để mô tả khả năng truy xuất và truyền dữ liệu của ổ cứng."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:153
+#: ../doc/glossary.rst:153
 msgid "Denominator:"
 msgstr "Mẫu số:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:154
+#: ../doc/glossary.rst:154
 msgid ""
 "The number or expression below the line in a fraction (such as 2 in ½)."
 msgstr "Số hoặc biểu thức nằm dưới dấu phân số (ví dụ số 2 trong ½)."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:155
+#: ../doc/glossary.rst:155
 msgid "Digital Video:"
 msgstr "Video kỹ thuật số:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:156
+#: ../doc/glossary.rst:156
 msgid ""
 "Digital video is an electronic representation of moving visual images "
 "(video) in the form of encoded digital data.  In contrast, analog video "
@@ -637,22 +637,22 @@ msgstr ""
 "hình ảnh kỹ thuật số hiển thị liên tiếp nhanh chóng."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:157
+#: ../doc/glossary.rst:157
 msgid "Digitize:"
 msgstr "Số hóa:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:158
+#: ../doc/glossary.rst:158
 msgid "To convert analog video or audio to digital form."
 msgstr "Chuyển đổi video hoặc âm thanh analog sang dạng kỹ thuật số."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:160
+#: ../doc/glossary.rst:160
 msgid "Dissolve:"
 msgstr "Hòa tan:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:160
+#: ../doc/glossary.rst:160
 msgid ""
 "Dissolve is an image transition effect where one picture gradually "
 "disappears as another appears.  Also called a cross-fade."
@@ -661,17 +661,17 @@ msgstr ""
 " hình ảnh khác xuất hiện. Còn gọi là chuyển cảnh chồng."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:165
+#: ../doc/glossary.rst:165
 msgid "-E-"
 msgstr "-E-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:166
+#: ../doc/glossary.rst:166
 msgid "Editing:"
 msgstr "Chỉnh sửa:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:167
+#: ../doc/glossary.rst:167
 msgid ""
 "Editing is the process or result of selectively sequencing video and audio "
 "clips into a new video file.  Typically involves reviewing raw footage and "
@@ -683,12 +683,12 @@ msgstr ""
 "thô và chuyển các đoạn mong muốn từ nguồn sang chuỗi mới đã định trước."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:168
+#: ../doc/glossary.rst:168
 msgid "Effect:"
 msgstr "Hiệu ứng:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:169
+#: ../doc/glossary.rst:169
 msgid ""
 "Synthetic sounds and animations created in the digital domain applied to a "
 "clip to change a specific parameter of video or audio.  Examples: the color "
@@ -699,12 +699,12 @@ msgstr ""
 " sắc của một yếu tố hình ảnh hoặc hiệu ứng vang trên bản nhạc âm thanh."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:170
+#: ../doc/glossary.rst:170
 msgid "Encode:"
 msgstr "Mã hóa:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:171
+#: ../doc/glossary.rst:171
 msgid ""
 "To merge the individual video signals (for example, red, green, and blue) "
 "into a combined signal, or to convert a video file to a different format "
@@ -714,12 +714,12 @@ msgstr ""
 "tín hiệu tổng hợp, hoặc chuyển đổi tệp video sang định dạng khác bằng codec."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:173
+#: ../doc/glossary.rst:173
 msgid "Export:"
 msgstr "Xuất:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:173
+#: ../doc/glossary.rst:173
 msgid ""
 "Export refers to the process of assembling your edited video project into a "
 "single file that then plays back on its own, shared, or uploaded."
@@ -728,17 +728,17 @@ msgstr ""
 " nhất có thể phát lại độc lập, chia sẻ hoặc tải lên."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:178
+#: ../doc/glossary.rst:178
 msgid "-F-"
 msgstr "-F-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:179
+#: ../doc/glossary.rst:179
 msgid "Fade:"
 msgstr "Chuyển dần:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:180
+#: ../doc/glossary.rst:180
 msgid ""
 "A fade is the gradual diminishing or heightening of visual or audio "
 "intensity.  Usage: fade-out, fade to black, fade-in, or fade up from black."
@@ -748,12 +748,12 @@ msgstr ""
 "lên từ đen."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:181
+#: ../doc/glossary.rst:181
 msgid "Fade-in:"
 msgstr "Chuyển dần vào:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:182
+#: ../doc/glossary.rst:182
 msgid ""
 "1.(n.) a shot that begins in total darkness and gradually lightens to full "
 "brightness.  2. (v.) To gradually bring sound from inaudibility to the "
@@ -764,12 +764,12 @@ msgstr ""
 " âm lượng yêu cầu."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:183
+#: ../doc/glossary.rst:183
 msgid "Fade-out:"
 msgstr "Chuyển dần ra:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:184
+#: ../doc/glossary.rst:184
 msgid ""
 "1.(n.) a shot that begins in full brightness and gradually dims to total "
 "darkness.  2. (v.) To gradually bring sound from the required volume to "
@@ -780,12 +780,12 @@ msgstr ""
 "đến không nghe thấy."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:185
+#: ../doc/glossary.rst:185
 msgid "Filter:"
 msgstr "Bộ lọc:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:186
+#: ../doc/glossary.rst:186
 msgid ""
 "A video filter is a software component that performs some operation on a "
 "multimedia stream.  Multiple filters used in a chain, known as a filter "
@@ -799,12 +799,12 @@ msgstr ""
 "lý đầu vào và xuất video đã xử lý đến bộ lọc phía dưới."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:187
+#: ../doc/glossary.rst:187
 msgid "Final Cut:"
 msgstr "Bản dựng cuối:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:188
+#: ../doc/glossary.rst:188
 msgid ""
 "The final video production, assembled from high-quality clips, and ready for"
 " export to the selected delivery media."
@@ -813,12 +813,12 @@ msgstr ""
 "sẵn sàng để xuất sang phương tiện phân phối đã chọn."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:189
+#: ../doc/glossary.rst:189
 msgid "Finishing:"
 msgstr "Hoàn thiện:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:190
+#: ../doc/glossary.rst:190
 msgid ""
 "The stage that brings together all assets of a piece.  Your output from this"
 " stage is your master/sub-master."
@@ -827,12 +827,12 @@ msgstr ""
 "giai đoạn này là bản chính/chính phụ của bạn."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:191
+#: ../doc/glossary.rst:191
 msgid "Footage:"
 msgstr "Đoạn phim:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:192
+#: ../doc/glossary.rst:192
 msgid ""
 "Derived from having feet of film, this is almost synonymous with video "
 "clips."
@@ -841,12 +841,12 @@ msgstr ""
 "các đoạn clip video."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:193
+#: ../doc/glossary.rst:193
 msgid "Frame:"
 msgstr "Khung hình:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:194
+#: ../doc/glossary.rst:194
 msgid ""
 "In filmmaking, video production, animation, and related fields, a frame is "
 "one of the many still images which compose the complete moving picture."
@@ -855,12 +855,12 @@ msgstr ""
 "hình là một trong nhiều hình ảnh tĩnh tạo nên toàn bộ hình ảnh chuyển động."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:195
+#: ../doc/glossary.rst:195
 msgid "Frames Per Second (fps):"
 msgstr "Khung hình trên giây (fps):"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:196
+#: ../doc/glossary.rst:196
 msgid ""
 "The number of frames played every second.  At 15 fps and lower, the human "
 "eye can detect individual frames, causing the video to appear jerky."
@@ -869,12 +869,12 @@ msgstr ""
 "biết từng khung hình riêng lẻ, khiến video trông giật."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:197
+#: ../doc/glossary.rst:197
 msgid "Frame Rate:"
 msgstr "Tốc độ khung hình:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:198
+#: ../doc/glossary.rst:198
 msgid ""
 "Frame rate (expressed in frames per second or FPS) is the frequency (rate "
 "expressed in Hz) at which consecutive images called frames appear on "
@@ -889,12 +889,12 @@ msgstr ""
 "phổ biến: 24, 25, 29.97, 30, 50, 60."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:200
+#: ../doc/glossary.rst:200
 msgid "Frequency:"
 msgstr "Tần số:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:200
+#: ../doc/glossary.rst:200
 msgid ""
 "The number of audio cycles per second, expressed in hertz (Hz).  Frequency "
 "determines the pitch of a sound."
@@ -903,17 +903,17 @@ msgstr ""
 "định cao độ của âm thanh."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:205
+#: ../doc/glossary.rst:205
 msgid "-G-"
 msgstr "-G-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:206
+#: ../doc/glossary.rst:206
 msgid "Gamma:"
 msgstr "Gamma:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:207
+#: ../doc/glossary.rst:207
 msgid ""
 "A measurement of the intensity of mid-tones in an image.  Adjusting the "
 "gamma adjusts the level of the mid-tones while leaving the blacks and whites"
@@ -924,12 +924,12 @@ msgstr ""
 " đen và trắng."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:208
+#: ../doc/glossary.rst:208
 msgid "GPU:"
 msgstr "GPU:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:209
+#: ../doc/glossary.rst:209
 msgid ""
 "Graphics processing unit.  A microprocessor with built-in capabilities for "
 "handling 3D graphics more efficiently than a CPU (central processing unit)."
@@ -938,12 +938,12 @@ msgstr ""
 "CPU (đơn vị xử lý trung tâm)."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:210
+#: ../doc/glossary.rst:210
 msgid "Gravity:"
 msgstr "Trọng lực:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:211
+#: ../doc/glossary.rst:211
 msgid ""
 "Gravity in OpenShot is a property of each clip that sets the clip's initial "
 "position on the screen."
@@ -952,12 +952,12 @@ msgstr ""
 " đầu của clip trên màn hình."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:212
+#: ../doc/glossary.rst:212
 msgid "Green screen"
 msgstr "Màn hình xanh"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:213
+#: ../doc/glossary.rst:213
 msgid ""
 "A green background that the subject stands in front of that is another "
 "background in post-production."
@@ -966,12 +966,12 @@ msgstr ""
 "hậu kỳ."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:215
+#: ../doc/glossary.rst:215
 msgid "Green Screen Compositing"
 msgstr "Ghép màn hình xanh"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:215
+#: ../doc/glossary.rst:215
 msgid ""
 "The process of making all green elements in an image transparent and placing"
 " a different background underneath, so it appears that the subject is in a "
@@ -981,17 +981,17 @@ msgstr ""
 "suốt và đặt nền khác bên dưới, tạo cảm giác đối tượng ở một vị trí khác."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:220
+#: ../doc/glossary.rst:220
 msgid "-H-"
 msgstr "-H-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:221
+#: ../doc/glossary.rst:221
 msgid "High Definition (HD):"
 msgstr "Độ phân giải cao (HD):"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:222
+#: ../doc/glossary.rst:222
 msgid ""
 "A general term for a video signal with a significantly higher resolution "
 "than standard definition."
@@ -1000,12 +1000,12 @@ msgstr ""
 " phân giải tiêu chuẩn."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:223
+#: ../doc/glossary.rst:223
 msgid "HDMI:"
 msgstr "HDMI:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:224
+#: ../doc/glossary.rst:224
 msgid ""
 "High Definition Multimedia Interface.  Interface for transmitting high "
 "definition digital audio and video data."
@@ -1014,12 +1014,12 @@ msgstr ""
 " và video kỹ thuật số độ phân giải cao."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:225
+#: ../doc/glossary.rst:225
 msgid "HDR:"
 msgstr "HDR:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:226
+#: ../doc/glossary.rst:226
 msgid ""
 "HDR (high dynamic range) is the compositing of two images, one that "
 "correctly exposes the highlights, and another that properly exposes the dark"
@@ -1030,12 +1030,12 @@ msgstr ""
 "được hình ảnh phơi sáng đúng."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:227
+#: ../doc/glossary.rst:227
 msgid "HDTV:"
 msgstr "HDTV:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:228
+#: ../doc/glossary.rst:228
 msgid ""
 "High Definition TV.  A broadcast format that allows for a higher resolution "
 "signal than the traditional formats, NTSC, PAL, and SECAM."
@@ -1044,12 +1044,12 @@ msgstr ""
 "độ phân giải cao hơn các định dạng truyền thống như NTSC, PAL và SECAM."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:229
+#: ../doc/glossary.rst:229
 msgid "HDV:"
 msgstr "HDV:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:230
+#: ../doc/glossary.rst:230
 msgid ""
 "High Definition Video.  The format used to record HDTV-quality data with "
 "video camcorders."
@@ -1058,33 +1058,33 @@ msgstr ""
 "máy quay video."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:231
+#: ../doc/glossary.rst:231
 msgid "Headroom:"
 msgstr "Khoảng trống đầu:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:232
+#: ../doc/glossary.rst:232
 msgid ""
 "The space between the top of a character's head and the top of the frame."
 msgstr "Khoảng cách giữa đỉnh đầu nhân vật và đỉnh khung hình."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:233
+#: ../doc/glossary.rst:233
 msgid "Hiss:"
 msgstr "Tiếng xì:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:234
+#: ../doc/glossary.rst:234
 msgid "Noise caused by imperfections in the recording medium."
 msgstr "Tiếng ồn do các khuyết điểm trong phương tiện ghi âm."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:236
+#: ../doc/glossary.rst:236
 msgid "Hue:"
 msgstr "Sắc độ:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:236
+#: ../doc/glossary.rst:236
 msgid ""
 "The shade of a color.  This is the general color category into which the "
 "color falls.  For example, pink, crimson, and plum are different colors, but"
@@ -1096,17 +1096,17 @@ msgstr ""
 "Màu trắng, đen và xám không phải là sắc thái."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:241
+#: ../doc/glossary.rst:241
 msgid "-I-"
 msgstr "-I-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:242
+#: ../doc/glossary.rst:242
 msgid "Image Stabilizer:"
 msgstr "Bộ ổn định hình ảnh:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:243
+#: ../doc/glossary.rst:243
 msgid ""
 "Also referred to as an electronic image stabilizer.  A technique used to "
 "remove the movement caused by camera shake."
@@ -1115,12 +1115,12 @@ msgstr ""
 " động do rung máy ảnh gây ra."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:244
+#: ../doc/glossary.rst:244
 msgid "Importing:"
 msgstr "Nhập khẩu:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:245
+#: ../doc/glossary.rst:245
 msgid ""
 "Importing is the process of transferring videos from your camera onto your "
 "computer or into a piece of editing software."
@@ -1129,12 +1129,12 @@ msgstr ""
 "phần mềm chỉnh sửa."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:246
+#: ../doc/glossary.rst:246
 msgid "Interframe Compression:"
 msgstr "Nén giữa các khung hình:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:247
+#: ../doc/glossary.rst:247
 msgid ""
 "A compression scheme, such as MPEG that reduces the amount of video "
 "information by storing only the differences between a frame and those "
@@ -1144,12 +1144,12 @@ msgstr ""
 "trữ sự khác biệt giữa một khung hình và các khung hình trước đó."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:248
+#: ../doc/glossary.rst:248
 msgid "Interpolation:"
 msgstr "Nội suy:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:249
+#: ../doc/glossary.rst:249
 msgid ""
 "Used in animation to calculate the motion in between two user-generated "
 "keyframes so that the editor does not need to animate each frame manually.  "
@@ -1160,12 +1160,12 @@ msgstr ""
 "thủ công. Điều này tăng tốc quá trình và làm cho hoạt ảnh mượt mà hơn."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:251
+#: ../doc/glossary.rst:251
 msgid "Intertitles:"
 msgstr "Phụ đề xen kẽ:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:251
+#: ../doc/glossary.rst:251
 msgid ""
 "Titles that appear on their own between footage.  Commonly seen in silent "
 "movies to substitute dialogue, also used as chapter headings."
@@ -1174,17 +1174,17 @@ msgstr ""
 "để thay thế lời thoại, cũng dùng làm tiêu đề chương."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:256
+#: ../doc/glossary.rst:256
 msgid "-J-"
 msgstr "-J-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:257
+#: ../doc/glossary.rst:257
 msgid "J-Cut:"
 msgstr "Cắt J:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:258
+#: ../doc/glossary.rst:258
 msgid ""
 "An edit in which the audio starts before the video, giving the video a "
 "dramatic introduction.  Also known as an audio lead."
@@ -1193,12 +1193,12 @@ msgstr ""
 " kịch tính cho video. Còn gọi là dẫn âm thanh."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:259
+#: ../doc/glossary.rst:259
 msgid "Jog"
 msgstr "Điều khiển từng khung"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:260
+#: ../doc/glossary.rst:260
 msgid ""
 "To move forward or backward through video by playing it one field or frame "
 "at a time."
@@ -1207,12 +1207,12 @@ msgstr ""
 " một."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:262
+#: ../doc/glossary.rst:262
 msgid "Jump Cut:"
 msgstr "Cắt nhảy:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:262
+#: ../doc/glossary.rst:262
 msgid ""
 "A jump cut is an unnatural, abrupt switch between shots identical in the "
 "subject but slightly different in screen location, so the subject appears to"
@@ -1223,15 +1223,15 @@ msgstr ""
 "trí này sang vị trí khác."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:267
+#: ../doc/glossary.rst:267
 msgid "-K-"
 msgstr "-K-"
 
-#: ../glossary.rst:268
+#: ../doc/glossary.rst:268
 msgid "Ken Burns Effect:"
 msgstr "Hiệu ứng Ken Burns:"
 
-#: ../glossary.rst:269
+#: ../doc/glossary.rst:269
 msgid ""
 "A pan-and-zoom animation technique applied to still images or video clips to"
 " create the illusion of camera movement. Named after documentary filmmaker "
@@ -1245,24 +1245,24 @@ msgstr ""
 " cho hiệu ứng Ken Burns chỉ với một cú nhấp."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:270
+#: ../doc/glossary.rst:270
 msgid "Key:"
 msgstr "Khóa:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:271
+#: ../doc/glossary.rst:271
 msgid ""
 "A method for creating transparency, such as a bluescreen key or a chroma "
 "key."
 msgstr "Phương pháp tạo độ trong suốt, như khóa màn hình xanh hoặc khóa màu."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:273
+#: ../doc/glossary.rst:273
 msgid "Keyframe:"
 msgstr "Khung chính:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:273
+#: ../doc/glossary.rst:273
 msgid ""
 "A keyframe is a frame that contains a record of specific settings (e.g., "
 "scale, rotation, brightness).  Start and endpoints for animated effects.  By"
@@ -1275,17 +1275,17 @@ msgstr ""
 "hoạt ảnh cho các khía cạnh nhất định."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:278
+#: ../doc/glossary.rst:278
 msgid "-L-"
 msgstr "-L-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:279
+#: ../doc/glossary.rst:279
 msgid "L-Cut:"
 msgstr "Cắt L:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:280
+#: ../doc/glossary.rst:280
 msgid ""
 "An L-cut is an edit in which the video ends before the audio.  L-cuts act as"
 " a subtle transition from one scene to the next."
@@ -1294,12 +1294,12 @@ msgstr ""
 " chuyển tiếp nhẹ nhàng từ cảnh này sang cảnh khác."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:281
+#: ../doc/glossary.rst:281
 msgid "Letterbox:"
 msgstr "Khung chữ nhật đen:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:282
+#: ../doc/glossary.rst:282
 msgid ""
 "A technique used to preserve the original aspect ratio of a motion picture "
 "when played on a TV.  Letterboxing adds black bars to the top and bottom of "
@@ -1309,12 +1309,12 @@ msgstr ""
 "Letterbox thêm các thanh đen ở trên và dưới màn hình."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:283
+#: ../doc/glossary.rst:283
 msgid "Linear Editing:"
 msgstr "Chỉnh sửa tuyến tính:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:284
+#: ../doc/glossary.rst:284
 msgid ""
 "A form of video editing which lays out cuts sequentially, one by one, to "
 "produce the final scene. This contrasts with non-linear editing which allows"
@@ -1325,12 +1325,12 @@ msgstr ""
 "cắt theo bất kỳ thứ tự nào."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:285
+#: ../doc/glossary.rst:285
 msgid "Log:"
 msgstr "Nhật ký:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:286
+#: ../doc/glossary.rst:286
 msgid ""
 "A record of start and end timecode, reel numbers, scene descriptions, and "
 "other information for a specified clip."
@@ -1339,12 +1339,12 @@ msgstr ""
 "thông tin khác cho một đoạn clip cụ thể."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:287
+#: ../doc/glossary.rst:287
 msgid "Lossless:"
 msgstr "Không mất dữ liệu:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:288
+#: ../doc/glossary.rst:288
 msgid ""
 "A compression scheme that results in no loss of data from decompressing the "
 "file.  Lossless files are generally quite large (but still smaller than "
@@ -1356,12 +1356,12 @@ msgstr ""
 "sức mạnh xử lý để giải mã."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:289
+#: ../doc/glossary.rst:289
 msgid "Lossy:"
 msgstr "Mất dữ liệu:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:290
+#: ../doc/glossary.rst:290
 msgid ""
 "Lossy compression is a compression scheme that degrades quality.  Lossy "
 "algorithms compress digital data by eliminating the data least sensitive to "
@@ -1371,11 +1371,11 @@ msgstr ""
 "dữ liệu loại bỏ dữ liệu ít nhạy cảm với mắt người và cung cấp tỷ lệ nén cao "
 "nhất."
 
-#: ../glossary.rst:291
+#: ../doc/glossary.rst:291
 msgid "Lower Third:"
 msgstr "Phần dưới ba phần:"
 
-#: ../glossary.rst:292
+#: ../doc/glossary.rst:292
 msgid ""
 "A text or graphic overlay positioned in the lower third of the screen, "
 "commonly used to display a speaker's name, title, or other identifying "
@@ -1389,11 +1389,11 @@ msgstr ""
 "video doanh nghiệp. Trong OpenShot, tạo chúng bằng Trình chỉnh sửa tiêu đề "
 "và đặt đoạn tiêu đề trên một đường thời gian phía trên video của bạn."
 
-#: ../glossary.rst:294
+#: ../doc/glossary.rst:294
 msgid "LUT (Look-Up Table):"
 msgstr "LUT (Bảng Tra Cứu):"
 
-#: ../glossary.rst:294
+#: ../doc/glossary.rst:294
 msgid ""
 "A file that maps one set of colors to another, used to apply a specific "
 "color grade or look to a video clip in one step. LUTs can replicate film "
@@ -1407,38 +1407,38 @@ msgstr ""
 " LUT."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:299
+#: ../doc/glossary.rst:299
 msgid "-M-"
 msgstr "-M-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:300
+#: ../doc/glossary.rst:300
 msgid "Mark In:"
 msgstr "Đánh dấu vào:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:301
+#: ../doc/glossary.rst:301
 msgid ""
 "Placing a marker at the beginning of where you want your clip to start."
 msgstr "Đặt dấu ở điểm bắt đầu bạn muốn clip bắt đầu."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:302
+#: ../doc/glossary.rst:302
 msgid "Mark Out:"
 msgstr "Đánh dấu ra:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:303
+#: ../doc/glossary.rst:303
 msgid "Placing a marker at the beginning of where you want your clip to end."
 msgstr "Đặt dấu ở điểm kết thúc bạn muốn clip kết thúc."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:304
+#: ../doc/glossary.rst:304
 msgid "Match Action:"
 msgstr "Khớp hành động:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:305
+#: ../doc/glossary.rst:305
 msgid ""
 "Match action (or match cut) is a technique where an editor will cut from one"
 " visually similar scene to another."
@@ -1447,12 +1447,12 @@ msgstr ""
 "cảnh khác có hình ảnh tương tự."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:306
+#: ../doc/glossary.rst:306
 msgid "Memory Bank:"
 msgstr "Ngân hàng ký ức:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:307
+#: ../doc/glossary.rst:307
 msgid ""
 "A Memory Bank is a video that documents specific periods or events in "
 "someone's life.  It can be set to music, make use of natural sound, record "
@@ -1463,12 +1463,12 @@ msgstr ""
 " chỉ đơn giản là lưu giữ khoảnh khắc hàng ngày."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:308
+#: ../doc/glossary.rst:308
 msgid "Marker:"
 msgstr "Dấu hiệu:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:309
+#: ../doc/glossary.rst:309
 msgid ""
 "An object used to mark a location.  Clip markers signify essential points "
 "within a clip.  Timeline markers indicate scenes, locations for titles, or "
@@ -1481,12 +1481,12 @@ msgstr ""
 "định vị và cắt clip."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:310
+#: ../doc/glossary.rst:310
 msgid "Mask:"
 msgstr "Mặt nạ:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:311
+#: ../doc/glossary.rst:311
 msgid ""
 "The transparent area of an image, typically defined by a graphic shape or a "
 "bluescreen background.  Also called a matte."
@@ -1495,12 +1495,12 @@ msgstr ""
 "hoặc nền màn hình xanh. Còn gọi là matte."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:312
+#: ../doc/glossary.rst:312
 msgid "Matte:"
 msgstr "Matte:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:313
+#: ../doc/glossary.rst:313
 msgid ""
 "Matte is an image mask used in visual effects to control applying an effect "
 "to certain parts of the image."
@@ -1509,12 +1509,12 @@ msgstr ""
 "soát việc áp dụng hiệu ứng cho các phần nhất định của hình ảnh."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:314
+#: ../doc/glossary.rst:314
 msgid "Montage:"
 msgstr "Montage:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:315
+#: ../doc/glossary.rst:315
 msgid ""
 "A montage is a self-contained sequence of shots assembled in juxtaposition "
 "to each other to communicate an idea or mood.  The implied relationship "
@@ -1525,12 +1525,12 @@ msgstr ""
 "không liên quan tạo ra một thông điệp mới."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:317
+#: ../doc/glossary.rst:317
 msgid "Motion Artifact:"
 msgstr "Hiện tượng nhiễu chuyển động:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:317
+#: ../doc/glossary.rst:317
 msgid ""
 "Visual interference caused by the difference between the frame rate of the "
 "camera and the motion of the object.  The most common display of this is "
@@ -1544,29 +1544,29 @@ msgstr ""
 "biệt về tốc độ khung hình và thiếu đồng bộ giữa máy quay và tivi."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:322
+#: ../doc/glossary.rst:322
 msgid "-N-"
 msgstr "-N-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:323
+#: ../doc/glossary.rst:323
 msgid "Noise:"
 msgstr "Nhiễu:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:324
+#: ../doc/glossary.rst:324
 msgid "Undesired data in a video or audio signal.  See also artifact."
 msgstr ""
 "Dữ liệu không mong muốn trong tín hiệu video hoặc âm thanh. Xem thêm "
 "artifact."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:325
+#: ../doc/glossary.rst:325
 msgid "Non-linear Editing:"
 msgstr "Chỉnh sửa Phi tuyến tính:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:326
+#: ../doc/glossary.rst:326
 msgid ""
 "An editing system that performs edits at any time, in any order.  Access is "
 "random, which means that the system can jump to specific pieces of data "
@@ -1577,23 +1577,23 @@ msgstr ""
 "dữ liệu cụ thể mà không cần phải xem toàn bộ đoạn phim để tìm."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:327
+#: ../doc/glossary.rst:327
 msgid "Numerator:"
 msgstr "Tử số:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:328
+#: ../doc/glossary.rst:328
 msgid ""
 "The number or expression above the line in a fraction (such as 1 in ½)."
 msgstr "Số hoặc biểu thức nằm trên đường phân số (ví dụ số 1 trong ½)."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:330
+#: ../doc/glossary.rst:330
 msgid "NTSC:"
 msgstr "NTSC:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:330
+#: ../doc/glossary.rst:330
 msgid ""
 "NTSC is an abbreviation for National Television Standards Committee.  NTSC "
 "is the group that initially developed the black & white and subsequently "
@@ -1609,17 +1609,17 @@ msgstr ""
 " giây. Hiện nay, ATSC đã thay thế NTSC."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:335
+#: ../doc/glossary.rst:335
 msgid "-O-"
 msgstr "-O-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:336
+#: ../doc/glossary.rst:336
 msgid "Offline Editing:"
 msgstr "Chỉnh sửa Ngoại tuyến:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:337
+#: ../doc/glossary.rst:337
 msgid ""
 "Editing a rough cut using low-quality clips, and then producing the final "
 "cut with high-quality clips, usually on a more sophisticated editing system "
@@ -1630,12 +1630,12 @@ msgstr ""
 "sửa phức tạp hơn so với hệ thống dùng để phát triển bản thô."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:338
+#: ../doc/glossary.rst:338
 msgid "Online Editing:"
 msgstr "Chỉnh sửa Trực tuyến:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:339
+#: ../doc/glossary.rst:339
 msgid ""
 "Doing all editing (including the rough cut) on the same clips that produce "
 "the final cut."
@@ -1644,12 +1644,12 @@ msgstr ""
 "clip tạo ra bản cắt cuối cùng."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:341
+#: ../doc/glossary.rst:341
 msgid "Opacity:"
 msgstr "Độ mờ:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:341
+#: ../doc/glossary.rst:341
 msgid ""
 "An inverse measure of the level of transparency in an image, which is of "
 "importance when compositing.  An image's alpha channel stores its opacity "
@@ -1659,17 +1659,17 @@ msgstr ""
 "ảnh. Kênh alpha của hình ảnh lưu trữ thông tin về độ mờ."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:346
+#: ../doc/glossary.rst:346
 msgid "-P-"
 msgstr "-P-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:347
+#: ../doc/glossary.rst:347
 msgid "PAL:"
 msgstr "PAL:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:348
+#: ../doc/glossary.rst:348
 msgid ""
 "PAL is an abbreviation for Phase Alternate Line.  This is the video format "
 "standard used in many European countries.  Six-hundred twenty-five lines "
@@ -1680,22 +1680,22 @@ msgstr ""
 "với tốc độ 25 khung hình mỗi giây."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:349
+#: ../doc/glossary.rst:349
 msgid "Pan:"
 msgstr "Quay ngang:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:350
+#: ../doc/glossary.rst:350
 msgid "A horizontal movement of the camera on a fixed axis."
 msgstr "Chuyển động ngang của máy quay trên một trục cố định."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:351
+#: ../doc/glossary.rst:351
 msgid "Pan and Scan:"
 msgstr "Pan and Scan:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:352
+#: ../doc/glossary.rst:352
 msgid ""
 "A method of converting widescreen images to a 4:3 aspect ratio.  Cropping "
 "the video so that it fills the entire screen and panning it into position "
@@ -1706,12 +1706,12 @@ msgstr ""
 " trọng của cảnh."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:353
+#: ../doc/glossary.rst:353
 msgid "Picture in Picture (PIP):"
 msgstr "Hình trong hình (PIP):"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:354
+#: ../doc/glossary.rst:354
 msgid ""
 "An effect of superimposing a small window of footage over a larger window "
 "and the two play at the same time."
@@ -1720,12 +1720,12 @@ msgstr ""
 " phát cùng lúc."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:355
+#: ../doc/glossary.rst:355
 msgid "Pixel:"
 msgstr "Pixel:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:356
+#: ../doc/glossary.rst:356
 msgid ""
 "One of the tiny dots that make up the representation of an image in a "
 "computer's memory.  The smallest unit of a digital image."
@@ -1734,12 +1734,12 @@ msgstr ""
 "nhất của hình ảnh kỹ thuật số."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:357
+#: ../doc/glossary.rst:357
 msgid "Pixel Aspect Ratio:"
 msgstr "Tỷ lệ khung hình pixel:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:358
+#: ../doc/glossary.rst:358
 msgid ""
 "Aspect ratio is the ratio between the width and height of your video; the "
 "Pixel Aspect Ratio is the ratio between the width and height of the pixels."
@@ -1750,23 +1750,23 @@ msgstr ""
 "khung hình pixel chuẩn là 1:1."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:359
+#: ../doc/glossary.rst:359
 msgid "Pixelation:"
 msgstr "Hiện tượng pixel hóa:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:360
+#: ../doc/glossary.rst:360
 msgid ""
 "The display of large, blocky pixels in an image caused by over-enlarging it."
 msgstr "Hiển thị các pixel lớn, thô trong hình ảnh do phóng to quá mức."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:361
+#: ../doc/glossary.rst:361
 msgid "Playhead:"
 msgstr "Đầu phát:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:362
+#: ../doc/glossary.rst:362
 msgid ""
 "When editing audio or video in a current computer, the Playhead is a graphic"
 " line in the Timeline that represents the current accessed position, or "
@@ -1777,12 +1777,12 @@ msgstr ""
 " truy cập của tài liệu."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:363
+#: ../doc/glossary.rst:363
 msgid "Post-production (Post):"
 msgstr "Hậu kỳ (Post):"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:364
+#: ../doc/glossary.rst:364
 msgid ""
 "Post-production (post) is any video production activity following the "
 "initial recording.  Typically, post involves editing, the addition of "
@@ -1795,12 +1795,12 @@ msgstr ""
 "chỉnh."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:365
+#: ../doc/glossary.rst:365
 msgid "Poster Frame:"
 msgstr "Khung hình đại diện:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:366
+#: ../doc/glossary.rst:366
 msgid ""
 "A single frame of a clip, selected as a thumbnail to indicate the clip's "
 "contents."
@@ -1809,12 +1809,12 @@ msgstr ""
 " của đoạn clip."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:368
+#: ../doc/glossary.rst:368
 msgid "Project:"
 msgstr "Dự án:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:368
+#: ../doc/glossary.rst:368
 msgid ""
 "A project is all the files, transitions, effects, and animations that you "
 "make or use within OpenShot."
@@ -1823,29 +1823,29 @@ msgstr ""
 "hoặc sử dụng trong OpenShot."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:373
+#: ../doc/glossary.rst:373
 msgid "-R-"
 msgstr "-R-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:374
+#: ../doc/glossary.rst:374
 msgid "Raw Footage:"
 msgstr "Đoạn phim thô:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:375
+#: ../doc/glossary.rst:375
 msgid "Raw footage is pre-edited footage, usually direct from the camera."
 msgstr ""
 "Đoạn phim thô là đoạn phim chưa được chỉnh sửa, thường lấy trực tiếp từ máy "
 "quay."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:376
+#: ../doc/glossary.rst:376
 msgid "Real-time:"
 msgstr "Thời gian thực:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:377
+#: ../doc/glossary.rst:377
 msgid ""
 "Real-time occurs immediately, without delay for rendering.  If a transition "
 "occurs in real-time, there is no waiting, the computer creates the effect or"
@@ -1857,12 +1857,12 @@ msgstr ""
 "tức."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:378
+#: ../doc/glossary.rst:378
 msgid "Rendering:"
 msgstr "Kết xuất:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:379
+#: ../doc/glossary.rst:379
 msgid ""
 "The process by which the video editing software and hardware convert the raw"
 " video, effects, transitions, and filters into a new continuous video file."
@@ -1871,12 +1871,12 @@ msgstr ""
 "hiệu ứng, chuyển tiếp và bộ lọc thành một tệp video liên tục mới."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:380
+#: ../doc/glossary.rst:380
 msgid "Render Time:"
 msgstr "Thời gian kết xuất:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:381
+#: ../doc/glossary.rst:381
 msgid ""
 "The render time is the time it takes an editing computer to composite source"
 " elements and commands into a single video file.  Rendering allows the "
@@ -1887,12 +1887,12 @@ msgstr ""
 "chuỗi, bao gồm tiêu đề và hiệu ứng chuyển tiếp, phát mượt mà."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:382
+#: ../doc/glossary.rst:382
 msgid "Resolution:"
 msgstr "Độ phân giải:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:383
+#: ../doc/glossary.rst:383
 msgid ""
 "Resolution refers to the actual number of horizontal and vertical pixels "
 "your video contains.  Common resolution Examples: (SD) 640×480, (HD) "
@@ -1908,12 +1908,12 @@ msgstr ""
 "Các ví dụ trên sẽ tương ứng với SD, 480p, 720p, 1080p, 1440p, 4K và 8K."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:384
+#: ../doc/glossary.rst:384
 msgid "RGB:"
 msgstr "RGB:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:385
+#: ../doc/glossary.rst:385
 msgid ""
 "Monitors, cameras, and digital projectors use the primary colors of light "
 "(Red, Green, and Blue) to make images."
@@ -1922,23 +1922,23 @@ msgstr ""
 "sáng (Đỏ, Xanh lá, và Xanh dương) để tạo hình ảnh."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:386
+#: ../doc/glossary.rst:386
 msgid "RGBA:"
 msgstr "RGBA:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:387
+#: ../doc/glossary.rst:387
 msgid ""
 "A file containing an RGB image plus an alpha channel for transparency "
 "information."
 msgstr ""
 "Một tệp chứa hình ảnh RGB cùng với kênh alpha để thông tin trong suốt."
 
-#: ../glossary.rst:388
+#: ../doc/glossary.rst:388
 msgid "Ripple Edit:"
 msgstr "Chỉnh sửa Ripple:"
 
-#: ../glossary.rst:389
+#: ../doc/glossary.rst:389
 msgid ""
 "An edit where trimming a clip automatically shifts all subsequent clips on "
 "the timeline forward or backward by the same amount, closing or opening a "
@@ -1951,12 +1951,12 @@ msgstr ""
 "theo sau điểm chỉnh sửa. Còn gọi là cắt ripple."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:390
+#: ../doc/glossary.rst:390
 msgid "Roll:"
 msgstr "Cuộn:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:391
+#: ../doc/glossary.rst:391
 msgid ""
 "Roll is a text effect commonly seen in end credits, where text typically "
 "moves from the bottom to the top of the screen."
@@ -1965,12 +1965,12 @@ msgstr ""
 "thường di chuyển từ dưới lên trên màn hình."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:393
+#: ../doc/glossary.rst:393
 msgid "Rough cut:"
 msgstr "Cắt thô:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:393
+#: ../doc/glossary.rst:393
 msgid ""
 "A rough cut is a preliminary edit of footage in the approximate sequence, "
 "length, and content of a finished program."
@@ -1979,17 +1979,17 @@ msgstr ""
 "dung gần đúng của chương trình hoàn chỉnh."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:398
+#: ../doc/glossary.rst:398
 msgid "-S-"
 msgstr "-S-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:399
+#: ../doc/glossary.rst:399
 msgid "Sample Rate:"
 msgstr "Tần số lấy mẫu:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:400
+#: ../doc/glossary.rst:400
 msgid ""
 "In digital audio, the number of samples per second.  The higher the number, "
 "the better the sound quality."
@@ -1998,22 +1998,22 @@ msgstr ""
 " thanh càng tốt."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:401
+#: ../doc/glossary.rst:401
 msgid "Scene:"
 msgstr "Cảnh:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:402
+#: ../doc/glossary.rst:402
 msgid "Action that occurs in one location at one time."
 msgstr "Hành động xảy ra tại một địa điểm vào một thời điểm."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:403
+#: ../doc/glossary.rst:403
 msgid "Scrub:"
 msgstr "Di chuyển phát:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:404
+#: ../doc/glossary.rst:404
 msgid ""
 "Scrubbing is an act of moving the cursor or playhead across the Timeline "
 "manually.  Once specific to audio tracks, the term now also refers to video "
@@ -2024,22 +2024,22 @@ msgstr ""
 " đây cũng áp dụng cho các bản nhạc video."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:405
+#: ../doc/glossary.rst:405
 msgid "Shot:"
 msgstr "Cảnh quay:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:406
+#: ../doc/glossary.rst:406
 msgid "A recording of a single take."
 msgstr "Một bản ghi của một lần quay duy nhất."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:407
+#: ../doc/glossary.rst:407
 msgid "Side Data:"
 msgstr "Dữ liệu phụ:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:408
+#: ../doc/glossary.rst:408
 msgid ""
 "Auxiliary per-stream metadata (e.g. rotation, stereo3D, spherical) attached "
 "to packets or streams in containers like MP4."
@@ -2048,12 +2048,12 @@ msgstr ""
 "đính kèm vào các gói hoặc luồng trong các container như MP4."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:409
+#: ../doc/glossary.rst:409
 msgid "Slow-motion:"
 msgstr "Chuyển động chậm:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:410
+#: ../doc/glossary.rst:410
 msgid ""
 "A shot in which action takes place at a slower than average speed.  The "
 "camera achieves slow-motion by speeding up the frame rate during recording "
@@ -2064,12 +2064,12 @@ msgstr ""
 "sau đó phát lại các khung hình với tốc độ chậm hơn."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:411
+#: ../doc/glossary.rst:411
 msgid "Snap:"
 msgstr "Bắt điểm:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:412
+#: ../doc/glossary.rst:412
 msgid ""
 "Snapping quickly positions an object in alignment with grid lines, "
 "guidelines, or another object.  Snapping causes the object to automatically "
@@ -2081,12 +2081,12 @@ msgstr ""
 "trí chính xác khi người dùng kéo nó gần vị trí mong muốn."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:413
+#: ../doc/glossary.rst:413
 msgid "Spherical Video:"
 msgstr "Video hình cầu:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:414
+#: ../doc/glossary.rst:414
 msgid ""
 "A full-sphere (360×180°) video format that requires special metadata (SV3D) "
 "so players know to render it as an interactive panorama."
@@ -2095,23 +2095,23 @@ msgstr ""
 "(SV3D) để trình phát biết cách kết xuất nó như một panorama tương tác."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:415
+#: ../doc/glossary.rst:415
 msgid "Splice:"
 msgstr "Nối phim:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:416
+#: ../doc/glossary.rst:416
 msgid ""
 "The process of physically attaching two pieces of film using tape or cement."
 msgstr "Quá trình gắn vật lý hai mảnh phim bằng băng keo hoặc keo dán."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:417
+#: ../doc/glossary.rst:417
 msgid "Split cut (L-cut or J-cut):"
 msgstr "Cắt tách (cắt L hoặc cắt J):"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:418
+#: ../doc/glossary.rst:418
 msgid ""
 "An edit in which the audio starts before or after the picture cut.  Used for"
 " easing the transition from one scene or shot to another."
@@ -2120,12 +2120,12 @@ msgstr ""
 "Dùng để làm mượt chuyển tiếp từ cảnh hoặc cảnh quay này sang cảnh khác."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:419
+#: ../doc/glossary.rst:419
 msgid "Splitscreen:"
 msgstr "Chia màn hình:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:420
+#: ../doc/glossary.rst:420
 msgid ""
 "A unique effect that displays two or more scenes simultaneously on different"
 " parts of the screen."
@@ -2134,12 +2134,12 @@ msgstr ""
 "khác nhau của màn hình."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:421
+#: ../doc/glossary.rst:421
 msgid "Sound Effects:"
 msgstr "Hiệu ứng âm thanh:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:422
+#: ../doc/glossary.rst:422
 msgid ""
 "Sound effects are contrived audio, usually prerecorded, incorporated with a "
 "video soundtrack to resemble a real occurrence.  Blowing on a microphone, "
@@ -2150,12 +2150,12 @@ msgstr ""
 "có thể mô phỏng gió để đi kèm với hình ảnh bão."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:423
+#: ../doc/glossary.rst:423
 msgid "Soundtrack:"
 msgstr "Nhạc nền:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:424
+#: ../doc/glossary.rst:424
 msgid ""
 "The soundtrack is the audio portion of a video recording, often multifaceted"
 " with natural sound, voiceovers, background music, or other sounds."
@@ -2164,12 +2164,12 @@ msgstr ""
 "nhiên, lồng tiếng, nhạc nền hoặc các âm thanh khác."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:425
+#: ../doc/glossary.rst:425
 msgid "Stabilization:"
 msgstr "Ổn định hình ảnh:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:426
+#: ../doc/glossary.rst:426
 msgid ""
 "Image stabilization is a family of techniques that reduce blurring "
 "associated with the motion of a camera or other imaging device during "
@@ -2179,12 +2179,12 @@ msgstr ""
 " hoặc thiết bị ghi hình khác trong quá trình phơi sáng."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:427
+#: ../doc/glossary.rst:427
 msgid "Standard Definition (SD):"
 msgstr "Định nghĩa tiêu chuẩn (SD):"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:428
+#: ../doc/glossary.rst:428
 msgid ""
 "Television broadcasting standard with a lower resolution than high "
 "definition."
@@ -2192,33 +2192,33 @@ msgstr ""
 "Tiêu chuẩn phát sóng truyền hình với độ phân giải thấp hơn độ nét cao."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:429
+#: ../doc/glossary.rst:429
 msgid "Step:"
 msgstr "Bước:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:430
+#: ../doc/glossary.rst:430
 msgid ""
 "The act of moving forward or backward through video one frame at a time."
 msgstr "Hành động di chuyển tiến hoặc lùi qua video từng khung hình một."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:431
+#: ../doc/glossary.rst:431
 msgid "Still Frame:"
 msgstr "Khung hình tĩnh:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:432
+#: ../doc/glossary.rst:432
 msgid "A single frame of video is repeated, so it appears to have no motion."
 msgstr "Một khung hình video được lặp lại, tạo cảm giác không có chuyển động."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:433
+#: ../doc/glossary.rst:433
 msgid "Straight Cut:"
 msgstr "Cắt thẳng:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:434
+#: ../doc/glossary.rst:434
 msgid ""
 "The most common edit, consecutive clips placed one after another in the "
 "Timeline window.  Straight cuts are preferable to transitions when the "
@@ -2229,22 +2229,22 @@ msgstr ""
 "cảnh tương tự nhau và bạn không muốn các chỉnh sửa bị chú ý."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:435
+#: ../doc/glossary.rst:435
 msgid "Superimposing:"
 msgstr "Chồng hình:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:436
+#: ../doc/glossary.rst:436
 msgid "Combining images, where one or more layers involve transparency."
 msgstr "Kết hợp hình ảnh, trong đó một hoặc nhiều lớp có độ trong suốt."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:437
+#: ../doc/glossary.rst:437
 msgid "Sync (Synchronization):"
 msgstr "Đồng bộ (Synchronization):"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:438
+#: ../doc/glossary.rst:438
 msgid ""
 "Synchronization refers to the relative timing of audio (sound) and video "
 "(image) parts during creation, post-production (mixing), transmission, "
@@ -2254,12 +2254,12 @@ msgstr ""
 "quá trình tạo, hậu kỳ (trộn), truyền tải, nhận và xử lý phát lại."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:439
+#: ../doc/glossary.rst:439
 msgid "SECAM:"
 msgstr "SECAM:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:440
+#: ../doc/glossary.rst:440
 msgid ""
 "Systeme Electronique Couleur Avec Memoire, a TV format used mainly in "
 "Eastern Europe, Russia, and Africa."
@@ -2268,12 +2268,12 @@ msgstr ""
 "dụng ở Đông Âu, Nga và Châu Phi."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:442
+#: ../doc/glossary.rst:442
 msgid "SV3D (Spherical Video metadata):"
 msgstr "SV3D (Siêu dữ liệu Video hình cầu):"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:442
+#: ../doc/glossary.rst:442
 msgid ""
 "The “sv3d” atom in MP4/MOV files—side-data that marks a clip as 360° and "
 "carries projection, yaw/pitch/roll parameters."
@@ -2282,17 +2282,17 @@ msgstr ""
 " 360° và chứa các tham số chiếu, yaw/pitch/roll."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:447
+#: ../doc/glossary.rst:447
 msgid "-T-"
 msgstr "-T-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:448
+#: ../doc/glossary.rst:448
 msgid "Tilt:"
 msgstr "Nghiêng:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:449
+#: ../doc/glossary.rst:449
 msgid ""
 "Tilting is a cinematographic technique in which the camera stays in a fixed "
 "position but rotates up/down in a vertical plane."
@@ -2301,12 +2301,12 @@ msgstr ""
 "xoay lên/xuống trên mặt phẳng thẳng đứng."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:450
+#: ../doc/glossary.rst:450
 msgid "Timecode:"
 msgstr "Mã thời gian:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:451
+#: ../doc/glossary.rst:451
 msgid ""
 "The timecode is the discrete address given to each frame of the video (for "
 "example, 1:20:24:09).  Timecode makes frame-accurate editing possible and "
@@ -2317,12 +2317,12 @@ msgstr ""
 "và giúp biên tập viên xác định cảnh chính xác trong nhật ký."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:452
+#: ../doc/glossary.rst:452
 msgid "Time-lapse:"
 msgstr "Chụp nhanh:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:453
+#: ../doc/glossary.rst:453
 msgid ""
 "It is a technique for capturing each frame in a video at a much slower rate "
 "than usual.  When played back at regular speed, time appears to go by "
@@ -2335,12 +2335,12 @@ msgstr ""
 "hoặc tăng tốc video của bạn."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:454
+#: ../doc/glossary.rst:454
 msgid "Timeline:"
 msgstr "Timeline:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:455
+#: ../doc/glossary.rst:455
 msgid ""
 "The Timeline is an editing interface that lays out a video project in a "
 "linear fashion consisting of clips laid horizontally across the screen."
@@ -2349,12 +2349,12 @@ msgstr ""
 " các đoạn clip đặt ngang trên màn hình."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:456
+#: ../doc/glossary.rst:456
 msgid "Timeline Editing:"
 msgstr "Chỉnh sửa Timeline:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:457
+#: ../doc/glossary.rst:457
 msgid ""
 "Timeline editing is a computer-based method of editing, in which bars "
 "proportional to the length of a clip, represent video and audio clips on a "
@@ -2365,12 +2365,12 @@ msgstr ""
 " trên màn hình máy tính."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:458
+#: ../doc/glossary.rst:458
 msgid "Titling:"
 msgstr "Tạo tiêu đề:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:459
+#: ../doc/glossary.rst:459
 msgid ""
 "Titling is the process or result of incorporating on-screen text as credits,"
 " captions, or any other alphanumeric communication."
@@ -2379,22 +2379,22 @@ msgstr ""
 "như phần ghi công, phụ đề hoặc bất kỳ thông tin chữ số nào khác."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:460
+#: ../doc/glossary.rst:460
 msgid "Track:"
 msgstr "Track:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:461
+#: ../doc/glossary.rst:461
 msgid "A separate audio or video layer on a timeline."
 msgstr "Một lớp âm thanh hoặc video riêng biệt trên timeline."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:462
+#: ../doc/glossary.rst:462
 msgid "Transcode:"
 msgstr "Chuyển mã:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:463
+#: ../doc/glossary.rst:463
 msgid ""
 "Converting a digital file to another digital file format.  This usually "
 "involves audio and video compression."
@@ -2403,22 +2403,22 @@ msgstr ""
 "bao gồm nén âm thanh và video."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:464
+#: ../doc/glossary.rst:464
 msgid "Transparency:"
 msgstr "Độ trong suốt:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:465
+#: ../doc/glossary.rst:465
 msgid "Percentage of the opacity of a video clip or element."
 msgstr "Tỷ lệ phần trăm độ mờ của đoạn video hoặc phần tử."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:466
+#: ../doc/glossary.rst:466
 msgid "Transition:"
 msgstr "Chuyển cảnh:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:467
+#: ../doc/glossary.rst:467
 msgid ""
 "A method of juxtaposing two scenes.  Transitions can take many forms, "
 "including cuts, dissolves, and wipes."
@@ -2427,27 +2427,27 @@ msgstr ""
 "cắt, hòa tan và quét."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:469
+#: ../doc/glossary.rst:469
 msgid "Trim:"
 msgstr "Cắt:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:469
+#: ../doc/glossary.rst:469
 msgid "Removing frames from the beginning, middle, or end of a clip."
 msgstr "Loại bỏ các khung hình từ đầu, giữa hoặc cuối đoạn clip."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:474
+#: ../doc/glossary.rst:474
 msgid "-V-"
 msgstr "-V-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:475
+#: ../doc/glossary.rst:475
 msgid "Video Format:"
 msgstr "Định dạng Video:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:476
+#: ../doc/glossary.rst:476
 msgid ""
 "The video format is a standard that determines the way a video signal "
 "records on videotape.  Standards include DV, 8-mm, Beta, and VHS."
@@ -2456,12 +2456,12 @@ msgstr ""
 "băng video. Các tiêu chuẩn bao gồm DV, 8-mm, Beta và VHS."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:477
+#: ../doc/glossary.rst:477
 msgid "Voiceover:"
 msgstr "Lồng tiếng:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:478
+#: ../doc/glossary.rst:478
 msgid ""
 "A term used to describe off-camera narration that is not part of a scene "
 "(non-diegetic)."
@@ -2470,12 +2470,12 @@ msgstr ""
 "diegetic)."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:480
+#: ../doc/glossary.rst:480
 msgid "VTR:"
 msgstr "VTR:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:480
+#: ../doc/glossary.rst:480
 msgid ""
 "A Videotape recorder also referred to as a 'deck'.  Decks duplicate "
 "videotapes and inputting and outputting from a computer."
@@ -2484,17 +2484,17 @@ msgstr ""
 " dữ liệu từ máy tính."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:485
+#: ../doc/glossary.rst:485
 msgid "-W-"
 msgstr "-W-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:486
+#: ../doc/glossary.rst:486
 msgid "Widescreen:"
 msgstr "Màn hình rộng:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:487
+#: ../doc/glossary.rst:487
 msgid ""
 "A format in which the width-to-height ratio of the frame is greater than 4:3"
 " so that it is significantly wider than it is tall."
@@ -2503,12 +2503,12 @@ msgstr ""
 "khiến nó rộng hơn nhiều so với chiều cao."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:489
+#: ../doc/glossary.rst:489
 msgid "Wipe:"
 msgstr "Chuyển cảnh quét:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:489
+#: ../doc/glossary.rst:489
 msgid ""
 "A wipe is a transition from one shot to another.  The edge of the transition"
 " moves across the original image as a line or a pattern, revealing the new "
@@ -2518,17 +2518,17 @@ msgstr ""
 "cảnh di chuyển qua hình ảnh gốc như một đường hoặc mẫu, tiết lộ cảnh mới."
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:494
+#: ../doc/glossary.rst:494
 msgid "-Z-"
 msgstr "-Z-"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:496
+#: ../doc/glossary.rst:496
 msgid "Zoom:"
 msgstr "Phóng to:"
 
 # Translated with gpt-4.1-mini
-#: ../glossary.rst:496
+#: ../doc/glossary.rst:496
 msgid ""
 "A shot where the image grows more substantial or smaller by adjusting the "
 "focal length of the lens instead of physically moving the camera."

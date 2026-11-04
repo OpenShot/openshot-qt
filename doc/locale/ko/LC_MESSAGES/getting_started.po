@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,12 +18,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:21
+#: ../doc/getting_started.rst:21
 msgid "Video Editing Basics"
 msgstr "비디오 편집 기초"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:23
+#: ../doc/getting_started.rst:23
 msgid ""
 "You do not need to be a trained videographer to understand how to create "
 "videos well. Simple editing can keep your viewers engaged longer, and add a "
@@ -33,7 +33,7 @@ msgstr ""
 "편집자가 아니더라도 전문적인 느낌을 더할 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:27
+#: ../doc/getting_started.rst:27
 msgid ""
 "Basically, video editing is taking footage, cutting it up, removing the "
 "pieces you do not want, and keeping the bits you do. Back in the old days, "
@@ -44,37 +44,37 @@ msgstr ""
 "자르고 이어 붙이는 방식이었지만, 다행히도 소프트웨어 덕분에 이 과정이 훨씬 수월해졌습니다."
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:32
+#: ../doc/getting_started.rst:32
 msgid "There are three main jobs of video editing:"
 msgstr "비디오 편집의 세 가지 주요 작업은 다음과 같습니다:"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:34
+#: ../doc/getting_started.rst:34
 msgid "Remove mistakes or unwanted sections"
 msgstr "실수나 원하지 않는 부분 제거"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:35
+#: ../doc/getting_started.rst:35
 msgid "Keep the video moving at an engaging pace"
 msgstr "비디오가 흥미로운 속도로 진행되도록 유지"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:36
+#: ../doc/getting_started.rst:36
 msgid "Insert supporting footage, audio, or titles"
 msgstr "보조 영상, 오디오 또는 타이틀 삽입"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:38
+#: ../doc/getting_started.rst:38
 msgid "Use these three points as a checklist as you edit."
 msgstr "편집할 때 이 세 가지를 체크리스트로 사용하세요."
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:41
+#: ../doc/getting_started.rst:41
 msgid "Computer"
 msgstr "컴퓨터"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:42
+#: ../doc/getting_started.rst:42
 msgid ""
 "Video editing does not require an expensive machine, especially if you are a"
 " beginner. However, it would be best if you had a more recent monitor and "
@@ -89,12 +89,12 @@ msgstr ""
 " 안타깝게도 많은 구형 컴퓨터는 비디오 편집에 충분히 빠르지 않으므로 가능하면 전체 시스템을 업그레이드하는 것이 좋습니다."
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:50
+#: ../doc/getting_started.rst:50
 msgid "Accessories"
 msgstr "액세서리"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:51
+#: ../doc/getting_started.rst:51
 msgid ""
 "Before beginning a video project, ensure there is enough storage space on "
 "your computer to save all the necessary clips. For example, one hour of "
@@ -107,7 +107,7 @@ msgstr ""
 " 없다면 외장 드라이브를 구입하는 것이 해결책입니다."
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:57
+#: ../doc/getting_started.rst:57
 msgid ""
 "It would help if you had several cables, usually Firewire or USB, to connect"
 " your computer, external hard drive, and a camera. Different computers and "
@@ -118,12 +118,12 @@ msgstr ""
 "지원하는 커넥터가 다르므로 구매 전에 매뉴얼을 확인하세요."
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:63
+#: ../doc/getting_started.rst:63
 msgid "Practical Tips"
 msgstr "실용적인 팁"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:64
+#: ../doc/getting_started.rst:64
 msgid ""
 "Becoming a great video editor isn’t effortless, but with practice and "
 "patience, you’ll be editing like a professional in no time. Here are a few "
@@ -134,12 +134,12 @@ msgstr ""
 "알아야 할 몇 가지 필수 팁과 기술을 소개합니다."
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:69
+#: ../doc/getting_started.rst:69
 msgid "Pick the Right Computer"
 msgstr "적합한 컴퓨터 선택하기"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:70
+#: ../doc/getting_started.rst:70
 msgid ""
 "While having a great computer won’t necessarily make you a great video "
 "editor, a faster computer will allow you to focus more of your time on the "
@@ -151,12 +151,12 @@ msgstr ""
 "있게 해줍니다. 편집에 가장 좋은 컴퓨터에 대한 의견은 다양하지만, 결국 개인 취향에 달려 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:77
+#: ../doc/getting_started.rst:77
 msgid "Keep Shooting"
 msgstr "계속 촬영하기"
 
 # Main-window terminology review, 2026-09-26.
-#: ../getting_started.rst:78
+#: ../doc/getting_started.rst:78
 msgid ""
 "Record more video and audio than you think you will need for your project. "
 "Include video that enhances the scene, sets a mood, or tells a story. You "
@@ -170,17 +170,17 @@ msgid ""
 msgstr ""
 "프로젝트에 필요할 것보다 더 많은 비디오와 오디오를 녹화하세요. 장면을 강화하거나 분위기를 조성하거나 이야기를 전달하는 비디오를 "
 "포함하세요. 추가 비디오는 프로젝트에서 부드러운 전환에 사용할 수 있습니다. 프로젝트에 음성 해설, 내레이션, 화면 캡처 또는 웹캠 "
-"영상이 필요한 경우 :guilabel:`View->녹음/녹화 보기`를 사용하여 OpenShot의 녹화 도구를 열 수 있습니다. 마이크, "
-"시스템 오디오, 화면 및 웹캠 옵션에 대한 자세한 내용은 :ref:`recording_ref`를 참조하세요. 보다 전문화된 캡처 작업 "
-"흐름의 경우 외부 애플리케이션으로 녹화한 후 완성된 미디어를 OpenShot으로 가져올 수도 있습니다."
+"영상이 필요한 경우 :guilabel:`View->녹음/녹화 보기`\\ 를 사용하여 OpenShot의 녹화 도구를 열 수 있습니다. "
+"마이크, 시스템 오디오, 화면 및 웹캠 옵션에 대한 자세한 내용은 :ref:`recording_ref`\\ 를 참조하세요. 보다 전문화된"
+" 캡처 작업 흐름의 경우 외부 애플리케이션으로 녹화한 후 완성된 미디어를 OpenShot으로 가져올 수도 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:88
+#: ../doc/getting_started.rst:88
 msgid "Organize Your Project Files"
 msgstr "프로젝트 파일 정리하기"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:89
+#: ../doc/getting_started.rst:89
 msgid ""
 "Composition is the key to success, whether you are running Linux, on a Mac, "
 "or a Windows machine. Be sure to label video files, audio files, and even "
@@ -194,12 +194,12 @@ msgstr ""
 " 후 클립을 이동하면 프로젝트 전체를 잃을 수 있습니다. 편집을 시작하기 전에 정리하는 것이 매우 유리합니다."
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:98
+#: ../doc/getting_started.rst:98
 msgid "Watch Everything"
 msgstr "모든 것을 시청하기"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:99
+#: ../doc/getting_started.rst:99
 msgid ""
 "Watching everything is the first step in the editing process. Writer and "
 "filmmaker David Andrew Stoler says there is gold in the most unlikely of "
@@ -210,12 +210,12 @@ msgstr ""
 "보물이 있다고 말합니다: \"배우들이 가장 아름다운 표정을 짓는 순간은 컷 이후입니다.\""
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:105
+#: ../doc/getting_started.rst:105
 msgid "Edit for a Story"
 msgstr "이야기를 위한 편집"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:106
+#: ../doc/getting_started.rst:106
 msgid ""
 "Remember that as you edit, you are telling a story. Editing is so much more "
 "than merely cutting footage and adding effects. It is an opportunity to take"
@@ -227,12 +227,12 @@ msgstr ""
 "기회입니다. 복잡한 내러티브 영화든 개인 영상이든 더 깊이 있는 이야기를 전달합니다."
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:113
+#: ../doc/getting_started.rst:113
 msgid "Keyboard Shortcuts"
 msgstr "키보드 단축키"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:114
+#: ../doc/getting_started.rst:114
 msgid ""
 "One of the easiest ways to tell the difference between and professional "
 "video editor and a novice is to simply look at how much they use the "
@@ -243,12 +243,12 @@ msgstr ""
 "것이 프로젝트 전체 시간에 큰 차이를 만든다는 것을 압니다."
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:120
+#: ../doc/getting_started.rst:120
 msgid "Learn the Lingo"
 msgstr "용어 배우기"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:121
+#: ../doc/getting_started.rst:121
 msgid ""
 "Video editing is not just a hobby or a profession; it is an industry. And "
 "just like any industry, there is a ton of jargon to learn. Practically "
@@ -261,12 +261,12 @@ msgstr ""
 "클라이언트와의 소통에 도움이 됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:129
+#: ../doc/getting_started.rst:129
 msgid "Assemble, Then Make a Rough Cut"
 msgstr "조립한 후 러프 컷 만들기"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:130
+#: ../doc/getting_started.rst:130
 msgid ""
 "Drag and drop all your video footage into a timeline and make sure your "
 "frame size and frame rates are consistent. Begin a new timeline and drag-"
@@ -277,12 +277,12 @@ msgstr ""
 "클립을 드래그 앤 드롭하여 어셈블리 컷을 만드세요. 작업을 자주 저장하고 각 버전의 날짜와 시간을 기록하는 것을 잊지 마세요."
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:136
+#: ../doc/getting_started.rst:136
 msgid "Refine Your Video"
 msgstr "비디오 다듬기"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:137
+#: ../doc/getting_started.rst:137
 msgid ""
 "In this phase, your rough cut begins to resemble a cohesive project. Adjust "
 "the sound and color, make sure the dialog is audible, and add music, titles,"
@@ -296,12 +296,12 @@ msgstr ""
 " 영상을 위해 기본적인 후처리가 거의 항상 필요합니다."
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:145
+#: ../doc/getting_started.rst:145
 msgid "Refine Some More"
 msgstr "더 다듬기"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:146
+#: ../doc/getting_started.rst:146
 msgid ""
 "A slow scene can set the mood and add tension or it can bore an audience. A "
 "fast scene can add adrenaline to your audience’s systems or it can give them"
@@ -314,12 +314,12 @@ msgstr ""
 "낙담하지 마세요."
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:153
+#: ../doc/getting_started.rst:153
 msgid "Exporting"
 msgstr "내보내기"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:154
+#: ../doc/getting_started.rst:154
 msgid ""
 "People view most of their projects on phones, tablets, or computers, so it "
 "is essential to know how to export for the web. The goal when exporting a "
@@ -332,12 +332,12 @@ msgstr ""
 " 다음과 같습니다:"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:160
+#: ../doc/getting_started.rst:160
 msgid "Codec"
 msgstr "코덱"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:161
+#: ../doc/getting_started.rst:161
 msgid ""
 "A codec determines the type of file format (MP4, AVI, MOV). The more "
 "compression performed by the codec, the smaller your video’s size. Videos "
@@ -347,12 +347,12 @@ msgstr ""
 " 비디오는 시각적 품질이 낮은 경향이 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:166
+#: ../doc/getting_started.rst:166
 msgid "Resolution"
 msgstr "해상도"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:167
+#: ../doc/getting_started.rst:167
 msgid ""
 "Resolution refers to the number of horizontal and vertical pixels (dots on "
 "display) your video contains. For example, a 4K UHD (2160P) video has four "
@@ -363,12 +363,12 @@ msgstr ""
 "FHD(1080P) 비디오보다 네 배 더 높은 해상도를 가집니다. 해상도가 높을수록 저장할 정보가 많아져 파일 크기가 커집니다."
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:173
+#: ../doc/getting_started.rst:173
 msgid "Bit Rate"
 msgstr "비트 전송률"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:174
+#: ../doc/getting_started.rst:174
 msgid ""
 "The Bit Rate is the measure of the speed of data processing of your video. A"
 " higher bit rate means higher-quality video and larger files. OpenShot "
@@ -379,12 +379,12 @@ msgstr ""
 "OpenShot에서는 내보내기 비디오 창의 고급 탭에서 비트 전송률/품질을 수동으로 설정할 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:180
+#: ../doc/getting_started.rst:180
 msgid "Frame Rate"
 msgstr "프레임 속도"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:181
+#: ../doc/getting_started.rst:181
 msgid ""
 "The frequency (in Hz) at which consecutive images, called frames, appear on "
 "the display is the Frame Rate. Typically, you export your video in the film "
@@ -397,12 +397,12 @@ msgstr ""
 "60fps로 내보내면 파일 크기가 두 배가 된다는 점을 유의하세요."
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:188
+#: ../doc/getting_started.rst:188
 msgid "Conclusion"
 msgstr "결론"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:189
+#: ../doc/getting_started.rst:189
 msgid ""
 "In conclusion, video editing is an accessible skill that can elevate your "
 "video content even if you're not a professional videographer. With the "

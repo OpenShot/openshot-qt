@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 4.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: 2026-08-30 16:50-0500\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: ../color.rst:23
+#: ../doc/color.rst:23
 msgid "Color"
 msgstr "Kolor"
 
-#: ../color.rst:25
+#: ../doc/color.rst:25
 msgid ""
 "Have you ever noticed that thriller films look gritty and desaturated while "
 "romantic comedies feel vibrant and warm? That is not an accident — it is "
@@ -37,7 +37,7 @@ msgstr ""
 "profesjonalne narzędzia do jego wykorzystania, niezależnie od tego, czy "
 "naprawiasz problematyczne ujęcie, czy tworzysz kinowy wygląd od podstaw."
 
-#: ../color.rst:32
+#: ../doc/color.rst:32
 msgid ""
 "*The OpenShot Color View: video preview in the center, Color Wheels dock on "
 "the right, and video scopes (Luma Waveform and Histogram) below.*"
@@ -45,7 +45,7 @@ msgstr ""
 "*Widok Koloru OpenShot: podgląd wideo na środku, panel Kół Kolorów po prawej"
 " oraz zakresy wideo (fale luminancji i histogram) poniżej.*"
 
-#: ../color.rst:37
+#: ../doc/color.rst:37
 msgid ""
 ":ref:`effects_color_grade` in :doc:`effects` — full property reference and "
 "keyframe details for the Color Grade effect."
@@ -53,11 +53,11 @@ msgstr ""
 ":ref:`effects_color_grade` w :doc:`effects` — pełna referencja właściwości i"
 " szczegóły klatek kluczowych efektu Kolorowania."
 
-#: ../color.rst:43
+#: ../doc/color.rst:43
 msgid "Understanding Color"
 msgstr "Zrozumienie koloru"
 
-#: ../color.rst:45
+#: ../doc/color.rst:45
 msgid ""
 "Every pixel in a digital video frame is made of three numbers: **Red**, "
 "**Green**, and **Blue** (each 0–255). White is all three at maximum; black "
@@ -72,11 +72,11 @@ msgstr ""
 "wtórne (czerwony + zielony = żółty, czerwony + niebieski = magenta, zielony "
 "+ niebieski = cyjan)."
 
-#: ../color.rst:49
+#: ../doc/color.rst:49
 msgid "Four properties you will adjust constantly:"
 msgstr "Cztery właściwości, które będziesz stale regulować:"
 
-#: ../color.rst:51
+#: ../doc/color.rst:51
 msgid ""
 "**Exposure** — overall brightness. Overexposed footage has many pixels near "
 "255 (blown-out highlights); underexposed footage is crushed near 0."
@@ -85,7 +85,7 @@ msgstr ""
 "bliskich 255 (przepalone światła); niedoświetlone ujęcia są ściśnięte blisko"
 " 0."
 
-#: ../color.rst:53
+#: ../doc/color.rst:53
 msgid ""
 "**Contrast** — the spread between brightest and darkest. High contrast is "
 "dramatic; low contrast looks flat or milky."
@@ -94,7 +94,7 @@ msgstr ""
 "punktami. Wysoki kontrast jest dramatyczny; niski kontrast wygląda na płaski"
 " lub mleczny."
 
-#: ../color.rst:55
+#: ../doc/color.rst:55
 msgid ""
 "**Saturation** — how vivid the colors are. Zero saturation = grayscale. "
 "Cameras often record slightly less saturation than reality to give editors "
@@ -104,7 +104,7 @@ msgstr ""
 "Kamery często rejestrują nieco mniejsze nasycenie niż w rzeczywistości, aby "
 "dać montażystom więcej swobody."
 
-#: ../color.rst:57
+#: ../doc/color.rst:57
 msgid ""
 "**Hue** — the actual color (red, yellow, green, blue…). Shifting hue rotates"
 " all colors around the color wheel and is mostly used for creative stylistic"
@@ -114,11 +114,11 @@ msgstr ""
 "Zmiana odcienia obraca wszystkie kolory wokół koła barw i jest głównie "
 "używana do kreatywnych efektów stylistycznych."
 
-#: ../color.rst:61
+#: ../doc/color.rst:61
 msgid "Video Scopes — What They Are and Why They Matter"
 msgstr "Zakresy wideo — czym są i dlaczego są ważne"
 
-#: ../color.rst:63
+#: ../doc/color.rst:63
 msgid ""
 "Your monitor is not a reliable measuring tool — room lighting, screen "
 "brightness, and uncalibrated displays all affect what you see. **Video "
@@ -131,7 +131,7 @@ msgstr ""
 "obrazie jako precyzyjne wykresy. Nigdy nie kłamią, nawet jeśli twój monitor "
 "tak."
 
-#: ../color.rst:67
+#: ../doc/color.rst:67
 msgid ""
 "OpenShot includes three scopes, all accessible from :guilabel:`View → "
 "Scopes` or opened automatically by the clip menu options described in "
@@ -141,7 +141,7 @@ msgstr ""
 "Zakresy` lub otwierane automatycznie przez opcje menu klipu opisane w "
 ":ref:`getting_started_ref`:"
 
-#: ../color.rst:70
+#: ../doc/color.rst:70
 msgid ""
 "**Luma Waveform** — shows brightness across the frame, column by column. "
 "Instantly reveals overexposure, underexposure, and contrast problems. See "
@@ -151,7 +151,7 @@ msgstr ""
 "Natychmiast ujawnia problemy z prześwietleniem, niedoświetleniem i "
 "kontrastem. Zobacz :ref:`luma_waveform_ref`."
 
-#: ../color.rst:72
+#: ../doc/color.rst:72
 msgid ""
 "**Histogram** — shows how many pixels exist at each brightness level. Great "
 "for exposure and channel balance at a glance. See :ref:`histogram_ref`."
@@ -160,7 +160,7 @@ msgstr ""
 " Świetny do szybkiej oceny ekspozycji i balansu kanałów. Zobacz "
 ":ref:`histogram_ref`."
 
-#: ../color.rst:74
+#: ../doc/color.rst:74
 msgid ""
 "**Vectorscope** — a circular chroma plot showing the hue and saturation of "
 "every pixel. Ideal for checking color casts, overall saturation, and — with "
@@ -171,7 +171,7 @@ msgstr ""
 " oraz — dzięki wbudowanej linii odcienia skóry — oceny twarzy. Zobacz "
 ":ref:`vectorscope_ref`."
 
-#: ../color.rst:78
+#: ../doc/color.rst:78
 msgid ""
 "Every scope also has a **Region** button in its toolbar. Click it and drag a"
 " box over any part of the video preview to restrict scope analysis to just "
@@ -183,11 +183,11 @@ msgstr ""
 " zakresu tylko do tego obszaru — przydatne do izolowania twarzy, nieba lub "
 "dowolnego konkretnego obszaru klatki."
 
-#: ../color.rst:83
+#: ../doc/color.rst:83
 msgid "Color Correction — Fixing What Is Wrong"
 msgstr "Korekcja koloru — naprawianie błędów"
 
-#: ../color.rst:85
+#: ../doc/color.rst:85
 msgid ""
 "**Color correction** is the process of fixing technical problems in footage "
 "so it looks the way reality appeared: wrong white balance, bad exposure, "
@@ -200,11 +200,11 @@ msgstr ""
 "neutralny obraz, który wygląda naturalnie i dobrze prezentuje się na każdym "
 "ekranie. Zobacz :ref:`color_correction_ref`."
 
-#: ../color.rst:90
+#: ../doc/color.rst:90
 msgid "Color Grading — Building a Look"
 msgstr "Kolorowanie — tworzenie wyglądu"
 
-#: ../color.rst:92
+#: ../doc/color.rst:92
 msgid ""
 "**Color grading** is the creative step: using the same tools to give "
 "corrected footage a deliberate visual mood or style. A warm golden "
@@ -218,11 +218,11 @@ msgstr ""
 "kolorowanie to moment, gdy materiał przechodzi od „wygląda dobrze” do "
 "„wygląda celowo”. Zobacz :ref:`color_grading_ref`."
 
-#: ../color.rst:99
+#: ../doc/color.rst:99
 msgid "Getting Started"
 msgstr "Pierwsze kroki"
 
-#: ../color.rst:101
+#: ../doc/color.rst:101
 msgid ""
 "OpenShot offers several ways to open its color tools, depending on what you "
 "need:"
@@ -230,11 +230,11 @@ msgstr ""
 "OpenShot oferuje kilka sposobów otwarcia narzędzi kolorystycznych, w "
 "zależności od potrzeb:"
 
-#: ../color.rst:106
+#: ../doc/color.rst:106
 msgid "**Right-click a clip → Look → Adjust Colors**"
 msgstr "**Kliknij prawym przyciskiem na klip → Wygląd → Dostosuj kolory**"
 
-#: ../color.rst:104
+#: ../doc/color.rst:104
 msgid ""
 "The quickest all-in-one setup. OpenShot adds the :guilabel:`Color Grade` "
 "effect to the clip, selects it, opens the :guilabel:`Properties` panel, and "
@@ -246,7 +246,7 @@ msgstr ""
 ":guilabel:`Właściwości` oraz pokazuje panel :guilabel:`Color Wheels` i "
 "wszystkie trzy zakresy wideo — gotowe do natychmiastowego kolorowania."
 
-#: ../color.rst:110
+#: ../doc/color.rst:110
 msgid ""
 "**Right-click a clip → Look → Color → [preset]** *(Auto Contrast, Lift "
 "Shadows, Warm Up, Boost Color…)*"
@@ -254,7 +254,7 @@ msgstr ""
 "**Kliknij prawym przyciskiem na klip → Wygląd → Kolor → [preset]** *(Auto "
 "Contrast, Lift Shadows, Warm Up, Boost Color…)*"
 
-#: ../color.rst:109
+#: ../doc/color.rst:109
 msgid ""
 "Adds the Color Grade effect with a useful preset already applied. The Color "
 "Wheels and scopes are not opened automatically — open them any time from "
@@ -264,11 +264,11 @@ msgstr ""
 "kolorów i zakresy nie są otwierane automatycznie — możesz je otworzyć w "
 "dowolnym momencie z :guilabel:`Widok → Zakresy`."
 
-#: ../color.rst:115
+#: ../doc/color.rst:115
 msgid "**Right-click a clip → Look → Analyze Colors**"
 msgstr "**Kliknij prawym przyciskiem na klip → Wygląd → Analizuj kolory**"
 
-#: ../color.rst:113
+#: ../doc/color.rst:113
 msgid ""
 "Opens all three scopes (Luma Waveform, Histogram, and Vectorscope, tabbed "
 "together on the right) without adding any Color Grade effect. Use this to "
@@ -280,11 +280,11 @@ msgstr ""
 "tego do oceny materiału przed podjęciem decyzji o kolorowaniu lub po prostu "
 "do monitorowania poziomów podczas odtwarzania."
 
-#: ../color.rst:120
+#: ../doc/color.rst:120
 msgid "**View → Color View** *(optional immersive mode)*"
 msgstr "**Widok → Widok koloru** *(opcjonalny tryb immersyjny)*"
 
-#: ../color.rst:118
+#: ../doc/color.rst:118
 msgid ""
 "Switches the entire interface into a dedicated color grading layout: the "
 "video preview is maximized in the center, non-color docks are hidden, the "
@@ -296,11 +296,11 @@ msgstr ""
 "kolorem, dok Color Wheels pojawia się po prawej, a mierniki poniżej. Po "
 "zakończeniu wróć do normalnego układu z tego samego menu."
 
-#: ../color.rst:123
+#: ../doc/color.rst:123
 msgid "**Effects tab → drag Color Grade onto a clip**"
 msgstr "**Karta Efekty → przeciągnij Korekcję Koloru na klip**"
 
-#: ../color.rst:123
+#: ../doc/color.rst:123
 msgid ""
 "The fully manual approach. Add the effect without opening any docks "
 "automatically."
@@ -308,11 +308,11 @@ msgstr ""
 "Całkowicie ręczne podejście. Dodaj efekt bez automatycznego otwierania "
 "jakichkolwiek doków."
 
-#: ../color.rst:128
+#: ../doc/color.rst:128
 msgid "Video Scopes"
 msgstr "Mierniki wideo"
 
-#: ../color.rst:130
+#: ../doc/color.rst:130
 msgid ""
 "Each scope updates live as the playhead moves. Use the **Region** button in "
 "any scope's toolbar to analyze just a selected area of the preview rather "
@@ -322,11 +322,11 @@ msgstr ""
 "odtwarzania. Użyj przycisku **Region** na pasku narzędzi dowolnego miernika,"
 " aby analizować tylko wybrany obszar podglądu zamiast całej klatki."
 
-#: ../color.rst:136
+#: ../doc/color.rst:136
 msgid "The Luma Waveform"
 msgstr "Fala luminancji"
 
-#: ../color.rst:138
+#: ../doc/color.rst:138
 msgid ""
 "The Luma Waveform maps every pixel by horizontal position (X axis = left-to-"
 "right across the frame) and brightness (Y axis = 0% at bottom to 100% at "
@@ -338,7 +338,7 @@ msgstr ""
 "wiele pikseli ma tę samą jasność na tej samej pozycji poziomej, ślad świeci "
 "jaśniej."
 
-#: ../color.rst:144
+#: ../doc/color.rst:144
 msgid ""
 "*The Luma Waveform in RGB Parade mode, showing red, green, and blue channels"
 " side by side.*"
@@ -346,15 +346,15 @@ msgstr ""
 "*Fala luminancji w trybie RGB Parade, pokazująca kanały czerwony, zielony i "
 "niebieski obok siebie.*"
 
-#: ../color.rst:146 ../color.rst:188 ../color.rst:230
+#: ../doc/color.rst:146 ../doc/color.rst:188 ../doc/color.rst:230
 msgid "**How to read it:**"
 msgstr "**Jak to czytać:**"
 
-#: ../color.rst:148
+#: ../doc/color.rst:148
 msgid "Waveform clustered near the **bottom** → underexposed. Raise Exposure."
 msgstr "Fala skupiona blisko **dołu** → niedoświetlona. Zwiększ ekspozycję."
 
-#: ../color.rst:149
+#: ../doc/color.rst:149
 msgid ""
 "Waveform packed against the **top** → overexposed. Lower Exposure or "
 "Highlights."
@@ -362,7 +362,7 @@ msgstr ""
 "Fala ściśnięta przy **górze** → prześwietlona. Zmniejsz ekspozycję lub "
 "światła."
 
-#: ../color.rst:150
+#: ../doc/color.rst:150
 msgid ""
 "A **narrow horizontal band** in the middle → low contrast, image looks "
 "milky. Increase Contrast."
@@ -370,7 +370,7 @@ msgstr ""
 " **Wąski poziomy pas** na środku → niski kontrast, obraz wygląda na mleczny."
 " Zwiększ kontrast."
 
-#: ../color.rst:151
+#: ../doc/color.rst:151
 msgid ""
 "A **thick line at the very bottom** → blacks are crushed. Raise Shadows or "
 "lift the bottom-left point of Curve: All to restore shadow detail."
@@ -378,7 +378,7 @@ msgstr ""
 " **Gruba linia na samym dole** → czernie są zgniecione. Podnieś cienie lub "
 "unieś lewy dolny punkt krzywej: Wszystko, aby przywrócić szczegóły cieni."
 
-#: ../color.rst:154
+#: ../doc/color.rst:154
 msgid ""
 "IRE reference lines appear at 10%, 50%, and 90% as faint dashed lines. A "
 "well-exposed image keeps highlights below 90% and shadows above 5%."
@@ -387,23 +387,23 @@ msgstr ""
 "linie. Dobrze naświetlony obraz utrzymuje światła poniżej 90% i cienie "
 "powyżej 5%."
 
-#: ../color.rst:158
+#: ../doc/color.rst:158
 msgid "Waveform Modes"
 msgstr "Tryby fali"
 
-#: ../color.rst:164
+#: ../doc/color.rst:164
 msgid "Mode"
 msgstr "Tryb"
 
-#: ../color.rst:164
+#: ../doc/color.rst:164
 msgid "What It Shows"
 msgstr "Co pokazuje"
 
-#: ../color.rst:166
+#: ../doc/color.rst:166
 msgid "Luma"
 msgstr "Luminancja"
 
-#: ../color.rst:166
+#: ../doc/color.rst:166
 msgid ""
 "Brightness only (ignores color). Best for exposure and contrast work. Trace "
 "color can be changed to Green, White, or Orange."
@@ -411,11 +411,11 @@ msgstr ""
 "Tylko jasność (ignoruje kolor). Najlepszy do pracy z ekspozycją i "
 "kontrastem. Kolor śladu można zmienić na zielony, biały lub pomarańczowy."
 
-#: ../color.rst:168
+#: ../doc/color.rst:168
 msgid "RGB Overlay"
 msgstr "Nakładka RGB"
 
-#: ../color.rst:168
+#: ../doc/color.rst:168
 msgid ""
 "Red, green, and blue channels drawn on top of each other in their natural "
 "colors. Quick visual check for overall channel balance."
@@ -423,11 +423,11 @@ msgstr ""
 "Kanały czerwony, zielony i niebieski nałożone na siebie w ich naturalnych "
 "kolorach. Szybka wizualna kontrola ogólnej równowagi kanałów."
 
-#: ../color.rst:170
+#: ../doc/color.rst:170
 msgid "RGB Parade"
 msgstr "Parada RGB"
 
-#: ../color.rst:170
+#: ../doc/color.rst:170
 msgid ""
 "Three side-by-side panels (R, G, B). If one panel sits noticeably higher "
 "than the others in areas that should be neutral, white balance is off. Blue "
@@ -438,19 +438,19 @@ msgstr ""
 "nieprawidłowy. Niebieski wyższy niż czerwony w światłach → obraz jest zbyt "
 "chłodny."
 
-#: ../color.rst:173
+#: ../doc/color.rst:173
 msgid "Red / Green / Blue"
 msgstr "Czerwony / Zielony / Niebieski"
 
-#: ../color.rst:173
+#: ../doc/color.rst:173
 msgid "Shows a single channel in isolation."
 msgstr "Pokazuje pojedynczy kanał w izolacji."
 
-#: ../color.rst:179
+#: ../doc/color.rst:179
 msgid "The Histogram"
 msgstr "Histogram"
 
-#: ../color.rst:181
+#: ../doc/color.rst:181
 msgid ""
 "The Histogram sorts all pixels by brightness (0 = black on the left, 255 = "
 "white on the right) and shows how many pixels exist at each level as a bar "
@@ -461,15 +461,15 @@ msgstr ""
 "jako wykres słupkowy. Nałożone są kanały czerwony, zielony, niebieski i "
 "luminancja."
 
-#: ../color.rst:186
+#: ../doc/color.rst:186
 msgid "*The Histogram in All Channels / Logarithmic mode.*"
 msgstr "*Histogram we wszystkich kanałach / tryb logarytmiczny.*"
 
-#: ../color.rst:190
+#: ../doc/color.rst:190
 msgid "Bars **clustered left** → underexposed."
 msgstr "Słupki **skupione po lewej** → niedoświetlone."
 
-#: ../color.rst:191
+#: ../doc/color.rst:191
 msgid ""
 "Bars **pushed against the right edge** → overexposed, possibly clipping. A "
 "sharp wall on the right means highlight detail is gone."
@@ -477,7 +477,7 @@ msgstr ""
 "Słupki **przyciśnięte do prawej krawędzi** → prześwietlone, możliwe "
 "przepołowienie. Ostra ściana po prawej oznacza utratę szczegółów świateł."
 
-#: ../color.rst:193
+#: ../doc/color.rst:193
 msgid ""
 "A **narrow hill in the middle** → low contrast. Increasing Contrast will "
 "spread the bars out."
@@ -485,11 +485,11 @@ msgstr ""
 " **Wąskie wzniesienie na środku** → niski kontrast. Zwiększenie kontrastu "
 "rozłoży słupki."
 
-#: ../color.rst:195
+#: ../doc/color.rst:195
 msgid "The Histogram dock has two dropdowns:"
 msgstr "Dok histogramu ma dwa rozwijane menu:"
 
-#: ../color.rst:197
+#: ../doc/color.rst:197
 msgid ""
 "**Channel** — *All Channels* shows R, G, B, and luma overlaid; individual "
 "options isolate one. If the Red histogram extends further right than Green "
@@ -499,7 +499,7 @@ msgstr ""
 "pojedyncze opcje izolują jeden kanał. Jeśli histogram czerwony sięga dalej "
 "na prawo niż zielony i niebieski, obraz jest ciepły."
 
-#: ../color.rst:199
+#: ../doc/color.rst:199
 msgid ""
 "**Scale** — *Logarithmic* (default) keeps rare tonal values visible. "
 "*Linear* shows raw counts, useful for comparing the relative weight of "
@@ -509,11 +509,11 @@ msgstr ""
 "wartości tonalnych. *Liniowa* pokazuje surowe liczby, przydatne do "
 "porównywania względnej wagi różnych tonów."
 
-#: ../color.rst:205
+#: ../doc/color.rst:205
 msgid "The Vectorscope"
 msgstr "Wektoroskop"
 
-#: ../color.rst:207
+#: ../doc/color.rst:207
 msgid ""
 "The Vectorscope is a 2D chroma plot. Each pixel is placed on a circular "
 "graph by its **hue** (direction from center) and **saturation** (distance "
@@ -525,7 +525,7 @@ msgstr ""
 "środka) i **nasycenia** (odległość od środka). Piksel dokładnie w centrum "
 "jest bezbarwny (szary lub czarny); ten na krawędzi jest w pełni nasycony."
 
-#: ../color.rst:213
+#: ../doc/color.rst:213
 msgid ""
 "*The Vectorscope in Colorized mode, with the skin tone cluster visible near "
 "the center.*"
@@ -533,7 +533,7 @@ msgstr ""
 "*Wektoroskop w trybie kolorowym, z widoczną grupą odcieni skóry blisko "
 "środka.*"
 
-#: ../color.rst:215
+#: ../doc/color.rst:215
 msgid ""
 "The outer ring shows broadcast hue labels — **R** (red), **Mg** (magenta), "
 "**B** (blue), **Cy** (cyan), **G** (green), **Yi** (yellow) — at their "
@@ -549,11 +549,11 @@ msgstr ""
 "mniej więcej leżeć wzdłuż tej linii w żółto-pomarańczowej strefie między Yi "
 "a R."
 
-#: ../color.rst:220
+#: ../doc/color.rst:220
 msgid "**Display modes:**"
 msgstr "**Tryby wyświetlania:**"
 
-#: ../color.rst:222
+#: ../doc/color.rst:222
 msgid ""
 "**Colorized** (default) — each plotted pixel adopts the hue color of its "
 "position on the wheel. Makes it easy to see which colors are present and how"
@@ -563,7 +563,7 @@ msgstr ""
 "swojej pozycji na kole. Ułatwia to zobaczenie, które kolory są obecne i jak "
 "bardzo są nasycone."
 
-#: ../color.rst:224
+#: ../doc/color.rst:224
 msgid ""
 "**Density** — monochrome brightness. Brighter = more pixels sharing that "
 "hue/saturation. Good for focusing on shape and balance rather than color "
@@ -573,7 +573,7 @@ msgstr ""
 "samym odcieniu/nasyceniu. Dobre do skupienia się na kształcie i równowadze "
 "zamiast na tożsamości koloru."
 
-#: ../color.rst:226
+#: ../doc/color.rst:226
 msgid ""
 "**Intensity** — heatmap from blue (sparse) to red (dense). Quickly shows "
 "which colors dominate."
@@ -581,7 +581,7 @@ msgstr ""
 "**Intensywność** — mapa cieplna od niebieskiego (rzadki) do czerwonego "
 "(gęsty). Szybko pokazuje, które kolory dominują."
 
-#: ../color.rst:228
+#: ../doc/color.rst:228
 msgid ""
 "**Zoom:** 100%, 200%, or 400%. Use 200% for skin tone work — it magnifies "
 "subtle shifts near center."
@@ -589,7 +589,7 @@ msgstr ""
 "**Powiększenie:** 100%, 200% lub 400%. Użyj 200% do pracy z odcieniami skóry"
 " — powiększa subtelne przesunięcia blisko środka."
 
-#: ../color.rst:232
+#: ../doc/color.rst:232
 msgid ""
 "Plot concentrated near the **center** → image is desaturated. Increase "
 "Saturation or Vibrance."
@@ -597,7 +597,7 @@ msgstr ""
 "Wykres skoncentrowany blisko **centrum** → obraz jest odbarwiony. Zwiększ "
 "Nasycenie lub Żywość."
 
-#: ../color.rst:233
+#: ../doc/color.rst:233
 msgid ""
 "Plot tilted toward one side → color cast. Use Temperature, Tint, or the "
 "Global color wheel to push the cluster back toward center."
@@ -606,7 +606,7 @@ msgstr ""
 "Temperatura, Odcień lub globalnego koła kolorów, aby przesunąć skupisko z "
 "powrotem do centrum."
 
-#: ../color.rst:235
+#: ../doc/color.rst:235
 msgid ""
 "For **skin tone evaluation**: use the Region selector to draw a box over a "
 "face in the preview. The cluster should fall along the dashed skin tone line"
@@ -616,11 +616,11 @@ msgstr ""
 "wokół twarzy w podglądzie. Skupisko powinno znajdować się wzdłuż przerywanej"
 " linii odcienia skóry (zobacz :ref:`skin_tones_ref`)."
 
-#: ../color.rst:241
+#: ../doc/color.rst:241
 msgid "Color Correction"
 msgstr "Korekcja koloru"
 
-#: ../color.rst:243
+#: ../doc/color.rst:243
 msgid ""
 "Color correction fixes technical problems — wrong white balance, bad "
 "exposure, flat contrast — so footage looks clean and natural. It is always "
@@ -631,11 +631,11 @@ msgstr ""
 "czysto i naturalnie. To zawsze pierwszy krok, przed jakąkolwiek pracą "
 "twórczą."
 
-#: ../color.rst:249
+#: ../doc/color.rst:249
 msgid "White Balance — Making Whites Look White"
 msgstr "Balans bieli — sprawianie, że biele wyglądają na białe"
 
-#: ../color.rst:251
+#: ../doc/color.rst:251
 msgid ""
 "Different light sources cast different colors: incandescent bulbs are "
 "orange-warm, fluorescent lights are greenish, open shade is cool blue. When "
@@ -647,7 +647,7 @@ msgstr ""
 "niebieski. Gdy automatyczny balans bieli w kamerze się myli, materiał "
 "wygląda na zabarwiony. Naprawa tego to niemal zawsze pierwszy krok."
 
-#: ../color.rst:255
+#: ../doc/color.rst:255
 msgid ""
 "Use **Temperature** and **Tint** in the :guilabel:`Color Grade` effect "
 "properties:"
@@ -655,7 +655,7 @@ msgstr ""
 "Użyj **Temperatury** i **Odcienia** w właściwościach efektu :guilabel:`Color"
 " Grade`:"
 
-#: ../color.rst:257
+#: ../doc/color.rst:257
 msgid ""
 "**Temperature** — shifts the image warmer (positive) or cooler (negative). "
 "Footage that looks too orange? Slide it negative."
@@ -664,7 +664,7 @@ msgstr ""
 "chłodniejszą (ujemna). Materiał wygląda zbyt pomarańczowo? Przesuń w stronę "
 "ujemną."
 
-#: ../color.rst:259
+#: ../doc/color.rst:259
 msgid ""
 "**Tint** — fine-tunes green/magenta balance. Use this after Temperature to "
 "remove a lingering fluorescent tinge. Positive = magenta, negative = green."
@@ -673,7 +673,7 @@ msgstr ""
 "Temperaturze, aby usunąć utrzymujący się fluorescencyjny odcień. Dodatnia "
 "wartość = magenta, ujemna = zieleń."
 
-#: ../color.rst:262
+#: ../doc/color.rst:262
 msgid ""
 "A quick check: find something in the shot that should be neutral — a white "
 "wall, a gray shirt, the whites of someone's eyes. The **RGB Parade** "
@@ -685,11 +685,11 @@ msgstr ""
 "to obiektywnym: wszystkie trzy kanały powinny mieć tę samą wysokość w tych "
 "neutralnych obszarach."
 
-#: ../color.rst:269
+#: ../doc/color.rst:269
 msgid "Skin Tones"
 msgstr "Odcienie skóry"
 
-#: ../color.rst:271
+#: ../doc/color.rst:271
 msgid ""
 "Human faces are the most scrutinized subjects in video. Viewers sense when "
 "skin looks wrong instantly, even if they cannot say why. Good skin tones are"
@@ -700,7 +700,7 @@ msgstr ""
 "powiedzieć dlaczego. Dobre odcienie skóry są ciepłe — skłaniają się ku "
 "pomarańczowemu, a nie zielonemu czy niebieskiemu."
 
-#: ../color.rst:274
+#: ../doc/color.rst:274
 msgid ""
 "All human skin tones — regardless of race — fall roughly along the same "
 "diagonal line on a vectorscope: the **skin tone line**. They shift lighter "
@@ -713,7 +713,7 @@ msgstr ""
 "mniej nasycone, ale zawsze trafiają w strefę pomarańczowo-żółtą. Wektorskop "
 "OpenShot pozwala to bezpośrednio zweryfikować:"
 
-#: ../color.rst:278
+#: ../doc/color.rst:278
 msgid ""
 "Right-click the clip → :guilabel:`Color → Analyze Colors` to open the "
 "scopes."
@@ -721,7 +721,7 @@ msgstr ""
 "Kliknij prawym przyciskiem na klip → :guilabel:`Kolor → Analizuj kolory`, "
 "aby otworzyć zakresy."
 
-#: ../color.rst:279
+#: ../doc/color.rst:279
 msgid ""
 "In the Vectorscope toolbar, click the **Region** button and drag a box over "
 "the skin in the preview."
@@ -729,7 +729,7 @@ msgstr ""
 "Na pasku narzędzi wektorskopu kliknij przycisk **Region** i przeciągnij "
 "ramkę nad skórą w podglądzie."
 
-#: ../color.rst:280
+#: ../doc/color.rst:280
 msgid ""
 "The cluster should sit along the dashed skin tone line. If it drifts toward "
 "green or blue, use **Temperature** (warmer) or the **Global** color wheel to"
@@ -740,7 +740,7 @@ msgstr ""
 "(cieplej) lub globalnego koła kolorów, aby delikatnie przesunąć je z "
 "powrotem w stronę pomarańczowo-żółtą."
 
-#: ../color.rst:285
+#: ../doc/color.rst:285
 msgid ""
 "*A face region selected in the video preview (left) with the vectorscope "
 "plotting only those pixels (right). The skin tone cluster aligns with the "
@@ -750,7 +750,7 @@ msgstr ""
 "wyświetlającym tylko te piksele (po prawej). Skupisko odcienia skóry pokrywa"
 " się z przerywaną linią odcienia skóry w strefie żółto-pomarańczowej.*"
 
-#: ../color.rst:288
+#: ../doc/color.rst:288
 msgid ""
 "Avoid pushing Saturation too high — over-saturated skin looks unnatural even"
 " when the hue is correct."
@@ -758,11 +758,11 @@ msgstr ""
 "Unikaj zbyt wysokiego nasycenia — przesycone kolory skóry wyglądają "
 "nienaturalnie, nawet gdy odcień jest poprawny."
 
-#: ../color.rst:291
+#: ../doc/color.rst:291
 msgid "Primary Correction Controls"
 msgstr "Podstawowe kontrolki korekcji"
 
-#: ../color.rst:293
+#: ../doc/color.rst:293
 msgid ""
 "These controls appear in the :guilabel:`Properties` panel when the Color "
 "Grade effect is selected:"
@@ -770,51 +770,51 @@ msgstr ""
 "Te kontrolki pojawiają się w panelu :guilabel:`Właściwości`, gdy wybrany "
 "jest efekt Color Grade:"
 
-#: ../color.rst:299
+#: ../doc/color.rst:299
 msgid "Property"
 msgstr "Właściwość"
 
-#: ../color.rst:299
+#: ../doc/color.rst:299
 msgid "What It Does"
 msgstr "Co robi"
 
-#: ../color.rst:301
+#: ../doc/color.rst:301
 msgid "Temperature"
 msgstr "Temperatura"
 
-#: ../color.rst:301
+#: ../doc/color.rst:301
 msgid "Warms (positive) or cools (negative) the entire image."
 msgstr "Ociepla (dodatnia) lub ochładza (ujemna) cały obraz."
 
-#: ../color.rst:302
+#: ../doc/color.rst:302
 msgid "Tint"
 msgstr "Odcień"
 
-#: ../color.rst:302
+#: ../doc/color.rst:302
 msgid "Fine-tunes green/magenta balance after Temperature."
 msgstr "Precyzyjnie reguluje balans zieleni i magenty po Temperaturze."
 
-#: ../color.rst:303
+#: ../doc/color.rst:303
 msgid "Exposure"
 msgstr "Ekspozycja"
 
-#: ../color.rst:303
+#: ../doc/color.rst:303
 msgid "Makes the whole image brighter or darker."
 msgstr "Rozjaśnia lub przyciemnia cały obraz."
 
-#: ../color.rst:304
+#: ../doc/color.rst:304
 msgid "Contrast"
 msgstr "Kontrast"
 
-#: ../color.rst:304
+#: ../doc/color.rst:304
 msgid "Expands (positive) or compresses (negative) the tonal range."
 msgstr "Rozszerza (dodatnia) lub kompresuje (ujemna) zakres tonalny."
 
-#: ../color.rst:305 ../color.rst:364
+#: ../doc/color.rst:305 ../doc/color.rst:364
 msgid "Highlights"
 msgstr "Jasne partie"
 
-#: ../color.rst:305
+#: ../doc/color.rst:305
 msgid ""
 "Brightens or darkens only the bright parts. Negative values recover "
 "overexposed highlights."
@@ -822,30 +822,30 @@ msgstr ""
 "Rozjaśnia lub przyciemnia tylko jasne partie. Wartości ujemne odzyskują "
 "prześwietlone jasne partie."
 
-#: ../color.rst:307 ../color.rst:362
+#: ../doc/color.rst:307 ../doc/color.rst:362
 msgid "Shadows"
 msgstr "Cienie"
 
-#: ../color.rst:307
+#: ../doc/color.rst:307
 msgid ""
 "Lifts or lowers only the dark parts. Positive values open up shadow detail."
 msgstr ""
 "Podnosi lub obniża tylko ciemne partie. Wartości dodatnie odsłaniają "
 "szczegóły cieni."
 
-#: ../color.rst:309
+#: ../doc/color.rst:309
 msgid "Saturation"
 msgstr "Nasycenie"
 
-#: ../color.rst:309
+#: ../doc/color.rst:309
 msgid "Overall color intensity. 1.0 = unchanged, 0.0 = grayscale."
 msgstr "Ogólna intensywność koloru. 1.0 = bez zmian, 0.0 = skala szarości."
 
-#: ../color.rst:310
+#: ../doc/color.rst:310
 msgid "Vibrance"
 msgstr "Żywość"
 
-#: ../color.rst:310
+#: ../doc/color.rst:310
 msgid ""
 "Like Saturation, but preferentially boosts muted colors without "
 "oversaturating ones that are already vivid."
@@ -853,15 +853,15 @@ msgstr ""
 "Podobne do Nasycenia, ale preferencyjnie wzmacnia stonowane kolory, nie "
 "przesyca już żywych."
 
-#: ../color.rst:315
+#: ../doc/color.rst:315
 msgid "A Correction Workflow"
 msgstr "Przebieg korekcji"
 
-#: ../color.rst:317
+#: ../doc/color.rst:317
 msgid "Work in this order for the best results:"
 msgstr "Pracuj w tej kolejności dla najlepszych rezultatów:"
 
-#: ../color.rst:319
+#: ../doc/color.rst:319
 msgid ""
 "**Fix white balance first** — Temperature and Tint until neutrals look "
 "neutral."
@@ -869,17 +869,17 @@ msgstr ""
 "**Najpierw popraw balans bieli** — Temperatura i Odcień, aż neutralne kolory"
 " będą neutralne."
 
-#: ../color.rst:320
+#: ../doc/color.rst:320
 msgid "**Set exposure** — Exposure until brightness feels correct."
 msgstr "**Ustaw ekspozycję** — Ekspozycja, aż jasność będzie odpowiednia."
 
-#: ../color.rst:321
+#: ../doc/color.rst:321
 msgid "**Adjust contrast** — expand or compress the tonal range to add depth."
 msgstr ""
 "**Dopasuj kontrast** — rozszerz lub skompresuj zakres tonalny, aby dodać "
 "głębi."
 
-#: ../color.rst:322
+#: ../doc/color.rst:322
 msgid ""
 "**Recover clipping** — Highlights and Shadows if bright areas are blown or "
 "shadows are crushed."
@@ -887,11 +887,11 @@ msgstr ""
 "**Odzyskaj prześwietlenia** — Jasne partie i Cienie, jeśli jasne obszary są "
 "przepalone lub cienie zgniecione."
 
-#: ../color.rst:323
+#: ../doc/color.rst:323
 msgid "**Adjust saturation** — Saturation or Vibrance to taste."
 msgstr "**Dopasuj nasycenie** — Nasycenie lub Żywość według uznania."
 
-#: ../color.rst:324
+#: ../doc/color.rst:324
 msgid ""
 "**Check skin tones** — open the Vectorscope, use the Region selector on "
 "faces, and confirm the cluster aligns with the skin tone line."
@@ -899,7 +899,7 @@ msgstr ""
 "**Sprawdź odcienie skóry** — otwórz wektorskop, użyj selektora regionu na "
 "twarzach i potwierdź, że skupisko pokrywa się z linią odcienia skóry."
 
-#: ../color.rst:327
+#: ../doc/color.rst:327
 msgid ""
 "Use the scopes at each step — they show you what is actually in the image, "
 "regardless of monitor calibration."
@@ -907,11 +907,11 @@ msgstr ""
 "Używaj zakresów na każdym etapie — pokazują one, co faktycznie znajduje się "
 "na obrazie, niezależnie od kalibracji monitora."
 
-#: ../color.rst:333
+#: ../doc/color.rst:333
 msgid "Color Grading"
 msgstr "Korekcja kolorów"
 
-#: ../color.rst:335
+#: ../doc/color.rst:335
 msgid ""
 "Color grading is the creative step: using the same tools to build a "
 "deliberate visual mood on top of corrected footage. A few classic grades to "
@@ -921,7 +921,7 @@ msgstr ""
 " zamierzonego nastroju wizualnego na poprawionym materiale. Kilka "
 "klasycznych stylów, które mogą Cię zainspirować:"
 
-#: ../color.rst:338
+#: ../doc/color.rst:338
 msgid ""
 "**Warm, golden nostalgic** — push Highlights toward orange-yellow, nudge "
 "Midtones slightly warm."
@@ -929,7 +929,7 @@ msgstr ""
 "**Ciepły, złocisty, nostalgiczny** — przesuwaj światła w stronę "
 "pomarańczowo-żółtą, lekko ocieplaj tony średnie."
 
-#: ../color.rst:339
+#: ../doc/color.rst:339
 msgid ""
 "**Cold, clinical** — cool the Shadows, desaturate slightly, keep Highlights "
 "neutral."
@@ -937,7 +937,7 @@ msgstr ""
 "**Zimny, kliniczny** — schładzaj cienie, lekko odbarwiaj, utrzymuj światła "
 "neutralne."
 
-#: ../color.rst:340
+#: ../doc/color.rst:340
 msgid ""
 "**Teal and orange** — the blockbuster look: Shadows toward teal, Highlights "
 "toward orange."
@@ -945,7 +945,7 @@ msgstr ""
 "**Morski i pomarańczowy** — wygląd blockbusterowy: cienie w stronę "
 "morskiego, światła w stronę pomarańczowego."
 
-#: ../color.rst:341
+#: ../doc/color.rst:341
 msgid ""
 "**Faded film** — lift the black point slightly (Curves) so shadows never "
 "reach full black."
@@ -953,11 +953,11 @@ msgstr ""
 "**Wyblakły film** — lekko podnieś punkt czerni (Krzywe), aby cienie nigdy "
 "nie osiągały pełnej czerni."
 
-#: ../color.rst:346
+#: ../doc/color.rst:346
 msgid "Color Wheels"
 msgstr "Koła kolorów"
 
-#: ../color.rst:348
+#: ../doc/color.rst:348
 msgid ""
 "Color wheels push color into specific **tonal ranges** without affecting the"
 " others. This is the tool professional colorists reach for most."
@@ -966,7 +966,7 @@ msgstr ""
 "wpływając na pozostałe. To narzędzie, po które najczęściej sięgają "
 "profesjonalni kolorzyści."
 
-#: ../color.rst:353
+#: ../doc/color.rst:353
 msgid ""
 "*The Color Wheels dock, showing Global, Shadows, Midtones, and Highlights "
 "wheels.*"
@@ -974,40 +974,40 @@ msgstr ""
 "*Panel Koła Kolorów, pokazujący koła Global, Cienie, Tony Średnie i "
 "Światła.*"
 
-#: ../color.rst:359
+#: ../doc/color.rst:359
 msgid "Wheel"
 msgstr "Koło"
 
-#: ../color.rst:359
+#: ../doc/color.rst:359
 msgid "What It Affects"
 msgstr "Co wpływa"
 
-#: ../color.rst:361
+#: ../doc/color.rst:361
 msgid "Global"
 msgstr "Globalny"
 
-#: ../color.rst:361
+#: ../doc/color.rst:361
 msgid "A color tint across the **entire image** at all brightness levels."
 msgstr "Barwna tonacja na **całym obrazie** na wszystkich poziomach jasności."
 
-#: ../color.rst:362
+#: ../doc/color.rst:362
 msgid "Color only in the **darkest parts**. Great for a cool teal tint."
 msgstr ""
 "Kolor tylko w **najciemniejszych partiach**. Świetne do chłodnej tonacji "
 "morskiej."
 
-#: ../color.rst:363
+#: ../doc/color.rst:363
 msgid "Midtones"
 msgstr "Tony średnie"
 
-#: ../color.rst:363
+#: ../doc/color.rst:363
 msgid ""
 "Color in the **middle tones** — where most skin tones live. Handle gently."
 msgstr ""
 "Kolor w **tonach średnich** — tam, gdzie znajdują się większość odcieni "
 "skóry. Traktuj delikatnie."
 
-#: ../color.rst:364
+#: ../doc/color.rst:364
 msgid ""
 "Color only in the **brightest parts**. Warming highlights while keeping "
 "shadows cool is the foundation of the teal-and-orange look."
@@ -1015,7 +1015,7 @@ msgstr ""
 "Kolor tylko w **najjaśniejszych partiach**. Ocieplanie świateł przy "
 "jednoczesnym chłodzeniu cieni to podstawa wyglądu morski i pomarańczowy."
 
-#: ../color.rst:368
+#: ../doc/color.rst:368
 msgid ""
 "Drag the **central dot** toward the desired color. Further from center = "
 "stronger effect."
@@ -1023,35 +1023,35 @@ msgstr ""
 "Przeciągnij **centralny punkt** w stronę pożądanego koloru. Im dalej od "
 "środka, tym silniejszy efekt."
 
-#: ../color.rst:369
+#: ../doc/color.rst:369
 msgid ""
 "The **Amount** slider blends the tinted result back toward the original."
 msgstr "Suwak **Ilość** miesza zabarwiony efekt z oryginałem."
 
-#: ../color.rst:370
+#: ../doc/color.rst:370
 msgid "The **Luma** slider adjusts the brightness of that tonal zone."
 msgstr "Suwak **Luma** reguluje jasność tej strefy tonalnej."
 
-#: ../color.rst:371
+#: ../doc/color.rst:371
 msgid ""
 "Right-click any wheel in Properties → **Reset** to return it to neutral."
 msgstr ""
 "Kliknij prawym przyciskiem myszy dowolne koło w Właściwościach → "
 "**Resetuj**, aby przywrócić neutralność."
 
-#: ../color.rst:373
+#: ../doc/color.rst:373
 msgid "**To build the classic teal-and-orange look:**"
 msgstr "**Aby stworzyć klasyczny wygląd morski i pomarańczowy:**"
 
-#: ../color.rst:375
+#: ../doc/color.rst:375
 msgid "Drag **Shadows** toward teal (blue-green)."
 msgstr "Przeciągnij **Cienie** w stronę morskiego (niebiesko-zielonego)."
 
-#: ../color.rst:376
+#: ../doc/color.rst:376
 msgid "Drag **Highlights** toward orange."
 msgstr "Przeciągnij **Światła** w stronę pomarańczowego."
 
-#: ../color.rst:377
+#: ../doc/color.rst:377
 msgid ""
 "Optionally nudge **Midtones** very slightly toward orange to warm skin "
 "tones."
@@ -1059,16 +1059,16 @@ msgstr ""
 "Opcjonalnie lekko przesuwaj **Tony średnie** w stronę pomarańczowego, aby "
 "ocieplić odcienie skóry."
 
-#: ../color.rst:378
+#: ../doc/color.rst:378
 msgid ""
 "Lower the Amount sliders to 0.3–0.5 so the effect does not become overdone."
 msgstr "Obniż suwaki Ilości do 0,3–0,5, aby efekt nie był przesadzony."
 
-#: ../color.rst:383
+#: ../doc/color.rst:383
 msgid "Curves — Precise Tonal and Color Control"
 msgstr "Krzywe — precyzyjna kontrola tonalna i kolorystyczna"
 
-#: ../color.rst:385
+#: ../doc/color.rst:385
 msgid ""
 "A curve is a graph where the horizontal axis is the input value and the "
 "vertical axis is the output value. A straight diagonal line means no change."
@@ -1080,7 +1080,7 @@ msgstr ""
 "krzywą, aby zmienić relację między wejściem a wyjściem dla tego zakresu "
 "tonalnego."
 
-#: ../color.rst:391
+#: ../doc/color.rst:391
 msgid ""
 "*The OpenShot Curve Editor. Click to add points, drag to reshape, right-"
 "click to change interpolation.*"
@@ -1088,11 +1088,11 @@ msgstr ""
 "*Edytor krzywych OpenShot. Kliknij, aby dodać punkty, przeciągnij, aby "
 "zmienić kształt, kliknij prawym, aby zmienić interpolację.*"
 
-#: ../color.rst:393
+#: ../doc/color.rst:393
 msgid "**Common curve shapes:**"
 msgstr "**Typowe kształty krzywych:**"
 
-#: ../color.rst:395
+#: ../doc/color.rst:395
 msgid ""
 "**S-curve** — pull the upper-right quarter up, the lower-left quarter down. "
 "Adds contrast and pop without shifting mid-gray. The most common starting "
@@ -1102,7 +1102,7 @@ msgstr ""
 "Dodaje kontrast i wyrazistość bez przesunięcia średniej szarości. "
 "Najczęstszy pierwszy ruch."
 
-#: ../color.rst:397
+#: ../doc/color.rst:397
 msgid ""
 "**Lifted blacks** — drag the bottom-left corner upward. Shadows never go "
 "fully to black — the faded-film look."
@@ -1110,7 +1110,7 @@ msgstr ""
 "**Podniesiona czerń** — przeciągnij lewy dolny róg w górę. Cienie nigdy nie "
 "stają się całkowicie czarne — efekt wyblakłego filmu."
 
-#: ../color.rst:399
+#: ../doc/color.rst:399
 msgid ""
 "**Lower highlights** — add a point in the upper-right and pull it down. "
 "Recovers bright areas without affecting the rest."
@@ -1118,18 +1118,18 @@ msgstr ""
 "**Obniż światła** — dodaj punkt w górnym prawym rogu i przeciągnij go w dół."
 " Przywraca jasne obszary bez wpływu na resztę."
 
-#: ../color.rst:402
+#: ../doc/color.rst:402
 msgid "**The four channels:**"
 msgstr "**Cztery kanały:**"
 
-#: ../color.rst:404
+#: ../doc/color.rst:404
 msgid ""
 "**Curve: All** — overall brightness across all channels. Used most often."
 msgstr ""
 "**Krzywa: Wszystkie** — ogólna jasność we wszystkich kanałach. Najczęściej "
 "używana."
 
-#: ../color.rst:405
+#: ../doc/color.rst:405
 msgid ""
 "**Curve: Red** — up adds red (warms), down adds cyan. Pull shadows down for "
 "a cool shadow tint."
@@ -1137,11 +1137,11 @@ msgstr ""
 "**Krzywa: Czerwony** — w górę dodaje czerwony (ociepla), w dół dodaje cyjan."
 " Przeciągnij cienie w dół, aby uzyskać chłodną tonację cieni."
 
-#: ../color.rst:406
+#: ../doc/color.rst:406
 msgid "**Curve: Green** — up adds green, down adds magenta."
 msgstr "**Krzywa: Zielony** — w górę dodaje zielony, w dół dodaje magentę."
 
-#: ../color.rst:407
+#: ../doc/color.rst:407
 msgid ""
 "**Curve: Blue** — up cools, down warms. Classic move: pull Blue Shadows up "
 "(cool teal shadows) and Blue Highlights down (warm orange highlights)."
@@ -1150,7 +1150,7 @@ msgstr ""
 "podciągnij niebieskie cienie w górę (chłodne morskie cienie) i obniż "
 "niebieskie światła (ciepłe pomarańczowe światła)."
 
-#: ../color.rst:410
+#: ../doc/color.rst:410
 msgid ""
 "Curves beat sliders because you can apply *different* adjustments to "
 "*different* tonal ranges in a single operation — for example, warming "
@@ -1160,11 +1160,11 @@ msgstr ""
 "*różnych* zakresów tonalnych w jednej operacji — na przykład ocieplając "
 "światła i jednocześnie chłodząc cienie."
 
-#: ../color.rst:416
+#: ../doc/color.rst:416
 msgid "LUT Files — One-Click Color Looks"
 msgstr "Pliki LUT — wyglądy kolorystyczne jednym kliknięciem"
 
-#: ../color.rst:418
+#: ../doc/color.rst:418
 msgid ""
 "A **LUT** (Lookup Table) is a pre-made color transformation: for every input"
 " color, output a specific different color. Professional colorists use LUTs "
@@ -1177,7 +1177,7 @@ msgstr ""
 "kamer lub stylów kinowych jednym kliknięciem. OpenShot obsługuje standardowe"
 " pliki **.cube**."
 
-#: ../color.rst:422
+#: ../doc/color.rst:422
 msgid ""
 "OpenShot ships with a built-in LUT collection — see the :ref:`effects_ref` "
 "page for a visual gallery. Free **.cube** packs are widely available from "
@@ -1187,19 +1187,19 @@ msgstr ""
 ":ref:`effects_ref` dla galerii wizualnej. Darmowe pakiety **.cube** są "
 "szeroko dostępne w społecznościach fotograficznych online."
 
-#: ../color.rst:425
+#: ../doc/color.rst:425
 msgid "**How to apply a LUT:**"
 msgstr "**Jak zastosować LUT:**"
 
-#: ../color.rst:427
+#: ../doc/color.rst:427
 msgid "Select the :guilabel:`Color Grade` effect properties."
 msgstr "Wybierz właściwości efektu :guilabel:`Color Grade`."
 
-#: ../color.rst:428
+#: ../doc/color.rst:428
 msgid "Click :guilabel:`LUT File` and browse to a **.cube** file."
 msgstr "Kliknij :guilabel:`LUT File` i wybierz plik **.cube**."
 
-#: ../color.rst:429
+#: ../doc/color.rst:429
 msgid ""
 "Use :guilabel:`LUT Intensity` (0.0–1.0) to blend the LUT with your corrected"
 " image. Most professionals land between 0.4–0.7 for a natural feel."
@@ -1208,11 +1208,11 @@ msgstr ""
 "obrazem. Większość profesjonalistów ustawia wartość między 0,4 a 0,7 dla "
 "naturalnego efektu."
 
-#: ../color.rst:432
+#: ../doc/color.rst:432
 msgid "**Tips:**"
 msgstr "**Wskazówki:**"
 
-#: ../color.rst:434
+#: ../doc/color.rst:434
 msgid ""
 "Correct first, then grade. LUTs assume properly balanced footage — applied "
 "to a color-cast image, they will look wrong."
@@ -1221,7 +1221,7 @@ msgstr ""
 "zbalansowany materiał — zastosowane do obrazu z dominantą kolorystyczną będą"
 " wyglądać nieprawidłowo."
 
-#: ../color.rst:436
+#: ../doc/color.rst:436
 msgid ""
 "Most included LUTs target Rec. 709 footage (HD cameras, smartphones). If "
 "your camera records in a LOG profile, apply the appropriate LOG conversion "
@@ -1231,7 +1231,7 @@ msgstr ""
 " HD, smartfony). Jeśli Twoja kamera nagrywa w profilu LOG, najpierw zastosuj"
 " odpowiedni LUT konwersji LOG."
 
-#: ../color.rst:438
+#: ../doc/color.rst:438
 msgid ""
 "Stack Color Grade with separate Color Map / Lookup effects to layer multiple"
 " LUTs."
@@ -1239,11 +1239,11 @@ msgstr ""
 "Nakładaj korekcję kolorów wraz z oddzielnymi efektami Mapy Kolorów / Lookup,"
 " aby nałożyć wiele LUT-ów."
 
-#: ../color.rst:443
+#: ../doc/color.rst:443
 msgid "The Mix Control"
 msgstr "Kontrola Miksu"
 
-#: ../color.rst:445
+#: ../doc/color.rst:445
 msgid ""
 "The **Mix** control (0.0–1.0) at the bottom of the Color Grade effect blends"
 " the graded result with the original image. At 1.0, the full grade applies. "
@@ -1253,7 +1253,7 @@ msgstr ""
 "korekcji z oryginalnym obrazem. Przy 1.0 stosowana jest pełna korekcja. Przy"
 " 0.0 wyświetlany jest oryginał."
 
-#: ../color.rst:448
+#: ../doc/color.rst:448
 msgid ""
 "If your grade is correct but feels slightly heavy, dial Mix back to 0.7–0.9 "
 "to soften everything at once — no need to revisit every individual control."
@@ -1262,7 +1262,7 @@ msgstr ""
 " Miks do 0.7–0.9, aby złagodzić wszystko naraz — nie trzeba poprawiać "
 "każdego ustawienia osobno."
 
-#: ../color.rst:451
+#: ../doc/color.rst:451
 msgid ""
 "Mix is keyframable: animate the grade fading in or out over time, for "
 "example opening a scene flat and letting it bloom into full color."
@@ -1271,11 +1271,11 @@ msgstr ""
 " zanikanie korekcji w czasie, na przykład otwierając scenę bez korekcji i "
 "pozwalając jej rozkwitnąć do pełnego koloru."
 
-#: ../color.rst:457
+#: ../doc/color.rst:457
 msgid "Putting It All Together — A Complete Workflow"
 msgstr "Łączenie wszystkiego — Kompletny przepływ pracy"
 
-#: ../color.rst:459
+#: ../doc/color.rst:459
 msgid ""
 "Select your clip. Right-click → :guilabel:`Color → Adjust Colors` to add the"
 " effect and open the Color Wheels and scopes in one step. Or use "
@@ -1287,7 +1287,7 @@ msgstr ""
 "kroku. Lub najpierw użyj :guilabel:`Kolor → Analizuj kolory`, jeśli chcesz "
 "ocenić materiał przed zastosowaniem korekcji."
 
-#: ../color.rst:462
+#: ../doc/color.rst:462
 msgid ""
 "**Check the scopes before touching anything** — is the waveform too high or "
 "too low? A cast on the RGB Parade? The histogram clipping against the right "
@@ -1297,11 +1297,11 @@ msgstr ""
 "wysoki lub za niski? Czy na RGB Parade jest dominanta? Czy histogram jest "
 "obcięty przy prawej krawędzi?"
 
-#: ../color.rst:464
+#: ../doc/color.rst:464
 msgid "Fix **Temperature** and **Tint** to neutralize white balance."
 msgstr "Popraw **Temperaturę** i **Odcień**, aby zneutralizować balans bieli."
 
-#: ../color.rst:465
+#: ../doc/color.rst:465
 msgid ""
 "Fix **Exposure**, then **Contrast**. Use **Highlights** and **Shadows** to "
 "recover clipping."
@@ -1309,11 +1309,11 @@ msgstr ""
 "Popraw **Ekspozycję**, następnie **Kontrast**. Użyj **Jasnych partii** i "
 "**Cieni**, aby odzyskać obcięcia."
 
-#: ../color.rst:466
+#: ../doc/color.rst:466
 msgid "Gently adjust **Saturation** or **Vibrance**."
 msgstr "Delikatnie dostosuj **Nasycenie** lub **Żywość**."
 
-#: ../color.rst:467
+#: ../doc/color.rst:467
 msgid ""
 "Open the **Vectorscope**, click Region, and draw a box over any faces. "
 "Confirm the skin tone cluster aligns with the dashed line. If not, adjust "
@@ -1323,7 +1323,7 @@ msgstr ""
 "Potwierdź, że grupa odcieni skóry pokrywa się z linią przerywaną. Jeśli nie,"
 " dostosuj Temperaturę lub globalne koło kolorów."
 
-#: ../color.rst:469
+#: ../doc/color.rst:469
 msgid ""
 "Open the **Color Wheels** dock and build your creative grade — push Shadows "
 "one direction, Highlights the opposite, handle Midtones carefully."
@@ -1332,7 +1332,7 @@ msgstr ""
 "Cienie w jedną stronę, Jasne partie w przeciwną, ostrożnie operuj na "
 "Średnich tonach."
 
-#: ../color.rst:471
+#: ../doc/color.rst:471
 msgid ""
 "Fine-tune with **Curves**: a gentle S-curve on Curve: All; Curve: Blue for a"
 " cinematic push (cool shadows up, warm highlights down)."
@@ -1341,20 +1341,20 @@ msgstr ""
 "Krzywa: Niebieska dla efektu filmowego (chłodne cienie w górę, ciepłe jasne "
 "partie w dół)."
 
-#: ../color.rst:473
+#: ../doc/color.rst:473
 msgid ""
 "Optionally browse to a **.cube** LUT and blend it in with **LUT Intensity**."
 msgstr ""
 "Opcjonalnie wybierz plik **.cube** LUT i zmiksuj go za pomocą "
 "**Intensywności LUT**."
 
-#: ../color.rst:474
+#: ../doc/color.rst:474
 msgid "If the overall grade feels heavy, lower **Mix** to 0.7–0.9."
 msgstr ""
 "Jeśli ogólna korekcja wydaje się zbyt intensywna, zmniejsz **Miks** do "
 "0.7–0.9."
 
-#: ../color.rst:475
+#: ../doc/color.rst:475
 msgid ""
 "To compare before/after, drag **Mix** to 0.0 to see the original, then back "
 "to 1.0."
@@ -1362,7 +1362,7 @@ msgstr ""
 "Aby porównać przed i po, przesuń **Miks** do 0.0, aby zobaczyć oryginał, a "
 "następnie z powrotem do 1.0."
 
-#: ../color.rst:476
+#: ../doc/color.rst:476
 msgid ""
 "Happy with the result? Right-click the effect → **Copy**, select other "
 "clips, and **Paste Effects**. Or use the **Parent** property to link "
@@ -1373,7 +1373,7 @@ msgstr ""
 "połączyć wiele klipów z jedną główną korekcją (zobacz "
 ":ref:`effect_parent_ref`)."
 
-#: ../color.rst:480
+#: ../doc/color.rst:480
 msgid ""
 "For animating color properties over time, see :ref:`animation_ref`. For a "
 "complete list of all Color Grade properties, see :ref:`effects_ref`."

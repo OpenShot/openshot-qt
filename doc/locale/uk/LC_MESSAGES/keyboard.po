@@ -1,0 +1,1921 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) OpenShot Studios, LLC
+# This file is distributed under the same license as the OpenShot Video Editor package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenShot Video Editor 4.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../doc/keyboard.rst:4
+msgid "Keyboard Shortcuts"
+msgstr "Клавіатурні скорочення"
+
+#: ../doc/keyboard.rst:5
+msgid ""
+"Find shortcuts by task below, or jump to the full reference. These are the "
+"default assignments; customize them in :guilabel:`Edit → Preferences → "
+"Keyboard` (:guilabel:`OpenShot Video Editor → Preferences` on macOS). See "
+":ref:`preferences_keyboard_ref` for details."
+msgstr ""
+"Знайдіть скорочення за завданням нижче або перейдіть до повного довідника. "
+"Це стандартні призначення; налаштуйте їх у :guilabel:`Редагувати → "
+"Налаштування → Клавіатура` (:guilabel:`OpenShot Video Editor → Налаштування`"
+" на macOS). Деталі див. у :ref:`preferences_keyboard_ref`."
+
+#: ../doc/keyboard.rst:10
+msgid "On macOS, use Command for shortcuts shown with Ctrl."
+msgstr "На macOS використовуйте Command для скорочень, позначених Ctrl."
+
+#: ../doc/keyboard.rst:14
+msgid "On this page"
+msgstr "На цій сторінці"
+
+#: ../doc/keyboard.rst:19
+msgid "Using the timeline with a keyboard"
+msgstr "Використання часової шкали за допомогою клавіатури"
+
+#: ../doc/keyboard.rst:20
+msgid ""
+"Focus the timeline before selecting, moving, or trimming clips and "
+"transitions with these shortcuts."
+msgstr ""
+"Зосередьтеся на часовій шкалі перед вибором, переміщенням або обрізанням "
+"кліпів і переходів за допомогою цих скорочень."
+
+#: ../doc/keyboard.rst:23
+msgid "Moving between panels"
+msgstr "Переміщення між панелями"
+
+#: ../doc/keyboard.rst:29 ../doc/keyboard.rst:153 ../doc/keyboard.rst:186
+#: ../doc/keyboard.rst:224 ../doc/keyboard.rst:250 ../doc/keyboard.rst:389
+#: ../doc/keyboard.rst:420
+msgid "Action"
+msgstr "Дія"
+
+#: ../doc/keyboard.rst:30 ../doc/keyboard.rst:111 ../doc/keyboard.rst:154
+#: ../doc/keyboard.rst:187 ../doc/keyboard.rst:225 ../doc/keyboard.rst:251
+msgid "Shortcut"
+msgstr "Скорочення"
+
+#: ../doc/keyboard.rst:31 ../doc/keyboard.rst:522
+msgid "Focus Project Files"
+msgstr "Зосередитись на файлах проєкту"
+
+#: ../doc/keyboard.rst:32 ../doc/keyboard.rst:523
+msgid ":kbd:`Shift+1`"
+msgstr ":kbd:`Shift+1`"
+
+#: ../doc/keyboard.rst:33
+msgid "Preview the selected file or timeline clip's source"
+msgstr ""
+"Попередній перегляд вибраного файлу або джерела кліпу на часовій шкалі"
+
+#: ../doc/keyboard.rst:34 ../doc/keyboard.rst:394 ../doc/keyboard.rst:601
+msgid ":kbd:`Shift+2` or :kbd:`Alt+P`"
+msgstr ":kbd:`Shift+2` або :kbd:`Alt+P`"
+
+#: ../doc/keyboard.rst:35
+msgid "Focus the timeline"
+msgstr "Зосередитись на часовій шкалі"
+
+#: ../doc/keyboard.rst:36 ../doc/keyboard.rst:526
+msgid ":kbd:`Shift+3`"
+msgstr ":kbd:`Shift+3`"
+
+#: ../doc/keyboard.rst:37 ../doc/keyboard.rst:528
+msgid "Focus Transitions"
+msgstr "Зосередитись на переходах"
+
+#: ../doc/keyboard.rst:38 ../doc/keyboard.rst:529
+msgid ":kbd:`Shift+7`"
+msgstr ":kbd:`Shift+7`"
+
+#: ../doc/keyboard.rst:39 ../doc/keyboard.rst:516
+msgid "Focus Effects"
+msgstr "Зосередитись на ефектах"
+
+#: ../doc/keyboard.rst:40 ../doc/keyboard.rst:517
+msgid ":kbd:`Shift+8`"
+msgstr ":kbd:`Shift+8`"
+
+#: ../doc/keyboard.rst:41 ../doc/keyboard.rst:519
+msgid "Focus Emojis"
+msgstr "Зосередитись на емодзі"
+
+#: ../doc/keyboard.rst:42 ../doc/keyboard.rst:520
+msgid ":kbd:`Shift+9`"
+msgstr ":kbd:`Shift+9`"
+
+#: ../doc/keyboard.rst:43
+msgid "Move to the next / previous control"
+msgstr "Перейти до наступного / попереднього елемента керування"
+
+#: ../doc/keyboard.rst:44 ../doc/keyboard.rst:46
+msgid ":kbd:`Tab` / :kbd:`Shift+Tab`"
+msgstr ":kbd:`Tab` / :kbd:`Shift+Tab`"
+
+#: ../doc/keyboard.rst:45
+msgid "Focus the next / previous dock tab title without selecting it"
+msgstr "Зосередитись на наступній / попередній вкладці доку без вибору"
+
+#: ../doc/keyboard.rst:47
+msgid "Move focus between dock tab titles"
+msgstr "Переміщення фокусу між назвами вкладок доку"
+
+#: ../doc/keyboard.rst:48
+msgid ":kbd:`Left` / :kbd:`Right` while a title has focus"
+msgstr ":kbd:`Left` / :kbd:`Right`, коли назва має фокус"
+
+#: ../doc/keyboard.rst:49
+msgid "Activate the focused dock tab and enter its first control"
+msgstr ""
+"Активувати вкладку доку з фокусом і перейти до її першого елемента керування"
+
+#: ../doc/keyboard.rst:50
+msgid ":kbd:`Space` or :kbd:`Enter`"
+msgstr ":kbd:`Space` або :kbd:`Enter`"
+
+#: ../doc/keyboard.rst:51
+msgid "Browse Project Files, transitions, effects, or emojis"
+msgstr "Перегляд файлів проєкту, переходів, ефектів або емодзі"
+
+#: ../doc/keyboard.rst:52
+msgid "Arrow keys while the list has focus"
+msgstr "Клавіші стрілок, коли список має фокус"
+
+#: ../doc/keyboard.rst:54
+msgid ""
+"Each grouped dock title is a separate Tab stop. Its normal focus style marks"
+" the focused title (an underline in Cosmic Dusk); moving focus does not "
+"change the selected dock. Activate a title to switch docks and focus its "
+"first control. Clicking a dock tab also focuses its first control, even if "
+"that tab is already selected. Only the active dock's visible controls "
+"participate in the Tab sequence; hidden dock controls are skipped."
+msgstr ""
+"Кожна згрупована назва доку є окремою зупинкою Tab. Її звичайний стиль "
+"фокусу позначає активну назву (підкреслення в Cosmic Dusk); переміщення "
+"фокусу не змінює вибраний док. Активуйте назву, щоб переключити док і "
+"зосередитись на його першому елементі керування. Клік по вкладці доку також "
+"фокусує її перший елемент керування, навіть якщо ця вкладка вже вибрана. У "
+"послідовності Tab беруть участь лише видимі елементи керування активного "
+"доку; приховані елементи пропускаються."
+
+#: ../doc/keyboard.rst:61
+msgid ""
+"When focus is inside a dock, the underline stays beneath its active tab. "
+"When you Tab between titles, the underline follows the focused title. The "
+"timeline itself is one Tab stop; Tab does not visit each clip or transition."
+msgstr ""
+"Коли фокус знаходиться всередині доку, підкреслення залишається під його "
+"активною вкладкою. При переході Tab між назвами підкреслення слідує за "
+"фокусованою назвою. Часова шкала сама по собі є однією зупинкою Tab; Tab не "
+"переходить до кожного кліпу чи переходу."
+
+#: ../doc/keyboard.rst:65
+msgid ""
+"The timeline's ruler and track headers, including their labels, dim when "
+"unfocused. The clip area stays the same. In Cosmic Dusk, a blue underline "
+"marks the focused dock's title text or active tab, and buttons show a blue "
+"focus border. The untitled timeline dock has no underline."
+msgstr ""
+"Лінійка та заголовки доріжок часової шкали, включно з їхніми підписами, "
+"тьмяніють, коли немає фокусу. Область кліпу залишається незмінною. У Cosmic "
+"Dusk синє підкреслення позначає текст назви доку з фокусом або активну "
+"вкладку, а кнопки мають синю рамку фокусу. Безіменний док часової шкали не "
+"має підкреслення."
+
+#: ../doc/keyboard.rst:71
+msgid "Previewing a source"
+msgstr "Попередній перегляд джерела"
+
+#: ../doc/keyboard.rst:72
+msgid ""
+"Press :kbd:`Shift+2` or :kbd:`Alt+P` with focus in Project Files to preview "
+"the selected file. With focus on the timeline, the same command previews the"
+" active selected clip from its Start point. With multiple items selected, "
+"the active selection anchor determines the source. Transitions and clips "
+"without an available project file do not open a source preview."
+msgstr ""
+"Натисніть :kbd:`Shift+2` або :kbd:`Alt+P`, коли фокус у Файлах проєкту, щоб "
+"переглянути вибраний файл. Коли фокус на часовій шкалі, ця ж команда "
+"переглядає активний вибраний кліп з його початкової точки. При виборі "
+"кількох елементів активна точка вибору визначає джерело. Переходи та кліпи "
+"без доступного файлу проєкту не відкривають попередній перегляд джерела."
+
+#: ../doc/keyboard.rst:78
+msgid ""
+"An existing preview for the same file or the same timeline clip is reused. "
+"Different timeline clips have separate range-editing targets, even if they "
+"use the same source. When neither the file list nor the timeline has focus, "
+"the command does nothing."
+msgstr ""
+"Існуючий попередній перегляд для того самого файлу або кліпу часової шкали "
+"повторно використовується. Різні кліпи часової шкали мають окремі цілі для "
+"редагування діапазону, навіть якщо вони використовують те саме джерело. Коли"
+" фокус немає ні на списку файлів, ні на часовій шкалі, команда нічого не "
+"робить."
+
+#: ../doc/keyboard.rst:83
+msgid ""
+"In Preview File, click or drag the source ruler to scrub. Preview Clip and "
+"Split File also provide range editing: drag the Start/End grips, move the "
+"selected filmstrip range, draw a new range outside it, or edit their "
+"timecodes, or press :kbd:`I` / :kbd:`O` to set a marker at the playhead. End"
+" is the last included frame. :guilabel:`Loop` repeats the marked range. The "
+"preview uses your configured timeline playback and range-editing shortcuts: "
+":kbd:`,` / :kbd:`.` move the range one frame (:kbd:`Shift` moves five). "
+":kbd:`[` selects Start for trimming, :kbd:`]` selects End; comma and period "
+"then trim that edge. :kbd:`Esc` leaves trim mode before closing the dialog. "
+":kbd:`Left` / :kbd:`Right` scrub frames without changing the range. "
+":kbd:`Space` toggles playback, :kbd:`J` / :kbd:`L` change playback speed and"
+" :kbd:`K` pauses. These shortcuts leave text entry alone in Name and "
+"timecodes."
+msgstr ""
+"У Preview File клацніть або перетягніть лінійку джерела для перемотування. "
+"Preview Clip і Split File також надають редагування діапазону: перетягуйте "
+"маркери Початку/Кінця, переміщуйте вибраний діапазон плівки, малюйте новий "
+"діапазон поза ним або редагуйте їхні таймкоди, або натисніть :kbd:`I` / "
+":kbd:`O`, щоб встановити маркер на позиції відтворення. Кінець — це останній"
+" включений кадр. :guilabel:`Loop` повторює позначений діапазон. Попередній "
+"перегляд використовує ваші налаштовані скорочення для відтворення часової "
+"шкали та редагування діапазону: :kbd:`,` / :kbd:`.` переміщують діапазон на "
+"один кадр (:kbd:`Shift` переміщує на п’ять). :kbd:`[` вибирає Початок для "
+"обрізання, :kbd:`]` вибирає Кінець; кома і крапка обрізають відповідний "
+"край. :kbd:`Esc` виходить з режиму обрізання перед закриттям діалогу. "
+":kbd:`Left` / :kbd:`Right` перемотують кадри без зміни діапазону. "
+":kbd:`Space` вмикає/вимикає відтворення, :kbd:`J` / :kbd:`L` змінюють "
+"швидкість відтворення, а :kbd:`K` ставить на паузу. Ці скорочення не "
+"впливають на введення тексту в полях Ім’я та таймкоди."
+
+#: ../doc/keyboard.rst:96
+msgid ""
+"Scrubbing and moving markers do not edit the project until you click the "
+"dialog's Create, Update, or Update Clip button. See :ref:`split_clip_ref`."
+msgstr ""
+"Перемотування та переміщення маркерів не змінюють проєкт, доки ви не "
+"натиснете кнопку Створити, Оновити або Оновити кліп у діалоговому вікні. "
+"Див. :ref:`split_clip_ref`."
+
+#: ../doc/keyboard.rst:100
+msgid "Adding and applying assets"
+msgstr "Додавання та застосування ресурсів"
+
+#: ../doc/keyboard.rst:101
+msgid ""
+"The panel shortcuts above open the dock and focus its asset list directly. "
+"Use the arrow keys to choose an asset, then :kbd:`Ctrl+Enter` to add or "
+"apply it. Your existing browser selection is preserved; if nothing is "
+"selected, focusing the browser selects its current item or the first "
+"available item."
+msgstr ""
+"Вказані вище сполучення клавіш відкривають панель і безпосередньо фокусують "
+"список ресурсів. Використовуйте стрілки для вибору ресурсу, потім "
+":kbd:`Ctrl+Enter`, щоб додати або застосувати його. Ваш поточний вибір у "
+"браузері зберігається; якщо нічого не вибрано, фокусування браузера вибирає "
+"поточний або перший доступний елемент."
+
+#: ../doc/keyboard.rst:110
+msgid "Panel / action"
+msgstr "Панель / дія"
+
+#: ../doc/keyboard.rst:112
+msgid "Result"
+msgstr "Результат"
+
+#: ../doc/keyboard.rst:113
+msgid "Project Files: add selected files"
+msgstr "Файли проєкту: додати вибрані файли"
+
+#: ../doc/keyboard.rst:114 ../doc/keyboard.rst:117 ../doc/keyboard.rst:120
+#: ../doc/keyboard.rst:123 ../doc/keyboard.rst:430
+msgid ":kbd:`Ctrl+Enter`"
+msgstr ":kbd:`Ctrl+Enter`"
+
+#: ../doc/keyboard.rst:115
+msgid ""
+"Place files sequentially at the playhead, in browser order, on the target "
+"track."
+msgstr ""
+"Розмістити файли послідовно на позиції відтворення, у порядку браузера, на "
+"цільовій доріжці."
+
+#: ../doc/keyboard.rst:116
+msgid "Effects: apply selected effects"
+msgstr "Ефекти: застосувати вибрані ефекти"
+
+#: ../doc/keyboard.rst:118
+msgid ""
+"Apply to the selected timeline clips. Browsing effects keeps that clip "
+"selection."
+msgstr ""
+"Застосувати до вибраних кліпів на часовій шкалі. Перегляд ефектів зберігає "
+"цей вибір кліпів."
+
+#: ../doc/keyboard.rst:119
+msgid "Transitions: add selected transitions"
+msgstr "Переходи: додати вибрані переходи"
+
+#: ../doc/keyboard.rst:121
+msgid ""
+"Place at the playhead on the target track, using the default transition "
+"length."
+msgstr ""
+"Розмістити на позиції відтворення на цільовій доріжці, використовуючи "
+"стандартну довжину переходу."
+
+#: ../doc/keyboard.rst:122
+msgid "Emojis: add selected emoji"
+msgstr "Емодзі: додати вибране емодзі"
+
+#: ../doc/keyboard.rst:124
+msgid ""
+"Place at the playhead on the target track, using the default image length."
+msgstr ""
+"Розмістити на позиції відтворення на цільовій доріжці, використовуючи "
+"стандартну довжину зображення."
+
+#: ../doc/keyboard.rst:125
+msgid "Open the Add to Timeline dialog for selected files"
+msgstr "Відкрити діалогове вікно Додати на часову шкалу для вибраних файлів"
+
+#: ../doc/keyboard.rst:126 ../doc/keyboard.rst:436
+msgid ":kbd:`Ctrl+Alt+A`"
+msgstr ":kbd:`Ctrl+Alt+A`"
+
+#: ../doc/keyboard.rst:127
+msgid "Choose placement and other options before adding the files."
+msgstr "Виберіть розміщення та інші параметри перед додаванням файлів."
+
+#: ../doc/keyboard.rst:129
+msgid ""
+"The target is the selected timeline item's track, or the remembered track if"
+" nothing is selected. With neither available, OpenShot uses the highest "
+"unlocked track. The target track label appears **bold** while browsing "
+"assets. To change it, select an item on the desired track or clear the "
+"timeline selection and click the desired track before returning to the "
+"browser. A locked target blocks the operation; effects also require selected"
+" clips on unlocked tracks."
+msgstr ""
+"Ціль — це доріжка вибраного елемента часової шкали або запам’ятована "
+"доріжка, якщо нічого не вибрано. Якщо жодна не доступна, OpenShot "
+"використовує найвищу розблоковану доріжку. Позначка цільової доріжки "
+"відображається **жирним** під час перегляду ресурсів. Щоб змінити її, "
+"виберіть елемент на потрібній доріжці або скасуйте вибір на часовій шкалі та"
+" клацніть потрібну доріжку перед поверненням до браузера. Заблокована ціль "
+"блокує операцію; ефекти також потребують вибраних кліпів на розблокованих "
+"доріжках."
+
+#: ../doc/keyboard.rst:136
+msgid ""
+"Adding at the playhead uses normal OpenShot placement: it does not make room"
+" by shifting later clips or overwrite their content. As with dragging a "
+"single clip, an overlap can create an automatic transition. The playhead "
+"stays in place and focus stays in the browser, so you can continue choosing "
+"assets. Press :kbd:`Shift+3` to edit the newly added timeline items."
+msgstr ""
+"Додавання на позиції відтворення використовує звичайне розміщення OpenShot: "
+"воно не звільняє місце, зсуваючи пізніші кліпи, і не перезаписує їхній "
+"вміст. Як і при перетягуванні одного кліпу, перекриття може створити "
+"автоматичний перехід. Позиція відтворення залишається на місці, а фокус — у "
+"браузері, тож ви можете продовжувати вибирати ресурси. Натисніть "
+":kbd:`Shift+3`, щоб редагувати щойно додані елементи часової шкали."
+
+#: ../doc/keyboard.rst:142
+msgid ""
+"For example: :kbd:`Shift+1` → arrow keys → :kbd:`Ctrl+Enter` → "
+":kbd:`Shift+3`. The add/apply shortcut works in the asset list, not while "
+"typing in a filter or renaming an item."
+msgstr ""
+"Наприклад: :kbd:`Shift+1` → стрілки → :kbd:`Ctrl+Enter` → :kbd:`Shift+3`. "
+"Сполучення для додавання/застосування працює у списку ресурсів, а не під час"
+" введення у фільтр або перейменування елемента."
+
+#: ../doc/keyboard.rst:147
+msgid "Moving the playhead"
+msgstr "Переміщення позиції відтворення"
+
+#: ../doc/keyboard.rst:155
+msgid "Step backward / forward one frame"
+msgstr "Крок назад / вперед на один кадр"
+
+#: ../doc/keyboard.rst:156
+msgid ":kbd:`Left` / :kbd:`Right`"
+msgstr ":kbd:`Left` / :kbd:`Right`"
+
+#: ../doc/keyboard.rst:157
+msgid "Step backward / forward five frames"
+msgstr "Крок назад / вперед на п’ять кадрів"
+
+#: ../doc/keyboard.rst:158
+msgid ":kbd:`Shift+Left` / :kbd:`Shift+Right`"
+msgstr ":kbd:`Shift+Left` / :kbd:`Shift+Right`"
+
+#: ../doc/keyboard.rst:159
+msgid "Go to the previous / next edit"
+msgstr "Перейти до попереднього / наступного редагування"
+
+#: ../doc/keyboard.rst:160
+msgid ":kbd:`Up` / :kbd:`Down`"
+msgstr ":kbd:`Up` / :kbd:`Down`"
+
+#: ../doc/keyboard.rst:161
+msgid "Jump to the start / end"
+msgstr "Перейти на початок / кінець"
+
+#: ../doc/keyboard.rst:162
+msgid ":kbd:`Home` / :kbd:`End`"
+msgstr ":kbd:`Home` / :kbd:`End`"
+
+#: ../doc/keyboard.rst:163
+msgid "Center the timeline on the playhead"
+msgstr "Центрувати часову шкалу на позиції відтворення"
+
+#: ../doc/keyboard.rst:164 ../doc/keyboard.rst:451
+msgid ":kbd:`Shift+C`"
+msgstr ":kbd:`Shift+C`"
+
+#: ../doc/keyboard.rst:165 ../doc/keyboard.rst:292
+msgid "Play / pause"
+msgstr "Відтворити / пауза"
+
+#: ../doc/keyboard.rst:166 ../doc/keyboard.rst:595
+msgid ":kbd:`Space`"
+msgstr ":kbd:`Space`"
+
+#: ../doc/keyboard.rst:167
+msgid "Play in reverse"
+msgstr "Відтворити у зворотному напрямку"
+
+#: ../doc/keyboard.rst:168 ../doc/keyboard.rst:634
+msgid ":kbd:`J`"
+msgstr ":kbd:`J`"
+
+#: ../doc/keyboard.rst:169
+msgid "Stop playback"
+msgstr "Зупинити відтворення"
+
+#: ../doc/keyboard.rst:170 ../doc/keyboard.rst:712
+msgid ":kbd:`K`"
+msgstr ":kbd:`K`"
+
+#: ../doc/keyboard.rst:171
+msgid "Play forward"
+msgstr "Відтворити вперед"
+
+#: ../doc/keyboard.rst:172 ../doc/keyboard.rst:511
+msgid ":kbd:`L`"
+msgstr ":kbd:`L`"
+
+#: ../doc/keyboard.rst:174
+msgid ""
+"Edit navigation uses the selected item's track, or the last clicked track if"
+" nothing is selected. With no active track, it starts on the highest track "
+"containing a clip or transition at the playhead, or the highest populated "
+"track in a gap."
+msgstr ""
+"Навігація редагування використовує доріжку вибраного елемента або останню "
+"клацнуту доріжку, якщо нічого не вибрано. Якщо немає активної доріжки, "
+"починає з найвищої доріжки, що містить кліп або перехід на позиції "
+"відтворення, або найвищої заповненої доріжки у проміжку."
+
+#: ../doc/keyboard.rst:179
+msgid "Selecting clips and transitions"
+msgstr "Вибір кліпів і переходів"
+
+#: ../doc/keyboard.rst:180
+msgid ""
+"These shortcuts select both clips and transitions. Selection brings an item "
+"into view without changing the zoom or playhead."
+msgstr ""
+"Ці сполучення клавіш вибирають як кліпи, так і переходи. Вибір показує "
+"елемент без зміни масштабу або позиції відтворення."
+
+#: ../doc/keyboard.rst:188
+msgid "Select the previous / next item"
+msgstr "Вибрати попередній / наступний елемент"
+
+#: ../doc/keyboard.rst:189
+msgid ":kbd:`Ctrl+Left` / :kbd:`Ctrl+Right`"
+msgstr ":kbd:`Ctrl+Left` / :kbd:`Ctrl+Right`"
+
+#: ../doc/keyboard.rst:190
+msgid "Select an item above / below"
+msgstr "Вибрати елемент зверху / знизу"
+
+#: ../doc/keyboard.rst:191
+msgid ":kbd:`Ctrl+Up` / :kbd:`Ctrl+Down`"
+msgstr ":kbd:`Ctrl+Up` / :kbd:`Ctrl+Down`"
+
+#: ../doc/keyboard.rst:192
+msgid "Extend selection to the previous / next item"
+msgstr "Розширити вибір до попереднього / наступного елемента"
+
+#: ../doc/keyboard.rst:193
+msgid ":kbd:`Ctrl+Shift+Left` / :kbd:`Ctrl+Shift+Right`"
+msgstr ":kbd:`Ctrl+Shift+Left` / :kbd:`Ctrl+Shift+Right`"
+
+#: ../doc/keyboard.rst:194
+msgid "Cycle through items under the playhead"
+msgstr "Перемикатися між елементами під позицією відтворення"
+
+#: ../doc/keyboard.rst:195 ../doc/keyboard.rst:652
+msgid ":kbd:`D`"
+msgstr ":kbd:`D`"
+
+#: ../doc/keyboard.rst:196
+msgid "Extend selection through items under the playhead"
+msgstr "Розширити вибір через елементи під позицією відтворення"
+
+#: ../doc/keyboard.rst:197 ../doc/keyboard.rst:502
+msgid ":kbd:`Ctrl+Shift+D`"
+msgstr ":kbd:`Ctrl+Shift+D`"
+
+#: ../doc/keyboard.rst:198
+msgid "Select all / clear selection"
+msgstr "Вибрати все / скасувати вибір"
+
+#: ../doc/keyboard.rst:199
+msgid ":kbd:`Ctrl+A` / :kbd:`Ctrl+Shift+A`"
+msgstr ":kbd:`Ctrl+A` / :kbd:`Ctrl+Shift+A`"
+
+#: ../doc/keyboard.rst:201
+msgid ""
+"**Left/right** follows the current track first. When no item remains in that"
+" direction, it continues to the closest item start on another track."
+msgstr ""
+"**Вліво/вправо** спочатку слідує за поточною доріжкою. Коли в цьому напрямку"
+" більше немає елементів, рух продовжується до найближчого початку елемента "
+"на іншій доріжці."
+
+#: ../doc/keyboard.rst:204
+msgid ""
+"**Up/down** looks above or below the selected item, preferring items that "
+"overlap it in time. The nearest overlapping track wins. If nothing overlaps,"
+" the smallest horizontal gap wins, then the nearest track. Ties on a track "
+"favor the closest item center. Empty tracks and unrelated items farther to "
+"the side do not block navigation. With no selection, the playhead supplies "
+"the starting position."
+msgstr ""
+"**Вгору/вниз** дивиться вище або нижче вибраного елемента, віддаючи перевагу"
+" елементам, які перекривають його за часом. Перемагає найближча перекриваюча"
+" доріжка. Якщо нічого не перекриває, перемагає найменший горизонтальний "
+"проміжок, потім найближча доріжка. При рівності на доріжці перевага "
+"надається найближчому центру елемента. Порожні доріжки та несуміжні елементи"
+" далі збоку не блокують навігацію. Якщо вибір відсутній, початкову позицію "
+"задає індикатор відтворення."
+
+#: ../doc/keyboard.rst:210
+msgid ""
+"**Selection at the playhead** cycles from the highest track to the lowest, "
+"then wraps to the top. Moving the playhead restarts the cycle. If no item is"
+" under it, the selection stays unchanged. Extending selection keeps items "
+"already selected."
+msgstr ""
+"**Вибір на індикаторі відтворення** циклічно переходить від найвищої доріжки"
+" до найнижчої, потім повертається до початку. Рух індикатора відтворення "
+"перезапускає цикл. Якщо під ним немає елемента, вибір залишається незмінним."
+" Розширення вибору зберігає вже вибрані елементи."
+
+#: ../doc/keyboard.rst:217
+msgid "Moving clips and transitions"
+msgstr "Переміщення кліпів і переходів"
+
+#: ../doc/keyboard.rst:218
+msgid ""
+"These shortcuts move the selected clips and transitions when no trim edge is"
+" selected."
+msgstr ""
+"Ці комбінації клавіш переміщують вибрані кліпи та переходи, коли не вибрано "
+"край обрізки."
+
+#: ../doc/keyboard.rst:226
+msgid "Move left / right one frame"
+msgstr "Перемістити вліво / вправо на один кадр"
+
+#: ../doc/keyboard.rst:227 ../doc/keyboard.rst:257
+msgid ":kbd:`,` / :kbd:`.`"
+msgstr ":kbd:`,` / :kbd:`.`"
+
+#: ../doc/keyboard.rst:228
+msgid "Move left / right five frames"
+msgstr "Перемістити вліво / вправо на п’ять кадрів"
+
+#: ../doc/keyboard.rst:229 ../doc/keyboard.rst:259
+msgid ":kbd:`Shift+,` / :kbd:`Shift+.`"
+msgstr ":kbd:`Shift+,` / :kbd:`Shift+.`"
+
+#: ../doc/keyboard.rst:230
+msgid "Move up / down one track"
+msgstr "Перемістити вгору / вниз на одну доріжку"
+
+#: ../doc/keyboard.rst:231
+msgid ":kbd:`Alt+Up` / :kbd:`Alt+Down`"
+msgstr ":kbd:`Alt+Up` / :kbd:`Alt+Down`"
+
+#: ../doc/keyboard.rst:233
+msgid ""
+"Track moves keep the selection's timing and can use empty tracks. A locked "
+"track or the edge of the track list blocks the whole track move."
+msgstr ""
+"Переміщення доріжок зберігає час вибраних елементів і може використовувати "
+"порожні доріжки. Заблокована доріжка або край списку доріжок блокує "
+"переміщення всієї доріжки."
+
+#: ../doc/keyboard.rst:236
+msgid ""
+"Hold a comma/period shortcut to move continuously. OpenShot previews the "
+"movement while the key repeats, then saves the final positions when you "
+"release it. One Undo reverses the entire hold, including all selected items."
+" Separate key taps remain separate undo steps. Leaving the timeline or "
+"starting another keyboard command also finishes the current movement."
+msgstr ""
+"Утримуйте комбінацію клавіш коми/крапки для безперервного переміщення. "
+"OpenShot показує попередній перегляд руху під час повторення натискання, а "
+"після відпускання клавіші зберігає кінцеві позиції. Одне скасування відміняє"
+" весь період утримання, включно з усіма вибраними елементами. Окремі "
+"натискання клавіш залишаються окремими кроками скасування. Вихід з часової "
+"шкали або початок іншої команди клавіатури також завершує поточне "
+"переміщення."
+
+#: ../doc/keyboard.rst:243
+msgid "Trimming clips and transitions"
+msgstr "Обрізання кліпів і переходів"
+
+#: ../doc/keyboard.rst:244
+msgid ""
+"Select a clip or transition, choose its left or right edge, then adjust that"
+" edge."
+msgstr ""
+"Виберіть кліп або перехід, оберіть його лівий або правий край, а потім "
+"відрегулюйте цей край."
+
+#: ../doc/keyboard.rst:252
+msgid "Select the left trim edge"
+msgstr "Вибрати лівий край обрізки"
+
+#: ../doc/keyboard.rst:253 ../doc/keyboard.rst:661
+msgid ":kbd:`[`"
+msgstr ":kbd:`[`"
+
+#: ../doc/keyboard.rst:254
+msgid "Select the right trim edge"
+msgstr "Вибрати правий край обрізки"
+
+#: ../doc/keyboard.rst:255 ../doc/keyboard.rst:673
+msgid ":kbd:`]`"
+msgstr ":kbd:`]`"
+
+#: ../doc/keyboard.rst:256
+msgid "Move the selected edge left / right one frame"
+msgstr "Перемістити вибраний край вліво / вправо на один кадр"
+
+#: ../doc/keyboard.rst:258
+msgid "Move the selected edge left / right five frames"
+msgstr "Перемістити вибраний край вліво / вправо на п’ять кадрів"
+
+#: ../doc/keyboard.rst:260
+msgid "Leave trim mode and restore the timeline preview"
+msgstr ""
+"Вийти з режиму обрізання та відновити попередній перегляд часової шкали"
+
+#: ../doc/keyboard.rst:261
+msgid ":kbd:`Esc`"
+msgstr ":kbd:`Esc`"
+
+#: ../doc/keyboard.rst:263
+msgid ""
+"The selected edge has a fading highlight. Video Preview shows the first "
+"included frame for the left edge or the last included frame for the right "
+"edge, updating after each trim without moving the playhead. For transitions,"
+" the preview shows the transition mask. Trims respect the available source "
+"media and do not ripple other clips."
+msgstr ""
+"Вибраний край має тьмяне підсвічування. Відеопопередній перегляд показує "
+"перший включений кадр для лівого краю або останній включений кадр для "
+"правого краю, оновлюючись після кожного обрізання без переміщення індикатора"
+" відтворення. Для переходів попередній перегляд показує маску переходу. "
+"Обрізання враховує доступні вихідні медіа і не викликає зсув інших кліпів."
+
+#: ../doc/keyboard.rst:269
+msgid ""
+"Holding a trim shortcut also groups its repeated adjustments into one undo "
+"step."
+msgstr ""
+"Утримання комбінації клавіш обрізання також об’єднує повторні налаштування в"
+" один крок скасування."
+
+#: ../doc/keyboard.rst:271
+msgid ""
+"After leaving trim mode, comma/period move whole clips and transitions "
+"again."
+msgstr ""
+"Після виходу з режиму обрізання кома/крапка знову переміщують цілі кліпи та "
+"переходи."
+
+#: ../doc/keyboard.rst:274
+msgid "Coming from another editor?"
+msgstr "Переходите з іншого редактора?"
+
+#: ../doc/keyboard.rst:275
+msgid ""
+"Compare a few everyday editing tasks with shortcuts you may already know."
+msgstr ""
+"Порівняйте кілька повсякденних завдань редагування з комбінаціями клавіш, "
+"які ви, можливо, вже знаєте."
+
+#: ../doc/keyboard.rst:277
+msgid ""
+"The table shows OpenShot's Windows/Linux defaults, Adobe Premiere Pro and "
+"DaVinci Resolve Windows defaults, and Final Cut Pro Mac defaults. On macOS, "
+"OpenShot uses Command for shortcuts shown with Ctrl. Shortcuts in other "
+"editors can vary with the version, keyboard layout, selected preset, and "
+"active panel. Similar shortcuts can also behave differently on stacked or "
+"connected clips."
+msgstr ""
+"У таблиці показані стандартні налаштування OpenShot для Windows/Linux, "
+"стандартні налаштування Adobe Premiere Pro та DaVinci Resolve для Windows, а"
+" також стандартні налаштування Final Cut Pro для Mac. На macOS OpenShot "
+"використовує Command для комбінацій, позначених Ctrl. Комбінації клавіш в "
+"інших редакторах можуть відрізнятися залежно від версії, розкладки "
+"клавіатури, вибраного пресету та активної панелі. Подібні комбінації також "
+"можуть поводитися по-різному на накладених або з’єднаних кліпах."
+
+#: ../doc/keyboard.rst:283
+msgid "Everyday editing shortcuts"
+msgstr "Повсякденні комбінації клавіш для редагування"
+
+#: ../doc/keyboard.rst:287
+msgid "Task"
+msgstr "Завдання"
+
+#: ../doc/keyboard.rst:288
+msgid "OpenShot"
+msgstr "OpenShot"
+
+#: ../doc/keyboard.rst:289
+msgid "Premiere Pro"
+msgstr "Premiere Pro"
+
+#: ../doc/keyboard.rst:290
+msgid "DaVinci Resolve"
+msgstr "DaVinci Resolve"
+
+#: ../doc/keyboard.rst:291
+msgid "Final Cut Pro"
+msgstr "Final Cut Pro"
+
+#: ../doc/keyboard.rst:293 ../doc/keyboard.rst:294 ../doc/keyboard.rst:295
+#: ../doc/keyboard.rst:296
+msgid "Space"
+msgstr "Пробіл"
+
+#: ../doc/keyboard.rst:297
+msgid "Reverse / stop / forward"
+msgstr "Назад / стоп / вперед"
+
+#: ../doc/keyboard.rst:298 ../doc/keyboard.rst:299 ../doc/keyboard.rst:300
+#: ../doc/keyboard.rst:301
+msgid "J / K / L"
+msgstr "J / K / L"
+
+#: ../doc/keyboard.rst:302
+msgid "Previous / next frame"
+msgstr "Попередній / наступний кадр"
+
+#: ../doc/keyboard.rst:303 ../doc/keyboard.rst:304 ../doc/keyboard.rst:305
+#: ../doc/keyboard.rst:306
+msgid "Left / Right"
+msgstr "Вліво / Вправо"
+
+#: ../doc/keyboard.rst:307
+msgid "Previous / next edit"
+msgstr "Попереднє / наступне редагування"
+
+#: ../doc/keyboard.rst:308
+msgid "Up / Down (active track)"
+msgstr "Вгору / Вниз (активна доріжка)"
+
+#: ../doc/keyboard.rst:309 ../doc/keyboard.rst:310 ../doc/keyboard.rst:311
+msgid "Up / Down"
+msgstr "Вгору / Вниз"
+
+#: ../doc/keyboard.rst:312
+msgid "Focus media browser / project assets"
+msgstr "Фокус на браузері медіа / ресурсах проекту"
+
+#: ../doc/keyboard.rst:313
+msgid "Shift+1"
+msgstr "Shift+1"
+
+#: ../doc/keyboard.rst:314
+msgid "Shift+1 (Project panel)"
+msgstr "Shift+1 (панель проекту)"
+
+#: ../doc/keyboard.rst:315 ../doc/keyboard.rst:320
+msgid "Not listed here"
+msgstr "Тут не наведено"
+
+#: ../doc/keyboard.rst:316
+msgid "Cmd+1 (Browser)"
+msgstr "Cmd+1 (Браузер)"
+
+#: ../doc/keyboard.rst:317
+msgid "Focus timeline"
+msgstr "Фокус на часовій шкалі"
+
+#: ../doc/keyboard.rst:318 ../doc/keyboard.rst:319
+msgid "Shift+3"
+msgstr "Shift+3"
+
+#: ../doc/keyboard.rst:321
+msgid "Cmd+2"
+msgstr "Cmd+2"
+
+#: ../doc/keyboard.rst:322
+msgid "Add source media at the playhead"
+msgstr "Додати вихідний медіафайл на позицію відтворення"
+
+#: ../doc/keyboard.rst:323
+msgid "Ctrl+Enter (place on target track)"
+msgstr "Ctrl+Enter (розмістити на цільовому треку)"
+
+#: ../doc/keyboard.rst:324
+msgid "Comma (insert); period (overwrite)"
+msgstr "Кома (вставити); крапка (перезаписати)"
+
+#: ../doc/keyboard.rst:325
+msgid "F9 (insert); F10 (overwrite)"
+msgstr "F9 (вставити); F10 (перезаписати)"
+
+#: ../doc/keyboard.rst:326
+msgid "W (insert); D (overwrite); Q (connect)"
+msgstr "W (вставити); D (перезаписати); Q (підключити)"
+
+#: ../doc/keyboard.rst:327
+msgid "Select previous / next clip"
+msgstr "Вибрати попередній / наступний кліп"
+
+#: ../doc/keyboard.rst:328 ../doc/keyboard.rst:330
+msgid "Ctrl+Left / Right"
+msgstr "Ctrl+Вліво / Вправо"
+
+#: ../doc/keyboard.rst:329 ../doc/keyboard.rst:333 ../doc/keyboard.rst:335
+msgid "Ctrl+Up / Down"
+msgstr "Ctrl+Вверх / Вниз"
+
+#: ../doc/keyboard.rst:331
+msgid "Cmd+Left / Right (same role; also moves playhead)"
+msgstr ""
+"Cmd+Вліво / Вправо (така сама функція; також рухає позицію відтворення)"
+
+#: ../doc/keyboard.rst:332
+msgid "Select clip above / below"
+msgstr "Вибрати кліп зверху / знизу"
+
+#: ../doc/keyboard.rst:334
+msgid "No default listed here"
+msgstr "За замовчуванням тут не вказано"
+
+#: ../doc/keyboard.rst:336
+msgid "Cmd+Up / Down"
+msgstr "Cmd+Вверх / Вниз"
+
+#: ../doc/keyboard.rst:337
+msgid "Move selection up / down"
+msgstr "Перемістити вибране вгору / вниз"
+
+#: ../doc/keyboard.rst:338 ../doc/keyboard.rst:339 ../doc/keyboard.rst:340
+msgid "Alt+Up / Down"
+msgstr "Alt+Вверх / Вниз"
+
+#: ../doc/keyboard.rst:341
+msgid "Option+Up / Down (connected clips)"
+msgstr "Option+Вверх / Вниз (зв’язані кліпи)"
+
+#: ../doc/keyboard.rst:342
+msgid "Nudge left / right one frame"
+msgstr "Зсунути вліво / вправо на один кадр"
+
+#: ../doc/keyboard.rst:343 ../doc/keyboard.rst:345 ../doc/keyboard.rst:346
+msgid "Comma / period"
+msgstr "Кома / крапка"
+
+#: ../doc/keyboard.rst:344
+msgid "Alt+Left / Right"
+msgstr "Alt+Вліво / Вправо"
+
+#: ../doc/keyboard.rst:347
+msgid "Nudge by several frames"
+msgstr "Зсунути на кілька кадрів"
+
+#: ../doc/keyboard.rst:348
+msgid "Shift+comma / period (5)"
+msgstr "Shift+кома / крапка (5)"
+
+#: ../doc/keyboard.rst:349
+msgid "Alt+Shift+Left / Right (5)"
+msgstr "Alt+Shift+Вліво / Вправо (5)"
+
+#: ../doc/keyboard.rst:350
+msgid "Shift+comma / period (configurable; default 5)"
+msgstr "Shift+кома / крапка (налаштовується; за замовчуванням 5)"
+
+#: ../doc/keyboard.rst:351
+msgid "Shift+comma / period (10)"
+msgstr "Shift+кома / крапка (10)"
+
+#: ../doc/keyboard.rst:352
+msgid "Select at playhead"
+msgstr "Вибрати на позиції відтворення"
+
+#: ../doc/keyboard.rst:353
+msgid "D (cycles through stacked clips)"
+msgstr "D (перемикає між накладеними кліпами)"
+
+#: ../doc/keyboard.rst:354
+msgid "D"
+msgstr "D"
+
+#: ../doc/keyboard.rst:355
+msgid "Shift+V (nearest clip/gap)"
+msgstr "Shift+V (найближчий кліп/проміжок)"
+
+#: ../doc/keyboard.rst:356
+msgid "X selects a range; C selects under the pointer"
+msgstr "X вибирає діапазон; C вибирає під вказівником"
+
+#: ../doc/keyboard.rst:357
+msgid "Split at playhead"
+msgstr "Розділити на позиції відтворення"
+
+#: ../doc/keyboard.rst:358
+msgid "Ctrl+K (selected clips)"
+msgstr "Ctrl+K (вибрані кліпи)"
+
+#: ../doc/keyboard.rst:359
+msgid "Ctrl+K (targeted tracks)"
+msgstr "Ctrl+K (цільові доріжки)"
+
+#: ../doc/keyboard.rst:360
+msgid "Ctrl+B"
+msgstr "Ctrl+B"
+
+#: ../doc/keyboard.rst:361
+msgid "Cmd+B"
+msgstr "Cmd+B"
+
+#: ../doc/keyboard.rst:362 ../doc/keyboard.rst:726
+msgid "Undo"
+msgstr "Скасувати"
+
+#: ../doc/keyboard.rst:363 ../doc/keyboard.rst:364 ../doc/keyboard.rst:365
+msgid "Ctrl+Z"
+msgstr "Ctrl+Z"
+
+#: ../doc/keyboard.rst:366
+msgid "Cmd+Z"
+msgstr "Cmd+Z"
+
+#: ../doc/keyboard.rst:367
+msgid "Save project"
+msgstr "Зберегти проєкт"
+
+#: ../doc/keyboard.rst:368 ../doc/keyboard.rst:369 ../doc/keyboard.rst:370
+msgid "Ctrl+S"
+msgstr "Ctrl+S"
+
+#: ../doc/keyboard.rst:371
+msgid "Saves automatically"
+msgstr "Автоматично зберігає"
+
+#: ../doc/keyboard.rst:373
+msgid ""
+"For complete shortcut lists and customization options, see the `Premiere Pro"
+" keyboard reference <https://helpx.adobe.com/premiere/desktop/get-"
+"started/keyboard-shortcuts/default-keyboard-shortcuts.html>`_, `DaVinci "
+"Resolve training guides "
+"<https://www.blackmagicdesign.com/products/davinciresolve/training>`_, and "
+"`Final Cut Pro keyboard reference <https://support.apple.com/guide/final-"
+"cut-pro/ver90ba5929/mac>`_."
+msgstr ""
+"Для повних списків гарячих клавіш та параметрів налаштування дивіться "
+"`Довідник клавіатурних скорочень Premiere Pro "
+"<https://helpx.adobe.com/premiere/desktop/get-started/keyboard-"
+"shortcuts/default-keyboard-shortcuts.html>`_, `Навчальні посібники DaVinci "
+"Resolve "
+"<https://www.blackmagicdesign.com/products/davinciresolve/training>`_ та "
+"`Довідник клавіатурних скорочень Final Cut Pro "
+"<https://support.apple.com/guide/final-cut-pro/ver90ba5929/mac>`_."
+
+#: ../doc/keyboard.rst:381
+msgid "Mouse shortcuts"
+msgstr "Гарячі клавіші миші"
+
+#: ../doc/keyboard.rst:382
+msgid ""
+"These gestures complement the keyboard shortcuts. In Project Files' Details "
+"view, double-click the thumbnail column for the file actions below."
+msgstr ""
+"Ці жести доповнюють гарячі клавіші клавіатури. У режимі перегляду деталей "
+"файлів проєкту двічі клацніть стовпець мініатюр для дій з файлами нижче."
+
+#: ../doc/keyboard.rst:390
+msgid "Mouse gesture"
+msgstr "Жест миші"
+
+#: ../doc/keyboard.rst:391
+msgid "Keyboard alternative"
+msgstr "Альтернатива клавіатури"
+
+#: ../doc/keyboard.rst:392
+msgid "Preview a file in Project Files"
+msgstr "Попередній перегляд файлу у Файлах проєкту"
+
+#: ../doc/keyboard.rst:393
+msgid "Double-click the file"
+msgstr "Двічі клацніть файл"
+
+#: ../doc/keyboard.rst:395
+msgid "Open file properties in Project Files"
+msgstr "Відкрити властивості файлу у Файлах проєкту"
+
+#: ../doc/keyboard.rst:396
+msgid ":kbd:`Ctrl` + double-click the file"
+msgstr ":kbd:`Ctrl` + двічі клацніть файл"
+
+#: ../doc/keyboard.rst:397 ../doc/keyboard.rst:514
+msgid ":kbd:`Alt+I`"
+msgstr ":kbd:`Alt+I`"
+
+#: ../doc/keyboard.rst:398
+msgid "Split a file in Project Files"
+msgstr "Розділити файл у Файлах проєкту"
+
+#: ../doc/keyboard.rst:399
+msgid ":kbd:`Shift` + double-click the file"
+msgstr ":kbd:`Shift` + двічі клацніть файл"
+
+#: ../doc/keyboard.rst:400 ../doc/keyboard.rst:709
+msgid ":kbd:`Alt+S`"
+msgstr ":kbd:`Alt+S`"
+
+#: ../doc/keyboard.rst:401
+msgid "Select an item and everything to its right on the same track"
+msgstr "Вибрати елемент і все праворуч від нього на тому ж треку"
+
+#: ../doc/keyboard.rst:402
+msgid ":kbd:`Alt` + click the clip or transition"
+msgstr ":kbd:`Alt` + клацніть кліп або перехід"
+
+#: ../doc/keyboard.rst:403
+msgid ":kbd:`Alt+A` with an item selected"
+msgstr ":kbd:`Alt+A` при вибраному елементі"
+
+#: ../doc/keyboard.rst:404
+msgid "Open properties for a timeline clip or transition"
+msgstr "Відкрити властивості кліпу або переходу на часовій шкалі"
+
+#: ../doc/keyboard.rst:405
+msgid "Double-click the item"
+msgstr "Двічі клацніть елемент"
+
+#: ../doc/keyboard.rst:406 ../doc/keyboard.rst:616
+msgid ":kbd:`U`"
+msgstr ":kbd:`U`"
+
+#: ../doc/keyboard.rst:407
+msgid "Fit the whole timeline in view"
+msgstr "Вмістити всю часову шкалу у вікно"
+
+#: ../doc/keyboard.rst:408
+msgid "Double-click the zoom slider"
+msgstr "Двічі клацніть повзунок масштабування"
+
+#: ../doc/keyboard.rst:409
+msgid ":kbd:`\\\\` or :kbd:`Shift+\\\\`"
+msgstr ":kbd:`\\\\` або :kbd:`Shift+\\\\`"
+
+#: ../doc/keyboard.rst:412
+msgid "Full shortcut reference"
+msgstr "Повний довідник гарячих клавіш"
+
+#: ../doc/keyboard.rst:413
+msgid ""
+"These are the default shortcuts, including view shortcuts supplied by the "
+"menus. Your assignments in Preferences may differ. On macOS, Command is used"
+" for shortcuts shown with Ctrl."
+msgstr ""
+"Це стандартні гарячі клавіші, включно з гарячими клавішами перегляду, "
+"наданими меню. Ваші налаштування в Параметрах можуть відрізнятися. На macOS "
+"для гарячих клавіш, позначених Ctrl, використовується Command."
+
+#: ../doc/keyboard.rst:416
+msgid "Default keyboard shortcuts"
+msgstr "Стандартні гарячі клавіші"
+
+#: ../doc/keyboard.rst:421
+msgid "Primary shortcut"
+msgstr "Основне скорочення"
+
+#: ../doc/keyboard.rst:422
+msgid "Alternatives"
+msgstr "Альтернативи"
+
+#: ../doc/keyboard.rst:423
+msgid "About OpenShot"
+msgstr "Про OpenShot"
+
+#: ../doc/keyboard.rst:424
+msgid ":kbd:`Ctrl+H`"
+msgstr ":kbd:`Ctrl+H`"
+
+#: ../doc/keyboard.rst:426
+msgid "Add Marker"
+msgstr "Додати маркер"
+
+#: ../doc/keyboard.rst:427
+msgid ":kbd:`M`"
+msgstr ":kbd:`M`"
+
+#: ../doc/keyboard.rst:429
+msgid "Add or Apply Selected Asset"
+msgstr "Додати або застосувати вибраний ресурс"
+
+#: ../doc/keyboard.rst:432
+msgid "Add Text"
+msgstr "Додати текст"
+
+#: ../doc/keyboard.rst:433
+msgid ":kbd:`Shift+T`"
+msgstr ":kbd:`Shift+T`"
+
+#: ../doc/keyboard.rst:435
+msgid "Add to Timeline"
+msgstr "Додати до часової шкали"
+
+#: ../doc/keyboard.rst:438
+msgid "Add Track"
+msgstr "Додати доріжку"
+
+#: ../doc/keyboard.rst:439
+msgid ":kbd:`Ctrl+Y`"
+msgstr ":kbd:`Ctrl+Y`"
+
+#: ../doc/keyboard.rst:441
+msgid "Animated Title"
+msgstr "Анімований заголовок"
+
+#: ../doc/keyboard.rst:442
+msgid ":kbd:`Ctrl+Shift+T`"
+msgstr ":kbd:`Ctrl+Shift+T`"
+
+#: ../doc/keyboard.rst:444
+msgid "Ask a Question..."
+msgstr "Задати питання..."
+
+#: ../doc/keyboard.rst:445
+msgid ":kbd:`F4`"
+msgstr ":kbd:`F4`"
+
+#: ../doc/keyboard.rst:447
+msgid "Auto-Optimize"
+msgstr "Автоматична оптимізація"
+
+#: ../doc/keyboard.rst:448
+msgid ":kbd:`Ctrl+Alt+O`"
+msgstr ":kbd:`Ctrl+Alt+O`"
+
+#: ../doc/keyboard.rst:450
+msgid "Center on Playhead"
+msgstr "Центрувати на позиції відтворення"
+
+#: ../doc/keyboard.rst:453
+msgid "Choose Profile"
+msgstr "Вибрати профіль"
+
+#: ../doc/keyboard.rst:454
+msgid ":kbd:`Ctrl+Alt+P`"
+msgstr ":kbd:`Ctrl+Alt+P`"
+
+#: ../doc/keyboard.rst:456
+msgid "Clear All Cache"
+msgstr "Очистити весь кеш"
+
+#: ../doc/keyboard.rst:457
+msgid ":kbd:`Ctrl+Shift+ESC`"
+msgstr ":kbd:`Ctrl+Shift+ESC`"
+
+#: ../doc/keyboard.rst:459
+msgid "Clear History"
+msgstr "Очистити історію"
+
+#: ../doc/keyboard.rst:460
+msgid ":kbd:`Ctrl+Shift+H`"
+msgstr ":kbd:`Ctrl+Shift+H`"
+
+#: ../doc/keyboard.rst:462
+msgid "Clear Waveform Display Data"
+msgstr "Очистити дані відображення форми хвилі"
+
+#: ../doc/keyboard.rst:463
+msgid ":kbd:`Ctrl+Shift+W`"
+msgstr ":kbd:`Ctrl+Shift+W`"
+
+#: ../doc/keyboard.rst:465
+msgid "Color View"
+msgstr "Перегляд кольору"
+
+#: ../doc/keyboard.rst:466
+msgid ":kbd:`Alt+Shift+2`"
+msgstr ":kbd:`Alt+Shift+2`"
+
+#: ../doc/keyboard.rst:468
+msgid "Copy"
+msgstr "Копіювати"
+
+#: ../doc/keyboard.rst:469
+msgid ":kbd:`Ctrl+C`"
+msgstr ":kbd:`Ctrl+C`"
+
+#: ../doc/keyboard.rst:471
+msgid "Cut"
+msgstr "Вирізати"
+
+#: ../doc/keyboard.rst:472
+msgid ":kbd:`Ctrl+X`"
+msgstr ":kbd:`Ctrl+X`"
+
+#: ../doc/keyboard.rst:474
+msgid "Delete Item"
+msgstr "Видалити елемент"
+
+#: ../doc/keyboard.rst:475
+msgid ":kbd:`Delete`"
+msgstr ":kbd:`Delete`"
+
+#: ../doc/keyboard.rst:476
+msgid ":kbd:`Backspace`"
+msgstr ":kbd:`Backspace`"
+
+#: ../doc/keyboard.rst:477
+msgid "Delete Item (Ripple)"
+msgstr "Видалити елемент (зсув)"
+
+#: ../doc/keyboard.rst:478
+msgid ":kbd:`Shift+Delete`"
+msgstr ":kbd:`Shift+Delete`"
+
+#: ../doc/keyboard.rst:480
+msgid "Delete Optimized Videos"
+msgstr "Видалити оптимізовані відео"
+
+#: ../doc/keyboard.rst:481
+msgid ":kbd:`Ctrl+Shift+O`"
+msgstr ":kbd:`Ctrl+Shift+O`"
+
+#: ../doc/keyboard.rst:483
+msgid "Details View"
+msgstr "Перегляд деталей"
+
+#: ../doc/keyboard.rst:484
+msgid ":kbd:`Ctrl+Page Up`"
+msgstr ":kbd:`Ctrl+Page Up`"
+
+#: ../doc/keyboard.rst:486
+msgid "Donate"
+msgstr "Пожертвувати"
+
+#: ../doc/keyboard.rst:487
+msgid ":kbd:`F7`"
+msgstr ":kbd:`F7`"
+
+#: ../doc/keyboard.rst:489
+msgid "Duplicate"
+msgstr "Дублювати"
+
+#: ../doc/keyboard.rst:490
+msgid ":kbd:`Ctrl+Shift+/`"
+msgstr ":kbd:`Ctrl+Shift+/`"
+
+#: ../doc/keyboard.rst:492
+msgid "Edit Title"
+msgstr "Редагувати заголовок"
+
+#: ../doc/keyboard.rst:493
+msgid ":kbd:`Alt+T`"
+msgstr ":kbd:`Alt+T`"
+
+#: ../doc/keyboard.rst:495
+msgid "Export Files"
+msgstr "Експортувати файли"
+
+#: ../doc/keyboard.rst:496
+msgid ":kbd:`Ctrl+Shift+E`"
+msgstr ":kbd:`Ctrl+Shift+E`"
+
+#: ../doc/keyboard.rst:498
+msgid "Export Video"
+msgstr "Експортувати відео"
+
+#: ../doc/keyboard.rst:499
+msgid ":kbd:`Ctrl+E`"
+msgstr ":kbd:`Ctrl+E`"
+
+#: ../doc/keyboard.rst:500
+msgid ":kbd:`Ctrl+M`"
+msgstr ":kbd:`Ctrl+M`"
+
+#: ../doc/keyboard.rst:501
+msgid "Extend Selection at Playhead"
+msgstr "Розширити вибір на позиції відтворення"
+
+#: ../doc/keyboard.rst:504
+msgid "Extend Selection to Next Item"
+msgstr "Розширити вибір до наступного елемента"
+
+#: ../doc/keyboard.rst:505
+msgid ":kbd:`Ctrl+Shift+Right`"
+msgstr ":kbd:`Ctrl+Shift+Right`"
+
+#: ../doc/keyboard.rst:507
+msgid "Extend Selection to Previous Item"
+msgstr "Розширити вибір до попереднього елемента"
+
+#: ../doc/keyboard.rst:508
+msgid ":kbd:`Ctrl+Shift+Left`"
+msgstr ":kbd:`Ctrl+Shift+Left`"
+
+#: ../doc/keyboard.rst:510
+msgid "Fast Forward"
+msgstr "Швидке перемотування вперед"
+
+#: ../doc/keyboard.rst:513
+msgid "File Properties"
+msgstr "Властивості файлу"
+
+#: ../doc/keyboard.rst:525
+msgid "Focus Timeline"
+msgstr "Фокус на часовій шкалі"
+
+#: ../doc/keyboard.rst:531
+msgid "Fullscreen"
+msgstr "Повноекранний режим"
+
+#: ../doc/keyboard.rst:532
+msgid ":kbd:`F11`"
+msgstr ":kbd:`F11`"
+
+#: ../doc/keyboard.rst:534
+msgid "Import Files..."
+msgstr "Імпортувати файли..."
+
+#: ../doc/keyboard.rst:535
+msgid ":kbd:`Ctrl+I`"
+msgstr ":kbd:`Ctrl+I`"
+
+#: ../doc/keyboard.rst:537
+msgid "Insert Keyframe"
+msgstr "Вставити ключовий кадр"
+
+#: ../doc/keyboard.rst:538
+msgid ":kbd:`Alt+Shift+K`"
+msgstr ":kbd:`Alt+Shift+K`"
+
+#: ../doc/keyboard.rst:540
+msgid "Join our Community..."
+msgstr "Приєднатися до нашої спільноти..."
+
+#: ../doc/keyboard.rst:541
+msgid ":kbd:`F5`"
+msgstr ":kbd:`F5`"
+
+#: ../doc/keyboard.rst:543
+msgid "Jump To End"
+msgstr "Перейти в кінець"
+
+#: ../doc/keyboard.rst:544
+msgid ":kbd:`End`"
+msgstr ":kbd:`End`"
+
+#: ../doc/keyboard.rst:546
+msgid "Jump To Start"
+msgstr "Перейти на початок"
+
+#: ../doc/keyboard.rst:547
+msgid ":kbd:`Home`"
+msgstr ":kbd:`Home`"
+
+#: ../doc/keyboard.rst:549
+msgid "Launch Tutorial"
+msgstr "Запустити навчання"
+
+#: ../doc/keyboard.rst:550
+msgid ":kbd:`F2`"
+msgstr ":kbd:`F2`"
+
+#: ../doc/keyboard.rst:552
+msgid "Move Selection Down One Track"
+msgstr "Перемістити вибране вниз на одну доріжку"
+
+#: ../doc/keyboard.rst:553
+msgid ":kbd:`Alt+Down`"
+msgstr ":kbd:`Alt+Down`"
+
+#: ../doc/keyboard.rst:555
+msgid "Move Selection Up One Track"
+msgstr "Перемістити вибране вгору на одну доріжку"
+
+#: ../doc/keyboard.rst:556
+msgid ":kbd:`Alt+Up`"
+msgstr ":kbd:`Alt+Up`"
+
+#: ../doc/keyboard.rst:558
+msgid "New Project"
+msgstr "Новий проєкт"
+
+#: ../doc/keyboard.rst:559
+msgid ":kbd:`Ctrl+N`"
+msgstr ":kbd:`Ctrl+N`"
+
+#: ../doc/keyboard.rst:561
+msgid "Next Edit Point"
+msgstr "Наступна точка редагування"
+
+#: ../doc/keyboard.rst:562
+msgid ":kbd:`Down`"
+msgstr ":kbd:`Down`"
+
+#: ../doc/keyboard.rst:564
+msgid "Next Five Frames"
+msgstr "Наступні п’ять кадрів"
+
+#: ../doc/keyboard.rst:565
+msgid ":kbd:`Shift+Right`"
+msgstr ":kbd:`Shift+Right`"
+
+#: ../doc/keyboard.rst:567
+msgid "Next Frame"
+msgstr "Наступний кадр"
+
+#: ../doc/keyboard.rst:568
+msgid ":kbd:`Right`"
+msgstr ":kbd:`Right`"
+
+#: ../doc/keyboard.rst:570
+msgid "Next Marker"
+msgstr "Наступний маркер"
+
+#: ../doc/keyboard.rst:571
+msgid ":kbd:`Shift+M`"
+msgstr ":kbd:`Shift+M`"
+
+#: ../doc/keyboard.rst:572
+msgid ":kbd:`Alt+Right`"
+msgstr ":kbd:`Alt+Right`"
+
+#: ../doc/keyboard.rst:573
+msgid "Nudge left (1 Frame)"
+msgstr "Зсунути вліво (1 кадр)"
+
+#: ../doc/keyboard.rst:574
+msgid ":kbd:`,`"
+msgstr ":kbd:`,`"
+
+#: ../doc/keyboard.rst:576
+msgid "Nudge left (5 Frames)"
+msgstr "Зсунути вліво (5 кадрів)"
+
+#: ../doc/keyboard.rst:577
+msgid ":kbd:`Shift+,`"
+msgstr ":kbd:`Shift+,`"
+
+#: ../doc/keyboard.rst:579
+msgid "Nudge right (1 Frame)"
+msgstr "Зсунути вправо (1 кадр)"
+
+#: ../doc/keyboard.rst:580
+msgid ":kbd:`.`"
+msgstr ":kbd:`.`"
+
+#: ../doc/keyboard.rst:582
+msgid "Nudge right (5 Frames)"
+msgstr "Зсунути вправо (5 кадрів)"
+
+#: ../doc/keyboard.rst:583
+msgid ":kbd:`Shift+.`"
+msgstr ":kbd:`Shift+.`"
+
+#: ../doc/keyboard.rst:585
+msgid "Open Help Contents"
+msgstr "Відкрити довідковий зміст"
+
+#: ../doc/keyboard.rst:586
+msgid ":kbd:`F1`"
+msgstr ":kbd:`F1`"
+
+#: ../doc/keyboard.rst:588
+msgid "Open Project..."
+msgstr "Відкрити проект..."
+
+#: ../doc/keyboard.rst:589
+msgid ":kbd:`Ctrl+O`"
+msgstr ":kbd:`Ctrl+O`"
+
+#: ../doc/keyboard.rst:591
+msgid "Paste"
+msgstr "Вставити"
+
+#: ../doc/keyboard.rst:592
+msgid ":kbd:`Ctrl+V`"
+msgstr ":kbd:`Ctrl+V`"
+
+#: ../doc/keyboard.rst:594
+msgid "Play/Pause Toggle"
+msgstr "Перемикання Відтворення/Пауза"
+
+#: ../doc/keyboard.rst:597
+msgid "Preferences"
+msgstr "Налаштування"
+
+#: ../doc/keyboard.rst:598
+msgid ":kbd:`Ctrl+P`"
+msgstr ":kbd:`Ctrl+P`"
+
+#: ../doc/keyboard.rst:600
+msgid "Preview File"
+msgstr "Попередній перегляд файлу"
+
+#: ../doc/keyboard.rst:603
+msgid "Previous Edit Point"
+msgstr "Попередня точка редагування"
+
+#: ../doc/keyboard.rst:604
+msgid ":kbd:`Up`"
+msgstr ":kbd:`Up`"
+
+#: ../doc/keyboard.rst:606
+msgid "Previous Five Frames"
+msgstr "Попередні п’ять кадрів"
+
+#: ../doc/keyboard.rst:607
+msgid ":kbd:`Shift+Left`"
+msgstr ":kbd:`Shift+Left`"
+
+#: ../doc/keyboard.rst:609
+msgid "Previous Frame"
+msgstr "Попередній кадр"
+
+#: ../doc/keyboard.rst:610
+msgid ":kbd:`Left`"
+msgstr ":kbd:`Left`"
+
+#: ../doc/keyboard.rst:612
+msgid "Previous Marker"
+msgstr "Попередній маркер"
+
+#: ../doc/keyboard.rst:613
+msgid ":kbd:`Ctrl+Shift+M`"
+msgstr ":kbd:`Ctrl+Shift+M`"
+
+#: ../doc/keyboard.rst:614
+msgid ":kbd:`Alt+Left`"
+msgstr ":kbd:`Alt+Left`"
+
+#: ../doc/keyboard.rst:615
+msgid "Properties"
+msgstr "Властивості"
+
+#: ../doc/keyboard.rst:618
+msgid "Quit"
+msgstr "Вийти"
+
+#: ../doc/keyboard.rst:619
+msgid ":kbd:`Ctrl+Q`"
+msgstr ":kbd:`Ctrl+Q`"
+
+#: ../doc/keyboard.rst:621
+msgid "Razor Toggle"
+msgstr "Перемикання леза"
+
+#: ../doc/keyboard.rst:622
+msgid ":kbd:`C`"
+msgstr ":kbd:`C`"
+
+#: ../doc/keyboard.rst:623
+msgid ":kbd:`B` or :kbd:`R`"
+msgstr ":kbd:`B` або :kbd:`R`"
+
+#: ../doc/keyboard.rst:624
+msgid "Recording View"
+msgstr "Вигляд запису"
+
+#: ../doc/keyboard.rst:625
+msgid ":kbd:`Alt+Shift+3`"
+msgstr ":kbd:`Alt+Shift+3`"
+
+#: ../doc/keyboard.rst:627
+msgid "Redo"
+msgstr "Повторити"
+
+#: ../doc/keyboard.rst:628
+msgid ":kbd:`Ctrl+Shift+Z`"
+msgstr ":kbd:`Ctrl+Shift+Z`"
+
+#: ../doc/keyboard.rst:630
+msgid "Report a Bug..."
+msgstr "Повідомити про помилку..."
+
+#: ../doc/keyboard.rst:631
+msgid ":kbd:`F3`"
+msgstr ":kbd:`F3`"
+
+#: ../doc/keyboard.rst:633
+msgid "Rewind"
+msgstr "Перемотати назад"
+
+#: ../doc/keyboard.rst:636
+msgid "Save Current Frame"
+msgstr "Зберегти поточний кадр"
+
+#: ../doc/keyboard.rst:637
+msgid ":kbd:`Shift+E`"
+msgstr ":kbd:`Shift+E`"
+
+#: ../doc/keyboard.rst:639
+msgid "Save Project"
+msgstr "Зберегти проект"
+
+#: ../doc/keyboard.rst:640
+msgid ":kbd:`Ctrl+S`"
+msgstr ":kbd:`Ctrl+S`"
+
+#: ../doc/keyboard.rst:642
+msgid "Save Project As..."
+msgstr "Зберегти проект як..."
+
+#: ../doc/keyboard.rst:643
+msgid ":kbd:`Ctrl+Shift+S`"
+msgstr ":kbd:`Ctrl+Shift+S`"
+
+#: ../doc/keyboard.rst:645
+msgid "Select All"
+msgstr "Вибрати все"
+
+#: ../doc/keyboard.rst:646
+msgid ":kbd:`Ctrl+A`"
+msgstr ":kbd:`Ctrl+A`"
+
+#: ../doc/keyboard.rst:648
+msgid "Select Item Above"
+msgstr "Вибрати елемент зверху"
+
+#: ../doc/keyboard.rst:649
+msgid ":kbd:`Ctrl+Up`"
+msgstr ":kbd:`Ctrl+Up`"
+
+#: ../doc/keyboard.rst:651
+msgid "Select Item at Playhead"
+msgstr "Вибрати елемент на позиції відтворення"
+
+#: ../doc/keyboard.rst:654
+msgid "Select Item Below"
+msgstr "Вибрати елемент знизу"
+
+#: ../doc/keyboard.rst:655
+msgid ":kbd:`Ctrl+Down`"
+msgstr ":kbd:`Ctrl+Down`"
+
+#: ../doc/keyboard.rst:657
+msgid "Select Item (Ripple)"
+msgstr "Вибрати елемент (з ефектом хвилі)"
+
+#: ../doc/keyboard.rst:658
+msgid ":kbd:`Alt+A`"
+msgstr ":kbd:`Alt+A`"
+
+#: ../doc/keyboard.rst:660
+msgid "Select Left Item Edge"
+msgstr "Вибрати лівий край елемента"
+
+#: ../doc/keyboard.rst:663
+msgid "Select Next Item"
+msgstr "Вибрати наступний елемент"
+
+#: ../doc/keyboard.rst:664
+msgid ":kbd:`Ctrl+Right`"
+msgstr ":kbd:`Ctrl+Right`"
+
+#: ../doc/keyboard.rst:666
+msgid "Select None"
+msgstr "Зняти вибір"
+
+#: ../doc/keyboard.rst:667
+msgid ":kbd:`Ctrl+Shift+A`"
+msgstr ":kbd:`Ctrl+Shift+A`"
+
+#: ../doc/keyboard.rst:669
+msgid "Select Previous Item"
+msgstr "Вибрати попередній елемент"
+
+#: ../doc/keyboard.rst:670
+msgid ":kbd:`Ctrl+Left`"
+msgstr ":kbd:`Ctrl+Left`"
+
+#: ../doc/keyboard.rst:672
+msgid "Select Right Item Edge"
+msgstr "Вибрати правий край елемента"
+
+#: ../doc/keyboard.rst:675
+msgid "Share Feedback..."
+msgstr "Поділитися відгуком..."
+
+#: ../doc/keyboard.rst:676
+msgid ":kbd:`F8`"
+msgstr ":kbd:`F8`"
+
+#: ../doc/keyboard.rst:678
+msgid "Simple View"
+msgstr "Простий вигляд"
+
+#: ../doc/keyboard.rst:679
+msgid ":kbd:`Alt+Shift+0`"
+msgstr ":kbd:`Alt+Shift+0`"
+
+#: ../doc/keyboard.rst:681
+msgid "Slice All: Keep Both Sides"
+msgstr "Розрізати все: зберегти обидві сторони"
+
+#: ../doc/keyboard.rst:682
+msgid ":kbd:`Ctrl+Shift+K`"
+msgstr ":kbd:`Ctrl+Shift+K`"
+
+#: ../doc/keyboard.rst:684
+msgid "Slice All: Keep Left Side"
+msgstr "Розрізати все: зберегти ліву сторону"
+
+#: ../doc/keyboard.rst:685
+msgid ":kbd:`Ctrl+Shift+J`"
+msgstr ":kbd:`Ctrl+Shift+J`"
+
+#: ../doc/keyboard.rst:687
+msgid "Slice All: Keep Right Side"
+msgstr "Розрізати все: зберегти праву сторону"
+
+#: ../doc/keyboard.rst:688
+msgid ":kbd:`Ctrl+Shift+L`"
+msgstr ":kbd:`Ctrl+Shift+L`"
+
+#: ../doc/keyboard.rst:690
+msgid "Slice Selected: Keep Both Sides"
+msgstr "Розрізати вибране: зберегти обидві сторони"
+
+#: ../doc/keyboard.rst:691
+msgid ":kbd:`Ctrl+K`"
+msgstr ":kbd:`Ctrl+K`"
+
+#: ../doc/keyboard.rst:693
+msgid "Slice Selected: Keep Left (Ripple)"
+msgstr "Розрізати вибране: зберегти ліву (з ефектом хвилі)"
+
+#: ../doc/keyboard.rst:694
+msgid ":kbd:`W`"
+msgstr ":kbd:`W`"
+
+#: ../doc/keyboard.rst:696
+msgid "Slice Selected: Keep Left Side"
+msgstr "Розрізати вибране: зберегти ліву сторону"
+
+#: ../doc/keyboard.rst:697
+msgid ":kbd:`Ctrl+J`"
+msgstr ":kbd:`Ctrl+J`"
+
+#: ../doc/keyboard.rst:699
+msgid "Slice Selected: Keep Right (Ripple)"
+msgstr "Розрізати вибране: зберегти праву (з ефектом хвилі)"
+
+#: ../doc/keyboard.rst:700
+msgid ":kbd:`Q`"
+msgstr ":kbd:`Q`"
+
+#: ../doc/keyboard.rst:702
+msgid "Slice Selected: Keep Right Side"
+msgstr "Розрізати вибране: зберегти праву сторону"
+
+#: ../doc/keyboard.rst:703
+msgid ":kbd:`Ctrl+L`"
+msgstr ":kbd:`Ctrl+L`"
+
+#: ../doc/keyboard.rst:705
+msgid "Snapping Toggle"
+msgstr "Перемикання прив’язки"
+
+#: ../doc/keyboard.rst:706
+msgid ":kbd:`S`"
+msgstr ":kbd:`S`"
+
+#: ../doc/keyboard.rst:708
+msgid "Split File"
+msgstr "Розділити файл"
+
+#: ../doc/keyboard.rst:711
+msgid "Stop Playback"
+msgstr "Зупинити відтворення"
+
+#: ../doc/keyboard.rst:714
+msgid "Thumbnail View"
+msgstr "Перегляд ескізів"
+
+#: ../doc/keyboard.rst:715
+msgid ":kbd:`Ctrl+Page Down`"
+msgstr ":kbd:`Ctrl+Page Down`"
+
+#: ../doc/keyboard.rst:717
+msgid "Timing Toggle"
+msgstr "Перемикання таймінгу"
+
+#: ../doc/keyboard.rst:718
+msgid ":kbd:`T`"
+msgstr ":kbd:`T`"
+
+#: ../doc/keyboard.rst:720
+msgid "Title"
+msgstr "Заголовок"
+
+#: ../doc/keyboard.rst:721
+msgid ":kbd:`Ctrl+T`"
+msgstr ":kbd:`Ctrl+T`"
+
+#: ../doc/keyboard.rst:723
+msgid "Translate this Application..."
+msgstr "Перекласти цей додаток..."
+
+#: ../doc/keyboard.rst:724
+msgid ":kbd:`F6`"
+msgstr ":kbd:`F6`"
+
+#: ../doc/keyboard.rst:727
+msgid ":kbd:`Ctrl+Z`"
+msgstr ":kbd:`Ctrl+Z`"
+
+#: ../doc/keyboard.rst:729
+msgid "Update Available"
+msgstr "Доступне оновлення"
+
+#: ../doc/keyboard.rst:730
+msgid ":kbd:`F9`"
+msgstr ":kbd:`F9`"
+
+#: ../doc/keyboard.rst:732
+msgid "View Toolbar"
+msgstr "Показати панель інструментів"
+
+#: ../doc/keyboard.rst:733
+msgid ":kbd:`Ctrl+Shift+B`"
+msgstr ":kbd:`Ctrl+Shift+B`"
+
+#: ../doc/keyboard.rst:735
+msgid "Zoom In"
+msgstr "Збільшити"
+
+#: ../doc/keyboard.rst:736
+msgid ":kbd:`=`"
+msgstr ":kbd:`=`"
+
+#: ../doc/keyboard.rst:737
+msgid ":kbd:`Ctrl+=`"
+msgstr ":kbd:`Ctrl+=`"
+
+#: ../doc/keyboard.rst:738
+msgid "Zoom Out"
+msgstr "Зменшити"
+
+#: ../doc/keyboard.rst:739
+msgid ":kbd:`-`"
+msgstr ":kbd:`-`"
+
+#: ../doc/keyboard.rst:740
+msgid ":kbd:`Ctrl+-`"
+msgstr ":kbd:`Ctrl+-`"
+
+#: ../doc/keyboard.rst:741
+msgid "Zoom to Timeline"
+msgstr "Масштабувати до часової шкали"
+
+#: ../doc/keyboard.rst:742
+msgid ":kbd:`\\\\`"
+msgstr ":kbd:`\\\\`"
+
+#: ../doc/keyboard.rst:743
+msgid ":kbd:`Shift+\\\\`"
+msgstr ":kbd:`Shift+\\\\`"

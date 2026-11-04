@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-26 14:26-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,12 +20,12 @@ msgstr ""
 "Generated-By: Babel 2.10.3\n"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:23
+#: ../doc/animation.rst:23
 msgid "Animation"
 msgstr "动画"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:25
+#: ../doc/animation.rst:25
 msgid ""
 "OpenShot has been designed specifically with animation in mind. The powerful"
 " curve-based animation framework can handle most jobs with ease, and is "
@@ -38,129 +38,143 @@ msgstr ""
 "会自动计算中间值。"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:30
+#: ../doc/animation.rst:30
 msgid "Overview"
 msgstr "概述"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:38 ../animation.rst:141
+#: ../doc/animation.rst:38 ../doc/animation.rst:187
 msgid "#"
 msgstr "编号"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:38 ../animation.rst:141
+#: ../doc/animation.rst:38 ../doc/animation.rst:187
 msgid "Name"
 msgstr "名称"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:38 ../animation.rst:65 ../animation.rst:141
+#: ../doc/animation.rst:38 ../doc/animation.rst:71 ../doc/animation.rst:187
 msgid "Description"
 msgstr "描述"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:40 ../animation.rst:41 ../animation.rst:143
+#: ../doc/animation.rst:40 ../doc/animation.rst:41 ../doc/animation.rst:189
 msgid "1"
 msgstr "1"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:40
+#: ../doc/animation.rst:40
 msgid "Green Property"
 msgstr "绿色属性"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:40
+#: ../doc/animation.rst:40
 msgid "When the play-head is on a key frame, the property appears green"
 msgstr "当播放头位于关键帧时，该属性显示为绿色"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:41
+#: ../doc/animation.rst:41
 msgid "Blue Property"
 msgstr "蓝色属性"
 
-# Translated with gpt-4.1-mini
-#: ../animation.rst:41
-msgid ""
-"When the play-head is on an interpolated value, the property appears blue"
-msgstr "当播放头位于插值点时，该属性显示为蓝色"
+#: ../doc/animation.rst:41
+msgid "When the play-head is between key frames, the property appears blue"
+msgstr "当播放头位于关键帧之间时，属性显示为蓝色"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:42 ../animation.rst:144
+#: ../doc/animation.rst:42 ../doc/animation.rst:190
 msgid "2"
 msgstr "2"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:42
+#: ../doc/animation.rst:42
 msgid "Value Slider"
 msgstr "数值滑块"
 
-# Translated with gpt-4.1-mini
-#: ../animation.rst:42
+#: ../doc/animation.rst:42
 msgid ""
-"Click and drag your mouse to adjust the value (this automatically creates a "
-"key frame if needed)"
-msgstr "点击并拖动鼠标调整数值（如有需要，会自动创建关键帧）"
+"Drag to adjust a property. With Auto Keyframes on, this also records the "
+"value at the playhead."
+msgstr "拖动以调整属性。开启自动关键帧时，这也会记录播放头处的值。"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:43
+#: ../doc/animation.rst:43
 msgid "3"
 msgstr "3"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:43
+#: ../doc/animation.rst:43
 msgid "Play-head"
 msgstr "播放头"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:43
+#: ../doc/animation.rst:43
 msgid "Position the play-head over a clip where you need a key frame"
 msgstr "将播放头定位在需要关键帧的剪辑位置"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:44
+#: ../doc/animation.rst:44
 msgid "4"
 msgstr "4"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:44
+#: ../doc/animation.rst:44
 msgid "Key frame Markers"
 msgstr "关键帧标记"
 
-#: ../animation.rst:44
+#: ../doc/animation.rst:44
 msgid ""
 "Colorful icons line the bottom of the clip for every keyframe "
 "(`circle=Bézier`, `diamond=linear`, `square=constant`). Each icon matches "
 "the color of its clip, effect, or transition. The selected item's keyframe "
 "icons are shown brighter. Filtering the property list also filters these "
-"icons. Click any icon to jump the play-head, load its properties, and select"
-" its clip, effect, or transition. Drag an icon left or right to move the "
-"keyframe and fine‑tune your animation timing. The play-head moves to the "
-"keyframe's new position when you finish dragging."
+"icons. Click any icon to jump the play-head and select its clip, effect, or "
+"transition without opening the Properties dock. Double-click the icon, or "
+"right-click and choose :guilabel:`Properties`, to open the dock. Drag an "
+"icon left or right to move the keyframe and fine‑tune your animation timing."
+" The play-head moves to the keyframe's new position when you finish "
+"dragging."
 msgstr ""
-"彩色图标排列在剪辑底部，表示每个关键帧（`circle=Bézier`，`diamond=linear`，`square=constant`）。每个图标的颜色与其剪辑、效果或转场的颜色相匹配。所选项目的关键帧图标显示得更亮。筛选属性列表也会筛选这些图标。点击任意图标可跳转播放头，加载其属性，并选择其剪辑、效果或转场。向左或向右拖动图标可移动关键帧，微调动画时序。拖动完成后，播放头会移动到关键帧的新位置。"
+"每个关键帧在剪辑底部都有彩色图标（`circle=贝塞尔`，`diamond=线性`，`square=常量`）。每个图标的颜色与其剪辑、效果或转场相匹配。所选项目的关键帧图标显示得更亮。筛选属性列表也会筛选这些图标。点击任意图标可跳转播放头并选择其剪辑、效果或转场，无需打开属性面板。双击图标，或右键选择"
+" :guilabel:`属性`\\ ，以打开面板。向左或向右拖动图标可移动关键帧，微调动画时序。拖动完成后，播放头会移动到关键帧的新位置。"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:48
+#: ../doc/animation.rst:48
 msgid "Key Frames"
 msgstr "关键帧"
 
-# Translated with gpt-4.1-mini
-#: ../animation.rst:49
+#: ../doc/animation.rst:49
 msgid ""
-"To create a key frame in OpenShot, simply position the play-head (i.e. "
-"playback position) at any point over a clip, and edit properties in the "
-"property dialog. If the property supports key frames, it will turn green, "
-"and a small icon (`circle=Bézier, diamond=linear, square=constant`) will "
-"appear on the bottom of your clip at that position. Move your play-head to "
-"another point over that clip, and adjust the properties again. All "
-"animations require at least 2 key frames, but can support an unlimited "
-"number of them."
+"A keyframe remembers a property's value at a particular moment. For example,"
+" to make a clip gradually grow larger, you can set its scale at the "
+"beginning and choose a larger scale near the end. OpenShot calculates the "
+"change between those two keyframes during playback."
 msgstr ""
-"在 OpenShot "
-"中创建关键帧，只需将播放头（即播放位置）定位在剪辑的任意点，然后在属性对话框中编辑属性。如果该属性支持关键帧，它会变为绿色，并在剪辑底部显示一个小图标（`circle=贝塞尔，diamond=线性，square=常量`"
-" ）。将播放头移动到该剪辑的另一个点，再次调整属性。所有动画至少需要两个关键帧，但支持无限数量。"
+"关键帧记录属性在特定时刻的值。例如，要让剪辑逐渐变大，可以在开始时设置其缩放比例，在接近结束时选择更大的缩放比例。OpenShot "
+"会在播放时计算这两个关键帧之间的变化。"
+
+#: ../doc/animation.rst:53
+msgid ""
+"With :ref:`auto_keyframes_ref` on (the default), move the playhead to the "
+"moment you want to change and adjust a property in the Properties dock. "
+"OpenShot adds a keyframe there, or updates it if one already exists. Move to"
+" another moment and adjust the value again to build your animation."
+msgstr ""
+"开启 :ref:`auto_keyframes_ref`\\ （默认设置）时，将播放头移动到想要更改的时刻，并在属性面板中调整属性。OpenShot "
+"会在那里添加关键帧，或更新已有关键帧。移动到另一个时刻，再次调整数值以构建动画。"
+
+#: ../doc/animation.rst:57
+msgid ""
+"A property turns green when the playhead is on one of its keyframes. Small "
+"markers along the bottom of the clip show where its keyframes are. Their "
+"shapes indicate how the values change between them: ``circle=Bézier, "
+"diamond=linear, square=constant``."
+msgstr ""
+"当播放头位于某个关键帧上时，该属性会变为绿色。剪辑底部的小标记显示关键帧的位置。它们的形状表示数值变化方式：\\ "
+"``circle=贝塞尔，diamond=线性，square=常量``\\ 。"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:55
+#: ../doc/animation.rst:61
 msgid ""
 "Use the :guilabel:`Next Marker` and :guilabel:`Previous Marker` toolbar "
 "buttons to step through the selected item's keyframes. They follow whichever"
@@ -171,55 +185,55 @@ msgstr ""
 "按钮浏览所选项的关键帧。它们会跟随所选的剪辑、效果或转场。当选中效果时，导航还会停在其父剪辑的开始和结束处。"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:59
+#: ../doc/animation.rst:65
 msgid ""
 "To adjust the **interpolation mode**, right click on the small graph icon "
 "next to a property value."
-msgstr "要调整**插值模式** ，右键点击属性值旁的小图表图标。"
+msgstr "要调整\\ **插值模式** ，右键点击属性值旁的小图表图标。"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:65
+#: ../doc/animation.rst:71
 msgid "Key-frame Interpolation"
 msgstr "关键帧插值"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:67
+#: ../doc/animation.rst:73
 msgid "Bézier"
 msgstr "贝塞尔"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:67
+#: ../doc/animation.rst:73
 msgid ""
 "Interpolated values use a quadratic curve, and ease-in and ease-out. Icon: "
 ":guilabel:`Circle`."
-msgstr "插值值使用二次曲线，具有缓入缓出效果。图标：:guilabel:`圆形` 。"
+msgstr "插值值使用二次曲线，具有缓入缓出效果。图标：\\ :guilabel:`圆形` 。"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:68
+#: ../doc/animation.rst:74
 msgid "Linear"
 msgstr "线性"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:68
+#: ../doc/animation.rst:74
 msgid ""
 "Interpolated values are calculated linear (each step value is equal). Icon: "
 ":guilabel:`Diamond`."
-msgstr "插值值按线性计算（每步数值相等）。图标：:guilabel:`菱形` 。"
+msgstr "插值值按线性计算（每步数值相等）。图标：\\ :guilabel:`菱形` 。"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:69
+#: ../doc/animation.rst:75
 msgid "Constant"
 msgstr "常量"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:69
+#: ../doc/animation.rst:75
 msgid ""
 "Interpolated values stay the same until the next key frame, and jump to the "
 "new value. Icon: :guilabel:`Square`."
-msgstr "插值值保持不变直到下一个关键帧，然后跳变到新值。图标：:guilabel:`方形` 。"
+msgstr "插值值保持不变直到下一个关键帧，然后跳变到新值。图标：\\ :guilabel:`方形` 。"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:72
+#: ../doc/animation.rst:78
 #, fuzzy
 msgid ""
 "For more info on creating key frames for location, rotation, scale, shear, "
@@ -227,75 +241,170 @@ msgid ""
 msgstr "有关创建位置、旋转、缩放、剪切和位置关键帧的更多信息，请参见 :ref:`clip_transform_ref` 。"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:73
+#: ../doc/animation.rst:79
 msgid "For more info on preset animations, see :ref:`clip_presets_ref`."
 msgstr "有关预设动画的更多信息，请参见 :ref:`clip_presets_ref` 。"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:74
+#: ../doc/animation.rst:80
 msgid "For a full list of key frames, see :ref:`clip_properties_ref`."
 msgstr "有关完整的关键帧列表，请参见 :ref:`clip_properties_ref` 。"
 
+#: ../doc/animation.rst:85
+msgid "Auto Keyframes"
+msgstr "自动关键帧"
+
+#: ../doc/animation.rst:86
+msgid ""
+"Auto Keyframes helps you animate as you edit. Leave it on to record changes "
+"at the playhead as you move, resize, or adjust a clip. You can turn it on or"
+" off with the diamond button on the timeline toolbar. The same setting "
+"applies to edits in the Properties dock and to the transform handles in the "
+"preview."
+msgstr ""
+"自动关键帧帮助您在编辑时制作动画。保持开启状态，移动、调整大小或修改剪辑时，会记录播放头处的更改。您可以通过时间轴工具栏上的菱形按钮开启或关闭。此设置同样适用于属性面板中的编辑和预览中的变换控件。"
+
+#: ../doc/animation.rst:90
+msgid ""
+"Auto Keyframes starts enabled. If you prefer to place keyframes yourself, "
+"turn off **Auto Keyframes on Startup** in **Preferences → Timeline**. "
+"OpenShot will start with it off next time, and you can still switch it on "
+"whenever you need it."
+msgstr ""
+"自动关键帧默认开启。如果您更喜欢手动放置关键帧，请在 **首选项 → 时间轴** 中关闭 **启动时自动关键帧**\\ 。下次启动时，OpenShot "
+"会默认关闭，您仍可随时开启。"
+
+#: ../doc/animation.rst:94
+msgid ""
+"Turn Auto Keyframes off when you want to adjust existing values without "
+"adding more keyframes. For example, if you have not animated a clip's size, "
+"you can resize it while viewing any part of the clip and keep that size "
+"throughout playback."
+msgstr ""
+"当您想调整已有数值而不添加更多关键帧时，请关闭自动关键帧。例如，如果您未对剪辑的大小制作动画，可以在查看剪辑任意部分时调整大小，并在播放时保持该大小。"
+
+#: ../doc/animation.rst:98
+msgid ""
+"If a property is already animated, your edit changes its keyframe at the "
+"playhead, or the nearest one to the left. Suppose a clip grows from small to"
+" large: editing its scale halfway through with Auto Keyframes off changes "
+"the starting scale and leaves the ending scale alone. To change a particular"
+" keyframe, move the playhead onto it before editing. Turning Auto Keyframes "
+"off does not remove your animation."
+msgstr ""
+"如果属性已被动画化，您的编辑会更改播放头处或左侧最近的关键帧。假设剪辑从小变大：关闭自动关键帧时，在中途编辑缩放会更改起始缩放，保持结束缩放不变。要更改特定关键帧，请先将播放头移动到该关键帧再编辑。关闭自动关键帧不会删除您的动画。"
+
+#: ../doc/animation.rst:103
+msgid ""
+"Auto Keyframes only records on clips under the playhead. When the playhead "
+"is before or after a clip, editing it changes its nearest keyframe instead, "
+"so the whole clip changes without animating. When you edit several selected "
+"clips at once, each clip follows this rule on its own: clips under the "
+"playhead are keyframed at the playhead, and the others change without "
+"animating."
+msgstr ""
+"自动关键帧仅在播放头所在的剪辑上记录。当播放头位于剪辑之前或之后时，编辑该剪辑会更改其最近的关键帧，因此整个剪辑会改变但不产生动画。一次编辑多个选中剪辑时，每个剪辑各自遵循此规则：播放头所在剪辑在播放头处添加关键帧，其他剪辑则无动画地更改。"
+
+#: ../doc/animation.rst:108
+msgid ""
+"While editing between keyframes, the preview shows the animation at the "
+"playhead. The Properties dock may show the earlier keyframe you are "
+"changing, so its value can differ from what you see in the preview. Hover "
+"over a numeric value to check which frame you are editing."
+msgstr ""
+"在关键帧之间编辑时，预览显示播放头处的动画。属性面板可能显示您正在更改的较早关键帧，因此其数值可能与预览中看到的不同。将鼠标悬停在数值上可查看您正在编辑的帧。"
+
+#: ../doc/animation.rst:112
+msgid ""
+"You can also build an animation by placing keyframes yourself, with Auto "
+"Keyframes off:"
+msgstr "您也可以关闭自动关键帧，手动放置关键帧来制作动画："
+
+#: ../doc/animation.rst:114
+msgid "Move the playhead to where you want the animation to begin."
+msgstr "将播放头移动到动画开始的位置。"
+
+#: ../doc/animation.rst:115
+msgid ""
+"Insert a keyframe using the keyframe panel or the Properties context menu. "
+"This remembers the current value."
+msgstr "使用关键帧面板或属性上下文菜单插入关键帧。这样会记录当前值。"
+
+#: ../doc/animation.rst:116
+msgid "Move to another moment and insert another keyframe."
+msgstr "移动到另一个时刻，插入另一个关键帧。"
+
+#: ../doc/animation.rst:117
+msgid "Adjust its value. OpenShot animates between the two keyframes."
+msgstr "调整其数值。OpenShot 会在两个关键帧之间制作动画。"
+
+#: ../doc/animation.rst:119
+msgid ""
+"Repeat these steps to add more changes to the animation. See "
+":ref:`split_clip_ref` for preparing shorter segments with their own starting"
+" keyframes."
+msgstr "重复这些步骤以添加更多动画变化。有关准备带有独立起始关键帧的较短片段，请参见 :ref:`split_clip_ref`\\ 。"
+
 # Main-window terminology review, 2026-09-26.
-#: ../animation.rst:77
+#: ../doc/animation.rst:123
 msgid "Timing"
 msgstr "变速"
 
 # Main-window terminology review, 2026-09-26.
-#: ../animation.rst:78
+#: ../doc/animation.rst:124
 msgid ""
 "Changing how fast a clip plays is done with the :guilabel:`Time` property "
 "and the :guilabel:`Timing` tool."
 msgstr "调整剪辑播放速度可通过 :guilabel:`时间` 属性和 :guilabel:`变速` 工具完成。"
 
-#: ../animation.rst:80
+#: ../doc/animation.rst:126
 msgid ""
 "The :guilabel:`Speed` menu offers presets such as normal, fast, slow, "
 "freeze, reverse, and repeat. See details in :ref:`clip_time_ref`."
 msgstr ""
-":guilabel:`Speed` 菜单提供了正常、快速、慢速、冻结、倒放和重复等预设。详情请参见 :ref:`clip_time_ref`。"
+":guilabel:`Speed` 菜单提供了正常、快速、慢速、冻结、倒放和重复等预设。详情请参见 :ref:`clip_time_ref`\\ 。"
 
 # Main-window terminology review, 2026-09-26.
-#: ../animation.rst:81
+#: ../doc/animation.rst:127
 msgid ""
 "The :guilabel:`Timing` tool lets you drag a clip’s edges to speed it up or "
 "slow it down. OpenShot adds the needed Time keyframes and **scales your "
 "other keyframes** so your animations stay aligned. Shorter clips play "
 "faster, longer clips play slower. See more: :ref:`clip_time_ref`."
 msgstr ""
-":guilabel:`变速` 工具允许拖动剪辑边缘以加快或减慢速度。OpenShot 会自动添加所需的时间关键帧，并**缩放其他关键帧** "
+":guilabel:`变速` 工具允许拖动剪辑边缘以加快或减慢速度。OpenShot 会自动添加所需的时间关键帧，并\\ **缩放其他关键帧** "
 "，确保动画保持同步。剪辑越短播放越快，越长播放越慢。详情见 :ref:`clip_time_ref` 。"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:86
+#: ../doc/animation.rst:132
 msgid "Repeating"
 msgstr "重复播放"
 
-#: ../animation.rst:87
+#: ../doc/animation.rst:133
 msgid ""
 "To play a clip multiple times, use :guilabel:`Right-Click → Speed → Repeat`."
-msgstr "要多次播放剪辑，请使用 :guilabel:`右键点击 → Speed → Repeat`。"
+msgstr "要多次播放剪辑，请使用 :guilabel:`右键点击 → Speed → Repeat`\\ 。"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:89
+#: ../doc/animation.rst:135
 msgid ":guilabel:`Loop` repeats in one direction (forward or reverse)."
 msgstr ":guilabel:`循环` 在一个方向（正向或反向）重复播放。"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:90
+#: ../doc/animation.rst:136
 msgid ""
 ":guilabel:`Ping-Pong` alternates direction (forward then backward, etc.)."
 msgstr ":guilabel:`乒乓` 交替方向播放（先正向再反向，依此类推）。"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:91
+#: ../doc/animation.rst:137
 msgid ""
 ":guilabel:`Custom` can add a short pause between passes, speed up or slow "
 "down each pass, including keyframes."
 msgstr ":guilabel:`自定义` 可在循环间添加短暂停顿，加速或减慢每次循环，包括关键帧。"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:93
+#: ../doc/animation.rst:139
 msgid ""
 "OpenShot writes the :guilabel:`Time` curve for you, and you can edit those "
 "keyframes just like any other. See more: :ref:`clip_time_repeat_ref`."
@@ -304,12 +413,12 @@ msgstr ""
 ":ref:`clip_time_repeat_ref` 。"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:97
+#: ../doc/animation.rst:143
 msgid "Bézier Presets"
 msgstr "贝塞尔预设"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:98
+#: ../doc/animation.rst:144
 msgid ""
 "When using a Bézier curve for animation, OpenShot includes more than 20 "
 "curve presets (which affect the shape of the curve). For example, **Ease-"
@@ -318,22 +427,22 @@ msgid ""
 " gradual beginning and ending, but actually goes past the expected value and"
 " then back (producing a bounce effect)."
 msgstr ""
-"当使用贝塞尔曲线进行动画时，OpenShot 包含超过 20 种曲线预设（影响曲线形状）。例如，**Ease-In** "
-"在开始时斜率更缓，使动画开始时移动较慢，结束时加快。**Ease-In/Out (Back)** "
+"当使用贝塞尔曲线进行动画时，OpenShot 包含超过 20 种曲线预设（影响曲线形状）。例如，\\ **Ease-In** "
+"在开始时斜率更缓，使动画开始时移动较慢，结束时加快。\\ **Ease-In/Out (Back)** "
 "在开始和结束时都较为缓和，但实际上会超过预期值然后回弹（产生弹跳效果）。"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:103
+#: ../doc/animation.rst:149
 msgid ""
 "To choose a curve preset, right click on the small graph icon next to a key "
 "frame."
 msgstr "要选择曲线预设，请右键点击关键帧旁的小图表图标。"
 
-#: ../animation.rst:110
+#: ../doc/animation.rst:156
 msgid "Ken Burns Effect"
 msgstr "Ken Burns 效果"
 
-#: ../animation.rst:111
+#: ../doc/animation.rst:157
 msgid ""
 "The **Ken Burns effect** is a pan-and-zoom animation technique — named after"
 " documentary filmmaker Ken Burns — that brings still images or video clips "
@@ -346,15 +455,16 @@ msgstr ""
 "**Ken Burns 效果** 是一种平移和缩放的动画技术——以纪录片导演 Ken Burns "
 "命名——通过缓慢而有意的摄像机移动使静态图像或视频剪辑栩栩如生。在 OpenShot 中，使用 :guilabel:`右键点击 → Motion → "
 "Camera` 预设即可一键实现 Ken Burns 动画（放大、缩小、平移、自动方向的缩放和平移），或者手动在 :guilabel:`Location"
-" X/Y` 和 :guilabel:`Scale X/Y` 上设置关键帧以获得完全控制。详情请参见 :ref:`clip_presets_ref`。"
+" X/Y` 和 :guilabel:`Scale X/Y` 上设置关键帧以获得完全控制。详情请参见 :ref:`clip_presets_ref`\\ "
+"。"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:120
+#: ../doc/animation.rst:166
 msgid "Image Sequences"
 msgstr "图像序列"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:121
+#: ../doc/animation.rst:167
 msgid ""
 "If you have a sequence of similarly named images (such as, cat001.png, "
 "cat002.png, cat003.png, etc...), you can simply drag and drop one of them "
@@ -367,7 +477,7 @@ msgstr ""
 "中，系统会提示您导入整个序列。OpenShot 会快速播放这些连续图像，就像视频中的帧一样。图像显示的速率基于其帧率。"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:126
+#: ../doc/animation.rst:172
 msgid ""
 "**NOTE:** Be sure your image sequence starts at 0 or 1, or you will likely "
 "receive an error when importing it into OpenShot. For example, if your "
@@ -379,7 +489,7 @@ msgstr ""
 "开始，或序列中缺少图像，OpenShot 将难以识别该序列。一个简单的解决方法是重新编号图像，使其从 1 开始。"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:132
+#: ../doc/animation.rst:178
 msgid ""
 "To adjust the frame rate of the animation, right click and choose **File "
 "Properties** in the **Project Files** panel, and adjust the frame rate. Once"
@@ -387,28 +497,66 @@ msgid ""
 msgstr "要调整动画的帧率，请在“项目文件”面板中右键点击并选择 **文件属性** ，然后调整帧率。设置正确的帧率后，将动画拖到时间轴上。"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:143
+#: ../doc/animation.rst:189
 msgid "File Properties"
 msgstr "文件属性"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:143
+#: ../doc/animation.rst:189
 msgid ""
 "Select an image sequence in the **Project Files** panel, right click and "
 "choose **File Properties**"
 msgstr "在“项目文件”面板中选择一个图像序列，右键点击并选择 **文件属性**"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:144
+#: ../doc/animation.rst:190
 msgid "Frame Rate"
 msgstr "帧率"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:144
+#: ../doc/animation.rst:190
 msgid ""
 "Adjust the frame rate of the animation. Typically, hand-drawn animations use"
 " 12 frames per second."
 msgstr "调整动画的帧率。通常，手绘动画使用每秒 12 帧。 "
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "When the play-head is on an interpolated value, the property appears blue"
+#~ msgstr "当播放头位于插值点时，该属性显示为蓝色"
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "Click and drag your mouse to adjust the value (this automatically creates a "
+#~ "key frame if needed)"
+#~ msgstr "点击并拖动鼠标调整数值（如有需要，会自动创建关键帧）"
+
+#~ msgid ""
+#~ "Colorful icons line the bottom of the clip for every keyframe "
+#~ "(`circle=Bézier`, `diamond=linear`, `square=constant`). Each icon matches "
+#~ "the color of its clip, effect, or transition. The selected item's keyframe "
+#~ "icons are shown brighter. Filtering the property list also filters these "
+#~ "icons. Click any icon to jump the play-head, load its properties, and select"
+#~ " its clip, effect, or transition. Drag an icon left or right to move the "
+#~ "keyframe and fine‑tune your animation timing. The play-head moves to the "
+#~ "keyframe's new position when you finish dragging."
+#~ msgstr ""
+#~ "彩色图标排列在剪辑底部，表示每个关键帧（`circle=Bézier`，`diamond=linear`，`square=constant`）。每个图标的颜色与其剪辑、效果或转场的颜色相匹配。所选项目的关键帧图标显示得更亮。筛选属性列表也会筛选这些图标。点击任意图标可跳转播放头，加载其属性，并选择其剪辑、效果或转场。向左或向右拖动图标可移动关键帧，微调动画时序。拖动完成后，播放头会移动到关键帧的新位置。"
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "To create a key frame in OpenShot, simply position the play-head (i.e. "
+#~ "playback position) at any point over a clip, and edit properties in the "
+#~ "property dialog. If the property supports key frames, it will turn green, "
+#~ "and a small icon (`circle=Bézier, diamond=linear, square=constant`) will "
+#~ "appear on the bottom of your clip at that position. Move your play-head to "
+#~ "another point over that clip, and adjust the properties again. All "
+#~ "animations require at least 2 key frames, but can support an unlimited "
+#~ "number of them."
+#~ msgstr ""
+#~ "在 OpenShot "
+#~ "中创建关键帧，只需将播放头（即播放位置）定位在剪辑的任意点，然后在属性对话框中编辑属性。如果该属性支持关键帧，它会变为绿色，并在剪辑底部显示一个小图标（`circle=贝塞尔，diamond=线性，square=常量`"
+#~ " ）。将播放头移动到该剪辑的另一个点，再次调整属性。所有动画至少需要两个关键帧，但支持无限数量。"
 
 # Translated with gpt-4.1-mini
 #~ msgid ""

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-16 18:08-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,16 +18,16 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:21
+#: ../doc/import_export.rst:21
 msgid "Import & Export"
 msgstr "İçe Aktar & Dışa Aktar"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:23
+#: ../doc/import_export.rst:23
 msgid ""
 "Video editing projects (including tracks, clips, and keyframes) can be "
-"**imported** and **exported** from OpenShot Video Editor in widely supported "
-"formats (**EDL**: Edit Decision Lists, and **XML**: Final Cut Pro format). "
+"**imported** and **exported** from OpenShot Video Editor in widely supported"
+" formats (**EDL**: Edit Decision Lists, and **XML**: Final Cut Pro format). "
 "For example, if you start editing a video in a different program (Adobe "
 "Premier, Final Cut Pro, etc...), but later need to move all your edits to "
 "OpenShot (or vice versa)."
@@ -36,17 +36,17 @@ msgstr ""
 "OpenShot Video Editor'dan yaygın olarak desteklenen formatlarda (**EDL**: "
 "Düzen Karar Listeleri ve **XML**: Final Cut Pro formatı) **içe "
 "aktarılabilir** ve **dışa aktarılabilir**. Örneğin, bir videoyu farklı bir "
-"programda (Adobe Premiere, Final Cut Pro vb.) düzenlemeye başlarsanız, ancak "
-"daha sonra tüm düzenlemelerinizi OpenShot'a taşımak zorunda kalırsınız (veya "
-"tam tersi)."
+"programda (Adobe Premiere, Final Cut Pro vb.) düzenlemeye başlarsanız, ancak"
+" daha sonra tüm düzenlemelerinizi OpenShot'a taşımak zorunda kalırsınız "
+"(veya tam tersi)."
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:29
+#: ../doc/import_export.rst:29
 msgid "EDL (Edit Decision Lists)"
 msgstr "EDL (Düzen Karar Listeleri)"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:30
+#: ../doc/import_export.rst:30
 msgid ""
 "The following features are supported when importing and exporting an EDL "
 "file with OpenShot."
@@ -55,32 +55,32 @@ msgstr ""
 "desteklenir."
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:36
+#: ../doc/import_export.rst:36
 msgid "EDL Option Name"
 msgstr "EDL Seçeneği Adı"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:36 ../import_export.rst:122
+#: ../doc/import_export.rst:36 ../doc/import_export.rst:122
 msgid "Description"
 msgstr "Açıklama"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:38
+#: ../doc/import_export.rst:38
 msgid "EDL Format"
 msgstr "EDL Formatı"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:38
+#: ../doc/import_export.rst:38
 msgid "CMX-3600 (a very widely supported variation)"
 msgstr "CMX-3600 (çok yaygın desteklenen bir varyasyon)"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:39
+#: ../doc/import_export.rst:39
 msgid "Single Track"
 msgstr "Tek Parça"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:39
+#: ../doc/import_export.rst:39
 msgid ""
 "Only a single track can be imported at a time (this is a limitation of the "
 "EDL format)"
@@ -89,55 +89,55 @@ msgstr ""
 "sınırlamasıdır)"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:40
+#: ../doc/import_export.rst:40
 msgid "Tape Name"
 msgstr "Bant Adı"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:40
+#: ../doc/import_export.rst:40
 msgid "Only **AX** and **BL** tape names are currently supported in OpenShot"
 msgstr ""
 "Şu anda OpenShot'ta yalnızca **AX** ve **BL** bant adları desteklenmektedir"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:41
+#: ../doc/import_export.rst:41
 msgid "Edits (V and A)"
 msgstr "Düzenlemeler (V ve A)"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:41
+#: ../doc/import_export.rst:41
 msgid "Only edits are currently supported (transitions are not yet supported)"
 msgstr ""
 "Şu anda yalnızca düzenlemeler desteklenmektedir (geçişler henüz "
 "desteklenmemektedir)"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:42 ../import_export.rst:127
+#: ../doc/import_export.rst:42 ../doc/import_export.rst:127
 msgid "Opacity"
 msgstr "Saydamlık"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:42 ../import_export.rst:127
+#: ../doc/import_export.rst:42 ../doc/import_export.rst:127
 msgid "Opacity keyframes are supported"
 msgstr "Saydamlık anahtar kareleri desteklenmektedir"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:43 ../import_export.rst:128
+#: ../doc/import_export.rst:43 ../doc/import_export.rst:128
 msgid "Audio Levels"
 msgstr "Ses Seviyeleri"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:43 ../import_export.rst:128
+#: ../doc/import_export.rst:43 ../doc/import_export.rst:128
 msgid "Volume keyframes are supported"
 msgstr "Ses seviyesi anahtar kareleri desteklenmektedir"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:47
+#: ../doc/import_export.rst:47
 msgid "Example EDL Output"
 msgstr "Örnek EDL Çıktısı"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:49
+#: ../doc/import_export.rst:49
 msgid ""
 "OpenShot follows the CMX 3600 layout for event lines and uses comment lines "
 "(`* ...`) to carry keyframes. CMX 3600 does not define units or "
@@ -149,18 +149,18 @@ msgstr ""
 "OpenShot, olay satırları için CMX 3600 düzenini takip eder ve anahtar "
 "kareleri taşımak için yorum satırları (`* ...`) kullanır. CMX 3600, "
 "yorumlarda birim veya enterpolasyon tanımlamaz, bu yüzden dışa aktarıcımız "
-"okunabilir değerler ve enterpolasyon isimleri ekler, içe aktarıcımız ise çok "
-"esnektir: boşluklu veya boşluksuz birimleri, karışık büyük/küçük harfi, "
-"isteğe bağlı enterpolasyon belirteçlerini kabul eder ve uyumluluğu maksimize "
-"etmek için bilinmeyen son metin/bant etiketlerini yoksayar."
+"okunabilir değerler ve enterpolasyon isimleri ekler, içe aktarıcımız ise çok"
+" esnektir: boşluklu veya boşluksuz birimleri, karışık büyük/küçük harfi, "
+"isteğe bağlı enterpolasyon belirteçlerini kabul eder ve uyumluluğu maksimize"
+" etmek için bilinmeyen son metin/bant etiketlerini yoksayar."
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:109
+#: ../doc/import_export.rst:109
 msgid "XML (Final Cut Pro format)"
 msgstr "XML (Final Cut Pro formatı)"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:110
+#: ../doc/import_export.rst:110
 msgid ""
 "The following features are supported when importing and exporting an XML "
 "file with OpenShot. This XML format is supported in many video editors (not "
@@ -173,7 +173,7 @@ msgstr ""
 "formatını içe ve dışa aktarmayı destekler."
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:114
+#: ../doc/import_export.rst:114
 msgid ""
 "OpenShot uses the legacy Final Cut Pro XML Interchange Format (**xmeml**) "
 "from Final Cut Pro 7. Our exporter writes `<!DOCTYPE xmeml>` projects that "
@@ -183,21 +183,21 @@ msgid ""
 msgstr ""
 "OpenShot, Final Cut Pro 7'den gelen eski Final Cut Pro XML Değişim Formatı "
 "(**xmeml**) kullanır. Dışa aktarıcımız, Final Cut Pro XML DTD v1.0'u takip "
-"eden ve bu değişim formatının v4 ve v5 şema sürümleriyle uyumlu olan `<!"
-"DOCTYPE xmeml>` projeleri yazar (Final Cut Pro 7 ile gelen DTD'ler)."
+"eden ve bu değişim formatının v4 ve v5 şema sürümleriyle uyumlu olan "
+"`<!DOCTYPE xmeml>` projeleri yazar (Final Cut Pro 7 ile gelen DTD'ler)."
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:122
+#: ../doc/import_export.rst:122
 msgid "XML Option Name"
 msgstr "XML Seçeneği Adı"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:124
+#: ../doc/import_export.rst:124
 msgid "XML Format"
 msgstr "XML Formatı"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:124
+#: ../doc/import_export.rst:124
 msgid ""
 "Final Cut Pro format (but most commercial video editors also support this "
 "format)"
@@ -206,22 +206,22 @@ msgstr ""
 "destekler)"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:125
+#: ../doc/import_export.rst:125
 msgid "All Tracks"
 msgstr "Tüm Parçalar"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:125
+#: ../doc/import_export.rst:125
 msgid "All video and audio tracks are supported"
 msgstr "Tüm video ve ses parçaları desteklenir"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:126
+#: ../doc/import_export.rst:126
 msgid "Edits"
 msgstr "Düzenlemeler"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:126
+#: ../doc/import_export.rst:126
 msgid ""
 "All clips on all tracks are supported (video, image, and audio files). "
 "Transitions are not yet supported."
@@ -230,6 +230,6 @@ msgstr ""
 "Geçişler henüz desteklenmemektedir."
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:132
+#: ../doc/import_export.rst:132
 msgid "Example XML Output (tree view)"
 msgstr "Örnek XML Çıktısı (ağaç görünümü)"
