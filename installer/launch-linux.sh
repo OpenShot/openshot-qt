@@ -15,12 +15,16 @@ if [[ -z "${QT_QPA_PLATFORM:-}" && -n "${WAYLAND_DISPLAY:-}" \
     export QT_QPA_PLATFORM=wayland
 fi
 
-# Opt into Vulkan video decoding for this experimental build before loading Mesa.
-# Each driver reads only its own settings. Encoding remains driver-default.
+# Opt into Vulkan video decoding and encoding before loading Mesa.
+# Each driver reads only its own settings; export still probes encoder support.
 if [[ "${OPENSHOT_RENDER_BACKEND:-vulkan}" != cpu ]]; then
     case ",${RADV_PERFTEST:-}," in
         *,video_decode,*) ;;
         *) RADV_PERFTEST="${RADV_PERFTEST:+${RADV_PERFTEST},}video_decode" ;;
+    esac
+    case ",${RADV_PERFTEST:-}," in
+        *,video_encode,*) ;;
+        *) RADV_PERFTEST="${RADV_PERFTEST:+${RADV_PERFTEST},}video_encode" ;;
     esac
     export RADV_PERFTEST
 
@@ -37,6 +41,11 @@ if [[ "${OPENSHOT_RENDER_BACKEND:-vulkan}" != cpu ]]; then
             export ANV_DEBUG
             ;;
     esac
+    case ",${ANV_DEBUG:-}," in
+        *,video-encode,*) ;;
+        *) ANV_DEBUG="${ANV_DEBUG:+${ANV_DEBUG},}video-encode" ;;
+    esac
+    export ANV_DEBUG
 fi
 
 # Prefer native desktop file dialogs through XDG Desktop Portal. Respect an
