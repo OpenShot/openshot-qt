@@ -141,10 +141,13 @@ class ConfettiTests(unittest.TestCase):
                     app = SimpleNamespace(_tr=lambda text: text, get_settings=Mock,
                         project=SimpleNamespace(), window=window)
                     writer_methods = ['Open', 'Close', 'SetVideoOptions', 'SetAudioOptions',
-                                      'PrepareStreams', 'AddSphericalMetadata', 'SetOption', 'WriteFrame']
+                                      'PrepareStreams', 'AddSphericalMetadata', 'SetOption', 'WriteFrame', 'info']
                     if measured:
                         writer_methods.append('WriteMeasuredFrame')
                     writer = Mock(spec_set=writer_methods)
+                    # The writer reports the actual encoder after Open(), which may
+                    # differ from the selected codec when software fallback is used.
+                    writer.info = SimpleNamespace(vcodec='libx264')
                     if measured:
                         writer.WriteMeasuredFrame.side_effect = (
                             lambda reader, number: writer.WriteFrame(reader.GetFrame(number)))
@@ -164,6 +167,7 @@ class ConfettiTests(unittest.TestCase):
                             patch("windows.export.celebrate_export") as celebrate:
                         dialog.accept()
                     succeeded = outcome == "success"
+                    self.assertEqual(dialog.export_encoder, 'libx264')
                     self.assertEqual(writer.WriteFrame.call_count, 3 if succeeded else 1)
                     if measured:
                         self.assertEqual(writer.WriteMeasuredFrame.call_count, writer.WriteFrame.call_count)
