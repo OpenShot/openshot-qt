@@ -18,6 +18,36 @@ class ExportProfileTests(unittest.TestCase):
         with patch.dict(sys.modules, {"classes.metrics": metrics}):
             cls.export = importlib.import_module("windows.export")
 
+    def test_export_settings_ignore_unnamed_controls_and_stale_widget_types(self):
+        from qt_api import QApplication, QWidget, QScrollArea, QLineEdit, QCheckBox
+        self.__class__.app = QApplication.instance() or QApplication([])
+        dialog = QWidget()
+        dialog.restoring_defaults = False
+        dialog.result_tab = None
+        scroll = QScrollArea(dialog)  # Matches an empty name before the text field.
+        unnamed = QLineEdit('popup search', dialog)
+        filename = QLineEdit('my video', dialog)
+        filename.setObjectName('txtFileName')
+        stale = QScrollArea(dialog)
+        stale.setObjectName('oldTextField')
+        dialog.checkStartFirstClip = QCheckBox(dialog)
+        dialog.checkEndLastClip = QCheckBox(dialog)
+        app = SimpleNamespace(updates=Mock(), project=Mock())
+        with patch.object(self.export, 'get_app', return_value=app):
+            self.export.Export.save_settings(dialog)
+            saved = app.updates.update.call_args.args[1]
+            self.assertEqual(saved, [{'name': 'txtFileName', 'type': 'QLineEdit', 'value': 'my video'}])
+            app.project.get.return_value = [
+                {'name': '', 'type': 'QLineEdit', 'value': 'old popup search'},
+                {'name': 'oldTextField', 'type': 'QLineEdit', 'value': 'stale'},
+                *saved,
+            ]
+            filename.clear()
+            self.export.Export.load_settings(dialog)
+            self.assertEqual(filename.text(), 'my video')
+            self.assertEqual(unnamed.text(), 'popup search')
+        dialog.deleteLater()
+
     def test_missing_user_directory_still_loads_installed_profiles(self):
         with tempfile.TemporaryDirectory() as directory:
             installed = Path(directory) / "installed"

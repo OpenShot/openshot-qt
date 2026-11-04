@@ -122,6 +122,10 @@ class HardwareItemDelegate(QStyledItemDelegate):
         opt.icon = QIcon()
         style = opt.widget.style() if opt.widget else QApplication.style()
         style.drawControl(style_enum('CE_ItemViewItem', 'ControlElement'), opt, painter, opt.widget)
+        if opt.state & QStyle.State_Selected:
+            # Native styles can paint an unfocused selection light gray while
+            # our text uses HighlightedText. Paint the matching background too.
+            painter.fillRect(opt.rect, opt.palette.brush(QPalette.Highlight))
         self.draw_content(painter, QRectF(option.rect), data, opt.font, opt.palette,
                           bool(opt.state & QStyle.State_Selected), bool(opt.state & QStyle.State_Enabled), expanded=True)
 

@@ -44,7 +44,7 @@ from xml.parsers.expat import ExpatError
 
 from qt_api import Qt, QCoreApplication, QTimer, QSize, QPoint, pyqtSignal, pyqtSlot
 from qt_api import (
-    QMessageBox, QDialog, QDialogButtonBox, QPushButton, QWidget, QLineEdit, QComboBox, QSpinBox, QCheckBox,
+    QMessageBox, QDialog, QDialogButtonBox, QPushButton, QWidget, QLineEdit, QComboBox, QSpinBox, QDoubleSpinBox, QCheckBox,
     get_existing_directory,
 )
 from qt_api import QColor, QIcon, QPalette
@@ -1558,7 +1558,7 @@ class Export(QDialog):
 
         # Iterate over all children in the dialog in the order they are defined
         for child in self.findChildren(QWidget):
-            if child.objectName().startswith("qt_"):
+            if not child.objectName() or child.objectName().startswith("qt_"):
                 continue
             # The result tab shows output, never export settings.
             if self.result_tab is not None and self.result_tab.isAncestorOf(child):
@@ -1600,8 +1600,15 @@ class Export(QDialog):
             return
 
         # Iterate over the list of settings and apply them in order
+        widget_types = {'QLineEdit': QLineEdit, 'QComboBox': QComboBox,
+                        'QSpinBox': QSpinBox, 'QDoubleSpinBox': QDoubleSpinBox,
+                        'QCheckBox': QCheckBox}
         for setting in settings:
-            widget = self.findChild(QWidget, setting['name'])
+            name = setting.get('name', '')
+            widget_type = widget_types.get(setting.get('type'))
+            if not name or name.startswith('qt_') or widget_type is None:
+                continue
+            widget = self.findChild(widget_type, name)
             if widget:
                 if setting['type'] == 'QLineEdit':
                     widget.setText(setting.get('value', ''))

@@ -2,7 +2,7 @@
 import unittest
 from unittest.mock import Mock
 
-from qt_api import QApplication, QImage, QPainter, QColor, QRect, QStyleOptionViewItem, QStyle, Qt, QTest, QPoint
+from qt_api import QApplication, QImage, QPainter, QColor, QPalette, QRect, QStyleOptionViewItem, QStyle, Qt, QTest, QPoint
 from windows.views.hardware_combo import HardwareComboBox, set_hardware_item, export_choice_label, backend_badge
 
 
@@ -63,6 +63,40 @@ class HardwareComboTests(unittest.TestCase):
         self.assertEqual(popup_rect.width(), 64)
         self.assertEqual(interior(selected, selected_rect), interior(image, popup_rect))
         combo.close()
+
+    def test_unfocused_selection_keeps_both_text_lines_on_matching_background(self):
+        # Reproduce a style painting a pale inactive selection even though its
+        # highlighted text palette is white (as seen with Windows Retro).
+        for background, foreground in (('#2673b8', '#ffffff'), ('#cde8ff', '#101010')):
+            with self.subTest(background=background):
+                combo = HardwareComboBox()
+                combo.addItem('AVI (mpeg2)')
+                set_hardware_item(combo, 0, 'cpu', details='Software encoding')
+                view = combo.view()
+                view.setStyleSheet('QListView::item:selected { background: #efefef; }')
+                view.ensurePolished()
+                palette = view.palette()
+                palette.setColor(QPalette.Highlight, QColor(background))
+                palette.setColor(QPalette.HighlightedText, QColor(foreground))
+                image = QImage(440, 52, QImage.Format_ARGB32_Premultiplied)
+                image.fill(QColor('white'))
+                painter = QPainter(image)
+                option = QStyleOptionViewItem()
+                option.widget = view
+                option.rect = QRect(0, 0, 440, 52)
+                option.font = combo.font()
+                option.palette = palette
+                option.state = QStyle.State_Enabled | QStyle.State_Selected
+                combo.badge_delegate.paint(painter, option, combo.model().index(0, 0))
+                painter.end()
+                self.assertEqual(image.pixelColor(430, 26), QColor(background))
+                # Both the title and secondary line must contrast with that fill.
+                for top, bottom in ((5, 27), (27, 45)):
+                    contrasting = sum(
+                        abs(image.pixelColor(x, y).lightness() - QColor(background).lightness()) > 40
+                        for y in range(top, bottom) for x in range(90, 300))
+                    self.assertGreater(contrasting, 30)
+                combo.close()
 
     def test_popup_hover_does_not_scroll_and_mouse_can_select_last_visible_row(self):
         combo = HardwareComboBox()
