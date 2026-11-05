@@ -87,7 +87,7 @@ class EditingService:
     def execute(self, method, params, operation_id=None):
         from .batch import method_name
         method = method_name(method)
-        tracked = isinstance(method, str) and (method in MUTATIONS or method in ('edit.apply', 'edit.bulk', 'project.save', 'project.open', 'history.undo', 'history.redo', 'export.start', 'export.cancel'))
+        tracked = isinstance(method, str) and (method in MUTATIONS or method in ('edit.apply', 'edit.bulk', 'project.save', 'project.collect', 'project.open', 'session.close', 'history.undo', 'history.redo', 'export.start', 'export.cancel'))
         if not tracked:
             return self._execute(method, params)
         operation_id = operation_id or uuid.uuid4().hex
@@ -187,7 +187,7 @@ class EditingService:
         if selection is not None:
             response['selected_ids'] = selection['ids']
         if named:
-            response['refs'] = {name: {'id': value['id']} if isinstance(value, dict) and 'id' in value else value
+            response['refs'] = {name: {'id': value['id']} if isinstance(value, dict) and 'id' in value and 'clip' not in value else value
                                 for name, value in named.items()}
         return response
 
@@ -314,6 +314,20 @@ class EditingService:
         if method == 'session.show':
             from .host import show_session
             return show_session(self.app)
+        if method == 'session.close':
+            if p.get('save') and p.get('discard'):
+                raise CommandError('invalid_argument', 'Choose --save or --discard, not both.')
+            if p.get('overwrite') and not p.get('save'):
+                raise CommandError('invalid_argument', '--overwrite requires --save PATH.')
+            if any(job['process'].poll() is None for job in self.jobs.values()):
+                raise CommandError('busy', 'Cancel or finish active exports before closing.')
+            if p.get('save'):
+                self.dispatch('project.save', {'path': p['save'], 'overwrite': p.get('overwrite', False)})
+            self.require_clean(p)
+            from qt_api import QTimer
+            # aboutToQuit runs normal window/resource cleanup and removes discovery records.
+            QTimer.singleShot(100, self.app.quit)
+            return {'closing': True, 'saved': bool(p.get('save')), 'project': self.app.project.current_filepath}
         if method == 'session.stop':
             if self.mode != 'headless':
                 raise CommandError('unsupported', 'Close GUI sessions in the editor.')
@@ -338,6 +352,9 @@ class EditingService:
                 self.app.project.load(path, clear_thumbnails=False, interactive=False)
                 self.app.updates.load_history(self.app.project)
             return self.dispatch('project.get', {})
+        if method == 'project.collect':
+            from .collect import collect
+            return collect(self, p)
         if method == 'project.save':
             path = output_path(p['path'], '.osp', p.get('overwrite', False))
             self.app.updates.save_history(self.app.project, self.app.get_settings().get("history-limit"))
@@ -420,11 +437,14 @@ class EditingService:
                         raise CommandError('invalid_property', key + ' belongs to the shared text; use text set ' + obj.id + '.',
                                            {'path': 'params.values.' + key})
             from .validation import properties
-            properties(kind, obj.data, values, self.native(kind, obj.data))
+            current = obj.data
+            if kind == 'clip':
+                current = dict(current, title=current.get('title', ''))
+            properties(kind, current, values, self.native(kind, obj.data))
             values = copy.deepcopy(values)
             protected = {'id', 'reader', 'file_id', 'effects', 'type', 'class_name', 'path'}
             for key in values:
-                if key not in obj.data or key in protected:
+                if (key not in obj.data and not (kind == 'clip' and key == 'title')) or key in protected:
                     raise CommandError('invalid_property', 'Unknown or protected property: ' + key + '; inspect get/properties.')
             for key, value in list(values.items()):
                 if isinstance(obj.data.get(key), dict) and 'Points' in obj.data[key] and isinstance(value, (int, float)):
@@ -441,8 +461,13 @@ class EditingService:
             self.native(kind, merged)  # Parse before distributing to native/UI listeners.
             if 'start' in merged and 'end' in merged:
                 values = dict(values, duration=merged['end'] - merged['start'])
+            legacy_title = kind == 'clip' and 'title' in values and 'title' not in obj.data
             obj.data = values
             obj.save()
+            if legacy_title:
+                # Merge-based undo cannot remove an absent field; an empty label
+                # restores the same display behavior for old CLI-created clips.
+                self.app.updates.last_action.old_values.setdefault('title', '')
             return self.obj(kind, obj.id).data
         if method == 'file.import':
             path = existing(p['path'])
@@ -480,6 +505,7 @@ class EditingService:
             end = p.get('end', 10 if file.data.get('media_type') == 'image' else file.data['duration'])
             data.update(file_id=file.id, reader=copy.deepcopy(file.data), layer=self.layer(p['layer']),
                         position=p.get('position', 0), start=start, end=end, duration=end-start)
+            data['title'] = file.data.get('name') or Path(file.absolute_path()).name
             self.validate_timing(data)
             if file.data.get('media_type') != 'image' and end > file.data['duration'] + 1e-6:
                 raise CommandError('out_of_range', 'Clip end exceeds source duration.')
