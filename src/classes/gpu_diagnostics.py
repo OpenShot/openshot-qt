@@ -117,8 +117,12 @@ class GpuDiagnostics:
 
     def encoder_capabilities(self):
         """Nonblocking session results; never enter the driver's probe mutex from UI code."""
+        lost = getattr(self.native, 'VulkanDeviceLost', None)
+        device_lost = callable(lost) and lost()
         with self.lock:
-            return dict(state=self.encoder_probe_state, encoders=tuple(self.encoders))
+            encoders = tuple(codec for codec in self.encoders
+                             if not (device_lost and codec.endswith('_vulkan')))
+            return dict(state=self.encoder_probe_state, encoders=encoders)
 
     def register_preview(self, name, enabled, reason):
         with self.lock:

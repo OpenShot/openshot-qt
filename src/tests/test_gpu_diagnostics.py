@@ -21,6 +21,17 @@ def native_api():
 
 
 class GpuDiagnosticsTests(unittest.TestCase):
+    def test_lost_device_removes_vulkan_encoders_without_probing_again(self):
+        api = native_api()
+        api.GpuEncoders.return_value = ['h264_vulkan', 'hevc_vulkan', 'h264_vaapi']
+        api.VulkanDeviceLost = Mock(return_value=False)
+        report = GpuDiagnostics(api, Mock(), {})
+        report.probe()
+        self.assertIn('h264_vulkan', report.encoder_capabilities()['encoders'])
+        api.VulkanDeviceLost.return_value = True
+        self.assertEqual(report.encoder_capabilities(), dict(state='ready', encoders=('h264_vaapi',)))
+        api.GpuEncoders.assert_called_once()
+
     def test_export_can_read_capabilities_while_driver_probe_is_blocked(self):
         from classes.export_settings import encoder_support, preferred_export_codec, cached_encoder_capabilities
         entered, release = threading.Event(), threading.Event()
