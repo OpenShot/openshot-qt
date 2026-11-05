@@ -29,6 +29,7 @@ class GpuDiagnostics:
         self.devices = []
         self.selected = ""
         self.encoders = []
+        self.encoder_probe_state = "not checked"
         self.errors = []
         self.last_summary = None
         self.apis = {name: callable(getattr(native, name, None)) for name in
@@ -53,10 +54,13 @@ class GpuDiagnostics:
                 return
             self.started = True
             self.probe_state = "checking"
-        threading.Thread(target=self.probe, name="GPU diagnostics", daemon=True).start()
+            self.encoder_probe_state = "checking"
+        self.probe_thread = threading.Thread(target=self.probe, name="GPU diagnostics", daemon=True)
+        self.probe_thread.start()
 
     def probe(self):
         devices, selected, encoders, errors = [], "", [], []
+        encoder_state = "disabled" if self.environ.get("OPENSHOT_RENDER_BACKEND") == "cpu" else "unavailable"
         for name in ("ListGpuDevices", "ActiveGpuDevice", "GpuEncoders"):
             if not self.apis[name]:
                 continue
@@ -75,16 +79,46 @@ class GpuDiagnostics:
                     selected = value.name
                 else:
                     encoders = list(value)
+                    encoders.extend(self._additional_encoders())
+                    encoder_state = "ready"
             except Exception as error:
+                if name == "GpuEncoders":
+                    encoder_state = "failed"
                 errors.append("%s: %s" % (name, error))
         with self.lock:
             self.devices, self.selected, self.encoders, self.errors = devices, selected, encoders, errors
             self.probe_state = "complete"
+            self.encoder_probe_state = encoder_state
         self.event("capabilities", devices=devices, selected_vulkan_device=selected,
                    hardware_encoders_that_open=encoders, errors=errors,
-                   encoders_checked=bool(selected) and self.apis["GpuEncoders"] and
-                   self.environ.get("OPENSHOT_RENDER_BACKEND") != "cpu",
+                   encoders_checked=encoder_state == "ready",
                    note="Capabilities are not proof of active decoding, presentation, or encoding")
+
+    def _additional_encoders(self):
+        """Probe QSV/AMF through the writer's real export route, once on this worker."""
+        writer_type = getattr(self.native, 'FFmpegWriter', None)
+        if not callable(writer_type):
+            return []
+        available = []
+        for codec in ('h264_qsv', 'hevc_qsv', 'av1_qsv', 'h264_amf', 'hevc_amf', 'av1_amf'):
+            if not writer_type.IsValidCodec(codec):
+                continue
+            try:
+                writer = writer_type('openshot-hardware-probe.mp4')
+                writer.SetVideoOptions(True, codec, self.native.Fraction(30, 1), 640, 360,
+                                       self.native.Fraction(1, 1), False, False, 1000000)
+                writer.PrepareStreams()
+                # Test writes the header to memory; no output file is created.
+                if json.loads(writer.Test()).get('ok'):
+                    available.append(codec)
+            except Exception:
+                pass  # Compiled encoders without a usable driver are unavailable.
+        return available
+
+    def encoder_capabilities(self):
+        """Nonblocking session results; never enter the driver's probe mutex from UI code."""
+        with self.lock:
+            return dict(state=self.encoder_probe_state, encoders=tuple(self.encoders))
 
     def register_preview(self, name, enabled, reason):
         with self.lock:

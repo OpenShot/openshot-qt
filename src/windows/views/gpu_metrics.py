@@ -1,6 +1,6 @@
 """One four-segment visualization for live preview and frozen export reports."""
 from qt_api import (Qt, QWidget, QPainter, QColor, QRectF, QSize, QTimer, QVBoxLayout, QGridLayout,
-                    QHBoxLayout, QLabel, QPushButton, QDockWidget, QFrame, QScrollArea, QPalette)
+                    QHBoxLayout, QLabel, QPushButton, QDockWidget, QFrame, QScrollArea, QPalette, QMainWindow)
 from classes.gpu_metrics import stages
 
 
@@ -205,8 +205,27 @@ class GpuMetricsDock(QDockWidget):
         self.timer = QTimer(self)
         self.timer.setInterval(500)
         self.timer.timeout.connect(self.refresh)
-        self.visibilityChanged.connect(lambda visible: self.timer.start() if visible else self.timer.stop())
+        self.visibilityChanged.connect(self._visibility_changed)
         self.refresh()
+
+    def ensure_attached(self):
+        window = self.parentWidget()
+        if isinstance(window, QMainWindow) and window.dockWidgetArea(self) == Qt.NoDockWidgetArea:
+            # Built-in views remove optional docks. Showing an orphaned dock
+            # directly can paint it over the central widgets instead of docking.
+            window.addDockWidget(Qt.RightDockWidgetArea, self)
+            if self.isFloating():
+                self.setFloating(False)
+            style_docks = getattr(window, 'style_dock_widgets', None)
+            if callable(style_docks):
+                style_docks()
+
+    def _visibility_changed(self, visible):
+        if visible:
+            self.ensure_attached()
+            self.timer.start()
+        else:
+            self.timer.stop()
 
     def reset(self):
         self.measurements.reset()
@@ -262,7 +281,7 @@ class GpuPreviewSegments(GpuSegments):
             dock = getattr(self.window, 'gpuMetricsDock', None)
             if dock is None:
                 dock = self.window.gpuMetricsDock = GpuMetricsDock(self.measurements, self.translate, self.window)
-                self.window.addDockWidget(Qt.RightDockWidgetArea, dock)
+            dock.ensure_attached()
             dock.show()
             dock.raise_()
         super().mouseReleaseEvent(event)

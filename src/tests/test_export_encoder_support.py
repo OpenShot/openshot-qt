@@ -3,7 +3,7 @@ from types import SimpleNamespace
 import unittest
 from unittest.mock import Mock
 
-from classes.export_settings import encoder_support
+from classes.export_settings import encoder_support, preferred_export_codec
 
 
 def native(compiled, available=()):
@@ -56,4 +56,47 @@ class ExportEncoderSupportTests(unittest.TestCase):
         self.assertEqual(backend, "cpu")
         self.assertTrue(supported)
         self.assertIn("CPU", reason)
+        api.GpuEncoders.assert_not_called()
+
+
+class ExportDefaultTests(unittest.TestCase):
+    def test_only_working_h264_encoders_are_selected(self):
+        candidates = {'libx264', 'h264_nvenc', 'h264_vulkan', 'hevc_vulkan'}
+        api = native(True, ['hevc_vulkan', 'h264_nvenc'])
+        self.assertEqual(preferred_export_codec(candidates, api, {}), 'h264_nvenc')
+        api.GpuEncoders.return_value.append('h264_vulkan')
+        self.assertEqual(preferred_export_codec(candidates, api, {}), 'h264_vulkan')
+        self.assertEqual(preferred_export_codec({'libx264'}, api, {}), 'libx264')
+
+    def test_cpu_mode_and_failed_probes_use_software(self):
+        api = native(True, ['h264_nvenc'])
+        candidates = {'libx264', 'h264_nvenc'}
+        self.assertEqual(preferred_export_codec(candidates, api, {'OPENSHOT_RENDER_BACKEND': 'cpu'}), 'libx264')
+        api.GpuEncoders.assert_not_called()
+        api.GpuEncoders.side_effect = RuntimeError('unavailable')
+        self.assertEqual(preferred_export_codec(candidates, api, {}), 'libx264')
+        self.assertIsNone(preferred_export_codec({'hevc_nvenc'}, api, {}))
+
+
+class CachedEncoderTests(unittest.TestCase):
+    def test_dialog_reads_results_without_entering_the_native_probe(self):
+        api = native(True)
+        api.GpuEncoders.side_effect = AssertionError('GUI must not probe hardware')
+        checking = dict(state='checking', encoders=())
+        self.assertTrue(encoder_support('h264_vulkan', api, {}, checking)[1])
+        self.assertIn('Checking', encoder_support('h264_vulkan', api, {}, checking)[2])
+        self.assertEqual(preferred_export_codec({'libx264', 'h264_vulkan'}, api, {}, checking), 'libx264')
+        ready = dict(state='ready', encoders=('h264_vulkan',))
+        self.assertTrue(encoder_support('h264_vulkan', api, {}, ready)[1])
+        self.assertFalse(encoder_support('h264_nvenc', api, {}, ready)[1])
+        self.assertEqual(preferred_export_codec({'libx264', 'h264_vulkan'}, api, {}, ready), 'h264_vulkan')
+        api.GpuEncoders.assert_not_called()
+
+    def test_failed_discovery_is_distinct_from_an_encoder_that_failed_to_open(self):
+        api = native(True)
+        failed = encoder_support('h264_vulkan', api, {}, dict(state='failed', encoders=()))
+        empty = encoder_support('h264_vulkan', api, {}, dict(state='ready', encoders=()))
+        self.assertFalse(failed[1]); self.assertFalse(empty[1])
+        self.assertIn('could not be verified', failed[2])
+        self.assertIn('did not open', empty[2])
         api.GpuEncoders.assert_not_called()

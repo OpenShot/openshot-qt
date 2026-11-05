@@ -1393,6 +1393,50 @@ class MainWindowTests(unittest.TestCase):
         self.assertNotIn(fake_window.dockProperties, fake_window.tabifiedDockWidgets(fake_window.dockFiles))
         self.assertFalse(fake_window.dockProperties.isHidden())
 
+    def test_gpu_inspector_redocks_after_simple_and_color_view_changes(self):
+        from unittest.mock import Mock
+        from windows.views.gpu_metrics import GpuPreviewSegments
+        window = QMainWindow()
+        for name in ('Files', 'Transitions', 'Effects', 'Emojis', 'Properties', 'Video',
+                     'Timeline', 'LumaWaveform', 'Histogram', 'Vectorscope'):
+            dock = QDockWidget(name, window)
+            dock.setObjectName('dock' + name)
+            setattr(window, 'dock' + name, dock)
+        for name in ('getDocks', 'removeDocks', 'addDocks', 'floatDocks', 'showDocks'):
+            setattr(window, name, types.MethodType(getattr(self.main_window_module.MainWindow, name), window))
+        window._set_active_custom_view_id = Mock()
+        window._set_active_builtin_view = Mock()
+        window.style_dock_widgets = Mock()
+        measurements = Mock()
+        measurements.snapshot.return_value = {}
+        badge = GpuPreviewSegments(measurements, lambda text: text, window, window)
+        window.setCentralWidget(badge)
+        window.show()
+        event = QMouseEvent(QEvent.MouseButtonRelease, QPointF(2, 2),
+                            Qt.LeftButton, Qt.NoButton, Qt.NoModifier)
+        try:
+            badge.mouseReleaseEvent(event)
+            dock = window.gpuMetricsDock
+            window.style_dock_widgets.assert_called()
+            for layout in (self.main_window_module.MainWindow._apply_simple_view_layout,
+                           self.main_window_module.MainWindow.actionColor_Grade_View_trigger):
+                for reopen in (lambda: badge.mouseReleaseEvent(event), dock.toggleViewAction().trigger):
+                    layout(window)
+                    self.assertTrue(dock.isHidden())
+                    reopen()
+                    self.app.processEvents()
+                    self.assertEqual(window.dockWidgetArea(dock), Qt.RightDockWidgetArea)
+                    self.assertFalse(dock.isFloating())
+                    self.assertFalse(dock.isHidden())
+            dock.setFloating(True)
+            dock.hide()
+            badge.mouseReleaseEvent(event)
+            self.assertTrue(dock.isFloating())  # Preserve deliberate user undocking.
+        finally:
+            window.close()
+            window.deleteLater()
+            self.app.processEvents()
+
     def test_recording_view_matches_simple_layout_with_recording_on_right(self):
         fake_window = QMainWindow()
         fake_window.dockFiles = QDockWidget("Project Files", fake_window)

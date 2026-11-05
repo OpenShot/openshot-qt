@@ -1,6 +1,8 @@
 """GPU capability evidence must never be mistaken for observed acceleration."""
 from types import SimpleNamespace
 import unittest
+import threading
+import json
 import unittest.mock
 from unittest.mock import Mock
 
@@ -19,6 +21,42 @@ def native_api():
 
 
 class GpuDiagnosticsTests(unittest.TestCase):
+    def test_export_can_read_capabilities_while_driver_probe_is_blocked(self):
+        from classes.export_settings import encoder_support, preferred_export_codec, cached_encoder_capabilities
+        entered, release = threading.Event(), threading.Event()
+        api = native_api()
+        api.FFmpegWriter = SimpleNamespace(IsValidCodec=Mock(return_value=True))
+        def probe():
+            entered.set()
+            release.wait(5)
+            return ['h264_vulkan']
+        api.GpuEncoders.side_effect = probe
+        report = GpuDiagnostics(api, Mock(), {})
+        report.start_probe()
+        try:
+            self.assertTrue(entered.wait(2))
+            cached = cached_encoder_capabilities(SimpleNamespace(gpu_diagnostics=report))
+            self.assertEqual(cached['state'], 'checking')
+            self.assertTrue(encoder_support('h264_vulkan', api, {}, cached)[1])
+            self.assertEqual(preferred_export_codec({'libx264', 'h264_vulkan'}, api, {}, cached), 'libx264')
+            api.GpuEncoders.assert_called_once_with()
+        finally:
+            release.set()
+            report.probe_thread.join(2)
+        self.assertEqual(report.encoder_capabilities(), dict(state='ready', encoders=('h264_vulkan',)))
+
+    def test_additional_encoder_probes_use_writer_results_not_compiled_names(self):
+        api = native_api()
+        writer = Mock()
+        writer.Test.side_effect = [json.dumps(dict(ok=True)), json.dumps(dict(ok=False))]
+        api.FFmpegWriter = Mock(return_value=writer)
+        api.FFmpegWriter.IsValidCodec.side_effect = lambda codec: codec in ('h264_qsv', 'h264_amf')
+        api.Fraction = lambda num, den: (num, den)
+        report = GpuDiagnostics(api, Mock(), {})
+        report.probe()
+        self.assertEqual(report.encoder_capabilities()['encoders'], ('h264_nvenc', 'h264_qsv'))
+        self.assertEqual(writer.Test.call_count, 2)
+
     def test_copy_is_short_and_keeps_fallback_without_verbose_evidence(self):
         report = GpuDiagnostics(native_api(), Mock(), {})
         report.probe()
