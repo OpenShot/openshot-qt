@@ -35,6 +35,7 @@ from qt_api import (
     QColor, QComboBox, QHBoxLayout, QIcon, QLabel, QLineEdit, QMenu, QObject, QPen, QPoint, QPointF, QPolygonF,
     QRectF, QSize, QSpinBox, QTimer, QToolButton, QVBoxLayout, QWidget, QWidgetAction, Qt, pyqtSignal, QEvent,
 )
+import openshot
 from classes.ui_util import painted_icon
 from classes.app import get_app
 from classes.logger import log
@@ -219,7 +220,7 @@ class ExportValidationUI(QObject):
         self.engine_result = None
         self.engine_running = None
         # The export dialog provides the writer settings (tests may use a bare dialog)
-        self.engine_available = hasattr(dialog, "writer_settings")
+        self.engine_available = hasattr(dialog, "writer_settings") and hasattr(getattr(openshot, "FFmpegWriter", None), "Test")
         self.engineChecked.connect(self._engine_checked)
         self.fields = {
             "vformat": dialog.txtVideoFormat,

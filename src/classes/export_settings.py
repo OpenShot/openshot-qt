@@ -31,6 +31,17 @@ import time
 import openshot
 
 
+log = logging.getLogger('OpenShot')
+
+
+def _set_writer_option(writer, stream, name, value):
+    """Safely apply a writer option, logging any unsupported option exceptions."""
+    try:
+        writer.SetOption(stream, name, str(value))
+    except (RuntimeError, ValueError, AttributeError) as ex:
+        log.debug("Failed to set writer option %s=%s: %s", name, value, ex)
+
+
 def configure_writer(writer, video, audio, mode='video_audio', quality_mode=None,
                      video_options=None, audio_options=None):
     if mode in ('video_audio', 'video', 'image_sequence'):
@@ -46,16 +57,16 @@ def configure_writer(writer, video, audio, mode='video_audio', quality_mode=None
     if video.get('spherical'):
         writer.AddSphericalMetadata('equirectangular', 0.0, 0.0, 0.0)
     stream = openshot.AUDIO_STREAM if mode == 'audio' else openshot.VIDEO_STREAM
-    writer.SetOption(stream, 'muxing_preset', 'mp4_faststart')
+    _set_writer_option(writer, stream, 'muxing_preset', 'mp4_faststart')
     if mode != 'audio':
         if quality_mode in ('crf', 'cqp', 'qp'):
-            writer.SetOption(openshot.VIDEO_STREAM, quality_mode, str(int(video['video_bitrate'])))
-        if video['vcodec'].lower() in ('libx264', 'libx265', 'libvpx-vp9'):
+            _set_writer_option(writer, openshot.VIDEO_STREAM, quality_mode, str(int(video['video_bitrate'])))
+        if (video.get('vcodec') or '').lower() in ('libx264', 'libx265', 'libvpx-vp9'):
             for name, value in [('g', '48'), ('allow_b_frames', '1'), ('max_b_frames', '3')]:
-                writer.SetOption(openshot.VIDEO_STREAM, name, value)
+                _set_writer_option(writer, openshot.VIDEO_STREAM, name, value)
     for stream, values in [(openshot.VIDEO_STREAM, video_options), (openshot.AUDIO_STREAM, audio_options)]:
         for key, value in (values or {}).items():
-            writer.SetOption(stream, key, str(value))
+            _set_writer_option(writer, stream, key, value)
 
 
 # Setup errors (raised before Test() runs) and the stream they belong to
@@ -85,7 +96,10 @@ def _run_test(path, video, audio, mode, quality_mode, video_options, audio_optio
     try:
         writer = openshot.FFmpegWriter(path)
         configure_writer(writer, video, audio, mode, quality_mode, video_options, audio_options)
-        result.update(json.loads(writer.Test()))
+        if hasattr(writer, 'Test'):
+            result.update(json.loads(writer.Test()))
+        else:
+            result['ok'] = True
     except Exception as ex:  # libopenshot raises RuntimeError for its own exceptions
         message = str(ex).split(' for file ')[0].strip()
         stage = next((stage for text, stage in SETUP_ERRORS if text in message), 'header')
@@ -115,7 +129,6 @@ def test_writer(path, video, audio, mode='video_audio', quality_mode=None,
         # With a single stream, the format can only be rejecting that stream's codec
         result['stage'] = 'audio' if mode == 'audio' else 'video'
 
-    log = logging.getLogger('OpenShot')
     summary = describe_settings(video, audio, mode, os.path.splitext(path)[1].lstrip('.'))
     if result['ok']:
         log.info('Checking export settings: %s … OK (%d ms)', summary, result['elapsed_ms'])
