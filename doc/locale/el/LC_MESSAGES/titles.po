@@ -1,0 +1,979 @@
+# Translated with AI assistance (Claude) and reviewed; UI labels follow the official OpenShot Greek UI catalog.
+# Greek translation of the OpenShot Video Editor documentation.
+# Copyright (C) OpenShot Studios, LLC
+# This file is distributed under the same license as the OpenShot Video Editor package.
+# Ioannis-Stylianos Lafazanis <jslafazanis@gmail.com>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenShot Video Editor 4.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-27 00:00+0000\n"
+"PO-Revision-Date: 2026-10-20 15:50+0300\n"
+"Last-Translator: Ioannis-Stylianos Lafazanis <jslafazanis@gmail.com>\n"
+"Language-Team: Greek <el@li.org>\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../titles.rst:23
+msgid "Text & Titles"
+msgstr "Κείμενο και τίτλοι"
+
+#: ../titles.rst:25
+msgid ""
+"Adding text overlays, lower thirds, and titles is an important aspect of "
+"video editing, and OpenShot comes with an easy-to-use Title Editor. Use the "
+"Title menu (located in the main menu of OpenShot) to launch the Title "
+"Editor. You can also use the keyboard shortcut :kbd:`Ctrl+T`."
+msgstr ""
+"Η προσθήκη επικαλύψεων κειμένου, κάτω τρίτων (lower thirds) και τίτλων είναι"
+" σημαντική πτυχή της επεξεργασίας βίντεο, και το OpenShot διαθέτει έναν "
+"εύχρηστο επεξεργαστή τίτλων (Title Editor). Χρησιμοποιήστε το μενού Τίτλος "
+"(Title), στο κύριο μενού του OpenShot, για να ανοίξετε τον επεξεργαστή "
+"τίτλων. Μπορείτε επίσης να χρησιμοποιήσετε τη συντόμευση πληκτρολογίου "
+":kbd:`Ctrl+T`."
+
+#: ../titles.rst:29
+msgid ""
+"Titles are simply vector image files with transparent backgrounds "
+"(``*.svg``). OpenShot comes with many easy-to-use templates, but you can "
+"also create your own or import new templates into OpenShot. These templates "
+"allow you to quickly change the text, font, size, color, and background "
+"color. You can also launch an advanced, external SVG editor for further "
+"customizations (if needed). Once the title is added to your project, drag "
+"and drop the title on a Track above a video clip. The transparent background"
+" will allow the video below to appear behind the text."
+msgstr ""
+"Οι τίτλοι είναι απλώς αρχεία διανυσματικής εικόνας με διαφανές φόντο "
+"(``*.svg``). Το OpenShot διαθέτει πολλά εύχρηστα πρότυπα, αλλά μπορείτε "
+"επίσης να δημιουργήσετε δικά σας ή να εισαγάγετε νέα πρότυπα στο OpenShot. "
+"Αυτά τα πρότυπα σας επιτρέπουν να αλλάζετε γρήγορα το κείμενο, τη "
+"γραμματοσειρά, το μέγεθος, το χρώμα και το χρώμα φόντου. Μπορείτε επίσης να "
+"ανοίξετε έναν προχωρημένο, εξωτερικό επεξεργαστή SVG για περαιτέρω "
+"προσαρμογές (αν χρειαστεί). Μόλις ο τίτλος προστεθεί στο έργο σας, σύρετε "
+"και αποθέστε τον σε έναν διάδρομο πάνω από ένα κλιπ βίντεο. Το διαφανές "
+"φόντο θα επιτρέψει στο βίντεο από κάτω να φαίνεται πίσω από το κείμενο."
+
+#: ../titles.rst:36
+msgid "Overview"
+msgstr "Επισκόπηση"
+
+#: ../titles.rst:44 ../titles.rst:185
+msgid "#"
+msgstr ""
+
+#: ../titles.rst:44 ../titles.rst:185
+msgid "Name"
+msgstr "Όνομα"
+
+#: ../titles.rst:44 ../titles.rst:63 ../titles.rst:185 ../titles.rst:204
+msgid "Description"
+msgstr "Περιγραφή"
+
+#: ../titles.rst:46 ../titles.rst:187
+msgid "1"
+msgstr ""
+
+#: ../titles.rst:46 ../titles.rst:187
+msgid "Choose a Template"
+msgstr "Επιλογή προτύπου (Choose a Template)"
+
+#: ../titles.rst:46
+msgid "Choose from any available vector title template"
+msgstr "Επιλέξτε οποιοδήποτε διαθέσιμο διανυσματικό πρότυπο τίτλου"
+
+#: ../titles.rst:47 ../titles.rst:188
+msgid "2"
+msgstr ""
+
+#: ../titles.rst:47 ../titles.rst:188
+msgid "Preview Title"
+msgstr "Προεπισκόπηση τίτλου (Preview Title)"
+
+#: ../titles.rst:47 ../titles.rst:188
+msgid "Preview your title as you make changes"
+msgstr "Κάντε προεπισκόπηση του τίτλου σας καθώς κάνετε αλλαγές"
+
+#: ../titles.rst:48 ../titles.rst:189
+msgid "3"
+msgstr ""
+
+#: ../titles.rst:48 ../titles.rst:189
+msgid "Title Properties"
+msgstr "Ιδιότητες τίτλου (Title Properties)"
+
+#: ../titles.rst:48
+msgid ""
+"Change the text, font, size, colors, or edit in an advanced, external SVG "
+"image editor (such as Inkscape)"
+msgstr ""
+"Αλλάξτε το κείμενο, τη γραμματοσειρά, το μέγεθος, τα χρώματα ή "
+"επεξεργαστείτε τον τίτλο σε έναν προχωρημένο, εξωτερικό επεξεργαστή εικόνων "
+"SVG (όπως το Inkscape)"
+
+#: ../titles.rst:49 ../titles.rst:190
+msgid "4"
+msgstr ""
+
+#: ../titles.rst:49
+msgid "Save"
+msgstr "Αποθήκευση (Save)"
+
+#: ../titles.rst:49
+msgid "Save and add the title to your project"
+msgstr "Αποθηκεύστε και προσθέστε τον τίτλο στο έργο σας"
+
+#: ../titles.rst:53
+msgid "Title Templates"
+msgstr "Πρότυπα τίτλων"
+
+#: ../titles.rst:55
+msgid ""
+"OpenShot includes a variety of vector title templates that can be used to "
+"enhance your video projects. Below is a table listing the available titles "
+"and their descriptions:"
+msgstr ""
+"Το OpenShot περιλαμβάνει μια ποικιλία διανυσματικών προτύπων τίτλων που "
+"μπορούν να χρησιμοποιηθούν για να βελτιώσετε τα έργα βίντεό σας. Παρακάτω "
+"υπάρχει πίνακας με τους διαθέσιμους τίτλους και την περιγραφή τους:"
+
+#: ../titles.rst:62
+msgid "Title Name"
+msgstr "Όνομα τίτλου"
+
+#: ../titles.rst:64
+msgid "Bar 1"
+msgstr ""
+
+#: ../titles.rst:65
+msgid "A simple bar with text centered."
+msgstr "Μια απλή μπάρα με κεντραρισμένο κείμενο."
+
+#: ../titles.rst:66
+msgid "Bar 2"
+msgstr ""
+
+#: ../titles.rst:67
+msgid "A simple bar, centered, with 2 lines of text."
+msgstr "Μια απλή μπάρα, κεντραρισμένη, με 2 γραμμές κειμένου."
+
+#: ../titles.rst:68
+msgid "Bar 3"
+msgstr ""
+
+#: ../titles.rst:69
+msgid "Another variation of a simple bar with text, for lower 3rds."
+msgstr ""
+"Μια άλλη παραλλαγή απλής μπάρας με κείμενο, για κάτω τρίτα (lower thirds)."
+
+#: ../titles.rst:70
+msgid "Box"
+msgstr ""
+
+#: ../titles.rst:71
+msgid "A simple boxed title layout for centered text."
+msgstr "Μια απλή διάταξη τίτλου σε πλαίσιο, για κεντραρισμένο κείμενο."
+
+#: ../titles.rst:72
+msgid "Bubbles 1"
+msgstr ""
+
+#: ../titles.rst:73
+msgid "A title with bubble graphics for a playful look."
+msgstr "Ένας τίτλος με γραφικά από φυσαλίδες για παιχνιδιάρικη εμφάνιση."
+
+#: ../titles.rst:74
+msgid "Bubbles 2"
+msgstr ""
+
+#: ../titles.rst:75
+msgid "A different bubble design for a fun and creative title."
+msgstr ""
+"Ένα διαφορετικό σχέδιο με φυσαλίδες για έναν διασκεδαστικό και δημιουργικό "
+"τίτλο."
+
+#: ../titles.rst:76
+msgid "Camera Border"
+msgstr ""
+
+#: ../titles.rst:77
+msgid "A border that mimics a camera viewfinder with centered text."
+msgstr ""
+"Ένα περίγραμμα που μιμείται το σκόπευτρο μιας κάμερας, με κεντραρισμένο "
+"κείμενο."
+
+#: ../titles.rst:78
+msgid "Cloud 1"
+msgstr ""
+
+#: ../titles.rst:79
+msgid "A title with a playful cloud graphic and text."
+msgstr "Ένας τίτλος με παιχνιδιάρικο γραφικό σύννεφου και κείμενο."
+
+#: ../titles.rst:80
+msgid "Cloud 2"
+msgstr ""
+
+#: ../titles.rst:81
+msgid "Another playful cloud design with 3 clouds and text."
+msgstr "Ένα ακόμη παιχνιδιάρικο σχέδιο με σύννεφα, με 3 σύννεφα και κείμενο."
+
+#: ../titles.rst:82
+msgid "Creative Commons 1"
+msgstr ""
+
+#: ../titles.rst:83
+msgid "Contains text and icons for Creative Commons attribution."
+msgstr ""
+"Περιέχει κείμενο και εικονίδια για την αναφορά δημιουργού (attribution) κατά"
+" Creative Commons."
+
+#: ../titles.rst:84
+msgid "Creative Commons 2"
+msgstr ""
+
+#: ../titles.rst:85
+msgid ""
+"Another Creative Commons design with different styling plus website text."
+msgstr ""
+"Ένα ακόμη σχέδιο Creative Commons με διαφορετική διαμόρφωση και κείμενο "
+"ιστότοπου."
+
+#: ../titles.rst:86
+msgid "Film Rating 1"
+msgstr ""
+
+#: ../titles.rst:87
+msgid "Displays a film rating for all audiences."
+msgstr "Εμφανίζει βαθμολογία ταινίας για όλα τα ακροατήρια."
+
+#: ../titles.rst:88
+msgid "Film Rating 2"
+msgstr ""
+
+#: ../titles.rst:89
+msgid "Displays a film rating of \"R\" restricted."
+msgstr "Εμφανίζει βαθμολογία ταινίας «R» (περιορισμένης προβολής)."
+
+#: ../titles.rst:90
+msgid "Film Rating 3"
+msgstr ""
+
+#: ../titles.rst:91
+msgid "Displays a film rating of \"G\" for general audiences."
+msgstr "Εμφανίζει βαθμολογία ταινίας «G» για το γενικό κοινό."
+
+#: ../titles.rst:92
+msgid "Film Rating 4"
+msgstr ""
+
+#: ../titles.rst:93
+msgid "Displays a film rating of \"PG-13\", parents strongly cautioned."
+msgstr ""
+"Εμφανίζει βαθμολογία ταινίας «PG-13», με έντονη σύσταση προς τους γονείς."
+
+#: ../titles.rst:94
+msgid "Flare"
+msgstr ""
+
+#: ../titles.rst:95
+msgid "A title with a bright flare effect for a cinematic look."
+msgstr "Ένας τίτλος με έντονο εφέ αναλαμπής για κινηματογραφική εμφάνιση."
+
+#: ../titles.rst:96
+msgid "Flames"
+msgstr ""
+
+#: ../titles.rst:97
+msgid "A title with flame graphics for a fiery effect."
+msgstr "Ένας τίτλος με γραφικά φλόγας για εφέ φωτιάς."
+
+#: ../titles.rst:98
+msgid "Footer 1"
+msgstr ""
+
+#: ../titles.rst:99
+msgid "A footer bar for lower thirds (left aligned)."
+msgstr ""
+"Μια μπάρα υποσέλιδου για κάτω τρίτα (lower thirds), με στοίχιση αριστερά."
+
+#: ../titles.rst:100
+msgid "Footer 2"
+msgstr ""
+
+#: ../titles.rst:101
+msgid "A footer bar for lower thirds (center aligned)."
+msgstr ""
+"Μια μπάρα υποσέλιδου για κάτω τρίτα (lower thirds), με στοίχιση στο κέντρο."
+
+#: ../titles.rst:102
+msgid "Footer 3"
+msgstr ""
+
+#: ../titles.rst:103
+msgid "A footer bar for lower thirds (right aligned)."
+msgstr ""
+"Μια μπάρα υποσέλιδου για κάτω τρίτα (lower thirds), με στοίχιση δεξιά."
+
+#: ../titles.rst:104
+msgid "Gold 1"
+msgstr ""
+
+#: ../titles.rst:105
+msgid "A title with a gold color scheme, centered with one line of text."
+msgstr ""
+"Ένας τίτλος με χρυσό χρωματικό συνδυασμό, κεντραρισμένος, με μία γραμμή "
+"κειμένου."
+
+#: ../titles.rst:106
+msgid "Gold 2"
+msgstr ""
+
+#: ../titles.rst:107
+msgid "Another gold-themed title, centered with two lines of text."
+msgstr ""
+"Ένας ακόμη τίτλος με χρυσό θέμα, κεντραρισμένος, με δύο γραμμές κειμένου."
+
+#: ../titles.rst:108
+msgid "Gold Bottom"
+msgstr ""
+
+#: ../titles.rst:109
+msgid "Gold title positioned at the bottom of the screen."
+msgstr "Χρυσός τίτλος τοποθετημένος στο κάτω μέρος της οθόνης."
+
+#: ../titles.rst:110
+msgid "Gold Top"
+msgstr ""
+
+#: ../titles.rst:111
+msgid "Gold title positioned at the top of the screen."
+msgstr "Χρυσός τίτλος τοποθετημένος στο πάνω μέρος της οθόνης."
+
+#: ../titles.rst:112
+msgid "Gray Box 1"
+msgstr ""
+
+#: ../titles.rst:113
+msgid ""
+"A simple gray box for highlighting text (one line of text, top-left "
+"aligned)."
+msgstr ""
+"Ένα απλό γκρι πλαίσιο για επισήμανση κειμένου (μία γραμμή κειμένου, στοίχιση"
+" πάνω αριστερά)."
+
+#: ../titles.rst:114
+msgid "Gray Box 2"
+msgstr ""
+
+#: ../titles.rst:115
+msgid ""
+"A simple gray box for highlighting text (two lins of text, top-left "
+"aligned)."
+msgstr ""
+"Ένα απλό γκρι πλαίσιο για επισήμανση κειμένου (δύο γραμμές κειμένου, "
+"στοίχιση πάνω αριστερά)."
+
+#: ../titles.rst:116
+msgid "Gray Box 3"
+msgstr ""
+
+#: ../titles.rst:117
+msgid ""
+"A simple gray box for highlighting text (one line of text, bottom-right "
+"aligned)."
+msgstr ""
+"Ένα απλό γκρι πλαίσιο για επισήμανση κειμένου (μία γραμμή κειμένου, στοίχιση"
+" κάτω δεξιά)."
+
+#: ../titles.rst:118
+msgid "Gray Box 4"
+msgstr ""
+
+#: ../titles.rst:119
+msgid ""
+"A simple gray box for highlighting text (two lines of text, bottom-right "
+"aligned)."
+msgstr ""
+"Ένα απλό γκρι πλαίσιο για επισήμανση κειμένου (δύο γραμμές κειμένου, "
+"στοίχιση κάτω δεξιά)."
+
+#: ../titles.rst:120
+msgid "Header 1"
+msgstr ""
+
+#: ../titles.rst:121
+msgid "A header bar for titles or section headers (top-left aligned)."
+msgstr ""
+"Μια μπάρα κεφαλίδας για τίτλους ή επικεφαλίδες ενοτήτων (στοίχιση πάνω "
+"αριστερά)."
+
+#: ../titles.rst:122
+msgid "Header 2"
+msgstr ""
+
+#: ../titles.rst:123
+msgid "A header bar for titles or section headers (center aligned)."
+msgstr ""
+"Μια μπάρα κεφαλίδας για τίτλους ή επικεφαλίδες ενοτήτων (στοίχιση στο "
+"κέντρο)."
+
+#: ../titles.rst:124
+msgid "Header 3"
+msgstr ""
+
+#: ../titles.rst:125
+msgid "A header bar for titles or section headers (top-right aligned)."
+msgstr ""
+"Μια μπάρα κεφαλίδας για τίτλους ή επικεφαλίδες ενοτήτων (στοίχιση πάνω "
+"δεξιά)."
+
+#: ../titles.rst:126
+msgid "OpenShot"
+msgstr ""
+
+#: ../titles.rst:127
+msgid "A title featuring OpenShot branding."
+msgstr "Ένας τίτλος με την επωνυμία (branding) του OpenShot."
+
+#: ../titles.rst:128
+msgid "Oval 1"
+msgstr ""
+
+#: ../titles.rst:129
+msgid "An oval shape for highlighting or decorative purposes, text centered."
+msgstr ""
+"Ένα οβάλ σχήμα για επισήμανση ή διακοσμητικούς σκοπούς, με κεντραρισμένο "
+"κείμενο."
+
+#: ../titles.rst:130
+msgid "Oval 2"
+msgstr ""
+
+#: ../titles.rst:131
+msgid "Another oval design with a different style, text centered."
+msgstr "Ένα ακόμη οβάλ σχέδιο με διαφορετικό στιλ, με κεντραρισμένο κείμενο."
+
+#: ../titles.rst:132
+msgid "Oval 3"
+msgstr ""
+
+#: ../titles.rst:133
+msgid ""
+"Another oval design with two-lines of text, one at the top, one at the "
+"bottom."
+msgstr ""
+"Ένα ακόμη οβάλ σχέδιο με δύο γραμμές κειμένου, μία στο πάνω και μία στο κάτω"
+" μέρος."
+
+#: ../titles.rst:134
+msgid "Oval 4"
+msgstr ""
+
+#: ../titles.rst:135
+msgid "Yet another oval design, with text centered plus refection."
+msgstr "Ένα ακόμη οβάλ σχέδιο, με κεντραρισμένο κείμενο και αντανάκλαση."
+
+#: ../titles.rst:136
+msgid "Post it"
+msgstr ""
+
+#: ../titles.rst:137
+msgid "Mimics a sticky note for annotations or reminders."
+msgstr "Μιμείται ένα αυτοκόλλητο σημείωμα για σημειώσεις ή υπενθυμίσεις."
+
+#: ../titles.rst:138
+msgid "Ribbon 1"
+msgstr ""
+
+#: ../titles.rst:139
+msgid "A ribbon graphic with text."
+msgstr "Ένα γραφικό κορδέλας με κείμενο."
+
+#: ../titles.rst:140
+msgid "Ribbon 2"
+msgstr ""
+
+#: ../titles.rst:141
+msgid "Another ribbon design with text."
+msgstr "Ένα ακόμη σχέδιο κορδέλας με κείμενο."
+
+#: ../titles.rst:142
+msgid "Ribbon 3"
+msgstr ""
+
+#: ../titles.rst:143
+msgid "A third variation of a ribbon design with text."
+msgstr "Μια τρίτη παραλλαγή σχεδίου κορδέλας με κείμενο."
+
+#: ../titles.rst:144
+msgid "Smoke 1"
+msgstr ""
+
+#: ../titles.rst:145
+msgid "A title with smoke effects for a dramatic look."
+msgstr "Ένας τίτλος με εφέ καπνού για δραματική εμφάνιση."
+
+#: ../titles.rst:146
+msgid "Smoke 2"
+msgstr ""
+
+#: ../titles.rst:147
+msgid "Another smoke design with a different style."
+msgstr "Ένα ακόμη σχέδιο με καπνό, με διαφορετικό στιλ."
+
+#: ../titles.rst:148
+msgid "Smoke 3"
+msgstr ""
+
+#: ../titles.rst:149
+msgid "A third variation of smoke effects."
+msgstr "Μια τρίτη παραλλαγή με εφέ καπνού."
+
+#: ../titles.rst:150
+msgid "Solid Color"
+msgstr ""
+
+#: ../titles.rst:151
+msgid "A full-screen color background for various uses."
+msgstr "Ένα μονόχρωμο φόντο πλήρους οθόνης για διάφορες χρήσεις."
+
+#: ../titles.rst:152
+msgid "Standard 1"
+msgstr ""
+
+#: ../titles.rst:153
+msgid "A standard title design for general purposes (two lines centered)."
+msgstr ""
+"Ένα τυπικό σχέδιο τίτλου για γενικές χρήσεις (δύο κεντραρισμένες γραμμές)."
+
+#: ../titles.rst:154
+msgid "Standard 2"
+msgstr ""
+
+#: ../titles.rst:155
+msgid ""
+"Another standard title with a different style (one line of text plus "
+"reflection)."
+msgstr ""
+"Ένας ακόμη τυπικός τίτλος με διαφορετικό στιλ (μία γραμμή κειμένου και "
+"αντανάκλαση)."
+
+#: ../titles.rst:156
+msgid "Standard 3"
+msgstr ""
+
+#: ../titles.rst:157
+msgid "A third variation of a standard title (three lines of text)."
+msgstr "Μια τρίτη παραλλαγή τυπικού τίτλου (τρεις γραμμές κειμένου)."
+
+#: ../titles.rst:158
+msgid "Standard 4"
+msgstr ""
+
+#: ../titles.rst:159
+msgid "Yet another standard title design (four lines of text)."
+msgstr "Ένα ακόμη τυπικό σχέδιο τίτλου (τέσσερις γραμμές κειμένου)."
+
+#: ../titles.rst:160
+msgid "Sunset"
+msgstr ""
+
+#: ../titles.rst:161
+msgid "A title with sunset gradient for a warm, end-of-day theme."
+msgstr ""
+"Ένας τίτλος με διαβάθμιση ηλιοβασιλέματος για ένα ζεστό θέμα τέλους της "
+"ημέρας."
+
+#: ../titles.rst:162
+msgid "TV Rating"
+msgstr ""
+
+#: ../titles.rst:163
+msgid ""
+"Displays TV ratings badge such as \"G\" and \"PG\" (for the corner of the "
+"screen)."
+msgstr ""
+"Εμφανίζει ένα σήμα τηλεοπτικής βαθμολογίας, όπως «G» και «PG» (για τη γωνία "
+"της οθόνης)."
+
+#: ../titles.rst:167
+msgid "Custom Title Templates"
+msgstr "Προσαρμοσμένα πρότυπα τίτλων"
+
+#: ../titles.rst:168
+msgid ""
+"OpenShot can use any vector SVG image file as a custom title template in the"
+" :guilabel:`Title Editor` dialog. Just add an SVG image file to your "
+"``~/.openshot_qt/title_templates/`` folder, and it will appear the next time"
+" you launch the :guilabel:`Title Editor` dialog. You can also right click on"
+" any SVG files in your **Project Files** panel, and choose **Edit Title** or"
+" **Duplicate Title**."
+msgstr ""
+"Το OpenShot μπορεί να χρησιμοποιήσει οποιοδήποτε διανυσματικό αρχείο εικόνας"
+" SVG ως προσαρμοσμένο πρότυπο τίτλου στο παράθυρο διαλόγου "
+":guilabel:`Επεξεργασία Τίτλων` (Title Editor). Απλώς προσθέστε ένα αρχείο "
+"εικόνας SVG στον φάκελο ``~/.openshot_qt/title_templates/`` και θα "
+"εμφανιστεί την επόμενη φορά που θα ανοίξετε το παράθυρο διαλόγου "
+":guilabel:`Επεξεργασία Τίτλων` (Title Editor). Μπορείτε επίσης να κάνετε "
+"δεξί κλικ σε οποιοδήποτε αρχείο SVG στο πάνελ **Αρχεία Έργου** (Project "
+"Files) και να επιλέξετε **Επεξεργασία Τίτλου** (Edit Title) ή **Διπλότυπο "
+"τίτλου** (Duplicate Title)."
+
+#: ../titles.rst:172
+msgid ""
+"Note: These SVG templates are only used by the :guilabel:`Title Editor` "
+"dialog, and not :guilabel:`Animated Title` dialog."
+msgstr ""
+"Σημείωση: Αυτά τα πρότυπα SVG χρησιμοποιούνται μόνο από το παράθυρο διαλόγου"
+" :guilabel:`Επεξεργασία Τίτλων` (Title Editor) και όχι από το παράθυρο "
+"διαλόγου :guilabel:`Κινούμενος Τίτλος` (Animated Title)."
+
+#: ../titles.rst:177
+msgid "3D Animated Titles"
+msgstr "Τρισδιάστατοι κινούμενοι τίτλοι"
+
+#: ../titles.rst:178
+msgid ""
+"Adding a 3D animated title is just as easy, using our **Animated Title** "
+"dialog. Use the Title menu (located in the main menu of OpenShot) to launch "
+"the Animated Title editor. You can also use the keyboard shortcut "
+"**Ctrl+B**. Note: Blender must be installed and configured before this "
+"feature will work in OpenShot. See :ref:`blender_install_ref`."
+msgstr ""
+"Η προσθήκη ενός τρισδιάστατου κινούμενου τίτλου είναι εξίσου εύκολη, με το "
+"παράθυρο διαλόγου **Κινούμενος Τίτλος** (Animated Title). Χρησιμοποιήστε το "
+"μενού Τίτλος (Title), στο κύριο μενού του OpenShot, για να ανοίξετε τον "
+"επεξεργαστή κινούμενων τίτλων. Μπορείτε επίσης να χρησιμοποιήσετε τη "
+"συντόμευση πληκτρολογίου **Ctrl+B**. Σημείωση: Το Blender πρέπει να είναι "
+"εγκατεστημένο και ρυθμισμένο πριν λειτουργήσει αυτή η δυνατότητα στο "
+"OpenShot. Βλ. :ref:`blender_install_ref`."
+
+#: ../titles.rst:187
+msgid "Choose from any available 3D title templates"
+msgstr "Επιλέξτε οποιοδήποτε διαθέσιμο τρισδιάστατο πρότυπο τίτλου"
+
+#: ../titles.rst:189
+msgid "Change the text, colors, and advanced properties"
+msgstr "Αλλάξτε το κείμενο, τα χρώματα και τις προχωρημένες ιδιότητες"
+
+#: ../titles.rst:190
+msgid "Render"
+msgstr "Απόδοση (Render)"
+
+#: ../titles.rst:190
+msgid "Render the 3D animation, and add it to your project"
+msgstr "Αποδώστε την τρισδιάστατη κίνηση και προσθέστε τη στο έργο σας"
+
+#: ../titles.rst:194
+msgid "3D Animated Templates"
+msgstr "Τρισδιάστατα κινούμενα πρότυπα"
+
+#: ../titles.rst:196
+msgid ""
+"OpenShot includes a variety of 3D animated templates that can be used to add"
+" dynamic and engaging elements to your video projects. Below is a table "
+"listing the available templates and their descriptions:"
+msgstr ""
+"Το OpenShot περιλαμβάνει μια ποικιλία τρισδιάστατων κινούμενων προτύπων που "
+"μπορούν να χρησιμοποιηθούν για την προσθήκη δυναμικών και ελκυστικών "
+"στοιχείων στα έργα βίντεό σας. Παρακάτω υπάρχει πίνακας με τα διαθέσιμα "
+"πρότυπα και την περιγραφή τους:"
+
+#: ../titles.rst:203
+msgid "Template Name"
+msgstr "Όνομα προτύπου"
+
+#: ../titles.rst:205
+msgid "Blinds (Two Titles)"
+msgstr "Περσίδες - Δύο τίτλοι (Blinds (Two Titles))"
+
+#: ../titles.rst:206
+msgid "An animation featuring a blinds effect."
+msgstr "Μια κίνηση με εφέ περσίδων."
+
+#: ../titles.rst:207
+msgid "Blur"
+msgstr "Θόλωμα (Blur)"
+
+#: ../titles.rst:208
+msgid ""
+"A template that blurs text in and out, providing a smooth transition effect."
+msgstr ""
+"Ένα πρότυπο που θολώνει το κείμενο κατά την είσοδο και την έξοδο, "
+"προσφέροντας ομαλό εφέ μετάβασης."
+
+#: ../titles.rst:209
+msgid "Color Tiles"
+msgstr "Πλακίδια χρώματος (Color Tiles)"
+
+#: ../titles.rst:210
+msgid ""
+"An animation with changing colors, suitable for vibrant and dynamic titles."
+msgstr ""
+"Μια κίνηση με χρώματα που αλλάζουν, κατάλληλη για ζωντανούς και δυναμικούς "
+"τίτλους."
+
+#: ../titles.rst:211
+msgid "Dissolving Text"
+msgstr "Κείμενο που διαλύεται (Dissolving Text)"
+
+#: ../titles.rst:212
+msgid ""
+"A dissolve effect that turns any text into particles which get blown away by"
+" the wind."
+msgstr ""
+"Ένα εφέ διάλυσης που μετατρέπει οποιοδήποτε κείμενο σε σωματίδια τα οποία "
+"παρασύρονται από τον άνεμο."
+
+#: ../titles.rst:213
+msgid "World Map"
+msgstr "Παγκόσμιος χάρτης (World Map)"
+
+#: ../titles.rst:214
+msgid "A template featuring a rotating Earth between 2 locations."
+msgstr "Ένα πρότυπο με μια περιστρεφόμενη Γη ανάμεσα σε 2 τοποθεσίες."
+
+#: ../titles.rst:215
+msgid "Exploding Text"
+msgstr "Κείμενο που εκρήγνυται (Exploding Text)"
+
+#: ../titles.rst:216
+msgid ""
+"An animation where the title explode into pieces, adding dramatic impact."
+msgstr ""
+"Μια κίνηση όπου ο τίτλος εκρήγνυται σε κομμάτια, προσδίδοντας δραματικό "
+"αντίκτυπο."
+
+#: ../titles.rst:217
+msgid "Fly Towards Camera"
+msgstr "Πτήση προς την κάμερα (Fly Towards Camera)"
+
+#: ../titles.rst:218
+msgid "A fly-by animation with a single title zooming past the screen."
+msgstr ""
+"Μια κίνηση «πτήσης» με έναν μοναδικό τίτλο που περνά ζουμάροντας μπροστά από"
+" την οθόνη."
+
+#: ../titles.rst:219
+msgid "Fly Towards Camera (Two Titles)"
+msgstr "Πτήση προς την κάμερα - Δύο τίτλοι (Fly Towards Camera (Two Titles))"
+
+#: ../titles.rst:220
+msgid "Similar to Fly By 1, but with two titles flying by."
+msgstr "Παρόμοιο με το Fly By 1, αλλά με δύο τίτλους που περνούν."
+
+#: ../titles.rst:221
+msgid "Glare"
+msgstr "Λάμψη (Glare)"
+
+#: ../titles.rst:222
+msgid "An animation with a glare effect, adding a bright, reflective look."
+msgstr ""
+"Μια κίνηση με εφέ θάμβους, που προσδίδει φωτεινή, ανακλαστική εμφάνιση."
+
+#: ../titles.rst:223
+msgid "Glass Slider"
+msgstr "Γυάλινη ολίσθηση (Glass Slider)"
+
+#: ../titles.rst:224
+msgid "A sliding glass effect, providing a modern and sleek transition."
+msgstr ""
+"Ένα εφέ γυάλινης ολίσθησης, που προσφέρει μοντέρνα και κομψή μετάβαση."
+
+#: ../titles.rst:225
+msgid "Lens Flare"
+msgstr "Αναλαμπή φακού (Lens Flare)"
+
+#: ../titles.rst:226
+msgid "An animation featuring a lens flare, adding a cinematic touch."
+msgstr "Μια κίνηση με αναλαμπή φακού, που προσδίδει κινηματογραφικό άγγιγμα."
+
+#: ../titles.rst:227
+msgid "Magic Wand"
+msgstr "Μαγικό ραβδί (Magic Wand)"
+
+#: ../titles.rst:228
+msgid "A whimsical magic wand effect, ideal for magical or fantasy themes."
+msgstr ""
+"Ένα ιδιότροπο εφέ μαγικού ραβδιού, ιδανικό για μαγικά ή φανταστικά θέματα."
+
+#: ../titles.rst:229
+msgid "Neon Curves"
+msgstr "Καμπύλες νέον (Neon Curves)"
+
+#: ../titles.rst:230
+msgid "An animation with neon curves, creating a futuristic and vibrant look."
+msgstr ""
+"Μια κίνηση με καμπύλες νέον, που δημιουργεί φουτουριστική και ζωντανή "
+"εμφάνιση."
+
+#: ../titles.rst:231
+msgid "Picture Frames (4 pictures)"
+msgstr "Πλαίσια εικόνας - 4 εικόνες (Picture Frames (4 pictures))"
+
+#: ../titles.rst:232
+msgid ""
+"A template featuring four picture frames, suitable for showcasing images or "
+"video clips."
+msgstr ""
+"Ένα πρότυπο με τέσσερα πλαίσια εικόνας, κατάλληλο για την προβολή εικόνων ή "
+"κλιπ βίντεο."
+
+#: ../titles.rst:233
+msgid "Rotate 360"
+msgstr ""
+
+#: ../titles.rst:234
+msgid "A 360-degree rotation effect, providing a dynamic title animation."
+msgstr "Ένα εφέ περιστροφής 360 μοιρών, που προσφέρει δυναμική κίνηση τίτλου."
+
+#: ../titles.rst:235
+msgid "Slide Left to Right"
+msgstr "Ολίσθηση από αριστερά προς δεξιά (Slide Left to Right)"
+
+#: ../titles.rst:236
+msgid "A sliding effect where titles move from left to right."
+msgstr ""
+"Ένα εφέ ολίσθησης όπου οι τίτλοι κινούνται από αριστερά προς τα δεξιά."
+
+#: ../titles.rst:237
+msgid "Snow"
+msgstr "Χιόνι (Snow)"
+
+#: ../titles.rst:238
+msgid ""
+"An animation with falling snow particles, perfect for winter or holiday "
+"themes."
+msgstr ""
+"Μια κίνηση με σωματίδια χιονιού που πέφτουν, ιδανική για χειμερινά ή "
+"εορταστικά θέματα."
+
+#: ../titles.rst:239
+msgid "Space Movie Intro"
+msgstr "Εισαγωγή διαστημικής ταινίας (Space Movie Intro)"
+
+#: ../titles.rst:240
+msgid "A cinematic space-themed intro, ideal for epic or sci-fi projects."
+msgstr ""
+"Μια κινηματογραφική εισαγωγή με διαστημικό θέμα, ιδανική για επικά ή "
+"επιστημονικής φαντασίας έργα."
+
+#: ../titles.rst:241
+msgid "Wireframe Text"
+msgstr "Συρματόμορφο κείμενο (Wireframe Text)"
+
+#: ../titles.rst:242
+msgid "An animation with wireframe text, adding a technical or digital look."
+msgstr ""
+"Μια κίνηση με συρματόμορφο κείμενο, που προσδίδει τεχνική ή ψηφιακή "
+"εμφάνιση."
+
+#: ../titles.rst:243
+msgid "Zoom to Clapboard"
+msgstr "Ζουμ στην κλακέτα (Zoom to Clapboard)"
+
+#: ../titles.rst:244
+msgid ""
+"A zoom title with a clapboard, perfect for film or video production themes."
+msgstr ""
+"Ένας τίτλος με ζουμ και κλακέτα, ιδανικός για θέματα κινηματογραφικής ή "
+"βιντεοσκοπικής παραγωγής."
+
+#: ../titles.rst:247
+msgid "Importing Text"
+msgstr "Εισαγωγή κειμένου"
+
+#: ../titles.rst:249
+msgid ""
+"You can generate text & titles in many different programs, such as Blender, "
+"Inkscape, Krita, Gimp, etc... Before you can import text into OpenShot, you "
+"must first export the text from these programs into a compatible image "
+"format that contains a **transparent background** and **alpha** channel."
+msgstr ""
+"Μπορείτε να δημιουργήσετε κείμενο και τίτλους σε πολλά διαφορετικά "
+"προγράμματα, όπως Blender, Inkscape, Krita, Gimp κ.λπ. Για να μπορέσετε να "
+"εισαγάγετε κείμενο στο OpenShot, πρέπει πρώτα να το εξαγάγετε από αυτά τα "
+"προγράμματα σε μια συμβατή μορφή εικόνας που περιέχει **διαφανές φόντο** και"
+" κανάλι **alpha**."
+
+#: ../titles.rst:253
+msgid ""
+"The ``SVG`` format is a great choice for vector graphics (curves, shapes, "
+"text effects and paths), however it is **not** always 100% compatible with "
+"OpenShot. Thus, we recommend using ``PNG`` format, which is a great web-"
+"based image format that can include a transparent background and alpha "
+"channel. A transparent background and alpha channel are needed for OpenShot "
+"to allow the text to not cover up videos and images on the timeline below "
+"them."
+msgstr ""
+"Η μορφή ``SVG`` είναι εξαιρετική επιλογή για διανυσματικά γραφικά (καμπύλες,"
+" σχήματα, εφέ κειμένου και διαδρομές), ωστόσο **δεν** είναι πάντα 100% "
+"συμβατή με το OpenShot. Γι’ αυτό συνιστούμε τη μορφή ``PNG``, μια εξαιρετική"
+" μορφή εικόνας για το διαδίκτυο, που μπορεί να περιλαμβάνει διαφανές φόντο "
+"και κανάλι alpha. Το διαφανές φόντο και το κανάλι alpha είναι απαραίτητα "
+"ώστε το κείμενο να μην καλύπτει τα βίντεο και τις εικόνες που βρίσκονται από"
+" κάτω του στο χρονολόγιο."
+
+#: ../titles.rst:258
+msgid ""
+"For information on importing animated sequences into OpenShot, please see "
+":ref:`animation_image_seq_ref`."
+msgstr ""
+"Για πληροφορίες σχετικά με την εισαγωγή κινούμενων ακολουθιών εικόνων στο "
+"OpenShot, βλ. :ref:`animation_image_seq_ref`."
+
+#: ../titles.rst:261
+msgid "Installing Inkscape"
+msgstr "Εγκατάσταση του Inkscape"
+
+#: ../titles.rst:263
+msgid ""
+"The :guilabel:`Advanced Editor` feature in the :guilabel:`Title Editor` "
+"dialog requires the latest version of Inkscape "
+"(https://inkscape.org/release/) be installed and the OpenShot "
+"**Preferences** updated with the correct path to the Inkscape executable. "
+"See the :ref:`preferences_general_ref` tab in Preferences."
+msgstr ""
+"Η δυνατότητα :guilabel:`Προχωρημένος επεξεργαστής` (Advanced Editor) στο "
+"παράθυρο διαλόγου :guilabel:`Επεξεργασία Τίτλων` (Title Editor) απαιτεί την "
+"εγκατάσταση της τελευταίας έκδοσης του Inkscape "
+"(https://inkscape.org/release/) και την ενημέρωση των **Προτιμήσεων** "
+"(Preferences) του OpenShot με τη σωστή διαδρομή προς το εκτελέσιμο αρχείο "
+"του Inkscape. Βλ. την καρτέλα :ref:`preferences_general_ref` στις "
+"Προτιμήσεις."
+
+#: ../titles.rst:270
+msgid "Installing Blender"
+msgstr "Εγκατάσταση του Blender"
+
+#: ../titles.rst:272
+msgid ""
+"The :guilabel:`Animated Title` feature in OpenShot requires the latest "
+"version of Blender (https://www.blender.org/download/) be installed and the "
+"OpenShot **Preferences** updated with the correct path to the Blender "
+"executable. See the :ref:`preferences_general_ref` tab in Preferences. NOTE:"
+" The minimum supported version of Blender is 5.0+. Older versions of Blender"
+" are not compatible with OpenShot Video Editor."
+msgstr ""
+"Η δυνατότητα :guilabel:`Κινούμενος Τίτλος` (Animated Title) του OpenShot "
+"απαιτεί την εγκατάσταση της τελευταίας έκδοσης του Blender "
+"(https://www.blender.org/download/) και την ενημέρωση των **Προτιμήσεων** "
+"(Preferences) του OpenShot με τη σωστή διαδρομή προς το εκτελέσιμο αρχείο "
+"του Blender. Βλ. την καρτέλα :ref:`preferences_general_ref` στις "
+"Προτιμήσεις. ΣΗΜΕΙΩΣΗ: Η ελάχιστη υποστηριζόμενη έκδοση του Blender είναι η "
+"5.0+. Παλαιότερες εκδόσεις του Blender δεν είναι συμβατές με το OpenShot "
+"Video Editor."
+
+#: ../titles.rst:278
+msgid ""
+"For a detailed guide on how to install these dependencies, see `Blender & "
+"Inkscape Guide <https://github.com/OpenShot/openshot-qt/wiki/Blender-and-"
+"Inkscape-Guide>`_."
+msgstr ""
+"Για έναν αναλυτικό οδηγό σχετικά με την εγκατάσταση αυτών των εξαρτήσεων, "
+"βλ. `Οδηγός Blender και Inkscape <https://github.com/OpenShot/openshot-"
+"qt/wiki/Blender-and-Inkscape-Guide>`_."

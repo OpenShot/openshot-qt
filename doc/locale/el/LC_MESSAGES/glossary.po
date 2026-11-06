@@ -1,0 +1,2304 @@
+# Translated with AI assistance (Claude) and reviewed; UI labels follow the official OpenShot Greek UI catalog.
+# Greek translation of the OpenShot Video Editor documentation.
+# Copyright (C) OpenShot Studios, LLC
+# This file is distributed under the same license as the OpenShot Video Editor package.
+# Ioannis-Stylianos Lafazanis <jslafazanis@gmail.com>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenShot Video Editor 4.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-27 00:00+0000\n"
+"PO-Revision-Date: 2026-10-20 15:50+0300\n"
+"Last-Translator: Ioannis-Stylianos Lafazanis <jslafazanis@gmail.com>\n"
+"Language-Team: Greek <el@li.org>\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../glossary.rst:23
+msgid "Glossary"
+msgstr "Γλωσσάριο"
+
+#: ../glossary.rst:25
+msgid ""
+"There is much technical terminology in today's fast-moving media-centric "
+"world. If you find yourself wondering what a video production term or an "
+"acronym means, you are certainly not alone. Like most industries, video "
+"production has a language all its own. Here is a list of terms commonly "
+"found in video editing. Becoming familiar with these terms only makes your "
+"job easier."
+msgstr ""
+"Στον σημερινό ταχύτατο κόσμο, όπου κυριαρχούν τα μέσα, υπάρχει πολλή τεχνική"
+" ορολογία. Αν αναρωτιέστε τι σημαίνει ένας όρος ή ένα ακρώνυμο της παραγωγής"
+" βίντεο, σίγουρα δεν είστε οι μόνοι. Όπως οι περισσότεροι κλάδοι, έτσι και η"
+" παραγωγή βίντεο έχει τη δική της γλώσσα. Ακολουθεί μια λίστα με όρους που "
+"συναντώνται συχνά στην επεξεργασία βίντεο. Η εξοικείωση με αυτούς τους όρους"
+" θα κάνει τη δουλειά σας πιο εύκολη."
+
+#: ../glossary.rst:34
+msgid "Definitions"
+msgstr "Ορισμοί"
+
+#: ../glossary.rst:36
+msgid ""
+"These definitions are a work-in-progress. Please let us know if you need a "
+"term defined by contacting support@openshot.org."
+msgstr ""
+"Οι ορισμοί αυτοί βρίσκονται σε διαρκή εξέλιξη. Αν χρειάζεστε τον ορισμό "
+"κάποιου όρου, ενημερώστε μας επικοινωνώντας στη διεύθυνση "
+"support@openshot.org."
+
+#: ../glossary.rst:39
+msgid ""
+":ref:`letter_A_ref` :ref:`letter_B_ref` :ref:`letter_C_ref` "
+":ref:`letter_D_ref` :ref:`letter_E_ref` :ref:`letter_F_ref` "
+":ref:`letter_G_ref` :ref:`letter_H_ref` :ref:`letter_I_ref` "
+":ref:`letter_J_ref` :ref:`letter_K_ref` :ref:`letter_L_ref` "
+":ref:`letter_M_ref` :ref:`letter_N_ref` :ref:`letter_O_ref` "
+":ref:`letter_P_ref` -Q- :ref:`letter_R_ref` :ref:`letter_S_ref` "
+":ref:`letter_T_ref` -U- :ref:`letter_V_ref` :ref:`letter_W_ref` -X- -Y- "
+":ref:`letter_Z_ref`"
+msgstr ""
+
+#: ../glossary.rst:69
+msgid "-A-"
+msgstr ""
+
+#: ../glossary.rst:70
+msgid "A-Roll:"
+msgstr "A-Roll (Κύριο υλικό):"
+
+#: ../glossary.rst:71
+msgid "The Principal video that is usually someone speaking."
+msgstr "Το κύριο βίντεο, συνήθως κάποιος που μιλά."
+
+#: ../glossary.rst:72
+msgid "Aliasing:"
+msgstr "Aliasing (Οδόντωση):"
+
+#: ../glossary.rst:73
+msgid ""
+"The undesirable jagged or stair-stepped appearance of angled lines in an "
+"image, graphic, or text."
+msgstr ""
+"Η ανεπιθύμητη οδοντωτή ή κλιμακωτή εμφάνιση των λοξών γραμμών σε μια εικόνα,"
+" ένα γραφικό ή ένα κείμενο."
+
+#: ../glossary.rst:74
+msgid "Alpha:"
+msgstr "Alpha (Άλφα):"
+
+#: ../glossary.rst:75
+msgid ""
+"Alpha blending is a convex combination of two colors allowing for "
+"transparency effects in computer graphics.  The value of alpha in the color "
+"code ranges from 0.0 to 1.0, where 0.0 represents a fully transparent color,"
+" and 1.0 represents a fully opaque color."
+msgstr ""
+"Η μίξη άλφα (alpha blending) είναι ένας κυρτός συνδυασμός δύο χρωμάτων που "
+"επιτρέπει εφέ διαφάνειας στα γραφικά υπολογιστή. Η τιμή του άλφα στον κωδικό"
+" χρώματος κυμαίνεται από 0.0 έως 1.0, όπου το 0.0 αντιπροσωπεύει ένα πλήρως "
+"διαφανές χρώμα και το 1.0 ένα πλήρως αδιαφανές χρώμα."
+
+#: ../glossary.rst:76
+msgid "Alpha Channel:"
+msgstr "Alpha Channel (Κανάλι άλφα):"
+
+#: ../glossary.rst:77
+msgid ""
+"An alpha channel is a channel in an image or movie clip that controls the "
+"opacity region."
+msgstr ""
+"Το κανάλι άλφα είναι ένα κανάλι μιας εικόνας ή ενός κλιπ ταινίας που ελέγχει"
+" την περιοχή αδιαφάνειας."
+
+#: ../glossary.rst:78
+msgid "Ambient Noise:"
+msgstr "Ambient Noise (Θόρυβος περιβάλλοντος):"
+
+#: ../glossary.rst:79
+msgid "Ambient noise is background noise specific to the shooting location."
+msgstr ""
+"Ο θόρυβος περιβάλλοντος είναι ο θόρυβος υποβάθρου που χαρακτηρίζει τον χώρο "
+"των γυρισμάτων."
+
+#: ../glossary.rst:80
+msgid "Animation:"
+msgstr "Animation (Κινούμενα γραφικά):"
+
+#: ../glossary.rst:81
+msgid ""
+"The technique of making inanimate objects or drawings appear to move in "
+"motion pictures or computer graphics."
+msgstr ""
+"Η τεχνική που κάνει άψυχα αντικείμενα ή σχέδια να φαίνονται ότι κινούνται σε"
+" κινηματογραφικές ταινίες ή σε γραφικά υπολογιστή."
+
+#: ../glossary.rst:82
+msgid "Anti-Aliasing:"
+msgstr "Anti-Aliasing (Εξομάλυνση οδόντωσης):"
+
+#: ../glossary.rst:83
+msgid ""
+"Anti-aliasing is a process for smoothing jagged lines in an image.  Anti-"
+"aliasing can also mean a method of filtering out erroneous frequencies in an"
+" audio signal."
+msgstr ""
+"Η εξομάλυνση οδόντωσης (anti-aliasing) είναι μια διαδικασία εξομάλυνσης των "
+"οδοντωτών γραμμών σε μια εικόνα. Μπορεί επίσης να σημαίνει μια μέθοδο "
+"φιλτραρίσματος εσφαλμένων συχνοτήτων σε ένα ηχητικό σήμα."
+
+#: ../glossary.rst:84
+msgid "Artifact:"
+msgstr "Artifact (Τεχνούργημα):"
+
+#: ../glossary.rst:85
+msgid ""
+"An artifact is undesired data in an image because of digital processing."
+msgstr ""
+"Το τεχνούργημα (artifact) είναι ανεπιθύμητη πληροφορία σε μια εικόνα που "
+"οφείλεται σε ψηφιακή επεξεργασία."
+
+#: ../glossary.rst:86
+msgid "Aspect Ratio:"
+msgstr "Aspect Ratio (Αναλογία διαστάσεων):"
+
+#: ../glossary.rst:87
+msgid ""
+"The ratio of width to height in a flat surface or 2-dimensional abstract "
+"construction, such as an image, video, character, or pixel.  The standard "
+"ratios for NTSC SD videos are 4:3 (or 1.33:1) and HD 16:9 (or 1.77:1).  The "
+"most common aspect ratios for motion pictures are 1.85:1 and 2.35:1."
+msgstr ""
+"Ο λόγος πλάτους προς ύψος μιας επίπεδης επιφάνειας ή μιας δισδιάστατης "
+"αφηρημένης κατασκευής, όπως μιας εικόνας, ενός βίντεο, ενός χαρακτήρα ή ενός"
+" pixel. Οι τυπικές αναλογίες για βίντεο NTSC SD είναι 4:3 (ή 1.33:1) και για"
+" HD 16:9 (ή 1.77:1). Οι πιο συνηθισμένες αναλογίες διαστάσεων για "
+"κινηματογραφικές ταινίες είναι 1.85:1 και 2.35:1."
+
+#: ../glossary.rst:88
+msgid "ATSC:"
+msgstr ""
+
+#: ../glossary.rst:89
+msgid ""
+"ATSC is a digital broadcast standard that replaced the older analog NTSC "
+"standard.  The standard covers both standard and high-definition formats."
+msgstr ""
+"Το ATSC είναι ένα πρότυπο ψηφιακής ευρυεκπομπής που αντικατέστησε το "
+"παλαιότερο αναλογικό πρότυπο NTSC. Το πρότυπο καλύπτει τόσο τις μορφές "
+"τυπικής όσο και τις μορφές υψηλής ευκρίνειας."
+
+#: ../glossary.rst:91
+msgid "Audio Sample Rate:"
+msgstr "Audio Sample Rate (Ρυθμός δειγματοληψίας ήχου):"
+
+#: ../glossary.rst:91
+msgid ""
+"The number of samples taken per second to reproduce audio digitally.  The "
+"higher the sample rate, the higher the quality of the digital audio.  A rate"
+" of 44,100 samples per second produces CD-quality audio and captures the "
+"range of human hearing."
+msgstr ""
+"Ο αριθμός των δειγμάτων που λαμβάνονται ανά δευτερόλεπτο για την ψηφιακή "
+"αναπαραγωγή του ήχου. Όσο υψηλότερος είναι ο ρυθμός δειγματοληψίας, τόσο "
+"υψηλότερη είναι η ποιότητα του ψηφιακού ήχου. Ένας ρυθμός 44.100 δειγμάτων "
+"ανά δευτερόλεπτο παράγει ήχο ποιότητας CD και καλύπτει το εύρος της "
+"ανθρώπινης ακοής."
+
+#: ../glossary.rst:96
+msgid "-B-"
+msgstr ""
+
+#: ../glossary.rst:97
+msgid "B-roll:"
+msgstr "B-roll (Συμπληρωματικό υλικό):"
+
+#: ../glossary.rst:98
+msgid ""
+"B-roll is supplemental footage that provides supporting details and greater "
+"flexibility when editing video.  Common examples include the footage used to"
+" cut away from an interview or news report to help tell the story."
+msgstr ""
+"Το B-roll είναι συμπληρωματικό υλικό που προσφέρει υποστηρικτικές "
+"λεπτομέρειες και μεγαλύτερη ευελιξία κατά την επεξεργασία βίντεο. "
+"Συνηθισμένα παραδείγματα είναι το υλικό που χρησιμοποιείται για να γίνει "
+"διακοπή από μια συνέντευξη ή ένα δελτίο ειδήσεων, ώστε να βοηθήσει στην "
+"αφήγηση της ιστορίας."
+
+#: ../glossary.rst:99
+msgid "Bit:"
+msgstr "Bit (Δυαδικό ψηφίο):"
+
+#: ../glossary.rst:100
+msgid ""
+"The elementary unit for digital storage.  A BIT can be either a 1 (one) or a"
+" 0 (zero)."
+msgstr ""
+"Η στοιχειώδης μονάδα ψηφιακής αποθήκευσης. Ένα BIT μπορεί να είναι είτε 1 "
+"(ένα) είτε 0 (μηδέν)."
+
+#: ../glossary.rst:101
+msgid "Bit Depth:"
+msgstr "Bit Depth (Βάθος bit):"
+
+#: ../glossary.rst:102
+msgid ""
+"In digital graphics and video, bit depth indicates the number of colors an "
+"image can display.  A high-contrast (no gray tones) black and white image is"
+" 1bit, meaning it can be off or on, black or white.  As bit depth increases,"
+" more colors become available.  24-bit color allows for displays of millions"
+" of colors.  Similarly, in digital audio, bit depth indicates the number of "
+"bits per sample.  The higher the number, the better the sound quality."
+msgstr ""
+"Στα ψηφιακά γραφικά και στο βίντεο, το βάθος bit δείχνει τον αριθμό των "
+"χρωμάτων που μπορεί να εμφανίσει μια εικόνα. Μια ασπρόμαυρη εικόνα υψηλής "
+"αντίθεσης (χωρίς τόνους του γκρι) είναι 1 bit, που σημαίνει ότι μπορεί να "
+"είναι σβηστή ή αναμμένη, μαύρη ή άσπρη. Όσο αυξάνεται το βάθος bit, τόσο "
+"περισσότερα χρώματα είναι διαθέσιμα. Το χρώμα 24 bit επιτρέπει την εμφάνιση "
+"εκατομμυρίων χρωμάτων. Αντίστοιχα, στον ψηφιακό ήχο το βάθος bit δείχνει τον"
+" αριθμό των bit ανά δείγμα. Όσο υψηλότερος ο αριθμός, τόσο καλύτερη η "
+"ποιότητα του ήχου."
+
+#: ../glossary.rst:103
+msgid "Bitrate:"
+msgstr "Bitrate (Ρυθμός bit):"
+
+#: ../glossary.rst:104
+msgid ""
+"The frequency at which bits (binary digits) pass a given physical or "
+"metaphorical point, measured in bps (bits per second).  For every second in "
+"the video, the Bit Rate, or Data Rate, is the amount of data used each "
+"second.  The bitrate, in Kilobits per second, can be variable or constant."
+msgstr ""
+"Η συχνότητα με την οποία τα bit (δυαδικά ψηφία) διέρχονται από ένα δεδομένο "
+"φυσικό ή μεταφορικό σημείο, μετρημένη σε bps (bit ανά δευτερόλεπτο). Για "
+"κάθε δευτερόλεπτο του βίντεο, ο ρυθμός bit, ή ρυθμός δεδομένων, είναι ο "
+"όγκος των δεδομένων που χρησιμοποιούνται κάθε δευτερόλεπτο. Ο ρυθμός bit, σε"
+" Kilobit ανά δευτερόλεπτο, μπορεί να είναι μεταβλητός ή σταθερός."
+
+#: ../glossary.rst:105
+msgid "Blue Screen:"
+msgstr "Blue Screen (Μπλε φόντο):"
+
+#: ../glossary.rst:106
+msgid ""
+"A blue screen is a blue background that the subject stands in front of that "
+"the computer later replaces with another background in post-production.  See"
+" also blue screen compositing and green screen."
+msgstr ""
+"Το μπλε φόντο (blue screen) είναι ένα μπλε υπόβαθρο μπροστά από το οποίο "
+"στέκεται το θέμα και το οποίο ο υπολογιστής αντικαθιστά αργότερα με άλλο "
+"φόντο στη μεταπαραγωγή. Δείτε επίσης τα blue screen compositing και green "
+"screen."
+
+#: ../glossary.rst:108
+msgid "Blue Screen Compositing:"
+msgstr "Blue Screen Compositing (Σύνθεση με μπλε φόντο):"
+
+#: ../glossary.rst:108
+msgid ""
+"The process of making all blue elements in an image transparent and placing "
+"a different background underneath."
+msgstr ""
+"Η διαδικασία κατά την οποία όλα τα μπλε στοιχεία μιας εικόνας γίνονται "
+"διαφανή και τοποθετείται από κάτω ένα διαφορετικό φόντο."
+
+#: ../glossary.rst:113
+msgid "-C-"
+msgstr ""
+
+#: ../glossary.rst:114
+msgid "Capture:"
+msgstr "Capture (Λήψη):"
+
+#: ../glossary.rst:115
+msgid ""
+"The process of transferring source video from a camcorder or tape deck to a "
+"computer.  If the source video is analog, the capture process converts the "
+"video to digital."
+msgstr ""
+"Η διαδικασία μεταφοράς του αρχικού βίντεο από μια βιντεοκάμερα ή μια συσκευή"
+" αναπαραγωγής κασετών σε έναν υπολογιστή. Αν το αρχικό βίντεο είναι "
+"αναλογικό, η διαδικασία λήψης το μετατρέπει σε ψηφιακό."
+
+#: ../glossary.rst:116
+msgid "Channel:"
+msgstr "Channel (Κανάλι):"
+
+#: ../glossary.rst:117
+msgid ""
+"A channel is one of several grayscale components used to make up a color "
+"image.  Red, green, and blue channels make up RGB images, with an optional "
+"alpha channel for transparency."
+msgstr ""
+"Το κανάλι είναι ένα από τα πολλά συστατικά σε κλίμακα του γκρι που συνθέτουν"
+" μια έγχρωμη εικόνα. Τα κανάλια κόκκινου, πράσινου και μπλε συνθέτουν τις "
+"εικόνες RGB, με ένα προαιρετικό κανάλι άλφα για τη διαφάνεια."
+
+#: ../glossary.rst:118
+msgid "Chromakey:"
+msgstr "Chromakey (Κλειδί χρώματος):"
+
+#: ../glossary.rst:119
+msgid ""
+"Chromakey is a method of creating transparency in a video source by "
+"selecting a specific \"key color\" to create an alpha matte.  It is "
+"frequently used on news programs to display weather graphics behind talent "
+"and for visual effects compositing."
+msgstr ""
+"Το κλειδί χρώματος (chromakey) είναι μια μέθοδος δημιουργίας διαφάνειας σε "
+"μια πηγή βίντεο, επιλέγοντας ένα συγκεκριμένο «χρώμα κλειδί» για τη "
+"δημιουργία μιας μάσκας άλφα (alpha matte). Χρησιμοποιείται συχνά σε "
+"ειδησεογραφικές εκπομπές για την προβολή γραφικών καιρού πίσω από τον "
+"παρουσιαστή και για τη σύνθεση οπτικών εφέ."
+
+#: ../glossary.rst:120
+msgid "Clip:"
+msgstr "Clip (Κλιπ):"
+
+#: ../glossary.rst:121
+msgid ""
+"A digitized or captured portion of video, audio, or both.  Clips are media "
+"files added to the Timeline, usually part of a more extensive recording."
+msgstr ""
+"Ένα ψηφιοποιημένο ή καταγεγραμμένο τμήμα βίντεο, ήχου ή και των δύο. Τα κλιπ"
+" είναι αρχεία πολυμέσων που προστίθενται στο Χρονολόγιο, συνήθως ως τμήμα "
+"μιας εκτενέστερης εγγραφής."
+
+#: ../glossary.rst:122
+msgid "Codec:"
+msgstr "Codec (Κωδικοποιητής):"
+
+#: ../glossary.rst:123
+msgid ""
+"Codec is a video compression technology used to compress data in a video "
+"file.  Codec stands for \"Compression Decompression.\" An example of a "
+"popular codec is H.264."
+msgstr ""
+"Ο κωδικοποιητής (codec) είναι μια τεχνολογία συμπίεσης βίντεο που "
+"χρησιμοποιείται για τη συμπίεση των δεδομένων σε ένα αρχείο βίντεο. Η λέξη "
+"«codec» προέρχεται από τα αρχικά των όρων «Compression Decompression» "
+"(συμπίεση - αποσυμπίεση). Ένα παράδειγμα δημοφιλούς κωδικοποιητή είναι ο "
+"H.264."
+
+#: ../glossary.rst:124
+msgid "Color Correction:"
+msgstr "Color Correction (Χρωματική διόρθωση):"
+
+#: ../glossary.rst:125
+msgid ""
+"The process of altering the color of a video, especially one shot under less"
+" than ideal conditions, such as low light."
+msgstr ""
+"Η διαδικασία αλλαγής του χρώματος ενός βίντεο, ιδίως όταν έχει γυριστεί σε "
+"όχι ιδανικές συνθήκες, όπως χαμηλός φωτισμός."
+
+#: ../glossary.rst:126
+msgid "Color Grade / Color Grading:"
+msgstr "Color Grade / Color Grading (Χρωματική διαβάθμιση):"
+
+#: ../glossary.rst:127
+msgid ""
+"The process of stylizing or enhancing the look and mood of a video beyond "
+"technical correction. Color grading adjusts tonal balance, hue, saturation, "
+"and contrast to achieve a deliberate visual style (for example, a warm "
+"cinematic look or a cold, desaturated tone). See also Color Correction."
+msgstr ""
+"Η διαδικασία στυλιζαρίσματος ή ενίσχυσης της εμφάνισης και της ατμόσφαιρας "
+"ενός βίντεο πέρα από την τεχνική διόρθωση. Η χρωματική διαβάθμιση (color "
+"grading) ρυθμίζει την ισορροπία τόνων, την απόχρωση, τον κορεσμό και την "
+"αντίθεση, ώστε να επιτευχθεί ένα συνειδητά επιλεγμένο οπτικό στυλ (για "
+"παράδειγμα, μια ζεστή κινηματογραφική όψη ή ένας ψυχρός τόνος με μειωμένο "
+"κορεσμό). Δείτε επίσης το Color Correction."
+
+#: ../glossary.rst:128
+msgid "Compositing:"
+msgstr "Compositing (Σύνθεση εικόνας):"
+
+#: ../glossary.rst:129
+msgid ""
+"Construction of a composite image by combining multiple images and other "
+"elements."
+msgstr ""
+"Η δημιουργία μιας σύνθετης εικόνας με τον συνδυασμό πολλών εικόνων και άλλων"
+" στοιχείων."
+
+#: ../glossary.rst:130
+msgid "Coverage:"
+msgstr "Coverage (Κάλυψη):"
+
+#: ../glossary.rst:131
+msgid ""
+"Coverage is the process of shooting additional footage and camera angles to "
+"cover the action in the scene.  Coverage is so that the editor has a more "
+"excellent range of choices when the film reaches the post-production stage."
+msgstr ""
+"Η κάλυψη (coverage) είναι η διαδικασία γυρίσματος πρόσθετου υλικού και "
+"γωνιών λήψης για να καλυφθεί η δράση της σκηνής. Η κάλυψη γίνεται ώστε ο "
+"μοντέρ να έχει μεγαλύτερο εύρος επιλογών όταν η ταινία φτάσει στο στάδιο της"
+" μεταπαραγωγής."
+
+#: ../glossary.rst:132
+msgid "Compression:"
+msgstr "Compression (Συμπίεση):"
+
+#: ../glossary.rst:133
+msgid ""
+"The process of reducing data, such as in an audio or video file, into a form"
+" that requires less space."
+msgstr ""
+"Η διαδικασία μείωσης των δεδομένων, για παράδειγμα ενός αρχείου ήχου ή "
+"βίντεο, σε μια μορφή που απαιτεί λιγότερο χώρο."
+
+#: ../glossary.rst:134
+msgid "Crop Factor:"
+msgstr "Crop Factor (Συντελεστής περικοπής):"
+
+#: ../glossary.rst:135
+msgid ""
+"Crop factor is a number (typically from 1.3-2.0) that represents the ratio "
+"of a sensor's imaging area to that of a full-frame sensor.  Try multiplying "
+"the focal length of your lens by your camera sensor's crop factor.  It gives"
+" you the focal length for the lens/sensor combination."
+msgstr ""
+"Ο συντελεστής περικοπής (crop factor) είναι ένας αριθμός (συνήθως από 1.3 "
+"έως 2.0) που εκφράζει τον λόγο της περιοχής απεικόνισης ενός αισθητήρα προς "
+"εκείνη ενός αισθητήρα πλήρους καρέ. Δοκιμάστε να πολλαπλασιάσετε την εστιακή"
+" απόσταση του φακού σας με τον συντελεστή περικοπής του αισθητήρα της "
+"κάμεράς σας. Έτσι προκύπτει η εστιακή απόσταση για τον συνδυασμό φακού και "
+"αισθητήρα."
+
+#: ../glossary.rst:136
+msgid "Crawl:"
+msgstr "Crawl (Ερπόμενο κείμενο):"
+
+#: ../glossary.rst:137
+msgid ""
+"Crawl is a text effect where the text moves right-to-left (in the English-"
+"speaking world)."
+msgstr ""
+"Το ερπόμενο κείμενο (crawl) είναι ένα εφέ κειμένου όπου το κείμενο κινείται "
+"από δεξιά προς τα αριστερά (στον αγγλόφωνο κόσμο)."
+
+#: ../glossary.rst:138
+msgid "Cross-fade:"
+msgstr "Cross-fade (Διασταυρούμενη μετάβαση):"
+
+#: ../glossary.rst:139
+msgid ""
+"A cross-fade is a simultaneous fade-in of one audio or video source as "
+"another fades out so that they overlap temporarily.  Also called a dissolve."
+msgstr ""
+"Η διασταυρούμενη μετάβαση (cross-fade) είναι η ταυτόχρονη βαθμιαία είσοδος "
+"μιας πηγής ήχου ή βίντεο, ενώ μια άλλη σβήνει βαθμιαία, έτσι ώστε να "
+"επικαλύπτονται προσωρινά. Ονομάζεται επίσης σταδιακή εναλλαγή (dissolve)."
+
+#: ../glossary.rst:140
+msgid "Cut:"
+msgstr "Cut (Κόψιμο):"
+
+#: ../glossary.rst:141
+msgid "A cut is an instantaneous change from one shot to another."
+msgstr "Το κόψιμο (cut) είναι μια στιγμιαία αλλαγή από ένα πλάνο σε ένα άλλο."
+
+#: ../glossary.rst:142
+msgid "Cut-in (Insert Shot):"
+msgstr "Cut-in (Insert Shot) (Πλάνο παρεμβολής):"
+
+#: ../glossary.rst:143
+msgid ""
+"It is a type of shot that most often shows the objects the subject is in "
+"contact with or manipulating.  Cut-in shots are correspondingly helpful to "
+"b-roll because they stray from the subject for a short time."
+msgstr ""
+"Είναι ένας τύπος πλάνου που δείχνει τις περισσότερες φορές τα αντικείμενα με"
+" τα οποία το θέμα έρχεται σε επαφή ή τα οποία χειρίζεται. Τα πλάνα cut-in "
+"είναι αντίστοιχα χρήσιμα με το B-roll, επειδή απομακρύνονται για λίγο από το"
+" θέμα."
+
+#: ../glossary.rst:145
+msgid "Cutting on Action:"
+msgstr "Cutting on Action (Κόψιμο στην κίνηση):"
+
+#: ../glossary.rst:145
+msgid ""
+"Cutting on action is a technique used to create a more interesting scene. "
+"The concept is simple… when you cut in the middle of an action, it will "
+"appear less jarring and more visual interesting."
+msgstr ""
+"Το κόψιμο στην κίνηση (cutting on action) είναι μια τεχνική που "
+"χρησιμοποιείται για να γίνει μια σκηνή πιο ενδιαφέρουσα. Η ιδέα είναι απλή… "
+"όταν κόβετε στη μέση μιας κίνησης, το αποτέλεσμα φαίνεται λιγότερο απότομο "
+"και οπτικά πιο ενδιαφέρον."
+
+#: ../glossary.rst:150
+msgid "-D-"
+msgstr ""
+
+#: ../glossary.rst:151
+msgid "Data Rate:"
+msgstr "Data Rate (Ρυθμός δεδομένων):"
+
+#: ../glossary.rst:152
+msgid ""
+"The amount of data moved over time (for example, 10 MB per second).  Often "
+"used to describe a hard drive's ability to retrieve and deliver information."
+msgstr ""
+"Ο όγκος των δεδομένων που μεταφέρονται στον χρόνο (για παράδειγμα, 10 MB ανά"
+" δευτερόλεπτο). Χρησιμοποιείται συχνά για να περιγράψει την ικανότητα ενός "
+"σκληρού δίσκου να ανακτά και να παραδίδει πληροφορίες."
+
+#: ../glossary.rst:153
+msgid "Denominator:"
+msgstr "Denominator (Παρονομαστής):"
+
+#: ../glossary.rst:154
+msgid ""
+"The number or expression below the line in a fraction (such as 2 in ½)."
+msgstr ""
+"Ο αριθμός ή η έκφραση κάτω από τη γραμμή σε ένα κλάσμα (όπως το 2 στο ½)."
+
+#: ../glossary.rst:155
+msgid "Digital Video:"
+msgstr "Digital Video (Ψηφιακό βίντεο):"
+
+#: ../glossary.rst:156
+msgid ""
+"Digital video is an electronic representation of moving visual images "
+"(video) in the form of encoded digital data.  In contrast, analog video "
+"represents moving visual images with analog signals.  Digital video "
+"comprises a series of digital images displayed in rapid succession."
+msgstr ""
+"Το ψηφιακό βίντεο είναι μια ηλεκτρονική αναπαράσταση κινούμενων οπτικών "
+"εικόνων (βίντεο) με τη μορφή κωδικοποιημένων ψηφιακών δεδομένων. Αντίθετα, "
+"το αναλογικό βίντεο αναπαριστά τις κινούμενες οπτικές εικόνες με αναλογικά "
+"σήματα. Το ψηφιακό βίντεο αποτελείται από μια σειρά ψηφιακών εικόνων που "
+"εμφανίζονται σε ταχεία διαδοχή."
+
+#: ../glossary.rst:157
+msgid "Digitize:"
+msgstr "Digitize (Ψηφιοποίηση):"
+
+#: ../glossary.rst:158
+msgid "To convert analog video or audio to digital form."
+msgstr "Η μετατροπή αναλογικού βίντεο ή ήχου σε ψηφιακή μορφή."
+
+#: ../glossary.rst:160
+msgid "Dissolve:"
+msgstr "Dissolve (Σταδιακή εναλλαγή):"
+
+#: ../glossary.rst:160
+msgid ""
+"Dissolve is an image transition effect where one picture gradually "
+"disappears as another appears.  Also called a cross-fade."
+msgstr ""
+"Η σταδιακή εναλλαγή (dissolve) είναι ένα εφέ μετάβασης εικόνας, όπου μια "
+"εικόνα εξαφανίζεται σταδιακά καθώς εμφανίζεται μια άλλη. Ονομάζεται επίσης "
+"διασταυρούμενη μετάβαση (cross-fade)."
+
+#: ../glossary.rst:165
+msgid "-E-"
+msgstr ""
+
+#: ../glossary.rst:166
+msgid "Editing:"
+msgstr "Editing (Επεξεργασία βίντεο):"
+
+#: ../glossary.rst:167
+msgid ""
+"Editing is the process or result of selectively sequencing video and audio "
+"clips into a new video file.  Typically involves reviewing raw footage and "
+"transferring desired segments from source footage into a new predetermined "
+"sequence."
+msgstr ""
+"Η επεξεργασία (editing) είναι η διαδικασία ή το αποτέλεσμα της επιλεκτικής "
+"διάταξης κλιπ βίντεο και ήχου σε ένα νέο αρχείο βίντεο. Συνήθως περιλαμβάνει"
+" την επισκόπηση του ακατέργαστου υλικού και τη μεταφορά των επιθυμητών "
+"τμημάτων από το αρχικό υλικό σε μια νέα, προκαθορισμένη ακολουθία."
+
+#: ../glossary.rst:168
+msgid "Effect:"
+msgstr "Effect (Εφέ):"
+
+#: ../glossary.rst:169
+msgid ""
+"Synthetic sounds and animations created in the digital domain applied to a "
+"clip to change a specific parameter of video or audio.  Examples: the color "
+"of a visual element or the reverb on an audio track."
+msgstr ""
+"Συνθετικοί ήχοι και κινούμενες εικόνες που δημιουργούνται στον ψηφιακό χώρο "
+"και εφαρμόζονται σε ένα κλιπ για να αλλάξουν μια συγκεκριμένη παράμετρο του "
+"βίντεο ή του ήχου. Παραδείγματα: το χρώμα ενός οπτικού στοιχείου ή η "
+"αντήχηση σε έναν διάδρομο ήχου."
+
+#: ../glossary.rst:170
+msgid "Encode:"
+msgstr "Encode (Κωδικοποίηση):"
+
+#: ../glossary.rst:171
+msgid ""
+"To merge the individual video signals (for example, red, green, and blue) "
+"into a combined signal, or to convert a video file to a different format "
+"using a codec."
+msgstr ""
+"Η συγχώνευση των επιμέρους σημάτων βίντεο (για παράδειγμα, κόκκινου, "
+"πράσινου και μπλε) σε ένα συνδυασμένο σήμα, ή η μετατροπή ενός αρχείου "
+"βίντεο σε διαφορετική μορφή με τη χρήση ενός κωδικοποιητή (codec)."
+
+#: ../glossary.rst:173
+msgid "Export:"
+msgstr "Export (Εξαγωγή):"
+
+#: ../glossary.rst:173
+msgid ""
+"Export refers to the process of assembling your edited video project into a "
+"single file that then plays back on its own, shared, or uploaded."
+msgstr ""
+"Η εξαγωγή αναφέρεται στη διαδικασία συναρμολόγησης του επεξεργασμένου έργου "
+"βίντεο σε ένα μεμονωμένο αρχείο, το οποίο στη συνέχεια μπορεί να αναπαραχθεί"
+" αυτόνομα, να κοινοποιηθεί ή να μεταφορτωθεί."
+
+#: ../glossary.rst:178
+msgid "-F-"
+msgstr ""
+
+#: ../glossary.rst:179
+msgid "Fade:"
+msgstr "Fade (Βαθμιαία μεταβολή):"
+
+#: ../glossary.rst:180
+msgid ""
+"A fade is the gradual diminishing or heightening of visual or audio "
+"intensity.  Usage: fade-out, fade to black, fade-in, or fade up from black."
+msgstr ""
+"Η βαθμιαία μεταβολή (fade) είναι η σταδιακή μείωση ή αύξηση της οπτικής ή "
+"ηχητικής έντασης. Χρήση: fade-out, fade to black, fade-in ή fade up from "
+"black."
+
+#: ../glossary.rst:181
+msgid "Fade-in:"
+msgstr "Fade-in (Βαθμιαία είσοδος):"
+
+#: ../glossary.rst:182
+msgid ""
+"1.(n.) a shot that begins in total darkness and gradually lightens to full "
+"brightness.  2. (v.) To gradually bring sound from inaudibility to the "
+"required volume."
+msgstr ""
+"1. (ουσ.) ένα πλάνο που ξεκινά σε απόλυτο σκοτάδι και φωτίζεται σταδιακά "
+"μέχρι την πλήρη φωτεινότητα. 2. (ρ.) Το να φέρνετε σταδιακά τον ήχο από την "
+"ανεπαίσθητη στάθμη στην απαιτούμενη ένταση."
+
+#: ../glossary.rst:183
+msgid "Fade-out:"
+msgstr "Fade-out (Βαθμιαία έξοδος):"
+
+#: ../glossary.rst:184
+msgid ""
+"1.(n.) a shot that begins in full brightness and gradually dims to total "
+"darkness.  2. (v.) To gradually bring sound from the required volume to "
+"inaudibility."
+msgstr ""
+"1. (ουσ.) ένα πλάνο που ξεκινά με πλήρη φωτεινότητα και σκοτεινιάζει "
+"σταδιακά μέχρι το απόλυτο σκοτάδι. 2. (ρ.) Το να φέρνετε σταδιακά τον ήχο "
+"από την απαιτούμενη ένταση στην ανεπαίσθητη στάθμη."
+
+#: ../glossary.rst:185
+msgid "Filter:"
+msgstr "Filter (Φίλτρο):"
+
+#: ../glossary.rst:186
+msgid ""
+"A video filter is a software component that performs some operation on a "
+"multimedia stream.  Multiple filters used in a chain, known as a filter "
+"graph, are the process in which each filter receives input from its upstream"
+" filter.  The filter graph processes the input and outputs the processed "
+"video to its downstream filter."
+msgstr ""
+"Ένα φίλτρο βίντεο είναι ένα στοιχείο λογισμικού που εκτελεί κάποια "
+"λειτουργία σε μια ροή πολυμέσων. Πολλαπλά φίλτρα που χρησιμοποιούνται σε "
+"αλυσίδα, γνωστή ως γράφος φίλτρων (filter graph), αποτελούν τη διαδικασία "
+"στην οποία κάθε φίλτρο λαμβάνει είσοδο από το προηγούμενο φίλτρο της "
+"αλυσίδας (upstream). Ο γράφος φίλτρων επεξεργάζεται την είσοδο και στέλνει "
+"το επεξεργασμένο βίντεο στο επόμενο φίλτρο της αλυσίδας (downstream)."
+
+#: ../glossary.rst:187
+msgid "Final Cut:"
+msgstr "Final Cut (Τελικό μοντάζ):"
+
+#: ../glossary.rst:188
+msgid ""
+"The final video production, assembled from high-quality clips, and ready for"
+" export to the selected delivery media."
+msgstr ""
+"Η τελική παραγωγή βίντεο, συναρμολογημένη από κλιπ υψηλής ποιότητας και "
+"έτοιμη για εξαγωγή στο επιλεγμένο μέσο παράδοσης."
+
+#: ../glossary.rst:189
+msgid "Finishing:"
+msgstr "Finishing (Ολοκλήρωση):"
+
+#: ../glossary.rst:190
+msgid ""
+"The stage that brings together all assets of a piece.  Your output from this"
+" stage is your master/sub-master."
+msgstr ""
+"Το στάδιο που συγκεντρώνει όλα τα στοιχεία ενός έργου. Το αποτέλεσμα αυτού "
+"του σταδίου είναι το master/sub-master σας."
+
+#: ../glossary.rst:191
+msgid "Footage:"
+msgstr "Footage (Βιντεοϋλικό):"
+
+#: ../glossary.rst:192
+msgid ""
+"Derived from having feet of film, this is almost synonymous with video "
+"clips."
+msgstr ""
+"Ο όρος προέρχεται από τα πόδια (feet) φιλμ και είναι σχεδόν συνώνυμος με τα "
+"κλιπ βίντεο."
+
+#: ../glossary.rst:193
+msgid "Frame:"
+msgstr "Frame (Καρέ):"
+
+#: ../glossary.rst:194
+msgid ""
+"In filmmaking, video production, animation, and related fields, a frame is "
+"one of the many still images which compose the complete moving picture."
+msgstr ""
+"Στον κινηματογράφο, στην παραγωγή βίντεο, στα κινούμενα σχέδια και σε "
+"συναφείς τομείς, το καρέ είναι μία από τις πολλές στατικές εικόνες που "
+"αποτελούν την πλήρη κινούμενη εικόνα."
+
+#: ../glossary.rst:195
+msgid "Frames Per Second (fps):"
+msgstr "Frames Per Second (Καρέ ανά δευτερόλεπτο, fps):"
+
+#: ../glossary.rst:196
+msgid ""
+"The number of frames played every second.  At 15 fps and lower, the human "
+"eye can detect individual frames, causing the video to appear jerky."
+msgstr ""
+"Ο αριθμός των καρέ που αναπαράγονται κάθε δευτερόλεπτο. Στα 15 fps και "
+"χαμηλότερα, το ανθρώπινο μάτι μπορεί να ξεχωρίσει μεμονωμένα καρέ, με "
+"αποτέλεσμα το βίντεο να φαίνεται κοφτό."
+
+#: ../glossary.rst:197
+msgid "Frame Rate:"
+msgstr "Frame Rate (Ρυθμός καρέ):"
+
+#: ../glossary.rst:198
+msgid ""
+"Frame rate (expressed in frames per second or FPS) is the frequency (rate "
+"expressed in Hz) at which consecutive images called frames appear on "
+"display.  The term applies equally to film and video cameras, computer "
+"graphics, and motion capture systems.  Common Frame Rate Examples: 24, 25, "
+"29.97, 30, 50, 60."
+msgstr ""
+"Ο ρυθμός καρέ (εκφράζεται σε καρέ ανά δευτερόλεπτο ή FPS) είναι η συχνότητα "
+"(ρυθμός που εκφράζεται σε Hz) με την οποία διαδοχικές εικόνες, τα καρέ, "
+"εμφανίζονται στην οθόνη. Ο όρος ισχύει εξίσου για κάμερες κινηματογράφου και"
+" βίντεο, για γραφικά υπολογιστή και για συστήματα καταγραφής κίνησης. "
+"Συνηθισμένα παραδείγματα ρυθμού καρέ: 24, 25, 29.97, 30, 50, 60."
+
+#: ../glossary.rst:200
+msgid "Frequency:"
+msgstr "Frequency (Συχνότητα):"
+
+#: ../glossary.rst:200
+msgid ""
+"The number of audio cycles per second, expressed in hertz (Hz).  Frequency "
+"determines the pitch of a sound."
+msgstr ""
+"Ο αριθμός των ηχητικών κύκλων ανά δευτερόλεπτο, εκφρασμένος σε hertz (Hz). Η"
+" συχνότητα καθορίζει το ύψος ενός ήχου."
+
+#: ../glossary.rst:205
+msgid "-G-"
+msgstr ""
+
+#: ../glossary.rst:206
+msgid "Gamma:"
+msgstr "Gamma (Γάμμα):"
+
+#: ../glossary.rst:207
+msgid ""
+"A measurement of the intensity of mid-tones in an image.  Adjusting the "
+"gamma adjusts the level of the mid-tones while leaving the blacks and whites"
+" untouched."
+msgstr ""
+"Ένα μέτρο της έντασης των μεσαίων τόνων μιας εικόνας. Η ρύθμιση του γάμμα "
+"αλλάζει το επίπεδο των μεσαίων τόνων, χωρίς να επηρεάζει τα μαύρα και τα "
+"λευκά."
+
+#: ../glossary.rst:208
+msgid "GPU:"
+msgstr ""
+
+#: ../glossary.rst:209
+msgid ""
+"Graphics processing unit.  A microprocessor with built-in capabilities for "
+"handling 3D graphics more efficiently than a CPU (central processing unit)."
+msgstr ""
+"Graphics processing unit (μονάδα επεξεργασίας γραφικών). Ένας "
+"μικροεπεξεργαστής με ενσωματωμένες δυνατότητες για πιο αποδοτικό χειρισμό "
+"των τρισδιάστατων γραφικών από ό,τι μια CPU (κεντρική μονάδα επεξεργασίας)."
+
+#: ../glossary.rst:210
+msgid "Gravity:"
+msgstr "Gravity (Βαρύτητα):"
+
+#: ../glossary.rst:211
+msgid ""
+"Gravity in OpenShot is a property of each clip that sets the clip's initial "
+"position on the screen."
+msgstr ""
+"Η βαρύτητα (gravity) στο OpenShot είναι μια ιδιότητα κάθε κλιπ που καθορίζει"
+" την αρχική θέση του κλιπ στην οθόνη."
+
+#: ../glossary.rst:212
+msgid "Green screen"
+msgstr "Green screen (Πράσινο φόντο)"
+
+#: ../glossary.rst:213
+msgid ""
+"A green background that the subject stands in front of that is another "
+"background in post-production."
+msgstr ""
+"Ένα πράσινο φόντο μπροστά από το οποίο στέκεται το θέμα και το οποίο "
+"αντικαθίσταται από άλλο φόντο στη μεταπαραγωγή."
+
+#: ../glossary.rst:215
+msgid "Green Screen Compositing"
+msgstr "Green Screen Compositing (Σύνθεση με πράσινο φόντο)"
+
+#: ../glossary.rst:215
+msgid ""
+"The process of making all green elements in an image transparent and placing"
+" a different background underneath, so it appears that the subject is in a "
+"different location."
+msgstr ""
+"Η διαδικασία κατά την οποία όλα τα πράσινα στοιχεία μιας εικόνας γίνονται "
+"διαφανή και τοποθετείται από κάτω ένα διαφορετικό φόντο, ώστε το θέμα να "
+"φαίνεται ότι βρίσκεται σε διαφορετικό τοπίο."
+
+#: ../glossary.rst:220
+msgid "-H-"
+msgstr ""
+
+#: ../glossary.rst:221
+msgid "High Definition (HD):"
+msgstr "High Definition (Υψηλή ευκρίνεια, HD):"
+
+#: ../glossary.rst:222
+msgid ""
+"A general term for a video signal with a significantly higher resolution "
+"than standard definition."
+msgstr ""
+"Γενικός όρος για ένα σήμα βίντεο με σημαντικά υψηλότερη ανάλυση από την "
+"τυπική ευκρίνεια."
+
+#: ../glossary.rst:223
+msgid "HDMI:"
+msgstr ""
+
+#: ../glossary.rst:224
+msgid ""
+"High Definition Multimedia Interface.  Interface for transmitting high "
+"definition digital audio and video data."
+msgstr ""
+"High Definition Multimedia Interface (διεπαφή πολυμέσων υψηλής ευκρίνειας). "
+"Διεπαφή για τη μετάδοση ψηφιακών δεδομένων ήχου και βίντεο υψηλής "
+"ευκρίνειας."
+
+#: ../glossary.rst:225
+msgid "HDR:"
+msgstr ""
+
+#: ../glossary.rst:226
+msgid ""
+"HDR (high dynamic range) is the compositing of two images, one that "
+"correctly exposes the highlights, and another that properly exposes the dark"
+" areas.  When composited together, you get a properly exposed image."
+msgstr ""
+"Το HDR (high dynamic range, υψηλό δυναμικό εύρος) είναι η σύνθεση δύο "
+"εικόνων, μιας που εκθέτει σωστά τις φωτεινές περιοχές και μιας άλλης που "
+"εκθέτει σωστά τις σκούρες περιοχές. Όταν συντεθούν μαζί, προκύπτει μια σωστά"
+" εκτεθειμένη εικόνα."
+
+#: ../glossary.rst:227
+msgid "HDTV:"
+msgstr ""
+
+#: ../glossary.rst:228
+msgid ""
+"High Definition TV.  A broadcast format that allows for a higher resolution "
+"signal than the traditional formats, NTSC, PAL, and SECAM."
+msgstr ""
+"High Definition TV (τηλεόραση υψηλής ευκρίνειας). Ένα πρότυπο μετάδοσης που "
+"επιτρέπει σήμα υψηλότερης ανάλυσης από τα παραδοσιακά πρότυπα NTSC, PAL και "
+"SECAM."
+
+#: ../glossary.rst:229
+msgid "HDV:"
+msgstr ""
+
+#: ../glossary.rst:230
+msgid ""
+"High Definition Video.  The format used to record HDTV-quality data with "
+"video camcorders."
+msgstr ""
+"High Definition Video (βίντεο υψηλής ευκρίνειας). Η μορφή που "
+"χρησιμοποιείται για την εγγραφή δεδομένων ποιότητας HDTV με βιντεοκάμερες."
+
+#: ../glossary.rst:231
+msgid "Headroom:"
+msgstr "Headroom (Χώρος πάνω από το κεφάλι):"
+
+#: ../glossary.rst:232
+msgid ""
+"The space between the top of a character's head and the top of the frame."
+msgstr ""
+"Ο χώρος ανάμεσα στην κορυφή του κεφαλιού ενός χαρακτήρα και στο πάνω μέρος "
+"του κάδρου."
+
+#: ../glossary.rst:233
+msgid "Hiss:"
+msgstr "Hiss (Συριγμός):"
+
+#: ../glossary.rst:234
+msgid "Noise caused by imperfections in the recording medium."
+msgstr "Θόρυβος που προκαλείται από ατέλειες του μέσου εγγραφής."
+
+#: ../glossary.rst:236
+msgid "Hue:"
+msgstr "Hue (Απόχρωση):"
+
+#: ../glossary.rst:236
+msgid ""
+"The shade of a color.  This is the general color category into which the "
+"color falls.  For example, pink, crimson, and plum are different colors, but"
+" they all fall under the hue of red.  White, black, and gray tones are not "
+"hues."
+msgstr ""
+"Η απόχρωση ενός χρώματος. Είναι η γενική κατηγορία χρώματος στην οποία "
+"ανήκει το χρώμα. Για παράδειγμα, το ροζ, το βαθύ κόκκινο (crimson) και το "
+"μοβ-δαμασκηνί (plum) είναι διαφορετικά χρώματα, αλλά όλα ανήκουν στην "
+"απόχρωση του κόκκινου. Τα λευκά, τα μαύρα και οι τόνοι του γκρι δεν είναι "
+"αποχρώσεις."
+
+#: ../glossary.rst:241
+msgid "-I-"
+msgstr ""
+
+#: ../glossary.rst:242
+msgid "Image Stabilizer:"
+msgstr "Image Stabilizer (Σταθεροποιητής εικόνας):"
+
+#: ../glossary.rst:243
+msgid ""
+"Also referred to as an electronic image stabilizer.  A technique used to "
+"remove the movement caused by camera shake."
+msgstr ""
+"Αναφέρεται επίσης ως ηλεκτρονικός σταθεροποιητής εικόνας. Μια τεχνική που "
+"χρησιμοποιείται για την αφαίρεση της κίνησης που προκαλείται από το τρέμουλο"
+" της κάμερας."
+
+#: ../glossary.rst:244
+msgid "Importing:"
+msgstr "Importing (Εισαγωγή):"
+
+#: ../glossary.rst:245
+msgid ""
+"Importing is the process of transferring videos from your camera onto your "
+"computer or into a piece of editing software."
+msgstr ""
+"Η εισαγωγή είναι η διαδικασία μεταφοράς βίντεο από την κάμερά σας στον "
+"υπολογιστή σας ή σε ένα πρόγραμμα επεξεργασίας."
+
+#: ../glossary.rst:246
+msgid "Interframe Compression:"
+msgstr "Interframe Compression (Συμπίεση μεταξύ καρέ):"
+
+#: ../glossary.rst:247
+msgid ""
+"A compression scheme, such as MPEG that reduces the amount of video "
+"information by storing only the differences between a frame and those "
+"preceding it."
+msgstr ""
+"Ένα σχήμα συμπίεσης, όπως το MPEG, που μειώνει την ποσότητα των πληροφοριών "
+"βίντεο αποθηκεύοντας μόνο τις διαφορές ανάμεσα σε ένα καρέ και σε εκείνα που"
+" προηγούνται."
+
+#: ../glossary.rst:248
+msgid "Interpolation:"
+msgstr "Interpolation (Παρεμβολή):"
+
+#: ../glossary.rst:249
+msgid ""
+"Used in animation to calculate the motion in between two user-generated "
+"keyframes so that the editor does not need to animate each frame manually.  "
+"This speeds up the process and makes the resulting animation smoother."
+msgstr ""
+"Χρησιμοποιείται στα κινούμενα γραφικά για τον υπολογισμό της κίνησης ανάμεσα"
+" σε δύο βασικά καρέ (keyframes) που ορίζει ο χρήστης, ώστε ο μοντέρ να μη "
+"χρειάζεται να δημιουργεί χειροκίνητα την κίνηση κάθε καρέ. Έτσι η διαδικασία"
+" επιταχύνεται και η κίνηση που προκύπτει είναι πιο ομαλή."
+
+#: ../glossary.rst:251
+msgid "Intertitles:"
+msgstr "Intertitles (Ενδιάμεσοι τίτλοι):"
+
+#: ../glossary.rst:251
+msgid ""
+"Titles that appear on their own between footage.  Commonly seen in silent "
+"movies to substitute dialogue, also used as chapter headings."
+msgstr ""
+"Τίτλοι που εμφανίζονται αυτόνομα ανάμεσα στο υλικό. Συναντώνται συχνά στις "
+"βωβές ταινίες ως υποκατάστατο του διαλόγου και χρησιμοποιούνται επίσης ως "
+"επικεφαλίδες κεφαλαίων."
+
+#: ../glossary.rst:256
+msgid "-J-"
+msgstr ""
+
+#: ../glossary.rst:257
+msgid "J-Cut:"
+msgstr "J-Cut (Κόψιμο J):"
+
+#: ../glossary.rst:258
+msgid ""
+"An edit in which the audio starts before the video, giving the video a "
+"dramatic introduction.  Also known as an audio lead."
+msgstr ""
+"Ένα κόψιμο στο οποίο ο ήχος ξεκινά πριν από το βίντεο, δίνοντας στο βίντεο "
+"μια δραματική εισαγωγή. Είναι γνωστό και ως audio lead."
+
+#: ../glossary.rst:259
+msgid "Jog"
+msgstr "Jog (Βηματική μετακίνηση)"
+
+#: ../glossary.rst:260
+msgid ""
+"To move forward or backward through video by playing it one field or frame "
+"at a time."
+msgstr ""
+"Η μετακίνηση προς τα εμπρός ή προς τα πίσω στο βίντεο, με αναπαραγωγή ενός "
+"πεδίου ή ενός καρέ τη φορά."
+
+#: ../glossary.rst:262
+msgid "Jump Cut:"
+msgstr "Jump Cut (Κόψιμο με άλμα):"
+
+#: ../glossary.rst:262
+msgid ""
+"A jump cut is an unnatural, abrupt switch between shots identical in the "
+"subject but slightly different in screen location, so the subject appears to"
+" jump from one screen location to another."
+msgstr ""
+"Το jump cut είναι μια αφύσικη, απότομη εναλλαγή ανάμεσα σε πλάνα που είναι "
+"πανομοιότυπα ως προς το θέμα αλλά με ελαφρώς διαφορετική θέση στην οθόνη, "
+"ώστε το θέμα να φαίνεται ότι «πηδά» από μια θέση της οθόνης σε μια άλλη."
+
+#: ../glossary.rst:267
+msgid "-K-"
+msgstr ""
+
+#: ../glossary.rst:268
+msgid "Ken Burns Effect:"
+msgstr "Ken Burns Effect (Εφέ Ken Burns):"
+
+#: ../glossary.rst:269
+msgid ""
+"A pan-and-zoom animation technique applied to still images or video clips to"
+" create the illusion of camera movement. Named after documentary filmmaker "
+"Ken Burns, who popularized the approach. In OpenShot, use :guilabel:`Right-"
+"Click → Motion → Camera` presets for one-click Ken Burns animations."
+msgstr ""
+"Μια τεχνική κίνησης με πανοραμική μετακίνηση και ζουμ (pan-and-zoom) που "
+"εφαρμόζεται σε στατικές εικόνες ή κλιπ βίντεο, για να δημιουργηθεί η "
+"ψευδαίσθηση κίνησης της κάμερας. Πήρε το όνομά της από τον δημιουργό "
+"ντοκιμαντέρ Ken Burns, ο οποίος καθιέρωσε την προσέγγιση. Στο OpenShot, "
+"χρησιμοποιήστε τις προρυθμίσεις (presets) :guilabel:`Δεξί κλικ → Κίνηση → "
+"Κάμερα` (Right-Click → Motion → Camera) για κινήσεις Ken Burns με ένα κλικ."
+
+#: ../glossary.rst:270
+msgid "Key:"
+msgstr "Key (Κλειδί):"
+
+#: ../glossary.rst:271
+msgid ""
+"A method for creating transparency, such as a bluescreen key or a chroma "
+"key."
+msgstr ""
+"Μια μέθοδος δημιουργίας διαφάνειας, όπως το κλειδί μπλε φόντου (bluescreen "
+"key) ή το κλειδί χρώματος (chroma key)."
+
+#: ../glossary.rst:273
+msgid "Keyframe:"
+msgstr "Keyframe (Βασικό καρέ):"
+
+#: ../glossary.rst:273
+msgid ""
+"A keyframe is a frame that contains a record of specific settings (e.g., "
+"scale, rotation, brightness).  Start and endpoints for animated effects.  By"
+" setting multiple keyframes, you can adjust these parameters as the video "
+"plays to animate certain aspects."
+msgstr ""
+"Το βασικό καρέ (keyframe) είναι ένα καρέ που περιέχει καταγραφή "
+"συγκεκριμένων ρυθμίσεων (π.χ. κλίμακα, περιστροφή, φωτεινότητα). Αποτελεί το"
+" σημείο εκκίνησης και λήξης των εφέ κίνησης. Ορίζοντας πολλαπλά βασικά καρέ,"
+" μπορείτε να ρυθμίζετε αυτές τις παραμέτρους κατά την αναπαραγωγή του "
+"βίντεο, ώστε να δημιουργείτε κίνηση σε ορισμένες πτυχές."
+
+#: ../glossary.rst:278
+msgid "-L-"
+msgstr ""
+
+#: ../glossary.rst:279
+msgid "L-Cut:"
+msgstr "L-Cut (Κόψιμο L):"
+
+#: ../glossary.rst:280
+msgid ""
+"An L-cut is an edit in which the video ends before the audio.  L-cuts act as"
+" a subtle transition from one scene to the next."
+msgstr ""
+"Το L-cut είναι ένα κόψιμο στο οποίο το βίντεο τελειώνει πριν από τον ήχο. Τα"
+" L-cut λειτουργούν ως διακριτική μετάβαση από μια σκηνή στην επόμενη."
+
+#: ../glossary.rst:281
+msgid "Letterbox:"
+msgstr "Letterbox (Μαύρες ζώνες):"
+
+#: ../glossary.rst:282
+msgid ""
+"A technique used to preserve the original aspect ratio of a motion picture "
+"when played on a TV.  Letterboxing adds black bars to the top and bottom of "
+"the screen."
+msgstr ""
+"Μια τεχνική που χρησιμοποιείται για τη διατήρηση της αρχικής αναλογίας "
+"διαστάσεων μιας κινηματογραφικής ταινίας όταν αυτή παίζεται σε τηλεόραση. Το"
+" letterboxing προσθέτει μαύρες ζώνες στο πάνω και στο κάτω μέρος της οθόνης."
+
+#: ../glossary.rst:283
+msgid "Linear Editing:"
+msgstr "Linear Editing (Γραμμική επεξεργασία):"
+
+#: ../glossary.rst:284
+msgid ""
+"A form of video editing which lays out cuts sequentially, one by one, to "
+"produce the final scene. This contrasts with non-linear editing which allows"
+" cutting in any order."
+msgstr ""
+"Μια μορφή επεξεργασίας βίντεο που διατάσσει τα κοψίματα διαδοχικά, ένα προς "
+"ένα, για να παραχθεί η τελική σκηνή. Αντιδιαστέλλεται με τη μη γραμμική "
+"επεξεργασία, η οποία επιτρέπει το κόψιμο με οποιαδήποτε σειρά."
+
+#: ../glossary.rst:285
+msgid "Log:"
+msgstr "Log (Καταγραφή):"
+
+#: ../glossary.rst:286
+msgid ""
+"A record of start and end timecode, reel numbers, scene descriptions, and "
+"other information for a specified clip."
+msgstr ""
+"Μια εγγραφή του timecode έναρξης και λήξης, των αριθμών καρουλιών, των "
+"περιγραφών σκηνών και άλλων πληροφοριών για ένα συγκεκριμένο κλιπ."
+
+#: ../glossary.rst:287
+msgid "Lossless:"
+msgstr "Lossless (Χωρίς απώλειες):"
+
+#: ../glossary.rst:288
+msgid ""
+"A compression scheme that results in no loss of data from decompressing the "
+"file.  Lossless files are generally quite large (but still smaller than "
+"uncompressed versions) and sometimes require considerable processing power "
+"to decode the data."
+msgstr ""
+"Ένα σχήμα συμπίεσης που δεν έχει ως αποτέλεσμα απώλεια δεδομένων κατά την "
+"αποσυμπίεση του αρχείου. Τα αρχεία χωρίς απώλειες είναι γενικά αρκετά μεγάλα"
+" (αλλά και πάλι μικρότερα από τις μη συμπιεσμένες εκδοχές τους) και μερικές "
+"φορές απαιτούν σημαντική επεξεργαστική ισχύ για την αποκωδικοποίηση των "
+"δεδομένων."
+
+#: ../glossary.rst:289
+msgid "Lossy:"
+msgstr "Lossy (Με απώλειες):"
+
+#: ../glossary.rst:290
+msgid ""
+"Lossy compression is a compression scheme that degrades quality.  Lossy "
+"algorithms compress digital data by eliminating the data least sensitive to "
+"the human eye and offer the highest compression rates available."
+msgstr ""
+"Η συμπίεση με απώλειες είναι ένα σχήμα συμπίεσης που υποβαθμίζει την "
+"ποιότητα. Οι αλγόριθμοι με απώλειες συμπιέζουν τα ψηφιακά δεδομένα "
+"εξαλείφοντας τα δεδομένα στα οποία το ανθρώπινο μάτι είναι λιγότερο "
+"ευαίσθητο και προσφέρουν τους υψηλότερους διαθέσιμους ρυθμούς συμπίεσης."
+
+#: ../glossary.rst:291
+msgid "Lower Third:"
+msgstr "Lower Third (Κάτω τρίτο):"
+
+#: ../glossary.rst:292
+msgid ""
+"A text or graphic overlay positioned in the lower third of the screen, "
+"commonly used to display a speaker's name, title, or other identifying "
+"information. Lower thirds are a staple of news, documentaries, and corporate"
+" video. In OpenShot, create them using the Title Editor and place the title "
+"clip on a track above your video."
+msgstr ""
+"Μια επικάλυψη κειμένου ή γραφικού που τοποθετείται στο κάτω τρίτο της οθόνης"
+" και χρησιμοποιείται συνήθως για την εμφάνιση του ονόματος, του τίτλου ή "
+"άλλων στοιχείων ταυτοποίησης ενός ομιλητή. Τα κάτω τρίτα είναι βασικό "
+"στοιχείο των ειδήσεων, των ντοκιμαντέρ και των εταιρικών βίντεο. Στο "
+"OpenShot, δημιουργήστε τα με το εργαλείο Επεξεργασία Τίτλων (Title Editor) "
+"και τοποθετήστε το κλιπ τίτλου σε έναν διάδρομο πάνω από το βίντεό σας."
+
+#: ../glossary.rst:294
+msgid "LUT (Look-Up Table):"
+msgstr "LUT (Πίνακας αναζήτησης, Look-Up Table):"
+
+#: ../glossary.rst:294
+msgid ""
+"A file that maps one set of colors to another, used to apply a specific "
+"color grade or look to a video clip in one step. LUTs can replicate film "
+"stock emulations, broadcast standards, or custom styles. OpenShot's Color "
+"Grade effect supports LUT files directly."
+msgstr ""
+"Ένα αρχείο που αντιστοιχίζει ένα σύνολο χρωμάτων σε ένα άλλο και "
+"χρησιμοποιείται για να εφαρμοστεί μια συγκεκριμένη χρωματική διαβάθμιση ή "
+"όψη σε ένα κλιπ βίντεο με ένα μόνο βήμα. Τα LUT μπορούν να αναπαράγουν "
+"προσομοιώσεις φιλμ, πρότυπα μετάδοσης ή προσαρμοσμένα στυλ. Το εφέ Χρωματική"
+" διαβάθμιση (Color Grade) του OpenShot υποστηρίζει απευθείας αρχεία LUT."
+
+#: ../glossary.rst:299
+msgid "-M-"
+msgstr ""
+
+#: ../glossary.rst:300
+msgid "Mark In:"
+msgstr "Mark In (Σήμανση εισόδου):"
+
+#: ../glossary.rst:301
+msgid ""
+"Placing a marker at the beginning of where you want your clip to start."
+msgstr ""
+"Η τοποθέτηση ενός δείκτη στην αρχή του σημείου όπου θέλετε να ξεκινά το κλιπ"
+" σας."
+
+#: ../glossary.rst:302
+msgid "Mark Out:"
+msgstr "Mark Out (Σήμανση εξόδου):"
+
+#: ../glossary.rst:303
+msgid "Placing a marker at the beginning of where you want your clip to end."
+msgstr ""
+"Η τοποθέτηση ενός δείκτη στην αρχή του σημείου όπου θέλετε να τελειώνει το "
+"κλιπ σας."
+
+#: ../glossary.rst:304
+msgid "Match Action:"
+msgstr "Match Action (Ταύτιση κίνησης):"
+
+#: ../glossary.rst:305
+msgid ""
+"Match action (or match cut) is a technique where an editor will cut from one"
+" visually similar scene to another."
+msgstr ""
+"Το match action (ή match cut) είναι μια τεχνική όπου ο μοντέρ κόβει από μια "
+"οπτικά παρόμοια σκηνή σε μια άλλη."
+
+#: ../glossary.rst:306
+msgid "Memory Bank:"
+msgstr "Memory Bank (Τράπεζα αναμνήσεων):"
+
+#: ../glossary.rst:307
+msgid ""
+"A Memory Bank is a video that documents specific periods or events in "
+"someone's life.  It can be set to music, make use of natural sound, record "
+"vacations, or just capture moments in everyday life."
+msgstr ""
+"Μια τράπεζα αναμνήσεων (memory bank) είναι ένα βίντεο που καταγράφει "
+"συγκεκριμένες περιόδους ή γεγονότα στη ζωή ενός ανθρώπου. Μπορεί να "
+"συνοδεύεται από μουσική, να αξιοποιεί τον φυσικό ήχο, να καταγράφει διακοπές"
+" ή απλώς να αποτυπώνει στιγμές της καθημερινότητας."
+
+#: ../glossary.rst:308
+msgid "Marker:"
+msgstr "Marker (Δείκτης):"
+
+#: ../glossary.rst:309
+msgid ""
+"An object used to mark a location.  Clip markers signify essential points "
+"within a clip.  Timeline markers indicate scenes, locations for titles, or "
+"other significant points within an entire movie.  Use clip markers and "
+"timeline markers for positioning and trimming clips."
+msgstr ""
+"Ένα αντικείμενο που χρησιμοποιείται για να σημαδεύει μια θέση. Οι δείκτες "
+"κλιπ σηματοδοτούν σημαντικά σημεία μέσα σε ένα κλιπ. Οι δείκτες χρονολογίου "
+"υποδεικνύουν σκηνές, θέσεις για τίτλους ή άλλα σημαντικά σημεία σε ολόκληρη "
+"την ταινία. Χρησιμοποιήστε τους δείκτες κλιπ και τους δείκτες χρονολογίου "
+"για την τοποθέτηση και την περικοπή των κλιπ."
+
+#: ../glossary.rst:310
+msgid "Mask:"
+msgstr "Mask (Μάσκα):"
+
+#: ../glossary.rst:311
+msgid ""
+"The transparent area of an image, typically defined by a graphic shape or a "
+"bluescreen background.  Also called a matte."
+msgstr ""
+"Η διαφανής περιοχή μιας εικόνας, που συνήθως ορίζεται από ένα γραφικό σχήμα "
+"ή από ένα μπλε φόντο. Ονομάζεται επίσης matte."
+
+#: ../glossary.rst:312
+msgid "Matte:"
+msgstr "Matte (Μάσκα διαφάνειας):"
+
+#: ../glossary.rst:313
+msgid ""
+"Matte is an image mask used in visual effects to control applying an effect "
+"to certain parts of the image."
+msgstr ""
+"Το matte είναι μια μάσκα εικόνας που χρησιμοποιείται στα οπτικά εφέ για τον "
+"έλεγχο της εφαρμογής ενός εφέ σε ορισμένα τμήματα της εικόνας."
+
+#: ../glossary.rst:314
+msgid "Montage:"
+msgstr "Montage (Μοντάζ):"
+
+#: ../glossary.rst:315
+msgid ""
+"A montage is a self-contained sequence of shots assembled in juxtaposition "
+"to each other to communicate an idea or mood.  The implied relationship "
+"between seemingly unrelated material creates a new message."
+msgstr ""
+"Το μοντάζ (montage) είναι μια αυτοτελής ακολουθία πλάνων που "
+"συναρμολογούνται σε παράθεση μεταξύ τους, ώστε να μεταδώσουν μια ιδέα ή μια "
+"ατμόσφαιρα. Η υπονοούμενη σχέση ανάμεσα σε φαινομενικά άσχετο υλικό "
+"δημιουργεί ένα νέο μήνυμα."
+
+#: ../glossary.rst:317
+msgid "Motion Artifact:"
+msgstr "Motion Artifact (Τεχνούργημα κίνησης):"
+
+#: ../glossary.rst:317
+msgid ""
+"Visual interference caused by the difference between the frame rate of the "
+"camera and the motion of the object.  The most common display of this is "
+"when filming a computer or television screen.  The screen flickers or a line"
+" scans down it, which is the difference in frame rates and a lack of "
+"synchronization between the camera and television."
+msgstr ""
+"Οπτική παρεμβολή που προκαλείται από τη διαφορά ανάμεσα στον ρυθμό καρέ της "
+"κάμερας και στην κίνηση του αντικειμένου. Η πιο συνηθισμένη εμφάνισή της "
+"είναι κατά το γύρισμα μιας οθόνης υπολογιστή ή τηλεόρασης. Η οθόνη "
+"τρεμοπαίζει ή μια γραμμή σαρώνει την οθόνη από πάνω προς τα κάτω, κάτι που "
+"οφείλεται στη διαφορά των ρυθμών καρέ και στην έλλειψη συγχρονισμού ανάμεσα "
+"στην κάμερα και στην τηλεόραση."
+
+#: ../glossary.rst:322
+msgid "-N-"
+msgstr ""
+
+#: ../glossary.rst:323
+msgid "Noise:"
+msgstr "Noise (Θόρυβος):"
+
+#: ../glossary.rst:324
+msgid "Undesired data in a video or audio signal.  See also artifact."
+msgstr ""
+"Ανεπιθύμητα δεδομένα σε ένα σήμα βίντεο ή ήχου. Δείτε επίσης το artifact."
+
+#: ../glossary.rst:325
+msgid "Non-linear Editing:"
+msgstr "Non-linear Editing (Μη γραμμική επεξεργασία):"
+
+#: ../glossary.rst:326
+msgid ""
+"An editing system that performs edits at any time, in any order.  Access is "
+"random, which means that the system can jump to specific pieces of data "
+"without having to look through the whole footage to find it."
+msgstr ""
+"Ένα σύστημα επεξεργασίας που εκτελεί τα κοψίματα οποιαδήποτε στιγμή και με "
+"οποιαδήποτε σειρά. Η πρόσβαση είναι τυχαία, πράγμα που σημαίνει ότι το "
+"σύστημα μπορεί να μεταβεί σε συγκεκριμένα τμήματα δεδομένων χωρίς να "
+"χρειάζεται να ψάξει σε ολόκληρο το υλικό για να τα βρει."
+
+#: ../glossary.rst:327
+msgid "Numerator:"
+msgstr "Numerator (Αριθμητής):"
+
+#: ../glossary.rst:328
+msgid ""
+"The number or expression above the line in a fraction (such as 1 in ½)."
+msgstr ""
+"Ο αριθμός ή η έκφραση πάνω από τη γραμμή σε ένα κλάσμα (όπως το 1 στο ½)."
+
+#: ../glossary.rst:330
+msgid "NTSC:"
+msgstr ""
+
+#: ../glossary.rst:330
+msgid ""
+"NTSC is an abbreviation for National Television Standards Committee.  NTSC "
+"is the group that initially developed the black & white and subsequently "
+"color television system.  The United States, Japan, and many other countries"
+" use NTSC.  Five-hundred twenty-five interlaced lines make up NTSC that "
+"display at a rate of 29.97 frames per second.  ATSC Has now superseded by "
+"NTSC."
+msgstr ""
+"Το NTSC είναι συντομογραφία του National Television Standards Committee. Το "
+"NTSC είναι η ομάδα που ανέπτυξε αρχικά το ασπρόμαυρο και στη συνέχεια το "
+"έγχρωμο τηλεοπτικό σύστημα. Οι Ηνωμένες Πολιτείες, η Ιαπωνία και πολλές "
+"άλλες χώρες χρησιμοποιούν το NTSC. Το NTSC αποτελείται από πεντακόσιες "
+"είκοσι πέντε διαπλεκόμενες γραμμές που εμφανίζονται με ρυθμό 29.97 καρέ ανά "
+"δευτερόλεπτο. Το NTSC έχει πλέον αντικατασταθεί από το ATSC."
+
+#: ../glossary.rst:335
+msgid "-O-"
+msgstr ""
+
+#: ../glossary.rst:336
+msgid "Offline Editing:"
+msgstr "Offline Editing (Επεξεργασία offline):"
+
+#: ../glossary.rst:337
+msgid ""
+"Editing a rough cut using low-quality clips, and then producing the final "
+"cut with high-quality clips, usually on a more sophisticated editing system "
+"than that used for developing the rough."
+msgstr ""
+"Η επεξεργασία ενός πρόχειρου μοντάζ (rough cut) με κλιπ χαμηλής ποιότητας "
+"και στη συνέχεια η παραγωγή του τελικού μοντάζ με κλιπ υψηλής ποιότητας, "
+"συνήθως σε ένα πιο εξελιγμένο σύστημα επεξεργασίας από εκείνο που "
+"χρησιμοποιήθηκε για την ανάπτυξη του πρόχειρου."
+
+#: ../glossary.rst:338
+msgid "Online Editing:"
+msgstr "Online Editing (Επεξεργασία online):"
+
+#: ../glossary.rst:339
+msgid ""
+"Doing all editing (including the rough cut) on the same clips that produce "
+"the final cut."
+msgstr ""
+"Η διενέργεια όλης της επεξεργασίας (συμπεριλαμβανομένου του πρόχειρου "
+"μοντάζ) στα ίδια κλιπ που παράγουν το τελικό μοντάζ."
+
+#: ../glossary.rst:341
+msgid "Opacity:"
+msgstr "Opacity (Αδιαφάνεια):"
+
+#: ../glossary.rst:341
+msgid ""
+"An inverse measure of the level of transparency in an image, which is of "
+"importance when compositing.  An image's alpha channel stores its opacity "
+"information."
+msgstr ""
+"Ένα αντίστροφο μέτρο του επιπέδου διαφάνειας μιας εικόνας, το οποίο έχει "
+"σημασία κατά τη σύνθεση. Το κανάλι άλφα μιας εικόνας αποθηκεύει τις "
+"πληροφορίες αδιαφάνειάς της."
+
+#: ../glossary.rst:346
+msgid "-P-"
+msgstr ""
+
+#: ../glossary.rst:347
+msgid "PAL:"
+msgstr ""
+
+#: ../glossary.rst:348
+msgid ""
+"PAL is an abbreviation for Phase Alternate Line.  This is the video format "
+"standard used in many European countries.  Six-hundred twenty-five lines "
+"make up a PAL picture that displays at a rate of 25 frames per second."
+msgstr ""
+"Το PAL είναι συντομογραφία του Phase Alternate Line. Είναι το πρότυπο μορφής"
+" βίντεο που χρησιμοποιείται σε πολλές ευρωπαϊκές χώρες. Μια εικόνα PAL "
+"αποτελείται από εξακόσιες είκοσι πέντε γραμμές που εμφανίζονται με ρυθμό 25 "
+"καρέ ανά δευτερόλεπτο."
+
+#: ../glossary.rst:349
+msgid "Pan:"
+msgstr "Pan (Πανοραμική κίνηση):"
+
+#: ../glossary.rst:350
+msgid "A horizontal movement of the camera on a fixed axis."
+msgstr "Μια οριζόντια κίνηση της κάμερας πάνω σε σταθερό άξονα."
+
+#: ../glossary.rst:351
+msgid "Pan and Scan:"
+msgstr "Pan and Scan (Πανοραμική σάρωση και περικοπή):"
+
+#: ../glossary.rst:352
+msgid ""
+"A method of converting widescreen images to a 4:3 aspect ratio.  Cropping "
+"the video so that it fills the entire screen and panning it into position "
+"shows the essential parts of the scene."
+msgstr ""
+"Μια μέθοδος μετατροπής εικόνων ευρείας οθόνης σε αναλογία διαστάσεων 4:3. Με"
+" την περικοπή του βίντεο, ώστε να γεμίζει ολόκληρη την οθόνη, και την "
+"πανοραμική μετακίνησή του στη σωστή θέση, εμφανίζονται τα ουσιώδη μέρη της "
+"σκηνής."
+
+#: ../glossary.rst:353
+msgid "Picture in Picture (PIP):"
+msgstr "Picture in Picture (Εικόνα εντός εικόνας, PIP):"
+
+#: ../glossary.rst:354
+msgid ""
+"An effect of superimposing a small window of footage over a larger window "
+"and the two play at the same time."
+msgstr ""
+"Ένα εφέ υπέρθεσης ενός μικρού παραθύρου υλικού πάνω από ένα μεγαλύτερο "
+"παράθυρο, με τα δύο να αναπαράγονται ταυτόχρονα."
+
+#: ../glossary.rst:355
+msgid "Pixel:"
+msgstr "Pixel (Εικονοστοιχείο):"
+
+#: ../glossary.rst:356
+msgid ""
+"One of the tiny dots that make up the representation of an image in a "
+"computer's memory.  The smallest unit of a digital image."
+msgstr ""
+"Ένα από τα μικροσκοπικά σημεία που συνθέτουν την αναπαράσταση μιας εικόνας "
+"στη μνήμη ενός υπολογιστή. Η μικρότερη μονάδα μιας ψηφιακής εικόνας."
+
+#: ../glossary.rst:357
+msgid "Pixel Aspect Ratio:"
+msgstr "Pixel Aspect Ratio (Αναλογία διαστάσεων pixel):"
+
+#: ../glossary.rst:358
+msgid ""
+"Aspect ratio is the ratio between the width and height of your video; the "
+"Pixel Aspect Ratio is the ratio between the width and height of the pixels."
+"  A standard Pixel Aspect Ratio is 1:1."
+msgstr ""
+"Η αναλογία διαστάσεων (aspect ratio) είναι ο λόγος ανάμεσα στο πλάτος και "
+"στο ύψος του βίντεό σας· η αναλογία διαστάσεων pixel είναι ο λόγος ανάμεσα "
+"στο πλάτος και στο ύψος των pixel. Μια τυπική αναλογία διαστάσεων pixel "
+"είναι 1:1."
+
+#: ../glossary.rst:359
+msgid "Pixelation:"
+msgstr "Pixelation (Εμφάνιση pixel):"
+
+#: ../glossary.rst:360
+msgid ""
+"The display of large, blocky pixels in an image caused by over-enlarging it."
+msgstr ""
+"Η εμφάνιση μεγάλων, τετραγωνισμένων pixel σε μια εικόνα, που προκαλείται από"
+" υπερβολική μεγέθυνσή της."
+
+#: ../glossary.rst:361
+msgid "Playhead:"
+msgstr "Playhead (Κεφαλή αναπαραγωγής):"
+
+#: ../glossary.rst:362
+msgid ""
+"When editing audio or video in a current computer, the Playhead is a graphic"
+" line in the Timeline that represents the current accessed position, or "
+"frame, of the material."
+msgstr ""
+"Κατά την επεξεργασία ήχου ή βίντεο σε έναν σύγχρονο υπολογιστή, η κεφαλή "
+"αναπαραγωγής (playhead) είναι μια γραφική γραμμή στο Χρονολόγιο που "
+"αντιπροσωπεύει την τρέχουσα θέση, ή το τρέχον καρέ, του υλικού στο οποίο "
+"γίνεται πρόσβαση."
+
+#: ../glossary.rst:363
+msgid "Post-production (Post):"
+msgstr "Post-production (Μεταπαραγωγή, Post):"
+
+#: ../glossary.rst:364
+msgid ""
+"Post-production (post) is any video production activity following the "
+"initial recording.  Typically, post involves editing, the addition of "
+"background music, voice-over, sound effects, titles, and various visual "
+"effects resulting in completed production."
+msgstr ""
+"Η μεταπαραγωγή (post) είναι κάθε δραστηριότητα παραγωγής βίντεο που "
+"ακολουθεί την αρχική εγγραφή. Συνήθως περιλαμβάνει την επεξεργασία, την "
+"προσθήκη μουσικής υπόκρουσης, αφήγησης εκτός πλάνου (voiceover), ηχητικών "
+"εφέ, τίτλων και διάφορων οπτικών εφέ, με αποτέλεσμα την ολοκληρωμένη "
+"παραγωγή."
+
+#: ../glossary.rst:365
+msgid "Poster Frame:"
+msgstr "Poster Frame (Καρέ εξωφύλλου):"
+
+#: ../glossary.rst:366
+msgid ""
+"A single frame of a clip, selected as a thumbnail to indicate the clip's "
+"contents."
+msgstr ""
+"Ένα μεμονωμένο καρέ ενός κλιπ, που επιλέγεται ως μικρογραφία για να "
+"υποδεικνύει το περιεχόμενο του κλιπ."
+
+#: ../glossary.rst:368
+msgid "Project:"
+msgstr "Project (Έργο):"
+
+#: ../glossary.rst:368
+msgid ""
+"A project is all the files, transitions, effects, and animations that you "
+"make or use within OpenShot."
+msgstr ""
+"Ένα έργο είναι όλα τα αρχεία, οι μεταβάσεις, τα εφέ και τα κινούμενα γραφικά"
+" που δημιουργείτε ή χρησιμοποιείτε μέσα στο OpenShot."
+
+#: ../glossary.rst:373
+msgid "-R-"
+msgstr ""
+
+#: ../glossary.rst:374
+msgid "Raw Footage:"
+msgstr "Raw Footage (Ακατέργαστο υλικό):"
+
+#: ../glossary.rst:375
+msgid "Raw footage is pre-edited footage, usually direct from the camera."
+msgstr ""
+"Το ακατέργαστο υλικό (raw footage) είναι υλικό πριν από την επεξεργασία, "
+"συνήθως απευθείας από την κάμερα."
+
+#: ../glossary.rst:376
+msgid "Real-time:"
+msgstr "Real-time (Πραγματικός χρόνος):"
+
+#: ../glossary.rst:377
+msgid ""
+"Real-time occurs immediately, without delay for rendering.  If a transition "
+"occurs in real-time, there is no waiting, the computer creates the effect or"
+" transition on-the-fly, showing it the results immediately."
+msgstr ""
+"Στον πραγματικό χρόνο (real-time) κάτι συμβαίνει αμέσως, χωρίς καθυστέρηση "
+"για απόδοση (rendering). Αν μια μετάβαση γίνεται σε πραγματικό χρόνο, δεν "
+"υπάρχει αναμονή· ο υπολογιστής δημιουργεί το εφέ ή τη μετάβαση εν κινήσει, "
+"εμφανίζοντας αμέσως τα αποτελέσματα."
+
+#: ../glossary.rst:378
+msgid "Rendering:"
+msgstr "Rendering (Απόδοση):"
+
+#: ../glossary.rst:379
+msgid ""
+"The process by which the video editing software and hardware convert the raw"
+" video, effects, transitions, and filters into a new continuous video file."
+msgstr ""
+"Η διαδικασία με την οποία το λογισμικό και το υλικό επεξεργασίας βίντεο "
+"μετατρέπουν το ακατέργαστο βίντεο, τα εφέ, τις μεταβάσεις και τα φίλτρα σε "
+"ένα νέο συνεχές αρχείο βίντεο."
+
+#: ../glossary.rst:380
+msgid "Render Time:"
+msgstr "Render Time (Χρόνος απόδοσης):"
+
+#: ../glossary.rst:381
+msgid ""
+"The render time is the time it takes an editing computer to composite source"
+" elements and commands into a single video file.  Rendering allows the "
+"sequence, including titles and transition effects, to play in full motion."
+msgstr ""
+"Ο χρόνος απόδοσης (render time) είναι ο χρόνος που χρειάζεται ένας "
+"υπολογιστής επεξεργασίας για να συνθέσει τα στοιχεία της πηγής και τις "
+"εντολές σε ένα ενιαίο αρχείο βίντεο. Η απόδοση επιτρέπει στην ακολουθία, "
+"συμπεριλαμβανομένων των τίτλων και των εφέ μετάβασης, να αναπαράγεται με "
+"πλήρη κίνηση."
+
+#: ../glossary.rst:382
+msgid "Resolution:"
+msgstr "Resolution (Ανάλυση):"
+
+#: ../glossary.rst:383
+msgid ""
+"Resolution refers to the actual number of horizontal and vertical pixels "
+"your video contains.  Common resolution Examples: (SD) 640×480, (HD) "
+"854x480, (HD) 1280×720, (FHD) 1920×1080, (QHD) 2560x1440, (UHD) 3840x2160, "
+"and (FUHD) 7680x4320.  Often the numbers that appear vertically refer to the"
+" resolution.  The examples listed would appear as SD, 480p, 720p, 1080p, "
+"1440p, 4K and 8K, respectively."
+msgstr ""
+"Η ανάλυση αναφέρεται στον πραγματικό αριθμό των οριζόντιων και κάθετων pixel"
+" που περιέχει το βίντεό σας. Συνηθισμένα παραδείγματα ανάλυσης: (SD) "
+"640×480, (HD) 854x480, (HD) 1280×720, (FHD) 1920×1080, (QHD) 2560x1440, "
+"(UHD) 3840x2160 και (FUHD) 7680x4320. Συχνά ο αριθμός που εμφανίζεται κάθετα"
+" αναφέρεται στην ανάλυση. Τα παραπάνω παραδείγματα θα εμφανίζονταν ως SD, "
+"480p, 720p, 1080p, 1440p, 4K και 8K, αντίστοιχα."
+
+#: ../glossary.rst:384
+msgid "RGB:"
+msgstr ""
+
+#: ../glossary.rst:385
+msgid ""
+"Monitors, cameras, and digital projectors use the primary colors of light "
+"(Red, Green, and Blue) to make images."
+msgstr ""
+"Οι οθόνες, οι κάμερες και οι ψηφιακοί προβολείς χρησιμοποιούν τα βασικά "
+"χρώματα του φωτός (κόκκινο, πράσινο και μπλε – Red, Green, Blue) για να "
+"δημιουργούν εικόνες."
+
+#: ../glossary.rst:386
+msgid "RGBA:"
+msgstr ""
+
+#: ../glossary.rst:387
+msgid ""
+"A file containing an RGB image plus an alpha channel for transparency "
+"information."
+msgstr ""
+"Ένα αρχείο που περιέχει μια εικόνα RGB συν ένα κανάλι άλφα για πληροφορίες "
+"διαφάνειας."
+
+#: ../glossary.rst:388
+msgid "Ripple Edit:"
+msgstr "Ripple Edit (Επεξεργασία με μετατόπιση):"
+
+#: ../glossary.rst:389
+msgid ""
+"An edit where trimming a clip automatically shifts all subsequent clips on "
+"the timeline forward or backward by the same amount, closing or opening a "
+"gap. This preserves sync between clips that follow the edit point. Also "
+"called a ripple trim."
+msgstr ""
+"Ένα κόψιμο όπου η περικοπή άκρων ενός κλιπ μετατοπίζει αυτόματα όλα τα "
+"επόμενα κλιπ στο χρονολόγιο προς τα εμπρός ή προς τα πίσω κατά το ίδιο "
+"μέγεθος, κλείνοντας ή ανοίγοντας ένα κενό. Έτσι διατηρείται ο συγχρονισμός "
+"ανάμεσα στα κλιπ που ακολουθούν το σημείο επεξεργασίας. Ονομάζεται επίσης "
+"ripple trim."
+
+#: ../glossary.rst:390
+msgid "Roll:"
+msgstr "Roll (Κυλιόμενο κείμενο):"
+
+#: ../glossary.rst:391
+msgid ""
+"Roll is a text effect commonly seen in end credits, where text typically "
+"moves from the bottom to the top of the screen."
+msgstr ""
+"Το roll είναι ένα εφέ κειμένου που συναντάται συνήθως στους τίτλους τέλους, "
+"όπου το κείμενο κινείται τυπικά από το κάτω προς το πάνω μέρος της οθόνης."
+
+#: ../glossary.rst:393
+msgid "Rough cut:"
+msgstr "Rough cut (Πρόχειρο μοντάζ):"
+
+#: ../glossary.rst:393
+msgid ""
+"A rough cut is a preliminary edit of footage in the approximate sequence, "
+"length, and content of a finished program."
+msgstr ""
+"Το πρόχειρο μοντάζ (rough cut) είναι μια προκαταρκτική επεξεργασία του "
+"υλικού με κατά προσέγγιση την ακολουθία, τη διάρκεια και το περιεχόμενο του "
+"τελικού προγράμματος."
+
+#: ../glossary.rst:398
+msgid "-S-"
+msgstr ""
+
+#: ../glossary.rst:399
+msgid "Sample Rate:"
+msgstr "Sample Rate (Ρυθμός δειγματοληψίας):"
+
+#: ../glossary.rst:400
+msgid ""
+"In digital audio, the number of samples per second.  The higher the number, "
+"the better the sound quality."
+msgstr ""
+"Στον ψηφιακό ήχο, ο αριθμός των δειγμάτων ανά δευτερόλεπτο. Όσο υψηλότερος ο"
+" αριθμός, τόσο καλύτερη η ποιότητα του ήχου."
+
+#: ../glossary.rst:401
+msgid "Scene:"
+msgstr "Scene (Σκηνή):"
+
+#: ../glossary.rst:402
+msgid "Action that occurs in one location at one time."
+msgstr "Δράση που διαδραματίζεται σε έναν χώρο και σε μία χρονική στιγμή."
+
+#: ../glossary.rst:403
+msgid "Scrub:"
+msgstr "Scrub (Χειροκίνητη μετακίνηση):"
+
+#: ../glossary.rst:404
+msgid ""
+"Scrubbing is an act of moving the cursor or playhead across the Timeline "
+"manually.  Once specific to audio tracks, the term now also refers to video "
+"tracks."
+msgstr ""
+"Το scrubbing είναι η ενέργεια της χειροκίνητης μετακίνησης του δρομέα ή της "
+"κεφαλής αναπαραγωγής κατά μήκος του Χρονολογίου. Παλαιότερα ο όρος αφορούσε "
+"αποκλειστικά τους διαδρόμους ήχου, ενώ πλέον αναφέρεται και στους διαδρόμους"
+" βίντεο."
+
+#: ../glossary.rst:405
+msgid "Shot:"
+msgstr "Shot (Πλάνο):"
+
+#: ../glossary.rst:406
+msgid "A recording of a single take."
+msgstr "Η εγγραφή μιας μεμονωμένης λήψης."
+
+#: ../glossary.rst:407
+msgid "Side Data:"
+msgstr "Side Data (Πρόσθετα δεδομένα):"
+
+#: ../glossary.rst:408
+msgid ""
+"Auxiliary per-stream metadata (e.g. rotation, stereo3D, spherical) attached "
+"to packets or streams in containers like MP4."
+msgstr ""
+"Βοηθητικά μεταδεδομένα ανά ροή (π.χ. rotation, stereo3D, spherical) που "
+"επισυνάπτονται σε πακέτα ή ροές σε κοντέινερ όπως το MP4."
+
+#: ../glossary.rst:409
+msgid "Slow-motion:"
+msgstr "Slow-motion (Αργή κίνηση):"
+
+#: ../glossary.rst:410
+msgid ""
+"A shot in which action takes place at a slower than average speed.  The "
+"camera achieves slow-motion by speeding up the frame rate during recording "
+"and then playing back the frames at a slower speed."
+msgstr ""
+"Ένα πλάνο στο οποίο η δράση εξελίσσεται με πιο αργό από το κανονικό ρυθμό. Η"
+" κάμερα επιτυγχάνει αργή κίνηση αυξάνοντας τον ρυθμό καρέ κατά την εγγραφή "
+"και στη συνέχεια αναπαράγοντας τα καρέ με πιο αργή ταχύτητα."
+
+#: ../glossary.rst:411
+msgid "Snap:"
+msgstr "Snap (Προσκόλληση):"
+
+#: ../glossary.rst:412
+msgid ""
+"Snapping quickly positions an object in alignment with grid lines, "
+"guidelines, or another object.  Snapping causes the object to automatically "
+"jump to an exact position when the user drags it to the proximity of the "
+"desired location."
+msgstr ""
+"Η προσκόλληση (snapping) τοποθετεί γρήγορα ένα αντικείμενο σε ευθυγράμμιση "
+"με γραμμές πλέγματος, οδηγούς ή άλλο αντικείμενο. Η προσκόλληση κάνει το "
+"αντικείμενο να μεταπηδά αυτόματα σε μια ακριβή θέση όταν ο χρήστης το σύρει "
+"κοντά στην επιθυμητή θέση."
+
+#: ../glossary.rst:413
+msgid "Spherical Video:"
+msgstr "Spherical Video (Σφαιρικό βίντεο):"
+
+#: ../glossary.rst:414
+msgid ""
+"A full-sphere (360×180°) video format that requires special metadata (SV3D) "
+"so players know to render it as an interactive panorama."
+msgstr ""
+"Μια μορφή βίντεο πλήρους σφαίρας (360×180°) που απαιτεί ειδικά μεταδεδομένα "
+"(SV3D), ώστε οι αναπαραγωγείς να γνωρίζουν ότι πρέπει να το αποδώσουν ως "
+"διαδραστικό πανόραμα."
+
+#: ../glossary.rst:415
+msgid "Splice:"
+msgstr "Splice (Συγκόλληση):"
+
+#: ../glossary.rst:416
+msgid ""
+"The process of physically attaching two pieces of film using tape or cement."
+msgstr ""
+"Η διαδικασία φυσικής σύνδεσης δύο κομματιών φιλμ με χρήση ταινίας ή κόλλας."
+
+#: ../glossary.rst:417
+msgid "Split cut (L-cut or J-cut):"
+msgstr "Split cut (L-cut or J-cut) (Διαχωρισμένο κόψιμο, L-cut ή J-cut):"
+
+#: ../glossary.rst:418
+msgid ""
+"An edit in which the audio starts before or after the picture cut.  Used for"
+" easing the transition from one scene or shot to another."
+msgstr ""
+"Ένα κόψιμο στο οποίο ο ήχος ξεκινά πριν ή μετά το κόψιμο της εικόνας. "
+"Χρησιμοποιείται για την ομαλότερη μετάβαση από μια σκηνή ή ένα πλάνο σε ένα "
+"άλλο."
+
+#: ../glossary.rst:419
+msgid "Splitscreen:"
+msgstr "Splitscreen (Διαχωρισμένη οθόνη):"
+
+#: ../glossary.rst:420
+msgid ""
+"A unique effect that displays two or more scenes simultaneously on different"
+" parts of the screen."
+msgstr ""
+"Ένα ιδιαίτερο εφέ που εμφανίζει δύο ή περισσότερες σκηνές ταυτόχρονα σε "
+"διαφορετικά τμήματα της οθόνης."
+
+#: ../glossary.rst:421
+msgid "Sound Effects:"
+msgstr "Sound Effects (Ηχητικά εφέ):"
+
+#: ../glossary.rst:422
+msgid ""
+"Sound effects are contrived audio, usually prerecorded, incorporated with a "
+"video soundtrack to resemble a real occurrence.  Blowing on a microphone, "
+"for example, might simulate wind to accompany hurricane images."
+msgstr ""
+"Τα ηχητικά εφέ είναι τεχνητός ήχος, συνήθως προηχογραφημένος, που "
+"ενσωματώνεται στο ηχητικό υπόβαθρο ενός βίντεο ώστε να μοιάζει με πραγματικό"
+" συμβάν. Το φύσημα σε ένα μικρόφωνο, για παράδειγμα, μπορεί να προσομοιώσει "
+"τον άνεμο που συνοδεύει εικόνες τυφώνα."
+
+#: ../glossary.rst:423
+msgid "Soundtrack:"
+msgstr "Soundtrack (Ηχητική επένδυση):"
+
+#: ../glossary.rst:424
+msgid ""
+"The soundtrack is the audio portion of a video recording, often multifaceted"
+" with natural sound, voiceovers, background music, or other sounds."
+msgstr ""
+"Η ηχητική επένδυση (soundtrack) είναι το τμήμα ήχου μιας εγγραφής βίντεο, "
+"συχνά πολυσύνθετο, με φυσικό ήχο, αφήγηση εκτός πλάνου (voiceover), μουσική "
+"υπόκρουση ή άλλους ήχους."
+
+#: ../glossary.rst:425
+msgid "Stabilization:"
+msgstr "Stabilization (Σταθεροποίηση):"
+
+#: ../glossary.rst:426
+msgid ""
+"Image stabilization is a family of techniques that reduce blurring "
+"associated with the motion of a camera or other imaging device during "
+"exposure."
+msgstr ""
+"Η σταθεροποίηση εικόνας είναι μια οικογένεια τεχνικών που μειώνουν τη "
+"θολούρα που σχετίζεται με την κίνηση μιας κάμερας ή άλλης συσκευής "
+"απεικόνισης κατά την έκθεση."
+
+#: ../glossary.rst:427
+msgid "Standard Definition (SD):"
+msgstr "Standard Definition (Τυπική ευκρίνεια, SD):"
+
+#: ../glossary.rst:428
+msgid ""
+"Television broadcasting standard with a lower resolution than high "
+"definition."
+msgstr ""
+"Πρότυπο τηλεοπτικής μετάδοσης με χαμηλότερη ανάλυση από την υψηλή ευκρίνεια."
+
+#: ../glossary.rst:429
+msgid "Step:"
+msgstr "Step (Βήμα):"
+
+#: ../glossary.rst:430
+msgid ""
+"The act of moving forward or backward through video one frame at a time."
+msgstr ""
+"Η ενέργεια της μετακίνησης προς τα εμπρός ή προς τα πίσω στο βίντεο κατά ένα"
+" καρέ τη φορά."
+
+#: ../glossary.rst:431
+msgid "Still Frame:"
+msgstr "Still Frame (Στατικό καρέ):"
+
+#: ../glossary.rst:432
+msgid "A single frame of video is repeated, so it appears to have no motion."
+msgstr ""
+"Ένα μεμονωμένο καρέ βίντεο επαναλαμβάνεται, ώστε να φαίνεται ότι δεν υπάρχει"
+" κίνηση."
+
+#: ../glossary.rst:433
+msgid "Straight Cut:"
+msgstr "Straight Cut (Απλό κόψιμο):"
+
+#: ../glossary.rst:434
+msgid ""
+"The most common edit, consecutive clips placed one after another in the "
+"Timeline window.  Straight cuts are preferable to transitions when the "
+"scenes are similar, and you do not want edits to be noticeable."
+msgstr ""
+"Το πιο συνηθισμένο κόψιμο: διαδοχικά κλιπ τοποθετημένα το ένα μετά το άλλο "
+"στο παράθυρο του Χρονολογίου. Τα απλά κοψίματα προτιμώνται από τις "
+"μεταβάσεις όταν οι σκηνές μοιάζουν και δεν θέλετε να είναι αντιληπτά τα "
+"κοψίματα."
+
+#: ../glossary.rst:435
+msgid "Superimposing:"
+msgstr "Superimposing (Υπέρθεση):"
+
+#: ../glossary.rst:436
+msgid "Combining images, where one or more layers involve transparency."
+msgstr ""
+"Ο συνδυασμός εικόνων, όπου ένα ή περισσότερα επίπεδα περιλαμβάνουν "
+"διαφάνεια."
+
+#: ../glossary.rst:437
+msgid "Sync (Synchronization):"
+msgstr "Sync (Συγχρονισμός, Synchronization):"
+
+#: ../glossary.rst:438
+msgid ""
+"Synchronization refers to the relative timing of audio (sound) and video "
+"(image) parts during creation, post-production (mixing), transmission, "
+"reception, and play-back processing."
+msgstr ""
+"Ο συγχρονισμός αναφέρεται στη σχετική χρονική αντιστοίχιση των τμημάτων ήχου"
+" (sound) και βίντεο (image) κατά τη δημιουργία, τη μεταπαραγωγή (μίξη), τη "
+"μετάδοση, τη λήψη και την επεξεργασία της αναπαραγωγής."
+
+#: ../glossary.rst:439
+msgid "SECAM:"
+msgstr ""
+
+#: ../glossary.rst:440
+msgid ""
+"Systeme Electronique Couleur Avec Memoire, a TV format used mainly in "
+"Eastern Europe, Russia, and Africa."
+msgstr ""
+"Systeme Electronique Couleur Avec Memoire, μια μορφή τηλεόρασης που "
+"χρησιμοποιείται κυρίως στην Ανατολική Ευρώπη, στη Ρωσία και στην Αφρική."
+
+#: ../glossary.rst:442
+msgid "SV3D (Spherical Video metadata):"
+msgstr "SV3D (Μεταδεδομένα σφαιρικού βίντεο, Spherical Video metadata):"
+
+#: ../glossary.rst:442
+msgid ""
+"The “sv3d” atom in MP4/MOV files—side-data that marks a clip as 360° and "
+"carries projection, yaw/pitch/roll parameters."
+msgstr ""
+"Το άτομο (atom) «sv3d» σε αρχεία MP4/MOV – πρόσθετα δεδομένα (side-data) που"
+" σημαδεύουν ένα κλιπ ως 360° και μεταφέρουν παραμέτρους προβολής, "
+"yaw/pitch/roll."
+
+#: ../glossary.rst:447
+msgid "-T-"
+msgstr ""
+
+#: ../glossary.rst:448
+msgid "Tilt:"
+msgstr "Tilt (Κατακόρυφη κίνηση):"
+
+#: ../glossary.rst:449
+msgid ""
+"Tilting is a cinematographic technique in which the camera stays in a fixed "
+"position but rotates up/down in a vertical plane."
+msgstr ""
+"Το tilting είναι μια κινηματογραφική τεχνική κατά την οποία η κάμερα "
+"παραμένει σε σταθερή θέση αλλά περιστρέφεται προς τα πάνω/κάτω σε κατακόρυφο"
+" επίπεδο."
+
+#: ../glossary.rst:450
+msgid "Timecode:"
+msgstr "Timecode (Χρονικός κωδικός):"
+
+#: ../glossary.rst:451
+msgid ""
+"The timecode is the discrete address given to each frame of the video (for "
+"example, 1:20:24:09).  Timecode makes frame-accurate editing possible and "
+"allows editors to identify scenes precisely in a log."
+msgstr ""
+"Ο χρονικός κωδικός (timecode) είναι η διακριτή διεύθυνση που δίνεται σε κάθε"
+" καρέ του βίντεο (για παράδειγμα, 1:20:24:09). Το timecode καθιστά δυνατή "
+"την επεξεργασία με ακρίβεια καρέ και επιτρέπει στους μοντέρ να αναγνωρίζουν "
+"με ακρίβεια τις σκηνές σε ένα log."
+
+#: ../glossary.rst:452
+msgid "Time-lapse:"
+msgstr "Time-lapse (Επιταχυνόμενη λήψη):"
+
+#: ../glossary.rst:453
+msgid ""
+"It is a technique for capturing each frame in a video at a much slower rate "
+"than usual.  When played back at regular speed, time appears to go by "
+"faster.  An editing program achieves this by fast-forwarding or increasing "
+"the speed of your video."
+msgstr ""
+"Είναι μια τεχνική λήψης κάθε καρέ ενός βίντεο με πολύ πιο αργό ρυθμό από τον"
+" συνηθισμένο. Όταν αναπαράγεται με κανονική ταχύτητα, ο χρόνος φαίνεται να "
+"περνά πιο γρήγορα. Ένα πρόγραμμα επεξεργασίας το επιτυγχάνει με γρήγορη "
+"προώθηση ή αύξηση της ταχύτητας του βίντεό σας."
+
+#: ../glossary.rst:454
+msgid "Timeline:"
+msgstr "Timeline (Χρονολόγιο):"
+
+#: ../glossary.rst:455
+msgid ""
+"The Timeline is an editing interface that lays out a video project in a "
+"linear fashion consisting of clips laid horizontally across the screen."
+msgstr ""
+"Το Χρονολόγιο είναι μια διεπαφή επεξεργασίας που διατάσσει ένα έργο βίντεο "
+"με γραμμικό τρόπο, αποτελούμενη από κλιπ τοποθετημένα οριζόντια κατά μήκος "
+"της οθόνης."
+
+#: ../glossary.rst:456
+msgid "Timeline Editing:"
+msgstr "Timeline Editing (Επεξεργασία στο χρονολόγιο):"
+
+#: ../glossary.rst:457
+msgid ""
+"Timeline editing is a computer-based method of editing, in which bars "
+"proportional to the length of a clip, represent video and audio clips on a "
+"computer screen."
+msgstr ""
+"Η επεξεργασία στο χρονολόγιο είναι μια μέθοδος επεξεργασίας βασισμένη στον "
+"υπολογιστή, στην οποία ράβδοι ανάλογες με το μήκος ενός κλιπ αναπαριστούν "
+"κλιπ βίντεο και ήχου στην οθόνη του υπολογιστή."
+
+#: ../glossary.rst:458
+msgid "Titling:"
+msgstr "Titling (Τιτλοποίηση):"
+
+#: ../glossary.rst:459
+msgid ""
+"Titling is the process or result of incorporating on-screen text as credits,"
+" captions, or any other alphanumeric communication."
+msgstr ""
+"Η τιτλοποίηση είναι η διαδικασία ή το αποτέλεσμα της ενσωμάτωσης κειμένου "
+"στην οθόνη ως τίτλων τέλους, λεζαντών ή οποιασδήποτε άλλης αλφαριθμητικής "
+"επικοινωνίας."
+
+#: ../glossary.rst:460
+msgid "Track:"
+msgstr "Track (Διάδρομος):"
+
+#: ../glossary.rst:461
+msgid "A separate audio or video layer on a timeline."
+msgstr "Ένα ξεχωριστό επίπεδο ήχου ή βίντεο σε ένα χρονολόγιο."
+
+#: ../glossary.rst:462
+msgid "Transcode:"
+msgstr "Transcode (Μετακωδικοποίηση):"
+
+#: ../glossary.rst:463
+msgid ""
+"Converting a digital file to another digital file format.  This usually "
+"involves audio and video compression."
+msgstr ""
+"Η μετατροπή ενός ψηφιακού αρχείου σε άλλη μορφή ψηφιακού αρχείου. Συνήθως "
+"περιλαμβάνει συμπίεση ήχου και βίντεο."
+
+#: ../glossary.rst:464
+msgid "Transparency:"
+msgstr "Transparency (Διαφάνεια):"
+
+#: ../glossary.rst:465
+msgid "Percentage of the opacity of a video clip or element."
+msgstr "Ποσοστό της αδιαφάνειας ενός κλιπ βίντεο ή στοιχείου."
+
+#: ../glossary.rst:466
+msgid "Transition:"
+msgstr "Transition (Μετάβαση):"
+
+#: ../glossary.rst:467
+msgid ""
+"A method of juxtaposing two scenes.  Transitions can take many forms, "
+"including cuts, dissolves, and wipes."
+msgstr ""
+"Μια μέθοδος παράθεσης δύο σκηνών. Οι μεταβάσεις μπορούν να πάρουν πολλές "
+"μορφές, συμπεριλαμβανομένων των κοψιμάτων, των σταδιακών εναλλαγών "
+"(dissolves) και των σαρώσεων (wipes)."
+
+#: ../glossary.rst:469
+msgid "Trim:"
+msgstr "Trim (Περικοπή άκρων):"
+
+#: ../glossary.rst:469
+msgid "Removing frames from the beginning, middle, or end of a clip."
+msgstr "Η αφαίρεση καρέ από την αρχή, τη μέση ή το τέλος ενός κλιπ."
+
+#: ../glossary.rst:474
+msgid "-V-"
+msgstr ""
+
+#: ../glossary.rst:475
+msgid "Video Format:"
+msgstr "Video Format (Μορφή βίντεο):"
+
+#: ../glossary.rst:476
+msgid ""
+"The video format is a standard that determines the way a video signal "
+"records on videotape.  Standards include DV, 8-mm, Beta, and VHS."
+msgstr ""
+"Η μορφή βίντεο είναι ένα πρότυπο που καθορίζει τον τρόπο με τον οποίο ένα "
+"σήμα βίντεο εγγράφεται σε βιντεοταινία. Τα πρότυπα περιλαμβάνουν τα DV, "
+"8-mm, Beta και VHS."
+
+#: ../glossary.rst:477
+msgid "Voiceover:"
+msgstr "Voiceover (Αφήγηση εκτός πλάνου):"
+
+#: ../glossary.rst:478
+msgid ""
+"A term used to describe off-camera narration that is not part of a scene "
+"(non-diegetic)."
+msgstr ""
+"Όρος που περιγράφει την αφήγηση εκτός κάμερας που δεν αποτελεί μέρος μιας "
+"σκηνής (μη διηγητική – non-diegetic)."
+
+#: ../glossary.rst:480
+msgid "VTR:"
+msgstr ""
+
+#: ../glossary.rst:480
+msgid ""
+"A Videotape recorder also referred to as a 'deck'.  Decks duplicate "
+"videotapes and inputting and outputting from a computer."
+msgstr ""
+"Ένας βιντεοεγγραφέας (Videotape recorder), που αναφέρεται επίσης ως «deck». "
+"Τα deck αντιγράφουν βιντεοταινίες και επιτρέπουν την είσοδο και την έξοδο "
+"από έναν υπολογιστή."
+
+#: ../glossary.rst:485
+msgid "-W-"
+msgstr ""
+
+#: ../glossary.rst:486
+msgid "Widescreen:"
+msgstr "Widescreen (Ευρεία οθόνη):"
+
+#: ../glossary.rst:487
+msgid ""
+"A format in which the width-to-height ratio of the frame is greater than 4:3"
+" so that it is significantly wider than it is tall."
+msgstr ""
+"Μια μορφή στην οποία ο λόγος πλάτους προς ύψος του κάδρου είναι μεγαλύτερος "
+"από 4:3, ώστε να είναι σημαντικά πιο πλατύ παρά ψηλό."
+
+#: ../glossary.rst:489
+msgid "Wipe:"
+msgstr "Wipe (Σάρωση):"
+
+#: ../glossary.rst:489
+msgid ""
+"A wipe is a transition from one shot to another.  The edge of the transition"
+" moves across the original image as a line or a pattern, revealing the new "
+"shot."
+msgstr ""
+"Η σάρωση (wipe) είναι μια μετάβαση από ένα πλάνο σε ένα άλλο. Το άκρο της "
+"μετάβασης κινείται πάνω στην αρχική εικόνα ως γραμμή ή ως μοτίβο, "
+"αποκαλύπτοντας το νέο πλάνο."
+
+#: ../glossary.rst:494
+msgid "-Z-"
+msgstr ""
+
+#: ../glossary.rst:496
+msgid "Zoom:"
+msgstr "Zoom (Ζουμ):"
+
+#: ../glossary.rst:496
+msgid ""
+"A shot where the image grows more substantial or smaller by adjusting the "
+"focal length of the lens instead of physically moving the camera."
+msgstr ""
+"Ένα πλάνο όπου η εικόνα μεγαλώνει ή μικραίνει με ρύθμιση της εστιακής "
+"απόστασης του φακού αντί για φυσική μετακίνηση της κάμερας."

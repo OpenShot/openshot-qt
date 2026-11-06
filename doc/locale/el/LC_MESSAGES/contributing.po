@@ -1,0 +1,163 @@
+# Translated with AI assistance (Claude) and reviewed; UI labels follow the official OpenShot Greek UI catalog.
+# Greek translation of the OpenShot Video Editor documentation.
+# Copyright (C) OpenShot Studios, LLC
+# This file is distributed under the same license as the OpenShot Video Editor package.
+# Ioannis-Stylianos Lafazanis <jslafazanis@gmail.com>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenShot Video Editor 4.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-27 00:00+0000\n"
+"PO-Revision-Date: 2026-10-20 15:50+0300\n"
+"Last-Translator: Ioannis-Stylianos Lafazanis <jslafazanis@gmail.com>\n"
+"Language-Team: Greek <el@li.org>\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../contributing.rst:22
+msgid "Contributing"
+msgstr "Συνεισφορά"
+
+#: ../contributing.rst:24
+msgid ""
+"Want to help improve OpenShot (*and make some friends in the process*)? "
+"Please consider joining our open-source team by filling out this quick "
+"`contributor form <https://forms.gle/CRqkS5tLMJE1V36V8>`_ and introduce "
+"yourself! All volunteers are welcome, regardless of skills or skill level. "
+"**Let's build something amazing!**"
+msgstr ""
+"Θέλετε να βοηθήσετε στη βελτίωση του OpenShot (*και να κάνετε μερικούς "
+"φίλους στην πορεία*); Σκεφτείτε να ενταχθείτε στην ομάδα μας ανοιχτού κώδικα"
+" συμπληρώνοντας αυτή τη σύντομη `φόρμα συνεισφέροντα "
+"<https://forms.gle/CRqkS5tLMJE1V36V8>`_ και συστηθείτε! Όλοι οι εθελοντές "
+"είναι ευπρόσδεκτοι, ανεξάρτητα από τις δεξιότητες ή το επίπεδο των "
+"δεξιοτήτων τους. **Ας φτιάξουμε κάτι εκπληκτικό!**"
+
+#: ../contributing.rst:30
+msgid "How to Contribute"
+msgstr "Πώς να συνεισφέρετε"
+
+#: ../contributing.rst:32
+msgid "There are many different ways to help and support OpenShot, including:"
+msgstr ""
+"Υπάρχουν πολλοί διαφορετικοί τρόποι να βοηθήσετε και να υποστηρίξετε το "
+"OpenShot, όπως:"
+
+#: ../contributing.rst:34
+msgid "Testing"
+msgstr "Δοκιμές"
+
+#: ../contributing.rst:35
+msgid "`Translations <https://translations.launchpad.net/openshot/2.0>`_"
+msgstr "`Μεταφράσεις <https://translations.launchpad.net/openshot/2.0>`_"
+
+#: ../contributing.rst:36
+msgid ""
+"`Documentation <https://github.com/OpenShot/openshot-qt/tree/develop/doc>`_"
+msgstr ""
+"`Τεκμηρίωση <https://github.com/OpenShot/openshot-qt/tree/develop/doc>`_"
+
+#: ../contributing.rst:37
+msgid "Customer Service"
+msgstr "Εξυπηρέτηση πελατών"
+
+#: ../contributing.rst:38
+msgid "Social Media / Marketing"
+msgstr "Κοινωνικά μέσα / Μάρκετινγκ"
+
+#: ../contributing.rst:39
+msgid "`Software Development <https://github.com/OpenShot>`_"
+msgstr "`Ανάπτυξη λογισμικού <https://github.com/OpenShot>`_"
+
+#: ../contributing.rst:40
+msgid "Art / Design / UI"
+msgstr "Τέχνη / Σχεδιασμός / Διεπαφή χρήστη (UI)"
+
+#: ../contributing.rst:41
+msgid "`User Community <https://openshot.org/forum>`_"
+msgstr "`Κοινότητα χρηστών <https://openshot.org/forum>`_"
+
+#: ../contributing.rst:42
+msgid "`Donations <https://openshot.org/donate>`_"
+msgstr "`Δωρεές <https://openshot.org/donate>`_"
+
+#: ../contributing.rst:44
+msgid ""
+"All of these areas are **equally important**, so we would love to know which"
+" ones appeal to you the most. Please take a moment and fill-out our quick "
+"`contributor form <https://forms.gle/CRqkS5tLMJE1V36V8>`_."
+msgstr ""
+"Όλοι αυτοί οι τομείς είναι **εξίσου σημαντικοί**, γι’ αυτό θα θέλαμε να "
+"μάθουμε ποιοι σας ελκύουν περισσότερο. Παρακαλούμε αφιερώστε λίγο χρόνο και "
+"συμπληρώστε τη σύντομη `φόρμα συνεισφέροντα "
+"<https://forms.gle/CRqkS5tLMJE1V36V8>`_."
+
+#: ../contributing.rst:48
+msgid "Did you find a bug?"
+msgstr "Βρήκατε κάποιο σφάλμα;"
+
+#: ../contributing.rst:50
+msgid ""
+"Please use our step-by-step bug reporting page: "
+"https://openshot.org/issues/new/ to troubleshoot a potential new bug. This "
+"guide will instruct you on how to delete you log files, test with the latest"
+" daily build, and search for duplicate bug reports (in case someone else has"
+" already reported this same issue). At the end of the guide, it will help "
+"you create a detailed and useful bug report for our development team and "
+"volunteers."
+msgstr ""
+"Παρακαλούμε χρησιμοποιήστε τη σελίδα βήμα προς βήμα αναφοράς σφαλμάτων μας: "
+"https://openshot.org/issues/new/ για να διερευνήσετε ένα πιθανό νέο σφάλμα. "
+"Αυτός ο οδηγός θα σας καθοδηγήσει στη διαγραφή των αρχείων καταγραφής (log "
+"files), στη δοκιμή με την τελευταία ημερήσια έκδοση και στην αναζήτηση "
+"διπλότυπων αναφορών σφαλμάτων (σε περίπτωση που κάποιος άλλος έχει ήδη "
+"αναφέρει το ίδιο ζήτημα). Στο τέλος του οδηγού, θα σας βοηθήσει να "
+"δημιουργήσετε μια λεπτομερή και χρήσιμη αναφορά σφάλματος για την ομάδα "
+"ανάπτυξης και τους εθελοντές μας."
+
+#: ../contributing.rst:57
+msgid "Software Developers"
+msgstr "Προγραμματιστές λογισμικού"
+
+#: ../contributing.rst:58
+msgid ""
+"OpenShot uses GitHub to manage issues and source code: "
+"https://github.com/OpenShot. Please read our guide on `Becoming a Developer "
+"<https://github.com/OpenShot/openshot-qt/wiki/Become-a-Developer>`_ for a "
+"step-by-step guide on compiling OpenShot and making your first pull request "
+"on GitHub."
+msgstr ""
+"Το OpenShot χρησιμοποιεί το GitHub για τη διαχείριση ζητημάτων και πηγαίου "
+"κώδικα: https://github.com/OpenShot. Παρακαλούμε διαβάστε τον οδηγό μας `Πώς"
+" να γίνετε προγραμματιστής <https://github.com/OpenShot/openshot-"
+"qt/wiki/Become-a-Developer>`_ για έναν οδηγό βήμα προς βήμα σχετικά με τη "
+"μεταγλώττιση του OpenShot και την υποβολή του πρώτου σας pull request στο "
+"GitHub."
+
+#: ../contributing.rst:63
+msgid "Made with Love"
+msgstr "Φτιαγμένο με αγάπη"
+
+#: ../contributing.rst:65
+msgid ""
+"OpenShot Video Editor is a volunteer effort and a **labor of love**. Please "
+"be patient with any issues you find, and feel free to `get involved "
+"<https://forms.gle/CRqkS5tLMJE1V36V8>`_ and help us fix them!"
+msgstr ""
+"Το OpenShot Video Editor είναι μια εθελοντική προσπάθεια και ένα **έργο "
+"αγάπης**. Παρακαλούμε να είστε υπομονετικοί με τυχόν προβλήματα που θα "
+"βρείτε και μη διστάσετε να `συμμετάσχετε "
+"<https://forms.gle/CRqkS5tLMJE1V36V8>`_ και να μας βοηθήσετε να τα "
+"διορθώσουμε!"
+
+#: ../contributing.rst:69
+msgid "Thank you for your support!"
+msgstr "Σας ευχαριστούμε για την υποστήριξή σας!"
+
+#: ../contributing.rst:70
+msgid "*-- OpenShot Team*"
+msgstr "*-- Η ομάδα του OpenShot*"
