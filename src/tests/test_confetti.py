@@ -118,8 +118,10 @@ class ConfettiTests(unittest.TestCase):
                     self.addCleanup(dialog.deleteLater)
                     for name in ("save_settings", "enableControls", "disableControls", "updateFrameRate",
                                  "progressExportVideo", "timeline", "cache_thread",
-                                 "export_button", "prepare_next_export"):
+                                 "export_button", "prepare_next_export", "claim_export_resources",
+                                 "release_export_resources", "load_export_timeline", "encoder_probe_timer"):
                         setattr(dialog, name, Mock())
+                    dialog.load_export_timeline.return_value = True
                     dialog.cancel_button = QPushButton("Cancel", dialog)
                     dialog.buttonBox = QDialogButtonBox(dialog)
                     dialog.buttonBox.addButton(dialog.cancel_button, QDialogButtonBox.RejectRole)
@@ -172,6 +174,9 @@ class ConfettiTests(unittest.TestCase):
                             patch.object(Export, "show_export_result") as summary, \
                             patch("windows.export.celebrate_export") as celebrate:
                         dialog.accept()
+                    dialog.claim_export_resources.assert_called_once_with()
+                    dialog.load_export_timeline.assert_called_once_with()
+                    dialog.release_export_resources.assert_called_once_with()
                     succeeded = outcome == "success"
                     self.assertEqual(dialog.export_encoder, 'libx264')
                     self.assertEqual(writer.WriteFrame.call_count, 3 if succeeded else 1)

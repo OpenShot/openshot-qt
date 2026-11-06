@@ -18,6 +18,42 @@ class ExportProfileTests(unittest.TestCase):
         with patch.dict(sys.modules, {"classes.metrics": metrics}):
             cls.export = importlib.import_module("windows.export")
 
+    def test_idle_dialog_does_not_release_resources(self):
+        dialog = SimpleNamespace(_export_resources_claimed=False)
+        with patch.object(self.export, "get_app") as get_app:
+            self.export.Export.release_export_resources(dialog)
+        get_app.assert_not_called()
+
+    def test_export_resources_are_claimed_once_and_restored_once(self):
+        old_cache, export_thread, small_cache = Mock(), Mock(), Mock()
+        window = SimpleNamespace(cache_object=old_cache, timeline_sync=Mock())
+        settings = SimpleNamespace(HIGH_QUALITY_SCALING=False)
+        dialog = SimpleNamespace(_export_resources_claimed=False,
+                                 cache_thread=None, old_cache_object=None)
+        with patch.object(self.export, "get_app", return_value=SimpleNamespace(window=window)), \
+                patch.object(self.export.openshot, "Settings") as native_settings, \
+                patch.object(self.export.openshot, "CacheMemory", return_value=small_cache) as cache, \
+                patch.object(self.export.openshot, "VideoCacheThread", return_value=export_thread) as thread:
+            native_settings.Instance.return_value = settings
+            self.export.Export.claim_export_resources(dialog)
+            self.export.Export.claim_export_resources(dialog)
+            self.assertTrue(settings.HIGH_QUALITY_SCALING)
+            self.assertIs(window.cache_object, small_cache)
+            cache.assert_called_once_with(1 * 1024 * 1024)
+            thread.assert_called_once_with()
+            old_cache.Clear.assert_called_once_with()
+            self.export.Export.release_export_resources(dialog)
+            self.export.Export.release_export_resources(dialog)
+            self.assertFalse(settings.HIGH_QUALITY_SCALING)
+            self.assertIs(window.cache_object, old_cache)
+            self.assertFalse(dialog._export_resources_claimed)
+            self.assertIsNone(dialog.cache_thread)
+            self.assertIsNone(dialog.old_cache_object)
+            export_thread.StopThread.assert_called_once_with(10000)
+            export_thread.Reader.assert_called_once_with(None)
+            self.assertEqual(window.timeline_sync.timeline.SetCache.call_args_list,
+                             [unittest.mock.call(small_cache), unittest.mock.call(old_cache)])
+
     def test_metadata_does_not_open_readers_or_copy_the_project(self):
         dialog = SimpleNamespace()
         source = SimpleNamespace(info=SimpleNamespace(

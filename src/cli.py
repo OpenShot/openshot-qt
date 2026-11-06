@@ -96,11 +96,11 @@ Make many changes together
   failures can leave partial changes. Inspect before retrying.
 
 Check the result and keep your work
-  Choose a review tool for the edit: timeline overview reports frame boundaries;
-  strip makes contact sheets; view zooms track layout and audio waveforms.
-  Short or full exports let you judge rendered sound, motion, and the complete
-  result. Save the project
-  to keep an editable .osp; export renders a separate media file.
+  Choose a review tool for the edit. timeline overview reports frame
+  boundaries; strip makes contact sheets; view zooms track layout
+  and audio waveforms. Short or full exports let you judge rendered
+  sound, motion, and the complete result. Save the project to keep
+  an editable .osp; export renders a separate media file.
   Sessions persist until closed. Save before stopping one.
   A timeout does not cancel work: check operation or export status
   before resubmitting. Most results are JSON; errors go to stderr.
