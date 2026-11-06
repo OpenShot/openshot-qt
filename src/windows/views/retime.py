@@ -29,6 +29,10 @@ import copy
 import json
 import openshot
 from classes.app import get_app
+from classes.clip_utils import is_single_image_media
+from classes.keyframe_editing import add_point
+from classes.logger import log
+from .timeline_backend.enums import MenuTime
 
 
 def _project_fps_float():
@@ -245,3 +249,155 @@ def retime_clip(clip, new_end, new_position=None, direction=1):
         clip.data["position"] = float(int(round(float(new_position) * pfps)) / pfps)
 
     return True
+
+
+def apply_time_action(clip, action, fps_float, speed="1X", playhead_position=0.0, base_clip=None):
+    """Apply one Speed menu action (MenuTime) to a clip, in place.
+
+    speed is a factor label such as "2X" or "1/4X", or freeze seconds for
+    FREEZE/FREEZE_ZOOM, which start at playhead_position (timeline seconds).
+    base_clip is a native clip used to read current time/volume values.
+    """
+    from .repeat import reset_repeat  # repeat.py needs the app at import time.
+    if action in [MenuTime.FREEZE, MenuTime.FREEZE_ZOOM]:
+        freeze_seconds = float(speed)
+
+        original_duration = clip.data["duration"]
+        original_end = float(clip.data["end"])
+        log.info('Updating timing for clip ID {}, original duration: {}'.format(clip.id, original_duration))
+        log.debug(clip.data)
+
+        # Extend end & duration (freeze). Do NOT touch reader.video_length.
+        clip.data["end"] = float(clip.data["end"]) + freeze_seconds
+        clip.data["duration"] = float(clip.data["duration"]) + freeze_seconds
+
+        # Determine start frame from position (project frames)
+        start_animation_seconds = float(clip.data["start"]) + (playhead_position - float(clip.data["position"]))
+        start_animation_frames = round(start_animation_seconds * fps_float) + 1
+        start_animation_frames_value = start_animation_frames
+        end_animation_seconds = start_animation_seconds + freeze_seconds
+        end_animation_frames = round(end_animation_seconds * fps_float) + 1
+        end_of_clip_seconds = float(clip.data["end"])
+        end_of_clip_frames = round((end_of_clip_seconds) * fps_float) + 1
+        end_of_clip_frames_value = round((original_end) * fps_float) + 1
+
+        # Determine volume start and end
+        start_volume_value = 1.0
+
+        # If existing time curve, get intersecting Y from libopenshot curve
+        if len(clip.data["time"]["Points"]) > 1:
+            del clip.data["time"]["Points"][-1]
+            if base_clip:
+                start_animation_frames_value = base_clip.time.GetLong(start_animation_frames)
+
+        # If existing volume curve, get intersecting value
+        if len(clip.data["volume"]["Points"]) > 1:
+            if base_clip:
+                start_volume_value = base_clip.volume.GetValue(start_animation_frames)
+
+        # Time freeze keyframes
+        p = openshot.Point(start_animation_frames, start_animation_frames_value, openshot.LINEAR)
+        add_point(clip.data['time'], json.loads(p.Json()))
+        p1 = openshot.Point(end_animation_frames, start_animation_frames_value, openshot.LINEAR)
+        add_point(clip.data['time'], json.loads(p1.Json()))
+        p2 = openshot.Point(end_of_clip_frames, end_of_clip_frames_value, openshot.LINEAR)
+        add_point(clip.data['time'], json.loads(p2.Json()))
+
+        # Volume mute keyframes
+        p = openshot.Point(start_animation_frames - 1, start_volume_value, openshot.LINEAR)
+        add_point(clip.data['volume'], json.loads(p.Json()))
+        p = openshot.Point(start_animation_frames, 0.0, openshot.LINEAR)
+        add_point(clip.data['volume'], json.loads(p.Json()))
+        p2 = openshot.Point(end_animation_frames - 1, 0.0, openshot.LINEAR)
+        add_point(clip.data['volume'], json.loads(p2.Json()))
+        p3 = openshot.Point(end_animation_frames, start_volume_value, openshot.LINEAR)
+        add_point(clip.data['volume'], json.loads(p3.Json()))
+
+        if action == MenuTime.FREEZE_ZOOM:
+            p = openshot.Point(start_animation_frames, 1.0, openshot.BEZIER)
+            add_point(clip.data['scale_x'], json.loads(p.Json()))
+            p = openshot.Point(start_animation_frames, 1.0, openshot.BEZIER)
+            add_point(clip.data['scale_y'], json.loads(p.Json()))
+            diff_halfed = (end_animation_frames - start_animation_frames) / 2.0
+            p1 = openshot.Point(start_animation_frames + diff_halfed, 1.05, openshot.BEZIER)
+            add_point(clip.data['scale_x'], json.loads(p1.Json()))
+            p1 = openshot.Point(start_animation_frames + diff_halfed, 1.05, openshot.BEZIER)
+            add_point(clip.data['scale_y'], json.loads(p1.Json()))
+            p1 = openshot.Point(end_animation_frames, 1.0, openshot.BEZIER)
+            add_point(clip.data['scale_x'], json.loads(p1.Json()))
+            p1 = openshot.Point(end_animation_frames, 1.0, openshot.BEZIER)
+            add_point(clip.data['scale_y'], json.loads(p1.Json()))
+
+    else:
+
+        if action == MenuTime.NONE:
+            # RESET TIME
+            reset_repeat(clip)
+            reader = clip.data.get("reader", {}) or {}
+            start_sec = float(clip.data.get("start", 0.0))
+            duration_sec = 0.0
+            try:
+                duration_sec = float(reader.get("duration", 0.0) or 0.0)
+            except (TypeError, ValueError):
+                duration_sec = 0.0
+
+            if duration_sec <= 0.0 and base_clip:
+                try:
+                    duration_sec = float(getattr(base_clip.Reader().info, "duration", 0.0))
+                except Exception:
+                    duration_sec = 0.0
+            if duration_sec <= 0.0:
+                try:
+                    duration_sec = float(clip.data.get("duration", 0.0))
+                except (TypeError, ValueError):
+                    duration_sec = 0.0
+
+            if is_single_image_media(reader):
+                duration_sec = float(get_app().get_settings().get("default-image-length") or 10.0)
+
+            if duration_sec <= 0.0:
+                duration_sec = 1.0 / fps_float
+
+            target_frames = max(1, int(round(duration_sec * fps_float)))
+            snapped_duration = target_frames / fps_float
+            target_end_sec = start_sec + snapped_duration
+
+            # Retime the clip to that end (rescales ALL X correctly)
+            retime_clip(clip, target_end_sec, clip.data.get("position"), direction=1)
+
+            # Clear the time curve (default identity point)
+            clip.data["time"] = {"Points": [{"co": {"X": 1, "Y": 1}, "interpolation": openshot.LINEAR}]}
+
+        elif action == MenuTime.REVERSE:
+            start_sec = float(clip.data.get("start", 0.0))
+            try:
+                target_end_sec = float(clip.data.get("end", start_sec))
+            except (TypeError, ValueError):
+                target_end_sec = start_sec
+
+            if target_end_sec <= start_sec:
+                try:
+                    duration_sec = float(clip.data.get("duration", 0.0))
+                except (TypeError, ValueError):
+                    duration_sec = 0.0
+                if duration_sec <= 0.0:
+                    duration_sec = 1.0 / fps_float
+                target_end_sec = start_sec + duration_sec
+
+            retime_clip(clip, target_end_sec, clip.data.get("position"), direction=-1)
+
+        else:
+            speed_label = speed.replace('X', '')
+            parts = speed_label.split('/')
+            if len(parts) == 2:
+                speed_factor = float(parts[0]) / float(parts[1])
+            else:
+                speed_factor = float(speed_label)
+
+            original_duration = float(clip.data["end"]) - float(clip.data["start"])
+            new_duration = original_duration / speed_factor
+            new_end_time = float(clip.data["start"]) + new_duration
+            direction = 1 if action == MenuTime.FORWARD else -1
+
+            retime_clip(clip, new_end_time, clip.data.get("position"), direction)
+

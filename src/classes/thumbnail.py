@@ -473,6 +473,16 @@ class httpThumbnailHandler(BaseHTTPRequestHandler):
             self.send_header('Content-type', 'text/html; charset=utf-8')
         self.end_headers()
 
+        if file.data.get("type") == "QtTextReader":
+            from classes.direct_text import render_text
+            thumb_path = render_text(file.data["direct_text"], info.THUMBNAIL_PATH, black_background=True)
+            if only_path:
+                self.wfile.write(thumb_path.encode("utf-8"))
+            else:
+                with open(thumb_path, "rb") as image:
+                    self.wfile.write(image.read())
+            return
+
         # All entries sharing source media read/write the same cache folder.
         fps_data = file.data.get("fps") or {}
         fps = float(fps_data.get("num") or 0) / float(fps_data.get("den") or 1)

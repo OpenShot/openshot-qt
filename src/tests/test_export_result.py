@@ -12,7 +12,7 @@ if PATH not in sys.path:
     sys.path.append(PATH)
 
 from qt_api import QApplication, QColor, QPalette, QWidget, isdeleted
-from classes import desktop_open
+from classes import desktop_open, portal_file_dialog
 from windows.export_result import (
     ExportResultTab, export_details, format_duration, format_elapsed, format_label, format_size, status_badge,
 )
@@ -27,8 +27,8 @@ class ExportResultTests(unittest.TestCase):
     def setUpClass(cls):
         cls.app = QApplication.instance() or QApplication([])
 
-    def make_panel(self, width=620):
-        panel = ExportResultTab(lambda text: text)
+    def make_panel(self, width=620, parent=None):
+        panel = ExportResultTab(lambda text: text, parent)
         panel.resize(width, 420)
         self.addCleanup(lambda: panel.deleteLater() if not isdeleted(panel) else None)
         return panel
@@ -75,8 +75,12 @@ class ExportResultTests(unittest.TestCase):
         self.assertIn("image sequence", panel.subtitle.text())
 
     def test_cards_reflow_instead_of_clipping(self):
-        panel = self.make_panel(900)
-        # Real panels are visible; hidden widgets defer resize events until shown.
+        # Match the embedded dialog tab; top-level minimum widths depend on fonts.
+        holder = QWidget()
+        self.addCleanup(holder.deleteLater)
+        panel = self.make_panel(900, parent=holder)
+        holder.show()
+        # Hidden widgets defer resize events until shown.
         panel.show()
         panel.show_success("/tmp/out.mp4", "video", DETAILS)
         self.assertEqual(panel.columns, 3)
@@ -156,12 +160,12 @@ class ExportResultTests(unittest.TestCase):
         self.assertEqual(opened.call_args[0][1], "/tmp/out é.mp4")
         self.assertEqual(revealed.call_args[0][1], "/tmp/out é.mp4")
 
-    def test_failure_shows_error_copies_report_and_retries(self):
+    def test_failure_shows_error_and_copies_report(self):
         panel = self.make_panel()
-        retry = Mock()
-        panel.show_failure("A valid video codec could not be found", DETAILS[:3], retry)
+        panel.show_failure("A valid video codec could not be found", DETAILS[:3])
         self.assertEqual(panel.headline.text(), "Export Failed")
-        self.assertEqual(panel.primary_button.text(), "Try Again")
+        # No retry button: the settings tabs stay editable for the next export
+        self.assertFalse(panel.primary_button.isVisibleTo(panel))
         self.assertTrue(panel.error_text.isVisibleTo(panel))
         self.assertFalse(panel.location.isVisibleTo(panel))
         self.assertIn("rgba(229, 72, 77", panel.styleSheet())
@@ -170,10 +174,6 @@ class ExportResultTests(unittest.TestCase):
         report = QApplication.clipboard().text()
         self.assertIn("A valid video codec could not be found", report)
         self.assertIn("Format: MP4 (H.264)", report)
-        panel.primary_button.click()
-        retry.assert_called_once_with()
-        panel.show_failure("boom", [], None)
-        self.assertFalse(panel.primary_button.isVisibleTo(panel))
         # Success after failure restores success styling and fields.
         panel.show_success("/tmp/out.mp4", "video", DETAILS)
         self.assertIn("rgba(47, 191, 113", panel.styleSheet())
@@ -235,17 +235,16 @@ class ExportDialogResultTabTests(unittest.TestCase):
         dialog.restoring_defaults = False
         dialog.exporting = False
         self.addCleanup(dialog.deleteLater)
-        # deleteLater() needs an event loop; hide it so later tests that close
-        # every visible top-level window never reach this partial dialog.
+        # Hide first (cleanups run LIFO): deleteLater never runs without an event loop,
+        # so a visible dialog can leak into later tests that close all top-level windows.
         self.addCleanup(dialog.hide)
         return dialog
 
-    def test_result_is_a_third_tab_and_settings_stay_browsable_read_only(self):
+    def test_result_is_a_third_tab_and_settings_stay_editable(self):
         dialog = self.make_dialog()
         dialog.show()
         QApplication.processEvents()
         size = dialog.size()
-        dialog.exportTabs.setEnabled(False)  # as during export
         app = SimpleNamespace(_tr=lambda text: text, updates=Mock(), project=SimpleNamespace())
         with patch("windows.export.get_app", return_value=app):
             dialog.show_export_result("/tmp/out.mp4", "video_audio")
@@ -254,10 +253,9 @@ class ExportDialogResultTabTests(unittest.TestCase):
             self.assertEqual(dialog.exportTabs.tabText(2), "Complete")
             self.assertIs(dialog.exportTabs.currentWidget(), dialog.result_tab)
             self.assertEqual(dialog.size(), size)
-            self.assertTrue(dialog.exportTabs.isEnabled())
-            self.assertTrue(dialog.toolBox.isEnabled())
+            # Nothing is locked, so settings can change for another export
             for widget in (dialog.txtVideoCodec, dialog.cboSimpleQuality, dialog.txtWidth):
-                self.assertFalse(widget.isEnabled())
+                self.assertTrue(widget.isEnabled())
             dialog.exportTabs.setCurrentIndex(1)
             self.assertIs(dialog.exportTabs.currentWidget(), dialog.Advanced)
             dialog.save_settings()
@@ -265,21 +263,19 @@ class ExportDialogResultTabTests(unittest.TestCase):
         self.assertIn("txtVideoCodec", names)
         self.assertNotIn("exportLocation", names)
 
-    def test_failure_tab_and_retry_reopens_dialog(self):
+    def test_each_export_replaces_the_previous_result(self):
         dialog = self.make_dialog()
-        trigger = Mock()
-        app = SimpleNamespace(_tr=lambda text: text, window=SimpleNamespace(
-            actionExportVideo=SimpleNamespace(trigger=trigger)))
+        app = SimpleNamespace(_tr=lambda text: text)
         with patch("windows.export.get_app", return_value=app):
             dialog.show_export_result("/tmp/out.mp4", "video", "Invalid codec")
-        self.assertEqual(dialog.exportTabs.tabText(2), "Export Failed")
-        self.assertEqual(dialog.result_tab.error_text.text(), "Invalid codec")
-        with patch.object(type(dialog), "reject") as reject, \
-                patch("windows.export.get_app", return_value=app), \
-                patch("windows.export.QTimer.singleShot", side_effect=lambda ms, fn: fn()):
-            dialog.result_tab.primary_button.click()
-        reject.assert_called_once_with()
-        trigger.assert_called_once_with()
+            self.assertEqual(dialog.exportTabs.tabText(2), "Export Failed")
+            self.assertEqual(dialog.result_tab.error_text.text(), "Invalid codec")
+            dialog.show_export_result("/tmp/out.mp4", "video")
+        self.assertEqual(dialog.exportTabs.count(), 3)
+        self.assertEqual(dialog.exportTabs.tabText(2), "Complete")
+        dialog.clear_export_result()
+        self.assertEqual(dialog.exportTabs.count(), 2)
+        self.assertIsNone(dialog.result_tab)
 
 
 class DesktopOpenTests(unittest.TestCase):
@@ -291,22 +287,22 @@ class DesktopOpenTests(unittest.TestCase):
                 patch.object(desktop_open.shutil, "which", return_value="/usr/bin/xdg-open"), \
                 patch.object(desktop_open.subprocess, "Popen") as popen, \
                 patch.object(desktop_open.QDesktopServices, "openUrl", return_value=True) as qt_open:
-            with patch("classes.portal_file_dialog.open_file_with_default_application", return_value=True):
+            with patch.object(portal_file_dialog, "open_file_with_default_application", return_value=True):
                 self.assertTrue(desktop_open.open_file(None, output.name))
             popen.assert_not_called()
-            with patch("classes.portal_file_dialog.open_file_with_default_application", return_value=None):
+            with patch.object(portal_file_dialog, "open_file_with_default_application", return_value=None):
                 self.assertTrue(desktop_open.open_file(None, output.name))
             self.assertEqual(popen.call_args[0][0], ["/usr/bin/xdg-open", output.name])
             self.assertNotIn("LD_LIBRARY_PATH", popen.call_args[1]["env"])
             qt_open.assert_not_called()
-            with patch("classes.portal_file_dialog.open_containing_directory", return_value=None), \
-                    patch("classes.portal_file_dialog.show_items_in_file_manager", return_value=True) as show:
+            with patch.object(portal_file_dialog, "open_containing_directory", return_value=None), \
+                    patch.object(portal_file_dialog, "show_items_in_file_manager", return_value=True) as show:
                 popen.reset_mock()
                 self.assertTrue(desktop_open.reveal_file(None, output.name))
             show.assert_called_once_with(output.name)
             popen.assert_not_called()
-            with patch("classes.portal_file_dialog.open_containing_directory", return_value=None), \
-                    patch("classes.portal_file_dialog.show_items_in_file_manager", return_value=None):
+            with patch.object(portal_file_dialog, "open_containing_directory", return_value=None), \
+                    patch.object(portal_file_dialog, "show_items_in_file_manager", return_value=None):
                 self.assertTrue(desktop_open.reveal_file(None, output.name))
             self.assertEqual(popen.call_args[0][0], ["/usr/bin/xdg-open", os.path.dirname(output.name)])
 
@@ -314,7 +310,7 @@ class DesktopOpenTests(unittest.TestCase):
         with patch.object(desktop_open.sys, "platform", "linux"), \
                 patch.object(desktop_open, "_sandboxed", return_value=True), \
                 patch.object(desktop_open.subprocess, "Popen") as popen, \
-                patch("classes.portal_file_dialog.open_file_with_default_application", return_value=None), \
+                patch.object(portal_file_dialog, "open_file_with_default_application", return_value=None), \
                 patch.object(desktop_open.QDesktopServices, "openUrl", return_value=True) as qt_open:
             self.assertTrue(desktop_open.open_file(None, "/tmp/out.mp4"))
         popen.assert_not_called()

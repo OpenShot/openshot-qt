@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-26 14:26-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,12 +20,12 @@ msgstr ""
 "Generated-By: Babel 2.10.3\n"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:23
+#: ../doc/animation.rst:23
 msgid "Animation"
 msgstr "الرسوم المتحركة"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:25
+#: ../doc/animation.rst:25
 msgid ""
 "OpenShot has been designed specifically with animation in mind. The powerful"
 " curve-based animation framework can handle most jobs with ease, and is "
@@ -39,141 +39,159 @@ msgstr ""
 "معينة على المقطع، ويقوم OpenShot بالعمل الشاق في استيفاء القيم بينهما."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:30
+#: ../doc/animation.rst:30
 msgid "Overview"
 msgstr "نظرة عامة"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:38 ../animation.rst:141
+#: ../doc/animation.rst:38 ../doc/animation.rst:187
 msgid "#"
 msgstr "#"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:38 ../animation.rst:141
+#: ../doc/animation.rst:38 ../doc/animation.rst:187
 msgid "Name"
 msgstr "الاسم"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:38 ../animation.rst:65 ../animation.rst:141
+#: ../doc/animation.rst:38 ../doc/animation.rst:71 ../doc/animation.rst:187
 msgid "Description"
 msgstr "الوصف"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:40 ../animation.rst:41 ../animation.rst:143
+#: ../doc/animation.rst:40 ../doc/animation.rst:41 ../doc/animation.rst:189
 msgid "1"
 msgstr "1"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:40
+#: ../doc/animation.rst:40
 msgid "Green Property"
 msgstr "خاصية خضراء"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:40
+#: ../doc/animation.rst:40
 msgid "When the play-head is on a key frame, the property appears green"
 msgstr "عندما يكون رأس التشغيل على إطار رئيسي، تظهر الخاصية باللون الأخضر"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:41
+#: ../doc/animation.rst:41
 msgid "Blue Property"
 msgstr "خاصية زرقاء"
 
-# Translated with gpt-4.1-mini
-#: ../animation.rst:41
-msgid ""
-"When the play-head is on an interpolated value, the property appears blue"
-msgstr "عندما يكون رأس التشغيل على قيمة مستوفاة، تظهر الخاصية باللون الأزرق"
+#: ../doc/animation.rst:41
+msgid "When the play-head is between key frames, the property appears blue"
+msgstr ""
+"عندما يكون رأس التشغيل بين الإطارات الرئيسية، يظهر الخاصية باللون الأزرق"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:42 ../animation.rst:144
+#: ../doc/animation.rst:42 ../doc/animation.rst:190
 msgid "2"
 msgstr "2"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:42
+#: ../doc/animation.rst:42
 msgid "Value Slider"
 msgstr "شريط تمرير القيمة"
 
-# Translated with gpt-4.1-mini
-#: ../animation.rst:42
+#: ../doc/animation.rst:42
 msgid ""
-"Click and drag your mouse to adjust the value (this automatically creates a "
-"key frame if needed)"
+"Drag to adjust a property. With Auto Keyframes on, this also records the "
+"value at the playhead."
 msgstr ""
-"انقر واسحب الماوس لضبط القيمة (يتم إنشاء إطار رئيسي تلقائيًا إذا لزم الأمر)"
+"اسحب لضبط خاصية. مع تشغيل الإطارات الرئيسية التلقائية، يتم أيضًا تسجيل "
+"القيمة عند رأس التشغيل."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:43
+#: ../doc/animation.rst:43
 msgid "3"
 msgstr "3"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:43
+#: ../doc/animation.rst:43
 msgid "Play-head"
 msgstr "رأس التشغيل"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:43
+#: ../doc/animation.rst:43
 msgid "Position the play-head over a clip where you need a key frame"
 msgstr "ضع رأس التشغيل فوق المقطع حيث تحتاج إلى إطار رئيسي"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:44
+#: ../doc/animation.rst:44
 msgid "4"
 msgstr "4"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:44
+#: ../doc/animation.rst:44
 msgid "Key frame Markers"
 msgstr "علامات الإطارات الرئيسية"
 
-#: ../animation.rst:44
+#: ../doc/animation.rst:44
 msgid ""
 "Colorful icons line the bottom of the clip for every keyframe "
 "(`circle=Bézier`, `diamond=linear`, `square=constant`). Each icon matches "
 "the color of its clip, effect, or transition. The selected item's keyframe "
 "icons are shown brighter. Filtering the property list also filters these "
-"icons. Click any icon to jump the play-head, load its properties, and select"
-" its clip, effect, or transition. Drag an icon left or right to move the "
-"keyframe and fine‑tune your animation timing. The play-head moves to the "
-"keyframe's new position when you finish dragging."
+"icons. Click any icon to jump the play-head and select its clip, effect, or "
+"transition without opening the Properties dock. Double-click the icon, or "
+"right-click and choose :guilabel:`Properties`, to open the dock. Drag an "
+"icon left or right to move the keyframe and fine‑tune your animation timing."
+" The play-head moves to the keyframe's new position when you finish "
+"dragging."
 msgstr ""
-"تُرص الأيقونات الملونة في أسفل المقطع لكل إطار رئيسي (`circle=Bézier`، "
-"`diamond=linear`، `square=constant`). تتطابق كل أيقونة مع لون المقطع أو "
-"التأثير أو الانتقال الخاص بها. تُعرض أيقونات الإطار الرئيسي للعنصر المحدد "
-"بشكل أكثر سطوعًا. يؤدي تصفية قائمة الخصائص أيضًا إلى تصفية هذه الأيقونات. "
-"انقر على أي أيقونة للقفز إلى رأس التشغيل، وتحميل خصائصها، وتحديد المقطع أو "
-"التأثير أو الانتقال الخاص بها. اسحب أيقونة إلى اليسار أو اليمين لتحريك "
-"الإطار الرئيسي وضبط توقيت الرسوم المتحركة بدقة. يتحرك رأس التشغيل إلى الموضع"
-" الجديد للإطار الرئيسي عند الانتهاء من السحب."
+"تظهر أيقونات ملونة على طول أسفل المقطع لكل إطار رئيسي (`circle=Bézier`، "
+"`diamond=linear`، `square=constant`). كل أيقونة تطابق لون المقطع أو التأثير "
+"أو الانتقال الخاص بها. تظهر أيقونات الإطارات الرئيسية للعنصر المحدد أكثر "
+"سطوعًا. تصفية قائمة الخصائص تقوم أيضًا بتصفية هذه الأيقونات. انقر على أي "
+"أيقونة للقفز برأس التشغيل وتحديد المقطع أو التأثير أو الانتقال الخاص بها دون"
+" فتح لوحة الخصائص. انقر نقراً مزدوجاً على الأيقونة، أو انقر بزر الماوس "
+"الأيمن واختر :guilabel:`Properties` لفتح اللوحة. اسحب الأيقونة إلى اليسار أو"
+" اليمين لتحريك الإطار الرئيسي وضبط توقيت الرسوم المتحركة بدقة. يتحرك رأس "
+"التشغيل إلى الموضع الجديد للإطار الرئيسي عند الانتهاء من السحب."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:48
+#: ../doc/animation.rst:48
 msgid "Key Frames"
 msgstr "الإطارات الرئيسية"
 
-# Translated with gpt-4.1-mini
-#: ../animation.rst:49
+#: ../doc/animation.rst:49
 msgid ""
-"To create a key frame in OpenShot, simply position the play-head (i.e. "
-"playback position) at any point over a clip, and edit properties in the "
-"property dialog. If the property supports key frames, it will turn green, "
-"and a small icon (`circle=Bézier, diamond=linear, square=constant`) will "
-"appear on the bottom of your clip at that position. Move your play-head to "
-"another point over that clip, and adjust the properties again. All "
-"animations require at least 2 key frames, but can support an unlimited "
-"number of them."
+"A keyframe remembers a property's value at a particular moment. For example,"
+" to make a clip gradually grow larger, you can set its scale at the "
+"beginning and choose a larger scale near the end. OpenShot calculates the "
+"change between those two keyframes during playback."
 msgstr ""
-"لإنشاء إطار رئيسي في OpenShot، ببساطة ضع رأس التشغيل (أي موضع التشغيل) في أي"
-" نقطة فوق المقطع، وقم بتحرير الخصائص في مربع حوار الخصائص. إذا كانت الخاصية "
-"تدعم الإطارات الرئيسية، ستتحول إلى اللون الأخضر، وستظهر أيقونة صغيرة "
-"(`circle=Bézier, diamond=linear, square=constant`) في أسفل المقطع عند تلك "
-"النقطة. حرك رأس التشغيل إلى نقطة أخرى فوق ذلك المقطع، واضبط الخصائص مرة "
-"أخرى. تتطلب جميع الرسوم المتحركة على الأقل إطارين رئيسيين، لكنها يمكن أن "
-"تدعم عددًا غير محدود منها."
+"الإطار الرئيسي يتذكر قيمة الخاصية في لحظة معينة. على سبيل المثال، لجعل "
+"المقطع يكبر تدريجيًا، يمكنك ضبط مقياسه في البداية واختيار مقياس أكبر قرب "
+"النهاية. يقوم OpenShot بحساب التغيير بين هذين الإطارين الرئيسيين أثناء "
+"التشغيل."
+
+#: ../doc/animation.rst:53
+msgid ""
+"With :ref:`auto_keyframes_ref` on (the default), move the playhead to the "
+"moment you want to change and adjust a property in the Properties dock. "
+"OpenShot adds a keyframe there, or updates it if one already exists. Move to"
+" another moment and adjust the value again to build your animation."
+msgstr ""
+"مع تشغيل :ref:`auto_keyframes_ref` (الإعداد الافتراضي)، حرك رأس التشغيل إلى "
+"اللحظة التي تريد التغيير فيها واضبط خاصية في لوحة الخصائص. يضيف OpenShot "
+"إطارًا رئيسيًا هناك، أو يحدثه إذا كان موجودًا بالفعل. انتقل إلى لحظة أخرى "
+"واضبط القيمة مرة أخرى لبناء الرسوم المتحركة الخاصة بك."
+
+#: ../doc/animation.rst:57
+msgid ""
+"A property turns green when the playhead is on one of its keyframes. Small "
+"markers along the bottom of the clip show where its keyframes are. Their "
+"shapes indicate how the values change between them: ``circle=Bézier, "
+"diamond=linear, square=constant``."
+msgstr ""
+"تصبح الخاصية خضراء عندما يكون رأس التشغيل على أحد إطاراتها الرئيسية. تظهر "
+"علامات صغيرة على طول أسفل المقطع مكان وجود إطاراتها الرئيسية. تشير أشكالها "
+"إلى كيفية تغير القيم بينها: ``circle=Bézier, diamond=linear, "
+"square=constant``."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:55
+#: ../doc/animation.rst:61
 msgid ""
 "Use the :guilabel:`Next Marker` and :guilabel:`Previous Marker` toolbar "
 "buttons to step through the selected item's keyframes. They follow whichever"
@@ -186,7 +204,7 @@ msgstr ""
 " ونهاية المقطع الأصل."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:59
+#: ../doc/animation.rst:65
 msgid ""
 "To adjust the **interpolation mode**, right click on the small graph icon "
 "next to a property value."
@@ -195,17 +213,17 @@ msgstr ""
 "الصغيرة بجانب قيمة الخاصية."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:65
+#: ../doc/animation.rst:71
 msgid "Key-frame Interpolation"
 msgstr "استيفاء الإطارات الرئيسية"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:67
+#: ../doc/animation.rst:73
 msgid "Bézier"
 msgstr "بيزيه"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:67
+#: ../doc/animation.rst:73
 msgid ""
 "Interpolated values use a quadratic curve, and ease-in and ease-out. Icon: "
 ":guilabel:`Circle`."
@@ -214,12 +232,12 @@ msgstr ""
 ":guilabel:`Circle`."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:68
+#: ../doc/animation.rst:74
 msgid "Linear"
 msgstr "خطي"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:68
+#: ../doc/animation.rst:74
 msgid ""
 "Interpolated values are calculated linear (each step value is equal). Icon: "
 ":guilabel:`Diamond`."
@@ -228,12 +246,12 @@ msgstr ""
 ":guilabel:`Diamond`."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:69
+#: ../doc/animation.rst:75
 msgid "Constant"
 msgstr "ثابت"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:69
+#: ../doc/animation.rst:75
 msgid ""
 "Interpolated values stay the same until the next key frame, and jump to the "
 "new value. Icon: :guilabel:`Square`."
@@ -243,7 +261,7 @@ msgstr ""
 
 # Translated with gpt-4.1-mini
 # Updated/fixed translation with gpt-4.1-mini
-#: ../animation.rst:72
+#: ../doc/animation.rst:78
 #, fuzzy
 msgid ""
 "For more info on creating key frames for location, rotation, scale, shear, "
@@ -253,25 +271,147 @@ msgstr ""
 "القص، والميل، راجع :ref:`clip_transform_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:73
+#: ../doc/animation.rst:79
 msgid "For more info on preset animations, see :ref:`clip_presets_ref`."
 msgstr ""
 "لمزيد من المعلومات حول الرسوم المتحركة المسبقة، راجع "
 ":ref:`clip_presets_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:74
+#: ../doc/animation.rst:80
 msgid "For a full list of key frames, see :ref:`clip_properties_ref`."
 msgstr ""
 "للحصول على قائمة كاملة بالإطارات الرئيسية، راجع :ref:`clip_properties_ref`."
 
+#: ../doc/animation.rst:85
+msgid "Auto Keyframes"
+msgstr "الإطارات الرئيسية التلقائية"
+
+#: ../doc/animation.rst:86
+msgid ""
+"Auto Keyframes helps you animate as you edit. Leave it on to record changes "
+"at the playhead as you move, resize, or adjust a clip. You can turn it on or"
+" off with the diamond button on the timeline toolbar. The same setting "
+"applies to edits in the Properties dock and to the transform handles in the "
+"preview."
+msgstr ""
+"تساعدك الإطارات الرئيسية التلقائية على التحريك أثناء التحرير. اتركها مفعلة "
+"لتسجيل التغييرات عند رأس التشغيل أثناء تحريك أو تغيير حجم أو ضبط المقطع. "
+"يمكنك تشغيلها أو إيقافها باستخدام زر الماسة على شريط أدوات الجدول الزمني. "
+"ينطبق نفس الإعداد على التعديلات في لوحة الخصائص وعلى مقابض التحويل في "
+"المعاينة."
+
+#: ../doc/animation.rst:90
+msgid ""
+"Auto Keyframes starts enabled. If you prefer to place keyframes yourself, "
+"turn off **Auto Keyframes on Startup** in **Preferences → Timeline**. "
+"OpenShot will start with it off next time, and you can still switch it on "
+"whenever you need it."
+msgstr ""
+"تبدأ الإطارات الرئيسية التلقائية مفعلة. إذا كنت تفضل وضع الإطارات الرئيسية "
+"بنفسك، قم بإيقاف تشغيل **الإطارات الرئيسية التلقائية عند بدء التشغيل** في "
+"**التفضيلات → الجدول الزمني**. سيبدأ OpenShot مع إيقافها في المرة القادمة، "
+"ولا يزال بإمكانك تشغيلها متى احتجت."
+
+#: ../doc/animation.rst:94
+msgid ""
+"Turn Auto Keyframes off when you want to adjust existing values without "
+"adding more keyframes. For example, if you have not animated a clip's size, "
+"you can resize it while viewing any part of the clip and keep that size "
+"throughout playback."
+msgstr ""
+"قم بإيقاف تشغيل الإطارات الرئيسية التلقائية عندما تريد تعديل القيم الحالية "
+"دون إضافة المزيد من الإطارات الرئيسية. على سبيل المثال، إذا لم تقم بتحريك "
+"حجم المقطع، يمكنك تغيير حجمه أثناء مشاهدة أي جزء من المقطع والحفاظ على هذا "
+"الحجم طوال التشغيل."
+
+#: ../doc/animation.rst:98
+msgid ""
+"If a property is already animated, your edit changes its keyframe at the "
+"playhead, or the nearest one to the left. Suppose a clip grows from small to"
+" large: editing its scale halfway through with Auto Keyframes off changes "
+"the starting scale and leaves the ending scale alone. To change a particular"
+" keyframe, move the playhead onto it before editing. Turning Auto Keyframes "
+"off does not remove your animation."
+msgstr ""
+"إذا كانت الخاصية متحركة بالفعل، فإن تعديلك يغير إطارها الرئيسي عند رأس "
+"التشغيل، أو أقرب إطار إلى اليسار. افترض أن المقطع يكبر من صغير إلى كبير: "
+"تعديل مقياسه في منتصف الطريق مع إيقاف الإطارات الرئيسية التلقائية يغير "
+"المقياس الابتدائي ويترك المقياس النهائي كما هو. لتغيير إطار رئيسي معين، حرك "
+"رأس التشغيل عليه قبل التعديل. إيقاف الإطارات الرئيسية التلقائية لا يزيل "
+"تحريكك."
+
+#: ../doc/animation.rst:103
+msgid ""
+"Auto Keyframes only records on clips under the playhead. When the playhead "
+"is before or after a clip, editing it changes its nearest keyframe instead, "
+"so the whole clip changes without animating. When you edit several selected "
+"clips at once, each clip follows this rule on its own: clips under the "
+"playhead are keyframed at the playhead, and the others change without "
+"animating."
+msgstr ""
+"تسجل الإطارات الرئيسية التلقائية فقط على المقاطع تحت رأس التشغيل. عندما يكون"
+" رأس التشغيل قبل أو بعد المقطع، يؤدي تحريره إلى تغيير أقرب إطار رئيسي له "
+"بدلاً من ذلك، بحيث يتغير المقطع بأكمله دون تحريك. عند تحرير عدة مقاطع محددة "
+"في نفس الوقت، يتبع كل مقطع هذه القاعدة بمفرده: المقاطع تحت رأس التشغيل يتم "
+"وضع إطارات رئيسية لها عند رأس التشغيل، والأخرى تتغير دون تحريك."
+
+#: ../doc/animation.rst:108
+msgid ""
+"While editing between keyframes, the preview shows the animation at the "
+"playhead. The Properties dock may show the earlier keyframe you are "
+"changing, so its value can differ from what you see in the preview. Hover "
+"over a numeric value to check which frame you are editing."
+msgstr ""
+"أثناء التحرير بين الإطارات الرئيسية، تعرض المعاينة الرسوم المتحركة عند رأس "
+"التشغيل. قد تعرض لوحة الخصائص الإطار الرئيسي السابق الذي تقوم بتغييره، لذا "
+"قد تختلف قيمته عما تراه في المعاينة. مرر فوق قيمة رقمية للتحقق من الإطار "
+"الذي تقوم بتحريره."
+
+#: ../doc/animation.rst:112
+msgid ""
+"You can also build an animation by placing keyframes yourself, with Auto "
+"Keyframes off:"
+msgstr ""
+"يمكنك أيضًا بناء رسوم متحركة بوضع الإطارات الرئيسية بنفسك، مع إيقاف الإطارات"
+" الرئيسية التلقائية:"
+
+#: ../doc/animation.rst:114
+msgid "Move the playhead to where you want the animation to begin."
+msgstr "حرك رأس التشغيل إلى المكان الذي تريد أن تبدأ فيه الرسوم المتحركة."
+
+#: ../doc/animation.rst:115
+msgid ""
+"Insert a keyframe using the keyframe panel or the Properties context menu. "
+"This remembers the current value."
+msgstr ""
+"أدخل إطارًا رئيسيًا باستخدام لوحة الإطارات الرئيسية أو قائمة السياق في "
+"الخصائص. هذا يتذكر القيمة الحالية."
+
+#: ../doc/animation.rst:116
+msgid "Move to another moment and insert another keyframe."
+msgstr "انتقل إلى لحظة أخرى وأدخل إطارًا رئيسيًا آخر."
+
+#: ../doc/animation.rst:117
+msgid "Adjust its value. OpenShot animates between the two keyframes."
+msgstr "اضبط قيمته. يقوم OpenShot بتحريك الرسوم بين الإطارين الرئيسيين."
+
+#: ../doc/animation.rst:119
+msgid ""
+"Repeat these steps to add more changes to the animation. See "
+":ref:`split_clip_ref` for preparing shorter segments with their own starting"
+" keyframes."
+msgstr ""
+"كرر هذه الخطوات لإضافة المزيد من التغييرات إلى الرسوم المتحركة. انظر "
+":ref:`split_clip_ref` لتحضير مقاطع أقصر مع إطارات رئيسية بداية خاصة بها."
+
 # Translated with gpt-4.1-mini
-#: ../animation.rst:77
+#: ../doc/animation.rst:123
 msgid "Timing"
 msgstr "التوقيت"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:78
+#: ../doc/animation.rst:124
 msgid ""
 "Changing how fast a clip plays is done with the :guilabel:`Time` property "
 "and the :guilabel:`Timing` tool."
@@ -279,7 +419,7 @@ msgstr ""
 "يتم تغيير سرعة تشغيل المقطع باستخدام خاصية :guilabel:`Time` وأداة "
 ":guilabel:`Timing`."
 
-#: ../animation.rst:80
+#: ../doc/animation.rst:126
 msgid ""
 "The :guilabel:`Speed` menu offers presets such as normal, fast, slow, "
 "freeze, reverse, and repeat. See details in :ref:`clip_time_ref`."
@@ -288,7 +428,7 @@ msgstr ""
 "عكسي، وتكرار. راجع التفاصيل في :ref:`clip_time_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:81
+#: ../doc/animation.rst:127
 msgid ""
 "The :guilabel:`Timing` tool lets you drag a clip’s edges to speed it up or "
 "slow it down. OpenShot adds the needed Time keyframes and **scales your "
@@ -301,11 +441,11 @@ msgstr ""
 "تُشغل أبطأ. للمزيد راجع: :ref:`clip_time_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:86
+#: ../doc/animation.rst:132
 msgid "Repeating"
 msgstr "التكرار"
 
-#: ../animation.rst:87
+#: ../doc/animation.rst:133
 msgid ""
 "To play a clip multiple times, use :guilabel:`Right-Click → Speed → Repeat`."
 msgstr ""
@@ -313,18 +453,18 @@ msgstr ""
 "Repeat`."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:89
+#: ../doc/animation.rst:135
 msgid ":guilabel:`Loop` repeats in one direction (forward or reverse)."
 msgstr ":guilabel:`Loop` يكرر في اتجاه واحد (إلى الأمام أو العكس)."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:90
+#: ../doc/animation.rst:136
 msgid ""
 ":guilabel:`Ping-Pong` alternates direction (forward then backward, etc.)."
 msgstr ":guilabel:`Ping-Pong` يبدل الاتجاه (إلى الأمام ثم إلى الخلف، وهكذا)."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:91
+#: ../doc/animation.rst:137
 msgid ""
 ":guilabel:`Custom` can add a short pause between passes, speed up or slow "
 "down each pass, including keyframes."
@@ -333,7 +473,7 @@ msgstr ""
 "تكرار، بما في ذلك الإطارات الرئيسية."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:93
+#: ../doc/animation.rst:139
 msgid ""
 "OpenShot writes the :guilabel:`Time` curve for you, and you can edit those "
 "keyframes just like any other. See more: :ref:`clip_time_repeat_ref`."
@@ -343,12 +483,12 @@ msgstr ""
 ":ref:`clip_time_repeat_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:97
+#: ../doc/animation.rst:143
 msgid "Bézier Presets"
 msgstr "إعدادات بيزيه المسبقة"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:98
+#: ../doc/animation.rst:144
 msgid ""
 "When using a Bézier curve for animation, OpenShot includes more than 20 "
 "curve presets (which affect the shape of the curve). For example, **Ease-"
@@ -364,7 +504,7 @@ msgstr ""
 "ثم يعود (مما ينتج تأثير ارتداد)."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:103
+#: ../doc/animation.rst:149
 msgid ""
 "To choose a curve preset, right click on the small graph icon next to a key "
 "frame."
@@ -372,11 +512,11 @@ msgstr ""
 "لاختيار إعداد مسبق للمنحنى، انقر بزر الماوس الأيمن على أيقونة الرسم البياني "
 "الصغيرة بجانب إطار المفتاح."
 
-#: ../animation.rst:110
+#: ../doc/animation.rst:156
 msgid "Ken Burns Effect"
 msgstr "تأثير كين بيرنز"
 
-#: ../animation.rst:111
+#: ../doc/animation.rst:157
 msgid ""
 "The **Ken Burns effect** is a pan-and-zoom animation technique — named after"
 " documentary filmmaker Ken Burns — that brings still images or video clips "
@@ -395,13 +535,13 @@ msgstr ""
 "الكامل. راجع :ref:`clip_presets_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:120
+#: ../doc/animation.rst:166
 msgid "Image Sequences"
 msgstr "تسلسلات الصور"
 
 # Translated with gpt-4.1-mini
 # Updated/fixed translation with gpt-4.1-mini
-#: ../animation.rst:121
+#: ../doc/animation.rst:167
 msgid ""
 "If you have a sequence of similarly named images (such as, cat001.png, "
 "cat002.png, cat003.png, etc...), you can simply drag and drop one of them "
@@ -417,7 +557,7 @@ msgstr ""
 "معدل الإطارات الخاص بها."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:126
+#: ../doc/animation.rst:172
 msgid ""
 "**NOTE:** Be sure your image sequence starts at 0 or 1, or you will likely "
 "receive an error when importing it into OpenShot. For example, if your "
@@ -431,7 +571,7 @@ msgstr ""
 "التسلسل. الحل السهل هو إعادة ترقيم الصور بحيث تبدأ من 1."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:132
+#: ../doc/animation.rst:178
 msgid ""
 "To adjust the frame rate of the animation, right click and choose **File "
 "Properties** in the **Project Files** panel, and adjust the frame rate. Once"
@@ -442,12 +582,12 @@ msgstr ""
 "الإطارات الصحيح، اسحب الرسوم المتحركة إلى الجدول الزمني."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:143
+#: ../doc/animation.rst:189
 msgid "File Properties"
 msgstr "خصائص الملف"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:143
+#: ../doc/animation.rst:189
 msgid ""
 "Select an image sequence in the **Project Files** panel, right click and "
 "choose **File Properties**"
@@ -456,18 +596,68 @@ msgstr ""
 "**خصائص الملف**"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:144
+#: ../doc/animation.rst:190
 msgid "Frame Rate"
 msgstr "معدل الإطارات"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:144
+#: ../doc/animation.rst:190
 msgid ""
 "Adjust the frame rate of the animation. Typically, hand-drawn animations use"
 " 12 frames per second."
 msgstr ""
 "اضبط معدل الإطارات للرسوم المتحركة. عادةً، تستخدم الرسوم المتحركة المرسومة "
 "يدويًا 12 إطارًا في الثانية."
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "When the play-head is on an interpolated value, the property appears blue"
+#~ msgstr "عندما يكون رأس التشغيل على قيمة مستوفاة، تظهر الخاصية باللون الأزرق"
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "Click and drag your mouse to adjust the value (this automatically creates a "
+#~ "key frame if needed)"
+#~ msgstr ""
+#~ "انقر واسحب الماوس لضبط القيمة (يتم إنشاء إطار رئيسي تلقائيًا إذا لزم الأمر)"
+
+#~ msgid ""
+#~ "Colorful icons line the bottom of the clip for every keyframe "
+#~ "(`circle=Bézier`, `diamond=linear`, `square=constant`). Each icon matches "
+#~ "the color of its clip, effect, or transition. The selected item's keyframe "
+#~ "icons are shown brighter. Filtering the property list also filters these "
+#~ "icons. Click any icon to jump the play-head, load its properties, and select"
+#~ " its clip, effect, or transition. Drag an icon left or right to move the "
+#~ "keyframe and fine‑tune your animation timing. The play-head moves to the "
+#~ "keyframe's new position when you finish dragging."
+#~ msgstr ""
+#~ "تُرص الأيقونات الملونة في أسفل المقطع لكل إطار رئيسي (`circle=Bézier`، "
+#~ "`diamond=linear`، `square=constant`). تتطابق كل أيقونة مع لون المقطع أو "
+#~ "التأثير أو الانتقال الخاص بها. تُعرض أيقونات الإطار الرئيسي للعنصر المحدد "
+#~ "بشكل أكثر سطوعًا. يؤدي تصفية قائمة الخصائص أيضًا إلى تصفية هذه الأيقونات. "
+#~ "انقر على أي أيقونة للقفز إلى رأس التشغيل، وتحميل خصائصها، وتحديد المقطع أو "
+#~ "التأثير أو الانتقال الخاص بها. اسحب أيقونة إلى اليسار أو اليمين لتحريك "
+#~ "الإطار الرئيسي وضبط توقيت الرسوم المتحركة بدقة. يتحرك رأس التشغيل إلى الموضع"
+#~ " الجديد للإطار الرئيسي عند الانتهاء من السحب."
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "To create a key frame in OpenShot, simply position the play-head (i.e. "
+#~ "playback position) at any point over a clip, and edit properties in the "
+#~ "property dialog. If the property supports key frames, it will turn green, "
+#~ "and a small icon (`circle=Bézier, diamond=linear, square=constant`) will "
+#~ "appear on the bottom of your clip at that position. Move your play-head to "
+#~ "another point over that clip, and adjust the properties again. All "
+#~ "animations require at least 2 key frames, but can support an unlimited "
+#~ "number of them."
+#~ msgstr ""
+#~ "لإنشاء إطار رئيسي في OpenShot، ببساطة ضع رأس التشغيل (أي موضع التشغيل) في أي"
+#~ " نقطة فوق المقطع، وقم بتحرير الخصائص في مربع حوار الخصائص. إذا كانت الخاصية "
+#~ "تدعم الإطارات الرئيسية، ستتحول إلى اللون الأخضر، وستظهر أيقونة صغيرة "
+#~ "(`circle=Bézier, diamond=linear, square=constant`) في أسفل المقطع عند تلك "
+#~ "النقطة. حرك رأس التشغيل إلى نقطة أخرى فوق ذلك المقطع، واضبط الخصائص مرة "
+#~ "أخرى. تتطلب جميع الرسوم المتحركة على الأقل إطارين رئيسيين، لكنها يمكن أن "
+#~ "تدعم عددًا غير محدود منها."
 
 # Translated with gpt-4.1-mini
 #~ msgid ""

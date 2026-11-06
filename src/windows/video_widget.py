@@ -38,7 +38,7 @@ from qt_api import modifiers_has
 from qt_api import (
     QTransform, QPainter, QIcon, QColor, QPen, QBrush, QCursor, QImage, QRegion
 )
-from qt_api import QSizePolicy, QWidget, QPushButton
+from qt_api import QSizePolicy, QWidget, QPushButton, QToolTip, QEvent
 
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
@@ -340,6 +340,11 @@ class VideoWidget(QWidget, updates.UpdateInterface):
     def clearTransformState(self):
         """Clear all transform-related state to avoid using invalid clip/effect objects"""
         self._restore_transform_playback_cache()
+        self.mouse_pressed = False
+        self.mouse_dragging = False
+        self.middle_pan_active = False
+        if QWidget.mouseGrabber() is self:
+            self.releaseMouse()
         self.transforming_clip = None
         self.transforming_clips.clear()
         self.transforming_clip_objects.clear()
@@ -725,8 +730,10 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                     union_rect = clip_rect
                     first_props = clip_props
 
-            # Draw handler(s)
-            if union_rect and first_props and not self.region_enabled:
+            # Draw handler(s); text edit mode shows its own text box instead.
+            text = getattr(getattr(self, "win", None), "direct_text", None)
+            text_editing = bool(text and text.draft is not None)
+            if union_rect and first_props and not self.region_enabled and not text_editing:
                 x = union_rect.x()
                 y = union_rect.y()
                 sw = union_rect.width()
@@ -948,9 +955,28 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         """ Connect signals to renderer """
         renderer.present.connect(self.present)
 
+    def mouseDoubleClickEvent(self, event):
+        text = getattr(getattr(self, "win", None), "direct_text", None)
+        if text and text.draft is not None:
+            event.accept()
+            return
+        if text and event.button() == Qt.LeftButton:
+            clip_id = text.hit(event.pos())
+            if clip_id:
+                text.begin(clip_id)
+                event.accept()
+                return
+        super().mouseDoubleClickEvent(event)
+
     def mousePressEvent(self, event):
         """Capture mouse press event on video preview window"""
         event.accept()
+        text = getattr(getattr(self, "win", None), "direct_text", None)
+        if text and text.draft is not None:
+            return
+        if text and text.armed and event.button() == Qt.LeftButton:
+            text.create(event.pos())
+            return
         if event.button() == Qt.MiddleButton or (
                 event.button() == Qt.LeftButton and getattr(self, "preview_pan_enabled", False)):
             self.mouse_pressed = True
@@ -1344,10 +1370,35 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         if not self.transform_mode or self.transform_mode == self.hover_transform_mode:
             self.setCursor(cursor)
 
+    def event(self, event):
+        # The zoom/pan hint is for an idle preview. Never cover handles, a
+        # region or the text editor (whose tooltip events bubble up here).
+        if event.type() == QEvent.ToolTip:
+            text = getattr(getattr(self, "win", None), "direct_text", None)
+            if (self.transforming_clip or self.region_enabled or self.mouse_dragging
+                    or (text and text.draft is not None)):
+                QToolTip.hideText()
+                event.ignore()
+                return True
+        return super().event(event)
+
     def mouseMoveEvent(self, event):
         """Capture mouse events on video preview window """
+        text = getattr(getattr(self, "win", None), "direct_text", None)
+        if text and text.draft is not None:
+            event.accept()
+            return
         self.mutex.lock()
         event.accept()
+
+        # A double-click can move focus to an editor before the matching release.
+        # Mouse tracking alone must never continue a transform gesture.
+        if not event.buttons() & (Qt.LeftButton | Qt.MiddleButton):
+            self.mouse_pressed = False
+            self.mouse_dragging = False
+            self.middle_pan_active = False
+            self.transform_mode = None
+            self.rotation_drag_value = None
 
         if self.mouse_pressed:
             self.mouse_dragging = True
@@ -1500,6 +1551,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                         y_motion_unrotated = -math.sin(rad) * x_motion + math.cos(rad) * y_motion
                         x_motion, y_motion = x_motion_unrotated, y_motion_unrotated
 
+                values = {}
                 if self.transform_mode == 'origin':
                     # Get current keyframe value
                     origin_x = raw_properties.get('origin_x').get('value')
@@ -1521,19 +1573,8 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                     if origin_y > 1.0:
                         origin_y = 1.0
                     # Update keyframe value (or create new one)
-                    self.updateClipProperty(
-                        self.transforming_clips[0].id, clip_frame_number,
-                        'origin_x', origin_x,
-                        refresh=False)
-                    self.updateClipProperty(
-                        self.transforming_clips[0].id, clip_frame_number,
-                        'origin_y', origin_y)
-                    self._apply_delta_to_clips(
-                        'origin_x', origin_x - raw_properties.get('origin_x').get('value'),
-                        fps_float, frame_number=clip_frame_number)
-                    self._apply_delta_to_clips(
-                        'origin_y', origin_y - raw_properties.get('origin_y').get('value'),
-                        fps_float, frame_number=clip_frame_number)
+                    values['origin_x'] = origin_x
+                    values['origin_y'] = origin_y
 
                 elif self.transform_mode == 'location':
                     # Get current keyframe value
@@ -1571,19 +1612,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                         location_y += y_motion / viewport_rect.height()
 
                     # Update keyframe value (or create new one)
-                    self.updateClipProperty(
-                        self.transforming_clips[0].id, clip_frame_number,
-                        'location_x', location_x,
-                        refresh=False)
-                    self.updateClipProperty(
-                        self.transforming_clips[0].id, clip_frame_number,
-                        'location_y', location_y)
-                    self._apply_delta_to_clips(
-                        'location_x', location_x - raw_properties.get('location_x').get('value'),
-                        fps_float, frame_number=clip_frame_number)
-                    self._apply_delta_to_clips(
-                        'location_y', location_y - raw_properties.get('location_y').get('value'),
-                        fps_float, frame_number=clip_frame_number)
+                    values.update({'location_x': location_x, 'location_y': location_y})
 
                 elif self.transform_mode == 'shear_top':
                     # Get current keyframe shear value
@@ -1595,12 +1624,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                     shear_x -= x_motion / ((self.clipBounds.width() * scale_x) / aspect_ratio)
 
                     # Update keyframe value (or create new one)
-                    self.updateClipProperty(
-                        self.transforming_clips[0].id, clip_frame_number,
-                        'shear_x', shear_x)
-                    self._apply_delta_to_clips(
-                        'shear_x', shear_x - raw_properties.get('shear_x').get('value'),
-                        fps_float, frame_number=clip_frame_number)
+                    values['shear_x'] = shear_x
 
                 elif self.transform_mode == 'shear_bottom':
                     # Get current keyframe shear value
@@ -1612,12 +1636,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                     shear_x += x_motion / ((self.clipBounds.width() * scale_x) / aspect_ratio)
 
                     # Update keyframe value (or create new one)
-                    self.updateClipProperty(
-                        self.transforming_clips[0].id, clip_frame_number,
-                        'shear_x', shear_x)
-                    self._apply_delta_to_clips(
-                        'shear_x', shear_x - raw_properties.get('shear_x').get('value'),
-                        fps_float, frame_number=clip_frame_number)
+                    values['shear_x'] = shear_x
 
                 elif self.transform_mode == 'shear_left':
                     # Get current keyframe shear value
@@ -1629,12 +1648,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                     shear_y -= y_motion / (self.clipBounds.height() * scale_y / aspect_ratio)
 
                     # Update keyframe value (or create new one)
-                    self.updateClipProperty(
-                        self.transforming_clips[0].id, clip_frame_number,
-                        'shear_y', shear_y)
-                    self._apply_delta_to_clips(
-                        'shear_y', shear_y - raw_properties.get('shear_y').get('value'),
-                        fps_float, frame_number=clip_frame_number)
+                    values['shear_y'] = shear_y
 
                 elif self.transform_mode == 'shear_right':
                     # Get current keyframe shear value
@@ -1646,12 +1660,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                     shear_y += y_motion / (self.clipBounds.height() * scale_y / aspect_ratio)
 
                     # Update keyframe value (or create new one)
-                    self.updateClipProperty(
-                        self.transforming_clips[0].id, clip_frame_number,
-                        'shear_y', shear_y)
-                    self._apply_delta_to_clips(
-                        'shear_y', shear_y - raw_properties.get('shear_y').get('value'),
-                        fps_float, frame_number=clip_frame_number)
+                    values['shear_y'] = shear_y
 
                 elif self.transform_mode == 'rotation':
                     # Get current rotation keyframe value
@@ -1677,13 +1686,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                         rotation = self._snap_angle(rotation, 15.0)
 
                     # Update keyframe value (or create new one)
-                    self.updateClipProperty(
-                        self.transforming_clips[0].id,
-                        clip_frame_number,
-                        'rotation', rotation)
-                    self._apply_delta_to_clips(
-                        'rotation', rotation - raw_properties.get('rotation').get('value'),
-                        fps_float, frame_number=clip_frame_number)
+                    values['rotation'] = rotation
 
                 elif self.transform_mode.startswith('scale_'):
                     # Get current scale keyframe value
@@ -1722,22 +1725,13 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                             scale_x = scale_y
 
                     # Update keyframe value (or create new one)
-                    both_scaled = scale_x != 0.001 and scale_y != 0.001
                     if scale_x != 0.001:
-                        self.updateClipProperty(
-                            self.transforming_clips[0].id, clip_frame_number,
-                            'scale_x', scale_x,
-                            refresh=(not both_scaled))
-                        self._apply_delta_to_clips(
-                            'scale_x', scale_x - raw_properties.get('scale_x').get('value'),
-                            fps_float, frame_number=clip_frame_number)
+                        values['scale_x'] = scale_x
                     if scale_y != 0.001:
-                        self.updateClipProperty(
-                            self.transforming_clips[0].id, clip_frame_number,
-                            'scale_y', scale_y)
-                        self._apply_delta_to_clips(
-                            'scale_y', scale_y - raw_properties.get('scale_y').get('value'),
-                            fps_float, frame_number=clip_frame_number)
+                        values['scale_y'] = scale_y
+
+                if values:
+                    self._apply_clip_transform(values, raw_properties, clip_frame_number)
 
             # Force re-paint
             self.update()
@@ -2138,48 +2132,43 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         self.mutex.unlock()
 
     def updateClipProperty(self, clip_id, frame_number, property_key, new_value, refresh=True):
-        """Update a keyframe property to a new value, adding or updating keyframes as needed"""
-        found_point = False
-        clip_updated = False
+        """Update one keyframe property."""
+        self.updateClipProperties(clip_id, frame_number, {property_key: new_value}, refresh)
 
+    def updateClipProperties(self, clip_id, frame_number, values, refresh=True):
+        """Apply one transform sample together, refreshing dependent UI only once."""
         c = Clip.get(id=clip_id)
         if not c:
-            # No clip found
             return
-
-        # Property missing? Create it!
-        if property_key not in c.data:
-            c.data[property_key] = {"Points": []}
-            log.warning("%s: Added missing '%s' to property data", clip_id, property_key)
-
-        points = c.data.get(property_key, {}).get("Points", [])
+        changed = {}
         auto_keyframes = auto_keyframes_enabled(get_app().window)
-        frame_number = edit_frame(points, frame_number, auto_keyframes)
-        for point in points:
-            co = point.get("co", {})
+        for property_key, new_value in values.items():
+            if property_key not in c.data:
+                c.data[property_key] = {"Points": []}
+                log.warning("%s: Added missing '%s' to property data", clip_id, property_key)
+            points = c.data.get(property_key, {}).get("Points", [])
+            target_frame = edit_frame(points, frame_number, auto_keyframes)
+            found_point = False
+            for point in points:
+                if point.get("co", {}).get("X") == target_frame:
+                    found_point = True
+                    point["co"]["Y"] = float(new_value)
+                    if auto_keyframes:
+                        point["interpolation"] = openshot.BEZIER
+                    changed[property_key] = c.data[property_key]
+            if not found_point and new_value is not None:
+                log.debug("Creating new point at X=%s", target_frame)
+                c.data[property_key]["Points"].append({
+                    'co': {'X': target_frame, 'Y': float(new_value)},
+                    'interpolation': openshot.BEZIER
+                })
+                changed[property_key] = c.data[property_key]
 
-            if co.get("X") == frame_number:
-                found_point = True
-                clip_updated = True
-                point["co"]["Y"] = float(new_value)
-                if auto_keyframes:
-                    point["interpolation"] = openshot.BEZIER
-
-        if not found_point and new_value is not None:
-            clip_updated = True
-            log.debug("Creating new point at X=%s", frame_number)
-            c.data[property_key]["Points"].append({
-                'co': {'X': frame_number, 'Y': float(new_value)},
-                'interpolation': openshot.BEZIER
-            })
-
-        if clip_updated:
-            # Reduce # of clip properties we are saving (performance boost)
-            c.data = {property_key: c.data.get(property_key)}
+        if changed:
+            c.data = changed
             if self.transaction_id:
                 get_app().updates.transaction_id = self.transaction_id
             c.save()
-            # Update the preview
             if refresh:
                 get_app().window.refreshFrameSignal.emit()
 
@@ -2354,17 +2343,18 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
         return frame
 
-    def _apply_delta_to_clips(self, property_key, delta, fps_float, frame_number=None):
+    def _apply_clip_transform(self, values, primary_properties, frame_number):
+        """Save each selected clip once per mouse sample, then refresh once."""
+        pending = [(self.transforming_clips[0].id, frame_number, values)]
+        frame = max(1, int(round(frame_number)))
+        deltas = {key: value - primary_properties[key]['value'] for key, value in values.items()}
         for clip, obj in zip(self.transforming_clips[1:], self.transforming_clip_objects[1:]):
-            if frame_number is None:
-                frame = self._get_clip_frame_number(clip, fps_float)
-            else:
-                frame = max(1, int(round(frame_number)))
-            props = json.loads(obj.PropertiesJSON(frame))
-            value = props.get(property_key).get('value')
-            if self.transaction_id:
-                get_app().updates.transaction_id = self.transaction_id
-            self.updateClipProperty(clip.id, frame, property_key, value + delta, refresh=False)
+            properties = json.loads(obj.PropertiesJSON(frame))
+            pending.append((clip.id, frame, {
+                key: properties[key]['value'] + delta for key, delta in deltas.items()}))
+        for clip_id, frame, changed in pending:
+            self.updateClipProperties(clip_id, frame, changed, refresh=False)
+        get_app().window.refreshFrameSignal.emit()
 
     def _crop_resize_rect(self, width, height, left, top, right, bottom, x_off, y_off):
         width = float(max(width, 0.0))

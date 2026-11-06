@@ -40,6 +40,7 @@ from qt_api import (
     QRadialGradient,
 )
 from qt_api import QGraphicsBlurEffect, QGraphicsPixmapItem, QGraphicsScene
+from qt_api import QObject, QRunnable, QThreadPool, pyqtSignal
 import copy
 import json
 import copy
@@ -63,6 +64,7 @@ from classes.waveform import (
 )
 from classes import info
 from classes.clip_utils import is_single_image_media
+from classes.path_utils import absolute_media_path
 from classes.qt_types import font_metrics_horizontal_advance
 
 from .base import BasePainter
@@ -180,6 +182,33 @@ def resolve_source_frame(clip, clip_time_seconds, clip_fps, project_fps=None, fa
     return max(1, mapped_frame or frame)
 
 
+# Marks a text thumbnail still rendering, so the clip image is not cached.
+TEXT_THUMBNAIL_PENDING = "<text thumbnail pending>"
+
+
+class TextThumbnailSignals(QObject):
+    # path, ok
+    finished = pyqtSignal(str, bool)
+
+
+class TextThumbnailTask(QRunnable):
+    """Render one text thumbnail off the GUI thread."""
+
+    def __init__(self, style, path, device_scale, signals):
+        super().__init__()
+        self.style, self.path, self.device_scale, self.signals = style, path, device_scale, signals
+
+    def run(self):
+        ok = False
+        try:
+            from classes.direct_text import render_text
+            ok = render_text(self.style, os.path.dirname(self.path), black_background=True,
+                             device_scale=self.device_scale) == self.path
+        except Exception:
+            log.warning("Unable to render text thumbnail %s", self.path, exc_info=True)
+        self.signals.finished.emit(self.path, ok)
+
+
 class ClipPainter(ItemHeaderMixin, BasePainter):
     header_kind = "clip"
 
@@ -190,6 +219,14 @@ class ClipPainter(ItemHeaderMixin, BasePainter):
         self._thumbnail_repaint_timer.setInterval(250)
         self._thumbnail_repaint_timer.timeout.connect(self._flush_thumbnail_repaint)
         self._thumb_repaint_pending = False
+        # Text thumbnails: rendered off the GUI thread, then a repaint picks them up.
+        self._text_thumb_pool = QThreadPool(self.w)
+        self._text_thumb_pool.setMaxThreadCount(1)
+        self._text_thumb_signals = TextThumbnailSignals(self.w)
+        self._text_thumb_signals.finished.connect(self._text_thumbnail_finished)
+        self._text_thumb_ready = set()
+        self._text_thumb_jobs = set()
+        self._text_thumb_failed = set()
         self._last_thumb_request_time = {}
         self._slot_fallback_cache = {}
         self._trim_request_cooldown = 0.12
@@ -556,6 +593,48 @@ class ClipPainter(ItemHeaderMixin, BasePainter):
         file_id = data.get("file_id")
         return str(file_id) if file_id else None
 
+    def _direct_text_thumbnail_path(self, clip):
+        """Resolve the clip-owned text raster, which has no project File ID."""
+        data = clip.data if isinstance(clip.data, dict) else {}
+        if not isinstance(data.get("direct_text"), dict):
+            return None
+        reader = data.get("reader") if isinstance(data.get("reader"), dict) else {}
+        if reader.get("type") == "QtTextReader":
+            return self._text_thumbnail(data["direct_text"])
+        path = reader.get("path") or data.get("image")
+        return absolute_media_path(path) if path else None
+
+    def _text_thumbnail(self, style):
+        """Return a ready text thumbnail path, TEXT_THUMBNAIL_PENDING, or None on failure."""
+        from classes.direct_text import text_image_path, text_thumbnail_scale
+        scale = text_thumbnail_scale()
+        path = text_image_path(style, info.THUMBNAIL_PATH, True, scale)
+        if path in self._text_thumb_ready:
+            return path
+        if path in self._text_thumb_failed:
+            return None
+        if os.path.exists(path):
+            self._text_thumb_ready.add(path)
+            return path
+        if path not in self._text_thumb_jobs:
+            self._text_thumb_jobs.add(path)
+            self._text_thumb_pool.start(TextThumbnailTask(copy.deepcopy(style), path, scale,
+                                                          self._text_thumb_signals))
+        return TEXT_THUMBNAIL_PENDING
+
+    def _text_thumbnail_finished(self, path, ok):
+        self._text_thumb_jobs.discard(path)
+        (self._text_thumb_ready if ok else self._text_thumb_failed).add(path)
+        # Clips painted while pending were not cached, so a repaint is enough.
+        self._thumb_repaint_pending = True
+        if not self._thumbnail_repaint_timer.isActive():
+            self._thumbnail_repaint_timer.start(0)
+
+    def shutdown_text_thumbnails(self):
+        """Wait for in-flight text thumbnails before the widget is destroyed."""
+        self._text_thumb_pool.clear()
+        self._text_thumb_pool.waitForDone()
+
     def _clip_is_audio_only(self, clip):
         data = clip.data if isinstance(clip.data, dict) else {}
         reader = data.get("reader") if isinstance(data.get("reader"), dict) else {}
@@ -726,6 +805,10 @@ class ClipPainter(ItemHeaderMixin, BasePainter):
         """Return the source aspect ratio of a clip, falling back to 16:9."""
         data = clip.data if isinstance(clip.data, dict) else {}
         reader = data.get("reader") if isinstance(data.get("reader"), dict) else {}
+        if reader.get("type") == "QtTextReader" and isinstance(data.get("direct_text"), dict):
+            # Text thumbnails are drawn at the media thumbnail size, not the
+            # text box size, so tile them at that aspect ratio.
+            return info.LIST_ICON_SIZE.width() / info.LIST_ICON_SIZE.height()
         w = self._to_float(reader.get("width"))
         h = self._to_float(reader.get("height"))
         if w > 0 and h > 0:
@@ -821,6 +904,7 @@ class ClipPainter(ItemHeaderMixin, BasePainter):
             segment_info.get("thumbnail_view_right"),
             includes_start,
             includes_end,
+            self._direct_text_thumbnail_path(clip),
         ) if use_cache else None
         if use_cache and key in self.clip_cache:
             cached = self.clip_cache[key]
@@ -1322,13 +1406,39 @@ class ClipPainter(ItemHeaderMixin, BasePainter):
             return False
         clip_key = self._clip_key(clip)
         file_id = self._clip_file_id(clip)
-        if not (clip_key and file_id):
+        text_path = self._direct_text_thumbnail_path(clip)
+        if not clip_key or not (file_id or text_path):
             return False
 
         _, clip_duration = self._clip_time_bounds(clip)
         timing = self._segment_timing(segment, clip_duration)
         slots, interval_seconds = self._build_thumbnail_slots(clip, inner, segment, style, timing)
         if not slots:
+            return False
+
+        if text_path is TEXT_THUMBNAIL_PENDING:
+            return True
+        if text_path:
+            # Text rasters are immutable. Include their resolved path so edits,
+            # undo/redo, duplicates and Save As always select the right image.
+            key = (clip_key, ("direct-text", text_path))
+            pix = self.thumb_cache.get(key)
+            if pix is None or pix.isNull():
+                pix = QPixmap(text_path)
+                if pix.isNull():
+                    # Deleted (e.g. cleared thumbnails): render again on the next
+                    # paint. An unreadable existing file is not retried.
+                    self._text_thumb_ready.discard(text_path)
+                    if os.path.exists(text_path):
+                        self._text_thumb_failed.add(text_path)
+                        return False
+                    self._thumb_repaint_pending = True
+                    if not self._thumbnail_repaint_timer.isActive():
+                        self._thumbnail_repaint_timer.start(0)
+                    return True
+                self.thumb_cache[key] = pix
+            for _, rect in slots:
+                self._paint_thumbnail_pixmap(painter, pix, rect, inner)
             return False
 
         clip_fps = self._clip_media_fps(clip)

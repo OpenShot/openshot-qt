@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenShot Video Editor 4.0\n"
+"Project-Id-Version: OpenShot Video Editor 4.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,172 +16,188 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../playback.rst:23
+#: ../doc/playback.rst:23
 msgid "Playback"
 msgstr ""
 
-#: ../playback.rst:24
+#: ../doc/playback.rst:24
 msgid "The preview window is where video & audio playback takes place in OpenShot Video Editor. The preview window utilizes real-time video rendering, caching, re-sampling, and image scaling. This is the primary area for watching back (and listening to) your edits, giving you the feedback needed to make adjustments. It is also one of the most costly operations to your CPU, and requires a modern computer and some reasonable assumptions and factors (listed below)."
 msgstr ""
 
-#: ../playback.rst:30
+#: ../doc/playback.rst:29
+msgid "To watch a file or choose a section before adding it to the timeline, right-click it in Project Files and choose :guilabel:`Preview File` or :guilabel:`Split File`. See :ref:`source_preview_ref`."
+msgstr ""
+
+#: ../doc/playback.rst:34
 msgid "Real-Time Preview"
 msgstr ""
 
-#: ../playback.rst:31
+#: ../doc/playback.rst:35
 msgid "Many factors affect how smoothly the **real-time video preview** can playback on your computer. This requires a fast, modern multi-threaded CPU, lots of RAM (memory), and a modern GPU. We have listed many of the important factors below."
 msgstr ""
 
-#: ../playback.rst:38
+#: ../doc/playback.rst:42
 msgid "Factor"
 msgstr ""
 
-#: ../playback.rst:38
-#: ../playback.rst:97
+#: ../doc/playback.rst:42
+#: ../doc/playback.rst:101
 msgid "Description"
 msgstr ""
 
-#: ../playback.rst:40
+#: ../doc/playback.rst:44
 msgid "CPU"
 msgstr ""
 
-#: ../playback.rst:40
+#: ../doc/playback.rst:44
 msgid "If your CPU is too slow or has too few cores, you will likely experience a slow, choppy preview. We recommend installing OpenShot on fairly modern computer. See :ref:`min_system_req_ref` for more details on the hardware requirements for OpenShot Video Editor."
 msgstr ""
 
-#: ../playback.rst:43
+#: ../doc/playback.rst:47
 msgid "Memory"
 msgstr ""
 
-#: ../playback.rst:43
+#: ../doc/playback.rst:47
 msgid "If your available RAM memory is too limited, you will likely see huge drops in real-time performance, and your entire system will lag. We recommend installing additional RAM in your computer, if possible. See :ref:`min_system_req_ref`."
 msgstr ""
 
-#: ../playback.rst:46
+#: ../doc/playback.rst:50
 msgid "Cache"
 msgstr ""
 
-#: ../playback.rst:46
+#: ../doc/playback.rst:50
 msgid "Your cache settings in the OpenShot Preferences are very important for determining how many frames to processes in advance. A value too low or too high can cause lag during the real-time video preview. The cache is also related to the available RAM. The higher the cache values, the more RAM and CPU is needed. We recommend experimenting with the Cache Preferences in OpenShot if you are experiencing issues with smooth playback. This same caching system also prepares frames ahead of time during export, speeding up the final render. See :ref:`preferences_cache_ref`."
 msgstr ""
 
-#: ../playback.rst:52
+#: ../doc/playback.rst:56
 msgid "Preview Size"
 msgstr ""
 
-#: ../playback.rst:52
+#: ../doc/playback.rst:56
 msgid "The height x width of your preview dock (widget) is very important for smooth real-time previews. The larger the window size, the more pixels must be rendered per frame, and the more CPU and RAM are required. It is recommended to keep reducing the preview window size until you achieve smooth video playback. On a slower computer, the preview window size might need to be very small for real-time previews (i.e. 320 x 240)."
 msgstr ""
 
-#: ../playback.rst:57
+#: ../doc/playback.rst:61
 msgid "Profile"
 msgstr ""
 
-#: ../playback.rst:57
+#: ../doc/playback.rst:61
 msgid "Your project profile determines which size (width x height) and frame rate (FPS) are used during both playback and exporting. For example, if you are using a FHD 1920x1080 sized profile, you can also choose a smaller profile with the same aspect ratio (``16x9`` in this example), to improve the preview speed on slower computers. See :ref:`profiles_ref` for more information on available profiles."
 msgstr ""
 
-#: ../playback.rst:61
+#: ../doc/playback.rst:65
 msgid "FPS (Frame Rate)"
 msgstr ""
 
-#: ../playback.rst:61
+#: ../doc/playback.rst:65
 msgid "The FPS of your project is also very important, and a large factor for smooth video playback. For example, a 60 FPS video must render twice the number of frames, compared to a 30 FPS video. If you are experiencing slow downs in real-time performance, it can be helpful to reduce your project's FPS to a lower value, such as 30 or 24."
 msgstr ""
 
-#: ../playback.rst:65
+#: ../doc/playback.rst:69
 msgid "Matching Rates"
 msgstr ""
 
-#: ../playback.rst:65
+#: ../doc/playback.rst:69
 msgid "It is very important to match your source assets FPS and Sample Rate with your Project FPS and Project sample rate. If either rate does not match exactly, it requires lots of additional CPU and RAM for OpenShot to normalize the mismatching rates. This can lead to audio pops, mis-alignments, duplicate frames, and extra lag in the real-time video preview. You can right-click a file and choose :guilabel:`File Properties`, to inspect the source asset rates, and ensure they match your Project settings (shown at the top of OpenShot). See :ref:`file_properties_ref`."
 msgstr ""
 
-#: ../playback.rst:71
+#: ../doc/playback.rst:75
 msgid "Source Assets"
 msgstr ""
 
-#: ../playback.rst:71
+#: ../doc/playback.rst:75
 msgid "For example, if you are editing 4K 60 FPS source assets, this is likely going to put a strain on your system. A common solution is using another tool (such as FFmpeg) to create a copy (or proxy) of all your source assets, at a lower resolution (and maybe even a lower FPS). It is recommended to keep these proxy video files in their own folder, separate from the original video files. Once you have completed your video editing with the proxy files, simply copy/paste your `*.osp` project file back into the original folder, and export the higher quality, original files."
 msgstr ""
 
-#: ../playback.rst:77
-#: ../playback.rst:101
+#: ../doc/playback.rst:81
+#: ../doc/playback.rst:105
 msgid "Audio Device"
 msgstr ""
 
-#: ../playback.rst:77
+#: ../doc/playback.rst:81
 msgid "If you are still having issues with audio lag or sync, please verify you are using the correct :guilabel:`Playback Audio Device` for playback (in the OpenShot Preferences). See :ref:`preferences_preview_ref`. Verify your default audio device (on your operating system) is using the same sample rate and all *Audio Enhancements* are disabled. On certain operating systems (such as Windows), mismatching sample rates or audio enhancements can cause severe audio / video sync problems. Lastly, try adjusting the :guilabel:`Playback Audio Buffer Size` (lower values will playback audio with less delay, higher values will playback audio with a larger delay). OpenShot defaults to a buffer size of 512, which is reasonable for most systems, however on some systems you might need to lower (or raise) this value for smooth and lag-free audio playback. Be sure to restart OpenShot after changing the audio playback settings."
 msgstr ""
 
-#: ../playback.rst:89
+#: ../doc/playback.rst:93
 msgid "Audio Troubleshooting"
 msgstr ""
 
-#: ../playback.rst:90
+#: ../doc/playback.rst:94
 msgid "If you are still experiencing audio related issues, and the above real-time playback factors did not resolve your issue, here are some additional troubleshooting steps you can take."
 msgstr ""
 
-#: ../playback.rst:97
+#: ../doc/playback.rst:101
 msgid "Step"
 msgstr ""
 
-#: ../playback.rst:99
+#: ../doc/playback.rst:103
 msgid "Latest Daily Build"
 msgstr ""
 
-#: ../playback.rst:99
+#: ../doc/playback.rst:103
 msgid "Verify you are running the latest daily build of OpenShot: https://www.openshot.org/download#daily"
 msgstr ""
 
-#: ../playback.rst:100
+#: ../doc/playback.rst:104
 msgid "Clean Install"
 msgstr ""
 
-#: ../playback.rst:100
+#: ../doc/playback.rst:104
 msgid "See :ref:`preferences_reset_ref` for a clean install"
 msgstr ""
 
-#: ../playback.rst:101
+#: ../doc/playback.rst:105
 msgid "Check that the Playback Audio Device is set correctly for your sound output under Preferences in the Preview tab. Restart OpenShot after changing the settings. You can also try a different audio device (USB, audio over HDMI from the video card, headphones, etc.) to rule out other audio issues. Disable `automatic sound suppression` for voice calls during microphone activity, and disable `Audio Enhancements` under the advanced settings tab of your audio device (not all audio devices have these settings). See :ref:`preferences_preview_ref`."
 msgstr ""
 
-#: ../playback.rst:107
+#: ../doc/playback.rst:111
 msgid "Audio Buffer Size"
 msgstr ""
 
-#: ../playback.rst:107
+#: ../doc/playback.rst:111
 msgid "The audio buffer size is the amount of audio samples which must first be buffered in OpenShot before audio playback can begin. If this value is too low, you might experience audio break-up / crackle / popping. If this value is too high, you might experience delays or lag before audio playback begins. OpenShot defaults this value to 512, which is a reasonable default for most systems, which should provide smooth audio playback with minimal noticeable lag or delay. However, on some systems this value might need to be adjusted up or down, for in-sync and lag-free audio playback. The range is 128 to 4096."
 msgstr ""
 
-#: ../playback.rst:113
+#: ../doc/playback.rst:117
 msgid "Sample Rate"
 msgstr ""
 
-#: ../playback.rst:113
+#: ../doc/playback.rst:117
 msgid "Ensure that the `Default Audio Sample Rate` and `Default Audio Channels` on the Preview tab of the Preferences window match your hardware. You can also check these settings in the operating system control panel (i.e. Windows Sound Control Panel). See :ref:`preferences_preview_ref`."
 msgstr ""
 
-#: ../playback.rst:116
+#: ../doc/playback.rst:120
 msgid "Volume"
 msgstr ""
 
-#: ../playback.rst:116
+#: ../doc/playback.rst:120
 msgid "Ensure that the volume does not exceed 100% on overlapping clips (such as an audio track combined with a video track). Lower the volume on individual clips if needed. See :ref:`clip_volume_mixing_ref`."
 msgstr ""
 
-#: ../playback.rst:118
+#: ../doc/playback.rst:122
 msgid "Headphones"
 msgstr ""
 
-#: ../playback.rst:118
+#: ../doc/playback.rst:122
 msgid "If you're using headphones, plug them in before starting OpenShot. Launching OpenShot with no speakers, headphones, or valid audio playback device can cause OpenShot to freeze during playback."
 msgstr ""
 
-#: ../playback.rst:120
+#: ../doc/playback.rst:124
 msgid "OS Updates"
 msgstr ""
 
-#: ../playback.rst:120
+#: ../doc/playback.rst:124
 msgid "Update your operating system and any pending security updates. Some audio issues, especially audio device specific issues, can be resolved with an operating system update."
+msgstr ""
+
+#: ../doc/playback.rst:129
+msgid "Smoother playback with optimized videos"
+msgstr ""
+
+#: ../doc/playback.rst:130
+msgid "If your source videos are difficult to play smoothly, enable :menuselection:`File --> Auto-Optimize`. OpenShot identifies videos on your computer using their recorded thumbnail timings, and creates smaller preview copies for videos above the threshold in :menuselection:`Edit --> Preferences --> Optimize`. This setting belongs to the current project and is saved with it. You can keep editing while copies are created; exporting still uses your original files."
+msgstr ""
+
+#: ../doc/playback.rst:137
+msgid "See :ref:`optimize_ref` for the banner, progress indicators, and manual optimization options, or :ref:`preferences_optimize_ref` to adjust the threshold and default behavior."
 msgstr ""

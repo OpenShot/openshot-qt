@@ -29,6 +29,7 @@
 
 from classes.logger import log
 from classes.app import get_app
+from qt_api import QObject, isdeleted
 import json
 import uuid
 
@@ -419,12 +420,16 @@ class UpdateManager:
 
         try:
             # Loop through all listeners
-            for listener in self.updateListeners:
+            for listener in list(self.updateListeners):
+                if isinstance(listener, QObject) and isdeleted(listener):
+                    self.disconnect_listener(listener)
+                    continue
                 # Invoke change method on listener
                 listener.changed(action)
 
         except Exception as ex:
-            log.error("Couldn't apply '{}' to update listener: {}\n{}".format(action.type, listener, ex))
+            log.error("Couldn't apply '%s' to update listener: %s (key=%s)\n%s",
+                      action.type, listener, action.key, ex, exc_info=True)
         self.update_watchers()
 
     # Perform load action (loading all project data), clearing history for taking a new path

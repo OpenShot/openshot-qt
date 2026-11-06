@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-26 14:26-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,12 +20,12 @@ msgstr ""
 "Generated-By: Babel 2.10.3\n"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:23
+#: ../doc/troubleshoot.rst:23
 msgid "Troubleshooting"
 msgstr "समस्या निवारण"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:25
+#: ../doc/troubleshoot.rst:25
 msgid ""
 "If you are experiencing an issue with OpenShot, such as a freeze, crash, or "
 "error message, there are many different techniques which can be useful for "
@@ -34,11 +34,101 @@ msgstr ""
 "यदि आप OpenShot में फ्रीज, क्रैश, या त्रुटि संदेश जैसी समस्या का सामना कर "
 "रहे हैं, तो समस्या निवारण के लिए कई विभिन्न तकनीकें उपयोगी हो सकती हैं।"
 
-#: ../troubleshoot.rst:31
+#: ../doc/troubleshoot.rst:31
+msgid "Large or Slow Project Files with Audio Waveforms"
+msgstr "ऑडियो वेवफॉर्म के साथ बड़े या धीमे प्रोजेक्ट फ़ाइलें"
+
+#: ../doc/troubleshoot.rst:33
+msgid ""
+"Older projects with many audio waveforms can have unusually large ``.osp`` "
+"files and take longer to open or save. Older builds stored the waveform "
+"measurements inside the project file, sometimes repeating them for clips and"
+" undo history."
+msgstr ""
+"कई ऑडियो वेवफॉर्म वाले पुराने प्रोजेक्ट्स में असामान्य रूप से बड़े ``.osp`` "
+"फ़ाइलें हो सकती हैं और इन्हें खोलने या सहेजने में अधिक समय लग सकता है। "
+"पुराने संस्करणों में वेवफॉर्म माप प्रोजेक्ट फ़ाइल के अंदर संग्रहीत होते थे, "
+"कभी-कभी क्लिप्स और पूर्ववत इतिहास के लिए इन्हें दोहराया जाता था।"
+
+#: ../doc/troubleshoot.rst:37
+msgid ""
+"The latest build stores these measurements in **separate compressed waveform"
+" files** instead. The project keeps small references to those files, "
+"reducing the data copied during editing and written into the ``.osp`` file. "
+"These files describe audio levels for display, not copies of the audio "
+"itself; your media and exported sound are unchanged."
+msgstr ""
+"नवीनतम संस्करण इन मापों को इसके बजाय **अलग संपीड़ित वेवफॉर्म फ़ाइलों** में "
+"संग्रहीत करता है। प्रोजेक्ट उन फ़ाइलों के लिए छोटे संदर्भ रखता है, जिससे "
+"संपादन के दौरान कॉपी किए गए डेटा और ``.osp`` फ़ाइल में लिखे गए डेटा की "
+"मात्रा कम हो जाती है। ये फ़ाइलें ऑडियो स्तरों का प्रदर्शन करने के लिए होती "
+"हैं, ऑडियो की प्रतियां नहीं; आपका मीडिया और निर्यातित ध्वनि अपरिवर्तित रहती "
+"है।"
+
+#: ../doc/troubleshoot.rst:43
+msgid "To update an older project:"
+msgstr "पुराने प्रोजेक्ट को अपडेट करने के लिए:"
+
+#: ../doc/troubleshoot.rst:45
+msgid ""
+"Open it in the latest build. OpenShot automatically moves embedded waveform "
+"data into its waveform cache, preserving the existing waveform appearance."
+msgstr ""
+"इसे नवीनतम संस्करण में खोलें। OpenShot स्वचालित रूप से एम्बेडेड वेवफॉर्म "
+"डेटा को उसके वेवफॉर्म कैश में स्थानांतरित करता है, मौजूदा वेवफॉर्म की "
+"उपस्थिति को बनाए रखते हुए।"
+
+#: ../doc/troubleshoot.rst:47
+msgid ""
+"Choose :guilabel:`File → Save Project As` to keep the original project as a "
+"backup, or save normally to update the existing file."
+msgstr ""
+":guilabel:`File → Save Project As` चुनें ताकि मूल प्रोजेक्ट को बैकअप के रूप "
+"में रखा जा सके, या मौजूदा फ़ाइल को अपडेट करने के लिए सामान्य रूप से सहेजें।"
+
+#: ../doc/troubleshoot.rst:49
+msgid ""
+"Keep the saved project's ``_assets`` folder alongside its ``.osp`` file when"
+" copying or backing up the project."
+msgstr ""
+"प्रोजेक्ट की कॉपी या बैकअप करते समय सहेजे गए प्रोजेक्ट के ``_assets`` "
+"फ़ोल्डर को उसकी ``.osp`` फ़ाइल के साथ रखें।"
+
+#: ../doc/troubleshoot.rst:52
+msgid ""
+"For example, ``MyProject.osp`` stores its compressed ``.wfc`` waveform files"
+" in ``MyProject_assets/waveforms/``. Each file contains compact numeric "
+"measurements compressed for storage. Identical waveform data can share the "
+"same cache file. OpenShot also uses a local cache while you work, including "
+"before the first save."
+msgstr ""
+"उदाहरण के लिए, ``MyProject.osp`` अपनी संपीड़ित ``.wfc`` वेवफॉर्म फ़ाइलों को "
+"``MyProject_assets/waveforms/`` में संग्रहीत करता है। प्रत्येक फ़ाइल में "
+"संग्रहण के लिए संपीड़ित संख्यात्मक माप होते हैं। समान वेवफॉर्म डेटा एक ही "
+"कैश फ़ाइल साझा कर सकते हैं। OpenShot आपके काम के दौरान, पहली बार सहेजने से "
+"पहले भी, एक स्थानीय कैश का उपयोग करता है।"
+
+#: ../doc/troubleshoot.rst:57
+msgid ""
+"The first opening still needs to read the old embedded data, so it can take "
+"time. The smaller project file is written when you save. Generating a "
+"waveform for a new, long audio file still requires analyzing that audio. If "
+"waveform cache files are missing, OpenShot can rebuild visible waveforms "
+"from the original media. See :ref:`timeline_waveform_display_ref` for "
+"waveform display and regeneration options."
+msgstr ""
+"पहली बार खोलने पर अभी भी पुराने एम्बेडेड डेटा को पढ़ना पड़ता है, इसलिए इसमें"
+" समय लग सकता है। छोटी प्रोजेक्ट फ़ाइल तब लिखी जाती है जब आप सहेजते हैं। नए, "
+"लंबे ऑडियो फ़ाइल के लिए वेवफॉर्म उत्पन्न करने के लिए अभी भी उस ऑडियो का "
+"विश्लेषण आवश्यक होता है। यदि वेवफॉर्म कैश फ़ाइलें गायब हैं, तो OpenShot मूल "
+"मीडिया से दृश्य वेवफॉर्म पुनर्निर्मित कर सकता है। वेवफॉर्म प्रदर्शन और "
+"पुनर्जनन विकल्पों के लिए :ref:`timeline_waveform_display_ref` देखें।"
+
+#: ../doc/troubleshoot.rst:66
 msgid "Using Logs to Troubleshoot a Problem"
 msgstr "समस्या का निवारण करने के लिए लॉग का उपयोग करना"
 
-#: ../troubleshoot.rst:33
+#: ../doc/troubleshoot.rst:68
 msgid ""
 "A log is a text file that records what OpenShot is doing, along with "
 "warnings and errors. These files can help the support team understand a "
@@ -48,7 +138,7 @@ msgstr ""
 "साथ ही चेतावनियाँ और त्रुटियाँ भी। ये फ़ाइलें समर्थन टीम को समस्या समझने में"
 " मदद कर सकती हैं, भले ही आप स्क्रीन पर कोई त्रुटि संदेश न देखें।"
 
-#: ../troubleshoot.rst:37
+#: ../doc/troubleshoot.rst:72
 msgid ""
 "OpenShot keeps two log files in the ``.openshot_qt`` folder inside your home"
 " folder. On Linux and macOS, this location is written as "
@@ -58,23 +148,23 @@ msgstr ""
 "फ़ाइलें रखता है। Linux और macOS पर, इस स्थान को ``~/.openshot_qt/`` के रूप "
 "में लिखा जाता है। यह फ़ोल्डर आपके फ़ाइल प्रबंधक में छिपा हो सकता है।"
 
-#: ../troubleshoot.rst:41
+#: ../doc/troubleshoot.rst:76
 msgid "The two log files"
 msgstr "दोनों लॉग फ़ाइलें"
 
-#: ../troubleshoot.rst:45
+#: ../doc/troubleshoot.rst:80
 msgid "File"
 msgstr "फ़ाइल"
 
-#: ../troubleshoot.rst:46
+#: ../doc/troubleshoot.rst:81
 msgid "What it records"
 msgstr "यह क्या रिकॉर्ड करता है"
 
-#: ../troubleshoot.rst:47 ../troubleshoot.rst:74
+#: ../doc/troubleshoot.rst:82 ../doc/troubleshoot.rst:109
 msgid "``openshot-qt.log``"
 msgstr "``openshot-qt.log``"
 
-#: ../troubleshoot.rst:48
+#: ../doc/troubleshoot.rst:83
 msgid ""
 "Activity in the editor: starting OpenShot, loading projects, changing "
 "settings, and using the interface. This is usually the best place to start "
@@ -84,11 +174,11 @@ msgstr ""
 "और इंटरफ़ेस का उपयोग करना। समस्या की जांच करते समय यह आमतौर पर शुरू करने के "
 "लिए सबसे अच्छा स्थान होता है।"
 
-#: ../troubleshoot.rst:51 ../troubleshoot.rst:77
+#: ../doc/troubleshoot.rst:86 ../doc/troubleshoot.rst:112
 msgid "``libopenshot.log``"
 msgstr "``libopenshot.log``"
 
-#: ../troubleshoot.rst:52
+#: ../doc/troubleshoot.rst:87
 msgid ""
 "Activity in OpenShot's video and audio engine, the part that reads media and"
 " builds the pictures and sound used in previews and exported videos. "
@@ -99,7 +189,7 @@ msgstr ""
 "ध्वनि बनाता है। विस्तृत इंजन लॉगिंग प्लेबैक और निर्यात समस्याओं की जांच में "
 "मदद कर सकती है।"
 
-#: ../troubleshoot.rst:56
+#: ../doc/troubleshoot.rst:91
 msgid ""
 "These files record different parts of the same application. When reporting a"
 " problem, include both files if available. You do not need to understand "
@@ -109,49 +199,49 @@ msgstr ""
 "रिपोर्ट करते समय, यदि उपलब्ध हो तो दोनों फ़ाइलें शामिल करें। आपको हर पंक्ति "
 "को स्वयं समझने की आवश्यकता नहीं है।"
 
-#: ../troubleshoot.rst:61
+#: ../doc/troubleshoot.rst:96
 msgid "Choose which part of OpenShot to log"
 msgstr "OpenShot के किस हिस्से को लॉग करना है चुनें"
 
-#: ../troubleshoot.rst:63
+#: ../doc/troubleshoot.rst:98
 msgid "Open **Edit → Preferences → Advanced** to find these two settings:"
 msgstr ""
 "इन दो सेटिंग्स को खोजने के लिए **संपादित करें → प्राथमिकताएँ → उन्नत** "
 "खोलें:"
 
-#: ../troubleshoot.rst:65
+#: ../doc/troubleshoot.rst:100
 msgid "Preferences and matching terminal options"
 msgstr "प्राथमिकताएँ और मेल खाते टर्मिनल विकल्प"
 
-#: ../troubleshoot.rst:69
+#: ../doc/troubleshoot.rst:104
 msgid "Preference"
 msgstr "प्राथमिकता"
 
-#: ../troubleshoot.rst:70
+#: ../doc/troubleshoot.rst:105
 msgid "Matching argument"
 msgstr "मेल खाता तर्क"
 
-#: ../troubleshoot.rst:71
+#: ../doc/troubleshoot.rst:106
 msgid "Log file"
 msgstr "लॉग फ़ाइल"
 
-#: ../troubleshoot.rst:72
+#: ../doc/troubleshoot.rst:107
 msgid "User Interface Debug Logging"
 msgstr "उपयोगकर्ता इंटरफ़ेस डिबग लॉगिंग"
 
-#: ../troubleshoot.rst:73
+#: ../doc/troubleshoot.rst:108
 msgid "``--debug-ui``"
 msgstr "``--debug-ui``"
 
-#: ../troubleshoot.rst:75
+#: ../doc/troubleshoot.rst:110
 msgid "Video & Audio Engine Debug Logging"
 msgstr "वीडियो और ऑडियो इंजन डिबग लॉगिंग"
 
-#: ../troubleshoot.rst:76 ../troubleshoot.rst:142
+#: ../doc/troubleshoot.rst:111 ../doc/troubleshoot.rst:179
 msgid "``--debug-engine``"
 msgstr "``--debug-engine``"
 
-#: ../troubleshoot.rst:79
+#: ../doc/troubleshoot.rst:114
 msgid ""
 "Both preferences are off by default, which keeps the normal summary "
 "messages. Turning one on adds detail to its log file immediately. It does "
@@ -163,7 +253,7 @@ msgstr ""
 "है। यह दूसरी लॉग को नहीं बदलता या टर्मिनल में संदेश नहीं जोड़ता। "
 "प्राथमिकताएँ चालू रहती हैं जब तक आप उन्हें बंद न करें।"
 
-#: ../troubleshoot.rst:84
+#: ../doc/troubleshoot.rst:119
 msgid ""
 "**User Interface Debug Logging** is a good starting point for problems with "
 "startup, project loading, settings, or the interface. **Video & Audio Engine"
@@ -179,7 +269,7 @@ msgstr ""
 "बहुत तेजी से बढ़ सकते हैं और OpenShot को धीमा कर सकते हैं। समस्या दोहराने से"
 " ठीक पहले इस सेटिंग को चालू करें, फिर बाद में इसे बंद कर दें।"
 
-#: ../troubleshoot.rst:91
+#: ../doc/troubleshoot.rst:126
 msgid ""
 "The engine preference was previously called **Debug Mode (Verbose)**. Its "
 "saved on/off setting carries over to the new name."
@@ -187,11 +277,11 @@ msgstr ""
 "इंजन प्राथमिकता पहले **डिबग मोड (विस्तृत)** के नाम से जानी जाती थी। इसका "
 "सहेजा गया चालू/बंद सेटिंग नए नाम पर लागू होता है।"
 
-#: ../troubleshoot.rst:95
+#: ../doc/troubleshoot.rst:130
 msgid "Use a terminal for one launch"
 msgstr "एक लॉन्च के लिए टर्मिनल का उपयोग करें"
 
-#: ../troubleshoot.rst:97
+#: ../doc/troubleshoot.rst:132
 msgid ""
 "A terminal is a window where you type commands. The matching arguments "
 "enable the same extra detail as the preferences, and also display it in the "
@@ -201,7 +291,7 @@ msgstr ""
 "प्राथमिकताओं के समान अतिरिक्त विवरण सक्षम करते हैं, और इसे टर्मिनल में भी "
 "दिखाते हैं:"
 
-#: ../troubleshoot.rst:104
+#: ../doc/troubleshoot.rst:139
 msgid ""
 "This records interface details for one launch. The familiar ``--debug`` and "
 "shorter ``-d`` options mean exactly the same thing as ``--debug-ui``. For "
@@ -211,11 +301,11 @@ msgstr ""
 "छोटा ``-d`` विकल्प ``--debug-ui`` के समान ही अर्थ रखते हैं। वीडियो और ऑडियो "
 "इंजन विवरण के लिए, उपयोग करें:"
 
-#: ../troubleshoot.rst:112
+#: ../doc/troubleshoot.rst:147
 msgid "To collect both types of detail together:"
 msgstr "दोनों प्रकार के विवरण एक साथ इकट्ठा करने के लिए:"
 
-#: ../troubleshoot.rst:118
+#: ../doc/troubleshoot.rst:153
 msgid ""
 "Repeat the steps that cause the problem, then close OpenShot and collect the"
 " logs. These arguments do not change your saved preferences. Starting "
@@ -225,7 +315,7 @@ msgstr ""
 "इकट्ठा करें। ये तर्क आपकी सहेजी गई प्राथमिकताओं को नहीं बदलते। OpenShot को "
 "सामान्य रूप से शुरू करने पर आपकी सामान्य लॉगिंग सेटिंग्स वापस आ जाती हैं।"
 
-#: ../troubleshoot.rst:122
+#: ../doc/troubleshoot.rst:157
 msgid ""
 "``openshot-qt.log`` starts a new file when it reaches about 25 MB and keeps "
 "three older copies. ``libopenshot.log`` keeps growing as messages are added."
@@ -237,90 +327,95 @@ msgstr ""
 "रहता है। आवश्यक लॉग्स सहेजने के बाद, आप OpenShot बंद रहते हुए पुरानी लॉग "
 "फ़ाइलें हटा सकते हैं।"
 
-#: ../troubleshoot.rst:128
-msgid "Other command-line options"
-msgstr "अन्य कमांड-लाइन विकल्प"
+#: ../doc/troubleshoot.rst:163
+msgid "Other logging options"
+msgstr "अन्य लॉगिंग विकल्प"
 
-#: ../troubleshoot.rst:130
+#: ../doc/troubleshoot.rst:165
 msgid ""
 "Most users only need the two controls above. The following options let you "
 "choose how much detail goes into the files or appears in the terminal. Here,"
-" *console* means the terminal output."
+" *console* means the terminal output. For the complete list of application "
+"launch options, see :ref:`launch_options_ref`. To edit projects or automate "
+"exports from the terminal, see :ref:`cli_ref`."
 msgstr ""
 "अधिकांश उपयोगकर्ताओं को केवल ऊपर दिए गए दो नियंत्रणों की आवश्यकता होती है। "
-"निम्न विकल्प आपको चुनने देते हैं कि फ़ाइलों में या टर्मिनल में कितना विवरण "
-"जाए। यहाँ, *console* का मतलब टर्मिनल आउटपुट है।"
+"निम्न विकल्प आपको यह चुनने देते हैं कि फ़ाइलों में या टर्मिनल में कितनी "
+"जानकारी दिखाई दे। यहाँ, *console* का अर्थ है टर्मिनल आउटपुट। एप्लिकेशन लॉन्च"
+" विकल्पों की पूरी सूची के लिए, :ref:`launch_options_ref` देखें। प्रोजेक्ट "
+"संपादित करने या टर्मिनल से निर्यात स्वचालित करने के लिए, :ref:`cli_ref` "
+"देखें।"
 
-#: ../troubleshoot.rst:134
+#: ../doc/troubleshoot.rst:171
 msgid "Logging options"
 msgstr "लॉगिंग विकल्प"
 
-#: ../troubleshoot.rst:138
+#: ../doc/troubleshoot.rst:175
 msgid "Option"
 msgstr "विकल्प"
 
-#: ../troubleshoot.rst:139
+#: ../doc/troubleshoot.rst:176
 msgid "What it does"
 msgstr "यह क्या करता है"
 
-#: ../troubleshoot.rst:140
+#: ../doc/troubleshoot.rst:177
 msgid "``--debug-ui``, ``--debug``, or ``-d``"
 msgstr "``--debug-ui``, ``--debug``, या ``-d``"
 
-#: ../troubleshoot.rst:141
+#: ../doc/troubleshoot.rst:178
 msgid "Enables User Interface Debug Logging in its file and the terminal."
 msgstr ""
 "इससे उपयोगकर्ता इंटरफ़ेस डिबग लॉगिंग उसकी फ़ाइल और टर्मिनल दोनों में सक्षम "
 "हो जाती है।"
 
-#: ../troubleshoot.rst:143
+#: ../doc/troubleshoot.rst:180
 msgid ""
 "Enables Video & Audio Engine Debug Logging in its file and the terminal."
 msgstr ""
 "इससे वीडियो और ऑडियो इंजन डिबग लॉगिंग उसकी फ़ाइल और टर्मिनल दोनों में सक्षम "
 "हो जाती है।"
 
-#: ../troubleshoot.rst:144
+#: ../doc/troubleshoot.rst:181
 msgid "``--debug-file``"
 msgstr "``--debug-file``"
 
-#: ../troubleshoot.rst:145
+#: ../doc/troubleshoot.rst:182
 msgid ""
 "Adds editor details to ``openshot-qt.log`` without adding terminal detail."
 msgstr ""
 "टर्मिनल विवरण जोड़े बिना ``openshot-qt.log`` में संपादक विवरण जोड़ता है।"
 
-#: ../troubleshoot.rst:146
+#: ../doc/troubleshoot.rst:183
 msgid "``--debug-console``"
 msgstr "``--debug-console``"
 
-#: ../troubleshoot.rst:147
+#: ../doc/troubleshoot.rst:184
 msgid "Adds editor details in the terminal without adding file detail."
 msgstr "फ़ाइल विवरण जोड़े बिना टर्मिनल में संपादक विवरण जोड़ता है।"
 
-#: ../troubleshoot.rst:148
+#: ../doc/troubleshoot.rst:185
 msgid "``--log-level LEVEL``"
 msgstr "``--log-level LEVEL``"
 
-#: ../troubleshoot.rst:149
+#: ../doc/troubleshoot.rst:186
 msgid "Sets the detail for both logs and their terminal output."
 msgstr "दोनों लॉग और उनके टर्मिनल आउटपुट के लिए विवरण स्तर सेट करता है।"
 
-#: ../troubleshoot.rst:150
+#: ../doc/troubleshoot.rst:187
 msgid "``--log-file-level LEVEL``"
 msgstr "``--log-file-level LEVEL``"
 
-#: ../troubleshoot.rst:151
+#: ../doc/troubleshoot.rst:188
 msgid "Sets the detail for both log files, leaving terminal settings alone."
 msgstr ""
 "दोनों लॉग फ़ाइलों के लिए विवरण स्तर सेट करता है, टर्मिनल सेटिंग्स को बिना "
 "बदले।"
 
-#: ../troubleshoot.rst:152
+#: ../doc/troubleshoot.rst:189
 msgid "``--log-console-level LEVEL``"
 msgstr "``--log-console-level LEVEL``"
 
-#: ../troubleshoot.rst:153
+#: ../doc/troubleshoot.rst:190
 msgid ""
 "Sets the detail in the terminal for both the editor and engine, leaving file"
 " settings alone."
@@ -328,7 +423,7 @@ msgstr ""
 "टर्मिनल में संपादक और इंजन दोनों के लिए विवरण सेट करता है, फ़ाइल सेटिंग्स को"
 " अपरिवर्तित छोड़ता है।"
 
-#: ../troubleshoot.rst:156
+#: ../doc/troubleshoot.rst:193
 msgid ""
 "Replace ``LEVEL`` with ``debug`` for detailed messages or ``info`` for the "
 "normal summary. ``warning`` shows warnings and errors; ``error`` shows "
@@ -343,7 +438,7 @@ msgstr ""
 "डायग्नोस्टिक्स अभी भी लिखे जा सकते हैं। बड़े अक्षरों वाले नाम जैसे ``DEBUG``"
 " भी काम करते हैं।"
 
-#: ../troubleshoot.rst:162
+#: ../doc/troubleshoot.rst:199
 msgid ""
 "For example, to collect detailed messages in **both files** while keeping "
 "the terminal at its usual level:"
@@ -351,7 +446,7 @@ msgstr ""
 "उदाहरण के लिए, टर्मिनल को उसकी सामान्य स्तर पर रखते हुए **दोनों फ़ाइलों** "
 "में विस्तृत संदेश एकत्रित करने के लिए:"
 
-#: ../troubleshoot.rst:169
+#: ../doc/troubleshoot.rst:206
 msgid ""
 "This also enables the large engine log, so use it briefly. The older "
 "``--debug-file`` and ``--debug-console`` options still work even though they"
@@ -361,11 +456,11 @@ msgstr ""
 "पुराने ``--debug-file`` और ``--debug-console`` विकल्प अभी भी काम करते हैं, "
 "भले ही वे ``--help`` में सूचीबद्ध न हों।"
 
-#: ../troubleshoot.rst:174
+#: ../doc/troubleshoot.rst:211
 msgid "Environment variables"
 msgstr "पर्यावरण चर"
 
-#: ../troubleshoot.rst:176
+#: ../doc/troubleshoot.rst:213
 msgid ""
 "An environment variable is a named setting passed to a program when it "
 "starts. These are useful when starting OpenShot from a script or when a "
@@ -377,67 +472,67 @@ msgstr ""
 "जब कोई सहायता व्यक्ति आपसे किसी विशेष सेटिंग को आजमाने के लिए कहता है। "
 "सामान्य उपयोग के लिए इन्हें सेट करने की आवश्यकता नहीं है।"
 
-#: ../troubleshoot.rst:180
+#: ../doc/troubleshoot.rst:217
 msgid "Optional environment settings"
 msgstr "वैकल्पिक पर्यावरण सेटिंग्स"
 
-#: ../troubleshoot.rst:184
+#: ../doc/troubleshoot.rst:221
 msgid "Variable"
 msgstr "चर"
 
-#: ../troubleshoot.rst:185
+#: ../doc/troubleshoot.rst:222
 msgid "What it controls"
 msgstr "यह क्या नियंत्रित करता है"
 
-#: ../troubleshoot.rst:186
+#: ../doc/troubleshoot.rst:223
 msgid "``OPENSHOT_LOG_LEVEL``"
 msgstr "``OPENSHOT_LOG_LEVEL``"
 
-#: ../troubleshoot.rst:187
+#: ../doc/troubleshoot.rst:224
 msgid "Detail in both files and the terminal."
 msgstr "दोनों फ़ाइलों और टर्मिनल में विवरण।"
 
-#: ../troubleshoot.rst:188
+#: ../doc/troubleshoot.rst:225
 msgid "``OPENSHOT_LOG_FILE_LEVEL``"
 msgstr "``OPENSHOT_LOG_FILE_LEVEL``"
 
-#: ../troubleshoot.rst:189
+#: ../doc/troubleshoot.rst:226
 msgid "Detail in both files only."
 msgstr "केवल दोनों फ़ाइलों में विवरण।"
 
-#: ../troubleshoot.rst:190
+#: ../doc/troubleshoot.rst:227
 msgid "``OPENSHOT_LOG_CONSOLE_LEVEL``"
 msgstr "``OPENSHOT_LOG_CONSOLE_LEVEL``"
 
-#: ../troubleshoot.rst:191
+#: ../doc/troubleshoot.rst:228
 msgid "Detail in the terminal only, for both parts of OpenShot."
 msgstr "केवल टर्मिनल में विवरण, OpenShot के दोनों भागों के लिए।"
 
-#: ../troubleshoot.rst:192
+#: ../doc/troubleshoot.rst:229
 msgid "``LIBOPENSHOT_LOG_LEVEL``"
 msgstr "``LIBOPENSHOT_LOG_LEVEL``"
 
-#: ../troubleshoot.rst:193
+#: ../doc/troubleshoot.rst:230
 msgid "Detail for the video and audio engine, in its file and the terminal."
 msgstr "वीडियो और ऑडियो इंजन के लिए विवरण, इसकी फ़ाइल और टर्मिनल में।"
 
-#: ../troubleshoot.rst:194
+#: ../doc/troubleshoot.rst:231
 msgid "``LIBOPENSHOT_LOG_FILE_LEVEL``"
 msgstr "``LIBOPENSHOT_LOG_FILE_LEVEL``"
 
-#: ../troubleshoot.rst:195
+#: ../doc/troubleshoot.rst:232
 msgid "Detail in ``libopenshot.log`` only."
 msgstr "केवल ``libopenshot.log`` में विवरण।"
 
-#: ../troubleshoot.rst:196
+#: ../doc/troubleshoot.rst:233
 msgid "``LIBOPENSHOT_LOG_CONSOLE_LEVEL``"
 msgstr "``LIBOPENSHOT_LOG_CONSOLE_LEVEL``"
 
-#: ../troubleshoot.rst:197
+#: ../doc/troubleshoot.rst:234
 msgid "Engine detail in the terminal only."
 msgstr "केवल टर्मिनल में इंजन विवरण।"
 
-#: ../troubleshoot.rst:199
+#: ../doc/troubleshoot.rst:236
 msgid ""
 "For example, this Linux/macOS terminal command requests detailed engine "
 "logging in its file for one launch:"
@@ -445,7 +540,7 @@ msgstr ""
 "उदाहरण के लिए, यह Linux/macOS टर्मिनल कमांड एक लॉन्च के लिए इसकी फ़ाइल में "
 "विस्तृत इंजन लॉगिंग का अनुरोध करता है:"
 
-#: ../troubleshoot.rst:206
+#: ../doc/troubleshoot.rst:243
 msgid ""
 "If settings overlap, command-line options take priority, followed by "
 "environment variables, then Preferences, then the normal defaults. Each "
@@ -461,7 +556,7 @@ msgstr ""
 " गई प्राथमिकताओं को नहीं बदलते। किसी भी चेकबॉक्स पर होवर करें यह देखने के "
 "लिए कि क्या कोई अन्य सेटिंग उस लॉग फ़ाइल को नियंत्रित कर रही है।"
 
-#: ../troubleshoot.rst:212
+#: ../doc/troubleshoot.rst:249
 msgid ""
 "Within the environment settings, ``LIBOPENSHOT_`` values take priority over "
 "``OPENSHOT_`` values for the engine. Within either group, a file-only or "
@@ -477,7 +572,7 @@ msgstr ""
 "विरोधाभासी कमांड-लाइन स्तर अस्वीकार कर दिए जाते हैं; अमान्य पर्यावरण स्तरों "
 "की रिपोर्ट की जाती है और उन्हें अनदेखा किया जाता है।"
 
-#: ../troubleshoot.rst:218
+#: ../doc/troubleshoot.rst:255
 msgid ""
 "For older scripts, ``LIBOPENSHOT_DEBUG`` still enables detailed engine "
 "messages in the terminal whenever it is present, even if its value is ``0``."
@@ -494,12 +589,12 @@ msgstr ""
 "त्रुटि-रिपोर्टिंग प्राथमिकता नहीं बदलती।"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:225
+#: ../doc/troubleshoot.rst:262
 msgid "Windows 11 Unresponsive"
 msgstr "Windows 11 प्रतिक्रिया नहीं दे रहा है"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:227
+#: ../doc/troubleshoot.rst:264
 msgid ""
 "If you experience a freeze on Windows 11, this is a known issue with PyQt5 "
 "and Windows 11, related to the accessibility features in Qt. This is "
@@ -516,7 +611,7 @@ msgstr ""
 "OpenShot अंततः क्रैश न हो जाए या उपयोगकर्ता प्रक्रिया को समाप्त न कर दे)।"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:232
+#: ../doc/troubleshoot.rst:269
 msgid ""
 "A simple work-around is to avoid :kbd:`Ctrl+C` on Windows 11, and instead "
 "use the right-click Copy/Paste menus. Another work-around is to remap your "
@@ -531,12 +626,12 @@ msgstr ""
 ":ref:`preferences_keyboard_ref`।"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:237
+#: ../doc/troubleshoot.rst:274
 msgid "Windows Debugging with GDB"
 msgstr "Windows में GDB के साथ डिबगिंग"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:239
+#: ../doc/troubleshoot.rst:276
 msgid ""
 "If you are experiencing a crash or freeze with OpenShot in Windows 10/11, "
 "the following step by step instructions will help you determine the cause of"
@@ -552,12 +647,12 @@ msgstr ""
 "रिपोर्ट के साथ संलग्न करने के लिए भी बहुत उपयोगी है (तेजी से समाधान के लिए)।"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:245
+#: ../doc/troubleshoot.rst:282
 msgid "Install the Latest Daily Build"
 msgstr "नवीनतम दैनिक बिल्ड स्थापित करें"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:247
+#: ../doc/troubleshoot.rst:284
 msgid ""
 "Before attaching a debugger, please download the **latest version** of "
 "OpenShot: https://www.openshot.org/download#daily. Install this version of "
@@ -574,12 +669,12 @@ msgstr ""
 "को देखें।"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:252
+#: ../doc/troubleshoot.rst:289
 msgid "Install MSYS2"
 msgstr "MSYS2 स्थापित करें"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:254
+#: ../doc/troubleshoot.rst:291
 msgid ""
 "The Windows version of OpenShot is compiled using an environment called "
 "MSYS2. In order to attach the GDB debugger to our executable, ``openshot-"
@@ -590,12 +685,12 @@ msgstr ""
 "लिए, आपको पहले MSYS2 स्थापित करना होगा। यह चरण केवल एक बार आवश्यक है।"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:257
+#: ../doc/troubleshoot.rst:294
 msgid "Download & Install MSYS2: `<http://www.msys2.org/>`_"
 msgstr "MSYS2 डाउनलोड और स्थापित करें: `<http://www.msys2.org/>`_"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:258 ../troubleshoot.rst:274
+#: ../doc/troubleshoot.rst:295 ../doc/troubleshoot.rst:311
 msgid ""
 "Run ``MSYS2 MinGW x64`` command prompt (for example: "
 "``C:\\msys64\\msys2_shell.cmd -mingw64``)"
@@ -604,45 +699,45 @@ msgstr ""
 "``C:\\msys64\\msys2_shell.cmd -mingw64``)"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:259
+#: ../doc/troubleshoot.rst:296
 msgid "Update all packages (*Copy/Paste the following command*):"
 msgstr "सभी पैकेज अपडेट करें (*निम्नलिखित कमांड कॉपी/पेस्ट करें*):"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:265
+#: ../doc/troubleshoot.rst:302
 msgid "Install GDB debugger (*Copy/Paste the following command*):"
 msgstr "GDB डिबगर स्थापित करें (*निम्नलिखित कमांड कॉपी/पेस्ट करें*):"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:272
+#: ../doc/troubleshoot.rst:309
 msgid "Launch OpenShot with GDB Debugger"
 msgstr "GDB डिबगर के साथ OpenShot लॉन्च करें"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:276
+#: ../doc/troubleshoot.rst:313
 msgid "Update the PATH (*Copy/Paste the following commands*):"
 msgstr "PATH अपडेट करें (*निम्नलिखित कमांड कॉपी/पेस्ट करें*):"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:283
+#: ../doc/troubleshoot.rst:320
 msgid ""
 "Load OpenShot into the GDB debugger (*Copy/Paste the following commands*):"
 msgstr ""
 "OpenShot को GDB डिबगर में लोड करें (*निम्नलिखित कमांड कॉपी/पेस्ट करें*):"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:290
+#: ../doc/troubleshoot.rst:327
 msgid "Launch OpenShot from GDB prompt (*Copy/Paste the following command*):"
 msgstr ""
 "GDB प्रॉम्प्ट से OpenShot लॉन्च करें (*निम्नलिखित कमांड कॉपी/पेस्ट करें*):"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:297
+#: ../doc/troubleshoot.rst:334
 msgid "Print Debugging Info"
 msgstr "डिबगिंग जानकारी प्रिंट करें"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:299
+#: ../doc/troubleshoot.rst:336
 msgid ""
 "Once OpenShot has launched successfully with GDB attached, all you need to "
 "do is trigger a crash or freeze in OpenShot. When a crash occurs, switch "
@@ -657,12 +752,12 @@ msgstr ""
 " कमांड नीचे सूचीबद्ध हैं।"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:313
+#: ../doc/troubleshoot.rst:350
 msgid "High DPI / 4K Monitors"
 msgstr "उच्च DPI / 4K मॉनिटर"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:315
+#: ../doc/troubleshoot.rst:352
 msgid ""
 "OpenShot Video Editor provides robust support for High DPI (Dots Per Inch) "
 "monitors, ensuring that the interface looks sharp and is easily readable on "
@@ -675,12 +770,12 @@ msgstr ""
 "उच्च-रिज़ॉल्यूशन डिस्प्ले पर सहायक है।"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:321
+#: ../doc/troubleshoot.rst:358
 msgid "Per Monitor DPI Awareness"
 msgstr "प्रति मॉनिटर DPI जागरूकता"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:323
+#: ../doc/troubleshoot.rst:360
 msgid ""
 "OpenShot is DPI aware on a per-monitor basis, meaning it can adjust its "
 "scaling dynamically depending on the DPI settings of each connected monitor."
@@ -692,12 +787,12 @@ msgstr ""
 "में मदद करता है।"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:328
+#: ../doc/troubleshoot.rst:365
 msgid "DPI Scaling on Windows"
 msgstr "Windows पर DPI स्केलिंग"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:330
+#: ../doc/troubleshoot.rst:367
 msgid ""
 "On Windows, OpenShot rounds the scaling factor to the nearest whole value to"
 " maintain visual integrity. This helps avoid visual artifacts in the UI and "
@@ -710,22 +805,22 @@ msgstr ""
 "स्केलिंग विकल्प अपेक्षा से बड़े फॉन्ट और UI तत्वों का कारण बन सकते हैं।"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:335
+#: ../doc/troubleshoot.rst:372
 msgid "**125% scaling** rounds to **100%**"
 msgstr "**125% स्केलिंग** को **100%** पर गोल किया जाता है"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:336
+#: ../doc/troubleshoot.rst:373
 msgid "**150% scaling** rounds to **200%**"
 msgstr "**150% स्केलिंग** को **200%** पर गोल किया जाता है"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:339
+#: ../doc/troubleshoot.rst:376
 msgid "Workarounds for Fine-Grained Adjustment"
 msgstr "सूक्ष्म समायोजन के लिए समाधान"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:341
+#: ../doc/troubleshoot.rst:378
 msgid ""
 "While rounding helps maintain a clean interface, there are workarounds for "
 "users who require more precise control over scaling. These methods are **not"
@@ -736,12 +831,12 @@ msgstr ""
 "संभावित दृश्य दोषों के कारण ये तरीके **सिफारिश नहीं किए जाते** हैं:"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:345
+#: ../doc/troubleshoot.rst:382
 msgid "**QT_SCALE_FACTOR_ROUNDING_POLICY=PassThrough**"
 msgstr "**QT_SCALE_FACTOR_ROUNDING_POLICY=PassThrough**"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:347
+#: ../doc/troubleshoot.rst:384
 msgid ""
 "Setting this environment variable can disable rounding and allow more "
 "precise scaling."
@@ -750,7 +845,7 @@ msgstr ""
 "की अनुमति मिलती है।"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:348
+#: ../doc/troubleshoot.rst:385
 msgid ""
 "**Note:** This may cause visual artifacts, particularly in the timeline, and"
 " is not recommended."
@@ -759,12 +854,12 @@ msgstr ""
 "सिफारिश नहीं किया जाता है।"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:350
+#: ../doc/troubleshoot.rst:387
 msgid "**QT_SCALE_FACTOR=1.25** (or similar value)"
 msgstr "**QT_SCALE_FACTOR=1.25** (या समान मान)"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:352
+#: ../doc/troubleshoot.rst:389
 msgid ""
 "Manually setting the scale factor can provide finer adjustments to the font "
 "and UI scaling."
@@ -773,7 +868,7 @@ msgstr ""
 " समायोजन संभव होता है।"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:353
+#: ../doc/troubleshoot.rst:390
 msgid ""
 "This can also be set via Preferences (User Interface Scale), but expect "
 "border/line issues on Windows with fractional scales."
@@ -783,7 +878,7 @@ msgstr ""
 "करें।"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:354
+#: ../doc/troubleshoot.rst:391
 msgid ""
 "**Note:** This method can also lead to visual artifacts and make OpenShot "
 "harder to use."
@@ -792,10 +887,22 @@ msgstr ""
 "उपयोग करना कठिन बना सकता है।"
 
 # Translated with gpt-4.1-mini
-#: ../troubleshoot.rst:356
+#: ../doc/troubleshoot.rst:393
 msgid ""
 "For more info on adjusting these environment variables, please visit "
 "https://github.com/OpenShot/openshot-qt/wiki/OpenShot-UI-too-large."
 msgstr ""
 "इन पर्यावरण चर को समायोजित करने के बारे में अधिक जानकारी के लिए, कृपया "
 "https://github.com/OpenShot/openshot-qt/wiki/OpenShot-UI-too-large पर जाएं।"
+
+#~ msgid "Other command-line options"
+#~ msgstr "अन्य कमांड-लाइन विकल्प"
+
+#~ msgid ""
+#~ "Most users only need the two controls above. The following options let you "
+#~ "choose how much detail goes into the files or appears in the terminal. Here,"
+#~ " *console* means the terminal output."
+#~ msgstr ""
+#~ "अधिकांश उपयोगकर्ताओं को केवल ऊपर दिए गए दो नियंत्रणों की आवश्यकता होती है। "
+#~ "निम्न विकल्प आपको चुनने देते हैं कि फ़ाइलों में या टर्मिनल में कितना विवरण "
+#~ "जाए। यहाँ, *console* का मतलब टर्मिनल आउटपुट है।"

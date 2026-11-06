@@ -117,7 +117,7 @@ class ConfettiTests(unittest.TestCase):
                     self.addCleanup(dialog.deleteLater)
                     for name in ("save_settings", "enableControls", "disableControls", "updateFrameRate",
                                  "progressExportVideo", "timeline", "cache_thread",
-                                 "cancel_button", "export_button", "close_button"):
+                                 "cancel_button", "export_button", "close_button", "prepare_next_export"):
                         setattr(dialog, name, Mock())
                     for name, value in {"txtStartFrame": 1, "txtEndFrame": 3,
                             "txtFrameRateNum": 24, "txtFrameRateDen": 1, "txtWidth": 16, "txtHeight": 16,

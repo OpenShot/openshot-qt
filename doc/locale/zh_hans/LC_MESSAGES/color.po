@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 4.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: 2026-08-30 16:50-0500\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,11 +16,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../color.rst:23
+#: ../doc/color.rst:23
 msgid "Color"
 msgstr "颜色"
 
-#: ../color.rst:25
+#: ../doc/color.rst:25
 msgid ""
 "Have you ever noticed that thriller films look gritty and desaturated while "
 "romantic comedies feel vibrant and warm? That is not an accident — it is "
@@ -29,26 +29,26 @@ msgid ""
 "whether you are fixing a problem shot or building a cinematic look from "
 "scratch."
 msgstr ""
-"你是否注意到惊悚片看起来颗粒感强且去饱和，而浪漫喜剧则显得生动而温暖？这不是偶然——这是刻意的**色彩处理**。色彩是视频中最强大的叙事工具之一，OpenShot"
-" 为你提供专业级工具，无论是修复问题镜头还是从零打造电影质感。"
+"你是否注意到惊悚片看起来颗粒感强且去饱和，而浪漫喜剧则显得生动而温暖？这不是偶然——这是刻意的\\ **色彩处理**\\ "
+"。色彩是视频中最强大的叙事工具之一，OpenShot 为你提供专业级工具，无论是修复问题镜头还是从零打造电影质感。"
 
-#: ../color.rst:32
+#: ../doc/color.rst:32
 msgid ""
 "*The OpenShot Color View: video preview in the center, Color Wheels dock on "
 "the right, and video scopes (Luma Waveform and Histogram) below.*"
 msgstr "*OpenShot 颜色视图：中央为视频预览，右侧为色轮面板，下方为视频示波器（亮度波形和直方图）。*"
 
-#: ../color.rst:37
+#: ../doc/color.rst:37
 msgid ""
 ":ref:`effects_color_grade` in :doc:`effects` — full property reference and "
 "keyframe details for the Color Grade effect."
 msgstr ":ref:`effects_color_grade` 在 :doc:`effects` 中 — 色彩分级效果的完整属性参考和关键帧详情。"
 
-#: ../color.rst:43
+#: ../doc/color.rst:43
 msgid "Understanding Color"
 msgstr "理解色彩"
 
-#: ../color.rst:45
+#: ../doc/color.rst:45
 msgid ""
 "Every pixel in a digital video frame is made of three numbers: **Red**, "
 "**Green**, and **Blue** (each 0–255). White is all three at maximum; black "
@@ -56,97 +56,99 @@ msgid ""
 "secondary colors (Red + Green = Yellow, Red + Blue = Magenta, Green + Blue ="
 " Cyan)."
 msgstr ""
-"数字视频帧中的每个像素由三个数字组成：**红色**、**绿色** 和 "
-"**蓝色**（每个范围为0–255）。白色是三者均为最大值；黑色是三者均为零；灰色是任意相等的混合。组合原色会产生次级颜色（红+绿=黄，红+蓝=品红，绿+蓝=青）。"
+"数字视频帧中的每个像素由三个数字组成：\\ **红色**\\ 、\\ **绿色** 和 **蓝色**\\ "
+"（每个范围为0–255）。白色是三者均为最大值；黑色是三者均为零；灰色是任意相等的混合。组合原色会产生次级颜色（红+绿=黄，红+蓝=品红，绿+蓝=青）。"
 
-#: ../color.rst:49
+#: ../doc/color.rst:49
 msgid "Four properties you will adjust constantly:"
 msgstr "你将不断调整的四个属性："
 
-#: ../color.rst:51
+#: ../doc/color.rst:51
 msgid ""
 "**Exposure** — overall brightness. Overexposed footage has many pixels near "
 "255 (blown-out highlights); underexposed footage is crushed near 0."
 msgstr "**曝光** — 整体亮度。过曝画面有许多像素接近255（高光溢出）；欠曝画面则接近0。"
 
-#: ../color.rst:53
+#: ../doc/color.rst:53
 msgid ""
 "**Contrast** — the spread between brightest and darkest. High contrast is "
 "dramatic; low contrast looks flat or milky."
 msgstr "**对比度** — 最亮与最暗之间的差距。高对比度显得戏剧性强；低对比度看起来平淡或发白。"
 
-#: ../color.rst:55
+#: ../doc/color.rst:55
 msgid ""
 "**Saturation** — how vivid the colors are. Zero saturation = grayscale. "
 "Cameras often record slightly less saturation than reality to give editors "
 "more room."
 msgstr "**饱和度** — 颜色的鲜艳程度。饱和度为零即为灰度。相机通常记录的饱和度略低于现实，以便编辑有更多调整空间。"
 
-#: ../color.rst:57
+#: ../doc/color.rst:57
 msgid ""
 "**Hue** — the actual color (red, yellow, green, blue…). Shifting hue rotates"
 " all colors around the color wheel and is mostly used for creative stylistic"
 " effects."
 msgstr "**色相** — 实际颜色（红、黄、绿、蓝……）。调整色相会绕色轮旋转所有颜色，主要用于创造性的风格效果。"
 
-#: ../color.rst:61
+#: ../doc/color.rst:61
 msgid "Video Scopes — What They Are and Why They Matter"
 msgstr "视频示波器——它们是什么及其重要性"
 
-#: ../color.rst:63
+#: ../doc/color.rst:63
 msgid ""
 "Your monitor is not a reliable measuring tool — room lighting, screen "
 "brightness, and uncalibrated displays all affect what you see. **Video "
 "scopes** display the actual pixel values in your image as precise graphs. "
 "They never lie, even if your monitor does."
 msgstr ""
-"你的显示器不是可靠的测量工具——室内光线、屏幕亮度和未校准的显示器都会影响你所见。**视频示波器**以精确图表显示图像的实际像素值。即使显示器有误，它们也不会说谎。"
+"你的显示器不是可靠的测量工具——室内光线、屏幕亮度和未校准的显示器都会影响你所见。\\ **视频示波器**\\ "
+"以精确图表显示图像的实际像素值。即使显示器有误，它们也不会说谎。"
 
-#: ../color.rst:67
+#: ../doc/color.rst:67
 msgid ""
 "OpenShot includes three scopes, all accessible from :guilabel:`View → "
 "Scopes` or opened automatically by the clip menu options described in "
 ":ref:`getting_started_ref`:"
 msgstr ""
 "OpenShot 包含三种示波器，均可通过 :guilabel:`视图 → 示波器` 访问，或通过剪辑菜单选项自动打开，详见 "
-":ref:`getting_started_ref`："
+":ref:`getting_started_ref`\\ ："
 
-#: ../color.rst:70
+#: ../doc/color.rst:70
 msgid ""
 "**Luma Waveform** — shows brightness across the frame, column by column. "
 "Instantly reveals overexposure, underexposure, and contrast problems. See "
 ":ref:`luma_waveform_ref`."
-msgstr "**亮度波形** — 显示帧内每列的亮度。即时揭示过曝、欠曝和对比度问题。详见 :ref:`luma_waveform_ref`。"
+msgstr "**亮度波形** — 显示帧内每列的亮度。即时揭示过曝、欠曝和对比度问题。详见 :ref:`luma_waveform_ref`\\ 。"
 
-#: ../color.rst:72
+#: ../doc/color.rst:72
 msgid ""
 "**Histogram** — shows how many pixels exist at each brightness level. Great "
 "for exposure and channel balance at a glance. See :ref:`histogram_ref`."
-msgstr "**直方图** — 显示每个亮度级别的像素数量。便于快速判断曝光和通道平衡。详见 :ref:`histogram_ref`。"
+msgstr "**直方图** — 显示每个亮度级别的像素数量。便于快速判断曝光和通道平衡。详见 :ref:`histogram_ref`\\ 。"
 
-#: ../color.rst:74
+#: ../doc/color.rst:74
 msgid ""
 "**Vectorscope** — a circular chroma plot showing the hue and saturation of "
 "every pixel. Ideal for checking color casts, overall saturation, and — with "
 "its built-in skin tone line — evaluating faces. See :ref:`vectorscope_ref`."
 msgstr ""
 "**矢量示波器** — 一个圆形色度图，显示每个像素的色相和饱和度。适合检查色偏、整体饱和度，以及利用内置肤色线评估人脸。详见 "
-":ref:`vectorscope_ref`。"
+":ref:`vectorscope_ref`\\ 。"
 
-#: ../color.rst:78
+#: ../doc/color.rst:78
 msgid ""
 "Every scope also has a **Region** button in its toolbar. Click it and drag a"
 " box over any part of the video preview to restrict scope analysis to just "
 "that region — useful for isolating a face, sky, or any specific area of the "
 "frame."
 msgstr ""
-"每个示波器的工具栏都有一个**区域**按钮。点击它并在视频预览上拖动框选任意部分，可将示波器分析限制在该区域——适合隔离人脸、天空或画面中的特定区域。"
+"每个示波器的工具栏都有一个\\ **区域**\\ "
+"按钮。点击它并在视频预览上拖动框选任意部分，可将示波器分析限制在该区域——适合隔离人脸、天空或画面中的特定区域。"
 
-#: ../color.rst:83
+#: ../doc/color.rst:83
 msgid "Color Correction — Fixing What Is Wrong"
 msgstr "色彩校正——修正错误"
 
-#: ../color.rst:85
+#: ../doc/color.rst:85
 msgid ""
 "**Color correction** is the process of fixing technical problems in footage "
 "so it looks the way reality appeared: wrong white balance, bad exposure, "
@@ -155,13 +157,13 @@ msgid ""
 msgstr ""
 "**色彩校正** "
 "是修复素材中技术问题的过程，使其看起来如同现实：错误的白平衡、曝光不当、对比度平淡、色偏等。目标是获得干净、中性的图像，自然且在任何屏幕上都表现良好。详见"
-" :ref:`color_correction_ref`。"
+" :ref:`color_correction_ref`\\ 。"
 
-#: ../color.rst:90
+#: ../doc/color.rst:90
 msgid "Color Grading — Building a Look"
 msgstr "色彩分级——塑造风格"
 
-#: ../color.rst:92
+#: ../doc/color.rst:92
 msgid ""
 "**Color grading** is the creative step: using the same tools to give "
 "corrected footage a deliberate visual mood or style. A warm golden "
@@ -171,23 +173,23 @@ msgid ""
 msgstr ""
 "**色彩分级** "
 "是创造性的步骤：使用相同工具赋予校正后素材特定的视觉氛围或风格。温暖的金色怀旧、冷峻的临床惊悚、电影感的青橙配色——分级让画面从“看起来正确”变为“看起来有意图”。详见"
-" :ref:`color_grading_ref`。"
+" :ref:`color_grading_ref`\\ 。"
 
-#: ../color.rst:99
+#: ../doc/color.rst:99
 msgid "Getting Started"
 msgstr "入门指南"
 
-#: ../color.rst:101
+#: ../doc/color.rst:101
 msgid ""
 "OpenShot offers several ways to open its color tools, depending on what you "
 "need:"
 msgstr "OpenShot 提供多种方式打开色彩工具，取决于你的需求："
 
-#: ../color.rst:106
+#: ../doc/color.rst:106
 msgid "**Right-click a clip → Look → Adjust Colors**"
 msgstr "**右键点击剪辑 → 外观 → 调整颜色**"
 
-#: ../color.rst:104
+#: ../doc/color.rst:104
 msgid ""
 "The quickest all-in-one setup. OpenShot adds the :guilabel:`Color Grade` "
 "effect to the clip, selects it, opens the :guilabel:`Properties` panel, and "
@@ -197,24 +199,24 @@ msgstr ""
 "最快捷的一体化设置。OpenShot 会将 :guilabel:`色彩分级` 效果添加到剪辑，选中它，打开 :guilabel:`属性` 面板，并显示 "
 ":guilabel:`色轮` 面板及所有三个视频示波器——随时准备分级。"
 
-#: ../color.rst:110
+#: ../doc/color.rst:110
 msgid ""
 "**Right-click a clip → Look → Color → [preset]** *(Auto Contrast, Lift "
 "Shadows, Warm Up, Boost Color…)*"
 msgstr "**右键点击剪辑 → 外观 → 颜色 → [预设]** *(自动对比度、提亮阴影、变暖、增强颜色…)*"
 
-#: ../color.rst:109
+#: ../doc/color.rst:109
 msgid ""
 "Adds the Color Grade effect with a useful preset already applied. The Color "
 "Wheels and scopes are not opened automatically — open them any time from "
 ":guilabel:`View → Scopes`."
 msgstr "添加带有实用预设的色彩分级效果。色轮和示波器不会自动打开——可随时从 :guilabel:`视图 → 示波器` 打开。"
 
-#: ../color.rst:115
+#: ../doc/color.rst:115
 msgid "**Right-click a clip → Look → Analyze Colors**"
 msgstr "**右键点击剪辑 → 外观 → 分析颜色**"
 
-#: ../color.rst:113
+#: ../doc/color.rst:113
 msgid ""
 "Opens all three scopes (Luma Waveform, Histogram, and Vectorscope, tabbed "
 "together on the right) without adding any Color Grade effect. Use this to "
@@ -223,11 +225,11 @@ msgid ""
 msgstr ""
 "打开所有三个示波器（亮度波形、直方图和矢量示波器，右侧标签页），但不添加任何色彩分级效果。用于在决定是否需要分级前评估素材，或仅在播放时监控级别。"
 
-#: ../color.rst:120
+#: ../doc/color.rst:120
 msgid "**View → Color View** *(optional immersive mode)*"
 msgstr "**视图 → 颜色视图** *(可选沉浸模式)*"
 
-#: ../color.rst:118
+#: ../doc/color.rst:118
 msgid ""
 "Switches the entire interface into a dedicated color grading layout: the "
 "video preview is maximized in the center, non-color docks are hidden, the "
@@ -236,32 +238,32 @@ msgid ""
 msgstr ""
 "将整个界面切换到专用的调色布局：视频预览最大化显示在中央，非调色面板被隐藏，调色轮面板出现在右侧，示波器显示在下方。完成后可从同一菜单切换回正常布局。"
 
-#: ../color.rst:123
+#: ../doc/color.rst:123
 msgid "**Effects tab → drag Color Grade onto a clip**"
 msgstr "**效果标签 → 将调色效果拖到剪辑上**"
 
-#: ../color.rst:123
+#: ../doc/color.rst:123
 msgid ""
 "The fully manual approach. Add the effect without opening any docks "
 "automatically."
 msgstr "完全手动的方法。添加效果时不会自动打开任何面板。"
 
-#: ../color.rst:128
+#: ../doc/color.rst:128
 msgid "Video Scopes"
 msgstr "视频示波器"
 
-#: ../color.rst:130
+#: ../doc/color.rst:130
 msgid ""
 "Each scope updates live as the playhead moves. Use the **Region** button in "
 "any scope's toolbar to analyze just a selected area of the preview rather "
 "than the whole frame."
-msgstr "随着播放头移动，每个示波器都会实时更新。使用任何示波器工具栏中的**区域**按钮，仅分析预览中的选定区域，而非整个画面。"
+msgstr "随着播放头移动，每个示波器都会实时更新。使用任何示波器工具栏中的\\ **区域**\\ 按钮，仅分析预览中的选定区域，而非整个画面。"
 
-#: ../color.rst:136
+#: ../doc/color.rst:136
 msgid "The Luma Waveform"
 msgstr "亮度波形"
 
-#: ../color.rst:138
+#: ../doc/color.rst:138
 msgid ""
 "The Luma Waveform maps every pixel by horizontal position (X axis = left-to-"
 "right across the frame) and brightness (Y axis = 0% at bottom to 100% at "
@@ -270,164 +272,165 @@ msgid ""
 msgstr ""
 "亮度波形根据水平位置（X轴=从左到右）和亮度（Y轴=底部0%到顶部100%）映射每个像素。在同一水平位置上，多个像素具有相同亮度时，波形轨迹会更亮。"
 
-#: ../color.rst:144
+#: ../doc/color.rst:144
 msgid ""
 "*The Luma Waveform in RGB Parade mode, showing red, green, and blue channels"
 " side by side.*"
 msgstr "*RGB游行模式下的亮度波形，红、绿、蓝通道并排显示。*"
 
-#: ../color.rst:146 ../color.rst:188 ../color.rst:230
+#: ../doc/color.rst:146 ../doc/color.rst:188 ../doc/color.rst:230
 msgid "**How to read it:**"
 msgstr "**如何解读：**"
 
-#: ../color.rst:148
+#: ../doc/color.rst:148
 msgid "Waveform clustered near the **bottom** → underexposed. Raise Exposure."
-msgstr "波形聚集在**底部** → 曝光不足。提高曝光。"
+msgstr "波形聚集在\\ **底部** → 曝光不足。提高曝光。"
 
-#: ../color.rst:149
+#: ../doc/color.rst:149
 msgid ""
 "Waveform packed against the **top** → overexposed. Lower Exposure or "
 "Highlights."
-msgstr "波形紧贴**顶部** → 过曝。降低曝光或高光。"
+msgstr "波形紧贴\\ **顶部** → 过曝。降低曝光或高光。"
 
-#: ../color.rst:150
+#: ../doc/color.rst:150
 msgid ""
 "A **narrow horizontal band** in the middle → low contrast, image looks "
 "milky. Increase Contrast."
-msgstr "中间出现**狭窄的水平带** → 对比度低，图像显得灰蒙蒙。增加对比度。"
+msgstr "中间出现\\ **狭窄的水平带** → 对比度低，图像显得灰蒙蒙。增加对比度。"
 
-#: ../color.rst:151
+#: ../doc/color.rst:151
 msgid ""
 "A **thick line at the very bottom** → blacks are crushed. Raise Shadows or "
 "lift the bottom-left point of Curve: All to restore shadow detail."
-msgstr "在最底部有一条**粗线** → 黑色被压碎。提高阴影或提升“曲线：全部”的左下点以恢复阴影细节。"
+msgstr "在最底部有一条\\ **粗线** → 黑色被压碎。提高阴影或提升“曲线：全部”的左下点以恢复阴影细节。"
 
-#: ../color.rst:154
+#: ../doc/color.rst:154
 msgid ""
 "IRE reference lines appear at 10%, 50%, and 90% as faint dashed lines. A "
 "well-exposed image keeps highlights below 90% and shadows above 5%."
 msgstr "IRE参考线以淡虚线形式出现在10%、50%和90%。曝光良好的图像高光低于90%，阴影高于5%。"
 
-#: ../color.rst:158
+#: ../doc/color.rst:158
 msgid "Waveform Modes"
 msgstr "波形模式"
 
-#: ../color.rst:164
+#: ../doc/color.rst:164
 msgid "Mode"
 msgstr "模式"
 
-#: ../color.rst:164
+#: ../doc/color.rst:164
 msgid "What It Shows"
 msgstr "显示内容"
 
-#: ../color.rst:166
+#: ../doc/color.rst:166
 msgid "Luma"
 msgstr "亮度"
 
-#: ../color.rst:166
+#: ../doc/color.rst:166
 msgid ""
 "Brightness only (ignores color). Best for exposure and contrast work. Trace "
 "color can be changed to Green, White, or Orange."
 msgstr "仅显示亮度（忽略颜色）。最适合曝光和对比度调整。轨迹颜色可更改为绿色、白色或橙色。"
 
-#: ../color.rst:168
+#: ../doc/color.rst:168
 msgid "RGB Overlay"
 msgstr "RGB叠加"
 
-#: ../color.rst:168
+#: ../doc/color.rst:168
 msgid ""
 "Red, green, and blue channels drawn on top of each other in their natural "
 "colors. Quick visual check for overall channel balance."
 msgstr "红、绿、蓝通道以其自然颜色叠加绘制。快速视觉检查整体通道平衡。"
 
-#: ../color.rst:170
+#: ../doc/color.rst:170
 msgid "RGB Parade"
 msgstr "RGB游行"
 
-#: ../color.rst:170
+#: ../doc/color.rst:170
 msgid ""
 "Three side-by-side panels (R, G, B). If one panel sits noticeably higher "
 "than the others in areas that should be neutral, white balance is off. Blue "
 "higher than red in the highlights → image is too cool."
 msgstr "三个并排面板（R、G、B）。如果在应为中性色的区域中某个面板明显高于其他面板，白平衡有误。高光中蓝色高于红色 → 图像偏冷。"
 
-#: ../color.rst:173
+#: ../doc/color.rst:173
 msgid "Red / Green / Blue"
 msgstr "红 / 绿 / 蓝"
 
-#: ../color.rst:173
+#: ../doc/color.rst:173
 msgid "Shows a single channel in isolation."
 msgstr "单独显示一个通道。"
 
-#: ../color.rst:179
+#: ../doc/color.rst:179
 msgid "The Histogram"
 msgstr "直方图"
 
-#: ../color.rst:181
+#: ../doc/color.rst:181
 msgid ""
 "The Histogram sorts all pixels by brightness (0 = black on the left, 255 = "
 "white on the right) and shows how many pixels exist at each level as a bar "
 "chart. Red, green, blue, and luma are overlaid."
 msgstr "直方图按亮度对所有像素排序（0=左侧黑色，255=右侧白色），并以条形图显示每个亮度级别的像素数量。红、绿、蓝和亮度叠加显示。"
 
-#: ../color.rst:186
+#: ../doc/color.rst:186
 msgid "*The Histogram in All Channels / Logarithmic mode.*"
 msgstr "*所有通道 / 对数模式下的直方图。*"
 
-#: ../color.rst:190
+#: ../doc/color.rst:190
 msgid "Bars **clustered left** → underexposed."
-msgstr "条形图**聚集在左侧** → 曝光不足。"
+msgstr "条形图\\ **聚集在左侧** → 曝光不足。"
 
-#: ../color.rst:191
+#: ../doc/color.rst:191
 msgid ""
 "Bars **pushed against the right edge** → overexposed, possibly clipping. A "
 "sharp wall on the right means highlight detail is gone."
-msgstr "条形图**紧贴右边缘** → 过曝，可能裁剪。右侧陡峭的墙状表示高光细节丢失。"
+msgstr "条形图\\ **紧贴右边缘** → 过曝，可能裁剪。右侧陡峭的墙状表示高光细节丢失。"
 
-#: ../color.rst:193
+#: ../doc/color.rst:193
 msgid ""
 "A **narrow hill in the middle** → low contrast. Increasing Contrast will "
 "spread the bars out."
-msgstr "中间有一个**狭窄的峰** → 对比度低。增加对比度会使条形图分布更广。"
+msgstr "中间有一个\\ **狭窄的峰** → 对比度低。增加对比度会使条形图分布更广。"
 
-#: ../color.rst:195
+#: ../doc/color.rst:195
 msgid "The Histogram dock has two dropdowns:"
 msgstr "直方图面板有两个下拉菜单："
 
-#: ../color.rst:197
+#: ../doc/color.rst:197
 msgid ""
 "**Channel** — *All Channels* shows R, G, B, and luma overlaid; individual "
 "options isolate one. If the Red histogram extends further right than Green "
 "and Blue, the image is warm."
 msgstr "**通道** — *所有通道* 显示红、绿、蓝和亮度叠加；单独选项显示单一通道。如果红色直方图比绿和蓝更靠右，图像偏暖。"
 
-#: ../color.rst:199
+#: ../doc/color.rst:199
 msgid ""
 "**Scale** — *Logarithmic* (default) keeps rare tonal values visible. "
 "*Linear* shows raw counts, useful for comparing the relative weight of "
 "different tones."
 msgstr "**刻度** — *对数*（默认）保持稀有色调可见。*线性* 显示原始计数，有助于比较不同色调的相对权重。"
 
-#: ../color.rst:205
+#: ../doc/color.rst:205
 msgid "The Vectorscope"
 msgstr "矢量示波器"
 
-#: ../color.rst:207
+#: ../doc/color.rst:207
 msgid ""
 "The Vectorscope is a 2D chroma plot. Each pixel is placed on a circular "
 "graph by its **hue** (direction from center) and **saturation** (distance "
 "from center). A pixel at dead center is colorless (gray or black); one at "
 "the edge is fully saturated."
 msgstr ""
-"矢量示波器是二维色度图。每个像素根据其**色相**（从中心的方向）和**饱和度**（距离中心的距离）放置在圆形图上。位于正中心的像素无色（灰色或黑色）；位于边缘的像素完全饱和。"
+"矢量示波器是二维色度图。每个像素根据其\\ **色相**\\ （从中心的方向）和\\ **饱和度**\\ "
+"（距离中心的距离）放置在圆形图上。位于正中心的像素无色（灰色或黑色）；位于边缘的像素完全饱和。"
 
-#: ../color.rst:213
+#: ../doc/color.rst:213
 msgid ""
 "*The Vectorscope in Colorized mode, with the skin tone cluster visible near "
 "the center.*"
 msgstr "*彩色模式下的矢量示波器，皮肤色群集在中心附近可见。*"
 
-#: ../color.rst:215
+#: ../doc/color.rst:215
 msgid ""
 "The outer ring shows broadcast hue labels — **R** (red), **Mg** (magenta), "
 "**B** (blue), **Cy** (cyan), **G** (green), **Yi** (yellow) — at their "
@@ -435,74 +438,75 @@ msgid ""
 "tone line**: all human skin tones, from lightest to darkest, should fall "
 "roughly along this line in the yellow-orange zone between Yi and R."
 msgstr ""
-"外环显示广播色相标签 — **R**（红色）、**Mg**（品红）、**B**（蓝色）、**Cy**（青色）、**G**（绿色）、**Yi**（黄色）—"
-" 它们在色轮上的位置。**虚线辐条线**是**肤色线**：所有人类肤色，从最浅到最深，大致应沿着这条线，位于黄色-橙色区域的Yi和R之间。"
+"外环显示广播色相标签 — **R**\\ （红色）、\\ **Mg**\\ （品红）、\\ **B**\\ （蓝色）、\\ **Cy**\\ "
+"（青色）、\\ **G**\\ （绿色）、\\ **Yi**\\ （黄色）— 它们在色轮上的位置。\\ **虚线辐条线**\\ 是\\ "
+"**肤色线**\\ ：所有人类肤色，从最浅到最深，大致应沿着这条线，位于黄色-橙色区域的Yi和R之间。"
 
-#: ../color.rst:220
+#: ../doc/color.rst:220
 msgid "**Display modes:**"
 msgstr "**显示模式：**"
 
-#: ../color.rst:222
+#: ../doc/color.rst:222
 msgid ""
 "**Colorized** (default) — each plotted pixel adopts the hue color of its "
 "position on the wheel. Makes it easy to see which colors are present and how"
 " saturated they are."
-msgstr "**彩色**（默认）— 每个绘制的像素采用其在色轮上位置的色相颜色。便于识别存在的颜色及其饱和度。"
+msgstr "**彩色**\\ （默认）— 每个绘制的像素采用其在色轮上位置的色相颜色。便于识别存在的颜色及其饱和度。"
 
-#: ../color.rst:224
+#: ../doc/color.rst:224
 msgid ""
 "**Density** — monochrome brightness. Brighter = more pixels sharing that "
 "hue/saturation. Good for focusing on shape and balance rather than color "
 "identity."
 msgstr "**密度** — 单色亮度。越亮表示越多像素共享该色相/饱和度。适合关注形状和平衡，而非颜色身份。"
 
-#: ../color.rst:226
+#: ../doc/color.rst:226
 msgid ""
 "**Intensity** — heatmap from blue (sparse) to red (dense). Quickly shows "
 "which colors dominate."
 msgstr "**强度** — 热力图，从蓝色（稀疏）到红色（密集）。快速显示主导颜色。"
 
-#: ../color.rst:228
+#: ../doc/color.rst:228
 msgid ""
 "**Zoom:** 100%, 200%, or 400%. Use 200% for skin tone work — it magnifies "
 "subtle shifts near center."
 msgstr "**缩放：** 100%、200% 或 400%。处理肤色时使用200% — 可放大中心附近的细微变化。"
 
-#: ../color.rst:232
+#: ../doc/color.rst:232
 msgid ""
 "Plot concentrated near the **center** → image is desaturated. Increase "
 "Saturation or Vibrance."
-msgstr "图像集中在**中心** → 图像已去饱和。增加饱和度或活力。"
+msgstr "图像集中在\\ **中心** → 图像已去饱和。增加饱和度或活力。"
 
-#: ../color.rst:233
+#: ../doc/color.rst:233
 msgid ""
 "Plot tilted toward one side → color cast. Use Temperature, Tint, or the "
 "Global color wheel to push the cluster back toward center."
 msgstr "图像偏向一侧 → 色偏。使用温度、色调或全局色轮将色块推回中心。"
 
-#: ../color.rst:235
+#: ../doc/color.rst:235
 msgid ""
 "For **skin tone evaluation**: use the Region selector to draw a box over a "
 "face in the preview. The cluster should fall along the dashed skin tone line"
 " (see :ref:`skin_tones_ref`)."
-msgstr "用于**肤色评估**：使用区域选择器在预览中框选面部。色块应落在虚线肤色线上（参见 :ref:`skin_tones_ref`）。"
+msgstr "用于\\ **肤色评估**\\ ：使用区域选择器在预览中框选面部。色块应落在虚线肤色线上（参见 :ref:`skin_tones_ref`\\ ）。"
 
-#: ../color.rst:241
+#: ../doc/color.rst:241
 msgid "Color Correction"
 msgstr "颜色校正"
 
-#: ../color.rst:243
+#: ../doc/color.rst:243
 msgid ""
 "Color correction fixes technical problems — wrong white balance, bad "
 "exposure, flat contrast — so footage looks clean and natural. It is always "
 "the first step, before any creative work."
 msgstr "颜色校正解决技术问题——错误的白平衡、曝光不足、对比度平淡——使画面干净自然。它始终是任何创意工作之前的第一步。"
 
-#: ../color.rst:249
+#: ../doc/color.rst:249
 msgid "White Balance — Making Whites Look White"
 msgstr "白平衡 — 让白色看起来更白"
 
-#: ../color.rst:251
+#: ../doc/color.rst:251
 msgid ""
 "Different light sources cast different colors: incandescent bulbs are "
 "orange-warm, fluorescent lights are greenish, open shade is cool blue. When "
@@ -510,349 +514,350 @@ msgid ""
 "Fixing this is almost always your first move."
 msgstr "不同光源投射不同颜色：白炽灯偏橙暖，荧光灯偏绿色，阴影偏冷蓝。当相机自动白平衡判断错误时，画面会出现色偏。修正它几乎总是你的第一步。"
 
-#: ../color.rst:255
+#: ../doc/color.rst:255
 msgid ""
 "Use **Temperature** and **Tint** in the :guilabel:`Color Grade` effect "
 "properties:"
-msgstr "在 :guilabel:`色彩分级` 效果属性中使用**温度**和**色调**："
+msgstr "在 :guilabel:`色彩分级` 效果属性中使用\\ **温度**\\ 和\\ **色调**\\ ："
 
-#: ../color.rst:257
+#: ../doc/color.rst:257
 msgid ""
 "**Temperature** — shifts the image warmer (positive) or cooler (negative). "
 "Footage that looks too orange? Slide it negative."
 msgstr "**温度** — 使图像变暖（正值）或变冷（负值）。画面偏橙？向负方向调整。"
 
-#: ../color.rst:259
+#: ../doc/color.rst:259
 msgid ""
 "**Tint** — fine-tunes green/magenta balance. Use this after Temperature to "
 "remove a lingering fluorescent tinge. Positive = magenta, negative = green."
 msgstr "**色调** — 微调绿/品红平衡。在温度调整后使用以去除残留的荧光色调。正值为品红，负值为绿色。"
 
-#: ../color.rst:262
+#: ../doc/color.rst:262
 msgid ""
 "A quick check: find something in the shot that should be neutral — a white "
 "wall, a gray shirt, the whites of someone's eyes. The **RGB Parade** "
 "waveform mode makes this objective: all three channels should sit at the "
 "same height in those neutral areas."
-msgstr "快速检查：找画面中应为中性色的物体——白墙、灰衬衫、眼白。**RGB游行**波形模式使其客观：三个通道在这些中性色区域应处于相同高度。"
+msgstr "快速检查：找画面中应为中性色的物体——白墙、灰衬衫、眼白。\\ **RGB游行**\\ 波形模式使其客观：三个通道在这些中性色区域应处于相同高度。"
 
-#: ../color.rst:269
+#: ../doc/color.rst:269
 msgid "Skin Tones"
 msgstr "肤色"
 
-#: ../color.rst:271
+#: ../doc/color.rst:271
 msgid ""
 "Human faces are the most scrutinized subjects in video. Viewers sense when "
 "skin looks wrong instantly, even if they cannot say why. Good skin tones are"
 " warm — they lean orange, not green or blue."
 msgstr "人脸是视频中最受关注的对象。观众能立即察觉肤色异常，即使说不出原因。好的肤色是温暖的——偏橙色，而非绿色或蓝色。"
 
-#: ../color.rst:274
+#: ../doc/color.rst:274
 msgid ""
 "All human skin tones — regardless of race — fall roughly along the same "
 "diagonal line on a vectorscope: the **skin tone line**. They shift lighter "
 "or darker and more or less saturated, but they always land in the orange-to-"
 "yellow zone. OpenShot's Vectorscope lets you verify this directly:"
 msgstr ""
-"所有人类肤色——无论种族——大致落在示波器上的同一条对角线上：**肤色线**。它们明暗和饱和度有所变化，但始终位于橙黄区。OpenShot的示波器可直接验证："
+"所有人类肤色——无论种族——大致落在示波器上的同一条对角线上：\\ **肤色线**\\ "
+"。它们明暗和饱和度有所变化，但始终位于橙黄区。OpenShot的示波器可直接验证："
 
-#: ../color.rst:278
+#: ../doc/color.rst:278
 msgid ""
 "Right-click the clip → :guilabel:`Color → Analyze Colors` to open the "
 "scopes."
 msgstr "右键点击剪辑 → :guilabel:`颜色 → 分析颜色` 打开示波器。"
 
-#: ../color.rst:279
+#: ../doc/color.rst:279
 msgid ""
 "In the Vectorscope toolbar, click the **Region** button and drag a box over "
 "the skin in the preview."
-msgstr "在示波器工具栏中，点击**区域**按钮并在预览中框选皮肤区域。"
+msgstr "在示波器工具栏中，点击\\ **区域**\\ 按钮并在预览中框选皮肤区域。"
 
-#: ../color.rst:280
+#: ../doc/color.rst:280
 msgid ""
 "The cluster should sit along the dashed skin tone line. If it drifts toward "
 "green or blue, use **Temperature** (warmer) or the **Global** color wheel to"
 " nudge it back toward orange-yellow."
-msgstr "色块应位于虚线肤色线上。如果偏向绿色或蓝色，使用**温度**（变暖）或**全局**色轮将其推回橙黄色。"
+msgstr "色块应位于虚线肤色线上。如果偏向绿色或蓝色，使用\\ **温度**\\ （变暖）或\\ **全局**\\ 色轮将其推回橙黄色。"
 
-#: ../color.rst:285
+#: ../doc/color.rst:285
 msgid ""
 "*A face region selected in the video preview (left) with the vectorscope "
 "plotting only those pixels (right). The skin tone cluster aligns with the "
 "dashed skin tone line in the yellow-orange zone.*"
 msgstr "*视频预览中选定的面部区域（左），示波器仅绘制该区域像素（右）。肤色色块与黄色橙色区域的虚线肤色线对齐。*"
 
-#: ../color.rst:288
+#: ../doc/color.rst:288
 msgid ""
 "Avoid pushing Saturation too high — over-saturated skin looks unnatural even"
 " when the hue is correct."
 msgstr "避免将饱和度调得过高——即使色相正确，过饱和的肤色看起来也不自然。"
 
-#: ../color.rst:291
+#: ../doc/color.rst:291
 msgid "Primary Correction Controls"
 msgstr "主要校正控件"
 
-#: ../color.rst:293
+#: ../doc/color.rst:293
 msgid ""
 "These controls appear in the :guilabel:`Properties` panel when the Color "
 "Grade effect is selected:"
 msgstr "选中色彩分级效果时，这些控件会出现在 :guilabel:`属性` 面板中："
 
-#: ../color.rst:299
+#: ../doc/color.rst:299
 msgid "Property"
 msgstr "属性"
 
-#: ../color.rst:299
+#: ../doc/color.rst:299
 msgid "What It Does"
 msgstr "功能说明"
 
-#: ../color.rst:301
+#: ../doc/color.rst:301
 msgid "Temperature"
 msgstr "温度"
 
-#: ../color.rst:301
+#: ../doc/color.rst:301
 msgid "Warms (positive) or cools (negative) the entire image."
 msgstr "使整个图像变暖（正值）或变冷（负值）。"
 
-#: ../color.rst:302
+#: ../doc/color.rst:302
 msgid "Tint"
 msgstr "色调"
 
-#: ../color.rst:302
+#: ../doc/color.rst:302
 msgid "Fine-tunes green/magenta balance after Temperature."
 msgstr "在温度调整后微调绿/品红平衡。"
 
-#: ../color.rst:303
+#: ../doc/color.rst:303
 msgid "Exposure"
 msgstr "曝光"
 
-#: ../color.rst:303
+#: ../doc/color.rst:303
 msgid "Makes the whole image brighter or darker."
 msgstr "使整个图像变亮或变暗。"
 
-#: ../color.rst:304
+#: ../doc/color.rst:304
 msgid "Contrast"
 msgstr "对比度"
 
-#: ../color.rst:304
+#: ../doc/color.rst:304
 msgid "Expands (positive) or compresses (negative) the tonal range."
 msgstr "扩展（正值）或压缩（负值）色调范围。"
 
-#: ../color.rst:305 ../color.rst:364
+#: ../doc/color.rst:305 ../doc/color.rst:364
 msgid "Highlights"
 msgstr "高光"
 
-#: ../color.rst:305
+#: ../doc/color.rst:305
 msgid ""
 "Brightens or darkens only the bright parts. Negative values recover "
 "overexposed highlights."
 msgstr "仅调节亮部的明暗。负值可恢复过曝高光。"
 
-#: ../color.rst:307 ../color.rst:362
+#: ../doc/color.rst:307 ../doc/color.rst:362
 msgid "Shadows"
 msgstr "阴影"
 
-#: ../color.rst:307
+#: ../doc/color.rst:307
 msgid ""
 "Lifts or lowers only the dark parts. Positive values open up shadow detail."
 msgstr "仅调节暗部的明暗。正值可提升阴影细节。"
 
-#: ../color.rst:309
+#: ../doc/color.rst:309
 msgid "Saturation"
 msgstr "饱和度"
 
-#: ../color.rst:309
+#: ../doc/color.rst:309
 msgid "Overall color intensity. 1.0 = unchanged, 0.0 = grayscale."
 msgstr "整体颜色强度。1.0 = 不变，0.0 = 灰度。"
 
-#: ../color.rst:310
+#: ../doc/color.rst:310
 msgid "Vibrance"
 msgstr "活力"
 
-#: ../color.rst:310
+#: ../doc/color.rst:310
 msgid ""
 "Like Saturation, but preferentially boosts muted colors without "
 "oversaturating ones that are already vivid."
 msgstr "类似饱和度，但优先增强暗淡颜色，不会过度饱和已经鲜艳的颜色。"
 
-#: ../color.rst:315
+#: ../doc/color.rst:315
 msgid "A Correction Workflow"
 msgstr "校正工作流程"
 
-#: ../color.rst:317
+#: ../doc/color.rst:317
 msgid "Work in this order for the best results:"
 msgstr "按以下顺序操作以获得最佳效果："
 
-#: ../color.rst:319
+#: ../doc/color.rst:319
 msgid ""
 "**Fix white balance first** — Temperature and Tint until neutrals look "
 "neutral."
 msgstr "**先修正白平衡** — 调整温度和色调，直到中性色看起来中性。"
 
-#: ../color.rst:320
+#: ../doc/color.rst:320
 msgid "**Set exposure** — Exposure until brightness feels correct."
 msgstr "**设置曝光** — 调整曝光直到亮度合适。"
 
-#: ../color.rst:321
+#: ../doc/color.rst:321
 msgid "**Adjust contrast** — expand or compress the tonal range to add depth."
 msgstr "**调整对比度** — 扩展或压缩色调范围以增加层次感。"
 
-#: ../color.rst:322
+#: ../doc/color.rst:322
 msgid ""
 "**Recover clipping** — Highlights and Shadows if bright areas are blown or "
 "shadows are crushed."
 msgstr "**恢复剪切** — 如果亮部过曝或阴影过暗，调整高光和阴影。"
 
-#: ../color.rst:323
+#: ../doc/color.rst:323
 msgid "**Adjust saturation** — Saturation or Vibrance to taste."
 msgstr "**调整饱和度** — 根据需要调整饱和度或活力。"
 
-#: ../color.rst:324
+#: ../doc/color.rst:324
 msgid ""
 "**Check skin tones** — open the Vectorscope, use the Region selector on "
 "faces, and confirm the cluster aligns with the skin tone line."
 msgstr "**检查肤色** — 打开示波器，使用区域选择器选中面部，确认色块与肤色线对齐。"
 
-#: ../color.rst:327
+#: ../doc/color.rst:327
 msgid ""
 "Use the scopes at each step — they show you what is actually in the image, "
 "regardless of monitor calibration."
 msgstr "在每个步骤使用示波器——它们显示图像中实际存在的内容，无论显示器校准如何。"
 
-#: ../color.rst:333
+#: ../doc/color.rst:333
 msgid "Color Grading"
 msgstr "调色"
 
-#: ../color.rst:335
+#: ../doc/color.rst:335
 msgid ""
 "Color grading is the creative step: using the same tools to build a "
 "deliberate visual mood on top of corrected footage. A few classic grades to "
 "inspire you:"
 msgstr "调色是创造性的步骤：使用相同的工具在校正后的视频上构建特定的视觉氛围。这里有一些经典的调色风格供您参考："
 
-#: ../color.rst:338
+#: ../doc/color.rst:338
 msgid ""
 "**Warm, golden nostalgic** — push Highlights toward orange-yellow, nudge "
 "Midtones slightly warm."
 msgstr "**温暖、金色怀旧** — 将高光推向橙黄色，轻微调整中间调偏暖。"
 
-#: ../color.rst:339
+#: ../doc/color.rst:339
 msgid ""
 "**Cold, clinical** — cool the Shadows, desaturate slightly, keep Highlights "
 "neutral."
 msgstr "**冷峻、临床感** — 冷却阴影，轻微去饱和，保持高光中性。"
 
-#: ../color.rst:340
+#: ../doc/color.rst:340
 msgid ""
 "**Teal and orange** — the blockbuster look: Shadows toward teal, Highlights "
 "toward orange."
 msgstr "**青绿色与橙色** — 票房大片风格：阴影偏青绿色，高光偏橙色。"
 
-#: ../color.rst:341
+#: ../doc/color.rst:341
 msgid ""
 "**Faded film** — lift the black point slightly (Curves) so shadows never "
 "reach full black."
 msgstr "**褪色胶片** — 稍微提升黑点（曲线），使阴影永远不会达到纯黑。"
 
-#: ../color.rst:346
+#: ../doc/color.rst:346
 msgid "Color Wheels"
 msgstr "色轮"
 
-#: ../color.rst:348
+#: ../doc/color.rst:348
 msgid ""
 "Color wheels push color into specific **tonal ranges** without affecting the"
 " others. This is the tool professional colorists reach for most."
-msgstr "色轮将颜色推入特定的**色调范围**，而不影响其他范围。这是专业调色师最常使用的工具。"
+msgstr "色轮将颜色推入特定的\\ **色调范围**\\ ，而不影响其他范围。这是专业调色师最常使用的工具。"
 
-#: ../color.rst:353
+#: ../doc/color.rst:353
 msgid ""
 "*The Color Wheels dock, showing Global, Shadows, Midtones, and Highlights "
 "wheels.*"
 msgstr "*色轮面板，显示全局、阴影、中间调和高光色轮。*"
 
-#: ../color.rst:359
+#: ../doc/color.rst:359
 msgid "Wheel"
 msgstr "色轮"
 
-#: ../color.rst:359
+#: ../doc/color.rst:359
 msgid "What It Affects"
 msgstr "影响范围"
 
-#: ../color.rst:361
+#: ../doc/color.rst:361
 msgid "Global"
 msgstr "全局"
 
-#: ../color.rst:361
+#: ../doc/color.rst:361
 msgid "A color tint across the **entire image** at all brightness levels."
-msgstr "在所有亮度级别对**整个图像**进行颜色着色。"
+msgstr "在所有亮度级别对\\ **整个图像**\\ 进行颜色着色。"
 
-#: ../color.rst:362
+#: ../doc/color.rst:362
 msgid "Color only in the **darkest parts**. Great for a cool teal tint."
-msgstr "仅对**最暗部分**着色。非常适合冷青绿色调。"
+msgstr "仅对\\ **最暗部分**\\ 着色。非常适合冷青绿色调。"
 
-#: ../color.rst:363
+#: ../doc/color.rst:363
 msgid "Midtones"
 msgstr "中间调"
 
-#: ../color.rst:363
+#: ../doc/color.rst:363
 msgid ""
 "Color in the **middle tones** — where most skin tones live. Handle gently."
-msgstr "对**中间色调**着色——大多数肤色所在。请轻柔调整。"
+msgstr "对\\ **中间色调**\\ 着色——大多数肤色所在。请轻柔调整。"
 
-#: ../color.rst:364
+#: ../doc/color.rst:364
 msgid ""
 "Color only in the **brightest parts**. Warming highlights while keeping "
 "shadows cool is the foundation of the teal-and-orange look."
-msgstr "仅对**最亮部分**着色。加温高光同时保持阴影冷色调，是青绿色与橙色风格的基础。"
+msgstr "仅对\\ **最亮部分**\\ 着色。加温高光同时保持阴影冷色调，是青绿色与橙色风格的基础。"
 
-#: ../color.rst:368
+#: ../doc/color.rst:368
 msgid ""
 "Drag the **central dot** toward the desired color. Further from center = "
 "stronger effect."
-msgstr "拖动**中央点**朝向所需颜色。离中心越远，效果越强。"
+msgstr "拖动\\ **中央点**\\ 朝向所需颜色。离中心越远，效果越强。"
 
-#: ../color.rst:369
+#: ../doc/color.rst:369
 msgid ""
 "The **Amount** slider blends the tinted result back toward the original."
-msgstr "**强度**滑块将着色结果与原图混合。"
+msgstr "**强度**\\ 滑块将着色结果与原图混合。"
 
-#: ../color.rst:370
+#: ../doc/color.rst:370
 msgid "The **Luma** slider adjusts the brightness of that tonal zone."
-msgstr "**亮度**滑块调整该色调区域的亮度。"
+msgstr "**亮度**\\ 滑块调整该色调区域的亮度。"
 
-#: ../color.rst:371
+#: ../doc/color.rst:371
 msgid ""
 "Right-click any wheel in Properties → **Reset** to return it to neutral."
-msgstr "在属性中右键点击任意色轮 → **重置**，恢复为中性。"
+msgstr "在属性中右键点击任意色轮 → **重置**\\ ，恢复为中性。"
 
-#: ../color.rst:373
+#: ../doc/color.rst:373
 msgid "**To build the classic teal-and-orange look:**"
 msgstr "**打造经典青绿色与橙色风格：**"
 
-#: ../color.rst:375
+#: ../doc/color.rst:375
 msgid "Drag **Shadows** toward teal (blue-green)."
-msgstr "将**阴影**拖向青绿色（蓝绿色）。"
+msgstr "将\\ **阴影**\\ 拖向青绿色（蓝绿色）。"
 
-#: ../color.rst:376
+#: ../doc/color.rst:376
 msgid "Drag **Highlights** toward orange."
-msgstr "将**高光**拖向橙色。"
+msgstr "将\\ **高光**\\ 拖向橙色。"
 
-#: ../color.rst:377
+#: ../doc/color.rst:377
 msgid ""
 "Optionally nudge **Midtones** very slightly toward orange to warm skin "
 "tones."
-msgstr "可选地将**中间调**轻微推向橙色，以温暖肤色。"
+msgstr "可选地将\\ **中间调**\\ 轻微推向橙色，以温暖肤色。"
 
-#: ../color.rst:378
+#: ../doc/color.rst:378
 msgid ""
 "Lower the Amount sliders to 0.3–0.5 so the effect does not become overdone."
 msgstr "将强度滑块降低到0.3–0.5，避免效果过度。"
 
-#: ../color.rst:383
+#: ../doc/color.rst:383
 msgid "Curves — Precise Tonal and Color Control"
 msgstr "曲线——精确的色调和颜色控制"
 
-#: ../color.rst:385
+#: ../doc/color.rst:385
 msgid ""
 "A curve is a graph where the horizontal axis is the input value and the "
 "vertical axis is the output value. A straight diagonal line means no change."
@@ -860,118 +865,121 @@ msgid ""
 " that tonal range."
 msgstr "曲线是一个图表，横轴为输入值，纵轴为输出值。直线表示无变化。弯曲曲线即改变该色调范围内输入与输出的关系。"
 
-#: ../color.rst:391
+#: ../doc/color.rst:391
 msgid ""
 "*The OpenShot Curve Editor. Click to add points, drag to reshape, right-"
 "click to change interpolation.*"
 msgstr "*OpenShot 曲线编辑器。点击添加点，拖动调整形状，右键更改插值方式。*"
 
-#: ../color.rst:393
+#: ../doc/color.rst:393
 msgid "**Common curve shapes:**"
 msgstr "**常见曲线形状：**"
 
-#: ../color.rst:395
+#: ../doc/color.rst:395
 msgid ""
 "**S-curve** — pull the upper-right quarter up, the lower-left quarter down. "
 "Adds contrast and pop without shifting mid-gray. The most common starting "
 "move."
 msgstr "**S形曲线** — 将右上四分之一向上拉，左下四分之一向下拉。增加对比度和鲜明度，同时不改变中灰色。最常用的起始调整。"
 
-#: ../color.rst:397
+#: ../doc/color.rst:397
 msgid ""
 "**Lifted blacks** — drag the bottom-left corner upward. Shadows never go "
 "fully to black — the faded-film look."
 msgstr "**提升黑色** — 向上拖动左下角。阴影永远不会完全变黑——褪色胶片效果。"
 
-#: ../color.rst:399
+#: ../doc/color.rst:399
 msgid ""
 "**Lower highlights** — add a point in the upper-right and pull it down. "
 "Recovers bright areas without affecting the rest."
 msgstr "**降低高光** — 在右上角添加点并向下拉。恢复亮部细节，不影响其他区域。"
 
-#: ../color.rst:402
+#: ../doc/color.rst:402
 msgid "**The four channels:**"
 msgstr "**四个通道：**"
 
-#: ../color.rst:404
+#: ../doc/color.rst:404
 msgid ""
 "**Curve: All** — overall brightness across all channels. Used most often."
 msgstr "**曲线：全部** — 所有通道的整体亮度。最常用。"
 
-#: ../color.rst:405
+#: ../doc/color.rst:405
 msgid ""
 "**Curve: Red** — up adds red (warms), down adds cyan. Pull shadows down for "
 "a cool shadow tint."
 msgstr "**曲线：红色** — 向上增加红色（变暖），向下增加青色。向下拉阴影以获得冷色阴影色调。"
 
-#: ../color.rst:406
+#: ../doc/color.rst:406
 msgid "**Curve: Green** — up adds green, down adds magenta."
 msgstr "**曲线：绿色** — 向上增加绿色，向下增加品红。"
 
-#: ../color.rst:407
+#: ../doc/color.rst:407
 msgid ""
 "**Curve: Blue** — up cools, down warms. Classic move: pull Blue Shadows up "
 "(cool teal shadows) and Blue Highlights down (warm orange highlights)."
 msgstr "**曲线：蓝色** — 向上冷却，向下变暖。经典操作：将蓝色阴影向上拉（冷青绿色阴影），蓝色高光向下拉（暖橙色高光）。"
 
-#: ../color.rst:410
+#: ../doc/color.rst:410
 msgid ""
 "Curves beat sliders because you can apply *different* adjustments to "
 "*different* tonal ranges in a single operation — for example, warming "
 "highlights while cooling shadows simultaneously."
 msgstr "曲线优于滑块，因为你可以在一次操作中对*不同*色调范围应用*不同*调整——例如，同时加温高光和冷却阴影。"
 
-#: ../color.rst:416
+#: ../doc/color.rst:416
 msgid "LUT Files — One-Click Color Looks"
 msgstr "LUT 文件——一键色彩风格"
 
-#: ../color.rst:418
+#: ../doc/color.rst:418
 msgid ""
 "A **LUT** (Lookup Table) is a pre-made color transformation: for every input"
 " color, output a specific different color. Professional colorists use LUTs "
 "to recreate film stocks, camera looks, or cinematic styles in one click. "
 "OpenShot supports industry-standard **.cube** files."
 msgstr ""
-"**LUT**（查找表）是一种预制的颜色转换：对每个输入颜色输出特定的不同颜色。专业调色师使用LUT一键重现胶片底片、相机风格或电影风格。OpenShot支持行业标准的**.cube**文件。"
+"**LUT**\\ "
+"（查找表）是一种预制的颜色转换：对每个输入颜色输出特定的不同颜色。专业调色师使用LUT一键重现胶片底片、相机风格或电影风格。OpenShot支持行业标准的\\"
+" **.cube**\\ 文件。"
 
-#: ../color.rst:422
+#: ../doc/color.rst:422
 msgid ""
 "OpenShot ships with a built-in LUT collection — see the :ref:`effects_ref` "
 "page for a visual gallery. Free **.cube** packs are widely available from "
 "photography communities online."
 msgstr ""
-"OpenShot内置LUT集合——请参见 :ref:`effects_ref` 页面查看视觉图库。免费**.cube**包在摄影社区广泛提供。"
+"OpenShot内置LUT集合——请参见 :ref:`effects_ref` 页面查看视觉图库。免费\\ **.cube**\\ "
+"包在摄影社区广泛提供。"
 
-#: ../color.rst:425
+#: ../doc/color.rst:425
 msgid "**How to apply a LUT:**"
 msgstr "**如何应用LUT：**"
 
-#: ../color.rst:427
+#: ../doc/color.rst:427
 msgid "Select the :guilabel:`Color Grade` effect properties."
 msgstr "选择 :guilabel:`调色` 效果属性。"
 
-#: ../color.rst:428
+#: ../doc/color.rst:428
 msgid "Click :guilabel:`LUT File` and browse to a **.cube** file."
 msgstr "点击 :guilabel:`LUT 文件` 并浏览选择一个 **.cube** 文件。"
 
-#: ../color.rst:429
+#: ../doc/color.rst:429
 msgid ""
 "Use :guilabel:`LUT Intensity` (0.0–1.0) to blend the LUT with your corrected"
 " image. Most professionals land between 0.4–0.7 for a natural feel."
 msgstr ""
-"使用 :guilabel:`LUT 强度`（0.0–1.0）将LUT与校正后的图像混合。大多数专业人士选择0.4–0.7之间以获得自然效果。"
+"使用 :guilabel:`LUT 强度`\\ （0.0–1.0）将LUT与校正后的图像混合。大多数专业人士选择0.4–0.7之间以获得自然效果。"
 
-#: ../color.rst:432
+#: ../doc/color.rst:432
 msgid "**Tips:**"
 msgstr "**提示：**"
 
-#: ../color.rst:434
+#: ../doc/color.rst:434
 msgid ""
 "Correct first, then grade. LUTs assume properly balanced footage — applied "
 "to a color-cast image, they will look wrong."
 msgstr "先校正，然后调色。LUT 假设素材已正确平衡——应用于有色偏的图像时，效果会不正确。"
 
-#: ../color.rst:436
+#: ../doc/color.rst:436
 msgid ""
 "Most included LUTs target Rec. 709 footage (HD cameras, smartphones). If "
 "your camera records in a LOG profile, apply the appropriate LOG conversion "
@@ -979,117 +987,117 @@ msgid ""
 msgstr ""
 "大多数内置 LUT 针对 Rec. 709 素材（高清摄像机、智能手机）。如果您的摄像机以 LOG 配置文件录制，请先应用相应的 LOG 转换 LUT。"
 
-#: ../color.rst:438
+#: ../doc/color.rst:438
 msgid ""
 "Stack Color Grade with separate Color Map / Lookup effects to layer multiple"
 " LUTs."
 msgstr "将色彩分级与独立的颜色映射/查找效果叠加，以分层应用多个 LUT。"
 
-#: ../color.rst:443
+#: ../doc/color.rst:443
 msgid "The Mix Control"
 msgstr "混合控制"
 
-#: ../color.rst:445
+#: ../doc/color.rst:445
 msgid ""
 "The **Mix** control (0.0–1.0) at the bottom of the Color Grade effect blends"
 " the graded result with the original image. At 1.0, the full grade applies. "
 "At 0.0, the original is shown."
 msgstr "色彩分级效果底部的 **混合** 控件（0.0–1.0）将调色结果与原始图像混合。1.0 时应用完整调色，0.0 时显示原始图像。"
 
-#: ../color.rst:448
+#: ../doc/color.rst:448
 msgid ""
 "If your grade is correct but feels slightly heavy, dial Mix back to 0.7–0.9 "
 "to soften everything at once — no need to revisit every individual control."
 msgstr "如果调色正确但感觉稍重，可将混合调回 0.7–0.9，一次性柔化整体效果，无需逐个调整控件。"
 
-#: ../color.rst:451
+#: ../doc/color.rst:451
 msgid ""
 "Mix is keyframable: animate the grade fading in or out over time, for "
 "example opening a scene flat and letting it bloom into full color."
 msgstr "混合支持关键帧动画：可随时间淡入或淡出调色效果，例如场景平淡开场，逐渐呈现完整色彩。"
 
-#: ../color.rst:457
+#: ../doc/color.rst:457
 msgid "Putting It All Together — A Complete Workflow"
 msgstr "综合应用——完整工作流程"
 
-#: ../color.rst:459
+#: ../doc/color.rst:459
 msgid ""
 "Select your clip. Right-click → :guilabel:`Color → Adjust Colors` to add the"
 " effect and open the Color Wheels and scopes in one step. Or use "
 ":guilabel:`Color → Analyze Colors` first if you want to evaluate the footage"
 " before committing to a grade."
 msgstr ""
-"选择剪辑。右键点击 → :guilabel:`颜色 → 调整颜色`，一次性添加效果并打开色轮和示波器。或者先使用 :guilabel:`颜色 → "
-"分析颜色`，在确定调色前评估素材。"
+"选择剪辑。右键点击 → :guilabel:`颜色 → 调整颜色`\\ ，一次性添加效果并打开色轮和示波器。或者先使用 :guilabel:`颜色 → "
+"分析颜色`\\ ，在确定调色前评估素材。"
 
-#: ../color.rst:462
+#: ../doc/color.rst:462
 msgid ""
 "**Check the scopes before touching anything** — is the waveform too high or "
 "too low? A cast on the RGB Parade? The histogram clipping against the right "
 "edge?"
-msgstr "**在调整前检查示波器**——波形是否过高或过低？RGB 游行是否有色偏？直方图是否在右侧剪裁？"
+msgstr "**在调整前检查示波器**\\ ——波形是否过高或过低？RGB 游行是否有色偏？直方图是否在右侧剪裁？"
 
-#: ../color.rst:464
+#: ../doc/color.rst:464
 msgid "Fix **Temperature** and **Tint** to neutralize white balance."
 msgstr "调整 **色温** 和 **色调** 以中和白平衡。"
 
-#: ../color.rst:465
+#: ../doc/color.rst:465
 msgid ""
 "Fix **Exposure**, then **Contrast**. Use **Highlights** and **Shadows** to "
 "recover clipping."
-msgstr "调整 **曝光**，然后调整 **对比度**。使用 **高光** 和 **阴影** 恢复剪裁部分。"
+msgstr "调整 **曝光**\\ ，然后调整 **对比度**\\ 。使用 **高光** 和 **阴影** 恢复剪裁部分。"
 
-#: ../color.rst:466
+#: ../doc/color.rst:466
 msgid "Gently adjust **Saturation** or **Vibrance**."
-msgstr "轻微调整 **饱和度** 或 **鲜艳度**。"
+msgstr "轻微调整 **饱和度** 或 **鲜艳度**\\ 。"
 
-#: ../color.rst:467
+#: ../doc/color.rst:467
 msgid ""
 "Open the **Vectorscope**, click Region, and draw a box over any faces. "
 "Confirm the skin tone cluster aligns with the dashed line. If not, adjust "
 "Temperature or the Global color wheel."
-msgstr "打开 **矢量示波器**，点击区域，在人脸上绘制框选。确认肤色群集与虚线对齐。如不对齐，调整色温或全局色轮。"
+msgstr "打开 **矢量示波器**\\ ，点击区域，在人脸上绘制框选。确认肤色群集与虚线对齐。如不对齐，调整色温或全局色轮。"
 
-#: ../color.rst:469
+#: ../doc/color.rst:469
 msgid ""
 "Open the **Color Wheels** dock and build your creative grade — push Shadows "
 "one direction, Highlights the opposite, handle Midtones carefully."
 msgstr "打开 **色轮** 面板，构建创意调色——将阴影推向一个方向，高光推向相反方向，谨慎调整中间调。"
 
-#: ../color.rst:471
+#: ../doc/color.rst:471
 msgid ""
 "Fine-tune with **Curves**: a gentle S-curve on Curve: All; Curve: Blue for a"
 " cinematic push (cool shadows up, warm highlights down)."
 msgstr "使用 **曲线** 进行微调：在“全部”曲线上做轻微 S 形曲线；在“蓝色”曲线上做电影感调整（冷色阴影提升，暖色高光降低）。"
 
-#: ../color.rst:473
+#: ../doc/color.rst:473
 msgid ""
 "Optionally browse to a **.cube** LUT and blend it in with **LUT Intensity**."
 msgstr "可选地浏览选择 **.cube** LUT，并通过 **LUT 强度** 混合应用。"
 
-#: ../color.rst:474
+#: ../doc/color.rst:474
 msgid "If the overall grade feels heavy, lower **Mix** to 0.7–0.9."
 msgstr "如果整体调色感觉过重，将 **混合** 降至 0.7–0.9。"
 
-#: ../color.rst:475
+#: ../doc/color.rst:475
 msgid ""
 "To compare before/after, drag **Mix** to 0.0 to see the original, then back "
 "to 1.0."
 msgstr "要比较前后效果，将 **混合** 拖到 0.0 查看原始图像，再拖回 1.0。"
 
-#: ../color.rst:476
+#: ../doc/color.rst:476
 msgid ""
 "Happy with the result? Right-click the effect → **Copy**, select other "
 "clips, and **Paste Effects**. Or use the **Parent** property to link "
 "multiple clips to a single master grade (see :ref:`effect_parent_ref`)."
 msgstr ""
-"对结果满意吗？右键点击效果 → **复制**，选择其他剪辑，粘贴效果。或者使用 **父级** 属性，将多个剪辑链接到单一主调色（参见 "
-":ref:`effect_parent_ref`）。"
+"对结果满意吗？右键点击效果 → **复制**\\ ，选择其他剪辑，粘贴效果。或者使用 **父级** 属性，将多个剪辑链接到单一主调色（参见 "
+":ref:`effect_parent_ref`\\ ）。"
 
-#: ../color.rst:480
+#: ../doc/color.rst:480
 msgid ""
 "For animating color properties over time, see :ref:`animation_ref`. For a "
 "complete list of all Color Grade properties, see :ref:`effects_ref`."
 msgstr ""
-"有关随时间动画化颜色属性，请参见 :ref:`animation_ref`。有关所有色彩分级属性的完整列表，请参见 "
-":ref:`effects_ref`。"
+"有关随时间动画化颜色属性，请参见 :ref:`animation_ref`\\ 。有关所有色彩分级属性的完整列表，请参见 "
+":ref:`effects_ref`\\ 。"

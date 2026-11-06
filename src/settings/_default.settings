@@ -87,6 +87,13 @@
     "setting": "feedback-release"
   },
   {
+    "value": {},
+    "title": "",
+    "type": "hidden",
+    "category": "General",
+    "setting": "text-last-style"
+  },
+  {
     "value": false,
     "title": "",
     "type": "hidden",
@@ -1061,6 +1068,14 @@
     "restart": false,
     "setting": "actionTitle",
     "value": "Ctrl+T",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Add Text",
+    "restart": false,
+    "setting": "actionText",
+    "value": "Shift+T",
     "type": "text"
   },
   {

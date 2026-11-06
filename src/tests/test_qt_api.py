@@ -4,6 +4,8 @@ import os
 import subprocess
 import sys
 import unittest
+from types import SimpleNamespace
+from unittest.mock import patch
 
 
 PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
@@ -35,6 +37,36 @@ assert loop.exec_() == 0
             [sys.executable, "-c", script], env=env, capture_output=True,
             text=True, timeout=20)
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+    def test_dialogs_have_no_context_help_button(self):
+        # Qt5 on Windows adds a "?" button that does nothing in OpenShot.
+        script = """
+import sys
+sys.modules["OpenGL"] = None  # skip OpenGL setup; only attributes matter here
+from classes.qt_bootstrap import configure_qt
+configure_qt()
+from qt_api import QApplication, Qt
+help_button = getattr(Qt, "AA_DisableWindowContextHelpButton", None)
+sys.exit(0 if help_button is None or QApplication.testAttribute(help_button) else 1)
+"""
+        env = os.environ.copy()
+        env["OPENSHOT_QT_API"] = qt_api.QT_API
+        env["QT_QPA_PLATFORM"] = "offscreen"
+        env["PYTHONPATH"] = PATH + os.pathsep + env.get("PYTHONPATH", "")
+        result = subprocess.run(  # nosec B603 - Fixed interpreter and script; no shell.
+            [sys.executable, "-c", script], env=env, capture_output=True,
+            text=True, timeout=20)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+    def test_qt6_scoped_tooltip_and_focus_events_get_legacy_aliases(self):
+        events = SimpleNamespace(ToolTip=110, FocusOut=9, WindowDeactivate=25)
+        event_class = type("ScopedEvent", (), {"Type": events})
+        core = SimpleNamespace(QEvent=event_class, Qt=SimpleNamespace())
+        with patch.multiple(qt_api, QT_API="pyqt6", QtCore=core,
+                            QtGui=SimpleNamespace(), QtWidgets=SimpleNamespace()):
+            qt_api._patch_enums_for_qt6()
+        for name in ("ToolTip", "FocusOut", "WindowDeactivate"):
+            self.assertEqual(getattr(event_class, name), getattr(events, name))
 
     def test_feedback_event_types_are_available_on_all_bindings(self):
         for name in ("KeyPress", "MouseButtonPress", "MouseButtonRelease",

@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenShot Video Editor 4.0\n"
+"Project-Id-Version: OpenShot Video Editor 4.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-26 14:26-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,270 +16,282 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../timeline.rst:23
+#: ../doc/timeline.rst:23
 msgid "Timeline"
 msgstr ""
 
-#: ../timeline.rst:25
+#: ../doc/timeline.rst:25
 msgid "The timeline is where your video comes together. You arrange clips, trim them, layer visuals, and make timing decisions here. If you are new to editing, think of the timeline as a simple left-to-right story: earlier moments on the left, later moments on the right."
 msgstr ""
 
-#: ../timeline.rst:32
-msgid "If you are just getting started, read :ref:`quick_tutorial_ref` first, then come back here for more detail. For a labeled breakdown of toolbar controls, see :ref:`timeline_toolbar_ref`."
+#: ../doc/timeline.rst:32
+msgid "If you are just getting started, read :ref:`quick_tutorial_ref` first, then come back here for more detail. For a labeled breakdown of toolbar controls, see :ref:`timeline_toolbar_ref`. To select, move, and trim clips and transitions with the keyboard, see :ref:`timeline_keyboard_ref`. You can also focus Project Files with :kbd:`Shift+1` and press :kbd:`Ctrl+Enter` to place selected files at the playhead on the target track."
 msgstr ""
 
-#: ../timeline.rst:37
+#: ../doc/timeline.rst:40
 msgid "Timeline Basics"
 msgstr ""
 
-#: ../timeline.rst:39
+#: ../doc/timeline.rst:42
 msgid "These terms are used often in this guide:"
 msgstr ""
 
-#: ../timeline.rst:45
+#: ../doc/timeline.rst:48
 msgid "Term"
 msgstr ""
 
-#: ../timeline.rst:45
+#: ../doc/timeline.rst:48
 msgid "Meaning"
 msgstr ""
 
-#: ../timeline.rst:47
+#: ../doc/timeline.rst:50
 msgid "Playhead"
 msgstr ""
 
-#: ../timeline.rst:47
+#: ../doc/timeline.rst:50
 msgid "The red line that shows your current time position."
 msgstr ""
 
-#: ../timeline.rst:48
+#: ../doc/timeline.rst:51
 msgid "Track"
 msgstr ""
 
-#: ../timeline.rst:48
+#: ../doc/timeline.rst:51
 msgid "A horizontal layer that holds clips (top tracks appear above lower tracks)."
 msgstr ""
 
-#: ../timeline.rst:49
+#: ../doc/timeline.rst:52
 msgid "Clip"
 msgstr ""
 
-#: ../timeline.rst:49
+#: ../doc/timeline.rst:52
 msgid "A video, audio, or image item placed on a track."
 msgstr ""
 
-#: ../timeline.rst:50
+#: ../doc/timeline.rst:53
 msgid "Transition"
 msgstr ""
 
-#: ../timeline.rst:50
+#: ../doc/timeline.rst:53
 msgid "A blend between two overlapping clips."
 msgstr ""
 
-#: ../timeline.rst:51
+#: ../doc/timeline.rst:54
 msgid "Marker"
 msgstr ""
 
-#: ../timeline.rst:51
+#: ../doc/timeline.rst:54
 msgid "A saved point in time you can jump back to quickly."
 msgstr ""
 
-#: ../timeline.rst:52
+#: ../doc/timeline.rst:55
 msgid "Keyframe"
 msgstr ""
 
-#: ../timeline.rst:52
+#: ../doc/timeline.rst:55
 msgid "A saved value at a point in time (used for animation)."
 msgstr ""
 
-#: ../timeline.rst:55
+#: ../doc/timeline.rst:58
 msgid "For a full glossary, see :ref:`glossary_ref`."
 msgstr ""
 
-#: ../timeline.rst:58
+#: ../doc/timeline.rst:61
 msgid "Current Timecode"
 msgstr ""
 
-#: ../timeline.rst:60
+#: ../doc/timeline.rst:63
 msgid "The current timecode appears at the left side of the timeline ruler and shows the playhead's exact position. Click the timecode, enter a new value, and press :kbd:`Enter` to move the playhead to that frame."
 msgstr ""
 
-#: ../timeline.rst:64
+#: ../doc/timeline.rst:67
 msgid "Clear the field or enter ``0`` to jump to the start of the timeline. Press :kbd:`Up` or :kbd:`Down` to step the selected timecode segment; hold :kbd:`Shift` to step by 10. When the frame segment is selected, hold :kbd:`Ctrl` to step by one second. Press :kbd:`Esc` to cancel."
 msgstr ""
 
-#: ../timeline.rst:70
+#: ../doc/timeline.rst:73
 msgid "Common Timeline Tasks"
 msgstr ""
 
-#: ../timeline.rst:72
+#: ../doc/timeline.rst:75
 msgid "Most editing sessions follow a similar flow:"
 msgstr ""
 
-#: ../timeline.rst:74
+#: ../doc/timeline.rst:77
 msgid "Add media to the project using :ref:`import_files_ref`."
 msgstr ""
 
-#: ../timeline.rst:75
+#: ../doc/timeline.rst:78
 msgid "Drag files from the project panel onto timeline tracks."
 msgstr ""
 
-#: ../timeline.rst:76
+#: ../doc/timeline.rst:79
 msgid "Trim clip edges to remove extra content."
 msgstr ""
 
-#: ../timeline.rst:77
+#: ../doc/timeline.rst:80
 msgid "Move clips into order and stack tracks to build your scene."
 msgstr ""
 
-#: ../timeline.rst:78
+#: ../doc/timeline.rst:81
 msgid "Add transitions and effects where needed (:ref:`transitions_ref`, :ref:`effects_ref`)."
 msgstr ""
 
-#: ../timeline.rst:79
+#: ../doc/timeline.rst:82
 msgid "Preview and adjust timing (:ref:`playback_ref`)."
 msgstr ""
 
-#: ../timeline.rst:81
+#: ../doc/timeline.rst:84
 msgid "Clip trimming, slicing, and clip context menu actions are covered in detail in :ref:`clips_ref`."
 msgstr ""
 
-#: ../timeline.rst:84
+#: ../doc/timeline.rst:87
 msgid "Selecting Clips and Transitions"
 msgstr ""
 
-#: ../timeline.rst:86
+#: ../doc/timeline.rst:89
 msgid "Selection is one of the most important timeline skills:"
 msgstr ""
 
-#: ../timeline.rst:88
+#: ../doc/timeline.rst:91
 msgid "Click an item to select it."
 msgstr ""
 
-#: ../timeline.rst:89
+#: ../doc/timeline.rst:92
 msgid ":kbd:`Ctrl+Click` adds or removes items from selection."
 msgstr ""
 
-#: ../timeline.rst:90
+#: ../doc/timeline.rst:93
 msgid ":kbd:`Shift+Click` selects a range between your anchor item and the clicked item."
 msgstr ""
 
-#: ../timeline.rst:91
+#: ../doc/timeline.rst:94
 msgid ":kbd:`Ctrl+Shift+Click` adds that range to your current selection."
 msgstr ""
 
-#: ../timeline.rst:92
+#: ../doc/timeline.rst:95
 msgid ":kbd:`Alt+Click` ripple-selects from the clicked item to the end of the track."
 msgstr ""
 
-#: ../timeline.rst:93
+#: ../doc/timeline.rst:96
 msgid "Drag an empty-area selection box to select multiple items."
 msgstr ""
 
-#: ../timeline.rst:95
+#: ../doc/timeline.rst:98
 msgid "See :ref:`clips_ref` for the full list and examples."
 msgstr ""
 
-#: ../timeline.rst:98
+#: ../doc/timeline.rst:101
 msgid "Timeline Toolbar and Zoom"
 msgstr ""
 
-#: ../timeline.rst:100
-msgid "The timeline toolbar helps with common navigation and editing actions (snapping, retime, razor, markers, centering, and zoom)."
+#: ../doc/timeline.rst:103
+msgid "The timeline toolbar helps with common navigation and editing actions (snapping, auto keyframes, retime, razor, markers, centering, and zoom)."
 msgstr ""
 
-#: ../timeline.rst:103
+#: ../doc/timeline.rst:106
+msgid "Use the diamond button to turn :ref:`auto_keyframes_ref` on or off. Leave it on to build animations as you edit, or turn it off to adjust existing values without adding keyframes."
+msgstr ""
+
+#: ../doc/timeline.rst:109
 msgid "The :ref:`razor_tool_ref` shows a cut guide and timecode over the target clip. While paused, hovering also previews the cut frame without moving the playhead. Click to cut, or press :kbd:`Esc` to leave Razor mode. The Razor guide respects the existing **Snapping** toggle and uses the same snap targets and tolerance as other timeline edits."
 msgstr ""
 
-#: ../timeline.rst:109
+#: ../doc/timeline.rst:115
 msgid "Tip: If timeline editing feels crowded, zoom in with the timeline slider to make small clip adjustments easier."
 msgstr ""
 
-#: ../timeline.rst:112
+#: ../doc/timeline.rst:118
 msgid "You can also zoom the timeline with :kbd:`Ctrl+Scroll Wheel`. On the QWidget timeline, hold :kbd:`Ctrl` and drag with the middle mouse button for smooth zooming."
 msgstr ""
 
-#: ../timeline.rst:117
+#: ../doc/timeline.rst:123
 msgid "Tracks, Locking, and Inserting"
 msgstr ""
 
-#: ../timeline.rst:119
+#: ../doc/timeline.rst:125
 msgid "Tracks help organize your edit. A common setup is:"
 msgstr ""
 
-#: ../timeline.rst:121
+#: ../doc/timeline.rst:127
 msgid "Top tracks: titles, overlays, logos, picture-in-picture"
 msgstr ""
 
-#: ../timeline.rst:122
+#: ../doc/timeline.rst:128
 msgid "Middle tracks: main video content"
 msgstr ""
 
-#: ../timeline.rst:123
+#: ../doc/timeline.rst:129
 msgid "Lower tracks: music and sound effects"
 msgstr ""
 
-#: ../timeline.rst:125
+#: ../doc/timeline.rst:131
 msgid "You can lock tracks to protect them from accidental edits and use insert/ripple editing when you need later clips to move automatically."
 msgstr ""
 
-#: ../timeline.rst:128
+#: ../doc/timeline.rst:134
 msgid "For track layout basics, see :ref:`tracks_ref`. For detailed clip editing behavior, see :ref:`clips_cutting_slicing_ref`."
 msgstr ""
 
-#: ../timeline.rst:132
+#: ../doc/timeline.rst:138
+msgid "For projects with many layers, choose **Minimal** or **Compact** under **Preferences → Timeline → Track Size** to see more tracks with less scrolling. Choose **Relaxed** for more vertical room, or **Default** to restore the theme's original height. Keyframe panel spacing adjusts too. See :ref:`preferences_track_size_ref` for details."
+msgstr ""
+
+#: ../doc/timeline.rst:145
 msgid "Keyframes in the Timeline"
 msgstr ""
 
-#: ../timeline.rst:134
+#: ../doc/timeline.rst:147
 msgid "Keyframes let you change values over time, such as position, scale, rotation, opacity, and effect settings."
 msgstr ""
 
-#: ../timeline.rst:137
+#: ../doc/timeline.rst:150
 msgid "In the timeline keyframe panel, each row represents one animated property. You can:"
 msgstr ""
 
-#: ../timeline.rst:139
+#: ../doc/timeline.rst:152
 msgid "Add a keyframe row for a property"
 msgstr ""
 
-#: ../timeline.rst:140
+#: ../doc/timeline.rst:153
 msgid "Insert new keyframes along the row"
 msgstr ""
 
-#: ../timeline.rst:141
+#: ../doc/timeline.rst:154
 msgid "Move keyframes to change timing"
 msgstr ""
 
-#: ../timeline.rst:142
+#: ../doc/timeline.rst:155
 msgid "Change interpolation to control motion style"
 msgstr ""
 
-#: ../timeline.rst:144
+#: ../doc/timeline.rst:157
+msgid "Single-click a keyframe on a clip or in the keyframe panel to select it and move the playhead to its frame. This leaves the Properties dock open or closed as you have arranged it. Double-click the keyframe, or right-click it and choose :guilabel:`Properties`, to open the dock."
+msgstr ""
+
+#: ../doc/timeline.rst:162
 msgid "For keyframe concepts and animation examples, see :ref:`animation_ref`."
 msgstr ""
 
-#: ../timeline.rst:147
+#: ../doc/timeline.rst:165
 msgid "Next Steps"
 msgstr ""
 
-#: ../timeline.rst:149
+#: ../doc/timeline.rst:167
 msgid "After you are comfortable with timeline basics, these sections are the best next reads:"
 msgstr ""
 
-#: ../timeline.rst:151
+#: ../doc/timeline.rst:169
 msgid ":ref:`clips_ref` for trimming, slicing, and clip properties"
 msgstr ""
 
-#: ../timeline.rst:152
+#: ../doc/timeline.rst:170
 msgid ":ref:`effects_ref` for video/audio effects"
 msgstr ""
 
-#: ../timeline.rst:153
+#: ../doc/timeline.rst:171
 msgid ":ref:`animation_ref` for keyframe animation workflows"
 msgstr ""
 
-#: ../timeline.rst:154
+#: ../doc/timeline.rst:172
 msgid ":doc:`export` for creating your final video file"
 msgstr ""

@@ -429,6 +429,9 @@ may differ. On macOS, Command is used for shortcuts shown with Ctrl.
    * - Add or Apply Selected Asset
      - :kbd:`Ctrl+Enter`
      -
+   * - Add Text
+     - :kbd:`Shift+T`
+     -
    * - Add to Timeline
      - :kbd:`Ctrl+Alt+A`
      -

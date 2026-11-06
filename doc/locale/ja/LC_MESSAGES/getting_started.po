@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,12 +18,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:21
+#: ../doc/getting_started.rst:21
 msgid "Video Editing Basics"
 msgstr "ビデオ編集の基本"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:23
+#: ../doc/getting_started.rst:23
 msgid ""
 "You do not need to be a trained videographer to understand how to create "
 "videos well. Simple editing can keep your viewers engaged longer, and add a "
@@ -32,7 +32,7 @@ msgstr ""
 "動画制作を理解するために専門のビデオグラファーである必要はありません。シンプルな編集で視聴者の関心を長く保ち、プロのビデオ編集者でなくてもプロフェッショナルな仕上がりを加えることができます。"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:27
+#: ../doc/getting_started.rst:27
 msgid ""
 "Basically, video editing is taking footage, cutting it up, removing the "
 "pieces you do not want, and keeping the bits you do. Back in the old days, "
@@ -42,37 +42,37 @@ msgstr ""
 "基本的に、ビデオ編集とは映像を取り込み、不要な部分をカットし、必要な部分を残すことです。昔はフィルムのリールを切り貼りして編集していましたが、現在はソフトウェアのおかげでこのプロセスがはるかに簡単になりました。"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:32
+#: ../doc/getting_started.rst:32
 msgid "There are three main jobs of video editing:"
 msgstr "ビデオ編集には主に3つの役割があります："
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:34
+#: ../doc/getting_started.rst:34
 msgid "Remove mistakes or unwanted sections"
 msgstr "ミスや不要な部分を取り除く"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:35
+#: ../doc/getting_started.rst:35
 msgid "Keep the video moving at an engaging pace"
 msgstr "動画を魅力的なペースで進める"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:36
+#: ../doc/getting_started.rst:36
 msgid "Insert supporting footage, audio, or titles"
 msgstr "補助映像、音声、またはタイトルを挿入する"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:38
+#: ../doc/getting_started.rst:38
 msgid "Use these three points as a checklist as you edit."
 msgstr "編集時にはこれら3つのポイントをチェックリストとして使いましょう。"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:41
+#: ../doc/getting_started.rst:41
 msgid "Computer"
 msgstr "コンピューター"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:42
+#: ../doc/getting_started.rst:42
 msgid ""
 "Video editing does not require an expensive machine, especially if you are a"
 " beginner. However, it would be best if you had a more recent monitor and "
@@ -87,12 +87,12 @@ msgstr ""
 "とシステム仕様を照らし合わせて、ビデオ編集に適しているか確認してください。残念ながら、多くの古いコンピューターはビデオ編集に十分な速度がなく、可能であればシステム全体のアップグレードを推奨します。"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:50
+#: ../doc/getting_started.rst:50
 msgid "Accessories"
 msgstr "アクセサリー"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:51
+#: ../doc/getting_started.rst:51
 msgid ""
 "Before beginning a video project, ensure there is enough storage space on "
 "your computer to save all the necessary clips. For example, one hour of "
@@ -103,7 +103,7 @@ msgstr ""
 "ビデオプロジェクトを始める前に、必要なすべてのクリップを保存するための十分なストレージスペースがコンピューターにあることを確認してください。例えば、ミニDVカメラの1080i映像1時間分は約11GBの容量を必要とします。コンピューターの内蔵ストレージにすべてのクリップを保存できない場合は、外付けドライブの購入を検討してください。"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:57
+#: ../doc/getting_started.rst:57
 msgid ""
 "It would help if you had several cables, usually Firewire or USB, to connect"
 " your computer, external hard drive, and a camera. Different computers and "
@@ -113,12 +113,12 @@ msgstr ""
 "コンピューター、外付けハードドライブ、カメラを接続するために、通常はFirewireまたはUSBのケーブルが複数必要です。コンピューターやカメラによって対応するコネクターが異なるため、購入前にマニュアルを確認してください。"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:63
+#: ../doc/getting_started.rst:63
 msgid "Practical Tips"
 msgstr "実用的なヒント"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:64
+#: ../doc/getting_started.rst:64
 msgid ""
 "Becoming a great video editor isn’t effortless, but with practice and "
 "patience, you’ll be editing like a professional in no time. Here are a few "
@@ -128,12 +128,12 @@ msgstr ""
 "優れたビデオ編集者になるのは簡単ではありませんが、練習と忍耐で、すぐにプロのように編集できるようになります。ここでは、熟練したビデオ編集者になるために知っておくべき重要なヒントと技術をいくつか紹介します。"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:69
+#: ../doc/getting_started.rst:69
 msgid "Pick the Right Computer"
 msgstr "適切なコンピューターを選ぶ"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:70
+#: ../doc/getting_started.rst:70
 msgid ""
 "While having a great computer won’t necessarily make you a great video "
 "editor, a faster computer will allow you to focus more of your time on the "
@@ -144,12 +144,12 @@ msgstr ""
 "優れたコンピューターを持っていても必ずしも優れたビデオ編集者になれるわけではありませんが、高速なコンピューターはレンダリングにかかる時間を減らし、物語作りにより多くの時間を割くことができます。編集に最適なコンピューターについては人それぞれ意見がありますが、最終的には自分の好みによります。"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:77
+#: ../doc/getting_started.rst:77
 msgid "Keep Shooting"
 msgstr "撮影を続ける"
 
 # Main-window terminology review, 2026-09-26.
-#: ../getting_started.rst:78
+#: ../doc/getting_started.rst:78
 msgid ""
 "Record more video and audio than you think you will need for your project. "
 "Include video that enhances the scene, sets a mood, or tells a story. You "
@@ -161,19 +161,19 @@ msgid ""
 "workflows, you can still record with an external application and import the "
 "finished media into OpenShot."
 msgstr ""
-"プロジェクトに必要だと思うよりも多くのビデオとオーディオを録画してください。シーンを強調したり、ムードを設定したり、物語を伝えたりするビデオを含めてください。余分なビデオはプロジェクトのスムーズなトランジションに使用できます。プロジェクトにボイスオーバー、ナレーション、画面キャプチャ、またはウェブカメラ映像が必要な場合は、:guilabel:`View->録音・録画ビュー`"
-" "
-"を使ってOpenShotの録画ツールを開くことができます。マイク、システムオーディオ、画面、ウェブカメラのオプションを含む詳細については、:ref:`recording_ref`"
-" "
+"プロジェクトに必要だと思うよりも多くのビデオとオーディオを録画してください。シーンを強調したり、ムードを設定したり、物語を伝えたりするビデオを含めてください。余分なビデオはプロジェクトのスムーズなトランジションに使用できます。プロジェクトにボイスオーバー、ナレーション、画面キャプチャ、またはウェブカメラ映像が必要な場合は、\\"
+" :guilabel:`View->録音・録画ビュー` "
+"を使ってOpenShotの録画ツールを開くことができます。マイク、システムオーディオ、画面、ウェブカメラのオプションを含む詳細については、\\ "
+":ref:`recording_ref` "
 "を参照してください。より専門的なキャプチャワークフローの場合は、外部アプリケーションで録画し、完成したメディアをOpenShotにインポートすることも可能です。"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:88
+#: ../doc/getting_started.rst:88
 msgid "Organize Your Project Files"
 msgstr "プロジェクトファイルを整理する"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:89
+#: ../doc/getting_started.rst:89
 msgid ""
 "Composition is the key to success, whether you are running Linux, on a Mac, "
 "or a Windows machine. Be sure to label video files, audio files, and even "
@@ -185,12 +185,12 @@ msgstr ""
 "Linux、Mac、Windowsのいずれの環境でも、構成が成功の鍵です。ビデオファイル、音声ファイル、静止画像に明確なラベルを付け、すべてのクリップを同じデバイスの同じフォルダーに保存してアクセスしやすくしてください。OpenShotはクリップの管理を試みますが、プロジェクト保存後にクリップを移動すると、プロジェクト全体を失う可能性があります。編集を始める前に整理することは非常に有利です。"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:98
+#: ../doc/getting_started.rst:98
 msgid "Watch Everything"
 msgstr "すべてを見る"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:99
+#: ../doc/getting_started.rst:99
 msgid ""
 "Watching everything is the first step in the editing process. Writer and "
 "filmmaker David Andrew Stoler says there is gold in the most unlikely of "
@@ -200,12 +200,12 @@ msgstr ""
 "すべてを見ることが編集プロセスの第一歩です。作家で映画製作者のデイビッド・アンドリュー・ストーラーは、最も意外な場所に宝があると言います：「俳優から得られる最も美しい表情のいくつかはカット後に現れる。」"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:105
+#: ../doc/getting_started.rst:105
 msgid "Edit for a Story"
 msgstr "物語のために編集する"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:106
+#: ../doc/getting_started.rst:106
 msgid ""
 "Remember that as you edit, you are telling a story. Editing is so much more "
 "than merely cutting footage and adding effects. It is an opportunity to take"
@@ -216,12 +216,12 @@ msgstr ""
 "編集する際には、物語を伝えていることを忘れないでください。編集は単に映像をカットし効果を加える以上のものです。観客を旅に連れて行く機会です。複雑な物語映画を編集している場合でも、個人的なビデオをまとめている場合でも、より深い物語を伝えています。"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:113
+#: ../doc/getting_started.rst:113
 msgid "Keyboard Shortcuts"
 msgstr "キーボードショートカット"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:114
+#: ../doc/getting_started.rst:114
 msgid ""
 "One of the easiest ways to tell the difference between and professional "
 "video editor and a novice is to simply look at how much they use the "
@@ -231,12 +231,12 @@ msgstr ""
 "プロのビデオ編集者と初心者の違いを見分ける最も簡単な方法の一つは、どれだけキーボードを使うかを見ることです。長く業界にいる編集者は、数秒の節約がプロジェクト全体で大きな差になることを知っています。"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:120
+#: ../doc/getting_started.rst:120
 msgid "Learn the Lingo"
 msgstr "用語を学ぶ"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:121
+#: ../doc/getting_started.rst:121
 msgid ""
 "Video editing is not just a hobby or a profession; it is an industry. And "
 "just like any industry, there is a ton of jargon to learn. Practically "
@@ -249,12 +249,12 @@ msgstr ""
 "のすべての用語を知る必要はありませんが、基本的な用語の知識は他の編集者やクライアントとのコミュニケーションに役立ちます。"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:129
+#: ../doc/getting_started.rst:129
 msgid "Assemble, Then Make a Rough Cut"
 msgstr "組み立ててからラフカットを作成する"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:130
+#: ../doc/getting_started.rst:130
 msgid ""
 "Drag and drop all your video footage into a timeline and make sure your "
 "frame size and frame rates are consistent. Begin a new timeline and drag-"
@@ -264,12 +264,12 @@ msgstr ""
 "すべての映像素材をタイムラインにドラッグ＆ドロップし、フレームサイズとフレームレートが一貫していることを確認してください。新しいタイムラインを開始し、最良のクリップをドラッグ＆ドロップしてアセンブリカットを作成します。作業は頻繁に保存し、各バージョンの日付と時刻を記録してください。"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:136
+#: ../doc/getting_started.rst:136
 msgid "Refine Your Video"
 msgstr "ビデオを仕上げる"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:137
+#: ../doc/getting_started.rst:137
 msgid ""
 "In this phase, your rough cut begins to resemble a cohesive project. Adjust "
 "the sound and color, make sure the dialog is audible, and add music, titles,"
@@ -281,12 +281,12 @@ msgstr ""
 "この段階では、ラフカットがまとまりのあるプロジェクトに近づきます。音声や色を調整し、ダイアログが聞き取りやすいことを確認し、この段階で音楽、タイトル、グラフィックを追加します。カラーコレクションは映像の色基準を設定するプロセスです。被写体がどれほど素晴らしく見えても、一貫した映像にするためには基本的なポストプロセスがほぼ必須です。"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:145
+#: ../doc/getting_started.rst:145
 msgid "Refine Some More"
 msgstr "さらに仕上げる"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:146
+#: ../doc/getting_started.rst:146
 msgid ""
 "A slow scene can set the mood and add tension or it can bore an audience. A "
 "fast scene can add adrenaline to your audience’s systems or it can give them"
@@ -297,12 +297,12 @@ msgstr ""
 "ゆっくりしたシーンは雰囲気を作り緊張感を加えることもあれば、観客を退屈させることもあります。速いシーンは観客にアドレナリンを与えることもあれば、頭痛を引き起こすこともあります。編集者の中には、適切なペースを見つけるまでに何度もプロジェクトをカットし直す人もいます。何度もカットし直すことに落胆しないでください。"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:153
+#: ../doc/getting_started.rst:153
 msgid "Exporting"
 msgstr "書き出し"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:154
+#: ../doc/getting_started.rst:154
 msgid ""
 "People view most of their projects on phones, tablets, or computers, so it "
 "is essential to know how to export for the web. The goal when exporting a "
@@ -313,12 +313,12 @@ msgstr ""
 "多くの人がスマートフォン、タブレット、またはコンピューターでプロジェクトを視聴するため、ウェブ用の書き出し方法を知ることが重要です。ウェブ用に動画を書き出す際の目標は、可能な限り高品質で、かつファイルサイズを最小にすることです。完成した動画のファイルサイズは主に4つの要素で決まります："
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:160
+#: ../doc/getting_started.rst:160
 msgid "Codec"
 msgstr "コーデック"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:161
+#: ../doc/getting_started.rst:161
 msgid ""
 "A codec determines the type of file format (MP4, AVI, MOV). The more "
 "compression performed by the codec, the smaller your video’s size. Videos "
@@ -327,12 +327,12 @@ msgstr ""
 "コーデックはファイル形式（MP4、AVI、MOVなど）を決定します。コーデックによる圧縮が多いほど、動画のサイズは小さくなります。ファイルサイズが小さい動画は、視覚的な品質が低くなる傾向があります。"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:166
+#: ../doc/getting_started.rst:166
 msgid "Resolution"
 msgstr "解像度"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:167
+#: ../doc/getting_started.rst:167
 msgid ""
 "Resolution refers to the number of horizontal and vertical pixels (dots on "
 "display) your video contains. For example, a 4K UHD (2160P) video has four "
@@ -343,12 +343,12 @@ msgstr ""
 "UHD（2160P）動画はFHD（1080P）動画の4倍の解像度を持ちます。解像度が高いほど保存する情報量が増え、ファイルサイズも大きくなります。"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:173
+#: ../doc/getting_started.rst:173
 msgid "Bit Rate"
 msgstr "ビットレート"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:174
+#: ../doc/getting_started.rst:174
 msgid ""
 "The Bit Rate is the measure of the speed of data processing of your video. A"
 " higher bit rate means higher-quality video and larger files. OpenShot "
@@ -358,12 +358,12 @@ msgstr ""
 "ビットレートは動画のデータ処理速度の指標です。ビットレートが高いほど高品質な動画となり、ファイルサイズも大きくなります。OpenShotでは、書き出しウィンドウの詳細タブでビットレート／品質を手動で設定できます。"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:180
+#: ../doc/getting_started.rst:180
 msgid "Frame Rate"
 msgstr "フレームレート"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:181
+#: ../doc/getting_started.rst:181
 msgid ""
 "The frequency (in Hz) at which consecutive images, called frames, appear on "
 "the display is the Frame Rate. Typically, you export your video in the film "
@@ -374,12 +374,12 @@ msgstr ""
 "連続する画像（フレーム）がディスプレイに表示される頻度（Hz）がフレームレートです。通常、動画は映画標準の24fpsか、テレビ放送標準の30fps（PALでは25fps）で書き出します。ここにはあまり余裕はありませんが、48fps、50fps、60fpsで書き出すとファイルサイズが倍になることに注意してください。"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:188
+#: ../doc/getting_started.rst:188
 msgid "Conclusion"
 msgstr "まとめ"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:189
+#: ../doc/getting_started.rst:189
 msgid ""
 "In conclusion, video editing is an accessible skill that can elevate your "
 "video content even if you're not a professional videographer. With the "

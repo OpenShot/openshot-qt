@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,11 +20,11 @@ msgstr ""
 "Generated-By: Babel 2.10.3\n"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:21
+#: ../doc/introduction.rst:21
 msgid "Introduction"
 msgstr "পরিচিতি"
 
-#: ../introduction.rst:23
+#: ../doc/introduction.rst:23
 msgid ""
 "OpenShot Video Editor is an award-winning, open-source video editor, "
 "available on Linux, macOS, Chrome OS, and Windows. OpenShot can create "
@@ -37,31 +37,31 @@ msgstr ""
 "অ্যানিমেশন তৈরি করতে পারে।"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:30
+#: ../doc/introduction.rst:30
 msgid "Features"
 msgstr "বৈশিষ্ট্যসমূহ"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:31
+#: ../doc/introduction.rst:31
 msgid "**Free & open-source** (licensed under GPLv3)"
 msgstr "**বিনামূল্যে ও ওপেন-সোর্স** (GPLv3 লাইসেন্সের অধীনে)"
 
-#: ../introduction.rst:32
+#: ../doc/introduction.rst:32
 msgid "**Cross-platform** (Linux, macOS, Chrome OS, and Windows)"
 msgstr "**ক্রস-প্ল্যাটফর্ম** (Linux, macOS, Chrome OS, এবং Windows)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:33
+#: ../doc/introduction.rst:33
 msgid "**Easy-to-use UI** (beginner-friendly, built-in tutorial)"
 msgstr ""
 "**সহজে ব্যবহারযোগ্য UI** (শুরু করার জন্য উপযোগী, অন্তর্নির্মিত টিউটোরিয়াল)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:34
+#: ../doc/introduction.rst:34
 msgid "**Supports most formats** (video, audio, images - FFmpeg-based)"
 msgstr "**অধিকাংশ ফরম্যাট সমর্থন করে** (ভিডিও, অডিও, ছবি - FFmpeg ভিত্তিক)"
 
-#: ../introduction.rst:35
+#: ../doc/introduction.rst:35
 msgid ""
 "**70+ export targets & profiles** (YouTube, TikTok, Reels, Shorts, and more)"
 msgstr ""
@@ -69,27 +69,27 @@ msgstr ""
 "অনেক কিছু)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:36
+#: ../doc/introduction.rst:36
 msgid "**Advanced timeline** (drag-drop, scroll, zoom, snap)"
 msgstr "**উন্নত টাইমলাইন** (ড্র্যাগ-ড্রপ, স্ক্রল, জুম, স্ন্যাপ)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:37
+#: ../doc/introduction.rst:37
 msgid "**Advanced clips** (trim, alpha, scale, rotate, shear, transform)"
 msgstr "**উন্নত ক্লিপস** (ট্রিম, আলফা, স্কেল, ঘোরানো, শিয়ার, রূপান্তর)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:38
+#: ../doc/introduction.rst:38
 msgid "**Real-time preview** (multi-threaded, performance-optimized)"
 msgstr "**রিয়েল-টাইম প্রিভিউ** (মাল্টি-থ্রেডেড, পারফরম্যান্স অপ্টিমাইজড)"
 
-#: ../introduction.rst:39
+#: ../doc/introduction.rst:39
 msgid ""
 "**Multiple workspace modes** (Simple and Color views, plus save your own)"
 msgstr ""
 "**বহুমুখী ওয়ার্কস্পেস মোড** (সরল এবং রঙের ভিউ, এছাড়াও নিজের সংরক্ষণ করুন)"
 
-#: ../introduction.rst:40
+#: ../doc/introduction.rst:40
 msgid ""
 "**Keyframe animations & panel** (`linear`, `bézier`, `constant` "
 "interpolation, visual keyframe panel)"
@@ -97,27 +97,27 @@ msgstr ""
 "**কীফ্রেম অ্যানিমেশন ও প্যানেল** (`linear`, `bézier`, `constant` "
 "ইন্টারপোলেশন, ভিজ্যুয়াল কীফ্রেম প্যানেল)"
 
-#: ../introduction.rst:41
+#: ../doc/introduction.rst:41
 msgid "**One-click presets** (motion, fade, look, camera, color, and more)"
 msgstr ""
 "**এক-ক্লিক প্রিসেট** (মোশন, ফেড, লুক, ক্যামেরা, রঙ, এবং আরও অনেক কিছু)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:42
+#: ../doc/introduction.rst:42
 msgid "**Compositing, overlays, watermarks, transparency**"
 msgstr "**কম্পোজিটিং, ওভারলে, ওয়াটারমার্ক, স্বচ্ছতা**"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:43
+#: ../doc/introduction.rst:43
 msgid "**Unlimited tracks / layers** (for complex projects)"
 msgstr "**অসীম ট্র্যাক / লেয়ার** (জটিল প্রকল্পের জন্য)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:44
+#: ../doc/introduction.rst:44
 msgid "**Transitions, masks, wipes** (grayscale images, animated masks)"
 msgstr "**ট্রানজিশন, মাস্ক, ওয়াইপ** (গ্রেস্কেল ছবি, অ্যানিমেটেড মাস্ক)"
 
-#: ../introduction.rst:45
+#: ../doc/introduction.rst:45
 msgid ""
 "**Video effects** (chroma key, blur, brightness & contrast, film grain, "
 "stabilizer, and more)"
@@ -125,14 +125,14 @@ msgstr ""
 "**ভিডিও ইফেক্টস** (ক্রোমা কী, ব্লার, উজ্জ্বলতা ও কনট্রাস্ট, ফিল্ম গ্রেইন, "
 "স্ট্যাবিলাইজার, এবং আরও অনেক কিছু)"
 
-#: ../introduction.rst:46
+#: ../doc/introduction.rst:46
 msgid ""
 "**Audio effects** (compressor, expander, noise removal, echo, and more)"
 msgstr ""
 "**অডিও ইফেক্টস** (কম্প্রেসর, এক্সপ্যান্ডার, শব্দ অপসারণ, ইকো, এবং আরও অনেক "
 "কিছু)"
 
-#: ../introduction.rst:47
+#: ../doc/introduction.rst:47
 msgid ""
 "**Color grading** (color wheels, RGB curves, LUT support, video scopes & "
 "analysis)"
@@ -140,16 +140,16 @@ msgstr ""
 "**রঙ গ্রেডিং** (রঙের চাকা, RGB কার্ভ, LUT সমর্থন, ভিডিও স্কোপ ও বিশ্লেষণ)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:48
+#: ../doc/introduction.rst:48
 msgid "**Image sequences & 2D animations**"
 msgstr "**ইমেজ সিকোয়েন্স ও ২ডি অ্যানিমেশন**"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:49
+#: ../doc/introduction.rst:49
 msgid "**Blender 3D integration** (animated 3D title templates)"
 msgstr "**Blender 3D ইন্টিগ্রেশন** (অ্যানিমেটেড 3D টাইটেল টেমপ্লেট)"
 
-#: ../introduction.rst:50
+#: ../doc/introduction.rst:50
 msgid ""
 "**Vector file support & editing** (SVG for titles, lower thirds, text "
 "overlays)"
@@ -158,21 +158,21 @@ msgstr ""
 "জন্য SVG)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:51
+#: ../doc/introduction.rst:51
 msgid "**Audio mixing, waveform, editing**"
 msgstr "**অডিও মিক্সিং, ওয়েভফর্ম, সম্পাদনা**"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:52
+#: ../doc/introduction.rst:52
 msgid "**Emojis** (open-source stickers & artwork)"
 msgstr "**ইমোজি** (ওপেন-সোর্স স্টিকার ও আর্টওয়ার্ক)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:53
+#: ../doc/introduction.rst:53
 msgid "**Frame accuracy** (per-frame navigation)"
 msgstr "**ফ্রেম নির্ভুলতা** (প্রতি ফ্রেম নেভিগেশন)"
 
-#: ../introduction.rst:54
+#: ../doc/introduction.rst:54
 msgid ""
 "**Time re-mapping & speed changes** (slow motion, repeat, loop, ping-pong, "
 "forward/backward)"
@@ -181,18 +181,18 @@ msgstr ""
 "এগিয়ে/পিছনে)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:55
+#: ../doc/introduction.rst:55
 #, fuzzy
 msgid "**Built-in AI** (motion tracking, object detection, stabilization)"
 msgstr "**উন্নত AI** (মোশন ট্র্যাকিং, অবজেক্ট ডিটেকশন, স্ট্যাবিলাইজেশন)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:56
+#: ../doc/introduction.rst:56
 msgid "**Advanced AI** (see :ref:`ai_ref`)"
 msgstr "**উন্নত AI** (দেখুন :ref:`ai_ref`)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:58
+#: ../doc/introduction.rst:58
 msgid ""
 "**Tracking & masks** (object tracking, animated mask generation, auto-blur, "
 "auto-highlight)"
@@ -201,7 +201,7 @@ msgstr ""
 " ব্লার, স্বয়ংক্রিয় হাইলাইট)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:59
+#: ../doc/introduction.rst:59
 msgid ""
 "**Image & video generation** (text-to-image, image style transfer, "
 "text/image-to-video)"
@@ -210,14 +210,14 @@ msgstr ""
 "টেক্সট/ছবি-টু-ভিডিও)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:60
+#: ../doc/introduction.rst:60
 msgid ""
 "**Quality enhancement** (upscaling, frame interpolation/increase frame rate)"
 msgstr ""
 "**গুণগত মান উন্নয়ন** (আপস্কেলিং, ফ্রেম ইন্টারপোলেশন/ফ্রেম রেট বৃদ্ধি)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:61
+#: ../doc/introduction.rst:61
 msgid ""
 "**Analysis & automation** (auto scene splitting, speech "
 "transcription/captions)"
@@ -226,38 +226,38 @@ msgstr ""
 "লিপ্যন্তর/ক্যাপশন)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:62
+#: ../doc/introduction.rst:62
 msgid "**Audio generation** (sound and music generation)"
 msgstr "**অডিও তৈরি** (শব্দ ও সঙ্গীত তৈরি)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:63
+#: ../doc/introduction.rst:63
 msgid "*Additional workflows can be added with custom ComfyUI templates*"
 msgstr ""
 "*অতিরিক্ত ওয়ার্কফ্লো কাস্টম ComfyUI টেমপ্লেট দিয়ে যোগ করা যেতে পারে*"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:64
+#: ../doc/introduction.rst:64
 msgid "**Credits & captions** (scrolling, animated)"
 msgstr "**ক্রেডিট ও ক্যাপশন** (স্ক্রলিং, অ্যানিমেটেড)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:65
+#: ../doc/introduction.rst:65
 msgid "**Hardware acceleration** (NVIDIA, AMD, Intel, etc.)"
 msgstr "**হার্ডওয়্যার অ্যাক্সেলারেশন** (NVIDIA, AMD, Intel, ইত্যাদি)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:66
+#: ../doc/introduction.rst:66
 msgid "**Import & export** (EDL, Final Cut Pro)"
 msgstr "**ইম্পোর্ট ও এক্সপোর্ট** (EDL, Final Cut Pro)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:67
+#: ../doc/introduction.rst:67
 msgid "**Desktop integration** (drag-drop from file managers)"
 msgstr "**ডেস্কটপ ইন্টিগ্রেশন** (ফাইল ম্যানেজার থেকে ড্র্যাগ-ড্রপ)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:68
+#: ../doc/introduction.rst:68
 msgid ""
 "**JSON project format** (`OpenShot Cloud API "
 "<https://www.openshot.org/cloud-api/>`_ compatible)"
@@ -266,39 +266,39 @@ msgstr ""
 "<https://www.openshot.org/cloud-api/>`_ সামঞ্জস্যপূর্ণ)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:69
+#: ../doc/introduction.rst:69
 msgid "**Customizable shortcuts**"
 msgstr "**কাস্টমাইজযোগ্য শর্টকাটস**"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:70
+#: ../doc/introduction.rst:70
 msgid "**Translations** (100+ languages)"
 msgstr "**অনুবাদসমূহ** (১০০+ ভাষা)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:71
+#: ../doc/introduction.rst:71
 msgid "**High DPI** monitor support"
 msgstr "**উচ্চ DPI** মনিটর সমর্থন"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:72
+#: ../doc/introduction.rst:72
 msgid ""
 "**Community support** (`Visit our forum <https://openshot.org/forum/>`_)"
 msgstr ""
 "**কমিউনিটি সাপোর্ট** (`আমাদের ফোরামে যান <https://openshot.org/forum/>`_)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:75
+#: ../doc/introduction.rst:75
 msgid "Screenshot"
 msgstr "স্ক্রিনশট"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:81
+#: ../doc/introduction.rst:81
 msgid "System Requirements"
 msgstr "সিস্টেমের প্রয়োজনীয়তা"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:82
+#: ../doc/introduction.rst:82
 msgid ""
 "Video editing benefits from modern, multi-core CPUs with **fast clock "
 "speeds** (GHz), large amounts of memory, and fast hard disk drives. "
@@ -311,52 +311,52 @@ msgstr ""
 "**ন্যূনতম সিস্টেমের প্রয়োজনীয়তা**:"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:87
+#: ../doc/introduction.rst:87
 msgid "TL;DR"
 msgstr "সংক্ষিপ্তসার"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:88
+#: ../doc/introduction.rst:88
 msgid "Most computers manufactured after 2017 will run OpenShot"
 msgstr "২০১৭ সালের পর নির্মিত অধিকাংশ কম্পিউটার OpenShot চালাতে পারবে"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:91
+#: ../doc/introduction.rst:91
 msgid "Minimum Specifications"
 msgstr "ন্যূনতম স্পেসিফিকেশন"
 
-#: ../introduction.rst:92
+#: ../doc/introduction.rst:92
 msgid "64-bit Operating System (*Linux, macOS, Chrome OS, Windows 7/8/10/11*)"
 msgstr ""
 "৬৪-বিট অপারেটিং সিস্টেম (*Linux, macOS, Chrome OS, Windows 7/8/10/11*)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:95
+#: ../doc/introduction.rst:95
 msgid "Multi-core processor with 64-bit support"
 msgstr "৬৪-বিট সমর্থনসহ মাল্টি-কোর প্রসেসর"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:94
+#: ../doc/introduction.rst:94
 msgid "Minimum cores: 2 (*recommended: 6+ cores*)"
 msgstr "ন্যূনতম কোর: ২ (*প্রস্তাবিত: ৬+ কোর*)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:95
+#: ../doc/introduction.rst:95
 msgid "Minimum threads: 4 (*recommended: 6+ threads*)"
 msgstr "ন্যূনতম থ্রেড: ৪ (*প্রস্তাবিত: ৬+ থ্রেড*)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:96
+#: ../doc/introduction.rst:96
 msgid "Minimum turbo clock speed: 2.7 Ghz (*recommended: 3.4+ Ghz*)"
 msgstr "ন্যূনতম টার্বো ক্লক স্পিড: ২.৭ GHz (*প্রস্তাবিত: ৩.৪+ GHz*)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:97
+#: ../doc/introduction.rst:97
 msgid "4GB of RAM (*16+ GB recommended*)"
 msgstr "৪GB RAM (*প্রস্তাবিত: ১৬+ GB*)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:98
+#: ../doc/introduction.rst:98
 msgid ""
 "1 GB of hard-disk space for installation & usage (*recommended: 50+ GB "
 "available hard-disk space for media, videos, images, and storage*)"
@@ -365,7 +365,7 @@ msgstr ""
 "ভিডিও, ছবি, এবং স্টোরেজের জন্য ৫০+ GB উপলব্ধ হার্ড-ডিস্ক স্পেস*)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:99
+#: ../doc/introduction.rst:99
 msgid ""
 "Optional: Solid-state drive (SSD), if utilizing disk-caching add an "
 "additional 10GB of hard-disk space"
@@ -374,17 +374,17 @@ msgstr ""
 "হার্ড-ডিস্ক স্পেস প্রয়োজন"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:100
+#: ../doc/introduction.rst:100
 msgid "For factors related to real-time previews, see :ref:`playback_ref`."
 msgstr "রিয়েল-টাইম প্রিভিউ সম্পর্কিত বিষয়ের জন্য দেখুন :ref:`playback_ref`।"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:103
+#: ../doc/introduction.rst:103
 msgid "License"
 msgstr "লাইসেন্স"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:104
+#: ../doc/introduction.rst:104
 msgid ""
 "OpenShot Video Editor is free software: you can redistribute it and/or "
 "modify it under the terms of the GNU General Public License as published by "
@@ -397,7 +397,7 @@ msgstr ""
 "পছন্দমতো) পরবর্তী সংস্করণ।"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:109
+#: ../doc/introduction.rst:109
 msgid ""
 "OpenShot Video Editor is distributed in the hope that it will be useful, but"
 " WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "

@@ -918,6 +918,25 @@ def main():
                 if not os.path.isfile(os.path.join(app_dir_path, "usr", "bin", qt_library)):
                     raise RuntimeError("AppImage is missing required Qt library: %s" % qt_library)
 
+            # GPU drivers come from the host, and one process cannot load two FFmpegs.
+            bundled_libs = os.listdir(os.path.join(app_dir_path, "usr", "bin"))
+            for lib_name in bundled_libs:
+                if lib_name.startswith(("libvulkan.so", "libcuda.so", "libnvidia-")):
+                    raise RuntimeError("AppImage must not bundle host GPU library: %s" % lib_name)
+            avcodec_libs = [lib_name for lib_name in bundled_libs
+                            if re.match(r"libavcodec\.so\.\d+$", lib_name)]
+            if len(avcodec_libs) > 1:
+                raise RuntimeError("AppImage bundles more than one FFmpeg: %s" % avcodec_libs)
+
+            # The dispatcher is redistributable; GPU drivers remain host dependencies.
+            ffmpeg_root = os.environ.get("FFMPEG_ROOT") or os.environ.get("FFMPEGDIR")
+            if not ffmpeg_root:
+                raise RuntimeError("FFMPEG_ROOT is required to package oneVPL notices")
+            shutil.copytree(os.path.join(ffmpeg_root, "share", "vpl", "licensing"),
+                            os.path.join(app_dir_path, "usr", "share", "licenses", "oneVPL"))
+            subprocess.run([sys.executable, os.path.join(PATH, "installer", "check-linux-hardware.py"),  # nosec B603 - Fixed interpreter and local package checker; no shell.
+                            os.path.join(app_dir_path, "usr", "bin")], check=True)
+
             # Prefer the desktop's native file picker through XDG portals.
             install_linux_portal_theme(app_dir_path)
 

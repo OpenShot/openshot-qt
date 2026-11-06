@@ -28,6 +28,7 @@
 import copy
 import json
 import os
+import pickle  # nosec B403 - Generate controlled pickle fixtures for regression tests.
 import sys
 import tempfile
 import types
@@ -44,6 +45,7 @@ if PATH not in sys.path:
 from qt_api import QApplication
 
 from classes.project_data import ProjectDataStore
+from classes.json_data import JsonDataStore
 from classes.updates import UpdateManager
 from tests.qt_test_app import ensure_app_state as ensure_qt_app_state, get_or_create_app
 from tests.source_tree import source_path
@@ -130,6 +132,48 @@ class ProjectDataTests(unittest.TestCase):
 
     def tearDown(self):
         ensure_app_state(self.app)
+
+    def test_broken_json_and_empty_projects_do_not_fall_back_to_pickle(self):
+        for contents in ('{"clips": [', '', '  [1,'):
+            with self.subTest(contents=contents), tempfile.TemporaryDirectory() as directory:
+                path = os.path.join(directory, "broken.osp")
+                with open(path, "w") as stream:
+                    stream.write(contents)
+                store = make_store()
+                JsonDataStore.__init__(store)
+                with patch.object(store, "new"), patch.object(store, "read_legacy_project_file") as legacy:
+                    with self.assertRaises(Exception) as caught:
+                        store.load(path)
+                    legacy.assert_not_called()
+                if contents:
+                    self.assertIsInstance(caught.exception.__cause__, json.JSONDecodeError)
+                else:
+                    self.assertIn("no data", str(caught.exception))
+
+    def test_binary_and_text_pickles_still_reach_legacy_loader(self):
+        for protocol in (0, 2):
+            with self.subTest(protocol=protocol), tempfile.TemporaryDirectory() as directory:
+                path = os.path.join(directory, "legacy.osp")
+                with open(path, "wb") as stream:
+                    pickle.dump({"legacy": True}, stream, protocol=protocol)
+                store = make_store()
+                JsonDataStore.__init__(store)
+                sentinel = RuntimeError("legacy loader reached")
+                with patch.object(store, "new"), \
+                        patch.object(store, "read_legacy_project_file", side_effect=sentinel) as legacy:
+                    with self.assertRaises(RuntimeError) as caught:
+                        store.load(path)
+                    self.assertIs(caught.exception, sentinel)
+                    legacy.assert_called_once_with(path)
+
+    def test_post_decode_failure_is_not_misreported_as_legacy_project(self):
+        store = make_store()
+        with patch.object(store, "new"), \
+                patch.object(store, "read_from_file", return_value=[]), \
+                patch.object(store, "read_legacy_project_file") as legacy:
+            with self.assertRaises(AttributeError):
+                store.load("modern.osp")
+            legacy.assert_not_called()
 
     def test_new_project_uses_default_track_count(self):
         with tempfile.TemporaryDirectory() as tmpdir, \

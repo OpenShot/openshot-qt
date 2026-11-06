@@ -195,8 +195,13 @@ def get_waveform_thread(file_id, clip_list, transaction_id):
             )
 
         # Open file and access audio data (if audio data is found, otherwise return)
-        temp_clip = openshot.Clip(file_data["path"])
-        if temp_clip.Reader().info.has_audio == False:
+        try:
+            temp_clip = openshot.Clip(file_data["path"])
+            reader = temp_clip.Reader()
+        except RuntimeError as ex:
+            log.warning("Unable to open waveform source %s: %s", file_data["path"], ex)
+            return
+        if reader.info.has_audio == False:
             log.info(f"file: {file_data['path']} has no audio_data. Skipping")
             return
 
@@ -204,7 +209,7 @@ def get_waveform_thread(file_id, clip_list, transaction_id):
         get_app().window.WaitCursorSignal.emit(True)
         try:
             # Extract peak and RMS waveform envelopes for all channels.
-            waveformer = openshot.AudioWaveformer(temp_clip.Reader())
+            waveformer = openshot.AudioWaveformer(reader)
             sample_rate = configured_waveform_sample_rate()
             file_audio_data = waveformer.ExtractSamples(channel, sample_rate, False)
             samples_vectors = file_audio_data.vectors()

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-26 14:26-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,12 +20,12 @@ msgstr ""
 "Generated-By: Babel 2.10.3\n"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:21
+#: ../doc/main_window.rst:21
 msgid "Main Window"
 msgstr "Hauptfenster"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:23
+#: ../doc/main_window.rst:23
 msgid ""
 "OpenShot Video Editor has one main window which contains most of the "
 "information, buttons, and menus needed to edit your video project."
@@ -35,104 +35,109 @@ msgstr ""
 "benötigt werden."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:27
+#: ../doc/main_window.rst:27
 msgid "Overview"
 msgstr "Übersicht"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:35 ../main_window.rst:80 ../main_window.rst:101
+#: ../doc/main_window.rst:35 ../doc/main_window.rst:80
+#: ../doc/main_window.rst:101
 msgid "#"
 msgstr "Nr."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:35 ../main_window.rst:80
+#: ../doc/main_window.rst:35 ../doc/main_window.rst:80
 msgid "Name"
 msgstr "Name"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:35 ../main_window.rst:80 ../main_window.rst:103
-#: ../main_window.rst:237 ../main_window.rst:367 ../main_window.rst:396
+#: ../doc/main_window.rst:35 ../doc/main_window.rst:80
+#: ../doc/main_window.rst:103 ../doc/main_window.rst:173
+#: ../doc/main_window.rst:303 ../doc/main_window.rst:332
 msgid "Description"
 msgstr "Beschreibung"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:37 ../main_window.rst:82 ../main_window.rst:104
+#: ../doc/main_window.rst:37 ../doc/main_window.rst:82
+#: ../doc/main_window.rst:104
 msgid "1"
 msgstr "1"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:37
+#: ../doc/main_window.rst:37
 msgid "Main Toolbar"
 msgstr "Hauptsymbolleiste"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:37
+#: ../doc/main_window.rst:37
 msgid "Contains buttons to open, save, and export your video project."
 msgstr ""
 "Enthält Schaltflächen zum Öffnen, Speichern und Exportieren Ihres "
 "Videoprojekts."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:38 ../main_window.rst:83 ../main_window.rst:107
+#: ../doc/main_window.rst:38 ../doc/main_window.rst:83
+#: ../doc/main_window.rst:107
 msgid "2"
 msgstr "2"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:38
+#: ../doc/main_window.rst:38
 msgid "Function Tabs"
 msgstr "Funktionsregisterkarten"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:38
+#: ../doc/main_window.rst:38
 msgid "Switch between Project Files, Transitions, Effects, and Emojis."
 msgstr ""
 "Wechseln Sie zwischen Projektdateien, Übergängen, Effekten und Emojis."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:39 ../main_window.rst:84 ../main_window.rst:110
+#: ../doc/main_window.rst:39 ../doc/main_window.rst:84
+#: ../doc/main_window.rst:110
 msgid "3"
 msgstr "3"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:39 ../main_window.rst:411
+#: ../doc/main_window.rst:39 ../doc/main_window.rst:347
 msgid "Project Files"
 msgstr "Projektdateien"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:39
+#: ../doc/main_window.rst:39
 msgid ""
 "All audio, video, and image files that have been imported into your project."
 msgstr ""
 "Alle Audio-, Video- und Bilddateien, die in Ihr Projekt importiert wurden."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:40 ../main_window.rst:113
+#: ../doc/main_window.rst:40 ../doc/main_window.rst:113
 msgid "4"
 msgstr "4"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:40
+#: ../doc/main_window.rst:40
 msgid "Preview Window"
 msgstr "Vorschaufenster"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:40
+#: ../doc/main_window.rst:40
 msgid "This is the area that the video will playback on the screen."
 msgstr ""
 "Dies ist der Bereich, in dem das Video auf dem Bildschirm abgespielt wird."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:41 ../main_window.rst:116
+#: ../doc/main_window.rst:41 ../doc/main_window.rst:116
 msgid "5"
 msgstr "5"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:41 ../main_window.rst:90
+#: ../doc/main_window.rst:41 ../doc/main_window.rst:90
 msgid "Timeline Toolbar"
 msgstr "Timeline-Symbolleiste"
 
 # Main-window terminology review, 2026-09-26.
-#: ../main_window.rst:41
+#: ../doc/main_window.rst:41
 msgid ""
 "This toolbar contains buttons used for snapping, inserting markers, slicing "
 "razor, jumping between markers, and centering the timeline on the playhead. "
@@ -144,40 +149,46 @@ msgstr ""
 ":ref:`timeline_toolbar_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:42 ../main_window.rst:119
+#: ../doc/main_window.rst:42 ../doc/main_window.rst:119
 msgid "6"
 msgstr "6"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:42 ../main_window.rst:120
+#: ../doc/main_window.rst:42 ../doc/main_window.rst:120
 msgid "Zoom Slider"
 msgstr "Zoom-Schieberegler"
 
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:42
+#: ../doc/main_window.rst:42
 msgid ""
 "This slider will adjust the time-scale of your timeline. Drag the left or "
 "right edge to zoom in or out. Drag the blue area to scroll the timeline left"
-" or right. Clips and transitions are displayed as simple rectangles, to give"
-" you context for adjusting the zoom to specific clips."
+" or right without snapping. With snapping enabled, the left grip snaps to "
+"the earliest clip start and the right grip to the latest clip end. Double-"
+"click to fit the entire timeline or restore the previous zoom. Clips and "
+"transitions are displayed as simple rectangles, to give you context for "
+"adjusting the zoom to specific clips."
 msgstr ""
-"Mit diesem Schieberegler wird die Zeitskala Ihrer Timeline angepasst. Ziehen"
-" Sie den linken oder rechten Rand, um hinein- oder herauszuzoomen. Ziehen "
-"Sie den blauen Bereich, um die Timeline nach links oder rechts zu scrollen. "
-"Clips und Übergänge werden als einfache Rechtecke angezeigt, um Ihnen "
-"Kontext für die Zoomanpassung zu bestimmten Clips zu geben."
+"Dieser Schieberegler passt die Zeitskala Ihrer Zeitleiste an. Ziehen Sie den"
+" linken oder rechten Rand, um hinein- oder herauszuzoomen. Ziehen Sie den "
+"blauen Bereich, um die Zeitleiste nach links oder rechts zu scrollen, ohne "
+"einzurasten. Mit aktiviertem Einrasten rastet der linke Griff am frühesten "
+"Clip-Anfang und der rechte Griff am spätesten Clip-Ende ein. Doppelklicken "
+"Sie, um die gesamte Zeitleiste anzupassen oder den vorherigen Zoom "
+"wiederherzustellen. Clips und Übergänge werden als einfache Rechtecke "
+"angezeigt, um Ihnen Kontext für die Anpassung des Zooms an bestimmte Clips "
+"zu geben."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:43 ../main_window.rst:122
+#: ../doc/main_window.rst:43 ../doc/main_window.rst:122
 msgid "7"
 msgstr "7"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:43
+#: ../doc/main_window.rst:43
 msgid "Play-head / Ruler"
 msgstr "Abspielkopf / Lineal"
 
-#: ../main_window.rst:43
+#: ../doc/main_window.rst:43
 msgid ""
 "The ruler shows the time-scale, and the line is the play-head. The play-head"
 " represents the current playback position. The current timecode can be "
@@ -191,17 +202,17 @@ msgstr ""
 "ziehen, um an nahegelegenen Clips einzurasten."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:44
+#: ../doc/main_window.rst:44
 msgid "8"
 msgstr "8"
 
 # Main-window terminology review, 2026-09-26.
-#: ../main_window.rst:44
+#: ../doc/main_window.rst:44
 msgid "Timeline"
 msgstr "Zeitleiste"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:44
+#: ../doc/main_window.rst:44
 msgid ""
 "The timeline visualizes your video project, and each clip and transition in "
 "your project. You can drag the mouse to select, move, or delete multiple "
@@ -212,17 +223,17 @@ msgstr ""
 "verschieben oder zu löschen."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:45
+#: ../doc/main_window.rst:45
 msgid "9"
 msgstr "9"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:45
+#: ../doc/main_window.rst:45
 msgid "Filter"
 msgstr "Filter"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:45
+#: ../doc/main_window.rst:45
 msgid ""
 "Filter the list of items shown (project files, transitions, effects, and "
 "emojis) by using these buttons and filter textbox. Enter a few letters of "
@@ -234,17 +245,17 @@ msgstr ""
 "angezeigt."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:46
+#: ../doc/main_window.rst:46
 msgid "10"
 msgstr "10"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:46
+#: ../doc/main_window.rst:46
 msgid "Playback"
 msgstr "Wiedergabe"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:46
+#: ../doc/main_window.rst:46
 msgid ""
 "Left to Right: Jump to Start, Rewind, Play/Pause, Fast Forward, and Jump to "
 "End"
@@ -253,18 +264,18 @@ msgstr ""
 "Vorspulen und Zum Ende springen"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:47
+#: ../doc/main_window.rst:47
 #, fuzzy
 msgid "11"
 msgstr "1"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:47
+#: ../doc/main_window.rst:47
 msgid "Track"
 msgstr "Spur"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:47
+#: ../doc/main_window.rst:47
 msgid ""
 "Track area containing the track name, track menu, and per-track controls "
 "such as lock and keyframe panel icons."
@@ -273,7 +284,7 @@ msgstr ""
 " wie Sperr- und Keyframe-Panel-Symbolen."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:50
+#: ../doc/main_window.rst:50
 msgid ""
 "For step-by-step instructions on the basic usage of OpenShot, be sure to "
 "read the :ref:`quick_tutorial_ref`."
@@ -282,12 +293,12 @@ msgstr ""
 "Sie bitte die :ref:`quick_tutorial_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:54
+#: ../doc/main_window.rst:54
 msgid "Built-in Tutorial"
 msgstr "Integriertes Tutorial"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:55
+#: ../doc/main_window.rst:55
 msgid ""
 "When you first launch OpenShot, you will be presented with a friendly built-"
 "in tutorial. It will demonstrate and explain the basics. Clicking "
@@ -300,12 +311,12 @@ msgstr ""
 "Tutorial jederzeit über das Menü :guilabel:`Hilfe→Tutorial` erneut ansehen."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:63
+#: ../doc/main_window.rst:63
 msgid "Tracks & Layers"
 msgstr "Spuren & Ebenen"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:65
+#: ../doc/main_window.rst:65
 msgid ""
 "OpenShot uses tracks to layer videos and images. The top most track is the "
 "top layer, and the bottom track is the bottom layer. If you are familiar "
@@ -324,17 +335,17 @@ msgstr ""
 "benötigt normalerweise nicht mehr als 5 Spuren."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:72
+#: ../doc/main_window.rst:72
 msgid "For example, imagine a 3 track video project"
 msgstr "Zum Beispiel stellen Sie sich ein Videoprojekt mit 3 Spuren vor"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:82
+#: ../doc/main_window.rst:82
 msgid "Top Track"
 msgstr "Obere Spur"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:82
+#: ../doc/main_window.rst:82
 msgid ""
 "Clips on this track will always be on top and visible. Often watermarks and "
 "titles are placed on higher tracks."
@@ -343,12 +354,12 @@ msgstr ""
 " und Titel auf höheren Spuren platziert."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:83
+#: ../doc/main_window.rst:83
 msgid "Middle Track"
 msgstr "Mittlere Spur"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:83
+#: ../doc/main_window.rst:83
 msgid ""
 "Clips in the middle (might or might not be visible, depending on what is "
 "above them)"
@@ -357,12 +368,12 @@ msgstr ""
 "sich darüber befindet)"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:84
+#: ../doc/main_window.rst:84
 msgid "Bottom Track"
 msgstr "Untere Spur"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:84
+#: ../doc/main_window.rst:84
 msgid ""
 "Clips on this track will always be on the bottom. Often audio clips are "
 "placed on lower tracks."
@@ -371,7 +382,7 @@ msgstr ""
 "Spuren platziert."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:94
+#: ../doc/main_window.rst:94
 msgid ""
 "For a beginner-friendly overview of timeline editing (selection, tracks, "
 "keyframes, and common workflows), see :ref:`timeline_ref`."
@@ -380,17 +391,17 @@ msgstr ""
 "Spuren, Keyframes und gängige Arbeitsabläufe) siehe :ref:`timeline_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:102
+#: ../doc/main_window.rst:102
 msgid "Control Group"
 msgstr "Steuerungsgruppe"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:105 ../main_window.rst:144
+#: ../doc/main_window.rst:105
 msgid "Add Track"
 msgstr "Spur hinzufügen"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:106
+#: ../doc/main_window.rst:106
 msgid ""
 "Add a new track to the timeline. New projects start with 5 tracks by "
 "default."
@@ -399,23 +410,23 @@ msgstr ""
 "standardmäßig mit 5 Spuren."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:108
+#: ../doc/main_window.rst:108
 msgid "Undo / Redo"
 msgstr "Rückgängig / Wiederholen"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:109
+#: ../doc/main_window.rst:109
 msgid "Undo or redo your latest timeline edits."
 msgstr ""
 "Machen Sie die letzten Zeitleistenänderungen rückgängig oder wiederholen Sie"
 " sie."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:111
+#: ../doc/main_window.rst:111
 msgid "Snap, Retime, Razor"
 msgstr "Einrasten, Zeit neu anpassen, Rasierklinge"
 
-#: ../main_window.rst:112
+#: ../doc/main_window.rst:112
 msgid ""
 "Snapping toggles magnetic alignment. Timing Tool enables retiming by "
 "dragging clip edges. The :ref:`razor_tool_ref` previews and cuts at the "
@@ -427,12 +438,12 @@ msgstr ""
 "Führungsposition; drücken Sie :kbd:`Esc`, um zu beenden."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:114
+#: ../doc/main_window.rst:114
 msgid "Add Marker, Next/Prev Marker"
 msgstr "Marker hinzufügen, nächster/vorheriger Marker"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:115
+#: ../doc/main_window.rst:115
 msgid ""
 "Add a marker at the playhead and jump to previous or next marker/clip "
 "boundaries."
@@ -441,19 +452,19 @@ msgstr ""
 "oder nächsten Marker/Clip-Grenzen."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:117 ../main_window.rst:148
+#: ../doc/main_window.rst:117
 msgid "Center on Playhead"
 msgstr "Auf Abspielkopf zentrieren"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:118
+#: ../doc/main_window.rst:118
 msgid "Center the visible timeline area around the current playhead position."
 msgstr ""
 "Zentriere den sichtbaren Zeitleistenbereich um die aktuelle "
 "Abspielkopfposition."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:121
+#: ../doc/main_window.rst:121
 msgid ""
 "Control the visible timeline range. Drag handles to zoom in/out, drag center"
 " to pan, and double-click to fit timeline. You can also use "
@@ -467,947 +478,140 @@ msgstr ""
 "gedrückt halten und mit der mittleren Maustaste ziehen, um sanft zu zoomen."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:123
+#: ../doc/main_window.rst:123
 msgid "Track toggles (Lock, Keyframe Panel)"
 msgstr "Spurumschalter (Sperren, Keyframe-Panel)"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:124
+#: ../doc/main_window.rst:124
 msgid "Per-track controls such as lock and keyframe panel visibility."
 msgstr ""
 "Spurspezifische Steuerungen wie Sperre und Sichtbarkeit des Keyframe-Panels."
 
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:129
-msgid "Keyboard Shortcuts"
-msgstr "Tastenkürzel"
+#: ../doc/main_window.rst:127
+msgid "Common Keyboard Shortcuts"
+msgstr "Übliche Tastenkombinationen"
 
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:130
+#: ../doc/main_window.rst:128
 msgid ""
-"Here is a list of the default keyboard shortcuts supported by OpenShot. You "
-"can configure these shortcuts in the Preferences window, which is opened by "
-"selecting :guilabel:`Edit→Preferences` from the OpenShot menu bar. (On "
-"macOS, choose :guilabel:`OpenShot Video Editor→Preferences`.) Learning a few"
-" of these shortcuts can save you a bunch of time!"
+"A few shortcuts can help you get around OpenShot and make quick edits. "
+"Timeline selection and editing shortcuts apply when the timeline has "
+"keyboard focus. Use Tab / Shift+Tab to move between controls and dock tab "
+"titles. Press Space or Enter on a focused tab title to select its dock and "
+"enter the first control."
 msgstr ""
-"Hier ist eine Liste der Standard-Tastenkürzel, die OpenShot unterstützt. Sie"
-" können diese Kürzel im Einstellungsfenster anpassen, das Sie über "
-":guilabel:`Bearbeiten→Einstellungen` in der OpenShot-Menüleiste öffnen. "
-"(Unter macOS wählen Sie :guilabel:`OpenShot Video Editor→Einstellungen`.) "
-"Einige dieser Kürzel zu lernen, kann Ihnen viel Zeit sparen!"
+"Einige Tastenkombinationen helfen Ihnen, sich in OpenShot zurechtzufinden "
+"und schnelle Bearbeitungen vorzunehmen. Auswahl- und Bearbeitungskurzbefehle"
+" der Zeitleiste gelten, wenn die Zeitleiste den Tastaturfokus hat. Verwenden"
+" Sie Tab / Shift+Tab, um zwischen Steuerelementen und Dock-Tab-Titeln zu "
+"wechseln. Drücken Sie Leertaste oder Enter auf einem fokussierten Tab-Titel,"
+" um dessen Dock auszuwählen und das erste Steuerelement zu aktivieren."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:140
+#: ../doc/main_window.rst:137
 msgid "Action"
 msgstr "Aktion"
 
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:140
-msgid "Shortcut 1"
-msgstr "Tastenkürzel 1"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:140
-msgid "Shortcut 2"
-msgstr "Tastenkürzel 2"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:140
-msgid "Shortcut 3"
-msgstr "Tastenkürzel 3"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:142 ../main_window.rst:294
-msgid "About OpenShot"
-msgstr "Über OpenShot"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:142
-msgid ":kbd:`Ctrl+H`"
-msgstr ":kbd:`Strg+H`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:143
-msgid "Add Marker"
-msgstr "Marker hinzufügen"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:143
-msgid ":kbd:`M`"
-msgstr ":kbd:`M`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:144
-msgid ":kbd:`Ctrl+Y`"
-msgstr ":kbd:`Strg+Y`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:145
-msgid "Add to Timeline"
-msgstr "Zur Timeline hinzufügen"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:145
-msgid ":kbd:`Ctrl+Alt+A`"
-msgstr ":kbd:`Strg+Alt+A`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:146
-msgid "Animated Title"
-msgstr "Animierter Titel"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:146
-msgid ":kbd:`Ctrl+Shift+T`"
-msgstr ":kbd:`Strg+Umschalt+T`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:147
-msgid "Ask a Question..."
-msgstr "Frage stellen..."
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:147
-msgid ":kbd:`F4`"
-msgstr ":kbd:`F4`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:148
-msgid ":kbd:`Shift+C`"
-msgstr ":kbd:`Umschalt+C`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:148
-msgid ":kbd:`Alt+Up`"
-msgstr ":kbd:`Alt+Pfeil nach oben`"
-
-#: ../main_window.rst:149 ../main_window.rst:329
-msgid "Color View"
-msgstr "Farbansicht"
-
-#: ../main_window.rst:149
-msgid ":kbd:`Alt+Shift+2`"
-msgstr ":kbd:`Alt+Shift+2`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:150
-msgid "Choose Profile"
-msgstr "Profil wählen"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:150
-msgid ":kbd:`Ctrl+Alt+P`"
-msgstr ":kbd:`Strg+Alt+P`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:151
-msgid "Clear All Cache"
-msgstr "Alle Caches löschen"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:151
-msgid ":kbd:`Ctrl+Shift+ESC`"
-msgstr ":kbd:`Strg+Umschalt+ESC`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:152
-msgid "Clear History"
-msgstr "Verlauf löschen"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:152
-msgid ":kbd:`Ctrl+Shift+H`"
-msgstr ":kbd:`Strg+Umschalt+H`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:153
-msgid "Delete Optimized Videos"
-msgstr "Optimierte Videos löschen"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:153
-msgid ":kbd:`Ctrl+Shift+O`"
-msgstr ":kbd:`Strg+Shift+O`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:154
-msgid "Clear Waveform Display Data"
-msgstr "Wellenform-Anzeigedaten löschen"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:154
-msgid ":kbd:`Ctrl+Shift+W`"
-msgstr ":kbd:`Strg+Umschalt+W`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:155
-msgid "Copy"
-msgstr "Kopieren"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:155
-msgid ":kbd:`Ctrl+C`"
-msgstr ":kbd:`Strg+C`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:156
-msgid "Cut"
-msgstr "Ausschneiden"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:156
-msgid ":kbd:`Ctrl+X`"
-msgstr ":kbd:`Strg+X`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:157
-msgid "Delete Item"
-msgstr "Element löschen"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:157
-msgid ":kbd:`Delete`"
-msgstr ":kbd:`Entf`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:157
-msgid ":kbd:`Backspace`"
-msgstr ":kbd:`Rücktaste`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:158
-msgid "Delete Item (Ripple)"
-msgstr "Element löschen (Ripple)"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:158
-msgid ":kbd:`Shift+Delete`"
-msgstr ":kbd:`Umschalt+Entf`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:159
-msgid "Details View"
-msgstr "Detailansicht"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:159
-msgid ":kbd:`Ctrl+Page Up`"
-msgstr ":kbd:`Strg+Bild↑`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:160
-msgid "Donate"
-msgstr "Spenden"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:160
-msgid ":kbd:`F7`"
-msgstr ":kbd:`F7`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:161
-msgid "Duplicate"
-msgstr "Duplizieren"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:161
-msgid ":kbd:`Ctrl+Shift+/`"
-msgstr ":kbd:`Strg+Umschalt+/`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:162
-msgid "Edit Title"
-msgstr "Titel bearbeiten"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:162
-msgid ":kbd:`Alt+T`"
-msgstr ":kbd:`Alt+T`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:163
-msgid "Export Selected Files"
-msgstr "Ausgewählte Dateien exportieren"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:163
-msgid ":kbd:`Ctrl+Shift+E`"
-msgstr ":kbd:`Strg+Umschalt+E`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:164
-msgid "Export Video / Media"
-msgstr "Video / Medien exportieren"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:164
-msgid ":kbd:`Ctrl+E`"
-msgstr ":kbd:`Strg+E`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:164
-msgid ":kbd:`Ctrl+M`"
-msgstr ":kbd:`Strg+M`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:165
-msgid "Fast Forward"
-msgstr "Schneller Vorlauf"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:165
-msgid ":kbd:`L`"
-msgstr ":kbd:`L`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:166
-msgid "File Properties"
-msgstr "Dateieigenschaften"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:166
-msgid ":kbd:`Alt+I`"
-msgstr ":kbd:`Alt+I`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:166
-msgid ":kbd:`Ctrl+Double Click`"
-msgstr ":kbd:`Strg+Doppelklick`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:167
-msgid "Fullscreen"
-msgstr "Vollbild"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:167
-msgid ":kbd:`F11`"
-msgstr ":kbd:`F11`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:168
-msgid "Import Files..."
-msgstr "Dateien importieren..."
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:168
-msgid ":kbd:`Ctrl+I`"
-msgstr ":kbd:`Strg+I`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:169
-msgid "Insert Keyframe"
-msgstr "Keyframe einfügen"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:169
-msgid ":kbd:`Alt+Shift+K`"
-msgstr ":kbd:`Alt+Umschalt+K`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:170
-msgid "Join our Community..."
-msgstr "Tritt unserer Community bei..."
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:170
-msgid ":kbd:`F5`"
-msgstr ":kbd:`F5`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:171
-msgid "Jump To End"
-msgstr "Zum Ende springen"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:171
-msgid ":kbd:`End`"
-msgstr ":kbd:`Ende`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:172
-msgid "Jump To Start"
-msgstr "Zum Anfang springen"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:172
-msgid ":kbd:`Home`"
-msgstr ":kbd:`Pos1`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:173
-msgid "Launch Tutorial"
-msgstr "Tutorial starten"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:173
-msgid ":kbd:`F2`"
-msgstr ":kbd:`F2`"
+#: ../doc/main_window.rst:138
+msgid "Shortcut"
+msgstr "Tastenkombination"
 
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:174
-msgid "New Project"
-msgstr "Neues Projekt"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:174
-msgid ":kbd:`Ctrl+N`"
-msgstr ":kbd:`Strg+N`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:175
-msgid "Next Frame"
-msgstr "Nächstes Bild"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:175
-msgid ":kbd:`Right`"
-msgstr ":kbd:`Rechts`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:175
-msgid ":kbd:`.`"
-msgstr ":kbd:`.`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:176
-msgid "Next Marker"
-msgstr "Nächster Marker"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:176
-msgid ":kbd:`Shift+M`"
-msgstr ":kbd:`Shift+M`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:176
-msgid ":kbd:`Alt+Right`"
-msgstr ":kbd:`Alt+Rechts`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:177
-msgid "Nudge left (1 Frame)"
-msgstr "Leicht nach links verschieben (1 Bild)"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:177
-msgid ":kbd:`Ctrl+Left`"
-msgstr ":kbd:`Strg+Links`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:178
-msgid "Nudge left (5 Frames)"
-msgstr "Leicht nach links verschieben (5 Bilder)"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:178
-msgid ":kbd:`Shift+Ctrl+Left`"
-msgstr ":kbd:`Shift+Strg+Links`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:179
-msgid "Nudge right (1 Frame)"
-msgstr "Leicht nach rechts verschieben (1 Bild)"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:179
-msgid ":kbd:`Ctrl+Right`"
-msgstr ":kbd:`Strg+Rechts`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:180
-msgid "Nudge right (5 Frames)"
-msgstr "Leicht nach rechts verschieben (5 Bilder)"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:180
-msgid ":kbd:`Shift+Ctrl+Right`"
-msgstr ":kbd:`Shift+Strg+Rechts`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:181
-msgid "Open Help Contents"
-msgstr "Hilfethemen öffnen"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:181
-msgid ":kbd:`F1`"
-msgstr ":kbd:`F1`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:182
-msgid "Open Project..."
-msgstr "Projekt öffnen..."
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:182
-msgid ":kbd:`Ctrl+O`"
-msgstr ":kbd:`Strg+O`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:183
-msgid "Paste"
-msgstr "Einfügen"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:183
-msgid ":kbd:`Ctrl+V`"
-msgstr ":kbd:`Strg+V`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:184
-msgid "Play/Pause Toggle"
-msgstr "Abspielen/Pause umschalten"
+#: ../doc/main_window.rst:139
+msgid "Play / pause"
+msgstr "Abspielen / pausieren"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:184
+#: ../doc/main_window.rst:140
 msgid ":kbd:`Space`"
 msgstr ":kbd:`Leertaste`"
 
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:184
-msgid ":kbd:`Up`"
-msgstr ":kbd:`Oben`"
+#: ../doc/main_window.rst:141
+msgid "Focus timeline"
+msgstr "Zeitleiste fokussieren"
+
+#: ../doc/main_window.rst:142
+msgid ":kbd:`Shift+3`"
+msgstr ":kbd:`Shift+3`"
+
+#: ../doc/main_window.rst:143
+msgid "Previous / next frame"
+msgstr "Vorheriges / nächstes Bild"
+
+#: ../doc/main_window.rst:144
+msgid ":kbd:`Left` / :kbd:`Right`"
+msgstr ":kbd:`Links` / :kbd:`Rechts`"
+
+#: ../doc/main_window.rst:145
+msgid "Focus Project Files / add selected assets at the playhead"
+msgstr ""
+"Projektdateien fokussieren / ausgewählte Assets am Abspielkopf hinzufügen"
+
+#: ../doc/main_window.rst:146
+msgid ":kbd:`Shift+1`, then :kbd:`Ctrl+Enter`"
+msgstr ":kbd:`Shift+1`, dann :kbd:`Strg+Enter`"
+
+#: ../doc/main_window.rst:147
+msgid "Select previous / next clip or transition"
+msgstr "Vorherigen / nächsten Clip oder Übergang auswählen"
+
+#: ../doc/main_window.rst:148
+msgid ":kbd:`Ctrl+Left` / :kbd:`Ctrl+Right`"
+msgstr ":kbd:`Strg+Links` / :kbd:`Strg+Rechts`"
+
+#: ../doc/main_window.rst:149
+msgid "Nudge selection one frame"
+msgstr "Auswahl um ein Bild verschieben"
+
+#: ../doc/main_window.rst:150
+msgid ":kbd:`,` / :kbd:`.`"
+msgstr ":kbd:`,` / :kbd:`.`"
+
+#: ../doc/main_window.rst:151
+msgid "Split selected clips at playhead"
+msgstr "Ausgewählte Clips am Abspielkopf teilen"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:184
-msgid ":kbd:`Down`"
-msgstr ":kbd:`Unten`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:185
-msgid "Preferences"
-msgstr "Einstellungen"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:185
-msgid ":kbd:`Ctrl+P`"
-msgstr ":kbd:`Strg+P`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:186
-msgid "Preview File"
-msgstr "Datei vorschauen"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:186
-msgid ":kbd:`Alt+P`"
-msgstr ":kbd:`Alt+P`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:186 ../main_window.rst:223
-msgid ":kbd:`Double Click`"
-msgstr ":kbd:`Doppelklick`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:187
-msgid "Previous Frame"
-msgstr "Vorheriges Bild"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:187
-msgid ":kbd:`Left`"
-msgstr ":kbd:`Links`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:187
-msgid ":kbd:`,`"
-msgstr ":kbd:`,`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:188
-msgid "Previous Marker"
-msgstr "Vorheriger Marker"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:188
-msgid ":kbd:`Ctrl+Shift+M`"
-msgstr ":kbd:`Strg+Shift+M`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:188
-msgid ":kbd:`Alt+Left`"
-msgstr ":kbd:`Alt+Links`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:189 ../main_window.rst:413
-msgid "Properties"
-msgstr "Eigenschaften"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:189
-msgid ":kbd:`U`"
-msgstr ":kbd:`U`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:190
-msgid "Quit"
-msgstr "Beenden"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:190
-msgid ":kbd:`Ctrl+Q`"
-msgstr ":kbd:`Strg+Q`"
-
-# Main-window terminology review, 2026-09-26.
-#: ../main_window.rst:191
-msgid "Razor Toggle"
-msgstr "Rasierklinge umschalten"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:191
-msgid ":kbd:`C`"
-msgstr ":kbd:`C`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:191
-msgid ":kbd:`B`"
-msgstr ":kbd:`B`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:191
-msgid ":kbd:`R`"
-msgstr ":kbd:`R`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:192
-msgid "Redo"
-msgstr "Wiederholen"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:192
-msgid ":kbd:`Ctrl+Shift+Z`"
-msgstr ":kbd:`Strg+Shift+Z`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:193
-msgid "Report a Bug..."
-msgstr "Fehler melden..."
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:193
-msgid ":kbd:`F3`"
-msgstr ":kbd:`F3`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:194
-msgid "Rewind"
-msgstr "Zurückspulen"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:194
-msgid ":kbd:`J`"
-msgstr ":kbd:`J`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:195 ../main_window.rst:196
-msgid "Save Current Frame"
-msgstr "Aktuelles Bild speichern"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:195 ../main_window.rst:196
-msgid ":kbd:`Ctrl+Shift+Y`"
-msgstr ":kbd:`Strg+Shift+Y`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:197
-msgid "Save Project"
-msgstr "Projekt speichern"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:197
-msgid ":kbd:`Ctrl+S`"
-msgstr ":kbd:`Strg+S`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:198
-msgid "Save Project As..."
-msgstr "Projekt speichern unter..."
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:198
-msgid ":kbd:`Ctrl+Shift+S`"
-msgstr ":kbd:`Strg+Shift+S`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:199
-msgid "Select All"
-msgstr "Alles auswählen"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:199
-msgid ":kbd:`Ctrl+A`"
-msgstr ":kbd:`Strg+A`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:200
-msgid "Select Item (Ripple)"
-msgstr "Element auswählen (Ripple)"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:200
-msgid ":kbd:`Alt+A`"
-msgstr ":kbd:`Alt+A`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:200
-msgid ":kbd:`Alt+Click`"
-msgstr ":kbd:`Alt+Klick`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:201
-msgid "Select None"
-msgstr "Nichts auswählen"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:201
-msgid ":kbd:`Ctrl+Shift+A`"
-msgstr ":kbd:`Strg+Shift+A`"
-
-#: ../main_window.rst:202
-msgid "Share Feedback..."
-msgstr "Feedback teilen..."
-
-#: ../main_window.rst:202
-msgid ":kbd:`F8`"
-msgstr ":kbd:`F8`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:203 ../main_window.rst:322
-msgid "Simple View"
-msgstr "Einfache Ansicht"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:203
-msgid ":kbd:`Alt+Shift+0`"
-msgstr ":kbd:`Alt+Shift+0`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:204
-msgid "Slice All: Keep Both Sides"
-msgstr "Alle schneiden: Beide Seiten behalten"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:204
-msgid ":kbd:`Ctrl+Shift+K`"
-msgstr ":kbd:`Strg+Shift+K`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:205
-msgid "Slice All: Keep Left Side"
-msgstr "Alle schneiden: Linke Seite behalten"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:205
-msgid ":kbd:`Ctrl+Shift+J`"
-msgstr ":kbd:`Strg+Shift+J`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:206
-msgid "Slice All: Keep Right Side"
-msgstr "Alle schneiden: Rechte Seite behalten"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:206
-msgid ":kbd:`Ctrl+Shift+L`"
-msgstr ":kbd:`Strg+Shift+L`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:207
-msgid "Slice Selected: Keep Both Sides"
-msgstr "Ausgewähltes schneiden: Beide Seiten behalten"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:207
+#: ../doc/main_window.rst:152
 msgid ":kbd:`Ctrl+K`"
 msgstr ":kbd:`Strg+K`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:208
-msgid "Slice Selected: Keep Left Side"
-msgstr "Ausgewähltes schneiden: Linke Seite behalten"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:208
-msgid ":kbd:`Ctrl+J`"
-msgstr ":kbd:`Strg+J`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:209
-msgid "Slice Selected: Keep Right Side"
-msgstr "Ausgewähltes schneiden: Rechte Seite behalten"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:209
-msgid ":kbd:`Ctrl+L`"
-msgstr ":kbd:`Strg+L`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:210
-msgid "Slice Selected: Keep Left (Ripple)"
-msgstr "Ausgewähltes schneiden: Links behalten (Ripple)"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:210
-msgid ":kbd:`W`"
-msgstr ":kbd:`W`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:211
-msgid "Slice Selected: Keep Right (Ripple)"
-msgstr "Ausgewähltes schneiden: Rechts behalten (Ripple)"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:211
-msgid ":kbd:`Q`"
-msgstr ":kbd:`Q`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:212
-msgid "Snapping Toggle"
-msgstr "Einrasten umschalten"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:212
-msgid ":kbd:`S`"
-msgstr ":kbd:`S`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:213
-msgid "Split File"
-msgstr "Datei teilen"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:213
-msgid ":kbd:`Alt+S`"
-msgstr ":kbd:`Alt+S`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:213
-msgid ":kbd:`Shift+Double Click`"
-msgstr ":kbd:`Shift+Doppelklick`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:214
-msgid "Thumbnail View"
-msgstr "Miniaturansicht"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:214
-msgid ":kbd:`Ctrl+Page Down`"
-msgstr ":kbd:`Strg+Bild ↓`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:215
-msgid "Timing Toggle"
-msgstr "Timing umschalten"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:215
-msgid ":kbd:`T`"
-msgstr ":kbd:`T`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:216 ../main_window.rst:257
-msgid "Title"
-msgstr "Titel"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:216
-msgid ":kbd:`Ctrl+T`"
-msgstr ":kbd:`Strg+T`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:217
-msgid "Translate this Application..."
-msgstr "Diese Anwendung übersetzen..."
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:217
-msgid ":kbd:`F6`"
-msgstr ":kbd:`F6`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:218
+#: ../doc/main_window.rst:153
 msgid "Undo"
 msgstr "Rückgängig"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:218
+#: ../doc/main_window.rst:154
 msgid ":kbd:`Ctrl+Z`"
 msgstr ":kbd:`Strg+Z`"
 
-#: ../main_window.rst:219
-msgid "Update Available"
-msgstr "Update verfügbar"
-
-#: ../main_window.rst:219
-msgid ":kbd:`F9`"
-msgstr ":kbd:`F9`"
+#: ../doc/main_window.rst:155
+msgid "Save project"
+msgstr "Projekt speichern"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:220
-msgid "View Toolbar"
-msgstr "Symbolleiste anzeigen"
+#: ../doc/main_window.rst:156
+msgid ":kbd:`Ctrl+S`"
+msgstr ":kbd:`Strg+S`"
+
+#: ../doc/main_window.rst:158
+msgid ""
+"See :ref:`keyboard_shortcut_ref` for the full reference, keyboard timeline "
+"editing, and a comparison of common shortcuts in other editors. Customize "
+"shortcuts in :guilabel:`Preferences → Keyboard`."
+msgstr ""
+"Siehe :ref:`keyboard_shortcut_ref` für die vollständige Referenz, Tastatur-"
+"Zeitleistenbearbeitung und einen Vergleich gängiger Tastenkombinationen in "
+"anderen Editoren. Passen Sie Tastenkombinationen in :guilabel:`Einstellungen"
+" → Tastatur` an."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:220
-msgid ":kbd:`Ctrl+Shift+B`"
-msgstr ":kbd:`Strg+Umschalt+B`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:221
-msgid "Zoom In"
-msgstr "Vergrößern"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:221
-msgid ":kbd:`=`"
-msgstr ":kbd:`=`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:221
-msgid ":kbd:`Ctrl+=`"
-msgstr ":kbd:`Strg+=`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:222
-msgid "Zoom Out"
-msgstr "Verkleinern"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:222
-msgid ":kbd:`-`"
-msgstr ":kbd:`-`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:222
-msgid ":kbd:`Ctrl+-`"
-msgstr ":kbd:`Strg+-`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:223
-msgid "Zoom to Timeline"
-msgstr "Auf Timeline zoomen"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:223
-msgid ":kbd:`\\\\`"
-msgstr ":kbd:`\\\\`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:223
-msgid ":kbd:`Shift+\\\\`"
-msgstr ":kbd:`Umschalt+\\\\`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:227
+#: ../doc/main_window.rst:163
 msgid "Menu"
 msgstr "Menü"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:228
+#: ../doc/main_window.rst:164
 msgid ""
 "The following menu options are available on the main window on OpenShot. "
 "Most of these options can be accessed by the keyboard shortcuts mentioned "
@@ -1420,33 +624,33 @@ msgstr ""
 "dieser Optionen umbenannt und/oder neu angeordnet."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:236
+#: ../doc/main_window.rst:172
 msgid "Menu Name"
 msgstr "Menüname"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:238
+#: ../doc/main_window.rst:174
 msgid "File"
 msgstr "Datei"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:240
+#: ../doc/main_window.rst:176
 msgid ":guilabel:`New Project` Create a blank new project."
 msgstr ":guilabel:`Neues Projekt` Ein neues, leeres Projekt erstellen."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:241
+#: ../doc/main_window.rst:177
 msgid ":guilabel:`Open Project` Open an existing project."
 msgstr ":guilabel:`Projekt öffnen` Ein bestehendes Projekt öffnen."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:242
+#: ../doc/main_window.rst:178
 msgid ":guilabel:`Recent Projects` Access recently opened projects."
 msgstr ""
 ":guilabel:`Letzte Projekte` Auf kürzlich geöffnete Projekte zugreifen."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:243
+#: ../doc/main_window.rst:179
 msgid ""
 ":guilabel:`Recovery` Restore a previously saved version of your current "
 "project."
@@ -1455,18 +659,18 @@ msgstr ""
 "aktuellen Projekts wiederherstellen."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:244
+#: ../doc/main_window.rst:180
 msgid ":guilabel:`Save Project` Save the current project."
 msgstr ":guilabel:`Projekt speichern` Das aktuelle Projekt speichern."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:245
+#: ../doc/main_window.rst:181
 msgid ":guilabel:`Import Files` Import media files into the project."
 msgstr ""
 ":guilabel:`Dateien importieren` Mediendateien in das Projekt importieren."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:246
+#: ../doc/main_window.rst:182
 msgid ""
 ":guilabel:`Choose Profile` Select a project profile (*i.e. 1080p @ 30fps, "
 "720p @ 24fps, ...*)."
@@ -1475,7 +679,7 @@ msgstr ""
 "720p @ 24fps, ...*)."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:247
+#: ../doc/main_window.rst:183
 msgid ""
 ":guilabel:`Save Current Frame` Save the current preview video frame as an "
 "image (sometimes represented with a camera icon)."
@@ -1484,7 +688,7 @@ msgstr ""
 "speichern (manchmal mit einem Kamera-Symbol dargestellt)."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:248
+#: ../doc/main_window.rst:184
 msgid ""
 ":guilabel:`Import Project` Import another project into the current project "
 "(*Adobe and Final Cut Pro formats partially supported*)."
@@ -1493,7 +697,7 @@ msgstr ""
 "importieren (*Adobe- und Final Cut Pro-Formate teilweise unterstützt*)."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:249
+#: ../doc/main_window.rst:185
 msgid ""
 ":guilabel:`Export Project` Export the current project to a specified format "
 "(*EDL, Adobe, and Final Cut Pro formats partially supported*)."
@@ -1503,28 +707,28 @@ msgstr ""
 "unterstützt*)."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:250
+#: ../doc/main_window.rst:186
 msgid ":guilabel:`Quit` Exit the application."
 msgstr ":guilabel:`Beenden` Die Anwendung beenden."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:251
+#: ../doc/main_window.rst:187
 msgid "Edit"
 msgstr "Bearbeiten"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:253
+#: ../doc/main_window.rst:189
 msgid ":guilabel:`Undo` Undo the last action."
 msgstr ":guilabel:`Rückgängig` Die letzte Aktion rückgängig machen."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:254
+#: ../doc/main_window.rst:190
 msgid ":guilabel:`Redo` Redo the last undone action."
 msgstr ""
 ":guilabel:`Wiederholen` Die letzte rückgängig gemachte Aktion wiederholen."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:255
+#: ../doc/main_window.rst:191
 msgid ""
 ":guilabel:`Clear` Clear the current history or waveform cached data. This "
 "makes the `.osp project` file a much smaller file size."
@@ -1534,7 +738,7 @@ msgstr ""
 "kleiner."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:256
+#: ../doc/main_window.rst:192
 msgid ""
 ":guilabel:`Preferences` Open the preferences dialog to customize settings."
 msgstr ""
@@ -1542,7 +746,12 @@ msgstr ""
 "anzupassen."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:259
+#: ../doc/main_window.rst:193
+msgid "Title"
+msgstr "Titel"
+
+# Translated with gpt-4.1-mini
+#: ../doc/main_window.rst:195
 msgid ""
 ":guilabel:`Title` Add a SVG vector title to the project. See "
 ":ref:`text_and_titles_ref`."
@@ -1551,7 +760,7 @@ msgstr ""
 ":ref:`text_and_titles_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:260
+#: ../doc/main_window.rst:196
 msgid ""
 ":guilabel:`Animated Title` Add an animated title to the project. See "
 ":ref:`animated_titles_ref`."
@@ -1560,11 +769,11 @@ msgstr ""
 "Siehe :ref:`animated_titles_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:261
+#: ../doc/main_window.rst:197
 msgid "View"
 msgstr "Ansicht"
 
-#: ../main_window.rst:263
+#: ../doc/main_window.rst:199
 msgid ""
 ":guilabel:`Simple View` and :guilabel:`Color View` switch or reset the main "
 "window layout."
@@ -1572,7 +781,7 @@ msgstr ""
 ":guilabel:`Einfache Ansicht` und :guilabel:`Farbansicht` wechseln oder "
 "setzen das Hauptfenster-Layout zurück."
 
-#: ../main_window.rst:264
+#: ../doc/main_window.rst:200
 msgid ""
 ":guilabel:`My Views` Save, load, update, and delete your own named layouts. "
 "See :ref:`my_views_ref`."
@@ -1580,20 +789,20 @@ msgstr ""
 ":guilabel:`Meine Ansichten` Speichern, laden, aktualisieren und löschen Sie "
 "Ihre eigenen benannten Layouts. Siehe :ref:`my_views_ref`."
 
-#: ../main_window.rst:265
+#: ../doc/main_window.rst:201
 msgid ":guilabel:`Docks` Show or hide various dockable panels."
 msgstr ""
 ":guilabel:`Andockfenster` Zeigen oder verbergen Sie verschiedene andockbare "
 "Bereiche."
 
-#: ../main_window.rst:266
+#: ../doc/main_window.rst:202
 msgid ""
 ":guilabel:`Scopes` Show or hide scope docks, or open all scopes at once."
 msgstr ""
 ":guilabel:`Scopes` Zeigen oder verbergen Sie Scope-Andockfenster oder öffnen"
 " Sie alle Scopes gleichzeitig."
 
-#: ../main_window.rst:267
+#: ../doc/main_window.rst:203
 msgid ""
 ":guilabel:`Window` Show or hide the main window toolbar, or toggle "
 "fullscreen mode."
@@ -1602,33 +811,33 @@ msgstr ""
 "oder wechseln Sie in den Vollbildmodus."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:268
+#: ../doc/main_window.rst:204
 msgid "Help"
 msgstr "Hilfe"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:270
+#: ../doc/main_window.rst:206
 msgid ":guilabel:`Contents` Open the user guide online."
 msgstr ":guilabel:`Inhalt` Das Benutzerhandbuch online öffnen."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:271
+#: ../doc/main_window.rst:207
 msgid ":guilabel:`Tutorial` Access the built-in tutorial for new users."
 msgstr ""
 ":guilabel:`Tutorial` Auf das integrierte Tutorial für neue Benutzer "
 "zugreifen."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:272
+#: ../doc/main_window.rst:208
 msgid ":guilabel:`Report a Bug` Report a bug or issue."
 msgstr ":guilabel:`Fehler melden` Einen Fehler oder ein Problem melden."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:273
+#: ../doc/main_window.rst:209
 msgid ":guilabel:`Ask a Question` Ask a question about the software."
 msgstr ":guilabel:`Frage stellen` Eine Frage zur Software stellen."
 
-#: ../main_window.rst:274
+#: ../doc/main_window.rst:210
 msgid ""
 ":guilabel:`Share Feedback` Open a survey about your experience with "
 "OpenShot."
@@ -1636,7 +845,7 @@ msgstr ""
 ":guilabel:`Feedback teilen` Öffnet eine Umfrage zu Ihren Erfahrungen mit "
 "OpenShot."
 
-#: ../main_window.rst:275
+#: ../doc/main_window.rst:211
 msgid ""
 ":guilabel:`Update Available` Open the download page when a newer version is "
 "available."
@@ -1645,18 +854,18 @@ msgstr ""
 "Version verfügbar ist."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:276
+#: ../doc/main_window.rst:212
 msgid ":guilabel:`Translate` Contribute to translations of the software."
 msgstr ":guilabel:`Übersetzen` Zur Übersetzung der Software beitragen."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:277
+#: ../doc/main_window.rst:213
 msgid ":guilabel:`Donate` Make a donation to support the project."
 msgstr ""
 ":guilabel:`Spenden` Eine Spende zur Unterstützung des Projekts leisten."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:278
+#: ../doc/main_window.rst:214
 msgid ""
 ":guilabel:`About` View information about the software (version, "
 "contributors, translators, changelog, and supporters)."
@@ -1664,11 +873,11 @@ msgstr ""
 ":guilabel:`Über` Informationen über die Software anzeigen (Version, "
 "Mitwirkende, Übersetzer, Änderungsprotokoll und Unterstützer)."
 
-#: ../main_window.rst:281
+#: ../doc/main_window.rst:217
 msgid "Notifications"
 msgstr "Benachrichtigungen"
 
-#: ../main_window.rst:283
+#: ../doc/main_window.rst:219
 msgid ""
 "OpenShot may show a notice near the top of the window when a newer version "
 "is available. Choose :guilabel:`Upgrade` to open the download page, or close"
@@ -1683,20 +892,26 @@ msgstr ""
 ":guilabel:`Hilfe → Update verfügbar` öffnen oder :kbd:`F9` drücken, wenn ein"
 " Update verfügbar ist."
 
-#: ../main_window.rst:288
+#: ../doc/main_window.rst:224
 msgid ""
-"After you have spent some time editing, OpenShot may also invite you to "
-"share feedback. The survey is optional. You can open it from the notice or "
-"dismiss the invitation. At any time, choose :guilabel:`Help → Share "
-"Feedback` or press :kbd:`F8` to share your thoughts."
+"After your first successful export of each OpenShot release, a notice "
+"invites you to share feedback once you close the Export window. The survey "
+"is optional. You can open it from the notice or dismiss the invitation. At "
+"any time, choose :guilabel:`Help → Share Feedback` or press :kbd:`F8` to "
+"share your thoughts."
 msgstr ""
-"Nachdem Sie einige Zeit mit dem Bearbeiten verbracht haben, kann OpenShot "
-"Sie auch einladen, Feedback zu geben. Die Umfrage ist optional. Sie können "
-"sie über die Benachrichtigung öffnen oder die Einladung ablehnen. Jederzeit "
-"können Sie :guilabel:`Hilfe → Feedback teilen` wählen oder :kbd:`F8` "
-"drücken, um Ihre Meinung mitzuteilen."
+"Nach Ihrem ersten erfolgreichen Export jeder OpenShot-Version werden Sie "
+"beim Schließen des Exportfensters eingeladen, Feedback zu geben. Die Umfrage"
+" ist optional. Sie können sie über die Benachrichtigung öffnen oder die "
+"Einladung ablehnen. Jederzeit können Sie :guilabel:`Hilfe → Feedback geben` "
+"wählen oder :kbd:`F8` drücken, um Ihre Meinung mitzuteilen."
 
-#: ../main_window.rst:295
+# Translated with gpt-4.1-mini
+#: ../doc/main_window.rst:230
+msgid "About OpenShot"
+msgstr "Über OpenShot"
+
+#: ../doc/main_window.rst:231
 msgid ""
 "Use :guilabel:`Help→About OpenShot` to check your OpenShot version. Click "
 ":guilabel:`Copy` next to the version number to copy a short version and "
@@ -1710,16 +925,16 @@ msgstr ""
 "Informationen beim Melden eines Fehlers oder bei der Anfrage nach Hilfe zu "
 "teilen."
 
-#: ../main_window.rst:300
+#: ../doc/main_window.rst:236
 msgid "Example output:"
 msgstr "Beispielausgabe:"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:315
+#: ../doc/main_window.rst:251
 msgid "Views"
 msgstr "Ansichten"
 
-#: ../main_window.rst:317
+#: ../doc/main_window.rst:253
 msgid ""
 "The OpenShot main window is composed of multiple **docks**. These **docks** "
 "are arranged and snapped together into a grouping that we call a **View**. "
@@ -1732,7 +947,12 @@ msgstr ""
 "Ansicht`, :guilabel:`Farbansicht` und :guilabel:`Meine Ansichten` "
 "(benutzerdefinierte Layouts)."
 
-#: ../main_window.rst:323
+# Translated with gpt-4.1-mini
+#: ../doc/main_window.rst:258
+msgid "Simple View"
+msgstr "Einfache Ansicht"
+
+#: ../doc/main_window.rst:259
 msgid ""
 "This is the **default** view, and is designed to be easy-to-use, especially "
 "for first-time users. It contains :guilabel:`Project Files` on the top left,"
@@ -1749,7 +969,11 @@ msgstr ""
 ":guilabel:`Ansicht->Einfache Ansicht` oben im Bildschirm auf ihre "
 "Standardposition zurücksetzen."
 
-#: ../main_window.rst:330
+#: ../doc/main_window.rst:265
+msgid "Color View"
+msgstr "Farbansicht"
+
+#: ../doc/main_window.rst:266
 msgid ""
 "This view is focused on color correction and scopes. It enlarges the video "
 "preview, hides file-management docks, keeps the timeline and properties "
@@ -1764,11 +988,11 @@ msgstr ""
 "Wellenform`- und :guilabel:`Histogramm`-Andockfenster darunter in "
 "Registerkarten zusammen."
 
-#: ../main_window.rst:335
+#: ../doc/main_window.rst:271
 msgid "Recording View"
 msgstr "Aufnahmeansicht"
 
-#: ../main_window.rst:336
+#: ../doc/main_window.rst:272
 msgid ""
 "This view is focused on creating new recordings inside OpenShot. It shows "
 ":guilabel:`Project Files`, :guilabel:`Video Preview`, :guilabel:`Timeline`, "
@@ -1784,7 +1008,7 @@ msgstr ""
 ":guilabel:`Ansicht->Andockfenster->Eigenschaften` anzeigen können, ohne das "
 "Aufnahme-Layout zu stören."
 
-#: ../main_window.rst:341
+#: ../doc/main_window.rst:277
 msgid ""
 "The :guilabel:`Recording` dock can record microphone audio, screen capture, "
 "webcam video, or combinations of those sources. When screen and webcam are "
@@ -1811,11 +1035,11 @@ msgstr ""
 "Siehe :ref:`recording_ref` für den vollständigen Aufnahme-Workflow und alle "
 "Quellenoptionen."
 
-#: ../main_window.rst:352
+#: ../doc/main_window.rst:288
 msgid "My Views"
 msgstr "Meine Ansichten"
 
-#: ../main_window.rst:353
+#: ../doc/main_window.rst:289
 msgid ""
 "**My Views** lets you save any dock arrangement as a named layout and recall"
 " it instantly. This is ideal for workflows that require switching between "
@@ -1830,7 +1054,7 @@ msgstr ""
 "fokussiertes Farbkorrektur-Layout – ohne die Andockfenster jedes Mal manuell"
 " neu anordnen zu müssen."
 
-#: ../main_window.rst:357
+#: ../doc/main_window.rst:293
 msgid ""
 "Each saved view captures the position, size, and visibility of every dock, "
 "as well as the timeline height. Saved views are stored in your project "
@@ -1841,62 +1065,62 @@ msgstr ""
 " in Ihren Projekteinstellungen gespeichert und bleiben über Sitzungen hinweg"
 " erhalten."
 
-#: ../main_window.rst:360
+#: ../doc/main_window.rst:296
 msgid "**View → My Views** menu options:"
 msgstr "**Ansicht → Meine Ansichten** Menüoptionen:"
 
-#: ../main_window.rst:366
+#: ../doc/main_window.rst:302
 msgid "Menu Item"
 msgstr "Menüeintrag"
 
-#: ../main_window.rst:368
+#: ../doc/main_window.rst:304
 msgid "List of user-defined views"
 msgstr "Liste der benutzerdefinierten Ansichten"
 
-#: ../main_window.rst:369
+#: ../doc/main_window.rst:305
 msgid ""
 "Click to restore that layout. The currently active view shows a checkmark."
 msgstr ""
 "Klicken, um dieses Layout wiederherzustellen. Die aktuell aktive Ansicht "
 "zeigt ein Häkchen."
 
-#: ../main_window.rst:370
+#: ../doc/main_window.rst:306
 msgid "Update \"*[name]*\""
 msgstr "\"*[name]*\" aktualisieren"
 
-#: ../main_window.rst:371
+#: ../doc/main_window.rst:307
 msgid "Save your current dock arrangement over the active view, replacing it."
 msgstr ""
 "Speichern Sie Ihre aktuelle Andockfenster-Anordnung über der aktiven Ansicht"
 " und ersetzen Sie sie."
 
-#: ../main_window.rst:372
+#: ../doc/main_window.rst:308
 msgid "Delete \"*[name]*\""
 msgstr "\"*[name]*\" löschen"
 
-#: ../main_window.rst:373
+#: ../doc/main_window.rst:309
 msgid "Remove the active view (asks for confirmation first)."
 msgstr "Entfernen Sie die aktive Ansicht (fragt zuerst nach Bestätigung)."
 
-#: ../main_window.rst:374
+#: ../doc/main_window.rst:310
 msgid "Save Current View As..."
 msgstr "Aktuelle Ansicht speichern als..."
 
-#: ../main_window.rst:375
+#: ../doc/main_window.rst:311
 msgid "Name and save your current dock arrangement as a new view."
 msgstr ""
 "Benennen und speichern Sie Ihre aktuelle Andockfenster-Anordnung als neue "
 "Ansicht."
 
-#: ../main_window.rst:377
+#: ../doc/main_window.rst:313
 msgid "**Typical workflow:**"
 msgstr "**Typischer Arbeitsablauf:**"
 
-#: ../main_window.rst:379
+#: ../doc/main_window.rst:315
 msgid "Arrange your docks exactly how you like them."
 msgstr "Ordnen Sie Ihre Andockfenster genau so an, wie Sie sie möchten."
 
-#: ../main_window.rst:380
+#: ../doc/main_window.rst:316
 msgid ""
 "Open :guilabel:`View → My Views → Save Current View As...` and enter a name "
 "(e.g. *\"Audio Mix\"*)."
@@ -1904,7 +1128,7 @@ msgstr ""
 "Öffnen Sie :guilabel:`Ansicht → Meine Ansichten → Aktuelle Ansicht speichern"
 " als...` und geben Sie einen Namen ein (z. B. *\"Audio Mix\"*)."
 
-#: ../main_window.rst:381
+#: ../doc/main_window.rst:317
 msgid ""
 "Later, open :guilabel:`View → My Views` and click the view name to restore "
 "that layout instantly."
@@ -1912,7 +1136,7 @@ msgstr ""
 "Öffnen Sie später :guilabel:`Ansicht → Meine Ansichten` und klicken Sie auf "
 "den Ansichtsname, um dieses Layout sofort wiederherzustellen."
 
-#: ../main_window.rst:382
+#: ../doc/main_window.rst:318
 msgid ""
 "If you adjust the layout and want to keep the changes, choose "
 ":guilabel:`Update \"Audio Mix\"` to overwrite it."
@@ -1921,11 +1145,11 @@ msgstr ""
 " :guilabel:`\"Audio Mix\" aktualisieren`, um es zu überschreiben."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:385
+#: ../doc/main_window.rst:321
 msgid "Docks"
 msgstr "Docks"
 
-#: ../main_window.rst:386
+#: ../doc/main_window.rst:322
 msgid ""
 "Each widget on the OpenShot main window is contained in a **dock**. These "
 "docks can be dragged and snapped around the main window, and even grouped "
@@ -1943,17 +1167,17 @@ msgstr ""
 "gruppiert."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:395
+#: ../doc/main_window.rst:331
 msgid "Dock Name"
 msgstr "Dock-Name"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:397
+#: ../doc/main_window.rst:333
 msgid "Captions"
 msgstr "Untertitel"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:398
+#: ../doc/main_window.rst:334
 msgid ""
 "Manage and add captions or subtitles to your video project. Allows you to "
 "create, edit, and manage caption data. See :ref:`caption_effect_ref` effect."
@@ -1963,12 +1187,12 @@ msgstr ""
 "Untertitel-Daten. Siehe :ref:`caption_effect_ref` Effekt."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:399
+#: ../doc/main_window.rst:335
 msgid "Effects"
 msgstr "Effekte"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:400
+#: ../doc/main_window.rst:336
 msgid ""
 "Browse and apply video and audio effects to your video clips. Includes "
 "filters, color adjustments, and special effects. See :ref:`effects_ref`."
@@ -1977,11 +1201,11 @@ msgstr ""
 "Beinhaltet Filter, Farbkorrekturen und Spezialeffekte. Siehe "
 ":ref:`effects_ref`."
 
-#: ../main_window.rst:401
+#: ../doc/main_window.rst:337
 msgid "Color Wheels"
 msgstr "Farbkreise"
 
-#: ../main_window.rst:402
+#: ../doc/main_window.rst:338
 msgid ""
 "Edit Color Grade wheel controls for global, shadows, midtones, and "
 "highlights from a dedicated right-side dock."
@@ -1990,12 +1214,12 @@ msgstr ""
 " Lichter in einem eigenen Dock auf der rechten Seite."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:403
+#: ../doc/main_window.rst:339
 msgid "Emojis"
 msgstr "Emojis"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:404
+#: ../doc/main_window.rst:340
 msgid ""
 "Add emoji graphics to your video project. Choose from a variety of emojis to"
 " enhance your video content."
@@ -2003,35 +1227,35 @@ msgstr ""
 "Fügen Sie Emoji-Grafiken zu Ihrem Videoprojekt hinzu. Wählen Sie aus einer "
 "Vielzahl von Emojis, um Ihren Videoinhalt zu bereichern."
 
-#: ../main_window.rst:405
+#: ../doc/main_window.rst:341
 msgid "Histogram"
 msgstr "Histogramm"
 
-#: ../main_window.rst:406
+#: ../doc/main_window.rst:342
 msgid ""
 "Analyze the tonal and channel distribution of the current preview frame."
 msgstr ""
 "Analysieren Sie die Tonwert- und Kanalverteilung des aktuellen "
 "Vorschaubilds."
 
-#: ../main_window.rst:407
+#: ../doc/main_window.rst:343
 msgid "Luma Waveform"
 msgstr "Luma-Wellenform"
 
-#: ../main_window.rst:408
+#: ../doc/main_window.rst:344
 msgid "Analyze brightness distribution across the current preview frame."
 msgstr "Analysieren Sie die Helligkeitsverteilung im aktuellen Vorschaubild."
 
-#: ../main_window.rst:409
+#: ../doc/main_window.rst:345
 msgid "Audio Levels"
 msgstr "Audiopegel"
 
-#: ../main_window.rst:410
+#: ../doc/main_window.rst:346
 msgid "Monitor audio level scope data for the current preview frame."
 msgstr "Überwachen Sie die Audiopegel-Daten des aktuellen Vorschaubilds."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:412
+#: ../doc/main_window.rst:348
 msgid ""
 "View and manage all the media files imported into your project. Organize, "
 "filter, and tag video, audio, and image files. See :ref:`files_ref`."
@@ -2041,7 +1265,12 @@ msgstr ""
 ":ref:`files_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:414
+#: ../doc/main_window.rst:349
+msgid "Properties"
+msgstr "Eigenschaften"
+
+# Translated with gpt-4.1-mini
+#: ../doc/main_window.rst:350
 msgid ""
 "View and edit the properties of a selected effect, transition, or clip. "
 "Adjust settings such as duration, size, position, etc... See "
@@ -2051,11 +1280,11 @@ msgstr ""
 "eines Clips anzeigen und bearbeiten. Passen Sie Einstellungen wie Dauer, "
 "Größe, Position usw. an. Siehe :ref:`clip_properties_ref`."
 
-#: ../main_window.rst:415
+#: ../doc/main_window.rst:351
 msgid "Recording"
 msgstr "Aufnahme"
 
-#: ../main_window.rst:416
+#: ../doc/main_window.rst:352
 msgid ""
 "Record microphone audio, screen video, webcam video, or combined recordings."
 " See :ref:`recording_ref`."
@@ -2064,12 +1293,12 @@ msgstr ""
 "Aufnahmen auf. Siehe :ref:`recording_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:417
+#: ../doc/main_window.rst:353
 msgid "Transitions"
 msgstr "Übergänge"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:418
+#: ../doc/main_window.rst:354
 msgid ""
 "Browse and apply transitions between video clips. Choose from a variety of "
 "transition wipes to create smooth changes between scenes. See "
@@ -2080,12 +1309,12 @@ msgstr ""
 ":ref:`transitions_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:419
+#: ../doc/main_window.rst:355
 msgid "Video Preview"
 msgstr "Video-Vorschau"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:420
+#: ../doc/main_window.rst:356
 msgid ""
 "Preview the current state of your video project. Allows you to play back and"
 " review your edits in real-time. See :ref:`playback_ref`."
@@ -2094,7 +1323,7 @@ msgstr ""
 "Wiedergabe und Überprüfung Ihrer Bearbeitungen in Echtzeit. Siehe "
 ":ref:`playback_ref`."
 
-#: ../main_window.rst:422
+#: ../doc/main_window.rst:358
 msgid ""
 "If you have accidentally closed or moved a dock and can no longer find it, "
 "there are a couple easy solutions. First, you can use the "
@@ -2109,6 +1338,728 @@ msgstr ""
 "verwenden, um die Ansicht auf die Standardeinstellung zurückzusetzen. Oder "
 "Sie können das Menü :guilabel:`Ansicht->Docks->...` verwenden, um bestimmte "
 "Dock-Widgets im Hauptfenster anzuzeigen oder auszublenden."
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "This slider will adjust the time-scale of your timeline. Drag the left or "
+#~ "right edge to zoom in or out. Drag the blue area to scroll the timeline left"
+#~ " or right. Clips and transitions are displayed as simple rectangles, to give"
+#~ " you context for adjusting the zoom to specific clips."
+#~ msgstr ""
+#~ "Mit diesem Schieberegler wird die Zeitskala Ihrer Timeline angepasst. Ziehen"
+#~ " Sie den linken oder rechten Rand, um hinein- oder herauszuzoomen. Ziehen "
+#~ "Sie den blauen Bereich, um die Timeline nach links oder rechts zu scrollen. "
+#~ "Clips und Übergänge werden als einfache Rechtecke angezeigt, um Ihnen "
+#~ "Kontext für die Zoomanpassung zu bestimmten Clips zu geben."
+
+# Translated with gpt-4.1-mini
+#~ msgid "Keyboard Shortcuts"
+#~ msgstr "Tastenkürzel"
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "Here is a list of the default keyboard shortcuts supported by OpenShot. You "
+#~ "can configure these shortcuts in the Preferences window, which is opened by "
+#~ "selecting :guilabel:`Edit→Preferences` from the OpenShot menu bar. (On "
+#~ "macOS, choose :guilabel:`OpenShot Video Editor→Preferences`.) Learning a few"
+#~ " of these shortcuts can save you a bunch of time!"
+#~ msgstr ""
+#~ "Hier ist eine Liste der Standard-Tastenkürzel, die OpenShot unterstützt. Sie"
+#~ " können diese Kürzel im Einstellungsfenster anpassen, das Sie über "
+#~ ":guilabel:`Bearbeiten→Einstellungen` in der OpenShot-Menüleiste öffnen. "
+#~ "(Unter macOS wählen Sie :guilabel:`OpenShot Video Editor→Einstellungen`.) "
+#~ "Einige dieser Kürzel zu lernen, kann Ihnen viel Zeit sparen!"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Shortcut 1"
+#~ msgstr "Tastenkürzel 1"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Shortcut 2"
+#~ msgstr "Tastenkürzel 2"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Shortcut 3"
+#~ msgstr "Tastenkürzel 3"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+H`"
+#~ msgstr ":kbd:`Strg+H`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Add Marker"
+#~ msgstr "Marker hinzufügen"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`M`"
+#~ msgstr ":kbd:`M`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Y`"
+#~ msgstr ":kbd:`Strg+Y`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Add to Timeline"
+#~ msgstr "Zur Timeline hinzufügen"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Alt+A`"
+#~ msgstr ":kbd:`Strg+Alt+A`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Animated Title"
+#~ msgstr "Animierter Titel"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+T`"
+#~ msgstr ":kbd:`Strg+Umschalt+T`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Ask a Question..."
+#~ msgstr "Frage stellen..."
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`F4`"
+#~ msgstr ":kbd:`F4`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Shift+C`"
+#~ msgstr ":kbd:`Umschalt+C`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Alt+Up`"
+#~ msgstr ":kbd:`Alt+Pfeil nach oben`"
+
+#~ msgid ":kbd:`Alt+Shift+2`"
+#~ msgstr ":kbd:`Alt+Shift+2`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Choose Profile"
+#~ msgstr "Profil wählen"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Alt+P`"
+#~ msgstr ":kbd:`Strg+Alt+P`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Clear All Cache"
+#~ msgstr "Alle Caches löschen"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+ESC`"
+#~ msgstr ":kbd:`Strg+Umschalt+ESC`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Clear History"
+#~ msgstr "Verlauf löschen"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+H`"
+#~ msgstr ":kbd:`Strg+Umschalt+H`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Delete Optimized Videos"
+#~ msgstr "Optimierte Videos löschen"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+O`"
+#~ msgstr ":kbd:`Strg+Shift+O`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Clear Waveform Display Data"
+#~ msgstr "Wellenform-Anzeigedaten löschen"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+W`"
+#~ msgstr ":kbd:`Strg+Umschalt+W`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Copy"
+#~ msgstr "Kopieren"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+C`"
+#~ msgstr ":kbd:`Strg+C`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Cut"
+#~ msgstr "Ausschneiden"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+X`"
+#~ msgstr ":kbd:`Strg+X`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Delete Item"
+#~ msgstr "Element löschen"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Delete`"
+#~ msgstr ":kbd:`Entf`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Backspace`"
+#~ msgstr ":kbd:`Rücktaste`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Delete Item (Ripple)"
+#~ msgstr "Element löschen (Ripple)"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Shift+Delete`"
+#~ msgstr ":kbd:`Umschalt+Entf`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Details View"
+#~ msgstr "Detailansicht"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Page Up`"
+#~ msgstr ":kbd:`Strg+Bild↑`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Donate"
+#~ msgstr "Spenden"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`F7`"
+#~ msgstr ":kbd:`F7`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Duplicate"
+#~ msgstr "Duplizieren"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+/`"
+#~ msgstr ":kbd:`Strg+Umschalt+/`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Edit Title"
+#~ msgstr "Titel bearbeiten"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Alt+T`"
+#~ msgstr ":kbd:`Alt+T`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Export Selected Files"
+#~ msgstr "Ausgewählte Dateien exportieren"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+E`"
+#~ msgstr ":kbd:`Strg+Umschalt+E`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Export Video / Media"
+#~ msgstr "Video / Medien exportieren"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+E`"
+#~ msgstr ":kbd:`Strg+E`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+M`"
+#~ msgstr ":kbd:`Strg+M`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Fast Forward"
+#~ msgstr "Schneller Vorlauf"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`L`"
+#~ msgstr ":kbd:`L`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "File Properties"
+#~ msgstr "Dateieigenschaften"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Alt+I`"
+#~ msgstr ":kbd:`Alt+I`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Double Click`"
+#~ msgstr ":kbd:`Strg+Doppelklick`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Fullscreen"
+#~ msgstr "Vollbild"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`F11`"
+#~ msgstr ":kbd:`F11`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Import Files..."
+#~ msgstr "Dateien importieren..."
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+I`"
+#~ msgstr ":kbd:`Strg+I`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Insert Keyframe"
+#~ msgstr "Keyframe einfügen"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Alt+Shift+K`"
+#~ msgstr ":kbd:`Alt+Umschalt+K`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Join our Community..."
+#~ msgstr "Tritt unserer Community bei..."
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`F5`"
+#~ msgstr ":kbd:`F5`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Jump To End"
+#~ msgstr "Zum Ende springen"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`End`"
+#~ msgstr ":kbd:`Ende`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Jump To Start"
+#~ msgstr "Zum Anfang springen"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Home`"
+#~ msgstr ":kbd:`Pos1`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Launch Tutorial"
+#~ msgstr "Tutorial starten"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`F2`"
+#~ msgstr ":kbd:`F2`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "New Project"
+#~ msgstr "Neues Projekt"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+N`"
+#~ msgstr ":kbd:`Strg+N`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Next Frame"
+#~ msgstr "Nächstes Bild"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Right`"
+#~ msgstr ":kbd:`Rechts`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`.`"
+#~ msgstr ":kbd:`.`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Next Marker"
+#~ msgstr "Nächster Marker"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Shift+M`"
+#~ msgstr ":kbd:`Shift+M`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Alt+Right`"
+#~ msgstr ":kbd:`Alt+Rechts`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Nudge left (1 Frame)"
+#~ msgstr "Leicht nach links verschieben (1 Bild)"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Left`"
+#~ msgstr ":kbd:`Strg+Links`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Nudge left (5 Frames)"
+#~ msgstr "Leicht nach links verschieben (5 Bilder)"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Shift+Ctrl+Left`"
+#~ msgstr ":kbd:`Shift+Strg+Links`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Nudge right (1 Frame)"
+#~ msgstr "Leicht nach rechts verschieben (1 Bild)"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Right`"
+#~ msgstr ":kbd:`Strg+Rechts`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Nudge right (5 Frames)"
+#~ msgstr "Leicht nach rechts verschieben (5 Bilder)"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Shift+Ctrl+Right`"
+#~ msgstr ":kbd:`Shift+Strg+Rechts`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Open Help Contents"
+#~ msgstr "Hilfethemen öffnen"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`F1`"
+#~ msgstr ":kbd:`F1`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Open Project..."
+#~ msgstr "Projekt öffnen..."
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+O`"
+#~ msgstr ":kbd:`Strg+O`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Paste"
+#~ msgstr "Einfügen"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+V`"
+#~ msgstr ":kbd:`Strg+V`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Play/Pause Toggle"
+#~ msgstr "Abspielen/Pause umschalten"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Up`"
+#~ msgstr ":kbd:`Oben`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Down`"
+#~ msgstr ":kbd:`Unten`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Preferences"
+#~ msgstr "Einstellungen"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+P`"
+#~ msgstr ":kbd:`Strg+P`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Preview File"
+#~ msgstr "Datei vorschauen"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Alt+P`"
+#~ msgstr ":kbd:`Alt+P`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Double Click`"
+#~ msgstr ":kbd:`Doppelklick`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Previous Frame"
+#~ msgstr "Vorheriges Bild"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Left`"
+#~ msgstr ":kbd:`Links`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`,`"
+#~ msgstr ":kbd:`,`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Previous Marker"
+#~ msgstr "Vorheriger Marker"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+M`"
+#~ msgstr ":kbd:`Strg+Shift+M`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Alt+Left`"
+#~ msgstr ":kbd:`Alt+Links`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`U`"
+#~ msgstr ":kbd:`U`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Quit"
+#~ msgstr "Beenden"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Q`"
+#~ msgstr ":kbd:`Strg+Q`"
+
+# Main-window terminology review, 2026-09-26.
+#~ msgid "Razor Toggle"
+#~ msgstr "Rasierklinge umschalten"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`C`"
+#~ msgstr ":kbd:`C`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`B`"
+#~ msgstr ":kbd:`B`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`R`"
+#~ msgstr ":kbd:`R`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Redo"
+#~ msgstr "Wiederholen"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+Z`"
+#~ msgstr ":kbd:`Strg+Shift+Z`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Report a Bug..."
+#~ msgstr "Fehler melden..."
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`F3`"
+#~ msgstr ":kbd:`F3`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Rewind"
+#~ msgstr "Zurückspulen"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`J`"
+#~ msgstr ":kbd:`J`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Save Current Frame"
+#~ msgstr "Aktuelles Bild speichern"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+Y`"
+#~ msgstr ":kbd:`Strg+Shift+Y`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Save Project"
+#~ msgstr "Projekt speichern"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Save Project As..."
+#~ msgstr "Projekt speichern unter..."
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+S`"
+#~ msgstr ":kbd:`Strg+Shift+S`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Select All"
+#~ msgstr "Alles auswählen"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+A`"
+#~ msgstr ":kbd:`Strg+A`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Select Item (Ripple)"
+#~ msgstr "Element auswählen (Ripple)"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Alt+A`"
+#~ msgstr ":kbd:`Alt+A`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Alt+Click`"
+#~ msgstr ":kbd:`Alt+Klick`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Select None"
+#~ msgstr "Nichts auswählen"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+A`"
+#~ msgstr ":kbd:`Strg+Shift+A`"
+
+#~ msgid "Share Feedback..."
+#~ msgstr "Feedback teilen..."
+
+#~ msgid ":kbd:`F8`"
+#~ msgstr ":kbd:`F8`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Alt+Shift+0`"
+#~ msgstr ":kbd:`Alt+Shift+0`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Slice All: Keep Both Sides"
+#~ msgstr "Alle schneiden: Beide Seiten behalten"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+K`"
+#~ msgstr ":kbd:`Strg+Shift+K`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Slice All: Keep Left Side"
+#~ msgstr "Alle schneiden: Linke Seite behalten"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+J`"
+#~ msgstr ":kbd:`Strg+Shift+J`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Slice All: Keep Right Side"
+#~ msgstr "Alle schneiden: Rechte Seite behalten"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+L`"
+#~ msgstr ":kbd:`Strg+Shift+L`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Slice Selected: Keep Both Sides"
+#~ msgstr "Ausgewähltes schneiden: Beide Seiten behalten"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Slice Selected: Keep Left Side"
+#~ msgstr "Ausgewähltes schneiden: Linke Seite behalten"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+J`"
+#~ msgstr ":kbd:`Strg+J`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Slice Selected: Keep Right Side"
+#~ msgstr "Ausgewähltes schneiden: Rechte Seite behalten"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+L`"
+#~ msgstr ":kbd:`Strg+L`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Slice Selected: Keep Left (Ripple)"
+#~ msgstr "Ausgewähltes schneiden: Links behalten (Ripple)"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`W`"
+#~ msgstr ":kbd:`W`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Slice Selected: Keep Right (Ripple)"
+#~ msgstr "Ausgewähltes schneiden: Rechts behalten (Ripple)"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Q`"
+#~ msgstr ":kbd:`Q`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Snapping Toggle"
+#~ msgstr "Einrasten umschalten"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`S`"
+#~ msgstr ":kbd:`S`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Split File"
+#~ msgstr "Datei teilen"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Alt+S`"
+#~ msgstr ":kbd:`Alt+S`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Shift+Double Click`"
+#~ msgstr ":kbd:`Shift+Doppelklick`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Thumbnail View"
+#~ msgstr "Miniaturansicht"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Page Down`"
+#~ msgstr ":kbd:`Strg+Bild ↓`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Timing Toggle"
+#~ msgstr "Timing umschalten"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`T`"
+#~ msgstr ":kbd:`T`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+T`"
+#~ msgstr ":kbd:`Strg+T`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Translate this Application..."
+#~ msgstr "Diese Anwendung übersetzen..."
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`F6`"
+#~ msgstr ":kbd:`F6`"
+
+#~ msgid "Update Available"
+#~ msgstr "Update verfügbar"
+
+#~ msgid ":kbd:`F9`"
+#~ msgstr ":kbd:`F9`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "View Toolbar"
+#~ msgstr "Symbolleiste anzeigen"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+B`"
+#~ msgstr ":kbd:`Strg+Umschalt+B`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Zoom In"
+#~ msgstr "Vergrößern"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`=`"
+#~ msgstr ":kbd:`=`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+=`"
+#~ msgstr ":kbd:`Strg+=`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Zoom Out"
+#~ msgstr "Verkleinern"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`-`"
+#~ msgstr ":kbd:`-`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+-`"
+#~ msgstr ":kbd:`Strg+-`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Zoom to Timeline"
+#~ msgstr "Auf Timeline zoomen"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`\\\\`"
+#~ msgstr ":kbd:`\\\\`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Shift+\\\\`"
+#~ msgstr ":kbd:`Umschalt+\\\\`"
+
+#~ msgid ""
+#~ "After you have spent some time editing, OpenShot may also invite you to "
+#~ "share feedback. The survey is optional. You can open it from the notice or "
+#~ "dismiss the invitation. At any time, choose :guilabel:`Help → Share "
+#~ "Feedback` or press :kbd:`F8` to share your thoughts."
+#~ msgstr ""
+#~ "Nachdem Sie einige Zeit mit dem Bearbeiten verbracht haben, kann OpenShot "
+#~ "Sie auch einladen, Feedback zu geben. Die Umfrage ist optional. Sie können "
+#~ "sie über die Benachrichtigung öffnen oder die Einladung ablehnen. Jederzeit "
+#~ "können Sie :guilabel:`Hilfe → Feedback teilen` wählen oder :kbd:`F8` "
+#~ "drücken, um Ihre Meinung mitzuteilen."
 
 # Translated with gpt-4.1-mini
 #~ msgid ""

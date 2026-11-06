@@ -237,10 +237,12 @@ class AddToTimeline(QDialog):
             file_path = file.absolute_path()
 
             # Create clip object for this file
-            c = openshot.Clip(file_path)
-
-            # Append missing attributes to Clip JSON
-            new_clip = json.loads(c.Json())
+            if file.data.get("type") == "QtTextReader":
+                from classes.direct_text import new_text_clip
+                new_clip = new_text_clip(file.data["direct_text"], None, position, track_num, image_length)
+            else:
+                c = openshot.Clip(file_path)
+                new_clip = json.loads(c.Json())
             new_clip["position"] = position
             new_clip["layer"] = track_num
             new_clip["file_id"] = file.id

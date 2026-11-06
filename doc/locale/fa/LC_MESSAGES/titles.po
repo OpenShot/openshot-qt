@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,11 +20,11 @@ msgstr ""
 "Generated-By: Babel 2.10.3\n"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:23
+#: ../doc/titles.rst:23
 msgid "Text & Titles"
 msgstr "متن و عناوین"
 
-#: ../titles.rst:25
+#: ../doc/titles.rst:25
 msgid ""
 "Adding text overlays, lower thirds, and titles is an important aspect of "
 "video editing, and OpenShot comes with an easy-to-use Title Editor. Use the "
@@ -37,7 +37,7 @@ msgstr ""
 "کنید. همچنین می‌توانید از کلید میانبر صفحه‌کلید :kbd:`Ctrl+T` استفاده کنید."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:29
+#: ../doc/titles.rst:29
 msgid ""
 "Titles are simply vector image files with transparent backgrounds "
 "(``*.svg``). OpenShot comes with many easy-to-use templates, but you can "
@@ -57,68 +57,386 @@ msgstr ""
 "به پروژه خود، عنوان را روی یک ترک بالای کلیپ ویدیویی بکشید و رها کنید. "
 "پس‌زمینه شفاف اجازه می‌دهد ویدیوی زیر متن دیده شود."
 
+#: ../doc/titles.rst:38
+msgid "Edit text directly in the preview"
+msgstr "ویرایش متن مستقیماً در پیش‌نمایش"
+
+#: ../doc/titles.rst:40
+msgid ""
+"The quickest way to add text is to type it straight onto the video preview."
+msgstr ""
+"سریع‌ترین راه برای افزودن متن، تایپ مستقیم آن روی پیش‌نمایش ویدیو است."
+
+#: ../doc/titles.rst:42
+msgid ""
+"Click **Tt** in the **Timeline** toolbar, choose **Title → Text**, or press "
+":kbd:`Shift+T`. A text clip is added at the playhead, above the clips "
+"already there, and its placeholder text is selected, ready to replace by "
+"typing."
+msgstr ""
+"روی **Tt** در نوار ابزار **Timeline** کلیک کنید، گزینه **Title → Text** را "
+"انتخاب کنید، یا :kbd:`Shift+T` را فشار دهید. یک کلیپ متنی در محل پخش اضافه "
+"می‌شود، بالای کلیپ‌های موجود، و متن جایگزین آن انتخاب شده است تا با تایپ "
+"جایگزین شود."
+
+#: ../doc/titles.rst:45
+msgid "Type your text. Press :kbd:`Shift+Enter` for a new line."
+msgstr "متن خود را تایپ کنید. برای خط جدید :kbd:`Shift+Enter` را فشار دهید."
+
+#: ../doc/titles.rst:46
+msgid ""
+"Press :kbd:`Enter`, or click outside the text, to finish. Clicking anywhere "
+"else (the preview, the timeline, another dock), moving the playhead, or "
+"pressing Play also finishes and keeps your changes; the style bar and the "
+"**Properties** dock change the text without finishing. The clip then shows "
+"the normal transform handles to move, scale and rotate it. Press "
+":kbd:`Escape` instead to remove a text you just added (or, when editing an "
+"existing text, to throw away this editing session)."
+msgstr ""
+"برای پایان دادن، :kbd:`Enter` را فشار دهید یا بیرون از متن کلیک کنید. کلیک "
+"در هر جای دیگر (پیش‌نمایش، تایم‌لاین، داک دیگر)، حرکت دادن محل پخش، یا فشار "
+"دادن Play نیز ویرایش را پایان می‌دهد و تغییرات شما را حفظ می‌کند؛ نوار سبک و"
+" داک **Properties** متن را بدون پایان دادن تغییر می‌دهند. سپس کلیپ دسته‌های "
+"تبدیل معمولی برای جابجایی، تغییر اندازه و چرخش را نشان می‌دهد. به جای آن، "
+"برای حذف متنی که تازه اضافه کرده‌اید (یا هنگام ویرایش متن موجود، برای لغو "
+"این جلسه ویرایش) :kbd:`Escape` را فشار دهید."
+
+#: ../doc/titles.rst:53
+msgid ""
+"To edit an existing text, double-click it in the preview, select its clip "
+"and press :kbd:`Enter`, or right-click the clip and choose **Text → Edit "
+"Text**. All of its text is selected, so typing replaces it. Starting "
+"playback or seeking ends editing without keeping unfinished changes, so "
+"press :kbd:`Enter` first to keep them."
+msgstr ""
+"برای ویرایش متن موجود، روی آن در پیش‌نمایش دوبار کلیک کنید، کلیپ آن را "
+"انتخاب کرده و :kbd:`Enter` را فشار دهید، یا روی کلیپ راست‌کلیک کرده و **Text"
+" → Edit Text** را انتخاب کنید. تمام متن آن انتخاب می‌شود، بنابراین تایپ "
+"جایگزین می‌کند. شروع پخش یا جستجو ویرایش را بدون حفظ تغییرات ناتمام پایان "
+"می‌دهد، پس ابتدا :kbd:`Enter` را فشار دهید تا تغییرات حفظ شوند."
+
+#: ../doc/titles.rst:61
+msgid "Text style bar"
+msgstr "نوار سبک متن"
+
+#: ../doc/titles.rst:63
+msgid "While you type, a small style bar floats over the video preview:"
+msgstr "در حین تایپ، یک نوار سبک کوچک روی پیش‌نمایش ویدیو شناور است:"
+
+#: ../doc/titles.rst:69
+msgid "Control"
+msgstr "کنترل"
+
 # Translated with gpt-4.1-mini
-#: ../titles.rst:36
+#: ../doc/titles.rst:69 ../doc/titles.rst:165 ../doc/titles.rst:184
+#: ../doc/titles.rst:306 ../doc/titles.rst:325
+msgid "Description"
+msgstr "توضیحات"
+
+#: ../doc/titles.rst:71
+msgid "Font"
+msgstr "فونت"
+
+#: ../doc/titles.rst:71
+msgid "The font family, from the fonts installed on your computer"
+msgstr "خانواده فونت، از فونت‌های نصب‌شده روی رایانه شما"
+
+#: ../doc/titles.rst:72
+msgid "Size"
+msgstr "اندازه"
+
+#: ../doc/titles.rst:72
+msgid "The font size, in project pixels"
+msgstr "اندازه فونت، بر حسب پیکسل‌های پروژه"
+
+#: ../doc/titles.rst:73
+msgid "Bold / Italic"
+msgstr "پررنگ / مورب"
+
+#: ../doc/titles.rst:73
+msgid "Toggle bold and italic for the whole text"
+msgstr "تغییر وضعیت پررنگ و مورب برای کل متن"
+
+#: ../doc/titles.rst:74
+msgid "Color"
+msgstr "رنگ"
+
+#: ../doc/titles.rst:74
+msgid "The text color (choose a transparent color to show only the outline)"
+msgstr "رنگ متن (برای نمایش فقط حاشیه، رنگ شفاف انتخاب کنید)"
+
+#: ../doc/titles.rst:75
+msgid "Alignment"
+msgstr "تراز"
+
+#: ../doc/titles.rst:75
+msgid "Align lines left, center or right inside the text box"
+msgstr "تراز خطوط به چپ، مرکز یا راست درون کادر متن"
+
+#: ../doc/titles.rst:76
+msgid "More (…)"
+msgstr "بیشتر (…)"
+
+#: ../doc/titles.rst:76
+msgid ""
+"Open **Edit Style** for background, padding, rounded corners, outline, "
+"border, box width, and letter and line spacing"
+msgstr ""
+"باز کردن **ویرایش سبک** برای پس‌زمینه، فاصله داخلی، گوشه‌های گرد، حاشیه، "
+"کادر، عرض جعبه، و فاصله حروف و خطوط"
+
+#: ../doc/titles.rst:80
+msgid ""
+"The style bar sits at the **top** of the video preview. If that would cover "
+"the text you are editing, it jumps to the **bottom** of the preview instead,"
+" and it returns to the top once the text is clear of it again (for example, "
+"after you move the text or make it smaller). The style bar floats over the "
+"video, so it never resizes the preview. Changes from the style bar show on "
+"the video right away."
+msgstr ""
+"نوار سبک در **بالای** پیش‌نمایش ویدیو قرار دارد. اگر این نوار متن در حال "
+"ویرایش شما را بپوشاند، به جای آن به **پایین** پیش‌نمایش منتقل می‌شود و وقتی "
+"متن دوباره از آن فاصله گرفت (مثلاً پس از جابجایی یا کوچک کردن متن) به بالا "
+"بازمی‌گردد. نوار سبک روی ویدیو شناور است، بنابراین هرگز اندازه پیش‌نمایش را "
+"تغییر نمی‌دهد. تغییرات نوار سبک بلافاصله روی ویدیو نمایش داده می‌شوند."
+
+#: ../doc/titles.rst:89
+msgid "Edit Style"
+msgstr "ویرایش سبک"
+
+#: ../doc/titles.rst:91
+msgid ""
+"**Edit Style** has every text setting in one place. **Text** holds the "
+"words. **Font** has the style bar controls, the text outline (color and "
+"width), and letter and line spacing. **Background** has the box behind the "
+"text: its color, padding, rounded corners, border (color and width), and box"
+" width (where lines wrap). Open it from **More (…)** on the style bar, from "
+"**Text → Edit Style…** on a clip's context menu, or with **Edit Text…** in "
+"Project Files. The preview at the top shows changes as you make them. Press "
+":kbd:`Ctrl+Enter` or click **Apply** to keep them; :kbd:`Enter` adds a new "
+"line, and **Cancel** discards the changes. **Restore Defaults** returns "
+"everything except the text to the default style."
+msgstr ""
+"**ویرایش سبک** همه تنظیمات متن را در یکجا دارد. **Text** شامل کلمات است. "
+"**Font** کنترل‌های نوار سبک، حاشیه متن (رنگ و عرض)، و فاصله حروف و خطوط را "
+"دارد. **Background** جعبه پشت متن را شامل می‌شود: رنگ، فاصله داخلی، گوشه‌های"
+" گرد، حاشیه (رنگ و عرض)، و عرض جعبه (جایی که خطوط شکسته می‌شوند). آن را از "
+"**More (…)** در نوار سبک، از **Text → Edit Style…** در منوی زمینه کلیپ، یا "
+"با **Edit Text…** در فایل‌های پروژه باز کنید. پیش‌نمایش در بالا تغییرات را "
+"هنگام اعمال نشان می‌دهد. برای حفظ تغییرات :kbd:`Ctrl+Enter` را فشار دهید یا "
+"روی **Apply** کلیک کنید؛ :kbd:`Enter` خط جدید اضافه می‌کند، و **Cancel** "
+"تغییرات را لغو می‌کند. **Restore Defaults** همه چیز به جز متن را به سبک "
+"پیش‌فرض بازمی‌گرداند."
+
+#: ../doc/titles.rst:100
+msgid ""
+"**Line spacing** sets the distance between lines as a multiple of the normal"
+" distance: 1.0 is normal, 1.5 adds half a line of space, and values below "
+"1.0 pull lines closer together. **Corner radius** rounds the corners of the "
+"background and the border, in pixels; 0 keeps them square. The text outline "
+"is drawn behind the letters, so a wide outline grows outward instead of "
+"covering them. For hollow letters, give the text an outline and set the text"
+" color's opacity to 0 in the color picker: only the outline is drawn, and "
+"the video shows through the letters."
+msgstr ""
+"**فاصله خطوط** فاصله بین خطوط را به صورت ضریبی از فاصله معمول تنظیم می‌کند: "
+"۱.۰ طبیعی است، ۱.۵ نیم خط فاصله اضافه می‌کند، و مقادیر کمتر از ۱.۰ خطوط را "
+"به هم نزدیک‌تر می‌کند. **شعاع گوشه** گوشه‌های پس‌زمینه و حاشیه را به پیکسل "
+"گرد می‌کند؛ ۰ آن‌ها را مربع نگه می‌دارد. حاشیه متن پشت حروف کشیده می‌شود، "
+"بنابراین حاشیه پهن به بیرون رشد می‌کند و آن‌ها را نمی‌پوشاند. برای حروف "
+"توخالی، به متن حاشیه بدهید و شفافیت رنگ متن را در انتخابگر رنگ به ۰ تنظیم "
+"کنید: فقط حاشیه کشیده می‌شود و ویدیو از پشت حروف دیده می‌شود."
+
+#: ../doc/titles.rst:107
+msgid ""
+"Select several text clips (or several texts in Project Files) and choose "
+"**Edit Style…** to change their style together. The text box is grayed out, "
+"because each text keeps its own words, and only the settings you change are "
+"applied to all of them."
+msgstr ""
+"چند کلیپ متنی (یا چند متن در فایل‌های پروژه) را انتخاب کنید و **Edit "
+"Style…** را برای تغییر همزمان سبک آن‌ها انتخاب کنید. کادر متن خاکستری شده "
+"است، زیرا هر متن کلمات خود را حفظ می‌کند و فقط تنظیماتی که تغییر می‌دهید روی"
+" همه اعمال می‌شود."
+
+#: ../doc/titles.rst:111
+msgid ""
+"To reset text clips without opening the dialog, right-click them and choose "
+"**Text → Reset Style**. Their font, size, colors and outlines return to the "
+"defaults, any color or outline keyframes on those clips are removed, and "
+"their words are kept."
+msgstr ""
+"برای بازنشانی کلیپ‌های متنی بدون باز کردن دیالوگ، روی آن‌ها راست‌کلیک کرده و"
+" **Text → Reset Style** را انتخاب کنید. فونت، اندازه، رنگ‌ها و حاشیه‌های "
+"آن‌ها به پیش‌فرض بازمی‌گردد، هر کلید فریم رنگ یا حاشیه روی آن کلیپ‌ها حذف "
+"می‌شود، و کلمات آن‌ها حفظ می‌شود."
+
+#: ../doc/titles.rst:115
+msgid ""
+"To give other text clips the same look, right-click a text clip and choose "
+"**Copy → Text Style**, then select the other text clips, right-click and "
+"choose **Paste**. They take the font, size, colors, outline, border, corners"
+" and spacing, plus the copied clip's color, outline, border and corner "
+"keyframes, and keep their own words and box width. Pasting a text style onto"
+" other kinds of clips changes nothing. **Copy → Keyframes → All** also "
+"includes a text clip's own text keyframes."
+msgstr ""
+"برای دادن ظاهر مشابه به کلیپ‌های متنی دیگر، روی یک کلیپ متنی راست‌کلیک کرده "
+"و **Copy → Text Style** را انتخاب کنید، سپس کلیپ‌های متنی دیگر را انتخاب "
+"کرده، راست‌کلیک کرده و **Paste** را انتخاب کنید. آن‌ها فونت، اندازه، رنگ‌ها،"
+" حاشیه، کادر، گوشه‌ها و فاصله‌ها را به همراه کلید فریم‌های رنگ، حاشیه، کادر "
+"و گوشه کلیپ کپی شده می‌گیرند و کلمات و عرض جعبه خود را حفظ می‌کنند. چسباندن "
+"سبک متن روی انواع دیگر کلیپ‌ها هیچ تغییری ایجاد نمی‌کند. **Copy → Keyframes "
+"→ All** همچنین کلید فریم‌های متن کلیپ متنی را شامل می‌شود."
+
+#: ../doc/titles.rst:122
+msgid ""
+"A new text starts with the style you used last (font, size, colors, outline,"
+" border and spacing), so a series of titles stays consistent. Without a "
+"previous text, it uses a standard font installed on your computer."
+msgstr ""
+"یک متن جدید با سبک آخرین استفاده‌شده شما شروع می‌شود (فونت، اندازه، رنگ‌ها، "
+"حاشیه، کادر و فاصله‌ها)، بنابراین یک سری عنوان‌ها هماهنگ باقی می‌مانند. بدون"
+" متن قبلی، از یک فونت استاندارد نصب‌شده روی رایانه شما استفاده می‌کند."
+
+#: ../doc/titles.rst:127
+msgid "Project Files and Properties"
+msgstr "فایل‌ها و ویژگی‌های پروژه"
+
+#: ../doc/titles.rst:129
+msgid ""
+"Each text also appears in **Project Files**, with a thumbnail on black. Drag"
+" it onto the timeline like an image to use it again. Right-click it and "
+"choose **Edit Text…** (or double-click it) to edit it without placing it on "
+"the timeline. **Duplicate** opens a copy, ready to type, and **Apply** adds "
+"it as a new, independent text."
+msgstr ""
+"هر متن همچنین در **پرونده‌های پروژه** با یک تصویر کوچک روی زمینه سیاه ظاهر "
+"می‌شود. آن را مانند یک تصویر روی جدول زمانی بکشید تا دوباره استفاده شود. روی"
+" آن راست‌کلیک کنید و **ویرایش متن…** را انتخاب کنید (یا دوبار کلیک کنید) تا "
+"بدون قرار دادن روی جدول زمانی آن را ویرایش کنید. **تکثیر** یک نسخه باز "
+"می‌کند که آماده تایپ است و **اعمال** آن را به عنوان یک متن جدید و مستقل "
+"اضافه می‌کند."
+
+#: ../doc/titles.rst:134
+msgid ""
+"The words, font, size, spacing, alignment, box width, padding and default "
+"colors belong to the text in Project Files, so editing them updates every "
+"clip that uses that text. When a text clip is selected, these settings also "
+"appear at the top of **Properties** (for example **Text Box Width** and "
+"**Text Background Padding**), and changes there show on the video right away"
+" (including while you are typing)."
+msgstr ""
+"کلمات، قلم، اندازه، فاصله‌ها، تراز، عرض جعبه، حاشیه و رنگ‌های پیش‌فرض متعلق "
+"به متن در پرونده‌های پروژه هستند، بنابراین ویرایش آن‌ها هر کلیپی که از آن "
+"متن استفاده می‌کند را به‌روزرسانی می‌کند. وقتی یک کلیپ متنی انتخاب می‌شود، "
+"این تنظیمات همچنین در بالای **ویژگی‌ها** ظاهر می‌شوند (برای مثال **عرض جعبه "
+"متن** و **حاشیه پس‌زمینه متن**) و تغییرات آنجا بلافاصله روی ویدیو نمایش داده"
+" می‌شوند (حتی هنگام تایپ کردن)."
+
+#: ../doc/titles.rst:140
+msgid ""
+"Text color, background, outline and border colors, outline and border "
+"widths, and corner radius can be animated on each clip with keyframes in "
+"**Properties**, like any other clip property. These follow **Auto "
+"Keyframes** at the playhead. Font size, padding, box width, and letter and "
+"line spacing set the size of the text box, so they have one value per text; "
+"to animate the size of text, animate the clip's scale. Undo and Redo work "
+"for all text changes."
+msgstr ""
+"رنگ متن، پس‌زمینه، رنگ‌های خط دور و حاشیه، عرض خط دور و حاشیه، و شعاع "
+"گوشه‌ها می‌توانند در هر کلیپ با کلیدهای فریم در **ویژگی‌ها** مانند هر ویژگی "
+"دیگر کلیپ متحرک شوند. این‌ها از **کلیدهای خودکار** در مکان‌نمای پخش پیروی "
+"می‌کنند. اندازه قلم، حاشیه، عرض جعبه، و فاصله حروف و خطوط اندازه جعبه متن را"
+" تعیین می‌کنند، بنابراین هر متن یک مقدار دارد؛ برای متحرک‌سازی اندازه متن، "
+"مقیاس کلیپ را متحرک کنید. عملیات بازگردانی و انجام مجدد برای همه تغییرات متن"
+" کار می‌کند."
+
+#: ../doc/titles.rst:146
+msgid ""
+"Text is saved in the project file and drawn by OpenShot's video library, so "
+"it needs no image files. Fonts come from your computer: to see the same text"
+" on another computer, install the same fonts there. One style applies to all"
+" of a text's lines."
+msgstr ""
+"متن در پرونده پروژه ذخیره می‌شود و توسط کتابخانه ویدیویی OpenShot رسم "
+"می‌شود، بنابراین نیازی به فایل‌های تصویری ندارد. قلم‌ها از رایانه شما "
+"می‌آیند: برای دیدن همان متن در رایانه دیگر، همان قلم‌ها را آنجا نصب کنید. یک"
+" سبک برای همه خطوط یک متن اعمال می‌شود."
+
+#: ../doc/titles.rst:150
+msgid ""
+"Text can also be added and styled from the command line; see "
+":ref:`cli_text_ref`."
+msgstr ""
+"متن همچنین می‌تواند از خط فرمان اضافه و سبک‌دهی شود؛ به :ref:`cli_text_ref` "
+"مراجعه کنید."
+
+#: ../doc/titles.rst:152
+msgid ""
+"The **Title** editor (SVG templates and animated titles) and **Captions** "
+"(timed subtitles) remain available for more elaborate designs."
+msgstr ""
+"ویرایشگر **عنوان** (قالب‌های SVG و عناوین متحرک) و **زیرنویس‌ها** "
+"(زیرنویس‌های زمان‌بندی شده) برای طراحی‌های پیچیده‌تر همچنان در دسترس هستند."
+
+# Translated with gpt-4.1-mini
+#: ../doc/titles.rst:157
 msgid "Overview"
 msgstr "مرور کلی"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:44 ../titles.rst:185
+#: ../doc/titles.rst:165 ../doc/titles.rst:306
 msgid "#"
 msgstr "#"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:44 ../titles.rst:185
+#: ../doc/titles.rst:165 ../doc/titles.rst:306
 msgid "Name"
 msgstr "نام"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:44 ../titles.rst:63 ../titles.rst:185 ../titles.rst:204
-msgid "Description"
-msgstr "توضیحات"
-
-# Translated with gpt-4.1-mini
-#: ../titles.rst:46 ../titles.rst:187
+#: ../doc/titles.rst:167 ../doc/titles.rst:308
 msgid "1"
 msgstr "۱"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:46 ../titles.rst:187
+#: ../doc/titles.rst:167 ../doc/titles.rst:308
 msgid "Choose a Template"
 msgstr "انتخاب یک قالب"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:46
+#: ../doc/titles.rst:167
 msgid "Choose from any available vector title template"
 msgstr "انتخاب از هر قالب عنوان برداری موجود"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:47 ../titles.rst:188
+#: ../doc/titles.rst:168 ../doc/titles.rst:309
 msgid "2"
 msgstr "۲"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:47 ../titles.rst:188
+#: ../doc/titles.rst:168 ../doc/titles.rst:309
 msgid "Preview Title"
 msgstr "پیش‌نمایش عنوان"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:47 ../titles.rst:188
+#: ../doc/titles.rst:168 ../doc/titles.rst:309
 msgid "Preview your title as you make changes"
 msgstr "هنگام ایجاد تغییرات، عنوان خود را پیش‌نمایش کنید"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:48 ../titles.rst:189
+#: ../doc/titles.rst:169 ../doc/titles.rst:310
 msgid "3"
 msgstr "۳"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:48 ../titles.rst:189
+#: ../doc/titles.rst:169 ../doc/titles.rst:310
 msgid "Title Properties"
 msgstr "ویژگی‌های عنوان"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:48
+#: ../doc/titles.rst:169
 msgid ""
 "Change the text, font, size, colors, or edit in an advanced, external SVG "
 "image editor (such as Inkscape)"
@@ -127,27 +445,27 @@ msgstr ""
 " خارجی (مانند Inkscape) ویرایش کنید"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:49 ../titles.rst:190
+#: ../doc/titles.rst:170 ../doc/titles.rst:311
 msgid "4"
 msgstr "۴"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:49
+#: ../doc/titles.rst:170
 msgid "Save"
 msgstr "ذخیره"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:49
+#: ../doc/titles.rst:170
 msgid "Save and add the title to your project"
 msgstr "ذخیره و افزودن عنوان به پروژه شما"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:53
+#: ../doc/titles.rst:174
 msgid "Title Templates"
 msgstr "قالب‌های عنوان"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:55
+#: ../doc/titles.rst:176
 msgid ""
 "OpenShot includes a variety of vector title templates that can be used to "
 "enhance your video projects. Below is a table listing the available titles "
@@ -157,285 +475,285 @@ msgstr ""
 " شما را بهبود بخشند. در زیر جدولی از عناوین موجود و توضیحات آن‌ها آمده است:"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:62
+#: ../doc/titles.rst:183
 msgid "Title Name"
 msgstr "نام عنوان"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:64
+#: ../doc/titles.rst:185
 msgid "Bar 1"
 msgstr "نوار ۱"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:65
+#: ../doc/titles.rst:186
 msgid "A simple bar with text centered."
 msgstr "یک نوار ساده با متن در مرکز."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:66
+#: ../doc/titles.rst:187
 msgid "Bar 2"
 msgstr "نوار ۲"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:67
+#: ../doc/titles.rst:188
 msgid "A simple bar, centered, with 2 lines of text."
 msgstr "یک نوار ساده، در مرکز، با دو خط متن."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:68
+#: ../doc/titles.rst:189
 msgid "Bar 3"
 msgstr "نوار ۳"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:69
+#: ../doc/titles.rst:190
 msgid "Another variation of a simple bar with text, for lower 3rds."
 msgstr "یک نوع دیگر از نوار ساده با متن، برای بخش پایین صفحه."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:70
+#: ../doc/titles.rst:191
 msgid "Box"
 msgstr "جعبه"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:71
+#: ../doc/titles.rst:192
 #, fuzzy
 msgid "A simple boxed title layout for centered text."
 msgstr "یک نوار ساده با متن در مرکز."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:72
+#: ../doc/titles.rst:193
 msgid "Bubbles 1"
 msgstr "حباب‌ها ۱"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:73
+#: ../doc/titles.rst:194
 msgid "A title with bubble graphics for a playful look."
 msgstr "عنوانی با گرافیک حباب برای ظاهری بازیگوشانه."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:74
+#: ../doc/titles.rst:195
 msgid "Bubbles 2"
 msgstr "حباب‌ها ۲"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:75
+#: ../doc/titles.rst:196
 msgid "A different bubble design for a fun and creative title."
 msgstr "طراحی متفاوت حباب برای عنوانی سرگرم‌کننده و خلاقانه."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:76
+#: ../doc/titles.rst:197
 msgid "Camera Border"
 msgstr "حاشیه دوربین"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:77
+#: ../doc/titles.rst:198
 msgid "A border that mimics a camera viewfinder with centered text."
 msgstr "حاشیه‌ای که شبیه به نمایاب دوربین است با متن در مرکز."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:78
+#: ../doc/titles.rst:199
 msgid "Cloud 1"
 msgstr "ابر ۱"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:79
+#: ../doc/titles.rst:200
 msgid "A title with a playful cloud graphic and text."
 msgstr "عنوانی با گرافیک ابر بازیگوشانه و متن."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:80
+#: ../doc/titles.rst:201
 msgid "Cloud 2"
 msgstr "ابر ۲"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:81
+#: ../doc/titles.rst:202
 msgid "Another playful cloud design with 3 clouds and text."
 msgstr "طراحی دیگری از ابر بازیگوشانه با ۳ ابر و متن."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:82
+#: ../doc/titles.rst:203
 msgid "Creative Commons 1"
 msgstr "کریتیو کامنز ۱"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:83
+#: ../doc/titles.rst:204
 msgid "Contains text and icons for Creative Commons attribution."
 msgstr "شامل متن و آیکون‌هایی برای نسبت دادن کریتیو کامنز."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:84
+#: ../doc/titles.rst:205
 msgid "Creative Commons 2"
 msgstr "کریتیو کامنز ۲"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:85
+#: ../doc/titles.rst:206
 msgid ""
 "Another Creative Commons design with different styling plus website text."
 msgstr "طراحی دیگری از کریتیو کامنز با سبک متفاوت و متن وب‌سایت."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:86
+#: ../doc/titles.rst:207
 msgid "Film Rating 1"
 msgstr "رتبه‌بندی فیلم ۱"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:87
+#: ../doc/titles.rst:208
 msgid "Displays a film rating for all audiences."
 msgstr "نمایش رتبه‌بندی فیلم برای همه مخاطبان."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:88
+#: ../doc/titles.rst:209
 msgid "Film Rating 2"
 msgstr "رتبه‌بندی فیلم ۲"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:89
+#: ../doc/titles.rst:210
 msgid "Displays a film rating of \"R\" restricted."
 msgstr "نمایش رتبه‌بندی فیلم \"R\" محدود شده."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:90
+#: ../doc/titles.rst:211
 msgid "Film Rating 3"
 msgstr "رتبه‌بندی فیلم ۳"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:91
+#: ../doc/titles.rst:212
 msgid "Displays a film rating of \"G\" for general audiences."
 msgstr "نمایش رتبه‌بندی فیلم \"G\" برای مخاطبان عمومی."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:92
+#: ../doc/titles.rst:213
 msgid "Film Rating 4"
 msgstr "رتبه‌بندی فیلم ۴"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:93
+#: ../doc/titles.rst:214
 msgid "Displays a film rating of \"PG-13\", parents strongly cautioned."
 msgstr "نمایش رتبه‌بندی فیلم \"PG-13\"، هشدار شدید به والدین."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:94
+#: ../doc/titles.rst:215
 #, fuzzy
 msgid "Flare"
 msgstr "تابش نور"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:95
+#: ../doc/titles.rst:216
 #, fuzzy
 msgid "A title with a bright flare effect for a cinematic look."
 msgstr "یک عنوان با افکت‌های دود برای ظاهری دراماتیک."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:96
+#: ../doc/titles.rst:217
 msgid "Flames"
 msgstr "شعله‌ها"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:97
+#: ../doc/titles.rst:218
 msgid "A title with flame graphics for a fiery effect."
 msgstr "عنوانی با گرافیک شعله برای جلوه‌ای آتشین."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:98
+#: ../doc/titles.rst:219
 msgid "Footer 1"
 msgstr "پاورقی ۱"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:99
+#: ../doc/titles.rst:220
 msgid "A footer bar for lower thirds (left aligned)."
 msgstr "نوار پاورقی برای بخش پایین صفحه (چپ‌چین)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:100
+#: ../doc/titles.rst:221
 msgid "Footer 2"
 msgstr "پاورقی ۲"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:101
+#: ../doc/titles.rst:222
 msgid "A footer bar for lower thirds (center aligned)."
 msgstr "نوار پاورقی برای بخش پایین صفحه (مرکزچین)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:102
+#: ../doc/titles.rst:223
 msgid "Footer 3"
 msgstr "پاورقی ۳"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:103
+#: ../doc/titles.rst:224
 msgid "A footer bar for lower thirds (right aligned)."
 msgstr "نوار پاورقی برای بخش پایین صفحه (راست‌چین)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:104
+#: ../doc/titles.rst:225
 msgid "Gold 1"
 msgstr "طلایی ۱"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:105
+#: ../doc/titles.rst:226
 msgid "A title with a gold color scheme, centered with one line of text."
 msgstr "عنوانی با طرح رنگ طلایی، در مرکز با یک خط متن."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:106
+#: ../doc/titles.rst:227
 msgid "Gold 2"
 msgstr "طلایی ۲"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:107
+#: ../doc/titles.rst:228
 msgid "Another gold-themed title, centered with two lines of text."
 msgstr "عنوانی دیگر با تم طلایی، در مرکز با دو خط متن."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:108
+#: ../doc/titles.rst:229
 msgid "Gold Bottom"
 msgstr "طلایی پایین"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:109
+#: ../doc/titles.rst:230
 msgid "Gold title positioned at the bottom of the screen."
 msgstr "عنوان طلایی قرار گرفته در پایین صفحه."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:110
+#: ../doc/titles.rst:231
 msgid "Gold Top"
 msgstr "طلایی بالا"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:111
+#: ../doc/titles.rst:232
 msgid "Gold title positioned at the top of the screen."
 msgstr "عنوان طلایی قرار گرفته در بالای صفحه."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:112
+#: ../doc/titles.rst:233
 msgid "Gray Box 1"
 msgstr "کادر خاکستری ۱"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:113
+#: ../doc/titles.rst:234
 msgid ""
 "A simple gray box for highlighting text (one line of text, top-left "
 "aligned)."
 msgstr "یک کادر خاکستری ساده برای برجسته کردن متن (یک خط متن، چپ‌بالا چین)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:114
+#: ../doc/titles.rst:235
 msgid "Gray Box 2"
 msgstr "کادر خاکستری ۲"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:115
+#: ../doc/titles.rst:236
 msgid ""
 "A simple gray box for highlighting text (two lins of text, top-left "
 "aligned)."
 msgstr "یک کادر خاکستری ساده برای برجسته کردن متن (دو خط متن، چپ‌بالا چین)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:116
+#: ../doc/titles.rst:237
 msgid "Gray Box 3"
 msgstr "کادر خاکستری ۳"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:117
+#: ../doc/titles.rst:238
 msgid ""
 "A simple gray box for highlighting text (one line of text, bottom-right "
 "aligned)."
@@ -444,12 +762,12 @@ msgstr ""
 "راست)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:118
+#: ../doc/titles.rst:239
 msgid "Gray Box 4"
 msgstr "جعبه خاکستری ۴"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:119
+#: ../doc/titles.rst:240
 msgid ""
 "A simple gray box for highlighting text (two lines of text, bottom-right "
 "aligned)."
@@ -458,238 +776,238 @@ msgstr ""
 "راست)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:120
+#: ../doc/titles.rst:241
 msgid "Header 1"
 msgstr "سربرگ ۱"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:121
+#: ../doc/titles.rst:242
 msgid "A header bar for titles or section headers (top-left aligned)."
 msgstr "یک نوار سربرگ برای عناوین یا بخش‌ها (تراز شده در بالا-چپ)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:122
+#: ../doc/titles.rst:243
 msgid "Header 2"
 msgstr "سربرگ ۲"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:123
+#: ../doc/titles.rst:244
 msgid "A header bar for titles or section headers (center aligned)."
 msgstr "یک نوار سربرگ برای عناوین یا بخش‌ها (تراز شده در مرکز)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:124
+#: ../doc/titles.rst:245
 msgid "Header 3"
 msgstr "سربرگ ۳"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:125
+#: ../doc/titles.rst:246
 msgid "A header bar for titles or section headers (top-right aligned)."
 msgstr "یک نوار سربرگ برای عناوین یا بخش‌ها (تراز شده در بالا-راست)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:126
+#: ../doc/titles.rst:247
 msgid "OpenShot"
 msgstr "OpenShot"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:127
+#: ../doc/titles.rst:248
 msgid "A title featuring OpenShot branding."
 msgstr "عنوانی با برند OpenShot"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:128
+#: ../doc/titles.rst:249
 msgid "Oval 1"
 msgstr "بیضی ۱"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:129
+#: ../doc/titles.rst:250
 msgid "An oval shape for highlighting or decorative purposes, text centered."
 msgstr "یک شکل بیضی برای برجسته‌سازی یا اهداف تزئینی، متن در مرکز قرار دارد."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:130
+#: ../doc/titles.rst:251
 msgid "Oval 2"
 msgstr "بیضی ۲"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:131
+#: ../doc/titles.rst:252
 msgid "Another oval design with a different style, text centered."
 msgstr "یک طراحی بیضی دیگر با سبک متفاوت، متن در مرکز قرار دارد."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:132
+#: ../doc/titles.rst:253
 msgid "Oval 3"
 msgstr "بیضی ۳"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:133
+#: ../doc/titles.rst:254
 msgid ""
 "Another oval design with two-lines of text, one at the top, one at the "
 "bottom."
 msgstr "یک طراحی بیضی دیگر با دو خط متن، یکی در بالا و دیگری در پایین."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:134
+#: ../doc/titles.rst:255
 msgid "Oval 4"
 msgstr "بیضی ۴"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:135
+#: ../doc/titles.rst:256
 msgid "Yet another oval design, with text centered plus refection."
 msgstr "یک طراحی بیضی دیگر، با متن در مرکز به همراه بازتاب."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:136
+#: ../doc/titles.rst:257
 msgid "Post it"
 msgstr "یادداشت چسبان"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:137
+#: ../doc/titles.rst:258
 msgid "Mimics a sticky note for annotations or reminders."
 msgstr "شبیه یادداشت چسبان برای حاشیه‌نویسی یا یادآوری‌ها."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:138
+#: ../doc/titles.rst:259
 msgid "Ribbon 1"
 msgstr "روبان ۱"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:139
+#: ../doc/titles.rst:260
 msgid "A ribbon graphic with text."
 msgstr "یک گرافیک روبان همراه با متن."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:140
+#: ../doc/titles.rst:261
 msgid "Ribbon 2"
 msgstr "روبان ۲"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:141
+#: ../doc/titles.rst:262
 msgid "Another ribbon design with text."
 msgstr "یک طراحی روبان دیگر همراه با متن."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:142
+#: ../doc/titles.rst:263
 msgid "Ribbon 3"
 msgstr "روبان ۳"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:143
+#: ../doc/titles.rst:264
 msgid "A third variation of a ribbon design with text."
 msgstr "سومین نوع طراحی روبان همراه با متن."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:144
+#: ../doc/titles.rst:265
 msgid "Smoke 1"
 msgstr "دود ۱"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:145
+#: ../doc/titles.rst:266
 msgid "A title with smoke effects for a dramatic look."
 msgstr "یک عنوان با افکت‌های دود برای ظاهری دراماتیک."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:146
+#: ../doc/titles.rst:267
 msgid "Smoke 2"
 msgstr "دود ۲"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:147
+#: ../doc/titles.rst:268
 msgid "Another smoke design with a different style."
 msgstr "یک طراحی دود دیگر با سبک متفاوت."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:148
+#: ../doc/titles.rst:269
 msgid "Smoke 3"
 msgstr "دود ۳"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:149
+#: ../doc/titles.rst:270
 msgid "A third variation of smoke effects."
 msgstr "سومین نوع افکت‌های دود."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:150
+#: ../doc/titles.rst:271
 msgid "Solid Color"
 msgstr "رنگ یکدست"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:151
+#: ../doc/titles.rst:272
 msgid "A full-screen color background for various uses."
 msgstr "پس‌زمینه رنگی تمام صفحه برای کاربردهای مختلف."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:152
+#: ../doc/titles.rst:273
 msgid "Standard 1"
 msgstr "استاندارد ۱"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:153
+#: ../doc/titles.rst:274
 msgid "A standard title design for general purposes (two lines centered)."
 msgstr "یک طراحی عنوان استاندارد برای اهداف عمومی (دو خط متن در مرکز)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:154
+#: ../doc/titles.rst:275
 msgid "Standard 2"
 msgstr "استاندارد ۲"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:155
+#: ../doc/titles.rst:276
 msgid ""
 "Another standard title with a different style (one line of text plus "
 "reflection)."
 msgstr "یک عنوان استاندارد دیگر با سبک متفاوت (یک خط متن به همراه بازتاب)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:156
+#: ../doc/titles.rst:277
 msgid "Standard 3"
 msgstr "استاندارد ۳"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:157
+#: ../doc/titles.rst:278
 msgid "A third variation of a standard title (three lines of text)."
 msgstr "سومین نوع عنوان استاندارد (سه خط متن)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:158
+#: ../doc/titles.rst:279
 msgid "Standard 4"
 msgstr "استاندارد ۴"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:159
+#: ../doc/titles.rst:280
 msgid "Yet another standard title design (four lines of text)."
 msgstr "یک طراحی عنوان استاندارد دیگر (چهار خط متن)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:160
+#: ../doc/titles.rst:281
 msgid "Sunset"
 msgstr "غروب آفتاب"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:161
+#: ../doc/titles.rst:282
 msgid "A title with sunset gradient for a warm, end-of-day theme."
 msgstr "یک عنوان با گرادیان غروب آفتاب برای تم گرم پایان روز."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:162
+#: ../doc/titles.rst:283
 msgid "TV Rating"
 msgstr "رده‌بندی تلویزیونی"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:163
+#: ../doc/titles.rst:284
 msgid ""
 "Displays TV ratings badge such as \"G\" and \"PG\" (for the corner of the "
 "screen)."
 msgstr "نمایش نشان رده‌بندی تلویزیونی مانند «G» و «PG» (برای گوشه صفحه)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:167
+#: ../doc/titles.rst:288
 msgid "Custom Title Templates"
 msgstr "قالب‌های عنوان سفارشی"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:168
+#: ../doc/titles.rst:289
 msgid ""
 "OpenShot can use any vector SVG image file as a custom title template in the"
 " :guilabel:`Title Editor` dialog. Just add an SVG image file to your "
@@ -706,7 +1024,7 @@ msgstr ""
 "عنوان** یا **تکثیر عنوان** را انتخاب کنید."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:172
+#: ../doc/titles.rst:293
 msgid ""
 "Note: These SVG templates are only used by the :guilabel:`Title Editor` "
 "dialog, and not :guilabel:`Animated Title` dialog."
@@ -715,12 +1033,12 @@ msgstr ""
 "می‌شوند و در پنجره :guilabel:`عنوان متحرک` کاربرد ندارند."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:177
+#: ../doc/titles.rst:298
 msgid "3D Animated Titles"
 msgstr "عناوین متحرک سه‌بعدی"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:178
+#: ../doc/titles.rst:299
 msgid ""
 "Adding a 3D animated title is just as easy, using our **Animated Title** "
 "dialog. Use the Title menu (located in the main menu of OpenShot) to launch "
@@ -735,32 +1053,32 @@ msgstr ""
 " به :ref:`blender_install_ref` مراجعه کنید."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:187
+#: ../doc/titles.rst:308
 msgid "Choose from any available 3D title templates"
 msgstr "انتخاب از بین هر قالب عنوان سه‌بعدی موجود"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:189
+#: ../doc/titles.rst:310
 msgid "Change the text, colors, and advanced properties"
 msgstr "تغییر متن، رنگ‌ها و ویژگی‌های پیشرفته"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:190
+#: ../doc/titles.rst:311
 msgid "Render"
 msgstr "رندر"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:190
+#: ../doc/titles.rst:311
 msgid "Render the 3D animation, and add it to your project"
 msgstr "رندر انیمیشن سه‌بعدی و افزودن آن به پروژه شما"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:194
+#: ../doc/titles.rst:315
 msgid "3D Animated Templates"
 msgstr "قالب‌های متحرک سه‌بعدی"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:196
+#: ../doc/titles.rst:317
 msgid ""
 "OpenShot includes a variety of 3D animated templates that can be used to add"
 " dynamic and engaging elements to your video projects. Below is a table "
@@ -771,49 +1089,49 @@ msgstr ""
 "موجود و توضیحات آن‌ها آمده است:"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:203
+#: ../doc/titles.rst:324
 msgid "Template Name"
 msgstr "نام قالب"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:205
+#: ../doc/titles.rst:326
 msgid "Blinds (Two Titles)"
 msgstr "کرکره (دو عنوان)"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:206
+#: ../doc/titles.rst:327
 msgid "An animation featuring a blinds effect."
 msgstr "یک انیمیشن با افکت کرکره."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:207
+#: ../doc/titles.rst:328
 msgid "Blur"
 msgstr "تاری"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:208
+#: ../doc/titles.rst:329
 msgid ""
 "A template that blurs text in and out, providing a smooth transition effect."
 msgstr "یک قالب که متن را محو و ظاهر می‌کند و افکت انتقالی نرم ایجاد می‌کند."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:209
+#: ../doc/titles.rst:330
 msgid "Color Tiles"
 msgstr "کاشی‌های رنگی"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:210
+#: ../doc/titles.rst:331
 msgid ""
 "An animation with changing colors, suitable for vibrant and dynamic titles."
 msgstr "یک انیمیشن با رنگ‌های متغیر، مناسب برای عناوین زنده و پویا."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:211
+#: ../doc/titles.rst:332
 msgid "Dissolving Text"
 msgstr "متن حل‌شونده"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:212
+#: ../doc/titles.rst:333
 msgid ""
 "A dissolve effect that turns any text into particles which get blown away by"
 " the wind."
@@ -821,22 +1139,22 @@ msgstr ""
 "افکت حل‌شدن که هر متنی را به ذرات تبدیل می‌کند که توسط باد پراکنده می‌شوند."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:213
+#: ../doc/titles.rst:334
 msgid "World Map"
 msgstr "نقشه جهان"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:214
+#: ../doc/titles.rst:335
 msgid "A template featuring a rotating Earth between 2 locations."
 msgstr "یک قالب با نمایش زمین چرخان بین دو مکان."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:215
+#: ../doc/titles.rst:336
 msgid "Exploding Text"
 msgstr "متن انفجاری"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:216
+#: ../doc/titles.rst:337
 msgid ""
 "An animation where the title explode into pieces, adding dramatic impact."
 msgstr ""
@@ -844,115 +1162,115 @@ msgstr ""
 "می‌کند."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:217
+#: ../doc/titles.rst:338
 msgid "Fly Towards Camera"
 msgstr "پرواز به سمت دوربین"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:218
+#: ../doc/titles.rst:339
 msgid "A fly-by animation with a single title zooming past the screen."
 msgstr "یک انیمیشن پرواز با یک عنوان که از صفحه عبور می‌کند."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:219
+#: ../doc/titles.rst:340
 msgid "Fly Towards Camera (Two Titles)"
 msgstr "پرواز به سمت دوربین (دو عنوان)"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:220
+#: ../doc/titles.rst:341
 msgid "Similar to Fly By 1, but with two titles flying by."
 msgstr "مشابه پرواز شماره ۱، اما با دو عنوان که عبور می‌کنند."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:221
+#: ../doc/titles.rst:342
 msgid "Glare"
 msgstr "تابش نور"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:222
+#: ../doc/titles.rst:343
 msgid "An animation with a glare effect, adding a bright, reflective look."
 msgstr "یک انیمیشن با افکت تابش نور که ظاهری روشن و بازتابی ایجاد می‌کند."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:223
+#: ../doc/titles.rst:344
 msgid "Glass Slider"
 msgstr "لغزنده شیشه‌ای"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:224
+#: ../doc/titles.rst:345
 msgid "A sliding glass effect, providing a modern and sleek transition."
 msgstr "یک افکت لغزنده شیشه‌ای که انتقالی مدرن و شیک ایجاد می‌کند."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:225
+#: ../doc/titles.rst:346
 msgid "Lens Flare"
 msgstr "تابش لنز"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:226
+#: ../doc/titles.rst:347
 msgid "An animation featuring a lens flare, adding a cinematic touch."
 msgstr "یک انیمیشن با تابش لنز که جلوه‌ای سینمایی اضافه می‌کند."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:227
+#: ../doc/titles.rst:348
 msgid "Magic Wand"
 msgstr "چوب جادویی"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:228
+#: ../doc/titles.rst:349
 msgid "A whimsical magic wand effect, ideal for magical or fantasy themes."
 msgstr "یک افکت چوب جادویی خیالی، مناسب برای تم‌های جادویی یا فانتزی."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:229
+#: ../doc/titles.rst:350
 msgid "Neon Curves"
 msgstr "خم‌های نئون"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:230
+#: ../doc/titles.rst:351
 msgid "An animation with neon curves, creating a futuristic and vibrant look."
 msgstr ""
 "یک انیمیشن با خم‌های نئون که ظاهری آینده‌نگر و پرجنب‌وجوش ایجاد می‌کند."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:231
+#: ../doc/titles.rst:352
 msgid "Picture Frames (4 pictures)"
 msgstr "قاب‌های عکس (۴ تصویر)"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:232
+#: ../doc/titles.rst:353
 msgid ""
 "A template featuring four picture frames, suitable for showcasing images or "
 "video clips."
 msgstr "یک قالب با چهار قاب عکس، مناسب برای نمایش تصاویر یا کلیپ‌های ویدئویی."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:233
+#: ../doc/titles.rst:354
 msgid "Rotate 360"
 msgstr "چرخش ۳۶۰ درجه"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:234
+#: ../doc/titles.rst:355
 msgid "A 360-degree rotation effect, providing a dynamic title animation."
 msgstr "یک افکت چرخش ۳۶۰ درجه که انیمیشنی پویا برای عنوان ایجاد می‌کند."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:235
+#: ../doc/titles.rst:356
 msgid "Slide Left to Right"
 msgstr "لغزش از چپ به راست"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:236
+#: ../doc/titles.rst:357
 msgid "A sliding effect where titles move from left to right."
 msgstr "یک افکت لغزشی که عناوین از چپ به راست حرکت می‌کنند."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:237
+#: ../doc/titles.rst:358
 msgid "Snow"
 msgstr "برف"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:238
+#: ../doc/titles.rst:359
 msgid ""
 "An animation with falling snow particles, perfect for winter or holiday "
 "themes."
@@ -960,33 +1278,33 @@ msgstr ""
 "یک انیمیشن با ذرات برف در حال سقوط، مناسب برای تم‌های زمستانی یا تعطیلات."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:239
+#: ../doc/titles.rst:360
 msgid "Space Movie Intro"
 msgstr "معرفی فیلم فضایی"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:240
+#: ../doc/titles.rst:361
 msgid "A cinematic space-themed intro, ideal for epic or sci-fi projects."
 msgstr ""
 "یک معرفی سینمایی با تم فضایی، مناسب برای پروژه‌های حماسی یا علمی-تخیلی."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:241
+#: ../doc/titles.rst:362
 msgid "Wireframe Text"
 msgstr "متن سیم‌کشی"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:242
+#: ../doc/titles.rst:363
 msgid "An animation with wireframe text, adding a technical or digital look."
 msgstr "یک انیمیشن با متن سیم‌کشی که ظاهری فنی یا دیجیتال ایجاد می‌کند."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:243
+#: ../doc/titles.rst:364
 msgid "Zoom to Clapboard"
 msgstr "بزرگ‌نمایی به سمت تخته فیلمبرداری"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:244
+#: ../doc/titles.rst:365
 msgid ""
 "A zoom title with a clapboard, perfect for film or video production themes."
 msgstr ""
@@ -994,12 +1312,12 @@ msgstr ""
 "ویدئو."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:247
+#: ../doc/titles.rst:368
 msgid "Importing Text"
 msgstr "وارد کردن متن"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:249
+#: ../doc/titles.rst:370
 msgid ""
 "You can generate text & titles in many different programs, such as Blender, "
 "Inkscape, Krita, Gimp, etc... Before you can import text into OpenShot, you "
@@ -1012,7 +1330,7 @@ msgstr ""
 "دارای **پس‌زمینه شفاف** و کانال **آلفا** باشد، صادر کنید."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:253
+#: ../doc/titles.rst:374
 msgid ""
 "The ``SVG`` format is a great choice for vector graphics (curves, shapes, "
 "text effects and paths), however it is **not** always 100% compatible with "
@@ -1030,7 +1348,7 @@ msgstr ""
 "تصاویر در تایم‌لاین زیر آن‌ها را نپوشاند."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:258
+#: ../doc/titles.rst:379
 msgid ""
 "For information on importing animated sequences into OpenShot, please see "
 ":ref:`animation_image_seq_ref`."
@@ -1039,12 +1357,12 @@ msgstr ""
 ":ref:`animation_image_seq_ref` مراجعه کنید."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:261
+#: ../doc/titles.rst:382
 msgid "Installing Inkscape"
 msgstr "نصب Inkscape"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:263
+#: ../doc/titles.rst:384
 msgid ""
 "The :guilabel:`Advanced Editor` feature in the :guilabel:`Title Editor` "
 "dialog requires the latest version of Inkscape "
@@ -1058,12 +1376,12 @@ msgstr ""
 "برگه :ref:`preferences_general_ref` در تنظیمات مراجعه کنید."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:270
+#: ../doc/titles.rst:391
 msgid "Installing Blender"
 msgstr "نصب Blender"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:272
+#: ../doc/titles.rst:393
 msgid ""
 "The :guilabel:`Animated Title` feature in OpenShot requires the latest "
 "version of Blender (https://www.blender.org/download/) be installed and the "
@@ -1079,7 +1397,7 @@ msgstr ""
 "بالا است. نسخه‌های قدیمی‌تر Blender با OpenShot Video Editor سازگار نیستند."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:278
+#: ../doc/titles.rst:399
 msgid ""
 "For a detailed guide on how to install these dependencies, see `Blender & "
 "Inkscape Guide <https://github.com/OpenShot/openshot-qt/wiki/Blender-and-"

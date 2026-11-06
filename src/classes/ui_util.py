@@ -37,7 +37,7 @@ except ImportError:
     from xml.etree import ElementTree
 
 from qt_api import Qt, QDir, QLocale
-from qt_api import QIcon, QPalette, QColor
+from qt_api import QIcon, QPalette, QColor, QPainter, QPixmap
 from qt_api import (
     QApplication, QWidget, QTabWidget, QAction)
 from qt_api import uic, load_ui as qt_load_ui
@@ -97,6 +97,24 @@ def load_ui(window, path):
 
     # Save xml tree for ui
     window.uiTree = ElementTree.parse(path)
+
+
+def painted_icon(width, height, paint, scales=(1, 1.25, 1.5, 2, 2.5, 3, 4)):
+    """An icon drawn by paint(painter) in logical coordinates, sharp at every screen scale.
+
+    Each scale gets its own pixmap, so HiDPI screens never stretch a 1x drawing.
+    """
+    icon = QIcon()
+    for scale in scales:
+        pixmap = QPixmap(round(width * scale), round(height * scale))
+        pixmap.setDevicePixelRatio(scale)
+        pixmap.fill(Qt.transparent)
+        painter = QPainter(pixmap)
+        painter.setRenderHint(QPainter.Antialiasing)
+        paint(painter)
+        painter.end()
+        icon.addPixmap(pixmap)
+    return icon
 
 
 def get_default_icon(theme_name):

@@ -41,7 +41,7 @@ from qt_api import (
 from qt_api import QKeySequence, QIcon
 
 from classes import info, ui_util, tabstops
-from classes import openshot_rc  # noqa
+from classes import export_hardware_rc, openshot_rc  # noqa
 from classes.app import get_app
 from classes.distribution import is_snap
 from classes.language import get_all_languages

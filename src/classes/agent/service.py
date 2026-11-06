@@ -42,6 +42,8 @@ MUTATIONS |= {k + '.keyframe.' + op for k in ('clip', 'transition', 'effect')
               for op in ('set', 'remove', 'clear', 'transform', 'copy', 'paste')}
 MUTATIONS.add('clip.adjust')
 MUTATIONS |= {'clip.fade', 'clip.split', 'project.profile', 'project.profile.set'}
+MUTATIONS |= {'clip.motion', 'clip.look', 'clip.speed', 'clip.repeat', 'clip.waveform'}
+MUTATIONS |= {'text.add', 'text.set', 'text.reset'}
 
 
 def finite(value, name, minimum=0):
@@ -273,6 +275,12 @@ class EditingService:
         if method == 'clip.split':
             from .cuts import split_clip
             return split_clip(self, p)
+        if method in ('clip.motion', 'clip.look', 'clip.speed', 'clip.repeat', 'clip.waveform'):
+            from .clip_presets import command
+            return command(self, method.split('.')[1], p)
+        if method.startswith('text.'):
+            from .text import command
+            return command(self, method.split('.')[1], p)
         if method == 'timeline.overview':
             from .context import overview
             return overview(self.app, **p)
@@ -406,6 +414,11 @@ class EditingService:
             values = p.get('values')
             if not isinstance(values, dict) or not values:
                 raise CommandError('invalid_argument', 'values must be a non-empty JSON object.')
+            if kind == 'clip' and obj.data.get('direct_text'):
+                for key in ('direct_text', 'text_style_overrides'):
+                    if key in values:
+                        raise CommandError('invalid_property', key + ' belongs to the shared text; use text set ' + obj.id + '.',
+                                           {'path': 'params.values.' + key})
             from .validation import properties
             properties(kind, obj.data, values, self.native(kind, obj.data))
             values = copy.deepcopy(values)
@@ -453,11 +466,16 @@ class EditingService:
             return obj.data
         if method == 'clip.add':
             file = self.obj('file', p['file_id'])
-            native = openshot.Clip(file.absolute_path())
-            try:
-                data = json.loads(native.Json())
-            finally:
-                native.Close()
+            if file.data.get('type') == 'QtTextReader':
+                # Another clip of a text from Project Files (shares its words and style).
+                from classes.direct_text import new_text_clip
+                data = new_text_clip(file.data['direct_text'], None, 0, 1, 1)
+            else:
+                native = openshot.Clip(file.absolute_path())
+                try:
+                    data = json.loads(native.Json())
+                finally:
+                    native.Close()
             start = p.get('start', 0)
             end = p.get('end', 10 if file.data.get('media_type') == 'image' else file.data['duration'])
             data.update(file_id=file.id, reader=copy.deepcopy(file.data), layer=self.layer(p['layer']),

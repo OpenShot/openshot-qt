@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Dialog</class>
+ <class>exportDialog</class>
  <widget class="QDialog" name="exportDialog">
   <property name="geometry">
    <rect>
@@ -1165,7 +1165,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>Dialog</receiver>
+   <receiver>exportDialog</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1181,7 +1181,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>Dialog</receiver>
+   <receiver>exportDialog</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

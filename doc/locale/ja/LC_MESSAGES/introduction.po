@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,11 +20,11 @@ msgstr ""
 "Generated-By: Babel 2.10.3\n"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:21
+#: ../doc/introduction.rst:21
 msgid "Introduction"
 msgstr "はじめに"
 
-#: ../introduction.rst:23
+#: ../doc/introduction.rst:23
 msgid ""
 "OpenShot Video Editor is an award-winning, open-source video editor, "
 "available on Linux, macOS, Chrome OS, and Windows. OpenShot can create "
@@ -36,203 +36,204 @@ msgstr ""
 "は使いやすいインターフェースと豊富な機能セットで、魅力的なビデオ、映画、アニメーションを作成できます。"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:30
+#: ../doc/introduction.rst:30
 msgid "Features"
 msgstr "機能"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:31
+#: ../doc/introduction.rst:31
 msgid "**Free & open-source** (licensed under GPLv3)"
 msgstr "**無料＆オープンソース** （GPLv3ライセンス）"
 
-#: ../introduction.rst:32
+#: ../doc/introduction.rst:32
 msgid "**Cross-platform** (Linux, macOS, Chrome OS, and Windows)"
-msgstr "**クロスプラットフォーム**（Linux、macOS、Chrome OS、Windows）"
+msgstr "**クロスプラットフォーム**\\ （Linux、macOS、Chrome OS、Windows）"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:33
+#: ../doc/introduction.rst:33
 msgid "**Easy-to-use UI** (beginner-friendly, built-in tutorial)"
 msgstr "**使いやすいUI** （初心者向け、組み込みチュートリアル）"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:34
+#: ../doc/introduction.rst:34
 msgid "**Supports most formats** (video, audio, images - FFmpeg-based)"
 msgstr "**ほとんどのフォーマットに対応** （動画、音声、画像 - FFmpegベース）"
 
-#: ../introduction.rst:35
+#: ../doc/introduction.rst:35
 msgid ""
 "**70+ export targets & profiles** (YouTube, TikTok, Reels, Shorts, and more)"
-msgstr "**70以上のエクスポートターゲットとプロファイル**（YouTube、TikTok、Reels、Shorts など）"
+msgstr "**70以上のエクスポートターゲットとプロファイル**\\ （YouTube、TikTok、Reels、Shorts など）"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:36
+#: ../doc/introduction.rst:36
 msgid "**Advanced timeline** (drag-drop, scroll, zoom, snap)"
 msgstr "**高度なタイムライン** （ドラッグ＆ドロップ、スクロール、ズーム、スナップ）"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:37
+#: ../doc/introduction.rst:37
 msgid "**Advanced clips** (trim, alpha, scale, rotate, shear, transform)"
 msgstr "**高度なクリップ機能** （トリム、アルファ、スケール、回転、シアー、変形）"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:38
+#: ../doc/introduction.rst:38
 msgid "**Real-time preview** (multi-threaded, performance-optimized)"
 msgstr "**リアルタイムプレビュー** （マルチスレッド、パフォーマンス最適化）"
 
-#: ../introduction.rst:39
+#: ../doc/introduction.rst:39
 msgid ""
 "**Multiple workspace modes** (Simple and Color views, plus save your own)"
-msgstr "**複数のワークスペースモード**（シンプルビューとカラービュー、さらに独自の保存も可能）"
+msgstr "**複数のワークスペースモード**\\ （シンプルビューとカラービュー、さらに独自の保存も可能）"
 
-#: ../introduction.rst:40
+#: ../doc/introduction.rst:40
 msgid ""
 "**Keyframe animations & panel** (`linear`, `bézier`, `constant` "
 "interpolation, visual keyframe panel)"
-msgstr "**キーフレームアニメーションとパネル**（`linear`、`bézier`、`constant` 補間、ビジュアルキーフレームパネル）"
+msgstr ""
+"**キーフレームアニメーションとパネル**\\ （`linear`、`bézier`、`constant` 補間、ビジュアルキーフレームパネル）"
 
-#: ../introduction.rst:41
+#: ../doc/introduction.rst:41
 msgid "**One-click presets** (motion, fade, look, camera, color, and more)"
-msgstr "**ワンクリックプリセット**（モーション、フェード、ルック、カメラ、カラーなど）"
+msgstr "**ワンクリックプリセット**\\ （モーション、フェード、ルック、カメラ、カラーなど）"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:42
+#: ../doc/introduction.rst:42
 msgid "**Compositing, overlays, watermarks, transparency**"
 msgstr "**コンポジット、オーバーレイ、ウォーターマーク、透過**"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:43
+#: ../doc/introduction.rst:43
 msgid "**Unlimited tracks / layers** (for complex projects)"
 msgstr "**無制限のトラック／レイヤー** （複雑なプロジェクト向け）"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:44
+#: ../doc/introduction.rst:44
 msgid "**Transitions, masks, wipes** (grayscale images, animated masks)"
 msgstr "**トランジション、マスク、ワイプ** （グレースケール画像、アニメーションマスク）"
 
-#: ../introduction.rst:45
+#: ../doc/introduction.rst:45
 msgid ""
 "**Video effects** (chroma key, blur, brightness & contrast, film grain, "
 "stabilizer, and more)"
-msgstr "**ビデオエフェクト**（クロマキー、ぼかし、明るさとコントラスト、フィルムグレイン、スタビライザーなど）"
+msgstr "**ビデオエフェクト**\\ （クロマキー、ぼかし、明るさとコントラスト、フィルムグレイン、スタビライザーなど）"
 
-#: ../introduction.rst:46
+#: ../doc/introduction.rst:46
 msgid ""
 "**Audio effects** (compressor, expander, noise removal, echo, and more)"
-msgstr "**オーディオエフェクト**（コンプレッサー、エクスパンダー、ノイズ除去、エコーなど）"
+msgstr "**オーディオエフェクト**\\ （コンプレッサー、エクスパンダー、ノイズ除去、エコーなど）"
 
-#: ../introduction.rst:47
+#: ../doc/introduction.rst:47
 msgid ""
 "**Color grading** (color wheels, RGB curves, LUT support, video scopes & "
 "analysis)"
-msgstr "**カラーグレーディング**（カラーホイール、RGBカーブ、LUTサポート、ビデオスコープと解析）"
+msgstr "**カラーグレーディング**\\ （カラーホイール、RGBカーブ、LUTサポート、ビデオスコープと解析）"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:48
+#: ../doc/introduction.rst:48
 msgid "**Image sequences & 2D animations**"
 msgstr "**画像シーケンス＆2Dアニメーション**"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:49
+#: ../doc/introduction.rst:49
 msgid "**Blender 3D integration** (animated 3D title templates)"
 msgstr "**Blender 3D統合** （アニメーション3Dタイトルテンプレート）"
 
-#: ../introduction.rst:50
+#: ../doc/introduction.rst:50
 msgid ""
 "**Vector file support & editing** (SVG for titles, lower thirds, text "
 "overlays)"
-msgstr "**ベクターファイルのサポートと編集**（タイトル、ローワーサード、テキストオーバーレイ用のSVG）"
+msgstr "**ベクターファイルのサポートと編集**\\ （タイトル、ローワーサード、テキストオーバーレイ用のSVG）"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:51
+#: ../doc/introduction.rst:51
 msgid "**Audio mixing, waveform, editing**"
 msgstr "**オーディオミキシング、波形、編集**"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:52
+#: ../doc/introduction.rst:52
 msgid "**Emojis** (open-source stickers & artwork)"
 msgstr "**絵文字** （オープンソースのステッカー＆アートワーク）"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:53
+#: ../doc/introduction.rst:53
 msgid "**Frame accuracy** (per-frame navigation)"
 msgstr "**フレーム精度** （フレーム単位のナビゲーション）"
 
-#: ../introduction.rst:54
+#: ../doc/introduction.rst:54
 msgid ""
 "**Time re-mapping & speed changes** (slow motion, repeat, loop, ping-pong, "
 "forward/backward)"
-msgstr "**タイムリマッピングと速度変更**（スローモーション、リピート、ループ、ピンポン、前進/後退）"
+msgstr "**タイムリマッピングと速度変更**\\ （スローモーション、リピート、ループ、ピンポン、前進/後退）"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:55
+#: ../doc/introduction.rst:55
 #, fuzzy
 msgid "**Built-in AI** (motion tracking, object detection, stabilization)"
 msgstr "**高度なAI** （モーショントラッキング、物体検出、手ぶれ補正）"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:56
+#: ../doc/introduction.rst:56
 msgid "**Advanced AI** (see :ref:`ai_ref`)"
 msgstr "**高度なAI** (:ref:`ai_ref` を参照)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:58
+#: ../doc/introduction.rst:58
 msgid ""
 "**Tracking & masks** (object tracking, animated mask generation, auto-blur, "
 "auto-highlight)"
 msgstr "**トラッキングとマスク** （オブジェクトトラッキング、アニメーションマスク生成、自動ぼかし、自動ハイライト）"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:59
+#: ../doc/introduction.rst:59
 msgid ""
 "**Image & video generation** (text-to-image, image style transfer, "
 "text/image-to-video)"
 msgstr "**画像と動画の生成** （テキストから画像、画像スタイル転送、テキスト/画像から動画）"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:60
+#: ../doc/introduction.rst:60
 msgid ""
 "**Quality enhancement** (upscaling, frame interpolation/increase frame rate)"
 msgstr "**品質向上** （アップスケーリング、フレーム補間/フレームレート増加）"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:61
+#: ../doc/introduction.rst:61
 msgid ""
 "**Analysis & automation** (auto scene splitting, speech "
 "transcription/captions)"
 msgstr "**解析と自動化** （自動シーン分割、音声文字起こし/字幕）"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:62
+#: ../doc/introduction.rst:62
 msgid "**Audio generation** (sound and music generation)"
 msgstr "**音声生成** （サウンドと音楽の生成）"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:63
+#: ../doc/introduction.rst:63
 msgid "*Additional workflows can be added with custom ComfyUI templates*"
 msgstr "*カスタムComfyUIテンプレートで追加のワークフローを追加できます*"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:64
+#: ../doc/introduction.rst:64
 msgid "**Credits & captions** (scrolling, animated)"
 msgstr "**クレジット＆キャプション** （スクロール、アニメーション）"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:65
+#: ../doc/introduction.rst:65
 msgid "**Hardware acceleration** (NVIDIA, AMD, Intel, etc.)"
 msgstr "**ハードウェアアクセラレーション** （NVIDIA、AMD、Intelなど）"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:66
+#: ../doc/introduction.rst:66
 msgid "**Import & export** (EDL, Final Cut Pro)"
 msgstr "**インポート＆エクスポート** （EDL、Final Cut Pro）"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:67
+#: ../doc/introduction.rst:67
 msgid "**Desktop integration** (drag-drop from file managers)"
 msgstr "**デスクトップ統合** （ファイルマネージャからのドラッグ＆ドロップ）"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:68
+#: ../doc/introduction.rst:68
 msgid ""
 "**JSON project format** (`OpenShot Cloud API "
 "<https://www.openshot.org/cloud-api/>`_ compatible)"
@@ -241,22 +242,22 @@ msgstr ""
 "api/>`_ 対応）"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:69
+#: ../doc/introduction.rst:69
 msgid "**Customizable shortcuts**"
 msgstr "**カスタマイズ可能なショートカット**"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:70
+#: ../doc/introduction.rst:70
 msgid "**Translations** (100+ languages)"
 msgstr "**翻訳** （100以上の言語）"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:71
+#: ../doc/introduction.rst:71
 msgid "**High DPI** monitor support"
 msgstr "**高DPI** モニター対応"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:72
+#: ../doc/introduction.rst:72
 msgid ""
 "**Community support** (`Visit our forum <https://openshot.org/forum/>`_)"
 msgstr ""
@@ -264,97 +265,97 @@ msgstr ""
 " <https://openshot.org/forum/>`_"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:75
+#: ../doc/introduction.rst:75
 msgid "Screenshot"
 msgstr "スクリーンショット"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:81
+#: ../doc/introduction.rst:81
 msgid "System Requirements"
 msgstr "システム要件"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:82
+#: ../doc/introduction.rst:82
 msgid ""
 "Video editing benefits from modern, multi-core CPUs with **fast clock "
 "speeds** (GHz), large amounts of memory, and fast hard disk drives. "
 "Basically, you want the best computer you can afford when video editing. "
 "Here are the **minimum system requirements**:"
 msgstr ""
-"ビデオ編集は、**高速クロック速度** "
-"（GHz）の最新マルチコアCPU、大容量メモリ、高速ハードディスクドライブの恩恵を受けます。基本的に、ビデオ編集には可能な限り最高のコンピューターが望ましいです。以下は**最低システム要件**"
-" です："
+"ビデオ編集は、\\ **高速クロック速度** "
+"（GHz）の最新マルチコアCPU、大容量メモリ、高速ハードディスクドライブの恩恵を受けます。基本的に、ビデオ編集には可能な限り最高のコンピューターが望ましいです。以下は\\"
+" **最低システム要件** です："
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:87
+#: ../doc/introduction.rst:87
 msgid "TL;DR"
 msgstr "要約"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:88
+#: ../doc/introduction.rst:88
 msgid "Most computers manufactured after 2017 will run OpenShot"
 msgstr "2017年以降に製造されたほとんどのコンピューターでOpenShotは動作します"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:91
+#: ../doc/introduction.rst:91
 msgid "Minimum Specifications"
 msgstr "最低仕様"
 
-#: ../introduction.rst:92
+#: ../doc/introduction.rst:92
 msgid "64-bit Operating System (*Linux, macOS, Chrome OS, Windows 7/8/10/11*)"
 msgstr "64ビットオペレーティングシステム（*Linux、macOS、Chrome OS、Windows 7/8/10/11*）"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:95
+#: ../doc/introduction.rst:95
 msgid "Multi-core processor with 64-bit support"
 msgstr "64ビット対応のマルチコアプロセッサ"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:94
+#: ../doc/introduction.rst:94
 msgid "Minimum cores: 2 (*recommended: 6+ cores*)"
 msgstr "最低コア数：2（*推奨：6コア以上* ）"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:95
+#: ../doc/introduction.rst:95
 msgid "Minimum threads: 4 (*recommended: 6+ threads*)"
 msgstr "最低スレッド数：4（*推奨：6スレッド以上* ）"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:96
+#: ../doc/introduction.rst:96
 msgid "Minimum turbo clock speed: 2.7 Ghz (*recommended: 3.4+ Ghz*)"
 msgstr "最低ターボクロックスピード：2.7 GHz（*推奨：3.4 GHz以上* ）"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:97
+#: ../doc/introduction.rst:97
 msgid "4GB of RAM (*16+ GB recommended*)"
 msgstr "4GBのRAM（*推奨：16GB以上* ）"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:98
+#: ../doc/introduction.rst:98
 msgid ""
 "1 GB of hard-disk space for installation & usage (*recommended: 50+ GB "
 "available hard-disk space for media, videos, images, and storage*)"
 msgstr "インストールと使用のための1GBのハードディスク空き容量（*推奨：メディア、動画、画像、ストレージ用に50GB以上の空き容量* ）"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:99
+#: ../doc/introduction.rst:99
 msgid ""
 "Optional: Solid-state drive (SSD), if utilizing disk-caching add an "
 "additional 10GB of hard-disk space"
 msgstr "オプション：ディスクキャッシュを利用する場合は、追加で10GBのSSD空き容量が必要です"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:100
+#: ../doc/introduction.rst:100
 msgid "For factors related to real-time previews, see :ref:`playback_ref`."
-msgstr "リアルタイムプレビューに関する要因については、:ref:`playback_ref` を参照してください。"
+msgstr "リアルタイムプレビューに関する要因については、\\ :ref:`playback_ref` を参照してください。"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:103
+#: ../doc/introduction.rst:103
 msgid "License"
 msgstr "ライセンス"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:104
+#: ../doc/introduction.rst:104
 msgid ""
 "OpenShot Video Editor is free software: you can redistribute it and/or "
 "modify it under the terms of the GNU General Public License as published by "
@@ -365,7 +366,7 @@ msgstr ""
 "Foundationが発行するGNU一般公衆利用許諾契約書（GPL）バージョン3またはそれ以降のバージョンの条件の下で再配布および改変が可能です。"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:109
+#: ../doc/introduction.rst:109
 msgid ""
 "OpenShot Video Editor is distributed in the hope that it will be useful, but"
 " WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "

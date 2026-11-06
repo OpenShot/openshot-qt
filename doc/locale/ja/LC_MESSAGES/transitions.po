@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:23
+#: ../doc/transitions.rst:23
 msgid "Transitions"
 msgstr "トランジション"
 
-#: ../transitions.rst:25
+#: ../doc/transitions.rst:25
 msgid ""
 "A transition is used to gradually fade (also called a **cross dissolve** or "
 "**crossfade**) or wipe between two clip images. In OpenShot, transitions are"
@@ -32,94 +32,95 @@ msgid ""
 "transition must be placed on top of a clip (overlapping it), with the most "
 "common location being the beginning or end of a clip."
 msgstr ""
-"トランジションは、2つのクリップ画像の間を徐々にフェード（**クロスディゾルブ**または**クロスフェード**とも呼ばれます）またはワイプするために使用されます。OpenShotでは、トランジションはタイムライン上の青い丸みを帯びた長方形で表されます。2つのクリップを重ねると自動的に作成され、**Transitions**"
-" "
+"トランジションは、2つのクリップ画像の間を徐々にフェード（\\ **クロスディゾルブ**\\ または\\ **クロスフェード**\\ "
+"とも呼ばれます）またはワイプするために使用されます。OpenShotでは、トランジションはタイムライン上の青い丸みを帯びた長方形で表されます。2つのクリップを重ねると自動的に作成され、\\"
+" **Transitions** "
 "パネルからタイムラインにドラッグして手動で追加することもできます。トランジションはクリップの上に配置（重ねる）する必要があり、最も一般的な場所はクリップの開始または終了部分です。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:31
+#: ../doc/transitions.rst:31
 msgid ""
 "NOTE: Transitions **do not** affect **audio**, so if you are intending to "
 "fade in/out the audio volume of a clip, you must adjust the ``volume`` clip "
 "property. See :ref:`clip_properties_ref`"
 msgstr ""
-"注意：トランジションは**音声** に影響を与えません。クリップの音量をフェードイン/アウトしたい場合は、``volume`` "
+"注意：トランジションは\\ **音声** に影響を与えません。クリップの音量をフェードイン/アウトしたい場合は、\\ ``volume`` "
 "クリッププロパティを調整する必要があります。詳細は :ref:`clip_properties_ref` を参照してください。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:35
+#: ../doc/transitions.rst:35
 msgid "Overview"
 msgstr "概要"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:40
+#: ../doc/transitions.rst:40
 msgid "#"
 msgstr "＃"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:40
+#: ../doc/transitions.rst:40
 msgid "Name"
 msgstr "名前"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:40 ../transitions.rst:105
+#: ../doc/transitions.rst:40 ../doc/transitions.rst:106
 msgid "Description"
 msgstr "説明"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:42
+#: ../doc/transitions.rst:42
 msgid "1"
 msgstr "1"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:42
+#: ../doc/transitions.rst:42
 msgid "Clip 1"
 msgstr "クリップ1"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:42
+#: ../doc/transitions.rst:42
 msgid "A video clip"
 msgstr "ビデオクリップ"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:43
+#: ../doc/transitions.rst:43
 msgid "2"
 msgstr "2"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:43
+#: ../doc/transitions.rst:43
 msgid "Transition"
 msgstr "トランジション"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:43
+#: ../doc/transitions.rst:43
 msgid ""
 "A gradual fade transition between the 2 clip images, created automatically "
 "by overlapping the clips (does not affect the audio)"
 msgstr "2つのクリップ画像間の徐々にフェードするトランジションで、クリップを重ねることで自動的に作成されます（音声には影響しません）"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:44
+#: ../doc/transitions.rst:44
 msgid "3"
 msgstr "3"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:44
+#: ../doc/transitions.rst:44
 msgid "Clip 2"
 msgstr "クリップ2"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:44
+#: ../doc/transitions.rst:44
 msgid "An image clip"
 msgstr "画像クリップ"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:48
+#: ../doc/transitions.rst:48
 msgid "Direction"
 msgstr "方向"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:49
+#: ../doc/transitions.rst:49
 msgid ""
 "Transitions adjust the alpha/transparency of the overlapping clip image "
 "(i.e. the clip under the transition), and can either fade from opaque to "
@@ -129,16 +130,16 @@ msgid ""
 "the visual fade in any way you wish."
 msgstr ""
 "トランジションは重なっているクリップ画像（つまりトランジションの下にあるクリップ）のアルファ/透明度を調整し、不透明から透明、または透明から不透明へフェードさせることができます（音声には影響しません）。右クリックして"
-" :guilabel:`Reverse Transition` を選択するとフェードの方向を変更できます。また、**Brightness** "
+" :guilabel:`Reverse Transition` を選択するとフェードの方向を変更できます。また、\\ **Brightness** "
 "カーブを手動で調整して、視覚的なフェードを自由にアニメーション化することも可能です。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:56
+#: ../doc/transitions.rst:56
 msgid "Transparency"
 msgstr "透明度"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:57
+#: ../doc/transitions.rst:57
 msgid ""
 "If transitions are used on images or videos that contain transparency (*i.e."
 " alpha channel*) this will result in the original clip disappearing abruptly"
@@ -151,18 +152,19 @@ msgid ""
 "can combine a transition and ``alpha`` fade when using transparent clips to "
 "more smoothly fade between then."
 msgstr ""
-"トランジションを透明度（アルファチャンネル）を含む画像や動画に使用すると、OpenShotのトランジションシステムは2番目のクリップが最初のクリップを完全に覆うことを期待しているため、元のクリップが突然消える（または存在が消える）ことがあります。例えば、2番目のクリップが最初のクリップを完全に覆わない場合、トランジションは最適なツールではないかもしれません。その代わりに、最初のクリップの``alpha``"
-" プロパティを調整して必要な部分をフェードアウトさせることを検討してください。詳細は :ref:`clip_properties_ref` または "
-":ref:`clip_presets_ref` を参照してください。あるいは、透明なクリップを使用する際にトランジションと``alpha`` "
+"トランジションを透明度（アルファチャンネル）を含む画像や動画に使用すると、OpenShotのトランジションシステムは2番目のクリップが最初のクリップを完全に覆うことを期待しているため、元のクリップが突然消える（または存在が消える）ことがあります。例えば、2番目のクリップが最初のクリップを完全に覆わない場合、トランジションは最適なツールではないかもしれません。その代わりに、最初のクリップの\\"
+" ``alpha`` プロパティを調整して必要な部分をフェードアウトさせることを検討してください。詳細は "
+":ref:`clip_properties_ref` または :ref:`clip_presets_ref` "
+"を参照してください。あるいは、透明なクリップを使用する際にトランジションと\\ ``alpha`` "
 "フェードを組み合わせて、より滑らかにフェードさせることも可能です。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:65
+#: ../doc/transitions.rst:65
 msgid "Cutting & Slicing"
 msgstr "カットとスライス"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:66
+#: ../doc/transitions.rst:66
 msgid ""
 "OpenShot has many easy ways to adjust the start and end trim positions of a "
 "transition (otherwise known as cutting or trimming). The most common method "
@@ -171,16 +173,17 @@ msgid ""
 "the :ref:`clips_cutting_slicing_ref` and :ref:`keyboard_shortcut_ref` "
 "sections."
 msgstr ""
-"OpenShotには、トランジションの開始位置と終了位置（カットやトリミングとも呼ばれる）を調整する簡単な方法が多数あります。最も一般的な方法は、トランジションの左端（または右端）を掴んでドラッグすることです。スライスの完全なガイドと利用可能なすべてのキーボードショートカットについては、:ref:`clips_cutting_slicing_ref`"
-" と :ref:`keyboard_shortcut_ref` セクションを参照してください。"
+"OpenShotには、トランジションの開始位置と終了位置（カットやトリミングとも呼ばれる）を調整する簡単な方法が多数あります。最も一般的な方法は、トランジションの左端（または右端）を掴んでドラッグすることです。スライスの完全なガイドと利用可能なすべてのキーボードショートカットについては、\\"
+" :ref:`clips_cutting_slicing_ref` と :ref:`keyboard_shortcut_ref` "
+"セクションを参照してください。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:71
+#: ../doc/transitions.rst:71
 msgid "Mask"
 msgstr "マスク"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:72
+#: ../doc/transitions.rst:72
 msgid ""
 "In video editing, masks are powerful tools that allow you to selectively "
 "display specific areas of a video clip. Similar to masking in image editing,"
@@ -190,7 +193,7 @@ msgstr ""
 "ビデオ編集において、マスクはビデオクリップの特定の領域だけを選択的に表示する強力なツールです。画像編集のマスキングと同様に、ビデオマスクは変更を適用する領域を定義し、他の部分には影響を与えません。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:76
+#: ../doc/transitions.rst:76
 msgid ""
 "A mask can be thought of as a shape or path that outlines the area you want "
 "to target. Commonly used shapes include rectangles, circles, and freeform "
@@ -199,7 +202,7 @@ msgstr ""
 "マスクは、対象とする領域を囲む形状やパスと考えることができます。一般的に使用される形状には、長方形、円形、自由形状のパスがあります。マスクされた領域は「マスク領域」と呼ばれます。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:79
+#: ../doc/transitions.rst:79
 msgid ""
 "Masks can be animated, allowing you to change the shape or position over "
 "time. This enables dynamic effects like revealing hidden elements or "
@@ -209,250 +212,253 @@ msgid ""
 "fixed mask location. Combine this with custom transition images, or even "
 "custom image sequences, to create animated, complex masks."
 msgstr ""
-"マスクはアニメーション化でき、時間経過に伴い形状や位置を変更できます。これにより、隠れた要素を表示したり、異なる視覚状態間をトランジションしたりする動的効果が可能になります。OpenShotでは、:guilabel:`Brightness`"
-" "
+"マスクはアニメーション化でき、時間経過に伴い形状や位置を変更できます。これにより、隠れた要素を表示したり、異なる視覚状態間をトランジションしたりする動的効果が可能になります。OpenShotでは、\\"
+" :guilabel:`Brightness` "
 "キーフレームカーブをカスタマイズすることでトランジションをマスクに変換できます。明るさの値を静的（変化なし）に保つと、固定されたマスク位置が維持されます。これをカスタムトランジション画像やカスタム画像シーケンスと組み合わせて、アニメーション化された複雑なマスクを作成できます。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:86
+#: ../doc/transitions.rst:86
 msgid "Custom Transition"
 msgstr "カスタムトランジション"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:87
+#: ../doc/transitions.rst:87
 msgid ""
 "Any greyscale image can be used as a transition (or mask), by adding it to "
 "your ``~/.openshot_qt/transitions/`` folder. Just be sure to name your file "
 "something that is easily recognizable, and restart OpenShot. Your custom "
 "transition/mask will now show up in the list of transitions."
 msgstr ""
-"任意のグレースケール画像を、``~/.openshot_qt/transitions/`` "
+"任意のグレースケール画像を、\\ ``~/.openshot_qt/transitions/`` "
 "フォルダに追加することでトランジション（またはマスク）として使用できます。ファイル名はわかりやすいものにし、OpenShotを再起動してください。カスタムトランジション/マスクがトランジション一覧に表示されます。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:92
+#: ../doc/transitions.rst:92
 msgid "Transition Properties"
 msgstr "トランジションプロパティ"
 
-# Translated with gpt-4.1-mini
-#: ../transitions.rst:93
+#: ../doc/transitions.rst:93
 msgid ""
 "Below is a list of transition properties which can be edited, and in most "
 "cases, animated over time. To view a transition's properties, right click "
 "and choose :guilabel:`Properties`. The property editor will appear, where "
-"you can change these properties. NOTE: Pay close attention to where the "
-"play-head (i.e. red playback line) is. Key frames are automatically created "
-"at the current playback position, to help create animations."
+"you can change these properties. Move the playhead to a keyframe to adjust "
+"that part of the transition. If you want to add a change between existing "
+"keyframes, leave :ref:`auto_keyframes_ref` on and edit at the new position. "
+"With it off, editing between keyframes adjusts the earlier one instead."
 msgstr ""
-"以下は編集可能で、多くの場合時間経過でアニメーション化できるトランジションプロパティの一覧です。トランジションのプロパティを表示するには、右クリックして"
-" :guilabel:`Properties` "
-"を選択します。プロパティエディタが表示され、これらのプロパティを変更できます。注意：再生ヘッド（赤い再生ライン）の位置に注意してください。現在の再生位置でキーフレームが自動的に作成され、アニメーション作成を支援します。"
+"以下は編集可能で、多くの場合時間経過に沿ってアニメーション化できるトランジションのプロパティ一覧です。トランジションのプロパティを表示するには、右クリックして"
+" :guilabel:`プロパティ` "
+"を選択してください。プロパティエディタが表示され、ここでこれらのプロパティを変更できます。プレイヘッドをキーフレームに移動して、その部分のトランジションを調整します。既存のキーフレーム間に変更を追加したい場合は、\\"
+" :ref:`auto_keyframes_ref` "
+"をオンにして新しい位置で編集してください。オフの場合は、キーフレーム間の編集は前のキーフレームを調整します。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:98
+#: ../doc/transitions.rst:99
 msgid ""
 "NOTE: Transitions do not affect audio, so if you are intending to fade "
 "in/out the audio volume of a clip, you must adjust the ``volume`` clip "
 "property. See :ref:`clip_properties_ref`."
 msgstr ""
-"注意：トランジションは音声に影響を与えません。クリップの音量をフェードイン/アウトしたい場合は、``volume`` "
+"注意：トランジションは音声に影響を与えません。クリップの音量をフェードイン/アウトしたい場合は、\\ ``volume`` "
 "クリッププロパティを調整してください。詳細は :ref:`clip_properties_ref` を参照してください。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:105
+#: ../doc/transitions.rst:106
 msgid "Transition Property Name"
 msgstr "トランジションプロパティ名"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:105
+#: ../doc/transitions.rst:106
 msgid "Type"
 msgstr "タイプ"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:107
+#: ../doc/transitions.rst:108
 msgid "Brightness"
 msgstr "明るさ"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:107 ../transitions.rst:108
+#: ../doc/transitions.rst:108 ../doc/transitions.rst:109
 msgid "Key-frame"
 msgstr "キーフレーム"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:107
+#: ../doc/transitions.rst:108
 msgid ""
 "Curve representing the brightness of the transition image, which affects the"
 " fade/wipe (-1 to 1)"
 msgstr "フェード/ワイプに影響するトランジション画像の明るさを表す曲線（-1から1）"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:108
+#: ../doc/transitions.rst:109
 msgid "Contrast"
 msgstr "コントラスト"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:108
+#: ../doc/transitions.rst:109
 msgid ""
 "Curve representing the contrast of the transition image, which affects the "
 "softness/hardness of the fade/wipe (0 to 20)"
 msgstr "フェード/ワイプの柔らかさ/硬さに影響するトランジション画像のコントラストを表す曲線（0から20）"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:109 ../transitions.rst:124
+#: ../doc/transitions.rst:110 ../doc/transitions.rst:125
 msgid "Duration"
 msgstr "継続時間"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:109 ../transitions.rst:110 ../transitions.rst:117
-#: ../transitions.rst:119
+#: ../doc/transitions.rst:110 ../doc/transitions.rst:111
+#: ../doc/transitions.rst:118 ../doc/transitions.rst:120
 msgid "Float"
 msgstr "浮動小数点"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:109
+#: ../doc/transitions.rst:110
 msgid "The length of the transition (in seconds). Read-only property."
 msgstr "トランジションの長さ（秒単位）。読み取り専用プロパティ。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:110 ../transitions.rst:132
+#: ../doc/transitions.rst:111 ../doc/transitions.rst:133
 msgid "End"
 msgstr "終了"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:110
+#: ../doc/transitions.rst:111
 msgid "The end trimming position of the transition (in seconds)."
 msgstr "トランジションの終了トリミング位置（秒単位）。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:111 ../transitions.rst:140
+#: ../doc/transitions.rst:112 ../doc/transitions.rst:141
 msgid "ID"
 msgstr "ID"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:111 ../transitions.rst:116
+#: ../doc/transitions.rst:112 ../doc/transitions.rst:117
 msgid "String"
 msgstr "文字列"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:111
+#: ../doc/transitions.rst:112
 msgid ""
 "A randomly generated GUID (globally unique identifier) assigned to each "
 "transition. Read-only property."
 msgstr "各トランジションに割り当てられるランダム生成のGUID（グローバル一意識別子）。読み取り専用プロパティ。"
 
-#: ../transitions.rst:112
+#: ../doc/transitions.rst:113
 msgid "Mask: Invert"
 msgstr "マスク: 反転"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:112 ../transitions.rst:113 ../transitions.rst:118
+#: ../doc/transitions.rst:113 ../doc/transitions.rst:114
+#: ../doc/transitions.rst:119
 msgid "Bool"
 msgstr "ブール値"
 
-#: ../transitions.rst:112
+#: ../doc/transitions.rst:113
 msgid ""
 "Invert the mask source so light areas become dark and dark areas become "
 "light."
 msgstr "マスクソースを反転させ、明るい部分を暗く、暗い部分を明るくします。"
 
-#: ../transitions.rst:113
+#: ../doc/transitions.rst:114
 msgid "Mask: Loop"
 msgstr "マスク: ループ"
 
-#: ../transitions.rst:113
+#: ../doc/transitions.rst:114
 msgid ""
 "Loop an animated mask source when the transition is longer than the source."
 msgstr "トランジションがソースより長い場合に、アニメーションマスクソースをループさせます。"
 
-#: ../transitions.rst:114
+#: ../doc/transitions.rst:115
 msgid "Mask: Source"
 msgstr "マスク: ソース"
 
-#: ../transitions.rst:114
+#: ../doc/transitions.rst:115
 msgid "Reader"
 msgstr "リーダー"
 
-#: ../transitions.rst:114
+#: ../doc/transitions.rst:115
 msgid ""
 "The image, image sequence, or video used as the transition's grayscale mask "
 "source."
 msgstr "トランジションのグレースケールマスクソースとして使用される画像、画像シーケンス、またはビデオです。"
 
-#: ../transitions.rst:115
+#: ../doc/transitions.rst:116
 msgid "Mask: Time Mode"
 msgstr "マスク: 時間モード"
 
-#: ../transitions.rst:115
+#: ../doc/transitions.rst:116
 msgid "Enum"
 msgstr "列挙型"
 
-#: ../transitions.rst:115
+#: ../doc/transitions.rst:116
 msgid "Controls how OpenShot maps transition time to an animated mask source."
 msgstr "OpenShotがトランジション時間をアニメーションマスクソースにマッピングする方法を制御します。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:116
+#: ../doc/transitions.rst:117
 msgid "Parent"
 msgstr "親"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:116
+#: ../doc/transitions.rst:117
 msgid ""
 "The parent object to this transition, which makes many of these keyframe "
 "values initialize to the parent value."
 msgstr "このトランジションの親オブジェクトで、多くのキーフレーム値が親の値で初期化されます。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:117
+#: ../doc/transitions.rst:118
 msgid "Position"
 msgstr "位置"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:117
+#: ../doc/transitions.rst:118
 msgid "The position of the transition on the timeline (in seconds)."
 msgstr "タイムライン上のトランジションの位置（秒単位）。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:118
+#: ../doc/transitions.rst:119
 msgid "Replace Image"
 msgstr "画像を置き換える"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:118
+#: ../doc/transitions.rst:119
 msgid ""
 "For debugging a problem, this property displays the transition image "
 "(instead of becoming a transparency)."
 msgstr "問題のデバッグ用に、このプロパティはトランジション画像を表示します（透明になる代わりに）。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:119
+#: ../doc/transitions.rst:120
 msgid "Start"
 msgstr "開始"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:119
+#: ../doc/transitions.rst:120
 msgid "The start trimming position of the transition (in seconds)."
 msgstr "トランジションの開始トリミング位置（秒単位）。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:120 ../transitions.rst:158
+#: ../doc/transitions.rst:121 ../doc/transitions.rst:159
 msgid "Track"
 msgstr "トラック"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:120
+#: ../doc/transitions.rst:121
 msgid "Int"
 msgstr "整数"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:120
+#: ../doc/transitions.rst:121
 msgid ""
 "The layer which holds the transition (higher tracks are rendered on top of "
 "lower tracks)."
 msgstr "トランジションを保持するレイヤー（上位のトラックは下位のトラックの上にレンダリングされます）。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:125
+#: ../doc/transitions.rst:126
 msgid ""
 "The :guilabel:`Duration` property is a float value indicating the length of "
 "the transition in seconds. This is a Read-only property. This is calculated "
@@ -460,18 +466,18 @@ msgid ""
 "and/or :guilabel:`End` transition properties."
 msgstr ""
 ":guilabel:`Duration` プロパティは、トランジションの長さを秒単位で示す浮動小数点値です。これは読み取り専用プロパティです。計算式は "
-"End - Start です。継続時間を変更するには、:guilabel:`Start` および/または :guilabel:`End` "
+"End - Start です。継続時間を変更するには、\\ :guilabel:`Start` および/または :guilabel:`End` "
 "のトランジションプロパティを編集する必要があります。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:128
+#: ../doc/transitions.rst:129
 msgid ""
 "**Usage Example:** Inspect the duration of a transition to ensure it fits a "
 "specific time slot in the project."
 msgstr "**使用例:** プロジェクトの特定の時間枠に合うようにトランジションの継続時間を確認します。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:129
+#: ../doc/transitions.rst:130
 msgid ""
 "**Tip:** Consider using the \"Duration\" property for transitions that need "
 "to match specific time intervals, such as dialogue or scenes."
@@ -479,7 +485,7 @@ msgstr ""
 "**ヒント:** セリフやシーンなど、特定の時間間隔に合わせる必要があるトランジションには「Duration」プロパティの使用を検討してください。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:133
+#: ../doc/transitions.rst:134
 msgid ""
 "The :guilabel:`End` property defines the trimming point at the end of the "
 "transition in seconds, allowing you to control how much of the transition is"
@@ -487,25 +493,25 @@ msgid ""
 ":guilabel:`Duration` transition property."
 msgstr ""
 ":guilabel:`End` "
-"プロパティはトランジションの終了トリミング位置を秒単位で定義し、タイムライン上でトランジションの表示範囲を制御できます。このプロパティを変更すると、:guilabel:`Duration`"
-" プロパティに影響します。"
+"プロパティはトランジションの終了トリミング位置を秒単位で定義し、タイムライン上でトランジションの表示範囲を制御できます。このプロパティを変更すると、\\"
+" :guilabel:`Duration` プロパティに影響します。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:136
+#: ../doc/transitions.rst:137
 msgid ""
 "**Usage Example:** Trimming the end of a transition to align with another "
 "clip or trimming off unwanted sections of the transition."
 msgstr "**使用例:** 他のクリップに合わせてトランジションの終了をトリミングしたり、不要な部分をカットしたりします。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:137
+#: ../doc/transitions.rst:138
 msgid ""
 "**Tip:** Combine the \"Start\" and \"End\" properties to precisely control "
 "the visible portion of the transition."
 msgstr "**ヒント:** 「Start」と「End」プロパティを組み合わせて、トランジションの表示範囲を正確に制御します。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:141
+#: ../doc/transitions.rst:142
 msgid ""
 "The :guilabel:`ID` property holds a randomly generated GUID (Globally Unique"
 " Identifier) assigned to each transition, ensuring its uniqueness. This is a"
@@ -515,24 +521,24 @@ msgstr ""
 "プロパティは、各トランジションに割り当てられるランダム生成のGUID（グローバル一意識別子）を保持し、一意性を保証します。これは読み取り専用プロパティで、トランジション作成時にOpenShotによって割り当てられます。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:144
+#: ../doc/transitions.rst:145
 msgid ""
 "**Usage Example:** Referencing specific transitions within custom scripts or"
 " automation tasks."
 msgstr "**使用例:** カスタムスクリプトや自動化タスク内で特定のトランジションを参照します。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:145
+#: ../doc/transitions.rst:146
 msgid ""
 "**Tip:** While typically managed behind the scenes, understanding transition"
 " IDs can aid in advanced project customization."
 msgstr "**ヒント:** 通常は内部で管理されますが、トランジションIDを理解することで高度なプロジェクトカスタマイズに役立ちます。"
 
-#: ../transitions.rst:148
+#: ../doc/transitions.rst:149
 msgid "Mask Properties"
 msgstr "マスクのプロパティ"
 
-#: ../transitions.rst:149
+#: ../doc/transitions.rst:150
 msgid ""
 "The :guilabel:`Mask: Source`, :guilabel:`Mask: Time Mode`, :guilabel:`Mask: "
 "Loop`, and :guilabel:`Mask: Invert` properties control the grayscale mask "
@@ -540,24 +546,25 @@ msgid ""
 "use video or image sequences, with time mapping and looping options "
 "determining which source frame is used at each point in the transition."
 msgstr ""
-":guilabel:`Mask: Source`、:guilabel:`Mask: Time Mode`、:guilabel:`Mask: "
-"Loop`、および :guilabel:`Mask: Invert` "
+":guilabel:`Mask: Source`\\ 、\\ :guilabel:`Mask: Time Mode`\\ 、\\ "
+":guilabel:`Mask: Loop`\\ 、および :guilabel:`Mask: Invert` "
 "の各プロパティは、トランジションで使用されるグレースケールマスクを制御します。静的マスクは単一の画像を使用します。アニメーションマスクはビデオまたは画像シーケンスを使用でき、時間マッピングとループオプションにより、トランジションの各ポイントで使用されるソースフレームが決まります。"
 
-#: ../transitions.rst:154
+#: ../doc/transitions.rst:155
 msgid ""
 "**Usage Example:** Use :guilabel:`Mask: Invert` when the visible and hidden "
 "areas of a custom mask are reversed."
-msgstr "**使用例:** カスタムマスクの表示領域と非表示領域が逆の場合は、:guilabel:`Mask: Invert` を使用してください。"
+msgstr ""
+"**使用例:** カスタムマスクの表示領域と非表示領域が逆の場合は、\\ :guilabel:`Mask: Invert` を使用してください。"
 
-#: ../transitions.rst:155
+#: ../doc/transitions.rst:156
 msgid ""
 "**Tip:** When using an animated mask, trim the mask source carefully before "
 "enabling loop behavior."
 msgstr "**ヒント:** アニメーションマスクを使用する場合は、ループ動作を有効にする前にマスクソースを慎重にトリミングしてください。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:159
+#: ../doc/transitions.rst:160
 msgid ""
 "The :guilabel:`Track` property is an integer indicating the layer on which "
 "the transition is placed. Transitions on higher tracks are rendered above "
@@ -567,18 +574,31 @@ msgstr ""
 "プロパティは、トランジションが配置されているレイヤーを示す整数値です。上位のトラックにあるトランジションは下位のトラックの上にレンダリングされます。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:162
+#: ../doc/transitions.rst:163
 msgid ""
 "**Usage Example:** Arranging transitions in different layers for creating "
 "visual depth and complexity."
 msgstr "**使用例:** 視覚的な奥行きや複雑さを作るために、異なるレイヤーにトランジションを配置します。"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:163
+#: ../doc/transitions.rst:164
 msgid ""
 "**Tip:** Use higher tracks for elements that need to appear above others, "
 "like text overlays or graphics."
 msgstr "**ヒント:** テキストオーバーレイやグラフィックなど、他の要素の上に表示する必要がある要素には上位のトラックを使用してください。"
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "Below is a list of transition properties which can be edited, and in most "
+#~ "cases, animated over time. To view a transition's properties, right click "
+#~ "and choose :guilabel:`Properties`. The property editor will appear, where "
+#~ "you can change these properties. NOTE: Pay close attention to where the "
+#~ "play-head (i.e. red playback line) is. Key frames are automatically created "
+#~ "at the current playback position, to help create animations."
+#~ msgstr ""
+#~ "以下は編集可能で、多くの場合時間経過でアニメーション化できるトランジションプロパティの一覧です。トランジションのプロパティを表示するには、右クリックして"
+#~ " :guilabel:`Properties` "
+#~ "を選択します。プロパティエディタが表示され、これらのプロパティを変更できます。注意：再生ヘッド（赤い再生ライン）の位置に注意してください。現在の再生位置でキーフレームが自動的に作成され、アニメーション作成を支援します。"
 
 # Translated with gpt-4.1-mini
 #~ msgid ""
@@ -590,6 +610,6 @@ msgstr "**ヒント:** テキストオーバーレイやグラフィックなど
 #~ "(overlapping it), with the most common location being the beginning or end "
 #~ "of a clip."
 #~ msgstr ""
-#~ "トランジションは、2つのクリップ画像の間を徐々にフェード（またはワイプ）するために使用されます。OpenShotでは、トランジションはタイムライン上の青い丸みを帯びた長方形で表されます。2つのクリップを重ねると自動的に作成され、**Transitions**"
-#~ " "
+#~ "トランジションは、2つのクリップ画像の間を徐々にフェード（またはワイプ）するために使用されます。OpenShotでは、トランジションはタイムライン上の青い丸みを帯びた長方形で表されます。2つのクリップを重ねると自動的に作成され、\\"
+#~ " **Transitions** "
 #~ "パネルからタイムラインにドラッグして手動で追加することもできます。トランジションはクリップの上に配置（重ねる）する必要があり、最も一般的な位置はクリップの開始または終了部分です。"

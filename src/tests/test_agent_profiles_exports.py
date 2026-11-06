@@ -170,6 +170,35 @@ class ProfileExportTests(unittest.TestCase):
                 resolve(self.service, {'output': output, 'config': config})
         self.assertFalse(Path(output).exists())
 
+    def test_export_processes_load_the_same_libopenshot(self):
+        import importlib.util
+        import os
+        from classes.agent.protocol import cli_environment
+        folder = str(Path(importlib.util.find_spec('openshot').origin).resolve().parent)
+        with patch.dict(os.environ, {'PYTHONPATH': os.pathsep.join(['/elsewhere', folder])}):
+            paths = cli_environment()['PYTHONPATH'].split(os.pathsep)
+        self.assertEqual(paths, [folder, '/elsewhere'])
+
+    def test_export_validate_opens_the_engine_without_writing(self):
+        self.clip()
+        output = Path(self.temp.name)/'out.mp4'
+        result = self.call('export.validate', output=str(output), profile='builtin:00640x0360p0030_16-09')
+        self.assertTrue(result['validation']['runtime_checked'])
+        self.assertFalse(output.exists())
+
+        output = Path(self.temp.name)/'song.mp3'
+        with self.assertRaises(CommandError) as error:
+            self.call('export.validate', output=str(output), profile='builtin:00640x0360p0030_16-09',
+                      config={'mode': 'audio', 'format': 'mp3', 'audio_codec': 'aac'})
+        self.assertEqual(error.exception.code, 'incompatible_export')
+        self.assertEqual(error.exception.details['cause']['path'], 'params.config.audio_codec')
+        self.assertIn('MP3', str(error.exception))
+        self.assertFalse(output.exists())
+
+        result = self.call('export.validate', output=str(output), profile='builtin:00640x0360p0030_16-09',
+                           config={'mode': 'audio', 'format': 'mp3', 'audio_codec': 'libmp3lame'})
+        self.assertTrue(result['validation']['runtime_checked'])
+
     def test_text_view_and_operation_recovery(self):
         clip = self.clip()
         text = self.call('timeline.view')['text']
