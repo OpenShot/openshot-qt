@@ -291,7 +291,11 @@ class ExportDialogResultTabTests(unittest.TestCase):
         ui_util.load_ui(dialog, os.path.join(info.PATH, "windows", "ui", "export.ui"))
         dialog.result_tab = None
         dialog.restoring_defaults = False
+        dialog.exporting = False
         self.addCleanup(dialog.deleteLater)
+        # Hide first (cleanups run LIFO): deleteLater never runs without an event loop,
+        # so a visible dialog can leak into later tests that close all top-level windows.
+        self.addCleanup(dialog.hide)
         return dialog
 
     def test_result_is_a_third_tab_and_settings_stay_editable(self):
