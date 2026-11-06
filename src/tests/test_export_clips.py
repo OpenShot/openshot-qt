@@ -14,12 +14,32 @@ PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 if PATH not in sys.path:
     sys.path.append(PATH)
 
+try:
+    import openshot
+except ModuleNotFoundError:
+    openshot = types.SimpleNamespace(
+        Fraction=lambda n, d: types.SimpleNamespace(num=n, den=d),
+        FFmpegWriter=None,
+        Clip=None,
+    )
+    sys.modules["openshot"] = openshot
+
 from qt_api import QApplication
 from tests.qt_test_app import ensure_app_state, get_or_create_app
 
 
 class DummySettings:
-    pass
+    class actionType:
+        EXPORT = "EXPORT"
+
+    def __init__(self):
+        self.default_path = "/default/export/path"
+
+    def getDefaultPath(self, action):
+        return self.default_path
+
+    def setDefaultPath(self, action, path):
+        self.default_path = path
 
 
 class DummyApp(QApplication):
@@ -102,6 +122,38 @@ class ExportClipsTests(unittest.TestCase):
         self.assertEqual(writer.audio_options[4], 3)
         self.assertEqual(writer.prepare_count, 2)
         self.assertTrue(writer.opened)
+
+    def test_get_destination_canceling_returns_false_and_clears_destination(self):
+        # Reproduces issue #6063: cancelling target folder picker previously
+        # fell back to default folder and exported anyway.
+        win = self.export_clips.clipExportWindow.__new__(self.export_clips.clipExportWindow)
+        from unittest.mock import patch
+        with patch.object(self.export_clips.QFileDialog, "getExistingDirectory", return_value=""):
+            result = win._getDestination()
+        self.assertFalse(result)
+        self.assertIsNone(win.export_destination)
+
+    def test_get_destination_selected_returns_true_and_updates_settings(self):
+        win = self.export_clips.clipExportWindow.__new__(self.export_clips.clipExportWindow)
+        from unittest.mock import patch
+        with patch.object(self.export_clips.QFileDialog, "getExistingDirectory", return_value="/new/export/folder"):
+            result = win._getDestination()
+        self.assertTrue(result)
+        self.assertEqual(win.export_destination, "/new/export/folder")
+        settings = self.app.get_settings()
+        self.assertEqual(settings.getDefaultPath(settings.actionType.EXPORT), "/new/export/folder")
+
+    def test_init_cancels_and_rejects_when_destination_dialog_canceled(self):
+        from unittest.mock import Mock, patch
+        scheduled = []
+        with patch.object(self.export_clips.ui_util, "load_ui"), \
+                patch.object(self.export_clips.QFileDialog, "getExistingDirectory", return_value=""), \
+                patch.object(self.export_clips.QTimer, "singleShot", side_effect=lambda delay, func: scheduled.append(func)):
+            win = self.export_clips.clipExportWindow([])
+        self.assertTrue(win.canceled)
+        self.assertIsNone(win.export_destination)
+        self.assertIn(win.reject, scheduled)
+        self.assertNotIn(win._exportPressed, scheduled)
 
 
 if __name__ == "__main__":
