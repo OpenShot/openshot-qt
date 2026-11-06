@@ -75,7 +75,11 @@ def add_ai_tools_menu(win, parent_menu, source_file=None):
 
             open_dialog = template.get("open_dialog")
             if not isinstance(open_dialog, bool):
-                open_dialog = (source_file is None) or bool(template.get("needs_prompt", False))
+                open_dialog = (
+                    source_file is None
+                    or bool(template.get("needs_prompt", False))
+                    or bool(template.get("extra_inputs"))
+                )
 
             template_parent = str(template.get("menu_parent") or "").strip().lower()
             target_menu = ai_menu
