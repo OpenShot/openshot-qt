@@ -30,6 +30,8 @@ import re
 import tempfile
 import json
 import random
+import types
+import uuid
 from time import time
 from urllib.parse import unquote
 from fractions import Fraction
@@ -44,7 +46,8 @@ from classes.app import get_app
 from classes.comfy_client import ComfyClient
 from classes.comfy_templates import ComfyTemplateRegistry
 from classes.logger import log
-from classes.query import File
+from classes.clip_render import render_clip_to_file
+from classes.query import File, Clip
 from windows.generate import GenerateMediaDialog
 
 
@@ -198,12 +201,15 @@ class GenerationService(QObject):
     def can_open_generate_dialog(self):
         return len(self.win.selected_file_ids()) <= 1
 
-    def _prepare_generation_source_path(self, source_file, template_id):
-        if not source_file:
-            return ""
+    def _convert_to_supported_img2img_path(self, source_path, template_id, media_type):
+        """Convert `source_path` to a temp PNG if `template_id` is one of the
+        img2img-style templates that requires a supported still-image format and
+        `source_path` isn't already one. Returns `source_path` unchanged otherwise.
 
-        source_path = source_file.data.get("path", "")
-        media_type = source_file.data.get("media_type")
+        Extracted as its own helper so it can be applied to any image-typed input
+        (the primary source file, or an image-typed extra_inputs value), not just
+        the primary source path.
+        """
         if template_id not in ("img2img-basic", "upscale-realesrgan-x4", "img2video-wan") or media_type != "image":
             return source_path
 
@@ -224,6 +230,14 @@ class GenerationService(QObject):
             except OSError:
                 pass
             raise
+
+    def _prepare_generation_source_path(self, source_file, template_id):
+        if not source_file:
+            return ""
+
+        source_path = source_file.data.get("path", "")
+        media_type = source_file.data.get("media_type")
+        return self._convert_to_supported_img2img_path(source_path, template_id, media_type)
 
     @staticmethod
     def _split_generation_suffix(name):
@@ -504,6 +518,8 @@ class GenerationService(QObject):
         source_file,
         source_path,
         reference_image_path="",
+        extra_input_paths=None,
+        extra_input_texts=None,
         coordinates_positive_text="",
         coordinates_negative_text="",
         rectangles_positive_text="",
@@ -520,6 +536,13 @@ class GenerationService(QObject):
         workflow = self.template_registry.get_workflow_copy(template.get("id"))
         if not workflow:
             raise ValueError("Template workflow not found.")
+
+        extra_input_paths = dict(extra_input_paths or {})
+        extra_input_texts = dict(extra_input_texts or {})
+        reference_image_path = str(reference_image_path or "").strip()
+        if reference_image_path and "reference_image" not in extra_input_paths:
+            extra_input_paths["reference_image"] = reference_image_path
+        bindings = []
 
         template_dir = ""
         template_path = str((template or {}).get("path") or "").strip()
@@ -608,6 +631,57 @@ class GenerationService(QObject):
                 "{{openshot_reference_image}}",
                 "$openshot_reference_image",
             )
+
+        _named_input_patterns = (
+            re.compile(r"^__openshot_input:([a-z0-9_]+)__$", re.IGNORECASE),
+            re.compile(r"^\{\{openshot_input:([a-z0-9_]+)\}\}$", re.IGNORECASE),
+            re.compile(r"^\$openshot_input:([a-z0-9_]+)$", re.IGNORECASE),
+        )
+
+        def _named_input_placeholder_key(text_value):
+            text_value = str(text_value or "").strip()
+            for pattern in _named_input_patterns:
+                match = pattern.match(text_value)
+                if match:
+                    return match.group(1).lower()
+            return None
+
+        # Unanchored counterparts of _named_input_patterns, for a named placeholder
+        # embedded inside a larger string (e.g. a fixed prompt template with a
+        # __openshot_input:<key>__ token spliced into the middle of it) rather than
+        # being a node input's entire value. Only text-type extra_inputs can be
+        # embedded this way -- a file path substituted mid-string would not make
+        # sense to whatever node consumes that field, and Phase 4's upload-fix
+        # bindings assume a resolved path replaces a field's whole value.
+        _embedded_named_input_patterns = (
+            re.compile(r"__openshot_input:([a-z0-9_]+)__", re.IGNORECASE),
+            re.compile(r"\{\{openshot_input:([a-z0-9_]+)\}\}", re.IGNORECASE),
+            re.compile(r"\$openshot_input:([a-z0-9_]+)", re.IGNORECASE),
+        )
+
+        def _substitute_embedded_named_text(text_value, node_id, class_type):
+            def _replacement(match):
+                key = match.group(1).lower()
+                if key in extra_input_texts:
+                    return extra_input_texts[key]
+                if key in extra_input_paths:
+                    log.warning(
+                        "ComfyUI template embeds extra_inputs key '%s' inside a larger "
+                        "string on node %s (%s) -- embedded substitution only supports "
+                        "text inputs; left unresolved.",
+                        key, node_id, class_type,
+                    )
+                else:
+                    log.warning(
+                        "ComfyUI template references unknown extra_inputs key '%s' on "
+                        "node %s (%s) -- left unresolved.",
+                        key, node_id, class_type,
+                    )
+                return match.group(0)
+
+            for pattern in _embedded_named_input_patterns:
+                text_value = pattern.sub(_replacement, text_value)
+            return text_value
 
         def _is_prompt_placeholder_value(text_value):
             text_value = str(text_value or "").strip().lower()
@@ -747,12 +821,42 @@ class GenerationService(QObject):
 
             # Resolve generic OpenShot source placeholders in any string input
             # (custom nodes may use keys like `video_path` instead of `video`/`file`).
-            if source_path or reference_image_path:
-                for input_key, input_value in list(inputs.items()):
-                    if isinstance(input_value, str) and source_path and _is_placeholder_value(input_value):
-                        inputs[input_key] = source_path
-                    elif isinstance(input_value, str) and reference_image_path and _is_reference_image_placeholder_value(input_value):
-                        inputs[input_key] = reference_image_path
+            # Always scanned, even when nothing was provided to substitute -- an
+            # unresolved __openshot_input:<key>__ placeholder (e.g. a typo'd key, or
+            # a key the template forgot to declare in extra_inputs) must still be
+            # caught and logged rather than silently skipped.
+            reference_image_value = extra_input_paths.get("reference_image", "")
+            for input_key, input_value in list(inputs.items()):
+                if not isinstance(input_value, str):
+                    continue
+                if source_path and _is_placeholder_value(input_value):
+                    inputs[input_key] = source_path
+                    bindings.append((node_id, input_key, source_path))
+                elif reference_image_value and _is_reference_image_placeholder_value(input_value):
+                    inputs[input_key] = reference_image_value
+                    bindings.append((node_id, input_key, reference_image_value))
+                else:
+                    named_key = _named_input_placeholder_key(input_value)
+                    if named_key is None:
+                        substituted = _substitute_embedded_named_text(input_value, node_id, class_type)
+                        if substituted != input_value:
+                            inputs[input_key] = substituted
+                        continue
+                    if named_key in extra_input_paths:
+                        resolved_path = extra_input_paths[named_key]
+                        inputs[input_key] = resolved_path
+                        bindings.append((node_id, input_key, resolved_path))
+                    elif named_key in extra_input_texts:
+                        # Text substitutions are never recorded as bindings --
+                        # Phase 4's upload fix would try to upload_input_file()
+                        # a plain string, which is not a local file path.
+                        inputs[input_key] = extra_input_texts[named_key]
+                    else:
+                        log.warning(
+                            "ComfyUI template references unknown extra_inputs key "
+                            "'%s' on node %s (%s) -- left unresolved.",
+                            named_key, node_id, class_type,
+                        )
 
             if "filename_prefix" in inputs:
                 prefix_value = str(inputs.get("filename_prefix", "")).strip()
@@ -771,7 +875,14 @@ class GenerationService(QObject):
                 prompt_value = inputs.get("prompt", None)
                 tags_value = inputs.get("tags", None)
                 lyrics_value = inputs.get("lyrics", None)
+                string_value = inputs.get("string", None)
 
+                if isinstance(string_value, str):
+                    replaced_string = _replace_prompt_placeholders(string_value)
+                    if replaced_string != string_value:
+                        inputs["string"] = replaced_string
+                        applied_prompt = True
+                        string_value = replaced_string
                 if isinstance(text_value, str):
                     replaced_text = _replace_prompt_placeholders(text_value)
                     if replaced_text != text_value:
@@ -985,7 +1096,7 @@ class GenerationService(QObject):
 
         self._apply_dynamic_sam2_meta_batch(workflow, source_file=source_file, template_id=template_id)
 
-        return workflow
+        return workflow, bindings
 
     def _save_nodes_for_workflow(self, workflow, template_id=None):
         template_id = str(template_id or "").strip().lower()
@@ -1043,31 +1154,75 @@ class GenerationService(QObject):
             return False, "The selected AI template was not found."
         _payload_name_root, payload_name_number = self._split_generation_suffix(payload_name)
         workflow_label = self._workflow_display_label(template_meta)
-        if source_file:
+        if source_file and not payload.get("display_name_from_payload"):
             display_root_name = self._source_display_root_name(source_file)
             display_number = int(payload_name_number or self._next_generation_number(display_root_name))
             display_name = self._format_generation_name(display_root_name, display_number)
         else:
+            # No source (or a source that is only a temporary stand-in, as in the two-clip bridge):
+            # name the result after what the user typed, not after the source file.
             display_name = payload_name
         try:
             source_path = self._prepare_generation_source_path(source_file, payload.get("template_id"))
         except Exception as ex:
             return False, "OpenShot could not convert this image into PNG for ComfyUI.\n\n{}".format(ex)
 
-        reference_image_path = ""
-        reference_image_file_id = str(payload.get("reference_image_file_id") or "").strip()
-        if reference_image_file_id:
-            reference_image_file = File.get(id=reference_image_file_id)
-            if reference_image_file and isinstance(reference_image_file.data, dict):
-                reference_image_path = str(reference_image_file.data.get("path", "") or "").strip()
+        input_file_ids = dict(payload.get("input_file_ids") or {})
+        if "reference_image" not in input_file_ids:
+            # Back-compat: a caller still using the pre-extra_inputs payload shape.
+            legacy_reference_id = str(payload.get("reference_image_file_id") or "").strip()
+            if legacy_reference_id:
+                input_file_ids["reference_image"] = legacy_reference_id
+        input_text_values = dict(payload.get("input_text_values") or {})
+
+        declared_inputs = {entry.get("key"): entry for entry in template_meta.get("extra_inputs", [])}
+        extra_input_paths = {}
+        extra_input_texts = {}
+        for key, entry in declared_inputs.items():
+            if entry.get("type") in ("text", "choice"):
+                value = str(input_text_values.get(key, "") or "").strip()
+                if not value and entry.get("required", True):
+                    return False, "Enter a value for \"{}\".".format(entry.get("label", key))
+                if value:
+                    extra_input_texts[key] = value
+                continue
+
+            file_id = str(input_file_ids.get(key, "") or "").strip()
+            if not file_id:
+                if entry.get("required", True):
+                    return False, "Choose a {} for \"{}\" from Project Files.".format(
+                        entry.get("type", "file"), entry.get("label", key),
+                    )
+                continue
+            input_file = File.get(id=file_id)
+            if not input_file or not isinstance(input_file.data, dict):
+                if entry.get("required", True):
+                    return False, "The file chosen for \"{}\" could not be found.".format(entry.get("label", key))
+                continue
+            file_path = str(input_file.data.get("path", "") or "").strip()
+            if not file_path:
+                if entry.get("required", True):
+                    return False, "The file chosen for \"{}\" has no path.".format(entry.get("label", key))
+                continue
+            try:
+                file_path = self._convert_to_supported_img2img_path(
+                    file_path, payload.get("template_id"), entry.get("type"),
+                )
+            except Exception as ex:
+                return False, "OpenShot could not convert \"{}\" for ComfyUI.\n\n{}".format(
+                    entry.get("label", key), ex,
+                )
+            extra_input_paths[key] = file_path
+
         try:
-            workflow = self._prepare_template_workflow(
+            workflow, bindings = self._prepare_template_workflow(
                 template_meta,
                 payload_name=payload_name,
                 prompt_text=payload.get("prompt"),
                 source_file=source_file,
                 source_path=source_path,
-                reference_image_path=reference_image_path,
+                extra_input_paths=extra_input_paths,
+                extra_input_texts=extra_input_texts,
                 coordinates_positive_text=payload.get("coordinates_positive"),
                 coordinates_negative_text=payload.get("coordinates_negative"),
                 rectangles_positive_text=payload.get("rectangles_positive"),
@@ -1093,6 +1248,9 @@ class GenerationService(QObject):
             "template_id": str(payload.get("template_id") or ""),
             "display_name": display_name,
             "workflow_label": workflow_label,
+            "bindings": bindings,
+            "insert_on_timeline": payload.get("insert_on_timeline"),
+            "bridge_cleanup": payload.get("bridge_cleanup"),
         }
         job_id = self.win.generation_queue.enqueue(
             payload_name,
@@ -1104,6 +1262,169 @@ class GenerationService(QObject):
         if not job_id:
             return False, "Only one active generation is allowed per source file."
         return True, ""
+
+    @staticmethod
+    def _video_extra_input_keys(template_entry):
+        """Ordered list of "video"-type extra_inputs keys declared by
+        `template_entry` (an entry from templates_for_context())."""
+        extra_inputs = (template_entry.get("template") or {}).get("extra_inputs", [])
+        return [
+            entry.get("key") for entry in extra_inputs
+            if isinstance(entry, dict) and entry.get("type") == "video" and entry.get("key")
+        ]
+
+    @classmethod
+    def _qualifies_as_bridge_template(cls, template_entry):
+        """True if `template_entry` declares at least one "video"-type
+        extra_inputs entry -- the shape a two-clip AI bridge needs. Clip A
+        occupies the dialog's normal source_file slot (not an extra_inputs
+        entry); Clip B needs a declared video extra_inputs slot to go into."""
+        return len(cls._video_extra_input_keys(template_entry)) >= 1
+
+    def _preselect_bridge_second_video_input(self, dialog, file_id):
+        """Pre-select `file_id` as the first declared "video"-type extra_inputs
+        combo on `dialog` (a GenerateMediaDialog) -- the slot Clip B fills, since
+        Clip A already occupies the dialog's own source_file. No-op if the
+        current template isn't a qualifying bridge template."""
+        video_keys = self._video_extra_input_keys({"template": dialog._current_template()})
+        if not video_keys:
+            return
+        widget_entry = dialog._extra_input_widgets.get(video_keys[0])
+        if not widget_entry:
+            return
+        widget, _entry = widget_entry
+        index = widget.findData(file_id)
+        if index >= 0:
+            widget.setCurrentIndex(index)
+
+    def bridge_clips_with_ai(self, clip_a, clip_b):
+        """Render two contiguous timeline clips' own trimmed content to temp
+        files, import them as Project Files, then open the AI generation dialog
+        restricted to templates declaring a "video"-type extra_inputs entry, with
+        Clip B pre-selected as that input. On successful generation, the result
+        is inserted onto the timeline exactly between Clip A and Clip B (see
+        _insert_generated_clip_on_timeline, triggered via the job's
+        insert_on_timeline metadata once generation completes)."""
+        # A bridge template is an "enhance" (not "create") template, since it acts
+        # on an existing video source -- templates_for_context() only returns
+        # "enhance"-category templates when given a source_file whose media_type
+        # it can match against. Clip A/B haven't been rendered/imported as Files
+        # yet at this point, so a minimal video-media-type stand-in is enough to
+        # get the right category filtering without a real File object.
+        video_context = types.SimpleNamespace(data={"media_type": "video"})
+        candidate_templates = [
+            entry for entry in self.templates_for_context(source_file=video_context)
+            if self._qualifies_as_bridge_template(entry)
+        ]
+        if not candidate_templates:
+            QMessageBox.information(
+                self.win,
+                "No Bridge Template Available",
+                "No installed ComfyUI template declares a video input beyond the "
+                "source clip, so there's nothing to bridge these two clips with.",
+            )
+            return
+
+        temp_dir = tempfile.mkdtemp(prefix="openshot_bridge_")
+        path_a = os.path.join(temp_dir, "clip_a.mp4")
+        path_b = os.path.join(temp_dir, "clip_b.mp4")
+        # The renders only exist to feed this one generation; they are removed again once it is
+        # over (or never starts), so they don't pile up in Project Files and on disk.
+        cleanup = {"dir": temp_dir, "paths": [path_a, path_b]}
+        if not render_clip_to_file(clip_a, path_a) or not render_clip_to_file(clip_b, path_b):
+            self._remove_bridge_temp_files(cleanup)
+            QMessageBox.warning(
+                self.win, "Bridge Clips Failed",
+                "Could not render one or both clips for the AI bridge.",
+            )
+            return
+
+        self.win.files_model.add_files(
+            [path_a, path_b], quiet=True, prevent_image_seq=True, prevent_recent_folder=True,
+        )
+        file_a = File.get(path=path_a)
+        file_b = File.get(path=path_b)
+        if not file_a or not file_b:
+            self._remove_bridge_temp_files(cleanup)
+            QMessageBox.warning(
+                self.win, "Bridge Clips Failed",
+                "Could not import the rendered clips into Project Files.",
+            )
+            return
+
+        preselected_template_id = candidate_templates[0]["id"] if len(candidate_templates) == 1 else None
+
+        win = GenerateMediaDialog(
+            source_file=file_a,
+            templates=candidate_templates,
+            preselected_template_id=preselected_template_id,
+            dialog_title="Bridge Clips With AI",
+            parent=self.win,
+            default_name=self._bridge_default_name(clip_a, clip_b, file_a),
+        )
+        self._preselect_bridge_second_video_input(win, file_b.id)
+        win.template_combo.currentIndexChanged.connect(
+            lambda _index: self._preselect_bridge_second_video_input(win, file_b.id)
+        )
+
+        if win.exec_() != QDialog.Accepted:
+            self._remove_bridge_temp_files(cleanup)
+            return
+        payload = win.get_payload()
+        payload["insert_on_timeline"] = {
+            "position": float(clip_b.data.get("position", 0.0)),
+            "layer": clip_b.data.get("layer"),
+        }
+        payload["display_name_from_payload"] = True
+        payload["bridge_cleanup"] = cleanup
+        ok, error_text = self._enqueue_generation_for_file(file_a, payload)
+        if not ok:
+            self._remove_bridge_temp_files(cleanup)
+            QMessageBox.warning(self.win, "Generation Failed", error_text)
+
+    def _bridge_default_name(self, clip_a, clip_b, fallback_file):
+        """Name a bridge after the two clips it joins ("<A>_to_<B>_bridge"), not after the
+        temporary render of Clip A that stands in as the dialog's source file."""
+        def source_root(clip):
+            data = getattr(clip, "data", None)
+            reader = data.get("reader") if isinstance(data, dict) else None
+            path = reader.get("path") if isinstance(reader, dict) else ""
+            stem = os.path.splitext(os.path.basename(str(path or "")))[0]
+            return self._generation_root_name(stem) if stem else ""
+
+        root_a, root_b = source_root(clip_a), source_root(clip_b)
+        if not root_a or not root_b:
+            return self._default_generation_name(fallback_file)
+        name = "{}_bridge".format(root_a) if root_a == root_b else "{}_to_{}_bridge".format(root_a, root_b)
+        return self._next_generation_name(name)
+
+    def _remove_bridge_temp_files(self, cleanup):
+        """Remove the temporary Clip A/B renders from Project Files and disk. Only touches the
+        exact paths recorded in `cleanup`, and leaves any that a timeline clip is using."""
+        if not isinstance(cleanup, dict):
+            return
+        temp_dir = str(cleanup.get("dir") or "")
+        if not temp_dir:
+            return
+        for path in cleanup.get("paths") or []:
+            path = str(path or "")
+            if os.path.dirname(path) != temp_dir:
+                continue
+            try:
+                file_obj = File.get(path=path)
+                if file_obj and Clip.filter(file_id=file_obj.id):
+                    log.info("Keeping bridge render %s: a timeline clip is using it", path)
+                    continue
+                if file_obj:
+                    file_obj.delete()
+                if os.path.isfile(path):
+                    os.remove(path)
+            except Exception as ex:
+                log.warning("Could not remove bridge render %s: %s", path, ex)
+        try:
+            os.rmdir(temp_dir)
+        except OSError:
+            pass  # not empty (a render is still in use) or already gone
 
     def action_generate_trigger(self, checked=True, source_file=None, template_id=None, open_dialog=True):
         selected_files = self._selected_generation_targets(source_file=source_file)
@@ -1173,6 +1494,15 @@ class GenerationService(QObject):
             self.win.statusBar.showMessage("Queued {} generation jobs".format(queued_count), 3000)
 
     def on_generation_job_finished(self, job_id, status):
+        queue = getattr(self.win, "generation_queue", None)
+        job = queue.get_job(job_id) if queue else None
+        try:
+            self._handle_generation_job_finished(job_id, status)
+        finally:
+            if job:
+                self._remove_bridge_temp_files((job.get("request") or {}).get("bridge_cleanup"))
+
+    def _handle_generation_job_finished(self, job_id, status):
         job = self.win.generation_queue.get_job(job_id) if getattr(self.win, "generation_queue", None) else None
         if not job:
             return
@@ -1183,7 +1513,12 @@ class GenerationService(QObject):
             caption_saved = bool(result.get("caption_saved", False))
             scenes_labeled = int(result.get("scenes_labeled", 0))
             scene_splits_created = int(result.get("scene_splits_created", 0))
-            if imported > 0 and caption_saved:
+            inserted_on_timeline = bool(result.get("inserted_on_timeline", False))
+            if inserted_on_timeline:
+                self.win.statusBar.showMessage(
+                    "Generation completed and inserted onto the timeline", 5000,
+                )
+            elif imported > 0 and caption_saved:
                 self.win.statusBar.showMessage(
                     "Generation completed, imported {} file(s), and saved file caption data".format(imported),
                     5000,
@@ -1216,6 +1551,50 @@ class GenerationService(QObject):
             error_text = ComfyClient.summarize_error_text(job.get("error") or "ComfyUI generation failed.")
             self.win.statusBar.showMessage("Generation failed", 5000)
             QMessageBox.warning(self.win, "Generation Failed", error_text)
+
+    def _insert_generated_clip_on_timeline(self, file_obj, position, layer):
+        """Insert `file_obj` as a new timeline Clip at `position` on `layer`,
+        opening a gap first (ripple_insert_gap) so later same-layer items are
+        pushed later in time rather than overlapped. Mirrors the clip-creation
+        pattern used by windows/add_to_timeline.py's AddToTimeline.accept().
+        Returns True on success, False if `file_obj` has no usable duration/path.
+        """
+        if layer is None:
+            return False
+        file_path = file_obj.absolute_path() if hasattr(file_obj, "absolute_path") else file_obj.data.get("path", "")
+        duration = float(file_obj.data.get("duration", 0.0) or 0.0)
+        if duration <= 0.0 or not file_path:
+            return False
+
+        tid = str(uuid.uuid4())
+        get_app().updates.transaction_id = get_app().updates.transaction_id or tid
+        try:
+            self.win.ripple_insert_gap(position, layer, duration)
+
+            c = openshot.Clip(file_path)
+            new_clip = json.loads(c.Json())
+            new_clip["position"] = position
+            new_clip["layer"] = layer
+            new_clip["file_id"] = file_obj.id
+            new_clip["title"] = file_obj.data.get("name", os.path.basename(file_path))
+            new_clip["reader"] = file_obj.data
+            new_clip["start"] = 0.0
+            new_clip["end"] = duration
+            new_clip["duration"] = duration
+
+            clip = Clip()
+            clip.data = new_clip
+            clip.save()
+        finally:
+            get_app().updates.transaction_id = None
+
+        extend_timeline = getattr(getattr(self.win, "timeline", None), "_extend_timeline_to_fit_items", None)
+        if callable(extend_timeline):
+            try:
+                extend_timeline()
+            except Exception:
+                log.warning("Failed to extend timeline after inserting generated clip", exc_info=1)
+        return True
 
     def _import_generation_outputs(self, job):
         outputs = list(job.get("outputs", []) or [])
@@ -1350,8 +1729,26 @@ class GenerationService(QObject):
                 imported_file.save()
                 self.win.FileUpdated.emit(imported_file.id)
 
+        inserted_on_timeline = False
+        insert_spec = request.get("insert_on_timeline")
+        if isinstance(insert_spec, dict) and saved_paths:
+            video_exts = {".mp4", ".mov", ".mkv", ".webm", ".avi", ".m4v"}
+            for saved_path in saved_paths:
+                if os.path.splitext(saved_path)[1].lower() not in video_exts:
+                    continue
+                candidate_file = File.get(path=saved_path)
+                if not candidate_file:
+                    continue
+                inserted_on_timeline = self._insert_generated_clip_on_timeline(
+                    candidate_file,
+                    float(insert_spec.get("position", 0.0)),
+                    insert_spec.get("layer"),
+                )
+                if inserted_on_timeline:
+                    break
+
         if not saved_paths and scene_splits_created <= 0:
-            return {"imported": 0, "caption_saved": False, "scene_splits_created": 0}
+            return {"imported": 0, "caption_saved": False, "scene_splits_created": 0, "inserted_on_timeline": False}
 
         caption_saved = False
         scenes_labeled = 0
@@ -1370,6 +1767,7 @@ class GenerationService(QObject):
             "imported": len(saved_paths),
             "caption_saved": caption_saved,
             "scenes_labeled": scenes_labeled,
+            "inserted_on_timeline": inserted_on_timeline,
             "scene_splits_created": scene_splits_created,
         }
 
