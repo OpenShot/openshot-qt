@@ -655,6 +655,10 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
                 self.curr_frame_size = self._scaled_frame_size(
                     QSize(self.gpu_presenter.Width(), self.gpu_presenter.Height()), self.size())
                 scale = self.devicePixelRatioF()
+                # Destroying another GL window (e.g. a closed preview dialog
+                # collected by Python mid-paint) leaves no context current.
+                if QtGui.QOpenGLContext.currentContext() is not self.context():
+                    self.makeCurrent()
                 painter.beginNativePainting()
                 try:
                     gpu_drawn = self.gpu_presenter.Draw(

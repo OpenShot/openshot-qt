@@ -717,6 +717,10 @@ class Cutting(SourceRangeMixin, QDialog):
         if self._close_after_shutdown:
             self._close_after_shutdown = False
             super().reject()
+            # Destroy the dialog (and its GL contexts) from the event loop.
+            # Left to Python's garbage collector, it can be destroyed while
+            # another preview is painting, which crashes Qt's GL painter.
+            self.deleteLater()
 
     def _shutdown_preview(self, close_dialog=False, wait_for_thread=False):
         # Stop playback and preview worker safely (used by ESC/reject and close).
