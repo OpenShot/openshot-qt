@@ -45,7 +45,7 @@ if PATH not in sys.path:
     sys.path.append(PATH)
 
 from qt_api import QByteArray, QCoreApplication, QEvent, QKeySequence, Qt
-from qt_api import QContextMenuEvent, QMouseEvent, QPoint, QPointF, QTabBar
+from qt_api import QContextMenuEvent, QMouseEvent, QPoint, QPointF, QRect, QTabBar
 from qt_api import QApplication, QDialog, QDockWidget, QMainWindow, QMenu, QStandardItem, QStandardItemModel
 
 from classes import qt_types
@@ -547,10 +547,75 @@ class MainWindowTests(unittest.TestCase):
             restoreGeometry=lambda value: calls.append(value),
         )
 
-        self.main_window_module.MainWindow._restore_saved_geometry_before_show(
-            fake_window)
+        with patch.object(QApplication, "platformName", return_value="xcb"):
+            self.main_window_module.MainWindow._restore_saved_geometry_before_show(
+                fake_window)
 
         self.assertEqual(calls, [QByteArray(b"geometry")])
+
+    def test_wayland_restores_size_and_state_without_stale_position(self):
+        # Working 4.2 and failing 4.1 -> 4.2 geometry from the menu-position report.
+        geometries = (
+            b"AdnQywADAAAAAAd9AAAAbwAAC8gAAAOrAAAHgAAAAI0AAAvFAAADqAAAAAAAAAAACgAAAAeAAAAAjQAAC8UAAAOo",
+            b"AdnQywADAAAAABB9AAAAkAAAFMIAAAPQAAAQfQAAALUAABTCAAAD0AAAAAAAAAAACgAAABB9AAAAtQAAFMIAAAPQ",
+            b"AdnQywADAAAAABB6AAAAlwAAFMUAAAPTAAAQfQAAALUAABTCAAAD0AAAAAAAAAAACgAAABB9AAAAtQAAFMIAAAPQ",
+        )
+        for platform in ("wayland", "wayland-egl"):
+            for encoded in geometries:
+                with self.subTest(platform=platform, geometry=encoded):
+                    window = QMainWindow()
+                    baseline = QMainWindow()
+                    try:
+                        geometry = bytearray(QByteArray.fromBase64(encoded))
+                        # Qt rejects geometry saved at over twice the test screen's
+                        # width. Adapt only that metadata, keeping Raffi's positions.
+                        geometry[46:50] = QApplication.primaryScreen().geometry().width().to_bytes(4, "big")
+                        window.saved_geometry = QByteArray(bytes(geometry))
+                        self.assertTrue(baseline.restoreGeometry(window.saved_geometry))
+                        with patch.object(QApplication, "platformName", return_value=platform):
+                            self.main_window_module.MainWindow._restore_saved_geometry_before_show(
+                                window)
+                        self.assertEqual(window.pos(), QApplication.primaryScreen().geometry().topLeft())
+                        self.assertEqual(window.size(), baseline.size())
+                        self.assertEqual(window.windowState(), baseline.windowState())
+                    finally:
+                        window.deleteLater()
+                        baseline.deleteLater()
+
+    def test_wayland_geometry_keeps_maximized_and_fullscreen_state(self):
+        for state in (Qt.WindowMaximized, Qt.WindowFullScreen):
+            with self.subTest(state=state):
+                window = QMainWindow()
+                try:
+                    window.resize(640, 480)
+                    window.setWindowState(state)
+                    window.saved_geometry = window.saveGeometry()
+                    window.setWindowState(Qt.WindowNoState)
+                    with patch.object(QApplication, "platformName", return_value="wayland"):
+                        self.main_window_module.MainWindow._restore_saved_geometry_before_show(
+                            window)
+                    self.assertEqual(window.windowState(), state)
+                finally:
+                    window.deleteLater()
+
+    def test_wayland_geometry_uses_screen_origin_and_primary_fallback(self):
+        origin = QPoint(-1920, 120)
+        screen = types.SimpleNamespace(geometry=lambda: QRect(origin, QPoint(-1, 1199)))
+        for selected_screen in (screen, None):
+            with self.subTest(selected_screen=selected_screen):
+                window = types.SimpleNamespace(
+                    saved_geometry=QByteArray(b"geometry"),
+                    restoreGeometry=MagicMock(),
+                    pos=lambda: QPoint(4221, 181),
+                    move=MagicMock(),
+                    windowState=lambda: Qt.WindowNoState,
+                    setWindowState=MagicMock(),
+                )
+                with patch.object(QApplication, "platformName", return_value="wayland"), \
+                        patch.object(QApplication, "screenAt", return_value=selected_screen), \
+                        patch.object(QApplication, "primaryScreen", return_value=screen):
+                    self.main_window_module.MainWindow._restore_saved_geometry_before_show(window)
+                window.move.assert_called_once_with(origin)
 
     def test_active_custom_view_setter_does_not_shadow_reader(self):
         fake_window = types.SimpleNamespace()

@@ -4484,6 +4484,14 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         """Restore outer geometry before the window is mapped."""
         if self.saved_geometry:
             self.restoreGeometry(self.saved_geometry)
+            if QApplication.platformName().startswith("wayland"):
+                # Wayland cannot restore desktop positions. Old Qt versions can
+                # leave a stale origin that offsets menus after restoreGeometry().
+                # Keep the restored size/state, using the current screen's origin.
+                screen = QApplication.screenAt(self.pos()) or QApplication.primaryScreen()
+                state = self.windowState()
+                self.move(screen.geometry().topLeft())
+                self.setWindowState(state)
 
     @staticmethod
     def _positive_int(value):
