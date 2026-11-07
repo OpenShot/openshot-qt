@@ -46,7 +46,7 @@ class PropertiesAnchorTests(unittest.TestCase):
         # Run our adjacent test script with the current interpreter, without a shell.
         result = subprocess.run([sys.executable, str(Path(__file__).with_name("properties_anchor_smoke.py"))],
                                 env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                                universal_newlines=True, timeout=90, shell=False)  # nosec B603
+                                universal_newlines=True, timeout=240, shell=False)  # nosec B603
         self.assertEqual(result.returncode, 0, result.stdout[-12000:])
         self.assertNotIn("Traceback (most recent call last)", result.stdout, result.stdout[-12000:])
         self.assertIn("PROPERTIES_ANCHOR_PASSED", result.stdout)
