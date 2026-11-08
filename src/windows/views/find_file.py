@@ -31,7 +31,7 @@ from classes import info
 from classes.app import get_app
 from classes.path_utils import native_display_path, wrapped_path_html
 from qt_api import Qt
-from qt_api import QFileDialog, QDialog, QVBoxLayout, QHBoxLayout, QPushButton, QLabel
+from qt_api import QDialog, QVBoxLayout, QHBoxLayout, QPushButton, QLabel, get_existing_directory
 
 # Keep track of all previously checked paths, and keep checking them
 known_paths = [info.HOME_PATH]
@@ -70,7 +70,7 @@ def _show_missing_file_dialog(file_name, file_path, starting_dir):
     browse_dir = starting_dir if os.path.isdir(starting_dir) else _deepest_existing_parent(starting_dir)
     if not browse_dir:
         browse_dir = info.HOME_PATH
-    dialog = QDialog(None)
+    dialog = QDialog(get_app().window)
     dialog.setWindowTitle(_("Locate Missing Files"))
     dialog.setModal(True)
     dialog.setMinimumSize(420, 130)
@@ -117,11 +117,17 @@ def _show_missing_file_dialog(file_name, file_path, starting_dir):
     result = {"action": "file", "path": file_path}
 
     def pick_browse():
-        selected_dir = QFileDialog.getExistingDirectory(
-            None,
-            _("Locate folder containing: %s") % file_name,
-            browse_dir,
-        )
+        if not browse_button.isEnabled():
+            return
+        browse_button.setEnabled(False)
+        try:
+            selected_dir = get_existing_directory(
+                dialog,
+                _("Locate folder containing: %s") % file_name,
+                browse_dir,
+            )
+        finally:
+            browse_button.setEnabled(True)
         if selected_dir:
             result["action"] = "locate"
             result["path"] = os.path.join(selected_dir, file_name)
@@ -138,7 +144,10 @@ def _show_missing_file_dialog(file_name, file_path, starting_dir):
     browse_button.setAutoDefault(True)
     browse_button.setFocus()
 
-    dialog.exec_()
+    try:
+        dialog.exec_()
+    finally:
+        dialog.deleteLater()
     return result["action"], result["path"]
 
 

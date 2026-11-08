@@ -938,6 +938,9 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
 
     def auto_save_project(self):
         """Auto save the project"""
+        # Missing-file dialogs run an event loop before project loading finishes.
+        if getattr(self, "_project_loading", False):
+            return
         app = get_app()
         current_data_version = app.updates.data_version
 
@@ -1542,6 +1545,8 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
 
         GetFrame is routed via RunScopeSignal so scope work stays off the UI thread.
         """
+        if getattr(self, "_project_loading", False):
+            return
         frame_number = self._scope_pending_frame
         if frame_number is None:
             return

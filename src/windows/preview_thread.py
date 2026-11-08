@@ -391,6 +391,8 @@ class PlayerWorker(QObject):
 
     def refreshFrame(self):
         """ Refresh a certain frame """
+        if getattr(self.parent, "_project_loading", False):
+            return
         # Selection/UI refresh signals can arrive during active playback.
         # Avoid seeking while playing, which can perturb frame progression.
         if self.player.Mode() == openshot.PLAYBACK_PLAY and self.player.Speed() != 0.0:

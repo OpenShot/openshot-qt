@@ -201,6 +201,19 @@ class MainWindowTests(unittest.TestCase):
         cls.properties_tableview_module = importlib.import_module("windows.views.properties_tableview")
         cls.properties_model_module = importlib.import_module("windows.models.properties_model")
 
+    def test_project_loading_blocks_autosave_and_scope_dispatch(self):
+        module = self.main_window_module
+        window = types.SimpleNamespace(_project_loading=True)
+        with patch.object(module, "get_app") as get_app:
+            module.MainWindow.auto_save_project(window)
+            module.MainWindow._run_scope_analysis(window)
+            get_app.assert_not_called()
+
+    def test_project_loading_blocks_preview_refresh(self):
+        from windows.preview_thread import PlayerWorker
+        worker = types.SimpleNamespace(parent=types.SimpleNamespace(_project_loading=True))
+        PlayerWorker.refreshFrame(worker)
+
     def test_failed_backup_reports_error_and_can_retry_same_revision(self):
         module = self.main_window_module
         for error in (MemoryError(), OSError("disk full")):
