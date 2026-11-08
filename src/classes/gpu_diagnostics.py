@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 OpenShot Studios, LLC
+# SPDX-License-Identifier: GPL-3.0-or-later
 """Session GPU evidence shared by logs, About, and copied version information.
 
 Capability probes do not prove acceleration was used. Only successful native
@@ -111,8 +113,9 @@ class GpuDiagnostics:
                 # Test writes the header to memory; no output file is created.
                 if json.loads(writer.Test()).get('ok'):
                     available.append(codec)
-            except Exception:
-                pass  # Compiled encoders without a usable driver are unavailable.
+            except Exception as error:
+                # Compiled encoders without a usable driver are unavailable.
+                self.log.debug("Hardware encoder %s is unavailable: %s", codec, error)
         return available
 
     def encoder_capabilities(self):

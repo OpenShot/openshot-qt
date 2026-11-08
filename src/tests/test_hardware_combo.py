@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 OpenShot Studios, LLC
+# SPDX-License-Identifier: GPL-3.0-or-later
 """Rich hardware choices preserve identifiers and paint selected badges sharply."""
 import unittest
 from unittest.mock import Mock

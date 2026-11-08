@@ -41,12 +41,13 @@ def encoder_backend(codec):
     return "cpu"
 
 
-def encoder_support(codec, native=openshot, environ=os.environ, capabilities=None):
+def encoder_support(codec, native=openshot, environ=None, capabilities=None):
     """Return backend, preset visibility, and the supporting evidence.
 
     GUI callers supply session capabilities and never enter driver probes.
     Other callers retain the legacy native-probe/compiled-support behavior.
     """
+    environ = os.environ if environ is None else environ
     backend = encoder_backend(codec)
     if not codec:
         return backend, True, "No video encoder required"
@@ -79,8 +80,9 @@ def encoder_support(codec, native=openshot, environ=os.environ, capabilities=Non
     return backend, True, "Software encoder (CPU)"
 
 
-def preferred_export_codec(candidates, native=openshot, environ=os.environ, capabilities=None):
+def preferred_export_codec(candidates, native=openshot, environ=None, capabilities=None):
     """Choose a working H.264 GPU encoder for new exports, with software fallback."""
+    environ = os.environ if environ is None else environ
     if environ.get('OPENSHOT_RENDER_BACKEND') != 'cpu':
         if capabilities is not None:
             available = set(capabilities['encoders']) if capabilities['state'] == 'ready' else set()

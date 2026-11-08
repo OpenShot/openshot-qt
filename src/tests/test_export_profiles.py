@@ -126,7 +126,7 @@ class ExportProfileTests(unittest.TestCase):
         dialog = QWidget()
         dialog.restoring_defaults = False
         dialog.result_tab = None
-        scroll = QScrollArea(dialog)  # Matches an empty name before the text field.
+        QScrollArea(dialog)  # Parent retains the unnamed control before the text field.
         unnamed = QLineEdit('popup search', dialog)
         filename = QLineEdit('my video', dialog)
         filename.setObjectName('txtFileName')

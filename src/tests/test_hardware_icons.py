@@ -1,9 +1,12 @@
+# SPDX-FileCopyrightText: 2026 OpenShot Studios, LLC
+# SPDX-License-Identifier: GPL-3.0-or-later
 """Hardware dropdown glyphs remain scalable and independent of installed fonts."""
 import unittest
-import xml.etree.ElementTree as ET
+# Parse only SVG fixtures from this repository.
+import xml.etree.ElementTree as ET  # nosec B405
 
 from qt_api import QApplication, QIcon, QSize, QSvgRenderer
-from classes import hardware_rc  # noqa: F401
+from classes import hardware_rc  # pylint: disable=unused-import  # Registers vector badges.
 from tests.source_tree import source_path
 
 
@@ -16,7 +19,7 @@ class HardwareIconTests(unittest.TestCase):
         for name in ('cpu', 'gpu'):
             with self.subTest(name=name):
                 svg = source_path('images') / ('hardware-' + name + '.svg')
-                root = ET.fromstring(svg.read_bytes())
+                root = ET.fromstring(svg.read_bytes())  # nosec B314
                 self.assertEqual(root.get('viewBox'), '0 0 64 22')
                 self.assertFalse(any(n.tag.rsplit('}', 1)[-1] in ('text', 'image') for n in root.iter()))
                 renderer = QSvgRenderer(str(svg))

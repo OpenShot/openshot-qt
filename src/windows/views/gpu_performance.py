@@ -1,6 +1,8 @@
+# SPDX-FileCopyrightText: 2026 OpenShot Studios, LLC
+# SPDX-License-Identifier: GPL-3.0-or-later
 """Small session indicators backed by cached GPU presentation evidence."""
 from qt_api import QWidget, QPainter, QRectF, QSvgRenderer
-from classes import hardware_rc  # noqa: F401; registers vector badges
+from classes import hardware_rc  # pylint: disable=unused-import  # Registers vector badges.
 from windows.views.hardware_combo import BADGE_WIDTH, BADGE_HEIGHT
 
 

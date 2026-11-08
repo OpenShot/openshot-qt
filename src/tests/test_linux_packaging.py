@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 OpenShot Studios, LLC
+# SPDX-License-Identifier: GPL-3.0-or-later
 """Reject the incomplete Qt/Wayland runtime that disables AppImage GPU presentation."""
 import importlib.util
 from pathlib import Path

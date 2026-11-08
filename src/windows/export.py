@@ -53,7 +53,7 @@ from functools import partial
 from classes import info, tabstops
 from classes import ui_util
 from classes.export_settings import encoder_support, preferred_export_codec, cached_encoder_capabilities
-from classes import hardware_rc, openshot_rc  # noqa
+from classes import hardware_rc, openshot_rc  # pylint: disable=unused-import  # Registers Qt resources.
 from classes.logger import log
 from classes.app import get_app
 from classes.metrics import track_metric_screen, track_metric_error
@@ -509,10 +509,11 @@ class Export(QDialog):
                                 codec_support[codec_text] = encoder_support(codec_text, capabilities=capabilities)
                             backend, supported, reason = codec_support[codec_text]
                             if supported:
-                                target = _(title.childNodes[0].data)
-                                target_details[target] = (
-                                    export_choice_label(target, container, codec_text, backend),
-                                    codec_text, backend, reason)
+                                for title in titles:
+                                    target = _(title.childNodes[0].data)
+                                    target_details[target] = (
+                                        export_choice_label(target, container, codec_text, backend),
+                                        codec_text, backend, reason)
 
                 except ExpatError as e:
                     # This indicates an invalid Preset file - display an error and continue

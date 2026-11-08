@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
+# SPDX-FileCopyrightText: 2026 OpenShot Studios, LLC
+# SPDX-License-Identifier: GPL-3.0-or-later
 """Check the frozen Windows app's export presets without runner DLLs or a GPU."""
 import argparse
 import json
 import os
 from pathlib import Path
-import subprocess
+# Packaging checks run trusted local tools with fixed arguments and no shell.
+import subprocess  # nosec B404
 import tempfile
 
 REQUIRED_ENCODERS = ('h264_nvenc', 'hevc_nvenc', 'h264_qsv', 'hevc_qsv', 'h264_amf', 'hevc_amf')
@@ -23,7 +26,7 @@ def check_package(package):
     for name in ('openshot-qt-cmd.exe', 'openshot-cli.exe'):
         executable = package / name
         with tempfile.TemporaryDirectory(prefix='openshot-package-check-') as work:
-            result = subprocess.run(
+            result = subprocess.run(  # nosec B603
                 [str(executable), '--cli', 'export', 'preset', 'list'],
                 env=env, cwd=work, capture_output=True, text=True, timeout=120)
         if result.returncode:

@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 OpenShot Studios, LLC
+# SPDX-License-Identifier: GPL-3.0-or-later
 """Small snapshots for the GPU debug UI; native code owns all work counters."""
 import json
 

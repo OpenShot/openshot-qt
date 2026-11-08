@@ -3,7 +3,9 @@
 """Keep Qt's display plugins bundled, and their driver-facing libraries on the host."""
 import os
 from pathlib import Path
-import subprocess
+import shutil
+# Packaging checks run trusted local tools with fixed arguments and no shell.
+import subprocess  # nosec B404
 
 
 HOST_DISPLAY_LIBRARIES = frozenset({
@@ -49,9 +51,13 @@ def check_display_runtime(bundle):
     bundled_host_libraries = sorted(name for name in HOST_DISPLAY_LIBRARIES if (root / name).exists())
     if bundled_host_libraries:
         raise RuntimeError('AppImage must use host display libraries: ' + ', '.join(bundled_host_libraries))
+    ldd = shutil.which('ldd')
+    if not ldd:
+        raise RuntimeError('ldd is required to check Qt display dependencies')
     env = dict(os.environ, LD_LIBRARY_PATH=str(root))
     for name in DISPLAY_PLUGINS:
-        result = subprocess.run(['ldd', str(root / name)], env=env, capture_output=True, text=True, check=False)
+        result = subprocess.run(  # nosec B603
+            [ldd, str(root / name)], env=env, capture_output=True, text=True, check=False)
         if result.returncode or 'not found' in result.stdout or 'not found' in result.stderr:
             raise RuntimeError('Unresolved Qt display dependency for %s:\n%s%s' %
                                (name, result.stdout, result.stderr))

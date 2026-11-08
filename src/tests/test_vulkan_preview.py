@@ -48,7 +48,7 @@ def has_opengl():
 
 class OpenGLAvailabilityTests(unittest.TestCase):
     def test_created_context_must_support_shader_programs(self):
-        application = SimpleNamespace(instance=lambda: object(), platformName=lambda: "windows")
+        application = SimpleNamespace(instance=object, platformName=lambda: "windows")
         for version, expected in (((1, 1), False), ((2, 0), True), ((4, 6), True)):
             with self.subTest(version=version):
                 context = Mock()

@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 OpenShot Studios, LLC
+# SPDX-License-Identifier: GPL-3.0-or-later
 """Measured work, empty stages, session boundaries and shared visualization."""
 import json
 import threading

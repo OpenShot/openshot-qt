@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 OpenShot Studios, LLC
+# SPDX-License-Identifier: GPL-3.0-or-later
 """Regression coverage for portable copies, close safety, names and encoder policy."""
 import copy
 import json

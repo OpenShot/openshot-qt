@@ -1,11 +1,13 @@
+# SPDX-FileCopyrightText: 2026 OpenShot Studios, LLC
+# SPDX-License-Identifier: GPL-3.0-or-later
 """Format-first hardware choices with vector badges in both combo paint paths."""
 import re
 from qt_api import (Qt, QComboBox, QStyledItemDelegate, QStyleOptionViewItem,
                     QStyleOptionComboBox, QStylePainter, QStyle, QIcon, QApplication,
-                    QSvgRenderer, QPainter, QFont, QFontMetrics, QColor, QPalette,
+                    QSvgRenderer, QPainter, QFont, QFontMetrics, QPalette,
                     QRectF, QSize, QListView, QWidget, QVBoxLayout, QHBoxLayout,
                     QLineEdit, QToolButton, QLabel, QPoint, QEvent)
-from classes import hardware_rc  # noqa: F401; registers vector badges
+from classes import hardware_rc  # pylint: disable=unused-import  # Registers vector badges.
 
 BADGES_ROLE = Qt.UserRole + 51
 BADGE_WIDTH = 64

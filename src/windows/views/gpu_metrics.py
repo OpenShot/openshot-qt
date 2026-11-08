@@ -1,5 +1,7 @@
+# SPDX-FileCopyrightText: 2026 OpenShot Studios, LLC
+# SPDX-License-Identifier: GPL-3.0-or-later
 """One four-segment visualization for live preview and frozen export reports."""
-from qt_api import (Qt, QWidget, QPainter, QColor, QRectF, QSize, QTimer, QVBoxLayout, QGridLayout,
+from qt_api import (Qt, QWidget, QPainter, QColor, QRectF, QTimer, QVBoxLayout, QGridLayout,
                     QHBoxLayout, QLabel, QPushButton, QDockWidget, QFrame, QScrollArea, QPalette, QMainWindow)
 from classes.gpu_metrics import stages
 

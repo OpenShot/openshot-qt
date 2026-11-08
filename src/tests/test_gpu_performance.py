@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 OpenShot Studios, LLC
+# SPDX-License-Identifier: GPL-3.0-or-later
 """GPU controls must preserve current-session evidence and apply only on restart."""
 import unittest
 from types import SimpleNamespace

@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 OpenShot Studios, LLC
+# SPDX-License-Identifier: GPL-3.0-or-later
 """GPU capability evidence must never be mistaken for observed acceleration."""
 from types import SimpleNamespace
 import unittest
