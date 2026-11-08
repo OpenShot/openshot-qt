@@ -35,6 +35,7 @@ import tempfile
 import types
 import unittest
 from contextlib import ExitStack
+from fractions import Fraction
 from unittest.mock import MagicMock, patch
 
 import openshot
@@ -5647,9 +5648,11 @@ class TimelineHelperTests(unittest.TestCase):
         )
         clip_instance = types.SimpleNamespace(
             info=types.SimpleNamespace(duration=0.2, video_length=4, fps=types.SimpleNamespace(num=24, den=1)),
-            time=types.SimpleNamespace(GetCount=lambda: 2, GetValue=lambda frame: frame),
-            volume=types.SimpleNamespace(GetValue=lambda frame: 0.5),
+            time=openshot.Keyframe(),
+            volume=openshot.Keyframe(0.5),
         )
+        clip_instance.time.AddPoint(1, 1, openshot.LINEAR)
+        clip_instance.time.AddPoint(5, 5, openshot.LINEAR)
         app = types.SimpleNamespace(
             window=types.SimpleNamespace(
                 timeline_sync=types.SimpleNamespace(
@@ -5670,15 +5673,15 @@ class TimelineHelperTests(unittest.TestCase):
             stack.enter_context(patch.object(self.waveform_module.File, "get", return_value=file_obj))
             stack.enter_context(patch.object(self.waveform_module.Clip, "get", return_value=clip))
             stack.enter_context(patch.object(self.waveform_module, "get_app", return_value=app))
-            stack.enter_context(patch.object(self.waveform_module, "project_fps_fraction", return_value=(24, 1)))
-            stack.enter_context(patch.object(self.waveform_module, "video_length_to_project_frames", return_value=4))
+            stack.enter_context(patch.object(self.waveform_module, "project_fps_fraction", return_value=Fraction(24, 1)))
             self.waveform_module.get_waveform_thread("F1", ["C1"], "wf-time-1")
 
         self.assertTrue(captured)
         self.assertEqual(captured[-1][0], "C1")
         self.assertEqual(captured[-1][2], "wf-time-1")
         from classes.waveform_cache import samples
-        self.assertEqual(list(samples(captured[-1][1]["ui"]["audio_data"])), [0.5] * 4)
+        # Identity time curve over 5 frames at 24 fps spans ceil(5 / 24 * 20) samples
+        self.assertEqual(list(samples(captured[-1][1]["ui"]["audio_data"])), [0.5] * 5)
         for value in samples(captured[-1][1]["ui"]["audio_data_rms"]):
             self.assertAlmostEqual(value, 0.2)
         self.assertEqual(captured[-1][1]["ui"]["audio_data_rate"], 20)

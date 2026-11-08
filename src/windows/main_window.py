@@ -568,6 +568,7 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
                 file.data["ui"].pop("audio_data_format", None)
                 file.data["ui"].pop("audio_data_rms", None)
                 file.data["ui"].pop("audio_data_rate", None)
+                file.data["ui"].pop("audio_data_channels", None)
                 file.save()
 
         clips = Clip.filter()
