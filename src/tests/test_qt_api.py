@@ -58,6 +58,31 @@ sys.exit(0 if help_button is None or QApplication.testAttribute(help_button) els
             text=True, timeout=20)
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
+    def test_windows_defaults_to_desktop_opengl_and_preserves_overrides(self):
+        script = """
+import os
+import sys
+from unittest.mock import patch
+import qt_api
+from classes.qt_bootstrap import configure_qt
+sys.modules["OpenGL"] = None
+os.environ.pop("QT_OPENGL", None)
+with patch("classes.qt_bootstrap.os.name", "nt"):
+    configure_qt()
+    assert os.environ["QT_OPENGL"] == "desktop"
+    os.environ["QT_OPENGL"] = "software"
+    configure_qt()
+    assert os.environ["QT_OPENGL"] == "software"
+"""
+        env = os.environ.copy()
+        env["OPENSHOT_QT_API"] = qt_api.QT_API
+        env["QT_QPA_PLATFORM"] = "offscreen"
+        env["PYTHONPATH"] = PATH + os.pathsep + env.get("PYTHONPATH", "")
+        result = subprocess.run(
+            [sys.executable, "-c", script], env=env, capture_output=True,
+            text=True, timeout=20)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
     def test_qt6_scoped_tooltip_and_focus_events_get_legacy_aliases(self):
         events = SimpleNamespace(ToolTip=110, FocusOut=9, WindowDeactivate=25)
         event_class = type("ScopedEvent", (), {"Type": events})

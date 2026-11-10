@@ -159,7 +159,7 @@
           <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
          </property>
          <item row="1" column="1">
-          <widget class="QComboBox" name="cboSimpleTarget">
+          <widget class="HardwareComboBox" name="cboSimpleTarget">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -1152,6 +1152,11 @@
   <tabstop>txtAudioBitrate</tabstop>
  </tabstops>
  <customwidgets>
+  <customwidget>
+   <class>HardwareComboBox</class>
+   <extends>QComboBox</extends>
+   <header>windows.views.hardware_combo</header>
+  </customwidget>
   <customwidget>
    <class>ToggleSwitch</class>
    <extends>QCheckBox</extends>

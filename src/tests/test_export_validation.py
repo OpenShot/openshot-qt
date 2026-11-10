@@ -205,7 +205,9 @@ class ExportValidationTests(unittest.TestCase):
         with patch.object(caps, "encoder", return_value={"found": True}), \
                 patch.object(caps, "supports", side_effect=lambda fmt, codec: int(codec != "h264_amf")):
             candidates = validator.video_replacements(settings(vcodec="h264_nvenc"))
-        self.assertEqual(candidates, ["h264_qsv", "h264_videotoolbox", "h264_vaapi", "libx264"])
+            vulkan = validator.video_replacements(settings(vcodec="hevc_vulkan"))
+        self.assertEqual(candidates, ["h264_qsv", "h264_videotoolbox", "h264_vaapi", "h264_vulkan", "libx264"])
+        self.assertEqual(vulkan, ["hevc_nvenc", "hevc_qsv", "hevc_amf", "hevc_videotoolbox", "hevc_vaapi", "libx265"])
         self.assertEqual(validator.video_replacements(settings(vcodec="libx264")), [])
         self.assertEqual(validator.video_replacements(settings(vformat="webm", vcodec="h264_qsv")), [])
 

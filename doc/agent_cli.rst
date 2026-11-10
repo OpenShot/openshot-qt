@@ -271,8 +271,17 @@ the live project, IDs, history, export jobs, and connection. Repeated calls rais
 the existing window. ``session start --show`` opens it immediately. Sessions
 started without a display, or with ``QT_QPA_PLATFORM=offscreen``/``minimal``,
 cannot later show a desktop window. For those sessions, save and open the project
-in a new desktop session. Once shown, close the session
-through the editor window.
+in a new desktop session. Close either kind of session gracefully with::
+
+   openshot-cli session close
+   openshot-cli session close --save "/path/edit.osp" --overwrite
+
+Closing refuses unsaved edits and active exports. Save first, supply ``--save``,
+or use ``--discard`` to intentionally discard edits. ``--save`` and ``--discard``
+cannot be combined. Closing follows the application's normal cleanup, including
+window settings, playback resources, lock files, and session discovery records.
+The response acknowledges the scheduled close; the session disappears when Qt
+finishes shutting down. ``session stop`` remains available for headless sessions.
 
 Global options (``--session``, ``--timeout``) go before the command.
 ``session serve`` stays in the foreground for supervisors; ``session start`` returns after a background
@@ -336,7 +345,16 @@ To update an existing file, explicitly allow replacement::
 
 Always supply the destination path. Saving an ``.osp`` does not package all your
 source footage into that file; keep the referenced media available when moving
-or reopening the project.
+or reopening the project. To collect a portable copy into a new directory::
+
+   openshot-cli project collect "/home/me/Videos/Portable Movie" --name movie.osp
+
+The copy includes imported media, image sequences, and referenced effect assets,
+with relative paths and separate names for files from different source folders.
+Missing media fails before publishing the copy. Existing destination directories
+are never replaced. The live project and its unsaved edits remain unchanged;
+open the returned project path separately to continue there. Undo history is
+omitted from the copy so it cannot restore references to uncollected media.
 
 Exporting a video
 -----------------
@@ -348,9 +366,23 @@ To render an MP4 using the project's resolution and frame rate::
 
    openshot-cli export start "/home/me/Videos/video.mp4" --wait
 
-By default, OpenShot uses H.264 video and AAC audio. Replace the example path
-with your destination, using an existing folder and a new filename. Existing
-outputs are never overwritten. Exporting does not save your editable ``.osp``
+By default, OpenShot uses H.264 video and AAC audio. ``--encoder auto`` prefers
+a GPU H.264 encoder that opens with the actual export settings. An explicitly
+selected CPU backend keeps the software default. Choose explicitly with::
+
+   openshot-cli export validate "/path/check.mp4" --encoder gpu
+   openshot-cli export start "/path/video.mp4" --encoder software --wait
+
+``auto`` reports rejected GPU candidates and any software fallback in
+``encoder_selection``. ``gpu`` fails if no candidate works; it never silently
+switches to software. Explicit preset or JSON codec choices take precedence
+and retain their existing failure behavior. Validation opens the encoder and
+container in an isolated process without rendering frames or creating the output.
+This proves that the settings open, not that every rendered frame stays on the
+GPU; effects and platform interop may require CPU processing.
+
+Replace the example path with your destination, using an existing folder and
+a new filename. Existing outputs are never overwritten. Exporting does not save your editable ``.osp``
 project; use ``project save`` separately to keep your editing work.
 
 The ``--wait`` option keeps the command running until the export completes or
@@ -571,6 +603,18 @@ change just one point. JSON arguments accept inline JSON, ``@file.json``, or
 are validated before editing the project. Errors identify the field,
 expected value, received value, and a correction where possible. GUI slider
 ranges are advisory where the engine supports values beyond them.
+
+Clip labels and result IDs
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+New clips use their source filename as the timeline label. Rename a clip with::
+
+   openshot-cli clip set CLIP --json '{"title":"Tongue roll"}'
+
+This changes only the clip label, not the source filename or shared text content.
+``text.add`` returns its clip ID as ``id``, matching ``clip.add`` and making
+``{"$ref":"caption.id"}`` usable in batches. The existing ``clip.id`` field
+remains available for scripts using that form.
 
 Adding fades
 ~~~~~~~~~~~~
@@ -902,8 +946,11 @@ saved history. The separate 256-command batch request bound still applies.
 Inspecting media and timelines
 ------------------------------
 
-Inspect clip timing and track layout as text or JSON, or render images to review
-composition and framing before exporting.
+Choose the review tool that fits the change. Text/JSON views report exact timing;
+contact sheets review composition and titles; zoomed timeline images expose
+clip boundaries and audio envelopes. Short or full exports are equally useful
+when you need to hear the mix, judge motion, or review the complete result.
+Images alone cannot establish whether a sound feels synchronized.
 
 Timeline summaries
 ~~~~~~~~~~~~~~~~~~
@@ -973,7 +1020,16 @@ Choose ``--mode waveforms`` to inspect audio envelopes on the timeline::
 
 ``--mode auto`` uses the existing cached waveform display; ``--mode thumbnails``
 shows thumbnails instead. Waveforms represent source peak/RMS levels with clip
-volume and timing adjustments, before audio effects or mixing.
+volume and timing adjustments, before audio effects or mixing. For close
+synchronization, narrow the range and increase the timeline scale::
+
+   openshot-cli timeline overview --start 6 --end 8
+   openshot-cli timeline view --start 6 --end 8 --pixels-per-second 600 --mode waveforms --output /tmp/sync.png
+
+The overview reports source and project frame boundaries; the image helps align
+waveform onsets with clip edges. Use ``timeline thumbnail --frame N`` for an exact
+composed frame. Check the rendered sound with a short or full export as needed;
+``--start-frame`` and ``--end-frame`` use the export FPS, with both ends inclusive.
 
 Uncached waveform extraction decodes whole sources, limited to 600 seconds per
 source and 1200 source-seconds per request. Narrowing the visible range does not

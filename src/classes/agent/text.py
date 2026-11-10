@@ -216,6 +216,7 @@ def describe(service, asset, clip=None):
               'clip_ids': [c.id for c in Clip.filter() if c.data.get('file_id') == asset.id]}
     if clip:
         data = clip.data
+        result['id'] = clip.id  # Common mutation/batch reference; keep nested clip for compatibility.
         result['clip'] = dict(service.summary('clip', data),
                               keyframed=sorted(key for key in data.get('text_style_overrides', []) if key in TEXT_ANIMATED),
                               keyframe_properties=KEYFRAME_PROPERTIES)

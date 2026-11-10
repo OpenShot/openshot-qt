@@ -31,6 +31,82 @@ import time
 import openshot
 
 
+def encoder_backend(codec):
+    """The hardware backend an FFmpeg encoder name selects, or "cpu"."""
+    for suffix, name in (("_vulkan", "vulkan"), ("_nvenc", "nvenc"), ("_vaapi", "vaapi"),
+                         ("_dxva2", "dx"), ("_videotoolbox", "vtb"), ("_qsv", "qsv"),
+                         ("_amf", "amf")):
+        if (codec or "").endswith(suffix):
+            return name
+    return "cpu"
+
+
+def encoder_support(codec, native=openshot, environ=None, capabilities=None):
+    """Return backend, preset visibility, and the supporting evidence.
+
+    GUI callers supply session capabilities and never enter driver probes.
+    Other callers retain the legacy native-probe/compiled-support behavior.
+    """
+    environ = os.environ if environ is None else environ
+    backend = encoder_backend(codec)
+    if not codec:
+        return backend, True, "No video encoder required"
+    if not native.FFmpegWriter.IsValidCodec(codec):
+        return backend, False, "Encoder is not included in this FFmpeg build"
+    if backend != "cpu" and capabilities is not None:
+        state = capabilities['state']
+        if state in ('not checked', 'checking'):
+            return backend, True, "Checking hardware encoder availability"
+        if state == 'ready':
+            supported = codec in capabilities['encoders']
+            return backend, supported, ("Hardware encoder opened successfully" if supported else
+                                        "Encoder did not open; see GPU diagnostics")
+        if backend == 'vulkan':
+            return backend, False, "Hardware encoder availability could not be verified; see GPU diagnostics"
+        return backend, True, "Encoder included; GPU and driver support are checked when export starts"
+    probe = getattr(native, "GpuEncoders", None)
+    if backend == "vulkan" or (backend == "vtb" and probe and
+                               environ.get("OPENSHOT_RENDER_BACKEND", "vulkan") != "cpu"):
+        if not probe:
+            return backend, False, "This library has no GPU encoder capability API"
+        try:
+            if codec not in probe():
+                return backend, False, "Encoder did not open on the selected GPU; see GPU diagnostics"
+        except Exception as error:
+            return backend, False, "GPU encoder probe failed: %s" % error
+        return backend, True, "Hardware encoder opened on the selected GPU"
+    if backend != "cpu":
+        return backend, True, "Encoder included; GPU and driver support are checked when export starts"
+    return backend, True, "Software encoder (CPU)"
+
+
+def preferred_export_codec(candidates, native=openshot, environ=None, capabilities=None):
+    """Choose a working H.264 GPU encoder for new exports, with software fallback."""
+    environ = os.environ if environ is None else environ
+    if environ.get('OPENSHOT_RENDER_BACKEND') != 'cpu':
+        if capabilities is not None:
+            available = set(capabilities['encoders']) if capabilities['state'] == 'ready' else set()
+        else:
+            probe = getattr(native, 'GpuEncoders', None)
+            try:
+                available = set(probe()) if probe else set()
+            except Exception:
+                available = set()
+        # Prefer routes that keep rendered frames on the GPU before upload routes.
+        for codec in ('h264_vulkan', 'h264_videotoolbox', 'h264_nvenc',
+                      'h264_qsv', 'h264_amf', 'h264_vaapi'):
+            if codec in candidates and codec in available:
+                return codec
+    return 'libx264' if 'libx264' in candidates else None
+
+
+def cached_encoder_capabilities(app):
+    diagnostics = getattr(app, 'gpu_diagnostics', None)
+    if diagnostics is None:
+        return dict(state='unavailable', encoders=())
+    return diagnostics.encoder_capabilities()
+
+
 def configure_writer(writer, video, audio, mode='video_audio', quality_mode=None,
                      video_options=None, audio_options=None):
     if mode in ('video_audio', 'video', 'image_sequence'):

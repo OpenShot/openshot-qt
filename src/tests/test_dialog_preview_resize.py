@@ -502,7 +502,10 @@ class DialogPreviewResizeTests(unittest.TestCase):
         )
         event = types.SimpleNamespace(accept=lambda: None)
 
-        VideoWidget.resizeEvent(fake, event)
+        # A GPU build also resizes QOpenGLWidget's framebuffer, which needs a
+        # real widget; this test covers only the pause/delayed-resize logic.
+        with patch("windows.video_widget._GPU_PREVIEW", False):
+            VideoWidget.resizeEvent(fake, event)
 
         self.assertEqual(timer_calls, ["start"])
         self.assertEqual(pause_calls, [])

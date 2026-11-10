@@ -505,6 +505,22 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         # Update preview
         self.refreshFrameSignal.emit()
 
+    def gpu_device_lost(self):
+        """Keep editing on the CPU after the GPU driver resets or times out."""
+        if getattr(self, "_gpu_device_lost_handled", False):
+            return
+        self._gpu_device_lost_handled = True
+        _ = get_app()._tr
+        log.warning("GPU device lost; clearing cached GPU frames and continuing on the CPU")
+        diagnostics = getattr(get_app(), "gpu_diagnostics", None)
+        if diagnostics:
+            diagnostics.event("device lost", reason="Vulkan reported VK_ERROR_DEVICE_LOST")
+        # Cached frames may still point at the lost GPU; render them again on the CPU.
+        self.timeline_sync.timeline.ClearAllCache(True)
+        self.refreshFrameSignal.emit()
+        self.statusBar.showMessage(
+            _("The GPU stopped responding, so OpenShot is using the CPU for the rest of this session."), 20000)
+
     def actionClearAllCache_trigger(self):
         """ Clear all timeline cache - deep clear """
         self.timeline_sync.timeline.ClearAllCache(True)
@@ -552,6 +568,7 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
                 file.data["ui"].pop("audio_data_format", None)
                 file.data["ui"].pop("audio_data_rms", None)
                 file.data["ui"].pop("audio_data_rate", None)
+                file.data["ui"].pop("audio_data_channels", None)
                 file.save()
 
         clips = Clip.filter()
@@ -921,6 +938,9 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
 
     def auto_save_project(self):
         """Auto save the project"""
+        # Missing-file dialogs run an event loop before project loading finishes.
+        if getattr(self, "_project_loading", False):
+            return
         app = get_app()
         current_data_version = app.updates.data_version
 
@@ -1525,6 +1545,8 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
 
         GetFrame is routed via RunScopeSignal so scope work stays off the UI thread.
         """
+        if getattr(self, "_project_loading", False):
+            return
         frame_number = self._scope_pending_frame
         if frame_number is None:
             return
@@ -4468,6 +4490,14 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         """Restore outer geometry before the window is mapped."""
         if self.saved_geometry:
             self.restoreGeometry(self.saved_geometry)
+            if QApplication.platformName().startswith("wayland"):
+                # Wayland cannot restore desktop positions. Old Qt versions can
+                # leave a stale origin that offsets menus after restoreGeometry().
+                # Keep the restored size/state, using the current screen's origin.
+                screen = QApplication.screenAt(self.pos()) or QApplication.primaryScreen()
+                state = self.windowState()
+                self.move(screen.geometry().topLeft())
+                self.setWindowState(state)
 
     @staticmethod
     def _positive_int(value):

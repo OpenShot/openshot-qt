@@ -647,6 +647,11 @@ QDockWidget QWidget#dockFilesContents, QWidget#dockTransitionsContents, QWidget#
     margin-right: 16px;
 }
 
+QDockWidget QWidget#dockGpuInspectorContents {
+    background-color: #141923;
+    border-radius: 4px;
+}
+
 QDockWidget QWidget#dockTimelineContents {
     border-radius: 0px;
     margin-left: 0px;

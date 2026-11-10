@@ -27,6 +27,7 @@
 
 import json
 import math
+import os
 import time
 import uuid
 
@@ -39,6 +40,7 @@ from qt_api import (
     QTransform, QPainter, QIcon, QColor, QPen, QBrush, QCursor, QImage, QRegion
 )
 from qt_api import QSizePolicy, QWidget, QPushButton, QToolTip, QEvent
+from qt_api import QtGui, QtWidgets, QT_API, unwrapinstance
 
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
@@ -55,7 +57,51 @@ OBJECT_MASK_PREVIEW_STROKE_COLOR = QColor(255, 255, 255, 255)
 OBJECT_MASK_PREVIEW_STROKE_WIDTH = 3
 
 
-class VideoWidget(QWidget, updates.UpdateInterface):
+def opengl_available():
+    """True when Qt can create the OpenGL 2+ context its painter requires."""
+    if QtWidgets.QApplication.instance() is None:
+        return False
+    # These platforms can create a GL context without supporting QOpenGLWidget
+    # painting. Keep QWidget presentation so seeks also repaint the overlays.
+    if QtWidgets.QApplication.platformName() in ("offscreen", "minimal"):
+        return False
+    context = QtGui.QOpenGLContext()
+    if not context.create():
+        return False
+    # Windows' GDI Generic implementation can successfully create an OpenGL
+    # 1.1 context. QOpenGLWidget's QPainter then calls missing shader functions
+    # before our presenter can reject that context and fall back.
+    return context.format().version() >= (2, 0)
+
+
+def gpu_preview_status(openshot_module=openshot, qt_api=QT_API, widgets=QtWidgets, environ=os.environ,
+                       opengl_check=opengl_available):
+    """Return the preview choice and the reason, without initializing Vulkan."""
+    if not hasattr(openshot_module, "VulkanOpenGLPresenter"):
+        return False, "libopenshot has no Vulkan presenter binding"
+    if qt_api != "pyqt5":
+        return False, "native Vulkan preview requires PyQt5 (using %s)" % qt_api
+    if not hasattr(widgets, "QOpenGLWidget"):
+        return False, "Qt has no QOpenGLWidget"
+    if environ.get("OPENSHOT_RENDER_BACKEND", "vulkan") == "cpu":
+        return False, "OPENSHOT_RENDER_BACKEND=cpu"
+    if environ.get("OPENSHOT_PRESENTATION_BACKEND") == "cpu":
+        return False, "OPENSHOT_PRESENTATION_BACKEND=cpu (Vulkan processing remains enabled)"
+    if not opengl_check():
+        return False, "Qt could not create a usable OpenGL context"
+    return True, "native GPU presenter available; frame interop is checked during drawing"
+
+
+def gpu_preview_enabled(*args, **kwargs):
+    """True when this process can select native GPU preview."""
+    return gpu_preview_status(*args, **kwargs)[0]
+
+
+_GPU_PREVIEW, _GPU_PREVIEW_REASON = gpu_preview_status()
+_VideoWidgetBase = QtWidgets.QOpenGLWidget if _GPU_PREVIEW else QWidget
+
+
+class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
     """ A QWidget used on the video display widget """
     regionAnnotationChanged = pyqtSignal()
     regionAnnotationLimitReached = pyqtSignal()
@@ -560,8 +606,17 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         return pix_size
 
     def paintEvent(self, event, *args):
+        if _GPU_PREVIEW:
+            return super().paintEvent(event)
+        self._paint_preview(event)
+
+    def paintGL(self):
+        self._paint_preview()
+
+    def _paint_preview(self, event=None):
         """ Custom paint event """
-        event.accept()
+        if event is not None:
+            event.accept()
         self.mutex.lock()
 
         # Ensure screen-space handle attribute exists and reset each paint
@@ -591,11 +646,42 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
             # Background
             bg_color = self.palette().color(self.backgroundRole())
-            painter.fillRect(event.rect(), bg_color)
+            painter.fillRect(event.rect() if event is not None else self.rect(), bg_color)
 
             # Viewport and frame
             viewport = self.centeredViewport(self.width(), self.height())
-            if self.current_image:
+            gpu_drawn = False
+            if self.gpu_presenter and self.gpu_presenter.Width() > 0:
+                self.curr_frame_size = self._scaled_frame_size(
+                    QSize(self.gpu_presenter.Width(), self.gpu_presenter.Height()), self.size())
+                scale = self.devicePixelRatioF()
+                # Destroying another GL window (e.g. a closed preview dialog
+                # collected by Python mid-paint) leaves no context current.
+                if QtGui.QOpenGLContext.currentContext() is not self.context():
+                    self.makeCurrent()
+                painter.beginNativePainting()
+                try:
+                    gpu_drawn = self.gpu_presenter.Draw(
+                        round(viewport.x() * scale),
+                        round((self.height() - viewport.y() - viewport.height()) * scale),
+                        round(viewport.width() * scale), round(viewport.height() * scale))
+                finally:
+                    painter.endNativePainting()
+                diagnostics = getattr(get_app(), "gpu_diagnostics", None)
+                if diagnostics and self._gpu_diagnostic_id is not None:
+                    reason = ""
+                    if not gpu_drawn:
+                        explain = getattr(self.gpu_presenter, "FallbackReason", None)
+                        reason = explain() if explain else "Native interop unavailable; library reports no reason"
+                    diagnostics.observe_preview(self._gpu_diagnostic_id, gpu_drawn, reason)
+                device_lost = getattr(openshot, "VulkanDeviceLost", None)
+                window = getattr(get_app(), "window", None)
+                if (not gpu_drawn and callable(device_lost) and device_lost()
+                        and hasattr(window, "gpu_device_lost")
+                        and not getattr(window, "_gpu_device_lost_handled", False)):
+                    # Not from inside paintEvent: the handler clears caches and repaints.
+                    QTimer.singleShot(0, window.gpu_device_lost)
+            if not gpu_drawn and self.current_image:
                 pix_size = self._scaled_frame_size(self.current_image.size(), self.size())
                 self.curr_frame_size = pix_size
 
@@ -606,6 +692,20 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                     Qt.SmoothTransformation
                 )
                 painter.drawImage(viewport, scaled_img)
+
+            if getattr(self, "source_frame_number_overlay", False):
+                source_frame = getattr(self, "source_frame_number", 1)
+                image_width = self.gpu_presenter.Width() if self.gpu_presenter else 0
+                image_height = self.gpu_presenter.Height() if self.gpu_presenter else 0
+                if not image_width and self.current_image:
+                    image_width, image_height = self.current_image.width(), self.current_image.height()
+                if image_width and image_height:
+                    painter.save()
+                    painter.translate(viewport.x(), viewport.y())
+                    painter.scale(viewport.width() / image_width, viewport.height() / image_height)
+                    painter.setPen(QColor("#ffffff"))
+                    painter.drawText(20, 20, str(source_frame))
+                    painter.restore()
 
             # Prep for transform UI
             fps = get_app().project.get("fps")
@@ -935,6 +1035,24 @@ class VideoWidget(QWidget, updates.UpdateInterface):
     @pyqtSlot(QImage)
     def present(self, image, *args):
         """ Present the current frame """
+        # CPU seek/hover requests must supersede the last retained GPU frame.
+        if self.gpu_presenter:
+            self.gpu_presenter.Clear()
+
+        self._record_present()
+
+        # Get frame's QImage from libopenshot
+        self.current_image = image
+
+        # Request an async paint to avoid recursive QWidget repaint on Windows.
+        self.update()
+
+    @pyqtSlot(int)
+    def gpu_presented(self, frame_number):
+        self.source_frame_number = frame_number
+        self._record_present()
+
+    def _record_present(self):
 
         # Calculate "render" / "present" FPS
         current_sec = time.localtime(time.time()).tm_sec
@@ -944,12 +1062,6 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             self.present_fps_counter = 1
         else:
             self.present_fps_counter += 1
-
-        # Get frame's QImage from libopenshot
-        self.current_image = image
-
-        # Request an async paint to avoid recursive QWidget repaint on Windows.
-        self.update()
 
     def connectSignals(self, renderer):
         """ Connect signals to renderer """
@@ -2942,6 +3054,10 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
     def resizeEvent(self, event):
         """Widget resize event"""
+        if _GPU_PREVIEW:
+            # QOpenGLWidget must recreate its framebuffer at the new physical
+            # pixel size before our viewport or native presenter can draw.
+            super().resizeEvent(event)
         event.accept()
         if hasattr(self, "pan_x") and hasattr(self, "pan_y"):
             self.pan_x, self.pan_y = VideoWidget._clamp_pan(
@@ -3026,6 +3142,14 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         continue to match the current project's aspect ratio."""
         # Invoke parent init
         super().__init__(*args)
+        self.gpu_presenter = (
+            openshot.VulkanOpenGLPresenter(int(unwrapinstance(self))) if _GPU_PREVIEW else None
+        )
+        log.info("Vulkan preview selected=%s: %s", _GPU_PREVIEW, _GPU_PREVIEW_REASON)
+        diagnostics = getattr(get_app(), "gpu_diagnostics", None)
+        self._gpu_diagnostic_id = (diagnostics.register_preview(
+            "timeline" if watch_project else "source", _GPU_PREVIEW, _GPU_PREVIEW_REASON)
+            if diagnostics else None)
         self.watch_project = bool(watch_project)
 
         # Translate object

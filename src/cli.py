@@ -96,8 +96,11 @@ Make many changes together
   failures can leave partial changes. Inspect before retrying.
 
 Check the result and keep your work
-  Inspect timing and preview frames as you go. Save the project
-  to keep an editable .osp; export renders a separate media file.
+  Choose a review tool for the edit. timeline overview reports frame
+  boundaries; strip makes contact sheets; view zooms track layout
+  and audio waveforms. Short or full exports let you judge rendered
+  sound, motion, and the complete result. Save the project to keep
+  an editable .osp; export renders a separate media file.
   Sessions persist until closed. Save before stopping one.
   A timeout does not cancel work: check operation or export status
   before resubmitting. Most results are JSON; errors go to stderr.
@@ -123,8 +126,16 @@ GROUP_HELP = {
     'session': """Start with session list to discover running editors, or session start
 --project /path/edit.osp to open a persistent headless session.
 Use --session ID before commands when multiple sessions exist.
-session show opens the same session's editor. Save before session stop.
+session show opens the same session's editor. session close gracefully closes it;
+use --save PATH --overwrite to save first, or save separately. session stop is headless-only.
 After a timeout, check operation list/get before retrying a mutation.""",
+    'timeline': """Choose the inspection that answers your question:
+  overview --start/--end: source and timeline intervals, exact frame boundaries.
+  thumbnail --frame: one exact composed frame; strip: a timecoded contact sheet.
+  view --start/--end: zoom into tracks; --mode waveforms shows audio envelopes.
+Image view also accepts --pixels-per-second for precise synchronization.
+For rendered sound/motion, use session show or export a short or full video.
+Waveform images show source levels with gain/time mapping, before effects/mixing.""",
     'clip': """Workflow: file import, clip add, then inspect with clip get/properties.
 Use project get for real layer numbers and returned IDs for all objects.
 position is timeline seconds; start/end are source seconds, with end exclusive.
@@ -313,6 +324,10 @@ def build_parser():
     command(s, 'show', 'Show or raise this session\'s editor window, preserving the live project and undo history. Requires a desktop display.', 'session.show')
     p = command(s, 'stop', 'Stop a headless session. GUI sessions must be closed in the editor.', 'session.stop')
     p.add_argument('--discard', action='store_true', help='Explicitly discard unsaved edits.')
+    p = command(s, 'close', 'Gracefully close a GUI or headless session; refuses unsaved changes and active exports.', 'session.close')
+    p.add_argument('--save', metavar='PATH', help='Save to this .osp before closing (existing file requires --overwrite).')
+    p.add_argument('--overwrite', action='store_true', help='Allow replacing the save destination.')
+    p.add_argument('--discard', action='store_true', help='Explicitly discard unsaved edits; cannot combine with --save.')
     s = group('project', 'Inspect, open, and save the editing project.')
     command(s, 'get', 'Return profile, layers, object counts, path, and dirty state.', 'project.get')
     p = command(s, 'open', 'Open an existing .osp without interactive missing-media dialogs.', 'project.open')
@@ -321,6 +336,9 @@ def build_parser():
     p = command(s, 'save', 'Save through the existing OpenShot project serializer.', 'project.save')
     p.add_argument('path', help='Destination .osp path (existing destination requires --overwrite).')
     p.add_argument('--overwrite', action='store_true', help='Allow replacing an existing project file.')
+    p = command(s, 'collect', 'Save a portable copy with all referenced media in a new directory. Leaves the live project unchanged; history is omitted.', 'project.collect')
+    p.add_argument('directory', help='New destination directory; must not already exist.')
+    p.add_argument('--name', default='project.osp', help='Project filename inside the new directory.')
     p = command(s, 'profile', 'Inspect or change the project profile. Changes share existing frame-rate conversion and undo/redo.')
     ps = p.add_subparsers(dest='profile_operation')
     command(ps, 'get', 'Return full current profile settings and exact installed matches.', 'project.profile.get')
@@ -355,7 +373,7 @@ def build_parser():
         p = command(s, 'remove', ('Remove an imported file; rejected while any clip uses it. Undoable.' if kind == 'file' else 'Remove this project object. Undoable.'), kind + '.remove')
         p.add_argument('id', help='Object ID.')
         if kind != 'file':
-            p = command(s, 'set', ('Merge clip properties: volume:0 mutes, has_video:0 hides album art. Scalars set constants; Points replace curves. See properties.' if kind == 'clip' else 'Merge editable properties from get/properties. Scalars set constant keyframes; Points replace the whole curve.'), kind + '.set')
+            p = command(s, 'set', ('Merge clip properties: title renames the timeline label, volume:0 mutes, has_video:0 hides album art. Scalars set constants; Points replace curves. See properties.' if kind == 'clip' else 'Merge editable properties from get/properties. Scalars set constant keyframes; Points replace the whole curve.'), kind + '.set')
             p.add_argument('id', help='Object ID.')
             p.add_argument('--json', required=True, dest='values', help='JSON object, @file.json, or - for stdin. IDs, readers, and nested effects cannot be replaced.')
             p = command(s, 'properties', 'Return libopenshot property metadata and evaluated values at a 1-based frame.', kind + '.properties')
@@ -477,6 +495,7 @@ def build_parser():
     for op in ('validate', 'start'):
         p = command(s, op, 'Resolve and validate configuration without rendering.' if op == 'validate' else 'Export an immutable snapshot. Profile changes affect only this job; existing outputs are never overwritten.', 'export.'+op)
         p.add_argument('output', help='New destination file, or new directory for image_sequence mode.')
+        p.add_argument('--encoder', choices=['auto', 'software', 'gpu'], default='auto', help='Auto tries runtime-checked GPU encoders unless the CPU backend is selected, then uses software. Explicit preset/JSON codecs take precedence. GPU requires a working hardware encoder.')
         p.add_argument('--preset', help='Existing preset ID from export preset list.')
         p.add_argument('--profile', help='Profile ID or project (default). Cannot combine with --from-file.')
         p.add_argument('--from-file', help="Match this imported video's profile exactly; use --create-custom if no installed match.")

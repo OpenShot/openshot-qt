@@ -98,8 +98,14 @@ class KeyframeTransportTests(unittest.TestCase):
                     error = run('clip', 'keyframe', 'set', clips[0], '--property', 'locaton_x', '--at', '1', '--value', '0', ok=False)
                     self.assertEqual(error['code'], 'invalid_keyframe')
                     self.assertIn('location_x', error['message'])
-                    run('session', 'stop', '--discard')
+                    saved = directory / 'closed.osp'
+                    closed = run('session', 'close', '--save', str(saved))
+                    self.assertTrue(closed['data']['closing'])
                     process.wait(timeout=10)
+                    self.assertEqual(process.returncode, 0)
+                    self.assertFalse(record.exists())
+                    self.assertTrue(json.loads(saved.read_text())['clips'])
+                    self.assertIn("OpenShot's session ended", (directory / 'server.log').read_text())
                 finally:
                     if process.poll() is None:
                         process.terminate()

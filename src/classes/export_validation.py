@@ -297,7 +297,8 @@ def _menu_ranges(nodes, name):
 
 
 # Keep replacements in the same codec family; never silently change H.264 to HEVC.
-HARDWARE_BACKENDS = ("nvenc", "qsv", "amf", "videotoolbox", "vaapi")
+# Vendor encoders come first; Vulkan is the cross-platform GPU fallback before CPU.
+HARDWARE_BACKENDS = ("nvenc", "qsv", "amf", "videotoolbox", "vaapi", "vulkan")
 SOFTWARE_ENCODERS = {"h264": "libx264", "hevc": "libx265", "av1": "libsvtav1"}
 
 

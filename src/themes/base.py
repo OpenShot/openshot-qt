@@ -367,6 +367,12 @@ QMessageBox QDialogButtonBox#qt_msgbox_buttonbox QPushButton[dialogRole="cancel"
                         button_stylesheet + self._debug_focus_toolbutton_rule()
                     )
 
+        if toolbar.objectName() == 'videoToolbar':
+            measurements = getattr(self.app, 'gpu_measurements', None)
+            if measurements:
+                from windows.views.gpu_metrics import GpuPreviewSegments
+                toolbar.addWidget(GpuPreviewSegments(measurements, self.app._tr, self.app.window, toolbar))
+
     def apply_theme(self):
         # Apply the stylesheet to the entire application
         from classes import info
