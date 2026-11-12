@@ -49,9 +49,12 @@ def secondsToTime(secs, fps_num=30, fps_den=1):
     day = day % 7
 
     fps_float = (float(fps_num) / float(fps_den)) if fps_den else 0.0
-    frame = int(round((milli / 1000.0) * fps_float))
+    # Floor the frame number, just like the seconds are counted, so each frame
+    # gets its own timecode. A small tolerance absorbs float error near the
+    # boundary between two frames.
+    frame = int(math.floor((milli / 1000.0) * fps_float + 1e-9))
     if fps_float > 0:
-        frame = max(0, min(frame, int(fps_float) - 1))
+        frame = max(0, min(frame, math.ceil(fps_float) - 1))
     return {"week": padNumber(week, 2), "day": padNumber(day, 2), "hour": padNumber(hour, 2),
             "min": padNumber(minute, 2), "sec": padNumber(sec, 2), "milli": padNumber(milli, 3),
             "frame": padNumber(frame, 2)}
