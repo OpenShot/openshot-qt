@@ -27,6 +27,7 @@ class DirectTextPropertiesTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stdout[-14000:])
         self.assertNotIn("Traceback (most recent call last)", result.stdout, result.stdout[-14000:])
         self.assertIn("TEXT_PROPERTIES_PASSED", result.stdout)
+        self.assertIn("PROPERTY_INTERACTIONS_PASSED", result.stdout)
 
     def test_feedback_fixes_in_real_app(self):
         env = dict(os.environ,

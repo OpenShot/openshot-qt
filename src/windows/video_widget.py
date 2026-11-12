@@ -1323,10 +1323,17 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
             clip = live_clips.get(clip.id, clip)
             original = self.original_clip_data_map.get(clip.id)
             if original:
+                # Samples already updated the native clip. Commit only changed
+                # properties so ending a drag doesn't rebuild its source mapper.
+                changed = {name: value for name, value in clip.data.items()
+                           if name not in original or original[name] != value}
+                if not changed:
+                    continue
                 get_app().updates.ignore_history = True
                 get_app().updates.transaction_id = self.transaction_id
-                clip.save()
-                get_app().updates.apply_last_action_to_history(original)
+                get_app().updates.update(clip.key, changed)
+                get_app().updates.apply_last_action_to_history(
+                    {name: original[name] for name in changed if name in original})
                 get_app().updates.ignore_history = False
 
         if self.transforming_effect and self.original_effect_data:

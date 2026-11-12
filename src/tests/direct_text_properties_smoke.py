@@ -160,7 +160,7 @@ def verify():
         checks.assertEqual(QColor(evaluated_text_style(restored, 31)["color"]), QColor("#800000ff"))
         checks.assertEqual(QColor(evaluated_text_style(Clip.get(id=sibling.id).data, 31)["color"]), QColor(style["color"]))
         # Every clip transform keeps all changed properties in one undoable gesture.
-        from qt_api import QMouseEvent, QPointF, Qt
+        from qt_api import QMouseEvent, QPointF, QPoint, QLocale, Qt
         drag = Clip()
         drag.data = new_text_clip(style, root, 0.0, after["layer"], 4.0)
         drag.data["file_id"] = asset.id
@@ -172,6 +172,86 @@ def verify():
         video = window.videoPreview
         video.repaint()
         checks.assertIsNotNone(video.transform)
+        # The real playback signal must update an existing animation without a drag.
+        import openshot
+        native_drag = Clip.get(id=drag.id)
+        native_drag.data["scale_x"] = {"Points": [
+            {"co": {"X": 1, "Y": 0.5}, "interpolation": openshot.LINEAR},
+            {"co": {"X": 61, "Y": 1.5}, "interpolation": openshot.LINEAR}]}
+        native_drag.save()
+        window.dockProperties.show()
+        window.dockProperties.raise_()
+        model.update_item([{"id": drag.id, "type": "clip"}])
+        model.update_item_timeout()
+        table = window.propertyTableView
+        QTest.qWait(150)
+        for frame, value in ((1, 0.5), (31, 1.0), (61, 1.5)):
+            window.SeekSignal.emit(frame, True)
+            QTest.qWait(100)
+            window.preview_thread.position_changed.emit(frame)
+            app.processEvents()
+            actual, valid = QLocale().system().toDouble(item("scale_x").text())
+            checks.assertTrue(valid)
+            checks.assertAlmostEqual(actual, value, places=3)
+        window.SeekSignal.emit(31, True)
+        QTest.qWait(100)
+        window.preview_thread.position_changed.emit(31)
+        app.processEvents()
+
+        def menu_action(text):
+            index = model.model.index(item("scale_x").row(), 1)
+            table.scrollTo(index)
+            app.processEvents()
+            # A selection timer may replace rows while processing events.
+            index = model.model.index(item("scale_x").row(), 1)
+            point = table.visualRect(index).center()
+            event = QMouseEvent(QEvent.MouseButtonPress, QPointF(point), Qt.RightButton,
+                                Qt.RightButton, Qt.NoModifier)
+            with patch("windows.views.properties_tableview.StyledContextMenu.show_at"):
+                table.contextMenuEvent(event)
+            return next(action for action in table.menu.actions() if action.text() == app._tr(text))
+
+        # Exercise the actual menu wiring, including curve handles and undo.
+        before_menu = copy.deepcopy(Clip.get(id=drag.id).data["scale_x"])
+        history_before_menu = len(app.updates.actionHistory)
+        menu_action("Insert Keyframe").trigger()
+        checks.assertIn(31, [point["co"]["X"] for point in Clip.get(id=drag.id).data["scale_x"]["Points"]])
+        menu_action("Linear").trigger()
+        menu_action("Constant").trigger()
+        menu_action("Bezier").menu().actions()[0].trigger()
+        menu_action("Remove Keyframe").trigger()
+        checks.assertNotIn(31, [point["co"]["X"] for point in Clip.get(id=drag.id).data["scale_x"]["Points"]])
+        while len(app.updates.actionHistory) > history_before_menu:
+            app.updates.undo()
+        checks.assertEqual(Clip.get(id=drag.id).data["scale_x"], before_menu)
+
+        # Real numeric-cell pointer dragging must remain one undoable gesture.
+        window.SeekSignal.emit(1, True)
+        QTest.qWait(100)
+        window.preview_thread.position_changed.emit(1)
+        app.processEvents()
+        index = model.model.index(item("scale_x").row(), 1)
+        table.scrollTo(index)
+        app.processEvents()
+        index = model.model.index(item("scale_x").row(), 1)
+        point = table.visualRect(index).center()
+        before_cell = copy.deepcopy(Clip.get(id=drag.id).data["scale_x"])
+        history_before_cell = len(app.updates.actionHistory)
+        QTest.mousePress(table.viewport(), Qt.LeftButton, Qt.NoModifier, point)
+        for offset in (10, 40):
+            table.mouseMoveEvent(QMouseEvent(QEvent.MouseMove, QPointF(point + QPoint(offset, 0)),
+                                            Qt.NoButton, Qt.LeftButton, Qt.NoModifier))
+        QTest.mouseRelease(table.viewport(), Qt.LeftButton, Qt.NoModifier, point + QPoint(40, 0))
+        after_cell = copy.deepcopy(Clip.get(id=drag.id).data["scale_x"])
+        checks.assertNotEqual(after_cell, before_cell)
+        checks.assertEqual(len(app.updates.actionHistory), history_before_cell + 1)
+        app.updates.undo()
+        checks.assertEqual(Clip.get(id=drag.id).data["scale_x"], before_cell)
+        app.updates.redo()
+        checks.assertEqual(Clip.get(id=drag.id).data["scale_x"], after_cell)
+        app.updates.undo()
+        print("PROPERTY_INTERACTIONS_PASSED", flush=True)
+
         modes = {
             'location': ('location_x', 'location_y'),
             'origin': ('origin_x', 'origin_y'),

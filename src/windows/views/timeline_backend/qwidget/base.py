@@ -1052,10 +1052,6 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         finally:
             self._live_transform_drawing = False
         self.update()
-        table = getattr(getattr(self, "win", None), "propertyTableView", None)
-        model = getattr(table, "clip_properties_model", None)
-        if model is not None:
-            model.update_model(self.win.txtPropertyFilter.text(), live_transform=True)
 
     def finish_live_transform(self):
         if getattr(self, "_live_transform_pending", False):

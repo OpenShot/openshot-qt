@@ -197,21 +197,25 @@ class VideoWidgetTransformTests(unittest.TestCase):
             TimelineWidgetBase.changed(timeline, action)
         timer.start.assert_called_once_with(250)
         self.assertTrue(timeline._live_transform_pending)
-        model = types.SimpleNamespace(_refresh_selected_objects=Mock(), update_model=Mock())
+        property_timer = Mock()
+        property_timer.isActive.return_value = False
+        model = types.SimpleNamespace(_refresh_selected_objects=Mock(), update_model=Mock(),
+                                      _live_transform_timer=property_timer)
         PropertiesModel.changed(model, action)
+        property_timer.start.assert_called_once_with(0)
         model._refresh_selected_objects.assert_not_called()
         model.update_model.assert_not_called()
         with patch("windows.models.properties_model.get_app", return_value=types.SimpleNamespace(
                 window=types.SimpleNamespace(videoPreview=types.SimpleNamespace(mouse_pressed=True)),
                 updates=types.SimpleNamespace(last_action=action))):
             # Frame-position notifications must not bypass the drag deferral.
-            PropertiesModel.update_model(types.SimpleNamespace())
+            PropertiesModel.update_model(types.SimpleNamespace(_live_transform_timer=property_timer))
         with patch.object(TimelineWidgetBase, "changed") as changed:
             TimelineWidgetBase.finish_live_transform(timeline)
             TimelineWidgetBase.finish_live_transform(timeline)
         changed.assert_called_once_with(timeline, None)
 
-    def test_live_feedback_refreshes_icons_and_properties_without_full_timeline_rebuild(self):
+    def test_live_feedback_refreshes_icons_without_full_timeline_rebuild(self):
         from unittest.mock import Mock
         from windows.views.timeline_backend.qwidget.base import TimelineWidgetBase
         model = Mock()
@@ -225,7 +229,7 @@ class VideoWidgetTransformTests(unittest.TestCase):
         self.assertFalse(timeline._live_transform_drawing)
         self.assertFalse(timeline._live_transform_pending)
         timeline.update.assert_called_once_with()
-        model.update_model.assert_called_once_with("scale", live_transform=True)
+        model.update_model.assert_not_called()
         TimelineWidgetBase.refresh_live_transform(timeline)
         self.assertEqual(sampled, [True])
 
@@ -261,20 +265,41 @@ class VideoWidgetTransformTests(unittest.TestCase):
         selected = [types.SimpleNamespace(id=name, save=lambda: saved.append("stale")) for name in ("A", "B")]
         widget = types.SimpleNamespace(mouse_pressed=True, mouse_dragging=True, region_enabled=False,
             transforming_clips=selected, transforming_effect=None, original_effect_data=None,
-            original_clip_data_map={"A": {"old": 1}, "B": {"old": 2}}, transaction_id="drag",
+            original_clip_data_map={"A": {"rotation": 1, "reader": {"path": "source"}},
+                                    "B": {"rotation": 2, "reader": {"path": "source"}}}, transaction_id="drag",
             _restore_transform_playback_cache=Mock(), setCursor=Mock())
-        def save(name):
-            saved.append(name)
+        def save(key, values):
+            saved.append(key[-1]["id"])
+            self.assertEqual(values, {"rotation": 3})
             widget._live_transform_clips = {}
-        widget._live_transform_clips = {name: types.SimpleNamespace(id=name, save=lambda n=name: save(n))
+        widget._live_transform_clips = {name: types.SimpleNamespace(id=name, key=["clips", {"id": name}],
+            data={"rotation": 3, "reader": {"path": "source"}})
                                         for name in ("A", "B")}
         app = types.SimpleNamespace(updates=types.SimpleNamespace(ignore_history=True, transaction_id="drag",
-                                    apply_last_action_to_history=Mock()), window=None)
+                                    apply_last_action_to_history=Mock(), update=save), window=None)
         with patch("windows.video_widget.get_app", return_value=app):
             VideoWidget.mouseReleaseEvent(widget, types.SimpleNamespace(accept=lambda: None))
         self.assertEqual(saved, ["A", "B"])
         self.assertEqual(app.updates.apply_last_action_to_history.call_count, 2)
+        self.assertEqual([call.args[0] for call in app.updates.apply_last_action_to_history.call_args_list],
+                         [{"rotation": 1}, {"rotation": 2}])
         self.assertFalse(widget._live_transform_clips)
+
+    def test_unchanged_transform_release_does_not_resend_clip_or_add_history(self):
+        from unittest.mock import Mock
+        clip = types.SimpleNamespace(id="clip", data={"rotation": 0})
+        widget = types.SimpleNamespace(mouse_pressed=True, mouse_dragging=False, region_enabled=False,
+            transforming_clips=[clip], transforming_effect=None, original_effect_data=None,
+            original_clip_data_map={"clip": {"rotation": 0}}, transaction_id="drag",
+            _restore_transform_playback_cache=Mock(), setCursor=Mock())
+        app = types.SimpleNamespace(updates=types.SimpleNamespace(ignore_history=True, transaction_id="drag",
+            update=Mock(), apply_last_action_to_history=Mock()), window=None)
+        with patch("windows.video_widget.get_app", return_value=app):
+            VideoWidget.mouseReleaseEvent(widget, types.SimpleNamespace(accept=lambda: None))
+        app.updates.update.assert_not_called()
+        app.updates.apply_last_action_to_history.assert_not_called()
+        self.assertFalse(app.updates.ignore_history)
+        self.assertIsNone(app.updates.transaction_id)
 
     def test_property_lanes_bound_dense_glyphs_and_preserve_selected_points(self):
         from unittest.mock import Mock
@@ -403,11 +428,12 @@ class VideoWidgetTransformTests(unittest.TestCase):
                     playing = [True]
                     cache_during_save = []
                     clip = types.SimpleNamespace(
-                        id="clip", data={"id": "clip"},
+                        id="clip", key=["clips", {"id": "clip"}], data={"id": "clip", "rotation": 0},
                         save=lambda: cache_during_save.append(settings.ENABLE_PLAYBACK_CACHING))
                     history = []
                     updates = types.SimpleNamespace(
                         ignore_history=False, transaction_id=None,
+                        update=lambda key, values: cache_during_save.append(settings.ENABLE_PLAYBACK_CACHING),
                         apply_last_action_to_history=lambda original: history.append(
                             (original, settings.ENABLE_PLAYBACK_CACHING)))
                     fake_app = types.SimpleNamespace(updates=updates)
@@ -433,6 +459,8 @@ class VideoWidgetTransformTests(unittest.TestCase):
                         if finish == "clear":
                             VideoWidget.clearTransformState(widget)
                         else:
+                            if not effect_type:
+                                clip.data["rotation"] = 1
                             if finish == "pause_then_release":
                                 playing[0] = False
                             VideoWidget.mouseReleaseEvent(widget, event)

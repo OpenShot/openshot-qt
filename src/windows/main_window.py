@@ -5741,6 +5741,7 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         self.preview_thread = self.preview_parent.worker
         self.sliderZoomWidget.connect_playback()
         self.timeline.connect_playback()
+        self.preview_thread.position_changed.connect(self.propertyTableView.playback_frame_changed)
 
         # Scope analysis: debounced timer dispatches GetFrame+FrameScope to the
         # PlayerWorker thread so the UI thread only handles paint/update work.
