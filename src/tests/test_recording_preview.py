@@ -417,6 +417,49 @@ class RecordingPreviewTests(unittest.TestCase):
         self.assertFalse(available)
         self.assertIn("No webcam", tooltip)
 
+    def test_webcam_preview_follows_source_rate_with_thirty_fps_cap(self):
+        helper = self.audio_recording_module
+        for num, den, expected in ((15, 1, 15), (30, 1, 30), (60, 1, 30),
+                                   (30000, 1001, 30000 / 1001)):
+            interval = helper.webcam_preview_interval(helper.openshot.Fraction(num, den))
+            self.assertAlmostEqual(1 / interval, expected)
+        deadline = helper.next_preview_deadline(0, 10.0, 1 / 30)
+        # A late update advances from the scheduled time rather than drifting.
+        advanced = helper.next_preview_deadline(deadline, deadline + 0.001, 1 / 30)
+        self.assertAlmostEqual(advanced, 10.0 + 2 / 30)
+        self.assertGreater(helper.next_preview_deadline(deadline, 11.0, 1 / 30), 11.0)
+
+    def test_live_preview_keeps_colors_inside_disabled_settings(self):
+        from qt_api import QWidget, QPixmap, QColor
+        label_class = self.recording_widgets_module.RecordingPreviewLabel
+        parent = QWidget()
+        label = label_class(parent)
+        label.resize(32, 32)
+        image = QPixmap(32, 32)
+        image.fill(QColor(220, 40, 70))
+        label.setPixmap(image)
+        parent.setEnabled(False)
+        self.assertFalse(label.isEnabled())
+        self.assertEqual(label.grab().toImage().pixelColor(16, 16), QColor(220, 40, 70))
+        parent.deleteLater()
+
+    def test_webcam_preview_uses_selected_capture_format_and_rate(self):
+        helper = self.audio_recording_module
+        rate = helper.openshot.Fraction(30000, 1001)
+        job = helper.WebcamPreviewJob("/dev/video0", 1280, 720,
+                                      helper.openshot.CAMERA_CAPTURE_V4L2,
+                                      fps=rate, input_format="mjpeg")
+        reader = MagicMock()
+        reader.GetFrame.side_effect = lambda number: job._stop.set()
+        with patch.object(helper.openshot, "CameraCaptureReader", return_value=reader) as factory, \
+                patch.object(helper, "frame_to_qimage", return_value=None):
+            job._run()
+        settings = factory.call_args.args[0]
+        self.assertEqual((settings.width, settings.height), (1280, 720))
+        self.assertEqual((settings.fps.num, settings.fps.den), (30000, 1001))
+        self.assertEqual(settings.options["input_format"], "mjpeg")
+        reader.Close.assert_called_once()
+
     def test_webcam_preview_stop_closes_reader_before_joining_worker(self):
         helper = self.audio_recording_module
         released = helper.threading.Event()
@@ -798,8 +841,11 @@ class RecordingPreviewTests(unittest.TestCase):
 
         fps = types.SimpleNamespace(num=30, den=1)
         job = helper.LiveVideoRecordingJob(FakeReader(), "screen.mp4", 640, 360, fps)
-        with patch.object(helper.openshot, "FFmpegWriter", FakeWriter):
+        with patch.object(helper.openshot, "FFmpegWriter", FakeWriter), \
+                patch.object(helper, "preferred_export_codec", return_value="h264_vulkan") as select:
             job._open()
+        self.assertEqual(job.codec, "h264_vulkan")
+        select.assert_called_once()
 
         self.assertEqual(
             FakeWriter.instance.audio_options,

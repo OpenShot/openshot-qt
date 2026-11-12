@@ -148,6 +148,8 @@ class GpuMetricsDock(QDockWidget):
         self.stage_rows = [GpuStageRow(translate, panel) for _ in range(4)]
         for row in self.stage_rows:
             layout.addWidget(row)
+        self.encode_row = GpuStageRow(translate, panel)
+        layout.addWidget(self.encode_row)
         divider = QFrame(panel)
         divider.setFrameShape(QFrame.HLine)
         layout.addWidget(divider)
@@ -240,6 +242,8 @@ class GpuMetricsDock(QDockWidget):
         self.notice.setVisible(not available)
         for widget, row in zip(self.stage_rows, stages(raw)):
             widget.set_stage(row)
+        self.encode_row.set_stage(stages(raw, exporting=True)[3])
+        self.encode_row.setVisible(bool(raw.get('encode_gpu', 0) or raw.get('encode_cpu', 0)))
         for key, label in self.transfer_values.items():
             label.setText(str(raw.get(key, 0)) if available else '—')
         reasons = sorted(((reason, count) for reason, count in raw.get('readback_reasons', {}).items() if count),

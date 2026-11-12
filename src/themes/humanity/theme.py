@@ -123,9 +123,13 @@ QPushButton#recordingAdvancedLink {
     padding: 0;
     text-align: right;
 }
-QPushButton#recordingAdvancedLink:hover {
+QPushButton#recordingAdvancedLink:enabled:hover {
     color: #b8d7ff;
     text-decoration: underline;
+}
+QPushButton#recordingAdvancedLink:disabled {
+    color: #74849a;
+    text-decoration: none;
 }
 QPushButton#recordingSegment {
     color: #d0d3d8;
@@ -388,9 +392,13 @@ QPushButton#recordingAdvancedLink {
     padding: 0;
     text-align: right;
 }
-QPushButton#recordingAdvancedLink:hover {
+QPushButton#recordingAdvancedLink:enabled:hover {
     color: #0c4f89;
     text-decoration: underline;
+}
+QPushButton#recordingAdvancedLink:disabled {
+    color: #83909c;
+    text-decoration: none;
 }
 QPushButton#recordingSegment {
     color: #30343a;

@@ -145,9 +145,13 @@ QPushButton#recordingAdvancedLink {
     padding: 0;
     text-align: right;
 }
-QPushButton#recordingAdvancedLink:hover {
+QPushButton#recordingAdvancedLink:enabled:hover {
     color: #b8d7ff;
     text-decoration: underline;
+}
+QPushButton#recordingAdvancedLink:disabled {
+    color: #74849a;
+    text-decoration: none;
 }
 QPushButton#recordingSegment {
     border: 1px solid rgba(83, 105, 134, 120);
