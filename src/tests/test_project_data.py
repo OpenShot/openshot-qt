@@ -133,6 +133,54 @@ class ProjectDataTests(unittest.TestCase):
     def tearDown(self):
         ensure_app_state(self.app)
 
+    def test_point_patches_commit_full_history_and_round_trip_undo(self):
+        from classes.updates import UpdateManager
+        from classes.keyframe_editing import is_keyframe_patch
+        manager = UpdateManager()
+        self.app.updates = manager
+        store = make_store()
+        original = {"id": "C1", "scale_x": {"Points": [
+            {"co": {"X": 1, "Y": 1.0}, "interpolation": openshot.LINEAR,
+             "handle_left": {"X": 0.2, "Y": 0.3}}]}}
+        store._data = {"clips": [json.loads(json.dumps(original))]}
+        reader = openshot.DummyReader(openshot.Fraction(30, 1), 64, 64, 48000, 2, 60.0)
+        native_clip = openshot.Clip(reader)
+        native_clip.Id("C1")
+        native = openshot.Timeline(64, 64, openshot.Fraction(30, 1), 48000, 2, openshot.LAYOUT_STEREO)
+        native.AddClip(native_clip)
+        native.Open()
+        manager.add_listener(types.SimpleNamespace(changed=lambda action: native.ApplyJsonDiff(action.json(is_array=True))))
+        manager.add_listener(store)
+        key = ["clips", {"id": "C1"}]
+        manager.ignore_history = True
+        manager.transaction_id = "drag"
+        for frame in range(1, 1001):
+            manager.update(key, {"scale_x": {"Point": {"co": {"X": frame, "Y": frame / 1000}}}})
+            self.assertLess(len(manager.last_action.json()), 300)
+        self.assertFalse(manager.actionHistory)
+        self.assertEqual(native_clip.scale_x.GetCount(), 1000)
+        self.assertAlmostEqual(native_clip.scale_x.GetValue(500), 0.5)
+        final = json.loads(json.dumps(store._data["clips"][0]))
+        self.assertEqual(len(final["scale_x"]["Points"]), 1000)
+        self.assertEqual(final["scale_x"]["Points"][0]["handle_left"], {"X": 0.2, "Y": 0.3})
+        self.assertNotIn('"Point":', json.dumps(store._data))
+        manager.update(key, final)
+        manager.apply_last_action_to_history(original)
+        manager.ignore_history = False
+        manager.transaction_id = None
+        self.assertEqual(len(manager.actionHistory), 1)
+        self.assertFalse(is_keyframe_patch(manager.actionHistory[0].values))
+        manager.undo()
+        self.assertEqual(store._data["clips"][0], original)
+        self.assertEqual(native_clip.scale_x.GetCount(), 1)
+        self.assertAlmostEqual(native_clip.scale_x.GetValue(500), 1.0)
+        manager.redo()
+        self.assertEqual(store._data["clips"][0], final)
+        self.assertFalse(store._keyframe_patch_indexes)
+        self.assertEqual(native_clip.scale_x.GetCount(), 1000)
+        self.assertAlmostEqual(native_clip.scale_x.GetValue(500), 0.5)
+        native.Close()
+
     def test_new_project_resets_gpu_measurements(self):
         measurements = Mock()
         self.app.updates = types.SimpleNamespace(load=Mock())

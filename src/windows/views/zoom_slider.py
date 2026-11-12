@@ -39,6 +39,7 @@ from qt_api import QSizePolicy, QWidget
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
 from classes import updates
+from classes.keyframe_editing import is_keyframe_patch
 
 
 def _event_posf(event):
@@ -186,6 +187,8 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
             return
         # Ignore changes that don't affect this
         if (action and len(action.key) >= 1 and action.key[0].lower() in ["files", "history", "profile"]) or self.ignore_updates:
+            return
+        if action and action.type == "update" and is_keyframe_patch(action.values):
             return
         # Effect edits cannot change the clip/transition rectangles or markers.
         if action and action.type == "update" and action.key and (

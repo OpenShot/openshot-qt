@@ -36,7 +36,7 @@ from qt_api import (
     QPixmap, QColor,
     )
 
-from classes.keyframe_editing import auto_keyframes_enabled, edit_frame, retarget_keyframe_changes
+from classes.keyframe_editing import auto_keyframes_enabled, edit_frame, retarget_keyframe_changes, is_keyframe_patch
 from classes.waveform import get_audio_data
 from classes import info, updates
 from classes import openshot_rc  # noqa
@@ -494,6 +494,9 @@ class PropertiesModel(updates.UpdateInterface):
 
     # This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface)
     def changed(self, action):
+        # A coalesced timeline timer refreshes feedback, not every mouse sample.
+        if action and action.type == "update" and is_keyframe_patch(action.values):
+            return
         # A rich editor already owns this value and updates its row preview.
         # Skip only its synchronous save notification, not other edits or undo.
         preview_values = getattr(self, "_live_preview_values", None)
@@ -1763,8 +1766,14 @@ class PropertiesModel(updates.UpdateInterface):
         # Keep track of items in a dictionary (for quick look up)
         self.items[name] = {"row": row, "property": property}
 
-    def update_model(self, filter=""):
+    def update_model(self, filter="", *, live_transform=False):
         app = get_app()
+        preview = getattr(app.window, "videoPreview", None)
+        action = getattr(getattr(app, "updates", None), "last_action", None)
+        if (not live_transform and getattr(preview, "mouse_pressed", False)
+                and is_keyframe_patch(getattr(action, "values", None))):
+            return
+        live_clips = getattr(preview, "_live_transform_clips", {}) if live_transform else {}
         _ = app._tr
         refreshed = False
 
@@ -1789,9 +1798,10 @@ class PropertiesModel(updates.UpdateInterface):
 
                 self._edit_source_data = None
                 if len(self.selected) == 1 and not auto_keyframes_enabled(app.window):
-                    self._edit_source_data = json.loads(c.Json())
+                    live_clip = live_clips.get(c.Id())
+                    self._edit_source_data = dict(live_clip.data) if live_clip else json.loads(c.Json())
                     if self.selected[0][1] == "clip":
-                        source_clip = Clip.get(id=c.Id())
+                        source_clip = live_clips.get(c.Id()) or Clip.get(id=c.Id())
                         if source_clip and source_clip.data.get("direct_text"):
                             self._edit_source_data.update(source_clip.data)
 
@@ -1800,7 +1810,7 @@ class PropertiesModel(updates.UpdateInterface):
                 for obj, _item_type in self.selected:
                     props = json.loads(obj.PropertiesJSON(self.frame_number))
                     if _item_type == "clip":
-                        clip = Clip.get(id=obj.Id())
+                        clip = live_clips.get(obj.Id()) or Clip.get(id=obj.Id())
                         if clip:
                             props.update(self._direct_text_properties(clip.data))
                     all_raw_properties.append(props)

@@ -160,7 +160,7 @@ class LivePropertyUpdateTests(unittest.TestCase):
                     self.assertEqual(saved["brightness"], expected)
                     self.assertEqual(saved["contrast"], original["contrast"])
 
-    def test_overview_skips_effects_but_refreshes_clip_geometry(self):
+    def test_overview_skips_effects_and_point_edits_but_refreshes_clip_geometry(self):
         widget = QWidget()
         widget.ignore_updates = False
         widget.clip_rects = ["existing"]
@@ -174,6 +174,8 @@ class LivePropertyUpdateTests(unittest.TestCase):
              patch.object(zoom_slider.Track, "filter", return_value=[]) as tracks:
             for key in (["effects", {"id": "effect"}], ["clips", {"id": "clip"}, "effects", {"id": "effect"}]):
                 zoom_slider.ZoomSlider.changed(widget, UpdateAction("update", key, {}))
+            zoom_slider.ZoomSlider.changed(widget, UpdateAction("update", ["clips", {"id": "clip"}],
+                {"scale_x": {"Point": {"co": {"X": 100, "Y": 1.5}}}}))
             tracks.assert_not_called()
             self.assertEqual(widget.clip_rects, ["existing"])
             self.assertEqual(widget.snap_clip_starts, [2.0, 5.0])
