@@ -1,0 +1,795 @@
+{
+  "name": "Bridge to Next Clip...",
+  "menu_category": "enhance",
+  "menu_order": 51,
+  "action_icon": "ai-action-create-video.svg",
+  "input_type": "video",
+  "open_dialog": true,
+  "output_type": "video",
+  "template_id": "video-bridge-two-clips",
+  "default_prompt": "subject_definitions:\nS1 is the central subject, visible in both reference videos, whose appearance, wardrobe, and voice come from V1 and V2.\nV1 is the continuation starting point for the target video.\nV2 is the arrival point the target video must reach by its final frame.\nA1 is the voice-timbre reference for S1, retained for consistency without copying the original signal.\nA2 is the voice-timbre reference for S1, retained for consistency without copying the original signal.\n\nsummary:\nOne continuous shot that begins exactly where V1 leaves off and arrives exactly at the opening moment of V2.\n\nretention_analysis:\nS1's identity, wardrobe, and voice timbre remain unchanged throughout. Any other people, objects, props, or background elements visible in V1 or V2 are preserved exactly as shown in whichever reference they appear in — nothing is added that isn't visible in either reference.\n\ndetailed_description:\n[Shot 1] Continues directly from the action, pose, and camera motion established at the end of V1.\n[Shot 2] Bridges naturally toward the position, pose, and motion seen at the start of V2.\n[Shot 3] Arrives at V2's opening composition and motion, matching it exactly.\nThere is no scripted dialogue.\n\noverall_soundscape:\nThe ambient background sound at the end of V1 continues and transitions naturally into the ambient background sound at the start of V2.\n\nnon_diegetic_music: N/A",
+  "extra_inputs": [
+    { "key": "clip_b", "type": "video", "label": "Arrival clip (Clip B)", "required": true },
+    { "key": "subject_description", "type": "text", "label": "Subject description", "required": true, "default": "the central subject" },
+    { "key": "dialogue", "type": "text", "label": "Dialogue (edit for a spoken line, e.g. <Subject 1> (S1) says: \"[English] your line here\")",
+      "required": true, "default": "There is no scripted dialogue." },
+    { "key": "clip_frames", "type": "choice", "label": "Clip frames to use (N)", "required": true,
+      "choices": ["5", "22", "39", "56", "73", "90"], "default": "22" },
+    { "key": "trim_output", "type": "choice", "label": "Trim head reference frames from output (the tail that arrives at Clip B is kept)", "required": true,
+      "choices": ["yes", "no"], "default": "yes" },
+    { "key": "output_length", "type": "choice", "label": "Output length (frames, 24fps)", "required": true,
+      "choices": ["56", "73", "90", "124", "158", "192", "260", "328"], "default": "192" },
+    { "key": "ref_subsample", "type": "choice", "label": "Reference video subsample rate (every Nth frame, over a fixed 192-frame span)",
+      "required": true, "choices": ["1", "2", "3", "4"], "default": "2" }
+  ],
+  "workflow": {
+    "125": {
+      "inputs": {
+        "noise": ["129", 0],
+        "guider": ["126", 0],
+        "sampler": ["3910", 1],
+        "sigmas": ["3911", 0],
+        "latent_image": ["3986", 1]
+      },
+      "class_type": "SamplerCustomAdvanced",
+      "_meta": { "title": "SamplerCustomAdvanced" }
+    },
+    "126": {
+      "inputs": {
+        "model": ["3910", 0],
+        "conditioning": ["3948", 0]
+      },
+      "class_type": "BasicGuider",
+      "_meta": { "title": "Basic Guider" }
+    },
+    "129": {
+      "inputs": { "noise_seed": 160820726349593 },
+      "class_type": "RandomNoise",
+      "_meta": { "title": "RandomNoise" }
+    },
+    "1660": {
+      "inputs": {
+        "max_resolution": 832,
+        "jpeg_quality": 80,
+        "suppress_default_preview": true,
+        "preview_frames": ["3920", 0],
+        "preview_fps": 8,
+        "tiny_vae": "taeh3.safetensors",
+        "model": ["1504:3810", 0]
+      },
+      "class_type": "ModelPreviewOverrideKJ",
+      "_meta": { "title": "Model Preview Override" }
+    },
+    "3814": {
+      "inputs": { "av_latent": ["125", 1] },
+      "class_type": "LTXVSeparateAVLatent",
+      "_meta": { "title": "Separate AV Latent" }
+    },
+    "3815": {
+      "inputs": {
+        "model": ["1660", 0],
+        "conditioning": ["3948", 0]
+      },
+      "class_type": "BasicGuider",
+      "_meta": { "title": "Basic Guider" }
+    },
+    "3816": {
+      "inputs": {
+        "model_name": "minimax_h3_latent_upscaler_3d_bf16.safetensors",
+        "mode": "scale by multiplier",
+        "mode.scale": 1,
+        "align": 32,
+        "enable_temporal_chunking": true,
+        "force_unload": "cuda",
+        "device": "cuda",
+        "precision": "bf16",
+        "latent": ["3814", 0]
+      },
+      "class_type": "MinimaxH3LatentUpscaler3D",
+      "_meta": { "title": "Minimax H3 Latent Upscaler (3D)" }
+    },
+    "3820": {
+      "inputs": { "sigmas": ["3901", 0] },
+      "class_type": "ManualSigmas",
+      "_meta": { "title": "Upscaling Sigmas" }
+    },
+    "3822": {
+      "inputs": {
+        "noise": ["129", 0],
+        "guider": ["3815", 0],
+        "sampler": ["3847", 0],
+        "sigmas": ["3820", 0],
+        "latent_image": ["3825", 0]
+      },
+      "class_type": "SamplerCustomAdvanced",
+      "_meta": { "title": "SamplerCustomAdvanced" }
+    },
+    "3823": {
+      "inputs": {
+        "samples": ["3822", 0],
+        "vae": ["1504:1506", 0]
+      },
+      "class_type": "VAEDecode",
+      "_meta": { "title": "VAE Decode" }
+    },
+    "3824": {
+      "inputs": {
+        "samples": ["3822", 0],
+        "vae": ["1504:1507", 0]
+      },
+      "class_type": "VAEDecodeAudio",
+      "_meta": { "title": "VAE Decode Audio" }
+    },
+    "3825": {
+      "inputs": {
+        "video_latent": ["3816", 0],
+        "audio_latent": ["3814", 1]
+      },
+      "class_type": "LTXVConcatAVLatent",
+      "_meta": { "title": "Concat AV Latent" }
+    },
+    "3847": {
+      "inputs": { "sampler_name": "euler" },
+      "class_type": "KSamplerSelect",
+      "_meta": { "title": "KSamplerSecond" }
+    },
+    "3887": {
+      "inputs": {
+        "options": "Intermediate and Utility",
+        "filenames": ["3992", 0]
+      },
+      "class_type": "VHS_PruneOutputs",
+      "_meta": { "title": "Prune Outputs" }
+    },
+    "3899": {
+      "inputs": {
+        "print_as_list": true,
+        "line_color": "blue",
+        "sigmas": ["3911", 0]
+      },
+      "class_type": "SigmasPreview",
+      "_meta": { "title": "SigmasPreview" }
+    },
+    "3901": {
+      "inputs": {
+        "strings": "0.9035, 0.6316, 0.3158, 0.0000\n0.9035, 0.8000, 0.6316, 0.3158, 0.0000\n0.9231, 0.8780, 0.8000, 0.6316, 0.3158, 0.0000",
+        "multiline": false,
+        "select": 0
+      },
+      "class_type": "ImpactStringSelector",
+      "_meta": { "title": "3,4,5 Steps for Upscaling" }
+    },
+    "3910": {
+      "inputs": {
+        "steps": 10,
+        "shift_video": 12,
+        "shift_audio": 3,
+        "sampler_name": "dual_clock_euler",
+        "scheduler": "native_flow",
+        "model": ["1660", 0],
+        "av_latent": ["3986", 1]
+      },
+      "class_type": "MiniMaxH3DualClockSamplerT8",
+      "_meta": { "title": "Dual-ClockSampler" }
+    },
+    "3911": {
+      "inputs": {
+        "step": 5,
+        "sigmas": ["3910", 2]
+      },
+      "class_type": "SplitSigmas",
+      "_meta": { "title": "SplitSigmas" }
+    },
+    "3920": {
+      "inputs": { "input": "__openshot_input:output_length__" },
+      "class_type": "Basic data handling: CastToInt",
+      "_meta": { "title": "Output Length (frames)" }
+    },
+    "clipA_probe": {
+      "inputs": {
+        "video": "__openshot_input__",
+        "force_rate": 0,
+        "custom_width": 0,
+        "custom_height": 0,
+        "frame_load_cap": 1,
+        "skip_first_frames": 0,
+        "select_every_nth": 1,
+        "format": "AnimateDiff"
+      },
+      "class_type": "VHS_LoadVideo",
+      "_meta": { "title": "Clip A Probe (cheap length check)" }
+    },
+    "clipA_video_info": {
+      "inputs": { "video_info": ["clipA_probe", 3] },
+      "class_type": "VHS_VideoInfoSource",
+      "_meta": { "title": "Clip A Source Info" }
+    },
+    "clipA_skip_frames": {
+      "inputs": {
+        "expression": "max(a * d / b - 100, 0)",
+        "values.a": ["clipA_video_info", 1],
+        "values.b": ["clipA_video_info", 0],
+        "values.d": ["3957", 0]
+      },
+      "class_type": "ComfyMathExpression",
+      "_meta": { "title": "Clip A Skip (dense window, for AddGuide only)" }
+    },
+    "clipA_ref_skip_frames": {
+      "inputs": {
+        "expression": "max(a * d / b - (c - 1) * e - 1, 0)",
+        "values.a": ["clipA_video_info", 1],
+        "values.b": ["clipA_video_info", 0],
+        "values.c": ["ref_frame_cap", 1],
+        "values.d": ["3957", 0],
+        "values.e": ["ref_subsample_n", 0]
+      },
+      "class_type": "ComfyMathExpression",
+      "_meta": { "title": "Clip A Ref Skip (start so the LAST loaded frame is clip A's final frame; video only)" }
+    },
+    "clipA_ref_audio_skip_frames": {
+      "inputs": {
+        "expression": "max(a * d / b - 294, 0)",
+        "values.a": ["clipA_video_info", 1],
+        "values.b": ["clipA_video_info", 0],
+        "values.d": ["3957", 0]
+      },
+      "class_type": "ComfyMathExpression",
+      "_meta": { "title": "Clip A Ref Audio Skip (294-frame / 12.25s span, full density, audio only)" }
+    },
+    "clipA_load": {
+      "inputs": {
+        "video": "__openshot_input__",
+        "force_rate": 24,
+        "custom_width": 0,
+        "custom_height": 0,
+        "frame_load_cap": 100,
+        "skip_first_frames": ["clipA_skip_frames", 1],
+        "select_every_nth": 1,
+        "format": "AnimateDiff"
+      },
+      "class_type": "VHS_LoadVideo",
+      "_meta": { "title": "Clip A (continuation source, dense -- AddGuide only)" }
+    },
+    "ref_subsample_n": {
+      "inputs": { "input": "__openshot_input:ref_subsample__" },
+      "class_type": "Basic data handling: CastToInt",
+      "_meta": { "title": "Reference Video Subsample Rate (every Nth frame)" }
+    },
+    "ref_frame_cap": {
+      "inputs": {
+        "expression": "floor(min(192 / a, b)) - ((floor(min(192 / a, b)) - 5) % 17)",
+        "values.a": ["ref_subsample_n", 0],
+        "values.b": ["3920", 0]
+      },
+      "class_type": "ComfyMathExpression",
+      "_meta": { "title": "Reference Video Frame Count (min(192 / subsample rate, output length), rounded down to H3's 17k+5 clip length so nothing is trimmed from the end)" }
+    },
+    "clipA_ref_load": {
+      "inputs": {
+        "video": "__openshot_input__",
+        "force_rate": 24,
+        "custom_width": 0,
+        "custom_height": 0,
+        "frame_load_cap": ["ref_frame_cap", 1],
+        "skip_first_frames": ["clipA_ref_skip_frames", 1],
+        "select_every_nth": ["ref_subsample_n", 0],
+        "format": "AnimateDiff"
+      },
+      "class_type": "VHS_LoadVideo",
+      "_meta": { "title": "Clip A Reference Video (subsampled, spans 192 frames -- video only)" }
+    },
+    "clipA_ref_audio_load": {
+      "inputs": {
+        "video": "__openshot_input__",
+        "force_rate": 24,
+        "custom_width": 0,
+        "custom_height": 0,
+        "frame_load_cap": 294,
+        "skip_first_frames": ["clipA_ref_audio_skip_frames", 1],
+        "select_every_nth": 1,
+        "format": "AnimateDiff"
+      },
+      "class_type": "VHS_LoadVideo",
+      "_meta": { "title": "Clip A Reference Audio (full density, 294 frames / 12.25s -- audio only)" }
+    },
+    "clipB_load": {
+      "inputs": {
+        "video": "__openshot_input:clip_b__",
+        "force_rate": 24,
+        "custom_width": 0,
+        "custom_height": 0,
+        "frame_load_cap": ["3931", 0],
+        "skip_first_frames": 0,
+        "select_every_nth": 1,
+        "format": "AnimateDiff"
+      },
+      "class_type": "VHS_LoadVideo",
+      "_meta": { "title": "Clip B (arrival target, dense -- AddGuide only)" }
+    },
+    "clipB_ref_load": {
+      "inputs": {
+        "video": "__openshot_input:clip_b__",
+        "force_rate": 24,
+        "custom_width": 0,
+        "custom_height": 0,
+        "frame_load_cap": ["ref_frame_cap", 1],
+        "skip_first_frames": 0,
+        "select_every_nth": ["ref_subsample_n", 0],
+        "format": "AnimateDiff"
+      },
+      "class_type": "VHS_LoadVideo",
+      "_meta": { "title": "Clip B Reference Video (subsampled, spans 192 frames -- video only)" }
+    },
+    "clipB_ref_audio_load": {
+      "inputs": {
+        "video": "__openshot_input:clip_b__",
+        "force_rate": 24,
+        "custom_width": 0,
+        "custom_height": 0,
+        "frame_load_cap": 294,
+        "skip_first_frames": 0,
+        "select_every_nth": 1,
+        "format": "AnimateDiff"
+      },
+      "class_type": "VHS_LoadVideo",
+      "_meta": { "title": "Clip B Reference Audio (full density, 294 frames / 12.25s -- audio only)" }
+    },
+    "3931": {
+      "inputs": { "input": "__openshot_input:clip_frames__" },
+      "class_type": "Basic data handling: CastToInt",
+      "_meta": { "title": "Clip Frames to Use (N)" }
+    },
+    "3932": {
+      "inputs": {
+        "indexes": ["3939", 0],
+        "err_if_missing": true,
+        "err_if_empty": true,
+        "image": ["clipA_load", 0]
+      },
+      "class_type": "VHS_SelectImages",
+      "_meta": { "title": "A Frames" }
+    },
+    "3933": {
+      "inputs": { "input": ["3931", 0] },
+      "class_type": "Basic data handling: CastToString",
+      "_meta": { "title": "to STRING" }
+    },
+    "3934": {
+      "inputs": {
+        "string_a": ":",
+        "string_b": ["3933", 0],
+        "delimiter": ""
+      },
+      "class_type": "StringConcatenate",
+      "_meta": { "title": "Clip B Head Index" }
+    },
+    "3938": {
+      "inputs": {
+        "expression": "-a",
+        "values.a": ["3931", 0]
+      },
+      "class_type": "ComfyMathExpression",
+      "_meta": { "title": "Math Expression" }
+    },
+    "3939": {
+      "inputs": {
+        "string_a": ["3940", 0],
+        "string_b": ":",
+        "delimiter": ""
+      },
+      "class_type": "StringConcatenate",
+      "_meta": { "title": "Clip A Tail Index" }
+    },
+    "3940": {
+      "inputs": { "input": ["3938", 1] },
+      "class_type": "Basic data handling: CastToString",
+      "_meta": { "title": "to STRING" }
+    },
+    "3942": {
+      "inputs": {
+        "indexes": ["3934", 0],
+        "err_if_missing": true,
+        "err_if_empty": true,
+        "image": ["clipB_load", 0]
+      },
+      "class_type": "VHS_SelectImages",
+      "_meta": { "title": "B Frames" }
+    },
+    "3947": {
+      "inputs": {
+        "frame_idx": 0,
+        "positive": ["3986", 0],
+        "latent": ["3986", 1],
+        "vae": ["1504:1506", 0],
+        "audio_vae": ["1504:1507", 0],
+        "image": ["3932", 0],
+        "audio": ["3965", 0]
+      },
+      "class_type": "MiniMaxH3AddGuide",
+      "_meta": { "title": "Clip A Guide" }
+    },
+    "3948": {
+      "inputs": {
+        "frame_idx": ["3938", 1],
+        "positive": ["3947", 0],
+        "latent": ["3986", 1],
+        "vae": ["1504:1506", 0],
+        "audio_vae": ["1504:1507", 0],
+        "image": ["3942", 0],
+        "audio": ["3969", 0]
+      },
+      "class_type": "MiniMaxH3AddGuide",
+      "_meta": { "title": "Clip B Guide" }
+    },
+    "3951": {
+      "inputs": { "image": ["clipA_load", 0] },
+      "class_type": "GetImageSize",
+      "_meta": { "title": "Get Image Size" }
+    },
+    "3956": {
+      "inputs": {
+        "expression": "a/b",
+        "values.a": ["3931", 0],
+        "values.b": ["3957", 0]
+      },
+      "class_type": "ComfyMathExpression",
+      "_meta": { "title": "duration_seconds" }
+    },
+    "3957": {
+      "inputs": { "value": 24 },
+      "class_type": "INTConstant",
+      "_meta": { "title": "FPS" }
+    },
+    "3959": {
+      "inputs": {
+        "expression": "(a - b) / c",
+        "values.a": ["clipA_load", 1],
+        "values.b": ["3931", 0],
+        "values.c": ["3957", 0]
+      },
+      "class_type": "ComfyMathExpression",
+      "_meta": { "title": "start_seconds_a" }
+    },
+    "clipb_start_zero": {
+      "inputs": {
+        "expression": "a*0",
+        "values.a": ["3931", 0]
+      },
+      "class_type": "ComfyMathExpression",
+      "_meta": { "title": "start_seconds_b (always 0 - Clip B is its own file)" }
+    },
+    "3965": {
+      "inputs": {
+        "start_index": ["3959", 0],
+        "duration": ["3956", 0],
+        "audio": ["clipA_load", 2]
+      },
+      "class_type": "TrimAudioDuration",
+      "_meta": { "title": "Clip A Audio" }
+    },
+    "3969": {
+      "inputs": {
+        "start_index": ["clipb_start_zero", 0],
+        "duration": ["3956", 0],
+        "audio": ["clipB_load", 2]
+      },
+      "class_type": "TrimAudioDuration",
+      "_meta": { "title": "Clip B Audio" }
+    },
+    "3982": {
+      "inputs": {
+        "string": "subject_definitions:\n<Subject 1> is __openshot_input:subject_description__, visible in both reference videos, whose appearance, wardrobe, and voice come from <Video 1> and <Video 2>.\n<Video 1> is the continuation starting point for the target video.\n<Video 2> is the arrival point the target video must reach by its final frame.\n<Audio 1> is the voice-timbre reference for <Subject 1>, retained for consistency without copying the original signal.\n<Audio 2> is the voice-timbre reference for <Subject 1>, retained for consistency without copying the original signal.\n\nsummary:\nOne continuous shot that begins exactly where <Video 1> leaves off and arrives exactly at the opening moment of <Video 2>.\n\nretention_analysis:\n<Subject 1>'s identity, wardrobe, and voice timbre remain unchanged throughout. Any other people, objects, props, or background elements visible in <Video 1> or <Video 2> are preserved exactly as shown in whichever reference they appear in — nothing is added that isn't visible in either reference.\n\ndetailed_description:\n[Shot 1] Continues directly from the action, pose, and camera motion established at the end of <Video 1>.\n[Shot 2] Bridges naturally toward the position, pose, and motion seen at the start of <Video 2>.\n[Shot 3] Arrives at <Video 2>'s opening composition and motion, matching it exactly.\n__openshot_input:dialogue__\n\noverall_soundscape:\nThe ambient background sound at the end of <Video 1> continues and transitions naturally into the ambient background sound at the start of <Video 2>.\n\nnon_diegetic_music: N/A",
+        "strip_newlines": true
+      },
+      "class_type": "StringConstantMultiline",
+      "_meta": { "title": "Prompt" }
+    },
+    "prompt_override_holder": {
+      "inputs": {
+        "string": "__openshot_prompt__",
+        "strip_newlines": false
+      },
+      "class_type": "StringConstantMultiline",
+      "_meta": { "title": "OpenShot Prompt Field (raw)" }
+    },
+    "prompt_override_compare": {
+      "inputs": {
+        "string_a": ["prompt_override_holder", 0],
+        "string_b": "__openshot_prompt__",
+        "mode": "Equal",
+        "case_sensitive": true
+      },
+      "class_type": "StringCompare",
+      "_meta": { "title": "Prompt Field Left Blank? (still the literal placeholder)" }
+    },
+    "prompt_override_bool_int": {
+      "inputs": { "input": ["prompt_override_compare", 0] },
+      "class_type": "Basic data handling: CastToInt",
+      "_meta": { "title": "Prompt Field Left Blank? (to int)" }
+    },
+    "prompt_override_select": {
+      "inputs": {
+        "expression": "2 - a",
+        "values.a": ["prompt_override_bool_int", 0]
+      },
+      "class_type": "ComfyMathExpression",
+      "_meta": { "title": "Prompt Source Select (1=fixed template, 2=OpenShot Prompt field)" }
+    },
+    "prompt_final_switch": {
+      "inputs": {
+        "select": ["prompt_override_select", 1],
+        "sel_mode": false,
+        "input1": ["3982", 0],
+        "input2": ["prompt_override_holder", 0]
+      },
+      "class_type": "ImpactSwitch",
+      "_meta": { "title": "Final Prompt (fixed template, unless OpenShot Prompt field is filled in)" }
+    },
+    "prompt_shorthand_expand": {
+      "inputs": { "prompt": ["prompt_final_switch", 0] },
+      "class_type": "fbt_PromptShorthandExpander",
+      "_meta": { "title": "Prompt Shorthand Expander (S1/V1/A1 -> <Subject 1>/<Video 1>/<Audio 1>)" }
+    },
+    "3986": {
+      "inputs": {
+        "prompt": ["prompt_shorthand_expand", 0],
+        "width": ["3951", 0],
+        "height": ["3951", 1],
+        "length": ["3920", 0],
+        "ref_image_size": "match",
+        "clip": ["1504:3724", 1],
+        "vae": ["1504:1506", 0],
+        "audio_vae": ["1504:1507", 0],
+        "ref_videos.ref_video_0": ["clipA_ref_load", 0],
+        "ref_videos.ref_video_1": ["clipB_ref_load", 0],
+        "ref_video_audios.ref_video_audio_0": ["clipA_ref_audio_load", 2],
+        "ref_video_audios.ref_video_audio_1": ["clipB_ref_audio_load", 2]
+      },
+      "class_type": "MiniMaxH3ReferenceToVideo",
+      "_meta": { "title": "MiniMax H3 Reference to Video" }
+    },
+    "3991": {
+      "inputs": { "text": ["prompt_shorthand_expand", 0] },
+      "class_type": "ShowText|pysssss",
+      "_meta": { "title": "Show Text" }
+    },
+    "3992": {
+      "inputs": {
+        "frame_rate": 24,
+        "loop_count": 0,
+        "filename_prefix": "video/openshot_gen",
+        "format": "video/h264-mp4",
+        "pix_fmt": "yuv420p",
+        "crf": 19,
+        "save_metadata": true,
+        "trim_to_audio": false,
+        "pingpong": false,
+        "save_output": true,
+        "images": ["final_images_switch", 0],
+        "audio": ["final_audio_switch", 0]
+      },
+      "class_type": "VHS_VideoCombine",
+      "_meta": { "title": "Video - Upscale" }
+    },
+    "trim_slice": {
+      "inputs": {
+        "string_a": ["3933", 0],
+        "string_b": ":",
+        "delimiter": ""
+      },
+      "class_type": "StringConcatenate",
+      "_meta": { "title": "Trim Slice (N:)" }
+    },
+    "trimmed_images": {
+      "inputs": {
+        "indexes": ["trim_slice", 0],
+        "err_if_missing": true,
+        "err_if_empty": true,
+        "image": ["3823", 0]
+      },
+      "class_type": "VHS_SelectImages",
+      "_meta": { "title": "Trimmed Output Frames" }
+    },
+    "trim_total_seconds": {
+      "inputs": {
+        "expression": "(a - b) / c",
+        "values.a": ["3920", 0],
+        "values.b": ["3931", 0],
+        "values.c": ["3957", 0]
+      },
+      "class_type": "ComfyMathExpression",
+      "_meta": { "title": "trim_total_seconds" }
+    },
+    "audio_resample": {
+      "inputs": {
+        "audio": ["3824", 0],
+        "sample_rate": 44100
+      },
+      "class_type": "Audio Resample (mtb)",
+      "_meta": { "title": "Resample Output Audio to 44.1kHz (H3's native 32kHz causes drift on some playback paths)" }
+    },
+    "trimmed_audio": {
+      "inputs": {
+        "start_index": ["3956", 0],
+        "duration": ["trim_total_seconds", 0],
+        "audio": ["audio_resample", 0]
+      },
+      "class_type": "TrimAudioDuration",
+      "_meta": { "title": "Trimmed Output Audio" }
+    },
+    "trim_output_compare": {
+      "inputs": {
+        "string_a": "__openshot_input:trim_output__",
+        "string_b": "yes",
+        "mode": "Equal",
+        "case_sensitive": false
+      },
+      "class_type": "StringCompare",
+      "_meta": { "title": "Trim Output? (compare)" }
+    },
+    "trim_output_bool_int": {
+      "inputs": { "input": ["trim_output_compare", 0] },
+      "class_type": "Basic data handling: CastToInt",
+      "_meta": { "title": "Trim Output? (to int)" }
+    },
+    "trim_output_select": {
+      "inputs": {
+        "expression": "2 - a",
+        "values.a": ["trim_output_bool_int", 0]
+      },
+      "class_type": "ComfyMathExpression",
+      "_meta": { "title": "Trim Output? (switch select: 1=trim, 2=keep)" }
+    },
+    "final_images_switch": {
+      "inputs": {
+        "select": ["trim_output_select", 1],
+        "sel_mode": false,
+        "input1": ["trimmed_images", 0],
+        "input2": ["3823", 0]
+      },
+      "class_type": "ImpactSwitch",
+      "_meta": { "title": "Final Images (trim or keep)" }
+    },
+    "final_audio_switch": {
+      "inputs": {
+        "select": ["trim_output_select", 1],
+        "sel_mode": false,
+        "input1": ["trimmed_audio", 0],
+        "input2": ["audio_resample", 0]
+      },
+      "class_type": "ImpactSwitch",
+      "_meta": { "title": "Final Audio (trim or keep)" }
+    },
+    "1504:1507": {
+      "inputs": { "vae_name": "minimax_h3_audio_vae_fp32.safetensors" },
+      "class_type": "VAELoader",
+      "_meta": { "title": "Load VAE" }
+    },
+    "1504:1506": {
+      "inputs": { "vae_name": "minimax_h3_video_vae_int8_convrot.safetensors" },
+      "class_type": "VAELoader",
+      "_meta": { "title": "Load VAE" }
+    },
+    "1504:1331": {
+      "inputs": {
+        "unet_name": "10Eros_Max_h3_TURBO-hybrid_beta5_int8.safetensors",
+        "weight_dtype": "default"
+      },
+      "class_type": "UNETLoader",
+      "_meta": { "title": "Load Diffusion Model" }
+    },
+    "1504:3724": {
+      "inputs": {
+        "model_target": "MiniMaxH3",
+        "stack_json": "[]",
+        "low_mem_load": false,
+        "merge_loras": false,
+        "int8_model": false,
+        "lora_stack_data": ["1504:3790", 0],
+        "model": ["1504:1331", 0],
+        "clip": ["1504:1505", 0]
+      },
+      "class_type": "fbt_LoraStackApply",
+      "_meta": { "title": "LoRA Stack Apply" }
+    },
+    "1504:1505": {
+      "inputs": {
+        "clip_name": "qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+        "type": "minimax",
+        "device": "default"
+      },
+      "class_type": "CLIPLoader",
+      "_meta": { "title": "Load CLIP" }
+    },
+    "1504:3790": {
+      "inputs": {
+        "model_target": "MiniMaxH3",
+        "summary_include_prev_stack": false,
+        "lora_0": "minimax/minimax_h3_ref2v_lightx2v_turbo_4step_v0.1_resized_avg_rank_20_bf16.safetensors",
+        "strength_model_0": 1,
+        "strength_clip_0": 1,
+        "enabled_0": false,
+        "video_0": 1,
+        "audio_0": 1,
+        "lora_1": "minimax/minimax_h3_fl2v_lightx2v_turbo_4step_v0.1_comfy_resized_avg_rank_21_bf16.safetensors",
+        "strength_model_1": 1,
+        "strength_clip_1": 1,
+        "enabled_1": false,
+        "video_1": 1,
+        "audio_1": 1,
+        "lora_2": "minimax/minimax_h3_fl2v_turbo_4step_v1.0_768p_comfyui_bf16.safetensors",
+        "strength_model_2": 1,
+        "strength_clip_2": 1,
+        "enabled_2": false,
+        "video_2": 1,
+        "audio_2": 1,
+        "lora_3": "minimax/MiniMax-H3-Ref2VA-Acc-8Step_pruned_comfy.safetensors",
+        "strength_model_3": 1,
+        "strength_clip_3": 1,
+        "enabled_3": false,
+        "video_3": 1,
+        "audio_3": 1,
+        "lora_4": "minimax/minimax_h3_fl2v_lightx2v_turbo_8step_v1.0_resized_avg_rank_24_bf16.safetensors",
+        "strength_model_4": 1,
+        "strength_clip_4": 1,
+        "enabled_4": false,
+        "video_4": 1,
+        "audio_4": 1,
+        "lora_5": "minimax/minimax_h3_taomate_3step_lora_avg_rank_19_bf16.safetensors",
+        "strength_model_5": 1,
+        "strength_clip_5": 1,
+        "enabled_5": false,
+        "video_5": 1,
+        "audio_5": 1,
+        "lora_6": "minimax/TaoMate-H3_converted_r128_fl2va.safetensors",
+        "strength_model_6": 1,
+        "strength_clip_6": 1,
+        "enabled_6": false,
+        "video_6": 1,
+        "audio_6": 1,
+        "lora_7": "minimax/minimax_h3_ref2v_turbo_8step_v1.0_768p_comfyui_resized_avg_rank_20_bf16.safetensors",
+        "strength_model_7": 1,
+        "strength_clip_7": 1,
+        "enabled_7": false,
+        "video_7": 1,
+        "audio_7": 1
+      },
+      "class_type": "fbt_LoraStackBuilder",
+      "_meta": { "title": "LoRA Stack Builder" }
+    },
+    "1504:3810": {
+      "inputs": {
+        "enabled": true,
+        "chunks": 2,
+        "min_tokens": 8192,
+        "model": ["1504:3905", 0]
+      },
+      "class_type": "MiniMaxH3ChunkFeedForward",
+      "_meta": { "title": "MiniMax H3 Chunk FeedForward" }
+    },
+    "1504:3893": {
+      "inputs": {
+        "attention": "comfy kitchen attention",
+        "model": ["1504:3724", 0]
+      },
+      "class_type": "ModelAttentionBackend",
+      "_meta": { "title": "Model Attention Backend" }
+    },
+    "1504:3905": {
+      "inputs": {
+        "selection": "sol-attn",
+        "selection.tau": 1.3,
+        "start_percent": 0.2,
+        "end_percent": 1,
+        "dense_blocks": "",
+        "min_tokens": 12288,
+        "extra_tokens": 256,
+        "sink_conditioning": "exact_kv_and_rows",
+        "verbose": false,
+        "model": ["1504:3893", 0]
+      },
+      "class_type": "BlockSparseAttention",
+      "_meta": { "title": "Model Sparse Attention" }
+    }
+  }
+}
