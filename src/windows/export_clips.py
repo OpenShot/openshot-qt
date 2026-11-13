@@ -181,13 +181,17 @@ class clipExportWindow(QDialog):
         ui_util.load_ui(self, self.ui_path)
         ui_util.init_ui
         self.file_objs = export_clips_arg
-        self._getDestination()
+        if not self._getDestination():
+            self.canceled = True
+            QTimer.singleShot(0, self.reject)
+            return
         self._createWidgets()
         QTimer.singleShot(0, self._exportPressed)
 
     def _getDestination(self):
-        settings = get_app().get_settings()
-        parent = get_app().window
+        app = get_app()
+        settings = app.get_settings()
+        parent = getattr(app, "window", None)
         default_path = settings.getDefaultPath(settings.actionType.EXPORT)
         chosen_destination = QFileDialog.getExistingDirectory(
             parent,
@@ -196,14 +200,16 @@ class clipExportWindow(QDialog):
             QFileDialog.ShowDirsOnly,
         )
 
-        # if dialog is canceled, use default path
         if chosen_destination:
             self.export_destination = chosen_destination
             settings.setDefaultPath(settings.actionType.EXPORT, self.export_destination)
-        else:
-            self.export_destination = settings.getDefaultPath(settings.actionType.EXPORT)
+            return True
+        self.export_destination = None
+        return False
 
     def _createWidgets(self):
+        if not self.export_destination:
+            return
         self.FilePickerArea.addWidget(QLabel(_("Export To %s") % self.export_destination))
         self.done_button = QPushButton(_("Done"))
         self.done_button.clicked.connect(self.done)
@@ -228,6 +234,8 @@ class clipExportWindow(QDialog):
             self.done(0)
 
     def _exportPressed(self):
+        if self.canceled or not self.export_destination:
+            return
         clips = list(filter(isClip, self.file_objs))
         sequence_files = list(filter(isImageSequence, filter(notClip, self.file_objs)))
         files = [f for f in filter(notClip, self.file_objs) if not isImageSequence(f)]
