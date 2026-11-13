@@ -50,12 +50,21 @@ class ChangelogTreeView(QTreeView):
         # Model already populated
 
         # Format columns
-        self.header().setSectionResizeMode(0, QHeaderView.Fixed)
-        self.header().setSectionResizeMode(1, QHeaderView.Fixed)
-        self.setColumnWidth(0, 70)
-        self.setColumnWidth(1, 85)
-        self.setColumnWidth(2, 125)
-        self.setColumnWidth(3, 200)
+        header = self.header()
+        header.setMinimumSectionSize(60)
+        header.setStretchLastSection(False)
+        header.setSectionResizeMode(0, QHeaderView.Fixed)
+        header.setSectionResizeMode(1, QHeaderView.Fixed)
+        header.setSectionResizeMode(2, QHeaderView.Interactive)
+        header.setSectionResizeMode(3, QHeaderView.Stretch)
+        self.setColumnWidth(0, self.fontMetrics().horizontalAdvance("0000000000") + 16)
+        self.setColumnWidth(1, self.fontMetrics().horizontalAdvance("0000-00-00") + 16)
+        self.setColumnWidth(2, 170)
+
+    def showEvent(self, event):
+        super().showEvent(event)
+        # Parent dialog typography is applied after the view is constructed.
+        self.refresh_view()
 
     def filter_changed(self, text=""):
         """Apply filter text to proxy model"""
@@ -115,7 +124,8 @@ class ChangelogTreeView(QTreeView):
         self.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.setSelectionMode(QAbstractItemView.ExtendedSelection)
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        self.setWordWrap(True)
+        self.setWordWrap(False)
+        self.setUniformRowHeights(True)
         self.selectionModel().deleteLater()
         self.setSelectionModel(self.changelog_model.selection_model)
         self.commit_url = commit_url

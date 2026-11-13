@@ -21,7 +21,7 @@
    <item>
     <widget class="QTabWidget" name="tabCredits">
      <property name="locale">
-      <locale language="English" country="UnitedStates"/>
+      <locale language="English" country="UnitedStates" />
      </property>
      <property name="currentIndex">
       <number>0</number>
@@ -52,6 +52,18 @@
          </item>
         </layout>
        </item>
+       <property name="leftMargin">
+        <number>12</number>
+       </property>
+       <property name="topMargin">
+        <number>12</number>
+       </property>
+       <property name="rightMargin">
+        <number>12</number>
+       </property>
+       <property name="bottomMargin">
+        <number>12</number>
+       </property>
       </layout>
      </widget>
      <widget class="QWidget" name="tabTranslators">
@@ -74,6 +86,18 @@
          </item>
         </layout>
        </item>
+       <property name="leftMargin">
+        <number>12</number>
+       </property>
+       <property name="topMargin">
+        <number>12</number>
+       </property>
+       <property name="rightMargin">
+        <number>12</number>
+       </property>
+       <property name="bottomMargin">
+        <number>12</number>
+       </property>
       </layout>
      </widget>
      <widget class="QWidget" name="tabSupporters">
@@ -96,25 +120,37 @@
          </item>
         </layout>
        </item>
+       <property name="leftMargin">
+        <number>12</number>
+       </property>
+       <property name="topMargin">
+        <number>12</number>
+       </property>
+       <property name="rightMargin">
+        <number>12</number>
+       </property>
+       <property name="bottomMargin">
+        <number>12</number>
+       </property>
       </layout>
      </widget>
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="lblBecomeSupporter">
-     <property name="text">
-      <string notr="true"/>
-     </property>
-     <property name="textFormat">
-      <enum>Qt::RichText</enum>
-     </property>
-     <property name="openExternalLinks">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLabel" name="lblBecomeSupporter">
+       <property name="text">
+        <string notr="true" />
+       </property>
+       <property name="textFormat">
+        <enum>Qt::RichText</enum>
+       </property>
+       <property name="openExternalLinks">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
      <item>
       <spacer name="horizontalSpacer">
        <property name="orientation">
@@ -135,11 +171,29 @@
        </property>
       </widget>
      </item>
+     <property name="spacing">
+      <number>12</number>
+     </property>
     </layout>
    </item>
+   <property name="leftMargin">
+    <number>20</number>
+   </property>
+   <property name="topMargin">
+    <number>20</number>
+   </property>
+   <property name="rightMargin">
+    <number>20</number>
+   </property>
+   <property name="bottomMargin">
+    <number>16</number>
+   </property>
+   <property name="spacing">
+    <number>16</number>
+   </property>
   </layout>
  </widget>
- <resources/>
+ <resources />
  <connections>
   <connection>
    <sender>btnclose</sender>

@@ -37,7 +37,7 @@ import subprocess
 
 from qt_api import Qt, pyqtSignal
 from qt_api import QTimer
-from qt_api import QDialog, QLabel, QFont
+from qt_api import QDialog, QLabel, QFont, QFontDatabase, QLineEdit
 from qt_api import QColor, QLinearGradient, QPainter, QPointF, QRadialGradient, QRectF, QSvgRenderer
 from qt_api import QElapsedTimer, QEvent, QPixmap, QRegion
 
@@ -797,6 +797,23 @@ class About(QDialog):
         windo.exec_()
 
 
+def style_information_dialog(dialog, width, height):
+    """Shared readable typography and footer sizing, using each theme's colors."""
+    dialog.resize(width, height)
+    dialog.setMinimumSize(560, 420)
+    dialog.setStyleSheet("""
+        QLabel, QLineEdit, QTreeView, QHeaderView, QTabBar { font-size: 13px; }
+        QLineEdit { min-height: 30px; padding: 0px 8px; }
+        QTreeView::item { padding: 4px 0px; }
+        QPushButton { font-size: 13px; min-height: 32px; padding: 0px 16px; }
+        QPushButton#btnclose { border: 1px solid palette(mid); border-radius: 4px; }
+    """)
+    dialog.btnclose.setMinimumWidth(88)
+    dialog.btnclose.setDefault(True)
+    for field in dialog.findChildren(QLineEdit):
+        field.setClearButtonEnabled(True)
+
+
 class License(QDialog):
     """ License Dialog """
 
@@ -811,6 +828,7 @@ class License(QDialog):
 
         # Init Ui
         ui_util.init_ui(self)
+        style_information_dialog(self, 680, 640)
 
         # get translations
         self.app = get_app()
@@ -819,7 +837,12 @@ class License(QDialog):
         # Init license
         with open(os.path.join(info.RESOURCES_PATH, 'license.txt'), 'r') as my_license:
             text = my_license.read()
-            self.textBrowser.append(text)
+            font = QFontDatabase.systemFont(QFontDatabase.FixedFont)
+            font.setPixelSize(13)
+            self.textBrowser.setStyleSheet('font-family: "%s"; font-size: 13px;' % font.family())
+            self.textBrowser.document().setDefaultFont(font)
+            self.textBrowser.document().setDocumentMargin(16)
+            self.textBrowser.setPlainText(text)
 
         # Scroll to top
         cursor = self.textBrowser.textCursor()
@@ -843,6 +866,7 @@ class Credits(QDialog):
 
         # Init Ui
         ui_util.init_ui(self)
+        style_information_dialog(self, 860, 580)
 
 
         # get translations
@@ -852,7 +876,7 @@ class Credits(QDialog):
         # Update supporter button
         supporter_text = _("Become a Supporter")
         supporter_html = '''
-            <p align="center">
+            <p align="left">
               <a href="https://www.openshot.org/%sdonate/?app-about-us">%s</a>
             </p>
             ''' % (info.website_language(), supporter_text)
@@ -936,6 +960,7 @@ class Changelog(QDialog):
 
         # Init Ui
         ui_util.init_ui(self)
+        style_information_dialog(self, 980, 600)
 
 
         # get translations
@@ -956,7 +981,7 @@ class Changelog(QDialog):
         # Update github link button
         github_text = _("OpenShot on GitHub")
         github_html = '''
-            <p align="center">
+            <p align="left">
                 <a href="https://github.com/OpenShot/">%s</a>
             </p>
             ''' % (github_text)
@@ -964,13 +989,14 @@ class Changelog(QDialog):
 
         # Read changelog file for each project
         for project in ['openshot-qt', 'libopenshot', 'libopenshot-audio']:
-            changelog_path = os.path.join(info.PATH, 'settings', '{}.log'.format(project))
-            if os.path.exists(changelog_path):
-                log.debug("Reading changelog file: {}".format(changelog_path))
-                changelog_list = parse_changelog(changelog_path)
-            else:
-                changelog_list = None
-            if changelog_list is None:
+            changelog_list = None
+            for directory in ('settings', 'resources'):
+                changelog_path = os.path.join(info.PATH, directory, '{}.log'.format(project))
+                if os.path.exists(changelog_path):
+                    changelog_list = parse_changelog(changelog_path)
+                    if changelog_list:
+                        break
+            if not changelog_list:
                 log.warn("Could not load changelog for {}".format(project))
                 # Hide the tab for this changelog
                 tabindex = self.tabChangelog.indexOf(tab[project])
@@ -988,3 +1014,11 @@ class Changelog(QDialog):
                 self.txtChangeLogFilter_libopenshot.textChanged.connect(cl_treeview.filter_changed)
             else:
                 self.txtChangeLogFilter_libopenshot_audio.textChanged.connect(cl_treeview.filter_changed)
+
+        if self.tabChangelog.count() == 0:
+            self.tabChangelog.hide()
+            empty = QLabel(_("Changelog details are not included with this build.\nView the project history on GitHub."), self)
+            empty.setObjectName("lblEmptyChangelog")
+            empty.setAlignment(Qt.AlignCenter)
+            empty.setWordWrap(True)
+            self.verticalLayout.insertWidget(0, empty, 1)

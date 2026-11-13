@@ -1,6 +1,7 @@
 """Regression tests for the painted About dialog and its animation lifecycle."""
 
 import math
+import tempfile
 from pathlib import Path
 import sys
 import types
@@ -317,6 +318,54 @@ class AboutTests(unittest.TestCase):
         self.assertLess(dialog.logo_rect.bottom(), dialog.lblAboutDescription.y())
         self.assertLess(dialog.lblAboutDescription.geometry().bottom(), dialog.aboutToolbar.y())
         self.assertEqual(dialog.btnCopyVersionInfo.y(), dialog.pushButton_3.y())
+
+    def test_license_preserves_plain_text_and_starts_at_top(self):
+        from windows.about import License
+        dialog = License()
+        self.addCleanup(dialog.deleteLater)
+        self.assertEqual(dialog.textBrowser.toPlainText(),
+                         source_path('src/resources/license.txt').read_text())
+        self.assertEqual(dialog.textBrowser.textCursor().position(), 0)
+        self.assertGreater(dialog.height(), dialog.width() * 0.9)
+
+    def test_changelog_reads_resources_after_empty_legacy_log(self):
+        from classes import info
+        from windows.about import Changelog
+        with tempfile.TemporaryDirectory() as directory, \
+                patch.object(info, 'PATH', directory), \
+                patch.object(self.app, 'window', Mock(), create=True):
+            root = Path(directory)
+            (root / 'settings').mkdir()
+            (root / 'resources').mkdir()
+            (root / 'settings' / 'openshot-qt.log').write_text('')
+            (root / 'resources' / 'openshot-qt.log').write_text(
+                'abcdef12 2026-11-13 Test Author  Fix dialog spacing\n')
+            dialog = Changelog()
+            self.addCleanup(dialog.deleteLater)
+            dialog.show()
+            self.app.processEvents()
+            self.assertEqual(dialog.tabChangelog.count(), 1)
+            from windows.views.changelog_treeview import ChangelogTreeView
+            view = dialog.findChild(ChangelogTreeView)
+            self.assertEqual(view.model().rowCount(), 1)
+            self.assertEqual(view.model().index(0, 3).data(), 'Fix dialog spacing')
+            self.assertTrue(dialog.txtChangeLogFilter_openshot_qt.isClearButtonEnabled())
+            dialog.close()
+
+    def test_changelog_empty_state_keeps_footer_available(self):
+        from classes import info
+        from windows.about import Changelog
+        with tempfile.TemporaryDirectory() as directory, patch.object(info, 'PATH', directory):
+            dialog = Changelog()
+            self.addCleanup(dialog.deleteLater)
+            dialog.show()
+            self.app.processEvents()
+            self.assertFalse(dialog.tabChangelog.isVisible())
+            self.assertTrue(dialog.findChild(type(dialog.lblGitHubLink), 'lblEmptyChangelog').isVisible())
+            self.assertTrue(dialog.lblGitHubLink.isVisible())
+            self.assertTrue(dialog.btnclose.isVisible())
+            dialog.btnclose.click()
+            self.assertFalse(dialog.isVisible())
 
     def test_packaged_resources_match_manifest(self):
         images = source_path("images")
